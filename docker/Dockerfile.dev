@@ -1,0 +1,10 @@
+FROM golang:1.26-alpine
+RUN apk add --no-cache gcc musl-dev sqlite-dev
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+ENV CGO_ENABLED=1
+RUN go build -o /app/devcloud ./cmd/devcloud
+EXPOSE 4747
+CMD ["/app/devcloud"]
