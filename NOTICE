@@ -1,0 +1,24 @@
+DevCloud
+Copyright 2026 DevCloud Authors
+
+This product is licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+------------------------------------------------------------------------------
+
+This product includes or interoperates with software developed by third
+parties. References to cloud service providers describe API compatibility
+and interoperability only — see TRADEMARKS.md for trademark attributions
+and nominative-fair-use scope.
+
+Third-party materials consumed at build time (not redistributed in the
+DevCloud source tree) include, but are not limited to:
+
+  - AWS Smithy models (https://github.com/aws/api-models-aws)
+    Apache License 2.0 — used for Go code generation.
+
+All trademarks, service marks, and product names referenced in the source,
+documentation, or generated code remain the property of their respective
+owners. See TRADEMARKS.md for the full list of referenced trademarks.
