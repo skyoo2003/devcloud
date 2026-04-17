@@ -1,0 +1,27 @@
+/data/
+/dist/
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+.DS_Store
+vendor/
+/devcloud
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.pyc
+*.pyo
+.venv/
+
+# Next.js
+web/.next/
+web/node_modules/
+web/out/
+
+# Worktrees
+.worktrees/
+tests/compatibility/data/

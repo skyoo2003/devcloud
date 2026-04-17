@@ -1,0 +1,65 @@
+repos:
+  # General hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^(smithy-models/|internal/generated/)
+      - id: end-of-file-fixer
+        exclude: ^(smithy-models/|internal/generated/)
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=500]
+        exclude: ^(smithy-models/|internal/generated/)
+
+  # Go
+  - repo: local
+    hooks:
+      - id: go-spdx-header
+        name: go SPDX header
+        entry: bash scripts/add-spdx-header.sh
+        language: system
+        types: [go]
+      - id: go-fmt
+        name: gofmt
+        entry: gofmt -l -w
+        language: system
+        types: [go]
+        exclude: ^internal/generated/
+      - id: go-vet
+        name: go vet
+        entry: bash -c 'CGO_ENABLED=1 go vet ./...'
+        language: system
+        pass_filenames: false
+        types: [go]
+        exclude: ^internal/generated/
+      - id: go-build
+        name: go build
+        entry: bash -c 'CGO_ENABLED=1 go build ./...'
+        language: system
+        pass_filenames: false
+        types: [go]
+        exclude: ^internal/generated/
+
+  # Python (ruff - linter & formatter)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.1
+    hooks:
+      - id: ruff
+        args: [--fix]
+        types_or: [python]
+      - id: ruff-format
+        types_or: [python]
+
+  # Web (Next.js / TypeScript)
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        entry: bash -c 'cd web && npx eslint .'
+        language: system
+        pass_filenames: false
+        files: ^web/.*\.(ts|tsx|js|jsx)$
