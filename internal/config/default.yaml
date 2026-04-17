@@ -1,0 +1,316 @@
+server:
+  port: 4747
+
+services:
+  s3:
+    enabled: true
+    data_dir: ./data/s3
+  sqs:
+    enabled: true
+  dynamodb:
+    enabled: true
+    data_dir: ./data/dynamodb
+  iam:
+    enabled: true
+    data_dir: ./data/iam
+  sts:
+    enabled: true
+    data_dir: ./data/sts
+  lambda:
+    enabled: true
+    data_dir: ./data/lambda
+  sns:
+    enabled: true
+    data_dir: ./data/sns
+  kms:
+    enabled: true
+    data_dir: ./data/kms
+  secretsmanager:
+    enabled: true
+    data_dir: ./data/secretsmanager
+  ssm:
+    enabled: true
+    data_dir: ./data/ssm
+  cloudwatchlogs:
+    enabled: true
+    data_dir: ./data/cloudwatchlogs
+  cloudwatch:
+    enabled: true
+    data_dir: ./data/cloudwatch
+  eventbridge:
+    enabled: true
+    data_dir: ./data/eventbridge
+  ec2:
+    enabled: true
+    data_dir: ./data/ec2
+  ecs:
+    enabled: true
+    data_dir: ./data/ecs
+  ecr:
+    enabled: true
+    data_dir: ./data/ecr
+  route53:
+    enabled: true
+    data_dir: ./data/route53
+  acm:
+    enabled: true
+    data_dir: ./data/acm
+  rds:
+    enabled: true
+    data_dir: ./data/rds
+  cloudformation:
+    enabled: true
+    data_dir: ./data/cloudformation
+  elasticache:
+    enabled: true
+    data_dir: ./data/elasticache
+  elasticloadbalancingv2:
+    enabled: true
+    data_dir: ./data/elasticloadbalancingv2
+  redshift:
+    enabled: true
+    data_dir: ./data/redshift
+  ses:
+    enabled: true
+    data_dir: ./data/ses
+  autoscaling:
+    enabled: true
+    data_dir: ./data/autoscaling
+  docdb:
+    enabled: true
+    data_dir: ./data/docdb
+  neptune:
+    enabled: true
+    data_dir: ./data/neptune
+  elasticbeanstalk:
+    enabled: true
+    data_dir: ./data/elasticbeanstalk
+  cloudsearch:
+    enabled: true
+    data_dir: ./data/cloudsearch
+  apigatewayv2:
+    enabled: true
+    data_dir: ./data/apigatewayv2
+  opensearch:
+    enabled: true
+    data_dir: ./data/opensearch
+  waf:
+    enabled: true
+    data_dir: ./data/waf
+  backup:
+    enabled: true
+    data_dir: ./data/backup
+  glue:
+    enabled: true
+    data_dir: ./data/glue
+  sagemaker:
+    enabled: true
+    data_dir: ./data/sagemaker
+  iot:
+    enabled: true
+    data_dir: ./data/iot
+  route53resolver:
+    enabled: true
+    data_dir: ./data/route53resolver
+  sesv2:
+    enabled: true
+    data_dir: ./data/sesv2
+  pinpoint:
+    enabled: true
+    data_dir: ./data/pinpoint
+  acmpca:
+    enabled: true
+    data_dir: ./data/acmpca
+  amplify:
+    enabled: true
+    data_dir: ./data/amplify
+  appconfig:
+    enabled: true
+    data_dir: ./data/appconfig
+  applicationautoscaling:
+    enabled: true
+    data_dir: ./data/applicationautoscaling
+  appsync:
+    enabled: true
+    data_dir: ./data/appsync
+  athena:
+    enabled: true
+    data_dir: ./data/athena
+  batch:
+    enabled: true
+    data_dir: ./data/batch
+  bedrock:
+    enabled: true
+    data_dir: ./data/bedrock
+  cloudfront:
+    enabled: true
+    data_dir: ./data/cloudfront
+  cloudtrail:
+    enabled: true
+    data_dir: ./data/cloudtrail
+  codeartifact:
+    enabled: true
+    data_dir: ./data/codeartifact
+  codebuild:
+    enabled: true
+    data_dir: ./data/codebuild
+  codecommit:
+    enabled: true
+    data_dir: ./data/codecommit
+  codedeploy:
+    enabled: true
+    data_dir: ./data/codedeploy
+  codepipeline:
+    enabled: true
+    data_dir: ./data/codepipeline
+  cognitoidentity:
+    enabled: true
+    data_dir: ./data/cognitoidentity
+  cognitoidentityprovider:
+    enabled: true
+    data_dir: ./data/cognitoidentityprovider
+  configservice:
+    enabled: true
+    data_dir: ./data/configservice
+  costexplorer:
+    enabled: true
+    data_dir: ./data/costexplorer
+  dynamodbstreams:
+    enabled: true
+    data_dir: ./data/dynamodbstreams
+  ebs:
+    enabled: true
+    data_dir: ./data/ebs
+  efs:
+    enabled: true
+    data_dir: ./data/efs
+  eks:
+    enabled: true
+    data_dir: ./data/eks
+  elasticsearchservice:
+    enabled: true
+    data_dir: ./data/elasticsearchservice
+  emr:
+    enabled: true
+    data_dir: ./data/emr
+  firehose:
+    enabled: true
+    data_dir: ./data/firehose
+  fis:
+    enabled: true
+    data_dir: ./data/fis
+  glacier:
+    enabled: true
+    data_dir: ./data/glacier
+  iotdataplane:
+    enabled: true
+    data_dir: ./data/iotdataplane
+  iotwireless:
+    enabled: true
+    data_dir: ./data/iotwireless
+  kafka:
+    enabled: true
+    data_dir: ./data/kafka
+  kinesis:
+    enabled: true
+    data_dir: ./data/kinesis
+  kinesisanalyticsv2:
+    enabled: true
+    data_dir: ./data/kinesisanalyticsv2
+  lakeformation:
+    enabled: true
+    data_dir: ./data/lakeformation
+  managedblockchain:
+    enabled: true
+    data_dir: ./data/managedblockchain
+  memorydb:
+    enabled: true
+    data_dir: ./data/memorydb
+  mq:
+    enabled: true
+    data_dir: ./data/mq
+  mwaa:
+    enabled: true
+    data_dir: ./data/mwaa
+  organizations:
+    enabled: true
+    data_dir: ./data/organizations
+  ram:
+    enabled: true
+    data_dir: ./data/ram
+  resourcegroups:
+    enabled: true
+    data_dir: ./data/resourcegroups
+  resourcegroupstaggingapi:
+    enabled: true
+    data_dir: ./data/resourcegroupstaggingapi
+  servicediscovery:
+    enabled: true
+    data_dir: ./data/servicediscovery
+  sfn:
+    enabled: true
+    data_dir: ./data/sfn
+  shield:
+    enabled: true
+    data_dir: ./data/shield
+  ssoadmin:
+    enabled: true
+    data_dir: ./data/ssoadmin
+  support:
+    enabled: true
+    data_dir: ./data/support
+  swf:
+    enabled: true
+    data_dir: ./data/swf
+  textract:
+    enabled: true
+    data_dir: ./data/textract
+  timestreamwrite:
+    enabled: true
+    data_dir: ./data/timestreamwrite
+  transcribe:
+    enabled: true
+    data_dir: ./data/transcribe
+  transfer:
+    enabled: true
+    data_dir: ./data/transfer
+  wafv2:
+    enabled: true
+    data_dir: ./data/wafv2
+  xray:
+    enabled: true
+    data_dir: ./data/xray
+  account:
+    enabled: true
+    data_dir: ./data/account
+  cloudcontrol:
+    enabled: true
+    data_dir: ./data/cloudcontrol
+  pipes:
+    enabled: true
+    data_dir: ./data/pipes
+  mediaconvert:
+    enabled: true
+    data_dir: ./data/mediaconvert
+  s3tables:
+    enabled: true
+    data_dir: ./data/s3tables
+  scheduler:
+    enabled: true
+    data_dir: ./data/scheduler
+  identitystore:
+    enabled: true
+    data_dir: ./data/identitystore
+  serverlessrepo:
+    enabled: true
+    data_dir: ./data/serverlessrepo
+
+auth:
+  enabled: false
+
+dashboard:
+  enabled: false
+
+logging:
+  level: info
+  format: text

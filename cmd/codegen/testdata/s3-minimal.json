@@ -1,0 +1,133 @@
+{
+  "smithy": "2.0",
+  "shapes": {
+    "com.amazonaws.s3#AmazonS3": {
+      "type": "service",
+      "version": "2006-03-01",
+      "operations": [
+        { "target": "com.amazonaws.s3#CreateBucket" },
+        { "target": "com.amazonaws.s3#ListBuckets" },
+        { "target": "com.amazonaws.s3#PutObject" }
+      ],
+      "traits": {
+        "aws.protocols#restXml": {},
+        "smithy.api#title": "Amazon Simple Storage Service"
+      }
+    },
+    "com.amazonaws.s3#CreateBucket": {
+      "type": "operation",
+      "input": { "target": "com.amazonaws.s3#CreateBucketRequest" },
+      "output": { "target": "com.amazonaws.s3#CreateBucketOutput" },
+      "errors": [
+        { "target": "com.amazonaws.s3#BucketAlreadyExists" }
+      ],
+      "traits": {
+        "smithy.api#http": { "method": "PUT", "uri": "/{Bucket}" }
+      }
+    },
+    "com.amazonaws.s3#CreateBucketRequest": {
+      "type": "structure",
+      "members": {
+        "Bucket": {
+          "target": "smithy.api#String",
+          "traits": {
+            "smithy.api#required": {},
+            "smithy.api#httpLabel": {}
+          }
+        }
+      }
+    },
+    "com.amazonaws.s3#CreateBucketOutput": {
+      "type": "structure",
+      "members": {
+        "Location": {
+          "target": "smithy.api#String",
+          "traits": {
+            "smithy.api#httpHeader": "Location"
+          }
+        }
+      }
+    },
+    "com.amazonaws.s3#ListBuckets": {
+      "type": "operation",
+      "input": { "target": "com.amazonaws.s3#ListBucketsInput" },
+      "output": { "target": "com.amazonaws.s3#ListBucketsOutput" },
+      "traits": {
+        "smithy.api#http": { "method": "GET", "uri": "/" }
+      }
+    },
+    "com.amazonaws.s3#ListBucketsInput": {
+      "type": "structure",
+      "members": {}
+    },
+    "com.amazonaws.s3#ListBucketsOutput": {
+      "type": "structure",
+      "members": {
+        "Buckets": {
+          "target": "com.amazonaws.s3#BucketList"
+        }
+      }
+    },
+    "com.amazonaws.s3#BucketList": {
+      "type": "list",
+      "member": {
+        "target": "com.amazonaws.s3#Bucket"
+      }
+    },
+    "com.amazonaws.s3#Bucket": {
+      "type": "structure",
+      "members": {
+        "Name": { "target": "smithy.api#String" },
+        "CreationDate": { "target": "smithy.api#Timestamp" }
+      }
+    },
+    "com.amazonaws.s3#PutObject": {
+      "type": "operation",
+      "input": { "target": "com.amazonaws.s3#PutObjectRequest" },
+      "output": { "target": "com.amazonaws.s3#PutObjectOutput" },
+      "traits": {
+        "smithy.api#http": { "method": "PUT", "uri": "/{Bucket}/{Key+}" }
+      }
+    },
+    "com.amazonaws.s3#PutObjectRequest": {
+      "type": "structure",
+      "members": {
+        "Bucket": {
+          "target": "smithy.api#String",
+          "traits": { "smithy.api#required": {}, "smithy.api#httpLabel": {} }
+        },
+        "Key": {
+          "target": "smithy.api#String",
+          "traits": { "smithy.api#required": {}, "smithy.api#httpLabel": {} }
+        },
+        "Body": {
+          "target": "smithy.api#Blob",
+          "traits": { "smithy.api#httpPayload": {} }
+        },
+        "ContentType": {
+          "target": "smithy.api#String",
+          "traits": { "smithy.api#httpHeader": "Content-Type" }
+        }
+      }
+    },
+    "com.amazonaws.s3#PutObjectOutput": {
+      "type": "structure",
+      "members": {
+        "ETag": {
+          "target": "smithy.api#String",
+          "traits": { "smithy.api#httpHeader": "ETag" }
+        }
+      }
+    },
+    "com.amazonaws.s3#BucketAlreadyExists": {
+      "type": "structure",
+      "members": {
+        "message": { "target": "smithy.api#String" }
+      },
+      "traits": {
+        "smithy.api#error": "client",
+        "smithy.api#httpError": 409
+      }
+    }
+  }
+}

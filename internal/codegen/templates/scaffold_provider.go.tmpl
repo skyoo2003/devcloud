@@ -1,0 +1,40 @@
+// SPDX-License-Identifier: Apache-2.0
+
+package {{ .PkgName }}
+
+import (
+	"context"
+	"net/http"
+
+	"github.com/skyoo2003/devcloud/internal/plugin"
+	generated "github.com/skyoo2003/devcloud/internal/generated/{{ .ServiceID }}"
+)
+
+// Provider implements the {{ .ServiceName }} service.
+type Provider struct {
+	generated.BaseProvider
+}
+
+func (p *Provider) ServiceID() string      { return "{{ .ServiceID }}" }
+func (p *Provider) ServiceName() string    { return "{{ .ServiceName }}" }
+func (p *Provider) Protocol() plugin.ProtocolType { return plugin.{{ .ProtocolConst }} }
+
+func (p *Provider) Init(cfg plugin.PluginConfig) error {
+	return nil
+}
+
+func (p *Provider) Shutdown(ctx context.Context) error {
+	return nil
+}
+
+func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Request) (*plugin.Response, error) {
+	return nil, generated.ErrNotImplemented
+}
+
+func (p *Provider) ListResources(ctx context.Context) ([]plugin.Resource, error) {
+	return []plugin.Resource{}, nil
+}
+
+func (p *Provider) GetMetrics(ctx context.Context) (*plugin.ServiceMetrics, error) {
+	return &plugin.ServiceMetrics{}, nil
+}
