@@ -1,0 +1,36 @@
+name: Mark stale issues and PRs
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          days-before-issue-stale: 30
+          days-before-issue-close: 14
+          days-before-pr-stale: 14
+          days-before-pr-close: 7
+          stale-issue-label: "stale"
+          stale-pr-label: "stale"
+          exempt-issue-labels: "pinned,help wanted,good first issue"
+          exempt-pr-labels: "pinned,work-in-progress"
+          stale-issue-message: >
+            This issue has been inactive for 30 days. It will be closed in 14 days
+            unless there is new activity. Comment or remove the `stale` label to keep it open.
+          close-issue-message: >
+            Closing this issue due to inactivity. Feel free to reopen if it is still relevant.
+          stale-pr-message: >
+            This pull request has been inactive for 14 days. It will be closed in 7 days
+            unless there is new activity. Comment or remove the `stale` label to keep it open.
+          close-pr-message: >
+            Closing this pull request due to inactivity. Feel free to reopen if you would like to continue the work.
+          operations-per-run: 100

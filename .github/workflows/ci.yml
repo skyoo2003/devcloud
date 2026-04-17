@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-latest
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.26"
+
+      - name: Install SQLite dev headers
+        run: sudo apt-get install -y libsqlite3-dev
+
+      - name: Run Go tests
+        run: CGO_ENABLED=1 go test ./internal/... -v
+        env:
+          CGO_ENABLED: "1"
+
+      - name: Build Go binaries
+        run: |
+          CGO_ENABLED=1 go build -o dist/devcloud ./cmd/devcloud
+          CGO_ENABLED=1 go build -o dist/codegen ./cmd/codegen
+
+      - name: Set up Node.js
+        if: matrix.arch == 'amd64'
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+
+      - name: Build Next.js dashboard
+        if: matrix.arch == 'amd64'
+        run: |
+          cd web
+          npm ci
+          npm run build

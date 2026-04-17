@@ -1,0 +1,49 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**/*"
+          - "*.md"
+          - "README.md"
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/workflows/**/*"
+          - ".github/dependabot.yml"
+
+docker:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docker/**/*"
+          - "Dockerfile*"
+
+web:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "web/**/*"
+
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "tests/**/*"
+          - "**/*_test.go"
+
+codegen:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "internal/codegen/**/*"
+          - "smithy-models/**/*"
+          - "cmd/codegen/**/*"
+
+services:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "internal/services/**/*"
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "go.mod"
+          - "go.sum"
+          - "web/package.json"
+          - "web/package-lock.json"

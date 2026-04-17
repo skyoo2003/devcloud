@@ -1,0 +1,67 @@
+name: Smithy Model Sync
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"  # Every Monday at midnight UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.26"
+
+      - name: Install SQLite dev headers
+        run: sudo apt-get install -y libsqlite3-dev
+
+      - name: Download latest Smithy models
+        run: bash scripts/download-smithy-models.sh
+
+      - name: Run code generation
+        run: |
+          CGO_ENABLED=1 go run ./cmd/codegen \
+            -models ./smithy-models \
+            -output ./internal/generated \
+            -templates ./internal/codegen/templates \
+            -scaffold-output ./internal/services
+
+      - name: Regenerate imports
+        run: bash scripts/generate-imports.sh
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run tests
+        if: steps.changes.outputs.changed == 'true'
+        run: CGO_ENABLED=1 go test ./internal/... -v
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: "chore: sync Smithy models and regenerate code"
+          title: "chore: weekly Smithy model sync"
+          body: |
+            Automated weekly sync of AWS Smithy models from `aws-sdk-go-v2`.
+
+            This PR updates generated code in `internal/generated/` and scaffolds
+            in `internal/services/` based on the latest AWS service models.
+
+            Please review and merge if CI passes.
+          branch: smithy-sync/weekly
+          delete-branch: true
