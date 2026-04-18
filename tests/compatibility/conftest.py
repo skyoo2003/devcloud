@@ -94,8 +94,8 @@ def devcloud_server():
         cmd,
         cwd=project_root,
         env=env,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
     )
     try:
         _wait_for_server(DEVCLOUD_URL)
