@@ -20,7 +20,7 @@ func newTestProvider(t *testing.T) *Provider {
 	p := &Provider{}
 	err := p.Init(plugin.PluginConfig{DataDir: t.TempDir()})
 	require.NoError(t, err)
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 
@@ -111,7 +111,7 @@ func TestSNS_StoreDir(t *testing.T) {
 	p := &Provider{}
 	err := p.Init(plugin.PluginConfig{DataDir: dir})
 	require.NoError(t, err)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 	// DB file should exist inside DataDir/sns/
 	_, err2 := filepath.Glob(filepath.Join(dir, "sns", "*.db"))
 	require.NoError(t, err2)

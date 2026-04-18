@@ -168,7 +168,7 @@ func (p *Provider) createApplication(params map[string]any) (*plugin.Response, e
 	arn := appARN(app.Name)
 	// Handle tags
 	if rawTags, ok := params["tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"applicationId": app.ID,
@@ -227,7 +227,7 @@ func (p *Provider) deleteApplication(params map[string]any) (*plugin.Response, e
 	if err != nil {
 		return shared.JSONError("ApplicationDoesNotExistException", "application not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(appARN(app.Name))
+	_ = p.store.tags.DeleteAllTags(appARN(app.Name))
 	if err := p.store.DeleteApplication(name); err != nil {
 		return shared.JSONError("ApplicationDoesNotExistException", "application not found", http.StatusBadRequest), nil
 	}
@@ -655,9 +655,9 @@ func applicationToMap(a *Application) map[string]any {
 
 func deploymentGroupToMap(g *DeploymentGroup) map[string]any {
 	var autoRollback any
-	json.Unmarshal([]byte(g.AutoRollback), &autoRollback)
+	_ = json.Unmarshal([]byte(g.AutoRollback), &autoRollback)
 	var deployStyle any
-	json.Unmarshal([]byte(g.DeploymentStyle), &deployStyle)
+	_ = json.Unmarshal([]byte(g.DeploymentStyle), &deployStyle)
 	return map[string]any{
 		"deploymentGroupId":         g.ID,
 		"deploymentGroupName":       g.Name,
@@ -671,7 +671,7 @@ func deploymentGroupToMap(g *DeploymentGroup) map[string]any {
 
 func deploymentToMap(d *Deployment) map[string]any {
 	var revision any
-	json.Unmarshal([]byte(d.Revision), &revision)
+	_ = json.Unmarshal([]byte(d.Revision), &revision)
 	return map[string]any{
 		"deploymentId":        d.ID,
 		"applicationName":     d.AppName,
@@ -686,7 +686,7 @@ func deploymentToMap(d *Deployment) map[string]any {
 
 func deploymentConfigToMap(c *DeploymentConfig) map[string]any {
 	var minHealthy any
-	json.Unmarshal([]byte(c.MinHealthy), &minHealthy)
+	_ = json.Unmarshal([]byte(c.MinHealthy), &minHealthy)
 	return map[string]any{
 		"deploymentConfigName": c.Name,
 		"computePlatform":      c.ComputePlatform,

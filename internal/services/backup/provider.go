@@ -374,7 +374,7 @@ func (p *Provider) createBackupPlan(params map[string]any) (*plugin.Response, er
 
 	if rawTags, ok := params["BackupPlanTags"].(map[string]any); ok {
 		tags := toStringMap(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags)
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -466,7 +466,7 @@ func (p *Provider) deleteBackupPlan(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "backup plan not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(plan.ARN)
+	_ = p.store.tags.DeleteAllTags(plan.ARN)
 	if err := p.store.DeleteBackupPlan(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "backup plan not found", http.StatusNotFound), nil
 	}
@@ -520,7 +520,7 @@ func (p *Provider) getBackupPlanFromJSON(params map[string]any) (*plugin.Respons
 	doc, _ := params["BackupPlanDocument"].(string)
 	var planInput map[string]any
 	if doc != "" {
-		json.Unmarshal([]byte(doc), &planInput)
+		_ = json.Unmarshal([]byte(doc), &planInput)
 	}
 	if planInput == nil {
 		planInput = map[string]any{}
@@ -570,7 +570,7 @@ func (p *Provider) createBackupVault(name string, params map[string]any) (*plugi
 	}
 
 	if rawTags, ok := params["BackupVaultTags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -611,7 +611,7 @@ func (p *Provider) deleteBackupVault(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "backup vault not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(v.ARN)
+	_ = p.store.tags.DeleteAllTags(v.ARN)
 	if err := p.store.DeleteBackupVault(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "backup vault not found", http.StatusNotFound), nil
 	}
@@ -654,7 +654,7 @@ func (p *Provider) deleteBackupVaultAccessPolicy(name string) (*plugin.Response,
 	if _, err := p.store.GetBackupVault(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "backup vault not found", http.StatusNotFound), nil
 	}
-	p.store.UpdateBackupVaultAccessPolicy(name, "")
+	p.store.UpdateBackupVaultAccessPolicy(name, "") //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -673,7 +673,7 @@ func (p *Provider) putBackupVaultNotifications(name string, params map[string]an
 		})
 		notifJSON = string(b)
 	}
-	p.store.UpdateBackupVaultNotifications(name, notifJSON)
+	p.store.UpdateBackupVaultNotifications(name, notifJSON) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -686,7 +686,7 @@ func (p *Provider) getBackupVaultNotifications(name string) (*plugin.Response, e
 		return shared.JSONError("ResourceNotFoundException", "backup vault not found", http.StatusNotFound), nil
 	}
 	var notif map[string]any
-	json.Unmarshal([]byte(v.Notifications), &notif)
+	_ = json.Unmarshal([]byte(v.Notifications), &notif)
 	if notif == nil {
 		notif = map[string]any{}
 	}
@@ -702,7 +702,7 @@ func (p *Provider) deleteBackupVaultNotifications(name string) (*plugin.Response
 	if _, err := p.store.GetBackupVault(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "backup vault not found", http.StatusNotFound), nil
 	}
-	p.store.UpdateBackupVaultNotifications(name, "{}")
+	p.store.UpdateBackupVaultNotifications(name, "{}") //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -714,7 +714,7 @@ func (p *Provider) putBackupVaultLockConfiguration(name string, params map[strin
 		return shared.JSONError("ResourceNotFoundException", "backup vault not found", http.StatusNotFound), nil
 	}
 	b, _ := json.Marshal(params)
-	p.store.UpdateBackupVaultLockConfig(name, string(b))
+	p.store.UpdateBackupVaultLockConfig(name, string(b)) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -725,7 +725,7 @@ func (p *Provider) deleteBackupVaultLockConfiguration(name string) (*plugin.Resp
 	if _, err := p.store.GetBackupVault(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "backup vault not found", http.StatusNotFound), nil
 	}
-	p.store.UpdateBackupVaultLockConfig(name, "{}")
+	p.store.UpdateBackupVaultLockConfig(name, "{}") //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -869,7 +869,7 @@ func (p *Provider) startBackupJob(params map[string]any) (*plugin.Response, erro
 		ResourceType: resourceType,
 		Status:       "COMPLETED",
 	}
-	p.store.CreateRecoveryPoint(rp)
+	p.store.CreateRecoveryPoint(rp) //nolint:errcheck
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"BackupJobId":      id,
@@ -908,7 +908,7 @@ func (p *Provider) stopBackupJob(id string) (*plugin.Response, error) {
 	if _, err := p.store.GetBackupJob(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "backup job not found", http.StatusNotFound), nil
 	}
-	p.store.UpdateBackupJobStatus(id, "ABORTED")
+	p.store.UpdateBackupJobStatus(id, "ABORTED") //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -1119,7 +1119,7 @@ func (p *Provider) deleteFramework(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "framework not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(fw.ARN)
+	_ = p.store.tags.DeleteAllTags(fw.ARN)
 	if err := p.store.DeleteFramework(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "framework not found", http.StatusNotFound), nil
 	}
@@ -1232,7 +1232,7 @@ func (p *Provider) deleteReportPlan(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "report plan not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(rp.ARN)
+	_ = p.store.tags.DeleteAllTags(rp.ARN)
 	if err := p.store.DeleteReportPlan(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "report plan not found", http.StatusNotFound), nil
 	}

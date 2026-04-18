@@ -11,8 +11,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func boolPtr(b bool) *bool { return &b }
-
 func TestEvaluateFilterExpression_Equal(t *testing.T) {
 	item := Item{
 		"name": {S: strPtr("Alice")},
@@ -190,7 +188,7 @@ func TestApplyUpdateExpression_SetAndRemove(t *testing.T) {
 
 func TestDynamoDBProvider_FilterExpression(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	doRequest(t, p, "CreateTable", `{
 		"TableName": "filter-test",
@@ -214,7 +212,7 @@ func TestDynamoDBProvider_FilterExpression(t *testing.T) {
 
 func TestDynamoDBProvider_ConditionExpression(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	doRequest(t, p, "CreateTable", `{
 		"TableName": "cond-test",
@@ -238,7 +236,7 @@ func TestDynamoDBProvider_ConditionExpression(t *testing.T) {
 
 func TestDynamoDBProvider_UpdateItemRemove(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	doRequest(t, p, "CreateTable", `{
 		"TableName": "remove-test",
@@ -263,7 +261,7 @@ func TestDynamoDBProvider_UpdateItemRemove(t *testing.T) {
 
 func TestDynamoDBProvider_BatchGetItem(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	doRequest(t, p, "CreateTable", `{
 		"TableName": "bget-test",
@@ -289,7 +287,7 @@ func TestDynamoDBProvider_BatchGetItem(t *testing.T) {
 
 func TestDynamoDBProvider_TransactWriteItems(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	doRequest(t, p, "CreateTable", `{
 		"TableName": "tx-test",
@@ -313,7 +311,7 @@ func TestDynamoDBProvider_TransactWriteItems(t *testing.T) {
 
 func TestDynamoDBProvider_TTL(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	doRequest(t, p, "CreateTable", `{
 		"TableName": "ttl-test",
@@ -338,7 +336,7 @@ func TestDynamoDBProvider_TTL(t *testing.T) {
 
 func TestDynamoDBProvider_Tags(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	doRequest(t, p, "CreateTable", `{
 		"TableName": "tag-test",
@@ -375,7 +373,7 @@ func TestDynamoDBProvider_Tags(t *testing.T) {
 
 func TestDynamoDBProvider_GSIQuery(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	// Create table with GSI.
 	doRequest(t, p, "CreateTable", `{
@@ -414,7 +412,7 @@ func TestDynamoDBProvider_GSIQuery(t *testing.T) {
 
 func TestDynamoDBProvider_ProjectionExpression(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	doRequest(t, p, "CreateTable", `{
 		"TableName": "proj-test",
@@ -441,7 +439,7 @@ func TestDynamoDBProvider_ProjectionExpression(t *testing.T) {
 
 func TestDynamoDBProvider_UpdateTable(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	doRequest(t, p, "CreateTable", `{
 		"TableName": "update-table-test",

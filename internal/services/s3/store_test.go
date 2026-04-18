@@ -20,7 +20,7 @@ func TestFileStore_PutAndGetObject(t *testing.T) {
 
 func TestFileStore_DeleteObject(t *testing.T) {
 	store := NewFileStore(t.TempDir())
-	store.PutObject("000000000000", "test-bucket", "hello.txt", []byte("hello"))
+	_ = store.PutObject("000000000000", "test-bucket", "hello.txt", []byte("hello"))
 	err := store.DeleteObject("000000000000", "test-bucket", "hello.txt")
 	require.NoError(t, err)
 	_, err = store.GetObject("000000000000", "test-bucket", "hello.txt")

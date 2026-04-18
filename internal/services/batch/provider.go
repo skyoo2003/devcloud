@@ -328,7 +328,7 @@ func (p *Provider) createComputeEnvironment(params map[string]any) (*plugin.Resp
 		return nil, err
 	}
 	if rawTags, ok := params["tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"computeEnvironmentArn":  arn,
@@ -397,7 +397,7 @@ func (p *Provider) deleteComputeEnvironment(params map[string]any) (*plugin.Resp
 	if err != nil {
 		return shared.JSONError("ClientException", "compute environment not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(ce.ARN)
+	_ = p.store.tags.DeleteAllTags(ce.ARN) //nolint:errcheck
 	if err := p.store.DeleteComputeEnvironment(nameOrARN); err != nil {
 		return shared.JSONError("ClientException", "compute environment not found", http.StatusBadRequest), nil
 	}
@@ -440,7 +440,7 @@ func (p *Provider) createJobQueue(params map[string]any) (*plugin.Response, erro
 		return nil, err
 	}
 	if rawTags, ok := params["tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"jobQueueArn":  arn,
@@ -513,7 +513,7 @@ func (p *Provider) deleteJobQueue(params map[string]any) (*plugin.Response, erro
 	if err != nil {
 		return shared.JSONError("ClientException", "job queue not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(jq.ARN)
+	_ = p.store.tags.DeleteAllTags(jq.ARN) //nolint:errcheck
 	if err := p.store.DeleteJobQueue(nameOrARN); err != nil {
 		return shared.JSONError("ClientException", "job queue not found", http.StatusBadRequest), nil
 	}
@@ -559,11 +559,13 @@ func (p *Provider) registerJobDefinition(params map[string]any) (*plugin.Respons
 	arn := fmt.Sprintf("arn:aws:batch:%s:%s:job-definition/%s:%d",
 		shared.DefaultRegion, shared.DefaultAccountID, name, jd.Revision)
 	// Update the ARN with the revision
-	p.store.UpdateJobDefinitionARN(name, jd.Revision, arn)
+	if err := p.store.UpdateJobDefinitionARN(name, jd.Revision, arn); err != nil {
+		return nil, fmt.Errorf("update job definition ARN: %w", err)
+	}
 	jd.ARN = arn
 
 	if rawTags, ok := params["tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"jobDefinitionArn":  arn,
@@ -657,7 +659,7 @@ func (p *Provider) submitJob(params map[string]any) (*plugin.Response, error) {
 		return nil, err
 	}
 	if rawTags, ok := params["tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"jobArn":  arn,
@@ -751,7 +753,7 @@ func (p *Provider) createSchedulingPolicy(params map[string]any) (*plugin.Respon
 		return nil, err
 	}
 	if rawTags, ok := params["tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"arn":  arn,
@@ -824,7 +826,7 @@ func (p *Provider) deleteSchedulingPolicy(params map[string]any) (*plugin.Respon
 	if err != nil {
 		return shared.JSONError("ClientException", "scheduling policy not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(sp.ARN)
+	_ = p.store.tags.DeleteAllTags(sp.ARN) //nolint:errcheck
 	if err := p.store.DeleteSchedulingPolicy(arn); err != nil {
 		return shared.JSONError("ClientException", "scheduling policy not found", http.StatusBadRequest), nil
 	}
@@ -898,7 +900,7 @@ func jqToMap(jq *JobQueue, tags map[string]string) map[string]any {
 		tags = map[string]string{}
 	}
 	var ceOrder []any
-	json.Unmarshal([]byte(jq.ComputeEnvs), &ceOrder)
+	_ = json.Unmarshal([]byte(jq.ComputeEnvs), &ceOrder)
 	if ceOrder == nil {
 		ceOrder = []any{}
 	}
@@ -920,11 +922,11 @@ func jdToMap(jd *JobDefinition, tags map[string]string) map[string]any {
 		tags = map[string]string{}
 	}
 	var containerProps any
-	json.Unmarshal([]byte(jd.ContainerProps), &containerProps)
+	_ = json.Unmarshal([]byte(jd.ContainerProps), &containerProps)
 	var parameters any
-	json.Unmarshal([]byte(jd.Parameters), &parameters)
+	_ = json.Unmarshal([]byte(jd.Parameters), &parameters)
 	var timeout any
-	json.Unmarshal([]byte(jd.Timeout), &timeout)
+	_ = json.Unmarshal([]byte(jd.Timeout), &timeout)
 	return map[string]any{
 		"jobDefinitionArn":    jd.ARN,
 		"jobDefinitionName":   jd.Name,
@@ -943,9 +945,9 @@ func jobToMap(j *Job, tags map[string]string) map[string]any {
 		tags = map[string]string{}
 	}
 	var parameters any
-	json.Unmarshal([]byte(j.Parameters), &parameters)
+	_ = json.Unmarshal([]byte(j.Parameters), &parameters)
 	var container any
-	json.Unmarshal([]byte(j.Container), &container)
+	_ = json.Unmarshal([]byte(j.Container), &container)
 	return map[string]any{
 		"jobId":         j.ID,
 		"jobArn":        j.ARN,
@@ -982,7 +984,7 @@ func spToDetailMap(sp *SchedulingPolicy, tags map[string]string) map[string]any 
 		tags = map[string]string{}
 	}
 	var fairshare any
-	json.Unmarshal([]byte(sp.Fairshare), &fairshare)
+	_ = json.Unmarshal([]byte(sp.Fairshare), &fairshare)
 	return map[string]any{
 		"arn":             sp.ARN,
 		"name":            sp.Name,

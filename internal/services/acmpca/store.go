@@ -137,7 +137,7 @@ func (s *ACMPCAStore) ListCAs() ([]CertificateAuthority, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var cas []CertificateAuthority
 	for rows.Next() {
 		ca, err := scanCA(rows)
@@ -194,7 +194,7 @@ func (s *ACMPCAStore) ListPermissions(caARN string) ([]Permission, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var perms []Permission
 	for rows.Next() {
 		var p Permission
@@ -243,7 +243,7 @@ func (s *ACMPCAStore) ListTags(caARN string) ([]Tag, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tags []Tag
 	for rows.Next() {
 		var t Tag

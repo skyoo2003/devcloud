@@ -308,7 +308,7 @@ func (p *Provider) deleteScalingPolicy(params map[string]any) (*plugin.Response,
 	if name == "" || ns == "" || resourceID == "" || dimension == "" {
 		return shared.JSONError("ValidationException", "PolicyName, ServiceNamespace, ResourceId, and ScalableDimension are required", http.StatusBadRequest), nil
 	}
-	if err := p.store.DeletePolicy(name, ns, resourceID, dimension); err != nil {
+	if err := p.store.DeletePolicy(name, ns, resourceID, dimension); err != nil { //nolint:errcheck
 		return shared.JSONError("ObjectNotFoundException", "scaling policy not found", http.StatusBadRequest), nil
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
@@ -611,7 +611,7 @@ func (p *Provider) batchDeleteScalingPolicy(params map[string]any) (*plugin.Resp
 	dimension, _ := params["ScalableDimension"].(string)
 	for _, n := range policies {
 		if name, ok := n.(string); ok {
-			p.store.DeletePolicy(name, ns, resourceID, dimension)
+			p.store.DeletePolicy(name, ns, resourceID, dimension) //nolint:errcheck
 		}
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
@@ -624,7 +624,7 @@ func (p *Provider) batchDeleteScheduledAction(params map[string]any) (*plugin.Re
 	dimension, _ := params["ScalableDimension"].(string)
 	for _, n := range actions {
 		if name, ok := n.(string); ok {
-			p.store.DeleteScheduledAction(name, ns, resourceID, dimension)
+			p.store.DeleteScheduledAction(name, ns, resourceID, dimension) //nolint:errcheck
 		}
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
@@ -640,7 +640,7 @@ func (p *Provider) batchDeregisterScalableTarget(params map[string]any) (*plugin
 		ns, _ := m["ServiceNamespace"].(string)
 		rid, _ := m["ResourceId"].(string)
 		dim, _ := m["ScalableDimension"].(string)
-		p.store.DeregisterTarget(ns, rid, dim)
+		p.store.DeregisterTarget(ns, rid, dim) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }

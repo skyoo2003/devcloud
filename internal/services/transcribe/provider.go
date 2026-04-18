@@ -210,7 +210,7 @@ func (p *Provider) startTranscriptionJob(params map[string]any) (*plugin.Respons
 	}
 	arn := shared.BuildARN("transcribe", "transcription-job", name)
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseListTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseListTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"TranscriptionJob": transcriptionJobToMap(j),
@@ -255,7 +255,7 @@ func (p *Provider) deleteTranscriptionJob(params map[string]any) (*plugin.Respon
 		return shared.JSONError("ValidationException", "TranscriptionJobName is required", http.StatusBadRequest), nil
 	}
 	arn := shared.BuildARN("transcribe", "transcription-job", name)
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn)
 	if err := p.store.DeleteTranscriptionJob(name); err != nil {
 		return shared.JSONError("NotFoundException", "transcription job not found", http.StatusBadRequest), nil
 	}
@@ -1019,7 +1019,7 @@ func medicalScribeJobToMap(displayName string, j *TranscriptionJob) map[string]a
 
 func jsonParse(s string) any {
 	var v any
-	json.Unmarshal([]byte(s), &v)
+	_ = json.Unmarshal([]byte(s), &v)
 	return v
 }
 

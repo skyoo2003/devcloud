@@ -105,7 +105,7 @@ func main() {
 	// 404 handler so the dashboard routes don't leak service internals.
 	bus := eventbus.New()
 	logCollector := dashboard.NewLogCollector(1000)
-	var dashHandler http.Handler = http.NotFoundHandler()
+	dashHandler := http.NotFoundHandler()
 	webDir := ""
 	if cfg.Dashboard.Enabled {
 		dashAPI := dashboard.NewDashboardAPI(registry, logCollector)

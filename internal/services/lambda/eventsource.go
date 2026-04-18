@@ -107,11 +107,11 @@ func (p *EventSourcePoller) pollSQS(ctx context.Context, m EventSourceMapping) {
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil || resp.StatusCode != http.StatusOK {
 		if resp != nil {
-			resp.Body.Close()
+			_ = resp.Body.Close()
 		}
 		return
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	var result struct {
 		Messages []struct {
@@ -150,12 +150,12 @@ func (p *EventSourcePoller) pollSQS(ctx context.Context, m EventSourceMapping) {
 	invokeResp, err := http.DefaultClient.Do(invokeReq)
 	if err != nil || invokeResp.StatusCode != http.StatusOK {
 		if invokeResp != nil {
-			invokeResp.Body.Close()
+			_ = invokeResp.Body.Close()
 		}
 		slog.Warn("lambda invoke failed for SQS event", "function", m.FunctionName, "err", err)
 		return
 	}
-	invokeResp.Body.Close()
+	_ = invokeResp.Body.Close()
 
 	// Delete messages on successful invocation.
 	for _, msg := range result.Messages {
@@ -171,7 +171,7 @@ func (p *EventSourcePoller) pollSQS(ctx context.Context, m EventSourceMapping) {
 		delReq.Header.Set("X-Amz-Target", "AmazonSQS.DeleteMessage")
 		delResp, err := http.DefaultClient.Do(delReq)
 		if err == nil {
-			delResp.Body.Close()
+			_ = delResp.Body.Close()
 		}
 	}
 
@@ -197,7 +197,7 @@ func (p *EventSourcePoller) pollDynamoDBStream(ctx context.Context, m EventSourc
 	descResp, err := http.DefaultClient.Do(descReq)
 	if err != nil || descResp.StatusCode != http.StatusOK {
 		if descResp != nil {
-			descResp.Body.Close()
+			_ = descResp.Body.Close()
 		}
 		return
 	}
@@ -209,7 +209,7 @@ func (p *EventSourcePoller) pollDynamoDBStream(ctx context.Context, m EventSourc
 		} `json:"StreamDescription"`
 	}
 	_ = json.NewDecoder(descResp.Body).Decode(&descOut)
-	descResp.Body.Close()
+	_ = descResp.Body.Close()
 	if len(descOut.StreamDescription.Shards) == 0 {
 		return
 	}
@@ -229,7 +229,7 @@ func (p *EventSourcePoller) pollDynamoDBStream(ctx context.Context, m EventSourc
 	iterResp, err := http.DefaultClient.Do(iterReq)
 	if err != nil || iterResp.StatusCode != http.StatusOK {
 		if iterResp != nil {
-			iterResp.Body.Close()
+			_ = iterResp.Body.Close()
 		}
 		return
 	}
@@ -237,7 +237,7 @@ func (p *EventSourcePoller) pollDynamoDBStream(ctx context.Context, m EventSourc
 		ShardIterator string `json:"ShardIterator"`
 	}
 	_ = json.NewDecoder(iterResp.Body).Decode(&iterOut)
-	iterResp.Body.Close()
+	_ = iterResp.Body.Close()
 	if iterOut.ShardIterator == "" {
 		return
 	}
@@ -260,7 +260,7 @@ func (p *EventSourcePoller) pollDynamoDBStream(ctx context.Context, m EventSourc
 	recResp, err := http.DefaultClient.Do(recReq)
 	if err != nil || recResp.StatusCode != http.StatusOK {
 		if recResp != nil {
-			recResp.Body.Close()
+			_ = recResp.Body.Close()
 		}
 		return
 	}
@@ -268,7 +268,7 @@ func (p *EventSourcePoller) pollDynamoDBStream(ctx context.Context, m EventSourc
 		Records []map[string]any `json:"Records"`
 	}
 	_ = json.NewDecoder(recResp.Body).Decode(&recOut)
-	recResp.Body.Close()
+	_ = recResp.Body.Close()
 	if len(recOut.Records) == 0 {
 		return
 	}
@@ -288,12 +288,12 @@ func (p *EventSourcePoller) pollDynamoDBStream(ctx context.Context, m EventSourc
 	invokeResp, err := http.DefaultClient.Do(invokeReq)
 	if err != nil || invokeResp.StatusCode != http.StatusOK {
 		if invokeResp != nil {
-			invokeResp.Body.Close()
+			_ = invokeResp.Body.Close()
 		}
 		slog.Warn("lambda invoke failed for DynamoDB stream", "function", m.FunctionName, "err", err)
 		return
 	}
-	invokeResp.Body.Close()
+	_ = invokeResp.Body.Close()
 	slog.Debug("processed DynamoDB stream records for lambda", "function", m.FunctionName, "count", len(recOut.Records))
 }
 

@@ -472,7 +472,7 @@ func (p *Provider) createGraphqlApi(params map[string]any) (*plugin.Response, er
 		return nil, err
 	}
 	if rawTags, ok := params["tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags))
 	}
 	tags, _ := p.store.tags.ListTags(arn)
 	return shared.JSONResponse(http.StatusOK, map[string]any{"graphqlApi": graphqlApiToMap(a, tags)})
@@ -523,7 +523,7 @@ func (p *Provider) deleteGraphqlApi(apiID string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("NotFoundException", "GraphQL API not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(a.ARN)
+	_ = p.store.tags.DeleteAllTags(a.ARN) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -937,7 +937,7 @@ func graphqlApiToMap(a *GraphqlApi, tags map[string]string) map[string]any {
 		tags = map[string]string{}
 	}
 	var uris map[string]string
-	json.Unmarshal([]byte(a.Uris), &uris)
+	_ = json.Unmarshal([]byte(a.Uris), &uris)
 	if uris == nil {
 		uris = map[string]string{}
 	}

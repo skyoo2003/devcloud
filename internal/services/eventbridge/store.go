@@ -178,7 +178,7 @@ func (s *EBStore) ListEventBuses(accountID string) ([]EventBus, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var buses []EventBus
 	for rows.Next() {
 		var b EventBus
@@ -227,7 +227,7 @@ func (s *EBStore) ListRules(busName, accountID string) ([]Rule, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanRules(rows)
 }
 
@@ -293,7 +293,7 @@ func (s *EBStore) ListTargetsByRule(ruleName, busName, accountID string) ([]Targ
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var targets []Target
 	for rows.Next() {
 		var t Target
@@ -391,7 +391,7 @@ func (s *EBStore) ListArchives(namePrefix, eventSourceARN, accountID string) ([]
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var archives []Archive
 	for rows.Next() {
 		var a Archive
@@ -487,7 +487,7 @@ func (s *EBStore) ListReplays(namePrefix, eventSourceARN, accountID string) ([]R
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var replays []Replay
 	for rows.Next() {
 		var r Replay

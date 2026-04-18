@@ -105,7 +105,7 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 		}
 		if httpTrait, ok := opShape.Traits["smithy.api#http"]; ok {
 			var ht rawHTTPTrait
-			json.Unmarshal(httpTrait, &ht) //nolint:errcheck
+			_ = json.Unmarshal(httpTrait, &ht) //nolint:errcheck
 			op.HTTPMethod = ht.Method
 			op.HTTPUri = ht.URI
 		}
@@ -146,12 +146,12 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 					}
 					if hdr, ok := member.Traits["smithy.api#httpHeader"]; ok {
 						var headerName string
-						json.Unmarshal(hdr, &headerName) //nolint:errcheck
+						_ = json.Unmarshal(hdr, &headerName) //nolint:errcheck
 						m.HTTPHeader = headerName
 					}
 					if q, ok := member.Traits["smithy.api#httpQuery"]; ok {
 						var queryName string
-						json.Unmarshal(q, &queryName) //nolint:errcheck
+						_ = json.Unmarshal(q, &queryName) //nolint:errcheck
 						m.HTTPQuery = queryName
 					}
 				}
@@ -163,11 +163,11 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 
 			if errType, ok := rs.Traits["smithy.api#error"]; ok {
 				var et string
-				json.Unmarshal(errType, &et) //nolint:errcheck
+				_ = json.Unmarshal(errType, &et) //nolint:errcheck
 				shape.ErrorTrait = &ErrorTrait{Type: et}
 				if httpErr, ok := rs.Traits["smithy.api#httpError"]; ok {
 					var status int
-					json.Unmarshal(httpErr, &status) //nolint:errcheck
+					_ = json.Unmarshal(httpErr, &status) //nolint:errcheck
 					shape.ErrorTrait.HTTPStatus = status
 				}
 			}

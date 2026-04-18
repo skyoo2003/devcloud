@@ -176,7 +176,7 @@ func (s *Store) ListIdentities(identityType string) ([]Identity, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Identity
 	for rows.Next() {
 		id, err := scanIdentity(rows)
@@ -275,7 +275,7 @@ func (s *Store) ListTemplates() ([]Template, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Template
 	for rows.Next() {
 		var t Template
@@ -330,7 +330,7 @@ func (s *Store) ListConfigSets() ([]ConfigSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ConfigSet
 	for rows.Next() {
 		var cs ConfigSet
@@ -390,7 +390,7 @@ func (s *Store) ListReceiptRuleSets() ([]ReceiptRuleSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ReceiptRuleSet
 	for rows.Next() {
 		rs, err := scanRuleSet(rows)
@@ -452,7 +452,7 @@ func (s *Store) CloneReceiptRuleSet(originalName, newName string) error {
 	if err != nil {
 		return err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	for rows.Next() {
 		var rr ReceiptRule
 		var recJSON, actJSON string
@@ -534,7 +534,7 @@ func (s *Store) ListReceiptRules(ruleSetName string) ([]ReceiptRule, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ReceiptRule
 	for rows.Next() {
 		rr, err := scanRule(rows)
@@ -636,7 +636,7 @@ func (s *Store) ListReceiptFilters() ([]ReceiptFilter, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ReceiptFilter
 	for rows.Next() {
 		var f ReceiptFilter

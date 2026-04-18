@@ -97,7 +97,7 @@ func (s *Store) ListPipes(accountID string) ([]Pipe, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var pipes []Pipe
 	for rows.Next() {
 		pipe, err := scanPipe(rows)
@@ -171,7 +171,7 @@ func (s *Store) GetTags(pipeARN string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := map[string]string{}
 	for rows.Next() {
 		var k, v string

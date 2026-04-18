@@ -118,7 +118,7 @@ func (s *Store) ListExperimentTemplates() ([]ExperimentTemplate, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var templates []ExperimentTemplate
 	for rows.Next() {
 		t, err := scanTemplate(rows)
@@ -225,7 +225,7 @@ func (s *Store) ListExperiments(templateID string) ([]Experiment, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var exps []Experiment
 	for rows.Next() {
 		e, err := scanExperiment(rows)

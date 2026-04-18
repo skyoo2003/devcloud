@@ -251,7 +251,7 @@ func (p *Provider) createWorkGroup(params map[string]any) (*plugin.Response, err
 	}
 	// Handle tags
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(wg.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(wg.ARN, parseTags(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
@@ -296,7 +296,7 @@ func (p *Provider) deleteWorkGroup(params map[string]any) (*plugin.Response, err
 	if err != nil {
 		return shared.JSONError("InvalidRequestException", "WorkGroup not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(wg.ARN)
+	_ = p.store.tags.DeleteAllTags(wg.ARN) //nolint:errcheck
 	if err := p.store.DeleteWorkGroup(name); err != nil {
 		return shared.JSONError("InvalidRequestException", "WorkGroup not found", http.StatusBadRequest), nil
 	}
@@ -333,7 +333,7 @@ func (p *Provider) updateWorkGroup(params map[string]any) (*plugin.Response, err
 
 func workGroupToMap(wg *WorkGroup) map[string]any {
 	var cfg any
-	json.Unmarshal([]byte(wg.Config), &cfg)
+	_ = json.Unmarshal([]byte(wg.Config), &cfg)
 	return map[string]any{
 		"Name":          wg.Name,
 		"State":         wg.State,
@@ -667,7 +667,7 @@ func (p *Provider) deleteDataCatalog(params map[string]any) (*plugin.Response, e
 
 func dataCatalogToMap(dc *DataCatalog) map[string]any {
 	var params any
-	json.Unmarshal([]byte(dc.Parameters), &params)
+	_ = json.Unmarshal([]byte(dc.Parameters), &params)
 	return map[string]any{
 		"Name":        dc.Name,
 		"Type":        dc.Type,

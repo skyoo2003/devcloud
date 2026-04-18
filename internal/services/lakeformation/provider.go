@@ -264,7 +264,7 @@ func (p *Provider) getLFTag(params map[string]any) (*plugin.Response, error) {
 		return shared.JSONError("EntityNotFoundException", "LF tag not found", http.StatusNotFound), nil
 	}
 	var values []string
-	json.Unmarshal([]byte(tag.ValuesJSON), &values)
+	_ = json.Unmarshal([]byte(tag.ValuesJSON), &values)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"CatalogId": tag.CatalogID,
 		"TagKey":    tag.Key,
@@ -284,7 +284,7 @@ func (p *Provider) updateLFTag(params map[string]any) (*plugin.Response, error) 
 		return shared.JSONError("EntityNotFoundException", "LF tag not found", http.StatusNotFound), nil
 	}
 	var existing []string
-	json.Unmarshal([]byte(tag.ValuesJSON), &existing)
+	_ = json.Unmarshal([]byte(tag.ValuesJSON), &existing)
 
 	// Add new values
 	addRaw, _ := params["TagValuesToAdd"].([]any)
@@ -331,7 +331,7 @@ func (p *Provider) listLFTags(params map[string]any) (*plugin.Response, error) {
 	list := make([]map[string]any, 0, len(tags))
 	for _, t := range tags {
 		var values []string
-		json.Unmarshal([]byte(t.ValuesJSON), &values)
+		_ = json.Unmarshal([]byte(t.ValuesJSON), &values)
 		list = append(list, map[string]any{
 			"CatalogId": t.CatalogID,
 			"TagKey":    t.Key,
@@ -375,7 +375,7 @@ func (p *Provider) getLFTagExpression(params map[string]any) (*plugin.Response, 
 		return shared.JSONError("EntityNotFoundException", "LF tag expression not found", http.StatusNotFound), nil
 	}
 	var expression []any
-	json.Unmarshal([]byte(expr.Expression), &expression)
+	_ = json.Unmarshal([]byte(expr.Expression), &expression)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"Name":        expr.Name,
 		"CatalogId":   expr.CatalogID,
@@ -422,7 +422,7 @@ func (p *Provider) listLFTagExpressions(params map[string]any) (*plugin.Response
 	list := make([]map[string]any, 0, len(exprs))
 	for _, e := range exprs {
 		var expression []any
-		json.Unmarshal([]byte(e.Expression), &expression)
+		_ = json.Unmarshal([]byte(e.Expression), &expression)
 		list = append(list, map[string]any{
 			"Name":        e.Name,
 			"CatalogId":   e.CatalogID,
@@ -474,7 +474,7 @@ func (p *Provider) revokePermissions(params map[string]any) (*plugin.Response, e
 	}
 	for _, perm := range perms {
 		if perm.Principal == principalStr {
-			p.store.RevokePermission(perm.ID)
+			p.store.RevokePermission(perm.ID) //nolint:errcheck
 		}
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
@@ -491,10 +491,10 @@ func (p *Provider) listPermissions(params map[string]any) (*plugin.Response, err
 		var resource map[string]any
 		var permissions []any
 		var grantOption []any
-		json.Unmarshal([]byte(perm.Principal), &principal)
-		json.Unmarshal([]byte(perm.ResourceJSON), &resource)
-		json.Unmarshal([]byte(perm.PermissionsJSON), &permissions)
-		json.Unmarshal([]byte(perm.GrantOption), &grantOption)
+		_ = json.Unmarshal([]byte(perm.Principal), &principal)
+		_ = json.Unmarshal([]byte(perm.ResourceJSON), &resource)
+		_ = json.Unmarshal([]byte(perm.PermissionsJSON), &permissions)
+		_ = json.Unmarshal([]byte(perm.GrantOption), &grantOption)
 		list = append(list, map[string]any{
 			"Principal":                  principal,
 			"Resource":                   resource,
@@ -523,7 +523,7 @@ func (p *Provider) batchGrantPermissions(params map[string]any) (*plugin.Respons
 		perms, _ := entry["Permissions"].([]any)
 		grantOpt, _ := entry["PermissionsWithGrantOption"].([]any)
 		id := shared.GenerateUUID()
-		p.store.GrantPermission(id, marshalJSON(principal), marshalJSON(resource), marshalJSON(perms), marshalJSON(grantOpt))
+		p.store.GrantPermission(id, marshalJSON(principal), marshalJSON(resource), marshalJSON(perms), marshalJSON(grantOpt)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"Failures": []any{}})
 }
@@ -546,7 +546,7 @@ func (p *Provider) batchRevokePermissions(params map[string]any) (*plugin.Respon
 		}
 		for _, perm := range perms {
 			if perm.Principal == principalStr {
-				p.store.RevokePermission(perm.ID)
+				p.store.RevokePermission(perm.ID) //nolint:errcheck
 			}
 		}
 	}
@@ -564,10 +564,10 @@ func (p *Provider) getEffectivePermissionsForPath(params map[string]any) (*plugi
 		var resource map[string]any
 		var permissions []any
 		var grantOption []any
-		json.Unmarshal([]byte(perm.Principal), &principal)
-		json.Unmarshal([]byte(perm.ResourceJSON), &resource)
-		json.Unmarshal([]byte(perm.PermissionsJSON), &permissions)
-		json.Unmarshal([]byte(perm.GrantOption), &grantOption)
+		_ = json.Unmarshal([]byte(perm.Principal), &principal)
+		_ = json.Unmarshal([]byte(perm.ResourceJSON), &resource)
+		_ = json.Unmarshal([]byte(perm.PermissionsJSON), &permissions)
+		_ = json.Unmarshal([]byte(perm.GrantOption), &grantOption)
 		list = append(list, map[string]any{
 			"Principal":                  principal,
 			"Resource":                   resource,
@@ -660,8 +660,8 @@ func (p *Provider) getDataLakeSettings(params map[string]any) (*plugin.Response,
 	}
 	var admins []any
 	var config map[string]any
-	json.Unmarshal([]byte(st.Admins), &admins)
-	json.Unmarshal([]byte(st.Config), &config)
+	_ = json.Unmarshal([]byte(st.Admins), &admins)
+	_ = json.Unmarshal([]byte(st.Config), &config)
 	if config == nil {
 		config = map[string]any{}
 	}
@@ -806,8 +806,8 @@ func resourceToMap(r *Resource) map[string]any {
 func filterToMap(f *DataCellsFilter) map[string]any {
 	var colNames []string
 	var rowFilter map[string]any
-	json.Unmarshal([]byte(f.ColumnNames), &colNames)
-	json.Unmarshal([]byte(f.RowFilter), &rowFilter)
+	_ = json.Unmarshal([]byte(f.ColumnNames), &colNames)
+	_ = json.Unmarshal([]byte(f.RowFilter), &rowFilter)
 	if rowFilter == nil {
 		rowFilter = map[string]any{}
 	}

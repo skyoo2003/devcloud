@@ -336,7 +336,7 @@ func (p *Provider) createNetwork(params map[string]any) (*plugin.Response, error
 
 	if rawTags, ok := params["Tags"].(map[string]any); ok {
 		tags := toStringMap(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags)
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{"NetworkId": id})
@@ -374,7 +374,7 @@ func (p *Provider) deleteNetwork(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "network not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(n.ARN)
+	_ = p.store.tags.DeleteAllTags(n.ARN)
 	if err := p.store.DeleteNetwork(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "network not found", http.StatusNotFound), nil
 	}
@@ -660,7 +660,7 @@ func (p *Provider) createAccessor(params map[string]any) (*plugin.Response, erro
 
 	if rawTags, ok := params["Tags"].(map[string]any); ok {
 		tags := toStringMap(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags)
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -702,7 +702,7 @@ func (p *Provider) deleteAccessor(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "accessor not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(a.ARN)
+	_ = p.store.tags.DeleteAllTags(a.ARN)
 	if err := p.store.DeleteAccessor(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "accessor not found", http.StatusNotFound), nil
 	}

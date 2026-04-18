@@ -158,7 +158,7 @@ func (s *Store) ListClusters(statusFilter string) ([]Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var clusters []Cluster
 	for rows.Next() {
 		c, err := scanCluster(rows)
@@ -214,7 +214,7 @@ func (s *Store) ListSteps(clusterID, statusFilter string) ([]Step, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var steps []Step
 	for rows.Next() {
 		st, err := scanStep(rows)
@@ -289,7 +289,7 @@ func (s *Store) ListSecurityConfigs() ([]SecurityConfig, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var configs []SecurityConfig
 	for rows.Next() {
 		var sc SecurityConfig
@@ -328,7 +328,7 @@ func (s *Store) ListStudios() ([]Studio, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var studios []Studio
 	for rows.Next() {
 		st, err := scanStudio(rows)

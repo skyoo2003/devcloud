@@ -1430,7 +1430,7 @@ func (p *Provider) signUp(req *http.Request) (*plugin.Response, error) {
 	if clients.Next() {
 		_ = clients.Scan(&poolID)
 	}
-	clients.Close()
+	clients.Close() //nolint:errcheck
 	if poolID == "" {
 		return cognitoError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
 	}

@@ -180,24 +180,30 @@ type Region struct {
 }
 
 func (s *Store) ListRegions(accountID string) ([]*Region, error) {
-	s.ensureRegions(accountID)
+	if err := s.ensureRegions(accountID); err != nil {
+		return nil, err
+	}
 	rows, err := s.db().Query(
 		`SELECT region_name, opt_status FROM account_regions WHERE account_id=? ORDER BY region_name`, accountID)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*Region
 	for rows.Next() {
 		r := &Region{}
-		rows.Scan(&r.RegionName, &r.OptStatus)
+		if err := rows.Scan(&r.RegionName, &r.OptStatus); err != nil {
+			return nil, err
+		}
 		out = append(out, r)
 	}
 	return out, rows.Err()
 }
 
 func (s *Store) GetRegionOptStatus(accountID, regionName string) (*Region, error) {
-	s.ensureRegions(accountID)
+	if err := s.ensureRegions(accountID); err != nil {
+		return nil, err
+	}
 	row := s.db().QueryRow(
 		`SELECT region_name, opt_status FROM account_regions WHERE account_id=? AND region_name=?`,
 		accountID, regionName)
@@ -213,7 +219,9 @@ func (s *Store) GetRegionOptStatus(accountID, regionName string) (*Region, error
 }
 
 func (s *Store) SetRegionOptStatus(accountID, regionName, status string) error {
-	s.ensureRegions(accountID)
+	if err := s.ensureRegions(accountID); err != nil {
+		return err
+	}
 	_, err := s.db().Exec(
 		`INSERT INTO account_regions (account_id, region_name, opt_status) VALUES (?,?,?)
 		 ON CONFLICT(account_id, region_name) DO UPDATE SET opt_status=excluded.opt_status`,
@@ -224,7 +232,7 @@ func (s *Store) SetRegionOptStatus(accountID, regionName, status string) error {
 // --- Primary Email ---
 
 func (s *Store) GetPrimaryEmail(accountID string) (email, pending string) {
-	s.db().QueryRow(`SELECT COALESCE(email,''), COALESCE(pending_email,'') FROM account_primary_email WHERE account_id=?`, accountID).
+	_ = s.db().QueryRow(`SELECT COALESCE(email,''), COALESCE(pending_email,'') FROM account_primary_email WHERE account_id=?`, accountID).
 		Scan(&email, &pending)
 	return
 }
@@ -248,7 +256,7 @@ func (s *Store) StartPrimaryEmailUpdate(accountID, pendingEmail string) error {
 func (s *Store) AcceptPrimaryEmailUpdate(accountID string) error {
 	row := s.db().QueryRow(`SELECT COALESCE(pending_email,'') FROM account_primary_email WHERE account_id=?`, accountID)
 	var pending string
-	row.Scan(&pending)
+	_ = row.Scan(&pending)
 	if pending == "" {
 		return ErrNotFound
 	}

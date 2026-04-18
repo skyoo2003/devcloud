@@ -33,13 +33,13 @@ func Open(dbPath string, migrations []Migration) (*Store, error) {
 	}
 
 	if _, err := db.Exec("PRAGMA journal_mode=WAL;"); err != nil {
-		db.Close()
+		_ = db.Close()
 		return nil, fmt.Errorf("enable WAL: %w", err)
 	}
 
 	s := &Store{db: db, path: dbPath}
 	if err := s.migrate(migrations); err != nil {
-		db.Close()
+		_ = db.Close()
 		return nil, fmt.Errorf("migrate: %w", err)
 	}
 

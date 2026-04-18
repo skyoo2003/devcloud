@@ -454,7 +454,7 @@ func (p *Provider) describeDocument(params map[string]any) (*plugin.Response, er
 	}
 	version := 0
 	if v, ok := params["DocumentVersion"].(string); ok && v != "" && v != "$LATEST" {
-		fmt.Sscanf(v, "%d", &version)
+		_, _ = fmt.Sscanf(v, "%d", &version)
 	}
 	doc, err := p.store.GetDocument(name, defaultAccountID, version)
 	if err != nil {
@@ -476,7 +476,7 @@ func (p *Provider) getDocumentContent(params map[string]any) (*plugin.Response, 
 	}
 	version := 0
 	if v, ok := params["DocumentVersion"].(string); ok && v != "" && v != "$LATEST" {
-		fmt.Sscanf(v, "%d", &version)
+		_, _ = fmt.Sscanf(v, "%d", &version)
 	}
 	doc, err := p.store.GetDocument(name, defaultAccountID, version)
 	if err != nil {

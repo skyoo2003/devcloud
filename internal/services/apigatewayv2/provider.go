@@ -374,7 +374,7 @@ func (p *Provider) createAPI(params map[string]any) (*plugin.Response, error) {
 	}
 
 	if rawTags, ok := params["tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags))
 	}
 
 	tags, _ := p.store.tags.ListTags(arn)
@@ -428,7 +428,7 @@ func (p *Provider) deleteAPI(apiID string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("NotFoundException", "api not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(a.ARN)
+	_ = p.store.tags.DeleteAllTags(a.ARN)
 	return shared.JSONResponse(http.StatusNoContent, nil)
 }
 
@@ -959,7 +959,7 @@ func (p *Provider) createDomainName(params map[string]any) (*plugin.Response, er
 	}
 	if rawTags, ok := params["tags"].(map[string]any); ok {
 		arn := shared.BuildARN("apigateway", "domainnames", name)
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, domainNameToMap(d))
 }
@@ -1088,7 +1088,7 @@ func (p *Provider) createVpcLink(params map[string]any) (*plugin.Response, error
 	}
 	if rawTags, ok := params["tags"].(map[string]any); ok {
 		arn := shared.BuildARN("apigateway", "vpclinks", v.ID)
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, vpcLinkToMap(v))
 }
@@ -1228,7 +1228,7 @@ func integrationResponseToMap(ir *IntegrationResponse) map[string]any {
 
 func authorizerToMap(a *Authorizer) map[string]any {
 	var jwtConfig any
-	json.Unmarshal([]byte(a.JWTConfig), &jwtConfig)
+	_ = json.Unmarshal([]byte(a.JWTConfig), &jwtConfig)
 	if jwtConfig == nil {
 		jwtConfig = map[string]any{}
 	}
@@ -1253,7 +1253,7 @@ func deploymentToMap(d *Deployment) map[string]any {
 
 func stageToMap(st *Stage) map[string]any {
 	var stageVars any
-	json.Unmarshal([]byte(st.StageVariables), &stageVars)
+	_ = json.Unmarshal([]byte(st.StageVariables), &stageVars)
 	if stageVars == nil {
 		stageVars = map[string]any{}
 	}
@@ -1279,7 +1279,7 @@ func modelToMap(m *Model) map[string]any {
 
 func domainNameToMap(d *DomainName) map[string]any {
 	var config any
-	json.Unmarshal([]byte(d.Config), &config)
+	_ = json.Unmarshal([]byte(d.Config), &config)
 	if config == nil {
 		config = []any{}
 	}
@@ -1302,12 +1302,12 @@ func apiMappingToMap(m *APIMapping) map[string]any {
 
 func vpcLinkToMap(v *VpcLink) map[string]any {
 	var secGroups any
-	json.Unmarshal([]byte(v.SecurityGroups), &secGroups)
+	_ = json.Unmarshal([]byte(v.SecurityGroups), &secGroups)
 	if secGroups == nil {
 		secGroups = []any{}
 	}
 	var subnetIDs any
-	json.Unmarshal([]byte(v.SubnetIDs), &subnetIDs)
+	_ = json.Unmarshal([]byte(v.SubnetIDs), &subnetIDs)
 	if subnetIDs == nil {
 		subnetIDs = []any{}
 	}

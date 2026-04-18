@@ -24,7 +24,7 @@ func newTestECSProvider(t *testing.T) *Provider {
 		"db_path": filepath.Join(dir, "ecs.db"),
 	}})
 	require.NoError(t, err)
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 
@@ -37,7 +37,7 @@ func ecsRequest(t *testing.T, p *Provider, action string, body map[string]any) m
 	resp, err := p.HandleRequest(context.Background(), "", req)
 	require.NoError(t, err)
 	var result map[string]any
-	json.Unmarshal(resp.Body, &result)
+	_ = json.Unmarshal(resp.Body, &result)
 	return result
 }
 

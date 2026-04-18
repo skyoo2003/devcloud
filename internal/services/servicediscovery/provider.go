@@ -181,12 +181,12 @@ func (p *Provider) createNamespace(params map[string]any, nsType string) (*plugi
 
 	// Handle tags
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(ns.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(ns.ARN, parseTags(rawTags)) //nolint:errcheck
 	}
 
 	targets := map[string]string{"NAMESPACE": id}
 	targetsJSON, _ := json.Marshal(targets)
-	p.store.CreateOperation(opID, "CREATE_NAMESPACE", string(targetsJSON))
+	_, _ = p.store.CreateOperation(opID, "CREATE_NAMESPACE", string(targetsJSON))
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{"OperationId": opID})
 }
@@ -231,14 +231,14 @@ func (p *Provider) deleteNamespace(params map[string]any) (*plugin.Response, err
 	if err != nil {
 		return shared.JSONError("NamespaceNotFound", "namespace not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(ns.ARN)
+	_ = p.store.tags.DeleteAllTags(ns.ARN) //nolint:errcheck
 	if err := p.store.DeleteNamespace(id); err != nil {
 		return shared.JSONError("NamespaceNotFound", "namespace not found", http.StatusBadRequest), nil
 	}
 	opID := shared.GenerateUUID()
 	targets := map[string]string{"NAMESPACE": id}
 	targetsJSON, _ := json.Marshal(targets)
-	p.store.CreateOperation(opID, "DELETE_NAMESPACE", string(targetsJSON))
+	_, _ = p.store.CreateOperation(opID, "DELETE_NAMESPACE", string(targetsJSON))
 	return shared.JSONResponse(http.StatusOK, map[string]any{"OperationId": opID})
 }
 
@@ -257,7 +257,7 @@ func (p *Provider) updateHttpNamespace(params map[string]any) (*plugin.Response,
 	opID := shared.GenerateUUID()
 	targets := map[string]string{"NAMESPACE": id}
 	targetsJSON, _ := json.Marshal(targets)
-	p.store.CreateOperation(opID, "UPDATE_NAMESPACE", string(targetsJSON))
+	_, _ = p.store.CreateOperation(opID, "UPDATE_NAMESPACE", string(targetsJSON))
 	return shared.JSONResponse(http.StatusOK, map[string]any{"OperationId": opID})
 }
 
@@ -302,7 +302,7 @@ func (p *Provider) createService(params map[string]any) (*plugin.Response, error
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(svc.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(svc.ARN, parseTags(rawTags)) //nolint:errcheck
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -375,7 +375,7 @@ func (p *Provider) updateService(params map[string]any) (*plugin.Response, error
 	opID := shared.GenerateUUID()
 	targets := map[string]string{"SERVICE": id}
 	targetsJSON, _ := json.Marshal(targets)
-	p.store.CreateOperation(opID, "UPDATE_SERVICE", string(targetsJSON))
+	_, _ = p.store.CreateOperation(opID, "UPDATE_SERVICE", string(targetsJSON))
 	return shared.JSONResponse(http.StatusOK, map[string]any{"OperationId": opID})
 }
 
@@ -388,7 +388,7 @@ func (p *Provider) deleteService(params map[string]any) (*plugin.Response, error
 	if err != nil {
 		return shared.JSONError("ServiceNotFound", "service not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(svc.ARN)
+	_ = p.store.tags.DeleteAllTags(svc.ARN) //nolint:errcheck
 	if err := p.store.DeleteService(id); err != nil {
 		return shared.JSONError("ServiceNotFound", "service not found", http.StatusBadRequest), nil
 	}
@@ -423,7 +423,7 @@ func (p *Provider) registerInstance(params map[string]any) (*plugin.Response, er
 	opID := shared.GenerateUUID()
 	targets := map[string]string{"INSTANCE": instanceID, "SERVICE": serviceID}
 	targetsJSON, _ := json.Marshal(targets)
-	p.store.CreateOperation(opID, "REGISTER_INSTANCE", string(targetsJSON))
+	_, _ = p.store.CreateOperation(opID, "REGISTER_INSTANCE", string(targetsJSON))
 	return shared.JSONResponse(http.StatusOK, map[string]any{"OperationId": opID})
 }
 
@@ -439,7 +439,7 @@ func (p *Provider) deregisterInstance(params map[string]any) (*plugin.Response, 
 	opID := shared.GenerateUUID()
 	targets := map[string]string{"INSTANCE": instanceID, "SERVICE": serviceID}
 	targetsJSON, _ := json.Marshal(targets)
-	p.store.CreateOperation(opID, "DEREGISTER_INSTANCE", string(targetsJSON))
+	_, _ = p.store.CreateOperation(opID, "DEREGISTER_INSTANCE", string(targetsJSON))
 	return shared.JSONResponse(http.StatusOK, map[string]any{"OperationId": opID})
 }
 
@@ -510,7 +510,7 @@ func (p *Provider) discoverInstances(params map[string]any) (*plugin.Response, e
 		}
 		for _, inst := range insts {
 			var attrs map[string]string
-			json.Unmarshal([]byte(inst.Attributes), &attrs)
+			_ = json.Unmarshal([]byte(inst.Attributes), &attrs)
 			instances = append(instances, map[string]any{
 				"InstanceId":    inst.ID,
 				"NamespaceName": namespaceName,
@@ -572,7 +572,7 @@ func (p *Provider) getOperation(params map[string]any) (*plugin.Response, error)
 		return shared.JSONError("OperationNotFound", "operation not found", http.StatusBadRequest), nil
 	}
 	var targets map[string]string
-	json.Unmarshal([]byte(op.Targets), &targets)
+	_ = json.Unmarshal([]byte(op.Targets), &targets)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"Operation": map[string]any{
 			"Id":         op.ID,
@@ -640,7 +640,7 @@ func (p *Provider) updateServiceAttributes(params map[string]any) (*plugin.Respo
 			attrMap[k] = vs
 		}
 	}
-	p.store.tags.AddTags("svc-attrs:"+svc.ARN, attrMap)
+	_ = p.store.tags.AddTags("svc-attrs:"+svc.ARN, attrMap) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -660,7 +660,7 @@ func (p *Provider) deleteServiceAttributes(params map[string]any) (*plugin.Respo
 			strKeys = append(strKeys, s)
 		}
 	}
-	p.store.tags.RemoveTags("svc-attrs:"+svc.ARN, strKeys)
+	p.store.tags.RemoveTags("svc-attrs:"+svc.ARN, strKeys) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -731,8 +731,8 @@ func namespaceToMap(ns *Namespace, serviceCount int32) map[string]any {
 func serviceToMap(svc *Service, instanceCount int32) map[string]any {
 	var dnsConfig any
 	var healthConfig any
-	json.Unmarshal([]byte(svc.DnsConfig), &dnsConfig)
-	json.Unmarshal([]byte(svc.HealthConfig), &healthConfig)
+	_ = json.Unmarshal([]byte(svc.DnsConfig), &dnsConfig)
+	_ = json.Unmarshal([]byte(svc.HealthConfig), &healthConfig)
 	return map[string]any{
 		"Id":                svc.ID,
 		"Arn":               svc.ARN,
@@ -748,7 +748,7 @@ func serviceToMap(svc *Service, instanceCount int32) map[string]any {
 
 func instanceToMap(inst *Instance) map[string]any {
 	var attrs map[string]string
-	json.Unmarshal([]byte(inst.Attributes), &attrs)
+	_ = json.Unmarshal([]byte(inst.Attributes), &attrs)
 	return map[string]any{
 		"Id":         inst.ID,
 		"Attributes": attrs,
@@ -757,7 +757,7 @@ func instanceToMap(inst *Instance) map[string]any {
 
 func instanceSummaryToMap(inst *Instance) map[string]any {
 	var attrs map[string]string
-	json.Unmarshal([]byte(inst.Attributes), &attrs)
+	_ = json.Unmarshal([]byte(inst.Attributes), &attrs)
 	return map[string]any{
 		"Id":         inst.ID,
 		"Attributes": attrs,

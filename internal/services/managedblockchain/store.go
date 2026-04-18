@@ -176,7 +176,7 @@ func (s *Store) ListNetworks() ([]Network, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []Network
 	for rows.Next() {
 		n, err := scanNetwork(rows)
@@ -226,7 +226,7 @@ func (s *Store) ListMembers(networkID string) ([]Member, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []Member
 	for rows.Next() {
 		m, err := scanMember(rows)
@@ -301,7 +301,7 @@ func (s *Store) ListNodes(networkID, memberID string) ([]Node, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []Node
 	for rows.Next() {
 		n, err := scanNode(rows)
@@ -378,7 +378,7 @@ func (s *Store) ListProposals(networkID string) ([]Proposal, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []Proposal
 	for rows.Next() {
 		p, err := scanProposal(rows)
@@ -429,7 +429,7 @@ func (s *Store) ListAccessors() ([]Accessor, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []Accessor
 	for rows.Next() {
 		a, err := scanAccessor(rows)

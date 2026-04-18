@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 
@@ -285,7 +284,7 @@ func (p *Provider) handleCreateStack(form url.Values) (*plugin.Response, error) 
 	// Parse tags
 	tags := parseTagsForm(form)
 	if len(tags) > 0 {
-		p.store.AddTags(arn, tags)
+		p.store.AddTags(arn, tags) //nolint:errcheck
 	}
 
 	// Provision the template via the engine.  The engine updates the
@@ -419,7 +418,7 @@ func (p *Provider) handleDeleteStack(form url.Values) (*plugin.Response, error) 
 		return nil, err
 	}
 	if st != nil {
-		p.store.DeleteAllTags(st.ARN)
+		p.store.DeleteAllTags(st.ARN) //nolint:errcheck
 	}
 
 	type result struct {
@@ -446,9 +445,6 @@ func (p *Provider) handleDescribeStacks(form url.Values) (*plugin.Response, erro
 		}
 	}
 
-	type stackMember struct {
-		stackXML
-	}
 	type result struct {
 		XMLName xml.Name `xml:"DescribeStacksResponse"`
 		Result  struct {
@@ -785,7 +781,7 @@ func (p *Provider) handleExecuteChangeSet(form url.Values) (*plugin.Response, er
 func (p *Provider) handleDeleteChangeSet(form url.Values) (*plugin.Response, error) {
 	stackName := form.Get("StackName")
 	csName := form.Get("ChangeSetName")
-	p.store.DeleteChangeSet(stackName, csName) // ignore error (idempotent)
+	p.store.DeleteChangeSet(stackName, csName) //nolint:errcheck
 	type result struct {
 		XMLName xml.Name `xml:"DeleteChangeSetResponse"`
 		Result  struct{} `xml:"DeleteChangeSetResult"`
@@ -1668,9 +1664,4 @@ func parseParamsMap(form url.Values) map[string]string {
 		out[k] = v
 	}
 	return out
-}
-
-// formatInt converts int64 to string.
-func formatInt(n int64) string {
-	return strconv.FormatInt(n, 10)
 }

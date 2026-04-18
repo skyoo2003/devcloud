@@ -588,7 +588,7 @@ func (p *Provider) initiateMultipartUpload(vaultName string, req *http.Request) 
 
 	description := req.Header.Get("x-amz-archive-description")
 	var partSize int64
-	fmt.Sscanf(req.Header.Get("x-amz-part-size"), "%d", &partSize)
+	_, _ = fmt.Sscanf(req.Header.Get("x-amz-part-size"), "%d", &partSize)
 
 	id := shared.GenerateID("", 64)
 	u := &MultipartUpload{
@@ -630,7 +630,7 @@ func (p *Provider) uploadMultipartPart(vaultName, uploadID string, req *http.Req
 	if rangeHdr != "" {
 		// Format: bytes start-end/*
 		var start, end int64
-		fmt.Sscanf(rangeHdr, "bytes %d-%d/*", &start, &end)
+		_, _ = fmt.Sscanf(rangeHdr, "bytes %d-%d/*", &start, &end)
 		rangeStart = start
 		rangeEnd = end
 	}
@@ -690,8 +690,8 @@ func (p *Provider) completeMultipartUpload(vaultName, uploadID string, req *http
 		return nil, err
 	}
 
-	p.store.DeleteMultipartParts(uploadID)
-	p.store.DeleteMultipartUploadRecord(uploadID)
+	p.store.DeleteMultipartParts(uploadID)        //nolint:errcheck
+	p.store.DeleteMultipartUploadRecord(uploadID) //nolint:errcheck
 
 	resp, err := shared.JSONResponse(http.StatusOK, map[string]any{
 		"ArchiveId": archiveID,

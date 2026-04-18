@@ -197,7 +197,7 @@ func (s *CWStore) ListMetrics(accountID, namespace, metricName string) ([]Metric
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var metrics []MetricIdentifier
 	for rows.Next() {
 		var m MetricIdentifier
@@ -219,7 +219,7 @@ func (s *CWStore) GetMetricData(accountID, namespace, metricName string, startTi
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var points []MetricDataPoint
 	for rows.Next() {
 		var dp MetricDataPoint
@@ -274,7 +274,7 @@ func (s *CWStore) DescribeAlarms(accountID string, alarmNames []string) ([]Alarm
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanAlarms(rows)
 }
 
@@ -389,7 +389,7 @@ func (s *CWStore) ListDashboards(accountID, prefix string) ([]Dashboard, error) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var dashboards []Dashboard
 	for rows.Next() {
 		var d Dashboard
@@ -451,7 +451,7 @@ func (s *CWStore) DescribeCompositeAlarms(accountID string, alarmNames []string)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var alarms []CompositeAlarm
 	for rows.Next() {
 		var a CompositeAlarm
@@ -509,7 +509,7 @@ func (s *CWStore) DescribeAlarmHistory(accountID, alarmName, historyItemType, st
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []AlarmHistoryItem
 	for rows.Next() {
 		var item AlarmHistoryItem
@@ -529,7 +529,7 @@ func (s *CWStore) DescribeAlarmsForMetric(accountID, metricName, namespace strin
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanAlarms(rows)
 }
 
@@ -580,7 +580,7 @@ func (s *CWStore) DescribeAnomalyDetectors(accountID, namespace, metricName stri
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var detectors []AnomalyDetector
 	for rows.Next() {
 		var d AnomalyDetector

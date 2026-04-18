@@ -164,7 +164,7 @@ func (s *Store) ListBlocks(snapshotID string, startIndex int32) ([]SnapshotBlock
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var blocks []SnapshotBlock
 	for rows.Next() {
 		var b SnapshotBlock
@@ -192,7 +192,7 @@ func (s *Store) ListChangedBlocks(firstSnapshotID, secondSnapshotID string, star
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var blocks []SnapshotBlock
 	for rows.Next() {
 		var b SnapshotBlock
@@ -214,7 +214,7 @@ func (s *Store) ListSnapshots() ([]Snapshot, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var snaps []Snapshot
 	for rows.Next() {
 		snap, err := scanSnapshot(rows)
@@ -247,7 +247,7 @@ func (s *Store) ListVolumeModifications(volumeID string) ([]VolumeModification, 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var mods []VolumeModification
 	for rows.Next() {
 		var m VolumeModification

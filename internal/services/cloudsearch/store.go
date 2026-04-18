@@ -141,7 +141,7 @@ func (s *Store) ListDomains(names []string) ([]Domain, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var domains []Domain
 	for rows.Next() {
 		d, err := scanDomain(rows)
@@ -211,7 +211,7 @@ func (s *Store) ListIndexFields(domainName string, fieldNames []string) ([]Index
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var fields []IndexField
 	for rows.Next() {
 		var f IndexField
@@ -259,7 +259,7 @@ func (s *Store) ListDomainConfigs(domainName, configType string) ([]DomainConfig
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var cfgs []DomainConfig
 	for rows.Next() {
 		var c DomainConfig

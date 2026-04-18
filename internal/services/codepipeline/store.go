@@ -126,7 +126,7 @@ func (s *Store) ListPipelines() ([]Pipeline, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var pipelines []Pipeline
 	for rows.Next() {
 		p, err := scanPipeline(rows)
@@ -201,7 +201,7 @@ func (s *Store) ListExecutions(pipelineName string) ([]PipelineExecution, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var execs []PipelineExecution
 	for rows.Next() {
 		e, err := scanExecution(rows)
@@ -266,7 +266,7 @@ func (s *Store) ListWebhooks() ([]Webhook, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var webhooks []Webhook
 	for rows.Next() {
 		w, err := scanWebhook(rows)

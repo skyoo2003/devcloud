@@ -236,7 +236,7 @@ func (p *Provider) createPipeline(params map[string]any) (*plugin.Response, erro
 	}
 	// Handle tags
 	if rawTags, ok := params["tags"].([]any); ok {
-		p.store.tags.AddTags(pl.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(pl.ARN, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"pipeline": pipelineToMap(pl),
@@ -315,7 +315,7 @@ func (p *Provider) deletePipeline(params map[string]any) (*plugin.Response, erro
 	if err != nil {
 		return shared.JSONError("PipelineNotFoundException", "pipeline not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(pl.ARN)
+	_ = p.store.tags.DeleteAllTags(pl.ARN)
 	if err := p.store.DeletePipeline(name); err != nil {
 		return shared.JSONError("PipelineNotFoundException", "pipeline not found", http.StatusBadRequest), nil
 	}
@@ -399,7 +399,7 @@ func (p *Provider) getPipelineState(params map[string]any) (*plugin.Response, er
 		return shared.JSONError("PipelineNotFoundException", "pipeline not found", http.StatusBadRequest), nil
 	}
 	var stages []any
-	json.Unmarshal([]byte(pl.Stages), &stages)
+	_ = json.Unmarshal([]byte(pl.Stages), &stages)
 	stageStates := make([]map[string]any, 0, len(stages))
 	for _, s := range stages {
 		sm, _ := s.(map[string]any)
@@ -456,7 +456,7 @@ func (p *Provider) putWebhook(params map[string]any) (*plugin.Response, error) {
 	}
 	// Handle tags
 	if rawTags, ok := params["tags"].([]any); ok {
-		p.store.tags.AddTags(wh.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(wh.ARN, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"webhook": webhookToMap(wh),
@@ -490,7 +490,7 @@ func (p *Provider) deleteWebhook(params map[string]any) (*plugin.Response, error
 	if err != nil {
 		return shared.JSONError("WebhookNotFoundException", "webhook not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(wh.ARN)
+	_ = p.store.tags.DeleteAllTags(wh.ARN)
 	if err := p.store.DeleteWebhook(name); err != nil {
 		return shared.JSONError("WebhookNotFoundException", "webhook not found", http.StatusBadRequest), nil
 	}
@@ -551,7 +551,7 @@ func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response,
 
 func pipelineToMap(pl *Pipeline) map[string]any {
 	var stages any
-	json.Unmarshal([]byte(pl.Stages), &stages)
+	_ = json.Unmarshal([]byte(pl.Stages), &stages)
 	if stages == nil {
 		stages = []any{}
 	}
@@ -575,12 +575,12 @@ func executionToMap(e *PipelineExecution) map[string]any {
 
 func webhookToMap(wh *Webhook) map[string]any {
 	var filters any
-	json.Unmarshal([]byte(wh.Filters), &filters)
+	_ = json.Unmarshal([]byte(wh.Filters), &filters)
 	if filters == nil {
 		filters = []any{}
 	}
 	var authCfg any
-	json.Unmarshal([]byte(wh.AuthConfig), &authCfg)
+	_ = json.Unmarshal([]byte(wh.AuthConfig), &authCfg)
 	return map[string]any{
 		"name":                        wh.Name,
 		"targetPipeline":              wh.Pipeline,

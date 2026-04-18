@@ -136,7 +136,7 @@ func (s *Store) ListStreams(streamType string) ([]DeliveryStream, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var streams []DeliveryStream
 	for rows.Next() {
 		st, err := scanStream(rows)
@@ -224,7 +224,7 @@ func (s *Store) GetKinesisSources(streamName string) ([]KinesisSource, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []KinesisSource
 	for rows.Next() {
 		var ks KinesisSource

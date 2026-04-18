@@ -23,8 +23,8 @@ func newTestProvider(t *testing.T) *Provider {
 		t.Fatalf("Init: %v", err)
 	}
 	t.Cleanup(func() {
-		p.Shutdown(context.Background())
-		os.RemoveAll(dir)
+		_ = p.Shutdown(context.Background())
+		_ = os.RemoveAll(dir)
 	})
 	return p
 }

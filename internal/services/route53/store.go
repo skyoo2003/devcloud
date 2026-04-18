@@ -200,7 +200,7 @@ func (s *Route53Store) ListZones(accountID string) ([]HostedZone, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var zones []HostedZone
 	for rows.Next() {
 		z, err := scanZone(rows)
@@ -300,7 +300,7 @@ func (s *Route53Store) ListRecords(zoneID, accountID string) ([]RecordSet, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var recs []RecordSet
 	for rows.Next() {
 		r, err := scanRecord(rows)
@@ -404,7 +404,7 @@ func (s *Route53Store) ListHealthChecks(accountID string) ([]HealthCheck, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var hcs []HealthCheck
 	for rows.Next() {
 		hc, err := scanHealthCheck(rows)
@@ -535,7 +535,7 @@ func (s *Route53Store) ListTrafficPolicies(accountID string) ([]TrafficPolicy, e
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tps []TrafficPolicy
 	for rows.Next() {
 		tp, err := scanTrafficPolicy(rows)
@@ -650,7 +650,7 @@ func (s *Route53Store) ListTrafficPolicyInstances(accountID string) ([]TrafficPo
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tpis []TrafficPolicyInstance
 	for rows.Next() {
 		var tpi TrafficPolicyInstance
@@ -704,7 +704,7 @@ func (s *Route53Store) ListQueryLoggingConfigs(accountID string) ([]QueryLogging
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var qlcs []QueryLoggingConfig
 	for rows.Next() {
 		var qlc QueryLoggingConfig
@@ -817,7 +817,7 @@ func (s *Route53Store) ListKeySigningKeys(accountID string) ([]KeySigningKey, er
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var kss []KeySigningKey
 	for rows.Next() {
 		var kssItem KeySigningKey
@@ -874,7 +874,7 @@ func (s *Route53Store) ListCidrCollections(accountID string) ([]CidrCollection, 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var cc []CidrCollection
 	for rows.Next() {
 		var c CidrCollection
@@ -953,7 +953,7 @@ func (s *Route53Store) ListReusableDelegationSets(accountID string) ([]ReusableD
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var ds []ReusableDelegationSet
 	for rows.Next() {
 		var d ReusableDelegationSet

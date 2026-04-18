@@ -48,7 +48,7 @@ func (p *S3TablesProvider) HandleRequest(_ context.Context, op string, req *http
 	body, _ := io.ReadAll(req.Body)
 	var params map[string]any
 	if len(body) > 0 {
-		json.Unmarshal(body, &params)
+		_ = json.Unmarshal(body, &params)
 	}
 	if params == nil {
 		params = map[string]any{}
@@ -493,7 +493,7 @@ func (p *S3TablesProvider) deleteTablePolicy(req *http.Request) (*plugin.Respons
 	if err != nil {
 		return jsonError("NotFoundException", "table not found", http.StatusNotFound), nil
 	}
-	p.store.DeletePolicy(t.ARN)
+	p.store.DeletePolicy(t.ARN) //nolint:errcheck
 	return jsonResponse(http.StatusNoContent, nil)
 }
 
@@ -529,7 +529,7 @@ func (p *S3TablesProvider) deleteTableBucketPolicy(req *http.Request) (*plugin.R
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
 	}
-	p.store.DeletePolicy(b.ARN)
+	p.store.DeletePolicy(b.ARN) //nolint:errcheck
 	return jsonResponse(http.StatusNoContent, nil)
 }
 
@@ -552,7 +552,7 @@ func (p *S3TablesProvider) getTableEncryption(req *http.Request) (*plugin.Respon
 		cfg = `{"sseAlgorithm":"AES256"}`
 	}
 	var m map[string]any
-	json.Unmarshal([]byte(cfg), &m)
+	_ = json.Unmarshal([]byte(cfg), &m)
 	return jsonResponse(http.StatusOK, map[string]any{"encryptionConfiguration": m})
 }
 
@@ -591,7 +591,7 @@ func (p *S3TablesProvider) deleteTableEncryption(req *http.Request) (*plugin.Res
 	if err != nil {
 		return jsonError("NotFoundException", "table not found", http.StatusNotFound), nil
 	}
-	p.store.DeleteEncryption(t.ARN)
+	p.store.DeleteEncryption(t.ARN) //nolint:errcheck
 	return jsonResponse(http.StatusNoContent, nil)
 }
 
@@ -606,7 +606,7 @@ func (p *S3TablesProvider) getTableBucketEncryption(req *http.Request) (*plugin.
 		cfg = `{"sseAlgorithm":"AES256"}`
 	}
 	var m map[string]any
-	json.Unmarshal([]byte(cfg), &m)
+	_ = json.Unmarshal([]byte(cfg), &m)
 	return jsonResponse(http.StatusOK, map[string]any{"encryptionConfiguration": m})
 }
 
@@ -633,7 +633,7 @@ func (p *S3TablesProvider) deleteTableBucketEncryption(req *http.Request) (*plug
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
 	}
-	p.store.DeleteEncryption(b.ARN)
+	p.store.DeleteEncryption(b.ARN) //nolint:errcheck
 	return jsonResponse(http.StatusNoContent, nil)
 }
 
@@ -658,7 +658,7 @@ func (p *S3TablesProvider) getTableMaintenanceConfiguration(req *http.Request) (
 	out := map[string]any{}
 	for k, v := range cfgs {
 		var m map[string]any
-		json.Unmarshal([]byte(v), &m)
+		_ = json.Unmarshal([]byte(v), &m)
 		out[k] = m
 	}
 	return jsonResponse(http.StatusOK, map[string]any{
@@ -710,7 +710,7 @@ func (p *S3TablesProvider) getTableBucketMaintenanceConfiguration(req *http.Requ
 	out := map[string]any{}
 	for k, v := range cfgs {
 		var m map[string]any
-		json.Unmarshal([]byte(v), &m)
+		_ = json.Unmarshal([]byte(v), &m)
 		out[k] = m
 	}
 	return jsonResponse(http.StatusOK, map[string]any{

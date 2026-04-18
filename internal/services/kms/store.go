@@ -170,7 +170,7 @@ func (s *KMSStore) ListKeys(accountID string) ([]Key, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var keys []Key
 	for rows.Next() {
 		var k Key
@@ -198,7 +198,7 @@ func (s *KMSStore) ListAliases(accountID string) ([]Alias, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var aliases []Alias
 	for rows.Next() {
 		var a Alias
@@ -333,7 +333,7 @@ func (s *KMSStore) ListGrants(keyID, accountID string) ([]Grant, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanGrants(rows)
 }
 
@@ -346,7 +346,7 @@ func (s *KMSStore) ListRetirableGrants(retiringPrincipal, accountID string) ([]G
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanGrants(rows)
 }
 

@@ -111,7 +111,7 @@ func (s *Store) ListResources(typeName, accountID string) ([]CCResource, error) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var resources []CCResource
 	for rows.Next() {
 		var r CCResource
@@ -190,7 +190,7 @@ func (s *Store) ListRequests(accountID string) ([]CCRequest, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var requests []CCRequest
 	for rows.Next() {
 		var r CCRequest

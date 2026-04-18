@@ -155,7 +155,7 @@ func (s *Store) ListShares(status string) ([]ResourceShare, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var shares []ResourceShare
 	for rows.Next() {
 		rs, err := scanShare(rows)
@@ -238,7 +238,7 @@ func (s *Store) ListAssociations(shareARN, assocType string) ([]ShareAssociation
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var assocs []ShareAssociation
 	for rows.Next() {
 		var a ShareAssociation
@@ -291,7 +291,7 @@ func (s *Store) ListInvitations(shareARN string) ([]ShareInvitation, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var invs []ShareInvitation
 	for rows.Next() {
 		inv, err := scanInvitation(rows)
@@ -351,7 +351,7 @@ func (s *Store) ListPermissions(resourceType string) ([]Permission, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var perms []Permission
 	for rows.Next() {
 		perm, err := scanPermission(rows)

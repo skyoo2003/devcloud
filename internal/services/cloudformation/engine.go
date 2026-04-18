@@ -694,7 +694,7 @@ func resolveSelect(v any, cache *attrCache, params map[string]string) (any, erro
 	case float64:
 		idx = int(n)
 	case string:
-		fmt.Sscanf(n, "%d", &idx)
+		_, _ = fmt.Sscanf(n, "%d", &idx)
 	}
 	items, ok := arr[1].([]any)
 	if !ok {

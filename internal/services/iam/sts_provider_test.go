@@ -25,7 +25,7 @@ func newTestSTSProvider(t *testing.T) *STSProvider {
 		},
 	})
 	require.NoError(t, err)
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 

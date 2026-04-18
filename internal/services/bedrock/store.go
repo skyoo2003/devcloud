@@ -105,7 +105,7 @@ func (s *Store) ListCustomizationJobs(accountID string) ([]*CustomizationJob, er
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*CustomizationJob
 	for rows.Next() {
 		j, err := scanCustomizationJob(rows)
@@ -181,7 +181,7 @@ func (s *Store) ListCustomModels(accountID string) ([]*CustomModel, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*CustomModel
 	for rows.Next() {
 		m, err := scanCustomModel(rows)
@@ -262,7 +262,7 @@ func (s *Store) ListGuardrails(accountID string) ([]*Guardrail, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*Guardrail
 	for rows.Next() {
 		g, err := scanGuardrail(rows)
@@ -339,11 +339,11 @@ func (s *Store) ListTags(arn string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	out := map[string]string{}
 	for rows.Next() {
 		var k, v string
-		rows.Scan(&k, &v)
+		_ = rows.Scan(&k, &v)
 		out[k] = v
 	}
 	return out, rows.Err()

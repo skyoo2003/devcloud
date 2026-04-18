@@ -22,7 +22,7 @@ func newTestProvider(t *testing.T) *Provider {
 	if err := p.Init(plugin.PluginConfig{DataDir: dir}); err != nil {
 		t.Fatalf("Init: %v", err)
 	}
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 
@@ -39,7 +39,7 @@ func call(t *testing.T, p *Provider, action string, body map[string]any) map[str
 		t.Fatalf("%s: unexpected status %d: %s", action, resp.StatusCode, string(resp.Body))
 	}
 	var out map[string]any
-	json.Unmarshal(resp.Body, &out)
+	_ = json.Unmarshal(resp.Body, &out)
 	return out
 }
 

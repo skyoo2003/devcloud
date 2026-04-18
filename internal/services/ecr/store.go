@@ -177,7 +177,7 @@ func (s *ECRStore) DeleteRepository(accountID, name string) error {
 	if n == 0 {
 		return ErrRepositoryNotFound
 	}
-	s.db().Exec(`DELETE FROM images WHERE repo_name=? AND account_id=?`, name, accountID)
+	_, _ = s.db().Exec(`DELETE FROM images WHERE repo_name=? AND account_id=?`, name, accountID)
 	return nil
 }
 
@@ -201,7 +201,7 @@ func (s *ECRStore) DescribeRepositories(accountID string, names []string) ([]Rep
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Repository
 	for rows.Next() {
 		var r Repository
@@ -242,7 +242,7 @@ func (s *ECRStore) DescribeImages(accountID, repoName string) ([]Image, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Image
 	for rows.Next() {
 		var img Image
@@ -294,9 +294,9 @@ func (s *ECRStore) BatchDeleteImage(accountID, repoName string, imageIDs []map[s
 		digest := id["imageDigest"]
 		tag := id["imageTag"]
 		if digest != "" {
-			s.db().Exec(`DELETE FROM images WHERE repo_name=? AND account_id=? AND image_digest=?`, repoName, accountID, digest)
+			_, _ = s.db().Exec(`DELETE FROM images WHERE repo_name=? AND account_id=? AND image_digest=?`, repoName, accountID, digest)
 		} else if tag != "" {
-			s.db().Exec(`DELETE FROM images WHERE repo_name=? AND account_id=? AND image_tag=?`, repoName, accountID, tag)
+			_, _ = s.db().Exec(`DELETE FROM images WHERE repo_name=? AND account_id=? AND image_tag=?`, repoName, accountID, tag)
 		}
 	}
 	return nil
@@ -311,7 +311,7 @@ func (s *ECRStore) ListImages(accountID, repoName string) ([]map[string]string, 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []map[string]string
 	for rows.Next() {
 		var digest, tag string
@@ -331,7 +331,7 @@ func (s *ECRStore) ListImages(accountID, repoName string) ([]map[string]string, 
 func (s *ECRStore) SetRepositoryPolicy(accountID, repoName, policyText string) error {
 	// Verify repository exists.
 	var exists int
-	s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
+	_ = s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
 	if exists == 0 {
 		return ErrRepositoryNotFound
 	}
@@ -347,7 +347,7 @@ func (s *ECRStore) SetRepositoryPolicy(accountID, repoName, policyText string) e
 func (s *ECRStore) GetRepositoryPolicy(accountID, repoName string) (string, error) {
 	// Verify repository exists.
 	var exists int
-	s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
+	_ = s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
 	if exists == 0 {
 		return "", ErrRepositoryNotFound
 	}
@@ -389,7 +389,7 @@ func (s *ECRStore) InitiateLayerUpload(accountID, repoName string) (string, erro
 func (s *ECRStore) UploadLayerPart(accountID, repoName, uploadID string, partFirst, partLast int64, blob []byte) error {
 	// Verify upload exists.
 	var exists int
-	s.db().QueryRow(`SELECT COUNT(*) FROM layers WHERE upload_id=? AND repo_name=? AND account_id=?`, uploadID, repoName, accountID).Scan(&exists)
+	_ = s.db().QueryRow(`SELECT COUNT(*) FROM layers WHERE upload_id=? AND repo_name=? AND account_id=?`, uploadID, repoName, accountID).Scan(&exists)
 	if exists == 0 {
 		return ErrLayerUploadNotFound
 	}
@@ -446,7 +446,7 @@ func (s *ECRStore) BatchCheckLayerAvailability(accountID, repoName string, diges
 		s.db().QueryRow(
 			`SELECT COUNT(*) FROM layers WHERE digest=? AND completed=1`,
 			d,
-		).Scan(&count)
+		).Scan(&count) //nolint:errcheck
 		availability := "UNAVAILABLE"
 		if count > 0 {
 			availability = "AVAILABLE"
@@ -462,7 +462,7 @@ func (s *ECRStore) BatchCheckLayerAvailability(accountID, repoName string, diges
 // GetDownloadURLForLayer returns a stub download URL for a layer by digest.
 func (s *ECRStore) GetDownloadURLForLayer(accountID, repoName, digest string) (string, error) {
 	var count int
-	s.db().QueryRow(`SELECT COUNT(*) FROM layers WHERE digest=? AND completed=1`, digest).Scan(&count)
+	_ = s.db().QueryRow(`SELECT COUNT(*) FROM layers WHERE digest=? AND completed=1`, digest).Scan(&count)
 	if count == 0 {
 		return "", ErrLayerUploadNotFound
 	}
@@ -474,7 +474,7 @@ func (s *ECRStore) GetDownloadURLForLayer(accountID, repoName, digest string) (s
 // PutLifecyclePolicy upserts a lifecycle policy for a repository.
 func (s *ECRStore) PutLifecyclePolicy(accountID, repoName, policyText string) error {
 	var exists int
-	s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
+	_ = s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
 	if exists == 0 {
 		return ErrRepositoryNotFound
 	}
@@ -489,7 +489,7 @@ func (s *ECRStore) PutLifecyclePolicy(accountID, repoName, policyText string) er
 // GetLifecyclePolicy returns the lifecycle policy for a repository.
 func (s *ECRStore) GetLifecyclePolicy(accountID, repoName string) (string, error) {
 	var exists int
-	s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
+	_ = s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
 	if exists == 0 {
 		return "", ErrRepositoryNotFound
 	}
@@ -510,7 +510,7 @@ func (s *ECRStore) GetLifecyclePolicy(accountID, repoName string) (string, error
 // DeleteLifecyclePolicy deletes the lifecycle policy for a repository.
 func (s *ECRStore) DeleteLifecyclePolicy(accountID, repoName string) error {
 	var exists int
-	s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
+	_ = s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
 	if exists == 0 {
 		return ErrRepositoryNotFound
 	}
@@ -553,7 +553,7 @@ func (s *ECRStore) TagResource(repoARN string, tags []map[string]string) error {
 // UntagResource removes tags by key for a resource ARN.
 func (s *ECRStore) UntagResource(repoARN string, tagKeys []string) error {
 	for _, key := range tagKeys {
-		s.db().Exec(`DELETE FROM repo_tags WHERE repo_arn=? AND tag_key=?`, repoARN, key)
+		_, _ = s.db().Exec(`DELETE FROM repo_tags WHERE repo_arn=? AND tag_key=?`, repoARN, key)
 	}
 	return nil
 }
@@ -567,7 +567,7 @@ func (s *ECRStore) ListTagsForResource(repoARN string) ([]map[string]string, err
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []map[string]string
 	for rows.Next() {
 		var k, v string
@@ -612,7 +612,7 @@ func (s *ECRStore) DescribeImageScanFindings(accountID, repoName, imageDigest st
 // PutImageScanningConfiguration updates the scan_on_push setting for a repository.
 func (s *ECRStore) PutImageScanningConfiguration(accountID, repoName string, scanOnPush bool) error {
 	var exists int
-	s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
+	_ = s.db().QueryRow(`SELECT COUNT(*) FROM repositories WHERE name=? AND account_id=?`, repoName, accountID).Scan(&exists)
 	if exists == 0 {
 		return ErrRepositoryNotFound
 	}
@@ -638,13 +638,4 @@ func (s *ECRStore) GetImageDigestByTag(accountID, repoName, imageTag string) (st
 		return "", ErrImageNotFound
 	}
 	return digest, err
-}
-
-// randToken returns a random hex token for auth.
-func randToken(n int) (string, error) {
-	b := make([]byte, n)
-	if _, err := rand.Read(b); err != nil {
-		return "", err
-	}
-	return hex.EncodeToString(b), nil
 }

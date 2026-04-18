@@ -104,7 +104,7 @@ func (s *Store) GetResources(tagFilters []TagFilter, resourceTypeFilters []strin
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	// Group by ARN
 	arnMap := map[string]*ResourceTagMapping{}
@@ -142,7 +142,7 @@ func (s *Store) GetTagKeys(accountID string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var keys []string
 	for rows.Next() {
 		var k string
@@ -162,7 +162,7 @@ func (s *Store) GetTagValues(key, accountID string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var vals []string
 	for rows.Next() {
 		var v string
@@ -226,7 +226,7 @@ func (s *Store) GetAllResourceARNs(accountID string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var arns []string
 	for rows.Next() {
 		var a string

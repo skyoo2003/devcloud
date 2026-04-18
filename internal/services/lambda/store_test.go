@@ -16,7 +16,7 @@ func newTestLambdaStore(t *testing.T) *LambdaStore {
 	codeDir := t.TempDir()
 	store, err := NewLambdaStore(dbPath, codeDir)
 	require.NoError(t, err)
-	t.Cleanup(func() { store.Close() })
+	t.Cleanup(func() { _ = store.Close() })
 	return store
 }
 

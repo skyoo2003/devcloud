@@ -100,7 +100,7 @@ func (s *Store) ListDomains() ([]Domain, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var domains []Domain
 	for rows.Next() {
 		d, err := scanDomain(rows)

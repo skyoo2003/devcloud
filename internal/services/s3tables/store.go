@@ -178,7 +178,7 @@ func (s *Store) ListBuckets() ([]Bucket, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var buckets []Bucket
 	for rows.Next() {
 		var b Bucket
@@ -244,7 +244,7 @@ func (s *Store) ListNamespaces(bucketARN string) ([]Namespace, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var nsList []Namespace
 	for rows.Next() {
 		var ns Namespace
@@ -321,7 +321,7 @@ func (s *Store) ListTables(bucketARN, namespace string) ([]Table, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tables []Table
 	for rows.Next() {
 		var t Table
@@ -471,7 +471,7 @@ func (s *Store) ListMaintenance(resourceARN string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	out := make(map[string]string)
 	for rows.Next() {
 		var k, v string

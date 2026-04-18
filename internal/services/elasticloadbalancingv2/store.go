@@ -198,7 +198,7 @@ func (s *Store) ListLoadBalancers(arns []string) ([]LoadBalancer, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var lbs []LoadBalancer
 	for rows.Next() {
 		lb, err := scanLoadBalancer(rows)
@@ -300,7 +300,7 @@ func (s *Store) ListTargetGroups(arns []string) ([]TargetGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tgs []TargetGroup
 	for rows.Next() {
 		tg, err := scanTargetGroup(rows)
@@ -364,7 +364,7 @@ func (s *Store) ListListeners(lbARN string) ([]Listener, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var listeners []Listener
 	for rows.Next() {
 		l, err := scanListener(rows)
@@ -389,7 +389,7 @@ func (s *Store) ListListenersByARNs(arns []string) ([]Listener, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var listeners []Listener
 	for rows.Next() {
 		l, err := scanListener(rows)
@@ -511,7 +511,7 @@ func (s *Store) ListRules(listenerARN string) ([]Rule, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var rules []Rule
 	for rows.Next() {
 		r, err := scanRule(rows)
@@ -533,7 +533,7 @@ func (s *Store) ListRulesByARNs(arns []string) ([]Rule, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var rules []Rule
 	for rows.Next() {
 		r, err := scanRule(rows)
@@ -609,7 +609,7 @@ func (s *Store) ListTargets(tgARN string) ([]Target, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var targets []Target
 	for rows.Next() {
 		var t Target

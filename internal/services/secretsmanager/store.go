@@ -180,7 +180,7 @@ func (s *SecretStore) ListSecrets(accountID string) ([]Secret, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var secrets []Secret
 	for rows.Next() {
 		var sec Secret
@@ -369,7 +369,7 @@ func (s *SecretStore) GetTags(arn string) ([]Tag, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tags []Tag
 	for rows.Next() {
 		var t Tag
@@ -460,7 +460,7 @@ func (s *SecretStore) ListSecretVersionIds(nameOrARN string, includeDeprecated b
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var versions []SecretVersionInfo
 	for rows.Next() {
 		var v SecretVersionInfo

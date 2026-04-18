@@ -145,7 +145,7 @@ func (s *Store) ListDatabases() ([]*DatabaseRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var dbs []*DatabaseRow
 	for rows.Next() {
 		db, err := scanDatabase(rows)
@@ -231,7 +231,7 @@ func (s *Store) ListTables(dbName string) ([]*TableRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tables []*TableRow
 	for rows.Next() {
 		t, err := scanTable(rows)
@@ -315,7 +315,7 @@ func (s *Store) ListBatchLoadTasks(statusFilter string) ([]*BatchLoadTaskRow, er
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tasks []*BatchLoadTaskRow
 	for rows.Next() {
 		t, err := scanBatchLoadTask(rows)
@@ -417,8 +417,8 @@ func dbRowToMap(r *DatabaseRow) map[string]any {
 func tableRowToMap(r *TableRow) map[string]any {
 	memHours := int64(6)
 	magDays := int64(73000)
-	fmt.Sscanf(r.RetentionMem, "%d", &memHours)
-	fmt.Sscanf(r.RetentionMag, "%d", &magDays)
+	_, _ = fmt.Sscanf(r.RetentionMem, "%d", &memHours)
+	_, _ = fmt.Sscanf(r.RetentionMag, "%d", &magDays)
 	return map[string]any{
 		"Arn":          r.ARN,
 		"TableName":    r.Name,

@@ -941,7 +941,7 @@ func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, upl
 	}
 
 	// Clean up parts directory
-	os.RemoveAll(p.multipartDir(uploadID))
+	_ = os.RemoveAll(p.multipartDir(uploadID))
 
 	// Remove upload from metadata
 	if err := p.metaStore.DeleteMultipartUpload(uploadID); err != nil {
@@ -970,7 +970,7 @@ func (p *S3Provider) abortMultipartUpload(_ context.Context, bucket, key, upload
 	_ = key
 
 	// Delete part files
-	os.RemoveAll(p.multipartDir(uploadID))
+	_ = os.RemoveAll(p.multipartDir(uploadID))
 
 	if err := p.metaStore.DeleteMultipartUpload(uploadID); err != nil {
 		return nil, err
@@ -1044,7 +1044,7 @@ func (p *S3Provider) deleteObjects(_ context.Context, bucket string, req *http.R
 		if err := p.fileStore.DeleteObject(defaultAccountID, bucket, obj.Key); err != nil && !os.IsNotExist(err) {
 			return nil, err
 		}
-		result.Deleted = append(result.Deleted, deletedObjectXML{Key: obj.Key})
+		result.Deleted = append(result.Deleted, deletedObjectXML(obj))
 	}
 
 	return xmlResponse(http.StatusOK, result)

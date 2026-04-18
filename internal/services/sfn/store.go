@@ -158,7 +158,7 @@ func (s *Store) ListStateMachines() ([]StateMachine, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var sms []StateMachine
 	for rows.Next() {
 		sm, err := scanStateMachine(rows)
@@ -230,7 +230,7 @@ func (s *Store) ListExecutions(stateMachineARN, statusFilter string) ([]Executio
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var execs []Execution
 	for rows.Next() {
 		ex, err := scanExecution(rows)
@@ -285,7 +285,7 @@ func (s *Store) ListActivities() ([]Activity, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var acts []Activity
 	for rows.Next() {
 		act, err := scanActivity(rows)
@@ -336,7 +336,7 @@ func (s *Store) ListAliases(stateMachineARN string) ([]StateMachineAlias, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var aliases []StateMachineAlias
 	for rows.Next() {
 		a, err := scanAlias(rows)

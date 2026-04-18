@@ -737,7 +737,7 @@ func grantsToList(grants []Grant) []map[string]any {
 	list := make([]map[string]any, 0, len(grants))
 	for _, g := range grants {
 		var ops []string
-		json.Unmarshal([]byte(g.Operations), &ops) //nolint:errcheck
+		_ = json.Unmarshal([]byte(g.Operations), &ops) //nolint:errcheck
 		entry := map[string]any{
 			"GrantId":          g.GrantID,
 			"GrantToken":       g.GrantToken,
