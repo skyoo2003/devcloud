@@ -46,10 +46,14 @@ def devcloud_server():
     # collide with stale data.  The directory is cleaned up after the session.
     data_dir = tempfile.mkdtemp(prefix="devcloud-test-")
 
+    config_path = os.path.join(project_root, "devcloud.yaml")
+
     if bin_path:
-        cmd = [bin_path, "-config", "devcloud.yaml"]
+        cmd = [bin_path]
     else:
-        cmd = ["go", "run", "./cmd/devcloud", "-config", "devcloud.yaml"]
+        cmd = ["go", "run", "./cmd/devcloud"]
+    if os.path.isfile(config_path):
+        cmd.extend(["-config", "devcloud.yaml"])
 
     env = os.environ.copy()
     env["CGO_ENABLED"] = "1"
@@ -59,10 +63,20 @@ def devcloud_server():
         cmd,
         cwd=project_root,
         env=env,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
     )
-    _wait_for_server(DEVCLOUD_URL)
+    try:
+        _wait_for_server(DEVCLOUD_URL)
+    except RuntimeError:
+        proc.kill()
+        proc.wait()
+        stderr = proc.stderr.read().decode(errors="replace")
+        raise RuntimeError(
+            f"devcloud server did not start within 30s.\n"
+            f"command: {' '.join(cmd)}\n"
+            f"stderr:\n{stderr}"
+        ) from None
     yield proc
     proc.send_signal(signal.SIGINT)
     try:
