@@ -41,7 +41,11 @@ func validateIdentifier(s, kind string) error {
 		return fmt.Errorf("shared: empty %s identifier", kind)
 	}
 	for _, r := range s {
-		if !((r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') || (r >= '0' && r <= '9') || r == '_') {
+		isLower := r >= 'a' && r <= 'z'
+		isUpper := r >= 'A' && r <= 'Z'
+		isDigit := r >= '0' && r <= '9'
+		isUnderscore := r == '_'
+		if !(isLower || isUpper || isDigit || isUnderscore) {
 			return fmt.Errorf("shared: invalid %s identifier: %q", kind, s)
 		}
 	}
