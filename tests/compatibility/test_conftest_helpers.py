@@ -1,8 +1,4 @@
 import io
-import os
-import sys
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from tests.compatibility.conftest import _build_devcloud_cmd, _start_server_error
 
