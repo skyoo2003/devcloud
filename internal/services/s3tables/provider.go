@@ -820,8 +820,8 @@ func resolveOp(method, path string) string {
 		return ""
 	}
 	n := len(parts)
-	switch {
-	case parts[0] == "buckets":
+	switch parts[0] {
+	case "buckets":
 		switch n {
 		case 1:
 			switch method {
@@ -875,7 +875,7 @@ func resolveOp(method, path string) string {
 				}
 			}
 		}
-	case parts[0] == "namespaces":
+	case "namespaces":
 		switch n {
 		case 2:
 			switch method {
@@ -894,7 +894,7 @@ func resolveOp(method, path string) string {
 				return "DeleteNamespace"
 			}
 		}
-	case parts[0] == "tables":
+	case "tables":
 		switch n {
 		case 2:
 			if method == http.MethodGet {
@@ -1004,7 +1004,7 @@ func resolveOp(method, path string) string {
 				}
 			}
 		}
-	case parts[0] == "get-table":
+	case "get-table":
 		if method == http.MethodGet {
 			return "GetTable"
 		}
