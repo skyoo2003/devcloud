@@ -5,4 +5,4 @@ set -e
 mkdir -p /app/data
 chown appuser:appuser /app/data
 
-exec "$@"
+exec su-exec appuser "$@"

@@ -152,3 +152,41 @@ func TestNewResourceStore_TrailingComma(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, rs)
 }
+
+func TestNewResourceStore_ValidIdentifiers(t *testing.T) {
+	db := newTestDB(t)
+
+	tests := []struct {
+		name      string
+		tableName string
+		primary   string
+		cols      string
+	}{
+		{
+			name:      "underscores",
+			tableName: "items",
+			primary:   "id",
+			cols:      "id, item_name, created_at",
+		},
+		{
+			name:      "digits_in_identifiers",
+			tableName: "items",
+			primary:   "id",
+			cols:      "id, name2, col3_v1",
+		},
+		{
+			name:      "trailing_comma",
+			tableName: "items",
+			primary:   "id",
+			cols:      "id, name,",
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			rs, err := NewResourceStore[testItem](db, tc.tableName, tc.primary, tc.cols, testScanner)
+			require.NoError(t, err)
+			require.NotNil(t, rs)
+		})
+	}
+}
