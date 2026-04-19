@@ -20,7 +20,8 @@ RUN go build -o /codegen ./cmd/codegen
 
 # Stage 3: Runtime
 FROM alpine:3.20
-RUN apk add --no-cache sqlite-libs ca-certificates
+RUN apk add --no-cache sqlite-libs ca-certificates su-exec
+RUN adduser -D -H -h /app appuser
 WORKDIR /app
 COPY --from=go-builder /devcloud /app/devcloud
 COPY --from=go-builder /codegen /app/codegen
@@ -28,8 +29,11 @@ COPY --from=web-builder /app/web/out /app/web/out
 COPY devcloud.yaml /app/devcloud.yaml
 COPY smithy-models/ /app/smithy-models/
 COPY internal/codegen/templates/ /app/templates/
+COPY docker/entrypoint.sh /app/entrypoint.sh
+RUN chown -R appuser:appuser /app
 
 EXPOSE 4747
 VOLUME /app/data
 
+ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["/app/devcloud", "-config", "/app/devcloud.yaml"]
