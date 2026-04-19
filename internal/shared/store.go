@@ -45,7 +45,7 @@ func validateIdentifier(s, kind string) error {
 		isUpper := r >= 'A' && r <= 'Z'
 		isDigit := r >= '0' && r <= '9'
 		isUnderscore := r == '_'
-		if !(isLower || isUpper || isDigit || isUnderscore) {
+		if !isLower && !isUpper && !isDigit && !isUnderscore {
 			return fmt.Errorf("shared: invalid %s identifier: %q", kind, s)
 		}
 	}
