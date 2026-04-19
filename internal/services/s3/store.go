@@ -23,14 +23,26 @@ func NewFileStore(baseDir string) *FileStore {
 	return &FileStore{baseDir: filepath.Clean(abs)}
 }
 
+// validPathComponent checks that a single path segment contains no path
+// separators, dot-only components, or empty values.
+func validPathComponent(part string) error {
+	if part == "" || part == "." || part == ".." {
+		return fmt.Errorf("invalid path component: %q", part)
+	}
+	if strings.ContainsAny(part, "/\\") ||
+		strings.ContainsFunc(part, func(r rune) bool { return os.IsPathSeparator(byte(r)) }) {
+		return fmt.Errorf("invalid path component: %q", part)
+	}
+	return nil
+}
+
 // safePath joins the components under baseDir and verifies the result does not
 // escape the base directory. It returns an error on path traversal attempts.
+// All components must be single path segments (no separators).
 func (fs *FileStore) safePath(parts ...string) (string, error) {
 	for _, part := range parts {
-		if part == "" || part == "." || part == ".." ||
-			strings.ContainsAny(part, "/\\") ||
-			strings.ContainsFunc(part, func(r rune) bool { return os.IsPathSeparator(byte(r)) }) {
-			return "", fmt.Errorf("invalid path component: %q", part)
+		if err := validPathComponent(part); err != nil {
+			return "", err
 		}
 	}
 
@@ -49,8 +61,30 @@ func (fs *FileStore) safePath(parts ...string) (string, error) {
 }
 
 // objectPath returns the absolute filesystem path for the given object.
+// Unlike safePath, the key may contain '/' (e.g. "photos/a.jpg") which is
+// valid for S3 object keys. Containment under baseDir is still enforced.
 func (fs *FileStore) objectPath(accountID, bucket, key string) (string, error) {
-	return fs.safePath(accountID, bucket, key)
+	if err := validPathComponent(accountID); err != nil {
+		return "", err
+	}
+	if err := validPathComponent(bucket); err != nil {
+		return "", err
+	}
+	if key == "" {
+		return "", fmt.Errorf("invalid path component: %q", key)
+	}
+
+	joined := filepath.Join(fs.baseDir, accountID, bucket, key)
+	cleaned := filepath.Clean(joined)
+
+	rel, err := filepath.Rel(fs.baseDir, cleaned)
+	if err != nil {
+		return "", fmt.Errorf("invalid path: %w", err)
+	}
+	if rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) || filepath.IsAbs(rel) {
+		return "", fmt.Errorf("path traversal detected: %s", cleaned)
+	}
+	return cleaned, nil
 }
 
 // bucketDir returns the absolute filesystem path for the given bucket.
