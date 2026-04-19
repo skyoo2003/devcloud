@@ -44,9 +44,11 @@ func TestS3Provider_ListBuckets(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 	req1 := httptest.NewRequest("PUT", "/bucket-a", nil)
-	_, _ = p.HandleRequest(context.Background(), "", req1)
+	_, err := p.HandleRequest(context.Background(), "", req1)
+	require.NoError(t, err)
 	req2 := httptest.NewRequest("PUT", "/bucket-b", nil)
-	_, _ = p.HandleRequest(context.Background(), "", req2)
+	_, err = p.HandleRequest(context.Background(), "", req2)
+	require.NoError(t, err)
 	req := httptest.NewRequest("GET", "/", nil)
 	resp, err := p.HandleRequest(context.Background(), "", req)
 	require.NoError(t, err)
@@ -59,7 +61,8 @@ func TestS3Provider_PutAndGetObject(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 	reqCreate := httptest.NewRequest("PUT", "/test-bucket", nil)
-	_, _ = p.HandleRequest(context.Background(), "", reqCreate)
+	_, err := p.HandleRequest(context.Background(), "", reqCreate)
+	require.NoError(t, err)
 	body := strings.NewReader("hello world")
 	reqPut := httptest.NewRequest("PUT", "/test-bucket/hello.txt", body)
 	reqPut.Header.Set("Content-Type", "text/plain")
@@ -77,9 +80,11 @@ func TestS3Provider_DeleteObject(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 	reqCreate := httptest.NewRequest("PUT", "/test-bucket", nil)
-	_, _ = p.HandleRequest(context.Background(), "", reqCreate)
+	_, err := p.HandleRequest(context.Background(), "", reqCreate)
+	require.NoError(t, err)
 	reqPut := httptest.NewRequest("PUT", "/test-bucket/hello.txt", strings.NewReader("data"))
-	_, _ = p.HandleRequest(context.Background(), "", reqPut)
+	_, err = p.HandleRequest(context.Background(), "", reqPut)
+	require.NoError(t, err)
 	reqDel := httptest.NewRequest("DELETE", "/test-bucket/hello.txt", nil)
 	resp, err := p.HandleRequest(context.Background(), "", reqDel)
 	require.NoError(t, err)
@@ -97,10 +102,12 @@ func TestS3Provider_ListObjectsV2(t *testing.T) {
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	// Create bucket and put 5 objects
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/v2-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/v2-bucket", nil))
+	require.NoError(t, err)
 	for i := 0; i < 5; i++ {
 		req := httptest.NewRequest("PUT", fmt.Sprintf("/v2-bucket/key%d", i), strings.NewReader("x"))
-		_, _ = p.HandleRequest(context.Background(), "", req)
+		_, err = p.HandleRequest(context.Background(), "", req)
+		require.NoError(t, err)
 	}
 
 	// First page: max-keys=2
@@ -130,10 +137,12 @@ func TestS3Provider_ListObjectsV2_WithPrefix(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/prefix-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/prefix-bucket", nil))
+	require.NoError(t, err)
 	for _, k := range []string{"foo/a", "foo/b", "bar/c"} {
 		req := httptest.NewRequest("PUT", "/prefix-bucket/"+k, strings.NewReader("data"))
-		_, _ = p.HandleRequest(context.Background(), "", req)
+		_, err = p.HandleRequest(context.Background(), "", req)
+		require.NoError(t, err)
 	}
 
 	req := httptest.NewRequest("GET", "/prefix-bucket?list-type=2&prefix=foo/", nil)
@@ -152,7 +161,8 @@ func TestS3Provider_MultipartUpload(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/mp-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/mp-bucket", nil))
+	require.NoError(t, err)
 
 	// Create multipart upload
 	reqCreate := httptest.NewRequest("POST", "/mp-bucket/big.bin?uploads", nil)
@@ -199,7 +209,8 @@ func TestS3Provider_AbortMultipartUpload(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/abort-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/abort-bucket", nil))
+	require.NoError(t, err)
 
 	// Create upload
 	reqCreate := httptest.NewRequest("POST", "/abort-bucket/obj?uploads", nil)
@@ -220,11 +231,13 @@ func TestS3Provider_ListMultipartUploads(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/list-mp-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/list-mp-bucket", nil))
+	require.NoError(t, err)
 
 	// Create two uploads
 	for _, key := range []string{"obj1", "obj2"} {
-		_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("POST", "/list-mp-bucket/"+key+"?uploads", nil))
+		_, err = p.HandleRequest(context.Background(), "", httptest.NewRequest("POST", "/list-mp-bucket/"+key+"?uploads", nil))
+		require.NoError(t, err)
 	}
 
 	reqList := httptest.NewRequest("GET", "/list-mp-bucket?uploads", nil)
@@ -241,9 +254,11 @@ func TestS3Provider_DeleteObjects(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/del-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/del-bucket", nil))
+	require.NoError(t, err)
 	for _, k := range []string{"a", "b", "c"} {
-		_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/del-bucket/"+k, strings.NewReader("data")))
+		_, err = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/del-bucket/"+k, strings.NewReader("data")))
+		require.NoError(t, err)
 	}
 
 	delBody := `<Delete><Object><Key>a</Key></Object><Object><Key>b</Key></Object></Delete>`
@@ -269,7 +284,8 @@ func TestS3Provider_BucketPolicy(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/pol-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/pol-bucket", nil))
+	require.NoError(t, err)
 
 	// No policy yet — should 404
 	resp, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("GET", "/pol-bucket?policy", nil))
@@ -299,7 +315,8 @@ func TestS3Provider_BucketLocation(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/loc-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/loc-bucket", nil))
+	require.NoError(t, err)
 	resp, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("GET", "/loc-bucket?location", nil))
 	require.NoError(t, err)
 	assert.Equal(t, 200, resp.StatusCode)
@@ -310,7 +327,8 @@ func TestS3Provider_BucketVersioning(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/ver-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/ver-bucket", nil))
+	require.NoError(t, err)
 
 	// Default: Suspended
 	resp, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("GET", "/ver-bucket?versioning", nil))
@@ -334,7 +352,8 @@ func TestS3Provider_BucketCors(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/cors-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/cors-bucket", nil))
+	require.NoError(t, err)
 
 	corsBody := `<CORSConfiguration><CORSRule><AllowedMethod>GET</AllowedMethod><AllowedOrigin>*</AllowedOrigin></CORSRule></CORSConfiguration>`
 	reqPut := httptest.NewRequest("PUT", "/cors-bucket?cors", strings.NewReader(corsBody))
@@ -358,7 +377,8 @@ func TestS3Provider_BucketTagging(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/tag-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/tag-bucket", nil))
+	require.NoError(t, err)
 
 	tagBody := `<Tagging><TagSet><Tag><Key>env</Key><Value>test</Value></Tag></TagSet></Tagging>`
 	reqPut := httptest.NewRequest("PUT", "/tag-bucket?tagging", strings.NewReader(tagBody))
@@ -387,8 +407,10 @@ func TestS3Provider_ObjectTagging(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/otag-bucket", nil))
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/otag-bucket/f.txt", strings.NewReader("data")))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/otag-bucket", nil))
+	require.NoError(t, err)
+	_, err = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/otag-bucket/f.txt", strings.NewReader("data")))
+	require.NoError(t, err)
 
 	tagBody := `<Tagging><TagSet><Tag><Key>status</Key><Value>active</Value></Tag></TagSet></Tagging>`
 	reqPut := httptest.NewRequest("PUT", "/otag-bucket/f.txt?tagging", strings.NewReader(tagBody))
@@ -413,7 +435,8 @@ func TestS3Provider_BucketACL(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/acl-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/acl-bucket", nil))
+	require.NoError(t, err)
 
 	// Default ACL should return FULL_CONTROL canned ACL
 	resp, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("GET", "/acl-bucket?acl", nil))
@@ -439,7 +462,8 @@ func TestS3Provider_BucketNotification(t *testing.T) {
 	p := newTestProvider(t)
 	defer func() { _ = p.Shutdown(context.Background()) }()
 
-	_, _ = p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/notif-bucket", nil))
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/notif-bucket", nil))
+	require.NoError(t, err)
 
 	// Default: empty config
 	resp, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("GET", "/notif-bucket?notification", nil))
