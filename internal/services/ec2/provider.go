@@ -17,7 +17,10 @@ import (
 	"github.com/skyoo2003/devcloud/internal/plugin"
 )
 
-const defaultAccountID = plugin.DefaultAccountID
+const (
+	defaultAccountID          = plugin.DefaultAccountID
+	maxRunInstancesBatchCount = 1000
+)
 
 // Provider implements the EC2 service (Query/XML protocol).
 type Provider struct {
@@ -191,9 +194,14 @@ func (p *Provider) handleRunInstances(form url.Values) (*plugin.Response, error)
 	instanceType := form.Get("InstanceType")
 	count := 1
 	if s := form.Get("MinCount"); s != "" {
-		if n, err := strconv.Atoi(s); err == nil && n > 0 {
-			count = n
+		n, err := strconv.Atoi(s)
+		if err != nil || n <= 0 {
+			return ec2XMLError("InvalidParameterValue", "MinCount must be a positive integer", http.StatusBadRequest), nil
 		}
+		if n > maxRunInstancesBatchCount {
+			return ec2XMLError("InvalidParameterValue", fmt.Sprintf("MinCount exceeds maximum allowed value (%d)", maxRunInstancesBatchCount), http.StatusBadRequest), nil
+		}
+		count = n
 	}
 
 	instances, err := p.store.RunInstances(defaultAccountID, imageID, instanceType, count)
