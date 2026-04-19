@@ -45,9 +45,18 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	for k, v := range resp.Headers {
 		w.Header().Set(k, v)
 	}
-	if resp.ContentType != "" {
-		w.Header().Set("Content-Type", resp.ContentType)
+	ct := resp.ContentType
+	if ct == "" {
+		ct = w.Header().Get("Content-Type")
 	}
+	if ct == "" {
+		ct = "application/octet-stream"
+	}
+	// Prevent XSS: never serve API responses as text/html.
+	if strings.HasPrefix(strings.ToLower(ct), "text/html") {
+		ct = "text/plain; charset=utf-8"
+	}
+	w.Header().Set("Content-Type", ct)
 	w.WriteHeader(resp.StatusCode)
 	_, _ = w.Write(resp.Body)
 }
