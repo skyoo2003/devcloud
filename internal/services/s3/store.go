@@ -53,7 +53,6 @@ func (fs *FileStore) safePath(parts ...string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("invalid path: %w", err)
 	}
-	// Ensure the resolved path is still under baseDir.
 	if rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) || filepath.IsAbs(rel) {
 		return "", fmt.Errorf("path traversal detected: %s", cleaned)
 	}
