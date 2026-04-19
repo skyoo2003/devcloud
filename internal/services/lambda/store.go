@@ -300,9 +300,22 @@ func (s *LambdaStore) DeleteFunction(accountID, functionName string) error {
 		return ErrFunctionNotFound
 	}
 
-	// Remove the code directory (best-effort; ignore errors).
-	codeDir := filepath.Join(s.codeDir, accountID, functionName)
-	_ = os.RemoveAll(codeDir)
+	// Remove the code directory (best-effort; ignore errors), but only if the
+	// resolved path stays within the configured base code directory.
+	baseDirAbs, err := filepath.Abs(filepath.Clean(s.codeDir))
+	if err != nil {
+		return err
+	}
+	codeDirAbs, err := filepath.Abs(filepath.Clean(filepath.Join(baseDirAbs, accountID, functionName)))
+	if err != nil {
+		return err
+	}
+	rel, err := filepath.Rel(baseDirAbs, codeDirAbs)
+	if err != nil || rel == ".." || strings.HasPrefix(rel, ".."+string(os.PathSeparator)) || filepath.IsAbs(rel) {
+		return fmt.Errorf("invalid function path")
+	}
+
+	_ = os.RemoveAll(codeDirAbs)
 
 	return nil
 }
