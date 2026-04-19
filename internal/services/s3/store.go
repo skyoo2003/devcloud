@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
 // FileStore is a simple filesystem-based object storage backend.
@@ -26,13 +25,25 @@ func NewFileStore(baseDir string) *FileStore {
 // safePath joins the components under baseDir and verifies the result does not
 // escape the base directory. It returns an error on path traversal attempts.
 func (fs *FileStore) safePath(parts ...string) (string, error) {
-	joined := filepath.Join(append([]string{fs.baseDir}, parts...)...)
-	cleaned := filepath.Clean(joined)
-	// Ensure the resolved path is still under baseDir.
-	if !strings.HasPrefix(cleaned, fs.baseDir+string(filepath.Separator)) && cleaned != fs.baseDir {
-		return "", fmt.Errorf("path traversal detected: %s", cleaned)
+	baseAbs, err := filepath.Abs(fs.baseDir)
+	if err != nil {
+		return "", fmt.Errorf("resolve base dir: %w", err)
 	}
-	return cleaned, nil
+
+	candidateAbs, err := filepath.Abs(filepath.Join(append([]string{baseAbs}, parts...)...))
+	if err != nil {
+		return "", fmt.Errorf("resolve candidate path: %w", err)
+	}
+
+	rel, err := filepath.Rel(baseAbs, candidateAbs)
+	if err != nil {
+		return "", fmt.Errorf("compute relative path: %w", err)
+	}
+	if rel == ".." || (len(rel) >= 3 && rel[:3] == ".."+string(filepath.Separator)) || filepath.IsAbs(rel) {
+		return "", fmt.Errorf("path traversal detected: %s", candidateAbs)
+	}
+
+	return candidateAbs, nil
 }
 
 // objectPath returns the absolute filesystem path for the given object.
