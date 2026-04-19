@@ -5,6 +5,7 @@ package gateway
 import (
 	"encoding/json"
 	"encoding/xml"
+	"mime"
 	"net/http"
 	"strings"
 
@@ -54,7 +55,7 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	// Prevent XSS: never serve API responses as text/html.
 	ct = strings.TrimSpace(ct)
-	if strings.HasPrefix(strings.ToLower(ct), "text/html") {
+	if mediaType, _, parseErr := mime.ParseMediaType(ct); parseErr == nil && strings.EqualFold(mediaType, "text/html") {
 		ct = "text/plain; charset=utf-8"
 	}
 	w.Header().Set("Content-Type", ct)

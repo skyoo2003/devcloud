@@ -112,3 +112,43 @@ func TestResourceStore_Count(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, 1, n)
 }
+
+func newTestDB(t *testing.T) *sqlite.Store {
+	t.Helper()
+	dbPath := t.TempDir() + "/test.db"
+	db, err := sqlite.Open(dbPath, testMigrations)
+	require.NoError(t, err)
+	t.Cleanup(func() { _ = db.Close() })
+	return db
+}
+
+func TestNewResourceStore_InvalidTable(t *testing.T) {
+	db := newTestDB(t)
+	_, err := NewResourceStore[testItem](db, "DROP TABLE items; --", "id", "id", testScanner)
+	assert.ErrorContains(t, err, "invalid table identifier")
+}
+
+func TestNewResourceStore_InvalidIdCol(t *testing.T) {
+	db := newTestDB(t)
+	_, err := NewResourceStore[testItem](db, "items", "id; --", "id", testScanner)
+	assert.ErrorContains(t, err, "invalid idCol identifier")
+}
+
+func TestNewResourceStore_InvalidCol(t *testing.T) {
+	db := newTestDB(t)
+	_, err := NewResourceStore[testItem](db, "items", "id", "id, name; --", testScanner)
+	assert.ErrorContains(t, err, "invalid col identifier")
+}
+
+func TestNewResourceStore_EmptyTable(t *testing.T) {
+	db := newTestDB(t)
+	_, err := NewResourceStore[testItem](db, "", "id", "id", testScanner)
+	assert.ErrorContains(t, err, "empty table identifier")
+}
+
+func TestNewResourceStore_TrailingComma(t *testing.T) {
+	db := newTestDB(t)
+	rs, err := NewResourceStore[testItem](db, "items", "id", "id, name,", testScanner)
+	require.NoError(t, err)
+	require.NotNil(t, rs)
+}

@@ -29,7 +29,11 @@ func NewResourceStore[T any](db *sqlite.Store, table, idCol, cols string, scanne
 		return nil, err
 	}
 	for _, c := range strings.Split(cols, ",") {
-		if err := validateIdentifier(strings.TrimSpace(c), "col"); err != nil {
+		c = strings.TrimSpace(c)
+		if c == "" {
+			continue
+		}
+		if err := validateIdentifier(c, "col"); err != nil {
 			return nil, err
 		}
 	}
