@@ -145,16 +145,46 @@ func (s *LambdaStore) Close() error {
 }
 
 // codePath returns the filesystem path for a function's code zip.
-// It validates the result stays under codeDir to prevent path traversal.
+// It validates path components and ensures the resolved path stays under codeDir.
 func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
+	isSafeComponent := func(v string) bool {
+		if v == "" || v == "." || v == ".." {
+			return false
+		}
+		if filepath.IsAbs(v) {
+			return false
+		}
+		if strings.Contains(v, "/") || strings.Contains(v, "\\") || strings.Contains(v, "..") {
+			return false
+		}
+		return true
+	}
+
+	if !isSafeComponent(accountID) || !isSafeComponent(functionName) {
+		return "", fmt.Errorf("invalid path component")
+	}
+
 	joined := filepath.Join(s.codeDir, accountID, functionName, "code.zip")
 	cleaned := filepath.Clean(joined)
-	absBase, _ := filepath.Abs(s.codeDir)
-	absCleaned, _ := filepath.Abs(cleaned)
-	if !strings.HasPrefix(absCleaned, absBase+string(filepath.Separator)) {
+
+	absBase, err := filepath.Abs(s.codeDir)
+	if err != nil {
+		return "", fmt.Errorf("resolve base code directory: %w", err)
+	}
+	absCleaned, err := filepath.Abs(cleaned)
+	if err != nil {
+		return "", fmt.Errorf("resolve code path: %w", err)
+	}
+
+	rel, err := filepath.Rel(absBase, absCleaned)
+	if err != nil {
+		return "", fmt.Errorf("compute relative code path: %w", err)
+	}
+	if rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) || filepath.IsAbs(rel) {
 		return "", fmt.Errorf("path traversal detected: %s", cleaned)
 	}
-	return cleaned, nil
+
+	return absCleaned, nil
 }
 
 // CreateFunction saves function metadata to SQLite and writes the code zip
