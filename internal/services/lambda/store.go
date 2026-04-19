@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -149,9 +150,19 @@ func (s *LambdaStore) Close() error {
 func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
 	joined := filepath.Join(s.codeDir, accountID, functionName, "code.zip")
 	cleaned := filepath.Clean(joined)
-	absBase, _ := filepath.Abs(s.codeDir)
-	absCleaned, _ := filepath.Abs(cleaned)
-	if !strings.HasPrefix(absCleaned, absBase+string(filepath.Separator)) {
+	absBase, err := filepath.Abs(s.codeDir)
+	if err != nil {
+		return "", fmt.Errorf("resolve base directory: %w", err)
+	}
+	absCleaned, err := filepath.Abs(cleaned)
+	if err != nil {
+		return "", fmt.Errorf("resolve code path: %w", err)
+	}
+	rel, err := filepath.Rel(absBase, absCleaned)
+	if err != nil {
+		return "", fmt.Errorf("compute relative path: %w", err)
+	}
+	if strings.HasPrefix(rel, "..") {
 		return "", fmt.Errorf("path traversal detected: %s", cleaned)
 	}
 	return cleaned, nil
@@ -304,10 +315,18 @@ func (s *LambdaStore) DeleteFunction(accountID, functionName string) error {
 	// resolved path stays within the configured base code directory.
 	codeDirAbs := filepath.Join(s.codeDir, accountID, functionName)
 	cleaned := filepath.Clean(codeDirAbs)
-	baseDirAbs, _ := filepath.Abs(s.codeDir)
-	absCleaned, _ := filepath.Abs(cleaned)
-	if strings.HasPrefix(absCleaned, baseDirAbs+string(filepath.Separator)) {
-		_ = os.RemoveAll(absCleaned)
+	baseDirAbs, err := filepath.Abs(s.codeDir)
+	if err == nil {
+		absCleaned, err := filepath.Abs(cleaned)
+		if err == nil {
+			rel, err := filepath.Rel(baseDirAbs, absCleaned)
+			if err == nil && !strings.HasPrefix(rel, "..") {
+				_ = os.RemoveAll(absCleaned)
+			} else {
+				slog.Debug("skipped code directory removal: path outside base directory",
+					"path", absCleaned, "base", baseDirAbs)
+			}
+		}
 	}
 
 	return nil
