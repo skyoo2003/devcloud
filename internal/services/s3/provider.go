@@ -27,6 +27,8 @@ import (
 
 const defaultAccountID = plugin.DefaultAccountID
 
+var uploadIDPattern = regexp.MustCompile(`^[a-fA-F0-9]{16,128}$`)
+
 // S3Provider implements plugin.ServicePlugin using FileStore and MetadataStore.
 type S3Provider struct {
 	fileStore  *FileStore
@@ -853,6 +855,9 @@ func (p *S3Provider) uploadPart(_ context.Context, bucket, key, uploadID, partNu
 	partNumber, err := strconv.Atoi(partNumberStr)
 	if err != nil || partNumber < 1 {
 		return xmlError("InvalidArgument", "invalid part number", http.StatusBadRequest), nil
+	}
+	if !uploadIDPattern.MatchString(uploadID) {
+		return xmlError("InvalidArgument", "invalid upload id", http.StatusBadRequest), nil
 	}
 
 	if _, err := p.metaStore.GetMultipartUpload(uploadID); err != nil {
