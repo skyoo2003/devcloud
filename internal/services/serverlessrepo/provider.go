@@ -457,6 +457,7 @@ func (p *ServerlessRepoProvider) createCloudFormationChangeSet(req *http.Request
 		"ApplicationId": appID, "applicationId": appID,
 		"ChangeSetId": cs.ChangeSetID, "changeSetId": cs.ChangeSetID,
 		"StackId":         "arn:aws:cloudformation:us-east-1:000000000000:stack/" + stackName,
+		"stackId":         "arn:aws:cloudformation:us-east-1:000000000000:stack/" + stackName,
 		"SemanticVersion": cs.SemanticVersion, "semanticVersion": cs.SemanticVersion,
 	})
 }

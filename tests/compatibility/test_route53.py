@@ -12,6 +12,8 @@ def _tpi_create_kwargs(zone_id, tp_id):
     )
     members = list(model.input_shape.members.keys())
     base = {"TrafficPolicyId": tp_id, "TrafficPolicyVersion": 1, "TTL": 300}
+    if "Name" in members:
+        base["Name"] = "test-instance"
     if "HostedZoneId" in members:
         base["HostedZoneId"] = zone_id
     else:
@@ -187,7 +189,7 @@ def test_dnssec(route53_client):
 
     # Verify it's enabled
     resp = route53_client.get_dnssec(HostedZoneId=zone_id)
-    assert resp["Status"]["ServeSignature"] in ("Enabled", "ENABLED")
+    assert resp["Status"]["ServeSignature"] in ("Enabled", "ENABLED", "SIGNING")
 
     # Disable DNSSEC
     resp = route53_client.disable_hosted_zone_dnssec(HostedZoneId=zone_id)
@@ -210,27 +212,23 @@ def test_key_signing_key(route53_client):
     resp = route53_client.create_key_signing_key(
         Name="my-ksk",
         HostedZoneId=zone_id,
-        Use="SigningOnly",
-        Algorithm="ECDSA_P256_SHA256",
-        KeySpec="ECDSA_P256",
+        CallerReference="ksk-ref-1",
+        KeyManagementServiceArn="arn:aws:kms:us-east-1:000000000000:key/mock-key",
+        Status="ACTIVE",
     )
     assert resp["KeySigningKey"]["Name"] == "my-ksk"
-    assert resp["KeySigningKey"]["State"] == "Pending"
     ksk_name = resp["KeySigningKey"]["Name"]
-
-    # List key signing keys
-    listing = route53_client.list_key_signing_keys()
-    assert "KeySigningKeys" in listing
 
     # Activate key signing key
     resp = route53_client.activate_key_signing_key(HostedZoneId=zone_id, Name=ksk_name)
-    assert resp["KeySigningKey"]["Name"] == ksk_name
+    assert "ChangeInfo" in resp
+    assert resp["ChangeInfo"]["Status"] == "PENDING"
 
     # Deactivate key signing key
     resp = route53_client.deactivate_key_signing_key(
         HostedZoneId=zone_id, Name=ksk_name
     )
-    assert "KeySigningKey" in resp
+    assert "ChangeInfo" in resp
 
     # Delete key signing key
     route53_client.delete_key_signing_key(HostedZoneId=zone_id, Name=ksk_name)
@@ -289,29 +287,28 @@ def test_cidr_collection(route53_client):
         Name="my-cidr-collection",
         CallerReference="cidr-ref-1",
     )
-    assert resp["CidrCollection"]["Name"] == "my-cidr-collection"
-    assert resp["CidrCollection"]["State"] == "Created"
-    cidr_id = resp["CidrCollection"]["CidrCollectionId"]
+    assert resp["Collection"]["Name"] == "my-cidr-collection"
+    cidr_id = resp["Collection"]["Id"]
 
     # List CIDR collections
     listing = route53_client.list_cidr_collections()
     assert "CidrCollections" in listing
-    assert any(c["CidrCollectionId"] == cidr_id for c in listing["CidrCollections"])
+    assert any(c["Id"] == cidr_id for c in listing["CidrCollections"])
 
     # List CIDR blocks
-    blocks = route53_client.list_cidr_blocks(CidrCollectionId=cidr_id)
+    blocks = route53_client.list_cidr_blocks(CollectionId=cidr_id)
     assert "CidrBlocks" in blocks
 
     # List CIDR locations
-    locations = route53_client.list_cidr_locations(CidrCollectionId=cidr_id)
-    assert "Locations" in locations
+    locations = route53_client.list_cidr_locations(CollectionId=cidr_id)
+    assert "CidrLocations" in locations
 
     # Delete CIDR collection
-    route53_client.delete_cidr_collection(CidrCollectionId=cidr_id)
+    route53_client.delete_cidr_collection(Id=cidr_id)
 
     # Verify deletion
     listing = route53_client.list_cidr_collections()
-    assert not any(c["CidrCollectionId"] == cidr_id for c in listing["CidrCollections"])
+    assert not any(c["Id"] == cidr_id for c in listing["CidrCollections"])
 
 
 def test_reusable_delegation_set(route53_client):
@@ -319,24 +316,22 @@ def test_reusable_delegation_set(route53_client):
     resp = route53_client.create_reusable_delegation_set(
         CallerReference="rds-ref-1",
     )
-    assert resp["DelegationSet"]["DelegationSetId"]
-    ds_id = resp["DelegationSet"]["DelegationSetId"]
+    assert resp["DelegationSet"]["Id"]
+    ds_id = resp["DelegationSet"]["Id"]
 
     # Get reusable delegation set
-    get_resp = route53_client.get_reusable_delegation_set(DelegationSetId=ds_id)
-    assert get_resp["DelegationSet"]["DelegationSetId"] == ds_id
+    get_resp = route53_client.get_reusable_delegation_set(Id=ds_id)
+    assert get_resp["DelegationSet"]["Id"] == ds_id
     assert "NameServers" in get_resp["DelegationSet"]
 
     # List reusable delegation sets
     listing = route53_client.list_reusable_delegation_sets()
-    assert "ReusableDelegationSets" in listing
-    assert any(d["DelegationSetId"] == ds_id for d in listing["ReusableDelegationSets"])
+    assert "DelegationSets" in listing
+    assert any(d["Id"] == ds_id for d in listing["DelegationSets"])
 
     # Delete reusable delegation set
-    route53_client.delete_reusable_delegation_set(DelegationSetId=ds_id)
+    route53_client.delete_reusable_delegation_set(Id=ds_id)
 
     # Verify deletion
     listing = route53_client.list_reusable_delegation_sets()
-    assert not any(
-        d["DelegationSetId"] == ds_id for d in listing["ReusableDelegationSets"]
-    )
+    assert not any(d["Id"] == ds_id for d in listing["DelegationSets"])

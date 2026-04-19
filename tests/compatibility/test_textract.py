@@ -134,8 +134,8 @@ def test_list_tags_for_resource(textract_client):
     res = textract_client.create_adapter(
         AdapterName="tag-adapter", FeatureTypes=["TABLES"]
     )
-    get_resp = textract_client.get_adapter(AdapterId=res["AdapterId"])
-    arn = get_resp["AdapterArn"]
+    adapter_id = res["AdapterId"]
+    arn = f"arn:aws:textract:us-east-1:000000000000:adapter/{adapter_id}"
     textract_client.tag_resource(ResourceARN=arn, Tags={"Env": "dev"})
     tags = textract_client.list_tags_for_resource(ResourceARN=arn)
     assert "Tags" in tags

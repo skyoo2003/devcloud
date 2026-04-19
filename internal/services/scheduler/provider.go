@@ -219,6 +219,13 @@ func (p *SchedulerProvider) getSchedule(req *http.Request, params map[string]any
 	if groupNameParam, ok := params["GroupName"].(string); ok && groupNameParam != "" {
 		groupName = groupNameParam
 	}
+	if qn := req.URL.Query().Get("GroupName"); qn != "" {
+		groupName = qn
+	}
+	// botocore sends query params in camelCase (groupName) for REST-JSON.
+	if qn := req.URL.Query().Get("groupName"); qn != "" {
+		groupName = qn
+	}
 	sc, err := p.store.GetSchedule(name, groupName)
 	if err != nil {
 		return jsonError("ResourceNotFoundException", "schedule not found", http.StatusNotFound), nil
@@ -270,6 +277,13 @@ func (p *SchedulerProvider) updateSchedule(req *http.Request, params map[string]
 func (p *SchedulerProvider) deleteSchedule(req *http.Request) (*plugin.Response, error) {
 	name := scheduleName(req.URL.Path)
 	groupName := scheduleGroup(req.URL.Path)
+	if qn := req.URL.Query().Get("GroupName"); qn != "" {
+		groupName = qn
+	}
+	// botocore sends query params in camelCase (groupName) for REST-JSON.
+	if qn := req.URL.Query().Get("groupName"); qn != "" {
+		groupName = qn
+	}
 	if err := p.store.DeleteSchedule(name, groupName); err != nil {
 		return jsonError("ResourceNotFoundException", "schedule not found", http.StatusNotFound), nil
 	}

@@ -1,3 +1,4 @@
+import socket
 import subprocess
 import tempfile
 import time
@@ -9,7 +10,15 @@ import os
 import signal
 
 
-DEVCLOUD_PORT = int(os.environ.get("DEVCLOUD_PORT", "4747"))
+def _find_free_port():
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(("localhost", 0))
+        return s.getsockname()[1]
+
+
+DEVCLOUD_PORT = int(os.environ.get("DEVCLOUD_PORT", "0"))
+if DEVCLOUD_PORT == 0:
+    DEVCLOUD_PORT = _find_free_port()
 DEVCLOUD_URL = os.environ.get("DEVCLOUD_URL", f"http://localhost:{DEVCLOUD_PORT}")
 
 
@@ -90,6 +99,7 @@ def devcloud_server():
     env = os.environ.copy()
     env["CGO_ENABLED"] = "1"
     env["DEVCLOUD_DATA_DIR"] = data_dir
+    env["DEVCLOUD_PORT"] = str(DEVCLOUD_PORT)
 
     proc = subprocess.Popen(
         cmd,
