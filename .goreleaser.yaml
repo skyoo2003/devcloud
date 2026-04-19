@@ -65,6 +65,6 @@ release:
   github:
     owner: skyoo2003
     name: devcloud
-  name_template: "v{{ .Version }}"
+  name_template: "{{ .Version }}"
   disable: false
   mode: replace

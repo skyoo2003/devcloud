@@ -34,4 +34,7 @@ clean:
 	rm -rf dist/ data/
 
 changelog:
+ifndef VERSION
+	$(error VERSION is required. Usage: make changelog VERSION=v0.2.0)
+endif
 	@changie batch $(VERSION) && changie merge
