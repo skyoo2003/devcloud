@@ -791,31 +791,24 @@ func tableToMap(t *Table) map[string]any {
 	}
 }
 
-// collapseARN collapses an ARN spread across URL path segments back into a
-// single segment. S3Tables uses ARNs as URI path parameters; because ARNs
-// contain '/' (e.g. "arn:aws:s3tables:...:bucket/my-bucket"), naive
-// strings.Split yields extra segments. This helper rejoins them.
-// collapseARN rejoins path segments starting at startIdx that form a single
-// ARN value (ARNs contain '/' e.g. "arn:aws:s3tables:...:bucket/my-bucket").
-func collapseARN(parts []string, startIdx int) []string {
-	arnEnd := startIdx + 1
-	for arnEnd < len(parts) && !strings.Contains(parts[arnEnd], ":") && parts[arnEnd] != "" {
-		arnEnd++
-	}
-	rejoined := strings.Join(parts[startIdx:arnEnd], "/")
-	result := make([]string, 0, len(parts)-(arnEnd-startIdx-1))
-	result = append(result, parts[:startIdx]...)
-	result = append(result, rejoined)
-	result = append(result, parts[arnEnd:]...)
-	return result
-}
-
-func resolveOp(method, path string) string {
+// parseS3TablesPath strips the /v1 prefix and splits the path, collapsing
+// ARNs that span two segments (e.g. "arn:aws:s3tables:...:bucket/name").
+func parseS3TablesPath(path string) []string {
 	path = strings.TrimPrefix(path, "/v1")
 	parts := strings.Split(strings.Trim(path, "/"), "/")
 	if len(parts) >= 2 && strings.Contains(parts[1], "arn:") {
-		parts = collapseARN(parts, 1)
+		parts[1] = parts[1] + "/" + parts[2]
+		parts = append(parts[:2], parts[3:]...)
 	}
+	if len(parts) >= 4 && parts[0] == "tables" && strings.Contains(parts[3], "arn:") {
+		parts[3] = parts[3] + "/" + parts[4]
+		parts = append(parts[:4], parts[5:]...)
+	}
+	return parts
+}
+
+func resolveOp(method, path string) string {
+	parts := parseS3TablesPath(path)
 	if len(parts) == 0 {
 		return ""
 	}
@@ -1015,15 +1008,7 @@ func resolveOp(method, path string) string {
 // s3PathParts parses a boto3-style S3Tables URL and returns the extracted
 // bucket ARN (or name), namespace, table name, and subresource.
 func s3PathParts(path string) (bucketARN, namespace, tableName, subresource string) {
-	path = strings.TrimPrefix(path, "/v1")
-	parts := strings.Split(strings.Trim(path, "/"), "/")
-	if len(parts) >= 2 && strings.Contains(parts[1], "arn:") {
-		parts = collapseARN(parts, 1)
-	}
-	// For table URLs, also collapse ARN at position 3
-	if len(parts) >= 4 && parts[0] == "tables" && strings.Contains(parts[3], "arn:") {
-		parts = collapseARN(parts, 3)
-	}
+	parts := parseS3TablesPath(path)
 	if len(parts) == 0 {
 		return
 	}

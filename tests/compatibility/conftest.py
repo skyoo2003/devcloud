@@ -55,7 +55,7 @@ def _start_server_error(cmd, project_root, env):
     debug_proc.wait()
     stderr = debug_proc.stderr.read().decode(errors="replace")
     raise RuntimeError(
-        f"devcloud server did not start within 30s (re-check failed after {debug_timeout}s).\n"
+        f"devcloud server did not start within {debug_timeout}s (diagnostic re-run).\n"
         f"command: {' '.join(cmd)}\n"
         f"stderr:\n{stderr}"
     ) from None

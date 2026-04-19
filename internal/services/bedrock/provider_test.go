@@ -192,7 +192,14 @@ func TestTagging(t *testing.T) {
 	}
 	assert.Equal(t, "test", tagMap["env"])
 
-	// Untag
-	resp3 := call(t, p, "DELETE", "/tags/"+testARN+"?tagKeys=env", "")
+	// Untag all
+	resp3 := call(t, p, "DELETE", "/tags/"+testARN+"?tagKeys=env&tagKeys=tier", "")
 	assert.Equal(t, 204, resp3.StatusCode)
+
+	// List after removing all tags
+	resp4 := call(t, p, "GET", "/tags/"+testARN, "")
+	assert.Equal(t, 200, resp4.StatusCode)
+	rb4 := parseBody(t, resp4)
+	emptyTags := rb4["tags"].([]any)
+	assert.Empty(t, emptyTags)
 }

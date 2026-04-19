@@ -64,6 +64,8 @@ func (p *SchedulerProvider) HandleRequest(_ context.Context, op string, req *htt
 		groupName := scheduleGroup(req.URL.Path)
 		if gp, ok := params["GroupName"].(string); ok && gp != "" {
 			groupName = gp
+		} else if gpLower, ok := params["groupName"].(string); ok && gpLower != "" {
+			groupName = gpLower
 		}
 		if _, err := p.store.GetSchedule(name, groupName); err == nil {
 			op = "UpdateSchedule"
