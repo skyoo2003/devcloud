@@ -41,7 +41,7 @@ def test_create_and_get_namespace(s3tables_client):
         tableBucketARN="ns-bucket",
         namespace="my-namespace",
     )
-    assert get_resp["namespace"] == "my-namespace"
+    assert get_resp["namespace"] == ["my-namespace"]
 
 
 def test_list_namespaces(s3tables_client):
@@ -52,7 +52,7 @@ def test_list_namespaces(s3tables_client):
     )
     resp = s3tables_client.list_namespaces(tableBucketARN="list-ns-bucket")
     assert "namespaces" in resp
-    ns_names = [n["namespace"] for n in resp["namespaces"]]
+    ns_names = [n["namespace"][0] for n in resp["namespaces"]]
     assert "ns-a" in ns_names
 
 
@@ -88,6 +88,7 @@ def test_delete_table(s3tables_client):
         tableBucketARN="del-tbl-bucket",
         namespace="ns",
         name="drop-me",
+        format="ICEBERG",
     )
 
     s3tables_client.delete_table(
@@ -115,6 +116,7 @@ def test_list_tables(s3tables_client):
             tableBucketARN="multi-tbl",
             namespace="ns",
             name=f"t{i}",
+            format="ICEBERG",
         )
 
     resp = s3tables_client.list_tables(tableBucketARN="multi-tbl", namespace="ns")
@@ -131,6 +133,7 @@ def test_table_policy_crud(s3tables_client):
         tableBucketARN="pol-bucket",
         namespace="ns",
         name="t1",
+        format="ICEBERG",
     )
 
     policy = json.dumps({"Version": "2012-10-17", "Statement": []})
@@ -186,11 +189,7 @@ def test_table_encryption(s3tables_client):
         tableBucketARN="te-bucket",
         namespace="ns",
         name="t1",
-    )
-    s3tables_client.put_table_encryption(
-        tableBucketARN="te-bucket",
-        namespace="ns",
-        name="t1",
+        format="ICEBERG",
         encryptionConfiguration={"sseAlgorithm": "AES256"},
     )
     resp = s3tables_client.get_table_encryption(
@@ -211,6 +210,7 @@ def test_table_maintenance(s3tables_client):
         tableBucketARN="mt-bucket",
         namespace="ns",
         name="t1",
+        format="ICEBERG",
     )
     s3tables_client.put_table_maintenance_configuration(
         tableBucketARN="mt-bucket",
@@ -237,6 +237,7 @@ def test_rename_and_update_metadata(s3tables_client):
         tableBucketARN="ren-bucket",
         namespace="ns",
         name="old-name",
+        format="ICEBERG",
     )
 
     s3tables_client.rename_table(
@@ -246,9 +247,15 @@ def test_rename_and_update_metadata(s3tables_client):
         newName="new-name",
     )
 
+    table = s3tables_client.get_table(
+        tableBucketARN="ren-bucket",
+        namespace="ns",
+        name="new-name",
+    )
     s3tables_client.update_table_metadata_location(
         tableBucketARN="ren-bucket",
         namespace="ns",
         name="new-name",
+        versionToken=table["versionToken"],
         metadataLocation="s3://meta/location.json",
     )

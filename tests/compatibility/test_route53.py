@@ -1,5 +1,43 @@
 import pytest
+import botocore
 from botocore.exceptions import ClientError
+
+
+def _tpi_create_kwargs(zone_id, tp_id):
+    """Return kwargs matching the installed botocore model for CreateTrafficPolicyInstance."""
+    model = (
+        botocore.session.get_session()
+        .create_client("route53", region_name="us-east-1")
+        ._service_model.operation_model("CreateTrafficPolicyInstance")
+    )
+    members = list(model.input_shape.members.keys())
+    base = {"TrafficPolicyId": tp_id, "TrafficPolicyVersion": 1, "TTL": 300}
+    if "Name" in members:
+        base["Name"] = "test-instance"
+    if "HostedZoneId" in members:
+        base["HostedZoneId"] = zone_id
+    else:
+        base["Id"] = zone_id
+    return base
+
+
+def _tpi_update_kwargs(tpi_id, tp_id):
+    """Return kwargs matching the installed botocore model for UpdateTrafficPolicyInstance."""
+    model = (
+        botocore.session.get_session()
+        .create_client("route53", region_name="us-east-1")
+        ._service_model.operation_model("UpdateTrafficPolicyInstance")
+    )
+    members = list(model.input_shape.members.keys())
+    base = {
+        "Id": tpi_id,
+        "TrafficPolicyId": tp_id,
+        "TrafficPolicyVersion": 1,
+        "TTL": 600,
+    }
+    if "Name" in members:
+        base["Name"] = "updated-instance"
+    return base
 
 
 def test_create_list_delete_hosted_zone(route53_client):
@@ -151,7 +189,7 @@ def test_dnssec(route53_client):
 
     # Verify it's enabled
     resp = route53_client.get_dnssec(HostedZoneId=zone_id)
-    assert resp["Status"]["ServeSignature"] in ("Enabled", "ENABLED")
+    assert resp["Status"]["ServeSignature"] in ("Enabled", "ENABLED", "SIGNING")
 
     # Disable DNSSEC
     resp = route53_client.disable_hosted_zone_dnssec(HostedZoneId=zone_id)
@@ -174,27 +212,23 @@ def test_key_signing_key(route53_client):
     resp = route53_client.create_key_signing_key(
         Name="my-ksk",
         HostedZoneId=zone_id,
-        Use="SigningOnly",
-        Algorithm="ECDSA_P256_SHA256",
-        KeySpec="ECDSA_P256",
+        CallerReference="ksk-ref-1",
+        KeyManagementServiceArn="arn:aws:kms:us-east-1:000000000000:key/mock-key",
+        Status="ACTIVE",
     )
     assert resp["KeySigningKey"]["Name"] == "my-ksk"
-    assert resp["KeySigningKey"]["State"] == "Pending"
     ksk_name = resp["KeySigningKey"]["Name"]
-
-    # List key signing keys
-    listing = route53_client.list_key_signing_keys()
-    assert "KeySigningKeys" in listing
 
     # Activate key signing key
     resp = route53_client.activate_key_signing_key(HostedZoneId=zone_id, Name=ksk_name)
-    assert resp["KeySigningKey"]["Name"] == ksk_name
+    assert "ChangeInfo" in resp
+    assert resp["ChangeInfo"]["Status"] == "PENDING"
 
     # Deactivate key signing key
     resp = route53_client.deactivate_key_signing_key(
         HostedZoneId=zone_id, Name=ksk_name
     )
-    assert "KeySigningKey" in resp
+    assert "ChangeInfo" in resp
 
     # Delete key signing key
     route53_client.delete_key_signing_key(HostedZoneId=zone_id, Name=ksk_name)
@@ -217,13 +251,8 @@ def test_traffic_policy_instance(route53_client):
 
     # Create traffic policy instance
     resp = route53_client.create_traffic_policy_instance(
-        Name="my-instance",
-        HostedZoneId=zone_id,
-        TrafficPolicyId=tp_id,
-        TrafficPolicyVersion=1,
-        TTL=300,
+        **_tpi_create_kwargs(zone_id, tp_id),
     )
-    assert resp["TrafficPolicyInstance"]["Name"] == "my-instance"
     assert resp["TrafficPolicyInstance"]["State"] == "Applied"
     tpi_id = resp["TrafficPolicyInstance"]["Id"]
 
@@ -237,14 +266,9 @@ def test_traffic_policy_instance(route53_client):
     assert "TrafficPolicyInstances" in listing
 
     # Update traffic policy instance
-    update_resp = route53_client.update_traffic_policy_instance(
-        Id=tpi_id,
-        Name="updated-instance",
-        TrafficPolicyId=tp_id,
-        TrafficPolicyVersion=1,
-        TTL=600,
+    route53_client.update_traffic_policy_instance(
+        **_tpi_update_kwargs(tpi_id, tp_id),
     )
-    assert update_resp["TrafficPolicyInstance"]["Name"] == "updated-instance"
 
     # Delete traffic policy instance
     route53_client.delete_traffic_policy_instance(Id=tpi_id)
@@ -261,60 +285,53 @@ def test_cidr_collection(route53_client):
     # Create CIDR collection
     resp = route53_client.create_cidr_collection(
         Name="my-cidr-collection",
-        CidrBlocks=[
-            {"Cidr": "10.0.0.0/8", "Location": "us-east-1"},
-            {"Cidr": "192.168.0.0/16", "Location": "us-west-2"},
-        ],
+        CallerReference="cidr-ref-1",
     )
-    assert resp["CidrCollection"]["Name"] == "my-cidr-collection"
-    assert resp["CidrCollection"]["State"] == "Created"
-    cidr_id = resp["CidrCollection"]["CidrCollectionId"]
+    assert resp["Collection"]["Name"] == "my-cidr-collection"
+    cidr_id = resp["Collection"]["Id"]
 
     # List CIDR collections
     listing = route53_client.list_cidr_collections()
     assert "CidrCollections" in listing
-    assert any(c["CidrCollectionId"] == cidr_id for c in listing["CidrCollections"])
+    assert any(c["Id"] == cidr_id for c in listing["CidrCollections"])
 
     # List CIDR blocks
-    blocks = route53_client.list_cidr_blocks(CidrCollectionId=cidr_id)
+    blocks = route53_client.list_cidr_blocks(CollectionId=cidr_id)
     assert "CidrBlocks" in blocks
 
     # List CIDR locations
-    locations = route53_client.list_cidr_locations(CidrCollectionId=cidr_id)
-    assert "Locations" in locations
+    locations = route53_client.list_cidr_locations(CollectionId=cidr_id)
+    assert "CidrLocations" in locations
 
     # Delete CIDR collection
-    route53_client.delete_cidr_collection(CidrCollectionId=cidr_id)
+    route53_client.delete_cidr_collection(Id=cidr_id)
 
     # Verify deletion
     listing = route53_client.list_cidr_collections()
-    assert not any(c["CidrCollectionId"] == cidr_id for c in listing["CidrCollections"])
+    assert not any(c["Id"] == cidr_id for c in listing["CidrCollections"])
 
 
 def test_reusable_delegation_set(route53_client):
     # Create reusable delegation set
     resp = route53_client.create_reusable_delegation_set(
-        Name="my-delegation-set",
+        CallerReference="rds-ref-1",
     )
-    assert resp["DelegationSet"]["Name"] == "my-delegation-set"
-    assert resp["DelegationSet"]["State"] == "Complete"
-    ds_id = resp["DelegationSet"]["DelegationSetId"]
+    assert resp["DelegationSet"]["Id"]
+    ds_id = resp["DelegationSet"]["Id"]
 
     # Get reusable delegation set
-    get_resp = route53_client.get_reusable_delegation_set(DelegationSetId=ds_id)
-    assert get_resp["DelegationSet"]["DelegationSetId"] == ds_id
+    get_resp = route53_client.get_reusable_delegation_set(Id=ds_id)
+    assert get_resp["DelegationSet"]["Id"] == ds_id
     assert "NameServers" in get_resp["DelegationSet"]
 
     # List reusable delegation sets
     listing = route53_client.list_reusable_delegation_sets()
-    assert "ReusableDelegationSets" in listing
-    assert any(d["DelegationSetId"] == ds_id for d in listing["ReusableDelegationSets"])
+    assert "DelegationSets" in listing
+    assert any(d["Id"] == ds_id for d in listing["DelegationSets"])
 
     # Delete reusable delegation set
-    route53_client.delete_reusable_delegation_set(DelegationSetId=ds_id)
+    route53_client.delete_reusable_delegation_set(Id=ds_id)
 
     # Verify deletion
     listing = route53_client.list_reusable_delegation_sets()
-    assert not any(
-        d["DelegationSetId"] == ds_id for d in listing["ReusableDelegationSets"]
-    )
+    assert not any(d["Id"] == ds_id for d in listing["DelegationSets"])

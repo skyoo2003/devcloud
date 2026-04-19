@@ -56,12 +56,28 @@ func (p *SchedulerProvider) HandleRequest(_ context.Context, op string, req *htt
 		op = resolveOp(req.Method, req.URL.Path)
 	}
 
+	// REST-JSON: both create and update use POST to /schedules/{name}.
+	// When resolveOp returns CreateSchedule, check if the schedule already
+	// exists and redirect to UpdateSchedule.
+	if op == "CreateSchedule" {
+		name := scheduleName(req.URL.Path)
+		groupName := scheduleGroup(req.URL.Path)
+		if gp, ok := params["GroupName"].(string); ok && gp != "" {
+			groupName = gp
+		} else if gpLower, ok := params["groupName"].(string); ok && gpLower != "" {
+			groupName = gpLower
+		}
+		if _, err := p.store.GetSchedule(name, groupName); err == nil {
+			op = "UpdateSchedule"
+		}
+	}
+
 	switch op {
 	// Schedules
 	case "CreateSchedule":
 		return p.createSchedule(req, params)
 	case "GetSchedule":
-		return p.getSchedule(req)
+		return p.getSchedule(req, params)
 	case "UpdateSchedule":
 		return p.updateSchedule(req, params)
 	case "DeleteSchedule":
@@ -199,9 +215,19 @@ func (p *SchedulerProvider) createSchedule(req *http.Request, params map[string]
 	return jsonResponse(http.StatusOK, map[string]any{"ScheduleArn": sc.ARN})
 }
 
-func (p *SchedulerProvider) getSchedule(req *http.Request) (*plugin.Response, error) {
+func (p *SchedulerProvider) getSchedule(req *http.Request, params map[string]any) (*plugin.Response, error) {
 	name := scheduleName(req.URL.Path)
 	groupName := scheduleGroup(req.URL.Path)
+	if groupNameParam, ok := params["GroupName"].(string); ok && groupNameParam != "" {
+		groupName = groupNameParam
+	}
+	if qn := req.URL.Query().Get("GroupName"); qn != "" {
+		groupName = qn
+	}
+	// botocore sends query params in camelCase (groupName) for REST-JSON.
+	if qn := req.URL.Query().Get("groupName"); qn != "" {
+		groupName = qn
+	}
 	sc, err := p.store.GetSchedule(name, groupName)
 	if err != nil {
 		return jsonError("ResourceNotFoundException", "schedule not found", http.StatusNotFound), nil
@@ -253,6 +279,13 @@ func (p *SchedulerProvider) updateSchedule(req *http.Request, params map[string]
 func (p *SchedulerProvider) deleteSchedule(req *http.Request) (*plugin.Response, error) {
 	name := scheduleName(req.URL.Path)
 	groupName := scheduleGroup(req.URL.Path)
+	if qn := req.URL.Query().Get("GroupName"); qn != "" {
+		groupName = qn
+	}
+	// botocore sends query params in camelCase (groupName) for REST-JSON.
+	if qn := req.URL.Query().Get("groupName"); qn != "" {
+		groupName = qn
+	}
 	if err := p.store.DeleteSchedule(name, groupName); err != nil {
 		return jsonError("ResourceNotFoundException", "schedule not found", http.StatusNotFound), nil
 	}

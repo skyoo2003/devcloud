@@ -7,6 +7,7 @@ import (
 	"database/sql"
 	"errors"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/shared"
@@ -129,8 +130,14 @@ func (s *Store) CreateBucket(name, accountID string) (*Bucket, error) {
 }
 
 func (s *Store) GetBucket(name string) (*Bucket, error) {
-	row := s.store.DB().QueryRow(
-		`SELECT arn, name, account_id, created_at FROM s3tables_buckets WHERE name = ?`, name)
+	var row *sql.Row
+	if strings.Contains(name, "arn:") {
+		row = s.store.DB().QueryRow(
+			`SELECT arn, name, account_id, created_at FROM s3tables_buckets WHERE arn = ?`, name)
+	} else {
+		row = s.store.DB().QueryRow(
+			`SELECT arn, name, account_id, created_at FROM s3tables_buckets WHERE name = ?`, name)
+	}
 	var b Bucket
 	var createdAt int64
 	err := row.Scan(&b.ARN, &b.Name, &b.AccountID, &createdAt)
@@ -161,7 +168,13 @@ func (s *Store) GetBucketByARN(arn string) (*Bucket, error) {
 }
 
 func (s *Store) DeleteBucket(name string) error {
-	res, err := s.store.DB().Exec(`DELETE FROM s3tables_buckets WHERE name = ?`, name)
+	var res sql.Result
+	var err error
+	if strings.Contains(name, "arn:") {
+		res, err = s.store.DB().Exec(`DELETE FROM s3tables_buckets WHERE arn = ?`, name)
+	} else {
+		res, err = s.store.DB().Exec(`DELETE FROM s3tables_buckets WHERE name = ?`, name)
+	}
 	if err != nil {
 		return err
 	}

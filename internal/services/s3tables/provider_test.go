@@ -48,8 +48,8 @@ func parseJSON(t *testing.T, resp *plugin.Response) map[string]any {
 func TestTableBucketCRUD(t *testing.T) {
 	p := newTestProvider(t)
 
-	// Create table bucket: POST /buckets/{name} with name in body
-	resp := callREST(t, p, "POST", "/buckets/my-bucket", `{"name": "my-bucket"}`)
+	// Create table bucket: POST /buckets with name in body
+	resp := callREST(t, p, "POST", "/buckets", `{"name": "my-bucket"}`)
 	assert.Equal(t, 200, resp.StatusCode)
 	m := parseJSON(t, resp)
 	assert.NotEmpty(t, m["arn"])
@@ -80,14 +80,14 @@ func TestNamespaceCRUD(t *testing.T) {
 	p := newTestProvider(t)
 
 	// Create bucket first
-	callREST(t, p, "POST", "/buckets/test-bucket", `{"name": "test-bucket"}`)
+	callREST(t, p, "POST", "/buckets", `{"name": "test-bucket"}`)
 
-	// Create namespace: PUT /buckets/{bucket}/namespaces/{ns}
-	resp := callREST(t, p, "PUT", "/buckets/test-bucket/namespaces/my-ns", `{"namespace": ["my-ns"]}`)
+	// Create namespace: PUT /namespaces/{bucketARN}/{ns}
+	resp := callREST(t, p, "PUT", "/namespaces/test-bucket/my-ns", `{"namespace": ["my-ns"]}`)
 	assert.Equal(t, 200, resp.StatusCode)
 
 	// Get namespace
-	resp2 := callREST(t, p, "GET", "/buckets/test-bucket/namespaces/my-ns", "")
+	resp2 := callREST(t, p, "GET", "/namespaces/test-bucket/my-ns", "")
 	assert.Equal(t, 200, resp2.StatusCode)
 	m2 := parseJSON(t, resp2)
 	// namespace is returned as an array
@@ -95,18 +95,18 @@ func TestNamespaceCRUD(t *testing.T) {
 	assert.Equal(t, "my-ns", nsArr[0])
 
 	// List namespaces
-	resp3 := callREST(t, p, "GET", "/buckets/test-bucket/namespaces", "")
+	resp3 := callREST(t, p, "GET", "/namespaces/test-bucket", "")
 	assert.Equal(t, 200, resp3.StatusCode)
 	m3 := parseJSON(t, resp3)
 	nsList := m3["namespaces"].([]any)
 	assert.Len(t, nsList, 1)
 
 	// Delete namespace
-	resp4 := callREST(t, p, "DELETE", "/buckets/test-bucket/namespaces/my-ns", "")
+	resp4 := callREST(t, p, "DELETE", "/namespaces/test-bucket/my-ns", "")
 	assert.Equal(t, 204, resp4.StatusCode)
 
 	// Get should fail after deletion
-	resp5 := callREST(t, p, "GET", "/buckets/test-bucket/namespaces/my-ns", "")
+	resp5 := callREST(t, p, "GET", "/namespaces/test-bucket/my-ns", "")
 	assert.Equal(t, 404, resp5.StatusCode)
 }
 
@@ -114,63 +114,63 @@ func TestTableCRUD(t *testing.T) {
 	p := newTestProvider(t)
 
 	// Setup bucket and namespace
-	callREST(t, p, "POST", "/buckets/tbl-bucket", `{"name": "tbl-bucket"}`)
-	callREST(t, p, "PUT", "/buckets/tbl-bucket/namespaces/ns1", `{"namespace": ["ns1"]}`)
+	callREST(t, p, "POST", "/buckets", `{"name": "tbl-bucket"}`)
+	callREST(t, p, "PUT", "/namespaces/tbl-bucket/ns1", `{"namespace": ["ns1"]}`)
 
-	// Create table: POST /buckets/{bucket}/namespaces/{ns}/tables
-	resp := callREST(t, p, "POST", "/buckets/tbl-bucket/namespaces/ns1/tables", `{"name": "my-table", "format": "ICEBERG"}`)
+	// Create table: PUT /tables/{bucketARN}/{ns}
+	resp := callREST(t, p, "PUT", "/tables/tbl-bucket/ns1", `{"name": "my-table", "format": "ICEBERG"}`)
 	assert.Equal(t, 200, resp.StatusCode)
 	m := parseJSON(t, resp)
 	assert.NotEmpty(t, m["tableARN"])
 
-	// Get table: GET /buckets/{bucket}/namespaces/{ns}/tables/{name}
-	resp2 := callREST(t, p, "GET", "/buckets/tbl-bucket/namespaces/ns1/tables/my-table", "")
+	// Get table: GET /get-table?tableBucketARN=...&namespace=...&name=...
+	resp2 := callREST(t, p, "GET", "/get-table?tableBucketARN=tbl-bucket&namespace=ns1&name=my-table", "")
 	assert.Equal(t, 200, resp2.StatusCode)
 	m2 := parseJSON(t, resp2)
 	assert.Equal(t, "my-table", m2["name"])
 
-	// List tables
-	resp3 := callREST(t, p, "GET", "/buckets/tbl-bucket/namespaces/ns1/tables", "")
+	// List tables: GET /tables/{bucketARN}
+	resp3 := callREST(t, p, "GET", "/tables/tbl-bucket", "")
 	assert.Equal(t, 200, resp3.StatusCode)
 	m3 := parseJSON(t, resp3)
 	tables := m3["tables"].([]any)
 	assert.Len(t, tables, 1)
 
-	// Delete table: DELETE /buckets/{bucket}/namespaces/{ns}/tables/{name}
-	resp4 := callREST(t, p, "DELETE", "/buckets/tbl-bucket/namespaces/ns1/tables/my-table", "")
+	// Delete table: DELETE /tables/{bucketARN}/{ns}/{name}
+	resp4 := callREST(t, p, "DELETE", "/tables/tbl-bucket/ns1/my-table", "")
 	assert.Equal(t, 204, resp4.StatusCode)
 
 	// Get should fail
-	resp5 := callREST(t, p, "GET", "/buckets/tbl-bucket/namespaces/ns1/tables/my-table", "")
+	resp5 := callREST(t, p, "GET", "/get-table?tableBucketARN=tbl-bucket&namespace=ns1&name=my-table", "")
 	assert.Equal(t, 404, resp5.StatusCode)
 }
 
 func TestTablePolicy(t *testing.T) {
 	p := newTestProvider(t)
 
-	callREST(t, p, "POST", "/buckets/pol-bucket", `{"name": "pol-bucket"}`)
-	callREST(t, p, "PUT", "/buckets/pol-bucket/namespaces/ns", `{"namespace": ["ns"]}`)
-	callREST(t, p, "POST", "/buckets/pol-bucket/namespaces/ns/tables", `{"name": "t1"}`)
+	callREST(t, p, "POST", "/buckets", `{"name": "pol-bucket"}`)
+	callREST(t, p, "PUT", "/namespaces/pol-bucket/ns", `{"namespace": ["ns"]}`)
+	callREST(t, p, "PUT", "/tables/pol-bucket/ns", `{"name": "t1", "format": "ICEBERG"}`)
 
 	// Put table policy
-	resp := callREST(t, p, "PUT", "/buckets/pol-bucket/namespaces/ns/tables/t1/policy", `{"resourcePolicy": "{\"Version\":\"2012-10-17\"}"}`)
+	resp := callREST(t, p, "PUT", "/tables/pol-bucket/ns/t1/policy", `{"resourcePolicy": "{\"Version\":\"2012-10-17\"}"}`)
 	assert.Equal(t, 204, resp.StatusCode)
 
 	// Get table policy
-	resp2 := callREST(t, p, "GET", "/buckets/pol-bucket/namespaces/ns/tables/t1/policy", "")
+	resp2 := callREST(t, p, "GET", "/tables/pol-bucket/ns/t1/policy", "")
 	assert.Equal(t, 200, resp2.StatusCode)
 	m := parseJSON(t, resp2)
 	assert.NotEmpty(t, m["resourcePolicy"])
 
 	// Delete table policy
-	resp3 := callREST(t, p, "DELETE", "/buckets/pol-bucket/namespaces/ns/tables/t1/policy", "")
+	resp3 := callREST(t, p, "DELETE", "/tables/pol-bucket/ns/t1/policy", "")
 	assert.Equal(t, 204, resp3.StatusCode)
 }
 
 func TestTableBucketPolicy(t *testing.T) {
 	p := newTestProvider(t)
 
-	callREST(t, p, "POST", "/buckets/bp-bucket", `{"name": "bp-bucket"}`)
+	callREST(t, p, "POST", "/buckets", `{"name": "bp-bucket"}`)
 
 	// Put
 	resp := callREST(t, p, "PUT", "/buckets/bp-bucket/policy", `{"resourcePolicy": "{}"}`)
@@ -188,17 +188,17 @@ func TestTableBucketPolicy(t *testing.T) {
 func TestTableEncryption(t *testing.T) {
 	p := newTestProvider(t)
 
-	callREST(t, p, "POST", "/buckets/enc-bucket", `{"name": "enc-bucket"}`)
-	callREST(t, p, "PUT", "/buckets/enc-bucket/namespaces/ns", `{"namespace": ["ns"]}`)
-	callREST(t, p, "POST", "/buckets/enc-bucket/namespaces/ns/tables", `{"name": "t1"}`)
+	callREST(t, p, "POST", "/buckets", `{"name": "enc-bucket"}`)
+	callREST(t, p, "PUT", "/namespaces/enc-bucket/ns", `{"namespace": ["ns"]}`)
+	callREST(t, p, "PUT", "/tables/enc-bucket/ns", `{"name": "t1", "format": "ICEBERG"}`)
 
 	// Put table encryption
-	resp := callREST(t, p, "PUT", "/buckets/enc-bucket/namespaces/ns/tables/t1/encryption",
+	resp := callREST(t, p, "PUT", "/tables/enc-bucket/ns/t1/encryption",
 		`{"encryptionConfiguration": {"sseAlgorithm": "aws:kms", "kmsKeyArn": "arn:aws:kms:us-east-1:000000000000:key/test"}}`)
 	assert.Equal(t, 204, resp.StatusCode)
 
 	// Get
-	resp2 := callREST(t, p, "GET", "/buckets/enc-bucket/namespaces/ns/tables/t1/encryption", "")
+	resp2 := callREST(t, p, "GET", "/tables/enc-bucket/ns/t1/encryption", "")
 	assert.Equal(t, 200, resp2.StatusCode)
 	m := parseJSON(t, resp2)
 	assert.NotEmpty(t, m["encryptionConfiguration"])
@@ -215,44 +215,44 @@ func TestTableEncryption(t *testing.T) {
 func TestTableMaintenance(t *testing.T) {
 	p := newTestProvider(t)
 
-	callREST(t, p, "POST", "/buckets/m-bucket", `{"name": "m-bucket"}`)
-	callREST(t, p, "PUT", "/buckets/m-bucket/namespaces/ns", `{"namespace": ["ns"]}`)
-	callREST(t, p, "POST", "/buckets/m-bucket/namespaces/ns/tables", `{"name": "t1"}`)
+	callREST(t, p, "POST", "/buckets", `{"name": "m-bucket"}`)
+	callREST(t, p, "PUT", "/namespaces/m-bucket/ns", `{"namespace": ["ns"]}`)
+	callREST(t, p, "PUT", "/tables/m-bucket/ns", `{"name": "t1", "format": "ICEBERG"}`)
 
 	// Put maintenance config
-	resp := callREST(t, p, "PUT", "/buckets/m-bucket/namespaces/ns/tables/t1/maintenance",
+	resp := callREST(t, p, "PUT", "/tables/m-bucket/ns/t1/maintenance",
 		`{"type": "icebergCompaction", "value": {"status": "enabled"}}`)
 	assert.Equal(t, 204, resp.StatusCode)
 
 	// Get maintenance
-	resp2 := callREST(t, p, "GET", "/buckets/m-bucket/namespaces/ns/tables/t1/maintenance", "")
+	resp2 := callREST(t, p, "GET", "/tables/m-bucket/ns/t1/maintenance", "")
 	assert.Equal(t, 200, resp2.StatusCode)
 
 	// Get maintenance status
-	resp3 := callREST(t, p, "GET", "/buckets/m-bucket/namespaces/ns/tables/t1/maintenance-status", "")
+	resp3 := callREST(t, p, "GET", "/tables/m-bucket/ns/t1/maintenance-job-status", "")
 	assert.Equal(t, 200, resp3.StatusCode)
 }
 
 func TestTableRenameAndMetadata(t *testing.T) {
 	p := newTestProvider(t)
 
-	callREST(t, p, "POST", "/buckets/ren-bucket", `{"name": "ren-bucket"}`)
-	callREST(t, p, "PUT", "/buckets/ren-bucket/namespaces/ns", `{"namespace": ["ns"]}`)
-	callREST(t, p, "POST", "/buckets/ren-bucket/namespaces/ns/tables", `{"name": "old-name"}`)
+	callREST(t, p, "POST", "/buckets", `{"name": "ren-bucket"}`)
+	callREST(t, p, "PUT", "/namespaces/ren-bucket/ns", `{"namespace": ["ns"]}`)
+	callREST(t, p, "PUT", "/tables/ren-bucket/ns", `{"name": "old-name", "format": "ICEBERG"}`)
 
 	// Rename
-	resp := callREST(t, p, "POST", "/buckets/ren-bucket/namespaces/ns/tables/old-name/rename",
+	resp := callREST(t, p, "POST", "/tables/ren-bucket/ns/old-name/rename",
 		`{"newName": "new-name"}`)
 	assert.Equal(t, 204, resp.StatusCode)
 
 	// Update metadata location
-	resp2 := callREST(t, p, "PUT", "/buckets/ren-bucket/namespaces/ns/tables/new-name/metadata-location",
+	resp2 := callREST(t, p, "PUT", "/tables/ren-bucket/ns/new-name/metadata-location",
 		`{"metadataLocation": "s3://bucket/metadata.json"}`)
 	assert.Equal(t, 200, resp2.StatusCode)
 	m := parseJSON(t, resp2)
 	assert.Equal(t, "s3://bucket/metadata.json", m["metadataLocation"])
 
 	// Get metadata location
-	resp3 := callREST(t, p, "GET", "/buckets/ren-bucket/namespaces/ns/tables/new-name/metadata-location", "")
+	resp3 := callREST(t, p, "GET", "/tables/ren-bucket/ns/new-name/metadata-location", "")
 	assert.Equal(t, 200, resp3.StatusCode)
 }

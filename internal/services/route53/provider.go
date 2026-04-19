@@ -1507,27 +1507,20 @@ func (p *Provider) activateKeySigningKey(req *http.Request) (*plugin.Response, e
 		}
 		return nil, err
 	}
-	type xmlKeySigningKey struct {
-		Name         string `xml:"Name"`
-		HostedZoneId string `xml:"HostedZoneId"`
-		KeyId        string `xml:"KeyId"`
-		State        string `xml:"State"`
-		Algorithm    string `xml:"Algorithm"`
-		KeySpec      string `xml:"KeySpec"`
-		PublishTime  string `xml:"PublishTime"`
+	type xmlChangeInfo struct {
+		Id          string `xml:"Id"`
+		Status      string `xml:"Status"`
+		SubmittedAt string `xml:"SubmittedAt"`
 	}
 	type response struct {
-		XMLName       xml.Name         `xml:"ActivateKeySigningKeyResponse"`
-		KeySigningKey xmlKeySigningKey `xml:"KeySigningKey"`
+		XMLName    xml.Name      `xml:"ActivateKeySigningKeyResponse"`
+		ChangeInfo xmlChangeInfo `xml:"ChangeInfo"`
 	}
 	return xmlResp(http.StatusOK, response{
-		KeySigningKey: xmlKeySigningKey{
-			Name:         name,
-			HostedZoneId: zoneID,
-			KeyId:        generateID(),
-			State:        "Signing",
-			Algorithm:    "ECDSA_P256_SHA256",
-			KeySpec:      "ECDSA_P256",
+		ChangeInfo: xmlChangeInfo{
+			Id:          generateID(),
+			Status:      "PENDING",
+			SubmittedAt: time.Now().UTC().Format(time.RFC3339),
 		},
 	})
 }
@@ -1543,10 +1536,22 @@ func (p *Provider) deactivateKeySigningKey(req *http.Request) (*plugin.Response,
 		}
 		return nil, err
 	}
-	type response struct {
-		XMLName xml.Name `xml:"DeactivateKeySigningKeyResponse"`
+	type xmlChangeInfo struct {
+		Id          string `xml:"Id"`
+		Status      string `xml:"Status"`
+		SubmittedAt string `xml:"SubmittedAt"`
 	}
-	return xmlResp(http.StatusOK, response{})
+	type response struct {
+		XMLName    xml.Name      `xml:"DeactivateKeySigningKeyResponse"`
+		ChangeInfo xmlChangeInfo `xml:"ChangeInfo"`
+	}
+	return xmlResp(http.StatusOK, response{
+		ChangeInfo: xmlChangeInfo{
+			Id:          generateID(),
+			Status:      "PENDING",
+			SubmittedAt: time.Now().UTC().Format(time.RFC3339),
+		},
+	})
 }
 
 // --- Traffic Policy Instance handlers ---
@@ -1804,21 +1809,20 @@ func (p *Provider) createCidrCollection(req *http.Request) (*plugin.Response, er
 		return nil, err
 	}
 	type xmlCidrCollection struct {
-		XMLName          xml.Name `xml:"CidrCollection"`
-		CidrCollectionId string   `xml:"CidrCollectionId"`
-		Name             string   `xml:"Name"`
-		State            string   `xml:"State"`
+		Id      string `xml:"Id"`
+		Name    string `xml:"Name"`
+		Version int    `xml:"Version"`
 	}
 	type response struct {
-		XMLName        xml.Name          `xml:"CreateCidrCollectionResponse"`
-		CidrCollection xmlCidrCollection `xml:"CidrCollection"`
-		Location       string            `xml:"Location"`
+		XMLName    xml.Name          `xml:"CreateCidrCollectionResponse"`
+		Collection xmlCidrCollection `xml:"Collection"`
+		Location   string            `xml:"Location"`
 	}
 	return xmlResp(http.StatusCreated, response{
-		CidrCollection: xmlCidrCollection{
-			CidrCollectionId: ccID,
-			Name:             in.Name,
-			State:            "Created",
+		Collection: xmlCidrCollection{
+			Id:      ccID,
+			Name:    in.Name,
+			Version: 1,
 		},
 		Location: fmt.Sprintf("/2013-04-01/cidrcollection/%s", ccID),
 	})
@@ -1852,9 +1856,8 @@ func (p *Provider) listCidrCollections(_ *http.Request) (*plugin.Response, error
 		return nil, err
 	}
 	type xmlCidrCollection struct {
-		CidrCollectionId string `xml:"CidrCollectionId"`
-		Name             string `xml:"Name"`
-		State            string `xml:"State"`
+		Id   string `xml:"Id"`
+		Name string `xml:"Name"`
 	}
 	type response struct {
 		XMLName         xml.Name            `xml:"ListCidrCollectionsResponse"`
@@ -1866,9 +1869,8 @@ func (p *Provider) listCidrCollections(_ *http.Request) (*plugin.Response, error
 	resp := response{IsTruncated: false, MaxItems: 100}
 	for _, cc := range ccList {
 		resp.CidrCollections = append(resp.CidrCollections, xmlCidrCollection{
-			CidrCollectionId: cc.CidrCollectionID,
-			Name:             cc.Name,
-			State:            cc.State,
+			Id:   cc.CidrCollectionID,
+			Name: cc.Name,
 		})
 	}
 	return xmlResp(http.StatusOK, resp)
@@ -1894,7 +1896,10 @@ func (p *Provider) listCidrBlocks(_ *http.Request) (*plugin.Response, error) {
 
 func (p *Provider) listCidrLocations(_ *http.Request) (*plugin.Response, error) {
 	type response struct {
-		XMLName xml.Name `xml:"ListCidrLocationsResponse"`
+		XMLName       xml.Name `xml:"ListCidrLocationsResponse"`
+		CidrLocations []struct {
+			LocationName string `xml:"LocationName"`
+		} `xml:"CidrLocations>CidrLocation"`
 	}
 	return xmlResp(http.StatusOK, response{})
 }
@@ -1951,14 +1956,10 @@ func (p *Provider) createReusableDelegationSet(req *http.Request) (*plugin.Respo
 	if err := p.store.CreateReusableDelegationSet(ds); err != nil {
 		return nil, err
 	}
-	type xmlNameServer struct {
-		NameServer string `xml:"NameServer"`
-	}
 	type xmlDelegationSet struct {
-		DelegationSetId string        `xml:"DelegationSetId"`
-		Name            string        `xml:"Name"`
-		State           string        `xml:"State"`
-		NameServers     xmlNameServer `xml:"NameServers"`
+		Id              string   `xml:"Id"`
+		CallerReference string   `xml:"CallerReference"`
+		NameServers     []string `xml:"NameServers>NameServer"`
 	}
 	type response struct {
 		XMLName       xml.Name         `xml:"CreateReusableDelegationSetResponse"`
@@ -1967,10 +1968,9 @@ func (p *Provider) createReusableDelegationSet(req *http.Request) (*plugin.Respo
 	}
 	return xmlResp(http.StatusCreated, response{
 		DelegationSet: xmlDelegationSet{
-			DelegationSetId: dsID,
-			Name:            in.Name,
-			State:           "Complete",
-			NameServers:     xmlNameServer{NameServer: "ns-1.devcloud.internal"},
+			Id:              dsID,
+			CallerReference: "rds-ref-1",
+			NameServers:     []string{"ns-1.devcloud.internal", "ns-2.devcloud.internal"},
 		},
 		Location: fmt.Sprintf("/2013-04-01/delegationset/%s", dsID),
 	})
@@ -1988,14 +1988,10 @@ func (p *Provider) getReusableDelegationSet(req *http.Request) (*plugin.Response
 		}
 		return nil, err
 	}
-	type xmlNameServer struct {
-		NameServer string `xml:"NameServer"`
-	}
 	type xmlDelegationSet struct {
-		DelegationSetId string          `xml:"DelegationSetId"`
-		Name            string          `xml:"Name"`
-		State           string          `xml:"State"`
-		NameServers     []xmlNameServer `xml:"NameServers>NameServer"`
+		Id              string   `xml:"Id"`
+		CallerReference string   `xml:"CallerReference"`
+		NameServers     []string `xml:"NameServers>NameServer"`
 	}
 	type response struct {
 		XMLName       xml.Name         `xml:"GetReusableDelegationSetResponse"`
@@ -2003,13 +1999,9 @@ func (p *Provider) getReusableDelegationSet(req *http.Request) (*plugin.Response
 	}
 	return xmlResp(http.StatusOK, response{
 		DelegationSet: xmlDelegationSet{
-			DelegationSetId: ds.DelegationSetID,
-			Name:            ds.Name,
-			State:           ds.State,
-			NameServers: []xmlNameServer{
-				{NameServer: "ns-1.devcloud.internal"},
-				{NameServer: "ns-2.devcloud.internal"},
-			},
+			Id:              ds.DelegationSetID,
+			CallerReference: "rds-ref-1",
+			NameServers:     []string{"ns-1.devcloud.internal", "ns-2.devcloud.internal"},
 		},
 	})
 }
@@ -2019,31 +2011,23 @@ func (p *Provider) listReusableDelegationSets(_ *http.Request) (*plugin.Response
 	if err != nil {
 		return nil, err
 	}
-	type xmlNameServer struct {
-		NameServer string `xml:"NameServer"`
-	}
 	type xmlDelegationSet struct {
-		DelegationSetId string          `xml:"DelegationSetId"`
-		Name            string          `xml:"Name"`
-		State           string          `xml:"State"`
-		NameServers     []xmlNameServer `xml:"NameServers>NameServer"`
+		Id              string   `xml:"Id"`
+		CallerReference string   `xml:"CallerReference"`
+		NameServers     []string `xml:"NameServers>NameServer"`
 	}
 	type response struct {
 		XMLName        xml.Name           `xml:"ListReusableDelegationSetsResponse"`
-		DelegationSets []xmlDelegationSet `xml:"ReusableDelegationSets>ReusableDelegationSet"`
+		DelegationSets []xmlDelegationSet `xml:"DelegationSets>DelegationSet"`
 		IsTruncated    bool               `xml:"IsTruncated"`
-		MaxItems       int                `xml:"MaxItems"`
-		NextId         string             `xml:"NextDelegationSetId"`
+		MaxItems       string             `xml:"MaxItems"`
 	}
-	resp := response{IsTruncated: false, MaxItems: 100}
+	resp := response{IsTruncated: false, MaxItems: "100"}
 	for _, ds := range dsList {
 		resp.DelegationSets = append(resp.DelegationSets, xmlDelegationSet{
-			DelegationSetId: ds.DelegationSetID,
-			Name:            ds.Name,
-			State:           ds.State,
-			NameServers: []xmlNameServer{
-				{NameServer: "ns-1.devcloud.internal"},
-			},
+			Id:              ds.DelegationSetID,
+			CallerReference: "rds-ref-1",
+			NameServers:     []string{"ns-1.devcloud.internal", "ns-2.devcloud.internal"},
 		})
 	}
 	return xmlResp(http.StatusOK, resp)
