@@ -180,6 +180,18 @@ func TestNewResourceStore_ValidIdentifiers(t *testing.T) {
 			primary:   "id",
 			cols:      "id, name,",
 		},
+		{
+			name:      "whitespace_in_identifiers",
+			tableName: " items ",
+			primary:   " id ",
+			cols:      " id, name ",
+		},
+		{
+			name:      "leading_comma_in_cols",
+			tableName: "items",
+			primary:   "id",
+			cols:      ", id, name",
+		},
 	}
 
 	for _, tc := range tests {

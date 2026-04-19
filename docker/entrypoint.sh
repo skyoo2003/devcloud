@@ -3,7 +3,8 @@ set -e
 
 # Ensure the data directory exists and is writable by appuser.
 mkdir -p /app/data
-if [ "$(stat -c %U /app/data 2>/dev/null)" != "appuser" ]; then
+owner=$(stat -c %U /app/data 2>/dev/null || echo "")
+if [ "$owner" != "appuser" ]; then
     chown appuser:appuser /app/data
 fi
 
