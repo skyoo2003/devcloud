@@ -37,15 +37,16 @@ def _start_server_error(cmd, project_root, env):
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
+    debug_timeout = 5
     try:
-        _wait_for_server(DEVCLOUD_URL, timeout=5)
+        _wait_for_server(DEVCLOUD_URL, timeout=debug_timeout)
     except RuntimeError:
         pass
     debug_proc.kill()
     debug_proc.wait()
     stderr = debug_proc.stderr.read().decode(errors="replace")
     raise RuntimeError(
-        f"devcloud server did not start within 30s.\n"
+        f"devcloud server did not start within 30s (re-check failed after {debug_timeout}s).\n"
         f"command: {' '.join(cmd)}\n"
         f"stderr:\n{stderr}"
     ) from None

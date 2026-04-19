@@ -1,5 +1,41 @@
 import pytest
+import botocore
 from botocore.exceptions import ClientError
+
+
+def _tpi_create_kwargs(zone_id, tp_id):
+    """Return kwargs matching the installed botocore model for CreateTrafficPolicyInstance."""
+    model = (
+        botocore.session.get_session()
+        .create_client("route53", region_name="us-east-1")
+        ._service_model.operation_model("CreateTrafficPolicyInstance")
+    )
+    members = list(model.input_shape.members.keys())
+    base = {"TrafficPolicyId": tp_id, "TrafficPolicyVersion": 1, "TTL": 300}
+    if "HostedZoneId" in members:
+        base["HostedZoneId"] = zone_id
+    else:
+        base["Id"] = zone_id
+    return base
+
+
+def _tpi_update_kwargs(tpi_id, tp_id):
+    """Return kwargs matching the installed botocore model for UpdateTrafficPolicyInstance."""
+    model = (
+        botocore.session.get_session()
+        .create_client("route53", region_name="us-east-1")
+        ._service_model.operation_model("UpdateTrafficPolicyInstance")
+    )
+    members = list(model.input_shape.members.keys())
+    base = {
+        "Id": tpi_id,
+        "TrafficPolicyId": tp_id,
+        "TrafficPolicyVersion": 1,
+        "TTL": 600,
+    }
+    if "Name" in members:
+        base["Name"] = "updated-instance"
+    return base
 
 
 def test_create_list_delete_hosted_zone(route53_client):
@@ -216,20 +252,9 @@ def test_traffic_policy_instance(route53_client):
     tp_id = tp_resp["TrafficPolicy"]["Id"]
 
     # Create traffic policy instance
-    try:
-        resp = route53_client.create_traffic_policy_instance(
-            HostedZoneId=zone_id,
-            TrafficPolicyId=tp_id,
-            TrafficPolicyVersion=1,
-            TTL=300,
-        )
-    except TypeError:
-        resp = route53_client.create_traffic_policy_instance(
-            Id=zone_id,
-            TrafficPolicyId=tp_id,
-            TrafficPolicyVersion=1,
-            TTL=300,
-        )
+    resp = route53_client.create_traffic_policy_instance(
+        **_tpi_create_kwargs(zone_id, tp_id),
+    )
     assert resp["TrafficPolicyInstance"]["State"] == "Applied"
     tpi_id = resp["TrafficPolicyInstance"]["Id"]
 
@@ -243,21 +268,9 @@ def test_traffic_policy_instance(route53_client):
     assert "TrafficPolicyInstances" in listing
 
     # Update traffic policy instance
-    try:
-        route53_client.update_traffic_policy_instance(
-            Id=tpi_id,
-            TrafficPolicyId=tp_id,
-            TrafficPolicyVersion=1,
-            TTL=600,
-        )
-    except TypeError:
-        route53_client.update_traffic_policy_instance(
-            Id=tpi_id,
-            Name="updated-instance",
-            TrafficPolicyId=tp_id,
-            TrafficPolicyVersion=1,
-            TTL=600,
-        )
+    route53_client.update_traffic_policy_instance(
+        **_tpi_update_kwargs(tpi_id, tp_id),
+    )
 
     # Delete traffic policy instance
     route53_client.delete_traffic_policy_instance(Id=tpi_id)
@@ -306,6 +319,7 @@ def test_reusable_delegation_set(route53_client):
     resp = route53_client.create_reusable_delegation_set(
         CallerReference="rds-ref-1",
     )
+    assert resp["DelegationSet"]["DelegationSetId"]
     ds_id = resp["DelegationSet"]["DelegationSetId"]
 
     # Get reusable delegation set
