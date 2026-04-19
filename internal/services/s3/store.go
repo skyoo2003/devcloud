@@ -26,10 +26,22 @@ func NewFileStore(baseDir string) *FileStore {
 // safePath joins the components under baseDir and verifies the result does not
 // escape the base directory. It returns an error on path traversal attempts.
 func (fs *FileStore) safePath(parts ...string) (string, error) {
+	for _, part := range parts {
+		if part == "" || part == "." || part == ".." ||
+			strings.Contains(part, "/") || strings.Contains(part, "\\") {
+			return "", fmt.Errorf("invalid path component: %q", part)
+		}
+	}
+
 	joined := filepath.Join(append([]string{fs.baseDir}, parts...)...)
 	cleaned := filepath.Clean(joined)
+
+	rel, err := filepath.Rel(fs.baseDir, cleaned)
+	if err != nil {
+		return "", fmt.Errorf("invalid path: %w", err)
+	}
 	// Ensure the resolved path is still under baseDir.
-	if !strings.HasPrefix(cleaned, fs.baseDir+string(filepath.Separator)) && cleaned != fs.baseDir {
+	if rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) || filepath.IsAbs(rel) {
 		return "", fmt.Errorf("path traversal detected: %s", cleaned)
 	}
 	return cleaned, nil
