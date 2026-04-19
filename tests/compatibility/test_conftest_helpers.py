@@ -1,6 +1,10 @@
 import io
+import os
+import sys
 
-from tests.compatibility.conftest import _build_devcloud_cmd
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
+
+from tests.compatibility.conftest import _build_devcloud_cmd, _start_server_error
 
 
 class TestBuildDevcloudCmd:
@@ -70,8 +74,6 @@ class TestDevcloudServerErrorHandling:
         )
 
         import pytest
-
-        from tests.compatibility.conftest import _start_server_error
 
         with pytest.raises(RuntimeError) as exc_info:
             _start_server_error(["go", "run", "./cmd/devcloud"], "/tmp/project", {})
