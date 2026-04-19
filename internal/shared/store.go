@@ -21,24 +21,31 @@ type ResourceStore[T any] struct {
 	scanner func(Scanner) (T, error)
 }
 
-func NewResourceStore[T any](db *sqlite.Store, table, idCol, cols string, scanner func(Scanner) (T, error)) *ResourceStore[T] {
-	validateIdentifier(table, "table")
-	validateIdentifier(idCol, "idCol")
-	for _, c := range strings.Split(cols, ",") {
-		validateIdentifier(strings.TrimSpace(c), "col")
+func NewResourceStore[T any](db *sqlite.Store, table, idCol, cols string, scanner func(Scanner) (T, error)) (*ResourceStore[T], error) {
+	if err := validateIdentifier(table, "table"); err != nil {
+		return nil, err
 	}
-	return &ResourceStore[T]{db: db, table: table, idCol: idCol, cols: cols, scanner: scanner}
+	if err := validateIdentifier(idCol, "idCol"); err != nil {
+		return nil, err
+	}
+	for _, c := range strings.Split(cols, ",") {
+		if err := validateIdentifier(strings.TrimSpace(c), "col"); err != nil {
+			return nil, err
+		}
+	}
+	return &ResourceStore[T]{db: db, table: table, idCol: idCol, cols: cols, scanner: scanner}, nil
 }
 
-func validateIdentifier(s, kind string) {
+func validateIdentifier(s, kind string) error {
 	if len(s) == 0 {
-		panic(fmt.Sprintf("shared: empty %s identifier", kind))
+		return fmt.Errorf("shared: empty %s identifier", kind)
 	}
 	for _, r := range s {
 		if !((r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') || (r >= '0' && r <= '9') || r == '_') {
-			panic(fmt.Sprintf("shared: invalid %s identifier: %q", kind, s))
+			return fmt.Errorf("shared: invalid %s identifier: %q", kind, s)
 		}
 	}
+	return nil
 }
 
 func (s *ResourceStore[T]) DB() *sqlite.Store { return s.db }

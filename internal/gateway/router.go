@@ -53,6 +53,7 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		ct = "application/octet-stream"
 	}
 	// Prevent XSS: never serve API responses as text/html.
+	ct = strings.TrimSpace(ct)
 	if strings.HasPrefix(strings.ToLower(ct), "text/html") {
 		ct = "text/plain; charset=utf-8"
 	}
