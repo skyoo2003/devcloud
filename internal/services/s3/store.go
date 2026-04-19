@@ -23,13 +23,35 @@ func NewFileStore(baseDir string) *FileStore {
 	return &FileStore{baseDir: abs}
 }
 
+// validatePathComponent ensures a user-provided path fragment is a single safe component.
+func validatePathComponent(part string) error {
+	if part == "" {
+		return fmt.Errorf("invalid empty path component")
+	}
+	if part == "." || part == ".." {
+		return fmt.Errorf("invalid path component: %q", part)
+	}
+	if strings.ContainsRune(part, filepath.Separator) || strings.Contains(part, "/") || strings.Contains(part, "\\") {
+		return fmt.Errorf("invalid path component with separators: %q", part)
+	}
+	return nil
+}
+
 // safePath joins the components under baseDir and verifies the result does not
 // escape the base directory. It returns an error on path traversal attempts.
 func (fs *FileStore) safePath(parts ...string) (string, error) {
-	joined := filepath.Join(append([]string{fs.baseDir}, parts...)...)
+	for _, part := range parts {
+		if err := validatePathComponent(part); err != nil {
+			return "", err
+		}
+	}
+
+	cleanBase := filepath.Clean(fs.baseDir)
+	joined := filepath.Join(append([]string{cleanBase}, parts...)...)
 	cleaned := filepath.Clean(joined)
-	// Ensure the resolved path is still under baseDir.
-	if !strings.HasPrefix(cleaned, fs.baseDir+string(filepath.Separator)) && cleaned != fs.baseDir {
+
+	rel, err := filepath.Rel(cleanBase, cleaned)
+	if err != nil || rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) {
 		return "", fmt.Errorf("path traversal detected: %s", cleaned)
 	}
 	return cleaned, nil
