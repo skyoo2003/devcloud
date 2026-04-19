@@ -1,9 +1,12 @@
 FROM golang:1.26-alpine
 RUN apk add --no-cache gcc musl-dev sqlite-dev
+RUN adduser -D -H -h /app appuser
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
+RUN chown -R appuser:appuser /app
+USER appuser
 ENV CGO_ENABLED=1
 RUN go build -o /app/devcloud ./cmd/devcloud
 EXPOSE 4747

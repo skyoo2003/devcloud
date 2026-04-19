@@ -3,6 +3,9 @@
 package shared
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
 )
 
@@ -18,8 +21,44 @@ type ResourceStore[T any] struct {
 	scanner func(Scanner) (T, error)
 }
 
-func NewResourceStore[T any](db *sqlite.Store, table, idCol, cols string, scanner func(Scanner) (T, error)) *ResourceStore[T] {
-	return &ResourceStore[T]{db: db, table: table, idCol: idCol, cols: cols, scanner: scanner}
+func NewResourceStore[T any](db *sqlite.Store, table, idCol, cols string, scanner func(Scanner) (T, error)) (*ResourceStore[T], error) {
+	table = strings.TrimSpace(table)
+	idCol = strings.TrimSpace(idCol)
+	if err := validateIdentifier(table, "table"); err != nil {
+		return nil, err
+	}
+	if err := validateIdentifier(idCol, "idCol"); err != nil {
+		return nil, err
+	}
+	var validCols []string
+	for _, c := range strings.Split(cols, ",") {
+		c = strings.TrimSpace(c)
+		if c == "" {
+			continue
+		}
+		if err := validateIdentifier(c, "col"); err != nil {
+			return nil, err
+		}
+		validCols = append(validCols, c)
+	}
+	normalizedCols := strings.Join(validCols, ", ")
+	return &ResourceStore[T]{db: db, table: table, idCol: idCol, cols: normalizedCols, scanner: scanner}, nil
+}
+
+func validateIdentifier(s, kind string) error {
+	if len(s) == 0 {
+		return fmt.Errorf("shared: empty %s identifier", kind)
+	}
+	for _, r := range s {
+		isLower := r >= 'a' && r <= 'z'
+		isUpper := r >= 'A' && r <= 'Z'
+		isDigit := r >= '0' && r <= '9'
+		isUnderscore := r == '_'
+		if !isLower && !isUpper && !isDigit && !isUnderscore {
+			return fmt.Errorf("shared: invalid %s identifier: %q", kind, s)
+		}
+	}
+	return nil
 }
 
 func (s *ResourceStore[T]) DB() *sqlite.Store { return s.db }
