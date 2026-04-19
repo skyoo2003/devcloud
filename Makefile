@@ -1,4 +1,4 @@
-.PHONY: build test codegen run clean test-compat build-web build-all docker-build docker-run
+.PHONY: build test codegen run clean test-compat build-web build-all docker-build docker-run changelog
 
 build:
 	go build -o dist/devcloud ./cmd/devcloud
@@ -32,3 +32,6 @@ docker-run:
 
 clean:
 	rm -rf dist/ data/
+
+changelog:
+	@changie batch $(VERSION) && changie merge
