@@ -18,9 +18,9 @@ type FileStore struct {
 func NewFileStore(baseDir string) *FileStore {
 	abs, err := filepath.Abs(baseDir)
 	if err != nil {
-		abs = baseDir
+		abs = filepath.Clean(baseDir)
 	}
-	return &FileStore{baseDir: abs}
+	return &FileStore{baseDir: filepath.Clean(abs)}
 }
 
 // safePath joins the components under baseDir and verifies the result does not
@@ -28,7 +28,8 @@ func NewFileStore(baseDir string) *FileStore {
 func (fs *FileStore) safePath(parts ...string) (string, error) {
 	for _, part := range parts {
 		if part == "" || part == "." || part == ".." ||
-			strings.Contains(part, "/") || strings.Contains(part, "\\") {
+			strings.ContainsAny(part, "/\\") ||
+			strings.ContainsFunc(part, func(r rune) bool { return os.IsPathSeparator(byte(r)) }) {
 			return "", fmt.Errorf("invalid path component: %q", part)
 		}
 	}
