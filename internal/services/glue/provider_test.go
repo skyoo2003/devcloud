@@ -19,7 +19,7 @@ func newTestProvider(t *testing.T) *Provider {
 	if err := p.Init(plugin.PluginConfig{DataDir: t.TempDir()}); err != nil {
 		t.Fatalf("Init: %v", err)
 	}
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 

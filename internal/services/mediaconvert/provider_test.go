@@ -22,7 +22,7 @@ func newTestProvider(t *testing.T) *MediaConvertProvider {
 	p := &MediaConvertProvider{}
 	err := p.Init(plugin.PluginConfig{DataDir: dir})
 	require.NoError(t, err)
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 
@@ -37,7 +37,7 @@ func mcReq(t *testing.T, p *MediaConvertProvider, method, path string, body map[
 	resp, err := p.HandleRequest(context.Background(), "", req)
 	require.NoError(t, err)
 	var result map[string]any
-	json.Unmarshal(resp.Body, &result)
+	_ = json.Unmarshal(resp.Body, &result)
 	return result, resp.StatusCode
 }
 

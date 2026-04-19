@@ -37,7 +37,7 @@ func newTestResourceStore(t *testing.T) *ResourceStore[testItem] {
 	dbPath := t.TempDir() + "/test.db"
 	db, err := sqlite.Open(dbPath, testMigrations)
 	require.NoError(t, err)
-	t.Cleanup(func() { db.Close() })
+	t.Cleanup(func() { _ = db.Close() })
 	return NewResourceStore[testItem](db, "items", "id", "id, name", testScanner)
 }
 

@@ -277,17 +277,17 @@ func parseTags(rawTags []any) map[string]string {
 
 func endpointToMap(r *endpointRow) map[string]any {
 	var sgs []string
-	json.Unmarshal([]byte(r.SecurityGroups), &sgs)
+	_ = json.Unmarshal([]byte(r.SecurityGroups), &sgs)
 	var ips []ipAddrEntry
-	json.Unmarshal([]byte(r.IPAddresses), &ips)
-	ipResponses := make([]map[string]any, 0, len(ips))
-	for _, ip := range ips {
-		ipResponses = append(ipResponses, map[string]any{
+	_ = json.Unmarshal([]byte(r.IPAddresses), &ips)
+	ipResponses := make([]map[string]any, len(ips))
+	for i, ip := range ips {
+		ipResponses[i] = map[string]any{
 			"IpId":     ip.IPID,
 			"SubnetId": ip.SubnetID,
 			"Ip":       ip.IP,
 			"Status":   ip.Status,
-		})
+		}
 	}
 	return map[string]any{
 		"Id":               r.ID,
@@ -304,7 +304,7 @@ func endpointToMap(r *endpointRow) map[string]any {
 
 func ruleToMap(r *ruleRow) map[string]any {
 	var tIPs []map[string]any
-	json.Unmarshal([]byte(r.TargetIPs), &tIPs)
+	_ = json.Unmarshal([]byte(r.TargetIPs), &tIPs)
 	if tIPs == nil {
 		tIPs = []map[string]any{}
 	}
@@ -440,7 +440,7 @@ func (p *Provider) createResolverEndpoint(params map[string]any) (*plugin.Respon
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -491,7 +491,7 @@ func (p *Provider) deleteResolverEndpoint(params map[string]any) (*plugin.Respon
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "resolver endpoint not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(ep.ARN)
+	_ = p.store.tags.DeleteAllTags(ep.ARN)
 	if err := p.store.DeleteEndpoint(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "resolver endpoint not found", http.StatusBadRequest), nil
 	}
@@ -578,7 +578,7 @@ func (p *Provider) createResolverRule(params map[string]any) (*plugin.Response, 
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{"ResolverRule": ruleToMap(rule)})
@@ -632,7 +632,7 @@ func (p *Provider) updateResolverRule(params map[string]any) (*plugin.Response, 
 		endpointID = existing.ResolverEndpointID
 	}
 	if targetIPs == nil {
-		json.Unmarshal([]byte(existing.TargetIPs), &targetIPs)
+		_ = json.Unmarshal([]byte(existing.TargetIPs), &targetIPs)
 	}
 	if err := p.store.UpdateRule(id, name, endpointID, targetIPs); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "resolver rule not found", http.StatusBadRequest), nil
@@ -647,7 +647,7 @@ func (p *Provider) deleteResolverRule(params map[string]any) (*plugin.Response, 
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "resolver rule not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(rule.ARN)
+	_ = p.store.tags.DeleteAllTags(rule.ARN)
 	if err := p.store.DeleteRule(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "resolver rule not found", http.StatusBadRequest), nil
 	}
@@ -723,7 +723,7 @@ func (p *Provider) createResolverQueryLogConfig(params map[string]any) (*plugin.
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"ResolverQueryLogConfig": queryLogToMap(cfg)})
 }
@@ -759,7 +759,7 @@ func (p *Provider) deleteResolverQueryLogConfig(params map[string]any) (*plugin.
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "query log config not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(cfg.ARN)
+	_ = p.store.tags.DeleteAllTags(cfg.ARN)
 	if err := p.store.DeleteQueryLogConfig(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "query log config not found", http.StatusBadRequest), nil
 	}
@@ -834,7 +834,7 @@ func (p *Provider) createFirewallRuleGroup(params map[string]any) (*plugin.Respo
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"FirewallRuleGroup": fwRuleGroupToMap(grp)})
 }
@@ -870,7 +870,7 @@ func (p *Provider) deleteFirewallRuleGroup(params map[string]any) (*plugin.Respo
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall rule group not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(grp.ARN)
+	_ = p.store.tags.DeleteAllTags(grp.ARN)
 	if err := p.store.DeleteFirewallRuleGroup(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall rule group not found", http.StatusBadRequest), nil
 	}
@@ -964,7 +964,7 @@ func (p *Provider) createFirewallDomainList(params map[string]any) (*plugin.Resp
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"FirewallDomainList": fwDomainListToMap(dl)})
 }
@@ -1000,7 +1000,7 @@ func (p *Provider) deleteFirewallDomainList(params map[string]any) (*plugin.Resp
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall domain list not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(dl.ARN)
+	_ = p.store.tags.DeleteAllTags(dl.ARN)
 	if err := p.store.DeleteFirewallDomainList(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall domain list not found", http.StatusBadRequest), nil
 	}
@@ -1047,15 +1047,14 @@ func (p *Provider) updateFirewallDomains(params map[string]any) (*plugin.Respons
 			}
 		}
 	}
-	dl, err := p.store.GetFirewallDomainList(id)
-	if err != nil {
+	if _, err := p.store.GetFirewallDomainList(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall domain list not found", http.StatusBadRequest), nil
 	}
 	if err := p.store.UpdateFirewallDomains(id, op, domains); err != nil {
 		return nil, err
 	}
 	// re-fetch for updated count
-	dl, _ = p.store.GetFirewallDomainList(id)
+	dl, _ := p.store.GetFirewallDomainList(id)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"Id":     dl.ID,
 		"Name":   dl.Name,

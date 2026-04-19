@@ -114,7 +114,7 @@ func (s *Store) ListDomains() ([]Domain, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var domains []Domain
 	for rows.Next() {
 		d, err := scanDomain(rows)
@@ -184,7 +184,7 @@ func (s *Store) ListApplications() ([]Application, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var apps []Application
 	for rows.Next() {
 		a, err := scanApplication(rows)

@@ -251,7 +251,7 @@ func (p *Provider) createResourceShare(params map[string]any) (*plugin.Response,
 
 	if rawTags, ok := params["tags"].([]any); ok {
 		tags := parseTagList(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags)
 	}
 
 	created, _ := p.store.GetShare(arn)
@@ -302,7 +302,7 @@ func (p *Provider) deleteResourceShare(req *http.Request) (*plugin.Response, err
 	if err != nil {
 		return shared.JSONError("UnknownResourceException", "resource share not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(rs.ARN)
+	_ = p.store.tags.DeleteAllTags(rs.ARN)
 	if err := p.store.DeleteShare(arn); err != nil {
 		return shared.JSONError("UnknownResourceException", "resource share not found", http.StatusBadRequest), nil
 	}
@@ -330,7 +330,7 @@ func (p *Provider) associateResourceShare(params map[string]any) (*plugin.Respon
 				Type:             "RESOURCE",
 				Status:           "ASSOCIATED",
 			}
-			p.store.AddAssociation(a)
+			p.store.AddAssociation(a) //nolint:errcheck
 			assocs = append(assocs, assocToMap(a))
 		}
 	}
@@ -346,7 +346,7 @@ func (p *Provider) associateResourceShare(params map[string]any) (*plugin.Respon
 				Type:             "PRINCIPAL",
 				Status:           "ASSOCIATED",
 			}
-			p.store.AddAssociation(a)
+			p.store.AddAssociation(a) //nolint:errcheck
 			assocs = append(assocs, assocToMap(a))
 		}
 	}
@@ -365,13 +365,13 @@ func (p *Provider) disassociateResourceShare(params map[string]any) (*plugin.Res
 	if resources, ok := params["resourceArns"].([]any); ok {
 		for _, r := range resources {
 			rArn, _ := r.(string)
-			p.store.DeleteAssociation(shareARN, rArn)
+			p.store.DeleteAssociation(shareARN, rArn) //nolint:errcheck
 		}
 	}
 	if principals, ok := params["principals"].([]any); ok {
 		for _, pr := range principals {
 			prStr, _ := pr.(string)
-			p.store.DeleteAssociation(shareARN, prStr)
+			p.store.DeleteAssociation(shareARN, prStr) //nolint:errcheck
 		}
 	}
 
@@ -425,7 +425,7 @@ func (p *Provider) acceptResourceShareInvitation(params map[string]any) (*plugin
 	if inv.Status != "PENDING" {
 		return shared.JSONError("ResourceShareInvitationAlreadyAcceptedException", "invitation already processed", http.StatusBadRequest), nil
 	}
-	p.store.UpdateInvitationStatus(invARN, "ACCEPTED")
+	p.store.UpdateInvitationStatus(invARN, "ACCEPTED") //nolint:errcheck
 	inv.Status = "ACCEPTED"
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"resourceShareInvitation": invToMap(inv),
@@ -444,7 +444,7 @@ func (p *Provider) rejectResourceShareInvitation(params map[string]any) (*plugin
 	if inv.Status != "PENDING" {
 		return shared.JSONError("ResourceShareInvitationAlreadyRejectedException", "invitation already processed", http.StatusBadRequest), nil
 	}
-	p.store.UpdateInvitationStatus(invARN, "REJECTED")
+	p.store.UpdateInvitationStatus(invARN, "REJECTED") //nolint:errcheck
 	inv.Status = "REJECTED"
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"resourceShareInvitation": invToMap(inv),
@@ -479,7 +479,7 @@ func (p *Provider) createPermission(params map[string]any) (*plugin.Response, er
 
 	if rawTags, ok := params["tags"].([]any); ok {
 		tags := parseTagList(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags)
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -561,11 +561,8 @@ func (p *Provider) deletePermissionVersion(req *http.Request) (*plugin.Response,
 	return shared.JSONResponse(http.StatusOK, map[string]any{"returnValue": true, "permissionStatus": "DELETED"})
 }
 
-func (p *Provider) listResourceSharePermissions(req *http.Request, params map[string]any) (*plugin.Response, error) {
-	shareARN, _ := params["resourceShareArn"].(string)
-	if shareARN == "" {
-		shareARN = extractPathParam(req.URL.Path, "resourceshares")
-	}
+func (p *Provider) listResourceSharePermissions(_ *http.Request, params map[string]any) (*plugin.Response, error) {
+	_ = params
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"permissions": []any{},
 	})
@@ -617,7 +614,7 @@ func (p *Provider) promotePermissionCreatedFromPolicy(params map[string]any) (*p
 		Name:   name,
 		Status: "ATTACHABLE",
 	}
-	p.store.CreatePermission(perm)
+	p.store.CreatePermission(perm) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"permission": permToMap(perm),
 	})

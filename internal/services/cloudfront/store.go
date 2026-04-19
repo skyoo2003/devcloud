@@ -217,7 +217,7 @@ func (s *CloudFrontStore) ListDistributions() ([]Distribution, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Distribution
 	for rows.Next() {
 		d, err := scanDistribution(rows)
@@ -302,7 +302,7 @@ func (s *CloudFrontStore) ListCachePolicies() ([]CachePolicy, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []CachePolicy
 	for rows.Next() {
 		cp, err := scanCachePolicy(rows)
@@ -383,7 +383,7 @@ func (s *CloudFrontStore) ListOriginRequestPolicies() ([]OriginRequestPolicy, er
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []OriginRequestPolicy
 	for rows.Next() {
 		p, err := scanOriginRequestPolicy(rows)
@@ -464,7 +464,7 @@ func (s *CloudFrontStore) ListResponseHeadersPolicies() ([]ResponseHeadersPolicy
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ResponseHeadersPolicy
 	for rows.Next() {
 		p, err := scanResponseHeadersPolicy(rows)
@@ -545,7 +545,7 @@ func (s *CloudFrontStore) ListOriginAccessControls() ([]OriginAccessControl, err
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []OriginAccessControl
 	for rows.Next() {
 		oac, err := scanOriginAccessControl(rows)
@@ -630,7 +630,7 @@ func (s *CloudFrontStore) ListFunctions() ([]Function, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Function
 	for rows.Next() {
 		fn, err := scanFunction(rows)
@@ -712,7 +712,7 @@ func (s *CloudFrontStore) ListInvalidations(distributionID string) ([]Invalidati
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Invalidation
 	for rows.Next() {
 		inv, err := scanInvalidation(rows)
@@ -771,7 +771,7 @@ func (s *CloudFrontStore) ListTags(arn string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	out := make(map[string]string)
 	for rows.Next() {
 		var k, v string

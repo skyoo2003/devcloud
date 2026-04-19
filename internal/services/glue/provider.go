@@ -394,7 +394,7 @@ func (p *Provider) deleteDatabase(params map[string]any) (*plugin.Response, erro
 
 func databaseToMap(db *Database) map[string]any {
 	var params any
-	json.Unmarshal([]byte(db.Parameters), &params)
+	_ = json.Unmarshal([]byte(db.Parameters), &params)
 	return map[string]any{
 		"Name":        db.Name,
 		"Description": db.Description,
@@ -578,10 +578,10 @@ func (p *Provider) getTableVersions(params map[string]any) (*plugin.Response, er
 
 func tableToMap(t *Table) map[string]any {
 	var params, sd, cols, pk any
-	json.Unmarshal([]byte(t.Parameters), &params)
-	json.Unmarshal([]byte(t.StorageDesc), &sd)
-	json.Unmarshal([]byte(t.Columns), &cols)
-	json.Unmarshal([]byte(t.PartitionKeys), &pk)
+	_ = json.Unmarshal([]byte(t.Parameters), &params)
+	_ = json.Unmarshal([]byte(t.StorageDesc), &sd)
+	_ = json.Unmarshal([]byte(t.Columns), &cols)
+	_ = json.Unmarshal([]byte(t.PartitionKeys), &pk)
 	return map[string]any{
 		"Name":              t.Name,
 		"DatabaseName":      t.DatabaseName,
@@ -786,8 +786,8 @@ func (p *Provider) batchUpdatePartition(params map[string]any) (*plugin.Response
 
 func partitionToMap(p *Partition) map[string]any {
 	var params, sd any
-	json.Unmarshal([]byte(p.Parameters), &params)
-	json.Unmarshal([]byte(p.StorageDesc), &sd)
+	_ = json.Unmarshal([]byte(p.Parameters), &params)
+	_ = json.Unmarshal([]byte(p.StorageDesc), &sd)
 	values := strings.Split(p.ValuesKey, "\x00")
 	if len(values) == 1 && values[0] == "" {
 		values = []string{}
@@ -932,8 +932,8 @@ func (p *Provider) batchGetCrawlers(params map[string]any) (*plugin.Response, er
 
 func crawlerToMap(c *Crawler) map[string]any {
 	var targets, config any
-	json.Unmarshal([]byte(c.Targets), &targets)
-	json.Unmarshal([]byte(c.Config), &config)
+	_ = json.Unmarshal([]byte(c.Targets), &targets)
+	_ = json.Unmarshal([]byte(c.Config), &config)
 	return map[string]any{
 		"Name":          c.Name,
 		"Role":          c.Role,
@@ -1107,8 +1107,8 @@ func (p *Provider) batchStopJobRun(params map[string]any) (*plugin.Response, err
 
 func jobToMap(j *Job) map[string]any {
 	var command, config any
-	json.Unmarshal([]byte(j.Command), &command)
-	json.Unmarshal([]byte(j.Config), &config)
+	_ = json.Unmarshal([]byte(j.Command), &command)
+	_ = json.Unmarshal([]byte(j.Config), &config)
 	return map[string]any{
 		"Name":             j.Name,
 		"Role":             j.Role,
@@ -1236,7 +1236,7 @@ func (p *Provider) batchDeleteConnection(params map[string]any) (*plugin.Respons
 
 func connectionToMap(c *Connection) map[string]any {
 	var props any
-	json.Unmarshal([]byte(c.Properties), &props)
+	_ = json.Unmarshal([]byte(c.Properties), &props)
 	return map[string]any{
 		"Name":                 c.Name,
 		"ConnectionType":       c.Type,
@@ -1375,8 +1375,8 @@ func (p *Provider) batchGetTriggers(params map[string]any) (*plugin.Response, er
 
 func triggerToMap(t *Trigger) map[string]any {
 	var actions, predicate any
-	json.Unmarshal([]byte(t.Actions), &actions)
-	json.Unmarshal([]byte(t.Predicate), &predicate)
+	_ = json.Unmarshal([]byte(t.Actions), &actions)
+	_ = json.Unmarshal([]byte(t.Predicate), &predicate)
 	return map[string]any{
 		"Name":      t.Name,
 		"Type":      t.Type,
@@ -1442,7 +1442,7 @@ func (p *Provider) deleteSecurityConfiguration(params map[string]any) (*plugin.R
 
 func securityConfigToMap(c *SecurityConfig) map[string]any {
 	var config any
-	json.Unmarshal([]byte(c.Config), &config)
+	_ = json.Unmarshal([]byte(c.Config), &config)
 	return map[string]any{
 		"Name":                    c.Name,
 		"EncryptionConfiguration": config,

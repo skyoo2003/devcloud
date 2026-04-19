@@ -24,12 +24,11 @@ func TestPublishAndSubscribe(t *testing.T) {
 	})
 	defer unsub()
 
-	err := bus.Publish(context.Background(), Event{
+	require.NoError(t, bus.Publish(context.Background(), Event{
 		Source: "s3",
 		Type:   "s3:ObjectCreated",
 		Detail: map[string]any{"bucket": "test", "key": "hello.txt"},
-	})
-	require.NoError(t, err)
+	}))
 
 	time.Sleep(50 * time.Millisecond)
 	mu.Lock()
@@ -51,8 +50,8 @@ func TestSubscribeWildcard(t *testing.T) {
 	})
 	defer unsub()
 
-	bus.Publish(context.Background(), Event{Source: "s3", Type: "s3:ObjectCreated"})
-	bus.Publish(context.Background(), Event{Source: "sqs", Type: "sqs:MessageSent"})
+	require.NoError(t, bus.Publish(context.Background(), Event{Source: "s3", Type: "s3:ObjectCreated"}))
+	require.NoError(t, bus.Publish(context.Background(), Event{Source: "sqs", Type: "sqs:MessageSent"}))
 
 	time.Sleep(50 * time.Millisecond)
 	mu.Lock()
@@ -71,12 +70,12 @@ func TestUnsubscribe(t *testing.T) {
 		mu.Unlock()
 	})
 
-	bus.Publish(context.Background(), Event{Type: "test"})
+	require.NoError(t, bus.Publish(context.Background(), Event{Type: "test"}))
 	time.Sleep(50 * time.Millisecond)
 
 	unsub()
 
-	bus.Publish(context.Background(), Event{Type: "test"})
+	require.NoError(t, bus.Publish(context.Background(), Event{Type: "test"}))
 	time.Sleep(50 * time.Millisecond)
 
 	mu.Lock()

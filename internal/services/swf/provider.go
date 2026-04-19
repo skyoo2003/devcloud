@@ -255,7 +255,7 @@ func (p *Provider) registerDomain(params map[string]any) (*plugin.Response, erro
 		return nil, err
 	}
 	if rawTags, ok := params["tags"].([]any); ok {
-		p.store.tags.AddTags(d.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(d.ARN, parseTags(rawTags))
 	}
 	return json10Resp(http.StatusOK, map[string]any{})
 }
@@ -800,7 +800,7 @@ func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) 
 		return json10Err("ValidationException", "resourceArn is required", http.StatusBadRequest), nil
 	}
 	if rawTags, ok := params["tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags))
 	}
 	return json10Resp(http.StatusOK, map[string]any{})
 }
@@ -817,7 +817,7 @@ func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error
 				keys = append(keys, s)
 			}
 		}
-		p.store.tags.RemoveTags(arn, keys)
+		p.store.tags.RemoveTags(arn, keys) //nolint:errcheck
 	}
 	return json10Resp(http.StatusOK, map[string]any{})
 }

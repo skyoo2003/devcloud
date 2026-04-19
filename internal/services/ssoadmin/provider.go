@@ -262,7 +262,7 @@ func (p *Provider) createInstance(params map[string]any) (*plugin.Response, erro
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTagList(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTagList(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{"InstanceArn": arn})
@@ -309,7 +309,7 @@ func (p *Provider) deleteInstance(params map[string]any) (*plugin.Response, erro
 	if arn == "" {
 		return ssoError("ValidationException", "InstanceArn is required", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn)
 	if err := p.store.DeleteInstance(arn); err != nil {
 		return ssoError("ResourceNotFoundException", "instance not found", http.StatusBadRequest), nil
 	}
@@ -347,7 +347,7 @@ func (p *Provider) createPermissionSet(params map[string]any) (*plugin.Response,
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTagList(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTagList(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -411,7 +411,7 @@ func (p *Provider) deletePermissionSet(params map[string]any) (*plugin.Response,
 	if arn == "" {
 		return ssoError("ValidationException", "PermissionSetArn is required", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn)
 	if err := p.store.DeletePermissionSet(arn); err != nil {
 		return ssoError("ResourceNotFoundException", "permission set not found", http.StatusBadRequest), nil
 	}
@@ -646,7 +646,7 @@ func (p *Provider) getPermissionsBoundary(params map[string]any) (*plugin.Respon
 		return ssoError("ResourceNotFoundException", "permission set not found", http.StatusBadRequest), nil
 	}
 	var pb any
-	json.Unmarshal([]byte(ps.PermissionsBoundary), &pb)
+	_ = json.Unmarshal([]byte(ps.PermissionsBoundary), &pb)
 	return shared.JSONResponse(http.StatusOK, map[string]any{"PermissionsBoundary": pb})
 }
 
@@ -779,7 +779,7 @@ func (p *Provider) createApplication(params map[string]any) (*plugin.Response, e
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTagList(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTagList(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{"ApplicationArn": arn})
@@ -839,7 +839,7 @@ func (p *Provider) deleteApplication(params map[string]any) (*plugin.Response, e
 	if arn == "" {
 		return ssoError("ValidationException", "ApplicationArn is required", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn)
 	if err := p.store.DeleteApplication(arn); err != nil {
 		return ssoError("ResourceNotFoundException", "application not found", http.StatusBadRequest), nil
 	}
@@ -878,7 +878,7 @@ func (p *Provider) createTrustedTokenIssuer(params map[string]any) (*plugin.Resp
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTagList(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTagList(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{"TrustedTokenIssuerArn": arn})
@@ -936,7 +936,7 @@ func (p *Provider) deleteTrustedTokenIssuer(params map[string]any) (*plugin.Resp
 	if arn == "" {
 		return ssoError("ValidationException", "TrustedTokenIssuerArn is required", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn)
 	if err := p.store.DeleteTrustedTokenIssuer(arn); err != nil {
 		return ssoError("ResourceNotFoundException", "trusted token issuer not found", http.StatusBadRequest), nil
 	}
@@ -1055,7 +1055,7 @@ func applicationToMap(app *Application) map[string]any {
 
 func trustedTokenIssuerToMap(tti *TrustedTokenIssuer) map[string]any {
 	var config any
-	json.Unmarshal([]byte(tti.Config), &config)
+	_ = json.Unmarshal([]byte(tti.Config), &config)
 	return map[string]any{
 		"TrustedTokenIssuerArn":           tti.ARN,
 		"Name":                            tti.Name,

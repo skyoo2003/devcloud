@@ -252,7 +252,7 @@ func (s *Store) ListEndpoints() ([]endpointRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []endpointRow
 	for rows.Next() {
 		r, err := scanEndpoint(rows)
@@ -294,7 +294,7 @@ func (s *Store) AssociateEndpointIP(id string, ip ipAddrEntry) (*endpointRow, er
 		return nil, err
 	}
 	var ips []ipAddrEntry
-	json.Unmarshal([]byte(ep.IPAddresses), &ips)
+	_ = json.Unmarshal([]byte(ep.IPAddresses), &ips)
 	ips = append(ips, ip)
 	ipJSON := marshalJSON(ips)
 	if _, err := s.db().Exec(`UPDATE resolver_endpoints SET ip_addresses=? WHERE id=?`, ipJSON, id); err != nil {
@@ -310,7 +310,7 @@ func (s *Store) DisassociateEndpointIP(id, ipID string) (*endpointRow, error) {
 		return nil, err
 	}
 	var ips []ipAddrEntry
-	json.Unmarshal([]byte(ep.IPAddresses), &ips)
+	_ = json.Unmarshal([]byte(ep.IPAddresses), &ips)
 	filtered := ips[:0]
 	for _, ip := range ips {
 		if ip.IPID != ipID {
@@ -331,7 +331,7 @@ func (s *Store) ListEndpointIPs(id string) ([]ipAddrEntry, error) {
 		return nil, err
 	}
 	var ips []ipAddrEntry
-	json.Unmarshal([]byte(ep.IPAddresses), &ips)
+	_ = json.Unmarshal([]byte(ep.IPAddresses), &ips)
 	return ips, nil
 }
 
@@ -377,7 +377,7 @@ func (s *Store) ListRules() ([]ruleRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []ruleRow
 	for rows.Next() {
 		r, err := scanRule(rows)
@@ -448,7 +448,7 @@ func (s *Store) DisassociateRule(ruleID, vpcID string) (*ruleAssocRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	s.db().Exec(`DELETE FROM rule_associations WHERE id=?`, assoc.ID)
+	_, _ = s.db().Exec(`DELETE FROM rule_associations WHERE id=?`, assoc.ID)
 	return assoc, nil
 }
 
@@ -464,7 +464,7 @@ func (s *Store) ListRuleAssociations() ([]ruleAssocRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []ruleAssocRow
 	for rows.Next() {
 		r, err := scanRuleAssoc(rows)
@@ -513,7 +513,7 @@ func (s *Store) ListQueryLogConfigs() ([]queryLogRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []queryLogRow
 	for rows.Next() {
 		r, err := scanQueryLog(rows)
@@ -569,7 +569,7 @@ func (s *Store) DisassociateQueryLogConfig(configID, resourceID string) (*queryL
 	if err != nil {
 		return nil, err
 	}
-	s.db().Exec(`DELETE FROM query_log_associations WHERE id=?`, assoc.ID)
+	_, _ = s.db().Exec(`DELETE FROM query_log_associations WHERE id=?`, assoc.ID)
 	return assoc, nil
 }
 
@@ -585,7 +585,7 @@ func (s *Store) ListQueryLogConfigAssociations() ([]queryLogAssocRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []queryLogAssocRow
 	for rows.Next() {
 		r, err := scanQueryLogAssoc(rows)
@@ -634,7 +634,7 @@ func (s *Store) ListFirewallRuleGroups() ([]fwRuleGroupRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []fwRuleGroupRow
 	for rows.Next() {
 		r, err := scanFwRuleGroup(rows)
@@ -659,7 +659,7 @@ func (s *Store) DeleteFirewallRuleGroup(id string) error {
 }
 
 func (s *Store) incrFwRuleGroupCount(groupID string, delta int) {
-	s.db().Exec(
+	_, _ = s.db().Exec(
 		`UPDATE firewall_rule_groups SET rule_count = rule_count + ? WHERE id=?`, delta, groupID)
 }
 
@@ -695,7 +695,7 @@ func (s *Store) ListFirewallRules(groupID string) ([]fwRuleRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []fwRuleRow
 	for rows.Next() {
 		r, err := scanFwRule(rows)
@@ -772,7 +772,7 @@ func (s *Store) ListFirewallDomainLists() ([]fwDomainListRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []fwDomainListRow
 	for rows.Next() {
 		r, err := scanFwDomainList(rows)
@@ -793,7 +793,7 @@ func (s *Store) DeleteFirewallDomainList(id string) error {
 	if n == 0 {
 		return errNotFound
 	}
-	s.db().Exec(`DELETE FROM firewall_domains WHERE list_id=?`, id)
+	_, _ = s.db().Exec(`DELETE FROM firewall_domains WHERE list_id=?`, id)
 	return nil
 }
 
@@ -801,21 +801,21 @@ func (s *Store) UpdateFirewallDomains(listID, op string, domains []string) error
 	switch op {
 	case "ADD":
 		for _, d := range domains {
-			s.db().Exec(`INSERT OR IGNORE INTO firewall_domains (list_id,domain) VALUES (?,?)`, listID, d)
+			_, _ = s.db().Exec(`INSERT OR IGNORE INTO firewall_domains (list_id,domain) VALUES (?,?)`, listID, d)
 		}
 	case "REMOVE":
 		for _, d := range domains {
-			s.db().Exec(`DELETE FROM firewall_domains WHERE list_id=? AND domain=?`, listID, d)
+			_, _ = s.db().Exec(`DELETE FROM firewall_domains WHERE list_id=? AND domain=?`, listID, d)
 		}
 	case "REPLACE":
-		s.db().Exec(`DELETE FROM firewall_domains WHERE list_id=?`, listID)
+		_, _ = s.db().Exec(`DELETE FROM firewall_domains WHERE list_id=?`, listID)
 		for _, d := range domains {
-			s.db().Exec(`INSERT OR IGNORE INTO firewall_domains (list_id,domain) VALUES (?,?)`, listID, d)
+			_, _ = s.db().Exec(`INSERT OR IGNORE INTO firewall_domains (list_id,domain) VALUES (?,?)`, listID, d)
 		}
 	}
 	var count int
-	s.db().QueryRow(`SELECT COUNT(*) FROM firewall_domains WHERE list_id=?`, listID).Scan(&count)
-	s.db().Exec(`UPDATE firewall_domain_lists SET domain_count=? WHERE id=?`, count, listID)
+	_ = s.db().QueryRow(`SELECT COUNT(*) FROM firewall_domains WHERE list_id=?`, listID).Scan(&count)
+	_, _ = s.db().Exec(`UPDATE firewall_domain_lists SET domain_count=? WHERE id=?`, count, listID)
 	return nil
 }
 
@@ -824,7 +824,7 @@ func (s *Store) ListFirewallDomains(listID string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []string
 	for rows.Next() {
 		var d string
@@ -880,7 +880,7 @@ func (s *Store) ListFirewallRuleGroupAssociations(vpcID string) ([]fwRuleGroupAs
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []fwRuleGroupAssocRow
 	for rows.Next() {
 		r, err := scanFwRuleGroupAssoc(rows)
@@ -897,7 +897,7 @@ func (s *Store) DisassociateFirewallRuleGroup(id string) (*fwRuleGroupAssocRow, 
 	if err != nil {
 		return nil, err
 	}
-	s.db().Exec(`DELETE FROM firewall_rule_group_associations WHERE id=?`, id)
+	_, _ = s.db().Exec(`DELETE FROM firewall_rule_group_associations WHERE id=?`, id)
 	return assoc, nil
 }
 

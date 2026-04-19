@@ -194,7 +194,7 @@ func (s *Store) ListDestinations() ([]Destination, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []Destination
 	for rows.Next() {
 		d, err := scanDestination(rows)
@@ -270,7 +270,7 @@ func (s *Store) ListDeviceProfiles() ([]DeviceProfile, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []DeviceProfile
 	for rows.Next() {
 		dp, err := scanDeviceProfile(rows)
@@ -315,7 +315,7 @@ func (s *Store) ListServiceProfiles() ([]ServiceProfile, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []ServiceProfile
 	for rows.Next() {
 		sp, err := scanServiceProfile(rows)
@@ -360,7 +360,7 @@ func (s *Store) ListWirelessDevices() ([]WirelessDevice, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []WirelessDevice
 	for rows.Next() {
 		wd, err := scanWirelessDevice(rows)
@@ -433,7 +433,7 @@ func (s *Store) ListWirelessGateways() ([]WirelessGateway, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []WirelessGateway
 	for rows.Next() {
 		wg, err := scanWirelessGateway(rows)
@@ -503,7 +503,7 @@ func (s *Store) ListFuotaTasks() ([]FuotaTask, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []FuotaTask
 	for rows.Next() {
 		ft, err := scanFuotaTask(rows)
@@ -573,7 +573,7 @@ func (s *Store) ListMulticastGroups() ([]MulticastGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []MulticastGroup
 	for rows.Next() {
 		mg, err := scanMulticastGroup(rows)
@@ -640,7 +640,7 @@ func (s *Store) ListNetworkAnalyzerConfigs() ([]NetworkAnalyzerConfig, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []NetworkAnalyzerConfig
 	for rows.Next() {
 		nac, err := scanNetworkAnalyzerConfig(rows)

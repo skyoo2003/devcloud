@@ -102,7 +102,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	body, _ := io.ReadAll(req.Body)
 	var bodyMap map[string]any
 	if len(body) > 0 {
-		json.Unmarshal(body, &bodyMap)
+		_ = json.Unmarshal(body, &bodyMap)
 	}
 	if bodyMap == nil {
 		bodyMap = map[string]any{}
@@ -284,7 +284,7 @@ func (p *Provider) createModelCustomizationJob(body map[string]any) (*plugin.Res
 		AccountID:   defaultAccountID,
 		CreatedAt:   time.Now().UTC(),
 	}
-	p.store.CreateCustomModel(m)
+	p.store.CreateCustomModel(m) //nolint:errcheck
 
 	jobARN := fmt.Sprintf("arn:aws:bedrock:%s:%s:model-customization-job/%s", defaultRegion, defaultAccountID, jobID)
 	return shared.JSONResponse(http.StatusCreated, map[string]any{"jobArn": jobARN})

@@ -406,8 +406,8 @@ func (p *Provider) describeConfigRuleEvaluationStatus(params map[string]any) (*p
 
 func configRuleToMap(r *ConfigRule) map[string]any {
 	var source, scope any
-	json.Unmarshal([]byte(r.Source), &source)
-	json.Unmarshal([]byte(r.Scope), &scope)
+	_ = json.Unmarshal([]byte(r.Source), &source)
+	_ = json.Unmarshal([]byte(r.Scope), &scope)
 	return map[string]any{
 		"ConfigRuleName":  r.Name,
 		"ConfigRuleArn":   r.ARN,
@@ -522,8 +522,8 @@ func (p *Provider) deleteConfigurationRecorder(params map[string]any) (*plugin.R
 
 func recorderToMap(r *ConfigurationRecorder) map[string]any {
 	var rg, rm any
-	json.Unmarshal([]byte(r.RecordingGroup), &rg)
-	json.Unmarshal([]byte(r.RecordingMode), &rm)
+	_ = json.Unmarshal([]byte(r.RecordingGroup), &rg)
+	_ = json.Unmarshal([]byte(r.RecordingMode), &rm)
 	return map[string]any{
 		"name":           r.Name,
 		"roleARN":        r.RoleARN,
@@ -778,8 +778,8 @@ func (p *Provider) deleteConfigurationAggregator(params map[string]any) (*plugin
 
 func aggregatorToMap(a *Aggregator) map[string]any {
 	var acctSrc, orgSrc any
-	json.Unmarshal([]byte(a.AccountSources), &acctSrc)
-	json.Unmarshal([]byte(a.OrgSource), &orgSrc)
+	_ = json.Unmarshal([]byte(a.AccountSources), &acctSrc)
+	_ = json.Unmarshal([]byte(a.OrgSource), &orgSrc)
 	return map[string]any{
 		"ConfigurationAggregatorName":   a.Name,
 		"ConfigurationAggregatorArn":    a.ARN,
@@ -1044,7 +1044,7 @@ func (p *Provider) deleteRemediationConfiguration(params map[string]any) (*plugi
 
 func remediationConfigToMap(r *RemediationConfig) map[string]any {
 	var params any
-	json.Unmarshal([]byte(r.Parameters), &params)
+	_ = json.Unmarshal([]byte(r.Parameters), &params)
 	return map[string]any{
 		"ConfigRuleName": r.ConfigRuleName,
 		"TargetType":     r.TargetType,

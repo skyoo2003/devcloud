@@ -190,10 +190,6 @@ func NewStore(dataDir string) (*Store, error) {
 
 func (s *Store) Close() error { return s.db.Close() }
 
-func sqliteUnique(err error) bool {
-	return err != nil && strings.Contains(err.Error(), "UNIQUE constraint failed")
-}
-
 func now() int64 { return time.Now().Unix() }
 
 // ---- ConfigRule ----
@@ -244,7 +240,7 @@ func (s *Store) ListConfigRules(names []string) ([]*ConfigRule, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*ConfigRule
 	for rows.Next() {
 		r, err := scanConfigRule(rows)
@@ -313,7 +309,7 @@ func (s *Store) ListConfigurationRecorders(names []string) ([]*ConfigurationReco
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*ConfigurationRecorder
 	for rows.Next() {
 		r, err := scanRecorder(rows)
@@ -388,7 +384,7 @@ func (s *Store) ListDeliveryChannels(names []string) ([]*DeliveryChannel, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*DeliveryChannel
 	for rows.Next() {
 		d, err := scanDeliveryChannel(rows)
@@ -451,7 +447,7 @@ func (s *Store) ListConformancePacks(names []string) ([]*ConformancePack, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*ConformancePack
 	for rows.Next() {
 		c, err := scanConformancePack(rows)
@@ -519,7 +515,7 @@ func (s *Store) ListAggregators(names []string) ([]*Aggregator, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*Aggregator
 	for rows.Next() {
 		a, err := scanAggregator(rows)
@@ -573,7 +569,7 @@ func (s *Store) ListStoredQueries() ([]*StoredQuery, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*StoredQuery
 	for rows.Next() {
 		q, err := scanStoredQuery(rows)
@@ -625,7 +621,7 @@ func (s *Store) ListRetentionConfigs() ([]*RetentionConfig, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*RetentionConfig
 	for rows.Next() {
 		r, err := scanRetentionConfig(rows)
@@ -673,7 +669,7 @@ func (s *Store) ListAggregationAuthorizations() ([]*AggregationAuthorization, er
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*AggregationAuthorization
 	for rows.Next() {
 		a, err := scanAggAuth(rows)
@@ -738,7 +734,7 @@ func (s *Store) ListRemediationConfigs(ruleNames []string) ([]*RemediationConfig
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*RemediationConfig
 	for rows.Next() {
 		r, err := scanRemediationConfig(rows)

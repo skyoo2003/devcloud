@@ -635,7 +635,7 @@ func (p *Provider) deleteThing(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "thing not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(t.ARN)
+	_ = p.store.tags.DeleteAllTags(t.ARN)
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -708,7 +708,7 @@ func (p *Provider) deleteThingType(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "thing type not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(tt.ARN)
+	_ = p.store.tags.DeleteAllTags(tt.ARN)
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -821,7 +821,7 @@ func (p *Provider) deleteThingGroup(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "thing group not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(tg.ARN)
+	_ = p.store.tags.DeleteAllTags(tg.ARN)
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -913,7 +913,7 @@ func (p *Provider) createPolicy(params map[string]any) (*plugin.Response, error)
 		IsDefault:  true,
 		CreatedAt:  now,
 	}
-	p.store.CreatePolicyVersion(pv)
+	p.store.CreatePolicyVersion(pv) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"policyName":      name,
 		"policyArn":       arn,
@@ -953,7 +953,7 @@ func (p *Provider) deletePolicy(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "policy not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(pol.ARN)
+	_ = p.store.tags.DeleteAllTags(pol.ARN)
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -984,7 +984,7 @@ func (p *Provider) createPolicyVersion(policyName string, params map[string]any)
 		return nil, err
 	}
 	if setAsDefault {
-		p.store.SetDefaultPolicyVersion(policyName, versionID)
+		p.store.SetDefaultPolicyVersion(policyName, versionID) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"policyArn":        shared.BuildARN("iot", "policy", policyName),
@@ -1244,7 +1244,7 @@ func (p *Provider) deleteCertificate(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "certificate not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(c.ARN)
+	_ = p.store.tags.DeleteAllTags(c.ARN)
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -1394,7 +1394,7 @@ func (p *Provider) deleteTopicRule(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "topic rule not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(tr.ARN)
+	_ = p.store.tags.DeleteAllTags(tr.ARN)
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -1609,10 +1609,6 @@ func (p *Provider) deleteRoleAlias(name string) (*plugin.Response, error) {
 // --- Endpoint ---
 
 func (p *Provider) describeEndpoint(req *http.Request) (*plugin.Response, error) {
-	endpointType := req.URL.Query().Get("endpointType")
-	if endpointType == "" {
-		endpointType = "iot:Data-ATS"
-	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"endpointAddress": fmt.Sprintf("%s.iot.%s.amazonaws.com", shared.DefaultAccountID, shared.DefaultRegion),
 	})
@@ -1631,7 +1627,7 @@ func (p *Provider) tagResource(req *http.Request, params map[string]any) (*plugi
 		return shared.JSONError("InvalidRequestException", "resourceArn is required", http.StatusBadRequest), nil
 	}
 	if rawTags, ok := params["tags"].([]any); ok {
-		p.store.tags.AddTags(arn, tagsListToMap(rawTags))
+		_ = p.store.tags.AddTags(arn, tagsListToMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
@@ -1642,7 +1638,7 @@ func (p *Provider) untagResource(req *http.Request) (*plugin.Response, error) {
 		return shared.JSONError("InvalidRequestException", "resourceArn is required", http.StatusBadRequest), nil
 	}
 	keys := req.URL.Query()["tagKeys"]
-	p.store.tags.RemoveTags(arn, keys)
+	p.store.tags.RemoveTags(arn, keys) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -1663,7 +1659,7 @@ func (p *Provider) listTagsForResource(req *http.Request) (*plugin.Response, err
 
 func thingToMap(t *Thing) map[string]any {
 	var attrs map[string]any
-	json.Unmarshal([]byte(t.Attributes), &attrs)
+	_ = json.Unmarshal([]byte(t.Attributes), &attrs)
 	if attrs == nil {
 		attrs = map[string]any{}
 	}
@@ -1678,7 +1674,7 @@ func thingToMap(t *Thing) map[string]any {
 
 func thingTypeToMap(tt *ThingType) map[string]any {
 	var searchableAttrs []any
-	json.Unmarshal([]byte(tt.SearchableAttrs), &searchableAttrs)
+	_ = json.Unmarshal([]byte(tt.SearchableAttrs), &searchableAttrs)
 	if searchableAttrs == nil {
 		searchableAttrs = []any{}
 	}
@@ -1737,7 +1733,7 @@ func certToMap(c *Certificate) map[string]any {
 
 func topicRuleToMap(tr *TopicRule) map[string]any {
 	var actions []any
-	json.Unmarshal([]byte(tr.Actions), &actions)
+	_ = json.Unmarshal([]byte(tr.Actions), &actions)
 	if actions == nil {
 		actions = []any{}
 	}
@@ -1755,7 +1751,7 @@ func topicRuleToMap(tr *TopicRule) map[string]any {
 
 func jobToMap(j *Job) map[string]any {
 	var targets []any
-	json.Unmarshal([]byte(j.Targets), &targets)
+	_ = json.Unmarshal([]byte(j.Targets), &targets)
 	if targets == nil {
 		targets = []any{}
 	}

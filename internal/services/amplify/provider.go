@@ -437,7 +437,7 @@ func (p *Provider) createApp(params map[string]any) (*plugin.Response, error) {
 	}
 
 	if rawTags, ok := params["tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags))
 	}
 
 	tags, _ := p.store.tags.ListTags(arn)
@@ -489,7 +489,7 @@ func (p *Provider) deleteApp(appID string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("NotFoundException", "app not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(a.ARN)
+	_ = p.store.tags.DeleteAllTags(a.ARN)
 	tags := map[string]string{}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"app": appToMap(a, tags)})
 }
@@ -832,7 +832,7 @@ func (p *Provider) stopJob(appID, branchName, jobID string) (*plugin.Response, e
 	if err != nil {
 		return shared.JSONError("NotFoundException", "job not found", http.StatusNotFound), nil
 	}
-	p.store.UpdateJobStatus(appID, branchName, jobID, "CANCELLED")
+	p.store.UpdateJobStatus(appID, branchName, jobID, "CANCELLED") //nolint:errcheck
 	j.Status = "CANCELLED"
 	return shared.JSONResponse(http.StatusOK, map[string]any{"jobSummary": buildJobSummaryMap(j)})
 }
@@ -928,7 +928,7 @@ func branchToMap(b *Branch) map[string]any {
 
 func domainAssociationToMap(d *DomainAssociation) map[string]any {
 	var subDomains any
-	json.Unmarshal([]byte(d.SubDomains), &subDomains)
+	_ = json.Unmarshal([]byte(d.SubDomains), &subDomains)
 	if subDomains == nil {
 		subDomains = []any{}
 	}

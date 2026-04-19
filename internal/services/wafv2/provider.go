@@ -269,7 +269,7 @@ func (p *Provider) createWebACL(params map[string]any) (*plugin.Response, error)
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTagList(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTagList(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -362,7 +362,7 @@ func (p *Provider) deleteWebACL(params map[string]any) (*plugin.Response, error)
 	if err != nil {
 		return wafError("WAFNonexistentItemException", "web ACL not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(w.ARN)
+	_ = p.store.tags.DeleteAllTags(w.ARN)
 	if err := p.store.DeleteWebACL(name, scope); err != nil {
 		return wafError("WAFNonexistentItemException", "web ACL not found", http.StatusBadRequest), nil
 	}
@@ -475,7 +475,7 @@ func (p *Provider) createIPSet(params map[string]any) (*plugin.Response, error) 
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTagList(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTagList(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -555,7 +555,7 @@ func (p *Provider) deleteIPSet(params map[string]any) (*plugin.Response, error) 
 	if err != nil {
 		return wafError("WAFNonexistentItemException", "IP set not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(ip.ARN)
+	_ = p.store.tags.DeleteAllTags(ip.ARN)
 	if err := p.store.DeleteIPSet(name, scope); err != nil {
 		return wafError("WAFNonexistentItemException", "IP set not found", http.StatusBadRequest), nil
 	}
@@ -601,7 +601,7 @@ func (p *Provider) createRegexPatternSet(params map[string]any) (*plugin.Respons
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTagList(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTagList(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -681,7 +681,7 @@ func (p *Provider) deleteRegexPatternSet(params map[string]any) (*plugin.Respons
 	if err != nil {
 		return wafError("WAFNonexistentItemException", "regex pattern set not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(r.ARN)
+	_ = p.store.tags.DeleteAllTags(r.ARN)
 	if err := p.store.DeleteRegexPatternSet(name, scope); err != nil {
 		return wafError("WAFNonexistentItemException", "regex pattern set not found", http.StatusBadRequest), nil
 	}
@@ -738,7 +738,7 @@ func (p *Provider) createRuleGroup(params map[string]any) (*plugin.Response, err
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTagList(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTagList(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -822,7 +822,7 @@ func (p *Provider) deleteRuleGroup(params map[string]any) (*plugin.Response, err
 	if err != nil {
 		return wafError("WAFNonexistentItemException", "rule group not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(rg.ARN)
+	_ = p.store.tags.DeleteAllTags(rg.ARN)
 	if err := p.store.DeleteRuleGroup(name, scope); err != nil {
 		return wafError("WAFNonexistentItemException", "rule group not found", http.StatusBadRequest), nil
 	}
@@ -865,7 +865,7 @@ func (p *Provider) listAPIKeys(params map[string]any) (*plugin.Response, error) 
 	list := make([]map[string]any, 0, len(keys))
 	for _, k := range keys {
 		var domains []string
-		json.Unmarshal([]byte(k.TokenDomains), &domains)
+		_ = json.Unmarshal([]byte(k.TokenDomains), &domains)
 		if domains == nil {
 			domains = []string{}
 		}
@@ -903,7 +903,7 @@ func (p *Provider) getDecryptedAPIKey(params map[string]any) (*plugin.Response, 
 		return wafError("WAFNonexistentItemException", "API key not found", http.StatusBadRequest), nil
 	}
 	var domains []string
-	json.Unmarshal([]byte(k.TokenDomains), &domains)
+	_ = json.Unmarshal([]byte(k.TokenDomains), &domains)
 	if domains == nil {
 		domains = []string{}
 	}
@@ -1098,9 +1098,9 @@ func webACLSummary(w *WebACL) map[string]any {
 
 func webACLDetail(w *WebACL) map[string]any {
 	var defaultAction, rules, visConfig any
-	json.Unmarshal([]byte(w.DefaultAction), &defaultAction)
-	json.Unmarshal([]byte(w.Rules), &rules)
-	json.Unmarshal([]byte(w.VisibilityConfig), &visConfig)
+	_ = json.Unmarshal([]byte(w.DefaultAction), &defaultAction)
+	_ = json.Unmarshal([]byte(w.Rules), &rules)
+	_ = json.Unmarshal([]byte(w.VisibilityConfig), &visConfig)
 	if rules == nil {
 		rules = []any{}
 	}
@@ -1130,7 +1130,7 @@ func ipSetSummary(ip *IPSet) map[string]any {
 
 func ipSetDetail(ip *IPSet) map[string]any {
 	var addresses []string
-	json.Unmarshal([]byte(ip.Addresses), &addresses)
+	_ = json.Unmarshal([]byte(ip.Addresses), &addresses)
 	if addresses == nil {
 		addresses = []string{}
 	}
@@ -1156,7 +1156,7 @@ func regexPatternSetSummary(r *RegexPatternSet) map[string]any {
 
 func regexPatternSetDetail(r *RegexPatternSet) map[string]any {
 	var patterns []any
-	json.Unmarshal([]byte(r.Patterns), &patterns)
+	_ = json.Unmarshal([]byte(r.Patterns), &patterns)
 	if patterns == nil {
 		patterns = []any{}
 	}
@@ -1182,8 +1182,8 @@ func ruleGroupSummary(rg *RuleGroup) map[string]any {
 
 func ruleGroupDetail(rg *RuleGroup) map[string]any {
 	var rules, visConfig any
-	json.Unmarshal([]byte(rg.Rules), &rules)
-	json.Unmarshal([]byte(rg.VisibilityConfig), &visConfig)
+	_ = json.Unmarshal([]byte(rg.Rules), &rules)
+	_ = json.Unmarshal([]byte(rg.VisibilityConfig), &visConfig)
 	if rules == nil {
 		rules = []any{}
 	}
@@ -1200,8 +1200,8 @@ func ruleGroupDetail(rg *RuleGroup) map[string]any {
 
 func buildLoggingConfig(resourceARN, destinations, redactedFields string) map[string]any {
 	var dests, rf []any
-	json.Unmarshal([]byte(destinations), &dests)
-	json.Unmarshal([]byte(redactedFields), &rf)
+	_ = json.Unmarshal([]byte(destinations), &dests)
+	_ = json.Unmarshal([]byte(redactedFields), &rf)
 	if dests == nil {
 		dests = []any{}
 	}

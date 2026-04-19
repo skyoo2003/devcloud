@@ -172,7 +172,7 @@ func (p *Provider) putSnapshotBlock(snapshotID, blockIndexStr string, req *http.
 	var blockIndex int32
 	if blockIndexStr != "" {
 		var n int32
-		fmt.Sscanf(blockIndexStr, "%d", &n)
+		_, _ = fmt.Sscanf(blockIndexStr, "%d", &n)
 		blockIndex = n
 	}
 
@@ -217,7 +217,7 @@ func (p *Provider) getSnapshotBlock(snapshotID, blockIndexStr string) (*plugin.R
 	var blockIndex int32
 	if blockIndexStr != "" {
 		var n int32
-		fmt.Sscanf(blockIndexStr, "%d", &n)
+		_, _ = fmt.Sscanf(blockIndexStr, "%d", &n)
 		blockIndex = n
 	}
 
@@ -256,7 +256,7 @@ func (p *Provider) listSnapshotBlocks(snapshotID string, req *http.Request) (*pl
 
 	var startIndex int32
 	if v := req.URL.Query().Get("startingBlockIndex"); v != "" {
-		fmt.Sscanf(v, "%d", &startIndex)
+		_, _ = fmt.Sscanf(v, "%d", &startIndex)
 	}
 
 	blocks, err := p.store.ListBlocks(snapshotID, startIndex)
@@ -293,7 +293,7 @@ func (p *Provider) listChangedBlocks(secondSnapshotID string, req *http.Request)
 
 	var startIndex int32
 	if v := req.URL.Query().Get("startingBlockIndex"); v != "" {
-		fmt.Sscanf(v, "%d", &startIndex)
+		_, _ = fmt.Sscanf(v, "%d", &startIndex)
 	}
 
 	blocks, err := p.store.ListChangedBlocks(firstSnapshotID, secondSnapshotID, startIndex)
@@ -325,7 +325,7 @@ func (p *Provider) modifyVolume(req *http.Request) (*plugin.Response, error) {
 	body, _ := io.ReadAll(req.Body)
 	var params map[string]any
 	if len(body) > 0 {
-		json.Unmarshal(body, &params)
+		_ = json.Unmarshal(body, &params)
 	} else {
 		params = map[string]any{}
 	}
@@ -399,7 +399,7 @@ func (p *Provider) copySnapshot(req *http.Request) (*plugin.Response, error) {
 	body, _ := io.ReadAll(req.Body)
 	var params map[string]any
 	if len(body) > 0 {
-		json.Unmarshal(body, &params)
+		_ = json.Unmarshal(body, &params)
 	} else {
 		params = map[string]any{}
 	}
@@ -428,7 +428,7 @@ func (p *Provider) modifySnapshotAttribute(req *http.Request) (*plugin.Response,
 	body, _ := io.ReadAll(req.Body)
 	var params map[string]any
 	if len(body) > 0 {
-		json.Unmarshal(body, &params)
+		_ = json.Unmarshal(body, &params)
 	} else {
 		params = map[string]any{}
 	}
@@ -454,7 +454,7 @@ func (p *Provider) enableSnapshotTierArchival(req *http.Request) (*plugin.Respon
 	body, _ := io.ReadAll(req.Body)
 	var params map[string]any
 	if len(body) > 0 {
-		json.Unmarshal(body, &params)
+		_ = json.Unmarshal(body, &params)
 	} else {
 		params = map[string]any{}
 	}
@@ -481,7 +481,7 @@ func (p *Provider) restoreSnapshotTier(req *http.Request) (*plugin.Response, err
 	body, _ := io.ReadAll(req.Body)
 	var params map[string]any
 	if len(body) > 0 {
-		json.Unmarshal(body, &params)
+		_ = json.Unmarshal(body, &params)
 	} else {
 		params = map[string]any{}
 	}

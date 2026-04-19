@@ -4,7 +4,6 @@
 package route53
 
 import (
-	"bytes"
 	"context"
 	"encoding/xml"
 	"fmt"
@@ -13,7 +12,6 @@ import (
 	"strings"
 	"testing"
 
-	generated "github.com/skyoo2003/devcloud/internal/generated/route53"
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -26,21 +24,6 @@ func newTestProvider(t *testing.T) *Provider {
 	require.NoError(t, err)
 	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
-}
-
-func doRequest(t *testing.T, p *Provider, method, path, body string) *plugin.Response {
-	t.Helper()
-	var bodyReader *bytes.Buffer
-	if body != "" {
-		bodyReader = bytes.NewBufferString(body)
-	} else {
-		bodyReader = bytes.NewBuffer(nil)
-	}
-	req := httptest.NewRequest(method, path, bodyReader)
-	op, _ := generated.MatchOperation(method, path)
-	resp, err := p.HandleRequest(context.Background(), op, req)
-	require.NoError(t, err)
-	return resp
 }
 
 func TestHostedZoneCRUD(t *testing.T) {

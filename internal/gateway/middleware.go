@@ -78,11 +78,11 @@ func ErrorRecoveryMiddleware(next http.Handler) http.Handler {
 					strings.HasPrefix(r.URL.Path, "/2015-03-31/") {
 					w.Header().Set("Content-Type", "application/json")
 					w.WriteHeader(http.StatusInternalServerError)
-					fmt.Fprintf(w, `{"__type":"InternalError","message":"%v"}`, rec)
+					_, _ = fmt.Fprintf(w, `{"__type":"InternalError","message":"%v"}`, rec)
 				} else {
 					w.Header().Set("Content-Type", "application/xml")
 					w.WriteHeader(http.StatusInternalServerError)
-					fmt.Fprintf(w, `<?xml version="1.0" encoding="UTF-8"?><Error><Code>InternalError</Code><Message>%v</Message></Error>`, rec)
+					_, _ = fmt.Fprintf(w, `<?xml version="1.0" encoding="UTF-8"?><Error><Code>InternalError</Code><Message>%v</Message></Error>`, rec)
 				}
 			}
 		}()

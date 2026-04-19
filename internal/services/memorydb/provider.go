@@ -242,7 +242,7 @@ func (p *Provider) createCluster(params map[string]any) (*plugin.Response, error
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"Cluster": clusterToMap(c)})
 }
@@ -308,7 +308,7 @@ func (p *Provider) deleteCluster(params map[string]any) (*plugin.Response, error
 	if err != nil {
 		return shared.JSONError("ClusterNotFoundFault", "cluster not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(c.ARN)
+	_ = p.store.tags.DeleteAllTags(c.ARN) //nolint:errcheck
 	if err := p.store.DeleteCluster(name); err != nil {
 		return shared.JSONError("ClusterNotFoundFault", "cluster not found", http.StatusBadRequest), nil
 	}
@@ -344,7 +344,7 @@ func (p *Provider) failoverShard(params map[string]any) (*plugin.Response, error
 	if err != nil {
 		return shared.JSONError("ClusterNotFoundFault", "cluster not found", http.StatusBadRequest), nil
 	}
-	p.store.UpdateCluster(name, map[string]any{"status": "available"})
+	p.store.UpdateCluster(name, map[string]any{"status": "available"}) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{"Cluster": clusterToMap(c)})
 }
 
@@ -369,7 +369,7 @@ func (p *Provider) createParameterGroup(params map[string]any) (*plugin.Response
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"ParameterGroup": pgToMap(pg)})
 }
@@ -416,7 +416,7 @@ func (p *Provider) deleteParameterGroup(params map[string]any) (*plugin.Response
 	if err != nil {
 		return shared.JSONError("ParameterGroupNotFoundFault", "parameter group not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(pg.ARN)
+	_ = p.store.tags.DeleteAllTags(pg.ARN) //nolint:errcheck
 	if err := p.store.DeleteParameterGroup(name); err != nil {
 		return shared.JSONError("ParameterGroupNotFoundFault", "parameter group not found", http.StatusBadRequest), nil
 	}
@@ -465,7 +465,7 @@ func (p *Provider) createSubnetGroup(params map[string]any) (*plugin.Response, e
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"SubnetGroup": sgToMap(sg)})
 }
@@ -517,7 +517,7 @@ func (p *Provider) deleteSubnetGroup(params map[string]any) (*plugin.Response, e
 	if err != nil {
 		return shared.JSONError("SubnetGroupNotFoundFault", "subnet group not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(sg.ARN)
+	_ = p.store.tags.DeleteAllTags(sg.ARN) //nolint:errcheck
 	if err := p.store.DeleteSubnetGroup(name); err != nil {
 		return shared.JSONError("SubnetGroupNotFoundFault", "subnet group not found", http.StatusBadRequest), nil
 	}
@@ -548,7 +548,7 @@ func (p *Provider) createACL(params map[string]any) (*plugin.Response, error) {
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"ACL": aclToMap(a)})
 }
@@ -610,7 +610,7 @@ func (p *Provider) deleteACL(params map[string]any) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ACLNotFoundFault", "ACL not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(a.ARN)
+	_ = p.store.tags.DeleteAllTags(a.ARN) //nolint:errcheck
 	if err := p.store.DeleteACL(name); err != nil {
 		return shared.JSONError("ACLNotFoundFault", "ACL not found", http.StatusBadRequest), nil
 	}
@@ -648,7 +648,7 @@ func (p *Provider) createUser(params map[string]any) (*plugin.Response, error) {
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"User": userToMap(u)})
 }
@@ -700,7 +700,7 @@ func (p *Provider) deleteUser(params map[string]any) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("UserNotFoundFault", "user not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(u.ARN)
+	_ = p.store.tags.DeleteAllTags(u.ARN) //nolint:errcheck
 	if err := p.store.DeleteUser(name); err != nil {
 		return shared.JSONError("UserNotFoundFault", "user not found", http.StatusBadRequest), nil
 	}
@@ -737,7 +737,7 @@ func (p *Provider) createSnapshot(params map[string]any) (*plugin.Response, erro
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"Snapshot": snapToMap(snap)})
 }
@@ -800,7 +800,7 @@ func (p *Provider) deleteSnapshot(params map[string]any) (*plugin.Response, erro
 	if err != nil {
 		return shared.JSONError("SnapshotNotFoundFault", "snapshot not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(snap.ARN)
+	_ = p.store.tags.DeleteAllTags(snap.ARN) //nolint:errcheck
 	if err := p.store.DeleteSnapshot(name); err != nil {
 		return shared.JSONError("SnapshotNotFoundFault", "snapshot not found", http.StatusBadRequest), nil
 	}
@@ -901,7 +901,7 @@ func aclToMap(a *ACL) map[string]any {
 
 func userToMap(u *User) map[string]any {
 	var auth any
-	json.Unmarshal([]byte(u.Auth), &auth)
+	_ = json.Unmarshal([]byte(u.Auth), &auth)
 	return map[string]any{
 		"Name":           u.Name,
 		"ARN":            u.ARN,

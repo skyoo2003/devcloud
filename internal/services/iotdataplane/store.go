@@ -115,7 +115,7 @@ func (s *Store) ListShadowNames(thingName string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var names []string
 	for rows.Next() {
 		var name string
@@ -158,7 +158,7 @@ func (s *Store) ListRetainedMessages() ([]*RetainedMessage, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var msgs []*RetainedMessage
 	for rows.Next() {
 		m, err := scanRetainedMessage(rows)

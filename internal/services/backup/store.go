@@ -262,7 +262,7 @@ func (s *Store) ListBackupPlans() ([]BackupPlan, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var plans []BackupPlan
 	for rows.Next() {
 		p, err := scanBackupPlan(rows)
@@ -343,7 +343,7 @@ func (s *Store) ListBackupVaults() ([]BackupVault, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var vaults []BackupVault
 	for rows.Next() {
 		v, err := scanBackupVault(rows)
@@ -443,7 +443,7 @@ func (s *Store) ListBackupSelections(planID string) ([]BackupSelection, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var sels []BackupSelection
 	for rows.Next() {
 		sel, err := scanBackupSelection(rows)
@@ -507,7 +507,7 @@ func (s *Store) ListBackupJobs() ([]BackupJob, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var jobs []BackupJob
 	for rows.Next() {
 		j, err := scanBackupJob(rows)
@@ -572,7 +572,7 @@ func (s *Store) ListRecoveryPointsByVault(vaultName string) ([]RecoveryPoint, er
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var rps []RecoveryPoint
 	for rows.Next() {
 		rp, err := scanRecoveryPoint(rows)
@@ -591,7 +591,7 @@ func (s *Store) ListRecoveryPointsByResource(resourceARN string) ([]RecoveryPoin
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var rps []RecoveryPoint
 	for rows.Next() {
 		rp, err := scanRecoveryPoint(rows)
@@ -655,7 +655,7 @@ func (s *Store) ListRestoreJobs() ([]RestoreJob, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var jobs []RestoreJob
 	for rows.Next() {
 		j, err := scanRestoreJob(rows)
@@ -708,7 +708,7 @@ func (s *Store) ListFrameworks() ([]Framework, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var fws []Framework
 	for rows.Next() {
 		f, err := scanFramework(rows)
@@ -787,7 +787,7 @@ func (s *Store) ListReportPlans() ([]ReportPlan, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var rps []ReportPlan
 	for rows.Next() {
 		rp, err := scanReportPlan(rows)
@@ -863,7 +863,7 @@ func (s *Store) ListReportJobs() ([]ReportJob, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var jobs []ReportJob
 	for rows.Next() {
 		j, err := scanReportJob(rows)
@@ -916,7 +916,7 @@ func (s *Store) ListRestoreTestingPlans() ([]RestoreTestingPlan, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var plans []RestoreTestingPlan
 	for rows.Next() {
 		p, err := scanRestoreTestingPlan(rows)
@@ -995,7 +995,7 @@ func (s *Store) ListRestoreTestingSelections(planName string) ([]RestoreTestingS
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var sels []RestoreTestingSelection
 	for rows.Next() {
 		sel, err := scanRestoreTestingSelection(rows)

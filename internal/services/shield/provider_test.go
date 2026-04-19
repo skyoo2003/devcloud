@@ -19,7 +19,7 @@ func newTestProvider(t *testing.T) *Provider {
 	t.Helper()
 	p := &Provider{}
 	require.NoError(t, p.Init(plugin.PluginConfig{DataDir: t.TempDir()}))
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 
@@ -31,11 +31,6 @@ func callJSON(t *testing.T, p *Provider, target, body string) *plugin.Response {
 	resp, err := p.HandleRequest(context.Background(), "", req)
 	require.NoError(t, err)
 	return resp
-}
-
-func parseJSON(t *testing.T, resp *plugin.Response) map[string]any {
-	t.Helper()
-	return parseBody(t, resp)
 }
 
 func parseBody(t *testing.T, resp *plugin.Response) map[string]any {

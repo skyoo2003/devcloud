@@ -164,7 +164,7 @@ func (s *Store) ListTranscriptionJobs(statusFilter string) ([]TranscriptionJob, 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var jobs []TranscriptionJob
 	for rows.Next() {
 		j, err := scanTranscriptionJob(rows)
@@ -240,7 +240,7 @@ func (s *Store) ListVocabularies(language string) ([]Vocabulary, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var vocabs []Vocabulary
 	for rows.Next() {
 		v, err := scanVocabulary(rows)
@@ -330,7 +330,7 @@ func (s *Store) ListVocabularyFilters(language string) ([]VocabularyFilter, erro
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var filters []VocabularyFilter
 	for rows.Next() {
 		f, err := scanVocabularyFilter(rows)
@@ -420,7 +420,7 @@ func (s *Store) ListLanguageModels(language string) ([]LanguageModel, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var models []LanguageModel
 	for rows.Next() {
 		m, err := scanLanguageModel(rows)
@@ -487,7 +487,7 @@ func (s *Store) ListCallAnalyticsCategories() ([]CallAnalyticsCategory, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var cats []CallAnalyticsCategory
 	for rows.Next() {
 		c, err := scanCallAnalyticsCategory(rows)

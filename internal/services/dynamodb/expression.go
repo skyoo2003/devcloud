@@ -45,12 +45,6 @@ func (t *tokenizer) peek() rune {
 	return t.input[t.pos]
 }
 
-func (t *tokenizer) next() rune {
-	r := t.input[t.pos]
-	t.pos++
-	return r
-}
-
 func (t *tokenizer) skipWS() {
 	for t.pos < len(t.input) && unicode.IsSpace(t.input[t.pos]) {
 		t.pos++
@@ -241,34 +235,6 @@ func (p *exprParser) parsePrimary() bool {
 
 	// Comparison: lhs op rhs / BETWEEN / IN
 	return p.parseComparison()
-}
-
-// getAttrPath resolves a path string to an AttributeValue from the item.
-// Supports nested paths like "a.b" (map access).
-func (p *exprParser) getAttrPath(path string) *AttributeValue {
-	parts := strings.SplitN(path, ".", 2)
-	name := parts[0]
-	// Resolve name reference
-	if strings.HasPrefix(name, "#") {
-		if resolved, ok := p.nameMap[name]; ok {
-			name = resolved
-		}
-	}
-	av, ok := p.item[name]
-	if !ok {
-		return nil
-	}
-	if len(parts) == 2 && av.M != nil {
-		// Recurse into map
-		sub := &exprParser{
-			tokens:  p.tokens,
-			nameMap: p.nameMap,
-			valMap:  p.valMap,
-			item:    av.M,
-		}
-		return sub.getAttrPath(parts[1])
-	}
-	return av
 }
 
 // resolveAttrName resolves a token to a real attribute name.

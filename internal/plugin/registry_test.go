@@ -42,6 +42,7 @@ func TestRegistryGetUnknown(t *testing.T) {
 func TestRegistryList(t *testing.T) {
 	reg := NewRegistry()
 	reg.Register("s3", func(cfg PluginConfig) ServicePlugin { return &mockPlugin{} })
-	reg.Init("s3", PluginConfig{})
+	_, err := reg.Init("s3", PluginConfig{})
+	require.NoError(t, err)
 	assert.Equal(t, []string{"s3"}, reg.ActiveServices())
 }

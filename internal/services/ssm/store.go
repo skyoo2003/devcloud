@@ -209,7 +209,7 @@ func (s *SSMStore) GetParametersByPath(path, accountID string, recursive bool) (
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var params []Parameter
 	for rows.Next() {
 		var p Parameter
@@ -272,7 +272,7 @@ func (s *SSMStore) ListTags(name, accountID string) ([]Tag, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tags []Tag
 	for rows.Next() {
 		var t Tag
@@ -292,7 +292,7 @@ func (s *SSMStore) DescribeParameters(accountID string) ([]Parameter, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var params []Parameter
 	for rows.Next() {
 		var p Parameter
@@ -315,7 +315,7 @@ func (s *SSMStore) GetParameterHistory(name, accountID string) ([]ParameterHisto
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var history []ParameterHistory
 	for rows.Next() {
 		var h ParameterHistory
@@ -476,7 +476,7 @@ func (s *SSMStore) ListDocuments(accountID string) ([]Document, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var docs []Document
 	for rows.Next() {
 		var d Document

@@ -173,7 +173,7 @@ func (s *Store) ListClusters(ids []string) ([]Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var clusters []Cluster
 	for rows.Next() {
 		c, err := scanCluster(rows)
@@ -254,7 +254,7 @@ func (s *Store) ListSnapshots(clusterID string) ([]ClusterSnapshot, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var snaps []ClusterSnapshot
 	for rows.Next() {
 		sn, err := scanSnapshot(rows)
@@ -316,7 +316,7 @@ func (s *Store) ListParameterGroups(names []string) ([]ParameterGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []ParameterGroup
 	for rows.Next() {
 		pg, err := scanParameterGroup(rows)
@@ -378,7 +378,7 @@ func (s *Store) ListSubnetGroups(names []string) ([]SubnetGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []SubnetGroup
 	for rows.Next() {
 		sg, err := scanSubnetGroup(rows)

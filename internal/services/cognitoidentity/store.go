@@ -128,7 +128,7 @@ func (s *CognitoIdentityStore) ListPools() ([]IdentityPool, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var pools []IdentityPool
 	for rows.Next() {
 		p, err := scanPool(rows)
@@ -176,7 +176,7 @@ func (s *CognitoIdentityStore) ListIdentities(poolID string) ([]Identity, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var identities []Identity
 	for rows.Next() {
 		i, err := scanIdentity(rows)
@@ -217,7 +217,7 @@ func (s *CognitoIdentityStore) ListTags(poolARN string) (map[string]string, erro
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := make(map[string]string)
 	for rows.Next() {
 		var k, v string

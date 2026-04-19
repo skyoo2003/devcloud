@@ -90,7 +90,7 @@ func NewStore(dataDir string) (*Store, error) {
 	}
 	st := &Store{store: s, tags: shared.NewTagStore(s)}
 	// Ensure default subscription row exists
-	st.store.DB().Exec(
+	_, _ = st.store.DB().Exec(
 		`INSERT OR IGNORE INTO subscription (id, state, start_time, end_time, auto_renew, proactive_engagement)
 		 VALUES ('default', 'ACTIVE', 0, 0, 'ENABLED', 'DISABLED')`)
 	return st, nil
@@ -138,7 +138,7 @@ func (s *Store) ListProtections() ([]Protection, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var protections []Protection
 	for rows.Next() {
 		p, err := scanProtection(rows)
@@ -201,7 +201,7 @@ func (s *Store) ListProtectionGroups() ([]ProtectionGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []ProtectionGroup
 	for rows.Next() {
 		g, err := scanProtectionGroup(rows)

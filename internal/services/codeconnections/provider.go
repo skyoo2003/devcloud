@@ -253,7 +253,7 @@ func (p *CodeConnectionsProvider) createConnection(params map[string]any) (*plug
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.PutTags(arn, parseTagList(rawTags))
+		_ = p.store.PutTags(arn, parseTagList(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ConnectionArn": arn,
@@ -345,7 +345,7 @@ func (p *CodeConnectionsProvider) createHost(params map[string]any) (*plugin.Res
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.PutTags(arn, parseTagList(rawTags))
+		_ = p.store.PutTags(arn, parseTagList(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"HostArn": arn,
@@ -363,7 +363,7 @@ func (p *CodeConnectionsProvider) getHost(params map[string]any) (*plugin.Respon
 		return shared.JSONError("ResourceNotFoundException", "host not found", http.StatusNotFound), nil
 	}
 	var vpc any
-	json.Unmarshal([]byte(h.VpcConfig), &vpc)
+	_ = json.Unmarshal([]byte(h.VpcConfig), &vpc)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"Name":             h.Name,
 		"Status":           h.Status,
@@ -448,7 +448,7 @@ func (p *CodeConnectionsProvider) createRepositoryLink(params map[string]any) (*
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.PutTags(arn, parseTagList(rawTags))
+		_ = p.store.PutTags(arn, parseTagList(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"RepositoryLinkInfo": repoLinkToMap(r),

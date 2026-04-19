@@ -203,7 +203,9 @@ func (p *CloudControlProvider) createResource(params map[string]any) (*plugin.Re
 		CreatedAt:    time.Now(),
 		CompletedAt:  time.Now(),
 	}
-	p.store.CreateRequest(ccReq)
+	if err := p.store.CreateRequest(ccReq); err != nil {
+		return nil, err
+	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ProgressEvent": progressEvent(ccReq),
@@ -251,7 +253,9 @@ func (p *CloudControlProvider) updateResource(params map[string]any) (*plugin.Re
 	}
 
 	if patchDocument != "" {
-		p.store.UpdateResource(typeName, identifier, shared.DefaultAccountID, patchDocument)
+		if err := p.store.UpdateResource(typeName, identifier, shared.DefaultAccountID, patchDocument); err != nil {
+			return nil, err
+		}
 	}
 
 	requestToken := shared.GenerateUUID()
@@ -265,7 +269,9 @@ func (p *CloudControlProvider) updateResource(params map[string]any) (*plugin.Re
 		CreatedAt:    time.Now(),
 		CompletedAt:  time.Now(),
 	}
-	p.store.CreateRequest(ccReq)
+	if err := p.store.CreateRequest(ccReq); err != nil {
+		return nil, err
+	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ProgressEvent": progressEvent(ccReq),
@@ -297,7 +303,9 @@ func (p *CloudControlProvider) deleteResource(params map[string]any) (*plugin.Re
 		CreatedAt:    time.Now(),
 		CompletedAt:  time.Now(),
 	}
-	p.store.CreateRequest(ccReq)
+	if err := p.store.CreateRequest(ccReq); err != nil {
+		return nil, err
+	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ProgressEvent": progressEvent(ccReq),
@@ -387,7 +395,9 @@ func (p *CloudControlProvider) cancelResourceRequest(params map[string]any) (*pl
 		return nil, err
 	}
 
-	p.store.CancelRequest(requestToken, shared.DefaultAccountID)
+	if err := p.store.CancelRequest(requestToken, shared.DefaultAccountID); err != nil {
+		return nil, err
+	}
 	req.Status = "CANCEL_COMPLETE"
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{

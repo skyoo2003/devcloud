@@ -134,7 +134,7 @@ func (s *SNSStore) ListTopics(accountID string) ([]Topic, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var topics []Topic
 	for rows.Next() {
 		t, err := scanTopic(rows)
@@ -195,7 +195,7 @@ func (s *SNSStore) ListSubscriptions(accountID string) ([]Subscription, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanSubscriptions(rows)
 }
 
@@ -204,7 +204,7 @@ func (s *SNSStore) ListSubscriptionsByTopic(topicARN string) ([]Subscription, er
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanSubscriptions(rows)
 }
 
@@ -358,7 +358,7 @@ func (s *SNSStore) ListTagsForResource(topicARN string) (map[string]string, erro
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := map[string]string{}
 	for rows.Next() {
 		var k, v string

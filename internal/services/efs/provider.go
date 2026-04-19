@@ -59,7 +59,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	body, _ := io.ReadAll(req.Body)
 	var bodyMap map[string]any
 	if len(body) > 0 {
-		json.Unmarshal(body, &bodyMap)
+		_ = json.Unmarshal(body, &bodyMap)
 	}
 	if bodyMap == nil {
 		bodyMap = map[string]any{}
@@ -291,13 +291,13 @@ func apToDesc(ap *accessPointRow, tags map[string]string) map[string]any {
 	var posixUser any
 	if ap.PosixUser != "" {
 		var pu map[string]any
-		json.Unmarshal([]byte(ap.PosixUser), &pu)
+		_ = json.Unmarshal([]byte(ap.PosixUser), &pu)
 		posixUser = pu
 	}
 	var rootDir any
 	if ap.RootDirectory != "" {
 		var rd map[string]any
-		json.Unmarshal([]byte(ap.RootDirectory), &rd)
+		_ = json.Unmarshal([]byte(ap.RootDirectory), &rd)
 		rootDir = rd
 	}
 	return map[string]any{
@@ -358,7 +358,7 @@ func (p *Provider) createFileSystem(body map[string]any) (*plugin.Response, erro
 	// Handle tags
 	if tagsRaw, ok := body["Tags"].([]any); ok {
 		tags := parseTagList(tagsRaw)
-		p.store.TagResource(fsID, tags)
+		p.store.TagResource(fsID, tags) //nolint:errcheck
 	}
 
 	tags, _ := p.store.ListTags(fsID)
@@ -485,7 +485,7 @@ func (p *Provider) describeLifecycleConfiguration(fsID string) (*plugin.Response
 	}
 	var policies []any
 	if fs.LifecycleConfig != "" {
-		json.Unmarshal([]byte(fs.LifecycleConfig), &policies)
+		_ = json.Unmarshal([]byte(fs.LifecycleConfig), &policies)
 	}
 	if policies == nil {
 		policies = []any{}
@@ -631,7 +631,7 @@ func (p *Provider) createAccessPoint(body map[string]any) (*plugin.Response, err
 	}
 	if tagsRaw, ok := body["Tags"].([]any); ok {
 		tags := parseTagList(tagsRaw)
-		p.store.TagResource(apID, tags)
+		p.store.TagResource(apID, tags) //nolint:errcheck
 	}
 	tags, _ := p.store.ListTags(apID)
 	return shared.JSONResponse(http.StatusOK, apToDesc(r, tags))

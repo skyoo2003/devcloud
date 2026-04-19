@@ -115,7 +115,7 @@ func (s *ACMStore) ListCertificates(accountID string) ([]Certificate, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var certs []Certificate
 	for rows.Next() {
 		c, err := scanCert(rows)
@@ -160,7 +160,7 @@ func (s *ACMStore) ListTags(arn string) ([]CertTag, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tags []CertTag
 	for rows.Next() {
 		var t CertTag

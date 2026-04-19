@@ -255,7 +255,7 @@ func (s *LambdaStore) ListFunctions(accountID string) ([]FunctionInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var functions []FunctionInfo
 	for rows.Next() {
@@ -495,7 +495,7 @@ func (s *LambdaStore) ListVersions(accountID, functionName string) ([]FunctionVe
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var versions []FunctionVersion
 	for rows.Next() {
@@ -609,7 +609,7 @@ func (s *LambdaStore) ListAliases(accountID, functionName string) ([]FunctionAli
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var aliases []FunctionAlias
 	for rows.Next() {
@@ -671,7 +671,7 @@ func (s *LambdaStore) GetPermissions(accountID, functionName string) ([]Function
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var perms []FunctionPermission
 	for rows.Next() {
@@ -723,7 +723,7 @@ func (s *LambdaStore) ListTags(functionARN string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	tags := make(map[string]string)
 	for rows.Next() {
@@ -855,7 +855,7 @@ func (s *LambdaStore) ListEventSourceMappings(accountID, functionName string) ([
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var mappings []EventSourceMapping
 	for rows.Next() {

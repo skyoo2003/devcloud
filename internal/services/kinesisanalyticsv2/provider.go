@@ -145,7 +145,7 @@ func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error)
 
 func appToMap(app *Application) map[string]any {
 	var cfg any
-	json.Unmarshal([]byte(app.Config), &cfg)
+	_ = json.Unmarshal([]byte(app.Config), &cfg)
 	return map[string]any{
 		"ApplicationName":                     app.Name,
 		"ApplicationARN":                      app.ARN,
@@ -213,7 +213,7 @@ func (p *Provider) createApplication(params map[string]any) (*plugin.Response, e
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(app.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(app.ARN, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ApplicationDetail": appToMap(app),
@@ -263,7 +263,7 @@ func (p *Provider) deleteApplication(params map[string]any) (*plugin.Response, e
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "application not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(app.ARN)
+	_ = p.store.tags.DeleteAllTags(app.ARN)
 	if err := p.store.DeleteApplication(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "application not found", http.StatusBadRequest), nil
 	}

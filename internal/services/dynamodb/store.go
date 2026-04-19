@@ -93,7 +93,6 @@ const itemPrefix = "_item/"
 const gsiPrefix = "_gsi/"
 const ttlPrefix = "_ttl/"
 const tagsPrefix = "_tags/"
-const streamPrefix = "_stream/"
 
 // NewDynamoStore opens (or creates) a BadgerDB at dir and loads existing table metadata.
 func NewDynamoStore(dir string) (*DynamoStore, error) {

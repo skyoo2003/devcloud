@@ -14,7 +14,7 @@ func newTestStore(t *testing.T) *IAMStore {
 	t.Helper()
 	store, err := NewIAMStore(":memory:")
 	require.NoError(t, err)
-	t.Cleanup(func() { store.Close() })
+	t.Cleanup(func() { _ = store.Close() })
 	return store
 }
 

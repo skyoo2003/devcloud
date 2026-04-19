@@ -48,7 +48,8 @@ func newTestRegistry(p *mockServicePlugin) *plugin.Registry {
 	reg.Register(p.id, func(cfg plugin.PluginConfig) plugin.ServicePlugin {
 		return captured
 	})
-	reg.Init(p.id, plugin.PluginConfig{}) //nolint:errcheck
+	_, err := reg.Init(p.id, plugin.PluginConfig{})
+	_ = err
 	return reg
 }
 

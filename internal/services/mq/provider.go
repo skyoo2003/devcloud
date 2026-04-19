@@ -333,7 +333,7 @@ func (p *Provider) createBroker(params map[string]any) (*plugin.Response, error)
 	// Handle tags
 	if rawTags, ok := params["tags"].(map[string]any); ok {
 		tags := toStringMap(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags)
 	}
 
 	// Handle initial users
@@ -349,7 +349,7 @@ func (p *Provider) createBroker(params map[string]any) (*plugin.Response, error)
 						Password: pw,
 						Groups:   []string{},
 					}
-					p.store.CreateUser(u)
+					p.store.CreateUser(u) //nolint:errcheck
 				}
 			}
 		}
@@ -428,7 +428,7 @@ func (p *Provider) deleteBroker(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("NotFoundException", "broker not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(b.ARN)
+	_ = p.store.tags.DeleteAllTags(b.ARN)
 	if err := p.store.DeleteBroker(id); err != nil {
 		return shared.JSONError("NotFoundException", "broker not found", http.StatusNotFound), nil
 	}
@@ -496,7 +496,7 @@ func (p *Provider) createConfiguration(params map[string]any) (*plugin.Response,
 	}
 
 	if rawTags, ok := params["tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags)) //nolint:errcheck
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -605,7 +605,7 @@ func (p *Provider) deleteConfiguration(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("NotFoundException", "configuration not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(c.ARN)
+	_ = p.store.tags.DeleteAllTags(c.ARN)
 	if err := p.store.DeleteConfiguration(id); err != nil {
 		return shared.JSONError("NotFoundException", "configuration not found", http.StatusNotFound), nil
 	}

@@ -107,7 +107,7 @@ func (s *Store) Close() error { return s.store.Close() }
 func (s *Store) ensureDefaultGroup() {
 	arn := "arn:aws:scheduler:us-east-1:" + shared.DefaultAccountID + ":schedule-group/default"
 	now := time.Now().Unix()
-	s.store.DB().Exec(
+	_, _ = s.store.DB().Exec(
 		`INSERT OR IGNORE INTO scheduler_groups (name, arn, state, account_id, created_at) VALUES (?, ?, 'ACTIVE', ?, ?)`,
 		"default", arn, shared.DefaultAccountID, now,
 	)
@@ -173,7 +173,7 @@ func (s *Store) ListGroups(prefix string) ([]ScheduleGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []ScheduleGroup
 	for rows.Next() {
 		g, err := scanGroup(rows)
@@ -274,7 +274,7 @@ func (s *Store) ListSchedules(groupName, prefix, state string) ([]Schedule, erro
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var schedules []Schedule
 	for rows.Next() {
 		sc, err := scanSchedule(rows)
@@ -337,7 +337,7 @@ func (s *Store) ListRateLimits() ([]RateLimit, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var list []RateLimit
 	for rows.Next() {
 		var rl RateLimit

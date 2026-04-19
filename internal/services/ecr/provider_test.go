@@ -24,7 +24,7 @@ func newTestECRProvider(t *testing.T) *Provider {
 		"db_path": filepath.Join(dir, "ecr.db"),
 	}})
 	require.NoError(t, err)
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 
@@ -37,7 +37,7 @@ func ecrRequest(t *testing.T, p *Provider, action string, body map[string]any) (
 	resp, err := p.HandleRequest(context.Background(), "", req)
 	require.NoError(t, err)
 	var result map[string]any
-	json.Unmarshal(resp.Body, &result)
+	_ = json.Unmarshal(resp.Body, &result)
 	return resp.StatusCode, result
 }
 
@@ -135,7 +135,7 @@ func TestLayerUpload(t *testing.T) {
 	assert.Equal(t, 200, status)
 
 	// CompleteLayerUpload
-	status, result = ecrRequest(t, p, "CompleteLayerUpload", map[string]any{
+	status, _ = ecrRequest(t, p, "CompleteLayerUpload", map[string]any{
 		"repositoryName": "layer-repo",
 		"uploadId":       uploadID,
 		"layerDigests":   []string{"sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"},

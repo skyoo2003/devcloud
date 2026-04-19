@@ -181,7 +181,7 @@ func (s *Store) ListApps() ([]App, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []App
 	for rows.Next() {
 		a, err := scanApp(rows)
@@ -256,7 +256,7 @@ func (s *Store) ListCampaigns(appID string) ([]Campaign, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Campaign
 	for rows.Next() {
 		c, err := scanCampaign(rows)
@@ -339,7 +339,7 @@ func (s *Store) ListSegments(appID string) ([]Segment, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Segment
 	for rows.Next() {
 		seg, err := scanSegment(rows)
@@ -420,7 +420,7 @@ func (s *Store) ListJourneys(appID string) ([]Journey, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Journey
 	for rows.Next() {
 		j, err := scanJourney(rows)
@@ -516,7 +516,7 @@ func (s *Store) ListTemplates() ([]Template, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Template
 	for rows.Next() {
 		t, err := scanTemplate(rows)

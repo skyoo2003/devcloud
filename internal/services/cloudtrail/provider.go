@@ -213,7 +213,7 @@ func (p *Provider) createTrail(params map[string]any) (*plugin.Response, error) 
 		return nil, err
 	}
 	if rawTags, ok := params["TagsList"].([]any); ok {
-		p.store.tags.AddTags(trail.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(trail.ARN, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, trailToMap(trail))
 }
@@ -290,7 +290,7 @@ func (p *Provider) deleteTrail(params map[string]any) (*plugin.Response, error) 
 	if err != nil {
 		return shared.JSONError("TrailNotFoundException", "trail not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(trail.ARN)
+	_ = p.store.tags.DeleteAllTags(trail.ARN)
 	if err := p.store.DeleteTrail(name); err != nil {
 		return shared.JSONError("TrailNotFoundException", "trail not found", http.StatusBadRequest), nil
 	}
@@ -344,8 +344,8 @@ func (p *Provider) getEventSelectors(params map[string]any) (*plugin.Response, e
 	}
 	var sel any
 	var adv any
-	json.Unmarshal([]byte(selectors), &sel)
-	json.Unmarshal([]byte(advanced), &adv)
+	_ = json.Unmarshal([]byte(selectors), &sel)
+	_ = json.Unmarshal([]byte(advanced), &adv)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"TrailARN":               trail.ARN,
 		"EventSelectors":         sel,
@@ -366,8 +366,8 @@ func (p *Provider) putEventSelectors(params map[string]any) (*plugin.Response, e
 	}
 	var sel any
 	var adv any
-	json.Unmarshal([]byte(selectors), &sel)
-	json.Unmarshal([]byte(advanced), &adv)
+	_ = json.Unmarshal([]byte(selectors), &sel)
+	_ = json.Unmarshal([]byte(advanced), &adv)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"TrailARN":               trail.ARN,
 		"EventSelectors":         sel,
@@ -386,7 +386,7 @@ func (p *Provider) getInsightSelectors(params map[string]any) (*plugin.Response,
 		return nil, err
 	}
 	var sel any
-	json.Unmarshal([]byte(selectors), &sel)
+	_ = json.Unmarshal([]byte(selectors), &sel)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"TrailARN":         trail.ARN,
 		"InsightSelectors": sel,
@@ -404,7 +404,7 @@ func (p *Provider) putInsightSelectors(params map[string]any) (*plugin.Response,
 		return nil, err
 	}
 	var sel any
-	json.Unmarshal([]byte(selectors), &sel)
+	_ = json.Unmarshal([]byte(selectors), &sel)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"TrailARN":         trail.ARN,
 		"InsightSelectors": sel,
@@ -428,7 +428,7 @@ func (p *Provider) createEventDataStore(params map[string]any) (*plugin.Response
 		return nil, err
 	}
 	if rawTags, ok := params["TagsList"].([]any); ok {
-		p.store.tags.AddTags(eds.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(eds.ARN, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, edsToMap(eds))
 }
@@ -482,7 +482,7 @@ func (p *Provider) deleteEventDataStore(params map[string]any) (*plugin.Response
 	if err != nil {
 		return shared.JSONError("EventDataStoreNotFoundException", "event data store not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(eds.ARN)
+	_ = p.store.tags.DeleteAllTags(eds.ARN)
 	if err := p.store.DeleteEventDataStore(arn); err != nil {
 		return shared.JSONError("EventDataStoreNotFoundException", "event data store not found", http.StatusBadRequest), nil
 	}
@@ -529,7 +529,7 @@ func (p *Provider) createChannel(params map[string]any) (*plugin.Response, error
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(ch.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(ch.ARN, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, channelToMap(ch))
 }
@@ -585,7 +585,7 @@ func (p *Provider) deleteChannel(params map[string]any) (*plugin.Response, error
 	if err != nil {
 		return shared.JSONError("ChannelNotFoundException", "channel not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(ch.ARN)
+	_ = p.store.tags.DeleteAllTags(ch.ARN)
 	if err := p.store.DeleteChannel(arn); err != nil {
 		return shared.JSONError("ChannelNotFoundException", "channel not found", http.StatusBadRequest), nil
 	}
@@ -610,7 +610,7 @@ func (p *Provider) createDashboard(params map[string]any) (*plugin.Response, err
 		return nil, err
 	}
 	if rawTags, ok := params["TagsList"].([]any); ok {
-		p.store.tags.AddTags(dash.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(dash.ARN, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, dashboardToMap(dash))
 }
@@ -667,7 +667,7 @@ func (p *Provider) deleteDashboard(params map[string]any) (*plugin.Response, err
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "dashboard not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(dash.ARN)
+	_ = p.store.tags.DeleteAllTags(dash.ARN)
 	if err := p.store.DeleteDashboard(arn); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "dashboard not found", http.StatusBadRequest), nil
 	}
@@ -879,7 +879,7 @@ func edsToMap(e *EventDataStore) map[string]any {
 
 func channelToMap(c *Channel) map[string]any {
 	var dests any
-	json.Unmarshal([]byte(c.Destinations), &dests)
+	_ = json.Unmarshal([]byte(c.Destinations), &dests)
 	return map[string]any{
 		"ChannelArn":   c.ARN,
 		"Name":         c.Name,
@@ -890,7 +890,7 @@ func channelToMap(c *Channel) map[string]any {
 
 func dashboardToMap(d *Dashboard) map[string]any {
 	var widgets any
-	json.Unmarshal([]byte(d.Widgets), &widgets)
+	_ = json.Unmarshal([]byte(d.Widgets), &widgets)
 	return map[string]any{
 		"DashboardArn":     d.ARN,
 		"Name":             d.Name,

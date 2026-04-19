@@ -247,7 +247,7 @@ func (p *Provider) createApplication(params map[string]any) (*plugin.Response, e
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, map[string]any{
 		"Id":          id,
@@ -314,7 +314,7 @@ func (p *Provider) deleteApplication(appID string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "application not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(a.ARN)
+	_ = p.store.tags.DeleteAllTags(a.ARN)
 	if err := p.store.DeleteApplication(appID); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "application not found", http.StatusNotFound), nil
 	}
@@ -343,7 +343,7 @@ func (p *Provider) createEnvironment(appID string, params map[string]any) (*plug
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, environmentToMap(e))
 }
@@ -403,7 +403,7 @@ func (p *Provider) deleteEnvironment(appID, envID string) (*plugin.Response, err
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "environment not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(e.ARN)
+	_ = p.store.tags.DeleteAllTags(e.ARN)
 	if err := p.store.DeleteEnvironment(appID, envID); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "environment not found", http.StatusNotFound), nil
 	}
@@ -439,7 +439,7 @@ func (p *Provider) createConfigProfile(appID string, params map[string]any) (*pl
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, configProfileToMap(cp))
 }
@@ -496,7 +496,7 @@ func (p *Provider) deleteConfigProfile(appID, profileID string) (*plugin.Respons
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "configuration profile not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(cp.ARN)
+	_ = p.store.tags.DeleteAllTags(cp.ARN)
 	if err := p.store.DeleteConfigProfile(appID, profileID); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "configuration profile not found", http.StatusNotFound), nil
 	}
@@ -550,7 +550,7 @@ func (p *Provider) createDeploymentStrategy(params map[string]any) (*plugin.Resp
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags))
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, deploymentStrategyToMap(ds))
 }
@@ -676,7 +676,9 @@ func (p *Provider) stopDeployment(appID, envID string, number int) (*plugin.Resp
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "deployment not found", http.StatusNotFound), nil
 	}
-	p.store.UpdateDeploymentState(appID, envID, number, "ROLLED_BACK")
+	if err := p.store.UpdateDeploymentState(appID, envID, number, "ROLLED_BACK"); err != nil {
+		return shared.JSONError("InternalError", "failed to update deployment state", http.StatusInternalServerError), nil
+	}
 	d.State = "ROLLED_BACK"
 	return shared.JSONResponse(http.StatusOK, deploymentToMap(d))
 }
@@ -1072,8 +1074,8 @@ func deploymentToMap(d *Deployment) map[string]any {
 
 func extensionToMap(e *Extension) map[string]any {
 	var actions, parameters any
-	json.Unmarshal([]byte(e.Actions), &actions)
-	json.Unmarshal([]byte(e.Parameters), &parameters)
+	_ = json.Unmarshal([]byte(e.Actions), &actions)
+	_ = json.Unmarshal([]byte(e.Parameters), &parameters)
 	if actions == nil {
 		actions = map[string]any{}
 	}
@@ -1093,7 +1095,7 @@ func extensionToMap(e *Extension) map[string]any {
 
 func extensionAssociationToMap(ea *ExtensionAssociation) map[string]any {
 	var parameters any
-	json.Unmarshal([]byte(ea.Parameters), &parameters)
+	_ = json.Unmarshal([]byte(ea.Parameters), &parameters)
 	if parameters == nil {
 		parameters = map[string]any{}
 	}

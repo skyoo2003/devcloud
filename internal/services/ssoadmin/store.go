@@ -176,7 +176,7 @@ func (s *Store) ListInstances() ([]Instance, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var insts []Instance
 	for rows.Next() {
 		inst, err := scanInstance(rows)
@@ -239,7 +239,7 @@ func (s *Store) ListPermissionSets(instanceARN string) ([]PermissionSet, error) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var sets []PermissionSet
 	for rows.Next() {
 		ps, err := scanPermissionSet(rows)
@@ -346,7 +346,7 @@ func (s *Store) ListManagedPolicies(permissionSetARN string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var arns []string
 	for rows.Next() {
 		var arn string
@@ -387,7 +387,7 @@ func (s *Store) ListCustomerManagedPolicies(permissionSetARN string) ([][2]strin
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var policies [][2]string
 	for rows.Next() {
 		var p [2]string
@@ -435,7 +435,7 @@ func (s *Store) ListAccountAssignments(instanceARN, permissionSetARN, accountID 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanAssignments(rows)
 }
 
@@ -448,7 +448,7 @@ func (s *Store) ListAccountAssignmentsForPrincipal(instanceARN, principalID, pri
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanAssignments(rows)
 }
 
@@ -460,7 +460,7 @@ func (s *Store) ListAccountsForPermissionSet(instanceARN, permissionSetARN strin
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var accounts []string
 	for rows.Next() {
 		var id string
@@ -480,7 +480,7 @@ func (s *Store) ListPermissionSetsProvisionedToAccount(instanceARN, accountID st
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var arns []string
 	for rows.Next() {
 		var arn string
@@ -530,7 +530,7 @@ func (s *Store) ListApplications(instanceARN string) ([]Application, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var apps []Application
 	for rows.Next() {
 		app, err := scanApplication(rows)
@@ -608,7 +608,7 @@ func (s *Store) ListTrustedTokenIssuers(instanceARN string) ([]TrustedTokenIssue
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var issuers []TrustedTokenIssuer
 	for rows.Next() {
 		tti, err := scanTrustedTokenIssuer(rows)

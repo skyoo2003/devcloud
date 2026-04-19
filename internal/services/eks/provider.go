@@ -474,7 +474,7 @@ func (p *Provider) createCluster(params map[string]any) (*plugin.Response, error
 
 	if rawTags, ok := params["tags"].(map[string]any); ok {
 		tags := toStringMap(rawTags)
-		p.store.tags.AddTags(c.ARN, tags)
+		_ = p.store.tags.AddTags(c.ARN, tags)
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{"cluster": clusterToMap(c)})
@@ -511,7 +511,7 @@ func (p *Provider) deleteCluster(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "cluster not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(c.ARN)
+	_ = p.store.tags.DeleteAllTags(c.ARN)
 	if err := p.store.DeleteCluster(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "cluster not found", http.StatusNotFound), nil
 	}

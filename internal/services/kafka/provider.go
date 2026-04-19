@@ -485,7 +485,8 @@ func (p *Provider) createCluster(params map[string]any) (*plugin.Response, error
 				tags[k] = s
 			}
 		}
-		p.store.tags.AddTags(c.ARN, tags)
+		//nolint:errcheck
+		_ = p.store.tags.AddTags(c.ARN, tags)
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -534,7 +535,7 @@ func (p *Provider) createClusterV2(params map[string]any) (*plugin.Response, err
 				tags[k] = s
 			}
 		}
-		p.store.tags.AddTags(c.ARN, tags)
+		_ = p.store.tags.AddTags(c.ARN, tags)
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -617,7 +618,7 @@ func (p *Provider) deleteCluster(clusterArn string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("NotFoundException", "cluster not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(clusterArn)
+	_ = p.store.tags.DeleteAllTags(clusterArn)
 	if err := p.store.DeleteCluster(clusterArn); err != nil {
 		return shared.JSONError("NotFoundException", "cluster not found", http.StatusNotFound), nil
 	}
@@ -954,7 +955,7 @@ func (p *Provider) updateBrokerCount(clusterArn string, params map[string]any) (
 	if n, ok := params["TargetNumberOfBrokerNodes"].(float64); ok && n > 0 {
 		count = int(n)
 	}
-	p.store.UpdateCluster(clusterArn, map[string]any{"broker_count": count})
+	p.store.UpdateCluster(clusterArn, map[string]any{"broker_count": count}) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ClusterArn":          clusterArn,
 		"ClusterOperationArn": shared.BuildARN("kafka", "cluster-operation", shared.GenerateUUID()),
@@ -982,7 +983,7 @@ func (p *Provider) updateBrokerType(clusterArn string, params map[string]any) (*
 		return shared.JSONError("NotFoundException", "cluster not found", http.StatusNotFound), nil
 	}
 	if bt, ok := params["TargetInstanceType"].(string); ok && bt != "" {
-		p.store.UpdateCluster(clusterArn, map[string]any{"broker_type": bt})
+		p.store.UpdateCluster(clusterArn, map[string]any{"broker_type": bt}) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ClusterArn":          clusterArn,
@@ -999,7 +1000,7 @@ func (p *Provider) updateClusterConfiguration(clusterArn string, params map[stri
 	}
 	if cfg, ok := params["ConfigurationInfo"].(map[string]any); ok {
 		if b, err := json.Marshal(cfg); err == nil {
-			p.store.UpdateCluster(clusterArn, map[string]any{"config": string(b)})
+			p.store.UpdateCluster(clusterArn, map[string]any{"config": string(b)}) //nolint:errcheck
 		}
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -1016,7 +1017,7 @@ func (p *Provider) updateClusterKafkaVersion(clusterArn string, params map[strin
 		return shared.JSONError("NotFoundException", "cluster not found", http.StatusNotFound), nil
 	}
 	if kv, ok := params["TargetKafkaVersion"].(string); ok && kv != "" {
-		p.store.UpdateCluster(clusterArn, map[string]any{"kafka_version": kv})
+		p.store.UpdateCluster(clusterArn, map[string]any{"kafka_version": kv}) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ClusterArn":          clusterArn,
@@ -1184,7 +1185,7 @@ func clusterToInfoV2(c *Cluster) map[string]any {
 
 func configurationToInfo(c *Configuration) map[string]any {
 	var kafkaVersions []string
-	json.Unmarshal([]byte(c.KafkaVersions), &kafkaVersions)
+	_ = json.Unmarshal([]byte(c.KafkaVersions), &kafkaVersions)
 	if kafkaVersions == nil {
 		kafkaVersions = []string{}
 	}

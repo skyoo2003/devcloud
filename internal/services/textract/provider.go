@@ -214,7 +214,7 @@ func (p *Provider) createAdapter(params map[string]any) (*plugin.Response, error
 	// Tags
 	if rawTags, ok := params["Tags"].(map[string]any); ok {
 		tags := flatMapTags(rawTags)
-		p.store.tags.AddTags(a.ARN, tags)
+		_ = p.store.tags.AddTags(a.ARN, tags) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"AdapterId": a.ID})
 }
@@ -284,7 +284,7 @@ func (p *Provider) deleteAdapter(params map[string]any) (*plugin.Response, error
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "adapter not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(a.ARN)
+	_ = p.store.tags.DeleteAllTags(a.ARN) //nolint:errcheck
 	if err := p.store.DeleteAdapter(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "adapter not found", http.StatusBadRequest), nil
 	}
@@ -600,7 +600,7 @@ func adapterVersionToMap(av *AdapterVersion) map[string]any {
 
 func jsonParse(s string) any {
 	var v any
-	json.Unmarshal([]byte(s), &v)
+	_ = json.Unmarshal([]byte(s), &v)
 	return v
 }
 

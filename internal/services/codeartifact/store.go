@@ -146,7 +146,7 @@ func (s *Store) ListDomains() ([]Domain, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var domains []Domain
 	for rows.Next() {
 		d, err := scanDomain(rows)
@@ -209,7 +209,7 @@ func (s *Store) ListRepositories() ([]Repository, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanRepositories(rows)
 }
 
@@ -220,7 +220,7 @@ func (s *Store) ListRepositoriesInDomain(domainName string) ([]Repository, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanRepositories(rows)
 }
 
@@ -303,7 +303,7 @@ func (s *Store) ListPackages(domainName, repoName, format, namespace string) ([]
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var pkgs []Package
 	for rows.Next() {
 		p, err := scanPackage(rows)
@@ -362,7 +362,7 @@ func (s *Store) ListPackageGroups(domainName string) ([]PackageGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []PackageGroup
 	for rows.Next() {
 		pg, err := scanPackageGroup(rows)

@@ -187,7 +187,7 @@ func (s *Store) ListTargets(ns, resourceID, dimension string) ([]ScalableTarget,
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var targets []ScalableTarget
 	for rows.Next() {
 		t, err := scanTarget(rows)
@@ -271,7 +271,7 @@ func (s *Store) ListPolicies(ns, resourceID, dimension string) ([]ScalingPolicy,
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var policies []ScalingPolicy
 	for rows.Next() {
 		var p ScalingPolicy
@@ -341,7 +341,7 @@ func (s *Store) ListScheduledActions(ns, resourceID, dimension string) ([]Schedu
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var actions []ScheduledAction
 	for rows.Next() {
 		var a ScheduledAction
@@ -422,7 +422,7 @@ func (s *Store) ListActivities(ns, resourceID, dimension string) ([]ScalingActiv
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ScalingActivity
 	for rows.Next() {
 		var a ScalingActivity
@@ -495,7 +495,7 @@ func (s *Store) ListCustomizedMetrics(ns, resourceID, dimension string) ([]Custo
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []CustomizedMetric
 	for rows.Next() {
 		var m CustomizedMetric

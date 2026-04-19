@@ -223,7 +223,7 @@ func (s *Store) ListClusters() ([]Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Cluster
 	for rows.Next() {
 		c, err := scanCluster(rows)
@@ -313,7 +313,7 @@ func (s *Store) ListNodegroups(clusterName string) ([]Nodegroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Nodegroup
 	for rows.Next() {
 		ng, err := scanNodegroup(rows)
@@ -390,7 +390,7 @@ func (s *Store) ListFargateProfiles(clusterName string) ([]FargateProfile, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []FargateProfile
 	for rows.Next() {
 		fp, err := scanFargateProfile(rows)
@@ -452,7 +452,7 @@ func (s *Store) ListAddons(clusterName string) ([]Addon, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Addon
 	for rows.Next() {
 		a, err := scanAddon(rows)
@@ -528,7 +528,7 @@ func (s *Store) ListAccessEntries(clusterName string) ([]AccessEntry, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []AccessEntry
 	for rows.Next() {
 		ae, err := scanAccessEntry(rows)
@@ -604,7 +604,7 @@ func (s *Store) ListPodIdentityAssociations(clusterName string) ([]PodIdentityAs
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []PodIdentityAssociation
 	for rows.Next() {
 		pa, err := scanPodIdentity(rows)

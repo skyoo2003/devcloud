@@ -317,7 +317,7 @@ func (s *IAMStore) ListUsers(accountID string) ([]User, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var users []User
 	for rows.Next() {
@@ -388,7 +388,7 @@ func (s *IAMStore) ListAttachedRolePolicies(accountID, roleName string) ([]strin
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var arns []string
 	for rows.Next() {
@@ -440,7 +440,7 @@ func (s *IAMStore) ListRoles(accountID string) ([]Role, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var roles []Role
 	for rows.Next() {
@@ -671,7 +671,7 @@ func (s *IAMStore) ListAttachedUserPolicies(accountID, userName string) ([]strin
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var arns []string
 	for rows.Next() {
 		var arn string
@@ -686,7 +686,7 @@ func (s *IAMStore) ListAttachedUserPolicies(accountID, userName string) ([]strin
 // CreatePolicyVersion creates a new version of a managed policy.
 func (s *IAMStore) CreatePolicyVersion(policyArn, document string, setAsDefault bool) (*PolicyVersion, error) {
 	var count int
-	s.db().QueryRow(`SELECT COUNT(*) FROM policy_versions WHERE policy_arn = ?;`, policyArn).Scan(&count)
+	_ = s.db().QueryRow(`SELECT COUNT(*) FROM policy_versions WHERE policy_arn = ?;`, policyArn).Scan(&count)
 	versionID := fmt.Sprintf("v%d", count+1)
 	now := time.Now().UTC()
 	if setAsDefault {
@@ -733,7 +733,7 @@ func (s *IAMStore) ListPolicyVersions(policyArn string) ([]PolicyVersion, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var versions []PolicyVersion
 	for rows.Next() {
 		var pv PolicyVersion
@@ -799,7 +799,7 @@ func (s *IAMStore) GetGroup(accountID, groupName string) (*Group, []string, erro
 	if err != nil {
 		return nil, nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var members []string
 	for rows.Next() {
 		var u string
@@ -841,7 +841,7 @@ func (s *IAMStore) ListGroups(accountID string) ([]Group, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []Group
 	for rows.Next() {
 		var g Group
@@ -882,7 +882,7 @@ func (s *IAMStore) ListAccessKeys(accountID, userName string) ([]AccessKey, erro
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var keys []AccessKey
 	for rows.Next() {
 		var k AccessKey
@@ -951,7 +951,7 @@ func (s *IAMStore) ListUserTags(accountID, userName string) (map[string]string, 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := make(map[string]string)
 	for rows.Next() {
 		var k, v string
@@ -1000,7 +1000,7 @@ func (s *IAMStore) ListRoleTags(accountID, roleName string) (map[string]string, 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := make(map[string]string)
 	for rows.Next() {
 		var k, v string
@@ -1064,7 +1064,7 @@ func (s *IAMStore) GetInstanceProfile(accountID, profileName string) (*InstanceP
 	if err != nil {
 		return nil, nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var roles []string
 	for rows.Next() {
 		var r string
@@ -1106,7 +1106,7 @@ func (s *IAMStore) ListInstanceProfiles(accountID string) ([]InstanceProfile, er
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var profiles []InstanceProfile
 	for rows.Next() {
 		var ip InstanceProfile
@@ -1188,7 +1188,7 @@ func (s *IAMStore) ListUserInlinePolicies(accountID, userName string) ([]string,
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var names []string
 	for rows.Next() {
 		var n string
@@ -1250,7 +1250,7 @@ func (s *IAMStore) ListRoleInlinePolicies(accountID, roleName string) ([]string,
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var names []string
 	for rows.Next() {
 		var n string

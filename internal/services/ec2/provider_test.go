@@ -23,7 +23,7 @@ func newTestEC2Provider(t *testing.T) *Provider {
 		"db_path": filepath.Join(dir, "ec2.db"),
 	}})
 	require.NoError(t, err)
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 

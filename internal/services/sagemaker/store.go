@@ -306,7 +306,7 @@ func (s *Store) ListNotebookInstances() ([]NotebookInstance, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []NotebookInstance
 	for rows.Next() {
 		nb, err := scanNotebookInstance(rows)
@@ -395,7 +395,7 @@ func (s *Store) ListModels() ([]Model, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []Model
 	for rows.Next() {
 		m, err := scanModel(rows)
@@ -458,7 +458,7 @@ func (s *Store) ListEndpointConfigs() ([]EndpointConfig, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []EndpointConfig
 	for rows.Next() {
 		ec, err := scanEndpointConfig(rows)
@@ -521,7 +521,7 @@ func (s *Store) ListEndpoints() ([]Endpoint, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []Endpoint
 	for rows.Next() {
 		e, err := scanEndpoint(rows)
@@ -600,7 +600,7 @@ func (s *Store) ListTrainingJobs() ([]TrainingJob, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []TrainingJob
 	for rows.Next() {
 		tj, err := scanTrainingJob(rows)
@@ -663,7 +663,7 @@ func (s *Store) ListProcessingJobs() ([]ProcessingJob, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []ProcessingJob
 	for rows.Next() {
 		pj, err := scanProcessingJob(rows)
@@ -726,7 +726,7 @@ func (s *Store) ListTransformJobs() ([]TransformJob, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []TransformJob
 	for rows.Next() {
 		tj, err := scanTransformJob(rows)
@@ -789,7 +789,7 @@ func (s *Store) ListPipelines() ([]Pipeline, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []Pipeline
 	for rows.Next() {
 		p, err := scanPipeline(rows)
@@ -870,7 +870,7 @@ func (s *Store) ListPipelineExecutions(pipelineName string) ([]PipelineExecution
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []PipelineExecution
 	for rows.Next() {
 		pe, err := scanPipelineExecution(rows)
@@ -933,7 +933,7 @@ func (s *Store) ListExperiments() ([]Experiment, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []Experiment
 	for rows.Next() {
 		e, err := scanExperiment(rows)
@@ -1016,7 +1016,7 @@ func (s *Store) ListTrials(experimentName string) ([]Trial, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []Trial
 	for rows.Next() {
 		tr, err := scanTrial(rows)
@@ -1091,7 +1091,7 @@ func (s *Store) ListDomains() ([]Domain, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []Domain
 	for rows.Next() {
 		d, err := scanDomain(rows)
@@ -1175,7 +1175,7 @@ func (s *Store) ListUserProfiles(domainID string) ([]UserProfile, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []UserProfile
 	for rows.Next() {
 		up, err := scanUserProfile(rows)

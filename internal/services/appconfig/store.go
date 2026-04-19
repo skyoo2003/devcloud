@@ -233,7 +233,7 @@ func (s *Store) ListApplications() ([]Application, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var apps []Application
 	for rows.Next() {
 		a, err := scanApplication(rows)
@@ -295,7 +295,7 @@ func (s *Store) ListEnvironments(appID string) ([]Environment, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var envs []Environment
 	for rows.Next() {
 		e, err := scanEnvironment(rows)
@@ -358,7 +358,7 @@ func (s *Store) ListConfigProfiles(appID string) ([]ConfigProfile, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var profiles []ConfigProfile
 	for rows.Next() {
 		cp, err := scanConfigProfile(rows)
@@ -427,7 +427,7 @@ func (s *Store) ListDeploymentStrategies() ([]DeploymentStrategy, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var strategies []DeploymentStrategy
 	for rows.Next() {
 		ds, err := scanDeploymentStrategy(rows)
@@ -470,7 +470,7 @@ func (s *Store) DeleteDeploymentStrategy(id string) error {
 func (s *Store) CreateDeployment(d *Deployment) error {
 	// Find next deployment number
 	var maxNum sql.NullInt64
-	s.store.DB().QueryRow(
+	_ = s.store.DB().QueryRow(
 		`SELECT MAX(number) FROM deployments WHERE app_id=? AND env_id=?`, d.AppID, d.EnvID).Scan(&maxNum)
 	if maxNum.Valid {
 		d.Number = int(maxNum.Int64) + 1
@@ -507,7 +507,7 @@ func (s *Store) ListDeployments(appID, envID string) ([]Deployment, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var deployments []Deployment
 	for rows.Next() {
 		d, err := scanDeployment(rows)
@@ -561,7 +561,7 @@ func (s *Store) ListExtensions() ([]Extension, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var exts []Extension
 	for rows.Next() {
 		e, err := scanExtension(rows)
@@ -624,7 +624,7 @@ func (s *Store) ListExtensionAssociations() ([]ExtensionAssociation, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var assocs []ExtensionAssociation
 	for rows.Next() {
 		ea, err := scanExtensionAssociation(rows)
@@ -666,7 +666,7 @@ func (s *Store) DeleteExtensionAssociation(id string) error {
 func (s *Store) CreateHostedConfigVersion(hcv *HostedConfigVersion) error {
 	// Find next version number
 	var maxVer sql.NullInt64
-	s.store.DB().QueryRow(
+	_ = s.store.DB().QueryRow(
 		`SELECT MAX(version) FROM hosted_config_versions WHERE app_id=? AND profile_id=?`,
 		hcv.AppID, hcv.ProfileID).Scan(&maxVer)
 	if maxVer.Valid {
@@ -706,7 +706,7 @@ func (s *Store) ListHostedConfigVersions(appID, profileID string) ([]HostedConfi
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var versions []HostedConfigVersion
 	for rows.Next() {
 		hcv, err := scanHostedConfigVersion(rows)

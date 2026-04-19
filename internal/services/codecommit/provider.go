@@ -237,7 +237,7 @@ func (p *Provider) createRepository(params map[string]any) (*plugin.Response, er
 	// Handle tags
 	if rawTags, ok := params["tags"].(map[string]any); ok {
 		tags := flatTags(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags)
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"repositoryMetadata": repoToMap(repo),
@@ -308,7 +308,7 @@ func (p *Provider) deleteRepository(params map[string]any) (*plugin.Response, er
 	if err != nil {
 		return shared.JSONError("RepositoryDoesNotExistException", "repository not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(repo.ARN)
+	_ = p.store.tags.DeleteAllTags(repo.ARN)
 	repoID := repo.ID
 	if err := p.store.DeleteRepository(name); err != nil {
 		return shared.JSONError("RepositoryDoesNotExistException", "repository not found", http.StatusBadRequest), nil

@@ -221,7 +221,7 @@ func (p *Provider) createStream(params map[string]any) (*plugin.Response, error)
 				tags[k] = vs
 			}
 		}
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags)
 	}
 	return jsonOK(map[string]any{})
 }
@@ -235,7 +235,7 @@ func (p *Provider) deleteStream(params map[string]any) (*plugin.Response, error)
 	if err != nil {
 		return jsonErr("ResourceNotFoundException", "stream not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(st.ARN)
+	_ = p.store.tags.DeleteAllTags(st.ARN) //nolint:errcheck
 	if err := p.store.DeleteStream(name); err != nil {
 		return jsonErr("ResourceNotFoundException", "stream not found", http.StatusBadRequest), nil
 	}
@@ -489,7 +489,7 @@ func (p *Provider) splitShard(params map[string]any) (*plugin.Response, error) {
 	if _, err := p.store.buffer.addShard(name); err != nil {
 		return nil, err
 	}
-	p.store.UpdateShardCount(name, st.ShardCount+1)
+	p.store.UpdateShardCount(name, st.ShardCount+1) //nolint:errcheck
 	return jsonOK(map[string]any{})
 }
 
@@ -510,7 +510,7 @@ func (p *Provider) mergeShards(params map[string]any) (*plugin.Response, error) 
 	if err := p.store.buffer.removeShard(name, lastShardID); err != nil {
 		return nil, err
 	}
-	p.store.UpdateShardCount(name, st.ShardCount-1)
+	p.store.UpdateShardCount(name, st.ShardCount-1) //nolint:errcheck
 	return jsonOK(map[string]any{})
 }
 

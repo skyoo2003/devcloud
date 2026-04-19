@@ -187,7 +187,7 @@ func (p *Provider) createProtection(params map[string]any) (*plugin.Response, er
 
 	if rawTags, ok := params["Tags"].([]any); ok {
 		tags := parseTagList(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags)
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{"ProtectionId": id})
@@ -237,7 +237,7 @@ func (p *Provider) deleteProtection(params map[string]any) (*plugin.Response, er
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "protection not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(prot.ARN)
+	_ = p.store.tags.DeleteAllTags(prot.ARN)
 	if err := p.store.DeleteProtection(protID); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "protection not found", http.StatusBadRequest), nil
 	}
@@ -255,10 +255,10 @@ func (p *Provider) associateHealthCheck(params map[string]any) (*plugin.Response
 		return shared.JSONError("ResourceNotFoundException", "protection not found", http.StatusBadRequest), nil
 	}
 	var ids []string
-	json.Unmarshal([]byte(prot.HealthCheckIDs), &ids)
+	_ = json.Unmarshal([]byte(prot.HealthCheckIDs), &ids)
 	ids = append(ids, healthCheckARN)
 	b, _ := json.Marshal(ids)
-	p.store.UpdateProtectionHealthChecks(protID, string(b))
+	p.store.UpdateProtectionHealthChecks(protID, string(b)) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -273,7 +273,7 @@ func (p *Provider) disassociateHealthCheck(params map[string]any) (*plugin.Respo
 		return shared.JSONError("ResourceNotFoundException", "protection not found", http.StatusBadRequest), nil
 	}
 	var ids []string
-	json.Unmarshal([]byte(prot.HealthCheckIDs), &ids)
+	_ = json.Unmarshal([]byte(prot.HealthCheckIDs), &ids)
 	filtered := ids[:0]
 	for _, id := range ids {
 		if id != healthCheckARN {
@@ -281,7 +281,7 @@ func (p *Provider) disassociateHealthCheck(params map[string]any) (*plugin.Respo
 		}
 	}
 	b, _ := json.Marshal(filtered)
-	p.store.UpdateProtectionHealthChecks(protID, string(b))
+	p.store.UpdateProtectionHealthChecks(protID, string(b)) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -326,7 +326,7 @@ func (p *Provider) createProtectionGroup(params map[string]any) (*plugin.Respons
 
 	if rawTags, ok := params["Tags"].([]any); ok {
 		tags := parseTagList(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags)
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
@@ -394,7 +394,7 @@ func (p *Provider) deleteProtectionGroup(params map[string]any) (*plugin.Respons
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "protection group not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(g.ARN)
+	_ = p.store.tags.DeleteAllTags(g.ARN)
 	if err := p.store.DeleteProtectionGroup(groupID); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "protection group not found", http.StatusBadRequest), nil
 	}
@@ -411,11 +411,9 @@ func (p *Provider) listResourcesInProtectionGroup(params map[string]any) (*plugi
 		return shared.JSONError("ResourceNotFoundException", "protection group not found", http.StatusBadRequest), nil
 	}
 	var members []string
-	json.Unmarshal([]byte(g.Members), &members)
+	_ = json.Unmarshal([]byte(g.Members), &members)
 	arns := make([]string, 0, len(members))
-	for _, m := range members {
-		arns = append(arns, m)
-	}
+	arns = append(arns, members...)
 	return shared.JSONResponse(http.StatusOK, map[string]any{"ResourceArns": arns})
 }
 
@@ -423,7 +421,7 @@ func (p *Provider) listResourcesInProtectionGroup(params map[string]any) (*plugi
 
 func (p *Provider) createSubscription() (*plugin.Response, error) {
 	now := time.Now().Unix()
-	p.store.store.DB().Exec(
+	_, _ = p.store.store.DB().Exec(
 		`UPDATE subscription SET state='ACTIVE', start_time=?, end_time=? WHERE id='default'`,
 		now, now+365*24*3600,
 	)
@@ -448,7 +446,7 @@ func (p *Provider) updateSubscription(params map[string]any) (*plugin.Response, 
 }
 
 func (p *Provider) deleteSubscription() (*plugin.Response, error) {
-	p.store.SetSubscriptionState("INACTIVE")
+	p.store.SetSubscriptionState("INACTIVE") //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -461,12 +459,12 @@ func (p *Provider) getSubscriptionState() (*plugin.Response, error) {
 }
 
 func (p *Provider) enableProactiveEngagement() (*plugin.Response, error) {
-	p.store.SetProactiveEngagement("ENABLED")
+	p.store.SetProactiveEngagement("ENABLED") //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
 func (p *Provider) disableProactiveEngagement() (*plugin.Response, error) {
-	p.store.SetProactiveEngagement("DISABLED")
+	p.store.SetProactiveEngagement("DISABLED") //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 
@@ -550,7 +548,7 @@ func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response,
 
 func protectionToMap(prot *Protection) map[string]any {
 	var healthCheckIDs []string
-	json.Unmarshal([]byte(prot.HealthCheckIDs), &healthCheckIDs)
+	_ = json.Unmarshal([]byte(prot.HealthCheckIDs), &healthCheckIDs)
 	if healthCheckIDs == nil {
 		healthCheckIDs = []string{}
 	}
@@ -566,7 +564,7 @@ func protectionToMap(prot *Protection) map[string]any {
 
 func protectionGroupToMap(g *ProtectionGroup) map[string]any {
 	var members []string
-	json.Unmarshal([]byte(g.Members), &members)
+	_ = json.Unmarshal([]byte(g.Members), &members)
 	if members == nil {
 		members = []string{}
 	}

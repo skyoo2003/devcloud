@@ -202,7 +202,7 @@ func (s *Store) ListStacks(statusFilter string) ([]Stack, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var stacks []Stack
 	for rows.Next() {
 		st, err := scanStack(rows)
@@ -239,8 +239,8 @@ func (s *Store) DeleteStack(name string) error {
 	if n == 0 {
 		return errStackNotFound
 	}
-	s.store.DB().Exec(`DELETE FROM stack_resources WHERE stack_name = ?`, name)
-	s.store.DB().Exec(`DELETE FROM change_sets WHERE stack_name = ?`, name)
+	_, _ = s.store.DB().Exec(`DELETE FROM stack_resources WHERE stack_name = ?`, name)
+	_, _ = s.store.DB().Exec(`DELETE FROM change_sets WHERE stack_name = ?`, name)
 	return nil
 }
 
@@ -301,7 +301,7 @@ func (s *Store) ListStackResources(stackName string) ([]StackResource, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []StackResource
 	for rows.Next() {
 		var r StackResource
@@ -364,7 +364,7 @@ func (s *Store) ListChangeSets(stackName string) ([]ChangeSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ChangeSet
 	for rows.Next() {
 		cs, err := scanChangeSet(rows)
@@ -438,7 +438,7 @@ func (s *Store) ListStackSets() ([]StackSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []StackSet
 	for rows.Next() {
 		ss, err := scanStackSet(rows)
@@ -484,7 +484,7 @@ func (s *Store) ListExports() ([]Export, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Export
 	for rows.Next() {
 		var e Export

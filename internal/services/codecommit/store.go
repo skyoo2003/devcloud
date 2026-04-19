@@ -209,7 +209,7 @@ func (s *Store) ListRepositories() ([]Repository, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var repos []Repository
 	for rows.Next() {
 		r, err := scanRepository(rows)
@@ -270,7 +270,7 @@ func (s *Store) DeleteRepository(name string) error {
 		return errRepositoryNotFound
 	}
 	// cascade-delete branches
-	s.store.DB().Exec(`DELETE FROM branches WHERE repo_name = ?`, name)
+	_, _ = s.store.DB().Exec(`DELETE FROM branches WHERE repo_name = ?`, name)
 	return nil
 }
 
@@ -307,7 +307,7 @@ func (s *Store) ListBranches(repoName string) ([]Branch, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var branches []Branch
 	for rows.Next() {
 		var b Branch
@@ -376,7 +376,7 @@ func (s *Store) ListPullRequests(repoName, status, authorARN string) ([]PullRequ
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var prs []PullRequest
 	for rows.Next() {
 		pr, err := scanPullRequest(rows)
@@ -440,7 +440,7 @@ func (s *Store) ListPRApprovalRules(prID string) ([]map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var rules []map[string]string
 	for rows.Next() {
 		var name, content string
@@ -466,7 +466,7 @@ func (s *Store) GetApprovals(prID string) ([]map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var approvals []map[string]string
 	for rows.Next() {
 		var userARN, state string
@@ -495,7 +495,7 @@ func (s *Store) GetOverride(prID string) (bool, string) {
 	row := s.store.DB().QueryRow(`SELECT overridden, overrider FROM pr_override WHERE pr_id = ?`, prID)
 	var overridden int
 	var overrider string
-	row.Scan(&overridden, &overrider)
+	_ = row.Scan(&overridden, &overrider)
 	return overridden == 1, overrider
 }
 
@@ -531,7 +531,7 @@ func (s *Store) ListApprovalRuleTemplates() ([]ApprovalRuleTemplate, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var templates []ApprovalRuleTemplate
 	for rows.Next() {
 		t, err := scanApprovalRuleTemplate(rows)
@@ -604,7 +604,7 @@ func (s *Store) ListTemplatesForRepo(repoName string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var names []string
 	for rows.Next() {
 		var n string
@@ -622,7 +622,7 @@ func (s *Store) ListReposForTemplate(templateName string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var names []string
 	for rows.Next() {
 		var n string
@@ -679,7 +679,7 @@ func (s *Store) ListComments() ([]Comment, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var comments []Comment
 	for rows.Next() {
 		c, err := scanComment(rows)
@@ -706,7 +706,7 @@ func (s *Store) GetCommentReactions(commentID string) ([]map[string]string, erro
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var reactions []map[string]string
 	for rows.Next() {
 		var userARN, emoji string

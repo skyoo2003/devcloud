@@ -145,7 +145,7 @@ func (s *Store) ListClusters() ([]Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var clusters []Cluster
 	for rows.Next() {
 		c, err := scanCluster(rows)
@@ -229,7 +229,7 @@ func (s *Store) ListConfigurations() ([]Configuration, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var cfgs []Configuration
 	for rows.Next() {
 		c, err := scanConfiguration(rows)
@@ -307,7 +307,7 @@ func (s *Store) ListTopics(clusterARN string) ([]Topic, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var topics []Topic
 	for rows.Next() {
 		t, err := scanTopic(rows)
@@ -375,7 +375,7 @@ func (s *Store) PutClusterPolicy(clusterARN, policy string) (string, error) {
 		return "", err
 	}
 	var version string
-	s.store.DB().QueryRow(`SELECT current_version FROM cluster_policies WHERE cluster_arn = ?`, clusterARN).Scan(&version)
+	_ = s.store.DB().QueryRow(`SELECT current_version FROM cluster_policies WHERE cluster_arn = ?`, clusterARN).Scan(&version)
 	return version, nil
 }
 

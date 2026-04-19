@@ -280,7 +280,7 @@ func (s *Store) ListAPIs() ([]API, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var apis []API
 	for rows.Next() {
 		a, err := scanAPI(rows)
@@ -356,7 +356,7 @@ func (s *Store) ListRoutes(apiID string) ([]Route, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var routes []Route
 	for rows.Next() {
 		r, err := scanRoute(rows)
@@ -435,7 +435,7 @@ func (s *Store) ListIntegrations(apiID string) ([]Integration, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []Integration
 	for rows.Next() {
 		i, err := scanIntegration(rows)
@@ -515,7 +515,7 @@ func (s *Store) ListIntegrationResponses(apiID, integrationID string) ([]Integra
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []IntegrationResponse
 	for rows.Next() {
 		ir, err := scanIntegrationResponse(rows)
@@ -590,7 +590,7 @@ func (s *Store) ListAuthorizers(apiID string) ([]Authorizer, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []Authorizer
 	for rows.Next() {
 		a, err := scanAuthorizer(rows)
@@ -667,7 +667,7 @@ func (s *Store) ListDeployments(apiID string) ([]Deployment, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []Deployment
 	for rows.Next() {
 		d, err := scanDeployment(rows)
@@ -738,7 +738,7 @@ func (s *Store) ListStages(apiID string) ([]Stage, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []Stage
 	for rows.Next() {
 		st, err := scanStage(rows)
@@ -814,7 +814,7 @@ func (s *Store) ListModels(apiID string) ([]Model, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []Model
 	for rows.Next() {
 		m, err := scanModel(rows)
@@ -889,7 +889,7 @@ func (s *Store) ListDomainNames() ([]DomainName, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []DomainName
 	for rows.Next() {
 		d, err := scanDomainName(rows)
@@ -961,7 +961,7 @@ func (s *Store) ListAPIMappings(domainName string) ([]APIMapping, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []APIMapping
 	for rows.Next() {
 		m, err := scanAPIMapping(rows)
@@ -1038,7 +1038,7 @@ func (s *Store) ListVpcLinks() ([]VpcLink, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []VpcLink
 	for rows.Next() {
 		v, err := scanVpcLink(rows)
@@ -1109,7 +1109,7 @@ func (s *Store) ListRouteResponses(apiID, routeID string) ([]RouteResponse, erro
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []RouteResponse
 	for rows.Next() {
 		rr, err := scanRouteResponse(rows)

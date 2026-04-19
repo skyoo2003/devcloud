@@ -239,7 +239,7 @@ func (s *Store) ListThings() ([]Thing, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []Thing
 	for rows.Next() {
 		t, err := scanThing(rows)
@@ -314,7 +314,7 @@ func (s *Store) ListThingTypes() ([]ThingType, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []ThingType
 	for rows.Next() {
 		tt, err := scanThingType(rows)
@@ -372,7 +372,7 @@ func (s *Store) ListThingGroups() ([]ThingGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []ThingGroup
 	for rows.Next() {
 		tg, err := scanThingGroup(rows)
@@ -442,7 +442,7 @@ func (s *Store) ListThingsInThingGroup(groupName string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []string
 	for rows.Next() {
 		var name string
@@ -460,7 +460,7 @@ func (s *Store) ListThingGroupsForThing(thingName string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []string
 	for rows.Next() {
 		var name string
@@ -494,7 +494,7 @@ func (s *Store) ListPolicies() ([]Policy, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []Policy
 	for rows.Next() {
 		p, err := scanPolicy(rows)
@@ -545,7 +545,7 @@ func (s *Store) ListPolicyVersions(policyName string) ([]PolicyVersion, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []PolicyVersion
 	for rows.Next() {
 		pv, err := scanPolicyVersion(rows)
@@ -612,7 +612,7 @@ func (s *Store) ListAttachedPolicies(target string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []string
 	for rows.Next() {
 		var name string
@@ -630,7 +630,7 @@ func (s *Store) ListTargetsForPolicy(policyName string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []string
 	for rows.Next() {
 		var target string
@@ -664,7 +664,7 @@ func (s *Store) ListCertificates() ([]Certificate, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []Certificate
 	for rows.Next() {
 		c, err := scanCertificate(rows)
@@ -722,7 +722,7 @@ func (s *Store) ListThingPrincipals(thingName string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []string
 	for rows.Next() {
 		var p string
@@ -740,7 +740,7 @@ func (s *Store) ListPrincipalThings(principal string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []string
 	for rows.Next() {
 		var name string
@@ -774,7 +774,7 @@ func (s *Store) ListTopicRules() ([]TopicRule, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []TopicRule
 	for rows.Next() {
 		tr, err := scanTopicRule(rows)
@@ -852,7 +852,7 @@ func (s *Store) ListJobs() ([]Job, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []Job
 	for rows.Next() {
 		j, err := scanJob(rows)
@@ -910,7 +910,7 @@ func (s *Store) ListRoleAliases() ([]RoleAlias, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []RoleAlias
 	for rows.Next() {
 		ra, err := scanRoleAlias(rows)

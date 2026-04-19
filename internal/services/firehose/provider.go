@@ -201,7 +201,7 @@ func (p *Provider) createDeliveryStream(params map[string]any) (*plugin.Response
 	// Handle tags if provided
 	if rawTags, ok := params["Tags"].([]any); ok {
 		tags := parseTags(rawTags)
-		p.store.tags.AddTags(st.ARN, tags)
+		_ = p.store.tags.AddTags(st.ARN, tags)
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"DeliveryStreamARN": st.ARN})
 }
@@ -215,7 +215,7 @@ func (p *Provider) deleteDeliveryStream(params map[string]any) (*plugin.Response
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "stream not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(st.ARN)
+	_ = p.store.tags.DeleteAllTags(st.ARN)
 	if err := p.store.DeleteStream(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "stream not found", http.StatusBadRequest), nil
 	}
@@ -372,7 +372,7 @@ func (p *Provider) stopEncryption(params map[string]any) (*plugin.Response, erro
 
 func streamToMap(st *DeliveryStream) map[string]any {
 	var dest any
-	json.Unmarshal([]byte(st.Dest), &dest)
+	_ = json.Unmarshal([]byte(st.Dest), &dest)
 	return map[string]any{
 		"DeliveryStreamName":   st.Name,
 		"DeliveryStreamARN":    st.ARN,

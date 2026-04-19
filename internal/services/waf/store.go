@@ -253,7 +253,7 @@ func (s *Store) ListWebACLs() ([]WebACL, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []WebACL
 	for rows.Next() {
 		var w WebACL
@@ -321,7 +321,7 @@ func (s *Store) ListIPSets() ([]IPSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []IPSet
 	for rows.Next() {
 		var ip IPSet
@@ -389,7 +389,7 @@ func (s *Store) ListRules() ([]Rule, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []Rule
 	for rows.Next() {
 		var r Rule
@@ -457,7 +457,7 @@ func (s *Store) ListRuleGroups() ([]RuleGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []RuleGroup
 	for rows.Next() {
 		var rg RuleGroup
@@ -510,7 +510,7 @@ func (s *Store) ListRateBasedRules() ([]RateBasedRule, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []RateBasedRule
 	for rows.Next() {
 		var r RateBasedRule
@@ -578,7 +578,7 @@ func (s *Store) ListByteMatchSets() ([]ByteMatchSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []ByteMatchSet
 	for rows.Next() {
 		var b ByteMatchSet
@@ -646,7 +646,7 @@ func (s *Store) ListRegexPatternSets() ([]RegexPatternSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []RegexPatternSet
 	for rows.Next() {
 		var r RegexPatternSet
@@ -714,7 +714,7 @@ func (s *Store) ListSizeConstraintSets() ([]SizeConstraintSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []SizeConstraintSet
 	for rows.Next() {
 		var sc SizeConstraintSet
@@ -782,7 +782,7 @@ func (s *Store) ListSqlInjectionMatchSets() ([]SqlInjectionMatchSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []SqlInjectionMatchSet
 	for rows.Next() {
 		var si SqlInjectionMatchSet
@@ -850,7 +850,7 @@ func (s *Store) ListXssMatchSets() ([]XssMatchSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []XssMatchSet
 	for rows.Next() {
 		var x XssMatchSet
@@ -918,7 +918,7 @@ func (s *Store) ListGeoMatchSets() ([]GeoMatchSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []GeoMatchSet
 	for rows.Next() {
 		var g GeoMatchSet
@@ -986,7 +986,7 @@ func (s *Store) ListRegexMatchSets() ([]RegexMatchSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []RegexMatchSet
 	for rows.Next() {
 		var r RegexMatchSet
@@ -1065,7 +1065,7 @@ func (s *Store) ListLoggingConfigs() ([]map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []map[string]string
 	for rows.Next() {
 		var arn, config string

@@ -941,7 +941,7 @@ func (p *Provider) handleSetReceiptRulePosition(form url.Values) (*plugin.Respon
 	ruleSetName := form.Get("RuleSetName")
 	ruleName := form.Get("RuleName")
 	pos := 0
-	fmt.Sscanf(form.Get("Position"), "%d", &pos)
+	_, _ = fmt.Sscanf(form.Get("Position"), "%d", &pos)
 	if err := p.store.SetReceiptRulePosition(ruleSetName, ruleName, pos); err != nil && !errors.Is(err, errNotFound) {
 		return nil, err
 	}
@@ -1159,13 +1159,6 @@ func (p *Provider) handleGetSendQuota(form url.Values) (*plugin.Response, error)
 }
 
 func (p *Provider) handleGetSendStatistics(form url.Values) (*plugin.Response, error) {
-	type dataPoint struct {
-		DeliveryAttempts int    `xml:"DeliveryAttempts"`
-		Bounces          int    `xml:"Bounces"`
-		Complaints       int    `xml:"Complaints"`
-		Rejects          int    `xml:"Rejects"`
-		Timestamp        string `xml:"Timestamp"`
-	}
 	type result struct {
 		SendDataPoints struct{} `xml:"SendDataPoints"`
 	}

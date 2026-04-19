@@ -289,7 +289,7 @@ func (p *Provider) handleRegisterTaskDefinition(params map[string]any) (*plugin.
 	if family == "" {
 		return ecsError("MissingParameter", "family is required", http.StatusBadRequest), nil
 	}
-	containerDefsRaw, _ := params["containerDefinitions"]
+	containerDefsRaw := params["containerDefinitions"]
 	containerDefs := "[]"
 	if containerDefsRaw != nil {
 		b, _ := json.Marshal(containerDefsRaw)
@@ -719,7 +719,7 @@ func clusterToMap(c *Cluster) map[string]any {
 
 func taskDefToMap(td *TaskDefinition) map[string]any {
 	var containerDefs any
-	json.Unmarshal([]byte(td.ContainerDefs), &containerDefs)
+	_ = json.Unmarshal([]byte(td.ContainerDefs), &containerDefs)
 	return map[string]any{
 		"taskDefinitionArn":    td.ARN,
 		"family":               td.Family,

@@ -717,8 +717,8 @@ func instanceToMap(r *ReplicationInstance) map[string]any {
 
 func taskToMap(t *ReplicationTask) map[string]any {
 	var tableMappings, taskSettings any
-	json.Unmarshal([]byte(t.TableMappings), &tableMappings)
-	json.Unmarshal([]byte(t.TaskSettings), &taskSettings)
+	_ = json.Unmarshal([]byte(t.TableMappings), &tableMappings)
+	_ = json.Unmarshal([]byte(t.TaskSettings), &taskSettings)
 	return map[string]any{
 		"ReplicationTaskArn":          t.ARN,
 		"ReplicationTaskIdentifier":   t.Identifier,
@@ -751,7 +751,7 @@ func endpointToMap(e *DMSEndpoint) map[string]any {
 
 func eventSubToMap(es *EventSubscription) map[string]any {
 	var categories any
-	json.Unmarshal([]byte(es.EventCategories), &categories)
+	_ = json.Unmarshal([]byte(es.EventCategories), &categories)
 	return map[string]any{
 		"CustomerAwsId":            es.AccountID,
 		"CustSubscriptionId":       es.Name,

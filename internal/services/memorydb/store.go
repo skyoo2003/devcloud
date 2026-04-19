@@ -149,7 +149,7 @@ func NewStore(dataDir string) (*Store, error) {
 func (s *Store) Close() error { return s.store.Close() }
 
 func isUnique(err error) bool {
-	return err != nil && errors.Is(err, sql.ErrNoRows) == false &&
+	return err != nil && !errors.Is(err, sql.ErrNoRows) &&
 		containsStr(err.Error(), "UNIQUE constraint failed")
 }
 
@@ -194,7 +194,7 @@ func (s *Store) ListClusters() ([]Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Cluster
 	for rows.Next() {
 		c, err := scanCluster(rows)
@@ -287,7 +287,7 @@ func (s *Store) ListParameterGroups() ([]ParameterGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ParameterGroup
 	for rows.Next() {
 		pg, err := scanPG(rows)
@@ -358,7 +358,7 @@ func (s *Store) ListSubnetGroups() ([]SubnetGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []SubnetGroup
 	for rows.Next() {
 		sg, err := scanSG(rows)
@@ -437,7 +437,7 @@ func (s *Store) ListACLs() ([]ACL, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ACL
 	for rows.Next() {
 		a, err := scanACL(rows)
@@ -508,7 +508,7 @@ func (s *Store) ListUsers() ([]User, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []User
 	for rows.Next() {
 		u, err := scanUser(rows)
@@ -590,7 +590,7 @@ func (s *Store) ListSnapshots(clusterName string) ([]Snapshot, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Snapshot
 	for rows.Next() {
 		snap, err := scanSnapshot(rows)
@@ -648,7 +648,7 @@ func marshalStringSlice(ss []string) string {
 
 func unmarshalStringSlice(s string) []string {
 	var out []string
-	json.Unmarshal([]byte(s), &out)
+	_ = json.Unmarshal([]byte(s), &out)
 	return out
 }
 

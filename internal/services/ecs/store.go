@@ -310,7 +310,7 @@ func (s *ECSStore) ListClusters(accountID string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var arns []string
 	for rows.Next() {
 		var arn string
@@ -340,7 +340,7 @@ func (s *ECSStore) DescribeClusters(accountID string, arns []string) ([]Cluster,
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Cluster
 	for rows.Next() {
 		var c Cluster
@@ -372,7 +372,7 @@ func (s *ECSStore) DeleteCluster(accountID, clusterARN string) error {
 func (s *ECSStore) RegisterTaskDefinition(accountID, family, containerDefs string) (*TaskDefinition, error) {
 	var maxRev int
 	row := s.db().QueryRow(`SELECT COALESCE(MAX(revision),0) FROM task_definitions WHERE family=? AND account_id=?`, family, accountID)
-	row.Scan(&maxRev)
+	_ = row.Scan(&maxRev)
 	revision := maxRev + 1
 	arn := taskDefARN(accountID, family, revision)
 	_, err := s.db().Exec(
@@ -405,11 +405,11 @@ func (s *ECSStore) ListTaskDefinitions(accountID string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var arns []string
 	for rows.Next() {
 		var arn string
-		rows.Scan(&arn)
+		_ = rows.Scan(&arn)
 		arns = append(arns, arn)
 	}
 	return arns, rows.Err()
@@ -467,7 +467,7 @@ func (s *ECSStore) DescribeTasks(accountID string, arns []string) ([]Task, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Task
 	for rows.Next() {
 		var t Task
@@ -552,11 +552,11 @@ func (s *ECSStore) ListServices(accountID, clusterArn string) ([]string, error) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var arns []string
 	for rows.Next() {
 		var arn string
-		rows.Scan(&arn)
+		_ = rows.Scan(&arn)
 		arns = append(arns, arn)
 	}
 	return arns, rows.Err()
@@ -621,11 +621,11 @@ func (s *ECSStore) DescribeServices(accountID string, arns []string) ([]Service,
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Service
 	for rows.Next() {
 		var svc Service
-		rows.Scan(&svc.ARN, &svc.Name, &svc.ClusterARN, &svc.TaskDefARN, &svc.DesiredCount, &svc.RunningCount, &svc.AccountID, &svc.Status)
+		_ = rows.Scan(&svc.ARN, &svc.Name, &svc.ClusterARN, &svc.TaskDefARN, &svc.DesiredCount, &svc.RunningCount, &svc.AccountID, &svc.Status)
 		out = append(out, svc)
 	}
 	return out, rows.Err()
@@ -670,7 +670,7 @@ func (s *ECSStore) DescribeCapacityProviders(accountID string, names []string) (
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []CapacityProvider
 	for rows.Next() {
 		var cp CapacityProvider
@@ -737,11 +737,11 @@ func (s *ECSStore) ListContainerInstances(accountID, clusterARN, status string) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var arns []string
 	for rows.Next() {
 		var arn string
-		rows.Scan(&arn)
+		_ = rows.Scan(&arn)
 		arns = append(arns, arn)
 	}
 	return arns, rows.Err()
@@ -765,7 +765,7 @@ func (s *ECSStore) DescribeContainerInstances(accountID string, arns []string) (
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ContainerInstance
 	for rows.Next() {
 		var ci ContainerInstance
@@ -795,7 +795,7 @@ func (s *ECSStore) DeregisterContainerInstance(accountID, arn string, force bool
 
 func (s *ECSStore) UpdateContainerInstancesState(accountID string, arns []string, status string) error {
 	for _, arn := range arns {
-		s.db().Exec(`UPDATE container_instances SET status=? WHERE container_instance_arn=? AND account_id=?`, status, arn, accountID)
+		_, _ = s.db().Exec(`UPDATE container_instances SET status=? WHERE container_instance_arn=? AND account_id=?`, status, arn, accountID)
 	}
 	return nil
 }
@@ -817,7 +817,7 @@ func (s *ECSStore) PutAttributes(accountID, clusterARN string, attrs []ECSAttrib
 
 func (s *ECSStore) DeleteAttributes(accountID, clusterARN string, attrs []ECSAttribute) error {
 	for _, a := range attrs {
-		s.db().Exec(
+		_, _ = s.db().Exec(
 			`DELETE FROM ecs_attributes WHERE cluster_arn=? AND target_type=? AND target_id=? AND name=? AND account_id=?`,
 			clusterARN, a.TargetType, a.TargetID, a.Name, accountID,
 		)
@@ -844,11 +844,11 @@ func (s *ECSStore) ListAttributes(accountID, clusterARN, targetType, attrName, a
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ECSAttribute
 	for rows.Next() {
 		var a ECSAttribute
-		rows.Scan(&a.ClusterARN, &a.TargetType, &a.TargetID, &a.Name, &a.Value, &a.AccountID)
+		_ = rows.Scan(&a.ClusterARN, &a.TargetType, &a.TargetID, &a.Name, &a.Value, &a.AccountID)
 		out = append(out, a)
 	}
 	return out, rows.Err()
@@ -910,7 +910,7 @@ func (s *ECSStore) ListScalableTargets(accountID, serviceARN, dimension string) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ServiceScalableTarget
 	for rows.Next() {
 		var t ServiceScalableTarget
@@ -954,7 +954,7 @@ func (s *ECSStore) PutServiceScalingPolicy(accountID, serviceARN, policyName, di
 			policyName, serviceARN, dimension, accountID,
 		)
 		var createdAt string
-		row.Scan(&arn, &createdAt)
+		_ = row.Scan(&arn, &createdAt)
 		now, _ = time.Parse(time.RFC3339, createdAt)
 	}
 	return &ServiceScalingPolicy{
@@ -996,7 +996,7 @@ func (s *ECSStore) ListServiceScalingPolicies(accountID, serviceARN string) ([]S
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ServiceScalingPolicy
 	for rows.Next() {
 		var p ServiceScalingPolicy
@@ -1108,7 +1108,7 @@ func (s *ECSStore) ListTaskSets(accountID, serviceARN string) ([]TaskSet, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []TaskSet
 	for rows.Next() {
 		var ts TaskSet
@@ -1160,7 +1160,7 @@ func (s *ECSStore) ListAccountSettings(accountID, name, principal string) ([]Acc
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []AccountSetting
 	for rows.Next() {
 		var a AccountSetting

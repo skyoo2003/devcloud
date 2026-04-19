@@ -169,7 +169,7 @@ func (s *Store) ListEnvironments() ([]Environment, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var envs []Environment
 	for rows.Next() {
 		e, err := scanEnvironment(rows)
@@ -298,7 +298,7 @@ func (s *Store) ListDags(env string) ([]DAG, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var dags []DAG
 	for rows.Next() {
 		d, err := scanDag(rows)
@@ -402,7 +402,7 @@ func (s *Store) ListDagRuns(env, dagID string) ([]DagRun, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var runs []DagRun
 	for rows.Next() {
 		r, err := scanDagRun(rows)
@@ -491,7 +491,7 @@ func (s *Store) ListVariables(env string) ([]Variable, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var list []Variable
 	for rows.Next() {
 		var v Variable
