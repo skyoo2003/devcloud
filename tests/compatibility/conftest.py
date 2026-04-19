@@ -13,6 +13,44 @@ DEVCLOUD_PORT = int(os.environ.get("DEVCLOUD_PORT", "4747"))
 DEVCLOUD_URL = os.environ.get("DEVCLOUD_URL", f"http://localhost:{DEVCLOUD_PORT}")
 
 
+def _build_devcloud_cmd(project_root, bin_path):
+    """Build the devcloud command, conditionally adding -config if devcloud.yaml exists."""
+    config_path = os.path.join(project_root, "devcloud.yaml")
+
+    if bin_path:
+        cmd = [bin_path]
+    else:
+        cmd = ["go", "run", "./cmd/devcloud"]
+
+    if os.path.isfile(config_path):
+        cmd.extend(["-config", "devcloud.yaml"])
+
+    return cmd
+
+
+def _start_server_error(cmd, project_root, env):
+    """Re-run server with PIPE to capture stderr, then raise with diagnostic info."""
+    debug_proc = subprocess.Popen(
+        cmd,
+        cwd=project_root,
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    try:
+        _wait_for_server(DEVCLOUD_URL, timeout=5)
+    except RuntimeError:
+        pass
+    debug_proc.kill()
+    debug_proc.wait()
+    stderr = debug_proc.stderr.read().decode(errors="replace")
+    raise RuntimeError(
+        f"devcloud server did not start within 30s.\n"
+        f"command: {' '.join(cmd)}\n"
+        f"stderr:\n{stderr}"
+    ) from None
+
+
 def _wait_for_server(url, timeout=30, interval=0.5):
     """Poll server until it responds or timeout."""
     deadline = time.time() + timeout
@@ -46,14 +84,7 @@ def devcloud_server():
     # collide with stale data.  The directory is cleaned up after the session.
     data_dir = tempfile.mkdtemp(prefix="devcloud-test-")
 
-    config_path = os.path.join(project_root, "devcloud.yaml")
-
-    if bin_path:
-        cmd = [bin_path]
-    else:
-        cmd = ["go", "run", "./cmd/devcloud"]
-    if os.path.isfile(config_path):
-        cmd.extend(["-config", "devcloud.yaml"])
+    cmd = _build_devcloud_cmd(project_root, bin_path)
 
     env = os.environ.copy()
     env["CGO_ENABLED"] = "1"
@@ -63,20 +94,15 @@ def devcloud_server():
         cmd,
         cwd=project_root,
         env=env,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
     )
     try:
         _wait_for_server(DEVCLOUD_URL)
     except RuntimeError:
         proc.kill()
         proc.wait()
-        stderr = proc.stderr.read().decode(errors="replace")
-        raise RuntimeError(
-            f"devcloud server did not start within 30s.\n"
-            f"command: {' '.join(cmd)}\n"
-            f"stderr:\n{stderr}"
-        ) from None
+        _start_server_error(cmd, project_root, env)
     yield proc
     proc.send_signal(signal.SIGINT)
     try:
