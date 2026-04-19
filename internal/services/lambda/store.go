@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -327,9 +328,23 @@ func (s *LambdaStore) DeleteFunction(accountID, functionName string) error {
 		return ErrFunctionNotFound
 	}
 
-	// Remove the code directory (best-effort; ignore errors).
-	codeDir := filepath.Join(s.codeDir, accountID, functionName)
-	_ = os.RemoveAll(codeDir)
+	// Remove the code directory (best-effort; ignore errors), but only if the
+	// resolved path stays within the configured base code directory.
+	codeDirAbs := filepath.Join(s.codeDir, accountID, functionName)
+	cleaned := filepath.Clean(codeDirAbs)
+	baseDirAbs, err := filepath.Abs(s.codeDir)
+	if err == nil {
+		absCleaned, err := filepath.Abs(cleaned)
+		if err == nil {
+			rel, err := filepath.Rel(baseDirAbs, absCleaned)
+			if err == nil && rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) {
+				_ = os.RemoveAll(absCleaned)
+			} else {
+				slog.Debug("skipped code directory removal: path outside base directory",
+					"path", absCleaned, "base", baseDirAbs)
+			}
+		}
+	}
 
 	return nil
 }
