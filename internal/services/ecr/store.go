@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
@@ -389,7 +390,7 @@ func (s *ECRStore) InitiateLayerUpload(accountID, repoName string) (string, erro
 func (s *ECRStore) UploadLayerPart(accountID, repoName, uploadID string, partFirst, partLast int64, blob []byte) error {
 	// uploadID is used as a filesystem path component; enforce generated-ID format.
 	// InitiateLayerUpload creates 16 random bytes encoded as 32 lowercase hex chars.
-	if len(uploadID) != 32 {
+	if len(uploadID) != 32 || uploadID != strings.ToLower(uploadID) {
 		return ErrLayerUploadNotFound
 	}
 	if _, err := hex.DecodeString(uploadID); err != nil {
