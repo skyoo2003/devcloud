@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -156,8 +157,12 @@ func isSafePathComponent(v string) bool {
 // It validates that accountID and functionName are single path segments and that
 // the resolved path stays within s.codeDir to prevent path traversal.
 func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
-	if !isSafePathComponent(accountID) || !isSafePathComponent(functionName) {
-		return "", fmt.Errorf("invalid path component")
+	// accountID and functionName are expected to be single path components.
+	if !isSafePathComponent(accountID) {
+		return "", fmt.Errorf("invalid account id path component")
+	}
+	if !isSafePathComponent(functionName) {
+		return "", fmt.Errorf("invalid function name path component")
 	}
 
 	joined := filepath.Join(s.codeDir, accountID, functionName, "code.zip")
@@ -171,10 +176,9 @@ func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("resolve code path: %w", err)
 	}
-
 	rel, err := filepath.Rel(absBase, absCleaned)
 	if err != nil {
-		return "", fmt.Errorf("compute relative code path: %w", err)
+		return "", fmt.Errorf("resolve relative code path: %w", err)
 	}
 	if rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) || filepath.IsAbs(rel) {
 		return "", fmt.Errorf("path traversal detected: %s", cleaned)
@@ -327,18 +331,19 @@ func (s *LambdaStore) DeleteFunction(accountID, functionName string) error {
 	}
 
 	// Remove the code directory (best-effort; ignore errors), but only if the
-	// path components and resolved location are within the base code directory.
-	if isSafePathComponent(accountID) && isSafePathComponent(functionName) {
-		codeDir := filepath.Join(s.codeDir, accountID, functionName)
-		cleaned := filepath.Clean(codeDir)
-		baseDirAbs, err := filepath.Abs(s.codeDir)
+	// resolved path stays within the configured base code directory.
+	codeDirAbs := filepath.Join(s.codeDir, accountID, functionName)
+	cleaned := filepath.Clean(codeDirAbs)
+	baseDirAbs, err := filepath.Abs(s.codeDir)
+	if err == nil {
+		absCleaned, err := filepath.Abs(cleaned)
 		if err == nil {
-			absCleaned, err := filepath.Abs(cleaned)
-			if err == nil {
-				rel, err := filepath.Rel(baseDirAbs, absCleaned)
-				if err == nil && rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) && !filepath.IsAbs(rel) {
-					_ = os.RemoveAll(absCleaned)
-				}
+			rel, err := filepath.Rel(baseDirAbs, absCleaned)
+			if err == nil && rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) && !filepath.IsAbs(rel) {
+				_ = os.RemoveAll(absCleaned)
+			} else {
+				slog.Debug("skipped code directory removal: path outside base directory",
+					"path", absCleaned, "base", baseDirAbs)
 			}
 		}
 	}

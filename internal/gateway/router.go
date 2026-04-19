@@ -5,6 +5,7 @@ package gateway
 import (
 	"encoding/json"
 	"encoding/xml"
+	"mime"
 	"net/http"
 	"strings"
 
@@ -45,9 +46,36 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	for k, v := range resp.Headers {
 		w.Header().Set(k, v)
 	}
-	if resp.ContentType != "" {
-		w.Header().Set("Content-Type", resp.ContentType)
+	ct := resp.ContentType
+	if ct == "" {
+		ct = w.Header().Get("Content-Type")
 	}
+	if ct == "" {
+		ct = "application/octet-stream"
+	}
+	// Prevent XSS: this gateway serves AWS API responses only (JSON/XML),
+	// never user-facing HTML. Sanitize any attempt to serve HTML-like content.
+	ct = strings.TrimSpace(ct)
+	htmlLike := false
+	for _, p := range strings.Split(ct, ",") {
+		p = strings.TrimSpace(p)
+		if p == "" {
+			continue
+		}
+		mediaType, _, parseErr := mime.ParseMediaType(p)
+		if parseErr != nil {
+			continue
+		}
+		mtLower := strings.ToLower(mediaType)
+		if mtLower == "text/html" || mtLower == "application/xhtml+xml" || strings.HasSuffix(mtLower, "+html") {
+			htmlLike = true
+			break
+		}
+	}
+	if htmlLike {
+		ct = "text/plain; charset=utf-8"
+	}
+	w.Header().Set("Content-Type", ct)
 	w.WriteHeader(resp.StatusCode)
 	_, _ = w.Write(resp.Body)
 }
