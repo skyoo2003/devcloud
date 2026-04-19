@@ -462,7 +462,7 @@ func generateUploadID() (string, error) {
 
 // multipartDir returns the directory used to store parts for an upload.
 func (p *S3Provider) multipartDir(uploadID string) string {
-	return filepath.Join(p.fileStore.baseDir, "_multipart", uploadID)
+	return filepath.Join(p.fileStore.baseDir, "_multipart", filepath.Base(uploadID))
 }
 
 // partPath returns the path to a specific part file.
