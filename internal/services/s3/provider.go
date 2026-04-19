@@ -971,6 +971,9 @@ func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, upl
 }
 
 func (p *S3Provider) abortMultipartUpload(_ context.Context, bucket, key, uploadID string) (*plugin.Response, error) {
+	if !isValidUploadID(uploadID) {
+		return xmlError("InvalidRequest", "invalid uploadId", http.StatusBadRequest), nil
+	}
 	if _, err := p.metaStore.GetMultipartUpload(uploadID); err != nil {
 		if errors.Is(err, ErrUploadNotFound) {
 			return xmlError("NoSuchUpload", "upload not found", http.StatusNotFound), nil
