@@ -145,28 +145,29 @@ func (s *LambdaStore) Close() error {
 	return s.store.Close()
 }
 
-// validPathComponent returns true if s is a single path component with no
-// separators or traversal sequences.
-func validPathComponent(s string) bool {
-	return !strings.ContainsAny(s, "/\\") && !strings.Contains(s, "..")
+// isSafePathComponent reports whether v is a single path segment with no
+// separators or absolute markers. It intentionally does not reject ".." as a
+// substring (e.g. "user..1") since the containment check below handles traversal.
+func isSafePathComponent(v string) bool {
+	return v != "" && v != "." && v != ".." && !filepath.IsAbs(v) &&
+		!strings.ContainsAny(v, "/\\")
 }
 
 // codePath returns the filesystem path for a function's code zip.
-// It validates the result stays under codeDir to prevent path traversal.
+// It validates that accountID and functionName are single path segments and that
+// the resolved path stays within s.codeDir to prevent path traversal.
 func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
 	// accountID and functionName are expected to be single path components.
-	if accountID == "" || functionName == "" {
-		return "", fmt.Errorf("invalid empty path component")
-	}
-	if !validPathComponent(accountID) {
+	if !isSafePathComponent(accountID) {
 		return "", fmt.Errorf("invalid account id path component")
 	}
-	if !validPathComponent(functionName) {
+	if !isSafePathComponent(functionName) {
 		return "", fmt.Errorf("invalid function name path component")
 	}
 
 	joined := filepath.Join(s.codeDir, accountID, functionName, "code.zip")
 	cleaned := filepath.Clean(joined)
+
 	absBase, err := filepath.Abs(s.codeDir)
 	if err != nil {
 		return "", fmt.Errorf("resolve base code directory: %w", err)
@@ -179,9 +180,10 @@ func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("resolve relative code path: %w", err)
 	}
-	if rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) {
+	if rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) || filepath.IsAbs(rel) {
 		return "", fmt.Errorf("path traversal detected: %s", cleaned)
 	}
+
 	return cleaned, nil
 }
 
@@ -337,7 +339,7 @@ func (s *LambdaStore) DeleteFunction(accountID, functionName string) error {
 		absCleaned, err := filepath.Abs(cleaned)
 		if err == nil {
 			rel, err := filepath.Rel(baseDirAbs, absCleaned)
-			if err == nil && rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) {
+			if err == nil && rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) && !filepath.IsAbs(rel) {
 				_ = os.RemoveAll(absCleaned)
 			} else {
 				slog.Debug("skipped code directory removal: path outside base directory",
