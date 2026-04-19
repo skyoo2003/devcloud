@@ -144,23 +144,19 @@ func (s *LambdaStore) Close() error {
 	return s.store.Close()
 }
 
-// codePath returns the filesystem path for a function's code zip.
-// It validates path components and ensures the resolved path stays under codeDir.
-func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
-	isSafeComponent := func(v string) bool {
-		if v == "" || v == "." || v == ".." {
-			return false
-		}
-		if filepath.IsAbs(v) {
-			return false
-		}
-		if strings.Contains(v, "/") || strings.Contains(v, "\\") || strings.Contains(v, "..") {
-			return false
-		}
-		return true
-	}
+// isSafePathComponent reports whether v is a single path segment with no
+// separators or absolute markers. It intentionally does not reject ".." as a
+// substring (e.g. "user..1") since the containment check below handles traversal.
+func isSafePathComponent(v string) bool {
+	return v != "" && v != "." && v != ".." && !filepath.IsAbs(v) &&
+		!strings.ContainsAny(v, "/\\")
+}
 
-	if !isSafeComponent(accountID) || !isSafeComponent(functionName) {
+// codePath returns the filesystem path for a function's code zip.
+// It validates that accountID and functionName are single path segments and that
+// the resolved path stays within s.codeDir to prevent path traversal.
+func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
+	if !isSafePathComponent(accountID) || !isSafePathComponent(functionName) {
 		return "", fmt.Errorf("invalid path component")
 	}
 
@@ -184,7 +180,7 @@ func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
 		return "", fmt.Errorf("path traversal detected: %s", cleaned)
 	}
 
-	return absCleaned, nil
+	return cleaned, nil
 }
 
 // CreateFunction saves function metadata to SQLite and writes the code zip
@@ -330,9 +326,22 @@ func (s *LambdaStore) DeleteFunction(accountID, functionName string) error {
 		return ErrFunctionNotFound
 	}
 
-	// Remove the code directory (best-effort; ignore errors).
-	codeDir := filepath.Join(s.codeDir, accountID, functionName)
-	_ = os.RemoveAll(codeDir)
+	// Remove the code directory (best-effort; ignore errors), but only if the
+	// path components and resolved location are within the base code directory.
+	if isSafePathComponent(accountID) && isSafePathComponent(functionName) {
+		codeDir := filepath.Join(s.codeDir, accountID, functionName)
+		cleaned := filepath.Clean(codeDir)
+		baseDirAbs, err := filepath.Abs(s.codeDir)
+		if err == nil {
+			absCleaned, err := filepath.Abs(cleaned)
+			if err == nil {
+				rel, err := filepath.Rel(baseDirAbs, absCleaned)
+				if err == nil && rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) && !filepath.IsAbs(rel) {
+					_ = os.RemoveAll(absCleaned)
+				}
+			}
+		}
+	}
 
 	return nil
 }
