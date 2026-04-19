@@ -50,7 +50,7 @@ func (p *AccountProvider) HandleRequest(_ context.Context, op string, req *http.
 	body, _ := io.ReadAll(req.Body)
 	var bodyMap map[string]any
 	if len(body) > 0 {
-		json.Unmarshal(body, &bodyMap)
+		_ = json.Unmarshal(body, &bodyMap)
 	}
 	if bodyMap == nil {
 		bodyMap = map[string]any{}

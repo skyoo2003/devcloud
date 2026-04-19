@@ -93,7 +93,7 @@ func (h *Hub) ServeWS(w http.ResponseWriter, r *http.Request) {
 			h.mu.Lock()
 			delete(h.clients, client)
 			h.mu.Unlock()
-			conn.Close()
+			_ = conn.Close()
 		})
 	}
 

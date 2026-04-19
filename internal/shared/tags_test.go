@@ -15,7 +15,7 @@ func newTestTagStore(t *testing.T) *TagStore {
 	dbPath := t.TempDir() + "/tags.db"
 	db, err := sqlite.Open(dbPath, TagMigrations)
 	require.NoError(t, err)
-	t.Cleanup(func() { db.Close() })
+	t.Cleanup(func() { _ = db.Close() })
 	return NewTagStore(db)
 }
 

@@ -38,7 +38,7 @@ func (s *ResourceStore[T]) List(where string, args []any) ([]T, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var items []T
 	for rows.Next() {
 		item, err := s.scanner(rows)

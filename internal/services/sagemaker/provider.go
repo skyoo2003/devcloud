@@ -376,7 +376,7 @@ func (p *Provider) describeModel(params map[string]any) (*plugin.Response, error
 		return shared.JSONError("ResourceNotFound", "model not found: "+name, http.StatusBadRequest), nil
 	}
 	var container any
-	json.Unmarshal([]byte(m.PrimaryContainer), &container)
+	_ = json.Unmarshal([]byte(m.PrimaryContainer), &container)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ModelName":        m.Name,
 		"ModelArn":         m.ARN,
@@ -436,7 +436,7 @@ func (p *Provider) describeEndpointConfig(params map[string]any) (*plugin.Respon
 		return shared.JSONError("ResourceNotFound", "endpoint config not found: "+name, http.StatusBadRequest), nil
 	}
 	var variants any
-	json.Unmarshal([]byte(ec.ProductionVariants), &variants)
+	_ = json.Unmarshal([]byte(ec.ProductionVariants), &variants)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"EndpointConfigName": ec.Name,
 		"EndpointConfigArn":  ec.ARN,
@@ -574,10 +574,10 @@ func (p *Provider) describeTrainingJob(params map[string]any) (*plugin.Response,
 		return shared.JSONError("ResourceNotFound", "training job not found: "+name, http.StatusBadRequest), nil
 	}
 	var algorithm, inputConfig, outputConfig, resourceConfig any
-	json.Unmarshal([]byte(tj.Algorithm), &algorithm)
-	json.Unmarshal([]byte(tj.InputConfig), &inputConfig)
-	json.Unmarshal([]byte(tj.OutputConfig), &outputConfig)
-	json.Unmarshal([]byte(tj.ResourceConfig), &resourceConfig)
+	_ = json.Unmarshal([]byte(tj.Algorithm), &algorithm)
+	_ = json.Unmarshal([]byte(tj.InputConfig), &inputConfig)
+	_ = json.Unmarshal([]byte(tj.OutputConfig), &outputConfig)
+	_ = json.Unmarshal([]byte(tj.ResourceConfig), &resourceConfig)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"TrainingJobName":        tj.Name,
 		"TrainingJobArn":         tj.ARN,
@@ -646,10 +646,10 @@ func (p *Provider) describeProcessingJob(params map[string]any) (*plugin.Respons
 		return shared.JSONError("ResourceNotFound", "processing job not found: "+name, http.StatusBadRequest), nil
 	}
 	var appSpec, inputs, outputs, resources any
-	json.Unmarshal([]byte(pj.AppSpec), &appSpec)
-	json.Unmarshal([]byte(pj.Inputs), &inputs)
-	json.Unmarshal([]byte(pj.Outputs), &outputs)
-	json.Unmarshal([]byte(pj.Resources), &resources)
+	_ = json.Unmarshal([]byte(pj.AppSpec), &appSpec)
+	_ = json.Unmarshal([]byte(pj.Inputs), &inputs)
+	_ = json.Unmarshal([]byte(pj.Outputs), &outputs)
+	_ = json.Unmarshal([]byte(pj.Resources), &resources)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ProcessingJobName":      pj.Name,
 		"ProcessingJobArn":       pj.ARN,
@@ -717,9 +717,9 @@ func (p *Provider) describeTransformJob(params map[string]any) (*plugin.Response
 		return shared.JSONError("ResourceNotFound", "transform job not found: "+name, http.StatusBadRequest), nil
 	}
 	var input, output, resources any
-	json.Unmarshal([]byte(tj.Input), &input)
-	json.Unmarshal([]byte(tj.Output), &output)
-	json.Unmarshal([]byte(tj.Resources), &resources)
+	_ = json.Unmarshal([]byte(tj.Input), &input)
+	_ = json.Unmarshal([]byte(tj.Output), &output)
+	_ = json.Unmarshal([]byte(tj.Resources), &resources)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"TransformJobName":   tj.Name,
 		"TransformJobArn":    tj.ARN,

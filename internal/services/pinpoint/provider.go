@@ -822,8 +822,8 @@ func resolveOp(method, path string) string {
 		return "ListTemplates"
 	case n == 3 && seg[0] == "templates":
 		kind := seg[2] // "email" or "sms"
-		switch {
-		case kind == "email":
+		switch kind {
+		case "email":
 			switch method {
 			case http.MethodPost:
 				return "CreateEmailTemplate"
@@ -834,7 +834,7 @@ func resolveOp(method, path string) string {
 			case http.MethodDelete:
 				return "DeleteEmailTemplate"
 			}
-		case kind == "sms":
+		case "sms":
 			switch method {
 			case http.MethodPost:
 				return "CreateSmsTemplate"

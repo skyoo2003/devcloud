@@ -169,7 +169,7 @@ func (p *Provider) createGroup(params map[string]any) (*plugin.Response, error) 
 
 	if rawTags, ok := params["Tags"].(map[string]any); ok {
 		tags := toStringMap(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags) //nolint:errcheck
 	}
 
 	tags, _ := p.store.tags.ListTags(arn)
@@ -241,7 +241,7 @@ func (p *Provider) deleteGroup(params map[string]any) (*plugin.Response, error) 
 	if err != nil {
 		return shared.JSONError("NotFoundException", "group not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(g.ARN)
+	_ = p.store.tags.DeleteAllTags(g.ARN) //nolint:errcheck
 	if err := p.store.DeleteGroup(name); err != nil {
 		return shared.JSONError("NotFoundException", "group not found", http.StatusNotFound), nil
 	}
@@ -260,7 +260,7 @@ func (p *Provider) getGroupQuery(params map[string]any) (*plugin.Response, error
 		return shared.JSONError("NotFoundException", "group not found", http.StatusNotFound), nil
 	}
 	var rq any
-	json.Unmarshal([]byte(g.ResourceQuery), &rq)
+	_ = json.Unmarshal([]byte(g.ResourceQuery), &rq)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"GroupQuery": map[string]any{
 			"GroupName":     g.Name,
@@ -283,7 +283,7 @@ func (p *Provider) updateGroupQuery(params map[string]any) (*plugin.Response, er
 		return shared.JSONError("NotFoundException", "group not found", http.StatusNotFound), nil
 	}
 	var rq any
-	json.Unmarshal([]byte(resourceQuery), &rq)
+	_ = json.Unmarshal([]byte(resourceQuery), &rq)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"GroupQuery": map[string]any{
 			"GroupName":     name,
@@ -302,7 +302,7 @@ func (p *Provider) getGroupConfiguration(params map[string]any) (*plugin.Respons
 		return shared.JSONError("NotFoundException", "group not found", http.StatusNotFound), nil
 	}
 	var cfg any
-	json.Unmarshal([]byte(g.Config), &cfg)
+	_ = json.Unmarshal([]byte(g.Config), &cfg)
 	if cfg == nil {
 		cfg = []any{}
 	}

@@ -220,7 +220,7 @@ func (p *PipesProvider) handleCreatePipe(req *http.Request) (*plugin.Response, e
 				tags[k] = s
 			}
 		}
-		p.store.PutTags(arn, tags)
+		p.store.PutTags(arn, tags) //nolint:errcheck
 	}
 
 	return shared.JSONResponse(http.StatusCreated, pipeToResponse(pipe))
@@ -360,7 +360,7 @@ func (p *PipesProvider) handleStartPipe(req *http.Request) (*plugin.Response, er
 		return nil, err
 	}
 
-	p.store.UpdatePipeState(name, shared.DefaultAccountID, "RUNNING")
+	p.store.UpdatePipeState(name, shared.DefaultAccountID, "RUNNING") //nolint:errcheck
 	pipe.State = "RUNNING"
 	return shared.JSONResponse(http.StatusOK, pipeToResponse(pipe))
 }
@@ -379,7 +379,7 @@ func (p *PipesProvider) handleStopPipe(req *http.Request) (*plugin.Response, err
 		return nil, err
 	}
 
-	p.store.UpdatePipeState(name, shared.DefaultAccountID, "STOPPED")
+	p.store.UpdatePipeState(name, shared.DefaultAccountID, "STOPPED") //nolint:errcheck
 	pipe.State = "STOPPED"
 	return shared.JSONResponse(http.StatusOK, pipeToResponse(pipe))
 }
@@ -393,7 +393,7 @@ func (p *PipesProvider) handleTagResource(req *http.Request) (*plugin.Response, 
 	body, _ := io.ReadAll(req.Body)
 	var params map[string]any
 	if len(body) > 0 {
-		json.Unmarshal(body, &params)
+		_ = json.Unmarshal(body, &params)
 	} else {
 		params = map[string]any{}
 	}

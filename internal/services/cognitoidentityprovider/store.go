@@ -200,7 +200,7 @@ func (s *CognitoStore) ListUserPools() ([]UserPool, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var pools []UserPool
 	for rows.Next() {
 		p, err := scanUserPool(rows)
@@ -271,7 +271,7 @@ func (s *CognitoStore) ListUserPoolClients(poolID string) ([]UserPoolClient, err
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var clients []UserPoolClient
 	for rows.Next() {
 		c, err := scanClient(rows)
@@ -342,7 +342,7 @@ func (s *CognitoStore) ListUsers(poolID string) ([]User, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var users []User
 	for rows.Next() {
 		u, err := scanUser(rows)
@@ -413,7 +413,7 @@ func (s *CognitoStore) ListGroups(poolID string) ([]Group, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []Group
 	for rows.Next() {
 		g, err := scanGroup(rows)
@@ -487,7 +487,7 @@ func (s *CognitoStore) ListGroupsForUser(poolID, username string) ([]Group, erro
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []Group
 	for rows.Next() {
 		g, err := scanGroup(rows)
@@ -508,7 +508,7 @@ func (s *CognitoStore) ListUsersInGroup(poolID, groupName string) ([]User, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var users []User
 	for rows.Next() {
 		u, err := scanUser(rows)
@@ -540,7 +540,7 @@ func (s *CognitoStore) GetIdentityProviderByIdentifier(poolID, identifier string
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	for rows.Next() {
 		idp, err := scanIDP(rows)
 		if err != nil {
@@ -559,7 +559,7 @@ func (s *CognitoStore) ListIdentityProviders(poolID string) ([]IdentityProvider,
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var idps []IdentityProvider
 	for rows.Next() {
 		idp, err := scanIDP(rows)
@@ -630,7 +630,7 @@ func (s *CognitoStore) ListResourceServers(poolID string) ([]ResourceServer, err
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var servers []ResourceServer
 	for rows.Next() {
 		rs, err := scanRS(rows)
@@ -709,7 +709,7 @@ func (s *CognitoStore) ListTagsForResource(arn string) (map[string]string, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := map[string]string{}
 	for rows.Next() {
 		var k, v string

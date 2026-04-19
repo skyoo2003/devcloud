@@ -121,7 +121,7 @@ func (s *Store) ListAdapters() ([]Adapter, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var adapters []Adapter
 	for rows.Next() {
 		a, err := scanAdapter(rows)
@@ -195,7 +195,7 @@ func (s *Store) ListAdapterVersions(adapterID string) ([]AdapterVersion, error) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var versions []AdapterVersion
 	for rows.Next() {
 		v, err := scanAdapterVersion(rows)

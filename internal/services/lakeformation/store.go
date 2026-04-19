@@ -183,7 +183,7 @@ func (s *Store) ListLFTags(catalogID string) ([]LFTag, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tags []LFTag
 	for rows.Next() {
 		var t LFTag
@@ -254,7 +254,7 @@ func (s *Store) ListLFTagExpressions(catalogID string) ([]LFTagExpression, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var exprs []LFTagExpression
 	for rows.Next() {
 		var e LFTagExpression
@@ -328,7 +328,7 @@ func (s *Store) ListResources() ([]Resource, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var resources []Resource
 	for rows.Next() {
 		var r Resource
@@ -385,7 +385,7 @@ func (s *Store) ListPermissions() ([]Permission, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var perms []Permission
 	for rows.Next() {
 		var p Permission
@@ -486,7 +486,7 @@ func (s *Store) ListDataCellsFilters() ([]DataCellsFilter, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var filters []DataCellsFilter
 	for rows.Next() {
 		var f DataCellsFilter

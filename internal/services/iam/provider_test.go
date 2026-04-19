@@ -25,7 +25,7 @@ func newTestIAMProvider(t *testing.T) *IAMProvider {
 		},
 	})
 	require.NoError(t, err)
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 
@@ -56,10 +56,12 @@ func TestIAMProvider_ListUsers(t *testing.T) {
 
 	// Create two users
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateUser&UserName=alice"))
-	p.HandleRequest(context.Background(), "", req1)
+	_, err := p.HandleRequest(context.Background(), "", req1)
+	require.NoError(t, err)
 
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateUser&UserName=bob"))
-	p.HandleRequest(context.Background(), "", req2)
+	_, err = p.HandleRequest(context.Background(), "", req2)
+	require.NoError(t, err)
 
 	// List users
 	req := httptest.NewRequest("POST", "/", strings.NewReader("Action=ListUsers"))
@@ -116,7 +118,8 @@ func TestIAMProvider_AttachRolePolicy(t *testing.T) {
 
 	// Create role first
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateRole&RoleName=myrole&AssumeRolePolicyDocument=%7B%7D"))
-	p.HandleRequest(context.Background(), "", req1)
+	_, err := p.HandleRequest(context.Background(), "", req1)
+	require.NoError(t, err)
 
 	// Attach policy
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader(
@@ -132,9 +135,11 @@ func TestIAMProvider_ListRoles(t *testing.T) {
 	p := newTestIAMProvider(t)
 
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateRole&RoleName=role-a&AssumeRolePolicyDocument=%7B%7D"))
-	p.HandleRequest(context.Background(), "", req1)
+	_, err := p.HandleRequest(context.Background(), "", req1)
+	require.NoError(t, err)
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateRole&RoleName=role-b&AssumeRolePolicyDocument=%7B%7D"))
-	p.HandleRequest(context.Background(), "", req2)
+	_, err = p.HandleRequest(context.Background(), "", req2)
+	require.NoError(t, err)
 
 	req := httptest.NewRequest("POST", "/", strings.NewReader("Action=ListRoles"))
 	resp, err := p.HandleRequest(context.Background(), "", req)
@@ -158,7 +163,8 @@ func TestIAMProvider_UnknownAction(t *testing.T) {
 func TestIAMProvider_GetUser(t *testing.T) {
 	p := newTestIAMProvider(t)
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateUser&UserName=alice"))
-	p.HandleRequest(context.Background(), "", req1)
+	_, err := p.HandleRequest(context.Background(), "", req1)
+	require.NoError(t, err)
 
 	req := httptest.NewRequest("POST", "/", strings.NewReader("Action=GetUser&UserName=alice"))
 	resp, err := p.HandleRequest(context.Background(), "", req)
@@ -180,7 +186,8 @@ func TestIAMProvider_GetUser_NotFound(t *testing.T) {
 func TestIAMProvider_GetRole(t *testing.T) {
 	p := newTestIAMProvider(t)
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateRole&RoleName=myrole&AssumeRolePolicyDocument=%7B%7D"))
-	p.HandleRequest(context.Background(), "", req1)
+	_, err := p.HandleRequest(context.Background(), "", req1)
+	require.NoError(t, err)
 
 	req := httptest.NewRequest("POST", "/", strings.NewReader("Action=GetRole&RoleName=myrole"))
 	resp, err := p.HandleRequest(context.Background(), "", req)
@@ -193,7 +200,8 @@ func TestIAMProvider_GetRole(t *testing.T) {
 func TestIAMProvider_DeleteRole(t *testing.T) {
 	p := newTestIAMProvider(t)
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateRole&RoleName=delrole&AssumeRolePolicyDocument=%7B%7D"))
-	p.HandleRequest(context.Background(), "", req1)
+	_, err := p.HandleRequest(context.Background(), "", req1)
+	require.NoError(t, err)
 
 	req := httptest.NewRequest("POST", "/", strings.NewReader("Action=DeleteRole&RoleName=delrole"))
 	resp, err := p.HandleRequest(context.Background(), "", req)
@@ -246,7 +254,8 @@ func TestIAMProvider_DeletePolicy(t *testing.T) {
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader(
 		"Action=CreatePolicy&PolicyName=delpol&PolicyDocument=%7B%7D",
 	))
-	p.HandleRequest(context.Background(), "", req1)
+	_, err := p.HandleRequest(context.Background(), "", req1)
+	require.NoError(t, err)
 
 	// Delete policy
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader(
@@ -282,13 +291,15 @@ func TestIAMProvider_DetachRolePolicy(t *testing.T) {
 
 	// Create role
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateRole&RoleName=detrole&AssumeRolePolicyDocument=%7B%7D"))
-	p.HandleRequest(context.Background(), "", req1)
+	_, err := p.HandleRequest(context.Background(), "", req1)
+	require.NoError(t, err)
 
 	// Attach policy
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader(
 		"Action=AttachRolePolicy&RoleName=detrole&PolicyArn=arn%3Aaws%3Aiam%3A%3Aaws%3Apolicy%2FReadOnlyAccess",
 	))
-	p.HandleRequest(context.Background(), "", req2)
+	_, err = p.HandleRequest(context.Background(), "", req2)
+	require.NoError(t, err)
 
 	// Detach policy
 	req3 := httptest.NewRequest("POST", "/", strings.NewReader(
@@ -310,13 +321,15 @@ func TestIAMProvider_AttachUserPolicy_And_List(t *testing.T) {
 
 	// Create user
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateUser&UserName=poluser"))
-	p.HandleRequest(context.Background(), "", req1)
+	_, err := p.HandleRequest(context.Background(), "", req1)
+	require.NoError(t, err)
 
 	// Create policy
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader(
 		"Action=CreatePolicy&PolicyName=userpol&PolicyDocument=%7B%7D",
 	))
-	p.HandleRequest(context.Background(), "", req2)
+	_, err = p.HandleRequest(context.Background(), "", req2)
+	require.NoError(t, err)
 
 	arn := "arn%3Aaws%3Aiam%3A%3A000000000000%3Apolicy%2Fuserpol"
 
@@ -343,11 +356,13 @@ func TestIAMProvider_DetachUserPolicy(t *testing.T) {
 
 	// Create user and policy
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateUser&UserName=detuser"))
-	p.HandleRequest(context.Background(), "", req1)
+	_, err := p.HandleRequest(context.Background(), "", req1)
+	require.NoError(t, err)
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader(
 		"Action=CreatePolicy&PolicyName=detuserpol&PolicyDocument=%7B%7D",
 	))
-	p.HandleRequest(context.Background(), "", req2)
+	_, err = p.HandleRequest(context.Background(), "", req2)
+	require.NoError(t, err)
 
 	arn := "arn%3Aaws%3Aiam%3A%3A000000000000%3Apolicy%2Fdetuserpol"
 
@@ -355,7 +370,8 @@ func TestIAMProvider_DetachUserPolicy(t *testing.T) {
 	req3 := httptest.NewRequest("POST", "/", strings.NewReader(
 		"Action=AttachUserPolicy&UserName=detuser&PolicyArn="+arn,
 	))
-	p.HandleRequest(context.Background(), "", req3)
+	_, err = p.HandleRequest(context.Background(), "", req3)
+	require.NoError(t, err)
 
 	// Detach
 	req4 := httptest.NewRequest("POST", "/", strings.NewReader(
@@ -414,7 +430,8 @@ func TestIAMProvider_InlineUserPolicyRoundtrip(t *testing.T) {
 	ctx := context.Background()
 
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateUser&UserName=inlineuser"))
-	p.HandleRequest(ctx, "", req1)
+	_, err := p.HandleRequest(ctx, "", req1)
+	require.NoError(t, err)
 
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader(
 		"Action=PutUserPolicy&UserName=inlineuser&PolicyName=mypol&PolicyDocument=%7B%7D",
@@ -509,7 +526,8 @@ func TestIAMProvider_GroupRoundtrip(t *testing.T) {
 	assert.Contains(t, string(resp1.Body), "mygroup")
 
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateUser&UserName=grpuser"))
-	p.HandleRequest(ctx, "", req2)
+	_, err = p.HandleRequest(ctx, "", req2)
+	require.NoError(t, err)
 
 	req3 := httptest.NewRequest("POST", "/", strings.NewReader("Action=AddUserToGroup&GroupName=mygroup&UserName=grpuser"))
 	resp3, err := p.HandleRequest(ctx, "", req3)
@@ -549,9 +567,11 @@ func TestIAMProvider_ListGroups(t *testing.T) {
 	ctx := context.Background()
 
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateGroup&GroupName=grp-a"))
-	p.HandleRequest(ctx, "", req1)
+	_, err := p.HandleRequest(ctx, "", req1)
+	require.NoError(t, err)
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateGroup&GroupName=grp-b"))
-	p.HandleRequest(ctx, "", req2)
+	_, err = p.HandleRequest(ctx, "", req2)
+	require.NoError(t, err)
 
 	req := httptest.NewRequest("POST", "/", strings.NewReader("Action=ListGroups"))
 	resp, err := p.HandleRequest(ctx, "", req)
@@ -577,7 +597,8 @@ func TestIAMProvider_InstanceProfileRoundtrip(t *testing.T) {
 	assert.Contains(t, string(resp1.Body), "myip")
 
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateRole&RoleName=iprole&AssumeRolePolicyDocument=%7B%7D"))
-	p.HandleRequest(ctx, "", req2)
+	_, err = p.HandleRequest(ctx, "", req2)
+	require.NoError(t, err)
 
 	req3 := httptest.NewRequest("POST", "/", strings.NewReader("Action=AddRoleToInstanceProfile&InstanceProfileName=myip&RoleName=iprole"))
 	resp3, err := p.HandleRequest(ctx, "", req3)
@@ -617,9 +638,11 @@ func TestIAMProvider_ListInstanceProfiles(t *testing.T) {
 	ctx := context.Background()
 
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateInstanceProfile&InstanceProfileName=ip-a"))
-	p.HandleRequest(ctx, "", req1)
+	_, err := p.HandleRequest(ctx, "", req1)
+	require.NoError(t, err)
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateInstanceProfile&InstanceProfileName=ip-b"))
-	p.HandleRequest(ctx, "", req2)
+	_, err = p.HandleRequest(ctx, "", req2)
+	require.NoError(t, err)
 
 	req := httptest.NewRequest("POST", "/", strings.NewReader("Action=ListInstanceProfiles"))
 	resp, err := p.HandleRequest(ctx, "", req)
@@ -637,7 +660,8 @@ func TestIAMProvider_AccessKeyManagement(t *testing.T) {
 	ctx := context.Background()
 
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateUser&UserName=akuser"))
-	p.HandleRequest(ctx, "", req1)
+	_, err := p.HandleRequest(ctx, "", req1)
+	require.NoError(t, err)
 
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateAccessKey&UserName=akuser"))
 	resp2, err := p.HandleRequest(ctx, "", req2)
@@ -683,7 +707,8 @@ func TestIAMProvider_UserTagging(t *testing.T) {
 	ctx := context.Background()
 
 	req1 := httptest.NewRequest("POST", "/", strings.NewReader("Action=CreateUser&UserName=taguser"))
-	p.HandleRequest(ctx, "", req1)
+	_, err := p.HandleRequest(ctx, "", req1)
+	require.NoError(t, err)
 
 	req2 := httptest.NewRequest("POST", "/", strings.NewReader(
 		"Action=TagUser&UserName=taguser&Tags.member.1.Key=env&Tags.member.1.Value=prod",

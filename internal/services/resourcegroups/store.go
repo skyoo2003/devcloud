@@ -76,7 +76,7 @@ func (s *Store) ListGroups() ([]Group, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []Group
 	for rows.Next() {
 		g, err := scanGroup(rows)

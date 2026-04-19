@@ -18,7 +18,7 @@ func newProvider(t *testing.T) *Provider {
 	if err != nil {
 		t.Fatalf("create temp dir: %v", err)
 	}
-	t.Cleanup(func() { os.RemoveAll(dir) })
+	t.Cleanup(func() { _ = os.RemoveAll(dir) })
 
 	p := &Provider{}
 	store, err := NewStore(dir)
@@ -26,7 +26,7 @@ func newProvider(t *testing.T) *Provider {
 		t.Fatalf("NewStore: %v", err)
 	}
 	p.store = store
-	t.Cleanup(func() { store.Close() })
+	t.Cleanup(func() { _ = store.Close() })
 	return p
 }
 
@@ -79,7 +79,7 @@ func callOpStatus(t *testing.T, p *Provider, op, path, method string, body map[s
 	}
 	var result map[string]any
 	if len(resp.Body) > 0 {
-		json.Unmarshal(resp.Body, &result)
+		_ = json.Unmarshal(resp.Body, &result)
 	}
 	return result
 }
@@ -437,7 +437,7 @@ func TestTags(t *testing.T) {
 		t.Fatalf("expected 200, got %d: %s", resp.StatusCode, string(resp.Body))
 	}
 	var result map[string]any
-	json.Unmarshal(resp.Body, &result)
+	_ = json.Unmarshal(resp.Body, &result)
 	tags, _ := result["Tags"].([]any)
 	if len(tags) != 2 {
 		t.Errorf("expected 2 tags, got %d: %v", len(tags), tags)
@@ -457,7 +457,7 @@ func TestTags(t *testing.T) {
 	req3 := httptest.NewRequest(http.MethodGet, "/v2/email/tags?ResourceArn="+arn, nil)
 	resp3, _ := p.HandleRequest(context.Background(), "ListTagsForResource", req3)
 	var result3 map[string]any
-	json.Unmarshal(resp3.Body, &result3)
+	_ = json.Unmarshal(resp3.Body, &result3)
 	tags3, _ := result3["Tags"].([]any)
 	if len(tags3) != 1 {
 		t.Errorf("expected 1 tag after untag, got %d: %v", len(tags3), tags3)

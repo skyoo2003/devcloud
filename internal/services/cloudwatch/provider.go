@@ -162,9 +162,9 @@ func (p *Provider) getMetricData(jm bool, req *http.Request) (*plugin.Response, 
 
 	var startTime, endTime int64
 	var period int
-	fmt.Sscanf(startTimeStr, "%d", &startTime)
-	fmt.Sscanf(endTimeStr, "%d", &endTime)
-	fmt.Sscanf(periodStr, "%d", &period)
+	_, _ = fmt.Sscanf(startTimeStr, "%d", &startTime)
+	_, _ = fmt.Sscanf(endTimeStr, "%d", &endTime)
+	_, _ = fmt.Sscanf(periodStr, "%d", &period)
 	if period == 0 {
 		period = 60
 	}
@@ -197,9 +197,9 @@ func (p *Provider) getMetricStatistics(jm bool, req *http.Request) (*plugin.Resp
 
 	var startTime, endTime int64
 	var period int
-	fmt.Sscanf(startTimeStr, "%d", &startTime)
-	fmt.Sscanf(endTimeStr, "%d", &endTime)
-	fmt.Sscanf(periodStr, "%d", &period)
+	_, _ = fmt.Sscanf(startTimeStr, "%d", &startTime)
+	_, _ = fmt.Sscanf(endTimeStr, "%d", &endTime)
+	_, _ = fmt.Sscanf(periodStr, "%d", &period)
 	if period == 0 {
 		period = 60
 	}
@@ -650,12 +650,12 @@ func cwError(jsonMode bool, code, message string, status int) *plugin.Response {
 // xmlMapResp produces a minimal XML response for query-protocol clients.
 func xmlMapResp(status int, root string, data map[string]any) (*plugin.Response, error) {
 	var buf bytes.Buffer
-	buf.WriteString(fmt.Sprintf("<%s>", root))
+	fmt.Fprintf(&buf, "<%s>", root)
 	resultKey := strings.TrimSuffix(root, "Response") + "Result"
-	buf.WriteString(fmt.Sprintf("<%s>", resultKey))
+	fmt.Fprintf(&buf, "<%s>", resultKey)
 	writeXMLMap(&buf, data)
-	buf.WriteString(fmt.Sprintf("</%s>", resultKey))
-	buf.WriteString(fmt.Sprintf("</%s>", root))
+	fmt.Fprintf(&buf, "</%s>", resultKey)
+	fmt.Fprintf(&buf, "</%s>", root)
 	return &plugin.Response{StatusCode: status, ContentType: "text/xml", Body: buf.Bytes()}, nil
 }
 
@@ -663,15 +663,15 @@ func writeXMLMap(buf *bytes.Buffer, data map[string]any) {
 	for k, v := range data {
 		switch val := v.(type) {
 		case []map[string]any:
-			buf.WriteString(fmt.Sprintf("<%s>", k))
+			fmt.Fprintf(buf, "<%s>", k)
 			for _, item := range val {
 				buf.WriteString("<member>")
 				writeXMLMap(buf, item)
 				buf.WriteString("</member>")
 			}
-			buf.WriteString(fmt.Sprintf("</%s>", k))
+			fmt.Fprintf(buf, "</%s>", k)
 		case []any:
-			buf.WriteString(fmt.Sprintf("<%s>", k))
+			fmt.Fprintf(buf, "<%s>", k)
 			for _, item := range val {
 				if m, ok := item.(map[string]any); ok {
 					buf.WriteString("<member>")
@@ -679,15 +679,15 @@ func writeXMLMap(buf *bytes.Buffer, data map[string]any) {
 					buf.WriteString("</member>")
 				}
 			}
-			buf.WriteString(fmt.Sprintf("</%s>", k))
+			fmt.Fprintf(buf, "</%s>", k)
 		case string:
-			buf.WriteString(fmt.Sprintf("<%s>%s</%s>", k, val, k))
+			fmt.Fprintf(buf, "<%s>%s</%s>", k, val, k)
 		case float64:
-			buf.WriteString(fmt.Sprintf("<%s>%s</%s>", k, strconv.FormatFloat(val, 'f', -1, 64), k))
+			fmt.Fprintf(buf, "<%s>%s</%s>", k, strconv.FormatFloat(val, 'f', -1, 64), k)
 		case int:
-			buf.WriteString(fmt.Sprintf("<%s>%d</%s>", k, val, k))
+			fmt.Fprintf(buf, "<%s>%d</%s>", k, val, k)
 		case bool:
-			buf.WriteString(fmt.Sprintf("<%s>%t</%s>", k, val, k))
+			fmt.Fprintf(buf, "<%s>%t</%s>", k, val, k)
 		}
 	}
 }

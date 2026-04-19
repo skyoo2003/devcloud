@@ -249,7 +249,7 @@ func (s *Store) ListDatabases(catalogID string) ([]Database, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var dbs []Database
 	for rows.Next() {
 		db, err := scanDatabase(rows)
@@ -334,7 +334,7 @@ func (s *Store) ListTables(catalogID, databaseName string) ([]Table, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var tables []Table
 	for rows.Next() {
 		t, err := scanTable(rows)
@@ -424,7 +424,7 @@ func (s *Store) ListPartitions(catalogID, databaseName, tableName string) ([]Par
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var parts []Partition
 	for rows.Next() {
 		p, err := scanPartition(rows)
@@ -506,7 +506,7 @@ func (s *Store) ListCrawlers() ([]Crawler, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var crawlers []Crawler
 	for rows.Next() {
 		c, err := scanCrawler(rows)
@@ -600,7 +600,7 @@ func (s *Store) ListJobs() ([]Job, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var jobs []Job
 	for rows.Next() {
 		j, err := scanJob(rows)
@@ -679,7 +679,7 @@ func (s *Store) ListJobRuns(jobName string) ([]JobRun, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var runs []JobRun
 	for rows.Next() {
 		r, err := scanJobRun(rows)
@@ -748,7 +748,7 @@ func (s *Store) ListConnections(catalogID string) ([]Connection, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var conns []Connection
 	for rows.Next() {
 		c, err := scanConnection(rows)
@@ -826,7 +826,7 @@ func (s *Store) ListTriggers() ([]Trigger, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var triggers []Trigger
 	for rows.Next() {
 		t, err := scanTrigger(rows)
@@ -914,7 +914,7 @@ func (s *Store) ListSecurityConfigs() ([]SecurityConfig, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var configs []SecurityConfig
 	for rows.Next() {
 		c, err := scanSecurityConfig(rows)

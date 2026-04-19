@@ -15,7 +15,6 @@ import (
 
 var (
 	errApplicationNotFound = errors.New("application not found")
-	errVersionNotFound     = errors.New("version not found")
 )
 
 var migrations = []sqlite.Migration{
@@ -192,8 +191,8 @@ func (s *Store) DeleteApplication(appID string) error {
 		return errApplicationNotFound
 	}
 	// Also delete versions and policy
-	s.store.DB().Exec(`DELETE FROM serverlessrepo_versions WHERE application_id=?`, appID)
-	s.store.DB().Exec(`DELETE FROM serverlessrepo_policies WHERE application_id=?`, appID)
+	_, _ = s.store.DB().Exec(`DELETE FROM serverlessrepo_versions WHERE application_id=?`, appID)
+	_, _ = s.store.DB().Exec(`DELETE FROM serverlessrepo_policies WHERE application_id=?`, appID)
 	return nil
 }
 
@@ -205,7 +204,7 @@ func (s *Store) ListApplications() ([]Application, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var apps []Application
 	for rows.Next() {
 		a, err := scanApplication(rows)
@@ -244,7 +243,7 @@ func (s *Store) ListVersions(appID string) ([]ApplicationVersion, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var versions []ApplicationVersion
 	for rows.Next() {
 		var v ApplicationVersion
@@ -367,7 +366,7 @@ func (s *Store) ListDependencies(appID string) ([]map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var deps []map[string]string
 	for rows.Next() {
 		var depID, ver string

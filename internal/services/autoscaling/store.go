@@ -197,7 +197,7 @@ func (s *Store) ListASGs(names []string) ([]AutoScalingGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []AutoScalingGroup
 	for rows.Next() {
 		a, err := scanASG(rows)
@@ -301,7 +301,7 @@ func (s *Store) ListLCs(names []string) ([]LaunchConfiguration, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []LaunchConfiguration
 	for rows.Next() {
 		lc, err := scanLC(rows)
@@ -366,7 +366,7 @@ func (s *Store) ListPolicies(asgName, policyName string) ([]ScalingPolicy, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ScalingPolicy
 	for rows.Next() {
 		var p ScalingPolicy
@@ -428,7 +428,7 @@ func (s *Store) ListScheduledActions(asgName, actionName string) ([]ScheduledAct
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ScheduledAction
 	for rows.Next() {
 		var a ScheduledAction
@@ -488,7 +488,7 @@ func (s *Store) ListLifecycleHooks(asgName, hookName string) ([]LifecycleHook, e
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []LifecycleHook
 	for rows.Next() {
 		var h LifecycleHook
@@ -532,7 +532,7 @@ func (s *Store) ListAllTags() (map[string]map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	out := make(map[string]map[string]string)
 	for rows.Next() {
 		var resARN, k, v string

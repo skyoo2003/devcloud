@@ -397,7 +397,7 @@ func (p *Provider) createEnvironment(name string, params map[string]any) (*plugi
 				tags[k] = s
 			}
 		}
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags)
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{"Arn": arn})
@@ -453,7 +453,7 @@ func (p *Provider) deleteEnvironment(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "environment not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(e.ARN)
+	_ = p.store.tags.DeleteAllTags(e.ARN)
 	if err := p.store.DeleteEnvironment(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "environment not found", http.StatusNotFound), nil
 	}
@@ -479,7 +479,7 @@ func (p *Provider) getEnvironmentConfig(name string) (*plugin.Response, error) {
 		return shared.JSONError("ResourceNotFoundException", "environment not found", http.StatusNotFound), nil
 	}
 	var cfg map[string]any
-	json.Unmarshal([]byte(e.Config), &cfg)
+	_ = json.Unmarshal([]byte(e.Config), &cfg)
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"AirflowConfigurationOptions": cfg,
 	})
@@ -810,7 +810,7 @@ func (p *Provider) bulkSetVariables(env string, params map[string]any) []string 
 			if e, ok := vm["IsEncrypted"].(bool); ok {
 				enc = e
 			}
-			p.store.SetVariable(&Variable{
+			_ = p.store.SetVariable(&Variable{
 				EnvironmentName: env,
 				Key:             key,
 				Value:           value,
@@ -832,7 +832,7 @@ func (p *Provider) deleteVariables(req *http.Request, params map[string]any) (*p
 	if raw, ok := params["VariableNames"].([]any); ok {
 		for _, n := range raw {
 			if key, ok := n.(string); ok {
-				p.store.DeleteVariable(env, key)
+				p.store.DeleteVariable(env, key) //nolint:errcheck
 				deleted = append(deleted, key)
 			}
 		}
@@ -932,7 +932,7 @@ func dagToMap(d *DAG) map[string]any {
 
 func dagRunToMap(r *DagRun) map[string]any {
 	var conf map[string]any
-	json.Unmarshal([]byte(r.Conf), &conf)
+	_ = json.Unmarshal([]byte(r.Conf), &conf)
 	return map[string]any{
 		"DagId":           r.DagID,
 		"EnvironmentName": r.EnvironmentName,

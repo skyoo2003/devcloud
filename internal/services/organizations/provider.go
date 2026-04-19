@@ -865,7 +865,7 @@ func orgToMap(org *Organization) map[string]any {
 
 func rootToMap(r *Root) map[string]any {
 	var policyTypes []any
-	json.Unmarshal([]byte(r.PolicyTypes), &policyTypes) //nolint:errcheck
+	_ = json.Unmarshal([]byte(r.PolicyTypes), &policyTypes) //nolint:errcheck
 	if policyTypes == nil {
 		policyTypes = []any{}
 	}
@@ -930,7 +930,7 @@ func parseTags(rawTags []any) map[string]string {
 
 func parseJSONStringArray(s string) []string {
 	var out []string
-	json.Unmarshal([]byte(s), &out) //nolint:errcheck
+	_ = json.Unmarshal([]byte(s), &out) //nolint:errcheck
 	return out
 }
 

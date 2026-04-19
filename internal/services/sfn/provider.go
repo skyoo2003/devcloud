@@ -264,7 +264,7 @@ func actToMap(act *Activity) map[string]any {
 
 func aliasToMap(a *StateMachineAlias) map[string]any {
 	var rc any
-	json.Unmarshal([]byte(a.RoutingConfig), &rc)
+	_ = json.Unmarshal([]byte(a.RoutingConfig), &rc)
 	return map[string]any{
 		"stateMachineAliasArn": a.ARN,
 		"name":                 a.Name,
@@ -322,7 +322,7 @@ func (p *Provider) createStateMachine(params map[string]any) (*plugin.Response, 
 	}
 	// Handle tags
 	if rawTags, ok := params["tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags))
 	}
 	return json10Resp(http.StatusOK, map[string]any{
 		"stateMachineArn": arn,
@@ -369,7 +369,7 @@ func (p *Provider) deleteStateMachine(params map[string]any) (*plugin.Response, 
 	if err := p.store.DeleteStateMachine(arn); err != nil {
 		return json10Err("StateMachineDoesNotExist", "state machine does not exist: "+arn, http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn)
 	return json10Resp(http.StatusOK, map[string]any{})
 }
 
@@ -469,8 +469,8 @@ func (p *Provider) createStateMachineAlias(params map[string]any) (*plugin.Respo
 	// routingConfiguration: [{"stateMachineVersionArn": "...", "weight": N}]
 	var stateMachineARN string
 	rcArr, _ := params["routingConfiguration"].([]any)
-	for _, item := range rcArr {
-		m, _ := item.(map[string]any)
+	if len(rcArr) > 0 {
+		m, _ := rcArr[0].(map[string]any)
 		versionARN, _ := m["stateMachineVersionArn"].(string)
 		// Strip version suffix: arn:...:stateMachine:name:1 -> arn:...:stateMachine:name
 		if idx := strings.LastIndex(versionARN, ":"); idx >= 0 {
@@ -489,7 +489,6 @@ func (p *Provider) createStateMachineAlias(params map[string]any) (*plugin.Respo
 				stateMachineARN = versionARN
 			}
 		}
-		break
 	}
 	if stateMachineARN == "" {
 		return json10Err("ValidationException", "routingConfiguration must reference a state machine version", http.StatusBadRequest), nil
@@ -829,7 +828,7 @@ func (p *Provider) createActivity(params map[string]any) (*plugin.Response, erro
 		return nil, err
 	}
 	if rawTags, ok := params["tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags))
 	}
 	return json10Resp(http.StatusOK, map[string]any{
 		"activityArn":  arn,
@@ -871,7 +870,7 @@ func (p *Provider) deleteActivity(params map[string]any) (*plugin.Response, erro
 	if err := p.store.DeleteActivity(arn); err != nil {
 		return json10Err("ActivityDoesNotExist", "activity does not exist: "+arn, http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn)
 	return json10Resp(http.StatusOK, map[string]any{})
 }
 

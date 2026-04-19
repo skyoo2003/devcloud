@@ -186,7 +186,7 @@ func (s *Store) ListComputeEnvironments() ([]*ComputeEnvironment, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []*ComputeEnvironment
 	for rows.Next() {
 		ce, err := scanComputeEnvironment(rows)
@@ -269,7 +269,7 @@ func (s *Store) ListJobQueues() ([]*JobQueue, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []*JobQueue
 	for rows.Next() {
 		jq, err := scanJobQueue(rows)
@@ -327,7 +327,7 @@ func (s *Store) RegisterJobDefinition(jd *JobDefinition) error {
 	// Find max revision for this name
 	var maxRev int32
 	row := s.store.DB().QueryRow(`SELECT COALESCE(MAX(revision), 0) FROM job_definitions WHERE name=?`, jd.Name)
-	row.Scan(&maxRev)
+	_ = row.Scan(&maxRev)
 	jd.Revision = maxRev + 1
 
 	now := time.Now().Unix()
@@ -369,7 +369,7 @@ func (s *Store) ListJobDefinitions(name, status string) ([]*JobDefinition, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []*JobDefinition
 	for rows.Next() {
 		jd, err := scanJobDefinition(rows)
@@ -444,7 +444,7 @@ func (s *Store) ListJobs(queue, status string) ([]*Job, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []*Job
 	for rows.Next() {
 		j, err := scanJob(rows)
@@ -510,7 +510,7 @@ func (s *Store) ListSchedulingPolicies() ([]*SchedulingPolicy, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var result []*SchedulingPolicy
 	for rows.Next() {
 		sp, err := scanSchedulingPolicy(rows)

@@ -179,7 +179,7 @@ func (s *Store) ListGraphqlApis() ([]GraphqlApi, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var apis []GraphqlApi
 	for rows.Next() {
 		a, err := scanGraphqlApi(rows)
@@ -252,7 +252,7 @@ func (s *Store) ListDataSources(apiID string) ([]DataSource, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var dss []DataSource
 	for rows.Next() {
 		ds, err := scanDataSource(rows)
@@ -327,7 +327,7 @@ func (s *Store) ListResolvers(apiID, typeName string) ([]Resolver, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var resolvers []Resolver
 	for rows.Next() {
 		r, err := scanResolver(rows)
@@ -348,7 +348,7 @@ func (s *Store) ListResolversByFunction(apiID, functionID string) ([]Resolver, e
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var resolvers []Resolver
 	for rows.Next() {
 		r, err := scanResolver(rows)
@@ -432,7 +432,7 @@ func (s *Store) ListFunctions(apiID string) ([]Function, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var fns []Function
 	for rows.Next() {
 		f, err := scanFunction(rows)
@@ -511,7 +511,7 @@ func (s *Store) ListApiKeys(apiID string) ([]ApiKey, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var keys []ApiKey
 	for rows.Next() {
 		k, err := scanApiKey(rows)
@@ -583,7 +583,7 @@ func (s *Store) ListTypes(apiID, format string) ([]Type, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var types []Type
 	for rows.Next() {
 		tp, err := scanType(rows)

@@ -108,7 +108,7 @@ func (s *Store) ListApplications() ([]Application, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var apps []Application
 	for rows.Next() {
 		app, err := scanApplication(rows)
@@ -189,7 +189,7 @@ func (s *Store) ListSnapshots(appName string) ([]ApplicationSnapshot, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var snaps []ApplicationSnapshot
 	for rows.Next() {
 		snap, err := scanSnapshot(rows)

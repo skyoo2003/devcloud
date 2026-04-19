@@ -379,7 +379,7 @@ func (p *Provider) createDomain(req *http.Request, params map[string]any) (*plug
 
 	if rawTags, ok := params["tags"].([]any); ok {
 		tags := tagsListToMap(rawTags)
-		p.store.tags.AddTags(arn, tags) //nolint:errcheck
+		_ = p.store.tags.AddTags(arn, tags) //nolint:errcheck
 	}
 
 	stored, err := p.store.GetDomain(name)
@@ -430,7 +430,7 @@ func (p *Provider) deleteDomain(req *http.Request) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "domain not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(d.ARN) //nolint:errcheck
+	_ = p.store.tags.DeleteAllTags(d.ARN) //nolint:errcheck
 	if err := p.store.DeleteDomain(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "domain not found", http.StatusNotFound), nil
 	}
@@ -482,7 +482,7 @@ func (p *Provider) createRepository(req *http.Request, params map[string]any) (*
 
 	if rawTags, ok := params["tags"].([]any); ok {
 		tags := tagsListToMap(rawTags)
-		p.store.tags.AddTags(arn, tags) //nolint:errcheck
+		_ = p.store.tags.AddTags(arn, tags) //nolint:errcheck
 	}
 
 	stored, err := p.store.GetRepository(repoName, domainName)
@@ -592,7 +592,7 @@ func (p *Provider) deleteRepository(req *http.Request) (*plugin.Response, error)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "repository not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(r.ARN) //nolint:errcheck
+	_ = p.store.tags.DeleteAllTags(r.ARN) //nolint:errcheck
 	if err := p.store.DeleteRepository(repoName, domainName); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "repository not found", http.StatusNotFound), nil
 	}
@@ -713,7 +713,7 @@ func (p *Provider) putPackageOriginConfiguration(req *http.Request, params map[s
 	}
 
 	var originConfig any
-	json.Unmarshal([]byte(originConfigJSON), &originConfig) //nolint:errcheck
+	_ = json.Unmarshal([]byte(originConfigJSON), &originConfig) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"originConfiguration": originConfig,
 	})
@@ -754,7 +754,7 @@ func (p *Provider) createPackageGroup(req *http.Request, params map[string]any) 
 
 	if rawTags, ok := params["tags"].([]any); ok {
 		tags := tagsListToMap(rawTags)
-		p.store.tags.AddTags(arn, tags) //nolint:errcheck
+		_ = p.store.tags.AddTags(arn, tags) //nolint:errcheck
 	}
 
 	stored, err := p.store.GetPackageGroup(arn)
@@ -886,7 +886,7 @@ func (p *Provider) deletePackageGroup(req *http.Request) (*plugin.Response, erro
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "package group not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(pg.ARN) //nolint:errcheck
+	_ = p.store.tags.DeleteAllTags(pg.ARN) //nolint:errcheck
 	tags, _ := p.store.tags.ListTags(pg.ARN)
 	if err := p.store.DeletePackageGroup(pg.ARN); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "package group not found", http.StatusNotFound), nil
@@ -966,7 +966,7 @@ func (p *Provider) putDomainPermissionsPolicy(req *http.Request, params map[stri
 		return shared.JSONError("ResourceNotFoundException", "domain not found", http.StatusNotFound), nil
 	}
 	policyDoc, _ := params["policyDocument"].(string)
-	p.store.tags.AddTags(d.ARN+"/policy", map[string]string{"document": policyDoc}) //nolint:errcheck
+	_ = p.store.tags.AddTags(d.ARN+"/policy", map[string]string{"document": policyDoc}) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"policy": map[string]any{
 			"document":    policyDoc,
@@ -986,7 +986,7 @@ func (p *Provider) deleteDomainPermissionsPolicy(req *http.Request) (*plugin.Res
 		return shared.JSONError("ResourceNotFoundException", "domain not found", http.StatusNotFound), nil
 	}
 	policyDoc, _ := p.store.tags.ListTags(d.ARN + "/policy")
-	p.store.tags.DeleteAllTags(d.ARN + "/policy") //nolint:errcheck
+	_ = p.store.tags.DeleteAllTags(d.ARN + "/policy") //nolint:errcheck
 	doc := ""
 	if policyDoc != nil {
 		doc = policyDoc["document"]
@@ -1043,7 +1043,7 @@ func (p *Provider) putRepositoryPermissionsPolicy(req *http.Request, params map[
 		return shared.JSONError("ResourceNotFoundException", "repository not found", http.StatusNotFound), nil
 	}
 	policyDoc, _ := params["policyDocument"].(string)
-	p.store.tags.AddTags(r.ARN+"/policy", map[string]string{"document": policyDoc}) //nolint:errcheck
+	_ = p.store.tags.AddTags(r.ARN+"/policy", map[string]string{"document": policyDoc}) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"policy": map[string]any{
 			"document":    policyDoc,
@@ -1065,7 +1065,7 @@ func (p *Provider) deleteRepositoryPermissionsPolicy(req *http.Request) (*plugin
 		return shared.JSONError("ResourceNotFoundException", "repository not found", http.StatusNotFound), nil
 	}
 	policyDoc, _ := p.store.tags.ListTags(r.ARN + "/policy")
-	p.store.tags.DeleteAllTags(r.ARN + "/policy") //nolint:errcheck
+	_ = p.store.tags.DeleteAllTags(r.ARN + "/policy") //nolint:errcheck
 	doc := ""
 	if policyDoc != nil {
 		doc = policyDoc["document"]
@@ -1100,7 +1100,7 @@ func (p *Provider) associateExternalConnection(req *http.Request, params map[str
 	}
 
 	var conns []any
-	json.Unmarshal([]byte(r.ExternalConns), &conns) //nolint:errcheck
+	_ = json.Unmarshal([]byte(r.ExternalConns), &conns) //nolint:errcheck
 	conns = append(conns, map[string]any{
 		"externalConnectionName": extConn,
 		"packageFormat":          "npm",
@@ -1133,7 +1133,7 @@ func (p *Provider) disassociateExternalConnection(req *http.Request) (*plugin.Re
 	}
 
 	var conns []any
-	json.Unmarshal([]byte(r.ExternalConns), &conns) //nolint:errcheck
+	_ = json.Unmarshal([]byte(r.ExternalConns), &conns) //nolint:errcheck
 	newConns := make([]any, 0, len(conns))
 	for _, c := range conns {
 		if cm, ok := c.(map[string]any); ok {
@@ -1234,8 +1234,8 @@ func domainSummaryToMap(d *Domain) map[string]any {
 
 func repositoryToMap(r *Repository) map[string]any {
 	var upstreams, externalConns any
-	json.Unmarshal([]byte(r.Upstreams), &upstreams)         //nolint:errcheck
-	json.Unmarshal([]byte(r.ExternalConns), &externalConns) //nolint:errcheck
+	_ = json.Unmarshal([]byte(r.Upstreams), &upstreams)         //nolint:errcheck
+	_ = json.Unmarshal([]byte(r.ExternalConns), &externalConns) //nolint:errcheck
 	if upstreams == nil {
 		upstreams = []any{}
 	}
@@ -1269,7 +1269,7 @@ func repositorySummaryToMap(r *Repository) map[string]any {
 
 func packageToMap(pkg *Package) map[string]any {
 	var originConfig any
-	json.Unmarshal([]byte(pkg.OriginConfig), &originConfig) //nolint:errcheck
+	_ = json.Unmarshal([]byte(pkg.OriginConfig), &originConfig) //nolint:errcheck
 	return map[string]any{
 		"name":                pkg.Name,
 		"namespace":           pkg.Namespace,
@@ -1280,7 +1280,7 @@ func packageToMap(pkg *Package) map[string]any {
 
 func packageSummaryToMap(pkg *Package) map[string]any {
 	var originConfig any
-	json.Unmarshal([]byte(pkg.OriginConfig), &originConfig) //nolint:errcheck
+	_ = json.Unmarshal([]byte(pkg.OriginConfig), &originConfig) //nolint:errcheck
 	return map[string]any{
 		"package":             pkg.Name,
 		"namespace":           pkg.Namespace,
@@ -1294,7 +1294,7 @@ func packageGroupToMap(pg *PackageGroup, tags map[string]string) map[string]any 
 		tags = map[string]string{}
 	}
 	var originConfig any
-	json.Unmarshal([]byte(pg.OriginConfig), &originConfig) //nolint:errcheck
+	_ = json.Unmarshal([]byte(pg.OriginConfig), &originConfig) //nolint:errcheck
 	return map[string]any{
 		"arn":                 pg.ARN,
 		"pattern":             pg.Pattern,

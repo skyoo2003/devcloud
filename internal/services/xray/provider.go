@@ -297,7 +297,7 @@ func (p *Provider) createGroup(params map[string]any) (*plugin.Response, error) 
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags)) //nolint:errcheck
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags)) //nolint:errcheck
 	}
 	stored, err := p.store.GetGroup(name)
 	if err != nil {
@@ -379,7 +379,7 @@ func (p *Provider) deleteGroup(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("InvalidRequestException", "group not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(g.ARN) //nolint:errcheck
+	_ = p.store.tags.DeleteAllTags(g.ARN) //nolint:errcheck
 	if err := p.store.DeleteGroup(name); err != nil {
 		return shared.JSONError("InvalidRequestException", "group not found", http.StatusBadRequest), nil
 	}
@@ -451,7 +451,7 @@ func (p *Provider) createSamplingRule(params map[string]any) (*plugin.Response, 
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].(map[string]any); ok {
-		p.store.tags.AddTags(arn, toStringMap(rawTags)) //nolint:errcheck
+		_ = p.store.tags.AddTags(arn, toStringMap(rawTags)) //nolint:errcheck
 	}
 	stored, err := p.store.GetSamplingRule(name)
 	if err != nil {
@@ -509,7 +509,7 @@ func (p *Provider) deleteSamplingRule(params map[string]any) (*plugin.Response, 
 	if err != nil {
 		return shared.JSONError("InvalidRequestException", "sampling rule not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(r.ARN) //nolint:errcheck
+	_ = p.store.tags.DeleteAllTags(r.ARN) //nolint:errcheck
 	if err := p.store.DeleteSamplingRule(name); err != nil {
 		return shared.JSONError("InvalidRequestException", "sampling rule not found", http.StatusBadRequest), nil
 	}
@@ -653,7 +653,7 @@ func groupToMap(g *Group, tags map[string]string) map[string]any {
 		tags = map[string]string{}
 	}
 	var insightsConfig any
-	json.Unmarshal([]byte(g.InsightsConfig), &insightsConfig) //nolint:errcheck
+	_ = json.Unmarshal([]byte(g.InsightsConfig), &insightsConfig) //nolint:errcheck
 	return map[string]any{
 		"GroupName":             g.Name,
 		"GroupARN":              g.ARN,

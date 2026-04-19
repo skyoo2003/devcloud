@@ -174,7 +174,7 @@ func (s *Store) ListProjects() ([]Project, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var projects []Project
 	for rows.Next() {
 		p, err := scanProject(rows)
@@ -248,7 +248,7 @@ func (s *Store) ListBuilds() ([]Build, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var builds []Build
 	for rows.Next() {
 		b, err := scanBuild(rows)
@@ -267,7 +267,7 @@ func (s *Store) ListBuildsForProject(projectName string) ([]Build, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var builds []Build
 	for rows.Next() {
 		b, err := scanBuild(rows)
@@ -328,7 +328,7 @@ func (s *Store) ListReportGroups() ([]ReportGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []ReportGroup
 	for rows.Next() {
 		g, err := scanReportGroup(rows)
@@ -404,7 +404,7 @@ func (s *Store) ListFleets() ([]Fleet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var fleets []Fleet
 	for rows.Next() {
 		f, err := scanFleet(rows)
@@ -463,7 +463,7 @@ func (s *Store) ListSourceCredentials() ([]SourceCredential, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var creds []SourceCredential
 	for rows.Next() {
 		var c SourceCredential

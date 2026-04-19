@@ -134,7 +134,7 @@ func (s *Store) ListServers() ([]Server, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Server
 	for rows.Next() {
 		srv, err := scanServer(rows)
@@ -202,7 +202,7 @@ func (s *Store) ListHostKeys(serverID string) ([]HostKey, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []HostKey
 	for rows.Next() {
 		hk, err := scanHostKey(rows)
@@ -271,7 +271,7 @@ func (s *Store) ListAccesses(serverID string) ([]Access, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Access
 	for rows.Next() {
 		a, err := scanAccess(rows)

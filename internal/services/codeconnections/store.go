@@ -167,7 +167,7 @@ func (s *Store) ListConnections() ([]Connection, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Connection
 	for rows.Next() {
 		var c Connection
@@ -228,7 +228,7 @@ func (s *Store) ListHosts() ([]Host, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Host
 	for rows.Next() {
 		var h Host
@@ -303,7 +303,7 @@ func (s *Store) ListRepoLinks() ([]RepositoryLink, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []RepositoryLink
 	for rows.Next() {
 		var r RepositoryLink
@@ -374,7 +374,7 @@ func (s *Store) ListSyncConfigs(syncType string) ([]SyncConfiguration, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []SyncConfiguration
 	for rows.Next() {
 		var c SyncConfiguration
@@ -423,7 +423,7 @@ func (s *Store) GetTags(arn string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := map[string]string{}
 	for rows.Next() {
 		var k, v string

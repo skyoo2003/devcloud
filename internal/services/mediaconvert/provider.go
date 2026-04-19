@@ -548,7 +548,7 @@ func (p *MediaConvertProvider) handleGetPolicy() (*plugin.Response, error) {
 		return nil, err
 	}
 	var v any
-	json.Unmarshal([]byte(policy), &v)
+	_ = json.Unmarshal([]byte(policy), &v)
 	return mcResponse(http.StatusOK, map[string]any{"policy": v})
 }
 
@@ -562,7 +562,7 @@ func (p *MediaConvertProvider) handlePutPolicy(params map[string]any) (*plugin.R
 		return nil, err
 	}
 	var v any
-	json.Unmarshal([]byte(policy), &v)
+	_ = json.Unmarshal([]byte(policy), &v)
 	return mcResponse(http.StatusOK, map[string]any{"policy": v})
 }
 
@@ -575,7 +575,7 @@ func (p *MediaConvertProvider) handleDeletePolicy() (*plugin.Response, error) {
 
 func presetToMap(pr *MCPreset) map[string]any {
 	var settings any
-	json.Unmarshal([]byte(pr.Settings), &settings)
+	_ = json.Unmarshal([]byte(pr.Settings), &settings)
 	return map[string]any{
 		"name":        pr.Name,
 		"arn":         pr.ARN,
@@ -622,7 +622,7 @@ func jobToMap(j *MCJob) map[string]any {
 
 func jobTemplateToMap(t *MCJobTemplate) map[string]any {
 	var settings any
-	json.Unmarshal([]byte(t.Settings), &settings)
+	_ = json.Unmarshal([]byte(t.Settings), &settings)
 	return map[string]any{
 		"name":        t.Name,
 		"arn":         t.ARN,

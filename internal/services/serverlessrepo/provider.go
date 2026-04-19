@@ -162,7 +162,7 @@ func (p *ServerlessRepoProvider) HandleRequest(_ context.Context, op string, req
 		appID := extractAppID(req.URL.Path)
 		depID, _ := params["DependentApplicationId"].(string)
 		depVer, _ := params["DependentSemanticVersion"].(string)
-		p.store.AddDependency(appID, depID, depVer)
+		p.store.AddDependency(appID, depID, depVer) //nolint:errcheck
 		return shared.JSONResponse(http.StatusOK, map[string]any{})
 	case "RemoveApplicationDependency":
 		return shared.JSONResponse(http.StatusOK, map[string]any{})
@@ -226,7 +226,7 @@ func (p *ServerlessRepoProvider) createApplication(params map[string]any) (*plug
 	// If a semantic version is provided, also create a version
 	if semVer := strParam(params, "SemanticVersion", "semanticVersion"); semVer != "" {
 		templateURL := strParam(params, "TemplateUrl", "templateUrl")
-		p.store.CreateVersion(appID, semVer, templateURL)
+		p.store.CreateVersion(appID, semVer, templateURL) //nolint:errcheck
 	}
 
 	return shared.JSONResponse(http.StatusCreated, applicationToMap(app, ""))
@@ -344,7 +344,7 @@ func (p *ServerlessRepoProvider) createApplicationVersion(req *http.Request, par
 		return shared.JSONError("NotFoundException", "application not found", http.StatusNotFound), nil
 	}
 	templateURL, _ := params["TemplateUrl"].(string)
-	version, err := p.store.CreateVersion(appID, semVer, templateURL)
+	version, err := p.store.CreateVersion(appID, semVer, templateURL) //nolint:errcheck
 	if err != nil {
 		if isUniqueErr(err) {
 			return shared.JSONError("ConflictException", "version already exists", http.StatusConflict), nil

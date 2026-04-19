@@ -215,7 +215,7 @@ func (s *Store) ListEmailIdentities() ([]EmailIdentity, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []EmailIdentity
 	for rows.Next() {
 		e, err := scanEmailIdentity(rows)
@@ -279,7 +279,7 @@ func (s *Store) GetEmailIdentityPolicies(identityName string) (map[string]string
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	out := make(map[string]string)
 	for rows.Next() {
 		var k, v string
@@ -316,7 +316,7 @@ func (s *Store) ListEmailTemplates() ([]EmailTemplate, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []EmailTemplate
 	for rows.Next() {
 		t, err := scanEmailTemplate(rows)
@@ -376,7 +376,7 @@ func (s *Store) ListConfigSets() ([]ConfigSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ConfigSet
 	for rows.Next() {
 		c, err := scanConfigSet(rows)
@@ -444,7 +444,7 @@ func (s *Store) ListConfigSetEventDests(configSetName string) ([]ConfigSetEventD
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ConfigSetEventDest
 	for rows.Next() {
 		var d ConfigSetEventDest
@@ -502,7 +502,7 @@ func (s *Store) ListContactLists() ([]ContactList, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ContactList
 	for rows.Next() {
 		cl, err := scanContactList(rows)
@@ -568,7 +568,7 @@ func (s *Store) ListContacts(listName string) ([]Contact, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Contact
 	for rows.Next() {
 		c, err := scanContact(rows)
@@ -627,7 +627,7 @@ func (s *Store) ListDedicatedIpPools() ([]DedicatedIpPool, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []DedicatedIpPool
 	for rows.Next() {
 		p, err := scanDedicatedIpPool(rows)
@@ -672,7 +672,7 @@ func (s *Store) ListSuppressedDestinations() ([]SuppressedDestination, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []SuppressedDestination
 	for rows.Next() {
 		sd, err := scanSuppressedDestination(rows)

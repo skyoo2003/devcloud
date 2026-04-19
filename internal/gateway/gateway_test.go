@@ -38,7 +38,7 @@ func TestGateway_Integration(t *testing.T) {
 
 	res, err := http.Get(srv.URL + "/")
 	require.NoError(t, err)
-	defer res.Body.Close()
+	defer func() { _ = res.Body.Close() }()
 
 	assert.Equal(t, http.StatusOK, res.StatusCode)
 	// Middleware headers must be present.

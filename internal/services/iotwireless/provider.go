@@ -238,7 +238,7 @@ func (p *Provider) createDestination(params map[string]any) (*plugin.Response, e
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, tagsListToMap(rawTags))
+		_ = p.store.tags.AddTags(arn, tagsListToMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, map[string]any{"Arn": arn, "Name": name})
 }
@@ -286,7 +286,7 @@ func (p *Provider) deleteDestination(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "destination not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(d.ARN)
+	_ = p.store.tags.DeleteAllTags(d.ARN)
 	return shared.JSONResponse(http.StatusNoContent, nil)
 }
 
@@ -310,7 +310,7 @@ func (p *Provider) createDeviceProfile(params map[string]any) (*plugin.Response,
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, tagsListToMap(rawTags))
+		_ = p.store.tags.AddTags(arn, tagsListToMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, map[string]any{"Arn": arn, "Id": id})
 }
@@ -347,7 +347,7 @@ func (p *Provider) deleteDeviceProfile(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "device profile not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(dp.ARN)
+	_ = p.store.tags.DeleteAllTags(dp.ARN)
 	return shared.JSONResponse(http.StatusNoContent, nil)
 }
 
@@ -371,7 +371,7 @@ func (p *Provider) createServiceProfile(params map[string]any) (*plugin.Response
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, tagsListToMap(rawTags))
+		_ = p.store.tags.AddTags(arn, tagsListToMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, map[string]any{"Arn": arn, "Id": id})
 }
@@ -408,7 +408,7 @@ func (p *Provider) deleteServiceProfile(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "service profile not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(sp.ARN)
+	_ = p.store.tags.DeleteAllTags(sp.ARN)
 	return shared.JSONResponse(http.StatusNoContent, nil)
 }
 
@@ -435,7 +435,7 @@ func (p *Provider) createWirelessDevice(params map[string]any) (*plugin.Response
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, tagsListToMap(rawTags))
+		_ = p.store.tags.AddTags(arn, tagsListToMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, map[string]any{"Arn": arn, "Id": id})
 }
@@ -488,7 +488,7 @@ func (p *Provider) deleteWirelessDevice(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "wireless device not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(wd.ARN)
+	_ = p.store.tags.DeleteAllTags(wd.ARN)
 	return shared.JSONResponse(http.StatusNoContent, nil)
 }
 
@@ -513,7 +513,7 @@ func (p *Provider) createWirelessGateway(params map[string]any) (*plugin.Respons
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, tagsListToMap(rawTags))
+		_ = p.store.tags.AddTags(arn, tagsListToMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, map[string]any{"Arn": arn, "Id": id})
 }
@@ -564,7 +564,7 @@ func (p *Provider) deleteWirelessGateway(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "wireless gateway not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(wg.ARN)
+	_ = p.store.tags.DeleteAllTags(wg.ARN)
 	return shared.JSONResponse(http.StatusNoContent, nil)
 }
 
@@ -589,7 +589,7 @@ func (p *Provider) createFuotaTask(params map[string]any) (*plugin.Response, err
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, tagsListToMap(rawTags))
+		_ = p.store.tags.AddTags(arn, tagsListToMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, map[string]any{"Arn": arn, "Id": id})
 }
@@ -641,7 +641,7 @@ func (p *Provider) deleteFuotaTask(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "fuota task not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(ft.ARN)
+	_ = p.store.tags.DeleteAllTags(ft.ARN)
 	return shared.JSONResponse(http.StatusNoContent, nil)
 }
 
@@ -676,7 +676,7 @@ func (p *Provider) createMulticastGroup(params map[string]any) (*plugin.Response
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, tagsListToMap(rawTags))
+		_ = p.store.tags.AddTags(arn, tagsListToMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, map[string]any{"Arn": arn, "Id": id})
 }
@@ -728,7 +728,7 @@ func (p *Provider) deleteMulticastGroup(id string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "multicast group not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(mg.ARN)
+	_ = p.store.tags.DeleteAllTags(mg.ARN)
 	return shared.JSONResponse(http.StatusNoContent, nil)
 }
 
@@ -757,7 +757,7 @@ func (p *Provider) createNetworkAnalyzerConfig(params map[string]any) (*plugin.R
 		return nil, err
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, tagsListToMap(rawTags))
+		_ = p.store.tags.AddTags(arn, tagsListToMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusCreated, map[string]any{"Arn": arn, "Name": name})
 }
@@ -804,7 +804,7 @@ func (p *Provider) deleteNetworkAnalyzerConfig(name string) (*plugin.Response, e
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "network analyzer configuration not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(nac.ARN)
+	_ = p.store.tags.DeleteAllTags(nac.ARN)
 	return shared.JSONResponse(http.StatusNoContent, nil)
 }
 
@@ -816,7 +816,7 @@ func (p *Provider) tagResource(req *http.Request, params map[string]any) (*plugi
 		return shared.JSONError("ValidationException", "resourceArn query parameter is required", http.StatusBadRequest), nil
 	}
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, tagsListToMap(rawTags))
+		_ = p.store.tags.AddTags(arn, tagsListToMap(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
@@ -827,7 +827,7 @@ func (p *Provider) untagResource(req *http.Request) (*plugin.Response, error) {
 		return shared.JSONError("ValidationException", "resourceArn query parameter is required", http.StatusBadRequest), nil
 	}
 	keys := req.URL.Query()["tagKeys"]
-	p.store.tags.RemoveTags(arn, keys)
+	p.store.tags.RemoveTags(arn, keys) //nolint:errcheck
 	return shared.JSONResponse(http.StatusOK, map[string]any{})
 }
 

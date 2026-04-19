@@ -297,7 +297,7 @@ func (p *Provider) createDomain(params map[string]any) (*plugin.Response, error)
 	}
 
 	if rawTags, ok := params["TagList"].([]any); ok {
-		p.store.tags.AddTags(d.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(d.ARN, parseTags(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -313,7 +313,7 @@ func (p *Provider) deleteDomain(name string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "domain not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(d.ARN)
+	_ = p.store.tags.DeleteAllTags(d.ARN)
 	if err := p.store.DeleteDomain(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "domain not found", http.StatusNotFound), nil
 	}
@@ -381,7 +381,7 @@ func (p *Provider) updateDomainConfig(name string, params map[string]any) (*plug
 	}
 
 	var existing map[string]any
-	json.Unmarshal([]byte(d.Config), &existing)
+	_ = json.Unmarshal([]byte(d.Config), &existing)
 	if existing == nil {
 		existing = map[string]any{}
 	}
@@ -429,7 +429,7 @@ func (p *Provider) createApplication(params map[string]any) (*plugin.Response, e
 	}
 
 	if rawTags, ok := params["tagList"].([]any); ok {
-		p.store.tags.AddTags(app.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(app.ARN, parseTags(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -488,7 +488,7 @@ func (p *Provider) updateApplication(id string, params map[string]any) (*plugin.
 	}
 
 	var existing map[string]any
-	json.Unmarshal([]byte(app.Config), &existing)
+	_ = json.Unmarshal([]byte(app.Config), &existing)
 	if existing == nil {
 		existing = map[string]any{}
 	}
@@ -643,7 +643,7 @@ func domainToStatus(d *Domain) map[string]any {
 
 func domainToConfig(d *Domain) map[string]any {
 	var cfg map[string]any
-	json.Unmarshal([]byte(d.Config), &cfg)
+	_ = json.Unmarshal([]byte(d.Config), &cfg)
 	if cfg == nil {
 		cfg = map[string]any{}
 	}

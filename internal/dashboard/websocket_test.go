@@ -42,7 +42,7 @@ func TestHub_ClientConnects(t *testing.T) {
 	defer server.Close()
 
 	conn := dialWS(t, wsURL(server.URL))
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
 	// Give the hub a moment to register the client.
 	time.Sleep(50 * time.Millisecond)
@@ -65,7 +65,7 @@ func TestHub_BroadcastEvent(t *testing.T) {
 	defer server.Close()
 
 	conn := dialWS(t, wsURL(server.URL))
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
 	// Allow the hub to register the client before publishing.
 	time.Sleep(50 * time.Millisecond)
@@ -81,7 +81,7 @@ func TestHub_BroadcastEvent(t *testing.T) {
 	require.NoError(t, err)
 
 	// Read message with a deadline to avoid hanging on failure.
-	conn.SetReadDeadline(time.Now().Add(2 * time.Second))
+	_ = conn.SetReadDeadline(time.Now().Add(2 * time.Second))
 	_, raw, err := conn.ReadMessage()
 	require.NoError(t, err)
 

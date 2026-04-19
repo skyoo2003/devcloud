@@ -304,7 +304,7 @@ func (s *EC2Store) DescribeInstances(accountID string, ids []string) ([]Instance
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Instance
 	for rows.Next() {
 		var inst Instance
@@ -362,7 +362,7 @@ func (s *EC2Store) DescribeVpcs(accountID string) ([]Vpc, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Vpc
 	for rows.Next() {
 		var v Vpc
@@ -416,7 +416,7 @@ func (s *EC2Store) DescribeSubnets(accountID string) ([]Subnet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Subnet
 	for rows.Next() {
 		var sub Subnet
@@ -457,7 +457,7 @@ func (s *EC2Store) DescribeSecurityGroups(accountID string) ([]SecurityGroup, er
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []SecurityGroup
 	for rows.Next() {
 		var sg SecurityGroup
@@ -493,7 +493,7 @@ func (s *EC2Store) GetTags(resourceID string) ([]Tag, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Tag
 	for rows.Next() {
 		var t Tag
@@ -591,7 +591,7 @@ func (s *EC2Store) DescribeVolumes(accountID string, ids []string) ([]Volume, er
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Volume
 	for rows.Next() {
 		var v Volume
@@ -751,7 +751,7 @@ func (s *EC2Store) DescribeSnapshots(accountID string, ids []string) ([]Snapshot
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Snapshot
 	for rows.Next() {
 		var snap Snapshot
@@ -859,7 +859,7 @@ func (s *EC2Store) DescribeKeyPairs(accountID string, names []string) ([]KeyPair
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []KeyPair
 	for rows.Next() {
 		var kp KeyPair
@@ -994,7 +994,7 @@ func (s *EC2Store) DescribeImages(accountID string, ids []string) ([]Image, erro
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Image
 	for rows.Next() {
 		var img Image
@@ -1100,7 +1100,7 @@ func (s *EC2Store) DescribeRouteTables(accountID string, ids []string) ([]RouteT
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []RouteTable
 	for rows.Next() {
 		var rt RouteTable
@@ -1130,7 +1130,7 @@ func (s *EC2Store) listRoutes(routeTableID string) ([]Route, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Route
 	for rows.Next() {
 		var r Route
@@ -1223,7 +1223,7 @@ func (s *EC2Store) DescribeInternetGateways(accountID string, ids []string) ([]I
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []InternetGateway
 	for rows.Next() {
 		var igw InternetGateway
@@ -1320,7 +1320,7 @@ func (s *EC2Store) DescribeNetworkACLs(accountID string, ids []string) ([]Networ
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []NetworkACL
 	for rows.Next() {
 		var acl NetworkACL
@@ -1352,7 +1352,7 @@ func (s *EC2Store) listACLEntries(networkACLID string) ([]ACLEntry, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ACLEntry
 	for rows.Next() {
 		var e ACLEntry

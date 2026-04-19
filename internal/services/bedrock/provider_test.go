@@ -19,7 +19,7 @@ func newTestProvider(t *testing.T) *Provider {
 	p := &Provider{}
 	err := p.Init(plugin.PluginConfig{DataDir: t.TempDir()})
 	require.NoError(t, err)
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 

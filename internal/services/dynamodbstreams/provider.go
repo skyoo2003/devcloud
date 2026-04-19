@@ -538,16 +538,6 @@ func (p *Provider) describeLimits(_ map[string]any) (*plugin.Response, error) {
 
 // ---- test helpers ----
 
-// ensureStream creates a test stream for internal use (used from tests).
-func (p *Provider) ensureStream(arn, tableName string) (*StreamMeta, error) {
-	st, err := p.store.GetStreamByARN(arn)
-	if err == nil {
-		return st, nil
-	}
-	label := time.Now().Format("2006-01-01T15:04:05.000")
-	return p.store.CreateStream(arn, tableName, label, "NEW_AND_OLD_IMAGES")
-}
-
 // createStreamForTable is a helper exposed for test setup.
 func (p *Provider) createStreamForTable(tableName string) (*StreamMeta, error) {
 	arn := shared.BuildARNWithAccount("dynamodb", "table", tableName+"/stream/"+time.Now().Format("2006-01-01T15:04:05.000"), shared.DefaultRegion, shared.DefaultAccountID)

@@ -205,7 +205,7 @@ func (s *Store) ListApps() ([]App, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var apps []App
 	for rows.Next() {
 		a, err := scanApp(rows)
@@ -289,7 +289,7 @@ func (s *Store) ListBranches(appID string) ([]Branch, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var branches []Branch
 	for rows.Next() {
 		b, err := scanBranch(rows)
@@ -374,7 +374,7 @@ func (s *Store) ListDomainAssociations(appID string) ([]DomainAssociation, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var domains []DomainAssociation
 	for rows.Next() {
 		d, err := scanDomainAssociation(rows)
@@ -445,7 +445,7 @@ func (s *Store) ListWebhooks(appID string) ([]Webhook, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var webhooks []Webhook
 	for rows.Next() {
 		w, err := scanWebhook(rows)
@@ -513,7 +513,7 @@ func (s *Store) ListBackendEnvironments(appID string) ([]BackendEnvironment, err
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var envs []BackendEnvironment
 	for rows.Next() {
 		be, err := scanBackendEnvironment(rows)
@@ -562,7 +562,7 @@ func (s *Store) ListJobs(appID, branchName string) ([]Job, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var jobs []Job
 	for rows.Next() {
 		j, err := scanJob(rows)

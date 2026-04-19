@@ -374,7 +374,7 @@ func (p *Provider) getWebACL(params map[string]any) (*plugin.Response, error) {
 		return nil, err
 	}
 	var rules any
-	json.Unmarshal([]byte(w.Rules), &rules)
+	_ = json.Unmarshal([]byte(w.Rules), &rules)
 	if rules == nil {
 		rules = []any{}
 	}
@@ -424,7 +424,7 @@ func (p *Provider) updateWebACL(params map[string]any) (*plugin.Response, error)
 	}
 	if updates, ok := params["Updates"].([]any); ok {
 		var rules []any
-		json.Unmarshal([]byte(w.Rules), &rules)
+		_ = json.Unmarshal([]byte(w.Rules), &rules)
 		if rules == nil {
 			rules = []any{}
 		}
@@ -503,7 +503,7 @@ func (p *Provider) getIPSet(params map[string]any) (*plugin.Response, error) {
 		return nil, err
 	}
 	var descs any
-	json.Unmarshal([]byte(ip.Descriptors), &descs)
+	_ = json.Unmarshal([]byte(ip.Descriptors), &descs)
 	if descs == nil {
 		descs = []any{}
 	}
@@ -542,7 +542,7 @@ func (p *Provider) updateIPSet(params map[string]any) (*plugin.Response, error) 
 	}
 	if updates, ok := params["Updates"].([]any); ok {
 		var descs []any
-		json.Unmarshal([]byte(ip.Descriptors), &descs)
+		_ = json.Unmarshal([]byte(ip.Descriptors), &descs)
 		if descs == nil {
 			descs = []any{}
 		}
@@ -627,7 +627,7 @@ func (p *Provider) getRule(params map[string]any) (*plugin.Response, error) {
 		return nil, err
 	}
 	var preds any
-	json.Unmarshal([]byte(r.Predicates), &preds)
+	_ = json.Unmarshal([]byte(r.Predicates), &preds)
 	if preds == nil {
 		preds = []any{}
 	}
@@ -667,7 +667,7 @@ func (p *Provider) updateRule(params map[string]any) (*plugin.Response, error) {
 	}
 	if updates, ok := params["Updates"].([]any); ok {
 		var preds []any
-		json.Unmarshal([]byte(r.Predicates), &preds)
+		_ = json.Unmarshal([]byte(r.Predicates), &preds)
 		if preds == nil {
 			preds = []any{}
 		}
@@ -853,7 +853,7 @@ func (p *Provider) getRateBasedRule(params map[string]any) (*plugin.Response, er
 		return nil, err
 	}
 	var preds any
-	json.Unmarshal([]byte(r.Predicates), &preds)
+	_ = json.Unmarshal([]byte(r.Predicates), &preds)
 	if preds == nil {
 		preds = []any{}
 	}
@@ -957,7 +957,7 @@ func (p *Provider) getByteMatchSet(params map[string]any) (*plugin.Response, err
 		return nil, err
 	}
 	var tuples any
-	json.Unmarshal([]byte(b.Tuples), &tuples)
+	_ = json.Unmarshal([]byte(b.Tuples), &tuples)
 	if tuples == nil {
 		tuples = []any{}
 	}
@@ -996,7 +996,7 @@ func (p *Provider) updateByteMatchSet(params map[string]any) (*plugin.Response, 
 	}
 	if updates, ok := params["Updates"].([]any); ok {
 		var tuples []any
-		json.Unmarshal([]byte(b.Tuples), &tuples)
+		_ = json.Unmarshal([]byte(b.Tuples), &tuples)
 		if tuples == nil {
 			tuples = []any{}
 		}
@@ -1073,7 +1073,7 @@ func (p *Provider) getRegexPatternSet(params map[string]any) (*plugin.Response, 
 		return nil, err
 	}
 	var patterns any
-	json.Unmarshal([]byte(r.Patterns), &patterns)
+	_ = json.Unmarshal([]byte(r.Patterns), &patterns)
 	if patterns == nil {
 		patterns = []any{}
 	}
@@ -1112,7 +1112,7 @@ func (p *Provider) updateRegexPatternSet(params map[string]any) (*plugin.Respons
 	}
 	if updates, ok := params["Updates"].([]any); ok {
 		var patterns []any
-		json.Unmarshal([]byte(r.Patterns), &patterns)
+		_ = json.Unmarshal([]byte(r.Patterns), &patterns)
 		if patterns == nil {
 			patterns = []any{}
 		}
@@ -1189,7 +1189,7 @@ func (p *Provider) getSizeConstraintSet(params map[string]any) (*plugin.Response
 		return nil, err
 	}
 	var constraints any
-	json.Unmarshal([]byte(sc.Constraints), &constraints)
+	_ = json.Unmarshal([]byte(sc.Constraints), &constraints)
 	if constraints == nil {
 		constraints = []any{}
 	}
@@ -1228,7 +1228,7 @@ func (p *Provider) updateSizeConstraintSet(params map[string]any) (*plugin.Respo
 	}
 	if updates, ok := params["Updates"].([]any); ok {
 		var constraints []any
-		json.Unmarshal([]byte(sc.Constraints), &constraints)
+		_ = json.Unmarshal([]byte(sc.Constraints), &constraints)
 		if constraints == nil {
 			constraints = []any{}
 		}
@@ -1305,7 +1305,7 @@ func (p *Provider) getSqlInjectionMatchSet(params map[string]any) (*plugin.Respo
 		return nil, err
 	}
 	var tuples any
-	json.Unmarshal([]byte(si.Tuples), &tuples)
+	_ = json.Unmarshal([]byte(si.Tuples), &tuples)
 	if tuples == nil {
 		tuples = []any{}
 	}
@@ -1344,7 +1344,7 @@ func (p *Provider) updateSqlInjectionMatchSet(params map[string]any) (*plugin.Re
 	}
 	if updates, ok := params["Updates"].([]any); ok {
 		var tuples []any
-		json.Unmarshal([]byte(si.Tuples), &tuples)
+		_ = json.Unmarshal([]byte(si.Tuples), &tuples)
 		if tuples == nil {
 			tuples = []any{}
 		}
@@ -1421,7 +1421,7 @@ func (p *Provider) getXssMatchSet(params map[string]any) (*plugin.Response, erro
 		return nil, err
 	}
 	var tuples any
-	json.Unmarshal([]byte(x.Tuples), &tuples)
+	_ = json.Unmarshal([]byte(x.Tuples), &tuples)
 	if tuples == nil {
 		tuples = []any{}
 	}
@@ -1460,7 +1460,7 @@ func (p *Provider) updateXssMatchSet(params map[string]any) (*plugin.Response, e
 	}
 	if updates, ok := params["Updates"].([]any); ok {
 		var tuples []any
-		json.Unmarshal([]byte(x.Tuples), &tuples)
+		_ = json.Unmarshal([]byte(x.Tuples), &tuples)
 		if tuples == nil {
 			tuples = []any{}
 		}
@@ -1537,7 +1537,7 @@ func (p *Provider) getGeoMatchSet(params map[string]any) (*plugin.Response, erro
 		return nil, err
 	}
 	var constraints any
-	json.Unmarshal([]byte(g.Constraints), &constraints)
+	_ = json.Unmarshal([]byte(g.Constraints), &constraints)
 	if constraints == nil {
 		constraints = []any{}
 	}
@@ -1576,7 +1576,7 @@ func (p *Provider) updateGeoMatchSet(params map[string]any) (*plugin.Response, e
 	}
 	if updates, ok := params["Updates"].([]any); ok {
 		var constraints []any
-		json.Unmarshal([]byte(g.Constraints), &constraints)
+		_ = json.Unmarshal([]byte(g.Constraints), &constraints)
 		if constraints == nil {
 			constraints = []any{}
 		}
@@ -1653,7 +1653,7 @@ func (p *Provider) getRegexMatchSet(params map[string]any) (*plugin.Response, er
 		return nil, err
 	}
 	var tuples any
-	json.Unmarshal([]byte(r.Tuples), &tuples)
+	_ = json.Unmarshal([]byte(r.Tuples), &tuples)
 	if tuples == nil {
 		tuples = []any{}
 	}
@@ -1692,7 +1692,7 @@ func (p *Provider) updateRegexMatchSet(params map[string]any) (*plugin.Response,
 	}
 	if updates, ok := params["Updates"].([]any); ok {
 		var tuples []any
-		json.Unmarshal([]byte(r.Tuples), &tuples)
+		_ = json.Unmarshal([]byte(r.Tuples), &tuples)
 		if tuples == nil {
 			tuples = []any{}
 		}
@@ -1760,7 +1760,7 @@ func (p *Provider) getLoggingConfiguration(params map[string]any) (*plugin.Respo
 		return nil, err
 	}
 	var lc any
-	json.Unmarshal([]byte(config), &lc)
+	_ = json.Unmarshal([]byte(config), &lc)
 	return jsonResp(http.StatusOK, map[string]any{"LoggingConfiguration": lc})
 }
 
@@ -1786,7 +1786,7 @@ func (p *Provider) listLoggingConfigurations(_ map[string]any) (*plugin.Response
 	items := make([]any, 0, len(configs))
 	for _, c := range configs {
 		var lc any
-		json.Unmarshal([]byte(c["config"]), &lc)
+		_ = json.Unmarshal([]byte(c["config"]), &lc)
 		items = append(items, lc)
 	}
 	return jsonResp(http.StatusOK, map[string]any{"LoggingConfigurations": items})

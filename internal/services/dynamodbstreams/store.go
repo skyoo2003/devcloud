@@ -99,7 +99,7 @@ func newStreamBuffer() *StreamBuffer {
 
 // streamShardID returns the canonical default shard ID for a stream ARN.
 func streamShardID(streamARN string) string {
-	return fmt.Sprintf("shardId-00000000000000000000-00000001")
+	return "shardId-00000000000000000000-00000001"
 }
 
 // Store combines SQLite persistence with in-memory shard state.
@@ -158,7 +158,7 @@ func (s *Store) rehydrateIndex() error {
 	if err != nil {
 		return err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	for rows.Next() {
 		var arn, table string
 		if err := rows.Scan(&arn, &table); err != nil {
@@ -225,7 +225,7 @@ func (s *Store) ListStreams(tableName string) ([]StreamMeta, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var streams []StreamMeta
 	for rows.Next() {
 		st, err := scanStream(rows)
@@ -437,14 +437,14 @@ func (s *Store) AddTags(arn string, tags map[string]string) error {
 	if err != nil {
 		return err
 	}
-	defer tx.Rollback()
+	defer func() { _ = tx.Rollback() }()
 	stmt, err := tx.Prepare(
 		`INSERT INTO stream_tags(stream_arn, tag_key, tag_value) VALUES(?,?,?)
          ON CONFLICT(stream_arn, tag_key) DO UPDATE SET tag_value = excluded.tag_value`)
 	if err != nil {
 		return err
 	}
-	defer stmt.Close()
+	defer func() { _ = stmt.Close() }()
 	for k, v := range tags {
 		if _, err := stmt.Exec(arn, k, v); err != nil {
 			return err
@@ -477,7 +477,7 @@ func (s *Store) ListTags(arn string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	out := make(map[string]string)
 	for rows.Next() {
 		var k, v string

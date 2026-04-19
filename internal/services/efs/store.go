@@ -149,7 +149,7 @@ func (s *Store) ListFileSystems(accountID string) ([]*fileSystemRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*fileSystemRow
 	for rows.Next() {
 		r, err := scanFileSystem(rows)
@@ -294,7 +294,7 @@ func (s *Store) ListMountTargetsByFS(fsID string) ([]*mountTargetRow, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return collectMountTargets(rows)
 }
 
@@ -305,7 +305,7 @@ func (s *Store) ListAllMountTargets(accountID string) ([]*mountTargetRow, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return collectMountTargets(rows)
 }
 
@@ -362,7 +362,7 @@ func scanMountTarget(s interface{ Scan(...any) error }) (*mountTargetRow, error)
 		}
 		return nil, err
 	}
-	json.Unmarshal([]byte(sgJSON), &r.SecurityGroups)
+	_ = json.Unmarshal([]byte(sgJSON), &r.SecurityGroups)
 	r.CreatedAt, _ = time.Parse("2006-01-02T15:04:05Z07:00", createdStr)
 	if r.CreatedAt.IsZero() {
 		r.CreatedAt = time.Now()
@@ -415,7 +415,7 @@ func (s *Store) ListAccessPoints(accountID, fsID string) ([]*accessPointRow, err
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*accessPointRow
 	for rows.Next() {
 		r, err := scanAccessPoint(rows)
@@ -477,7 +477,7 @@ func (s *Store) ListTags(resourceID string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	out := map[string]string{}
 	for rows.Next() {
 		var k, v string

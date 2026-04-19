@@ -151,7 +151,7 @@ func (s *Store) ListBrokers() ([]Broker, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var brokers []Broker
 	for rows.Next() {
 		b, err := scanBroker(rows)
@@ -201,7 +201,7 @@ func (s *Store) DeleteBroker(id string) error {
 		return errBrokerNotFound
 	}
 	// cascade delete users
-	s.store.DB().Exec(`DELETE FROM broker_users WHERE broker_id = ?`, id)
+	_, _ = s.store.DB().Exec(`DELETE FROM broker_users WHERE broker_id = ?`, id)
 	return nil
 }
 
@@ -231,7 +231,7 @@ func (s *Store) ListConfigurations() ([]MQConfiguration, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var cfgs []MQConfiguration
 	for rows.Next() {
 		c, err := scanConfiguration(rows)
@@ -302,7 +302,7 @@ func (s *Store) ListUsers(brokerID string) ([]BrokerUser, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var users []BrokerUser
 	for rows.Next() {
 		u, err := scanUser(rows)
@@ -385,7 +385,7 @@ func scanBroker(sc scanner) (*Broker, error) {
 	b.PubliclyAccessible = publicly != 0
 	b.AutoMinorUpgrade = autoMinor != 0
 	b.CreatedAt = time.Unix(createdAt, 0)
-	json.Unmarshal([]byte(endpointsJSON), &b.Endpoints)
+	_ = json.Unmarshal([]byte(endpointsJSON), &b.Endpoints)
 	if b.Endpoints == nil {
 		b.Endpoints = []string{}
 	}
@@ -421,7 +421,7 @@ func scanUser(sc scanner) (*BrokerUser, error) {
 		return nil, err
 	}
 	u.ConsoleAccess = consoleAccess != 0
-	json.Unmarshal([]byte(groupsJSON), &u.Groups)
+	_ = json.Unmarshal([]byte(groupsJSON), &u.Groups)
 	if u.Groups == nil {
 		u.Groups = []string{}
 	}

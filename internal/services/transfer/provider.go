@@ -206,7 +206,7 @@ func (p *Provider) createServer(params map[string]any) (*plugin.Response, error)
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(srv.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(srv.ARN, parseTags(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{"ServerId": srv.ID})
@@ -272,7 +272,7 @@ func (p *Provider) deleteServer(params map[string]any) (*plugin.Response, error)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "server not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(srv.ARN)
+	_ = p.store.tags.DeleteAllTags(srv.ARN)
 	if err := p.store.DeleteServer(serverID); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "server not found", http.StatusBadRequest), nil
 	}
@@ -332,7 +332,7 @@ func (p *Provider) importHostKey(params map[string]any) (*plugin.Response, error
 	}
 
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(hk.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(hk.ARN, parseTags(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -418,7 +418,7 @@ func (p *Provider) deleteHostKeyOp(params map[string]any) (*plugin.Response, err
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "host key not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(hk.ARN)
+	_ = p.store.tags.DeleteAllTags(hk.ARN)
 	if err := p.store.DeleteHostKey(hostKeyID, serverID); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "host key not found", http.StatusBadRequest), nil
 	}
@@ -767,9 +767,9 @@ func (p *Provider) testIdentityProvider(params map[string]any) (*plugin.Response
 
 func serverToMap(srv *Server, tags []map[string]string) map[string]any {
 	var protocols any
-	json.Unmarshal([]byte(srv.Protocols), &protocols)
+	_ = json.Unmarshal([]byte(srv.Protocols), &protocols)
 	var identityProvider any
-	json.Unmarshal([]byte(srv.IdentityProvider), &identityProvider)
+	_ = json.Unmarshal([]byte(srv.IdentityProvider), &identityProvider)
 	return map[string]any{
 		"Arn":                  srv.ARN,
 		"Domain":               srv.Domain,

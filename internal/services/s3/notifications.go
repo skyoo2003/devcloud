@@ -178,7 +178,7 @@ func sendToSQS(ctx context.Context, baseURL, queueName string, payload []byte) e
 	if err != nil {
 		return err
 	}
-	resp.Body.Close()
+	_ = resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("sqs send: unexpected status %d", resp.StatusCode)
 	}
@@ -197,7 +197,7 @@ func invokeLambda(ctx context.Context, baseURL, fnName string, payload []byte) e
 	if err != nil {
 		return err
 	}
-	resp.Body.Close()
+	_ = resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("lambda invoke: unexpected status %d", resp.StatusCode)
 	}

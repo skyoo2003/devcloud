@@ -46,7 +46,7 @@ func (p *SchedulerProvider) HandleRequest(_ context.Context, op string, req *htt
 	body, _ := io.ReadAll(req.Body)
 	var params map[string]any
 	if len(body) > 0 {
-		json.Unmarshal(body, &params)
+		_ = json.Unmarshal(body, &params)
 	}
 	if params == nil {
 		params = map[string]any{}
@@ -271,7 +271,7 @@ func (p *SchedulerProvider) listSchedules(req *http.Request) (*plugin.Response, 
 	list := make([]map[string]any, 0, len(schedules))
 	for _, sc := range schedules {
 		var target map[string]any
-		json.Unmarshal([]byte(sc.Target), &target)
+		_ = json.Unmarshal([]byte(sc.Target), &target)
 		list = append(list, map[string]any{
 			"Arn":                sc.ARN,
 			"Name":               sc.Name,
@@ -341,7 +341,7 @@ func (p *SchedulerProvider) createScheduleGroup(req *http.Request, params map[st
 				tags[k] = s
 			}
 		}
-		p.store.tags.AddTags(g.ARN, tags)
+		_ = p.store.tags.AddTags(g.ARN, tags)
 	}
 
 	return jsonResponse(http.StatusOK, map[string]any{"ScheduleGroupArn": g.ARN})
@@ -419,14 +419,14 @@ func (p *SchedulerProvider) tagResource(req *http.Request, params map[string]any
 			tags[k] = s
 		}
 	}
-	p.store.tags.AddTags(arn, tags)
+	_ = p.store.tags.AddTags(arn, tags)
 	return jsonResponse(http.StatusOK, map[string]any{})
 }
 
 func (p *SchedulerProvider) untagResource(req *http.Request) (*plugin.Response, error) {
 	arn := tagARN(req.URL.Path)
 	keys := req.URL.Query()["TagKeys"]
-	p.store.tags.RemoveTags(arn, keys)
+	p.store.tags.RemoveTags(arn, keys) //nolint:errcheck
 	return jsonResponse(http.StatusOK, map[string]any{})
 }
 
@@ -918,9 +918,9 @@ func rateLimitARN(path string) string {
 
 func scheduleToMap(sc *Schedule) map[string]any {
 	var target map[string]any
-	json.Unmarshal([]byte(sc.Target), &target)
+	_ = json.Unmarshal([]byte(sc.Target), &target)
 	var flexWindow map[string]any
-	json.Unmarshal([]byte(sc.FlexibleTimeWindow), &flexWindow)
+	_ = json.Unmarshal([]byte(sc.FlexibleTimeWindow), &flexWindow)
 	return map[string]any{
 		"Arn":                  sc.ARN,
 		"Name":                 sc.Name,

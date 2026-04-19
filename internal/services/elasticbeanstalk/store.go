@@ -177,7 +177,7 @@ func (s *Store) ListApplications(names []string) ([]Application, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var apps []Application
 	for rows.Next() {
 		a, err := scanApplication(rows)
@@ -284,7 +284,7 @@ func (s *Store) ListAppVersions(appName string, labels []string) ([]AppVersion, 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var versions []AppVersion
 	for rows.Next() {
 		v, err := scanAppVersion(rows)
@@ -404,7 +404,7 @@ func (s *Store) ListEnvironments(appName string, envNames []string, envIDs []str
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var envs []Environment
 	for rows.Next() {
 		e, err := scanEnvironment(rows)
@@ -479,7 +479,7 @@ func (s *Store) ListConfigTemplates(appName string) ([]ConfigTemplate, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var templates []ConfigTemplate
 	for rows.Next() {
 		t, err := scanConfigTemplate(rows)

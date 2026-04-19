@@ -169,7 +169,7 @@ func (s *Store) ListVaults() ([]Vault, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var vaults []Vault
 	for rows.Next() {
 		v, err := scanVault(rows)
@@ -249,7 +249,7 @@ func (s *Store) ListArchives(vaultName string) ([]Archive, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var archives []Archive
 	for rows.Next() {
 		a, err := scanArchive(rows)
@@ -289,7 +289,7 @@ func (s *Store) ListJobs(vaultName string) ([]Job, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var jobs []Job
 	for rows.Next() {
 		j, err := scanJob(rows)
@@ -333,7 +333,7 @@ func (s *Store) ListTags(vaultName string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := make(map[string]string)
 	for rows.Next() {
 		var k, v string
@@ -395,7 +395,7 @@ func (s *Store) GetVaultNotifications(vaultName string) (string, []string, error
 		return "", nil, err
 	}
 	var events []string
-	json.Unmarshal([]byte(eventsJSON), &events)
+	_ = json.Unmarshal([]byte(eventsJSON), &events)
 	return snsTopic, events, nil
 }
 
@@ -483,7 +483,7 @@ func (s *Store) ListMultipartUploads(vaultName string) ([]MultipartUpload, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var uploads []MultipartUpload
 	for rows.Next() {
 		var u MultipartUpload
@@ -498,7 +498,7 @@ func (s *Store) ListMultipartUploads(vaultName string) ([]MultipartUpload, error
 }
 
 func (s *Store) AbortMultipartUpload(id string) error {
-	s.store.DB().Exec(`DELETE FROM multipart_parts WHERE upload_id = ?`, id)
+	_, _ = s.store.DB().Exec(`DELETE FROM multipart_parts WHERE upload_id = ?`, id)
 	res, err := s.store.DB().Exec(`DELETE FROM multipart_uploads WHERE id = ?`, id)
 	if err != nil {
 		return err
@@ -530,7 +530,7 @@ func (s *Store) ListParts(uploadID string) ([]MultipartPart, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var parts []MultipartPart
 	for rows.Next() {
 		var p MultipartPart
@@ -548,7 +548,7 @@ func (s *Store) AssembleMultipartUpload(uploadID string) ([]byte, int64, error) 
 	if err != nil {
 		return nil, 0, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var combined []byte
 	for rows.Next() {
 		var data []byte

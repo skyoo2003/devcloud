@@ -161,7 +161,7 @@ func (s *LogsStore) DescribeLogGroups(accountID, prefix string) ([]LogGroup, err
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []LogGroup
 	for rows.Next() {
 		var g LogGroup
@@ -211,7 +211,7 @@ func (s *LogsStore) DescribeLogStreams(groupName, accountID string) ([]LogStream
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var streams []LogStream
 	for rows.Next() {
 		var ls LogStream
@@ -242,7 +242,7 @@ func (s *LogsStore) PutLogEvents(groupName, streamName, accountID string, events
 	if err != nil {
 		return err
 	}
-	defer stmt.Close()
+	defer func() { _ = stmt.Close() }()
 
 	var minTS, maxTS int64
 	for i, e := range events {
@@ -290,7 +290,7 @@ func (s *LogsStore) GetLogEvents(groupName, streamName, accountID string, startT
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanEvents(rows)
 }
 
@@ -318,7 +318,7 @@ func (s *LogsStore) FilterLogEvents(groupName, accountID string, startTime, endT
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanEvents(rows)
 }
 
@@ -410,7 +410,7 @@ func (s *LogsStore) DescribeMetricFilters(accountID, logGroupName, filterNamePre
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var filters []MetricFilter
 	for rows.Next() {
 		var f MetricFilter
@@ -479,7 +479,7 @@ func (s *LogsStore) DescribeSubscriptionFilters(accountID, logGroupName string) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var filters []SubscriptionFilter
 	for rows.Next() {
 		var f SubscriptionFilter
@@ -536,7 +536,7 @@ func (s *LogsStore) ListTagsForLogGroup(logGroupName, accountID string) (map[str
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := map[string]string{}
 	for rows.Next() {
 		var k, v string

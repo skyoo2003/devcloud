@@ -133,7 +133,7 @@ func (s *Store) ListUsers(identityStoreID string) ([]User, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var users []User
 	for rows.Next() {
 		u, err := scanUser(rows)
@@ -222,7 +222,7 @@ func (s *Store) ListGroups(identityStoreID string) ([]Group, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []Group
 	for rows.Next() {
 		g, err := scanGroup(rows)
@@ -353,7 +353,7 @@ func (s *Store) ListMembershipsForMember(identityStoreID, userID string) ([]Grou
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var memberships []GroupMembership
 	for rows.Next() {
 		var m GroupMembership
@@ -376,7 +376,7 @@ func (s *Store) ListGroupMemberships(identityStoreID, groupID string) ([]GroupMe
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var memberships []GroupMembership
 	for rows.Next() {
 		var m GroupMembership

@@ -175,7 +175,7 @@ func (s *Store) ListReplicationInstances() ([]ReplicationInstance, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ReplicationInstance
 	for rows.Next() {
 		r, err := scanInstance(rows)
@@ -243,7 +243,7 @@ func (s *Store) ListReplicationTasks() ([]ReplicationTask, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ReplicationTask
 	for rows.Next() {
 		t, err := scanTask(rows)
@@ -326,7 +326,7 @@ func (s *Store) ListEndpoints() ([]DMSEndpoint, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []DMSEndpoint
 	for rows.Next() {
 		e, err := scanEndpoint(rows)
@@ -409,7 +409,7 @@ func (s *Store) ListEventSubscriptions(accountID string) ([]EventSubscription, e
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []EventSubscription
 	for rows.Next() {
 		var es EventSubscription
@@ -459,7 +459,7 @@ func (s *Store) GetTags(arn string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := map[string]string{}
 	for rows.Next() {
 		var k, v string

@@ -411,7 +411,7 @@ func (s *QueueStore) SetQueueAttributes(queueName, accountID string, attrs map[s
 				case float64:
 					q.MaxReceiveCount = int(n)
 				case string:
-					fmt.Sscanf(n, "%d", &q.MaxReceiveCount)
+					_, _ = fmt.Sscanf(n, "%d", &q.MaxReceiveCount)
 				}
 			}
 		}

@@ -139,7 +139,7 @@ func (s *Store) ListApplications() ([]Application, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var apps []Application
 	for rows.Next() {
 		a, err := scanApplication(rows)
@@ -214,7 +214,7 @@ func (s *Store) ListDeploymentGroups(appName string) ([]DeploymentGroup, error) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []DeploymentGroup
 	for rows.Next() {
 		g, err := scanDeploymentGroup(rows)
@@ -295,7 +295,7 @@ func (s *Store) ListDeployments(appName, groupName string) ([]Deployment, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var deployments []Deployment
 	for rows.Next() {
 		d, err := scanDeployment(rows)
@@ -352,7 +352,7 @@ func (s *Store) ListDeploymentConfigs() ([]DeploymentConfig, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var cfgs []DeploymentConfig
 	for rows.Next() {
 		c, err := scanDeploymentConfig(rows)

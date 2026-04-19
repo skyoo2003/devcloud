@@ -19,7 +19,7 @@ func newTestProvider(t *testing.T) *IdentityStoreProvider {
 	t.Helper()
 	p := &IdentityStoreProvider{}
 	require.NoError(t, p.Init(plugin.PluginConfig{DataDir: t.TempDir()}))
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 

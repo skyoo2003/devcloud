@@ -20,7 +20,7 @@ func newTestProvider(t *testing.T) *Provider {
 	p := &Provider{}
 	err := p.Init(plugin.PluginConfig{DataDir: t.TempDir()})
 	require.NoError(t, err)
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 
@@ -28,18 +28,6 @@ func callREST(t *testing.T, p *Provider, method, path, op, body string) *plugin.
 	t.Helper()
 	req := httptest.NewRequest(method, path, strings.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := p.HandleRequest(context.Background(), op, req)
-	require.NoError(t, err)
-	return resp
-}
-
-func callRESTWithHeader(t *testing.T, p *Provider, method, path, op, body string, headers map[string]string) *plugin.Response {
-	t.Helper()
-	req := httptest.NewRequest(method, path, strings.NewReader(body))
-	req.Header.Set("Content-Type", "application/json")
-	for k, v := range headers {
-		req.Header.Set(k, v)
-	}
 	resp, err := p.HandleRequest(context.Background(), op, req)
 	require.NoError(t, err)
 	return resp

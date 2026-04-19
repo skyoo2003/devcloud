@@ -162,7 +162,7 @@ func (s *Store) ListDomains(statusFilter string) ([]Domain, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var domains []Domain
 	for rows.Next() {
 		d, err := scanDomain(rows)
@@ -218,7 +218,7 @@ func (s *Store) ListWorkflowTypes(domain, statusFilter string) ([]WorkflowType, 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var wts []WorkflowType
 	for rows.Next() {
 		wt, err := scanWorkflowType(rows)
@@ -290,7 +290,7 @@ func (s *Store) ListActivityTypes(domain, statusFilter string) ([]ActivityType, 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var ats []ActivityType
 	for rows.Next() {
 		at, err := scanActivityType(rows)
@@ -372,7 +372,7 @@ func (s *Store) ListWorkflowExecutions(domain, statusFilter string) ([]WorkflowE
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var execs []WorkflowExecution
 	for rows.Next() {
 		we, err := scanWorkflowExecution(rows)

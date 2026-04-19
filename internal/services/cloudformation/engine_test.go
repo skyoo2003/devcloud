@@ -164,9 +164,10 @@ func TestProvisionStackSimulatedResources(t *testing.T) {
 	// BucketName drives the simulated PhysicalId for supported-but-unregistered services.
 	var bkt, q StackResource
 	for _, r := range resources {
-		if r.LogicalID == "Bkt" {
+		switch r.LogicalID {
+		case "Bkt":
 			bkt = r
-		} else if r.LogicalID == "Q" {
+		case "Q":
 			q = r
 		}
 	}

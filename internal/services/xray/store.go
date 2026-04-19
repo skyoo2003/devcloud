@@ -120,7 +120,7 @@ func (s *Store) ListGroups() ([]Group, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []Group
 	for rows.Next() {
 		g, err := scanGroup(rows)
@@ -189,7 +189,7 @@ func (s *Store) ListSamplingRules() ([]SamplingRule, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var rules []SamplingRule
 	for rows.Next() {
 		r, err := scanSamplingRule(rows)
@@ -280,7 +280,7 @@ func (s *Store) GetSegmentsByTraceID(traceID string) ([]TraceSegment, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var segs []TraceSegment
 	for rows.Next() {
 		var seg TraceSegment
@@ -298,7 +298,7 @@ func (s *Store) ListDistinctTraceIDs() ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var ids []string
 	for rows.Next() {
 		var id string

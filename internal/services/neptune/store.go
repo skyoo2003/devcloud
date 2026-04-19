@@ -239,7 +239,7 @@ func (s *Store) ListClusters(ids []string) ([]DBCluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var clusters []DBCluster
 	for rows.Next() {
 		c, err := scanCluster(rows)
@@ -331,7 +331,7 @@ func (s *Store) ListInstances(ids []string) ([]DBInstance, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var instances []DBInstance
 	for rows.Next() {
 		inst, err := scanInstance(rows)
@@ -412,7 +412,7 @@ func (s *Store) ListSnapshots(clusterID string) ([]ClusterSnapshot, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var snaps []ClusterSnapshot
 	for rows.Next() {
 		sn, err := scanSnapshot(rows)
@@ -474,7 +474,7 @@ func (s *Store) ListSubnetGroups(names []string) ([]SubnetGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []SubnetGroup
 	for rows.Next() {
 		sg, err := scanSubnetGroup(rows)
@@ -551,7 +551,7 @@ func (s *Store) ListClusterParamGroups(names []string) ([]ClusterParamGroup, err
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []ClusterParamGroup
 	for rows.Next() {
 		pg, err := scanClusterParamGroup(rows)
@@ -613,7 +613,7 @@ func (s *Store) ListDBParamGroups(names []string) ([]DBParamGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []DBParamGroup
 	for rows.Next() {
 		pg, err := scanDBParamGroup(rows)
@@ -684,7 +684,7 @@ func (s *Store) ListClusterEndpoints(clusterID string) ([]ClusterEndpoint, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var endpoints []ClusterEndpoint
 	for rows.Next() {
 		ep, err := scanClusterEndpoint(rows)

@@ -24,7 +24,7 @@ func newTestProvider(t *testing.T) *Provider {
 	}
 	t.Cleanup(func() {
 		p.Shutdown(context.Background()) //nolint:errcheck
-		os.RemoveAll(dir)
+		_ = os.RemoveAll(dir)
 	})
 	return p
 }

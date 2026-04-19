@@ -20,7 +20,7 @@ func newTestProvider(t *testing.T) *Provider {
 	p := &Provider{}
 	err := p.Init(plugin.PluginConfig{DataDir: t.TempDir()})
 	require.NoError(t, err)
-	t.Cleanup(func() { p.Shutdown(context.Background()) })
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 
@@ -168,7 +168,7 @@ func TestTags(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, 200, listResp.StatusCode)
 	var listBody map[string]any
-	json.Unmarshal(listResp.Body, &listBody)
+	_ = json.Unmarshal(listResp.Body, &listBody)
 	tagList := listBody["TagList"].([]any)
 	assert.Len(t, tagList, 2)
 
@@ -181,7 +181,7 @@ func TestTags(t *testing.T) {
 	req2 := httptest.NewRequest("GET", "/2021-01-01/tags?arn="+arn, nil)
 	listResp2, _ := p.HandleRequest(context.Background(), "ListTags", req2)
 	var listBody2 map[string]any
-	json.Unmarshal(listResp2.Body, &listBody2)
+	_ = json.Unmarshal(listResp2.Body, &listBody2)
 	assert.Len(t, listBody2["TagList"].([]any), 1)
 }
 

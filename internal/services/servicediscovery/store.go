@@ -135,7 +135,7 @@ func (s *Store) ListNamespaces() ([]Namespace, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Namespace
 	for rows.Next() {
 		ns, err := scanNamespace(rows)
@@ -203,7 +203,7 @@ func (s *Store) ListServices(namespaceID string) ([]Service, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Service
 	for rows.Next() {
 		svc, err := scanService(rows)
@@ -276,7 +276,7 @@ func (s *Store) ListInstances(serviceID string) ([]Instance, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Instance
 	for rows.Next() {
 		var inst Instance
@@ -336,7 +336,7 @@ func (s *Store) ListOperations() ([]Operation, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Operation
 	for rows.Next() {
 		var op Operation

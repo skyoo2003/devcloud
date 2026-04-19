@@ -15,7 +15,7 @@ func TestMetadataStore_CreateAndListBuckets(t *testing.T) {
 	dbPath := filepath.Join(t.TempDir(), "meta.db")
 	store, err := NewMetadataStore(dbPath)
 	require.NoError(t, err)
-	defer store.Close()
+	defer func() { _ = store.Close() }()
 
 	err = store.CreateBucket("test-bucket", "us-east-1", "000000000000")
 	require.NoError(t, err)
@@ -31,7 +31,7 @@ func TestMetadataStore_CreateDuplicateBucket(t *testing.T) {
 	dbPath := filepath.Join(t.TempDir(), "meta.db")
 	store, err := NewMetadataStore(dbPath)
 	require.NoError(t, err)
-	defer store.Close()
+	defer func() { _ = store.Close() }()
 
 	err = store.CreateBucket("test-bucket", "us-east-1", "000000000000")
 	require.NoError(t, err)
@@ -44,9 +44,9 @@ func TestMetadataStore_DeleteBucket(t *testing.T) {
 	dbPath := filepath.Join(t.TempDir(), "meta.db")
 	store, err := NewMetadataStore(dbPath)
 	require.NoError(t, err)
-	defer store.Close()
+	defer func() { _ = store.Close() }()
 
-	store.CreateBucket("test-bucket", "us-east-1", "000000000000")
+	_ = store.CreateBucket("test-bucket", "us-east-1", "000000000000")
 	err = store.DeleteBucket("test-bucket", "000000000000")
 	require.NoError(t, err)
 
@@ -58,9 +58,9 @@ func TestMetadataStore_PutAndGetObjectMeta(t *testing.T) {
 	dbPath := filepath.Join(t.TempDir(), "meta.db")
 	store, err := NewMetadataStore(dbPath)
 	require.NoError(t, err)
-	defer store.Close()
+	defer func() { _ = store.Close() }()
 
-	store.CreateBucket("test-bucket", "us-east-1", "000000000000")
+	_ = store.CreateBucket("test-bucket", "us-east-1", "000000000000")
 
 	meta := ObjectMeta{
 		Bucket:      "test-bucket",

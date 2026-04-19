@@ -393,7 +393,7 @@ func (s *Store) ListStreams() ([]StreamMeta, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var streams []StreamMeta
 	for rows.Next() {
 		st, err := scanStreamMeta(rows)
@@ -543,7 +543,7 @@ func (s *Store) ListConsumers(streamARN string) ([]ConsumerMeta, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var consumers []ConsumerMeta
 	for rows.Next() {
 		c, err := scanConsumer(rows)

@@ -5,7 +5,6 @@ package cloudtrail
 
 import (
 	"database/sql"
-	"encoding/json"
 	"errors"
 	"path/filepath"
 	"time"
@@ -190,7 +189,7 @@ func (s *Store) ListTrails() ([]Trail, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var trails []Trail
 	for rows.Next() {
 		t, err := scanTrail(rows)
@@ -316,7 +315,7 @@ func (s *Store) ListEventDataStores() ([]EventDataStore, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []EventDataStore
 	for rows.Next() {
 		e, err := scanEDS(rows)
@@ -396,7 +395,7 @@ func (s *Store) ListChannels() ([]Channel, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Channel
 	for rows.Next() {
 		c, err := scanChannel(rows)
@@ -459,7 +458,7 @@ func (s *Store) ListDashboards() ([]Dashboard, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Dashboard
 	for rows.Next() {
 		d, err := scanDashboard(rows)
@@ -533,7 +532,7 @@ func (s *Store) ListQueries() ([]Query, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Query
 	for rows.Next() {
 		var q Query
@@ -677,9 +676,4 @@ func containsStr(s, substr string) bool {
 			}
 			return false
 		}())
-}
-
-func marshalJSON(v any) string {
-	b, _ := json.Marshal(v)
-	return string(b)
 }

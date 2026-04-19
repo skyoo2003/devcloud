@@ -195,7 +195,7 @@ func (p *Provider) createProject(params map[string]any) (*plugin.Response, error
 	}
 	// Handle tags if provided
 	if rawTags, ok := params["tags"].([]any); ok {
-		p.store.tags.AddTags(proj.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(proj.ARN, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"project": projectToMap(proj),
@@ -292,7 +292,7 @@ func (p *Provider) deleteProject(params map[string]any) (*plugin.Response, error
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "project not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(proj.ARN)
+	_ = p.store.tags.DeleteAllTags(proj.ARN)
 	if err := p.store.DeleteProject(name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "project not found", http.StatusBadRequest), nil
 	}
@@ -469,7 +469,7 @@ func (p *Provider) createReportGroup(params map[string]any) (*plugin.Response, e
 	}
 	// Handle tags if provided
 	if rawTags, ok := params["tags"].([]any); ok {
-		p.store.tags.AddTags(rg.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(rg.ARN, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"reportGroup": reportGroupToMap(rg),
@@ -543,7 +543,7 @@ func (p *Provider) deleteReportGroup(params map[string]any) (*plugin.Response, e
 	if _, err := p.store.GetReportGroup(arn); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "report group not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn)
 	if err := p.store.DeleteReportGroup(arn); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "report group not found", http.StatusBadRequest), nil
 	}
@@ -598,7 +598,7 @@ func (p *Provider) createFleet(params map[string]any) (*plugin.Response, error) 
 	}
 	// Handle tags if provided
 	if rawTags, ok := params["tags"].([]any); ok {
-		p.store.tags.AddTags(fleet.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(fleet.ARN, parseTags(rawTags))
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"fleet": fleetToMap(fleet),
@@ -679,7 +679,7 @@ func (p *Provider) deleteFleet(params map[string]any) (*plugin.Response, error) 
 	if _, err := p.store.GetFleet(arn); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "fleet not found", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn)
 	if err := p.store.DeleteFleet(arn); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "fleet not found", http.StatusBadRequest), nil
 	}
@@ -833,9 +833,9 @@ func credentialARN(serverType string) string {
 
 func projectToMap(p *Project) map[string]any {
 	var source, artifacts, environment any
-	json.Unmarshal([]byte(p.Source), &source)
-	json.Unmarshal([]byte(p.Artifacts), &artifacts)
-	json.Unmarshal([]byte(p.Environment), &environment)
+	_ = json.Unmarshal([]byte(p.Source), &source)
+	_ = json.Unmarshal([]byte(p.Artifacts), &artifacts)
+	_ = json.Unmarshal([]byte(p.Environment), &environment)
 	return map[string]any{
 		"name":             p.Name,
 		"arn":              p.ARN,
@@ -852,8 +852,8 @@ func projectToMap(p *Project) map[string]any {
 
 func buildToMap(b *Build) map[string]any {
 	var phases, logs any
-	json.Unmarshal([]byte(b.Phases), &phases)
-	json.Unmarshal([]byte(b.Logs), &logs)
+	_ = json.Unmarshal([]byte(b.Phases), &phases)
+	_ = json.Unmarshal([]byte(b.Logs), &logs)
 	return map[string]any{
 		"id":            b.ID,
 		"arn":           b.ARN,
@@ -869,7 +869,7 @@ func buildToMap(b *Build) map[string]any {
 
 func reportGroupToMap(rg *ReportGroup) map[string]any {
 	var exportConfig any
-	json.Unmarshal([]byte(rg.ExportConfig), &exportConfig)
+	_ = json.Unmarshal([]byte(rg.ExportConfig), &exportConfig)
 	return map[string]any{
 		"arn":          rg.ARN,
 		"name":         rg.Name,

@@ -197,7 +197,7 @@ func (s *Store) ListRoots() ([]Root, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Root
 	for rows.Next() {
 		r, err := scanRoot(rows)
@@ -259,7 +259,7 @@ func (s *Store) ListAccounts() ([]Account, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanAccounts(rows)
 }
 
@@ -271,7 +271,7 @@ func (s *Store) ListAccountsForParent(parentID string) ([]Account, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	return scanAccounts(rows)
 }
 
@@ -344,7 +344,7 @@ func (s *Store) ListOUsForParent(parentID string) ([]OU, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []OU
 	for rows.Next() {
 		ou, err := scanOU(rows)
@@ -439,7 +439,7 @@ func (s *Store) ListPolicies(policyType string) ([]Policy, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Policy
 	for rows.Next() {
 		p, err := scanPolicy(rows)
@@ -518,7 +518,7 @@ func (s *Store) ListPoliciesForTarget(targetID, policyType string) ([]Policy, er
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Policy
 	for rows.Next() {
 		p, err := scanPolicy(rows)
@@ -536,7 +536,7 @@ func (s *Store) ListTargetsForPolicy(policyID string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []string
 	for rows.Next() {
 		var t string

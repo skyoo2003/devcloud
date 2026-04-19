@@ -207,7 +207,7 @@ func (s *Store) ListWebACLs(scope string) ([]WebACL, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var acls []WebACL
 	for rows.Next() {
 		w, err := scanWebACL(rows)
@@ -301,7 +301,7 @@ func (s *Store) ListResourcesForWebACL(webACLARN string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var arns []string
 	for rows.Next() {
 		var arn string
@@ -339,7 +339,7 @@ func (s *Store) ListIPSets(scope string) ([]IPSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var sets []IPSet
 	for rows.Next() {
 		ip, err := scanIPSet(rows)
@@ -416,7 +416,7 @@ func (s *Store) ListRegexPatternSets(scope string) ([]RegexPatternSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var sets []RegexPatternSet
 	for rows.Next() {
 		r, err := scanRegexPatternSet(rows)
@@ -493,7 +493,7 @@ func (s *Store) ListRuleGroups(scope string) ([]RuleGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var groups []RuleGroup
 	for rows.Next() {
 		rg, err := scanRuleGroup(rows)
@@ -566,7 +566,7 @@ func (s *Store) ListAPIKeys(scope string) ([]APIKey, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var keys []APIKey
 	for rows.Next() {
 		var k APIKey
@@ -639,7 +639,7 @@ func (s *Store) ListLoggingConfigs() ([][3]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var configs [][3]string
 	for rows.Next() {
 		var c [3]string

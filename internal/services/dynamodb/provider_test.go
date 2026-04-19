@@ -35,7 +35,7 @@ func doRequest(t *testing.T, p *DynamoDBProvider, op string, body string) *plugi
 
 func TestDynamoDBProvider_CreateTable(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	resp := doRequest(t, p, "CreateTable", `{
 		"TableName": "Users",
@@ -55,7 +55,7 @@ func TestDynamoDBProvider_CreateTable(t *testing.T) {
 
 func TestDynamoDBProvider_PutAndGetItem(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	// Create table.
 	doRequest(t, p, "CreateTable", `{
@@ -92,7 +92,7 @@ func TestDynamoDBProvider_PutAndGetItem(t *testing.T) {
 
 func TestDynamoDBProvider_DeleteItem(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	// Create table and put item.
 	doRequest(t, p, "CreateTable", `{
@@ -127,7 +127,7 @@ func TestDynamoDBProvider_DeleteItem(t *testing.T) {
 
 func TestDynamoDBProvider_ListTables(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	doRequest(t, p, "CreateTable", `{
 		"TableName": "Alpha",
@@ -158,7 +158,7 @@ func TestDynamoDBProvider_ListTables(t *testing.T) {
 
 func TestDynamoDBProvider_Scan(t *testing.T) {
 	p := newTestDynamoDBProvider(t)
-	defer p.Shutdown(context.Background())
+	defer func() { _ = p.Shutdown(context.Background()) }()
 
 	doRequest(t, p, "CreateTable", `{
 		"TableName": "Products",

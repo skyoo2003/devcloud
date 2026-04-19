@@ -250,7 +250,7 @@ func (s *Store) ListCacheClusters(ids []string) ([]CacheCluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []CacheCluster
 	for rows.Next() {
 		c, err := scanCacheCluster(rows)
@@ -333,7 +333,7 @@ func (s *Store) ListReplicationGroups(ids []string) ([]ReplicationGroup, error) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ReplicationGroup
 	for rows.Next() {
 		rg, err := scanReplicationGroup(rows)
@@ -406,7 +406,7 @@ func (s *Store) ListParamGroups(names []string) ([]ParamGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ParamGroup
 	for rows.Next() {
 		pg, err := scanParamGroup(rows)
@@ -467,7 +467,7 @@ func (s *Store) ListSubnetGroups(names []string) ([]SubnetGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []SubnetGroup
 	for rows.Next() {
 		sg, err := scanSubnetGroup(rows)
@@ -543,7 +543,7 @@ func (s *Store) ListUsers(ids []string) ([]User, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []User
 	for rows.Next() {
 		u, err := scanUser(rows)
@@ -616,7 +616,7 @@ func (s *Store) ListUserGroups(ids []string) ([]UserGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []UserGroup
 	for rows.Next() {
 		ug, err := scanUserGroup(rows)
@@ -698,7 +698,7 @@ func (s *Store) ListSnapshots(clusterID, replGroupID string) ([]Snapshot, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []Snapshot
 	for rows.Next() {
 		sn, err := scanSnapshot(rows)
@@ -761,7 +761,7 @@ func (s *Store) ListServerlessCaches(names []string) ([]ServerlessCache, error) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []ServerlessCache
 	for rows.Next() {
 		sc, err := scanServerlessCache(rows)

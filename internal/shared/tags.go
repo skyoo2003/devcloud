@@ -56,7 +56,7 @@ func (s *TagStore) ListTags(arn string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := make(map[string]string)
 	for rows.Next() {
 		var k, v string

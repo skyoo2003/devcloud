@@ -143,7 +143,7 @@ func (s *Store) ListCases(includeResolved bool, filterIDs []string) ([]Case, err
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var cases []Case
 	for rows.Next() {
 		c, err := scanCase(rows)
@@ -233,7 +233,7 @@ func (s *Store) ListCommunications(caseID string) ([]Communication, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var comms []Communication
 	for rows.Next() {
 		var c Communication

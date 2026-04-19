@@ -155,7 +155,7 @@ func (s *Store) ListWorkGroups() ([]WorkGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var wgs []WorkGroup
 	for rows.Next() {
 		wg, err := scanWorkGroup(rows)
@@ -242,7 +242,7 @@ func (s *Store) ListNamedQueries(workgroup string) ([]NamedQuery, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var queries []NamedQuery
 	for rows.Next() {
 		nq, err := scanNamedQuery(rows)
@@ -312,7 +312,7 @@ func (s *Store) ListQueryExecutions(workgroup string) ([]QueryExecution, error) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var execs []QueryExecution
 	for rows.Next() {
 		qe, err := scanQueryExecution(rows)
@@ -375,7 +375,7 @@ func (s *Store) ListDataCatalogs() ([]DataCatalog, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var catalogs []DataCatalog
 	for rows.Next() {
 		dc, err := scanDataCatalog(rows)
@@ -453,7 +453,7 @@ func (s *Store) ListPreparedStatements(workgroup string) ([]PreparedStatement, e
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var stmts []PreparedStatement
 	for rows.Next() {
 		ps, err := scanPreparedStatement(rows)

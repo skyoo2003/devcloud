@@ -219,7 +219,7 @@ func (p *Provider) createCostCategoryDefinition(params map[string]any) (*plugin.
 		return nil, err
 	}
 	if rawTags, ok := params["ResourceTags"].([]any); ok {
-		p.store.tags.AddTags(cat.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(cat.ARN, parseTags(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"CostCategoryArn": cat.ARN,
@@ -287,7 +287,7 @@ func (p *Provider) deleteCostCategoryDefinition(params map[string]any) (*plugin.
 	if arn == "" {
 		return shared.JSONError("ValidationException", "CostCategoryArn is required", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn) //nolint:errcheck
 	if err := p.store.DeleteCostCategory(arn); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "cost category not found", http.StatusBadRequest), nil
 	}
@@ -327,7 +327,7 @@ func (p *Provider) createAnomalyMonitor(params map[string]any) (*plugin.Response
 		return nil, err
 	}
 	if rawTags, ok := params["ResourceTags"].([]any); ok {
-		p.store.tags.AddTags(mon.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(mon.ARN, parseTags(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"MonitorArn": mon.ARN,
@@ -375,7 +375,7 @@ func (p *Provider) deleteAnomalyMonitor(params map[string]any) (*plugin.Response
 	if arn == "" {
 		return shared.JSONError("ValidationException", "MonitorArn is required", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn) //nolint:errcheck
 	if err := p.store.DeleteAnomalyMonitor(arn); err != nil {
 		return shared.JSONError("UnknownMonitorException", "monitor not found", http.StatusBadRequest), nil
 	}
@@ -417,7 +417,7 @@ func (p *Provider) createAnomalySubscription(params map[string]any) (*plugin.Res
 		return nil, err
 	}
 	if rawTags, ok := params["ResourceTags"].([]any); ok {
-		p.store.tags.AddTags(s.ARN, parseTags(rawTags))
+		_ = p.store.tags.AddTags(s.ARN, parseTags(rawTags)) //nolint:errcheck
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"SubscriptionArn": s.ARN,
@@ -483,7 +483,7 @@ func (p *Provider) deleteAnomalySubscription(params map[string]any) (*plugin.Res
 	if arn == "" {
 		return shared.JSONError("ValidationException", "SubscriptionArn is required", http.StatusBadRequest), nil
 	}
-	p.store.tags.DeleteAllTags(arn)
+	_ = p.store.tags.DeleteAllTags(arn) //nolint:errcheck
 	if err := p.store.DeleteAnomalySubscription(arn); err != nil {
 		return shared.JSONError("UnknownSubscriptionException", "subscription not found", http.StatusBadRequest), nil
 	}
@@ -604,7 +604,7 @@ func extractTimePeriod(params map[string]any) map[string]any {
 
 func costCategoryToMap(c *CostCategory) map[string]any {
 	var rules any
-	json.Unmarshal([]byte(c.Rules), &rules)
+	_ = json.Unmarshal([]byte(c.Rules), &rules)
 	return map[string]any{
 		"CostCategoryArn": c.ARN,
 		"Name":            c.Name,
@@ -627,8 +627,8 @@ func anomalyMonitorToMap(m *AnomalyMonitor) map[string]any {
 func anomalySubscriptionToMap(s *AnomalySubscription) map[string]any {
 	var monitorARNs any
 	var subscribers any
-	json.Unmarshal([]byte(s.MonitorARNs), &monitorARNs)
-	json.Unmarshal([]byte(s.Subscribers), &subscribers)
+	_ = json.Unmarshal([]byte(s.MonitorARNs), &monitorARNs)
+	_ = json.Unmarshal([]byte(s.Subscribers), &subscribers)
 	return map[string]any{
 		"SubscriptionArn":  s.ARN,
 		"SubscriptionName": s.Name,

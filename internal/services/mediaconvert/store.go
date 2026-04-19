@@ -193,7 +193,7 @@ func (s *Store) ListJobs(accountID string) ([]MCJob, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var jobs []MCJob
 	for rows.Next() {
 		var j MCJob
@@ -251,7 +251,7 @@ func (s *Store) ListJobTemplates(accountID string) ([]MCJobTemplate, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var templates []MCJobTemplate
 	for rows.Next() {
 		var t MCJobTemplate
@@ -324,7 +324,7 @@ func (s *Store) ListQueues(accountID string) ([]MCQueue, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var queues []MCQueue
 	for rows.Next() {
 		var q MCQueue
@@ -452,7 +452,7 @@ func (s *Store) ListPresets(accountID string) ([]MCPreset, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var presets []MCPreset
 	for rows.Next() {
 		var p MCPreset
@@ -531,7 +531,7 @@ func (s *Store) ListTags(arn string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := map[string]string{}
 	for rows.Next() {
 		var k, v string

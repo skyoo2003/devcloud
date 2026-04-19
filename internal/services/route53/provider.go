@@ -20,7 +20,6 @@ import (
 )
 
 const defaultAccountID = plugin.DefaultAccountID
-const defaultRegion = "us-east-1"
 
 // Provider implements Route53 using REST-XML routing.
 type Provider struct {
@@ -207,22 +206,6 @@ func generateID() string {
 	b := make([]byte, 12)
 	_, _ = rand.Read(b)
 	return strings.ToLower(hex.EncodeToString(b))
-}
-
-func changeInfoXML(id string) struct {
-	Id          string `xml:"Id"`
-	Status      string `xml:"Status"`
-	SubmittedAt string `xml:"SubmittedAt"`
-} {
-	return struct {
-		Id          string `xml:"Id"`
-		Status      string `xml:"Status"`
-		SubmittedAt string `xml:"SubmittedAt"`
-	}{
-		Id:          "/change/" + id,
-		Status:      "INSYNC",
-		SubmittedAt: time.Now().UTC().Format(time.RFC3339),
-	}
 }
 
 func r53Error(code, msg string, status int) *plugin.Response {
@@ -1842,10 +1825,6 @@ func (p *Provider) createCidrCollection(req *http.Request) (*plugin.Response, er
 }
 
 func (p *Provider) changeCidrCollection(req *http.Request) (*plugin.Response, error) {
-	type xmlCidr struct {
-		Cidr     string `xml:"Cidr"`
-		Location string `xml:"Location"`
-	}
 	type input struct {
 		XMLName          xml.Name `xml:"ChangeCidrCollectionRequest"`
 		CidrCollectionId string   `xml:"CidrCollectionId"`

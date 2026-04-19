@@ -19,7 +19,6 @@ import (
 )
 
 const defaultAccountID = plugin.DefaultAccountID
-const defaultRegion = "us-east-1"
 
 // Provider implements the Cloudfront2020_05_31 service.
 type Provider struct {
@@ -282,36 +281,6 @@ func invalidationIDFromPath(path string) string {
 }
 
 // --- Distribution operations ---
-
-type distributionXML struct {
-	XMLName          xml.Name `xml:"Distribution"`
-	Id               string   `xml:"Id"`
-	ARN              string   `xml:"ARN"`
-	Status           string   `xml:"Status"`
-	DomainName       string   `xml:"DomainName"`
-	Comment          string   `xml:"Comment"`
-	Enabled          bool     `xml:"DistributionConfig>Enabled"`
-	LastModifiedTime string   `xml:"LastModifiedTime"`
-}
-
-type distributionConfigXML struct {
-	XMLName   xml.Name `xml:"DistributionConfig"`
-	Comment   string   `xml:"Comment"`
-	Enabled   bool     `xml:"Enabled"`
-	CallerRef string   `xml:"CallerReference"`
-}
-
-func distToXML(d *Distribution) distributionXML {
-	return distributionXML{
-		Id:               d.ID,
-		ARN:              d.ARN,
-		Status:           d.Status,
-		DomainName:       d.DomainName,
-		Comment:          d.Comment,
-		Enabled:          d.Enabled,
-		LastModifiedTime: d.UpdatedAt.UTC().Format(time.RFC3339),
-	}
-}
 
 func (p *Provider) createDistribution(req *http.Request) (*plugin.Response, error) {
 	type input struct {
@@ -1875,7 +1844,7 @@ func readBody(req *http.Request) ([]byte, error) {
 	if req.Body == nil {
 		return nil, nil
 	}
-	defer req.Body.Close()
+	defer func() { _ = req.Body.Close() }()
 	buf := make([]byte, 0, 512)
 	tmp := make([]byte, 512)
 	for {

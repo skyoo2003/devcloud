@@ -300,7 +300,7 @@ func (p *Provider) createExperimentTemplate(params map[string]any) (*plugin.Resp
 
 	if rawTags, ok := params["tags"].(map[string]any); ok {
 		tags := toStringMap(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags) //nolint:errcheck
 	}
 
 	stored, err := p.store.GetExperimentTemplate(id)
@@ -367,7 +367,7 @@ func (p *Provider) deleteExperimentTemplate(id string) (*plugin.Response, error)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "experiment template not found", http.StatusNotFound), nil
 	}
-	p.store.tags.DeleteAllTags(t.ARN)
+	_ = p.store.tags.DeleteAllTags(t.ARN) //nolint:errcheck
 	if err := p.store.DeleteExperimentTemplate(id); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "experiment template not found", http.StatusNotFound), nil
 	}
@@ -408,7 +408,7 @@ func (p *Provider) startExperiment(params map[string]any) (*plugin.Response, err
 
 	if rawTags, ok := params["tags"].(map[string]any); ok {
 		tags := toStringMap(rawTags)
-		p.store.tags.AddTags(arn, tags)
+		_ = p.store.tags.AddTags(arn, tags) //nolint:errcheck
 	}
 
 	stored, err := p.store.GetExperiment(id)
@@ -563,10 +563,10 @@ func templateToMap(t *ExperimentTemplate, tags map[string]string) map[string]any
 		tags = map[string]string{}
 	}
 	var actions, targets, stopConditions, logConfig any
-	json.Unmarshal([]byte(t.Actions), &actions)               //nolint:errcheck
-	json.Unmarshal([]byte(t.Targets), &targets)               //nolint:errcheck
-	json.Unmarshal([]byte(t.StopConditions), &stopConditions) //nolint:errcheck
-	json.Unmarshal([]byte(t.LogConfig), &logConfig)           //nolint:errcheck
+	_ = json.Unmarshal([]byte(t.Actions), &actions)               //nolint:errcheck
+	_ = json.Unmarshal([]byte(t.Targets), &targets)               //nolint:errcheck
+	_ = json.Unmarshal([]byte(t.StopConditions), &stopConditions) //nolint:errcheck
+	_ = json.Unmarshal([]byte(t.LogConfig), &logConfig)           //nolint:errcheck
 	return map[string]any{
 		"id":               t.ID,
 		"arn":              t.ARN,
@@ -601,8 +601,8 @@ func experimentToMap(e *Experiment, tags map[string]string) map[string]any {
 		tags = map[string]string{}
 	}
 	var actions, targets any
-	json.Unmarshal([]byte(e.Actions), &actions) //nolint:errcheck
-	json.Unmarshal([]byte(e.Targets), &targets) //nolint:errcheck
+	_ = json.Unmarshal([]byte(e.Actions), &actions) //nolint:errcheck
+	_ = json.Unmarshal([]byte(e.Targets), &targets) //nolint:errcheck
 	m := map[string]any{
 		"id":                   e.ID,
 		"arn":                  e.ARN,

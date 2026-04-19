@@ -231,7 +231,7 @@ func (s *MetadataStore) ListBuckets(accountID string) ([]BucketInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var buckets []BucketInfo
 	for rows.Next() {
@@ -322,7 +322,7 @@ func (s *MetadataStore) ListObjects(bucket, prefix, accountID string, maxKeys in
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var objects []ObjectMeta
 	for rows.Next() {
@@ -388,7 +388,7 @@ func (s *MetadataStore) ListMultipartUploads(bucket, accountID string) ([]Multip
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var uploads []MultipartUploadInfo
 	for rows.Next() {
@@ -421,7 +421,7 @@ func (s *MetadataStore) ListUploadParts(uploadID string) ([]UploadPartInfo, erro
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var parts []UploadPartInfo
 	for rows.Next() {
@@ -556,7 +556,7 @@ func (s *MetadataStore) GetBucketTags(bucket, accountID string) (map[string]stri
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := make(map[string]string)
 	for rows.Next() {
 		var k, v string
@@ -609,7 +609,7 @@ func (s *MetadataStore) GetObjectTags(bucket, key, accountID string) (map[string
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	tags := make(map[string]string)
 	for rows.Next() {
 		var k, v string

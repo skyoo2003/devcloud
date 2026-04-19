@@ -303,7 +303,8 @@ func (p *Provider) runJobFlow(params map[string]any) (*plugin.Response, error) {
 
 	// Handle tags
 	if rawTags, ok := params["Tags"].([]any); ok {
-		p.store.tags.AddTags(arn, parseTags(rawTags))
+		//nolint:errcheck
+		_ = p.store.tags.AddTags(arn, parseTags(rawTags))
 	}
 
 	return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -812,7 +813,7 @@ func clusterToJobFlowMap(c *Cluster, tags map[string]string) map[string]any {
 
 func stepToMap(st *Step) map[string]any {
 	var config any
-	json.Unmarshal([]byte(st.Config), &config)
+	_ = json.Unmarshal([]byte(st.Config), &config)
 	return map[string]any{
 		"Id":   st.ID,
 		"Name": st.Name,

@@ -130,7 +130,7 @@ func (s *Store) ListCostCategories() ([]CostCategory, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var cats []CostCategory
 	for rows.Next() {
 		c, err := scanCostCategory(rows)
@@ -200,7 +200,7 @@ func (s *Store) ListAnomalyMonitors(arns []string) ([]AnomalyMonitor, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	arnSet := make(map[string]bool, len(arns))
 	for _, a := range arns {
 		arnSet[a] = true
@@ -276,7 +276,7 @@ func (s *Store) ListAnomalySubscriptions(monitorARN string) ([]AnomalySubscripti
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var subs []AnomalySubscription
 	for rows.Next() {
 		sub, err := scanAnomalySubscription(rows)
