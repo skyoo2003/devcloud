@@ -504,7 +504,11 @@ func (p *Provider) listTagsForResource(arn string) (*plugin.Response, error) {
 	if err != nil {
 		return shared.JSONError("InternalError", err.Error(), http.StatusInternalServerError), nil
 	}
-	return shared.JSONResponse(http.StatusOK, map[string]any{"tags": tags})
+	tagList := make([]map[string]string, 0, len(tags))
+	for k, v := range tags {
+		tagList = append(tagList, map[string]string{"key": k, "value": v})
+	}
+	return shared.JSONResponse(http.StatusOK, map[string]any{"tags": tagList})
 }
 
 func (p *Provider) untagResource(arn string, keys []string) (*plugin.Response, error) {

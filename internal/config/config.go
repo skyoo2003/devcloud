@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -150,6 +151,12 @@ func expandTiers(value string) map[string]bool {
 }
 
 func applyEnvOverrides(cfg *Config) {
+	if p := os.Getenv("DEVCLOUD_PORT"); p != "" {
+		if v, err := strconv.Atoi(p); err == nil {
+			cfg.Server.Port = v
+		}
+	}
+
 	if envServices := os.Getenv("DEVCLOUD_SERVICES"); envServices != "" {
 		allowed := expandTiers(envServices)
 		if allowed == nil {

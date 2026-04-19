@@ -314,6 +314,9 @@ func (s *EBStore) MatchingRules(busName, accountID string, event map[string]any)
 		return nil, err
 	}
 	eventSource, _ := event["source"].(string)
+	if eventSource == "" {
+		eventSource, _ = event["Source"].(string)
+	}
 	var matched []Rule
 	for _, r := range rules {
 		if r.State != "ENABLED" {

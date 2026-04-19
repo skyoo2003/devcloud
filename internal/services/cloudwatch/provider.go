@@ -594,12 +594,18 @@ func (p *Provider) describeAnomalyDetectors(jm bool, req *http.Request) (*plugin
 	}
 	list := make([]map[string]any, 0, len(detectors))
 	for _, d := range detectors {
-		list = append(list, map[string]any{
-			"Namespace":     d.Namespace,
-			"MetricName":    d.MetricName,
-			"Stat":          d.Stat,
-			"Configuration": d.Configuration,
-		})
+		entry := map[string]any{
+			"Namespace":  d.Namespace,
+			"MetricName": d.MetricName,
+			"Stat":       d.Stat,
+		}
+		if d.Configuration != "" {
+			entry["Configuration"] = d.Configuration
+		}
+		if d.Dimensions != "" {
+			entry["Dimensions"] = d.Dimensions
+		}
+		list = append(list, entry)
 	}
 	return cwResp(jm, http.StatusOK, "DescribeAnomalyDetectorsResponse", map[string]any{
 		"AnomalyDetectors": list,

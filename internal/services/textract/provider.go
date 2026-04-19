@@ -502,6 +502,9 @@ func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response,
 	if err != nil {
 		return nil, err
 	}
+	if tags == nil {
+		tags = map[string]string{}
+	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"Tags": tags})
 }
 

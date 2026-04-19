@@ -389,14 +389,14 @@ func TestCidrCollectionHandlers(t *testing.T) {
 	assert.Equal(t, http.StatusCreated, resp.StatusCode)
 
 	var createResp struct {
-		CidrCollection struct {
-			CidrCollectionId string `xml:"CidrCollectionId"`
-			State            string `xml:"State"`
-		} `xml:"CidrCollection"`
+		Collection struct {
+			Id   string `xml:"Id"`
+			Name string `xml:"Name"`
+		} `xml:"Collection"`
 	}
 	require.NoError(t, xml.Unmarshal(resp.Body, &createResp))
-	ccID := createResp.CidrCollection.CidrCollectionId
-	assert.Equal(t, "Created", createResp.CidrCollection.State)
+	ccID := createResp.Collection.Id
+	assert.Equal(t, "my-cidr-collection", createResp.Collection.Name)
 
 	// ListCidrCollections
 	req = httptest.NewRequest(http.MethodGet, "/2013-04-01/cidrcollection", nil)
@@ -444,13 +444,14 @@ func TestReusableDelegationSetHandlers(t *testing.T) {
 
 	var createResp struct {
 		DelegationSet struct {
-			DelegationSetId string `xml:"DelegationSetId"`
-			State           string `xml:"State"`
+			Id              string   `xml:"Id"`
+			CallerReference string   `xml:"CallerReference"`
+			NameServers     []string `xml:"NameServers>NameServer"`
 		} `xml:"DelegationSet"`
 	}
 	require.NoError(t, xml.Unmarshal(resp.Body, &createResp))
-	dsID := createResp.DelegationSet.DelegationSetId
-	assert.Equal(t, "Complete", createResp.DelegationSet.State)
+	dsID := createResp.DelegationSet.Id
+	assert.Equal(t, "rds-ref-1", createResp.DelegationSet.CallerReference)
 
 	// GetReusableDelegationSet
 	req = httptest.NewRequest(http.MethodGet, "/2013-04-01/delegationset/"+dsID, nil)
@@ -464,7 +465,7 @@ func TestReusableDelegationSetHandlers(t *testing.T) {
 	resp, err = p.HandleRequest(context.Background(), "ListReusableDelegationSets", req)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
-	assert.Contains(t, string(resp.Body), "my-delegation-set")
+	assert.Contains(t, string(resp.Body), dsID)
 
 	// DeleteReusableDelegationSet
 	req = httptest.NewRequest(http.MethodDelete, "/2013-04-01/delegationset/"+dsID, nil)

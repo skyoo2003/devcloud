@@ -78,6 +78,10 @@ def test_describe_attachment(support_client):
 
 
 def test_describe_supported_languages(support_client):
-    resp = support_client.describe_supported_languages()
+    resp = support_client.describe_supported_languages(
+        issueType="customer-service",
+        serviceCode="general-info",
+        categoryCode="other",
+    )
     assert "supportedLanguages" in resp
     assert len(resp["supportedLanguages"]) >= 1

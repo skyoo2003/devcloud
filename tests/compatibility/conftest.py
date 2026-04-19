@@ -1,3 +1,4 @@
+import socket
 import subprocess
 import tempfile
 import time
@@ -9,7 +10,15 @@ import os
 import signal
 
 
-DEVCLOUD_PORT = int(os.environ.get("DEVCLOUD_PORT", "4747"))
+def _find_free_port():
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(("localhost", 0))
+        return s.getsockname()[1]
+
+
+DEVCLOUD_PORT = int(os.environ.get("DEVCLOUD_PORT", "0"))
+if DEVCLOUD_PORT == 0:
+    DEVCLOUD_PORT = _find_free_port()
 DEVCLOUD_URL = os.environ.get("DEVCLOUD_URL", f"http://localhost:{DEVCLOUD_PORT}")
 
 
@@ -37,15 +46,16 @@ def _start_server_error(cmd, project_root, env):
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
+    debug_timeout = 5
     try:
-        _wait_for_server(DEVCLOUD_URL, timeout=5)
+        _wait_for_server(DEVCLOUD_URL, timeout=debug_timeout)
     except RuntimeError:
         pass
     debug_proc.kill()
     debug_proc.wait()
     stderr = debug_proc.stderr.read().decode(errors="replace")
     raise RuntimeError(
-        f"devcloud server did not start within 30s.\n"
+        f"devcloud server did not start within {debug_timeout}s (diagnostic re-run).\n"
         f"command: {' '.join(cmd)}\n"
         f"stderr:\n{stderr}"
     ) from None
@@ -89,6 +99,7 @@ def devcloud_server():
     env = os.environ.copy()
     env["CGO_ENABLED"] = "1"
     env["DEVCLOUD_DATA_DIR"] = data_dir
+    env["DEVCLOUD_PORT"] = str(DEVCLOUD_PORT)
 
     proc = subprocess.Popen(
         cmd,

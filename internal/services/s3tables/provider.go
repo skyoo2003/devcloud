@@ -175,7 +175,8 @@ func (p *S3TablesProvider) createTableBucket(params map[string]any) (*plugin.Res
 }
 
 func (p *S3TablesProvider) deleteTableBucket(req *http.Request) (*plugin.Response, error) {
-	name := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	name := bucketARN
 	if name == "" {
 		return jsonError("ValidationException", "bucket name is required", http.StatusBadRequest), nil
 	}
@@ -186,7 +187,8 @@ func (p *S3TablesProvider) deleteTableBucket(req *http.Request) (*plugin.Respons
 }
 
 func (p *S3TablesProvider) getTableBucket(req *http.Request) (*plugin.Response, error) {
-	name := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	name := bucketARN
 	if name == "" {
 		return jsonError("ValidationException", "bucket name is required", http.StatusBadRequest), nil
 	}
@@ -220,7 +222,8 @@ func (p *S3TablesProvider) listTableBuckets() (*plugin.Response, error) {
 // --- Namespace operations ---
 
 func (p *S3TablesProvider) createNamespace(req *http.Request, params map[string]any) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -251,8 +254,8 @@ func (p *S3TablesProvider) createNamespace(req *http.Request, params map[string]
 }
 
 func (p *S3TablesProvider) deleteNamespace(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
+	bucketARN, ns, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -264,8 +267,8 @@ func (p *S3TablesProvider) deleteNamespace(req *http.Request) (*plugin.Response,
 }
 
 func (p *S3TablesProvider) getNamespace(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
+	bucketARN, ns, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -282,7 +285,8 @@ func (p *S3TablesProvider) getNamespace(req *http.Request) (*plugin.Response, er
 }
 
 func (p *S3TablesProvider) listNamespaces(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -305,8 +309,8 @@ func (p *S3TablesProvider) listNamespaces(req *http.Request) (*plugin.Response, 
 // --- Table operations ---
 
 func (p *S3TablesProvider) createTable(req *http.Request, params map[string]any) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
+	bucketARN, ns, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -330,9 +334,8 @@ func (p *S3TablesProvider) createTable(req *http.Request, params map[string]any)
 }
 
 func (p *S3TablesProvider) deleteTable(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -344,9 +347,10 @@ func (p *S3TablesProvider) deleteTable(req *http.Request) (*plugin.Response, err
 }
 
 func (p *S3TablesProvider) getTable(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	q := req.URL.Query()
+	bucketName := q.Get("tableBucketARN")
+	ns := q.Get("namespace")
+	tableName := q.Get("name")
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -359,8 +363,9 @@ func (p *S3TablesProvider) getTable(req *http.Request) (*plugin.Response, error)
 }
 
 func (p *S3TablesProvider) listTables(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
+	ns := req.URL.Query().Get("namespace")
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -378,9 +383,8 @@ func (p *S3TablesProvider) listTables(req *http.Request) (*plugin.Response, erro
 }
 
 func (p *S3TablesProvider) renameTable(req *http.Request, params map[string]any) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	oldName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, oldName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -401,9 +405,8 @@ func (p *S3TablesProvider) renameTable(req *http.Request, params map[string]any)
 }
 
 func (p *S3TablesProvider) updateTableMetadataLocation(req *http.Request, params map[string]any) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -424,9 +427,8 @@ func (p *S3TablesProvider) updateTableMetadataLocation(req *http.Request, params
 }
 
 func (p *S3TablesProvider) getTableMetadataLocation(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -444,9 +446,8 @@ func (p *S3TablesProvider) getTableMetadataLocation(req *http.Request) (*plugin.
 // --- Policy operations ---
 
 func (p *S3TablesProvider) getTablePolicy(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -463,9 +464,8 @@ func (p *S3TablesProvider) getTablePolicy(req *http.Request) (*plugin.Response, 
 }
 
 func (p *S3TablesProvider) putTablePolicy(req *http.Request, params map[string]any) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -482,9 +482,8 @@ func (p *S3TablesProvider) putTablePolicy(req *http.Request, params map[string]a
 }
 
 func (p *S3TablesProvider) deleteTablePolicy(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -498,7 +497,8 @@ func (p *S3TablesProvider) deleteTablePolicy(req *http.Request) (*plugin.Respons
 }
 
 func (p *S3TablesProvider) getTableBucketPolicy(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -511,7 +511,8 @@ func (p *S3TablesProvider) getTableBucketPolicy(req *http.Request) (*plugin.Resp
 }
 
 func (p *S3TablesProvider) putTableBucketPolicy(req *http.Request, params map[string]any) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -524,7 +525,8 @@ func (p *S3TablesProvider) putTableBucketPolicy(req *http.Request, params map[st
 }
 
 func (p *S3TablesProvider) deleteTableBucketPolicy(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -536,9 +538,8 @@ func (p *S3TablesProvider) deleteTableBucketPolicy(req *http.Request) (*plugin.R
 // --- Encryption operations ---
 
 func (p *S3TablesProvider) getTableEncryption(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -557,9 +558,8 @@ func (p *S3TablesProvider) getTableEncryption(req *http.Request) (*plugin.Respon
 }
 
 func (p *S3TablesProvider) putTableEncryption(req *http.Request, params map[string]any) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -580,9 +580,8 @@ func (p *S3TablesProvider) putTableEncryption(req *http.Request, params map[stri
 }
 
 func (p *S3TablesProvider) deleteTableEncryption(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -596,7 +595,8 @@ func (p *S3TablesProvider) deleteTableEncryption(req *http.Request) (*plugin.Res
 }
 
 func (p *S3TablesProvider) getTableBucketEncryption(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -611,7 +611,8 @@ func (p *S3TablesProvider) getTableBucketEncryption(req *http.Request) (*plugin.
 }
 
 func (p *S3TablesProvider) putTableBucketEncryption(req *http.Request, params map[string]any) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -628,7 +629,8 @@ func (p *S3TablesProvider) putTableBucketEncryption(req *http.Request, params ma
 }
 
 func (p *S3TablesProvider) deleteTableBucketEncryption(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -640,9 +642,8 @@ func (p *S3TablesProvider) deleteTableBucketEncryption(req *http.Request) (*plug
 // --- Maintenance operations ---
 
 func (p *S3TablesProvider) getTableMaintenanceConfiguration(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -668,9 +669,9 @@ func (p *S3TablesProvider) getTableMaintenanceConfiguration(req *http.Request) (
 }
 
 func (p *S3TablesProvider) putTableMaintenanceConfiguration(req *http.Request, params map[string]any) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, subresource := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
+	typeParam := subresource
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -679,7 +680,6 @@ func (p *S3TablesProvider) putTableMaintenanceConfiguration(req *http.Request, p
 	if err != nil {
 		return jsonError("NotFoundException", "table not found", http.StatusNotFound), nil
 	}
-	typeParam := pathParam(req.URL.Path, "maintenance")
 	if typeParam == "" {
 		typeParam, _ = params["type"].(string)
 	}
@@ -698,7 +698,8 @@ func (p *S3TablesProvider) putTableMaintenanceConfiguration(req *http.Request, p
 }
 
 func (p *S3TablesProvider) getTableBucketMaintenanceConfiguration(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -720,12 +721,13 @@ func (p *S3TablesProvider) getTableBucketMaintenanceConfiguration(req *http.Requ
 }
 
 func (p *S3TablesProvider) putTableBucketMaintenanceConfiguration(req *http.Request, params map[string]any) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
+	typeParam := pathSegment(req.URL.Path, "maintenance")
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
 	}
-	typeParam := pathParam(req.URL.Path, "maintenance")
 	if typeParam == "" {
 		typeParam, _ = params["type"].(string)
 	}
@@ -744,9 +746,8 @@ func (p *S3TablesProvider) putTableBucketMaintenanceConfiguration(req *http.Requ
 }
 
 func (p *S3TablesProvider) getTableMaintenanceJobStatus(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
-	ns := pathParam(req.URL.Path, "namespaces")
-	tableName := pathParam(req.URL.Path, "tables")
+	bucketARN, ns, tableName, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -762,7 +763,8 @@ func (p *S3TablesProvider) getTableMaintenanceJobStatus(req *http.Request) (*plu
 }
 
 func (p *S3TablesProvider) getTableBucketMaintenanceJobStatus(req *http.Request) (*plugin.Response, error) {
-	bucketName := pathParam(req.URL.Path, "buckets")
+	bucketARN, _, _, _ := s3PathParts(req.URL.Path)
+	bucketName := bucketARN
 	b, err := p.store.GetBucket(bucketName)
 	if err != nil {
 		return jsonError("NotFoundException", "bucket not found", http.StatusNotFound), nil
@@ -789,85 +791,47 @@ func tableToMap(t *Table) map[string]any {
 	}
 }
 
-// collapseARN collapses an ARN spread across URL path segments back into a
-// single segment. S3Tables uses ARNs as URI path parameters; because ARNs
-// contain '/' (e.g. "arn:aws:s3tables:...:bucket/my-bucket"), naive
-// strings.Split yields extra segments. This helper rejoins them.
-func collapseARN(parts []string, startIdx int) []string {
-	if startIdx >= len(parts) {
-		return parts
+// parseS3TablesPath strips the /v1 prefix and splits the path, collapsing
+// ARNs that span two segments (e.g. "arn:aws:s3tables:...:bucket/name").
+func parseS3TablesPath(path string) []string {
+	path = strings.TrimPrefix(path, "/v1")
+	parts := strings.Split(strings.Trim(path, "/"), "/")
+	if len(parts) >= 2 && strings.Contains(parts[1], "arn:") {
+		parts[1] = parts[1] + "/" + parts[2]
+		parts = append(parts[:2], parts[3:]...)
 	}
-	if !strings.HasPrefix(parts[startIdx], "arn:") {
-		return parts
+	if len(parts) >= 4 && parts[0] == "tables" && strings.Contains(parts[3], "arn:") {
+		parts[3] = parts[3] + "/" + parts[4]
+		parts = append(parts[:4], parts[5:]...)
 	}
-	// ARN segments end when the next segment is a known sub-resource.
-	subResources := map[string]bool{
-		"namespaces":         true,
-		"policy":             true,
-		"encryption":         true,
-		"maintenance":        true,
-		"maintenance-status": true,
-		"tables":             true,
-		"metadata-location":  true,
-		"rename":             true,
-	}
-	// Find the first index after startIdx that is a sub-resource.
-	arnEnd := len(parts)
-	for i := startIdx + 1; i < len(parts); i++ {
-		if subResources[parts[i]] {
-			arnEnd = i
-			break
-		}
-	}
-	// Rejoin [startIdx, arnEnd) into one ARN segment.
-	rejoined := strings.Join(parts[startIdx:arnEnd], "/")
-	result := make([]string, 0, len(parts)-(arnEnd-startIdx-1))
-	result = append(result, parts[:startIdx]...)
-	result = append(result, rejoined)
-	result = append(result, parts[arnEnd:]...)
-	return result
+	return parts
 }
 
 func resolveOp(method, path string) string {
-	parts := strings.Split(strings.Trim(path, "/"), "/")
-	if len(parts) >= 2 {
-		// Collapse ARN at position 1 (e.g. /buckets/arn:.../...)
-		// and at position 3 (e.g. /buckets/{bucketArn}/tables/{tableArn})
-		parts = collapseARN(parts, 1)
-		if len(parts) >= 4 && parts[2] == "tables" {
-			parts = collapseARN(parts, 3)
-		}
+	parts := parseS3TablesPath(path)
+	if len(parts) == 0 {
+		return ""
 	}
 	n := len(parts)
-	switch {
-	// /buckets...
-	case n >= 1 && parts[0] == "buckets":
+	switch parts[0] {
+	case "buckets":
 		switch n {
 		case 1:
 			switch method {
 			case http.MethodGet:
 				return "ListTableBuckets"
-			case http.MethodPost, http.MethodPut:
+			case http.MethodPut, http.MethodPost:
 				return "CreateTableBucket"
 			}
 		case 2:
 			switch method {
-			case http.MethodPost, http.MethodPut:
-				return "CreateTableBucket"
 			case http.MethodGet:
 				return "GetTableBucket"
 			case http.MethodDelete:
 				return "DeleteTableBucket"
 			}
 		case 3:
-			// /buckets/{name}/namespaces
-			// /buckets/{name}/policy
-			// /buckets/{name}/encryption
 			switch parts[2] {
-			case "namespaces":
-				if method == http.MethodGet {
-					return "ListNamespaces"
-				}
 			case "policy":
 				switch method {
 				case http.MethodGet:
@@ -893,25 +857,8 @@ func resolveOp(method, path string) string {
 				case http.MethodPut, http.MethodPost:
 					return "PutTableBucketMaintenanceConfiguration"
 				}
-			case "maintenance-status":
-				if method == http.MethodGet {
-					return "GetTableBucketMaintenanceJobStatus"
-				}
 			}
 		case 4:
-			if parts[2] == "namespaces" {
-				switch method {
-				case http.MethodPost, http.MethodPut:
-					return "CreateNamespace"
-				case http.MethodGet:
-					return "GetNamespace"
-				case http.MethodDelete:
-					return "DeleteNamespace"
-				}
-			}
-			if parts[2] == "tables" && method == http.MethodGet {
-				return "ListTables"
-			}
 			if parts[2] == "maintenance" {
 				switch method {
 				case http.MethodGet:
@@ -920,78 +867,181 @@ func resolveOp(method, path string) string {
 					return "PutTableBucketMaintenanceConfiguration"
 				}
 			}
-		case 5:
-			// /buckets/{b}/namespaces/{ns}/tables
-			if parts[2] == "namespaces" && parts[4] == "tables" {
-				if method == http.MethodGet {
-					return "ListTables"
-				}
-				if method == http.MethodPost || method == http.MethodPut {
-					return "CreateTable"
-				}
+		}
+	case "namespaces":
+		switch n {
+		case 2:
+			switch method {
+			case http.MethodGet:
+				return "ListNamespaces"
+			case http.MethodPut, http.MethodPost:
+				return "CreateNamespace"
 			}
-		case 6:
-			// /buckets/{b}/namespaces/{ns}/tables/{t}
-			if parts[2] == "namespaces" && parts[4] == "tables" {
+		case 3:
+			switch method {
+			case http.MethodGet:
+				return "GetNamespace"
+			case http.MethodPut, http.MethodPost:
+				return "CreateNamespace"
+			case http.MethodDelete:
+				return "DeleteNamespace"
+			}
+		}
+	case "tables":
+		switch n {
+		case 2:
+			if method == http.MethodGet {
+				return "ListTables"
+			}
+		case 3:
+			if method == http.MethodPut || method == http.MethodPost {
+				return "CreateTable"
+			}
+		case 4:
+			switch parts[3] {
+			case "rename":
+				if method == http.MethodPut || method == http.MethodPost {
+					return "RenameTable"
+				}
+			case "metadata-location":
 				switch method {
 				case http.MethodGet:
-					return "GetTable"
+					return "GetTableMetadataLocation"
+				case http.MethodPut, http.MethodPost:
+					return "UpdateTableMetadataLocation"
+				}
+			case "policy":
+				switch method {
+				case http.MethodGet:
+					return "GetTablePolicy"
+				case http.MethodPut, http.MethodPost:
+					return "PutTablePolicy"
 				case http.MethodDelete:
+					return "DeleteTablePolicy"
+				}
+			case "encryption":
+				switch method {
+				case http.MethodGet:
+					return "GetTableEncryption"
+				case http.MethodPut, http.MethodPost:
+					return "PutTableEncryption"
+				case http.MethodDelete:
+					return "DeleteTableEncryption"
+				}
+			case "maintenance":
+				switch method {
+				case http.MethodGet:
+					return "GetTableMaintenanceConfiguration"
+				case http.MethodPut, http.MethodPost:
+					return "PutTableMaintenanceConfiguration"
+				}
+			case "maintenance-job-status":
+				if method == http.MethodGet {
+					return "GetTableMaintenanceJobStatus"
+				}
+			default:
+				if method == http.MethodDelete {
 					return "DeleteTable"
 				}
 			}
-		case 7:
-			// /buckets/{b}/namespaces/{ns}/tables/{t}/{subresource}
-			if parts[2] == "namespaces" && parts[4] == "tables" {
-				switch parts[6] {
-				case "rename":
-					if method == http.MethodPost || method == http.MethodPut {
-						return "RenameTable"
-					}
-				case "metadata-location":
-					switch method {
-					case http.MethodGet:
-						return "GetTableMetadataLocation"
-					case http.MethodPut, http.MethodPost, http.MethodPatch:
-						return "UpdateTableMetadataLocation"
-					}
-				case "policy":
-					switch method {
-					case http.MethodGet:
-						return "GetTablePolicy"
-					case http.MethodPut, http.MethodPost:
-						return "PutTablePolicy"
-					case http.MethodDelete:
-						return "DeleteTablePolicy"
-					}
-				case "encryption":
-					switch method {
-					case http.MethodGet:
-						return "GetTableEncryption"
-					case http.MethodPut, http.MethodPost:
-						return "PutTableEncryption"
-					case http.MethodDelete:
-						return "DeleteTableEncryption"
-					}
-				case "maintenance":
-					switch method {
-					case http.MethodGet:
-						return "GetTableMaintenanceConfiguration"
-					case http.MethodPut, http.MethodPost:
-						return "PutTableMaintenanceConfiguration"
-					}
-				case "maintenance-status":
-					if method == http.MethodGet {
-						return "GetTableMaintenanceJobStatus"
-					}
+		case 5:
+			switch parts[4] {
+			case "rename":
+				if method == http.MethodPut || method == http.MethodPost {
+					return "RenameTable"
+				}
+			case "metadata-location":
+				switch method {
+				case http.MethodGet:
+					return "GetTableMetadataLocation"
+				case http.MethodPut, http.MethodPost:
+					return "UpdateTableMetadataLocation"
+				}
+			case "policy":
+				switch method {
+				case http.MethodGet:
+					return "GetTablePolicy"
+				case http.MethodPut, http.MethodPost:
+					return "PutTablePolicy"
+				case http.MethodDelete:
+					return "DeleteTablePolicy"
+				}
+			case "encryption":
+				switch method {
+				case http.MethodGet:
+					return "GetTableEncryption"
+				case http.MethodPut, http.MethodPost:
+					return "PutTableEncryption"
+				case http.MethodDelete:
+					return "DeleteTableEncryption"
+				}
+			case "maintenance":
+				switch method {
+				case http.MethodGet:
+					return "GetTableMaintenanceConfiguration"
+				case http.MethodPut, http.MethodPost:
+					return "PutTableMaintenanceConfiguration"
+				}
+			case "maintenance-job-status":
+				if method == http.MethodGet {
+					return "GetTableMaintenanceJobStatus"
 				}
 			}
+		case 6:
+			if parts[4] == "maintenance" {
+				switch method {
+				case http.MethodGet:
+					return "GetTableMaintenanceConfiguration"
+				case http.MethodPut, http.MethodPost:
+					return "PutTableMaintenanceConfiguration"
+				}
+			}
+		}
+	case "get-table":
+		if method == http.MethodGet {
+			return "GetTable"
 		}
 	}
 	return ""
 }
 
-func pathParam(path, key string) string {
+// s3PathParts parses a boto3-style S3Tables URL and returns the extracted
+// bucket ARN (or name), namespace, table name, and subresource.
+func s3PathParts(path string) (bucketARN, namespace, tableName, subresource string) {
+	parts := parseS3TablesPath(path)
+	if len(parts) == 0 {
+		return
+	}
+	switch parts[0] {
+	case "buckets":
+		if len(parts) >= 2 {
+			bucketARN = parts[1]
+		}
+	case "namespaces":
+		if len(parts) >= 2 {
+			bucketARN = parts[1]
+		}
+		if len(parts) >= 3 {
+			namespace = parts[2]
+		}
+	case "tables":
+		if len(parts) >= 2 {
+			bucketARN = parts[1]
+		}
+		if len(parts) >= 3 {
+			namespace = parts[2]
+		}
+		if len(parts) >= 4 {
+			tableName = parts[3]
+		}
+		if len(parts) >= 5 {
+			subresource = parts[4]
+		}
+	}
+	return
+}
+
+func pathSegment(path, key string) string {
 	parts := strings.Split(path, "/")
 	for i, p := range parts {
 		if p == key && i+1 < len(parts) {
