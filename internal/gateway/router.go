@@ -54,7 +54,7 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		ct = "application/octet-stream"
 	}
 	// Prevent XSS: this gateway serves AWS API responses only (JSON/XML),
-	// never user-facing HTML. Sanitize any attempt to serve text/html.
+	// never user-facing HTML. Sanitize any attempt to serve HTML-like content.
 	ct = strings.TrimSpace(ct)
 	htmlLike := false
 	for _, p := range strings.Split(ct, ",") {
@@ -62,7 +62,12 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if p == "" {
 			continue
 		}
-		if mediaType, _, parseErr := mime.ParseMediaType(p); parseErr == nil && strings.EqualFold(mediaType, "text/html") {
+		mediaType, _, parseErr := mime.ParseMediaType(p)
+		if parseErr != nil {
+			continue
+		}
+		mtLower := strings.ToLower(mediaType)
+		if mtLower == "text/html" || mtLower == "application/xhtml+xml" || strings.HasSuffix(mtLower, "+html") {
 			htmlLike = true
 			break
 		}

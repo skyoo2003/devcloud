@@ -30,6 +30,7 @@ func NewResourceStore[T any](db *sqlite.Store, table, idCol, cols string, scanne
 	if err := validateIdentifier(idCol, "idCol"); err != nil {
 		return nil, err
 	}
+	var validCols []string
 	for _, c := range strings.Split(cols, ",") {
 		c = strings.TrimSpace(c)
 		if c == "" {
@@ -38,8 +39,10 @@ func NewResourceStore[T any](db *sqlite.Store, table, idCol, cols string, scanne
 		if err := validateIdentifier(c, "col"); err != nil {
 			return nil, err
 		}
+		validCols = append(validCols, c)
 	}
-	return &ResourceStore[T]{db: db, table: table, idCol: idCol, cols: cols, scanner: scanner}, nil
+	normalizedCols := strings.Join(validCols, ", ")
+	return &ResourceStore[T]{db: db, table: table, idCol: idCol, cols: normalizedCols, scanner: scanner}, nil
 }
 
 func validateIdentifier(s, kind string) error {
