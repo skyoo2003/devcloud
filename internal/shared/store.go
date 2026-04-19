@@ -22,6 +22,8 @@ type ResourceStore[T any] struct {
 }
 
 func NewResourceStore[T any](db *sqlite.Store, table, idCol, cols string, scanner func(Scanner) (T, error)) (*ResourceStore[T], error) {
+	table = strings.TrimSpace(table)
+	idCol = strings.TrimSpace(idCol)
 	if err := validateIdentifier(table, "table"); err != nil {
 		return nil, err
 	}
