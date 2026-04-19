@@ -510,7 +510,7 @@ func (p *ServerlessRepoProvider) unshareApplication(req *http.Request, params ma
 	}
 	principal := strParam(params, "OrganizationId", "organizationId")
 	if principal == "" {
-		principal, _ = params["Principal"].(string)
+		principal = strParam(params, "Principal", "principal")
 	}
 	if principal == "" {
 		return shared.JSONError("BadRequestException", "Principal is required", http.StatusBadRequest), nil
