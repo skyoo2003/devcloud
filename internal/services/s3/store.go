@@ -23,16 +23,16 @@ func NewFileStore(baseDir string) *FileStore {
 	return &FileStore{baseDir: abs}
 }
 
-// validatePathComponent ensures a user-provided path fragment is a single safe component.
+// validatePathComponent ensures a user-provided path fragment is safe.
+// Empty strings and bare "." or ".." components are rejected.
+// Slashes are allowed since S3 keys use "/" as a delimiter (e.g. "dir/file.txt").
+// Path traversal protection is enforced by the filepath.Rel containment check in safePath.
 func validatePathComponent(part string) error {
 	if part == "" {
 		return fmt.Errorf("invalid empty path component")
 	}
 	if part == "." || part == ".." {
 		return fmt.Errorf("invalid path component: %q", part)
-	}
-	if strings.ContainsRune(part, filepath.Separator) || strings.Contains(part, "/") || strings.Contains(part, "\\") {
-		return fmt.Errorf("invalid path component with separators: %q", part)
 	}
 	return nil
 }
