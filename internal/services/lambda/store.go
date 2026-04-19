@@ -166,7 +166,6 @@ func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
 
 	joined := filepath.Join(s.codeDir, accountID, functionName, "code.zip")
 	cleaned := filepath.Clean(joined)
-
 	absBase, err := filepath.Abs(s.codeDir)
 	if err != nil {
 		return "", fmt.Errorf("resolve base code directory: %w", err)
@@ -175,7 +174,6 @@ func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("resolve code path: %w", err)
 	}
-
 	rel, err := filepath.Rel(absBase, absCleaned)
 	if err != nil {
 		return "", fmt.Errorf("resolve relative code path: %w", err)
