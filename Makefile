@@ -34,7 +34,8 @@ clean:
 	rm -rf dist/ data/
 
 changelog:
-ifndef VERSION
-	$(error VERSION is required. Usage: make changelog VERSION=v0.2.0)
-endif
+	@if [ -z "$(VERSION)" ]; then \
+	  echo "VERSION is required. Usage: make changelog VERSION=v0.2.0"; \
+	  exit 1; \
+	fi
 	@changie batch $(VERSION) && changie merge

@@ -42,7 +42,7 @@ checksum:
 
 dockers_v2:
 - images:
-  - ghcr.io/skyoo2003/devcloud
+  - ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/{{ .ProjectName }}
   dockerfile: Dockerfile.goreleaser
   ids:
   - devcloud
@@ -56,15 +56,12 @@ dockers_v2:
   - "latest-alpine"
   labels:
     org.opencontainers.image.created: "{{ .Date }}"
-    org.opencontainers.image.source: "https://github.com/skyoo2003/devcloud"
+    org.opencontainers.image.source: "https://github.com/{{ .Env.GITHUB_REPOSITORY_OWNER }}/{{ .ProjectName }}"
     org.opencontainers.image.title: "{{ .ProjectName }}"
     org.opencontainers.image.revision: "{{ .FullCommit }}"
     org.opencontainers.image.version: "{{ .Version }}"
 
 release:
-  github:
-    owner: skyoo2003
-    name: devcloud
   name_template: "{{ .Version }}"
   disable: false
   mode: replace
