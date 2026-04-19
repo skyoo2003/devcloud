@@ -387,6 +387,15 @@ func (s *ECRStore) InitiateLayerUpload(accountID, repoName string) (string, erro
 
 // UploadLayerPart saves layer part blob to the filesystem and records the part metadata.
 func (s *ECRStore) UploadLayerPart(accountID, repoName, uploadID string, partFirst, partLast int64, blob []byte) error {
+	// uploadID is used as a filesystem path component; enforce generated-ID format.
+	// InitiateLayerUpload creates 16 random bytes encoded as 32 lowercase hex chars.
+	if len(uploadID) != 32 {
+		return ErrLayerUploadNotFound
+	}
+	if _, err := hex.DecodeString(uploadID); err != nil {
+		return ErrLayerUploadNotFound
+	}
+
 	// Verify upload exists.
 	var exists int
 	_ = s.db().QueryRow(`SELECT COUNT(*) FROM layers WHERE upload_id=? AND repo_name=? AND account_id=?`, uploadID, repoName, accountID).Scan(&exists)
