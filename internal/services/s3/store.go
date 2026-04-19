@@ -26,13 +26,39 @@ func NewFileStore(baseDir string) *FileStore {
 // safePath joins the components under baseDir and verifies the result does not
 // escape the base directory. It returns an error on path traversal attempts.
 func (fs *FileStore) safePath(parts ...string) (string, error) {
-	joined := filepath.Join(append([]string{fs.baseDir}, parts...)...)
-	cleaned := filepath.Clean(joined)
-	// Ensure the resolved path is still under baseDir.
-	if !strings.HasPrefix(cleaned, fs.baseDir+string(filepath.Separator)) && cleaned != fs.baseDir {
-		return "", fmt.Errorf("path traversal detected: %s", cleaned)
+	cleanParts := make([]string, 0, len(parts))
+	for _, part := range parts {
+		if part == "" {
+			return "", fmt.Errorf("invalid empty path segment")
+		}
+		if filepath.IsAbs(part) {
+			return "", fmt.Errorf("absolute path segment not allowed: %s", part)
+		}
+		cleanPart := filepath.Clean(part)
+		if cleanPart == ".." || strings.HasPrefix(cleanPart, ".."+string(filepath.Separator)) {
+			return "", fmt.Errorf("path traversal detected in segment: %s", part)
+		}
+		cleanParts = append(cleanParts, cleanPart)
 	}
-	return cleaned, nil
+
+	baseAbs, err := filepath.Abs(fs.baseDir)
+	if err != nil {
+		return "", err
+	}
+	candidateAbs, err := filepath.Abs(filepath.Join(append([]string{baseAbs}, cleanParts...)...))
+	if err != nil {
+		return "", err
+	}
+
+	rel, err := filepath.Rel(baseAbs, candidateAbs)
+	if err != nil {
+		return "", err
+	}
+	if rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) || filepath.IsAbs(rel) {
+		return "", fmt.Errorf("path traversal detected: %s", candidateAbs)
+	}
+
+	return candidateAbs, nil
 }
 
 // objectPath returns the absolute filesystem path for the given object.
