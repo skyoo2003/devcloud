@@ -144,13 +144,40 @@ func (s *LambdaStore) Close() error {
 	return s.store.Close()
 }
 
+// validatePathComponent ensures v is a single safe path component.
+func validatePathComponent(name, v string) error {
+	if v == "" {
+		return fmt.Errorf("%s is required", name)
+	}
+	if v == "." || v == ".." {
+		return fmt.Errorf("invalid %s: %q", name, v)
+	}
+	if strings.Contains(v, "/") || strings.Contains(v, "\\") {
+		return fmt.Errorf("invalid %s: must not contain path separators", name)
+	}
+	return nil
+}
+
 // codePath returns the filesystem path for a function's code zip.
 // It validates the result stays under codeDir to prevent path traversal.
 func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
+	if err := validatePathComponent("accountID", accountID); err != nil {
+		return "", err
+	}
+	if err := validatePathComponent("functionName", functionName); err != nil {
+		return "", err
+	}
+
 	joined := filepath.Join(s.codeDir, accountID, functionName, "code.zip")
 	cleaned := filepath.Clean(joined)
-	absBase, _ := filepath.Abs(s.codeDir)
-	absCleaned, _ := filepath.Abs(cleaned)
+	absBase, err := filepath.Abs(s.codeDir)
+	if err != nil {
+		return "", fmt.Errorf("resolve base code dir: %w", err)
+	}
+	absCleaned, err := filepath.Abs(cleaned)
+	if err != nil {
+		return "", fmt.Errorf("resolve code path: %w", err)
+	}
 	if !strings.HasPrefix(absCleaned, absBase+string(filepath.Separator)) {
 		return "", fmt.Errorf("path traversal detected: %s", cleaned)
 	}
