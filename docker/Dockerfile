@@ -26,7 +26,6 @@ WORKDIR /app
 COPY --from=go-builder /devcloud /app/devcloud
 COPY --from=go-builder /codegen /app/codegen
 COPY --from=web-builder /app/web/out /app/web/out
-COPY devcloud.yaml /app/devcloud.yaml
 COPY smithy-models/ /app/smithy-models/
 COPY internal/codegen/templates/ /app/templates/
 COPY docker/entrypoint.sh /app/entrypoint.sh
@@ -36,4 +35,4 @@ EXPOSE 4747
 VOLUME /app/data
 
 ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["/app/devcloud", "-config", "/app/devcloud.yaml"]
+CMD ["/app/devcloud"]
