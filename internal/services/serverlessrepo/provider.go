@@ -261,19 +261,19 @@ func (p *ServerlessRepoProvider) updateApplication(req *http.Request, params map
 	}
 
 	description := app.Description
-	if d, ok := params["Description"].(string); ok {
+	if d := strParam(params, "Description", "description"); d != "" {
 		description = d
 	}
 	author := app.Author
-	if a, ok := params["Author"].(string); ok {
+	if a := strParam(params, "Author", "author"); a != "" {
 		author = a
 	}
 	homePageURL := app.HomePageURL
-	if h, ok := params["HomePageUrl"].(string); ok {
+	if h := strParam(params, "HomePageUrl", "homePageUrl"); h != "" {
 		homePageURL = h
 	}
 	readmeURL := app.ReadmeURL
-	if r, ok := params["ReadmeUrl"].(string); ok {
+	if r := strParam(params, "ReadmeUrl", "readmeUrl"); r != "" {
 		readmeURL = r
 	}
 
@@ -321,8 +321,7 @@ func (p *ServerlessRepoProvider) listApplications() (*plugin.Response, error) {
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"applications": list,
 		"Applications": list,
-		"nextToken":    nil,
-		"NextToken":    nil,
+		"nextToken":    nil, "NextToken": nil,
 	})
 }
 
@@ -455,10 +454,10 @@ func (p *ServerlessRepoProvider) createCloudFormationChangeSet(req *http.Request
 		return nil, err
 	}
 	return shared.JSONResponse(http.StatusCreated, map[string]any{
-		"ApplicationId":   appID,
-		"ChangeSetId":     cs.ChangeSetID,
+		"ApplicationId": appID, "applicationId": appID,
+		"ChangeSetId": cs.ChangeSetID, "changeSetId": cs.ChangeSetID,
 		"StackId":         "arn:aws:cloudformation:us-east-1:000000000000:stack/" + stackName,
-		"SemanticVersion": cs.SemanticVersion,
+		"SemanticVersion": cs.SemanticVersion, "semanticVersion": cs.SemanticVersion,
 	})
 }
 
@@ -477,11 +476,11 @@ func (p *ServerlessRepoProvider) createCloudFormationTemplate(req *http.Request,
 		return nil, err
 	}
 	return shared.JSONResponse(http.StatusCreated, map[string]any{
-		"ApplicationId":   appID,
-		"TemplateId":      tmpl.TemplateID,
-		"SemanticVersion": tmpl.SemanticVersion,
-		"TemplateUrl":     tmpl.TemplateURL,
-		"Status":          tmpl.Status,
+		"ApplicationId": appID, "applicationId": appID,
+		"TemplateId": tmpl.TemplateID, "templateId": tmpl.TemplateID,
+		"SemanticVersion": tmpl.SemanticVersion, "semanticVersion": tmpl.SemanticVersion,
+		"TemplateUrl": tmpl.TemplateURL, "templateUrl": tmpl.TemplateURL,
+		"Status": tmpl.Status, "status": tmpl.Status,
 	})
 }
 
@@ -496,11 +495,11 @@ func (p *ServerlessRepoProvider) getCloudFormationTemplate(req *http.Request) (*
 		return shared.JSONError("NotFoundException", "template not found", http.StatusNotFound), nil
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
-		"ApplicationId":   tmpl.ApplicationID,
-		"TemplateId":      tmpl.TemplateID,
-		"SemanticVersion": tmpl.SemanticVersion,
-		"TemplateUrl":     tmpl.TemplateURL,
-		"Status":          tmpl.Status,
+		"ApplicationId": tmpl.ApplicationID, "applicationId": tmpl.ApplicationID,
+		"TemplateId": tmpl.TemplateID, "templateId": tmpl.TemplateID,
+		"SemanticVersion": tmpl.SemanticVersion, "semanticVersion": tmpl.SemanticVersion,
+		"TemplateUrl": tmpl.TemplateURL, "templateUrl": tmpl.TemplateURL,
+		"Status": tmpl.Status, "status": tmpl.Status,
 	})
 }
 
@@ -509,7 +508,7 @@ func (p *ServerlessRepoProvider) unshareApplication(req *http.Request, params ma
 	if appID == "" {
 		return shared.JSONError("BadRequestException", "ApplicationId is required", http.StatusBadRequest), nil
 	}
-	principal, _ := params["OrganizationId"].(string)
+	principal := strParam(params, "OrganizationId", "organizationId")
 	if principal == "" {
 		principal, _ = params["Principal"].(string)
 	}
@@ -539,8 +538,8 @@ func (p *ServerlessRepoProvider) listApplicationDependencies(req *http.Request) 
 		})
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{
-		"Dependencies": list,
-		"NextToken":    nil,
+		"dependencies": list, "Dependencies": list,
+		"nextToken": nil, "NextToken": nil,
 	})
 }
 

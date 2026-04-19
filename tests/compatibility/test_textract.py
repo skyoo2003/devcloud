@@ -124,7 +124,7 @@ def test_adapter_crud(textract_client):
 
 def test_get_lending_analysis_summary(textract_client):
     start = textract_client.start_lending_analysis(
-        DocumentLocation={"S3Object": {"Bucket": "b", "Name": "l.pdf"}},
+        DocumentLocation={"S3Object": {"Bucket": "tst", "Name": "l.pdf"}},
     )
     resp = textract_client.get_lending_analysis_summary(JobId=start["JobId"])
     assert "Summary" in resp

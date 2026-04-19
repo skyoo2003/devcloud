@@ -829,6 +829,7 @@ func collapseARN(parts []string, startIdx int) []string {
 }
 
 func resolveOp(method, path string) string {
+	path = strings.TrimPrefix(path, "/v1")
 	parts := strings.Split(strings.Trim(path, "/"), "/")
 	if len(parts) >= 2 {
 		// Collapse ARN at position 1 (e.g. /buckets/arn:.../...)

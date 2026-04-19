@@ -578,6 +578,10 @@ func adapterToMap(a *Adapter, tags map[string]string) map[string]any {
 	if tags == nil {
 		tags = map[string]string{}
 	}
+	tagList := make([]map[string]string, 0, len(tags))
+	for k, v := range tags {
+		tagList = append(tagList, map[string]string{"Key": k, "Value": v})
+	}
 	return map[string]any{
 		"AdapterId":    a.ID,
 		"AdapterArn":   a.ARN,
@@ -585,7 +589,7 @@ func adapterToMap(a *Adapter, tags map[string]string) map[string]any {
 		"AutoUpdate":   a.AutoUpdate,
 		"FeatureTypes": jsonParse(a.FeatureTypes),
 		"CreationTime": a.CreatedAt.Unix(),
-		"Tags":         tags,
+		"Tags":         tagList,
 	}
 }
 
