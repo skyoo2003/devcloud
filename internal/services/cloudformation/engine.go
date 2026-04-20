@@ -23,6 +23,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"math"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -434,7 +435,11 @@ func newAttrCache(stackName string) *attrCache {
 func (c *attrCache) set(logical, physical, arn string, attrs map[string]string) {
 	c.physical[logical] = physical
 	c.arns[logical] = arn
-	copyAttrs := make(map[string]string, len(attrs)+2)
+	capHint := len(attrs)
+	if capHint <= math.MaxInt-2 {
+		capHint += 2
+	}
+	copyAttrs := make(map[string]string, capHint)
 	for k, v := range attrs {
 		copyAttrs[k] = v
 	}
