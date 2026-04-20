@@ -18,7 +18,8 @@ import (
 )
 
 const (
-	defaultAccountID          = plugin.DefaultAccountID
+	defaultAccountID = plugin.DefaultAccountID
+	// maxRunInstancesBatchCount matches the AWS EC2 default on-demand instance limit per launch request.
 	maxRunInstancesBatchCount = 1000
 )
 
@@ -200,6 +201,19 @@ func (p *Provider) handleRunInstances(form url.Values) (*plugin.Response, error)
 		}
 		if n > maxRunInstancesBatchCount {
 			return ec2XMLError("InvalidParameterValue", fmt.Sprintf("MinCount exceeds maximum allowed value (%d)", maxRunInstancesBatchCount), http.StatusBadRequest), nil
+		}
+		count = n
+	}
+	if s := form.Get("MaxCount"); s != "" {
+		n, err := strconv.Atoi(s)
+		if err != nil || n <= 0 {
+			return ec2XMLError("InvalidParameterValue", "MaxCount must be a positive integer", http.StatusBadRequest), nil
+		}
+		if n > maxRunInstancesBatchCount {
+			return ec2XMLError("InvalidParameterValue", fmt.Sprintf("MaxCount exceeds maximum allowed value (%d)", maxRunInstancesBatchCount), http.StatusBadRequest), nil
+		}
+		if n < count {
+			return ec2XMLError("InvalidParameterValue", "MaxCount must be greater than or equal to MinCount", http.StatusBadRequest), nil
 		}
 		count = n
 	}
