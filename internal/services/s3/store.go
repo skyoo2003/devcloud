@@ -44,12 +44,25 @@ func validPathComponent(part string) error {
 // escape the base directory. It returns an error on path traversal attempts.
 // All components must be single path segments (no separators).
 func (fs *FileStore) safePath(parts ...string) (string, error) {
-	joined := filepath.Join(append([]string{fs.baseDir}, parts...)...)
-	cleaned := filepath.Clean(joined)
+	cleanParts := make([]string, 0, len(parts))
+	for _, part := range parts {
+		if part == "" {
+			continue
+		}
+		if filepath.IsAbs(part) {
+			return "", fmt.Errorf("absolute path segment not allowed: %s", part)
+		}
+		cleanPart := filepath.Clean(part)
+		if cleanPart == ".." || strings.HasPrefix(cleanPart, ".."+string(filepath.Separator)) {
+			return "", fmt.Errorf("path traversal detected in segment: %s", part)
+		}
+		cleanParts = append(cleanParts, cleanPart)
+	}
 
-	// Resolve symlinks if the candidate path exists; otherwise use cleaned.
-	candidate := cleaned
-	if resolved, err := filepath.EvalSymlinks(cleaned); err == nil {
+	candidate := filepath.Join(append([]string{fs.baseDir}, cleanParts...)...)
+
+	// Resolve symlinks if the candidate path exists; otherwise use the joined path.
+	if resolved, err := filepath.EvalSymlinks(candidate); err == nil {
 		candidate = resolved
 	}
 
@@ -57,9 +70,10 @@ func (fs *FileStore) safePath(parts ...string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("resolve relative path: %w", err)
 	}
-	if rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) {
+	if rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) || filepath.IsAbs(rel) {
 		return "", fmt.Errorf("path traversal detected: %s", candidate)
 	}
+
 	return candidate, nil
 }
 
