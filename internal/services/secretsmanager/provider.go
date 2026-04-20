@@ -426,9 +426,16 @@ func (p *Provider) cancelRotateSecret(params map[string]any) (*plugin.Response, 
 // allowedChars is the default character pool for random passwords.
 const allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:,.<>?"
 
+// maxRandomPasswordLength caps user-controlled password length to prevent
+// excessive memory allocation from untrusted input.
+const maxRandomPasswordLength = 4096
+
 func (p *Provider) getRandomPassword(params map[string]any) (*plugin.Response, error) {
 	length := 32
-	if l, ok := params["PasswordLength"].(float64); ok && l > 0 {
+	if l, ok := params["PasswordLength"].(float64); ok {
+		if l <= 0 || l > maxRandomPasswordLength {
+			return smError("InvalidParameterException", fmt.Sprintf("PasswordLength must be between 1 and %d", maxRandomPasswordLength), http.StatusBadRequest), nil
+		}
 		length = int(l)
 	}
 	excludeChars, _ := params["ExcludeCharacters"].(string)
