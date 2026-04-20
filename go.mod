@@ -7,7 +7,7 @@ toolchain go1.26.1
 require (
 	github.com/dgraph-io/badger/v4 v4.9.1
 	github.com/gorilla/websocket v1.5.3
-	github.com/mattn/go-sqlite3 v1.14.41
+	github.com/mattn/go-sqlite3 v1.14.42
 	github.com/stretchr/testify v1.11.1
 	gopkg.in/yaml.v3 v3.0.1
 )
