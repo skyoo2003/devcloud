@@ -64,14 +64,11 @@ func (c *LogCollector) Recent(n int) []RequestLog {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 
-	if n > c.maxSize {
-		n = c.maxSize
+	if n <= 0 || c.count == 0 {
+		return []RequestLog{}
 	}
 	if n > c.count {
 		n = c.count
-	}
-	if n <= 0 {
-		return []RequestLog{}
 	}
 
 	result := make([]RequestLog, n)
