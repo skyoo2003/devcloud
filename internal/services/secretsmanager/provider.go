@@ -434,7 +434,7 @@ func (p *Provider) getRandomPassword(params map[string]any) (*plugin.Response, e
 	length := 32
 	if l, ok := params["PasswordLength"].(float64); ok {
 		if l <= 0 || l > maxRandomPasswordLength {
-			return smError("InvalidParameterException", "PasswordLength must be between 1 and 4096", http.StatusBadRequest), nil
+			return smError("InvalidParameterException", fmt.Sprintf("PasswordLength must be between 1 and %d", maxRandomPasswordLength), http.StatusBadRequest), nil
 		}
 		length = int(l)
 	}
