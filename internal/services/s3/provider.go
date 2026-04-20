@@ -849,6 +849,9 @@ func (p *S3Provider) uploadPart(_ context.Context, bucket, key, uploadID, partNu
 	if err != nil || partNumber < 1 {
 		return xmlError("InvalidArgument", "invalid part number", http.StatusBadRequest), nil
 	}
+	if !shared.ValidateUploadID(uploadID) {
+		return xmlError("InvalidArgument", "invalid uploadId", http.StatusBadRequest), nil
+	}
 
 	if _, err := p.metaStore.GetMultipartUpload(uploadID); err != nil {
 		if errors.Is(err, ErrUploadNotFound) {
@@ -1005,6 +1008,9 @@ func (p *S3Provider) listMultipartUploads(_ context.Context, bucket string) (*pl
 }
 
 func (p *S3Provider) listParts(_ context.Context, bucket, key, uploadID string) (*plugin.Response, error) {
+	if !shared.ValidateUploadID(uploadID) {
+		return xmlError("InvalidArgument", "invalid uploadId", http.StatusBadRequest), nil
+	}
 	if _, err := p.metaStore.GetMultipartUpload(uploadID); err != nil {
 		if errors.Is(err, ErrUploadNotFound) {
 			return xmlError("NoSuchUpload", "upload not found", http.StatusNotFound), nil
