@@ -201,7 +201,7 @@ func (p *Provider) createStream(params map[string]any) (*plugin.Response, error)
 	}
 	shardCount := intParam(params, "ShardCount", 1)
 	if shardCount <= 0 || shardCount > maxShardCount {
-		return jsonErr("ValidationException", "ShardCount must be between 1 and 1024", http.StatusBadRequest), nil
+		return jsonErr("ValidationException", fmt.Sprintf("ShardCount must be between 1 and %d", maxShardCount), http.StatusBadRequest), nil
 	}
 	mode := "PROVISIONED"
 	if md, ok := params["StreamModeDetails"].(map[string]any); ok {
