@@ -194,11 +194,15 @@ func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error)
 // --- Stream CRUD ---
 
 func (p *Provider) createStream(params map[string]any) (*plugin.Response, error) {
+	const maxShardCount = 1024
 	name, _ := params["StreamName"].(string)
 	if name == "" {
 		return jsonErr("ValidationException", "StreamName is required", http.StatusBadRequest), nil
 	}
 	shardCount := intParam(params, "ShardCount", 1)
+	if shardCount <= 0 || shardCount > maxShardCount {
+		return jsonErr("ValidationException", fmt.Sprintf("ShardCount must be between 1 and %d", maxShardCount), http.StatusBadRequest), nil
+	}
 	mode := "PROVISIONED"
 	if md, ok := params["StreamModeDetails"].(map[string]any); ok {
 		if m, ok := md["StreamMode"].(string); ok && m != "" {
