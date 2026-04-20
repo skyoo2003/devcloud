@@ -8,6 +8,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 _Nothing yet._
 
+## [v0.2.0](https://github.com/skyoo2003/devcloud/releases/tag/v0.2.0) - 2026-04-21
+
+### Added
+* Add GoReleaser + Changie release pipeline ([#26](https://github.com/skyoo2003/devcloud/issues/26))
+
+### Changed
+* Bump dependencies: golangci-lint-action, go-sqlite3, GitHub Actions (setup-python, stale, checkout, release-drafter), web packages (lucide-react, shadcn, react, typescript, base-ui) ([#27](https://github.com/skyoo2003/devcloud/issues/27))
+
+### Fixed
+* Fix slice memory allocation with excessive size value (code scanning alerts #19-#22) ([#6](https://github.com/skyoo2003/devcloud/issues/6))
+* Remove reference to non-existent devcloud.yaml in Dockerfile ([#25](https://github.com/skyoo2003/devcloud/issues/25))
+
+### Security
+* Fix uncontrolled data used in path expression (code scanning alerts #1-#15) ([#23](https://github.com/skyoo2003/devcloud/issues/23))
+
 ## [0.1.0] - 2026-04-18
 
 First public release of DevCloud — a local development companion for cloud-native apps. Positioned as an on-ramp to the cloud, not a replacement: iterate locally without cloud bills, then land cleanly on your target CSP.
@@ -54,5 +69,6 @@ First public release of DevCloud — a local development companion for cloud-nat
 - Lambda function invocation is a stub (accepts registration but does not execute handler code).
 - Windows is not in the CI matrix; WSL2 is expected to work.
 
-[Unreleased]: https://github.com/skyoo2003/devcloud/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/skyoo2003/devcloud/compare/v0.2.0...HEAD
+[v0.2.0]: https://github.com/skyoo2003/devcloud/releases/tag/v0.2.0
 [0.1.0]: https://github.com/skyoo2003/devcloud/releases/tag/v0.1.0
