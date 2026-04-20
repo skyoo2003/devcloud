@@ -47,7 +47,7 @@ func (fs *FileStore) safePath(parts ...string) (string, error) {
 	cleanParts := make([]string, 0, len(parts))
 	for _, part := range parts {
 		if part == "" {
-			return "", fmt.Errorf("invalid empty path segment")
+			continue
 		}
 		if filepath.IsAbs(part) {
 			return "", fmt.Errorf("absolute path segment not allowed: %s", part)
@@ -59,18 +59,14 @@ func (fs *FileStore) safePath(parts ...string) (string, error) {
 		cleanParts = append(cleanParts, cleanPart)
 	}
 
-	baseAbs, err := filepath.Abs(fs.baseDir)
-	if err != nil {
-		return "", err
-	}
-	candidate := filepath.Join(append([]string{baseAbs}, cleanParts...)...)
+	candidate := filepath.Join(append([]string{fs.baseDir}, cleanParts...)...)
 
 	// Resolve symlinks if the candidate path exists; otherwise use the joined path.
 	if resolved, err := filepath.EvalSymlinks(candidate); err == nil {
 		candidate = resolved
 	}
 
-	rel, err := filepath.Rel(baseAbs, candidate)
+	rel, err := filepath.Rel(fs.baseDir, candidate)
 	if err != nil {
 		return "", fmt.Errorf("resolve relative path: %w", err)
 	}
