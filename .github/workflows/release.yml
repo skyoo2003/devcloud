@@ -33,14 +33,6 @@ jobs:
       with:
         go-version-file: go.mod
         cache-dependency-path: go.sum
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Resolve tag
       id: resolve_tag
       run: echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
@@ -51,12 +43,25 @@ jobs:
           echo "::error::Run 'changie batch ${{ steps.resolve_tag.outputs.tag }}' and 'changie merge' before pushing the tag."
           exit 1
         fi
+    - name: Set up Docker Buildx
+      if: ${{ github.event.inputs.dry_run != 'true' }}
+      uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4
+    - name: Login to GitHub Container Registry
+      if: ${{ github.event.inputs.dry_run != 'true' }}
+      uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Execute GoReleaser
       uses: goreleaser/goreleaser-action@ec59f474b9834571250b370d4735c50f8e2d1e29  # goreleaser-action v7
       with:
         distribution: goreleaser
         version: "~> v2"
-        args: release --clean --release-notes changes/${{ steps.resolve_tag.outputs.tag }}.md ${{ github.event.inputs.dry_run == 'true' && '--skip-publish' || '' }}
+        args: >-
+          ${{ github.event.inputs.dry_run == 'true'
+              && format('release --clean --snapshot --release-notes changes/{0}.md', steps.resolve_tag.outputs.tag)
+              || format('release --clean --release-notes changes/{0}.md', steps.resolve_tag.outputs.tag) }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload assets
