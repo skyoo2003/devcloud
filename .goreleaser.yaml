@@ -1,0 +1,67 @@
+version: 2
+
+project_name: devcloud
+
+env:
+- GO111MODULE=on
+- CGO_ENABLED=0
+
+before:
+  hooks:
+  - go mod download
+
+builds:
+- id: devcloud
+  binary: devcloud
+  main: cmd/devcloud/main.go
+  goos:
+  - darwin
+  - linux
+  - windows
+  goarch:
+  - amd64
+  - arm64
+
+archives:
+- id: devcloud
+  format: tar.gz
+  format_overrides:
+  - goos: windows
+    format: zip
+  files:
+    - LICENSE
+    - README.md
+    - CHANGELOG.md
+
+changelog:
+  disable: false
+
+checksum:
+  algorithm: sha256
+  name_template: 'CHECKSUMS'
+
+dockers_v2:
+- images:
+  - ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/{{ .ProjectName }}
+  dockerfile: Dockerfile.goreleaser
+  ids:
+  - devcloud
+  sbom: false
+  flags:
+  - "--provenance=false"
+  tags:
+  - "{{ .Tag }}-alpine"
+  - "v{{ .Major }}.{{ .Minor }}-alpine"
+  - "v{{ .Major }}-alpine"
+  - "latest-alpine"
+  labels:
+    org.opencontainers.image.created: "{{ .Date }}"
+    org.opencontainers.image.source: "https://github.com/{{ .Env.GITHUB_REPOSITORY_OWNER }}/{{ .ProjectName }}"
+    org.opencontainers.image.title: "{{ .ProjectName }}"
+    org.opencontainers.image.revision: "{{ .FullCommit }}"
+    org.opencontainers.image.version: "{{ .Version }}"
+
+release:
+  name_template: "{{ .Version }}"
+  disable: false
+  mode: replace

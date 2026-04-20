@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      attestations: write
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        fetch-depth: 0
+    - name: Set up Go
+      uses: actions/setup-go@41dfa10bef8ca8f7c4c7cec63b269ccb8a9156b9 # v6
+      with:
+        go-version-file: go.mod
+        cache-dependency-path: go.sum
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Verify changie release notes exist
+      run: |
+        if [ ! -f "changes/${{ github.ref_name }}.md" ]; then
+          echo "::error::Changie fragment changes/${{ github.ref_name }}.md not found."
+          echo "::error::Run 'changie batch ${{ github.ref_name }}' and 'changie merge' before pushing the tag."
+          exit 1
+        fi
+    - name: Execute GoReleaser
+      uses: goreleaser/goreleaser-action@ec59f474b9834571250b370d4735c50f8e2d1e29  # goreleaser-action v7
+      with:
+        distribution: goreleaser
+        version: "~> v2"
+        args: release --clean --release-notes changes/${{ github.ref_name }}.md
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload assets
+      uses: actions/upload-artifact@5d5df5e032fcb57d3c9d9901e9b8f8b2b7d8051a # v7
+      with:
+        name: devcloud
+        path: dist/*

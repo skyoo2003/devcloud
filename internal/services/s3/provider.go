@@ -16,7 +16,8 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
-	"regexp"
+
+	"github.com/skyoo2003/devcloud/internal/shared"
 	"sort"
 	"strconv"
 	"strings"
@@ -463,12 +464,6 @@ func generateUploadID() (string, error) {
 	return hex.EncodeToString(b), nil
 }
 
-var uploadIDPattern = regexp.MustCompile(`^[a-f0-9]{32}$`)
-
-func isValidUploadID(uploadID string) bool {
-	return uploadIDPattern.MatchString(uploadID)
-}
-
 // multipartDir returns the directory used to store parts for an upload.
 func (p *S3Provider) multipartDir(uploadID string) string {
 	return filepath.Join(p.fileStore.baseDir, "_multipart", filepath.Base(uploadID))
@@ -896,7 +891,7 @@ func (p *S3Provider) uploadPart(_ context.Context, bucket, key, uploadID, partNu
 }
 
 func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, uploadID string, req *http.Request) (*plugin.Response, error) {
-	if !isValidUploadID(uploadID) {
+	if !shared.ValidateUploadID(uploadID) {
 		return xmlError("NoSuchUpload", "upload not found", http.StatusNotFound), nil
 	}
 
@@ -976,7 +971,7 @@ func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, upl
 }
 
 func (p *S3Provider) abortMultipartUpload(_ context.Context, bucket, key, uploadID string) (*plugin.Response, error) {
-	if !isValidUploadID(uploadID) {
+	if !shared.ValidateUploadID(uploadID) {
 		return xmlError("InvalidRequest", "invalid uploadId", http.StatusBadRequest), nil
 	}
 	if _, err := p.metaStore.GetMultipartUpload(uploadID); err != nil {

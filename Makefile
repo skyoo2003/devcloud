@@ -1,4 +1,4 @@
-.PHONY: build test codegen run clean test-compat build-web build-all docker-build docker-run
+.PHONY: build test codegen run clean test-compat build-web build-all docker-build docker-run changelog
 
 build:
 	go build -o dist/devcloud ./cmd/devcloud
@@ -32,3 +32,10 @@ docker-run:
 
 clean:
 	rm -rf dist/ data/
+
+changelog:
+	@if [ -z "$(VERSION)" ]; then \
+	  echo "VERSION is required. Usage: make changelog VERSION=v0.2.0"; \
+	  exit 1; \
+	fi
+	@changie batch $(VERSION) && changie merge
