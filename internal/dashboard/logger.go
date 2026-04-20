@@ -7,6 +7,11 @@ import (
 	"time"
 )
 
+const (
+	defaultLogCollectorSize = 1000
+	maxLogCollectorSize     = 10000
+)
+
 // RequestLog holds details about a single API request.
 type RequestLog struct {
 	Method    string    `json:"method"`
@@ -28,6 +33,13 @@ type LogCollector struct {
 
 // NewLogCollector creates a LogCollector that holds at most maxSize entries.
 func NewLogCollector(maxSize int) *LogCollector {
+	if maxSize <= 0 {
+		maxSize = defaultLogCollectorSize
+	}
+	if maxSize > maxLogCollectorSize {
+		maxSize = maxLogCollectorSize
+	}
+
 	return &LogCollector{
 		entries: make([]RequestLog, maxSize),
 		maxSize: maxSize,
@@ -52,11 +64,11 @@ func (c *LogCollector) Recent(n int) []RequestLog {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 
+	if n <= 0 || c.count == 0 {
+		return []RequestLog{}
+	}
 	if n > c.count {
 		n = c.count
-	}
-	if n <= 0 {
-		return []RequestLog{}
 	}
 
 	result := make([]RequestLog, n)
