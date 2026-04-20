@@ -35,7 +35,11 @@ jobs:
         cache-dependency-path: go.sum
     - name: Resolve tag
       id: resolve_tag
-      run: echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
+      run: |
+        echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
+        if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+          echo "extra_flags=--snapshot" >> "$GITHUB_OUTPUT"
+        fi
     - name: Verify changie release notes exist
       run: |
         if [ ! -f "changes/${{ steps.resolve_tag.outputs.tag }}.md" ]; then
@@ -58,10 +62,7 @@ jobs:
       with:
         distribution: goreleaser
         version: "~> v2"
-        args: >-
-          ${{ github.event.inputs.dry_run == 'true'
-              && format('release --clean --snapshot --release-notes changes/{0}.md', steps.resolve_tag.outputs.tag)
-              || format('release --clean --release-notes changes/{0}.md', steps.resolve_tag.outputs.tag) }}
+        args: release --clean ${{ steps.resolve_tag.outputs.extra_flags }} --release-notes changes/${{ steps.resolve_tag.outputs.tag }}.md
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload assets
