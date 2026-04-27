@@ -94,14 +94,8 @@ make test
 # Run boto3 compatibility tests
 make test-compat
 
-# Count ops per service (quick matrix refresh)
-for svc in $(ls internal/services/); do
-  count=$(grep -c 'case "' internal/services/$svc/provider.go 2>/dev/null || echo 0)
-  [ "$count" -gt "0" ] && echo "$count $svc"
-done | sort -rn
-
-# Count total scaffolded services
-awk '/^services:/,/^auth:/' internal/config/default.yaml | grep -cE '^\s+[a-z][a-z0-9_]*:$'
+# Print service and operation counts
+make stats
 ```
 
 See [Getting Started](getting-started.md) for installation and [contributing.md](contributing.md) for development setup.
