@@ -7,457 +7,457 @@ import (
 )
 
 type AccessPoliciesStatus struct {
-	Options string        `json:"options" xml:"Options"`
-	Status  *OptionStatus `json:"status" xml:"Status"`
+Options string `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type AnalysisOptions struct {
-	AlgorithmicStemming            string `json:"algorithmicStemming" xml:"AlgorithmicStemming"`
-	JapaneseTokenizationDictionary string `json:"japaneseTokenizationDictionary" xml:"JapaneseTokenizationDictionary"`
-	StemmingDictionary             string `json:"stemmingDictionary" xml:"StemmingDictionary"`
-	Stopwords                      string `json:"stopwords" xml:"Stopwords"`
-	Synonyms                       string `json:"synonyms" xml:"Synonyms"`
+AlgorithmicStemming string `json:"algorithmicStemming" xml:"AlgorithmicStemming"`
+JapaneseTokenizationDictionary string `json:"japaneseTokenizationDictionary" xml:"JapaneseTokenizationDictionary"`
+StemmingDictionary string `json:"stemmingDictionary" xml:"StemmingDictionary"`
+Stopwords string `json:"stopwords" xml:"Stopwords"`
+Synonyms string `json:"synonyms" xml:"Synonyms"`
 }
 
 type AnalysisScheme struct {
-	AnalysisOptions        *AnalysisOptions `json:"analysisOptions" xml:"AnalysisOptions"`
-	AnalysisSchemeLanguage string           `json:"analysisSchemeLanguage" xml:"AnalysisSchemeLanguage"`
-	AnalysisSchemeName     string           `json:"analysisSchemeName" xml:"AnalysisSchemeName"`
+AnalysisOptions *AnalysisOptions `json:"analysisOptions" xml:"AnalysisOptions"`
+AnalysisSchemeLanguage string `json:"analysisSchemeLanguage" xml:"AnalysisSchemeLanguage"`
+AnalysisSchemeName string `json:"analysisSchemeName" xml:"AnalysisSchemeName"`
 }
 
 type AnalysisSchemeStatus struct {
-	Options *AnalysisScheme `json:"options" xml:"Options"`
-	Status  *OptionStatus   `json:"status" xml:"Status"`
+Options *AnalysisScheme `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type AvailabilityOptionsStatus struct {
-	Options bool          `json:"options" xml:"Options"`
-	Status  *OptionStatus `json:"status" xml:"Status"`
+Options bool `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type BuildSuggestersRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type BuildSuggestersResponse struct {
-	FieldNames FieldNameList `json:"fieldNames" xml:"FieldNames"`
+FieldNames FieldNameList `json:"fieldNames" xml:"FieldNames"`
 }
 
 type CreateDomainRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type CreateDomainResponse struct {
-	DomainStatus *DomainStatus `json:"domainStatus" xml:"DomainStatus"`
+DomainStatus *DomainStatus `json:"domainStatus" xml:"DomainStatus"`
 }
 
 type DateArrayOptions struct {
-	DefaultValue  string `json:"defaultValue" xml:"DefaultValue"`
-	FacetEnabled  bool   `json:"facetEnabled" xml:"FacetEnabled"`
-	ReturnEnabled bool   `json:"returnEnabled" xml:"ReturnEnabled"`
-	SearchEnabled bool   `json:"searchEnabled" xml:"SearchEnabled"`
-	SourceFields  string `json:"sourceFields" xml:"SourceFields"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+FacetEnabled bool `json:"facetEnabled" xml:"FacetEnabled"`
+ReturnEnabled bool `json:"returnEnabled" xml:"ReturnEnabled"`
+SearchEnabled bool `json:"searchEnabled" xml:"SearchEnabled"`
+SourceFields string `json:"sourceFields" xml:"SourceFields"`
 }
 
 type DateOptions struct {
-	DefaultValue  string `json:"defaultValue" xml:"DefaultValue"`
-	FacetEnabled  bool   `json:"facetEnabled" xml:"FacetEnabled"`
-	ReturnEnabled bool   `json:"returnEnabled" xml:"ReturnEnabled"`
-	SearchEnabled bool   `json:"searchEnabled" xml:"SearchEnabled"`
-	SortEnabled   bool   `json:"sortEnabled" xml:"SortEnabled"`
-	SourceField   string `json:"sourceField" xml:"SourceField"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+FacetEnabled bool `json:"facetEnabled" xml:"FacetEnabled"`
+ReturnEnabled bool `json:"returnEnabled" xml:"ReturnEnabled"`
+SearchEnabled bool `json:"searchEnabled" xml:"SearchEnabled"`
+SortEnabled bool `json:"sortEnabled" xml:"SortEnabled"`
+SourceField string `json:"sourceField" xml:"SourceField"`
 }
 
 type DefineAnalysisSchemeRequest struct {
-	AnalysisScheme *AnalysisScheme `json:"analysisScheme" xml:"AnalysisScheme"`
-	DomainName     string          `json:"domainName" xml:"DomainName"`
+AnalysisScheme *AnalysisScheme `json:"analysisScheme" xml:"AnalysisScheme"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DefineAnalysisSchemeResponse struct {
-	AnalysisScheme *AnalysisSchemeStatus `json:"analysisScheme" xml:"AnalysisScheme"`
+AnalysisScheme *AnalysisSchemeStatus `json:"analysisScheme" xml:"AnalysisScheme"`
 }
 
 type DefineExpressionRequest struct {
-	DomainName string      `json:"domainName" xml:"DomainName"`
-	Expression *Expression `json:"expression" xml:"Expression"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Expression *Expression `json:"expression" xml:"Expression"`
 }
 
 type DefineExpressionResponse struct {
-	Expression *ExpressionStatus `json:"expression" xml:"Expression"`
+Expression *ExpressionStatus `json:"expression" xml:"Expression"`
 }
 
 type DefineIndexFieldRequest struct {
-	DomainName string      `json:"domainName" xml:"DomainName"`
-	IndexField *IndexField `json:"indexField" xml:"IndexField"`
+DomainName string `json:"domainName" xml:"DomainName"`
+IndexField *IndexField `json:"indexField" xml:"IndexField"`
 }
 
 type DefineIndexFieldResponse struct {
-	IndexField *IndexFieldStatus `json:"indexField" xml:"IndexField"`
+IndexField *IndexFieldStatus `json:"indexField" xml:"IndexField"`
 }
 
 type DefineSuggesterRequest struct {
-	DomainName string     `json:"domainName" xml:"DomainName"`
-	Suggester  *Suggester `json:"suggester" xml:"Suggester"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Suggester *Suggester `json:"suggester" xml:"Suggester"`
 }
 
 type DefineSuggesterResponse struct {
-	Suggester *SuggesterStatus `json:"suggester" xml:"Suggester"`
+Suggester *SuggesterStatus `json:"suggester" xml:"Suggester"`
 }
 
 type DeleteAnalysisSchemeRequest struct {
-	AnalysisSchemeName string `json:"analysisSchemeName" xml:"AnalysisSchemeName"`
-	DomainName         string `json:"domainName" xml:"DomainName"`
+AnalysisSchemeName string `json:"analysisSchemeName" xml:"AnalysisSchemeName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DeleteAnalysisSchemeResponse struct {
-	AnalysisScheme *AnalysisSchemeStatus `json:"analysisScheme" xml:"AnalysisScheme"`
+AnalysisScheme *AnalysisSchemeStatus `json:"analysisScheme" xml:"AnalysisScheme"`
 }
 
 type DeleteDomainRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DeleteDomainResponse struct {
-	DomainStatus *DomainStatus `json:"domainStatus" xml:"DomainStatus"`
+DomainStatus *DomainStatus `json:"domainStatus" xml:"DomainStatus"`
 }
 
 type DeleteExpressionRequest struct {
-	DomainName     string `json:"domainName" xml:"DomainName"`
-	ExpressionName string `json:"expressionName" xml:"ExpressionName"`
+DomainName string `json:"domainName" xml:"DomainName"`
+ExpressionName string `json:"expressionName" xml:"ExpressionName"`
 }
 
 type DeleteExpressionResponse struct {
-	Expression *ExpressionStatus `json:"expression" xml:"Expression"`
+Expression *ExpressionStatus `json:"expression" xml:"Expression"`
 }
 
 type DeleteIndexFieldRequest struct {
-	DomainName     string `json:"domainName" xml:"DomainName"`
-	IndexFieldName string `json:"indexFieldName" xml:"IndexFieldName"`
+DomainName string `json:"domainName" xml:"DomainName"`
+IndexFieldName string `json:"indexFieldName" xml:"IndexFieldName"`
 }
 
 type DeleteIndexFieldResponse struct {
-	IndexField *IndexFieldStatus `json:"indexField" xml:"IndexField"`
+IndexField *IndexFieldStatus `json:"indexField" xml:"IndexField"`
 }
 
 type DeleteSuggesterRequest struct {
-	DomainName    string `json:"domainName" xml:"DomainName"`
-	SuggesterName string `json:"suggesterName" xml:"SuggesterName"`
+DomainName string `json:"domainName" xml:"DomainName"`
+SuggesterName string `json:"suggesterName" xml:"SuggesterName"`
 }
 
 type DeleteSuggesterResponse struct {
-	Suggester *SuggesterStatus `json:"suggester" xml:"Suggester"`
+Suggester *SuggesterStatus `json:"suggester" xml:"Suggester"`
 }
 
 type DescribeAnalysisSchemesRequest struct {
-	AnalysisSchemeNames StandardNameList `json:"analysisSchemeNames" xml:"AnalysisSchemeNames"`
-	Deployed            bool             `json:"deployed" xml:"Deployed"`
-	DomainName          string           `json:"domainName" xml:"DomainName"`
+AnalysisSchemeNames StandardNameList `json:"analysisSchemeNames" xml:"AnalysisSchemeNames"`
+Deployed bool `json:"deployed" xml:"Deployed"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DescribeAnalysisSchemesResponse struct {
-	AnalysisSchemes AnalysisSchemeStatusList `json:"analysisSchemes" xml:"AnalysisSchemes"`
+AnalysisSchemes AnalysisSchemeStatusList `json:"analysisSchemes" xml:"AnalysisSchemes"`
 }
 
 type DescribeAvailabilityOptionsRequest struct {
-	Deployed   bool   `json:"deployed" xml:"Deployed"`
-	DomainName string `json:"domainName" xml:"DomainName"`
+Deployed bool `json:"deployed" xml:"Deployed"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DescribeAvailabilityOptionsResponse struct {
-	AvailabilityOptions *AvailabilityOptionsStatus `json:"availabilityOptions" xml:"AvailabilityOptions"`
+AvailabilityOptions *AvailabilityOptionsStatus `json:"availabilityOptions" xml:"AvailabilityOptions"`
 }
 
 type DescribeDomainEndpointOptionsRequest struct {
-	Deployed   bool   `json:"deployed" xml:"Deployed"`
-	DomainName string `json:"domainName" xml:"DomainName"`
+Deployed bool `json:"deployed" xml:"Deployed"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DescribeDomainEndpointOptionsResponse struct {
-	DomainEndpointOptions *DomainEndpointOptionsStatus `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
+DomainEndpointOptions *DomainEndpointOptionsStatus `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
 }
 
 type DescribeDomainsRequest struct {
-	DomainNames DomainNameList `json:"domainNames" xml:"DomainNames"`
+DomainNames DomainNameList `json:"domainNames" xml:"DomainNames"`
 }
 
 type DescribeDomainsResponse struct {
-	DomainStatusList DomainStatusList `json:"domainStatusList" xml:"DomainStatusList"`
+DomainStatusList DomainStatusList `json:"domainStatusList" xml:"DomainStatusList"`
 }
 
 type DescribeExpressionsRequest struct {
-	Deployed        bool             `json:"deployed" xml:"Deployed"`
-	DomainName      string           `json:"domainName" xml:"DomainName"`
-	ExpressionNames StandardNameList `json:"expressionNames" xml:"ExpressionNames"`
+Deployed bool `json:"deployed" xml:"Deployed"`
+DomainName string `json:"domainName" xml:"DomainName"`
+ExpressionNames StandardNameList `json:"expressionNames" xml:"ExpressionNames"`
 }
 
 type DescribeExpressionsResponse struct {
-	Expressions ExpressionStatusList `json:"expressions" xml:"Expressions"`
+Expressions ExpressionStatusList `json:"expressions" xml:"Expressions"`
 }
 
 type DescribeIndexFieldsRequest struct {
-	Deployed   bool                 `json:"deployed" xml:"Deployed"`
-	DomainName string               `json:"domainName" xml:"DomainName"`
-	FieldNames DynamicFieldNameList `json:"fieldNames" xml:"FieldNames"`
+Deployed bool `json:"deployed" xml:"Deployed"`
+DomainName string `json:"domainName" xml:"DomainName"`
+FieldNames DynamicFieldNameList `json:"fieldNames" xml:"FieldNames"`
 }
 
 type DescribeIndexFieldsResponse struct {
-	IndexFields IndexFieldStatusList `json:"indexFields" xml:"IndexFields"`
+IndexFields IndexFieldStatusList `json:"indexFields" xml:"IndexFields"`
 }
 
 type DescribeScalingParametersRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DescribeScalingParametersResponse struct {
-	ScalingParameters *ScalingParametersStatus `json:"scalingParameters" xml:"ScalingParameters"`
+ScalingParameters *ScalingParametersStatus `json:"scalingParameters" xml:"ScalingParameters"`
 }
 
 type DescribeServiceAccessPoliciesRequest struct {
-	Deployed   bool   `json:"deployed" xml:"Deployed"`
-	DomainName string `json:"domainName" xml:"DomainName"`
+Deployed bool `json:"deployed" xml:"Deployed"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DescribeServiceAccessPoliciesResponse struct {
-	AccessPolicies *AccessPoliciesStatus `json:"accessPolicies" xml:"AccessPolicies"`
+AccessPolicies *AccessPoliciesStatus `json:"accessPolicies" xml:"AccessPolicies"`
 }
 
 type DescribeSuggestersRequest struct {
-	Deployed       bool             `json:"deployed" xml:"Deployed"`
-	DomainName     string           `json:"domainName" xml:"DomainName"`
-	SuggesterNames StandardNameList `json:"suggesterNames" xml:"SuggesterNames"`
+Deployed bool `json:"deployed" xml:"Deployed"`
+DomainName string `json:"domainName" xml:"DomainName"`
+SuggesterNames StandardNameList `json:"suggesterNames" xml:"SuggesterNames"`
 }
 
 type DescribeSuggestersResponse struct {
-	Suggesters SuggesterStatusList `json:"suggesters" xml:"Suggesters"`
+Suggesters SuggesterStatusList `json:"suggesters" xml:"Suggesters"`
 }
 
 type DocumentSuggesterOptions struct {
-	FuzzyMatching  string `json:"fuzzyMatching" xml:"FuzzyMatching"`
-	SortExpression string `json:"sortExpression" xml:"SortExpression"`
-	SourceField    string `json:"sourceField" xml:"SourceField"`
+FuzzyMatching string `json:"fuzzyMatching" xml:"FuzzyMatching"`
+SortExpression string `json:"sortExpression" xml:"SortExpression"`
+SourceField string `json:"sourceField" xml:"SourceField"`
 }
 
 type DomainEndpointOptions struct {
-	EnforceHTTPS      bool   `json:"enforceHTTPS" xml:"EnforceHTTPS"`
-	TLSSecurityPolicy string `json:"tLSSecurityPolicy" xml:"TLSSecurityPolicy"`
+EnforceHTTPS bool `json:"enforceHTTPS" xml:"EnforceHTTPS"`
+TLSSecurityPolicy string `json:"tLSSecurityPolicy" xml:"TLSSecurityPolicy"`
 }
 
 type DomainEndpointOptionsStatus struct {
-	Options *DomainEndpointOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus          `json:"status" xml:"Status"`
+Options *DomainEndpointOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type DomainStatus struct {
-	ARN                    string           `json:"aRN" xml:"ARN"`
-	Created                bool             `json:"created" xml:"Created"`
-	Deleted                bool             `json:"deleted" xml:"Deleted"`
-	DocService             *ServiceEndpoint `json:"docService" xml:"DocService"`
-	DomainId               string           `json:"domainId" xml:"DomainId"`
-	DomainName             string           `json:"domainName" xml:"DomainName"`
-	Limits                 *Limits          `json:"limits" xml:"Limits"`
-	Processing             bool             `json:"processing" xml:"Processing"`
-	RequiresIndexDocuments bool             `json:"requiresIndexDocuments" xml:"RequiresIndexDocuments"`
-	SearchInstanceCount    int32            `json:"searchInstanceCount" xml:"SearchInstanceCount"`
-	SearchInstanceType     string           `json:"searchInstanceType" xml:"SearchInstanceType"`
-	SearchPartitionCount   int32            `json:"searchPartitionCount" xml:"SearchPartitionCount"`
-	SearchService          *ServiceEndpoint `json:"searchService" xml:"SearchService"`
+ARN string `json:"aRN" xml:"ARN"`
+Created bool `json:"created" xml:"Created"`
+Deleted bool `json:"deleted" xml:"Deleted"`
+DocService *ServiceEndpoint `json:"docService" xml:"DocService"`
+DomainId string `json:"domainId" xml:"DomainId"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Limits *Limits `json:"limits" xml:"Limits"`
+Processing bool `json:"processing" xml:"Processing"`
+RequiresIndexDocuments bool `json:"requiresIndexDocuments" xml:"RequiresIndexDocuments"`
+SearchInstanceCount int32 `json:"searchInstanceCount" xml:"SearchInstanceCount"`
+SearchInstanceType string `json:"searchInstanceType" xml:"SearchInstanceType"`
+SearchPartitionCount int32 `json:"searchPartitionCount" xml:"SearchPartitionCount"`
+SearchService *ServiceEndpoint `json:"searchService" xml:"SearchService"`
 }
 
 type DoubleArrayOptions struct {
-	DefaultValue  float64 `json:"defaultValue" xml:"DefaultValue"`
-	FacetEnabled  bool    `json:"facetEnabled" xml:"FacetEnabled"`
-	ReturnEnabled bool    `json:"returnEnabled" xml:"ReturnEnabled"`
-	SearchEnabled bool    `json:"searchEnabled" xml:"SearchEnabled"`
-	SourceFields  string  `json:"sourceFields" xml:"SourceFields"`
+DefaultValue float64 `json:"defaultValue" xml:"DefaultValue"`
+FacetEnabled bool `json:"facetEnabled" xml:"FacetEnabled"`
+ReturnEnabled bool `json:"returnEnabled" xml:"ReturnEnabled"`
+SearchEnabled bool `json:"searchEnabled" xml:"SearchEnabled"`
+SourceFields string `json:"sourceFields" xml:"SourceFields"`
 }
 
 type DoubleOptions struct {
-	DefaultValue  float64 `json:"defaultValue" xml:"DefaultValue"`
-	FacetEnabled  bool    `json:"facetEnabled" xml:"FacetEnabled"`
-	ReturnEnabled bool    `json:"returnEnabled" xml:"ReturnEnabled"`
-	SearchEnabled bool    `json:"searchEnabled" xml:"SearchEnabled"`
-	SortEnabled   bool    `json:"sortEnabled" xml:"SortEnabled"`
-	SourceField   string  `json:"sourceField" xml:"SourceField"`
+DefaultValue float64 `json:"defaultValue" xml:"DefaultValue"`
+FacetEnabled bool `json:"facetEnabled" xml:"FacetEnabled"`
+ReturnEnabled bool `json:"returnEnabled" xml:"ReturnEnabled"`
+SearchEnabled bool `json:"searchEnabled" xml:"SearchEnabled"`
+SortEnabled bool `json:"sortEnabled" xml:"SortEnabled"`
+SourceField string `json:"sourceField" xml:"SourceField"`
 }
 
 type Expression struct {
-	ExpressionName  string `json:"expressionName" xml:"ExpressionName"`
-	ExpressionValue string `json:"expressionValue" xml:"ExpressionValue"`
+ExpressionName string `json:"expressionName" xml:"ExpressionName"`
+ExpressionValue string `json:"expressionValue" xml:"ExpressionValue"`
 }
 
 type ExpressionStatus struct {
-	Options *Expression   `json:"options" xml:"Options"`
-	Status  *OptionStatus `json:"status" xml:"Status"`
+Options *Expression `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type IndexDocumentsRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type IndexDocumentsResponse struct {
-	FieldNames FieldNameList `json:"fieldNames" xml:"FieldNames"`
+FieldNames FieldNameList `json:"fieldNames" xml:"FieldNames"`
 }
 
 type IndexField struct {
-	DateArrayOptions    *DateArrayOptions    `json:"dateArrayOptions" xml:"DateArrayOptions"`
-	DateOptions         *DateOptions         `json:"dateOptions" xml:"DateOptions"`
-	DoubleArrayOptions  *DoubleArrayOptions  `json:"doubleArrayOptions" xml:"DoubleArrayOptions"`
-	DoubleOptions       *DoubleOptions       `json:"doubleOptions" xml:"DoubleOptions"`
-	IndexFieldName      string               `json:"indexFieldName" xml:"IndexFieldName"`
-	IndexFieldType      string               `json:"indexFieldType" xml:"IndexFieldType"`
-	IntArrayOptions     *IntArrayOptions     `json:"intArrayOptions" xml:"IntArrayOptions"`
-	IntOptions          *IntOptions          `json:"intOptions" xml:"IntOptions"`
-	LatLonOptions       *LatLonOptions       `json:"latLonOptions" xml:"LatLonOptions"`
-	LiteralArrayOptions *LiteralArrayOptions `json:"literalArrayOptions" xml:"LiteralArrayOptions"`
-	LiteralOptions      *LiteralOptions      `json:"literalOptions" xml:"LiteralOptions"`
-	TextArrayOptions    *TextArrayOptions    `json:"textArrayOptions" xml:"TextArrayOptions"`
-	TextOptions         *TextOptions         `json:"textOptions" xml:"TextOptions"`
+DateArrayOptions *DateArrayOptions `json:"dateArrayOptions" xml:"DateArrayOptions"`
+DateOptions *DateOptions `json:"dateOptions" xml:"DateOptions"`
+DoubleArrayOptions *DoubleArrayOptions `json:"doubleArrayOptions" xml:"DoubleArrayOptions"`
+DoubleOptions *DoubleOptions `json:"doubleOptions" xml:"DoubleOptions"`
+IndexFieldName string `json:"indexFieldName" xml:"IndexFieldName"`
+IndexFieldType string `json:"indexFieldType" xml:"IndexFieldType"`
+IntArrayOptions *IntArrayOptions `json:"intArrayOptions" xml:"IntArrayOptions"`
+IntOptions *IntOptions `json:"intOptions" xml:"IntOptions"`
+LatLonOptions *LatLonOptions `json:"latLonOptions" xml:"LatLonOptions"`
+LiteralArrayOptions *LiteralArrayOptions `json:"literalArrayOptions" xml:"LiteralArrayOptions"`
+LiteralOptions *LiteralOptions `json:"literalOptions" xml:"LiteralOptions"`
+TextArrayOptions *TextArrayOptions `json:"textArrayOptions" xml:"TextArrayOptions"`
+TextOptions *TextOptions `json:"textOptions" xml:"TextOptions"`
 }
 
 type IndexFieldStatus struct {
-	Options *IndexField   `json:"options" xml:"Options"`
-	Status  *OptionStatus `json:"status" xml:"Status"`
+Options *IndexField `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type IntArrayOptions struct {
-	DefaultValue  int64  `json:"defaultValue" xml:"DefaultValue"`
-	FacetEnabled  bool   `json:"facetEnabled" xml:"FacetEnabled"`
-	ReturnEnabled bool   `json:"returnEnabled" xml:"ReturnEnabled"`
-	SearchEnabled bool   `json:"searchEnabled" xml:"SearchEnabled"`
-	SourceFields  string `json:"sourceFields" xml:"SourceFields"`
+DefaultValue int64 `json:"defaultValue" xml:"DefaultValue"`
+FacetEnabled bool `json:"facetEnabled" xml:"FacetEnabled"`
+ReturnEnabled bool `json:"returnEnabled" xml:"ReturnEnabled"`
+SearchEnabled bool `json:"searchEnabled" xml:"SearchEnabled"`
+SourceFields string `json:"sourceFields" xml:"SourceFields"`
 }
 
 type IntOptions struct {
-	DefaultValue  int64  `json:"defaultValue" xml:"DefaultValue"`
-	FacetEnabled  bool   `json:"facetEnabled" xml:"FacetEnabled"`
-	ReturnEnabled bool   `json:"returnEnabled" xml:"ReturnEnabled"`
-	SearchEnabled bool   `json:"searchEnabled" xml:"SearchEnabled"`
-	SortEnabled   bool   `json:"sortEnabled" xml:"SortEnabled"`
-	SourceField   string `json:"sourceField" xml:"SourceField"`
+DefaultValue int64 `json:"defaultValue" xml:"DefaultValue"`
+FacetEnabled bool `json:"facetEnabled" xml:"FacetEnabled"`
+ReturnEnabled bool `json:"returnEnabled" xml:"ReturnEnabled"`
+SearchEnabled bool `json:"searchEnabled" xml:"SearchEnabled"`
+SortEnabled bool `json:"sortEnabled" xml:"SortEnabled"`
+SourceField string `json:"sourceField" xml:"SourceField"`
 }
 
 type LatLonOptions struct {
-	DefaultValue  string `json:"defaultValue" xml:"DefaultValue"`
-	FacetEnabled  bool   `json:"facetEnabled" xml:"FacetEnabled"`
-	ReturnEnabled bool   `json:"returnEnabled" xml:"ReturnEnabled"`
-	SearchEnabled bool   `json:"searchEnabled" xml:"SearchEnabled"`
-	SortEnabled   bool   `json:"sortEnabled" xml:"SortEnabled"`
-	SourceField   string `json:"sourceField" xml:"SourceField"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+FacetEnabled bool `json:"facetEnabled" xml:"FacetEnabled"`
+ReturnEnabled bool `json:"returnEnabled" xml:"ReturnEnabled"`
+SearchEnabled bool `json:"searchEnabled" xml:"SearchEnabled"`
+SortEnabled bool `json:"sortEnabled" xml:"SortEnabled"`
+SourceField string `json:"sourceField" xml:"SourceField"`
 }
 
 type Limits struct {
-	MaximumPartitionCount   int32 `json:"maximumPartitionCount" xml:"MaximumPartitionCount"`
-	MaximumReplicationCount int32 `json:"maximumReplicationCount" xml:"MaximumReplicationCount"`
+MaximumPartitionCount int32 `json:"maximumPartitionCount" xml:"MaximumPartitionCount"`
+MaximumReplicationCount int32 `json:"maximumReplicationCount" xml:"MaximumReplicationCount"`
 }
 
 type ListDomainNamesResponse struct {
-	DomainNames DomainNameMap `json:"domainNames" xml:"DomainNames"`
+DomainNames DomainNameMap `json:"domainNames" xml:"DomainNames"`
 }
 
 type LiteralArrayOptions struct {
-	DefaultValue  string `json:"defaultValue" xml:"DefaultValue"`
-	FacetEnabled  bool   `json:"facetEnabled" xml:"FacetEnabled"`
-	ReturnEnabled bool   `json:"returnEnabled" xml:"ReturnEnabled"`
-	SearchEnabled bool   `json:"searchEnabled" xml:"SearchEnabled"`
-	SourceFields  string `json:"sourceFields" xml:"SourceFields"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+FacetEnabled bool `json:"facetEnabled" xml:"FacetEnabled"`
+ReturnEnabled bool `json:"returnEnabled" xml:"ReturnEnabled"`
+SearchEnabled bool `json:"searchEnabled" xml:"SearchEnabled"`
+SourceFields string `json:"sourceFields" xml:"SourceFields"`
 }
 
 type LiteralOptions struct {
-	DefaultValue  string `json:"defaultValue" xml:"DefaultValue"`
-	FacetEnabled  bool   `json:"facetEnabled" xml:"FacetEnabled"`
-	ReturnEnabled bool   `json:"returnEnabled" xml:"ReturnEnabled"`
-	SearchEnabled bool   `json:"searchEnabled" xml:"SearchEnabled"`
-	SortEnabled   bool   `json:"sortEnabled" xml:"SortEnabled"`
-	SourceField   string `json:"sourceField" xml:"SourceField"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+FacetEnabled bool `json:"facetEnabled" xml:"FacetEnabled"`
+ReturnEnabled bool `json:"returnEnabled" xml:"ReturnEnabled"`
+SearchEnabled bool `json:"searchEnabled" xml:"SearchEnabled"`
+SortEnabled bool `json:"sortEnabled" xml:"SortEnabled"`
+SourceField string `json:"sourceField" xml:"SourceField"`
 }
 
 type OptionStatus struct {
-	CreationDate    time.Time `json:"creationDate" xml:"CreationDate"`
-	PendingDeletion bool      `json:"pendingDeletion" xml:"PendingDeletion"`
-	State           string    `json:"state" xml:"State"`
-	UpdateDate      time.Time `json:"updateDate" xml:"UpdateDate"`
-	UpdateVersion   int32     `json:"updateVersion" xml:"UpdateVersion"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+PendingDeletion bool `json:"pendingDeletion" xml:"PendingDeletion"`
+State string `json:"state" xml:"State"`
+UpdateDate time.Time `json:"updateDate" xml:"UpdateDate"`
+UpdateVersion int32 `json:"updateVersion" xml:"UpdateVersion"`
 }
 
 type ScalingParameters struct {
-	DesiredInstanceType     string `json:"desiredInstanceType" xml:"DesiredInstanceType"`
-	DesiredPartitionCount   int32  `json:"desiredPartitionCount" xml:"DesiredPartitionCount"`
-	DesiredReplicationCount int32  `json:"desiredReplicationCount" xml:"DesiredReplicationCount"`
+DesiredInstanceType string `json:"desiredInstanceType" xml:"DesiredInstanceType"`
+DesiredPartitionCount int32 `json:"desiredPartitionCount" xml:"DesiredPartitionCount"`
+DesiredReplicationCount int32 `json:"desiredReplicationCount" xml:"DesiredReplicationCount"`
 }
 
 type ScalingParametersStatus struct {
-	Options *ScalingParameters `json:"options" xml:"Options"`
-	Status  *OptionStatus      `json:"status" xml:"Status"`
+Options *ScalingParameters `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type ServiceEndpoint struct {
-	Endpoint string `json:"endpoint" xml:"Endpoint"`
+Endpoint string `json:"endpoint" xml:"Endpoint"`
 }
 
 type SmithyUnit struct {
 }
 
 type Suggester struct {
-	DocumentSuggesterOptions *DocumentSuggesterOptions `json:"documentSuggesterOptions" xml:"DocumentSuggesterOptions"`
-	SuggesterName            string                    `json:"suggesterName" xml:"SuggesterName"`
+DocumentSuggesterOptions *DocumentSuggesterOptions `json:"documentSuggesterOptions" xml:"DocumentSuggesterOptions"`
+SuggesterName string `json:"suggesterName" xml:"SuggesterName"`
 }
 
 type SuggesterStatus struct {
-	Options *Suggester    `json:"options" xml:"Options"`
-	Status  *OptionStatus `json:"status" xml:"Status"`
+Options *Suggester `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type TextArrayOptions struct {
-	AnalysisScheme   string `json:"analysisScheme" xml:"AnalysisScheme"`
-	DefaultValue     string `json:"defaultValue" xml:"DefaultValue"`
-	HighlightEnabled bool   `json:"highlightEnabled" xml:"HighlightEnabled"`
-	ReturnEnabled    bool   `json:"returnEnabled" xml:"ReturnEnabled"`
-	SourceFields     string `json:"sourceFields" xml:"SourceFields"`
+AnalysisScheme string `json:"analysisScheme" xml:"AnalysisScheme"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+HighlightEnabled bool `json:"highlightEnabled" xml:"HighlightEnabled"`
+ReturnEnabled bool `json:"returnEnabled" xml:"ReturnEnabled"`
+SourceFields string `json:"sourceFields" xml:"SourceFields"`
 }
 
 type TextOptions struct {
-	AnalysisScheme   string `json:"analysisScheme" xml:"AnalysisScheme"`
-	DefaultValue     string `json:"defaultValue" xml:"DefaultValue"`
-	HighlightEnabled bool   `json:"highlightEnabled" xml:"HighlightEnabled"`
-	ReturnEnabled    bool   `json:"returnEnabled" xml:"ReturnEnabled"`
-	SortEnabled      bool   `json:"sortEnabled" xml:"SortEnabled"`
-	SourceField      string `json:"sourceField" xml:"SourceField"`
+AnalysisScheme string `json:"analysisScheme" xml:"AnalysisScheme"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+HighlightEnabled bool `json:"highlightEnabled" xml:"HighlightEnabled"`
+ReturnEnabled bool `json:"returnEnabled" xml:"ReturnEnabled"`
+SortEnabled bool `json:"sortEnabled" xml:"SortEnabled"`
+SourceField string `json:"sourceField" xml:"SourceField"`
 }
 
 type UpdateAvailabilityOptionsRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	MultiAZ    bool   `json:"multiAZ" xml:"MultiAZ"`
+DomainName string `json:"domainName" xml:"DomainName"`
+MultiAZ bool `json:"multiAZ" xml:"MultiAZ"`
 }
 
 type UpdateAvailabilityOptionsResponse struct {
-	AvailabilityOptions *AvailabilityOptionsStatus `json:"availabilityOptions" xml:"AvailabilityOptions"`
+AvailabilityOptions *AvailabilityOptionsStatus `json:"availabilityOptions" xml:"AvailabilityOptions"`
 }
 
 type UpdateDomainEndpointOptionsRequest struct {
-	DomainEndpointOptions *DomainEndpointOptions `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
-	DomainName            string                 `json:"domainName" xml:"DomainName"`
+DomainEndpointOptions *DomainEndpointOptions `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type UpdateDomainEndpointOptionsResponse struct {
-	DomainEndpointOptions *DomainEndpointOptionsStatus `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
+DomainEndpointOptions *DomainEndpointOptionsStatus `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
 }
 
 type UpdateScalingParametersRequest struct {
-	DomainName        string             `json:"domainName" xml:"DomainName"`
-	ScalingParameters *ScalingParameters `json:"scalingParameters" xml:"ScalingParameters"`
+DomainName string `json:"domainName" xml:"DomainName"`
+ScalingParameters *ScalingParameters `json:"scalingParameters" xml:"ScalingParameters"`
 }
 
 type UpdateScalingParametersResponse struct {
-	ScalingParameters *ScalingParametersStatus `json:"scalingParameters" xml:"ScalingParameters"`
+ScalingParameters *ScalingParametersStatus `json:"scalingParameters" xml:"ScalingParameters"`
 }
 
 type UpdateServiceAccessPoliciesRequest struct {
-	AccessPolicies string `json:"accessPolicies" xml:"AccessPolicies"`
-	DomainName     string `json:"domainName" xml:"DomainName"`
+AccessPolicies string `json:"accessPolicies" xml:"AccessPolicies"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type UpdateServiceAccessPoliciesResponse struct {
-	AccessPolicies *AccessPoliciesStatus `json:"accessPolicies" xml:"AccessPolicies"`
+AccessPolicies *AccessPoliciesStatus `json:"accessPolicies" xml:"AccessPolicies"`
 }
 
 type AnalysisSchemeStatusList []*AnalysisSchemeStatus
@@ -479,3 +479,4 @@ type StandardNameList []string
 type SuggesterStatusList []*SuggesterStatus
 
 type DomainNameMap map[string]string
+

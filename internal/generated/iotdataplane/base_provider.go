@@ -42,3 +42,4 @@ func (b *BaseProvider) Publish(ctx context.Context, input *PublishRequest) (*Smi
 func (b *BaseProvider) UpdateThingShadow(ctx context.Context, input *UpdateThingShadowRequest) (*UpdateThingShadowResponse, error) {
 	return nil, fmt.Errorf("UpdateThingShadow: %w", ErrNotImplemented)
 }
+

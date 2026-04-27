@@ -471,3 +471,4 @@ func SerializeVerifySMSSandboxPhoneNumberResult(w http.ResponseWriter, output *V
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

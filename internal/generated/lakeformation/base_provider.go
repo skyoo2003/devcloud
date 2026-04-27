@@ -254,3 +254,4 @@ func (b *BaseProvider) UpdateTableObjects(ctx context.Context, input *UpdateTabl
 func (b *BaseProvider) UpdateTableStorageOptimizer(ctx context.Context, input *UpdateTableStorageOptimizerRequest) (*UpdateTableStorageOptimizerResponse, error) {
 	return nil, fmt.Errorf("UpdateTableStorageOptimizer: %w", ErrNotImplemented)
 }
+

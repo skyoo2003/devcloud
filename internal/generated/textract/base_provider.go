@@ -110,3 +110,4 @@ func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRe
 func (b *BaseProvider) UpdateAdapter(ctx context.Context, input *UpdateAdapterRequest) (*UpdateAdapterResponse, error) {
 	return nil, fmt.Errorf("UpdateAdapter: %w", ErrNotImplemented)
 }
+

@@ -7,43 +7,43 @@ import (
 )
 
 type APIKeySummary struct {
-	APIKey            string       `json:"aPIKey" xml:"APIKey"`
-	CreationTimestamp time.Time    `json:"creationTimestamp" xml:"CreationTimestamp"`
-	TokenDomains      TokenDomains `json:"tokenDomains" xml:"TokenDomains"`
-	Version           int32        `json:"version" xml:"Version"`
+APIKey string `json:"aPIKey" xml:"APIKey"`
+CreationTimestamp time.Time `json:"creationTimestamp" xml:"CreationTimestamp"`
+TokenDomains TokenDomains `json:"tokenDomains" xml:"TokenDomains"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type AWSManagedRulesACFPRuleSet struct {
-	CreationPath         string                 `json:"creationPath" xml:"CreationPath"`
-	EnableRegexInPath    bool                   `json:"enableRegexInPath" xml:"EnableRegexInPath"`
-	RegistrationPagePath string                 `json:"registrationPagePath" xml:"RegistrationPagePath"`
-	RequestInspection    *RequestInspectionACFP `json:"requestInspection" xml:"RequestInspection"`
-	ResponseInspection   *ResponseInspection    `json:"responseInspection" xml:"ResponseInspection"`
+CreationPath string `json:"creationPath" xml:"CreationPath"`
+EnableRegexInPath bool `json:"enableRegexInPath" xml:"EnableRegexInPath"`
+RegistrationPagePath string `json:"registrationPagePath" xml:"RegistrationPagePath"`
+RequestInspection *RequestInspectionACFP `json:"requestInspection" xml:"RequestInspection"`
+ResponseInspection *ResponseInspection `json:"responseInspection" xml:"ResponseInspection"`
 }
 
 type AWSManagedRulesATPRuleSet struct {
-	EnableRegexInPath  bool                `json:"enableRegexInPath" xml:"EnableRegexInPath"`
-	LoginPath          string              `json:"loginPath" xml:"LoginPath"`
-	RequestInspection  *RequestInspection  `json:"requestInspection" xml:"RequestInspection"`
-	ResponseInspection *ResponseInspection `json:"responseInspection" xml:"ResponseInspection"`
+EnableRegexInPath bool `json:"enableRegexInPath" xml:"EnableRegexInPath"`
+LoginPath string `json:"loginPath" xml:"LoginPath"`
+RequestInspection *RequestInspection `json:"requestInspection" xml:"RequestInspection"`
+ResponseInspection *ResponseInspection `json:"responseInspection" xml:"ResponseInspection"`
 }
 
 type AWSManagedRulesAntiDDoSRuleSet struct {
-	ClientSideActionConfig *ClientSideActionConfig `json:"clientSideActionConfig" xml:"ClientSideActionConfig"`
-	SensitivityToBlock     string                  `json:"sensitivityToBlock" xml:"SensitivityToBlock"`
+ClientSideActionConfig *ClientSideActionConfig `json:"clientSideActionConfig" xml:"ClientSideActionConfig"`
+SensitivityToBlock string `json:"sensitivityToBlock" xml:"SensitivityToBlock"`
 }
 
 type AWSManagedRulesBotControlRuleSet struct {
-	EnableMachineLearning bool   `json:"enableMachineLearning" xml:"EnableMachineLearning"`
-	InspectionLevel       string `json:"inspectionLevel" xml:"InspectionLevel"`
+EnableMachineLearning bool `json:"enableMachineLearning" xml:"EnableMachineLearning"`
+InspectionLevel string `json:"inspectionLevel" xml:"InspectionLevel"`
 }
 
 type ActionCondition struct {
-	Action string `json:"action" xml:"Action"`
+Action string `json:"action" xml:"Action"`
 }
 
 type AddressField struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type All struct {
@@ -53,970 +53,970 @@ type AllQueryArguments struct {
 }
 
 type AllowAction struct {
-	CustomRequestHandling *CustomRequestHandling `json:"customRequestHandling" xml:"CustomRequestHandling"`
+CustomRequestHandling *CustomRequestHandling `json:"customRequestHandling" xml:"CustomRequestHandling"`
 }
 
 type AndStatement struct {
-	Statements Statements `json:"statements" xml:"Statements"`
+Statements Statements `json:"statements" xml:"Statements"`
 }
 
 type ApplicationAttribute struct {
-	Name   string          `json:"name" xml:"Name"`
-	Values AttributeValues `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values AttributeValues `json:"values" xml:"Values"`
 }
 
 type ApplicationConfig struct {
-	Attributes ApplicationAttributes `json:"attributes" xml:"Attributes"`
+Attributes ApplicationAttributes `json:"attributes" xml:"Attributes"`
 }
 
 type AsnMatchStatement struct {
-	AsnList           AsnList            `json:"asnList" xml:"AsnList"`
-	ForwardedIPConfig *ForwardedIPConfig `json:"forwardedIPConfig" xml:"ForwardedIPConfig"`
+AsnList AsnList `json:"asnList" xml:"AsnList"`
+ForwardedIPConfig *ForwardedIPConfig `json:"forwardedIPConfig" xml:"ForwardedIPConfig"`
 }
 
 type AssociateWebACLRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
-	WebACLArn   string `json:"webACLArn" xml:"WebACLArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
 }
 
 type AssociateWebACLResponse struct {
 }
 
 type AssociationConfig struct {
-	RequestBody RequestBody `json:"requestBody" xml:"RequestBody"`
+RequestBody RequestBody `json:"requestBody" xml:"RequestBody"`
 }
 
 type BlockAction struct {
-	CustomResponse *CustomResponse `json:"customResponse" xml:"CustomResponse"`
+CustomResponse *CustomResponse `json:"customResponse" xml:"CustomResponse"`
 }
 
 type Body struct {
-	OversizeHandling string `json:"oversizeHandling" xml:"OversizeHandling"`
+OversizeHandling string `json:"oversizeHandling" xml:"OversizeHandling"`
 }
 
 type BotStatistics struct {
-	BotName      string  `json:"botName" xml:"BotName"`
-	Percentage   float64 `json:"percentage" xml:"Percentage"`
-	RequestCount int64   `json:"requestCount" xml:"RequestCount"`
+BotName string `json:"botName" xml:"BotName"`
+Percentage float64 `json:"percentage" xml:"Percentage"`
+RequestCount int64 `json:"requestCount" xml:"RequestCount"`
 }
 
 type ByteMatchStatement struct {
-	FieldToMatch         *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	PositionalConstraint string              `json:"positionalConstraint" xml:"PositionalConstraint"`
-	SearchString         []byte              `json:"searchString" xml:"SearchString"`
-	TextTransformations  TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+FieldToMatch *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
+PositionalConstraint string `json:"positionalConstraint" xml:"PositionalConstraint"`
+SearchString []byte `json:"searchString" xml:"SearchString"`
+TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type CaptchaAction struct {
-	CustomRequestHandling *CustomRequestHandling `json:"customRequestHandling" xml:"CustomRequestHandling"`
+CustomRequestHandling *CustomRequestHandling `json:"customRequestHandling" xml:"CustomRequestHandling"`
 }
 
 type CaptchaConfig struct {
-	ImmunityTimeProperty *ImmunityTimeProperty `json:"immunityTimeProperty" xml:"ImmunityTimeProperty"`
+ImmunityTimeProperty *ImmunityTimeProperty `json:"immunityTimeProperty" xml:"ImmunityTimeProperty"`
 }
 
 type CaptchaResponse struct {
-	FailureReason  string `json:"failureReason" xml:"FailureReason"`
-	ResponseCode   int32  `json:"responseCode" xml:"ResponseCode"`
-	SolveTimestamp int64  `json:"solveTimestamp" xml:"SolveTimestamp"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+ResponseCode int32 `json:"responseCode" xml:"ResponseCode"`
+SolveTimestamp int64 `json:"solveTimestamp" xml:"SolveTimestamp"`
 }
 
 type ChallengeAction struct {
-	CustomRequestHandling *CustomRequestHandling `json:"customRequestHandling" xml:"CustomRequestHandling"`
+CustomRequestHandling *CustomRequestHandling `json:"customRequestHandling" xml:"CustomRequestHandling"`
 }
 
 type ChallengeConfig struct {
-	ImmunityTimeProperty *ImmunityTimeProperty `json:"immunityTimeProperty" xml:"ImmunityTimeProperty"`
+ImmunityTimeProperty *ImmunityTimeProperty `json:"immunityTimeProperty" xml:"ImmunityTimeProperty"`
 }
 
 type ChallengeResponse struct {
-	FailureReason  string `json:"failureReason" xml:"FailureReason"`
-	ResponseCode   int32  `json:"responseCode" xml:"ResponseCode"`
-	SolveTimestamp int64  `json:"solveTimestamp" xml:"SolveTimestamp"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+ResponseCode int32 `json:"responseCode" xml:"ResponseCode"`
+SolveTimestamp int64 `json:"solveTimestamp" xml:"SolveTimestamp"`
 }
 
 type CheckCapacityRequest struct {
-	Rules Rules  `json:"rules" xml:"Rules"`
-	Scope string `json:"scope" xml:"Scope"`
+Rules Rules `json:"rules" xml:"Rules"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type CheckCapacityResponse struct {
-	Capacity int64 `json:"capacity" xml:"Capacity"`
+Capacity int64 `json:"capacity" xml:"Capacity"`
 }
 
 type ClientSideAction struct {
-	ExemptUriRegularExpressions RegularExpressionList `json:"exemptUriRegularExpressions" xml:"ExemptUriRegularExpressions"`
-	Sensitivity                 string                `json:"sensitivity" xml:"Sensitivity"`
-	UsageOfAction               string                `json:"usageOfAction" xml:"UsageOfAction"`
+ExemptUriRegularExpressions RegularExpressionList `json:"exemptUriRegularExpressions" xml:"ExemptUriRegularExpressions"`
+Sensitivity string `json:"sensitivity" xml:"Sensitivity"`
+UsageOfAction string `json:"usageOfAction" xml:"UsageOfAction"`
 }
 
 type ClientSideActionConfig struct {
-	Challenge *ClientSideAction `json:"challenge" xml:"Challenge"`
+Challenge *ClientSideAction `json:"challenge" xml:"Challenge"`
 }
 
 type Condition struct {
-	ActionCondition    *ActionCondition    `json:"actionCondition" xml:"ActionCondition"`
-	LabelNameCondition *LabelNameCondition `json:"labelNameCondition" xml:"LabelNameCondition"`
+ActionCondition *ActionCondition `json:"actionCondition" xml:"ActionCondition"`
+LabelNameCondition *LabelNameCondition `json:"labelNameCondition" xml:"LabelNameCondition"`
 }
 
 type CookieMatchPattern struct {
-	All             *All        `json:"all" xml:"All"`
-	ExcludedCookies CookieNames `json:"excludedCookies" xml:"ExcludedCookies"`
-	IncludedCookies CookieNames `json:"includedCookies" xml:"IncludedCookies"`
+All *All `json:"all" xml:"All"`
+ExcludedCookies CookieNames `json:"excludedCookies" xml:"ExcludedCookies"`
+IncludedCookies CookieNames `json:"includedCookies" xml:"IncludedCookies"`
 }
 
 type Cookies struct {
-	MatchPattern     *CookieMatchPattern `json:"matchPattern" xml:"MatchPattern"`
-	MatchScope       string              `json:"matchScope" xml:"MatchScope"`
-	OversizeHandling string              `json:"oversizeHandling" xml:"OversizeHandling"`
+MatchPattern *CookieMatchPattern `json:"matchPattern" xml:"MatchPattern"`
+MatchScope string `json:"matchScope" xml:"MatchScope"`
+OversizeHandling string `json:"oversizeHandling" xml:"OversizeHandling"`
 }
 
 type CountAction struct {
-	CustomRequestHandling *CustomRequestHandling `json:"customRequestHandling" xml:"CustomRequestHandling"`
+CustomRequestHandling *CustomRequestHandling `json:"customRequestHandling" xml:"CustomRequestHandling"`
 }
 
 type CreateAPIKeyRequest struct {
-	Scope        string             `json:"scope" xml:"Scope"`
-	TokenDomains APIKeyTokenDomains `json:"tokenDomains" xml:"TokenDomains"`
+Scope string `json:"scope" xml:"Scope"`
+TokenDomains APIKeyTokenDomains `json:"tokenDomains" xml:"TokenDomains"`
 }
 
 type CreateAPIKeyResponse struct {
-	APIKey string `json:"aPIKey" xml:"APIKey"`
+APIKey string `json:"aPIKey" xml:"APIKey"`
 }
 
 type CreateIPSetRequest struct {
-	Addresses        IPAddresses `json:"addresses" xml:"Addresses"`
-	Description      string      `json:"description" xml:"Description"`
-	IPAddressVersion string      `json:"iPAddressVersion" xml:"IPAddressVersion"`
-	Name             string      `json:"name" xml:"Name"`
-	Scope            string      `json:"scope" xml:"Scope"`
-	Tags             TagList     `json:"tags" xml:"Tags"`
+Addresses IPAddresses `json:"addresses" xml:"Addresses"`
+Description string `json:"description" xml:"Description"`
+IPAddressVersion string `json:"iPAddressVersion" xml:"IPAddressVersion"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateIPSetResponse struct {
-	Summary *IPSetSummary `json:"summary" xml:"Summary"`
+Summary *IPSetSummary `json:"summary" xml:"Summary"`
 }
 
 type CreateRegexPatternSetRequest struct {
-	Description           string                `json:"description" xml:"Description"`
-	Name                  string                `json:"name" xml:"Name"`
-	RegularExpressionList RegularExpressionList `json:"regularExpressionList" xml:"RegularExpressionList"`
-	Scope                 string                `json:"scope" xml:"Scope"`
-	Tags                  TagList               `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+RegularExpressionList RegularExpressionList `json:"regularExpressionList" xml:"RegularExpressionList"`
+Scope string `json:"scope" xml:"Scope"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateRegexPatternSetResponse struct {
-	Summary *RegexPatternSetSummary `json:"summary" xml:"Summary"`
+Summary *RegexPatternSetSummary `json:"summary" xml:"Summary"`
 }
 
 type CreateRuleGroupRequest struct {
-	Capacity             int64                `json:"capacity" xml:"Capacity"`
-	CustomResponseBodies CustomResponseBodies `json:"customResponseBodies" xml:"CustomResponseBodies"`
-	Description          string               `json:"description" xml:"Description"`
-	Name                 string               `json:"name" xml:"Name"`
-	Rules                Rules                `json:"rules" xml:"Rules"`
-	Scope                string               `json:"scope" xml:"Scope"`
-	Tags                 TagList              `json:"tags" xml:"Tags"`
-	VisibilityConfig     *VisibilityConfig    `json:"visibilityConfig" xml:"VisibilityConfig"`
+Capacity int64 `json:"capacity" xml:"Capacity"`
+CustomResponseBodies CustomResponseBodies `json:"customResponseBodies" xml:"CustomResponseBodies"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Rules Rules `json:"rules" xml:"Rules"`
+Scope string `json:"scope" xml:"Scope"`
+Tags TagList `json:"tags" xml:"Tags"`
+VisibilityConfig *VisibilityConfig `json:"visibilityConfig" xml:"VisibilityConfig"`
 }
 
 type CreateRuleGroupResponse struct {
-	Summary *RuleGroupSummary `json:"summary" xml:"Summary"`
+Summary *RuleGroupSummary `json:"summary" xml:"Summary"`
 }
 
 type CreateWebACLRequest struct {
-	ApplicationConfig            *ApplicationConfig            `json:"applicationConfig" xml:"ApplicationConfig"`
-	AssociationConfig            *AssociationConfig            `json:"associationConfig" xml:"AssociationConfig"`
-	CaptchaConfig                *CaptchaConfig                `json:"captchaConfig" xml:"CaptchaConfig"`
-	ChallengeConfig              *ChallengeConfig              `json:"challengeConfig" xml:"ChallengeConfig"`
-	CustomResponseBodies         CustomResponseBodies          `json:"customResponseBodies" xml:"CustomResponseBodies"`
-	DataProtectionConfig         *DataProtectionConfig         `json:"dataProtectionConfig" xml:"DataProtectionConfig"`
-	DefaultAction                *DefaultAction                `json:"defaultAction" xml:"DefaultAction"`
-	Description                  string                        `json:"description" xml:"Description"`
-	Name                         string                        `json:"name" xml:"Name"`
-	OnSourceDDoSProtectionConfig *OnSourceDDoSProtectionConfig `json:"onSourceDDoSProtectionConfig" xml:"OnSourceDDoSProtectionConfig"`
-	Rules                        Rules                         `json:"rules" xml:"Rules"`
-	Scope                        string                        `json:"scope" xml:"Scope"`
-	Tags                         TagList                       `json:"tags" xml:"Tags"`
-	TokenDomains                 TokenDomains                  `json:"tokenDomains" xml:"TokenDomains"`
-	VisibilityConfig             *VisibilityConfig             `json:"visibilityConfig" xml:"VisibilityConfig"`
+ApplicationConfig *ApplicationConfig `json:"applicationConfig" xml:"ApplicationConfig"`
+AssociationConfig *AssociationConfig `json:"associationConfig" xml:"AssociationConfig"`
+CaptchaConfig *CaptchaConfig `json:"captchaConfig" xml:"CaptchaConfig"`
+ChallengeConfig *ChallengeConfig `json:"challengeConfig" xml:"ChallengeConfig"`
+CustomResponseBodies CustomResponseBodies `json:"customResponseBodies" xml:"CustomResponseBodies"`
+DataProtectionConfig *DataProtectionConfig `json:"dataProtectionConfig" xml:"DataProtectionConfig"`
+DefaultAction *DefaultAction `json:"defaultAction" xml:"DefaultAction"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+OnSourceDDoSProtectionConfig *OnSourceDDoSProtectionConfig `json:"onSourceDDoSProtectionConfig" xml:"OnSourceDDoSProtectionConfig"`
+Rules Rules `json:"rules" xml:"Rules"`
+Scope string `json:"scope" xml:"Scope"`
+Tags TagList `json:"tags" xml:"Tags"`
+TokenDomains TokenDomains `json:"tokenDomains" xml:"TokenDomains"`
+VisibilityConfig *VisibilityConfig `json:"visibilityConfig" xml:"VisibilityConfig"`
 }
 
 type CreateWebACLResponse struct {
-	Summary *WebACLSummary `json:"summary" xml:"Summary"`
+Summary *WebACLSummary `json:"summary" xml:"Summary"`
 }
 
 type CustomHTTPHeader struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type CustomRequestHandling struct {
-	InsertHeaders CustomHTTPHeaders `json:"insertHeaders" xml:"InsertHeaders"`
+InsertHeaders CustomHTTPHeaders `json:"insertHeaders" xml:"InsertHeaders"`
 }
 
 type CustomResponse struct {
-	CustomResponseBodyKey string            `json:"customResponseBodyKey" xml:"CustomResponseBodyKey"`
-	ResponseCode          int32             `json:"responseCode" xml:"ResponseCode"`
-	ResponseHeaders       CustomHTTPHeaders `json:"responseHeaders" xml:"ResponseHeaders"`
+CustomResponseBodyKey string `json:"customResponseBodyKey" xml:"CustomResponseBodyKey"`
+ResponseCode int32 `json:"responseCode" xml:"ResponseCode"`
+ResponseHeaders CustomHTTPHeaders `json:"responseHeaders" xml:"ResponseHeaders"`
 }
 
 type CustomResponseBody struct {
-	Content     string `json:"content" xml:"Content"`
-	ContentType string `json:"contentType" xml:"ContentType"`
+Content string `json:"content" xml:"Content"`
+ContentType string `json:"contentType" xml:"ContentType"`
 }
 
 type DataProtection struct {
-	Action                  string          `json:"action" xml:"Action"`
-	ExcludeRateBasedDetails bool            `json:"excludeRateBasedDetails" xml:"ExcludeRateBasedDetails"`
-	ExcludeRuleMatchDetails bool            `json:"excludeRuleMatchDetails" xml:"ExcludeRuleMatchDetails"`
-	Field                   *FieldToProtect `json:"field" xml:"Field"`
+Action string `json:"action" xml:"Action"`
+ExcludeRateBasedDetails bool `json:"excludeRateBasedDetails" xml:"ExcludeRateBasedDetails"`
+ExcludeRuleMatchDetails bool `json:"excludeRuleMatchDetails" xml:"ExcludeRuleMatchDetails"`
+Field *FieldToProtect `json:"field" xml:"Field"`
 }
 
 type DataProtectionConfig struct {
-	DataProtections DataProtections `json:"dataProtections" xml:"DataProtections"`
+DataProtections DataProtections `json:"dataProtections" xml:"DataProtections"`
 }
 
 type DefaultAction struct {
-	Allow *AllowAction `json:"allow" xml:"Allow"`
-	Block *BlockAction `json:"block" xml:"Block"`
+Allow *AllowAction `json:"allow" xml:"Allow"`
+Block *BlockAction `json:"block" xml:"Block"`
 }
 
 type DeleteAPIKeyRequest struct {
-	APIKey string `json:"aPIKey" xml:"APIKey"`
-	Scope  string `json:"scope" xml:"Scope"`
+APIKey string `json:"aPIKey" xml:"APIKey"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type DeleteAPIKeyResponse struct {
 }
 
 type DeleteFirewallManagerRuleGroupsRequest struct {
-	WebACLArn       string `json:"webACLArn" xml:"WebACLArn"`
-	WebACLLockToken string `json:"webACLLockToken" xml:"WebACLLockToken"`
+WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
+WebACLLockToken string `json:"webACLLockToken" xml:"WebACLLockToken"`
 }
 
 type DeleteFirewallManagerRuleGroupsResponse struct {
-	NextWebACLLockToken string `json:"nextWebACLLockToken" xml:"NextWebACLLockToken"`
+NextWebACLLockToken string `json:"nextWebACLLockToken" xml:"NextWebACLLockToken"`
 }
 
 type DeleteIPSetRequest struct {
-	Id        string `json:"id" xml:"Id"`
-	LockToken string `json:"lockToken" xml:"LockToken"`
-	Name      string `json:"name" xml:"Name"`
-	Scope     string `json:"scope" xml:"Scope"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type DeleteIPSetResponse struct {
 }
 
 type DeleteLoggingConfigurationRequest struct {
-	LogScope    string `json:"logScope" xml:"LogScope"`
-	LogType     string `json:"logType" xml:"LogType"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+LogScope string `json:"logScope" xml:"LogScope"`
+LogType string `json:"logType" xml:"LogType"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DeleteLoggingConfigurationResponse struct {
 }
 
 type DeletePermissionPolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DeletePermissionPolicyResponse struct {
 }
 
 type DeleteRegexPatternSetRequest struct {
-	Id        string `json:"id" xml:"Id"`
-	LockToken string `json:"lockToken" xml:"LockToken"`
-	Name      string `json:"name" xml:"Name"`
-	Scope     string `json:"scope" xml:"Scope"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type DeleteRegexPatternSetResponse struct {
 }
 
 type DeleteRuleGroupRequest struct {
-	Id        string `json:"id" xml:"Id"`
-	LockToken string `json:"lockToken" xml:"LockToken"`
-	Name      string `json:"name" xml:"Name"`
-	Scope     string `json:"scope" xml:"Scope"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type DeleteRuleGroupResponse struct {
 }
 
 type DeleteWebACLRequest struct {
-	Id        string `json:"id" xml:"Id"`
-	LockToken string `json:"lockToken" xml:"LockToken"`
-	Name      string `json:"name" xml:"Name"`
-	Scope     string `json:"scope" xml:"Scope"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type DeleteWebACLResponse struct {
 }
 
 type DescribeAllManagedProductsRequest struct {
-	Scope string `json:"scope" xml:"Scope"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type DescribeAllManagedProductsResponse struct {
-	ManagedProducts ManagedProductDescriptors `json:"managedProducts" xml:"ManagedProducts"`
+ManagedProducts ManagedProductDescriptors `json:"managedProducts" xml:"ManagedProducts"`
 }
 
 type DescribeManagedProductsByVendorRequest struct {
-	Scope      string `json:"scope" xml:"Scope"`
-	VendorName string `json:"vendorName" xml:"VendorName"`
+Scope string `json:"scope" xml:"Scope"`
+VendorName string `json:"vendorName" xml:"VendorName"`
 }
 
 type DescribeManagedProductsByVendorResponse struct {
-	ManagedProducts ManagedProductDescriptors `json:"managedProducts" xml:"ManagedProducts"`
+ManagedProducts ManagedProductDescriptors `json:"managedProducts" xml:"ManagedProducts"`
 }
 
 type DescribeManagedRuleGroupRequest struct {
-	Name        string `json:"name" xml:"Name"`
-	Scope       string `json:"scope" xml:"Scope"`
-	VendorName  string `json:"vendorName" xml:"VendorName"`
-	VersionName string `json:"versionName" xml:"VersionName"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
+VendorName string `json:"vendorName" xml:"VendorName"`
+VersionName string `json:"versionName" xml:"VersionName"`
 }
 
 type DescribeManagedRuleGroupResponse struct {
-	AvailableLabels LabelSummaries `json:"availableLabels" xml:"AvailableLabels"`
-	Capacity        int64          `json:"capacity" xml:"Capacity"`
-	ConsumedLabels  LabelSummaries `json:"consumedLabels" xml:"ConsumedLabels"`
-	LabelNamespace  string         `json:"labelNamespace" xml:"LabelNamespace"`
-	Rules           RuleSummaries  `json:"rules" xml:"Rules"`
-	SnsTopicArn     string         `json:"snsTopicArn" xml:"SnsTopicArn"`
-	VersionName     string         `json:"versionName" xml:"VersionName"`
+AvailableLabels LabelSummaries `json:"availableLabels" xml:"AvailableLabels"`
+Capacity int64 `json:"capacity" xml:"Capacity"`
+ConsumedLabels LabelSummaries `json:"consumedLabels" xml:"ConsumedLabels"`
+LabelNamespace string `json:"labelNamespace" xml:"LabelNamespace"`
+Rules RuleSummaries `json:"rules" xml:"Rules"`
+SnsTopicArn string `json:"snsTopicArn" xml:"SnsTopicArn"`
+VersionName string `json:"versionName" xml:"VersionName"`
 }
 
 type DisallowedFeature struct {
-	Feature             string `json:"feature" xml:"Feature"`
-	RequiredPricingPlan string `json:"requiredPricingPlan" xml:"RequiredPricingPlan"`
+Feature string `json:"feature" xml:"Feature"`
+RequiredPricingPlan string `json:"requiredPricingPlan" xml:"RequiredPricingPlan"`
 }
 
 type DisassociateWebACLRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DisassociateWebACLResponse struct {
 }
 
 type EmailField struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type ExcludedRule struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type FieldToMatch struct {
-	AllQueryArguments   *AllQueryArguments   `json:"allQueryArguments" xml:"AllQueryArguments"`
-	Body                *Body                `json:"body" xml:"Body"`
-	Cookies             *Cookies             `json:"cookies" xml:"Cookies"`
-	HeaderOrder         *HeaderOrder         `json:"headerOrder" xml:"HeaderOrder"`
-	Headers             *Headers             `json:"headers" xml:"Headers"`
-	JA3Fingerprint      *JA3Fingerprint      `json:"jA3Fingerprint" xml:"JA3Fingerprint"`
-	JA4Fingerprint      *JA4Fingerprint      `json:"jA4Fingerprint" xml:"JA4Fingerprint"`
-	JsonBody            *JsonBody            `json:"jsonBody" xml:"JsonBody"`
-	Method              *Method              `json:"method" xml:"Method"`
-	QueryString         *QueryString         `json:"queryString" xml:"QueryString"`
-	SingleHeader        *SingleHeader        `json:"singleHeader" xml:"SingleHeader"`
-	SingleQueryArgument *SingleQueryArgument `json:"singleQueryArgument" xml:"SingleQueryArgument"`
-	UriFragment         *UriFragment         `json:"uriFragment" xml:"UriFragment"`
-	UriPath             *UriPath             `json:"uriPath" xml:"UriPath"`
+AllQueryArguments *AllQueryArguments `json:"allQueryArguments" xml:"AllQueryArguments"`
+Body *Body `json:"body" xml:"Body"`
+Cookies *Cookies `json:"cookies" xml:"Cookies"`
+HeaderOrder *HeaderOrder `json:"headerOrder" xml:"HeaderOrder"`
+Headers *Headers `json:"headers" xml:"Headers"`
+JA3Fingerprint *JA3Fingerprint `json:"jA3Fingerprint" xml:"JA3Fingerprint"`
+JA4Fingerprint *JA4Fingerprint `json:"jA4Fingerprint" xml:"JA4Fingerprint"`
+JsonBody *JsonBody `json:"jsonBody" xml:"JsonBody"`
+Method *Method `json:"method" xml:"Method"`
+QueryString *QueryString `json:"queryString" xml:"QueryString"`
+SingleHeader *SingleHeader `json:"singleHeader" xml:"SingleHeader"`
+SingleQueryArgument *SingleQueryArgument `json:"singleQueryArgument" xml:"SingleQueryArgument"`
+UriFragment *UriFragment `json:"uriFragment" xml:"UriFragment"`
+UriPath *UriPath `json:"uriPath" xml:"UriPath"`
 }
 
 type FieldToProtect struct {
-	FieldKeys FieldToProtectKeys `json:"fieldKeys" xml:"FieldKeys"`
-	FieldType string             `json:"fieldType" xml:"FieldType"`
+FieldKeys FieldToProtectKeys `json:"fieldKeys" xml:"FieldKeys"`
+FieldType string `json:"fieldType" xml:"FieldType"`
 }
 
 type Filter struct {
-	Behavior    string     `json:"behavior" xml:"Behavior"`
-	Conditions  Conditions `json:"conditions" xml:"Conditions"`
-	Requirement string     `json:"requirement" xml:"Requirement"`
+Behavior string `json:"behavior" xml:"Behavior"`
+Conditions Conditions `json:"conditions" xml:"Conditions"`
+Requirement string `json:"requirement" xml:"Requirement"`
 }
 
 type FilterSource struct {
-	BotCategory     string `json:"botCategory" xml:"BotCategory"`
-	BotName         string `json:"botName" xml:"BotName"`
-	BotOrganization string `json:"botOrganization" xml:"BotOrganization"`
+BotCategory string `json:"botCategory" xml:"BotCategory"`
+BotName string `json:"botName" xml:"BotName"`
+BotOrganization string `json:"botOrganization" xml:"BotOrganization"`
 }
 
 type FirewallManagerRuleGroup struct {
-	FirewallManagerStatement *FirewallManagerStatement `json:"firewallManagerStatement" xml:"FirewallManagerStatement"`
-	Name                     string                    `json:"name" xml:"Name"`
-	OverrideAction           *OverrideAction           `json:"overrideAction" xml:"OverrideAction"`
-	Priority                 int32                     `json:"priority" xml:"Priority"`
-	VisibilityConfig         *VisibilityConfig         `json:"visibilityConfig" xml:"VisibilityConfig"`
+FirewallManagerStatement *FirewallManagerStatement `json:"firewallManagerStatement" xml:"FirewallManagerStatement"`
+Name string `json:"name" xml:"Name"`
+OverrideAction *OverrideAction `json:"overrideAction" xml:"OverrideAction"`
+Priority int32 `json:"priority" xml:"Priority"`
+VisibilityConfig *VisibilityConfig `json:"visibilityConfig" xml:"VisibilityConfig"`
 }
 
 type FirewallManagerStatement struct {
-	ManagedRuleGroupStatement   *ManagedRuleGroupStatement   `json:"managedRuleGroupStatement" xml:"ManagedRuleGroupStatement"`
-	RuleGroupReferenceStatement *RuleGroupReferenceStatement `json:"ruleGroupReferenceStatement" xml:"RuleGroupReferenceStatement"`
+ManagedRuleGroupStatement *ManagedRuleGroupStatement `json:"managedRuleGroupStatement" xml:"ManagedRuleGroupStatement"`
+RuleGroupReferenceStatement *RuleGroupReferenceStatement `json:"ruleGroupReferenceStatement" xml:"RuleGroupReferenceStatement"`
 }
 
 type ForwardedIPConfig struct {
-	FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
-	HeaderName       string `json:"headerName" xml:"HeaderName"`
+FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
+HeaderName string `json:"headerName" xml:"HeaderName"`
 }
 
 type GenerateMobileSdkReleaseUrlRequest struct {
-	Platform       string `json:"platform" xml:"Platform"`
-	ReleaseVersion string `json:"releaseVersion" xml:"ReleaseVersion"`
+Platform string `json:"platform" xml:"Platform"`
+ReleaseVersion string `json:"releaseVersion" xml:"ReleaseVersion"`
 }
 
 type GenerateMobileSdkReleaseUrlResponse struct {
-	Url string `json:"url" xml:"Url"`
+Url string `json:"url" xml:"Url"`
 }
 
 type GeoMatchStatement struct {
-	CountryCodes      CountryCodes       `json:"countryCodes" xml:"CountryCodes"`
-	ForwardedIPConfig *ForwardedIPConfig `json:"forwardedIPConfig" xml:"ForwardedIPConfig"`
+CountryCodes CountryCodes `json:"countryCodes" xml:"CountryCodes"`
+ForwardedIPConfig *ForwardedIPConfig `json:"forwardedIPConfig" xml:"ForwardedIPConfig"`
 }
 
 type GetDecryptedAPIKeyRequest struct {
-	APIKey string `json:"aPIKey" xml:"APIKey"`
-	Scope  string `json:"scope" xml:"Scope"`
+APIKey string `json:"aPIKey" xml:"APIKey"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type GetDecryptedAPIKeyResponse struct {
-	CreationTimestamp time.Time    `json:"creationTimestamp" xml:"CreationTimestamp"`
-	TokenDomains      TokenDomains `json:"tokenDomains" xml:"TokenDomains"`
+CreationTimestamp time.Time `json:"creationTimestamp" xml:"CreationTimestamp"`
+TokenDomains TokenDomains `json:"tokenDomains" xml:"TokenDomains"`
 }
 
 type GetIPSetRequest struct {
-	Id    string `json:"id" xml:"Id"`
-	Name  string `json:"name" xml:"Name"`
-	Scope string `json:"scope" xml:"Scope"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type GetIPSetResponse struct {
-	IPSet     *IPSet `json:"iPSet" xml:"IPSet"`
-	LockToken string `json:"lockToken" xml:"LockToken"`
+IPSet *IPSet `json:"iPSet" xml:"IPSet"`
+LockToken string `json:"lockToken" xml:"LockToken"`
 }
 
 type GetLoggingConfigurationRequest struct {
-	LogScope    string `json:"logScope" xml:"LogScope"`
-	LogType     string `json:"logType" xml:"LogType"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+LogScope string `json:"logScope" xml:"LogScope"`
+LogType string `json:"logType" xml:"LogType"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetLoggingConfigurationResponse struct {
-	LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
+LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
 }
 
 type GetManagedRuleSetRequest struct {
-	Id    string `json:"id" xml:"Id"`
-	Name  string `json:"name" xml:"Name"`
-	Scope string `json:"scope" xml:"Scope"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type GetManagedRuleSetResponse struct {
-	LockToken      string          `json:"lockToken" xml:"LockToken"`
-	ManagedRuleSet *ManagedRuleSet `json:"managedRuleSet" xml:"ManagedRuleSet"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+ManagedRuleSet *ManagedRuleSet `json:"managedRuleSet" xml:"ManagedRuleSet"`
 }
 
 type GetMobileSdkReleaseRequest struct {
-	Platform       string `json:"platform" xml:"Platform"`
-	ReleaseVersion string `json:"releaseVersion" xml:"ReleaseVersion"`
+Platform string `json:"platform" xml:"Platform"`
+ReleaseVersion string `json:"releaseVersion" xml:"ReleaseVersion"`
 }
 
 type GetMobileSdkReleaseResponse struct {
-	MobileSdkRelease *MobileSdkRelease `json:"mobileSdkRelease" xml:"MobileSdkRelease"`
+MobileSdkRelease *MobileSdkRelease `json:"mobileSdkRelease" xml:"MobileSdkRelease"`
 }
 
 type GetPermissionPolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetPermissionPolicyResponse struct {
-	Policy string `json:"policy" xml:"Policy"`
+Policy string `json:"policy" xml:"Policy"`
 }
 
 type GetRateBasedStatementManagedKeysRequest struct {
-	RuleGroupRuleName string `json:"ruleGroupRuleName" xml:"RuleGroupRuleName"`
-	RuleName          string `json:"ruleName" xml:"RuleName"`
-	Scope             string `json:"scope" xml:"Scope"`
-	WebACLId          string `json:"webACLId" xml:"WebACLId"`
-	WebACLName        string `json:"webACLName" xml:"WebACLName"`
+RuleGroupRuleName string `json:"ruleGroupRuleName" xml:"RuleGroupRuleName"`
+RuleName string `json:"ruleName" xml:"RuleName"`
+Scope string `json:"scope" xml:"Scope"`
+WebACLId string `json:"webACLId" xml:"WebACLId"`
+WebACLName string `json:"webACLName" xml:"WebACLName"`
 }
 
 type GetRateBasedStatementManagedKeysResponse struct {
-	ManagedKeysIPV4 *RateBasedStatementManagedKeysIPSet `json:"managedKeysIPV4" xml:"ManagedKeysIPV4"`
-	ManagedKeysIPV6 *RateBasedStatementManagedKeysIPSet `json:"managedKeysIPV6" xml:"ManagedKeysIPV6"`
+ManagedKeysIPV4 *RateBasedStatementManagedKeysIPSet `json:"managedKeysIPV4" xml:"ManagedKeysIPV4"`
+ManagedKeysIPV6 *RateBasedStatementManagedKeysIPSet `json:"managedKeysIPV6" xml:"ManagedKeysIPV6"`
 }
 
 type GetRegexPatternSetRequest struct {
-	Id    string `json:"id" xml:"Id"`
-	Name  string `json:"name" xml:"Name"`
-	Scope string `json:"scope" xml:"Scope"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type GetRegexPatternSetResponse struct {
-	LockToken       string           `json:"lockToken" xml:"LockToken"`
-	RegexPatternSet *RegexPatternSet `json:"regexPatternSet" xml:"RegexPatternSet"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+RegexPatternSet *RegexPatternSet `json:"regexPatternSet" xml:"RegexPatternSet"`
 }
 
 type GetRuleGroupRequest struct {
-	ARN   string `json:"aRN" xml:"ARN"`
-	Id    string `json:"id" xml:"Id"`
-	Name  string `json:"name" xml:"Name"`
-	Scope string `json:"scope" xml:"Scope"`
+ARN string `json:"aRN" xml:"ARN"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type GetRuleGroupResponse struct {
-	LockToken string     `json:"lockToken" xml:"LockToken"`
-	RuleGroup *RuleGroup `json:"ruleGroup" xml:"RuleGroup"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+RuleGroup *RuleGroup `json:"ruleGroup" xml:"RuleGroup"`
 }
 
 type GetSampledRequestsRequest struct {
-	MaxItems       int64       `json:"maxItems" xml:"MaxItems"`
-	RuleMetricName string      `json:"ruleMetricName" xml:"RuleMetricName"`
-	Scope          string      `json:"scope" xml:"Scope"`
-	TimeWindow     *TimeWindow `json:"timeWindow" xml:"TimeWindow"`
-	WebAclArn      string      `json:"webAclArn" xml:"WebAclArn"`
+MaxItems int64 `json:"maxItems" xml:"MaxItems"`
+RuleMetricName string `json:"ruleMetricName" xml:"RuleMetricName"`
+Scope string `json:"scope" xml:"Scope"`
+TimeWindow *TimeWindow `json:"timeWindow" xml:"TimeWindow"`
+WebAclArn string `json:"webAclArn" xml:"WebAclArn"`
 }
 
 type GetSampledRequestsResponse struct {
-	PopulationSize  int64               `json:"populationSize" xml:"PopulationSize"`
-	SampledRequests SampledHTTPRequests `json:"sampledRequests" xml:"SampledRequests"`
-	TimeWindow      *TimeWindow         `json:"timeWindow" xml:"TimeWindow"`
+PopulationSize int64 `json:"populationSize" xml:"PopulationSize"`
+SampledRequests SampledHTTPRequests `json:"sampledRequests" xml:"SampledRequests"`
+TimeWindow *TimeWindow `json:"timeWindow" xml:"TimeWindow"`
 }
 
 type GetTopPathStatisticsByTrafficRequest struct {
-	BotCategory                   string      `json:"botCategory" xml:"BotCategory"`
-	BotName                       string      `json:"botName" xml:"BotName"`
-	BotOrganization               string      `json:"botOrganization" xml:"BotOrganization"`
-	Limit                         int32       `json:"limit" xml:"Limit"`
-	NextMarker                    string      `json:"nextMarker" xml:"NextMarker"`
-	NumberOfTopTrafficBotsPerPath int32       `json:"numberOfTopTrafficBotsPerPath" xml:"NumberOfTopTrafficBotsPerPath"`
-	Scope                         string      `json:"scope" xml:"Scope"`
-	TimeWindow                    *TimeWindow `json:"timeWindow" xml:"TimeWindow"`
-	UriPathPrefix                 string      `json:"uriPathPrefix" xml:"UriPathPrefix"`
-	WebAclArn                     string      `json:"webAclArn" xml:"WebAclArn"`
+BotCategory string `json:"botCategory" xml:"BotCategory"`
+BotName string `json:"botName" xml:"BotName"`
+BotOrganization string `json:"botOrganization" xml:"BotOrganization"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+NumberOfTopTrafficBotsPerPath int32 `json:"numberOfTopTrafficBotsPerPath" xml:"NumberOfTopTrafficBotsPerPath"`
+Scope string `json:"scope" xml:"Scope"`
+TimeWindow *TimeWindow `json:"timeWindow" xml:"TimeWindow"`
+UriPathPrefix string `json:"uriPathPrefix" xml:"UriPathPrefix"`
+WebAclArn string `json:"webAclArn" xml:"WebAclArn"`
 }
 
 type GetTopPathStatisticsByTrafficResponse struct {
-	NextMarker        string             `json:"nextMarker" xml:"NextMarker"`
-	PathStatistics    PathStatisticsList `json:"pathStatistics" xml:"PathStatistics"`
-	TopCategories     PathStatisticsList `json:"topCategories" xml:"TopCategories"`
-	TotalRequestCount int64              `json:"totalRequestCount" xml:"TotalRequestCount"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+PathStatistics PathStatisticsList `json:"pathStatistics" xml:"PathStatistics"`
+TopCategories PathStatisticsList `json:"topCategories" xml:"TopCategories"`
+TotalRequestCount int64 `json:"totalRequestCount" xml:"TotalRequestCount"`
 }
 
 type GetWebACLForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetWebACLForResourceResponse struct {
-	WebACL *WebACL `json:"webACL" xml:"WebACL"`
+WebACL *WebACL `json:"webACL" xml:"WebACL"`
 }
 
 type GetWebACLRequest struct {
-	ARN   string `json:"aRN" xml:"ARN"`
-	Id    string `json:"id" xml:"Id"`
-	Name  string `json:"name" xml:"Name"`
-	Scope string `json:"scope" xml:"Scope"`
+ARN string `json:"aRN" xml:"ARN"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type GetWebACLResponse struct {
-	ApplicationIntegrationURL string  `json:"applicationIntegrationURL" xml:"ApplicationIntegrationURL"`
-	LockToken                 string  `json:"lockToken" xml:"LockToken"`
-	WebACL                    *WebACL `json:"webACL" xml:"WebACL"`
+ApplicationIntegrationURL string `json:"applicationIntegrationURL" xml:"ApplicationIntegrationURL"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+WebACL *WebACL `json:"webACL" xml:"WebACL"`
 }
 
 type HTTPHeader struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type HTTPRequest struct {
-	ClientIP    string      `json:"clientIP" xml:"ClientIP"`
-	Country     string      `json:"country" xml:"Country"`
-	HTTPVersion string      `json:"hTTPVersion" xml:"HTTPVersion"`
-	Headers     HTTPHeaders `json:"headers" xml:"Headers"`
-	Method      string      `json:"method" xml:"Method"`
-	URI         string      `json:"uRI" xml:"URI"`
+ClientIP string `json:"clientIP" xml:"ClientIP"`
+Country string `json:"country" xml:"Country"`
+HTTPVersion string `json:"hTTPVersion" xml:"HTTPVersion"`
+Headers HTTPHeaders `json:"headers" xml:"Headers"`
+Method string `json:"method" xml:"Method"`
+URI string `json:"uRI" xml:"URI"`
 }
 
 type HeaderMatchPattern struct {
-	All             *All        `json:"all" xml:"All"`
-	ExcludedHeaders HeaderNames `json:"excludedHeaders" xml:"ExcludedHeaders"`
-	IncludedHeaders HeaderNames `json:"includedHeaders" xml:"IncludedHeaders"`
+All *All `json:"all" xml:"All"`
+ExcludedHeaders HeaderNames `json:"excludedHeaders" xml:"ExcludedHeaders"`
+IncludedHeaders HeaderNames `json:"includedHeaders" xml:"IncludedHeaders"`
 }
 
 type HeaderOrder struct {
-	OversizeHandling string `json:"oversizeHandling" xml:"OversizeHandling"`
+OversizeHandling string `json:"oversizeHandling" xml:"OversizeHandling"`
 }
 
 type Headers struct {
-	MatchPattern     *HeaderMatchPattern `json:"matchPattern" xml:"MatchPattern"`
-	MatchScope       string              `json:"matchScope" xml:"MatchScope"`
-	OversizeHandling string              `json:"oversizeHandling" xml:"OversizeHandling"`
+MatchPattern *HeaderMatchPattern `json:"matchPattern" xml:"MatchPattern"`
+MatchScope string `json:"matchScope" xml:"MatchScope"`
+OversizeHandling string `json:"oversizeHandling" xml:"OversizeHandling"`
 }
 
 type IPSet struct {
-	ARN              string      `json:"aRN" xml:"ARN"`
-	Addresses        IPAddresses `json:"addresses" xml:"Addresses"`
-	Description      string      `json:"description" xml:"Description"`
-	IPAddressVersion string      `json:"iPAddressVersion" xml:"IPAddressVersion"`
-	Id               string      `json:"id" xml:"Id"`
-	Name             string      `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Addresses IPAddresses `json:"addresses" xml:"Addresses"`
+Description string `json:"description" xml:"Description"`
+IPAddressVersion string `json:"iPAddressVersion" xml:"IPAddressVersion"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
 }
 
 type IPSetForwardedIPConfig struct {
-	FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
-	HeaderName       string `json:"headerName" xml:"HeaderName"`
-	Position         string `json:"position" xml:"Position"`
+FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
+HeaderName string `json:"headerName" xml:"HeaderName"`
+Position string `json:"position" xml:"Position"`
 }
 
 type IPSetReferenceStatement struct {
-	ARN                    string                  `json:"aRN" xml:"ARN"`
-	IPSetForwardedIPConfig *IPSetForwardedIPConfig `json:"iPSetForwardedIPConfig" xml:"IPSetForwardedIPConfig"`
+ARN string `json:"aRN" xml:"ARN"`
+IPSetForwardedIPConfig *IPSetForwardedIPConfig `json:"iPSetForwardedIPConfig" xml:"IPSetForwardedIPConfig"`
 }
 
 type IPSetSummary struct {
-	ARN         string `json:"aRN" xml:"ARN"`
-	Description string `json:"description" xml:"Description"`
-	Id          string `json:"id" xml:"Id"`
-	LockToken   string `json:"lockToken" xml:"LockToken"`
-	Name        string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ImmunityTimeProperty struct {
-	ImmunityTime int64 `json:"immunityTime" xml:"ImmunityTime"`
+ImmunityTime int64 `json:"immunityTime" xml:"ImmunityTime"`
 }
 
 type JA3Fingerprint struct {
-	FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
+FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
 }
 
 type JA4Fingerprint struct {
-	FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
+FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
 }
 
 type JsonBody struct {
-	InvalidFallbackBehavior string            `json:"invalidFallbackBehavior" xml:"InvalidFallbackBehavior"`
-	MatchPattern            *JsonMatchPattern `json:"matchPattern" xml:"MatchPattern"`
-	MatchScope              string            `json:"matchScope" xml:"MatchScope"`
-	OversizeHandling        string            `json:"oversizeHandling" xml:"OversizeHandling"`
+InvalidFallbackBehavior string `json:"invalidFallbackBehavior" xml:"InvalidFallbackBehavior"`
+MatchPattern *JsonMatchPattern `json:"matchPattern" xml:"MatchPattern"`
+MatchScope string `json:"matchScope" xml:"MatchScope"`
+OversizeHandling string `json:"oversizeHandling" xml:"OversizeHandling"`
 }
 
 type JsonMatchPattern struct {
-	All           *All             `json:"all" xml:"All"`
-	IncludedPaths JsonPointerPaths `json:"includedPaths" xml:"IncludedPaths"`
+All *All `json:"all" xml:"All"`
+IncludedPaths JsonPointerPaths `json:"includedPaths" xml:"IncludedPaths"`
 }
 
 type Label struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type LabelMatchStatement struct {
-	Key   string `json:"key" xml:"Key"`
-	Scope string `json:"scope" xml:"Scope"`
+Key string `json:"key" xml:"Key"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type LabelNameCondition struct {
-	LabelName string `json:"labelName" xml:"LabelName"`
+LabelName string `json:"labelName" xml:"LabelName"`
 }
 
 type LabelSummary struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ListAPIKeysRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	Scope      string `json:"scope" xml:"Scope"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type ListAPIKeysResponse struct {
-	APIKeySummaries           APIKeySummaries `json:"aPIKeySummaries" xml:"APIKeySummaries"`
-	ApplicationIntegrationURL string          `json:"applicationIntegrationURL" xml:"ApplicationIntegrationURL"`
-	NextMarker                string          `json:"nextMarker" xml:"NextMarker"`
+APIKeySummaries APIKeySummaries `json:"aPIKeySummaries" xml:"APIKeySummaries"`
+ApplicationIntegrationURL string `json:"applicationIntegrationURL" xml:"ApplicationIntegrationURL"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListAvailableManagedRuleGroupVersionsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	Name       string `json:"name" xml:"Name"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	Scope      string `json:"scope" xml:"Scope"`
-	VendorName string `json:"vendorName" xml:"VendorName"`
+Limit int32 `json:"limit" xml:"Limit"`
+Name string `json:"name" xml:"Name"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Scope string `json:"scope" xml:"Scope"`
+VendorName string `json:"vendorName" xml:"VendorName"`
 }
 
 type ListAvailableManagedRuleGroupVersionsResponse struct {
-	CurrentDefaultVersion string                   `json:"currentDefaultVersion" xml:"CurrentDefaultVersion"`
-	NextMarker            string                   `json:"nextMarker" xml:"NextMarker"`
-	Versions              ManagedRuleGroupVersions `json:"versions" xml:"Versions"`
+CurrentDefaultVersion string `json:"currentDefaultVersion" xml:"CurrentDefaultVersion"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Versions ManagedRuleGroupVersions `json:"versions" xml:"Versions"`
 }
 
 type ListAvailableManagedRuleGroupsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	Scope      string `json:"scope" xml:"Scope"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type ListAvailableManagedRuleGroupsResponse struct {
-	ManagedRuleGroups ManagedRuleGroupSummaries `json:"managedRuleGroups" xml:"ManagedRuleGroups"`
-	NextMarker        string                    `json:"nextMarker" xml:"NextMarker"`
+ManagedRuleGroups ManagedRuleGroupSummaries `json:"managedRuleGroups" xml:"ManagedRuleGroups"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListIPSetsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	Scope      string `json:"scope" xml:"Scope"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type ListIPSetsResponse struct {
-	IPSets     IPSetSummaries `json:"iPSets" xml:"IPSets"`
-	NextMarker string         `json:"nextMarker" xml:"NextMarker"`
+IPSets IPSetSummaries `json:"iPSets" xml:"IPSets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListLoggingConfigurationsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	LogScope   string `json:"logScope" xml:"LogScope"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	Scope      string `json:"scope" xml:"Scope"`
+Limit int32 `json:"limit" xml:"Limit"`
+LogScope string `json:"logScope" xml:"LogScope"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type ListLoggingConfigurationsResponse struct {
-	LoggingConfigurations LoggingConfigurations `json:"loggingConfigurations" xml:"LoggingConfigurations"`
-	NextMarker            string                `json:"nextMarker" xml:"NextMarker"`
+LoggingConfigurations LoggingConfigurations `json:"loggingConfigurations" xml:"LoggingConfigurations"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListManagedRuleSetsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	Scope      string `json:"scope" xml:"Scope"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type ListManagedRuleSetsResponse struct {
-	ManagedRuleSets ManagedRuleSetSummaries `json:"managedRuleSets" xml:"ManagedRuleSets"`
-	NextMarker      string                  `json:"nextMarker" xml:"NextMarker"`
+ManagedRuleSets ManagedRuleSetSummaries `json:"managedRuleSets" xml:"ManagedRuleSets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListMobileSdkReleasesRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	Platform   string `json:"platform" xml:"Platform"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Platform string `json:"platform" xml:"Platform"`
 }
 
 type ListMobileSdkReleasesResponse struct {
-	NextMarker       string           `json:"nextMarker" xml:"NextMarker"`
-	ReleaseSummaries ReleaseSummaries `json:"releaseSummaries" xml:"ReleaseSummaries"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+ReleaseSummaries ReleaseSummaries `json:"releaseSummaries" xml:"ReleaseSummaries"`
 }
 
 type ListRegexPatternSetsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	Scope      string `json:"scope" xml:"Scope"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type ListRegexPatternSetsResponse struct {
-	NextMarker       string                   `json:"nextMarker" xml:"NextMarker"`
-	RegexPatternSets RegexPatternSetSummaries `json:"regexPatternSets" xml:"RegexPatternSets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+RegexPatternSets RegexPatternSetSummaries `json:"regexPatternSets" xml:"RegexPatternSets"`
 }
 
 type ListResourcesForWebACLRequest struct {
-	ResourceType string `json:"resourceType" xml:"ResourceType"`
-	WebACLArn    string `json:"webACLArn" xml:"WebACLArn"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
 }
 
 type ListResourcesForWebACLResponse struct {
-	ResourceArns ResourceArns `json:"resourceArns" xml:"ResourceArns"`
+ResourceArns ResourceArns `json:"resourceArns" xml:"ResourceArns"`
 }
 
 type ListRuleGroupsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	Scope      string `json:"scope" xml:"Scope"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type ListRuleGroupsResponse struct {
-	NextMarker string             `json:"nextMarker" xml:"NextMarker"`
-	RuleGroups RuleGroupSummaries `json:"ruleGroups" xml:"RuleGroups"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+RuleGroups RuleGroupSummaries `json:"ruleGroups" xml:"RuleGroups"`
 }
 
 type ListTagsForResourceRequest struct {
-	Limit       int32  `json:"limit" xml:"Limit"`
-	NextMarker  string `json:"nextMarker" xml:"NextMarker"`
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
 }
 
 type ListTagsForResourceResponse struct {
-	NextMarker         string              `json:"nextMarker" xml:"NextMarker"`
-	TagInfoForResource *TagInfoForResource `json:"tagInfoForResource" xml:"TagInfoForResource"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+TagInfoForResource *TagInfoForResource `json:"tagInfoForResource" xml:"TagInfoForResource"`
 }
 
 type ListWebACLsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	Scope      string `json:"scope" xml:"Scope"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type ListWebACLsResponse struct {
-	NextMarker string          `json:"nextMarker" xml:"NextMarker"`
-	WebACLs    WebACLSummaries `json:"webACLs" xml:"WebACLs"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+WebACLs WebACLSummaries `json:"webACLs" xml:"WebACLs"`
 }
 
 type LoggingConfiguration struct {
-	LogDestinationConfigs    LogDestinationConfigs `json:"logDestinationConfigs" xml:"LogDestinationConfigs"`
-	LogScope                 string                `json:"logScope" xml:"LogScope"`
-	LogType                  string                `json:"logType" xml:"LogType"`
-	LoggingFilter            *LoggingFilter        `json:"loggingFilter" xml:"LoggingFilter"`
-	ManagedByFirewallManager bool                  `json:"managedByFirewallManager" xml:"ManagedByFirewallManager"`
-	RedactedFields           RedactedFields        `json:"redactedFields" xml:"RedactedFields"`
-	ResourceArn              string                `json:"resourceArn" xml:"ResourceArn"`
+LogDestinationConfigs LogDestinationConfigs `json:"logDestinationConfigs" xml:"LogDestinationConfigs"`
+LogScope string `json:"logScope" xml:"LogScope"`
+LogType string `json:"logType" xml:"LogType"`
+LoggingFilter *LoggingFilter `json:"loggingFilter" xml:"LoggingFilter"`
+ManagedByFirewallManager bool `json:"managedByFirewallManager" xml:"ManagedByFirewallManager"`
+RedactedFields RedactedFields `json:"redactedFields" xml:"RedactedFields"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type LoggingFilter struct {
-	DefaultBehavior string  `json:"defaultBehavior" xml:"DefaultBehavior"`
-	Filters         Filters `json:"filters" xml:"Filters"`
+DefaultBehavior string `json:"defaultBehavior" xml:"DefaultBehavior"`
+Filters Filters `json:"filters" xml:"Filters"`
 }
 
 type ManagedProductDescriptor struct {
-	IsAdvancedManagedRuleSet bool   `json:"isAdvancedManagedRuleSet" xml:"IsAdvancedManagedRuleSet"`
-	IsVersioningSupported    bool   `json:"isVersioningSupported" xml:"IsVersioningSupported"`
-	ManagedRuleSetName       string `json:"managedRuleSetName" xml:"ManagedRuleSetName"`
-	ProductDescription       string `json:"productDescription" xml:"ProductDescription"`
-	ProductId                string `json:"productId" xml:"ProductId"`
-	ProductLink              string `json:"productLink" xml:"ProductLink"`
-	ProductTitle             string `json:"productTitle" xml:"ProductTitle"`
-	SnsTopicArn              string `json:"snsTopicArn" xml:"SnsTopicArn"`
-	VendorName               string `json:"vendorName" xml:"VendorName"`
+IsAdvancedManagedRuleSet bool `json:"isAdvancedManagedRuleSet" xml:"IsAdvancedManagedRuleSet"`
+IsVersioningSupported bool `json:"isVersioningSupported" xml:"IsVersioningSupported"`
+ManagedRuleSetName string `json:"managedRuleSetName" xml:"ManagedRuleSetName"`
+ProductDescription string `json:"productDescription" xml:"ProductDescription"`
+ProductId string `json:"productId" xml:"ProductId"`
+ProductLink string `json:"productLink" xml:"ProductLink"`
+ProductTitle string `json:"productTitle" xml:"ProductTitle"`
+SnsTopicArn string `json:"snsTopicArn" xml:"SnsTopicArn"`
+VendorName string `json:"vendorName" xml:"VendorName"`
 }
 
 type ManagedRuleGroupConfig struct {
-	AWSManagedRulesACFPRuleSet       *AWSManagedRulesACFPRuleSet       `json:"aWSManagedRulesACFPRuleSet" xml:"AWSManagedRulesACFPRuleSet"`
-	AWSManagedRulesATPRuleSet        *AWSManagedRulesATPRuleSet        `json:"aWSManagedRulesATPRuleSet" xml:"AWSManagedRulesATPRuleSet"`
-	AWSManagedRulesAntiDDoSRuleSet   *AWSManagedRulesAntiDDoSRuleSet   `json:"aWSManagedRulesAntiDDoSRuleSet" xml:"AWSManagedRulesAntiDDoSRuleSet"`
-	AWSManagedRulesBotControlRuleSet *AWSManagedRulesBotControlRuleSet `json:"aWSManagedRulesBotControlRuleSet" xml:"AWSManagedRulesBotControlRuleSet"`
-	LoginPath                        string                            `json:"loginPath" xml:"LoginPath"`
-	PasswordField                    *PasswordField                    `json:"passwordField" xml:"PasswordField"`
-	PayloadType                      string                            `json:"payloadType" xml:"PayloadType"`
-	UsernameField                    *UsernameField                    `json:"usernameField" xml:"UsernameField"`
+AWSManagedRulesACFPRuleSet *AWSManagedRulesACFPRuleSet `json:"aWSManagedRulesACFPRuleSet" xml:"AWSManagedRulesACFPRuleSet"`
+AWSManagedRulesATPRuleSet *AWSManagedRulesATPRuleSet `json:"aWSManagedRulesATPRuleSet" xml:"AWSManagedRulesATPRuleSet"`
+AWSManagedRulesAntiDDoSRuleSet *AWSManagedRulesAntiDDoSRuleSet `json:"aWSManagedRulesAntiDDoSRuleSet" xml:"AWSManagedRulesAntiDDoSRuleSet"`
+AWSManagedRulesBotControlRuleSet *AWSManagedRulesBotControlRuleSet `json:"aWSManagedRulesBotControlRuleSet" xml:"AWSManagedRulesBotControlRuleSet"`
+LoginPath string `json:"loginPath" xml:"LoginPath"`
+PasswordField *PasswordField `json:"passwordField" xml:"PasswordField"`
+PayloadType string `json:"payloadType" xml:"PayloadType"`
+UsernameField *UsernameField `json:"usernameField" xml:"UsernameField"`
 }
 
 type ManagedRuleGroupStatement struct {
-	ExcludedRules           ExcludedRules           `json:"excludedRules" xml:"ExcludedRules"`
-	ManagedRuleGroupConfigs ManagedRuleGroupConfigs `json:"managedRuleGroupConfigs" xml:"ManagedRuleGroupConfigs"`
-	Name                    string                  `json:"name" xml:"Name"`
-	RuleActionOverrides     RuleActionOverrides     `json:"ruleActionOverrides" xml:"RuleActionOverrides"`
-	ScopeDownStatement      *Statement              `json:"scopeDownStatement" xml:"ScopeDownStatement"`
-	VendorName              string                  `json:"vendorName" xml:"VendorName"`
-	Version                 string                  `json:"version" xml:"Version"`
+ExcludedRules ExcludedRules `json:"excludedRules" xml:"ExcludedRules"`
+ManagedRuleGroupConfigs ManagedRuleGroupConfigs `json:"managedRuleGroupConfigs" xml:"ManagedRuleGroupConfigs"`
+Name string `json:"name" xml:"Name"`
+RuleActionOverrides RuleActionOverrides `json:"ruleActionOverrides" xml:"RuleActionOverrides"`
+ScopeDownStatement *Statement `json:"scopeDownStatement" xml:"ScopeDownStatement"`
+VendorName string `json:"vendorName" xml:"VendorName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type ManagedRuleGroupSummary struct {
-	Description         string `json:"description" xml:"Description"`
-	Name                string `json:"name" xml:"Name"`
-	VendorName          string `json:"vendorName" xml:"VendorName"`
-	VersioningSupported bool   `json:"versioningSupported" xml:"VersioningSupported"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+VendorName string `json:"vendorName" xml:"VendorName"`
+VersioningSupported bool `json:"versioningSupported" xml:"VersioningSupported"`
 }
 
 type ManagedRuleGroupVersion struct {
-	LastUpdateTimestamp time.Time `json:"lastUpdateTimestamp" xml:"LastUpdateTimestamp"`
-	Name                string    `json:"name" xml:"Name"`
+LastUpdateTimestamp time.Time `json:"lastUpdateTimestamp" xml:"LastUpdateTimestamp"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ManagedRuleSet struct {
-	ARN                string            `json:"aRN" xml:"ARN"`
-	Description        string            `json:"description" xml:"Description"`
-	Id                 string            `json:"id" xml:"Id"`
-	LabelNamespace     string            `json:"labelNamespace" xml:"LabelNamespace"`
-	Name               string            `json:"name" xml:"Name"`
-	PublishedVersions  PublishedVersions `json:"publishedVersions" xml:"PublishedVersions"`
-	RecommendedVersion string            `json:"recommendedVersion" xml:"RecommendedVersion"`
+ARN string `json:"aRN" xml:"ARN"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LabelNamespace string `json:"labelNamespace" xml:"LabelNamespace"`
+Name string `json:"name" xml:"Name"`
+PublishedVersions PublishedVersions `json:"publishedVersions" xml:"PublishedVersions"`
+RecommendedVersion string `json:"recommendedVersion" xml:"RecommendedVersion"`
 }
 
 type ManagedRuleSetSummary struct {
-	ARN            string `json:"aRN" xml:"ARN"`
-	Description    string `json:"description" xml:"Description"`
-	Id             string `json:"id" xml:"Id"`
-	LabelNamespace string `json:"labelNamespace" xml:"LabelNamespace"`
-	LockToken      string `json:"lockToken" xml:"LockToken"`
-	Name           string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LabelNamespace string `json:"labelNamespace" xml:"LabelNamespace"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ManagedRuleSetVersion struct {
-	AssociatedRuleGroupArn string    `json:"associatedRuleGroupArn" xml:"AssociatedRuleGroupArn"`
-	Capacity               int64     `json:"capacity" xml:"Capacity"`
-	ExpiryTimestamp        time.Time `json:"expiryTimestamp" xml:"ExpiryTimestamp"`
-	ForecastedLifetime     int32     `json:"forecastedLifetime" xml:"ForecastedLifetime"`
-	LastUpdateTimestamp    time.Time `json:"lastUpdateTimestamp" xml:"LastUpdateTimestamp"`
-	PublishTimestamp       time.Time `json:"publishTimestamp" xml:"PublishTimestamp"`
+AssociatedRuleGroupArn string `json:"associatedRuleGroupArn" xml:"AssociatedRuleGroupArn"`
+Capacity int64 `json:"capacity" xml:"Capacity"`
+ExpiryTimestamp time.Time `json:"expiryTimestamp" xml:"ExpiryTimestamp"`
+ForecastedLifetime int32 `json:"forecastedLifetime" xml:"ForecastedLifetime"`
+LastUpdateTimestamp time.Time `json:"lastUpdateTimestamp" xml:"LastUpdateTimestamp"`
+PublishTimestamp time.Time `json:"publishTimestamp" xml:"PublishTimestamp"`
 }
 
 type Method struct {
 }
 
 type MobileSdkRelease struct {
-	ReleaseNotes   string    `json:"releaseNotes" xml:"ReleaseNotes"`
-	ReleaseVersion string    `json:"releaseVersion" xml:"ReleaseVersion"`
-	Tags           TagList   `json:"tags" xml:"Tags"`
-	Timestamp      time.Time `json:"timestamp" xml:"Timestamp"`
+ReleaseNotes string `json:"releaseNotes" xml:"ReleaseNotes"`
+ReleaseVersion string `json:"releaseVersion" xml:"ReleaseVersion"`
+Tags TagList `json:"tags" xml:"Tags"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type NoneAction struct {
 }
 
 type NotStatement struct {
-	Statement *Statement `json:"statement" xml:"Statement"`
+Statement *Statement `json:"statement" xml:"Statement"`
 }
 
 type OnSourceDDoSProtectionConfig struct {
-	ALBLowReputationMode string `json:"aLBLowReputationMode" xml:"ALBLowReputationMode"`
+ALBLowReputationMode string `json:"aLBLowReputationMode" xml:"ALBLowReputationMode"`
 }
 
 type OrStatement struct {
-	Statements Statements `json:"statements" xml:"Statements"`
+Statements Statements `json:"statements" xml:"Statements"`
 }
 
 type OverrideAction struct {
-	Count *CountAction `json:"count" xml:"Count"`
-	None  *NoneAction  `json:"none" xml:"None"`
+Count *CountAction `json:"count" xml:"Count"`
+None *NoneAction `json:"none" xml:"None"`
 }
 
 type PasswordField struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type PathStatistics struct {
-	Path         string            `json:"path" xml:"Path"`
-	Percentage   float64           `json:"percentage" xml:"Percentage"`
-	RequestCount int64             `json:"requestCount" xml:"RequestCount"`
-	Source       *FilterSource     `json:"source" xml:"Source"`
-	TopBots      BotStatisticsList `json:"topBots" xml:"TopBots"`
+Path string `json:"path" xml:"Path"`
+Percentage float64 `json:"percentage" xml:"Percentage"`
+RequestCount int64 `json:"requestCount" xml:"RequestCount"`
+Source *FilterSource `json:"source" xml:"Source"`
+TopBots BotStatisticsList `json:"topBots" xml:"TopBots"`
 }
 
 type PhoneNumberField struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type PutLoggingConfigurationRequest struct {
-	LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
+LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
 }
 
 type PutLoggingConfigurationResponse struct {
-	LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
+LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
 }
 
 type PutManagedRuleSetVersionsRequest struct {
-	Id                 string            `json:"id" xml:"Id"`
-	LockToken          string            `json:"lockToken" xml:"LockToken"`
-	Name               string            `json:"name" xml:"Name"`
-	RecommendedVersion string            `json:"recommendedVersion" xml:"RecommendedVersion"`
-	Scope              string            `json:"scope" xml:"Scope"`
-	VersionsToPublish  VersionsToPublish `json:"versionsToPublish" xml:"VersionsToPublish"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
+RecommendedVersion string `json:"recommendedVersion" xml:"RecommendedVersion"`
+Scope string `json:"scope" xml:"Scope"`
+VersionsToPublish VersionsToPublish `json:"versionsToPublish" xml:"VersionsToPublish"`
 }
 
 type PutManagedRuleSetVersionsResponse struct {
-	NextLockToken string `json:"nextLockToken" xml:"NextLockToken"`
+NextLockToken string `json:"nextLockToken" xml:"NextLockToken"`
 }
 
 type PutPermissionPolicyRequest struct {
-	Policy      string `json:"policy" xml:"Policy"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Policy string `json:"policy" xml:"Policy"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type PutPermissionPolicyResponse struct {
@@ -1026,40 +1026,40 @@ type QueryString struct {
 }
 
 type RateBasedStatement struct {
-	AggregateKeyType    string                       `json:"aggregateKeyType" xml:"AggregateKeyType"`
-	CustomKeys          RateBasedStatementCustomKeys `json:"customKeys" xml:"CustomKeys"`
-	EvaluationWindowSec int64                        `json:"evaluationWindowSec" xml:"EvaluationWindowSec"`
-	ForwardedIPConfig   *ForwardedIPConfig           `json:"forwardedIPConfig" xml:"ForwardedIPConfig"`
-	Limit               int64                        `json:"limit" xml:"Limit"`
-	ScopeDownStatement  *Statement                   `json:"scopeDownStatement" xml:"ScopeDownStatement"`
+AggregateKeyType string `json:"aggregateKeyType" xml:"AggregateKeyType"`
+CustomKeys RateBasedStatementCustomKeys `json:"customKeys" xml:"CustomKeys"`
+EvaluationWindowSec int64 `json:"evaluationWindowSec" xml:"EvaluationWindowSec"`
+ForwardedIPConfig *ForwardedIPConfig `json:"forwardedIPConfig" xml:"ForwardedIPConfig"`
+Limit int64 `json:"limit" xml:"Limit"`
+ScopeDownStatement *Statement `json:"scopeDownStatement" xml:"ScopeDownStatement"`
 }
 
 type RateBasedStatementCustomKey struct {
-	ASN            *RateLimitAsn            `json:"aSN" xml:"ASN"`
-	Cookie         *RateLimitCookie         `json:"cookie" xml:"Cookie"`
-	ForwardedIP    *RateLimitForwardedIP    `json:"forwardedIP" xml:"ForwardedIP"`
-	HTTPMethod     *RateLimitHTTPMethod     `json:"hTTPMethod" xml:"HTTPMethod"`
-	Header         *RateLimitHeader         `json:"header" xml:"Header"`
-	IP             *RateLimitIP             `json:"iP" xml:"IP"`
-	JA3Fingerprint *RateLimitJA3Fingerprint `json:"jA3Fingerprint" xml:"JA3Fingerprint"`
-	JA4Fingerprint *RateLimitJA4Fingerprint `json:"jA4Fingerprint" xml:"JA4Fingerprint"`
-	LabelNamespace *RateLimitLabelNamespace `json:"labelNamespace" xml:"LabelNamespace"`
-	QueryArgument  *RateLimitQueryArgument  `json:"queryArgument" xml:"QueryArgument"`
-	QueryString    *RateLimitQueryString    `json:"queryString" xml:"QueryString"`
-	UriPath        *RateLimitUriPath        `json:"uriPath" xml:"UriPath"`
+ASN *RateLimitAsn `json:"aSN" xml:"ASN"`
+Cookie *RateLimitCookie `json:"cookie" xml:"Cookie"`
+ForwardedIP *RateLimitForwardedIP `json:"forwardedIP" xml:"ForwardedIP"`
+HTTPMethod *RateLimitHTTPMethod `json:"hTTPMethod" xml:"HTTPMethod"`
+Header *RateLimitHeader `json:"header" xml:"Header"`
+IP *RateLimitIP `json:"iP" xml:"IP"`
+JA3Fingerprint *RateLimitJA3Fingerprint `json:"jA3Fingerprint" xml:"JA3Fingerprint"`
+JA4Fingerprint *RateLimitJA4Fingerprint `json:"jA4Fingerprint" xml:"JA4Fingerprint"`
+LabelNamespace *RateLimitLabelNamespace `json:"labelNamespace" xml:"LabelNamespace"`
+QueryArgument *RateLimitQueryArgument `json:"queryArgument" xml:"QueryArgument"`
+QueryString *RateLimitQueryString `json:"queryString" xml:"QueryString"`
+UriPath *RateLimitUriPath `json:"uriPath" xml:"UriPath"`
 }
 
 type RateBasedStatementManagedKeysIPSet struct {
-	Addresses        IPAddresses `json:"addresses" xml:"Addresses"`
-	IPAddressVersion string      `json:"iPAddressVersion" xml:"IPAddressVersion"`
+Addresses IPAddresses `json:"addresses" xml:"Addresses"`
+IPAddressVersion string `json:"iPAddressVersion" xml:"IPAddressVersion"`
 }
 
 type RateLimitAsn struct {
 }
 
 type RateLimitCookie struct {
-	Name                string              `json:"name" xml:"Name"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+Name string `json:"name" xml:"Name"`
+TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type RateLimitForwardedIP struct {
@@ -1069,407 +1069,407 @@ type RateLimitHTTPMethod struct {
 }
 
 type RateLimitHeader struct {
-	Name                string              `json:"name" xml:"Name"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+Name string `json:"name" xml:"Name"`
+TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type RateLimitIP struct {
 }
 
 type RateLimitJA3Fingerprint struct {
-	FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
+FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
 }
 
 type RateLimitJA4Fingerprint struct {
-	FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
+FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
 }
 
 type RateLimitLabelNamespace struct {
-	Namespace string `json:"namespace" xml:"Namespace"`
+Namespace string `json:"namespace" xml:"Namespace"`
 }
 
 type RateLimitQueryArgument struct {
-	Name                string              `json:"name" xml:"Name"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+Name string `json:"name" xml:"Name"`
+TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type RateLimitQueryString struct {
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type RateLimitUriPath struct {
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type Regex struct {
-	RegexString string `json:"regexString" xml:"RegexString"`
+RegexString string `json:"regexString" xml:"RegexString"`
 }
 
 type RegexMatchStatement struct {
-	FieldToMatch        *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	RegexString         string              `json:"regexString" xml:"RegexString"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+FieldToMatch *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
+RegexString string `json:"regexString" xml:"RegexString"`
+TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type RegexPatternSet struct {
-	ARN                   string                `json:"aRN" xml:"ARN"`
-	Description           string                `json:"description" xml:"Description"`
-	Id                    string                `json:"id" xml:"Id"`
-	Name                  string                `json:"name" xml:"Name"`
-	RegularExpressionList RegularExpressionList `json:"regularExpressionList" xml:"RegularExpressionList"`
+ARN string `json:"aRN" xml:"ARN"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+RegularExpressionList RegularExpressionList `json:"regularExpressionList" xml:"RegularExpressionList"`
 }
 
 type RegexPatternSetReferenceStatement struct {
-	ARN                 string              `json:"aRN" xml:"ARN"`
-	FieldToMatch        *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+ARN string `json:"aRN" xml:"ARN"`
+FieldToMatch *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
+TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type RegexPatternSetSummary struct {
-	ARN         string `json:"aRN" xml:"ARN"`
-	Description string `json:"description" xml:"Description"`
-	Id          string `json:"id" xml:"Id"`
-	LockToken   string `json:"lockToken" xml:"LockToken"`
-	Name        string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ReleaseSummary struct {
-	ReleaseVersion string    `json:"releaseVersion" xml:"ReleaseVersion"`
-	Timestamp      time.Time `json:"timestamp" xml:"Timestamp"`
+ReleaseVersion string `json:"releaseVersion" xml:"ReleaseVersion"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type RequestBodyAssociatedResourceTypeConfig struct {
-	DefaultSizeInspectionLimit string `json:"defaultSizeInspectionLimit" xml:"DefaultSizeInspectionLimit"`
+DefaultSizeInspectionLimit string `json:"defaultSizeInspectionLimit" xml:"DefaultSizeInspectionLimit"`
 }
 
 type RequestInspection struct {
-	PasswordField *PasswordField `json:"passwordField" xml:"PasswordField"`
-	PayloadType   string         `json:"payloadType" xml:"PayloadType"`
-	UsernameField *UsernameField `json:"usernameField" xml:"UsernameField"`
+PasswordField *PasswordField `json:"passwordField" xml:"PasswordField"`
+PayloadType string `json:"payloadType" xml:"PayloadType"`
+UsernameField *UsernameField `json:"usernameField" xml:"UsernameField"`
 }
 
 type RequestInspectionACFP struct {
-	AddressFields     AddressFields     `json:"addressFields" xml:"AddressFields"`
-	EmailField        *EmailField       `json:"emailField" xml:"EmailField"`
-	PasswordField     *PasswordField    `json:"passwordField" xml:"PasswordField"`
-	PayloadType       string            `json:"payloadType" xml:"PayloadType"`
-	PhoneNumberFields PhoneNumberFields `json:"phoneNumberFields" xml:"PhoneNumberFields"`
-	UsernameField     *UsernameField    `json:"usernameField" xml:"UsernameField"`
+AddressFields AddressFields `json:"addressFields" xml:"AddressFields"`
+EmailField *EmailField `json:"emailField" xml:"EmailField"`
+PasswordField *PasswordField `json:"passwordField" xml:"PasswordField"`
+PayloadType string `json:"payloadType" xml:"PayloadType"`
+PhoneNumberFields PhoneNumberFields `json:"phoneNumberFields" xml:"PhoneNumberFields"`
+UsernameField *UsernameField `json:"usernameField" xml:"UsernameField"`
 }
 
 type ResponseInspection struct {
-	BodyContains *ResponseInspectionBodyContains `json:"bodyContains" xml:"BodyContains"`
-	Header       *ResponseInspectionHeader       `json:"header" xml:"Header"`
-	Json         *ResponseInspectionJson         `json:"json" xml:"Json"`
-	StatusCode   *ResponseInspectionStatusCode   `json:"statusCode" xml:"StatusCode"`
+BodyContains *ResponseInspectionBodyContains `json:"bodyContains" xml:"BodyContains"`
+Header *ResponseInspectionHeader `json:"header" xml:"Header"`
+Json *ResponseInspectionJson `json:"json" xml:"Json"`
+StatusCode *ResponseInspectionStatusCode `json:"statusCode" xml:"StatusCode"`
 }
 
 type ResponseInspectionBodyContains struct {
-	FailureStrings ResponseInspectionBodyContainsFailureStrings `json:"failureStrings" xml:"FailureStrings"`
-	SuccessStrings ResponseInspectionBodyContainsSuccessStrings `json:"successStrings" xml:"SuccessStrings"`
+FailureStrings ResponseInspectionBodyContainsFailureStrings `json:"failureStrings" xml:"FailureStrings"`
+SuccessStrings ResponseInspectionBodyContainsSuccessStrings `json:"successStrings" xml:"SuccessStrings"`
 }
 
 type ResponseInspectionHeader struct {
-	FailureValues ResponseInspectionHeaderFailureValues `json:"failureValues" xml:"FailureValues"`
-	Name          string                                `json:"name" xml:"Name"`
-	SuccessValues ResponseInspectionHeaderSuccessValues `json:"successValues" xml:"SuccessValues"`
+FailureValues ResponseInspectionHeaderFailureValues `json:"failureValues" xml:"FailureValues"`
+Name string `json:"name" xml:"Name"`
+SuccessValues ResponseInspectionHeaderSuccessValues `json:"successValues" xml:"SuccessValues"`
 }
 
 type ResponseInspectionJson struct {
-	FailureValues ResponseInspectionJsonFailureValues `json:"failureValues" xml:"FailureValues"`
-	Identifier    string                              `json:"identifier" xml:"Identifier"`
-	SuccessValues ResponseInspectionJsonSuccessValues `json:"successValues" xml:"SuccessValues"`
+FailureValues ResponseInspectionJsonFailureValues `json:"failureValues" xml:"FailureValues"`
+Identifier string `json:"identifier" xml:"Identifier"`
+SuccessValues ResponseInspectionJsonSuccessValues `json:"successValues" xml:"SuccessValues"`
 }
 
 type ResponseInspectionStatusCode struct {
-	FailureCodes ResponseInspectionStatusCodeFailureCodes `json:"failureCodes" xml:"FailureCodes"`
-	SuccessCodes ResponseInspectionStatusCodeSuccessCodes `json:"successCodes" xml:"SuccessCodes"`
+FailureCodes ResponseInspectionStatusCodeFailureCodes `json:"failureCodes" xml:"FailureCodes"`
+SuccessCodes ResponseInspectionStatusCodeSuccessCodes `json:"successCodes" xml:"SuccessCodes"`
 }
 
 type Rule struct {
-	Action           *RuleAction       `json:"action" xml:"Action"`
-	CaptchaConfig    *CaptchaConfig    `json:"captchaConfig" xml:"CaptchaConfig"`
-	ChallengeConfig  *ChallengeConfig  `json:"challengeConfig" xml:"ChallengeConfig"`
-	Name             string            `json:"name" xml:"Name"`
-	OverrideAction   *OverrideAction   `json:"overrideAction" xml:"OverrideAction"`
-	Priority         int32             `json:"priority" xml:"Priority"`
-	RuleLabels       Labels            `json:"ruleLabels" xml:"RuleLabels"`
-	Statement        *Statement        `json:"statement" xml:"Statement"`
-	VisibilityConfig *VisibilityConfig `json:"visibilityConfig" xml:"VisibilityConfig"`
+Action *RuleAction `json:"action" xml:"Action"`
+CaptchaConfig *CaptchaConfig `json:"captchaConfig" xml:"CaptchaConfig"`
+ChallengeConfig *ChallengeConfig `json:"challengeConfig" xml:"ChallengeConfig"`
+Name string `json:"name" xml:"Name"`
+OverrideAction *OverrideAction `json:"overrideAction" xml:"OverrideAction"`
+Priority int32 `json:"priority" xml:"Priority"`
+RuleLabels Labels `json:"ruleLabels" xml:"RuleLabels"`
+Statement *Statement `json:"statement" xml:"Statement"`
+VisibilityConfig *VisibilityConfig `json:"visibilityConfig" xml:"VisibilityConfig"`
 }
 
 type RuleAction struct {
-	Allow     *AllowAction     `json:"allow" xml:"Allow"`
-	Block     *BlockAction     `json:"block" xml:"Block"`
-	Captcha   *CaptchaAction   `json:"captcha" xml:"Captcha"`
-	Challenge *ChallengeAction `json:"challenge" xml:"Challenge"`
-	Count     *CountAction     `json:"count" xml:"Count"`
+Allow *AllowAction `json:"allow" xml:"Allow"`
+Block *BlockAction `json:"block" xml:"Block"`
+Captcha *CaptchaAction `json:"captcha" xml:"Captcha"`
+Challenge *ChallengeAction `json:"challenge" xml:"Challenge"`
+Count *CountAction `json:"count" xml:"Count"`
 }
 
 type RuleActionOverride struct {
-	ActionToUse *RuleAction `json:"actionToUse" xml:"ActionToUse"`
-	Name        string      `json:"name" xml:"Name"`
+ActionToUse *RuleAction `json:"actionToUse" xml:"ActionToUse"`
+Name string `json:"name" xml:"Name"`
 }
 
 type RuleGroup struct {
-	ARN                  string               `json:"aRN" xml:"ARN"`
-	AvailableLabels      LabelSummaries       `json:"availableLabels" xml:"AvailableLabels"`
-	Capacity             int64                `json:"capacity" xml:"Capacity"`
-	ConsumedLabels       LabelSummaries       `json:"consumedLabels" xml:"ConsumedLabels"`
-	CustomResponseBodies CustomResponseBodies `json:"customResponseBodies" xml:"CustomResponseBodies"`
-	Description          string               `json:"description" xml:"Description"`
-	Id                   string               `json:"id" xml:"Id"`
-	LabelNamespace       string               `json:"labelNamespace" xml:"LabelNamespace"`
-	Name                 string               `json:"name" xml:"Name"`
-	Rules                Rules                `json:"rules" xml:"Rules"`
-	VisibilityConfig     *VisibilityConfig    `json:"visibilityConfig" xml:"VisibilityConfig"`
+ARN string `json:"aRN" xml:"ARN"`
+AvailableLabels LabelSummaries `json:"availableLabels" xml:"AvailableLabels"`
+Capacity int64 `json:"capacity" xml:"Capacity"`
+ConsumedLabels LabelSummaries `json:"consumedLabels" xml:"ConsumedLabels"`
+CustomResponseBodies CustomResponseBodies `json:"customResponseBodies" xml:"CustomResponseBodies"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LabelNamespace string `json:"labelNamespace" xml:"LabelNamespace"`
+Name string `json:"name" xml:"Name"`
+Rules Rules `json:"rules" xml:"Rules"`
+VisibilityConfig *VisibilityConfig `json:"visibilityConfig" xml:"VisibilityConfig"`
 }
 
 type RuleGroupReferenceStatement struct {
-	ARN                 string              `json:"aRN" xml:"ARN"`
-	ExcludedRules       ExcludedRules       `json:"excludedRules" xml:"ExcludedRules"`
-	RuleActionOverrides RuleActionOverrides `json:"ruleActionOverrides" xml:"RuleActionOverrides"`
+ARN string `json:"aRN" xml:"ARN"`
+ExcludedRules ExcludedRules `json:"excludedRules" xml:"ExcludedRules"`
+RuleActionOverrides RuleActionOverrides `json:"ruleActionOverrides" xml:"RuleActionOverrides"`
 }
 
 type RuleGroupSummary struct {
-	ARN         string `json:"aRN" xml:"ARN"`
-	Description string `json:"description" xml:"Description"`
-	Id          string `json:"id" xml:"Id"`
-	LockToken   string `json:"lockToken" xml:"LockToken"`
-	Name        string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type RuleSummary struct {
-	Action *RuleAction `json:"action" xml:"Action"`
-	Name   string      `json:"name" xml:"Name"`
+Action *RuleAction `json:"action" xml:"Action"`
+Name string `json:"name" xml:"Name"`
 }
 
 type SampledHTTPRequest struct {
-	Action                  string             `json:"action" xml:"Action"`
-	CaptchaResponse         *CaptchaResponse   `json:"captchaResponse" xml:"CaptchaResponse"`
-	ChallengeResponse       *ChallengeResponse `json:"challengeResponse" xml:"ChallengeResponse"`
-	Labels                  Labels             `json:"labels" xml:"Labels"`
-	OverriddenAction        string             `json:"overriddenAction" xml:"OverriddenAction"`
-	Request                 *HTTPRequest       `json:"request" xml:"Request"`
-	RequestHeadersInserted  HTTPHeaders        `json:"requestHeadersInserted" xml:"RequestHeadersInserted"`
-	ResponseCodeSent        int32              `json:"responseCodeSent" xml:"ResponseCodeSent"`
-	RuleNameWithinRuleGroup string             `json:"ruleNameWithinRuleGroup" xml:"RuleNameWithinRuleGroup"`
-	Timestamp               time.Time          `json:"timestamp" xml:"Timestamp"`
-	Weight                  int64              `json:"weight" xml:"Weight"`
+Action string `json:"action" xml:"Action"`
+CaptchaResponse *CaptchaResponse `json:"captchaResponse" xml:"CaptchaResponse"`
+ChallengeResponse *ChallengeResponse `json:"challengeResponse" xml:"ChallengeResponse"`
+Labels Labels `json:"labels" xml:"Labels"`
+OverriddenAction string `json:"overriddenAction" xml:"OverriddenAction"`
+Request *HTTPRequest `json:"request" xml:"Request"`
+RequestHeadersInserted HTTPHeaders `json:"requestHeadersInserted" xml:"RequestHeadersInserted"`
+ResponseCodeSent int32 `json:"responseCodeSent" xml:"ResponseCodeSent"`
+RuleNameWithinRuleGroup string `json:"ruleNameWithinRuleGroup" xml:"RuleNameWithinRuleGroup"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
+Weight int64 `json:"weight" xml:"Weight"`
 }
 
 type SingleHeader struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type SingleQueryArgument struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type SizeConstraintStatement struct {
-	ComparisonOperator  string              `json:"comparisonOperator" xml:"ComparisonOperator"`
-	FieldToMatch        *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	Size                int64               `json:"size" xml:"Size"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
+FieldToMatch *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
+Size int64 `json:"size" xml:"Size"`
+TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type SqliMatchStatement struct {
-	FieldToMatch        *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	SensitivityLevel    string              `json:"sensitivityLevel" xml:"SensitivityLevel"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+FieldToMatch *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
+SensitivityLevel string `json:"sensitivityLevel" xml:"SensitivityLevel"`
+TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type Statement struct {
-	AndStatement                      *AndStatement                      `json:"andStatement" xml:"AndStatement"`
-	AsnMatchStatement                 *AsnMatchStatement                 `json:"asnMatchStatement" xml:"AsnMatchStatement"`
-	ByteMatchStatement                *ByteMatchStatement                `json:"byteMatchStatement" xml:"ByteMatchStatement"`
-	GeoMatchStatement                 *GeoMatchStatement                 `json:"geoMatchStatement" xml:"GeoMatchStatement"`
-	IPSetReferenceStatement           *IPSetReferenceStatement           `json:"iPSetReferenceStatement" xml:"IPSetReferenceStatement"`
-	LabelMatchStatement               *LabelMatchStatement               `json:"labelMatchStatement" xml:"LabelMatchStatement"`
-	ManagedRuleGroupStatement         *ManagedRuleGroupStatement         `json:"managedRuleGroupStatement" xml:"ManagedRuleGroupStatement"`
-	NotStatement                      *NotStatement                      `json:"notStatement" xml:"NotStatement"`
-	OrStatement                       *OrStatement                       `json:"orStatement" xml:"OrStatement"`
-	RateBasedStatement                *RateBasedStatement                `json:"rateBasedStatement" xml:"RateBasedStatement"`
-	RegexMatchStatement               *RegexMatchStatement               `json:"regexMatchStatement" xml:"RegexMatchStatement"`
-	RegexPatternSetReferenceStatement *RegexPatternSetReferenceStatement `json:"regexPatternSetReferenceStatement" xml:"RegexPatternSetReferenceStatement"`
-	RuleGroupReferenceStatement       *RuleGroupReferenceStatement       `json:"ruleGroupReferenceStatement" xml:"RuleGroupReferenceStatement"`
-	SizeConstraintStatement           *SizeConstraintStatement           `json:"sizeConstraintStatement" xml:"SizeConstraintStatement"`
-	SqliMatchStatement                *SqliMatchStatement                `json:"sqliMatchStatement" xml:"SqliMatchStatement"`
-	XssMatchStatement                 *XssMatchStatement                 `json:"xssMatchStatement" xml:"XssMatchStatement"`
+AndStatement *AndStatement `json:"andStatement" xml:"AndStatement"`
+AsnMatchStatement *AsnMatchStatement `json:"asnMatchStatement" xml:"AsnMatchStatement"`
+ByteMatchStatement *ByteMatchStatement `json:"byteMatchStatement" xml:"ByteMatchStatement"`
+GeoMatchStatement *GeoMatchStatement `json:"geoMatchStatement" xml:"GeoMatchStatement"`
+IPSetReferenceStatement *IPSetReferenceStatement `json:"iPSetReferenceStatement" xml:"IPSetReferenceStatement"`
+LabelMatchStatement *LabelMatchStatement `json:"labelMatchStatement" xml:"LabelMatchStatement"`
+ManagedRuleGroupStatement *ManagedRuleGroupStatement `json:"managedRuleGroupStatement" xml:"ManagedRuleGroupStatement"`
+NotStatement *NotStatement `json:"notStatement" xml:"NotStatement"`
+OrStatement *OrStatement `json:"orStatement" xml:"OrStatement"`
+RateBasedStatement *RateBasedStatement `json:"rateBasedStatement" xml:"RateBasedStatement"`
+RegexMatchStatement *RegexMatchStatement `json:"regexMatchStatement" xml:"RegexMatchStatement"`
+RegexPatternSetReferenceStatement *RegexPatternSetReferenceStatement `json:"regexPatternSetReferenceStatement" xml:"RegexPatternSetReferenceStatement"`
+RuleGroupReferenceStatement *RuleGroupReferenceStatement `json:"ruleGroupReferenceStatement" xml:"RuleGroupReferenceStatement"`
+SizeConstraintStatement *SizeConstraintStatement `json:"sizeConstraintStatement" xml:"SizeConstraintStatement"`
+SqliMatchStatement *SqliMatchStatement `json:"sqliMatchStatement" xml:"SqliMatchStatement"`
+XssMatchStatement *XssMatchStatement `json:"xssMatchStatement" xml:"XssMatchStatement"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagInfoForResource struct {
-	ResourceARN string  `json:"resourceARN" xml:"ResourceARN"`
-	TagList     TagList `json:"tagList" xml:"TagList"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+TagList TagList `json:"tagList" xml:"TagList"`
 }
 
 type TagResourceRequest struct {
-	ResourceARN string  `json:"resourceARN" xml:"ResourceARN"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type TextTransformation struct {
-	Priority int32  `json:"priority" xml:"Priority"`
-	Type     string `json:"type" xml:"Type"`
+Priority int32 `json:"priority" xml:"Priority"`
+Type string `json:"type" xml:"Type"`
 }
 
 type TimeWindow struct {
-	EndTime   time.Time `json:"endTime" xml:"EndTime"`
-	StartTime time.Time `json:"startTime" xml:"StartTime"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type UntagResourceRequest struct {
-	ResourceARN string     `json:"resourceARN" xml:"ResourceARN"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateIPSetRequest struct {
-	Addresses   IPAddresses `json:"addresses" xml:"Addresses"`
-	Description string      `json:"description" xml:"Description"`
-	Id          string      `json:"id" xml:"Id"`
-	LockToken   string      `json:"lockToken" xml:"LockToken"`
-	Name        string      `json:"name" xml:"Name"`
-	Scope       string      `json:"scope" xml:"Scope"`
+Addresses IPAddresses `json:"addresses" xml:"Addresses"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type UpdateIPSetResponse struct {
-	NextLockToken string `json:"nextLockToken" xml:"NextLockToken"`
+NextLockToken string `json:"nextLockToken" xml:"NextLockToken"`
 }
 
 type UpdateManagedRuleSetVersionExpiryDateRequest struct {
-	ExpiryTimestamp time.Time `json:"expiryTimestamp" xml:"ExpiryTimestamp"`
-	Id              string    `json:"id" xml:"Id"`
-	LockToken       string    `json:"lockToken" xml:"LockToken"`
-	Name            string    `json:"name" xml:"Name"`
-	Scope           string    `json:"scope" xml:"Scope"`
-	VersionToExpire string    `json:"versionToExpire" xml:"VersionToExpire"`
+ExpiryTimestamp time.Time `json:"expiryTimestamp" xml:"ExpiryTimestamp"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
+Scope string `json:"scope" xml:"Scope"`
+VersionToExpire string `json:"versionToExpire" xml:"VersionToExpire"`
 }
 
 type UpdateManagedRuleSetVersionExpiryDateResponse struct {
-	ExpiringVersion string    `json:"expiringVersion" xml:"ExpiringVersion"`
-	ExpiryTimestamp time.Time `json:"expiryTimestamp" xml:"ExpiryTimestamp"`
-	NextLockToken   string    `json:"nextLockToken" xml:"NextLockToken"`
+ExpiringVersion string `json:"expiringVersion" xml:"ExpiringVersion"`
+ExpiryTimestamp time.Time `json:"expiryTimestamp" xml:"ExpiryTimestamp"`
+NextLockToken string `json:"nextLockToken" xml:"NextLockToken"`
 }
 
 type UpdateRegexPatternSetRequest struct {
-	Description           string                `json:"description" xml:"Description"`
-	Id                    string                `json:"id" xml:"Id"`
-	LockToken             string                `json:"lockToken" xml:"LockToken"`
-	Name                  string                `json:"name" xml:"Name"`
-	RegularExpressionList RegularExpressionList `json:"regularExpressionList" xml:"RegularExpressionList"`
-	Scope                 string                `json:"scope" xml:"Scope"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
+RegularExpressionList RegularExpressionList `json:"regularExpressionList" xml:"RegularExpressionList"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type UpdateRegexPatternSetResponse struct {
-	NextLockToken string `json:"nextLockToken" xml:"NextLockToken"`
+NextLockToken string `json:"nextLockToken" xml:"NextLockToken"`
 }
 
 type UpdateRuleGroupRequest struct {
-	CustomResponseBodies CustomResponseBodies `json:"customResponseBodies" xml:"CustomResponseBodies"`
-	Description          string               `json:"description" xml:"Description"`
-	Id                   string               `json:"id" xml:"Id"`
-	LockToken            string               `json:"lockToken" xml:"LockToken"`
-	Name                 string               `json:"name" xml:"Name"`
-	Rules                Rules                `json:"rules" xml:"Rules"`
-	Scope                string               `json:"scope" xml:"Scope"`
-	VisibilityConfig     *VisibilityConfig    `json:"visibilityConfig" xml:"VisibilityConfig"`
+CustomResponseBodies CustomResponseBodies `json:"customResponseBodies" xml:"CustomResponseBodies"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
+Rules Rules `json:"rules" xml:"Rules"`
+Scope string `json:"scope" xml:"Scope"`
+VisibilityConfig *VisibilityConfig `json:"visibilityConfig" xml:"VisibilityConfig"`
 }
 
 type UpdateRuleGroupResponse struct {
-	NextLockToken string `json:"nextLockToken" xml:"NextLockToken"`
+NextLockToken string `json:"nextLockToken" xml:"NextLockToken"`
 }
 
 type UpdateWebACLRequest struct {
-	ApplicationConfig            *ApplicationConfig            `json:"applicationConfig" xml:"ApplicationConfig"`
-	AssociationConfig            *AssociationConfig            `json:"associationConfig" xml:"AssociationConfig"`
-	CaptchaConfig                *CaptchaConfig                `json:"captchaConfig" xml:"CaptchaConfig"`
-	ChallengeConfig              *ChallengeConfig              `json:"challengeConfig" xml:"ChallengeConfig"`
-	CustomResponseBodies         CustomResponseBodies          `json:"customResponseBodies" xml:"CustomResponseBodies"`
-	DataProtectionConfig         *DataProtectionConfig         `json:"dataProtectionConfig" xml:"DataProtectionConfig"`
-	DefaultAction                *DefaultAction                `json:"defaultAction" xml:"DefaultAction"`
-	Description                  string                        `json:"description" xml:"Description"`
-	Id                           string                        `json:"id" xml:"Id"`
-	LockToken                    string                        `json:"lockToken" xml:"LockToken"`
-	Name                         string                        `json:"name" xml:"Name"`
-	OnSourceDDoSProtectionConfig *OnSourceDDoSProtectionConfig `json:"onSourceDDoSProtectionConfig" xml:"OnSourceDDoSProtectionConfig"`
-	Rules                        Rules                         `json:"rules" xml:"Rules"`
-	Scope                        string                        `json:"scope" xml:"Scope"`
-	TokenDomains                 TokenDomains                  `json:"tokenDomains" xml:"TokenDomains"`
-	VisibilityConfig             *VisibilityConfig             `json:"visibilityConfig" xml:"VisibilityConfig"`
+ApplicationConfig *ApplicationConfig `json:"applicationConfig" xml:"ApplicationConfig"`
+AssociationConfig *AssociationConfig `json:"associationConfig" xml:"AssociationConfig"`
+CaptchaConfig *CaptchaConfig `json:"captchaConfig" xml:"CaptchaConfig"`
+ChallengeConfig *ChallengeConfig `json:"challengeConfig" xml:"ChallengeConfig"`
+CustomResponseBodies CustomResponseBodies `json:"customResponseBodies" xml:"CustomResponseBodies"`
+DataProtectionConfig *DataProtectionConfig `json:"dataProtectionConfig" xml:"DataProtectionConfig"`
+DefaultAction *DefaultAction `json:"defaultAction" xml:"DefaultAction"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
+OnSourceDDoSProtectionConfig *OnSourceDDoSProtectionConfig `json:"onSourceDDoSProtectionConfig" xml:"OnSourceDDoSProtectionConfig"`
+Rules Rules `json:"rules" xml:"Rules"`
+Scope string `json:"scope" xml:"Scope"`
+TokenDomains TokenDomains `json:"tokenDomains" xml:"TokenDomains"`
+VisibilityConfig *VisibilityConfig `json:"visibilityConfig" xml:"VisibilityConfig"`
 }
 
 type UpdateWebACLResponse struct {
-	NextLockToken string `json:"nextLockToken" xml:"NextLockToken"`
+NextLockToken string `json:"nextLockToken" xml:"NextLockToken"`
 }
 
 type UriFragment struct {
-	FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
+FallbackBehavior string `json:"fallbackBehavior" xml:"FallbackBehavior"`
 }
 
 type UriPath struct {
 }
 
 type UsernameField struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type VersionToPublish struct {
-	AssociatedRuleGroupArn string `json:"associatedRuleGroupArn" xml:"AssociatedRuleGroupArn"`
-	ForecastedLifetime     int32  `json:"forecastedLifetime" xml:"ForecastedLifetime"`
+AssociatedRuleGroupArn string `json:"associatedRuleGroupArn" xml:"AssociatedRuleGroupArn"`
+ForecastedLifetime int32 `json:"forecastedLifetime" xml:"ForecastedLifetime"`
 }
 
 type VisibilityConfig struct {
-	CloudWatchMetricsEnabled bool   `json:"cloudWatchMetricsEnabled" xml:"CloudWatchMetricsEnabled"`
-	MetricName               string `json:"metricName" xml:"MetricName"`
-	SampledRequestsEnabled   bool   `json:"sampledRequestsEnabled" xml:"SampledRequestsEnabled"`
+CloudWatchMetricsEnabled bool `json:"cloudWatchMetricsEnabled" xml:"CloudWatchMetricsEnabled"`
+MetricName string `json:"metricName" xml:"MetricName"`
+SampledRequestsEnabled bool `json:"sampledRequestsEnabled" xml:"SampledRequestsEnabled"`
 }
 
 type WebACL struct {
-	ARN                                  string                        `json:"aRN" xml:"ARN"`
-	ApplicationConfig                    *ApplicationConfig            `json:"applicationConfig" xml:"ApplicationConfig"`
-	AssociationConfig                    *AssociationConfig            `json:"associationConfig" xml:"AssociationConfig"`
-	Capacity                             int64                         `json:"capacity" xml:"Capacity"`
-	CaptchaConfig                        *CaptchaConfig                `json:"captchaConfig" xml:"CaptchaConfig"`
-	ChallengeConfig                      *ChallengeConfig              `json:"challengeConfig" xml:"ChallengeConfig"`
-	CustomResponseBodies                 CustomResponseBodies          `json:"customResponseBodies" xml:"CustomResponseBodies"`
-	DataProtectionConfig                 *DataProtectionConfig         `json:"dataProtectionConfig" xml:"DataProtectionConfig"`
-	DefaultAction                        *DefaultAction                `json:"defaultAction" xml:"DefaultAction"`
-	Description                          string                        `json:"description" xml:"Description"`
-	Id                                   string                        `json:"id" xml:"Id"`
-	LabelNamespace                       string                        `json:"labelNamespace" xml:"LabelNamespace"`
-	ManagedByFirewallManager             bool                          `json:"managedByFirewallManager" xml:"ManagedByFirewallManager"`
-	Name                                 string                        `json:"name" xml:"Name"`
-	OnSourceDDoSProtectionConfig         *OnSourceDDoSProtectionConfig `json:"onSourceDDoSProtectionConfig" xml:"OnSourceDDoSProtectionConfig"`
-	PostProcessFirewallManagerRuleGroups FirewallManagerRuleGroups     `json:"postProcessFirewallManagerRuleGroups" xml:"PostProcessFirewallManagerRuleGroups"`
-	PreProcessFirewallManagerRuleGroups  FirewallManagerRuleGroups     `json:"preProcessFirewallManagerRuleGroups" xml:"PreProcessFirewallManagerRuleGroups"`
-	RetrofittedByFirewallManager         bool                          `json:"retrofittedByFirewallManager" xml:"RetrofittedByFirewallManager"`
-	Rules                                Rules                         `json:"rules" xml:"Rules"`
-	TokenDomains                         TokenDomains                  `json:"tokenDomains" xml:"TokenDomains"`
-	VisibilityConfig                     *VisibilityConfig             `json:"visibilityConfig" xml:"VisibilityConfig"`
+ARN string `json:"aRN" xml:"ARN"`
+ApplicationConfig *ApplicationConfig `json:"applicationConfig" xml:"ApplicationConfig"`
+AssociationConfig *AssociationConfig `json:"associationConfig" xml:"AssociationConfig"`
+Capacity int64 `json:"capacity" xml:"Capacity"`
+CaptchaConfig *CaptchaConfig `json:"captchaConfig" xml:"CaptchaConfig"`
+ChallengeConfig *ChallengeConfig `json:"challengeConfig" xml:"ChallengeConfig"`
+CustomResponseBodies CustomResponseBodies `json:"customResponseBodies" xml:"CustomResponseBodies"`
+DataProtectionConfig *DataProtectionConfig `json:"dataProtectionConfig" xml:"DataProtectionConfig"`
+DefaultAction *DefaultAction `json:"defaultAction" xml:"DefaultAction"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LabelNamespace string `json:"labelNamespace" xml:"LabelNamespace"`
+ManagedByFirewallManager bool `json:"managedByFirewallManager" xml:"ManagedByFirewallManager"`
+Name string `json:"name" xml:"Name"`
+OnSourceDDoSProtectionConfig *OnSourceDDoSProtectionConfig `json:"onSourceDDoSProtectionConfig" xml:"OnSourceDDoSProtectionConfig"`
+PostProcessFirewallManagerRuleGroups FirewallManagerRuleGroups `json:"postProcessFirewallManagerRuleGroups" xml:"PostProcessFirewallManagerRuleGroups"`
+PreProcessFirewallManagerRuleGroups FirewallManagerRuleGroups `json:"preProcessFirewallManagerRuleGroups" xml:"PreProcessFirewallManagerRuleGroups"`
+RetrofittedByFirewallManager bool `json:"retrofittedByFirewallManager" xml:"RetrofittedByFirewallManager"`
+Rules Rules `json:"rules" xml:"Rules"`
+TokenDomains TokenDomains `json:"tokenDomains" xml:"TokenDomains"`
+VisibilityConfig *VisibilityConfig `json:"visibilityConfig" xml:"VisibilityConfig"`
 }
 
 type WebACLSummary struct {
-	ARN         string `json:"aRN" xml:"ARN"`
-	Description string `json:"description" xml:"Description"`
-	Id          string `json:"id" xml:"Id"`
-	LockToken   string `json:"lockToken" xml:"LockToken"`
-	Name        string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LockToken string `json:"lockToken" xml:"LockToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type XssMatchStatement struct {
-	FieldToMatch        *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+FieldToMatch *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
+TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type APIKeySummaries []*APIKeySummary
@@ -1595,3 +1595,4 @@ type PublishedVersions map[string]*ManagedRuleSetVersion
 type RequestBody map[string]*RequestBodyAssociatedResourceTypeConfig
 
 type VersionsToPublish map[string]*VersionToPublish
+

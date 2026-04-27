@@ -198,3 +198,4 @@ func (b *BaseProvider) UpdateApplication(ctx context.Context, input *UpdateAppli
 func (b *BaseProvider) UpdateDeploymentGroup(ctx context.Context, input *UpdateDeploymentGroupInput) (*UpdateDeploymentGroupOutput, error) {
 	return nil, fmt.Errorf("UpdateDeploymentGroup: %w", ErrNotImplemented)
 }
+

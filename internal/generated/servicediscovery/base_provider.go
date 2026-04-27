@@ -130,3 +130,4 @@ func (b *BaseProvider) UpdateService(ctx context.Context, input *UpdateServiceRe
 func (b *BaseProvider) UpdateServiceAttributes(ctx context.Context, input *UpdateServiceAttributesRequest) (*UpdateServiceAttributesResponse, error) {
 	return nil, fmt.Errorf("UpdateServiceAttributes: %w", ErrNotImplemented)
 }
+

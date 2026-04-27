@@ -7,13 +7,13 @@ import (
 )
 
 type AccountGateResult struct {
-	Status       string `json:"status" xml:"Status"`
-	StatusReason string `json:"statusReason" xml:"StatusReason"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type AccountLimit struct {
-	Name  string `json:"name" xml:"Name"`
-	Value int32  `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value int32 `json:"value" xml:"Value"`
 }
 
 type ActivateOrganizationsAccessInput struct {
@@ -23,221 +23,221 @@ type ActivateOrganizationsAccessOutput struct {
 }
 
 type ActivateTypeInput struct {
-	AutoUpdate       bool           `json:"autoUpdate" xml:"AutoUpdate"`
-	ExecutionRoleArn string         `json:"executionRoleArn" xml:"ExecutionRoleArn"`
-	LoggingConfig    *LoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
-	MajorVersion     int64          `json:"majorVersion" xml:"MajorVersion"`
-	PublicTypeArn    string         `json:"publicTypeArn" xml:"PublicTypeArn"`
-	PublisherId      string         `json:"publisherId" xml:"PublisherId"`
-	Type             string         `json:"type" xml:"Type"`
-	TypeName         string         `json:"typeName" xml:"TypeName"`
-	TypeNameAlias    string         `json:"typeNameAlias" xml:"TypeNameAlias"`
-	VersionBump      string         `json:"versionBump" xml:"VersionBump"`
+AutoUpdate bool `json:"autoUpdate" xml:"AutoUpdate"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+LoggingConfig *LoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
+MajorVersion int64 `json:"majorVersion" xml:"MajorVersion"`
+PublicTypeArn string `json:"publicTypeArn" xml:"PublicTypeArn"`
+PublisherId string `json:"publisherId" xml:"PublisherId"`
+Type string `json:"type" xml:"Type"`
+TypeName string `json:"typeName" xml:"TypeName"`
+TypeNameAlias string `json:"typeNameAlias" xml:"TypeNameAlias"`
+VersionBump string `json:"versionBump" xml:"VersionBump"`
 }
 
 type ActivateTypeOutput struct {
-	Arn string `json:"arn" xml:"Arn"`
+Arn string `json:"arn" xml:"Arn"`
 }
 
 type Annotation struct {
-	AnnotationName     string `json:"annotationName" xml:"AnnotationName"`
-	RemediationLink    string `json:"remediationLink" xml:"RemediationLink"`
-	RemediationMessage string `json:"remediationMessage" xml:"RemediationMessage"`
-	SeverityLevel      string `json:"severityLevel" xml:"SeverityLevel"`
-	Status             string `json:"status" xml:"Status"`
-	StatusMessage      string `json:"statusMessage" xml:"StatusMessage"`
+AnnotationName string `json:"annotationName" xml:"AnnotationName"`
+RemediationLink string `json:"remediationLink" xml:"RemediationLink"`
+RemediationMessage string `json:"remediationMessage" xml:"RemediationMessage"`
+SeverityLevel string `json:"severityLevel" xml:"SeverityLevel"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type AutoDeployment struct {
-	DependsOn                    StackSetARNList `json:"dependsOn" xml:"DependsOn"`
-	Enabled                      bool            `json:"enabled" xml:"Enabled"`
-	RetainStacksOnAccountRemoval bool            `json:"retainStacksOnAccountRemoval" xml:"RetainStacksOnAccountRemoval"`
+DependsOn StackSetARNList `json:"dependsOn" xml:"DependsOn"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+RetainStacksOnAccountRemoval bool `json:"retainStacksOnAccountRemoval" xml:"RetainStacksOnAccountRemoval"`
 }
 
 type BatchDescribeTypeConfigurationsError struct {
-	ErrorCode                   string                       `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage                string                       `json:"errorMessage" xml:"ErrorMessage"`
-	TypeConfigurationIdentifier *TypeConfigurationIdentifier `json:"typeConfigurationIdentifier" xml:"TypeConfigurationIdentifier"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+TypeConfigurationIdentifier *TypeConfigurationIdentifier `json:"typeConfigurationIdentifier" xml:"TypeConfigurationIdentifier"`
 }
 
 type BatchDescribeTypeConfigurationsInput struct {
-	TypeConfigurationIdentifiers TypeConfigurationIdentifiers `json:"typeConfigurationIdentifiers" xml:"TypeConfigurationIdentifiers"`
+TypeConfigurationIdentifiers TypeConfigurationIdentifiers `json:"typeConfigurationIdentifiers" xml:"TypeConfigurationIdentifiers"`
 }
 
 type BatchDescribeTypeConfigurationsOutput struct {
-	Errors                        BatchDescribeTypeConfigurationsErrors `json:"errors" xml:"Errors"`
-	TypeConfigurations            TypeConfigurationDetailsList          `json:"typeConfigurations" xml:"TypeConfigurations"`
-	UnprocessedTypeConfigurations UnprocessedTypeConfigurations         `json:"unprocessedTypeConfigurations" xml:"UnprocessedTypeConfigurations"`
+Errors BatchDescribeTypeConfigurationsErrors `json:"errors" xml:"Errors"`
+TypeConfigurations TypeConfigurationDetailsList `json:"typeConfigurations" xml:"TypeConfigurations"`
+UnprocessedTypeConfigurations UnprocessedTypeConfigurations `json:"unprocessedTypeConfigurations" xml:"UnprocessedTypeConfigurations"`
 }
 
 type CancelUpdateStackInput struct {
-	ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
-	StackName          string `json:"stackName" xml:"StackName"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type Change struct {
-	HookInvocationCount int32           `json:"hookInvocationCount" xml:"HookInvocationCount"`
-	ResourceChange      *ResourceChange `json:"resourceChange" xml:"ResourceChange"`
-	Type                string          `json:"type" xml:"Type"`
+HookInvocationCount int32 `json:"hookInvocationCount" xml:"HookInvocationCount"`
+ResourceChange *ResourceChange `json:"resourceChange" xml:"ResourceChange"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ChangeSetHook struct {
-	FailureMode                string                      `json:"failureMode" xml:"FailureMode"`
-	InvocationPoint            string                      `json:"invocationPoint" xml:"InvocationPoint"`
-	TargetDetails              *ChangeSetHookTargetDetails `json:"targetDetails" xml:"TargetDetails"`
-	TypeConfigurationVersionId string                      `json:"typeConfigurationVersionId" xml:"TypeConfigurationVersionId"`
-	TypeName                   string                      `json:"typeName" xml:"TypeName"`
-	TypeVersionId              string                      `json:"typeVersionId" xml:"TypeVersionId"`
+FailureMode string `json:"failureMode" xml:"FailureMode"`
+InvocationPoint string `json:"invocationPoint" xml:"InvocationPoint"`
+TargetDetails *ChangeSetHookTargetDetails `json:"targetDetails" xml:"TargetDetails"`
+TypeConfigurationVersionId string `json:"typeConfigurationVersionId" xml:"TypeConfigurationVersionId"`
+TypeName string `json:"typeName" xml:"TypeName"`
+TypeVersionId string `json:"typeVersionId" xml:"TypeVersionId"`
 }
 
 type ChangeSetHookResourceTargetDetails struct {
-	LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
-	ResourceAction    string `json:"resourceAction" xml:"ResourceAction"`
-	ResourceType      string `json:"resourceType" xml:"ResourceType"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+ResourceAction string `json:"resourceAction" xml:"ResourceAction"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ChangeSetHookTargetDetails struct {
-	ResourceTargetDetails *ChangeSetHookResourceTargetDetails `json:"resourceTargetDetails" xml:"ResourceTargetDetails"`
-	TargetType            string                              `json:"targetType" xml:"TargetType"`
+ResourceTargetDetails *ChangeSetHookResourceTargetDetails `json:"resourceTargetDetails" xml:"ResourceTargetDetails"`
+TargetType string `json:"targetType" xml:"TargetType"`
 }
 
 type ChangeSetSummary struct {
-	ChangeSetId             string    `json:"changeSetId" xml:"ChangeSetId"`
-	ChangeSetName           string    `json:"changeSetName" xml:"ChangeSetName"`
-	CreationTime            time.Time `json:"creationTime" xml:"CreationTime"`
-	Description             string    `json:"description" xml:"Description"`
-	ExecutionStatus         string    `json:"executionStatus" xml:"ExecutionStatus"`
-	ImportExistingResources bool      `json:"importExistingResources" xml:"ImportExistingResources"`
-	IncludeNestedStacks     bool      `json:"includeNestedStacks" xml:"IncludeNestedStacks"`
-	ParentChangeSetId       string    `json:"parentChangeSetId" xml:"ParentChangeSetId"`
-	RootChangeSetId         string    `json:"rootChangeSetId" xml:"RootChangeSetId"`
-	StackId                 string    `json:"stackId" xml:"StackId"`
-	StackName               string    `json:"stackName" xml:"StackName"`
-	Status                  string    `json:"status" xml:"Status"`
-	StatusReason            string    `json:"statusReason" xml:"StatusReason"`
+ChangeSetId string `json:"changeSetId" xml:"ChangeSetId"`
+ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Description string `json:"description" xml:"Description"`
+ExecutionStatus string `json:"executionStatus" xml:"ExecutionStatus"`
+ImportExistingResources bool `json:"importExistingResources" xml:"ImportExistingResources"`
+IncludeNestedStacks bool `json:"includeNestedStacks" xml:"IncludeNestedStacks"`
+ParentChangeSetId string `json:"parentChangeSetId" xml:"ParentChangeSetId"`
+RootChangeSetId string `json:"rootChangeSetId" xml:"RootChangeSetId"`
+StackId string `json:"stackId" xml:"StackId"`
+StackName string `json:"stackName" xml:"StackName"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type ContinueUpdateRollbackInput struct {
-	ClientRequestToken string          `json:"clientRequestToken" xml:"ClientRequestToken"`
-	ResourcesToSkip    ResourcesToSkip `json:"resourcesToSkip" xml:"ResourcesToSkip"`
-	RoleARN            string          `json:"roleARN" xml:"RoleARN"`
-	StackName          string          `json:"stackName" xml:"StackName"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+ResourcesToSkip ResourcesToSkip `json:"resourcesToSkip" xml:"ResourcesToSkip"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type ContinueUpdateRollbackOutput struct {
 }
 
 type CreateChangeSetInput struct {
-	Capabilities            Capabilities           `json:"capabilities" xml:"Capabilities"`
-	ChangeSetName           string                 `json:"changeSetName" xml:"ChangeSetName"`
-	ChangeSetType           string                 `json:"changeSetType" xml:"ChangeSetType"`
-	ClientToken             string                 `json:"clientToken" xml:"ClientToken"`
-	DeploymentMode          string                 `json:"deploymentMode" xml:"DeploymentMode"`
-	Description             string                 `json:"description" xml:"Description"`
-	ImportExistingResources bool                   `json:"importExistingResources" xml:"ImportExistingResources"`
-	IncludeNestedStacks     bool                   `json:"includeNestedStacks" xml:"IncludeNestedStacks"`
-	NotificationARNs        NotificationARNs       `json:"notificationARNs" xml:"NotificationARNs"`
-	OnStackFailure          string                 `json:"onStackFailure" xml:"OnStackFailure"`
-	Parameters              Parameters             `json:"parameters" xml:"Parameters"`
-	ResourceTypes           ResourceTypes          `json:"resourceTypes" xml:"ResourceTypes"`
-	ResourcesToImport       ResourcesToImport      `json:"resourcesToImport" xml:"ResourcesToImport"`
-	RoleARN                 string                 `json:"roleARN" xml:"RoleARN"`
-	RollbackConfiguration   *RollbackConfiguration `json:"rollbackConfiguration" xml:"RollbackConfiguration"`
-	StackName               string                 `json:"stackName" xml:"StackName"`
-	Tags                    Tags                   `json:"tags" xml:"Tags"`
-	TemplateBody            string                 `json:"templateBody" xml:"TemplateBody"`
-	TemplateURL             string                 `json:"templateURL" xml:"TemplateURL"`
-	UsePreviousTemplate     bool                   `json:"usePreviousTemplate" xml:"UsePreviousTemplate"`
+Capabilities Capabilities `json:"capabilities" xml:"Capabilities"`
+ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
+ChangeSetType string `json:"changeSetType" xml:"ChangeSetType"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+DeploymentMode string `json:"deploymentMode" xml:"DeploymentMode"`
+Description string `json:"description" xml:"Description"`
+ImportExistingResources bool `json:"importExistingResources" xml:"ImportExistingResources"`
+IncludeNestedStacks bool `json:"includeNestedStacks" xml:"IncludeNestedStacks"`
+NotificationARNs NotificationARNs `json:"notificationARNs" xml:"NotificationARNs"`
+OnStackFailure string `json:"onStackFailure" xml:"OnStackFailure"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
+ResourceTypes ResourceTypes `json:"resourceTypes" xml:"ResourceTypes"`
+ResourcesToImport ResourcesToImport `json:"resourcesToImport" xml:"ResourcesToImport"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
+RollbackConfiguration *RollbackConfiguration `json:"rollbackConfiguration" xml:"RollbackConfiguration"`
+StackName string `json:"stackName" xml:"StackName"`
+Tags Tags `json:"tags" xml:"Tags"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+TemplateURL string `json:"templateURL" xml:"TemplateURL"`
+UsePreviousTemplate bool `json:"usePreviousTemplate" xml:"UsePreviousTemplate"`
 }
 
 type CreateChangeSetOutput struct {
-	Id      string `json:"id" xml:"Id"`
-	StackId string `json:"stackId" xml:"StackId"`
+Id string `json:"id" xml:"Id"`
+StackId string `json:"stackId" xml:"StackId"`
 }
 
 type CreateGeneratedTemplateInput struct {
-	GeneratedTemplateName string                 `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
-	Resources             ResourceDefinitions    `json:"resources" xml:"Resources"`
-	StackName             string                 `json:"stackName" xml:"StackName"`
-	TemplateConfiguration *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
+GeneratedTemplateName string `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
+Resources ResourceDefinitions `json:"resources" xml:"Resources"`
+StackName string `json:"stackName" xml:"StackName"`
+TemplateConfiguration *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
 }
 
 type CreateGeneratedTemplateOutput struct {
-	GeneratedTemplateId string `json:"generatedTemplateId" xml:"GeneratedTemplateId"`
+GeneratedTemplateId string `json:"generatedTemplateId" xml:"GeneratedTemplateId"`
 }
 
 type CreateStackInput struct {
-	Capabilities                Capabilities           `json:"capabilities" xml:"Capabilities"`
-	ClientRequestToken          string                 `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DisableRollback             bool                   `json:"disableRollback" xml:"DisableRollback"`
-	EnableTerminationProtection bool                   `json:"enableTerminationProtection" xml:"EnableTerminationProtection"`
-	NotificationARNs            NotificationARNs       `json:"notificationARNs" xml:"NotificationARNs"`
-	OnFailure                   string                 `json:"onFailure" xml:"OnFailure"`
-	Parameters                  Parameters             `json:"parameters" xml:"Parameters"`
-	ResourceTypes               ResourceTypes          `json:"resourceTypes" xml:"ResourceTypes"`
-	RetainExceptOnCreate        bool                   `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
-	RoleARN                     string                 `json:"roleARN" xml:"RoleARN"`
-	RollbackConfiguration       *RollbackConfiguration `json:"rollbackConfiguration" xml:"RollbackConfiguration"`
-	StackName                   string                 `json:"stackName" xml:"StackName"`
-	StackPolicyBody             string                 `json:"stackPolicyBody" xml:"StackPolicyBody"`
-	StackPolicyURL              string                 `json:"stackPolicyURL" xml:"StackPolicyURL"`
-	Tags                        Tags                   `json:"tags" xml:"Tags"`
-	TemplateBody                string                 `json:"templateBody" xml:"TemplateBody"`
-	TemplateURL                 string                 `json:"templateURL" xml:"TemplateURL"`
-	TimeoutInMinutes            int32                  `json:"timeoutInMinutes" xml:"TimeoutInMinutes"`
+Capabilities Capabilities `json:"capabilities" xml:"Capabilities"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+DisableRollback bool `json:"disableRollback" xml:"DisableRollback"`
+EnableTerminationProtection bool `json:"enableTerminationProtection" xml:"EnableTerminationProtection"`
+NotificationARNs NotificationARNs `json:"notificationARNs" xml:"NotificationARNs"`
+OnFailure string `json:"onFailure" xml:"OnFailure"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
+ResourceTypes ResourceTypes `json:"resourceTypes" xml:"ResourceTypes"`
+RetainExceptOnCreate bool `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
+RollbackConfiguration *RollbackConfiguration `json:"rollbackConfiguration" xml:"RollbackConfiguration"`
+StackName string `json:"stackName" xml:"StackName"`
+StackPolicyBody string `json:"stackPolicyBody" xml:"StackPolicyBody"`
+StackPolicyURL string `json:"stackPolicyURL" xml:"StackPolicyURL"`
+Tags Tags `json:"tags" xml:"Tags"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+TemplateURL string `json:"templateURL" xml:"TemplateURL"`
+TimeoutInMinutes int32 `json:"timeoutInMinutes" xml:"TimeoutInMinutes"`
 }
 
 type CreateStackInstancesInput struct {
-	Accounts             AccountList                   `json:"accounts" xml:"Accounts"`
-	CallAs               string                        `json:"callAs" xml:"CallAs"`
-	DeploymentTargets    *DeploymentTargets            `json:"deploymentTargets" xml:"DeploymentTargets"`
-	OperationId          string                        `json:"operationId" xml:"OperationId"`
-	OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
-	ParameterOverrides   Parameters                    `json:"parameterOverrides" xml:"ParameterOverrides"`
-	Regions              RegionList                    `json:"regions" xml:"Regions"`
-	StackSetName         string                        `json:"stackSetName" xml:"StackSetName"`
+Accounts AccountList `json:"accounts" xml:"Accounts"`
+CallAs string `json:"callAs" xml:"CallAs"`
+DeploymentTargets *DeploymentTargets `json:"deploymentTargets" xml:"DeploymentTargets"`
+OperationId string `json:"operationId" xml:"OperationId"`
+OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
+ParameterOverrides Parameters `json:"parameterOverrides" xml:"ParameterOverrides"`
+Regions RegionList `json:"regions" xml:"Regions"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type CreateStackInstancesOutput struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type CreateStackOutput struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
-	StackId     string `json:"stackId" xml:"StackId"`
+OperationId string `json:"operationId" xml:"OperationId"`
+StackId string `json:"stackId" xml:"StackId"`
 }
 
 type CreateStackRefactorInput struct {
-	Description         string           `json:"description" xml:"Description"`
-	EnableStackCreation bool             `json:"enableStackCreation" xml:"EnableStackCreation"`
-	ResourceMappings    ResourceMappings `json:"resourceMappings" xml:"ResourceMappings"`
-	StackDefinitions    StackDefinitions `json:"stackDefinitions" xml:"StackDefinitions"`
+Description string `json:"description" xml:"Description"`
+EnableStackCreation bool `json:"enableStackCreation" xml:"EnableStackCreation"`
+ResourceMappings ResourceMappings `json:"resourceMappings" xml:"ResourceMappings"`
+StackDefinitions StackDefinitions `json:"stackDefinitions" xml:"StackDefinitions"`
 }
 
 type CreateStackRefactorOutput struct {
-	StackRefactorId string `json:"stackRefactorId" xml:"StackRefactorId"`
+StackRefactorId string `json:"stackRefactorId" xml:"StackRefactorId"`
 }
 
 type CreateStackSetInput struct {
-	AdministrationRoleARN string            `json:"administrationRoleARN" xml:"AdministrationRoleARN"`
-	AutoDeployment        *AutoDeployment   `json:"autoDeployment" xml:"AutoDeployment"`
-	CallAs                string            `json:"callAs" xml:"CallAs"`
-	Capabilities          Capabilities      `json:"capabilities" xml:"Capabilities"`
-	ClientRequestToken    string            `json:"clientRequestToken" xml:"ClientRequestToken"`
-	Description           string            `json:"description" xml:"Description"`
-	ExecutionRoleName     string            `json:"executionRoleName" xml:"ExecutionRoleName"`
-	ManagedExecution      *ManagedExecution `json:"managedExecution" xml:"ManagedExecution"`
-	Parameters            Parameters        `json:"parameters" xml:"Parameters"`
-	PermissionModel       string            `json:"permissionModel" xml:"PermissionModel"`
-	StackId               string            `json:"stackId" xml:"StackId"`
-	StackSetName          string            `json:"stackSetName" xml:"StackSetName"`
-	Tags                  Tags              `json:"tags" xml:"Tags"`
-	TemplateBody          string            `json:"templateBody" xml:"TemplateBody"`
-	TemplateURL           string            `json:"templateURL" xml:"TemplateURL"`
+AdministrationRoleARN string `json:"administrationRoleARN" xml:"AdministrationRoleARN"`
+AutoDeployment *AutoDeployment `json:"autoDeployment" xml:"AutoDeployment"`
+CallAs string `json:"callAs" xml:"CallAs"`
+Capabilities Capabilities `json:"capabilities" xml:"Capabilities"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+Description string `json:"description" xml:"Description"`
+ExecutionRoleName string `json:"executionRoleName" xml:"ExecutionRoleName"`
+ManagedExecution *ManagedExecution `json:"managedExecution" xml:"ManagedExecution"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
+PermissionModel string `json:"permissionModel" xml:"PermissionModel"`
+StackId string `json:"stackId" xml:"StackId"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
+Tags Tags `json:"tags" xml:"Tags"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+TemplateURL string `json:"templateURL" xml:"TemplateURL"`
 }
 
 type CreateStackSetOutput struct {
-	StackSetId string `json:"stackSetId" xml:"StackSetId"`
+StackSetId string `json:"stackSetId" xml:"StackSetId"`
 }
 
 type DeactivateOrganizationsAccessInput struct {
@@ -247,1658 +247,1658 @@ type DeactivateOrganizationsAccessOutput struct {
 }
 
 type DeactivateTypeInput struct {
-	Arn      string `json:"arn" xml:"Arn"`
-	Type     string `json:"type" xml:"Type"`
-	TypeName string `json:"typeName" xml:"TypeName"`
+Arn string `json:"arn" xml:"Arn"`
+Type string `json:"type" xml:"Type"`
+TypeName string `json:"typeName" xml:"TypeName"`
 }
 
 type DeactivateTypeOutput struct {
 }
 
 type DeleteChangeSetInput struct {
-	ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
-	StackName     string `json:"stackName" xml:"StackName"`
+ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type DeleteChangeSetOutput struct {
 }
 
 type DeleteGeneratedTemplateInput struct {
-	GeneratedTemplateName string `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
+GeneratedTemplateName string `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
 }
 
 type DeleteStackInput struct {
-	ClientRequestToken string          `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DeletionMode       string          `json:"deletionMode" xml:"DeletionMode"`
-	RetainResources    RetainResources `json:"retainResources" xml:"RetainResources"`
-	RoleARN            string          `json:"roleARN" xml:"RoleARN"`
-	StackName          string          `json:"stackName" xml:"StackName"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+DeletionMode string `json:"deletionMode" xml:"DeletionMode"`
+RetainResources RetainResources `json:"retainResources" xml:"RetainResources"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type DeleteStackInstancesInput struct {
-	Accounts             AccountList                   `json:"accounts" xml:"Accounts"`
-	CallAs               string                        `json:"callAs" xml:"CallAs"`
-	DeploymentTargets    *DeploymentTargets            `json:"deploymentTargets" xml:"DeploymentTargets"`
-	OperationId          string                        `json:"operationId" xml:"OperationId"`
-	OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
-	Regions              RegionList                    `json:"regions" xml:"Regions"`
-	RetainStacks         bool                          `json:"retainStacks" xml:"RetainStacks"`
-	StackSetName         string                        `json:"stackSetName" xml:"StackSetName"`
+Accounts AccountList `json:"accounts" xml:"Accounts"`
+CallAs string `json:"callAs" xml:"CallAs"`
+DeploymentTargets *DeploymentTargets `json:"deploymentTargets" xml:"DeploymentTargets"`
+OperationId string `json:"operationId" xml:"OperationId"`
+OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
+Regions RegionList `json:"regions" xml:"Regions"`
+RetainStacks bool `json:"retainStacks" xml:"RetainStacks"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type DeleteStackInstancesOutput struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type DeleteStackSetInput struct {
-	CallAs       string `json:"callAs" xml:"CallAs"`
-	StackSetName string `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type DeleteStackSetOutput struct {
 }
 
 type DeploymentTargets struct {
-	AccountFilterType     string                   `json:"accountFilterType" xml:"AccountFilterType"`
-	Accounts              AccountList              `json:"accounts" xml:"Accounts"`
-	AccountsUrl           string                   `json:"accountsUrl" xml:"AccountsUrl"`
-	OrganizationalUnitIds OrganizationalUnitIdList `json:"organizationalUnitIds" xml:"OrganizationalUnitIds"`
+AccountFilterType string `json:"accountFilterType" xml:"AccountFilterType"`
+Accounts AccountList `json:"accounts" xml:"Accounts"`
+AccountsUrl string `json:"accountsUrl" xml:"AccountsUrl"`
+OrganizationalUnitIds OrganizationalUnitIdList `json:"organizationalUnitIds" xml:"OrganizationalUnitIds"`
 }
 
 type DeregisterTypeInput struct {
-	Arn       string `json:"arn" xml:"Arn"`
-	Type      string `json:"type" xml:"Type"`
-	TypeName  string `json:"typeName" xml:"TypeName"`
-	VersionId string `json:"versionId" xml:"VersionId"`
+Arn string `json:"arn" xml:"Arn"`
+Type string `json:"type" xml:"Type"`
+TypeName string `json:"typeName" xml:"TypeName"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type DeregisterTypeOutput struct {
 }
 
 type DescribeAccountLimitsInput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAccountLimitsOutput struct {
-	AccountLimits AccountLimitList `json:"accountLimits" xml:"AccountLimits"`
-	NextToken     string           `json:"nextToken" xml:"NextToken"`
+AccountLimits AccountLimitList `json:"accountLimits" xml:"AccountLimits"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeChangeSetHooksInput struct {
-	ChangeSetName     string `json:"changeSetName" xml:"ChangeSetName"`
-	LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
-	NextToken         string `json:"nextToken" xml:"NextToken"`
-	StackName         string `json:"stackName" xml:"StackName"`
+ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type DescribeChangeSetHooksOutput struct {
-	ChangeSetId   string         `json:"changeSetId" xml:"ChangeSetId"`
-	ChangeSetName string         `json:"changeSetName" xml:"ChangeSetName"`
-	Hooks         ChangeSetHooks `json:"hooks" xml:"Hooks"`
-	NextToken     string         `json:"nextToken" xml:"NextToken"`
-	StackId       string         `json:"stackId" xml:"StackId"`
-	StackName     string         `json:"stackName" xml:"StackName"`
-	Status        string         `json:"status" xml:"Status"`
+ChangeSetId string `json:"changeSetId" xml:"ChangeSetId"`
+ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
+Hooks ChangeSetHooks `json:"hooks" xml:"Hooks"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackId string `json:"stackId" xml:"StackId"`
+StackName string `json:"stackName" xml:"StackName"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DescribeChangeSetInput struct {
-	ChangeSetName         string `json:"changeSetName" xml:"ChangeSetName"`
-	IncludePropertyValues bool   `json:"includePropertyValues" xml:"IncludePropertyValues"`
-	NextToken             string `json:"nextToken" xml:"NextToken"`
-	StackName             string `json:"stackName" xml:"StackName"`
+ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
+IncludePropertyValues bool `json:"includePropertyValues" xml:"IncludePropertyValues"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type DescribeChangeSetOutput struct {
-	Capabilities            Capabilities           `json:"capabilities" xml:"Capabilities"`
-	ChangeSetId             string                 `json:"changeSetId" xml:"ChangeSetId"`
-	ChangeSetName           string                 `json:"changeSetName" xml:"ChangeSetName"`
-	Changes                 Changes                `json:"changes" xml:"Changes"`
-	CreationTime            time.Time              `json:"creationTime" xml:"CreationTime"`
-	DeploymentMode          string                 `json:"deploymentMode" xml:"DeploymentMode"`
-	Description             string                 `json:"description" xml:"Description"`
-	ExecutionStatus         string                 `json:"executionStatus" xml:"ExecutionStatus"`
-	ImportExistingResources bool                   `json:"importExistingResources" xml:"ImportExistingResources"`
-	IncludeNestedStacks     bool                   `json:"includeNestedStacks" xml:"IncludeNestedStacks"`
-	NextToken               string                 `json:"nextToken" xml:"NextToken"`
-	NotificationARNs        NotificationARNs       `json:"notificationARNs" xml:"NotificationARNs"`
-	OnStackFailure          string                 `json:"onStackFailure" xml:"OnStackFailure"`
-	Parameters              Parameters             `json:"parameters" xml:"Parameters"`
-	ParentChangeSetId       string                 `json:"parentChangeSetId" xml:"ParentChangeSetId"`
-	RollbackConfiguration   *RollbackConfiguration `json:"rollbackConfiguration" xml:"RollbackConfiguration"`
-	RootChangeSetId         string                 `json:"rootChangeSetId" xml:"RootChangeSetId"`
-	StackDriftStatus        string                 `json:"stackDriftStatus" xml:"StackDriftStatus"`
-	StackId                 string                 `json:"stackId" xml:"StackId"`
-	StackName               string                 `json:"stackName" xml:"StackName"`
-	Status                  string                 `json:"status" xml:"Status"`
-	StatusReason            string                 `json:"statusReason" xml:"StatusReason"`
-	Tags                    Tags                   `json:"tags" xml:"Tags"`
+Capabilities Capabilities `json:"capabilities" xml:"Capabilities"`
+ChangeSetId string `json:"changeSetId" xml:"ChangeSetId"`
+ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
+Changes Changes `json:"changes" xml:"Changes"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+DeploymentMode string `json:"deploymentMode" xml:"DeploymentMode"`
+Description string `json:"description" xml:"Description"`
+ExecutionStatus string `json:"executionStatus" xml:"ExecutionStatus"`
+ImportExistingResources bool `json:"importExistingResources" xml:"ImportExistingResources"`
+IncludeNestedStacks bool `json:"includeNestedStacks" xml:"IncludeNestedStacks"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+NotificationARNs NotificationARNs `json:"notificationARNs" xml:"NotificationARNs"`
+OnStackFailure string `json:"onStackFailure" xml:"OnStackFailure"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
+ParentChangeSetId string `json:"parentChangeSetId" xml:"ParentChangeSetId"`
+RollbackConfiguration *RollbackConfiguration `json:"rollbackConfiguration" xml:"RollbackConfiguration"`
+RootChangeSetId string `json:"rootChangeSetId" xml:"RootChangeSetId"`
+StackDriftStatus string `json:"stackDriftStatus" xml:"StackDriftStatus"`
+StackId string `json:"stackId" xml:"StackId"`
+StackName string `json:"stackName" xml:"StackName"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type DescribeEventsInput struct {
-	ChangeSetName string       `json:"changeSetName" xml:"ChangeSetName"`
-	Filters       *EventFilter `json:"filters" xml:"Filters"`
-	NextToken     string       `json:"nextToken" xml:"NextToken"`
-	OperationId   string       `json:"operationId" xml:"OperationId"`
-	StackName     string       `json:"stackName" xml:"StackName"`
+ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
+Filters *EventFilter `json:"filters" xml:"Filters"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OperationId string `json:"operationId" xml:"OperationId"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type DescribeEventsOutput struct {
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
-	OperationEvents OperationEvents `json:"operationEvents" xml:"OperationEvents"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OperationEvents OperationEvents `json:"operationEvents" xml:"OperationEvents"`
 }
 
 type DescribeGeneratedTemplateInput struct {
-	GeneratedTemplateName string `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
+GeneratedTemplateName string `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
 }
 
 type DescribeGeneratedTemplateOutput struct {
-	CreationTime          time.Time              `json:"creationTime" xml:"CreationTime"`
-	GeneratedTemplateId   string                 `json:"generatedTemplateId" xml:"GeneratedTemplateId"`
-	GeneratedTemplateName string                 `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
-	LastUpdatedTime       time.Time              `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	Progress              *TemplateProgress      `json:"progress" xml:"Progress"`
-	Resources             ResourceDetails        `json:"resources" xml:"Resources"`
-	StackId               string                 `json:"stackId" xml:"StackId"`
-	Status                string                 `json:"status" xml:"Status"`
-	StatusReason          string                 `json:"statusReason" xml:"StatusReason"`
-	TemplateConfiguration *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
-	TotalWarnings         int32                  `json:"totalWarnings" xml:"TotalWarnings"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+GeneratedTemplateId string `json:"generatedTemplateId" xml:"GeneratedTemplateId"`
+GeneratedTemplateName string `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+Progress *TemplateProgress `json:"progress" xml:"Progress"`
+Resources ResourceDetails `json:"resources" xml:"Resources"`
+StackId string `json:"stackId" xml:"StackId"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
+TemplateConfiguration *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
+TotalWarnings int32 `json:"totalWarnings" xml:"TotalWarnings"`
 }
 
 type DescribeOrganizationsAccessInput struct {
-	CallAs string `json:"callAs" xml:"CallAs"`
+CallAs string `json:"callAs" xml:"CallAs"`
 }
 
 type DescribeOrganizationsAccessOutput struct {
-	Status string `json:"status" xml:"Status"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DescribePublisherInput struct {
-	PublisherId string `json:"publisherId" xml:"PublisherId"`
+PublisherId string `json:"publisherId" xml:"PublisherId"`
 }
 
 type DescribePublisherOutput struct {
-	IdentityProvider string `json:"identityProvider" xml:"IdentityProvider"`
-	PublisherId      string `json:"publisherId" xml:"PublisherId"`
-	PublisherProfile string `json:"publisherProfile" xml:"PublisherProfile"`
-	PublisherStatus  string `json:"publisherStatus" xml:"PublisherStatus"`
+IdentityProvider string `json:"identityProvider" xml:"IdentityProvider"`
+PublisherId string `json:"publisherId" xml:"PublisherId"`
+PublisherProfile string `json:"publisherProfile" xml:"PublisherProfile"`
+PublisherStatus string `json:"publisherStatus" xml:"PublisherStatus"`
 }
 
 type DescribeResourceScanInput struct {
-	ResourceScanId string `json:"resourceScanId" xml:"ResourceScanId"`
+ResourceScanId string `json:"resourceScanId" xml:"ResourceScanId"`
 }
 
 type DescribeResourceScanOutput struct {
-	EndTime             time.Time     `json:"endTime" xml:"EndTime"`
-	PercentageCompleted float64       `json:"percentageCompleted" xml:"PercentageCompleted"`
-	ResourceScanId      string        `json:"resourceScanId" xml:"ResourceScanId"`
-	ResourceTypes       ResourceTypes `json:"resourceTypes" xml:"ResourceTypes"`
-	ResourcesRead       int32         `json:"resourcesRead" xml:"ResourcesRead"`
-	ResourcesScanned    int32         `json:"resourcesScanned" xml:"ResourcesScanned"`
-	ScanFilters         ScanFilters   `json:"scanFilters" xml:"ScanFilters"`
-	StartTime           time.Time     `json:"startTime" xml:"StartTime"`
-	Status              string        `json:"status" xml:"Status"`
-	StatusReason        string        `json:"statusReason" xml:"StatusReason"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+PercentageCompleted float64 `json:"percentageCompleted" xml:"PercentageCompleted"`
+ResourceScanId string `json:"resourceScanId" xml:"ResourceScanId"`
+ResourceTypes ResourceTypes `json:"resourceTypes" xml:"ResourceTypes"`
+ResourcesRead int32 `json:"resourcesRead" xml:"ResourcesRead"`
+ResourcesScanned int32 `json:"resourcesScanned" xml:"ResourcesScanned"`
+ScanFilters ScanFilters `json:"scanFilters" xml:"ScanFilters"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type DescribeStackDriftDetectionStatusInput struct {
-	StackDriftDetectionId string `json:"stackDriftDetectionId" xml:"StackDriftDetectionId"`
+StackDriftDetectionId string `json:"stackDriftDetectionId" xml:"StackDriftDetectionId"`
 }
 
 type DescribeStackDriftDetectionStatusOutput struct {
-	DetectionStatus           string    `json:"detectionStatus" xml:"DetectionStatus"`
-	DetectionStatusReason     string    `json:"detectionStatusReason" xml:"DetectionStatusReason"`
-	DriftedStackResourceCount int32     `json:"driftedStackResourceCount" xml:"DriftedStackResourceCount"`
-	StackDriftDetectionId     string    `json:"stackDriftDetectionId" xml:"StackDriftDetectionId"`
-	StackDriftStatus          string    `json:"stackDriftStatus" xml:"StackDriftStatus"`
-	StackId                   string    `json:"stackId" xml:"StackId"`
-	Timestamp                 time.Time `json:"timestamp" xml:"Timestamp"`
+DetectionStatus string `json:"detectionStatus" xml:"DetectionStatus"`
+DetectionStatusReason string `json:"detectionStatusReason" xml:"DetectionStatusReason"`
+DriftedStackResourceCount int32 `json:"driftedStackResourceCount" xml:"DriftedStackResourceCount"`
+StackDriftDetectionId string `json:"stackDriftDetectionId" xml:"StackDriftDetectionId"`
+StackDriftStatus string `json:"stackDriftStatus" xml:"StackDriftStatus"`
+StackId string `json:"stackId" xml:"StackId"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type DescribeStackEventsInput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
-	StackName string `json:"stackName" xml:"StackName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type DescribeStackEventsOutput struct {
-	NextToken   string      `json:"nextToken" xml:"NextToken"`
-	StackEvents StackEvents `json:"stackEvents" xml:"StackEvents"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackEvents StackEvents `json:"stackEvents" xml:"StackEvents"`
 }
 
 type DescribeStackInstanceInput struct {
-	CallAs               string `json:"callAs" xml:"CallAs"`
-	StackInstanceAccount string `json:"stackInstanceAccount" xml:"StackInstanceAccount"`
-	StackInstanceRegion  string `json:"stackInstanceRegion" xml:"StackInstanceRegion"`
-	StackSetName         string `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+StackInstanceAccount string `json:"stackInstanceAccount" xml:"StackInstanceAccount"`
+StackInstanceRegion string `json:"stackInstanceRegion" xml:"StackInstanceRegion"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type DescribeStackInstanceOutput struct {
-	StackInstance *StackInstance `json:"stackInstance" xml:"StackInstance"`
+StackInstance *StackInstance `json:"stackInstance" xml:"StackInstance"`
 }
 
 type DescribeStackRefactorInput struct {
-	StackRefactorId string `json:"stackRefactorId" xml:"StackRefactorId"`
+StackRefactorId string `json:"stackRefactorId" xml:"StackRefactorId"`
 }
 
 type DescribeStackRefactorOutput struct {
-	Description           string   `json:"description" xml:"Description"`
-	ExecutionStatus       string   `json:"executionStatus" xml:"ExecutionStatus"`
-	ExecutionStatusReason string   `json:"executionStatusReason" xml:"ExecutionStatusReason"`
-	StackIds              StackIds `json:"stackIds" xml:"StackIds"`
-	StackRefactorId       string   `json:"stackRefactorId" xml:"StackRefactorId"`
-	Status                string   `json:"status" xml:"Status"`
-	StatusReason          string   `json:"statusReason" xml:"StatusReason"`
+Description string `json:"description" xml:"Description"`
+ExecutionStatus string `json:"executionStatus" xml:"ExecutionStatus"`
+ExecutionStatusReason string `json:"executionStatusReason" xml:"ExecutionStatusReason"`
+StackIds StackIds `json:"stackIds" xml:"StackIds"`
+StackRefactorId string `json:"stackRefactorId" xml:"StackRefactorId"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type DescribeStackResourceDriftsInput struct {
-	MaxResults                      int32                           `json:"maxResults" xml:"MaxResults"`
-	NextToken                       string                          `json:"nextToken" xml:"NextToken"`
-	StackName                       string                          `json:"stackName" xml:"StackName"`
-	StackResourceDriftStatusFilters StackResourceDriftStatusFilters `json:"stackResourceDriftStatusFilters" xml:"StackResourceDriftStatusFilters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackName string `json:"stackName" xml:"StackName"`
+StackResourceDriftStatusFilters StackResourceDriftStatusFilters `json:"stackResourceDriftStatusFilters" xml:"StackResourceDriftStatusFilters"`
 }
 
 type DescribeStackResourceDriftsOutput struct {
-	NextToken           string              `json:"nextToken" xml:"NextToken"`
-	StackResourceDrifts StackResourceDrifts `json:"stackResourceDrifts" xml:"StackResourceDrifts"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackResourceDrifts StackResourceDrifts `json:"stackResourceDrifts" xml:"StackResourceDrifts"`
 }
 
 type DescribeStackResourceInput struct {
-	LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
-	StackName         string `json:"stackName" xml:"StackName"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type DescribeStackResourceOutput struct {
-	StackResourceDetail *StackResourceDetail `json:"stackResourceDetail" xml:"StackResourceDetail"`
+StackResourceDetail *StackResourceDetail `json:"stackResourceDetail" xml:"StackResourceDetail"`
 }
 
 type DescribeStackResourcesInput struct {
-	LogicalResourceId  string `json:"logicalResourceId" xml:"LogicalResourceId"`
-	PhysicalResourceId string `json:"physicalResourceId" xml:"PhysicalResourceId"`
-	StackName          string `json:"stackName" xml:"StackName"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+PhysicalResourceId string `json:"physicalResourceId" xml:"PhysicalResourceId"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type DescribeStackResourcesOutput struct {
-	StackResources StackResources `json:"stackResources" xml:"StackResources"`
+StackResources StackResources `json:"stackResources" xml:"StackResources"`
 }
 
 type DescribeStackSetInput struct {
-	CallAs       string `json:"callAs" xml:"CallAs"`
-	StackSetName string `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type DescribeStackSetOperationInput struct {
-	CallAs       string `json:"callAs" xml:"CallAs"`
-	OperationId  string `json:"operationId" xml:"OperationId"`
-	StackSetName string `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+OperationId string `json:"operationId" xml:"OperationId"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type DescribeStackSetOperationOutput struct {
-	StackSetOperation *StackSetOperation `json:"stackSetOperation" xml:"StackSetOperation"`
+StackSetOperation *StackSetOperation `json:"stackSetOperation" xml:"StackSetOperation"`
 }
 
 type DescribeStackSetOutput struct {
-	StackSet *StackSet `json:"stackSet" xml:"StackSet"`
+StackSet *StackSet `json:"stackSet" xml:"StackSet"`
 }
 
 type DescribeStacksInput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
-	StackName string `json:"stackName" xml:"StackName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type DescribeStacksOutput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
-	Stacks    Stacks `json:"stacks" xml:"Stacks"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Stacks Stacks `json:"stacks" xml:"Stacks"`
 }
 
 type DescribeTypeInput struct {
-	Arn                 string `json:"arn" xml:"Arn"`
-	PublicVersionNumber string `json:"publicVersionNumber" xml:"PublicVersionNumber"`
-	PublisherId         string `json:"publisherId" xml:"PublisherId"`
-	Type                string `json:"type" xml:"Type"`
-	TypeName            string `json:"typeName" xml:"TypeName"`
-	VersionId           string `json:"versionId" xml:"VersionId"`
+Arn string `json:"arn" xml:"Arn"`
+PublicVersionNumber string `json:"publicVersionNumber" xml:"PublicVersionNumber"`
+PublisherId string `json:"publisherId" xml:"PublisherId"`
+Type string `json:"type" xml:"Type"`
+TypeName string `json:"typeName" xml:"TypeName"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type DescribeTypeOutput struct {
-	Arn                        string                 `json:"arn" xml:"Arn"`
-	AutoUpdate                 bool                   `json:"autoUpdate" xml:"AutoUpdate"`
-	ConfigurationSchema        string                 `json:"configurationSchema" xml:"ConfigurationSchema"`
-	DefaultVersionId           string                 `json:"defaultVersionId" xml:"DefaultVersionId"`
-	DeprecatedStatus           string                 `json:"deprecatedStatus" xml:"DeprecatedStatus"`
-	Description                string                 `json:"description" xml:"Description"`
-	DocumentationUrl           string                 `json:"documentationUrl" xml:"DocumentationUrl"`
-	ExecutionRoleArn           string                 `json:"executionRoleArn" xml:"ExecutionRoleArn"`
-	IsActivated                bool                   `json:"isActivated" xml:"IsActivated"`
-	IsDefaultVersion           bool                   `json:"isDefaultVersion" xml:"IsDefaultVersion"`
-	LastUpdated                time.Time              `json:"lastUpdated" xml:"LastUpdated"`
-	LatestPublicVersion        string                 `json:"latestPublicVersion" xml:"LatestPublicVersion"`
-	LoggingConfig              *LoggingConfig         `json:"loggingConfig" xml:"LoggingConfig"`
-	OriginalTypeArn            string                 `json:"originalTypeArn" xml:"OriginalTypeArn"`
-	OriginalTypeName           string                 `json:"originalTypeName" xml:"OriginalTypeName"`
-	ProvisioningType           string                 `json:"provisioningType" xml:"ProvisioningType"`
-	PublicVersionNumber        string                 `json:"publicVersionNumber" xml:"PublicVersionNumber"`
-	PublisherId                string                 `json:"publisherId" xml:"PublisherId"`
-	RequiredActivatedTypes     RequiredActivatedTypes `json:"requiredActivatedTypes" xml:"RequiredActivatedTypes"`
-	Schema                     string                 `json:"schema" xml:"Schema"`
-	SourceUrl                  string                 `json:"sourceUrl" xml:"SourceUrl"`
-	TimeCreated                time.Time              `json:"timeCreated" xml:"TimeCreated"`
-	Type                       string                 `json:"type" xml:"Type"`
-	TypeName                   string                 `json:"typeName" xml:"TypeName"`
-	TypeTestsStatus            string                 `json:"typeTestsStatus" xml:"TypeTestsStatus"`
-	TypeTestsStatusDescription string                 `json:"typeTestsStatusDescription" xml:"TypeTestsStatusDescription"`
-	Visibility                 string                 `json:"visibility" xml:"Visibility"`
+Arn string `json:"arn" xml:"Arn"`
+AutoUpdate bool `json:"autoUpdate" xml:"AutoUpdate"`
+ConfigurationSchema string `json:"configurationSchema" xml:"ConfigurationSchema"`
+DefaultVersionId string `json:"defaultVersionId" xml:"DefaultVersionId"`
+DeprecatedStatus string `json:"deprecatedStatus" xml:"DeprecatedStatus"`
+Description string `json:"description" xml:"Description"`
+DocumentationUrl string `json:"documentationUrl" xml:"DocumentationUrl"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+IsActivated bool `json:"isActivated" xml:"IsActivated"`
+IsDefaultVersion bool `json:"isDefaultVersion" xml:"IsDefaultVersion"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+LatestPublicVersion string `json:"latestPublicVersion" xml:"LatestPublicVersion"`
+LoggingConfig *LoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
+OriginalTypeArn string `json:"originalTypeArn" xml:"OriginalTypeArn"`
+OriginalTypeName string `json:"originalTypeName" xml:"OriginalTypeName"`
+ProvisioningType string `json:"provisioningType" xml:"ProvisioningType"`
+PublicVersionNumber string `json:"publicVersionNumber" xml:"PublicVersionNumber"`
+PublisherId string `json:"publisherId" xml:"PublisherId"`
+RequiredActivatedTypes RequiredActivatedTypes `json:"requiredActivatedTypes" xml:"RequiredActivatedTypes"`
+Schema string `json:"schema" xml:"Schema"`
+SourceUrl string `json:"sourceUrl" xml:"SourceUrl"`
+TimeCreated time.Time `json:"timeCreated" xml:"TimeCreated"`
+Type string `json:"type" xml:"Type"`
+TypeName string `json:"typeName" xml:"TypeName"`
+TypeTestsStatus string `json:"typeTestsStatus" xml:"TypeTestsStatus"`
+TypeTestsStatusDescription string `json:"typeTestsStatusDescription" xml:"TypeTestsStatusDescription"`
+Visibility string `json:"visibility" xml:"Visibility"`
 }
 
 type DescribeTypeRegistrationInput struct {
-	RegistrationToken string `json:"registrationToken" xml:"RegistrationToken"`
+RegistrationToken string `json:"registrationToken" xml:"RegistrationToken"`
 }
 
 type DescribeTypeRegistrationOutput struct {
-	Description    string `json:"description" xml:"Description"`
-	ProgressStatus string `json:"progressStatus" xml:"ProgressStatus"`
-	TypeArn        string `json:"typeArn" xml:"TypeArn"`
-	TypeVersionArn string `json:"typeVersionArn" xml:"TypeVersionArn"`
+Description string `json:"description" xml:"Description"`
+ProgressStatus string `json:"progressStatus" xml:"ProgressStatus"`
+TypeArn string `json:"typeArn" xml:"TypeArn"`
+TypeVersionArn string `json:"typeVersionArn" xml:"TypeVersionArn"`
 }
 
 type DetectStackDriftInput struct {
-	LogicalResourceIds LogicalResourceIds `json:"logicalResourceIds" xml:"LogicalResourceIds"`
-	StackName          string             `json:"stackName" xml:"StackName"`
+LogicalResourceIds LogicalResourceIds `json:"logicalResourceIds" xml:"LogicalResourceIds"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type DetectStackDriftOutput struct {
-	StackDriftDetectionId string `json:"stackDriftDetectionId" xml:"StackDriftDetectionId"`
+StackDriftDetectionId string `json:"stackDriftDetectionId" xml:"StackDriftDetectionId"`
 }
 
 type DetectStackResourceDriftInput struct {
-	LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
-	StackName         string `json:"stackName" xml:"StackName"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type DetectStackResourceDriftOutput struct {
-	StackResourceDrift *StackResourceDrift `json:"stackResourceDrift" xml:"StackResourceDrift"`
+StackResourceDrift *StackResourceDrift `json:"stackResourceDrift" xml:"StackResourceDrift"`
 }
 
 type DetectStackSetDriftInput struct {
-	CallAs               string                        `json:"callAs" xml:"CallAs"`
-	OperationId          string                        `json:"operationId" xml:"OperationId"`
-	OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
-	StackSetName         string                        `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+OperationId string `json:"operationId" xml:"OperationId"`
+OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type DetectStackSetDriftOutput struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type EstimateTemplateCostInput struct {
-	Parameters   Parameters `json:"parameters" xml:"Parameters"`
-	TemplateBody string     `json:"templateBody" xml:"TemplateBody"`
-	TemplateURL  string     `json:"templateURL" xml:"TemplateURL"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+TemplateURL string `json:"templateURL" xml:"TemplateURL"`
 }
 
 type EstimateTemplateCostOutput struct {
-	Url string `json:"url" xml:"Url"`
+Url string `json:"url" xml:"Url"`
 }
 
 type EventFilter struct {
-	FailedEvents bool `json:"failedEvents" xml:"FailedEvents"`
+FailedEvents bool `json:"failedEvents" xml:"FailedEvents"`
 }
 
 type ExecuteChangeSetInput struct {
-	ChangeSetName        string `json:"changeSetName" xml:"ChangeSetName"`
-	ClientRequestToken   string `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DisableRollback      bool   `json:"disableRollback" xml:"DisableRollback"`
-	RetainExceptOnCreate bool   `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
-	StackName            string `json:"stackName" xml:"StackName"`
+ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+DisableRollback bool `json:"disableRollback" xml:"DisableRollback"`
+RetainExceptOnCreate bool `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type ExecuteChangeSetOutput struct {
 }
 
 type ExecuteStackRefactorInput struct {
-	StackRefactorId string `json:"stackRefactorId" xml:"StackRefactorId"`
+StackRefactorId string `json:"stackRefactorId" xml:"StackRefactorId"`
 }
 
 type Export struct {
-	ExportingStackId string `json:"exportingStackId" xml:"ExportingStackId"`
-	Name             string `json:"name" xml:"Name"`
-	Value            string `json:"value" xml:"Value"`
+ExportingStackId string `json:"exportingStackId" xml:"ExportingStackId"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type GetGeneratedTemplateInput struct {
-	Format                string `json:"format" xml:"Format"`
-	GeneratedTemplateName string `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
+Format string `json:"format" xml:"Format"`
+GeneratedTemplateName string `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
 }
 
 type GetGeneratedTemplateOutput struct {
-	Status       string `json:"status" xml:"Status"`
-	TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+Status string `json:"status" xml:"Status"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
 }
 
 type GetHookResultInput struct {
-	HookResultId string `json:"hookResultId" xml:"HookResultId"`
+HookResultId string `json:"hookResultId" xml:"HookResultId"`
 }
 
 type GetHookResultOutput struct {
-	Annotations                AnnotationList `json:"annotations" xml:"Annotations"`
-	FailureMode                string         `json:"failureMode" xml:"FailureMode"`
-	HookResultId               string         `json:"hookResultId" xml:"HookResultId"`
-	HookStatusReason           string         `json:"hookStatusReason" xml:"HookStatusReason"`
-	InvocationPoint            string         `json:"invocationPoint" xml:"InvocationPoint"`
-	InvokedAt                  time.Time      `json:"invokedAt" xml:"InvokedAt"`
-	OriginalTypeName           string         `json:"originalTypeName" xml:"OriginalTypeName"`
-	Status                     string         `json:"status" xml:"Status"`
-	Target                     *HookTarget    `json:"target" xml:"Target"`
-	TypeArn                    string         `json:"typeArn" xml:"TypeArn"`
-	TypeConfigurationVersionId string         `json:"typeConfigurationVersionId" xml:"TypeConfigurationVersionId"`
-	TypeName                   string         `json:"typeName" xml:"TypeName"`
-	TypeVersionId              string         `json:"typeVersionId" xml:"TypeVersionId"`
+Annotations AnnotationList `json:"annotations" xml:"Annotations"`
+FailureMode string `json:"failureMode" xml:"FailureMode"`
+HookResultId string `json:"hookResultId" xml:"HookResultId"`
+HookStatusReason string `json:"hookStatusReason" xml:"HookStatusReason"`
+InvocationPoint string `json:"invocationPoint" xml:"InvocationPoint"`
+InvokedAt time.Time `json:"invokedAt" xml:"InvokedAt"`
+OriginalTypeName string `json:"originalTypeName" xml:"OriginalTypeName"`
+Status string `json:"status" xml:"Status"`
+Target *HookTarget `json:"target" xml:"Target"`
+TypeArn string `json:"typeArn" xml:"TypeArn"`
+TypeConfigurationVersionId string `json:"typeConfigurationVersionId" xml:"TypeConfigurationVersionId"`
+TypeName string `json:"typeName" xml:"TypeName"`
+TypeVersionId string `json:"typeVersionId" xml:"TypeVersionId"`
 }
 
 type GetStackPolicyInput struct {
-	StackName string `json:"stackName" xml:"StackName"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type GetStackPolicyOutput struct {
-	StackPolicyBody string `json:"stackPolicyBody" xml:"StackPolicyBody"`
+StackPolicyBody string `json:"stackPolicyBody" xml:"StackPolicyBody"`
 }
 
 type GetTemplateInput struct {
-	ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
-	StackName     string `json:"stackName" xml:"StackName"`
-	TemplateStage string `json:"templateStage" xml:"TemplateStage"`
+ChangeSetName string `json:"changeSetName" xml:"ChangeSetName"`
+StackName string `json:"stackName" xml:"StackName"`
+TemplateStage string `json:"templateStage" xml:"TemplateStage"`
 }
 
 type GetTemplateOutput struct {
-	StagesAvailable StageList `json:"stagesAvailable" xml:"StagesAvailable"`
-	TemplateBody    string    `json:"templateBody" xml:"TemplateBody"`
+StagesAvailable StageList `json:"stagesAvailable" xml:"StagesAvailable"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
 }
 
 type GetTemplateSummaryInput struct {
-	CallAs                string                 `json:"callAs" xml:"CallAs"`
-	StackName             string                 `json:"stackName" xml:"StackName"`
-	StackSetName          string                 `json:"stackSetName" xml:"StackSetName"`
-	TemplateBody          string                 `json:"templateBody" xml:"TemplateBody"`
-	TemplateSummaryConfig *TemplateSummaryConfig `json:"templateSummaryConfig" xml:"TemplateSummaryConfig"`
-	TemplateURL           string                 `json:"templateURL" xml:"TemplateURL"`
+CallAs string `json:"callAs" xml:"CallAs"`
+StackName string `json:"stackName" xml:"StackName"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+TemplateSummaryConfig *TemplateSummaryConfig `json:"templateSummaryConfig" xml:"TemplateSummaryConfig"`
+TemplateURL string `json:"templateURL" xml:"TemplateURL"`
 }
 
 type GetTemplateSummaryOutput struct {
-	Capabilities                Capabilities                `json:"capabilities" xml:"Capabilities"`
-	CapabilitiesReason          string                      `json:"capabilitiesReason" xml:"CapabilitiesReason"`
-	DeclaredTransforms          TransformsList              `json:"declaredTransforms" xml:"DeclaredTransforms"`
-	Description                 string                      `json:"description" xml:"Description"`
-	Metadata                    string                      `json:"metadata" xml:"Metadata"`
-	Parameters                  ParameterDeclarations       `json:"parameters" xml:"Parameters"`
-	ResourceIdentifierSummaries ResourceIdentifierSummaries `json:"resourceIdentifierSummaries" xml:"ResourceIdentifierSummaries"`
-	ResourceTypes               ResourceTypes               `json:"resourceTypes" xml:"ResourceTypes"`
-	Version                     string                      `json:"version" xml:"Version"`
-	Warnings                    *Warnings                   `json:"warnings" xml:"Warnings"`
+Capabilities Capabilities `json:"capabilities" xml:"Capabilities"`
+CapabilitiesReason string `json:"capabilitiesReason" xml:"CapabilitiesReason"`
+DeclaredTransforms TransformsList `json:"declaredTransforms" xml:"DeclaredTransforms"`
+Description string `json:"description" xml:"Description"`
+Metadata string `json:"metadata" xml:"Metadata"`
+Parameters ParameterDeclarations `json:"parameters" xml:"Parameters"`
+ResourceIdentifierSummaries ResourceIdentifierSummaries `json:"resourceIdentifierSummaries" xml:"ResourceIdentifierSummaries"`
+ResourceTypes ResourceTypes `json:"resourceTypes" xml:"ResourceTypes"`
+Version string `json:"version" xml:"Version"`
+Warnings *Warnings `json:"warnings" xml:"Warnings"`
 }
 
 type HookResultSummary struct {
-	FailureMode                string    `json:"failureMode" xml:"FailureMode"`
-	HookExecutionTarget        string    `json:"hookExecutionTarget" xml:"HookExecutionTarget"`
-	HookResultId               string    `json:"hookResultId" xml:"HookResultId"`
-	HookStatusReason           string    `json:"hookStatusReason" xml:"HookStatusReason"`
-	InvocationPoint            string    `json:"invocationPoint" xml:"InvocationPoint"`
-	InvokedAt                  time.Time `json:"invokedAt" xml:"InvokedAt"`
-	Status                     string    `json:"status" xml:"Status"`
-	TargetId                   string    `json:"targetId" xml:"TargetId"`
-	TargetType                 string    `json:"targetType" xml:"TargetType"`
-	TypeArn                    string    `json:"typeArn" xml:"TypeArn"`
-	TypeConfigurationVersionId string    `json:"typeConfigurationVersionId" xml:"TypeConfigurationVersionId"`
-	TypeName                   string    `json:"typeName" xml:"TypeName"`
-	TypeVersionId              string    `json:"typeVersionId" xml:"TypeVersionId"`
+FailureMode string `json:"failureMode" xml:"FailureMode"`
+HookExecutionTarget string `json:"hookExecutionTarget" xml:"HookExecutionTarget"`
+HookResultId string `json:"hookResultId" xml:"HookResultId"`
+HookStatusReason string `json:"hookStatusReason" xml:"HookStatusReason"`
+InvocationPoint string `json:"invocationPoint" xml:"InvocationPoint"`
+InvokedAt time.Time `json:"invokedAt" xml:"InvokedAt"`
+Status string `json:"status" xml:"Status"`
+TargetId string `json:"targetId" xml:"TargetId"`
+TargetType string `json:"targetType" xml:"TargetType"`
+TypeArn string `json:"typeArn" xml:"TypeArn"`
+TypeConfigurationVersionId string `json:"typeConfigurationVersionId" xml:"TypeConfigurationVersionId"`
+TypeName string `json:"typeName" xml:"TypeName"`
+TypeVersionId string `json:"typeVersionId" xml:"TypeVersionId"`
 }
 
 type HookTarget struct {
-	Action         string `json:"action" xml:"Action"`
-	TargetId       string `json:"targetId" xml:"TargetId"`
-	TargetType     string `json:"targetType" xml:"TargetType"`
-	TargetTypeName string `json:"targetTypeName" xml:"TargetTypeName"`
+Action string `json:"action" xml:"Action"`
+TargetId string `json:"targetId" xml:"TargetId"`
+TargetType string `json:"targetType" xml:"TargetType"`
+TargetTypeName string `json:"targetTypeName" xml:"TargetTypeName"`
 }
 
 type ImportStacksToStackSetInput struct {
-	CallAs                string                        `json:"callAs" xml:"CallAs"`
-	OperationId           string                        `json:"operationId" xml:"OperationId"`
-	OperationPreferences  *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
-	OrganizationalUnitIds OrganizationalUnitIdList      `json:"organizationalUnitIds" xml:"OrganizationalUnitIds"`
-	StackIds              StackIdList                   `json:"stackIds" xml:"StackIds"`
-	StackIdsUrl           string                        `json:"stackIdsUrl" xml:"StackIdsUrl"`
-	StackSetName          string                        `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+OperationId string `json:"operationId" xml:"OperationId"`
+OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
+OrganizationalUnitIds OrganizationalUnitIdList `json:"organizationalUnitIds" xml:"OrganizationalUnitIds"`
+StackIds StackIdList `json:"stackIds" xml:"StackIds"`
+StackIdsUrl string `json:"stackIdsUrl" xml:"StackIdsUrl"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type ImportStacksToStackSetOutput struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type ListChangeSetsInput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
-	StackName string `json:"stackName" xml:"StackName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type ListChangeSetsOutput struct {
-	NextToken string             `json:"nextToken" xml:"NextToken"`
-	Summaries ChangeSetSummaries `json:"summaries" xml:"Summaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Summaries ChangeSetSummaries `json:"summaries" xml:"Summaries"`
 }
 
 type ListExportsInput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListExportsOutput struct {
-	Exports   Exports `json:"exports" xml:"Exports"`
-	NextToken string  `json:"nextToken" xml:"NextToken"`
+Exports Exports `json:"exports" xml:"Exports"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListGeneratedTemplatesInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListGeneratedTemplatesOutput struct {
-	NextToken string            `json:"nextToken" xml:"NextToken"`
-	Summaries TemplateSummaries `json:"summaries" xml:"Summaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Summaries TemplateSummaries `json:"summaries" xml:"Summaries"`
 }
 
 type ListHookResultsInput struct {
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	Status     string `json:"status" xml:"Status"`
-	TargetId   string `json:"targetId" xml:"TargetId"`
-	TargetType string `json:"targetType" xml:"TargetType"`
-	TypeArn    string `json:"typeArn" xml:"TypeArn"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Status string `json:"status" xml:"Status"`
+TargetId string `json:"targetId" xml:"TargetId"`
+TargetType string `json:"targetType" xml:"TargetType"`
+TypeArn string `json:"typeArn" xml:"TypeArn"`
 }
 
 type ListHookResultsOutput struct {
-	HookResults HookResultSummaries `json:"hookResults" xml:"HookResults"`
-	NextToken   string              `json:"nextToken" xml:"NextToken"`
-	TargetId    string              `json:"targetId" xml:"TargetId"`
-	TargetType  string              `json:"targetType" xml:"TargetType"`
+HookResults HookResultSummaries `json:"hookResults" xml:"HookResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TargetId string `json:"targetId" xml:"TargetId"`
+TargetType string `json:"targetType" xml:"TargetType"`
 }
 
 type ListImportsInput struct {
-	ExportName string `json:"exportName" xml:"ExportName"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+ExportName string `json:"exportName" xml:"ExportName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListImportsOutput struct {
-	Imports   Imports `json:"imports" xml:"Imports"`
-	NextToken string  `json:"nextToken" xml:"NextToken"`
+Imports Imports `json:"imports" xml:"Imports"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListResourceScanRelatedResourcesInput struct {
-	MaxResults     int32                      `json:"maxResults" xml:"MaxResults"`
-	NextToken      string                     `json:"nextToken" xml:"NextToken"`
-	ResourceScanId string                     `json:"resourceScanId" xml:"ResourceScanId"`
-	Resources      ScannedResourceIdentifiers `json:"resources" xml:"Resources"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceScanId string `json:"resourceScanId" xml:"ResourceScanId"`
+Resources ScannedResourceIdentifiers `json:"resources" xml:"Resources"`
 }
 
 type ListResourceScanRelatedResourcesOutput struct {
-	NextToken        string           `json:"nextToken" xml:"NextToken"`
-	RelatedResources RelatedResources `json:"relatedResources" xml:"RelatedResources"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RelatedResources RelatedResources `json:"relatedResources" xml:"RelatedResources"`
 }
 
 type ListResourceScanResourcesInput struct {
-	MaxResults         int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken          string `json:"nextToken" xml:"NextToken"`
-	ResourceIdentifier string `json:"resourceIdentifier" xml:"ResourceIdentifier"`
-	ResourceScanId     string `json:"resourceScanId" xml:"ResourceScanId"`
-	ResourceTypePrefix string `json:"resourceTypePrefix" xml:"ResourceTypePrefix"`
-	TagKey             string `json:"tagKey" xml:"TagKey"`
-	TagValue           string `json:"tagValue" xml:"TagValue"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceIdentifier string `json:"resourceIdentifier" xml:"ResourceIdentifier"`
+ResourceScanId string `json:"resourceScanId" xml:"ResourceScanId"`
+ResourceTypePrefix string `json:"resourceTypePrefix" xml:"ResourceTypePrefix"`
+TagKey string `json:"tagKey" xml:"TagKey"`
+TagValue string `json:"tagValue" xml:"TagValue"`
 }
 
 type ListResourceScanResourcesOutput struct {
-	NextToken string           `json:"nextToken" xml:"NextToken"`
-	Resources ScannedResources `json:"resources" xml:"Resources"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Resources ScannedResources `json:"resources" xml:"Resources"`
 }
 
 type ListResourceScansInput struct {
-	MaxResults     int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken      string `json:"nextToken" xml:"NextToken"`
-	ScanTypeFilter string `json:"scanTypeFilter" xml:"ScanTypeFilter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ScanTypeFilter string `json:"scanTypeFilter" xml:"ScanTypeFilter"`
 }
 
 type ListResourceScansOutput struct {
-	NextToken             string                `json:"nextToken" xml:"NextToken"`
-	ResourceScanSummaries ResourceScanSummaries `json:"resourceScanSummaries" xml:"ResourceScanSummaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceScanSummaries ResourceScanSummaries `json:"resourceScanSummaries" xml:"ResourceScanSummaries"`
 }
 
 type ListStackInstanceResourceDriftsInput struct {
-	CallAs                             string                          `json:"callAs" xml:"CallAs"`
-	MaxResults                         int32                           `json:"maxResults" xml:"MaxResults"`
-	NextToken                          string                          `json:"nextToken" xml:"NextToken"`
-	OperationId                        string                          `json:"operationId" xml:"OperationId"`
-	StackInstanceAccount               string                          `json:"stackInstanceAccount" xml:"StackInstanceAccount"`
-	StackInstanceRegion                string                          `json:"stackInstanceRegion" xml:"StackInstanceRegion"`
-	StackInstanceResourceDriftStatuses StackResourceDriftStatusFilters `json:"stackInstanceResourceDriftStatuses" xml:"StackInstanceResourceDriftStatuses"`
-	StackSetName                       string                          `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OperationId string `json:"operationId" xml:"OperationId"`
+StackInstanceAccount string `json:"stackInstanceAccount" xml:"StackInstanceAccount"`
+StackInstanceRegion string `json:"stackInstanceRegion" xml:"StackInstanceRegion"`
+StackInstanceResourceDriftStatuses StackResourceDriftStatusFilters `json:"stackInstanceResourceDriftStatuses" xml:"StackInstanceResourceDriftStatuses"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type ListStackInstanceResourceDriftsOutput struct {
-	NextToken string                               `json:"nextToken" xml:"NextToken"`
-	Summaries StackInstanceResourceDriftsSummaries `json:"summaries" xml:"Summaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Summaries StackInstanceResourceDriftsSummaries `json:"summaries" xml:"Summaries"`
 }
 
 type ListStackInstancesInput struct {
-	CallAs               string               `json:"callAs" xml:"CallAs"`
-	Filters              StackInstanceFilters `json:"filters" xml:"Filters"`
-	MaxResults           int32                `json:"maxResults" xml:"MaxResults"`
-	NextToken            string               `json:"nextToken" xml:"NextToken"`
-	StackInstanceAccount string               `json:"stackInstanceAccount" xml:"StackInstanceAccount"`
-	StackInstanceRegion  string               `json:"stackInstanceRegion" xml:"StackInstanceRegion"`
-	StackSetName         string               `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+Filters StackInstanceFilters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackInstanceAccount string `json:"stackInstanceAccount" xml:"StackInstanceAccount"`
+StackInstanceRegion string `json:"stackInstanceRegion" xml:"StackInstanceRegion"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type ListStackInstancesOutput struct {
-	NextToken string                 `json:"nextToken" xml:"NextToken"`
-	Summaries StackInstanceSummaries `json:"summaries" xml:"Summaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Summaries StackInstanceSummaries `json:"summaries" xml:"Summaries"`
 }
 
 type ListStackRefactorActionsInput struct {
-	MaxResults      int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken       string `json:"nextToken" xml:"NextToken"`
-	StackRefactorId string `json:"stackRefactorId" xml:"StackRefactorId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackRefactorId string `json:"stackRefactorId" xml:"StackRefactorId"`
 }
 
 type ListStackRefactorActionsOutput struct {
-	NextToken            string               `json:"nextToken" xml:"NextToken"`
-	StackRefactorActions StackRefactorActions `json:"stackRefactorActions" xml:"StackRefactorActions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackRefactorActions StackRefactorActions `json:"stackRefactorActions" xml:"StackRefactorActions"`
 }
 
 type ListStackRefactorsInput struct {
-	ExecutionStatusFilter StackRefactorExecutionStatusFilter `json:"executionStatusFilter" xml:"ExecutionStatusFilter"`
-	MaxResults            int32                              `json:"maxResults" xml:"MaxResults"`
-	NextToken             string                             `json:"nextToken" xml:"NextToken"`
+ExecutionStatusFilter StackRefactorExecutionStatusFilter `json:"executionStatusFilter" xml:"ExecutionStatusFilter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListStackRefactorsOutput struct {
-	NextToken              string                 `json:"nextToken" xml:"NextToken"`
-	StackRefactorSummaries StackRefactorSummaries `json:"stackRefactorSummaries" xml:"StackRefactorSummaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackRefactorSummaries StackRefactorSummaries `json:"stackRefactorSummaries" xml:"StackRefactorSummaries"`
 }
 
 type ListStackResourcesInput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
-	StackName string `json:"stackName" xml:"StackName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type ListStackResourcesOutput struct {
-	NextToken              string                 `json:"nextToken" xml:"NextToken"`
-	StackResourceSummaries StackResourceSummaries `json:"stackResourceSummaries" xml:"StackResourceSummaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackResourceSummaries StackResourceSummaries `json:"stackResourceSummaries" xml:"StackResourceSummaries"`
 }
 
 type ListStackSetAutoDeploymentTargetsInput struct {
-	CallAs       string `json:"callAs" xml:"CallAs"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	StackSetName string `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type ListStackSetAutoDeploymentTargetsOutput struct {
-	NextToken string                                `json:"nextToken" xml:"NextToken"`
-	Summaries StackSetAutoDeploymentTargetSummaries `json:"summaries" xml:"Summaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Summaries StackSetAutoDeploymentTargetSummaries `json:"summaries" xml:"Summaries"`
 }
 
 type ListStackSetOperationResultsInput struct {
-	CallAs       string                 `json:"callAs" xml:"CallAs"`
-	Filters      OperationResultFilters `json:"filters" xml:"Filters"`
-	MaxResults   int32                  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string                 `json:"nextToken" xml:"NextToken"`
-	OperationId  string                 `json:"operationId" xml:"OperationId"`
-	StackSetName string                 `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+Filters OperationResultFilters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OperationId string `json:"operationId" xml:"OperationId"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type ListStackSetOperationResultsOutput struct {
-	NextToken string                           `json:"nextToken" xml:"NextToken"`
-	Summaries StackSetOperationResultSummaries `json:"summaries" xml:"Summaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Summaries StackSetOperationResultSummaries `json:"summaries" xml:"Summaries"`
 }
 
 type ListStackSetOperationsInput struct {
-	CallAs       string `json:"callAs" xml:"CallAs"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	StackSetName string `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type ListStackSetOperationsOutput struct {
-	NextToken string                     `json:"nextToken" xml:"NextToken"`
-	Summaries StackSetOperationSummaries `json:"summaries" xml:"Summaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Summaries StackSetOperationSummaries `json:"summaries" xml:"Summaries"`
 }
 
 type ListStackSetsInput struct {
-	CallAs     string `json:"callAs" xml:"CallAs"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	Status     string `json:"status" xml:"Status"`
+CallAs string `json:"callAs" xml:"CallAs"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ListStackSetsOutput struct {
-	NextToken string            `json:"nextToken" xml:"NextToken"`
-	Summaries StackSetSummaries `json:"summaries" xml:"Summaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Summaries StackSetSummaries `json:"summaries" xml:"Summaries"`
 }
 
 type ListStacksInput struct {
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
-	StackStatusFilter StackStatusFilter `json:"stackStatusFilter" xml:"StackStatusFilter"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackStatusFilter StackStatusFilter `json:"stackStatusFilter" xml:"StackStatusFilter"`
 }
 
 type ListStacksOutput struct {
-	NextToken      string         `json:"nextToken" xml:"NextToken"`
-	StackSummaries StackSummaries `json:"stackSummaries" xml:"StackSummaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StackSummaries StackSummaries `json:"stackSummaries" xml:"StackSummaries"`
 }
 
 type ListTypeRegistrationsInput struct {
-	MaxResults               int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken                string `json:"nextToken" xml:"NextToken"`
-	RegistrationStatusFilter string `json:"registrationStatusFilter" xml:"RegistrationStatusFilter"`
-	Type                     string `json:"type" xml:"Type"`
-	TypeArn                  string `json:"typeArn" xml:"TypeArn"`
-	TypeName                 string `json:"typeName" xml:"TypeName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RegistrationStatusFilter string `json:"registrationStatusFilter" xml:"RegistrationStatusFilter"`
+Type string `json:"type" xml:"Type"`
+TypeArn string `json:"typeArn" xml:"TypeArn"`
+TypeName string `json:"typeName" xml:"TypeName"`
 }
 
 type ListTypeRegistrationsOutput struct {
-	NextToken             string                `json:"nextToken" xml:"NextToken"`
-	RegistrationTokenList RegistrationTokenList `json:"registrationTokenList" xml:"RegistrationTokenList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RegistrationTokenList RegistrationTokenList `json:"registrationTokenList" xml:"RegistrationTokenList"`
 }
 
 type ListTypeVersionsInput struct {
-	Arn              string `json:"arn" xml:"Arn"`
-	DeprecatedStatus string `json:"deprecatedStatus" xml:"DeprecatedStatus"`
-	MaxResults       int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken        string `json:"nextToken" xml:"NextToken"`
-	PublisherId      string `json:"publisherId" xml:"PublisherId"`
-	Type             string `json:"type" xml:"Type"`
-	TypeName         string `json:"typeName" xml:"TypeName"`
+Arn string `json:"arn" xml:"Arn"`
+DeprecatedStatus string `json:"deprecatedStatus" xml:"DeprecatedStatus"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PublisherId string `json:"publisherId" xml:"PublisherId"`
+Type string `json:"type" xml:"Type"`
+TypeName string `json:"typeName" xml:"TypeName"`
 }
 
 type ListTypeVersionsOutput struct {
-	NextToken            string               `json:"nextToken" xml:"NextToken"`
-	TypeVersionSummaries TypeVersionSummaries `json:"typeVersionSummaries" xml:"TypeVersionSummaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TypeVersionSummaries TypeVersionSummaries `json:"typeVersionSummaries" xml:"TypeVersionSummaries"`
 }
 
 type ListTypesInput struct {
-	DeprecatedStatus string       `json:"deprecatedStatus" xml:"DeprecatedStatus"`
-	Filters          *TypeFilters `json:"filters" xml:"Filters"`
-	MaxResults       int32        `json:"maxResults" xml:"MaxResults"`
-	NextToken        string       `json:"nextToken" xml:"NextToken"`
-	ProvisioningType string       `json:"provisioningType" xml:"ProvisioningType"`
-	Type             string       `json:"type" xml:"Type"`
-	Visibility       string       `json:"visibility" xml:"Visibility"`
+DeprecatedStatus string `json:"deprecatedStatus" xml:"DeprecatedStatus"`
+Filters *TypeFilters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ProvisioningType string `json:"provisioningType" xml:"ProvisioningType"`
+Type string `json:"type" xml:"Type"`
+Visibility string `json:"visibility" xml:"Visibility"`
 }
 
 type ListTypesOutput struct {
-	NextToken     string        `json:"nextToken" xml:"NextToken"`
-	TypeSummaries TypeSummaries `json:"typeSummaries" xml:"TypeSummaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TypeSummaries TypeSummaries `json:"typeSummaries" xml:"TypeSummaries"`
 }
 
 type LiveResourceDrift struct {
-	ActualValue             string    `json:"actualValue" xml:"ActualValue"`
-	DriftDetectionTimestamp time.Time `json:"driftDetectionTimestamp" xml:"DriftDetectionTimestamp"`
-	PreviousValue           string    `json:"previousValue" xml:"PreviousValue"`
+ActualValue string `json:"actualValue" xml:"ActualValue"`
+DriftDetectionTimestamp time.Time `json:"driftDetectionTimestamp" xml:"DriftDetectionTimestamp"`
+PreviousValue string `json:"previousValue" xml:"PreviousValue"`
 }
 
 type LoggingConfig struct {
-	LogGroupName string `json:"logGroupName" xml:"LogGroupName"`
-	LogRoleArn   string `json:"logRoleArn" xml:"LogRoleArn"`
+LogGroupName string `json:"logGroupName" xml:"LogGroupName"`
+LogRoleArn string `json:"logRoleArn" xml:"LogRoleArn"`
 }
 
 type ManagedExecution struct {
-	Active bool `json:"active" xml:"Active"`
+Active bool `json:"active" xml:"Active"`
 }
 
 type ModuleInfo struct {
-	LogicalIdHierarchy string `json:"logicalIdHierarchy" xml:"LogicalIdHierarchy"`
-	TypeHierarchy      string `json:"typeHierarchy" xml:"TypeHierarchy"`
+LogicalIdHierarchy string `json:"logicalIdHierarchy" xml:"LogicalIdHierarchy"`
+TypeHierarchy string `json:"typeHierarchy" xml:"TypeHierarchy"`
 }
 
 type OperationEntry struct {
-	OperationId   string `json:"operationId" xml:"OperationId"`
-	OperationType string `json:"operationType" xml:"OperationType"`
+OperationId string `json:"operationId" xml:"OperationId"`
+OperationType string `json:"operationType" xml:"OperationType"`
 }
 
 type OperationEvent struct {
-	ClientRequestToken     string    `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DetailedStatus         string    `json:"detailedStatus" xml:"DetailedStatus"`
-	EndTime                time.Time `json:"endTime" xml:"EndTime"`
-	EventId                string    `json:"eventId" xml:"EventId"`
-	EventType              string    `json:"eventType" xml:"EventType"`
-	HookFailureMode        string    `json:"hookFailureMode" xml:"HookFailureMode"`
-	HookInvocationPoint    string    `json:"hookInvocationPoint" xml:"HookInvocationPoint"`
-	HookStatus             string    `json:"hookStatus" xml:"HookStatus"`
-	HookStatusReason       string    `json:"hookStatusReason" xml:"HookStatusReason"`
-	HookType               string    `json:"hookType" xml:"HookType"`
-	LogicalResourceId      string    `json:"logicalResourceId" xml:"LogicalResourceId"`
-	OperationId            string    `json:"operationId" xml:"OperationId"`
-	OperationStatus        string    `json:"operationStatus" xml:"OperationStatus"`
-	OperationType          string    `json:"operationType" xml:"OperationType"`
-	PhysicalResourceId     string    `json:"physicalResourceId" xml:"PhysicalResourceId"`
-	ResourceProperties     string    `json:"resourceProperties" xml:"ResourceProperties"`
-	ResourceStatus         string    `json:"resourceStatus" xml:"ResourceStatus"`
-	ResourceStatusReason   string    `json:"resourceStatusReason" xml:"ResourceStatusReason"`
-	ResourceType           string    `json:"resourceType" xml:"ResourceType"`
-	StackId                string    `json:"stackId" xml:"StackId"`
-	StartTime              time.Time `json:"startTime" xml:"StartTime"`
-	Timestamp              time.Time `json:"timestamp" xml:"Timestamp"`
-	ValidationFailureMode  string    `json:"validationFailureMode" xml:"ValidationFailureMode"`
-	ValidationName         string    `json:"validationName" xml:"ValidationName"`
-	ValidationPath         string    `json:"validationPath" xml:"ValidationPath"`
-	ValidationStatus       string    `json:"validationStatus" xml:"ValidationStatus"`
-	ValidationStatusReason string    `json:"validationStatusReason" xml:"ValidationStatusReason"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+DetailedStatus string `json:"detailedStatus" xml:"DetailedStatus"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+EventId string `json:"eventId" xml:"EventId"`
+EventType string `json:"eventType" xml:"EventType"`
+HookFailureMode string `json:"hookFailureMode" xml:"HookFailureMode"`
+HookInvocationPoint string `json:"hookInvocationPoint" xml:"HookInvocationPoint"`
+HookStatus string `json:"hookStatus" xml:"HookStatus"`
+HookStatusReason string `json:"hookStatusReason" xml:"HookStatusReason"`
+HookType string `json:"hookType" xml:"HookType"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+OperationId string `json:"operationId" xml:"OperationId"`
+OperationStatus string `json:"operationStatus" xml:"OperationStatus"`
+OperationType string `json:"operationType" xml:"OperationType"`
+PhysicalResourceId string `json:"physicalResourceId" xml:"PhysicalResourceId"`
+ResourceProperties string `json:"resourceProperties" xml:"ResourceProperties"`
+ResourceStatus string `json:"resourceStatus" xml:"ResourceStatus"`
+ResourceStatusReason string `json:"resourceStatusReason" xml:"ResourceStatusReason"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+StackId string `json:"stackId" xml:"StackId"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
+ValidationFailureMode string `json:"validationFailureMode" xml:"ValidationFailureMode"`
+ValidationName string `json:"validationName" xml:"ValidationName"`
+ValidationPath string `json:"validationPath" xml:"ValidationPath"`
+ValidationStatus string `json:"validationStatus" xml:"ValidationStatus"`
+ValidationStatusReason string `json:"validationStatusReason" xml:"ValidationStatusReason"`
 }
 
 type OperationResultFilter struct {
-	Name   string `json:"name" xml:"Name"`
-	Values string `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values string `json:"values" xml:"Values"`
 }
 
 type Output struct {
-	Description string `json:"description" xml:"Description"`
-	ExportName  string `json:"exportName" xml:"ExportName"`
-	OutputKey   string `json:"outputKey" xml:"OutputKey"`
-	OutputValue string `json:"outputValue" xml:"OutputValue"`
+Description string `json:"description" xml:"Description"`
+ExportName string `json:"exportName" xml:"ExportName"`
+OutputKey string `json:"outputKey" xml:"OutputKey"`
+OutputValue string `json:"outputValue" xml:"OutputValue"`
 }
 
 type Parameter struct {
-	ParameterKey     string `json:"parameterKey" xml:"ParameterKey"`
-	ParameterValue   string `json:"parameterValue" xml:"ParameterValue"`
-	ResolvedValue    string `json:"resolvedValue" xml:"ResolvedValue"`
-	UsePreviousValue bool   `json:"usePreviousValue" xml:"UsePreviousValue"`
+ParameterKey string `json:"parameterKey" xml:"ParameterKey"`
+ParameterValue string `json:"parameterValue" xml:"ParameterValue"`
+ResolvedValue string `json:"resolvedValue" xml:"ResolvedValue"`
+UsePreviousValue bool `json:"usePreviousValue" xml:"UsePreviousValue"`
 }
 
 type ParameterConstraints struct {
-	AllowedValues AllowedValues `json:"allowedValues" xml:"AllowedValues"`
+AllowedValues AllowedValues `json:"allowedValues" xml:"AllowedValues"`
 }
 
 type ParameterDeclaration struct {
-	DefaultValue         string                `json:"defaultValue" xml:"DefaultValue"`
-	Description          string                `json:"description" xml:"Description"`
-	NoEcho               bool                  `json:"noEcho" xml:"NoEcho"`
-	ParameterConstraints *ParameterConstraints `json:"parameterConstraints" xml:"ParameterConstraints"`
-	ParameterKey         string                `json:"parameterKey" xml:"ParameterKey"`
-	ParameterType        string                `json:"parameterType" xml:"ParameterType"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+Description string `json:"description" xml:"Description"`
+NoEcho bool `json:"noEcho" xml:"NoEcho"`
+ParameterConstraints *ParameterConstraints `json:"parameterConstraints" xml:"ParameterConstraints"`
+ParameterKey string `json:"parameterKey" xml:"ParameterKey"`
+ParameterType string `json:"parameterType" xml:"ParameterType"`
 }
 
 type PhysicalResourceIdContextKeyValuePair struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type PropertyDifference struct {
-	ActualValue    string `json:"actualValue" xml:"ActualValue"`
-	DifferenceType string `json:"differenceType" xml:"DifferenceType"`
-	ExpectedValue  string `json:"expectedValue" xml:"ExpectedValue"`
-	PropertyPath   string `json:"propertyPath" xml:"PropertyPath"`
+ActualValue string `json:"actualValue" xml:"ActualValue"`
+DifferenceType string `json:"differenceType" xml:"DifferenceType"`
+ExpectedValue string `json:"expectedValue" xml:"ExpectedValue"`
+PropertyPath string `json:"propertyPath" xml:"PropertyPath"`
 }
 
 type PublishTypeInput struct {
-	Arn                 string `json:"arn" xml:"Arn"`
-	PublicVersionNumber string `json:"publicVersionNumber" xml:"PublicVersionNumber"`
-	Type                string `json:"type" xml:"Type"`
-	TypeName            string `json:"typeName" xml:"TypeName"`
+Arn string `json:"arn" xml:"Arn"`
+PublicVersionNumber string `json:"publicVersionNumber" xml:"PublicVersionNumber"`
+Type string `json:"type" xml:"Type"`
+TypeName string `json:"typeName" xml:"TypeName"`
 }
 
 type PublishTypeOutput struct {
-	PublicTypeArn string `json:"publicTypeArn" xml:"PublicTypeArn"`
+PublicTypeArn string `json:"publicTypeArn" xml:"PublicTypeArn"`
 }
 
 type RecordHandlerProgressInput struct {
-	BearerToken            string `json:"bearerToken" xml:"BearerToken"`
-	ClientRequestToken     string `json:"clientRequestToken" xml:"ClientRequestToken"`
-	CurrentOperationStatus string `json:"currentOperationStatus" xml:"CurrentOperationStatus"`
-	ErrorCode              string `json:"errorCode" xml:"ErrorCode"`
-	OperationStatus        string `json:"operationStatus" xml:"OperationStatus"`
-	ResourceModel          string `json:"resourceModel" xml:"ResourceModel"`
-	StatusMessage          string `json:"statusMessage" xml:"StatusMessage"`
+BearerToken string `json:"bearerToken" xml:"BearerToken"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+CurrentOperationStatus string `json:"currentOperationStatus" xml:"CurrentOperationStatus"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+OperationStatus string `json:"operationStatus" xml:"OperationStatus"`
+ResourceModel string `json:"resourceModel" xml:"ResourceModel"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type RecordHandlerProgressOutput struct {
 }
 
 type RegisterPublisherInput struct {
-	AcceptTermsAndConditions bool   `json:"acceptTermsAndConditions" xml:"AcceptTermsAndConditions"`
-	ConnectionArn            string `json:"connectionArn" xml:"ConnectionArn"`
+AcceptTermsAndConditions bool `json:"acceptTermsAndConditions" xml:"AcceptTermsAndConditions"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
 }
 
 type RegisterPublisherOutput struct {
-	PublisherId string `json:"publisherId" xml:"PublisherId"`
+PublisherId string `json:"publisherId" xml:"PublisherId"`
 }
 
 type RegisterTypeInput struct {
-	ClientRequestToken   string         `json:"clientRequestToken" xml:"ClientRequestToken"`
-	ExecutionRoleArn     string         `json:"executionRoleArn" xml:"ExecutionRoleArn"`
-	LoggingConfig        *LoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
-	SchemaHandlerPackage string         `json:"schemaHandlerPackage" xml:"SchemaHandlerPackage"`
-	Type                 string         `json:"type" xml:"Type"`
-	TypeName             string         `json:"typeName" xml:"TypeName"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+LoggingConfig *LoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
+SchemaHandlerPackage string `json:"schemaHandlerPackage" xml:"SchemaHandlerPackage"`
+Type string `json:"type" xml:"Type"`
+TypeName string `json:"typeName" xml:"TypeName"`
 }
 
 type RegisterTypeOutput struct {
-	RegistrationToken string `json:"registrationToken" xml:"RegistrationToken"`
+RegistrationToken string `json:"registrationToken" xml:"RegistrationToken"`
 }
 
 type RequiredActivatedType struct {
-	OriginalTypeName       string                 `json:"originalTypeName" xml:"OriginalTypeName"`
-	PublisherId            string                 `json:"publisherId" xml:"PublisherId"`
-	SupportedMajorVersions SupportedMajorVersions `json:"supportedMajorVersions" xml:"SupportedMajorVersions"`
-	TypeNameAlias          string                 `json:"typeNameAlias" xml:"TypeNameAlias"`
+OriginalTypeName string `json:"originalTypeName" xml:"OriginalTypeName"`
+PublisherId string `json:"publisherId" xml:"PublisherId"`
+SupportedMajorVersions SupportedMajorVersions `json:"supportedMajorVersions" xml:"SupportedMajorVersions"`
+TypeNameAlias string `json:"typeNameAlias" xml:"TypeNameAlias"`
 }
 
 type ResourceChange struct {
-	Action                         string                         `json:"action" xml:"Action"`
-	AfterContext                   string                         `json:"afterContext" xml:"AfterContext"`
-	BeforeContext                  string                         `json:"beforeContext" xml:"BeforeContext"`
-	ChangeSetId                    string                         `json:"changeSetId" xml:"ChangeSetId"`
-	Details                        ResourceChangeDetails          `json:"details" xml:"Details"`
-	LogicalResourceId              string                         `json:"logicalResourceId" xml:"LogicalResourceId"`
-	ModuleInfo                     *ModuleInfo                    `json:"moduleInfo" xml:"ModuleInfo"`
-	PhysicalResourceId             string                         `json:"physicalResourceId" xml:"PhysicalResourceId"`
-	PolicyAction                   string                         `json:"policyAction" xml:"PolicyAction"`
-	PreviousDeploymentContext      string                         `json:"previousDeploymentContext" xml:"PreviousDeploymentContext"`
-	Replacement                    string                         `json:"replacement" xml:"Replacement"`
-	ResourceDriftIgnoredAttributes ResourceDriftIgnoredAttributes `json:"resourceDriftIgnoredAttributes" xml:"ResourceDriftIgnoredAttributes"`
-	ResourceDriftStatus            string                         `json:"resourceDriftStatus" xml:"ResourceDriftStatus"`
-	ResourceType                   string                         `json:"resourceType" xml:"ResourceType"`
-	Scope                          Scope                          `json:"scope" xml:"Scope"`
+Action string `json:"action" xml:"Action"`
+AfterContext string `json:"afterContext" xml:"AfterContext"`
+BeforeContext string `json:"beforeContext" xml:"BeforeContext"`
+ChangeSetId string `json:"changeSetId" xml:"ChangeSetId"`
+Details ResourceChangeDetails `json:"details" xml:"Details"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+ModuleInfo *ModuleInfo `json:"moduleInfo" xml:"ModuleInfo"`
+PhysicalResourceId string `json:"physicalResourceId" xml:"PhysicalResourceId"`
+PolicyAction string `json:"policyAction" xml:"PolicyAction"`
+PreviousDeploymentContext string `json:"previousDeploymentContext" xml:"PreviousDeploymentContext"`
+Replacement string `json:"replacement" xml:"Replacement"`
+ResourceDriftIgnoredAttributes ResourceDriftIgnoredAttributes `json:"resourceDriftIgnoredAttributes" xml:"ResourceDriftIgnoredAttributes"`
+ResourceDriftStatus string `json:"resourceDriftStatus" xml:"ResourceDriftStatus"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+Scope Scope `json:"scope" xml:"Scope"`
 }
 
 type ResourceChangeDetail struct {
-	CausingEntity string                    `json:"causingEntity" xml:"CausingEntity"`
-	ChangeSource  string                    `json:"changeSource" xml:"ChangeSource"`
-	Evaluation    string                    `json:"evaluation" xml:"Evaluation"`
-	Target        *ResourceTargetDefinition `json:"target" xml:"Target"`
+CausingEntity string `json:"causingEntity" xml:"CausingEntity"`
+ChangeSource string `json:"changeSource" xml:"ChangeSource"`
+Evaluation string `json:"evaluation" xml:"Evaluation"`
+Target *ResourceTargetDefinition `json:"target" xml:"Target"`
 }
 
 type ResourceDefinition struct {
-	LogicalResourceId  string                       `json:"logicalResourceId" xml:"LogicalResourceId"`
-	ResourceIdentifier ResourceIdentifierProperties `json:"resourceIdentifier" xml:"ResourceIdentifier"`
-	ResourceType       string                       `json:"resourceType" xml:"ResourceType"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+ResourceIdentifier ResourceIdentifierProperties `json:"resourceIdentifier" xml:"ResourceIdentifier"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ResourceDetail struct {
-	LogicalResourceId    string                       `json:"logicalResourceId" xml:"LogicalResourceId"`
-	ResourceIdentifier   ResourceIdentifierProperties `json:"resourceIdentifier" xml:"ResourceIdentifier"`
-	ResourceStatus       string                       `json:"resourceStatus" xml:"ResourceStatus"`
-	ResourceStatusReason string                       `json:"resourceStatusReason" xml:"ResourceStatusReason"`
-	ResourceType         string                       `json:"resourceType" xml:"ResourceType"`
-	Warnings             WarningDetails               `json:"warnings" xml:"Warnings"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+ResourceIdentifier ResourceIdentifierProperties `json:"resourceIdentifier" xml:"ResourceIdentifier"`
+ResourceStatus string `json:"resourceStatus" xml:"ResourceStatus"`
+ResourceStatusReason string `json:"resourceStatusReason" xml:"ResourceStatusReason"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+Warnings WarningDetails `json:"warnings" xml:"Warnings"`
 }
 
 type ResourceDriftIgnoredAttribute struct {
-	Path   string `json:"path" xml:"Path"`
-	Reason string `json:"reason" xml:"Reason"`
+Path string `json:"path" xml:"Path"`
+Reason string `json:"reason" xml:"Reason"`
 }
 
 type ResourceIdentifierSummary struct {
-	LogicalResourceIds  LogicalResourceIds  `json:"logicalResourceIds" xml:"LogicalResourceIds"`
-	ResourceIdentifiers ResourceIdentifiers `json:"resourceIdentifiers" xml:"ResourceIdentifiers"`
-	ResourceType        string              `json:"resourceType" xml:"ResourceType"`
+LogicalResourceIds LogicalResourceIds `json:"logicalResourceIds" xml:"LogicalResourceIds"`
+ResourceIdentifiers ResourceIdentifiers `json:"resourceIdentifiers" xml:"ResourceIdentifiers"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ResourceLocation struct {
-	LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
-	StackName         string `json:"stackName" xml:"StackName"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type ResourceMapping struct {
-	Destination *ResourceLocation `json:"destination" xml:"Destination"`
-	Source      *ResourceLocation `json:"source" xml:"Source"`
+Destination *ResourceLocation `json:"destination" xml:"Destination"`
+Source *ResourceLocation `json:"source" xml:"Source"`
 }
 
 type ResourceScanSummary struct {
-	EndTime             time.Time `json:"endTime" xml:"EndTime"`
-	PercentageCompleted float64   `json:"percentageCompleted" xml:"PercentageCompleted"`
-	ResourceScanId      string    `json:"resourceScanId" xml:"ResourceScanId"`
-	ScanType            string    `json:"scanType" xml:"ScanType"`
-	StartTime           time.Time `json:"startTime" xml:"StartTime"`
-	Status              string    `json:"status" xml:"Status"`
-	StatusReason        string    `json:"statusReason" xml:"StatusReason"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+PercentageCompleted float64 `json:"percentageCompleted" xml:"PercentageCompleted"`
+ResourceScanId string `json:"resourceScanId" xml:"ResourceScanId"`
+ScanType string `json:"scanType" xml:"ScanType"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type ResourceTargetDefinition struct {
-	AfterValue          string             `json:"afterValue" xml:"AfterValue"`
-	AfterValueFrom      string             `json:"afterValueFrom" xml:"AfterValueFrom"`
-	Attribute           string             `json:"attribute" xml:"Attribute"`
-	AttributeChangeType string             `json:"attributeChangeType" xml:"AttributeChangeType"`
-	BeforeValue         string             `json:"beforeValue" xml:"BeforeValue"`
-	BeforeValueFrom     string             `json:"beforeValueFrom" xml:"BeforeValueFrom"`
-	Drift               *LiveResourceDrift `json:"drift" xml:"Drift"`
-	Name                string             `json:"name" xml:"Name"`
-	Path                string             `json:"path" xml:"Path"`
-	RequiresRecreation  string             `json:"requiresRecreation" xml:"RequiresRecreation"`
+AfterValue string `json:"afterValue" xml:"AfterValue"`
+AfterValueFrom string `json:"afterValueFrom" xml:"AfterValueFrom"`
+Attribute string `json:"attribute" xml:"Attribute"`
+AttributeChangeType string `json:"attributeChangeType" xml:"AttributeChangeType"`
+BeforeValue string `json:"beforeValue" xml:"BeforeValue"`
+BeforeValueFrom string `json:"beforeValueFrom" xml:"BeforeValueFrom"`
+Drift *LiveResourceDrift `json:"drift" xml:"Drift"`
+Name string `json:"name" xml:"Name"`
+Path string `json:"path" xml:"Path"`
+RequiresRecreation string `json:"requiresRecreation" xml:"RequiresRecreation"`
 }
 
 type ResourceToImport struct {
-	LogicalResourceId  string                       `json:"logicalResourceId" xml:"LogicalResourceId"`
-	ResourceIdentifier ResourceIdentifierProperties `json:"resourceIdentifier" xml:"ResourceIdentifier"`
-	ResourceType       string                       `json:"resourceType" xml:"ResourceType"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+ResourceIdentifier ResourceIdentifierProperties `json:"resourceIdentifier" xml:"ResourceIdentifier"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type RollbackConfiguration struct {
-	MonitoringTimeInMinutes int32            `json:"monitoringTimeInMinutes" xml:"MonitoringTimeInMinutes"`
-	RollbackTriggers        RollbackTriggers `json:"rollbackTriggers" xml:"RollbackTriggers"`
+MonitoringTimeInMinutes int32 `json:"monitoringTimeInMinutes" xml:"MonitoringTimeInMinutes"`
+RollbackTriggers RollbackTriggers `json:"rollbackTriggers" xml:"RollbackTriggers"`
 }
 
 type RollbackStackInput struct {
-	ClientRequestToken   string `json:"clientRequestToken" xml:"ClientRequestToken"`
-	RetainExceptOnCreate bool   `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
-	RoleARN              string `json:"roleARN" xml:"RoleARN"`
-	StackName            string `json:"stackName" xml:"StackName"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+RetainExceptOnCreate bool `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type RollbackStackOutput struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
-	StackId     string `json:"stackId" xml:"StackId"`
+OperationId string `json:"operationId" xml:"OperationId"`
+StackId string `json:"stackId" xml:"StackId"`
 }
 
 type RollbackTrigger struct {
-	Arn  string `json:"arn" xml:"Arn"`
-	Type string `json:"type" xml:"Type"`
+Arn string `json:"arn" xml:"Arn"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ScanFilter struct {
-	Types ResourceTypeFilters `json:"types" xml:"Types"`
+Types ResourceTypeFilters `json:"types" xml:"Types"`
 }
 
 type ScannedResource struct {
-	ManagedByStack     bool                             `json:"managedByStack" xml:"ManagedByStack"`
-	ResourceIdentifier JazzResourceIdentifierProperties `json:"resourceIdentifier" xml:"ResourceIdentifier"`
-	ResourceType       string                           `json:"resourceType" xml:"ResourceType"`
+ManagedByStack bool `json:"managedByStack" xml:"ManagedByStack"`
+ResourceIdentifier JazzResourceIdentifierProperties `json:"resourceIdentifier" xml:"ResourceIdentifier"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ScannedResourceIdentifier struct {
-	ResourceIdentifier JazzResourceIdentifierProperties `json:"resourceIdentifier" xml:"ResourceIdentifier"`
-	ResourceType       string                           `json:"resourceType" xml:"ResourceType"`
+ResourceIdentifier JazzResourceIdentifierProperties `json:"resourceIdentifier" xml:"ResourceIdentifier"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type SetStackPolicyInput struct {
-	StackName       string `json:"stackName" xml:"StackName"`
-	StackPolicyBody string `json:"stackPolicyBody" xml:"StackPolicyBody"`
-	StackPolicyURL  string `json:"stackPolicyURL" xml:"StackPolicyURL"`
+StackName string `json:"stackName" xml:"StackName"`
+StackPolicyBody string `json:"stackPolicyBody" xml:"StackPolicyBody"`
+StackPolicyURL string `json:"stackPolicyURL" xml:"StackPolicyURL"`
 }
 
 type SetTypeConfigurationInput struct {
-	Configuration      string `json:"configuration" xml:"Configuration"`
-	ConfigurationAlias string `json:"configurationAlias" xml:"ConfigurationAlias"`
-	Type               string `json:"type" xml:"Type"`
-	TypeArn            string `json:"typeArn" xml:"TypeArn"`
-	TypeName           string `json:"typeName" xml:"TypeName"`
+Configuration string `json:"configuration" xml:"Configuration"`
+ConfigurationAlias string `json:"configurationAlias" xml:"ConfigurationAlias"`
+Type string `json:"type" xml:"Type"`
+TypeArn string `json:"typeArn" xml:"TypeArn"`
+TypeName string `json:"typeName" xml:"TypeName"`
 }
 
 type SetTypeConfigurationOutput struct {
-	ConfigurationArn string `json:"configurationArn" xml:"ConfigurationArn"`
+ConfigurationArn string `json:"configurationArn" xml:"ConfigurationArn"`
 }
 
 type SetTypeDefaultVersionInput struct {
-	Arn       string `json:"arn" xml:"Arn"`
-	Type      string `json:"type" xml:"Type"`
-	TypeName  string `json:"typeName" xml:"TypeName"`
-	VersionId string `json:"versionId" xml:"VersionId"`
+Arn string `json:"arn" xml:"Arn"`
+Type string `json:"type" xml:"Type"`
+TypeName string `json:"typeName" xml:"TypeName"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type SetTypeDefaultVersionOutput struct {
 }
 
 type SignalResourceInput struct {
-	LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
-	StackName         string `json:"stackName" xml:"StackName"`
-	Status            string `json:"status" xml:"Status"`
-	UniqueId          string `json:"uniqueId" xml:"UniqueId"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+StackName string `json:"stackName" xml:"StackName"`
+Status string `json:"status" xml:"Status"`
+UniqueId string `json:"uniqueId" xml:"UniqueId"`
 }
 
 type SmithyUnit struct {
 }
 
 type Stack struct {
-	Capabilities                Capabilities           `json:"capabilities" xml:"Capabilities"`
-	ChangeSetId                 string                 `json:"changeSetId" xml:"ChangeSetId"`
-	CreationTime                time.Time              `json:"creationTime" xml:"CreationTime"`
-	DeletionMode                string                 `json:"deletionMode" xml:"DeletionMode"`
-	DeletionTime                time.Time              `json:"deletionTime" xml:"DeletionTime"`
-	Description                 string                 `json:"description" xml:"Description"`
-	DetailedStatus              string                 `json:"detailedStatus" xml:"DetailedStatus"`
-	DisableRollback             bool                   `json:"disableRollback" xml:"DisableRollback"`
-	DriftInformation            *StackDriftInformation `json:"driftInformation" xml:"DriftInformation"`
-	EnableTerminationProtection bool                   `json:"enableTerminationProtection" xml:"EnableTerminationProtection"`
-	LastOperations              LastOperations         `json:"lastOperations" xml:"LastOperations"`
-	LastUpdatedTime             time.Time              `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	NotificationARNs            NotificationARNs       `json:"notificationARNs" xml:"NotificationARNs"`
-	Outputs                     Outputs                `json:"outputs" xml:"Outputs"`
-	Parameters                  Parameters             `json:"parameters" xml:"Parameters"`
-	ParentId                    string                 `json:"parentId" xml:"ParentId"`
-	RetainExceptOnCreate        bool                   `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
-	RoleARN                     string                 `json:"roleARN" xml:"RoleARN"`
-	RollbackConfiguration       *RollbackConfiguration `json:"rollbackConfiguration" xml:"RollbackConfiguration"`
-	RootId                      string                 `json:"rootId" xml:"RootId"`
-	StackId                     string                 `json:"stackId" xml:"StackId"`
-	StackName                   string                 `json:"stackName" xml:"StackName"`
-	StackStatus                 string                 `json:"stackStatus" xml:"StackStatus"`
-	StackStatusReason           string                 `json:"stackStatusReason" xml:"StackStatusReason"`
-	Tags                        Tags                   `json:"tags" xml:"Tags"`
-	TimeoutInMinutes            int32                  `json:"timeoutInMinutes" xml:"TimeoutInMinutes"`
+Capabilities Capabilities `json:"capabilities" xml:"Capabilities"`
+ChangeSetId string `json:"changeSetId" xml:"ChangeSetId"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+DeletionMode string `json:"deletionMode" xml:"DeletionMode"`
+DeletionTime time.Time `json:"deletionTime" xml:"DeletionTime"`
+Description string `json:"description" xml:"Description"`
+DetailedStatus string `json:"detailedStatus" xml:"DetailedStatus"`
+DisableRollback bool `json:"disableRollback" xml:"DisableRollback"`
+DriftInformation *StackDriftInformation `json:"driftInformation" xml:"DriftInformation"`
+EnableTerminationProtection bool `json:"enableTerminationProtection" xml:"EnableTerminationProtection"`
+LastOperations LastOperations `json:"lastOperations" xml:"LastOperations"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+NotificationARNs NotificationARNs `json:"notificationARNs" xml:"NotificationARNs"`
+Outputs Outputs `json:"outputs" xml:"Outputs"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
+ParentId string `json:"parentId" xml:"ParentId"`
+RetainExceptOnCreate bool `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
+RollbackConfiguration *RollbackConfiguration `json:"rollbackConfiguration" xml:"RollbackConfiguration"`
+RootId string `json:"rootId" xml:"RootId"`
+StackId string `json:"stackId" xml:"StackId"`
+StackName string `json:"stackName" xml:"StackName"`
+StackStatus string `json:"stackStatus" xml:"StackStatus"`
+StackStatusReason string `json:"stackStatusReason" xml:"StackStatusReason"`
+Tags Tags `json:"tags" xml:"Tags"`
+TimeoutInMinutes int32 `json:"timeoutInMinutes" xml:"TimeoutInMinutes"`
 }
 
 type StackDefinition struct {
-	StackName    string `json:"stackName" xml:"StackName"`
-	TemplateBody string `json:"templateBody" xml:"TemplateBody"`
-	TemplateURL  string `json:"templateURL" xml:"TemplateURL"`
+StackName string `json:"stackName" xml:"StackName"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+TemplateURL string `json:"templateURL" xml:"TemplateURL"`
 }
 
 type StackDriftInformation struct {
-	LastCheckTimestamp time.Time `json:"lastCheckTimestamp" xml:"LastCheckTimestamp"`
-	StackDriftStatus   string    `json:"stackDriftStatus" xml:"StackDriftStatus"`
+LastCheckTimestamp time.Time `json:"lastCheckTimestamp" xml:"LastCheckTimestamp"`
+StackDriftStatus string `json:"stackDriftStatus" xml:"StackDriftStatus"`
 }
 
 type StackDriftInformationSummary struct {
-	LastCheckTimestamp time.Time `json:"lastCheckTimestamp" xml:"LastCheckTimestamp"`
-	StackDriftStatus   string    `json:"stackDriftStatus" xml:"StackDriftStatus"`
+LastCheckTimestamp time.Time `json:"lastCheckTimestamp" xml:"LastCheckTimestamp"`
+StackDriftStatus string `json:"stackDriftStatus" xml:"StackDriftStatus"`
 }
 
 type StackEvent struct {
-	ClientRequestToken   string    `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DetailedStatus       string    `json:"detailedStatus" xml:"DetailedStatus"`
-	EventId              string    `json:"eventId" xml:"EventId"`
-	HookFailureMode      string    `json:"hookFailureMode" xml:"HookFailureMode"`
-	HookInvocationId     string    `json:"hookInvocationId" xml:"HookInvocationId"`
-	HookInvocationPoint  string    `json:"hookInvocationPoint" xml:"HookInvocationPoint"`
-	HookStatus           string    `json:"hookStatus" xml:"HookStatus"`
-	HookStatusReason     string    `json:"hookStatusReason" xml:"HookStatusReason"`
-	HookType             string    `json:"hookType" xml:"HookType"`
-	LogicalResourceId    string    `json:"logicalResourceId" xml:"LogicalResourceId"`
-	OperationId          string    `json:"operationId" xml:"OperationId"`
-	PhysicalResourceId   string    `json:"physicalResourceId" xml:"PhysicalResourceId"`
-	ResourceProperties   string    `json:"resourceProperties" xml:"ResourceProperties"`
-	ResourceStatus       string    `json:"resourceStatus" xml:"ResourceStatus"`
-	ResourceStatusReason string    `json:"resourceStatusReason" xml:"ResourceStatusReason"`
-	ResourceType         string    `json:"resourceType" xml:"ResourceType"`
-	StackId              string    `json:"stackId" xml:"StackId"`
-	StackName            string    `json:"stackName" xml:"StackName"`
-	Timestamp            time.Time `json:"timestamp" xml:"Timestamp"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+DetailedStatus string `json:"detailedStatus" xml:"DetailedStatus"`
+EventId string `json:"eventId" xml:"EventId"`
+HookFailureMode string `json:"hookFailureMode" xml:"HookFailureMode"`
+HookInvocationId string `json:"hookInvocationId" xml:"HookInvocationId"`
+HookInvocationPoint string `json:"hookInvocationPoint" xml:"HookInvocationPoint"`
+HookStatus string `json:"hookStatus" xml:"HookStatus"`
+HookStatusReason string `json:"hookStatusReason" xml:"HookStatusReason"`
+HookType string `json:"hookType" xml:"HookType"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+OperationId string `json:"operationId" xml:"OperationId"`
+PhysicalResourceId string `json:"physicalResourceId" xml:"PhysicalResourceId"`
+ResourceProperties string `json:"resourceProperties" xml:"ResourceProperties"`
+ResourceStatus string `json:"resourceStatus" xml:"ResourceStatus"`
+ResourceStatusReason string `json:"resourceStatusReason" xml:"ResourceStatusReason"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+StackId string `json:"stackId" xml:"StackId"`
+StackName string `json:"stackName" xml:"StackName"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type StackInstance struct {
-	Account                 string                            `json:"account" xml:"Account"`
-	DriftStatus             string                            `json:"driftStatus" xml:"DriftStatus"`
-	LastDriftCheckTimestamp time.Time                         `json:"lastDriftCheckTimestamp" xml:"LastDriftCheckTimestamp"`
-	LastOperationId         string                            `json:"lastOperationId" xml:"LastOperationId"`
-	OrganizationalUnitId    string                            `json:"organizationalUnitId" xml:"OrganizationalUnitId"`
-	ParameterOverrides      Parameters                        `json:"parameterOverrides" xml:"ParameterOverrides"`
-	Region                  string                            `json:"region" xml:"Region"`
-	StackId                 string                            `json:"stackId" xml:"StackId"`
-	StackInstanceStatus     *StackInstanceComprehensiveStatus `json:"stackInstanceStatus" xml:"StackInstanceStatus"`
-	StackSetId              string                            `json:"stackSetId" xml:"StackSetId"`
-	Status                  string                            `json:"status" xml:"Status"`
-	StatusReason            string                            `json:"statusReason" xml:"StatusReason"`
+Account string `json:"account" xml:"Account"`
+DriftStatus string `json:"driftStatus" xml:"DriftStatus"`
+LastDriftCheckTimestamp time.Time `json:"lastDriftCheckTimestamp" xml:"LastDriftCheckTimestamp"`
+LastOperationId string `json:"lastOperationId" xml:"LastOperationId"`
+OrganizationalUnitId string `json:"organizationalUnitId" xml:"OrganizationalUnitId"`
+ParameterOverrides Parameters `json:"parameterOverrides" xml:"ParameterOverrides"`
+Region string `json:"region" xml:"Region"`
+StackId string `json:"stackId" xml:"StackId"`
+StackInstanceStatus *StackInstanceComprehensiveStatus `json:"stackInstanceStatus" xml:"StackInstanceStatus"`
+StackSetId string `json:"stackSetId" xml:"StackSetId"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type StackInstanceComprehensiveStatus struct {
-	DetailedStatus string `json:"detailedStatus" xml:"DetailedStatus"`
+DetailedStatus string `json:"detailedStatus" xml:"DetailedStatus"`
 }
 
 type StackInstanceFilter struct {
-	Name   string `json:"name" xml:"Name"`
-	Values string `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values string `json:"values" xml:"Values"`
 }
 
 type StackInstanceResourceDriftsSummary struct {
-	LogicalResourceId         string                    `json:"logicalResourceId" xml:"LogicalResourceId"`
-	PhysicalResourceId        string                    `json:"physicalResourceId" xml:"PhysicalResourceId"`
-	PhysicalResourceIdContext PhysicalResourceIdContext `json:"physicalResourceIdContext" xml:"PhysicalResourceIdContext"`
-	PropertyDifferences       PropertyDifferences       `json:"propertyDifferences" xml:"PropertyDifferences"`
-	ResourceType              string                    `json:"resourceType" xml:"ResourceType"`
-	StackId                   string                    `json:"stackId" xml:"StackId"`
-	StackResourceDriftStatus  string                    `json:"stackResourceDriftStatus" xml:"StackResourceDriftStatus"`
-	Timestamp                 time.Time                 `json:"timestamp" xml:"Timestamp"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+PhysicalResourceId string `json:"physicalResourceId" xml:"PhysicalResourceId"`
+PhysicalResourceIdContext PhysicalResourceIdContext `json:"physicalResourceIdContext" xml:"PhysicalResourceIdContext"`
+PropertyDifferences PropertyDifferences `json:"propertyDifferences" xml:"PropertyDifferences"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+StackId string `json:"stackId" xml:"StackId"`
+StackResourceDriftStatus string `json:"stackResourceDriftStatus" xml:"StackResourceDriftStatus"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type StackInstanceSummary struct {
-	Account                 string                            `json:"account" xml:"Account"`
-	DriftStatus             string                            `json:"driftStatus" xml:"DriftStatus"`
-	LastDriftCheckTimestamp time.Time                         `json:"lastDriftCheckTimestamp" xml:"LastDriftCheckTimestamp"`
-	LastOperationId         string                            `json:"lastOperationId" xml:"LastOperationId"`
-	OrganizationalUnitId    string                            `json:"organizationalUnitId" xml:"OrganizationalUnitId"`
-	Region                  string                            `json:"region" xml:"Region"`
-	StackId                 string                            `json:"stackId" xml:"StackId"`
-	StackInstanceStatus     *StackInstanceComprehensiveStatus `json:"stackInstanceStatus" xml:"StackInstanceStatus"`
-	StackSetId              string                            `json:"stackSetId" xml:"StackSetId"`
-	Status                  string                            `json:"status" xml:"Status"`
-	StatusReason            string                            `json:"statusReason" xml:"StatusReason"`
+Account string `json:"account" xml:"Account"`
+DriftStatus string `json:"driftStatus" xml:"DriftStatus"`
+LastDriftCheckTimestamp time.Time `json:"lastDriftCheckTimestamp" xml:"LastDriftCheckTimestamp"`
+LastOperationId string `json:"lastOperationId" xml:"LastOperationId"`
+OrganizationalUnitId string `json:"organizationalUnitId" xml:"OrganizationalUnitId"`
+Region string `json:"region" xml:"Region"`
+StackId string `json:"stackId" xml:"StackId"`
+StackInstanceStatus *StackInstanceComprehensiveStatus `json:"stackInstanceStatus" xml:"StackInstanceStatus"`
+StackSetId string `json:"stackSetId" xml:"StackSetId"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type StackRefactorAction struct {
-	Action             string                      `json:"action" xml:"Action"`
-	Description        string                      `json:"description" xml:"Description"`
-	Detection          string                      `json:"detection" xml:"Detection"`
-	DetectionReason    string                      `json:"detectionReason" xml:"DetectionReason"`
-	Entity             string                      `json:"entity" xml:"Entity"`
-	PhysicalResourceId string                      `json:"physicalResourceId" xml:"PhysicalResourceId"`
-	ResourceIdentifier string                      `json:"resourceIdentifier" xml:"ResourceIdentifier"`
-	ResourceMapping    *ResourceMapping            `json:"resourceMapping" xml:"ResourceMapping"`
-	TagResources       StackRefactorTagResources   `json:"tagResources" xml:"TagResources"`
-	UntagResources     StackRefactorUntagResources `json:"untagResources" xml:"UntagResources"`
+Action string `json:"action" xml:"Action"`
+Description string `json:"description" xml:"Description"`
+Detection string `json:"detection" xml:"Detection"`
+DetectionReason string `json:"detectionReason" xml:"DetectionReason"`
+Entity string `json:"entity" xml:"Entity"`
+PhysicalResourceId string `json:"physicalResourceId" xml:"PhysicalResourceId"`
+ResourceIdentifier string `json:"resourceIdentifier" xml:"ResourceIdentifier"`
+ResourceMapping *ResourceMapping `json:"resourceMapping" xml:"ResourceMapping"`
+TagResources StackRefactorTagResources `json:"tagResources" xml:"TagResources"`
+UntagResources StackRefactorUntagResources `json:"untagResources" xml:"UntagResources"`
 }
 
 type StackRefactorSummary struct {
-	Description           string `json:"description" xml:"Description"`
-	ExecutionStatus       string `json:"executionStatus" xml:"ExecutionStatus"`
-	ExecutionStatusReason string `json:"executionStatusReason" xml:"ExecutionStatusReason"`
-	StackRefactorId       string `json:"stackRefactorId" xml:"StackRefactorId"`
-	Status                string `json:"status" xml:"Status"`
-	StatusReason          string `json:"statusReason" xml:"StatusReason"`
+Description string `json:"description" xml:"Description"`
+ExecutionStatus string `json:"executionStatus" xml:"ExecutionStatus"`
+ExecutionStatusReason string `json:"executionStatusReason" xml:"ExecutionStatusReason"`
+StackRefactorId string `json:"stackRefactorId" xml:"StackRefactorId"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type StackResource struct {
-	Description          string                         `json:"description" xml:"Description"`
-	DriftInformation     *StackResourceDriftInformation `json:"driftInformation" xml:"DriftInformation"`
-	LogicalResourceId    string                         `json:"logicalResourceId" xml:"LogicalResourceId"`
-	ModuleInfo           *ModuleInfo                    `json:"moduleInfo" xml:"ModuleInfo"`
-	PhysicalResourceId   string                         `json:"physicalResourceId" xml:"PhysicalResourceId"`
-	ResourceStatus       string                         `json:"resourceStatus" xml:"ResourceStatus"`
-	ResourceStatusReason string                         `json:"resourceStatusReason" xml:"ResourceStatusReason"`
-	ResourceType         string                         `json:"resourceType" xml:"ResourceType"`
-	StackId              string                         `json:"stackId" xml:"StackId"`
-	StackName            string                         `json:"stackName" xml:"StackName"`
-	Timestamp            time.Time                      `json:"timestamp" xml:"Timestamp"`
+Description string `json:"description" xml:"Description"`
+DriftInformation *StackResourceDriftInformation `json:"driftInformation" xml:"DriftInformation"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+ModuleInfo *ModuleInfo `json:"moduleInfo" xml:"ModuleInfo"`
+PhysicalResourceId string `json:"physicalResourceId" xml:"PhysicalResourceId"`
+ResourceStatus string `json:"resourceStatus" xml:"ResourceStatus"`
+ResourceStatusReason string `json:"resourceStatusReason" xml:"ResourceStatusReason"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+StackId string `json:"stackId" xml:"StackId"`
+StackName string `json:"stackName" xml:"StackName"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type StackResourceDetail struct {
-	Description          string                         `json:"description" xml:"Description"`
-	DriftInformation     *StackResourceDriftInformation `json:"driftInformation" xml:"DriftInformation"`
-	LastUpdatedTimestamp time.Time                      `json:"lastUpdatedTimestamp" xml:"LastUpdatedTimestamp"`
-	LogicalResourceId    string                         `json:"logicalResourceId" xml:"LogicalResourceId"`
-	Metadata             string                         `json:"metadata" xml:"Metadata"`
-	ModuleInfo           *ModuleInfo                    `json:"moduleInfo" xml:"ModuleInfo"`
-	PhysicalResourceId   string                         `json:"physicalResourceId" xml:"PhysicalResourceId"`
-	ResourceStatus       string                         `json:"resourceStatus" xml:"ResourceStatus"`
-	ResourceStatusReason string                         `json:"resourceStatusReason" xml:"ResourceStatusReason"`
-	ResourceType         string                         `json:"resourceType" xml:"ResourceType"`
-	StackId              string                         `json:"stackId" xml:"StackId"`
-	StackName            string                         `json:"stackName" xml:"StackName"`
+Description string `json:"description" xml:"Description"`
+DriftInformation *StackResourceDriftInformation `json:"driftInformation" xml:"DriftInformation"`
+LastUpdatedTimestamp time.Time `json:"lastUpdatedTimestamp" xml:"LastUpdatedTimestamp"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+Metadata string `json:"metadata" xml:"Metadata"`
+ModuleInfo *ModuleInfo `json:"moduleInfo" xml:"ModuleInfo"`
+PhysicalResourceId string `json:"physicalResourceId" xml:"PhysicalResourceId"`
+ResourceStatus string `json:"resourceStatus" xml:"ResourceStatus"`
+ResourceStatusReason string `json:"resourceStatusReason" xml:"ResourceStatusReason"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+StackId string `json:"stackId" xml:"StackId"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type StackResourceDrift struct {
-	ActualProperties          string                    `json:"actualProperties" xml:"ActualProperties"`
-	DriftStatusReason         string                    `json:"driftStatusReason" xml:"DriftStatusReason"`
-	ExpectedProperties        string                    `json:"expectedProperties" xml:"ExpectedProperties"`
-	LogicalResourceId         string                    `json:"logicalResourceId" xml:"LogicalResourceId"`
-	ModuleInfo                *ModuleInfo               `json:"moduleInfo" xml:"ModuleInfo"`
-	PhysicalResourceId        string                    `json:"physicalResourceId" xml:"PhysicalResourceId"`
-	PhysicalResourceIdContext PhysicalResourceIdContext `json:"physicalResourceIdContext" xml:"PhysicalResourceIdContext"`
-	PropertyDifferences       PropertyDifferences       `json:"propertyDifferences" xml:"PropertyDifferences"`
-	ResourceType              string                    `json:"resourceType" xml:"ResourceType"`
-	StackId                   string                    `json:"stackId" xml:"StackId"`
-	StackResourceDriftStatus  string                    `json:"stackResourceDriftStatus" xml:"StackResourceDriftStatus"`
-	Timestamp                 time.Time                 `json:"timestamp" xml:"Timestamp"`
+ActualProperties string `json:"actualProperties" xml:"ActualProperties"`
+DriftStatusReason string `json:"driftStatusReason" xml:"DriftStatusReason"`
+ExpectedProperties string `json:"expectedProperties" xml:"ExpectedProperties"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+ModuleInfo *ModuleInfo `json:"moduleInfo" xml:"ModuleInfo"`
+PhysicalResourceId string `json:"physicalResourceId" xml:"PhysicalResourceId"`
+PhysicalResourceIdContext PhysicalResourceIdContext `json:"physicalResourceIdContext" xml:"PhysicalResourceIdContext"`
+PropertyDifferences PropertyDifferences `json:"propertyDifferences" xml:"PropertyDifferences"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+StackId string `json:"stackId" xml:"StackId"`
+StackResourceDriftStatus string `json:"stackResourceDriftStatus" xml:"StackResourceDriftStatus"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type StackResourceDriftInformation struct {
-	LastCheckTimestamp       time.Time `json:"lastCheckTimestamp" xml:"LastCheckTimestamp"`
-	StackResourceDriftStatus string    `json:"stackResourceDriftStatus" xml:"StackResourceDriftStatus"`
+LastCheckTimestamp time.Time `json:"lastCheckTimestamp" xml:"LastCheckTimestamp"`
+StackResourceDriftStatus string `json:"stackResourceDriftStatus" xml:"StackResourceDriftStatus"`
 }
 
 type StackResourceDriftInformationSummary struct {
-	LastCheckTimestamp       time.Time `json:"lastCheckTimestamp" xml:"LastCheckTimestamp"`
-	StackResourceDriftStatus string    `json:"stackResourceDriftStatus" xml:"StackResourceDriftStatus"`
+LastCheckTimestamp time.Time `json:"lastCheckTimestamp" xml:"LastCheckTimestamp"`
+StackResourceDriftStatus string `json:"stackResourceDriftStatus" xml:"StackResourceDriftStatus"`
 }
 
 type StackResourceSummary struct {
-	DriftInformation     *StackResourceDriftInformationSummary `json:"driftInformation" xml:"DriftInformation"`
-	LastUpdatedTimestamp time.Time                             `json:"lastUpdatedTimestamp" xml:"LastUpdatedTimestamp"`
-	LogicalResourceId    string                                `json:"logicalResourceId" xml:"LogicalResourceId"`
-	ModuleInfo           *ModuleInfo                           `json:"moduleInfo" xml:"ModuleInfo"`
-	PhysicalResourceId   string                                `json:"physicalResourceId" xml:"PhysicalResourceId"`
-	ResourceStatus       string                                `json:"resourceStatus" xml:"ResourceStatus"`
-	ResourceStatusReason string                                `json:"resourceStatusReason" xml:"ResourceStatusReason"`
-	ResourceType         string                                `json:"resourceType" xml:"ResourceType"`
+DriftInformation *StackResourceDriftInformationSummary `json:"driftInformation" xml:"DriftInformation"`
+LastUpdatedTimestamp time.Time `json:"lastUpdatedTimestamp" xml:"LastUpdatedTimestamp"`
+LogicalResourceId string `json:"logicalResourceId" xml:"LogicalResourceId"`
+ModuleInfo *ModuleInfo `json:"moduleInfo" xml:"ModuleInfo"`
+PhysicalResourceId string `json:"physicalResourceId" xml:"PhysicalResourceId"`
+ResourceStatus string `json:"resourceStatus" xml:"ResourceStatus"`
+ResourceStatusReason string `json:"resourceStatusReason" xml:"ResourceStatusReason"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type StackSet struct {
-	AdministrationRoleARN         string                         `json:"administrationRoleARN" xml:"AdministrationRoleARN"`
-	AutoDeployment                *AutoDeployment                `json:"autoDeployment" xml:"AutoDeployment"`
-	Capabilities                  Capabilities                   `json:"capabilities" xml:"Capabilities"`
-	Description                   string                         `json:"description" xml:"Description"`
-	ExecutionRoleName             string                         `json:"executionRoleName" xml:"ExecutionRoleName"`
-	ManagedExecution              *ManagedExecution              `json:"managedExecution" xml:"ManagedExecution"`
-	OrganizationalUnitIds         OrganizationalUnitIdList       `json:"organizationalUnitIds" xml:"OrganizationalUnitIds"`
-	Parameters                    Parameters                     `json:"parameters" xml:"Parameters"`
-	PermissionModel               string                         `json:"permissionModel" xml:"PermissionModel"`
-	Regions                       RegionList                     `json:"regions" xml:"Regions"`
-	StackSetARN                   string                         `json:"stackSetARN" xml:"StackSetARN"`
-	StackSetDriftDetectionDetails *StackSetDriftDetectionDetails `json:"stackSetDriftDetectionDetails" xml:"StackSetDriftDetectionDetails"`
-	StackSetId                    string                         `json:"stackSetId" xml:"StackSetId"`
-	StackSetName                  string                         `json:"stackSetName" xml:"StackSetName"`
-	Status                        string                         `json:"status" xml:"Status"`
-	Tags                          Tags                           `json:"tags" xml:"Tags"`
-	TemplateBody                  string                         `json:"templateBody" xml:"TemplateBody"`
+AdministrationRoleARN string `json:"administrationRoleARN" xml:"AdministrationRoleARN"`
+AutoDeployment *AutoDeployment `json:"autoDeployment" xml:"AutoDeployment"`
+Capabilities Capabilities `json:"capabilities" xml:"Capabilities"`
+Description string `json:"description" xml:"Description"`
+ExecutionRoleName string `json:"executionRoleName" xml:"ExecutionRoleName"`
+ManagedExecution *ManagedExecution `json:"managedExecution" xml:"ManagedExecution"`
+OrganizationalUnitIds OrganizationalUnitIdList `json:"organizationalUnitIds" xml:"OrganizationalUnitIds"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
+PermissionModel string `json:"permissionModel" xml:"PermissionModel"`
+Regions RegionList `json:"regions" xml:"Regions"`
+StackSetARN string `json:"stackSetARN" xml:"StackSetARN"`
+StackSetDriftDetectionDetails *StackSetDriftDetectionDetails `json:"stackSetDriftDetectionDetails" xml:"StackSetDriftDetectionDetails"`
+StackSetId string `json:"stackSetId" xml:"StackSetId"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
+Status string `json:"status" xml:"Status"`
+Tags Tags `json:"tags" xml:"Tags"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
 }
 
 type StackSetAutoDeploymentTargetSummary struct {
-	OrganizationalUnitId string     `json:"organizationalUnitId" xml:"OrganizationalUnitId"`
-	Regions              RegionList `json:"regions" xml:"Regions"`
+OrganizationalUnitId string `json:"organizationalUnitId" xml:"OrganizationalUnitId"`
+Regions RegionList `json:"regions" xml:"Regions"`
 }
 
 type StackSetDriftDetectionDetails struct {
-	DriftDetectionStatus          string    `json:"driftDetectionStatus" xml:"DriftDetectionStatus"`
-	DriftStatus                   string    `json:"driftStatus" xml:"DriftStatus"`
-	DriftedStackInstancesCount    int32     `json:"driftedStackInstancesCount" xml:"DriftedStackInstancesCount"`
-	FailedStackInstancesCount     int32     `json:"failedStackInstancesCount" xml:"FailedStackInstancesCount"`
-	InProgressStackInstancesCount int32     `json:"inProgressStackInstancesCount" xml:"InProgressStackInstancesCount"`
-	InSyncStackInstancesCount     int32     `json:"inSyncStackInstancesCount" xml:"InSyncStackInstancesCount"`
-	LastDriftCheckTimestamp       time.Time `json:"lastDriftCheckTimestamp" xml:"LastDriftCheckTimestamp"`
-	TotalStackInstancesCount      int32     `json:"totalStackInstancesCount" xml:"TotalStackInstancesCount"`
+DriftDetectionStatus string `json:"driftDetectionStatus" xml:"DriftDetectionStatus"`
+DriftStatus string `json:"driftStatus" xml:"DriftStatus"`
+DriftedStackInstancesCount int32 `json:"driftedStackInstancesCount" xml:"DriftedStackInstancesCount"`
+FailedStackInstancesCount int32 `json:"failedStackInstancesCount" xml:"FailedStackInstancesCount"`
+InProgressStackInstancesCount int32 `json:"inProgressStackInstancesCount" xml:"InProgressStackInstancesCount"`
+InSyncStackInstancesCount int32 `json:"inSyncStackInstancesCount" xml:"InSyncStackInstancesCount"`
+LastDriftCheckTimestamp time.Time `json:"lastDriftCheckTimestamp" xml:"LastDriftCheckTimestamp"`
+TotalStackInstancesCount int32 `json:"totalStackInstancesCount" xml:"TotalStackInstancesCount"`
 }
 
 type StackSetOperation struct {
-	Action                        string                          `json:"action" xml:"Action"`
-	AdministrationRoleARN         string                          `json:"administrationRoleARN" xml:"AdministrationRoleARN"`
-	CreationTimestamp             time.Time                       `json:"creationTimestamp" xml:"CreationTimestamp"`
-	DeploymentTargets             *DeploymentTargets              `json:"deploymentTargets" xml:"DeploymentTargets"`
-	EndTimestamp                  time.Time                       `json:"endTimestamp" xml:"EndTimestamp"`
-	ExecutionRoleName             string                          `json:"executionRoleName" xml:"ExecutionRoleName"`
-	OperationId                   string                          `json:"operationId" xml:"OperationId"`
-	OperationPreferences          *StackSetOperationPreferences   `json:"operationPreferences" xml:"OperationPreferences"`
-	RetainStacks                  bool                            `json:"retainStacks" xml:"RetainStacks"`
-	StackSetDriftDetectionDetails *StackSetDriftDetectionDetails  `json:"stackSetDriftDetectionDetails" xml:"StackSetDriftDetectionDetails"`
-	StackSetId                    string                          `json:"stackSetId" xml:"StackSetId"`
-	Status                        string                          `json:"status" xml:"Status"`
-	StatusDetails                 *StackSetOperationStatusDetails `json:"statusDetails" xml:"StatusDetails"`
-	StatusReason                  string                          `json:"statusReason" xml:"StatusReason"`
+Action string `json:"action" xml:"Action"`
+AdministrationRoleARN string `json:"administrationRoleARN" xml:"AdministrationRoleARN"`
+CreationTimestamp time.Time `json:"creationTimestamp" xml:"CreationTimestamp"`
+DeploymentTargets *DeploymentTargets `json:"deploymentTargets" xml:"DeploymentTargets"`
+EndTimestamp time.Time `json:"endTimestamp" xml:"EndTimestamp"`
+ExecutionRoleName string `json:"executionRoleName" xml:"ExecutionRoleName"`
+OperationId string `json:"operationId" xml:"OperationId"`
+OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
+RetainStacks bool `json:"retainStacks" xml:"RetainStacks"`
+StackSetDriftDetectionDetails *StackSetDriftDetectionDetails `json:"stackSetDriftDetectionDetails" xml:"StackSetDriftDetectionDetails"`
+StackSetId string `json:"stackSetId" xml:"StackSetId"`
+Status string `json:"status" xml:"Status"`
+StatusDetails *StackSetOperationStatusDetails `json:"statusDetails" xml:"StatusDetails"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type StackSetOperationPreferences struct {
-	ConcurrencyMode            string     `json:"concurrencyMode" xml:"ConcurrencyMode"`
-	FailureToleranceCount      int32      `json:"failureToleranceCount" xml:"FailureToleranceCount"`
-	FailureTolerancePercentage int32      `json:"failureTolerancePercentage" xml:"FailureTolerancePercentage"`
-	MaxConcurrentCount         int32      `json:"maxConcurrentCount" xml:"MaxConcurrentCount"`
-	MaxConcurrentPercentage    int32      `json:"maxConcurrentPercentage" xml:"MaxConcurrentPercentage"`
-	RegionConcurrencyType      string     `json:"regionConcurrencyType" xml:"RegionConcurrencyType"`
-	RegionOrder                RegionList `json:"regionOrder" xml:"RegionOrder"`
+ConcurrencyMode string `json:"concurrencyMode" xml:"ConcurrencyMode"`
+FailureToleranceCount int32 `json:"failureToleranceCount" xml:"FailureToleranceCount"`
+FailureTolerancePercentage int32 `json:"failureTolerancePercentage" xml:"FailureTolerancePercentage"`
+MaxConcurrentCount int32 `json:"maxConcurrentCount" xml:"MaxConcurrentCount"`
+MaxConcurrentPercentage int32 `json:"maxConcurrentPercentage" xml:"MaxConcurrentPercentage"`
+RegionConcurrencyType string `json:"regionConcurrencyType" xml:"RegionConcurrencyType"`
+RegionOrder RegionList `json:"regionOrder" xml:"RegionOrder"`
 }
 
 type StackSetOperationResultSummary struct {
-	Account              string             `json:"account" xml:"Account"`
-	AccountGateResult    *AccountGateResult `json:"accountGateResult" xml:"AccountGateResult"`
-	OrganizationalUnitId string             `json:"organizationalUnitId" xml:"OrganizationalUnitId"`
-	Region               string             `json:"region" xml:"Region"`
-	Status               string             `json:"status" xml:"Status"`
-	StatusReason         string             `json:"statusReason" xml:"StatusReason"`
+Account string `json:"account" xml:"Account"`
+AccountGateResult *AccountGateResult `json:"accountGateResult" xml:"AccountGateResult"`
+OrganizationalUnitId string `json:"organizationalUnitId" xml:"OrganizationalUnitId"`
+Region string `json:"region" xml:"Region"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type StackSetOperationStatusDetails struct {
-	FailedStackInstancesCount int32 `json:"failedStackInstancesCount" xml:"FailedStackInstancesCount"`
+FailedStackInstancesCount int32 `json:"failedStackInstancesCount" xml:"FailedStackInstancesCount"`
 }
 
 type StackSetOperationSummary struct {
-	Action               string                          `json:"action" xml:"Action"`
-	CreationTimestamp    time.Time                       `json:"creationTimestamp" xml:"CreationTimestamp"`
-	EndTimestamp         time.Time                       `json:"endTimestamp" xml:"EndTimestamp"`
-	OperationId          string                          `json:"operationId" xml:"OperationId"`
-	OperationPreferences *StackSetOperationPreferences   `json:"operationPreferences" xml:"OperationPreferences"`
-	Status               string                          `json:"status" xml:"Status"`
-	StatusDetails        *StackSetOperationStatusDetails `json:"statusDetails" xml:"StatusDetails"`
-	StatusReason         string                          `json:"statusReason" xml:"StatusReason"`
+Action string `json:"action" xml:"Action"`
+CreationTimestamp time.Time `json:"creationTimestamp" xml:"CreationTimestamp"`
+EndTimestamp time.Time `json:"endTimestamp" xml:"EndTimestamp"`
+OperationId string `json:"operationId" xml:"OperationId"`
+OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
+Status string `json:"status" xml:"Status"`
+StatusDetails *StackSetOperationStatusDetails `json:"statusDetails" xml:"StatusDetails"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type StackSetSummary struct {
-	AutoDeployment          *AutoDeployment   `json:"autoDeployment" xml:"AutoDeployment"`
-	Description             string            `json:"description" xml:"Description"`
-	DriftStatus             string            `json:"driftStatus" xml:"DriftStatus"`
-	LastDriftCheckTimestamp time.Time         `json:"lastDriftCheckTimestamp" xml:"LastDriftCheckTimestamp"`
-	ManagedExecution        *ManagedExecution `json:"managedExecution" xml:"ManagedExecution"`
-	PermissionModel         string            `json:"permissionModel" xml:"PermissionModel"`
-	StackSetId              string            `json:"stackSetId" xml:"StackSetId"`
-	StackSetName            string            `json:"stackSetName" xml:"StackSetName"`
-	Status                  string            `json:"status" xml:"Status"`
+AutoDeployment *AutoDeployment `json:"autoDeployment" xml:"AutoDeployment"`
+Description string `json:"description" xml:"Description"`
+DriftStatus string `json:"driftStatus" xml:"DriftStatus"`
+LastDriftCheckTimestamp time.Time `json:"lastDriftCheckTimestamp" xml:"LastDriftCheckTimestamp"`
+ManagedExecution *ManagedExecution `json:"managedExecution" xml:"ManagedExecution"`
+PermissionModel string `json:"permissionModel" xml:"PermissionModel"`
+StackSetId string `json:"stackSetId" xml:"StackSetId"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
+Status string `json:"status" xml:"Status"`
 }
 
 type StackSummary struct {
-	CreationTime        time.Time                     `json:"creationTime" xml:"CreationTime"`
-	DeletionTime        time.Time                     `json:"deletionTime" xml:"DeletionTime"`
-	DriftInformation    *StackDriftInformationSummary `json:"driftInformation" xml:"DriftInformation"`
-	LastOperations      LastOperations                `json:"lastOperations" xml:"LastOperations"`
-	LastUpdatedTime     time.Time                     `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	ParentId            string                        `json:"parentId" xml:"ParentId"`
-	RootId              string                        `json:"rootId" xml:"RootId"`
-	StackId             string                        `json:"stackId" xml:"StackId"`
-	StackName           string                        `json:"stackName" xml:"StackName"`
-	StackStatus         string                        `json:"stackStatus" xml:"StackStatus"`
-	StackStatusReason   string                        `json:"stackStatusReason" xml:"StackStatusReason"`
-	TemplateDescription string                        `json:"templateDescription" xml:"TemplateDescription"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+DeletionTime time.Time `json:"deletionTime" xml:"DeletionTime"`
+DriftInformation *StackDriftInformationSummary `json:"driftInformation" xml:"DriftInformation"`
+LastOperations LastOperations `json:"lastOperations" xml:"LastOperations"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+ParentId string `json:"parentId" xml:"ParentId"`
+RootId string `json:"rootId" xml:"RootId"`
+StackId string `json:"stackId" xml:"StackId"`
+StackName string `json:"stackName" xml:"StackName"`
+StackStatus string `json:"stackStatus" xml:"StackStatus"`
+StackStatusReason string `json:"stackStatusReason" xml:"StackStatusReason"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
 }
 
 type StartResourceScanInput struct {
-	ClientRequestToken string      `json:"clientRequestToken" xml:"ClientRequestToken"`
-	ScanFilters        ScanFilters `json:"scanFilters" xml:"ScanFilters"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+ScanFilters ScanFilters `json:"scanFilters" xml:"ScanFilters"`
 }
 
 type StartResourceScanOutput struct {
-	ResourceScanId string `json:"resourceScanId" xml:"ResourceScanId"`
+ResourceScanId string `json:"resourceScanId" xml:"ResourceScanId"`
 }
 
 type StopStackSetOperationInput struct {
-	CallAs       string `json:"callAs" xml:"CallAs"`
-	OperationId  string `json:"operationId" xml:"OperationId"`
-	StackSetName string `json:"stackSetName" xml:"StackSetName"`
+CallAs string `json:"callAs" xml:"CallAs"`
+OperationId string `json:"operationId" xml:"OperationId"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type StopStackSetOperationOutput struct {
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TemplateConfiguration struct {
-	DeletionPolicy      string `json:"deletionPolicy" xml:"DeletionPolicy"`
-	UpdateReplacePolicy string `json:"updateReplacePolicy" xml:"UpdateReplacePolicy"`
+DeletionPolicy string `json:"deletionPolicy" xml:"DeletionPolicy"`
+UpdateReplacePolicy string `json:"updateReplacePolicy" xml:"UpdateReplacePolicy"`
 }
 
 type TemplateParameter struct {
-	DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
-	Description  string `json:"description" xml:"Description"`
-	NoEcho       bool   `json:"noEcho" xml:"NoEcho"`
-	ParameterKey string `json:"parameterKey" xml:"ParameterKey"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+Description string `json:"description" xml:"Description"`
+NoEcho bool `json:"noEcho" xml:"NoEcho"`
+ParameterKey string `json:"parameterKey" xml:"ParameterKey"`
 }
 
 type TemplateProgress struct {
-	ResourcesFailed     int32 `json:"resourcesFailed" xml:"ResourcesFailed"`
-	ResourcesPending    int32 `json:"resourcesPending" xml:"ResourcesPending"`
-	ResourcesProcessing int32 `json:"resourcesProcessing" xml:"ResourcesProcessing"`
-	ResourcesSucceeded  int32 `json:"resourcesSucceeded" xml:"ResourcesSucceeded"`
+ResourcesFailed int32 `json:"resourcesFailed" xml:"ResourcesFailed"`
+ResourcesPending int32 `json:"resourcesPending" xml:"ResourcesPending"`
+ResourcesProcessing int32 `json:"resourcesProcessing" xml:"ResourcesProcessing"`
+ResourcesSucceeded int32 `json:"resourcesSucceeded" xml:"ResourcesSucceeded"`
 }
 
 type TemplateSummary struct {
-	CreationTime          time.Time `json:"creationTime" xml:"CreationTime"`
-	GeneratedTemplateId   string    `json:"generatedTemplateId" xml:"GeneratedTemplateId"`
-	GeneratedTemplateName string    `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
-	LastUpdatedTime       time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	NumberOfResources     int32     `json:"numberOfResources" xml:"NumberOfResources"`
-	Status                string    `json:"status" xml:"Status"`
-	StatusReason          string    `json:"statusReason" xml:"StatusReason"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+GeneratedTemplateId string `json:"generatedTemplateId" xml:"GeneratedTemplateId"`
+GeneratedTemplateName string `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+NumberOfResources int32 `json:"numberOfResources" xml:"NumberOfResources"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type TemplateSummaryConfig struct {
-	TreatUnrecognizedResourceTypesAsWarnings bool `json:"treatUnrecognizedResourceTypesAsWarnings" xml:"TreatUnrecognizedResourceTypesAsWarnings"`
+TreatUnrecognizedResourceTypesAsWarnings bool `json:"treatUnrecognizedResourceTypesAsWarnings" xml:"TreatUnrecognizedResourceTypesAsWarnings"`
 }
 
 type TestTypeInput struct {
-	Arn               string `json:"arn" xml:"Arn"`
-	LogDeliveryBucket string `json:"logDeliveryBucket" xml:"LogDeliveryBucket"`
-	Type              string `json:"type" xml:"Type"`
-	TypeName          string `json:"typeName" xml:"TypeName"`
-	VersionId         string `json:"versionId" xml:"VersionId"`
+Arn string `json:"arn" xml:"Arn"`
+LogDeliveryBucket string `json:"logDeliveryBucket" xml:"LogDeliveryBucket"`
+Type string `json:"type" xml:"Type"`
+TypeName string `json:"typeName" xml:"TypeName"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type TestTypeOutput struct {
-	TypeVersionArn string `json:"typeVersionArn" xml:"TypeVersionArn"`
+TypeVersionArn string `json:"typeVersionArn" xml:"TypeVersionArn"`
 }
 
 type TypeConfigurationDetails struct {
-	Alias                  string    `json:"alias" xml:"Alias"`
-	Arn                    string    `json:"arn" xml:"Arn"`
-	Configuration          string    `json:"configuration" xml:"Configuration"`
-	IsDefaultConfiguration bool      `json:"isDefaultConfiguration" xml:"IsDefaultConfiguration"`
-	LastUpdated            time.Time `json:"lastUpdated" xml:"LastUpdated"`
-	TypeArn                string    `json:"typeArn" xml:"TypeArn"`
-	TypeName               string    `json:"typeName" xml:"TypeName"`
+Alias string `json:"alias" xml:"Alias"`
+Arn string `json:"arn" xml:"Arn"`
+Configuration string `json:"configuration" xml:"Configuration"`
+IsDefaultConfiguration bool `json:"isDefaultConfiguration" xml:"IsDefaultConfiguration"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+TypeArn string `json:"typeArn" xml:"TypeArn"`
+TypeName string `json:"typeName" xml:"TypeName"`
 }
 
 type TypeConfigurationIdentifier struct {
-	Type                   string `json:"type" xml:"Type"`
-	TypeArn                string `json:"typeArn" xml:"TypeArn"`
-	TypeConfigurationAlias string `json:"typeConfigurationAlias" xml:"TypeConfigurationAlias"`
-	TypeConfigurationArn   string `json:"typeConfigurationArn" xml:"TypeConfigurationArn"`
-	TypeName               string `json:"typeName" xml:"TypeName"`
+Type string `json:"type" xml:"Type"`
+TypeArn string `json:"typeArn" xml:"TypeArn"`
+TypeConfigurationAlias string `json:"typeConfigurationAlias" xml:"TypeConfigurationAlias"`
+TypeConfigurationArn string `json:"typeConfigurationArn" xml:"TypeConfigurationArn"`
+TypeName string `json:"typeName" xml:"TypeName"`
 }
 
 type TypeFilters struct {
-	Category       string `json:"category" xml:"Category"`
-	PublisherId    string `json:"publisherId" xml:"PublisherId"`
-	TypeNamePrefix string `json:"typeNamePrefix" xml:"TypeNamePrefix"`
+Category string `json:"category" xml:"Category"`
+PublisherId string `json:"publisherId" xml:"PublisherId"`
+TypeNamePrefix string `json:"typeNamePrefix" xml:"TypeNamePrefix"`
 }
 
 type TypeSummary struct {
-	DefaultVersionId    string    `json:"defaultVersionId" xml:"DefaultVersionId"`
-	Description         string    `json:"description" xml:"Description"`
-	IsActivated         bool      `json:"isActivated" xml:"IsActivated"`
-	LastUpdated         time.Time `json:"lastUpdated" xml:"LastUpdated"`
-	LatestPublicVersion string    `json:"latestPublicVersion" xml:"LatestPublicVersion"`
-	OriginalTypeName    string    `json:"originalTypeName" xml:"OriginalTypeName"`
-	PublicVersionNumber string    `json:"publicVersionNumber" xml:"PublicVersionNumber"`
-	PublisherId         string    `json:"publisherId" xml:"PublisherId"`
-	PublisherIdentity   string    `json:"publisherIdentity" xml:"PublisherIdentity"`
-	PublisherName       string    `json:"publisherName" xml:"PublisherName"`
-	Type                string    `json:"type" xml:"Type"`
-	TypeArn             string    `json:"typeArn" xml:"TypeArn"`
-	TypeName            string    `json:"typeName" xml:"TypeName"`
+DefaultVersionId string `json:"defaultVersionId" xml:"DefaultVersionId"`
+Description string `json:"description" xml:"Description"`
+IsActivated bool `json:"isActivated" xml:"IsActivated"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+LatestPublicVersion string `json:"latestPublicVersion" xml:"LatestPublicVersion"`
+OriginalTypeName string `json:"originalTypeName" xml:"OriginalTypeName"`
+PublicVersionNumber string `json:"publicVersionNumber" xml:"PublicVersionNumber"`
+PublisherId string `json:"publisherId" xml:"PublisherId"`
+PublisherIdentity string `json:"publisherIdentity" xml:"PublisherIdentity"`
+PublisherName string `json:"publisherName" xml:"PublisherName"`
+Type string `json:"type" xml:"Type"`
+TypeArn string `json:"typeArn" xml:"TypeArn"`
+TypeName string `json:"typeName" xml:"TypeName"`
 }
 
 type TypeVersionSummary struct {
-	Arn                 string    `json:"arn" xml:"Arn"`
-	Description         string    `json:"description" xml:"Description"`
-	IsDefaultVersion    bool      `json:"isDefaultVersion" xml:"IsDefaultVersion"`
-	PublicVersionNumber string    `json:"publicVersionNumber" xml:"PublicVersionNumber"`
-	TimeCreated         time.Time `json:"timeCreated" xml:"TimeCreated"`
-	Type                string    `json:"type" xml:"Type"`
-	TypeName            string    `json:"typeName" xml:"TypeName"`
-	VersionId           string    `json:"versionId" xml:"VersionId"`
+Arn string `json:"arn" xml:"Arn"`
+Description string `json:"description" xml:"Description"`
+IsDefaultVersion bool `json:"isDefaultVersion" xml:"IsDefaultVersion"`
+PublicVersionNumber string `json:"publicVersionNumber" xml:"PublicVersionNumber"`
+TimeCreated time.Time `json:"timeCreated" xml:"TimeCreated"`
+Type string `json:"type" xml:"Type"`
+TypeName string `json:"typeName" xml:"TypeName"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type UpdateGeneratedTemplateInput struct {
-	AddResources             ResourceDefinitions    `json:"addResources" xml:"AddResources"`
-	GeneratedTemplateName    string                 `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
-	NewGeneratedTemplateName string                 `json:"newGeneratedTemplateName" xml:"NewGeneratedTemplateName"`
-	RefreshAllResources      bool                   `json:"refreshAllResources" xml:"RefreshAllResources"`
-	RemoveResources          JazzLogicalResourceIds `json:"removeResources" xml:"RemoveResources"`
-	TemplateConfiguration    *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
+AddResources ResourceDefinitions `json:"addResources" xml:"AddResources"`
+GeneratedTemplateName string `json:"generatedTemplateName" xml:"GeneratedTemplateName"`
+NewGeneratedTemplateName string `json:"newGeneratedTemplateName" xml:"NewGeneratedTemplateName"`
+RefreshAllResources bool `json:"refreshAllResources" xml:"RefreshAllResources"`
+RemoveResources JazzLogicalResourceIds `json:"removeResources" xml:"RemoveResources"`
+TemplateConfiguration *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
 }
 
 type UpdateGeneratedTemplateOutput struct {
-	GeneratedTemplateId string `json:"generatedTemplateId" xml:"GeneratedTemplateId"`
+GeneratedTemplateId string `json:"generatedTemplateId" xml:"GeneratedTemplateId"`
 }
 
 type UpdateStackInput struct {
-	Capabilities                Capabilities           `json:"capabilities" xml:"Capabilities"`
-	ClientRequestToken          string                 `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DisableRollback             bool                   `json:"disableRollback" xml:"DisableRollback"`
-	NotificationARNs            NotificationARNs       `json:"notificationARNs" xml:"NotificationARNs"`
-	Parameters                  Parameters             `json:"parameters" xml:"Parameters"`
-	ResourceTypes               ResourceTypes          `json:"resourceTypes" xml:"ResourceTypes"`
-	RetainExceptOnCreate        bool                   `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
-	RoleARN                     string                 `json:"roleARN" xml:"RoleARN"`
-	RollbackConfiguration       *RollbackConfiguration `json:"rollbackConfiguration" xml:"RollbackConfiguration"`
-	StackName                   string                 `json:"stackName" xml:"StackName"`
-	StackPolicyBody             string                 `json:"stackPolicyBody" xml:"StackPolicyBody"`
-	StackPolicyDuringUpdateBody string                 `json:"stackPolicyDuringUpdateBody" xml:"StackPolicyDuringUpdateBody"`
-	StackPolicyDuringUpdateURL  string                 `json:"stackPolicyDuringUpdateURL" xml:"StackPolicyDuringUpdateURL"`
-	StackPolicyURL              string                 `json:"stackPolicyURL" xml:"StackPolicyURL"`
-	Tags                        Tags                   `json:"tags" xml:"Tags"`
-	TemplateBody                string                 `json:"templateBody" xml:"TemplateBody"`
-	TemplateURL                 string                 `json:"templateURL" xml:"TemplateURL"`
-	UsePreviousTemplate         bool                   `json:"usePreviousTemplate" xml:"UsePreviousTemplate"`
+Capabilities Capabilities `json:"capabilities" xml:"Capabilities"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+DisableRollback bool `json:"disableRollback" xml:"DisableRollback"`
+NotificationARNs NotificationARNs `json:"notificationARNs" xml:"NotificationARNs"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
+ResourceTypes ResourceTypes `json:"resourceTypes" xml:"ResourceTypes"`
+RetainExceptOnCreate bool `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
+RollbackConfiguration *RollbackConfiguration `json:"rollbackConfiguration" xml:"RollbackConfiguration"`
+StackName string `json:"stackName" xml:"StackName"`
+StackPolicyBody string `json:"stackPolicyBody" xml:"StackPolicyBody"`
+StackPolicyDuringUpdateBody string `json:"stackPolicyDuringUpdateBody" xml:"StackPolicyDuringUpdateBody"`
+StackPolicyDuringUpdateURL string `json:"stackPolicyDuringUpdateURL" xml:"StackPolicyDuringUpdateURL"`
+StackPolicyURL string `json:"stackPolicyURL" xml:"StackPolicyURL"`
+Tags Tags `json:"tags" xml:"Tags"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+TemplateURL string `json:"templateURL" xml:"TemplateURL"`
+UsePreviousTemplate bool `json:"usePreviousTemplate" xml:"UsePreviousTemplate"`
 }
 
 type UpdateStackInstancesInput struct {
-	Accounts             AccountList                   `json:"accounts" xml:"Accounts"`
-	CallAs               string                        `json:"callAs" xml:"CallAs"`
-	DeploymentTargets    *DeploymentTargets            `json:"deploymentTargets" xml:"DeploymentTargets"`
-	OperationId          string                        `json:"operationId" xml:"OperationId"`
-	OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
-	ParameterOverrides   Parameters                    `json:"parameterOverrides" xml:"ParameterOverrides"`
-	Regions              RegionList                    `json:"regions" xml:"Regions"`
-	StackSetName         string                        `json:"stackSetName" xml:"StackSetName"`
+Accounts AccountList `json:"accounts" xml:"Accounts"`
+CallAs string `json:"callAs" xml:"CallAs"`
+DeploymentTargets *DeploymentTargets `json:"deploymentTargets" xml:"DeploymentTargets"`
+OperationId string `json:"operationId" xml:"OperationId"`
+OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
+ParameterOverrides Parameters `json:"parameterOverrides" xml:"ParameterOverrides"`
+Regions RegionList `json:"regions" xml:"Regions"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
 }
 
 type UpdateStackInstancesOutput struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type UpdateStackOutput struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
-	StackId     string `json:"stackId" xml:"StackId"`
+OperationId string `json:"operationId" xml:"OperationId"`
+StackId string `json:"stackId" xml:"StackId"`
 }
 
 type UpdateStackSetInput struct {
-	Accounts              AccountList                   `json:"accounts" xml:"Accounts"`
-	AdministrationRoleARN string                        `json:"administrationRoleARN" xml:"AdministrationRoleARN"`
-	AutoDeployment        *AutoDeployment               `json:"autoDeployment" xml:"AutoDeployment"`
-	CallAs                string                        `json:"callAs" xml:"CallAs"`
-	Capabilities          Capabilities                  `json:"capabilities" xml:"Capabilities"`
-	DeploymentTargets     *DeploymentTargets            `json:"deploymentTargets" xml:"DeploymentTargets"`
-	Description           string                        `json:"description" xml:"Description"`
-	ExecutionRoleName     string                        `json:"executionRoleName" xml:"ExecutionRoleName"`
-	ManagedExecution      *ManagedExecution             `json:"managedExecution" xml:"ManagedExecution"`
-	OperationId           string                        `json:"operationId" xml:"OperationId"`
-	OperationPreferences  *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
-	Parameters            Parameters                    `json:"parameters" xml:"Parameters"`
-	PermissionModel       string                        `json:"permissionModel" xml:"PermissionModel"`
-	Regions               RegionList                    `json:"regions" xml:"Regions"`
-	StackSetName          string                        `json:"stackSetName" xml:"StackSetName"`
-	Tags                  Tags                          `json:"tags" xml:"Tags"`
-	TemplateBody          string                        `json:"templateBody" xml:"TemplateBody"`
-	TemplateURL           string                        `json:"templateURL" xml:"TemplateURL"`
-	UsePreviousTemplate   bool                          `json:"usePreviousTemplate" xml:"UsePreviousTemplate"`
+Accounts AccountList `json:"accounts" xml:"Accounts"`
+AdministrationRoleARN string `json:"administrationRoleARN" xml:"AdministrationRoleARN"`
+AutoDeployment *AutoDeployment `json:"autoDeployment" xml:"AutoDeployment"`
+CallAs string `json:"callAs" xml:"CallAs"`
+Capabilities Capabilities `json:"capabilities" xml:"Capabilities"`
+DeploymentTargets *DeploymentTargets `json:"deploymentTargets" xml:"DeploymentTargets"`
+Description string `json:"description" xml:"Description"`
+ExecutionRoleName string `json:"executionRoleName" xml:"ExecutionRoleName"`
+ManagedExecution *ManagedExecution `json:"managedExecution" xml:"ManagedExecution"`
+OperationId string `json:"operationId" xml:"OperationId"`
+OperationPreferences *StackSetOperationPreferences `json:"operationPreferences" xml:"OperationPreferences"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
+PermissionModel string `json:"permissionModel" xml:"PermissionModel"`
+Regions RegionList `json:"regions" xml:"Regions"`
+StackSetName string `json:"stackSetName" xml:"StackSetName"`
+Tags Tags `json:"tags" xml:"Tags"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+TemplateURL string `json:"templateURL" xml:"TemplateURL"`
+UsePreviousTemplate bool `json:"usePreviousTemplate" xml:"UsePreviousTemplate"`
 }
 
 type UpdateStackSetOutput struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type UpdateTerminationProtectionInput struct {
-	EnableTerminationProtection bool   `json:"enableTerminationProtection" xml:"EnableTerminationProtection"`
-	StackName                   string `json:"stackName" xml:"StackName"`
+EnableTerminationProtection bool `json:"enableTerminationProtection" xml:"EnableTerminationProtection"`
+StackName string `json:"stackName" xml:"StackName"`
 }
 
 type UpdateTerminationProtectionOutput struct {
-	StackId string `json:"stackId" xml:"StackId"`
+StackId string `json:"stackId" xml:"StackId"`
 }
 
 type ValidateTemplateInput struct {
-	TemplateBody string `json:"templateBody" xml:"TemplateBody"`
-	TemplateURL  string `json:"templateURL" xml:"TemplateURL"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+TemplateURL string `json:"templateURL" xml:"TemplateURL"`
 }
 
 type ValidateTemplateOutput struct {
-	Capabilities       Capabilities       `json:"capabilities" xml:"Capabilities"`
-	CapabilitiesReason string             `json:"capabilitiesReason" xml:"CapabilitiesReason"`
-	DeclaredTransforms TransformsList     `json:"declaredTransforms" xml:"DeclaredTransforms"`
-	Description        string             `json:"description" xml:"Description"`
-	Parameters         TemplateParameters `json:"parameters" xml:"Parameters"`
+Capabilities Capabilities `json:"capabilities" xml:"Capabilities"`
+CapabilitiesReason string `json:"capabilitiesReason" xml:"CapabilitiesReason"`
+DeclaredTransforms TransformsList `json:"declaredTransforms" xml:"DeclaredTransforms"`
+Description string `json:"description" xml:"Description"`
+Parameters TemplateParameters `json:"parameters" xml:"Parameters"`
 }
 
 type WarningDetail struct {
-	Properties WarningProperties `json:"properties" xml:"Properties"`
-	Type       string            `json:"type" xml:"Type"`
+Properties WarningProperties `json:"properties" xml:"Properties"`
+Type string `json:"type" xml:"Type"`
 }
 
 type WarningProperty struct {
-	Description  string `json:"description" xml:"Description"`
-	PropertyPath string `json:"propertyPath" xml:"PropertyPath"`
-	Required     bool   `json:"required" xml:"Required"`
+Description string `json:"description" xml:"Description"`
+PropertyPath string `json:"propertyPath" xml:"PropertyPath"`
+Required bool `json:"required" xml:"Required"`
 }
 
 type Warnings struct {
-	UnrecognizedResourceTypes ResourceTypes `json:"unrecognizedResourceTypes" xml:"UnrecognizedResourceTypes"`
+UnrecognizedResourceTypes ResourceTypes `json:"unrecognizedResourceTypes" xml:"UnrecognizedResourceTypes"`
 }
 
 type AccountLimitList []*AccountLimit
@@ -2070,3 +2070,4 @@ type WarningProperties []*WarningProperty
 type JazzResourceIdentifierProperties map[string]string
 
 type ResourceIdentifierProperties map[string]string
+

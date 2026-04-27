@@ -141,3 +141,4 @@ func DeserializeWriteRecordsRequest(r *http.Request, pathParams PathParams) (*Wr
 
 	return input, nil
 }
+

@@ -343,3 +343,4 @@ func (e *WAFUnsupportedAggregateKeyTypeException) ErrorCode() string {
 func (e *WAFUnsupportedAggregateKeyTypeException) HTTPStatus() int {
 	return 0
 }
+

@@ -11249,3 +11249,4 @@ func SerializeWithdrawByoipCidrResult(w http.ResponseWriter, output *WithdrawByo
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

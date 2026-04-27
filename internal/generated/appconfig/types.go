@@ -7,550 +7,550 @@ import (
 )
 
 type AccountSettings struct {
-	DeletionProtection *DeletionProtectionSettings `json:"deletionProtection" xml:"DeletionProtection"`
+DeletionProtection *DeletionProtectionSettings `json:"deletionProtection" xml:"DeletionProtection"`
 }
 
 type Action struct {
-	Description string `json:"description" xml:"Description"`
-	Name        string `json:"name" xml:"Name"`
-	RoleArn     string `json:"roleArn" xml:"RoleArn"`
-	Uri         string `json:"uri" xml:"Uri"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+Uri string `json:"uri" xml:"Uri"`
 }
 
 type ActionInvocation struct {
-	ActionName          string `json:"actionName" xml:"ActionName"`
-	ErrorCode           string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage        string `json:"errorMessage" xml:"ErrorMessage"`
-	ExtensionIdentifier string `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
-	InvocationId        string `json:"invocationId" xml:"InvocationId"`
-	RoleArn             string `json:"roleArn" xml:"RoleArn"`
-	Uri                 string `json:"uri" xml:"Uri"`
+ActionName string `json:"actionName" xml:"ActionName"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ExtensionIdentifier string `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
+InvocationId string `json:"invocationId" xml:"InvocationId"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+Uri string `json:"uri" xml:"Uri"`
 }
 
 type Application struct {
-	Description string `json:"description" xml:"Description"`
-	Id          string `json:"id" xml:"Id"`
-	Name        string `json:"name" xml:"Name"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
 }
 
 type Applications struct {
-	Items     ApplicationList `json:"items" xml:"Items"`
-	NextToken string          `json:"nextToken" xml:"NextToken"`
+Items ApplicationList `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type AppliedExtension struct {
-	ExtensionAssociationId string            `json:"extensionAssociationId" xml:"ExtensionAssociationId"`
-	ExtensionId            string            `json:"extensionId" xml:"ExtensionId"`
-	Parameters             ParameterValueMap `json:"parameters" xml:"Parameters"`
-	VersionNumber          int32             `json:"versionNumber" xml:"VersionNumber"`
+ExtensionAssociationId string `json:"extensionAssociationId" xml:"ExtensionAssociationId"`
+ExtensionId string `json:"extensionId" xml:"ExtensionId"`
+Parameters ParameterValueMap `json:"parameters" xml:"Parameters"`
+VersionNumber int32 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type Configuration struct {
-	ConfigurationVersion string `json:"configurationVersion" xml:"ConfigurationVersion"`
-	Content              []byte `json:"content" xml:"Content"`
-	ContentType          string `json:"contentType" xml:"ContentType"`
+ConfigurationVersion string `json:"configurationVersion" xml:"ConfigurationVersion"`
+Content []byte `json:"content" xml:"Content"`
+ContentType string `json:"contentType" xml:"ContentType"`
 }
 
 type ConfigurationProfile struct {
-	ApplicationId    string        `json:"applicationId" xml:"ApplicationId"`
-	Description      string        `json:"description" xml:"Description"`
-	Id               string        `json:"id" xml:"Id"`
-	KmsKeyArn        string        `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	KmsKeyIdentifier string        `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	LocationUri      string        `json:"locationUri" xml:"LocationUri"`
-	Name             string        `json:"name" xml:"Name"`
-	RetrievalRoleArn string        `json:"retrievalRoleArn" xml:"RetrievalRoleArn"`
-	Type             string        `json:"type" xml:"Type"`
-	Validators       ValidatorList `json:"validators" xml:"Validators"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+LocationUri string `json:"locationUri" xml:"LocationUri"`
+Name string `json:"name" xml:"Name"`
+RetrievalRoleArn string `json:"retrievalRoleArn" xml:"RetrievalRoleArn"`
+Type string `json:"type" xml:"Type"`
+Validators ValidatorList `json:"validators" xml:"Validators"`
 }
 
 type ConfigurationProfileSummary struct {
-	ApplicationId  string            `json:"applicationId" xml:"ApplicationId"`
-	Id             string            `json:"id" xml:"Id"`
-	LocationUri    string            `json:"locationUri" xml:"LocationUri"`
-	Name           string            `json:"name" xml:"Name"`
-	Type           string            `json:"type" xml:"Type"`
-	ValidatorTypes ValidatorTypeList `json:"validatorTypes" xml:"ValidatorTypes"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+Id string `json:"id" xml:"Id"`
+LocationUri string `json:"locationUri" xml:"LocationUri"`
+Name string `json:"name" xml:"Name"`
+Type string `json:"type" xml:"Type"`
+ValidatorTypes ValidatorTypeList `json:"validatorTypes" xml:"ValidatorTypes"`
 }
 
 type ConfigurationProfiles struct {
-	Items     ConfigurationProfileSummaryList `json:"items" xml:"Items"`
-	NextToken string                          `json:"nextToken" xml:"NextToken"`
+Items ConfigurationProfileSummaryList `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type CreateApplicationRequest struct {
-	Description string `json:"description" xml:"Description"`
-	Name        string `json:"name" xml:"Name"`
-	Tags        TagMap `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type CreateConfigurationProfileRequest struct {
-	ApplicationId    string        `json:"applicationId" xml:"ApplicationId"`
-	Description      string        `json:"description" xml:"Description"`
-	KmsKeyIdentifier string        `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	LocationUri      string        `json:"locationUri" xml:"LocationUri"`
-	Name             string        `json:"name" xml:"Name"`
-	RetrievalRoleArn string        `json:"retrievalRoleArn" xml:"RetrievalRoleArn"`
-	Tags             TagMap        `json:"tags" xml:"Tags"`
-	Type             string        `json:"type" xml:"Type"`
-	Validators       ValidatorList `json:"validators" xml:"Validators"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+Description string `json:"description" xml:"Description"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+LocationUri string `json:"locationUri" xml:"LocationUri"`
+Name string `json:"name" xml:"Name"`
+RetrievalRoleArn string `json:"retrievalRoleArn" xml:"RetrievalRoleArn"`
+Tags TagMap `json:"tags" xml:"Tags"`
+Type string `json:"type" xml:"Type"`
+Validators ValidatorList `json:"validators" xml:"Validators"`
 }
 
 type CreateDeploymentStrategyRequest struct {
-	DeploymentDurationInMinutes int32   `json:"deploymentDurationInMinutes" xml:"DeploymentDurationInMinutes"`
-	Description                 string  `json:"description" xml:"Description"`
-	FinalBakeTimeInMinutes      int32   `json:"finalBakeTimeInMinutes" xml:"FinalBakeTimeInMinutes"`
-	GrowthFactor                float32 `json:"growthFactor" xml:"GrowthFactor"`
-	GrowthType                  string  `json:"growthType" xml:"GrowthType"`
-	Name                        string  `json:"name" xml:"Name"`
-	ReplicateTo                 string  `json:"replicateTo" xml:"ReplicateTo"`
-	Tags                        TagMap  `json:"tags" xml:"Tags"`
+DeploymentDurationInMinutes int32 `json:"deploymentDurationInMinutes" xml:"DeploymentDurationInMinutes"`
+Description string `json:"description" xml:"Description"`
+FinalBakeTimeInMinutes int32 `json:"finalBakeTimeInMinutes" xml:"FinalBakeTimeInMinutes"`
+GrowthFactor float32 `json:"growthFactor" xml:"GrowthFactor"`
+GrowthType string `json:"growthType" xml:"GrowthType"`
+Name string `json:"name" xml:"Name"`
+ReplicateTo string `json:"replicateTo" xml:"ReplicateTo"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type CreateEnvironmentRequest struct {
-	ApplicationId string      `json:"applicationId" xml:"ApplicationId"`
-	Description   string      `json:"description" xml:"Description"`
-	Monitors      MonitorList `json:"monitors" xml:"Monitors"`
-	Name          string      `json:"name" xml:"Name"`
-	Tags          TagMap      `json:"tags" xml:"Tags"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+Description string `json:"description" xml:"Description"`
+Monitors MonitorList `json:"monitors" xml:"Monitors"`
+Name string `json:"name" xml:"Name"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type CreateExtensionAssociationRequest struct {
-	ExtensionIdentifier    string            `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
-	ExtensionVersionNumber int32             `json:"extensionVersionNumber" xml:"ExtensionVersionNumber"`
-	Parameters             ParameterValueMap `json:"parameters" xml:"Parameters"`
-	ResourceIdentifier     string            `json:"resourceIdentifier" xml:"ResourceIdentifier"`
-	Tags                   TagMap            `json:"tags" xml:"Tags"`
+ExtensionIdentifier string `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
+ExtensionVersionNumber int32 `json:"extensionVersionNumber" xml:"ExtensionVersionNumber"`
+Parameters ParameterValueMap `json:"parameters" xml:"Parameters"`
+ResourceIdentifier string `json:"resourceIdentifier" xml:"ResourceIdentifier"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type CreateExtensionRequest struct {
-	Actions             ActionsMap   `json:"actions" xml:"Actions"`
-	Description         string       `json:"description" xml:"Description"`
-	LatestVersionNumber int32        `json:"latestVersionNumber" xml:"LatestVersionNumber"`
-	Name                string       `json:"name" xml:"Name"`
-	Parameters          ParameterMap `json:"parameters" xml:"Parameters"`
-	Tags                TagMap       `json:"tags" xml:"Tags"`
+Actions ActionsMap `json:"actions" xml:"Actions"`
+Description string `json:"description" xml:"Description"`
+LatestVersionNumber int32 `json:"latestVersionNumber" xml:"LatestVersionNumber"`
+Name string `json:"name" xml:"Name"`
+Parameters ParameterMap `json:"parameters" xml:"Parameters"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type CreateHostedConfigurationVersionRequest struct {
-	ApplicationId          string `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
-	Content                []byte `json:"content" xml:"Content"`
-	ContentType            string `json:"contentType" xml:"ContentType"`
-	Description            string `json:"description" xml:"Description"`
-	LatestVersionNumber    int32  `json:"latestVersionNumber" xml:"LatestVersionNumber"`
-	VersionLabel           string `json:"versionLabel" xml:"VersionLabel"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+Content []byte `json:"content" xml:"Content"`
+ContentType string `json:"contentType" xml:"ContentType"`
+Description string `json:"description" xml:"Description"`
+LatestVersionNumber int32 `json:"latestVersionNumber" xml:"LatestVersionNumber"`
+VersionLabel string `json:"versionLabel" xml:"VersionLabel"`
 }
 
 type DeleteApplicationRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteConfigurationProfileRequest struct {
-	ApplicationId           string `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationProfileId  string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
-	DeletionProtectionCheck string `json:"deletionProtectionCheck" xml:"DeletionProtectionCheck"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+DeletionProtectionCheck string `json:"deletionProtectionCheck" xml:"DeletionProtectionCheck"`
 }
 
 type DeleteDeploymentStrategyRequest struct {
-	DeploymentStrategyId string `json:"deploymentStrategyId" xml:"DeploymentStrategyId"`
+DeploymentStrategyId string `json:"deploymentStrategyId" xml:"DeploymentStrategyId"`
 }
 
 type DeleteEnvironmentRequest struct {
-	ApplicationId           string `json:"applicationId" xml:"ApplicationId"`
-	DeletionProtectionCheck string `json:"deletionProtectionCheck" xml:"DeletionProtectionCheck"`
-	EnvironmentId           string `json:"environmentId" xml:"EnvironmentId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+DeletionProtectionCheck string `json:"deletionProtectionCheck" xml:"DeletionProtectionCheck"`
+EnvironmentId string `json:"environmentId" xml:"EnvironmentId"`
 }
 
 type DeleteExtensionAssociationRequest struct {
-	ExtensionAssociationId string `json:"extensionAssociationId" xml:"ExtensionAssociationId"`
+ExtensionAssociationId string `json:"extensionAssociationId" xml:"ExtensionAssociationId"`
 }
 
 type DeleteExtensionRequest struct {
-	ExtensionIdentifier string `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
-	VersionNumber       int32  `json:"versionNumber" xml:"VersionNumber"`
+ExtensionIdentifier string `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
+VersionNumber int32 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type DeleteHostedConfigurationVersionRequest struct {
-	ApplicationId          string `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
-	VersionNumber          int32  `json:"versionNumber" xml:"VersionNumber"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+VersionNumber int32 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type DeletionProtectionSettings struct {
-	Enabled                   bool  `json:"enabled" xml:"Enabled"`
-	ProtectionPeriodInMinutes int32 `json:"protectionPeriodInMinutes" xml:"ProtectionPeriodInMinutes"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+ProtectionPeriodInMinutes int32 `json:"protectionPeriodInMinutes" xml:"ProtectionPeriodInMinutes"`
 }
 
 type Deployment struct {
-	ApplicationId               string            `json:"applicationId" xml:"ApplicationId"`
-	AppliedExtensions           AppliedExtensions `json:"appliedExtensions" xml:"AppliedExtensions"`
-	CompletedAt                 time.Time         `json:"completedAt" xml:"CompletedAt"`
-	ConfigurationLocationUri    string            `json:"configurationLocationUri" xml:"ConfigurationLocationUri"`
-	ConfigurationName           string            `json:"configurationName" xml:"ConfigurationName"`
-	ConfigurationProfileId      string            `json:"configurationProfileId" xml:"ConfigurationProfileId"`
-	ConfigurationVersion        string            `json:"configurationVersion" xml:"ConfigurationVersion"`
-	DeploymentDurationInMinutes int32             `json:"deploymentDurationInMinutes" xml:"DeploymentDurationInMinutes"`
-	DeploymentNumber            int32             `json:"deploymentNumber" xml:"DeploymentNumber"`
-	DeploymentStrategyId        string            `json:"deploymentStrategyId" xml:"DeploymentStrategyId"`
-	Description                 string            `json:"description" xml:"Description"`
-	EnvironmentId               string            `json:"environmentId" xml:"EnvironmentId"`
-	EventLog                    DeploymentEvents  `json:"eventLog" xml:"EventLog"`
-	FinalBakeTimeInMinutes      int32             `json:"finalBakeTimeInMinutes" xml:"FinalBakeTimeInMinutes"`
-	GrowthFactor                float32           `json:"growthFactor" xml:"GrowthFactor"`
-	GrowthType                  string            `json:"growthType" xml:"GrowthType"`
-	KmsKeyArn                   string            `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	KmsKeyIdentifier            string            `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	PercentageComplete          float32           `json:"percentageComplete" xml:"PercentageComplete"`
-	StartedAt                   time.Time         `json:"startedAt" xml:"StartedAt"`
-	State                       string            `json:"state" xml:"State"`
-	VersionLabel                string            `json:"versionLabel" xml:"VersionLabel"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+AppliedExtensions AppliedExtensions `json:"appliedExtensions" xml:"AppliedExtensions"`
+CompletedAt time.Time `json:"completedAt" xml:"CompletedAt"`
+ConfigurationLocationUri string `json:"configurationLocationUri" xml:"ConfigurationLocationUri"`
+ConfigurationName string `json:"configurationName" xml:"ConfigurationName"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+ConfigurationVersion string `json:"configurationVersion" xml:"ConfigurationVersion"`
+DeploymentDurationInMinutes int32 `json:"deploymentDurationInMinutes" xml:"DeploymentDurationInMinutes"`
+DeploymentNumber int32 `json:"deploymentNumber" xml:"DeploymentNumber"`
+DeploymentStrategyId string `json:"deploymentStrategyId" xml:"DeploymentStrategyId"`
+Description string `json:"description" xml:"Description"`
+EnvironmentId string `json:"environmentId" xml:"EnvironmentId"`
+EventLog DeploymentEvents `json:"eventLog" xml:"EventLog"`
+FinalBakeTimeInMinutes int32 `json:"finalBakeTimeInMinutes" xml:"FinalBakeTimeInMinutes"`
+GrowthFactor float32 `json:"growthFactor" xml:"GrowthFactor"`
+GrowthType string `json:"growthType" xml:"GrowthType"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+PercentageComplete float32 `json:"percentageComplete" xml:"PercentageComplete"`
+StartedAt time.Time `json:"startedAt" xml:"StartedAt"`
+State string `json:"state" xml:"State"`
+VersionLabel string `json:"versionLabel" xml:"VersionLabel"`
 }
 
 type DeploymentEvent struct {
-	ActionInvocations ActionInvocations `json:"actionInvocations" xml:"ActionInvocations"`
-	Description       string            `json:"description" xml:"Description"`
-	EventType         string            `json:"eventType" xml:"EventType"`
-	OccurredAt        time.Time         `json:"occurredAt" xml:"OccurredAt"`
-	TriggeredBy       string            `json:"triggeredBy" xml:"TriggeredBy"`
+ActionInvocations ActionInvocations `json:"actionInvocations" xml:"ActionInvocations"`
+Description string `json:"description" xml:"Description"`
+EventType string `json:"eventType" xml:"EventType"`
+OccurredAt time.Time `json:"occurredAt" xml:"OccurredAt"`
+TriggeredBy string `json:"triggeredBy" xml:"TriggeredBy"`
 }
 
 type DeploymentStrategies struct {
-	Items     DeploymentStrategyList `json:"items" xml:"Items"`
-	NextToken string                 `json:"nextToken" xml:"NextToken"`
+Items DeploymentStrategyList `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DeploymentStrategy struct {
-	DeploymentDurationInMinutes int32   `json:"deploymentDurationInMinutes" xml:"DeploymentDurationInMinutes"`
-	Description                 string  `json:"description" xml:"Description"`
-	FinalBakeTimeInMinutes      int32   `json:"finalBakeTimeInMinutes" xml:"FinalBakeTimeInMinutes"`
-	GrowthFactor                float32 `json:"growthFactor" xml:"GrowthFactor"`
-	GrowthType                  string  `json:"growthType" xml:"GrowthType"`
-	Id                          string  `json:"id" xml:"Id"`
-	Name                        string  `json:"name" xml:"Name"`
-	ReplicateTo                 string  `json:"replicateTo" xml:"ReplicateTo"`
+DeploymentDurationInMinutes int32 `json:"deploymentDurationInMinutes" xml:"DeploymentDurationInMinutes"`
+Description string `json:"description" xml:"Description"`
+FinalBakeTimeInMinutes int32 `json:"finalBakeTimeInMinutes" xml:"FinalBakeTimeInMinutes"`
+GrowthFactor float32 `json:"growthFactor" xml:"GrowthFactor"`
+GrowthType string `json:"growthType" xml:"GrowthType"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+ReplicateTo string `json:"replicateTo" xml:"ReplicateTo"`
 }
 
 type DeploymentSummary struct {
-	CompletedAt                 time.Time `json:"completedAt" xml:"CompletedAt"`
-	ConfigurationName           string    `json:"configurationName" xml:"ConfigurationName"`
-	ConfigurationVersion        string    `json:"configurationVersion" xml:"ConfigurationVersion"`
-	DeploymentDurationInMinutes int32     `json:"deploymentDurationInMinutes" xml:"DeploymentDurationInMinutes"`
-	DeploymentNumber            int32     `json:"deploymentNumber" xml:"DeploymentNumber"`
-	FinalBakeTimeInMinutes      int32     `json:"finalBakeTimeInMinutes" xml:"FinalBakeTimeInMinutes"`
-	GrowthFactor                float32   `json:"growthFactor" xml:"GrowthFactor"`
-	GrowthType                  string    `json:"growthType" xml:"GrowthType"`
-	PercentageComplete          float32   `json:"percentageComplete" xml:"PercentageComplete"`
-	StartedAt                   time.Time `json:"startedAt" xml:"StartedAt"`
-	State                       string    `json:"state" xml:"State"`
-	VersionLabel                string    `json:"versionLabel" xml:"VersionLabel"`
+CompletedAt time.Time `json:"completedAt" xml:"CompletedAt"`
+ConfigurationName string `json:"configurationName" xml:"ConfigurationName"`
+ConfigurationVersion string `json:"configurationVersion" xml:"ConfigurationVersion"`
+DeploymentDurationInMinutes int32 `json:"deploymentDurationInMinutes" xml:"DeploymentDurationInMinutes"`
+DeploymentNumber int32 `json:"deploymentNumber" xml:"DeploymentNumber"`
+FinalBakeTimeInMinutes int32 `json:"finalBakeTimeInMinutes" xml:"FinalBakeTimeInMinutes"`
+GrowthFactor float32 `json:"growthFactor" xml:"GrowthFactor"`
+GrowthType string `json:"growthType" xml:"GrowthType"`
+PercentageComplete float32 `json:"percentageComplete" xml:"PercentageComplete"`
+StartedAt time.Time `json:"startedAt" xml:"StartedAt"`
+State string `json:"state" xml:"State"`
+VersionLabel string `json:"versionLabel" xml:"VersionLabel"`
 }
 
 type Deployments struct {
-	Items     DeploymentList `json:"items" xml:"Items"`
-	NextToken string         `json:"nextToken" xml:"NextToken"`
+Items DeploymentList `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type Environment struct {
-	ApplicationId string      `json:"applicationId" xml:"ApplicationId"`
-	Description   string      `json:"description" xml:"Description"`
-	Id            string      `json:"id" xml:"Id"`
-	Monitors      MonitorList `json:"monitors" xml:"Monitors"`
-	Name          string      `json:"name" xml:"Name"`
-	State         string      `json:"state" xml:"State"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+Monitors MonitorList `json:"monitors" xml:"Monitors"`
+Name string `json:"name" xml:"Name"`
+State string `json:"state" xml:"State"`
 }
 
 type Environments struct {
-	Items     EnvironmentList `json:"items" xml:"Items"`
-	NextToken string          `json:"nextToken" xml:"NextToken"`
+Items EnvironmentList `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type Extension struct {
-	Actions       ActionsMap   `json:"actions" xml:"Actions"`
-	Arn           string       `json:"arn" xml:"Arn"`
-	Description   string       `json:"description" xml:"Description"`
-	Id            string       `json:"id" xml:"Id"`
-	Name          string       `json:"name" xml:"Name"`
-	Parameters    ParameterMap `json:"parameters" xml:"Parameters"`
-	VersionNumber int32        `json:"versionNumber" xml:"VersionNumber"`
+Actions ActionsMap `json:"actions" xml:"Actions"`
+Arn string `json:"arn" xml:"Arn"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Parameters ParameterMap `json:"parameters" xml:"Parameters"`
+VersionNumber int32 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type ExtensionAssociation struct {
-	Arn                    string            `json:"arn" xml:"Arn"`
-	ExtensionArn           string            `json:"extensionArn" xml:"ExtensionArn"`
-	ExtensionVersionNumber int32             `json:"extensionVersionNumber" xml:"ExtensionVersionNumber"`
-	Id                     string            `json:"id" xml:"Id"`
-	Parameters             ParameterValueMap `json:"parameters" xml:"Parameters"`
-	ResourceArn            string            `json:"resourceArn" xml:"ResourceArn"`
+Arn string `json:"arn" xml:"Arn"`
+ExtensionArn string `json:"extensionArn" xml:"ExtensionArn"`
+ExtensionVersionNumber int32 `json:"extensionVersionNumber" xml:"ExtensionVersionNumber"`
+Id string `json:"id" xml:"Id"`
+Parameters ParameterValueMap `json:"parameters" xml:"Parameters"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ExtensionAssociationSummary struct {
-	ExtensionArn string `json:"extensionArn" xml:"ExtensionArn"`
-	Id           string `json:"id" xml:"Id"`
-	ResourceArn  string `json:"resourceArn" xml:"ResourceArn"`
+ExtensionArn string `json:"extensionArn" xml:"ExtensionArn"`
+Id string `json:"id" xml:"Id"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ExtensionAssociations struct {
-	Items     ExtensionAssociationSummaries `json:"items" xml:"Items"`
-	NextToken string                        `json:"nextToken" xml:"NextToken"`
+Items ExtensionAssociationSummaries `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ExtensionSummary struct {
-	Arn           string `json:"arn" xml:"Arn"`
-	Description   string `json:"description" xml:"Description"`
-	Id            string `json:"id" xml:"Id"`
-	Name          string `json:"name" xml:"Name"`
-	VersionNumber int32  `json:"versionNumber" xml:"VersionNumber"`
+Arn string `json:"arn" xml:"Arn"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+VersionNumber int32 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type Extensions struct {
-	Items     ExtensionSummaries `json:"items" xml:"Items"`
-	NextToken string             `json:"nextToken" xml:"NextToken"`
+Items ExtensionSummaries `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetApplicationRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetConfigurationProfileRequest struct {
-	ApplicationId          string `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
 }
 
 type GetConfigurationRequest struct {
-	Application                string `json:"application" xml:"Application"`
-	ClientConfigurationVersion string `json:"clientConfigurationVersion" xml:"ClientConfigurationVersion"`
-	ClientId                   string `json:"clientId" xml:"ClientId"`
-	Configuration              string `json:"configuration" xml:"Configuration"`
-	Environment                string `json:"environment" xml:"Environment"`
+Application string `json:"application" xml:"Application"`
+ClientConfigurationVersion string `json:"clientConfigurationVersion" xml:"ClientConfigurationVersion"`
+ClientId string `json:"clientId" xml:"ClientId"`
+Configuration string `json:"configuration" xml:"Configuration"`
+Environment string `json:"environment" xml:"Environment"`
 }
 
 type GetDeploymentRequest struct {
-	ApplicationId    string `json:"applicationId" xml:"ApplicationId"`
-	DeploymentNumber int32  `json:"deploymentNumber" xml:"DeploymentNumber"`
-	EnvironmentId    string `json:"environmentId" xml:"EnvironmentId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+DeploymentNumber int32 `json:"deploymentNumber" xml:"DeploymentNumber"`
+EnvironmentId string `json:"environmentId" xml:"EnvironmentId"`
 }
 
 type GetDeploymentStrategyRequest struct {
-	DeploymentStrategyId string `json:"deploymentStrategyId" xml:"DeploymentStrategyId"`
+DeploymentStrategyId string `json:"deploymentStrategyId" xml:"DeploymentStrategyId"`
 }
 
 type GetEnvironmentRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	EnvironmentId string `json:"environmentId" xml:"EnvironmentId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EnvironmentId string `json:"environmentId" xml:"EnvironmentId"`
 }
 
 type GetExtensionAssociationRequest struct {
-	ExtensionAssociationId string `json:"extensionAssociationId" xml:"ExtensionAssociationId"`
+ExtensionAssociationId string `json:"extensionAssociationId" xml:"ExtensionAssociationId"`
 }
 
 type GetExtensionRequest struct {
-	ExtensionIdentifier string `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
-	VersionNumber       int32  `json:"versionNumber" xml:"VersionNumber"`
+ExtensionIdentifier string `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
+VersionNumber int32 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type GetHostedConfigurationVersionRequest struct {
-	ApplicationId          string `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
-	VersionNumber          int32  `json:"versionNumber" xml:"VersionNumber"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+VersionNumber int32 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type HostedConfigurationVersion struct {
-	ApplicationId          string `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
-	Content                []byte `json:"content" xml:"Content"`
-	ContentType            string `json:"contentType" xml:"ContentType"`
-	Description            string `json:"description" xml:"Description"`
-	KmsKeyArn              string `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	VersionLabel           string `json:"versionLabel" xml:"VersionLabel"`
-	VersionNumber          int32  `json:"versionNumber" xml:"VersionNumber"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+Content []byte `json:"content" xml:"Content"`
+ContentType string `json:"contentType" xml:"ContentType"`
+Description string `json:"description" xml:"Description"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+VersionLabel string `json:"versionLabel" xml:"VersionLabel"`
+VersionNumber int32 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type HostedConfigurationVersionSummary struct {
-	ApplicationId          string `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
-	ContentType            string `json:"contentType" xml:"ContentType"`
-	Description            string `json:"description" xml:"Description"`
-	KmsKeyArn              string `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	VersionLabel           string `json:"versionLabel" xml:"VersionLabel"`
-	VersionNumber          int32  `json:"versionNumber" xml:"VersionNumber"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+ContentType string `json:"contentType" xml:"ContentType"`
+Description string `json:"description" xml:"Description"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+VersionLabel string `json:"versionLabel" xml:"VersionLabel"`
+VersionNumber int32 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type HostedConfigurationVersions struct {
-	Items     HostedConfigurationVersionSummaryList `json:"items" xml:"Items"`
-	NextToken string                                `json:"nextToken" xml:"NextToken"`
+Items HostedConfigurationVersionSummaryList `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type InvalidConfigurationDetail struct {
-	Constraint string `json:"constraint" xml:"Constraint"`
-	Location   string `json:"location" xml:"Location"`
-	Reason     string `json:"reason" xml:"Reason"`
-	Type       string `json:"type" xml:"Type"`
-	Value      string `json:"value" xml:"Value"`
+Constraint string `json:"constraint" xml:"Constraint"`
+Location string `json:"location" xml:"Location"`
+Reason string `json:"reason" xml:"Reason"`
+Type string `json:"type" xml:"Type"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ListApplicationsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListConfigurationProfilesRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	MaxResults    int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
-	Type          string `json:"type" xml:"Type"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ListDeploymentStrategiesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDeploymentsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	EnvironmentId string `json:"environmentId" xml:"EnvironmentId"`
-	MaxResults    int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EnvironmentId string `json:"environmentId" xml:"EnvironmentId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListEnvironmentsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	MaxResults    int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListExtensionAssociationsRequest struct {
-	ExtensionIdentifier    string `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
-	ExtensionVersionNumber int32  `json:"extensionVersionNumber" xml:"ExtensionVersionNumber"`
-	MaxResults             int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken              string `json:"nextToken" xml:"NextToken"`
-	ResourceIdentifier     string `json:"resourceIdentifier" xml:"ResourceIdentifier"`
+ExtensionIdentifier string `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
+ExtensionVersionNumber int32 `json:"extensionVersionNumber" xml:"ExtensionVersionNumber"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceIdentifier string `json:"resourceIdentifier" xml:"ResourceIdentifier"`
 }
 
 type ListExtensionsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	Name       string `json:"name" xml:"Name"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+Name string `json:"name" xml:"Name"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListHostedConfigurationVersionsRequest struct {
-	ApplicationId          string `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
-	MaxResults             int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken              string `json:"nextToken" xml:"NextToken"`
-	VersionLabel           string `json:"versionLabel" xml:"VersionLabel"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+VersionLabel string `json:"versionLabel" xml:"VersionLabel"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type Monitor struct {
-	AlarmArn     string `json:"alarmArn" xml:"AlarmArn"`
-	AlarmRoleArn string `json:"alarmRoleArn" xml:"AlarmRoleArn"`
+AlarmArn string `json:"alarmArn" xml:"AlarmArn"`
+AlarmRoleArn string `json:"alarmRoleArn" xml:"AlarmRoleArn"`
 }
 
 type Parameter struct {
-	Description string `json:"description" xml:"Description"`
-	Dynamic     bool   `json:"dynamic" xml:"Dynamic"`
-	Required    bool   `json:"required" xml:"Required"`
+Description string `json:"description" xml:"Description"`
+Dynamic bool `json:"dynamic" xml:"Dynamic"`
+Required bool `json:"required" xml:"Required"`
 }
 
 type ResourceTags struct {
-	Tags TagMap `json:"tags" xml:"Tags"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type SmithyUnit struct {
 }
 
 type StartDeploymentRequest struct {
-	ApplicationId              string              `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationProfileId     string              `json:"configurationProfileId" xml:"ConfigurationProfileId"`
-	ConfigurationVersion       string              `json:"configurationVersion" xml:"ConfigurationVersion"`
-	DeploymentStrategyId       string              `json:"deploymentStrategyId" xml:"DeploymentStrategyId"`
-	Description                string              `json:"description" xml:"Description"`
-	DynamicExtensionParameters DynamicParameterMap `json:"dynamicExtensionParameters" xml:"DynamicExtensionParameters"`
-	EnvironmentId              string              `json:"environmentId" xml:"EnvironmentId"`
-	KmsKeyIdentifier           string              `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	Tags                       TagMap              `json:"tags" xml:"Tags"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+ConfigurationVersion string `json:"configurationVersion" xml:"ConfigurationVersion"`
+DeploymentStrategyId string `json:"deploymentStrategyId" xml:"DeploymentStrategyId"`
+Description string `json:"description" xml:"Description"`
+DynamicExtensionParameters DynamicParameterMap `json:"dynamicExtensionParameters" xml:"DynamicExtensionParameters"`
+EnvironmentId string `json:"environmentId" xml:"EnvironmentId"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type StopDeploymentRequest struct {
-	AllowRevert      bool   `json:"allowRevert" xml:"AllowRevert"`
-	ApplicationId    string `json:"applicationId" xml:"ApplicationId"`
-	DeploymentNumber int32  `json:"deploymentNumber" xml:"DeploymentNumber"`
-	EnvironmentId    string `json:"environmentId" xml:"EnvironmentId"`
+AllowRevert bool `json:"allowRevert" xml:"AllowRevert"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+DeploymentNumber int32 `json:"deploymentNumber" xml:"DeploymentNumber"`
+EnvironmentId string `json:"environmentId" xml:"EnvironmentId"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
-	Tags        TagMap `json:"tags" xml:"Tags"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string     `json:"resourceArn" xml:"ResourceArn"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UpdateAccountSettingsRequest struct {
-	DeletionProtection *DeletionProtectionSettings `json:"deletionProtection" xml:"DeletionProtection"`
+DeletionProtection *DeletionProtectionSettings `json:"deletionProtection" xml:"DeletionProtection"`
 }
 
 type UpdateApplicationRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	Description   string `json:"description" xml:"Description"`
-	Name          string `json:"name" xml:"Name"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateConfigurationProfileRequest struct {
-	ApplicationId          string        `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationProfileId string        `json:"configurationProfileId" xml:"ConfigurationProfileId"`
-	Description            string        `json:"description" xml:"Description"`
-	KmsKeyIdentifier       string        `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	Name                   string        `json:"name" xml:"Name"`
-	RetrievalRoleArn       string        `json:"retrievalRoleArn" xml:"RetrievalRoleArn"`
-	Validators             ValidatorList `json:"validators" xml:"Validators"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+Description string `json:"description" xml:"Description"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+Name string `json:"name" xml:"Name"`
+RetrievalRoleArn string `json:"retrievalRoleArn" xml:"RetrievalRoleArn"`
+Validators ValidatorList `json:"validators" xml:"Validators"`
 }
 
 type UpdateDeploymentStrategyRequest struct {
-	DeploymentDurationInMinutes int32   `json:"deploymentDurationInMinutes" xml:"DeploymentDurationInMinutes"`
-	DeploymentStrategyId        string  `json:"deploymentStrategyId" xml:"DeploymentStrategyId"`
-	Description                 string  `json:"description" xml:"Description"`
-	FinalBakeTimeInMinutes      int32   `json:"finalBakeTimeInMinutes" xml:"FinalBakeTimeInMinutes"`
-	GrowthFactor                float32 `json:"growthFactor" xml:"GrowthFactor"`
-	GrowthType                  string  `json:"growthType" xml:"GrowthType"`
+DeploymentDurationInMinutes int32 `json:"deploymentDurationInMinutes" xml:"DeploymentDurationInMinutes"`
+DeploymentStrategyId string `json:"deploymentStrategyId" xml:"DeploymentStrategyId"`
+Description string `json:"description" xml:"Description"`
+FinalBakeTimeInMinutes int32 `json:"finalBakeTimeInMinutes" xml:"FinalBakeTimeInMinutes"`
+GrowthFactor float32 `json:"growthFactor" xml:"GrowthFactor"`
+GrowthType string `json:"growthType" xml:"GrowthType"`
 }
 
 type UpdateEnvironmentRequest struct {
-	ApplicationId string      `json:"applicationId" xml:"ApplicationId"`
-	Description   string      `json:"description" xml:"Description"`
-	EnvironmentId string      `json:"environmentId" xml:"EnvironmentId"`
-	Monitors      MonitorList `json:"monitors" xml:"Monitors"`
-	Name          string      `json:"name" xml:"Name"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+Description string `json:"description" xml:"Description"`
+EnvironmentId string `json:"environmentId" xml:"EnvironmentId"`
+Monitors MonitorList `json:"monitors" xml:"Monitors"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateExtensionAssociationRequest struct {
-	ExtensionAssociationId string            `json:"extensionAssociationId" xml:"ExtensionAssociationId"`
-	Parameters             ParameterValueMap `json:"parameters" xml:"Parameters"`
+ExtensionAssociationId string `json:"extensionAssociationId" xml:"ExtensionAssociationId"`
+Parameters ParameterValueMap `json:"parameters" xml:"Parameters"`
 }
 
 type UpdateExtensionRequest struct {
-	Actions             ActionsMap   `json:"actions" xml:"Actions"`
-	Description         string       `json:"description" xml:"Description"`
-	ExtensionIdentifier string       `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
-	Parameters          ParameterMap `json:"parameters" xml:"Parameters"`
-	VersionNumber       int32        `json:"versionNumber" xml:"VersionNumber"`
+Actions ActionsMap `json:"actions" xml:"Actions"`
+Description string `json:"description" xml:"Description"`
+ExtensionIdentifier string `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
+Parameters ParameterMap `json:"parameters" xml:"Parameters"`
+VersionNumber int32 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type ValidateConfigurationRequest struct {
-	ApplicationId          string `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
-	ConfigurationVersion   string `json:"configurationVersion" xml:"ConfigurationVersion"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationProfileId string `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+ConfigurationVersion string `json:"configurationVersion" xml:"ConfigurationVersion"`
 }
 
 type Validator struct {
-	Content string `json:"content" xml:"Content"`
-	Type    string `json:"type" xml:"Type"`
+Content string `json:"content" xml:"Content"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ActionInvocations []*ActionInvocation
@@ -598,3 +598,4 @@ type ParameterValueMap map[string]string
 type TagMap map[string]string
 
 type BadRequestDetails interface{}
+

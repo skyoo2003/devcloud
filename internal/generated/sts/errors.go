@@ -207,3 +207,4 @@ func (e *SessionDurationEscalationException) ErrorCode() string {
 func (e *SessionDurationEscalationException) HTTPStatus() int {
 	return 403
 }
+

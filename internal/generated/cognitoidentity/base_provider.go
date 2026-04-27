@@ -102,3 +102,4 @@ func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceIn
 func (b *BaseProvider) UpdateIdentityPool(ctx context.Context, input *IdentityPool) (*IdentityPool, error) {
 	return nil, fmt.Errorf("UpdateIdentityPool: %w", ErrNotImplemented)
 }
+

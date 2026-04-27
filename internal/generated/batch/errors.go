@@ -37,3 +37,4 @@ func (e *ServerException) ErrorCode() string {
 func (e *ServerException) HTTPStatus() int {
 	return 500
 }
+

@@ -2626,3 +2626,4 @@ func SerializeVerifyDnsConfigurationResult(w http.ResponseWriter, output *Verify
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

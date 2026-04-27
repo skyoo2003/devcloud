@@ -282,3 +282,4 @@ func (b *BaseProvider) UpdateResolverEndpoint(ctx context.Context, input *Update
 func (b *BaseProvider) UpdateResolverRule(ctx context.Context, input *UpdateResolverRuleRequest) (*UpdateResolverRuleResponse, error) {
 	return nil, fmt.Errorf("UpdateResolverRule: %w", ErrNotImplemented)
 }
+

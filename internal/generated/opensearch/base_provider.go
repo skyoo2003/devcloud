@@ -358,3 +358,4 @@ func (b *BaseProvider) UpdateVpcEndpoint(ctx context.Context, input *UpdateVpcEn
 func (b *BaseProvider) UpgradeDomain(ctx context.Context, input *UpgradeDomainRequest) (*UpgradeDomainResponse, error) {
 	return nil, fmt.Errorf("UpgradeDomain: %w", ErrNotImplemented)
 }
+

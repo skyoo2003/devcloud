@@ -564,3 +564,4 @@ func (e *VersionsLimitExceededException) ErrorCode() string {
 func (e *VersionsLimitExceededException) HTTPStatus() int {
 	return 409
 }
+

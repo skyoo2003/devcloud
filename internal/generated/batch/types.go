@@ -2,1550 +2,1551 @@
 // SPDX-License-Identifier: Apache-2.0
 package batch
 
+
 type ArrayProperties struct {
-	Size int32 `json:"size" xml:"size"`
+Size int32 `json:"size" xml:"size"`
 }
 
 type ArrayPropertiesDetail struct {
-	Index                      int32                 `json:"index" xml:"index"`
-	Size                       int32                 `json:"size" xml:"size"`
-	StatusSummary              ArrayJobStatusSummary `json:"statusSummary" xml:"statusSummary"`
-	StatusSummaryLastUpdatedAt int64                 `json:"statusSummaryLastUpdatedAt" xml:"statusSummaryLastUpdatedAt"`
+Index int32 `json:"index" xml:"index"`
+Size int32 `json:"size" xml:"size"`
+StatusSummary ArrayJobStatusSummary `json:"statusSummary" xml:"statusSummary"`
+StatusSummaryLastUpdatedAt int64 `json:"statusSummaryLastUpdatedAt" xml:"statusSummaryLastUpdatedAt"`
 }
 
 type ArrayPropertiesSummary struct {
-	Index                      int32                 `json:"index" xml:"index"`
-	Size                       int32                 `json:"size" xml:"size"`
-	StatusSummary              ArrayJobStatusSummary `json:"statusSummary" xml:"statusSummary"`
-	StatusSummaryLastUpdatedAt int64                 `json:"statusSummaryLastUpdatedAt" xml:"statusSummaryLastUpdatedAt"`
+Index int32 `json:"index" xml:"index"`
+Size int32 `json:"size" xml:"size"`
+StatusSummary ArrayJobStatusSummary `json:"statusSummary" xml:"statusSummary"`
+StatusSummaryLastUpdatedAt int64 `json:"statusSummaryLastUpdatedAt" xml:"statusSummaryLastUpdatedAt"`
 }
 
 type AttemptContainerDetail struct {
-	ContainerInstanceArn string               `json:"containerInstanceArn" xml:"containerInstanceArn"`
-	ExitCode             int32                `json:"exitCode" xml:"exitCode"`
-	LogStreamName        string               `json:"logStreamName" xml:"logStreamName"`
-	NetworkInterfaces    NetworkInterfaceList `json:"networkInterfaces" xml:"networkInterfaces"`
-	Reason               string               `json:"reason" xml:"reason"`
-	TaskArn              string               `json:"taskArn" xml:"taskArn"`
+ContainerInstanceArn string `json:"containerInstanceArn" xml:"containerInstanceArn"`
+ExitCode int32 `json:"exitCode" xml:"exitCode"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+NetworkInterfaces NetworkInterfaceList `json:"networkInterfaces" xml:"networkInterfaces"`
+Reason string `json:"reason" xml:"reason"`
+TaskArn string `json:"taskArn" xml:"taskArn"`
 }
 
 type AttemptDetail struct {
-	Container      *AttemptContainerDetail   `json:"container" xml:"container"`
-	StartedAt      int64                     `json:"startedAt" xml:"startedAt"`
-	StatusReason   string                    `json:"statusReason" xml:"statusReason"`
-	StoppedAt      int64                     `json:"stoppedAt" xml:"stoppedAt"`
-	TaskProperties ListAttemptEcsTaskDetails `json:"taskProperties" xml:"taskProperties"`
+Container *AttemptContainerDetail `json:"container" xml:"container"`
+StartedAt int64 `json:"startedAt" xml:"startedAt"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+StoppedAt int64 `json:"stoppedAt" xml:"stoppedAt"`
+TaskProperties ListAttemptEcsTaskDetails `json:"taskProperties" xml:"taskProperties"`
 }
 
 type AttemptEcsTaskDetails struct {
-	ContainerInstanceArn string                          `json:"containerInstanceArn" xml:"containerInstanceArn"`
-	Containers           ListAttemptTaskContainerDetails `json:"containers" xml:"containers"`
-	TaskArn              string                          `json:"taskArn" xml:"taskArn"`
+ContainerInstanceArn string `json:"containerInstanceArn" xml:"containerInstanceArn"`
+Containers ListAttemptTaskContainerDetails `json:"containers" xml:"containers"`
+TaskArn string `json:"taskArn" xml:"taskArn"`
 }
 
 type AttemptTaskContainerDetails struct {
-	ExitCode          int32                `json:"exitCode" xml:"exitCode"`
-	LogStreamName     string               `json:"logStreamName" xml:"logStreamName"`
-	Name              string               `json:"name" xml:"name"`
-	NetworkInterfaces NetworkInterfaceList `json:"networkInterfaces" xml:"networkInterfaces"`
-	Reason            string               `json:"reason" xml:"reason"`
+ExitCode int32 `json:"exitCode" xml:"exitCode"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+Name string `json:"name" xml:"name"`
+NetworkInterfaces NetworkInterfaceList `json:"networkInterfaces" xml:"networkInterfaces"`
+Reason string `json:"reason" xml:"reason"`
 }
 
 type CancelJobRequest struct {
-	JobId  string `json:"jobId" xml:"jobId"`
-	Reason string `json:"reason" xml:"reason"`
+JobId string `json:"jobId" xml:"jobId"`
+Reason string `json:"reason" xml:"reason"`
 }
 
 type CancelJobResponse struct {
 }
 
 type CapacityLimit struct {
-	CapacityUnit string `json:"capacityUnit" xml:"capacityUnit"`
-	MaxCapacity  int32  `json:"maxCapacity" xml:"maxCapacity"`
+CapacityUnit string `json:"capacityUnit" xml:"capacityUnit"`
+MaxCapacity int32 `json:"maxCapacity" xml:"maxCapacity"`
 }
 
 type ComputeEnvironmentDetail struct {
-	ComputeEnvironmentArn      string            `json:"computeEnvironmentArn" xml:"computeEnvironmentArn"`
-	ComputeEnvironmentName     string            `json:"computeEnvironmentName" xml:"computeEnvironmentName"`
-	ComputeResources           *ComputeResource  `json:"computeResources" xml:"computeResources"`
-	ContainerOrchestrationType string            `json:"containerOrchestrationType" xml:"containerOrchestrationType"`
-	Context                    string            `json:"context" xml:"context"`
-	EcsClusterArn              string            `json:"ecsClusterArn" xml:"ecsClusterArn"`
-	EksConfiguration           *EksConfiguration `json:"eksConfiguration" xml:"eksConfiguration"`
-	ServiceRole                string            `json:"serviceRole" xml:"serviceRole"`
-	State                      string            `json:"state" xml:"state"`
-	Status                     string            `json:"status" xml:"status"`
-	StatusReason               string            `json:"statusReason" xml:"statusReason"`
-	Tags                       TagrisTagsMap     `json:"tags" xml:"tags"`
-	Type                       string            `json:"type" xml:"type"`
-	UnmanagedvCpus             int32             `json:"unmanagedvCpus" xml:"unmanagedvCpus"`
-	UpdatePolicy               *UpdatePolicy     `json:"updatePolicy" xml:"updatePolicy"`
-	Uuid                       string            `json:"uuid" xml:"uuid"`
+ComputeEnvironmentArn string `json:"computeEnvironmentArn" xml:"computeEnvironmentArn"`
+ComputeEnvironmentName string `json:"computeEnvironmentName" xml:"computeEnvironmentName"`
+ComputeResources *ComputeResource `json:"computeResources" xml:"computeResources"`
+ContainerOrchestrationType string `json:"containerOrchestrationType" xml:"containerOrchestrationType"`
+Context string `json:"context" xml:"context"`
+EcsClusterArn string `json:"ecsClusterArn" xml:"ecsClusterArn"`
+EksConfiguration *EksConfiguration `json:"eksConfiguration" xml:"eksConfiguration"`
+ServiceRole string `json:"serviceRole" xml:"serviceRole"`
+State string `json:"state" xml:"state"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
+Type string `json:"type" xml:"type"`
+UnmanagedvCpus int32 `json:"unmanagedvCpus" xml:"unmanagedvCpus"`
+UpdatePolicy *UpdatePolicy `json:"updatePolicy" xml:"updatePolicy"`
+Uuid string `json:"uuid" xml:"uuid"`
 }
 
 type ComputeEnvironmentOrder struct {
-	ComputeEnvironment string `json:"computeEnvironment" xml:"computeEnvironment"`
-	Order              int32  `json:"order" xml:"order"`
+ComputeEnvironment string `json:"computeEnvironment" xml:"computeEnvironment"`
+Order int32 `json:"order" xml:"order"`
 }
 
 type ComputeResource struct {
-	AllocationStrategy string                       `json:"allocationStrategy" xml:"allocationStrategy"`
-	BidPercentage      int32                        `json:"bidPercentage" xml:"bidPercentage"`
-	DesiredvCpus       int32                        `json:"desiredvCpus" xml:"desiredvCpus"`
-	Ec2Configuration   Ec2ConfigurationList         `json:"ec2Configuration" xml:"ec2Configuration"`
-	Ec2KeyPair         string                       `json:"ec2KeyPair" xml:"ec2KeyPair"`
-	ImageId            string                       `json:"imageId" xml:"imageId"`
-	InstanceRole       string                       `json:"instanceRole" xml:"instanceRole"`
-	InstanceTypes      StringList                   `json:"instanceTypes" xml:"instanceTypes"`
-	LaunchTemplate     *LaunchTemplateSpecification `json:"launchTemplate" xml:"launchTemplate"`
-	MaxvCpus           int32                        `json:"maxvCpus" xml:"maxvCpus"`
-	MinvCpus           int32                        `json:"minvCpus" xml:"minvCpus"`
-	PlacementGroup     string                       `json:"placementGroup" xml:"placementGroup"`
-	ScalingPolicy      *ComputeScalingPolicy        `json:"scalingPolicy" xml:"scalingPolicy"`
-	SecurityGroupIds   StringList                   `json:"securityGroupIds" xml:"securityGroupIds"`
-	SpotIamFleetRole   string                       `json:"spotIamFleetRole" xml:"spotIamFleetRole"`
-	Subnets            StringList                   `json:"subnets" xml:"subnets"`
-	Tags               TagsMap                      `json:"tags" xml:"tags"`
-	Type               string                       `json:"type" xml:"type"`
+AllocationStrategy string `json:"allocationStrategy" xml:"allocationStrategy"`
+BidPercentage int32 `json:"bidPercentage" xml:"bidPercentage"`
+DesiredvCpus int32 `json:"desiredvCpus" xml:"desiredvCpus"`
+Ec2Configuration Ec2ConfigurationList `json:"ec2Configuration" xml:"ec2Configuration"`
+Ec2KeyPair string `json:"ec2KeyPair" xml:"ec2KeyPair"`
+ImageId string `json:"imageId" xml:"imageId"`
+InstanceRole string `json:"instanceRole" xml:"instanceRole"`
+InstanceTypes StringList `json:"instanceTypes" xml:"instanceTypes"`
+LaunchTemplate *LaunchTemplateSpecification `json:"launchTemplate" xml:"launchTemplate"`
+MaxvCpus int32 `json:"maxvCpus" xml:"maxvCpus"`
+MinvCpus int32 `json:"minvCpus" xml:"minvCpus"`
+PlacementGroup string `json:"placementGroup" xml:"placementGroup"`
+ScalingPolicy *ComputeScalingPolicy `json:"scalingPolicy" xml:"scalingPolicy"`
+SecurityGroupIds StringList `json:"securityGroupIds" xml:"securityGroupIds"`
+SpotIamFleetRole string `json:"spotIamFleetRole" xml:"spotIamFleetRole"`
+Subnets StringList `json:"subnets" xml:"subnets"`
+Tags TagsMap `json:"tags" xml:"tags"`
+Type string `json:"type" xml:"type"`
 }
 
 type ComputeResourceUpdate struct {
-	AllocationStrategy         string                       `json:"allocationStrategy" xml:"allocationStrategy"`
-	BidPercentage              int32                        `json:"bidPercentage" xml:"bidPercentage"`
-	DesiredvCpus               int32                        `json:"desiredvCpus" xml:"desiredvCpus"`
-	Ec2Configuration           Ec2ConfigurationList         `json:"ec2Configuration" xml:"ec2Configuration"`
-	Ec2KeyPair                 string                       `json:"ec2KeyPair" xml:"ec2KeyPair"`
-	ImageId                    string                       `json:"imageId" xml:"imageId"`
-	InstanceRole               string                       `json:"instanceRole" xml:"instanceRole"`
-	InstanceTypes              StringList                   `json:"instanceTypes" xml:"instanceTypes"`
-	LaunchTemplate             *LaunchTemplateSpecification `json:"launchTemplate" xml:"launchTemplate"`
-	MaxvCpus                   int32                        `json:"maxvCpus" xml:"maxvCpus"`
-	MinvCpus                   int32                        `json:"minvCpus" xml:"minvCpus"`
-	PlacementGroup             string                       `json:"placementGroup" xml:"placementGroup"`
-	ScalingPolicy              *ComputeScalingPolicy        `json:"scalingPolicy" xml:"scalingPolicy"`
-	SecurityGroupIds           StringList                   `json:"securityGroupIds" xml:"securityGroupIds"`
-	Subnets                    StringList                   `json:"subnets" xml:"subnets"`
-	Tags                       TagsMap                      `json:"tags" xml:"tags"`
-	Type                       string                       `json:"type" xml:"type"`
-	UpdateToLatestImageVersion bool                         `json:"updateToLatestImageVersion" xml:"updateToLatestImageVersion"`
+AllocationStrategy string `json:"allocationStrategy" xml:"allocationStrategy"`
+BidPercentage int32 `json:"bidPercentage" xml:"bidPercentage"`
+DesiredvCpus int32 `json:"desiredvCpus" xml:"desiredvCpus"`
+Ec2Configuration Ec2ConfigurationList `json:"ec2Configuration" xml:"ec2Configuration"`
+Ec2KeyPair string `json:"ec2KeyPair" xml:"ec2KeyPair"`
+ImageId string `json:"imageId" xml:"imageId"`
+InstanceRole string `json:"instanceRole" xml:"instanceRole"`
+InstanceTypes StringList `json:"instanceTypes" xml:"instanceTypes"`
+LaunchTemplate *LaunchTemplateSpecification `json:"launchTemplate" xml:"launchTemplate"`
+MaxvCpus int32 `json:"maxvCpus" xml:"maxvCpus"`
+MinvCpus int32 `json:"minvCpus" xml:"minvCpus"`
+PlacementGroup string `json:"placementGroup" xml:"placementGroup"`
+ScalingPolicy *ComputeScalingPolicy `json:"scalingPolicy" xml:"scalingPolicy"`
+SecurityGroupIds StringList `json:"securityGroupIds" xml:"securityGroupIds"`
+Subnets StringList `json:"subnets" xml:"subnets"`
+Tags TagsMap `json:"tags" xml:"tags"`
+Type string `json:"type" xml:"type"`
+UpdateToLatestImageVersion bool `json:"updateToLatestImageVersion" xml:"updateToLatestImageVersion"`
 }
 
 type ComputeScalingPolicy struct {
-	MinScaleDownDelayMinutes int32 `json:"minScaleDownDelayMinutes" xml:"minScaleDownDelayMinutes"`
+MinScaleDownDelayMinutes int32 `json:"minScaleDownDelayMinutes" xml:"minScaleDownDelayMinutes"`
 }
 
 type ConsumableResourceProperties struct {
-	ConsumableResourceList ConsumableResourceList `json:"consumableResourceList" xml:"consumableResourceList"`
+ConsumableResourceList ConsumableResourceList `json:"consumableResourceList" xml:"consumableResourceList"`
 }
 
 type ConsumableResourceRequirement struct {
-	ConsumableResource string `json:"consumableResource" xml:"consumableResource"`
-	Quantity           int64  `json:"quantity" xml:"quantity"`
+ConsumableResource string `json:"consumableResource" xml:"consumableResource"`
+Quantity int64 `json:"quantity" xml:"quantity"`
 }
 
 type ConsumableResourceSummary struct {
-	ConsumableResourceArn  string `json:"consumableResourceArn" xml:"consumableResourceArn"`
-	ConsumableResourceName string `json:"consumableResourceName" xml:"consumableResourceName"`
-	InUseQuantity          int64  `json:"inUseQuantity" xml:"inUseQuantity"`
-	ResourceType           string `json:"resourceType" xml:"resourceType"`
-	TotalQuantity          int64  `json:"totalQuantity" xml:"totalQuantity"`
+ConsumableResourceArn string `json:"consumableResourceArn" xml:"consumableResourceArn"`
+ConsumableResourceName string `json:"consumableResourceName" xml:"consumableResourceName"`
+InUseQuantity int64 `json:"inUseQuantity" xml:"inUseQuantity"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+TotalQuantity int64 `json:"totalQuantity" xml:"totalQuantity"`
 }
 
 type ContainerDetail struct {
-	Command                      StringList                    `json:"command" xml:"command"`
-	ContainerInstanceArn         string                        `json:"containerInstanceArn" xml:"containerInstanceArn"`
-	EnableExecuteCommand         bool                          `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	Environment                  EnvironmentVariables          `json:"environment" xml:"environment"`
-	EphemeralStorage             *EphemeralStorage             `json:"ephemeralStorage" xml:"ephemeralStorage"`
-	ExecutionRoleArn             string                        `json:"executionRoleArn" xml:"executionRoleArn"`
-	ExitCode                     int32                         `json:"exitCode" xml:"exitCode"`
-	FargatePlatformConfiguration *FargatePlatformConfiguration `json:"fargatePlatformConfiguration" xml:"fargatePlatformConfiguration"`
-	Image                        string                        `json:"image" xml:"image"`
-	InstanceType                 string                        `json:"instanceType" xml:"instanceType"`
-	JobRoleArn                   string                        `json:"jobRoleArn" xml:"jobRoleArn"`
-	LinuxParameters              *LinuxParameters              `json:"linuxParameters" xml:"linuxParameters"`
-	LogConfiguration             *LogConfiguration             `json:"logConfiguration" xml:"logConfiguration"`
-	LogStreamName                string                        `json:"logStreamName" xml:"logStreamName"`
-	Memory                       int32                         `json:"memory" xml:"memory"`
-	MountPoints                  MountPoints                   `json:"mountPoints" xml:"mountPoints"`
-	NetworkConfiguration         *NetworkConfiguration         `json:"networkConfiguration" xml:"networkConfiguration"`
-	NetworkInterfaces            NetworkInterfaceList          `json:"networkInterfaces" xml:"networkInterfaces"`
-	Privileged                   bool                          `json:"privileged" xml:"privileged"`
-	ReadonlyRootFilesystem       bool                          `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
-	Reason                       string                        `json:"reason" xml:"reason"`
-	RepositoryCredentials        *RepositoryCredentials        `json:"repositoryCredentials" xml:"repositoryCredentials"`
-	ResourceRequirements         ResourceRequirements          `json:"resourceRequirements" xml:"resourceRequirements"`
-	RuntimePlatform              *RuntimePlatform              `json:"runtimePlatform" xml:"runtimePlatform"`
-	Secrets                      SecretList                    `json:"secrets" xml:"secrets"`
-	TaskArn                      string                        `json:"taskArn" xml:"taskArn"`
-	Ulimits                      Ulimits                       `json:"ulimits" xml:"ulimits"`
-	User                         string                        `json:"user" xml:"user"`
-	Vcpus                        int32                         `json:"vcpus" xml:"vcpus"`
-	Volumes                      Volumes                       `json:"volumes" xml:"volumes"`
+Command StringList `json:"command" xml:"command"`
+ContainerInstanceArn string `json:"containerInstanceArn" xml:"containerInstanceArn"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+Environment EnvironmentVariables `json:"environment" xml:"environment"`
+EphemeralStorage *EphemeralStorage `json:"ephemeralStorage" xml:"ephemeralStorage"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+ExitCode int32 `json:"exitCode" xml:"exitCode"`
+FargatePlatformConfiguration *FargatePlatformConfiguration `json:"fargatePlatformConfiguration" xml:"fargatePlatformConfiguration"`
+Image string `json:"image" xml:"image"`
+InstanceType string `json:"instanceType" xml:"instanceType"`
+JobRoleArn string `json:"jobRoleArn" xml:"jobRoleArn"`
+LinuxParameters *LinuxParameters `json:"linuxParameters" xml:"linuxParameters"`
+LogConfiguration *LogConfiguration `json:"logConfiguration" xml:"logConfiguration"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+Memory int32 `json:"memory" xml:"memory"`
+MountPoints MountPoints `json:"mountPoints" xml:"mountPoints"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+NetworkInterfaces NetworkInterfaceList `json:"networkInterfaces" xml:"networkInterfaces"`
+Privileged bool `json:"privileged" xml:"privileged"`
+ReadonlyRootFilesystem bool `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
+Reason string `json:"reason" xml:"reason"`
+RepositoryCredentials *RepositoryCredentials `json:"repositoryCredentials" xml:"repositoryCredentials"`
+ResourceRequirements ResourceRequirements `json:"resourceRequirements" xml:"resourceRequirements"`
+RuntimePlatform *RuntimePlatform `json:"runtimePlatform" xml:"runtimePlatform"`
+Secrets SecretList `json:"secrets" xml:"secrets"`
+TaskArn string `json:"taskArn" xml:"taskArn"`
+Ulimits Ulimits `json:"ulimits" xml:"ulimits"`
+User string `json:"user" xml:"user"`
+Vcpus int32 `json:"vcpus" xml:"vcpus"`
+Volumes Volumes `json:"volumes" xml:"volumes"`
 }
 
 type ContainerOverrides struct {
-	Command              StringList           `json:"command" xml:"command"`
-	Environment          EnvironmentVariables `json:"environment" xml:"environment"`
-	InstanceType         string               `json:"instanceType" xml:"instanceType"`
-	Memory               int32                `json:"memory" xml:"memory"`
-	ResourceRequirements ResourceRequirements `json:"resourceRequirements" xml:"resourceRequirements"`
-	Vcpus                int32                `json:"vcpus" xml:"vcpus"`
+Command StringList `json:"command" xml:"command"`
+Environment EnvironmentVariables `json:"environment" xml:"environment"`
+InstanceType string `json:"instanceType" xml:"instanceType"`
+Memory int32 `json:"memory" xml:"memory"`
+ResourceRequirements ResourceRequirements `json:"resourceRequirements" xml:"resourceRequirements"`
+Vcpus int32 `json:"vcpus" xml:"vcpus"`
 }
 
 type ContainerProperties struct {
-	Command                      StringList                    `json:"command" xml:"command"`
-	EnableExecuteCommand         bool                          `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	Environment                  EnvironmentVariables          `json:"environment" xml:"environment"`
-	EphemeralStorage             *EphemeralStorage             `json:"ephemeralStorage" xml:"ephemeralStorage"`
-	ExecutionRoleArn             string                        `json:"executionRoleArn" xml:"executionRoleArn"`
-	FargatePlatformConfiguration *FargatePlatformConfiguration `json:"fargatePlatformConfiguration" xml:"fargatePlatformConfiguration"`
-	Image                        string                        `json:"image" xml:"image"`
-	InstanceType                 string                        `json:"instanceType" xml:"instanceType"`
-	JobRoleArn                   string                        `json:"jobRoleArn" xml:"jobRoleArn"`
-	LinuxParameters              *LinuxParameters              `json:"linuxParameters" xml:"linuxParameters"`
-	LogConfiguration             *LogConfiguration             `json:"logConfiguration" xml:"logConfiguration"`
-	Memory                       int32                         `json:"memory" xml:"memory"`
-	MountPoints                  MountPoints                   `json:"mountPoints" xml:"mountPoints"`
-	NetworkConfiguration         *NetworkConfiguration         `json:"networkConfiguration" xml:"networkConfiguration"`
-	Privileged                   bool                          `json:"privileged" xml:"privileged"`
-	ReadonlyRootFilesystem       bool                          `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
-	RepositoryCredentials        *RepositoryCredentials        `json:"repositoryCredentials" xml:"repositoryCredentials"`
-	ResourceRequirements         ResourceRequirements          `json:"resourceRequirements" xml:"resourceRequirements"`
-	RuntimePlatform              *RuntimePlatform              `json:"runtimePlatform" xml:"runtimePlatform"`
-	Secrets                      SecretList                    `json:"secrets" xml:"secrets"`
-	Ulimits                      Ulimits                       `json:"ulimits" xml:"ulimits"`
-	User                         string                        `json:"user" xml:"user"`
-	Vcpus                        int32                         `json:"vcpus" xml:"vcpus"`
-	Volumes                      Volumes                       `json:"volumes" xml:"volumes"`
+Command StringList `json:"command" xml:"command"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+Environment EnvironmentVariables `json:"environment" xml:"environment"`
+EphemeralStorage *EphemeralStorage `json:"ephemeralStorage" xml:"ephemeralStorage"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+FargatePlatformConfiguration *FargatePlatformConfiguration `json:"fargatePlatformConfiguration" xml:"fargatePlatformConfiguration"`
+Image string `json:"image" xml:"image"`
+InstanceType string `json:"instanceType" xml:"instanceType"`
+JobRoleArn string `json:"jobRoleArn" xml:"jobRoleArn"`
+LinuxParameters *LinuxParameters `json:"linuxParameters" xml:"linuxParameters"`
+LogConfiguration *LogConfiguration `json:"logConfiguration" xml:"logConfiguration"`
+Memory int32 `json:"memory" xml:"memory"`
+MountPoints MountPoints `json:"mountPoints" xml:"mountPoints"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+Privileged bool `json:"privileged" xml:"privileged"`
+ReadonlyRootFilesystem bool `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
+RepositoryCredentials *RepositoryCredentials `json:"repositoryCredentials" xml:"repositoryCredentials"`
+ResourceRequirements ResourceRequirements `json:"resourceRequirements" xml:"resourceRequirements"`
+RuntimePlatform *RuntimePlatform `json:"runtimePlatform" xml:"runtimePlatform"`
+Secrets SecretList `json:"secrets" xml:"secrets"`
+Ulimits Ulimits `json:"ulimits" xml:"ulimits"`
+User string `json:"user" xml:"user"`
+Vcpus int32 `json:"vcpus" xml:"vcpus"`
+Volumes Volumes `json:"volumes" xml:"volumes"`
 }
 
 type ContainerSummary struct {
-	ExitCode int32  `json:"exitCode" xml:"exitCode"`
-	Reason   string `json:"reason" xml:"reason"`
+ExitCode int32 `json:"exitCode" xml:"exitCode"`
+Reason string `json:"reason" xml:"reason"`
 }
 
 type CreateComputeEnvironmentRequest struct {
-	ComputeEnvironmentName string            `json:"computeEnvironmentName" xml:"computeEnvironmentName"`
-	ComputeResources       *ComputeResource  `json:"computeResources" xml:"computeResources"`
-	Context                string            `json:"context" xml:"context"`
-	EksConfiguration       *EksConfiguration `json:"eksConfiguration" xml:"eksConfiguration"`
-	ServiceRole            string            `json:"serviceRole" xml:"serviceRole"`
-	State                  string            `json:"state" xml:"state"`
-	Tags                   TagrisTagsMap     `json:"tags" xml:"tags"`
-	Type                   string            `json:"type" xml:"type"`
-	UnmanagedvCpus         int32             `json:"unmanagedvCpus" xml:"unmanagedvCpus"`
+ComputeEnvironmentName string `json:"computeEnvironmentName" xml:"computeEnvironmentName"`
+ComputeResources *ComputeResource `json:"computeResources" xml:"computeResources"`
+Context string `json:"context" xml:"context"`
+EksConfiguration *EksConfiguration `json:"eksConfiguration" xml:"eksConfiguration"`
+ServiceRole string `json:"serviceRole" xml:"serviceRole"`
+State string `json:"state" xml:"state"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
+Type string `json:"type" xml:"type"`
+UnmanagedvCpus int32 `json:"unmanagedvCpus" xml:"unmanagedvCpus"`
 }
 
 type CreateComputeEnvironmentResponse struct {
-	ComputeEnvironmentArn  string `json:"computeEnvironmentArn" xml:"computeEnvironmentArn"`
-	ComputeEnvironmentName string `json:"computeEnvironmentName" xml:"computeEnvironmentName"`
+ComputeEnvironmentArn string `json:"computeEnvironmentArn" xml:"computeEnvironmentArn"`
+ComputeEnvironmentName string `json:"computeEnvironmentName" xml:"computeEnvironmentName"`
 }
 
 type CreateConsumableResourceRequest struct {
-	ConsumableResourceName string        `json:"consumableResourceName" xml:"consumableResourceName"`
-	ResourceType           string        `json:"resourceType" xml:"resourceType"`
-	Tags                   TagrisTagsMap `json:"tags" xml:"tags"`
-	TotalQuantity          int64         `json:"totalQuantity" xml:"totalQuantity"`
+ConsumableResourceName string `json:"consumableResourceName" xml:"consumableResourceName"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
+TotalQuantity int64 `json:"totalQuantity" xml:"totalQuantity"`
 }
 
 type CreateConsumableResourceResponse struct {
-	ConsumableResourceArn  string `json:"consumableResourceArn" xml:"consumableResourceArn"`
-	ConsumableResourceName string `json:"consumableResourceName" xml:"consumableResourceName"`
+ConsumableResourceArn string `json:"consumableResourceArn" xml:"consumableResourceArn"`
+ConsumableResourceName string `json:"consumableResourceName" xml:"consumableResourceName"`
 }
 
 type CreateJobQueueRequest struct {
-	ComputeEnvironmentOrder  ComputeEnvironmentOrders `json:"computeEnvironmentOrder" xml:"computeEnvironmentOrder"`
-	JobQueueName             string                   `json:"jobQueueName" xml:"jobQueueName"`
-	JobQueueType             string                   `json:"jobQueueType" xml:"jobQueueType"`
-	JobStateTimeLimitActions JobStateTimeLimitActions `json:"jobStateTimeLimitActions" xml:"jobStateTimeLimitActions"`
-	Priority                 int32                    `json:"priority" xml:"priority"`
-	SchedulingPolicyArn      string                   `json:"schedulingPolicyArn" xml:"schedulingPolicyArn"`
-	ServiceEnvironmentOrder  ServiceEnvironmentOrders `json:"serviceEnvironmentOrder" xml:"serviceEnvironmentOrder"`
-	State                    string                   `json:"state" xml:"state"`
-	Tags                     TagrisTagsMap            `json:"tags" xml:"tags"`
+ComputeEnvironmentOrder ComputeEnvironmentOrders `json:"computeEnvironmentOrder" xml:"computeEnvironmentOrder"`
+JobQueueName string `json:"jobQueueName" xml:"jobQueueName"`
+JobQueueType string `json:"jobQueueType" xml:"jobQueueType"`
+JobStateTimeLimitActions JobStateTimeLimitActions `json:"jobStateTimeLimitActions" xml:"jobStateTimeLimitActions"`
+Priority int32 `json:"priority" xml:"priority"`
+SchedulingPolicyArn string `json:"schedulingPolicyArn" xml:"schedulingPolicyArn"`
+ServiceEnvironmentOrder ServiceEnvironmentOrders `json:"serviceEnvironmentOrder" xml:"serviceEnvironmentOrder"`
+State string `json:"state" xml:"state"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
 }
 
 type CreateJobQueueResponse struct {
-	JobQueueArn  string `json:"jobQueueArn" xml:"jobQueueArn"`
-	JobQueueName string `json:"jobQueueName" xml:"jobQueueName"`
+JobQueueArn string `json:"jobQueueArn" xml:"jobQueueArn"`
+JobQueueName string `json:"jobQueueName" xml:"jobQueueName"`
 }
 
 type CreateQuotaShareRequest struct {
-	CapacityLimits               QuotaShareCapacityLimits                `json:"capacityLimits" xml:"capacityLimits"`
-	JobQueue                     string                                  `json:"jobQueue" xml:"jobQueue"`
-	PreemptionConfiguration      *QuotaSharePreemptionConfiguration      `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
-	QuotaShareName               string                                  `json:"quotaShareName" xml:"quotaShareName"`
-	ResourceSharingConfiguration *QuotaShareResourceSharingConfiguration `json:"resourceSharingConfiguration" xml:"resourceSharingConfiguration"`
-	State                        string                                  `json:"state" xml:"state"`
-	Tags                         TagrisTagsMap                           `json:"tags" xml:"tags"`
+CapacityLimits QuotaShareCapacityLimits `json:"capacityLimits" xml:"capacityLimits"`
+JobQueue string `json:"jobQueue" xml:"jobQueue"`
+PreemptionConfiguration *QuotaSharePreemptionConfiguration `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
+QuotaShareName string `json:"quotaShareName" xml:"quotaShareName"`
+ResourceSharingConfiguration *QuotaShareResourceSharingConfiguration `json:"resourceSharingConfiguration" xml:"resourceSharingConfiguration"`
+State string `json:"state" xml:"state"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
 }
 
 type CreateQuotaShareResponse struct {
-	QuotaShareArn  string `json:"quotaShareArn" xml:"quotaShareArn"`
-	QuotaShareName string `json:"quotaShareName" xml:"quotaShareName"`
+QuotaShareArn string `json:"quotaShareArn" xml:"quotaShareArn"`
+QuotaShareName string `json:"quotaShareName" xml:"quotaShareName"`
 }
 
 type CreateSchedulingPolicyRequest struct {
-	FairsharePolicy  *FairsharePolicy  `json:"fairsharePolicy" xml:"fairsharePolicy"`
-	Name             string            `json:"name" xml:"name"`
-	QuotaSharePolicy *QuotaSharePolicy `json:"quotaSharePolicy" xml:"quotaSharePolicy"`
-	Tags             TagrisTagsMap     `json:"tags" xml:"tags"`
+FairsharePolicy *FairsharePolicy `json:"fairsharePolicy" xml:"fairsharePolicy"`
+Name string `json:"name" xml:"name"`
+QuotaSharePolicy *QuotaSharePolicy `json:"quotaSharePolicy" xml:"quotaSharePolicy"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
 }
 
 type CreateSchedulingPolicyResponse struct {
-	Arn  string `json:"arn" xml:"arn"`
-	Name string `json:"name" xml:"name"`
+Arn string `json:"arn" xml:"arn"`
+Name string `json:"name" xml:"name"`
 }
 
 type CreateServiceEnvironmentRequest struct {
-	CapacityLimits         CapacityLimits `json:"capacityLimits" xml:"capacityLimits"`
-	ServiceEnvironmentName string         `json:"serviceEnvironmentName" xml:"serviceEnvironmentName"`
-	ServiceEnvironmentType string         `json:"serviceEnvironmentType" xml:"serviceEnvironmentType"`
-	State                  string         `json:"state" xml:"state"`
-	Tags                   TagrisTagsMap  `json:"tags" xml:"tags"`
+CapacityLimits CapacityLimits `json:"capacityLimits" xml:"capacityLimits"`
+ServiceEnvironmentName string `json:"serviceEnvironmentName" xml:"serviceEnvironmentName"`
+ServiceEnvironmentType string `json:"serviceEnvironmentType" xml:"serviceEnvironmentType"`
+State string `json:"state" xml:"state"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
 }
 
 type CreateServiceEnvironmentResponse struct {
-	ServiceEnvironmentArn  string `json:"serviceEnvironmentArn" xml:"serviceEnvironmentArn"`
-	ServiceEnvironmentName string `json:"serviceEnvironmentName" xml:"serviceEnvironmentName"`
+ServiceEnvironmentArn string `json:"serviceEnvironmentArn" xml:"serviceEnvironmentArn"`
+ServiceEnvironmentName string `json:"serviceEnvironmentName" xml:"serviceEnvironmentName"`
 }
 
 type DeleteComputeEnvironmentRequest struct {
-	ComputeEnvironment string `json:"computeEnvironment" xml:"computeEnvironment"`
+ComputeEnvironment string `json:"computeEnvironment" xml:"computeEnvironment"`
 }
 
 type DeleteComputeEnvironmentResponse struct {
 }
 
 type DeleteConsumableResourceRequest struct {
-	ConsumableResource string `json:"consumableResource" xml:"consumableResource"`
+ConsumableResource string `json:"consumableResource" xml:"consumableResource"`
 }
 
 type DeleteConsumableResourceResponse struct {
 }
 
 type DeleteJobQueueRequest struct {
-	JobQueue string `json:"jobQueue" xml:"jobQueue"`
+JobQueue string `json:"jobQueue" xml:"jobQueue"`
 }
 
 type DeleteJobQueueResponse struct {
 }
 
 type DeleteQuotaShareRequest struct {
-	QuotaShareArn string `json:"quotaShareArn" xml:"quotaShareArn"`
+QuotaShareArn string `json:"quotaShareArn" xml:"quotaShareArn"`
 }
 
 type DeleteQuotaShareResponse struct {
 }
 
 type DeleteSchedulingPolicyRequest struct {
-	Arn string `json:"arn" xml:"arn"`
+Arn string `json:"arn" xml:"arn"`
 }
 
 type DeleteSchedulingPolicyResponse struct {
 }
 
 type DeleteServiceEnvironmentRequest struct {
-	ServiceEnvironment string `json:"serviceEnvironment" xml:"serviceEnvironment"`
+ServiceEnvironment string `json:"serviceEnvironment" xml:"serviceEnvironment"`
 }
 
 type DeleteServiceEnvironmentResponse struct {
 }
 
 type DeregisterJobDefinitionRequest struct {
-	JobDefinition string `json:"jobDefinition" xml:"jobDefinition"`
+JobDefinition string `json:"jobDefinition" xml:"jobDefinition"`
 }
 
 type DeregisterJobDefinitionResponse struct {
 }
 
 type DescribeComputeEnvironmentsRequest struct {
-	ComputeEnvironments StringList `json:"computeEnvironments" xml:"computeEnvironments"`
-	MaxResults          int32      `json:"maxResults" xml:"maxResults"`
-	NextToken           string     `json:"nextToken" xml:"nextToken"`
+ComputeEnvironments StringList `json:"computeEnvironments" xml:"computeEnvironments"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeComputeEnvironmentsResponse struct {
-	ComputeEnvironments ComputeEnvironmentDetailList `json:"computeEnvironments" xml:"computeEnvironments"`
-	NextToken           string                       `json:"nextToken" xml:"nextToken"`
+ComputeEnvironments ComputeEnvironmentDetailList `json:"computeEnvironments" xml:"computeEnvironments"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeConsumableResourceRequest struct {
-	ConsumableResource string `json:"consumableResource" xml:"consumableResource"`
+ConsumableResource string `json:"consumableResource" xml:"consumableResource"`
 }
 
 type DescribeConsumableResourceResponse struct {
-	AvailableQuantity      int64         `json:"availableQuantity" xml:"availableQuantity"`
-	ConsumableResourceArn  string        `json:"consumableResourceArn" xml:"consumableResourceArn"`
-	ConsumableResourceName string        `json:"consumableResourceName" xml:"consumableResourceName"`
-	CreatedAt              int64         `json:"createdAt" xml:"createdAt"`
-	InUseQuantity          int64         `json:"inUseQuantity" xml:"inUseQuantity"`
-	ResourceType           string        `json:"resourceType" xml:"resourceType"`
-	Tags                   TagrisTagsMap `json:"tags" xml:"tags"`
-	TotalQuantity          int64         `json:"totalQuantity" xml:"totalQuantity"`
+AvailableQuantity int64 `json:"availableQuantity" xml:"availableQuantity"`
+ConsumableResourceArn string `json:"consumableResourceArn" xml:"consumableResourceArn"`
+ConsumableResourceName string `json:"consumableResourceName" xml:"consumableResourceName"`
+CreatedAt int64 `json:"createdAt" xml:"createdAt"`
+InUseQuantity int64 `json:"inUseQuantity" xml:"inUseQuantity"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
+TotalQuantity int64 `json:"totalQuantity" xml:"totalQuantity"`
 }
 
 type DescribeJobDefinitionsRequest struct {
-	JobDefinitionName string     `json:"jobDefinitionName" xml:"jobDefinitionName"`
-	JobDefinitions    StringList `json:"jobDefinitions" xml:"jobDefinitions"`
-	MaxResults        int32      `json:"maxResults" xml:"maxResults"`
-	NextToken         string     `json:"nextToken" xml:"nextToken"`
-	Status            string     `json:"status" xml:"status"`
+JobDefinitionName string `json:"jobDefinitionName" xml:"jobDefinitionName"`
+JobDefinitions StringList `json:"jobDefinitions" xml:"jobDefinitions"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Status string `json:"status" xml:"status"`
 }
 
 type DescribeJobDefinitionsResponse struct {
-	JobDefinitions JobDefinitionList `json:"jobDefinitions" xml:"jobDefinitions"`
-	NextToken      string            `json:"nextToken" xml:"nextToken"`
+JobDefinitions JobDefinitionList `json:"jobDefinitions" xml:"jobDefinitions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeJobQueuesRequest struct {
-	JobQueues  StringList `json:"jobQueues" xml:"jobQueues"`
-	MaxResults int32      `json:"maxResults" xml:"maxResults"`
-	NextToken  string     `json:"nextToken" xml:"nextToken"`
+JobQueues StringList `json:"jobQueues" xml:"jobQueues"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeJobQueuesResponse struct {
-	JobQueues JobQueueDetailList `json:"jobQueues" xml:"jobQueues"`
-	NextToken string             `json:"nextToken" xml:"nextToken"`
+JobQueues JobQueueDetailList `json:"jobQueues" xml:"jobQueues"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeJobsRequest struct {
-	Jobs StringList `json:"jobs" xml:"jobs"`
+Jobs StringList `json:"jobs" xml:"jobs"`
 }
 
 type DescribeJobsResponse struct {
-	Jobs JobDetailList `json:"jobs" xml:"jobs"`
+Jobs JobDetailList `json:"jobs" xml:"jobs"`
 }
 
 type DescribeQuotaShareRequest struct {
-	QuotaShareArn string `json:"quotaShareArn" xml:"quotaShareArn"`
+QuotaShareArn string `json:"quotaShareArn" xml:"quotaShareArn"`
 }
 
 type DescribeQuotaShareResponse struct {
-	CapacityLimits               QuotaShareCapacityLimits                `json:"capacityLimits" xml:"capacityLimits"`
-	JobQueueArn                  string                                  `json:"jobQueueArn" xml:"jobQueueArn"`
-	PreemptionConfiguration      *QuotaSharePreemptionConfiguration      `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
-	QuotaShareArn                string                                  `json:"quotaShareArn" xml:"quotaShareArn"`
-	QuotaShareName               string                                  `json:"quotaShareName" xml:"quotaShareName"`
-	ResourceSharingConfiguration *QuotaShareResourceSharingConfiguration `json:"resourceSharingConfiguration" xml:"resourceSharingConfiguration"`
-	State                        string                                  `json:"state" xml:"state"`
-	Status                       string                                  `json:"status" xml:"status"`
-	Tags                         TagrisTagsMap                           `json:"tags" xml:"tags"`
+CapacityLimits QuotaShareCapacityLimits `json:"capacityLimits" xml:"capacityLimits"`
+JobQueueArn string `json:"jobQueueArn" xml:"jobQueueArn"`
+PreemptionConfiguration *QuotaSharePreemptionConfiguration `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
+QuotaShareArn string `json:"quotaShareArn" xml:"quotaShareArn"`
+QuotaShareName string `json:"quotaShareName" xml:"quotaShareName"`
+ResourceSharingConfiguration *QuotaShareResourceSharingConfiguration `json:"resourceSharingConfiguration" xml:"resourceSharingConfiguration"`
+State string `json:"state" xml:"state"`
+Status string `json:"status" xml:"status"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
 }
 
 type DescribeSchedulingPoliciesRequest struct {
-	Arns StringList `json:"arns" xml:"arns"`
+Arns StringList `json:"arns" xml:"arns"`
 }
 
 type DescribeSchedulingPoliciesResponse struct {
-	SchedulingPolicies SchedulingPolicyDetailList `json:"schedulingPolicies" xml:"schedulingPolicies"`
+SchedulingPolicies SchedulingPolicyDetailList `json:"schedulingPolicies" xml:"schedulingPolicies"`
 }
 
 type DescribeServiceEnvironmentsRequest struct {
-	MaxResults          int32      `json:"maxResults" xml:"maxResults"`
-	NextToken           string     `json:"nextToken" xml:"nextToken"`
-	ServiceEnvironments StringList `json:"serviceEnvironments" xml:"serviceEnvironments"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ServiceEnvironments StringList `json:"serviceEnvironments" xml:"serviceEnvironments"`
 }
 
 type DescribeServiceEnvironmentsResponse struct {
-	NextToken           string                       `json:"nextToken" xml:"nextToken"`
-	ServiceEnvironments ServiceEnvironmentDetailList `json:"serviceEnvironments" xml:"serviceEnvironments"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ServiceEnvironments ServiceEnvironmentDetailList `json:"serviceEnvironments" xml:"serviceEnvironments"`
 }
 
 type DescribeServiceJobRequest struct {
-	JobId string `json:"jobId" xml:"jobId"`
+JobId string `json:"jobId" xml:"jobId"`
 }
 
 type DescribeServiceJobResponse struct {
-	Attempts                ServiceJobAttemptDetails           `json:"attempts" xml:"attempts"`
-	CapacityUsage           ServiceJobCapacityUsageDetailList  `json:"capacityUsage" xml:"capacityUsage"`
-	CreatedAt               int64                              `json:"createdAt" xml:"createdAt"`
-	IsTerminated            bool                               `json:"isTerminated" xml:"isTerminated"`
-	JobArn                  string                             `json:"jobArn" xml:"jobArn"`
-	JobId                   string                             `json:"jobId" xml:"jobId"`
-	JobName                 string                             `json:"jobName" xml:"jobName"`
-	JobQueue                string                             `json:"jobQueue" xml:"jobQueue"`
-	LatestAttempt           *LatestServiceJobAttempt           `json:"latestAttempt" xml:"latestAttempt"`
-	PreemptionConfiguration *ServiceJobPreemptionConfiguration `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
-	PreemptionSummary       *ServiceJobPreemptionSummary       `json:"preemptionSummary" xml:"preemptionSummary"`
-	QuotaShareName          string                             `json:"quotaShareName" xml:"quotaShareName"`
-	RetryStrategy           *ServiceJobRetryStrategy           `json:"retryStrategy" xml:"retryStrategy"`
-	ScheduledAt             int64                              `json:"scheduledAt" xml:"scheduledAt"`
-	SchedulingPriority      int32                              `json:"schedulingPriority" xml:"schedulingPriority"`
-	ServiceJobType          string                             `json:"serviceJobType" xml:"serviceJobType"`
-	ServiceRequestPayload   string                             `json:"serviceRequestPayload" xml:"serviceRequestPayload"`
-	ShareIdentifier         string                             `json:"shareIdentifier" xml:"shareIdentifier"`
-	StartedAt               int64                              `json:"startedAt" xml:"startedAt"`
-	Status                  string                             `json:"status" xml:"status"`
-	StatusReason            string                             `json:"statusReason" xml:"statusReason"`
-	StoppedAt               int64                              `json:"stoppedAt" xml:"stoppedAt"`
-	Tags                    TagrisTagsMap                      `json:"tags" xml:"tags"`
-	TimeoutConfig           *ServiceJobTimeout                 `json:"timeoutConfig" xml:"timeoutConfig"`
+Attempts ServiceJobAttemptDetails `json:"attempts" xml:"attempts"`
+CapacityUsage ServiceJobCapacityUsageDetailList `json:"capacityUsage" xml:"capacityUsage"`
+CreatedAt int64 `json:"createdAt" xml:"createdAt"`
+IsTerminated bool `json:"isTerminated" xml:"isTerminated"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobId string `json:"jobId" xml:"jobId"`
+JobName string `json:"jobName" xml:"jobName"`
+JobQueue string `json:"jobQueue" xml:"jobQueue"`
+LatestAttempt *LatestServiceJobAttempt `json:"latestAttempt" xml:"latestAttempt"`
+PreemptionConfiguration *ServiceJobPreemptionConfiguration `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
+PreemptionSummary *ServiceJobPreemptionSummary `json:"preemptionSummary" xml:"preemptionSummary"`
+QuotaShareName string `json:"quotaShareName" xml:"quotaShareName"`
+RetryStrategy *ServiceJobRetryStrategy `json:"retryStrategy" xml:"retryStrategy"`
+ScheduledAt int64 `json:"scheduledAt" xml:"scheduledAt"`
+SchedulingPriority int32 `json:"schedulingPriority" xml:"schedulingPriority"`
+ServiceJobType string `json:"serviceJobType" xml:"serviceJobType"`
+ServiceRequestPayload string `json:"serviceRequestPayload" xml:"serviceRequestPayload"`
+ShareIdentifier string `json:"shareIdentifier" xml:"shareIdentifier"`
+StartedAt int64 `json:"startedAt" xml:"startedAt"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+StoppedAt int64 `json:"stoppedAt" xml:"stoppedAt"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
+TimeoutConfig *ServiceJobTimeout `json:"timeoutConfig" xml:"timeoutConfig"`
 }
 
 type Device struct {
-	ContainerPath string                  `json:"containerPath" xml:"containerPath"`
-	HostPath      string                  `json:"hostPath" xml:"hostPath"`
-	Permissions   DeviceCgroupPermissions `json:"permissions" xml:"permissions"`
+ContainerPath string `json:"containerPath" xml:"containerPath"`
+HostPath string `json:"hostPath" xml:"hostPath"`
+Permissions DeviceCgroupPermissions `json:"permissions" xml:"permissions"`
 }
 
 type EFSAuthorizationConfig struct {
-	AccessPointId string `json:"accessPointId" xml:"accessPointId"`
-	Iam           string `json:"iam" xml:"iam"`
+AccessPointId string `json:"accessPointId" xml:"accessPointId"`
+Iam string `json:"iam" xml:"iam"`
 }
 
 type EFSVolumeConfiguration struct {
-	AuthorizationConfig   *EFSAuthorizationConfig `json:"authorizationConfig" xml:"authorizationConfig"`
-	FileSystemId          string                  `json:"fileSystemId" xml:"fileSystemId"`
-	RootDirectory         string                  `json:"rootDirectory" xml:"rootDirectory"`
-	TransitEncryption     string                  `json:"transitEncryption" xml:"transitEncryption"`
-	TransitEncryptionPort int32                   `json:"transitEncryptionPort" xml:"transitEncryptionPort"`
+AuthorizationConfig *EFSAuthorizationConfig `json:"authorizationConfig" xml:"authorizationConfig"`
+FileSystemId string `json:"fileSystemId" xml:"fileSystemId"`
+RootDirectory string `json:"rootDirectory" xml:"rootDirectory"`
+TransitEncryption string `json:"transitEncryption" xml:"transitEncryption"`
+TransitEncryptionPort int32 `json:"transitEncryptionPort" xml:"transitEncryptionPort"`
 }
 
 type Ec2Configuration struct {
-	BatchImageStatus       string `json:"batchImageStatus" xml:"batchImageStatus"`
-	ImageIdOverride        string `json:"imageIdOverride" xml:"imageIdOverride"`
-	ImageKubernetesVersion string `json:"imageKubernetesVersion" xml:"imageKubernetesVersion"`
-	ImageType              string `json:"imageType" xml:"imageType"`
+BatchImageStatus string `json:"batchImageStatus" xml:"batchImageStatus"`
+ImageIdOverride string `json:"imageIdOverride" xml:"imageIdOverride"`
+ImageKubernetesVersion string `json:"imageKubernetesVersion" xml:"imageKubernetesVersion"`
+ImageType string `json:"imageType" xml:"imageType"`
 }
 
 type EcsProperties struct {
-	TaskProperties ListEcsTaskProperties `json:"taskProperties" xml:"taskProperties"`
+TaskProperties ListEcsTaskProperties `json:"taskProperties" xml:"taskProperties"`
 }
 
 type EcsPropertiesDetail struct {
-	TaskProperties ListEcsTaskDetails `json:"taskProperties" xml:"taskProperties"`
+TaskProperties ListEcsTaskDetails `json:"taskProperties" xml:"taskProperties"`
 }
 
 type EcsPropertiesOverride struct {
-	TaskProperties ListTaskPropertiesOverride `json:"taskProperties" xml:"taskProperties"`
+TaskProperties ListTaskPropertiesOverride `json:"taskProperties" xml:"taskProperties"`
 }
 
 type EcsTaskDetails struct {
-	ContainerInstanceArn string                   `json:"containerInstanceArn" xml:"containerInstanceArn"`
-	Containers           ListTaskContainerDetails `json:"containers" xml:"containers"`
-	EnableExecuteCommand bool                     `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	EphemeralStorage     *EphemeralStorage        `json:"ephemeralStorage" xml:"ephemeralStorage"`
-	ExecutionRoleArn     string                   `json:"executionRoleArn" xml:"executionRoleArn"`
-	IpcMode              string                   `json:"ipcMode" xml:"ipcMode"`
-	NetworkConfiguration *NetworkConfiguration    `json:"networkConfiguration" xml:"networkConfiguration"`
-	PidMode              string                   `json:"pidMode" xml:"pidMode"`
-	PlatformVersion      string                   `json:"platformVersion" xml:"platformVersion"`
-	RuntimePlatform      *RuntimePlatform         `json:"runtimePlatform" xml:"runtimePlatform"`
-	TaskArn              string                   `json:"taskArn" xml:"taskArn"`
-	TaskRoleArn          string                   `json:"taskRoleArn" xml:"taskRoleArn"`
-	Volumes              Volumes                  `json:"volumes" xml:"volumes"`
+ContainerInstanceArn string `json:"containerInstanceArn" xml:"containerInstanceArn"`
+Containers ListTaskContainerDetails `json:"containers" xml:"containers"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+EphemeralStorage *EphemeralStorage `json:"ephemeralStorage" xml:"ephemeralStorage"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+IpcMode string `json:"ipcMode" xml:"ipcMode"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PidMode string `json:"pidMode" xml:"pidMode"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+RuntimePlatform *RuntimePlatform `json:"runtimePlatform" xml:"runtimePlatform"`
+TaskArn string `json:"taskArn" xml:"taskArn"`
+TaskRoleArn string `json:"taskRoleArn" xml:"taskRoleArn"`
+Volumes Volumes `json:"volumes" xml:"volumes"`
 }
 
 type EcsTaskProperties struct {
-	Containers           ListTaskContainerProperties `json:"containers" xml:"containers"`
-	EnableExecuteCommand bool                        `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	EphemeralStorage     *EphemeralStorage           `json:"ephemeralStorage" xml:"ephemeralStorage"`
-	ExecutionRoleArn     string                      `json:"executionRoleArn" xml:"executionRoleArn"`
-	IpcMode              string                      `json:"ipcMode" xml:"ipcMode"`
-	NetworkConfiguration *NetworkConfiguration       `json:"networkConfiguration" xml:"networkConfiguration"`
-	PidMode              string                      `json:"pidMode" xml:"pidMode"`
-	PlatformVersion      string                      `json:"platformVersion" xml:"platformVersion"`
-	RuntimePlatform      *RuntimePlatform            `json:"runtimePlatform" xml:"runtimePlatform"`
-	TaskRoleArn          string                      `json:"taskRoleArn" xml:"taskRoleArn"`
-	Volumes              Volumes                     `json:"volumes" xml:"volumes"`
+Containers ListTaskContainerProperties `json:"containers" xml:"containers"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+EphemeralStorage *EphemeralStorage `json:"ephemeralStorage" xml:"ephemeralStorage"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+IpcMode string `json:"ipcMode" xml:"ipcMode"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PidMode string `json:"pidMode" xml:"pidMode"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+RuntimePlatform *RuntimePlatform `json:"runtimePlatform" xml:"runtimePlatform"`
+TaskRoleArn string `json:"taskRoleArn" xml:"taskRoleArn"`
+Volumes Volumes `json:"volumes" xml:"volumes"`
 }
 
 type EksAttemptContainerDetail struct {
-	ContainerID string `json:"containerID" xml:"containerID"`
-	ExitCode    int32  `json:"exitCode" xml:"exitCode"`
-	Name        string `json:"name" xml:"name"`
-	Reason      string `json:"reason" xml:"reason"`
+ContainerID string `json:"containerID" xml:"containerID"`
+ExitCode int32 `json:"exitCode" xml:"exitCode"`
+Name string `json:"name" xml:"name"`
+Reason string `json:"reason" xml:"reason"`
 }
 
 type EksAttemptDetail struct {
-	Containers     EksAttemptContainerDetails `json:"containers" xml:"containers"`
-	EksClusterArn  string                     `json:"eksClusterArn" xml:"eksClusterArn"`
-	InitContainers EksAttemptContainerDetails `json:"initContainers" xml:"initContainers"`
-	NodeName       string                     `json:"nodeName" xml:"nodeName"`
-	PodName        string                     `json:"podName" xml:"podName"`
-	PodNamespace   string                     `json:"podNamespace" xml:"podNamespace"`
-	StartedAt      int64                      `json:"startedAt" xml:"startedAt"`
-	StatusReason   string                     `json:"statusReason" xml:"statusReason"`
-	StoppedAt      int64                      `json:"stoppedAt" xml:"stoppedAt"`
+Containers EksAttemptContainerDetails `json:"containers" xml:"containers"`
+EksClusterArn string `json:"eksClusterArn" xml:"eksClusterArn"`
+InitContainers EksAttemptContainerDetails `json:"initContainers" xml:"initContainers"`
+NodeName string `json:"nodeName" xml:"nodeName"`
+PodName string `json:"podName" xml:"podName"`
+PodNamespace string `json:"podNamespace" xml:"podNamespace"`
+StartedAt int64 `json:"startedAt" xml:"startedAt"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+StoppedAt int64 `json:"stoppedAt" xml:"stoppedAt"`
 }
 
 type EksConfiguration struct {
-	EksClusterArn       string `json:"eksClusterArn" xml:"eksClusterArn"`
-	KubernetesNamespace string `json:"kubernetesNamespace" xml:"kubernetesNamespace"`
+EksClusterArn string `json:"eksClusterArn" xml:"eksClusterArn"`
+KubernetesNamespace string `json:"kubernetesNamespace" xml:"kubernetesNamespace"`
 }
 
 type EksContainer struct {
-	Args            StringList                        `json:"args" xml:"args"`
-	Command         StringList                        `json:"command" xml:"command"`
-	Env             EksContainerEnvironmentVariables  `json:"env" xml:"env"`
-	Image           string                            `json:"image" xml:"image"`
-	ImagePullPolicy string                            `json:"imagePullPolicy" xml:"imagePullPolicy"`
-	Name            string                            `json:"name" xml:"name"`
-	Resources       *EksContainerResourceRequirements `json:"resources" xml:"resources"`
-	SecurityContext *EksContainerSecurityContext      `json:"securityContext" xml:"securityContext"`
-	VolumeMounts    EksContainerVolumeMounts          `json:"volumeMounts" xml:"volumeMounts"`
+Args StringList `json:"args" xml:"args"`
+Command StringList `json:"command" xml:"command"`
+Env EksContainerEnvironmentVariables `json:"env" xml:"env"`
+Image string `json:"image" xml:"image"`
+ImagePullPolicy string `json:"imagePullPolicy" xml:"imagePullPolicy"`
+Name string `json:"name" xml:"name"`
+Resources *EksContainerResourceRequirements `json:"resources" xml:"resources"`
+SecurityContext *EksContainerSecurityContext `json:"securityContext" xml:"securityContext"`
+VolumeMounts EksContainerVolumeMounts `json:"volumeMounts" xml:"volumeMounts"`
 }
 
 type EksContainerDetail struct {
-	Args            StringList                        `json:"args" xml:"args"`
-	Command         StringList                        `json:"command" xml:"command"`
-	Env             EksContainerEnvironmentVariables  `json:"env" xml:"env"`
-	ExitCode        int32                             `json:"exitCode" xml:"exitCode"`
-	Image           string                            `json:"image" xml:"image"`
-	ImagePullPolicy string                            `json:"imagePullPolicy" xml:"imagePullPolicy"`
-	Name            string                            `json:"name" xml:"name"`
-	Reason          string                            `json:"reason" xml:"reason"`
-	Resources       *EksContainerResourceRequirements `json:"resources" xml:"resources"`
-	SecurityContext *EksContainerSecurityContext      `json:"securityContext" xml:"securityContext"`
-	VolumeMounts    EksContainerVolumeMounts          `json:"volumeMounts" xml:"volumeMounts"`
+Args StringList `json:"args" xml:"args"`
+Command StringList `json:"command" xml:"command"`
+Env EksContainerEnvironmentVariables `json:"env" xml:"env"`
+ExitCode int32 `json:"exitCode" xml:"exitCode"`
+Image string `json:"image" xml:"image"`
+ImagePullPolicy string `json:"imagePullPolicy" xml:"imagePullPolicy"`
+Name string `json:"name" xml:"name"`
+Reason string `json:"reason" xml:"reason"`
+Resources *EksContainerResourceRequirements `json:"resources" xml:"resources"`
+SecurityContext *EksContainerSecurityContext `json:"securityContext" xml:"securityContext"`
+VolumeMounts EksContainerVolumeMounts `json:"volumeMounts" xml:"volumeMounts"`
 }
 
 type EksContainerEnvironmentVariable struct {
-	Name  string `json:"name" xml:"name"`
-	Value string `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+Value string `json:"value" xml:"value"`
 }
 
 type EksContainerOverride struct {
-	Args      StringList                        `json:"args" xml:"args"`
-	Command   StringList                        `json:"command" xml:"command"`
-	Env       EksContainerEnvironmentVariables  `json:"env" xml:"env"`
-	Image     string                            `json:"image" xml:"image"`
-	Name      string                            `json:"name" xml:"name"`
-	Resources *EksContainerResourceRequirements `json:"resources" xml:"resources"`
+Args StringList `json:"args" xml:"args"`
+Command StringList `json:"command" xml:"command"`
+Env EksContainerEnvironmentVariables `json:"env" xml:"env"`
+Image string `json:"image" xml:"image"`
+Name string `json:"name" xml:"name"`
+Resources *EksContainerResourceRequirements `json:"resources" xml:"resources"`
 }
 
 type EksContainerResourceRequirements struct {
-	Limits   EksLimits   `json:"limits" xml:"limits"`
-	Requests EksRequests `json:"requests" xml:"requests"`
+Limits EksLimits `json:"limits" xml:"limits"`
+Requests EksRequests `json:"requests" xml:"requests"`
 }
 
 type EksContainerSecurityContext struct {
-	AllowPrivilegeEscalation bool  `json:"allowPrivilegeEscalation" xml:"allowPrivilegeEscalation"`
-	Privileged               bool  `json:"privileged" xml:"privileged"`
-	ReadOnlyRootFilesystem   bool  `json:"readOnlyRootFilesystem" xml:"readOnlyRootFilesystem"`
-	RunAsGroup               int64 `json:"runAsGroup" xml:"runAsGroup"`
-	RunAsNonRoot             bool  `json:"runAsNonRoot" xml:"runAsNonRoot"`
-	RunAsUser                int64 `json:"runAsUser" xml:"runAsUser"`
+AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation" xml:"allowPrivilegeEscalation"`
+Privileged bool `json:"privileged" xml:"privileged"`
+ReadOnlyRootFilesystem bool `json:"readOnlyRootFilesystem" xml:"readOnlyRootFilesystem"`
+RunAsGroup int64 `json:"runAsGroup" xml:"runAsGroup"`
+RunAsNonRoot bool `json:"runAsNonRoot" xml:"runAsNonRoot"`
+RunAsUser int64 `json:"runAsUser" xml:"runAsUser"`
 }
 
 type EksContainerVolumeMount struct {
-	MountPath string `json:"mountPath" xml:"mountPath"`
-	Name      string `json:"name" xml:"name"`
-	ReadOnly  bool   `json:"readOnly" xml:"readOnly"`
-	SubPath   string `json:"subPath" xml:"subPath"`
+MountPath string `json:"mountPath" xml:"mountPath"`
+Name string `json:"name" xml:"name"`
+ReadOnly bool `json:"readOnly" xml:"readOnly"`
+SubPath string `json:"subPath" xml:"subPath"`
 }
 
 type EksEmptyDir struct {
-	Medium    string `json:"medium" xml:"medium"`
-	SizeLimit string `json:"sizeLimit" xml:"sizeLimit"`
+Medium string `json:"medium" xml:"medium"`
+SizeLimit string `json:"sizeLimit" xml:"sizeLimit"`
 }
 
 type EksHostPath struct {
-	Path string `json:"path" xml:"path"`
+Path string `json:"path" xml:"path"`
 }
 
 type EksMetadata struct {
-	Annotations EksAnnotationsMap `json:"annotations" xml:"annotations"`
-	Labels      EksLabelsMap      `json:"labels" xml:"labels"`
-	Namespace   string            `json:"namespace" xml:"namespace"`
+Annotations EksAnnotationsMap `json:"annotations" xml:"annotations"`
+Labels EksLabelsMap `json:"labels" xml:"labels"`
+Namespace string `json:"namespace" xml:"namespace"`
 }
 
 type EksPersistentVolumeClaim struct {
-	ClaimName string `json:"claimName" xml:"claimName"`
-	ReadOnly  bool   `json:"readOnly" xml:"readOnly"`
+ClaimName string `json:"claimName" xml:"claimName"`
+ReadOnly bool `json:"readOnly" xml:"readOnly"`
 }
 
 type EksPodProperties struct {
-	Containers            EksContainers    `json:"containers" xml:"containers"`
-	DnsPolicy             string           `json:"dnsPolicy" xml:"dnsPolicy"`
-	HostNetwork           bool             `json:"hostNetwork" xml:"hostNetwork"`
-	ImagePullSecrets      ImagePullSecrets `json:"imagePullSecrets" xml:"imagePullSecrets"`
-	InitContainers        EksContainers    `json:"initContainers" xml:"initContainers"`
-	Metadata              *EksMetadata     `json:"metadata" xml:"metadata"`
-	ServiceAccountName    string           `json:"serviceAccountName" xml:"serviceAccountName"`
-	ShareProcessNamespace bool             `json:"shareProcessNamespace" xml:"shareProcessNamespace"`
-	Volumes               EksVolumes       `json:"volumes" xml:"volumes"`
+Containers EksContainers `json:"containers" xml:"containers"`
+DnsPolicy string `json:"dnsPolicy" xml:"dnsPolicy"`
+HostNetwork bool `json:"hostNetwork" xml:"hostNetwork"`
+ImagePullSecrets ImagePullSecrets `json:"imagePullSecrets" xml:"imagePullSecrets"`
+InitContainers EksContainers `json:"initContainers" xml:"initContainers"`
+Metadata *EksMetadata `json:"metadata" xml:"metadata"`
+ServiceAccountName string `json:"serviceAccountName" xml:"serviceAccountName"`
+ShareProcessNamespace bool `json:"shareProcessNamespace" xml:"shareProcessNamespace"`
+Volumes EksVolumes `json:"volumes" xml:"volumes"`
 }
 
 type EksPodPropertiesDetail struct {
-	Containers            EksContainerDetails `json:"containers" xml:"containers"`
-	DnsPolicy             string              `json:"dnsPolicy" xml:"dnsPolicy"`
-	HostNetwork           bool                `json:"hostNetwork" xml:"hostNetwork"`
-	ImagePullSecrets      ImagePullSecrets    `json:"imagePullSecrets" xml:"imagePullSecrets"`
-	InitContainers        EksContainerDetails `json:"initContainers" xml:"initContainers"`
-	Metadata              *EksMetadata        `json:"metadata" xml:"metadata"`
-	NodeName              string              `json:"nodeName" xml:"nodeName"`
-	PodName               string              `json:"podName" xml:"podName"`
-	ServiceAccountName    string              `json:"serviceAccountName" xml:"serviceAccountName"`
-	ShareProcessNamespace bool                `json:"shareProcessNamespace" xml:"shareProcessNamespace"`
-	Volumes               EksVolumes          `json:"volumes" xml:"volumes"`
+Containers EksContainerDetails `json:"containers" xml:"containers"`
+DnsPolicy string `json:"dnsPolicy" xml:"dnsPolicy"`
+HostNetwork bool `json:"hostNetwork" xml:"hostNetwork"`
+ImagePullSecrets ImagePullSecrets `json:"imagePullSecrets" xml:"imagePullSecrets"`
+InitContainers EksContainerDetails `json:"initContainers" xml:"initContainers"`
+Metadata *EksMetadata `json:"metadata" xml:"metadata"`
+NodeName string `json:"nodeName" xml:"nodeName"`
+PodName string `json:"podName" xml:"podName"`
+ServiceAccountName string `json:"serviceAccountName" xml:"serviceAccountName"`
+ShareProcessNamespace bool `json:"shareProcessNamespace" xml:"shareProcessNamespace"`
+Volumes EksVolumes `json:"volumes" xml:"volumes"`
 }
 
 type EksPodPropertiesOverride struct {
-	Containers     EksContainerOverrideList `json:"containers" xml:"containers"`
-	InitContainers EksContainerOverrideList `json:"initContainers" xml:"initContainers"`
-	Metadata       *EksMetadata             `json:"metadata" xml:"metadata"`
+Containers EksContainerOverrideList `json:"containers" xml:"containers"`
+InitContainers EksContainerOverrideList `json:"initContainers" xml:"initContainers"`
+Metadata *EksMetadata `json:"metadata" xml:"metadata"`
 }
 
 type EksProperties struct {
-	PodProperties *EksPodProperties `json:"podProperties" xml:"podProperties"`
+PodProperties *EksPodProperties `json:"podProperties" xml:"podProperties"`
 }
 
 type EksPropertiesDetail struct {
-	PodProperties *EksPodPropertiesDetail `json:"podProperties" xml:"podProperties"`
+PodProperties *EksPodPropertiesDetail `json:"podProperties" xml:"podProperties"`
 }
 
 type EksPropertiesOverride struct {
-	PodProperties *EksPodPropertiesOverride `json:"podProperties" xml:"podProperties"`
+PodProperties *EksPodPropertiesOverride `json:"podProperties" xml:"podProperties"`
 }
 
 type EksSecret struct {
-	Optional   bool   `json:"optional" xml:"optional"`
-	SecretName string `json:"secretName" xml:"secretName"`
+Optional bool `json:"optional" xml:"optional"`
+SecretName string `json:"secretName" xml:"secretName"`
 }
 
 type EksVolume struct {
-	EmptyDir              *EksEmptyDir              `json:"emptyDir" xml:"emptyDir"`
-	HostPath              *EksHostPath              `json:"hostPath" xml:"hostPath"`
-	Name                  string                    `json:"name" xml:"name"`
-	PersistentVolumeClaim *EksPersistentVolumeClaim `json:"persistentVolumeClaim" xml:"persistentVolumeClaim"`
-	Secret                *EksSecret                `json:"secret" xml:"secret"`
+EmptyDir *EksEmptyDir `json:"emptyDir" xml:"emptyDir"`
+HostPath *EksHostPath `json:"hostPath" xml:"hostPath"`
+Name string `json:"name" xml:"name"`
+PersistentVolumeClaim *EksPersistentVolumeClaim `json:"persistentVolumeClaim" xml:"persistentVolumeClaim"`
+Secret *EksSecret `json:"secret" xml:"secret"`
 }
 
 type EphemeralStorage struct {
-	SizeInGiB int32 `json:"sizeInGiB" xml:"sizeInGiB"`
+SizeInGiB int32 `json:"sizeInGiB" xml:"sizeInGiB"`
 }
 
 type EvaluateOnExit struct {
-	Action         string `json:"action" xml:"action"`
-	OnExitCode     string `json:"onExitCode" xml:"onExitCode"`
-	OnReason       string `json:"onReason" xml:"onReason"`
-	OnStatusReason string `json:"onStatusReason" xml:"onStatusReason"`
+Action string `json:"action" xml:"action"`
+OnExitCode string `json:"onExitCode" xml:"onExitCode"`
+OnReason string `json:"onReason" xml:"onReason"`
+OnStatusReason string `json:"onStatusReason" xml:"onStatusReason"`
 }
 
 type FairshareCapacityUsage struct {
-	CapacityUnit string  `json:"capacityUnit" xml:"capacityUnit"`
-	Quantity     float64 `json:"quantity" xml:"quantity"`
+CapacityUnit string `json:"capacityUnit" xml:"capacityUnit"`
+Quantity float64 `json:"quantity" xml:"quantity"`
 }
 
 type FairshareCapacityUtilization struct {
-	CapacityUsage   FairshareCapacityUsageList `json:"capacityUsage" xml:"capacityUsage"`
-	ShareIdentifier string                     `json:"shareIdentifier" xml:"shareIdentifier"`
+CapacityUsage FairshareCapacityUsageList `json:"capacityUsage" xml:"capacityUsage"`
+ShareIdentifier string `json:"shareIdentifier" xml:"shareIdentifier"`
 }
 
 type FairsharePolicy struct {
-	ComputeReservation int32               `json:"computeReservation" xml:"computeReservation"`
-	ShareDecaySeconds  int32               `json:"shareDecaySeconds" xml:"shareDecaySeconds"`
-	ShareDistribution  ShareAttributesList `json:"shareDistribution" xml:"shareDistribution"`
+ComputeReservation int32 `json:"computeReservation" xml:"computeReservation"`
+ShareDecaySeconds int32 `json:"shareDecaySeconds" xml:"shareDecaySeconds"`
+ShareDistribution ShareAttributesList `json:"shareDistribution" xml:"shareDistribution"`
 }
 
 type FairshareUtilizationDetail struct {
-	ActiveShareCount       int64                            `json:"activeShareCount" xml:"activeShareCount"`
-	TopCapacityUtilization FairshareCapacityUtilizationList `json:"topCapacityUtilization" xml:"topCapacityUtilization"`
+ActiveShareCount int64 `json:"activeShareCount" xml:"activeShareCount"`
+TopCapacityUtilization FairshareCapacityUtilizationList `json:"topCapacityUtilization" xml:"topCapacityUtilization"`
 }
 
 type FargatePlatformConfiguration struct {
-	PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
 }
 
 type FirelensConfiguration struct {
-	Options FirelensConfigurationOptionsMap `json:"options" xml:"options"`
-	Type    string                          `json:"type" xml:"type"`
+Options FirelensConfigurationOptionsMap `json:"options" xml:"options"`
+Type string `json:"type" xml:"type"`
 }
 
 type FrontOfQueueDetail struct {
-	Jobs          FrontOfQueueJobSummaryList `json:"jobs" xml:"jobs"`
-	LastUpdatedAt int64                      `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+Jobs FrontOfQueueJobSummaryList `json:"jobs" xml:"jobs"`
+LastUpdatedAt int64 `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
 }
 
 type FrontOfQueueJobSummary struct {
-	EarliestTimeAtPosition int64  `json:"earliestTimeAtPosition" xml:"earliestTimeAtPosition"`
-	JobArn                 string `json:"jobArn" xml:"jobArn"`
+EarliestTimeAtPosition int64 `json:"earliestTimeAtPosition" xml:"earliestTimeAtPosition"`
+JobArn string `json:"jobArn" xml:"jobArn"`
 }
 
 type FrontOfQuotaShareJobSummary struct {
-	EarliestTimeAtPosition int64  `json:"earliestTimeAtPosition" xml:"earliestTimeAtPosition"`
-	JobArn                 string `json:"jobArn" xml:"jobArn"`
+EarliestTimeAtPosition int64 `json:"earliestTimeAtPosition" xml:"earliestTimeAtPosition"`
+JobArn string `json:"jobArn" xml:"jobArn"`
 }
 
 type FrontOfQuotaSharesDetail struct {
-	LastUpdatedAt int64                           `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	QuotaShares   FrontOfQuotaSharesJobSummaryMap `json:"quotaShares" xml:"quotaShares"`
+LastUpdatedAt int64 `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+QuotaShares FrontOfQuotaSharesJobSummaryMap `json:"quotaShares" xml:"quotaShares"`
 }
 
 type GetJobQueueSnapshotRequest struct {
-	JobQueue string `json:"jobQueue" xml:"jobQueue"`
+JobQueue string `json:"jobQueue" xml:"jobQueue"`
 }
 
 type GetJobQueueSnapshotResponse struct {
-	FrontOfQueue       *FrontOfQueueDetail             `json:"frontOfQueue" xml:"frontOfQueue"`
-	FrontOfQuotaShares *FrontOfQuotaSharesDetail       `json:"frontOfQuotaShares" xml:"frontOfQuotaShares"`
-	QueueUtilization   *QueueSnapshotUtilizationDetail `json:"queueUtilization" xml:"queueUtilization"`
+FrontOfQueue *FrontOfQueueDetail `json:"frontOfQueue" xml:"frontOfQueue"`
+FrontOfQuotaShares *FrontOfQuotaSharesDetail `json:"frontOfQuotaShares" xml:"frontOfQuotaShares"`
+QueueUtilization *QueueSnapshotUtilizationDetail `json:"queueUtilization" xml:"queueUtilization"`
 }
 
 type Host struct {
-	SourcePath string `json:"sourcePath" xml:"sourcePath"`
+SourcePath string `json:"sourcePath" xml:"sourcePath"`
 }
 
 type ImagePullSecret struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type JobCapacityUsageSummary struct {
-	CapacityUnit string  `json:"capacityUnit" xml:"capacityUnit"`
-	Quantity     float64 `json:"quantity" xml:"quantity"`
+CapacityUnit string `json:"capacityUnit" xml:"capacityUnit"`
+Quantity float64 `json:"quantity" xml:"quantity"`
 }
 
 type JobDefinition struct {
-	ConsumableResourceProperties *ConsumableResourceProperties `json:"consumableResourceProperties" xml:"consumableResourceProperties"`
-	ContainerOrchestrationType   string                        `json:"containerOrchestrationType" xml:"containerOrchestrationType"`
-	ContainerProperties          *ContainerProperties          `json:"containerProperties" xml:"containerProperties"`
-	EcsProperties                *EcsProperties                `json:"ecsProperties" xml:"ecsProperties"`
-	EksProperties                *EksProperties                `json:"eksProperties" xml:"eksProperties"`
-	JobDefinitionArn             string                        `json:"jobDefinitionArn" xml:"jobDefinitionArn"`
-	JobDefinitionName            string                        `json:"jobDefinitionName" xml:"jobDefinitionName"`
-	NodeProperties               *NodeProperties               `json:"nodeProperties" xml:"nodeProperties"`
-	Parameters                   ParametersMap                 `json:"parameters" xml:"parameters"`
-	PlatformCapabilities         PlatformCapabilityList        `json:"platformCapabilities" xml:"platformCapabilities"`
-	PropagateTags                bool                          `json:"propagateTags" xml:"propagateTags"`
-	RetryStrategy                *RetryStrategy                `json:"retryStrategy" xml:"retryStrategy"`
-	Revision                     int32                         `json:"revision" xml:"revision"`
-	SchedulingPriority           int32                         `json:"schedulingPriority" xml:"schedulingPriority"`
-	Status                       string                        `json:"status" xml:"status"`
-	Tags                         TagrisTagsMap                 `json:"tags" xml:"tags"`
-	Timeout                      *JobTimeout                   `json:"timeout" xml:"timeout"`
-	Type                         string                        `json:"type" xml:"type"`
+ConsumableResourceProperties *ConsumableResourceProperties `json:"consumableResourceProperties" xml:"consumableResourceProperties"`
+ContainerOrchestrationType string `json:"containerOrchestrationType" xml:"containerOrchestrationType"`
+ContainerProperties *ContainerProperties `json:"containerProperties" xml:"containerProperties"`
+EcsProperties *EcsProperties `json:"ecsProperties" xml:"ecsProperties"`
+EksProperties *EksProperties `json:"eksProperties" xml:"eksProperties"`
+JobDefinitionArn string `json:"jobDefinitionArn" xml:"jobDefinitionArn"`
+JobDefinitionName string `json:"jobDefinitionName" xml:"jobDefinitionName"`
+NodeProperties *NodeProperties `json:"nodeProperties" xml:"nodeProperties"`
+Parameters ParametersMap `json:"parameters" xml:"parameters"`
+PlatformCapabilities PlatformCapabilityList `json:"platformCapabilities" xml:"platformCapabilities"`
+PropagateTags bool `json:"propagateTags" xml:"propagateTags"`
+RetryStrategy *RetryStrategy `json:"retryStrategy" xml:"retryStrategy"`
+Revision int32 `json:"revision" xml:"revision"`
+SchedulingPriority int32 `json:"schedulingPriority" xml:"schedulingPriority"`
+Status string `json:"status" xml:"status"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
+Timeout *JobTimeout `json:"timeout" xml:"timeout"`
+Type string `json:"type" xml:"type"`
 }
 
 type JobDependency struct {
-	JobId string `json:"jobId" xml:"jobId"`
-	Type  string `json:"type" xml:"type"`
+JobId string `json:"jobId" xml:"jobId"`
+Type string `json:"type" xml:"type"`
 }
 
 type JobDetail struct {
-	ArrayProperties              *ArrayPropertiesDetail        `json:"arrayProperties" xml:"arrayProperties"`
-	Attempts                     AttemptDetails                `json:"attempts" xml:"attempts"`
-	ConsumableResourceProperties *ConsumableResourceProperties `json:"consumableResourceProperties" xml:"consumableResourceProperties"`
-	Container                    *ContainerDetail              `json:"container" xml:"container"`
-	CreatedAt                    int64                         `json:"createdAt" xml:"createdAt"`
-	DependsOn                    JobDependencyList             `json:"dependsOn" xml:"dependsOn"`
-	EcsProperties                *EcsPropertiesDetail          `json:"ecsProperties" xml:"ecsProperties"`
-	EksAttempts                  EksAttemptDetails             `json:"eksAttempts" xml:"eksAttempts"`
-	EksProperties                *EksPropertiesDetail          `json:"eksProperties" xml:"eksProperties"`
-	IsCancelled                  bool                          `json:"isCancelled" xml:"isCancelled"`
-	IsTerminated                 bool                          `json:"isTerminated" xml:"isTerminated"`
-	JobArn                       string                        `json:"jobArn" xml:"jobArn"`
-	JobDefinition                string                        `json:"jobDefinition" xml:"jobDefinition"`
-	JobId                        string                        `json:"jobId" xml:"jobId"`
-	JobName                      string                        `json:"jobName" xml:"jobName"`
-	JobQueue                     string                        `json:"jobQueue" xml:"jobQueue"`
-	NodeDetails                  *NodeDetails                  `json:"nodeDetails" xml:"nodeDetails"`
-	NodeProperties               *NodeProperties               `json:"nodeProperties" xml:"nodeProperties"`
-	Parameters                   ParametersMap                 `json:"parameters" xml:"parameters"`
-	PlatformCapabilities         PlatformCapabilityList        `json:"platformCapabilities" xml:"platformCapabilities"`
-	PropagateTags                bool                          `json:"propagateTags" xml:"propagateTags"`
-	RetryStrategy                *RetryStrategy                `json:"retryStrategy" xml:"retryStrategy"`
-	SchedulingPriority           int32                         `json:"schedulingPriority" xml:"schedulingPriority"`
-	ShareIdentifier              string                        `json:"shareIdentifier" xml:"shareIdentifier"`
-	StartedAt                    int64                         `json:"startedAt" xml:"startedAt"`
-	Status                       string                        `json:"status" xml:"status"`
-	StatusReason                 string                        `json:"statusReason" xml:"statusReason"`
-	StoppedAt                    int64                         `json:"stoppedAt" xml:"stoppedAt"`
-	Tags                         TagrisTagsMap                 `json:"tags" xml:"tags"`
-	Timeout                      *JobTimeout                   `json:"timeout" xml:"timeout"`
+ArrayProperties *ArrayPropertiesDetail `json:"arrayProperties" xml:"arrayProperties"`
+Attempts AttemptDetails `json:"attempts" xml:"attempts"`
+ConsumableResourceProperties *ConsumableResourceProperties `json:"consumableResourceProperties" xml:"consumableResourceProperties"`
+Container *ContainerDetail `json:"container" xml:"container"`
+CreatedAt int64 `json:"createdAt" xml:"createdAt"`
+DependsOn JobDependencyList `json:"dependsOn" xml:"dependsOn"`
+EcsProperties *EcsPropertiesDetail `json:"ecsProperties" xml:"ecsProperties"`
+EksAttempts EksAttemptDetails `json:"eksAttempts" xml:"eksAttempts"`
+EksProperties *EksPropertiesDetail `json:"eksProperties" xml:"eksProperties"`
+IsCancelled bool `json:"isCancelled" xml:"isCancelled"`
+IsTerminated bool `json:"isTerminated" xml:"isTerminated"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobDefinition string `json:"jobDefinition" xml:"jobDefinition"`
+JobId string `json:"jobId" xml:"jobId"`
+JobName string `json:"jobName" xml:"jobName"`
+JobQueue string `json:"jobQueue" xml:"jobQueue"`
+NodeDetails *NodeDetails `json:"nodeDetails" xml:"nodeDetails"`
+NodeProperties *NodeProperties `json:"nodeProperties" xml:"nodeProperties"`
+Parameters ParametersMap `json:"parameters" xml:"parameters"`
+PlatformCapabilities PlatformCapabilityList `json:"platformCapabilities" xml:"platformCapabilities"`
+PropagateTags bool `json:"propagateTags" xml:"propagateTags"`
+RetryStrategy *RetryStrategy `json:"retryStrategy" xml:"retryStrategy"`
+SchedulingPriority int32 `json:"schedulingPriority" xml:"schedulingPriority"`
+ShareIdentifier string `json:"shareIdentifier" xml:"shareIdentifier"`
+StartedAt int64 `json:"startedAt" xml:"startedAt"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+StoppedAt int64 `json:"stoppedAt" xml:"stoppedAt"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
+Timeout *JobTimeout `json:"timeout" xml:"timeout"`
 }
 
 type JobQueueDetail struct {
-	ComputeEnvironmentOrder  ComputeEnvironmentOrders `json:"computeEnvironmentOrder" xml:"computeEnvironmentOrder"`
-	JobQueueArn              string                   `json:"jobQueueArn" xml:"jobQueueArn"`
-	JobQueueName             string                   `json:"jobQueueName" xml:"jobQueueName"`
-	JobQueueType             string                   `json:"jobQueueType" xml:"jobQueueType"`
-	JobStateTimeLimitActions JobStateTimeLimitActions `json:"jobStateTimeLimitActions" xml:"jobStateTimeLimitActions"`
-	Priority                 int32                    `json:"priority" xml:"priority"`
-	SchedulingPolicyArn      string                   `json:"schedulingPolicyArn" xml:"schedulingPolicyArn"`
-	ServiceEnvironmentOrder  ServiceEnvironmentOrders `json:"serviceEnvironmentOrder" xml:"serviceEnvironmentOrder"`
-	State                    string                   `json:"state" xml:"state"`
-	Status                   string                   `json:"status" xml:"status"`
-	StatusReason             string                   `json:"statusReason" xml:"statusReason"`
-	Tags                     TagrisTagsMap            `json:"tags" xml:"tags"`
+ComputeEnvironmentOrder ComputeEnvironmentOrders `json:"computeEnvironmentOrder" xml:"computeEnvironmentOrder"`
+JobQueueArn string `json:"jobQueueArn" xml:"jobQueueArn"`
+JobQueueName string `json:"jobQueueName" xml:"jobQueueName"`
+JobQueueType string `json:"jobQueueType" xml:"jobQueueType"`
+JobStateTimeLimitActions JobStateTimeLimitActions `json:"jobStateTimeLimitActions" xml:"jobStateTimeLimitActions"`
+Priority int32 `json:"priority" xml:"priority"`
+SchedulingPolicyArn string `json:"schedulingPolicyArn" xml:"schedulingPolicyArn"`
+ServiceEnvironmentOrder ServiceEnvironmentOrders `json:"serviceEnvironmentOrder" xml:"serviceEnvironmentOrder"`
+State string `json:"state" xml:"state"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
 }
 
 type JobStateTimeLimitAction struct {
-	Action         string `json:"action" xml:"action"`
-	MaxTimeSeconds int32  `json:"maxTimeSeconds" xml:"maxTimeSeconds"`
-	Reason         string `json:"reason" xml:"reason"`
-	State          string `json:"state" xml:"state"`
+Action string `json:"action" xml:"action"`
+MaxTimeSeconds int32 `json:"maxTimeSeconds" xml:"maxTimeSeconds"`
+Reason string `json:"reason" xml:"reason"`
+State string `json:"state" xml:"state"`
 }
 
 type JobSummary struct {
-	ArrayProperties *ArrayPropertiesSummary     `json:"arrayProperties" xml:"arrayProperties"`
-	CapacityUsage   JobCapacityUsageSummaryList `json:"capacityUsage" xml:"capacityUsage"`
-	Container       *ContainerSummary           `json:"container" xml:"container"`
-	CreatedAt       int64                       `json:"createdAt" xml:"createdAt"`
-	JobArn          string                      `json:"jobArn" xml:"jobArn"`
-	JobDefinition   string                      `json:"jobDefinition" xml:"jobDefinition"`
-	JobId           string                      `json:"jobId" xml:"jobId"`
-	JobName         string                      `json:"jobName" xml:"jobName"`
-	NodeProperties  *NodePropertiesSummary      `json:"nodeProperties" xml:"nodeProperties"`
-	ScheduledAt     int64                       `json:"scheduledAt" xml:"scheduledAt"`
-	ShareIdentifier string                      `json:"shareIdentifier" xml:"shareIdentifier"`
-	StartedAt       int64                       `json:"startedAt" xml:"startedAt"`
-	Status          string                      `json:"status" xml:"status"`
-	StatusReason    string                      `json:"statusReason" xml:"statusReason"`
-	StoppedAt       int64                       `json:"stoppedAt" xml:"stoppedAt"`
+ArrayProperties *ArrayPropertiesSummary `json:"arrayProperties" xml:"arrayProperties"`
+CapacityUsage JobCapacityUsageSummaryList `json:"capacityUsage" xml:"capacityUsage"`
+Container *ContainerSummary `json:"container" xml:"container"`
+CreatedAt int64 `json:"createdAt" xml:"createdAt"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobDefinition string `json:"jobDefinition" xml:"jobDefinition"`
+JobId string `json:"jobId" xml:"jobId"`
+JobName string `json:"jobName" xml:"jobName"`
+NodeProperties *NodePropertiesSummary `json:"nodeProperties" xml:"nodeProperties"`
+ScheduledAt int64 `json:"scheduledAt" xml:"scheduledAt"`
+ShareIdentifier string `json:"shareIdentifier" xml:"shareIdentifier"`
+StartedAt int64 `json:"startedAt" xml:"startedAt"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+StoppedAt int64 `json:"stoppedAt" xml:"stoppedAt"`
 }
 
 type JobTimeout struct {
-	AttemptDurationSeconds int32 `json:"attemptDurationSeconds" xml:"attemptDurationSeconds"`
+AttemptDurationSeconds int32 `json:"attemptDurationSeconds" xml:"attemptDurationSeconds"`
 }
 
 type KeyValuePair struct {
-	Name  string `json:"name" xml:"name"`
-	Value string `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+Value string `json:"value" xml:"value"`
 }
 
 type KeyValuesPair struct {
-	Name   string     `json:"name" xml:"name"`
-	Values StringList `json:"values" xml:"values"`
+Name string `json:"name" xml:"name"`
+Values StringList `json:"values" xml:"values"`
 }
 
 type LatestServiceJobAttempt struct {
-	ServiceResourceId *ServiceResourceId `json:"serviceResourceId" xml:"serviceResourceId"`
+ServiceResourceId *ServiceResourceId `json:"serviceResourceId" xml:"serviceResourceId"`
 }
 
 type LaunchTemplateSpecification struct {
-	LaunchTemplateId   string                                  `json:"launchTemplateId" xml:"launchTemplateId"`
-	LaunchTemplateName string                                  `json:"launchTemplateName" xml:"launchTemplateName"`
-	Overrides          LaunchTemplateSpecificationOverrideList `json:"overrides" xml:"overrides"`
-	UserdataType       string                                  `json:"userdataType" xml:"userdataType"`
-	Version            string                                  `json:"version" xml:"version"`
+LaunchTemplateId string `json:"launchTemplateId" xml:"launchTemplateId"`
+LaunchTemplateName string `json:"launchTemplateName" xml:"launchTemplateName"`
+Overrides LaunchTemplateSpecificationOverrideList `json:"overrides" xml:"overrides"`
+UserdataType string `json:"userdataType" xml:"userdataType"`
+Version string `json:"version" xml:"version"`
 }
 
 type LaunchTemplateSpecificationOverride struct {
-	LaunchTemplateId    string     `json:"launchTemplateId" xml:"launchTemplateId"`
-	LaunchTemplateName  string     `json:"launchTemplateName" xml:"launchTemplateName"`
-	TargetInstanceTypes StringList `json:"targetInstanceTypes" xml:"targetInstanceTypes"`
-	UserdataType        string     `json:"userdataType" xml:"userdataType"`
-	Version             string     `json:"version" xml:"version"`
+LaunchTemplateId string `json:"launchTemplateId" xml:"launchTemplateId"`
+LaunchTemplateName string `json:"launchTemplateName" xml:"launchTemplateName"`
+TargetInstanceTypes StringList `json:"targetInstanceTypes" xml:"targetInstanceTypes"`
+UserdataType string `json:"userdataType" xml:"userdataType"`
+Version string `json:"version" xml:"version"`
 }
 
 type LinuxParameters struct {
-	Devices            DevicesList `json:"devices" xml:"devices"`
-	InitProcessEnabled bool        `json:"initProcessEnabled" xml:"initProcessEnabled"`
-	MaxSwap            int32       `json:"maxSwap" xml:"maxSwap"`
-	SharedMemorySize   int32       `json:"sharedMemorySize" xml:"sharedMemorySize"`
-	Swappiness         int32       `json:"swappiness" xml:"swappiness"`
-	Tmpfs              TmpfsList   `json:"tmpfs" xml:"tmpfs"`
+Devices DevicesList `json:"devices" xml:"devices"`
+InitProcessEnabled bool `json:"initProcessEnabled" xml:"initProcessEnabled"`
+MaxSwap int32 `json:"maxSwap" xml:"maxSwap"`
+SharedMemorySize int32 `json:"sharedMemorySize" xml:"sharedMemorySize"`
+Swappiness int32 `json:"swappiness" xml:"swappiness"`
+Tmpfs TmpfsList `json:"tmpfs" xml:"tmpfs"`
 }
 
 type ListConsumableResourcesRequest struct {
-	Filters    ListConsumableResourcesFilterList `json:"filters" xml:"filters"`
-	MaxResults int32                             `json:"maxResults" xml:"maxResults"`
-	NextToken  string                            `json:"nextToken" xml:"nextToken"`
+Filters ListConsumableResourcesFilterList `json:"filters" xml:"filters"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListConsumableResourcesResponse struct {
-	ConsumableResources ConsumableResourceSummaryList `json:"consumableResources" xml:"consumableResources"`
-	NextToken           string                        `json:"nextToken" xml:"nextToken"`
+ConsumableResources ConsumableResourceSummaryList `json:"consumableResources" xml:"consumableResources"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListJobsByConsumableResourceRequest struct {
-	ConsumableResource string                                 `json:"consumableResource" xml:"consumableResource"`
-	Filters            ListJobsByConsumableResourceFilterList `json:"filters" xml:"filters"`
-	MaxResults         int32                                  `json:"maxResults" xml:"maxResults"`
-	NextToken          string                                 `json:"nextToken" xml:"nextToken"`
+ConsumableResource string `json:"consumableResource" xml:"consumableResource"`
+Filters ListJobsByConsumableResourceFilterList `json:"filters" xml:"filters"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListJobsByConsumableResourceResponse struct {
-	Jobs      ListJobsByConsumableResourceSummaryList `json:"jobs" xml:"jobs"`
-	NextToken string                                  `json:"nextToken" xml:"nextToken"`
+Jobs ListJobsByConsumableResourceSummaryList `json:"jobs" xml:"jobs"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListJobsByConsumableResourceSummary struct {
-	ConsumableResourceProperties *ConsumableResourceProperties `json:"consumableResourceProperties" xml:"consumableResourceProperties"`
-	CreatedAt                    int64                         `json:"createdAt" xml:"createdAt"`
-	JobArn                       string                        `json:"jobArn" xml:"jobArn"`
-	JobDefinitionArn             string                        `json:"jobDefinitionArn" xml:"jobDefinitionArn"`
-	JobName                      string                        `json:"jobName" xml:"jobName"`
-	JobQueueArn                  string                        `json:"jobQueueArn" xml:"jobQueueArn"`
-	JobStatus                    string                        `json:"jobStatus" xml:"jobStatus"`
-	Quantity                     int64                         `json:"quantity" xml:"quantity"`
-	ShareIdentifier              string                        `json:"shareIdentifier" xml:"shareIdentifier"`
-	StartedAt                    int64                         `json:"startedAt" xml:"startedAt"`
-	StatusReason                 string                        `json:"statusReason" xml:"statusReason"`
+ConsumableResourceProperties *ConsumableResourceProperties `json:"consumableResourceProperties" xml:"consumableResourceProperties"`
+CreatedAt int64 `json:"createdAt" xml:"createdAt"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobDefinitionArn string `json:"jobDefinitionArn" xml:"jobDefinitionArn"`
+JobName string `json:"jobName" xml:"jobName"`
+JobQueueArn string `json:"jobQueueArn" xml:"jobQueueArn"`
+JobStatus string `json:"jobStatus" xml:"jobStatus"`
+Quantity int64 `json:"quantity" xml:"quantity"`
+ShareIdentifier string `json:"shareIdentifier" xml:"shareIdentifier"`
+StartedAt int64 `json:"startedAt" xml:"startedAt"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
 }
 
 type ListJobsRequest struct {
-	ArrayJobId     string             `json:"arrayJobId" xml:"arrayJobId"`
-	Filters        ListJobsFilterList `json:"filters" xml:"filters"`
-	JobQueue       string             `json:"jobQueue" xml:"jobQueue"`
-	JobStatus      string             `json:"jobStatus" xml:"jobStatus"`
-	MaxResults     int32              `json:"maxResults" xml:"maxResults"`
-	MultiNodeJobId string             `json:"multiNodeJobId" xml:"multiNodeJobId"`
-	NextToken      string             `json:"nextToken" xml:"nextToken"`
+ArrayJobId string `json:"arrayJobId" xml:"arrayJobId"`
+Filters ListJobsFilterList `json:"filters" xml:"filters"`
+JobQueue string `json:"jobQueue" xml:"jobQueue"`
+JobStatus string `json:"jobStatus" xml:"jobStatus"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+MultiNodeJobId string `json:"multiNodeJobId" xml:"multiNodeJobId"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListJobsResponse struct {
-	JobSummaryList JobSummaryList `json:"jobSummaryList" xml:"jobSummaryList"`
-	NextToken      string         `json:"nextToken" xml:"nextToken"`
+JobSummaryList JobSummaryList `json:"jobSummaryList" xml:"jobSummaryList"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListQuotaSharesRequest struct {
-	JobQueue   string `json:"jobQueue" xml:"jobQueue"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+JobQueue string `json:"jobQueue" xml:"jobQueue"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListQuotaSharesResponse struct {
-	NextToken   string         `json:"nextToken" xml:"nextToken"`
-	QuotaShares QuotaShareList `json:"quotaShares" xml:"quotaShares"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+QuotaShares QuotaShareList `json:"quotaShares" xml:"quotaShares"`
 }
 
 type ListSchedulingPoliciesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListSchedulingPoliciesResponse struct {
-	NextToken          string                            `json:"nextToken" xml:"nextToken"`
-	SchedulingPolicies SchedulingPolicyListingDetailList `json:"schedulingPolicies" xml:"schedulingPolicies"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SchedulingPolicies SchedulingPolicyListingDetailList `json:"schedulingPolicies" xml:"schedulingPolicies"`
 }
 
 type ListServiceJobsRequest struct {
-	Filters    ListJobsFilterList `json:"filters" xml:"filters"`
-	JobQueue   string             `json:"jobQueue" xml:"jobQueue"`
-	JobStatus  string             `json:"jobStatus" xml:"jobStatus"`
-	MaxResults int32              `json:"maxResults" xml:"maxResults"`
-	NextToken  string             `json:"nextToken" xml:"nextToken"`
+Filters ListJobsFilterList `json:"filters" xml:"filters"`
+JobQueue string `json:"jobQueue" xml:"jobQueue"`
+JobStatus string `json:"jobStatus" xml:"jobStatus"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListServiceJobsResponse struct {
-	JobSummaryList ServiceJobSummaryList `json:"jobSummaryList" xml:"jobSummaryList"`
-	NextToken      string                `json:"nextToken" xml:"nextToken"`
+JobSummaryList ServiceJobSummaryList `json:"jobSummaryList" xml:"jobSummaryList"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags TagrisTagsMap `json:"tags" xml:"tags"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
 }
 
 type LogConfiguration struct {
-	LogDriver     string                     `json:"logDriver" xml:"logDriver"`
-	Options       LogConfigurationOptionsMap `json:"options" xml:"options"`
-	SecretOptions SecretList                 `json:"secretOptions" xml:"secretOptions"`
+LogDriver string `json:"logDriver" xml:"logDriver"`
+Options LogConfigurationOptionsMap `json:"options" xml:"options"`
+SecretOptions SecretList `json:"secretOptions" xml:"secretOptions"`
 }
 
 type MountPoint struct {
-	ContainerPath string `json:"containerPath" xml:"containerPath"`
-	ReadOnly      bool   `json:"readOnly" xml:"readOnly"`
-	SourceVolume  string `json:"sourceVolume" xml:"sourceVolume"`
+ContainerPath string `json:"containerPath" xml:"containerPath"`
+ReadOnly bool `json:"readOnly" xml:"readOnly"`
+SourceVolume string `json:"sourceVolume" xml:"sourceVolume"`
 }
 
 type NetworkConfiguration struct {
-	AssignPublicIp string `json:"assignPublicIp" xml:"assignPublicIp"`
+AssignPublicIp string `json:"assignPublicIp" xml:"assignPublicIp"`
 }
 
 type NetworkInterface struct {
-	AttachmentId       string `json:"attachmentId" xml:"attachmentId"`
-	Ipv6Address        string `json:"ipv6Address" xml:"ipv6Address"`
-	PrivateIpv4Address string `json:"privateIpv4Address" xml:"privateIpv4Address"`
+AttachmentId string `json:"attachmentId" xml:"attachmentId"`
+Ipv6Address string `json:"ipv6Address" xml:"ipv6Address"`
+PrivateIpv4Address string `json:"privateIpv4Address" xml:"privateIpv4Address"`
 }
 
 type NodeDetails struct {
-	IsMainNode bool  `json:"isMainNode" xml:"isMainNode"`
-	NodeIndex  int32 `json:"nodeIndex" xml:"nodeIndex"`
+IsMainNode bool `json:"isMainNode" xml:"isMainNode"`
+NodeIndex int32 `json:"nodeIndex" xml:"nodeIndex"`
 }
 
 type NodeOverrides struct {
-	NodePropertyOverrides NodePropertyOverrides `json:"nodePropertyOverrides" xml:"nodePropertyOverrides"`
-	NumNodes              int32                 `json:"numNodes" xml:"numNodes"`
+NodePropertyOverrides NodePropertyOverrides `json:"nodePropertyOverrides" xml:"nodePropertyOverrides"`
+NumNodes int32 `json:"numNodes" xml:"numNodes"`
 }
 
 type NodeProperties struct {
-	MainNode            int32               `json:"mainNode" xml:"mainNode"`
-	NodeRangeProperties NodeRangeProperties `json:"nodeRangeProperties" xml:"nodeRangeProperties"`
-	NumNodes            int32               `json:"numNodes" xml:"numNodes"`
+MainNode int32 `json:"mainNode" xml:"mainNode"`
+NodeRangeProperties NodeRangeProperties `json:"nodeRangeProperties" xml:"nodeRangeProperties"`
+NumNodes int32 `json:"numNodes" xml:"numNodes"`
 }
 
 type NodePropertiesSummary struct {
-	IsMainNode bool  `json:"isMainNode" xml:"isMainNode"`
-	NodeIndex  int32 `json:"nodeIndex" xml:"nodeIndex"`
-	NumNodes   int32 `json:"numNodes" xml:"numNodes"`
+IsMainNode bool `json:"isMainNode" xml:"isMainNode"`
+NodeIndex int32 `json:"nodeIndex" xml:"nodeIndex"`
+NumNodes int32 `json:"numNodes" xml:"numNodes"`
 }
 
 type NodePropertyOverride struct {
-	ConsumableResourcePropertiesOverride *ConsumableResourceProperties `json:"consumableResourcePropertiesOverride" xml:"consumableResourcePropertiesOverride"`
-	ContainerOverrides                   *ContainerOverrides           `json:"containerOverrides" xml:"containerOverrides"`
-	EcsPropertiesOverride                *EcsPropertiesOverride        `json:"ecsPropertiesOverride" xml:"ecsPropertiesOverride"`
-	EksPropertiesOverride                *EksPropertiesOverride        `json:"eksPropertiesOverride" xml:"eksPropertiesOverride"`
-	InstanceTypes                        StringList                    `json:"instanceTypes" xml:"instanceTypes"`
-	TargetNodes                          string                        `json:"targetNodes" xml:"targetNodes"`
+ConsumableResourcePropertiesOverride *ConsumableResourceProperties `json:"consumableResourcePropertiesOverride" xml:"consumableResourcePropertiesOverride"`
+ContainerOverrides *ContainerOverrides `json:"containerOverrides" xml:"containerOverrides"`
+EcsPropertiesOverride *EcsPropertiesOverride `json:"ecsPropertiesOverride" xml:"ecsPropertiesOverride"`
+EksPropertiesOverride *EksPropertiesOverride `json:"eksPropertiesOverride" xml:"eksPropertiesOverride"`
+InstanceTypes StringList `json:"instanceTypes" xml:"instanceTypes"`
+TargetNodes string `json:"targetNodes" xml:"targetNodes"`
 }
 
 type NodeRangeProperty struct {
-	ConsumableResourceProperties *ConsumableResourceProperties `json:"consumableResourceProperties" xml:"consumableResourceProperties"`
-	Container                    *ContainerProperties          `json:"container" xml:"container"`
-	EcsProperties                *EcsProperties                `json:"ecsProperties" xml:"ecsProperties"`
-	EksProperties                *EksProperties                `json:"eksProperties" xml:"eksProperties"`
-	InstanceTypes                StringList                    `json:"instanceTypes" xml:"instanceTypes"`
-	TargetNodes                  string                        `json:"targetNodes" xml:"targetNodes"`
+ConsumableResourceProperties *ConsumableResourceProperties `json:"consumableResourceProperties" xml:"consumableResourceProperties"`
+Container *ContainerProperties `json:"container" xml:"container"`
+EcsProperties *EcsProperties `json:"ecsProperties" xml:"ecsProperties"`
+EksProperties *EksProperties `json:"eksProperties" xml:"eksProperties"`
+InstanceTypes StringList `json:"instanceTypes" xml:"instanceTypes"`
+TargetNodes string `json:"targetNodes" xml:"targetNodes"`
 }
 
 type QueueSnapshotCapacityUsage struct {
-	CapacityUnit string  `json:"capacityUnit" xml:"capacityUnit"`
-	Quantity     float64 `json:"quantity" xml:"quantity"`
+CapacityUnit string `json:"capacityUnit" xml:"capacityUnit"`
+Quantity float64 `json:"quantity" xml:"quantity"`
 }
 
 type QueueSnapshotUtilizationDetail struct {
-	FairshareUtilization  *FairshareUtilizationDetail    `json:"fairshareUtilization" xml:"fairshareUtilization"`
-	LastUpdatedAt         int64                          `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	QuotaShareUtilization *QuotaShareUtilizationDetail   `json:"quotaShareUtilization" xml:"quotaShareUtilization"`
-	TotalCapacityUsage    QueueSnapshotCapacityUsageList `json:"totalCapacityUsage" xml:"totalCapacityUsage"`
+FairshareUtilization *FairshareUtilizationDetail `json:"fairshareUtilization" xml:"fairshareUtilization"`
+LastUpdatedAt int64 `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+QuotaShareUtilization *QuotaShareUtilizationDetail `json:"quotaShareUtilization" xml:"quotaShareUtilization"`
+TotalCapacityUsage QueueSnapshotCapacityUsageList `json:"totalCapacityUsage" xml:"totalCapacityUsage"`
 }
 
 type QuotaShareCapacityLimit struct {
-	CapacityUnit string `json:"capacityUnit" xml:"capacityUnit"`
-	MaxCapacity  int32  `json:"maxCapacity" xml:"maxCapacity"`
+CapacityUnit string `json:"capacityUnit" xml:"capacityUnit"`
+MaxCapacity int32 `json:"maxCapacity" xml:"maxCapacity"`
 }
 
 type QuotaShareCapacityUsage struct {
-	CapacityUnit string  `json:"capacityUnit" xml:"capacityUnit"`
-	Quantity     float64 `json:"quantity" xml:"quantity"`
+CapacityUnit string `json:"capacityUnit" xml:"capacityUnit"`
+Quantity float64 `json:"quantity" xml:"quantity"`
 }
 
 type QuotaShareCapacityUtilization struct {
-	CapacityUsage  QuotaShareCapacityUsageList `json:"capacityUsage" xml:"capacityUsage"`
-	QuotaShareName string                      `json:"quotaShareName" xml:"quotaShareName"`
+CapacityUsage QuotaShareCapacityUsageList `json:"capacityUsage" xml:"capacityUsage"`
+QuotaShareName string `json:"quotaShareName" xml:"quotaShareName"`
 }
 
 type QuotaShareDetail struct {
-	CapacityLimits               QuotaShareCapacityLimits                `json:"capacityLimits" xml:"capacityLimits"`
-	JobQueueArn                  string                                  `json:"jobQueueArn" xml:"jobQueueArn"`
-	PreemptionConfiguration      *QuotaSharePreemptionConfiguration      `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
-	QuotaShareArn                string                                  `json:"quotaShareArn" xml:"quotaShareArn"`
-	QuotaShareName               string                                  `json:"quotaShareName" xml:"quotaShareName"`
-	ResourceSharingConfiguration *QuotaShareResourceSharingConfiguration `json:"resourceSharingConfiguration" xml:"resourceSharingConfiguration"`
-	State                        string                                  `json:"state" xml:"state"`
-	Status                       string                                  `json:"status" xml:"status"`
+CapacityLimits QuotaShareCapacityLimits `json:"capacityLimits" xml:"capacityLimits"`
+JobQueueArn string `json:"jobQueueArn" xml:"jobQueueArn"`
+PreemptionConfiguration *QuotaSharePreemptionConfiguration `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
+QuotaShareArn string `json:"quotaShareArn" xml:"quotaShareArn"`
+QuotaShareName string `json:"quotaShareName" xml:"quotaShareName"`
+ResourceSharingConfiguration *QuotaShareResourceSharingConfiguration `json:"resourceSharingConfiguration" xml:"resourceSharingConfiguration"`
+State string `json:"state" xml:"state"`
+Status string `json:"status" xml:"status"`
 }
 
 type QuotaSharePolicy struct {
-	IdleResourceAssignmentStrategy string `json:"idleResourceAssignmentStrategy" xml:"idleResourceAssignmentStrategy"`
+IdleResourceAssignmentStrategy string `json:"idleResourceAssignmentStrategy" xml:"idleResourceAssignmentStrategy"`
 }
 
 type QuotaSharePreemptionConfiguration struct {
-	InSharePreemption string `json:"inSharePreemption" xml:"inSharePreemption"`
+InSharePreemption string `json:"inSharePreemption" xml:"inSharePreemption"`
 }
 
 type QuotaShareResourceSharingConfiguration struct {
-	BorrowLimit int32  `json:"borrowLimit" xml:"borrowLimit"`
-	Strategy    string `json:"strategy" xml:"strategy"`
+BorrowLimit int32 `json:"borrowLimit" xml:"borrowLimit"`
+Strategy string `json:"strategy" xml:"strategy"`
 }
 
 type QuotaShareUtilizationDetail struct {
-	TopCapacityUtilization QuotaShareCapacityUtilizationList `json:"topCapacityUtilization" xml:"topCapacityUtilization"`
+TopCapacityUtilization QuotaShareCapacityUtilizationList `json:"topCapacityUtilization" xml:"topCapacityUtilization"`
 }
 
 type RegisterJobDefinitionRequest struct {
-	ConsumableResourceProperties *ConsumableResourceProperties `json:"consumableResourceProperties" xml:"consumableResourceProperties"`
-	ContainerProperties          *ContainerProperties          `json:"containerProperties" xml:"containerProperties"`
-	EcsProperties                *EcsProperties                `json:"ecsProperties" xml:"ecsProperties"`
-	EksProperties                *EksProperties                `json:"eksProperties" xml:"eksProperties"`
-	JobDefinitionName            string                        `json:"jobDefinitionName" xml:"jobDefinitionName"`
-	NodeProperties               *NodeProperties               `json:"nodeProperties" xml:"nodeProperties"`
-	Parameters                   ParametersMap                 `json:"parameters" xml:"parameters"`
-	PlatformCapabilities         PlatformCapabilityList        `json:"platformCapabilities" xml:"platformCapabilities"`
-	PropagateTags                bool                          `json:"propagateTags" xml:"propagateTags"`
-	RetryStrategy                *RetryStrategy                `json:"retryStrategy" xml:"retryStrategy"`
-	SchedulingPriority           int32                         `json:"schedulingPriority" xml:"schedulingPriority"`
-	Tags                         TagrisTagsMap                 `json:"tags" xml:"tags"`
-	Timeout                      *JobTimeout                   `json:"timeout" xml:"timeout"`
-	Type                         string                        `json:"type" xml:"type"`
+ConsumableResourceProperties *ConsumableResourceProperties `json:"consumableResourceProperties" xml:"consumableResourceProperties"`
+ContainerProperties *ContainerProperties `json:"containerProperties" xml:"containerProperties"`
+EcsProperties *EcsProperties `json:"ecsProperties" xml:"ecsProperties"`
+EksProperties *EksProperties `json:"eksProperties" xml:"eksProperties"`
+JobDefinitionName string `json:"jobDefinitionName" xml:"jobDefinitionName"`
+NodeProperties *NodeProperties `json:"nodeProperties" xml:"nodeProperties"`
+Parameters ParametersMap `json:"parameters" xml:"parameters"`
+PlatformCapabilities PlatformCapabilityList `json:"platformCapabilities" xml:"platformCapabilities"`
+PropagateTags bool `json:"propagateTags" xml:"propagateTags"`
+RetryStrategy *RetryStrategy `json:"retryStrategy" xml:"retryStrategy"`
+SchedulingPriority int32 `json:"schedulingPriority" xml:"schedulingPriority"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
+Timeout *JobTimeout `json:"timeout" xml:"timeout"`
+Type string `json:"type" xml:"type"`
 }
 
 type RegisterJobDefinitionResponse struct {
-	JobDefinitionArn  string `json:"jobDefinitionArn" xml:"jobDefinitionArn"`
-	JobDefinitionName string `json:"jobDefinitionName" xml:"jobDefinitionName"`
-	Revision          int32  `json:"revision" xml:"revision"`
+JobDefinitionArn string `json:"jobDefinitionArn" xml:"jobDefinitionArn"`
+JobDefinitionName string `json:"jobDefinitionName" xml:"jobDefinitionName"`
+Revision int32 `json:"revision" xml:"revision"`
 }
 
 type RepositoryCredentials struct {
-	CredentialsParameter string `json:"credentialsParameter" xml:"credentialsParameter"`
+CredentialsParameter string `json:"credentialsParameter" xml:"credentialsParameter"`
 }
 
 type ResourceRequirement struct {
-	Type  string `json:"type" xml:"type"`
-	Value string `json:"value" xml:"value"`
+Type string `json:"type" xml:"type"`
+Value string `json:"value" xml:"value"`
 }
 
 type RetryStrategy struct {
-	Attempts       int32              `json:"attempts" xml:"attempts"`
-	EvaluateOnExit EvaluateOnExitList `json:"evaluateOnExit" xml:"evaluateOnExit"`
+Attempts int32 `json:"attempts" xml:"attempts"`
+EvaluateOnExit EvaluateOnExitList `json:"evaluateOnExit" xml:"evaluateOnExit"`
 }
 
 type RuntimePlatform struct {
-	CpuArchitecture       string `json:"cpuArchitecture" xml:"cpuArchitecture"`
-	OperatingSystemFamily string `json:"operatingSystemFamily" xml:"operatingSystemFamily"`
+CpuArchitecture string `json:"cpuArchitecture" xml:"cpuArchitecture"`
+OperatingSystemFamily string `json:"operatingSystemFamily" xml:"operatingSystemFamily"`
 }
 
 type SchedulingPolicyDetail struct {
-	Arn              string            `json:"arn" xml:"arn"`
-	FairsharePolicy  *FairsharePolicy  `json:"fairsharePolicy" xml:"fairsharePolicy"`
-	Name             string            `json:"name" xml:"name"`
-	QuotaSharePolicy *QuotaSharePolicy `json:"quotaSharePolicy" xml:"quotaSharePolicy"`
-	Tags             TagrisTagsMap     `json:"tags" xml:"tags"`
+Arn string `json:"arn" xml:"arn"`
+FairsharePolicy *FairsharePolicy `json:"fairsharePolicy" xml:"fairsharePolicy"`
+Name string `json:"name" xml:"name"`
+QuotaSharePolicy *QuotaSharePolicy `json:"quotaSharePolicy" xml:"quotaSharePolicy"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
 }
 
 type SchedulingPolicyListingDetail struct {
-	Arn string `json:"arn" xml:"arn"`
+Arn string `json:"arn" xml:"arn"`
 }
 
 type Secret struct {
-	Name      string `json:"name" xml:"name"`
-	ValueFrom string `json:"valueFrom" xml:"valueFrom"`
+Name string `json:"name" xml:"name"`
+ValueFrom string `json:"valueFrom" xml:"valueFrom"`
 }
 
 type ServiceEnvironmentDetail struct {
-	CapacityLimits         CapacityLimits `json:"capacityLimits" xml:"capacityLimits"`
-	ServiceEnvironmentArn  string         `json:"serviceEnvironmentArn" xml:"serviceEnvironmentArn"`
-	ServiceEnvironmentName string         `json:"serviceEnvironmentName" xml:"serviceEnvironmentName"`
-	ServiceEnvironmentType string         `json:"serviceEnvironmentType" xml:"serviceEnvironmentType"`
-	State                  string         `json:"state" xml:"state"`
-	Status                 string         `json:"status" xml:"status"`
-	Tags                   TagrisTagsMap  `json:"tags" xml:"tags"`
+CapacityLimits CapacityLimits `json:"capacityLimits" xml:"capacityLimits"`
+ServiceEnvironmentArn string `json:"serviceEnvironmentArn" xml:"serviceEnvironmentArn"`
+ServiceEnvironmentName string `json:"serviceEnvironmentName" xml:"serviceEnvironmentName"`
+ServiceEnvironmentType string `json:"serviceEnvironmentType" xml:"serviceEnvironmentType"`
+State string `json:"state" xml:"state"`
+Status string `json:"status" xml:"status"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
 }
 
 type ServiceEnvironmentOrder struct {
-	Order              int32  `json:"order" xml:"order"`
-	ServiceEnvironment string `json:"serviceEnvironment" xml:"serviceEnvironment"`
+Order int32 `json:"order" xml:"order"`
+ServiceEnvironment string `json:"serviceEnvironment" xml:"serviceEnvironment"`
 }
 
 type ServiceJobAttemptDetail struct {
-	ServiceResourceId *ServiceResourceId `json:"serviceResourceId" xml:"serviceResourceId"`
-	StartedAt         int64              `json:"startedAt" xml:"startedAt"`
-	StatusReason      string             `json:"statusReason" xml:"statusReason"`
-	StoppedAt         int64              `json:"stoppedAt" xml:"stoppedAt"`
+ServiceResourceId *ServiceResourceId `json:"serviceResourceId" xml:"serviceResourceId"`
+StartedAt int64 `json:"startedAt" xml:"startedAt"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+StoppedAt int64 `json:"stoppedAt" xml:"stoppedAt"`
 }
 
 type ServiceJobCapacityUsageDetail struct {
-	CapacityUnit string  `json:"capacityUnit" xml:"capacityUnit"`
-	Quantity     float64 `json:"quantity" xml:"quantity"`
+CapacityUnit string `json:"capacityUnit" xml:"capacityUnit"`
+Quantity float64 `json:"quantity" xml:"quantity"`
 }
 
 type ServiceJobCapacityUsageSummary struct {
-	CapacityUnit string  `json:"capacityUnit" xml:"capacityUnit"`
-	Quantity     float64 `json:"quantity" xml:"quantity"`
+CapacityUnit string `json:"capacityUnit" xml:"capacityUnit"`
+Quantity float64 `json:"quantity" xml:"quantity"`
 }
 
 type ServiceJobEvaluateOnExit struct {
-	Action         string `json:"action" xml:"action"`
-	OnStatusReason string `json:"onStatusReason" xml:"onStatusReason"`
+Action string `json:"action" xml:"action"`
+OnStatusReason string `json:"onStatusReason" xml:"onStatusReason"`
 }
 
 type ServiceJobPreemptedAttempt struct {
-	ServiceResourceId *ServiceResourceId `json:"serviceResourceId" xml:"serviceResourceId"`
-	StartedAt         int64              `json:"startedAt" xml:"startedAt"`
-	StatusReason      string             `json:"statusReason" xml:"statusReason"`
-	StoppedAt         int64              `json:"stoppedAt" xml:"stoppedAt"`
+ServiceResourceId *ServiceResourceId `json:"serviceResourceId" xml:"serviceResourceId"`
+StartedAt int64 `json:"startedAt" xml:"startedAt"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+StoppedAt int64 `json:"stoppedAt" xml:"stoppedAt"`
 }
 
 type ServiceJobPreemptionConfiguration struct {
-	PreemptionRetriesBeforeTermination int32 `json:"preemptionRetriesBeforeTermination" xml:"preemptionRetriesBeforeTermination"`
+PreemptionRetriesBeforeTermination int32 `json:"preemptionRetriesBeforeTermination" xml:"preemptionRetriesBeforeTermination"`
 }
 
 type ServiceJobPreemptionSummary struct {
-	PreemptedAttemptCount   int32                                `json:"preemptedAttemptCount" xml:"preemptedAttemptCount"`
-	RecentPreemptedAttempts ServiceJobRecentPreemptedAttemptList `json:"recentPreemptedAttempts" xml:"recentPreemptedAttempts"`
+PreemptedAttemptCount int32 `json:"preemptedAttemptCount" xml:"preemptedAttemptCount"`
+RecentPreemptedAttempts ServiceJobRecentPreemptedAttemptList `json:"recentPreemptedAttempts" xml:"recentPreemptedAttempts"`
 }
 
 type ServiceJobRetryStrategy struct {
-	Attempts       int32                        `json:"attempts" xml:"attempts"`
-	EvaluateOnExit ServiceJobEvaluateOnExitList `json:"evaluateOnExit" xml:"evaluateOnExit"`
+Attempts int32 `json:"attempts" xml:"attempts"`
+EvaluateOnExit ServiceJobEvaluateOnExitList `json:"evaluateOnExit" xml:"evaluateOnExit"`
 }
 
 type ServiceJobSummary struct {
-	CapacityUsage   ServiceJobCapacityUsageSummaryList `json:"capacityUsage" xml:"capacityUsage"`
-	CreatedAt       int64                              `json:"createdAt" xml:"createdAt"`
-	JobArn          string                             `json:"jobArn" xml:"jobArn"`
-	JobId           string                             `json:"jobId" xml:"jobId"`
-	JobName         string                             `json:"jobName" xml:"jobName"`
-	LatestAttempt   *LatestServiceJobAttempt           `json:"latestAttempt" xml:"latestAttempt"`
-	QuotaShareName  string                             `json:"quotaShareName" xml:"quotaShareName"`
-	ScheduledAt     int64                              `json:"scheduledAt" xml:"scheduledAt"`
-	ServiceJobType  string                             `json:"serviceJobType" xml:"serviceJobType"`
-	ShareIdentifier string                             `json:"shareIdentifier" xml:"shareIdentifier"`
-	StartedAt       int64                              `json:"startedAt" xml:"startedAt"`
-	Status          string                             `json:"status" xml:"status"`
-	StatusReason    string                             `json:"statusReason" xml:"statusReason"`
-	StoppedAt       int64                              `json:"stoppedAt" xml:"stoppedAt"`
+CapacityUsage ServiceJobCapacityUsageSummaryList `json:"capacityUsage" xml:"capacityUsage"`
+CreatedAt int64 `json:"createdAt" xml:"createdAt"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobId string `json:"jobId" xml:"jobId"`
+JobName string `json:"jobName" xml:"jobName"`
+LatestAttempt *LatestServiceJobAttempt `json:"latestAttempt" xml:"latestAttempt"`
+QuotaShareName string `json:"quotaShareName" xml:"quotaShareName"`
+ScheduledAt int64 `json:"scheduledAt" xml:"scheduledAt"`
+ServiceJobType string `json:"serviceJobType" xml:"serviceJobType"`
+ShareIdentifier string `json:"shareIdentifier" xml:"shareIdentifier"`
+StartedAt int64 `json:"startedAt" xml:"startedAt"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+StoppedAt int64 `json:"stoppedAt" xml:"stoppedAt"`
 }
 
 type ServiceJobTimeout struct {
-	AttemptDurationSeconds int32 `json:"attemptDurationSeconds" xml:"attemptDurationSeconds"`
+AttemptDurationSeconds int32 `json:"attemptDurationSeconds" xml:"attemptDurationSeconds"`
 }
 
 type ServiceResourceId struct {
-	Name  string `json:"name" xml:"name"`
-	Value string `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+Value string `json:"value" xml:"value"`
 }
 
 type ShareAttributes struct {
-	ShareIdentifier string  `json:"shareIdentifier" xml:"shareIdentifier"`
-	WeightFactor    float32 `json:"weightFactor" xml:"weightFactor"`
+ShareIdentifier string `json:"shareIdentifier" xml:"shareIdentifier"`
+WeightFactor float32 `json:"weightFactor" xml:"weightFactor"`
 }
 
 type SubmitJobRequest struct {
-	ArrayProperties                      *ArrayProperties              `json:"arrayProperties" xml:"arrayProperties"`
-	ConsumableResourcePropertiesOverride *ConsumableResourceProperties `json:"consumableResourcePropertiesOverride" xml:"consumableResourcePropertiesOverride"`
-	ContainerOverrides                   *ContainerOverrides           `json:"containerOverrides" xml:"containerOverrides"`
-	DependsOn                            JobDependencyList             `json:"dependsOn" xml:"dependsOn"`
-	EcsPropertiesOverride                *EcsPropertiesOverride        `json:"ecsPropertiesOverride" xml:"ecsPropertiesOverride"`
-	EksPropertiesOverride                *EksPropertiesOverride        `json:"eksPropertiesOverride" xml:"eksPropertiesOverride"`
-	JobDefinition                        string                        `json:"jobDefinition" xml:"jobDefinition"`
-	JobName                              string                        `json:"jobName" xml:"jobName"`
-	JobQueue                             string                        `json:"jobQueue" xml:"jobQueue"`
-	NodeOverrides                        *NodeOverrides                `json:"nodeOverrides" xml:"nodeOverrides"`
-	Parameters                           ParametersMap                 `json:"parameters" xml:"parameters"`
-	PropagateTags                        bool                          `json:"propagateTags" xml:"propagateTags"`
-	RetryStrategy                        *RetryStrategy                `json:"retryStrategy" xml:"retryStrategy"`
-	SchedulingPriorityOverride           int32                         `json:"schedulingPriorityOverride" xml:"schedulingPriorityOverride"`
-	ShareIdentifier                      string                        `json:"shareIdentifier" xml:"shareIdentifier"`
-	Tags                                 TagrisTagsMap                 `json:"tags" xml:"tags"`
-	Timeout                              *JobTimeout                   `json:"timeout" xml:"timeout"`
+ArrayProperties *ArrayProperties `json:"arrayProperties" xml:"arrayProperties"`
+ConsumableResourcePropertiesOverride *ConsumableResourceProperties `json:"consumableResourcePropertiesOverride" xml:"consumableResourcePropertiesOverride"`
+ContainerOverrides *ContainerOverrides `json:"containerOverrides" xml:"containerOverrides"`
+DependsOn JobDependencyList `json:"dependsOn" xml:"dependsOn"`
+EcsPropertiesOverride *EcsPropertiesOverride `json:"ecsPropertiesOverride" xml:"ecsPropertiesOverride"`
+EksPropertiesOverride *EksPropertiesOverride `json:"eksPropertiesOverride" xml:"eksPropertiesOverride"`
+JobDefinition string `json:"jobDefinition" xml:"jobDefinition"`
+JobName string `json:"jobName" xml:"jobName"`
+JobQueue string `json:"jobQueue" xml:"jobQueue"`
+NodeOverrides *NodeOverrides `json:"nodeOverrides" xml:"nodeOverrides"`
+Parameters ParametersMap `json:"parameters" xml:"parameters"`
+PropagateTags bool `json:"propagateTags" xml:"propagateTags"`
+RetryStrategy *RetryStrategy `json:"retryStrategy" xml:"retryStrategy"`
+SchedulingPriorityOverride int32 `json:"schedulingPriorityOverride" xml:"schedulingPriorityOverride"`
+ShareIdentifier string `json:"shareIdentifier" xml:"shareIdentifier"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
+Timeout *JobTimeout `json:"timeout" xml:"timeout"`
 }
 
 type SubmitJobResponse struct {
-	JobArn  string `json:"jobArn" xml:"jobArn"`
-	JobId   string `json:"jobId" xml:"jobId"`
-	JobName string `json:"jobName" xml:"jobName"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobId string `json:"jobId" xml:"jobId"`
+JobName string `json:"jobName" xml:"jobName"`
 }
 
 type SubmitServiceJobRequest struct {
-	ClientToken             string                             `json:"clientToken" xml:"clientToken"`
-	JobName                 string                             `json:"jobName" xml:"jobName"`
-	JobQueue                string                             `json:"jobQueue" xml:"jobQueue"`
-	PreemptionConfiguration *ServiceJobPreemptionConfiguration `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
-	QuotaShareName          string                             `json:"quotaShareName" xml:"quotaShareName"`
-	RetryStrategy           *ServiceJobRetryStrategy           `json:"retryStrategy" xml:"retryStrategy"`
-	SchedulingPriority      int32                              `json:"schedulingPriority" xml:"schedulingPriority"`
-	ServiceJobType          string                             `json:"serviceJobType" xml:"serviceJobType"`
-	ServiceRequestPayload   string                             `json:"serviceRequestPayload" xml:"serviceRequestPayload"`
-	ShareIdentifier         string                             `json:"shareIdentifier" xml:"shareIdentifier"`
-	Tags                    TagrisTagsMap                      `json:"tags" xml:"tags"`
-	TimeoutConfig           *ServiceJobTimeout                 `json:"timeoutConfig" xml:"timeoutConfig"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+JobName string `json:"jobName" xml:"jobName"`
+JobQueue string `json:"jobQueue" xml:"jobQueue"`
+PreemptionConfiguration *ServiceJobPreemptionConfiguration `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
+QuotaShareName string `json:"quotaShareName" xml:"quotaShareName"`
+RetryStrategy *ServiceJobRetryStrategy `json:"retryStrategy" xml:"retryStrategy"`
+SchedulingPriority int32 `json:"schedulingPriority" xml:"schedulingPriority"`
+ServiceJobType string `json:"serviceJobType" xml:"serviceJobType"`
+ServiceRequestPayload string `json:"serviceRequestPayload" xml:"serviceRequestPayload"`
+ShareIdentifier string `json:"shareIdentifier" xml:"shareIdentifier"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
+TimeoutConfig *ServiceJobTimeout `json:"timeoutConfig" xml:"timeoutConfig"`
 }
 
 type SubmitServiceJobResponse struct {
-	JobArn  string `json:"jobArn" xml:"jobArn"`
-	JobId   string `json:"jobId" xml:"jobId"`
-	JobName string `json:"jobName" xml:"jobName"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobId string `json:"jobId" xml:"jobId"`
+JobName string `json:"jobName" xml:"jobName"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string        `json:"resourceArn" xml:"resourceArn"`
-	Tags        TagrisTagsMap `json:"tags" xml:"tags"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+Tags TagrisTagsMap `json:"tags" xml:"tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type TaskContainerDependency struct {
-	Condition     string `json:"condition" xml:"condition"`
-	ContainerName string `json:"containerName" xml:"containerName"`
+Condition string `json:"condition" xml:"condition"`
+ContainerName string `json:"containerName" xml:"containerName"`
 }
 
 type TaskContainerDetails struct {
-	Command                StringList                  `json:"command" xml:"command"`
-	DependsOn              TaskContainerDependencyList `json:"dependsOn" xml:"dependsOn"`
-	Environment            EnvironmentVariables        `json:"environment" xml:"environment"`
-	Essential              bool                        `json:"essential" xml:"essential"`
-	ExitCode               int32                       `json:"exitCode" xml:"exitCode"`
-	FirelensConfiguration  *FirelensConfiguration      `json:"firelensConfiguration" xml:"firelensConfiguration"`
-	Image                  string                      `json:"image" xml:"image"`
-	LinuxParameters        *LinuxParameters            `json:"linuxParameters" xml:"linuxParameters"`
-	LogConfiguration       *LogConfiguration           `json:"logConfiguration" xml:"logConfiguration"`
-	LogStreamName          string                      `json:"logStreamName" xml:"logStreamName"`
-	MountPoints            MountPoints                 `json:"mountPoints" xml:"mountPoints"`
-	Name                   string                      `json:"name" xml:"name"`
-	NetworkInterfaces      NetworkInterfaceList        `json:"networkInterfaces" xml:"networkInterfaces"`
-	Privileged             bool                        `json:"privileged" xml:"privileged"`
-	ReadonlyRootFilesystem bool                        `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
-	Reason                 string                      `json:"reason" xml:"reason"`
-	RepositoryCredentials  *RepositoryCredentials      `json:"repositoryCredentials" xml:"repositoryCredentials"`
-	ResourceRequirements   ResourceRequirements        `json:"resourceRequirements" xml:"resourceRequirements"`
-	Secrets                SecretList                  `json:"secrets" xml:"secrets"`
-	Ulimits                Ulimits                     `json:"ulimits" xml:"ulimits"`
-	User                   string                      `json:"user" xml:"user"`
+Command StringList `json:"command" xml:"command"`
+DependsOn TaskContainerDependencyList `json:"dependsOn" xml:"dependsOn"`
+Environment EnvironmentVariables `json:"environment" xml:"environment"`
+Essential bool `json:"essential" xml:"essential"`
+ExitCode int32 `json:"exitCode" xml:"exitCode"`
+FirelensConfiguration *FirelensConfiguration `json:"firelensConfiguration" xml:"firelensConfiguration"`
+Image string `json:"image" xml:"image"`
+LinuxParameters *LinuxParameters `json:"linuxParameters" xml:"linuxParameters"`
+LogConfiguration *LogConfiguration `json:"logConfiguration" xml:"logConfiguration"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+MountPoints MountPoints `json:"mountPoints" xml:"mountPoints"`
+Name string `json:"name" xml:"name"`
+NetworkInterfaces NetworkInterfaceList `json:"networkInterfaces" xml:"networkInterfaces"`
+Privileged bool `json:"privileged" xml:"privileged"`
+ReadonlyRootFilesystem bool `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
+Reason string `json:"reason" xml:"reason"`
+RepositoryCredentials *RepositoryCredentials `json:"repositoryCredentials" xml:"repositoryCredentials"`
+ResourceRequirements ResourceRequirements `json:"resourceRequirements" xml:"resourceRequirements"`
+Secrets SecretList `json:"secrets" xml:"secrets"`
+Ulimits Ulimits `json:"ulimits" xml:"ulimits"`
+User string `json:"user" xml:"user"`
 }
 
 type TaskContainerOverrides struct {
-	Command              StringList           `json:"command" xml:"command"`
-	Environment          EnvironmentVariables `json:"environment" xml:"environment"`
-	Name                 string               `json:"name" xml:"name"`
-	ResourceRequirements ResourceRequirements `json:"resourceRequirements" xml:"resourceRequirements"`
+Command StringList `json:"command" xml:"command"`
+Environment EnvironmentVariables `json:"environment" xml:"environment"`
+Name string `json:"name" xml:"name"`
+ResourceRequirements ResourceRequirements `json:"resourceRequirements" xml:"resourceRequirements"`
 }
 
 type TaskContainerProperties struct {
-	Command                StringList                  `json:"command" xml:"command"`
-	DependsOn              TaskContainerDependencyList `json:"dependsOn" xml:"dependsOn"`
-	Environment            EnvironmentVariables        `json:"environment" xml:"environment"`
-	Essential              bool                        `json:"essential" xml:"essential"`
-	FirelensConfiguration  *FirelensConfiguration      `json:"firelensConfiguration" xml:"firelensConfiguration"`
-	Image                  string                      `json:"image" xml:"image"`
-	LinuxParameters        *LinuxParameters            `json:"linuxParameters" xml:"linuxParameters"`
-	LogConfiguration       *LogConfiguration           `json:"logConfiguration" xml:"logConfiguration"`
-	MountPoints            MountPoints                 `json:"mountPoints" xml:"mountPoints"`
-	Name                   string                      `json:"name" xml:"name"`
-	Privileged             bool                        `json:"privileged" xml:"privileged"`
-	ReadonlyRootFilesystem bool                        `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
-	RepositoryCredentials  *RepositoryCredentials      `json:"repositoryCredentials" xml:"repositoryCredentials"`
-	ResourceRequirements   ResourceRequirements        `json:"resourceRequirements" xml:"resourceRequirements"`
-	Secrets                SecretList                  `json:"secrets" xml:"secrets"`
-	Ulimits                Ulimits                     `json:"ulimits" xml:"ulimits"`
-	User                   string                      `json:"user" xml:"user"`
+Command StringList `json:"command" xml:"command"`
+DependsOn TaskContainerDependencyList `json:"dependsOn" xml:"dependsOn"`
+Environment EnvironmentVariables `json:"environment" xml:"environment"`
+Essential bool `json:"essential" xml:"essential"`
+FirelensConfiguration *FirelensConfiguration `json:"firelensConfiguration" xml:"firelensConfiguration"`
+Image string `json:"image" xml:"image"`
+LinuxParameters *LinuxParameters `json:"linuxParameters" xml:"linuxParameters"`
+LogConfiguration *LogConfiguration `json:"logConfiguration" xml:"logConfiguration"`
+MountPoints MountPoints `json:"mountPoints" xml:"mountPoints"`
+Name string `json:"name" xml:"name"`
+Privileged bool `json:"privileged" xml:"privileged"`
+ReadonlyRootFilesystem bool `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
+RepositoryCredentials *RepositoryCredentials `json:"repositoryCredentials" xml:"repositoryCredentials"`
+ResourceRequirements ResourceRequirements `json:"resourceRequirements" xml:"resourceRequirements"`
+Secrets SecretList `json:"secrets" xml:"secrets"`
+Ulimits Ulimits `json:"ulimits" xml:"ulimits"`
+User string `json:"user" xml:"user"`
 }
 
 type TaskPropertiesOverride struct {
-	Containers ListTaskContainerOverrides `json:"containers" xml:"containers"`
+Containers ListTaskContainerOverrides `json:"containers" xml:"containers"`
 }
 
 type TerminateJobRequest struct {
-	JobId  string `json:"jobId" xml:"jobId"`
-	Reason string `json:"reason" xml:"reason"`
+JobId string `json:"jobId" xml:"jobId"`
+Reason string `json:"reason" xml:"reason"`
 }
 
 type TerminateJobResponse struct {
 }
 
 type TerminateServiceJobRequest struct {
-	JobId  string `json:"jobId" xml:"jobId"`
-	Reason string `json:"reason" xml:"reason"`
+JobId string `json:"jobId" xml:"jobId"`
+Reason string `json:"reason" xml:"reason"`
 }
 
 type TerminateServiceJobResponse struct {
 }
 
 type Tmpfs struct {
-	ContainerPath string     `json:"containerPath" xml:"containerPath"`
-	MountOptions  StringList `json:"mountOptions" xml:"mountOptions"`
-	Size          int32      `json:"size" xml:"size"`
+ContainerPath string `json:"containerPath" xml:"containerPath"`
+MountOptions StringList `json:"mountOptions" xml:"mountOptions"`
+Size int32 `json:"size" xml:"size"`
 }
 
 type Ulimit struct {
-	HardLimit int32  `json:"hardLimit" xml:"hardLimit"`
-	Name      string `json:"name" xml:"name"`
-	SoftLimit int32  `json:"softLimit" xml:"softLimit"`
+HardLimit int32 `json:"hardLimit" xml:"hardLimit"`
+Name string `json:"name" xml:"name"`
+SoftLimit int32 `json:"softLimit" xml:"softLimit"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string      `json:"resourceArn" xml:"resourceArn"`
-	TagKeys     TagKeysList `json:"tagKeys" xml:"tagKeys"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+TagKeys TagKeysList `json:"tagKeys" xml:"tagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateComputeEnvironmentRequest struct {
-	ComputeEnvironment string                 `json:"computeEnvironment" xml:"computeEnvironment"`
-	ComputeResources   *ComputeResourceUpdate `json:"computeResources" xml:"computeResources"`
-	Context            string                 `json:"context" xml:"context"`
-	ServiceRole        string                 `json:"serviceRole" xml:"serviceRole"`
-	State              string                 `json:"state" xml:"state"`
-	UnmanagedvCpus     int32                  `json:"unmanagedvCpus" xml:"unmanagedvCpus"`
-	UpdatePolicy       *UpdatePolicy          `json:"updatePolicy" xml:"updatePolicy"`
+ComputeEnvironment string `json:"computeEnvironment" xml:"computeEnvironment"`
+ComputeResources *ComputeResourceUpdate `json:"computeResources" xml:"computeResources"`
+Context string `json:"context" xml:"context"`
+ServiceRole string `json:"serviceRole" xml:"serviceRole"`
+State string `json:"state" xml:"state"`
+UnmanagedvCpus int32 `json:"unmanagedvCpus" xml:"unmanagedvCpus"`
+UpdatePolicy *UpdatePolicy `json:"updatePolicy" xml:"updatePolicy"`
 }
 
 type UpdateComputeEnvironmentResponse struct {
-	ComputeEnvironmentArn  string `json:"computeEnvironmentArn" xml:"computeEnvironmentArn"`
-	ComputeEnvironmentName string `json:"computeEnvironmentName" xml:"computeEnvironmentName"`
+ComputeEnvironmentArn string `json:"computeEnvironmentArn" xml:"computeEnvironmentArn"`
+ComputeEnvironmentName string `json:"computeEnvironmentName" xml:"computeEnvironmentName"`
 }
 
 type UpdateConsumableResourceRequest struct {
-	ClientToken        string `json:"clientToken" xml:"clientToken"`
-	ConsumableResource string `json:"consumableResource" xml:"consumableResource"`
-	Operation          string `json:"operation" xml:"operation"`
-	Quantity           int64  `json:"quantity" xml:"quantity"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ConsumableResource string `json:"consumableResource" xml:"consumableResource"`
+Operation string `json:"operation" xml:"operation"`
+Quantity int64 `json:"quantity" xml:"quantity"`
 }
 
 type UpdateConsumableResourceResponse struct {
-	ConsumableResourceArn  string `json:"consumableResourceArn" xml:"consumableResourceArn"`
-	ConsumableResourceName string `json:"consumableResourceName" xml:"consumableResourceName"`
-	TotalQuantity          int64  `json:"totalQuantity" xml:"totalQuantity"`
+ConsumableResourceArn string `json:"consumableResourceArn" xml:"consumableResourceArn"`
+ConsumableResourceName string `json:"consumableResourceName" xml:"consumableResourceName"`
+TotalQuantity int64 `json:"totalQuantity" xml:"totalQuantity"`
 }
 
 type UpdateJobQueueRequest struct {
-	ComputeEnvironmentOrder  ComputeEnvironmentOrders `json:"computeEnvironmentOrder" xml:"computeEnvironmentOrder"`
-	JobQueue                 string                   `json:"jobQueue" xml:"jobQueue"`
-	JobStateTimeLimitActions JobStateTimeLimitActions `json:"jobStateTimeLimitActions" xml:"jobStateTimeLimitActions"`
-	Priority                 int32                    `json:"priority" xml:"priority"`
-	SchedulingPolicyArn      string                   `json:"schedulingPolicyArn" xml:"schedulingPolicyArn"`
-	ServiceEnvironmentOrder  ServiceEnvironmentOrders `json:"serviceEnvironmentOrder" xml:"serviceEnvironmentOrder"`
-	State                    string                   `json:"state" xml:"state"`
+ComputeEnvironmentOrder ComputeEnvironmentOrders `json:"computeEnvironmentOrder" xml:"computeEnvironmentOrder"`
+JobQueue string `json:"jobQueue" xml:"jobQueue"`
+JobStateTimeLimitActions JobStateTimeLimitActions `json:"jobStateTimeLimitActions" xml:"jobStateTimeLimitActions"`
+Priority int32 `json:"priority" xml:"priority"`
+SchedulingPolicyArn string `json:"schedulingPolicyArn" xml:"schedulingPolicyArn"`
+ServiceEnvironmentOrder ServiceEnvironmentOrders `json:"serviceEnvironmentOrder" xml:"serviceEnvironmentOrder"`
+State string `json:"state" xml:"state"`
 }
 
 type UpdateJobQueueResponse struct {
-	JobQueueArn  string `json:"jobQueueArn" xml:"jobQueueArn"`
-	JobQueueName string `json:"jobQueueName" xml:"jobQueueName"`
+JobQueueArn string `json:"jobQueueArn" xml:"jobQueueArn"`
+JobQueueName string `json:"jobQueueName" xml:"jobQueueName"`
 }
 
 type UpdatePolicy struct {
-	JobExecutionTimeoutMinutes int64 `json:"jobExecutionTimeoutMinutes" xml:"jobExecutionTimeoutMinutes"`
-	TerminateJobsOnUpdate      bool  `json:"terminateJobsOnUpdate" xml:"terminateJobsOnUpdate"`
+JobExecutionTimeoutMinutes int64 `json:"jobExecutionTimeoutMinutes" xml:"jobExecutionTimeoutMinutes"`
+TerminateJobsOnUpdate bool `json:"terminateJobsOnUpdate" xml:"terminateJobsOnUpdate"`
 }
 
 type UpdateQuotaShareRequest struct {
-	CapacityLimits               QuotaShareCapacityLimits                `json:"capacityLimits" xml:"capacityLimits"`
-	PreemptionConfiguration      *QuotaSharePreemptionConfiguration      `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
-	QuotaShareArn                string                                  `json:"quotaShareArn" xml:"quotaShareArn"`
-	ResourceSharingConfiguration *QuotaShareResourceSharingConfiguration `json:"resourceSharingConfiguration" xml:"resourceSharingConfiguration"`
-	State                        string                                  `json:"state" xml:"state"`
+CapacityLimits QuotaShareCapacityLimits `json:"capacityLimits" xml:"capacityLimits"`
+PreemptionConfiguration *QuotaSharePreemptionConfiguration `json:"preemptionConfiguration" xml:"preemptionConfiguration"`
+QuotaShareArn string `json:"quotaShareArn" xml:"quotaShareArn"`
+ResourceSharingConfiguration *QuotaShareResourceSharingConfiguration `json:"resourceSharingConfiguration" xml:"resourceSharingConfiguration"`
+State string `json:"state" xml:"state"`
 }
 
 type UpdateQuotaShareResponse struct {
-	QuotaShareArn  string `json:"quotaShareArn" xml:"quotaShareArn"`
-	QuotaShareName string `json:"quotaShareName" xml:"quotaShareName"`
+QuotaShareArn string `json:"quotaShareArn" xml:"quotaShareArn"`
+QuotaShareName string `json:"quotaShareName" xml:"quotaShareName"`
 }
 
 type UpdateSchedulingPolicyRequest struct {
-	Arn              string            `json:"arn" xml:"arn"`
-	FairsharePolicy  *FairsharePolicy  `json:"fairsharePolicy" xml:"fairsharePolicy"`
-	QuotaSharePolicy *QuotaSharePolicy `json:"quotaSharePolicy" xml:"quotaSharePolicy"`
+Arn string `json:"arn" xml:"arn"`
+FairsharePolicy *FairsharePolicy `json:"fairsharePolicy" xml:"fairsharePolicy"`
+QuotaSharePolicy *QuotaSharePolicy `json:"quotaSharePolicy" xml:"quotaSharePolicy"`
 }
 
 type UpdateSchedulingPolicyResponse struct {
 }
 
 type UpdateServiceEnvironmentRequest struct {
-	CapacityLimits     CapacityLimits `json:"capacityLimits" xml:"capacityLimits"`
-	ServiceEnvironment string         `json:"serviceEnvironment" xml:"serviceEnvironment"`
-	State              string         `json:"state" xml:"state"`
+CapacityLimits CapacityLimits `json:"capacityLimits" xml:"capacityLimits"`
+ServiceEnvironment string `json:"serviceEnvironment" xml:"serviceEnvironment"`
+State string `json:"state" xml:"state"`
 }
 
 type UpdateServiceEnvironmentResponse struct {
-	ServiceEnvironmentArn  string `json:"serviceEnvironmentArn" xml:"serviceEnvironmentArn"`
-	ServiceEnvironmentName string `json:"serviceEnvironmentName" xml:"serviceEnvironmentName"`
+ServiceEnvironmentArn string `json:"serviceEnvironmentArn" xml:"serviceEnvironmentArn"`
+ServiceEnvironmentName string `json:"serviceEnvironmentName" xml:"serviceEnvironmentName"`
 }
 
 type UpdateServiceJobRequest struct {
-	JobId              string `json:"jobId" xml:"jobId"`
-	SchedulingPriority int32  `json:"schedulingPriority" xml:"schedulingPriority"`
+JobId string `json:"jobId" xml:"jobId"`
+SchedulingPriority int32 `json:"schedulingPriority" xml:"schedulingPriority"`
 }
 
 type UpdateServiceJobResponse struct {
-	JobArn  string `json:"jobArn" xml:"jobArn"`
-	JobId   string `json:"jobId" xml:"jobId"`
-	JobName string `json:"jobName" xml:"jobName"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobId string `json:"jobId" xml:"jobId"`
+JobName string `json:"jobName" xml:"jobName"`
 }
 
 type Volume struct {
-	EfsVolumeConfiguration *EFSVolumeConfiguration `json:"efsVolumeConfiguration" xml:"efsVolumeConfiguration"`
-	Host                   *Host                   `json:"host" xml:"host"`
-	Name                   string                  `json:"name" xml:"name"`
+EfsVolumeConfiguration *EFSVolumeConfiguration `json:"efsVolumeConfiguration" xml:"efsVolumeConfiguration"`
+Host *Host `json:"host" xml:"host"`
+Name string `json:"name" xml:"name"`
 }
 
 type AttemptDetails []*AttemptDetail
@@ -1715,3 +1716,4 @@ type ParametersMap map[string]string
 type TagrisTagsMap map[string]string
 
 type TagsMap map[string]string
+

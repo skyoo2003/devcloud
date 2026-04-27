@@ -250,3 +250,4 @@ func (b *BaseProvider) UpdateStudio(ctx context.Context, input *UpdateStudioInpu
 func (b *BaseProvider) UpdateStudioSessionMapping(ctx context.Context, input *UpdateStudioSessionMappingInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("UpdateStudioSessionMapping: %w", ErrNotImplemented)
 }
+

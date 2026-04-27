@@ -746,3 +746,4 @@ func DeserializeUpdateTopicRequest(r *http.Request, pathParams PathParams) (*Upd
 
 	return input, nil
 }
+

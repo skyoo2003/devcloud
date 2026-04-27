@@ -462,3 +462,4 @@ func (b *BaseProvider) UpdateLookupTable(ctx context.Context, input *UpdateLooku
 func (b *BaseProvider) UpdateScheduledQuery(ctx context.Context, input *UpdateScheduledQueryRequest) (*UpdateScheduledQueryResponse, error) {
 	return nil, fmt.Errorf("UpdateScheduledQuery: %w", ErrNotImplemented)
 }
+

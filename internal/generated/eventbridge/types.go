@@ -7,1147 +7,1147 @@ import (
 )
 
 type ActivateEventSourceRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ApiDestination struct {
-	ApiDestinationArn            string    `json:"apiDestinationArn" xml:"ApiDestinationArn"`
-	ApiDestinationState          string    `json:"apiDestinationState" xml:"ApiDestinationState"`
-	ConnectionArn                string    `json:"connectionArn" xml:"ConnectionArn"`
-	CreationTime                 time.Time `json:"creationTime" xml:"CreationTime"`
-	HttpMethod                   string    `json:"httpMethod" xml:"HttpMethod"`
-	InvocationEndpoint           string    `json:"invocationEndpoint" xml:"InvocationEndpoint"`
-	InvocationRateLimitPerSecond int32     `json:"invocationRateLimitPerSecond" xml:"InvocationRateLimitPerSecond"`
-	LastModifiedTime             time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name                         string    `json:"name" xml:"Name"`
+ApiDestinationArn string `json:"apiDestinationArn" xml:"ApiDestinationArn"`
+ApiDestinationState string `json:"apiDestinationState" xml:"ApiDestinationState"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+HttpMethod string `json:"httpMethod" xml:"HttpMethod"`
+InvocationEndpoint string `json:"invocationEndpoint" xml:"InvocationEndpoint"`
+InvocationRateLimitPerSecond int32 `json:"invocationRateLimitPerSecond" xml:"InvocationRateLimitPerSecond"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
 }
 
 type AppSyncParameters struct {
-	GraphQLOperation string `json:"graphQLOperation" xml:"GraphQLOperation"`
+GraphQLOperation string `json:"graphQLOperation" xml:"GraphQLOperation"`
 }
 
 type Archive struct {
-	ArchiveName    string    `json:"archiveName" xml:"ArchiveName"`
-	CreationTime   time.Time `json:"creationTime" xml:"CreationTime"`
-	EventCount     int64     `json:"eventCount" xml:"EventCount"`
-	EventSourceArn string    `json:"eventSourceArn" xml:"EventSourceArn"`
-	RetentionDays  int32     `json:"retentionDays" xml:"RetentionDays"`
-	SizeBytes      int64     `json:"sizeBytes" xml:"SizeBytes"`
-	State          string    `json:"state" xml:"State"`
-	StateReason    string    `json:"stateReason" xml:"StateReason"`
+ArchiveName string `json:"archiveName" xml:"ArchiveName"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+EventCount int64 `json:"eventCount" xml:"EventCount"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+RetentionDays int32 `json:"retentionDays" xml:"RetentionDays"`
+SizeBytes int64 `json:"sizeBytes" xml:"SizeBytes"`
+State string `json:"state" xml:"State"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type AwsVpcConfiguration struct {
-	AssignPublicIp string     `json:"assignPublicIp" xml:"AssignPublicIp"`
-	SecurityGroups StringList `json:"securityGroups" xml:"SecurityGroups"`
-	Subnets        StringList `json:"subnets" xml:"Subnets"`
+AssignPublicIp string `json:"assignPublicIp" xml:"AssignPublicIp"`
+SecurityGroups StringList `json:"securityGroups" xml:"SecurityGroups"`
+Subnets StringList `json:"subnets" xml:"Subnets"`
 }
 
 type BatchArrayProperties struct {
-	Size int32 `json:"size" xml:"Size"`
+Size int32 `json:"size" xml:"Size"`
 }
 
 type BatchParameters struct {
-	ArrayProperties *BatchArrayProperties `json:"arrayProperties" xml:"ArrayProperties"`
-	JobDefinition   string                `json:"jobDefinition" xml:"JobDefinition"`
-	JobName         string                `json:"jobName" xml:"JobName"`
-	RetryStrategy   *BatchRetryStrategy   `json:"retryStrategy" xml:"RetryStrategy"`
+ArrayProperties *BatchArrayProperties `json:"arrayProperties" xml:"ArrayProperties"`
+JobDefinition string `json:"jobDefinition" xml:"JobDefinition"`
+JobName string `json:"jobName" xml:"JobName"`
+RetryStrategy *BatchRetryStrategy `json:"retryStrategy" xml:"RetryStrategy"`
 }
 
 type BatchRetryStrategy struct {
-	Attempts int32 `json:"attempts" xml:"Attempts"`
+Attempts int32 `json:"attempts" xml:"Attempts"`
 }
 
 type CancelReplayRequest struct {
-	ReplayName string `json:"replayName" xml:"ReplayName"`
+ReplayName string `json:"replayName" xml:"ReplayName"`
 }
 
 type CancelReplayResponse struct {
-	ReplayArn   string `json:"replayArn" xml:"ReplayArn"`
-	State       string `json:"state" xml:"State"`
-	StateReason string `json:"stateReason" xml:"StateReason"`
+ReplayArn string `json:"replayArn" xml:"ReplayArn"`
+State string `json:"state" xml:"State"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type CapacityProviderStrategyItem struct {
-	Base             int32  `json:"base" xml:"base"`
-	CapacityProvider string `json:"capacityProvider" xml:"capacityProvider"`
-	Weight           int32  `json:"weight" xml:"weight"`
+Base int32 `json:"base" xml:"base"`
+CapacityProvider string `json:"capacityProvider" xml:"capacityProvider"`
+Weight int32 `json:"weight" xml:"weight"`
 }
 
 type Condition struct {
-	Key   string `json:"key" xml:"Key"`
-	Type  string `json:"type" xml:"Type"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Type string `json:"type" xml:"Type"`
+Value string `json:"value" xml:"Value"`
 }
 
 type Connection struct {
-	AuthorizationType  string    `json:"authorizationType" xml:"AuthorizationType"`
-	ConnectionArn      string    `json:"connectionArn" xml:"ConnectionArn"`
-	ConnectionState    string    `json:"connectionState" xml:"ConnectionState"`
-	CreationTime       time.Time `json:"creationTime" xml:"CreationTime"`
-	LastAuthorizedTime time.Time `json:"lastAuthorizedTime" xml:"LastAuthorizedTime"`
-	LastModifiedTime   time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name               string    `json:"name" xml:"Name"`
-	StateReason        string    `json:"stateReason" xml:"StateReason"`
+AuthorizationType string `json:"authorizationType" xml:"AuthorizationType"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
+ConnectionState string `json:"connectionState" xml:"ConnectionState"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+LastAuthorizedTime time.Time `json:"lastAuthorizedTime" xml:"LastAuthorizedTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type ConnectionApiKeyAuthResponseParameters struct {
-	ApiKeyName string `json:"apiKeyName" xml:"ApiKeyName"`
+ApiKeyName string `json:"apiKeyName" xml:"ApiKeyName"`
 }
 
 type ConnectionAuthResponseParameters struct {
-	ApiKeyAuthParameters     *ConnectionApiKeyAuthResponseParameters   `json:"apiKeyAuthParameters" xml:"ApiKeyAuthParameters"`
-	BasicAuthParameters      *ConnectionBasicAuthResponseParameters    `json:"basicAuthParameters" xml:"BasicAuthParameters"`
-	ConnectivityParameters   *DescribeConnectionConnectivityParameters `json:"connectivityParameters" xml:"ConnectivityParameters"`
-	InvocationHttpParameters *ConnectionHttpParameters                 `json:"invocationHttpParameters" xml:"InvocationHttpParameters"`
-	OAuthParameters          *ConnectionOAuthResponseParameters        `json:"oAuthParameters" xml:"OAuthParameters"`
+ApiKeyAuthParameters *ConnectionApiKeyAuthResponseParameters `json:"apiKeyAuthParameters" xml:"ApiKeyAuthParameters"`
+BasicAuthParameters *ConnectionBasicAuthResponseParameters `json:"basicAuthParameters" xml:"BasicAuthParameters"`
+ConnectivityParameters *DescribeConnectionConnectivityParameters `json:"connectivityParameters" xml:"ConnectivityParameters"`
+InvocationHttpParameters *ConnectionHttpParameters `json:"invocationHttpParameters" xml:"InvocationHttpParameters"`
+OAuthParameters *ConnectionOAuthResponseParameters `json:"oAuthParameters" xml:"OAuthParameters"`
 }
 
 type ConnectionBasicAuthResponseParameters struct {
-	Username string `json:"username" xml:"Username"`
+Username string `json:"username" xml:"Username"`
 }
 
 type ConnectionBodyParameter struct {
-	IsValueSecret bool   `json:"isValueSecret" xml:"IsValueSecret"`
-	Key           string `json:"key" xml:"Key"`
-	Value         string `json:"value" xml:"Value"`
+IsValueSecret bool `json:"isValueSecret" xml:"IsValueSecret"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ConnectionHeaderParameter struct {
-	IsValueSecret bool   `json:"isValueSecret" xml:"IsValueSecret"`
-	Key           string `json:"key" xml:"Key"`
-	Value         string `json:"value" xml:"Value"`
+IsValueSecret bool `json:"isValueSecret" xml:"IsValueSecret"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ConnectionHttpParameters struct {
-	BodyParameters        ConnectionBodyParametersList        `json:"bodyParameters" xml:"BodyParameters"`
-	HeaderParameters      ConnectionHeaderParametersList      `json:"headerParameters" xml:"HeaderParameters"`
-	QueryStringParameters ConnectionQueryStringParametersList `json:"queryStringParameters" xml:"QueryStringParameters"`
+BodyParameters ConnectionBodyParametersList `json:"bodyParameters" xml:"BodyParameters"`
+HeaderParameters ConnectionHeaderParametersList `json:"headerParameters" xml:"HeaderParameters"`
+QueryStringParameters ConnectionQueryStringParametersList `json:"queryStringParameters" xml:"QueryStringParameters"`
 }
 
 type ConnectionOAuthClientResponseParameters struct {
-	ClientID string `json:"clientID" xml:"ClientID"`
+ClientID string `json:"clientID" xml:"ClientID"`
 }
 
 type ConnectionOAuthResponseParameters struct {
-	AuthorizationEndpoint string                                   `json:"authorizationEndpoint" xml:"AuthorizationEndpoint"`
-	ClientParameters      *ConnectionOAuthClientResponseParameters `json:"clientParameters" xml:"ClientParameters"`
-	HttpMethod            string                                   `json:"httpMethod" xml:"HttpMethod"`
-	OAuthHttpParameters   *ConnectionHttpParameters                `json:"oAuthHttpParameters" xml:"OAuthHttpParameters"`
+AuthorizationEndpoint string `json:"authorizationEndpoint" xml:"AuthorizationEndpoint"`
+ClientParameters *ConnectionOAuthClientResponseParameters `json:"clientParameters" xml:"ClientParameters"`
+HttpMethod string `json:"httpMethod" xml:"HttpMethod"`
+OAuthHttpParameters *ConnectionHttpParameters `json:"oAuthHttpParameters" xml:"OAuthHttpParameters"`
 }
 
 type ConnectionQueryStringParameter struct {
-	IsValueSecret bool   `json:"isValueSecret" xml:"IsValueSecret"`
-	Key           string `json:"key" xml:"Key"`
-	Value         string `json:"value" xml:"Value"`
+IsValueSecret bool `json:"isValueSecret" xml:"IsValueSecret"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ConnectivityResourceConfigurationArn struct {
-	ResourceConfigurationArn string `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
+ResourceConfigurationArn string `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
 }
 
 type ConnectivityResourceParameters struct {
-	ResourceParameters *ConnectivityResourceConfigurationArn `json:"resourceParameters" xml:"ResourceParameters"`
+ResourceParameters *ConnectivityResourceConfigurationArn `json:"resourceParameters" xml:"ResourceParameters"`
 }
 
 type CreateApiDestinationRequest struct {
-	ConnectionArn                string `json:"connectionArn" xml:"ConnectionArn"`
-	Description                  string `json:"description" xml:"Description"`
-	HttpMethod                   string `json:"httpMethod" xml:"HttpMethod"`
-	InvocationEndpoint           string `json:"invocationEndpoint" xml:"InvocationEndpoint"`
-	InvocationRateLimitPerSecond int32  `json:"invocationRateLimitPerSecond" xml:"InvocationRateLimitPerSecond"`
-	Name                         string `json:"name" xml:"Name"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
+Description string `json:"description" xml:"Description"`
+HttpMethod string `json:"httpMethod" xml:"HttpMethod"`
+InvocationEndpoint string `json:"invocationEndpoint" xml:"InvocationEndpoint"`
+InvocationRateLimitPerSecond int32 `json:"invocationRateLimitPerSecond" xml:"InvocationRateLimitPerSecond"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateApiDestinationResponse struct {
-	ApiDestinationArn   string    `json:"apiDestinationArn" xml:"ApiDestinationArn"`
-	ApiDestinationState string    `json:"apiDestinationState" xml:"ApiDestinationState"`
-	CreationTime        time.Time `json:"creationTime" xml:"CreationTime"`
-	LastModifiedTime    time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+ApiDestinationArn string `json:"apiDestinationArn" xml:"ApiDestinationArn"`
+ApiDestinationState string `json:"apiDestinationState" xml:"ApiDestinationState"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type CreateArchiveRequest struct {
-	ArchiveName      string `json:"archiveName" xml:"ArchiveName"`
-	Description      string `json:"description" xml:"Description"`
-	EventPattern     string `json:"eventPattern" xml:"EventPattern"`
-	EventSourceArn   string `json:"eventSourceArn" xml:"EventSourceArn"`
-	KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	RetentionDays    int32  `json:"retentionDays" xml:"RetentionDays"`
+ArchiveName string `json:"archiveName" xml:"ArchiveName"`
+Description string `json:"description" xml:"Description"`
+EventPattern string `json:"eventPattern" xml:"EventPattern"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+RetentionDays int32 `json:"retentionDays" xml:"RetentionDays"`
 }
 
 type CreateArchiveResponse struct {
-	ArchiveArn   string    `json:"archiveArn" xml:"ArchiveArn"`
-	CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
-	State        string    `json:"state" xml:"State"`
-	StateReason  string    `json:"stateReason" xml:"StateReason"`
+ArchiveArn string `json:"archiveArn" xml:"ArchiveArn"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+State string `json:"state" xml:"State"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type CreateConnectionApiKeyAuthRequestParameters struct {
-	ApiKeyName  string `json:"apiKeyName" xml:"ApiKeyName"`
-	ApiKeyValue string `json:"apiKeyValue" xml:"ApiKeyValue"`
+ApiKeyName string `json:"apiKeyName" xml:"ApiKeyName"`
+ApiKeyValue string `json:"apiKeyValue" xml:"ApiKeyValue"`
 }
 
 type CreateConnectionAuthRequestParameters struct {
-	ApiKeyAuthParameters     *CreateConnectionApiKeyAuthRequestParameters `json:"apiKeyAuthParameters" xml:"ApiKeyAuthParameters"`
-	BasicAuthParameters      *CreateConnectionBasicAuthRequestParameters  `json:"basicAuthParameters" xml:"BasicAuthParameters"`
-	ConnectivityParameters   *ConnectivityResourceParameters              `json:"connectivityParameters" xml:"ConnectivityParameters"`
-	InvocationHttpParameters *ConnectionHttpParameters                    `json:"invocationHttpParameters" xml:"InvocationHttpParameters"`
-	OAuthParameters          *CreateConnectionOAuthRequestParameters      `json:"oAuthParameters" xml:"OAuthParameters"`
+ApiKeyAuthParameters *CreateConnectionApiKeyAuthRequestParameters `json:"apiKeyAuthParameters" xml:"ApiKeyAuthParameters"`
+BasicAuthParameters *CreateConnectionBasicAuthRequestParameters `json:"basicAuthParameters" xml:"BasicAuthParameters"`
+ConnectivityParameters *ConnectivityResourceParameters `json:"connectivityParameters" xml:"ConnectivityParameters"`
+InvocationHttpParameters *ConnectionHttpParameters `json:"invocationHttpParameters" xml:"InvocationHttpParameters"`
+OAuthParameters *CreateConnectionOAuthRequestParameters `json:"oAuthParameters" xml:"OAuthParameters"`
 }
 
 type CreateConnectionBasicAuthRequestParameters struct {
-	Password string `json:"password" xml:"Password"`
-	Username string `json:"username" xml:"Username"`
+Password string `json:"password" xml:"Password"`
+Username string `json:"username" xml:"Username"`
 }
 
 type CreateConnectionOAuthClientRequestParameters struct {
-	ClientID     string `json:"clientID" xml:"ClientID"`
-	ClientSecret string `json:"clientSecret" xml:"ClientSecret"`
+ClientID string `json:"clientID" xml:"ClientID"`
+ClientSecret string `json:"clientSecret" xml:"ClientSecret"`
 }
 
 type CreateConnectionOAuthRequestParameters struct {
-	AuthorizationEndpoint string                                        `json:"authorizationEndpoint" xml:"AuthorizationEndpoint"`
-	ClientParameters      *CreateConnectionOAuthClientRequestParameters `json:"clientParameters" xml:"ClientParameters"`
-	HttpMethod            string                                        `json:"httpMethod" xml:"HttpMethod"`
-	OAuthHttpParameters   *ConnectionHttpParameters                     `json:"oAuthHttpParameters" xml:"OAuthHttpParameters"`
+AuthorizationEndpoint string `json:"authorizationEndpoint" xml:"AuthorizationEndpoint"`
+ClientParameters *CreateConnectionOAuthClientRequestParameters `json:"clientParameters" xml:"ClientParameters"`
+HttpMethod string `json:"httpMethod" xml:"HttpMethod"`
+OAuthHttpParameters *ConnectionHttpParameters `json:"oAuthHttpParameters" xml:"OAuthHttpParameters"`
 }
 
 type CreateConnectionRequest struct {
-	AuthParameters                   *CreateConnectionAuthRequestParameters `json:"authParameters" xml:"AuthParameters"`
-	AuthorizationType                string                                 `json:"authorizationType" xml:"AuthorizationType"`
-	Description                      string                                 `json:"description" xml:"Description"`
-	InvocationConnectivityParameters *ConnectivityResourceParameters        `json:"invocationConnectivityParameters" xml:"InvocationConnectivityParameters"`
-	KmsKeyIdentifier                 string                                 `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	Name                             string                                 `json:"name" xml:"Name"`
+AuthParameters *CreateConnectionAuthRequestParameters `json:"authParameters" xml:"AuthParameters"`
+AuthorizationType string `json:"authorizationType" xml:"AuthorizationType"`
+Description string `json:"description" xml:"Description"`
+InvocationConnectivityParameters *ConnectivityResourceParameters `json:"invocationConnectivityParameters" xml:"InvocationConnectivityParameters"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateConnectionResponse struct {
-	ConnectionArn    string    `json:"connectionArn" xml:"ConnectionArn"`
-	ConnectionState  string    `json:"connectionState" xml:"ConnectionState"`
-	CreationTime     time.Time `json:"creationTime" xml:"CreationTime"`
-	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
+ConnectionState string `json:"connectionState" xml:"ConnectionState"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type CreateEndpointRequest struct {
-	Description       string               `json:"description" xml:"Description"`
-	EventBuses        EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
-	Name              string               `json:"name" xml:"Name"`
-	ReplicationConfig *ReplicationConfig   `json:"replicationConfig" xml:"ReplicationConfig"`
-	RoleArn           string               `json:"roleArn" xml:"RoleArn"`
-	RoutingConfig     *RoutingConfig       `json:"routingConfig" xml:"RoutingConfig"`
+Description string `json:"description" xml:"Description"`
+EventBuses EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
+Name string `json:"name" xml:"Name"`
+ReplicationConfig *ReplicationConfig `json:"replicationConfig" xml:"ReplicationConfig"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+RoutingConfig *RoutingConfig `json:"routingConfig" xml:"RoutingConfig"`
 }
 
 type CreateEndpointResponse struct {
-	Arn               string               `json:"arn" xml:"Arn"`
-	EventBuses        EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
-	Name              string               `json:"name" xml:"Name"`
-	ReplicationConfig *ReplicationConfig   `json:"replicationConfig" xml:"ReplicationConfig"`
-	RoleArn           string               `json:"roleArn" xml:"RoleArn"`
-	RoutingConfig     *RoutingConfig       `json:"routingConfig" xml:"RoutingConfig"`
-	State             string               `json:"state" xml:"State"`
+Arn string `json:"arn" xml:"Arn"`
+EventBuses EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
+Name string `json:"name" xml:"Name"`
+ReplicationConfig *ReplicationConfig `json:"replicationConfig" xml:"ReplicationConfig"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+RoutingConfig *RoutingConfig `json:"routingConfig" xml:"RoutingConfig"`
+State string `json:"state" xml:"State"`
 }
 
 type CreateEventBusRequest struct {
-	DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
-	Description      string            `json:"description" xml:"Description"`
-	EventSourceName  string            `json:"eventSourceName" xml:"EventSourceName"`
-	KmsKeyIdentifier string            `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	LogConfig        *LogConfig        `json:"logConfig" xml:"LogConfig"`
-	Name             string            `json:"name" xml:"Name"`
-	Tags             TagList           `json:"tags" xml:"Tags"`
+DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
+Description string `json:"description" xml:"Description"`
+EventSourceName string `json:"eventSourceName" xml:"EventSourceName"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+LogConfig *LogConfig `json:"logConfig" xml:"LogConfig"`
+Name string `json:"name" xml:"Name"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateEventBusResponse struct {
-	DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
-	Description      string            `json:"description" xml:"Description"`
-	EventBusArn      string            `json:"eventBusArn" xml:"EventBusArn"`
-	KmsKeyIdentifier string            `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	LogConfig        *LogConfig        `json:"logConfig" xml:"LogConfig"`
+DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
+Description string `json:"description" xml:"Description"`
+EventBusArn string `json:"eventBusArn" xml:"EventBusArn"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+LogConfig *LogConfig `json:"logConfig" xml:"LogConfig"`
 }
 
 type CreatePartnerEventSourceRequest struct {
-	Account string `json:"account" xml:"Account"`
-	Name    string `json:"name" xml:"Name"`
+Account string `json:"account" xml:"Account"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreatePartnerEventSourceResponse struct {
-	EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
 }
 
 type DeactivateEventSourceRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeadLetterConfig struct {
-	Arn string `json:"arn" xml:"Arn"`
+Arn string `json:"arn" xml:"Arn"`
 }
 
 type DeauthorizeConnectionRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeauthorizeConnectionResponse struct {
-	ConnectionArn      string    `json:"connectionArn" xml:"ConnectionArn"`
-	ConnectionState    string    `json:"connectionState" xml:"ConnectionState"`
-	CreationTime       time.Time `json:"creationTime" xml:"CreationTime"`
-	LastAuthorizedTime time.Time `json:"lastAuthorizedTime" xml:"LastAuthorizedTime"`
-	LastModifiedTime   time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
+ConnectionState string `json:"connectionState" xml:"ConnectionState"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+LastAuthorizedTime time.Time `json:"lastAuthorizedTime" xml:"LastAuthorizedTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type DeleteApiDestinationRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteApiDestinationResponse struct {
 }
 
 type DeleteArchiveRequest struct {
-	ArchiveName string `json:"archiveName" xml:"ArchiveName"`
+ArchiveName string `json:"archiveName" xml:"ArchiveName"`
 }
 
 type DeleteArchiveResponse struct {
 }
 
 type DeleteConnectionRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteConnectionResponse struct {
-	ConnectionArn      string    `json:"connectionArn" xml:"ConnectionArn"`
-	ConnectionState    string    `json:"connectionState" xml:"ConnectionState"`
-	CreationTime       time.Time `json:"creationTime" xml:"CreationTime"`
-	LastAuthorizedTime time.Time `json:"lastAuthorizedTime" xml:"LastAuthorizedTime"`
-	LastModifiedTime   time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
+ConnectionState string `json:"connectionState" xml:"ConnectionState"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+LastAuthorizedTime time.Time `json:"lastAuthorizedTime" xml:"LastAuthorizedTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type DeleteEndpointRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteEndpointResponse struct {
 }
 
 type DeleteEventBusRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeletePartnerEventSourceRequest struct {
-	Account string `json:"account" xml:"Account"`
-	Name    string `json:"name" xml:"Name"`
+Account string `json:"account" xml:"Account"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteRuleRequest struct {
-	EventBusName string `json:"eventBusName" xml:"EventBusName"`
-	Force        bool   `json:"force" xml:"Force"`
-	Name         string `json:"name" xml:"Name"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+Force bool `json:"force" xml:"Force"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeApiDestinationRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeApiDestinationResponse struct {
-	ApiDestinationArn            string    `json:"apiDestinationArn" xml:"ApiDestinationArn"`
-	ApiDestinationState          string    `json:"apiDestinationState" xml:"ApiDestinationState"`
-	ConnectionArn                string    `json:"connectionArn" xml:"ConnectionArn"`
-	CreationTime                 time.Time `json:"creationTime" xml:"CreationTime"`
-	Description                  string    `json:"description" xml:"Description"`
-	HttpMethod                   string    `json:"httpMethod" xml:"HttpMethod"`
-	InvocationEndpoint           string    `json:"invocationEndpoint" xml:"InvocationEndpoint"`
-	InvocationRateLimitPerSecond int32     `json:"invocationRateLimitPerSecond" xml:"InvocationRateLimitPerSecond"`
-	LastModifiedTime             time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name                         string    `json:"name" xml:"Name"`
+ApiDestinationArn string `json:"apiDestinationArn" xml:"ApiDestinationArn"`
+ApiDestinationState string `json:"apiDestinationState" xml:"ApiDestinationState"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Description string `json:"description" xml:"Description"`
+HttpMethod string `json:"httpMethod" xml:"HttpMethod"`
+InvocationEndpoint string `json:"invocationEndpoint" xml:"InvocationEndpoint"`
+InvocationRateLimitPerSecond int32 `json:"invocationRateLimitPerSecond" xml:"InvocationRateLimitPerSecond"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeArchiveRequest struct {
-	ArchiveName string `json:"archiveName" xml:"ArchiveName"`
+ArchiveName string `json:"archiveName" xml:"ArchiveName"`
 }
 
 type DescribeArchiveResponse struct {
-	ArchiveArn       string    `json:"archiveArn" xml:"ArchiveArn"`
-	ArchiveName      string    `json:"archiveName" xml:"ArchiveName"`
-	CreationTime     time.Time `json:"creationTime" xml:"CreationTime"`
-	Description      string    `json:"description" xml:"Description"`
-	EventCount       int64     `json:"eventCount" xml:"EventCount"`
-	EventPattern     string    `json:"eventPattern" xml:"EventPattern"`
-	EventSourceArn   string    `json:"eventSourceArn" xml:"EventSourceArn"`
-	KmsKeyIdentifier string    `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	RetentionDays    int32     `json:"retentionDays" xml:"RetentionDays"`
-	SizeBytes        int64     `json:"sizeBytes" xml:"SizeBytes"`
-	State            string    `json:"state" xml:"State"`
-	StateReason      string    `json:"stateReason" xml:"StateReason"`
+ArchiveArn string `json:"archiveArn" xml:"ArchiveArn"`
+ArchiveName string `json:"archiveName" xml:"ArchiveName"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Description string `json:"description" xml:"Description"`
+EventCount int64 `json:"eventCount" xml:"EventCount"`
+EventPattern string `json:"eventPattern" xml:"EventPattern"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+RetentionDays int32 `json:"retentionDays" xml:"RetentionDays"`
+SizeBytes int64 `json:"sizeBytes" xml:"SizeBytes"`
+State string `json:"state" xml:"State"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type DescribeConnectionConnectivityParameters struct {
-	ResourceParameters *DescribeConnectionResourceParameters `json:"resourceParameters" xml:"ResourceParameters"`
+ResourceParameters *DescribeConnectionResourceParameters `json:"resourceParameters" xml:"ResourceParameters"`
 }
 
 type DescribeConnectionRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeConnectionResourceParameters struct {
-	ResourceAssociationArn   string `json:"resourceAssociationArn" xml:"ResourceAssociationArn"`
-	ResourceConfigurationArn string `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
+ResourceAssociationArn string `json:"resourceAssociationArn" xml:"ResourceAssociationArn"`
+ResourceConfigurationArn string `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
 }
 
 type DescribeConnectionResponse struct {
-	AuthParameters                   *ConnectionAuthResponseParameters         `json:"authParameters" xml:"AuthParameters"`
-	AuthorizationType                string                                    `json:"authorizationType" xml:"AuthorizationType"`
-	ConnectionArn                    string                                    `json:"connectionArn" xml:"ConnectionArn"`
-	ConnectionState                  string                                    `json:"connectionState" xml:"ConnectionState"`
-	CreationTime                     time.Time                                 `json:"creationTime" xml:"CreationTime"`
-	Description                      string                                    `json:"description" xml:"Description"`
-	InvocationConnectivityParameters *DescribeConnectionConnectivityParameters `json:"invocationConnectivityParameters" xml:"InvocationConnectivityParameters"`
-	KmsKeyIdentifier                 string                                    `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	LastAuthorizedTime               time.Time                                 `json:"lastAuthorizedTime" xml:"LastAuthorizedTime"`
-	LastModifiedTime                 time.Time                                 `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name                             string                                    `json:"name" xml:"Name"`
-	SecretArn                        string                                    `json:"secretArn" xml:"SecretArn"`
-	StateReason                      string                                    `json:"stateReason" xml:"StateReason"`
+AuthParameters *ConnectionAuthResponseParameters `json:"authParameters" xml:"AuthParameters"`
+AuthorizationType string `json:"authorizationType" xml:"AuthorizationType"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
+ConnectionState string `json:"connectionState" xml:"ConnectionState"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Description string `json:"description" xml:"Description"`
+InvocationConnectivityParameters *DescribeConnectionConnectivityParameters `json:"invocationConnectivityParameters" xml:"InvocationConnectivityParameters"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+LastAuthorizedTime time.Time `json:"lastAuthorizedTime" xml:"LastAuthorizedTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+SecretArn string `json:"secretArn" xml:"SecretArn"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type DescribeEndpointRequest struct {
-	HomeRegion string `json:"homeRegion" xml:"HomeRegion"`
-	Name       string `json:"name" xml:"Name"`
+HomeRegion string `json:"homeRegion" xml:"HomeRegion"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeEndpointResponse struct {
-	Arn               string               `json:"arn" xml:"Arn"`
-	CreationTime      time.Time            `json:"creationTime" xml:"CreationTime"`
-	Description       string               `json:"description" xml:"Description"`
-	EndpointId        string               `json:"endpointId" xml:"EndpointId"`
-	EndpointUrl       string               `json:"endpointUrl" xml:"EndpointUrl"`
-	EventBuses        EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
-	LastModifiedTime  time.Time            `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name              string               `json:"name" xml:"Name"`
-	ReplicationConfig *ReplicationConfig   `json:"replicationConfig" xml:"ReplicationConfig"`
-	RoleArn           string               `json:"roleArn" xml:"RoleArn"`
-	RoutingConfig     *RoutingConfig       `json:"routingConfig" xml:"RoutingConfig"`
-	State             string               `json:"state" xml:"State"`
-	StateReason       string               `json:"stateReason" xml:"StateReason"`
+Arn string `json:"arn" xml:"Arn"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Description string `json:"description" xml:"Description"`
+EndpointId string `json:"endpointId" xml:"EndpointId"`
+EndpointUrl string `json:"endpointUrl" xml:"EndpointUrl"`
+EventBuses EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+ReplicationConfig *ReplicationConfig `json:"replicationConfig" xml:"ReplicationConfig"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+RoutingConfig *RoutingConfig `json:"routingConfig" xml:"RoutingConfig"`
+State string `json:"state" xml:"State"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type DescribeEventBusRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeEventBusResponse struct {
-	Arn              string            `json:"arn" xml:"Arn"`
-	CreationTime     time.Time         `json:"creationTime" xml:"CreationTime"`
-	DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
-	Description      string            `json:"description" xml:"Description"`
-	KmsKeyIdentifier string            `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	LastModifiedTime time.Time         `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	LogConfig        *LogConfig        `json:"logConfig" xml:"LogConfig"`
-	Name             string            `json:"name" xml:"Name"`
-	Policy           string            `json:"policy" xml:"Policy"`
+Arn string `json:"arn" xml:"Arn"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
+Description string `json:"description" xml:"Description"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+LogConfig *LogConfig `json:"logConfig" xml:"LogConfig"`
+Name string `json:"name" xml:"Name"`
+Policy string `json:"policy" xml:"Policy"`
 }
 
 type DescribeEventSourceRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeEventSourceResponse struct {
-	Arn            string    `json:"arn" xml:"Arn"`
-	CreatedBy      string    `json:"createdBy" xml:"CreatedBy"`
-	CreationTime   time.Time `json:"creationTime" xml:"CreationTime"`
-	ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
-	Name           string    `json:"name" xml:"Name"`
-	State          string    `json:"state" xml:"State"`
+Arn string `json:"arn" xml:"Arn"`
+CreatedBy string `json:"createdBy" xml:"CreatedBy"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
+Name string `json:"name" xml:"Name"`
+State string `json:"state" xml:"State"`
 }
 
 type DescribePartnerEventSourceRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribePartnerEventSourceResponse struct {
-	Arn  string `json:"arn" xml:"Arn"`
-	Name string `json:"name" xml:"Name"`
+Arn string `json:"arn" xml:"Arn"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeReplayRequest struct {
-	ReplayName string `json:"replayName" xml:"ReplayName"`
+ReplayName string `json:"replayName" xml:"ReplayName"`
 }
 
 type DescribeReplayResponse struct {
-	Description           string             `json:"description" xml:"Description"`
-	Destination           *ReplayDestination `json:"destination" xml:"Destination"`
-	EventEndTime          time.Time          `json:"eventEndTime" xml:"EventEndTime"`
-	EventLastReplayedTime time.Time          `json:"eventLastReplayedTime" xml:"EventLastReplayedTime"`
-	EventSourceArn        string             `json:"eventSourceArn" xml:"EventSourceArn"`
-	EventStartTime        time.Time          `json:"eventStartTime" xml:"EventStartTime"`
-	ReplayArn             string             `json:"replayArn" xml:"ReplayArn"`
-	ReplayEndTime         time.Time          `json:"replayEndTime" xml:"ReplayEndTime"`
-	ReplayName            string             `json:"replayName" xml:"ReplayName"`
-	ReplayStartTime       time.Time          `json:"replayStartTime" xml:"ReplayStartTime"`
-	State                 string             `json:"state" xml:"State"`
-	StateReason           string             `json:"stateReason" xml:"StateReason"`
+Description string `json:"description" xml:"Description"`
+Destination *ReplayDestination `json:"destination" xml:"Destination"`
+EventEndTime time.Time `json:"eventEndTime" xml:"EventEndTime"`
+EventLastReplayedTime time.Time `json:"eventLastReplayedTime" xml:"EventLastReplayedTime"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+EventStartTime time.Time `json:"eventStartTime" xml:"EventStartTime"`
+ReplayArn string `json:"replayArn" xml:"ReplayArn"`
+ReplayEndTime time.Time `json:"replayEndTime" xml:"ReplayEndTime"`
+ReplayName string `json:"replayName" xml:"ReplayName"`
+ReplayStartTime time.Time `json:"replayStartTime" xml:"ReplayStartTime"`
+State string `json:"state" xml:"State"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type DescribeRuleRequest struct {
-	EventBusName string `json:"eventBusName" xml:"EventBusName"`
-	Name         string `json:"name" xml:"Name"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeRuleResponse struct {
-	Arn                string `json:"arn" xml:"Arn"`
-	CreatedBy          string `json:"createdBy" xml:"CreatedBy"`
-	Description        string `json:"description" xml:"Description"`
-	EventBusName       string `json:"eventBusName" xml:"EventBusName"`
-	EventPattern       string `json:"eventPattern" xml:"EventPattern"`
-	ManagedBy          string `json:"managedBy" xml:"ManagedBy"`
-	Name               string `json:"name" xml:"Name"`
-	RoleArn            string `json:"roleArn" xml:"RoleArn"`
-	ScheduleExpression string `json:"scheduleExpression" xml:"ScheduleExpression"`
-	State              string `json:"state" xml:"State"`
+Arn string `json:"arn" xml:"Arn"`
+CreatedBy string `json:"createdBy" xml:"CreatedBy"`
+Description string `json:"description" xml:"Description"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+EventPattern string `json:"eventPattern" xml:"EventPattern"`
+ManagedBy string `json:"managedBy" xml:"ManagedBy"`
+Name string `json:"name" xml:"Name"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+ScheduleExpression string `json:"scheduleExpression" xml:"ScheduleExpression"`
+State string `json:"state" xml:"State"`
 }
 
 type DisableRuleRequest struct {
-	EventBusName string `json:"eventBusName" xml:"EventBusName"`
-	Name         string `json:"name" xml:"Name"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+Name string `json:"name" xml:"Name"`
 }
 
 type EcsParameters struct {
-	CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"CapacityProviderStrategy"`
-	EnableECSManagedTags     bool                     `json:"enableECSManagedTags" xml:"EnableECSManagedTags"`
-	EnableExecuteCommand     bool                     `json:"enableExecuteCommand" xml:"EnableExecuteCommand"`
-	Group                    string                   `json:"group" xml:"Group"`
-	LaunchType               string                   `json:"launchType" xml:"LaunchType"`
-	NetworkConfiguration     *NetworkConfiguration    `json:"networkConfiguration" xml:"NetworkConfiguration"`
-	PlacementConstraints     PlacementConstraints     `json:"placementConstraints" xml:"PlacementConstraints"`
-	PlacementStrategy        PlacementStrategies      `json:"placementStrategy" xml:"PlacementStrategy"`
-	PlatformVersion          string                   `json:"platformVersion" xml:"PlatformVersion"`
-	PropagateTags            string                   `json:"propagateTags" xml:"PropagateTags"`
-	ReferenceId              string                   `json:"referenceId" xml:"ReferenceId"`
-	Tags                     TagList                  `json:"tags" xml:"Tags"`
-	TaskCount                int32                    `json:"taskCount" xml:"TaskCount"`
-	TaskDefinitionArn        string                   `json:"taskDefinitionArn" xml:"TaskDefinitionArn"`
+CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"CapacityProviderStrategy"`
+EnableECSManagedTags bool `json:"enableECSManagedTags" xml:"EnableECSManagedTags"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"EnableExecuteCommand"`
+Group string `json:"group" xml:"Group"`
+LaunchType string `json:"launchType" xml:"LaunchType"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"NetworkConfiguration"`
+PlacementConstraints PlacementConstraints `json:"placementConstraints" xml:"PlacementConstraints"`
+PlacementStrategy PlacementStrategies `json:"placementStrategy" xml:"PlacementStrategy"`
+PlatformVersion string `json:"platformVersion" xml:"PlatformVersion"`
+PropagateTags string `json:"propagateTags" xml:"PropagateTags"`
+ReferenceId string `json:"referenceId" xml:"ReferenceId"`
+Tags TagList `json:"tags" xml:"Tags"`
+TaskCount int32 `json:"taskCount" xml:"TaskCount"`
+TaskDefinitionArn string `json:"taskDefinitionArn" xml:"TaskDefinitionArn"`
 }
 
 type EnableRuleRequest struct {
-	EventBusName string `json:"eventBusName" xml:"EventBusName"`
-	Name         string `json:"name" xml:"Name"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+Name string `json:"name" xml:"Name"`
 }
 
 type Endpoint struct {
-	Arn               string               `json:"arn" xml:"Arn"`
-	CreationTime      time.Time            `json:"creationTime" xml:"CreationTime"`
-	Description       string               `json:"description" xml:"Description"`
-	EndpointId        string               `json:"endpointId" xml:"EndpointId"`
-	EndpointUrl       string               `json:"endpointUrl" xml:"EndpointUrl"`
-	EventBuses        EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
-	LastModifiedTime  time.Time            `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name              string               `json:"name" xml:"Name"`
-	ReplicationConfig *ReplicationConfig   `json:"replicationConfig" xml:"ReplicationConfig"`
-	RoleArn           string               `json:"roleArn" xml:"RoleArn"`
-	RoutingConfig     *RoutingConfig       `json:"routingConfig" xml:"RoutingConfig"`
-	State             string               `json:"state" xml:"State"`
-	StateReason       string               `json:"stateReason" xml:"StateReason"`
+Arn string `json:"arn" xml:"Arn"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Description string `json:"description" xml:"Description"`
+EndpointId string `json:"endpointId" xml:"EndpointId"`
+EndpointUrl string `json:"endpointUrl" xml:"EndpointUrl"`
+EventBuses EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+ReplicationConfig *ReplicationConfig `json:"replicationConfig" xml:"ReplicationConfig"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+RoutingConfig *RoutingConfig `json:"routingConfig" xml:"RoutingConfig"`
+State string `json:"state" xml:"State"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type EndpointEventBus struct {
-	EventBusArn string `json:"eventBusArn" xml:"EventBusArn"`
+EventBusArn string `json:"eventBusArn" xml:"EventBusArn"`
 }
 
 type EventBus struct {
-	Arn              string    `json:"arn" xml:"Arn"`
-	CreationTime     time.Time `json:"creationTime" xml:"CreationTime"`
-	Description      string    `json:"description" xml:"Description"`
-	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name             string    `json:"name" xml:"Name"`
-	Policy           string    `json:"policy" xml:"Policy"`
+Arn string `json:"arn" xml:"Arn"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Description string `json:"description" xml:"Description"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+Policy string `json:"policy" xml:"Policy"`
 }
 
 type EventSource struct {
-	Arn            string    `json:"arn" xml:"Arn"`
-	CreatedBy      string    `json:"createdBy" xml:"CreatedBy"`
-	CreationTime   time.Time `json:"creationTime" xml:"CreationTime"`
-	ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
-	Name           string    `json:"name" xml:"Name"`
-	State          string    `json:"state" xml:"State"`
+Arn string `json:"arn" xml:"Arn"`
+CreatedBy string `json:"createdBy" xml:"CreatedBy"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
+Name string `json:"name" xml:"Name"`
+State string `json:"state" xml:"State"`
 }
 
 type FailoverConfig struct {
-	Primary   *Primary   `json:"primary" xml:"Primary"`
-	Secondary *Secondary `json:"secondary" xml:"Secondary"`
+Primary *Primary `json:"primary" xml:"Primary"`
+Secondary *Secondary `json:"secondary" xml:"Secondary"`
 }
 
 type HttpParameters struct {
-	HeaderParameters      HeaderParametersMap      `json:"headerParameters" xml:"HeaderParameters"`
-	PathParameterValues   PathParameterList        `json:"pathParameterValues" xml:"PathParameterValues"`
-	QueryStringParameters QueryStringParametersMap `json:"queryStringParameters" xml:"QueryStringParameters"`
+HeaderParameters HeaderParametersMap `json:"headerParameters" xml:"HeaderParameters"`
+PathParameterValues PathParameterList `json:"pathParameterValues" xml:"PathParameterValues"`
+QueryStringParameters QueryStringParametersMap `json:"queryStringParameters" xml:"QueryStringParameters"`
 }
 
 type InputTransformer struct {
-	InputPathsMap TransformerPaths `json:"inputPathsMap" xml:"InputPathsMap"`
-	InputTemplate string           `json:"inputTemplate" xml:"InputTemplate"`
+InputPathsMap TransformerPaths `json:"inputPathsMap" xml:"InputPathsMap"`
+InputTemplate string `json:"inputTemplate" xml:"InputTemplate"`
 }
 
 type KinesisParameters struct {
-	PartitionKeyPath string `json:"partitionKeyPath" xml:"PartitionKeyPath"`
+PartitionKeyPath string `json:"partitionKeyPath" xml:"PartitionKeyPath"`
 }
 
 type ListApiDestinationsRequest struct {
-	ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
-	Limit         int32  `json:"limit" xml:"Limit"`
-	NamePrefix    string `json:"namePrefix" xml:"NamePrefix"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
+Limit int32 `json:"limit" xml:"Limit"`
+NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListApiDestinationsResponse struct {
-	ApiDestinations ApiDestinationResponseList `json:"apiDestinations" xml:"ApiDestinations"`
-	NextToken       string                     `json:"nextToken" xml:"NextToken"`
+ApiDestinations ApiDestinationResponseList `json:"apiDestinations" xml:"ApiDestinations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListArchivesRequest struct {
-	EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
-	Limit          int32  `json:"limit" xml:"Limit"`
-	NamePrefix     string `json:"namePrefix" xml:"NamePrefix"`
-	NextToken      string `json:"nextToken" xml:"NextToken"`
-	State          string `json:"state" xml:"State"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+Limit int32 `json:"limit" xml:"Limit"`
+NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+State string `json:"state" xml:"State"`
 }
 
 type ListArchivesResponse struct {
-	Archives  ArchiveResponseList `json:"archives" xml:"Archives"`
-	NextToken string              `json:"nextToken" xml:"NextToken"`
+Archives ArchiveResponseList `json:"archives" xml:"Archives"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListConnectionsRequest struct {
-	ConnectionState string `json:"connectionState" xml:"ConnectionState"`
-	Limit           int32  `json:"limit" xml:"Limit"`
-	NamePrefix      string `json:"namePrefix" xml:"NamePrefix"`
-	NextToken       string `json:"nextToken" xml:"NextToken"`
+ConnectionState string `json:"connectionState" xml:"ConnectionState"`
+Limit int32 `json:"limit" xml:"Limit"`
+NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListConnectionsResponse struct {
-	Connections ConnectionResponseList `json:"connections" xml:"Connections"`
-	NextToken   string                 `json:"nextToken" xml:"NextToken"`
+Connections ConnectionResponseList `json:"connections" xml:"Connections"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListEndpointsRequest struct {
-	HomeRegion string `json:"homeRegion" xml:"HomeRegion"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+HomeRegion string `json:"homeRegion" xml:"HomeRegion"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListEndpointsResponse struct {
-	Endpoints EndpointList `json:"endpoints" xml:"Endpoints"`
-	NextToken string       `json:"nextToken" xml:"NextToken"`
+Endpoints EndpointList `json:"endpoints" xml:"Endpoints"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListEventBusesRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+Limit int32 `json:"limit" xml:"Limit"`
+NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListEventBusesResponse struct {
-	EventBuses EventBusList `json:"eventBuses" xml:"EventBuses"`
-	NextToken  string       `json:"nextToken" xml:"NextToken"`
+EventBuses EventBusList `json:"eventBuses" xml:"EventBuses"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListEventSourcesRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+Limit int32 `json:"limit" xml:"Limit"`
+NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListEventSourcesResponse struct {
-	EventSources EventSourceList `json:"eventSources" xml:"EventSources"`
-	NextToken    string          `json:"nextToken" xml:"NextToken"`
+EventSources EventSourceList `json:"eventSources" xml:"EventSources"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListPartnerEventSourceAccountsRequest struct {
-	EventSourceName string `json:"eventSourceName" xml:"EventSourceName"`
-	Limit           int32  `json:"limit" xml:"Limit"`
-	NextToken       string `json:"nextToken" xml:"NextToken"`
+EventSourceName string `json:"eventSourceName" xml:"EventSourceName"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListPartnerEventSourceAccountsResponse struct {
-	NextToken                  string                        `json:"nextToken" xml:"NextToken"`
-	PartnerEventSourceAccounts PartnerEventSourceAccountList `json:"partnerEventSourceAccounts" xml:"PartnerEventSourceAccounts"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PartnerEventSourceAccounts PartnerEventSourceAccountList `json:"partnerEventSourceAccounts" xml:"PartnerEventSourceAccounts"`
 }
 
 type ListPartnerEventSourcesRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+Limit int32 `json:"limit" xml:"Limit"`
+NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListPartnerEventSourcesResponse struct {
-	NextToken           string                 `json:"nextToken" xml:"NextToken"`
-	PartnerEventSources PartnerEventSourceList `json:"partnerEventSources" xml:"PartnerEventSources"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PartnerEventSources PartnerEventSourceList `json:"partnerEventSources" xml:"PartnerEventSources"`
 }
 
 type ListReplaysRequest struct {
-	EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
-	Limit          int32  `json:"limit" xml:"Limit"`
-	NamePrefix     string `json:"namePrefix" xml:"NamePrefix"`
-	NextToken      string `json:"nextToken" xml:"NextToken"`
-	State          string `json:"state" xml:"State"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+Limit int32 `json:"limit" xml:"Limit"`
+NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+State string `json:"state" xml:"State"`
 }
 
 type ListReplaysResponse struct {
-	NextToken string     `json:"nextToken" xml:"NextToken"`
-	Replays   ReplayList `json:"replays" xml:"Replays"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Replays ReplayList `json:"replays" xml:"Replays"`
 }
 
 type ListRuleNamesByTargetRequest struct {
-	EventBusName string `json:"eventBusName" xml:"EventBusName"`
-	Limit        int32  `json:"limit" xml:"Limit"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	TargetArn    string `json:"targetArn" xml:"TargetArn"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type ListRuleNamesByTargetResponse struct {
-	NextToken string       `json:"nextToken" xml:"NextToken"`
-	RuleNames RuleNameList `json:"ruleNames" xml:"RuleNames"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RuleNames RuleNameList `json:"ruleNames" xml:"RuleNames"`
 }
 
 type ListRulesRequest struct {
-	EventBusName string `json:"eventBusName" xml:"EventBusName"`
-	Limit        int32  `json:"limit" xml:"Limit"`
-	NamePrefix   string `json:"namePrefix" xml:"NamePrefix"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+Limit int32 `json:"limit" xml:"Limit"`
+NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListRulesResponse struct {
-	NextToken string           `json:"nextToken" xml:"NextToken"`
-	Rules     RuleResponseList `json:"rules" xml:"Rules"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Rules RuleResponseList `json:"rules" xml:"Rules"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags TagList `json:"tags" xml:"Tags"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type ListTargetsByRuleRequest struct {
-	EventBusName string `json:"eventBusName" xml:"EventBusName"`
-	Limit        int32  `json:"limit" xml:"Limit"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	Rule         string `json:"rule" xml:"Rule"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Rule string `json:"rule" xml:"Rule"`
 }
 
 type ListTargetsByRuleResponse struct {
-	NextToken string     `json:"nextToken" xml:"NextToken"`
-	Targets   TargetList `json:"targets" xml:"Targets"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Targets TargetList `json:"targets" xml:"Targets"`
 }
 
 type LogConfig struct {
-	IncludeDetail string `json:"includeDetail" xml:"IncludeDetail"`
-	Level         string `json:"level" xml:"Level"`
+IncludeDetail string `json:"includeDetail" xml:"IncludeDetail"`
+Level string `json:"level" xml:"Level"`
 }
 
 type NetworkConfiguration struct {
-	AwsvpcConfiguration *AwsVpcConfiguration `json:"awsvpcConfiguration" xml:"awsvpcConfiguration"`
+AwsvpcConfiguration *AwsVpcConfiguration `json:"awsvpcConfiguration" xml:"awsvpcConfiguration"`
 }
 
 type PartnerEventSource struct {
-	Arn  string `json:"arn" xml:"Arn"`
-	Name string `json:"name" xml:"Name"`
+Arn string `json:"arn" xml:"Arn"`
+Name string `json:"name" xml:"Name"`
 }
 
 type PartnerEventSourceAccount struct {
-	Account        string    `json:"account" xml:"Account"`
-	CreationTime   time.Time `json:"creationTime" xml:"CreationTime"`
-	ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
-	State          string    `json:"state" xml:"State"`
+Account string `json:"account" xml:"Account"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
+State string `json:"state" xml:"State"`
 }
 
 type PlacementConstraint struct {
-	Expression string `json:"expression" xml:"expression"`
-	Type       string `json:"type" xml:"type"`
+Expression string `json:"expression" xml:"expression"`
+Type string `json:"type" xml:"type"`
 }
 
 type PlacementStrategy struct {
-	Field string `json:"field" xml:"field"`
-	Type  string `json:"type" xml:"type"`
+Field string `json:"field" xml:"field"`
+Type string `json:"type" xml:"type"`
 }
 
 type Primary struct {
-	HealthCheck string `json:"healthCheck" xml:"HealthCheck"`
+HealthCheck string `json:"healthCheck" xml:"HealthCheck"`
 }
 
 type PutEventsRequest struct {
-	EndpointId string                    `json:"endpointId" xml:"EndpointId"`
-	Entries    PutEventsRequestEntryList `json:"entries" xml:"Entries"`
+EndpointId string `json:"endpointId" xml:"EndpointId"`
+Entries PutEventsRequestEntryList `json:"entries" xml:"Entries"`
 }
 
 type PutEventsRequestEntry struct {
-	Detail       string            `json:"detail" xml:"Detail"`
-	DetailType   string            `json:"detailType" xml:"DetailType"`
-	EventBusName string            `json:"eventBusName" xml:"EventBusName"`
-	Resources    EventResourceList `json:"resources" xml:"Resources"`
-	Source       string            `json:"source" xml:"Source"`
-	Time         time.Time         `json:"time" xml:"Time"`
-	TraceHeader  string            `json:"traceHeader" xml:"TraceHeader"`
+Detail string `json:"detail" xml:"Detail"`
+DetailType string `json:"detailType" xml:"DetailType"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+Resources EventResourceList `json:"resources" xml:"Resources"`
+Source string `json:"source" xml:"Source"`
+Time time.Time `json:"time" xml:"Time"`
+TraceHeader string `json:"traceHeader" xml:"TraceHeader"`
 }
 
 type PutEventsResponse struct {
-	Entries          PutEventsResultEntryList `json:"entries" xml:"Entries"`
-	FailedEntryCount int32                    `json:"failedEntryCount" xml:"FailedEntryCount"`
+Entries PutEventsResultEntryList `json:"entries" xml:"Entries"`
+FailedEntryCount int32 `json:"failedEntryCount" xml:"FailedEntryCount"`
 }
 
 type PutEventsResultEntry struct {
-	ErrorCode    string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
-	EventId      string `json:"eventId" xml:"EventId"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+EventId string `json:"eventId" xml:"EventId"`
 }
 
 type PutPartnerEventsRequest struct {
-	Entries PutPartnerEventsRequestEntryList `json:"entries" xml:"Entries"`
+Entries PutPartnerEventsRequestEntryList `json:"entries" xml:"Entries"`
 }
 
 type PutPartnerEventsRequestEntry struct {
-	Detail     string            `json:"detail" xml:"Detail"`
-	DetailType string            `json:"detailType" xml:"DetailType"`
-	Resources  EventResourceList `json:"resources" xml:"Resources"`
-	Source     string            `json:"source" xml:"Source"`
-	Time       time.Time         `json:"time" xml:"Time"`
+Detail string `json:"detail" xml:"Detail"`
+DetailType string `json:"detailType" xml:"DetailType"`
+Resources EventResourceList `json:"resources" xml:"Resources"`
+Source string `json:"source" xml:"Source"`
+Time time.Time `json:"time" xml:"Time"`
 }
 
 type PutPartnerEventsResponse struct {
-	Entries          PutPartnerEventsResultEntryList `json:"entries" xml:"Entries"`
-	FailedEntryCount int32                           `json:"failedEntryCount" xml:"FailedEntryCount"`
+Entries PutPartnerEventsResultEntryList `json:"entries" xml:"Entries"`
+FailedEntryCount int32 `json:"failedEntryCount" xml:"FailedEntryCount"`
 }
 
 type PutPartnerEventsResultEntry struct {
-	ErrorCode    string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
-	EventId      string `json:"eventId" xml:"EventId"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+EventId string `json:"eventId" xml:"EventId"`
 }
 
 type PutPermissionRequest struct {
-	Action       string     `json:"action" xml:"Action"`
-	Condition    *Condition `json:"condition" xml:"Condition"`
-	EventBusName string     `json:"eventBusName" xml:"EventBusName"`
-	Policy       string     `json:"policy" xml:"Policy"`
-	Principal    string     `json:"principal" xml:"Principal"`
-	StatementId  string     `json:"statementId" xml:"StatementId"`
+Action string `json:"action" xml:"Action"`
+Condition *Condition `json:"condition" xml:"Condition"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+Policy string `json:"policy" xml:"Policy"`
+Principal string `json:"principal" xml:"Principal"`
+StatementId string `json:"statementId" xml:"StatementId"`
 }
 
 type PutRuleRequest struct {
-	Description        string  `json:"description" xml:"Description"`
-	EventBusName       string  `json:"eventBusName" xml:"EventBusName"`
-	EventPattern       string  `json:"eventPattern" xml:"EventPattern"`
-	Name               string  `json:"name" xml:"Name"`
-	RoleArn            string  `json:"roleArn" xml:"RoleArn"`
-	ScheduleExpression string  `json:"scheduleExpression" xml:"ScheduleExpression"`
-	State              string  `json:"state" xml:"State"`
-	Tags               TagList `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+EventPattern string `json:"eventPattern" xml:"EventPattern"`
+Name string `json:"name" xml:"Name"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+ScheduleExpression string `json:"scheduleExpression" xml:"ScheduleExpression"`
+State string `json:"state" xml:"State"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type PutRuleResponse struct {
-	RuleArn string `json:"ruleArn" xml:"RuleArn"`
+RuleArn string `json:"ruleArn" xml:"RuleArn"`
 }
 
 type PutTargetsRequest struct {
-	EventBusName string     `json:"eventBusName" xml:"EventBusName"`
-	Rule         string     `json:"rule" xml:"Rule"`
-	Targets      TargetList `json:"targets" xml:"Targets"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+Rule string `json:"rule" xml:"Rule"`
+Targets TargetList `json:"targets" xml:"Targets"`
 }
 
 type PutTargetsResponse struct {
-	FailedEntries    PutTargetsResultEntryList `json:"failedEntries" xml:"FailedEntries"`
-	FailedEntryCount int32                     `json:"failedEntryCount" xml:"FailedEntryCount"`
+FailedEntries PutTargetsResultEntryList `json:"failedEntries" xml:"FailedEntries"`
+FailedEntryCount int32 `json:"failedEntryCount" xml:"FailedEntryCount"`
 }
 
 type PutTargetsResultEntry struct {
-	ErrorCode    string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
-	TargetId     string `json:"targetId" xml:"TargetId"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+TargetId string `json:"targetId" xml:"TargetId"`
 }
 
 type RedshiftDataParameters struct {
-	Database         string `json:"database" xml:"Database"`
-	DbUser           string `json:"dbUser" xml:"DbUser"`
-	SecretManagerArn string `json:"secretManagerArn" xml:"SecretManagerArn"`
-	Sql              string `json:"sql" xml:"Sql"`
-	Sqls             Sqls   `json:"sqls" xml:"Sqls"`
-	StatementName    string `json:"statementName" xml:"StatementName"`
-	WithEvent        bool   `json:"withEvent" xml:"WithEvent"`
+Database string `json:"database" xml:"Database"`
+DbUser string `json:"dbUser" xml:"DbUser"`
+SecretManagerArn string `json:"secretManagerArn" xml:"SecretManagerArn"`
+Sql string `json:"sql" xml:"Sql"`
+Sqls Sqls `json:"sqls" xml:"Sqls"`
+StatementName string `json:"statementName" xml:"StatementName"`
+WithEvent bool `json:"withEvent" xml:"WithEvent"`
 }
 
 type RemovePermissionRequest struct {
-	EventBusName         string `json:"eventBusName" xml:"EventBusName"`
-	RemoveAllPermissions bool   `json:"removeAllPermissions" xml:"RemoveAllPermissions"`
-	StatementId          string `json:"statementId" xml:"StatementId"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+RemoveAllPermissions bool `json:"removeAllPermissions" xml:"RemoveAllPermissions"`
+StatementId string `json:"statementId" xml:"StatementId"`
 }
 
 type RemoveTargetsRequest struct {
-	EventBusName string       `json:"eventBusName" xml:"EventBusName"`
-	Force        bool         `json:"force" xml:"Force"`
-	Ids          TargetIdList `json:"ids" xml:"Ids"`
-	Rule         string       `json:"rule" xml:"Rule"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+Force bool `json:"force" xml:"Force"`
+Ids TargetIdList `json:"ids" xml:"Ids"`
+Rule string `json:"rule" xml:"Rule"`
 }
 
 type RemoveTargetsResponse struct {
-	FailedEntries    RemoveTargetsResultEntryList `json:"failedEntries" xml:"FailedEntries"`
-	FailedEntryCount int32                        `json:"failedEntryCount" xml:"FailedEntryCount"`
+FailedEntries RemoveTargetsResultEntryList `json:"failedEntries" xml:"FailedEntries"`
+FailedEntryCount int32 `json:"failedEntryCount" xml:"FailedEntryCount"`
 }
 
 type RemoveTargetsResultEntry struct {
-	ErrorCode    string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
-	TargetId     string `json:"targetId" xml:"TargetId"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+TargetId string `json:"targetId" xml:"TargetId"`
 }
 
 type Replay struct {
-	EventEndTime          time.Time `json:"eventEndTime" xml:"EventEndTime"`
-	EventLastReplayedTime time.Time `json:"eventLastReplayedTime" xml:"EventLastReplayedTime"`
-	EventSourceArn        string    `json:"eventSourceArn" xml:"EventSourceArn"`
-	EventStartTime        time.Time `json:"eventStartTime" xml:"EventStartTime"`
-	ReplayEndTime         time.Time `json:"replayEndTime" xml:"ReplayEndTime"`
-	ReplayName            string    `json:"replayName" xml:"ReplayName"`
-	ReplayStartTime       time.Time `json:"replayStartTime" xml:"ReplayStartTime"`
-	State                 string    `json:"state" xml:"State"`
-	StateReason           string    `json:"stateReason" xml:"StateReason"`
+EventEndTime time.Time `json:"eventEndTime" xml:"EventEndTime"`
+EventLastReplayedTime time.Time `json:"eventLastReplayedTime" xml:"EventLastReplayedTime"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+EventStartTime time.Time `json:"eventStartTime" xml:"EventStartTime"`
+ReplayEndTime time.Time `json:"replayEndTime" xml:"ReplayEndTime"`
+ReplayName string `json:"replayName" xml:"ReplayName"`
+ReplayStartTime time.Time `json:"replayStartTime" xml:"ReplayStartTime"`
+State string `json:"state" xml:"State"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type ReplayDestination struct {
-	Arn        string                   `json:"arn" xml:"Arn"`
-	FilterArns ReplayDestinationFilters `json:"filterArns" xml:"FilterArns"`
+Arn string `json:"arn" xml:"Arn"`
+FilterArns ReplayDestinationFilters `json:"filterArns" xml:"FilterArns"`
 }
 
 type ReplicationConfig struct {
-	State string `json:"state" xml:"State"`
+State string `json:"state" xml:"State"`
 }
 
 type RetryPolicy struct {
-	MaximumEventAgeInSeconds int32 `json:"maximumEventAgeInSeconds" xml:"MaximumEventAgeInSeconds"`
-	MaximumRetryAttempts     int32 `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
+MaximumEventAgeInSeconds int32 `json:"maximumEventAgeInSeconds" xml:"MaximumEventAgeInSeconds"`
+MaximumRetryAttempts int32 `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
 }
 
 type RoutingConfig struct {
-	FailoverConfig *FailoverConfig `json:"failoverConfig" xml:"FailoverConfig"`
+FailoverConfig *FailoverConfig `json:"failoverConfig" xml:"FailoverConfig"`
 }
 
 type Rule struct {
-	Arn                string `json:"arn" xml:"Arn"`
-	Description        string `json:"description" xml:"Description"`
-	EventBusName       string `json:"eventBusName" xml:"EventBusName"`
-	EventPattern       string `json:"eventPattern" xml:"EventPattern"`
-	ManagedBy          string `json:"managedBy" xml:"ManagedBy"`
-	Name               string `json:"name" xml:"Name"`
-	RoleArn            string `json:"roleArn" xml:"RoleArn"`
-	ScheduleExpression string `json:"scheduleExpression" xml:"ScheduleExpression"`
-	State              string `json:"state" xml:"State"`
+Arn string `json:"arn" xml:"Arn"`
+Description string `json:"description" xml:"Description"`
+EventBusName string `json:"eventBusName" xml:"EventBusName"`
+EventPattern string `json:"eventPattern" xml:"EventPattern"`
+ManagedBy string `json:"managedBy" xml:"ManagedBy"`
+Name string `json:"name" xml:"Name"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+ScheduleExpression string `json:"scheduleExpression" xml:"ScheduleExpression"`
+State string `json:"state" xml:"State"`
 }
 
 type RunCommandParameters struct {
-	RunCommandTargets RunCommandTargets `json:"runCommandTargets" xml:"RunCommandTargets"`
+RunCommandTargets RunCommandTargets `json:"runCommandTargets" xml:"RunCommandTargets"`
 }
 
 type RunCommandTarget struct {
-	Key    string                 `json:"key" xml:"Key"`
-	Values RunCommandTargetValues `json:"values" xml:"Values"`
+Key string `json:"key" xml:"Key"`
+Values RunCommandTargetValues `json:"values" xml:"Values"`
 }
 
 type SageMakerPipelineParameter struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type SageMakerPipelineParameters struct {
-	PipelineParameterList SageMakerPipelineParameterList `json:"pipelineParameterList" xml:"PipelineParameterList"`
+PipelineParameterList SageMakerPipelineParameterList `json:"pipelineParameterList" xml:"PipelineParameterList"`
 }
 
 type Secondary struct {
-	Route string `json:"route" xml:"Route"`
+Route string `json:"route" xml:"Route"`
 }
 
 type SmithyUnit struct {
 }
 
 type SqsParameters struct {
-	MessageGroupId string `json:"messageGroupId" xml:"MessageGroupId"`
+MessageGroupId string `json:"messageGroupId" xml:"MessageGroupId"`
 }
 
 type StartReplayRequest struct {
-	Description    string             `json:"description" xml:"Description"`
-	Destination    *ReplayDestination `json:"destination" xml:"Destination"`
-	EventEndTime   time.Time          `json:"eventEndTime" xml:"EventEndTime"`
-	EventSourceArn string             `json:"eventSourceArn" xml:"EventSourceArn"`
-	EventStartTime time.Time          `json:"eventStartTime" xml:"EventStartTime"`
-	ReplayName     string             `json:"replayName" xml:"ReplayName"`
+Description string `json:"description" xml:"Description"`
+Destination *ReplayDestination `json:"destination" xml:"Destination"`
+EventEndTime time.Time `json:"eventEndTime" xml:"EventEndTime"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+EventStartTime time.Time `json:"eventStartTime" xml:"EventStartTime"`
+ReplayName string `json:"replayName" xml:"ReplayName"`
 }
 
 type StartReplayResponse struct {
-	ReplayArn       string    `json:"replayArn" xml:"ReplayArn"`
-	ReplayStartTime time.Time `json:"replayStartTime" xml:"ReplayStartTime"`
-	State           string    `json:"state" xml:"State"`
-	StateReason     string    `json:"stateReason" xml:"StateReason"`
+ReplayArn string `json:"replayArn" xml:"ReplayArn"`
+ReplayStartTime time.Time `json:"replayStartTime" xml:"ReplayStartTime"`
+State string `json:"state" xml:"State"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceRequest struct {
-	ResourceARN string  `json:"resourceARN" xml:"ResourceARN"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type Target struct {
-	AppSyncParameters           *AppSyncParameters           `json:"appSyncParameters" xml:"AppSyncParameters"`
-	Arn                         string                       `json:"arn" xml:"Arn"`
-	BatchParameters             *BatchParameters             `json:"batchParameters" xml:"BatchParameters"`
-	DeadLetterConfig            *DeadLetterConfig            `json:"deadLetterConfig" xml:"DeadLetterConfig"`
-	EcsParameters               *EcsParameters               `json:"ecsParameters" xml:"EcsParameters"`
-	HttpParameters              *HttpParameters              `json:"httpParameters" xml:"HttpParameters"`
-	Id                          string                       `json:"id" xml:"Id"`
-	Input                       string                       `json:"input" xml:"Input"`
-	InputPath                   string                       `json:"inputPath" xml:"InputPath"`
-	InputTransformer            *InputTransformer            `json:"inputTransformer" xml:"InputTransformer"`
-	KinesisParameters           *KinesisParameters           `json:"kinesisParameters" xml:"KinesisParameters"`
-	RedshiftDataParameters      *RedshiftDataParameters      `json:"redshiftDataParameters" xml:"RedshiftDataParameters"`
-	RetryPolicy                 *RetryPolicy                 `json:"retryPolicy" xml:"RetryPolicy"`
-	RoleArn                     string                       `json:"roleArn" xml:"RoleArn"`
-	RunCommandParameters        *RunCommandParameters        `json:"runCommandParameters" xml:"RunCommandParameters"`
-	SageMakerPipelineParameters *SageMakerPipelineParameters `json:"sageMakerPipelineParameters" xml:"SageMakerPipelineParameters"`
-	SqsParameters               *SqsParameters               `json:"sqsParameters" xml:"SqsParameters"`
+AppSyncParameters *AppSyncParameters `json:"appSyncParameters" xml:"AppSyncParameters"`
+Arn string `json:"arn" xml:"Arn"`
+BatchParameters *BatchParameters `json:"batchParameters" xml:"BatchParameters"`
+DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
+EcsParameters *EcsParameters `json:"ecsParameters" xml:"EcsParameters"`
+HttpParameters *HttpParameters `json:"httpParameters" xml:"HttpParameters"`
+Id string `json:"id" xml:"Id"`
+Input string `json:"input" xml:"Input"`
+InputPath string `json:"inputPath" xml:"InputPath"`
+InputTransformer *InputTransformer `json:"inputTransformer" xml:"InputTransformer"`
+KinesisParameters *KinesisParameters `json:"kinesisParameters" xml:"KinesisParameters"`
+RedshiftDataParameters *RedshiftDataParameters `json:"redshiftDataParameters" xml:"RedshiftDataParameters"`
+RetryPolicy *RetryPolicy `json:"retryPolicy" xml:"RetryPolicy"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+RunCommandParameters *RunCommandParameters `json:"runCommandParameters" xml:"RunCommandParameters"`
+SageMakerPipelineParameters *SageMakerPipelineParameters `json:"sageMakerPipelineParameters" xml:"SageMakerPipelineParameters"`
+SqsParameters *SqsParameters `json:"sqsParameters" xml:"SqsParameters"`
 }
 
 type TestEventPatternRequest struct {
-	Event        string `json:"event" xml:"Event"`
-	EventPattern string `json:"eventPattern" xml:"EventPattern"`
+Event string `json:"event" xml:"Event"`
+EventPattern string `json:"eventPattern" xml:"EventPattern"`
 }
 
 type TestEventPatternResponse struct {
-	Result bool `json:"result" xml:"Result"`
+Result bool `json:"result" xml:"Result"`
 }
 
 type UntagResourceRequest struct {
-	ResourceARN string     `json:"resourceARN" xml:"ResourceARN"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateApiDestinationRequest struct {
-	ConnectionArn                string `json:"connectionArn" xml:"ConnectionArn"`
-	Description                  string `json:"description" xml:"Description"`
-	HttpMethod                   string `json:"httpMethod" xml:"HttpMethod"`
-	InvocationEndpoint           string `json:"invocationEndpoint" xml:"InvocationEndpoint"`
-	InvocationRateLimitPerSecond int32  `json:"invocationRateLimitPerSecond" xml:"InvocationRateLimitPerSecond"`
-	Name                         string `json:"name" xml:"Name"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
+Description string `json:"description" xml:"Description"`
+HttpMethod string `json:"httpMethod" xml:"HttpMethod"`
+InvocationEndpoint string `json:"invocationEndpoint" xml:"InvocationEndpoint"`
+InvocationRateLimitPerSecond int32 `json:"invocationRateLimitPerSecond" xml:"InvocationRateLimitPerSecond"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateApiDestinationResponse struct {
-	ApiDestinationArn   string    `json:"apiDestinationArn" xml:"ApiDestinationArn"`
-	ApiDestinationState string    `json:"apiDestinationState" xml:"ApiDestinationState"`
-	CreationTime        time.Time `json:"creationTime" xml:"CreationTime"`
-	LastModifiedTime    time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+ApiDestinationArn string `json:"apiDestinationArn" xml:"ApiDestinationArn"`
+ApiDestinationState string `json:"apiDestinationState" xml:"ApiDestinationState"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type UpdateArchiveRequest struct {
-	ArchiveName      string `json:"archiveName" xml:"ArchiveName"`
-	Description      string `json:"description" xml:"Description"`
-	EventPattern     string `json:"eventPattern" xml:"EventPattern"`
-	KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	RetentionDays    int32  `json:"retentionDays" xml:"RetentionDays"`
+ArchiveName string `json:"archiveName" xml:"ArchiveName"`
+Description string `json:"description" xml:"Description"`
+EventPattern string `json:"eventPattern" xml:"EventPattern"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+RetentionDays int32 `json:"retentionDays" xml:"RetentionDays"`
 }
 
 type UpdateArchiveResponse struct {
-	ArchiveArn   string    `json:"archiveArn" xml:"ArchiveArn"`
-	CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
-	State        string    `json:"state" xml:"State"`
-	StateReason  string    `json:"stateReason" xml:"StateReason"`
+ArchiveArn string `json:"archiveArn" xml:"ArchiveArn"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+State string `json:"state" xml:"State"`
+StateReason string `json:"stateReason" xml:"StateReason"`
 }
 
 type UpdateConnectionApiKeyAuthRequestParameters struct {
-	ApiKeyName  string `json:"apiKeyName" xml:"ApiKeyName"`
-	ApiKeyValue string `json:"apiKeyValue" xml:"ApiKeyValue"`
+ApiKeyName string `json:"apiKeyName" xml:"ApiKeyName"`
+ApiKeyValue string `json:"apiKeyValue" xml:"ApiKeyValue"`
 }
 
 type UpdateConnectionAuthRequestParameters struct {
-	ApiKeyAuthParameters     *UpdateConnectionApiKeyAuthRequestParameters `json:"apiKeyAuthParameters" xml:"ApiKeyAuthParameters"`
-	BasicAuthParameters      *UpdateConnectionBasicAuthRequestParameters  `json:"basicAuthParameters" xml:"BasicAuthParameters"`
-	ConnectivityParameters   *ConnectivityResourceParameters              `json:"connectivityParameters" xml:"ConnectivityParameters"`
-	InvocationHttpParameters *ConnectionHttpParameters                    `json:"invocationHttpParameters" xml:"InvocationHttpParameters"`
-	OAuthParameters          *UpdateConnectionOAuthRequestParameters      `json:"oAuthParameters" xml:"OAuthParameters"`
+ApiKeyAuthParameters *UpdateConnectionApiKeyAuthRequestParameters `json:"apiKeyAuthParameters" xml:"ApiKeyAuthParameters"`
+BasicAuthParameters *UpdateConnectionBasicAuthRequestParameters `json:"basicAuthParameters" xml:"BasicAuthParameters"`
+ConnectivityParameters *ConnectivityResourceParameters `json:"connectivityParameters" xml:"ConnectivityParameters"`
+InvocationHttpParameters *ConnectionHttpParameters `json:"invocationHttpParameters" xml:"InvocationHttpParameters"`
+OAuthParameters *UpdateConnectionOAuthRequestParameters `json:"oAuthParameters" xml:"OAuthParameters"`
 }
 
 type UpdateConnectionBasicAuthRequestParameters struct {
-	Password string `json:"password" xml:"Password"`
-	Username string `json:"username" xml:"Username"`
+Password string `json:"password" xml:"Password"`
+Username string `json:"username" xml:"Username"`
 }
 
 type UpdateConnectionOAuthClientRequestParameters struct {
-	ClientID     string `json:"clientID" xml:"ClientID"`
-	ClientSecret string `json:"clientSecret" xml:"ClientSecret"`
+ClientID string `json:"clientID" xml:"ClientID"`
+ClientSecret string `json:"clientSecret" xml:"ClientSecret"`
 }
 
 type UpdateConnectionOAuthRequestParameters struct {
-	AuthorizationEndpoint string                                        `json:"authorizationEndpoint" xml:"AuthorizationEndpoint"`
-	ClientParameters      *UpdateConnectionOAuthClientRequestParameters `json:"clientParameters" xml:"ClientParameters"`
-	HttpMethod            string                                        `json:"httpMethod" xml:"HttpMethod"`
-	OAuthHttpParameters   *ConnectionHttpParameters                     `json:"oAuthHttpParameters" xml:"OAuthHttpParameters"`
+AuthorizationEndpoint string `json:"authorizationEndpoint" xml:"AuthorizationEndpoint"`
+ClientParameters *UpdateConnectionOAuthClientRequestParameters `json:"clientParameters" xml:"ClientParameters"`
+HttpMethod string `json:"httpMethod" xml:"HttpMethod"`
+OAuthHttpParameters *ConnectionHttpParameters `json:"oAuthHttpParameters" xml:"OAuthHttpParameters"`
 }
 
 type UpdateConnectionRequest struct {
-	AuthParameters                   *UpdateConnectionAuthRequestParameters `json:"authParameters" xml:"AuthParameters"`
-	AuthorizationType                string                                 `json:"authorizationType" xml:"AuthorizationType"`
-	Description                      string                                 `json:"description" xml:"Description"`
-	InvocationConnectivityParameters *ConnectivityResourceParameters        `json:"invocationConnectivityParameters" xml:"InvocationConnectivityParameters"`
-	KmsKeyIdentifier                 string                                 `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	Name                             string                                 `json:"name" xml:"Name"`
+AuthParameters *UpdateConnectionAuthRequestParameters `json:"authParameters" xml:"AuthParameters"`
+AuthorizationType string `json:"authorizationType" xml:"AuthorizationType"`
+Description string `json:"description" xml:"Description"`
+InvocationConnectivityParameters *ConnectivityResourceParameters `json:"invocationConnectivityParameters" xml:"InvocationConnectivityParameters"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateConnectionResponse struct {
-	ConnectionArn      string    `json:"connectionArn" xml:"ConnectionArn"`
-	ConnectionState    string    `json:"connectionState" xml:"ConnectionState"`
-	CreationTime       time.Time `json:"creationTime" xml:"CreationTime"`
-	LastAuthorizedTime time.Time `json:"lastAuthorizedTime" xml:"LastAuthorizedTime"`
-	LastModifiedTime   time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+ConnectionArn string `json:"connectionArn" xml:"ConnectionArn"`
+ConnectionState string `json:"connectionState" xml:"ConnectionState"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+LastAuthorizedTime time.Time `json:"lastAuthorizedTime" xml:"LastAuthorizedTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type UpdateEndpointRequest struct {
-	Description       string               `json:"description" xml:"Description"`
-	EventBuses        EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
-	Name              string               `json:"name" xml:"Name"`
-	ReplicationConfig *ReplicationConfig   `json:"replicationConfig" xml:"ReplicationConfig"`
-	RoleArn           string               `json:"roleArn" xml:"RoleArn"`
-	RoutingConfig     *RoutingConfig       `json:"routingConfig" xml:"RoutingConfig"`
+Description string `json:"description" xml:"Description"`
+EventBuses EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
+Name string `json:"name" xml:"Name"`
+ReplicationConfig *ReplicationConfig `json:"replicationConfig" xml:"ReplicationConfig"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+RoutingConfig *RoutingConfig `json:"routingConfig" xml:"RoutingConfig"`
 }
 
 type UpdateEndpointResponse struct {
-	Arn               string               `json:"arn" xml:"Arn"`
-	EndpointId        string               `json:"endpointId" xml:"EndpointId"`
-	EndpointUrl       string               `json:"endpointUrl" xml:"EndpointUrl"`
-	EventBuses        EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
-	Name              string               `json:"name" xml:"Name"`
-	ReplicationConfig *ReplicationConfig   `json:"replicationConfig" xml:"ReplicationConfig"`
-	RoleArn           string               `json:"roleArn" xml:"RoleArn"`
-	RoutingConfig     *RoutingConfig       `json:"routingConfig" xml:"RoutingConfig"`
-	State             string               `json:"state" xml:"State"`
+Arn string `json:"arn" xml:"Arn"`
+EndpointId string `json:"endpointId" xml:"EndpointId"`
+EndpointUrl string `json:"endpointUrl" xml:"EndpointUrl"`
+EventBuses EndpointEventBusList `json:"eventBuses" xml:"EventBuses"`
+Name string `json:"name" xml:"Name"`
+ReplicationConfig *ReplicationConfig `json:"replicationConfig" xml:"ReplicationConfig"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+RoutingConfig *RoutingConfig `json:"routingConfig" xml:"RoutingConfig"`
+State string `json:"state" xml:"State"`
 }
 
 type UpdateEventBusRequest struct {
-	DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
-	Description      string            `json:"description" xml:"Description"`
-	KmsKeyIdentifier string            `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	LogConfig        *LogConfig        `json:"logConfig" xml:"LogConfig"`
-	Name             string            `json:"name" xml:"Name"`
+DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
+Description string `json:"description" xml:"Description"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+LogConfig *LogConfig `json:"logConfig" xml:"LogConfig"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateEventBusResponse struct {
-	Arn              string            `json:"arn" xml:"Arn"`
-	DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
-	Description      string            `json:"description" xml:"Description"`
-	KmsKeyIdentifier string            `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
-	LogConfig        *LogConfig        `json:"logConfig" xml:"LogConfig"`
-	Name             string            `json:"name" xml:"Name"`
+Arn string `json:"arn" xml:"Arn"`
+DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
+Description string `json:"description" xml:"Description"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+LogConfig *LogConfig `json:"logConfig" xml:"LogConfig"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ApiDestinationResponseList []*ApiDestination
@@ -1227,3 +1227,4 @@ type HeaderParametersMap map[string]string
 type QueryStringParametersMap map[string]string
 
 type TransformerPaths map[string]string
+

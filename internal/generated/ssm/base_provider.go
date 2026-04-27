@@ -594,3 +594,4 @@ func (b *BaseProvider) UpdateResourceDataSync(ctx context.Context, input *Update
 func (b *BaseProvider) UpdateServiceSetting(ctx context.Context, input *UpdateServiceSettingRequest) (*UpdateServiceSettingResult, error) {
 	return nil, fmt.Errorf("UpdateServiceSetting: %w", ErrNotImplemented)
 }
+

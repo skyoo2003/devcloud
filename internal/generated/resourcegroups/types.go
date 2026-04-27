@@ -7,378 +7,378 @@ import (
 )
 
 type AccountSettings struct {
-	GroupLifecycleEventsDesiredStatus string `json:"groupLifecycleEventsDesiredStatus" xml:"GroupLifecycleEventsDesiredStatus"`
-	GroupLifecycleEventsStatus        string `json:"groupLifecycleEventsStatus" xml:"GroupLifecycleEventsStatus"`
-	GroupLifecycleEventsStatusMessage string `json:"groupLifecycleEventsStatusMessage" xml:"GroupLifecycleEventsStatusMessage"`
+GroupLifecycleEventsDesiredStatus string `json:"groupLifecycleEventsDesiredStatus" xml:"GroupLifecycleEventsDesiredStatus"`
+GroupLifecycleEventsStatus string `json:"groupLifecycleEventsStatus" xml:"GroupLifecycleEventsStatus"`
+GroupLifecycleEventsStatusMessage string `json:"groupLifecycleEventsStatusMessage" xml:"GroupLifecycleEventsStatusMessage"`
 }
 
 type CancelTagSyncTaskInput struct {
-	TaskArn string `json:"taskArn" xml:"TaskArn"`
+TaskArn string `json:"taskArn" xml:"TaskArn"`
 }
 
 type CreateGroupInput struct {
-	Configuration GroupConfigurationList `json:"configuration" xml:"Configuration"`
-	Criticality   int32                  `json:"criticality" xml:"Criticality"`
-	Description   string                 `json:"description" xml:"Description"`
-	DisplayName   string                 `json:"displayName" xml:"DisplayName"`
-	Name          string                 `json:"name" xml:"Name"`
-	Owner         string                 `json:"owner" xml:"Owner"`
-	ResourceQuery *ResourceQuery         `json:"resourceQuery" xml:"ResourceQuery"`
-	Tags          Tags                   `json:"tags" xml:"Tags"`
+Configuration GroupConfigurationList `json:"configuration" xml:"Configuration"`
+Criticality int32 `json:"criticality" xml:"Criticality"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+Name string `json:"name" xml:"Name"`
+Owner string `json:"owner" xml:"Owner"`
+ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateGroupOutput struct {
-	Group              *Group              `json:"group" xml:"Group"`
-	GroupConfiguration *GroupConfiguration `json:"groupConfiguration" xml:"GroupConfiguration"`
-	ResourceQuery      *ResourceQuery      `json:"resourceQuery" xml:"ResourceQuery"`
-	Tags               Tags                `json:"tags" xml:"Tags"`
+Group *Group `json:"group" xml:"Group"`
+GroupConfiguration *GroupConfiguration `json:"groupConfiguration" xml:"GroupConfiguration"`
+ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type DeleteGroupInput struct {
-	Group     string `json:"group" xml:"Group"`
-	GroupName string `json:"groupName" xml:"GroupName"`
+Group string `json:"group" xml:"Group"`
+GroupName string `json:"groupName" xml:"GroupName"`
 }
 
 type DeleteGroupOutput struct {
-	Group *Group `json:"group" xml:"Group"`
+Group *Group `json:"group" xml:"Group"`
 }
 
 type FailedResource struct {
-	ErrorCode    string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
-	ResourceArn  string `json:"resourceArn" xml:"ResourceArn"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetAccountSettingsOutput struct {
-	AccountSettings *AccountSettings `json:"accountSettings" xml:"AccountSettings"`
+AccountSettings *AccountSettings `json:"accountSettings" xml:"AccountSettings"`
 }
 
 type GetGroupConfigurationInput struct {
-	Group string `json:"group" xml:"Group"`
+Group string `json:"group" xml:"Group"`
 }
 
 type GetGroupConfigurationOutput struct {
-	GroupConfiguration *GroupConfiguration `json:"groupConfiguration" xml:"GroupConfiguration"`
+GroupConfiguration *GroupConfiguration `json:"groupConfiguration" xml:"GroupConfiguration"`
 }
 
 type GetGroupInput struct {
-	Group     string `json:"group" xml:"Group"`
-	GroupName string `json:"groupName" xml:"GroupName"`
+Group string `json:"group" xml:"Group"`
+GroupName string `json:"groupName" xml:"GroupName"`
 }
 
 type GetGroupOutput struct {
-	Group *Group `json:"group" xml:"Group"`
+Group *Group `json:"group" xml:"Group"`
 }
 
 type GetGroupQueryInput struct {
-	Group     string `json:"group" xml:"Group"`
-	GroupName string `json:"groupName" xml:"GroupName"`
+Group string `json:"group" xml:"Group"`
+GroupName string `json:"groupName" xml:"GroupName"`
 }
 
 type GetGroupQueryOutput struct {
-	GroupQuery *GroupQuery `json:"groupQuery" xml:"GroupQuery"`
+GroupQuery *GroupQuery `json:"groupQuery" xml:"GroupQuery"`
 }
 
 type GetTagSyncTaskInput struct {
-	TaskArn string `json:"taskArn" xml:"TaskArn"`
+TaskArn string `json:"taskArn" xml:"TaskArn"`
 }
 
 type GetTagSyncTaskOutput struct {
-	CreatedAt     time.Time      `json:"createdAt" xml:"CreatedAt"`
-	ErrorMessage  string         `json:"errorMessage" xml:"ErrorMessage"`
-	GroupArn      string         `json:"groupArn" xml:"GroupArn"`
-	GroupName     string         `json:"groupName" xml:"GroupName"`
-	ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
-	RoleArn       string         `json:"roleArn" xml:"RoleArn"`
-	Status        string         `json:"status" xml:"Status"`
-	TagKey        string         `json:"tagKey" xml:"TagKey"`
-	TagValue      string         `json:"tagValue" xml:"TagValue"`
-	TaskArn       string         `json:"taskArn" xml:"TaskArn"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+GroupArn string `json:"groupArn" xml:"GroupArn"`
+GroupName string `json:"groupName" xml:"GroupName"`
+ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+Status string `json:"status" xml:"Status"`
+TagKey string `json:"tagKey" xml:"TagKey"`
+TagValue string `json:"tagValue" xml:"TagValue"`
+TaskArn string `json:"taskArn" xml:"TaskArn"`
 }
 
 type GetTagsInput struct {
-	Arn string `json:"arn" xml:"Arn"`
+Arn string `json:"arn" xml:"Arn"`
 }
 
 type GetTagsOutput struct {
-	Arn  string `json:"arn" xml:"Arn"`
-	Tags Tags   `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type Group struct {
-	ApplicationTag ApplicationTag `json:"applicationTag" xml:"ApplicationTag"`
-	Criticality    int32          `json:"criticality" xml:"Criticality"`
-	Description    string         `json:"description" xml:"Description"`
-	DisplayName    string         `json:"displayName" xml:"DisplayName"`
-	GroupArn       string         `json:"groupArn" xml:"GroupArn"`
-	Name           string         `json:"name" xml:"Name"`
-	Owner          string         `json:"owner" xml:"Owner"`
+ApplicationTag ApplicationTag `json:"applicationTag" xml:"ApplicationTag"`
+Criticality int32 `json:"criticality" xml:"Criticality"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+GroupArn string `json:"groupArn" xml:"GroupArn"`
+Name string `json:"name" xml:"Name"`
+Owner string `json:"owner" xml:"Owner"`
 }
 
 type GroupConfiguration struct {
-	Configuration         GroupConfigurationList `json:"configuration" xml:"Configuration"`
-	FailureReason         string                 `json:"failureReason" xml:"FailureReason"`
-	ProposedConfiguration GroupConfigurationList `json:"proposedConfiguration" xml:"ProposedConfiguration"`
-	Status                string                 `json:"status" xml:"Status"`
+Configuration GroupConfigurationList `json:"configuration" xml:"Configuration"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+ProposedConfiguration GroupConfigurationList `json:"proposedConfiguration" xml:"ProposedConfiguration"`
+Status string `json:"status" xml:"Status"`
 }
 
 type GroupConfigurationItem struct {
-	Parameters GroupParameterList `json:"parameters" xml:"Parameters"`
-	Type       string             `json:"type" xml:"Type"`
+Parameters GroupParameterList `json:"parameters" xml:"Parameters"`
+Type string `json:"type" xml:"Type"`
 }
 
 type GroupConfigurationParameter struct {
-	Name   string                               `json:"name" xml:"Name"`
-	Values GroupConfigurationParameterValueList `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values GroupConfigurationParameterValueList `json:"values" xml:"Values"`
 }
 
 type GroupFilter struct {
-	Name   string            `json:"name" xml:"Name"`
-	Values GroupFilterValues `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values GroupFilterValues `json:"values" xml:"Values"`
 }
 
 type GroupIdentifier struct {
-	Criticality int32  `json:"criticality" xml:"Criticality"`
-	Description string `json:"description" xml:"Description"`
-	DisplayName string `json:"displayName" xml:"DisplayName"`
-	GroupArn    string `json:"groupArn" xml:"GroupArn"`
-	GroupName   string `json:"groupName" xml:"GroupName"`
-	Owner       string `json:"owner" xml:"Owner"`
+Criticality int32 `json:"criticality" xml:"Criticality"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+GroupArn string `json:"groupArn" xml:"GroupArn"`
+GroupName string `json:"groupName" xml:"GroupName"`
+Owner string `json:"owner" xml:"Owner"`
 }
 
 type GroupQuery struct {
-	GroupName     string         `json:"groupName" xml:"GroupName"`
-	ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
+GroupName string `json:"groupName" xml:"GroupName"`
+ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
 }
 
 type GroupResourcesInput struct {
-	Group        string          `json:"group" xml:"Group"`
-	ResourceArns ResourceArnList `json:"resourceArns" xml:"ResourceArns"`
+Group string `json:"group" xml:"Group"`
+ResourceArns ResourceArnList `json:"resourceArns" xml:"ResourceArns"`
 }
 
 type GroupResourcesOutput struct {
-	Failed    FailedResourceList  `json:"failed" xml:"Failed"`
-	Pending   PendingResourceList `json:"pending" xml:"Pending"`
-	Succeeded ResourceArnList     `json:"succeeded" xml:"Succeeded"`
+Failed FailedResourceList `json:"failed" xml:"Failed"`
+Pending PendingResourceList `json:"pending" xml:"Pending"`
+Succeeded ResourceArnList `json:"succeeded" xml:"Succeeded"`
 }
 
 type GroupingStatusesItem struct {
-	Action       string    `json:"action" xml:"Action"`
-	ErrorCode    string    `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string    `json:"errorMessage" xml:"ErrorMessage"`
-	ResourceArn  string    `json:"resourceArn" xml:"ResourceArn"`
-	Status       string    `json:"status" xml:"Status"`
-	UpdatedAt    time.Time `json:"updatedAt" xml:"UpdatedAt"`
+Action string `json:"action" xml:"Action"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Status string `json:"status" xml:"Status"`
+UpdatedAt time.Time `json:"updatedAt" xml:"UpdatedAt"`
 }
 
 type ListGroupResourcesInput struct {
-	Filters    ResourceFilterList `json:"filters" xml:"Filters"`
-	Group      string             `json:"group" xml:"Group"`
-	GroupName  string             `json:"groupName" xml:"GroupName"`
-	MaxResults int32              `json:"maxResults" xml:"MaxResults"`
-	NextToken  string             `json:"nextToken" xml:"NextToken"`
+Filters ResourceFilterList `json:"filters" xml:"Filters"`
+Group string `json:"group" xml:"Group"`
+GroupName string `json:"groupName" xml:"GroupName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListGroupResourcesItem struct {
-	Identifier *ResourceIdentifier `json:"identifier" xml:"Identifier"`
-	Status     *ResourceStatus     `json:"status" xml:"Status"`
+Identifier *ResourceIdentifier `json:"identifier" xml:"Identifier"`
+Status *ResourceStatus `json:"status" xml:"Status"`
 }
 
 type ListGroupResourcesOutput struct {
-	NextToken           string                     `json:"nextToken" xml:"NextToken"`
-	QueryErrors         QueryErrorList             `json:"queryErrors" xml:"QueryErrors"`
-	ResourceIdentifiers ResourceIdentifierList     `json:"resourceIdentifiers" xml:"ResourceIdentifiers"`
-	Resources           ListGroupResourcesItemList `json:"resources" xml:"Resources"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueryErrors QueryErrorList `json:"queryErrors" xml:"QueryErrors"`
+ResourceIdentifiers ResourceIdentifierList `json:"resourceIdentifiers" xml:"ResourceIdentifiers"`
+Resources ListGroupResourcesItemList `json:"resources" xml:"Resources"`
 }
 
 type ListGroupingStatusesFilter struct {
-	Name   string                           `json:"name" xml:"Name"`
-	Values ListGroupingStatusesFilterValues `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values ListGroupingStatusesFilterValues `json:"values" xml:"Values"`
 }
 
 type ListGroupingStatusesInput struct {
-	Filters    ListGroupingStatusesFilterList `json:"filters" xml:"Filters"`
-	Group      string                         `json:"group" xml:"Group"`
-	MaxResults int32                          `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                         `json:"nextToken" xml:"NextToken"`
+Filters ListGroupingStatusesFilterList `json:"filters" xml:"Filters"`
+Group string `json:"group" xml:"Group"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListGroupingStatusesOutput struct {
-	Group            string               `json:"group" xml:"Group"`
-	GroupingStatuses GroupingStatusesList `json:"groupingStatuses" xml:"GroupingStatuses"`
-	NextToken        string               `json:"nextToken" xml:"NextToken"`
+Group string `json:"group" xml:"Group"`
+GroupingStatuses GroupingStatusesList `json:"groupingStatuses" xml:"GroupingStatuses"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListGroupsInput struct {
-	Filters    GroupFilterList `json:"filters" xml:"Filters"`
-	MaxResults int32           `json:"maxResults" xml:"MaxResults"`
-	NextToken  string          `json:"nextToken" xml:"NextToken"`
+Filters GroupFilterList `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListGroupsOutput struct {
-	GroupIdentifiers GroupIdentifierList `json:"groupIdentifiers" xml:"GroupIdentifiers"`
-	Groups           GroupList           `json:"groups" xml:"Groups"`
-	NextToken        string              `json:"nextToken" xml:"NextToken"`
+GroupIdentifiers GroupIdentifierList `json:"groupIdentifiers" xml:"GroupIdentifiers"`
+Groups GroupList `json:"groups" xml:"Groups"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListTagSyncTasksFilter struct {
-	GroupArn  string `json:"groupArn" xml:"GroupArn"`
-	GroupName string `json:"groupName" xml:"GroupName"`
+GroupArn string `json:"groupArn" xml:"GroupArn"`
+GroupName string `json:"groupName" xml:"GroupName"`
 }
 
 type ListTagSyncTasksInput struct {
-	Filters    ListTagSyncTasksFilterList `json:"filters" xml:"Filters"`
-	MaxResults int32                      `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                     `json:"nextToken" xml:"NextToken"`
+Filters ListTagSyncTasksFilterList `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListTagSyncTasksOutput struct {
-	NextToken    string          `json:"nextToken" xml:"NextToken"`
-	TagSyncTasks TagSyncTaskList `json:"tagSyncTasks" xml:"TagSyncTasks"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TagSyncTasks TagSyncTaskList `json:"tagSyncTasks" xml:"TagSyncTasks"`
 }
 
 type PendingResource struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type PutGroupConfigurationInput struct {
-	Configuration GroupConfigurationList `json:"configuration" xml:"Configuration"`
-	Group         string                 `json:"group" xml:"Group"`
+Configuration GroupConfigurationList `json:"configuration" xml:"Configuration"`
+Group string `json:"group" xml:"Group"`
 }
 
 type PutGroupConfigurationOutput struct {
 }
 
 type QueryError struct {
-	ErrorCode string `json:"errorCode" xml:"ErrorCode"`
-	Message   string `json:"message" xml:"Message"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+Message string `json:"message" xml:"Message"`
 }
 
 type ResourceFilter struct {
-	Name   string               `json:"name" xml:"Name"`
-	Values ResourceFilterValues `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values ResourceFilterValues `json:"values" xml:"Values"`
 }
 
 type ResourceIdentifier struct {
-	ResourceArn  string `json:"resourceArn" xml:"ResourceArn"`
-	ResourceType string `json:"resourceType" xml:"ResourceType"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ResourceQuery struct {
-	Query string `json:"query" xml:"Query"`
-	Type  string `json:"type" xml:"Type"`
+Query string `json:"query" xml:"Query"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ResourceStatus struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type SearchResourcesInput struct {
-	MaxResults    int32          `json:"maxResults" xml:"MaxResults"`
-	NextToken     string         `json:"nextToken" xml:"NextToken"`
-	ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
 }
 
 type SearchResourcesOutput struct {
-	NextToken           string                 `json:"nextToken" xml:"NextToken"`
-	QueryErrors         QueryErrorList         `json:"queryErrors" xml:"QueryErrors"`
-	ResourceIdentifiers ResourceIdentifierList `json:"resourceIdentifiers" xml:"ResourceIdentifiers"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueryErrors QueryErrorList `json:"queryErrors" xml:"QueryErrors"`
+ResourceIdentifiers ResourceIdentifierList `json:"resourceIdentifiers" xml:"ResourceIdentifiers"`
 }
 
 type SmithyUnit struct {
 }
 
 type StartTagSyncTaskInput struct {
-	Group         string         `json:"group" xml:"Group"`
-	ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
-	RoleArn       string         `json:"roleArn" xml:"RoleArn"`
-	TagKey        string         `json:"tagKey" xml:"TagKey"`
-	TagValue      string         `json:"tagValue" xml:"TagValue"`
+Group string `json:"group" xml:"Group"`
+ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+TagKey string `json:"tagKey" xml:"TagKey"`
+TagValue string `json:"tagValue" xml:"TagValue"`
 }
 
 type StartTagSyncTaskOutput struct {
-	GroupArn      string         `json:"groupArn" xml:"GroupArn"`
-	GroupName     string         `json:"groupName" xml:"GroupName"`
-	ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
-	RoleArn       string         `json:"roleArn" xml:"RoleArn"`
-	TagKey        string         `json:"tagKey" xml:"TagKey"`
-	TagValue      string         `json:"tagValue" xml:"TagValue"`
-	TaskArn       string         `json:"taskArn" xml:"TaskArn"`
+GroupArn string `json:"groupArn" xml:"GroupArn"`
+GroupName string `json:"groupName" xml:"GroupName"`
+ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+TagKey string `json:"tagKey" xml:"TagKey"`
+TagValue string `json:"tagValue" xml:"TagValue"`
+TaskArn string `json:"taskArn" xml:"TaskArn"`
 }
 
 type TagInput struct {
-	Arn  string `json:"arn" xml:"Arn"`
-	Tags Tags   `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type TagOutput struct {
-	Arn  string `json:"arn" xml:"Arn"`
-	Tags Tags   `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type TagSyncTaskItem struct {
-	CreatedAt     time.Time      `json:"createdAt" xml:"CreatedAt"`
-	ErrorMessage  string         `json:"errorMessage" xml:"ErrorMessage"`
-	GroupArn      string         `json:"groupArn" xml:"GroupArn"`
-	GroupName     string         `json:"groupName" xml:"GroupName"`
-	ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
-	RoleArn       string         `json:"roleArn" xml:"RoleArn"`
-	Status        string         `json:"status" xml:"Status"`
-	TagKey        string         `json:"tagKey" xml:"TagKey"`
-	TagValue      string         `json:"tagValue" xml:"TagValue"`
-	TaskArn       string         `json:"taskArn" xml:"TaskArn"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+GroupArn string `json:"groupArn" xml:"GroupArn"`
+GroupName string `json:"groupName" xml:"GroupName"`
+ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+Status string `json:"status" xml:"Status"`
+TagKey string `json:"tagKey" xml:"TagKey"`
+TagValue string `json:"tagValue" xml:"TagValue"`
+TaskArn string `json:"taskArn" xml:"TaskArn"`
 }
 
 type UngroupResourcesInput struct {
-	Group        string          `json:"group" xml:"Group"`
-	ResourceArns ResourceArnList `json:"resourceArns" xml:"ResourceArns"`
+Group string `json:"group" xml:"Group"`
+ResourceArns ResourceArnList `json:"resourceArns" xml:"ResourceArns"`
 }
 
 type UngroupResourcesOutput struct {
-	Failed    FailedResourceList  `json:"failed" xml:"Failed"`
-	Pending   PendingResourceList `json:"pending" xml:"Pending"`
-	Succeeded ResourceArnList     `json:"succeeded" xml:"Succeeded"`
+Failed FailedResourceList `json:"failed" xml:"Failed"`
+Pending PendingResourceList `json:"pending" xml:"Pending"`
+Succeeded ResourceArnList `json:"succeeded" xml:"Succeeded"`
 }
 
 type UntagInput struct {
-	Arn  string     `json:"arn" xml:"Arn"`
-	Keys TagKeyList `json:"keys" xml:"Keys"`
+Arn string `json:"arn" xml:"Arn"`
+Keys TagKeyList `json:"keys" xml:"Keys"`
 }
 
 type UntagOutput struct {
-	Arn  string     `json:"arn" xml:"Arn"`
-	Keys TagKeyList `json:"keys" xml:"Keys"`
+Arn string `json:"arn" xml:"Arn"`
+Keys TagKeyList `json:"keys" xml:"Keys"`
 }
 
 type UpdateAccountSettingsInput struct {
-	GroupLifecycleEventsDesiredStatus string `json:"groupLifecycleEventsDesiredStatus" xml:"GroupLifecycleEventsDesiredStatus"`
+GroupLifecycleEventsDesiredStatus string `json:"groupLifecycleEventsDesiredStatus" xml:"GroupLifecycleEventsDesiredStatus"`
 }
 
 type UpdateAccountSettingsOutput struct {
-	AccountSettings *AccountSettings `json:"accountSettings" xml:"AccountSettings"`
+AccountSettings *AccountSettings `json:"accountSettings" xml:"AccountSettings"`
 }
 
 type UpdateGroupInput struct {
-	Criticality int32  `json:"criticality" xml:"Criticality"`
-	Description string `json:"description" xml:"Description"`
-	DisplayName string `json:"displayName" xml:"DisplayName"`
-	Group       string `json:"group" xml:"Group"`
-	GroupName   string `json:"groupName" xml:"GroupName"`
-	Owner       string `json:"owner" xml:"Owner"`
+Criticality int32 `json:"criticality" xml:"Criticality"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+Group string `json:"group" xml:"Group"`
+GroupName string `json:"groupName" xml:"GroupName"`
+Owner string `json:"owner" xml:"Owner"`
 }
 
 type UpdateGroupOutput struct {
-	Group *Group `json:"group" xml:"Group"`
+Group *Group `json:"group" xml:"Group"`
 }
 
 type UpdateGroupQueryInput struct {
-	Group         string         `json:"group" xml:"Group"`
-	GroupName     string         `json:"groupName" xml:"GroupName"`
-	ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
+Group string `json:"group" xml:"Group"`
+GroupName string `json:"groupName" xml:"GroupName"`
+ResourceQuery *ResourceQuery `json:"resourceQuery" xml:"ResourceQuery"`
 }
 
 type UpdateGroupQueryOutput struct {
-	GroupQuery *GroupQuery `json:"groupQuery" xml:"GroupQuery"`
+GroupQuery *GroupQuery `json:"groupQuery" xml:"GroupQuery"`
 }
 
 type FailedResourceList []*FailedResource
@@ -426,3 +426,4 @@ type TagSyncTaskList []*TagSyncTaskItem
 type ApplicationTag map[string]string
 
 type Tags map[string]string
+

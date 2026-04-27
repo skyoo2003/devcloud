@@ -267,3 +267,4 @@ func DeserializeValidateStateMachineDefinitionInput(r *http.Request, pathParams 
 
 	return input, nil
 }
+

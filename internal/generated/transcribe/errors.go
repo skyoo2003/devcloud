@@ -88,3 +88,4 @@ func (e *NotFoundException) ErrorCode() string {
 func (e *NotFoundException) HTTPStatus() int {
 	return 404
 }
+

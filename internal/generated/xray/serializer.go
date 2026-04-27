@@ -274,3 +274,4 @@ func DeserializeUpdateTraceSegmentDestinationRequest(r *http.Request, pathParams
 
 	return input, nil
 }
+

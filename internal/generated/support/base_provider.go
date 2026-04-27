@@ -74,3 +74,4 @@ func (b *BaseProvider) RefreshTrustedAdvisorCheck(ctx context.Context, input *Re
 func (b *BaseProvider) ResolveCase(ctx context.Context, input *ResolveCaseRequest) (*ResolveCaseResponse, error) {
 	return nil, fmt.Errorf("ResolveCase: %w", ErrNotImplemented)
 }
+

@@ -118,3 +118,4 @@ func (b *BaseProvider) UpdateNode(ctx context.Context, input *UpdateNodeInput) (
 func (b *BaseProvider) VoteOnProposal(ctx context.Context, input *VoteOnProposalInput) (*VoteOnProposalOutput, error) {
 	return nil, fmt.Errorf("VoteOnProposal: %w", ErrNotImplemented)
 }
+

@@ -337,3 +337,4 @@ func DeserializeUpdateServiceJobRequest(r *http.Request, pathParams PathParams) 
 
 	return input, nil
 }
+

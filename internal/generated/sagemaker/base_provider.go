@@ -1534,3 +1534,4 @@ func (b *BaseProvider) UpdateWorkforce(ctx context.Context, input *UpdateWorkfor
 func (b *BaseProvider) UpdateWorkteam(ctx context.Context, input *UpdateWorkteamRequest) (*UpdateWorkteamResponse, error) {
 	return nil, fmt.Errorf("UpdateWorkteam: %w", ErrNotImplemented)
 }
+

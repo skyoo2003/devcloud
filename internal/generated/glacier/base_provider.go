@@ -142,3 +142,4 @@ func (b *BaseProvider) UploadArchive(ctx context.Context, input *UploadArchiveIn
 func (b *BaseProvider) UploadMultipartPart(ctx context.Context, input *UploadMultipartPartInput) (*UploadMultipartPartOutput, error) {
 	return nil, fmt.Errorf("UploadMultipartPart: %w", ErrNotImplemented)
 }
+

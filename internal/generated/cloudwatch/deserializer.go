@@ -543,3 +543,4 @@ func SerializeUntagResourceOutput(w http.ResponseWriter, output *UntagResourceOu
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

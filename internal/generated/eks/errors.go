@@ -258,3 +258,4 @@ func (e *UnsupportedAvailabilityZoneException) ErrorCode() string {
 func (e *UnsupportedAvailabilityZoneException) HTTPStatus() int {
 	return 400
 }
+

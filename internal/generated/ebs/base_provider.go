@@ -34,3 +34,4 @@ func (b *BaseProvider) PutSnapshotBlock(ctx context.Context, input *PutSnapshotB
 func (b *BaseProvider) StartSnapshot(ctx context.Context, input *StartSnapshotRequest) (*StartSnapshotResponse, error) {
 	return nil, fmt.Errorf("StartSnapshot: %w", ErrNotImplemented)
 }
+

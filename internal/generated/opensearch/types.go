@@ -10,1913 +10,1913 @@ type AIConfig struct {
 }
 
 type AIMLOptionsInput struct {
-	NaturalLanguageQueryGenerationOptions *NaturalLanguageQueryGenerationOptionsInput `json:"naturalLanguageQueryGenerationOptions" xml:"NaturalLanguageQueryGenerationOptions"`
-	S3VectorsEngine                       *S3VectorsEngine                            `json:"s3VectorsEngine" xml:"S3VectorsEngine"`
-	ServerlessVectorAcceleration          *ServerlessVectorAcceleration               `json:"serverlessVectorAcceleration" xml:"ServerlessVectorAcceleration"`
+NaturalLanguageQueryGenerationOptions *NaturalLanguageQueryGenerationOptionsInput `json:"naturalLanguageQueryGenerationOptions" xml:"NaturalLanguageQueryGenerationOptions"`
+S3VectorsEngine *S3VectorsEngine `json:"s3VectorsEngine" xml:"S3VectorsEngine"`
+ServerlessVectorAcceleration *ServerlessVectorAcceleration `json:"serverlessVectorAcceleration" xml:"ServerlessVectorAcceleration"`
 }
 
 type AIMLOptionsOutput struct {
-	NaturalLanguageQueryGenerationOptions *NaturalLanguageQueryGenerationOptionsOutput `json:"naturalLanguageQueryGenerationOptions" xml:"NaturalLanguageQueryGenerationOptions"`
-	S3VectorsEngine                       *S3VectorsEngine                             `json:"s3VectorsEngine" xml:"S3VectorsEngine"`
-	ServerlessVectorAcceleration          *ServerlessVectorAcceleration                `json:"serverlessVectorAcceleration" xml:"ServerlessVectorAcceleration"`
+NaturalLanguageQueryGenerationOptions *NaturalLanguageQueryGenerationOptionsOutput `json:"naturalLanguageQueryGenerationOptions" xml:"NaturalLanguageQueryGenerationOptions"`
+S3VectorsEngine *S3VectorsEngine `json:"s3VectorsEngine" xml:"S3VectorsEngine"`
+ServerlessVectorAcceleration *ServerlessVectorAcceleration `json:"serverlessVectorAcceleration" xml:"ServerlessVectorAcceleration"`
 }
 
 type AIMLOptionsStatus struct {
-	Options *AIMLOptionsOutput `json:"options" xml:"Options"`
-	Status  *OptionStatus      `json:"status" xml:"Status"`
+Options *AIMLOptionsOutput `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type AWSDomainInformation struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	OwnerId    string `json:"ownerId" xml:"OwnerId"`
-	Region     string `json:"region" xml:"Region"`
+DomainName string `json:"domainName" xml:"DomainName"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+Region string `json:"region" xml:"Region"`
 }
 
 type AcceptInboundConnectionRequest struct {
-	ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
 }
 
 type AcceptInboundConnectionResponse struct {
-	Connection *InboundConnection `json:"connection" xml:"Connection"`
+Connection *InboundConnection `json:"connection" xml:"Connection"`
 }
 
 type AccessPoliciesStatus struct {
-	Options string        `json:"options" xml:"Options"`
-	Status  *OptionStatus `json:"status" xml:"Status"`
+Options string `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type AddDataSourceRequest struct {
-	DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
-	Description    string      `json:"description" xml:"Description"`
-	DomainName     string      `json:"domainName" xml:"DomainName"`
-	Name           string      `json:"name" xml:"Name"`
+DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
+Description string `json:"description" xml:"Description"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Name string `json:"name" xml:"Name"`
 }
 
 type AddDataSourceResponse struct {
-	Message string `json:"message" xml:"Message"`
+Message string `json:"message" xml:"Message"`
 }
 
 type AddDirectQueryDataSourceRequest struct {
-	DataSourceAccessPolicy string                       `json:"dataSourceAccessPolicy" xml:"DataSourceAccessPolicy"`
-	DataSourceName         string                       `json:"dataSourceName" xml:"DataSourceName"`
-	DataSourceType         interface{}                  `json:"dataSourceType" xml:"DataSourceType"`
-	Description            string                       `json:"description" xml:"Description"`
-	OpenSearchArns         DirectQueryOpenSearchARNList `json:"openSearchArns" xml:"OpenSearchArns"`
-	TagList                TagList                      `json:"tagList" xml:"TagList"`
+DataSourceAccessPolicy string `json:"dataSourceAccessPolicy" xml:"DataSourceAccessPolicy"`
+DataSourceName string `json:"dataSourceName" xml:"DataSourceName"`
+DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
+Description string `json:"description" xml:"Description"`
+OpenSearchArns DirectQueryOpenSearchARNList `json:"openSearchArns" xml:"OpenSearchArns"`
+TagList TagList `json:"tagList" xml:"TagList"`
 }
 
 type AddDirectQueryDataSourceResponse struct {
-	DataSourceArn string `json:"dataSourceArn" xml:"DataSourceArn"`
+DataSourceArn string `json:"dataSourceArn" xml:"DataSourceArn"`
 }
 
 type AddTagsRequest struct {
-	ARN     string  `json:"aRN" xml:"ARN"`
-	TagList TagList `json:"tagList" xml:"TagList"`
+ARN string `json:"aRN" xml:"ARN"`
+TagList TagList `json:"tagList" xml:"TagList"`
 }
 
 type AdditionalLimit struct {
-	LimitName   string         `json:"limitName" xml:"LimitName"`
-	LimitValues LimitValueList `json:"limitValues" xml:"LimitValues"`
+LimitName string `json:"limitName" xml:"LimitName"`
+LimitValues LimitValueList `json:"limitValues" xml:"LimitValues"`
 }
 
 type AdvancedOptionsStatus struct {
-	Options AdvancedOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus   `json:"status" xml:"Status"`
+Options AdvancedOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type AdvancedSecurityOptions struct {
-	AnonymousAuthDisableDate    time.Time                   `json:"anonymousAuthDisableDate" xml:"AnonymousAuthDisableDate"`
-	AnonymousAuthEnabled        bool                        `json:"anonymousAuthEnabled" xml:"AnonymousAuthEnabled"`
-	Enabled                     bool                        `json:"enabled" xml:"Enabled"`
-	IAMFederationOptions        *IAMFederationOptionsOutput `json:"iAMFederationOptions" xml:"IAMFederationOptions"`
-	InternalUserDatabaseEnabled bool                        `json:"internalUserDatabaseEnabled" xml:"InternalUserDatabaseEnabled"`
-	JWTOptions                  *JWTOptionsOutput           `json:"jWTOptions" xml:"JWTOptions"`
-	SAMLOptions                 *SAMLOptionsOutput          `json:"sAMLOptions" xml:"SAMLOptions"`
+AnonymousAuthDisableDate time.Time `json:"anonymousAuthDisableDate" xml:"AnonymousAuthDisableDate"`
+AnonymousAuthEnabled bool `json:"anonymousAuthEnabled" xml:"AnonymousAuthEnabled"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+IAMFederationOptions *IAMFederationOptionsOutput `json:"iAMFederationOptions" xml:"IAMFederationOptions"`
+InternalUserDatabaseEnabled bool `json:"internalUserDatabaseEnabled" xml:"InternalUserDatabaseEnabled"`
+JWTOptions *JWTOptionsOutput `json:"jWTOptions" xml:"JWTOptions"`
+SAMLOptions *SAMLOptionsOutput `json:"sAMLOptions" xml:"SAMLOptions"`
 }
 
 type AdvancedSecurityOptionsInput struct {
-	AnonymousAuthEnabled        bool                       `json:"anonymousAuthEnabled" xml:"AnonymousAuthEnabled"`
-	Enabled                     bool                       `json:"enabled" xml:"Enabled"`
-	IAMFederationOptions        *IAMFederationOptionsInput `json:"iAMFederationOptions" xml:"IAMFederationOptions"`
-	InternalUserDatabaseEnabled bool                       `json:"internalUserDatabaseEnabled" xml:"InternalUserDatabaseEnabled"`
-	JWTOptions                  *JWTOptionsInput           `json:"jWTOptions" xml:"JWTOptions"`
-	MasterUserOptions           *MasterUserOptions         `json:"masterUserOptions" xml:"MasterUserOptions"`
-	SAMLOptions                 *SAMLOptionsInput          `json:"sAMLOptions" xml:"SAMLOptions"`
+AnonymousAuthEnabled bool `json:"anonymousAuthEnabled" xml:"AnonymousAuthEnabled"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+IAMFederationOptions *IAMFederationOptionsInput `json:"iAMFederationOptions" xml:"IAMFederationOptions"`
+InternalUserDatabaseEnabled bool `json:"internalUserDatabaseEnabled" xml:"InternalUserDatabaseEnabled"`
+JWTOptions *JWTOptionsInput `json:"jWTOptions" xml:"JWTOptions"`
+MasterUserOptions *MasterUserOptions `json:"masterUserOptions" xml:"MasterUserOptions"`
+SAMLOptions *SAMLOptionsInput `json:"sAMLOptions" xml:"SAMLOptions"`
 }
 
 type AdvancedSecurityOptionsStatus struct {
-	Options *AdvancedSecurityOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus            `json:"status" xml:"Status"`
+Options *AdvancedSecurityOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type AppConfig struct {
-	Key   string `json:"key" xml:"key"`
-	Value string `json:"value" xml:"value"`
+Key string `json:"key" xml:"key"`
+Value string `json:"value" xml:"value"`
 }
 
 type ApplicationSummary struct {
-	Arn           string    `json:"arn" xml:"arn"`
-	CreatedAt     time.Time `json:"createdAt" xml:"createdAt"`
-	Endpoint      string    `json:"endpoint" xml:"endpoint"`
-	Id            string    `json:"id" xml:"id"`
-	LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	Name          string    `json:"name" xml:"name"`
-	Status        string    `json:"status" xml:"status"`
+Arn string `json:"arn" xml:"arn"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+Endpoint string `json:"endpoint" xml:"endpoint"`
+Id string `json:"id" xml:"id"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+Name string `json:"name" xml:"name"`
+Status string `json:"status" xml:"status"`
 }
 
 type AssociatePackageRequest struct {
-	AssociationConfiguration  *PackageAssociationConfiguration `json:"associationConfiguration" xml:"AssociationConfiguration"`
-	DomainName                string                           `json:"domainName" xml:"DomainName"`
-	PackageID                 string                           `json:"packageID" xml:"PackageID"`
-	PrerequisitePackageIDList PackageIDList                    `json:"prerequisitePackageIDList" xml:"PrerequisitePackageIDList"`
+AssociationConfiguration *PackageAssociationConfiguration `json:"associationConfiguration" xml:"AssociationConfiguration"`
+DomainName string `json:"domainName" xml:"DomainName"`
+PackageID string `json:"packageID" xml:"PackageID"`
+PrerequisitePackageIDList PackageIDList `json:"prerequisitePackageIDList" xml:"PrerequisitePackageIDList"`
 }
 
 type AssociatePackageResponse struct {
-	DomainPackageDetails *DomainPackageDetails `json:"domainPackageDetails" xml:"DomainPackageDetails"`
+DomainPackageDetails *DomainPackageDetails `json:"domainPackageDetails" xml:"DomainPackageDetails"`
 }
 
 type AssociatePackagesRequest struct {
-	DomainName  string                           `json:"domainName" xml:"DomainName"`
-	PackageList PackageDetailsForAssociationList `json:"packageList" xml:"PackageList"`
+DomainName string `json:"domainName" xml:"DomainName"`
+PackageList PackageDetailsForAssociationList `json:"packageList" xml:"PackageList"`
 }
 
 type AssociatePackagesResponse struct {
-	DomainPackageDetailsList DomainPackageDetailsList `json:"domainPackageDetailsList" xml:"DomainPackageDetailsList"`
+DomainPackageDetailsList DomainPackageDetailsList `json:"domainPackageDetailsList" xml:"DomainPackageDetailsList"`
 }
 
 type AuthorizeVpcEndpointAccessRequest struct {
-	Account    string `json:"account" xml:"Account"`
-	DomainName string `json:"domainName" xml:"DomainName"`
-	Service    string `json:"service" xml:"Service"`
+Account string `json:"account" xml:"Account"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Service string `json:"service" xml:"Service"`
 }
 
 type AuthorizeVpcEndpointAccessResponse struct {
-	AuthorizedPrincipal *AuthorizedPrincipal `json:"authorizedPrincipal" xml:"AuthorizedPrincipal"`
+AuthorizedPrincipal *AuthorizedPrincipal `json:"authorizedPrincipal" xml:"AuthorizedPrincipal"`
 }
 
 type AuthorizedPrincipal struct {
-	Principal     string `json:"principal" xml:"Principal"`
-	PrincipalType string `json:"principalType" xml:"PrincipalType"`
+Principal string `json:"principal" xml:"Principal"`
+PrincipalType string `json:"principalType" xml:"PrincipalType"`
 }
 
 type AutoTune struct {
-	AutoTuneDetails *AutoTuneDetails `json:"autoTuneDetails" xml:"AutoTuneDetails"`
-	AutoTuneType    string           `json:"autoTuneType" xml:"AutoTuneType"`
+AutoTuneDetails *AutoTuneDetails `json:"autoTuneDetails" xml:"AutoTuneDetails"`
+AutoTuneType string `json:"autoTuneType" xml:"AutoTuneType"`
 }
 
 type AutoTuneDetails struct {
-	ScheduledAutoTuneDetails *ScheduledAutoTuneDetails `json:"scheduledAutoTuneDetails" xml:"ScheduledAutoTuneDetails"`
+ScheduledAutoTuneDetails *ScheduledAutoTuneDetails `json:"scheduledAutoTuneDetails" xml:"ScheduledAutoTuneDetails"`
 }
 
 type AutoTuneMaintenanceSchedule struct {
-	CronExpressionForRecurrence string    `json:"cronExpressionForRecurrence" xml:"CronExpressionForRecurrence"`
-	Duration                    *Duration `json:"duration" xml:"Duration"`
-	StartAt                     time.Time `json:"startAt" xml:"StartAt"`
+CronExpressionForRecurrence string `json:"cronExpressionForRecurrence" xml:"CronExpressionForRecurrence"`
+Duration *Duration `json:"duration" xml:"Duration"`
+StartAt time.Time `json:"startAt" xml:"StartAt"`
 }
 
 type AutoTuneOptions struct {
-	DesiredState         string                          `json:"desiredState" xml:"DesiredState"`
-	MaintenanceSchedules AutoTuneMaintenanceScheduleList `json:"maintenanceSchedules" xml:"MaintenanceSchedules"`
-	RollbackOnDisable    string                          `json:"rollbackOnDisable" xml:"RollbackOnDisable"`
-	UseOffPeakWindow     bool                            `json:"useOffPeakWindow" xml:"UseOffPeakWindow"`
+DesiredState string `json:"desiredState" xml:"DesiredState"`
+MaintenanceSchedules AutoTuneMaintenanceScheduleList `json:"maintenanceSchedules" xml:"MaintenanceSchedules"`
+RollbackOnDisable string `json:"rollbackOnDisable" xml:"RollbackOnDisable"`
+UseOffPeakWindow bool `json:"useOffPeakWindow" xml:"UseOffPeakWindow"`
 }
 
 type AutoTuneOptionsInput struct {
-	DesiredState         string                          `json:"desiredState" xml:"DesiredState"`
-	MaintenanceSchedules AutoTuneMaintenanceScheduleList `json:"maintenanceSchedules" xml:"MaintenanceSchedules"`
-	UseOffPeakWindow     bool                            `json:"useOffPeakWindow" xml:"UseOffPeakWindow"`
+DesiredState string `json:"desiredState" xml:"DesiredState"`
+MaintenanceSchedules AutoTuneMaintenanceScheduleList `json:"maintenanceSchedules" xml:"MaintenanceSchedules"`
+UseOffPeakWindow bool `json:"useOffPeakWindow" xml:"UseOffPeakWindow"`
 }
 
 type AutoTuneOptionsOutput struct {
-	ErrorMessage     string `json:"errorMessage" xml:"ErrorMessage"`
-	State            string `json:"state" xml:"State"`
-	UseOffPeakWindow bool   `json:"useOffPeakWindow" xml:"UseOffPeakWindow"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+State string `json:"state" xml:"State"`
+UseOffPeakWindow bool `json:"useOffPeakWindow" xml:"UseOffPeakWindow"`
 }
 
 type AutoTuneOptionsStatus struct {
-	Options *AutoTuneOptions `json:"options" xml:"Options"`
-	Status  *AutoTuneStatus  `json:"status" xml:"Status"`
+Options *AutoTuneOptions `json:"options" xml:"Options"`
+Status *AutoTuneStatus `json:"status" xml:"Status"`
 }
 
 type AutoTuneStatus struct {
-	CreationDate    time.Time `json:"creationDate" xml:"CreationDate"`
-	ErrorMessage    string    `json:"errorMessage" xml:"ErrorMessage"`
-	PendingDeletion bool      `json:"pendingDeletion" xml:"PendingDeletion"`
-	State           string    `json:"state" xml:"State"`
-	UpdateDate      time.Time `json:"updateDate" xml:"UpdateDate"`
-	UpdateVersion   int32     `json:"updateVersion" xml:"UpdateVersion"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+PendingDeletion bool `json:"pendingDeletion" xml:"PendingDeletion"`
+State string `json:"state" xml:"State"`
+UpdateDate time.Time `json:"updateDate" xml:"UpdateDate"`
+UpdateVersion int32 `json:"updateVersion" xml:"UpdateVersion"`
 }
 
 type AvailabilityZoneInfo struct {
-	AvailabilityZoneName    string `json:"availabilityZoneName" xml:"AvailabilityZoneName"`
-	AvailableDataNodeCount  string `json:"availableDataNodeCount" xml:"AvailableDataNodeCount"`
-	ConfiguredDataNodeCount string `json:"configuredDataNodeCount" xml:"ConfiguredDataNodeCount"`
-	TotalShards             string `json:"totalShards" xml:"TotalShards"`
-	TotalUnAssignedShards   string `json:"totalUnAssignedShards" xml:"TotalUnAssignedShards"`
-	ZoneStatus              string `json:"zoneStatus" xml:"ZoneStatus"`
+AvailabilityZoneName string `json:"availabilityZoneName" xml:"AvailabilityZoneName"`
+AvailableDataNodeCount string `json:"availableDataNodeCount" xml:"AvailableDataNodeCount"`
+ConfiguredDataNodeCount string `json:"configuredDataNodeCount" xml:"ConfiguredDataNodeCount"`
+TotalShards string `json:"totalShards" xml:"TotalShards"`
+TotalUnAssignedShards string `json:"totalUnAssignedShards" xml:"TotalUnAssignedShards"`
+ZoneStatus string `json:"zoneStatus" xml:"ZoneStatus"`
 }
 
 type CancelDomainConfigChangeRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	DryRun     bool   `json:"dryRun" xml:"DryRun"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
 }
 
 type CancelDomainConfigChangeResponse struct {
-	CancelledChangeIds        GUIDList                    `json:"cancelledChangeIds" xml:"CancelledChangeIds"`
-	CancelledChangeProperties CancelledChangePropertyList `json:"cancelledChangeProperties" xml:"CancelledChangeProperties"`
-	DryRun                    bool                        `json:"dryRun" xml:"DryRun"`
+CancelledChangeIds GUIDList `json:"cancelledChangeIds" xml:"CancelledChangeIds"`
+CancelledChangeProperties CancelledChangePropertyList `json:"cancelledChangeProperties" xml:"CancelledChangeProperties"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
 }
 
 type CancelServiceSoftwareUpdateRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type CancelServiceSoftwareUpdateResponse struct {
-	ServiceSoftwareOptions *ServiceSoftwareOptions `json:"serviceSoftwareOptions" xml:"ServiceSoftwareOptions"`
+ServiceSoftwareOptions *ServiceSoftwareOptions `json:"serviceSoftwareOptions" xml:"ServiceSoftwareOptions"`
 }
 
 type CancelledChangeProperty struct {
-	ActiveValue    string `json:"activeValue" xml:"ActiveValue"`
-	CancelledValue string `json:"cancelledValue" xml:"CancelledValue"`
-	PropertyName   string `json:"propertyName" xml:"PropertyName"`
+ActiveValue string `json:"activeValue" xml:"ActiveValue"`
+CancelledValue string `json:"cancelledValue" xml:"CancelledValue"`
+PropertyName string `json:"propertyName" xml:"PropertyName"`
 }
 
 type CapabilityFailure struct {
-	Details string `json:"details" xml:"details"`
-	Reason  string `json:"reason" xml:"reason"`
+Details string `json:"details" xml:"details"`
+Reason string `json:"reason" xml:"reason"`
 }
 
 type ChangeProgressDetails struct {
-	ChangeId           string    `json:"changeId" xml:"ChangeId"`
-	ConfigChangeStatus string    `json:"configChangeStatus" xml:"ConfigChangeStatus"`
-	InitiatedBy        string    `json:"initiatedBy" xml:"InitiatedBy"`
-	LastUpdatedTime    time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	Message            string    `json:"message" xml:"Message"`
-	StartTime          time.Time `json:"startTime" xml:"StartTime"`
+ChangeId string `json:"changeId" xml:"ChangeId"`
+ConfigChangeStatus string `json:"configChangeStatus" xml:"ConfigChangeStatus"`
+InitiatedBy string `json:"initiatedBy" xml:"InitiatedBy"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+Message string `json:"message" xml:"Message"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type ChangeProgressStage struct {
-	Description string    `json:"description" xml:"Description"`
-	LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
-	Name        string    `json:"name" xml:"Name"`
-	Status      string    `json:"status" xml:"Status"`
+Description string `json:"description" xml:"Description"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ChangeProgressStatusDetails struct {
-	ChangeId             string                  `json:"changeId" xml:"ChangeId"`
-	ChangeProgressStages ChangeProgressStageList `json:"changeProgressStages" xml:"ChangeProgressStages"`
-	CompletedProperties  StringList              `json:"completedProperties" xml:"CompletedProperties"`
-	ConfigChangeStatus   string                  `json:"configChangeStatus" xml:"ConfigChangeStatus"`
-	InitiatedBy          string                  `json:"initiatedBy" xml:"InitiatedBy"`
-	LastUpdatedTime      time.Time               `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	PendingProperties    StringList              `json:"pendingProperties" xml:"PendingProperties"`
-	StartTime            time.Time               `json:"startTime" xml:"StartTime"`
-	Status               string                  `json:"status" xml:"Status"`
-	TotalNumberOfStages  int32                   `json:"totalNumberOfStages" xml:"TotalNumberOfStages"`
+ChangeId string `json:"changeId" xml:"ChangeId"`
+ChangeProgressStages ChangeProgressStageList `json:"changeProgressStages" xml:"ChangeProgressStages"`
+CompletedProperties StringList `json:"completedProperties" xml:"CompletedProperties"`
+ConfigChangeStatus string `json:"configChangeStatus" xml:"ConfigChangeStatus"`
+InitiatedBy string `json:"initiatedBy" xml:"InitiatedBy"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+PendingProperties StringList `json:"pendingProperties" xml:"PendingProperties"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Status string `json:"status" xml:"Status"`
+TotalNumberOfStages int32 `json:"totalNumberOfStages" xml:"TotalNumberOfStages"`
 }
 
 type CloudWatchDirectQueryDataSource struct {
-	RoleArn string `json:"roleArn" xml:"RoleArn"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type ClusterConfig struct {
-	ColdStorageOptions        *ColdStorageOptions  `json:"coldStorageOptions" xml:"ColdStorageOptions"`
-	DedicatedMasterCount      int32                `json:"dedicatedMasterCount" xml:"DedicatedMasterCount"`
-	DedicatedMasterEnabled    bool                 `json:"dedicatedMasterEnabled" xml:"DedicatedMasterEnabled"`
-	DedicatedMasterType       string               `json:"dedicatedMasterType" xml:"DedicatedMasterType"`
-	InstanceCount             int32                `json:"instanceCount" xml:"InstanceCount"`
-	InstanceType              string               `json:"instanceType" xml:"InstanceType"`
-	MultiAZWithStandbyEnabled bool                 `json:"multiAZWithStandbyEnabled" xml:"MultiAZWithStandbyEnabled"`
-	NodeOptions               NodeOptionsList      `json:"nodeOptions" xml:"NodeOptions"`
-	WarmCount                 int32                `json:"warmCount" xml:"WarmCount"`
-	WarmEnabled               bool                 `json:"warmEnabled" xml:"WarmEnabled"`
-	WarmType                  string               `json:"warmType" xml:"WarmType"`
-	ZoneAwarenessConfig       *ZoneAwarenessConfig `json:"zoneAwarenessConfig" xml:"ZoneAwarenessConfig"`
-	ZoneAwarenessEnabled      bool                 `json:"zoneAwarenessEnabled" xml:"ZoneAwarenessEnabled"`
+ColdStorageOptions *ColdStorageOptions `json:"coldStorageOptions" xml:"ColdStorageOptions"`
+DedicatedMasterCount int32 `json:"dedicatedMasterCount" xml:"DedicatedMasterCount"`
+DedicatedMasterEnabled bool `json:"dedicatedMasterEnabled" xml:"DedicatedMasterEnabled"`
+DedicatedMasterType string `json:"dedicatedMasterType" xml:"DedicatedMasterType"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+MultiAZWithStandbyEnabled bool `json:"multiAZWithStandbyEnabled" xml:"MultiAZWithStandbyEnabled"`
+NodeOptions NodeOptionsList `json:"nodeOptions" xml:"NodeOptions"`
+WarmCount int32 `json:"warmCount" xml:"WarmCount"`
+WarmEnabled bool `json:"warmEnabled" xml:"WarmEnabled"`
+WarmType string `json:"warmType" xml:"WarmType"`
+ZoneAwarenessConfig *ZoneAwarenessConfig `json:"zoneAwarenessConfig" xml:"ZoneAwarenessConfig"`
+ZoneAwarenessEnabled bool `json:"zoneAwarenessEnabled" xml:"ZoneAwarenessEnabled"`
 }
 
 type ClusterConfigStatus struct {
-	Options *ClusterConfig `json:"options" xml:"Options"`
-	Status  *OptionStatus  `json:"status" xml:"Status"`
+Options *ClusterConfig `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type CognitoOptions struct {
-	Enabled        bool   `json:"enabled" xml:"Enabled"`
-	IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
-	RoleArn        string `json:"roleArn" xml:"RoleArn"`
-	UserPoolId     string `json:"userPoolId" xml:"UserPoolId"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+UserPoolId string `json:"userPoolId" xml:"UserPoolId"`
 }
 
 type CognitoOptionsStatus struct {
-	Options *CognitoOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus   `json:"status" xml:"Status"`
+Options *CognitoOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type ColdStorageOptions struct {
-	Enabled bool `json:"enabled" xml:"Enabled"`
+Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type CompatibleVersionsMap struct {
-	SourceVersion  string      `json:"sourceVersion" xml:"SourceVersion"`
-	TargetVersions VersionList `json:"targetVersions" xml:"TargetVersions"`
+SourceVersion string `json:"sourceVersion" xml:"SourceVersion"`
+TargetVersions VersionList `json:"targetVersions" xml:"TargetVersions"`
 }
 
 type ConnectionProperties struct {
-	CrossClusterSearch *CrossClusterSearchConnectionProperties `json:"crossClusterSearch" xml:"CrossClusterSearch"`
-	Endpoint           string                                  `json:"endpoint" xml:"Endpoint"`
+CrossClusterSearch *CrossClusterSearchConnectionProperties `json:"crossClusterSearch" xml:"CrossClusterSearch"`
+Endpoint string `json:"endpoint" xml:"Endpoint"`
 }
 
 type CreateApplicationRequest struct {
-	AppConfigs               AppConfigs                     `json:"appConfigs" xml:"appConfigs"`
-	ClientToken              string                         `json:"clientToken" xml:"clientToken"`
-	DataSources              DataSources                    `json:"dataSources" xml:"dataSources"`
-	IamIdentityCenterOptions *IamIdentityCenterOptionsInput `json:"iamIdentityCenterOptions" xml:"iamIdentityCenterOptions"`
-	KmsKeyArn                string                         `json:"kmsKeyArn" xml:"kmsKeyArn"`
-	Name                     string                         `json:"name" xml:"name"`
-	TagList                  TagList                        `json:"tagList" xml:"tagList"`
+AppConfigs AppConfigs `json:"appConfigs" xml:"appConfigs"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+DataSources DataSources `json:"dataSources" xml:"dataSources"`
+IamIdentityCenterOptions *IamIdentityCenterOptionsInput `json:"iamIdentityCenterOptions" xml:"iamIdentityCenterOptions"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"kmsKeyArn"`
+Name string `json:"name" xml:"name"`
+TagList TagList `json:"tagList" xml:"tagList"`
 }
 
 type CreateApplicationResponse struct {
-	AppConfigs               AppConfigs                `json:"appConfigs" xml:"appConfigs"`
-	Arn                      string                    `json:"arn" xml:"arn"`
-	CreatedAt                time.Time                 `json:"createdAt" xml:"createdAt"`
-	DataSources              DataSources               `json:"dataSources" xml:"dataSources"`
-	IamIdentityCenterOptions *IamIdentityCenterOptions `json:"iamIdentityCenterOptions" xml:"iamIdentityCenterOptions"`
-	Id                       string                    `json:"id" xml:"id"`
-	KmsKeyArn                string                    `json:"kmsKeyArn" xml:"kmsKeyArn"`
-	Name                     string                    `json:"name" xml:"name"`
-	TagList                  TagList                   `json:"tagList" xml:"tagList"`
+AppConfigs AppConfigs `json:"appConfigs" xml:"appConfigs"`
+Arn string `json:"arn" xml:"arn"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DataSources DataSources `json:"dataSources" xml:"dataSources"`
+IamIdentityCenterOptions *IamIdentityCenterOptions `json:"iamIdentityCenterOptions" xml:"iamIdentityCenterOptions"`
+Id string `json:"id" xml:"id"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"kmsKeyArn"`
+Name string `json:"name" xml:"name"`
+TagList TagList `json:"tagList" xml:"tagList"`
 }
 
 type CreateDomainRequest struct {
-	AIMLOptions                 *AIMLOptionsInput             `json:"aIMLOptions" xml:"AIMLOptions"`
-	AccessPolicies              string                        `json:"accessPolicies" xml:"AccessPolicies"`
-	AdvancedOptions             AdvancedOptions               `json:"advancedOptions" xml:"AdvancedOptions"`
-	AdvancedSecurityOptions     *AdvancedSecurityOptionsInput `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
-	AutoTuneOptions             *AutoTuneOptionsInput         `json:"autoTuneOptions" xml:"AutoTuneOptions"`
-	ClusterConfig               *ClusterConfig                `json:"clusterConfig" xml:"ClusterConfig"`
-	CognitoOptions              *CognitoOptions               `json:"cognitoOptions" xml:"CognitoOptions"`
-	DeploymentStrategyOptions   *DeploymentStrategyOptions    `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
-	DomainEndpointOptions       *DomainEndpointOptions        `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
-	DomainName                  string                        `json:"domainName" xml:"DomainName"`
-	EBSOptions                  *EBSOptions                   `json:"eBSOptions" xml:"EBSOptions"`
-	EncryptionAtRestOptions     *EncryptionAtRestOptions      `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
-	EngineVersion               string                        `json:"engineVersion" xml:"EngineVersion"`
-	IPAddressType               string                        `json:"iPAddressType" xml:"IPAddressType"`
-	IdentityCenterOptions       *IdentityCenterOptionsInput   `json:"identityCenterOptions" xml:"IdentityCenterOptions"`
-	LogPublishingOptions        LogPublishingOptions          `json:"logPublishingOptions" xml:"LogPublishingOptions"`
-	NodeToNodeEncryptionOptions *NodeToNodeEncryptionOptions  `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
-	OffPeakWindowOptions        *OffPeakWindowOptions         `json:"offPeakWindowOptions" xml:"OffPeakWindowOptions"`
-	SnapshotOptions             *SnapshotOptions              `json:"snapshotOptions" xml:"SnapshotOptions"`
-	SoftwareUpdateOptions       *SoftwareUpdateOptions        `json:"softwareUpdateOptions" xml:"SoftwareUpdateOptions"`
-	TagList                     TagList                       `json:"tagList" xml:"TagList"`
-	VPCOptions                  *VPCOptions                   `json:"vPCOptions" xml:"VPCOptions"`
+AIMLOptions *AIMLOptionsInput `json:"aIMLOptions" xml:"AIMLOptions"`
+AccessPolicies string `json:"accessPolicies" xml:"AccessPolicies"`
+AdvancedOptions AdvancedOptions `json:"advancedOptions" xml:"AdvancedOptions"`
+AdvancedSecurityOptions *AdvancedSecurityOptionsInput `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
+AutoTuneOptions *AutoTuneOptionsInput `json:"autoTuneOptions" xml:"AutoTuneOptions"`
+ClusterConfig *ClusterConfig `json:"clusterConfig" xml:"ClusterConfig"`
+CognitoOptions *CognitoOptions `json:"cognitoOptions" xml:"CognitoOptions"`
+DeploymentStrategyOptions *DeploymentStrategyOptions `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
+DomainEndpointOptions *DomainEndpointOptions `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
+DomainName string `json:"domainName" xml:"DomainName"`
+EBSOptions *EBSOptions `json:"eBSOptions" xml:"EBSOptions"`
+EncryptionAtRestOptions *EncryptionAtRestOptions `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+IPAddressType string `json:"iPAddressType" xml:"IPAddressType"`
+IdentityCenterOptions *IdentityCenterOptionsInput `json:"identityCenterOptions" xml:"IdentityCenterOptions"`
+LogPublishingOptions LogPublishingOptions `json:"logPublishingOptions" xml:"LogPublishingOptions"`
+NodeToNodeEncryptionOptions *NodeToNodeEncryptionOptions `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
+OffPeakWindowOptions *OffPeakWindowOptions `json:"offPeakWindowOptions" xml:"OffPeakWindowOptions"`
+SnapshotOptions *SnapshotOptions `json:"snapshotOptions" xml:"SnapshotOptions"`
+SoftwareUpdateOptions *SoftwareUpdateOptions `json:"softwareUpdateOptions" xml:"SoftwareUpdateOptions"`
+TagList TagList `json:"tagList" xml:"TagList"`
+VPCOptions *VPCOptions `json:"vPCOptions" xml:"VPCOptions"`
 }
 
 type CreateDomainResponse struct {
-	DomainStatus *DomainStatus `json:"domainStatus" xml:"DomainStatus"`
+DomainStatus *DomainStatus `json:"domainStatus" xml:"DomainStatus"`
 }
 
 type CreateIndexRequest struct {
-	DomainName  string      `json:"domainName" xml:"DomainName"`
-	IndexName   string      `json:"indexName" xml:"IndexName"`
-	IndexSchema interface{} `json:"indexSchema" xml:"IndexSchema"`
+DomainName string `json:"domainName" xml:"DomainName"`
+IndexName string `json:"indexName" xml:"IndexName"`
+IndexSchema interface{} `json:"indexSchema" xml:"IndexSchema"`
 }
 
 type CreateIndexResponse struct {
-	Status string `json:"status" xml:"Status"`
+Status string `json:"status" xml:"Status"`
 }
 
 type CreateOutboundConnectionRequest struct {
-	ConnectionAlias      string                      `json:"connectionAlias" xml:"ConnectionAlias"`
-	ConnectionMode       string                      `json:"connectionMode" xml:"ConnectionMode"`
-	ConnectionProperties *ConnectionProperties       `json:"connectionProperties" xml:"ConnectionProperties"`
-	LocalDomainInfo      *DomainInformationContainer `json:"localDomainInfo" xml:"LocalDomainInfo"`
-	RemoteDomainInfo     *DomainInformationContainer `json:"remoteDomainInfo" xml:"RemoteDomainInfo"`
+ConnectionAlias string `json:"connectionAlias" xml:"ConnectionAlias"`
+ConnectionMode string `json:"connectionMode" xml:"ConnectionMode"`
+ConnectionProperties *ConnectionProperties `json:"connectionProperties" xml:"ConnectionProperties"`
+LocalDomainInfo *DomainInformationContainer `json:"localDomainInfo" xml:"LocalDomainInfo"`
+RemoteDomainInfo *DomainInformationContainer `json:"remoteDomainInfo" xml:"RemoteDomainInfo"`
 }
 
 type CreateOutboundConnectionResponse struct {
-	ConnectionAlias      string                      `json:"connectionAlias" xml:"ConnectionAlias"`
-	ConnectionId         string                      `json:"connectionId" xml:"ConnectionId"`
-	ConnectionMode       string                      `json:"connectionMode" xml:"ConnectionMode"`
-	ConnectionProperties *ConnectionProperties       `json:"connectionProperties" xml:"ConnectionProperties"`
-	ConnectionStatus     *OutboundConnectionStatus   `json:"connectionStatus" xml:"ConnectionStatus"`
-	LocalDomainInfo      *DomainInformationContainer `json:"localDomainInfo" xml:"LocalDomainInfo"`
-	RemoteDomainInfo     *DomainInformationContainer `json:"remoteDomainInfo" xml:"RemoteDomainInfo"`
+ConnectionAlias string `json:"connectionAlias" xml:"ConnectionAlias"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionMode string `json:"connectionMode" xml:"ConnectionMode"`
+ConnectionProperties *ConnectionProperties `json:"connectionProperties" xml:"ConnectionProperties"`
+ConnectionStatus *OutboundConnectionStatus `json:"connectionStatus" xml:"ConnectionStatus"`
+LocalDomainInfo *DomainInformationContainer `json:"localDomainInfo" xml:"LocalDomainInfo"`
+RemoteDomainInfo *DomainInformationContainer `json:"remoteDomainInfo" xml:"RemoteDomainInfo"`
 }
 
 type CreatePackageRequest struct {
-	EngineVersion            string                    `json:"engineVersion" xml:"EngineVersion"`
-	PackageConfiguration     *PackageConfiguration     `json:"packageConfiguration" xml:"PackageConfiguration"`
-	PackageDescription       string                    `json:"packageDescription" xml:"PackageDescription"`
-	PackageEncryptionOptions *PackageEncryptionOptions `json:"packageEncryptionOptions" xml:"PackageEncryptionOptions"`
-	PackageName              string                    `json:"packageName" xml:"PackageName"`
-	PackageSource            *PackageSource            `json:"packageSource" xml:"PackageSource"`
-	PackageType              string                    `json:"packageType" xml:"PackageType"`
-	PackageVendingOptions    *PackageVendingOptions    `json:"packageVendingOptions" xml:"PackageVendingOptions"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+PackageConfiguration *PackageConfiguration `json:"packageConfiguration" xml:"PackageConfiguration"`
+PackageDescription string `json:"packageDescription" xml:"PackageDescription"`
+PackageEncryptionOptions *PackageEncryptionOptions `json:"packageEncryptionOptions" xml:"PackageEncryptionOptions"`
+PackageName string `json:"packageName" xml:"PackageName"`
+PackageSource *PackageSource `json:"packageSource" xml:"PackageSource"`
+PackageType string `json:"packageType" xml:"PackageType"`
+PackageVendingOptions *PackageVendingOptions `json:"packageVendingOptions" xml:"PackageVendingOptions"`
 }
 
 type CreatePackageResponse struct {
-	PackageDetails *PackageDetails `json:"packageDetails" xml:"PackageDetails"`
+PackageDetails *PackageDetails `json:"packageDetails" xml:"PackageDetails"`
 }
 
 type CreateVpcEndpointRequest struct {
-	ClientToken string      `json:"clientToken" xml:"ClientToken"`
-	DomainArn   string      `json:"domainArn" xml:"DomainArn"`
-	VpcOptions  *VPCOptions `json:"vpcOptions" xml:"VpcOptions"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+DomainArn string `json:"domainArn" xml:"DomainArn"`
+VpcOptions *VPCOptions `json:"vpcOptions" xml:"VpcOptions"`
 }
 
 type CreateVpcEndpointResponse struct {
-	VpcEndpoint *VpcEndpoint `json:"vpcEndpoint" xml:"VpcEndpoint"`
+VpcEndpoint *VpcEndpoint `json:"vpcEndpoint" xml:"VpcEndpoint"`
 }
 
 type CrossClusterSearchConnectionProperties struct {
-	SkipUnavailable string `json:"skipUnavailable" xml:"SkipUnavailable"`
+SkipUnavailable string `json:"skipUnavailable" xml:"SkipUnavailable"`
 }
 
 type DataSource struct {
-	DataSourceArn           string `json:"dataSourceArn" xml:"dataSourceArn"`
-	DataSourceDescription   string `json:"dataSourceDescription" xml:"dataSourceDescription"`
-	IamRoleForDataSourceArn string `json:"iamRoleForDataSourceArn" xml:"iamRoleForDataSourceArn"`
+DataSourceArn string `json:"dataSourceArn" xml:"dataSourceArn"`
+DataSourceDescription string `json:"dataSourceDescription" xml:"dataSourceDescription"`
+IamRoleForDataSourceArn string `json:"iamRoleForDataSourceArn" xml:"iamRoleForDataSourceArn"`
 }
 
 type DataSourceDetails struct {
-	DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
-	Description    string      `json:"description" xml:"Description"`
-	Name           string      `json:"name" xml:"Name"`
-	Status         string      `json:"status" xml:"Status"`
+DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DeleteApplicationRequest struct {
-	Id string `json:"id" xml:"id"`
+Id string `json:"id" xml:"id"`
 }
 
 type DeleteApplicationResponse struct {
 }
 
 type DeleteDataSourceRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	Name       string `json:"name" xml:"Name"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteDataSourceResponse struct {
-	Message string `json:"message" xml:"Message"`
+Message string `json:"message" xml:"Message"`
 }
 
 type DeleteDirectQueryDataSourceRequest struct {
-	DataSourceName string `json:"dataSourceName" xml:"DataSourceName"`
+DataSourceName string `json:"dataSourceName" xml:"DataSourceName"`
 }
 
 type DeleteDomainRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DeleteDomainResponse struct {
-	DomainStatus *DomainStatus `json:"domainStatus" xml:"DomainStatus"`
+DomainStatus *DomainStatus `json:"domainStatus" xml:"DomainStatus"`
 }
 
 type DeleteInboundConnectionRequest struct {
-	ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
 }
 
 type DeleteInboundConnectionResponse struct {
-	Connection *InboundConnection `json:"connection" xml:"Connection"`
+Connection *InboundConnection `json:"connection" xml:"Connection"`
 }
 
 type DeleteIndexRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	IndexName  string `json:"indexName" xml:"IndexName"`
+DomainName string `json:"domainName" xml:"DomainName"`
+IndexName string `json:"indexName" xml:"IndexName"`
 }
 
 type DeleteIndexResponse struct {
-	Status string `json:"status" xml:"Status"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DeleteOutboundConnectionRequest struct {
-	ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
 }
 
 type DeleteOutboundConnectionResponse struct {
-	Connection *OutboundConnection `json:"connection" xml:"Connection"`
+Connection *OutboundConnection `json:"connection" xml:"Connection"`
 }
 
 type DeletePackageRequest struct {
-	PackageID string `json:"packageID" xml:"PackageID"`
+PackageID string `json:"packageID" xml:"PackageID"`
 }
 
 type DeletePackageResponse struct {
-	PackageDetails *PackageDetails `json:"packageDetails" xml:"PackageDetails"`
+PackageDetails *PackageDetails `json:"packageDetails" xml:"PackageDetails"`
 }
 
 type DeleteVpcEndpointRequest struct {
-	VpcEndpointId string `json:"vpcEndpointId" xml:"VpcEndpointId"`
+VpcEndpointId string `json:"vpcEndpointId" xml:"VpcEndpointId"`
 }
 
 type DeleteVpcEndpointResponse struct {
-	VpcEndpointSummary *VpcEndpointSummary `json:"vpcEndpointSummary" xml:"VpcEndpointSummary"`
+VpcEndpointSummary *VpcEndpointSummary `json:"vpcEndpointSummary" xml:"VpcEndpointSummary"`
 }
 
 type DeploymentStrategyOptions struct {
-	DeploymentStrategy string `json:"deploymentStrategy" xml:"DeploymentStrategy"`
+DeploymentStrategy string `json:"deploymentStrategy" xml:"DeploymentStrategy"`
 }
 
 type DeploymentStrategyOptionsStatus struct {
-	Options *DeploymentStrategyOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus              `json:"status" xml:"Status"`
+Options *DeploymentStrategyOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type DeregisterCapabilityRequest struct {
-	ApplicationId  string `json:"applicationId" xml:"applicationId"`
-	CapabilityName string `json:"capabilityName" xml:"capabilityName"`
+ApplicationId string `json:"applicationId" xml:"applicationId"`
+CapabilityName string `json:"capabilityName" xml:"capabilityName"`
 }
 
 type DeregisterCapabilityResponse struct {
-	Status string `json:"status" xml:"status"`
+Status string `json:"status" xml:"status"`
 }
 
 type DescribeDomainAutoTunesRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+DomainName string `json:"domainName" xml:"DomainName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeDomainAutoTunesResponse struct {
-	AutoTunes AutoTuneList `json:"autoTunes" xml:"AutoTunes"`
-	NextToken string       `json:"nextToken" xml:"NextToken"`
+AutoTunes AutoTuneList `json:"autoTunes" xml:"AutoTunes"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeDomainChangeProgressRequest struct {
-	ChangeId   string `json:"changeId" xml:"ChangeId"`
-	DomainName string `json:"domainName" xml:"DomainName"`
+ChangeId string `json:"changeId" xml:"ChangeId"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DescribeDomainChangeProgressResponse struct {
-	ChangeProgressStatus *ChangeProgressStatusDetails `json:"changeProgressStatus" xml:"ChangeProgressStatus"`
+ChangeProgressStatus *ChangeProgressStatusDetails `json:"changeProgressStatus" xml:"ChangeProgressStatus"`
 }
 
 type DescribeDomainConfigRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DescribeDomainConfigResponse struct {
-	DomainConfig *DomainConfig `json:"domainConfig" xml:"DomainConfig"`
+DomainConfig *DomainConfig `json:"domainConfig" xml:"DomainConfig"`
 }
 
 type DescribeDomainHealthRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DescribeDomainHealthResponse struct {
-	ActiveAvailabilityZoneCount  string              `json:"activeAvailabilityZoneCount" xml:"ActiveAvailabilityZoneCount"`
-	AvailabilityZoneCount        string              `json:"availabilityZoneCount" xml:"AvailabilityZoneCount"`
-	ClusterHealth                string              `json:"clusterHealth" xml:"ClusterHealth"`
-	DataNodeCount                string              `json:"dataNodeCount" xml:"DataNodeCount"`
-	DedicatedMaster              bool                `json:"dedicatedMaster" xml:"DedicatedMaster"`
-	DomainState                  string              `json:"domainState" xml:"DomainState"`
-	EnvironmentInformation       EnvironmentInfoList `json:"environmentInformation" xml:"EnvironmentInformation"`
-	MasterEligibleNodeCount      string              `json:"masterEligibleNodeCount" xml:"MasterEligibleNodeCount"`
-	MasterNode                   string              `json:"masterNode" xml:"MasterNode"`
-	StandByAvailabilityZoneCount string              `json:"standByAvailabilityZoneCount" xml:"StandByAvailabilityZoneCount"`
-	TotalShards                  string              `json:"totalShards" xml:"TotalShards"`
-	TotalUnAssignedShards        string              `json:"totalUnAssignedShards" xml:"TotalUnAssignedShards"`
-	WarmNodeCount                string              `json:"warmNodeCount" xml:"WarmNodeCount"`
+ActiveAvailabilityZoneCount string `json:"activeAvailabilityZoneCount" xml:"ActiveAvailabilityZoneCount"`
+AvailabilityZoneCount string `json:"availabilityZoneCount" xml:"AvailabilityZoneCount"`
+ClusterHealth string `json:"clusterHealth" xml:"ClusterHealth"`
+DataNodeCount string `json:"dataNodeCount" xml:"DataNodeCount"`
+DedicatedMaster bool `json:"dedicatedMaster" xml:"DedicatedMaster"`
+DomainState string `json:"domainState" xml:"DomainState"`
+EnvironmentInformation EnvironmentInfoList `json:"environmentInformation" xml:"EnvironmentInformation"`
+MasterEligibleNodeCount string `json:"masterEligibleNodeCount" xml:"MasterEligibleNodeCount"`
+MasterNode string `json:"masterNode" xml:"MasterNode"`
+StandByAvailabilityZoneCount string `json:"standByAvailabilityZoneCount" xml:"StandByAvailabilityZoneCount"`
+TotalShards string `json:"totalShards" xml:"TotalShards"`
+TotalUnAssignedShards string `json:"totalUnAssignedShards" xml:"TotalUnAssignedShards"`
+WarmNodeCount string `json:"warmNodeCount" xml:"WarmNodeCount"`
 }
 
 type DescribeDomainNodesRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DescribeDomainNodesResponse struct {
-	DomainNodesStatusList DomainNodesStatusList `json:"domainNodesStatusList" xml:"DomainNodesStatusList"`
+DomainNodesStatusList DomainNodesStatusList `json:"domainNodesStatusList" xml:"DomainNodesStatusList"`
 }
 
 type DescribeDomainRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DescribeDomainResponse struct {
-	DomainStatus *DomainStatus `json:"domainStatus" xml:"DomainStatus"`
+DomainStatus *DomainStatus `json:"domainStatus" xml:"DomainStatus"`
 }
 
 type DescribeDomainsRequest struct {
-	DomainNames DomainNameList `json:"domainNames" xml:"DomainNames"`
+DomainNames DomainNameList `json:"domainNames" xml:"DomainNames"`
 }
 
 type DescribeDomainsResponse struct {
-	DomainStatusList DomainStatusList `json:"domainStatusList" xml:"DomainStatusList"`
+DomainStatusList DomainStatusList `json:"domainStatusList" xml:"DomainStatusList"`
 }
 
 type DescribeDryRunProgressRequest struct {
-	DomainName       string `json:"domainName" xml:"DomainName"`
-	DryRunId         string `json:"dryRunId" xml:"DryRunId"`
-	LoadDryRunConfig bool   `json:"loadDryRunConfig" xml:"LoadDryRunConfig"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DryRunId string `json:"dryRunId" xml:"DryRunId"`
+LoadDryRunConfig bool `json:"loadDryRunConfig" xml:"LoadDryRunConfig"`
 }
 
 type DescribeDryRunProgressResponse struct {
-	DryRunConfig         *DomainStatus         `json:"dryRunConfig" xml:"DryRunConfig"`
-	DryRunProgressStatus *DryRunProgressStatus `json:"dryRunProgressStatus" xml:"DryRunProgressStatus"`
-	DryRunResults        *DryRunResults        `json:"dryRunResults" xml:"DryRunResults"`
+DryRunConfig *DomainStatus `json:"dryRunConfig" xml:"DryRunConfig"`
+DryRunProgressStatus *DryRunProgressStatus `json:"dryRunProgressStatus" xml:"DryRunProgressStatus"`
+DryRunResults *DryRunResults `json:"dryRunResults" xml:"DryRunResults"`
 }
 
 type DescribeInboundConnectionsRequest struct {
-	Filters    FilterList `json:"filters" xml:"Filters"`
-	MaxResults int32      `json:"maxResults" xml:"MaxResults"`
-	NextToken  string     `json:"nextToken" xml:"NextToken"`
+Filters FilterList `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeInboundConnectionsResponse struct {
-	Connections InboundConnections `json:"connections" xml:"Connections"`
-	NextToken   string             `json:"nextToken" xml:"NextToken"`
+Connections InboundConnections `json:"connections" xml:"Connections"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeInsightDetailsRequest struct {
-	Entity          *InsightEntity `json:"entity" xml:"Entity"`
-	InsightId       string         `json:"insightId" xml:"InsightId"`
-	ShowHtmlContent bool           `json:"showHtmlContent" xml:"ShowHtmlContent"`
+Entity *InsightEntity `json:"entity" xml:"Entity"`
+InsightId string `json:"insightId" xml:"InsightId"`
+ShowHtmlContent bool `json:"showHtmlContent" xml:"ShowHtmlContent"`
 }
 
 type DescribeInsightDetailsResponse struct {
-	Fields InsightFieldList `json:"fields" xml:"Fields"`
+Fields InsightFieldList `json:"fields" xml:"Fields"`
 }
 
 type DescribeInstanceTypeLimitsRequest struct {
-	DomainName    string `json:"domainName" xml:"DomainName"`
-	EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
-	InstanceType  string `json:"instanceType" xml:"InstanceType"`
+DomainName string `json:"domainName" xml:"DomainName"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
 }
 
 type DescribeInstanceTypeLimitsResponse struct {
-	LimitsByRole LimitsByRole `json:"limitsByRole" xml:"LimitsByRole"`
+LimitsByRole LimitsByRole `json:"limitsByRole" xml:"LimitsByRole"`
 }
 
 type DescribeOutboundConnectionsRequest struct {
-	Filters    FilterList `json:"filters" xml:"Filters"`
-	MaxResults int32      `json:"maxResults" xml:"MaxResults"`
-	NextToken  string     `json:"nextToken" xml:"NextToken"`
+Filters FilterList `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeOutboundConnectionsResponse struct {
-	Connections OutboundConnections `json:"connections" xml:"Connections"`
-	NextToken   string              `json:"nextToken" xml:"NextToken"`
+Connections OutboundConnections `json:"connections" xml:"Connections"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribePackagesFilter struct {
-	Name  string                       `json:"name" xml:"Name"`
-	Value DescribePackagesFilterValues `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value DescribePackagesFilterValues `json:"value" xml:"Value"`
 }
 
 type DescribePackagesRequest struct {
-	Filters    DescribePackagesFilterList `json:"filters" xml:"Filters"`
-	MaxResults int32                      `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                     `json:"nextToken" xml:"NextToken"`
+Filters DescribePackagesFilterList `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribePackagesResponse struct {
-	NextToken          string             `json:"nextToken" xml:"NextToken"`
-	PackageDetailsList PackageDetailsList `json:"packageDetailsList" xml:"PackageDetailsList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PackageDetailsList PackageDetailsList `json:"packageDetailsList" xml:"PackageDetailsList"`
 }
 
 type DescribeReservedInstanceOfferingsRequest struct {
-	MaxResults                 int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken                  string `json:"nextToken" xml:"NextToken"`
-	ReservedInstanceOfferingId string `json:"reservedInstanceOfferingId" xml:"ReservedInstanceOfferingId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ReservedInstanceOfferingId string `json:"reservedInstanceOfferingId" xml:"ReservedInstanceOfferingId"`
 }
 
 type DescribeReservedInstanceOfferingsResponse struct {
-	NextToken                 string                       `json:"nextToken" xml:"NextToken"`
-	ReservedInstanceOfferings ReservedInstanceOfferingList `json:"reservedInstanceOfferings" xml:"ReservedInstanceOfferings"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ReservedInstanceOfferings ReservedInstanceOfferingList `json:"reservedInstanceOfferings" xml:"ReservedInstanceOfferings"`
 }
 
 type DescribeReservedInstancesRequest struct {
-	MaxResults         int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken          string `json:"nextToken" xml:"NextToken"`
-	ReservedInstanceId string `json:"reservedInstanceId" xml:"ReservedInstanceId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ReservedInstanceId string `json:"reservedInstanceId" xml:"ReservedInstanceId"`
 }
 
 type DescribeReservedInstancesResponse struct {
-	NextToken         string               `json:"nextToken" xml:"NextToken"`
-	ReservedInstances ReservedInstanceList `json:"reservedInstances" xml:"ReservedInstances"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ReservedInstances ReservedInstanceList `json:"reservedInstances" xml:"ReservedInstances"`
 }
 
 type DescribeVpcEndpointsRequest struct {
-	VpcEndpointIds VpcEndpointIdList `json:"vpcEndpointIds" xml:"VpcEndpointIds"`
+VpcEndpointIds VpcEndpointIdList `json:"vpcEndpointIds" xml:"VpcEndpointIds"`
 }
 
 type DescribeVpcEndpointsResponse struct {
-	VpcEndpointErrors VpcEndpointErrorList `json:"vpcEndpointErrors" xml:"VpcEndpointErrors"`
-	VpcEndpoints      VpcEndpoints         `json:"vpcEndpoints" xml:"VpcEndpoints"`
+VpcEndpointErrors VpcEndpointErrorList `json:"vpcEndpointErrors" xml:"VpcEndpointErrors"`
+VpcEndpoints VpcEndpoints `json:"vpcEndpoints" xml:"VpcEndpoints"`
 }
 
 type DirectQueryDataSource struct {
-	DataSourceArn  string                       `json:"dataSourceArn" xml:"DataSourceArn"`
-	DataSourceName string                       `json:"dataSourceName" xml:"DataSourceName"`
-	DataSourceType interface{}                  `json:"dataSourceType" xml:"DataSourceType"`
-	Description    string                       `json:"description" xml:"Description"`
-	OpenSearchArns DirectQueryOpenSearchARNList `json:"openSearchArns" xml:"OpenSearchArns"`
-	TagList        TagList                      `json:"tagList" xml:"TagList"`
+DataSourceArn string `json:"dataSourceArn" xml:"DataSourceArn"`
+DataSourceName string `json:"dataSourceName" xml:"DataSourceName"`
+DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
+Description string `json:"description" xml:"Description"`
+OpenSearchArns DirectQueryOpenSearchARNList `json:"openSearchArns" xml:"OpenSearchArns"`
+TagList TagList `json:"tagList" xml:"TagList"`
 }
 
 type DissociatePackageRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	PackageID  string `json:"packageID" xml:"PackageID"`
+DomainName string `json:"domainName" xml:"DomainName"`
+PackageID string `json:"packageID" xml:"PackageID"`
 }
 
 type DissociatePackageResponse struct {
-	DomainPackageDetails *DomainPackageDetails `json:"domainPackageDetails" xml:"DomainPackageDetails"`
+DomainPackageDetails *DomainPackageDetails `json:"domainPackageDetails" xml:"DomainPackageDetails"`
 }
 
 type DissociatePackagesRequest struct {
-	DomainName  string        `json:"domainName" xml:"DomainName"`
-	PackageList PackageIDList `json:"packageList" xml:"PackageList"`
+DomainName string `json:"domainName" xml:"DomainName"`
+PackageList PackageIDList `json:"packageList" xml:"PackageList"`
 }
 
 type DissociatePackagesResponse struct {
-	DomainPackageDetailsList DomainPackageDetailsList `json:"domainPackageDetailsList" xml:"DomainPackageDetailsList"`
+DomainPackageDetailsList DomainPackageDetailsList `json:"domainPackageDetailsList" xml:"DomainPackageDetailsList"`
 }
 
 type DomainConfig struct {
-	AIMLOptions                 *AIMLOptionsStatus                 `json:"aIMLOptions" xml:"AIMLOptions"`
-	AccessPolicies              *AccessPoliciesStatus              `json:"accessPolicies" xml:"AccessPolicies"`
-	AdvancedOptions             *AdvancedOptionsStatus             `json:"advancedOptions" xml:"AdvancedOptions"`
-	AdvancedSecurityOptions     *AdvancedSecurityOptionsStatus     `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
-	AutoTuneOptions             *AutoTuneOptionsStatus             `json:"autoTuneOptions" xml:"AutoTuneOptions"`
-	ChangeProgressDetails       *ChangeProgressDetails             `json:"changeProgressDetails" xml:"ChangeProgressDetails"`
-	ClusterConfig               *ClusterConfigStatus               `json:"clusterConfig" xml:"ClusterConfig"`
-	CognitoOptions              *CognitoOptionsStatus              `json:"cognitoOptions" xml:"CognitoOptions"`
-	DeploymentStrategyOptions   *DeploymentStrategyOptionsStatus   `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
-	DomainEndpointOptions       *DomainEndpointOptionsStatus       `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
-	EBSOptions                  *EBSOptionsStatus                  `json:"eBSOptions" xml:"EBSOptions"`
-	EncryptionAtRestOptions     *EncryptionAtRestOptionsStatus     `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
-	EngineVersion               *VersionStatus                     `json:"engineVersion" xml:"EngineVersion"`
-	IPAddressType               *IPAddressTypeStatus               `json:"iPAddressType" xml:"IPAddressType"`
-	IdentityCenterOptions       *IdentityCenterOptionsStatus       `json:"identityCenterOptions" xml:"IdentityCenterOptions"`
-	LogPublishingOptions        *LogPublishingOptionsStatus        `json:"logPublishingOptions" xml:"LogPublishingOptions"`
-	ModifyingProperties         ModifyingPropertiesList            `json:"modifyingProperties" xml:"ModifyingProperties"`
-	NodeToNodeEncryptionOptions *NodeToNodeEncryptionOptionsStatus `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
-	OffPeakWindowOptions        *OffPeakWindowOptionsStatus        `json:"offPeakWindowOptions" xml:"OffPeakWindowOptions"`
-	SnapshotOptions             *SnapshotOptionsStatus             `json:"snapshotOptions" xml:"SnapshotOptions"`
-	SoftwareUpdateOptions       *SoftwareUpdateOptionsStatus       `json:"softwareUpdateOptions" xml:"SoftwareUpdateOptions"`
-	VPCOptions                  *VPCDerivedInfoStatus              `json:"vPCOptions" xml:"VPCOptions"`
+AIMLOptions *AIMLOptionsStatus `json:"aIMLOptions" xml:"AIMLOptions"`
+AccessPolicies *AccessPoliciesStatus `json:"accessPolicies" xml:"AccessPolicies"`
+AdvancedOptions *AdvancedOptionsStatus `json:"advancedOptions" xml:"AdvancedOptions"`
+AdvancedSecurityOptions *AdvancedSecurityOptionsStatus `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
+AutoTuneOptions *AutoTuneOptionsStatus `json:"autoTuneOptions" xml:"AutoTuneOptions"`
+ChangeProgressDetails *ChangeProgressDetails `json:"changeProgressDetails" xml:"ChangeProgressDetails"`
+ClusterConfig *ClusterConfigStatus `json:"clusterConfig" xml:"ClusterConfig"`
+CognitoOptions *CognitoOptionsStatus `json:"cognitoOptions" xml:"CognitoOptions"`
+DeploymentStrategyOptions *DeploymentStrategyOptionsStatus `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
+DomainEndpointOptions *DomainEndpointOptionsStatus `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
+EBSOptions *EBSOptionsStatus `json:"eBSOptions" xml:"EBSOptions"`
+EncryptionAtRestOptions *EncryptionAtRestOptionsStatus `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
+EngineVersion *VersionStatus `json:"engineVersion" xml:"EngineVersion"`
+IPAddressType *IPAddressTypeStatus `json:"iPAddressType" xml:"IPAddressType"`
+IdentityCenterOptions *IdentityCenterOptionsStatus `json:"identityCenterOptions" xml:"IdentityCenterOptions"`
+LogPublishingOptions *LogPublishingOptionsStatus `json:"logPublishingOptions" xml:"LogPublishingOptions"`
+ModifyingProperties ModifyingPropertiesList `json:"modifyingProperties" xml:"ModifyingProperties"`
+NodeToNodeEncryptionOptions *NodeToNodeEncryptionOptionsStatus `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
+OffPeakWindowOptions *OffPeakWindowOptionsStatus `json:"offPeakWindowOptions" xml:"OffPeakWindowOptions"`
+SnapshotOptions *SnapshotOptionsStatus `json:"snapshotOptions" xml:"SnapshotOptions"`
+SoftwareUpdateOptions *SoftwareUpdateOptionsStatus `json:"softwareUpdateOptions" xml:"SoftwareUpdateOptions"`
+VPCOptions *VPCDerivedInfoStatus `json:"vPCOptions" xml:"VPCOptions"`
 }
 
 type DomainEndpointOptions struct {
-	CustomEndpoint               string `json:"customEndpoint" xml:"CustomEndpoint"`
-	CustomEndpointCertificateArn string `json:"customEndpointCertificateArn" xml:"CustomEndpointCertificateArn"`
-	CustomEndpointEnabled        bool   `json:"customEndpointEnabled" xml:"CustomEndpointEnabled"`
-	EnforceHTTPS                 bool   `json:"enforceHTTPS" xml:"EnforceHTTPS"`
-	TLSSecurityPolicy            string `json:"tLSSecurityPolicy" xml:"TLSSecurityPolicy"`
+CustomEndpoint string `json:"customEndpoint" xml:"CustomEndpoint"`
+CustomEndpointCertificateArn string `json:"customEndpointCertificateArn" xml:"CustomEndpointCertificateArn"`
+CustomEndpointEnabled bool `json:"customEndpointEnabled" xml:"CustomEndpointEnabled"`
+EnforceHTTPS bool `json:"enforceHTTPS" xml:"EnforceHTTPS"`
+TLSSecurityPolicy string `json:"tLSSecurityPolicy" xml:"TLSSecurityPolicy"`
 }
 
 type DomainEndpointOptionsStatus struct {
-	Options *DomainEndpointOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus          `json:"status" xml:"Status"`
+Options *DomainEndpointOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type DomainInfo struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	EngineType string `json:"engineType" xml:"EngineType"`
+DomainName string `json:"domainName" xml:"DomainName"`
+EngineType string `json:"engineType" xml:"EngineType"`
 }
 
 type DomainInformationContainer struct {
-	AWSDomainInformation *AWSDomainInformation `json:"aWSDomainInformation" xml:"AWSDomainInformation"`
+AWSDomainInformation *AWSDomainInformation `json:"aWSDomainInformation" xml:"AWSDomainInformation"`
 }
 
 type DomainMaintenanceDetails struct {
-	Action        string    `json:"action" xml:"Action"`
-	CreatedAt     time.Time `json:"createdAt" xml:"CreatedAt"`
-	DomainName    string    `json:"domainName" xml:"DomainName"`
-	MaintenanceId string    `json:"maintenanceId" xml:"MaintenanceId"`
-	NodeId        string    `json:"nodeId" xml:"NodeId"`
-	Status        string    `json:"status" xml:"Status"`
-	StatusMessage string    `json:"statusMessage" xml:"StatusMessage"`
-	UpdatedAt     time.Time `json:"updatedAt" xml:"UpdatedAt"`
+Action string `json:"action" xml:"Action"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+DomainName string `json:"domainName" xml:"DomainName"`
+MaintenanceId string `json:"maintenanceId" xml:"MaintenanceId"`
+NodeId string `json:"nodeId" xml:"NodeId"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+UpdatedAt time.Time `json:"updatedAt" xml:"UpdatedAt"`
 }
 
 type DomainNodesStatus struct {
-	AvailabilityZone  string `json:"availabilityZone" xml:"AvailabilityZone"`
-	InstanceType      string `json:"instanceType" xml:"InstanceType"`
-	NodeId            string `json:"nodeId" xml:"NodeId"`
-	NodeStatus        string `json:"nodeStatus" xml:"NodeStatus"`
-	NodeType          string `json:"nodeType" xml:"NodeType"`
-	StorageSize       string `json:"storageSize" xml:"StorageSize"`
-	StorageType       string `json:"storageType" xml:"StorageType"`
-	StorageVolumeType string `json:"storageVolumeType" xml:"StorageVolumeType"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+NodeId string `json:"nodeId" xml:"NodeId"`
+NodeStatus string `json:"nodeStatus" xml:"NodeStatus"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+StorageSize string `json:"storageSize" xml:"StorageSize"`
+StorageType string `json:"storageType" xml:"StorageType"`
+StorageVolumeType string `json:"storageVolumeType" xml:"StorageVolumeType"`
 }
 
 type DomainPackageDetails struct {
-	AssociationConfiguration  *PackageAssociationConfiguration `json:"associationConfiguration" xml:"AssociationConfiguration"`
-	DomainName                string                           `json:"domainName" xml:"DomainName"`
-	DomainPackageStatus       string                           `json:"domainPackageStatus" xml:"DomainPackageStatus"`
-	ErrorDetails              *ErrorDetails                    `json:"errorDetails" xml:"ErrorDetails"`
-	LastUpdated               time.Time                        `json:"lastUpdated" xml:"LastUpdated"`
-	PackageID                 string                           `json:"packageID" xml:"PackageID"`
-	PackageName               string                           `json:"packageName" xml:"PackageName"`
-	PackageType               string                           `json:"packageType" xml:"PackageType"`
-	PackageVersion            string                           `json:"packageVersion" xml:"PackageVersion"`
-	PrerequisitePackageIDList PackageIDList                    `json:"prerequisitePackageIDList" xml:"PrerequisitePackageIDList"`
-	ReferencePath             string                           `json:"referencePath" xml:"ReferencePath"`
+AssociationConfiguration *PackageAssociationConfiguration `json:"associationConfiguration" xml:"AssociationConfiguration"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainPackageStatus string `json:"domainPackageStatus" xml:"DomainPackageStatus"`
+ErrorDetails *ErrorDetails `json:"errorDetails" xml:"ErrorDetails"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+PackageID string `json:"packageID" xml:"PackageID"`
+PackageName string `json:"packageName" xml:"PackageName"`
+PackageType string `json:"packageType" xml:"PackageType"`
+PackageVersion string `json:"packageVersion" xml:"PackageVersion"`
+PrerequisitePackageIDList PackageIDList `json:"prerequisitePackageIDList" xml:"PrerequisitePackageIDList"`
+ReferencePath string `json:"referencePath" xml:"ReferencePath"`
 }
 
 type DomainStatus struct {
-	AIMLOptions                  *AIMLOptionsOutput           `json:"aIMLOptions" xml:"AIMLOptions"`
-	ARN                          string                       `json:"aRN" xml:"ARN"`
-	AccessPolicies               string                       `json:"accessPolicies" xml:"AccessPolicies"`
-	AdvancedOptions              AdvancedOptions              `json:"advancedOptions" xml:"AdvancedOptions"`
-	AdvancedSecurityOptions      *AdvancedSecurityOptions     `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
-	AutoTuneOptions              *AutoTuneOptionsOutput       `json:"autoTuneOptions" xml:"AutoTuneOptions"`
-	ChangeProgressDetails        *ChangeProgressDetails       `json:"changeProgressDetails" xml:"ChangeProgressDetails"`
-	ClusterConfig                *ClusterConfig               `json:"clusterConfig" xml:"ClusterConfig"`
-	CognitoOptions               *CognitoOptions              `json:"cognitoOptions" xml:"CognitoOptions"`
-	Created                      bool                         `json:"created" xml:"Created"`
-	Deleted                      bool                         `json:"deleted" xml:"Deleted"`
-	DeploymentStrategyOptions    *DeploymentStrategyOptions   `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
-	DomainEndpointOptions        *DomainEndpointOptions       `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
-	DomainEndpointV2HostedZoneId string                       `json:"domainEndpointV2HostedZoneId" xml:"DomainEndpointV2HostedZoneId"`
-	DomainId                     string                       `json:"domainId" xml:"DomainId"`
-	DomainName                   string                       `json:"domainName" xml:"DomainName"`
-	DomainProcessingStatus       string                       `json:"domainProcessingStatus" xml:"DomainProcessingStatus"`
-	EBSOptions                   *EBSOptions                  `json:"eBSOptions" xml:"EBSOptions"`
-	EncryptionAtRestOptions      *EncryptionAtRestOptions     `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
-	Endpoint                     string                       `json:"endpoint" xml:"Endpoint"`
-	EndpointV2                   string                       `json:"endpointV2" xml:"EndpointV2"`
-	Endpoints                    EndpointsMap                 `json:"endpoints" xml:"Endpoints"`
-	EngineVersion                string                       `json:"engineVersion" xml:"EngineVersion"`
-	IPAddressType                string                       `json:"iPAddressType" xml:"IPAddressType"`
-	IdentityCenterOptions        *IdentityCenterOptions       `json:"identityCenterOptions" xml:"IdentityCenterOptions"`
-	LogPublishingOptions         LogPublishingOptions         `json:"logPublishingOptions" xml:"LogPublishingOptions"`
-	ModifyingProperties          ModifyingPropertiesList      `json:"modifyingProperties" xml:"ModifyingProperties"`
-	NodeToNodeEncryptionOptions  *NodeToNodeEncryptionOptions `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
-	OffPeakWindowOptions         *OffPeakWindowOptions        `json:"offPeakWindowOptions" xml:"OffPeakWindowOptions"`
-	Processing                   bool                         `json:"processing" xml:"Processing"`
-	ServiceSoftwareOptions       *ServiceSoftwareOptions      `json:"serviceSoftwareOptions" xml:"ServiceSoftwareOptions"`
-	SnapshotOptions              *SnapshotOptions             `json:"snapshotOptions" xml:"SnapshotOptions"`
-	SoftwareUpdateOptions        *SoftwareUpdateOptions       `json:"softwareUpdateOptions" xml:"SoftwareUpdateOptions"`
-	UpgradeProcessing            bool                         `json:"upgradeProcessing" xml:"UpgradeProcessing"`
-	VPCOptions                   *VPCDerivedInfo              `json:"vPCOptions" xml:"VPCOptions"`
+AIMLOptions *AIMLOptionsOutput `json:"aIMLOptions" xml:"AIMLOptions"`
+ARN string `json:"aRN" xml:"ARN"`
+AccessPolicies string `json:"accessPolicies" xml:"AccessPolicies"`
+AdvancedOptions AdvancedOptions `json:"advancedOptions" xml:"AdvancedOptions"`
+AdvancedSecurityOptions *AdvancedSecurityOptions `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
+AutoTuneOptions *AutoTuneOptionsOutput `json:"autoTuneOptions" xml:"AutoTuneOptions"`
+ChangeProgressDetails *ChangeProgressDetails `json:"changeProgressDetails" xml:"ChangeProgressDetails"`
+ClusterConfig *ClusterConfig `json:"clusterConfig" xml:"ClusterConfig"`
+CognitoOptions *CognitoOptions `json:"cognitoOptions" xml:"CognitoOptions"`
+Created bool `json:"created" xml:"Created"`
+Deleted bool `json:"deleted" xml:"Deleted"`
+DeploymentStrategyOptions *DeploymentStrategyOptions `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
+DomainEndpointOptions *DomainEndpointOptions `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
+DomainEndpointV2HostedZoneId string `json:"domainEndpointV2HostedZoneId" xml:"DomainEndpointV2HostedZoneId"`
+DomainId string `json:"domainId" xml:"DomainId"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainProcessingStatus string `json:"domainProcessingStatus" xml:"DomainProcessingStatus"`
+EBSOptions *EBSOptions `json:"eBSOptions" xml:"EBSOptions"`
+EncryptionAtRestOptions *EncryptionAtRestOptions `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
+Endpoint string `json:"endpoint" xml:"Endpoint"`
+EndpointV2 string `json:"endpointV2" xml:"EndpointV2"`
+Endpoints EndpointsMap `json:"endpoints" xml:"Endpoints"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+IPAddressType string `json:"iPAddressType" xml:"IPAddressType"`
+IdentityCenterOptions *IdentityCenterOptions `json:"identityCenterOptions" xml:"IdentityCenterOptions"`
+LogPublishingOptions LogPublishingOptions `json:"logPublishingOptions" xml:"LogPublishingOptions"`
+ModifyingProperties ModifyingPropertiesList `json:"modifyingProperties" xml:"ModifyingProperties"`
+NodeToNodeEncryptionOptions *NodeToNodeEncryptionOptions `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
+OffPeakWindowOptions *OffPeakWindowOptions `json:"offPeakWindowOptions" xml:"OffPeakWindowOptions"`
+Processing bool `json:"processing" xml:"Processing"`
+ServiceSoftwareOptions *ServiceSoftwareOptions `json:"serviceSoftwareOptions" xml:"ServiceSoftwareOptions"`
+SnapshotOptions *SnapshotOptions `json:"snapshotOptions" xml:"SnapshotOptions"`
+SoftwareUpdateOptions *SoftwareUpdateOptions `json:"softwareUpdateOptions" xml:"SoftwareUpdateOptions"`
+UpgradeProcessing bool `json:"upgradeProcessing" xml:"UpgradeProcessing"`
+VPCOptions *VPCDerivedInfo `json:"vPCOptions" xml:"VPCOptions"`
 }
 
 type DryRunProgressStatus struct {
-	CreationDate       string             `json:"creationDate" xml:"CreationDate"`
-	DryRunId           string             `json:"dryRunId" xml:"DryRunId"`
-	DryRunStatus       string             `json:"dryRunStatus" xml:"DryRunStatus"`
-	UpdateDate         string             `json:"updateDate" xml:"UpdateDate"`
-	ValidationFailures ValidationFailures `json:"validationFailures" xml:"ValidationFailures"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+DryRunId string `json:"dryRunId" xml:"DryRunId"`
+DryRunStatus string `json:"dryRunStatus" xml:"DryRunStatus"`
+UpdateDate string `json:"updateDate" xml:"UpdateDate"`
+ValidationFailures ValidationFailures `json:"validationFailures" xml:"ValidationFailures"`
 }
 
 type DryRunResults struct {
-	DeploymentType string `json:"deploymentType" xml:"DeploymentType"`
-	Message        string `json:"message" xml:"Message"`
+DeploymentType string `json:"deploymentType" xml:"DeploymentType"`
+Message string `json:"message" xml:"Message"`
 }
 
 type Duration struct {
-	Unit  string `json:"unit" xml:"Unit"`
-	Value int64  `json:"value" xml:"Value"`
+Unit string `json:"unit" xml:"Unit"`
+Value int64 `json:"value" xml:"Value"`
 }
 
 type EBSOptions struct {
-	EBSEnabled bool   `json:"eBSEnabled" xml:"EBSEnabled"`
-	Iops       int32  `json:"iops" xml:"Iops"`
-	Throughput int32  `json:"throughput" xml:"Throughput"`
-	VolumeSize int32  `json:"volumeSize" xml:"VolumeSize"`
-	VolumeType string `json:"volumeType" xml:"VolumeType"`
+EBSEnabled bool `json:"eBSEnabled" xml:"EBSEnabled"`
+Iops int32 `json:"iops" xml:"Iops"`
+Throughput int32 `json:"throughput" xml:"Throughput"`
+VolumeSize int32 `json:"volumeSize" xml:"VolumeSize"`
+VolumeType string `json:"volumeType" xml:"VolumeType"`
 }
 
 type EBSOptionsStatus struct {
-	Options *EBSOptions   `json:"options" xml:"Options"`
-	Status  *OptionStatus `json:"status" xml:"Status"`
+Options *EBSOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type EncryptionAtRestOptions struct {
-	Enabled  bool   `json:"enabled" xml:"Enabled"`
-	KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
 }
 
 type EncryptionAtRestOptionsStatus struct {
-	Options *EncryptionAtRestOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus            `json:"status" xml:"Status"`
+Options *EncryptionAtRestOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type EnvironmentInfo struct {
-	AvailabilityZoneInformation AvailabilityZoneInfoList `json:"availabilityZoneInformation" xml:"AvailabilityZoneInformation"`
+AvailabilityZoneInformation AvailabilityZoneInfoList `json:"availabilityZoneInformation" xml:"AvailabilityZoneInformation"`
 }
 
 type ErrorDetails struct {
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
-	ErrorType    string `json:"errorType" xml:"ErrorType"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ErrorType string `json:"errorType" xml:"ErrorType"`
 }
 
 type Filter struct {
-	Name   string          `json:"name" xml:"Name"`
-	Values ValueStringList `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values ValueStringList `json:"values" xml:"Values"`
 }
 
 type GetApplicationRequest struct {
-	Id string `json:"id" xml:"id"`
+Id string `json:"id" xml:"id"`
 }
 
 type GetApplicationResponse struct {
-	AppConfigs               AppConfigs                `json:"appConfigs" xml:"appConfigs"`
-	Arn                      string                    `json:"arn" xml:"arn"`
-	CreatedAt                time.Time                 `json:"createdAt" xml:"createdAt"`
-	DataSources              DataSources               `json:"dataSources" xml:"dataSources"`
-	Endpoint                 string                    `json:"endpoint" xml:"endpoint"`
-	IamIdentityCenterOptions *IamIdentityCenterOptions `json:"iamIdentityCenterOptions" xml:"iamIdentityCenterOptions"`
-	Id                       string                    `json:"id" xml:"id"`
-	KmsKeyArn                string                    `json:"kmsKeyArn" xml:"kmsKeyArn"`
-	LastUpdatedAt            time.Time                 `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	Name                     string                    `json:"name" xml:"name"`
-	Status                   string                    `json:"status" xml:"status"`
+AppConfigs AppConfigs `json:"appConfigs" xml:"appConfigs"`
+Arn string `json:"arn" xml:"arn"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DataSources DataSources `json:"dataSources" xml:"dataSources"`
+Endpoint string `json:"endpoint" xml:"endpoint"`
+IamIdentityCenterOptions *IamIdentityCenterOptions `json:"iamIdentityCenterOptions" xml:"iamIdentityCenterOptions"`
+Id string `json:"id" xml:"id"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"kmsKeyArn"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+Name string `json:"name" xml:"name"`
+Status string `json:"status" xml:"status"`
 }
 
 type GetCapabilityRequest struct {
-	ApplicationId  string `json:"applicationId" xml:"applicationId"`
-	CapabilityName string `json:"capabilityName" xml:"capabilityName"`
+ApplicationId string `json:"applicationId" xml:"applicationId"`
+CapabilityName string `json:"capabilityName" xml:"capabilityName"`
 }
 
 type GetCapabilityResponse struct {
-	ApplicationId    string             `json:"applicationId" xml:"applicationId"`
-	CapabilityConfig interface{}        `json:"capabilityConfig" xml:"capabilityConfig"`
-	CapabilityName   string             `json:"capabilityName" xml:"capabilityName"`
-	Failures         CapabilityFailures `json:"failures" xml:"failures"`
-	Status           string             `json:"status" xml:"status"`
+ApplicationId string `json:"applicationId" xml:"applicationId"`
+CapabilityConfig interface{} `json:"capabilityConfig" xml:"capabilityConfig"`
+CapabilityName string `json:"capabilityName" xml:"capabilityName"`
+Failures CapabilityFailures `json:"failures" xml:"failures"`
+Status string `json:"status" xml:"status"`
 }
 
 type GetCompatibleVersionsRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type GetCompatibleVersionsResponse struct {
-	CompatibleVersions CompatibleVersionsList `json:"compatibleVersions" xml:"CompatibleVersions"`
+CompatibleVersions CompatibleVersionsList `json:"compatibleVersions" xml:"CompatibleVersions"`
 }
 
 type GetDataSourceRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	Name       string `json:"name" xml:"Name"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetDataSourceResponse struct {
-	DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
-	Description    string      `json:"description" xml:"Description"`
-	Name           string      `json:"name" xml:"Name"`
-	Status         string      `json:"status" xml:"Status"`
+DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type GetDefaultApplicationSettingRequest struct {
 }
 
 type GetDefaultApplicationSettingResponse struct {
-	ApplicationArn string `json:"applicationArn" xml:"applicationArn"`
+ApplicationArn string `json:"applicationArn" xml:"applicationArn"`
 }
 
 type GetDirectQueryDataSourceRequest struct {
-	DataSourceName string `json:"dataSourceName" xml:"DataSourceName"`
+DataSourceName string `json:"dataSourceName" xml:"DataSourceName"`
 }
 
 type GetDirectQueryDataSourceResponse struct {
-	DataSourceAccessPolicy string                       `json:"dataSourceAccessPolicy" xml:"DataSourceAccessPolicy"`
-	DataSourceArn          string                       `json:"dataSourceArn" xml:"DataSourceArn"`
-	DataSourceName         string                       `json:"dataSourceName" xml:"DataSourceName"`
-	DataSourceType         interface{}                  `json:"dataSourceType" xml:"DataSourceType"`
-	Description            string                       `json:"description" xml:"Description"`
-	OpenSearchArns         DirectQueryOpenSearchARNList `json:"openSearchArns" xml:"OpenSearchArns"`
+DataSourceAccessPolicy string `json:"dataSourceAccessPolicy" xml:"DataSourceAccessPolicy"`
+DataSourceArn string `json:"dataSourceArn" xml:"DataSourceArn"`
+DataSourceName string `json:"dataSourceName" xml:"DataSourceName"`
+DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
+Description string `json:"description" xml:"Description"`
+OpenSearchArns DirectQueryOpenSearchARNList `json:"openSearchArns" xml:"OpenSearchArns"`
 }
 
 type GetDomainMaintenanceStatusRequest struct {
-	DomainName    string `json:"domainName" xml:"DomainName"`
-	MaintenanceId string `json:"maintenanceId" xml:"MaintenanceId"`
+DomainName string `json:"domainName" xml:"DomainName"`
+MaintenanceId string `json:"maintenanceId" xml:"MaintenanceId"`
 }
 
 type GetDomainMaintenanceStatusResponse struct {
-	Action        string    `json:"action" xml:"Action"`
-	CreatedAt     time.Time `json:"createdAt" xml:"CreatedAt"`
-	NodeId        string    `json:"nodeId" xml:"NodeId"`
-	Status        string    `json:"status" xml:"Status"`
-	StatusMessage string    `json:"statusMessage" xml:"StatusMessage"`
-	UpdatedAt     time.Time `json:"updatedAt" xml:"UpdatedAt"`
+Action string `json:"action" xml:"Action"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+NodeId string `json:"nodeId" xml:"NodeId"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+UpdatedAt time.Time `json:"updatedAt" xml:"UpdatedAt"`
 }
 
 type GetIndexRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	IndexName  string `json:"indexName" xml:"IndexName"`
+DomainName string `json:"domainName" xml:"DomainName"`
+IndexName string `json:"indexName" xml:"IndexName"`
 }
 
 type GetIndexResponse struct {
-	IndexSchema interface{} `json:"indexSchema" xml:"IndexSchema"`
+IndexSchema interface{} `json:"indexSchema" xml:"IndexSchema"`
 }
 
 type GetPackageVersionHistoryRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	PackageID  string `json:"packageID" xml:"PackageID"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PackageID string `json:"packageID" xml:"PackageID"`
 }
 
 type GetPackageVersionHistoryResponse struct {
-	NextToken                 string                    `json:"nextToken" xml:"NextToken"`
-	PackageID                 string                    `json:"packageID" xml:"PackageID"`
-	PackageVersionHistoryList PackageVersionHistoryList `json:"packageVersionHistoryList" xml:"PackageVersionHistoryList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PackageID string `json:"packageID" xml:"PackageID"`
+PackageVersionHistoryList PackageVersionHistoryList `json:"packageVersionHistoryList" xml:"PackageVersionHistoryList"`
 }
 
 type GetUpgradeHistoryRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+DomainName string `json:"domainName" xml:"DomainName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetUpgradeHistoryResponse struct {
-	NextToken        string             `json:"nextToken" xml:"NextToken"`
-	UpgradeHistories UpgradeHistoryList `json:"upgradeHistories" xml:"UpgradeHistories"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+UpgradeHistories UpgradeHistoryList `json:"upgradeHistories" xml:"UpgradeHistories"`
 }
 
 type GetUpgradeStatusRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type GetUpgradeStatusResponse struct {
-	StepStatus  string `json:"stepStatus" xml:"StepStatus"`
-	UpgradeName string `json:"upgradeName" xml:"UpgradeName"`
-	UpgradeStep string `json:"upgradeStep" xml:"UpgradeStep"`
+StepStatus string `json:"stepStatus" xml:"StepStatus"`
+UpgradeName string `json:"upgradeName" xml:"UpgradeName"`
+UpgradeStep string `json:"upgradeStep" xml:"UpgradeStep"`
 }
 
 type IAMFederationOptionsInput struct {
-	Enabled    bool   `json:"enabled" xml:"Enabled"`
-	RolesKey   string `json:"rolesKey" xml:"RolesKey"`
-	SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+RolesKey string `json:"rolesKey" xml:"RolesKey"`
+SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
 }
 
 type IAMFederationOptionsOutput struct {
-	Enabled    bool   `json:"enabled" xml:"Enabled"`
-	RolesKey   string `json:"rolesKey" xml:"RolesKey"`
-	SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+RolesKey string `json:"rolesKey" xml:"RolesKey"`
+SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
 }
 
 type IPAddressTypeStatus struct {
-	Options string        `json:"options" xml:"Options"`
-	Status  *OptionStatus `json:"status" xml:"Status"`
+Options string `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type IamIdentityCenterOptions struct {
-	Enabled                                bool   `json:"enabled" xml:"enabled"`
-	IamIdentityCenterApplicationArn        string `json:"iamIdentityCenterApplicationArn" xml:"iamIdentityCenterApplicationArn"`
-	IamIdentityCenterInstanceArn           string `json:"iamIdentityCenterInstanceArn" xml:"iamIdentityCenterInstanceArn"`
-	IamRoleForIdentityCenterApplicationArn string `json:"iamRoleForIdentityCenterApplicationArn" xml:"iamRoleForIdentityCenterApplicationArn"`
+Enabled bool `json:"enabled" xml:"enabled"`
+IamIdentityCenterApplicationArn string `json:"iamIdentityCenterApplicationArn" xml:"iamIdentityCenterApplicationArn"`
+IamIdentityCenterInstanceArn string `json:"iamIdentityCenterInstanceArn" xml:"iamIdentityCenterInstanceArn"`
+IamRoleForIdentityCenterApplicationArn string `json:"iamRoleForIdentityCenterApplicationArn" xml:"iamRoleForIdentityCenterApplicationArn"`
 }
 
 type IamIdentityCenterOptionsInput struct {
-	Enabled                                bool   `json:"enabled" xml:"enabled"`
-	IamIdentityCenterInstanceArn           string `json:"iamIdentityCenterInstanceArn" xml:"iamIdentityCenterInstanceArn"`
-	IamRoleForIdentityCenterApplicationArn string `json:"iamRoleForIdentityCenterApplicationArn" xml:"iamRoleForIdentityCenterApplicationArn"`
+Enabled bool `json:"enabled" xml:"enabled"`
+IamIdentityCenterInstanceArn string `json:"iamIdentityCenterInstanceArn" xml:"iamIdentityCenterInstanceArn"`
+IamRoleForIdentityCenterApplicationArn string `json:"iamRoleForIdentityCenterApplicationArn" xml:"iamRoleForIdentityCenterApplicationArn"`
 }
 
 type IdentityCenterOptions struct {
-	EnabledAPIAccess             bool   `json:"enabledAPIAccess" xml:"EnabledAPIAccess"`
-	IdentityCenterApplicationARN string `json:"identityCenterApplicationARN" xml:"IdentityCenterApplicationARN"`
-	IdentityCenterInstanceARN    string `json:"identityCenterInstanceARN" xml:"IdentityCenterInstanceARN"`
-	IdentityStoreId              string `json:"identityStoreId" xml:"IdentityStoreId"`
-	RolesKey                     string `json:"rolesKey" xml:"RolesKey"`
-	SubjectKey                   string `json:"subjectKey" xml:"SubjectKey"`
+EnabledAPIAccess bool `json:"enabledAPIAccess" xml:"EnabledAPIAccess"`
+IdentityCenterApplicationARN string `json:"identityCenterApplicationARN" xml:"IdentityCenterApplicationARN"`
+IdentityCenterInstanceARN string `json:"identityCenterInstanceARN" xml:"IdentityCenterInstanceARN"`
+IdentityStoreId string `json:"identityStoreId" xml:"IdentityStoreId"`
+RolesKey string `json:"rolesKey" xml:"RolesKey"`
+SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
 }
 
 type IdentityCenterOptionsInput struct {
-	EnabledAPIAccess          bool   `json:"enabledAPIAccess" xml:"EnabledAPIAccess"`
-	IdentityCenterInstanceARN string `json:"identityCenterInstanceARN" xml:"IdentityCenterInstanceARN"`
-	RolesKey                  string `json:"rolesKey" xml:"RolesKey"`
-	SubjectKey                string `json:"subjectKey" xml:"SubjectKey"`
+EnabledAPIAccess bool `json:"enabledAPIAccess" xml:"EnabledAPIAccess"`
+IdentityCenterInstanceARN string `json:"identityCenterInstanceARN" xml:"IdentityCenterInstanceARN"`
+RolesKey string `json:"rolesKey" xml:"RolesKey"`
+SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
 }
 
 type IdentityCenterOptionsStatus struct {
-	Options *IdentityCenterOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus          `json:"status" xml:"Status"`
+Options *IdentityCenterOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type InboundConnection struct {
-	ConnectionId     string                      `json:"connectionId" xml:"ConnectionId"`
-	ConnectionMode   string                      `json:"connectionMode" xml:"ConnectionMode"`
-	ConnectionStatus *InboundConnectionStatus    `json:"connectionStatus" xml:"ConnectionStatus"`
-	LocalDomainInfo  *DomainInformationContainer `json:"localDomainInfo" xml:"LocalDomainInfo"`
-	RemoteDomainInfo *DomainInformationContainer `json:"remoteDomainInfo" xml:"RemoteDomainInfo"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionMode string `json:"connectionMode" xml:"ConnectionMode"`
+ConnectionStatus *InboundConnectionStatus `json:"connectionStatus" xml:"ConnectionStatus"`
+LocalDomainInfo *DomainInformationContainer `json:"localDomainInfo" xml:"LocalDomainInfo"`
+RemoteDomainInfo *DomainInformationContainer `json:"remoteDomainInfo" xml:"RemoteDomainInfo"`
 }
 
 type InboundConnectionStatus struct {
-	Message    string `json:"message" xml:"Message"`
-	StatusCode string `json:"statusCode" xml:"StatusCode"`
+Message string `json:"message" xml:"Message"`
+StatusCode string `json:"statusCode" xml:"StatusCode"`
 }
 
 type Insight struct {
-	CreationTime   time.Time `json:"creationTime" xml:"CreationTime"`
-	DisplayName    string    `json:"displayName" xml:"DisplayName"`
-	InsightId      string    `json:"insightId" xml:"InsightId"`
-	IsExperimental bool      `json:"isExperimental" xml:"IsExperimental"`
-	Priority       string    `json:"priority" xml:"Priority"`
-	Status         string    `json:"status" xml:"Status"`
-	Type           string    `json:"type" xml:"Type"`
-	UpdateTime     time.Time `json:"updateTime" xml:"UpdateTime"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+InsightId string `json:"insightId" xml:"InsightId"`
+IsExperimental bool `json:"isExperimental" xml:"IsExperimental"`
+Priority string `json:"priority" xml:"Priority"`
+Status string `json:"status" xml:"Status"`
+Type string `json:"type" xml:"Type"`
+UpdateTime time.Time `json:"updateTime" xml:"UpdateTime"`
 }
 
 type InsightEntity struct {
-	Type  string `json:"type" xml:"Type"`
-	Value string `json:"value" xml:"Value"`
+Type string `json:"type" xml:"Type"`
+Value string `json:"value" xml:"Value"`
 }
 
 type InsightField struct {
-	Name  string `json:"name" xml:"Name"`
-	Type  string `json:"type" xml:"Type"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Type string `json:"type" xml:"Type"`
+Value string `json:"value" xml:"Value"`
 }
 
 type InsightTimeRange struct {
-	From int64 `json:"from" xml:"From"`
-	To   int64 `json:"to" xml:"To"`
+From int64 `json:"from" xml:"From"`
+To int64 `json:"to" xml:"To"`
 }
 
 type InstanceCountLimits struct {
-	MaximumInstanceCount int32 `json:"maximumInstanceCount" xml:"MaximumInstanceCount"`
-	MinimumInstanceCount int32 `json:"minimumInstanceCount" xml:"MinimumInstanceCount"`
+MaximumInstanceCount int32 `json:"maximumInstanceCount" xml:"MaximumInstanceCount"`
+MinimumInstanceCount int32 `json:"minimumInstanceCount" xml:"MinimumInstanceCount"`
 }
 
 type InstanceLimits struct {
-	InstanceCountLimits *InstanceCountLimits `json:"instanceCountLimits" xml:"InstanceCountLimits"`
+InstanceCountLimits *InstanceCountLimits `json:"instanceCountLimits" xml:"InstanceCountLimits"`
 }
 
 type InstanceTypeDetails struct {
-	AdvancedSecurityEnabled bool                 `json:"advancedSecurityEnabled" xml:"AdvancedSecurityEnabled"`
-	AppLogsEnabled          bool                 `json:"appLogsEnabled" xml:"AppLogsEnabled"`
-	AvailabilityZones       AvailabilityZoneList `json:"availabilityZones" xml:"AvailabilityZones"`
-	CognitoEnabled          bool                 `json:"cognitoEnabled" xml:"CognitoEnabled"`
-	EncryptionEnabled       bool                 `json:"encryptionEnabled" xml:"EncryptionEnabled"`
-	InstanceRole            InstanceRoleList     `json:"instanceRole" xml:"InstanceRole"`
-	InstanceType            string               `json:"instanceType" xml:"InstanceType"`
-	WarmEnabled             bool                 `json:"warmEnabled" xml:"WarmEnabled"`
+AdvancedSecurityEnabled bool `json:"advancedSecurityEnabled" xml:"AdvancedSecurityEnabled"`
+AppLogsEnabled bool `json:"appLogsEnabled" xml:"AppLogsEnabled"`
+AvailabilityZones AvailabilityZoneList `json:"availabilityZones" xml:"AvailabilityZones"`
+CognitoEnabled bool `json:"cognitoEnabled" xml:"CognitoEnabled"`
+EncryptionEnabled bool `json:"encryptionEnabled" xml:"EncryptionEnabled"`
+InstanceRole InstanceRoleList `json:"instanceRole" xml:"InstanceRole"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+WarmEnabled bool `json:"warmEnabled" xml:"WarmEnabled"`
 }
 
 type JWTOptionsInput struct {
-	Enabled    bool   `json:"enabled" xml:"Enabled"`
-	PublicKey  string `json:"publicKey" xml:"PublicKey"`
-	RolesKey   string `json:"rolesKey" xml:"RolesKey"`
-	SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+PublicKey string `json:"publicKey" xml:"PublicKey"`
+RolesKey string `json:"rolesKey" xml:"RolesKey"`
+SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
 }
 
 type JWTOptionsOutput struct {
-	Enabled    bool   `json:"enabled" xml:"Enabled"`
-	PublicKey  string `json:"publicKey" xml:"PublicKey"`
-	RolesKey   string `json:"rolesKey" xml:"RolesKey"`
-	SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+PublicKey string `json:"publicKey" xml:"PublicKey"`
+RolesKey string `json:"rolesKey" xml:"RolesKey"`
+SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
 }
 
 type KeyStoreAccessOption struct {
-	KeyAccessRoleArn      string `json:"keyAccessRoleArn" xml:"KeyAccessRoleArn"`
-	KeyStoreAccessEnabled bool   `json:"keyStoreAccessEnabled" xml:"KeyStoreAccessEnabled"`
+KeyAccessRoleArn string `json:"keyAccessRoleArn" xml:"KeyAccessRoleArn"`
+KeyStoreAccessEnabled bool `json:"keyStoreAccessEnabled" xml:"KeyStoreAccessEnabled"`
 }
 
 type Limits struct {
-	AdditionalLimits AdditionalLimitList `json:"additionalLimits" xml:"AdditionalLimits"`
-	InstanceLimits   *InstanceLimits     `json:"instanceLimits" xml:"InstanceLimits"`
-	StorageTypes     StorageTypeList     `json:"storageTypes" xml:"StorageTypes"`
+AdditionalLimits AdditionalLimitList `json:"additionalLimits" xml:"AdditionalLimits"`
+InstanceLimits *InstanceLimits `json:"instanceLimits" xml:"InstanceLimits"`
+StorageTypes StorageTypeList `json:"storageTypes" xml:"StorageTypes"`
 }
 
 type ListApplicationsRequest struct {
-	MaxResults int32               `json:"maxResults" xml:"maxResults"`
-	NextToken  string              `json:"nextToken" xml:"nextToken"`
-	Statuses   ApplicationStatuses `json:"statuses" xml:"statuses"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Statuses ApplicationStatuses `json:"statuses" xml:"statuses"`
 }
 
 type ListApplicationsResponse struct {
-	ApplicationSummaries ApplicationSummaries `json:"applicationSummaries" xml:"ApplicationSummaries"`
-	NextToken            string               `json:"nextToken" xml:"nextToken"`
+ApplicationSummaries ApplicationSummaries `json:"applicationSummaries" xml:"ApplicationSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDataSourcesRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type ListDataSourcesResponse struct {
-	DataSources DataSourceList `json:"dataSources" xml:"DataSources"`
+DataSources DataSourceList `json:"dataSources" xml:"DataSources"`
 }
 
 type ListDirectQueryDataSourcesRequest struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDirectQueryDataSourcesResponse struct {
-	DirectQueryDataSources DirectQueryDataSourceList `json:"directQueryDataSources" xml:"DirectQueryDataSources"`
-	NextToken              string                    `json:"nextToken" xml:"NextToken"`
+DirectQueryDataSources DirectQueryDataSourceList `json:"directQueryDataSources" xml:"DirectQueryDataSources"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDomainMaintenancesRequest struct {
-	Action     string `json:"action" xml:"Action"`
-	DomainName string `json:"domainName" xml:"DomainName"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	Status     string `json:"status" xml:"Status"`
+Action string `json:"action" xml:"Action"`
+DomainName string `json:"domainName" xml:"DomainName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ListDomainMaintenancesResponse struct {
-	DomainMaintenances DomainMaintenanceList `json:"domainMaintenances" xml:"DomainMaintenances"`
-	NextToken          string                `json:"nextToken" xml:"NextToken"`
+DomainMaintenances DomainMaintenanceList `json:"domainMaintenances" xml:"DomainMaintenances"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDomainNamesRequest struct {
-	EngineType string `json:"engineType" xml:"EngineType"`
+EngineType string `json:"engineType" xml:"EngineType"`
 }
 
 type ListDomainNamesResponse struct {
-	DomainNames DomainInfoList `json:"domainNames" xml:"DomainNames"`
+DomainNames DomainInfoList `json:"domainNames" xml:"DomainNames"`
 }
 
 type ListDomainsForPackageRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	PackageID  string `json:"packageID" xml:"PackageID"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PackageID string `json:"packageID" xml:"PackageID"`
 }
 
 type ListDomainsForPackageResponse struct {
-	DomainPackageDetailsList DomainPackageDetailsList `json:"domainPackageDetailsList" xml:"DomainPackageDetailsList"`
-	NextToken                string                   `json:"nextToken" xml:"NextToken"`
+DomainPackageDetailsList DomainPackageDetailsList `json:"domainPackageDetailsList" xml:"DomainPackageDetailsList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListInsightsRequest struct {
-	Entity     *InsightEntity    `json:"entity" xml:"Entity"`
-	MaxResults int32             `json:"maxResults" xml:"MaxResults"`
-	NextToken  string            `json:"nextToken" xml:"NextToken"`
-	SortOrder  string            `json:"sortOrder" xml:"SortOrder"`
-	TimeRange  *InsightTimeRange `json:"timeRange" xml:"TimeRange"`
+Entity *InsightEntity `json:"entity" xml:"Entity"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SortOrder string `json:"sortOrder" xml:"SortOrder"`
+TimeRange *InsightTimeRange `json:"timeRange" xml:"TimeRange"`
 }
 
 type ListInsightsResponse struct {
-	Insights  InsightList `json:"insights" xml:"Insights"`
-	NextToken string      `json:"nextToken" xml:"NextToken"`
+Insights InsightList `json:"insights" xml:"Insights"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListInstanceTypeDetailsRequest struct {
-	DomainName    string `json:"domainName" xml:"DomainName"`
-	EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
-	InstanceType  string `json:"instanceType" xml:"InstanceType"`
-	MaxResults    int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
-	RetrieveAZs   bool   `json:"retrieveAZs" xml:"RetrieveAZs"`
+DomainName string `json:"domainName" xml:"DomainName"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RetrieveAZs bool `json:"retrieveAZs" xml:"RetrieveAZs"`
 }
 
 type ListInstanceTypeDetailsResponse struct {
-	InstanceTypeDetails InstanceTypeDetailsList `json:"instanceTypeDetails" xml:"InstanceTypeDetails"`
-	NextToken           string                  `json:"nextToken" xml:"NextToken"`
+InstanceTypeDetails InstanceTypeDetailsList `json:"instanceTypeDetails" xml:"InstanceTypeDetails"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListPackagesForDomainRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+DomainName string `json:"domainName" xml:"DomainName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListPackagesForDomainResponse struct {
-	DomainPackageDetailsList DomainPackageDetailsList `json:"domainPackageDetailsList" xml:"DomainPackageDetailsList"`
-	NextToken                string                   `json:"nextToken" xml:"NextToken"`
+DomainPackageDetailsList DomainPackageDetailsList `json:"domainPackageDetailsList" xml:"DomainPackageDetailsList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListScheduledActionsRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+DomainName string `json:"domainName" xml:"DomainName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListScheduledActionsResponse struct {
-	NextToken        string               `json:"nextToken" xml:"NextToken"`
-	ScheduledActions ScheduledActionsList `json:"scheduledActions" xml:"ScheduledActions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ScheduledActions ScheduledActionsList `json:"scheduledActions" xml:"ScheduledActions"`
 }
 
 type ListTagsRequest struct {
-	ARN string `json:"aRN" xml:"ARN"`
+ARN string `json:"aRN" xml:"ARN"`
 }
 
 type ListTagsResponse struct {
-	TagList TagList `json:"tagList" xml:"TagList"`
+TagList TagList `json:"tagList" xml:"TagList"`
 }
 
 type ListVersionsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListVersionsResponse struct {
-	NextToken string      `json:"nextToken" xml:"NextToken"`
-	Versions  VersionList `json:"versions" xml:"Versions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Versions VersionList `json:"versions" xml:"Versions"`
 }
 
 type ListVpcEndpointAccessRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+DomainName string `json:"domainName" xml:"DomainName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListVpcEndpointAccessResponse struct {
-	AuthorizedPrincipalList AuthorizedPrincipalList `json:"authorizedPrincipalList" xml:"AuthorizedPrincipalList"`
-	NextToken               string                  `json:"nextToken" xml:"NextToken"`
+AuthorizedPrincipalList AuthorizedPrincipalList `json:"authorizedPrincipalList" xml:"AuthorizedPrincipalList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListVpcEndpointsForDomainRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+DomainName string `json:"domainName" xml:"DomainName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListVpcEndpointsForDomainResponse struct {
-	NextToken              string                 `json:"nextToken" xml:"NextToken"`
-	VpcEndpointSummaryList VpcEndpointSummaryList `json:"vpcEndpointSummaryList" xml:"VpcEndpointSummaryList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+VpcEndpointSummaryList VpcEndpointSummaryList `json:"vpcEndpointSummaryList" xml:"VpcEndpointSummaryList"`
 }
 
 type ListVpcEndpointsRequest struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListVpcEndpointsResponse struct {
-	NextToken              string                 `json:"nextToken" xml:"NextToken"`
-	VpcEndpointSummaryList VpcEndpointSummaryList `json:"vpcEndpointSummaryList" xml:"VpcEndpointSummaryList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+VpcEndpointSummaryList VpcEndpointSummaryList `json:"vpcEndpointSummaryList" xml:"VpcEndpointSummaryList"`
 }
 
 type LogPublishingOption struct {
-	CloudWatchLogsLogGroupArn string `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
-	Enabled                   bool   `json:"enabled" xml:"Enabled"`
+CloudWatchLogsLogGroupArn string `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
+Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type LogPublishingOptionsStatus struct {
-	Options LogPublishingOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus        `json:"status" xml:"Status"`
+Options LogPublishingOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type MasterUserOptions struct {
-	MasterUserARN      string `json:"masterUserARN" xml:"MasterUserARN"`
-	MasterUserName     string `json:"masterUserName" xml:"MasterUserName"`
-	MasterUserPassword string `json:"masterUserPassword" xml:"MasterUserPassword"`
+MasterUserARN string `json:"masterUserARN" xml:"MasterUserARN"`
+MasterUserName string `json:"masterUserName" xml:"MasterUserName"`
+MasterUserPassword string `json:"masterUserPassword" xml:"MasterUserPassword"`
 }
 
 type ModifyingProperties struct {
-	ActiveValue  string `json:"activeValue" xml:"ActiveValue"`
-	Name         string `json:"name" xml:"Name"`
-	PendingValue string `json:"pendingValue" xml:"PendingValue"`
-	ValueType    string `json:"valueType" xml:"ValueType"`
+ActiveValue string `json:"activeValue" xml:"ActiveValue"`
+Name string `json:"name" xml:"Name"`
+PendingValue string `json:"pendingValue" xml:"PendingValue"`
+ValueType string `json:"valueType" xml:"ValueType"`
 }
 
 type NaturalLanguageQueryGenerationOptionsInput struct {
-	DesiredState string `json:"desiredState" xml:"DesiredState"`
+DesiredState string `json:"desiredState" xml:"DesiredState"`
 }
 
 type NaturalLanguageQueryGenerationOptionsOutput struct {
-	CurrentState string `json:"currentState" xml:"CurrentState"`
-	DesiredState string `json:"desiredState" xml:"DesiredState"`
+CurrentState string `json:"currentState" xml:"CurrentState"`
+DesiredState string `json:"desiredState" xml:"DesiredState"`
 }
 
 type NodeConfig struct {
-	Count   int32  `json:"count" xml:"Count"`
-	Enabled bool   `json:"enabled" xml:"Enabled"`
-	Type    string `json:"type" xml:"Type"`
+Count int32 `json:"count" xml:"Count"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Type string `json:"type" xml:"Type"`
 }
 
 type NodeOption struct {
-	NodeConfig *NodeConfig `json:"nodeConfig" xml:"NodeConfig"`
-	NodeType   string      `json:"nodeType" xml:"NodeType"`
+NodeConfig *NodeConfig `json:"nodeConfig" xml:"NodeConfig"`
+NodeType string `json:"nodeType" xml:"NodeType"`
 }
 
 type NodeToNodeEncryptionOptions struct {
-	Enabled bool `json:"enabled" xml:"Enabled"`
+Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type NodeToNodeEncryptionOptionsStatus struct {
-	Options *NodeToNodeEncryptionOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus                `json:"status" xml:"Status"`
+Options *NodeToNodeEncryptionOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type OffPeakWindow struct {
-	WindowStartTime *WindowStartTime `json:"windowStartTime" xml:"WindowStartTime"`
+WindowStartTime *WindowStartTime `json:"windowStartTime" xml:"WindowStartTime"`
 }
 
 type OffPeakWindowOptions struct {
-	Enabled       bool           `json:"enabled" xml:"Enabled"`
-	OffPeakWindow *OffPeakWindow `json:"offPeakWindow" xml:"OffPeakWindow"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+OffPeakWindow *OffPeakWindow `json:"offPeakWindow" xml:"OffPeakWindow"`
 }
 
 type OffPeakWindowOptionsStatus struct {
-	Options *OffPeakWindowOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus         `json:"status" xml:"Status"`
+Options *OffPeakWindowOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type OptionStatus struct {
-	CreationDate    time.Time `json:"creationDate" xml:"CreationDate"`
-	PendingDeletion bool      `json:"pendingDeletion" xml:"PendingDeletion"`
-	State           string    `json:"state" xml:"State"`
-	UpdateDate      time.Time `json:"updateDate" xml:"UpdateDate"`
-	UpdateVersion   int32     `json:"updateVersion" xml:"UpdateVersion"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+PendingDeletion bool `json:"pendingDeletion" xml:"PendingDeletion"`
+State string `json:"state" xml:"State"`
+UpdateDate time.Time `json:"updateDate" xml:"UpdateDate"`
+UpdateVersion int32 `json:"updateVersion" xml:"UpdateVersion"`
 }
 
 type OutboundConnection struct {
-	ConnectionAlias      string                      `json:"connectionAlias" xml:"ConnectionAlias"`
-	ConnectionId         string                      `json:"connectionId" xml:"ConnectionId"`
-	ConnectionMode       string                      `json:"connectionMode" xml:"ConnectionMode"`
-	ConnectionProperties *ConnectionProperties       `json:"connectionProperties" xml:"ConnectionProperties"`
-	ConnectionStatus     *OutboundConnectionStatus   `json:"connectionStatus" xml:"ConnectionStatus"`
-	LocalDomainInfo      *DomainInformationContainer `json:"localDomainInfo" xml:"LocalDomainInfo"`
-	RemoteDomainInfo     *DomainInformationContainer `json:"remoteDomainInfo" xml:"RemoteDomainInfo"`
+ConnectionAlias string `json:"connectionAlias" xml:"ConnectionAlias"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionMode string `json:"connectionMode" xml:"ConnectionMode"`
+ConnectionProperties *ConnectionProperties `json:"connectionProperties" xml:"ConnectionProperties"`
+ConnectionStatus *OutboundConnectionStatus `json:"connectionStatus" xml:"ConnectionStatus"`
+LocalDomainInfo *DomainInformationContainer `json:"localDomainInfo" xml:"LocalDomainInfo"`
+RemoteDomainInfo *DomainInformationContainer `json:"remoteDomainInfo" xml:"RemoteDomainInfo"`
 }
 
 type OutboundConnectionStatus struct {
-	Message    string `json:"message" xml:"Message"`
-	StatusCode string `json:"statusCode" xml:"StatusCode"`
+Message string `json:"message" xml:"Message"`
+StatusCode string `json:"statusCode" xml:"StatusCode"`
 }
 
 type PackageAssociationConfiguration struct {
-	KeyStoreAccessOption *KeyStoreAccessOption `json:"keyStoreAccessOption" xml:"KeyStoreAccessOption"`
+KeyStoreAccessOption *KeyStoreAccessOption `json:"keyStoreAccessOption" xml:"KeyStoreAccessOption"`
 }
 
 type PackageConfiguration struct {
-	ConfigurationRequirement              string `json:"configurationRequirement" xml:"ConfigurationRequirement"`
-	LicenseFilepath                       string `json:"licenseFilepath" xml:"LicenseFilepath"`
-	LicenseRequirement                    string `json:"licenseRequirement" xml:"LicenseRequirement"`
-	RequiresRestartForConfigurationUpdate bool   `json:"requiresRestartForConfigurationUpdate" xml:"RequiresRestartForConfigurationUpdate"`
+ConfigurationRequirement string `json:"configurationRequirement" xml:"ConfigurationRequirement"`
+LicenseFilepath string `json:"licenseFilepath" xml:"LicenseFilepath"`
+LicenseRequirement string `json:"licenseRequirement" xml:"LicenseRequirement"`
+RequiresRestartForConfigurationUpdate bool `json:"requiresRestartForConfigurationUpdate" xml:"RequiresRestartForConfigurationUpdate"`
 }
 
 type PackageDetails struct {
-	AllowListedUserList           PackageUserList           `json:"allowListedUserList" xml:"AllowListedUserList"`
-	AvailablePackageConfiguration *PackageConfiguration     `json:"availablePackageConfiguration" xml:"AvailablePackageConfiguration"`
-	AvailablePackageVersion       string                    `json:"availablePackageVersion" xml:"AvailablePackageVersion"`
-	AvailablePluginProperties     *PluginProperties         `json:"availablePluginProperties" xml:"AvailablePluginProperties"`
-	CreatedAt                     time.Time                 `json:"createdAt" xml:"CreatedAt"`
-	EngineVersion                 string                    `json:"engineVersion" xml:"EngineVersion"`
-	ErrorDetails                  *ErrorDetails             `json:"errorDetails" xml:"ErrorDetails"`
-	LastUpdatedAt                 time.Time                 `json:"lastUpdatedAt" xml:"LastUpdatedAt"`
-	PackageDescription            string                    `json:"packageDescription" xml:"PackageDescription"`
-	PackageEncryptionOptions      *PackageEncryptionOptions `json:"packageEncryptionOptions" xml:"PackageEncryptionOptions"`
-	PackageID                     string                    `json:"packageID" xml:"PackageID"`
-	PackageName                   string                    `json:"packageName" xml:"PackageName"`
-	PackageOwner                  string                    `json:"packageOwner" xml:"PackageOwner"`
-	PackageStatus                 string                    `json:"packageStatus" xml:"PackageStatus"`
-	PackageType                   string                    `json:"packageType" xml:"PackageType"`
-	PackageVendingOptions         *PackageVendingOptions    `json:"packageVendingOptions" xml:"PackageVendingOptions"`
+AllowListedUserList PackageUserList `json:"allowListedUserList" xml:"AllowListedUserList"`
+AvailablePackageConfiguration *PackageConfiguration `json:"availablePackageConfiguration" xml:"AvailablePackageConfiguration"`
+AvailablePackageVersion string `json:"availablePackageVersion" xml:"AvailablePackageVersion"`
+AvailablePluginProperties *PluginProperties `json:"availablePluginProperties" xml:"AvailablePluginProperties"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+ErrorDetails *ErrorDetails `json:"errorDetails" xml:"ErrorDetails"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"LastUpdatedAt"`
+PackageDescription string `json:"packageDescription" xml:"PackageDescription"`
+PackageEncryptionOptions *PackageEncryptionOptions `json:"packageEncryptionOptions" xml:"PackageEncryptionOptions"`
+PackageID string `json:"packageID" xml:"PackageID"`
+PackageName string `json:"packageName" xml:"PackageName"`
+PackageOwner string `json:"packageOwner" xml:"PackageOwner"`
+PackageStatus string `json:"packageStatus" xml:"PackageStatus"`
+PackageType string `json:"packageType" xml:"PackageType"`
+PackageVendingOptions *PackageVendingOptions `json:"packageVendingOptions" xml:"PackageVendingOptions"`
 }
 
 type PackageDetailsForAssociation struct {
-	AssociationConfiguration  *PackageAssociationConfiguration `json:"associationConfiguration" xml:"AssociationConfiguration"`
-	PackageID                 string                           `json:"packageID" xml:"PackageID"`
-	PrerequisitePackageIDList PackageIDList                    `json:"prerequisitePackageIDList" xml:"PrerequisitePackageIDList"`
+AssociationConfiguration *PackageAssociationConfiguration `json:"associationConfiguration" xml:"AssociationConfiguration"`
+PackageID string `json:"packageID" xml:"PackageID"`
+PrerequisitePackageIDList PackageIDList `json:"prerequisitePackageIDList" xml:"PrerequisitePackageIDList"`
 }
 
 type PackageEncryptionOptions struct {
-	EncryptionEnabled bool   `json:"encryptionEnabled" xml:"EncryptionEnabled"`
-	KmsKeyIdentifier  string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+EncryptionEnabled bool `json:"encryptionEnabled" xml:"EncryptionEnabled"`
+KmsKeyIdentifier string `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
 }
 
 type PackageSource struct {
-	S3BucketName string `json:"s3BucketName" xml:"S3BucketName"`
-	S3Key        string `json:"s3Key" xml:"S3Key"`
+S3BucketName string `json:"s3BucketName" xml:"S3BucketName"`
+S3Key string `json:"s3Key" xml:"S3Key"`
 }
 
 type PackageVendingOptions struct {
-	VendingEnabled bool `json:"vendingEnabled" xml:"VendingEnabled"`
+VendingEnabled bool `json:"vendingEnabled" xml:"VendingEnabled"`
 }
 
 type PackageVersionHistory struct {
-	CommitMessage        string                `json:"commitMessage" xml:"CommitMessage"`
-	CreatedAt            time.Time             `json:"createdAt" xml:"CreatedAt"`
-	PackageConfiguration *PackageConfiguration `json:"packageConfiguration" xml:"PackageConfiguration"`
-	PackageVersion       string                `json:"packageVersion" xml:"PackageVersion"`
-	PluginProperties     *PluginProperties     `json:"pluginProperties" xml:"PluginProperties"`
+CommitMessage string `json:"commitMessage" xml:"CommitMessage"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+PackageConfiguration *PackageConfiguration `json:"packageConfiguration" xml:"PackageConfiguration"`
+PackageVersion string `json:"packageVersion" xml:"PackageVersion"`
+PluginProperties *PluginProperties `json:"pluginProperties" xml:"PluginProperties"`
 }
 
 type PluginProperties struct {
-	ClassName               string `json:"className" xml:"ClassName"`
-	Description             string `json:"description" xml:"Description"`
-	Name                    string `json:"name" xml:"Name"`
-	UncompressedSizeInBytes int64  `json:"uncompressedSizeInBytes" xml:"UncompressedSizeInBytes"`
-	Version                 string `json:"version" xml:"Version"`
+ClassName string `json:"className" xml:"ClassName"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+UncompressedSizeInBytes int64 `json:"uncompressedSizeInBytes" xml:"UncompressedSizeInBytes"`
+Version string `json:"version" xml:"Version"`
 }
 
 type PrometheusDirectQueryDataSource struct {
-	RoleArn      string `json:"roleArn" xml:"RoleArn"`
-	WorkspaceArn string `json:"workspaceArn" xml:"WorkspaceArn"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+WorkspaceArn string `json:"workspaceArn" xml:"WorkspaceArn"`
 }
 
 type PurchaseReservedInstanceOfferingRequest struct {
-	InstanceCount              int32  `json:"instanceCount" xml:"InstanceCount"`
-	ReservationName            string `json:"reservationName" xml:"ReservationName"`
-	ReservedInstanceOfferingId string `json:"reservedInstanceOfferingId" xml:"ReservedInstanceOfferingId"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+ReservationName string `json:"reservationName" xml:"ReservationName"`
+ReservedInstanceOfferingId string `json:"reservedInstanceOfferingId" xml:"ReservedInstanceOfferingId"`
 }
 
 type PurchaseReservedInstanceOfferingResponse struct {
-	ReservationName    string `json:"reservationName" xml:"ReservationName"`
-	ReservedInstanceId string `json:"reservedInstanceId" xml:"ReservedInstanceId"`
+ReservationName string `json:"reservationName" xml:"ReservationName"`
+ReservedInstanceId string `json:"reservedInstanceId" xml:"ReservedInstanceId"`
 }
 
 type PutDefaultApplicationSettingRequest struct {
-	ApplicationArn string `json:"applicationArn" xml:"applicationArn"`
-	SetAsDefault   bool   `json:"setAsDefault" xml:"setAsDefault"`
+ApplicationArn string `json:"applicationArn" xml:"applicationArn"`
+SetAsDefault bool `json:"setAsDefault" xml:"setAsDefault"`
 }
 
 type PutDefaultApplicationSettingResponse struct {
-	ApplicationArn string `json:"applicationArn" xml:"applicationArn"`
+ApplicationArn string `json:"applicationArn" xml:"applicationArn"`
 }
 
 type RecurringCharge struct {
-	RecurringChargeAmount    float64 `json:"recurringChargeAmount" xml:"RecurringChargeAmount"`
-	RecurringChargeFrequency string  `json:"recurringChargeFrequency" xml:"RecurringChargeFrequency"`
+RecurringChargeAmount float64 `json:"recurringChargeAmount" xml:"RecurringChargeAmount"`
+RecurringChargeFrequency string `json:"recurringChargeFrequency" xml:"RecurringChargeFrequency"`
 }
 
 type RegisterCapabilityRequest struct {
-	ApplicationId    string      `json:"applicationId" xml:"applicationId"`
-	CapabilityConfig interface{} `json:"capabilityConfig" xml:"capabilityConfig"`
-	CapabilityName   string      `json:"capabilityName" xml:"capabilityName"`
+ApplicationId string `json:"applicationId" xml:"applicationId"`
+CapabilityConfig interface{} `json:"capabilityConfig" xml:"capabilityConfig"`
+CapabilityName string `json:"capabilityName" xml:"capabilityName"`
 }
 
 type RegisterCapabilityResponse struct {
-	ApplicationId    string      `json:"applicationId" xml:"applicationId"`
-	CapabilityConfig interface{} `json:"capabilityConfig" xml:"capabilityConfig"`
-	CapabilityName   string      `json:"capabilityName" xml:"capabilityName"`
-	Status           string      `json:"status" xml:"status"`
+ApplicationId string `json:"applicationId" xml:"applicationId"`
+CapabilityConfig interface{} `json:"capabilityConfig" xml:"capabilityConfig"`
+CapabilityName string `json:"capabilityName" xml:"capabilityName"`
+Status string `json:"status" xml:"status"`
 }
 
 type RejectInboundConnectionRequest struct {
-	ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
 }
 
 type RejectInboundConnectionResponse struct {
-	Connection *InboundConnection `json:"connection" xml:"Connection"`
+Connection *InboundConnection `json:"connection" xml:"Connection"`
 }
 
 type RemoveTagsRequest struct {
-	ARN     string     `json:"aRN" xml:"ARN"`
-	TagKeys StringList `json:"tagKeys" xml:"TagKeys"`
+ARN string `json:"aRN" xml:"ARN"`
+TagKeys StringList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type ReservedInstance struct {
-	BillingSubscriptionId      int64               `json:"billingSubscriptionId" xml:"BillingSubscriptionId"`
-	CurrencyCode               string              `json:"currencyCode" xml:"CurrencyCode"`
-	Duration                   int32               `json:"duration" xml:"Duration"`
-	FixedPrice                 float64             `json:"fixedPrice" xml:"FixedPrice"`
-	InstanceCount              int32               `json:"instanceCount" xml:"InstanceCount"`
-	InstanceType               string              `json:"instanceType" xml:"InstanceType"`
-	PaymentOption              string              `json:"paymentOption" xml:"PaymentOption"`
-	RecurringCharges           RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
-	ReservationName            string              `json:"reservationName" xml:"ReservationName"`
-	ReservedInstanceId         string              `json:"reservedInstanceId" xml:"ReservedInstanceId"`
-	ReservedInstanceOfferingId string              `json:"reservedInstanceOfferingId" xml:"ReservedInstanceOfferingId"`
-	StartTime                  time.Time           `json:"startTime" xml:"StartTime"`
-	State                      string              `json:"state" xml:"State"`
-	UsagePrice                 float64             `json:"usagePrice" xml:"UsagePrice"`
+BillingSubscriptionId int64 `json:"billingSubscriptionId" xml:"BillingSubscriptionId"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+Duration int32 `json:"duration" xml:"Duration"`
+FixedPrice float64 `json:"fixedPrice" xml:"FixedPrice"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+PaymentOption string `json:"paymentOption" xml:"PaymentOption"`
+RecurringCharges RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
+ReservationName string `json:"reservationName" xml:"ReservationName"`
+ReservedInstanceId string `json:"reservedInstanceId" xml:"ReservedInstanceId"`
+ReservedInstanceOfferingId string `json:"reservedInstanceOfferingId" xml:"ReservedInstanceOfferingId"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+State string `json:"state" xml:"State"`
+UsagePrice float64 `json:"usagePrice" xml:"UsagePrice"`
 }
 
 type ReservedInstanceOffering struct {
-	CurrencyCode               string              `json:"currencyCode" xml:"CurrencyCode"`
-	Duration                   int32               `json:"duration" xml:"Duration"`
-	FixedPrice                 float64             `json:"fixedPrice" xml:"FixedPrice"`
-	InstanceType               string              `json:"instanceType" xml:"InstanceType"`
-	PaymentOption              string              `json:"paymentOption" xml:"PaymentOption"`
-	RecurringCharges           RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
-	ReservedInstanceOfferingId string              `json:"reservedInstanceOfferingId" xml:"ReservedInstanceOfferingId"`
-	UsagePrice                 float64             `json:"usagePrice" xml:"UsagePrice"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+Duration int32 `json:"duration" xml:"Duration"`
+FixedPrice float64 `json:"fixedPrice" xml:"FixedPrice"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+PaymentOption string `json:"paymentOption" xml:"PaymentOption"`
+RecurringCharges RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
+ReservedInstanceOfferingId string `json:"reservedInstanceOfferingId" xml:"ReservedInstanceOfferingId"`
+UsagePrice float64 `json:"usagePrice" xml:"UsagePrice"`
 }
 
 type RevokeVpcEndpointAccessRequest struct {
-	Account    string `json:"account" xml:"Account"`
-	DomainName string `json:"domainName" xml:"DomainName"`
-	Service    string `json:"service" xml:"Service"`
+Account string `json:"account" xml:"Account"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Service string `json:"service" xml:"Service"`
 }
 
 type RevokeVpcEndpointAccessResponse struct {
 }
 
 type S3GlueDataCatalog struct {
-	RoleArn string `json:"roleArn" xml:"RoleArn"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type S3VectorsEngine struct {
-	Enabled bool `json:"enabled" xml:"Enabled"`
+Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type SAMLIdp struct {
-	EntityId        string `json:"entityId" xml:"EntityId"`
-	MetadataContent string `json:"metadataContent" xml:"MetadataContent"`
+EntityId string `json:"entityId" xml:"EntityId"`
+MetadataContent string `json:"metadataContent" xml:"MetadataContent"`
 }
 
 type SAMLOptionsInput struct {
-	Enabled               bool     `json:"enabled" xml:"Enabled"`
-	Idp                   *SAMLIdp `json:"idp" xml:"Idp"`
-	MasterBackendRole     string   `json:"masterBackendRole" xml:"MasterBackendRole"`
-	MasterUserName        string   `json:"masterUserName" xml:"MasterUserName"`
-	RolesKey              string   `json:"rolesKey" xml:"RolesKey"`
-	SessionTimeoutMinutes int32    `json:"sessionTimeoutMinutes" xml:"SessionTimeoutMinutes"`
-	SubjectKey            string   `json:"subjectKey" xml:"SubjectKey"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Idp *SAMLIdp `json:"idp" xml:"Idp"`
+MasterBackendRole string `json:"masterBackendRole" xml:"MasterBackendRole"`
+MasterUserName string `json:"masterUserName" xml:"MasterUserName"`
+RolesKey string `json:"rolesKey" xml:"RolesKey"`
+SessionTimeoutMinutes int32 `json:"sessionTimeoutMinutes" xml:"SessionTimeoutMinutes"`
+SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
 }
 
 type SAMLOptionsOutput struct {
-	Enabled               bool     `json:"enabled" xml:"Enabled"`
-	Idp                   *SAMLIdp `json:"idp" xml:"Idp"`
-	RolesKey              string   `json:"rolesKey" xml:"RolesKey"`
-	SessionTimeoutMinutes int32    `json:"sessionTimeoutMinutes" xml:"SessionTimeoutMinutes"`
-	SubjectKey            string   `json:"subjectKey" xml:"SubjectKey"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Idp *SAMLIdp `json:"idp" xml:"Idp"`
+RolesKey string `json:"rolesKey" xml:"RolesKey"`
+SessionTimeoutMinutes int32 `json:"sessionTimeoutMinutes" xml:"SessionTimeoutMinutes"`
+SubjectKey string `json:"subjectKey" xml:"SubjectKey"`
 }
 
 type ScheduledAction struct {
-	Cancellable   bool   `json:"cancellable" xml:"Cancellable"`
-	Description   string `json:"description" xml:"Description"`
-	Id            string `json:"id" xml:"Id"`
-	Mandatory     bool   `json:"mandatory" xml:"Mandatory"`
-	ScheduledBy   string `json:"scheduledBy" xml:"ScheduledBy"`
-	ScheduledTime int64  `json:"scheduledTime" xml:"ScheduledTime"`
-	Severity      string `json:"severity" xml:"Severity"`
-	Status        string `json:"status" xml:"Status"`
-	Type          string `json:"type" xml:"Type"`
+Cancellable bool `json:"cancellable" xml:"Cancellable"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+Mandatory bool `json:"mandatory" xml:"Mandatory"`
+ScheduledBy string `json:"scheduledBy" xml:"ScheduledBy"`
+ScheduledTime int64 `json:"scheduledTime" xml:"ScheduledTime"`
+Severity string `json:"severity" xml:"Severity"`
+Status string `json:"status" xml:"Status"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ScheduledAutoTuneDetails struct {
-	Action     string    `json:"action" xml:"Action"`
-	ActionType string    `json:"actionType" xml:"ActionType"`
-	Date       time.Time `json:"date" xml:"Date"`
-	Severity   string    `json:"severity" xml:"Severity"`
+Action string `json:"action" xml:"Action"`
+ActionType string `json:"actionType" xml:"ActionType"`
+Date time.Time `json:"date" xml:"Date"`
+Severity string `json:"severity" xml:"Severity"`
 }
 
 type SecurityLakeDirectQueryDataSource struct {
-	RoleArn string `json:"roleArn" xml:"RoleArn"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type ServerlessVectorAcceleration struct {
-	Enabled bool `json:"enabled" xml:"Enabled"`
+Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type ServiceSoftwareOptions struct {
-	AutomatedUpdateDate time.Time `json:"automatedUpdateDate" xml:"AutomatedUpdateDate"`
-	Cancellable         bool      `json:"cancellable" xml:"Cancellable"`
-	CurrentVersion      string    `json:"currentVersion" xml:"CurrentVersion"`
-	Description         string    `json:"description" xml:"Description"`
-	NewVersion          string    `json:"newVersion" xml:"NewVersion"`
-	OptionalDeployment  bool      `json:"optionalDeployment" xml:"OptionalDeployment"`
-	UpdateAvailable     bool      `json:"updateAvailable" xml:"UpdateAvailable"`
-	UpdateStatus        string    `json:"updateStatus" xml:"UpdateStatus"`
+AutomatedUpdateDate time.Time `json:"automatedUpdateDate" xml:"AutomatedUpdateDate"`
+Cancellable bool `json:"cancellable" xml:"Cancellable"`
+CurrentVersion string `json:"currentVersion" xml:"CurrentVersion"`
+Description string `json:"description" xml:"Description"`
+NewVersion string `json:"newVersion" xml:"NewVersion"`
+OptionalDeployment bool `json:"optionalDeployment" xml:"OptionalDeployment"`
+UpdateAvailable bool `json:"updateAvailable" xml:"UpdateAvailable"`
+UpdateStatus string `json:"updateStatus" xml:"UpdateStatus"`
 }
 
 type SmithyUnit struct {
 }
 
 type SnapshotOptions struct {
-	AutomatedSnapshotStartHour int32 `json:"automatedSnapshotStartHour" xml:"AutomatedSnapshotStartHour"`
+AutomatedSnapshotStartHour int32 `json:"automatedSnapshotStartHour" xml:"AutomatedSnapshotStartHour"`
 }
 
 type SnapshotOptionsStatus struct {
-	Options *SnapshotOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus    `json:"status" xml:"Status"`
+Options *SnapshotOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type SoftwareUpdateOptions struct {
-	AutoSoftwareUpdateEnabled bool `json:"autoSoftwareUpdateEnabled" xml:"AutoSoftwareUpdateEnabled"`
+AutoSoftwareUpdateEnabled bool `json:"autoSoftwareUpdateEnabled" xml:"AutoSoftwareUpdateEnabled"`
 }
 
 type SoftwareUpdateOptionsStatus struct {
-	Options *SoftwareUpdateOptions `json:"options" xml:"Options"`
-	Status  *OptionStatus          `json:"status" xml:"Status"`
+Options *SoftwareUpdateOptions `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type StartDomainMaintenanceRequest struct {
-	Action     string `json:"action" xml:"Action"`
-	DomainName string `json:"domainName" xml:"DomainName"`
-	NodeId     string `json:"nodeId" xml:"NodeId"`
+Action string `json:"action" xml:"Action"`
+DomainName string `json:"domainName" xml:"DomainName"`
+NodeId string `json:"nodeId" xml:"NodeId"`
 }
 
 type StartDomainMaintenanceResponse struct {
-	MaintenanceId string `json:"maintenanceId" xml:"MaintenanceId"`
+MaintenanceId string `json:"maintenanceId" xml:"MaintenanceId"`
 }
 
 type StartServiceSoftwareUpdateRequest struct {
-	DesiredStartTime int64  `json:"desiredStartTime" xml:"DesiredStartTime"`
-	DomainName       string `json:"domainName" xml:"DomainName"`
-	ScheduleAt       string `json:"scheduleAt" xml:"ScheduleAt"`
+DesiredStartTime int64 `json:"desiredStartTime" xml:"DesiredStartTime"`
+DomainName string `json:"domainName" xml:"DomainName"`
+ScheduleAt string `json:"scheduleAt" xml:"ScheduleAt"`
 }
 
 type StartServiceSoftwareUpdateResponse struct {
-	ServiceSoftwareOptions *ServiceSoftwareOptions `json:"serviceSoftwareOptions" xml:"ServiceSoftwareOptions"`
+ServiceSoftwareOptions *ServiceSoftwareOptions `json:"serviceSoftwareOptions" xml:"ServiceSoftwareOptions"`
 }
 
 type StorageType struct {
-	StorageSubTypeName string               `json:"storageSubTypeName" xml:"StorageSubTypeName"`
-	StorageTypeLimits  StorageTypeLimitList `json:"storageTypeLimits" xml:"StorageTypeLimits"`
-	StorageTypeName    string               `json:"storageTypeName" xml:"StorageTypeName"`
+StorageSubTypeName string `json:"storageSubTypeName" xml:"StorageSubTypeName"`
+StorageTypeLimits StorageTypeLimitList `json:"storageTypeLimits" xml:"StorageTypeLimits"`
+StorageTypeName string `json:"storageTypeName" xml:"StorageTypeName"`
 }
 
 type StorageTypeLimit struct {
-	LimitName   string         `json:"limitName" xml:"LimitName"`
-	LimitValues LimitValueList `json:"limitValues" xml:"LimitValues"`
+LimitName string `json:"limitName" xml:"LimitName"`
+LimitValues LimitValueList `json:"limitValues" xml:"LimitValues"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type UpdateApplicationRequest struct {
-	AppConfigs  AppConfigs  `json:"appConfigs" xml:"appConfigs"`
-	DataSources DataSources `json:"dataSources" xml:"dataSources"`
-	Id          string      `json:"id" xml:"id"`
+AppConfigs AppConfigs `json:"appConfigs" xml:"appConfigs"`
+DataSources DataSources `json:"dataSources" xml:"dataSources"`
+Id string `json:"id" xml:"id"`
 }
 
 type UpdateApplicationResponse struct {
-	AppConfigs               AppConfigs                `json:"appConfigs" xml:"appConfigs"`
-	Arn                      string                    `json:"arn" xml:"arn"`
-	CreatedAt                time.Time                 `json:"createdAt" xml:"createdAt"`
-	DataSources              DataSources               `json:"dataSources" xml:"dataSources"`
-	IamIdentityCenterOptions *IamIdentityCenterOptions `json:"iamIdentityCenterOptions" xml:"iamIdentityCenterOptions"`
-	Id                       string                    `json:"id" xml:"id"`
-	LastUpdatedAt            time.Time                 `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	Name                     string                    `json:"name" xml:"name"`
+AppConfigs AppConfigs `json:"appConfigs" xml:"appConfigs"`
+Arn string `json:"arn" xml:"arn"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DataSources DataSources `json:"dataSources" xml:"dataSources"`
+IamIdentityCenterOptions *IamIdentityCenterOptions `json:"iamIdentityCenterOptions" xml:"iamIdentityCenterOptions"`
+Id string `json:"id" xml:"id"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+Name string `json:"name" xml:"name"`
 }
 
 type UpdateDataSourceRequest struct {
-	DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
-	Description    string      `json:"description" xml:"Description"`
-	DomainName     string      `json:"domainName" xml:"DomainName"`
-	Name           string      `json:"name" xml:"Name"`
-	Status         string      `json:"status" xml:"Status"`
+DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
+Description string `json:"description" xml:"Description"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type UpdateDataSourceResponse struct {
-	Message string `json:"message" xml:"Message"`
+Message string `json:"message" xml:"Message"`
 }
 
 type UpdateDirectQueryDataSourceRequest struct {
-	DataSourceAccessPolicy string                       `json:"dataSourceAccessPolicy" xml:"DataSourceAccessPolicy"`
-	DataSourceName         string                       `json:"dataSourceName" xml:"DataSourceName"`
-	DataSourceType         interface{}                  `json:"dataSourceType" xml:"DataSourceType"`
-	Description            string                       `json:"description" xml:"Description"`
-	OpenSearchArns         DirectQueryOpenSearchARNList `json:"openSearchArns" xml:"OpenSearchArns"`
+DataSourceAccessPolicy string `json:"dataSourceAccessPolicy" xml:"DataSourceAccessPolicy"`
+DataSourceName string `json:"dataSourceName" xml:"DataSourceName"`
+DataSourceType interface{} `json:"dataSourceType" xml:"DataSourceType"`
+Description string `json:"description" xml:"Description"`
+OpenSearchArns DirectQueryOpenSearchARNList `json:"openSearchArns" xml:"OpenSearchArns"`
 }
 
 type UpdateDirectQueryDataSourceResponse struct {
-	DataSourceArn string `json:"dataSourceArn" xml:"DataSourceArn"`
+DataSourceArn string `json:"dataSourceArn" xml:"DataSourceArn"`
 }
 
 type UpdateDomainConfigRequest struct {
-	AIMLOptions                 *AIMLOptionsInput             `json:"aIMLOptions" xml:"AIMLOptions"`
-	AccessPolicies              string                        `json:"accessPolicies" xml:"AccessPolicies"`
-	AdvancedOptions             AdvancedOptions               `json:"advancedOptions" xml:"AdvancedOptions"`
-	AdvancedSecurityOptions     *AdvancedSecurityOptionsInput `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
-	AutoTuneOptions             *AutoTuneOptions              `json:"autoTuneOptions" xml:"AutoTuneOptions"`
-	ClusterConfig               *ClusterConfig                `json:"clusterConfig" xml:"ClusterConfig"`
-	CognitoOptions              *CognitoOptions               `json:"cognitoOptions" xml:"CognitoOptions"`
-	DeploymentStrategyOptions   *DeploymentStrategyOptions    `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
-	DomainEndpointOptions       *DomainEndpointOptions        `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
-	DomainName                  string                        `json:"domainName" xml:"DomainName"`
-	DryRun                      bool                          `json:"dryRun" xml:"DryRun"`
-	DryRunMode                  string                        `json:"dryRunMode" xml:"DryRunMode"`
-	EBSOptions                  *EBSOptions                   `json:"eBSOptions" xml:"EBSOptions"`
-	EncryptionAtRestOptions     *EncryptionAtRestOptions      `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
-	IPAddressType               string                        `json:"iPAddressType" xml:"IPAddressType"`
-	IdentityCenterOptions       *IdentityCenterOptionsInput   `json:"identityCenterOptions" xml:"IdentityCenterOptions"`
-	LogPublishingOptions        LogPublishingOptions          `json:"logPublishingOptions" xml:"LogPublishingOptions"`
-	NodeToNodeEncryptionOptions *NodeToNodeEncryptionOptions  `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
-	OffPeakWindowOptions        *OffPeakWindowOptions         `json:"offPeakWindowOptions" xml:"OffPeakWindowOptions"`
-	SnapshotOptions             *SnapshotOptions              `json:"snapshotOptions" xml:"SnapshotOptions"`
-	SoftwareUpdateOptions       *SoftwareUpdateOptions        `json:"softwareUpdateOptions" xml:"SoftwareUpdateOptions"`
-	VPCOptions                  *VPCOptions                   `json:"vPCOptions" xml:"VPCOptions"`
+AIMLOptions *AIMLOptionsInput `json:"aIMLOptions" xml:"AIMLOptions"`
+AccessPolicies string `json:"accessPolicies" xml:"AccessPolicies"`
+AdvancedOptions AdvancedOptions `json:"advancedOptions" xml:"AdvancedOptions"`
+AdvancedSecurityOptions *AdvancedSecurityOptionsInput `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
+AutoTuneOptions *AutoTuneOptions `json:"autoTuneOptions" xml:"AutoTuneOptions"`
+ClusterConfig *ClusterConfig `json:"clusterConfig" xml:"ClusterConfig"`
+CognitoOptions *CognitoOptions `json:"cognitoOptions" xml:"CognitoOptions"`
+DeploymentStrategyOptions *DeploymentStrategyOptions `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
+DomainEndpointOptions *DomainEndpointOptions `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+DryRunMode string `json:"dryRunMode" xml:"DryRunMode"`
+EBSOptions *EBSOptions `json:"eBSOptions" xml:"EBSOptions"`
+EncryptionAtRestOptions *EncryptionAtRestOptions `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
+IPAddressType string `json:"iPAddressType" xml:"IPAddressType"`
+IdentityCenterOptions *IdentityCenterOptionsInput `json:"identityCenterOptions" xml:"IdentityCenterOptions"`
+LogPublishingOptions LogPublishingOptions `json:"logPublishingOptions" xml:"LogPublishingOptions"`
+NodeToNodeEncryptionOptions *NodeToNodeEncryptionOptions `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
+OffPeakWindowOptions *OffPeakWindowOptions `json:"offPeakWindowOptions" xml:"OffPeakWindowOptions"`
+SnapshotOptions *SnapshotOptions `json:"snapshotOptions" xml:"SnapshotOptions"`
+SoftwareUpdateOptions *SoftwareUpdateOptions `json:"softwareUpdateOptions" xml:"SoftwareUpdateOptions"`
+VPCOptions *VPCOptions `json:"vPCOptions" xml:"VPCOptions"`
 }
 
 type UpdateDomainConfigResponse struct {
-	DomainConfig         *DomainConfig         `json:"domainConfig" xml:"DomainConfig"`
-	DryRunProgressStatus *DryRunProgressStatus `json:"dryRunProgressStatus" xml:"DryRunProgressStatus"`
-	DryRunResults        *DryRunResults        `json:"dryRunResults" xml:"DryRunResults"`
+DomainConfig *DomainConfig `json:"domainConfig" xml:"DomainConfig"`
+DryRunProgressStatus *DryRunProgressStatus `json:"dryRunProgressStatus" xml:"DryRunProgressStatus"`
+DryRunResults *DryRunResults `json:"dryRunResults" xml:"DryRunResults"`
 }
 
 type UpdateIndexRequest struct {
-	DomainName  string      `json:"domainName" xml:"DomainName"`
-	IndexName   string      `json:"indexName" xml:"IndexName"`
-	IndexSchema interface{} `json:"indexSchema" xml:"IndexSchema"`
+DomainName string `json:"domainName" xml:"DomainName"`
+IndexName string `json:"indexName" xml:"IndexName"`
+IndexSchema interface{} `json:"indexSchema" xml:"IndexSchema"`
 }
 
 type UpdateIndexResponse struct {
-	Status string `json:"status" xml:"Status"`
+Status string `json:"status" xml:"Status"`
 }
 
 type UpdatePackageRequest struct {
-	CommitMessage            string                    `json:"commitMessage" xml:"CommitMessage"`
-	PackageConfiguration     *PackageConfiguration     `json:"packageConfiguration" xml:"PackageConfiguration"`
-	PackageDescription       string                    `json:"packageDescription" xml:"PackageDescription"`
-	PackageEncryptionOptions *PackageEncryptionOptions `json:"packageEncryptionOptions" xml:"PackageEncryptionOptions"`
-	PackageID                string                    `json:"packageID" xml:"PackageID"`
-	PackageSource            *PackageSource            `json:"packageSource" xml:"PackageSource"`
+CommitMessage string `json:"commitMessage" xml:"CommitMessage"`
+PackageConfiguration *PackageConfiguration `json:"packageConfiguration" xml:"PackageConfiguration"`
+PackageDescription string `json:"packageDescription" xml:"PackageDescription"`
+PackageEncryptionOptions *PackageEncryptionOptions `json:"packageEncryptionOptions" xml:"PackageEncryptionOptions"`
+PackageID string `json:"packageID" xml:"PackageID"`
+PackageSource *PackageSource `json:"packageSource" xml:"PackageSource"`
 }
 
 type UpdatePackageResponse struct {
-	PackageDetails *PackageDetails `json:"packageDetails" xml:"PackageDetails"`
+PackageDetails *PackageDetails `json:"packageDetails" xml:"PackageDetails"`
 }
 
 type UpdatePackageScopeRequest struct {
-	Operation       string          `json:"operation" xml:"Operation"`
-	PackageID       string          `json:"packageID" xml:"PackageID"`
-	PackageUserList PackageUserList `json:"packageUserList" xml:"PackageUserList"`
+Operation string `json:"operation" xml:"Operation"`
+PackageID string `json:"packageID" xml:"PackageID"`
+PackageUserList PackageUserList `json:"packageUserList" xml:"PackageUserList"`
 }
 
 type UpdatePackageScopeResponse struct {
-	Operation       string          `json:"operation" xml:"Operation"`
-	PackageID       string          `json:"packageID" xml:"PackageID"`
-	PackageUserList PackageUserList `json:"packageUserList" xml:"PackageUserList"`
+Operation string `json:"operation" xml:"Operation"`
+PackageID string `json:"packageID" xml:"PackageID"`
+PackageUserList PackageUserList `json:"packageUserList" xml:"PackageUserList"`
 }
 
 type UpdateScheduledActionRequest struct {
-	ActionID         string `json:"actionID" xml:"ActionID"`
-	ActionType       string `json:"actionType" xml:"ActionType"`
-	DesiredStartTime int64  `json:"desiredStartTime" xml:"DesiredStartTime"`
-	DomainName       string `json:"domainName" xml:"DomainName"`
-	ScheduleAt       string `json:"scheduleAt" xml:"ScheduleAt"`
+ActionID string `json:"actionID" xml:"ActionID"`
+ActionType string `json:"actionType" xml:"ActionType"`
+DesiredStartTime int64 `json:"desiredStartTime" xml:"DesiredStartTime"`
+DomainName string `json:"domainName" xml:"DomainName"`
+ScheduleAt string `json:"scheduleAt" xml:"ScheduleAt"`
 }
 
 type UpdateScheduledActionResponse struct {
-	ScheduledAction *ScheduledAction `json:"scheduledAction" xml:"ScheduledAction"`
+ScheduledAction *ScheduledAction `json:"scheduledAction" xml:"ScheduledAction"`
 }
 
 type UpdateVpcEndpointRequest struct {
-	VpcEndpointId string      `json:"vpcEndpointId" xml:"VpcEndpointId"`
-	VpcOptions    *VPCOptions `json:"vpcOptions" xml:"VpcOptions"`
+VpcEndpointId string `json:"vpcEndpointId" xml:"VpcEndpointId"`
+VpcOptions *VPCOptions `json:"vpcOptions" xml:"VpcOptions"`
 }
 
 type UpdateVpcEndpointResponse struct {
-	VpcEndpoint *VpcEndpoint `json:"vpcEndpoint" xml:"VpcEndpoint"`
+VpcEndpoint *VpcEndpoint `json:"vpcEndpoint" xml:"VpcEndpoint"`
 }
 
 type UpgradeDomainRequest struct {
-	AdvancedOptions  AdvancedOptions `json:"advancedOptions" xml:"AdvancedOptions"`
-	DomainName       string          `json:"domainName" xml:"DomainName"`
-	PerformCheckOnly bool            `json:"performCheckOnly" xml:"PerformCheckOnly"`
-	TargetVersion    string          `json:"targetVersion" xml:"TargetVersion"`
+AdvancedOptions AdvancedOptions `json:"advancedOptions" xml:"AdvancedOptions"`
+DomainName string `json:"domainName" xml:"DomainName"`
+PerformCheckOnly bool `json:"performCheckOnly" xml:"PerformCheckOnly"`
+TargetVersion string `json:"targetVersion" xml:"TargetVersion"`
 }
 
 type UpgradeDomainResponse struct {
-	AdvancedOptions       AdvancedOptions        `json:"advancedOptions" xml:"AdvancedOptions"`
-	ChangeProgressDetails *ChangeProgressDetails `json:"changeProgressDetails" xml:"ChangeProgressDetails"`
-	DomainName            string                 `json:"domainName" xml:"DomainName"`
-	PerformCheckOnly      bool                   `json:"performCheckOnly" xml:"PerformCheckOnly"`
-	TargetVersion         string                 `json:"targetVersion" xml:"TargetVersion"`
-	UpgradeId             string                 `json:"upgradeId" xml:"UpgradeId"`
+AdvancedOptions AdvancedOptions `json:"advancedOptions" xml:"AdvancedOptions"`
+ChangeProgressDetails *ChangeProgressDetails `json:"changeProgressDetails" xml:"ChangeProgressDetails"`
+DomainName string `json:"domainName" xml:"DomainName"`
+PerformCheckOnly bool `json:"performCheckOnly" xml:"PerformCheckOnly"`
+TargetVersion string `json:"targetVersion" xml:"TargetVersion"`
+UpgradeId string `json:"upgradeId" xml:"UpgradeId"`
 }
 
 type UpgradeHistory struct {
-	StartTimestamp time.Time        `json:"startTimestamp" xml:"StartTimestamp"`
-	StepsList      UpgradeStepsList `json:"stepsList" xml:"StepsList"`
-	UpgradeName    string           `json:"upgradeName" xml:"UpgradeName"`
-	UpgradeStatus  string           `json:"upgradeStatus" xml:"UpgradeStatus"`
+StartTimestamp time.Time `json:"startTimestamp" xml:"StartTimestamp"`
+StepsList UpgradeStepsList `json:"stepsList" xml:"StepsList"`
+UpgradeName string `json:"upgradeName" xml:"UpgradeName"`
+UpgradeStatus string `json:"upgradeStatus" xml:"UpgradeStatus"`
 }
 
 type UpgradeStepItem struct {
-	Issues            Issues  `json:"issues" xml:"Issues"`
-	ProgressPercent   float64 `json:"progressPercent" xml:"ProgressPercent"`
-	UpgradeStep       string  `json:"upgradeStep" xml:"UpgradeStep"`
-	UpgradeStepStatus string  `json:"upgradeStepStatus" xml:"UpgradeStepStatus"`
+Issues Issues `json:"issues" xml:"Issues"`
+ProgressPercent float64 `json:"progressPercent" xml:"ProgressPercent"`
+UpgradeStep string `json:"upgradeStep" xml:"UpgradeStep"`
+UpgradeStepStatus string `json:"upgradeStepStatus" xml:"UpgradeStepStatus"`
 }
 
 type VPCDerivedInfo struct {
-	AvailabilityZones StringList `json:"availabilityZones" xml:"AvailabilityZones"`
-	SecurityGroupIds  StringList `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds         StringList `json:"subnetIds" xml:"SubnetIds"`
-	VPCId             string     `json:"vPCId" xml:"VPCId"`
+AvailabilityZones StringList `json:"availabilityZones" xml:"AvailabilityZones"`
+SecurityGroupIds StringList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds StringList `json:"subnetIds" xml:"SubnetIds"`
+VPCId string `json:"vPCId" xml:"VPCId"`
 }
 
 type VPCDerivedInfoStatus struct {
-	Options *VPCDerivedInfo `json:"options" xml:"Options"`
-	Status  *OptionStatus   `json:"status" xml:"Status"`
+Options *VPCDerivedInfo `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type VPCOptions struct {
-	SecurityGroupIds StringList `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds        StringList `json:"subnetIds" xml:"SubnetIds"`
+SecurityGroupIds StringList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds StringList `json:"subnetIds" xml:"SubnetIds"`
 }
 
 type ValidationFailure struct {
-	Code    string `json:"code" xml:"Code"`
-	Message string `json:"message" xml:"Message"`
+Code string `json:"code" xml:"Code"`
+Message string `json:"message" xml:"Message"`
 }
 
 type VersionStatus struct {
-	Options string        `json:"options" xml:"Options"`
-	Status  *OptionStatus `json:"status" xml:"Status"`
+Options string `json:"options" xml:"Options"`
+Status *OptionStatus `json:"status" xml:"Status"`
 }
 
 type VpcEndpoint struct {
-	DomainArn        string          `json:"domainArn" xml:"DomainArn"`
-	Endpoint         string          `json:"endpoint" xml:"Endpoint"`
-	Status           string          `json:"status" xml:"Status"`
-	VpcEndpointId    string          `json:"vpcEndpointId" xml:"VpcEndpointId"`
-	VpcEndpointOwner string          `json:"vpcEndpointOwner" xml:"VpcEndpointOwner"`
-	VpcOptions       *VPCDerivedInfo `json:"vpcOptions" xml:"VpcOptions"`
+DomainArn string `json:"domainArn" xml:"DomainArn"`
+Endpoint string `json:"endpoint" xml:"Endpoint"`
+Status string `json:"status" xml:"Status"`
+VpcEndpointId string `json:"vpcEndpointId" xml:"VpcEndpointId"`
+VpcEndpointOwner string `json:"vpcEndpointOwner" xml:"VpcEndpointOwner"`
+VpcOptions *VPCDerivedInfo `json:"vpcOptions" xml:"VpcOptions"`
 }
 
 type VpcEndpointError struct {
-	ErrorCode     string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage  string `json:"errorMessage" xml:"ErrorMessage"`
-	VpcEndpointId string `json:"vpcEndpointId" xml:"VpcEndpointId"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+VpcEndpointId string `json:"vpcEndpointId" xml:"VpcEndpointId"`
 }
 
 type VpcEndpointSummary struct {
-	DomainArn        string `json:"domainArn" xml:"DomainArn"`
-	Status           string `json:"status" xml:"Status"`
-	VpcEndpointId    string `json:"vpcEndpointId" xml:"VpcEndpointId"`
-	VpcEndpointOwner string `json:"vpcEndpointOwner" xml:"VpcEndpointOwner"`
+DomainArn string `json:"domainArn" xml:"DomainArn"`
+Status string `json:"status" xml:"Status"`
+VpcEndpointId string `json:"vpcEndpointId" xml:"VpcEndpointId"`
+VpcEndpointOwner string `json:"vpcEndpointOwner" xml:"VpcEndpointOwner"`
 }
 
 type WindowStartTime struct {
-	Hours   int64 `json:"hours" xml:"Hours"`
-	Minutes int64 `json:"minutes" xml:"Minutes"`
+Hours int64 `json:"hours" xml:"Hours"`
+Minutes int64 `json:"minutes" xml:"Minutes"`
 }
 
 type ZoneAwarenessConfig struct {
-	AvailabilityZoneCount int32 `json:"availabilityZoneCount" xml:"AvailabilityZoneCount"`
+AvailabilityZoneCount int32 `json:"availabilityZoneCount" xml:"AvailabilityZoneCount"`
 }
 
 type AdditionalLimitList []*AdditionalLimit
@@ -2060,3 +2060,4 @@ type DataSourceType interface{}
 type DirectQueryDataSourceType interface{}
 
 type IndexSchema interface{}
+

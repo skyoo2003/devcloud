@@ -755,3 +755,4 @@ func SerializeUpdateEventBusResponse(w http.ResponseWriter, output *UpdateEventB
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

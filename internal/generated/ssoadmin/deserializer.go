@@ -929,3 +929,4 @@ func SerializeUpdateTrustedTokenIssuerResponse(w http.ResponseWriter, output *Up
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

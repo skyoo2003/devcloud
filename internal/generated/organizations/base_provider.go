@@ -262,3 +262,4 @@ func (b *BaseProvider) UpdatePolicy(ctx context.Context, input *UpdatePolicyRequ
 func (b *BaseProvider) UpdateResponsibilityTransfer(ctx context.Context, input *UpdateResponsibilityTransferRequest) (*UpdateResponsibilityTransferResponse, error) {
 	return nil, fmt.Errorf("UpdateResponsibilityTransfer: %w", ErrNotImplemented)
 }
+

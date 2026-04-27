@@ -9,3 +9,4 @@ import (
 var ErrNotImplemented = fmt.Errorf("operation not implemented")
 
 type BaseProvider struct{}
+

@@ -751,3 +751,4 @@ func SerializeSetSubnetsOutput(w http.ResponseWriter, output *SetSubnetsOutput, 
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

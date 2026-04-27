@@ -13,18 +13,18 @@ type OperationRoute struct {
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
-	{Method: "", Pattern: "", Operation: "DeleteAccountSetting"},
-	{Method: "", Pattern: "", Operation: "DeregisterTaskDefinition"},
-	{Method: "", Pattern: "", Operation: "DescribeTaskDefinition"},
-	{Method: "", Pattern: "", Operation: "DiscoverPollEndpoint"},
-	{Method: "", Pattern: "", Operation: "ListAccountSettings"},
-	{Method: "", Pattern: "", Operation: "ListServicesByNamespace"},
-	{Method: "", Pattern: "", Operation: "ListTagsForResource"},
-	{Method: "", Pattern: "", Operation: "ListTaskDefinitionFamilies"},
-	{Method: "", Pattern: "", Operation: "PutAccountSetting"},
-	{Method: "", Pattern: "", Operation: "PutAccountSettingDefault"},
-	{Method: "", Pattern: "", Operation: "TagResource"},
-	{Method: "", Pattern: "", Operation: "UntagResource"},
+{Method: "", Pattern: "", Operation: "DeleteAccountSetting"},
+{Method: "", Pattern: "", Operation: "DeregisterTaskDefinition"},
+{Method: "", Pattern: "", Operation: "DescribeTaskDefinition"},
+{Method: "", Pattern: "", Operation: "DiscoverPollEndpoint"},
+{Method: "", Pattern: "", Operation: "ListAccountSettings"},
+{Method: "", Pattern: "", Operation: "ListServicesByNamespace"},
+{Method: "", Pattern: "", Operation: "ListTagsForResource"},
+{Method: "", Pattern: "", Operation: "ListTaskDefinitionFamilies"},
+{Method: "", Pattern: "", Operation: "PutAccountSetting"},
+{Method: "", Pattern: "", Operation: "PutAccountSettingDefault"},
+{Method: "", Pattern: "", Operation: "TagResource"},
+{Method: "", Pattern: "", Operation: "UntagResource"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

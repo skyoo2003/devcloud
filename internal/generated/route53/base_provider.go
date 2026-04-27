@@ -294,3 +294,4 @@ func (b *BaseProvider) UpdateTrafficPolicyComment(ctx context.Context, input *Up
 func (b *BaseProvider) UpdateTrafficPolicyInstance(ctx context.Context, input *UpdateTrafficPolicyInstanceRequest) (*UpdateTrafficPolicyInstanceResponse, error) {
 	return nil, fmt.Errorf("UpdateTrafficPolicyInstance: %w", ErrNotImplemented)
 }
+

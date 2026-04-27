@@ -1235,3 +1235,4 @@ func SerializeStartResourceEvaluationResponse(w http.ResponseWriter, output *Sta
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

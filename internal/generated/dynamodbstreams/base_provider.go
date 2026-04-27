@@ -26,3 +26,4 @@ func (b *BaseProvider) GetShardIterator(ctx context.Context, input *GetShardIter
 func (b *BaseProvider) ListStreams(ctx context.Context, input *ListStreamsInput) (*ListStreamsOutput, error) {
 	return nil, fmt.Errorf("ListStreams: %w", ErrNotImplemented)
 }
+

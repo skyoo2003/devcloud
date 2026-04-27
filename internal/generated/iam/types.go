@@ -7,1885 +7,1885 @@ import (
 )
 
 type AcceptDelegationRequestRequest struct {
-	DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
+DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
 }
 
 type AccessDetail struct {
-	EntityPath                 string    `json:"entityPath" xml:"EntityPath"`
-	LastAuthenticatedTime      time.Time `json:"lastAuthenticatedTime" xml:"LastAuthenticatedTime"`
-	Region                     string    `json:"region" xml:"Region"`
-	ServiceName                string    `json:"serviceName" xml:"ServiceName"`
-	ServiceNamespace           string    `json:"serviceNamespace" xml:"ServiceNamespace"`
-	TotalAuthenticatedEntities int32     `json:"totalAuthenticatedEntities" xml:"TotalAuthenticatedEntities"`
+EntityPath string `json:"entityPath" xml:"EntityPath"`
+LastAuthenticatedTime time.Time `json:"lastAuthenticatedTime" xml:"LastAuthenticatedTime"`
+Region string `json:"region" xml:"Region"`
+ServiceName string `json:"serviceName" xml:"ServiceName"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
+TotalAuthenticatedEntities int32 `json:"totalAuthenticatedEntities" xml:"TotalAuthenticatedEntities"`
 }
 
 type AccessKey struct {
-	AccessKeyId     string    `json:"accessKeyId" xml:"AccessKeyId"`
-	CreateDate      time.Time `json:"createDate" xml:"CreateDate"`
-	SecretAccessKey string    `json:"secretAccessKey" xml:"SecretAccessKey"`
-	Status          string    `json:"status" xml:"Status"`
-	UserName        string    `json:"userName" xml:"UserName"`
+AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+SecretAccessKey string `json:"secretAccessKey" xml:"SecretAccessKey"`
+Status string `json:"status" xml:"Status"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type AccessKeyLastUsed struct {
-	LastUsedDate time.Time `json:"lastUsedDate" xml:"LastUsedDate"`
-	Region       string    `json:"region" xml:"Region"`
-	ServiceName  string    `json:"serviceName" xml:"ServiceName"`
+LastUsedDate time.Time `json:"lastUsedDate" xml:"LastUsedDate"`
+Region string `json:"region" xml:"Region"`
+ServiceName string `json:"serviceName" xml:"ServiceName"`
 }
 
 type AccessKeyMetadata struct {
-	AccessKeyId string    `json:"accessKeyId" xml:"AccessKeyId"`
-	CreateDate  time.Time `json:"createDate" xml:"CreateDate"`
-	Status      string    `json:"status" xml:"Status"`
-	UserName    string    `json:"userName" xml:"UserName"`
+AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+Status string `json:"status" xml:"Status"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type AddClientIDToOpenIDConnectProviderRequest struct {
-	ClientID                 string `json:"clientID" xml:"ClientID"`
-	OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
+ClientID string `json:"clientID" xml:"ClientID"`
+OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
 }
 
 type AddRoleToInstanceProfileRequest struct {
-	InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
-	RoleName            string `json:"roleName" xml:"RoleName"`
+InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type AddUserToGroupRequest struct {
-	GroupName string `json:"groupName" xml:"GroupName"`
-	UserName  string `json:"userName" xml:"UserName"`
+GroupName string `json:"groupName" xml:"GroupName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type AssociateDelegationRequestRequest struct {
-	DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
+DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
 }
 
 type AttachGroupPolicyRequest struct {
-	GroupName string `json:"groupName" xml:"GroupName"`
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+GroupName string `json:"groupName" xml:"GroupName"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
 }
 
 type AttachRolePolicyRequest struct {
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
-	RoleName  string `json:"roleName" xml:"RoleName"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type AttachUserPolicyRequest struct {
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
-	UserName  string `json:"userName" xml:"UserName"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type AttachedPermissionsBoundary struct {
-	PermissionsBoundaryArn  string `json:"permissionsBoundaryArn" xml:"PermissionsBoundaryArn"`
-	PermissionsBoundaryType string `json:"permissionsBoundaryType" xml:"PermissionsBoundaryType"`
+PermissionsBoundaryArn string `json:"permissionsBoundaryArn" xml:"PermissionsBoundaryArn"`
+PermissionsBoundaryType string `json:"permissionsBoundaryType" xml:"PermissionsBoundaryType"`
 }
 
 type AttachedPolicy struct {
-	PolicyArn  string `json:"policyArn" xml:"PolicyArn"`
-	PolicyName string `json:"policyName" xml:"PolicyName"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
 }
 
 type ChangePasswordRequest struct {
-	NewPassword string `json:"newPassword" xml:"NewPassword"`
-	OldPassword string `json:"oldPassword" xml:"OldPassword"`
+NewPassword string `json:"newPassword" xml:"NewPassword"`
+OldPassword string `json:"oldPassword" xml:"OldPassword"`
 }
 
 type ContextEntry struct {
-	ContextKeyName   string                  `json:"contextKeyName" xml:"ContextKeyName"`
-	ContextKeyType   string                  `json:"contextKeyType" xml:"ContextKeyType"`
-	ContextKeyValues ContextKeyValueListType `json:"contextKeyValues" xml:"ContextKeyValues"`
+ContextKeyName string `json:"contextKeyName" xml:"ContextKeyName"`
+ContextKeyType string `json:"contextKeyType" xml:"ContextKeyType"`
+ContextKeyValues ContextKeyValueListType `json:"contextKeyValues" xml:"ContextKeyValues"`
 }
 
 type CreateAccessKeyRequest struct {
-	UserName string `json:"userName" xml:"UserName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type CreateAccessKeyResponse struct {
-	AccessKey *AccessKey `json:"accessKey" xml:"AccessKey"`
+AccessKey *AccessKey `json:"accessKey" xml:"AccessKey"`
 }
 
 type CreateAccountAliasRequest struct {
-	AccountAlias string `json:"accountAlias" xml:"AccountAlias"`
+AccountAlias string `json:"accountAlias" xml:"AccountAlias"`
 }
 
 type CreateDelegationRequestRequest struct {
-	Description         string                `json:"description" xml:"Description"`
-	NotificationChannel string                `json:"notificationChannel" xml:"NotificationChannel"`
-	OnlySendByOwner     bool                  `json:"onlySendByOwner" xml:"OnlySendByOwner"`
-	OwnerAccountId      string                `json:"ownerAccountId" xml:"OwnerAccountId"`
-	Permissions         *DelegationPermission `json:"permissions" xml:"Permissions"`
-	RedirectUrl         string                `json:"redirectUrl" xml:"RedirectUrl"`
-	RequestMessage      string                `json:"requestMessage" xml:"RequestMessage"`
-	RequestorWorkflowId string                `json:"requestorWorkflowId" xml:"RequestorWorkflowId"`
-	SessionDuration     int32                 `json:"sessionDuration" xml:"SessionDuration"`
+Description string `json:"description" xml:"Description"`
+NotificationChannel string `json:"notificationChannel" xml:"NotificationChannel"`
+OnlySendByOwner bool `json:"onlySendByOwner" xml:"OnlySendByOwner"`
+OwnerAccountId string `json:"ownerAccountId" xml:"OwnerAccountId"`
+Permissions *DelegationPermission `json:"permissions" xml:"Permissions"`
+RedirectUrl string `json:"redirectUrl" xml:"RedirectUrl"`
+RequestMessage string `json:"requestMessage" xml:"RequestMessage"`
+RequestorWorkflowId string `json:"requestorWorkflowId" xml:"RequestorWorkflowId"`
+SessionDuration int32 `json:"sessionDuration" xml:"SessionDuration"`
 }
 
 type CreateDelegationRequestResponse struct {
-	ConsoleDeepLink     string `json:"consoleDeepLink" xml:"ConsoleDeepLink"`
-	DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
+ConsoleDeepLink string `json:"consoleDeepLink" xml:"ConsoleDeepLink"`
+DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
 }
 
 type CreateGroupRequest struct {
-	GroupName string `json:"groupName" xml:"GroupName"`
-	Path      string `json:"path" xml:"Path"`
+GroupName string `json:"groupName" xml:"GroupName"`
+Path string `json:"path" xml:"Path"`
 }
 
 type CreateGroupResponse struct {
-	Group *Group `json:"group" xml:"Group"`
+Group *Group `json:"group" xml:"Group"`
 }
 
 type CreateInstanceProfileRequest struct {
-	InstanceProfileName string      `json:"instanceProfileName" xml:"InstanceProfileName"`
-	Path                string      `json:"path" xml:"Path"`
-	Tags                tagListType `json:"tags" xml:"Tags"`
+InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
+Path string `json:"path" xml:"Path"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type CreateInstanceProfileResponse struct {
-	InstanceProfile *InstanceProfile `json:"instanceProfile" xml:"InstanceProfile"`
+InstanceProfile *InstanceProfile `json:"instanceProfile" xml:"InstanceProfile"`
 }
 
 type CreateLoginProfileRequest struct {
-	Password              string `json:"password" xml:"Password"`
-	PasswordResetRequired bool   `json:"passwordResetRequired" xml:"PasswordResetRequired"`
-	UserName              string `json:"userName" xml:"UserName"`
+Password string `json:"password" xml:"Password"`
+PasswordResetRequired bool `json:"passwordResetRequired" xml:"PasswordResetRequired"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type CreateLoginProfileResponse struct {
-	LoginProfile *LoginProfile `json:"loginProfile" xml:"LoginProfile"`
+LoginProfile *LoginProfile `json:"loginProfile" xml:"LoginProfile"`
 }
 
 type CreateOpenIDConnectProviderRequest struct {
-	ClientIDList   clientIDListType   `json:"clientIDList" xml:"ClientIDList"`
-	Tags           tagListType        `json:"tags" xml:"Tags"`
-	ThumbprintList thumbprintListType `json:"thumbprintList" xml:"ThumbprintList"`
-	Url            string             `json:"url" xml:"Url"`
+ClientIDList clientIDListType `json:"clientIDList" xml:"ClientIDList"`
+Tags tagListType `json:"tags" xml:"Tags"`
+ThumbprintList thumbprintListType `json:"thumbprintList" xml:"ThumbprintList"`
+Url string `json:"url" xml:"Url"`
 }
 
 type CreateOpenIDConnectProviderResponse struct {
-	OpenIDConnectProviderArn string      `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
-	Tags                     tagListType `json:"tags" xml:"Tags"`
+OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type CreatePolicyRequest struct {
-	Description    string      `json:"description" xml:"Description"`
-	Path           string      `json:"path" xml:"Path"`
-	PolicyDocument string      `json:"policyDocument" xml:"PolicyDocument"`
-	PolicyName     string      `json:"policyName" xml:"PolicyName"`
-	Tags           tagListType `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+Path string `json:"path" xml:"Path"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type CreatePolicyResponse struct {
-	Policy *Policy `json:"policy" xml:"Policy"`
+Policy *Policy `json:"policy" xml:"Policy"`
 }
 
 type CreatePolicyVersionRequest struct {
-	PolicyArn      string `json:"policyArn" xml:"PolicyArn"`
-	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
-	SetAsDefault   bool   `json:"setAsDefault" xml:"SetAsDefault"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+SetAsDefault bool `json:"setAsDefault" xml:"SetAsDefault"`
 }
 
 type CreatePolicyVersionResponse struct {
-	PolicyVersion *PolicyVersion `json:"policyVersion" xml:"PolicyVersion"`
+PolicyVersion *PolicyVersion `json:"policyVersion" xml:"PolicyVersion"`
 }
 
 type CreateRoleRequest struct {
-	AssumeRolePolicyDocument string      `json:"assumeRolePolicyDocument" xml:"AssumeRolePolicyDocument"`
-	Description              string      `json:"description" xml:"Description"`
-	MaxSessionDuration       int32       `json:"maxSessionDuration" xml:"MaxSessionDuration"`
-	Path                     string      `json:"path" xml:"Path"`
-	PermissionsBoundary      string      `json:"permissionsBoundary" xml:"PermissionsBoundary"`
-	RoleName                 string      `json:"roleName" xml:"RoleName"`
-	Tags                     tagListType `json:"tags" xml:"Tags"`
+AssumeRolePolicyDocument string `json:"assumeRolePolicyDocument" xml:"AssumeRolePolicyDocument"`
+Description string `json:"description" xml:"Description"`
+MaxSessionDuration int32 `json:"maxSessionDuration" xml:"MaxSessionDuration"`
+Path string `json:"path" xml:"Path"`
+PermissionsBoundary string `json:"permissionsBoundary" xml:"PermissionsBoundary"`
+RoleName string `json:"roleName" xml:"RoleName"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type CreateRoleResponse struct {
-	Role *Role `json:"role" xml:"Role"`
+Role *Role `json:"role" xml:"Role"`
 }
 
 type CreateSAMLProviderRequest struct {
-	AddPrivateKey           string      `json:"addPrivateKey" xml:"AddPrivateKey"`
-	AssertionEncryptionMode string      `json:"assertionEncryptionMode" xml:"AssertionEncryptionMode"`
-	Name                    string      `json:"name" xml:"Name"`
-	SAMLMetadataDocument    string      `json:"sAMLMetadataDocument" xml:"SAMLMetadataDocument"`
-	Tags                    tagListType `json:"tags" xml:"Tags"`
+AddPrivateKey string `json:"addPrivateKey" xml:"AddPrivateKey"`
+AssertionEncryptionMode string `json:"assertionEncryptionMode" xml:"AssertionEncryptionMode"`
+Name string `json:"name" xml:"Name"`
+SAMLMetadataDocument string `json:"sAMLMetadataDocument" xml:"SAMLMetadataDocument"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type CreateSAMLProviderResponse struct {
-	SAMLProviderArn string      `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
-	Tags            tagListType `json:"tags" xml:"Tags"`
+SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type CreateServiceLinkedRoleRequest struct {
-	AWSServiceName string `json:"aWSServiceName" xml:"AWSServiceName"`
-	CustomSuffix   string `json:"customSuffix" xml:"CustomSuffix"`
-	Description    string `json:"description" xml:"Description"`
+AWSServiceName string `json:"aWSServiceName" xml:"AWSServiceName"`
+CustomSuffix string `json:"customSuffix" xml:"CustomSuffix"`
+Description string `json:"description" xml:"Description"`
 }
 
 type CreateServiceLinkedRoleResponse struct {
-	Role *Role `json:"role" xml:"Role"`
+Role *Role `json:"role" xml:"Role"`
 }
 
 type CreateServiceSpecificCredentialRequest struct {
-	CredentialAgeDays int32  `json:"credentialAgeDays" xml:"CredentialAgeDays"`
-	ServiceName       string `json:"serviceName" xml:"ServiceName"`
-	UserName          string `json:"userName" xml:"UserName"`
+CredentialAgeDays int32 `json:"credentialAgeDays" xml:"CredentialAgeDays"`
+ServiceName string `json:"serviceName" xml:"ServiceName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type CreateServiceSpecificCredentialResponse struct {
-	ServiceSpecificCredential *ServiceSpecificCredential `json:"serviceSpecificCredential" xml:"ServiceSpecificCredential"`
+ServiceSpecificCredential *ServiceSpecificCredential `json:"serviceSpecificCredential" xml:"ServiceSpecificCredential"`
 }
 
 type CreateUserRequest struct {
-	Path                string      `json:"path" xml:"Path"`
-	PermissionsBoundary string      `json:"permissionsBoundary" xml:"PermissionsBoundary"`
-	Tags                tagListType `json:"tags" xml:"Tags"`
-	UserName            string      `json:"userName" xml:"UserName"`
+Path string `json:"path" xml:"Path"`
+PermissionsBoundary string `json:"permissionsBoundary" xml:"PermissionsBoundary"`
+Tags tagListType `json:"tags" xml:"Tags"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type CreateUserResponse struct {
-	User *User `json:"user" xml:"User"`
+User *User `json:"user" xml:"User"`
 }
 
 type CreateVirtualMFADeviceRequest struct {
-	Path                 string      `json:"path" xml:"Path"`
-	Tags                 tagListType `json:"tags" xml:"Tags"`
-	VirtualMFADeviceName string      `json:"virtualMFADeviceName" xml:"VirtualMFADeviceName"`
+Path string `json:"path" xml:"Path"`
+Tags tagListType `json:"tags" xml:"Tags"`
+VirtualMFADeviceName string `json:"virtualMFADeviceName" xml:"VirtualMFADeviceName"`
 }
 
 type CreateVirtualMFADeviceResponse struct {
-	VirtualMFADevice *VirtualMFADevice `json:"virtualMFADevice" xml:"VirtualMFADevice"`
+VirtualMFADevice *VirtualMFADevice `json:"virtualMFADevice" xml:"VirtualMFADevice"`
 }
 
 type DeactivateMFADeviceRequest struct {
-	SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
-	UserName     string `json:"userName" xml:"UserName"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DelegationPermission struct {
-	Parameters        policyParameterListType `json:"parameters" xml:"Parameters"`
-	PolicyTemplateArn string                  `json:"policyTemplateArn" xml:"PolicyTemplateArn"`
+Parameters policyParameterListType `json:"parameters" xml:"Parameters"`
+PolicyTemplateArn string `json:"policyTemplateArn" xml:"PolicyTemplateArn"`
 }
 
 type DelegationRequest struct {
-	ApproverId                    string                               `json:"approverId" xml:"ApproverId"`
-	CreateDate                    time.Time                            `json:"createDate" xml:"CreateDate"`
-	DelegationRequestId           string                               `json:"delegationRequestId" xml:"DelegationRequestId"`
-	Description                   string                               `json:"description" xml:"Description"`
-	ExpirationTime                time.Time                            `json:"expirationTime" xml:"ExpirationTime"`
-	Notes                         string                               `json:"notes" xml:"Notes"`
-	OnlySendByOwner               bool                                 `json:"onlySendByOwner" xml:"OnlySendByOwner"`
-	OwnerAccountId                string                               `json:"ownerAccountId" xml:"OwnerAccountId"`
-	OwnerId                       string                               `json:"ownerId" xml:"OwnerId"`
-	PermissionPolicy              string                               `json:"permissionPolicy" xml:"PermissionPolicy"`
-	Permissions                   *DelegationPermission                `json:"permissions" xml:"Permissions"`
-	RedirectUrl                   string                               `json:"redirectUrl" xml:"RedirectUrl"`
-	RejectionReason               string                               `json:"rejectionReason" xml:"RejectionReason"`
-	RequestMessage                string                               `json:"requestMessage" xml:"RequestMessage"`
-	RequestorId                   string                               `json:"requestorId" xml:"RequestorId"`
-	RequestorName                 string                               `json:"requestorName" xml:"RequestorName"`
-	RolePermissionRestrictionArns rolePermissionRestrictionArnListType `json:"rolePermissionRestrictionArns" xml:"RolePermissionRestrictionArns"`
-	SessionDuration               int32                                `json:"sessionDuration" xml:"SessionDuration"`
-	State                         string                               `json:"state" xml:"State"`
-	UpdatedTime                   time.Time                            `json:"updatedTime" xml:"UpdatedTime"`
+ApproverId string `json:"approverId" xml:"ApproverId"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
+Description string `json:"description" xml:"Description"`
+ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
+Notes string `json:"notes" xml:"Notes"`
+OnlySendByOwner bool `json:"onlySendByOwner" xml:"OnlySendByOwner"`
+OwnerAccountId string `json:"ownerAccountId" xml:"OwnerAccountId"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+PermissionPolicy string `json:"permissionPolicy" xml:"PermissionPolicy"`
+Permissions *DelegationPermission `json:"permissions" xml:"Permissions"`
+RedirectUrl string `json:"redirectUrl" xml:"RedirectUrl"`
+RejectionReason string `json:"rejectionReason" xml:"RejectionReason"`
+RequestMessage string `json:"requestMessage" xml:"RequestMessage"`
+RequestorId string `json:"requestorId" xml:"RequestorId"`
+RequestorName string `json:"requestorName" xml:"RequestorName"`
+RolePermissionRestrictionArns rolePermissionRestrictionArnListType `json:"rolePermissionRestrictionArns" xml:"RolePermissionRestrictionArns"`
+SessionDuration int32 `json:"sessionDuration" xml:"SessionDuration"`
+State string `json:"state" xml:"State"`
+UpdatedTime time.Time `json:"updatedTime" xml:"UpdatedTime"`
 }
 
 type DeleteAccessKeyRequest struct {
-	AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
-	UserName    string `json:"userName" xml:"UserName"`
+AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DeleteAccountAliasRequest struct {
-	AccountAlias string `json:"accountAlias" xml:"AccountAlias"`
+AccountAlias string `json:"accountAlias" xml:"AccountAlias"`
 }
 
 type DeleteGroupPolicyRequest struct {
-	GroupName  string `json:"groupName" xml:"GroupName"`
-	PolicyName string `json:"policyName" xml:"PolicyName"`
+GroupName string `json:"groupName" xml:"GroupName"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
 }
 
 type DeleteGroupRequest struct {
-	GroupName string `json:"groupName" xml:"GroupName"`
+GroupName string `json:"groupName" xml:"GroupName"`
 }
 
 type DeleteInstanceProfileRequest struct {
-	InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
+InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
 }
 
 type DeleteLoginProfileRequest struct {
-	UserName string `json:"userName" xml:"UserName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DeleteOpenIDConnectProviderRequest struct {
-	OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
+OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
 }
 
 type DeletePolicyRequest struct {
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
 }
 
 type DeletePolicyVersionRequest struct {
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
-	VersionId string `json:"versionId" xml:"VersionId"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type DeleteRolePermissionsBoundaryRequest struct {
-	RoleName string `json:"roleName" xml:"RoleName"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type DeleteRolePolicyRequest struct {
-	PolicyName string `json:"policyName" xml:"PolicyName"`
-	RoleName   string `json:"roleName" xml:"RoleName"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type DeleteRoleRequest struct {
-	RoleName string `json:"roleName" xml:"RoleName"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type DeleteSAMLProviderRequest struct {
-	SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
+SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
 }
 
 type DeleteSSHPublicKeyRequest struct {
-	SSHPublicKeyId string `json:"sSHPublicKeyId" xml:"SSHPublicKeyId"`
-	UserName       string `json:"userName" xml:"UserName"`
+SSHPublicKeyId string `json:"sSHPublicKeyId" xml:"SSHPublicKeyId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DeleteServerCertificateRequest struct {
-	ServerCertificateName string `json:"serverCertificateName" xml:"ServerCertificateName"`
+ServerCertificateName string `json:"serverCertificateName" xml:"ServerCertificateName"`
 }
 
 type DeleteServiceLinkedRoleRequest struct {
-	RoleName string `json:"roleName" xml:"RoleName"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type DeleteServiceLinkedRoleResponse struct {
-	DeletionTaskId string `json:"deletionTaskId" xml:"DeletionTaskId"`
+DeletionTaskId string `json:"deletionTaskId" xml:"DeletionTaskId"`
 }
 
 type DeleteServiceSpecificCredentialRequest struct {
-	ServiceSpecificCredentialId string `json:"serviceSpecificCredentialId" xml:"ServiceSpecificCredentialId"`
-	UserName                    string `json:"userName" xml:"UserName"`
+ServiceSpecificCredentialId string `json:"serviceSpecificCredentialId" xml:"ServiceSpecificCredentialId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DeleteSigningCertificateRequest struct {
-	CertificateId string `json:"certificateId" xml:"CertificateId"`
-	UserName      string `json:"userName" xml:"UserName"`
+CertificateId string `json:"certificateId" xml:"CertificateId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DeleteUserPermissionsBoundaryRequest struct {
-	UserName string `json:"userName" xml:"UserName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DeleteUserPolicyRequest struct {
-	PolicyName string `json:"policyName" xml:"PolicyName"`
-	UserName   string `json:"userName" xml:"UserName"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DeleteUserRequest struct {
-	UserName string `json:"userName" xml:"UserName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DeleteVirtualMFADeviceRequest struct {
-	SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
 }
 
 type DeletionTaskFailureReasonType struct {
-	Reason        string            `json:"reason" xml:"Reason"`
-	RoleUsageList RoleUsageListType `json:"roleUsageList" xml:"RoleUsageList"`
+Reason string `json:"reason" xml:"Reason"`
+RoleUsageList RoleUsageListType `json:"roleUsageList" xml:"RoleUsageList"`
 }
 
 type DetachGroupPolicyRequest struct {
-	GroupName string `json:"groupName" xml:"GroupName"`
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+GroupName string `json:"groupName" xml:"GroupName"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
 }
 
 type DetachRolePolicyRequest struct {
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
-	RoleName  string `json:"roleName" xml:"RoleName"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type DetachUserPolicyRequest struct {
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
-	UserName  string `json:"userName" xml:"UserName"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DisableOrganizationsRootCredentialsManagementRequest struct {
 }
 
 type DisableOrganizationsRootCredentialsManagementResponse struct {
-	EnabledFeatures FeaturesListType `json:"enabledFeatures" xml:"EnabledFeatures"`
-	OrganizationId  string           `json:"organizationId" xml:"OrganizationId"`
+EnabledFeatures FeaturesListType `json:"enabledFeatures" xml:"EnabledFeatures"`
+OrganizationId string `json:"organizationId" xml:"OrganizationId"`
 }
 
 type DisableOrganizationsRootSessionsRequest struct {
 }
 
 type DisableOrganizationsRootSessionsResponse struct {
-	EnabledFeatures FeaturesListType `json:"enabledFeatures" xml:"EnabledFeatures"`
-	OrganizationId  string           `json:"organizationId" xml:"OrganizationId"`
+EnabledFeatures FeaturesListType `json:"enabledFeatures" xml:"EnabledFeatures"`
+OrganizationId string `json:"organizationId" xml:"OrganizationId"`
 }
 
 type EnableMFADeviceRequest struct {
-	AuthenticationCode1 string `json:"authenticationCode1" xml:"AuthenticationCode1"`
-	AuthenticationCode2 string `json:"authenticationCode2" xml:"AuthenticationCode2"`
-	SerialNumber        string `json:"serialNumber" xml:"SerialNumber"`
-	UserName            string `json:"userName" xml:"UserName"`
+AuthenticationCode1 string `json:"authenticationCode1" xml:"AuthenticationCode1"`
+AuthenticationCode2 string `json:"authenticationCode2" xml:"AuthenticationCode2"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type EnableOrganizationsRootCredentialsManagementRequest struct {
 }
 
 type EnableOrganizationsRootCredentialsManagementResponse struct {
-	EnabledFeatures FeaturesListType `json:"enabledFeatures" xml:"EnabledFeatures"`
-	OrganizationId  string           `json:"organizationId" xml:"OrganizationId"`
+EnabledFeatures FeaturesListType `json:"enabledFeatures" xml:"EnabledFeatures"`
+OrganizationId string `json:"organizationId" xml:"OrganizationId"`
 }
 
 type EnableOrganizationsRootSessionsRequest struct {
 }
 
 type EnableOrganizationsRootSessionsResponse struct {
-	EnabledFeatures FeaturesListType `json:"enabledFeatures" xml:"EnabledFeatures"`
-	OrganizationId  string           `json:"organizationId" xml:"OrganizationId"`
+EnabledFeatures FeaturesListType `json:"enabledFeatures" xml:"EnabledFeatures"`
+OrganizationId string `json:"organizationId" xml:"OrganizationId"`
 }
 
 type EnableOutboundWebIdentityFederationResponse struct {
-	IssuerIdentifier string `json:"issuerIdentifier" xml:"IssuerIdentifier"`
+IssuerIdentifier string `json:"issuerIdentifier" xml:"IssuerIdentifier"`
 }
 
 type EntityDetails struct {
-	EntityInfo        *EntityInfo `json:"entityInfo" xml:"EntityInfo"`
-	LastAuthenticated time.Time   `json:"lastAuthenticated" xml:"LastAuthenticated"`
+EntityInfo *EntityInfo `json:"entityInfo" xml:"EntityInfo"`
+LastAuthenticated time.Time `json:"lastAuthenticated" xml:"LastAuthenticated"`
 }
 
 type EntityInfo struct {
-	Arn  string `json:"arn" xml:"Arn"`
-	Id   string `json:"id" xml:"Id"`
-	Name string `json:"name" xml:"Name"`
-	Path string `json:"path" xml:"Path"`
-	Type string `json:"type" xml:"Type"`
+Arn string `json:"arn" xml:"Arn"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Path string `json:"path" xml:"Path"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ErrorDetails struct {
-	Code    string `json:"code" xml:"Code"`
-	Message string `json:"message" xml:"Message"`
+Code string `json:"code" xml:"Code"`
+Message string `json:"message" xml:"Message"`
 }
 
 type EvaluationResult struct {
-	EvalActionName                    string                             `json:"evalActionName" xml:"EvalActionName"`
-	EvalDecision                      string                             `json:"evalDecision" xml:"EvalDecision"`
-	EvalDecisionDetails               EvalDecisionDetailsType            `json:"evalDecisionDetails" xml:"EvalDecisionDetails"`
-	EvalResourceName                  string                             `json:"evalResourceName" xml:"EvalResourceName"`
-	MatchedStatements                 StatementListType                  `json:"matchedStatements" xml:"MatchedStatements"`
-	MissingContextValues              ContextKeyNamesResultListType      `json:"missingContextValues" xml:"MissingContextValues"`
-	OrganizationsDecisionDetail       *OrganizationsDecisionDetail       `json:"organizationsDecisionDetail" xml:"OrganizationsDecisionDetail"`
-	PermissionsBoundaryDecisionDetail *PermissionsBoundaryDecisionDetail `json:"permissionsBoundaryDecisionDetail" xml:"PermissionsBoundaryDecisionDetail"`
-	ResourceSpecificResults           ResourceSpecificResultListType     `json:"resourceSpecificResults" xml:"ResourceSpecificResults"`
+EvalActionName string `json:"evalActionName" xml:"EvalActionName"`
+EvalDecision string `json:"evalDecision" xml:"EvalDecision"`
+EvalDecisionDetails EvalDecisionDetailsType `json:"evalDecisionDetails" xml:"EvalDecisionDetails"`
+EvalResourceName string `json:"evalResourceName" xml:"EvalResourceName"`
+MatchedStatements StatementListType `json:"matchedStatements" xml:"MatchedStatements"`
+MissingContextValues ContextKeyNamesResultListType `json:"missingContextValues" xml:"MissingContextValues"`
+OrganizationsDecisionDetail *OrganizationsDecisionDetail `json:"organizationsDecisionDetail" xml:"OrganizationsDecisionDetail"`
+PermissionsBoundaryDecisionDetail *PermissionsBoundaryDecisionDetail `json:"permissionsBoundaryDecisionDetail" xml:"PermissionsBoundaryDecisionDetail"`
+ResourceSpecificResults ResourceSpecificResultListType `json:"resourceSpecificResults" xml:"ResourceSpecificResults"`
 }
 
 type GenerateCredentialReportResponse struct {
-	Description string `json:"description" xml:"Description"`
-	State       string `json:"state" xml:"State"`
+Description string `json:"description" xml:"Description"`
+State string `json:"state" xml:"State"`
 }
 
 type GenerateOrganizationsAccessReportRequest struct {
-	EntityPath            string `json:"entityPath" xml:"EntityPath"`
-	OrganizationsPolicyId string `json:"organizationsPolicyId" xml:"OrganizationsPolicyId"`
+EntityPath string `json:"entityPath" xml:"EntityPath"`
+OrganizationsPolicyId string `json:"organizationsPolicyId" xml:"OrganizationsPolicyId"`
 }
 
 type GenerateOrganizationsAccessReportResponse struct {
-	JobId string `json:"jobId" xml:"JobId"`
+JobId string `json:"jobId" xml:"JobId"`
 }
 
 type GenerateServiceLastAccessedDetailsRequest struct {
-	Arn         string `json:"arn" xml:"Arn"`
-	Granularity string `json:"granularity" xml:"Granularity"`
+Arn string `json:"arn" xml:"Arn"`
+Granularity string `json:"granularity" xml:"Granularity"`
 }
 
 type GenerateServiceLastAccessedDetailsResponse struct {
-	JobId string `json:"jobId" xml:"JobId"`
+JobId string `json:"jobId" xml:"JobId"`
 }
 
 type GetAccessKeyLastUsedRequest struct {
-	AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
+AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
 }
 
 type GetAccessKeyLastUsedResponse struct {
-	AccessKeyLastUsed *AccessKeyLastUsed `json:"accessKeyLastUsed" xml:"AccessKeyLastUsed"`
-	UserName          string             `json:"userName" xml:"UserName"`
+AccessKeyLastUsed *AccessKeyLastUsed `json:"accessKeyLastUsed" xml:"AccessKeyLastUsed"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type GetAccountAuthorizationDetailsRequest struct {
-	Filter   entityListType `json:"filter" xml:"Filter"`
-	Marker   string         `json:"marker" xml:"Marker"`
-	MaxItems int32          `json:"maxItems" xml:"MaxItems"`
+Filter entityListType `json:"filter" xml:"Filter"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type GetAccountAuthorizationDetailsResponse struct {
-	GroupDetailList groupDetailListType         `json:"groupDetailList" xml:"GroupDetailList"`
-	IsTruncated     bool                        `json:"isTruncated" xml:"IsTruncated"`
-	Marker          string                      `json:"marker" xml:"Marker"`
-	Policies        ManagedPolicyDetailListType `json:"policies" xml:"Policies"`
-	RoleDetailList  roleDetailListType          `json:"roleDetailList" xml:"RoleDetailList"`
-	UserDetailList  userDetailListType          `json:"userDetailList" xml:"UserDetailList"`
+GroupDetailList groupDetailListType `json:"groupDetailList" xml:"GroupDetailList"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Policies ManagedPolicyDetailListType `json:"policies" xml:"Policies"`
+RoleDetailList roleDetailListType `json:"roleDetailList" xml:"RoleDetailList"`
+UserDetailList userDetailListType `json:"userDetailList" xml:"UserDetailList"`
 }
 
 type GetAccountPasswordPolicyResponse struct {
-	PasswordPolicy *PasswordPolicy `json:"passwordPolicy" xml:"PasswordPolicy"`
+PasswordPolicy *PasswordPolicy `json:"passwordPolicy" xml:"PasswordPolicy"`
 }
 
 type GetAccountSummaryResponse struct {
-	SummaryMap summaryMapType `json:"summaryMap" xml:"SummaryMap"`
+SummaryMap summaryMapType `json:"summaryMap" xml:"SummaryMap"`
 }
 
 type GetContextKeysForCustomPolicyRequest struct {
-	PolicyInputList SimulationPolicyListType `json:"policyInputList" xml:"PolicyInputList"`
+PolicyInputList SimulationPolicyListType `json:"policyInputList" xml:"PolicyInputList"`
 }
 
 type GetContextKeysForPolicyResponse struct {
-	ContextKeyNames ContextKeyNamesResultListType `json:"contextKeyNames" xml:"ContextKeyNames"`
+ContextKeyNames ContextKeyNamesResultListType `json:"contextKeyNames" xml:"ContextKeyNames"`
 }
 
 type GetContextKeysForPrincipalPolicyRequest struct {
-	PolicyInputList SimulationPolicyListType `json:"policyInputList" xml:"PolicyInputList"`
-	PolicySourceArn string                   `json:"policySourceArn" xml:"PolicySourceArn"`
+PolicyInputList SimulationPolicyListType `json:"policyInputList" xml:"PolicyInputList"`
+PolicySourceArn string `json:"policySourceArn" xml:"PolicySourceArn"`
 }
 
 type GetCredentialReportResponse struct {
-	Content       []byte    `json:"content" xml:"Content"`
-	GeneratedTime time.Time `json:"generatedTime" xml:"GeneratedTime"`
-	ReportFormat  string    `json:"reportFormat" xml:"ReportFormat"`
+Content []byte `json:"content" xml:"Content"`
+GeneratedTime time.Time `json:"generatedTime" xml:"GeneratedTime"`
+ReportFormat string `json:"reportFormat" xml:"ReportFormat"`
 }
 
 type GetDelegationRequestRequest struct {
-	DelegationPermissionCheck bool   `json:"delegationPermissionCheck" xml:"DelegationPermissionCheck"`
-	DelegationRequestId       string `json:"delegationRequestId" xml:"DelegationRequestId"`
+DelegationPermissionCheck bool `json:"delegationPermissionCheck" xml:"DelegationPermissionCheck"`
+DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
 }
 
 type GetDelegationRequestResponse struct {
-	DelegationRequest     *DelegationRequest `json:"delegationRequest" xml:"DelegationRequest"`
-	PermissionCheckResult string             `json:"permissionCheckResult" xml:"PermissionCheckResult"`
-	PermissionCheckStatus string             `json:"permissionCheckStatus" xml:"PermissionCheckStatus"`
+DelegationRequest *DelegationRequest `json:"delegationRequest" xml:"DelegationRequest"`
+PermissionCheckResult string `json:"permissionCheckResult" xml:"PermissionCheckResult"`
+PermissionCheckStatus string `json:"permissionCheckStatus" xml:"PermissionCheckStatus"`
 }
 
 type GetGroupPolicyRequest struct {
-	GroupName  string `json:"groupName" xml:"GroupName"`
-	PolicyName string `json:"policyName" xml:"PolicyName"`
+GroupName string `json:"groupName" xml:"GroupName"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
 }
 
 type GetGroupPolicyResponse struct {
-	GroupName      string `json:"groupName" xml:"GroupName"`
-	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
-	PolicyName     string `json:"policyName" xml:"PolicyName"`
+GroupName string `json:"groupName" xml:"GroupName"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
 }
 
 type GetGroupRequest struct {
-	GroupName string `json:"groupName" xml:"GroupName"`
-	Marker    string `json:"marker" xml:"Marker"`
-	MaxItems  int32  `json:"maxItems" xml:"MaxItems"`
+GroupName string `json:"groupName" xml:"GroupName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type GetGroupResponse struct {
-	Group       *Group       `json:"group" xml:"Group"`
-	IsTruncated bool         `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string       `json:"marker" xml:"Marker"`
-	Users       userListType `json:"users" xml:"Users"`
+Group *Group `json:"group" xml:"Group"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Users userListType `json:"users" xml:"Users"`
 }
 
 type GetHumanReadableSummaryRequest struct {
-	EntityArn string `json:"entityArn" xml:"EntityArn"`
-	Locale    string `json:"locale" xml:"Locale"`
+EntityArn string `json:"entityArn" xml:"EntityArn"`
+Locale string `json:"locale" xml:"Locale"`
 }
 
 type GetHumanReadableSummaryResponse struct {
-	Locale         string `json:"locale" xml:"Locale"`
-	SummaryContent string `json:"summaryContent" xml:"SummaryContent"`
-	SummaryState   string `json:"summaryState" xml:"SummaryState"`
+Locale string `json:"locale" xml:"Locale"`
+SummaryContent string `json:"summaryContent" xml:"SummaryContent"`
+SummaryState string `json:"summaryState" xml:"SummaryState"`
 }
 
 type GetInstanceProfileRequest struct {
-	InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
+InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
 }
 
 type GetInstanceProfileResponse struct {
-	InstanceProfile *InstanceProfile `json:"instanceProfile" xml:"InstanceProfile"`
+InstanceProfile *InstanceProfile `json:"instanceProfile" xml:"InstanceProfile"`
 }
 
 type GetLoginProfileRequest struct {
-	UserName string `json:"userName" xml:"UserName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type GetLoginProfileResponse struct {
-	LoginProfile *LoginProfile `json:"loginProfile" xml:"LoginProfile"`
+LoginProfile *LoginProfile `json:"loginProfile" xml:"LoginProfile"`
 }
 
 type GetMFADeviceRequest struct {
-	SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
-	UserName     string `json:"userName" xml:"UserName"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type GetMFADeviceResponse struct {
-	Certifications CertificationMapType `json:"certifications" xml:"Certifications"`
-	EnableDate     time.Time            `json:"enableDate" xml:"EnableDate"`
-	SerialNumber   string               `json:"serialNumber" xml:"SerialNumber"`
-	UserName       string               `json:"userName" xml:"UserName"`
+Certifications CertificationMapType `json:"certifications" xml:"Certifications"`
+EnableDate time.Time `json:"enableDate" xml:"EnableDate"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type GetOpenIDConnectProviderRequest struct {
-	OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
+OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
 }
 
 type GetOpenIDConnectProviderResponse struct {
-	ClientIDList   clientIDListType   `json:"clientIDList" xml:"ClientIDList"`
-	CreateDate     time.Time          `json:"createDate" xml:"CreateDate"`
-	Tags           tagListType        `json:"tags" xml:"Tags"`
-	ThumbprintList thumbprintListType `json:"thumbprintList" xml:"ThumbprintList"`
-	Url            string             `json:"url" xml:"Url"`
+ClientIDList clientIDListType `json:"clientIDList" xml:"ClientIDList"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+Tags tagListType `json:"tags" xml:"Tags"`
+ThumbprintList thumbprintListType `json:"thumbprintList" xml:"ThumbprintList"`
+Url string `json:"url" xml:"Url"`
 }
 
 type GetOrganizationsAccessReportRequest struct {
-	JobId    string `json:"jobId" xml:"JobId"`
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	SortKey  string `json:"sortKey" xml:"SortKey"`
+JobId string `json:"jobId" xml:"JobId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+SortKey string `json:"sortKey" xml:"SortKey"`
 }
 
 type GetOrganizationsAccessReportResponse struct {
-	AccessDetails               AccessDetails `json:"accessDetails" xml:"AccessDetails"`
-	ErrorDetails                *ErrorDetails `json:"errorDetails" xml:"ErrorDetails"`
-	IsTruncated                 bool          `json:"isTruncated" xml:"IsTruncated"`
-	JobCompletionDate           time.Time     `json:"jobCompletionDate" xml:"JobCompletionDate"`
-	JobCreationDate             time.Time     `json:"jobCreationDate" xml:"JobCreationDate"`
-	JobStatus                   string        `json:"jobStatus" xml:"JobStatus"`
-	Marker                      string        `json:"marker" xml:"Marker"`
-	NumberOfServicesAccessible  int32         `json:"numberOfServicesAccessible" xml:"NumberOfServicesAccessible"`
-	NumberOfServicesNotAccessed int32         `json:"numberOfServicesNotAccessed" xml:"NumberOfServicesNotAccessed"`
+AccessDetails AccessDetails `json:"accessDetails" xml:"AccessDetails"`
+ErrorDetails *ErrorDetails `json:"errorDetails" xml:"ErrorDetails"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+JobCompletionDate time.Time `json:"jobCompletionDate" xml:"JobCompletionDate"`
+JobCreationDate time.Time `json:"jobCreationDate" xml:"JobCreationDate"`
+JobStatus string `json:"jobStatus" xml:"JobStatus"`
+Marker string `json:"marker" xml:"Marker"`
+NumberOfServicesAccessible int32 `json:"numberOfServicesAccessible" xml:"NumberOfServicesAccessible"`
+NumberOfServicesNotAccessed int32 `json:"numberOfServicesNotAccessed" xml:"NumberOfServicesNotAccessed"`
 }
 
 type GetOutboundWebIdentityFederationInfoResponse struct {
-	IssuerIdentifier  string `json:"issuerIdentifier" xml:"IssuerIdentifier"`
-	JwtVendingEnabled bool   `json:"jwtVendingEnabled" xml:"JwtVendingEnabled"`
+IssuerIdentifier string `json:"issuerIdentifier" xml:"IssuerIdentifier"`
+JwtVendingEnabled bool `json:"jwtVendingEnabled" xml:"JwtVendingEnabled"`
 }
 
 type GetPolicyRequest struct {
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
 }
 
 type GetPolicyResponse struct {
-	Policy *Policy `json:"policy" xml:"Policy"`
+Policy *Policy `json:"policy" xml:"Policy"`
 }
 
 type GetPolicyVersionRequest struct {
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
-	VersionId string `json:"versionId" xml:"VersionId"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type GetPolicyVersionResponse struct {
-	PolicyVersion *PolicyVersion `json:"policyVersion" xml:"PolicyVersion"`
+PolicyVersion *PolicyVersion `json:"policyVersion" xml:"PolicyVersion"`
 }
 
 type GetRolePolicyRequest struct {
-	PolicyName string `json:"policyName" xml:"PolicyName"`
-	RoleName   string `json:"roleName" xml:"RoleName"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type GetRolePolicyResponse struct {
-	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
-	PolicyName     string `json:"policyName" xml:"PolicyName"`
-	RoleName       string `json:"roleName" xml:"RoleName"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type GetRoleRequest struct {
-	RoleName string `json:"roleName" xml:"RoleName"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type GetRoleResponse struct {
-	Role *Role `json:"role" xml:"Role"`
+Role *Role `json:"role" xml:"Role"`
 }
 
 type GetSAMLProviderRequest struct {
-	SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
+SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
 }
 
 type GetSAMLProviderResponse struct {
-	AssertionEncryptionMode string         `json:"assertionEncryptionMode" xml:"AssertionEncryptionMode"`
-	CreateDate              time.Time      `json:"createDate" xml:"CreateDate"`
-	PrivateKeyList          privateKeyList `json:"privateKeyList" xml:"PrivateKeyList"`
-	SAMLMetadataDocument    string         `json:"sAMLMetadataDocument" xml:"SAMLMetadataDocument"`
-	SAMLProviderUUID        string         `json:"sAMLProviderUUID" xml:"SAMLProviderUUID"`
-	Tags                    tagListType    `json:"tags" xml:"Tags"`
-	ValidUntil              time.Time      `json:"validUntil" xml:"ValidUntil"`
+AssertionEncryptionMode string `json:"assertionEncryptionMode" xml:"AssertionEncryptionMode"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+PrivateKeyList privateKeyList `json:"privateKeyList" xml:"PrivateKeyList"`
+SAMLMetadataDocument string `json:"sAMLMetadataDocument" xml:"SAMLMetadataDocument"`
+SAMLProviderUUID string `json:"sAMLProviderUUID" xml:"SAMLProviderUUID"`
+Tags tagListType `json:"tags" xml:"Tags"`
+ValidUntil time.Time `json:"validUntil" xml:"ValidUntil"`
 }
 
 type GetSSHPublicKeyRequest struct {
-	Encoding       string `json:"encoding" xml:"Encoding"`
-	SSHPublicKeyId string `json:"sSHPublicKeyId" xml:"SSHPublicKeyId"`
-	UserName       string `json:"userName" xml:"UserName"`
+Encoding string `json:"encoding" xml:"Encoding"`
+SSHPublicKeyId string `json:"sSHPublicKeyId" xml:"SSHPublicKeyId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type GetSSHPublicKeyResponse struct {
-	SSHPublicKey *SSHPublicKey `json:"sSHPublicKey" xml:"SSHPublicKey"`
+SSHPublicKey *SSHPublicKey `json:"sSHPublicKey" xml:"SSHPublicKey"`
 }
 
 type GetServerCertificateRequest struct {
-	ServerCertificateName string `json:"serverCertificateName" xml:"ServerCertificateName"`
+ServerCertificateName string `json:"serverCertificateName" xml:"ServerCertificateName"`
 }
 
 type GetServerCertificateResponse struct {
-	ServerCertificate *ServerCertificate `json:"serverCertificate" xml:"ServerCertificate"`
+ServerCertificate *ServerCertificate `json:"serverCertificate" xml:"ServerCertificate"`
 }
 
 type GetServiceLastAccessedDetailsRequest struct {
-	JobId    string `json:"jobId" xml:"JobId"`
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+JobId string `json:"jobId" xml:"JobId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type GetServiceLastAccessedDetailsResponse struct {
-	Error                *ErrorDetails        `json:"error" xml:"Error"`
-	IsTruncated          bool                 `json:"isTruncated" xml:"IsTruncated"`
-	JobCompletionDate    time.Time            `json:"jobCompletionDate" xml:"JobCompletionDate"`
-	JobCreationDate      time.Time            `json:"jobCreationDate" xml:"JobCreationDate"`
-	JobStatus            string               `json:"jobStatus" xml:"JobStatus"`
-	JobType              string               `json:"jobType" xml:"JobType"`
-	Marker               string               `json:"marker" xml:"Marker"`
-	ServicesLastAccessed ServicesLastAccessed `json:"servicesLastAccessed" xml:"ServicesLastAccessed"`
+Error *ErrorDetails `json:"error" xml:"Error"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+JobCompletionDate time.Time `json:"jobCompletionDate" xml:"JobCompletionDate"`
+JobCreationDate time.Time `json:"jobCreationDate" xml:"JobCreationDate"`
+JobStatus string `json:"jobStatus" xml:"JobStatus"`
+JobType string `json:"jobType" xml:"JobType"`
+Marker string `json:"marker" xml:"Marker"`
+ServicesLastAccessed ServicesLastAccessed `json:"servicesLastAccessed" xml:"ServicesLastAccessed"`
 }
 
 type GetServiceLastAccessedDetailsWithEntitiesRequest struct {
-	JobId            string `json:"jobId" xml:"JobId"`
-	Marker           string `json:"marker" xml:"Marker"`
-	MaxItems         int32  `json:"maxItems" xml:"MaxItems"`
-	ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
+JobId string `json:"jobId" xml:"JobId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
 }
 
 type GetServiceLastAccessedDetailsWithEntitiesResponse struct {
-	EntityDetailsList entityDetailsListType `json:"entityDetailsList" xml:"EntityDetailsList"`
-	Error             *ErrorDetails         `json:"error" xml:"Error"`
-	IsTruncated       bool                  `json:"isTruncated" xml:"IsTruncated"`
-	JobCompletionDate time.Time             `json:"jobCompletionDate" xml:"JobCompletionDate"`
-	JobCreationDate   time.Time             `json:"jobCreationDate" xml:"JobCreationDate"`
-	JobStatus         string                `json:"jobStatus" xml:"JobStatus"`
-	Marker            string                `json:"marker" xml:"Marker"`
+EntityDetailsList entityDetailsListType `json:"entityDetailsList" xml:"EntityDetailsList"`
+Error *ErrorDetails `json:"error" xml:"Error"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+JobCompletionDate time.Time `json:"jobCompletionDate" xml:"JobCompletionDate"`
+JobCreationDate time.Time `json:"jobCreationDate" xml:"JobCreationDate"`
+JobStatus string `json:"jobStatus" xml:"JobStatus"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type GetServiceLinkedRoleDeletionStatusRequest struct {
-	DeletionTaskId string `json:"deletionTaskId" xml:"DeletionTaskId"`
+DeletionTaskId string `json:"deletionTaskId" xml:"DeletionTaskId"`
 }
 
 type GetServiceLinkedRoleDeletionStatusResponse struct {
-	Reason *DeletionTaskFailureReasonType `json:"reason" xml:"Reason"`
-	Status string                         `json:"status" xml:"Status"`
+Reason *DeletionTaskFailureReasonType `json:"reason" xml:"Reason"`
+Status string `json:"status" xml:"Status"`
 }
 
 type GetUserPolicyRequest struct {
-	PolicyName string `json:"policyName" xml:"PolicyName"`
-	UserName   string `json:"userName" xml:"UserName"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type GetUserPolicyResponse struct {
-	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
-	PolicyName     string `json:"policyName" xml:"PolicyName"`
-	UserName       string `json:"userName" xml:"UserName"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type GetUserRequest struct {
-	UserName string `json:"userName" xml:"UserName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type GetUserResponse struct {
-	User *User `json:"user" xml:"User"`
+User *User `json:"user" xml:"User"`
 }
 
 type Group struct {
-	Arn        string    `json:"arn" xml:"Arn"`
-	CreateDate time.Time `json:"createDate" xml:"CreateDate"`
-	GroupId    string    `json:"groupId" xml:"GroupId"`
-	GroupName  string    `json:"groupName" xml:"GroupName"`
-	Path       string    `json:"path" xml:"Path"`
+Arn string `json:"arn" xml:"Arn"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+GroupId string `json:"groupId" xml:"GroupId"`
+GroupName string `json:"groupName" xml:"GroupName"`
+Path string `json:"path" xml:"Path"`
 }
 
 type GroupDetail struct {
-	Arn                     string                   `json:"arn" xml:"Arn"`
-	AttachedManagedPolicies attachedPoliciesListType `json:"attachedManagedPolicies" xml:"AttachedManagedPolicies"`
-	CreateDate              time.Time                `json:"createDate" xml:"CreateDate"`
-	GroupId                 string                   `json:"groupId" xml:"GroupId"`
-	GroupName               string                   `json:"groupName" xml:"GroupName"`
-	GroupPolicyList         policyDetailListType     `json:"groupPolicyList" xml:"GroupPolicyList"`
-	Path                    string                   `json:"path" xml:"Path"`
+Arn string `json:"arn" xml:"Arn"`
+AttachedManagedPolicies attachedPoliciesListType `json:"attachedManagedPolicies" xml:"AttachedManagedPolicies"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+GroupId string `json:"groupId" xml:"GroupId"`
+GroupName string `json:"groupName" xml:"GroupName"`
+GroupPolicyList policyDetailListType `json:"groupPolicyList" xml:"GroupPolicyList"`
+Path string `json:"path" xml:"Path"`
 }
 
 type InstanceProfile struct {
-	Arn                 string       `json:"arn" xml:"Arn"`
-	CreateDate          time.Time    `json:"createDate" xml:"CreateDate"`
-	InstanceProfileId   string       `json:"instanceProfileId" xml:"InstanceProfileId"`
-	InstanceProfileName string       `json:"instanceProfileName" xml:"InstanceProfileName"`
-	Path                string       `json:"path" xml:"Path"`
-	Roles               roleListType `json:"roles" xml:"Roles"`
-	Tags                tagListType  `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+InstanceProfileId string `json:"instanceProfileId" xml:"InstanceProfileId"`
+InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
+Path string `json:"path" xml:"Path"`
+Roles roleListType `json:"roles" xml:"Roles"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type ListAccessKeysRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	UserName string `json:"userName" xml:"UserName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ListAccessKeysResponse struct {
-	AccessKeyMetadata accessKeyMetadataListType `json:"accessKeyMetadata" xml:"AccessKeyMetadata"`
-	IsTruncated       bool                      `json:"isTruncated" xml:"IsTruncated"`
-	Marker            string                    `json:"marker" xml:"Marker"`
+AccessKeyMetadata accessKeyMetadataListType `json:"accessKeyMetadata" xml:"AccessKeyMetadata"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListAccountAliasesRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListAccountAliasesResponse struct {
-	AccountAliases accountAliasListType `json:"accountAliases" xml:"AccountAliases"`
-	IsTruncated    bool                 `json:"isTruncated" xml:"IsTruncated"`
-	Marker         string               `json:"marker" xml:"Marker"`
+AccountAliases accountAliasListType `json:"accountAliases" xml:"AccountAliases"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListAttachedGroupPoliciesRequest struct {
-	GroupName  string `json:"groupName" xml:"GroupName"`
-	Marker     string `json:"marker" xml:"Marker"`
-	MaxItems   int32  `json:"maxItems" xml:"MaxItems"`
-	PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
+GroupName string `json:"groupName" xml:"GroupName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
 }
 
 type ListAttachedGroupPoliciesResponse struct {
-	AttachedPolicies attachedPoliciesListType `json:"attachedPolicies" xml:"AttachedPolicies"`
-	IsTruncated      bool                     `json:"isTruncated" xml:"IsTruncated"`
-	Marker           string                   `json:"marker" xml:"Marker"`
+AttachedPolicies attachedPoliciesListType `json:"attachedPolicies" xml:"AttachedPolicies"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListAttachedRolePoliciesRequest struct {
-	Marker     string `json:"marker" xml:"Marker"`
-	MaxItems   int32  `json:"maxItems" xml:"MaxItems"`
-	PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
-	RoleName   string `json:"roleName" xml:"RoleName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type ListAttachedRolePoliciesResponse struct {
-	AttachedPolicies attachedPoliciesListType `json:"attachedPolicies" xml:"AttachedPolicies"`
-	IsTruncated      bool                     `json:"isTruncated" xml:"IsTruncated"`
-	Marker           string                   `json:"marker" xml:"Marker"`
+AttachedPolicies attachedPoliciesListType `json:"attachedPolicies" xml:"AttachedPolicies"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListAttachedUserPoliciesRequest struct {
-	Marker     string `json:"marker" xml:"Marker"`
-	MaxItems   int32  `json:"maxItems" xml:"MaxItems"`
-	PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
-	UserName   string `json:"userName" xml:"UserName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ListAttachedUserPoliciesResponse struct {
-	AttachedPolicies attachedPoliciesListType `json:"attachedPolicies" xml:"AttachedPolicies"`
-	IsTruncated      bool                     `json:"isTruncated" xml:"IsTruncated"`
-	Marker           string                   `json:"marker" xml:"Marker"`
+AttachedPolicies attachedPoliciesListType `json:"attachedPolicies" xml:"AttachedPolicies"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListDelegationRequestsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	OwnerId  string `json:"ownerId" xml:"OwnerId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
 }
 
 type ListDelegationRequestsResponse struct {
-	DelegationRequests delegationRequestsListType `json:"delegationRequests" xml:"DelegationRequests"`
-	Marker             string                     `json:"marker" xml:"Marker"`
-	IsTruncated        bool                       `json:"isTruncated" xml:"isTruncated"`
+DelegationRequests delegationRequestsListType `json:"delegationRequests" xml:"DelegationRequests"`
+Marker string `json:"marker" xml:"Marker"`
+IsTruncated bool `json:"isTruncated" xml:"isTruncated"`
 }
 
 type ListEntitiesForPolicyRequest struct {
-	EntityFilter      string `json:"entityFilter" xml:"EntityFilter"`
-	Marker            string `json:"marker" xml:"Marker"`
-	MaxItems          int32  `json:"maxItems" xml:"MaxItems"`
-	PathPrefix        string `json:"pathPrefix" xml:"PathPrefix"`
-	PolicyArn         string `json:"policyArn" xml:"PolicyArn"`
-	PolicyUsageFilter string `json:"policyUsageFilter" xml:"PolicyUsageFilter"`
+EntityFilter string `json:"entityFilter" xml:"EntityFilter"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+PolicyUsageFilter string `json:"policyUsageFilter" xml:"PolicyUsageFilter"`
 }
 
 type ListEntitiesForPolicyResponse struct {
-	IsTruncated  bool                `json:"isTruncated" xml:"IsTruncated"`
-	Marker       string              `json:"marker" xml:"Marker"`
-	PolicyGroups PolicyGroupListType `json:"policyGroups" xml:"PolicyGroups"`
-	PolicyRoles  PolicyRoleListType  `json:"policyRoles" xml:"PolicyRoles"`
-	PolicyUsers  PolicyUserListType  `json:"policyUsers" xml:"PolicyUsers"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+PolicyGroups PolicyGroupListType `json:"policyGroups" xml:"PolicyGroups"`
+PolicyRoles PolicyRoleListType `json:"policyRoles" xml:"PolicyRoles"`
+PolicyUsers PolicyUserListType `json:"policyUsers" xml:"PolicyUsers"`
 }
 
 type ListGroupPoliciesRequest struct {
-	GroupName string `json:"groupName" xml:"GroupName"`
-	Marker    string `json:"marker" xml:"Marker"`
-	MaxItems  int32  `json:"maxItems" xml:"MaxItems"`
+GroupName string `json:"groupName" xml:"GroupName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListGroupPoliciesResponse struct {
-	IsTruncated bool               `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string             `json:"marker" xml:"Marker"`
-	PolicyNames policyNameListType `json:"policyNames" xml:"PolicyNames"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+PolicyNames policyNameListType `json:"policyNames" xml:"PolicyNames"`
 }
 
 type ListGroupsForUserRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	UserName string `json:"userName" xml:"UserName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ListGroupsForUserResponse struct {
-	Groups      groupListType `json:"groups" xml:"Groups"`
-	IsTruncated bool          `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string        `json:"marker" xml:"Marker"`
+Groups groupListType `json:"groups" xml:"Groups"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListGroupsRequest struct {
-	Marker     string `json:"marker" xml:"Marker"`
-	MaxItems   int32  `json:"maxItems" xml:"MaxItems"`
-	PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
 }
 
 type ListGroupsResponse struct {
-	Groups      groupListType `json:"groups" xml:"Groups"`
-	IsTruncated bool          `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string        `json:"marker" xml:"Marker"`
+Groups groupListType `json:"groups" xml:"Groups"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListInstanceProfileTagsRequest struct {
-	InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
-	Marker              string `json:"marker" xml:"Marker"`
-	MaxItems            int32  `json:"maxItems" xml:"MaxItems"`
+InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListInstanceProfileTagsResponse struct {
-	IsTruncated bool        `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string      `json:"marker" xml:"Marker"`
-	Tags        tagListType `json:"tags" xml:"Tags"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type ListInstanceProfilesForRoleRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	RoleName string `json:"roleName" xml:"RoleName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type ListInstanceProfilesForRoleResponse struct {
-	InstanceProfiles instanceProfileListType `json:"instanceProfiles" xml:"InstanceProfiles"`
-	IsTruncated      bool                    `json:"isTruncated" xml:"IsTruncated"`
-	Marker           string                  `json:"marker" xml:"Marker"`
+InstanceProfiles instanceProfileListType `json:"instanceProfiles" xml:"InstanceProfiles"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListInstanceProfilesRequest struct {
-	Marker     string `json:"marker" xml:"Marker"`
-	MaxItems   int32  `json:"maxItems" xml:"MaxItems"`
-	PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
 }
 
 type ListInstanceProfilesResponse struct {
-	InstanceProfiles instanceProfileListType `json:"instanceProfiles" xml:"InstanceProfiles"`
-	IsTruncated      bool                    `json:"isTruncated" xml:"IsTruncated"`
-	Marker           string                  `json:"marker" xml:"Marker"`
+InstanceProfiles instanceProfileListType `json:"instanceProfiles" xml:"InstanceProfiles"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListMFADeviceTagsRequest struct {
-	Marker       string `json:"marker" xml:"Marker"`
-	MaxItems     int32  `json:"maxItems" xml:"MaxItems"`
-	SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
 }
 
 type ListMFADeviceTagsResponse struct {
-	IsTruncated bool        `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string      `json:"marker" xml:"Marker"`
-	Tags        tagListType `json:"tags" xml:"Tags"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type ListMFADevicesRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	UserName string `json:"userName" xml:"UserName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ListMFADevicesResponse struct {
-	IsTruncated bool              `json:"isTruncated" xml:"IsTruncated"`
-	MFADevices  mfaDeviceListType `json:"mFADevices" xml:"MFADevices"`
-	Marker      string            `json:"marker" xml:"Marker"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+MFADevices mfaDeviceListType `json:"mFADevices" xml:"MFADevices"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListOpenIDConnectProviderTagsRequest struct {
-	Marker                   string `json:"marker" xml:"Marker"`
-	MaxItems                 int32  `json:"maxItems" xml:"MaxItems"`
-	OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
 }
 
 type ListOpenIDConnectProviderTagsResponse struct {
-	IsTruncated bool        `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string      `json:"marker" xml:"Marker"`
-	Tags        tagListType `json:"tags" xml:"Tags"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type ListOpenIDConnectProvidersRequest struct {
 }
 
 type ListOpenIDConnectProvidersResponse struct {
-	OpenIDConnectProviderList OpenIDConnectProviderListType `json:"openIDConnectProviderList" xml:"OpenIDConnectProviderList"`
+OpenIDConnectProviderList OpenIDConnectProviderListType `json:"openIDConnectProviderList" xml:"OpenIDConnectProviderList"`
 }
 
 type ListOrganizationsFeaturesRequest struct {
 }
 
 type ListOrganizationsFeaturesResponse struct {
-	EnabledFeatures FeaturesListType `json:"enabledFeatures" xml:"EnabledFeatures"`
-	OrganizationId  string           `json:"organizationId" xml:"OrganizationId"`
+EnabledFeatures FeaturesListType `json:"enabledFeatures" xml:"EnabledFeatures"`
+OrganizationId string `json:"organizationId" xml:"OrganizationId"`
 }
 
 type ListPoliciesGrantingServiceAccessEntry struct {
-	Policies         policyGrantingServiceAccessListType `json:"policies" xml:"Policies"`
-	ServiceNamespace string                              `json:"serviceNamespace" xml:"ServiceNamespace"`
+Policies policyGrantingServiceAccessListType `json:"policies" xml:"Policies"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
 }
 
 type ListPoliciesGrantingServiceAccessRequest struct {
-	Arn               string                   `json:"arn" xml:"Arn"`
-	Marker            string                   `json:"marker" xml:"Marker"`
-	ServiceNamespaces serviceNamespaceListType `json:"serviceNamespaces" xml:"ServiceNamespaces"`
+Arn string `json:"arn" xml:"Arn"`
+Marker string `json:"marker" xml:"Marker"`
+ServiceNamespaces serviceNamespaceListType `json:"serviceNamespaces" xml:"ServiceNamespaces"`
 }
 
 type ListPoliciesGrantingServiceAccessResponse struct {
-	IsTruncated                   bool                                            `json:"isTruncated" xml:"IsTruncated"`
-	Marker                        string                                          `json:"marker" xml:"Marker"`
-	PoliciesGrantingServiceAccess listPolicyGrantingServiceAccessResponseListType `json:"policiesGrantingServiceAccess" xml:"PoliciesGrantingServiceAccess"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+PoliciesGrantingServiceAccess listPolicyGrantingServiceAccessResponseListType `json:"policiesGrantingServiceAccess" xml:"PoliciesGrantingServiceAccess"`
 }
 
 type ListPoliciesRequest struct {
-	Marker            string `json:"marker" xml:"Marker"`
-	MaxItems          int32  `json:"maxItems" xml:"MaxItems"`
-	OnlyAttached      bool   `json:"onlyAttached" xml:"OnlyAttached"`
-	PathPrefix        string `json:"pathPrefix" xml:"PathPrefix"`
-	PolicyUsageFilter string `json:"policyUsageFilter" xml:"PolicyUsageFilter"`
-	Scope             string `json:"scope" xml:"Scope"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+OnlyAttached bool `json:"onlyAttached" xml:"OnlyAttached"`
+PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
+PolicyUsageFilter string `json:"policyUsageFilter" xml:"PolicyUsageFilter"`
+Scope string `json:"scope" xml:"Scope"`
 }
 
 type ListPoliciesResponse struct {
-	IsTruncated bool           `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string         `json:"marker" xml:"Marker"`
-	Policies    policyListType `json:"policies" xml:"Policies"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Policies policyListType `json:"policies" xml:"Policies"`
 }
 
 type ListPolicyTagsRequest struct {
-	Marker    string `json:"marker" xml:"Marker"`
-	MaxItems  int32  `json:"maxItems" xml:"MaxItems"`
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
 }
 
 type ListPolicyTagsResponse struct {
-	IsTruncated bool        `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string      `json:"marker" xml:"Marker"`
-	Tags        tagListType `json:"tags" xml:"Tags"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type ListPolicyVersionsRequest struct {
-	Marker    string `json:"marker" xml:"Marker"`
-	MaxItems  int32  `json:"maxItems" xml:"MaxItems"`
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
 }
 
 type ListPolicyVersionsResponse struct {
-	IsTruncated bool                          `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string                        `json:"marker" xml:"Marker"`
-	Versions    policyDocumentVersionListType `json:"versions" xml:"Versions"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Versions policyDocumentVersionListType `json:"versions" xml:"Versions"`
 }
 
 type ListRolePoliciesRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	RoleName string `json:"roleName" xml:"RoleName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type ListRolePoliciesResponse struct {
-	IsTruncated bool               `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string             `json:"marker" xml:"Marker"`
-	PolicyNames policyNameListType `json:"policyNames" xml:"PolicyNames"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+PolicyNames policyNameListType `json:"policyNames" xml:"PolicyNames"`
 }
 
 type ListRoleTagsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	RoleName string `json:"roleName" xml:"RoleName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type ListRoleTagsResponse struct {
-	IsTruncated bool        `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string      `json:"marker" xml:"Marker"`
-	Tags        tagListType `json:"tags" xml:"Tags"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type ListRolesRequest struct {
-	Marker     string `json:"marker" xml:"Marker"`
-	MaxItems   int32  `json:"maxItems" xml:"MaxItems"`
-	PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
 }
 
 type ListRolesResponse struct {
-	IsTruncated bool         `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string       `json:"marker" xml:"Marker"`
-	Roles       roleListType `json:"roles" xml:"Roles"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Roles roleListType `json:"roles" xml:"Roles"`
 }
 
 type ListSAMLProviderTagsRequest struct {
-	Marker          string `json:"marker" xml:"Marker"`
-	MaxItems        int32  `json:"maxItems" xml:"MaxItems"`
-	SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
 }
 
 type ListSAMLProviderTagsResponse struct {
-	IsTruncated bool        `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string      `json:"marker" xml:"Marker"`
-	Tags        tagListType `json:"tags" xml:"Tags"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type ListSAMLProvidersRequest struct {
 }
 
 type ListSAMLProvidersResponse struct {
-	SAMLProviderList SAMLProviderListType `json:"sAMLProviderList" xml:"SAMLProviderList"`
+SAMLProviderList SAMLProviderListType `json:"sAMLProviderList" xml:"SAMLProviderList"`
 }
 
 type ListSSHPublicKeysRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	UserName string `json:"userName" xml:"UserName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ListSSHPublicKeysResponse struct {
-	IsTruncated   bool                 `json:"isTruncated" xml:"IsTruncated"`
-	Marker        string               `json:"marker" xml:"Marker"`
-	SSHPublicKeys SSHPublicKeyListType `json:"sSHPublicKeys" xml:"SSHPublicKeys"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+SSHPublicKeys SSHPublicKeyListType `json:"sSHPublicKeys" xml:"SSHPublicKeys"`
 }
 
 type ListServerCertificateTagsRequest struct {
-	Marker                string `json:"marker" xml:"Marker"`
-	MaxItems              int32  `json:"maxItems" xml:"MaxItems"`
-	ServerCertificateName string `json:"serverCertificateName" xml:"ServerCertificateName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+ServerCertificateName string `json:"serverCertificateName" xml:"ServerCertificateName"`
 }
 
 type ListServerCertificateTagsResponse struct {
-	IsTruncated bool        `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string      `json:"marker" xml:"Marker"`
-	Tags        tagListType `json:"tags" xml:"Tags"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type ListServerCertificatesRequest struct {
-	Marker     string `json:"marker" xml:"Marker"`
-	MaxItems   int32  `json:"maxItems" xml:"MaxItems"`
-	PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
 }
 
 type ListServerCertificatesResponse struct {
-	IsTruncated                   bool                              `json:"isTruncated" xml:"IsTruncated"`
-	Marker                        string                            `json:"marker" xml:"Marker"`
-	ServerCertificateMetadataList serverCertificateMetadataListType `json:"serverCertificateMetadataList" xml:"ServerCertificateMetadataList"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+ServerCertificateMetadataList serverCertificateMetadataListType `json:"serverCertificateMetadataList" xml:"ServerCertificateMetadataList"`
 }
 
 type ListServiceSpecificCredentialsRequest struct {
-	AllUsers    bool   `json:"allUsers" xml:"AllUsers"`
-	Marker      string `json:"marker" xml:"Marker"`
-	MaxItems    int32  `json:"maxItems" xml:"MaxItems"`
-	ServiceName string `json:"serviceName" xml:"ServiceName"`
-	UserName    string `json:"userName" xml:"UserName"`
+AllUsers bool `json:"allUsers" xml:"AllUsers"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+ServiceName string `json:"serviceName" xml:"ServiceName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ListServiceSpecificCredentialsResponse struct {
-	IsTruncated                bool                               `json:"isTruncated" xml:"IsTruncated"`
-	Marker                     string                             `json:"marker" xml:"Marker"`
-	ServiceSpecificCredentials ServiceSpecificCredentialsListType `json:"serviceSpecificCredentials" xml:"ServiceSpecificCredentials"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+ServiceSpecificCredentials ServiceSpecificCredentialsListType `json:"serviceSpecificCredentials" xml:"ServiceSpecificCredentials"`
 }
 
 type ListSigningCertificatesRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	UserName string `json:"userName" xml:"UserName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ListSigningCertificatesResponse struct {
-	Certificates certificateListType `json:"certificates" xml:"Certificates"`
-	IsTruncated  bool                `json:"isTruncated" xml:"IsTruncated"`
-	Marker       string              `json:"marker" xml:"Marker"`
+Certificates certificateListType `json:"certificates" xml:"Certificates"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListUserPoliciesRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	UserName string `json:"userName" xml:"UserName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ListUserPoliciesResponse struct {
-	IsTruncated bool               `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string             `json:"marker" xml:"Marker"`
-	PolicyNames policyNameListType `json:"policyNames" xml:"PolicyNames"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+PolicyNames policyNameListType `json:"policyNames" xml:"PolicyNames"`
 }
 
 type ListUserTagsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	UserName string `json:"userName" xml:"UserName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ListUserTagsResponse struct {
-	IsTruncated bool        `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string      `json:"marker" xml:"Marker"`
-	Tags        tagListType `json:"tags" xml:"Tags"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type ListUsersRequest struct {
-	Marker     string `json:"marker" xml:"Marker"`
-	MaxItems   int32  `json:"maxItems" xml:"MaxItems"`
-	PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PathPrefix string `json:"pathPrefix" xml:"PathPrefix"`
 }
 
 type ListUsersResponse struct {
-	IsTruncated bool         `json:"isTruncated" xml:"IsTruncated"`
-	Marker      string       `json:"marker" xml:"Marker"`
-	Users       userListType `json:"users" xml:"Users"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+Users userListType `json:"users" xml:"Users"`
 }
 
 type ListVirtualMFADevicesRequest struct {
-	AssignmentStatus string `json:"assignmentStatus" xml:"AssignmentStatus"`
-	Marker           string `json:"marker" xml:"Marker"`
-	MaxItems         int32  `json:"maxItems" xml:"MaxItems"`
+AssignmentStatus string `json:"assignmentStatus" xml:"AssignmentStatus"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListVirtualMFADevicesResponse struct {
-	IsTruncated       bool                     `json:"isTruncated" xml:"IsTruncated"`
-	Marker            string                   `json:"marker" xml:"Marker"`
-	VirtualMFADevices virtualMFADeviceListType `json:"virtualMFADevices" xml:"VirtualMFADevices"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
+VirtualMFADevices virtualMFADeviceListType `json:"virtualMFADevices" xml:"VirtualMFADevices"`
 }
 
 type LoginProfile struct {
-	CreateDate            time.Time `json:"createDate" xml:"CreateDate"`
-	PasswordResetRequired bool      `json:"passwordResetRequired" xml:"PasswordResetRequired"`
-	UserName              string    `json:"userName" xml:"UserName"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+PasswordResetRequired bool `json:"passwordResetRequired" xml:"PasswordResetRequired"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type MFADevice struct {
-	EnableDate   time.Time `json:"enableDate" xml:"EnableDate"`
-	SerialNumber string    `json:"serialNumber" xml:"SerialNumber"`
-	UserName     string    `json:"userName" xml:"UserName"`
+EnableDate time.Time `json:"enableDate" xml:"EnableDate"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ManagedPolicyDetail struct {
-	Arn                           string                        `json:"arn" xml:"Arn"`
-	AttachmentCount               int32                         `json:"attachmentCount" xml:"AttachmentCount"`
-	CreateDate                    time.Time                     `json:"createDate" xml:"CreateDate"`
-	DefaultVersionId              string                        `json:"defaultVersionId" xml:"DefaultVersionId"`
-	Description                   string                        `json:"description" xml:"Description"`
-	IsAttachable                  bool                          `json:"isAttachable" xml:"IsAttachable"`
-	Path                          string                        `json:"path" xml:"Path"`
-	PermissionsBoundaryUsageCount int32                         `json:"permissionsBoundaryUsageCount" xml:"PermissionsBoundaryUsageCount"`
-	PolicyId                      string                        `json:"policyId" xml:"PolicyId"`
-	PolicyName                    string                        `json:"policyName" xml:"PolicyName"`
-	PolicyVersionList             policyDocumentVersionListType `json:"policyVersionList" xml:"PolicyVersionList"`
-	UpdateDate                    time.Time                     `json:"updateDate" xml:"UpdateDate"`
+Arn string `json:"arn" xml:"Arn"`
+AttachmentCount int32 `json:"attachmentCount" xml:"AttachmentCount"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+DefaultVersionId string `json:"defaultVersionId" xml:"DefaultVersionId"`
+Description string `json:"description" xml:"Description"`
+IsAttachable bool `json:"isAttachable" xml:"IsAttachable"`
+Path string `json:"path" xml:"Path"`
+PermissionsBoundaryUsageCount int32 `json:"permissionsBoundaryUsageCount" xml:"PermissionsBoundaryUsageCount"`
+PolicyId string `json:"policyId" xml:"PolicyId"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+PolicyVersionList policyDocumentVersionListType `json:"policyVersionList" xml:"PolicyVersionList"`
+UpdateDate time.Time `json:"updateDate" xml:"UpdateDate"`
 }
 
 type OpenIDConnectProviderListEntry struct {
-	Arn string `json:"arn" xml:"Arn"`
+Arn string `json:"arn" xml:"Arn"`
 }
 
 type OrganizationsDecisionDetail struct {
-	AllowedByOrganizations bool `json:"allowedByOrganizations" xml:"AllowedByOrganizations"`
+AllowedByOrganizations bool `json:"allowedByOrganizations" xml:"AllowedByOrganizations"`
 }
 
 type PasswordPolicy struct {
-	AllowUsersToChangePassword bool  `json:"allowUsersToChangePassword" xml:"AllowUsersToChangePassword"`
-	ExpirePasswords            bool  `json:"expirePasswords" xml:"ExpirePasswords"`
-	HardExpiry                 bool  `json:"hardExpiry" xml:"HardExpiry"`
-	MaxPasswordAge             int32 `json:"maxPasswordAge" xml:"MaxPasswordAge"`
-	MinimumPasswordLength      int32 `json:"minimumPasswordLength" xml:"MinimumPasswordLength"`
-	PasswordReusePrevention    int32 `json:"passwordReusePrevention" xml:"PasswordReusePrevention"`
-	RequireLowercaseCharacters bool  `json:"requireLowercaseCharacters" xml:"RequireLowercaseCharacters"`
-	RequireNumbers             bool  `json:"requireNumbers" xml:"RequireNumbers"`
-	RequireSymbols             bool  `json:"requireSymbols" xml:"RequireSymbols"`
-	RequireUppercaseCharacters bool  `json:"requireUppercaseCharacters" xml:"RequireUppercaseCharacters"`
+AllowUsersToChangePassword bool `json:"allowUsersToChangePassword" xml:"AllowUsersToChangePassword"`
+ExpirePasswords bool `json:"expirePasswords" xml:"ExpirePasswords"`
+HardExpiry bool `json:"hardExpiry" xml:"HardExpiry"`
+MaxPasswordAge int32 `json:"maxPasswordAge" xml:"MaxPasswordAge"`
+MinimumPasswordLength int32 `json:"minimumPasswordLength" xml:"MinimumPasswordLength"`
+PasswordReusePrevention int32 `json:"passwordReusePrevention" xml:"PasswordReusePrevention"`
+RequireLowercaseCharacters bool `json:"requireLowercaseCharacters" xml:"RequireLowercaseCharacters"`
+RequireNumbers bool `json:"requireNumbers" xml:"RequireNumbers"`
+RequireSymbols bool `json:"requireSymbols" xml:"RequireSymbols"`
+RequireUppercaseCharacters bool `json:"requireUppercaseCharacters" xml:"RequireUppercaseCharacters"`
 }
 
 type PermissionsBoundaryDecisionDetail struct {
-	AllowedByPermissionsBoundary bool `json:"allowedByPermissionsBoundary" xml:"AllowedByPermissionsBoundary"`
+AllowedByPermissionsBoundary bool `json:"allowedByPermissionsBoundary" xml:"AllowedByPermissionsBoundary"`
 }
 
 type Policy struct {
-	Arn                           string      `json:"arn" xml:"Arn"`
-	AttachmentCount               int32       `json:"attachmentCount" xml:"AttachmentCount"`
-	CreateDate                    time.Time   `json:"createDate" xml:"CreateDate"`
-	DefaultVersionId              string      `json:"defaultVersionId" xml:"DefaultVersionId"`
-	Description                   string      `json:"description" xml:"Description"`
-	IsAttachable                  bool        `json:"isAttachable" xml:"IsAttachable"`
-	Path                          string      `json:"path" xml:"Path"`
-	PermissionsBoundaryUsageCount int32       `json:"permissionsBoundaryUsageCount" xml:"PermissionsBoundaryUsageCount"`
-	PolicyId                      string      `json:"policyId" xml:"PolicyId"`
-	PolicyName                    string      `json:"policyName" xml:"PolicyName"`
-	Tags                          tagListType `json:"tags" xml:"Tags"`
-	UpdateDate                    time.Time   `json:"updateDate" xml:"UpdateDate"`
+Arn string `json:"arn" xml:"Arn"`
+AttachmentCount int32 `json:"attachmentCount" xml:"AttachmentCount"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+DefaultVersionId string `json:"defaultVersionId" xml:"DefaultVersionId"`
+Description string `json:"description" xml:"Description"`
+IsAttachable bool `json:"isAttachable" xml:"IsAttachable"`
+Path string `json:"path" xml:"Path"`
+PermissionsBoundaryUsageCount int32 `json:"permissionsBoundaryUsageCount" xml:"PermissionsBoundaryUsageCount"`
+PolicyId string `json:"policyId" xml:"PolicyId"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+Tags tagListType `json:"tags" xml:"Tags"`
+UpdateDate time.Time `json:"updateDate" xml:"UpdateDate"`
 }
 
 type PolicyDetail struct {
-	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
-	PolicyName     string `json:"policyName" xml:"PolicyName"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
 }
 
 type PolicyGrantingServiceAccess struct {
-	EntityName string `json:"entityName" xml:"EntityName"`
-	EntityType string `json:"entityType" xml:"EntityType"`
-	PolicyArn  string `json:"policyArn" xml:"PolicyArn"`
-	PolicyName string `json:"policyName" xml:"PolicyName"`
-	PolicyType string `json:"policyType" xml:"PolicyType"`
+EntityName string `json:"entityName" xml:"EntityName"`
+EntityType string `json:"entityType" xml:"EntityType"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+PolicyType string `json:"policyType" xml:"PolicyType"`
 }
 
 type PolicyGroup struct {
-	GroupId   string `json:"groupId" xml:"GroupId"`
-	GroupName string `json:"groupName" xml:"GroupName"`
+GroupId string `json:"groupId" xml:"GroupId"`
+GroupName string `json:"groupName" xml:"GroupName"`
 }
 
 type PolicyParameter struct {
-	Name   string                        `json:"name" xml:"Name"`
-	Type   string                        `json:"type" xml:"Type"`
-	Values policyParameterValuesListType `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Type string `json:"type" xml:"Type"`
+Values policyParameterValuesListType `json:"values" xml:"Values"`
 }
 
 type PolicyRole struct {
-	RoleId   string `json:"roleId" xml:"RoleId"`
-	RoleName string `json:"roleName" xml:"RoleName"`
+RoleId string `json:"roleId" xml:"RoleId"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type PolicyUser struct {
-	UserId   string `json:"userId" xml:"UserId"`
-	UserName string `json:"userName" xml:"UserName"`
+UserId string `json:"userId" xml:"UserId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type PolicyVersion struct {
-	CreateDate       time.Time `json:"createDate" xml:"CreateDate"`
-	Document         string    `json:"document" xml:"Document"`
-	IsDefaultVersion bool      `json:"isDefaultVersion" xml:"IsDefaultVersion"`
-	VersionId        string    `json:"versionId" xml:"VersionId"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+Document string `json:"document" xml:"Document"`
+IsDefaultVersion bool `json:"isDefaultVersion" xml:"IsDefaultVersion"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type Position struct {
-	Column int32 `json:"column" xml:"Column"`
-	Line   int32 `json:"line" xml:"Line"`
+Column int32 `json:"column" xml:"Column"`
+Line int32 `json:"line" xml:"Line"`
 }
 
 type PutGroupPolicyRequest struct {
-	GroupName      string `json:"groupName" xml:"GroupName"`
-	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
-	PolicyName     string `json:"policyName" xml:"PolicyName"`
+GroupName string `json:"groupName" xml:"GroupName"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
 }
 
 type PutRolePermissionsBoundaryRequest struct {
-	PermissionsBoundary string `json:"permissionsBoundary" xml:"PermissionsBoundary"`
-	RoleName            string `json:"roleName" xml:"RoleName"`
+PermissionsBoundary string `json:"permissionsBoundary" xml:"PermissionsBoundary"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type PutRolePolicyRequest struct {
-	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
-	PolicyName     string `json:"policyName" xml:"PolicyName"`
-	RoleName       string `json:"roleName" xml:"RoleName"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type PutUserPermissionsBoundaryRequest struct {
-	PermissionsBoundary string `json:"permissionsBoundary" xml:"PermissionsBoundary"`
-	UserName            string `json:"userName" xml:"UserName"`
+PermissionsBoundary string `json:"permissionsBoundary" xml:"PermissionsBoundary"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type PutUserPolicyRequest struct {
-	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
-	PolicyName     string `json:"policyName" xml:"PolicyName"`
-	UserName       string `json:"userName" xml:"UserName"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type RejectDelegationRequestRequest struct {
-	DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
-	Notes               string `json:"notes" xml:"Notes"`
+DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
+Notes string `json:"notes" xml:"Notes"`
 }
 
 type RemoveClientIDFromOpenIDConnectProviderRequest struct {
-	ClientID                 string `json:"clientID" xml:"ClientID"`
-	OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
+ClientID string `json:"clientID" xml:"ClientID"`
+OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
 }
 
 type RemoveRoleFromInstanceProfileRequest struct {
-	InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
-	RoleName            string `json:"roleName" xml:"RoleName"`
+InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type RemoveUserFromGroupRequest struct {
-	GroupName string `json:"groupName" xml:"GroupName"`
-	UserName  string `json:"userName" xml:"UserName"`
+GroupName string `json:"groupName" xml:"GroupName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ResetServiceSpecificCredentialRequest struct {
-	ServiceSpecificCredentialId string `json:"serviceSpecificCredentialId" xml:"ServiceSpecificCredentialId"`
-	UserName                    string `json:"userName" xml:"UserName"`
+ServiceSpecificCredentialId string `json:"serviceSpecificCredentialId" xml:"ServiceSpecificCredentialId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ResetServiceSpecificCredentialResponse struct {
-	ServiceSpecificCredential *ServiceSpecificCredential `json:"serviceSpecificCredential" xml:"ServiceSpecificCredential"`
+ServiceSpecificCredential *ServiceSpecificCredential `json:"serviceSpecificCredential" xml:"ServiceSpecificCredential"`
 }
 
 type ResourceSpecificResult struct {
-	EvalDecisionDetails               EvalDecisionDetailsType            `json:"evalDecisionDetails" xml:"EvalDecisionDetails"`
-	EvalResourceDecision              string                             `json:"evalResourceDecision" xml:"EvalResourceDecision"`
-	EvalResourceName                  string                             `json:"evalResourceName" xml:"EvalResourceName"`
-	MatchedStatements                 StatementListType                  `json:"matchedStatements" xml:"MatchedStatements"`
-	MissingContextValues              ContextKeyNamesResultListType      `json:"missingContextValues" xml:"MissingContextValues"`
-	PermissionsBoundaryDecisionDetail *PermissionsBoundaryDecisionDetail `json:"permissionsBoundaryDecisionDetail" xml:"PermissionsBoundaryDecisionDetail"`
+EvalDecisionDetails EvalDecisionDetailsType `json:"evalDecisionDetails" xml:"EvalDecisionDetails"`
+EvalResourceDecision string `json:"evalResourceDecision" xml:"EvalResourceDecision"`
+EvalResourceName string `json:"evalResourceName" xml:"EvalResourceName"`
+MatchedStatements StatementListType `json:"matchedStatements" xml:"MatchedStatements"`
+MissingContextValues ContextKeyNamesResultListType `json:"missingContextValues" xml:"MissingContextValues"`
+PermissionsBoundaryDecisionDetail *PermissionsBoundaryDecisionDetail `json:"permissionsBoundaryDecisionDetail" xml:"PermissionsBoundaryDecisionDetail"`
 }
 
 type ResyncMFADeviceRequest struct {
-	AuthenticationCode1 string `json:"authenticationCode1" xml:"AuthenticationCode1"`
-	AuthenticationCode2 string `json:"authenticationCode2" xml:"AuthenticationCode2"`
-	SerialNumber        string `json:"serialNumber" xml:"SerialNumber"`
-	UserName            string `json:"userName" xml:"UserName"`
+AuthenticationCode1 string `json:"authenticationCode1" xml:"AuthenticationCode1"`
+AuthenticationCode2 string `json:"authenticationCode2" xml:"AuthenticationCode2"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type Role struct {
-	Arn                      string                       `json:"arn" xml:"Arn"`
-	AssumeRolePolicyDocument string                       `json:"assumeRolePolicyDocument" xml:"AssumeRolePolicyDocument"`
-	CreateDate               time.Time                    `json:"createDate" xml:"CreateDate"`
-	Description              string                       `json:"description" xml:"Description"`
-	MaxSessionDuration       int32                        `json:"maxSessionDuration" xml:"MaxSessionDuration"`
-	Path                     string                       `json:"path" xml:"Path"`
-	PermissionsBoundary      *AttachedPermissionsBoundary `json:"permissionsBoundary" xml:"PermissionsBoundary"`
-	RoleId                   string                       `json:"roleId" xml:"RoleId"`
-	RoleLastUsed             *RoleLastUsed                `json:"roleLastUsed" xml:"RoleLastUsed"`
-	RoleName                 string                       `json:"roleName" xml:"RoleName"`
-	Tags                     tagListType                  `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+AssumeRolePolicyDocument string `json:"assumeRolePolicyDocument" xml:"AssumeRolePolicyDocument"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+Description string `json:"description" xml:"Description"`
+MaxSessionDuration int32 `json:"maxSessionDuration" xml:"MaxSessionDuration"`
+Path string `json:"path" xml:"Path"`
+PermissionsBoundary *AttachedPermissionsBoundary `json:"permissionsBoundary" xml:"PermissionsBoundary"`
+RoleId string `json:"roleId" xml:"RoleId"`
+RoleLastUsed *RoleLastUsed `json:"roleLastUsed" xml:"RoleLastUsed"`
+RoleName string `json:"roleName" xml:"RoleName"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type RoleDetail struct {
-	Arn                      string                       `json:"arn" xml:"Arn"`
-	AssumeRolePolicyDocument string                       `json:"assumeRolePolicyDocument" xml:"AssumeRolePolicyDocument"`
-	AttachedManagedPolicies  attachedPoliciesListType     `json:"attachedManagedPolicies" xml:"AttachedManagedPolicies"`
-	CreateDate               time.Time                    `json:"createDate" xml:"CreateDate"`
-	InstanceProfileList      instanceProfileListType      `json:"instanceProfileList" xml:"InstanceProfileList"`
-	Path                     string                       `json:"path" xml:"Path"`
-	PermissionsBoundary      *AttachedPermissionsBoundary `json:"permissionsBoundary" xml:"PermissionsBoundary"`
-	RoleId                   string                       `json:"roleId" xml:"RoleId"`
-	RoleLastUsed             *RoleLastUsed                `json:"roleLastUsed" xml:"RoleLastUsed"`
-	RoleName                 string                       `json:"roleName" xml:"RoleName"`
-	RolePolicyList           policyDetailListType         `json:"rolePolicyList" xml:"RolePolicyList"`
-	Tags                     tagListType                  `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+AssumeRolePolicyDocument string `json:"assumeRolePolicyDocument" xml:"AssumeRolePolicyDocument"`
+AttachedManagedPolicies attachedPoliciesListType `json:"attachedManagedPolicies" xml:"AttachedManagedPolicies"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+InstanceProfileList instanceProfileListType `json:"instanceProfileList" xml:"InstanceProfileList"`
+Path string `json:"path" xml:"Path"`
+PermissionsBoundary *AttachedPermissionsBoundary `json:"permissionsBoundary" xml:"PermissionsBoundary"`
+RoleId string `json:"roleId" xml:"RoleId"`
+RoleLastUsed *RoleLastUsed `json:"roleLastUsed" xml:"RoleLastUsed"`
+RoleName string `json:"roleName" xml:"RoleName"`
+RolePolicyList policyDetailListType `json:"rolePolicyList" xml:"RolePolicyList"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type RoleLastUsed struct {
-	LastUsedDate time.Time `json:"lastUsedDate" xml:"LastUsedDate"`
-	Region       string    `json:"region" xml:"Region"`
+LastUsedDate time.Time `json:"lastUsedDate" xml:"LastUsedDate"`
+Region string `json:"region" xml:"Region"`
 }
 
 type RoleUsageType struct {
-	Region    string      `json:"region" xml:"Region"`
-	Resources ArnListType `json:"resources" xml:"Resources"`
+Region string `json:"region" xml:"Region"`
+Resources ArnListType `json:"resources" xml:"Resources"`
 }
 
 type SAMLPrivateKey struct {
-	KeyId     string    `json:"keyId" xml:"KeyId"`
-	Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type SAMLProviderListEntry struct {
-	Arn        string    `json:"arn" xml:"Arn"`
-	CreateDate time.Time `json:"createDate" xml:"CreateDate"`
-	ValidUntil time.Time `json:"validUntil" xml:"ValidUntil"`
+Arn string `json:"arn" xml:"Arn"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+ValidUntil time.Time `json:"validUntil" xml:"ValidUntil"`
 }
 
 type SSHPublicKey struct {
-	Fingerprint      string    `json:"fingerprint" xml:"Fingerprint"`
-	SSHPublicKeyBody string    `json:"sSHPublicKeyBody" xml:"SSHPublicKeyBody"`
-	SSHPublicKeyId   string    `json:"sSHPublicKeyId" xml:"SSHPublicKeyId"`
-	Status           string    `json:"status" xml:"Status"`
-	UploadDate       time.Time `json:"uploadDate" xml:"UploadDate"`
-	UserName         string    `json:"userName" xml:"UserName"`
+Fingerprint string `json:"fingerprint" xml:"Fingerprint"`
+SSHPublicKeyBody string `json:"sSHPublicKeyBody" xml:"SSHPublicKeyBody"`
+SSHPublicKeyId string `json:"sSHPublicKeyId" xml:"SSHPublicKeyId"`
+Status string `json:"status" xml:"Status"`
+UploadDate time.Time `json:"uploadDate" xml:"UploadDate"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type SSHPublicKeyMetadata struct {
-	SSHPublicKeyId string    `json:"sSHPublicKeyId" xml:"SSHPublicKeyId"`
-	Status         string    `json:"status" xml:"Status"`
-	UploadDate     time.Time `json:"uploadDate" xml:"UploadDate"`
-	UserName       string    `json:"userName" xml:"UserName"`
+SSHPublicKeyId string `json:"sSHPublicKeyId" xml:"SSHPublicKeyId"`
+Status string `json:"status" xml:"Status"`
+UploadDate time.Time `json:"uploadDate" xml:"UploadDate"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type SendDelegationTokenRequest struct {
-	DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
+DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
 }
 
 type ServerCertificate struct {
-	CertificateBody           string                     `json:"certificateBody" xml:"CertificateBody"`
-	CertificateChain          string                     `json:"certificateChain" xml:"CertificateChain"`
-	ServerCertificateMetadata *ServerCertificateMetadata `json:"serverCertificateMetadata" xml:"ServerCertificateMetadata"`
-	Tags                      tagListType                `json:"tags" xml:"Tags"`
+CertificateBody string `json:"certificateBody" xml:"CertificateBody"`
+CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
+ServerCertificateMetadata *ServerCertificateMetadata `json:"serverCertificateMetadata" xml:"ServerCertificateMetadata"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type ServerCertificateMetadata struct {
-	Arn                   string    `json:"arn" xml:"Arn"`
-	Expiration            time.Time `json:"expiration" xml:"Expiration"`
-	Path                  string    `json:"path" xml:"Path"`
-	ServerCertificateId   string    `json:"serverCertificateId" xml:"ServerCertificateId"`
-	ServerCertificateName string    `json:"serverCertificateName" xml:"ServerCertificateName"`
-	UploadDate            time.Time `json:"uploadDate" xml:"UploadDate"`
+Arn string `json:"arn" xml:"Arn"`
+Expiration time.Time `json:"expiration" xml:"Expiration"`
+Path string `json:"path" xml:"Path"`
+ServerCertificateId string `json:"serverCertificateId" xml:"ServerCertificateId"`
+ServerCertificateName string `json:"serverCertificateName" xml:"ServerCertificateName"`
+UploadDate time.Time `json:"uploadDate" xml:"UploadDate"`
 }
 
 type ServiceLastAccessed struct {
-	LastAuthenticated          time.Time                  `json:"lastAuthenticated" xml:"LastAuthenticated"`
-	LastAuthenticatedEntity    string                     `json:"lastAuthenticatedEntity" xml:"LastAuthenticatedEntity"`
-	LastAuthenticatedRegion    string                     `json:"lastAuthenticatedRegion" xml:"LastAuthenticatedRegion"`
-	ServiceName                string                     `json:"serviceName" xml:"ServiceName"`
-	ServiceNamespace           string                     `json:"serviceNamespace" xml:"ServiceNamespace"`
-	TotalAuthenticatedEntities int32                      `json:"totalAuthenticatedEntities" xml:"TotalAuthenticatedEntities"`
-	TrackedActionsLastAccessed TrackedActionsLastAccessed `json:"trackedActionsLastAccessed" xml:"TrackedActionsLastAccessed"`
+LastAuthenticated time.Time `json:"lastAuthenticated" xml:"LastAuthenticated"`
+LastAuthenticatedEntity string `json:"lastAuthenticatedEntity" xml:"LastAuthenticatedEntity"`
+LastAuthenticatedRegion string `json:"lastAuthenticatedRegion" xml:"LastAuthenticatedRegion"`
+ServiceName string `json:"serviceName" xml:"ServiceName"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
+TotalAuthenticatedEntities int32 `json:"totalAuthenticatedEntities" xml:"TotalAuthenticatedEntities"`
+TrackedActionsLastAccessed TrackedActionsLastAccessed `json:"trackedActionsLastAccessed" xml:"TrackedActionsLastAccessed"`
 }
 
 type ServiceSpecificCredential struct {
-	CreateDate                  time.Time `json:"createDate" xml:"CreateDate"`
-	ExpirationDate              time.Time `json:"expirationDate" xml:"ExpirationDate"`
-	ServiceCredentialAlias      string    `json:"serviceCredentialAlias" xml:"ServiceCredentialAlias"`
-	ServiceCredentialSecret     string    `json:"serviceCredentialSecret" xml:"ServiceCredentialSecret"`
-	ServiceName                 string    `json:"serviceName" xml:"ServiceName"`
-	ServicePassword             string    `json:"servicePassword" xml:"ServicePassword"`
-	ServiceSpecificCredentialId string    `json:"serviceSpecificCredentialId" xml:"ServiceSpecificCredentialId"`
-	ServiceUserName             string    `json:"serviceUserName" xml:"ServiceUserName"`
-	Status                      string    `json:"status" xml:"Status"`
-	UserName                    string    `json:"userName" xml:"UserName"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+ExpirationDate time.Time `json:"expirationDate" xml:"ExpirationDate"`
+ServiceCredentialAlias string `json:"serviceCredentialAlias" xml:"ServiceCredentialAlias"`
+ServiceCredentialSecret string `json:"serviceCredentialSecret" xml:"ServiceCredentialSecret"`
+ServiceName string `json:"serviceName" xml:"ServiceName"`
+ServicePassword string `json:"servicePassword" xml:"ServicePassword"`
+ServiceSpecificCredentialId string `json:"serviceSpecificCredentialId" xml:"ServiceSpecificCredentialId"`
+ServiceUserName string `json:"serviceUserName" xml:"ServiceUserName"`
+Status string `json:"status" xml:"Status"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ServiceSpecificCredentialMetadata struct {
-	CreateDate                  time.Time `json:"createDate" xml:"CreateDate"`
-	ExpirationDate              time.Time `json:"expirationDate" xml:"ExpirationDate"`
-	ServiceCredentialAlias      string    `json:"serviceCredentialAlias" xml:"ServiceCredentialAlias"`
-	ServiceName                 string    `json:"serviceName" xml:"ServiceName"`
-	ServiceSpecificCredentialId string    `json:"serviceSpecificCredentialId" xml:"ServiceSpecificCredentialId"`
-	ServiceUserName             string    `json:"serviceUserName" xml:"ServiceUserName"`
-	Status                      string    `json:"status" xml:"Status"`
-	UserName                    string    `json:"userName" xml:"UserName"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+ExpirationDate time.Time `json:"expirationDate" xml:"ExpirationDate"`
+ServiceCredentialAlias string `json:"serviceCredentialAlias" xml:"ServiceCredentialAlias"`
+ServiceName string `json:"serviceName" xml:"ServiceName"`
+ServiceSpecificCredentialId string `json:"serviceSpecificCredentialId" xml:"ServiceSpecificCredentialId"`
+ServiceUserName string `json:"serviceUserName" xml:"ServiceUserName"`
+Status string `json:"status" xml:"Status"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type SetDefaultPolicyVersionRequest struct {
-	PolicyArn string `json:"policyArn" xml:"PolicyArn"`
-	VersionId string `json:"versionId" xml:"VersionId"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type SetSecurityTokenServicePreferencesRequest struct {
-	GlobalEndpointTokenVersion string `json:"globalEndpointTokenVersion" xml:"GlobalEndpointTokenVersion"`
+GlobalEndpointTokenVersion string `json:"globalEndpointTokenVersion" xml:"GlobalEndpointTokenVersion"`
 }
 
 type SigningCertificate struct {
-	CertificateBody string    `json:"certificateBody" xml:"CertificateBody"`
-	CertificateId   string    `json:"certificateId" xml:"CertificateId"`
-	Status          string    `json:"status" xml:"Status"`
-	UploadDate      time.Time `json:"uploadDate" xml:"UploadDate"`
-	UserName        string    `json:"userName" xml:"UserName"`
+CertificateBody string `json:"certificateBody" xml:"CertificateBody"`
+CertificateId string `json:"certificateId" xml:"CertificateId"`
+Status string `json:"status" xml:"Status"`
+UploadDate time.Time `json:"uploadDate" xml:"UploadDate"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type SimulateCustomPolicyRequest struct {
-	ActionNames                        ActionNameListType       `json:"actionNames" xml:"ActionNames"`
-	CallerArn                          string                   `json:"callerArn" xml:"CallerArn"`
-	ContextEntries                     ContextEntryListType     `json:"contextEntries" xml:"ContextEntries"`
-	Marker                             string                   `json:"marker" xml:"Marker"`
-	MaxItems                           int32                    `json:"maxItems" xml:"MaxItems"`
-	PermissionsBoundaryPolicyInputList SimulationPolicyListType `json:"permissionsBoundaryPolicyInputList" xml:"PermissionsBoundaryPolicyInputList"`
-	PolicyInputList                    SimulationPolicyListType `json:"policyInputList" xml:"PolicyInputList"`
-	ResourceArns                       ResourceNameListType     `json:"resourceArns" xml:"ResourceArns"`
-	ResourceHandlingOption             string                   `json:"resourceHandlingOption" xml:"ResourceHandlingOption"`
-	ResourceOwner                      string                   `json:"resourceOwner" xml:"ResourceOwner"`
-	ResourcePolicy                     string                   `json:"resourcePolicy" xml:"ResourcePolicy"`
+ActionNames ActionNameListType `json:"actionNames" xml:"ActionNames"`
+CallerArn string `json:"callerArn" xml:"CallerArn"`
+ContextEntries ContextEntryListType `json:"contextEntries" xml:"ContextEntries"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PermissionsBoundaryPolicyInputList SimulationPolicyListType `json:"permissionsBoundaryPolicyInputList" xml:"PermissionsBoundaryPolicyInputList"`
+PolicyInputList SimulationPolicyListType `json:"policyInputList" xml:"PolicyInputList"`
+ResourceArns ResourceNameListType `json:"resourceArns" xml:"ResourceArns"`
+ResourceHandlingOption string `json:"resourceHandlingOption" xml:"ResourceHandlingOption"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
 }
 
 type SimulatePolicyResponse struct {
-	EvaluationResults EvaluationResultsListType `json:"evaluationResults" xml:"EvaluationResults"`
-	IsTruncated       bool                      `json:"isTruncated" xml:"IsTruncated"`
-	Marker            string                    `json:"marker" xml:"Marker"`
+EvaluationResults EvaluationResultsListType `json:"evaluationResults" xml:"EvaluationResults"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type SimulatePrincipalPolicyRequest struct {
-	ActionNames                        ActionNameListType       `json:"actionNames" xml:"ActionNames"`
-	CallerArn                          string                   `json:"callerArn" xml:"CallerArn"`
-	ContextEntries                     ContextEntryListType     `json:"contextEntries" xml:"ContextEntries"`
-	Marker                             string                   `json:"marker" xml:"Marker"`
-	MaxItems                           int32                    `json:"maxItems" xml:"MaxItems"`
-	PermissionsBoundaryPolicyInputList SimulationPolicyListType `json:"permissionsBoundaryPolicyInputList" xml:"PermissionsBoundaryPolicyInputList"`
-	PolicyInputList                    SimulationPolicyListType `json:"policyInputList" xml:"PolicyInputList"`
-	PolicySourceArn                    string                   `json:"policySourceArn" xml:"PolicySourceArn"`
-	ResourceArns                       ResourceNameListType     `json:"resourceArns" xml:"ResourceArns"`
-	ResourceHandlingOption             string                   `json:"resourceHandlingOption" xml:"ResourceHandlingOption"`
-	ResourceOwner                      string                   `json:"resourceOwner" xml:"ResourceOwner"`
-	ResourcePolicy                     string                   `json:"resourcePolicy" xml:"ResourcePolicy"`
+ActionNames ActionNameListType `json:"actionNames" xml:"ActionNames"`
+CallerArn string `json:"callerArn" xml:"CallerArn"`
+ContextEntries ContextEntryListType `json:"contextEntries" xml:"ContextEntries"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+PermissionsBoundaryPolicyInputList SimulationPolicyListType `json:"permissionsBoundaryPolicyInputList" xml:"PermissionsBoundaryPolicyInputList"`
+PolicyInputList SimulationPolicyListType `json:"policyInputList" xml:"PolicyInputList"`
+PolicySourceArn string `json:"policySourceArn" xml:"PolicySourceArn"`
+ResourceArns ResourceNameListType `json:"resourceArns" xml:"ResourceArns"`
+ResourceHandlingOption string `json:"resourceHandlingOption" xml:"ResourceHandlingOption"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
 }
 
 type SmithyUnit struct {
 }
 
 type Statement struct {
-	EndPosition      *Position `json:"endPosition" xml:"EndPosition"`
-	SourcePolicyId   string    `json:"sourcePolicyId" xml:"SourcePolicyId"`
-	SourcePolicyType string    `json:"sourcePolicyType" xml:"SourcePolicyType"`
-	StartPosition    *Position `json:"startPosition" xml:"StartPosition"`
+EndPosition *Position `json:"endPosition" xml:"EndPosition"`
+SourcePolicyId string `json:"sourcePolicyId" xml:"SourcePolicyId"`
+SourcePolicyType string `json:"sourcePolicyType" xml:"SourcePolicyType"`
+StartPosition *Position `json:"startPosition" xml:"StartPosition"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagInstanceProfileRequest struct {
-	InstanceProfileName string      `json:"instanceProfileName" xml:"InstanceProfileName"`
-	Tags                tagListType `json:"tags" xml:"Tags"`
+InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type TagMFADeviceRequest struct {
-	SerialNumber string      `json:"serialNumber" xml:"SerialNumber"`
-	Tags         tagListType `json:"tags" xml:"Tags"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type TagOpenIDConnectProviderRequest struct {
-	OpenIDConnectProviderArn string      `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
-	Tags                     tagListType `json:"tags" xml:"Tags"`
+OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type TagPolicyRequest struct {
-	PolicyArn string      `json:"policyArn" xml:"PolicyArn"`
-	Tags      tagListType `json:"tags" xml:"Tags"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type TagRoleRequest struct {
-	RoleName string      `json:"roleName" xml:"RoleName"`
-	Tags     tagListType `json:"tags" xml:"Tags"`
+RoleName string `json:"roleName" xml:"RoleName"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type TagSAMLProviderRequest struct {
-	SAMLProviderArn string      `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
-	Tags            tagListType `json:"tags" xml:"Tags"`
+SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type TagServerCertificateRequest struct {
-	ServerCertificateName string      `json:"serverCertificateName" xml:"ServerCertificateName"`
-	Tags                  tagListType `json:"tags" xml:"Tags"`
+ServerCertificateName string `json:"serverCertificateName" xml:"ServerCertificateName"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type TagUserRequest struct {
-	Tags     tagListType `json:"tags" xml:"Tags"`
-	UserName string      `json:"userName" xml:"UserName"`
+Tags tagListType `json:"tags" xml:"Tags"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type TrackedActionLastAccessed struct {
-	ActionName         string    `json:"actionName" xml:"ActionName"`
-	LastAccessedEntity string    `json:"lastAccessedEntity" xml:"LastAccessedEntity"`
-	LastAccessedRegion string    `json:"lastAccessedRegion" xml:"LastAccessedRegion"`
-	LastAccessedTime   time.Time `json:"lastAccessedTime" xml:"LastAccessedTime"`
+ActionName string `json:"actionName" xml:"ActionName"`
+LastAccessedEntity string `json:"lastAccessedEntity" xml:"LastAccessedEntity"`
+LastAccessedRegion string `json:"lastAccessedRegion" xml:"LastAccessedRegion"`
+LastAccessedTime time.Time `json:"lastAccessedTime" xml:"LastAccessedTime"`
 }
 
 type UntagInstanceProfileRequest struct {
-	InstanceProfileName string         `json:"instanceProfileName" xml:"InstanceProfileName"`
-	TagKeys             tagKeyListType `json:"tagKeys" xml:"TagKeys"`
+InstanceProfileName string `json:"instanceProfileName" xml:"InstanceProfileName"`
+TagKeys tagKeyListType `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagMFADeviceRequest struct {
-	SerialNumber string         `json:"serialNumber" xml:"SerialNumber"`
-	TagKeys      tagKeyListType `json:"tagKeys" xml:"TagKeys"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+TagKeys tagKeyListType `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagOpenIDConnectProviderRequest struct {
-	OpenIDConnectProviderArn string         `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
-	TagKeys                  tagKeyListType `json:"tagKeys" xml:"TagKeys"`
+OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
+TagKeys tagKeyListType `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagPolicyRequest struct {
-	PolicyArn string         `json:"policyArn" xml:"PolicyArn"`
-	TagKeys   tagKeyListType `json:"tagKeys" xml:"TagKeys"`
+PolicyArn string `json:"policyArn" xml:"PolicyArn"`
+TagKeys tagKeyListType `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagRoleRequest struct {
-	RoleName string         `json:"roleName" xml:"RoleName"`
-	TagKeys  tagKeyListType `json:"tagKeys" xml:"TagKeys"`
+RoleName string `json:"roleName" xml:"RoleName"`
+TagKeys tagKeyListType `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagSAMLProviderRequest struct {
-	SAMLProviderArn string         `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
-	TagKeys         tagKeyListType `json:"tagKeys" xml:"TagKeys"`
+SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
+TagKeys tagKeyListType `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagServerCertificateRequest struct {
-	ServerCertificateName string         `json:"serverCertificateName" xml:"ServerCertificateName"`
-	TagKeys               tagKeyListType `json:"tagKeys" xml:"TagKeys"`
+ServerCertificateName string `json:"serverCertificateName" xml:"ServerCertificateName"`
+TagKeys tagKeyListType `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagUserRequest struct {
-	TagKeys  tagKeyListType `json:"tagKeys" xml:"TagKeys"`
-	UserName string         `json:"userName" xml:"UserName"`
+TagKeys tagKeyListType `json:"tagKeys" xml:"TagKeys"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UpdateAccessKeyRequest struct {
-	AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
-	Status      string `json:"status" xml:"Status"`
-	UserName    string `json:"userName" xml:"UserName"`
+AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
+Status string `json:"status" xml:"Status"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UpdateAccountPasswordPolicyRequest struct {
-	AllowUsersToChangePassword bool  `json:"allowUsersToChangePassword" xml:"AllowUsersToChangePassword"`
-	HardExpiry                 bool  `json:"hardExpiry" xml:"HardExpiry"`
-	MaxPasswordAge             int32 `json:"maxPasswordAge" xml:"MaxPasswordAge"`
-	MinimumPasswordLength      int32 `json:"minimumPasswordLength" xml:"MinimumPasswordLength"`
-	PasswordReusePrevention    int32 `json:"passwordReusePrevention" xml:"PasswordReusePrevention"`
-	RequireLowercaseCharacters bool  `json:"requireLowercaseCharacters" xml:"RequireLowercaseCharacters"`
-	RequireNumbers             bool  `json:"requireNumbers" xml:"RequireNumbers"`
-	RequireSymbols             bool  `json:"requireSymbols" xml:"RequireSymbols"`
-	RequireUppercaseCharacters bool  `json:"requireUppercaseCharacters" xml:"RequireUppercaseCharacters"`
+AllowUsersToChangePassword bool `json:"allowUsersToChangePassword" xml:"AllowUsersToChangePassword"`
+HardExpiry bool `json:"hardExpiry" xml:"HardExpiry"`
+MaxPasswordAge int32 `json:"maxPasswordAge" xml:"MaxPasswordAge"`
+MinimumPasswordLength int32 `json:"minimumPasswordLength" xml:"MinimumPasswordLength"`
+PasswordReusePrevention int32 `json:"passwordReusePrevention" xml:"PasswordReusePrevention"`
+RequireLowercaseCharacters bool `json:"requireLowercaseCharacters" xml:"RequireLowercaseCharacters"`
+RequireNumbers bool `json:"requireNumbers" xml:"RequireNumbers"`
+RequireSymbols bool `json:"requireSymbols" xml:"RequireSymbols"`
+RequireUppercaseCharacters bool `json:"requireUppercaseCharacters" xml:"RequireUppercaseCharacters"`
 }
 
 type UpdateAssumeRolePolicyRequest struct {
-	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
-	RoleName       string `json:"roleName" xml:"RoleName"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type UpdateDelegationRequestRequest struct {
-	DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
-	Notes               string `json:"notes" xml:"Notes"`
+DelegationRequestId string `json:"delegationRequestId" xml:"DelegationRequestId"`
+Notes string `json:"notes" xml:"Notes"`
 }
 
 type UpdateGroupRequest struct {
-	GroupName    string `json:"groupName" xml:"GroupName"`
-	NewGroupName string `json:"newGroupName" xml:"NewGroupName"`
-	NewPath      string `json:"newPath" xml:"NewPath"`
+GroupName string `json:"groupName" xml:"GroupName"`
+NewGroupName string `json:"newGroupName" xml:"NewGroupName"`
+NewPath string `json:"newPath" xml:"NewPath"`
 }
 
 type UpdateLoginProfileRequest struct {
-	Password              string `json:"password" xml:"Password"`
-	PasswordResetRequired bool   `json:"passwordResetRequired" xml:"PasswordResetRequired"`
-	UserName              string `json:"userName" xml:"UserName"`
+Password string `json:"password" xml:"Password"`
+PasswordResetRequired bool `json:"passwordResetRequired" xml:"PasswordResetRequired"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UpdateOpenIDConnectProviderThumbprintRequest struct {
-	OpenIDConnectProviderArn string             `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
-	ThumbprintList           thumbprintListType `json:"thumbprintList" xml:"ThumbprintList"`
+OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
+ThumbprintList thumbprintListType `json:"thumbprintList" xml:"ThumbprintList"`
 }
 
 type UpdateRoleDescriptionRequest struct {
-	Description string `json:"description" xml:"Description"`
-	RoleName    string `json:"roleName" xml:"RoleName"`
+Description string `json:"description" xml:"Description"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type UpdateRoleDescriptionResponse struct {
-	Role *Role `json:"role" xml:"Role"`
+Role *Role `json:"role" xml:"Role"`
 }
 
 type UpdateRoleRequest struct {
-	Description        string `json:"description" xml:"Description"`
-	MaxSessionDuration int32  `json:"maxSessionDuration" xml:"MaxSessionDuration"`
-	RoleName           string `json:"roleName" xml:"RoleName"`
+Description string `json:"description" xml:"Description"`
+MaxSessionDuration int32 `json:"maxSessionDuration" xml:"MaxSessionDuration"`
+RoleName string `json:"roleName" xml:"RoleName"`
 }
 
 type UpdateRoleResponse struct {
 }
 
 type UpdateSAMLProviderRequest struct {
-	AddPrivateKey           string `json:"addPrivateKey" xml:"AddPrivateKey"`
-	AssertionEncryptionMode string `json:"assertionEncryptionMode" xml:"AssertionEncryptionMode"`
-	RemovePrivateKey        string `json:"removePrivateKey" xml:"RemovePrivateKey"`
-	SAMLMetadataDocument    string `json:"sAMLMetadataDocument" xml:"SAMLMetadataDocument"`
-	SAMLProviderArn         string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
+AddPrivateKey string `json:"addPrivateKey" xml:"AddPrivateKey"`
+AssertionEncryptionMode string `json:"assertionEncryptionMode" xml:"AssertionEncryptionMode"`
+RemovePrivateKey string `json:"removePrivateKey" xml:"RemovePrivateKey"`
+SAMLMetadataDocument string `json:"sAMLMetadataDocument" xml:"SAMLMetadataDocument"`
+SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
 }
 
 type UpdateSAMLProviderResponse struct {
-	SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
+SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
 }
 
 type UpdateSSHPublicKeyRequest struct {
-	SSHPublicKeyId string `json:"sSHPublicKeyId" xml:"SSHPublicKeyId"`
-	Status         string `json:"status" xml:"Status"`
-	UserName       string `json:"userName" xml:"UserName"`
+SSHPublicKeyId string `json:"sSHPublicKeyId" xml:"SSHPublicKeyId"`
+Status string `json:"status" xml:"Status"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UpdateServerCertificateRequest struct {
-	NewPath                  string `json:"newPath" xml:"NewPath"`
-	NewServerCertificateName string `json:"newServerCertificateName" xml:"NewServerCertificateName"`
-	ServerCertificateName    string `json:"serverCertificateName" xml:"ServerCertificateName"`
+NewPath string `json:"newPath" xml:"NewPath"`
+NewServerCertificateName string `json:"newServerCertificateName" xml:"NewServerCertificateName"`
+ServerCertificateName string `json:"serverCertificateName" xml:"ServerCertificateName"`
 }
 
 type UpdateServiceSpecificCredentialRequest struct {
-	ServiceSpecificCredentialId string `json:"serviceSpecificCredentialId" xml:"ServiceSpecificCredentialId"`
-	Status                      string `json:"status" xml:"Status"`
-	UserName                    string `json:"userName" xml:"UserName"`
+ServiceSpecificCredentialId string `json:"serviceSpecificCredentialId" xml:"ServiceSpecificCredentialId"`
+Status string `json:"status" xml:"Status"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UpdateSigningCertificateRequest struct {
-	CertificateId string `json:"certificateId" xml:"CertificateId"`
-	Status        string `json:"status" xml:"Status"`
-	UserName      string `json:"userName" xml:"UserName"`
+CertificateId string `json:"certificateId" xml:"CertificateId"`
+Status string `json:"status" xml:"Status"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UpdateUserRequest struct {
-	NewPath     string `json:"newPath" xml:"NewPath"`
-	NewUserName string `json:"newUserName" xml:"NewUserName"`
-	UserName    string `json:"userName" xml:"UserName"`
+NewPath string `json:"newPath" xml:"NewPath"`
+NewUserName string `json:"newUserName" xml:"NewUserName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UploadSSHPublicKeyRequest struct {
-	SSHPublicKeyBody string `json:"sSHPublicKeyBody" xml:"SSHPublicKeyBody"`
-	UserName         string `json:"userName" xml:"UserName"`
+SSHPublicKeyBody string `json:"sSHPublicKeyBody" xml:"SSHPublicKeyBody"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UploadSSHPublicKeyResponse struct {
-	SSHPublicKey *SSHPublicKey `json:"sSHPublicKey" xml:"SSHPublicKey"`
+SSHPublicKey *SSHPublicKey `json:"sSHPublicKey" xml:"SSHPublicKey"`
 }
 
 type UploadServerCertificateRequest struct {
-	CertificateBody       string      `json:"certificateBody" xml:"CertificateBody"`
-	CertificateChain      string      `json:"certificateChain" xml:"CertificateChain"`
-	Path                  string      `json:"path" xml:"Path"`
-	PrivateKey            string      `json:"privateKey" xml:"PrivateKey"`
-	ServerCertificateName string      `json:"serverCertificateName" xml:"ServerCertificateName"`
-	Tags                  tagListType `json:"tags" xml:"Tags"`
+CertificateBody string `json:"certificateBody" xml:"CertificateBody"`
+CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
+Path string `json:"path" xml:"Path"`
+PrivateKey string `json:"privateKey" xml:"PrivateKey"`
+ServerCertificateName string `json:"serverCertificateName" xml:"ServerCertificateName"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type UploadServerCertificateResponse struct {
-	ServerCertificateMetadata *ServerCertificateMetadata `json:"serverCertificateMetadata" xml:"ServerCertificateMetadata"`
-	Tags                      tagListType                `json:"tags" xml:"Tags"`
+ServerCertificateMetadata *ServerCertificateMetadata `json:"serverCertificateMetadata" xml:"ServerCertificateMetadata"`
+Tags tagListType `json:"tags" xml:"Tags"`
 }
 
 type UploadSigningCertificateRequest struct {
-	CertificateBody string `json:"certificateBody" xml:"CertificateBody"`
-	UserName        string `json:"userName" xml:"UserName"`
+CertificateBody string `json:"certificateBody" xml:"CertificateBody"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UploadSigningCertificateResponse struct {
-	Certificate *SigningCertificate `json:"certificate" xml:"Certificate"`
+Certificate *SigningCertificate `json:"certificate" xml:"Certificate"`
 }
 
 type User struct {
-	Arn                 string                       `json:"arn" xml:"Arn"`
-	CreateDate          time.Time                    `json:"createDate" xml:"CreateDate"`
-	PasswordLastUsed    time.Time                    `json:"passwordLastUsed" xml:"PasswordLastUsed"`
-	Path                string                       `json:"path" xml:"Path"`
-	PermissionsBoundary *AttachedPermissionsBoundary `json:"permissionsBoundary" xml:"PermissionsBoundary"`
-	Tags                tagListType                  `json:"tags" xml:"Tags"`
-	UserId              string                       `json:"userId" xml:"UserId"`
-	UserName            string                       `json:"userName" xml:"UserName"`
+Arn string `json:"arn" xml:"Arn"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+PasswordLastUsed time.Time `json:"passwordLastUsed" xml:"PasswordLastUsed"`
+Path string `json:"path" xml:"Path"`
+PermissionsBoundary *AttachedPermissionsBoundary `json:"permissionsBoundary" xml:"PermissionsBoundary"`
+Tags tagListType `json:"tags" xml:"Tags"`
+UserId string `json:"userId" xml:"UserId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UserDetail struct {
-	Arn                     string                       `json:"arn" xml:"Arn"`
-	AttachedManagedPolicies attachedPoliciesListType     `json:"attachedManagedPolicies" xml:"AttachedManagedPolicies"`
-	CreateDate              time.Time                    `json:"createDate" xml:"CreateDate"`
-	GroupList               groupNameListType            `json:"groupList" xml:"GroupList"`
-	Path                    string                       `json:"path" xml:"Path"`
-	PermissionsBoundary     *AttachedPermissionsBoundary `json:"permissionsBoundary" xml:"PermissionsBoundary"`
-	Tags                    tagListType                  `json:"tags" xml:"Tags"`
-	UserId                  string                       `json:"userId" xml:"UserId"`
-	UserName                string                       `json:"userName" xml:"UserName"`
-	UserPolicyList          policyDetailListType         `json:"userPolicyList" xml:"UserPolicyList"`
+Arn string `json:"arn" xml:"Arn"`
+AttachedManagedPolicies attachedPoliciesListType `json:"attachedManagedPolicies" xml:"AttachedManagedPolicies"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+GroupList groupNameListType `json:"groupList" xml:"GroupList"`
+Path string `json:"path" xml:"Path"`
+PermissionsBoundary *AttachedPermissionsBoundary `json:"permissionsBoundary" xml:"PermissionsBoundary"`
+Tags tagListType `json:"tags" xml:"Tags"`
+UserId string `json:"userId" xml:"UserId"`
+UserName string `json:"userName" xml:"UserName"`
+UserPolicyList policyDetailListType `json:"userPolicyList" xml:"UserPolicyList"`
 }
 
 type VirtualMFADevice struct {
-	Base32StringSeed []byte      `json:"base32StringSeed" xml:"Base32StringSeed"`
-	EnableDate       time.Time   `json:"enableDate" xml:"EnableDate"`
-	QRCodePNG        []byte      `json:"qRCodePNG" xml:"QRCodePNG"`
-	SerialNumber     string      `json:"serialNumber" xml:"SerialNumber"`
-	Tags             tagListType `json:"tags" xml:"Tags"`
-	User             *User       `json:"user" xml:"User"`
+Base32StringSeed []byte `json:"base32StringSeed" xml:"Base32StringSeed"`
+EnableDate time.Time `json:"enableDate" xml:"EnableDate"`
+QRCodePNG []byte `json:"qRCodePNG" xml:"QRCodePNG"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+Tags tagListType `json:"tags" xml:"Tags"`
+User *User `json:"user" xml:"User"`
 }
 
 type AccessDetails []*AccessDetail
@@ -2005,3 +2005,4 @@ type CertificationMapType map[string]string
 type EvalDecisionDetailsType map[string]string
 
 type summaryMapType map[string]int32
+

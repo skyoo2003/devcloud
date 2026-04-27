@@ -211,3 +211,4 @@ func DeserializeUpdateHostKeyRequest(r *http.Request, pathParams PathParams) (*U
 
 	return input, nil
 }
+

@@ -7,115 +7,115 @@ import (
 )
 
 type Block struct {
-	BlockIndex int32  `json:"blockIndex" xml:"BlockIndex"`
-	BlockToken string `json:"blockToken" xml:"BlockToken"`
+BlockIndex int32 `json:"blockIndex" xml:"BlockIndex"`
+BlockToken string `json:"blockToken" xml:"BlockToken"`
 }
 
 type ChangedBlock struct {
-	BlockIndex       int32  `json:"blockIndex" xml:"BlockIndex"`
-	FirstBlockToken  string `json:"firstBlockToken" xml:"FirstBlockToken"`
-	SecondBlockToken string `json:"secondBlockToken" xml:"SecondBlockToken"`
+BlockIndex int32 `json:"blockIndex" xml:"BlockIndex"`
+FirstBlockToken string `json:"firstBlockToken" xml:"FirstBlockToken"`
+SecondBlockToken string `json:"secondBlockToken" xml:"SecondBlockToken"`
 }
 
 type CompleteSnapshotRequest struct {
-	ChangedBlocksCount        int32  `json:"changedBlocksCount" xml:"ChangedBlocksCount"`
-	Checksum                  string `json:"checksum" xml:"Checksum"`
-	ChecksumAggregationMethod string `json:"checksumAggregationMethod" xml:"ChecksumAggregationMethod"`
-	ChecksumAlgorithm         string `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
-	SnapshotId                string `json:"snapshotId" xml:"SnapshotId"`
+ChangedBlocksCount int32 `json:"changedBlocksCount" xml:"ChangedBlocksCount"`
+Checksum string `json:"checksum" xml:"Checksum"`
+ChecksumAggregationMethod string `json:"checksumAggregationMethod" xml:"ChecksumAggregationMethod"`
+ChecksumAlgorithm string `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
+SnapshotId string `json:"snapshotId" xml:"SnapshotId"`
 }
 
 type CompleteSnapshotResponse struct {
-	Status string `json:"status" xml:"Status"`
+Status string `json:"status" xml:"Status"`
 }
 
 type GetSnapshotBlockRequest struct {
-	BlockIndex int32  `json:"blockIndex" xml:"BlockIndex"`
-	BlockToken string `json:"blockToken" xml:"BlockToken"`
-	SnapshotId string `json:"snapshotId" xml:"SnapshotId"`
+BlockIndex int32 `json:"blockIndex" xml:"BlockIndex"`
+BlockToken string `json:"blockToken" xml:"BlockToken"`
+SnapshotId string `json:"snapshotId" xml:"SnapshotId"`
 }
 
 type GetSnapshotBlockResponse struct {
-	BlockData         []byte `json:"blockData" xml:"BlockData"`
-	Checksum          string `json:"checksum" xml:"Checksum"`
-	ChecksumAlgorithm string `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
-	DataLength        int32  `json:"dataLength" xml:"DataLength"`
+BlockData []byte `json:"blockData" xml:"BlockData"`
+Checksum string `json:"checksum" xml:"Checksum"`
+ChecksumAlgorithm string `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
+DataLength int32 `json:"dataLength" xml:"DataLength"`
 }
 
 type ListChangedBlocksRequest struct {
-	FirstSnapshotId    string `json:"firstSnapshotId" xml:"FirstSnapshotId"`
-	MaxResults         int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken          string `json:"nextToken" xml:"NextToken"`
-	SecondSnapshotId   string `json:"secondSnapshotId" xml:"SecondSnapshotId"`
-	StartingBlockIndex int32  `json:"startingBlockIndex" xml:"StartingBlockIndex"`
+FirstSnapshotId string `json:"firstSnapshotId" xml:"FirstSnapshotId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SecondSnapshotId string `json:"secondSnapshotId" xml:"SecondSnapshotId"`
+StartingBlockIndex int32 `json:"startingBlockIndex" xml:"StartingBlockIndex"`
 }
 
 type ListChangedBlocksResponse struct {
-	BlockSize     int32         `json:"blockSize" xml:"BlockSize"`
-	ChangedBlocks ChangedBlocks `json:"changedBlocks" xml:"ChangedBlocks"`
-	ExpiryTime    time.Time     `json:"expiryTime" xml:"ExpiryTime"`
-	NextToken     string        `json:"nextToken" xml:"NextToken"`
-	VolumeSize    int64         `json:"volumeSize" xml:"VolumeSize"`
+BlockSize int32 `json:"blockSize" xml:"BlockSize"`
+ChangedBlocks ChangedBlocks `json:"changedBlocks" xml:"ChangedBlocks"`
+ExpiryTime time.Time `json:"expiryTime" xml:"ExpiryTime"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+VolumeSize int64 `json:"volumeSize" xml:"VolumeSize"`
 }
 
 type ListSnapshotBlocksRequest struct {
-	MaxResults         int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken          string `json:"nextToken" xml:"NextToken"`
-	SnapshotId         string `json:"snapshotId" xml:"SnapshotId"`
-	StartingBlockIndex int32  `json:"startingBlockIndex" xml:"StartingBlockIndex"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SnapshotId string `json:"snapshotId" xml:"SnapshotId"`
+StartingBlockIndex int32 `json:"startingBlockIndex" xml:"StartingBlockIndex"`
 }
 
 type ListSnapshotBlocksResponse struct {
-	BlockSize  int32     `json:"blockSize" xml:"BlockSize"`
-	Blocks     Blocks    `json:"blocks" xml:"Blocks"`
-	ExpiryTime time.Time `json:"expiryTime" xml:"ExpiryTime"`
-	NextToken  string    `json:"nextToken" xml:"NextToken"`
-	VolumeSize int64     `json:"volumeSize" xml:"VolumeSize"`
+BlockSize int32 `json:"blockSize" xml:"BlockSize"`
+Blocks Blocks `json:"blocks" xml:"Blocks"`
+ExpiryTime time.Time `json:"expiryTime" xml:"ExpiryTime"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+VolumeSize int64 `json:"volumeSize" xml:"VolumeSize"`
 }
 
 type PutSnapshotBlockRequest struct {
-	BlockData         []byte `json:"blockData" xml:"BlockData"`
-	BlockIndex        int32  `json:"blockIndex" xml:"BlockIndex"`
-	Checksum          string `json:"checksum" xml:"Checksum"`
-	ChecksumAlgorithm string `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
-	DataLength        int32  `json:"dataLength" xml:"DataLength"`
-	Progress          int32  `json:"progress" xml:"Progress"`
-	SnapshotId        string `json:"snapshotId" xml:"SnapshotId"`
+BlockData []byte `json:"blockData" xml:"BlockData"`
+BlockIndex int32 `json:"blockIndex" xml:"BlockIndex"`
+Checksum string `json:"checksum" xml:"Checksum"`
+ChecksumAlgorithm string `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
+DataLength int32 `json:"dataLength" xml:"DataLength"`
+Progress int32 `json:"progress" xml:"Progress"`
+SnapshotId string `json:"snapshotId" xml:"SnapshotId"`
 }
 
 type PutSnapshotBlockResponse struct {
-	Checksum          string `json:"checksum" xml:"Checksum"`
-	ChecksumAlgorithm string `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
+Checksum string `json:"checksum" xml:"Checksum"`
+ChecksumAlgorithm string `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
 }
 
 type StartSnapshotRequest struct {
-	ClientToken      string `json:"clientToken" xml:"ClientToken"`
-	Description      string `json:"description" xml:"Description"`
-	Encrypted        bool   `json:"encrypted" xml:"Encrypted"`
-	KmsKeyArn        string `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	ParentSnapshotId string `json:"parentSnapshotId" xml:"ParentSnapshotId"`
-	Tags             Tags   `json:"tags" xml:"Tags"`
-	Timeout          int32  `json:"timeout" xml:"Timeout"`
-	VolumeSize       int64  `json:"volumeSize" xml:"VolumeSize"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+Description string `json:"description" xml:"Description"`
+Encrypted bool `json:"encrypted" xml:"Encrypted"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+ParentSnapshotId string `json:"parentSnapshotId" xml:"ParentSnapshotId"`
+Tags Tags `json:"tags" xml:"Tags"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+VolumeSize int64 `json:"volumeSize" xml:"VolumeSize"`
 }
 
 type StartSnapshotResponse struct {
-	BlockSize        int32     `json:"blockSize" xml:"BlockSize"`
-	Description      string    `json:"description" xml:"Description"`
-	KmsKeyArn        string    `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	OwnerId          string    `json:"ownerId" xml:"OwnerId"`
-	ParentSnapshotId string    `json:"parentSnapshotId" xml:"ParentSnapshotId"`
-	SnapshotId       string    `json:"snapshotId" xml:"SnapshotId"`
-	SseType          string    `json:"sseType" xml:"SseType"`
-	StartTime        time.Time `json:"startTime" xml:"StartTime"`
-	Status           string    `json:"status" xml:"Status"`
-	Tags             Tags      `json:"tags" xml:"Tags"`
-	VolumeSize       int64     `json:"volumeSize" xml:"VolumeSize"`
+BlockSize int32 `json:"blockSize" xml:"BlockSize"`
+Description string `json:"description" xml:"Description"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+ParentSnapshotId string `json:"parentSnapshotId" xml:"ParentSnapshotId"`
+SnapshotId string `json:"snapshotId" xml:"SnapshotId"`
+SseType string `json:"sseType" xml:"SseType"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Status string `json:"status" xml:"Status"`
+Tags Tags `json:"tags" xml:"Tags"`
+VolumeSize int64 `json:"volumeSize" xml:"VolumeSize"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type Blocks []*Block
@@ -123,3 +123,4 @@ type Blocks []*Block
 type ChangedBlocks []*ChangedBlock
 
 type Tags []*Tag
+

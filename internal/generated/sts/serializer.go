@@ -85,3 +85,4 @@ func DeserializeGetWebIdentityTokenRequest(r *http.Request, pathParams PathParam
 
 	return input, nil
 }
+

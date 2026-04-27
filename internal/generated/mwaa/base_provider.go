@@ -58,3 +58,4 @@ func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceIn
 func (b *BaseProvider) UpdateEnvironment(ctx context.Context, input *UpdateEnvironmentInput) (*UpdateEnvironmentOutput, error) {
 	return nil, fmt.Errorf("UpdateEnvironment: %w", ErrNotImplemented)
 }
+

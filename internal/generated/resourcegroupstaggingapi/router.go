@@ -13,15 +13,15 @@ type OperationRoute struct {
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
-	{Method: "POST", Pattern: "/DescribeReportCreation", Operation: "DescribeReportCreation"},
-	{Method: "POST", Pattern: "/GetComplianceSummary", Operation: "GetComplianceSummary"},
-	{Method: "POST", Pattern: "/GetResources", Operation: "GetResources"},
-	{Method: "POST", Pattern: "/GetTagKeys", Operation: "GetTagKeys"},
-	{Method: "POST", Pattern: "/GetTagValues", Operation: "GetTagValues"},
-	{Method: "POST", Pattern: "/ListRequiredTags", Operation: "ListRequiredTags"},
-	{Method: "POST", Pattern: "/StartReportCreation", Operation: "StartReportCreation"},
-	{Method: "POST", Pattern: "/TagResources", Operation: "TagResources"},
-	{Method: "POST", Pattern: "/UntagResources", Operation: "UntagResources"},
+{Method: "POST", Pattern: "/DescribeReportCreation", Operation: "DescribeReportCreation"},
+{Method: "POST", Pattern: "/GetComplianceSummary", Operation: "GetComplianceSummary"},
+{Method: "POST", Pattern: "/GetResources", Operation: "GetResources"},
+{Method: "POST", Pattern: "/GetTagKeys", Operation: "GetTagKeys"},
+{Method: "POST", Pattern: "/GetTagValues", Operation: "GetTagValues"},
+{Method: "POST", Pattern: "/ListRequiredTags", Operation: "ListRequiredTags"},
+{Method: "POST", Pattern: "/StartReportCreation", Operation: "StartReportCreation"},
+{Method: "POST", Pattern: "/TagResources", Operation: "TagResources"},
+{Method: "POST", Pattern: "/UntagResources", Operation: "UntagResources"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

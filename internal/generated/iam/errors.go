@@ -598,3 +598,4 @@ func (e *UnrecognizedPublicKeyEncodingException) ErrorCode() string {
 func (e *UnrecognizedPublicKeyEncodingException) HTTPStatus() int {
 	return 400
 }
+

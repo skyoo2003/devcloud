@@ -12,7 +12,8 @@ type OperationRoute struct {
 }
 
 // OperationRoutes is the list of all routes for this service.
-var OperationRoutes = []OperationRoute{}
+var OperationRoutes = []OperationRoute{
+}
 
 // MatchOperation returns the operation name and extracted path parameters for
 // the given HTTP method and URI path. It returns ("", nil) if no route matches.

@@ -182,3 +182,4 @@ func (b *BaseProvider) UpdateVocabulary(ctx context.Context, input *UpdateVocabu
 func (b *BaseProvider) UpdateVocabularyFilter(ctx context.Context, input *UpdateVocabularyFilterRequest) (*UpdateVocabularyFilterResponse, error) {
 	return nil, fmt.Errorf("UpdateVocabularyFilter: %w", ErrNotImplemented)
 }
+

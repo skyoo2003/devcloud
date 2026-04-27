@@ -214,3 +214,4 @@ func (b *BaseProvider) UpdateVpcEndpoint(ctx context.Context, input *UpdateVpcEn
 func (b *BaseProvider) UpgradeElasticsearchDomain(ctx context.Context, input *UpgradeElasticsearchDomainRequest) (*UpgradeElasticsearchDomainResponse, error) {
 	return nil, fmt.Errorf("UpgradeElasticsearchDomain: %w", ErrNotImplemented)
 }
+

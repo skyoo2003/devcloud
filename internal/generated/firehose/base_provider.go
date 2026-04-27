@@ -58,3 +58,4 @@ func (b *BaseProvider) UntagDeliveryStream(ctx context.Context, input *UntagDeli
 func (b *BaseProvider) UpdateDestination(ctx context.Context, input *UpdateDestinationInput) (*UpdateDestinationOutput, error) {
 	return nil, fmt.Errorf("UpdateDestination: %w", ErrNotImplemented)
 }
+

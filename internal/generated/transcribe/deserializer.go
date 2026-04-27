@@ -569,3 +569,4 @@ func SerializeUpdateVocabularyFilterResponse(w http.ResponseWriter, output *Upda
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

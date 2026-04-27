@@ -13,10 +13,10 @@ type OperationRoute struct {
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
-	{Method: "", Pattern: "", Operation: "DescribeStream"},
-	{Method: "", Pattern: "", Operation: "GetRecords"},
-	{Method: "", Pattern: "", Operation: "GetShardIterator"},
-	{Method: "", Pattern: "", Operation: "ListStreams"},
+{Method: "", Pattern: "", Operation: "DescribeStream"},
+{Method: "", Pattern: "", Operation: "GetRecords"},
+{Method: "", Pattern: "", Operation: "GetShardIterator"},
+{Method: "", Pattern: "", Operation: "ListStreams"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

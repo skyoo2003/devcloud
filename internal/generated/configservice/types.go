@@ -7,1722 +7,1722 @@ import (
 )
 
 type AccountAggregationSource struct {
-	AccountIds    AccountAggregationSourceAccountList `json:"accountIds" xml:"AccountIds"`
-	AllAwsRegions bool                                `json:"allAwsRegions" xml:"AllAwsRegions"`
-	AwsRegions    AggregatorRegionList                `json:"awsRegions" xml:"AwsRegions"`
+AccountIds AccountAggregationSourceAccountList `json:"accountIds" xml:"AccountIds"`
+AllAwsRegions bool `json:"allAwsRegions" xml:"AllAwsRegions"`
+AwsRegions AggregatorRegionList `json:"awsRegions" xml:"AwsRegions"`
 }
 
 type AggregateComplianceByConfigRule struct {
-	AccountId      string      `json:"accountId" xml:"AccountId"`
-	AwsRegion      string      `json:"awsRegion" xml:"AwsRegion"`
-	Compliance     *Compliance `json:"compliance" xml:"Compliance"`
-	ConfigRuleName string      `json:"configRuleName" xml:"ConfigRuleName"`
+AccountId string `json:"accountId" xml:"AccountId"`
+AwsRegion string `json:"awsRegion" xml:"AwsRegion"`
+Compliance *Compliance `json:"compliance" xml:"Compliance"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
 }
 
 type AggregateComplianceByConformancePack struct {
-	AccountId           string                              `json:"accountId" xml:"AccountId"`
-	AwsRegion           string                              `json:"awsRegion" xml:"AwsRegion"`
-	Compliance          *AggregateConformancePackCompliance `json:"compliance" xml:"Compliance"`
-	ConformancePackName string                              `json:"conformancePackName" xml:"ConformancePackName"`
+AccountId string `json:"accountId" xml:"AccountId"`
+AwsRegion string `json:"awsRegion" xml:"AwsRegion"`
+Compliance *AggregateConformancePackCompliance `json:"compliance" xml:"Compliance"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
 }
 
 type AggregateComplianceCount struct {
-	ComplianceSummary *ComplianceSummary `json:"complianceSummary" xml:"ComplianceSummary"`
-	GroupName         string             `json:"groupName" xml:"GroupName"`
+ComplianceSummary *ComplianceSummary `json:"complianceSummary" xml:"ComplianceSummary"`
+GroupName string `json:"groupName" xml:"GroupName"`
 }
 
 type AggregateConformancePackCompliance struct {
-	ComplianceType        string `json:"complianceType" xml:"ComplianceType"`
-	CompliantRuleCount    int32  `json:"compliantRuleCount" xml:"CompliantRuleCount"`
-	NonCompliantRuleCount int32  `json:"nonCompliantRuleCount" xml:"NonCompliantRuleCount"`
-	TotalRuleCount        int32  `json:"totalRuleCount" xml:"TotalRuleCount"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+CompliantRuleCount int32 `json:"compliantRuleCount" xml:"CompliantRuleCount"`
+NonCompliantRuleCount int32 `json:"nonCompliantRuleCount" xml:"NonCompliantRuleCount"`
+TotalRuleCount int32 `json:"totalRuleCount" xml:"TotalRuleCount"`
 }
 
 type AggregateConformancePackComplianceCount struct {
-	CompliantConformancePackCount    int32 `json:"compliantConformancePackCount" xml:"CompliantConformancePackCount"`
-	NonCompliantConformancePackCount int32 `json:"nonCompliantConformancePackCount" xml:"NonCompliantConformancePackCount"`
+CompliantConformancePackCount int32 `json:"compliantConformancePackCount" xml:"CompliantConformancePackCount"`
+NonCompliantConformancePackCount int32 `json:"nonCompliantConformancePackCount" xml:"NonCompliantConformancePackCount"`
 }
 
 type AggregateConformancePackComplianceFilters struct {
-	AccountId           string `json:"accountId" xml:"AccountId"`
-	AwsRegion           string `json:"awsRegion" xml:"AwsRegion"`
-	ComplianceType      string `json:"complianceType" xml:"ComplianceType"`
-	ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+AccountId string `json:"accountId" xml:"AccountId"`
+AwsRegion string `json:"awsRegion" xml:"AwsRegion"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
 }
 
 type AggregateConformancePackComplianceSummary struct {
-	ComplianceSummary *AggregateConformancePackComplianceCount `json:"complianceSummary" xml:"ComplianceSummary"`
-	GroupName         string                                   `json:"groupName" xml:"GroupName"`
+ComplianceSummary *AggregateConformancePackComplianceCount `json:"complianceSummary" xml:"ComplianceSummary"`
+GroupName string `json:"groupName" xml:"GroupName"`
 }
 
 type AggregateConformancePackComplianceSummaryFilters struct {
-	AccountId string `json:"accountId" xml:"AccountId"`
-	AwsRegion string `json:"awsRegion" xml:"AwsRegion"`
+AccountId string `json:"accountId" xml:"AccountId"`
+AwsRegion string `json:"awsRegion" xml:"AwsRegion"`
 }
 
 type AggregateEvaluationResult struct {
-	AccountId                  string                      `json:"accountId" xml:"AccountId"`
-	Annotation                 string                      `json:"annotation" xml:"Annotation"`
-	AwsRegion                  string                      `json:"awsRegion" xml:"AwsRegion"`
-	ComplianceType             string                      `json:"complianceType" xml:"ComplianceType"`
-	ConfigRuleInvokedTime      time.Time                   `json:"configRuleInvokedTime" xml:"ConfigRuleInvokedTime"`
-	EvaluationResultIdentifier *EvaluationResultIdentifier `json:"evaluationResultIdentifier" xml:"EvaluationResultIdentifier"`
-	ResultRecordedTime         time.Time                   `json:"resultRecordedTime" xml:"ResultRecordedTime"`
+AccountId string `json:"accountId" xml:"AccountId"`
+Annotation string `json:"annotation" xml:"Annotation"`
+AwsRegion string `json:"awsRegion" xml:"AwsRegion"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+ConfigRuleInvokedTime time.Time `json:"configRuleInvokedTime" xml:"ConfigRuleInvokedTime"`
+EvaluationResultIdentifier *EvaluationResultIdentifier `json:"evaluationResultIdentifier" xml:"EvaluationResultIdentifier"`
+ResultRecordedTime time.Time `json:"resultRecordedTime" xml:"ResultRecordedTime"`
 }
 
 type AggregateResourceIdentifier struct {
-	ResourceId      string `json:"resourceId" xml:"ResourceId"`
-	ResourceName    string `json:"resourceName" xml:"ResourceName"`
-	ResourceType    string `json:"resourceType" xml:"ResourceType"`
-	SourceAccountId string `json:"sourceAccountId" xml:"SourceAccountId"`
-	SourceRegion    string `json:"sourceRegion" xml:"SourceRegion"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceName string `json:"resourceName" xml:"ResourceName"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+SourceAccountId string `json:"sourceAccountId" xml:"SourceAccountId"`
+SourceRegion string `json:"sourceRegion" xml:"SourceRegion"`
 }
 
 type AggregatedSourceStatus struct {
-	AwsRegion        string    `json:"awsRegion" xml:"AwsRegion"`
-	LastErrorCode    string    `json:"lastErrorCode" xml:"LastErrorCode"`
-	LastErrorMessage string    `json:"lastErrorMessage" xml:"LastErrorMessage"`
-	LastUpdateStatus string    `json:"lastUpdateStatus" xml:"LastUpdateStatus"`
-	LastUpdateTime   time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
-	SourceId         string    `json:"sourceId" xml:"SourceId"`
-	SourceType       string    `json:"sourceType" xml:"SourceType"`
+AwsRegion string `json:"awsRegion" xml:"AwsRegion"`
+LastErrorCode string `json:"lastErrorCode" xml:"LastErrorCode"`
+LastErrorMessage string `json:"lastErrorMessage" xml:"LastErrorMessage"`
+LastUpdateStatus string `json:"lastUpdateStatus" xml:"LastUpdateStatus"`
+LastUpdateTime time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
+SourceId string `json:"sourceId" xml:"SourceId"`
+SourceType string `json:"sourceType" xml:"SourceType"`
 }
 
 type AggregationAuthorization struct {
-	AggregationAuthorizationArn string    `json:"aggregationAuthorizationArn" xml:"AggregationAuthorizationArn"`
-	AuthorizedAccountId         string    `json:"authorizedAccountId" xml:"AuthorizedAccountId"`
-	AuthorizedAwsRegion         string    `json:"authorizedAwsRegion" xml:"AuthorizedAwsRegion"`
-	CreationTime                time.Time `json:"creationTime" xml:"CreationTime"`
+AggregationAuthorizationArn string `json:"aggregationAuthorizationArn" xml:"AggregationAuthorizationArn"`
+AuthorizedAccountId string `json:"authorizedAccountId" xml:"AuthorizedAccountId"`
+AuthorizedAwsRegion string `json:"authorizedAwsRegion" xml:"AuthorizedAwsRegion"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
 }
 
 type AggregatorFilterResourceType struct {
-	Type  string                `json:"type" xml:"Type"`
-	Value ResourceTypeValueList `json:"value" xml:"Value"`
+Type string `json:"type" xml:"Type"`
+Value ResourceTypeValueList `json:"value" xml:"Value"`
 }
 
 type AggregatorFilterServicePrincipal struct {
-	Type  string                    `json:"type" xml:"Type"`
-	Value ServicePrincipalValueList `json:"value" xml:"Value"`
+Type string `json:"type" xml:"Type"`
+Value ServicePrincipalValueList `json:"value" xml:"Value"`
 }
 
 type AggregatorFilters struct {
-	ResourceType     *AggregatorFilterResourceType     `json:"resourceType" xml:"ResourceType"`
-	ServicePrincipal *AggregatorFilterServicePrincipal `json:"servicePrincipal" xml:"ServicePrincipal"`
+ResourceType *AggregatorFilterResourceType `json:"resourceType" xml:"ResourceType"`
+ServicePrincipal *AggregatorFilterServicePrincipal `json:"servicePrincipal" xml:"ServicePrincipal"`
 }
 
 type AssociateResourceTypesRequest struct {
-	ConfigurationRecorderArn string           `json:"configurationRecorderArn" xml:"ConfigurationRecorderArn"`
-	ResourceTypes            ResourceTypeList `json:"resourceTypes" xml:"ResourceTypes"`
+ConfigurationRecorderArn string `json:"configurationRecorderArn" xml:"ConfigurationRecorderArn"`
+ResourceTypes ResourceTypeList `json:"resourceTypes" xml:"ResourceTypes"`
 }
 
 type AssociateResourceTypesResponse struct {
-	ConfigurationRecorder *ConfigurationRecorder `json:"configurationRecorder" xml:"ConfigurationRecorder"`
+ConfigurationRecorder *ConfigurationRecorder `json:"configurationRecorder" xml:"ConfigurationRecorder"`
 }
 
 type BaseConfigurationItem struct {
-	AccountId                     string                     `json:"accountId" xml:"accountId"`
-	Arn                           string                     `json:"arn" xml:"arn"`
-	AvailabilityZone              string                     `json:"availabilityZone" xml:"availabilityZone"`
-	AwsRegion                     string                     `json:"awsRegion" xml:"awsRegion"`
-	Configuration                 string                     `json:"configuration" xml:"configuration"`
-	ConfigurationItemCaptureTime  time.Time                  `json:"configurationItemCaptureTime" xml:"configurationItemCaptureTime"`
-	ConfigurationItemDeliveryTime time.Time                  `json:"configurationItemDeliveryTime" xml:"configurationItemDeliveryTime"`
-	ConfigurationItemStatus       string                     `json:"configurationItemStatus" xml:"configurationItemStatus"`
-	ConfigurationStateId          string                     `json:"configurationStateId" xml:"configurationStateId"`
-	RecordingFrequency            string                     `json:"recordingFrequency" xml:"recordingFrequency"`
-	ResourceCreationTime          time.Time                  `json:"resourceCreationTime" xml:"resourceCreationTime"`
-	ResourceId                    string                     `json:"resourceId" xml:"resourceId"`
-	ResourceName                  string                     `json:"resourceName" xml:"resourceName"`
-	ResourceType                  string                     `json:"resourceType" xml:"resourceType"`
-	SupplementaryConfiguration    SupplementaryConfiguration `json:"supplementaryConfiguration" xml:"supplementaryConfiguration"`
-	Version                       string                     `json:"version" xml:"version"`
+AccountId string `json:"accountId" xml:"accountId"`
+Arn string `json:"arn" xml:"arn"`
+AvailabilityZone string `json:"availabilityZone" xml:"availabilityZone"`
+AwsRegion string `json:"awsRegion" xml:"awsRegion"`
+Configuration string `json:"configuration" xml:"configuration"`
+ConfigurationItemCaptureTime time.Time `json:"configurationItemCaptureTime" xml:"configurationItemCaptureTime"`
+ConfigurationItemDeliveryTime time.Time `json:"configurationItemDeliveryTime" xml:"configurationItemDeliveryTime"`
+ConfigurationItemStatus string `json:"configurationItemStatus" xml:"configurationItemStatus"`
+ConfigurationStateId string `json:"configurationStateId" xml:"configurationStateId"`
+RecordingFrequency string `json:"recordingFrequency" xml:"recordingFrequency"`
+ResourceCreationTime time.Time `json:"resourceCreationTime" xml:"resourceCreationTime"`
+ResourceId string `json:"resourceId" xml:"resourceId"`
+ResourceName string `json:"resourceName" xml:"resourceName"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+SupplementaryConfiguration SupplementaryConfiguration `json:"supplementaryConfiguration" xml:"supplementaryConfiguration"`
+Version string `json:"version" xml:"version"`
 }
 
 type BatchGetAggregateResourceConfigRequest struct {
-	ConfigurationAggregatorName string                  `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	ResourceIdentifiers         ResourceIdentifiersList `json:"resourceIdentifiers" xml:"ResourceIdentifiers"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+ResourceIdentifiers ResourceIdentifiersList `json:"resourceIdentifiers" xml:"ResourceIdentifiers"`
 }
 
 type BatchGetAggregateResourceConfigResponse struct {
-	BaseConfigurationItems         BaseConfigurationItems            `json:"baseConfigurationItems" xml:"BaseConfigurationItems"`
-	UnprocessedResourceIdentifiers UnprocessedResourceIdentifierList `json:"unprocessedResourceIdentifiers" xml:"UnprocessedResourceIdentifiers"`
+BaseConfigurationItems BaseConfigurationItems `json:"baseConfigurationItems" xml:"BaseConfigurationItems"`
+UnprocessedResourceIdentifiers UnprocessedResourceIdentifierList `json:"unprocessedResourceIdentifiers" xml:"UnprocessedResourceIdentifiers"`
 }
 
 type BatchGetResourceConfigRequest struct {
-	ResourceKeys ResourceKeys `json:"resourceKeys" xml:"resourceKeys"`
+ResourceKeys ResourceKeys `json:"resourceKeys" xml:"resourceKeys"`
 }
 
 type BatchGetResourceConfigResponse struct {
-	BaseConfigurationItems  BaseConfigurationItems `json:"baseConfigurationItems" xml:"baseConfigurationItems"`
-	UnprocessedResourceKeys ResourceKeys           `json:"unprocessedResourceKeys" xml:"unprocessedResourceKeys"`
+BaseConfigurationItems BaseConfigurationItems `json:"baseConfigurationItems" xml:"baseConfigurationItems"`
+UnprocessedResourceKeys ResourceKeys `json:"unprocessedResourceKeys" xml:"unprocessedResourceKeys"`
 }
 
 type Compliance struct {
-	ComplianceContributorCount *ComplianceContributorCount `json:"complianceContributorCount" xml:"ComplianceContributorCount"`
-	ComplianceType             string                      `json:"complianceType" xml:"ComplianceType"`
+ComplianceContributorCount *ComplianceContributorCount `json:"complianceContributorCount" xml:"ComplianceContributorCount"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
 }
 
 type ComplianceByConfigRule struct {
-	Compliance     *Compliance `json:"compliance" xml:"Compliance"`
-	ConfigRuleName string      `json:"configRuleName" xml:"ConfigRuleName"`
+Compliance *Compliance `json:"compliance" xml:"Compliance"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
 }
 
 type ComplianceByResource struct {
-	Compliance   *Compliance `json:"compliance" xml:"Compliance"`
-	ResourceId   string      `json:"resourceId" xml:"ResourceId"`
-	ResourceType string      `json:"resourceType" xml:"ResourceType"`
+Compliance *Compliance `json:"compliance" xml:"Compliance"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ComplianceContributorCount struct {
-	CapExceeded bool  `json:"capExceeded" xml:"CapExceeded"`
-	CappedCount int32 `json:"cappedCount" xml:"CappedCount"`
+CapExceeded bool `json:"capExceeded" xml:"CapExceeded"`
+CappedCount int32 `json:"cappedCount" xml:"CappedCount"`
 }
 
 type ComplianceSummary struct {
-	ComplianceSummaryTimestamp time.Time                   `json:"complianceSummaryTimestamp" xml:"ComplianceSummaryTimestamp"`
-	CompliantResourceCount     *ComplianceContributorCount `json:"compliantResourceCount" xml:"CompliantResourceCount"`
-	NonCompliantResourceCount  *ComplianceContributorCount `json:"nonCompliantResourceCount" xml:"NonCompliantResourceCount"`
+ComplianceSummaryTimestamp time.Time `json:"complianceSummaryTimestamp" xml:"ComplianceSummaryTimestamp"`
+CompliantResourceCount *ComplianceContributorCount `json:"compliantResourceCount" xml:"CompliantResourceCount"`
+NonCompliantResourceCount *ComplianceContributorCount `json:"nonCompliantResourceCount" xml:"NonCompliantResourceCount"`
 }
 
 type ComplianceSummaryByResourceType struct {
-	ComplianceSummary *ComplianceSummary `json:"complianceSummary" xml:"ComplianceSummary"`
-	ResourceType      string             `json:"resourceType" xml:"ResourceType"`
+ComplianceSummary *ComplianceSummary `json:"complianceSummary" xml:"ComplianceSummary"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ConfigExportDeliveryInfo struct {
-	LastAttemptTime    time.Time `json:"lastAttemptTime" xml:"lastAttemptTime"`
-	LastErrorCode      string    `json:"lastErrorCode" xml:"lastErrorCode"`
-	LastErrorMessage   string    `json:"lastErrorMessage" xml:"lastErrorMessage"`
-	LastStatus         string    `json:"lastStatus" xml:"lastStatus"`
-	LastSuccessfulTime time.Time `json:"lastSuccessfulTime" xml:"lastSuccessfulTime"`
-	NextDeliveryTime   time.Time `json:"nextDeliveryTime" xml:"nextDeliveryTime"`
+LastAttemptTime time.Time `json:"lastAttemptTime" xml:"lastAttemptTime"`
+LastErrorCode string `json:"lastErrorCode" xml:"lastErrorCode"`
+LastErrorMessage string `json:"lastErrorMessage" xml:"lastErrorMessage"`
+LastStatus string `json:"lastStatus" xml:"lastStatus"`
+LastSuccessfulTime time.Time `json:"lastSuccessfulTime" xml:"lastSuccessfulTime"`
+NextDeliveryTime time.Time `json:"nextDeliveryTime" xml:"nextDeliveryTime"`
 }
 
 type ConfigRule struct {
-	ConfigRuleArn             string          `json:"configRuleArn" xml:"ConfigRuleArn"`
-	ConfigRuleId              string          `json:"configRuleId" xml:"ConfigRuleId"`
-	ConfigRuleName            string          `json:"configRuleName" xml:"ConfigRuleName"`
-	ConfigRuleState           string          `json:"configRuleState" xml:"ConfigRuleState"`
-	CreatedBy                 string          `json:"createdBy" xml:"CreatedBy"`
-	Description               string          `json:"description" xml:"Description"`
-	EvaluationModes           EvaluationModes `json:"evaluationModes" xml:"EvaluationModes"`
-	InputParameters           string          `json:"inputParameters" xml:"InputParameters"`
-	MaximumExecutionFrequency string          `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
-	Scope                     *Scope          `json:"scope" xml:"Scope"`
-	Source                    *Source         `json:"source" xml:"Source"`
+ConfigRuleArn string `json:"configRuleArn" xml:"ConfigRuleArn"`
+ConfigRuleId string `json:"configRuleId" xml:"ConfigRuleId"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ConfigRuleState string `json:"configRuleState" xml:"ConfigRuleState"`
+CreatedBy string `json:"createdBy" xml:"CreatedBy"`
+Description string `json:"description" xml:"Description"`
+EvaluationModes EvaluationModes `json:"evaluationModes" xml:"EvaluationModes"`
+InputParameters string `json:"inputParameters" xml:"InputParameters"`
+MaximumExecutionFrequency string `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
+Scope *Scope `json:"scope" xml:"Scope"`
+Source *Source `json:"source" xml:"Source"`
 }
 
 type ConfigRuleComplianceFilters struct {
-	AccountId      string `json:"accountId" xml:"AccountId"`
-	AwsRegion      string `json:"awsRegion" xml:"AwsRegion"`
-	ComplianceType string `json:"complianceType" xml:"ComplianceType"`
-	ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+AccountId string `json:"accountId" xml:"AccountId"`
+AwsRegion string `json:"awsRegion" xml:"AwsRegion"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
 }
 
 type ConfigRuleComplianceSummaryFilters struct {
-	AccountId string `json:"accountId" xml:"AccountId"`
-	AwsRegion string `json:"awsRegion" xml:"AwsRegion"`
+AccountId string `json:"accountId" xml:"AccountId"`
+AwsRegion string `json:"awsRegion" xml:"AwsRegion"`
 }
 
 type ConfigRuleEvaluationStatus struct {
-	ConfigRuleArn                    string    `json:"configRuleArn" xml:"ConfigRuleArn"`
-	ConfigRuleId                     string    `json:"configRuleId" xml:"ConfigRuleId"`
-	ConfigRuleName                   string    `json:"configRuleName" xml:"ConfigRuleName"`
-	FirstActivatedTime               time.Time `json:"firstActivatedTime" xml:"FirstActivatedTime"`
-	FirstEvaluationStarted           bool      `json:"firstEvaluationStarted" xml:"FirstEvaluationStarted"`
-	LastDeactivatedTime              time.Time `json:"lastDeactivatedTime" xml:"LastDeactivatedTime"`
-	LastDebugLogDeliveryStatus       string    `json:"lastDebugLogDeliveryStatus" xml:"LastDebugLogDeliveryStatus"`
-	LastDebugLogDeliveryStatusReason string    `json:"lastDebugLogDeliveryStatusReason" xml:"LastDebugLogDeliveryStatusReason"`
-	LastDebugLogDeliveryTime         time.Time `json:"lastDebugLogDeliveryTime" xml:"LastDebugLogDeliveryTime"`
-	LastErrorCode                    string    `json:"lastErrorCode" xml:"LastErrorCode"`
-	LastErrorMessage                 string    `json:"lastErrorMessage" xml:"LastErrorMessage"`
-	LastFailedEvaluationTime         time.Time `json:"lastFailedEvaluationTime" xml:"LastFailedEvaluationTime"`
-	LastFailedInvocationTime         time.Time `json:"lastFailedInvocationTime" xml:"LastFailedInvocationTime"`
-	LastSuccessfulEvaluationTime     time.Time `json:"lastSuccessfulEvaluationTime" xml:"LastSuccessfulEvaluationTime"`
-	LastSuccessfulInvocationTime     time.Time `json:"lastSuccessfulInvocationTime" xml:"LastSuccessfulInvocationTime"`
+ConfigRuleArn string `json:"configRuleArn" xml:"ConfigRuleArn"`
+ConfigRuleId string `json:"configRuleId" xml:"ConfigRuleId"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+FirstActivatedTime time.Time `json:"firstActivatedTime" xml:"FirstActivatedTime"`
+FirstEvaluationStarted bool `json:"firstEvaluationStarted" xml:"FirstEvaluationStarted"`
+LastDeactivatedTime time.Time `json:"lastDeactivatedTime" xml:"LastDeactivatedTime"`
+LastDebugLogDeliveryStatus string `json:"lastDebugLogDeliveryStatus" xml:"LastDebugLogDeliveryStatus"`
+LastDebugLogDeliveryStatusReason string `json:"lastDebugLogDeliveryStatusReason" xml:"LastDebugLogDeliveryStatusReason"`
+LastDebugLogDeliveryTime time.Time `json:"lastDebugLogDeliveryTime" xml:"LastDebugLogDeliveryTime"`
+LastErrorCode string `json:"lastErrorCode" xml:"LastErrorCode"`
+LastErrorMessage string `json:"lastErrorMessage" xml:"LastErrorMessage"`
+LastFailedEvaluationTime time.Time `json:"lastFailedEvaluationTime" xml:"LastFailedEvaluationTime"`
+LastFailedInvocationTime time.Time `json:"lastFailedInvocationTime" xml:"LastFailedInvocationTime"`
+LastSuccessfulEvaluationTime time.Time `json:"lastSuccessfulEvaluationTime" xml:"LastSuccessfulEvaluationTime"`
+LastSuccessfulInvocationTime time.Time `json:"lastSuccessfulInvocationTime" xml:"LastSuccessfulInvocationTime"`
 }
 
 type ConfigSnapshotDeliveryProperties struct {
-	DeliveryFrequency string `json:"deliveryFrequency" xml:"deliveryFrequency"`
+DeliveryFrequency string `json:"deliveryFrequency" xml:"deliveryFrequency"`
 }
 
 type ConfigStreamDeliveryInfo struct {
-	LastErrorCode        string    `json:"lastErrorCode" xml:"lastErrorCode"`
-	LastErrorMessage     string    `json:"lastErrorMessage" xml:"lastErrorMessage"`
-	LastStatus           string    `json:"lastStatus" xml:"lastStatus"`
-	LastStatusChangeTime time.Time `json:"lastStatusChangeTime" xml:"lastStatusChangeTime"`
+LastErrorCode string `json:"lastErrorCode" xml:"lastErrorCode"`
+LastErrorMessage string `json:"lastErrorMessage" xml:"lastErrorMessage"`
+LastStatus string `json:"lastStatus" xml:"lastStatus"`
+LastStatusChangeTime time.Time `json:"lastStatusChangeTime" xml:"lastStatusChangeTime"`
 }
 
 type ConfigurationAggregator struct {
-	AccountAggregationSources     AccountAggregationSourceList   `json:"accountAggregationSources" xml:"AccountAggregationSources"`
-	AggregatorFilters             *AggregatorFilters             `json:"aggregatorFilters" xml:"AggregatorFilters"`
-	ConfigurationAggregatorArn    string                         `json:"configurationAggregatorArn" xml:"ConfigurationAggregatorArn"`
-	ConfigurationAggregatorName   string                         `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	CreatedBy                     string                         `json:"createdBy" xml:"CreatedBy"`
-	CreationTime                  time.Time                      `json:"creationTime" xml:"CreationTime"`
-	LastUpdatedTime               time.Time                      `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	OrganizationAggregationSource *OrganizationAggregationSource `json:"organizationAggregationSource" xml:"OrganizationAggregationSource"`
+AccountAggregationSources AccountAggregationSourceList `json:"accountAggregationSources" xml:"AccountAggregationSources"`
+AggregatorFilters *AggregatorFilters `json:"aggregatorFilters" xml:"AggregatorFilters"`
+ConfigurationAggregatorArn string `json:"configurationAggregatorArn" xml:"ConfigurationAggregatorArn"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+CreatedBy string `json:"createdBy" xml:"CreatedBy"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+OrganizationAggregationSource *OrganizationAggregationSource `json:"organizationAggregationSource" xml:"OrganizationAggregationSource"`
 }
 
 type ConfigurationItem struct {
-	AccountId                     string                     `json:"accountId" xml:"accountId"`
-	Arn                           string                     `json:"arn" xml:"arn"`
-	AvailabilityZone              string                     `json:"availabilityZone" xml:"availabilityZone"`
-	AwsRegion                     string                     `json:"awsRegion" xml:"awsRegion"`
-	Configuration                 string                     `json:"configuration" xml:"configuration"`
-	ConfigurationItemCaptureTime  time.Time                  `json:"configurationItemCaptureTime" xml:"configurationItemCaptureTime"`
-	ConfigurationItemDeliveryTime time.Time                  `json:"configurationItemDeliveryTime" xml:"configurationItemDeliveryTime"`
-	ConfigurationItemMD5Hash      string                     `json:"configurationItemMD5Hash" xml:"configurationItemMD5Hash"`
-	ConfigurationItemStatus       string                     `json:"configurationItemStatus" xml:"configurationItemStatus"`
-	ConfigurationStateId          string                     `json:"configurationStateId" xml:"configurationStateId"`
-	RecordingFrequency            string                     `json:"recordingFrequency" xml:"recordingFrequency"`
-	RelatedEvents                 RelatedEventList           `json:"relatedEvents" xml:"relatedEvents"`
-	Relationships                 RelationshipList           `json:"relationships" xml:"relationships"`
-	ResourceCreationTime          time.Time                  `json:"resourceCreationTime" xml:"resourceCreationTime"`
-	ResourceId                    string                     `json:"resourceId" xml:"resourceId"`
-	ResourceName                  string                     `json:"resourceName" xml:"resourceName"`
-	ResourceType                  string                     `json:"resourceType" xml:"resourceType"`
-	SupplementaryConfiguration    SupplementaryConfiguration `json:"supplementaryConfiguration" xml:"supplementaryConfiguration"`
-	Tags                          Tags                       `json:"tags" xml:"tags"`
-	Version                       string                     `json:"version" xml:"version"`
+AccountId string `json:"accountId" xml:"accountId"`
+Arn string `json:"arn" xml:"arn"`
+AvailabilityZone string `json:"availabilityZone" xml:"availabilityZone"`
+AwsRegion string `json:"awsRegion" xml:"awsRegion"`
+Configuration string `json:"configuration" xml:"configuration"`
+ConfigurationItemCaptureTime time.Time `json:"configurationItemCaptureTime" xml:"configurationItemCaptureTime"`
+ConfigurationItemDeliveryTime time.Time `json:"configurationItemDeliveryTime" xml:"configurationItemDeliveryTime"`
+ConfigurationItemMD5Hash string `json:"configurationItemMD5Hash" xml:"configurationItemMD5Hash"`
+ConfigurationItemStatus string `json:"configurationItemStatus" xml:"configurationItemStatus"`
+ConfigurationStateId string `json:"configurationStateId" xml:"configurationStateId"`
+RecordingFrequency string `json:"recordingFrequency" xml:"recordingFrequency"`
+RelatedEvents RelatedEventList `json:"relatedEvents" xml:"relatedEvents"`
+Relationships RelationshipList `json:"relationships" xml:"relationships"`
+ResourceCreationTime time.Time `json:"resourceCreationTime" xml:"resourceCreationTime"`
+ResourceId string `json:"resourceId" xml:"resourceId"`
+ResourceName string `json:"resourceName" xml:"resourceName"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+SupplementaryConfiguration SupplementaryConfiguration `json:"supplementaryConfiguration" xml:"supplementaryConfiguration"`
+Tags Tags `json:"tags" xml:"tags"`
+Version string `json:"version" xml:"version"`
 }
 
 type ConfigurationRecorder struct {
-	Arn              string          `json:"arn" xml:"arn"`
-	Name             string          `json:"name" xml:"name"`
-	RecordingGroup   *RecordingGroup `json:"recordingGroup" xml:"recordingGroup"`
-	RecordingMode    *RecordingMode  `json:"recordingMode" xml:"recordingMode"`
-	RecordingScope   string          `json:"recordingScope" xml:"recordingScope"`
-	RoleARN          string          `json:"roleARN" xml:"roleARN"`
-	ServicePrincipal string          `json:"servicePrincipal" xml:"servicePrincipal"`
+Arn string `json:"arn" xml:"arn"`
+Name string `json:"name" xml:"name"`
+RecordingGroup *RecordingGroup `json:"recordingGroup" xml:"recordingGroup"`
+RecordingMode *RecordingMode `json:"recordingMode" xml:"recordingMode"`
+RecordingScope string `json:"recordingScope" xml:"recordingScope"`
+RoleARN string `json:"roleARN" xml:"roleARN"`
+ServicePrincipal string `json:"servicePrincipal" xml:"servicePrincipal"`
 }
 
 type ConfigurationRecorderFilter struct {
-	FilterName  string                            `json:"filterName" xml:"filterName"`
-	FilterValue ConfigurationRecorderFilterValues `json:"filterValue" xml:"filterValue"`
+FilterName string `json:"filterName" xml:"filterName"`
+FilterValue ConfigurationRecorderFilterValues `json:"filterValue" xml:"filterValue"`
 }
 
 type ConfigurationRecorderStatus struct {
-	Arn                  string    `json:"arn" xml:"arn"`
-	LastErrorCode        string    `json:"lastErrorCode" xml:"lastErrorCode"`
-	LastErrorMessage     string    `json:"lastErrorMessage" xml:"lastErrorMessage"`
-	LastStartTime        time.Time `json:"lastStartTime" xml:"lastStartTime"`
-	LastStatus           string    `json:"lastStatus" xml:"lastStatus"`
-	LastStatusChangeTime time.Time `json:"lastStatusChangeTime" xml:"lastStatusChangeTime"`
-	LastStopTime         time.Time `json:"lastStopTime" xml:"lastStopTime"`
-	Name                 string    `json:"name" xml:"name"`
-	Recording            bool      `json:"recording" xml:"recording"`
-	ServicePrincipal     string    `json:"servicePrincipal" xml:"servicePrincipal"`
+Arn string `json:"arn" xml:"arn"`
+LastErrorCode string `json:"lastErrorCode" xml:"lastErrorCode"`
+LastErrorMessage string `json:"lastErrorMessage" xml:"lastErrorMessage"`
+LastStartTime time.Time `json:"lastStartTime" xml:"lastStartTime"`
+LastStatus string `json:"lastStatus" xml:"lastStatus"`
+LastStatusChangeTime time.Time `json:"lastStatusChangeTime" xml:"lastStatusChangeTime"`
+LastStopTime time.Time `json:"lastStopTime" xml:"lastStopTime"`
+Name string `json:"name" xml:"name"`
+Recording bool `json:"recording" xml:"recording"`
+ServicePrincipal string `json:"servicePrincipal" xml:"servicePrincipal"`
 }
 
 type ConfigurationRecorderSummary struct {
-	Arn              string `json:"arn" xml:"arn"`
-	Name             string `json:"name" xml:"name"`
-	RecordingScope   string `json:"recordingScope" xml:"recordingScope"`
-	ServicePrincipal string `json:"servicePrincipal" xml:"servicePrincipal"`
+Arn string `json:"arn" xml:"arn"`
+Name string `json:"name" xml:"name"`
+RecordingScope string `json:"recordingScope" xml:"recordingScope"`
+ServicePrincipal string `json:"servicePrincipal" xml:"servicePrincipal"`
 }
 
 type ConformancePackComplianceFilters struct {
-	ComplianceType  string                         `json:"complianceType" xml:"ComplianceType"`
-	ConfigRuleNames ConformancePackConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+ConfigRuleNames ConformancePackConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
 }
 
 type ConformancePackComplianceScore struct {
-	ConformancePackName string    `json:"conformancePackName" xml:"ConformancePackName"`
-	LastUpdatedTime     time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	Score               string    `json:"score" xml:"Score"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+Score string `json:"score" xml:"Score"`
 }
 
 type ConformancePackComplianceScoresFilters struct {
-	ConformancePackNames ConformancePackNameFilter `json:"conformancePackNames" xml:"ConformancePackNames"`
+ConformancePackNames ConformancePackNameFilter `json:"conformancePackNames" xml:"ConformancePackNames"`
 }
 
 type ConformancePackComplianceSummary struct {
-	ConformancePackComplianceStatus string `json:"conformancePackComplianceStatus" xml:"ConformancePackComplianceStatus"`
-	ConformancePackName             string `json:"conformancePackName" xml:"ConformancePackName"`
+ConformancePackComplianceStatus string `json:"conformancePackComplianceStatus" xml:"ConformancePackComplianceStatus"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
 }
 
 type ConformancePackDetail struct {
-	ConformancePackArn             string                         `json:"conformancePackArn" xml:"ConformancePackArn"`
-	ConformancePackId              string                         `json:"conformancePackId" xml:"ConformancePackId"`
-	ConformancePackInputParameters ConformancePackInputParameters `json:"conformancePackInputParameters" xml:"ConformancePackInputParameters"`
-	ConformancePackName            string                         `json:"conformancePackName" xml:"ConformancePackName"`
-	CreatedBy                      string                         `json:"createdBy" xml:"CreatedBy"`
-	DeliveryS3Bucket               string                         `json:"deliveryS3Bucket" xml:"DeliveryS3Bucket"`
-	DeliveryS3KeyPrefix            string                         `json:"deliveryS3KeyPrefix" xml:"DeliveryS3KeyPrefix"`
-	LastUpdateRequestedTime        time.Time                      `json:"lastUpdateRequestedTime" xml:"LastUpdateRequestedTime"`
-	TemplateSSMDocumentDetails     *TemplateSSMDocumentDetails    `json:"templateSSMDocumentDetails" xml:"TemplateSSMDocumentDetails"`
+ConformancePackArn string `json:"conformancePackArn" xml:"ConformancePackArn"`
+ConformancePackId string `json:"conformancePackId" xml:"ConformancePackId"`
+ConformancePackInputParameters ConformancePackInputParameters `json:"conformancePackInputParameters" xml:"ConformancePackInputParameters"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+CreatedBy string `json:"createdBy" xml:"CreatedBy"`
+DeliveryS3Bucket string `json:"deliveryS3Bucket" xml:"DeliveryS3Bucket"`
+DeliveryS3KeyPrefix string `json:"deliveryS3KeyPrefix" xml:"DeliveryS3KeyPrefix"`
+LastUpdateRequestedTime time.Time `json:"lastUpdateRequestedTime" xml:"LastUpdateRequestedTime"`
+TemplateSSMDocumentDetails *TemplateSSMDocumentDetails `json:"templateSSMDocumentDetails" xml:"TemplateSSMDocumentDetails"`
 }
 
 type ConformancePackEvaluationFilters struct {
-	ComplianceType  string                               `json:"complianceType" xml:"ComplianceType"`
-	ConfigRuleNames ConformancePackConfigRuleNames       `json:"configRuleNames" xml:"ConfigRuleNames"`
-	ResourceIds     ConformancePackComplianceResourceIds `json:"resourceIds" xml:"ResourceIds"`
-	ResourceType    string                               `json:"resourceType" xml:"ResourceType"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+ConfigRuleNames ConformancePackConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
+ResourceIds ConformancePackComplianceResourceIds `json:"resourceIds" xml:"ResourceIds"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ConformancePackEvaluationResult struct {
-	Annotation                 string                      `json:"annotation" xml:"Annotation"`
-	ComplianceType             string                      `json:"complianceType" xml:"ComplianceType"`
-	ConfigRuleInvokedTime      time.Time                   `json:"configRuleInvokedTime" xml:"ConfigRuleInvokedTime"`
-	EvaluationResultIdentifier *EvaluationResultIdentifier `json:"evaluationResultIdentifier" xml:"EvaluationResultIdentifier"`
-	ResultRecordedTime         time.Time                   `json:"resultRecordedTime" xml:"ResultRecordedTime"`
+Annotation string `json:"annotation" xml:"Annotation"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+ConfigRuleInvokedTime time.Time `json:"configRuleInvokedTime" xml:"ConfigRuleInvokedTime"`
+EvaluationResultIdentifier *EvaluationResultIdentifier `json:"evaluationResultIdentifier" xml:"EvaluationResultIdentifier"`
+ResultRecordedTime time.Time `json:"resultRecordedTime" xml:"ResultRecordedTime"`
 }
 
 type ConformancePackInputParameter struct {
-	ParameterName  string `json:"parameterName" xml:"ParameterName"`
-	ParameterValue string `json:"parameterValue" xml:"ParameterValue"`
+ParameterName string `json:"parameterName" xml:"ParameterName"`
+ParameterValue string `json:"parameterValue" xml:"ParameterValue"`
 }
 
 type ConformancePackRuleCompliance struct {
-	ComplianceType string       `json:"complianceType" xml:"ComplianceType"`
-	ConfigRuleName string       `json:"configRuleName" xml:"ConfigRuleName"`
-	Controls       ControlsList `json:"controls" xml:"Controls"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+Controls ControlsList `json:"controls" xml:"Controls"`
 }
 
 type ConformancePackStatusDetail struct {
-	ConformancePackArn          string    `json:"conformancePackArn" xml:"ConformancePackArn"`
-	ConformancePackId           string    `json:"conformancePackId" xml:"ConformancePackId"`
-	ConformancePackName         string    `json:"conformancePackName" xml:"ConformancePackName"`
-	ConformancePackState        string    `json:"conformancePackState" xml:"ConformancePackState"`
-	ConformancePackStatusReason string    `json:"conformancePackStatusReason" xml:"ConformancePackStatusReason"`
-	LastUpdateCompletedTime     time.Time `json:"lastUpdateCompletedTime" xml:"LastUpdateCompletedTime"`
-	LastUpdateRequestedTime     time.Time `json:"lastUpdateRequestedTime" xml:"LastUpdateRequestedTime"`
-	StackArn                    string    `json:"stackArn" xml:"StackArn"`
+ConformancePackArn string `json:"conformancePackArn" xml:"ConformancePackArn"`
+ConformancePackId string `json:"conformancePackId" xml:"ConformancePackId"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+ConformancePackState string `json:"conformancePackState" xml:"ConformancePackState"`
+ConformancePackStatusReason string `json:"conformancePackStatusReason" xml:"ConformancePackStatusReason"`
+LastUpdateCompletedTime time.Time `json:"lastUpdateCompletedTime" xml:"LastUpdateCompletedTime"`
+LastUpdateRequestedTime time.Time `json:"lastUpdateRequestedTime" xml:"LastUpdateRequestedTime"`
+StackArn string `json:"stackArn" xml:"StackArn"`
 }
 
 type CustomPolicyDetails struct {
-	EnableDebugLogDelivery bool   `json:"enableDebugLogDelivery" xml:"EnableDebugLogDelivery"`
-	PolicyRuntime          string `json:"policyRuntime" xml:"PolicyRuntime"`
-	PolicyText             string `json:"policyText" xml:"PolicyText"`
+EnableDebugLogDelivery bool `json:"enableDebugLogDelivery" xml:"EnableDebugLogDelivery"`
+PolicyRuntime string `json:"policyRuntime" xml:"PolicyRuntime"`
+PolicyText string `json:"policyText" xml:"PolicyText"`
 }
 
 type DeleteAggregationAuthorizationRequest struct {
-	AuthorizedAccountId string `json:"authorizedAccountId" xml:"AuthorizedAccountId"`
-	AuthorizedAwsRegion string `json:"authorizedAwsRegion" xml:"AuthorizedAwsRegion"`
+AuthorizedAccountId string `json:"authorizedAccountId" xml:"AuthorizedAccountId"`
+AuthorizedAwsRegion string `json:"authorizedAwsRegion" xml:"AuthorizedAwsRegion"`
 }
 
 type DeleteConfigRuleRequest struct {
-	ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
 }
 
 type DeleteConfigurationAggregatorRequest struct {
-	ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
 }
 
 type DeleteConfigurationRecorderRequest struct {
-	ConfigurationRecorderName string `json:"configurationRecorderName" xml:"ConfigurationRecorderName"`
+ConfigurationRecorderName string `json:"configurationRecorderName" xml:"ConfigurationRecorderName"`
 }
 
 type DeleteConformancePackRequest struct {
-	ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
 }
 
 type DeleteDeliveryChannelRequest struct {
-	DeliveryChannelName string `json:"deliveryChannelName" xml:"DeliveryChannelName"`
+DeliveryChannelName string `json:"deliveryChannelName" xml:"DeliveryChannelName"`
 }
 
 type DeleteEvaluationResultsRequest struct {
-	ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
 }
 
 type DeleteEvaluationResultsResponse struct {
 }
 
 type DeleteOrganizationConfigRuleRequest struct {
-	OrganizationConfigRuleName string `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
+OrganizationConfigRuleName string `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
 }
 
 type DeleteOrganizationConformancePackRequest struct {
-	OrganizationConformancePackName string `json:"organizationConformancePackName" xml:"OrganizationConformancePackName"`
+OrganizationConformancePackName string `json:"organizationConformancePackName" xml:"OrganizationConformancePackName"`
 }
 
 type DeletePendingAggregationRequestRequest struct {
-	RequesterAccountId string `json:"requesterAccountId" xml:"RequesterAccountId"`
-	RequesterAwsRegion string `json:"requesterAwsRegion" xml:"RequesterAwsRegion"`
+RequesterAccountId string `json:"requesterAccountId" xml:"RequesterAccountId"`
+RequesterAwsRegion string `json:"requesterAwsRegion" xml:"RequesterAwsRegion"`
 }
 
 type DeleteRemediationConfigurationRequest struct {
-	ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
-	ResourceType   string `json:"resourceType" xml:"ResourceType"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type DeleteRemediationConfigurationResponse struct {
 }
 
 type DeleteRemediationExceptionsRequest struct {
-	ConfigRuleName string                           `json:"configRuleName" xml:"ConfigRuleName"`
-	ResourceKeys   RemediationExceptionResourceKeys `json:"resourceKeys" xml:"ResourceKeys"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ResourceKeys RemediationExceptionResourceKeys `json:"resourceKeys" xml:"ResourceKeys"`
 }
 
 type DeleteRemediationExceptionsResponse struct {
-	FailedBatches FailedDeleteRemediationExceptionsBatches `json:"failedBatches" xml:"FailedBatches"`
+FailedBatches FailedDeleteRemediationExceptionsBatches `json:"failedBatches" xml:"FailedBatches"`
 }
 
 type DeleteResourceConfigRequest struct {
-	ResourceId   string `json:"resourceId" xml:"ResourceId"`
-	ResourceType string `json:"resourceType" xml:"ResourceType"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type DeleteRetentionConfigurationRequest struct {
-	RetentionConfigurationName string `json:"retentionConfigurationName" xml:"RetentionConfigurationName"`
+RetentionConfigurationName string `json:"retentionConfigurationName" xml:"RetentionConfigurationName"`
 }
 
 type DeleteServiceLinkedConfigurationRecorderRequest struct {
-	ServicePrincipal string `json:"servicePrincipal" xml:"ServicePrincipal"`
+ServicePrincipal string `json:"servicePrincipal" xml:"ServicePrincipal"`
 }
 
 type DeleteServiceLinkedConfigurationRecorderResponse struct {
-	Arn  string `json:"arn" xml:"Arn"`
-	Name string `json:"name" xml:"Name"`
+Arn string `json:"arn" xml:"Arn"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteStoredQueryRequest struct {
-	QueryName string `json:"queryName" xml:"QueryName"`
+QueryName string `json:"queryName" xml:"QueryName"`
 }
 
 type DeleteStoredQueryResponse struct {
 }
 
 type DeliverConfigSnapshotRequest struct {
-	DeliveryChannelName string `json:"deliveryChannelName" xml:"deliveryChannelName"`
+DeliveryChannelName string `json:"deliveryChannelName" xml:"deliveryChannelName"`
 }
 
 type DeliverConfigSnapshotResponse struct {
-	ConfigSnapshotId string `json:"configSnapshotId" xml:"configSnapshotId"`
+ConfigSnapshotId string `json:"configSnapshotId" xml:"configSnapshotId"`
 }
 
 type DeliveryChannel struct {
-	ConfigSnapshotDeliveryProperties *ConfigSnapshotDeliveryProperties `json:"configSnapshotDeliveryProperties" xml:"configSnapshotDeliveryProperties"`
-	Name                             string                            `json:"name" xml:"name"`
-	S3BucketName                     string                            `json:"s3BucketName" xml:"s3BucketName"`
-	S3KeyPrefix                      string                            `json:"s3KeyPrefix" xml:"s3KeyPrefix"`
-	S3KmsKeyArn                      string                            `json:"s3KmsKeyArn" xml:"s3KmsKeyArn"`
-	SnsTopicARN                      string                            `json:"snsTopicARN" xml:"snsTopicARN"`
+ConfigSnapshotDeliveryProperties *ConfigSnapshotDeliveryProperties `json:"configSnapshotDeliveryProperties" xml:"configSnapshotDeliveryProperties"`
+Name string `json:"name" xml:"name"`
+S3BucketName string `json:"s3BucketName" xml:"s3BucketName"`
+S3KeyPrefix string `json:"s3KeyPrefix" xml:"s3KeyPrefix"`
+S3KmsKeyArn string `json:"s3KmsKeyArn" xml:"s3KmsKeyArn"`
+SnsTopicARN string `json:"snsTopicARN" xml:"snsTopicARN"`
 }
 
 type DeliveryChannelStatus struct {
-	ConfigHistoryDeliveryInfo  *ConfigExportDeliveryInfo `json:"configHistoryDeliveryInfo" xml:"configHistoryDeliveryInfo"`
-	ConfigSnapshotDeliveryInfo *ConfigExportDeliveryInfo `json:"configSnapshotDeliveryInfo" xml:"configSnapshotDeliveryInfo"`
-	ConfigStreamDeliveryInfo   *ConfigStreamDeliveryInfo `json:"configStreamDeliveryInfo" xml:"configStreamDeliveryInfo"`
-	Name                       string                    `json:"name" xml:"name"`
+ConfigHistoryDeliveryInfo *ConfigExportDeliveryInfo `json:"configHistoryDeliveryInfo" xml:"configHistoryDeliveryInfo"`
+ConfigSnapshotDeliveryInfo *ConfigExportDeliveryInfo `json:"configSnapshotDeliveryInfo" xml:"configSnapshotDeliveryInfo"`
+ConfigStreamDeliveryInfo *ConfigStreamDeliveryInfo `json:"configStreamDeliveryInfo" xml:"configStreamDeliveryInfo"`
+Name string `json:"name" xml:"name"`
 }
 
 type DescribeAggregateComplianceByConfigRulesRequest struct {
-	ConfigurationAggregatorName string                       `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	Filters                     *ConfigRuleComplianceFilters `json:"filters" xml:"Filters"`
-	Limit                       int32                        `json:"limit" xml:"Limit"`
-	NextToken                   string                       `json:"nextToken" xml:"NextToken"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+Filters *ConfigRuleComplianceFilters `json:"filters" xml:"Filters"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAggregateComplianceByConfigRulesResponse struct {
-	AggregateComplianceByConfigRules AggregateComplianceByConfigRuleList `json:"aggregateComplianceByConfigRules" xml:"AggregateComplianceByConfigRules"`
-	NextToken                        string                              `json:"nextToken" xml:"NextToken"`
+AggregateComplianceByConfigRules AggregateComplianceByConfigRuleList `json:"aggregateComplianceByConfigRules" xml:"AggregateComplianceByConfigRules"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAggregateComplianceByConformancePacksRequest struct {
-	ConfigurationAggregatorName string                                     `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	Filters                     *AggregateConformancePackComplianceFilters `json:"filters" xml:"Filters"`
-	Limit                       int32                                      `json:"limit" xml:"Limit"`
-	NextToken                   string                                     `json:"nextToken" xml:"NextToken"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+Filters *AggregateConformancePackComplianceFilters `json:"filters" xml:"Filters"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAggregateComplianceByConformancePacksResponse struct {
-	AggregateComplianceByConformancePacks AggregateComplianceByConformancePackList `json:"aggregateComplianceByConformancePacks" xml:"AggregateComplianceByConformancePacks"`
-	NextToken                             string                                   `json:"nextToken" xml:"NextToken"`
+AggregateComplianceByConformancePacks AggregateComplianceByConformancePackList `json:"aggregateComplianceByConformancePacks" xml:"AggregateComplianceByConformancePacks"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAggregationAuthorizationsRequest struct {
-	Limit     int32  `json:"limit" xml:"Limit"`
-	NextToken string `json:"nextToken" xml:"NextToken"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAggregationAuthorizationsResponse struct {
-	AggregationAuthorizations AggregationAuthorizationList `json:"aggregationAuthorizations" xml:"AggregationAuthorizations"`
-	NextToken                 string                       `json:"nextToken" xml:"NextToken"`
+AggregationAuthorizations AggregationAuthorizationList `json:"aggregationAuthorizations" xml:"AggregationAuthorizations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeComplianceByConfigRuleRequest struct {
-	ComplianceTypes ComplianceTypes `json:"complianceTypes" xml:"ComplianceTypes"`
-	ConfigRuleNames ConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
+ComplianceTypes ComplianceTypes `json:"complianceTypes" xml:"ComplianceTypes"`
+ConfigRuleNames ConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeComplianceByConfigRuleResponse struct {
-	ComplianceByConfigRules ComplianceByConfigRules `json:"complianceByConfigRules" xml:"ComplianceByConfigRules"`
-	NextToken               string                  `json:"nextToken" xml:"NextToken"`
+ComplianceByConfigRules ComplianceByConfigRules `json:"complianceByConfigRules" xml:"ComplianceByConfigRules"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeComplianceByResourceRequest struct {
-	ComplianceTypes ComplianceTypes `json:"complianceTypes" xml:"ComplianceTypes"`
-	Limit           int32           `json:"limit" xml:"Limit"`
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
-	ResourceId      string          `json:"resourceId" xml:"ResourceId"`
-	ResourceType    string          `json:"resourceType" xml:"ResourceType"`
+ComplianceTypes ComplianceTypes `json:"complianceTypes" xml:"ComplianceTypes"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type DescribeComplianceByResourceResponse struct {
-	ComplianceByResources ComplianceByResources `json:"complianceByResources" xml:"ComplianceByResources"`
-	NextToken             string                `json:"nextToken" xml:"NextToken"`
+ComplianceByResources ComplianceByResources `json:"complianceByResources" xml:"ComplianceByResources"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConfigRuleEvaluationStatusRequest struct {
-	ConfigRuleNames ConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
-	Limit           int32           `json:"limit" xml:"Limit"`
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
+ConfigRuleNames ConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConfigRuleEvaluationStatusResponse struct {
-	ConfigRulesEvaluationStatus ConfigRuleEvaluationStatusList `json:"configRulesEvaluationStatus" xml:"ConfigRulesEvaluationStatus"`
-	NextToken                   string                         `json:"nextToken" xml:"NextToken"`
+ConfigRulesEvaluationStatus ConfigRuleEvaluationStatusList `json:"configRulesEvaluationStatus" xml:"ConfigRulesEvaluationStatus"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConfigRulesFilters struct {
-	EvaluationMode string `json:"evaluationMode" xml:"EvaluationMode"`
+EvaluationMode string `json:"evaluationMode" xml:"EvaluationMode"`
 }
 
 type DescribeConfigRulesRequest struct {
-	ConfigRuleNames ConfigRuleNames             `json:"configRuleNames" xml:"ConfigRuleNames"`
-	Filters         *DescribeConfigRulesFilters `json:"filters" xml:"Filters"`
-	NextToken       string                      `json:"nextToken" xml:"NextToken"`
+ConfigRuleNames ConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
+Filters *DescribeConfigRulesFilters `json:"filters" xml:"Filters"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConfigRulesResponse struct {
-	ConfigRules ConfigRules `json:"configRules" xml:"ConfigRules"`
-	NextToken   string      `json:"nextToken" xml:"NextToken"`
+ConfigRules ConfigRules `json:"configRules" xml:"ConfigRules"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConfigurationAggregatorSourcesStatusRequest struct {
-	ConfigurationAggregatorName string                         `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	Limit                       int32                          `json:"limit" xml:"Limit"`
-	NextToken                   string                         `json:"nextToken" xml:"NextToken"`
-	UpdateStatus                AggregatedSourceStatusTypeList `json:"updateStatus" xml:"UpdateStatus"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+UpdateStatus AggregatedSourceStatusTypeList `json:"updateStatus" xml:"UpdateStatus"`
 }
 
 type DescribeConfigurationAggregatorSourcesStatusResponse struct {
-	AggregatedSourceStatusList AggregatedSourceStatusList `json:"aggregatedSourceStatusList" xml:"AggregatedSourceStatusList"`
-	NextToken                  string                     `json:"nextToken" xml:"NextToken"`
+AggregatedSourceStatusList AggregatedSourceStatusList `json:"aggregatedSourceStatusList" xml:"AggregatedSourceStatusList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConfigurationAggregatorsRequest struct {
-	ConfigurationAggregatorNames ConfigurationAggregatorNameList `json:"configurationAggregatorNames" xml:"ConfigurationAggregatorNames"`
-	Limit                        int32                           `json:"limit" xml:"Limit"`
-	NextToken                    string                          `json:"nextToken" xml:"NextToken"`
+ConfigurationAggregatorNames ConfigurationAggregatorNameList `json:"configurationAggregatorNames" xml:"ConfigurationAggregatorNames"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConfigurationAggregatorsResponse struct {
-	ConfigurationAggregators ConfigurationAggregatorList `json:"configurationAggregators" xml:"ConfigurationAggregators"`
-	NextToken                string                      `json:"nextToken" xml:"NextToken"`
+ConfigurationAggregators ConfigurationAggregatorList `json:"configurationAggregators" xml:"ConfigurationAggregators"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConfigurationRecorderStatusRequest struct {
-	Arn                        string                        `json:"arn" xml:"Arn"`
-	ConfigurationRecorderNames ConfigurationRecorderNameList `json:"configurationRecorderNames" xml:"ConfigurationRecorderNames"`
-	ServicePrincipal           string                        `json:"servicePrincipal" xml:"ServicePrincipal"`
+Arn string `json:"arn" xml:"Arn"`
+ConfigurationRecorderNames ConfigurationRecorderNameList `json:"configurationRecorderNames" xml:"ConfigurationRecorderNames"`
+ServicePrincipal string `json:"servicePrincipal" xml:"ServicePrincipal"`
 }
 
 type DescribeConfigurationRecorderStatusResponse struct {
-	ConfigurationRecordersStatus ConfigurationRecorderStatusList `json:"configurationRecordersStatus" xml:"ConfigurationRecordersStatus"`
+ConfigurationRecordersStatus ConfigurationRecorderStatusList `json:"configurationRecordersStatus" xml:"ConfigurationRecordersStatus"`
 }
 
 type DescribeConfigurationRecordersRequest struct {
-	Arn                        string                        `json:"arn" xml:"Arn"`
-	ConfigurationRecorderNames ConfigurationRecorderNameList `json:"configurationRecorderNames" xml:"ConfigurationRecorderNames"`
-	ServicePrincipal           string                        `json:"servicePrincipal" xml:"ServicePrincipal"`
+Arn string `json:"arn" xml:"Arn"`
+ConfigurationRecorderNames ConfigurationRecorderNameList `json:"configurationRecorderNames" xml:"ConfigurationRecorderNames"`
+ServicePrincipal string `json:"servicePrincipal" xml:"ServicePrincipal"`
 }
 
 type DescribeConfigurationRecordersResponse struct {
-	ConfigurationRecorders ConfigurationRecorderList `json:"configurationRecorders" xml:"ConfigurationRecorders"`
+ConfigurationRecorders ConfigurationRecorderList `json:"configurationRecorders" xml:"ConfigurationRecorders"`
 }
 
 type DescribeConformancePackComplianceRequest struct {
-	ConformancePackName string                            `json:"conformancePackName" xml:"ConformancePackName"`
-	Filters             *ConformancePackComplianceFilters `json:"filters" xml:"Filters"`
-	Limit               int32                             `json:"limit" xml:"Limit"`
-	NextToken           string                            `json:"nextToken" xml:"NextToken"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+Filters *ConformancePackComplianceFilters `json:"filters" xml:"Filters"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConformancePackComplianceResponse struct {
-	ConformancePackName               string                            `json:"conformancePackName" xml:"ConformancePackName"`
-	ConformancePackRuleComplianceList ConformancePackRuleComplianceList `json:"conformancePackRuleComplianceList" xml:"ConformancePackRuleComplianceList"`
-	NextToken                         string                            `json:"nextToken" xml:"NextToken"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+ConformancePackRuleComplianceList ConformancePackRuleComplianceList `json:"conformancePackRuleComplianceList" xml:"ConformancePackRuleComplianceList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConformancePackStatusRequest struct {
-	ConformancePackNames ConformancePackNamesList `json:"conformancePackNames" xml:"ConformancePackNames"`
-	Limit                int32                    `json:"limit" xml:"Limit"`
-	NextToken            string                   `json:"nextToken" xml:"NextToken"`
+ConformancePackNames ConformancePackNamesList `json:"conformancePackNames" xml:"ConformancePackNames"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConformancePackStatusResponse struct {
-	ConformancePackStatusDetails ConformancePackStatusDetailsList `json:"conformancePackStatusDetails" xml:"ConformancePackStatusDetails"`
-	NextToken                    string                           `json:"nextToken" xml:"NextToken"`
+ConformancePackStatusDetails ConformancePackStatusDetailsList `json:"conformancePackStatusDetails" xml:"ConformancePackStatusDetails"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConformancePacksRequest struct {
-	ConformancePackNames ConformancePackNamesList `json:"conformancePackNames" xml:"ConformancePackNames"`
-	Limit                int32                    `json:"limit" xml:"Limit"`
-	NextToken            string                   `json:"nextToken" xml:"NextToken"`
+ConformancePackNames ConformancePackNamesList `json:"conformancePackNames" xml:"ConformancePackNames"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeConformancePacksResponse struct {
-	ConformancePackDetails ConformancePackDetailList `json:"conformancePackDetails" xml:"ConformancePackDetails"`
-	NextToken              string                    `json:"nextToken" xml:"NextToken"`
+ConformancePackDetails ConformancePackDetailList `json:"conformancePackDetails" xml:"ConformancePackDetails"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeDeliveryChannelStatusRequest struct {
-	DeliveryChannelNames DeliveryChannelNameList `json:"deliveryChannelNames" xml:"DeliveryChannelNames"`
+DeliveryChannelNames DeliveryChannelNameList `json:"deliveryChannelNames" xml:"DeliveryChannelNames"`
 }
 
 type DescribeDeliveryChannelStatusResponse struct {
-	DeliveryChannelsStatus DeliveryChannelStatusList `json:"deliveryChannelsStatus" xml:"DeliveryChannelsStatus"`
+DeliveryChannelsStatus DeliveryChannelStatusList `json:"deliveryChannelsStatus" xml:"DeliveryChannelsStatus"`
 }
 
 type DescribeDeliveryChannelsRequest struct {
-	DeliveryChannelNames DeliveryChannelNameList `json:"deliveryChannelNames" xml:"DeliveryChannelNames"`
+DeliveryChannelNames DeliveryChannelNameList `json:"deliveryChannelNames" xml:"DeliveryChannelNames"`
 }
 
 type DescribeDeliveryChannelsResponse struct {
-	DeliveryChannels DeliveryChannelList `json:"deliveryChannels" xml:"DeliveryChannels"`
+DeliveryChannels DeliveryChannelList `json:"deliveryChannels" xml:"DeliveryChannels"`
 }
 
 type DescribeOrganizationConfigRuleStatusesRequest struct {
-	Limit                       int32                       `json:"limit" xml:"Limit"`
-	NextToken                   string                      `json:"nextToken" xml:"NextToken"`
-	OrganizationConfigRuleNames OrganizationConfigRuleNames `json:"organizationConfigRuleNames" xml:"OrganizationConfigRuleNames"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConfigRuleNames OrganizationConfigRuleNames `json:"organizationConfigRuleNames" xml:"OrganizationConfigRuleNames"`
 }
 
 type DescribeOrganizationConfigRuleStatusesResponse struct {
-	NextToken                      string                         `json:"nextToken" xml:"NextToken"`
-	OrganizationConfigRuleStatuses OrganizationConfigRuleStatuses `json:"organizationConfigRuleStatuses" xml:"OrganizationConfigRuleStatuses"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConfigRuleStatuses OrganizationConfigRuleStatuses `json:"organizationConfigRuleStatuses" xml:"OrganizationConfigRuleStatuses"`
 }
 
 type DescribeOrganizationConfigRulesRequest struct {
-	Limit                       int32                       `json:"limit" xml:"Limit"`
-	NextToken                   string                      `json:"nextToken" xml:"NextToken"`
-	OrganizationConfigRuleNames OrganizationConfigRuleNames `json:"organizationConfigRuleNames" xml:"OrganizationConfigRuleNames"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConfigRuleNames OrganizationConfigRuleNames `json:"organizationConfigRuleNames" xml:"OrganizationConfigRuleNames"`
 }
 
 type DescribeOrganizationConfigRulesResponse struct {
-	NextToken               string                  `json:"nextToken" xml:"NextToken"`
-	OrganizationConfigRules OrganizationConfigRules `json:"organizationConfigRules" xml:"OrganizationConfigRules"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConfigRules OrganizationConfigRules `json:"organizationConfigRules" xml:"OrganizationConfigRules"`
 }
 
 type DescribeOrganizationConformancePackStatusesRequest struct {
-	Limit                            int32                            `json:"limit" xml:"Limit"`
-	NextToken                        string                           `json:"nextToken" xml:"NextToken"`
-	OrganizationConformancePackNames OrganizationConformancePackNames `json:"organizationConformancePackNames" xml:"OrganizationConformancePackNames"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConformancePackNames OrganizationConformancePackNames `json:"organizationConformancePackNames" xml:"OrganizationConformancePackNames"`
 }
 
 type DescribeOrganizationConformancePackStatusesResponse struct {
-	NextToken                           string                              `json:"nextToken" xml:"NextToken"`
-	OrganizationConformancePackStatuses OrganizationConformancePackStatuses `json:"organizationConformancePackStatuses" xml:"OrganizationConformancePackStatuses"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConformancePackStatuses OrganizationConformancePackStatuses `json:"organizationConformancePackStatuses" xml:"OrganizationConformancePackStatuses"`
 }
 
 type DescribeOrganizationConformancePacksRequest struct {
-	Limit                            int32                            `json:"limit" xml:"Limit"`
-	NextToken                        string                           `json:"nextToken" xml:"NextToken"`
-	OrganizationConformancePackNames OrganizationConformancePackNames `json:"organizationConformancePackNames" xml:"OrganizationConformancePackNames"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConformancePackNames OrganizationConformancePackNames `json:"organizationConformancePackNames" xml:"OrganizationConformancePackNames"`
 }
 
 type DescribeOrganizationConformancePacksResponse struct {
-	NextToken                    string                       `json:"nextToken" xml:"NextToken"`
-	OrganizationConformancePacks OrganizationConformancePacks `json:"organizationConformancePacks" xml:"OrganizationConformancePacks"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConformancePacks OrganizationConformancePacks `json:"organizationConformancePacks" xml:"OrganizationConformancePacks"`
 }
 
 type DescribePendingAggregationRequestsRequest struct {
-	Limit     int32  `json:"limit" xml:"Limit"`
-	NextToken string `json:"nextToken" xml:"NextToken"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribePendingAggregationRequestsResponse struct {
-	NextToken                  string                        `json:"nextToken" xml:"NextToken"`
-	PendingAggregationRequests PendingAggregationRequestList `json:"pendingAggregationRequests" xml:"PendingAggregationRequests"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PendingAggregationRequests PendingAggregationRequestList `json:"pendingAggregationRequests" xml:"PendingAggregationRequests"`
 }
 
 type DescribeRemediationConfigurationsRequest struct {
-	ConfigRuleNames ConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
+ConfigRuleNames ConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
 }
 
 type DescribeRemediationConfigurationsResponse struct {
-	RemediationConfigurations RemediationConfigurations `json:"remediationConfigurations" xml:"RemediationConfigurations"`
+RemediationConfigurations RemediationConfigurations `json:"remediationConfigurations" xml:"RemediationConfigurations"`
 }
 
 type DescribeRemediationExceptionsRequest struct {
-	ConfigRuleName string                           `json:"configRuleName" xml:"ConfigRuleName"`
-	Limit          int32                            `json:"limit" xml:"Limit"`
-	NextToken      string                           `json:"nextToken" xml:"NextToken"`
-	ResourceKeys   RemediationExceptionResourceKeys `json:"resourceKeys" xml:"ResourceKeys"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceKeys RemediationExceptionResourceKeys `json:"resourceKeys" xml:"ResourceKeys"`
 }
 
 type DescribeRemediationExceptionsResponse struct {
-	NextToken             string                `json:"nextToken" xml:"NextToken"`
-	RemediationExceptions RemediationExceptions `json:"remediationExceptions" xml:"RemediationExceptions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RemediationExceptions RemediationExceptions `json:"remediationExceptions" xml:"RemediationExceptions"`
 }
 
 type DescribeRemediationExecutionStatusRequest struct {
-	ConfigRuleName string       `json:"configRuleName" xml:"ConfigRuleName"`
-	Limit          int32        `json:"limit" xml:"Limit"`
-	NextToken      string       `json:"nextToken" xml:"NextToken"`
-	ResourceKeys   ResourceKeys `json:"resourceKeys" xml:"ResourceKeys"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceKeys ResourceKeys `json:"resourceKeys" xml:"ResourceKeys"`
 }
 
 type DescribeRemediationExecutionStatusResponse struct {
-	NextToken                    string                       `json:"nextToken" xml:"NextToken"`
-	RemediationExecutionStatuses RemediationExecutionStatuses `json:"remediationExecutionStatuses" xml:"RemediationExecutionStatuses"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RemediationExecutionStatuses RemediationExecutionStatuses `json:"remediationExecutionStatuses" xml:"RemediationExecutionStatuses"`
 }
 
 type DescribeRetentionConfigurationsRequest struct {
-	NextToken                   string                         `json:"nextToken" xml:"NextToken"`
-	RetentionConfigurationNames RetentionConfigurationNameList `json:"retentionConfigurationNames" xml:"RetentionConfigurationNames"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RetentionConfigurationNames RetentionConfigurationNameList `json:"retentionConfigurationNames" xml:"RetentionConfigurationNames"`
 }
 
 type DescribeRetentionConfigurationsResponse struct {
-	NextToken               string                     `json:"nextToken" xml:"NextToken"`
-	RetentionConfigurations RetentionConfigurationList `json:"retentionConfigurations" xml:"RetentionConfigurations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RetentionConfigurations RetentionConfigurationList `json:"retentionConfigurations" xml:"RetentionConfigurations"`
 }
 
 type DisassociateResourceTypesRequest struct {
-	ConfigurationRecorderArn string           `json:"configurationRecorderArn" xml:"ConfigurationRecorderArn"`
-	ResourceTypes            ResourceTypeList `json:"resourceTypes" xml:"ResourceTypes"`
+ConfigurationRecorderArn string `json:"configurationRecorderArn" xml:"ConfigurationRecorderArn"`
+ResourceTypes ResourceTypeList `json:"resourceTypes" xml:"ResourceTypes"`
 }
 
 type DisassociateResourceTypesResponse struct {
-	ConfigurationRecorder *ConfigurationRecorder `json:"configurationRecorder" xml:"ConfigurationRecorder"`
+ConfigurationRecorder *ConfigurationRecorder `json:"configurationRecorder" xml:"ConfigurationRecorder"`
 }
 
 type Evaluation struct {
-	Annotation             string    `json:"annotation" xml:"Annotation"`
-	ComplianceResourceId   string    `json:"complianceResourceId" xml:"ComplianceResourceId"`
-	ComplianceResourceType string    `json:"complianceResourceType" xml:"ComplianceResourceType"`
-	ComplianceType         string    `json:"complianceType" xml:"ComplianceType"`
-	OrderingTimestamp      time.Time `json:"orderingTimestamp" xml:"OrderingTimestamp"`
+Annotation string `json:"annotation" xml:"Annotation"`
+ComplianceResourceId string `json:"complianceResourceId" xml:"ComplianceResourceId"`
+ComplianceResourceType string `json:"complianceResourceType" xml:"ComplianceResourceType"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+OrderingTimestamp time.Time `json:"orderingTimestamp" xml:"OrderingTimestamp"`
 }
 
 type EvaluationContext struct {
-	EvaluationContextIdentifier string `json:"evaluationContextIdentifier" xml:"EvaluationContextIdentifier"`
+EvaluationContextIdentifier string `json:"evaluationContextIdentifier" xml:"EvaluationContextIdentifier"`
 }
 
 type EvaluationModeConfiguration struct {
-	Mode string `json:"mode" xml:"Mode"`
+Mode string `json:"mode" xml:"Mode"`
 }
 
 type EvaluationResult struct {
-	Annotation                 string                      `json:"annotation" xml:"Annotation"`
-	ComplianceType             string                      `json:"complianceType" xml:"ComplianceType"`
-	ConfigRuleInvokedTime      time.Time                   `json:"configRuleInvokedTime" xml:"ConfigRuleInvokedTime"`
-	EvaluationResultIdentifier *EvaluationResultIdentifier `json:"evaluationResultIdentifier" xml:"EvaluationResultIdentifier"`
-	ResultRecordedTime         time.Time                   `json:"resultRecordedTime" xml:"ResultRecordedTime"`
-	ResultToken                string                      `json:"resultToken" xml:"ResultToken"`
+Annotation string `json:"annotation" xml:"Annotation"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+ConfigRuleInvokedTime time.Time `json:"configRuleInvokedTime" xml:"ConfigRuleInvokedTime"`
+EvaluationResultIdentifier *EvaluationResultIdentifier `json:"evaluationResultIdentifier" xml:"EvaluationResultIdentifier"`
+ResultRecordedTime time.Time `json:"resultRecordedTime" xml:"ResultRecordedTime"`
+ResultToken string `json:"resultToken" xml:"ResultToken"`
 }
 
 type EvaluationResultIdentifier struct {
-	EvaluationResultQualifier *EvaluationResultQualifier `json:"evaluationResultQualifier" xml:"EvaluationResultQualifier"`
-	OrderingTimestamp         time.Time                  `json:"orderingTimestamp" xml:"OrderingTimestamp"`
-	ResourceEvaluationId      string                     `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
+EvaluationResultQualifier *EvaluationResultQualifier `json:"evaluationResultQualifier" xml:"EvaluationResultQualifier"`
+OrderingTimestamp time.Time `json:"orderingTimestamp" xml:"OrderingTimestamp"`
+ResourceEvaluationId string `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
 }
 
 type EvaluationResultQualifier struct {
-	ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
-	EvaluationMode string `json:"evaluationMode" xml:"EvaluationMode"`
-	ResourceId     string `json:"resourceId" xml:"ResourceId"`
-	ResourceType   string `json:"resourceType" xml:"ResourceType"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+EvaluationMode string `json:"evaluationMode" xml:"EvaluationMode"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type EvaluationStatus struct {
-	FailureReason string `json:"failureReason" xml:"FailureReason"`
-	Status        string `json:"status" xml:"Status"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ExclusionByResourceTypes struct {
-	ResourceTypes ResourceTypeList `json:"resourceTypes" xml:"resourceTypes"`
+ResourceTypes ResourceTypeList `json:"resourceTypes" xml:"resourceTypes"`
 }
 
 type ExecutionControls struct {
-	SsmControls *SsmControls `json:"ssmControls" xml:"SsmControls"`
+SsmControls *SsmControls `json:"ssmControls" xml:"SsmControls"`
 }
 
 type ExternalEvaluation struct {
-	Annotation             string    `json:"annotation" xml:"Annotation"`
-	ComplianceResourceId   string    `json:"complianceResourceId" xml:"ComplianceResourceId"`
-	ComplianceResourceType string    `json:"complianceResourceType" xml:"ComplianceResourceType"`
-	ComplianceType         string    `json:"complianceType" xml:"ComplianceType"`
-	OrderingTimestamp      time.Time `json:"orderingTimestamp" xml:"OrderingTimestamp"`
+Annotation string `json:"annotation" xml:"Annotation"`
+ComplianceResourceId string `json:"complianceResourceId" xml:"ComplianceResourceId"`
+ComplianceResourceType string `json:"complianceResourceType" xml:"ComplianceResourceType"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+OrderingTimestamp time.Time `json:"orderingTimestamp" xml:"OrderingTimestamp"`
 }
 
 type FailedDeleteRemediationExceptionsBatch struct {
-	FailedItems    RemediationExceptionResourceKeys `json:"failedItems" xml:"FailedItems"`
-	FailureMessage string                           `json:"failureMessage" xml:"FailureMessage"`
+FailedItems RemediationExceptionResourceKeys `json:"failedItems" xml:"FailedItems"`
+FailureMessage string `json:"failureMessage" xml:"FailureMessage"`
 }
 
 type FailedRemediationBatch struct {
-	FailedItems    RemediationConfigurations `json:"failedItems" xml:"FailedItems"`
-	FailureMessage string                    `json:"failureMessage" xml:"FailureMessage"`
+FailedItems RemediationConfigurations `json:"failedItems" xml:"FailedItems"`
+FailureMessage string `json:"failureMessage" xml:"FailureMessage"`
 }
 
 type FailedRemediationExceptionBatch struct {
-	FailedItems    RemediationExceptions `json:"failedItems" xml:"FailedItems"`
-	FailureMessage string                `json:"failureMessage" xml:"FailureMessage"`
+FailedItems RemediationExceptions `json:"failedItems" xml:"FailedItems"`
+FailureMessage string `json:"failureMessage" xml:"FailureMessage"`
 }
 
 type FieldInfo struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetAggregateComplianceDetailsByConfigRuleRequest struct {
-	AccountId                   string `json:"accountId" xml:"AccountId"`
-	AwsRegion                   string `json:"awsRegion" xml:"AwsRegion"`
-	ComplianceType              string `json:"complianceType" xml:"ComplianceType"`
-	ConfigRuleName              string `json:"configRuleName" xml:"ConfigRuleName"`
-	ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	Limit                       int32  `json:"limit" xml:"Limit"`
-	NextToken                   string `json:"nextToken" xml:"NextToken"`
+AccountId string `json:"accountId" xml:"AccountId"`
+AwsRegion string `json:"awsRegion" xml:"AwsRegion"`
+ComplianceType string `json:"complianceType" xml:"ComplianceType"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetAggregateComplianceDetailsByConfigRuleResponse struct {
-	AggregateEvaluationResults AggregateEvaluationResultList `json:"aggregateEvaluationResults" xml:"AggregateEvaluationResults"`
-	NextToken                  string                        `json:"nextToken" xml:"NextToken"`
+AggregateEvaluationResults AggregateEvaluationResultList `json:"aggregateEvaluationResults" xml:"AggregateEvaluationResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetAggregateConfigRuleComplianceSummaryRequest struct {
-	ConfigurationAggregatorName string                              `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	Filters                     *ConfigRuleComplianceSummaryFilters `json:"filters" xml:"Filters"`
-	GroupByKey                  string                              `json:"groupByKey" xml:"GroupByKey"`
-	Limit                       int32                               `json:"limit" xml:"Limit"`
-	NextToken                   string                              `json:"nextToken" xml:"NextToken"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+Filters *ConfigRuleComplianceSummaryFilters `json:"filters" xml:"Filters"`
+GroupByKey string `json:"groupByKey" xml:"GroupByKey"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetAggregateConfigRuleComplianceSummaryResponse struct {
-	AggregateComplianceCounts AggregateComplianceCountList `json:"aggregateComplianceCounts" xml:"AggregateComplianceCounts"`
-	GroupByKey                string                       `json:"groupByKey" xml:"GroupByKey"`
-	NextToken                 string                       `json:"nextToken" xml:"NextToken"`
+AggregateComplianceCounts AggregateComplianceCountList `json:"aggregateComplianceCounts" xml:"AggregateComplianceCounts"`
+GroupByKey string `json:"groupByKey" xml:"GroupByKey"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetAggregateConformancePackComplianceSummaryRequest struct {
-	ConfigurationAggregatorName string                                            `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	Filters                     *AggregateConformancePackComplianceSummaryFilters `json:"filters" xml:"Filters"`
-	GroupByKey                  string                                            `json:"groupByKey" xml:"GroupByKey"`
-	Limit                       int32                                             `json:"limit" xml:"Limit"`
-	NextToken                   string                                            `json:"nextToken" xml:"NextToken"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+Filters *AggregateConformancePackComplianceSummaryFilters `json:"filters" xml:"Filters"`
+GroupByKey string `json:"groupByKey" xml:"GroupByKey"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetAggregateConformancePackComplianceSummaryResponse struct {
-	AggregateConformancePackComplianceSummaries AggregateConformancePackComplianceSummaryList `json:"aggregateConformancePackComplianceSummaries" xml:"AggregateConformancePackComplianceSummaries"`
-	GroupByKey                                  string                                        `json:"groupByKey" xml:"GroupByKey"`
-	NextToken                                   string                                        `json:"nextToken" xml:"NextToken"`
+AggregateConformancePackComplianceSummaries AggregateConformancePackComplianceSummaryList `json:"aggregateConformancePackComplianceSummaries" xml:"AggregateConformancePackComplianceSummaries"`
+GroupByKey string `json:"groupByKey" xml:"GroupByKey"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetAggregateDiscoveredResourceCountsRequest struct {
-	ConfigurationAggregatorName string                `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	Filters                     *ResourceCountFilters `json:"filters" xml:"Filters"`
-	GroupByKey                  string                `json:"groupByKey" xml:"GroupByKey"`
-	Limit                       int32                 `json:"limit" xml:"Limit"`
-	NextToken                   string                `json:"nextToken" xml:"NextToken"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+Filters *ResourceCountFilters `json:"filters" xml:"Filters"`
+GroupByKey string `json:"groupByKey" xml:"GroupByKey"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetAggregateDiscoveredResourceCountsResponse struct {
-	GroupByKey               string                   `json:"groupByKey" xml:"GroupByKey"`
-	GroupedResourceCounts    GroupedResourceCountList `json:"groupedResourceCounts" xml:"GroupedResourceCounts"`
-	NextToken                string                   `json:"nextToken" xml:"NextToken"`
-	TotalDiscoveredResources int64                    `json:"totalDiscoveredResources" xml:"TotalDiscoveredResources"`
+GroupByKey string `json:"groupByKey" xml:"GroupByKey"`
+GroupedResourceCounts GroupedResourceCountList `json:"groupedResourceCounts" xml:"GroupedResourceCounts"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TotalDiscoveredResources int64 `json:"totalDiscoveredResources" xml:"TotalDiscoveredResources"`
 }
 
 type GetAggregateResourceConfigRequest struct {
-	ConfigurationAggregatorName string                       `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	ResourceIdentifier          *AggregateResourceIdentifier `json:"resourceIdentifier" xml:"ResourceIdentifier"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+ResourceIdentifier *AggregateResourceIdentifier `json:"resourceIdentifier" xml:"ResourceIdentifier"`
 }
 
 type GetAggregateResourceConfigResponse struct {
-	ConfigurationItem *ConfigurationItem `json:"configurationItem" xml:"ConfigurationItem"`
+ConfigurationItem *ConfigurationItem `json:"configurationItem" xml:"ConfigurationItem"`
 }
 
 type GetComplianceDetailsByConfigRuleRequest struct {
-	ComplianceTypes ComplianceTypes `json:"complianceTypes" xml:"ComplianceTypes"`
-	ConfigRuleName  string          `json:"configRuleName" xml:"ConfigRuleName"`
-	Limit           int32           `json:"limit" xml:"Limit"`
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
+ComplianceTypes ComplianceTypes `json:"complianceTypes" xml:"ComplianceTypes"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetComplianceDetailsByConfigRuleResponse struct {
-	EvaluationResults EvaluationResults `json:"evaluationResults" xml:"EvaluationResults"`
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
+EvaluationResults EvaluationResults `json:"evaluationResults" xml:"EvaluationResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetComplianceDetailsByResourceRequest struct {
-	ComplianceTypes      ComplianceTypes `json:"complianceTypes" xml:"ComplianceTypes"`
-	NextToken            string          `json:"nextToken" xml:"NextToken"`
-	ResourceEvaluationId string          `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
-	ResourceId           string          `json:"resourceId" xml:"ResourceId"`
-	ResourceType         string          `json:"resourceType" xml:"ResourceType"`
+ComplianceTypes ComplianceTypes `json:"complianceTypes" xml:"ComplianceTypes"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceEvaluationId string `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type GetComplianceDetailsByResourceResponse struct {
-	EvaluationResults EvaluationResults `json:"evaluationResults" xml:"EvaluationResults"`
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
+EvaluationResults EvaluationResults `json:"evaluationResults" xml:"EvaluationResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetComplianceSummaryByConfigRuleResponse struct {
-	ComplianceSummary *ComplianceSummary `json:"complianceSummary" xml:"ComplianceSummary"`
+ComplianceSummary *ComplianceSummary `json:"complianceSummary" xml:"ComplianceSummary"`
 }
 
 type GetComplianceSummaryByResourceTypeRequest struct {
-	ResourceTypes ResourceTypes `json:"resourceTypes" xml:"ResourceTypes"`
+ResourceTypes ResourceTypes `json:"resourceTypes" xml:"ResourceTypes"`
 }
 
 type GetComplianceSummaryByResourceTypeResponse struct {
-	ComplianceSummariesByResourceType ComplianceSummariesByResourceType `json:"complianceSummariesByResourceType" xml:"ComplianceSummariesByResourceType"`
+ComplianceSummariesByResourceType ComplianceSummariesByResourceType `json:"complianceSummariesByResourceType" xml:"ComplianceSummariesByResourceType"`
 }
 
 type GetConformancePackComplianceDetailsRequest struct {
-	ConformancePackName string                            `json:"conformancePackName" xml:"ConformancePackName"`
-	Filters             *ConformancePackEvaluationFilters `json:"filters" xml:"Filters"`
-	Limit               int32                             `json:"limit" xml:"Limit"`
-	NextToken           string                            `json:"nextToken" xml:"NextToken"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+Filters *ConformancePackEvaluationFilters `json:"filters" xml:"Filters"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetConformancePackComplianceDetailsResponse struct {
-	ConformancePackName                  string                                   `json:"conformancePackName" xml:"ConformancePackName"`
-	ConformancePackRuleEvaluationResults ConformancePackRuleEvaluationResultsList `json:"conformancePackRuleEvaluationResults" xml:"ConformancePackRuleEvaluationResults"`
-	NextToken                            string                                   `json:"nextToken" xml:"NextToken"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+ConformancePackRuleEvaluationResults ConformancePackRuleEvaluationResultsList `json:"conformancePackRuleEvaluationResults" xml:"ConformancePackRuleEvaluationResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetConformancePackComplianceSummaryRequest struct {
-	ConformancePackNames ConformancePackNamesToSummarizeList `json:"conformancePackNames" xml:"ConformancePackNames"`
-	Limit                int32                               `json:"limit" xml:"Limit"`
-	NextToken            string                              `json:"nextToken" xml:"NextToken"`
+ConformancePackNames ConformancePackNamesToSummarizeList `json:"conformancePackNames" xml:"ConformancePackNames"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetConformancePackComplianceSummaryResponse struct {
-	ConformancePackComplianceSummaryList ConformancePackComplianceSummaryList `json:"conformancePackComplianceSummaryList" xml:"ConformancePackComplianceSummaryList"`
-	NextToken                            string                               `json:"nextToken" xml:"NextToken"`
+ConformancePackComplianceSummaryList ConformancePackComplianceSummaryList `json:"conformancePackComplianceSummaryList" xml:"ConformancePackComplianceSummaryList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetCustomRulePolicyRequest struct {
-	ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
 }
 
 type GetCustomRulePolicyResponse struct {
-	PolicyText string `json:"policyText" xml:"PolicyText"`
+PolicyText string `json:"policyText" xml:"PolicyText"`
 }
 
 type GetDiscoveredResourceCountsRequest struct {
-	Limit         int32         `json:"limit" xml:"limit"`
-	NextToken     string        `json:"nextToken" xml:"nextToken"`
-	ResourceTypes ResourceTypes `json:"resourceTypes" xml:"resourceTypes"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceTypes ResourceTypes `json:"resourceTypes" xml:"resourceTypes"`
 }
 
 type GetDiscoveredResourceCountsResponse struct {
-	NextToken                string         `json:"nextToken" xml:"nextToken"`
-	ResourceCounts           ResourceCounts `json:"resourceCounts" xml:"resourceCounts"`
-	TotalDiscoveredResources int64          `json:"totalDiscoveredResources" xml:"totalDiscoveredResources"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceCounts ResourceCounts `json:"resourceCounts" xml:"resourceCounts"`
+TotalDiscoveredResources int64 `json:"totalDiscoveredResources" xml:"totalDiscoveredResources"`
 }
 
 type GetOrganizationConfigRuleDetailedStatusRequest struct {
-	Filters                    *StatusDetailFilters `json:"filters" xml:"Filters"`
-	Limit                      int32                `json:"limit" xml:"Limit"`
-	NextToken                  string               `json:"nextToken" xml:"NextToken"`
-	OrganizationConfigRuleName string               `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
+Filters *StatusDetailFilters `json:"filters" xml:"Filters"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConfigRuleName string `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
 }
 
 type GetOrganizationConfigRuleDetailedStatusResponse struct {
-	NextToken                            string                               `json:"nextToken" xml:"NextToken"`
-	OrganizationConfigRuleDetailedStatus OrganizationConfigRuleDetailedStatus `json:"organizationConfigRuleDetailedStatus" xml:"OrganizationConfigRuleDetailedStatus"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConfigRuleDetailedStatus OrganizationConfigRuleDetailedStatus `json:"organizationConfigRuleDetailedStatus" xml:"OrganizationConfigRuleDetailedStatus"`
 }
 
 type GetOrganizationConformancePackDetailedStatusRequest struct {
-	Filters                         *OrganizationResourceDetailedStatusFilters `json:"filters" xml:"Filters"`
-	Limit                           int32                                      `json:"limit" xml:"Limit"`
-	NextToken                       string                                     `json:"nextToken" xml:"NextToken"`
-	OrganizationConformancePackName string                                     `json:"organizationConformancePackName" xml:"OrganizationConformancePackName"`
+Filters *OrganizationResourceDetailedStatusFilters `json:"filters" xml:"Filters"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConformancePackName string `json:"organizationConformancePackName" xml:"OrganizationConformancePackName"`
 }
 
 type GetOrganizationConformancePackDetailedStatusResponse struct {
-	NextToken                                   string                                      `json:"nextToken" xml:"NextToken"`
-	OrganizationConformancePackDetailedStatuses OrganizationConformancePackDetailedStatuses `json:"organizationConformancePackDetailedStatuses" xml:"OrganizationConformancePackDetailedStatuses"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrganizationConformancePackDetailedStatuses OrganizationConformancePackDetailedStatuses `json:"organizationConformancePackDetailedStatuses" xml:"OrganizationConformancePackDetailedStatuses"`
 }
 
 type GetOrganizationCustomRulePolicyRequest struct {
-	OrganizationConfigRuleName string `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
+OrganizationConfigRuleName string `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
 }
 
 type GetOrganizationCustomRulePolicyResponse struct {
-	PolicyText string `json:"policyText" xml:"PolicyText"`
+PolicyText string `json:"policyText" xml:"PolicyText"`
 }
 
 type GetResourceConfigHistoryRequest struct {
-	ChronologicalOrder string    `json:"chronologicalOrder" xml:"chronologicalOrder"`
-	EarlierTime        time.Time `json:"earlierTime" xml:"earlierTime"`
-	LaterTime          time.Time `json:"laterTime" xml:"laterTime"`
-	Limit              int32     `json:"limit" xml:"limit"`
-	NextToken          string    `json:"nextToken" xml:"nextToken"`
-	ResourceId         string    `json:"resourceId" xml:"resourceId"`
-	ResourceType       string    `json:"resourceType" xml:"resourceType"`
+ChronologicalOrder string `json:"chronologicalOrder" xml:"chronologicalOrder"`
+EarlierTime time.Time `json:"earlierTime" xml:"earlierTime"`
+LaterTime time.Time `json:"laterTime" xml:"laterTime"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceId string `json:"resourceId" xml:"resourceId"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type GetResourceConfigHistoryResponse struct {
-	ConfigurationItems ConfigurationItemList `json:"configurationItems" xml:"configurationItems"`
-	NextToken          string                `json:"nextToken" xml:"nextToken"`
+ConfigurationItems ConfigurationItemList `json:"configurationItems" xml:"configurationItems"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type GetResourceEvaluationSummaryRequest struct {
-	ResourceEvaluationId string `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
+ResourceEvaluationId string `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
 }
 
 type GetResourceEvaluationSummaryResponse struct {
-	Compliance               string             `json:"compliance" xml:"Compliance"`
-	EvaluationContext        *EvaluationContext `json:"evaluationContext" xml:"EvaluationContext"`
-	EvaluationMode           string             `json:"evaluationMode" xml:"EvaluationMode"`
-	EvaluationStartTimestamp time.Time          `json:"evaluationStartTimestamp" xml:"EvaluationStartTimestamp"`
-	EvaluationStatus         *EvaluationStatus  `json:"evaluationStatus" xml:"EvaluationStatus"`
-	ResourceDetails          *ResourceDetails   `json:"resourceDetails" xml:"ResourceDetails"`
-	ResourceEvaluationId     string             `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
+Compliance string `json:"compliance" xml:"Compliance"`
+EvaluationContext *EvaluationContext `json:"evaluationContext" xml:"EvaluationContext"`
+EvaluationMode string `json:"evaluationMode" xml:"EvaluationMode"`
+EvaluationStartTimestamp time.Time `json:"evaluationStartTimestamp" xml:"EvaluationStartTimestamp"`
+EvaluationStatus *EvaluationStatus `json:"evaluationStatus" xml:"EvaluationStatus"`
+ResourceDetails *ResourceDetails `json:"resourceDetails" xml:"ResourceDetails"`
+ResourceEvaluationId string `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
 }
 
 type GetStoredQueryRequest struct {
-	QueryName string `json:"queryName" xml:"QueryName"`
+QueryName string `json:"queryName" xml:"QueryName"`
 }
 
 type GetStoredQueryResponse struct {
-	StoredQuery *StoredQuery `json:"storedQuery" xml:"StoredQuery"`
+StoredQuery *StoredQuery `json:"storedQuery" xml:"StoredQuery"`
 }
 
 type GroupedResourceCount struct {
-	GroupName     string `json:"groupName" xml:"GroupName"`
-	ResourceCount int64  `json:"resourceCount" xml:"ResourceCount"`
+GroupName string `json:"groupName" xml:"GroupName"`
+ResourceCount int64 `json:"resourceCount" xml:"ResourceCount"`
 }
 
 type ListAggregateDiscoveredResourcesRequest struct {
-	ConfigurationAggregatorName string           `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	Filters                     *ResourceFilters `json:"filters" xml:"Filters"`
-	Limit                       int32            `json:"limit" xml:"Limit"`
-	NextToken                   string           `json:"nextToken" xml:"NextToken"`
-	ResourceType                string           `json:"resourceType" xml:"ResourceType"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+Filters *ResourceFilters `json:"filters" xml:"Filters"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ListAggregateDiscoveredResourcesResponse struct {
-	NextToken           string                           `json:"nextToken" xml:"NextToken"`
-	ResourceIdentifiers DiscoveredResourceIdentifierList `json:"resourceIdentifiers" xml:"ResourceIdentifiers"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceIdentifiers DiscoveredResourceIdentifierList `json:"resourceIdentifiers" xml:"ResourceIdentifiers"`
 }
 
 type ListConfigurationRecordersRequest struct {
-	Filters    ConfigurationRecorderFilterList `json:"filters" xml:"Filters"`
-	MaxResults int32                           `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                          `json:"nextToken" xml:"NextToken"`
+Filters ConfigurationRecorderFilterList `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListConfigurationRecordersResponse struct {
-	ConfigurationRecorderSummaries ConfigurationRecorderSummaries `json:"configurationRecorderSummaries" xml:"ConfigurationRecorderSummaries"`
-	NextToken                      string                         `json:"nextToken" xml:"NextToken"`
+ConfigurationRecorderSummaries ConfigurationRecorderSummaries `json:"configurationRecorderSummaries" xml:"ConfigurationRecorderSummaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListConformancePackComplianceScoresRequest struct {
-	Filters   *ConformancePackComplianceScoresFilters `json:"filters" xml:"Filters"`
-	Limit     int32                                   `json:"limit" xml:"Limit"`
-	NextToken string                                  `json:"nextToken" xml:"NextToken"`
-	SortBy    string                                  `json:"sortBy" xml:"SortBy"`
-	SortOrder string                                  `json:"sortOrder" xml:"SortOrder"`
+Filters *ConformancePackComplianceScoresFilters `json:"filters" xml:"Filters"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SortBy string `json:"sortBy" xml:"SortBy"`
+SortOrder string `json:"sortOrder" xml:"SortOrder"`
 }
 
 type ListConformancePackComplianceScoresResponse struct {
-	ConformancePackComplianceScores ConformancePackComplianceScores `json:"conformancePackComplianceScores" xml:"ConformancePackComplianceScores"`
-	NextToken                       string                          `json:"nextToken" xml:"NextToken"`
+ConformancePackComplianceScores ConformancePackComplianceScores `json:"conformancePackComplianceScores" xml:"ConformancePackComplianceScores"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDiscoveredResourcesRequest struct {
-	IncludeDeletedResources bool           `json:"includeDeletedResources" xml:"includeDeletedResources"`
-	Limit                   int32          `json:"limit" xml:"limit"`
-	NextToken               string         `json:"nextToken" xml:"nextToken"`
-	ResourceIds             ResourceIdList `json:"resourceIds" xml:"resourceIds"`
-	ResourceName            string         `json:"resourceName" xml:"resourceName"`
-	ResourceType            string         `json:"resourceType" xml:"resourceType"`
+IncludeDeletedResources bool `json:"includeDeletedResources" xml:"includeDeletedResources"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceIds ResourceIdList `json:"resourceIds" xml:"resourceIds"`
+ResourceName string `json:"resourceName" xml:"resourceName"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type ListDiscoveredResourcesResponse struct {
-	NextToken           string                 `json:"nextToken" xml:"nextToken"`
-	ResourceIdentifiers ResourceIdentifierList `json:"resourceIdentifiers" xml:"resourceIdentifiers"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceIdentifiers ResourceIdentifierList `json:"resourceIdentifiers" xml:"resourceIdentifiers"`
 }
 
 type ListResourceEvaluationsRequest struct {
-	Filters   *ResourceEvaluationFilters `json:"filters" xml:"Filters"`
-	Limit     int32                      `json:"limit" xml:"Limit"`
-	NextToken string                     `json:"nextToken" xml:"NextToken"`
+Filters *ResourceEvaluationFilters `json:"filters" xml:"Filters"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListResourceEvaluationsResponse struct {
-	NextToken           string              `json:"nextToken" xml:"NextToken"`
-	ResourceEvaluations ResourceEvaluations `json:"resourceEvaluations" xml:"ResourceEvaluations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceEvaluations ResourceEvaluations `json:"resourceEvaluations" xml:"ResourceEvaluations"`
 }
 
 type ListStoredQueriesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListStoredQueriesResponse struct {
-	NextToken           string                  `json:"nextToken" xml:"NextToken"`
-	StoredQueryMetadata StoredQueryMetadataList `json:"storedQueryMetadata" xml:"StoredQueryMetadata"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StoredQueryMetadata StoredQueryMetadataList `json:"storedQueryMetadata" xml:"StoredQueryMetadata"`
 }
 
 type ListTagsForResourceRequest struct {
-	Limit       int32  `json:"limit" xml:"Limit"`
-	NextToken   string `json:"nextToken" xml:"NextToken"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ListTagsForResourceResponse struct {
-	NextToken string  `json:"nextToken" xml:"NextToken"`
-	Tags      TagList `json:"tags" xml:"Tags"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type MemberAccountStatus struct {
-	AccountId               string    `json:"accountId" xml:"AccountId"`
-	ConfigRuleName          string    `json:"configRuleName" xml:"ConfigRuleName"`
-	ErrorCode               string    `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage            string    `json:"errorMessage" xml:"ErrorMessage"`
-	LastUpdateTime          time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
-	MemberAccountRuleStatus string    `json:"memberAccountRuleStatus" xml:"MemberAccountRuleStatus"`
+AccountId string `json:"accountId" xml:"AccountId"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+LastUpdateTime time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
+MemberAccountRuleStatus string `json:"memberAccountRuleStatus" xml:"MemberAccountRuleStatus"`
 }
 
 type OrganizationAggregationSource struct {
-	AllAwsRegions bool                 `json:"allAwsRegions" xml:"AllAwsRegions"`
-	AwsRegions    AggregatorRegionList `json:"awsRegions" xml:"AwsRegions"`
-	RoleArn       string               `json:"roleArn" xml:"RoleArn"`
+AllAwsRegions bool `json:"allAwsRegions" xml:"AllAwsRegions"`
+AwsRegions AggregatorRegionList `json:"awsRegions" xml:"AwsRegions"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type OrganizationConfigRule struct {
-	ExcludedAccounts                     ExcludedAccounts                              `json:"excludedAccounts" xml:"ExcludedAccounts"`
-	LastUpdateTime                       time.Time                                     `json:"lastUpdateTime" xml:"LastUpdateTime"`
-	OrganizationConfigRuleArn            string                                        `json:"organizationConfigRuleArn" xml:"OrganizationConfigRuleArn"`
-	OrganizationConfigRuleName           string                                        `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
-	OrganizationCustomPolicyRuleMetadata *OrganizationCustomPolicyRuleMetadataNoPolicy `json:"organizationCustomPolicyRuleMetadata" xml:"OrganizationCustomPolicyRuleMetadata"`
-	OrganizationCustomRuleMetadata       *OrganizationCustomRuleMetadata               `json:"organizationCustomRuleMetadata" xml:"OrganizationCustomRuleMetadata"`
-	OrganizationManagedRuleMetadata      *OrganizationManagedRuleMetadata              `json:"organizationManagedRuleMetadata" xml:"OrganizationManagedRuleMetadata"`
+ExcludedAccounts ExcludedAccounts `json:"excludedAccounts" xml:"ExcludedAccounts"`
+LastUpdateTime time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
+OrganizationConfigRuleArn string `json:"organizationConfigRuleArn" xml:"OrganizationConfigRuleArn"`
+OrganizationConfigRuleName string `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
+OrganizationCustomPolicyRuleMetadata *OrganizationCustomPolicyRuleMetadataNoPolicy `json:"organizationCustomPolicyRuleMetadata" xml:"OrganizationCustomPolicyRuleMetadata"`
+OrganizationCustomRuleMetadata *OrganizationCustomRuleMetadata `json:"organizationCustomRuleMetadata" xml:"OrganizationCustomRuleMetadata"`
+OrganizationManagedRuleMetadata *OrganizationManagedRuleMetadata `json:"organizationManagedRuleMetadata" xml:"OrganizationManagedRuleMetadata"`
 }
 
 type OrganizationConfigRuleStatus struct {
-	ErrorCode                  string    `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage               string    `json:"errorMessage" xml:"ErrorMessage"`
-	LastUpdateTime             time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
-	OrganizationConfigRuleName string    `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
-	OrganizationRuleStatus     string    `json:"organizationRuleStatus" xml:"OrganizationRuleStatus"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+LastUpdateTime time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
+OrganizationConfigRuleName string `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
+OrganizationRuleStatus string `json:"organizationRuleStatus" xml:"OrganizationRuleStatus"`
 }
 
 type OrganizationConformancePack struct {
-	ConformancePackInputParameters  ConformancePackInputParameters `json:"conformancePackInputParameters" xml:"ConformancePackInputParameters"`
-	DeliveryS3Bucket                string                         `json:"deliveryS3Bucket" xml:"DeliveryS3Bucket"`
-	DeliveryS3KeyPrefix             string                         `json:"deliveryS3KeyPrefix" xml:"DeliveryS3KeyPrefix"`
-	ExcludedAccounts                ExcludedAccounts               `json:"excludedAccounts" xml:"ExcludedAccounts"`
-	LastUpdateTime                  time.Time                      `json:"lastUpdateTime" xml:"LastUpdateTime"`
-	OrganizationConformancePackArn  string                         `json:"organizationConformancePackArn" xml:"OrganizationConformancePackArn"`
-	OrganizationConformancePackName string                         `json:"organizationConformancePackName" xml:"OrganizationConformancePackName"`
+ConformancePackInputParameters ConformancePackInputParameters `json:"conformancePackInputParameters" xml:"ConformancePackInputParameters"`
+DeliveryS3Bucket string `json:"deliveryS3Bucket" xml:"DeliveryS3Bucket"`
+DeliveryS3KeyPrefix string `json:"deliveryS3KeyPrefix" xml:"DeliveryS3KeyPrefix"`
+ExcludedAccounts ExcludedAccounts `json:"excludedAccounts" xml:"ExcludedAccounts"`
+LastUpdateTime time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
+OrganizationConformancePackArn string `json:"organizationConformancePackArn" xml:"OrganizationConformancePackArn"`
+OrganizationConformancePackName string `json:"organizationConformancePackName" xml:"OrganizationConformancePackName"`
 }
 
 type OrganizationConformancePackDetailedStatus struct {
-	AccountId           string    `json:"accountId" xml:"AccountId"`
-	ConformancePackName string    `json:"conformancePackName" xml:"ConformancePackName"`
-	ErrorCode           string    `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage        string    `json:"errorMessage" xml:"ErrorMessage"`
-	LastUpdateTime      time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
-	Status              string    `json:"status" xml:"Status"`
+AccountId string `json:"accountId" xml:"AccountId"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+LastUpdateTime time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
+Status string `json:"status" xml:"Status"`
 }
 
 type OrganizationConformancePackStatus struct {
-	ErrorCode                       string    `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage                    string    `json:"errorMessage" xml:"ErrorMessage"`
-	LastUpdateTime                  time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
-	OrganizationConformancePackName string    `json:"organizationConformancePackName" xml:"OrganizationConformancePackName"`
-	Status                          string    `json:"status" xml:"Status"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+LastUpdateTime time.Time `json:"lastUpdateTime" xml:"LastUpdateTime"`
+OrganizationConformancePackName string `json:"organizationConformancePackName" xml:"OrganizationConformancePackName"`
+Status string `json:"status" xml:"Status"`
 }
 
 type OrganizationCustomPolicyRuleMetadata struct {
-	DebugLogDeliveryAccounts           DebugLogDeliveryAccounts               `json:"debugLogDeliveryAccounts" xml:"DebugLogDeliveryAccounts"`
-	Description                        string                                 `json:"description" xml:"Description"`
-	InputParameters                    string                                 `json:"inputParameters" xml:"InputParameters"`
-	MaximumExecutionFrequency          string                                 `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
-	OrganizationConfigRuleTriggerTypes OrganizationConfigRuleTriggerTypeNoSNs `json:"organizationConfigRuleTriggerTypes" xml:"OrganizationConfigRuleTriggerTypes"`
-	PolicyRuntime                      string                                 `json:"policyRuntime" xml:"PolicyRuntime"`
-	PolicyText                         string                                 `json:"policyText" xml:"PolicyText"`
-	ResourceIdScope                    string                                 `json:"resourceIdScope" xml:"ResourceIdScope"`
-	ResourceTypesScope                 ResourceTypesScope                     `json:"resourceTypesScope" xml:"ResourceTypesScope"`
-	TagKeyScope                        string                                 `json:"tagKeyScope" xml:"TagKeyScope"`
-	TagValueScope                      string                                 `json:"tagValueScope" xml:"TagValueScope"`
+DebugLogDeliveryAccounts DebugLogDeliveryAccounts `json:"debugLogDeliveryAccounts" xml:"DebugLogDeliveryAccounts"`
+Description string `json:"description" xml:"Description"`
+InputParameters string `json:"inputParameters" xml:"InputParameters"`
+MaximumExecutionFrequency string `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
+OrganizationConfigRuleTriggerTypes OrganizationConfigRuleTriggerTypeNoSNs `json:"organizationConfigRuleTriggerTypes" xml:"OrganizationConfigRuleTriggerTypes"`
+PolicyRuntime string `json:"policyRuntime" xml:"PolicyRuntime"`
+PolicyText string `json:"policyText" xml:"PolicyText"`
+ResourceIdScope string `json:"resourceIdScope" xml:"ResourceIdScope"`
+ResourceTypesScope ResourceTypesScope `json:"resourceTypesScope" xml:"ResourceTypesScope"`
+TagKeyScope string `json:"tagKeyScope" xml:"TagKeyScope"`
+TagValueScope string `json:"tagValueScope" xml:"TagValueScope"`
 }
 
 type OrganizationCustomPolicyRuleMetadataNoPolicy struct {
-	DebugLogDeliveryAccounts           DebugLogDeliveryAccounts               `json:"debugLogDeliveryAccounts" xml:"DebugLogDeliveryAccounts"`
-	Description                        string                                 `json:"description" xml:"Description"`
-	InputParameters                    string                                 `json:"inputParameters" xml:"InputParameters"`
-	MaximumExecutionFrequency          string                                 `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
-	OrganizationConfigRuleTriggerTypes OrganizationConfigRuleTriggerTypeNoSNs `json:"organizationConfigRuleTriggerTypes" xml:"OrganizationConfigRuleTriggerTypes"`
-	PolicyRuntime                      string                                 `json:"policyRuntime" xml:"PolicyRuntime"`
-	ResourceIdScope                    string                                 `json:"resourceIdScope" xml:"ResourceIdScope"`
-	ResourceTypesScope                 ResourceTypesScope                     `json:"resourceTypesScope" xml:"ResourceTypesScope"`
-	TagKeyScope                        string                                 `json:"tagKeyScope" xml:"TagKeyScope"`
-	TagValueScope                      string                                 `json:"tagValueScope" xml:"TagValueScope"`
+DebugLogDeliveryAccounts DebugLogDeliveryAccounts `json:"debugLogDeliveryAccounts" xml:"DebugLogDeliveryAccounts"`
+Description string `json:"description" xml:"Description"`
+InputParameters string `json:"inputParameters" xml:"InputParameters"`
+MaximumExecutionFrequency string `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
+OrganizationConfigRuleTriggerTypes OrganizationConfigRuleTriggerTypeNoSNs `json:"organizationConfigRuleTriggerTypes" xml:"OrganizationConfigRuleTriggerTypes"`
+PolicyRuntime string `json:"policyRuntime" xml:"PolicyRuntime"`
+ResourceIdScope string `json:"resourceIdScope" xml:"ResourceIdScope"`
+ResourceTypesScope ResourceTypesScope `json:"resourceTypesScope" xml:"ResourceTypesScope"`
+TagKeyScope string `json:"tagKeyScope" xml:"TagKeyScope"`
+TagValueScope string `json:"tagValueScope" xml:"TagValueScope"`
 }
 
 type OrganizationCustomRuleMetadata struct {
-	Description                        string                             `json:"description" xml:"Description"`
-	InputParameters                    string                             `json:"inputParameters" xml:"InputParameters"`
-	LambdaFunctionArn                  string                             `json:"lambdaFunctionArn" xml:"LambdaFunctionArn"`
-	MaximumExecutionFrequency          string                             `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
-	OrganizationConfigRuleTriggerTypes OrganizationConfigRuleTriggerTypes `json:"organizationConfigRuleTriggerTypes" xml:"OrganizationConfigRuleTriggerTypes"`
-	ResourceIdScope                    string                             `json:"resourceIdScope" xml:"ResourceIdScope"`
-	ResourceTypesScope                 ResourceTypesScope                 `json:"resourceTypesScope" xml:"ResourceTypesScope"`
-	TagKeyScope                        string                             `json:"tagKeyScope" xml:"TagKeyScope"`
-	TagValueScope                      string                             `json:"tagValueScope" xml:"TagValueScope"`
+Description string `json:"description" xml:"Description"`
+InputParameters string `json:"inputParameters" xml:"InputParameters"`
+LambdaFunctionArn string `json:"lambdaFunctionArn" xml:"LambdaFunctionArn"`
+MaximumExecutionFrequency string `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
+OrganizationConfigRuleTriggerTypes OrganizationConfigRuleTriggerTypes `json:"organizationConfigRuleTriggerTypes" xml:"OrganizationConfigRuleTriggerTypes"`
+ResourceIdScope string `json:"resourceIdScope" xml:"ResourceIdScope"`
+ResourceTypesScope ResourceTypesScope `json:"resourceTypesScope" xml:"ResourceTypesScope"`
+TagKeyScope string `json:"tagKeyScope" xml:"TagKeyScope"`
+TagValueScope string `json:"tagValueScope" xml:"TagValueScope"`
 }
 
 type OrganizationManagedRuleMetadata struct {
-	Description               string             `json:"description" xml:"Description"`
-	InputParameters           string             `json:"inputParameters" xml:"InputParameters"`
-	MaximumExecutionFrequency string             `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
-	ResourceIdScope           string             `json:"resourceIdScope" xml:"ResourceIdScope"`
-	ResourceTypesScope        ResourceTypesScope `json:"resourceTypesScope" xml:"ResourceTypesScope"`
-	RuleIdentifier            string             `json:"ruleIdentifier" xml:"RuleIdentifier"`
-	TagKeyScope               string             `json:"tagKeyScope" xml:"TagKeyScope"`
-	TagValueScope             string             `json:"tagValueScope" xml:"TagValueScope"`
+Description string `json:"description" xml:"Description"`
+InputParameters string `json:"inputParameters" xml:"InputParameters"`
+MaximumExecutionFrequency string `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
+ResourceIdScope string `json:"resourceIdScope" xml:"ResourceIdScope"`
+ResourceTypesScope ResourceTypesScope `json:"resourceTypesScope" xml:"ResourceTypesScope"`
+RuleIdentifier string `json:"ruleIdentifier" xml:"RuleIdentifier"`
+TagKeyScope string `json:"tagKeyScope" xml:"TagKeyScope"`
+TagValueScope string `json:"tagValueScope" xml:"TagValueScope"`
 }
 
 type OrganizationResourceDetailedStatusFilters struct {
-	AccountId string `json:"accountId" xml:"AccountId"`
-	Status    string `json:"status" xml:"Status"`
+AccountId string `json:"accountId" xml:"AccountId"`
+Status string `json:"status" xml:"Status"`
 }
 
 type PendingAggregationRequest struct {
-	RequesterAccountId string `json:"requesterAccountId" xml:"RequesterAccountId"`
-	RequesterAwsRegion string `json:"requesterAwsRegion" xml:"RequesterAwsRegion"`
+RequesterAccountId string `json:"requesterAccountId" xml:"RequesterAccountId"`
+RequesterAwsRegion string `json:"requesterAwsRegion" xml:"RequesterAwsRegion"`
 }
 
 type PutAggregationAuthorizationRequest struct {
-	AuthorizedAccountId string   `json:"authorizedAccountId" xml:"AuthorizedAccountId"`
-	AuthorizedAwsRegion string   `json:"authorizedAwsRegion" xml:"AuthorizedAwsRegion"`
-	Tags                TagsList `json:"tags" xml:"Tags"`
+AuthorizedAccountId string `json:"authorizedAccountId" xml:"AuthorizedAccountId"`
+AuthorizedAwsRegion string `json:"authorizedAwsRegion" xml:"AuthorizedAwsRegion"`
+Tags TagsList `json:"tags" xml:"Tags"`
 }
 
 type PutAggregationAuthorizationResponse struct {
-	AggregationAuthorization *AggregationAuthorization `json:"aggregationAuthorization" xml:"AggregationAuthorization"`
+AggregationAuthorization *AggregationAuthorization `json:"aggregationAuthorization" xml:"AggregationAuthorization"`
 }
 
 type PutConfigRuleRequest struct {
-	ConfigRule *ConfigRule `json:"configRule" xml:"ConfigRule"`
-	Tags       TagsList    `json:"tags" xml:"Tags"`
+ConfigRule *ConfigRule `json:"configRule" xml:"ConfigRule"`
+Tags TagsList `json:"tags" xml:"Tags"`
 }
 
 type PutConfigurationAggregatorRequest struct {
-	AccountAggregationSources     AccountAggregationSourceList   `json:"accountAggregationSources" xml:"AccountAggregationSources"`
-	AggregatorFilters             *AggregatorFilters             `json:"aggregatorFilters" xml:"AggregatorFilters"`
-	ConfigurationAggregatorName   string                         `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	OrganizationAggregationSource *OrganizationAggregationSource `json:"organizationAggregationSource" xml:"OrganizationAggregationSource"`
-	Tags                          TagsList                       `json:"tags" xml:"Tags"`
+AccountAggregationSources AccountAggregationSourceList `json:"accountAggregationSources" xml:"AccountAggregationSources"`
+AggregatorFilters *AggregatorFilters `json:"aggregatorFilters" xml:"AggregatorFilters"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+OrganizationAggregationSource *OrganizationAggregationSource `json:"organizationAggregationSource" xml:"OrganizationAggregationSource"`
+Tags TagsList `json:"tags" xml:"Tags"`
 }
 
 type PutConfigurationAggregatorResponse struct {
-	ConfigurationAggregator *ConfigurationAggregator `json:"configurationAggregator" xml:"ConfigurationAggregator"`
+ConfigurationAggregator *ConfigurationAggregator `json:"configurationAggregator" xml:"ConfigurationAggregator"`
 }
 
 type PutConfigurationRecorderRequest struct {
-	ConfigurationRecorder *ConfigurationRecorder `json:"configurationRecorder" xml:"ConfigurationRecorder"`
-	Tags                  TagsList               `json:"tags" xml:"Tags"`
+ConfigurationRecorder *ConfigurationRecorder `json:"configurationRecorder" xml:"ConfigurationRecorder"`
+Tags TagsList `json:"tags" xml:"Tags"`
 }
 
 type PutConformancePackRequest struct {
-	ConformancePackInputParameters ConformancePackInputParameters `json:"conformancePackInputParameters" xml:"ConformancePackInputParameters"`
-	ConformancePackName            string                         `json:"conformancePackName" xml:"ConformancePackName"`
-	DeliveryS3Bucket               string                         `json:"deliveryS3Bucket" xml:"DeliveryS3Bucket"`
-	DeliveryS3KeyPrefix            string                         `json:"deliveryS3KeyPrefix" xml:"DeliveryS3KeyPrefix"`
-	Tags                           TagsList                       `json:"tags" xml:"Tags"`
-	TemplateBody                   string                         `json:"templateBody" xml:"TemplateBody"`
-	TemplateS3Uri                  string                         `json:"templateS3Uri" xml:"TemplateS3Uri"`
-	TemplateSSMDocumentDetails     *TemplateSSMDocumentDetails    `json:"templateSSMDocumentDetails" xml:"TemplateSSMDocumentDetails"`
+ConformancePackInputParameters ConformancePackInputParameters `json:"conformancePackInputParameters" xml:"ConformancePackInputParameters"`
+ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+DeliveryS3Bucket string `json:"deliveryS3Bucket" xml:"DeliveryS3Bucket"`
+DeliveryS3KeyPrefix string `json:"deliveryS3KeyPrefix" xml:"DeliveryS3KeyPrefix"`
+Tags TagsList `json:"tags" xml:"Tags"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+TemplateS3Uri string `json:"templateS3Uri" xml:"TemplateS3Uri"`
+TemplateSSMDocumentDetails *TemplateSSMDocumentDetails `json:"templateSSMDocumentDetails" xml:"TemplateSSMDocumentDetails"`
 }
 
 type PutConformancePackResponse struct {
-	ConformancePackArn string `json:"conformancePackArn" xml:"ConformancePackArn"`
+ConformancePackArn string `json:"conformancePackArn" xml:"ConformancePackArn"`
 }
 
 type PutDeliveryChannelRequest struct {
-	DeliveryChannel *DeliveryChannel `json:"deliveryChannel" xml:"DeliveryChannel"`
+DeliveryChannel *DeliveryChannel `json:"deliveryChannel" xml:"DeliveryChannel"`
 }
 
 type PutEvaluationsRequest struct {
-	Evaluations Evaluations `json:"evaluations" xml:"Evaluations"`
-	ResultToken string      `json:"resultToken" xml:"ResultToken"`
-	TestMode    bool        `json:"testMode" xml:"TestMode"`
+Evaluations Evaluations `json:"evaluations" xml:"Evaluations"`
+ResultToken string `json:"resultToken" xml:"ResultToken"`
+TestMode bool `json:"testMode" xml:"TestMode"`
 }
 
 type PutEvaluationsResponse struct {
-	FailedEvaluations Evaluations `json:"failedEvaluations" xml:"FailedEvaluations"`
+FailedEvaluations Evaluations `json:"failedEvaluations" xml:"FailedEvaluations"`
 }
 
 type PutExternalEvaluationRequest struct {
-	ConfigRuleName     string              `json:"configRuleName" xml:"ConfigRuleName"`
-	ExternalEvaluation *ExternalEvaluation `json:"externalEvaluation" xml:"ExternalEvaluation"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ExternalEvaluation *ExternalEvaluation `json:"externalEvaluation" xml:"ExternalEvaluation"`
 }
 
 type PutExternalEvaluationResponse struct {
 }
 
 type PutOrganizationConfigRuleRequest struct {
-	ExcludedAccounts                     ExcludedAccounts                      `json:"excludedAccounts" xml:"ExcludedAccounts"`
-	OrganizationConfigRuleName           string                                `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
-	OrganizationCustomPolicyRuleMetadata *OrganizationCustomPolicyRuleMetadata `json:"organizationCustomPolicyRuleMetadata" xml:"OrganizationCustomPolicyRuleMetadata"`
-	OrganizationCustomRuleMetadata       *OrganizationCustomRuleMetadata       `json:"organizationCustomRuleMetadata" xml:"OrganizationCustomRuleMetadata"`
-	OrganizationManagedRuleMetadata      *OrganizationManagedRuleMetadata      `json:"organizationManagedRuleMetadata" xml:"OrganizationManagedRuleMetadata"`
+ExcludedAccounts ExcludedAccounts `json:"excludedAccounts" xml:"ExcludedAccounts"`
+OrganizationConfigRuleName string `json:"organizationConfigRuleName" xml:"OrganizationConfigRuleName"`
+OrganizationCustomPolicyRuleMetadata *OrganizationCustomPolicyRuleMetadata `json:"organizationCustomPolicyRuleMetadata" xml:"OrganizationCustomPolicyRuleMetadata"`
+OrganizationCustomRuleMetadata *OrganizationCustomRuleMetadata `json:"organizationCustomRuleMetadata" xml:"OrganizationCustomRuleMetadata"`
+OrganizationManagedRuleMetadata *OrganizationManagedRuleMetadata `json:"organizationManagedRuleMetadata" xml:"OrganizationManagedRuleMetadata"`
 }
 
 type PutOrganizationConfigRuleResponse struct {
-	OrganizationConfigRuleArn string `json:"organizationConfigRuleArn" xml:"OrganizationConfigRuleArn"`
+OrganizationConfigRuleArn string `json:"organizationConfigRuleArn" xml:"OrganizationConfigRuleArn"`
 }
 
 type PutOrganizationConformancePackRequest struct {
-	ConformancePackInputParameters  ConformancePackInputParameters `json:"conformancePackInputParameters" xml:"ConformancePackInputParameters"`
-	DeliveryS3Bucket                string                         `json:"deliveryS3Bucket" xml:"DeliveryS3Bucket"`
-	DeliveryS3KeyPrefix             string                         `json:"deliveryS3KeyPrefix" xml:"DeliveryS3KeyPrefix"`
-	ExcludedAccounts                ExcludedAccounts               `json:"excludedAccounts" xml:"ExcludedAccounts"`
-	OrganizationConformancePackName string                         `json:"organizationConformancePackName" xml:"OrganizationConformancePackName"`
-	TemplateBody                    string                         `json:"templateBody" xml:"TemplateBody"`
-	TemplateS3Uri                   string                         `json:"templateS3Uri" xml:"TemplateS3Uri"`
+ConformancePackInputParameters ConformancePackInputParameters `json:"conformancePackInputParameters" xml:"ConformancePackInputParameters"`
+DeliveryS3Bucket string `json:"deliveryS3Bucket" xml:"DeliveryS3Bucket"`
+DeliveryS3KeyPrefix string `json:"deliveryS3KeyPrefix" xml:"DeliveryS3KeyPrefix"`
+ExcludedAccounts ExcludedAccounts `json:"excludedAccounts" xml:"ExcludedAccounts"`
+OrganizationConformancePackName string `json:"organizationConformancePackName" xml:"OrganizationConformancePackName"`
+TemplateBody string `json:"templateBody" xml:"TemplateBody"`
+TemplateS3Uri string `json:"templateS3Uri" xml:"TemplateS3Uri"`
 }
 
 type PutOrganizationConformancePackResponse struct {
-	OrganizationConformancePackArn string `json:"organizationConformancePackArn" xml:"OrganizationConformancePackArn"`
+OrganizationConformancePackArn string `json:"organizationConformancePackArn" xml:"OrganizationConformancePackArn"`
 }
 
 type PutRemediationConfigurationsRequest struct {
-	RemediationConfigurations RemediationConfigurations `json:"remediationConfigurations" xml:"RemediationConfigurations"`
+RemediationConfigurations RemediationConfigurations `json:"remediationConfigurations" xml:"RemediationConfigurations"`
 }
 
 type PutRemediationConfigurationsResponse struct {
-	FailedBatches FailedRemediationBatches `json:"failedBatches" xml:"FailedBatches"`
+FailedBatches FailedRemediationBatches `json:"failedBatches" xml:"FailedBatches"`
 }
 
 type PutRemediationExceptionsRequest struct {
-	ConfigRuleName string                           `json:"configRuleName" xml:"ConfigRuleName"`
-	ExpirationTime time.Time                        `json:"expirationTime" xml:"ExpirationTime"`
-	Message        string                           `json:"message" xml:"Message"`
-	ResourceKeys   RemediationExceptionResourceKeys `json:"resourceKeys" xml:"ResourceKeys"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
+Message string `json:"message" xml:"Message"`
+ResourceKeys RemediationExceptionResourceKeys `json:"resourceKeys" xml:"ResourceKeys"`
 }
 
 type PutRemediationExceptionsResponse struct {
-	FailedBatches FailedRemediationExceptionBatches `json:"failedBatches" xml:"FailedBatches"`
+FailedBatches FailedRemediationExceptionBatches `json:"failedBatches" xml:"FailedBatches"`
 }
 
 type PutResourceConfigRequest struct {
-	Configuration   string `json:"configuration" xml:"Configuration"`
-	ResourceId      string `json:"resourceId" xml:"ResourceId"`
-	ResourceName    string `json:"resourceName" xml:"ResourceName"`
-	ResourceType    string `json:"resourceType" xml:"ResourceType"`
-	SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
-	Tags            Tags   `json:"tags" xml:"Tags"`
+Configuration string `json:"configuration" xml:"Configuration"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceName string `json:"resourceName" xml:"ResourceName"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type PutRetentionConfigurationRequest struct {
-	RetentionPeriodInDays int32 `json:"retentionPeriodInDays" xml:"RetentionPeriodInDays"`
+RetentionPeriodInDays int32 `json:"retentionPeriodInDays" xml:"RetentionPeriodInDays"`
 }
 
 type PutRetentionConfigurationResponse struct {
-	RetentionConfiguration *RetentionConfiguration `json:"retentionConfiguration" xml:"RetentionConfiguration"`
+RetentionConfiguration *RetentionConfiguration `json:"retentionConfiguration" xml:"RetentionConfiguration"`
 }
 
 type PutServiceLinkedConfigurationRecorderRequest struct {
-	ServicePrincipal string   `json:"servicePrincipal" xml:"ServicePrincipal"`
-	Tags             TagsList `json:"tags" xml:"Tags"`
+ServicePrincipal string `json:"servicePrincipal" xml:"ServicePrincipal"`
+Tags TagsList `json:"tags" xml:"Tags"`
 }
 
 type PutServiceLinkedConfigurationRecorderResponse struct {
-	Arn  string `json:"arn" xml:"Arn"`
-	Name string `json:"name" xml:"Name"`
+Arn string `json:"arn" xml:"Arn"`
+Name string `json:"name" xml:"Name"`
 }
 
 type PutStoredQueryRequest struct {
-	StoredQuery *StoredQuery `json:"storedQuery" xml:"StoredQuery"`
-	Tags        TagsList     `json:"tags" xml:"Tags"`
+StoredQuery *StoredQuery `json:"storedQuery" xml:"StoredQuery"`
+Tags TagsList `json:"tags" xml:"Tags"`
 }
 
 type PutStoredQueryResponse struct {
-	QueryArn string `json:"queryArn" xml:"QueryArn"`
+QueryArn string `json:"queryArn" xml:"QueryArn"`
 }
 
 type QueryInfo struct {
-	SelectFields FieldInfoList `json:"selectFields" xml:"SelectFields"`
+SelectFields FieldInfoList `json:"selectFields" xml:"SelectFields"`
 }
 
 type RecordingGroup struct {
-	AllSupported               bool                      `json:"allSupported" xml:"allSupported"`
-	ExclusionByResourceTypes   *ExclusionByResourceTypes `json:"exclusionByResourceTypes" xml:"exclusionByResourceTypes"`
-	IncludeGlobalResourceTypes bool                      `json:"includeGlobalResourceTypes" xml:"includeGlobalResourceTypes"`
-	RecordingStrategy          *RecordingStrategy        `json:"recordingStrategy" xml:"recordingStrategy"`
-	ResourceTypes              ResourceTypeList          `json:"resourceTypes" xml:"resourceTypes"`
+AllSupported bool `json:"allSupported" xml:"allSupported"`
+ExclusionByResourceTypes *ExclusionByResourceTypes `json:"exclusionByResourceTypes" xml:"exclusionByResourceTypes"`
+IncludeGlobalResourceTypes bool `json:"includeGlobalResourceTypes" xml:"includeGlobalResourceTypes"`
+RecordingStrategy *RecordingStrategy `json:"recordingStrategy" xml:"recordingStrategy"`
+ResourceTypes ResourceTypeList `json:"resourceTypes" xml:"resourceTypes"`
 }
 
 type RecordingMode struct {
-	RecordingFrequency     string                 `json:"recordingFrequency" xml:"recordingFrequency"`
-	RecordingModeOverrides RecordingModeOverrides `json:"recordingModeOverrides" xml:"recordingModeOverrides"`
+RecordingFrequency string `json:"recordingFrequency" xml:"recordingFrequency"`
+RecordingModeOverrides RecordingModeOverrides `json:"recordingModeOverrides" xml:"recordingModeOverrides"`
 }
 
 type RecordingModeOverride struct {
-	Description        string                         `json:"description" xml:"description"`
-	RecordingFrequency string                         `json:"recordingFrequency" xml:"recordingFrequency"`
-	ResourceTypes      RecordingModeResourceTypesList `json:"resourceTypes" xml:"resourceTypes"`
+Description string `json:"description" xml:"description"`
+RecordingFrequency string `json:"recordingFrequency" xml:"recordingFrequency"`
+ResourceTypes RecordingModeResourceTypesList `json:"resourceTypes" xml:"resourceTypes"`
 }
 
 type RecordingStrategy struct {
-	UseOnly string `json:"useOnly" xml:"useOnly"`
+UseOnly string `json:"useOnly" xml:"useOnly"`
 }
 
 type Relationship struct {
-	RelationshipName string `json:"relationshipName" xml:"relationshipName"`
-	ResourceId       string `json:"resourceId" xml:"resourceId"`
-	ResourceName     string `json:"resourceName" xml:"resourceName"`
-	ResourceType     string `json:"resourceType" xml:"resourceType"`
+RelationshipName string `json:"relationshipName" xml:"relationshipName"`
+ResourceId string `json:"resourceId" xml:"resourceId"`
+ResourceName string `json:"resourceName" xml:"resourceName"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type RemediationConfiguration struct {
-	Arn                      string                `json:"arn" xml:"Arn"`
-	Automatic                bool                  `json:"automatic" xml:"Automatic"`
-	ConfigRuleName           string                `json:"configRuleName" xml:"ConfigRuleName"`
-	CreatedByService         string                `json:"createdByService" xml:"CreatedByService"`
-	ExecutionControls        *ExecutionControls    `json:"executionControls" xml:"ExecutionControls"`
-	MaximumAutomaticAttempts int32                 `json:"maximumAutomaticAttempts" xml:"MaximumAutomaticAttempts"`
-	Parameters               RemediationParameters `json:"parameters" xml:"Parameters"`
-	ResourceType             string                `json:"resourceType" xml:"ResourceType"`
-	RetryAttemptSeconds      int64                 `json:"retryAttemptSeconds" xml:"RetryAttemptSeconds"`
-	TargetId                 string                `json:"targetId" xml:"TargetId"`
-	TargetType               string                `json:"targetType" xml:"TargetType"`
-	TargetVersion            string                `json:"targetVersion" xml:"TargetVersion"`
+Arn string `json:"arn" xml:"Arn"`
+Automatic bool `json:"automatic" xml:"Automatic"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+CreatedByService string `json:"createdByService" xml:"CreatedByService"`
+ExecutionControls *ExecutionControls `json:"executionControls" xml:"ExecutionControls"`
+MaximumAutomaticAttempts int32 `json:"maximumAutomaticAttempts" xml:"MaximumAutomaticAttempts"`
+Parameters RemediationParameters `json:"parameters" xml:"Parameters"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+RetryAttemptSeconds int64 `json:"retryAttemptSeconds" xml:"RetryAttemptSeconds"`
+TargetId string `json:"targetId" xml:"TargetId"`
+TargetType string `json:"targetType" xml:"TargetType"`
+TargetVersion string `json:"targetVersion" xml:"TargetVersion"`
 }
 
 type RemediationException struct {
-	ConfigRuleName string    `json:"configRuleName" xml:"ConfigRuleName"`
-	ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
-	Message        string    `json:"message" xml:"Message"`
-	ResourceId     string    `json:"resourceId" xml:"ResourceId"`
-	ResourceType   string    `json:"resourceType" xml:"ResourceType"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
+Message string `json:"message" xml:"Message"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type RemediationExceptionResourceKey struct {
-	ResourceId   string `json:"resourceId" xml:"ResourceId"`
-	ResourceType string `json:"resourceType" xml:"ResourceType"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type RemediationExecutionStatus struct {
-	InvocationTime  time.Time                 `json:"invocationTime" xml:"InvocationTime"`
-	LastUpdatedTime time.Time                 `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	ResourceKey     *ResourceKey              `json:"resourceKey" xml:"ResourceKey"`
-	State           string                    `json:"state" xml:"State"`
-	StepDetails     RemediationExecutionSteps `json:"stepDetails" xml:"StepDetails"`
+InvocationTime time.Time `json:"invocationTime" xml:"InvocationTime"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+ResourceKey *ResourceKey `json:"resourceKey" xml:"ResourceKey"`
+State string `json:"state" xml:"State"`
+StepDetails RemediationExecutionSteps `json:"stepDetails" xml:"StepDetails"`
 }
 
 type RemediationExecutionStep struct {
-	ErrorMessage string    `json:"errorMessage" xml:"ErrorMessage"`
-	Name         string    `json:"name" xml:"Name"`
-	StartTime    time.Time `json:"startTime" xml:"StartTime"`
-	State        string    `json:"state" xml:"State"`
-	StopTime     time.Time `json:"stopTime" xml:"StopTime"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+Name string `json:"name" xml:"Name"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+State string `json:"state" xml:"State"`
+StopTime time.Time `json:"stopTime" xml:"StopTime"`
 }
 
 type RemediationParameterValue struct {
-	ResourceValue *ResourceValue `json:"resourceValue" xml:"ResourceValue"`
-	StaticValue   *StaticValue   `json:"staticValue" xml:"StaticValue"`
+ResourceValue *ResourceValue `json:"resourceValue" xml:"ResourceValue"`
+StaticValue *StaticValue `json:"staticValue" xml:"StaticValue"`
 }
 
 type ResourceCount struct {
-	Count        int64  `json:"count" xml:"count"`
-	ResourceType string `json:"resourceType" xml:"resourceType"`
+Count int64 `json:"count" xml:"count"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type ResourceCountFilters struct {
-	AccountId    string `json:"accountId" xml:"AccountId"`
-	Region       string `json:"region" xml:"Region"`
-	ResourceType string `json:"resourceType" xml:"ResourceType"`
+AccountId string `json:"accountId" xml:"AccountId"`
+Region string `json:"region" xml:"Region"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ResourceDetails struct {
-	ResourceConfiguration           string `json:"resourceConfiguration" xml:"ResourceConfiguration"`
-	ResourceConfigurationSchemaType string `json:"resourceConfigurationSchemaType" xml:"ResourceConfigurationSchemaType"`
-	ResourceId                      string `json:"resourceId" xml:"ResourceId"`
-	ResourceType                    string `json:"resourceType" xml:"ResourceType"`
+ResourceConfiguration string `json:"resourceConfiguration" xml:"ResourceConfiguration"`
+ResourceConfigurationSchemaType string `json:"resourceConfigurationSchemaType" xml:"ResourceConfigurationSchemaType"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ResourceEvaluation struct {
-	EvaluationMode           string    `json:"evaluationMode" xml:"EvaluationMode"`
-	EvaluationStartTimestamp time.Time `json:"evaluationStartTimestamp" xml:"EvaluationStartTimestamp"`
-	ResourceEvaluationId     string    `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
+EvaluationMode string `json:"evaluationMode" xml:"EvaluationMode"`
+EvaluationStartTimestamp time.Time `json:"evaluationStartTimestamp" xml:"EvaluationStartTimestamp"`
+ResourceEvaluationId string `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
 }
 
 type ResourceEvaluationFilters struct {
-	EvaluationContextIdentifier string      `json:"evaluationContextIdentifier" xml:"EvaluationContextIdentifier"`
-	EvaluationMode              string      `json:"evaluationMode" xml:"EvaluationMode"`
-	TimeWindow                  *TimeWindow `json:"timeWindow" xml:"TimeWindow"`
+EvaluationContextIdentifier string `json:"evaluationContextIdentifier" xml:"EvaluationContextIdentifier"`
+EvaluationMode string `json:"evaluationMode" xml:"EvaluationMode"`
+TimeWindow *TimeWindow `json:"timeWindow" xml:"TimeWindow"`
 }
 
 type ResourceFilters struct {
-	AccountId    string `json:"accountId" xml:"AccountId"`
-	Region       string `json:"region" xml:"Region"`
-	ResourceId   string `json:"resourceId" xml:"ResourceId"`
-	ResourceName string `json:"resourceName" xml:"ResourceName"`
+AccountId string `json:"accountId" xml:"AccountId"`
+Region string `json:"region" xml:"Region"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceName string `json:"resourceName" xml:"ResourceName"`
 }
 
 type ResourceIdentifier struct {
-	ResourceDeletionTime time.Time `json:"resourceDeletionTime" xml:"resourceDeletionTime"`
-	ResourceId           string    `json:"resourceId" xml:"resourceId"`
-	ResourceName         string    `json:"resourceName" xml:"resourceName"`
-	ResourceType         string    `json:"resourceType" xml:"resourceType"`
+ResourceDeletionTime time.Time `json:"resourceDeletionTime" xml:"resourceDeletionTime"`
+ResourceId string `json:"resourceId" xml:"resourceId"`
+ResourceName string `json:"resourceName" xml:"resourceName"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type ResourceKey struct {
-	ResourceId   string `json:"resourceId" xml:"resourceId"`
-	ResourceType string `json:"resourceType" xml:"resourceType"`
+ResourceId string `json:"resourceId" xml:"resourceId"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type ResourceValue struct {
-	Value string `json:"value" xml:"Value"`
+Value string `json:"value" xml:"Value"`
 }
 
 type RetentionConfiguration struct {
-	Name                  string `json:"name" xml:"Name"`
-	RetentionPeriodInDays int32  `json:"retentionPeriodInDays" xml:"RetentionPeriodInDays"`
+Name string `json:"name" xml:"Name"`
+RetentionPeriodInDays int32 `json:"retentionPeriodInDays" xml:"RetentionPeriodInDays"`
 }
 
 type Scope struct {
-	ComplianceResourceId    string                  `json:"complianceResourceId" xml:"ComplianceResourceId"`
-	ComplianceResourceTypes ComplianceResourceTypes `json:"complianceResourceTypes" xml:"ComplianceResourceTypes"`
-	TagKey                  string                  `json:"tagKey" xml:"TagKey"`
-	TagValue                string                  `json:"tagValue" xml:"TagValue"`
+ComplianceResourceId string `json:"complianceResourceId" xml:"ComplianceResourceId"`
+ComplianceResourceTypes ComplianceResourceTypes `json:"complianceResourceTypes" xml:"ComplianceResourceTypes"`
+TagKey string `json:"tagKey" xml:"TagKey"`
+TagValue string `json:"tagValue" xml:"TagValue"`
 }
 
 type SelectAggregateResourceConfigRequest struct {
-	ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
-	Expression                  string `json:"expression" xml:"Expression"`
-	Limit                       int32  `json:"limit" xml:"Limit"`
-	MaxResults                  int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken                   string `json:"nextToken" xml:"NextToken"`
+ConfigurationAggregatorName string `json:"configurationAggregatorName" xml:"ConfigurationAggregatorName"`
+Expression string `json:"expression" xml:"Expression"`
+Limit int32 `json:"limit" xml:"Limit"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type SelectAggregateResourceConfigResponse struct {
-	NextToken string     `json:"nextToken" xml:"NextToken"`
-	QueryInfo *QueryInfo `json:"queryInfo" xml:"QueryInfo"`
-	Results   Results    `json:"results" xml:"Results"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueryInfo *QueryInfo `json:"queryInfo" xml:"QueryInfo"`
+Results Results `json:"results" xml:"Results"`
 }
 
 type SelectResourceConfigRequest struct {
-	Expression string `json:"expression" xml:"Expression"`
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+Expression string `json:"expression" xml:"Expression"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type SelectResourceConfigResponse struct {
-	NextToken string     `json:"nextToken" xml:"NextToken"`
-	QueryInfo *QueryInfo `json:"queryInfo" xml:"QueryInfo"`
-	Results   Results    `json:"results" xml:"Results"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueryInfo *QueryInfo `json:"queryInfo" xml:"QueryInfo"`
+Results Results `json:"results" xml:"Results"`
 }
 
 type SmithyUnit struct {
 }
 
 type Source struct {
-	CustomPolicyDetails *CustomPolicyDetails `json:"customPolicyDetails" xml:"CustomPolicyDetails"`
-	Owner               string               `json:"owner" xml:"Owner"`
-	SourceDetails       SourceDetails        `json:"sourceDetails" xml:"SourceDetails"`
-	SourceIdentifier    string               `json:"sourceIdentifier" xml:"SourceIdentifier"`
+CustomPolicyDetails *CustomPolicyDetails `json:"customPolicyDetails" xml:"CustomPolicyDetails"`
+Owner string `json:"owner" xml:"Owner"`
+SourceDetails SourceDetails `json:"sourceDetails" xml:"SourceDetails"`
+SourceIdentifier string `json:"sourceIdentifier" xml:"SourceIdentifier"`
 }
 
 type SourceDetail struct {
-	EventSource               string `json:"eventSource" xml:"EventSource"`
-	MaximumExecutionFrequency string `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
-	MessageType               string `json:"messageType" xml:"MessageType"`
+EventSource string `json:"eventSource" xml:"EventSource"`
+MaximumExecutionFrequency string `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
+MessageType string `json:"messageType" xml:"MessageType"`
 }
 
 type SsmControls struct {
-	ConcurrentExecutionRatePercentage int32 `json:"concurrentExecutionRatePercentage" xml:"ConcurrentExecutionRatePercentage"`
-	ErrorPercentage                   int32 `json:"errorPercentage" xml:"ErrorPercentage"`
+ConcurrentExecutionRatePercentage int32 `json:"concurrentExecutionRatePercentage" xml:"ConcurrentExecutionRatePercentage"`
+ErrorPercentage int32 `json:"errorPercentage" xml:"ErrorPercentage"`
 }
 
 type StartConfigRulesEvaluationRequest struct {
-	ConfigRuleNames ReevaluateConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
+ConfigRuleNames ReevaluateConfigRuleNames `json:"configRuleNames" xml:"ConfigRuleNames"`
 }
 
 type StartConfigRulesEvaluationResponse struct {
 }
 
 type StartConfigurationRecorderRequest struct {
-	ConfigurationRecorderName string `json:"configurationRecorderName" xml:"ConfigurationRecorderName"`
+ConfigurationRecorderName string `json:"configurationRecorderName" xml:"ConfigurationRecorderName"`
 }
 
 type StartRemediationExecutionRequest struct {
-	ConfigRuleName string       `json:"configRuleName" xml:"ConfigRuleName"`
-	ResourceKeys   ResourceKeys `json:"resourceKeys" xml:"ResourceKeys"`
+ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
+ResourceKeys ResourceKeys `json:"resourceKeys" xml:"ResourceKeys"`
 }
 
 type StartRemediationExecutionResponse struct {
-	FailedItems    ResourceKeys `json:"failedItems" xml:"FailedItems"`
-	FailureMessage string       `json:"failureMessage" xml:"FailureMessage"`
+FailedItems ResourceKeys `json:"failedItems" xml:"FailedItems"`
+FailureMessage string `json:"failureMessage" xml:"FailureMessage"`
 }
 
 type StartResourceEvaluationRequest struct {
-	ClientToken       string             `json:"clientToken" xml:"ClientToken"`
-	EvaluationContext *EvaluationContext `json:"evaluationContext" xml:"EvaluationContext"`
-	EvaluationMode    string             `json:"evaluationMode" xml:"EvaluationMode"`
-	EvaluationTimeout int32              `json:"evaluationTimeout" xml:"EvaluationTimeout"`
-	ResourceDetails   *ResourceDetails   `json:"resourceDetails" xml:"ResourceDetails"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+EvaluationContext *EvaluationContext `json:"evaluationContext" xml:"EvaluationContext"`
+EvaluationMode string `json:"evaluationMode" xml:"EvaluationMode"`
+EvaluationTimeout int32 `json:"evaluationTimeout" xml:"EvaluationTimeout"`
+ResourceDetails *ResourceDetails `json:"resourceDetails" xml:"ResourceDetails"`
 }
 
 type StartResourceEvaluationResponse struct {
-	ResourceEvaluationId string `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
+ResourceEvaluationId string `json:"resourceEvaluationId" xml:"ResourceEvaluationId"`
 }
 
 type StaticValue struct {
-	Values StaticParameterValues `json:"values" xml:"Values"`
+Values StaticParameterValues `json:"values" xml:"Values"`
 }
 
 type StatusDetailFilters struct {
-	AccountId               string `json:"accountId" xml:"AccountId"`
-	MemberAccountRuleStatus string `json:"memberAccountRuleStatus" xml:"MemberAccountRuleStatus"`
+AccountId string `json:"accountId" xml:"AccountId"`
+MemberAccountRuleStatus string `json:"memberAccountRuleStatus" xml:"MemberAccountRuleStatus"`
 }
 
 type StopConfigurationRecorderRequest struct {
-	ConfigurationRecorderName string `json:"configurationRecorderName" xml:"ConfigurationRecorderName"`
+ConfigurationRecorderName string `json:"configurationRecorderName" xml:"ConfigurationRecorderName"`
 }
 
 type StoredQuery struct {
-	Description string `json:"description" xml:"Description"`
-	Expression  string `json:"expression" xml:"Expression"`
-	QueryArn    string `json:"queryArn" xml:"QueryArn"`
-	QueryId     string `json:"queryId" xml:"QueryId"`
-	QueryName   string `json:"queryName" xml:"QueryName"`
+Description string `json:"description" xml:"Description"`
+Expression string `json:"expression" xml:"Expression"`
+QueryArn string `json:"queryArn" xml:"QueryArn"`
+QueryId string `json:"queryId" xml:"QueryId"`
+QueryName string `json:"queryName" xml:"QueryName"`
 }
 
 type StoredQueryMetadata struct {
-	Description string `json:"description" xml:"Description"`
-	QueryArn    string `json:"queryArn" xml:"QueryArn"`
-	QueryId     string `json:"queryId" xml:"QueryId"`
-	QueryName   string `json:"queryName" xml:"QueryName"`
+Description string `json:"description" xml:"Description"`
+QueryArn string `json:"queryArn" xml:"QueryArn"`
+QueryId string `json:"queryId" xml:"QueryId"`
+QueryName string `json:"queryName" xml:"QueryName"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string  `json:"resourceArn" xml:"ResourceArn"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type TemplateSSMDocumentDetails struct {
-	DocumentName    string `json:"documentName" xml:"DocumentName"`
-	DocumentVersion string `json:"documentVersion" xml:"DocumentVersion"`
+DocumentName string `json:"documentName" xml:"DocumentName"`
+DocumentVersion string `json:"documentVersion" xml:"DocumentVersion"`
 }
 
 type TimeWindow struct {
-	EndTime   time.Time `json:"endTime" xml:"EndTime"`
-	StartTime time.Time `json:"startTime" xml:"StartTime"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string     `json:"resourceArn" xml:"ResourceArn"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type AccountAggregationSourceAccountList []string
@@ -1926,3 +1926,4 @@ type RemediationParameters map[string]*RemediationParameterValue
 type SupplementaryConfiguration map[string]string
 
 type Tags map[string]string
+

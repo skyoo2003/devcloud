@@ -7,899 +7,899 @@ import (
 )
 
 type ActivityFailedEventDetails struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type ActivityListItem struct {
-	ActivityArn  string    `json:"activityArn" xml:"activityArn"`
-	CreationDate time.Time `json:"creationDate" xml:"creationDate"`
-	Name         string    `json:"name" xml:"name"`
+ActivityArn string `json:"activityArn" xml:"activityArn"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+Name string `json:"name" xml:"name"`
 }
 
 type ActivityScheduleFailedEventDetails struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type ActivityScheduledEventDetails struct {
-	HeartbeatInSeconds int64                             `json:"heartbeatInSeconds" xml:"heartbeatInSeconds"`
-	Input              string                            `json:"input" xml:"input"`
-	InputDetails       *HistoryEventExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
-	Resource           string                            `json:"resource" xml:"resource"`
-	TimeoutInSeconds   int64                             `json:"timeoutInSeconds" xml:"timeoutInSeconds"`
+HeartbeatInSeconds int64 `json:"heartbeatInSeconds" xml:"heartbeatInSeconds"`
+Input string `json:"input" xml:"input"`
+InputDetails *HistoryEventExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
+Resource string `json:"resource" xml:"resource"`
+TimeoutInSeconds int64 `json:"timeoutInSeconds" xml:"timeoutInSeconds"`
 }
 
 type ActivityStartedEventDetails struct {
-	WorkerName string `json:"workerName" xml:"workerName"`
+WorkerName string `json:"workerName" xml:"workerName"`
 }
 
 type ActivitySucceededEventDetails struct {
-	Output        string                            `json:"output" xml:"output"`
-	OutputDetails *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
+Output string `json:"output" xml:"output"`
+OutputDetails *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
 }
 
 type ActivityTimedOutEventDetails struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type AssignedVariablesDetails struct {
-	Truncated bool `json:"truncated" xml:"truncated"`
+Truncated bool `json:"truncated" xml:"truncated"`
 }
 
 type BillingDetails struct {
-	BilledDurationInMilliseconds int64 `json:"billedDurationInMilliseconds" xml:"billedDurationInMilliseconds"`
-	BilledMemoryUsedInMB         int64 `json:"billedMemoryUsedInMB" xml:"billedMemoryUsedInMB"`
+BilledDurationInMilliseconds int64 `json:"billedDurationInMilliseconds" xml:"billedDurationInMilliseconds"`
+BilledMemoryUsedInMB int64 `json:"billedMemoryUsedInMB" xml:"billedMemoryUsedInMB"`
 }
 
 type CloudWatchEventsExecutionDataDetails struct {
-	Included bool `json:"included" xml:"included"`
+Included bool `json:"included" xml:"included"`
 }
 
 type CloudWatchLogsLogGroup struct {
-	LogGroupArn string `json:"logGroupArn" xml:"logGroupArn"`
+LogGroupArn string `json:"logGroupArn" xml:"logGroupArn"`
 }
 
 type CreateActivityInput struct {
-	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
-	Name                    string                   `json:"name" xml:"name"`
-	Tags                    TagList                  `json:"tags" xml:"tags"`
+EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
+Name string `json:"name" xml:"name"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreateActivityOutput struct {
-	ActivityArn  string    `json:"activityArn" xml:"activityArn"`
-	CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+ActivityArn string `json:"activityArn" xml:"activityArn"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
 }
 
 type CreateStateMachineAliasInput struct {
-	Description          string                   `json:"description" xml:"description"`
-	Name                 string                   `json:"name" xml:"name"`
-	RoutingConfiguration RoutingConfigurationList `json:"routingConfiguration" xml:"routingConfiguration"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+RoutingConfiguration RoutingConfigurationList `json:"routingConfiguration" xml:"routingConfiguration"`
 }
 
 type CreateStateMachineAliasOutput struct {
-	CreationDate         time.Time `json:"creationDate" xml:"creationDate"`
-	StateMachineAliasArn string    `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+StateMachineAliasArn string `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
 }
 
 type CreateStateMachineInput struct {
-	Definition              string                   `json:"definition" xml:"definition"`
-	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
-	LoggingConfiguration    *LoggingConfiguration    `json:"loggingConfiguration" xml:"loggingConfiguration"`
-	Name                    string                   `json:"name" xml:"name"`
-	Publish                 bool                     `json:"publish" xml:"publish"`
-	RoleArn                 string                   `json:"roleArn" xml:"roleArn"`
-	Tags                    TagList                  `json:"tags" xml:"tags"`
-	TracingConfiguration    *TracingConfiguration    `json:"tracingConfiguration" xml:"tracingConfiguration"`
-	Type                    string                   `json:"type" xml:"type"`
-	VersionDescription      string                   `json:"versionDescription" xml:"versionDescription"`
+Definition string `json:"definition" xml:"definition"`
+EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
+LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"loggingConfiguration"`
+Name string `json:"name" xml:"name"`
+Publish bool `json:"publish" xml:"publish"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+Tags TagList `json:"tags" xml:"tags"`
+TracingConfiguration *TracingConfiguration `json:"tracingConfiguration" xml:"tracingConfiguration"`
+Type string `json:"type" xml:"type"`
+VersionDescription string `json:"versionDescription" xml:"versionDescription"`
 }
 
 type CreateStateMachineOutput struct {
-	CreationDate           time.Time `json:"creationDate" xml:"creationDate"`
-	StateMachineArn        string    `json:"stateMachineArn" xml:"stateMachineArn"`
-	StateMachineVersionArn string    `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+StateMachineVersionArn string `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
 }
 
 type DeleteActivityInput struct {
-	ActivityArn string `json:"activityArn" xml:"activityArn"`
+ActivityArn string `json:"activityArn" xml:"activityArn"`
 }
 
 type DeleteActivityOutput struct {
 }
 
 type DeleteStateMachineAliasInput struct {
-	StateMachineAliasArn string `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
+StateMachineAliasArn string `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
 }
 
 type DeleteStateMachineAliasOutput struct {
 }
 
 type DeleteStateMachineInput struct {
-	StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
 }
 
 type DeleteStateMachineOutput struct {
 }
 
 type DeleteStateMachineVersionInput struct {
-	StateMachineVersionArn string `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
+StateMachineVersionArn string `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
 }
 
 type DeleteStateMachineVersionOutput struct {
 }
 
 type DescribeActivityInput struct {
-	ActivityArn string `json:"activityArn" xml:"activityArn"`
+ActivityArn string `json:"activityArn" xml:"activityArn"`
 }
 
 type DescribeActivityOutput struct {
-	ActivityArn             string                   `json:"activityArn" xml:"activityArn"`
-	CreationDate            time.Time                `json:"creationDate" xml:"creationDate"`
-	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
-	Name                    string                   `json:"name" xml:"name"`
+ActivityArn string `json:"activityArn" xml:"activityArn"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
+Name string `json:"name" xml:"name"`
 }
 
 type DescribeExecutionInput struct {
-	ExecutionArn string `json:"executionArn" xml:"executionArn"`
-	IncludedData string `json:"includedData" xml:"includedData"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
+IncludedData string `json:"includedData" xml:"includedData"`
 }
 
 type DescribeExecutionOutput struct {
-	Cause                  string                                `json:"cause" xml:"cause"`
-	Error                  string                                `json:"error" xml:"error"`
-	ExecutionArn           string                                `json:"executionArn" xml:"executionArn"`
-	Input                  string                                `json:"input" xml:"input"`
-	InputDetails           *CloudWatchEventsExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
-	MapRunArn              string                                `json:"mapRunArn" xml:"mapRunArn"`
-	Name                   string                                `json:"name" xml:"name"`
-	Output                 string                                `json:"output" xml:"output"`
-	OutputDetails          *CloudWatchEventsExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
-	RedriveCount           int32                                 `json:"redriveCount" xml:"redriveCount"`
-	RedriveDate            time.Time                             `json:"redriveDate" xml:"redriveDate"`
-	RedriveStatus          string                                `json:"redriveStatus" xml:"redriveStatus"`
-	RedriveStatusReason    string                                `json:"redriveStatusReason" xml:"redriveStatusReason"`
-	StartDate              time.Time                             `json:"startDate" xml:"startDate"`
-	StateMachineAliasArn   string                                `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
-	StateMachineArn        string                                `json:"stateMachineArn" xml:"stateMachineArn"`
-	StateMachineVersionArn string                                `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
-	Status                 string                                `json:"status" xml:"status"`
-	StopDate               time.Time                             `json:"stopDate" xml:"stopDate"`
-	TraceHeader            string                                `json:"traceHeader" xml:"traceHeader"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
+Input string `json:"input" xml:"input"`
+InputDetails *CloudWatchEventsExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
+MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
+Name string `json:"name" xml:"name"`
+Output string `json:"output" xml:"output"`
+OutputDetails *CloudWatchEventsExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
+RedriveCount int32 `json:"redriveCount" xml:"redriveCount"`
+RedriveDate time.Time `json:"redriveDate" xml:"redriveDate"`
+RedriveStatus string `json:"redriveStatus" xml:"redriveStatus"`
+RedriveStatusReason string `json:"redriveStatusReason" xml:"redriveStatusReason"`
+StartDate time.Time `json:"startDate" xml:"startDate"`
+StateMachineAliasArn string `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+StateMachineVersionArn string `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
+Status string `json:"status" xml:"status"`
+StopDate time.Time `json:"stopDate" xml:"stopDate"`
+TraceHeader string `json:"traceHeader" xml:"traceHeader"`
 }
 
 type DescribeMapRunInput struct {
-	MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
+MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
 }
 
 type DescribeMapRunOutput struct {
-	ExecutionArn               string                 `json:"executionArn" xml:"executionArn"`
-	ExecutionCounts            *MapRunExecutionCounts `json:"executionCounts" xml:"executionCounts"`
-	ItemCounts                 *MapRunItemCounts      `json:"itemCounts" xml:"itemCounts"`
-	MapRunArn                  string                 `json:"mapRunArn" xml:"mapRunArn"`
-	MaxConcurrency             int32                  `json:"maxConcurrency" xml:"maxConcurrency"`
-	RedriveCount               int32                  `json:"redriveCount" xml:"redriveCount"`
-	RedriveDate                time.Time              `json:"redriveDate" xml:"redriveDate"`
-	StartDate                  time.Time              `json:"startDate" xml:"startDate"`
-	Status                     string                 `json:"status" xml:"status"`
-	StopDate                   time.Time              `json:"stopDate" xml:"stopDate"`
-	ToleratedFailureCount      int64                  `json:"toleratedFailureCount" xml:"toleratedFailureCount"`
-	ToleratedFailurePercentage float32                `json:"toleratedFailurePercentage" xml:"toleratedFailurePercentage"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
+ExecutionCounts *MapRunExecutionCounts `json:"executionCounts" xml:"executionCounts"`
+ItemCounts *MapRunItemCounts `json:"itemCounts" xml:"itemCounts"`
+MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
+MaxConcurrency int32 `json:"maxConcurrency" xml:"maxConcurrency"`
+RedriveCount int32 `json:"redriveCount" xml:"redriveCount"`
+RedriveDate time.Time `json:"redriveDate" xml:"redriveDate"`
+StartDate time.Time `json:"startDate" xml:"startDate"`
+Status string `json:"status" xml:"status"`
+StopDate time.Time `json:"stopDate" xml:"stopDate"`
+ToleratedFailureCount int64 `json:"toleratedFailureCount" xml:"toleratedFailureCount"`
+ToleratedFailurePercentage float32 `json:"toleratedFailurePercentage" xml:"toleratedFailurePercentage"`
 }
 
 type DescribeStateMachineAliasInput struct {
-	StateMachineAliasArn string `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
+StateMachineAliasArn string `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
 }
 
 type DescribeStateMachineAliasOutput struct {
-	CreationDate         time.Time                `json:"creationDate" xml:"creationDate"`
-	Description          string                   `json:"description" xml:"description"`
-	Name                 string                   `json:"name" xml:"name"`
-	RoutingConfiguration RoutingConfigurationList `json:"routingConfiguration" xml:"routingConfiguration"`
-	StateMachineAliasArn string                   `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
-	UpdateDate           time.Time                `json:"updateDate" xml:"updateDate"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+RoutingConfiguration RoutingConfigurationList `json:"routingConfiguration" xml:"routingConfiguration"`
+StateMachineAliasArn string `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
+UpdateDate time.Time `json:"updateDate" xml:"updateDate"`
 }
 
 type DescribeStateMachineForExecutionInput struct {
-	ExecutionArn string `json:"executionArn" xml:"executionArn"`
-	IncludedData string `json:"includedData" xml:"includedData"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
+IncludedData string `json:"includedData" xml:"includedData"`
 }
 
 type DescribeStateMachineForExecutionOutput struct {
-	Definition              string                   `json:"definition" xml:"definition"`
-	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
-	Label                   string                   `json:"label" xml:"label"`
-	LoggingConfiguration    *LoggingConfiguration    `json:"loggingConfiguration" xml:"loggingConfiguration"`
-	MapRunArn               string                   `json:"mapRunArn" xml:"mapRunArn"`
-	Name                    string                   `json:"name" xml:"name"`
-	RevisionId              string                   `json:"revisionId" xml:"revisionId"`
-	RoleArn                 string                   `json:"roleArn" xml:"roleArn"`
-	StateMachineArn         string                   `json:"stateMachineArn" xml:"stateMachineArn"`
-	TracingConfiguration    *TracingConfiguration    `json:"tracingConfiguration" xml:"tracingConfiguration"`
-	UpdateDate              time.Time                `json:"updateDate" xml:"updateDate"`
-	VariableReferences      VariableReferences       `json:"variableReferences" xml:"variableReferences"`
+Definition string `json:"definition" xml:"definition"`
+EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
+Label string `json:"label" xml:"label"`
+LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"loggingConfiguration"`
+MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
+Name string `json:"name" xml:"name"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+TracingConfiguration *TracingConfiguration `json:"tracingConfiguration" xml:"tracingConfiguration"`
+UpdateDate time.Time `json:"updateDate" xml:"updateDate"`
+VariableReferences VariableReferences `json:"variableReferences" xml:"variableReferences"`
 }
 
 type DescribeStateMachineInput struct {
-	IncludedData    string `json:"includedData" xml:"includedData"`
-	StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+IncludedData string `json:"includedData" xml:"includedData"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
 }
 
 type DescribeStateMachineOutput struct {
-	CreationDate            time.Time                `json:"creationDate" xml:"creationDate"`
-	Definition              string                   `json:"definition" xml:"definition"`
-	Description             string                   `json:"description" xml:"description"`
-	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
-	Label                   string                   `json:"label" xml:"label"`
-	LoggingConfiguration    *LoggingConfiguration    `json:"loggingConfiguration" xml:"loggingConfiguration"`
-	Name                    string                   `json:"name" xml:"name"`
-	RevisionId              string                   `json:"revisionId" xml:"revisionId"`
-	RoleArn                 string                   `json:"roleArn" xml:"roleArn"`
-	StateMachineArn         string                   `json:"stateMachineArn" xml:"stateMachineArn"`
-	Status                  string                   `json:"status" xml:"status"`
-	TracingConfiguration    *TracingConfiguration    `json:"tracingConfiguration" xml:"tracingConfiguration"`
-	Type                    string                   `json:"type" xml:"type"`
-	VariableReferences      VariableReferences       `json:"variableReferences" xml:"variableReferences"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+Definition string `json:"definition" xml:"definition"`
+Description string `json:"description" xml:"description"`
+EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
+Label string `json:"label" xml:"label"`
+LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"loggingConfiguration"`
+Name string `json:"name" xml:"name"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+Status string `json:"status" xml:"status"`
+TracingConfiguration *TracingConfiguration `json:"tracingConfiguration" xml:"tracingConfiguration"`
+Type string `json:"type" xml:"type"`
+VariableReferences VariableReferences `json:"variableReferences" xml:"variableReferences"`
 }
 
 type EncryptionConfiguration struct {
-	KmsDataKeyReusePeriodSeconds int32  `json:"kmsDataKeyReusePeriodSeconds" xml:"kmsDataKeyReusePeriodSeconds"`
-	KmsKeyId                     string `json:"kmsKeyId" xml:"kmsKeyId"`
-	Type                         string `json:"type" xml:"type"`
+KmsDataKeyReusePeriodSeconds int32 `json:"kmsDataKeyReusePeriodSeconds" xml:"kmsDataKeyReusePeriodSeconds"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+Type string `json:"type" xml:"type"`
 }
 
 type EvaluationFailedEventDetails struct {
-	Cause    string `json:"cause" xml:"cause"`
-	Error    string `json:"error" xml:"error"`
-	Location string `json:"location" xml:"location"`
-	State    string `json:"state" xml:"state"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
+Location string `json:"location" xml:"location"`
+State string `json:"state" xml:"state"`
 }
 
 type ExecutionAbortedEventDetails struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type ExecutionFailedEventDetails struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type ExecutionListItem struct {
-	ExecutionArn           string    `json:"executionArn" xml:"executionArn"`
-	ItemCount              int32     `json:"itemCount" xml:"itemCount"`
-	MapRunArn              string    `json:"mapRunArn" xml:"mapRunArn"`
-	Name                   string    `json:"name" xml:"name"`
-	RedriveCount           int32     `json:"redriveCount" xml:"redriveCount"`
-	RedriveDate            time.Time `json:"redriveDate" xml:"redriveDate"`
-	StartDate              time.Time `json:"startDate" xml:"startDate"`
-	StateMachineAliasArn   string    `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
-	StateMachineArn        string    `json:"stateMachineArn" xml:"stateMachineArn"`
-	StateMachineVersionArn string    `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
-	Status                 string    `json:"status" xml:"status"`
-	StopDate               time.Time `json:"stopDate" xml:"stopDate"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
+ItemCount int32 `json:"itemCount" xml:"itemCount"`
+MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
+Name string `json:"name" xml:"name"`
+RedriveCount int32 `json:"redriveCount" xml:"redriveCount"`
+RedriveDate time.Time `json:"redriveDate" xml:"redriveDate"`
+StartDate time.Time `json:"startDate" xml:"startDate"`
+StateMachineAliasArn string `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+StateMachineVersionArn string `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
+Status string `json:"status" xml:"status"`
+StopDate time.Time `json:"stopDate" xml:"stopDate"`
 }
 
 type ExecutionRedrivenEventDetails struct {
-	RedriveCount int32 `json:"redriveCount" xml:"redriveCount"`
+RedriveCount int32 `json:"redriveCount" xml:"redriveCount"`
 }
 
 type ExecutionStartedEventDetails struct {
-	Input                  string                            `json:"input" xml:"input"`
-	InputDetails           *HistoryEventExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
-	RoleArn                string                            `json:"roleArn" xml:"roleArn"`
-	StateMachineAliasArn   string                            `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
-	StateMachineVersionArn string                            `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
+Input string `json:"input" xml:"input"`
+InputDetails *HistoryEventExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+StateMachineAliasArn string `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
+StateMachineVersionArn string `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
 }
 
 type ExecutionSucceededEventDetails struct {
-	Output        string                            `json:"output" xml:"output"`
-	OutputDetails *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
+Output string `json:"output" xml:"output"`
+OutputDetails *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
 }
 
 type ExecutionTimedOutEventDetails struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type GetActivityTaskInput struct {
-	ActivityArn string `json:"activityArn" xml:"activityArn"`
-	WorkerName  string `json:"workerName" xml:"workerName"`
+ActivityArn string `json:"activityArn" xml:"activityArn"`
+WorkerName string `json:"workerName" xml:"workerName"`
 }
 
 type GetActivityTaskOutput struct {
-	Input     string `json:"input" xml:"input"`
-	TaskToken string `json:"taskToken" xml:"taskToken"`
+Input string `json:"input" xml:"input"`
+TaskToken string `json:"taskToken" xml:"taskToken"`
 }
 
 type GetExecutionHistoryInput struct {
-	ExecutionArn         string `json:"executionArn" xml:"executionArn"`
-	IncludeExecutionData bool   `json:"includeExecutionData" xml:"includeExecutionData"`
-	MaxResults           int32  `json:"maxResults" xml:"maxResults"`
-	NextToken            string `json:"nextToken" xml:"nextToken"`
-	ReverseOrder         bool   `json:"reverseOrder" xml:"reverseOrder"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
+IncludeExecutionData bool `json:"includeExecutionData" xml:"includeExecutionData"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ReverseOrder bool `json:"reverseOrder" xml:"reverseOrder"`
 }
 
 type GetExecutionHistoryOutput struct {
-	Events    HistoryEventList `json:"events" xml:"events"`
-	NextToken string           `json:"nextToken" xml:"nextToken"`
+Events HistoryEventList `json:"events" xml:"events"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type HistoryEvent struct {
-	ActivityFailedEventDetails               *ActivityFailedEventDetails               `json:"activityFailedEventDetails" xml:"activityFailedEventDetails"`
-	ActivityScheduleFailedEventDetails       *ActivityScheduleFailedEventDetails       `json:"activityScheduleFailedEventDetails" xml:"activityScheduleFailedEventDetails"`
-	ActivityScheduledEventDetails            *ActivityScheduledEventDetails            `json:"activityScheduledEventDetails" xml:"activityScheduledEventDetails"`
-	ActivityStartedEventDetails              *ActivityStartedEventDetails              `json:"activityStartedEventDetails" xml:"activityStartedEventDetails"`
-	ActivitySucceededEventDetails            *ActivitySucceededEventDetails            `json:"activitySucceededEventDetails" xml:"activitySucceededEventDetails"`
-	ActivityTimedOutEventDetails             *ActivityTimedOutEventDetails             `json:"activityTimedOutEventDetails" xml:"activityTimedOutEventDetails"`
-	EvaluationFailedEventDetails             *EvaluationFailedEventDetails             `json:"evaluationFailedEventDetails" xml:"evaluationFailedEventDetails"`
-	ExecutionAbortedEventDetails             *ExecutionAbortedEventDetails             `json:"executionAbortedEventDetails" xml:"executionAbortedEventDetails"`
-	ExecutionFailedEventDetails              *ExecutionFailedEventDetails              `json:"executionFailedEventDetails" xml:"executionFailedEventDetails"`
-	ExecutionRedrivenEventDetails            *ExecutionRedrivenEventDetails            `json:"executionRedrivenEventDetails" xml:"executionRedrivenEventDetails"`
-	ExecutionStartedEventDetails             *ExecutionStartedEventDetails             `json:"executionStartedEventDetails" xml:"executionStartedEventDetails"`
-	ExecutionSucceededEventDetails           *ExecutionSucceededEventDetails           `json:"executionSucceededEventDetails" xml:"executionSucceededEventDetails"`
-	ExecutionTimedOutEventDetails            *ExecutionTimedOutEventDetails            `json:"executionTimedOutEventDetails" xml:"executionTimedOutEventDetails"`
-	Id                                       int64                                     `json:"id" xml:"id"`
-	LambdaFunctionFailedEventDetails         *LambdaFunctionFailedEventDetails         `json:"lambdaFunctionFailedEventDetails" xml:"lambdaFunctionFailedEventDetails"`
-	LambdaFunctionScheduleFailedEventDetails *LambdaFunctionScheduleFailedEventDetails `json:"lambdaFunctionScheduleFailedEventDetails" xml:"lambdaFunctionScheduleFailedEventDetails"`
-	LambdaFunctionScheduledEventDetails      *LambdaFunctionScheduledEventDetails      `json:"lambdaFunctionScheduledEventDetails" xml:"lambdaFunctionScheduledEventDetails"`
-	LambdaFunctionStartFailedEventDetails    *LambdaFunctionStartFailedEventDetails    `json:"lambdaFunctionStartFailedEventDetails" xml:"lambdaFunctionStartFailedEventDetails"`
-	LambdaFunctionSucceededEventDetails      *LambdaFunctionSucceededEventDetails      `json:"lambdaFunctionSucceededEventDetails" xml:"lambdaFunctionSucceededEventDetails"`
-	LambdaFunctionTimedOutEventDetails       *LambdaFunctionTimedOutEventDetails       `json:"lambdaFunctionTimedOutEventDetails" xml:"lambdaFunctionTimedOutEventDetails"`
-	MapIterationAbortedEventDetails          *MapIterationEventDetails                 `json:"mapIterationAbortedEventDetails" xml:"mapIterationAbortedEventDetails"`
-	MapIterationFailedEventDetails           *MapIterationEventDetails                 `json:"mapIterationFailedEventDetails" xml:"mapIterationFailedEventDetails"`
-	MapIterationStartedEventDetails          *MapIterationEventDetails                 `json:"mapIterationStartedEventDetails" xml:"mapIterationStartedEventDetails"`
-	MapIterationSucceededEventDetails        *MapIterationEventDetails                 `json:"mapIterationSucceededEventDetails" xml:"mapIterationSucceededEventDetails"`
-	MapRunFailedEventDetails                 *MapRunFailedEventDetails                 `json:"mapRunFailedEventDetails" xml:"mapRunFailedEventDetails"`
-	MapRunRedrivenEventDetails               *MapRunRedrivenEventDetails               `json:"mapRunRedrivenEventDetails" xml:"mapRunRedrivenEventDetails"`
-	MapRunStartedEventDetails                *MapRunStartedEventDetails                `json:"mapRunStartedEventDetails" xml:"mapRunStartedEventDetails"`
-	MapStateStartedEventDetails              *MapStateStartedEventDetails              `json:"mapStateStartedEventDetails" xml:"mapStateStartedEventDetails"`
-	PreviousEventId                          int64                                     `json:"previousEventId" xml:"previousEventId"`
-	StateEnteredEventDetails                 *StateEnteredEventDetails                 `json:"stateEnteredEventDetails" xml:"stateEnteredEventDetails"`
-	StateExitedEventDetails                  *StateExitedEventDetails                  `json:"stateExitedEventDetails" xml:"stateExitedEventDetails"`
-	TaskFailedEventDetails                   *TaskFailedEventDetails                   `json:"taskFailedEventDetails" xml:"taskFailedEventDetails"`
-	TaskScheduledEventDetails                *TaskScheduledEventDetails                `json:"taskScheduledEventDetails" xml:"taskScheduledEventDetails"`
-	TaskStartFailedEventDetails              *TaskStartFailedEventDetails              `json:"taskStartFailedEventDetails" xml:"taskStartFailedEventDetails"`
-	TaskStartedEventDetails                  *TaskStartedEventDetails                  `json:"taskStartedEventDetails" xml:"taskStartedEventDetails"`
-	TaskSubmitFailedEventDetails             *TaskSubmitFailedEventDetails             `json:"taskSubmitFailedEventDetails" xml:"taskSubmitFailedEventDetails"`
-	TaskSubmittedEventDetails                *TaskSubmittedEventDetails                `json:"taskSubmittedEventDetails" xml:"taskSubmittedEventDetails"`
-	TaskSucceededEventDetails                *TaskSucceededEventDetails                `json:"taskSucceededEventDetails" xml:"taskSucceededEventDetails"`
-	TaskTimedOutEventDetails                 *TaskTimedOutEventDetails                 `json:"taskTimedOutEventDetails" xml:"taskTimedOutEventDetails"`
-	Timestamp                                time.Time                                 `json:"timestamp" xml:"timestamp"`
-	Type                                     string                                    `json:"type" xml:"type"`
+ActivityFailedEventDetails *ActivityFailedEventDetails `json:"activityFailedEventDetails" xml:"activityFailedEventDetails"`
+ActivityScheduleFailedEventDetails *ActivityScheduleFailedEventDetails `json:"activityScheduleFailedEventDetails" xml:"activityScheduleFailedEventDetails"`
+ActivityScheduledEventDetails *ActivityScheduledEventDetails `json:"activityScheduledEventDetails" xml:"activityScheduledEventDetails"`
+ActivityStartedEventDetails *ActivityStartedEventDetails `json:"activityStartedEventDetails" xml:"activityStartedEventDetails"`
+ActivitySucceededEventDetails *ActivitySucceededEventDetails `json:"activitySucceededEventDetails" xml:"activitySucceededEventDetails"`
+ActivityTimedOutEventDetails *ActivityTimedOutEventDetails `json:"activityTimedOutEventDetails" xml:"activityTimedOutEventDetails"`
+EvaluationFailedEventDetails *EvaluationFailedEventDetails `json:"evaluationFailedEventDetails" xml:"evaluationFailedEventDetails"`
+ExecutionAbortedEventDetails *ExecutionAbortedEventDetails `json:"executionAbortedEventDetails" xml:"executionAbortedEventDetails"`
+ExecutionFailedEventDetails *ExecutionFailedEventDetails `json:"executionFailedEventDetails" xml:"executionFailedEventDetails"`
+ExecutionRedrivenEventDetails *ExecutionRedrivenEventDetails `json:"executionRedrivenEventDetails" xml:"executionRedrivenEventDetails"`
+ExecutionStartedEventDetails *ExecutionStartedEventDetails `json:"executionStartedEventDetails" xml:"executionStartedEventDetails"`
+ExecutionSucceededEventDetails *ExecutionSucceededEventDetails `json:"executionSucceededEventDetails" xml:"executionSucceededEventDetails"`
+ExecutionTimedOutEventDetails *ExecutionTimedOutEventDetails `json:"executionTimedOutEventDetails" xml:"executionTimedOutEventDetails"`
+Id int64 `json:"id" xml:"id"`
+LambdaFunctionFailedEventDetails *LambdaFunctionFailedEventDetails `json:"lambdaFunctionFailedEventDetails" xml:"lambdaFunctionFailedEventDetails"`
+LambdaFunctionScheduleFailedEventDetails *LambdaFunctionScheduleFailedEventDetails `json:"lambdaFunctionScheduleFailedEventDetails" xml:"lambdaFunctionScheduleFailedEventDetails"`
+LambdaFunctionScheduledEventDetails *LambdaFunctionScheduledEventDetails `json:"lambdaFunctionScheduledEventDetails" xml:"lambdaFunctionScheduledEventDetails"`
+LambdaFunctionStartFailedEventDetails *LambdaFunctionStartFailedEventDetails `json:"lambdaFunctionStartFailedEventDetails" xml:"lambdaFunctionStartFailedEventDetails"`
+LambdaFunctionSucceededEventDetails *LambdaFunctionSucceededEventDetails `json:"lambdaFunctionSucceededEventDetails" xml:"lambdaFunctionSucceededEventDetails"`
+LambdaFunctionTimedOutEventDetails *LambdaFunctionTimedOutEventDetails `json:"lambdaFunctionTimedOutEventDetails" xml:"lambdaFunctionTimedOutEventDetails"`
+MapIterationAbortedEventDetails *MapIterationEventDetails `json:"mapIterationAbortedEventDetails" xml:"mapIterationAbortedEventDetails"`
+MapIterationFailedEventDetails *MapIterationEventDetails `json:"mapIterationFailedEventDetails" xml:"mapIterationFailedEventDetails"`
+MapIterationStartedEventDetails *MapIterationEventDetails `json:"mapIterationStartedEventDetails" xml:"mapIterationStartedEventDetails"`
+MapIterationSucceededEventDetails *MapIterationEventDetails `json:"mapIterationSucceededEventDetails" xml:"mapIterationSucceededEventDetails"`
+MapRunFailedEventDetails *MapRunFailedEventDetails `json:"mapRunFailedEventDetails" xml:"mapRunFailedEventDetails"`
+MapRunRedrivenEventDetails *MapRunRedrivenEventDetails `json:"mapRunRedrivenEventDetails" xml:"mapRunRedrivenEventDetails"`
+MapRunStartedEventDetails *MapRunStartedEventDetails `json:"mapRunStartedEventDetails" xml:"mapRunStartedEventDetails"`
+MapStateStartedEventDetails *MapStateStartedEventDetails `json:"mapStateStartedEventDetails" xml:"mapStateStartedEventDetails"`
+PreviousEventId int64 `json:"previousEventId" xml:"previousEventId"`
+StateEnteredEventDetails *StateEnteredEventDetails `json:"stateEnteredEventDetails" xml:"stateEnteredEventDetails"`
+StateExitedEventDetails *StateExitedEventDetails `json:"stateExitedEventDetails" xml:"stateExitedEventDetails"`
+TaskFailedEventDetails *TaskFailedEventDetails `json:"taskFailedEventDetails" xml:"taskFailedEventDetails"`
+TaskScheduledEventDetails *TaskScheduledEventDetails `json:"taskScheduledEventDetails" xml:"taskScheduledEventDetails"`
+TaskStartFailedEventDetails *TaskStartFailedEventDetails `json:"taskStartFailedEventDetails" xml:"taskStartFailedEventDetails"`
+TaskStartedEventDetails *TaskStartedEventDetails `json:"taskStartedEventDetails" xml:"taskStartedEventDetails"`
+TaskSubmitFailedEventDetails *TaskSubmitFailedEventDetails `json:"taskSubmitFailedEventDetails" xml:"taskSubmitFailedEventDetails"`
+TaskSubmittedEventDetails *TaskSubmittedEventDetails `json:"taskSubmittedEventDetails" xml:"taskSubmittedEventDetails"`
+TaskSucceededEventDetails *TaskSucceededEventDetails `json:"taskSucceededEventDetails" xml:"taskSucceededEventDetails"`
+TaskTimedOutEventDetails *TaskTimedOutEventDetails `json:"taskTimedOutEventDetails" xml:"taskTimedOutEventDetails"`
+Timestamp time.Time `json:"timestamp" xml:"timestamp"`
+Type string `json:"type" xml:"type"`
 }
 
 type HistoryEventExecutionDataDetails struct {
-	Truncated bool `json:"truncated" xml:"truncated"`
+Truncated bool `json:"truncated" xml:"truncated"`
 }
 
 type InspectionData struct {
-	AfterArguments             string                  `json:"afterArguments" xml:"afterArguments"`
-	AfterInputPath             string                  `json:"afterInputPath" xml:"afterInputPath"`
-	AfterItemBatcher           string                  `json:"afterItemBatcher" xml:"afterItemBatcher"`
-	AfterItemSelector          string                  `json:"afterItemSelector" xml:"afterItemSelector"`
-	AfterItemsPath             string                  `json:"afterItemsPath" xml:"afterItemsPath"`
-	AfterItemsPointer          string                  `json:"afterItemsPointer" xml:"afterItemsPointer"`
-	AfterParameters            string                  `json:"afterParameters" xml:"afterParameters"`
-	AfterResultPath            string                  `json:"afterResultPath" xml:"afterResultPath"`
-	AfterResultSelector        string                  `json:"afterResultSelector" xml:"afterResultSelector"`
-	ErrorDetails               *InspectionErrorDetails `json:"errorDetails" xml:"errorDetails"`
-	Input                      string                  `json:"input" xml:"input"`
-	MaxConcurrency             int32                   `json:"maxConcurrency" xml:"maxConcurrency"`
-	Request                    *InspectionDataRequest  `json:"request" xml:"request"`
-	Response                   *InspectionDataResponse `json:"response" xml:"response"`
-	Result                     string                  `json:"result" xml:"result"`
-	ToleratedFailureCount      int32                   `json:"toleratedFailureCount" xml:"toleratedFailureCount"`
-	ToleratedFailurePercentage float32                 `json:"toleratedFailurePercentage" xml:"toleratedFailurePercentage"`
-	Variables                  string                  `json:"variables" xml:"variables"`
+AfterArguments string `json:"afterArguments" xml:"afterArguments"`
+AfterInputPath string `json:"afterInputPath" xml:"afterInputPath"`
+AfterItemBatcher string `json:"afterItemBatcher" xml:"afterItemBatcher"`
+AfterItemSelector string `json:"afterItemSelector" xml:"afterItemSelector"`
+AfterItemsPath string `json:"afterItemsPath" xml:"afterItemsPath"`
+AfterItemsPointer string `json:"afterItemsPointer" xml:"afterItemsPointer"`
+AfterParameters string `json:"afterParameters" xml:"afterParameters"`
+AfterResultPath string `json:"afterResultPath" xml:"afterResultPath"`
+AfterResultSelector string `json:"afterResultSelector" xml:"afterResultSelector"`
+ErrorDetails *InspectionErrorDetails `json:"errorDetails" xml:"errorDetails"`
+Input string `json:"input" xml:"input"`
+MaxConcurrency int32 `json:"maxConcurrency" xml:"maxConcurrency"`
+Request *InspectionDataRequest `json:"request" xml:"request"`
+Response *InspectionDataResponse `json:"response" xml:"response"`
+Result string `json:"result" xml:"result"`
+ToleratedFailureCount int32 `json:"toleratedFailureCount" xml:"toleratedFailureCount"`
+ToleratedFailurePercentage float32 `json:"toleratedFailurePercentage" xml:"toleratedFailurePercentage"`
+Variables string `json:"variables" xml:"variables"`
 }
 
 type InspectionDataRequest struct {
-	Body     string `json:"body" xml:"body"`
-	Headers  string `json:"headers" xml:"headers"`
-	Method   string `json:"method" xml:"method"`
-	Protocol string `json:"protocol" xml:"protocol"`
-	Url      string `json:"url" xml:"url"`
+Body string `json:"body" xml:"body"`
+Headers string `json:"headers" xml:"headers"`
+Method string `json:"method" xml:"method"`
+Protocol string `json:"protocol" xml:"protocol"`
+Url string `json:"url" xml:"url"`
 }
 
 type InspectionDataResponse struct {
-	Body          string `json:"body" xml:"body"`
-	Headers       string `json:"headers" xml:"headers"`
-	Protocol      string `json:"protocol" xml:"protocol"`
-	StatusCode    string `json:"statusCode" xml:"statusCode"`
-	StatusMessage string `json:"statusMessage" xml:"statusMessage"`
+Body string `json:"body" xml:"body"`
+Headers string `json:"headers" xml:"headers"`
+Protocol string `json:"protocol" xml:"protocol"`
+StatusCode string `json:"statusCode" xml:"statusCode"`
+StatusMessage string `json:"statusMessage" xml:"statusMessage"`
 }
 
 type InspectionErrorDetails struct {
-	CatchIndex                  int32 `json:"catchIndex" xml:"catchIndex"`
-	RetryBackoffIntervalSeconds int32 `json:"retryBackoffIntervalSeconds" xml:"retryBackoffIntervalSeconds"`
-	RetryIndex                  int32 `json:"retryIndex" xml:"retryIndex"`
+CatchIndex int32 `json:"catchIndex" xml:"catchIndex"`
+RetryBackoffIntervalSeconds int32 `json:"retryBackoffIntervalSeconds" xml:"retryBackoffIntervalSeconds"`
+RetryIndex int32 `json:"retryIndex" xml:"retryIndex"`
 }
 
 type LambdaFunctionFailedEventDetails struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type LambdaFunctionScheduleFailedEventDetails struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type LambdaFunctionScheduledEventDetails struct {
-	Input            string                            `json:"input" xml:"input"`
-	InputDetails     *HistoryEventExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
-	Resource         string                            `json:"resource" xml:"resource"`
-	TaskCredentials  *TaskCredentials                  `json:"taskCredentials" xml:"taskCredentials"`
-	TimeoutInSeconds int64                             `json:"timeoutInSeconds" xml:"timeoutInSeconds"`
+Input string `json:"input" xml:"input"`
+InputDetails *HistoryEventExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
+Resource string `json:"resource" xml:"resource"`
+TaskCredentials *TaskCredentials `json:"taskCredentials" xml:"taskCredentials"`
+TimeoutInSeconds int64 `json:"timeoutInSeconds" xml:"timeoutInSeconds"`
 }
 
 type LambdaFunctionStartFailedEventDetails struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type LambdaFunctionSucceededEventDetails struct {
-	Output        string                            `json:"output" xml:"output"`
-	OutputDetails *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
+Output string `json:"output" xml:"output"`
+OutputDetails *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
 }
 
 type LambdaFunctionTimedOutEventDetails struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type ListActivitiesInput struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListActivitiesOutput struct {
-	Activities ActivityList `json:"activities" xml:"activities"`
-	NextToken  string       `json:"nextToken" xml:"nextToken"`
+Activities ActivityList `json:"activities" xml:"activities"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListExecutionsInput struct {
-	MapRunArn       string `json:"mapRunArn" xml:"mapRunArn"`
-	MaxResults      int32  `json:"maxResults" xml:"maxResults"`
-	NextToken       string `json:"nextToken" xml:"nextToken"`
-	RedriveFilter   string `json:"redriveFilter" xml:"redriveFilter"`
-	StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
-	StatusFilter    string `json:"statusFilter" xml:"statusFilter"`
+MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RedriveFilter string `json:"redriveFilter" xml:"redriveFilter"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+StatusFilter string `json:"statusFilter" xml:"statusFilter"`
 }
 
 type ListExecutionsOutput struct {
-	Executions ExecutionList `json:"executions" xml:"executions"`
-	NextToken  string        `json:"nextToken" xml:"nextToken"`
+Executions ExecutionList `json:"executions" xml:"executions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListMapRunsInput struct {
-	ExecutionArn string `json:"executionArn" xml:"executionArn"`
-	MaxResults   int32  `json:"maxResults" xml:"maxResults"`
-	NextToken    string `json:"nextToken" xml:"nextToken"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListMapRunsOutput struct {
-	MapRuns   MapRunList `json:"mapRuns" xml:"mapRuns"`
-	NextToken string     `json:"nextToken" xml:"nextToken"`
+MapRuns MapRunList `json:"mapRuns" xml:"mapRuns"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListStateMachineAliasesInput struct {
-	MaxResults      int32  `json:"maxResults" xml:"maxResults"`
-	NextToken       string `json:"nextToken" xml:"nextToken"`
-	StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
 }
 
 type ListStateMachineAliasesOutput struct {
-	NextToken           string                `json:"nextToken" xml:"nextToken"`
-	StateMachineAliases StateMachineAliasList `json:"stateMachineAliases" xml:"stateMachineAliases"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+StateMachineAliases StateMachineAliasList `json:"stateMachineAliases" xml:"stateMachineAliases"`
 }
 
 type ListStateMachineVersionsInput struct {
-	MaxResults      int32  `json:"maxResults" xml:"maxResults"`
-	NextToken       string `json:"nextToken" xml:"nextToken"`
-	StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
 }
 
 type ListStateMachineVersionsOutput struct {
-	NextToken            string                  `json:"nextToken" xml:"nextToken"`
-	StateMachineVersions StateMachineVersionList `json:"stateMachineVersions" xml:"stateMachineVersions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+StateMachineVersions StateMachineVersionList `json:"stateMachineVersions" xml:"stateMachineVersions"`
 }
 
 type ListStateMachinesInput struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListStateMachinesOutput struct {
-	NextToken     string           `json:"nextToken" xml:"nextToken"`
-	StateMachines StateMachineList `json:"stateMachines" xml:"stateMachines"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+StateMachines StateMachineList `json:"stateMachines" xml:"stateMachines"`
 }
 
 type ListTagsForResourceInput struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type ListTagsForResourceOutput struct {
-	Tags TagList `json:"tags" xml:"tags"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type LogDestination struct {
-	CloudWatchLogsLogGroup *CloudWatchLogsLogGroup `json:"cloudWatchLogsLogGroup" xml:"cloudWatchLogsLogGroup"`
+CloudWatchLogsLogGroup *CloudWatchLogsLogGroup `json:"cloudWatchLogsLogGroup" xml:"cloudWatchLogsLogGroup"`
 }
 
 type LoggingConfiguration struct {
-	Destinations         LogDestinationList `json:"destinations" xml:"destinations"`
-	IncludeExecutionData bool               `json:"includeExecutionData" xml:"includeExecutionData"`
-	Level                string             `json:"level" xml:"level"`
+Destinations LogDestinationList `json:"destinations" xml:"destinations"`
+IncludeExecutionData bool `json:"includeExecutionData" xml:"includeExecutionData"`
+Level string `json:"level" xml:"level"`
 }
 
 type MapIterationEventDetails struct {
-	Index int32  `json:"index" xml:"index"`
-	Name  string `json:"name" xml:"name"`
+Index int32 `json:"index" xml:"index"`
+Name string `json:"name" xml:"name"`
 }
 
 type MapRunExecutionCounts struct {
-	Aborted               int64 `json:"aborted" xml:"aborted"`
-	Failed                int64 `json:"failed" xml:"failed"`
-	FailuresNotRedrivable int64 `json:"failuresNotRedrivable" xml:"failuresNotRedrivable"`
-	Pending               int64 `json:"pending" xml:"pending"`
-	PendingRedrive        int64 `json:"pendingRedrive" xml:"pendingRedrive"`
-	ResultsWritten        int64 `json:"resultsWritten" xml:"resultsWritten"`
-	Running               int64 `json:"running" xml:"running"`
-	Succeeded             int64 `json:"succeeded" xml:"succeeded"`
-	TimedOut              int64 `json:"timedOut" xml:"timedOut"`
-	Total                 int64 `json:"total" xml:"total"`
+Aborted int64 `json:"aborted" xml:"aborted"`
+Failed int64 `json:"failed" xml:"failed"`
+FailuresNotRedrivable int64 `json:"failuresNotRedrivable" xml:"failuresNotRedrivable"`
+Pending int64 `json:"pending" xml:"pending"`
+PendingRedrive int64 `json:"pendingRedrive" xml:"pendingRedrive"`
+ResultsWritten int64 `json:"resultsWritten" xml:"resultsWritten"`
+Running int64 `json:"running" xml:"running"`
+Succeeded int64 `json:"succeeded" xml:"succeeded"`
+TimedOut int64 `json:"timedOut" xml:"timedOut"`
+Total int64 `json:"total" xml:"total"`
 }
 
 type MapRunFailedEventDetails struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type MapRunItemCounts struct {
-	Aborted               int64 `json:"aborted" xml:"aborted"`
-	Failed                int64 `json:"failed" xml:"failed"`
-	FailuresNotRedrivable int64 `json:"failuresNotRedrivable" xml:"failuresNotRedrivable"`
-	Pending               int64 `json:"pending" xml:"pending"`
-	PendingRedrive        int64 `json:"pendingRedrive" xml:"pendingRedrive"`
-	ResultsWritten        int64 `json:"resultsWritten" xml:"resultsWritten"`
-	Running               int64 `json:"running" xml:"running"`
-	Succeeded             int64 `json:"succeeded" xml:"succeeded"`
-	TimedOut              int64 `json:"timedOut" xml:"timedOut"`
-	Total                 int64 `json:"total" xml:"total"`
+Aborted int64 `json:"aborted" xml:"aborted"`
+Failed int64 `json:"failed" xml:"failed"`
+FailuresNotRedrivable int64 `json:"failuresNotRedrivable" xml:"failuresNotRedrivable"`
+Pending int64 `json:"pending" xml:"pending"`
+PendingRedrive int64 `json:"pendingRedrive" xml:"pendingRedrive"`
+ResultsWritten int64 `json:"resultsWritten" xml:"resultsWritten"`
+Running int64 `json:"running" xml:"running"`
+Succeeded int64 `json:"succeeded" xml:"succeeded"`
+TimedOut int64 `json:"timedOut" xml:"timedOut"`
+Total int64 `json:"total" xml:"total"`
 }
 
 type MapRunListItem struct {
-	ExecutionArn    string    `json:"executionArn" xml:"executionArn"`
-	MapRunArn       string    `json:"mapRunArn" xml:"mapRunArn"`
-	StartDate       time.Time `json:"startDate" xml:"startDate"`
-	StateMachineArn string    `json:"stateMachineArn" xml:"stateMachineArn"`
-	StopDate        time.Time `json:"stopDate" xml:"stopDate"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
+MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
+StartDate time.Time `json:"startDate" xml:"startDate"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+StopDate time.Time `json:"stopDate" xml:"stopDate"`
 }
 
 type MapRunRedrivenEventDetails struct {
-	MapRunArn    string `json:"mapRunArn" xml:"mapRunArn"`
-	RedriveCount int32  `json:"redriveCount" xml:"redriveCount"`
+MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
+RedriveCount int32 `json:"redriveCount" xml:"redriveCount"`
 }
 
 type MapRunStartedEventDetails struct {
-	MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
+MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
 }
 
 type MapStateStartedEventDetails struct {
-	Length int32 `json:"length" xml:"length"`
+Length int32 `json:"length" xml:"length"`
 }
 
 type MockErrorOutput struct {
-	Cause string `json:"cause" xml:"cause"`
-	Error string `json:"error" xml:"error"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
 }
 
 type MockInput struct {
-	ErrorOutput         *MockErrorOutput `json:"errorOutput" xml:"errorOutput"`
-	FieldValidationMode string           `json:"fieldValidationMode" xml:"fieldValidationMode"`
-	Result              string           `json:"result" xml:"result"`
+ErrorOutput *MockErrorOutput `json:"errorOutput" xml:"errorOutput"`
+FieldValidationMode string `json:"fieldValidationMode" xml:"fieldValidationMode"`
+Result string `json:"result" xml:"result"`
 }
 
 type PublishStateMachineVersionInput struct {
-	Description     string `json:"description" xml:"description"`
-	RevisionId      string `json:"revisionId" xml:"revisionId"`
-	StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+Description string `json:"description" xml:"description"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
 }
 
 type PublishStateMachineVersionOutput struct {
-	CreationDate           time.Time `json:"creationDate" xml:"creationDate"`
-	StateMachineVersionArn string    `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+StateMachineVersionArn string `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
 }
 
 type RedriveExecutionInput struct {
-	ClientToken  string `json:"clientToken" xml:"clientToken"`
-	ExecutionArn string `json:"executionArn" xml:"executionArn"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
 }
 
 type RedriveExecutionOutput struct {
-	RedriveDate time.Time `json:"redriveDate" xml:"redriveDate"`
+RedriveDate time.Time `json:"redriveDate" xml:"redriveDate"`
 }
 
 type RoutingConfigurationListItem struct {
-	StateMachineVersionArn string `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
-	Weight                 int32  `json:"weight" xml:"weight"`
+StateMachineVersionArn string `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
+Weight int32 `json:"weight" xml:"weight"`
 }
 
 type SendTaskFailureInput struct {
-	Cause     string `json:"cause" xml:"cause"`
-	Error     string `json:"error" xml:"error"`
-	TaskToken string `json:"taskToken" xml:"taskToken"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
+TaskToken string `json:"taskToken" xml:"taskToken"`
 }
 
 type SendTaskFailureOutput struct {
 }
 
 type SendTaskHeartbeatInput struct {
-	TaskToken string `json:"taskToken" xml:"taskToken"`
+TaskToken string `json:"taskToken" xml:"taskToken"`
 }
 
 type SendTaskHeartbeatOutput struct {
 }
 
 type SendTaskSuccessInput struct {
-	Output    string `json:"output" xml:"output"`
-	TaskToken string `json:"taskToken" xml:"taskToken"`
+Output string `json:"output" xml:"output"`
+TaskToken string `json:"taskToken" xml:"taskToken"`
 }
 
 type SendTaskSuccessOutput struct {
 }
 
 type StartExecutionInput struct {
-	Input           string `json:"input" xml:"input"`
-	Name            string `json:"name" xml:"name"`
-	StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
-	TraceHeader     string `json:"traceHeader" xml:"traceHeader"`
+Input string `json:"input" xml:"input"`
+Name string `json:"name" xml:"name"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+TraceHeader string `json:"traceHeader" xml:"traceHeader"`
 }
 
 type StartExecutionOutput struct {
-	ExecutionArn string    `json:"executionArn" xml:"executionArn"`
-	StartDate    time.Time `json:"startDate" xml:"startDate"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
+StartDate time.Time `json:"startDate" xml:"startDate"`
 }
 
 type StartSyncExecutionInput struct {
-	IncludedData    string `json:"includedData" xml:"includedData"`
-	Input           string `json:"input" xml:"input"`
-	Name            string `json:"name" xml:"name"`
-	StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
-	TraceHeader     string `json:"traceHeader" xml:"traceHeader"`
+IncludedData string `json:"includedData" xml:"includedData"`
+Input string `json:"input" xml:"input"`
+Name string `json:"name" xml:"name"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+TraceHeader string `json:"traceHeader" xml:"traceHeader"`
 }
 
 type StartSyncExecutionOutput struct {
-	BillingDetails  *BillingDetails                       `json:"billingDetails" xml:"billingDetails"`
-	Cause           string                                `json:"cause" xml:"cause"`
-	Error           string                                `json:"error" xml:"error"`
-	ExecutionArn    string                                `json:"executionArn" xml:"executionArn"`
-	Input           string                                `json:"input" xml:"input"`
-	InputDetails    *CloudWatchEventsExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
-	Name            string                                `json:"name" xml:"name"`
-	Output          string                                `json:"output" xml:"output"`
-	OutputDetails   *CloudWatchEventsExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
-	StartDate       time.Time                             `json:"startDate" xml:"startDate"`
-	StateMachineArn string                                `json:"stateMachineArn" xml:"stateMachineArn"`
-	Status          string                                `json:"status" xml:"status"`
-	StopDate        time.Time                             `json:"stopDate" xml:"stopDate"`
-	TraceHeader     string                                `json:"traceHeader" xml:"traceHeader"`
+BillingDetails *BillingDetails `json:"billingDetails" xml:"billingDetails"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
+Input string `json:"input" xml:"input"`
+InputDetails *CloudWatchEventsExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
+Name string `json:"name" xml:"name"`
+Output string `json:"output" xml:"output"`
+OutputDetails *CloudWatchEventsExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
+StartDate time.Time `json:"startDate" xml:"startDate"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+Status string `json:"status" xml:"status"`
+StopDate time.Time `json:"stopDate" xml:"stopDate"`
+TraceHeader string `json:"traceHeader" xml:"traceHeader"`
 }
 
 type StateEnteredEventDetails struct {
-	Input        string                            `json:"input" xml:"input"`
-	InputDetails *HistoryEventExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
-	Name         string                            `json:"name" xml:"name"`
+Input string `json:"input" xml:"input"`
+InputDetails *HistoryEventExecutionDataDetails `json:"inputDetails" xml:"inputDetails"`
+Name string `json:"name" xml:"name"`
 }
 
 type StateExitedEventDetails struct {
-	AssignedVariables        AssignedVariables                 `json:"assignedVariables" xml:"assignedVariables"`
-	AssignedVariablesDetails *AssignedVariablesDetails         `json:"assignedVariablesDetails" xml:"assignedVariablesDetails"`
-	Name                     string                            `json:"name" xml:"name"`
-	Output                   string                            `json:"output" xml:"output"`
-	OutputDetails            *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
+AssignedVariables AssignedVariables `json:"assignedVariables" xml:"assignedVariables"`
+AssignedVariablesDetails *AssignedVariablesDetails `json:"assignedVariablesDetails" xml:"assignedVariablesDetails"`
+Name string `json:"name" xml:"name"`
+Output string `json:"output" xml:"output"`
+OutputDetails *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
 }
 
 type StateMachineAliasListItem struct {
-	CreationDate         time.Time `json:"creationDate" xml:"creationDate"`
-	StateMachineAliasArn string    `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+StateMachineAliasArn string `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
 }
 
 type StateMachineListItem struct {
-	CreationDate    time.Time `json:"creationDate" xml:"creationDate"`
-	Name            string    `json:"name" xml:"name"`
-	StateMachineArn string    `json:"stateMachineArn" xml:"stateMachineArn"`
-	Type            string    `json:"type" xml:"type"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+Name string `json:"name" xml:"name"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+Type string `json:"type" xml:"type"`
 }
 
 type StateMachineVersionListItem struct {
-	CreationDate           time.Time `json:"creationDate" xml:"creationDate"`
-	StateMachineVersionArn string    `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+StateMachineVersionArn string `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
 }
 
 type StopExecutionInput struct {
-	Cause        string `json:"cause" xml:"cause"`
-	Error        string `json:"error" xml:"error"`
-	ExecutionArn string `json:"executionArn" xml:"executionArn"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
+ExecutionArn string `json:"executionArn" xml:"executionArn"`
 }
 
 type StopExecutionOutput struct {
-	StopDate time.Time `json:"stopDate" xml:"stopDate"`
+StopDate time.Time `json:"stopDate" xml:"stopDate"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"key"`
-	Value string `json:"value" xml:"value"`
+Key string `json:"key" xml:"key"`
+Value string `json:"value" xml:"value"`
 }
 
 type TagResourceInput struct {
-	ResourceArn string  `json:"resourceArn" xml:"resourceArn"`
-	Tags        TagList `json:"tags" xml:"tags"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type TagResourceOutput struct {
 }
 
 type TaskCredentials struct {
-	RoleArn string `json:"roleArn" xml:"roleArn"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
 }
 
 type TaskFailedEventDetails struct {
-	Cause        string `json:"cause" xml:"cause"`
-	Error        string `json:"error" xml:"error"`
-	Resource     string `json:"resource" xml:"resource"`
-	ResourceType string `json:"resourceType" xml:"resourceType"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
+Resource string `json:"resource" xml:"resource"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type TaskScheduledEventDetails struct {
-	HeartbeatInSeconds int64            `json:"heartbeatInSeconds" xml:"heartbeatInSeconds"`
-	Parameters         string           `json:"parameters" xml:"parameters"`
-	Region             string           `json:"region" xml:"region"`
-	Resource           string           `json:"resource" xml:"resource"`
-	ResourceType       string           `json:"resourceType" xml:"resourceType"`
-	TaskCredentials    *TaskCredentials `json:"taskCredentials" xml:"taskCredentials"`
-	TimeoutInSeconds   int64            `json:"timeoutInSeconds" xml:"timeoutInSeconds"`
+HeartbeatInSeconds int64 `json:"heartbeatInSeconds" xml:"heartbeatInSeconds"`
+Parameters string `json:"parameters" xml:"parameters"`
+Region string `json:"region" xml:"region"`
+Resource string `json:"resource" xml:"resource"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+TaskCredentials *TaskCredentials `json:"taskCredentials" xml:"taskCredentials"`
+TimeoutInSeconds int64 `json:"timeoutInSeconds" xml:"timeoutInSeconds"`
 }
 
 type TaskStartFailedEventDetails struct {
-	Cause        string `json:"cause" xml:"cause"`
-	Error        string `json:"error" xml:"error"`
-	Resource     string `json:"resource" xml:"resource"`
-	ResourceType string `json:"resourceType" xml:"resourceType"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
+Resource string `json:"resource" xml:"resource"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type TaskStartedEventDetails struct {
-	Resource     string `json:"resource" xml:"resource"`
-	ResourceType string `json:"resourceType" xml:"resourceType"`
+Resource string `json:"resource" xml:"resource"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type TaskSubmitFailedEventDetails struct {
-	Cause        string `json:"cause" xml:"cause"`
-	Error        string `json:"error" xml:"error"`
-	Resource     string `json:"resource" xml:"resource"`
-	ResourceType string `json:"resourceType" xml:"resourceType"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
+Resource string `json:"resource" xml:"resource"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type TaskSubmittedEventDetails struct {
-	Output        string                            `json:"output" xml:"output"`
-	OutputDetails *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
-	Resource      string                            `json:"resource" xml:"resource"`
-	ResourceType  string                            `json:"resourceType" xml:"resourceType"`
+Output string `json:"output" xml:"output"`
+OutputDetails *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
+Resource string `json:"resource" xml:"resource"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type TaskSucceededEventDetails struct {
-	Output        string                            `json:"output" xml:"output"`
-	OutputDetails *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
-	Resource      string                            `json:"resource" xml:"resource"`
-	ResourceType  string                            `json:"resourceType" xml:"resourceType"`
+Output string `json:"output" xml:"output"`
+OutputDetails *HistoryEventExecutionDataDetails `json:"outputDetails" xml:"outputDetails"`
+Resource string `json:"resource" xml:"resource"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type TaskTimedOutEventDetails struct {
-	Cause        string `json:"cause" xml:"cause"`
-	Error        string `json:"error" xml:"error"`
-	Resource     string `json:"resource" xml:"resource"`
-	ResourceType string `json:"resourceType" xml:"resourceType"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
+Resource string `json:"resource" xml:"resource"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type TestStateConfiguration struct {
-	ErrorCausedByState       string `json:"errorCausedByState" xml:"errorCausedByState"`
-	MapItemReaderData        string `json:"mapItemReaderData" xml:"mapItemReaderData"`
-	MapIterationFailureCount int32  `json:"mapIterationFailureCount" xml:"mapIterationFailureCount"`
-	RetrierRetryCount        int32  `json:"retrierRetryCount" xml:"retrierRetryCount"`
+ErrorCausedByState string `json:"errorCausedByState" xml:"errorCausedByState"`
+MapItemReaderData string `json:"mapItemReaderData" xml:"mapItemReaderData"`
+MapIterationFailureCount int32 `json:"mapIterationFailureCount" xml:"mapIterationFailureCount"`
+RetrierRetryCount int32 `json:"retrierRetryCount" xml:"retrierRetryCount"`
 }
 
 type TestStateInput struct {
-	Context            string                  `json:"context" xml:"context"`
-	Definition         string                  `json:"definition" xml:"definition"`
-	Input              string                  `json:"input" xml:"input"`
-	InspectionLevel    string                  `json:"inspectionLevel" xml:"inspectionLevel"`
-	Mock               *MockInput              `json:"mock" xml:"mock"`
-	RevealSecrets      bool                    `json:"revealSecrets" xml:"revealSecrets"`
-	RoleArn            string                  `json:"roleArn" xml:"roleArn"`
-	StateConfiguration *TestStateConfiguration `json:"stateConfiguration" xml:"stateConfiguration"`
-	StateName          string                  `json:"stateName" xml:"stateName"`
-	Variables          string                  `json:"variables" xml:"variables"`
+Context string `json:"context" xml:"context"`
+Definition string `json:"definition" xml:"definition"`
+Input string `json:"input" xml:"input"`
+InspectionLevel string `json:"inspectionLevel" xml:"inspectionLevel"`
+Mock *MockInput `json:"mock" xml:"mock"`
+RevealSecrets bool `json:"revealSecrets" xml:"revealSecrets"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+StateConfiguration *TestStateConfiguration `json:"stateConfiguration" xml:"stateConfiguration"`
+StateName string `json:"stateName" xml:"stateName"`
+Variables string `json:"variables" xml:"variables"`
 }
 
 type TestStateOutput struct {
-	Cause          string          `json:"cause" xml:"cause"`
-	Error          string          `json:"error" xml:"error"`
-	InspectionData *InspectionData `json:"inspectionData" xml:"inspectionData"`
-	NextState      string          `json:"nextState" xml:"nextState"`
-	Output         string          `json:"output" xml:"output"`
-	Status         string          `json:"status" xml:"status"`
+Cause string `json:"cause" xml:"cause"`
+Error string `json:"error" xml:"error"`
+InspectionData *InspectionData `json:"inspectionData" xml:"inspectionData"`
+NextState string `json:"nextState" xml:"nextState"`
+Output string `json:"output" xml:"output"`
+Status string `json:"status" xml:"status"`
 }
 
 type TracingConfiguration struct {
-	Enabled bool `json:"enabled" xml:"enabled"`
+Enabled bool `json:"enabled" xml:"enabled"`
 }
 
 type UntagResourceInput struct {
-	ResourceArn string     `json:"resourceArn" xml:"resourceArn"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"tagKeys"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"tagKeys"`
 }
 
 type UntagResourceOutput struct {
 }
 
 type UpdateMapRunInput struct {
-	MapRunArn                  string  `json:"mapRunArn" xml:"mapRunArn"`
-	MaxConcurrency             int32   `json:"maxConcurrency" xml:"maxConcurrency"`
-	ToleratedFailureCount      int64   `json:"toleratedFailureCount" xml:"toleratedFailureCount"`
-	ToleratedFailurePercentage float32 `json:"toleratedFailurePercentage" xml:"toleratedFailurePercentage"`
+MapRunArn string `json:"mapRunArn" xml:"mapRunArn"`
+MaxConcurrency int32 `json:"maxConcurrency" xml:"maxConcurrency"`
+ToleratedFailureCount int64 `json:"toleratedFailureCount" xml:"toleratedFailureCount"`
+ToleratedFailurePercentage float32 `json:"toleratedFailurePercentage" xml:"toleratedFailurePercentage"`
 }
 
 type UpdateMapRunOutput struct {
 }
 
 type UpdateStateMachineAliasInput struct {
-	Description          string                   `json:"description" xml:"description"`
-	RoutingConfiguration RoutingConfigurationList `json:"routingConfiguration" xml:"routingConfiguration"`
-	StateMachineAliasArn string                   `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
+Description string `json:"description" xml:"description"`
+RoutingConfiguration RoutingConfigurationList `json:"routingConfiguration" xml:"routingConfiguration"`
+StateMachineAliasArn string `json:"stateMachineAliasArn" xml:"stateMachineAliasArn"`
 }
 
 type UpdateStateMachineAliasOutput struct {
-	UpdateDate time.Time `json:"updateDate" xml:"updateDate"`
+UpdateDate time.Time `json:"updateDate" xml:"updateDate"`
 }
 
 type UpdateStateMachineInput struct {
-	Definition              string                   `json:"definition" xml:"definition"`
-	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
-	LoggingConfiguration    *LoggingConfiguration    `json:"loggingConfiguration" xml:"loggingConfiguration"`
-	Publish                 bool                     `json:"publish" xml:"publish"`
-	RoleArn                 string                   `json:"roleArn" xml:"roleArn"`
-	StateMachineArn         string                   `json:"stateMachineArn" xml:"stateMachineArn"`
-	TracingConfiguration    *TracingConfiguration    `json:"tracingConfiguration" xml:"tracingConfiguration"`
-	VersionDescription      string                   `json:"versionDescription" xml:"versionDescription"`
+Definition string `json:"definition" xml:"definition"`
+EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
+LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"loggingConfiguration"`
+Publish bool `json:"publish" xml:"publish"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+StateMachineArn string `json:"stateMachineArn" xml:"stateMachineArn"`
+TracingConfiguration *TracingConfiguration `json:"tracingConfiguration" xml:"tracingConfiguration"`
+VersionDescription string `json:"versionDescription" xml:"versionDescription"`
 }
 
 type UpdateStateMachineOutput struct {
-	RevisionId             string    `json:"revisionId" xml:"revisionId"`
-	StateMachineVersionArn string    `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
-	UpdateDate             time.Time `json:"updateDate" xml:"updateDate"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
+StateMachineVersionArn string `json:"stateMachineVersionArn" xml:"stateMachineVersionArn"`
+UpdateDate time.Time `json:"updateDate" xml:"updateDate"`
 }
 
 type ValidateStateMachineDefinitionDiagnostic struct {
-	Code     string `json:"code" xml:"code"`
-	Location string `json:"location" xml:"location"`
-	Message  string `json:"message" xml:"message"`
-	Severity string `json:"severity" xml:"severity"`
+Code string `json:"code" xml:"code"`
+Location string `json:"location" xml:"location"`
+Message string `json:"message" xml:"message"`
+Severity string `json:"severity" xml:"severity"`
 }
 
 type ValidateStateMachineDefinitionInput struct {
-	Definition string `json:"definition" xml:"definition"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	Severity   string `json:"severity" xml:"severity"`
-	Type       string `json:"type" xml:"type"`
+Definition string `json:"definition" xml:"definition"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+Severity string `json:"severity" xml:"severity"`
+Type string `json:"type" xml:"type"`
 }
 
 type ValidateStateMachineDefinitionOutput struct {
-	Diagnostics ValidateStateMachineDefinitionDiagnosticList `json:"diagnostics" xml:"diagnostics"`
-	Result      string                                       `json:"result" xml:"result"`
-	Truncated   bool                                         `json:"truncated" xml:"truncated"`
+Diagnostics ValidateStateMachineDefinitionDiagnosticList `json:"diagnostics" xml:"diagnostics"`
+Result string `json:"result" xml:"result"`
+Truncated bool `json:"truncated" xml:"truncated"`
 }
 
 type ActivityList []*ActivityListItem
@@ -931,3 +931,4 @@ type VariableNameList []string
 type AssignedVariables map[string]string
 
 type VariableReferences map[string]VariableNameList
+

@@ -533,3 +533,4 @@ func DeserializeTestMigrationMessage(r *http.Request, pathParams PathParams) (*T
 
 	return input, nil
 }
+

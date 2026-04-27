@@ -7,2239 +7,2239 @@ import (
 )
 
 type AcceptReservedNodeExchangeInputMessage struct {
-	ReservedNodeId               string `json:"reservedNodeId" xml:"ReservedNodeId"`
-	TargetReservedNodeOfferingId string `json:"targetReservedNodeOfferingId" xml:"TargetReservedNodeOfferingId"`
+ReservedNodeId string `json:"reservedNodeId" xml:"ReservedNodeId"`
+TargetReservedNodeOfferingId string `json:"targetReservedNodeOfferingId" xml:"TargetReservedNodeOfferingId"`
 }
 
 type AcceptReservedNodeExchangeOutputMessage struct {
-	ExchangedReservedNode *ReservedNode `json:"exchangedReservedNode" xml:"ExchangedReservedNode"`
+ExchangedReservedNode *ReservedNode `json:"exchangedReservedNode" xml:"ExchangedReservedNode"`
 }
 
 type AccountAttribute struct {
-	AttributeName   string             `json:"attributeName" xml:"AttributeName"`
-	AttributeValues AttributeValueList `json:"attributeValues" xml:"AttributeValues"`
+AttributeName string `json:"attributeName" xml:"AttributeName"`
+AttributeValues AttributeValueList `json:"attributeValues" xml:"AttributeValues"`
 }
 
 type AccountAttributeList struct {
-	AccountAttributes AttributeList `json:"accountAttributes" xml:"AccountAttributes"`
+AccountAttributes AttributeList `json:"accountAttributes" xml:"AccountAttributes"`
 }
 
 type AccountWithRestoreAccess struct {
-	AccountAlias string `json:"accountAlias" xml:"AccountAlias"`
-	AccountId    string `json:"accountId" xml:"AccountId"`
+AccountAlias string `json:"accountAlias" xml:"AccountAlias"`
+AccountId string `json:"accountId" xml:"AccountId"`
 }
 
 type AquaConfiguration struct {
-	AquaConfigurationStatus string `json:"aquaConfigurationStatus" xml:"AquaConfigurationStatus"`
-	AquaStatus              string `json:"aquaStatus" xml:"AquaStatus"`
+AquaConfigurationStatus string `json:"aquaConfigurationStatus" xml:"AquaConfigurationStatus"`
+AquaStatus string `json:"aquaStatus" xml:"AquaStatus"`
 }
 
 type AssociateDataShareConsumerMessage struct {
-	AllowWrites            bool   `json:"allowWrites" xml:"AllowWrites"`
-	AssociateEntireAccount bool   `json:"associateEntireAccount" xml:"AssociateEntireAccount"`
-	ConsumerArn            string `json:"consumerArn" xml:"ConsumerArn"`
-	ConsumerRegion         string `json:"consumerRegion" xml:"ConsumerRegion"`
-	DataShareArn           string `json:"dataShareArn" xml:"DataShareArn"`
+AllowWrites bool `json:"allowWrites" xml:"AllowWrites"`
+AssociateEntireAccount bool `json:"associateEntireAccount" xml:"AssociateEntireAccount"`
+ConsumerArn string `json:"consumerArn" xml:"ConsumerArn"`
+ConsumerRegion string `json:"consumerRegion" xml:"ConsumerRegion"`
+DataShareArn string `json:"dataShareArn" xml:"DataShareArn"`
 }
 
 type Association struct {
-	CertificateAssociations           CertificateAssociationList `json:"certificateAssociations" xml:"CertificateAssociations"`
-	CustomDomainCertificateArn        string                     `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
-	CustomDomainCertificateExpiryDate time.Time                  `json:"customDomainCertificateExpiryDate" xml:"CustomDomainCertificateExpiryDate"`
+CertificateAssociations CertificateAssociationList `json:"certificateAssociations" xml:"CertificateAssociations"`
+CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
+CustomDomainCertificateExpiryDate time.Time `json:"customDomainCertificateExpiryDate" xml:"CustomDomainCertificateExpiryDate"`
 }
 
 type AttributeValueTarget struct {
-	AttributeValue string `json:"attributeValue" xml:"AttributeValue"`
+AttributeValue string `json:"attributeValue" xml:"AttributeValue"`
 }
 
 type AuthenticationProfile struct {
-	AuthenticationProfileContent string `json:"authenticationProfileContent" xml:"AuthenticationProfileContent"`
-	AuthenticationProfileName    string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
+AuthenticationProfileContent string `json:"authenticationProfileContent" xml:"AuthenticationProfileContent"`
+AuthenticationProfileName string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
 }
 
 type AuthorizeClusterSecurityGroupIngressMessage struct {
-	CIDRIP                   string `json:"cIDRIP" xml:"CIDRIP"`
-	ClusterSecurityGroupName string `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
-	EC2SecurityGroupName     string `json:"eC2SecurityGroupName" xml:"EC2SecurityGroupName"`
-	EC2SecurityGroupOwnerId  string `json:"eC2SecurityGroupOwnerId" xml:"EC2SecurityGroupOwnerId"`
+CIDRIP string `json:"cIDRIP" xml:"CIDRIP"`
+ClusterSecurityGroupName string `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
+EC2SecurityGroupName string `json:"eC2SecurityGroupName" xml:"EC2SecurityGroupName"`
+EC2SecurityGroupOwnerId string `json:"eC2SecurityGroupOwnerId" xml:"EC2SecurityGroupOwnerId"`
 }
 
 type AuthorizeClusterSecurityGroupIngressResult struct {
-	ClusterSecurityGroup *ClusterSecurityGroup `json:"clusterSecurityGroup" xml:"ClusterSecurityGroup"`
+ClusterSecurityGroup *ClusterSecurityGroup `json:"clusterSecurityGroup" xml:"ClusterSecurityGroup"`
 }
 
 type AuthorizeDataShareMessage struct {
-	AllowWrites        bool   `json:"allowWrites" xml:"AllowWrites"`
-	ConsumerIdentifier string `json:"consumerIdentifier" xml:"ConsumerIdentifier"`
-	DataShareArn       string `json:"dataShareArn" xml:"DataShareArn"`
+AllowWrites bool `json:"allowWrites" xml:"AllowWrites"`
+ConsumerIdentifier string `json:"consumerIdentifier" xml:"ConsumerIdentifier"`
+DataShareArn string `json:"dataShareArn" xml:"DataShareArn"`
 }
 
 type AuthorizeEndpointAccessMessage struct {
-	Account           string            `json:"account" xml:"Account"`
-	ClusterIdentifier string            `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	VpcIds            VpcIdentifierList `json:"vpcIds" xml:"VpcIds"`
+Account string `json:"account" xml:"Account"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+VpcIds VpcIdentifierList `json:"vpcIds" xml:"VpcIds"`
 }
 
 type AuthorizeSnapshotAccessMessage struct {
-	AccountWithRestoreAccess  string `json:"accountWithRestoreAccess" xml:"AccountWithRestoreAccess"`
-	SnapshotArn               string `json:"snapshotArn" xml:"SnapshotArn"`
-	SnapshotClusterIdentifier string `json:"snapshotClusterIdentifier" xml:"SnapshotClusterIdentifier"`
-	SnapshotIdentifier        string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+AccountWithRestoreAccess string `json:"accountWithRestoreAccess" xml:"AccountWithRestoreAccess"`
+SnapshotArn string `json:"snapshotArn" xml:"SnapshotArn"`
+SnapshotClusterIdentifier string `json:"snapshotClusterIdentifier" xml:"SnapshotClusterIdentifier"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
 }
 
 type AuthorizeSnapshotAccessResult struct {
-	Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
+Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
 }
 
 type AuthorizedTokenIssuer struct {
-	AuthorizedAudiencesList AuthorizedAudienceList `json:"authorizedAudiencesList" xml:"AuthorizedAudiencesList"`
-	TrustedTokenIssuerArn   string                 `json:"trustedTokenIssuerArn" xml:"TrustedTokenIssuerArn"`
+AuthorizedAudiencesList AuthorizedAudienceList `json:"authorizedAudiencesList" xml:"AuthorizedAudiencesList"`
+TrustedTokenIssuerArn string `json:"trustedTokenIssuerArn" xml:"TrustedTokenIssuerArn"`
 }
 
 type AvailabilityZone struct {
-	Name               string                 `json:"name" xml:"Name"`
-	SupportedPlatforms SupportedPlatformsList `json:"supportedPlatforms" xml:"SupportedPlatforms"`
+Name string `json:"name" xml:"Name"`
+SupportedPlatforms SupportedPlatformsList `json:"supportedPlatforms" xml:"SupportedPlatforms"`
 }
 
 type BatchDeleteClusterSnapshotsRequest struct {
-	Identifiers DeleteClusterSnapshotMessageList `json:"identifiers" xml:"Identifiers"`
+Identifiers DeleteClusterSnapshotMessageList `json:"identifiers" xml:"Identifiers"`
 }
 
 type BatchDeleteClusterSnapshotsResult struct {
-	Errors    BatchSnapshotOperationErrorList `json:"errors" xml:"Errors"`
-	Resources SnapshotIdentifierList          `json:"resources" xml:"Resources"`
+Errors BatchSnapshotOperationErrorList `json:"errors" xml:"Errors"`
+Resources SnapshotIdentifierList `json:"resources" xml:"Resources"`
 }
 
 type BatchModifyClusterSnapshotsMessage struct {
-	Force                         bool                   `json:"force" xml:"Force"`
-	ManualSnapshotRetentionPeriod int32                  `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
-	SnapshotIdentifierList        SnapshotIdentifierList `json:"snapshotIdentifierList" xml:"SnapshotIdentifierList"`
+Force bool `json:"force" xml:"Force"`
+ManualSnapshotRetentionPeriod int32 `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
+SnapshotIdentifierList SnapshotIdentifierList `json:"snapshotIdentifierList" xml:"SnapshotIdentifierList"`
 }
 
 type BatchModifyClusterSnapshotsOutputMessage struct {
-	Errors    BatchSnapshotOperationErrors `json:"errors" xml:"Errors"`
-	Resources SnapshotIdentifierList       `json:"resources" xml:"Resources"`
+Errors BatchSnapshotOperationErrors `json:"errors" xml:"Errors"`
+Resources SnapshotIdentifierList `json:"resources" xml:"Resources"`
 }
 
 type CancelResizeMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type CertificateAssociation struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	CustomDomainName  string `json:"customDomainName" xml:"CustomDomainName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+CustomDomainName string `json:"customDomainName" xml:"CustomDomainName"`
 }
 
 type Cluster struct {
-	AllowVersionUpgrade                    bool                               `json:"allowVersionUpgrade" xml:"AllowVersionUpgrade"`
-	AquaConfiguration                      *AquaConfiguration                 `json:"aquaConfiguration" xml:"AquaConfiguration"`
-	AutomatedSnapshotRetentionPeriod       int32                              `json:"automatedSnapshotRetentionPeriod" xml:"AutomatedSnapshotRetentionPeriod"`
-	AvailabilityZone                       string                             `json:"availabilityZone" xml:"AvailabilityZone"`
-	AvailabilityZoneRelocationStatus       string                             `json:"availabilityZoneRelocationStatus" xml:"AvailabilityZoneRelocationStatus"`
-	CatalogArn                             string                             `json:"catalogArn" xml:"CatalogArn"`
-	ClusterAvailabilityStatus              string                             `json:"clusterAvailabilityStatus" xml:"ClusterAvailabilityStatus"`
-	ClusterCreateTime                      time.Time                          `json:"clusterCreateTime" xml:"ClusterCreateTime"`
-	ClusterIdentifier                      string                             `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	ClusterNamespaceArn                    string                             `json:"clusterNamespaceArn" xml:"ClusterNamespaceArn"`
-	ClusterNodes                           ClusterNodesList                   `json:"clusterNodes" xml:"ClusterNodes"`
-	ClusterParameterGroups                 ClusterParameterGroupStatusList    `json:"clusterParameterGroups" xml:"ClusterParameterGroups"`
-	ClusterPublicKey                       string                             `json:"clusterPublicKey" xml:"ClusterPublicKey"`
-	ClusterRevisionNumber                  string                             `json:"clusterRevisionNumber" xml:"ClusterRevisionNumber"`
-	ClusterSecurityGroups                  ClusterSecurityGroupMembershipList `json:"clusterSecurityGroups" xml:"ClusterSecurityGroups"`
-	ClusterSnapshotCopyStatus              *ClusterSnapshotCopyStatus         `json:"clusterSnapshotCopyStatus" xml:"ClusterSnapshotCopyStatus"`
-	ClusterStatus                          string                             `json:"clusterStatus" xml:"ClusterStatus"`
-	ClusterSubnetGroupName                 string                             `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
-	ClusterVersion                         string                             `json:"clusterVersion" xml:"ClusterVersion"`
-	CustomDomainCertificateArn             string                             `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
-	CustomDomainCertificateExpiryDate      time.Time                          `json:"customDomainCertificateExpiryDate" xml:"CustomDomainCertificateExpiryDate"`
-	CustomDomainName                       string                             `json:"customDomainName" xml:"CustomDomainName"`
-	DBName                                 string                             `json:"dBName" xml:"DBName"`
-	DataTransferProgress                   *DataTransferProgress              `json:"dataTransferProgress" xml:"DataTransferProgress"`
-	DefaultIamRoleArn                      string                             `json:"defaultIamRoleArn" xml:"DefaultIamRoleArn"`
-	DeferredMaintenanceWindows             DeferredMaintenanceWindowsList     `json:"deferredMaintenanceWindows" xml:"DeferredMaintenanceWindows"`
-	ElasticIpStatus                        *ElasticIpStatus                   `json:"elasticIpStatus" xml:"ElasticIpStatus"`
-	ElasticResizeNumberOfNodeOptions       string                             `json:"elasticResizeNumberOfNodeOptions" xml:"ElasticResizeNumberOfNodeOptions"`
-	Encrypted                              bool                               `json:"encrypted" xml:"Encrypted"`
-	Endpoint                               *Endpoint                          `json:"endpoint" xml:"Endpoint"`
-	EnhancedVpcRouting                     bool                               `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
-	ExpectedNextSnapshotScheduleTime       time.Time                          `json:"expectedNextSnapshotScheduleTime" xml:"ExpectedNextSnapshotScheduleTime"`
-	ExpectedNextSnapshotScheduleTimeStatus string                             `json:"expectedNextSnapshotScheduleTimeStatus" xml:"ExpectedNextSnapshotScheduleTimeStatus"`
-	ExtraComputeForAutomaticOptimization   string                             `json:"extraComputeForAutomaticOptimization" xml:"ExtraComputeForAutomaticOptimization"`
-	HsmStatus                              *HsmStatus                         `json:"hsmStatus" xml:"HsmStatus"`
-	IamRoles                               ClusterIamRoleList                 `json:"iamRoles" xml:"IamRoles"`
-	IpAddressType                          string                             `json:"ipAddressType" xml:"IpAddressType"`
-	KmsKeyId                               string                             `json:"kmsKeyId" xml:"KmsKeyId"`
-	LakehouseRegistrationStatus            string                             `json:"lakehouseRegistrationStatus" xml:"LakehouseRegistrationStatus"`
-	MaintenanceTrackName                   string                             `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
-	ManualSnapshotRetentionPeriod          int32                              `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
-	MasterPasswordSecretArn                string                             `json:"masterPasswordSecretArn" xml:"MasterPasswordSecretArn"`
-	MasterPasswordSecretKmsKeyId           string                             `json:"masterPasswordSecretKmsKeyId" xml:"MasterPasswordSecretKmsKeyId"`
-	MasterUsername                         string                             `json:"masterUsername" xml:"MasterUsername"`
-	ModifyStatus                           string                             `json:"modifyStatus" xml:"ModifyStatus"`
-	MultiAZ                                string                             `json:"multiAZ" xml:"MultiAZ"`
-	MultiAZSecondary                       *SecondaryClusterInfo              `json:"multiAZSecondary" xml:"MultiAZSecondary"`
-	NextMaintenanceWindowStartTime         time.Time                          `json:"nextMaintenanceWindowStartTime" xml:"NextMaintenanceWindowStartTime"`
-	NodeType                               string                             `json:"nodeType" xml:"NodeType"`
-	NumberOfNodes                          int32                              `json:"numberOfNodes" xml:"NumberOfNodes"`
-	PendingActions                         PendingActionsList                 `json:"pendingActions" xml:"PendingActions"`
-	PendingModifiedValues                  *PendingModifiedValues             `json:"pendingModifiedValues" xml:"PendingModifiedValues"`
-	PreferredMaintenanceWindow             string                             `json:"preferredMaintenanceWindow" xml:"PreferredMaintenanceWindow"`
-	PubliclyAccessible                     bool                               `json:"publiclyAccessible" xml:"PubliclyAccessible"`
-	ReservedNodeExchangeStatus             *ReservedNodeExchangeStatus        `json:"reservedNodeExchangeStatus" xml:"ReservedNodeExchangeStatus"`
-	ResizeInfo                             *ResizeInfo                        `json:"resizeInfo" xml:"ResizeInfo"`
-	RestoreStatus                          *RestoreStatus                     `json:"restoreStatus" xml:"RestoreStatus"`
-	SnapshotScheduleIdentifier             string                             `json:"snapshotScheduleIdentifier" xml:"SnapshotScheduleIdentifier"`
-	SnapshotScheduleState                  string                             `json:"snapshotScheduleState" xml:"SnapshotScheduleState"`
-	Tags                                   TagList                            `json:"tags" xml:"Tags"`
-	TotalStorageCapacityInMegaBytes        int64                              `json:"totalStorageCapacityInMegaBytes" xml:"TotalStorageCapacityInMegaBytes"`
-	VpcId                                  string                             `json:"vpcId" xml:"VpcId"`
-	VpcSecurityGroups                      VpcSecurityGroupMembershipList     `json:"vpcSecurityGroups" xml:"VpcSecurityGroups"`
+AllowVersionUpgrade bool `json:"allowVersionUpgrade" xml:"AllowVersionUpgrade"`
+AquaConfiguration *AquaConfiguration `json:"aquaConfiguration" xml:"AquaConfiguration"`
+AutomatedSnapshotRetentionPeriod int32 `json:"automatedSnapshotRetentionPeriod" xml:"AutomatedSnapshotRetentionPeriod"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+AvailabilityZoneRelocationStatus string `json:"availabilityZoneRelocationStatus" xml:"AvailabilityZoneRelocationStatus"`
+CatalogArn string `json:"catalogArn" xml:"CatalogArn"`
+ClusterAvailabilityStatus string `json:"clusterAvailabilityStatus" xml:"ClusterAvailabilityStatus"`
+ClusterCreateTime time.Time `json:"clusterCreateTime" xml:"ClusterCreateTime"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterNamespaceArn string `json:"clusterNamespaceArn" xml:"ClusterNamespaceArn"`
+ClusterNodes ClusterNodesList `json:"clusterNodes" xml:"ClusterNodes"`
+ClusterParameterGroups ClusterParameterGroupStatusList `json:"clusterParameterGroups" xml:"ClusterParameterGroups"`
+ClusterPublicKey string `json:"clusterPublicKey" xml:"ClusterPublicKey"`
+ClusterRevisionNumber string `json:"clusterRevisionNumber" xml:"ClusterRevisionNumber"`
+ClusterSecurityGroups ClusterSecurityGroupMembershipList `json:"clusterSecurityGroups" xml:"ClusterSecurityGroups"`
+ClusterSnapshotCopyStatus *ClusterSnapshotCopyStatus `json:"clusterSnapshotCopyStatus" xml:"ClusterSnapshotCopyStatus"`
+ClusterStatus string `json:"clusterStatus" xml:"ClusterStatus"`
+ClusterSubnetGroupName string `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
+ClusterVersion string `json:"clusterVersion" xml:"ClusterVersion"`
+CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
+CustomDomainCertificateExpiryDate time.Time `json:"customDomainCertificateExpiryDate" xml:"CustomDomainCertificateExpiryDate"`
+CustomDomainName string `json:"customDomainName" xml:"CustomDomainName"`
+DBName string `json:"dBName" xml:"DBName"`
+DataTransferProgress *DataTransferProgress `json:"dataTransferProgress" xml:"DataTransferProgress"`
+DefaultIamRoleArn string `json:"defaultIamRoleArn" xml:"DefaultIamRoleArn"`
+DeferredMaintenanceWindows DeferredMaintenanceWindowsList `json:"deferredMaintenanceWindows" xml:"DeferredMaintenanceWindows"`
+ElasticIpStatus *ElasticIpStatus `json:"elasticIpStatus" xml:"ElasticIpStatus"`
+ElasticResizeNumberOfNodeOptions string `json:"elasticResizeNumberOfNodeOptions" xml:"ElasticResizeNumberOfNodeOptions"`
+Encrypted bool `json:"encrypted" xml:"Encrypted"`
+Endpoint *Endpoint `json:"endpoint" xml:"Endpoint"`
+EnhancedVpcRouting bool `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
+ExpectedNextSnapshotScheduleTime time.Time `json:"expectedNextSnapshotScheduleTime" xml:"ExpectedNextSnapshotScheduleTime"`
+ExpectedNextSnapshotScheduleTimeStatus string `json:"expectedNextSnapshotScheduleTimeStatus" xml:"ExpectedNextSnapshotScheduleTimeStatus"`
+ExtraComputeForAutomaticOptimization string `json:"extraComputeForAutomaticOptimization" xml:"ExtraComputeForAutomaticOptimization"`
+HsmStatus *HsmStatus `json:"hsmStatus" xml:"HsmStatus"`
+IamRoles ClusterIamRoleList `json:"iamRoles" xml:"IamRoles"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+LakehouseRegistrationStatus string `json:"lakehouseRegistrationStatus" xml:"LakehouseRegistrationStatus"`
+MaintenanceTrackName string `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
+ManualSnapshotRetentionPeriod int32 `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
+MasterPasswordSecretArn string `json:"masterPasswordSecretArn" xml:"MasterPasswordSecretArn"`
+MasterPasswordSecretKmsKeyId string `json:"masterPasswordSecretKmsKeyId" xml:"MasterPasswordSecretKmsKeyId"`
+MasterUsername string `json:"masterUsername" xml:"MasterUsername"`
+ModifyStatus string `json:"modifyStatus" xml:"ModifyStatus"`
+MultiAZ string `json:"multiAZ" xml:"MultiAZ"`
+MultiAZSecondary *SecondaryClusterInfo `json:"multiAZSecondary" xml:"MultiAZSecondary"`
+NextMaintenanceWindowStartTime time.Time `json:"nextMaintenanceWindowStartTime" xml:"NextMaintenanceWindowStartTime"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
+PendingActions PendingActionsList `json:"pendingActions" xml:"PendingActions"`
+PendingModifiedValues *PendingModifiedValues `json:"pendingModifiedValues" xml:"PendingModifiedValues"`
+PreferredMaintenanceWindow string `json:"preferredMaintenanceWindow" xml:"PreferredMaintenanceWindow"`
+PubliclyAccessible bool `json:"publiclyAccessible" xml:"PubliclyAccessible"`
+ReservedNodeExchangeStatus *ReservedNodeExchangeStatus `json:"reservedNodeExchangeStatus" xml:"ReservedNodeExchangeStatus"`
+ResizeInfo *ResizeInfo `json:"resizeInfo" xml:"ResizeInfo"`
+RestoreStatus *RestoreStatus `json:"restoreStatus" xml:"RestoreStatus"`
+SnapshotScheduleIdentifier string `json:"snapshotScheduleIdentifier" xml:"SnapshotScheduleIdentifier"`
+SnapshotScheduleState string `json:"snapshotScheduleState" xml:"SnapshotScheduleState"`
+Tags TagList `json:"tags" xml:"Tags"`
+TotalStorageCapacityInMegaBytes int64 `json:"totalStorageCapacityInMegaBytes" xml:"TotalStorageCapacityInMegaBytes"`
+VpcId string `json:"vpcId" xml:"VpcId"`
+VpcSecurityGroups VpcSecurityGroupMembershipList `json:"vpcSecurityGroups" xml:"VpcSecurityGroups"`
 }
 
 type ClusterAssociatedToSchedule struct {
-	ClusterIdentifier        string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	ScheduleAssociationState string `json:"scheduleAssociationState" xml:"ScheduleAssociationState"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ScheduleAssociationState string `json:"scheduleAssociationState" xml:"ScheduleAssociationState"`
 }
 
 type ClusterCredentials struct {
-	DbPassword string    `json:"dbPassword" xml:"DbPassword"`
-	DbUser     string    `json:"dbUser" xml:"DbUser"`
-	Expiration time.Time `json:"expiration" xml:"Expiration"`
+DbPassword string `json:"dbPassword" xml:"DbPassword"`
+DbUser string `json:"dbUser" xml:"DbUser"`
+Expiration time.Time `json:"expiration" xml:"Expiration"`
 }
 
 type ClusterDbRevision struct {
-	ClusterIdentifier           string              `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	CurrentDatabaseRevision     string              `json:"currentDatabaseRevision" xml:"CurrentDatabaseRevision"`
-	DatabaseRevisionReleaseDate time.Time           `json:"databaseRevisionReleaseDate" xml:"DatabaseRevisionReleaseDate"`
-	RevisionTargets             RevisionTargetsList `json:"revisionTargets" xml:"RevisionTargets"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+CurrentDatabaseRevision string `json:"currentDatabaseRevision" xml:"CurrentDatabaseRevision"`
+DatabaseRevisionReleaseDate time.Time `json:"databaseRevisionReleaseDate" xml:"DatabaseRevisionReleaseDate"`
+RevisionTargets RevisionTargetsList `json:"revisionTargets" xml:"RevisionTargets"`
 }
 
 type ClusterDbRevisionsMessage struct {
-	ClusterDbRevisions ClusterDbRevisionsList `json:"clusterDbRevisions" xml:"ClusterDbRevisions"`
-	Marker             string                 `json:"marker" xml:"Marker"`
+ClusterDbRevisions ClusterDbRevisionsList `json:"clusterDbRevisions" xml:"ClusterDbRevisions"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ClusterExtendedCredentials struct {
-	DbPassword      string    `json:"dbPassword" xml:"DbPassword"`
-	DbUser          string    `json:"dbUser" xml:"DbUser"`
-	Expiration      time.Time `json:"expiration" xml:"Expiration"`
-	NextRefreshTime time.Time `json:"nextRefreshTime" xml:"NextRefreshTime"`
+DbPassword string `json:"dbPassword" xml:"DbPassword"`
+DbUser string `json:"dbUser" xml:"DbUser"`
+Expiration time.Time `json:"expiration" xml:"Expiration"`
+NextRefreshTime time.Time `json:"nextRefreshTime" xml:"NextRefreshTime"`
 }
 
 type ClusterIamRole struct {
-	ApplyStatus string `json:"applyStatus" xml:"ApplyStatus"`
-	IamRoleArn  string `json:"iamRoleArn" xml:"IamRoleArn"`
+ApplyStatus string `json:"applyStatus" xml:"ApplyStatus"`
+IamRoleArn string `json:"iamRoleArn" xml:"IamRoleArn"`
 }
 
 type ClusterNode struct {
-	NodeRole         string `json:"nodeRole" xml:"NodeRole"`
-	PrivateIPAddress string `json:"privateIPAddress" xml:"PrivateIPAddress"`
-	PublicIPAddress  string `json:"publicIPAddress" xml:"PublicIPAddress"`
+NodeRole string `json:"nodeRole" xml:"NodeRole"`
+PrivateIPAddress string `json:"privateIPAddress" xml:"PrivateIPAddress"`
+PublicIPAddress string `json:"publicIPAddress" xml:"PublicIPAddress"`
 }
 
 type ClusterParameterGroup struct {
-	Description          string  `json:"description" xml:"Description"`
-	ParameterGroupFamily string  `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
-	ParameterGroupName   string  `json:"parameterGroupName" xml:"ParameterGroupName"`
-	Tags                 TagList `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+ParameterGroupFamily string `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type ClusterParameterGroupDetails struct {
-	Marker     string         `json:"marker" xml:"Marker"`
-	Parameters ParametersList `json:"parameters" xml:"Parameters"`
+Marker string `json:"marker" xml:"Marker"`
+Parameters ParametersList `json:"parameters" xml:"Parameters"`
 }
 
 type ClusterParameterGroupNameMessage struct {
-	ParameterGroupName   string `json:"parameterGroupName" xml:"ParameterGroupName"`
-	ParameterGroupStatus string `json:"parameterGroupStatus" xml:"ParameterGroupStatus"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+ParameterGroupStatus string `json:"parameterGroupStatus" xml:"ParameterGroupStatus"`
 }
 
 type ClusterParameterGroupStatus struct {
-	ClusterParameterStatusList ClusterParameterStatusList `json:"clusterParameterStatusList" xml:"ClusterParameterStatusList"`
-	ParameterApplyStatus       string                     `json:"parameterApplyStatus" xml:"ParameterApplyStatus"`
-	ParameterGroupName         string                     `json:"parameterGroupName" xml:"ParameterGroupName"`
+ClusterParameterStatusList ClusterParameterStatusList `json:"clusterParameterStatusList" xml:"ClusterParameterStatusList"`
+ParameterApplyStatus string `json:"parameterApplyStatus" xml:"ParameterApplyStatus"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
 }
 
 type ClusterParameterGroupsMessage struct {
-	Marker          string             `json:"marker" xml:"Marker"`
-	ParameterGroups ParameterGroupList `json:"parameterGroups" xml:"ParameterGroups"`
+Marker string `json:"marker" xml:"Marker"`
+ParameterGroups ParameterGroupList `json:"parameterGroups" xml:"ParameterGroups"`
 }
 
 type ClusterParameterStatus struct {
-	ParameterApplyErrorDescription string `json:"parameterApplyErrorDescription" xml:"ParameterApplyErrorDescription"`
-	ParameterApplyStatus           string `json:"parameterApplyStatus" xml:"ParameterApplyStatus"`
-	ParameterName                  string `json:"parameterName" xml:"ParameterName"`
+ParameterApplyErrorDescription string `json:"parameterApplyErrorDescription" xml:"ParameterApplyErrorDescription"`
+ParameterApplyStatus string `json:"parameterApplyStatus" xml:"ParameterApplyStatus"`
+ParameterName string `json:"parameterName" xml:"ParameterName"`
 }
 
 type ClusterSecurityGroup struct {
-	ClusterSecurityGroupName string               `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
-	Description              string               `json:"description" xml:"Description"`
-	EC2SecurityGroups        EC2SecurityGroupList `json:"eC2SecurityGroups" xml:"EC2SecurityGroups"`
-	IPRanges                 IPRangeList          `json:"iPRanges" xml:"IPRanges"`
-	Tags                     TagList              `json:"tags" xml:"Tags"`
+ClusterSecurityGroupName string `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
+Description string `json:"description" xml:"Description"`
+EC2SecurityGroups EC2SecurityGroupList `json:"eC2SecurityGroups" xml:"EC2SecurityGroups"`
+IPRanges IPRangeList `json:"iPRanges" xml:"IPRanges"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type ClusterSecurityGroupMembership struct {
-	ClusterSecurityGroupName string `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
-	Status                   string `json:"status" xml:"Status"`
+ClusterSecurityGroupName string `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ClusterSecurityGroupMessage struct {
-	ClusterSecurityGroups ClusterSecurityGroups `json:"clusterSecurityGroups" xml:"ClusterSecurityGroups"`
-	Marker                string                `json:"marker" xml:"Marker"`
+ClusterSecurityGroups ClusterSecurityGroups `json:"clusterSecurityGroups" xml:"ClusterSecurityGroups"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ClusterSnapshotCopyStatus struct {
-	DestinationRegion             string `json:"destinationRegion" xml:"DestinationRegion"`
-	ManualSnapshotRetentionPeriod int32  `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
-	RetentionPeriod               int64  `json:"retentionPeriod" xml:"RetentionPeriod"`
-	SnapshotCopyGrantName         string `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
+DestinationRegion string `json:"destinationRegion" xml:"DestinationRegion"`
+ManualSnapshotRetentionPeriod int32 `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
+RetentionPeriod int64 `json:"retentionPeriod" xml:"RetentionPeriod"`
+SnapshotCopyGrantName string `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
 }
 
 type ClusterSubnetGroup struct {
-	ClusterSubnetGroupName         string          `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
-	Description                    string          `json:"description" xml:"Description"`
-	SubnetGroupStatus              string          `json:"subnetGroupStatus" xml:"SubnetGroupStatus"`
-	Subnets                        SubnetList      `json:"subnets" xml:"Subnets"`
-	SupportedClusterIpAddressTypes ValueStringList `json:"supportedClusterIpAddressTypes" xml:"SupportedClusterIpAddressTypes"`
-	Tags                           TagList         `json:"tags" xml:"Tags"`
-	VpcId                          string          `json:"vpcId" xml:"VpcId"`
+ClusterSubnetGroupName string `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
+Description string `json:"description" xml:"Description"`
+SubnetGroupStatus string `json:"subnetGroupStatus" xml:"SubnetGroupStatus"`
+Subnets SubnetList `json:"subnets" xml:"Subnets"`
+SupportedClusterIpAddressTypes ValueStringList `json:"supportedClusterIpAddressTypes" xml:"SupportedClusterIpAddressTypes"`
+Tags TagList `json:"tags" xml:"Tags"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type ClusterSubnetGroupMessage struct {
-	ClusterSubnetGroups ClusterSubnetGroups `json:"clusterSubnetGroups" xml:"ClusterSubnetGroups"`
-	Marker              string              `json:"marker" xml:"Marker"`
+ClusterSubnetGroups ClusterSubnetGroups `json:"clusterSubnetGroups" xml:"ClusterSubnetGroups"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ClusterVersion struct {
-	ClusterParameterGroupFamily string `json:"clusterParameterGroupFamily" xml:"ClusterParameterGroupFamily"`
-	ClusterVersion              string `json:"clusterVersion" xml:"ClusterVersion"`
-	Description                 string `json:"description" xml:"Description"`
+ClusterParameterGroupFamily string `json:"clusterParameterGroupFamily" xml:"ClusterParameterGroupFamily"`
+ClusterVersion string `json:"clusterVersion" xml:"ClusterVersion"`
+Description string `json:"description" xml:"Description"`
 }
 
 type ClusterVersionsMessage struct {
-	ClusterVersions ClusterVersionList `json:"clusterVersions" xml:"ClusterVersions"`
-	Marker          string             `json:"marker" xml:"Marker"`
+ClusterVersions ClusterVersionList `json:"clusterVersions" xml:"ClusterVersions"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ClustersMessage struct {
-	Clusters ClusterList `json:"clusters" xml:"Clusters"`
-	Marker   string      `json:"marker" xml:"Marker"`
+Clusters ClusterList `json:"clusters" xml:"Clusters"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type Connect struct {
-	Authorization string `json:"authorization" xml:"Authorization"`
+Authorization string `json:"authorization" xml:"Authorization"`
 }
 
 type CopyClusterSnapshotMessage struct {
-	ManualSnapshotRetentionPeriod   int32  `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
-	SourceSnapshotClusterIdentifier string `json:"sourceSnapshotClusterIdentifier" xml:"SourceSnapshotClusterIdentifier"`
-	SourceSnapshotIdentifier        string `json:"sourceSnapshotIdentifier" xml:"SourceSnapshotIdentifier"`
-	TargetSnapshotIdentifier        string `json:"targetSnapshotIdentifier" xml:"TargetSnapshotIdentifier"`
+ManualSnapshotRetentionPeriod int32 `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
+SourceSnapshotClusterIdentifier string `json:"sourceSnapshotClusterIdentifier" xml:"SourceSnapshotClusterIdentifier"`
+SourceSnapshotIdentifier string `json:"sourceSnapshotIdentifier" xml:"SourceSnapshotIdentifier"`
+TargetSnapshotIdentifier string `json:"targetSnapshotIdentifier" xml:"TargetSnapshotIdentifier"`
 }
 
 type CopyClusterSnapshotResult struct {
-	Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
+Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
 }
 
 type CreateAuthenticationProfileMessage struct {
-	AuthenticationProfileContent string `json:"authenticationProfileContent" xml:"AuthenticationProfileContent"`
-	AuthenticationProfileName    string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
+AuthenticationProfileContent string `json:"authenticationProfileContent" xml:"AuthenticationProfileContent"`
+AuthenticationProfileName string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
 }
 
 type CreateAuthenticationProfileResult struct {
-	AuthenticationProfileContent string `json:"authenticationProfileContent" xml:"AuthenticationProfileContent"`
-	AuthenticationProfileName    string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
+AuthenticationProfileContent string `json:"authenticationProfileContent" xml:"AuthenticationProfileContent"`
+AuthenticationProfileName string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
 }
 
 type CreateClusterMessage struct {
-	AdditionalInfo                       string                       `json:"additionalInfo" xml:"AdditionalInfo"`
-	AllowVersionUpgrade                  bool                         `json:"allowVersionUpgrade" xml:"AllowVersionUpgrade"`
-	AquaConfigurationStatus              string                       `json:"aquaConfigurationStatus" xml:"AquaConfigurationStatus"`
-	AutomatedSnapshotRetentionPeriod     int32                        `json:"automatedSnapshotRetentionPeriod" xml:"AutomatedSnapshotRetentionPeriod"`
-	AvailabilityZone                     string                       `json:"availabilityZone" xml:"AvailabilityZone"`
-	AvailabilityZoneRelocation           bool                         `json:"availabilityZoneRelocation" xml:"AvailabilityZoneRelocation"`
-	CatalogName                          string                       `json:"catalogName" xml:"CatalogName"`
-	ClusterIdentifier                    string                       `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	ClusterParameterGroupName            string                       `json:"clusterParameterGroupName" xml:"ClusterParameterGroupName"`
-	ClusterSecurityGroups                ClusterSecurityGroupNameList `json:"clusterSecurityGroups" xml:"ClusterSecurityGroups"`
-	ClusterSubnetGroupName               string                       `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
-	ClusterType                          string                       `json:"clusterType" xml:"ClusterType"`
-	ClusterVersion                       string                       `json:"clusterVersion" xml:"ClusterVersion"`
-	DBName                               string                       `json:"dBName" xml:"DBName"`
-	DefaultIamRoleArn                    string                       `json:"defaultIamRoleArn" xml:"DefaultIamRoleArn"`
-	ElasticIp                            string                       `json:"elasticIp" xml:"ElasticIp"`
-	Encrypted                            bool                         `json:"encrypted" xml:"Encrypted"`
-	EnhancedVpcRouting                   bool                         `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
-	ExtraComputeForAutomaticOptimization bool                         `json:"extraComputeForAutomaticOptimization" xml:"ExtraComputeForAutomaticOptimization"`
-	HsmClientCertificateIdentifier       string                       `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
-	HsmConfigurationIdentifier           string                       `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
-	IamRoles                             IamRoleArnList               `json:"iamRoles" xml:"IamRoles"`
-	IpAddressType                        string                       `json:"ipAddressType" xml:"IpAddressType"`
-	KmsKeyId                             string                       `json:"kmsKeyId" xml:"KmsKeyId"`
-	LoadSampleData                       string                       `json:"loadSampleData" xml:"LoadSampleData"`
-	MaintenanceTrackName                 string                       `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
-	ManageMasterPassword                 bool                         `json:"manageMasterPassword" xml:"ManageMasterPassword"`
-	ManualSnapshotRetentionPeriod        int32                        `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
-	MasterPasswordSecretKmsKeyId         string                       `json:"masterPasswordSecretKmsKeyId" xml:"MasterPasswordSecretKmsKeyId"`
-	MasterUserPassword                   string                       `json:"masterUserPassword" xml:"MasterUserPassword"`
-	MasterUsername                       string                       `json:"masterUsername" xml:"MasterUsername"`
-	MultiAZ                              bool                         `json:"multiAZ" xml:"MultiAZ"`
-	NodeType                             string                       `json:"nodeType" xml:"NodeType"`
-	NumberOfNodes                        int32                        `json:"numberOfNodes" xml:"NumberOfNodes"`
-	Port                                 int32                        `json:"port" xml:"Port"`
-	PreferredMaintenanceWindow           string                       `json:"preferredMaintenanceWindow" xml:"PreferredMaintenanceWindow"`
-	PubliclyAccessible                   bool                         `json:"publiclyAccessible" xml:"PubliclyAccessible"`
-	RedshiftIdcApplicationArn            string                       `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
-	SnapshotScheduleIdentifier           string                       `json:"snapshotScheduleIdentifier" xml:"SnapshotScheduleIdentifier"`
-	Tags                                 TagList                      `json:"tags" xml:"Tags"`
-	VpcSecurityGroupIds                  VpcSecurityGroupIdList       `json:"vpcSecurityGroupIds" xml:"VpcSecurityGroupIds"`
+AdditionalInfo string `json:"additionalInfo" xml:"AdditionalInfo"`
+AllowVersionUpgrade bool `json:"allowVersionUpgrade" xml:"AllowVersionUpgrade"`
+AquaConfigurationStatus string `json:"aquaConfigurationStatus" xml:"AquaConfigurationStatus"`
+AutomatedSnapshotRetentionPeriod int32 `json:"automatedSnapshotRetentionPeriod" xml:"AutomatedSnapshotRetentionPeriod"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+AvailabilityZoneRelocation bool `json:"availabilityZoneRelocation" xml:"AvailabilityZoneRelocation"`
+CatalogName string `json:"catalogName" xml:"CatalogName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterParameterGroupName string `json:"clusterParameterGroupName" xml:"ClusterParameterGroupName"`
+ClusterSecurityGroups ClusterSecurityGroupNameList `json:"clusterSecurityGroups" xml:"ClusterSecurityGroups"`
+ClusterSubnetGroupName string `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
+ClusterType string `json:"clusterType" xml:"ClusterType"`
+ClusterVersion string `json:"clusterVersion" xml:"ClusterVersion"`
+DBName string `json:"dBName" xml:"DBName"`
+DefaultIamRoleArn string `json:"defaultIamRoleArn" xml:"DefaultIamRoleArn"`
+ElasticIp string `json:"elasticIp" xml:"ElasticIp"`
+Encrypted bool `json:"encrypted" xml:"Encrypted"`
+EnhancedVpcRouting bool `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
+ExtraComputeForAutomaticOptimization bool `json:"extraComputeForAutomaticOptimization" xml:"ExtraComputeForAutomaticOptimization"`
+HsmClientCertificateIdentifier string `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
+HsmConfigurationIdentifier string `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
+IamRoles IamRoleArnList `json:"iamRoles" xml:"IamRoles"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+LoadSampleData string `json:"loadSampleData" xml:"LoadSampleData"`
+MaintenanceTrackName string `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
+ManageMasterPassword bool `json:"manageMasterPassword" xml:"ManageMasterPassword"`
+ManualSnapshotRetentionPeriod int32 `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
+MasterPasswordSecretKmsKeyId string `json:"masterPasswordSecretKmsKeyId" xml:"MasterPasswordSecretKmsKeyId"`
+MasterUserPassword string `json:"masterUserPassword" xml:"MasterUserPassword"`
+MasterUsername string `json:"masterUsername" xml:"MasterUsername"`
+MultiAZ bool `json:"multiAZ" xml:"MultiAZ"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
+Port int32 `json:"port" xml:"Port"`
+PreferredMaintenanceWindow string `json:"preferredMaintenanceWindow" xml:"PreferredMaintenanceWindow"`
+PubliclyAccessible bool `json:"publiclyAccessible" xml:"PubliclyAccessible"`
+RedshiftIdcApplicationArn string `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
+SnapshotScheduleIdentifier string `json:"snapshotScheduleIdentifier" xml:"SnapshotScheduleIdentifier"`
+Tags TagList `json:"tags" xml:"Tags"`
+VpcSecurityGroupIds VpcSecurityGroupIdList `json:"vpcSecurityGroupIds" xml:"VpcSecurityGroupIds"`
 }
 
 type CreateClusterParameterGroupMessage struct {
-	Description          string  `json:"description" xml:"Description"`
-	ParameterGroupFamily string  `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
-	ParameterGroupName   string  `json:"parameterGroupName" xml:"ParameterGroupName"`
-	Tags                 TagList `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+ParameterGroupFamily string `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateClusterParameterGroupResult struct {
-	ClusterParameterGroup *ClusterParameterGroup `json:"clusterParameterGroup" xml:"ClusterParameterGroup"`
+ClusterParameterGroup *ClusterParameterGroup `json:"clusterParameterGroup" xml:"ClusterParameterGroup"`
 }
 
 type CreateClusterResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type CreateClusterSecurityGroupMessage struct {
-	ClusterSecurityGroupName string  `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
-	Description              string  `json:"description" xml:"Description"`
-	Tags                     TagList `json:"tags" xml:"Tags"`
+ClusterSecurityGroupName string `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
+Description string `json:"description" xml:"Description"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateClusterSecurityGroupResult struct {
-	ClusterSecurityGroup *ClusterSecurityGroup `json:"clusterSecurityGroup" xml:"ClusterSecurityGroup"`
+ClusterSecurityGroup *ClusterSecurityGroup `json:"clusterSecurityGroup" xml:"ClusterSecurityGroup"`
 }
 
 type CreateClusterSnapshotMessage struct {
-	ClusterIdentifier             string  `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	ManualSnapshotRetentionPeriod int32   `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
-	SnapshotIdentifier            string  `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
-	Tags                          TagList `json:"tags" xml:"Tags"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ManualSnapshotRetentionPeriod int32 `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateClusterSnapshotResult struct {
-	Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
+Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
 }
 
 type CreateClusterSubnetGroupMessage struct {
-	ClusterSubnetGroupName string               `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
-	Description            string               `json:"description" xml:"Description"`
-	SubnetIds              SubnetIdentifierList `json:"subnetIds" xml:"SubnetIds"`
-	Tags                   TagList              `json:"tags" xml:"Tags"`
+ClusterSubnetGroupName string `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
+Description string `json:"description" xml:"Description"`
+SubnetIds SubnetIdentifierList `json:"subnetIds" xml:"SubnetIds"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateClusterSubnetGroupResult struct {
-	ClusterSubnetGroup *ClusterSubnetGroup `json:"clusterSubnetGroup" xml:"ClusterSubnetGroup"`
+ClusterSubnetGroup *ClusterSubnetGroup `json:"clusterSubnetGroup" xml:"ClusterSubnetGroup"`
 }
 
 type CreateCustomDomainAssociationMessage struct {
-	ClusterIdentifier          string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
-	CustomDomainName           string `json:"customDomainName" xml:"CustomDomainName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
+CustomDomainName string `json:"customDomainName" xml:"CustomDomainName"`
 }
 
 type CreateCustomDomainAssociationResult struct {
-	ClusterIdentifier          string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	CustomDomainCertExpiryTime string `json:"customDomainCertExpiryTime" xml:"CustomDomainCertExpiryTime"`
-	CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
-	CustomDomainName           string `json:"customDomainName" xml:"CustomDomainName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+CustomDomainCertExpiryTime string `json:"customDomainCertExpiryTime" xml:"CustomDomainCertExpiryTime"`
+CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
+CustomDomainName string `json:"customDomainName" xml:"CustomDomainName"`
 }
 
 type CreateEndpointAccessMessage struct {
-	ClusterIdentifier   string                 `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	EndpointName        string                 `json:"endpointName" xml:"EndpointName"`
-	ResourceOwner       string                 `json:"resourceOwner" xml:"ResourceOwner"`
-	SubnetGroupName     string                 `json:"subnetGroupName" xml:"SubnetGroupName"`
-	VpcSecurityGroupIds VpcSecurityGroupIdList `json:"vpcSecurityGroupIds" xml:"VpcSecurityGroupIds"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+EndpointName string `json:"endpointName" xml:"EndpointName"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+SubnetGroupName string `json:"subnetGroupName" xml:"SubnetGroupName"`
+VpcSecurityGroupIds VpcSecurityGroupIdList `json:"vpcSecurityGroupIds" xml:"VpcSecurityGroupIds"`
 }
 
 type CreateEventSubscriptionMessage struct {
-	Enabled          bool                `json:"enabled" xml:"Enabled"`
-	EventCategories  EventCategoriesList `json:"eventCategories" xml:"EventCategories"`
-	Severity         string              `json:"severity" xml:"Severity"`
-	SnsTopicArn      string              `json:"snsTopicArn" xml:"SnsTopicArn"`
-	SourceIds        SourceIdsList       `json:"sourceIds" xml:"SourceIds"`
-	SourceType       string              `json:"sourceType" xml:"SourceType"`
-	SubscriptionName string              `json:"subscriptionName" xml:"SubscriptionName"`
-	Tags             TagList             `json:"tags" xml:"Tags"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+EventCategories EventCategoriesList `json:"eventCategories" xml:"EventCategories"`
+Severity string `json:"severity" xml:"Severity"`
+SnsTopicArn string `json:"snsTopicArn" xml:"SnsTopicArn"`
+SourceIds SourceIdsList `json:"sourceIds" xml:"SourceIds"`
+SourceType string `json:"sourceType" xml:"SourceType"`
+SubscriptionName string `json:"subscriptionName" xml:"SubscriptionName"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateEventSubscriptionResult struct {
-	EventSubscription *EventSubscription `json:"eventSubscription" xml:"EventSubscription"`
+EventSubscription *EventSubscription `json:"eventSubscription" xml:"EventSubscription"`
 }
 
 type CreateHsmClientCertificateMessage struct {
-	HsmClientCertificateIdentifier string  `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
-	Tags                           TagList `json:"tags" xml:"Tags"`
+HsmClientCertificateIdentifier string `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateHsmClientCertificateResult struct {
-	HsmClientCertificate *HsmClientCertificate `json:"hsmClientCertificate" xml:"HsmClientCertificate"`
+HsmClientCertificate *HsmClientCertificate `json:"hsmClientCertificate" xml:"HsmClientCertificate"`
 }
 
 type CreateHsmConfigurationMessage struct {
-	Description                string  `json:"description" xml:"Description"`
-	HsmConfigurationIdentifier string  `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
-	HsmIpAddress               string  `json:"hsmIpAddress" xml:"HsmIpAddress"`
-	HsmPartitionName           string  `json:"hsmPartitionName" xml:"HsmPartitionName"`
-	HsmPartitionPassword       string  `json:"hsmPartitionPassword" xml:"HsmPartitionPassword"`
-	HsmServerPublicCertificate string  `json:"hsmServerPublicCertificate" xml:"HsmServerPublicCertificate"`
-	Tags                       TagList `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+HsmConfigurationIdentifier string `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
+HsmIpAddress string `json:"hsmIpAddress" xml:"HsmIpAddress"`
+HsmPartitionName string `json:"hsmPartitionName" xml:"HsmPartitionName"`
+HsmPartitionPassword string `json:"hsmPartitionPassword" xml:"HsmPartitionPassword"`
+HsmServerPublicCertificate string `json:"hsmServerPublicCertificate" xml:"HsmServerPublicCertificate"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateHsmConfigurationResult struct {
-	HsmConfiguration *HsmConfiguration `json:"hsmConfiguration" xml:"HsmConfiguration"`
+HsmConfiguration *HsmConfiguration `json:"hsmConfiguration" xml:"HsmConfiguration"`
 }
 
 type CreateIntegrationMessage struct {
-	AdditionalEncryptionContext EncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
-	Description                 string               `json:"description" xml:"Description"`
-	IntegrationName             string               `json:"integrationName" xml:"IntegrationName"`
-	KMSKeyId                    string               `json:"kMSKeyId" xml:"KMSKeyId"`
-	SourceArn                   string               `json:"sourceArn" xml:"SourceArn"`
-	TagList                     TagList              `json:"tagList" xml:"TagList"`
-	TargetArn                   string               `json:"targetArn" xml:"TargetArn"`
+AdditionalEncryptionContext EncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
+Description string `json:"description" xml:"Description"`
+IntegrationName string `json:"integrationName" xml:"IntegrationName"`
+KMSKeyId string `json:"kMSKeyId" xml:"KMSKeyId"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
+TagList TagList `json:"tagList" xml:"TagList"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type CreateRedshiftIdcApplicationMessage struct {
-	ApplicationType            string                    `json:"applicationType" xml:"ApplicationType"`
-	AuthorizedTokenIssuerList  AuthorizedTokenIssuerList `json:"authorizedTokenIssuerList" xml:"AuthorizedTokenIssuerList"`
-	IamRoleArn                 string                    `json:"iamRoleArn" xml:"IamRoleArn"`
-	IdcDisplayName             string                    `json:"idcDisplayName" xml:"IdcDisplayName"`
-	IdcInstanceArn             string                    `json:"idcInstanceArn" xml:"IdcInstanceArn"`
-	IdentityNamespace          string                    `json:"identityNamespace" xml:"IdentityNamespace"`
-	RedshiftIdcApplicationName string                    `json:"redshiftIdcApplicationName" xml:"RedshiftIdcApplicationName"`
-	ServiceIntegrations        ServiceIntegrationList    `json:"serviceIntegrations" xml:"ServiceIntegrations"`
-	SsoTagKeys                 TagKeyList                `json:"ssoTagKeys" xml:"SsoTagKeys"`
-	Tags                       TagList                   `json:"tags" xml:"Tags"`
+ApplicationType string `json:"applicationType" xml:"ApplicationType"`
+AuthorizedTokenIssuerList AuthorizedTokenIssuerList `json:"authorizedTokenIssuerList" xml:"AuthorizedTokenIssuerList"`
+IamRoleArn string `json:"iamRoleArn" xml:"IamRoleArn"`
+IdcDisplayName string `json:"idcDisplayName" xml:"IdcDisplayName"`
+IdcInstanceArn string `json:"idcInstanceArn" xml:"IdcInstanceArn"`
+IdentityNamespace string `json:"identityNamespace" xml:"IdentityNamespace"`
+RedshiftIdcApplicationName string `json:"redshiftIdcApplicationName" xml:"RedshiftIdcApplicationName"`
+ServiceIntegrations ServiceIntegrationList `json:"serviceIntegrations" xml:"ServiceIntegrations"`
+SsoTagKeys TagKeyList `json:"ssoTagKeys" xml:"SsoTagKeys"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateRedshiftIdcApplicationResult struct {
-	RedshiftIdcApplication *RedshiftIdcApplication `json:"redshiftIdcApplication" xml:"RedshiftIdcApplication"`
+RedshiftIdcApplication *RedshiftIdcApplication `json:"redshiftIdcApplication" xml:"RedshiftIdcApplication"`
 }
 
 type CreateScheduledActionMessage struct {
-	Enable                     bool                 `json:"enable" xml:"Enable"`
-	EndTime                    time.Time            `json:"endTime" xml:"EndTime"`
-	IamRole                    string               `json:"iamRole" xml:"IamRole"`
-	Schedule                   string               `json:"schedule" xml:"Schedule"`
-	ScheduledActionDescription string               `json:"scheduledActionDescription" xml:"ScheduledActionDescription"`
-	ScheduledActionName        string               `json:"scheduledActionName" xml:"ScheduledActionName"`
-	StartTime                  time.Time            `json:"startTime" xml:"StartTime"`
-	TargetAction               *ScheduledActionType `json:"targetAction" xml:"TargetAction"`
+Enable bool `json:"enable" xml:"Enable"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+IamRole string `json:"iamRole" xml:"IamRole"`
+Schedule string `json:"schedule" xml:"Schedule"`
+ScheduledActionDescription string `json:"scheduledActionDescription" xml:"ScheduledActionDescription"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+TargetAction *ScheduledActionType `json:"targetAction" xml:"TargetAction"`
 }
 
 type CreateSnapshotCopyGrantMessage struct {
-	KmsKeyId              string  `json:"kmsKeyId" xml:"KmsKeyId"`
-	SnapshotCopyGrantName string  `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
-	Tags                  TagList `json:"tags" xml:"Tags"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+SnapshotCopyGrantName string `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateSnapshotCopyGrantResult struct {
-	SnapshotCopyGrant *SnapshotCopyGrant `json:"snapshotCopyGrant" xml:"SnapshotCopyGrant"`
+SnapshotCopyGrant *SnapshotCopyGrant `json:"snapshotCopyGrant" xml:"SnapshotCopyGrant"`
 }
 
 type CreateSnapshotScheduleMessage struct {
-	DryRun              bool                   `json:"dryRun" xml:"DryRun"`
-	NextInvocations     int32                  `json:"nextInvocations" xml:"NextInvocations"`
-	ScheduleDefinitions ScheduleDefinitionList `json:"scheduleDefinitions" xml:"ScheduleDefinitions"`
-	ScheduleDescription string                 `json:"scheduleDescription" xml:"ScheduleDescription"`
-	ScheduleIdentifier  string                 `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
-	Tags                TagList                `json:"tags" xml:"Tags"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+NextInvocations int32 `json:"nextInvocations" xml:"NextInvocations"`
+ScheduleDefinitions ScheduleDefinitionList `json:"scheduleDefinitions" xml:"ScheduleDefinitions"`
+ScheduleDescription string `json:"scheduleDescription" xml:"ScheduleDescription"`
+ScheduleIdentifier string `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateTagsMessage struct {
-	ResourceName string  `json:"resourceName" xml:"ResourceName"`
-	Tags         TagList `json:"tags" xml:"Tags"`
+ResourceName string `json:"resourceName" xml:"ResourceName"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateUsageLimitMessage struct {
-	Amount            int64   `json:"amount" xml:"Amount"`
-	BreachAction      string  `json:"breachAction" xml:"BreachAction"`
-	ClusterIdentifier string  `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	FeatureType       string  `json:"featureType" xml:"FeatureType"`
-	LimitType         string  `json:"limitType" xml:"LimitType"`
-	Period            string  `json:"period" xml:"Period"`
-	Tags              TagList `json:"tags" xml:"Tags"`
+Amount int64 `json:"amount" xml:"Amount"`
+BreachAction string `json:"breachAction" xml:"BreachAction"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+FeatureType string `json:"featureType" xml:"FeatureType"`
+LimitType string `json:"limitType" xml:"LimitType"`
+Period string `json:"period" xml:"Period"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CustomDomainAssociationsMessage struct {
-	Associations AssociationList `json:"associations" xml:"Associations"`
-	Marker       string          `json:"marker" xml:"Marker"`
+Associations AssociationList `json:"associations" xml:"Associations"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type CustomerStorageMessage struct {
-	TotalBackupSizeInMegaBytes         float64 `json:"totalBackupSizeInMegaBytes" xml:"TotalBackupSizeInMegaBytes"`
-	TotalProvisionedStorageInMegaBytes float64 `json:"totalProvisionedStorageInMegaBytes" xml:"TotalProvisionedStorageInMegaBytes"`
+TotalBackupSizeInMegaBytes float64 `json:"totalBackupSizeInMegaBytes" xml:"TotalBackupSizeInMegaBytes"`
+TotalProvisionedStorageInMegaBytes float64 `json:"totalProvisionedStorageInMegaBytes" xml:"TotalProvisionedStorageInMegaBytes"`
 }
 
 type DataShare struct {
-	AllowPubliclyAccessibleConsumers bool                     `json:"allowPubliclyAccessibleConsumers" xml:"AllowPubliclyAccessibleConsumers"`
-	DataShareArn                     string                   `json:"dataShareArn" xml:"DataShareArn"`
-	DataShareAssociations            DataShareAssociationList `json:"dataShareAssociations" xml:"DataShareAssociations"`
-	DataShareType                    string                   `json:"dataShareType" xml:"DataShareType"`
-	ManagedBy                        string                   `json:"managedBy" xml:"ManagedBy"`
-	ProducerArn                      string                   `json:"producerArn" xml:"ProducerArn"`
+AllowPubliclyAccessibleConsumers bool `json:"allowPubliclyAccessibleConsumers" xml:"AllowPubliclyAccessibleConsumers"`
+DataShareArn string `json:"dataShareArn" xml:"DataShareArn"`
+DataShareAssociations DataShareAssociationList `json:"dataShareAssociations" xml:"DataShareAssociations"`
+DataShareType string `json:"dataShareType" xml:"DataShareType"`
+ManagedBy string `json:"managedBy" xml:"ManagedBy"`
+ProducerArn string `json:"producerArn" xml:"ProducerArn"`
 }
 
 type DataShareAssociation struct {
-	ConsumerAcceptedWrites bool      `json:"consumerAcceptedWrites" xml:"ConsumerAcceptedWrites"`
-	ConsumerIdentifier     string    `json:"consumerIdentifier" xml:"ConsumerIdentifier"`
-	ConsumerRegion         string    `json:"consumerRegion" xml:"ConsumerRegion"`
-	CreatedDate            time.Time `json:"createdDate" xml:"CreatedDate"`
-	ProducerAllowedWrites  bool      `json:"producerAllowedWrites" xml:"ProducerAllowedWrites"`
-	Status                 string    `json:"status" xml:"Status"`
-	StatusChangeDate       time.Time `json:"statusChangeDate" xml:"StatusChangeDate"`
+ConsumerAcceptedWrites bool `json:"consumerAcceptedWrites" xml:"ConsumerAcceptedWrites"`
+ConsumerIdentifier string `json:"consumerIdentifier" xml:"ConsumerIdentifier"`
+ConsumerRegion string `json:"consumerRegion" xml:"ConsumerRegion"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+ProducerAllowedWrites bool `json:"producerAllowedWrites" xml:"ProducerAllowedWrites"`
+Status string `json:"status" xml:"Status"`
+StatusChangeDate time.Time `json:"statusChangeDate" xml:"StatusChangeDate"`
 }
 
 type DataTransferProgress struct {
-	CurrentRateInMegaBytesPerSecond    float64 `json:"currentRateInMegaBytesPerSecond" xml:"CurrentRateInMegaBytesPerSecond"`
-	DataTransferredInMegaBytes         int64   `json:"dataTransferredInMegaBytes" xml:"DataTransferredInMegaBytes"`
-	ElapsedTimeInSeconds               int64   `json:"elapsedTimeInSeconds" xml:"ElapsedTimeInSeconds"`
-	EstimatedTimeToCompletionInSeconds int64   `json:"estimatedTimeToCompletionInSeconds" xml:"EstimatedTimeToCompletionInSeconds"`
-	Status                             string  `json:"status" xml:"Status"`
-	TotalDataInMegaBytes               int64   `json:"totalDataInMegaBytes" xml:"TotalDataInMegaBytes"`
+CurrentRateInMegaBytesPerSecond float64 `json:"currentRateInMegaBytesPerSecond" xml:"CurrentRateInMegaBytesPerSecond"`
+DataTransferredInMegaBytes int64 `json:"dataTransferredInMegaBytes" xml:"DataTransferredInMegaBytes"`
+ElapsedTimeInSeconds int64 `json:"elapsedTimeInSeconds" xml:"ElapsedTimeInSeconds"`
+EstimatedTimeToCompletionInSeconds int64 `json:"estimatedTimeToCompletionInSeconds" xml:"EstimatedTimeToCompletionInSeconds"`
+Status string `json:"status" xml:"Status"`
+TotalDataInMegaBytes int64 `json:"totalDataInMegaBytes" xml:"TotalDataInMegaBytes"`
 }
 
 type DeauthorizeDataShareMessage struct {
-	ConsumerIdentifier string `json:"consumerIdentifier" xml:"ConsumerIdentifier"`
-	DataShareArn       string `json:"dataShareArn" xml:"DataShareArn"`
+ConsumerIdentifier string `json:"consumerIdentifier" xml:"ConsumerIdentifier"`
+DataShareArn string `json:"dataShareArn" xml:"DataShareArn"`
 }
 
 type DefaultClusterParameters struct {
-	Marker               string         `json:"marker" xml:"Marker"`
-	ParameterGroupFamily string         `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
-	Parameters           ParametersList `json:"parameters" xml:"Parameters"`
+Marker string `json:"marker" xml:"Marker"`
+ParameterGroupFamily string `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
+Parameters ParametersList `json:"parameters" xml:"Parameters"`
 }
 
 type DeferredMaintenanceWindow struct {
-	DeferMaintenanceEndTime    time.Time `json:"deferMaintenanceEndTime" xml:"DeferMaintenanceEndTime"`
-	DeferMaintenanceIdentifier string    `json:"deferMaintenanceIdentifier" xml:"DeferMaintenanceIdentifier"`
-	DeferMaintenanceStartTime  time.Time `json:"deferMaintenanceStartTime" xml:"DeferMaintenanceStartTime"`
+DeferMaintenanceEndTime time.Time `json:"deferMaintenanceEndTime" xml:"DeferMaintenanceEndTime"`
+DeferMaintenanceIdentifier string `json:"deferMaintenanceIdentifier" xml:"DeferMaintenanceIdentifier"`
+DeferMaintenanceStartTime time.Time `json:"deferMaintenanceStartTime" xml:"DeferMaintenanceStartTime"`
 }
 
 type DeleteAuthenticationProfileMessage struct {
-	AuthenticationProfileName string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
+AuthenticationProfileName string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
 }
 
 type DeleteAuthenticationProfileResult struct {
-	AuthenticationProfileName string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
+AuthenticationProfileName string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
 }
 
 type DeleteClusterMessage struct {
-	ClusterIdentifier                   string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	FinalClusterSnapshotIdentifier      string `json:"finalClusterSnapshotIdentifier" xml:"FinalClusterSnapshotIdentifier"`
-	FinalClusterSnapshotRetentionPeriod int32  `json:"finalClusterSnapshotRetentionPeriod" xml:"FinalClusterSnapshotRetentionPeriod"`
-	SkipFinalClusterSnapshot            bool   `json:"skipFinalClusterSnapshot" xml:"SkipFinalClusterSnapshot"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+FinalClusterSnapshotIdentifier string `json:"finalClusterSnapshotIdentifier" xml:"FinalClusterSnapshotIdentifier"`
+FinalClusterSnapshotRetentionPeriod int32 `json:"finalClusterSnapshotRetentionPeriod" xml:"FinalClusterSnapshotRetentionPeriod"`
+SkipFinalClusterSnapshot bool `json:"skipFinalClusterSnapshot" xml:"SkipFinalClusterSnapshot"`
 }
 
 type DeleteClusterParameterGroupMessage struct {
-	ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
 }
 
 type DeleteClusterResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type DeleteClusterSecurityGroupMessage struct {
-	ClusterSecurityGroupName string `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
+ClusterSecurityGroupName string `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
 }
 
 type DeleteClusterSnapshotMessage struct {
-	SnapshotClusterIdentifier string `json:"snapshotClusterIdentifier" xml:"SnapshotClusterIdentifier"`
-	SnapshotIdentifier        string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+SnapshotClusterIdentifier string `json:"snapshotClusterIdentifier" xml:"SnapshotClusterIdentifier"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
 }
 
 type DeleteClusterSnapshotResult struct {
-	Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
+Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
 }
 
 type DeleteClusterSubnetGroupMessage struct {
-	ClusterSubnetGroupName string `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
+ClusterSubnetGroupName string `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
 }
 
 type DeleteCustomDomainAssociationMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	CustomDomainName  string `json:"customDomainName" xml:"CustomDomainName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+CustomDomainName string `json:"customDomainName" xml:"CustomDomainName"`
 }
 
 type DeleteEndpointAccessMessage struct {
-	EndpointName string `json:"endpointName" xml:"EndpointName"`
+EndpointName string `json:"endpointName" xml:"EndpointName"`
 }
 
 type DeleteEventSubscriptionMessage struct {
-	SubscriptionName string `json:"subscriptionName" xml:"SubscriptionName"`
+SubscriptionName string `json:"subscriptionName" xml:"SubscriptionName"`
 }
 
 type DeleteHsmClientCertificateMessage struct {
-	HsmClientCertificateIdentifier string `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
+HsmClientCertificateIdentifier string `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
 }
 
 type DeleteHsmConfigurationMessage struct {
-	HsmConfigurationIdentifier string `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
+HsmConfigurationIdentifier string `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
 }
 
 type DeleteIntegrationMessage struct {
-	IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
 }
 
 type DeleteRedshiftIdcApplicationMessage struct {
-	RedshiftIdcApplicationArn string `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
+RedshiftIdcApplicationArn string `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
 }
 
 type DeleteResourcePolicyMessage struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DeleteScheduledActionMessage struct {
-	ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
 }
 
 type DeleteSnapshotCopyGrantMessage struct {
-	SnapshotCopyGrantName string `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
+SnapshotCopyGrantName string `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
 }
 
 type DeleteSnapshotScheduleMessage struct {
-	ScheduleIdentifier string `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
+ScheduleIdentifier string `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
 }
 
 type DeleteTagsMessage struct {
-	ResourceName string     `json:"resourceName" xml:"ResourceName"`
-	TagKeys      TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceName string `json:"resourceName" xml:"ResourceName"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type DeleteUsageLimitMessage struct {
-	UsageLimitId string `json:"usageLimitId" xml:"UsageLimitId"`
+UsageLimitId string `json:"usageLimitId" xml:"UsageLimitId"`
 }
 
 type DeregisterNamespaceInputMessage struct {
-	ConsumerIdentifiers ConsumerIdentifierList `json:"consumerIdentifiers" xml:"ConsumerIdentifiers"`
-	NamespaceIdentifier interface{}            `json:"namespaceIdentifier" xml:"NamespaceIdentifier"`
+ConsumerIdentifiers ConsumerIdentifierList `json:"consumerIdentifiers" xml:"ConsumerIdentifiers"`
+NamespaceIdentifier interface{} `json:"namespaceIdentifier" xml:"NamespaceIdentifier"`
 }
 
 type DeregisterNamespaceOutputMessage struct {
-	Status string `json:"status" xml:"Status"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DescribeAccountAttributesMessage struct {
-	AttributeNames AttributeNameList `json:"attributeNames" xml:"AttributeNames"`
+AttributeNames AttributeNameList `json:"attributeNames" xml:"AttributeNames"`
 }
 
 type DescribeAuthenticationProfilesMessage struct {
-	AuthenticationProfileName string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
+AuthenticationProfileName string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
 }
 
 type DescribeAuthenticationProfilesResult struct {
-	AuthenticationProfiles AuthenticationProfileList `json:"authenticationProfiles" xml:"AuthenticationProfiles"`
+AuthenticationProfiles AuthenticationProfileList `json:"authenticationProfiles" xml:"AuthenticationProfiles"`
 }
 
 type DescribeClusterDbRevisionsMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	Marker            string `json:"marker" xml:"Marker"`
-	MaxRecords        int32  `json:"maxRecords" xml:"MaxRecords"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
 }
 
 type DescribeClusterParameterGroupsMessage struct {
-	Marker             string       `json:"marker" xml:"Marker"`
-	MaxRecords         int32        `json:"maxRecords" xml:"MaxRecords"`
-	ParameterGroupName string       `json:"parameterGroupName" xml:"ParameterGroupName"`
-	TagKeys            TagKeyList   `json:"tagKeys" xml:"TagKeys"`
-	TagValues          TagValueList `json:"tagValues" xml:"TagValues"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
 }
 
 type DescribeClusterParametersMessage struct {
-	Marker             string `json:"marker" xml:"Marker"`
-	MaxRecords         int32  `json:"maxRecords" xml:"MaxRecords"`
-	ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
-	Source             string `json:"source" xml:"Source"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+Source string `json:"source" xml:"Source"`
 }
 
 type DescribeClusterSecurityGroupsMessage struct {
-	ClusterSecurityGroupName string       `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
-	Marker                   string       `json:"marker" xml:"Marker"`
-	MaxRecords               int32        `json:"maxRecords" xml:"MaxRecords"`
-	TagKeys                  TagKeyList   `json:"tagKeys" xml:"TagKeys"`
-	TagValues                TagValueList `json:"tagValues" xml:"TagValues"`
+ClusterSecurityGroupName string `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
 }
 
 type DescribeClusterSnapshotsMessage struct {
-	ClusterExists      bool                      `json:"clusterExists" xml:"ClusterExists"`
-	ClusterIdentifier  string                    `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	EndTime            time.Time                 `json:"endTime" xml:"EndTime"`
-	Marker             string                    `json:"marker" xml:"Marker"`
-	MaxRecords         int32                     `json:"maxRecords" xml:"MaxRecords"`
-	OwnerAccount       string                    `json:"ownerAccount" xml:"OwnerAccount"`
-	SnapshotArn        string                    `json:"snapshotArn" xml:"SnapshotArn"`
-	SnapshotIdentifier string                    `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
-	SnapshotType       string                    `json:"snapshotType" xml:"SnapshotType"`
-	SortingEntities    SnapshotSortingEntityList `json:"sortingEntities" xml:"SortingEntities"`
-	StartTime          time.Time                 `json:"startTime" xml:"StartTime"`
-	TagKeys            TagKeyList                `json:"tagKeys" xml:"TagKeys"`
-	TagValues          TagValueList              `json:"tagValues" xml:"TagValues"`
+ClusterExists bool `json:"clusterExists" xml:"ClusterExists"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+OwnerAccount string `json:"ownerAccount" xml:"OwnerAccount"`
+SnapshotArn string `json:"snapshotArn" xml:"SnapshotArn"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+SnapshotType string `json:"snapshotType" xml:"SnapshotType"`
+SortingEntities SnapshotSortingEntityList `json:"sortingEntities" xml:"SortingEntities"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
 }
 
 type DescribeClusterSubnetGroupsMessage struct {
-	ClusterSubnetGroupName string       `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
-	Marker                 string       `json:"marker" xml:"Marker"`
-	MaxRecords             int32        `json:"maxRecords" xml:"MaxRecords"`
-	TagKeys                TagKeyList   `json:"tagKeys" xml:"TagKeys"`
-	TagValues              TagValueList `json:"tagValues" xml:"TagValues"`
+ClusterSubnetGroupName string `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
 }
 
 type DescribeClusterTracksMessage struct {
-	MaintenanceTrackName string `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
-	Marker               string `json:"marker" xml:"Marker"`
-	MaxRecords           int32  `json:"maxRecords" xml:"MaxRecords"`
+MaintenanceTrackName string `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
 }
 
 type DescribeClusterVersionsMessage struct {
-	ClusterParameterGroupFamily string `json:"clusterParameterGroupFamily" xml:"ClusterParameterGroupFamily"`
-	ClusterVersion              string `json:"clusterVersion" xml:"ClusterVersion"`
-	Marker                      string `json:"marker" xml:"Marker"`
-	MaxRecords                  int32  `json:"maxRecords" xml:"MaxRecords"`
+ClusterParameterGroupFamily string `json:"clusterParameterGroupFamily" xml:"ClusterParameterGroupFamily"`
+ClusterVersion string `json:"clusterVersion" xml:"ClusterVersion"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
 }
 
 type DescribeClustersMessage struct {
-	ClusterIdentifier string       `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	Marker            string       `json:"marker" xml:"Marker"`
-	MaxRecords        int32        `json:"maxRecords" xml:"MaxRecords"`
-	TagKeys           TagKeyList   `json:"tagKeys" xml:"TagKeys"`
-	TagValues         TagValueList `json:"tagValues" xml:"TagValues"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
 }
 
 type DescribeCustomDomainAssociationsMessage struct {
-	CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
-	CustomDomainName           string `json:"customDomainName" xml:"CustomDomainName"`
-	Marker                     string `json:"marker" xml:"Marker"`
-	MaxRecords                 int32  `json:"maxRecords" xml:"MaxRecords"`
+CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
+CustomDomainName string `json:"customDomainName" xml:"CustomDomainName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
 }
 
 type DescribeDataSharesForConsumerMessage struct {
-	ConsumerArn string `json:"consumerArn" xml:"ConsumerArn"`
-	Marker      string `json:"marker" xml:"Marker"`
-	MaxRecords  int32  `json:"maxRecords" xml:"MaxRecords"`
-	Status      string `json:"status" xml:"Status"`
+ConsumerArn string `json:"consumerArn" xml:"ConsumerArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DescribeDataSharesForConsumerResult struct {
-	DataShares DataShareList `json:"dataShares" xml:"DataShares"`
-	Marker     string        `json:"marker" xml:"Marker"`
+DataShares DataShareList `json:"dataShares" xml:"DataShares"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type DescribeDataSharesForProducerMessage struct {
-	Marker      string `json:"marker" xml:"Marker"`
-	MaxRecords  int32  `json:"maxRecords" xml:"MaxRecords"`
-	ProducerArn string `json:"producerArn" xml:"ProducerArn"`
-	Status      string `json:"status" xml:"Status"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ProducerArn string `json:"producerArn" xml:"ProducerArn"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DescribeDataSharesForProducerResult struct {
-	DataShares DataShareList `json:"dataShares" xml:"DataShares"`
-	Marker     string        `json:"marker" xml:"Marker"`
+DataShares DataShareList `json:"dataShares" xml:"DataShares"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type DescribeDataSharesMessage struct {
-	DataShareArn string `json:"dataShareArn" xml:"DataShareArn"`
-	Marker       string `json:"marker" xml:"Marker"`
-	MaxRecords   int32  `json:"maxRecords" xml:"MaxRecords"`
+DataShareArn string `json:"dataShareArn" xml:"DataShareArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
 }
 
 type DescribeDataSharesResult struct {
-	DataShares DataShareList `json:"dataShares" xml:"DataShares"`
-	Marker     string        `json:"marker" xml:"Marker"`
+DataShares DataShareList `json:"dataShares" xml:"DataShares"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type DescribeDefaultClusterParametersMessage struct {
-	Marker               string `json:"marker" xml:"Marker"`
-	MaxRecords           int32  `json:"maxRecords" xml:"MaxRecords"`
-	ParameterGroupFamily string `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ParameterGroupFamily string `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
 }
 
 type DescribeDefaultClusterParametersResult struct {
-	DefaultClusterParameters *DefaultClusterParameters `json:"defaultClusterParameters" xml:"DefaultClusterParameters"`
+DefaultClusterParameters *DefaultClusterParameters `json:"defaultClusterParameters" xml:"DefaultClusterParameters"`
 }
 
 type DescribeEndpointAccessMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	EndpointName      string `json:"endpointName" xml:"EndpointName"`
-	Marker            string `json:"marker" xml:"Marker"`
-	MaxRecords        int32  `json:"maxRecords" xml:"MaxRecords"`
-	ResourceOwner     string `json:"resourceOwner" xml:"ResourceOwner"`
-	VpcId             string `json:"vpcId" xml:"VpcId"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+EndpointName string `json:"endpointName" xml:"EndpointName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type DescribeEndpointAuthorizationMessage struct {
-	Account           string `json:"account" xml:"Account"`
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	Grantee           bool   `json:"grantee" xml:"Grantee"`
-	Marker            string `json:"marker" xml:"Marker"`
-	MaxRecords        int32  `json:"maxRecords" xml:"MaxRecords"`
+Account string `json:"account" xml:"Account"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+Grantee bool `json:"grantee" xml:"Grantee"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
 }
 
 type DescribeEventCategoriesMessage struct {
-	SourceType string `json:"sourceType" xml:"SourceType"`
+SourceType string `json:"sourceType" xml:"SourceType"`
 }
 
 type DescribeEventSubscriptionsMessage struct {
-	Marker           string       `json:"marker" xml:"Marker"`
-	MaxRecords       int32        `json:"maxRecords" xml:"MaxRecords"`
-	SubscriptionName string       `json:"subscriptionName" xml:"SubscriptionName"`
-	TagKeys          TagKeyList   `json:"tagKeys" xml:"TagKeys"`
-	TagValues        TagValueList `json:"tagValues" xml:"TagValues"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+SubscriptionName string `json:"subscriptionName" xml:"SubscriptionName"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
 }
 
 type DescribeEventsMessage struct {
-	Duration         int32     `json:"duration" xml:"Duration"`
-	EndTime          time.Time `json:"endTime" xml:"EndTime"`
-	Marker           string    `json:"marker" xml:"Marker"`
-	MaxRecords       int32     `json:"maxRecords" xml:"MaxRecords"`
-	SourceIdentifier string    `json:"sourceIdentifier" xml:"SourceIdentifier"`
-	SourceType       string    `json:"sourceType" xml:"SourceType"`
-	StartTime        time.Time `json:"startTime" xml:"StartTime"`
+Duration int32 `json:"duration" xml:"Duration"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+SourceIdentifier string `json:"sourceIdentifier" xml:"SourceIdentifier"`
+SourceType string `json:"sourceType" xml:"SourceType"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type DescribeHsmClientCertificatesMessage struct {
-	HsmClientCertificateIdentifier string       `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
-	Marker                         string       `json:"marker" xml:"Marker"`
-	MaxRecords                     int32        `json:"maxRecords" xml:"MaxRecords"`
-	TagKeys                        TagKeyList   `json:"tagKeys" xml:"TagKeys"`
-	TagValues                      TagValueList `json:"tagValues" xml:"TagValues"`
+HsmClientCertificateIdentifier string `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
 }
 
 type DescribeHsmConfigurationsMessage struct {
-	HsmConfigurationIdentifier string       `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
-	Marker                     string       `json:"marker" xml:"Marker"`
-	MaxRecords                 int32        `json:"maxRecords" xml:"MaxRecords"`
-	TagKeys                    TagKeyList   `json:"tagKeys" xml:"TagKeys"`
-	TagValues                  TagValueList `json:"tagValues" xml:"TagValues"`
+HsmConfigurationIdentifier string `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
 }
 
 type DescribeInboundIntegrationsMessage struct {
-	IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
-	Marker         string `json:"marker" xml:"Marker"`
-	MaxRecords     int32  `json:"maxRecords" xml:"MaxRecords"`
-	TargetArn      string `json:"targetArn" xml:"TargetArn"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type DescribeIntegrationsFilter struct {
-	Name   string                              `json:"name" xml:"Name"`
-	Values DescribeIntegrationsFilterValueList `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values DescribeIntegrationsFilterValueList `json:"values" xml:"Values"`
 }
 
 type DescribeIntegrationsMessage struct {
-	Filters        DescribeIntegrationsFilterList `json:"filters" xml:"Filters"`
-	IntegrationArn string                         `json:"integrationArn" xml:"IntegrationArn"`
-	Marker         string                         `json:"marker" xml:"Marker"`
-	MaxRecords     int32                          `json:"maxRecords" xml:"MaxRecords"`
+Filters DescribeIntegrationsFilterList `json:"filters" xml:"Filters"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
 }
 
 type DescribeLoggingStatusMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type DescribeNodeConfigurationOptionsMessage struct {
-	ActionType         string                             `json:"actionType" xml:"ActionType"`
-	ClusterIdentifier  string                             `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	Filters            NodeConfigurationOptionsFilterList `json:"filters" xml:"Filters"`
-	Marker             string                             `json:"marker" xml:"Marker"`
-	MaxRecords         int32                              `json:"maxRecords" xml:"MaxRecords"`
-	OwnerAccount       string                             `json:"ownerAccount" xml:"OwnerAccount"`
-	SnapshotArn        string                             `json:"snapshotArn" xml:"SnapshotArn"`
-	SnapshotIdentifier string                             `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+ActionType string `json:"actionType" xml:"ActionType"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+Filters NodeConfigurationOptionsFilterList `json:"filters" xml:"Filters"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+OwnerAccount string `json:"ownerAccount" xml:"OwnerAccount"`
+SnapshotArn string `json:"snapshotArn" xml:"SnapshotArn"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
 }
 
 type DescribeOrderableClusterOptionsMessage struct {
-	ClusterVersion string `json:"clusterVersion" xml:"ClusterVersion"`
-	Marker         string `json:"marker" xml:"Marker"`
-	MaxRecords     int32  `json:"maxRecords" xml:"MaxRecords"`
-	NodeType       string `json:"nodeType" xml:"NodeType"`
+ClusterVersion string `json:"clusterVersion" xml:"ClusterVersion"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NodeType string `json:"nodeType" xml:"NodeType"`
 }
 
 type DescribePartnersInputMessage struct {
-	AccountId         string `json:"accountId" xml:"AccountId"`
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	DatabaseName      string `json:"databaseName" xml:"DatabaseName"`
-	PartnerName       string `json:"partnerName" xml:"PartnerName"`
+AccountId string `json:"accountId" xml:"AccountId"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartnerName string `json:"partnerName" xml:"PartnerName"`
 }
 
 type DescribePartnersOutputMessage struct {
-	PartnerIntegrationInfoList PartnerIntegrationInfoList `json:"partnerIntegrationInfoList" xml:"PartnerIntegrationInfoList"`
+PartnerIntegrationInfoList PartnerIntegrationInfoList `json:"partnerIntegrationInfoList" xml:"PartnerIntegrationInfoList"`
 }
 
 type DescribeRedshiftIdcApplicationsMessage struct {
-	Marker                    string `json:"marker" xml:"Marker"`
-	MaxRecords                int32  `json:"maxRecords" xml:"MaxRecords"`
-	RedshiftIdcApplicationArn string `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+RedshiftIdcApplicationArn string `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
 }
 
 type DescribeRedshiftIdcApplicationsResult struct {
-	Marker                  string                     `json:"marker" xml:"Marker"`
-	RedshiftIdcApplications RedshiftIdcApplicationList `json:"redshiftIdcApplications" xml:"RedshiftIdcApplications"`
+Marker string `json:"marker" xml:"Marker"`
+RedshiftIdcApplications RedshiftIdcApplicationList `json:"redshiftIdcApplications" xml:"RedshiftIdcApplications"`
 }
 
 type DescribeReservedNodeExchangeStatusInputMessage struct {
-	Marker                        string `json:"marker" xml:"Marker"`
-	MaxRecords                    int32  `json:"maxRecords" xml:"MaxRecords"`
-	ReservedNodeExchangeRequestId string `json:"reservedNodeExchangeRequestId" xml:"ReservedNodeExchangeRequestId"`
-	ReservedNodeId                string `json:"reservedNodeId" xml:"ReservedNodeId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ReservedNodeExchangeRequestId string `json:"reservedNodeExchangeRequestId" xml:"ReservedNodeExchangeRequestId"`
+ReservedNodeId string `json:"reservedNodeId" xml:"ReservedNodeId"`
 }
 
 type DescribeReservedNodeExchangeStatusOutputMessage struct {
-	Marker                            string                         `json:"marker" xml:"Marker"`
-	ReservedNodeExchangeStatusDetails ReservedNodeExchangeStatusList `json:"reservedNodeExchangeStatusDetails" xml:"ReservedNodeExchangeStatusDetails"`
+Marker string `json:"marker" xml:"Marker"`
+ReservedNodeExchangeStatusDetails ReservedNodeExchangeStatusList `json:"reservedNodeExchangeStatusDetails" xml:"ReservedNodeExchangeStatusDetails"`
 }
 
 type DescribeReservedNodeOfferingsMessage struct {
-	Marker                 string `json:"marker" xml:"Marker"`
-	MaxRecords             int32  `json:"maxRecords" xml:"MaxRecords"`
-	ReservedNodeOfferingId string `json:"reservedNodeOfferingId" xml:"ReservedNodeOfferingId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ReservedNodeOfferingId string `json:"reservedNodeOfferingId" xml:"ReservedNodeOfferingId"`
 }
 
 type DescribeReservedNodesMessage struct {
-	Marker         string `json:"marker" xml:"Marker"`
-	MaxRecords     int32  `json:"maxRecords" xml:"MaxRecords"`
-	ReservedNodeId string `json:"reservedNodeId" xml:"ReservedNodeId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ReservedNodeId string `json:"reservedNodeId" xml:"ReservedNodeId"`
 }
 
 type DescribeResizeMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type DescribeScheduledActionsMessage struct {
-	Active              bool                      `json:"active" xml:"Active"`
-	EndTime             time.Time                 `json:"endTime" xml:"EndTime"`
-	Filters             ScheduledActionFilterList `json:"filters" xml:"Filters"`
-	Marker              string                    `json:"marker" xml:"Marker"`
-	MaxRecords          int32                     `json:"maxRecords" xml:"MaxRecords"`
-	ScheduledActionName string                    `json:"scheduledActionName" xml:"ScheduledActionName"`
-	StartTime           time.Time                 `json:"startTime" xml:"StartTime"`
-	TargetActionType    string                    `json:"targetActionType" xml:"TargetActionType"`
+Active bool `json:"active" xml:"Active"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+Filters ScheduledActionFilterList `json:"filters" xml:"Filters"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+TargetActionType string `json:"targetActionType" xml:"TargetActionType"`
 }
 
 type DescribeSnapshotCopyGrantsMessage struct {
-	Marker                string       `json:"marker" xml:"Marker"`
-	MaxRecords            int32        `json:"maxRecords" xml:"MaxRecords"`
-	SnapshotCopyGrantName string       `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
-	TagKeys               TagKeyList   `json:"tagKeys" xml:"TagKeys"`
-	TagValues             TagValueList `json:"tagValues" xml:"TagValues"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+SnapshotCopyGrantName string `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
 }
 
 type DescribeSnapshotSchedulesMessage struct {
-	ClusterIdentifier  string       `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	Marker             string       `json:"marker" xml:"Marker"`
-	MaxRecords         int32        `json:"maxRecords" xml:"MaxRecords"`
-	ScheduleIdentifier string       `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
-	TagKeys            TagKeyList   `json:"tagKeys" xml:"TagKeys"`
-	TagValues          TagValueList `json:"tagValues" xml:"TagValues"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ScheduleIdentifier string `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
 }
 
 type DescribeSnapshotSchedulesOutputMessage struct {
-	Marker            string               `json:"marker" xml:"Marker"`
-	SnapshotSchedules SnapshotScheduleList `json:"snapshotSchedules" xml:"SnapshotSchedules"`
+Marker string `json:"marker" xml:"Marker"`
+SnapshotSchedules SnapshotScheduleList `json:"snapshotSchedules" xml:"SnapshotSchedules"`
 }
 
 type DescribeTableRestoreStatusMessage struct {
-	ClusterIdentifier     string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	Marker                string `json:"marker" xml:"Marker"`
-	MaxRecords            int32  `json:"maxRecords" xml:"MaxRecords"`
-	TableRestoreRequestId string `json:"tableRestoreRequestId" xml:"TableRestoreRequestId"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+TableRestoreRequestId string `json:"tableRestoreRequestId" xml:"TableRestoreRequestId"`
 }
 
 type DescribeTagsMessage struct {
-	Marker       string       `json:"marker" xml:"Marker"`
-	MaxRecords   int32        `json:"maxRecords" xml:"MaxRecords"`
-	ResourceName string       `json:"resourceName" xml:"ResourceName"`
-	ResourceType string       `json:"resourceType" xml:"ResourceType"`
-	TagKeys      TagKeyList   `json:"tagKeys" xml:"TagKeys"`
-	TagValues    TagValueList `json:"tagValues" xml:"TagValues"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ResourceName string `json:"resourceName" xml:"ResourceName"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
 }
 
 type DescribeUsageLimitsMessage struct {
-	ClusterIdentifier string       `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	FeatureType       string       `json:"featureType" xml:"FeatureType"`
-	Marker            string       `json:"marker" xml:"Marker"`
-	MaxRecords        int32        `json:"maxRecords" xml:"MaxRecords"`
-	TagKeys           TagKeyList   `json:"tagKeys" xml:"TagKeys"`
-	TagValues         TagValueList `json:"tagValues" xml:"TagValues"`
-	UsageLimitId      string       `json:"usageLimitId" xml:"UsageLimitId"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+FeatureType string `json:"featureType" xml:"FeatureType"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+TagValues TagValueList `json:"tagValues" xml:"TagValues"`
+UsageLimitId string `json:"usageLimitId" xml:"UsageLimitId"`
 }
 
 type DisableLoggingMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type DisableSnapshotCopyMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type DisableSnapshotCopyResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type DisassociateDataShareConsumerMessage struct {
-	ConsumerArn               string `json:"consumerArn" xml:"ConsumerArn"`
-	ConsumerRegion            string `json:"consumerRegion" xml:"ConsumerRegion"`
-	DataShareArn              string `json:"dataShareArn" xml:"DataShareArn"`
-	DisassociateEntireAccount bool   `json:"disassociateEntireAccount" xml:"DisassociateEntireAccount"`
+ConsumerArn string `json:"consumerArn" xml:"ConsumerArn"`
+ConsumerRegion string `json:"consumerRegion" xml:"ConsumerRegion"`
+DataShareArn string `json:"dataShareArn" xml:"DataShareArn"`
+DisassociateEntireAccount bool `json:"disassociateEntireAccount" xml:"DisassociateEntireAccount"`
 }
 
 type EC2SecurityGroup struct {
-	EC2SecurityGroupName    string  `json:"eC2SecurityGroupName" xml:"EC2SecurityGroupName"`
-	EC2SecurityGroupOwnerId string  `json:"eC2SecurityGroupOwnerId" xml:"EC2SecurityGroupOwnerId"`
-	Status                  string  `json:"status" xml:"Status"`
-	Tags                    TagList `json:"tags" xml:"Tags"`
+EC2SecurityGroupName string `json:"eC2SecurityGroupName" xml:"EC2SecurityGroupName"`
+EC2SecurityGroupOwnerId string `json:"eC2SecurityGroupOwnerId" xml:"EC2SecurityGroupOwnerId"`
+Status string `json:"status" xml:"Status"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type ElasticIpStatus struct {
-	ElasticIp string `json:"elasticIp" xml:"ElasticIp"`
-	Status    string `json:"status" xml:"Status"`
+ElasticIp string `json:"elasticIp" xml:"ElasticIp"`
+Status string `json:"status" xml:"Status"`
 }
 
 type EnableLoggingMessage struct {
-	BucketName         string      `json:"bucketName" xml:"BucketName"`
-	ClusterIdentifier  string      `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	LogDestinationType string      `json:"logDestinationType" xml:"LogDestinationType"`
-	LogExports         LogTypeList `json:"logExports" xml:"LogExports"`
-	S3KeyPrefix        string      `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
+BucketName string `json:"bucketName" xml:"BucketName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+LogDestinationType string `json:"logDestinationType" xml:"LogDestinationType"`
+LogExports LogTypeList `json:"logExports" xml:"LogExports"`
+S3KeyPrefix string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
 }
 
 type EnableSnapshotCopyMessage struct {
-	ClusterIdentifier             string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	DestinationRegion             string `json:"destinationRegion" xml:"DestinationRegion"`
-	ManualSnapshotRetentionPeriod int32  `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
-	RetentionPeriod               int32  `json:"retentionPeriod" xml:"RetentionPeriod"`
-	SnapshotCopyGrantName         string `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+DestinationRegion string `json:"destinationRegion" xml:"DestinationRegion"`
+ManualSnapshotRetentionPeriod int32 `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
+RetentionPeriod int32 `json:"retentionPeriod" xml:"RetentionPeriod"`
+SnapshotCopyGrantName string `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
 }
 
 type EnableSnapshotCopyResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type Endpoint struct {
-	Address      string           `json:"address" xml:"Address"`
-	Port         int32            `json:"port" xml:"Port"`
-	VpcEndpoints VpcEndpointsList `json:"vpcEndpoints" xml:"VpcEndpoints"`
+Address string `json:"address" xml:"Address"`
+Port int32 `json:"port" xml:"Port"`
+VpcEndpoints VpcEndpointsList `json:"vpcEndpoints" xml:"VpcEndpoints"`
 }
 
 type EndpointAccess struct {
-	Address            string                         `json:"address" xml:"Address"`
-	ClusterIdentifier  string                         `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	EndpointCreateTime time.Time                      `json:"endpointCreateTime" xml:"EndpointCreateTime"`
-	EndpointName       string                         `json:"endpointName" xml:"EndpointName"`
-	EndpointStatus     string                         `json:"endpointStatus" xml:"EndpointStatus"`
-	Port               int32                          `json:"port" xml:"Port"`
-	ResourceOwner      string                         `json:"resourceOwner" xml:"ResourceOwner"`
-	SubnetGroupName    string                         `json:"subnetGroupName" xml:"SubnetGroupName"`
-	VpcEndpoint        *VpcEndpoint                   `json:"vpcEndpoint" xml:"VpcEndpoint"`
-	VpcSecurityGroups  VpcSecurityGroupMembershipList `json:"vpcSecurityGroups" xml:"VpcSecurityGroups"`
+Address string `json:"address" xml:"Address"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+EndpointCreateTime time.Time `json:"endpointCreateTime" xml:"EndpointCreateTime"`
+EndpointName string `json:"endpointName" xml:"EndpointName"`
+EndpointStatus string `json:"endpointStatus" xml:"EndpointStatus"`
+Port int32 `json:"port" xml:"Port"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+SubnetGroupName string `json:"subnetGroupName" xml:"SubnetGroupName"`
+VpcEndpoint *VpcEndpoint `json:"vpcEndpoint" xml:"VpcEndpoint"`
+VpcSecurityGroups VpcSecurityGroupMembershipList `json:"vpcSecurityGroups" xml:"VpcSecurityGroups"`
 }
 
 type EndpointAccessList struct {
-	EndpointAccessList EndpointAccesses `json:"endpointAccessList" xml:"EndpointAccessList"`
-	Marker             string           `json:"marker" xml:"Marker"`
+EndpointAccessList EndpointAccesses `json:"endpointAccessList" xml:"EndpointAccessList"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type EndpointAuthorization struct {
-	AllowedAllVPCs    bool              `json:"allowedAllVPCs" xml:"AllowedAllVPCs"`
-	AllowedVPCs       VpcIdentifierList `json:"allowedVPCs" xml:"AllowedVPCs"`
-	AuthorizeTime     time.Time         `json:"authorizeTime" xml:"AuthorizeTime"`
-	ClusterIdentifier string            `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	ClusterStatus     string            `json:"clusterStatus" xml:"ClusterStatus"`
-	EndpointCount     int32             `json:"endpointCount" xml:"EndpointCount"`
-	Grantee           string            `json:"grantee" xml:"Grantee"`
-	Grantor           string            `json:"grantor" xml:"Grantor"`
-	Status            string            `json:"status" xml:"Status"`
+AllowedAllVPCs bool `json:"allowedAllVPCs" xml:"AllowedAllVPCs"`
+AllowedVPCs VpcIdentifierList `json:"allowedVPCs" xml:"AllowedVPCs"`
+AuthorizeTime time.Time `json:"authorizeTime" xml:"AuthorizeTime"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterStatus string `json:"clusterStatus" xml:"ClusterStatus"`
+EndpointCount int32 `json:"endpointCount" xml:"EndpointCount"`
+Grantee string `json:"grantee" xml:"Grantee"`
+Grantor string `json:"grantor" xml:"Grantor"`
+Status string `json:"status" xml:"Status"`
 }
 
 type EndpointAuthorizationList struct {
-	EndpointAuthorizationList EndpointAuthorizations `json:"endpointAuthorizationList" xml:"EndpointAuthorizationList"`
-	Marker                    string                 `json:"marker" xml:"Marker"`
+EndpointAuthorizationList EndpointAuthorizations `json:"endpointAuthorizationList" xml:"EndpointAuthorizationList"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type Event struct {
-	Date             time.Time           `json:"date" xml:"Date"`
-	EventCategories  EventCategoriesList `json:"eventCategories" xml:"EventCategories"`
-	EventId          string              `json:"eventId" xml:"EventId"`
-	Message          string              `json:"message" xml:"Message"`
-	Severity         string              `json:"severity" xml:"Severity"`
-	SourceIdentifier string              `json:"sourceIdentifier" xml:"SourceIdentifier"`
-	SourceType       string              `json:"sourceType" xml:"SourceType"`
+Date time.Time `json:"date" xml:"Date"`
+EventCategories EventCategoriesList `json:"eventCategories" xml:"EventCategories"`
+EventId string `json:"eventId" xml:"EventId"`
+Message string `json:"message" xml:"Message"`
+Severity string `json:"severity" xml:"Severity"`
+SourceIdentifier string `json:"sourceIdentifier" xml:"SourceIdentifier"`
+SourceType string `json:"sourceType" xml:"SourceType"`
 }
 
 type EventCategoriesMap struct {
-	Events     EventInfoMapList `json:"events" xml:"Events"`
-	SourceType string           `json:"sourceType" xml:"SourceType"`
+Events EventInfoMapList `json:"events" xml:"Events"`
+SourceType string `json:"sourceType" xml:"SourceType"`
 }
 
 type EventCategoriesMessage struct {
-	EventCategoriesMapList EventCategoriesMapList `json:"eventCategoriesMapList" xml:"EventCategoriesMapList"`
+EventCategoriesMapList EventCategoriesMapList `json:"eventCategoriesMapList" xml:"EventCategoriesMapList"`
 }
 
 type EventInfoMap struct {
-	EventCategories  EventCategoriesList `json:"eventCategories" xml:"EventCategories"`
-	EventDescription string              `json:"eventDescription" xml:"EventDescription"`
-	EventId          string              `json:"eventId" xml:"EventId"`
-	Severity         string              `json:"severity" xml:"Severity"`
+EventCategories EventCategoriesList `json:"eventCategories" xml:"EventCategories"`
+EventDescription string `json:"eventDescription" xml:"EventDescription"`
+EventId string `json:"eventId" xml:"EventId"`
+Severity string `json:"severity" xml:"Severity"`
 }
 
 type EventSubscription struct {
-	CustSubscriptionId       string              `json:"custSubscriptionId" xml:"CustSubscriptionId"`
-	CustomerAwsId            string              `json:"customerAwsId" xml:"CustomerAwsId"`
-	Enabled                  bool                `json:"enabled" xml:"Enabled"`
-	EventCategoriesList      EventCategoriesList `json:"eventCategoriesList" xml:"EventCategoriesList"`
-	Severity                 string              `json:"severity" xml:"Severity"`
-	SnsTopicArn              string              `json:"snsTopicArn" xml:"SnsTopicArn"`
-	SourceIdsList            SourceIdsList       `json:"sourceIdsList" xml:"SourceIdsList"`
-	SourceType               string              `json:"sourceType" xml:"SourceType"`
-	Status                   string              `json:"status" xml:"Status"`
-	SubscriptionCreationTime time.Time           `json:"subscriptionCreationTime" xml:"SubscriptionCreationTime"`
-	Tags                     TagList             `json:"tags" xml:"Tags"`
+CustSubscriptionId string `json:"custSubscriptionId" xml:"CustSubscriptionId"`
+CustomerAwsId string `json:"customerAwsId" xml:"CustomerAwsId"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+EventCategoriesList EventCategoriesList `json:"eventCategoriesList" xml:"EventCategoriesList"`
+Severity string `json:"severity" xml:"Severity"`
+SnsTopicArn string `json:"snsTopicArn" xml:"SnsTopicArn"`
+SourceIdsList SourceIdsList `json:"sourceIdsList" xml:"SourceIdsList"`
+SourceType string `json:"sourceType" xml:"SourceType"`
+Status string `json:"status" xml:"Status"`
+SubscriptionCreationTime time.Time `json:"subscriptionCreationTime" xml:"SubscriptionCreationTime"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type EventSubscriptionsMessage struct {
-	EventSubscriptionsList EventSubscriptionsList `json:"eventSubscriptionsList" xml:"EventSubscriptionsList"`
-	Marker                 string                 `json:"marker" xml:"Marker"`
+EventSubscriptionsList EventSubscriptionsList `json:"eventSubscriptionsList" xml:"EventSubscriptionsList"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type EventsMessage struct {
-	Events EventList `json:"events" xml:"Events"`
-	Marker string    `json:"marker" xml:"Marker"`
+Events EventList `json:"events" xml:"Events"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type FailoverPrimaryComputeInputMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type FailoverPrimaryComputeResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type GetClusterCredentialsMessage struct {
-	AutoCreate        bool        `json:"autoCreate" xml:"AutoCreate"`
-	ClusterIdentifier string      `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	CustomDomainName  string      `json:"customDomainName" xml:"CustomDomainName"`
-	DbGroups          DbGroupList `json:"dbGroups" xml:"DbGroups"`
-	DbName            string      `json:"dbName" xml:"DbName"`
-	DbUser            string      `json:"dbUser" xml:"DbUser"`
-	DurationSeconds   int32       `json:"durationSeconds" xml:"DurationSeconds"`
+AutoCreate bool `json:"autoCreate" xml:"AutoCreate"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+CustomDomainName string `json:"customDomainName" xml:"CustomDomainName"`
+DbGroups DbGroupList `json:"dbGroups" xml:"DbGroups"`
+DbName string `json:"dbName" xml:"DbName"`
+DbUser string `json:"dbUser" xml:"DbUser"`
+DurationSeconds int32 `json:"durationSeconds" xml:"DurationSeconds"`
 }
 
 type GetClusterCredentialsWithIAMMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	CustomDomainName  string `json:"customDomainName" xml:"CustomDomainName"`
-	DbName            string `json:"dbName" xml:"DbName"`
-	DurationSeconds   int32  `json:"durationSeconds" xml:"DurationSeconds"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+CustomDomainName string `json:"customDomainName" xml:"CustomDomainName"`
+DbName string `json:"dbName" xml:"DbName"`
+DurationSeconds int32 `json:"durationSeconds" xml:"DurationSeconds"`
 }
 
 type GetIdentityCenterAuthTokenRequest struct {
-	ClusterIds ClusterIdentifierList `json:"clusterIds" xml:"ClusterIds"`
+ClusterIds ClusterIdentifierList `json:"clusterIds" xml:"ClusterIds"`
 }
 
 type GetIdentityCenterAuthTokenResponse struct {
-	ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
-	Token          string    `json:"token" xml:"Token"`
+ExpirationTime time.Time `json:"expirationTime" xml:"ExpirationTime"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetReservedNodeExchangeConfigurationOptionsInputMessage struct {
-	ActionType         string `json:"actionType" xml:"ActionType"`
-	ClusterIdentifier  string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	Marker             string `json:"marker" xml:"Marker"`
-	MaxRecords         int32  `json:"maxRecords" xml:"MaxRecords"`
-	SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+ActionType string `json:"actionType" xml:"ActionType"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
 }
 
 type GetReservedNodeExchangeConfigurationOptionsOutputMessage struct {
-	Marker                              string                              `json:"marker" xml:"Marker"`
-	ReservedNodeConfigurationOptionList ReservedNodeConfigurationOptionList `json:"reservedNodeConfigurationOptionList" xml:"ReservedNodeConfigurationOptionList"`
+Marker string `json:"marker" xml:"Marker"`
+ReservedNodeConfigurationOptionList ReservedNodeConfigurationOptionList `json:"reservedNodeConfigurationOptionList" xml:"ReservedNodeConfigurationOptionList"`
 }
 
 type GetReservedNodeExchangeOfferingsInputMessage struct {
-	Marker         string `json:"marker" xml:"Marker"`
-	MaxRecords     int32  `json:"maxRecords" xml:"MaxRecords"`
-	ReservedNodeId string `json:"reservedNodeId" xml:"ReservedNodeId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+ReservedNodeId string `json:"reservedNodeId" xml:"ReservedNodeId"`
 }
 
 type GetReservedNodeExchangeOfferingsOutputMessage struct {
-	Marker                string                   `json:"marker" xml:"Marker"`
-	ReservedNodeOfferings ReservedNodeOfferingList `json:"reservedNodeOfferings" xml:"ReservedNodeOfferings"`
+Marker string `json:"marker" xml:"Marker"`
+ReservedNodeOfferings ReservedNodeOfferingList `json:"reservedNodeOfferings" xml:"ReservedNodeOfferings"`
 }
 
 type GetResourcePolicyMessage struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetResourcePolicyResult struct {
-	ResourcePolicy *ResourcePolicy `json:"resourcePolicy" xml:"ResourcePolicy"`
+ResourcePolicy *ResourcePolicy `json:"resourcePolicy" xml:"ResourcePolicy"`
 }
 
 type HsmClientCertificate struct {
-	HsmClientCertificateIdentifier string  `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
-	HsmClientCertificatePublicKey  string  `json:"hsmClientCertificatePublicKey" xml:"HsmClientCertificatePublicKey"`
-	Tags                           TagList `json:"tags" xml:"Tags"`
+HsmClientCertificateIdentifier string `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
+HsmClientCertificatePublicKey string `json:"hsmClientCertificatePublicKey" xml:"HsmClientCertificatePublicKey"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type HsmClientCertificateMessage struct {
-	HsmClientCertificates HsmClientCertificateList `json:"hsmClientCertificates" xml:"HsmClientCertificates"`
-	Marker                string                   `json:"marker" xml:"Marker"`
+HsmClientCertificates HsmClientCertificateList `json:"hsmClientCertificates" xml:"HsmClientCertificates"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type HsmConfiguration struct {
-	Description                string  `json:"description" xml:"Description"`
-	HsmConfigurationIdentifier string  `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
-	HsmIpAddress               string  `json:"hsmIpAddress" xml:"HsmIpAddress"`
-	HsmPartitionName           string  `json:"hsmPartitionName" xml:"HsmPartitionName"`
-	Tags                       TagList `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+HsmConfigurationIdentifier string `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
+HsmIpAddress string `json:"hsmIpAddress" xml:"HsmIpAddress"`
+HsmPartitionName string `json:"hsmPartitionName" xml:"HsmPartitionName"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type HsmConfigurationMessage struct {
-	HsmConfigurations HsmConfigurationList `json:"hsmConfigurations" xml:"HsmConfigurations"`
-	Marker            string               `json:"marker" xml:"Marker"`
+HsmConfigurations HsmConfigurationList `json:"hsmConfigurations" xml:"HsmConfigurations"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type HsmStatus struct {
-	HsmClientCertificateIdentifier string `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
-	HsmConfigurationIdentifier     string `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
-	Status                         string `json:"status" xml:"Status"`
+HsmClientCertificateIdentifier string `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
+HsmConfigurationIdentifier string `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
+Status string `json:"status" xml:"Status"`
 }
 
 type IPRange struct {
-	CIDRIP string  `json:"cIDRIP" xml:"CIDRIP"`
-	Status string  `json:"status" xml:"Status"`
-	Tags   TagList `json:"tags" xml:"Tags"`
+CIDRIP string `json:"cIDRIP" xml:"CIDRIP"`
+Status string `json:"status" xml:"Status"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type InboundIntegration struct {
-	CreateTime     time.Time            `json:"createTime" xml:"CreateTime"`
-	Errors         IntegrationErrorList `json:"errors" xml:"Errors"`
-	IntegrationArn string               `json:"integrationArn" xml:"IntegrationArn"`
-	SourceArn      string               `json:"sourceArn" xml:"SourceArn"`
-	Status         string               `json:"status" xml:"Status"`
-	TargetArn      string               `json:"targetArn" xml:"TargetArn"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+Errors IntegrationErrorList `json:"errors" xml:"Errors"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
+Status string `json:"status" xml:"Status"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type InboundIntegrationsMessage struct {
-	InboundIntegrations InboundIntegrationList `json:"inboundIntegrations" xml:"InboundIntegrations"`
-	Marker              string                 `json:"marker" xml:"Marker"`
+InboundIntegrations InboundIntegrationList `json:"inboundIntegrations" xml:"InboundIntegrations"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type Integration struct {
-	AdditionalEncryptionContext EncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
-	CreateTime                  time.Time            `json:"createTime" xml:"CreateTime"`
-	Description                 string               `json:"description" xml:"Description"`
-	Errors                      IntegrationErrorList `json:"errors" xml:"Errors"`
-	IntegrationArn              string               `json:"integrationArn" xml:"IntegrationArn"`
-	IntegrationName             string               `json:"integrationName" xml:"IntegrationName"`
-	KMSKeyId                    string               `json:"kMSKeyId" xml:"KMSKeyId"`
-	SourceArn                   string               `json:"sourceArn" xml:"SourceArn"`
-	Status                      string               `json:"status" xml:"Status"`
-	Tags                        TagList              `json:"tags" xml:"Tags"`
-	TargetArn                   string               `json:"targetArn" xml:"TargetArn"`
+AdditionalEncryptionContext EncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+Description string `json:"description" xml:"Description"`
+Errors IntegrationErrorList `json:"errors" xml:"Errors"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+IntegrationName string `json:"integrationName" xml:"IntegrationName"`
+KMSKeyId string `json:"kMSKeyId" xml:"KMSKeyId"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
+Status string `json:"status" xml:"Status"`
+Tags TagList `json:"tags" xml:"Tags"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type IntegrationError struct {
-	ErrorCode    string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
 }
 
 type IntegrationsMessage struct {
-	Integrations IntegrationList `json:"integrations" xml:"Integrations"`
-	Marker       string          `json:"marker" xml:"Marker"`
+Integrations IntegrationList `json:"integrations" xml:"Integrations"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type LakeFormationQuery struct {
-	Authorization string `json:"authorization" xml:"Authorization"`
+Authorization string `json:"authorization" xml:"Authorization"`
 }
 
 type LakehouseConfiguration struct {
-	CatalogArn                  string `json:"catalogArn" xml:"CatalogArn"`
-	ClusterIdentifier           string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	LakehouseIdcApplicationArn  string `json:"lakehouseIdcApplicationArn" xml:"LakehouseIdcApplicationArn"`
-	LakehouseRegistrationStatus string `json:"lakehouseRegistrationStatus" xml:"LakehouseRegistrationStatus"`
+CatalogArn string `json:"catalogArn" xml:"CatalogArn"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+LakehouseIdcApplicationArn string `json:"lakehouseIdcApplicationArn" xml:"LakehouseIdcApplicationArn"`
+LakehouseRegistrationStatus string `json:"lakehouseRegistrationStatus" xml:"LakehouseRegistrationStatus"`
 }
 
 type ListRecommendationsMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	Marker            string `json:"marker" xml:"Marker"`
-	MaxRecords        int32  `json:"maxRecords" xml:"MaxRecords"`
-	NamespaceArn      string `json:"namespaceArn" xml:"NamespaceArn"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NamespaceArn string `json:"namespaceArn" xml:"NamespaceArn"`
 }
 
 type ListRecommendationsResult struct {
-	Marker          string             `json:"marker" xml:"Marker"`
-	Recommendations RecommendationList `json:"recommendations" xml:"Recommendations"`
+Marker string `json:"marker" xml:"Marker"`
+Recommendations RecommendationList `json:"recommendations" xml:"Recommendations"`
 }
 
 type LoggingStatus struct {
-	BucketName                 string      `json:"bucketName" xml:"BucketName"`
-	LastFailureMessage         string      `json:"lastFailureMessage" xml:"LastFailureMessage"`
-	LastFailureTime            time.Time   `json:"lastFailureTime" xml:"LastFailureTime"`
-	LastSuccessfulDeliveryTime time.Time   `json:"lastSuccessfulDeliveryTime" xml:"LastSuccessfulDeliveryTime"`
-	LogDestinationType         string      `json:"logDestinationType" xml:"LogDestinationType"`
-	LogExports                 LogTypeList `json:"logExports" xml:"LogExports"`
-	LoggingEnabled             bool        `json:"loggingEnabled" xml:"LoggingEnabled"`
-	S3KeyPrefix                string      `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
+BucketName string `json:"bucketName" xml:"BucketName"`
+LastFailureMessage string `json:"lastFailureMessage" xml:"LastFailureMessage"`
+LastFailureTime time.Time `json:"lastFailureTime" xml:"LastFailureTime"`
+LastSuccessfulDeliveryTime time.Time `json:"lastSuccessfulDeliveryTime" xml:"LastSuccessfulDeliveryTime"`
+LogDestinationType string `json:"logDestinationType" xml:"LogDestinationType"`
+LogExports LogTypeList `json:"logExports" xml:"LogExports"`
+LoggingEnabled bool `json:"loggingEnabled" xml:"LoggingEnabled"`
+S3KeyPrefix string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
 }
 
 type MaintenanceTrack struct {
-	DatabaseVersion      string                     `json:"databaseVersion" xml:"DatabaseVersion"`
-	MaintenanceTrackName string                     `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
-	UpdateTargets        EligibleTracksToUpdateList `json:"updateTargets" xml:"UpdateTargets"`
+DatabaseVersion string `json:"databaseVersion" xml:"DatabaseVersion"`
+MaintenanceTrackName string `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
+UpdateTargets EligibleTracksToUpdateList `json:"updateTargets" xml:"UpdateTargets"`
 }
 
 type ModifyAquaInputMessage struct {
-	AquaConfigurationStatus string `json:"aquaConfigurationStatus" xml:"AquaConfigurationStatus"`
-	ClusterIdentifier       string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+AquaConfigurationStatus string `json:"aquaConfigurationStatus" xml:"AquaConfigurationStatus"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type ModifyAquaOutputMessage struct {
-	AquaConfiguration *AquaConfiguration `json:"aquaConfiguration" xml:"AquaConfiguration"`
+AquaConfiguration *AquaConfiguration `json:"aquaConfiguration" xml:"AquaConfiguration"`
 }
 
 type ModifyAuthenticationProfileMessage struct {
-	AuthenticationProfileContent string `json:"authenticationProfileContent" xml:"AuthenticationProfileContent"`
-	AuthenticationProfileName    string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
+AuthenticationProfileContent string `json:"authenticationProfileContent" xml:"AuthenticationProfileContent"`
+AuthenticationProfileName string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
 }
 
 type ModifyAuthenticationProfileResult struct {
-	AuthenticationProfileContent string `json:"authenticationProfileContent" xml:"AuthenticationProfileContent"`
-	AuthenticationProfileName    string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
+AuthenticationProfileContent string `json:"authenticationProfileContent" xml:"AuthenticationProfileContent"`
+AuthenticationProfileName string `json:"authenticationProfileName" xml:"AuthenticationProfileName"`
 }
 
 type ModifyClusterDbRevisionMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	RevisionTarget    string `json:"revisionTarget" xml:"RevisionTarget"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+RevisionTarget string `json:"revisionTarget" xml:"RevisionTarget"`
 }
 
 type ModifyClusterDbRevisionResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type ModifyClusterIamRolesMessage struct {
-	AddIamRoles       IamRoleArnList `json:"addIamRoles" xml:"AddIamRoles"`
-	ClusterIdentifier string         `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	DefaultIamRoleArn string         `json:"defaultIamRoleArn" xml:"DefaultIamRoleArn"`
-	RemoveIamRoles    IamRoleArnList `json:"removeIamRoles" xml:"RemoveIamRoles"`
+AddIamRoles IamRoleArnList `json:"addIamRoles" xml:"AddIamRoles"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+DefaultIamRoleArn string `json:"defaultIamRoleArn" xml:"DefaultIamRoleArn"`
+RemoveIamRoles IamRoleArnList `json:"removeIamRoles" xml:"RemoveIamRoles"`
 }
 
 type ModifyClusterIamRolesResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type ModifyClusterMaintenanceMessage struct {
-	ClusterIdentifier          string    `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	DeferMaintenance           bool      `json:"deferMaintenance" xml:"DeferMaintenance"`
-	DeferMaintenanceDuration   int32     `json:"deferMaintenanceDuration" xml:"DeferMaintenanceDuration"`
-	DeferMaintenanceEndTime    time.Time `json:"deferMaintenanceEndTime" xml:"DeferMaintenanceEndTime"`
-	DeferMaintenanceIdentifier string    `json:"deferMaintenanceIdentifier" xml:"DeferMaintenanceIdentifier"`
-	DeferMaintenanceStartTime  time.Time `json:"deferMaintenanceStartTime" xml:"DeferMaintenanceStartTime"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+DeferMaintenance bool `json:"deferMaintenance" xml:"DeferMaintenance"`
+DeferMaintenanceDuration int32 `json:"deferMaintenanceDuration" xml:"DeferMaintenanceDuration"`
+DeferMaintenanceEndTime time.Time `json:"deferMaintenanceEndTime" xml:"DeferMaintenanceEndTime"`
+DeferMaintenanceIdentifier string `json:"deferMaintenanceIdentifier" xml:"DeferMaintenanceIdentifier"`
+DeferMaintenanceStartTime time.Time `json:"deferMaintenanceStartTime" xml:"DeferMaintenanceStartTime"`
 }
 
 type ModifyClusterMaintenanceResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type ModifyClusterMessage struct {
-	AllowVersionUpgrade                  bool                         `json:"allowVersionUpgrade" xml:"AllowVersionUpgrade"`
-	AutomatedSnapshotRetentionPeriod     int32                        `json:"automatedSnapshotRetentionPeriod" xml:"AutomatedSnapshotRetentionPeriod"`
-	AvailabilityZone                     string                       `json:"availabilityZone" xml:"AvailabilityZone"`
-	AvailabilityZoneRelocation           bool                         `json:"availabilityZoneRelocation" xml:"AvailabilityZoneRelocation"`
-	ClusterIdentifier                    string                       `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	ClusterParameterGroupName            string                       `json:"clusterParameterGroupName" xml:"ClusterParameterGroupName"`
-	ClusterSecurityGroups                ClusterSecurityGroupNameList `json:"clusterSecurityGroups" xml:"ClusterSecurityGroups"`
-	ClusterType                          string                       `json:"clusterType" xml:"ClusterType"`
-	ClusterVersion                       string                       `json:"clusterVersion" xml:"ClusterVersion"`
-	ElasticIp                            string                       `json:"elasticIp" xml:"ElasticIp"`
-	Encrypted                            bool                         `json:"encrypted" xml:"Encrypted"`
-	EnhancedVpcRouting                   bool                         `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
-	ExtraComputeForAutomaticOptimization bool                         `json:"extraComputeForAutomaticOptimization" xml:"ExtraComputeForAutomaticOptimization"`
-	HsmClientCertificateIdentifier       string                       `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
-	HsmConfigurationIdentifier           string                       `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
-	IpAddressType                        string                       `json:"ipAddressType" xml:"IpAddressType"`
-	KmsKeyId                             string                       `json:"kmsKeyId" xml:"KmsKeyId"`
-	MaintenanceTrackName                 string                       `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
-	ManageMasterPassword                 bool                         `json:"manageMasterPassword" xml:"ManageMasterPassword"`
-	ManualSnapshotRetentionPeriod        int32                        `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
-	MasterPasswordSecretKmsKeyId         string                       `json:"masterPasswordSecretKmsKeyId" xml:"MasterPasswordSecretKmsKeyId"`
-	MasterUserPassword                   string                       `json:"masterUserPassword" xml:"MasterUserPassword"`
-	MultiAZ                              bool                         `json:"multiAZ" xml:"MultiAZ"`
-	NewClusterIdentifier                 string                       `json:"newClusterIdentifier" xml:"NewClusterIdentifier"`
-	NodeType                             string                       `json:"nodeType" xml:"NodeType"`
-	NumberOfNodes                        int32                        `json:"numberOfNodes" xml:"NumberOfNodes"`
-	Port                                 int32                        `json:"port" xml:"Port"`
-	PreferredMaintenanceWindow           string                       `json:"preferredMaintenanceWindow" xml:"PreferredMaintenanceWindow"`
-	PubliclyAccessible                   bool                         `json:"publiclyAccessible" xml:"PubliclyAccessible"`
-	VpcSecurityGroupIds                  VpcSecurityGroupIdList       `json:"vpcSecurityGroupIds" xml:"VpcSecurityGroupIds"`
+AllowVersionUpgrade bool `json:"allowVersionUpgrade" xml:"AllowVersionUpgrade"`
+AutomatedSnapshotRetentionPeriod int32 `json:"automatedSnapshotRetentionPeriod" xml:"AutomatedSnapshotRetentionPeriod"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+AvailabilityZoneRelocation bool `json:"availabilityZoneRelocation" xml:"AvailabilityZoneRelocation"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterParameterGroupName string `json:"clusterParameterGroupName" xml:"ClusterParameterGroupName"`
+ClusterSecurityGroups ClusterSecurityGroupNameList `json:"clusterSecurityGroups" xml:"ClusterSecurityGroups"`
+ClusterType string `json:"clusterType" xml:"ClusterType"`
+ClusterVersion string `json:"clusterVersion" xml:"ClusterVersion"`
+ElasticIp string `json:"elasticIp" xml:"ElasticIp"`
+Encrypted bool `json:"encrypted" xml:"Encrypted"`
+EnhancedVpcRouting bool `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
+ExtraComputeForAutomaticOptimization bool `json:"extraComputeForAutomaticOptimization" xml:"ExtraComputeForAutomaticOptimization"`
+HsmClientCertificateIdentifier string `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
+HsmConfigurationIdentifier string `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MaintenanceTrackName string `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
+ManageMasterPassword bool `json:"manageMasterPassword" xml:"ManageMasterPassword"`
+ManualSnapshotRetentionPeriod int32 `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
+MasterPasswordSecretKmsKeyId string `json:"masterPasswordSecretKmsKeyId" xml:"MasterPasswordSecretKmsKeyId"`
+MasterUserPassword string `json:"masterUserPassword" xml:"MasterUserPassword"`
+MultiAZ bool `json:"multiAZ" xml:"MultiAZ"`
+NewClusterIdentifier string `json:"newClusterIdentifier" xml:"NewClusterIdentifier"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
+Port int32 `json:"port" xml:"Port"`
+PreferredMaintenanceWindow string `json:"preferredMaintenanceWindow" xml:"PreferredMaintenanceWindow"`
+PubliclyAccessible bool `json:"publiclyAccessible" xml:"PubliclyAccessible"`
+VpcSecurityGroupIds VpcSecurityGroupIdList `json:"vpcSecurityGroupIds" xml:"VpcSecurityGroupIds"`
 }
 
 type ModifyClusterParameterGroupMessage struct {
-	ParameterGroupName string         `json:"parameterGroupName" xml:"ParameterGroupName"`
-	Parameters         ParametersList `json:"parameters" xml:"Parameters"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+Parameters ParametersList `json:"parameters" xml:"Parameters"`
 }
 
 type ModifyClusterResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type ModifyClusterSnapshotMessage struct {
-	Force                         bool   `json:"force" xml:"Force"`
-	ManualSnapshotRetentionPeriod int32  `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
-	SnapshotIdentifier            string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+Force bool `json:"force" xml:"Force"`
+ManualSnapshotRetentionPeriod int32 `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
 }
 
 type ModifyClusterSnapshotResult struct {
-	Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
+Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
 }
 
 type ModifyClusterSnapshotScheduleMessage struct {
-	ClusterIdentifier    string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	DisassociateSchedule bool   `json:"disassociateSchedule" xml:"DisassociateSchedule"`
-	ScheduleIdentifier   string `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+DisassociateSchedule bool `json:"disassociateSchedule" xml:"DisassociateSchedule"`
+ScheduleIdentifier string `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
 }
 
 type ModifyClusterSubnetGroupMessage struct {
-	ClusterSubnetGroupName string               `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
-	Description            string               `json:"description" xml:"Description"`
-	SubnetIds              SubnetIdentifierList `json:"subnetIds" xml:"SubnetIds"`
+ClusterSubnetGroupName string `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
+Description string `json:"description" xml:"Description"`
+SubnetIds SubnetIdentifierList `json:"subnetIds" xml:"SubnetIds"`
 }
 
 type ModifyClusterSubnetGroupResult struct {
-	ClusterSubnetGroup *ClusterSubnetGroup `json:"clusterSubnetGroup" xml:"ClusterSubnetGroup"`
+ClusterSubnetGroup *ClusterSubnetGroup `json:"clusterSubnetGroup" xml:"ClusterSubnetGroup"`
 }
 
 type ModifyCustomDomainAssociationMessage struct {
-	ClusterIdentifier          string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
-	CustomDomainName           string `json:"customDomainName" xml:"CustomDomainName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
+CustomDomainName string `json:"customDomainName" xml:"CustomDomainName"`
 }
 
 type ModifyCustomDomainAssociationResult struct {
-	ClusterIdentifier          string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	CustomDomainCertExpiryTime string `json:"customDomainCertExpiryTime" xml:"CustomDomainCertExpiryTime"`
-	CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
-	CustomDomainName           string `json:"customDomainName" xml:"CustomDomainName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+CustomDomainCertExpiryTime string `json:"customDomainCertExpiryTime" xml:"CustomDomainCertExpiryTime"`
+CustomDomainCertificateArn string `json:"customDomainCertificateArn" xml:"CustomDomainCertificateArn"`
+CustomDomainName string `json:"customDomainName" xml:"CustomDomainName"`
 }
 
 type ModifyEndpointAccessMessage struct {
-	EndpointName        string                 `json:"endpointName" xml:"EndpointName"`
-	VpcSecurityGroupIds VpcSecurityGroupIdList `json:"vpcSecurityGroupIds" xml:"VpcSecurityGroupIds"`
+EndpointName string `json:"endpointName" xml:"EndpointName"`
+VpcSecurityGroupIds VpcSecurityGroupIdList `json:"vpcSecurityGroupIds" xml:"VpcSecurityGroupIds"`
 }
 
 type ModifyEventSubscriptionMessage struct {
-	Enabled          bool                `json:"enabled" xml:"Enabled"`
-	EventCategories  EventCategoriesList `json:"eventCategories" xml:"EventCategories"`
-	Severity         string              `json:"severity" xml:"Severity"`
-	SnsTopicArn      string              `json:"snsTopicArn" xml:"SnsTopicArn"`
-	SourceIds        SourceIdsList       `json:"sourceIds" xml:"SourceIds"`
-	SourceType       string              `json:"sourceType" xml:"SourceType"`
-	SubscriptionName string              `json:"subscriptionName" xml:"SubscriptionName"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+EventCategories EventCategoriesList `json:"eventCategories" xml:"EventCategories"`
+Severity string `json:"severity" xml:"Severity"`
+SnsTopicArn string `json:"snsTopicArn" xml:"SnsTopicArn"`
+SourceIds SourceIdsList `json:"sourceIds" xml:"SourceIds"`
+SourceType string `json:"sourceType" xml:"SourceType"`
+SubscriptionName string `json:"subscriptionName" xml:"SubscriptionName"`
 }
 
 type ModifyEventSubscriptionResult struct {
-	EventSubscription *EventSubscription `json:"eventSubscription" xml:"EventSubscription"`
+EventSubscription *EventSubscription `json:"eventSubscription" xml:"EventSubscription"`
 }
 
 type ModifyIntegrationMessage struct {
-	Description     string `json:"description" xml:"Description"`
-	IntegrationArn  string `json:"integrationArn" xml:"IntegrationArn"`
-	IntegrationName string `json:"integrationName" xml:"IntegrationName"`
+Description string `json:"description" xml:"Description"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+IntegrationName string `json:"integrationName" xml:"IntegrationName"`
 }
 
 type ModifyLakehouseConfigurationMessage struct {
-	CatalogName                string `json:"catalogName" xml:"CatalogName"`
-	ClusterIdentifier          string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	DryRun                     bool   `json:"dryRun" xml:"DryRun"`
-	LakehouseIdcApplicationArn string `json:"lakehouseIdcApplicationArn" xml:"LakehouseIdcApplicationArn"`
-	LakehouseIdcRegistration   string `json:"lakehouseIdcRegistration" xml:"LakehouseIdcRegistration"`
-	LakehouseRegistration      string `json:"lakehouseRegistration" xml:"LakehouseRegistration"`
+CatalogName string `json:"catalogName" xml:"CatalogName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+LakehouseIdcApplicationArn string `json:"lakehouseIdcApplicationArn" xml:"LakehouseIdcApplicationArn"`
+LakehouseIdcRegistration string `json:"lakehouseIdcRegistration" xml:"LakehouseIdcRegistration"`
+LakehouseRegistration string `json:"lakehouseRegistration" xml:"LakehouseRegistration"`
 }
 
 type ModifyRedshiftIdcApplicationMessage struct {
-	AuthorizedTokenIssuerList AuthorizedTokenIssuerList `json:"authorizedTokenIssuerList" xml:"AuthorizedTokenIssuerList"`
-	IamRoleArn                string                    `json:"iamRoleArn" xml:"IamRoleArn"`
-	IdcDisplayName            string                    `json:"idcDisplayName" xml:"IdcDisplayName"`
-	IdentityNamespace         string                    `json:"identityNamespace" xml:"IdentityNamespace"`
-	RedshiftIdcApplicationArn string                    `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
-	ServiceIntegrations       ServiceIntegrationList    `json:"serviceIntegrations" xml:"ServiceIntegrations"`
+AuthorizedTokenIssuerList AuthorizedTokenIssuerList `json:"authorizedTokenIssuerList" xml:"AuthorizedTokenIssuerList"`
+IamRoleArn string `json:"iamRoleArn" xml:"IamRoleArn"`
+IdcDisplayName string `json:"idcDisplayName" xml:"IdcDisplayName"`
+IdentityNamespace string `json:"identityNamespace" xml:"IdentityNamespace"`
+RedshiftIdcApplicationArn string `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
+ServiceIntegrations ServiceIntegrationList `json:"serviceIntegrations" xml:"ServiceIntegrations"`
 }
 
 type ModifyRedshiftIdcApplicationResult struct {
-	RedshiftIdcApplication *RedshiftIdcApplication `json:"redshiftIdcApplication" xml:"RedshiftIdcApplication"`
+RedshiftIdcApplication *RedshiftIdcApplication `json:"redshiftIdcApplication" xml:"RedshiftIdcApplication"`
 }
 
 type ModifyScheduledActionMessage struct {
-	Enable                     bool                 `json:"enable" xml:"Enable"`
-	EndTime                    time.Time            `json:"endTime" xml:"EndTime"`
-	IamRole                    string               `json:"iamRole" xml:"IamRole"`
-	Schedule                   string               `json:"schedule" xml:"Schedule"`
-	ScheduledActionDescription string               `json:"scheduledActionDescription" xml:"ScheduledActionDescription"`
-	ScheduledActionName        string               `json:"scheduledActionName" xml:"ScheduledActionName"`
-	StartTime                  time.Time            `json:"startTime" xml:"StartTime"`
-	TargetAction               *ScheduledActionType `json:"targetAction" xml:"TargetAction"`
+Enable bool `json:"enable" xml:"Enable"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+IamRole string `json:"iamRole" xml:"IamRole"`
+Schedule string `json:"schedule" xml:"Schedule"`
+ScheduledActionDescription string `json:"scheduledActionDescription" xml:"ScheduledActionDescription"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+TargetAction *ScheduledActionType `json:"targetAction" xml:"TargetAction"`
 }
 
 type ModifySnapshotCopyRetentionPeriodMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	Manual            bool   `json:"manual" xml:"Manual"`
-	RetentionPeriod   int32  `json:"retentionPeriod" xml:"RetentionPeriod"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+Manual bool `json:"manual" xml:"Manual"`
+RetentionPeriod int32 `json:"retentionPeriod" xml:"RetentionPeriod"`
 }
 
 type ModifySnapshotCopyRetentionPeriodResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type ModifySnapshotScheduleMessage struct {
-	ScheduleDefinitions ScheduleDefinitionList `json:"scheduleDefinitions" xml:"ScheduleDefinitions"`
-	ScheduleIdentifier  string                 `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
+ScheduleDefinitions ScheduleDefinitionList `json:"scheduleDefinitions" xml:"ScheduleDefinitions"`
+ScheduleIdentifier string `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
 }
 
 type ModifyUsageLimitMessage struct {
-	Amount       int64  `json:"amount" xml:"Amount"`
-	BreachAction string `json:"breachAction" xml:"BreachAction"`
-	UsageLimitId string `json:"usageLimitId" xml:"UsageLimitId"`
+Amount int64 `json:"amount" xml:"Amount"`
+BreachAction string `json:"breachAction" xml:"BreachAction"`
+UsageLimitId string `json:"usageLimitId" xml:"UsageLimitId"`
 }
 
 type NetworkInterface struct {
-	AvailabilityZone   string `json:"availabilityZone" xml:"AvailabilityZone"`
-	Ipv6Address        string `json:"ipv6Address" xml:"Ipv6Address"`
-	NetworkInterfaceId string `json:"networkInterfaceId" xml:"NetworkInterfaceId"`
-	PrivateIpAddress   string `json:"privateIpAddress" xml:"PrivateIpAddress"`
-	SubnetId           string `json:"subnetId" xml:"SubnetId"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+Ipv6Address string `json:"ipv6Address" xml:"Ipv6Address"`
+NetworkInterfaceId string `json:"networkInterfaceId" xml:"NetworkInterfaceId"`
+PrivateIpAddress string `json:"privateIpAddress" xml:"PrivateIpAddress"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
 }
 
 type NodeConfigurationOption struct {
-	EstimatedDiskUtilizationPercent float64 `json:"estimatedDiskUtilizationPercent" xml:"EstimatedDiskUtilizationPercent"`
-	Mode                            string  `json:"mode" xml:"Mode"`
-	NodeType                        string  `json:"nodeType" xml:"NodeType"`
-	NumberOfNodes                   int32   `json:"numberOfNodes" xml:"NumberOfNodes"`
+EstimatedDiskUtilizationPercent float64 `json:"estimatedDiskUtilizationPercent" xml:"EstimatedDiskUtilizationPercent"`
+Mode string `json:"mode" xml:"Mode"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
 }
 
 type NodeConfigurationOptionsFilter struct {
-	Name     string          `json:"name" xml:"Name"`
-	Operator string          `json:"operator" xml:"Operator"`
-	Values   ValueStringList `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Operator string `json:"operator" xml:"Operator"`
+Values ValueStringList `json:"values" xml:"Values"`
 }
 
 type NodeConfigurationOptionsMessage struct {
-	Marker                      string                      `json:"marker" xml:"Marker"`
-	NodeConfigurationOptionList NodeConfigurationOptionList `json:"nodeConfigurationOptionList" xml:"NodeConfigurationOptionList"`
+Marker string `json:"marker" xml:"Marker"`
+NodeConfigurationOptionList NodeConfigurationOptionList `json:"nodeConfigurationOptionList" xml:"NodeConfigurationOptionList"`
 }
 
 type OrderableClusterOption struct {
-	AvailabilityZones AvailabilityZoneList `json:"availabilityZones" xml:"AvailabilityZones"`
-	ClusterType       string               `json:"clusterType" xml:"ClusterType"`
-	ClusterVersion    string               `json:"clusterVersion" xml:"ClusterVersion"`
-	NodeType          string               `json:"nodeType" xml:"NodeType"`
+AvailabilityZones AvailabilityZoneList `json:"availabilityZones" xml:"AvailabilityZones"`
+ClusterType string `json:"clusterType" xml:"ClusterType"`
+ClusterVersion string `json:"clusterVersion" xml:"ClusterVersion"`
+NodeType string `json:"nodeType" xml:"NodeType"`
 }
 
 type OrderableClusterOptionsMessage struct {
-	Marker                  string                      `json:"marker" xml:"Marker"`
-	OrderableClusterOptions OrderableClusterOptionsList `json:"orderableClusterOptions" xml:"OrderableClusterOptions"`
+Marker string `json:"marker" xml:"Marker"`
+OrderableClusterOptions OrderableClusterOptionsList `json:"orderableClusterOptions" xml:"OrderableClusterOptions"`
 }
 
 type Parameter struct {
-	AllowedValues        string `json:"allowedValues" xml:"AllowedValues"`
-	ApplyType            string `json:"applyType" xml:"ApplyType"`
-	DataType             string `json:"dataType" xml:"DataType"`
-	Description          string `json:"description" xml:"Description"`
-	IsModifiable         bool   `json:"isModifiable" xml:"IsModifiable"`
-	MinimumEngineVersion string `json:"minimumEngineVersion" xml:"MinimumEngineVersion"`
-	ParameterName        string `json:"parameterName" xml:"ParameterName"`
-	ParameterValue       string `json:"parameterValue" xml:"ParameterValue"`
-	Source               string `json:"source" xml:"Source"`
+AllowedValues string `json:"allowedValues" xml:"AllowedValues"`
+ApplyType string `json:"applyType" xml:"ApplyType"`
+DataType string `json:"dataType" xml:"DataType"`
+Description string `json:"description" xml:"Description"`
+IsModifiable bool `json:"isModifiable" xml:"IsModifiable"`
+MinimumEngineVersion string `json:"minimumEngineVersion" xml:"MinimumEngineVersion"`
+ParameterName string `json:"parameterName" xml:"ParameterName"`
+ParameterValue string `json:"parameterValue" xml:"ParameterValue"`
+Source string `json:"source" xml:"Source"`
 }
 
 type PartnerIntegrationInfo struct {
-	CreatedAt     time.Time `json:"createdAt" xml:"CreatedAt"`
-	DatabaseName  string    `json:"databaseName" xml:"DatabaseName"`
-	PartnerName   string    `json:"partnerName" xml:"PartnerName"`
-	Status        string    `json:"status" xml:"Status"`
-	StatusMessage string    `json:"statusMessage" xml:"StatusMessage"`
-	UpdatedAt     time.Time `json:"updatedAt" xml:"UpdatedAt"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartnerName string `json:"partnerName" xml:"PartnerName"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+UpdatedAt time.Time `json:"updatedAt" xml:"UpdatedAt"`
 }
 
 type PartnerIntegrationInputMessage struct {
-	AccountId         string `json:"accountId" xml:"AccountId"`
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	DatabaseName      string `json:"databaseName" xml:"DatabaseName"`
-	PartnerName       string `json:"partnerName" xml:"PartnerName"`
+AccountId string `json:"accountId" xml:"AccountId"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartnerName string `json:"partnerName" xml:"PartnerName"`
 }
 
 type PartnerIntegrationOutputMessage struct {
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	PartnerName  string `json:"partnerName" xml:"PartnerName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartnerName string `json:"partnerName" xml:"PartnerName"`
 }
 
 type PauseClusterMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type PauseClusterResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type PendingModifiedValues struct {
-	AutomatedSnapshotRetentionPeriod int32  `json:"automatedSnapshotRetentionPeriod" xml:"AutomatedSnapshotRetentionPeriod"`
-	ClusterIdentifier                string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	ClusterType                      string `json:"clusterType" xml:"ClusterType"`
-	ClusterVersion                   string `json:"clusterVersion" xml:"ClusterVersion"`
-	EncryptionType                   string `json:"encryptionType" xml:"EncryptionType"`
-	EnhancedVpcRouting               bool   `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
-	MaintenanceTrackName             string `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
-	MasterUserPassword               string `json:"masterUserPassword" xml:"MasterUserPassword"`
-	NodeType                         string `json:"nodeType" xml:"NodeType"`
-	NumberOfNodes                    int32  `json:"numberOfNodes" xml:"NumberOfNodes"`
-	PubliclyAccessible               bool   `json:"publiclyAccessible" xml:"PubliclyAccessible"`
+AutomatedSnapshotRetentionPeriod int32 `json:"automatedSnapshotRetentionPeriod" xml:"AutomatedSnapshotRetentionPeriod"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterType string `json:"clusterType" xml:"ClusterType"`
+ClusterVersion string `json:"clusterVersion" xml:"ClusterVersion"`
+EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
+EnhancedVpcRouting bool `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
+MaintenanceTrackName string `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
+MasterUserPassword string `json:"masterUserPassword" xml:"MasterUserPassword"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
+PubliclyAccessible bool `json:"publiclyAccessible" xml:"PubliclyAccessible"`
 }
 
 type ProvisionedIdentifier struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type PurchaseReservedNodeOfferingMessage struct {
-	NodeCount              int32  `json:"nodeCount" xml:"NodeCount"`
-	ReservedNodeOfferingId string `json:"reservedNodeOfferingId" xml:"ReservedNodeOfferingId"`
+NodeCount int32 `json:"nodeCount" xml:"NodeCount"`
+ReservedNodeOfferingId string `json:"reservedNodeOfferingId" xml:"ReservedNodeOfferingId"`
 }
 
 type PurchaseReservedNodeOfferingResult struct {
-	ReservedNode *ReservedNode `json:"reservedNode" xml:"ReservedNode"`
+ReservedNode *ReservedNode `json:"reservedNode" xml:"ReservedNode"`
 }
 
 type PutResourcePolicyMessage struct {
-	Policy      string `json:"policy" xml:"Policy"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Policy string `json:"policy" xml:"Policy"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type PutResourcePolicyResult struct {
-	ResourcePolicy *ResourcePolicy `json:"resourcePolicy" xml:"ResourcePolicy"`
+ResourcePolicy *ResourcePolicy `json:"resourcePolicy" xml:"ResourcePolicy"`
 }
 
 type ReadWriteAccess struct {
-	Authorization string `json:"authorization" xml:"Authorization"`
+Authorization string `json:"authorization" xml:"Authorization"`
 }
 
 type RebootClusterMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type RebootClusterResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type Recommendation struct {
-	ClusterIdentifier  string                `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	CreatedAt          time.Time             `json:"createdAt" xml:"CreatedAt"`
-	Description        string                `json:"description" xml:"Description"`
-	Id                 string                `json:"id" xml:"Id"`
-	ImpactRanking      string                `json:"impactRanking" xml:"ImpactRanking"`
-	NamespaceArn       string                `json:"namespaceArn" xml:"NamespaceArn"`
-	Observation        string                `json:"observation" xml:"Observation"`
-	RecommendationText string                `json:"recommendationText" xml:"RecommendationText"`
-	RecommendationType string                `json:"recommendationType" xml:"RecommendationType"`
-	RecommendedActions RecommendedActionList `json:"recommendedActions" xml:"RecommendedActions"`
-	ReferenceLinks     ReferenceLinkList     `json:"referenceLinks" xml:"ReferenceLinks"`
-	Title              string                `json:"title" xml:"Title"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+ImpactRanking string `json:"impactRanking" xml:"ImpactRanking"`
+NamespaceArn string `json:"namespaceArn" xml:"NamespaceArn"`
+Observation string `json:"observation" xml:"Observation"`
+RecommendationText string `json:"recommendationText" xml:"RecommendationText"`
+RecommendationType string `json:"recommendationType" xml:"RecommendationType"`
+RecommendedActions RecommendedActionList `json:"recommendedActions" xml:"RecommendedActions"`
+ReferenceLinks ReferenceLinkList `json:"referenceLinks" xml:"ReferenceLinks"`
+Title string `json:"title" xml:"Title"`
 }
 
 type RecommendedAction struct {
-	Command  string `json:"command" xml:"Command"`
-	Database string `json:"database" xml:"Database"`
-	Text     string `json:"text" xml:"Text"`
-	Type     string `json:"type" xml:"Type"`
+Command string `json:"command" xml:"Command"`
+Database string `json:"database" xml:"Database"`
+Text string `json:"text" xml:"Text"`
+Type string `json:"type" xml:"Type"`
 }
 
 type RecurringCharge struct {
-	RecurringChargeAmount    float64 `json:"recurringChargeAmount" xml:"RecurringChargeAmount"`
-	RecurringChargeFrequency string  `json:"recurringChargeFrequency" xml:"RecurringChargeFrequency"`
+RecurringChargeAmount float64 `json:"recurringChargeAmount" xml:"RecurringChargeAmount"`
+RecurringChargeFrequency string `json:"recurringChargeFrequency" xml:"RecurringChargeFrequency"`
 }
 
 type RedshiftIdcApplication struct {
-	ApplicationType            string                    `json:"applicationType" xml:"ApplicationType"`
-	AuthorizedTokenIssuerList  AuthorizedTokenIssuerList `json:"authorizedTokenIssuerList" xml:"AuthorizedTokenIssuerList"`
-	IamRoleArn                 string                    `json:"iamRoleArn" xml:"IamRoleArn"`
-	IdcDisplayName             string                    `json:"idcDisplayName" xml:"IdcDisplayName"`
-	IdcInstanceArn             string                    `json:"idcInstanceArn" xml:"IdcInstanceArn"`
-	IdcManagedApplicationArn   string                    `json:"idcManagedApplicationArn" xml:"IdcManagedApplicationArn"`
-	IdcOnboardStatus           string                    `json:"idcOnboardStatus" xml:"IdcOnboardStatus"`
-	IdentityNamespace          string                    `json:"identityNamespace" xml:"IdentityNamespace"`
-	RedshiftIdcApplicationArn  string                    `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
-	RedshiftIdcApplicationName string                    `json:"redshiftIdcApplicationName" xml:"RedshiftIdcApplicationName"`
-	ServiceIntegrations        ServiceIntegrationList    `json:"serviceIntegrations" xml:"ServiceIntegrations"`
-	SsoTagKeys                 TagKeyList                `json:"ssoTagKeys" xml:"SsoTagKeys"`
-	Tags                       TagList                   `json:"tags" xml:"Tags"`
+ApplicationType string `json:"applicationType" xml:"ApplicationType"`
+AuthorizedTokenIssuerList AuthorizedTokenIssuerList `json:"authorizedTokenIssuerList" xml:"AuthorizedTokenIssuerList"`
+IamRoleArn string `json:"iamRoleArn" xml:"IamRoleArn"`
+IdcDisplayName string `json:"idcDisplayName" xml:"IdcDisplayName"`
+IdcInstanceArn string `json:"idcInstanceArn" xml:"IdcInstanceArn"`
+IdcManagedApplicationArn string `json:"idcManagedApplicationArn" xml:"IdcManagedApplicationArn"`
+IdcOnboardStatus string `json:"idcOnboardStatus" xml:"IdcOnboardStatus"`
+IdentityNamespace string `json:"identityNamespace" xml:"IdentityNamespace"`
+RedshiftIdcApplicationArn string `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
+RedshiftIdcApplicationName string `json:"redshiftIdcApplicationName" xml:"RedshiftIdcApplicationName"`
+ServiceIntegrations ServiceIntegrationList `json:"serviceIntegrations" xml:"ServiceIntegrations"`
+SsoTagKeys TagKeyList `json:"ssoTagKeys" xml:"SsoTagKeys"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type ReferenceLink struct {
-	Link string `json:"link" xml:"Link"`
-	Text string `json:"text" xml:"Text"`
+Link string `json:"link" xml:"Link"`
+Text string `json:"text" xml:"Text"`
 }
 
 type RegisterNamespaceInputMessage struct {
-	ConsumerIdentifiers ConsumerIdentifierList `json:"consumerIdentifiers" xml:"ConsumerIdentifiers"`
-	NamespaceIdentifier interface{}            `json:"namespaceIdentifier" xml:"NamespaceIdentifier"`
+ConsumerIdentifiers ConsumerIdentifierList `json:"consumerIdentifiers" xml:"ConsumerIdentifiers"`
+NamespaceIdentifier interface{} `json:"namespaceIdentifier" xml:"NamespaceIdentifier"`
 }
 
 type RegisterNamespaceOutputMessage struct {
-	Status string `json:"status" xml:"Status"`
+Status string `json:"status" xml:"Status"`
 }
 
 type RejectDataShareMessage struct {
-	DataShareArn string `json:"dataShareArn" xml:"DataShareArn"`
+DataShareArn string `json:"dataShareArn" xml:"DataShareArn"`
 }
 
 type ReservedNode struct {
-	CurrencyCode             string              `json:"currencyCode" xml:"CurrencyCode"`
-	Duration                 int32               `json:"duration" xml:"Duration"`
-	FixedPrice               float64             `json:"fixedPrice" xml:"FixedPrice"`
-	NodeCount                int32               `json:"nodeCount" xml:"NodeCount"`
-	NodeType                 string              `json:"nodeType" xml:"NodeType"`
-	OfferingType             string              `json:"offeringType" xml:"OfferingType"`
-	RecurringCharges         RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
-	ReservedNodeId           string              `json:"reservedNodeId" xml:"ReservedNodeId"`
-	ReservedNodeOfferingId   string              `json:"reservedNodeOfferingId" xml:"ReservedNodeOfferingId"`
-	ReservedNodeOfferingType string              `json:"reservedNodeOfferingType" xml:"ReservedNodeOfferingType"`
-	StartTime                time.Time           `json:"startTime" xml:"StartTime"`
-	State                    string              `json:"state" xml:"State"`
-	UsagePrice               float64             `json:"usagePrice" xml:"UsagePrice"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+Duration int32 `json:"duration" xml:"Duration"`
+FixedPrice float64 `json:"fixedPrice" xml:"FixedPrice"`
+NodeCount int32 `json:"nodeCount" xml:"NodeCount"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+OfferingType string `json:"offeringType" xml:"OfferingType"`
+RecurringCharges RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
+ReservedNodeId string `json:"reservedNodeId" xml:"ReservedNodeId"`
+ReservedNodeOfferingId string `json:"reservedNodeOfferingId" xml:"ReservedNodeOfferingId"`
+ReservedNodeOfferingType string `json:"reservedNodeOfferingType" xml:"ReservedNodeOfferingType"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+State string `json:"state" xml:"State"`
+UsagePrice float64 `json:"usagePrice" xml:"UsagePrice"`
 }
 
 type ReservedNodeConfigurationOption struct {
-	SourceReservedNode         *ReservedNode         `json:"sourceReservedNode" xml:"SourceReservedNode"`
-	TargetReservedNodeCount    int32                 `json:"targetReservedNodeCount" xml:"TargetReservedNodeCount"`
-	TargetReservedNodeOffering *ReservedNodeOffering `json:"targetReservedNodeOffering" xml:"TargetReservedNodeOffering"`
+SourceReservedNode *ReservedNode `json:"sourceReservedNode" xml:"SourceReservedNode"`
+TargetReservedNodeCount int32 `json:"targetReservedNodeCount" xml:"TargetReservedNodeCount"`
+TargetReservedNodeOffering *ReservedNodeOffering `json:"targetReservedNodeOffering" xml:"TargetReservedNodeOffering"`
 }
 
 type ReservedNodeExchangeStatus struct {
-	RequestTime                   time.Time `json:"requestTime" xml:"RequestTime"`
-	ReservedNodeExchangeRequestId string    `json:"reservedNodeExchangeRequestId" xml:"ReservedNodeExchangeRequestId"`
-	SourceReservedNodeCount       int32     `json:"sourceReservedNodeCount" xml:"SourceReservedNodeCount"`
-	SourceReservedNodeId          string    `json:"sourceReservedNodeId" xml:"SourceReservedNodeId"`
-	SourceReservedNodeType        string    `json:"sourceReservedNodeType" xml:"SourceReservedNodeType"`
-	Status                        string    `json:"status" xml:"Status"`
-	TargetReservedNodeCount       int32     `json:"targetReservedNodeCount" xml:"TargetReservedNodeCount"`
-	TargetReservedNodeOfferingId  string    `json:"targetReservedNodeOfferingId" xml:"TargetReservedNodeOfferingId"`
-	TargetReservedNodeType        string    `json:"targetReservedNodeType" xml:"TargetReservedNodeType"`
+RequestTime time.Time `json:"requestTime" xml:"RequestTime"`
+ReservedNodeExchangeRequestId string `json:"reservedNodeExchangeRequestId" xml:"ReservedNodeExchangeRequestId"`
+SourceReservedNodeCount int32 `json:"sourceReservedNodeCount" xml:"SourceReservedNodeCount"`
+SourceReservedNodeId string `json:"sourceReservedNodeId" xml:"SourceReservedNodeId"`
+SourceReservedNodeType string `json:"sourceReservedNodeType" xml:"SourceReservedNodeType"`
+Status string `json:"status" xml:"Status"`
+TargetReservedNodeCount int32 `json:"targetReservedNodeCount" xml:"TargetReservedNodeCount"`
+TargetReservedNodeOfferingId string `json:"targetReservedNodeOfferingId" xml:"TargetReservedNodeOfferingId"`
+TargetReservedNodeType string `json:"targetReservedNodeType" xml:"TargetReservedNodeType"`
 }
 
 type ReservedNodeOffering struct {
-	CurrencyCode             string              `json:"currencyCode" xml:"CurrencyCode"`
-	Duration                 int32               `json:"duration" xml:"Duration"`
-	FixedPrice               float64             `json:"fixedPrice" xml:"FixedPrice"`
-	NodeType                 string              `json:"nodeType" xml:"NodeType"`
-	OfferingType             string              `json:"offeringType" xml:"OfferingType"`
-	RecurringCharges         RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
-	ReservedNodeOfferingId   string              `json:"reservedNodeOfferingId" xml:"ReservedNodeOfferingId"`
-	ReservedNodeOfferingType string              `json:"reservedNodeOfferingType" xml:"ReservedNodeOfferingType"`
-	UsagePrice               float64             `json:"usagePrice" xml:"UsagePrice"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+Duration int32 `json:"duration" xml:"Duration"`
+FixedPrice float64 `json:"fixedPrice" xml:"FixedPrice"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+OfferingType string `json:"offeringType" xml:"OfferingType"`
+RecurringCharges RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
+ReservedNodeOfferingId string `json:"reservedNodeOfferingId" xml:"ReservedNodeOfferingId"`
+ReservedNodeOfferingType string `json:"reservedNodeOfferingType" xml:"ReservedNodeOfferingType"`
+UsagePrice float64 `json:"usagePrice" xml:"UsagePrice"`
 }
 
 type ReservedNodeOfferingsMessage struct {
-	Marker                string                   `json:"marker" xml:"Marker"`
-	ReservedNodeOfferings ReservedNodeOfferingList `json:"reservedNodeOfferings" xml:"ReservedNodeOfferings"`
+Marker string `json:"marker" xml:"Marker"`
+ReservedNodeOfferings ReservedNodeOfferingList `json:"reservedNodeOfferings" xml:"ReservedNodeOfferings"`
 }
 
 type ReservedNodesMessage struct {
-	Marker        string           `json:"marker" xml:"Marker"`
-	ReservedNodes ReservedNodeList `json:"reservedNodes" xml:"ReservedNodes"`
+Marker string `json:"marker" xml:"Marker"`
+ReservedNodes ReservedNodeList `json:"reservedNodes" xml:"ReservedNodes"`
 }
 
 type ResetClusterParameterGroupMessage struct {
-	ParameterGroupName string         `json:"parameterGroupName" xml:"ParameterGroupName"`
-	Parameters         ParametersList `json:"parameters" xml:"Parameters"`
-	ResetAllParameters bool           `json:"resetAllParameters" xml:"ResetAllParameters"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+Parameters ParametersList `json:"parameters" xml:"Parameters"`
+ResetAllParameters bool `json:"resetAllParameters" xml:"ResetAllParameters"`
 }
 
 type ResizeClusterMessage struct {
-	Classic                      bool   `json:"classic" xml:"Classic"`
-	ClusterIdentifier            string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	ClusterType                  string `json:"clusterType" xml:"ClusterType"`
-	NodeType                     string `json:"nodeType" xml:"NodeType"`
-	NumberOfNodes                int32  `json:"numberOfNodes" xml:"NumberOfNodes"`
-	ReservedNodeId               string `json:"reservedNodeId" xml:"ReservedNodeId"`
-	TargetReservedNodeOfferingId string `json:"targetReservedNodeOfferingId" xml:"TargetReservedNodeOfferingId"`
+Classic bool `json:"classic" xml:"Classic"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterType string `json:"clusterType" xml:"ClusterType"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
+ReservedNodeId string `json:"reservedNodeId" xml:"ReservedNodeId"`
+TargetReservedNodeOfferingId string `json:"targetReservedNodeOfferingId" xml:"TargetReservedNodeOfferingId"`
 }
 
 type ResizeClusterResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type ResizeInfo struct {
-	AllowCancelResize bool   `json:"allowCancelResize" xml:"AllowCancelResize"`
-	ResizeType        string `json:"resizeType" xml:"ResizeType"`
+AllowCancelResize bool `json:"allowCancelResize" xml:"AllowCancelResize"`
+ResizeType string `json:"resizeType" xml:"ResizeType"`
 }
 
 type ResizeProgressMessage struct {
-	AvgResizeRateInMegaBytesPerSecond  float64                `json:"avgResizeRateInMegaBytesPerSecond" xml:"AvgResizeRateInMegaBytesPerSecond"`
-	DataTransferProgressPercent        float64                `json:"dataTransferProgressPercent" xml:"DataTransferProgressPercent"`
-	ElapsedTimeInSeconds               int64                  `json:"elapsedTimeInSeconds" xml:"ElapsedTimeInSeconds"`
-	EstimatedTimeToCompletionInSeconds int64                  `json:"estimatedTimeToCompletionInSeconds" xml:"EstimatedTimeToCompletionInSeconds"`
-	ImportTablesCompleted              ImportTablesCompleted  `json:"importTablesCompleted" xml:"ImportTablesCompleted"`
-	ImportTablesInProgress             ImportTablesInProgress `json:"importTablesInProgress" xml:"ImportTablesInProgress"`
-	ImportTablesNotStarted             ImportTablesNotStarted `json:"importTablesNotStarted" xml:"ImportTablesNotStarted"`
-	Message                            string                 `json:"message" xml:"Message"`
-	ProgressInMegaBytes                int64                  `json:"progressInMegaBytes" xml:"ProgressInMegaBytes"`
-	ResizeType                         string                 `json:"resizeType" xml:"ResizeType"`
-	Status                             string                 `json:"status" xml:"Status"`
-	TargetClusterType                  string                 `json:"targetClusterType" xml:"TargetClusterType"`
-	TargetEncryptionType               string                 `json:"targetEncryptionType" xml:"TargetEncryptionType"`
-	TargetNodeType                     string                 `json:"targetNodeType" xml:"TargetNodeType"`
-	TargetNumberOfNodes                int32                  `json:"targetNumberOfNodes" xml:"TargetNumberOfNodes"`
-	TotalResizeDataInMegaBytes         int64                  `json:"totalResizeDataInMegaBytes" xml:"TotalResizeDataInMegaBytes"`
+AvgResizeRateInMegaBytesPerSecond float64 `json:"avgResizeRateInMegaBytesPerSecond" xml:"AvgResizeRateInMegaBytesPerSecond"`
+DataTransferProgressPercent float64 `json:"dataTransferProgressPercent" xml:"DataTransferProgressPercent"`
+ElapsedTimeInSeconds int64 `json:"elapsedTimeInSeconds" xml:"ElapsedTimeInSeconds"`
+EstimatedTimeToCompletionInSeconds int64 `json:"estimatedTimeToCompletionInSeconds" xml:"EstimatedTimeToCompletionInSeconds"`
+ImportTablesCompleted ImportTablesCompleted `json:"importTablesCompleted" xml:"ImportTablesCompleted"`
+ImportTablesInProgress ImportTablesInProgress `json:"importTablesInProgress" xml:"ImportTablesInProgress"`
+ImportTablesNotStarted ImportTablesNotStarted `json:"importTablesNotStarted" xml:"ImportTablesNotStarted"`
+Message string `json:"message" xml:"Message"`
+ProgressInMegaBytes int64 `json:"progressInMegaBytes" xml:"ProgressInMegaBytes"`
+ResizeType string `json:"resizeType" xml:"ResizeType"`
+Status string `json:"status" xml:"Status"`
+TargetClusterType string `json:"targetClusterType" xml:"TargetClusterType"`
+TargetEncryptionType string `json:"targetEncryptionType" xml:"TargetEncryptionType"`
+TargetNodeType string `json:"targetNodeType" xml:"TargetNodeType"`
+TargetNumberOfNodes int32 `json:"targetNumberOfNodes" xml:"TargetNumberOfNodes"`
+TotalResizeDataInMegaBytes int64 `json:"totalResizeDataInMegaBytes" xml:"TotalResizeDataInMegaBytes"`
 }
 
 type ResourcePolicy struct {
-	Policy      string `json:"policy" xml:"Policy"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Policy string `json:"policy" xml:"Policy"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type RestoreFromClusterSnapshotMessage struct {
-	AdditionalInfo                   string                       `json:"additionalInfo" xml:"AdditionalInfo"`
-	AllowVersionUpgrade              bool                         `json:"allowVersionUpgrade" xml:"AllowVersionUpgrade"`
-	AquaConfigurationStatus          string                       `json:"aquaConfigurationStatus" xml:"AquaConfigurationStatus"`
-	AutomatedSnapshotRetentionPeriod int32                        `json:"automatedSnapshotRetentionPeriod" xml:"AutomatedSnapshotRetentionPeriod"`
-	AvailabilityZone                 string                       `json:"availabilityZone" xml:"AvailabilityZone"`
-	AvailabilityZoneRelocation       bool                         `json:"availabilityZoneRelocation" xml:"AvailabilityZoneRelocation"`
-	CatalogName                      string                       `json:"catalogName" xml:"CatalogName"`
-	ClusterIdentifier                string                       `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	ClusterParameterGroupName        string                       `json:"clusterParameterGroupName" xml:"ClusterParameterGroupName"`
-	ClusterSecurityGroups            ClusterSecurityGroupNameList `json:"clusterSecurityGroups" xml:"ClusterSecurityGroups"`
-	ClusterSubnetGroupName           string                       `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
-	DefaultIamRoleArn                string                       `json:"defaultIamRoleArn" xml:"DefaultIamRoleArn"`
-	ElasticIp                        string                       `json:"elasticIp" xml:"ElasticIp"`
-	Encrypted                        bool                         `json:"encrypted" xml:"Encrypted"`
-	EnhancedVpcRouting               bool                         `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
-	HsmClientCertificateIdentifier   string                       `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
-	HsmConfigurationIdentifier       string                       `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
-	IamRoles                         IamRoleArnList               `json:"iamRoles" xml:"IamRoles"`
-	IpAddressType                    string                       `json:"ipAddressType" xml:"IpAddressType"`
-	KmsKeyId                         string                       `json:"kmsKeyId" xml:"KmsKeyId"`
-	MaintenanceTrackName             string                       `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
-	ManageMasterPassword             bool                         `json:"manageMasterPassword" xml:"ManageMasterPassword"`
-	ManualSnapshotRetentionPeriod    int32                        `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
-	MasterPasswordSecretKmsKeyId     string                       `json:"masterPasswordSecretKmsKeyId" xml:"MasterPasswordSecretKmsKeyId"`
-	MultiAZ                          bool                         `json:"multiAZ" xml:"MultiAZ"`
-	NodeType                         string                       `json:"nodeType" xml:"NodeType"`
-	NumberOfNodes                    int32                        `json:"numberOfNodes" xml:"NumberOfNodes"`
-	OwnerAccount                     string                       `json:"ownerAccount" xml:"OwnerAccount"`
-	Port                             int32                        `json:"port" xml:"Port"`
-	PreferredMaintenanceWindow       string                       `json:"preferredMaintenanceWindow" xml:"PreferredMaintenanceWindow"`
-	PubliclyAccessible               bool                         `json:"publiclyAccessible" xml:"PubliclyAccessible"`
-	RedshiftIdcApplicationArn        string                       `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
-	ReservedNodeId                   string                       `json:"reservedNodeId" xml:"ReservedNodeId"`
-	SnapshotArn                      string                       `json:"snapshotArn" xml:"SnapshotArn"`
-	SnapshotClusterIdentifier        string                       `json:"snapshotClusterIdentifier" xml:"SnapshotClusterIdentifier"`
-	SnapshotIdentifier               string                       `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
-	SnapshotScheduleIdentifier       string                       `json:"snapshotScheduleIdentifier" xml:"SnapshotScheduleIdentifier"`
-	TargetReservedNodeOfferingId     string                       `json:"targetReservedNodeOfferingId" xml:"TargetReservedNodeOfferingId"`
-	VpcSecurityGroupIds              VpcSecurityGroupIdList       `json:"vpcSecurityGroupIds" xml:"VpcSecurityGroupIds"`
+AdditionalInfo string `json:"additionalInfo" xml:"AdditionalInfo"`
+AllowVersionUpgrade bool `json:"allowVersionUpgrade" xml:"AllowVersionUpgrade"`
+AquaConfigurationStatus string `json:"aquaConfigurationStatus" xml:"AquaConfigurationStatus"`
+AutomatedSnapshotRetentionPeriod int32 `json:"automatedSnapshotRetentionPeriod" xml:"AutomatedSnapshotRetentionPeriod"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+AvailabilityZoneRelocation bool `json:"availabilityZoneRelocation" xml:"AvailabilityZoneRelocation"`
+CatalogName string `json:"catalogName" xml:"CatalogName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterParameterGroupName string `json:"clusterParameterGroupName" xml:"ClusterParameterGroupName"`
+ClusterSecurityGroups ClusterSecurityGroupNameList `json:"clusterSecurityGroups" xml:"ClusterSecurityGroups"`
+ClusterSubnetGroupName string `json:"clusterSubnetGroupName" xml:"ClusterSubnetGroupName"`
+DefaultIamRoleArn string `json:"defaultIamRoleArn" xml:"DefaultIamRoleArn"`
+ElasticIp string `json:"elasticIp" xml:"ElasticIp"`
+Encrypted bool `json:"encrypted" xml:"Encrypted"`
+EnhancedVpcRouting bool `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
+HsmClientCertificateIdentifier string `json:"hsmClientCertificateIdentifier" xml:"HsmClientCertificateIdentifier"`
+HsmConfigurationIdentifier string `json:"hsmConfigurationIdentifier" xml:"HsmConfigurationIdentifier"`
+IamRoles IamRoleArnList `json:"iamRoles" xml:"IamRoles"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MaintenanceTrackName string `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
+ManageMasterPassword bool `json:"manageMasterPassword" xml:"ManageMasterPassword"`
+ManualSnapshotRetentionPeriod int32 `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
+MasterPasswordSecretKmsKeyId string `json:"masterPasswordSecretKmsKeyId" xml:"MasterPasswordSecretKmsKeyId"`
+MultiAZ bool `json:"multiAZ" xml:"MultiAZ"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
+OwnerAccount string `json:"ownerAccount" xml:"OwnerAccount"`
+Port int32 `json:"port" xml:"Port"`
+PreferredMaintenanceWindow string `json:"preferredMaintenanceWindow" xml:"PreferredMaintenanceWindow"`
+PubliclyAccessible bool `json:"publiclyAccessible" xml:"PubliclyAccessible"`
+RedshiftIdcApplicationArn string `json:"redshiftIdcApplicationArn" xml:"RedshiftIdcApplicationArn"`
+ReservedNodeId string `json:"reservedNodeId" xml:"ReservedNodeId"`
+SnapshotArn string `json:"snapshotArn" xml:"SnapshotArn"`
+SnapshotClusterIdentifier string `json:"snapshotClusterIdentifier" xml:"SnapshotClusterIdentifier"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+SnapshotScheduleIdentifier string `json:"snapshotScheduleIdentifier" xml:"SnapshotScheduleIdentifier"`
+TargetReservedNodeOfferingId string `json:"targetReservedNodeOfferingId" xml:"TargetReservedNodeOfferingId"`
+VpcSecurityGroupIds VpcSecurityGroupIdList `json:"vpcSecurityGroupIds" xml:"VpcSecurityGroupIds"`
 }
 
 type RestoreFromClusterSnapshotResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type RestoreStatus struct {
-	CurrentRestoreRateInMegaBytesPerSecond float64 `json:"currentRestoreRateInMegaBytesPerSecond" xml:"CurrentRestoreRateInMegaBytesPerSecond"`
-	ElapsedTimeInSeconds                   int64   `json:"elapsedTimeInSeconds" xml:"ElapsedTimeInSeconds"`
-	EstimatedTimeToCompletionInSeconds     int64   `json:"estimatedTimeToCompletionInSeconds" xml:"EstimatedTimeToCompletionInSeconds"`
-	ProgressInMegaBytes                    int64   `json:"progressInMegaBytes" xml:"ProgressInMegaBytes"`
-	SnapshotSizeInMegaBytes                int64   `json:"snapshotSizeInMegaBytes" xml:"SnapshotSizeInMegaBytes"`
-	Status                                 string  `json:"status" xml:"Status"`
+CurrentRestoreRateInMegaBytesPerSecond float64 `json:"currentRestoreRateInMegaBytesPerSecond" xml:"CurrentRestoreRateInMegaBytesPerSecond"`
+ElapsedTimeInSeconds int64 `json:"elapsedTimeInSeconds" xml:"ElapsedTimeInSeconds"`
+EstimatedTimeToCompletionInSeconds int64 `json:"estimatedTimeToCompletionInSeconds" xml:"EstimatedTimeToCompletionInSeconds"`
+ProgressInMegaBytes int64 `json:"progressInMegaBytes" xml:"ProgressInMegaBytes"`
+SnapshotSizeInMegaBytes int64 `json:"snapshotSizeInMegaBytes" xml:"SnapshotSizeInMegaBytes"`
+Status string `json:"status" xml:"Status"`
 }
 
 type RestoreTableFromClusterSnapshotMessage struct {
-	ClusterIdentifier             string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	EnableCaseSensitiveIdentifier bool   `json:"enableCaseSensitiveIdentifier" xml:"EnableCaseSensitiveIdentifier"`
-	NewTableName                  string `json:"newTableName" xml:"NewTableName"`
-	SnapshotIdentifier            string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
-	SourceDatabaseName            string `json:"sourceDatabaseName" xml:"SourceDatabaseName"`
-	SourceSchemaName              string `json:"sourceSchemaName" xml:"SourceSchemaName"`
-	SourceTableName               string `json:"sourceTableName" xml:"SourceTableName"`
-	TargetDatabaseName            string `json:"targetDatabaseName" xml:"TargetDatabaseName"`
-	TargetSchemaName              string `json:"targetSchemaName" xml:"TargetSchemaName"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+EnableCaseSensitiveIdentifier bool `json:"enableCaseSensitiveIdentifier" xml:"EnableCaseSensitiveIdentifier"`
+NewTableName string `json:"newTableName" xml:"NewTableName"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+SourceDatabaseName string `json:"sourceDatabaseName" xml:"SourceDatabaseName"`
+SourceSchemaName string `json:"sourceSchemaName" xml:"SourceSchemaName"`
+SourceTableName string `json:"sourceTableName" xml:"SourceTableName"`
+TargetDatabaseName string `json:"targetDatabaseName" xml:"TargetDatabaseName"`
+TargetSchemaName string `json:"targetSchemaName" xml:"TargetSchemaName"`
 }
 
 type RestoreTableFromClusterSnapshotResult struct {
-	TableRestoreStatus *TableRestoreStatus `json:"tableRestoreStatus" xml:"TableRestoreStatus"`
+TableRestoreStatus *TableRestoreStatus `json:"tableRestoreStatus" xml:"TableRestoreStatus"`
 }
 
 type ResumeClusterMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type ResumeClusterResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type RevisionTarget struct {
-	DatabaseRevision            string    `json:"databaseRevision" xml:"DatabaseRevision"`
-	DatabaseRevisionReleaseDate time.Time `json:"databaseRevisionReleaseDate" xml:"DatabaseRevisionReleaseDate"`
-	Description                 string    `json:"description" xml:"Description"`
+DatabaseRevision string `json:"databaseRevision" xml:"DatabaseRevision"`
+DatabaseRevisionReleaseDate time.Time `json:"databaseRevisionReleaseDate" xml:"DatabaseRevisionReleaseDate"`
+Description string `json:"description" xml:"Description"`
 }
 
 type RevokeClusterSecurityGroupIngressMessage struct {
-	CIDRIP                   string `json:"cIDRIP" xml:"CIDRIP"`
-	ClusterSecurityGroupName string `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
-	EC2SecurityGroupName     string `json:"eC2SecurityGroupName" xml:"EC2SecurityGroupName"`
-	EC2SecurityGroupOwnerId  string `json:"eC2SecurityGroupOwnerId" xml:"EC2SecurityGroupOwnerId"`
+CIDRIP string `json:"cIDRIP" xml:"CIDRIP"`
+ClusterSecurityGroupName string `json:"clusterSecurityGroupName" xml:"ClusterSecurityGroupName"`
+EC2SecurityGroupName string `json:"eC2SecurityGroupName" xml:"EC2SecurityGroupName"`
+EC2SecurityGroupOwnerId string `json:"eC2SecurityGroupOwnerId" xml:"EC2SecurityGroupOwnerId"`
 }
 
 type RevokeClusterSecurityGroupIngressResult struct {
-	ClusterSecurityGroup *ClusterSecurityGroup `json:"clusterSecurityGroup" xml:"ClusterSecurityGroup"`
+ClusterSecurityGroup *ClusterSecurityGroup `json:"clusterSecurityGroup" xml:"ClusterSecurityGroup"`
 }
 
 type RevokeEndpointAccessMessage struct {
-	Account           string            `json:"account" xml:"Account"`
-	ClusterIdentifier string            `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	Force             bool              `json:"force" xml:"Force"`
-	VpcIds            VpcIdentifierList `json:"vpcIds" xml:"VpcIds"`
+Account string `json:"account" xml:"Account"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+Force bool `json:"force" xml:"Force"`
+VpcIds VpcIdentifierList `json:"vpcIds" xml:"VpcIds"`
 }
 
 type RevokeSnapshotAccessMessage struct {
-	AccountWithRestoreAccess  string `json:"accountWithRestoreAccess" xml:"AccountWithRestoreAccess"`
-	SnapshotArn               string `json:"snapshotArn" xml:"SnapshotArn"`
-	SnapshotClusterIdentifier string `json:"snapshotClusterIdentifier" xml:"SnapshotClusterIdentifier"`
-	SnapshotIdentifier        string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+AccountWithRestoreAccess string `json:"accountWithRestoreAccess" xml:"AccountWithRestoreAccess"`
+SnapshotArn string `json:"snapshotArn" xml:"SnapshotArn"`
+SnapshotClusterIdentifier string `json:"snapshotClusterIdentifier" xml:"SnapshotClusterIdentifier"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
 }
 
 type RevokeSnapshotAccessResult struct {
-	Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
+Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
 }
 
 type RotateEncryptionKeyMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
 }
 
 type RotateEncryptionKeyResult struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type ScheduledAction struct {
-	EndTime                    time.Time               `json:"endTime" xml:"EndTime"`
-	IamRole                    string                  `json:"iamRole" xml:"IamRole"`
-	NextInvocations            ScheduledActionTimeList `json:"nextInvocations" xml:"NextInvocations"`
-	Schedule                   string                  `json:"schedule" xml:"Schedule"`
-	ScheduledActionDescription string                  `json:"scheduledActionDescription" xml:"ScheduledActionDescription"`
-	ScheduledActionName        string                  `json:"scheduledActionName" xml:"ScheduledActionName"`
-	StartTime                  time.Time               `json:"startTime" xml:"StartTime"`
-	State                      string                  `json:"state" xml:"State"`
-	TargetAction               *ScheduledActionType    `json:"targetAction" xml:"TargetAction"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+IamRole string `json:"iamRole" xml:"IamRole"`
+NextInvocations ScheduledActionTimeList `json:"nextInvocations" xml:"NextInvocations"`
+Schedule string `json:"schedule" xml:"Schedule"`
+ScheduledActionDescription string `json:"scheduledActionDescription" xml:"ScheduledActionDescription"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+State string `json:"state" xml:"State"`
+TargetAction *ScheduledActionType `json:"targetAction" xml:"TargetAction"`
 }
 
 type ScheduledActionFilter struct {
-	Name   string          `json:"name" xml:"Name"`
-	Values ValueStringList `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values ValueStringList `json:"values" xml:"Values"`
 }
 
 type ScheduledActionType struct {
-	PauseCluster  *PauseClusterMessage  `json:"pauseCluster" xml:"PauseCluster"`
-	ResizeCluster *ResizeClusterMessage `json:"resizeCluster" xml:"ResizeCluster"`
-	ResumeCluster *ResumeClusterMessage `json:"resumeCluster" xml:"ResumeCluster"`
+PauseCluster *PauseClusterMessage `json:"pauseCluster" xml:"PauseCluster"`
+ResizeCluster *ResizeClusterMessage `json:"resizeCluster" xml:"ResizeCluster"`
+ResumeCluster *ResumeClusterMessage `json:"resumeCluster" xml:"ResumeCluster"`
 }
 
 type ScheduledActionsMessage struct {
-	Marker           string              `json:"marker" xml:"Marker"`
-	ScheduledActions ScheduledActionList `json:"scheduledActions" xml:"ScheduledActions"`
+Marker string `json:"marker" xml:"Marker"`
+ScheduledActions ScheduledActionList `json:"scheduledActions" xml:"ScheduledActions"`
 }
 
 type SecondaryClusterInfo struct {
-	AvailabilityZone string           `json:"availabilityZone" xml:"AvailabilityZone"`
-	ClusterNodes     ClusterNodesList `json:"clusterNodes" xml:"ClusterNodes"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+ClusterNodes ClusterNodesList `json:"clusterNodes" xml:"ClusterNodes"`
 }
 
 type ServerlessIdentifier struct {
-	NamespaceIdentifier string `json:"namespaceIdentifier" xml:"NamespaceIdentifier"`
-	WorkgroupIdentifier string `json:"workgroupIdentifier" xml:"WorkgroupIdentifier"`
+NamespaceIdentifier string `json:"namespaceIdentifier" xml:"NamespaceIdentifier"`
+WorkgroupIdentifier string `json:"workgroupIdentifier" xml:"WorkgroupIdentifier"`
 }
 
 type SmithyUnit struct {
 }
 
 type Snapshot struct {
-	AccountsWithRestoreAccess              AccountsWithRestoreAccessList `json:"accountsWithRestoreAccess" xml:"AccountsWithRestoreAccess"`
-	ActualIncrementalBackupSizeInMegaBytes float64                       `json:"actualIncrementalBackupSizeInMegaBytes" xml:"ActualIncrementalBackupSizeInMegaBytes"`
-	AvailabilityZone                       string                        `json:"availabilityZone" xml:"AvailabilityZone"`
-	BackupProgressInMegaBytes              float64                       `json:"backupProgressInMegaBytes" xml:"BackupProgressInMegaBytes"`
-	ClusterCreateTime                      time.Time                     `json:"clusterCreateTime" xml:"ClusterCreateTime"`
-	ClusterIdentifier                      string                        `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	ClusterVersion                         string                        `json:"clusterVersion" xml:"ClusterVersion"`
-	CurrentBackupRateInMegaBytesPerSecond  float64                       `json:"currentBackupRateInMegaBytesPerSecond" xml:"CurrentBackupRateInMegaBytesPerSecond"`
-	DBName                                 string                        `json:"dBName" xml:"DBName"`
-	ElapsedTimeInSeconds                   int64                         `json:"elapsedTimeInSeconds" xml:"ElapsedTimeInSeconds"`
-	Encrypted                              bool                          `json:"encrypted" xml:"Encrypted"`
-	EncryptedWithHSM                       bool                          `json:"encryptedWithHSM" xml:"EncryptedWithHSM"`
-	EngineFullVersion                      string                        `json:"engineFullVersion" xml:"EngineFullVersion"`
-	EnhancedVpcRouting                     bool                          `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
-	EstimatedSecondsToCompletion           int64                         `json:"estimatedSecondsToCompletion" xml:"EstimatedSecondsToCompletion"`
-	KmsKeyId                               string                        `json:"kmsKeyId" xml:"KmsKeyId"`
-	MaintenanceTrackName                   string                        `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
-	ManualSnapshotRemainingDays            int32                         `json:"manualSnapshotRemainingDays" xml:"ManualSnapshotRemainingDays"`
-	ManualSnapshotRetentionPeriod          int32                         `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
-	MasterPasswordSecretArn                string                        `json:"masterPasswordSecretArn" xml:"MasterPasswordSecretArn"`
-	MasterPasswordSecretKmsKeyId           string                        `json:"masterPasswordSecretKmsKeyId" xml:"MasterPasswordSecretKmsKeyId"`
-	MasterUsername                         string                        `json:"masterUsername" xml:"MasterUsername"`
-	NodeType                               string                        `json:"nodeType" xml:"NodeType"`
-	NumberOfNodes                          int32                         `json:"numberOfNodes" xml:"NumberOfNodes"`
-	OwnerAccount                           string                        `json:"ownerAccount" xml:"OwnerAccount"`
-	Port                                   int32                         `json:"port" xml:"Port"`
-	RestorableNodeTypes                    RestorableNodeTypeList        `json:"restorableNodeTypes" xml:"RestorableNodeTypes"`
-	SnapshotArn                            string                        `json:"snapshotArn" xml:"SnapshotArn"`
-	SnapshotCreateTime                     time.Time                     `json:"snapshotCreateTime" xml:"SnapshotCreateTime"`
-	SnapshotIdentifier                     string                        `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
-	SnapshotRetentionStartTime             time.Time                     `json:"snapshotRetentionStartTime" xml:"SnapshotRetentionStartTime"`
-	SnapshotType                           string                        `json:"snapshotType" xml:"SnapshotType"`
-	SourceRegion                           string                        `json:"sourceRegion" xml:"SourceRegion"`
-	Status                                 string                        `json:"status" xml:"Status"`
-	Tags                                   TagList                       `json:"tags" xml:"Tags"`
-	TotalBackupSizeInMegaBytes             float64                       `json:"totalBackupSizeInMegaBytes" xml:"TotalBackupSizeInMegaBytes"`
-	VpcId                                  string                        `json:"vpcId" xml:"VpcId"`
+AccountsWithRestoreAccess AccountsWithRestoreAccessList `json:"accountsWithRestoreAccess" xml:"AccountsWithRestoreAccess"`
+ActualIncrementalBackupSizeInMegaBytes float64 `json:"actualIncrementalBackupSizeInMegaBytes" xml:"ActualIncrementalBackupSizeInMegaBytes"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+BackupProgressInMegaBytes float64 `json:"backupProgressInMegaBytes" xml:"BackupProgressInMegaBytes"`
+ClusterCreateTime time.Time `json:"clusterCreateTime" xml:"ClusterCreateTime"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+ClusterVersion string `json:"clusterVersion" xml:"ClusterVersion"`
+CurrentBackupRateInMegaBytesPerSecond float64 `json:"currentBackupRateInMegaBytesPerSecond" xml:"CurrentBackupRateInMegaBytesPerSecond"`
+DBName string `json:"dBName" xml:"DBName"`
+ElapsedTimeInSeconds int64 `json:"elapsedTimeInSeconds" xml:"ElapsedTimeInSeconds"`
+Encrypted bool `json:"encrypted" xml:"Encrypted"`
+EncryptedWithHSM bool `json:"encryptedWithHSM" xml:"EncryptedWithHSM"`
+EngineFullVersion string `json:"engineFullVersion" xml:"EngineFullVersion"`
+EnhancedVpcRouting bool `json:"enhancedVpcRouting" xml:"EnhancedVpcRouting"`
+EstimatedSecondsToCompletion int64 `json:"estimatedSecondsToCompletion" xml:"EstimatedSecondsToCompletion"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MaintenanceTrackName string `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
+ManualSnapshotRemainingDays int32 `json:"manualSnapshotRemainingDays" xml:"ManualSnapshotRemainingDays"`
+ManualSnapshotRetentionPeriod int32 `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
+MasterPasswordSecretArn string `json:"masterPasswordSecretArn" xml:"MasterPasswordSecretArn"`
+MasterPasswordSecretKmsKeyId string `json:"masterPasswordSecretKmsKeyId" xml:"MasterPasswordSecretKmsKeyId"`
+MasterUsername string `json:"masterUsername" xml:"MasterUsername"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
+OwnerAccount string `json:"ownerAccount" xml:"OwnerAccount"`
+Port int32 `json:"port" xml:"Port"`
+RestorableNodeTypes RestorableNodeTypeList `json:"restorableNodeTypes" xml:"RestorableNodeTypes"`
+SnapshotArn string `json:"snapshotArn" xml:"SnapshotArn"`
+SnapshotCreateTime time.Time `json:"snapshotCreateTime" xml:"SnapshotCreateTime"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+SnapshotRetentionStartTime time.Time `json:"snapshotRetentionStartTime" xml:"SnapshotRetentionStartTime"`
+SnapshotType string `json:"snapshotType" xml:"SnapshotType"`
+SourceRegion string `json:"sourceRegion" xml:"SourceRegion"`
+Status string `json:"status" xml:"Status"`
+Tags TagList `json:"tags" xml:"Tags"`
+TotalBackupSizeInMegaBytes float64 `json:"totalBackupSizeInMegaBytes" xml:"TotalBackupSizeInMegaBytes"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type SnapshotCopyGrant struct {
-	KmsKeyId              string  `json:"kmsKeyId" xml:"KmsKeyId"`
-	SnapshotCopyGrantName string  `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
-	Tags                  TagList `json:"tags" xml:"Tags"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+SnapshotCopyGrantName string `json:"snapshotCopyGrantName" xml:"SnapshotCopyGrantName"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type SnapshotCopyGrantMessage struct {
-	Marker             string                `json:"marker" xml:"Marker"`
-	SnapshotCopyGrants SnapshotCopyGrantList `json:"snapshotCopyGrants" xml:"SnapshotCopyGrants"`
+Marker string `json:"marker" xml:"Marker"`
+SnapshotCopyGrants SnapshotCopyGrantList `json:"snapshotCopyGrants" xml:"SnapshotCopyGrants"`
 }
 
 type SnapshotErrorMessage struct {
-	FailureCode               string `json:"failureCode" xml:"FailureCode"`
-	FailureReason             string `json:"failureReason" xml:"FailureReason"`
-	SnapshotClusterIdentifier string `json:"snapshotClusterIdentifier" xml:"SnapshotClusterIdentifier"`
-	SnapshotIdentifier        string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+FailureCode string `json:"failureCode" xml:"FailureCode"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+SnapshotClusterIdentifier string `json:"snapshotClusterIdentifier" xml:"SnapshotClusterIdentifier"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
 }
 
 type SnapshotMessage struct {
-	Marker    string       `json:"marker" xml:"Marker"`
-	Snapshots SnapshotList `json:"snapshots" xml:"Snapshots"`
+Marker string `json:"marker" xml:"Marker"`
+Snapshots SnapshotList `json:"snapshots" xml:"Snapshots"`
 }
 
 type SnapshotSchedule struct {
-	AssociatedClusterCount int32                     `json:"associatedClusterCount" xml:"AssociatedClusterCount"`
-	AssociatedClusters     AssociatedClusterList     `json:"associatedClusters" xml:"AssociatedClusters"`
-	NextInvocations        ScheduledSnapshotTimeList `json:"nextInvocations" xml:"NextInvocations"`
-	ScheduleDefinitions    ScheduleDefinitionList    `json:"scheduleDefinitions" xml:"ScheduleDefinitions"`
-	ScheduleDescription    string                    `json:"scheduleDescription" xml:"ScheduleDescription"`
-	ScheduleIdentifier     string                    `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
-	Tags                   TagList                   `json:"tags" xml:"Tags"`
+AssociatedClusterCount int32 `json:"associatedClusterCount" xml:"AssociatedClusterCount"`
+AssociatedClusters AssociatedClusterList `json:"associatedClusters" xml:"AssociatedClusters"`
+NextInvocations ScheduledSnapshotTimeList `json:"nextInvocations" xml:"NextInvocations"`
+ScheduleDefinitions ScheduleDefinitionList `json:"scheduleDefinitions" xml:"ScheduleDefinitions"`
+ScheduleDescription string `json:"scheduleDescription" xml:"ScheduleDescription"`
+ScheduleIdentifier string `json:"scheduleIdentifier" xml:"ScheduleIdentifier"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type SnapshotSortingEntity struct {
-	Attribute string `json:"attribute" xml:"Attribute"`
-	SortOrder string `json:"sortOrder" xml:"SortOrder"`
+Attribute string `json:"attribute" xml:"Attribute"`
+SortOrder string `json:"sortOrder" xml:"SortOrder"`
 }
 
 type Subnet struct {
-	SubnetAvailabilityZone *AvailabilityZone `json:"subnetAvailabilityZone" xml:"SubnetAvailabilityZone"`
-	SubnetIdentifier       string            `json:"subnetIdentifier" xml:"SubnetIdentifier"`
-	SubnetStatus           string            `json:"subnetStatus" xml:"SubnetStatus"`
+SubnetAvailabilityZone *AvailabilityZone `json:"subnetAvailabilityZone" xml:"SubnetAvailabilityZone"`
+SubnetIdentifier string `json:"subnetIdentifier" xml:"SubnetIdentifier"`
+SubnetStatus string `json:"subnetStatus" xml:"SubnetStatus"`
 }
 
 type SupportedOperation struct {
-	OperationName string `json:"operationName" xml:"OperationName"`
+OperationName string `json:"operationName" xml:"OperationName"`
 }
 
 type SupportedPlatform struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type TableRestoreStatus struct {
-	ClusterIdentifier     string    `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	Message               string    `json:"message" xml:"Message"`
-	NewTableName          string    `json:"newTableName" xml:"NewTableName"`
-	ProgressInMegaBytes   int64     `json:"progressInMegaBytes" xml:"ProgressInMegaBytes"`
-	RequestTime           time.Time `json:"requestTime" xml:"RequestTime"`
-	SnapshotIdentifier    string    `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
-	SourceDatabaseName    string    `json:"sourceDatabaseName" xml:"SourceDatabaseName"`
-	SourceSchemaName      string    `json:"sourceSchemaName" xml:"SourceSchemaName"`
-	SourceTableName       string    `json:"sourceTableName" xml:"SourceTableName"`
-	Status                string    `json:"status" xml:"Status"`
-	TableRestoreRequestId string    `json:"tableRestoreRequestId" xml:"TableRestoreRequestId"`
-	TargetDatabaseName    string    `json:"targetDatabaseName" xml:"TargetDatabaseName"`
-	TargetSchemaName      string    `json:"targetSchemaName" xml:"TargetSchemaName"`
-	TotalDataInMegaBytes  int64     `json:"totalDataInMegaBytes" xml:"TotalDataInMegaBytes"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+Message string `json:"message" xml:"Message"`
+NewTableName string `json:"newTableName" xml:"NewTableName"`
+ProgressInMegaBytes int64 `json:"progressInMegaBytes" xml:"ProgressInMegaBytes"`
+RequestTime time.Time `json:"requestTime" xml:"RequestTime"`
+SnapshotIdentifier string `json:"snapshotIdentifier" xml:"SnapshotIdentifier"`
+SourceDatabaseName string `json:"sourceDatabaseName" xml:"SourceDatabaseName"`
+SourceSchemaName string `json:"sourceSchemaName" xml:"SourceSchemaName"`
+SourceTableName string `json:"sourceTableName" xml:"SourceTableName"`
+Status string `json:"status" xml:"Status"`
+TableRestoreRequestId string `json:"tableRestoreRequestId" xml:"TableRestoreRequestId"`
+TargetDatabaseName string `json:"targetDatabaseName" xml:"TargetDatabaseName"`
+TargetSchemaName string `json:"targetSchemaName" xml:"TargetSchemaName"`
+TotalDataInMegaBytes int64 `json:"totalDataInMegaBytes" xml:"TotalDataInMegaBytes"`
 }
 
 type TableRestoreStatusMessage struct {
-	Marker                    string                 `json:"marker" xml:"Marker"`
-	TableRestoreStatusDetails TableRestoreStatusList `json:"tableRestoreStatusDetails" xml:"TableRestoreStatusDetails"`
+Marker string `json:"marker" xml:"Marker"`
+TableRestoreStatusDetails TableRestoreStatusList `json:"tableRestoreStatusDetails" xml:"TableRestoreStatusDetails"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TaggedResource struct {
-	ResourceName string `json:"resourceName" xml:"ResourceName"`
-	ResourceType string `json:"resourceType" xml:"ResourceType"`
-	Tag          *Tag   `json:"tag" xml:"Tag"`
+ResourceName string `json:"resourceName" xml:"ResourceName"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+Tag *Tag `json:"tag" xml:"Tag"`
 }
 
 type TaggedResourceListMessage struct {
-	Marker          string             `json:"marker" xml:"Marker"`
-	TaggedResources TaggedResourceList `json:"taggedResources" xml:"TaggedResources"`
+Marker string `json:"marker" xml:"Marker"`
+TaggedResources TaggedResourceList `json:"taggedResources" xml:"TaggedResources"`
 }
 
 type TrackListMessage struct {
-	MaintenanceTracks TrackList `json:"maintenanceTracks" xml:"MaintenanceTracks"`
-	Marker            string    `json:"marker" xml:"Marker"`
+MaintenanceTracks TrackList `json:"maintenanceTracks" xml:"MaintenanceTracks"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type UpdatePartnerStatusInputMessage struct {
-	AccountId         string `json:"accountId" xml:"AccountId"`
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	DatabaseName      string `json:"databaseName" xml:"DatabaseName"`
-	PartnerName       string `json:"partnerName" xml:"PartnerName"`
-	Status            string `json:"status" xml:"Status"`
-	StatusMessage     string `json:"statusMessage" xml:"StatusMessage"`
+AccountId string `json:"accountId" xml:"AccountId"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartnerName string `json:"partnerName" xml:"PartnerName"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type UpdateTarget struct {
-	DatabaseVersion      string                 `json:"databaseVersion" xml:"DatabaseVersion"`
-	MaintenanceTrackName string                 `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
-	SupportedOperations  SupportedOperationList `json:"supportedOperations" xml:"SupportedOperations"`
+DatabaseVersion string `json:"databaseVersion" xml:"DatabaseVersion"`
+MaintenanceTrackName string `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
+SupportedOperations SupportedOperationList `json:"supportedOperations" xml:"SupportedOperations"`
 }
 
 type UsageLimit struct {
-	Amount            int64   `json:"amount" xml:"Amount"`
-	BreachAction      string  `json:"breachAction" xml:"BreachAction"`
-	ClusterIdentifier string  `json:"clusterIdentifier" xml:"ClusterIdentifier"`
-	FeatureType       string  `json:"featureType" xml:"FeatureType"`
-	LimitType         string  `json:"limitType" xml:"LimitType"`
-	Period            string  `json:"period" xml:"Period"`
-	Tags              TagList `json:"tags" xml:"Tags"`
-	UsageLimitId      string  `json:"usageLimitId" xml:"UsageLimitId"`
+Amount int64 `json:"amount" xml:"Amount"`
+BreachAction string `json:"breachAction" xml:"BreachAction"`
+ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+FeatureType string `json:"featureType" xml:"FeatureType"`
+LimitType string `json:"limitType" xml:"LimitType"`
+Period string `json:"period" xml:"Period"`
+Tags TagList `json:"tags" xml:"Tags"`
+UsageLimitId string `json:"usageLimitId" xml:"UsageLimitId"`
 }
 
 type UsageLimitList struct {
-	Marker      string      `json:"marker" xml:"Marker"`
-	UsageLimits UsageLimits `json:"usageLimits" xml:"UsageLimits"`
+Marker string `json:"marker" xml:"Marker"`
+UsageLimits UsageLimits `json:"usageLimits" xml:"UsageLimits"`
 }
 
 type VpcEndpoint struct {
-	NetworkInterfaces NetworkInterfaceList `json:"networkInterfaces" xml:"NetworkInterfaces"`
-	VpcEndpointId     string               `json:"vpcEndpointId" xml:"VpcEndpointId"`
-	VpcId             string               `json:"vpcId" xml:"VpcId"`
+NetworkInterfaces NetworkInterfaceList `json:"networkInterfaces" xml:"NetworkInterfaces"`
+VpcEndpointId string `json:"vpcEndpointId" xml:"VpcEndpointId"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type VpcSecurityGroupMembership struct {
-	Status             string `json:"status" xml:"Status"`
-	VpcSecurityGroupId string `json:"vpcSecurityGroupId" xml:"VpcSecurityGroupId"`
+Status string `json:"status" xml:"Status"`
+VpcSecurityGroupId string `json:"vpcSecurityGroupId" xml:"VpcSecurityGroupId"`
 }
 
 type AccountsWithRestoreAccessList []*AccountWithRestoreAccess
@@ -2459,3 +2459,4 @@ type RedshiftScopeUnion interface{}
 type S3AccessGrantsScopeUnion interface{}
 
 type ServiceIntegrationsUnion interface{}
+

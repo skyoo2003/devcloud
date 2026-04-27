@@ -1499,3 +1499,4 @@ func SerializeUpdateWirelessGatewayResponse(w http.ResponseWriter, output *Updat
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

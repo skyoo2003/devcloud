@@ -345,3 +345,4 @@ func SerializeUpdateUserResponse(w http.ResponseWriter, output *UpdateUserRespon
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

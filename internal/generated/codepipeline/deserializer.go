@@ -531,3 +531,4 @@ func SerializeUpdatePipelineOutput(w http.ResponseWriter, output *UpdatePipeline
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

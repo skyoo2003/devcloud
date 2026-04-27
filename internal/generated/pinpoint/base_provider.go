@@ -498,3 +498,4 @@ func (b *BaseProvider) UpdateVoiceTemplate(ctx context.Context, input *UpdateVoi
 func (b *BaseProvider) VerifyOTPMessage(ctx context.Context, input *VerifyOTPMessageRequest) (*VerifyOTPMessageResponse, error) {
 	return nil, fmt.Errorf("VerifyOTPMessage: %w", ErrNotImplemented)
 }
+

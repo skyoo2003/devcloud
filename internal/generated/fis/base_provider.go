@@ -114,3 +114,4 @@ func (b *BaseProvider) UpdateSafetyLeverState(ctx context.Context, input *Update
 func (b *BaseProvider) UpdateTargetAccountConfiguration(ctx context.Context, input *UpdateTargetAccountConfigurationRequest) (*UpdateTargetAccountConfigurationResponse, error) {
 	return nil, fmt.Errorf("UpdateTargetAccountConfiguration: %w", ErrNotImplemented)
 }
+

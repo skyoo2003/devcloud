@@ -241,3 +241,4 @@ func SerializeStartMessageMoveTaskResult(w http.ResponseWriter, output *StartMes
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

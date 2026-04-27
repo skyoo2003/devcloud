@@ -815,3 +815,4 @@ func SerializeUpdateWebACLResponse(w http.ResponseWriter, output *UpdateWebACLRe
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

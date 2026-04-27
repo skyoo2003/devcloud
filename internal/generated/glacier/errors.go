@@ -156,3 +156,4 @@ func (e *ServiceUnavailableException) ErrorCode() string {
 func (e *ServiceUnavailableException) HTTPStatus() int {
 	return 500
 }
+

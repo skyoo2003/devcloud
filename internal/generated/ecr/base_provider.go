@@ -242,3 +242,4 @@ func (b *BaseProvider) UploadLayerPart(ctx context.Context, input *UploadLayerPa
 func (b *BaseProvider) ValidatePullThroughCacheRule(ctx context.Context, input *ValidatePullThroughCacheRuleRequest) (*ValidatePullThroughCacheRuleResponse, error) {
 	return nil, fmt.Errorf("ValidatePullThroughCacheRule: %w", ErrNotImplemented)
 }
+

@@ -224,3 +224,4 @@ func (e *ResourceNotFoundException) ErrorCode() string {
 func (e *ResourceNotFoundException) HTTPStatus() int {
 	return 0
 }
+

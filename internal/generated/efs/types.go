@@ -7,362 +7,362 @@ import (
 )
 
 type AccessPointDescription struct {
-	AccessPointArn string         `json:"accessPointArn" xml:"AccessPointArn"`
-	AccessPointId  string         `json:"accessPointId" xml:"AccessPointId"`
-	ClientToken    string         `json:"clientToken" xml:"ClientToken"`
-	FileSystemId   string         `json:"fileSystemId" xml:"FileSystemId"`
-	LifeCycleState string         `json:"lifeCycleState" xml:"LifeCycleState"`
-	Name           string         `json:"name" xml:"Name"`
-	OwnerId        string         `json:"ownerId" xml:"OwnerId"`
-	PosixUser      *PosixUser     `json:"posixUser" xml:"PosixUser"`
-	RootDirectory  *RootDirectory `json:"rootDirectory" xml:"RootDirectory"`
-	Tags           Tags           `json:"tags" xml:"Tags"`
+AccessPointArn string `json:"accessPointArn" xml:"AccessPointArn"`
+AccessPointId string `json:"accessPointId" xml:"AccessPointId"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+LifeCycleState string `json:"lifeCycleState" xml:"LifeCycleState"`
+Name string `json:"name" xml:"Name"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+PosixUser *PosixUser `json:"posixUser" xml:"PosixUser"`
+RootDirectory *RootDirectory `json:"rootDirectory" xml:"RootDirectory"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type BackupPolicy struct {
-	Status string `json:"status" xml:"Status"`
+Status string `json:"status" xml:"Status"`
 }
 
 type BackupPolicyDescription struct {
-	BackupPolicy *BackupPolicy `json:"backupPolicy" xml:"BackupPolicy"`
+BackupPolicy *BackupPolicy `json:"backupPolicy" xml:"BackupPolicy"`
 }
 
 type CreateAccessPointRequest struct {
-	ClientToken   string         `json:"clientToken" xml:"ClientToken"`
-	FileSystemId  string         `json:"fileSystemId" xml:"FileSystemId"`
-	PosixUser     *PosixUser     `json:"posixUser" xml:"PosixUser"`
-	RootDirectory *RootDirectory `json:"rootDirectory" xml:"RootDirectory"`
-	Tags          Tags           `json:"tags" xml:"Tags"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+PosixUser *PosixUser `json:"posixUser" xml:"PosixUser"`
+RootDirectory *RootDirectory `json:"rootDirectory" xml:"RootDirectory"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateFileSystemRequest struct {
-	AvailabilityZoneName         string  `json:"availabilityZoneName" xml:"AvailabilityZoneName"`
-	Backup                       bool    `json:"backup" xml:"Backup"`
-	CreationToken                string  `json:"creationToken" xml:"CreationToken"`
-	Encrypted                    bool    `json:"encrypted" xml:"Encrypted"`
-	KmsKeyId                     string  `json:"kmsKeyId" xml:"KmsKeyId"`
-	PerformanceMode              string  `json:"performanceMode" xml:"PerformanceMode"`
-	ProvisionedThroughputInMibps float64 `json:"provisionedThroughputInMibps" xml:"ProvisionedThroughputInMibps"`
-	Tags                         Tags    `json:"tags" xml:"Tags"`
-	ThroughputMode               string  `json:"throughputMode" xml:"ThroughputMode"`
+AvailabilityZoneName string `json:"availabilityZoneName" xml:"AvailabilityZoneName"`
+Backup bool `json:"backup" xml:"Backup"`
+CreationToken string `json:"creationToken" xml:"CreationToken"`
+Encrypted bool `json:"encrypted" xml:"Encrypted"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+PerformanceMode string `json:"performanceMode" xml:"PerformanceMode"`
+ProvisionedThroughputInMibps float64 `json:"provisionedThroughputInMibps" xml:"ProvisionedThroughputInMibps"`
+Tags Tags `json:"tags" xml:"Tags"`
+ThroughputMode string `json:"throughputMode" xml:"ThroughputMode"`
 }
 
 type CreateMountTargetRequest struct {
-	FileSystemId   string         `json:"fileSystemId" xml:"FileSystemId"`
-	IpAddress      string         `json:"ipAddress" xml:"IpAddress"`
-	IpAddressType  string         `json:"ipAddressType" xml:"IpAddressType"`
-	Ipv6Address    string         `json:"ipv6Address" xml:"Ipv6Address"`
-	SecurityGroups SecurityGroups `json:"securityGroups" xml:"SecurityGroups"`
-	SubnetId       string         `json:"subnetId" xml:"SubnetId"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+IpAddress string `json:"ipAddress" xml:"IpAddress"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+Ipv6Address string `json:"ipv6Address" xml:"Ipv6Address"`
+SecurityGroups SecurityGroups `json:"securityGroups" xml:"SecurityGroups"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
 }
 
 type CreateReplicationConfigurationRequest struct {
-	Destinations       DestinationsToCreate `json:"destinations" xml:"Destinations"`
-	SourceFileSystemId string               `json:"sourceFileSystemId" xml:"SourceFileSystemId"`
+Destinations DestinationsToCreate `json:"destinations" xml:"Destinations"`
+SourceFileSystemId string `json:"sourceFileSystemId" xml:"SourceFileSystemId"`
 }
 
 type CreateTagsRequest struct {
-	FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
-	Tags         Tags   `json:"tags" xml:"Tags"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreationInfo struct {
-	OwnerGid    int64  `json:"ownerGid" xml:"OwnerGid"`
-	OwnerUid    int64  `json:"ownerUid" xml:"OwnerUid"`
-	Permissions string `json:"permissions" xml:"Permissions"`
+OwnerGid int64 `json:"ownerGid" xml:"OwnerGid"`
+OwnerUid int64 `json:"ownerUid" xml:"OwnerUid"`
+Permissions string `json:"permissions" xml:"Permissions"`
 }
 
 type DeleteAccessPointRequest struct {
-	AccessPointId string `json:"accessPointId" xml:"AccessPointId"`
+AccessPointId string `json:"accessPointId" xml:"AccessPointId"`
 }
 
 type DeleteFileSystemPolicyRequest struct {
-	FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
 }
 
 type DeleteFileSystemRequest struct {
-	FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
 }
 
 type DeleteMountTargetRequest struct {
-	MountTargetId string `json:"mountTargetId" xml:"MountTargetId"`
+MountTargetId string `json:"mountTargetId" xml:"MountTargetId"`
 }
 
 type DeleteReplicationConfigurationRequest struct {
-	DeletionMode       string `json:"deletionMode" xml:"DeletionMode"`
-	SourceFileSystemId string `json:"sourceFileSystemId" xml:"SourceFileSystemId"`
+DeletionMode string `json:"deletionMode" xml:"DeletionMode"`
+SourceFileSystemId string `json:"sourceFileSystemId" xml:"SourceFileSystemId"`
 }
 
 type DeleteTagsRequest struct {
-	FileSystemId string  `json:"fileSystemId" xml:"FileSystemId"`
-	TagKeys      TagKeys `json:"tagKeys" xml:"TagKeys"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+TagKeys TagKeys `json:"tagKeys" xml:"TagKeys"`
 }
 
 type DescribeAccessPointsRequest struct {
-	AccessPointId string `json:"accessPointId" xml:"AccessPointId"`
-	FileSystemId  string `json:"fileSystemId" xml:"FileSystemId"`
-	MaxResults    int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
+AccessPointId string `json:"accessPointId" xml:"AccessPointId"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAccessPointsResponse struct {
-	AccessPoints AccessPointDescriptions `json:"accessPoints" xml:"AccessPoints"`
-	NextToken    string                  `json:"nextToken" xml:"NextToken"`
+AccessPoints AccessPointDescriptions `json:"accessPoints" xml:"AccessPoints"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAccountPreferencesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAccountPreferencesResponse struct {
-	NextToken            string                `json:"nextToken" xml:"NextToken"`
-	ResourceIdPreference *ResourceIdPreference `json:"resourceIdPreference" xml:"ResourceIdPreference"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceIdPreference *ResourceIdPreference `json:"resourceIdPreference" xml:"ResourceIdPreference"`
 }
 
 type DescribeBackupPolicyRequest struct {
-	FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
 }
 
 type DescribeFileSystemPolicyRequest struct {
-	FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
 }
 
 type DescribeFileSystemsRequest struct {
-	CreationToken string `json:"creationToken" xml:"CreationToken"`
-	FileSystemId  string `json:"fileSystemId" xml:"FileSystemId"`
-	Marker        string `json:"marker" xml:"Marker"`
-	MaxItems      int32  `json:"maxItems" xml:"MaxItems"`
+CreationToken string `json:"creationToken" xml:"CreationToken"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type DescribeFileSystemsResponse struct {
-	FileSystems FileSystemDescriptions `json:"fileSystems" xml:"FileSystems"`
-	Marker      string                 `json:"marker" xml:"Marker"`
-	NextMarker  string                 `json:"nextMarker" xml:"NextMarker"`
+FileSystems FileSystemDescriptions `json:"fileSystems" xml:"FileSystems"`
+Marker string `json:"marker" xml:"Marker"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type DescribeLifecycleConfigurationRequest struct {
-	FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
 }
 
 type DescribeMountTargetSecurityGroupsRequest struct {
-	MountTargetId string `json:"mountTargetId" xml:"MountTargetId"`
+MountTargetId string `json:"mountTargetId" xml:"MountTargetId"`
 }
 
 type DescribeMountTargetSecurityGroupsResponse struct {
-	SecurityGroups SecurityGroups `json:"securityGroups" xml:"SecurityGroups"`
+SecurityGroups SecurityGroups `json:"securityGroups" xml:"SecurityGroups"`
 }
 
 type DescribeMountTargetsRequest struct {
-	AccessPointId string `json:"accessPointId" xml:"AccessPointId"`
-	FileSystemId  string `json:"fileSystemId" xml:"FileSystemId"`
-	Marker        string `json:"marker" xml:"Marker"`
-	MaxItems      int32  `json:"maxItems" xml:"MaxItems"`
-	MountTargetId string `json:"mountTargetId" xml:"MountTargetId"`
+AccessPointId string `json:"accessPointId" xml:"AccessPointId"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+MountTargetId string `json:"mountTargetId" xml:"MountTargetId"`
 }
 
 type DescribeMountTargetsResponse struct {
-	Marker       string                  `json:"marker" xml:"Marker"`
-	MountTargets MountTargetDescriptions `json:"mountTargets" xml:"MountTargets"`
-	NextMarker   string                  `json:"nextMarker" xml:"NextMarker"`
+Marker string `json:"marker" xml:"Marker"`
+MountTargets MountTargetDescriptions `json:"mountTargets" xml:"MountTargets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type DescribeReplicationConfigurationsRequest struct {
-	FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeReplicationConfigurationsResponse struct {
-	NextToken    string                               `json:"nextToken" xml:"NextToken"`
-	Replications ReplicationConfigurationDescriptions `json:"replications" xml:"Replications"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Replications ReplicationConfigurationDescriptions `json:"replications" xml:"Replications"`
 }
 
 type DescribeTagsRequest struct {
-	FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
-	Marker       string `json:"marker" xml:"Marker"`
-	MaxItems     int32  `json:"maxItems" xml:"MaxItems"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type DescribeTagsResponse struct {
-	Marker     string `json:"marker" xml:"Marker"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	Tags       Tags   `json:"tags" xml:"Tags"`
+Marker string `json:"marker" xml:"Marker"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type Destination struct {
-	FileSystemId            string    `json:"fileSystemId" xml:"FileSystemId"`
-	LastReplicatedTimestamp time.Time `json:"lastReplicatedTimestamp" xml:"LastReplicatedTimestamp"`
-	OwnerId                 string    `json:"ownerId" xml:"OwnerId"`
-	Region                  string    `json:"region" xml:"Region"`
-	RoleArn                 string    `json:"roleArn" xml:"RoleArn"`
-	Status                  string    `json:"status" xml:"Status"`
-	StatusMessage           string    `json:"statusMessage" xml:"StatusMessage"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+LastReplicatedTimestamp time.Time `json:"lastReplicatedTimestamp" xml:"LastReplicatedTimestamp"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+Region string `json:"region" xml:"Region"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type DestinationToCreate struct {
-	AvailabilityZoneName string `json:"availabilityZoneName" xml:"AvailabilityZoneName"`
-	FileSystemId         string `json:"fileSystemId" xml:"FileSystemId"`
-	KmsKeyId             string `json:"kmsKeyId" xml:"KmsKeyId"`
-	Region               string `json:"region" xml:"Region"`
-	RoleArn              string `json:"roleArn" xml:"RoleArn"`
+AvailabilityZoneName string `json:"availabilityZoneName" xml:"AvailabilityZoneName"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+Region string `json:"region" xml:"Region"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type FileSystemDescription struct {
-	AvailabilityZoneId           string                           `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
-	AvailabilityZoneName         string                           `json:"availabilityZoneName" xml:"AvailabilityZoneName"`
-	CreationTime                 time.Time                        `json:"creationTime" xml:"CreationTime"`
-	CreationToken                string                           `json:"creationToken" xml:"CreationToken"`
-	Encrypted                    bool                             `json:"encrypted" xml:"Encrypted"`
-	FileSystemArn                string                           `json:"fileSystemArn" xml:"FileSystemArn"`
-	FileSystemId                 string                           `json:"fileSystemId" xml:"FileSystemId"`
-	FileSystemProtection         *FileSystemProtectionDescription `json:"fileSystemProtection" xml:"FileSystemProtection"`
-	KmsKeyId                     string                           `json:"kmsKeyId" xml:"KmsKeyId"`
-	LifeCycleState               string                           `json:"lifeCycleState" xml:"LifeCycleState"`
-	Name                         string                           `json:"name" xml:"Name"`
-	NumberOfMountTargets         int32                            `json:"numberOfMountTargets" xml:"NumberOfMountTargets"`
-	OwnerId                      string                           `json:"ownerId" xml:"OwnerId"`
-	PerformanceMode              string                           `json:"performanceMode" xml:"PerformanceMode"`
-	ProvisionedThroughputInMibps float64                          `json:"provisionedThroughputInMibps" xml:"ProvisionedThroughputInMibps"`
-	SizeInBytes                  *FileSystemSize                  `json:"sizeInBytes" xml:"SizeInBytes"`
-	Tags                         Tags                             `json:"tags" xml:"Tags"`
-	ThroughputMode               string                           `json:"throughputMode" xml:"ThroughputMode"`
+AvailabilityZoneId string `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
+AvailabilityZoneName string `json:"availabilityZoneName" xml:"AvailabilityZoneName"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+CreationToken string `json:"creationToken" xml:"CreationToken"`
+Encrypted bool `json:"encrypted" xml:"Encrypted"`
+FileSystemArn string `json:"fileSystemArn" xml:"FileSystemArn"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+FileSystemProtection *FileSystemProtectionDescription `json:"fileSystemProtection" xml:"FileSystemProtection"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+LifeCycleState string `json:"lifeCycleState" xml:"LifeCycleState"`
+Name string `json:"name" xml:"Name"`
+NumberOfMountTargets int32 `json:"numberOfMountTargets" xml:"NumberOfMountTargets"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+PerformanceMode string `json:"performanceMode" xml:"PerformanceMode"`
+ProvisionedThroughputInMibps float64 `json:"provisionedThroughputInMibps" xml:"ProvisionedThroughputInMibps"`
+SizeInBytes *FileSystemSize `json:"sizeInBytes" xml:"SizeInBytes"`
+Tags Tags `json:"tags" xml:"Tags"`
+ThroughputMode string `json:"throughputMode" xml:"ThroughputMode"`
 }
 
 type FileSystemPolicyDescription struct {
-	FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
-	Policy       string `json:"policy" xml:"Policy"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+Policy string `json:"policy" xml:"Policy"`
 }
 
 type FileSystemProtectionDescription struct {
-	ReplicationOverwriteProtection string `json:"replicationOverwriteProtection" xml:"ReplicationOverwriteProtection"`
+ReplicationOverwriteProtection string `json:"replicationOverwriteProtection" xml:"ReplicationOverwriteProtection"`
 }
 
 type FileSystemSize struct {
-	Timestamp       time.Time `json:"timestamp" xml:"Timestamp"`
-	Value           int64     `json:"value" xml:"Value"`
-	ValueInArchive  int64     `json:"valueInArchive" xml:"ValueInArchive"`
-	ValueInIA       int64     `json:"valueInIA" xml:"ValueInIA"`
-	ValueInStandard int64     `json:"valueInStandard" xml:"ValueInStandard"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
+Value int64 `json:"value" xml:"Value"`
+ValueInArchive int64 `json:"valueInArchive" xml:"ValueInArchive"`
+ValueInIA int64 `json:"valueInIA" xml:"ValueInIA"`
+ValueInStandard int64 `json:"valueInStandard" xml:"ValueInStandard"`
 }
 
 type LifecycleConfigurationDescription struct {
-	LifecyclePolicies LifecyclePolicies `json:"lifecyclePolicies" xml:"LifecyclePolicies"`
+LifecyclePolicies LifecyclePolicies `json:"lifecyclePolicies" xml:"LifecyclePolicies"`
 }
 
 type LifecyclePolicy struct {
-	TransitionToArchive             string `json:"transitionToArchive" xml:"TransitionToArchive"`
-	TransitionToIA                  string `json:"transitionToIA" xml:"TransitionToIA"`
-	TransitionToPrimaryStorageClass string `json:"transitionToPrimaryStorageClass" xml:"TransitionToPrimaryStorageClass"`
+TransitionToArchive string `json:"transitionToArchive" xml:"TransitionToArchive"`
+TransitionToIA string `json:"transitionToIA" xml:"TransitionToIA"`
+TransitionToPrimaryStorageClass string `json:"transitionToPrimaryStorageClass" xml:"TransitionToPrimaryStorageClass"`
 }
 
 type ListTagsForResourceRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	ResourceId string `json:"resourceId" xml:"ResourceId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
 }
 
 type ListTagsForResourceResponse struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
-	Tags      Tags   `json:"tags" xml:"Tags"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type ModifyMountTargetSecurityGroupsRequest struct {
-	MountTargetId  string         `json:"mountTargetId" xml:"MountTargetId"`
-	SecurityGroups SecurityGroups `json:"securityGroups" xml:"SecurityGroups"`
+MountTargetId string `json:"mountTargetId" xml:"MountTargetId"`
+SecurityGroups SecurityGroups `json:"securityGroups" xml:"SecurityGroups"`
 }
 
 type MountTargetDescription struct {
-	AvailabilityZoneId   string `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
-	AvailabilityZoneName string `json:"availabilityZoneName" xml:"AvailabilityZoneName"`
-	FileSystemId         string `json:"fileSystemId" xml:"FileSystemId"`
-	IpAddress            string `json:"ipAddress" xml:"IpAddress"`
-	Ipv6Address          string `json:"ipv6Address" xml:"Ipv6Address"`
-	LifeCycleState       string `json:"lifeCycleState" xml:"LifeCycleState"`
-	MountTargetId        string `json:"mountTargetId" xml:"MountTargetId"`
-	NetworkInterfaceId   string `json:"networkInterfaceId" xml:"NetworkInterfaceId"`
-	OwnerId              string `json:"ownerId" xml:"OwnerId"`
-	SubnetId             string `json:"subnetId" xml:"SubnetId"`
-	VpcId                string `json:"vpcId" xml:"VpcId"`
+AvailabilityZoneId string `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
+AvailabilityZoneName string `json:"availabilityZoneName" xml:"AvailabilityZoneName"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+IpAddress string `json:"ipAddress" xml:"IpAddress"`
+Ipv6Address string `json:"ipv6Address" xml:"Ipv6Address"`
+LifeCycleState string `json:"lifeCycleState" xml:"LifeCycleState"`
+MountTargetId string `json:"mountTargetId" xml:"MountTargetId"`
+NetworkInterfaceId string `json:"networkInterfaceId" xml:"NetworkInterfaceId"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type PosixUser struct {
-	Gid           int64         `json:"gid" xml:"Gid"`
-	SecondaryGids SecondaryGids `json:"secondaryGids" xml:"SecondaryGids"`
-	Uid           int64         `json:"uid" xml:"Uid"`
+Gid int64 `json:"gid" xml:"Gid"`
+SecondaryGids SecondaryGids `json:"secondaryGids" xml:"SecondaryGids"`
+Uid int64 `json:"uid" xml:"Uid"`
 }
 
 type PutAccountPreferencesRequest struct {
-	ResourceIdType string `json:"resourceIdType" xml:"ResourceIdType"`
+ResourceIdType string `json:"resourceIdType" xml:"ResourceIdType"`
 }
 
 type PutAccountPreferencesResponse struct {
-	ResourceIdPreference *ResourceIdPreference `json:"resourceIdPreference" xml:"ResourceIdPreference"`
+ResourceIdPreference *ResourceIdPreference `json:"resourceIdPreference" xml:"ResourceIdPreference"`
 }
 
 type PutBackupPolicyRequest struct {
-	BackupPolicy *BackupPolicy `json:"backupPolicy" xml:"BackupPolicy"`
-	FileSystemId string        `json:"fileSystemId" xml:"FileSystemId"`
+BackupPolicy *BackupPolicy `json:"backupPolicy" xml:"BackupPolicy"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
 }
 
 type PutFileSystemPolicyRequest struct {
-	BypassPolicyLockoutSafetyCheck bool   `json:"bypassPolicyLockoutSafetyCheck" xml:"BypassPolicyLockoutSafetyCheck"`
-	FileSystemId                   string `json:"fileSystemId" xml:"FileSystemId"`
-	Policy                         string `json:"policy" xml:"Policy"`
+BypassPolicyLockoutSafetyCheck bool `json:"bypassPolicyLockoutSafetyCheck" xml:"BypassPolicyLockoutSafetyCheck"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+Policy string `json:"policy" xml:"Policy"`
 }
 
 type PutLifecycleConfigurationRequest struct {
-	FileSystemId      string            `json:"fileSystemId" xml:"FileSystemId"`
-	LifecyclePolicies LifecyclePolicies `json:"lifecyclePolicies" xml:"LifecyclePolicies"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+LifecyclePolicies LifecyclePolicies `json:"lifecyclePolicies" xml:"LifecyclePolicies"`
 }
 
 type ReplicationConfigurationDescription struct {
-	CreationTime                time.Time    `json:"creationTime" xml:"CreationTime"`
-	Destinations                Destinations `json:"destinations" xml:"Destinations"`
-	OriginalSourceFileSystemArn string       `json:"originalSourceFileSystemArn" xml:"OriginalSourceFileSystemArn"`
-	SourceFileSystemArn         string       `json:"sourceFileSystemArn" xml:"SourceFileSystemArn"`
-	SourceFileSystemId          string       `json:"sourceFileSystemId" xml:"SourceFileSystemId"`
-	SourceFileSystemOwnerId     string       `json:"sourceFileSystemOwnerId" xml:"SourceFileSystemOwnerId"`
-	SourceFileSystemRegion      string       `json:"sourceFileSystemRegion" xml:"SourceFileSystemRegion"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Destinations Destinations `json:"destinations" xml:"Destinations"`
+OriginalSourceFileSystemArn string `json:"originalSourceFileSystemArn" xml:"OriginalSourceFileSystemArn"`
+SourceFileSystemArn string `json:"sourceFileSystemArn" xml:"SourceFileSystemArn"`
+SourceFileSystemId string `json:"sourceFileSystemId" xml:"SourceFileSystemId"`
+SourceFileSystemOwnerId string `json:"sourceFileSystemOwnerId" xml:"SourceFileSystemOwnerId"`
+SourceFileSystemRegion string `json:"sourceFileSystemRegion" xml:"SourceFileSystemRegion"`
 }
 
 type ResourceIdPreference struct {
-	ResourceIdType string    `json:"resourceIdType" xml:"ResourceIdType"`
-	Resources      Resources `json:"resources" xml:"Resources"`
+ResourceIdType string `json:"resourceIdType" xml:"ResourceIdType"`
+Resources Resources `json:"resources" xml:"Resources"`
 }
 
 type RootDirectory struct {
-	CreationInfo *CreationInfo `json:"creationInfo" xml:"CreationInfo"`
-	Path         string        `json:"path" xml:"Path"`
+CreationInfo *CreationInfo `json:"creationInfo" xml:"CreationInfo"`
+Path string `json:"path" xml:"Path"`
 }
 
 type SmithyUnit struct {
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceRequest struct {
-	ResourceId string `json:"resourceId" xml:"ResourceId"`
-	Tags       Tags   `json:"tags" xml:"Tags"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type UntagResourceRequest struct {
-	ResourceId string  `json:"resourceId" xml:"ResourceId"`
-	TagKeys    TagKeys `json:"tagKeys" xml:"TagKeys"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+TagKeys TagKeys `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UpdateFileSystemProtectionRequest struct {
-	FileSystemId                   string `json:"fileSystemId" xml:"FileSystemId"`
-	ReplicationOverwriteProtection string `json:"replicationOverwriteProtection" xml:"ReplicationOverwriteProtection"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+ReplicationOverwriteProtection string `json:"replicationOverwriteProtection" xml:"ReplicationOverwriteProtection"`
 }
 
 type UpdateFileSystemRequest struct {
-	FileSystemId                 string  `json:"fileSystemId" xml:"FileSystemId"`
-	ProvisionedThroughputInMibps float64 `json:"provisionedThroughputInMibps" xml:"ProvisionedThroughputInMibps"`
-	ThroughputMode               string  `json:"throughputMode" xml:"ThroughputMode"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+ProvisionedThroughputInMibps float64 `json:"provisionedThroughputInMibps" xml:"ProvisionedThroughputInMibps"`
+ThroughputMode string `json:"throughputMode" xml:"ThroughputMode"`
 }
 
 type AccessPointDescriptions []*AccessPointDescription
@@ -388,3 +388,4 @@ type SecurityGroups []string
 type TagKeys []string
 
 type Tags []*Tag
+

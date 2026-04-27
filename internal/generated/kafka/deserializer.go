@@ -917,3 +917,4 @@ func SerializeUpdateTopicResponse(w http.ResponseWriter, output *UpdateTopicResp
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

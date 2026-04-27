@@ -555,3 +555,4 @@ func SerializeUpdateResourceShareResponse(w http.ResponseWriter, output *UpdateR
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

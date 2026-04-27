@@ -379,3 +379,4 @@ func DeserializeVerifyMacRequest(r *http.Request, pathParams PathParams) (*Verif
 
 	return input, nil
 }
+

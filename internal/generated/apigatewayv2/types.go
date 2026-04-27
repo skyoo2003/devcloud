@@ -7,1900 +7,1900 @@ import (
 )
 
 type ACMManaged struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
-	DomainName     string `json:"domainName" xml:"DomainName"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type AccessLogSettings struct {
-	DestinationArn string `json:"destinationArn" xml:"DestinationArn"`
-	Format         string `json:"format" xml:"Format"`
+DestinationArn string `json:"destinationArn" xml:"DestinationArn"`
+Format string `json:"format" xml:"Format"`
 }
 
 type Api struct {
-	ApiEndpoint               string           `json:"apiEndpoint" xml:"ApiEndpoint"`
-	ApiGatewayManaged         bool             `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ApiId                     string           `json:"apiId" xml:"ApiId"`
-	ApiKeySelectionExpression string           `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
-	CorsConfiguration         *Cors            `json:"corsConfiguration" xml:"CorsConfiguration"`
-	CreatedDate               time.Time        `json:"createdDate" xml:"CreatedDate"`
-	Description               string           `json:"description" xml:"Description"`
-	DisableExecuteApiEndpoint bool             `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
-	DisableSchemaValidation   bool             `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
-	ImportInfo                __listOf__string `json:"importInfo" xml:"ImportInfo"`
-	IpAddressType             string           `json:"ipAddressType" xml:"IpAddressType"`
-	Name                      string           `json:"name" xml:"Name"`
-	ProtocolType              string           `json:"protocolType" xml:"ProtocolType"`
-	RouteSelectionExpression  string           `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
-	Tags                      Tags             `json:"tags" xml:"Tags"`
-	Version                   string           `json:"version" xml:"Version"`
-	Warnings                  __listOf__string `json:"warnings" xml:"Warnings"`
+ApiEndpoint string `json:"apiEndpoint" xml:"ApiEndpoint"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiKeySelectionExpression string `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
+CorsConfiguration *Cors `json:"corsConfiguration" xml:"CorsConfiguration"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Description string `json:"description" xml:"Description"`
+DisableExecuteApiEndpoint bool `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
+DisableSchemaValidation bool `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
+ImportInfo __listOf__string `json:"importInfo" xml:"ImportInfo"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+Name string `json:"name" xml:"Name"`
+ProtocolType string `json:"protocolType" xml:"ProtocolType"`
+RouteSelectionExpression string `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
+Tags Tags `json:"tags" xml:"Tags"`
+Version string `json:"version" xml:"Version"`
+Warnings __listOf__string `json:"warnings" xml:"Warnings"`
 }
 
 type ApiMapping struct {
-	ApiId         string `json:"apiId" xml:"ApiId"`
-	ApiMappingId  string `json:"apiMappingId" xml:"ApiMappingId"`
-	ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
-	Stage         string `json:"stage" xml:"Stage"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiMappingId string `json:"apiMappingId" xml:"ApiMappingId"`
+ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type Authorization struct {
-	CognitoConfig *CognitoConfig `json:"cognitoConfig" xml:"CognitoConfig"`
-	None          *None          `json:"none" xml:"None"`
+CognitoConfig *CognitoConfig `json:"cognitoConfig" xml:"CognitoConfig"`
+None *None `json:"none" xml:"None"`
 }
 
 type Authorizer struct {
-	AuthorizerCredentialsArn       string             `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
-	AuthorizerId                   string             `json:"authorizerId" xml:"AuthorizerId"`
-	AuthorizerPayloadFormatVersion string             `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
-	AuthorizerResultTtlInSeconds   int32              `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
-	AuthorizerType                 string             `json:"authorizerType" xml:"AuthorizerType"`
-	AuthorizerUri                  string             `json:"authorizerUri" xml:"AuthorizerUri"`
-	EnableSimpleResponses          bool               `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
-	IdentitySource                 IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
-	IdentityValidationExpression   string             `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
-	JwtConfiguration               *JWTConfiguration  `json:"jwtConfiguration" xml:"JwtConfiguration"`
-	Name                           string             `json:"name" xml:"Name"`
+AuthorizerCredentialsArn string `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+AuthorizerPayloadFormatVersion string `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
+AuthorizerResultTtlInSeconds int32 `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
+AuthorizerType string `json:"authorizerType" xml:"AuthorizerType"`
+AuthorizerUri string `json:"authorizerUri" xml:"AuthorizerUri"`
+EnableSimpleResponses bool `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
+IdentitySource IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
+IdentityValidationExpression string `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
+JwtConfiguration *JWTConfiguration `json:"jwtConfiguration" xml:"JwtConfiguration"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CognitoConfig struct {
-	AppClientId    string `json:"appClientId" xml:"AppClientId"`
-	UserPoolArn    string `json:"userPoolArn" xml:"UserPoolArn"`
-	UserPoolDomain string `json:"userPoolDomain" xml:"UserPoolDomain"`
+AppClientId string `json:"appClientId" xml:"AppClientId"`
+UserPoolArn string `json:"userPoolArn" xml:"UserPoolArn"`
+UserPoolDomain string `json:"userPoolDomain" xml:"UserPoolDomain"`
 }
 
 type Cors struct {
-	AllowCredentials bool           `json:"allowCredentials" xml:"AllowCredentials"`
-	AllowHeaders     CorsHeaderList `json:"allowHeaders" xml:"AllowHeaders"`
-	AllowMethods     CorsMethodList `json:"allowMethods" xml:"AllowMethods"`
-	AllowOrigins     CorsOriginList `json:"allowOrigins" xml:"AllowOrigins"`
-	ExposeHeaders    CorsHeaderList `json:"exposeHeaders" xml:"ExposeHeaders"`
-	MaxAge           int32          `json:"maxAge" xml:"MaxAge"`
+AllowCredentials bool `json:"allowCredentials" xml:"AllowCredentials"`
+AllowHeaders CorsHeaderList `json:"allowHeaders" xml:"AllowHeaders"`
+AllowMethods CorsMethodList `json:"allowMethods" xml:"AllowMethods"`
+AllowOrigins CorsOriginList `json:"allowOrigins" xml:"AllowOrigins"`
+ExposeHeaders CorsHeaderList `json:"exposeHeaders" xml:"ExposeHeaders"`
+MaxAge int32 `json:"maxAge" xml:"MaxAge"`
 }
 
 type CreateApiMappingRequest struct {
-	ApiId         string `json:"apiId" xml:"ApiId"`
-	ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
-	DomainName    string `json:"domainName" xml:"DomainName"`
-	Stage         string `json:"stage" xml:"Stage"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type CreateApiMappingResponse struct {
-	ApiId         string `json:"apiId" xml:"ApiId"`
-	ApiMappingId  string `json:"apiMappingId" xml:"ApiMappingId"`
-	ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
-	Stage         string `json:"stage" xml:"Stage"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiMappingId string `json:"apiMappingId" xml:"ApiMappingId"`
+ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type CreateApiRequest struct {
-	ApiKeySelectionExpression string `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
-	CorsConfiguration         *Cors  `json:"corsConfiguration" xml:"CorsConfiguration"`
-	CredentialsArn            string `json:"credentialsArn" xml:"CredentialsArn"`
-	Description               string `json:"description" xml:"Description"`
-	DisableExecuteApiEndpoint bool   `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
-	DisableSchemaValidation   bool   `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
-	IpAddressType             string `json:"ipAddressType" xml:"IpAddressType"`
-	Name                      string `json:"name" xml:"Name"`
-	ProtocolType              string `json:"protocolType" xml:"ProtocolType"`
-	RouteKey                  string `json:"routeKey" xml:"RouteKey"`
-	RouteSelectionExpression  string `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
-	Tags                      Tags   `json:"tags" xml:"Tags"`
-	Target                    string `json:"target" xml:"Target"`
-	Version                   string `json:"version" xml:"Version"`
+ApiKeySelectionExpression string `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
+CorsConfiguration *Cors `json:"corsConfiguration" xml:"CorsConfiguration"`
+CredentialsArn string `json:"credentialsArn" xml:"CredentialsArn"`
+Description string `json:"description" xml:"Description"`
+DisableExecuteApiEndpoint bool `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
+DisableSchemaValidation bool `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+Name string `json:"name" xml:"Name"`
+ProtocolType string `json:"protocolType" xml:"ProtocolType"`
+RouteKey string `json:"routeKey" xml:"RouteKey"`
+RouteSelectionExpression string `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
+Tags Tags `json:"tags" xml:"Tags"`
+Target string `json:"target" xml:"Target"`
+Version string `json:"version" xml:"Version"`
 }
 
 type CreateApiResponse struct {
-	ApiEndpoint               string           `json:"apiEndpoint" xml:"ApiEndpoint"`
-	ApiGatewayManaged         bool             `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ApiId                     string           `json:"apiId" xml:"ApiId"`
-	ApiKeySelectionExpression string           `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
-	CorsConfiguration         *Cors            `json:"corsConfiguration" xml:"CorsConfiguration"`
-	CreatedDate               time.Time        `json:"createdDate" xml:"CreatedDate"`
-	Description               string           `json:"description" xml:"Description"`
-	DisableExecuteApiEndpoint bool             `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
-	DisableSchemaValidation   bool             `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
-	ImportInfo                __listOf__string `json:"importInfo" xml:"ImportInfo"`
-	IpAddressType             string           `json:"ipAddressType" xml:"IpAddressType"`
-	Name                      string           `json:"name" xml:"Name"`
-	ProtocolType              string           `json:"protocolType" xml:"ProtocolType"`
-	RouteSelectionExpression  string           `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
-	Tags                      Tags             `json:"tags" xml:"Tags"`
-	Version                   string           `json:"version" xml:"Version"`
-	Warnings                  __listOf__string `json:"warnings" xml:"Warnings"`
+ApiEndpoint string `json:"apiEndpoint" xml:"ApiEndpoint"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiKeySelectionExpression string `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
+CorsConfiguration *Cors `json:"corsConfiguration" xml:"CorsConfiguration"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Description string `json:"description" xml:"Description"`
+DisableExecuteApiEndpoint bool `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
+DisableSchemaValidation bool `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
+ImportInfo __listOf__string `json:"importInfo" xml:"ImportInfo"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+Name string `json:"name" xml:"Name"`
+ProtocolType string `json:"protocolType" xml:"ProtocolType"`
+RouteSelectionExpression string `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
+Tags Tags `json:"tags" xml:"Tags"`
+Version string `json:"version" xml:"Version"`
+Warnings __listOf__string `json:"warnings" xml:"Warnings"`
 }
 
 type CreateAuthorizerRequest struct {
-	ApiId                          string             `json:"apiId" xml:"ApiId"`
-	AuthorizerCredentialsArn       string             `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
-	AuthorizerPayloadFormatVersion string             `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
-	AuthorizerResultTtlInSeconds   int32              `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
-	AuthorizerType                 string             `json:"authorizerType" xml:"AuthorizerType"`
-	AuthorizerUri                  string             `json:"authorizerUri" xml:"AuthorizerUri"`
-	EnableSimpleResponses          bool               `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
-	IdentitySource                 IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
-	IdentityValidationExpression   string             `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
-	JwtConfiguration               *JWTConfiguration  `json:"jwtConfiguration" xml:"JwtConfiguration"`
-	Name                           string             `json:"name" xml:"Name"`
+ApiId string `json:"apiId" xml:"ApiId"`
+AuthorizerCredentialsArn string `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
+AuthorizerPayloadFormatVersion string `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
+AuthorizerResultTtlInSeconds int32 `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
+AuthorizerType string `json:"authorizerType" xml:"AuthorizerType"`
+AuthorizerUri string `json:"authorizerUri" xml:"AuthorizerUri"`
+EnableSimpleResponses bool `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
+IdentitySource IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
+IdentityValidationExpression string `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
+JwtConfiguration *JWTConfiguration `json:"jwtConfiguration" xml:"JwtConfiguration"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateAuthorizerResponse struct {
-	AuthorizerCredentialsArn       string             `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
-	AuthorizerId                   string             `json:"authorizerId" xml:"AuthorizerId"`
-	AuthorizerPayloadFormatVersion string             `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
-	AuthorizerResultTtlInSeconds   int32              `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
-	AuthorizerType                 string             `json:"authorizerType" xml:"AuthorizerType"`
-	AuthorizerUri                  string             `json:"authorizerUri" xml:"AuthorizerUri"`
-	EnableSimpleResponses          bool               `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
-	IdentitySource                 IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
-	IdentityValidationExpression   string             `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
-	JwtConfiguration               *JWTConfiguration  `json:"jwtConfiguration" xml:"JwtConfiguration"`
-	Name                           string             `json:"name" xml:"Name"`
+AuthorizerCredentialsArn string `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+AuthorizerPayloadFormatVersion string `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
+AuthorizerResultTtlInSeconds int32 `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
+AuthorizerType string `json:"authorizerType" xml:"AuthorizerType"`
+AuthorizerUri string `json:"authorizerUri" xml:"AuthorizerUri"`
+EnableSimpleResponses bool `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
+IdentitySource IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
+IdentityValidationExpression string `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
+JwtConfiguration *JWTConfiguration `json:"jwtConfiguration" xml:"JwtConfiguration"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateDeploymentRequest struct {
-	ApiId       string `json:"apiId" xml:"ApiId"`
-	Description string `json:"description" xml:"Description"`
-	StageName   string `json:"stageName" xml:"StageName"`
+ApiId string `json:"apiId" xml:"ApiId"`
+Description string `json:"description" xml:"Description"`
+StageName string `json:"stageName" xml:"StageName"`
 }
 
 type CreateDeploymentResponse struct {
-	AutoDeployed            bool      `json:"autoDeployed" xml:"AutoDeployed"`
-	CreatedDate             time.Time `json:"createdDate" xml:"CreatedDate"`
-	DeploymentId            string    `json:"deploymentId" xml:"DeploymentId"`
-	DeploymentStatus        string    `json:"deploymentStatus" xml:"DeploymentStatus"`
-	DeploymentStatusMessage string    `json:"deploymentStatusMessage" xml:"DeploymentStatusMessage"`
-	Description             string    `json:"description" xml:"Description"`
+AutoDeployed bool `json:"autoDeployed" xml:"AutoDeployed"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+DeploymentStatus string `json:"deploymentStatus" xml:"DeploymentStatus"`
+DeploymentStatusMessage string `json:"deploymentStatusMessage" xml:"DeploymentStatusMessage"`
+Description string `json:"description" xml:"Description"`
 }
 
 type CreateDomainNameRequest struct {
-	DomainName               string                        `json:"domainName" xml:"DomainName"`
-	DomainNameConfigurations DomainNameConfigurations      `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
-	MutualTlsAuthentication  *MutualTlsAuthenticationInput `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
-	RoutingMode              string                        `json:"routingMode" xml:"RoutingMode"`
-	Tags                     Tags                          `json:"tags" xml:"Tags"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainNameConfigurations DomainNameConfigurations `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
+MutualTlsAuthentication *MutualTlsAuthenticationInput `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
+RoutingMode string `json:"routingMode" xml:"RoutingMode"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateDomainNameResponse struct {
-	ApiMappingSelectionExpression string                   `json:"apiMappingSelectionExpression" xml:"ApiMappingSelectionExpression"`
-	DomainName                    string                   `json:"domainName" xml:"DomainName"`
-	DomainNameArn                 string                   `json:"domainNameArn" xml:"DomainNameArn"`
-	DomainNameConfigurations      DomainNameConfigurations `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
-	MutualTlsAuthentication       *MutualTlsAuthentication `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
-	RoutingMode                   string                   `json:"routingMode" xml:"RoutingMode"`
-	Tags                          Tags                     `json:"tags" xml:"Tags"`
+ApiMappingSelectionExpression string `json:"apiMappingSelectionExpression" xml:"ApiMappingSelectionExpression"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainNameArn string `json:"domainNameArn" xml:"DomainNameArn"`
+DomainNameConfigurations DomainNameConfigurations `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
+MutualTlsAuthentication *MutualTlsAuthentication `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
+RoutingMode string `json:"routingMode" xml:"RoutingMode"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateIntegrationRequest struct {
-	ApiId                       string                `json:"apiId" xml:"ApiId"`
-	ConnectionId                string                `json:"connectionId" xml:"ConnectionId"`
-	ConnectionType              string                `json:"connectionType" xml:"ConnectionType"`
-	ContentHandlingStrategy     string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	CredentialsArn              string                `json:"credentialsArn" xml:"CredentialsArn"`
-	Description                 string                `json:"description" xml:"Description"`
-	IntegrationMethod           string                `json:"integrationMethod" xml:"IntegrationMethod"`
-	IntegrationSubtype          string                `json:"integrationSubtype" xml:"IntegrationSubtype"`
-	IntegrationType             string                `json:"integrationType" xml:"IntegrationType"`
-	IntegrationUri              string                `json:"integrationUri" xml:"IntegrationUri"`
-	PassthroughBehavior         string                `json:"passthroughBehavior" xml:"PassthroughBehavior"`
-	PayloadFormatVersion        string                `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
-	RequestParameters           IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
-	RequestTemplates            TemplateMap           `json:"requestTemplates" xml:"RequestTemplates"`
-	ResponseParameters          ResponseParameters    `json:"responseParameters" xml:"ResponseParameters"`
-	TemplateSelectionExpression string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
-	TimeoutInMillis             int32                 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
-	TlsConfig                   *TlsConfigInput       `json:"tlsConfig" xml:"TlsConfig"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+CredentialsArn string `json:"credentialsArn" xml:"CredentialsArn"`
+Description string `json:"description" xml:"Description"`
+IntegrationMethod string `json:"integrationMethod" xml:"IntegrationMethod"`
+IntegrationSubtype string `json:"integrationSubtype" xml:"IntegrationSubtype"`
+IntegrationType string `json:"integrationType" xml:"IntegrationType"`
+IntegrationUri string `json:"integrationUri" xml:"IntegrationUri"`
+PassthroughBehavior string `json:"passthroughBehavior" xml:"PassthroughBehavior"`
+PayloadFormatVersion string `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
+RequestParameters IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
+RequestTemplates TemplateMap `json:"requestTemplates" xml:"RequestTemplates"`
+ResponseParameters ResponseParameters `json:"responseParameters" xml:"ResponseParameters"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+TimeoutInMillis int32 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
+TlsConfig *TlsConfigInput `json:"tlsConfig" xml:"TlsConfig"`
 }
 
 type CreateIntegrationResponseRequest struct {
-	ApiId                       string                `json:"apiId" xml:"ApiId"`
-	ContentHandlingStrategy     string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	IntegrationId               string                `json:"integrationId" xml:"IntegrationId"`
-	IntegrationResponseKey      string                `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
-	ResponseParameters          IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
-	ResponseTemplates           TemplateMap           `json:"responseTemplates" xml:"ResponseTemplates"`
-	TemplateSelectionExpression string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+IntegrationResponseKey string `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
+ResponseParameters IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
+ResponseTemplates TemplateMap `json:"responseTemplates" xml:"ResponseTemplates"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
 }
 
 type CreateIntegrationResponseResponse struct {
-	ContentHandlingStrategy     string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	IntegrationResponseId       string                `json:"integrationResponseId" xml:"IntegrationResponseId"`
-	IntegrationResponseKey      string                `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
-	ResponseParameters          IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
-	ResponseTemplates           TemplateMap           `json:"responseTemplates" xml:"ResponseTemplates"`
-	TemplateSelectionExpression string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+IntegrationResponseId string `json:"integrationResponseId" xml:"IntegrationResponseId"`
+IntegrationResponseKey string `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
+ResponseParameters IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
+ResponseTemplates TemplateMap `json:"responseTemplates" xml:"ResponseTemplates"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
 }
 
 type CreateIntegrationResult struct {
-	ApiGatewayManaged                      bool                  `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ConnectionId                           string                `json:"connectionId" xml:"ConnectionId"`
-	ConnectionType                         string                `json:"connectionType" xml:"ConnectionType"`
-	ContentHandlingStrategy                string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	CredentialsArn                         string                `json:"credentialsArn" xml:"CredentialsArn"`
-	Description                            string                `json:"description" xml:"Description"`
-	IntegrationId                          string                `json:"integrationId" xml:"IntegrationId"`
-	IntegrationMethod                      string                `json:"integrationMethod" xml:"IntegrationMethod"`
-	IntegrationResponseSelectionExpression string                `json:"integrationResponseSelectionExpression" xml:"IntegrationResponseSelectionExpression"`
-	IntegrationSubtype                     string                `json:"integrationSubtype" xml:"IntegrationSubtype"`
-	IntegrationType                        string                `json:"integrationType" xml:"IntegrationType"`
-	IntegrationUri                         string                `json:"integrationUri" xml:"IntegrationUri"`
-	PassthroughBehavior                    string                `json:"passthroughBehavior" xml:"PassthroughBehavior"`
-	PayloadFormatVersion                   string                `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
-	RequestParameters                      IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
-	RequestTemplates                       TemplateMap           `json:"requestTemplates" xml:"RequestTemplates"`
-	ResponseParameters                     ResponseParameters    `json:"responseParameters" xml:"ResponseParameters"`
-	TemplateSelectionExpression            string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
-	TimeoutInMillis                        int32                 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
-	TlsConfig                              *TlsConfig            `json:"tlsConfig" xml:"TlsConfig"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+CredentialsArn string `json:"credentialsArn" xml:"CredentialsArn"`
+Description string `json:"description" xml:"Description"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+IntegrationMethod string `json:"integrationMethod" xml:"IntegrationMethod"`
+IntegrationResponseSelectionExpression string `json:"integrationResponseSelectionExpression" xml:"IntegrationResponseSelectionExpression"`
+IntegrationSubtype string `json:"integrationSubtype" xml:"IntegrationSubtype"`
+IntegrationType string `json:"integrationType" xml:"IntegrationType"`
+IntegrationUri string `json:"integrationUri" xml:"IntegrationUri"`
+PassthroughBehavior string `json:"passthroughBehavior" xml:"PassthroughBehavior"`
+PayloadFormatVersion string `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
+RequestParameters IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
+RequestTemplates TemplateMap `json:"requestTemplates" xml:"RequestTemplates"`
+ResponseParameters ResponseParameters `json:"responseParameters" xml:"ResponseParameters"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+TimeoutInMillis int32 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
+TlsConfig *TlsConfig `json:"tlsConfig" xml:"TlsConfig"`
 }
 
 type CreateModelRequest struct {
-	ApiId       string `json:"apiId" xml:"ApiId"`
-	ContentType string `json:"contentType" xml:"ContentType"`
-	Description string `json:"description" xml:"Description"`
-	Name        string `json:"name" xml:"Name"`
-	Schema      string `json:"schema" xml:"Schema"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ContentType string `json:"contentType" xml:"ContentType"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Schema string `json:"schema" xml:"Schema"`
 }
 
 type CreateModelResponse struct {
-	ContentType string `json:"contentType" xml:"ContentType"`
-	Description string `json:"description" xml:"Description"`
-	ModelId     string `json:"modelId" xml:"ModelId"`
-	Name        string `json:"name" xml:"Name"`
-	Schema      string `json:"schema" xml:"Schema"`
+ContentType string `json:"contentType" xml:"ContentType"`
+Description string `json:"description" xml:"Description"`
+ModelId string `json:"modelId" xml:"ModelId"`
+Name string `json:"name" xml:"Name"`
+Schema string `json:"schema" xml:"Schema"`
 }
 
 type CreatePortalProductRequest struct {
-	Description string `json:"description" xml:"Description"`
-	DisplayName string `json:"displayName" xml:"DisplayName"`
-	Tags        Tags   `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreatePortalProductResponse struct {
-	Description      string        `json:"description" xml:"Description"`
-	DisplayName      string        `json:"displayName" xml:"DisplayName"`
-	DisplayOrder     *DisplayOrder `json:"displayOrder" xml:"DisplayOrder"`
-	LastModified     time.Time     `json:"lastModified" xml:"LastModified"`
-	PortalProductArn string        `json:"portalProductArn" xml:"PortalProductArn"`
-	PortalProductId  string        `json:"portalProductId" xml:"PortalProductId"`
-	Tags             Tags          `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+DisplayOrder *DisplayOrder `json:"displayOrder" xml:"DisplayOrder"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+PortalProductArn string `json:"portalProductArn" xml:"PortalProductArn"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreatePortalRequest struct {
-	Authorization             *Authorization                `json:"authorization" xml:"Authorization"`
-	EndpointConfiguration     *EndpointConfigurationRequest `json:"endpointConfiguration" xml:"EndpointConfiguration"`
-	IncludedPortalProductArns __listOf__stringMin20Max2048  `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
-	LogoUri                   string                        `json:"logoUri" xml:"LogoUri"`
-	PortalContent             *PortalContent                `json:"portalContent" xml:"PortalContent"`
-	RumAppMonitorName         string                        `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
-	Tags                      Tags                          `json:"tags" xml:"Tags"`
+Authorization *Authorization `json:"authorization" xml:"Authorization"`
+EndpointConfiguration *EndpointConfigurationRequest `json:"endpointConfiguration" xml:"EndpointConfiguration"`
+IncludedPortalProductArns __listOf__stringMin20Max2048 `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
+LogoUri string `json:"logoUri" xml:"LogoUri"`
+PortalContent *PortalContent `json:"portalContent" xml:"PortalContent"`
+RumAppMonitorName string `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreatePortalResponse struct {
-	Authorization             *Authorization                 `json:"authorization" xml:"Authorization"`
-	EndpointConfiguration     *EndpointConfigurationResponse `json:"endpointConfiguration" xml:"EndpointConfiguration"`
-	IncludedPortalProductArns __listOf__stringMin20Max2048   `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
-	LastModified              time.Time                      `json:"lastModified" xml:"LastModified"`
-	LastPublished             time.Time                      `json:"lastPublished" xml:"LastPublished"`
-	LastPublishedDescription  string                         `json:"lastPublishedDescription" xml:"LastPublishedDescription"`
-	PortalArn                 string                         `json:"portalArn" xml:"PortalArn"`
-	PortalContent             *PortalContent                 `json:"portalContent" xml:"PortalContent"`
-	PortalId                  string                         `json:"portalId" xml:"PortalId"`
-	PublishStatus             string                         `json:"publishStatus" xml:"PublishStatus"`
-	RumAppMonitorName         string                         `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
-	StatusException           *StatusException               `json:"statusException" xml:"StatusException"`
-	Tags                      Tags                           `json:"tags" xml:"Tags"`
+Authorization *Authorization `json:"authorization" xml:"Authorization"`
+EndpointConfiguration *EndpointConfigurationResponse `json:"endpointConfiguration" xml:"EndpointConfiguration"`
+IncludedPortalProductArns __listOf__stringMin20Max2048 `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+LastPublished time.Time `json:"lastPublished" xml:"LastPublished"`
+LastPublishedDescription string `json:"lastPublishedDescription" xml:"LastPublishedDescription"`
+PortalArn string `json:"portalArn" xml:"PortalArn"`
+PortalContent *PortalContent `json:"portalContent" xml:"PortalContent"`
+PortalId string `json:"portalId" xml:"PortalId"`
+PublishStatus string `json:"publishStatus" xml:"PublishStatus"`
+RumAppMonitorName string `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
+StatusException *StatusException `json:"statusException" xml:"StatusException"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateProductPageRequest struct {
-	DisplayContent  *DisplayContent `json:"displayContent" xml:"DisplayContent"`
-	PortalProductId string          `json:"portalProductId" xml:"PortalProductId"`
+DisplayContent *DisplayContent `json:"displayContent" xml:"DisplayContent"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
 }
 
 type CreateProductPageResponse struct {
-	DisplayContent *DisplayContent `json:"displayContent" xml:"DisplayContent"`
-	LastModified   time.Time       `json:"lastModified" xml:"LastModified"`
-	ProductPageArn string          `json:"productPageArn" xml:"ProductPageArn"`
-	ProductPageId  string          `json:"productPageId" xml:"ProductPageId"`
+DisplayContent *DisplayContent `json:"displayContent" xml:"DisplayContent"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+ProductPageArn string `json:"productPageArn" xml:"ProductPageArn"`
+ProductPageId string `json:"productPageId" xml:"ProductPageId"`
 }
 
 type CreateProductRestEndpointPageRequest struct {
-	DisplayContent         *EndpointDisplayContent `json:"displayContent" xml:"DisplayContent"`
-	PortalProductId        string                  `json:"portalProductId" xml:"PortalProductId"`
-	RestEndpointIdentifier *RestEndpointIdentifier `json:"restEndpointIdentifier" xml:"RestEndpointIdentifier"`
-	TryItState             string                  `json:"tryItState" xml:"TryItState"`
+DisplayContent *EndpointDisplayContent `json:"displayContent" xml:"DisplayContent"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+RestEndpointIdentifier *RestEndpointIdentifier `json:"restEndpointIdentifier" xml:"RestEndpointIdentifier"`
+TryItState string `json:"tryItState" xml:"TryItState"`
 }
 
 type CreateProductRestEndpointPageResponse struct {
-	DisplayContent             *EndpointDisplayContentResponse `json:"displayContent" xml:"DisplayContent"`
-	LastModified               time.Time                       `json:"lastModified" xml:"LastModified"`
-	ProductRestEndpointPageArn string                          `json:"productRestEndpointPageArn" xml:"ProductRestEndpointPageArn"`
-	ProductRestEndpointPageId  string                          `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
-	RestEndpointIdentifier     *RestEndpointIdentifier         `json:"restEndpointIdentifier" xml:"RestEndpointIdentifier"`
-	Status                     string                          `json:"status" xml:"Status"`
-	StatusException            *StatusException                `json:"statusException" xml:"StatusException"`
-	TryItState                 string                          `json:"tryItState" xml:"TryItState"`
+DisplayContent *EndpointDisplayContentResponse `json:"displayContent" xml:"DisplayContent"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+ProductRestEndpointPageArn string `json:"productRestEndpointPageArn" xml:"ProductRestEndpointPageArn"`
+ProductRestEndpointPageId string `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
+RestEndpointIdentifier *RestEndpointIdentifier `json:"restEndpointIdentifier" xml:"RestEndpointIdentifier"`
+Status string `json:"status" xml:"Status"`
+StatusException *StatusException `json:"statusException" xml:"StatusException"`
+TryItState string `json:"tryItState" xml:"TryItState"`
 }
 
 type CreateRouteRequest struct {
-	ApiId                            string              `json:"apiId" xml:"ApiId"`
-	ApiKeyRequired                   bool                `json:"apiKeyRequired" xml:"ApiKeyRequired"`
-	AuthorizationScopes              AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
-	AuthorizationType                string              `json:"authorizationType" xml:"AuthorizationType"`
-	AuthorizerId                     string              `json:"authorizerId" xml:"AuthorizerId"`
-	ModelSelectionExpression         string              `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	OperationName                    string              `json:"operationName" xml:"OperationName"`
-	RequestModels                    RouteModels         `json:"requestModels" xml:"RequestModels"`
-	RequestParameters                RouteParameters     `json:"requestParameters" xml:"RequestParameters"`
-	RouteKey                         string              `json:"routeKey" xml:"RouteKey"`
-	RouteResponseSelectionExpression string              `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
-	Target                           string              `json:"target" xml:"Target"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiKeyRequired bool `json:"apiKeyRequired" xml:"ApiKeyRequired"`
+AuthorizationScopes AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
+AuthorizationType string `json:"authorizationType" xml:"AuthorizationType"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+OperationName string `json:"operationName" xml:"OperationName"`
+RequestModels RouteModels `json:"requestModels" xml:"RequestModels"`
+RequestParameters RouteParameters `json:"requestParameters" xml:"RequestParameters"`
+RouteKey string `json:"routeKey" xml:"RouteKey"`
+RouteResponseSelectionExpression string `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
+Target string `json:"target" xml:"Target"`
 }
 
 type CreateRouteResponseRequest struct {
-	ApiId                    string          `json:"apiId" xml:"ApiId"`
-	ModelSelectionExpression string          `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	ResponseModels           RouteModels     `json:"responseModels" xml:"ResponseModels"`
-	ResponseParameters       RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
-	RouteId                  string          `json:"routeId" xml:"RouteId"`
-	RouteResponseKey         string          `json:"routeResponseKey" xml:"RouteResponseKey"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+ResponseModels RouteModels `json:"responseModels" xml:"ResponseModels"`
+ResponseParameters RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
+RouteId string `json:"routeId" xml:"RouteId"`
+RouteResponseKey string `json:"routeResponseKey" xml:"RouteResponseKey"`
 }
 
 type CreateRouteResponseResponse struct {
-	ModelSelectionExpression string          `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	ResponseModels           RouteModels     `json:"responseModels" xml:"ResponseModels"`
-	ResponseParameters       RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
-	RouteResponseId          string          `json:"routeResponseId" xml:"RouteResponseId"`
-	RouteResponseKey         string          `json:"routeResponseKey" xml:"RouteResponseKey"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+ResponseModels RouteModels `json:"responseModels" xml:"ResponseModels"`
+ResponseParameters RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
+RouteResponseId string `json:"routeResponseId" xml:"RouteResponseId"`
+RouteResponseKey string `json:"routeResponseKey" xml:"RouteResponseKey"`
 }
 
 type CreateRouteResult struct {
-	ApiGatewayManaged                bool                `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ApiKeyRequired                   bool                `json:"apiKeyRequired" xml:"ApiKeyRequired"`
-	AuthorizationScopes              AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
-	AuthorizationType                string              `json:"authorizationType" xml:"AuthorizationType"`
-	AuthorizerId                     string              `json:"authorizerId" xml:"AuthorizerId"`
-	ModelSelectionExpression         string              `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	OperationName                    string              `json:"operationName" xml:"OperationName"`
-	RequestModels                    RouteModels         `json:"requestModels" xml:"RequestModels"`
-	RequestParameters                RouteParameters     `json:"requestParameters" xml:"RequestParameters"`
-	RouteId                          string              `json:"routeId" xml:"RouteId"`
-	RouteKey                         string              `json:"routeKey" xml:"RouteKey"`
-	RouteResponseSelectionExpression string              `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
-	Target                           string              `json:"target" xml:"Target"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ApiKeyRequired bool `json:"apiKeyRequired" xml:"ApiKeyRequired"`
+AuthorizationScopes AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
+AuthorizationType string `json:"authorizationType" xml:"AuthorizationType"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+OperationName string `json:"operationName" xml:"OperationName"`
+RequestModels RouteModels `json:"requestModels" xml:"RequestModels"`
+RequestParameters RouteParameters `json:"requestParameters" xml:"RequestParameters"`
+RouteId string `json:"routeId" xml:"RouteId"`
+RouteKey string `json:"routeKey" xml:"RouteKey"`
+RouteResponseSelectionExpression string `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
+Target string `json:"target" xml:"Target"`
 }
 
 type CreateRoutingRuleRequest struct {
-	Actions      __listOfRoutingRuleAction    `json:"actions" xml:"Actions"`
-	Conditions   __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
-	DomainName   string                       `json:"domainName" xml:"DomainName"`
-	DomainNameId string                       `json:"domainNameId" xml:"DomainNameId"`
-	Priority     int32                        `json:"priority" xml:"Priority"`
+Actions __listOfRoutingRuleAction `json:"actions" xml:"Actions"`
+Conditions __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainNameId string `json:"domainNameId" xml:"DomainNameId"`
+Priority int32 `json:"priority" xml:"Priority"`
 }
 
 type CreateRoutingRuleResponse struct {
-	Actions        __listOfRoutingRuleAction    `json:"actions" xml:"Actions"`
-	Conditions     __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
-	Priority       int32                        `json:"priority" xml:"Priority"`
-	RoutingRuleArn string                       `json:"routingRuleArn" xml:"RoutingRuleArn"`
-	RoutingRuleId  string                       `json:"routingRuleId" xml:"RoutingRuleId"`
+Actions __listOfRoutingRuleAction `json:"actions" xml:"Actions"`
+Conditions __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
+Priority int32 `json:"priority" xml:"Priority"`
+RoutingRuleArn string `json:"routingRuleArn" xml:"RoutingRuleArn"`
+RoutingRuleId string `json:"routingRuleId" xml:"RoutingRuleId"`
 }
 
 type CreateStageRequest struct {
-	AccessLogSettings    *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
-	ApiId                string             `json:"apiId" xml:"ApiId"`
-	AutoDeploy           bool               `json:"autoDeploy" xml:"AutoDeploy"`
-	ClientCertificateId  string             `json:"clientCertificateId" xml:"ClientCertificateId"`
-	DefaultRouteSettings *RouteSettings     `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
-	DeploymentId         string             `json:"deploymentId" xml:"DeploymentId"`
-	Description          string             `json:"description" xml:"Description"`
-	RouteSettings        RouteSettingsMap   `json:"routeSettings" xml:"RouteSettings"`
-	StageName            string             `json:"stageName" xml:"StageName"`
-	StageVariables       StageVariablesMap  `json:"stageVariables" xml:"StageVariables"`
-	Tags                 Tags               `json:"tags" xml:"Tags"`
+AccessLogSettings *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
+ApiId string `json:"apiId" xml:"ApiId"`
+AutoDeploy bool `json:"autoDeploy" xml:"AutoDeploy"`
+ClientCertificateId string `json:"clientCertificateId" xml:"ClientCertificateId"`
+DefaultRouteSettings *RouteSettings `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+Description string `json:"description" xml:"Description"`
+RouteSettings RouteSettingsMap `json:"routeSettings" xml:"RouteSettings"`
+StageName string `json:"stageName" xml:"StageName"`
+StageVariables StageVariablesMap `json:"stageVariables" xml:"StageVariables"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateStageResponse struct {
-	AccessLogSettings           *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
-	ApiGatewayManaged           bool               `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	AutoDeploy                  bool               `json:"autoDeploy" xml:"AutoDeploy"`
-	ClientCertificateId         string             `json:"clientCertificateId" xml:"ClientCertificateId"`
-	CreatedDate                 time.Time          `json:"createdDate" xml:"CreatedDate"`
-	DefaultRouteSettings        *RouteSettings     `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
-	DeploymentId                string             `json:"deploymentId" xml:"DeploymentId"`
-	Description                 string             `json:"description" xml:"Description"`
-	LastDeploymentStatusMessage string             `json:"lastDeploymentStatusMessage" xml:"LastDeploymentStatusMessage"`
-	LastUpdatedDate             time.Time          `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
-	RouteSettings               RouteSettingsMap   `json:"routeSettings" xml:"RouteSettings"`
-	StageName                   string             `json:"stageName" xml:"StageName"`
-	StageVariables              StageVariablesMap  `json:"stageVariables" xml:"StageVariables"`
-	Tags                        Tags               `json:"tags" xml:"Tags"`
+AccessLogSettings *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+AutoDeploy bool `json:"autoDeploy" xml:"AutoDeploy"`
+ClientCertificateId string `json:"clientCertificateId" xml:"ClientCertificateId"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+DefaultRouteSettings *RouteSettings `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+Description string `json:"description" xml:"Description"`
+LastDeploymentStatusMessage string `json:"lastDeploymentStatusMessage" xml:"LastDeploymentStatusMessage"`
+LastUpdatedDate time.Time `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
+RouteSettings RouteSettingsMap `json:"routeSettings" xml:"RouteSettings"`
+StageName string `json:"stageName" xml:"StageName"`
+StageVariables StageVariablesMap `json:"stageVariables" xml:"StageVariables"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateVpcLinkRequest struct {
-	Name             string              `json:"name" xml:"Name"`
-	SecurityGroupIds SecurityGroupIdList `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds        SubnetIdList        `json:"subnetIds" xml:"SubnetIds"`
-	Tags             Tags                `json:"tags" xml:"Tags"`
+Name string `json:"name" xml:"Name"`
+SecurityGroupIds SecurityGroupIdList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds SubnetIdList `json:"subnetIds" xml:"SubnetIds"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateVpcLinkResponse struct {
-	CreatedDate          time.Time           `json:"createdDate" xml:"CreatedDate"`
-	Name                 string              `json:"name" xml:"Name"`
-	SecurityGroupIds     SecurityGroupIdList `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds            SubnetIdList        `json:"subnetIds" xml:"SubnetIds"`
-	Tags                 Tags                `json:"tags" xml:"Tags"`
-	VpcLinkId            string              `json:"vpcLinkId" xml:"VpcLinkId"`
-	VpcLinkStatus        string              `json:"vpcLinkStatus" xml:"VpcLinkStatus"`
-	VpcLinkStatusMessage string              `json:"vpcLinkStatusMessage" xml:"VpcLinkStatusMessage"`
-	VpcLinkVersion       string              `json:"vpcLinkVersion" xml:"VpcLinkVersion"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Name string `json:"name" xml:"Name"`
+SecurityGroupIds SecurityGroupIdList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds SubnetIdList `json:"subnetIds" xml:"SubnetIds"`
+Tags Tags `json:"tags" xml:"Tags"`
+VpcLinkId string `json:"vpcLinkId" xml:"VpcLinkId"`
+VpcLinkStatus string `json:"vpcLinkStatus" xml:"VpcLinkStatus"`
+VpcLinkStatusMessage string `json:"vpcLinkStatusMessage" xml:"VpcLinkStatusMessage"`
+VpcLinkVersion string `json:"vpcLinkVersion" xml:"VpcLinkVersion"`
 }
 
 type CustomColors struct {
-	AccentColor          string `json:"accentColor" xml:"AccentColor"`
-	BackgroundColor      string `json:"backgroundColor" xml:"BackgroundColor"`
-	ErrorValidationColor string `json:"errorValidationColor" xml:"ErrorValidationColor"`
-	HeaderColor          string `json:"headerColor" xml:"HeaderColor"`
-	NavigationColor      string `json:"navigationColor" xml:"NavigationColor"`
-	TextColor            string `json:"textColor" xml:"TextColor"`
+AccentColor string `json:"accentColor" xml:"AccentColor"`
+BackgroundColor string `json:"backgroundColor" xml:"BackgroundColor"`
+ErrorValidationColor string `json:"errorValidationColor" xml:"ErrorValidationColor"`
+HeaderColor string `json:"headerColor" xml:"HeaderColor"`
+NavigationColor string `json:"navigationColor" xml:"NavigationColor"`
+TextColor string `json:"textColor" xml:"TextColor"`
 }
 
 type DeleteAccessLogSettingsRequest struct {
-	ApiId     string `json:"apiId" xml:"ApiId"`
-	StageName string `json:"stageName" xml:"StageName"`
+ApiId string `json:"apiId" xml:"ApiId"`
+StageName string `json:"stageName" xml:"StageName"`
 }
 
 type DeleteApiMappingRequest struct {
-	ApiMappingId string `json:"apiMappingId" xml:"ApiMappingId"`
-	DomainName   string `json:"domainName" xml:"DomainName"`
+ApiMappingId string `json:"apiMappingId" xml:"ApiMappingId"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DeleteApiRequest struct {
-	ApiId string `json:"apiId" xml:"ApiId"`
+ApiId string `json:"apiId" xml:"ApiId"`
 }
 
 type DeleteAuthorizerRequest struct {
-	ApiId        string `json:"apiId" xml:"ApiId"`
-	AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
 }
 
 type DeleteCorsConfigurationRequest struct {
-	ApiId string `json:"apiId" xml:"ApiId"`
+ApiId string `json:"apiId" xml:"ApiId"`
 }
 
 type DeleteDeploymentRequest struct {
-	ApiId        string `json:"apiId" xml:"ApiId"`
-	DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
 }
 
 type DeleteDomainNameRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type DeleteIntegrationRequest struct {
-	ApiId         string `json:"apiId" xml:"ApiId"`
-	IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
 }
 
 type DeleteIntegrationResponseRequest struct {
-	ApiId                 string `json:"apiId" xml:"ApiId"`
-	IntegrationId         string `json:"integrationId" xml:"IntegrationId"`
-	IntegrationResponseId string `json:"integrationResponseId" xml:"IntegrationResponseId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+IntegrationResponseId string `json:"integrationResponseId" xml:"IntegrationResponseId"`
 }
 
 type DeleteModelRequest struct {
-	ApiId   string `json:"apiId" xml:"ApiId"`
-	ModelId string `json:"modelId" xml:"ModelId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ModelId string `json:"modelId" xml:"ModelId"`
 }
 
 type DeletePortalProductRequest struct {
-	PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
 }
 
 type DeletePortalProductSharingPolicyRequest struct {
-	PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
 }
 
 type DeletePortalRequest struct {
-	PortalId string `json:"portalId" xml:"PortalId"`
+PortalId string `json:"portalId" xml:"PortalId"`
 }
 
 type DeleteProductPageRequest struct {
-	PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
-	ProductPageId   string `json:"productPageId" xml:"ProductPageId"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+ProductPageId string `json:"productPageId" xml:"ProductPageId"`
 }
 
 type DeleteProductRestEndpointPageRequest struct {
-	PortalProductId           string `json:"portalProductId" xml:"PortalProductId"`
-	ProductRestEndpointPageId string `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+ProductRestEndpointPageId string `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
 }
 
 type DeleteRouteRequest struct {
-	ApiId   string `json:"apiId" xml:"ApiId"`
-	RouteId string `json:"routeId" xml:"RouteId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+RouteId string `json:"routeId" xml:"RouteId"`
 }
 
 type DeleteRouteRequestParameterRequest struct {
-	ApiId               string `json:"apiId" xml:"ApiId"`
-	RequestParameterKey string `json:"requestParameterKey" xml:"RequestParameterKey"`
-	RouteId             string `json:"routeId" xml:"RouteId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+RequestParameterKey string `json:"requestParameterKey" xml:"RequestParameterKey"`
+RouteId string `json:"routeId" xml:"RouteId"`
 }
 
 type DeleteRouteResponseRequest struct {
-	ApiId           string `json:"apiId" xml:"ApiId"`
-	RouteId         string `json:"routeId" xml:"RouteId"`
-	RouteResponseId string `json:"routeResponseId" xml:"RouteResponseId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+RouteId string `json:"routeId" xml:"RouteId"`
+RouteResponseId string `json:"routeResponseId" xml:"RouteResponseId"`
 }
 
 type DeleteRouteSettingsRequest struct {
-	ApiId     string `json:"apiId" xml:"ApiId"`
-	RouteKey  string `json:"routeKey" xml:"RouteKey"`
-	StageName string `json:"stageName" xml:"StageName"`
+ApiId string `json:"apiId" xml:"ApiId"`
+RouteKey string `json:"routeKey" xml:"RouteKey"`
+StageName string `json:"stageName" xml:"StageName"`
 }
 
 type DeleteRoutingRuleRequest struct {
-	DomainName    string `json:"domainName" xml:"DomainName"`
-	DomainNameId  string `json:"domainNameId" xml:"DomainNameId"`
-	RoutingRuleId string `json:"routingRuleId" xml:"RoutingRuleId"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainNameId string `json:"domainNameId" xml:"DomainNameId"`
+RoutingRuleId string `json:"routingRuleId" xml:"RoutingRuleId"`
 }
 
 type DeleteStageRequest struct {
-	ApiId     string `json:"apiId" xml:"ApiId"`
-	StageName string `json:"stageName" xml:"StageName"`
+ApiId string `json:"apiId" xml:"ApiId"`
+StageName string `json:"stageName" xml:"StageName"`
 }
 
 type DeleteVpcLinkRequest struct {
-	VpcLinkId string `json:"vpcLinkId" xml:"VpcLinkId"`
+VpcLinkId string `json:"vpcLinkId" xml:"VpcLinkId"`
 }
 
 type DeleteVpcLinkResponse struct {
 }
 
 type Deployment struct {
-	AutoDeployed            bool      `json:"autoDeployed" xml:"AutoDeployed"`
-	CreatedDate             time.Time `json:"createdDate" xml:"CreatedDate"`
-	DeploymentId            string    `json:"deploymentId" xml:"DeploymentId"`
-	DeploymentStatus        string    `json:"deploymentStatus" xml:"DeploymentStatus"`
-	DeploymentStatusMessage string    `json:"deploymentStatusMessage" xml:"DeploymentStatusMessage"`
-	Description             string    `json:"description" xml:"Description"`
+AutoDeployed bool `json:"autoDeployed" xml:"AutoDeployed"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+DeploymentStatus string `json:"deploymentStatus" xml:"DeploymentStatus"`
+DeploymentStatusMessage string `json:"deploymentStatusMessage" xml:"DeploymentStatusMessage"`
+Description string `json:"description" xml:"Description"`
 }
 
 type DisablePortalRequest struct {
-	PortalId string `json:"portalId" xml:"PortalId"`
+PortalId string `json:"portalId" xml:"PortalId"`
 }
 
 type DisplayContent struct {
-	Body  string `json:"body" xml:"Body"`
-	Title string `json:"title" xml:"Title"`
+Body string `json:"body" xml:"Body"`
+Title string `json:"title" xml:"Title"`
 }
 
 type DisplayContentOverrides struct {
-	Body          string `json:"body" xml:"Body"`
-	Endpoint      string `json:"endpoint" xml:"Endpoint"`
-	OperationName string `json:"operationName" xml:"OperationName"`
+Body string `json:"body" xml:"Body"`
+Endpoint string `json:"endpoint" xml:"Endpoint"`
+OperationName string `json:"operationName" xml:"OperationName"`
 }
 
 type DisplayOrder struct {
-	Contents        __listOfSection              `json:"contents" xml:"Contents"`
-	OverviewPageArn string                       `json:"overviewPageArn" xml:"OverviewPageArn"`
-	ProductPageArns __listOf__stringMin20Max2048 `json:"productPageArns" xml:"ProductPageArns"`
+Contents __listOfSection `json:"contents" xml:"Contents"`
+OverviewPageArn string `json:"overviewPageArn" xml:"OverviewPageArn"`
+ProductPageArns __listOf__stringMin20Max2048 `json:"productPageArns" xml:"ProductPageArns"`
 }
 
 type DomainName struct {
-	ApiMappingSelectionExpression string                   `json:"apiMappingSelectionExpression" xml:"ApiMappingSelectionExpression"`
-	DomainName                    string                   `json:"domainName" xml:"DomainName"`
-	DomainNameArn                 string                   `json:"domainNameArn" xml:"DomainNameArn"`
-	DomainNameConfigurations      DomainNameConfigurations `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
-	MutualTlsAuthentication       *MutualTlsAuthentication `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
-	RoutingMode                   string                   `json:"routingMode" xml:"RoutingMode"`
-	Tags                          Tags                     `json:"tags" xml:"Tags"`
+ApiMappingSelectionExpression string `json:"apiMappingSelectionExpression" xml:"ApiMappingSelectionExpression"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainNameArn string `json:"domainNameArn" xml:"DomainNameArn"`
+DomainNameConfigurations DomainNameConfigurations `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
+MutualTlsAuthentication *MutualTlsAuthentication `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
+RoutingMode string `json:"routingMode" xml:"RoutingMode"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type DomainNameConfiguration struct {
-	ApiGatewayDomainName                string    `json:"apiGatewayDomainName" xml:"ApiGatewayDomainName"`
-	CertificateArn                      string    `json:"certificateArn" xml:"CertificateArn"`
-	CertificateName                     string    `json:"certificateName" xml:"CertificateName"`
-	CertificateUploadDate               time.Time `json:"certificateUploadDate" xml:"CertificateUploadDate"`
-	DomainNameStatus                    string    `json:"domainNameStatus" xml:"DomainNameStatus"`
-	DomainNameStatusMessage             string    `json:"domainNameStatusMessage" xml:"DomainNameStatusMessage"`
-	EndpointType                        string    `json:"endpointType" xml:"EndpointType"`
-	HostedZoneId                        string    `json:"hostedZoneId" xml:"HostedZoneId"`
-	IpAddressType                       string    `json:"ipAddressType" xml:"IpAddressType"`
-	OwnershipVerificationCertificateArn string    `json:"ownershipVerificationCertificateArn" xml:"OwnershipVerificationCertificateArn"`
-	SecurityPolicy                      string    `json:"securityPolicy" xml:"SecurityPolicy"`
+ApiGatewayDomainName string `json:"apiGatewayDomainName" xml:"ApiGatewayDomainName"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateName string `json:"certificateName" xml:"CertificateName"`
+CertificateUploadDate time.Time `json:"certificateUploadDate" xml:"CertificateUploadDate"`
+DomainNameStatus string `json:"domainNameStatus" xml:"DomainNameStatus"`
+DomainNameStatusMessage string `json:"domainNameStatusMessage" xml:"DomainNameStatusMessage"`
+EndpointType string `json:"endpointType" xml:"EndpointType"`
+HostedZoneId string `json:"hostedZoneId" xml:"HostedZoneId"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+OwnershipVerificationCertificateArn string `json:"ownershipVerificationCertificateArn" xml:"OwnershipVerificationCertificateArn"`
+SecurityPolicy string `json:"securityPolicy" xml:"SecurityPolicy"`
 }
 
 type EndpointConfigurationRequest struct {
-	AcmManaged *ACMManaged `json:"acmManaged" xml:"AcmManaged"`
-	None       *None       `json:"none" xml:"None"`
+AcmManaged *ACMManaged `json:"acmManaged" xml:"AcmManaged"`
+None *None `json:"none" xml:"None"`
 }
 
 type EndpointConfigurationResponse struct {
-	CertificateArn           string `json:"certificateArn" xml:"CertificateArn"`
-	DomainName               string `json:"domainName" xml:"DomainName"`
-	PortalDefaultDomainName  string `json:"portalDefaultDomainName" xml:"PortalDefaultDomainName"`
-	PortalDomainHostedZoneId string `json:"portalDomainHostedZoneId" xml:"PortalDomainHostedZoneId"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+DomainName string `json:"domainName" xml:"DomainName"`
+PortalDefaultDomainName string `json:"portalDefaultDomainName" xml:"PortalDefaultDomainName"`
+PortalDomainHostedZoneId string `json:"portalDomainHostedZoneId" xml:"PortalDomainHostedZoneId"`
 }
 
 type EndpointDisplayContent struct {
-	None      *None                    `json:"none" xml:"None"`
-	Overrides *DisplayContentOverrides `json:"overrides" xml:"Overrides"`
+None *None `json:"none" xml:"None"`
+Overrides *DisplayContentOverrides `json:"overrides" xml:"Overrides"`
 }
 
 type EndpointDisplayContentResponse struct {
-	Body          string `json:"body" xml:"Body"`
-	Endpoint      string `json:"endpoint" xml:"Endpoint"`
-	OperationName string `json:"operationName" xml:"OperationName"`
+Body string `json:"body" xml:"Body"`
+Endpoint string `json:"endpoint" xml:"Endpoint"`
+OperationName string `json:"operationName" xml:"OperationName"`
 }
 
 type ExportApiRequest struct {
-	ApiId             string `json:"apiId" xml:"ApiId"`
-	ExportVersion     string `json:"exportVersion" xml:"ExportVersion"`
-	IncludeExtensions bool   `json:"includeExtensions" xml:"IncludeExtensions"`
-	OutputType        string `json:"outputType" xml:"OutputType"`
-	Specification     string `json:"specification" xml:"Specification"`
-	StageName         string `json:"stageName" xml:"StageName"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ExportVersion string `json:"exportVersion" xml:"ExportVersion"`
+IncludeExtensions bool `json:"includeExtensions" xml:"IncludeExtensions"`
+OutputType string `json:"outputType" xml:"OutputType"`
+Specification string `json:"specification" xml:"Specification"`
+StageName string `json:"stageName" xml:"StageName"`
 }
 
 type ExportApiResponse struct {
-	Body []byte `json:"body" xml:"body"`
+Body []byte `json:"body" xml:"body"`
 }
 
 type GetApiMappingRequest struct {
-	ApiMappingId string `json:"apiMappingId" xml:"ApiMappingId"`
-	DomainName   string `json:"domainName" xml:"DomainName"`
+ApiMappingId string `json:"apiMappingId" xml:"ApiMappingId"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type GetApiMappingResponse struct {
-	ApiId         string `json:"apiId" xml:"ApiId"`
-	ApiMappingId  string `json:"apiMappingId" xml:"ApiMappingId"`
-	ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
-	Stage         string `json:"stage" xml:"Stage"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiMappingId string `json:"apiMappingId" xml:"ApiMappingId"`
+ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type GetApiMappingsRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+DomainName string `json:"domainName" xml:"DomainName"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetApiMappingsResponse struct {
-	Items     __listOfApiMapping `json:"items" xml:"Items"`
-	NextToken string             `json:"nextToken" xml:"NextToken"`
+Items __listOfApiMapping `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetApiRequest struct {
-	ApiId string `json:"apiId" xml:"ApiId"`
+ApiId string `json:"apiId" xml:"ApiId"`
 }
 
 type GetApiResponse struct {
-	ApiEndpoint               string           `json:"apiEndpoint" xml:"ApiEndpoint"`
-	ApiGatewayManaged         bool             `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ApiId                     string           `json:"apiId" xml:"ApiId"`
-	ApiKeySelectionExpression string           `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
-	CorsConfiguration         *Cors            `json:"corsConfiguration" xml:"CorsConfiguration"`
-	CreatedDate               time.Time        `json:"createdDate" xml:"CreatedDate"`
-	Description               string           `json:"description" xml:"Description"`
-	DisableExecuteApiEndpoint bool             `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
-	DisableSchemaValidation   bool             `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
-	ImportInfo                __listOf__string `json:"importInfo" xml:"ImportInfo"`
-	IpAddressType             string           `json:"ipAddressType" xml:"IpAddressType"`
-	Name                      string           `json:"name" xml:"Name"`
-	ProtocolType              string           `json:"protocolType" xml:"ProtocolType"`
-	RouteSelectionExpression  string           `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
-	Tags                      Tags             `json:"tags" xml:"Tags"`
-	Version                   string           `json:"version" xml:"Version"`
-	Warnings                  __listOf__string `json:"warnings" xml:"Warnings"`
+ApiEndpoint string `json:"apiEndpoint" xml:"ApiEndpoint"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiKeySelectionExpression string `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
+CorsConfiguration *Cors `json:"corsConfiguration" xml:"CorsConfiguration"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Description string `json:"description" xml:"Description"`
+DisableExecuteApiEndpoint bool `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
+DisableSchemaValidation bool `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
+ImportInfo __listOf__string `json:"importInfo" xml:"ImportInfo"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+Name string `json:"name" xml:"Name"`
+ProtocolType string `json:"protocolType" xml:"ProtocolType"`
+RouteSelectionExpression string `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
+Tags Tags `json:"tags" xml:"Tags"`
+Version string `json:"version" xml:"Version"`
+Warnings __listOf__string `json:"warnings" xml:"Warnings"`
 }
 
 type GetApisRequest struct {
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetApisResponse struct {
-	Items     __listOfApi `json:"items" xml:"Items"`
-	NextToken string      `json:"nextToken" xml:"NextToken"`
+Items __listOfApi `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetAuthorizerRequest struct {
-	ApiId        string `json:"apiId" xml:"ApiId"`
-	AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
 }
 
 type GetAuthorizerResponse struct {
-	AuthorizerCredentialsArn       string             `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
-	AuthorizerId                   string             `json:"authorizerId" xml:"AuthorizerId"`
-	AuthorizerPayloadFormatVersion string             `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
-	AuthorizerResultTtlInSeconds   int32              `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
-	AuthorizerType                 string             `json:"authorizerType" xml:"AuthorizerType"`
-	AuthorizerUri                  string             `json:"authorizerUri" xml:"AuthorizerUri"`
-	EnableSimpleResponses          bool               `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
-	IdentitySource                 IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
-	IdentityValidationExpression   string             `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
-	JwtConfiguration               *JWTConfiguration  `json:"jwtConfiguration" xml:"JwtConfiguration"`
-	Name                           string             `json:"name" xml:"Name"`
+AuthorizerCredentialsArn string `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+AuthorizerPayloadFormatVersion string `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
+AuthorizerResultTtlInSeconds int32 `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
+AuthorizerType string `json:"authorizerType" xml:"AuthorizerType"`
+AuthorizerUri string `json:"authorizerUri" xml:"AuthorizerUri"`
+EnableSimpleResponses bool `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
+IdentitySource IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
+IdentityValidationExpression string `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
+JwtConfiguration *JWTConfiguration `json:"jwtConfiguration" xml:"JwtConfiguration"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetAuthorizersRequest struct {
-	ApiId      string `json:"apiId" xml:"ApiId"`
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+ApiId string `json:"apiId" xml:"ApiId"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetAuthorizersResponse struct {
-	Items     __listOfAuthorizer `json:"items" xml:"Items"`
-	NextToken string             `json:"nextToken" xml:"NextToken"`
+Items __listOfAuthorizer `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetDeploymentRequest struct {
-	ApiId        string `json:"apiId" xml:"ApiId"`
-	DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
 }
 
 type GetDeploymentResponse struct {
-	AutoDeployed            bool      `json:"autoDeployed" xml:"AutoDeployed"`
-	CreatedDate             time.Time `json:"createdDate" xml:"CreatedDate"`
-	DeploymentId            string    `json:"deploymentId" xml:"DeploymentId"`
-	DeploymentStatus        string    `json:"deploymentStatus" xml:"DeploymentStatus"`
-	DeploymentStatusMessage string    `json:"deploymentStatusMessage" xml:"DeploymentStatusMessage"`
-	Description             string    `json:"description" xml:"Description"`
+AutoDeployed bool `json:"autoDeployed" xml:"AutoDeployed"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+DeploymentStatus string `json:"deploymentStatus" xml:"DeploymentStatus"`
+DeploymentStatusMessage string `json:"deploymentStatusMessage" xml:"DeploymentStatusMessage"`
+Description string `json:"description" xml:"Description"`
 }
 
 type GetDeploymentsRequest struct {
-	ApiId      string `json:"apiId" xml:"ApiId"`
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+ApiId string `json:"apiId" xml:"ApiId"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetDeploymentsResponse struct {
-	Items     __listOfDeployment `json:"items" xml:"Items"`
-	NextToken string             `json:"nextToken" xml:"NextToken"`
+Items __listOfDeployment `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetDomainNameRequest struct {
-	DomainName string `json:"domainName" xml:"DomainName"`
+DomainName string `json:"domainName" xml:"DomainName"`
 }
 
 type GetDomainNameResponse struct {
-	ApiMappingSelectionExpression string                   `json:"apiMappingSelectionExpression" xml:"ApiMappingSelectionExpression"`
-	DomainName                    string                   `json:"domainName" xml:"DomainName"`
-	DomainNameArn                 string                   `json:"domainNameArn" xml:"DomainNameArn"`
-	DomainNameConfigurations      DomainNameConfigurations `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
-	MutualTlsAuthentication       *MutualTlsAuthentication `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
-	RoutingMode                   string                   `json:"routingMode" xml:"RoutingMode"`
-	Tags                          Tags                     `json:"tags" xml:"Tags"`
+ApiMappingSelectionExpression string `json:"apiMappingSelectionExpression" xml:"ApiMappingSelectionExpression"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainNameArn string `json:"domainNameArn" xml:"DomainNameArn"`
+DomainNameConfigurations DomainNameConfigurations `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
+MutualTlsAuthentication *MutualTlsAuthentication `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
+RoutingMode string `json:"routingMode" xml:"RoutingMode"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type GetDomainNamesRequest struct {
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetDomainNamesResponse struct {
-	Items     __listOfDomainName `json:"items" xml:"Items"`
-	NextToken string             `json:"nextToken" xml:"NextToken"`
+Items __listOfDomainName `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetIntegrationRequest struct {
-	ApiId         string `json:"apiId" xml:"ApiId"`
-	IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
 }
 
 type GetIntegrationResponseRequest struct {
-	ApiId                 string `json:"apiId" xml:"ApiId"`
-	IntegrationId         string `json:"integrationId" xml:"IntegrationId"`
-	IntegrationResponseId string `json:"integrationResponseId" xml:"IntegrationResponseId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+IntegrationResponseId string `json:"integrationResponseId" xml:"IntegrationResponseId"`
 }
 
 type GetIntegrationResponseResponse struct {
-	ContentHandlingStrategy     string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	IntegrationResponseId       string                `json:"integrationResponseId" xml:"IntegrationResponseId"`
-	IntegrationResponseKey      string                `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
-	ResponseParameters          IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
-	ResponseTemplates           TemplateMap           `json:"responseTemplates" xml:"ResponseTemplates"`
-	TemplateSelectionExpression string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+IntegrationResponseId string `json:"integrationResponseId" xml:"IntegrationResponseId"`
+IntegrationResponseKey string `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
+ResponseParameters IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
+ResponseTemplates TemplateMap `json:"responseTemplates" xml:"ResponseTemplates"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
 }
 
 type GetIntegrationResponsesRequest struct {
-	ApiId         string `json:"apiId" xml:"ApiId"`
-	IntegrationId string `json:"integrationId" xml:"IntegrationId"`
-	MaxResults    string `json:"maxResults" xml:"MaxResults"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
+ApiId string `json:"apiId" xml:"ApiId"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetIntegrationResponsesResponse struct {
-	Items     __listOfIntegrationResponse `json:"items" xml:"Items"`
-	NextToken string                      `json:"nextToken" xml:"NextToken"`
+Items __listOfIntegrationResponse `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetIntegrationResult struct {
-	ApiGatewayManaged                      bool                  `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ConnectionId                           string                `json:"connectionId" xml:"ConnectionId"`
-	ConnectionType                         string                `json:"connectionType" xml:"ConnectionType"`
-	ContentHandlingStrategy                string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	CredentialsArn                         string                `json:"credentialsArn" xml:"CredentialsArn"`
-	Description                            string                `json:"description" xml:"Description"`
-	IntegrationId                          string                `json:"integrationId" xml:"IntegrationId"`
-	IntegrationMethod                      string                `json:"integrationMethod" xml:"IntegrationMethod"`
-	IntegrationResponseSelectionExpression string                `json:"integrationResponseSelectionExpression" xml:"IntegrationResponseSelectionExpression"`
-	IntegrationSubtype                     string                `json:"integrationSubtype" xml:"IntegrationSubtype"`
-	IntegrationType                        string                `json:"integrationType" xml:"IntegrationType"`
-	IntegrationUri                         string                `json:"integrationUri" xml:"IntegrationUri"`
-	PassthroughBehavior                    string                `json:"passthroughBehavior" xml:"PassthroughBehavior"`
-	PayloadFormatVersion                   string                `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
-	RequestParameters                      IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
-	RequestTemplates                       TemplateMap           `json:"requestTemplates" xml:"RequestTemplates"`
-	ResponseParameters                     ResponseParameters    `json:"responseParameters" xml:"ResponseParameters"`
-	TemplateSelectionExpression            string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
-	TimeoutInMillis                        int32                 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
-	TlsConfig                              *TlsConfig            `json:"tlsConfig" xml:"TlsConfig"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+CredentialsArn string `json:"credentialsArn" xml:"CredentialsArn"`
+Description string `json:"description" xml:"Description"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+IntegrationMethod string `json:"integrationMethod" xml:"IntegrationMethod"`
+IntegrationResponseSelectionExpression string `json:"integrationResponseSelectionExpression" xml:"IntegrationResponseSelectionExpression"`
+IntegrationSubtype string `json:"integrationSubtype" xml:"IntegrationSubtype"`
+IntegrationType string `json:"integrationType" xml:"IntegrationType"`
+IntegrationUri string `json:"integrationUri" xml:"IntegrationUri"`
+PassthroughBehavior string `json:"passthroughBehavior" xml:"PassthroughBehavior"`
+PayloadFormatVersion string `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
+RequestParameters IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
+RequestTemplates TemplateMap `json:"requestTemplates" xml:"RequestTemplates"`
+ResponseParameters ResponseParameters `json:"responseParameters" xml:"ResponseParameters"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+TimeoutInMillis int32 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
+TlsConfig *TlsConfig `json:"tlsConfig" xml:"TlsConfig"`
 }
 
 type GetIntegrationsRequest struct {
-	ApiId      string `json:"apiId" xml:"ApiId"`
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+ApiId string `json:"apiId" xml:"ApiId"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetIntegrationsResponse struct {
-	Items     __listOfIntegration `json:"items" xml:"Items"`
-	NextToken string              `json:"nextToken" xml:"NextToken"`
+Items __listOfIntegration `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetModelRequest struct {
-	ApiId   string `json:"apiId" xml:"ApiId"`
-	ModelId string `json:"modelId" xml:"ModelId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ModelId string `json:"modelId" xml:"ModelId"`
 }
 
 type GetModelResponse struct {
-	ContentType string `json:"contentType" xml:"ContentType"`
-	Description string `json:"description" xml:"Description"`
-	ModelId     string `json:"modelId" xml:"ModelId"`
-	Name        string `json:"name" xml:"Name"`
-	Schema      string `json:"schema" xml:"Schema"`
+ContentType string `json:"contentType" xml:"ContentType"`
+Description string `json:"description" xml:"Description"`
+ModelId string `json:"modelId" xml:"ModelId"`
+Name string `json:"name" xml:"Name"`
+Schema string `json:"schema" xml:"Schema"`
 }
 
 type GetModelTemplateRequest struct {
-	ApiId   string `json:"apiId" xml:"ApiId"`
-	ModelId string `json:"modelId" xml:"ModelId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ModelId string `json:"modelId" xml:"ModelId"`
 }
 
 type GetModelTemplateResponse struct {
-	Value string `json:"value" xml:"Value"`
+Value string `json:"value" xml:"Value"`
 }
 
 type GetModelsRequest struct {
-	ApiId      string `json:"apiId" xml:"ApiId"`
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+ApiId string `json:"apiId" xml:"ApiId"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetModelsResponse struct {
-	Items     __listOfModel `json:"items" xml:"Items"`
-	NextToken string        `json:"nextToken" xml:"NextToken"`
+Items __listOfModel `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetPortalProductRequest struct {
-	PortalProductId        string `json:"portalProductId" xml:"PortalProductId"`
-	ResourceOwnerAccountId string `json:"resourceOwnerAccountId" xml:"ResourceOwnerAccountId"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+ResourceOwnerAccountId string `json:"resourceOwnerAccountId" xml:"ResourceOwnerAccountId"`
 }
 
 type GetPortalProductResponse struct {
-	Description      string        `json:"description" xml:"Description"`
-	DisplayName      string        `json:"displayName" xml:"DisplayName"`
-	DisplayOrder     *DisplayOrder `json:"displayOrder" xml:"DisplayOrder"`
-	LastModified     time.Time     `json:"lastModified" xml:"LastModified"`
-	PortalProductArn string        `json:"portalProductArn" xml:"PortalProductArn"`
-	PortalProductId  string        `json:"portalProductId" xml:"PortalProductId"`
-	Tags             Tags          `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+DisplayOrder *DisplayOrder `json:"displayOrder" xml:"DisplayOrder"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+PortalProductArn string `json:"portalProductArn" xml:"PortalProductArn"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type GetPortalProductSharingPolicyRequest struct {
-	PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
 }
 
 type GetPortalProductSharingPolicyResponse struct {
-	PolicyDocument  string `json:"policyDocument" xml:"PolicyDocument"`
-	PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
 }
 
 type GetPortalRequest struct {
-	PortalId string `json:"portalId" xml:"PortalId"`
+PortalId string `json:"portalId" xml:"PortalId"`
 }
 
 type GetPortalResponse struct {
-	Authorization             *Authorization                 `json:"authorization" xml:"Authorization"`
-	EndpointConfiguration     *EndpointConfigurationResponse `json:"endpointConfiguration" xml:"EndpointConfiguration"`
-	IncludedPortalProductArns __listOf__stringMin20Max2048   `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
-	LastModified              time.Time                      `json:"lastModified" xml:"LastModified"`
-	LastPublished             time.Time                      `json:"lastPublished" xml:"LastPublished"`
-	LastPublishedDescription  string                         `json:"lastPublishedDescription" xml:"LastPublishedDescription"`
-	PortalArn                 string                         `json:"portalArn" xml:"PortalArn"`
-	PortalContent             *PortalContent                 `json:"portalContent" xml:"PortalContent"`
-	PortalId                  string                         `json:"portalId" xml:"PortalId"`
-	Preview                   *Preview                       `json:"preview" xml:"Preview"`
-	PublishStatus             string                         `json:"publishStatus" xml:"PublishStatus"`
-	RumAppMonitorName         string                         `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
-	StatusException           *StatusException               `json:"statusException" xml:"StatusException"`
-	Tags                      Tags                           `json:"tags" xml:"Tags"`
+Authorization *Authorization `json:"authorization" xml:"Authorization"`
+EndpointConfiguration *EndpointConfigurationResponse `json:"endpointConfiguration" xml:"EndpointConfiguration"`
+IncludedPortalProductArns __listOf__stringMin20Max2048 `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+LastPublished time.Time `json:"lastPublished" xml:"LastPublished"`
+LastPublishedDescription string `json:"lastPublishedDescription" xml:"LastPublishedDescription"`
+PortalArn string `json:"portalArn" xml:"PortalArn"`
+PortalContent *PortalContent `json:"portalContent" xml:"PortalContent"`
+PortalId string `json:"portalId" xml:"PortalId"`
+Preview *Preview `json:"preview" xml:"Preview"`
+PublishStatus string `json:"publishStatus" xml:"PublishStatus"`
+RumAppMonitorName string `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
+StatusException *StatusException `json:"statusException" xml:"StatusException"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type GetProductPageRequest struct {
-	PortalProductId        string `json:"portalProductId" xml:"PortalProductId"`
-	ProductPageId          string `json:"productPageId" xml:"ProductPageId"`
-	ResourceOwnerAccountId string `json:"resourceOwnerAccountId" xml:"ResourceOwnerAccountId"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+ProductPageId string `json:"productPageId" xml:"ProductPageId"`
+ResourceOwnerAccountId string `json:"resourceOwnerAccountId" xml:"ResourceOwnerAccountId"`
 }
 
 type GetProductPageResponse struct {
-	DisplayContent *DisplayContent `json:"displayContent" xml:"DisplayContent"`
-	LastModified   time.Time       `json:"lastModified" xml:"LastModified"`
-	ProductPageArn string          `json:"productPageArn" xml:"ProductPageArn"`
-	ProductPageId  string          `json:"productPageId" xml:"ProductPageId"`
+DisplayContent *DisplayContent `json:"displayContent" xml:"DisplayContent"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+ProductPageArn string `json:"productPageArn" xml:"ProductPageArn"`
+ProductPageId string `json:"productPageId" xml:"ProductPageId"`
 }
 
 type GetProductRestEndpointPageRequest struct {
-	IncludeRawDisplayContent  string `json:"includeRawDisplayContent" xml:"IncludeRawDisplayContent"`
-	PortalProductId           string `json:"portalProductId" xml:"PortalProductId"`
-	ProductRestEndpointPageId string `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
-	ResourceOwnerAccountId    string `json:"resourceOwnerAccountId" xml:"ResourceOwnerAccountId"`
+IncludeRawDisplayContent string `json:"includeRawDisplayContent" xml:"IncludeRawDisplayContent"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+ProductRestEndpointPageId string `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
+ResourceOwnerAccountId string `json:"resourceOwnerAccountId" xml:"ResourceOwnerAccountId"`
 }
 
 type GetProductRestEndpointPageResponse struct {
-	DisplayContent             *EndpointDisplayContentResponse `json:"displayContent" xml:"DisplayContent"`
-	LastModified               time.Time                       `json:"lastModified" xml:"LastModified"`
-	ProductRestEndpointPageArn string                          `json:"productRestEndpointPageArn" xml:"ProductRestEndpointPageArn"`
-	ProductRestEndpointPageId  string                          `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
-	RawDisplayContent          string                          `json:"rawDisplayContent" xml:"RawDisplayContent"`
-	RestEndpointIdentifier     *RestEndpointIdentifier         `json:"restEndpointIdentifier" xml:"RestEndpointIdentifier"`
-	Status                     string                          `json:"status" xml:"Status"`
-	StatusException            *StatusException                `json:"statusException" xml:"StatusException"`
-	TryItState                 string                          `json:"tryItState" xml:"TryItState"`
+DisplayContent *EndpointDisplayContentResponse `json:"displayContent" xml:"DisplayContent"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+ProductRestEndpointPageArn string `json:"productRestEndpointPageArn" xml:"ProductRestEndpointPageArn"`
+ProductRestEndpointPageId string `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
+RawDisplayContent string `json:"rawDisplayContent" xml:"RawDisplayContent"`
+RestEndpointIdentifier *RestEndpointIdentifier `json:"restEndpointIdentifier" xml:"RestEndpointIdentifier"`
+Status string `json:"status" xml:"Status"`
+StatusException *StatusException `json:"statusException" xml:"StatusException"`
+TryItState string `json:"tryItState" xml:"TryItState"`
 }
 
 type GetRouteRequest struct {
-	ApiId   string `json:"apiId" xml:"ApiId"`
-	RouteId string `json:"routeId" xml:"RouteId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+RouteId string `json:"routeId" xml:"RouteId"`
 }
 
 type GetRouteResponseRequest struct {
-	ApiId           string `json:"apiId" xml:"ApiId"`
-	RouteId         string `json:"routeId" xml:"RouteId"`
-	RouteResponseId string `json:"routeResponseId" xml:"RouteResponseId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+RouteId string `json:"routeId" xml:"RouteId"`
+RouteResponseId string `json:"routeResponseId" xml:"RouteResponseId"`
 }
 
 type GetRouteResponseResponse struct {
-	ModelSelectionExpression string          `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	ResponseModels           RouteModels     `json:"responseModels" xml:"ResponseModels"`
-	ResponseParameters       RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
-	RouteResponseId          string          `json:"routeResponseId" xml:"RouteResponseId"`
-	RouteResponseKey         string          `json:"routeResponseKey" xml:"RouteResponseKey"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+ResponseModels RouteModels `json:"responseModels" xml:"ResponseModels"`
+ResponseParameters RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
+RouteResponseId string `json:"routeResponseId" xml:"RouteResponseId"`
+RouteResponseKey string `json:"routeResponseKey" xml:"RouteResponseKey"`
 }
 
 type GetRouteResponsesRequest struct {
-	ApiId      string `json:"apiId" xml:"ApiId"`
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	RouteId    string `json:"routeId" xml:"RouteId"`
+ApiId string `json:"apiId" xml:"ApiId"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RouteId string `json:"routeId" xml:"RouteId"`
 }
 
 type GetRouteResponsesResponse struct {
-	Items     __listOfRouteResponse `json:"items" xml:"Items"`
-	NextToken string                `json:"nextToken" xml:"NextToken"`
+Items __listOfRouteResponse `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetRouteResult struct {
-	ApiGatewayManaged                bool                `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ApiKeyRequired                   bool                `json:"apiKeyRequired" xml:"ApiKeyRequired"`
-	AuthorizationScopes              AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
-	AuthorizationType                string              `json:"authorizationType" xml:"AuthorizationType"`
-	AuthorizerId                     string              `json:"authorizerId" xml:"AuthorizerId"`
-	ModelSelectionExpression         string              `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	OperationName                    string              `json:"operationName" xml:"OperationName"`
-	RequestModels                    RouteModels         `json:"requestModels" xml:"RequestModels"`
-	RequestParameters                RouteParameters     `json:"requestParameters" xml:"RequestParameters"`
-	RouteId                          string              `json:"routeId" xml:"RouteId"`
-	RouteKey                         string              `json:"routeKey" xml:"RouteKey"`
-	RouteResponseSelectionExpression string              `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
-	Target                           string              `json:"target" xml:"Target"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ApiKeyRequired bool `json:"apiKeyRequired" xml:"ApiKeyRequired"`
+AuthorizationScopes AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
+AuthorizationType string `json:"authorizationType" xml:"AuthorizationType"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+OperationName string `json:"operationName" xml:"OperationName"`
+RequestModels RouteModels `json:"requestModels" xml:"RequestModels"`
+RequestParameters RouteParameters `json:"requestParameters" xml:"RequestParameters"`
+RouteId string `json:"routeId" xml:"RouteId"`
+RouteKey string `json:"routeKey" xml:"RouteKey"`
+RouteResponseSelectionExpression string `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
+Target string `json:"target" xml:"Target"`
 }
 
 type GetRoutesRequest struct {
-	ApiId      string `json:"apiId" xml:"ApiId"`
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+ApiId string `json:"apiId" xml:"ApiId"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetRoutesResponse struct {
-	Items     __listOfRoute `json:"items" xml:"Items"`
-	NextToken string        `json:"nextToken" xml:"NextToken"`
+Items __listOfRoute `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetRoutingRuleRequest struct {
-	DomainName    string `json:"domainName" xml:"DomainName"`
-	DomainNameId  string `json:"domainNameId" xml:"DomainNameId"`
-	RoutingRuleId string `json:"routingRuleId" xml:"RoutingRuleId"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainNameId string `json:"domainNameId" xml:"DomainNameId"`
+RoutingRuleId string `json:"routingRuleId" xml:"RoutingRuleId"`
 }
 
 type GetRoutingRuleResponse struct {
-	Actions        __listOfRoutingRuleAction    `json:"actions" xml:"Actions"`
-	Conditions     __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
-	Priority       int32                        `json:"priority" xml:"Priority"`
-	RoutingRuleArn string                       `json:"routingRuleArn" xml:"RoutingRuleArn"`
-	RoutingRuleId  string                       `json:"routingRuleId" xml:"RoutingRuleId"`
+Actions __listOfRoutingRuleAction `json:"actions" xml:"Actions"`
+Conditions __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
+Priority int32 `json:"priority" xml:"Priority"`
+RoutingRuleArn string `json:"routingRuleArn" xml:"RoutingRuleArn"`
+RoutingRuleId string `json:"routingRuleId" xml:"RoutingRuleId"`
 }
 
 type GetStageRequest struct {
-	ApiId     string `json:"apiId" xml:"ApiId"`
-	StageName string `json:"stageName" xml:"StageName"`
+ApiId string `json:"apiId" xml:"ApiId"`
+StageName string `json:"stageName" xml:"StageName"`
 }
 
 type GetStageResponse struct {
-	AccessLogSettings           *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
-	ApiGatewayManaged           bool               `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	AutoDeploy                  bool               `json:"autoDeploy" xml:"AutoDeploy"`
-	ClientCertificateId         string             `json:"clientCertificateId" xml:"ClientCertificateId"`
-	CreatedDate                 time.Time          `json:"createdDate" xml:"CreatedDate"`
-	DefaultRouteSettings        *RouteSettings     `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
-	DeploymentId                string             `json:"deploymentId" xml:"DeploymentId"`
-	Description                 string             `json:"description" xml:"Description"`
-	LastDeploymentStatusMessage string             `json:"lastDeploymentStatusMessage" xml:"LastDeploymentStatusMessage"`
-	LastUpdatedDate             time.Time          `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
-	RouteSettings               RouteSettingsMap   `json:"routeSettings" xml:"RouteSettings"`
-	StageName                   string             `json:"stageName" xml:"StageName"`
-	StageVariables              StageVariablesMap  `json:"stageVariables" xml:"StageVariables"`
-	Tags                        Tags               `json:"tags" xml:"Tags"`
+AccessLogSettings *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+AutoDeploy bool `json:"autoDeploy" xml:"AutoDeploy"`
+ClientCertificateId string `json:"clientCertificateId" xml:"ClientCertificateId"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+DefaultRouteSettings *RouteSettings `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+Description string `json:"description" xml:"Description"`
+LastDeploymentStatusMessage string `json:"lastDeploymentStatusMessage" xml:"LastDeploymentStatusMessage"`
+LastUpdatedDate time.Time `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
+RouteSettings RouteSettingsMap `json:"routeSettings" xml:"RouteSettings"`
+StageName string `json:"stageName" xml:"StageName"`
+StageVariables StageVariablesMap `json:"stageVariables" xml:"StageVariables"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type GetStagesRequest struct {
-	ApiId      string `json:"apiId" xml:"ApiId"`
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+ApiId string `json:"apiId" xml:"ApiId"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetStagesResponse struct {
-	Items     __listOfStage `json:"items" xml:"Items"`
-	NextToken string        `json:"nextToken" xml:"NextToken"`
+Items __listOfStage `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetTagsRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetTagsResponse struct {
-	Tags Tags `json:"tags" xml:"Tags"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type GetVpcLinkRequest struct {
-	VpcLinkId string `json:"vpcLinkId" xml:"VpcLinkId"`
+VpcLinkId string `json:"vpcLinkId" xml:"VpcLinkId"`
 }
 
 type GetVpcLinkResponse struct {
-	CreatedDate          time.Time           `json:"createdDate" xml:"CreatedDate"`
-	Name                 string              `json:"name" xml:"Name"`
-	SecurityGroupIds     SecurityGroupIdList `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds            SubnetIdList        `json:"subnetIds" xml:"SubnetIds"`
-	Tags                 Tags                `json:"tags" xml:"Tags"`
-	VpcLinkId            string              `json:"vpcLinkId" xml:"VpcLinkId"`
-	VpcLinkStatus        string              `json:"vpcLinkStatus" xml:"VpcLinkStatus"`
-	VpcLinkStatusMessage string              `json:"vpcLinkStatusMessage" xml:"VpcLinkStatusMessage"`
-	VpcLinkVersion       string              `json:"vpcLinkVersion" xml:"VpcLinkVersion"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Name string `json:"name" xml:"Name"`
+SecurityGroupIds SecurityGroupIdList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds SubnetIdList `json:"subnetIds" xml:"SubnetIds"`
+Tags Tags `json:"tags" xml:"Tags"`
+VpcLinkId string `json:"vpcLinkId" xml:"VpcLinkId"`
+VpcLinkStatus string `json:"vpcLinkStatus" xml:"VpcLinkStatus"`
+VpcLinkStatusMessage string `json:"vpcLinkStatusMessage" xml:"VpcLinkStatusMessage"`
+VpcLinkVersion string `json:"vpcLinkVersion" xml:"VpcLinkVersion"`
 }
 
 type GetVpcLinksRequest struct {
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetVpcLinksResponse struct {
-	Items     __listOfVpcLink `json:"items" xml:"Items"`
-	NextToken string          `json:"nextToken" xml:"NextToken"`
+Items __listOfVpcLink `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type IdentifierParts struct {
-	Method    string `json:"method" xml:"Method"`
-	Path      string `json:"path" xml:"Path"`
-	RestApiId string `json:"restApiId" xml:"RestApiId"`
-	Stage     string `json:"stage" xml:"Stage"`
+Method string `json:"method" xml:"Method"`
+Path string `json:"path" xml:"Path"`
+RestApiId string `json:"restApiId" xml:"RestApiId"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type ImportApiRequest struct {
-	Basepath       string `json:"basepath" xml:"Basepath"`
-	Body           string `json:"body" xml:"Body"`
-	FailOnWarnings bool   `json:"failOnWarnings" xml:"FailOnWarnings"`
+Basepath string `json:"basepath" xml:"Basepath"`
+Body string `json:"body" xml:"Body"`
+FailOnWarnings bool `json:"failOnWarnings" xml:"FailOnWarnings"`
 }
 
 type ImportApiResponse struct {
-	ApiEndpoint               string           `json:"apiEndpoint" xml:"ApiEndpoint"`
-	ApiGatewayManaged         bool             `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ApiId                     string           `json:"apiId" xml:"ApiId"`
-	ApiKeySelectionExpression string           `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
-	CorsConfiguration         *Cors            `json:"corsConfiguration" xml:"CorsConfiguration"`
-	CreatedDate               time.Time        `json:"createdDate" xml:"CreatedDate"`
-	Description               string           `json:"description" xml:"Description"`
-	DisableExecuteApiEndpoint bool             `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
-	DisableSchemaValidation   bool             `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
-	ImportInfo                __listOf__string `json:"importInfo" xml:"ImportInfo"`
-	IpAddressType             string           `json:"ipAddressType" xml:"IpAddressType"`
-	Name                      string           `json:"name" xml:"Name"`
-	ProtocolType              string           `json:"protocolType" xml:"ProtocolType"`
-	RouteSelectionExpression  string           `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
-	Tags                      Tags             `json:"tags" xml:"Tags"`
-	Version                   string           `json:"version" xml:"Version"`
-	Warnings                  __listOf__string `json:"warnings" xml:"Warnings"`
+ApiEndpoint string `json:"apiEndpoint" xml:"ApiEndpoint"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiKeySelectionExpression string `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
+CorsConfiguration *Cors `json:"corsConfiguration" xml:"CorsConfiguration"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Description string `json:"description" xml:"Description"`
+DisableExecuteApiEndpoint bool `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
+DisableSchemaValidation bool `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
+ImportInfo __listOf__string `json:"importInfo" xml:"ImportInfo"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+Name string `json:"name" xml:"Name"`
+ProtocolType string `json:"protocolType" xml:"ProtocolType"`
+RouteSelectionExpression string `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
+Tags Tags `json:"tags" xml:"Tags"`
+Version string `json:"version" xml:"Version"`
+Warnings __listOf__string `json:"warnings" xml:"Warnings"`
 }
 
 type Integration struct {
-	ApiGatewayManaged                      bool                  `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ConnectionId                           string                `json:"connectionId" xml:"ConnectionId"`
-	ConnectionType                         string                `json:"connectionType" xml:"ConnectionType"`
-	ContentHandlingStrategy                string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	CredentialsArn                         string                `json:"credentialsArn" xml:"CredentialsArn"`
-	Description                            string                `json:"description" xml:"Description"`
-	IntegrationId                          string                `json:"integrationId" xml:"IntegrationId"`
-	IntegrationMethod                      string                `json:"integrationMethod" xml:"IntegrationMethod"`
-	IntegrationResponseSelectionExpression string                `json:"integrationResponseSelectionExpression" xml:"IntegrationResponseSelectionExpression"`
-	IntegrationSubtype                     string                `json:"integrationSubtype" xml:"IntegrationSubtype"`
-	IntegrationType                        string                `json:"integrationType" xml:"IntegrationType"`
-	IntegrationUri                         string                `json:"integrationUri" xml:"IntegrationUri"`
-	PassthroughBehavior                    string                `json:"passthroughBehavior" xml:"PassthroughBehavior"`
-	PayloadFormatVersion                   string                `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
-	RequestParameters                      IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
-	RequestTemplates                       TemplateMap           `json:"requestTemplates" xml:"RequestTemplates"`
-	ResponseParameters                     ResponseParameters    `json:"responseParameters" xml:"ResponseParameters"`
-	TemplateSelectionExpression            string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
-	TimeoutInMillis                        int32                 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
-	TlsConfig                              *TlsConfig            `json:"tlsConfig" xml:"TlsConfig"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+CredentialsArn string `json:"credentialsArn" xml:"CredentialsArn"`
+Description string `json:"description" xml:"Description"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+IntegrationMethod string `json:"integrationMethod" xml:"IntegrationMethod"`
+IntegrationResponseSelectionExpression string `json:"integrationResponseSelectionExpression" xml:"IntegrationResponseSelectionExpression"`
+IntegrationSubtype string `json:"integrationSubtype" xml:"IntegrationSubtype"`
+IntegrationType string `json:"integrationType" xml:"IntegrationType"`
+IntegrationUri string `json:"integrationUri" xml:"IntegrationUri"`
+PassthroughBehavior string `json:"passthroughBehavior" xml:"PassthroughBehavior"`
+PayloadFormatVersion string `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
+RequestParameters IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
+RequestTemplates TemplateMap `json:"requestTemplates" xml:"RequestTemplates"`
+ResponseParameters ResponseParameters `json:"responseParameters" xml:"ResponseParameters"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+TimeoutInMillis int32 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
+TlsConfig *TlsConfig `json:"tlsConfig" xml:"TlsConfig"`
 }
 
 type IntegrationResponse struct {
-	ContentHandlingStrategy     string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	IntegrationResponseId       string                `json:"integrationResponseId" xml:"IntegrationResponseId"`
-	IntegrationResponseKey      string                `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
-	ResponseParameters          IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
-	ResponseTemplates           TemplateMap           `json:"responseTemplates" xml:"ResponseTemplates"`
-	TemplateSelectionExpression string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+IntegrationResponseId string `json:"integrationResponseId" xml:"IntegrationResponseId"`
+IntegrationResponseKey string `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
+ResponseParameters IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
+ResponseTemplates TemplateMap `json:"responseTemplates" xml:"ResponseTemplates"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
 }
 
 type JWTConfiguration struct {
-	Audience __listOf__string `json:"audience" xml:"Audience"`
-	Issuer   string           `json:"issuer" xml:"Issuer"`
+Audience __listOf__string `json:"audience" xml:"Audience"`
+Issuer string `json:"issuer" xml:"Issuer"`
 }
 
 type ListPortalProductsRequest struct {
-	MaxResults    string `json:"maxResults" xml:"MaxResults"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
-	ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
 }
 
 type ListPortalProductsResponse struct {
-	Items     __listOfPortalProductSummary `json:"items" xml:"Items"`
-	NextToken string                       `json:"nextToken" xml:"NextToken"`
+Items __listOfPortalProductSummary `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListPortalsRequest struct {
-	MaxResults string `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListPortalsResponse struct {
-	Items     __listOfPortalSummary `json:"items" xml:"Items"`
-	NextToken string                `json:"nextToken" xml:"NextToken"`
+Items __listOfPortalSummary `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListProductPagesRequest struct {
-	MaxResults             string `json:"maxResults" xml:"MaxResults"`
-	NextToken              string `json:"nextToken" xml:"NextToken"`
-	PortalProductId        string `json:"portalProductId" xml:"PortalProductId"`
-	ResourceOwnerAccountId string `json:"resourceOwnerAccountId" xml:"ResourceOwnerAccountId"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+ResourceOwnerAccountId string `json:"resourceOwnerAccountId" xml:"ResourceOwnerAccountId"`
 }
 
 type ListProductPagesResponse struct {
-	Items     __listOfProductPageSummaryNoBody `json:"items" xml:"Items"`
-	NextToken string                           `json:"nextToken" xml:"NextToken"`
+Items __listOfProductPageSummaryNoBody `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListProductRestEndpointPagesRequest struct {
-	MaxResults             string `json:"maxResults" xml:"MaxResults"`
-	NextToken              string `json:"nextToken" xml:"NextToken"`
-	PortalProductId        string `json:"portalProductId" xml:"PortalProductId"`
-	ResourceOwnerAccountId string `json:"resourceOwnerAccountId" xml:"ResourceOwnerAccountId"`
+MaxResults string `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+ResourceOwnerAccountId string `json:"resourceOwnerAccountId" xml:"ResourceOwnerAccountId"`
 }
 
 type ListProductRestEndpointPagesResponse struct {
-	Items     __listOfProductRestEndpointPageSummaryNoBody `json:"items" xml:"Items"`
-	NextToken string                                       `json:"nextToken" xml:"NextToken"`
+Items __listOfProductRestEndpointPageSummaryNoBody `json:"items" xml:"Items"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListRoutingRulesRequest struct {
-	DomainName   string `json:"domainName" xml:"DomainName"`
-	DomainNameId string `json:"domainNameId" xml:"DomainNameId"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainNameId string `json:"domainNameId" xml:"DomainNameId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListRoutingRulesResponse struct {
-	NextToken    string              `json:"nextToken" xml:"NextToken"`
-	RoutingRules __listOfRoutingRule `json:"routingRules" xml:"RoutingRules"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RoutingRules __listOfRoutingRule `json:"routingRules" xml:"RoutingRules"`
 }
 
 type Model struct {
-	ContentType string `json:"contentType" xml:"ContentType"`
-	Description string `json:"description" xml:"Description"`
-	ModelId     string `json:"modelId" xml:"ModelId"`
-	Name        string `json:"name" xml:"Name"`
-	Schema      string `json:"schema" xml:"Schema"`
+ContentType string `json:"contentType" xml:"ContentType"`
+Description string `json:"description" xml:"Description"`
+ModelId string `json:"modelId" xml:"ModelId"`
+Name string `json:"name" xml:"Name"`
+Schema string `json:"schema" xml:"Schema"`
 }
 
 type MutualTlsAuthentication struct {
-	TruststoreUri      string           `json:"truststoreUri" xml:"TruststoreUri"`
-	TruststoreVersion  string           `json:"truststoreVersion" xml:"TruststoreVersion"`
-	TruststoreWarnings __listOf__string `json:"truststoreWarnings" xml:"TruststoreWarnings"`
+TruststoreUri string `json:"truststoreUri" xml:"TruststoreUri"`
+TruststoreVersion string `json:"truststoreVersion" xml:"TruststoreVersion"`
+TruststoreWarnings __listOf__string `json:"truststoreWarnings" xml:"TruststoreWarnings"`
 }
 
 type MutualTlsAuthenticationInput struct {
-	TruststoreUri     string `json:"truststoreUri" xml:"TruststoreUri"`
-	TruststoreVersion string `json:"truststoreVersion" xml:"TruststoreVersion"`
+TruststoreUri string `json:"truststoreUri" xml:"TruststoreUri"`
+TruststoreVersion string `json:"truststoreVersion" xml:"TruststoreVersion"`
 }
 
 type None struct {
 }
 
 type ParameterConstraints struct {
-	Required bool `json:"required" xml:"Required"`
+Required bool `json:"required" xml:"Required"`
 }
 
 type PortalContent struct {
-	Description string       `json:"description" xml:"Description"`
-	DisplayName string       `json:"displayName" xml:"DisplayName"`
-	Theme       *PortalTheme `json:"theme" xml:"Theme"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+Theme *PortalTheme `json:"theme" xml:"Theme"`
 }
 
 type PortalProductSummary struct {
-	Description      string    `json:"description" xml:"Description"`
-	DisplayName      string    `json:"displayName" xml:"DisplayName"`
-	LastModified     time.Time `json:"lastModified" xml:"LastModified"`
-	PortalProductArn string    `json:"portalProductArn" xml:"PortalProductArn"`
-	PortalProductId  string    `json:"portalProductId" xml:"PortalProductId"`
-	Tags             Tags      `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+PortalProductArn string `json:"portalProductArn" xml:"PortalProductArn"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type PortalSummary struct {
-	Authorization             *Authorization                 `json:"authorization" xml:"Authorization"`
-	EndpointConfiguration     *EndpointConfigurationResponse `json:"endpointConfiguration" xml:"EndpointConfiguration"`
-	IncludedPortalProductArns __listOf__stringMin20Max2048   `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
-	LastModified              time.Time                      `json:"lastModified" xml:"LastModified"`
-	LastPublished             time.Time                      `json:"lastPublished" xml:"LastPublished"`
-	LastPublishedDescription  string                         `json:"lastPublishedDescription" xml:"LastPublishedDescription"`
-	PortalArn                 string                         `json:"portalArn" xml:"PortalArn"`
-	PortalContent             *PortalContent                 `json:"portalContent" xml:"PortalContent"`
-	PortalId                  string                         `json:"portalId" xml:"PortalId"`
-	Preview                   *Preview                       `json:"preview" xml:"Preview"`
-	PublishStatus             string                         `json:"publishStatus" xml:"PublishStatus"`
-	RumAppMonitorName         string                         `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
-	StatusException           *StatusException               `json:"statusException" xml:"StatusException"`
-	Tags                      Tags                           `json:"tags" xml:"Tags"`
+Authorization *Authorization `json:"authorization" xml:"Authorization"`
+EndpointConfiguration *EndpointConfigurationResponse `json:"endpointConfiguration" xml:"EndpointConfiguration"`
+IncludedPortalProductArns __listOf__stringMin20Max2048 `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+LastPublished time.Time `json:"lastPublished" xml:"LastPublished"`
+LastPublishedDescription string `json:"lastPublishedDescription" xml:"LastPublishedDescription"`
+PortalArn string `json:"portalArn" xml:"PortalArn"`
+PortalContent *PortalContent `json:"portalContent" xml:"PortalContent"`
+PortalId string `json:"portalId" xml:"PortalId"`
+Preview *Preview `json:"preview" xml:"Preview"`
+PublishStatus string `json:"publishStatus" xml:"PublishStatus"`
+RumAppMonitorName string `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
+StatusException *StatusException `json:"statusException" xml:"StatusException"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type PortalTheme struct {
-	CustomColors     *CustomColors `json:"customColors" xml:"CustomColors"`
-	LogoLastUploaded time.Time     `json:"logoLastUploaded" xml:"LogoLastUploaded"`
+CustomColors *CustomColors `json:"customColors" xml:"CustomColors"`
+LogoLastUploaded time.Time `json:"logoLastUploaded" xml:"LogoLastUploaded"`
 }
 
 type Preview struct {
-	PreviewStatus   string           `json:"previewStatus" xml:"PreviewStatus"`
-	PreviewUrl      string           `json:"previewUrl" xml:"PreviewUrl"`
-	StatusException *StatusException `json:"statusException" xml:"StatusException"`
+PreviewStatus string `json:"previewStatus" xml:"PreviewStatus"`
+PreviewUrl string `json:"previewUrl" xml:"PreviewUrl"`
+StatusException *StatusException `json:"statusException" xml:"StatusException"`
 }
 
 type PreviewPortalRequest struct {
-	PortalId string `json:"portalId" xml:"PortalId"`
+PortalId string `json:"portalId" xml:"PortalId"`
 }
 
 type PreviewPortalResponse struct {
 }
 
 type ProductPageSummaryNoBody struct {
-	LastModified   time.Time `json:"lastModified" xml:"LastModified"`
-	PageTitle      string    `json:"pageTitle" xml:"PageTitle"`
-	ProductPageArn string    `json:"productPageArn" xml:"ProductPageArn"`
-	ProductPageId  string    `json:"productPageId" xml:"ProductPageId"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+PageTitle string `json:"pageTitle" xml:"PageTitle"`
+ProductPageArn string `json:"productPageArn" xml:"ProductPageArn"`
+ProductPageId string `json:"productPageId" xml:"ProductPageId"`
 }
 
 type ProductRestEndpointPageSummaryNoBody struct {
-	Endpoint                   string                  `json:"endpoint" xml:"Endpoint"`
-	LastModified               time.Time               `json:"lastModified" xml:"LastModified"`
-	OperationName              string                  `json:"operationName" xml:"OperationName"`
-	ProductRestEndpointPageArn string                  `json:"productRestEndpointPageArn" xml:"ProductRestEndpointPageArn"`
-	ProductRestEndpointPageId  string                  `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
-	RestEndpointIdentifier     *RestEndpointIdentifier `json:"restEndpointIdentifier" xml:"RestEndpointIdentifier"`
-	Status                     string                  `json:"status" xml:"Status"`
-	StatusException            *StatusException        `json:"statusException" xml:"StatusException"`
-	TryItState                 string                  `json:"tryItState" xml:"TryItState"`
+Endpoint string `json:"endpoint" xml:"Endpoint"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+OperationName string `json:"operationName" xml:"OperationName"`
+ProductRestEndpointPageArn string `json:"productRestEndpointPageArn" xml:"ProductRestEndpointPageArn"`
+ProductRestEndpointPageId string `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
+RestEndpointIdentifier *RestEndpointIdentifier `json:"restEndpointIdentifier" xml:"RestEndpointIdentifier"`
+Status string `json:"status" xml:"Status"`
+StatusException *StatusException `json:"statusException" xml:"StatusException"`
+TryItState string `json:"tryItState" xml:"TryItState"`
 }
 
 type PublishPortalRequest struct {
-	Description string `json:"description" xml:"Description"`
-	PortalId    string `json:"portalId" xml:"PortalId"`
+Description string `json:"description" xml:"Description"`
+PortalId string `json:"portalId" xml:"PortalId"`
 }
 
 type PublishPortalResponse struct {
 }
 
 type PutPortalProductSharingPolicyRequest struct {
-	PolicyDocument  string `json:"policyDocument" xml:"PolicyDocument"`
-	PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
 }
 
 type PutPortalProductSharingPolicyResponse struct {
 }
 
 type PutRoutingRuleRequest struct {
-	Actions       __listOfRoutingRuleAction    `json:"actions" xml:"Actions"`
-	Conditions    __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
-	DomainName    string                       `json:"domainName" xml:"DomainName"`
-	DomainNameId  string                       `json:"domainNameId" xml:"DomainNameId"`
-	Priority      int32                        `json:"priority" xml:"Priority"`
-	RoutingRuleId string                       `json:"routingRuleId" xml:"RoutingRuleId"`
+Actions __listOfRoutingRuleAction `json:"actions" xml:"Actions"`
+Conditions __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainNameId string `json:"domainNameId" xml:"DomainNameId"`
+Priority int32 `json:"priority" xml:"Priority"`
+RoutingRuleId string `json:"routingRuleId" xml:"RoutingRuleId"`
 }
 
 type PutRoutingRuleResponse struct {
-	Actions        __listOfRoutingRuleAction    `json:"actions" xml:"Actions"`
-	Conditions     __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
-	Priority       int32                        `json:"priority" xml:"Priority"`
-	RoutingRuleArn string                       `json:"routingRuleArn" xml:"RoutingRuleArn"`
-	RoutingRuleId  string                       `json:"routingRuleId" xml:"RoutingRuleId"`
+Actions __listOfRoutingRuleAction `json:"actions" xml:"Actions"`
+Conditions __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
+Priority int32 `json:"priority" xml:"Priority"`
+RoutingRuleArn string `json:"routingRuleArn" xml:"RoutingRuleArn"`
+RoutingRuleId string `json:"routingRuleId" xml:"RoutingRuleId"`
 }
 
 type ReimportApiRequest struct {
-	ApiId          string `json:"apiId" xml:"ApiId"`
-	Basepath       string `json:"basepath" xml:"Basepath"`
-	Body           string `json:"body" xml:"Body"`
-	FailOnWarnings bool   `json:"failOnWarnings" xml:"FailOnWarnings"`
+ApiId string `json:"apiId" xml:"ApiId"`
+Basepath string `json:"basepath" xml:"Basepath"`
+Body string `json:"body" xml:"Body"`
+FailOnWarnings bool `json:"failOnWarnings" xml:"FailOnWarnings"`
 }
 
 type ReimportApiResponse struct {
-	ApiEndpoint               string           `json:"apiEndpoint" xml:"ApiEndpoint"`
-	ApiGatewayManaged         bool             `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ApiId                     string           `json:"apiId" xml:"ApiId"`
-	ApiKeySelectionExpression string           `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
-	CorsConfiguration         *Cors            `json:"corsConfiguration" xml:"CorsConfiguration"`
-	CreatedDate               time.Time        `json:"createdDate" xml:"CreatedDate"`
-	Description               string           `json:"description" xml:"Description"`
-	DisableExecuteApiEndpoint bool             `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
-	DisableSchemaValidation   bool             `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
-	ImportInfo                __listOf__string `json:"importInfo" xml:"ImportInfo"`
-	IpAddressType             string           `json:"ipAddressType" xml:"IpAddressType"`
-	Name                      string           `json:"name" xml:"Name"`
-	ProtocolType              string           `json:"protocolType" xml:"ProtocolType"`
-	RouteSelectionExpression  string           `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
-	Tags                      Tags             `json:"tags" xml:"Tags"`
-	Version                   string           `json:"version" xml:"Version"`
-	Warnings                  __listOf__string `json:"warnings" xml:"Warnings"`
+ApiEndpoint string `json:"apiEndpoint" xml:"ApiEndpoint"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiKeySelectionExpression string `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
+CorsConfiguration *Cors `json:"corsConfiguration" xml:"CorsConfiguration"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Description string `json:"description" xml:"Description"`
+DisableExecuteApiEndpoint bool `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
+DisableSchemaValidation bool `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
+ImportInfo __listOf__string `json:"importInfo" xml:"ImportInfo"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+Name string `json:"name" xml:"Name"`
+ProtocolType string `json:"protocolType" xml:"ProtocolType"`
+RouteSelectionExpression string `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
+Tags Tags `json:"tags" xml:"Tags"`
+Version string `json:"version" xml:"Version"`
+Warnings __listOf__string `json:"warnings" xml:"Warnings"`
 }
 
 type ResetAuthorizersCacheRequest struct {
-	ApiId     string `json:"apiId" xml:"ApiId"`
-	StageName string `json:"stageName" xml:"StageName"`
+ApiId string `json:"apiId" xml:"ApiId"`
+StageName string `json:"stageName" xml:"StageName"`
 }
 
 type RestEndpointIdentifier struct {
-	IdentifierParts *IdentifierParts `json:"identifierParts" xml:"IdentifierParts"`
+IdentifierParts *IdentifierParts `json:"identifierParts" xml:"IdentifierParts"`
 }
 
 type Route struct {
-	ApiGatewayManaged                bool                `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ApiKeyRequired                   bool                `json:"apiKeyRequired" xml:"ApiKeyRequired"`
-	AuthorizationScopes              AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
-	AuthorizationType                string              `json:"authorizationType" xml:"AuthorizationType"`
-	AuthorizerId                     string              `json:"authorizerId" xml:"AuthorizerId"`
-	ModelSelectionExpression         string              `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	OperationName                    string              `json:"operationName" xml:"OperationName"`
-	RequestModels                    RouteModels         `json:"requestModels" xml:"RequestModels"`
-	RequestParameters                RouteParameters     `json:"requestParameters" xml:"RequestParameters"`
-	RouteId                          string              `json:"routeId" xml:"RouteId"`
-	RouteKey                         string              `json:"routeKey" xml:"RouteKey"`
-	RouteResponseSelectionExpression string              `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
-	Target                           string              `json:"target" xml:"Target"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ApiKeyRequired bool `json:"apiKeyRequired" xml:"ApiKeyRequired"`
+AuthorizationScopes AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
+AuthorizationType string `json:"authorizationType" xml:"AuthorizationType"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+OperationName string `json:"operationName" xml:"OperationName"`
+RequestModels RouteModels `json:"requestModels" xml:"RequestModels"`
+RequestParameters RouteParameters `json:"requestParameters" xml:"RequestParameters"`
+RouteId string `json:"routeId" xml:"RouteId"`
+RouteKey string `json:"routeKey" xml:"RouteKey"`
+RouteResponseSelectionExpression string `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
+Target string `json:"target" xml:"Target"`
 }
 
 type RouteResponse struct {
-	ModelSelectionExpression string          `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	ResponseModels           RouteModels     `json:"responseModels" xml:"ResponseModels"`
-	ResponseParameters       RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
-	RouteResponseId          string          `json:"routeResponseId" xml:"RouteResponseId"`
-	RouteResponseKey         string          `json:"routeResponseKey" xml:"RouteResponseKey"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+ResponseModels RouteModels `json:"responseModels" xml:"ResponseModels"`
+ResponseParameters RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
+RouteResponseId string `json:"routeResponseId" xml:"RouteResponseId"`
+RouteResponseKey string `json:"routeResponseKey" xml:"RouteResponseKey"`
 }
 
 type RouteSettings struct {
-	DataTraceEnabled       bool    `json:"dataTraceEnabled" xml:"DataTraceEnabled"`
-	DetailedMetricsEnabled bool    `json:"detailedMetricsEnabled" xml:"DetailedMetricsEnabled"`
-	LoggingLevel           string  `json:"loggingLevel" xml:"LoggingLevel"`
-	ThrottlingBurstLimit   int32   `json:"throttlingBurstLimit" xml:"ThrottlingBurstLimit"`
-	ThrottlingRateLimit    float64 `json:"throttlingRateLimit" xml:"ThrottlingRateLimit"`
+DataTraceEnabled bool `json:"dataTraceEnabled" xml:"DataTraceEnabled"`
+DetailedMetricsEnabled bool `json:"detailedMetricsEnabled" xml:"DetailedMetricsEnabled"`
+LoggingLevel string `json:"loggingLevel" xml:"LoggingLevel"`
+ThrottlingBurstLimit int32 `json:"throttlingBurstLimit" xml:"ThrottlingBurstLimit"`
+ThrottlingRateLimit float64 `json:"throttlingRateLimit" xml:"ThrottlingRateLimit"`
 }
 
 type RoutingRule struct {
-	Actions        __listOfRoutingRuleAction    `json:"actions" xml:"Actions"`
-	Conditions     __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
-	Priority       int32                        `json:"priority" xml:"Priority"`
-	RoutingRuleArn string                       `json:"routingRuleArn" xml:"RoutingRuleArn"`
-	RoutingRuleId  string                       `json:"routingRuleId" xml:"RoutingRuleId"`
+Actions __listOfRoutingRuleAction `json:"actions" xml:"Actions"`
+Conditions __listOfRoutingRuleCondition `json:"conditions" xml:"Conditions"`
+Priority int32 `json:"priority" xml:"Priority"`
+RoutingRuleArn string `json:"routingRuleArn" xml:"RoutingRuleArn"`
+RoutingRuleId string `json:"routingRuleId" xml:"RoutingRuleId"`
 }
 
 type RoutingRuleAction struct {
-	InvokeApi *RoutingRuleActionInvokeApi `json:"invokeApi" xml:"InvokeApi"`
+InvokeApi *RoutingRuleActionInvokeApi `json:"invokeApi" xml:"InvokeApi"`
 }
 
 type RoutingRuleActionInvokeApi struct {
-	ApiId         string `json:"apiId" xml:"ApiId"`
-	Stage         string `json:"stage" xml:"Stage"`
-	StripBasePath bool   `json:"stripBasePath" xml:"StripBasePath"`
+ApiId string `json:"apiId" xml:"ApiId"`
+Stage string `json:"stage" xml:"Stage"`
+StripBasePath bool `json:"stripBasePath" xml:"StripBasePath"`
 }
 
 type RoutingRuleCondition struct {
-	MatchBasePaths *RoutingRuleMatchBasePaths `json:"matchBasePaths" xml:"MatchBasePaths"`
-	MatchHeaders   *RoutingRuleMatchHeaders   `json:"matchHeaders" xml:"MatchHeaders"`
+MatchBasePaths *RoutingRuleMatchBasePaths `json:"matchBasePaths" xml:"MatchBasePaths"`
+MatchHeaders *RoutingRuleMatchHeaders `json:"matchHeaders" xml:"MatchHeaders"`
 }
 
 type RoutingRuleMatchBasePaths struct {
-	AnyOf __listOfSelectionKey `json:"anyOf" xml:"AnyOf"`
+AnyOf __listOfSelectionKey `json:"anyOf" xml:"AnyOf"`
 }
 
 type RoutingRuleMatchHeaderValue struct {
-	Header    string `json:"header" xml:"Header"`
-	ValueGlob string `json:"valueGlob" xml:"ValueGlob"`
+Header string `json:"header" xml:"Header"`
+ValueGlob string `json:"valueGlob" xml:"ValueGlob"`
 }
 
 type RoutingRuleMatchHeaders struct {
-	AnyOf __listOfRoutingRuleMatchHeaderValue `json:"anyOf" xml:"AnyOf"`
+AnyOf __listOfRoutingRuleMatchHeaderValue `json:"anyOf" xml:"AnyOf"`
 }
 
 type Section struct {
-	ProductRestEndpointPageArns __listOf__stringMin20Max2048 `json:"productRestEndpointPageArns" xml:"ProductRestEndpointPageArns"`
-	SectionName                 string                       `json:"sectionName" xml:"SectionName"`
+ProductRestEndpointPageArns __listOf__stringMin20Max2048 `json:"productRestEndpointPageArns" xml:"ProductRestEndpointPageArns"`
+SectionName string `json:"sectionName" xml:"SectionName"`
 }
 
 type SmithyUnit struct {
 }
 
 type Stage struct {
-	AccessLogSettings           *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
-	ApiGatewayManaged           bool               `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	AutoDeploy                  bool               `json:"autoDeploy" xml:"AutoDeploy"`
-	ClientCertificateId         string             `json:"clientCertificateId" xml:"ClientCertificateId"`
-	CreatedDate                 time.Time          `json:"createdDate" xml:"CreatedDate"`
-	DefaultRouteSettings        *RouteSettings     `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
-	DeploymentId                string             `json:"deploymentId" xml:"DeploymentId"`
-	Description                 string             `json:"description" xml:"Description"`
-	LastDeploymentStatusMessage string             `json:"lastDeploymentStatusMessage" xml:"LastDeploymentStatusMessage"`
-	LastUpdatedDate             time.Time          `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
-	RouteSettings               RouteSettingsMap   `json:"routeSettings" xml:"RouteSettings"`
-	StageName                   string             `json:"stageName" xml:"StageName"`
-	StageVariables              StageVariablesMap  `json:"stageVariables" xml:"StageVariables"`
-	Tags                        Tags               `json:"tags" xml:"Tags"`
+AccessLogSettings *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+AutoDeploy bool `json:"autoDeploy" xml:"AutoDeploy"`
+ClientCertificateId string `json:"clientCertificateId" xml:"ClientCertificateId"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+DefaultRouteSettings *RouteSettings `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+Description string `json:"description" xml:"Description"`
+LastDeploymentStatusMessage string `json:"lastDeploymentStatusMessage" xml:"LastDeploymentStatusMessage"`
+LastUpdatedDate time.Time `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
+RouteSettings RouteSettingsMap `json:"routeSettings" xml:"RouteSettings"`
+StageName string `json:"stageName" xml:"StageName"`
+StageVariables StageVariablesMap `json:"stageVariables" xml:"StageVariables"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type StatusException struct {
-	Exception string `json:"exception" xml:"Exception"`
-	Message   string `json:"message" xml:"Message"`
+Exception string `json:"exception" xml:"Exception"`
+Message string `json:"message" xml:"Message"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
-	Tags        Tags   `json:"tags" xml:"Tags"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type TlsConfig struct {
-	ServerNameToVerify string `json:"serverNameToVerify" xml:"ServerNameToVerify"`
+ServerNameToVerify string `json:"serverNameToVerify" xml:"ServerNameToVerify"`
 }
 
 type TlsConfigInput struct {
-	ServerNameToVerify string `json:"serverNameToVerify" xml:"ServerNameToVerify"`
+ServerNameToVerify string `json:"serverNameToVerify" xml:"ServerNameToVerify"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string           `json:"resourceArn" xml:"ResourceArn"`
-	TagKeys     __listOf__string `json:"tagKeys" xml:"TagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagKeys __listOf__string `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UpdateApiMappingRequest struct {
-	ApiId         string `json:"apiId" xml:"ApiId"`
-	ApiMappingId  string `json:"apiMappingId" xml:"ApiMappingId"`
-	ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
-	DomainName    string `json:"domainName" xml:"DomainName"`
-	Stage         string `json:"stage" xml:"Stage"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiMappingId string `json:"apiMappingId" xml:"ApiMappingId"`
+ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type UpdateApiMappingResponse struct {
-	ApiId         string `json:"apiId" xml:"ApiId"`
-	ApiMappingId  string `json:"apiMappingId" xml:"ApiMappingId"`
-	ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
-	Stage         string `json:"stage" xml:"Stage"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiMappingId string `json:"apiMappingId" xml:"ApiMappingId"`
+ApiMappingKey string `json:"apiMappingKey" xml:"ApiMappingKey"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type UpdateApiRequest struct {
-	ApiId                     string `json:"apiId" xml:"ApiId"`
-	ApiKeySelectionExpression string `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
-	CorsConfiguration         *Cors  `json:"corsConfiguration" xml:"CorsConfiguration"`
-	CredentialsArn            string `json:"credentialsArn" xml:"CredentialsArn"`
-	Description               string `json:"description" xml:"Description"`
-	DisableExecuteApiEndpoint bool   `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
-	DisableSchemaValidation   bool   `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
-	IpAddressType             string `json:"ipAddressType" xml:"IpAddressType"`
-	Name                      string `json:"name" xml:"Name"`
-	RouteKey                  string `json:"routeKey" xml:"RouteKey"`
-	RouteSelectionExpression  string `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
-	Target                    string `json:"target" xml:"Target"`
-	Version                   string `json:"version" xml:"Version"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiKeySelectionExpression string `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
+CorsConfiguration *Cors `json:"corsConfiguration" xml:"CorsConfiguration"`
+CredentialsArn string `json:"credentialsArn" xml:"CredentialsArn"`
+Description string `json:"description" xml:"Description"`
+DisableExecuteApiEndpoint bool `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
+DisableSchemaValidation bool `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+Name string `json:"name" xml:"Name"`
+RouteKey string `json:"routeKey" xml:"RouteKey"`
+RouteSelectionExpression string `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
+Target string `json:"target" xml:"Target"`
+Version string `json:"version" xml:"Version"`
 }
 
 type UpdateApiResponse struct {
-	ApiEndpoint               string           `json:"apiEndpoint" xml:"ApiEndpoint"`
-	ApiGatewayManaged         bool             `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ApiId                     string           `json:"apiId" xml:"ApiId"`
-	ApiKeySelectionExpression string           `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
-	CorsConfiguration         *Cors            `json:"corsConfiguration" xml:"CorsConfiguration"`
-	CreatedDate               time.Time        `json:"createdDate" xml:"CreatedDate"`
-	Description               string           `json:"description" xml:"Description"`
-	DisableExecuteApiEndpoint bool             `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
-	DisableSchemaValidation   bool             `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
-	ImportInfo                __listOf__string `json:"importInfo" xml:"ImportInfo"`
-	IpAddressType             string           `json:"ipAddressType" xml:"IpAddressType"`
-	Name                      string           `json:"name" xml:"Name"`
-	ProtocolType              string           `json:"protocolType" xml:"ProtocolType"`
-	RouteSelectionExpression  string           `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
-	Tags                      Tags             `json:"tags" xml:"Tags"`
-	Version                   string           `json:"version" xml:"Version"`
-	Warnings                  __listOf__string `json:"warnings" xml:"Warnings"`
+ApiEndpoint string `json:"apiEndpoint" xml:"ApiEndpoint"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiKeySelectionExpression string `json:"apiKeySelectionExpression" xml:"ApiKeySelectionExpression"`
+CorsConfiguration *Cors `json:"corsConfiguration" xml:"CorsConfiguration"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Description string `json:"description" xml:"Description"`
+DisableExecuteApiEndpoint bool `json:"disableExecuteApiEndpoint" xml:"DisableExecuteApiEndpoint"`
+DisableSchemaValidation bool `json:"disableSchemaValidation" xml:"DisableSchemaValidation"`
+ImportInfo __listOf__string `json:"importInfo" xml:"ImportInfo"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+Name string `json:"name" xml:"Name"`
+ProtocolType string `json:"protocolType" xml:"ProtocolType"`
+RouteSelectionExpression string `json:"routeSelectionExpression" xml:"RouteSelectionExpression"`
+Tags Tags `json:"tags" xml:"Tags"`
+Version string `json:"version" xml:"Version"`
+Warnings __listOf__string `json:"warnings" xml:"Warnings"`
 }
 
 type UpdateAuthorizerRequest struct {
-	ApiId                          string             `json:"apiId" xml:"ApiId"`
-	AuthorizerCredentialsArn       string             `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
-	AuthorizerId                   string             `json:"authorizerId" xml:"AuthorizerId"`
-	AuthorizerPayloadFormatVersion string             `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
-	AuthorizerResultTtlInSeconds   int32              `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
-	AuthorizerType                 string             `json:"authorizerType" xml:"AuthorizerType"`
-	AuthorizerUri                  string             `json:"authorizerUri" xml:"AuthorizerUri"`
-	EnableSimpleResponses          bool               `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
-	IdentitySource                 IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
-	IdentityValidationExpression   string             `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
-	JwtConfiguration               *JWTConfiguration  `json:"jwtConfiguration" xml:"JwtConfiguration"`
-	Name                           string             `json:"name" xml:"Name"`
+ApiId string `json:"apiId" xml:"ApiId"`
+AuthorizerCredentialsArn string `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+AuthorizerPayloadFormatVersion string `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
+AuthorizerResultTtlInSeconds int32 `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
+AuthorizerType string `json:"authorizerType" xml:"AuthorizerType"`
+AuthorizerUri string `json:"authorizerUri" xml:"AuthorizerUri"`
+EnableSimpleResponses bool `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
+IdentitySource IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
+IdentityValidationExpression string `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
+JwtConfiguration *JWTConfiguration `json:"jwtConfiguration" xml:"JwtConfiguration"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateAuthorizerResponse struct {
-	AuthorizerCredentialsArn       string             `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
-	AuthorizerId                   string             `json:"authorizerId" xml:"AuthorizerId"`
-	AuthorizerPayloadFormatVersion string             `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
-	AuthorizerResultTtlInSeconds   int32              `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
-	AuthorizerType                 string             `json:"authorizerType" xml:"AuthorizerType"`
-	AuthorizerUri                  string             `json:"authorizerUri" xml:"AuthorizerUri"`
-	EnableSimpleResponses          bool               `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
-	IdentitySource                 IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
-	IdentityValidationExpression   string             `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
-	JwtConfiguration               *JWTConfiguration  `json:"jwtConfiguration" xml:"JwtConfiguration"`
-	Name                           string             `json:"name" xml:"Name"`
+AuthorizerCredentialsArn string `json:"authorizerCredentialsArn" xml:"AuthorizerCredentialsArn"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+AuthorizerPayloadFormatVersion string `json:"authorizerPayloadFormatVersion" xml:"AuthorizerPayloadFormatVersion"`
+AuthorizerResultTtlInSeconds int32 `json:"authorizerResultTtlInSeconds" xml:"AuthorizerResultTtlInSeconds"`
+AuthorizerType string `json:"authorizerType" xml:"AuthorizerType"`
+AuthorizerUri string `json:"authorizerUri" xml:"AuthorizerUri"`
+EnableSimpleResponses bool `json:"enableSimpleResponses" xml:"EnableSimpleResponses"`
+IdentitySource IdentitySourceList `json:"identitySource" xml:"IdentitySource"`
+IdentityValidationExpression string `json:"identityValidationExpression" xml:"IdentityValidationExpression"`
+JwtConfiguration *JWTConfiguration `json:"jwtConfiguration" xml:"JwtConfiguration"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateDeploymentRequest struct {
-	ApiId        string `json:"apiId" xml:"ApiId"`
-	DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
-	Description  string `json:"description" xml:"Description"`
+ApiId string `json:"apiId" xml:"ApiId"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+Description string `json:"description" xml:"Description"`
 }
 
 type UpdateDeploymentResponse struct {
-	AutoDeployed            bool      `json:"autoDeployed" xml:"AutoDeployed"`
-	CreatedDate             time.Time `json:"createdDate" xml:"CreatedDate"`
-	DeploymentId            string    `json:"deploymentId" xml:"DeploymentId"`
-	DeploymentStatus        string    `json:"deploymentStatus" xml:"DeploymentStatus"`
-	DeploymentStatusMessage string    `json:"deploymentStatusMessage" xml:"DeploymentStatusMessage"`
-	Description             string    `json:"description" xml:"Description"`
+AutoDeployed bool `json:"autoDeployed" xml:"AutoDeployed"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+DeploymentStatus string `json:"deploymentStatus" xml:"DeploymentStatus"`
+DeploymentStatusMessage string `json:"deploymentStatusMessage" xml:"DeploymentStatusMessage"`
+Description string `json:"description" xml:"Description"`
 }
 
 type UpdateDomainNameRequest struct {
-	DomainName               string                        `json:"domainName" xml:"DomainName"`
-	DomainNameConfigurations DomainNameConfigurations      `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
-	MutualTlsAuthentication  *MutualTlsAuthenticationInput `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
-	RoutingMode              string                        `json:"routingMode" xml:"RoutingMode"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainNameConfigurations DomainNameConfigurations `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
+MutualTlsAuthentication *MutualTlsAuthenticationInput `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
+RoutingMode string `json:"routingMode" xml:"RoutingMode"`
 }
 
 type UpdateDomainNameResponse struct {
-	ApiMappingSelectionExpression string                   `json:"apiMappingSelectionExpression" xml:"ApiMappingSelectionExpression"`
-	DomainName                    string                   `json:"domainName" xml:"DomainName"`
-	DomainNameArn                 string                   `json:"domainNameArn" xml:"DomainNameArn"`
-	DomainNameConfigurations      DomainNameConfigurations `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
-	MutualTlsAuthentication       *MutualTlsAuthentication `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
-	RoutingMode                   string                   `json:"routingMode" xml:"RoutingMode"`
-	Tags                          Tags                     `json:"tags" xml:"Tags"`
+ApiMappingSelectionExpression string `json:"apiMappingSelectionExpression" xml:"ApiMappingSelectionExpression"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainNameArn string `json:"domainNameArn" xml:"DomainNameArn"`
+DomainNameConfigurations DomainNameConfigurations `json:"domainNameConfigurations" xml:"DomainNameConfigurations"`
+MutualTlsAuthentication *MutualTlsAuthentication `json:"mutualTlsAuthentication" xml:"MutualTlsAuthentication"`
+RoutingMode string `json:"routingMode" xml:"RoutingMode"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type UpdateIntegrationRequest struct {
-	ApiId                       string                `json:"apiId" xml:"ApiId"`
-	ConnectionId                string                `json:"connectionId" xml:"ConnectionId"`
-	ConnectionType              string                `json:"connectionType" xml:"ConnectionType"`
-	ContentHandlingStrategy     string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	CredentialsArn              string                `json:"credentialsArn" xml:"CredentialsArn"`
-	Description                 string                `json:"description" xml:"Description"`
-	IntegrationId               string                `json:"integrationId" xml:"IntegrationId"`
-	IntegrationMethod           string                `json:"integrationMethod" xml:"IntegrationMethod"`
-	IntegrationSubtype          string                `json:"integrationSubtype" xml:"IntegrationSubtype"`
-	IntegrationType             string                `json:"integrationType" xml:"IntegrationType"`
-	IntegrationUri              string                `json:"integrationUri" xml:"IntegrationUri"`
-	PassthroughBehavior         string                `json:"passthroughBehavior" xml:"PassthroughBehavior"`
-	PayloadFormatVersion        string                `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
-	RequestParameters           IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
-	RequestTemplates            TemplateMap           `json:"requestTemplates" xml:"RequestTemplates"`
-	ResponseParameters          ResponseParameters    `json:"responseParameters" xml:"ResponseParameters"`
-	TemplateSelectionExpression string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
-	TimeoutInMillis             int32                 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
-	TlsConfig                   *TlsConfigInput       `json:"tlsConfig" xml:"TlsConfig"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+CredentialsArn string `json:"credentialsArn" xml:"CredentialsArn"`
+Description string `json:"description" xml:"Description"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+IntegrationMethod string `json:"integrationMethod" xml:"IntegrationMethod"`
+IntegrationSubtype string `json:"integrationSubtype" xml:"IntegrationSubtype"`
+IntegrationType string `json:"integrationType" xml:"IntegrationType"`
+IntegrationUri string `json:"integrationUri" xml:"IntegrationUri"`
+PassthroughBehavior string `json:"passthroughBehavior" xml:"PassthroughBehavior"`
+PayloadFormatVersion string `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
+RequestParameters IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
+RequestTemplates TemplateMap `json:"requestTemplates" xml:"RequestTemplates"`
+ResponseParameters ResponseParameters `json:"responseParameters" xml:"ResponseParameters"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+TimeoutInMillis int32 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
+TlsConfig *TlsConfigInput `json:"tlsConfig" xml:"TlsConfig"`
 }
 
 type UpdateIntegrationResponseRequest struct {
-	ApiId                       string                `json:"apiId" xml:"ApiId"`
-	ContentHandlingStrategy     string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	IntegrationId               string                `json:"integrationId" xml:"IntegrationId"`
-	IntegrationResponseId       string                `json:"integrationResponseId" xml:"IntegrationResponseId"`
-	IntegrationResponseKey      string                `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
-	ResponseParameters          IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
-	ResponseTemplates           TemplateMap           `json:"responseTemplates" xml:"ResponseTemplates"`
-	TemplateSelectionExpression string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+IntegrationResponseId string `json:"integrationResponseId" xml:"IntegrationResponseId"`
+IntegrationResponseKey string `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
+ResponseParameters IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
+ResponseTemplates TemplateMap `json:"responseTemplates" xml:"ResponseTemplates"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
 }
 
 type UpdateIntegrationResponseResponse struct {
-	ContentHandlingStrategy     string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	IntegrationResponseId       string                `json:"integrationResponseId" xml:"IntegrationResponseId"`
-	IntegrationResponseKey      string                `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
-	ResponseParameters          IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
-	ResponseTemplates           TemplateMap           `json:"responseTemplates" xml:"ResponseTemplates"`
-	TemplateSelectionExpression string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+IntegrationResponseId string `json:"integrationResponseId" xml:"IntegrationResponseId"`
+IntegrationResponseKey string `json:"integrationResponseKey" xml:"IntegrationResponseKey"`
+ResponseParameters IntegrationParameters `json:"responseParameters" xml:"ResponseParameters"`
+ResponseTemplates TemplateMap `json:"responseTemplates" xml:"ResponseTemplates"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
 }
 
 type UpdateIntegrationResult struct {
-	ApiGatewayManaged                      bool                  `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ConnectionId                           string                `json:"connectionId" xml:"ConnectionId"`
-	ConnectionType                         string                `json:"connectionType" xml:"ConnectionType"`
-	ContentHandlingStrategy                string                `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
-	CredentialsArn                         string                `json:"credentialsArn" xml:"CredentialsArn"`
-	Description                            string                `json:"description" xml:"Description"`
-	IntegrationId                          string                `json:"integrationId" xml:"IntegrationId"`
-	IntegrationMethod                      string                `json:"integrationMethod" xml:"IntegrationMethod"`
-	IntegrationResponseSelectionExpression string                `json:"integrationResponseSelectionExpression" xml:"IntegrationResponseSelectionExpression"`
-	IntegrationSubtype                     string                `json:"integrationSubtype" xml:"IntegrationSubtype"`
-	IntegrationType                        string                `json:"integrationType" xml:"IntegrationType"`
-	IntegrationUri                         string                `json:"integrationUri" xml:"IntegrationUri"`
-	PassthroughBehavior                    string                `json:"passthroughBehavior" xml:"PassthroughBehavior"`
-	PayloadFormatVersion                   string                `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
-	RequestParameters                      IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
-	RequestTemplates                       TemplateMap           `json:"requestTemplates" xml:"RequestTemplates"`
-	ResponseParameters                     ResponseParameters    `json:"responseParameters" xml:"ResponseParameters"`
-	TemplateSelectionExpression            string                `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
-	TimeoutInMillis                        int32                 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
-	TlsConfig                              *TlsConfig            `json:"tlsConfig" xml:"TlsConfig"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ConnectionId string `json:"connectionId" xml:"ConnectionId"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ContentHandlingStrategy string `json:"contentHandlingStrategy" xml:"ContentHandlingStrategy"`
+CredentialsArn string `json:"credentialsArn" xml:"CredentialsArn"`
+Description string `json:"description" xml:"Description"`
+IntegrationId string `json:"integrationId" xml:"IntegrationId"`
+IntegrationMethod string `json:"integrationMethod" xml:"IntegrationMethod"`
+IntegrationResponseSelectionExpression string `json:"integrationResponseSelectionExpression" xml:"IntegrationResponseSelectionExpression"`
+IntegrationSubtype string `json:"integrationSubtype" xml:"IntegrationSubtype"`
+IntegrationType string `json:"integrationType" xml:"IntegrationType"`
+IntegrationUri string `json:"integrationUri" xml:"IntegrationUri"`
+PassthroughBehavior string `json:"passthroughBehavior" xml:"PassthroughBehavior"`
+PayloadFormatVersion string `json:"payloadFormatVersion" xml:"PayloadFormatVersion"`
+RequestParameters IntegrationParameters `json:"requestParameters" xml:"RequestParameters"`
+RequestTemplates TemplateMap `json:"requestTemplates" xml:"RequestTemplates"`
+ResponseParameters ResponseParameters `json:"responseParameters" xml:"ResponseParameters"`
+TemplateSelectionExpression string `json:"templateSelectionExpression" xml:"TemplateSelectionExpression"`
+TimeoutInMillis int32 `json:"timeoutInMillis" xml:"TimeoutInMillis"`
+TlsConfig *TlsConfig `json:"tlsConfig" xml:"TlsConfig"`
 }
 
 type UpdateModelRequest struct {
-	ApiId       string `json:"apiId" xml:"ApiId"`
-	ContentType string `json:"contentType" xml:"ContentType"`
-	Description string `json:"description" xml:"Description"`
-	ModelId     string `json:"modelId" xml:"ModelId"`
-	Name        string `json:"name" xml:"Name"`
-	Schema      string `json:"schema" xml:"Schema"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ContentType string `json:"contentType" xml:"ContentType"`
+Description string `json:"description" xml:"Description"`
+ModelId string `json:"modelId" xml:"ModelId"`
+Name string `json:"name" xml:"Name"`
+Schema string `json:"schema" xml:"Schema"`
 }
 
 type UpdateModelResponse struct {
-	ContentType string `json:"contentType" xml:"ContentType"`
-	Description string `json:"description" xml:"Description"`
-	ModelId     string `json:"modelId" xml:"ModelId"`
-	Name        string `json:"name" xml:"Name"`
-	Schema      string `json:"schema" xml:"Schema"`
+ContentType string `json:"contentType" xml:"ContentType"`
+Description string `json:"description" xml:"Description"`
+ModelId string `json:"modelId" xml:"ModelId"`
+Name string `json:"name" xml:"Name"`
+Schema string `json:"schema" xml:"Schema"`
 }
 
 type UpdatePortalProductRequest struct {
-	Description     string        `json:"description" xml:"Description"`
-	DisplayName     string        `json:"displayName" xml:"DisplayName"`
-	DisplayOrder    *DisplayOrder `json:"displayOrder" xml:"DisplayOrder"`
-	PortalProductId string        `json:"portalProductId" xml:"PortalProductId"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+DisplayOrder *DisplayOrder `json:"displayOrder" xml:"DisplayOrder"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
 }
 
 type UpdatePortalProductResponse struct {
-	Description      string        `json:"description" xml:"Description"`
-	DisplayName      string        `json:"displayName" xml:"DisplayName"`
-	DisplayOrder     *DisplayOrder `json:"displayOrder" xml:"DisplayOrder"`
-	LastModified     time.Time     `json:"lastModified" xml:"LastModified"`
-	PortalProductArn string        `json:"portalProductArn" xml:"PortalProductArn"`
-	PortalProductId  string        `json:"portalProductId" xml:"PortalProductId"`
-	Tags             Tags          `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+DisplayOrder *DisplayOrder `json:"displayOrder" xml:"DisplayOrder"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+PortalProductArn string `json:"portalProductArn" xml:"PortalProductArn"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type UpdatePortalRequest struct {
-	Authorization             *Authorization                `json:"authorization" xml:"Authorization"`
-	EndpointConfiguration     *EndpointConfigurationRequest `json:"endpointConfiguration" xml:"EndpointConfiguration"`
-	IncludedPortalProductArns __listOf__stringMin20Max2048  `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
-	LogoUri                   string                        `json:"logoUri" xml:"LogoUri"`
-	PortalContent             *PortalContent                `json:"portalContent" xml:"PortalContent"`
-	PortalId                  string                        `json:"portalId" xml:"PortalId"`
-	RumAppMonitorName         string                        `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
+Authorization *Authorization `json:"authorization" xml:"Authorization"`
+EndpointConfiguration *EndpointConfigurationRequest `json:"endpointConfiguration" xml:"EndpointConfiguration"`
+IncludedPortalProductArns __listOf__stringMin20Max2048 `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
+LogoUri string `json:"logoUri" xml:"LogoUri"`
+PortalContent *PortalContent `json:"portalContent" xml:"PortalContent"`
+PortalId string `json:"portalId" xml:"PortalId"`
+RumAppMonitorName string `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
 }
 
 type UpdatePortalResponse struct {
-	Authorization             *Authorization                 `json:"authorization" xml:"Authorization"`
-	EndpointConfiguration     *EndpointConfigurationResponse `json:"endpointConfiguration" xml:"EndpointConfiguration"`
-	IncludedPortalProductArns __listOf__stringMin20Max2048   `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
-	LastModified              time.Time                      `json:"lastModified" xml:"LastModified"`
-	LastPublished             time.Time                      `json:"lastPublished" xml:"LastPublished"`
-	LastPublishedDescription  string                         `json:"lastPublishedDescription" xml:"LastPublishedDescription"`
-	PortalArn                 string                         `json:"portalArn" xml:"PortalArn"`
-	PortalContent             *PortalContent                 `json:"portalContent" xml:"PortalContent"`
-	PortalId                  string                         `json:"portalId" xml:"PortalId"`
-	Preview                   *Preview                       `json:"preview" xml:"Preview"`
-	PublishStatus             string                         `json:"publishStatus" xml:"PublishStatus"`
-	RumAppMonitorName         string                         `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
-	StatusException           *StatusException               `json:"statusException" xml:"StatusException"`
-	Tags                      Tags                           `json:"tags" xml:"Tags"`
+Authorization *Authorization `json:"authorization" xml:"Authorization"`
+EndpointConfiguration *EndpointConfigurationResponse `json:"endpointConfiguration" xml:"EndpointConfiguration"`
+IncludedPortalProductArns __listOf__stringMin20Max2048 `json:"includedPortalProductArns" xml:"IncludedPortalProductArns"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+LastPublished time.Time `json:"lastPublished" xml:"LastPublished"`
+LastPublishedDescription string `json:"lastPublishedDescription" xml:"LastPublishedDescription"`
+PortalArn string `json:"portalArn" xml:"PortalArn"`
+PortalContent *PortalContent `json:"portalContent" xml:"PortalContent"`
+PortalId string `json:"portalId" xml:"PortalId"`
+Preview *Preview `json:"preview" xml:"Preview"`
+PublishStatus string `json:"publishStatus" xml:"PublishStatus"`
+RumAppMonitorName string `json:"rumAppMonitorName" xml:"RumAppMonitorName"`
+StatusException *StatusException `json:"statusException" xml:"StatusException"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type UpdateProductPageRequest struct {
-	DisplayContent  *DisplayContent `json:"displayContent" xml:"DisplayContent"`
-	PortalProductId string          `json:"portalProductId" xml:"PortalProductId"`
-	ProductPageId   string          `json:"productPageId" xml:"ProductPageId"`
+DisplayContent *DisplayContent `json:"displayContent" xml:"DisplayContent"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+ProductPageId string `json:"productPageId" xml:"ProductPageId"`
 }
 
 type UpdateProductPageResponse struct {
-	DisplayContent *DisplayContent `json:"displayContent" xml:"DisplayContent"`
-	LastModified   time.Time       `json:"lastModified" xml:"LastModified"`
-	ProductPageArn string          `json:"productPageArn" xml:"ProductPageArn"`
-	ProductPageId  string          `json:"productPageId" xml:"ProductPageId"`
+DisplayContent *DisplayContent `json:"displayContent" xml:"DisplayContent"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+ProductPageArn string `json:"productPageArn" xml:"ProductPageArn"`
+ProductPageId string `json:"productPageId" xml:"ProductPageId"`
 }
 
 type UpdateProductRestEndpointPageRequest struct {
-	DisplayContent            *EndpointDisplayContent `json:"displayContent" xml:"DisplayContent"`
-	PortalProductId           string                  `json:"portalProductId" xml:"PortalProductId"`
-	ProductRestEndpointPageId string                  `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
-	TryItState                string                  `json:"tryItState" xml:"TryItState"`
+DisplayContent *EndpointDisplayContent `json:"displayContent" xml:"DisplayContent"`
+PortalProductId string `json:"portalProductId" xml:"PortalProductId"`
+ProductRestEndpointPageId string `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
+TryItState string `json:"tryItState" xml:"TryItState"`
 }
 
 type UpdateProductRestEndpointPageResponse struct {
-	DisplayContent             *EndpointDisplayContentResponse `json:"displayContent" xml:"DisplayContent"`
-	LastModified               time.Time                       `json:"lastModified" xml:"LastModified"`
-	ProductRestEndpointPageArn string                          `json:"productRestEndpointPageArn" xml:"ProductRestEndpointPageArn"`
-	ProductRestEndpointPageId  string                          `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
-	RestEndpointIdentifier     *RestEndpointIdentifier         `json:"restEndpointIdentifier" xml:"RestEndpointIdentifier"`
-	Status                     string                          `json:"status" xml:"Status"`
-	StatusException            *StatusException                `json:"statusException" xml:"StatusException"`
-	TryItState                 string                          `json:"tryItState" xml:"TryItState"`
+DisplayContent *EndpointDisplayContentResponse `json:"displayContent" xml:"DisplayContent"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+ProductRestEndpointPageArn string `json:"productRestEndpointPageArn" xml:"ProductRestEndpointPageArn"`
+ProductRestEndpointPageId string `json:"productRestEndpointPageId" xml:"ProductRestEndpointPageId"`
+RestEndpointIdentifier *RestEndpointIdentifier `json:"restEndpointIdentifier" xml:"RestEndpointIdentifier"`
+Status string `json:"status" xml:"Status"`
+StatusException *StatusException `json:"statusException" xml:"StatusException"`
+TryItState string `json:"tryItState" xml:"TryItState"`
 }
 
 type UpdateRouteRequest struct {
-	ApiId                            string              `json:"apiId" xml:"ApiId"`
-	ApiKeyRequired                   bool                `json:"apiKeyRequired" xml:"ApiKeyRequired"`
-	AuthorizationScopes              AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
-	AuthorizationType                string              `json:"authorizationType" xml:"AuthorizationType"`
-	AuthorizerId                     string              `json:"authorizerId" xml:"AuthorizerId"`
-	ModelSelectionExpression         string              `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	OperationName                    string              `json:"operationName" xml:"OperationName"`
-	RequestModels                    RouteModels         `json:"requestModels" xml:"RequestModels"`
-	RequestParameters                RouteParameters     `json:"requestParameters" xml:"RequestParameters"`
-	RouteId                          string              `json:"routeId" xml:"RouteId"`
-	RouteKey                         string              `json:"routeKey" xml:"RouteKey"`
-	RouteResponseSelectionExpression string              `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
-	Target                           string              `json:"target" xml:"Target"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ApiKeyRequired bool `json:"apiKeyRequired" xml:"ApiKeyRequired"`
+AuthorizationScopes AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
+AuthorizationType string `json:"authorizationType" xml:"AuthorizationType"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+OperationName string `json:"operationName" xml:"OperationName"`
+RequestModels RouteModels `json:"requestModels" xml:"RequestModels"`
+RequestParameters RouteParameters `json:"requestParameters" xml:"RequestParameters"`
+RouteId string `json:"routeId" xml:"RouteId"`
+RouteKey string `json:"routeKey" xml:"RouteKey"`
+RouteResponseSelectionExpression string `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
+Target string `json:"target" xml:"Target"`
 }
 
 type UpdateRouteResponseRequest struct {
-	ApiId                    string          `json:"apiId" xml:"ApiId"`
-	ModelSelectionExpression string          `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	ResponseModels           RouteModels     `json:"responseModels" xml:"ResponseModels"`
-	ResponseParameters       RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
-	RouteId                  string          `json:"routeId" xml:"RouteId"`
-	RouteResponseId          string          `json:"routeResponseId" xml:"RouteResponseId"`
-	RouteResponseKey         string          `json:"routeResponseKey" xml:"RouteResponseKey"`
+ApiId string `json:"apiId" xml:"ApiId"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+ResponseModels RouteModels `json:"responseModels" xml:"ResponseModels"`
+ResponseParameters RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
+RouteId string `json:"routeId" xml:"RouteId"`
+RouteResponseId string `json:"routeResponseId" xml:"RouteResponseId"`
+RouteResponseKey string `json:"routeResponseKey" xml:"RouteResponseKey"`
 }
 
 type UpdateRouteResponseResponse struct {
-	ModelSelectionExpression string          `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	ResponseModels           RouteModels     `json:"responseModels" xml:"ResponseModels"`
-	ResponseParameters       RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
-	RouteResponseId          string          `json:"routeResponseId" xml:"RouteResponseId"`
-	RouteResponseKey         string          `json:"routeResponseKey" xml:"RouteResponseKey"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+ResponseModels RouteModels `json:"responseModels" xml:"ResponseModels"`
+ResponseParameters RouteParameters `json:"responseParameters" xml:"ResponseParameters"`
+RouteResponseId string `json:"routeResponseId" xml:"RouteResponseId"`
+RouteResponseKey string `json:"routeResponseKey" xml:"RouteResponseKey"`
 }
 
 type UpdateRouteResult struct {
-	ApiGatewayManaged                bool                `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	ApiKeyRequired                   bool                `json:"apiKeyRequired" xml:"ApiKeyRequired"`
-	AuthorizationScopes              AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
-	AuthorizationType                string              `json:"authorizationType" xml:"AuthorizationType"`
-	AuthorizerId                     string              `json:"authorizerId" xml:"AuthorizerId"`
-	ModelSelectionExpression         string              `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
-	OperationName                    string              `json:"operationName" xml:"OperationName"`
-	RequestModels                    RouteModels         `json:"requestModels" xml:"RequestModels"`
-	RequestParameters                RouteParameters     `json:"requestParameters" xml:"RequestParameters"`
-	RouteId                          string              `json:"routeId" xml:"RouteId"`
-	RouteKey                         string              `json:"routeKey" xml:"RouteKey"`
-	RouteResponseSelectionExpression string              `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
-	Target                           string              `json:"target" xml:"Target"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+ApiKeyRequired bool `json:"apiKeyRequired" xml:"ApiKeyRequired"`
+AuthorizationScopes AuthorizationScopes `json:"authorizationScopes" xml:"AuthorizationScopes"`
+AuthorizationType string `json:"authorizationType" xml:"AuthorizationType"`
+AuthorizerId string `json:"authorizerId" xml:"AuthorizerId"`
+ModelSelectionExpression string `json:"modelSelectionExpression" xml:"ModelSelectionExpression"`
+OperationName string `json:"operationName" xml:"OperationName"`
+RequestModels RouteModels `json:"requestModels" xml:"RequestModels"`
+RequestParameters RouteParameters `json:"requestParameters" xml:"RequestParameters"`
+RouteId string `json:"routeId" xml:"RouteId"`
+RouteKey string `json:"routeKey" xml:"RouteKey"`
+RouteResponseSelectionExpression string `json:"routeResponseSelectionExpression" xml:"RouteResponseSelectionExpression"`
+Target string `json:"target" xml:"Target"`
 }
 
 type UpdateStageRequest struct {
-	AccessLogSettings    *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
-	ApiId                string             `json:"apiId" xml:"ApiId"`
-	AutoDeploy           bool               `json:"autoDeploy" xml:"AutoDeploy"`
-	ClientCertificateId  string             `json:"clientCertificateId" xml:"ClientCertificateId"`
-	DefaultRouteSettings *RouteSettings     `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
-	DeploymentId         string             `json:"deploymentId" xml:"DeploymentId"`
-	Description          string             `json:"description" xml:"Description"`
-	RouteSettings        RouteSettingsMap   `json:"routeSettings" xml:"RouteSettings"`
-	StageName            string             `json:"stageName" xml:"StageName"`
-	StageVariables       StageVariablesMap  `json:"stageVariables" xml:"StageVariables"`
+AccessLogSettings *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
+ApiId string `json:"apiId" xml:"ApiId"`
+AutoDeploy bool `json:"autoDeploy" xml:"AutoDeploy"`
+ClientCertificateId string `json:"clientCertificateId" xml:"ClientCertificateId"`
+DefaultRouteSettings *RouteSettings `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+Description string `json:"description" xml:"Description"`
+RouteSettings RouteSettingsMap `json:"routeSettings" xml:"RouteSettings"`
+StageName string `json:"stageName" xml:"StageName"`
+StageVariables StageVariablesMap `json:"stageVariables" xml:"StageVariables"`
 }
 
 type UpdateStageResponse struct {
-	AccessLogSettings           *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
-	ApiGatewayManaged           bool               `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
-	AutoDeploy                  bool               `json:"autoDeploy" xml:"AutoDeploy"`
-	ClientCertificateId         string             `json:"clientCertificateId" xml:"ClientCertificateId"`
-	CreatedDate                 time.Time          `json:"createdDate" xml:"CreatedDate"`
-	DefaultRouteSettings        *RouteSettings     `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
-	DeploymentId                string             `json:"deploymentId" xml:"DeploymentId"`
-	Description                 string             `json:"description" xml:"Description"`
-	LastDeploymentStatusMessage string             `json:"lastDeploymentStatusMessage" xml:"LastDeploymentStatusMessage"`
-	LastUpdatedDate             time.Time          `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
-	RouteSettings               RouteSettingsMap   `json:"routeSettings" xml:"RouteSettings"`
-	StageName                   string             `json:"stageName" xml:"StageName"`
-	StageVariables              StageVariablesMap  `json:"stageVariables" xml:"StageVariables"`
-	Tags                        Tags               `json:"tags" xml:"Tags"`
+AccessLogSettings *AccessLogSettings `json:"accessLogSettings" xml:"AccessLogSettings"`
+ApiGatewayManaged bool `json:"apiGatewayManaged" xml:"ApiGatewayManaged"`
+AutoDeploy bool `json:"autoDeploy" xml:"AutoDeploy"`
+ClientCertificateId string `json:"clientCertificateId" xml:"ClientCertificateId"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+DefaultRouteSettings *RouteSettings `json:"defaultRouteSettings" xml:"DefaultRouteSettings"`
+DeploymentId string `json:"deploymentId" xml:"DeploymentId"`
+Description string `json:"description" xml:"Description"`
+LastDeploymentStatusMessage string `json:"lastDeploymentStatusMessage" xml:"LastDeploymentStatusMessage"`
+LastUpdatedDate time.Time `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
+RouteSettings RouteSettingsMap `json:"routeSettings" xml:"RouteSettings"`
+StageName string `json:"stageName" xml:"StageName"`
+StageVariables StageVariablesMap `json:"stageVariables" xml:"StageVariables"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type UpdateVpcLinkRequest struct {
-	Name      string `json:"name" xml:"Name"`
-	VpcLinkId string `json:"vpcLinkId" xml:"VpcLinkId"`
+Name string `json:"name" xml:"Name"`
+VpcLinkId string `json:"vpcLinkId" xml:"VpcLinkId"`
 }
 
 type UpdateVpcLinkResponse struct {
-	CreatedDate          time.Time           `json:"createdDate" xml:"CreatedDate"`
-	Name                 string              `json:"name" xml:"Name"`
-	SecurityGroupIds     SecurityGroupIdList `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds            SubnetIdList        `json:"subnetIds" xml:"SubnetIds"`
-	Tags                 Tags                `json:"tags" xml:"Tags"`
-	VpcLinkId            string              `json:"vpcLinkId" xml:"VpcLinkId"`
-	VpcLinkStatus        string              `json:"vpcLinkStatus" xml:"VpcLinkStatus"`
-	VpcLinkStatusMessage string              `json:"vpcLinkStatusMessage" xml:"VpcLinkStatusMessage"`
-	VpcLinkVersion       string              `json:"vpcLinkVersion" xml:"VpcLinkVersion"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Name string `json:"name" xml:"Name"`
+SecurityGroupIds SecurityGroupIdList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds SubnetIdList `json:"subnetIds" xml:"SubnetIds"`
+Tags Tags `json:"tags" xml:"Tags"`
+VpcLinkId string `json:"vpcLinkId" xml:"VpcLinkId"`
+VpcLinkStatus string `json:"vpcLinkStatus" xml:"VpcLinkStatus"`
+VpcLinkStatusMessage string `json:"vpcLinkStatusMessage" xml:"VpcLinkStatusMessage"`
+VpcLinkVersion string `json:"vpcLinkVersion" xml:"VpcLinkVersion"`
 }
 
 type VpcLink struct {
-	CreatedDate          time.Time           `json:"createdDate" xml:"CreatedDate"`
-	Name                 string              `json:"name" xml:"Name"`
-	SecurityGroupIds     SecurityGroupIdList `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds            SubnetIdList        `json:"subnetIds" xml:"SubnetIds"`
-	Tags                 Tags                `json:"tags" xml:"Tags"`
-	VpcLinkId            string              `json:"vpcLinkId" xml:"VpcLinkId"`
-	VpcLinkStatus        string              `json:"vpcLinkStatus" xml:"VpcLinkStatus"`
-	VpcLinkStatusMessage string              `json:"vpcLinkStatusMessage" xml:"VpcLinkStatusMessage"`
-	VpcLinkVersion       string              `json:"vpcLinkVersion" xml:"VpcLinkVersion"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Name string `json:"name" xml:"Name"`
+SecurityGroupIds SecurityGroupIdList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds SubnetIdList `json:"subnetIds" xml:"SubnetIds"`
+Tags Tags `json:"tags" xml:"Tags"`
+VpcLinkId string `json:"vpcLinkId" xml:"VpcLinkId"`
+VpcLinkStatus string `json:"vpcLinkStatus" xml:"VpcLinkStatus"`
+VpcLinkStatusMessage string `json:"vpcLinkStatusMessage" xml:"VpcLinkStatusMessage"`
+VpcLinkVersion string `json:"vpcLinkVersion" xml:"VpcLinkVersion"`
 }
 
 type AuthorizationScopes []string
@@ -1982,3 +1982,4 @@ type StageVariablesMap map[string]string
 type Tags map[string]string
 
 type TemplateMap map[string]string
+

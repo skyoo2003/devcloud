@@ -111,3 +111,4 @@ func SerializeStartSnapshotResponse(w http.ResponseWriter, output *StartSnapshot
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

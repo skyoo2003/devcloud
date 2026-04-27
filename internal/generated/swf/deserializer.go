@@ -273,3 +273,4 @@ func SerializeRun(w http.ResponseWriter, output *Run, protocol string) error {
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

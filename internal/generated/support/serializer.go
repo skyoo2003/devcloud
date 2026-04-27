@@ -120,3 +120,4 @@ func DeserializeResolveCaseRequest(r *http.Request, pathParams PathParams) (*Res
 
 	return input, nil
 }
+

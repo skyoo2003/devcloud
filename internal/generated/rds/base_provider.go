@@ -662,3 +662,4 @@ func (b *BaseProvider) SwitchoverGlobalCluster(ctx context.Context, input *Switc
 func (b *BaseProvider) SwitchoverReadReplica(ctx context.Context, input *SwitchoverReadReplicaMessage) (*SwitchoverReadReplicaResult, error) {
 	return nil, fmt.Errorf("SwitchoverReadReplica: %w", ErrNotImplemented)
 }
+

@@ -7,1259 +7,1259 @@ import (
 )
 
 type As2AsyncMdnConnectorConfig struct {
-	ServerIds As2AsyncMdnServerIds `json:"serverIds" xml:"ServerIds"`
-	Url       string               `json:"url" xml:"Url"`
+ServerIds As2AsyncMdnServerIds `json:"serverIds" xml:"ServerIds"`
+Url string `json:"url" xml:"Url"`
 }
 
 type As2ConnectorConfig struct {
-	AsyncMdnConfig      *As2AsyncMdnConnectorConfig `json:"asyncMdnConfig" xml:"AsyncMdnConfig"`
-	BasicAuthSecretId   string                      `json:"basicAuthSecretId" xml:"BasicAuthSecretId"`
-	Compression         string                      `json:"compression" xml:"Compression"`
-	EncryptionAlgorithm string                      `json:"encryptionAlgorithm" xml:"EncryptionAlgorithm"`
-	LocalProfileId      string                      `json:"localProfileId" xml:"LocalProfileId"`
-	MdnResponse         string                      `json:"mdnResponse" xml:"MdnResponse"`
-	MdnSigningAlgorithm string                      `json:"mdnSigningAlgorithm" xml:"MdnSigningAlgorithm"`
-	MessageSubject      string                      `json:"messageSubject" xml:"MessageSubject"`
-	PartnerProfileId    string                      `json:"partnerProfileId" xml:"PartnerProfileId"`
-	PreserveContentType string                      `json:"preserveContentType" xml:"PreserveContentType"`
-	SigningAlgorithm    string                      `json:"signingAlgorithm" xml:"SigningAlgorithm"`
+AsyncMdnConfig *As2AsyncMdnConnectorConfig `json:"asyncMdnConfig" xml:"AsyncMdnConfig"`
+BasicAuthSecretId string `json:"basicAuthSecretId" xml:"BasicAuthSecretId"`
+Compression string `json:"compression" xml:"Compression"`
+EncryptionAlgorithm string `json:"encryptionAlgorithm" xml:"EncryptionAlgorithm"`
+LocalProfileId string `json:"localProfileId" xml:"LocalProfileId"`
+MdnResponse string `json:"mdnResponse" xml:"MdnResponse"`
+MdnSigningAlgorithm string `json:"mdnSigningAlgorithm" xml:"MdnSigningAlgorithm"`
+MessageSubject string `json:"messageSubject" xml:"MessageSubject"`
+PartnerProfileId string `json:"partnerProfileId" xml:"PartnerProfileId"`
+PreserveContentType string `json:"preserveContentType" xml:"PreserveContentType"`
+SigningAlgorithm string `json:"signingAlgorithm" xml:"SigningAlgorithm"`
 }
 
 type CfnUserProperties struct {
-	SshPublicKeys CfnSshPublicKeys `json:"sshPublicKeys" xml:"SshPublicKeys"`
+SshPublicKeys CfnSshPublicKeys `json:"sshPublicKeys" xml:"SshPublicKeys"`
 }
 
 type ConnectorFileTransferResult struct {
-	FailureCode    string `json:"failureCode" xml:"FailureCode"`
-	FailureMessage string `json:"failureMessage" xml:"FailureMessage"`
-	FilePath       string `json:"filePath" xml:"FilePath"`
-	StatusCode     string `json:"statusCode" xml:"StatusCode"`
+FailureCode string `json:"failureCode" xml:"FailureCode"`
+FailureMessage string `json:"failureMessage" xml:"FailureMessage"`
+FilePath string `json:"filePath" xml:"FilePath"`
+StatusCode string `json:"statusCode" xml:"StatusCode"`
 }
 
 type ConnectorVpcLatticeEgressConfig struct {
-	PortNumber               int32  `json:"portNumber" xml:"PortNumber"`
-	ResourceConfigurationArn string `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
+PortNumber int32 `json:"portNumber" xml:"PortNumber"`
+ResourceConfigurationArn string `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
 }
 
 type CopyStepDetails struct {
-	DestinationFileLocation *InputFileLocation `json:"destinationFileLocation" xml:"DestinationFileLocation"`
-	Name                    string             `json:"name" xml:"Name"`
-	OverwriteExisting       string             `json:"overwriteExisting" xml:"OverwriteExisting"`
-	SourceFileLocation      string             `json:"sourceFileLocation" xml:"SourceFileLocation"`
+DestinationFileLocation *InputFileLocation `json:"destinationFileLocation" xml:"DestinationFileLocation"`
+Name string `json:"name" xml:"Name"`
+OverwriteExisting string `json:"overwriteExisting" xml:"OverwriteExisting"`
+SourceFileLocation string `json:"sourceFileLocation" xml:"SourceFileLocation"`
 }
 
 type CreateAccessRequest struct {
-	ExternalId            string                `json:"externalId" xml:"ExternalId"`
-	HomeDirectory         string                `json:"homeDirectory" xml:"HomeDirectory"`
-	HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
-	HomeDirectoryType     string                `json:"homeDirectoryType" xml:"HomeDirectoryType"`
-	Policy                string                `json:"policy" xml:"Policy"`
-	PosixProfile          *PosixProfile         `json:"posixProfile" xml:"PosixProfile"`
-	Role                  string                `json:"role" xml:"Role"`
-	ServerId              string                `json:"serverId" xml:"ServerId"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+HomeDirectory string `json:"homeDirectory" xml:"HomeDirectory"`
+HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
+HomeDirectoryType string `json:"homeDirectoryType" xml:"HomeDirectoryType"`
+Policy string `json:"policy" xml:"Policy"`
+PosixProfile *PosixProfile `json:"posixProfile" xml:"PosixProfile"`
+Role string `json:"role" xml:"Role"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type CreateAccessResponse struct {
-	ExternalId string `json:"externalId" xml:"ExternalId"`
-	ServerId   string `json:"serverId" xml:"ServerId"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type CreateAgreementRequest struct {
-	AccessRole            string                 `json:"accessRole" xml:"AccessRole"`
-	BaseDirectory         string                 `json:"baseDirectory" xml:"BaseDirectory"`
-	CustomDirectories     *CustomDirectoriesType `json:"customDirectories" xml:"CustomDirectories"`
-	Description           string                 `json:"description" xml:"Description"`
-	EnforceMessageSigning string                 `json:"enforceMessageSigning" xml:"EnforceMessageSigning"`
-	LocalProfileId        string                 `json:"localProfileId" xml:"LocalProfileId"`
-	PartnerProfileId      string                 `json:"partnerProfileId" xml:"PartnerProfileId"`
-	PreserveFilename      string                 `json:"preserveFilename" xml:"PreserveFilename"`
-	ServerId              string                 `json:"serverId" xml:"ServerId"`
-	Status                string                 `json:"status" xml:"Status"`
-	Tags                  Tags                   `json:"tags" xml:"Tags"`
+AccessRole string `json:"accessRole" xml:"AccessRole"`
+BaseDirectory string `json:"baseDirectory" xml:"BaseDirectory"`
+CustomDirectories *CustomDirectoriesType `json:"customDirectories" xml:"CustomDirectories"`
+Description string `json:"description" xml:"Description"`
+EnforceMessageSigning string `json:"enforceMessageSigning" xml:"EnforceMessageSigning"`
+LocalProfileId string `json:"localProfileId" xml:"LocalProfileId"`
+PartnerProfileId string `json:"partnerProfileId" xml:"PartnerProfileId"`
+PreserveFilename string `json:"preserveFilename" xml:"PreserveFilename"`
+ServerId string `json:"serverId" xml:"ServerId"`
+Status string `json:"status" xml:"Status"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateAgreementResponse struct {
-	AgreementId string `json:"agreementId" xml:"AgreementId"`
+AgreementId string `json:"agreementId" xml:"AgreementId"`
 }
 
 type CreateConnectorRequest struct {
-	AccessRole         string               `json:"accessRole" xml:"AccessRole"`
-	As2Config          *As2ConnectorConfig  `json:"as2Config" xml:"As2Config"`
-	EgressConfig       interface{}          `json:"egressConfig" xml:"EgressConfig"`
-	LoggingRole        string               `json:"loggingRole" xml:"LoggingRole"`
-	SecurityPolicyName string               `json:"securityPolicyName" xml:"SecurityPolicyName"`
-	SftpConfig         *SftpConnectorConfig `json:"sftpConfig" xml:"SftpConfig"`
-	Tags               Tags                 `json:"tags" xml:"Tags"`
-	Url                string               `json:"url" xml:"Url"`
+AccessRole string `json:"accessRole" xml:"AccessRole"`
+As2Config *As2ConnectorConfig `json:"as2Config" xml:"As2Config"`
+EgressConfig interface{} `json:"egressConfig" xml:"EgressConfig"`
+LoggingRole string `json:"loggingRole" xml:"LoggingRole"`
+SecurityPolicyName string `json:"securityPolicyName" xml:"SecurityPolicyName"`
+SftpConfig *SftpConnectorConfig `json:"sftpConfig" xml:"SftpConfig"`
+Tags Tags `json:"tags" xml:"Tags"`
+Url string `json:"url" xml:"Url"`
 }
 
 type CreateConnectorResponse struct {
-	ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
 }
 
 type CreateProfileRequest struct {
-	As2Id          string         `json:"as2Id" xml:"As2Id"`
-	CertificateIds CertificateIds `json:"certificateIds" xml:"CertificateIds"`
-	ProfileType    string         `json:"profileType" xml:"ProfileType"`
-	Tags           Tags           `json:"tags" xml:"Tags"`
+As2Id string `json:"as2Id" xml:"As2Id"`
+CertificateIds CertificateIds `json:"certificateIds" xml:"CertificateIds"`
+ProfileType string `json:"profileType" xml:"ProfileType"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateProfileResponse struct {
-	ProfileId string `json:"profileId" xml:"ProfileId"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
 }
 
 type CreateServerRequest struct {
-	Certificate                   string                    `json:"certificate" xml:"Certificate"`
-	Domain                        string                    `json:"domain" xml:"Domain"`
-	EndpointDetails               *EndpointDetails          `json:"endpointDetails" xml:"EndpointDetails"`
-	EndpointType                  string                    `json:"endpointType" xml:"EndpointType"`
-	HostKey                       string                    `json:"hostKey" xml:"HostKey"`
-	IdentityProviderDetails       *IdentityProviderDetails  `json:"identityProviderDetails" xml:"IdentityProviderDetails"`
-	IdentityProviderType          string                    `json:"identityProviderType" xml:"IdentityProviderType"`
-	IpAddressType                 string                    `json:"ipAddressType" xml:"IpAddressType"`
-	LoggingRole                   string                    `json:"loggingRole" xml:"LoggingRole"`
-	PostAuthenticationLoginBanner string                    `json:"postAuthenticationLoginBanner" xml:"PostAuthenticationLoginBanner"`
-	PreAuthenticationLoginBanner  string                    `json:"preAuthenticationLoginBanner" xml:"PreAuthenticationLoginBanner"`
-	ProtocolDetails               *ProtocolDetails          `json:"protocolDetails" xml:"ProtocolDetails"`
-	Protocols                     Protocols                 `json:"protocols" xml:"Protocols"`
-	S3StorageOptions              *S3StorageOptions         `json:"s3StorageOptions" xml:"S3StorageOptions"`
-	SecurityPolicyName            string                    `json:"securityPolicyName" xml:"SecurityPolicyName"`
-	StructuredLogDestinations     StructuredLogDestinations `json:"structuredLogDestinations" xml:"StructuredLogDestinations"`
-	Tags                          Tags                      `json:"tags" xml:"Tags"`
-	WorkflowDetails               *WorkflowDetails          `json:"workflowDetails" xml:"WorkflowDetails"`
+Certificate string `json:"certificate" xml:"Certificate"`
+Domain string `json:"domain" xml:"Domain"`
+EndpointDetails *EndpointDetails `json:"endpointDetails" xml:"EndpointDetails"`
+EndpointType string `json:"endpointType" xml:"EndpointType"`
+HostKey string `json:"hostKey" xml:"HostKey"`
+IdentityProviderDetails *IdentityProviderDetails `json:"identityProviderDetails" xml:"IdentityProviderDetails"`
+IdentityProviderType string `json:"identityProviderType" xml:"IdentityProviderType"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+LoggingRole string `json:"loggingRole" xml:"LoggingRole"`
+PostAuthenticationLoginBanner string `json:"postAuthenticationLoginBanner" xml:"PostAuthenticationLoginBanner"`
+PreAuthenticationLoginBanner string `json:"preAuthenticationLoginBanner" xml:"PreAuthenticationLoginBanner"`
+ProtocolDetails *ProtocolDetails `json:"protocolDetails" xml:"ProtocolDetails"`
+Protocols Protocols `json:"protocols" xml:"Protocols"`
+S3StorageOptions *S3StorageOptions `json:"s3StorageOptions" xml:"S3StorageOptions"`
+SecurityPolicyName string `json:"securityPolicyName" xml:"SecurityPolicyName"`
+StructuredLogDestinations StructuredLogDestinations `json:"structuredLogDestinations" xml:"StructuredLogDestinations"`
+Tags Tags `json:"tags" xml:"Tags"`
+WorkflowDetails *WorkflowDetails `json:"workflowDetails" xml:"WorkflowDetails"`
 }
 
 type CreateServerResponse struct {
-	ServerId string `json:"serverId" xml:"ServerId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type CreateUserRequest struct {
-	HomeDirectory         string                `json:"homeDirectory" xml:"HomeDirectory"`
-	HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
-	HomeDirectoryType     string                `json:"homeDirectoryType" xml:"HomeDirectoryType"`
-	Policy                string                `json:"policy" xml:"Policy"`
-	PosixProfile          *PosixProfile         `json:"posixProfile" xml:"PosixProfile"`
-	Role                  string                `json:"role" xml:"Role"`
-	ServerId              string                `json:"serverId" xml:"ServerId"`
-	SshPublicKeyBody      string                `json:"sshPublicKeyBody" xml:"SshPublicKeyBody"`
-	Tags                  Tags                  `json:"tags" xml:"Tags"`
-	UserName              string                `json:"userName" xml:"UserName"`
+HomeDirectory string `json:"homeDirectory" xml:"HomeDirectory"`
+HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
+HomeDirectoryType string `json:"homeDirectoryType" xml:"HomeDirectoryType"`
+Policy string `json:"policy" xml:"Policy"`
+PosixProfile *PosixProfile `json:"posixProfile" xml:"PosixProfile"`
+Role string `json:"role" xml:"Role"`
+ServerId string `json:"serverId" xml:"ServerId"`
+SshPublicKeyBody string `json:"sshPublicKeyBody" xml:"SshPublicKeyBody"`
+Tags Tags `json:"tags" xml:"Tags"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type CreateUserResponse struct {
-	ServerId string `json:"serverId" xml:"ServerId"`
-	UserName string `json:"userName" xml:"UserName"`
+ServerId string `json:"serverId" xml:"ServerId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type CreateWebAppRequest struct {
-	AccessEndpoint          string      `json:"accessEndpoint" xml:"AccessEndpoint"`
-	EndpointDetails         interface{} `json:"endpointDetails" xml:"EndpointDetails"`
-	IdentityProviderDetails interface{} `json:"identityProviderDetails" xml:"IdentityProviderDetails"`
-	Tags                    Tags        `json:"tags" xml:"Tags"`
-	WebAppEndpointPolicy    string      `json:"webAppEndpointPolicy" xml:"WebAppEndpointPolicy"`
-	WebAppUnits             interface{} `json:"webAppUnits" xml:"WebAppUnits"`
+AccessEndpoint string `json:"accessEndpoint" xml:"AccessEndpoint"`
+EndpointDetails interface{} `json:"endpointDetails" xml:"EndpointDetails"`
+IdentityProviderDetails interface{} `json:"identityProviderDetails" xml:"IdentityProviderDetails"`
+Tags Tags `json:"tags" xml:"Tags"`
+WebAppEndpointPolicy string `json:"webAppEndpointPolicy" xml:"WebAppEndpointPolicy"`
+WebAppUnits interface{} `json:"webAppUnits" xml:"WebAppUnits"`
 }
 
 type CreateWebAppResponse struct {
-	WebAppId string `json:"webAppId" xml:"WebAppId"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
 }
 
 type CreateWorkflowRequest struct {
-	Description      string        `json:"description" xml:"Description"`
-	OnExceptionSteps WorkflowSteps `json:"onExceptionSteps" xml:"OnExceptionSteps"`
-	Steps            WorkflowSteps `json:"steps" xml:"Steps"`
-	Tags             Tags          `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+OnExceptionSteps WorkflowSteps `json:"onExceptionSteps" xml:"OnExceptionSteps"`
+Steps WorkflowSteps `json:"steps" xml:"Steps"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateWorkflowResponse struct {
-	WorkflowId string `json:"workflowId" xml:"WorkflowId"`
+WorkflowId string `json:"workflowId" xml:"WorkflowId"`
 }
 
 type CustomDirectoriesType struct {
-	FailedFilesDirectory    string `json:"failedFilesDirectory" xml:"FailedFilesDirectory"`
-	MdnFilesDirectory       string `json:"mdnFilesDirectory" xml:"MdnFilesDirectory"`
-	PayloadFilesDirectory   string `json:"payloadFilesDirectory" xml:"PayloadFilesDirectory"`
-	StatusFilesDirectory    string `json:"statusFilesDirectory" xml:"StatusFilesDirectory"`
-	TemporaryFilesDirectory string `json:"temporaryFilesDirectory" xml:"TemporaryFilesDirectory"`
+FailedFilesDirectory string `json:"failedFilesDirectory" xml:"FailedFilesDirectory"`
+MdnFilesDirectory string `json:"mdnFilesDirectory" xml:"MdnFilesDirectory"`
+PayloadFilesDirectory string `json:"payloadFilesDirectory" xml:"PayloadFilesDirectory"`
+StatusFilesDirectory string `json:"statusFilesDirectory" xml:"StatusFilesDirectory"`
+TemporaryFilesDirectory string `json:"temporaryFilesDirectory" xml:"TemporaryFilesDirectory"`
 }
 
 type CustomHttpHeader struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type CustomStepDetails struct {
-	Name               string `json:"name" xml:"Name"`
-	SourceFileLocation string `json:"sourceFileLocation" xml:"SourceFileLocation"`
-	Target             string `json:"target" xml:"Target"`
-	TimeoutSeconds     int32  `json:"timeoutSeconds" xml:"TimeoutSeconds"`
+Name string `json:"name" xml:"Name"`
+SourceFileLocation string `json:"sourceFileLocation" xml:"SourceFileLocation"`
+Target string `json:"target" xml:"Target"`
+TimeoutSeconds int32 `json:"timeoutSeconds" xml:"TimeoutSeconds"`
 }
 
 type DecryptStepDetails struct {
-	DestinationFileLocation *InputFileLocation `json:"destinationFileLocation" xml:"DestinationFileLocation"`
-	Name                    string             `json:"name" xml:"Name"`
-	OverwriteExisting       string             `json:"overwriteExisting" xml:"OverwriteExisting"`
-	SourceFileLocation      string             `json:"sourceFileLocation" xml:"SourceFileLocation"`
-	Type                    string             `json:"type" xml:"Type"`
+DestinationFileLocation *InputFileLocation `json:"destinationFileLocation" xml:"DestinationFileLocation"`
+Name string `json:"name" xml:"Name"`
+OverwriteExisting string `json:"overwriteExisting" xml:"OverwriteExisting"`
+SourceFileLocation string `json:"sourceFileLocation" xml:"SourceFileLocation"`
+Type string `json:"type" xml:"Type"`
 }
 
 type DeleteAccessRequest struct {
-	ExternalId string `json:"externalId" xml:"ExternalId"`
-	ServerId   string `json:"serverId" xml:"ServerId"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type DeleteAgreementRequest struct {
-	AgreementId string `json:"agreementId" xml:"AgreementId"`
-	ServerId    string `json:"serverId" xml:"ServerId"`
+AgreementId string `json:"agreementId" xml:"AgreementId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type DeleteCertificateRequest struct {
-	CertificateId string `json:"certificateId" xml:"CertificateId"`
+CertificateId string `json:"certificateId" xml:"CertificateId"`
 }
 
 type DeleteConnectorRequest struct {
-	ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
 }
 
 type DeleteHostKeyRequest struct {
-	HostKeyId string `json:"hostKeyId" xml:"HostKeyId"`
-	ServerId  string `json:"serverId" xml:"ServerId"`
+HostKeyId string `json:"hostKeyId" xml:"HostKeyId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type DeleteProfileRequest struct {
-	ProfileId string `json:"profileId" xml:"ProfileId"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
 }
 
 type DeleteServerRequest struct {
-	ServerId string `json:"serverId" xml:"ServerId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type DeleteSshPublicKeyRequest struct {
-	ServerId       string `json:"serverId" xml:"ServerId"`
-	SshPublicKeyId string `json:"sshPublicKeyId" xml:"SshPublicKeyId"`
-	UserName       string `json:"userName" xml:"UserName"`
+ServerId string `json:"serverId" xml:"ServerId"`
+SshPublicKeyId string `json:"sshPublicKeyId" xml:"SshPublicKeyId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DeleteStepDetails struct {
-	Name               string `json:"name" xml:"Name"`
-	SourceFileLocation string `json:"sourceFileLocation" xml:"SourceFileLocation"`
+Name string `json:"name" xml:"Name"`
+SourceFileLocation string `json:"sourceFileLocation" xml:"SourceFileLocation"`
 }
 
 type DeleteUserRequest struct {
-	ServerId string `json:"serverId" xml:"ServerId"`
-	UserName string `json:"userName" xml:"UserName"`
+ServerId string `json:"serverId" xml:"ServerId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DeleteWebAppCustomizationRequest struct {
-	WebAppId string `json:"webAppId" xml:"WebAppId"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
 }
 
 type DeleteWebAppRequest struct {
-	WebAppId string `json:"webAppId" xml:"WebAppId"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
 }
 
 type DeleteWorkflowRequest struct {
-	WorkflowId string `json:"workflowId" xml:"WorkflowId"`
+WorkflowId string `json:"workflowId" xml:"WorkflowId"`
 }
 
 type DescribeAccessRequest struct {
-	ExternalId string `json:"externalId" xml:"ExternalId"`
-	ServerId   string `json:"serverId" xml:"ServerId"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type DescribeAccessResponse struct {
-	Access   *DescribedAccess `json:"access" xml:"Access"`
-	ServerId string           `json:"serverId" xml:"ServerId"`
+Access *DescribedAccess `json:"access" xml:"Access"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type DescribeAgreementRequest struct {
-	AgreementId string `json:"agreementId" xml:"AgreementId"`
-	ServerId    string `json:"serverId" xml:"ServerId"`
+AgreementId string `json:"agreementId" xml:"AgreementId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type DescribeAgreementResponse struct {
-	Agreement *DescribedAgreement `json:"agreement" xml:"Agreement"`
+Agreement *DescribedAgreement `json:"agreement" xml:"Agreement"`
 }
 
 type DescribeCertificateRequest struct {
-	CertificateId string `json:"certificateId" xml:"CertificateId"`
+CertificateId string `json:"certificateId" xml:"CertificateId"`
 }
 
 type DescribeCertificateResponse struct {
-	Certificate *DescribedCertificate `json:"certificate" xml:"Certificate"`
+Certificate *DescribedCertificate `json:"certificate" xml:"Certificate"`
 }
 
 type DescribeConnectorRequest struct {
-	ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
 }
 
 type DescribeConnectorResponse struct {
-	Connector *DescribedConnector `json:"connector" xml:"Connector"`
+Connector *DescribedConnector `json:"connector" xml:"Connector"`
 }
 
 type DescribeExecutionRequest struct {
-	ExecutionId string `json:"executionId" xml:"ExecutionId"`
-	WorkflowId  string `json:"workflowId" xml:"WorkflowId"`
+ExecutionId string `json:"executionId" xml:"ExecutionId"`
+WorkflowId string `json:"workflowId" xml:"WorkflowId"`
 }
 
 type DescribeExecutionResponse struct {
-	Execution  *DescribedExecution `json:"execution" xml:"Execution"`
-	WorkflowId string              `json:"workflowId" xml:"WorkflowId"`
+Execution *DescribedExecution `json:"execution" xml:"Execution"`
+WorkflowId string `json:"workflowId" xml:"WorkflowId"`
 }
 
 type DescribeHostKeyRequest struct {
-	HostKeyId string `json:"hostKeyId" xml:"HostKeyId"`
-	ServerId  string `json:"serverId" xml:"ServerId"`
+HostKeyId string `json:"hostKeyId" xml:"HostKeyId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type DescribeHostKeyResponse struct {
-	HostKey *DescribedHostKey `json:"hostKey" xml:"HostKey"`
+HostKey *DescribedHostKey `json:"hostKey" xml:"HostKey"`
 }
 
 type DescribeProfileRequest struct {
-	ProfileId string `json:"profileId" xml:"ProfileId"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
 }
 
 type DescribeProfileResponse struct {
-	Profile *DescribedProfile `json:"profile" xml:"Profile"`
+Profile *DescribedProfile `json:"profile" xml:"Profile"`
 }
 
 type DescribeSecurityPolicyRequest struct {
-	SecurityPolicyName string `json:"securityPolicyName" xml:"SecurityPolicyName"`
+SecurityPolicyName string `json:"securityPolicyName" xml:"SecurityPolicyName"`
 }
 
 type DescribeSecurityPolicyResponse struct {
-	SecurityPolicy *DescribedSecurityPolicy `json:"securityPolicy" xml:"SecurityPolicy"`
+SecurityPolicy *DescribedSecurityPolicy `json:"securityPolicy" xml:"SecurityPolicy"`
 }
 
 type DescribeServerRequest struct {
-	ServerId string `json:"serverId" xml:"ServerId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type DescribeServerResponse struct {
-	Server *DescribedServer `json:"server" xml:"Server"`
+Server *DescribedServer `json:"server" xml:"Server"`
 }
 
 type DescribeUserRequest struct {
-	ServerId string `json:"serverId" xml:"ServerId"`
-	UserName string `json:"userName" xml:"UserName"`
+ServerId string `json:"serverId" xml:"ServerId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DescribeUserResponse struct {
-	ServerId string         `json:"serverId" xml:"ServerId"`
-	User     *DescribedUser `json:"user" xml:"User"`
+ServerId string `json:"serverId" xml:"ServerId"`
+User *DescribedUser `json:"user" xml:"User"`
 }
 
 type DescribeWebAppCustomizationRequest struct {
-	WebAppId string `json:"webAppId" xml:"WebAppId"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
 }
 
 type DescribeWebAppCustomizationResponse struct {
-	WebAppCustomization *DescribedWebAppCustomization `json:"webAppCustomization" xml:"WebAppCustomization"`
+WebAppCustomization *DescribedWebAppCustomization `json:"webAppCustomization" xml:"WebAppCustomization"`
 }
 
 type DescribeWebAppRequest struct {
-	WebAppId string `json:"webAppId" xml:"WebAppId"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
 }
 
 type DescribeWebAppResponse struct {
-	WebApp *DescribedWebApp `json:"webApp" xml:"WebApp"`
+WebApp *DescribedWebApp `json:"webApp" xml:"WebApp"`
 }
 
 type DescribeWorkflowRequest struct {
-	WorkflowId string `json:"workflowId" xml:"WorkflowId"`
+WorkflowId string `json:"workflowId" xml:"WorkflowId"`
 }
 
 type DescribeWorkflowResponse struct {
-	Workflow *DescribedWorkflow `json:"workflow" xml:"Workflow"`
+Workflow *DescribedWorkflow `json:"workflow" xml:"Workflow"`
 }
 
 type DescribedAccess struct {
-	ExternalId            string                `json:"externalId" xml:"ExternalId"`
-	HomeDirectory         string                `json:"homeDirectory" xml:"HomeDirectory"`
-	HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
-	HomeDirectoryType     string                `json:"homeDirectoryType" xml:"HomeDirectoryType"`
-	Policy                string                `json:"policy" xml:"Policy"`
-	PosixProfile          *PosixProfile         `json:"posixProfile" xml:"PosixProfile"`
-	Role                  string                `json:"role" xml:"Role"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+HomeDirectory string `json:"homeDirectory" xml:"HomeDirectory"`
+HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
+HomeDirectoryType string `json:"homeDirectoryType" xml:"HomeDirectoryType"`
+Policy string `json:"policy" xml:"Policy"`
+PosixProfile *PosixProfile `json:"posixProfile" xml:"PosixProfile"`
+Role string `json:"role" xml:"Role"`
 }
 
 type DescribedAgreement struct {
-	AccessRole            string                 `json:"accessRole" xml:"AccessRole"`
-	AgreementId           string                 `json:"agreementId" xml:"AgreementId"`
-	Arn                   string                 `json:"arn" xml:"Arn"`
-	BaseDirectory         string                 `json:"baseDirectory" xml:"BaseDirectory"`
-	CustomDirectories     *CustomDirectoriesType `json:"customDirectories" xml:"CustomDirectories"`
-	Description           string                 `json:"description" xml:"Description"`
-	EnforceMessageSigning string                 `json:"enforceMessageSigning" xml:"EnforceMessageSigning"`
-	LocalProfileId        string                 `json:"localProfileId" xml:"LocalProfileId"`
-	PartnerProfileId      string                 `json:"partnerProfileId" xml:"PartnerProfileId"`
-	PreserveFilename      string                 `json:"preserveFilename" xml:"PreserveFilename"`
-	ServerId              string                 `json:"serverId" xml:"ServerId"`
-	Status                string                 `json:"status" xml:"Status"`
-	Tags                  Tags                   `json:"tags" xml:"Tags"`
+AccessRole string `json:"accessRole" xml:"AccessRole"`
+AgreementId string `json:"agreementId" xml:"AgreementId"`
+Arn string `json:"arn" xml:"Arn"`
+BaseDirectory string `json:"baseDirectory" xml:"BaseDirectory"`
+CustomDirectories *CustomDirectoriesType `json:"customDirectories" xml:"CustomDirectories"`
+Description string `json:"description" xml:"Description"`
+EnforceMessageSigning string `json:"enforceMessageSigning" xml:"EnforceMessageSigning"`
+LocalProfileId string `json:"localProfileId" xml:"LocalProfileId"`
+PartnerProfileId string `json:"partnerProfileId" xml:"PartnerProfileId"`
+PreserveFilename string `json:"preserveFilename" xml:"PreserveFilename"`
+ServerId string `json:"serverId" xml:"ServerId"`
+Status string `json:"status" xml:"Status"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type DescribedCertificate struct {
-	ActiveDate       time.Time `json:"activeDate" xml:"ActiveDate"`
-	Arn              string    `json:"arn" xml:"Arn"`
-	Certificate      string    `json:"certificate" xml:"Certificate"`
-	CertificateChain string    `json:"certificateChain" xml:"CertificateChain"`
-	CertificateId    string    `json:"certificateId" xml:"CertificateId"`
-	Description      string    `json:"description" xml:"Description"`
-	InactiveDate     time.Time `json:"inactiveDate" xml:"InactiveDate"`
-	NotAfterDate     time.Time `json:"notAfterDate" xml:"NotAfterDate"`
-	NotBeforeDate    time.Time `json:"notBeforeDate" xml:"NotBeforeDate"`
-	Serial           string    `json:"serial" xml:"Serial"`
-	Status           string    `json:"status" xml:"Status"`
-	Tags             Tags      `json:"tags" xml:"Tags"`
-	Type             string    `json:"type" xml:"Type"`
-	Usage            string    `json:"usage" xml:"Usage"`
+ActiveDate time.Time `json:"activeDate" xml:"ActiveDate"`
+Arn string `json:"arn" xml:"Arn"`
+Certificate string `json:"certificate" xml:"Certificate"`
+CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
+CertificateId string `json:"certificateId" xml:"CertificateId"`
+Description string `json:"description" xml:"Description"`
+InactiveDate time.Time `json:"inactiveDate" xml:"InactiveDate"`
+NotAfterDate time.Time `json:"notAfterDate" xml:"NotAfterDate"`
+NotBeforeDate time.Time `json:"notBeforeDate" xml:"NotBeforeDate"`
+Serial string `json:"serial" xml:"Serial"`
+Status string `json:"status" xml:"Status"`
+Tags Tags `json:"tags" xml:"Tags"`
+Type string `json:"type" xml:"Type"`
+Usage string `json:"usage" xml:"Usage"`
 }
 
 type DescribedConnector struct {
-	AccessRole                      string                          `json:"accessRole" xml:"AccessRole"`
-	Arn                             string                          `json:"arn" xml:"Arn"`
-	As2Config                       *As2ConnectorConfig             `json:"as2Config" xml:"As2Config"`
-	ConnectorId                     string                          `json:"connectorId" xml:"ConnectorId"`
-	EgressConfig                    interface{}                     `json:"egressConfig" xml:"EgressConfig"`
-	EgressType                      string                          `json:"egressType" xml:"EgressType"`
-	ErrorMessage                    string                          `json:"errorMessage" xml:"ErrorMessage"`
-	LoggingRole                     string                          `json:"loggingRole" xml:"LoggingRole"`
-	SecurityPolicyName              string                          `json:"securityPolicyName" xml:"SecurityPolicyName"`
-	ServiceManagedEgressIpAddresses ServiceManagedEgressIpAddresses `json:"serviceManagedEgressIpAddresses" xml:"ServiceManagedEgressIpAddresses"`
-	SftpConfig                      *SftpConnectorConfig            `json:"sftpConfig" xml:"SftpConfig"`
-	Status                          string                          `json:"status" xml:"Status"`
-	Tags                            Tags                            `json:"tags" xml:"Tags"`
-	Url                             string                          `json:"url" xml:"Url"`
+AccessRole string `json:"accessRole" xml:"AccessRole"`
+Arn string `json:"arn" xml:"Arn"`
+As2Config *As2ConnectorConfig `json:"as2Config" xml:"As2Config"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+EgressConfig interface{} `json:"egressConfig" xml:"EgressConfig"`
+EgressType string `json:"egressType" xml:"EgressType"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+LoggingRole string `json:"loggingRole" xml:"LoggingRole"`
+SecurityPolicyName string `json:"securityPolicyName" xml:"SecurityPolicyName"`
+ServiceManagedEgressIpAddresses ServiceManagedEgressIpAddresses `json:"serviceManagedEgressIpAddresses" xml:"ServiceManagedEgressIpAddresses"`
+SftpConfig *SftpConnectorConfig `json:"sftpConfig" xml:"SftpConfig"`
+Status string `json:"status" xml:"Status"`
+Tags Tags `json:"tags" xml:"Tags"`
+Url string `json:"url" xml:"Url"`
 }
 
 type DescribedConnectorVpcLatticeEgressConfig struct {
-	PortNumber               int32  `json:"portNumber" xml:"PortNumber"`
-	ResourceConfigurationArn string `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
+PortNumber int32 `json:"portNumber" xml:"PortNumber"`
+ResourceConfigurationArn string `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
 }
 
 type DescribedExecution struct {
-	ExecutionId          string                `json:"executionId" xml:"ExecutionId"`
-	ExecutionRole        string                `json:"executionRole" xml:"ExecutionRole"`
-	InitialFileLocation  *FileLocation         `json:"initialFileLocation" xml:"InitialFileLocation"`
-	LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
-	PosixProfile         *PosixProfile         `json:"posixProfile" xml:"PosixProfile"`
-	Results              *ExecutionResults     `json:"results" xml:"Results"`
-	ServiceMetadata      *ServiceMetadata      `json:"serviceMetadata" xml:"ServiceMetadata"`
-	Status               string                `json:"status" xml:"Status"`
+ExecutionId string `json:"executionId" xml:"ExecutionId"`
+ExecutionRole string `json:"executionRole" xml:"ExecutionRole"`
+InitialFileLocation *FileLocation `json:"initialFileLocation" xml:"InitialFileLocation"`
+LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
+PosixProfile *PosixProfile `json:"posixProfile" xml:"PosixProfile"`
+Results *ExecutionResults `json:"results" xml:"Results"`
+ServiceMetadata *ServiceMetadata `json:"serviceMetadata" xml:"ServiceMetadata"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DescribedHostKey struct {
-	Arn                string    `json:"arn" xml:"Arn"`
-	DateImported       time.Time `json:"dateImported" xml:"DateImported"`
-	Description        string    `json:"description" xml:"Description"`
-	HostKeyFingerprint string    `json:"hostKeyFingerprint" xml:"HostKeyFingerprint"`
-	HostKeyId          string    `json:"hostKeyId" xml:"HostKeyId"`
-	Tags               Tags      `json:"tags" xml:"Tags"`
-	Type               string    `json:"type" xml:"Type"`
+Arn string `json:"arn" xml:"Arn"`
+DateImported time.Time `json:"dateImported" xml:"DateImported"`
+Description string `json:"description" xml:"Description"`
+HostKeyFingerprint string `json:"hostKeyFingerprint" xml:"HostKeyFingerprint"`
+HostKeyId string `json:"hostKeyId" xml:"HostKeyId"`
+Tags Tags `json:"tags" xml:"Tags"`
+Type string `json:"type" xml:"Type"`
 }
 
 type DescribedIdentityCenterConfig struct {
-	ApplicationArn string `json:"applicationArn" xml:"ApplicationArn"`
-	InstanceArn    string `json:"instanceArn" xml:"InstanceArn"`
-	Role           string `json:"role" xml:"Role"`
+ApplicationArn string `json:"applicationArn" xml:"ApplicationArn"`
+InstanceArn string `json:"instanceArn" xml:"InstanceArn"`
+Role string `json:"role" xml:"Role"`
 }
 
 type DescribedProfile struct {
-	Arn            string         `json:"arn" xml:"Arn"`
-	As2Id          string         `json:"as2Id" xml:"As2Id"`
-	CertificateIds CertificateIds `json:"certificateIds" xml:"CertificateIds"`
-	ProfileId      string         `json:"profileId" xml:"ProfileId"`
-	ProfileType    string         `json:"profileType" xml:"ProfileType"`
-	Tags           Tags           `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+As2Id string `json:"as2Id" xml:"As2Id"`
+CertificateIds CertificateIds `json:"certificateIds" xml:"CertificateIds"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+ProfileType string `json:"profileType" xml:"ProfileType"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type DescribedSecurityPolicy struct {
-	Fips                 bool                    `json:"fips" xml:"Fips"`
-	Protocols            SecurityPolicyProtocols `json:"protocols" xml:"Protocols"`
-	SecurityPolicyName   string                  `json:"securityPolicyName" xml:"SecurityPolicyName"`
-	SshCiphers           SecurityPolicyOptions   `json:"sshCiphers" xml:"SshCiphers"`
-	SshHostKeyAlgorithms SecurityPolicyOptions   `json:"sshHostKeyAlgorithms" xml:"SshHostKeyAlgorithms"`
-	SshKexs              SecurityPolicyOptions   `json:"sshKexs" xml:"SshKexs"`
-	SshMacs              SecurityPolicyOptions   `json:"sshMacs" xml:"SshMacs"`
-	TlsCiphers           SecurityPolicyOptions   `json:"tlsCiphers" xml:"TlsCiphers"`
-	Type                 string                  `json:"type" xml:"Type"`
+Fips bool `json:"fips" xml:"Fips"`
+Protocols SecurityPolicyProtocols `json:"protocols" xml:"Protocols"`
+SecurityPolicyName string `json:"securityPolicyName" xml:"SecurityPolicyName"`
+SshCiphers SecurityPolicyOptions `json:"sshCiphers" xml:"SshCiphers"`
+SshHostKeyAlgorithms SecurityPolicyOptions `json:"sshHostKeyAlgorithms" xml:"SshHostKeyAlgorithms"`
+SshKexs SecurityPolicyOptions `json:"sshKexs" xml:"SshKexs"`
+SshMacs SecurityPolicyOptions `json:"sshMacs" xml:"SshMacs"`
+TlsCiphers SecurityPolicyOptions `json:"tlsCiphers" xml:"TlsCiphers"`
+Type string `json:"type" xml:"Type"`
 }
 
 type DescribedServer struct {
-	Arn                                string                          `json:"arn" xml:"Arn"`
-	As2ServiceManagedEgressIpAddresses ServiceManagedEgressIpAddresses `json:"as2ServiceManagedEgressIpAddresses" xml:"As2ServiceManagedEgressIpAddresses"`
-	Certificate                        string                          `json:"certificate" xml:"Certificate"`
-	Domain                             string                          `json:"domain" xml:"Domain"`
-	EndpointDetails                    *EndpointDetails                `json:"endpointDetails" xml:"EndpointDetails"`
-	EndpointType                       string                          `json:"endpointType" xml:"EndpointType"`
-	HostKeyFingerprint                 string                          `json:"hostKeyFingerprint" xml:"HostKeyFingerprint"`
-	IdentityProviderDetails            *IdentityProviderDetails        `json:"identityProviderDetails" xml:"IdentityProviderDetails"`
-	IdentityProviderType               string                          `json:"identityProviderType" xml:"IdentityProviderType"`
-	IpAddressType                      string                          `json:"ipAddressType" xml:"IpAddressType"`
-	LoggingRole                        string                          `json:"loggingRole" xml:"LoggingRole"`
-	PostAuthenticationLoginBanner      string                          `json:"postAuthenticationLoginBanner" xml:"PostAuthenticationLoginBanner"`
-	PreAuthenticationLoginBanner       string                          `json:"preAuthenticationLoginBanner" xml:"PreAuthenticationLoginBanner"`
-	ProtocolDetails                    *ProtocolDetails                `json:"protocolDetails" xml:"ProtocolDetails"`
-	Protocols                          Protocols                       `json:"protocols" xml:"Protocols"`
-	S3StorageOptions                   *S3StorageOptions               `json:"s3StorageOptions" xml:"S3StorageOptions"`
-	SecurityPolicyName                 string                          `json:"securityPolicyName" xml:"SecurityPolicyName"`
-	ServerId                           string                          `json:"serverId" xml:"ServerId"`
-	State                              string                          `json:"state" xml:"State"`
-	StructuredLogDestinations          StructuredLogDestinations       `json:"structuredLogDestinations" xml:"StructuredLogDestinations"`
-	Tags                               Tags                            `json:"tags" xml:"Tags"`
-	UserCount                          int32                           `json:"userCount" xml:"UserCount"`
-	WorkflowDetails                    *WorkflowDetails                `json:"workflowDetails" xml:"WorkflowDetails"`
+Arn string `json:"arn" xml:"Arn"`
+As2ServiceManagedEgressIpAddresses ServiceManagedEgressIpAddresses `json:"as2ServiceManagedEgressIpAddresses" xml:"As2ServiceManagedEgressIpAddresses"`
+Certificate string `json:"certificate" xml:"Certificate"`
+Domain string `json:"domain" xml:"Domain"`
+EndpointDetails *EndpointDetails `json:"endpointDetails" xml:"EndpointDetails"`
+EndpointType string `json:"endpointType" xml:"EndpointType"`
+HostKeyFingerprint string `json:"hostKeyFingerprint" xml:"HostKeyFingerprint"`
+IdentityProviderDetails *IdentityProviderDetails `json:"identityProviderDetails" xml:"IdentityProviderDetails"`
+IdentityProviderType string `json:"identityProviderType" xml:"IdentityProviderType"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+LoggingRole string `json:"loggingRole" xml:"LoggingRole"`
+PostAuthenticationLoginBanner string `json:"postAuthenticationLoginBanner" xml:"PostAuthenticationLoginBanner"`
+PreAuthenticationLoginBanner string `json:"preAuthenticationLoginBanner" xml:"PreAuthenticationLoginBanner"`
+ProtocolDetails *ProtocolDetails `json:"protocolDetails" xml:"ProtocolDetails"`
+Protocols Protocols `json:"protocols" xml:"Protocols"`
+S3StorageOptions *S3StorageOptions `json:"s3StorageOptions" xml:"S3StorageOptions"`
+SecurityPolicyName string `json:"securityPolicyName" xml:"SecurityPolicyName"`
+ServerId string `json:"serverId" xml:"ServerId"`
+State string `json:"state" xml:"State"`
+StructuredLogDestinations StructuredLogDestinations `json:"structuredLogDestinations" xml:"StructuredLogDestinations"`
+Tags Tags `json:"tags" xml:"Tags"`
+UserCount int32 `json:"userCount" xml:"UserCount"`
+WorkflowDetails *WorkflowDetails `json:"workflowDetails" xml:"WorkflowDetails"`
 }
 
 type DescribedUser struct {
-	Arn                   string                `json:"arn" xml:"Arn"`
-	HomeDirectory         string                `json:"homeDirectory" xml:"HomeDirectory"`
-	HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
-	HomeDirectoryType     string                `json:"homeDirectoryType" xml:"HomeDirectoryType"`
-	Policy                string                `json:"policy" xml:"Policy"`
-	PosixProfile          *PosixProfile         `json:"posixProfile" xml:"PosixProfile"`
-	Role                  string                `json:"role" xml:"Role"`
-	SshPublicKeys         SshPublicKeys         `json:"sshPublicKeys" xml:"SshPublicKeys"`
-	Tags                  Tags                  `json:"tags" xml:"Tags"`
-	UserName              string                `json:"userName" xml:"UserName"`
+Arn string `json:"arn" xml:"Arn"`
+HomeDirectory string `json:"homeDirectory" xml:"HomeDirectory"`
+HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
+HomeDirectoryType string `json:"homeDirectoryType" xml:"HomeDirectoryType"`
+Policy string `json:"policy" xml:"Policy"`
+PosixProfile *PosixProfile `json:"posixProfile" xml:"PosixProfile"`
+Role string `json:"role" xml:"Role"`
+SshPublicKeys SshPublicKeys `json:"sshPublicKeys" xml:"SshPublicKeys"`
+Tags Tags `json:"tags" xml:"Tags"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DescribedWebApp struct {
-	AccessEndpoint                   string      `json:"accessEndpoint" xml:"AccessEndpoint"`
-	Arn                              string      `json:"arn" xml:"Arn"`
-	DescribedEndpointDetails         interface{} `json:"describedEndpointDetails" xml:"DescribedEndpointDetails"`
-	DescribedIdentityProviderDetails interface{} `json:"describedIdentityProviderDetails" xml:"DescribedIdentityProviderDetails"`
-	EndpointType                     string      `json:"endpointType" xml:"EndpointType"`
-	Tags                             Tags        `json:"tags" xml:"Tags"`
-	WebAppEndpoint                   string      `json:"webAppEndpoint" xml:"WebAppEndpoint"`
-	WebAppEndpointPolicy             string      `json:"webAppEndpointPolicy" xml:"WebAppEndpointPolicy"`
-	WebAppId                         string      `json:"webAppId" xml:"WebAppId"`
-	WebAppUnits                      interface{} `json:"webAppUnits" xml:"WebAppUnits"`
+AccessEndpoint string `json:"accessEndpoint" xml:"AccessEndpoint"`
+Arn string `json:"arn" xml:"Arn"`
+DescribedEndpointDetails interface{} `json:"describedEndpointDetails" xml:"DescribedEndpointDetails"`
+DescribedIdentityProviderDetails interface{} `json:"describedIdentityProviderDetails" xml:"DescribedIdentityProviderDetails"`
+EndpointType string `json:"endpointType" xml:"EndpointType"`
+Tags Tags `json:"tags" xml:"Tags"`
+WebAppEndpoint string `json:"webAppEndpoint" xml:"WebAppEndpoint"`
+WebAppEndpointPolicy string `json:"webAppEndpointPolicy" xml:"WebAppEndpointPolicy"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
+WebAppUnits interface{} `json:"webAppUnits" xml:"WebAppUnits"`
 }
 
 type DescribedWebAppCustomization struct {
-	Arn         string `json:"arn" xml:"Arn"`
-	FaviconFile []byte `json:"faviconFile" xml:"FaviconFile"`
-	LogoFile    []byte `json:"logoFile" xml:"LogoFile"`
-	Title       string `json:"title" xml:"Title"`
-	WebAppId    string `json:"webAppId" xml:"WebAppId"`
+Arn string `json:"arn" xml:"Arn"`
+FaviconFile []byte `json:"faviconFile" xml:"FaviconFile"`
+LogoFile []byte `json:"logoFile" xml:"LogoFile"`
+Title string `json:"title" xml:"Title"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
 }
 
 type DescribedWebAppVpcConfig struct {
-	SubnetIds     SubnetIds `json:"subnetIds" xml:"SubnetIds"`
-	VpcEndpointId string    `json:"vpcEndpointId" xml:"VpcEndpointId"`
-	VpcId         string    `json:"vpcId" xml:"VpcId"`
+SubnetIds SubnetIds `json:"subnetIds" xml:"SubnetIds"`
+VpcEndpointId string `json:"vpcEndpointId" xml:"VpcEndpointId"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type DescribedWorkflow struct {
-	Arn              string        `json:"arn" xml:"Arn"`
-	Description      string        `json:"description" xml:"Description"`
-	OnExceptionSteps WorkflowSteps `json:"onExceptionSteps" xml:"OnExceptionSteps"`
-	Steps            WorkflowSteps `json:"steps" xml:"Steps"`
-	Tags             Tags          `json:"tags" xml:"Tags"`
-	WorkflowId       string        `json:"workflowId" xml:"WorkflowId"`
+Arn string `json:"arn" xml:"Arn"`
+Description string `json:"description" xml:"Description"`
+OnExceptionSteps WorkflowSteps `json:"onExceptionSteps" xml:"OnExceptionSteps"`
+Steps WorkflowSteps `json:"steps" xml:"Steps"`
+Tags Tags `json:"tags" xml:"Tags"`
+WorkflowId string `json:"workflowId" xml:"WorkflowId"`
 }
 
 type EfsFileLocation struct {
-	FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
-	Path         string `json:"path" xml:"Path"`
+FileSystemId string `json:"fileSystemId" xml:"FileSystemId"`
+Path string `json:"path" xml:"Path"`
 }
 
 type EndpointDetails struct {
-	AddressAllocationIds AddressAllocationIds `json:"addressAllocationIds" xml:"AddressAllocationIds"`
-	SecurityGroupIds     SecurityGroupIds     `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds            SubnetIds            `json:"subnetIds" xml:"SubnetIds"`
-	VpcEndpointId        string               `json:"vpcEndpointId" xml:"VpcEndpointId"`
-	VpcId                string               `json:"vpcId" xml:"VpcId"`
+AddressAllocationIds AddressAllocationIds `json:"addressAllocationIds" xml:"AddressAllocationIds"`
+SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds SubnetIds `json:"subnetIds" xml:"SubnetIds"`
+VpcEndpointId string `json:"vpcEndpointId" xml:"VpcEndpointId"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type ExecutionError struct {
-	Message string `json:"message" xml:"Message"`
-	Type    string `json:"type" xml:"Type"`
+Message string `json:"message" xml:"Message"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ExecutionResults struct {
-	OnExceptionSteps ExecutionStepResults `json:"onExceptionSteps" xml:"OnExceptionSteps"`
-	Steps            ExecutionStepResults `json:"steps" xml:"Steps"`
+OnExceptionSteps ExecutionStepResults `json:"onExceptionSteps" xml:"OnExceptionSteps"`
+Steps ExecutionStepResults `json:"steps" xml:"Steps"`
 }
 
 type ExecutionStepResult struct {
-	Error    *ExecutionError `json:"error" xml:"Error"`
-	Outputs  string          `json:"outputs" xml:"Outputs"`
-	StepType string          `json:"stepType" xml:"StepType"`
+Error *ExecutionError `json:"error" xml:"Error"`
+Outputs string `json:"outputs" xml:"Outputs"`
+StepType string `json:"stepType" xml:"StepType"`
 }
 
 type FileLocation struct {
-	EfsFileLocation *EfsFileLocation `json:"efsFileLocation" xml:"EfsFileLocation"`
-	S3FileLocation  *S3FileLocation  `json:"s3FileLocation" xml:"S3FileLocation"`
+EfsFileLocation *EfsFileLocation `json:"efsFileLocation" xml:"EfsFileLocation"`
+S3FileLocation *S3FileLocation `json:"s3FileLocation" xml:"S3FileLocation"`
 }
 
 type HomeDirectoryMapEntry struct {
-	Entry  string `json:"entry" xml:"Entry"`
-	Target string `json:"target" xml:"Target"`
-	Type   string `json:"type" xml:"Type"`
+Entry string `json:"entry" xml:"Entry"`
+Target string `json:"target" xml:"Target"`
+Type string `json:"type" xml:"Type"`
 }
 
 type IdentityCenterConfig struct {
-	InstanceArn string `json:"instanceArn" xml:"InstanceArn"`
-	Role        string `json:"role" xml:"Role"`
+InstanceArn string `json:"instanceArn" xml:"InstanceArn"`
+Role string `json:"role" xml:"Role"`
 }
 
 type IdentityProviderDetails struct {
-	DirectoryId               string `json:"directoryId" xml:"DirectoryId"`
-	Function                  string `json:"function" xml:"Function"`
-	InvocationRole            string `json:"invocationRole" xml:"InvocationRole"`
-	SftpAuthenticationMethods string `json:"sftpAuthenticationMethods" xml:"SftpAuthenticationMethods"`
-	Url                       string `json:"url" xml:"Url"`
+DirectoryId string `json:"directoryId" xml:"DirectoryId"`
+Function string `json:"function" xml:"Function"`
+InvocationRole string `json:"invocationRole" xml:"InvocationRole"`
+SftpAuthenticationMethods string `json:"sftpAuthenticationMethods" xml:"SftpAuthenticationMethods"`
+Url string `json:"url" xml:"Url"`
 }
 
 type ImportCertificateRequest struct {
-	ActiveDate       time.Time `json:"activeDate" xml:"ActiveDate"`
-	Certificate      string    `json:"certificate" xml:"Certificate"`
-	CertificateChain string    `json:"certificateChain" xml:"CertificateChain"`
-	Description      string    `json:"description" xml:"Description"`
-	InactiveDate     time.Time `json:"inactiveDate" xml:"InactiveDate"`
-	PrivateKey       string    `json:"privateKey" xml:"PrivateKey"`
-	Tags             Tags      `json:"tags" xml:"Tags"`
-	Usage            string    `json:"usage" xml:"Usage"`
+ActiveDate time.Time `json:"activeDate" xml:"ActiveDate"`
+Certificate string `json:"certificate" xml:"Certificate"`
+CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
+Description string `json:"description" xml:"Description"`
+InactiveDate time.Time `json:"inactiveDate" xml:"InactiveDate"`
+PrivateKey string `json:"privateKey" xml:"PrivateKey"`
+Tags Tags `json:"tags" xml:"Tags"`
+Usage string `json:"usage" xml:"Usage"`
 }
 
 type ImportCertificateResponse struct {
-	CertificateId string `json:"certificateId" xml:"CertificateId"`
+CertificateId string `json:"certificateId" xml:"CertificateId"`
 }
 
 type ImportHostKeyRequest struct {
-	Description string `json:"description" xml:"Description"`
-	HostKeyBody string `json:"hostKeyBody" xml:"HostKeyBody"`
-	ServerId    string `json:"serverId" xml:"ServerId"`
-	Tags        Tags   `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+HostKeyBody string `json:"hostKeyBody" xml:"HostKeyBody"`
+ServerId string `json:"serverId" xml:"ServerId"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type ImportHostKeyResponse struct {
-	HostKeyId string `json:"hostKeyId" xml:"HostKeyId"`
-	ServerId  string `json:"serverId" xml:"ServerId"`
+HostKeyId string `json:"hostKeyId" xml:"HostKeyId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type ImportSshPublicKeyRequest struct {
-	ServerId         string `json:"serverId" xml:"ServerId"`
-	SshPublicKeyBody string `json:"sshPublicKeyBody" xml:"SshPublicKeyBody"`
-	UserName         string `json:"userName" xml:"UserName"`
+ServerId string `json:"serverId" xml:"ServerId"`
+SshPublicKeyBody string `json:"sshPublicKeyBody" xml:"SshPublicKeyBody"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ImportSshPublicKeyResponse struct {
-	ServerId       string `json:"serverId" xml:"ServerId"`
-	SshPublicKeyId string `json:"sshPublicKeyId" xml:"SshPublicKeyId"`
-	UserName       string `json:"userName" xml:"UserName"`
+ServerId string `json:"serverId" xml:"ServerId"`
+SshPublicKeyId string `json:"sshPublicKeyId" xml:"SshPublicKeyId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type InputFileLocation struct {
-	EfsFileLocation *EfsFileLocation     `json:"efsFileLocation" xml:"EfsFileLocation"`
-	S3FileLocation  *S3InputFileLocation `json:"s3FileLocation" xml:"S3FileLocation"`
+EfsFileLocation *EfsFileLocation `json:"efsFileLocation" xml:"EfsFileLocation"`
+S3FileLocation *S3InputFileLocation `json:"s3FileLocation" xml:"S3FileLocation"`
 }
 
 type ListAccessesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	ServerId   string `json:"serverId" xml:"ServerId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type ListAccessesResponse struct {
-	Accesses  ListedAccesses `json:"accesses" xml:"Accesses"`
-	NextToken string         `json:"nextToken" xml:"NextToken"`
-	ServerId  string         `json:"serverId" xml:"ServerId"`
+Accesses ListedAccesses `json:"accesses" xml:"Accesses"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type ListAgreementsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	ServerId   string `json:"serverId" xml:"ServerId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type ListAgreementsResponse struct {
-	Agreements ListedAgreements `json:"agreements" xml:"Agreements"`
-	NextToken  string           `json:"nextToken" xml:"NextToken"`
+Agreements ListedAgreements `json:"agreements" xml:"Agreements"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCertificatesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCertificatesResponse struct {
-	Certificates ListedCertificates `json:"certificates" xml:"Certificates"`
-	NextToken    string             `json:"nextToken" xml:"NextToken"`
+Certificates ListedCertificates `json:"certificates" xml:"Certificates"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListConnectorsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListConnectorsResponse struct {
-	Connectors ListedConnectors `json:"connectors" xml:"Connectors"`
-	NextToken  string           `json:"nextToken" xml:"NextToken"`
+Connectors ListedConnectors `json:"connectors" xml:"Connectors"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListExecutionsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	WorkflowId string `json:"workflowId" xml:"WorkflowId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+WorkflowId string `json:"workflowId" xml:"WorkflowId"`
 }
 
 type ListExecutionsResponse struct {
-	Executions ListedExecutions `json:"executions" xml:"Executions"`
-	NextToken  string           `json:"nextToken" xml:"NextToken"`
-	WorkflowId string           `json:"workflowId" xml:"WorkflowId"`
+Executions ListedExecutions `json:"executions" xml:"Executions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+WorkflowId string `json:"workflowId" xml:"WorkflowId"`
 }
 
 type ListFileTransferResultsRequest struct {
-	ConnectorId string `json:"connectorId" xml:"ConnectorId"`
-	MaxResults  int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken   string `json:"nextToken" xml:"NextToken"`
-	TransferId  string `json:"transferId" xml:"TransferId"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TransferId string `json:"transferId" xml:"TransferId"`
 }
 
 type ListFileTransferResultsResponse struct {
-	FileTransferResults ConnectorFileTransferResults `json:"fileTransferResults" xml:"FileTransferResults"`
-	NextToken           string                       `json:"nextToken" xml:"NextToken"`
+FileTransferResults ConnectorFileTransferResults `json:"fileTransferResults" xml:"FileTransferResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListHostKeysRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	ServerId   string `json:"serverId" xml:"ServerId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type ListHostKeysResponse struct {
-	HostKeys  ListedHostKeys `json:"hostKeys" xml:"HostKeys"`
-	NextToken string         `json:"nextToken" xml:"NextToken"`
-	ServerId  string         `json:"serverId" xml:"ServerId"`
+HostKeys ListedHostKeys `json:"hostKeys" xml:"HostKeys"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type ListProfilesRequest struct {
-	MaxResults  int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken   string `json:"nextToken" xml:"NextToken"`
-	ProfileType string `json:"profileType" xml:"ProfileType"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ProfileType string `json:"profileType" xml:"ProfileType"`
 }
 
 type ListProfilesResponse struct {
-	NextToken string         `json:"nextToken" xml:"NextToken"`
-	Profiles  ListedProfiles `json:"profiles" xml:"Profiles"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Profiles ListedProfiles `json:"profiles" xml:"Profiles"`
 }
 
 type ListSecurityPoliciesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListSecurityPoliciesResponse struct {
-	NextToken           string              `json:"nextToken" xml:"NextToken"`
-	SecurityPolicyNames SecurityPolicyNames `json:"securityPolicyNames" xml:"SecurityPolicyNames"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SecurityPolicyNames SecurityPolicyNames `json:"securityPolicyNames" xml:"SecurityPolicyNames"`
 }
 
 type ListServersRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListServersResponse struct {
-	NextToken string        `json:"nextToken" xml:"NextToken"`
-	Servers   ListedServers `json:"servers" xml:"Servers"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Servers ListedServers `json:"servers" xml:"Servers"`
 }
 
 type ListTagsForResourceRequest struct {
-	Arn        string `json:"arn" xml:"Arn"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+Arn string `json:"arn" xml:"Arn"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListTagsForResourceResponse struct {
-	Arn       string `json:"arn" xml:"Arn"`
-	NextToken string `json:"nextToken" xml:"NextToken"`
-	Tags      Tags   `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type ListUsersRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	ServerId   string `json:"serverId" xml:"ServerId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type ListUsersResponse struct {
-	NextToken string      `json:"nextToken" xml:"NextToken"`
-	ServerId  string      `json:"serverId" xml:"ServerId"`
-	Users     ListedUsers `json:"users" xml:"Users"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ServerId string `json:"serverId" xml:"ServerId"`
+Users ListedUsers `json:"users" xml:"Users"`
 }
 
 type ListWebAppsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListWebAppsResponse struct {
-	NextToken string        `json:"nextToken" xml:"NextToken"`
-	WebApps   ListedWebApps `json:"webApps" xml:"WebApps"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+WebApps ListedWebApps `json:"webApps" xml:"WebApps"`
 }
 
 type ListWorkflowsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListWorkflowsResponse struct {
-	NextToken string          `json:"nextToken" xml:"NextToken"`
-	Workflows ListedWorkflows `json:"workflows" xml:"Workflows"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Workflows ListedWorkflows `json:"workflows" xml:"Workflows"`
 }
 
 type ListedAccess struct {
-	ExternalId        string `json:"externalId" xml:"ExternalId"`
-	HomeDirectory     string `json:"homeDirectory" xml:"HomeDirectory"`
-	HomeDirectoryType string `json:"homeDirectoryType" xml:"HomeDirectoryType"`
-	Role              string `json:"role" xml:"Role"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+HomeDirectory string `json:"homeDirectory" xml:"HomeDirectory"`
+HomeDirectoryType string `json:"homeDirectoryType" xml:"HomeDirectoryType"`
+Role string `json:"role" xml:"Role"`
 }
 
 type ListedAgreement struct {
-	AgreementId      string `json:"agreementId" xml:"AgreementId"`
-	Arn              string `json:"arn" xml:"Arn"`
-	Description      string `json:"description" xml:"Description"`
-	LocalProfileId   string `json:"localProfileId" xml:"LocalProfileId"`
-	PartnerProfileId string `json:"partnerProfileId" xml:"PartnerProfileId"`
-	ServerId         string `json:"serverId" xml:"ServerId"`
-	Status           string `json:"status" xml:"Status"`
+AgreementId string `json:"agreementId" xml:"AgreementId"`
+Arn string `json:"arn" xml:"Arn"`
+Description string `json:"description" xml:"Description"`
+LocalProfileId string `json:"localProfileId" xml:"LocalProfileId"`
+PartnerProfileId string `json:"partnerProfileId" xml:"PartnerProfileId"`
+ServerId string `json:"serverId" xml:"ServerId"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ListedCertificate struct {
-	ActiveDate    time.Time `json:"activeDate" xml:"ActiveDate"`
-	Arn           string    `json:"arn" xml:"Arn"`
-	CertificateId string    `json:"certificateId" xml:"CertificateId"`
-	Description   string    `json:"description" xml:"Description"`
-	InactiveDate  time.Time `json:"inactiveDate" xml:"InactiveDate"`
-	Status        string    `json:"status" xml:"Status"`
-	Type          string    `json:"type" xml:"Type"`
-	Usage         string    `json:"usage" xml:"Usage"`
+ActiveDate time.Time `json:"activeDate" xml:"ActiveDate"`
+Arn string `json:"arn" xml:"Arn"`
+CertificateId string `json:"certificateId" xml:"CertificateId"`
+Description string `json:"description" xml:"Description"`
+InactiveDate time.Time `json:"inactiveDate" xml:"InactiveDate"`
+Status string `json:"status" xml:"Status"`
+Type string `json:"type" xml:"Type"`
+Usage string `json:"usage" xml:"Usage"`
 }
 
 type ListedConnector struct {
-	Arn         string `json:"arn" xml:"Arn"`
-	ConnectorId string `json:"connectorId" xml:"ConnectorId"`
-	Url         string `json:"url" xml:"Url"`
+Arn string `json:"arn" xml:"Arn"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+Url string `json:"url" xml:"Url"`
 }
 
 type ListedExecution struct {
-	ExecutionId         string           `json:"executionId" xml:"ExecutionId"`
-	InitialFileLocation *FileLocation    `json:"initialFileLocation" xml:"InitialFileLocation"`
-	ServiceMetadata     *ServiceMetadata `json:"serviceMetadata" xml:"ServiceMetadata"`
-	Status              string           `json:"status" xml:"Status"`
+ExecutionId string `json:"executionId" xml:"ExecutionId"`
+InitialFileLocation *FileLocation `json:"initialFileLocation" xml:"InitialFileLocation"`
+ServiceMetadata *ServiceMetadata `json:"serviceMetadata" xml:"ServiceMetadata"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ListedHostKey struct {
-	Arn          string    `json:"arn" xml:"Arn"`
-	DateImported time.Time `json:"dateImported" xml:"DateImported"`
-	Description  string    `json:"description" xml:"Description"`
-	Fingerprint  string    `json:"fingerprint" xml:"Fingerprint"`
-	HostKeyId    string    `json:"hostKeyId" xml:"HostKeyId"`
-	Type         string    `json:"type" xml:"Type"`
+Arn string `json:"arn" xml:"Arn"`
+DateImported time.Time `json:"dateImported" xml:"DateImported"`
+Description string `json:"description" xml:"Description"`
+Fingerprint string `json:"fingerprint" xml:"Fingerprint"`
+HostKeyId string `json:"hostKeyId" xml:"HostKeyId"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ListedProfile struct {
-	Arn         string `json:"arn" xml:"Arn"`
-	As2Id       string `json:"as2Id" xml:"As2Id"`
-	ProfileId   string `json:"profileId" xml:"ProfileId"`
-	ProfileType string `json:"profileType" xml:"ProfileType"`
+Arn string `json:"arn" xml:"Arn"`
+As2Id string `json:"as2Id" xml:"As2Id"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+ProfileType string `json:"profileType" xml:"ProfileType"`
 }
 
 type ListedServer struct {
-	Arn                  string `json:"arn" xml:"Arn"`
-	Domain               string `json:"domain" xml:"Domain"`
-	EndpointType         string `json:"endpointType" xml:"EndpointType"`
-	IdentityProviderType string `json:"identityProviderType" xml:"IdentityProviderType"`
-	LoggingRole          string `json:"loggingRole" xml:"LoggingRole"`
-	ServerId             string `json:"serverId" xml:"ServerId"`
-	State                string `json:"state" xml:"State"`
-	UserCount            int32  `json:"userCount" xml:"UserCount"`
+Arn string `json:"arn" xml:"Arn"`
+Domain string `json:"domain" xml:"Domain"`
+EndpointType string `json:"endpointType" xml:"EndpointType"`
+IdentityProviderType string `json:"identityProviderType" xml:"IdentityProviderType"`
+LoggingRole string `json:"loggingRole" xml:"LoggingRole"`
+ServerId string `json:"serverId" xml:"ServerId"`
+State string `json:"state" xml:"State"`
+UserCount int32 `json:"userCount" xml:"UserCount"`
 }
 
 type ListedUser struct {
-	Arn               string `json:"arn" xml:"Arn"`
-	HomeDirectory     string `json:"homeDirectory" xml:"HomeDirectory"`
-	HomeDirectoryType string `json:"homeDirectoryType" xml:"HomeDirectoryType"`
-	Role              string `json:"role" xml:"Role"`
-	SshPublicKeyCount int32  `json:"sshPublicKeyCount" xml:"SshPublicKeyCount"`
-	UserName          string `json:"userName" xml:"UserName"`
+Arn string `json:"arn" xml:"Arn"`
+HomeDirectory string `json:"homeDirectory" xml:"HomeDirectory"`
+HomeDirectoryType string `json:"homeDirectoryType" xml:"HomeDirectoryType"`
+Role string `json:"role" xml:"Role"`
+SshPublicKeyCount int32 `json:"sshPublicKeyCount" xml:"SshPublicKeyCount"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type ListedWebApp struct {
-	AccessEndpoint string `json:"accessEndpoint" xml:"AccessEndpoint"`
-	Arn            string `json:"arn" xml:"Arn"`
-	EndpointType   string `json:"endpointType" xml:"EndpointType"`
-	WebAppEndpoint string `json:"webAppEndpoint" xml:"WebAppEndpoint"`
-	WebAppId       string `json:"webAppId" xml:"WebAppId"`
+AccessEndpoint string `json:"accessEndpoint" xml:"AccessEndpoint"`
+Arn string `json:"arn" xml:"Arn"`
+EndpointType string `json:"endpointType" xml:"EndpointType"`
+WebAppEndpoint string `json:"webAppEndpoint" xml:"WebAppEndpoint"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
 }
 
 type ListedWorkflow struct {
-	Arn         string `json:"arn" xml:"Arn"`
-	Description string `json:"description" xml:"Description"`
-	WorkflowId  string `json:"workflowId" xml:"WorkflowId"`
+Arn string `json:"arn" xml:"Arn"`
+Description string `json:"description" xml:"Description"`
+WorkflowId string `json:"workflowId" xml:"WorkflowId"`
 }
 
 type LoggingConfiguration struct {
-	LogGroupName string `json:"logGroupName" xml:"LogGroupName"`
-	LoggingRole  string `json:"loggingRole" xml:"LoggingRole"`
+LogGroupName string `json:"logGroupName" xml:"LogGroupName"`
+LoggingRole string `json:"loggingRole" xml:"LoggingRole"`
 }
 
 type PosixProfile struct {
-	Gid           int64         `json:"gid" xml:"Gid"`
-	SecondaryGids SecondaryGids `json:"secondaryGids" xml:"SecondaryGids"`
-	Uid           int64         `json:"uid" xml:"Uid"`
+Gid int64 `json:"gid" xml:"Gid"`
+SecondaryGids SecondaryGids `json:"secondaryGids" xml:"SecondaryGids"`
+Uid int64 `json:"uid" xml:"Uid"`
 }
 
 type ProtocolDetails struct {
-	As2Transports            As2Transports `json:"as2Transports" xml:"As2Transports"`
-	PassiveIp                string        `json:"passiveIp" xml:"PassiveIp"`
-	SetStatOption            string        `json:"setStatOption" xml:"SetStatOption"`
-	TlsSessionResumptionMode string        `json:"tlsSessionResumptionMode" xml:"TlsSessionResumptionMode"`
+As2Transports As2Transports `json:"as2Transports" xml:"As2Transports"`
+PassiveIp string `json:"passiveIp" xml:"PassiveIp"`
+SetStatOption string `json:"setStatOption" xml:"SetStatOption"`
+TlsSessionResumptionMode string `json:"tlsSessionResumptionMode" xml:"TlsSessionResumptionMode"`
 }
 
 type S3FileLocation struct {
-	Bucket    string `json:"bucket" xml:"Bucket"`
-	Etag      string `json:"etag" xml:"Etag"`
-	Key       string `json:"key" xml:"Key"`
-	VersionId string `json:"versionId" xml:"VersionId"`
+Bucket string `json:"bucket" xml:"Bucket"`
+Etag string `json:"etag" xml:"Etag"`
+Key string `json:"key" xml:"Key"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type S3InputFileLocation struct {
-	Bucket string `json:"bucket" xml:"Bucket"`
-	Key    string `json:"key" xml:"Key"`
+Bucket string `json:"bucket" xml:"Bucket"`
+Key string `json:"key" xml:"Key"`
 }
 
 type S3StorageOptions struct {
-	DirectoryListingOptimization string `json:"directoryListingOptimization" xml:"DirectoryListingOptimization"`
+DirectoryListingOptimization string `json:"directoryListingOptimization" xml:"DirectoryListingOptimization"`
 }
 
 type S3Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type SendWorkflowStepStateRequest struct {
-	ExecutionId string `json:"executionId" xml:"ExecutionId"`
-	Status      string `json:"status" xml:"Status"`
-	Token       string `json:"token" xml:"Token"`
-	WorkflowId  string `json:"workflowId" xml:"WorkflowId"`
+ExecutionId string `json:"executionId" xml:"ExecutionId"`
+Status string `json:"status" xml:"Status"`
+Token string `json:"token" xml:"Token"`
+WorkflowId string `json:"workflowId" xml:"WorkflowId"`
 }
 
 type SendWorkflowStepStateResponse struct {
 }
 
 type ServiceMetadata struct {
-	UserDetails *UserDetails `json:"userDetails" xml:"UserDetails"`
+UserDetails *UserDetails `json:"userDetails" xml:"UserDetails"`
 }
 
 type SftpConnectorConfig struct {
-	MaxConcurrentConnections int32                           `json:"maxConcurrentConnections" xml:"MaxConcurrentConnections"`
-	TrustedHostKeys          SftpConnectorTrustedHostKeyList `json:"trustedHostKeys" xml:"TrustedHostKeys"`
-	UserSecretId             string                          `json:"userSecretId" xml:"UserSecretId"`
+MaxConcurrentConnections int32 `json:"maxConcurrentConnections" xml:"MaxConcurrentConnections"`
+TrustedHostKeys SftpConnectorTrustedHostKeyList `json:"trustedHostKeys" xml:"TrustedHostKeys"`
+UserSecretId string `json:"userSecretId" xml:"UserSecretId"`
 }
 
 type SftpConnectorConnectionDetails struct {
-	HostKey string `json:"hostKey" xml:"HostKey"`
+HostKey string `json:"hostKey" xml:"HostKey"`
 }
 
 type SmithyUnit struct {
 }
 
 type SshPublicKey struct {
-	DateImported     time.Time `json:"dateImported" xml:"DateImported"`
-	SshPublicKeyBody string    `json:"sshPublicKeyBody" xml:"SshPublicKeyBody"`
-	SshPublicKeyId   string    `json:"sshPublicKeyId" xml:"SshPublicKeyId"`
+DateImported time.Time `json:"dateImported" xml:"DateImported"`
+SshPublicKeyBody string `json:"sshPublicKeyBody" xml:"SshPublicKeyBody"`
+SshPublicKeyId string `json:"sshPublicKeyId" xml:"SshPublicKeyId"`
 }
 
 type StartDirectoryListingRequest struct {
-	ConnectorId         string `json:"connectorId" xml:"ConnectorId"`
-	MaxItems            int32  `json:"maxItems" xml:"MaxItems"`
-	OutputDirectoryPath string `json:"outputDirectoryPath" xml:"OutputDirectoryPath"`
-	RemoteDirectoryPath string `json:"remoteDirectoryPath" xml:"RemoteDirectoryPath"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+OutputDirectoryPath string `json:"outputDirectoryPath" xml:"OutputDirectoryPath"`
+RemoteDirectoryPath string `json:"remoteDirectoryPath" xml:"RemoteDirectoryPath"`
 }
 
 type StartDirectoryListingResponse struct {
-	ListingId      string `json:"listingId" xml:"ListingId"`
-	OutputFileName string `json:"outputFileName" xml:"OutputFileName"`
+ListingId string `json:"listingId" xml:"ListingId"`
+OutputFileName string `json:"outputFileName" xml:"OutputFileName"`
 }
 
 type StartFileTransferRequest struct {
-	ConnectorId         string            `json:"connectorId" xml:"ConnectorId"`
-	CustomHttpHeaders   CustomHttpHeaders `json:"customHttpHeaders" xml:"CustomHttpHeaders"`
-	LocalDirectoryPath  string            `json:"localDirectoryPath" xml:"LocalDirectoryPath"`
-	RemoteDirectoryPath string            `json:"remoteDirectoryPath" xml:"RemoteDirectoryPath"`
-	RetrieveFilePaths   FilePaths         `json:"retrieveFilePaths" xml:"RetrieveFilePaths"`
-	SendFilePaths       FilePaths         `json:"sendFilePaths" xml:"SendFilePaths"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+CustomHttpHeaders CustomHttpHeaders `json:"customHttpHeaders" xml:"CustomHttpHeaders"`
+LocalDirectoryPath string `json:"localDirectoryPath" xml:"LocalDirectoryPath"`
+RemoteDirectoryPath string `json:"remoteDirectoryPath" xml:"RemoteDirectoryPath"`
+RetrieveFilePaths FilePaths `json:"retrieveFilePaths" xml:"RetrieveFilePaths"`
+SendFilePaths FilePaths `json:"sendFilePaths" xml:"SendFilePaths"`
 }
 
 type StartFileTransferResponse struct {
-	TransferId string `json:"transferId" xml:"TransferId"`
+TransferId string `json:"transferId" xml:"TransferId"`
 }
 
 type StartRemoteDeleteRequest struct {
-	ConnectorId string `json:"connectorId" xml:"ConnectorId"`
-	DeletePath  string `json:"deletePath" xml:"DeletePath"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+DeletePath string `json:"deletePath" xml:"DeletePath"`
 }
 
 type StartRemoteDeleteResponse struct {
-	DeleteId string `json:"deleteId" xml:"DeleteId"`
+DeleteId string `json:"deleteId" xml:"DeleteId"`
 }
 
 type StartRemoteMoveRequest struct {
-	ConnectorId string `json:"connectorId" xml:"ConnectorId"`
-	SourcePath  string `json:"sourcePath" xml:"SourcePath"`
-	TargetPath  string `json:"targetPath" xml:"TargetPath"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+SourcePath string `json:"sourcePath" xml:"SourcePath"`
+TargetPath string `json:"targetPath" xml:"TargetPath"`
 }
 
 type StartRemoteMoveResponse struct {
-	MoveId string `json:"moveId" xml:"MoveId"`
+MoveId string `json:"moveId" xml:"MoveId"`
 }
 
 type StartServerRequest struct {
-	ServerId string `json:"serverId" xml:"ServerId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type StopServerRequest struct {
-	ServerId string `json:"serverId" xml:"ServerId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceRequest struct {
-	Arn  string `json:"arn" xml:"Arn"`
-	Tags Tags   `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type TagStepDetails struct {
-	Name               string `json:"name" xml:"Name"`
-	SourceFileLocation string `json:"sourceFileLocation" xml:"SourceFileLocation"`
-	Tags               S3Tags `json:"tags" xml:"Tags"`
+Name string `json:"name" xml:"Name"`
+SourceFileLocation string `json:"sourceFileLocation" xml:"SourceFileLocation"`
+Tags S3Tags `json:"tags" xml:"Tags"`
 }
 
 type TestConnectionRequest struct {
-	ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
 }
 
 type TestConnectionResponse struct {
-	ConnectorId           string                          `json:"connectorId" xml:"ConnectorId"`
-	SftpConnectionDetails *SftpConnectorConnectionDetails `json:"sftpConnectionDetails" xml:"SftpConnectionDetails"`
-	Status                string                          `json:"status" xml:"Status"`
-	StatusMessage         string                          `json:"statusMessage" xml:"StatusMessage"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+SftpConnectionDetails *SftpConnectorConnectionDetails `json:"sftpConnectionDetails" xml:"SftpConnectionDetails"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type TestIdentityProviderRequest struct {
-	ServerId       string `json:"serverId" xml:"ServerId"`
-	ServerProtocol string `json:"serverProtocol" xml:"ServerProtocol"`
-	SourceIp       string `json:"sourceIp" xml:"SourceIp"`
-	UserName       string `json:"userName" xml:"UserName"`
-	UserPassword   string `json:"userPassword" xml:"UserPassword"`
+ServerId string `json:"serverId" xml:"ServerId"`
+ServerProtocol string `json:"serverProtocol" xml:"ServerProtocol"`
+SourceIp string `json:"sourceIp" xml:"SourceIp"`
+UserName string `json:"userName" xml:"UserName"`
+UserPassword string `json:"userPassword" xml:"UserPassword"`
 }
 
 type TestIdentityProviderResponse struct {
-	Message    string `json:"message" xml:"Message"`
-	Response   string `json:"response" xml:"Response"`
-	StatusCode int32  `json:"statusCode" xml:"StatusCode"`
-	Url        string `json:"url" xml:"Url"`
+Message string `json:"message" xml:"Message"`
+Response string `json:"response" xml:"Response"`
+StatusCode int32 `json:"statusCode" xml:"StatusCode"`
+Url string `json:"url" xml:"Url"`
 }
 
 type UntagResourceRequest struct {
-	Arn     string  `json:"arn" xml:"Arn"`
-	TagKeys TagKeys `json:"tagKeys" xml:"TagKeys"`
+Arn string `json:"arn" xml:"Arn"`
+TagKeys TagKeys `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UpdateAccessRequest struct {
-	ExternalId            string                `json:"externalId" xml:"ExternalId"`
-	HomeDirectory         string                `json:"homeDirectory" xml:"HomeDirectory"`
-	HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
-	HomeDirectoryType     string                `json:"homeDirectoryType" xml:"HomeDirectoryType"`
-	Policy                string                `json:"policy" xml:"Policy"`
-	PosixProfile          *PosixProfile         `json:"posixProfile" xml:"PosixProfile"`
-	Role                  string                `json:"role" xml:"Role"`
-	ServerId              string                `json:"serverId" xml:"ServerId"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+HomeDirectory string `json:"homeDirectory" xml:"HomeDirectory"`
+HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
+HomeDirectoryType string `json:"homeDirectoryType" xml:"HomeDirectoryType"`
+Policy string `json:"policy" xml:"Policy"`
+PosixProfile *PosixProfile `json:"posixProfile" xml:"PosixProfile"`
+Role string `json:"role" xml:"Role"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type UpdateAccessResponse struct {
-	ExternalId string `json:"externalId" xml:"ExternalId"`
-	ServerId   string `json:"serverId" xml:"ServerId"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type UpdateAgreementRequest struct {
-	AccessRole            string                 `json:"accessRole" xml:"AccessRole"`
-	AgreementId           string                 `json:"agreementId" xml:"AgreementId"`
-	BaseDirectory         string                 `json:"baseDirectory" xml:"BaseDirectory"`
-	CustomDirectories     *CustomDirectoriesType `json:"customDirectories" xml:"CustomDirectories"`
-	Description           string                 `json:"description" xml:"Description"`
-	EnforceMessageSigning string                 `json:"enforceMessageSigning" xml:"EnforceMessageSigning"`
-	LocalProfileId        string                 `json:"localProfileId" xml:"LocalProfileId"`
-	PartnerProfileId      string                 `json:"partnerProfileId" xml:"PartnerProfileId"`
-	PreserveFilename      string                 `json:"preserveFilename" xml:"PreserveFilename"`
-	ServerId              string                 `json:"serverId" xml:"ServerId"`
-	Status                string                 `json:"status" xml:"Status"`
+AccessRole string `json:"accessRole" xml:"AccessRole"`
+AgreementId string `json:"agreementId" xml:"AgreementId"`
+BaseDirectory string `json:"baseDirectory" xml:"BaseDirectory"`
+CustomDirectories *CustomDirectoriesType `json:"customDirectories" xml:"CustomDirectories"`
+Description string `json:"description" xml:"Description"`
+EnforceMessageSigning string `json:"enforceMessageSigning" xml:"EnforceMessageSigning"`
+LocalProfileId string `json:"localProfileId" xml:"LocalProfileId"`
+PartnerProfileId string `json:"partnerProfileId" xml:"PartnerProfileId"`
+PreserveFilename string `json:"preserveFilename" xml:"PreserveFilename"`
+ServerId string `json:"serverId" xml:"ServerId"`
+Status string `json:"status" xml:"Status"`
 }
 
 type UpdateAgreementResponse struct {
-	AgreementId string `json:"agreementId" xml:"AgreementId"`
+AgreementId string `json:"agreementId" xml:"AgreementId"`
 }
 
 type UpdateCertificateRequest struct {
-	ActiveDate    time.Time `json:"activeDate" xml:"ActiveDate"`
-	CertificateId string    `json:"certificateId" xml:"CertificateId"`
-	Description   string    `json:"description" xml:"Description"`
-	InactiveDate  time.Time `json:"inactiveDate" xml:"InactiveDate"`
+ActiveDate time.Time `json:"activeDate" xml:"ActiveDate"`
+CertificateId string `json:"certificateId" xml:"CertificateId"`
+Description string `json:"description" xml:"Description"`
+InactiveDate time.Time `json:"inactiveDate" xml:"InactiveDate"`
 }
 
 type UpdateCertificateResponse struct {
-	CertificateId string `json:"certificateId" xml:"CertificateId"`
+CertificateId string `json:"certificateId" xml:"CertificateId"`
 }
 
 type UpdateConnectorRequest struct {
-	AccessRole         string               `json:"accessRole" xml:"AccessRole"`
-	As2Config          *As2ConnectorConfig  `json:"as2Config" xml:"As2Config"`
-	ConnectorId        string               `json:"connectorId" xml:"ConnectorId"`
-	EgressConfig       interface{}          `json:"egressConfig" xml:"EgressConfig"`
-	LoggingRole        string               `json:"loggingRole" xml:"LoggingRole"`
-	SecurityPolicyName string               `json:"securityPolicyName" xml:"SecurityPolicyName"`
-	SftpConfig         *SftpConnectorConfig `json:"sftpConfig" xml:"SftpConfig"`
-	Url                string               `json:"url" xml:"Url"`
+AccessRole string `json:"accessRole" xml:"AccessRole"`
+As2Config *As2ConnectorConfig `json:"as2Config" xml:"As2Config"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+EgressConfig interface{} `json:"egressConfig" xml:"EgressConfig"`
+LoggingRole string `json:"loggingRole" xml:"LoggingRole"`
+SecurityPolicyName string `json:"securityPolicyName" xml:"SecurityPolicyName"`
+SftpConfig *SftpConnectorConfig `json:"sftpConfig" xml:"SftpConfig"`
+Url string `json:"url" xml:"Url"`
 }
 
 type UpdateConnectorResponse struct {
-	ConnectorId string `json:"connectorId" xml:"ConnectorId"`
+ConnectorId string `json:"connectorId" xml:"ConnectorId"`
 }
 
 type UpdateConnectorVpcLatticeEgressConfig struct {
-	PortNumber               int32  `json:"portNumber" xml:"PortNumber"`
-	ResourceConfigurationArn string `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
+PortNumber int32 `json:"portNumber" xml:"PortNumber"`
+ResourceConfigurationArn string `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
 }
 
 type UpdateHostKeyRequest struct {
-	Description string `json:"description" xml:"Description"`
-	HostKeyId   string `json:"hostKeyId" xml:"HostKeyId"`
-	ServerId    string `json:"serverId" xml:"ServerId"`
+Description string `json:"description" xml:"Description"`
+HostKeyId string `json:"hostKeyId" xml:"HostKeyId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type UpdateHostKeyResponse struct {
-	HostKeyId string `json:"hostKeyId" xml:"HostKeyId"`
-	ServerId  string `json:"serverId" xml:"ServerId"`
+HostKeyId string `json:"hostKeyId" xml:"HostKeyId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type UpdateProfileRequest struct {
-	CertificateIds CertificateIds `json:"certificateIds" xml:"CertificateIds"`
-	ProfileId      string         `json:"profileId" xml:"ProfileId"`
+CertificateIds CertificateIds `json:"certificateIds" xml:"CertificateIds"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
 }
 
 type UpdateProfileResponse struct {
-	ProfileId string `json:"profileId" xml:"ProfileId"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
 }
 
 type UpdateServerRequest struct {
-	Certificate                   string                    `json:"certificate" xml:"Certificate"`
-	EndpointDetails               *EndpointDetails          `json:"endpointDetails" xml:"EndpointDetails"`
-	EndpointType                  string                    `json:"endpointType" xml:"EndpointType"`
-	HostKey                       string                    `json:"hostKey" xml:"HostKey"`
-	IdentityProviderDetails       *IdentityProviderDetails  `json:"identityProviderDetails" xml:"IdentityProviderDetails"`
-	IdentityProviderType          string                    `json:"identityProviderType" xml:"IdentityProviderType"`
-	IpAddressType                 string                    `json:"ipAddressType" xml:"IpAddressType"`
-	LoggingRole                   string                    `json:"loggingRole" xml:"LoggingRole"`
-	PostAuthenticationLoginBanner string                    `json:"postAuthenticationLoginBanner" xml:"PostAuthenticationLoginBanner"`
-	PreAuthenticationLoginBanner  string                    `json:"preAuthenticationLoginBanner" xml:"PreAuthenticationLoginBanner"`
-	ProtocolDetails               *ProtocolDetails          `json:"protocolDetails" xml:"ProtocolDetails"`
-	Protocols                     Protocols                 `json:"protocols" xml:"Protocols"`
-	S3StorageOptions              *S3StorageOptions         `json:"s3StorageOptions" xml:"S3StorageOptions"`
-	SecurityPolicyName            string                    `json:"securityPolicyName" xml:"SecurityPolicyName"`
-	ServerId                      string                    `json:"serverId" xml:"ServerId"`
-	StructuredLogDestinations     StructuredLogDestinations `json:"structuredLogDestinations" xml:"StructuredLogDestinations"`
-	WorkflowDetails               *WorkflowDetails          `json:"workflowDetails" xml:"WorkflowDetails"`
+Certificate string `json:"certificate" xml:"Certificate"`
+EndpointDetails *EndpointDetails `json:"endpointDetails" xml:"EndpointDetails"`
+EndpointType string `json:"endpointType" xml:"EndpointType"`
+HostKey string `json:"hostKey" xml:"HostKey"`
+IdentityProviderDetails *IdentityProviderDetails `json:"identityProviderDetails" xml:"IdentityProviderDetails"`
+IdentityProviderType string `json:"identityProviderType" xml:"IdentityProviderType"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+LoggingRole string `json:"loggingRole" xml:"LoggingRole"`
+PostAuthenticationLoginBanner string `json:"postAuthenticationLoginBanner" xml:"PostAuthenticationLoginBanner"`
+PreAuthenticationLoginBanner string `json:"preAuthenticationLoginBanner" xml:"PreAuthenticationLoginBanner"`
+ProtocolDetails *ProtocolDetails `json:"protocolDetails" xml:"ProtocolDetails"`
+Protocols Protocols `json:"protocols" xml:"Protocols"`
+S3StorageOptions *S3StorageOptions `json:"s3StorageOptions" xml:"S3StorageOptions"`
+SecurityPolicyName string `json:"securityPolicyName" xml:"SecurityPolicyName"`
+ServerId string `json:"serverId" xml:"ServerId"`
+StructuredLogDestinations StructuredLogDestinations `json:"structuredLogDestinations" xml:"StructuredLogDestinations"`
+WorkflowDetails *WorkflowDetails `json:"workflowDetails" xml:"WorkflowDetails"`
 }
 
 type UpdateServerResponse struct {
-	ServerId string `json:"serverId" xml:"ServerId"`
+ServerId string `json:"serverId" xml:"ServerId"`
 }
 
 type UpdateUserRequest struct {
-	HomeDirectory         string                `json:"homeDirectory" xml:"HomeDirectory"`
-	HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
-	HomeDirectoryType     string                `json:"homeDirectoryType" xml:"HomeDirectoryType"`
-	Policy                string                `json:"policy" xml:"Policy"`
-	PosixProfile          *PosixProfile         `json:"posixProfile" xml:"PosixProfile"`
-	Role                  string                `json:"role" xml:"Role"`
-	ServerId              string                `json:"serverId" xml:"ServerId"`
-	UserName              string                `json:"userName" xml:"UserName"`
+HomeDirectory string `json:"homeDirectory" xml:"HomeDirectory"`
+HomeDirectoryMappings HomeDirectoryMappings `json:"homeDirectoryMappings" xml:"HomeDirectoryMappings"`
+HomeDirectoryType string `json:"homeDirectoryType" xml:"HomeDirectoryType"`
+Policy string `json:"policy" xml:"Policy"`
+PosixProfile *PosixProfile `json:"posixProfile" xml:"PosixProfile"`
+Role string `json:"role" xml:"Role"`
+ServerId string `json:"serverId" xml:"ServerId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UpdateUserResponse struct {
-	ServerId string `json:"serverId" xml:"ServerId"`
-	UserName string `json:"userName" xml:"UserName"`
+ServerId string `json:"serverId" xml:"ServerId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UpdateWebAppCustomizationRequest struct {
-	FaviconFile []byte `json:"faviconFile" xml:"FaviconFile"`
-	LogoFile    []byte `json:"logoFile" xml:"LogoFile"`
-	Title       string `json:"title" xml:"Title"`
-	WebAppId    string `json:"webAppId" xml:"WebAppId"`
+FaviconFile []byte `json:"faviconFile" xml:"FaviconFile"`
+LogoFile []byte `json:"logoFile" xml:"LogoFile"`
+Title string `json:"title" xml:"Title"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
 }
 
 type UpdateWebAppCustomizationResponse struct {
-	WebAppId string `json:"webAppId" xml:"WebAppId"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
 }
 
 type UpdateWebAppIdentityCenterConfig struct {
-	Role string `json:"role" xml:"Role"`
+Role string `json:"role" xml:"Role"`
 }
 
 type UpdateWebAppRequest struct {
-	AccessEndpoint          string      `json:"accessEndpoint" xml:"AccessEndpoint"`
-	EndpointDetails         interface{} `json:"endpointDetails" xml:"EndpointDetails"`
-	IdentityProviderDetails interface{} `json:"identityProviderDetails" xml:"IdentityProviderDetails"`
-	WebAppId                string      `json:"webAppId" xml:"WebAppId"`
-	WebAppUnits             interface{} `json:"webAppUnits" xml:"WebAppUnits"`
+AccessEndpoint string `json:"accessEndpoint" xml:"AccessEndpoint"`
+EndpointDetails interface{} `json:"endpointDetails" xml:"EndpointDetails"`
+IdentityProviderDetails interface{} `json:"identityProviderDetails" xml:"IdentityProviderDetails"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
+WebAppUnits interface{} `json:"webAppUnits" xml:"WebAppUnits"`
 }
 
 type UpdateWebAppResponse struct {
-	WebAppId string `json:"webAppId" xml:"WebAppId"`
+WebAppId string `json:"webAppId" xml:"WebAppId"`
 }
 
 type UpdateWebAppVpcConfig struct {
-	SubnetIds SubnetIds `json:"subnetIds" xml:"SubnetIds"`
+SubnetIds SubnetIds `json:"subnetIds" xml:"SubnetIds"`
 }
 
 type UserDetails struct {
-	ServerId  string `json:"serverId" xml:"ServerId"`
-	SessionId string `json:"sessionId" xml:"SessionId"`
-	UserName  string `json:"userName" xml:"UserName"`
+ServerId string `json:"serverId" xml:"ServerId"`
+SessionId string `json:"sessionId" xml:"SessionId"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type WebAppVpcConfig struct {
-	SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds        SubnetIds        `json:"subnetIds" xml:"SubnetIds"`
-	VpcId            string           `json:"vpcId" xml:"VpcId"`
+SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds SubnetIds `json:"subnetIds" xml:"SubnetIds"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type WorkflowDetail struct {
-	ExecutionRole string `json:"executionRole" xml:"ExecutionRole"`
-	WorkflowId    string `json:"workflowId" xml:"WorkflowId"`
+ExecutionRole string `json:"executionRole" xml:"ExecutionRole"`
+WorkflowId string `json:"workflowId" xml:"WorkflowId"`
 }
 
 type WorkflowDetails struct {
-	OnPartialUpload OnPartialUploadWorkflowDetails `json:"onPartialUpload" xml:"OnPartialUpload"`
-	OnUpload        OnUploadWorkflowDetails        `json:"onUpload" xml:"OnUpload"`
+OnPartialUpload OnPartialUploadWorkflowDetails `json:"onPartialUpload" xml:"OnPartialUpload"`
+OnUpload OnUploadWorkflowDetails `json:"onUpload" xml:"OnUpload"`
 }
 
 type WorkflowStep struct {
-	CopyStepDetails    *CopyStepDetails    `json:"copyStepDetails" xml:"CopyStepDetails"`
-	CustomStepDetails  *CustomStepDetails  `json:"customStepDetails" xml:"CustomStepDetails"`
-	DecryptStepDetails *DecryptStepDetails `json:"decryptStepDetails" xml:"DecryptStepDetails"`
-	DeleteStepDetails  *DeleteStepDetails  `json:"deleteStepDetails" xml:"DeleteStepDetails"`
-	TagStepDetails     *TagStepDetails     `json:"tagStepDetails" xml:"TagStepDetails"`
-	Type               string              `json:"type" xml:"Type"`
+CopyStepDetails *CopyStepDetails `json:"copyStepDetails" xml:"CopyStepDetails"`
+CustomStepDetails *CustomStepDetails `json:"customStepDetails" xml:"CustomStepDetails"`
+DecryptStepDetails *DecryptStepDetails `json:"decryptStepDetails" xml:"DecryptStepDetails"`
+DeleteStepDetails *DeleteStepDetails `json:"deleteStepDetails" xml:"DeleteStepDetails"`
+TagStepDetails *TagStepDetails `json:"tagStepDetails" xml:"TagStepDetails"`
+Type string `json:"type" xml:"Type"`
 }
 
 type AddressAllocationIds []string
@@ -1357,3 +1357,4 @@ type WebAppEndpointDetails interface{}
 type WebAppIdentityProviderDetails interface{}
 
 type WebAppUnits interface{}
+

@@ -13,14 +13,14 @@ type OperationRoute struct {
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
-	{Method: "DELETE", Pattern: "/connections/{clientId}", Operation: "DeleteConnection"},
-	{Method: "DELETE", Pattern: "/things/{thingName}/shadow", Operation: "DeleteThingShadow"},
-	{Method: "GET", Pattern: "/retainedMessage/{topic}", Operation: "GetRetainedMessage"},
-	{Method: "GET", Pattern: "/things/{thingName}/shadow", Operation: "GetThingShadow"},
-	{Method: "GET", Pattern: "/api/things/shadow/ListNamedShadowsForThing/{thingName}", Operation: "ListNamedShadowsForThing"},
-	{Method: "GET", Pattern: "/retainedMessage", Operation: "ListRetainedMessages"},
-	{Method: "POST", Pattern: "/topics/{topic}", Operation: "Publish"},
-	{Method: "POST", Pattern: "/things/{thingName}/shadow", Operation: "UpdateThingShadow"},
+{Method: "DELETE", Pattern: "/connections/{clientId}", Operation: "DeleteConnection"},
+{Method: "DELETE", Pattern: "/things/{thingName}/shadow", Operation: "DeleteThingShadow"},
+{Method: "GET", Pattern: "/retainedMessage/{topic}", Operation: "GetRetainedMessage"},
+{Method: "GET", Pattern: "/things/{thingName}/shadow", Operation: "GetThingShadow"},
+{Method: "GET", Pattern: "/api/things/shadow/ListNamedShadowsForThing/{thingName}", Operation: "ListNamedShadowsForThing"},
+{Method: "GET", Pattern: "/retainedMessage", Operation: "ListRetainedMessages"},
+{Method: "POST", Pattern: "/topics/{topic}", Operation: "Publish"},
+{Method: "POST", Pattern: "/things/{thingName}/shadow", Operation: "UpdateThingShadow"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

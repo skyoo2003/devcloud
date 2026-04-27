@@ -13,12 +13,12 @@ type OperationRoute struct {
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
-	{Method: "POST", Pattern: "/snapshots/completion/{SnapshotId}", Operation: "CompleteSnapshot"},
-	{Method: "GET", Pattern: "/snapshots/{SnapshotId}/blocks/{BlockIndex}", Operation: "GetSnapshotBlock"},
-	{Method: "GET", Pattern: "/snapshots/{SecondSnapshotId}/changedblocks", Operation: "ListChangedBlocks"},
-	{Method: "GET", Pattern: "/snapshots/{SnapshotId}/blocks", Operation: "ListSnapshotBlocks"},
-	{Method: "PUT", Pattern: "/snapshots/{SnapshotId}/blocks/{BlockIndex}", Operation: "PutSnapshotBlock"},
-	{Method: "POST", Pattern: "/snapshots", Operation: "StartSnapshot"},
+{Method: "POST", Pattern: "/snapshots/completion/{SnapshotId}", Operation: "CompleteSnapshot"},
+{Method: "GET", Pattern: "/snapshots/{SnapshotId}/blocks/{BlockIndex}", Operation: "GetSnapshotBlock"},
+{Method: "GET", Pattern: "/snapshots/{SecondSnapshotId}/changedblocks", Operation: "ListChangedBlocks"},
+{Method: "GET", Pattern: "/snapshots/{SnapshotId}/blocks", Operation: "ListSnapshotBlocks"},
+{Method: "PUT", Pattern: "/snapshots/{SnapshotId}/blocks/{BlockIndex}", Operation: "PutSnapshotBlock"},
+{Method: "POST", Pattern: "/snapshots", Operation: "StartSnapshot"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

@@ -190,3 +190,4 @@ func (b *BaseProvider) UpdateServiceEnvironment(ctx context.Context, input *Upda
 func (b *BaseProvider) UpdateServiceJob(ctx context.Context, input *UpdateServiceJobRequest) (*UpdateServiceJobResponse, error) {
 	return nil, fmt.Errorf("UpdateServiceJob: %w", ErrNotImplemented)
 }
+

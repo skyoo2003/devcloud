@@ -209,3 +209,4 @@ func SerializeListTagsResponse(w http.ResponseWriter, output *ListTagsResponse, 
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

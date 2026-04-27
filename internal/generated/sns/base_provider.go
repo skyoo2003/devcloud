@@ -178,3 +178,4 @@ func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRe
 func (b *BaseProvider) VerifySMSSandboxPhoneNumber(ctx context.Context, input *VerifySMSSandboxPhoneNumberInput) (*VerifySMSSandboxPhoneNumberResult, error) {
 	return nil, fmt.Errorf("VerifySMSSandboxPhoneNumber: %w", ErrNotImplemented)
 }
+

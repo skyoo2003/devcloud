@@ -134,3 +134,4 @@ func (b *BaseProvider) UpdateFileSystem(ctx context.Context, input *UpdateFileSy
 func (b *BaseProvider) UpdateFileSystemProtection(ctx context.Context, input *UpdateFileSystemProtectionRequest) (*FileSystemProtectionDescription, error) {
 	return nil, fmt.Errorf("UpdateFileSystemProtection: %w", ErrNotImplemented)
 }
+

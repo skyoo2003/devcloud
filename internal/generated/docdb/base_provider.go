@@ -230,3 +230,4 @@ func (b *BaseProvider) StopDBCluster(ctx context.Context, input *StopDBClusterMe
 func (b *BaseProvider) SwitchoverGlobalCluster(ctx context.Context, input *SwitchoverGlobalClusterMessage) (*SwitchoverGlobalClusterResult, error) {
 	return nil, fmt.Errorf("SwitchoverGlobalCluster: %w", ErrNotImplemented)
 }
+

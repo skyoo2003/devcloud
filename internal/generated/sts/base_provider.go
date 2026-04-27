@@ -54,3 +54,4 @@ func (b *BaseProvider) GetSessionToken(ctx context.Context, input *GetSessionTok
 func (b *BaseProvider) GetWebIdentityToken(ctx context.Context, input *GetWebIdentityTokenRequest) (*GetWebIdentityTokenResponse, error) {
 	return nil, fmt.Errorf("GetWebIdentityToken: %w", ErrNotImplemented)
 }
+

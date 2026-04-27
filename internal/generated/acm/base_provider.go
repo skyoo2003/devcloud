@@ -78,3 +78,4 @@ func (b *BaseProvider) SearchCertificates(ctx context.Context, input *SearchCert
 func (b *BaseProvider) UpdateCertificateOptions(ctx context.Context, input *UpdateCertificateOptionsRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("UpdateCertificateOptions: %w", ErrNotImplemented)
 }
+

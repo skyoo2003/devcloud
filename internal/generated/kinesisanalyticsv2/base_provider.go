@@ -142,3 +142,4 @@ func (b *BaseProvider) UpdateApplication(ctx context.Context, input *UpdateAppli
 func (b *BaseProvider) UpdateApplicationMaintenanceConfiguration(ctx context.Context, input *UpdateApplicationMaintenanceConfigurationRequest) (*UpdateApplicationMaintenanceConfigurationResponse, error) {
 	return nil, fmt.Errorf("UpdateApplicationMaintenanceConfiguration: %w", ErrNotImplemented)
 }
+

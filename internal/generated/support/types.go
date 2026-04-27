@@ -2,300 +2,301 @@
 // SPDX-License-Identifier: Apache-2.0
 package support
 
+
 type AddAttachmentsToSetRequest struct {
-	AttachmentSetId string      `json:"attachmentSetId" xml:"attachmentSetId"`
-	Attachments     Attachments `json:"attachments" xml:"attachments"`
+AttachmentSetId string `json:"attachmentSetId" xml:"attachmentSetId"`
+Attachments Attachments `json:"attachments" xml:"attachments"`
 }
 
 type AddAttachmentsToSetResponse struct {
-	AttachmentSetId string `json:"attachmentSetId" xml:"attachmentSetId"`
-	ExpiryTime      string `json:"expiryTime" xml:"expiryTime"`
+AttachmentSetId string `json:"attachmentSetId" xml:"attachmentSetId"`
+ExpiryTime string `json:"expiryTime" xml:"expiryTime"`
 }
 
 type AddCommunicationToCaseRequest struct {
-	AttachmentSetId   string             `json:"attachmentSetId" xml:"attachmentSetId"`
-	CaseId            string             `json:"caseId" xml:"caseId"`
-	CcEmailAddresses  CcEmailAddressList `json:"ccEmailAddresses" xml:"ccEmailAddresses"`
-	CommunicationBody string             `json:"communicationBody" xml:"communicationBody"`
+AttachmentSetId string `json:"attachmentSetId" xml:"attachmentSetId"`
+CaseId string `json:"caseId" xml:"caseId"`
+CcEmailAddresses CcEmailAddressList `json:"ccEmailAddresses" xml:"ccEmailAddresses"`
+CommunicationBody string `json:"communicationBody" xml:"communicationBody"`
 }
 
 type AddCommunicationToCaseResponse struct {
-	Result bool `json:"result" xml:"result"`
+Result bool `json:"result" xml:"result"`
 }
 
 type Attachment struct {
-	Data     []byte `json:"data" xml:"data"`
-	FileName string `json:"fileName" xml:"fileName"`
+Data []byte `json:"data" xml:"data"`
+FileName string `json:"fileName" xml:"fileName"`
 }
 
 type AttachmentDetails struct {
-	AttachmentId string `json:"attachmentId" xml:"attachmentId"`
-	FileName     string `json:"fileName" xml:"fileName"`
+AttachmentId string `json:"attachmentId" xml:"attachmentId"`
+FileName string `json:"fileName" xml:"fileName"`
 }
 
 type CaseDetails struct {
-	CaseId               string                    `json:"caseId" xml:"caseId"`
-	CategoryCode         string                    `json:"categoryCode" xml:"categoryCode"`
-	CcEmailAddresses     CcEmailAddressList        `json:"ccEmailAddresses" xml:"ccEmailAddresses"`
-	DisplayId            string                    `json:"displayId" xml:"displayId"`
-	Language             string                    `json:"language" xml:"language"`
-	RecentCommunications *RecentCaseCommunications `json:"recentCommunications" xml:"recentCommunications"`
-	ServiceCode          string                    `json:"serviceCode" xml:"serviceCode"`
-	SeverityCode         string                    `json:"severityCode" xml:"severityCode"`
-	Status               string                    `json:"status" xml:"status"`
-	Subject              string                    `json:"subject" xml:"subject"`
-	SubmittedBy          string                    `json:"submittedBy" xml:"submittedBy"`
-	TimeCreated          string                    `json:"timeCreated" xml:"timeCreated"`
+CaseId string `json:"caseId" xml:"caseId"`
+CategoryCode string `json:"categoryCode" xml:"categoryCode"`
+CcEmailAddresses CcEmailAddressList `json:"ccEmailAddresses" xml:"ccEmailAddresses"`
+DisplayId string `json:"displayId" xml:"displayId"`
+Language string `json:"language" xml:"language"`
+RecentCommunications *RecentCaseCommunications `json:"recentCommunications" xml:"recentCommunications"`
+ServiceCode string `json:"serviceCode" xml:"serviceCode"`
+SeverityCode string `json:"severityCode" xml:"severityCode"`
+Status string `json:"status" xml:"status"`
+Subject string `json:"subject" xml:"subject"`
+SubmittedBy string `json:"submittedBy" xml:"submittedBy"`
+TimeCreated string `json:"timeCreated" xml:"timeCreated"`
 }
 
 type Category struct {
-	Code string `json:"code" xml:"code"`
-	Name string `json:"name" xml:"name"`
+Code string `json:"code" xml:"code"`
+Name string `json:"name" xml:"name"`
 }
 
 type Communication struct {
-	AttachmentSet AttachmentSet `json:"attachmentSet" xml:"attachmentSet"`
-	Body          string        `json:"body" xml:"body"`
-	CaseId        string        `json:"caseId" xml:"caseId"`
-	SubmittedBy   string        `json:"submittedBy" xml:"submittedBy"`
-	TimeCreated   string        `json:"timeCreated" xml:"timeCreated"`
+AttachmentSet AttachmentSet `json:"attachmentSet" xml:"attachmentSet"`
+Body string `json:"body" xml:"body"`
+CaseId string `json:"caseId" xml:"caseId"`
+SubmittedBy string `json:"submittedBy" xml:"submittedBy"`
+TimeCreated string `json:"timeCreated" xml:"timeCreated"`
 }
 
 type CommunicationTypeOptions struct {
-	DatesWithoutSupport DatesWithoutSupportList `json:"datesWithoutSupport" xml:"datesWithoutSupport"`
-	SupportedHours      SupportedHoursList      `json:"supportedHours" xml:"supportedHours"`
-	Type                string                  `json:"type" xml:"type"`
+DatesWithoutSupport DatesWithoutSupportList `json:"datesWithoutSupport" xml:"datesWithoutSupport"`
+SupportedHours SupportedHoursList `json:"supportedHours" xml:"supportedHours"`
+Type string `json:"type" xml:"type"`
 }
 
 type CreateCaseRequest struct {
-	AttachmentSetId   string             `json:"attachmentSetId" xml:"attachmentSetId"`
-	CategoryCode      string             `json:"categoryCode" xml:"categoryCode"`
-	CcEmailAddresses  CcEmailAddressList `json:"ccEmailAddresses" xml:"ccEmailAddresses"`
-	CommunicationBody string             `json:"communicationBody" xml:"communicationBody"`
-	IssueType         string             `json:"issueType" xml:"issueType"`
-	Language          string             `json:"language" xml:"language"`
-	ServiceCode       string             `json:"serviceCode" xml:"serviceCode"`
-	SeverityCode      string             `json:"severityCode" xml:"severityCode"`
-	Subject           string             `json:"subject" xml:"subject"`
+AttachmentSetId string `json:"attachmentSetId" xml:"attachmentSetId"`
+CategoryCode string `json:"categoryCode" xml:"categoryCode"`
+CcEmailAddresses CcEmailAddressList `json:"ccEmailAddresses" xml:"ccEmailAddresses"`
+CommunicationBody string `json:"communicationBody" xml:"communicationBody"`
+IssueType string `json:"issueType" xml:"issueType"`
+Language string `json:"language" xml:"language"`
+ServiceCode string `json:"serviceCode" xml:"serviceCode"`
+SeverityCode string `json:"severityCode" xml:"severityCode"`
+Subject string `json:"subject" xml:"subject"`
 }
 
 type CreateCaseResponse struct {
-	CaseId string `json:"caseId" xml:"caseId"`
+CaseId string `json:"caseId" xml:"caseId"`
 }
 
 type DateInterval struct {
-	EndDateTime   string `json:"endDateTime" xml:"endDateTime"`
-	StartDateTime string `json:"startDateTime" xml:"startDateTime"`
+EndDateTime string `json:"endDateTime" xml:"endDateTime"`
+StartDateTime string `json:"startDateTime" xml:"startDateTime"`
 }
 
 type DescribeAttachmentRequest struct {
-	AttachmentId string `json:"attachmentId" xml:"attachmentId"`
+AttachmentId string `json:"attachmentId" xml:"attachmentId"`
 }
 
 type DescribeAttachmentResponse struct {
-	Attachment *Attachment `json:"attachment" xml:"attachment"`
+Attachment *Attachment `json:"attachment" xml:"attachment"`
 }
 
 type DescribeCasesRequest struct {
-	AfterTime             string     `json:"afterTime" xml:"afterTime"`
-	BeforeTime            string     `json:"beforeTime" xml:"beforeTime"`
-	CaseIdList            CaseIdList `json:"caseIdList" xml:"caseIdList"`
-	DisplayId             string     `json:"displayId" xml:"displayId"`
-	IncludeCommunications bool       `json:"includeCommunications" xml:"includeCommunications"`
-	IncludeResolvedCases  bool       `json:"includeResolvedCases" xml:"includeResolvedCases"`
-	Language              string     `json:"language" xml:"language"`
-	MaxResults            int32      `json:"maxResults" xml:"maxResults"`
-	NextToken             string     `json:"nextToken" xml:"nextToken"`
+AfterTime string `json:"afterTime" xml:"afterTime"`
+BeforeTime string `json:"beforeTime" xml:"beforeTime"`
+CaseIdList CaseIdList `json:"caseIdList" xml:"caseIdList"`
+DisplayId string `json:"displayId" xml:"displayId"`
+IncludeCommunications bool `json:"includeCommunications" xml:"includeCommunications"`
+IncludeResolvedCases bool `json:"includeResolvedCases" xml:"includeResolvedCases"`
+Language string `json:"language" xml:"language"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeCasesResponse struct {
-	Cases     CaseList `json:"cases" xml:"cases"`
-	NextToken string   `json:"nextToken" xml:"nextToken"`
+Cases CaseList `json:"cases" xml:"cases"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeCommunicationsRequest struct {
-	AfterTime  string `json:"afterTime" xml:"afterTime"`
-	BeforeTime string `json:"beforeTime" xml:"beforeTime"`
-	CaseId     string `json:"caseId" xml:"caseId"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+AfterTime string `json:"afterTime" xml:"afterTime"`
+BeforeTime string `json:"beforeTime" xml:"beforeTime"`
+CaseId string `json:"caseId" xml:"caseId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeCommunicationsResponse struct {
-	Communications CommunicationList `json:"communications" xml:"communications"`
-	NextToken      string            `json:"nextToken" xml:"nextToken"`
+Communications CommunicationList `json:"communications" xml:"communications"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeCreateCaseOptionsRequest struct {
-	CategoryCode string `json:"categoryCode" xml:"categoryCode"`
-	IssueType    string `json:"issueType" xml:"issueType"`
-	Language     string `json:"language" xml:"language"`
-	ServiceCode  string `json:"serviceCode" xml:"serviceCode"`
+CategoryCode string `json:"categoryCode" xml:"categoryCode"`
+IssueType string `json:"issueType" xml:"issueType"`
+Language string `json:"language" xml:"language"`
+ServiceCode string `json:"serviceCode" xml:"serviceCode"`
 }
 
 type DescribeCreateCaseOptionsResponse struct {
-	CommunicationTypes   CommunicationTypeOptionsList `json:"communicationTypes" xml:"communicationTypes"`
-	LanguageAvailability string                       `json:"languageAvailability" xml:"languageAvailability"`
+CommunicationTypes CommunicationTypeOptionsList `json:"communicationTypes" xml:"communicationTypes"`
+LanguageAvailability string `json:"languageAvailability" xml:"languageAvailability"`
 }
 
 type DescribeServicesRequest struct {
-	Language        string          `json:"language" xml:"language"`
-	ServiceCodeList ServiceCodeList `json:"serviceCodeList" xml:"serviceCodeList"`
+Language string `json:"language" xml:"language"`
+ServiceCodeList ServiceCodeList `json:"serviceCodeList" xml:"serviceCodeList"`
 }
 
 type DescribeServicesResponse struct {
-	Services ServiceList `json:"services" xml:"services"`
+Services ServiceList `json:"services" xml:"services"`
 }
 
 type DescribeSeverityLevelsRequest struct {
-	Language string `json:"language" xml:"language"`
+Language string `json:"language" xml:"language"`
 }
 
 type DescribeSeverityLevelsResponse struct {
-	SeverityLevels SeverityLevelsList `json:"severityLevels" xml:"severityLevels"`
+SeverityLevels SeverityLevelsList `json:"severityLevels" xml:"severityLevels"`
 }
 
 type DescribeSupportedLanguagesRequest struct {
-	CategoryCode string `json:"categoryCode" xml:"categoryCode"`
-	IssueType    string `json:"issueType" xml:"issueType"`
-	ServiceCode  string `json:"serviceCode" xml:"serviceCode"`
+CategoryCode string `json:"categoryCode" xml:"categoryCode"`
+IssueType string `json:"issueType" xml:"issueType"`
+ServiceCode string `json:"serviceCode" xml:"serviceCode"`
 }
 
 type DescribeSupportedLanguagesResponse struct {
-	SupportedLanguages SupportedLanguagesList `json:"supportedLanguages" xml:"supportedLanguages"`
+SupportedLanguages SupportedLanguagesList `json:"supportedLanguages" xml:"supportedLanguages"`
 }
 
 type DescribeTrustedAdvisorCheckRefreshStatusesRequest struct {
-	CheckIds StringList `json:"checkIds" xml:"checkIds"`
+CheckIds StringList `json:"checkIds" xml:"checkIds"`
 }
 
 type DescribeTrustedAdvisorCheckRefreshStatusesResponse struct {
-	Statuses TrustedAdvisorCheckRefreshStatusList `json:"statuses" xml:"statuses"`
+Statuses TrustedAdvisorCheckRefreshStatusList `json:"statuses" xml:"statuses"`
 }
 
 type DescribeTrustedAdvisorCheckResultRequest struct {
-	CheckId  string `json:"checkId" xml:"checkId"`
-	Language string `json:"language" xml:"language"`
+CheckId string `json:"checkId" xml:"checkId"`
+Language string `json:"language" xml:"language"`
 }
 
 type DescribeTrustedAdvisorCheckResultResponse struct {
-	Result *TrustedAdvisorCheckResult `json:"result" xml:"result"`
+Result *TrustedAdvisorCheckResult `json:"result" xml:"result"`
 }
 
 type DescribeTrustedAdvisorCheckSummariesRequest struct {
-	CheckIds StringList `json:"checkIds" xml:"checkIds"`
+CheckIds StringList `json:"checkIds" xml:"checkIds"`
 }
 
 type DescribeTrustedAdvisorCheckSummariesResponse struct {
-	Summaries TrustedAdvisorCheckSummaryList `json:"summaries" xml:"summaries"`
+Summaries TrustedAdvisorCheckSummaryList `json:"summaries" xml:"summaries"`
 }
 
 type DescribeTrustedAdvisorChecksRequest struct {
-	Language string `json:"language" xml:"language"`
+Language string `json:"language" xml:"language"`
 }
 
 type DescribeTrustedAdvisorChecksResponse struct {
-	Checks TrustedAdvisorCheckList `json:"checks" xml:"checks"`
+Checks TrustedAdvisorCheckList `json:"checks" xml:"checks"`
 }
 
 type RecentCaseCommunications struct {
-	Communications CommunicationList `json:"communications" xml:"communications"`
-	NextToken      string            `json:"nextToken" xml:"nextToken"`
+Communications CommunicationList `json:"communications" xml:"communications"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type RefreshTrustedAdvisorCheckRequest struct {
-	CheckId string `json:"checkId" xml:"checkId"`
+CheckId string `json:"checkId" xml:"checkId"`
 }
 
 type RefreshTrustedAdvisorCheckResponse struct {
-	Status *TrustedAdvisorCheckRefreshStatus `json:"status" xml:"status"`
+Status *TrustedAdvisorCheckRefreshStatus `json:"status" xml:"status"`
 }
 
 type ResolveCaseRequest struct {
-	CaseId string `json:"caseId" xml:"caseId"`
+CaseId string `json:"caseId" xml:"caseId"`
 }
 
 type ResolveCaseResponse struct {
-	FinalCaseStatus   string `json:"finalCaseStatus" xml:"finalCaseStatus"`
-	InitialCaseStatus string `json:"initialCaseStatus" xml:"initialCaseStatus"`
+FinalCaseStatus string `json:"finalCaseStatus" xml:"finalCaseStatus"`
+InitialCaseStatus string `json:"initialCaseStatus" xml:"initialCaseStatus"`
 }
 
 type Service struct {
-	Categories CategoryList `json:"categories" xml:"categories"`
-	Code       string       `json:"code" xml:"code"`
-	Name       string       `json:"name" xml:"name"`
+Categories CategoryList `json:"categories" xml:"categories"`
+Code string `json:"code" xml:"code"`
+Name string `json:"name" xml:"name"`
 }
 
 type SeverityLevel struct {
-	Code string `json:"code" xml:"code"`
-	Name string `json:"name" xml:"name"`
+Code string `json:"code" xml:"code"`
+Name string `json:"name" xml:"name"`
 }
 
 type SupportedHour struct {
-	EndTime   string `json:"endTime" xml:"endTime"`
-	StartTime string `json:"startTime" xml:"startTime"`
+EndTime string `json:"endTime" xml:"endTime"`
+StartTime string `json:"startTime" xml:"startTime"`
 }
 
 type SupportedLanguage struct {
-	Code     string `json:"code" xml:"code"`
-	Display  string `json:"display" xml:"display"`
-	Language string `json:"language" xml:"language"`
+Code string `json:"code" xml:"code"`
+Display string `json:"display" xml:"display"`
+Language string `json:"language" xml:"language"`
 }
 
 type TrustedAdvisorCategorySpecificSummary struct {
-	CostOptimizing *TrustedAdvisorCostOptimizingSummary `json:"costOptimizing" xml:"costOptimizing"`
+CostOptimizing *TrustedAdvisorCostOptimizingSummary `json:"costOptimizing" xml:"costOptimizing"`
 }
 
 type TrustedAdvisorCheckDescription struct {
-	Category    string     `json:"category" xml:"category"`
-	Description string     `json:"description" xml:"description"`
-	Id          string     `json:"id" xml:"id"`
-	Metadata    StringList `json:"metadata" xml:"metadata"`
-	Name        string     `json:"name" xml:"name"`
+Category string `json:"category" xml:"category"`
+Description string `json:"description" xml:"description"`
+Id string `json:"id" xml:"id"`
+Metadata StringList `json:"metadata" xml:"metadata"`
+Name string `json:"name" xml:"name"`
 }
 
 type TrustedAdvisorCheckRefreshStatus struct {
-	CheckId                    string `json:"checkId" xml:"checkId"`
-	MillisUntilNextRefreshable int64  `json:"millisUntilNextRefreshable" xml:"millisUntilNextRefreshable"`
-	Status                     string `json:"status" xml:"status"`
+CheckId string `json:"checkId" xml:"checkId"`
+MillisUntilNextRefreshable int64 `json:"millisUntilNextRefreshable" xml:"millisUntilNextRefreshable"`
+Status string `json:"status" xml:"status"`
 }
 
 type TrustedAdvisorCheckResult struct {
-	CategorySpecificSummary *TrustedAdvisorCategorySpecificSummary `json:"categorySpecificSummary" xml:"categorySpecificSummary"`
-	CheckId                 string                                 `json:"checkId" xml:"checkId"`
-	FlaggedResources        TrustedAdvisorResourceDetailList       `json:"flaggedResources" xml:"flaggedResources"`
-	ResourcesSummary        *TrustedAdvisorResourcesSummary        `json:"resourcesSummary" xml:"resourcesSummary"`
-	Status                  string                                 `json:"status" xml:"status"`
-	Timestamp               string                                 `json:"timestamp" xml:"timestamp"`
+CategorySpecificSummary *TrustedAdvisorCategorySpecificSummary `json:"categorySpecificSummary" xml:"categorySpecificSummary"`
+CheckId string `json:"checkId" xml:"checkId"`
+FlaggedResources TrustedAdvisorResourceDetailList `json:"flaggedResources" xml:"flaggedResources"`
+ResourcesSummary *TrustedAdvisorResourcesSummary `json:"resourcesSummary" xml:"resourcesSummary"`
+Status string `json:"status" xml:"status"`
+Timestamp string `json:"timestamp" xml:"timestamp"`
 }
 
 type TrustedAdvisorCheckSummary struct {
-	CategorySpecificSummary *TrustedAdvisorCategorySpecificSummary `json:"categorySpecificSummary" xml:"categorySpecificSummary"`
-	CheckId                 string                                 `json:"checkId" xml:"checkId"`
-	HasFlaggedResources     bool                                   `json:"hasFlaggedResources" xml:"hasFlaggedResources"`
-	ResourcesSummary        *TrustedAdvisorResourcesSummary        `json:"resourcesSummary" xml:"resourcesSummary"`
-	Status                  string                                 `json:"status" xml:"status"`
-	Timestamp               string                                 `json:"timestamp" xml:"timestamp"`
+CategorySpecificSummary *TrustedAdvisorCategorySpecificSummary `json:"categorySpecificSummary" xml:"categorySpecificSummary"`
+CheckId string `json:"checkId" xml:"checkId"`
+HasFlaggedResources bool `json:"hasFlaggedResources" xml:"hasFlaggedResources"`
+ResourcesSummary *TrustedAdvisorResourcesSummary `json:"resourcesSummary" xml:"resourcesSummary"`
+Status string `json:"status" xml:"status"`
+Timestamp string `json:"timestamp" xml:"timestamp"`
 }
 
 type TrustedAdvisorCostOptimizingSummary struct {
-	EstimatedMonthlySavings        float64 `json:"estimatedMonthlySavings" xml:"estimatedMonthlySavings"`
-	EstimatedPercentMonthlySavings float64 `json:"estimatedPercentMonthlySavings" xml:"estimatedPercentMonthlySavings"`
+EstimatedMonthlySavings float64 `json:"estimatedMonthlySavings" xml:"estimatedMonthlySavings"`
+EstimatedPercentMonthlySavings float64 `json:"estimatedPercentMonthlySavings" xml:"estimatedPercentMonthlySavings"`
 }
 
 type TrustedAdvisorResourceDetail struct {
-	IsSuppressed bool       `json:"isSuppressed" xml:"isSuppressed"`
-	Metadata     StringList `json:"metadata" xml:"metadata"`
-	Region       string     `json:"region" xml:"region"`
-	ResourceId   string     `json:"resourceId" xml:"resourceId"`
-	Status       string     `json:"status" xml:"status"`
+IsSuppressed bool `json:"isSuppressed" xml:"isSuppressed"`
+Metadata StringList `json:"metadata" xml:"metadata"`
+Region string `json:"region" xml:"region"`
+ResourceId string `json:"resourceId" xml:"resourceId"`
+Status string `json:"status" xml:"status"`
 }
 
 type TrustedAdvisorResourcesSummary struct {
-	ResourcesFlagged    int64 `json:"resourcesFlagged" xml:"resourcesFlagged"`
-	ResourcesIgnored    int64 `json:"resourcesIgnored" xml:"resourcesIgnored"`
-	ResourcesProcessed  int64 `json:"resourcesProcessed" xml:"resourcesProcessed"`
-	ResourcesSuppressed int64 `json:"resourcesSuppressed" xml:"resourcesSuppressed"`
+ResourcesFlagged int64 `json:"resourcesFlagged" xml:"resourcesFlagged"`
+ResourcesIgnored int64 `json:"resourcesIgnored" xml:"resourcesIgnored"`
+ResourcesProcessed int64 `json:"resourcesProcessed" xml:"resourcesProcessed"`
+ResourcesSuppressed int64 `json:"resourcesSuppressed" xml:"resourcesSuppressed"`
 }
 
 type AttachmentSet []*AttachmentDetails
@@ -335,3 +336,4 @@ type TrustedAdvisorCheckRefreshStatusList []*TrustedAdvisorCheckRefreshStatus
 type TrustedAdvisorCheckSummaryList []*TrustedAdvisorCheckSummary
 
 type TrustedAdvisorResourceDetailList []*TrustedAdvisorResourceDetail
+

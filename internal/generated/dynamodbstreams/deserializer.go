@@ -71,3 +71,4 @@ func SerializeListStreamsOutput(w http.ResponseWriter, output *ListStreamsOutput
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

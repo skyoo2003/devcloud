@@ -2,97 +2,99 @@
 // SPDX-License-Identifier: Apache-2.0
 package iotdataplane
 
+
 type DeleteConnectionRequest struct {
-	CleanSession       bool   `json:"cleanSession" xml:"cleanSession"`
-	ClientId           string `json:"clientId" xml:"clientId"`
-	PreventWillMessage bool   `json:"preventWillMessage" xml:"preventWillMessage"`
+CleanSession bool `json:"cleanSession" xml:"cleanSession"`
+ClientId string `json:"clientId" xml:"clientId"`
+PreventWillMessage bool `json:"preventWillMessage" xml:"preventWillMessage"`
 }
 
 type DeleteThingShadowRequest struct {
-	ShadowName string `json:"shadowName" xml:"shadowName"`
-	ThingName  string `json:"thingName" xml:"thingName"`
+ShadowName string `json:"shadowName" xml:"shadowName"`
+ThingName string `json:"thingName" xml:"thingName"`
 }
 
 type DeleteThingShadowResponse struct {
-	Payload []byte `json:"payload" xml:"payload"`
+Payload []byte `json:"payload" xml:"payload"`
 }
 
 type GetRetainedMessageRequest struct {
-	Topic string `json:"topic" xml:"topic"`
+Topic string `json:"topic" xml:"topic"`
 }
 
 type GetRetainedMessageResponse struct {
-	LastModifiedTime int64  `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	Payload          []byte `json:"payload" xml:"payload"`
-	Qos              int32  `json:"qos" xml:"qos"`
-	Topic            string `json:"topic" xml:"topic"`
-	UserProperties   []byte `json:"userProperties" xml:"userProperties"`
+LastModifiedTime int64 `json:"lastModifiedTime" xml:"lastModifiedTime"`
+Payload []byte `json:"payload" xml:"payload"`
+Qos int32 `json:"qos" xml:"qos"`
+Topic string `json:"topic" xml:"topic"`
+UserProperties []byte `json:"userProperties" xml:"userProperties"`
 }
 
 type GetThingShadowRequest struct {
-	ShadowName string `json:"shadowName" xml:"shadowName"`
-	ThingName  string `json:"thingName" xml:"thingName"`
+ShadowName string `json:"shadowName" xml:"shadowName"`
+ThingName string `json:"thingName" xml:"thingName"`
 }
 
 type GetThingShadowResponse struct {
-	Payload []byte `json:"payload" xml:"payload"`
+Payload []byte `json:"payload" xml:"payload"`
 }
 
 type ListNamedShadowsForThingRequest struct {
-	NextToken string `json:"nextToken" xml:"nextToken"`
-	PageSize  int32  `json:"pageSize" xml:"pageSize"`
-	ThingName string `json:"thingName" xml:"thingName"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PageSize int32 `json:"pageSize" xml:"pageSize"`
+ThingName string `json:"thingName" xml:"thingName"`
 }
 
 type ListNamedShadowsForThingResponse struct {
-	NextToken string          `json:"nextToken" xml:"nextToken"`
-	Results   NamedShadowList `json:"results" xml:"results"`
-	Timestamp int64           `json:"timestamp" xml:"timestamp"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Results NamedShadowList `json:"results" xml:"results"`
+Timestamp int64 `json:"timestamp" xml:"timestamp"`
 }
 
 type ListRetainedMessagesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListRetainedMessagesResponse struct {
-	NextToken      string              `json:"nextToken" xml:"nextToken"`
-	RetainedTopics RetainedMessageList `json:"retainedTopics" xml:"retainedTopics"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RetainedTopics RetainedMessageList `json:"retainedTopics" xml:"retainedTopics"`
 }
 
 type PublishRequest struct {
-	ContentType            string `json:"contentType" xml:"contentType"`
-	CorrelationData        string `json:"correlationData" xml:"correlationData"`
-	MessageExpiry          int64  `json:"messageExpiry" xml:"messageExpiry"`
-	Payload                []byte `json:"payload" xml:"payload"`
-	PayloadFormatIndicator string `json:"payloadFormatIndicator" xml:"payloadFormatIndicator"`
-	Qos                    int32  `json:"qos" xml:"qos"`
-	ResponseTopic          string `json:"responseTopic" xml:"responseTopic"`
-	Retain                 bool   `json:"retain" xml:"retain"`
-	Topic                  string `json:"topic" xml:"topic"`
-	UserProperties         string `json:"userProperties" xml:"userProperties"`
+ContentType string `json:"contentType" xml:"contentType"`
+CorrelationData string `json:"correlationData" xml:"correlationData"`
+MessageExpiry int64 `json:"messageExpiry" xml:"messageExpiry"`
+Payload []byte `json:"payload" xml:"payload"`
+PayloadFormatIndicator string `json:"payloadFormatIndicator" xml:"payloadFormatIndicator"`
+Qos int32 `json:"qos" xml:"qos"`
+ResponseTopic string `json:"responseTopic" xml:"responseTopic"`
+Retain bool `json:"retain" xml:"retain"`
+Topic string `json:"topic" xml:"topic"`
+UserProperties string `json:"userProperties" xml:"userProperties"`
 }
 
 type RetainedMessageSummary struct {
-	LastModifiedTime int64  `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	PayloadSize      int64  `json:"payloadSize" xml:"payloadSize"`
-	Qos              int32  `json:"qos" xml:"qos"`
-	Topic            string `json:"topic" xml:"topic"`
+LastModifiedTime int64 `json:"lastModifiedTime" xml:"lastModifiedTime"`
+PayloadSize int64 `json:"payloadSize" xml:"payloadSize"`
+Qos int32 `json:"qos" xml:"qos"`
+Topic string `json:"topic" xml:"topic"`
 }
 
 type SmithyUnit struct {
 }
 
 type UpdateThingShadowRequest struct {
-	Payload    []byte `json:"payload" xml:"payload"`
-	ShadowName string `json:"shadowName" xml:"shadowName"`
-	ThingName  string `json:"thingName" xml:"thingName"`
+Payload []byte `json:"payload" xml:"payload"`
+ShadowName string `json:"shadowName" xml:"shadowName"`
+ThingName string `json:"thingName" xml:"thingName"`
 }
 
 type UpdateThingShadowResponse struct {
-	Payload []byte `json:"payload" xml:"payload"`
+Payload []byte `json:"payload" xml:"payload"`
 }
 
 type NamedShadowList []string
 
 type RetainedMessageList []*RetainedMessageSummary
+

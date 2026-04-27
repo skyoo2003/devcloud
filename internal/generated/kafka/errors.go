@@ -292,3 +292,4 @@ func (e *UnknownTopicOrPartitionException) ErrorCode() string {
 func (e *UnknownTopicOrPartitionException) HTTPStatus() int {
 	return 404
 }
+

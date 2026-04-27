@@ -7,409 +7,409 @@ import (
 )
 
 type AddPermissionInput struct {
-	AWSAccountId DelegatesList `json:"aWSAccountId" xml:"AWSAccountId"`
-	ActionName   ActionsList   `json:"actionName" xml:"ActionName"`
-	Label        string        `json:"label" xml:"Label"`
-	TopicArn     string        `json:"topicArn" xml:"TopicArn"`
+AWSAccountId DelegatesList `json:"aWSAccountId" xml:"AWSAccountId"`
+ActionName ActionsList `json:"actionName" xml:"ActionName"`
+Label string `json:"label" xml:"Label"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type BatchResultErrorEntry struct {
-	Code        string `json:"code" xml:"Code"`
-	Id          string `json:"id" xml:"Id"`
-	Message     string `json:"message" xml:"Message"`
-	SenderFault bool   `json:"senderFault" xml:"SenderFault"`
+Code string `json:"code" xml:"Code"`
+Id string `json:"id" xml:"Id"`
+Message string `json:"message" xml:"Message"`
+SenderFault bool `json:"senderFault" xml:"SenderFault"`
 }
 
 type CheckIfPhoneNumberIsOptedOutInput struct {
-	PhoneNumber string `json:"phoneNumber" xml:"phoneNumber"`
+PhoneNumber string `json:"phoneNumber" xml:"phoneNumber"`
 }
 
 type CheckIfPhoneNumberIsOptedOutResponse struct {
-	IsOptedOut bool `json:"isOptedOut" xml:"isOptedOut"`
+IsOptedOut bool `json:"isOptedOut" xml:"isOptedOut"`
 }
 
 type ConfirmSubscriptionInput struct {
-	AuthenticateOnUnsubscribe string `json:"authenticateOnUnsubscribe" xml:"AuthenticateOnUnsubscribe"`
-	Token                     string `json:"token" xml:"Token"`
-	TopicArn                  string `json:"topicArn" xml:"TopicArn"`
+AuthenticateOnUnsubscribe string `json:"authenticateOnUnsubscribe" xml:"AuthenticateOnUnsubscribe"`
+Token string `json:"token" xml:"Token"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type ConfirmSubscriptionResponse struct {
-	SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
+SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
 }
 
 type CreateEndpointResponse struct {
-	EndpointArn string `json:"endpointArn" xml:"EndpointArn"`
+EndpointArn string `json:"endpointArn" xml:"EndpointArn"`
 }
 
 type CreatePlatformApplicationInput struct {
-	Attributes MapStringToString `json:"attributes" xml:"Attributes"`
-	Name       string            `json:"name" xml:"Name"`
-	Platform   string            `json:"platform" xml:"Platform"`
+Attributes MapStringToString `json:"attributes" xml:"Attributes"`
+Name string `json:"name" xml:"Name"`
+Platform string `json:"platform" xml:"Platform"`
 }
 
 type CreatePlatformApplicationResponse struct {
-	PlatformApplicationArn string `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
+PlatformApplicationArn string `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
 }
 
 type CreatePlatformEndpointInput struct {
-	Attributes             MapStringToString `json:"attributes" xml:"Attributes"`
-	CustomUserData         string            `json:"customUserData" xml:"CustomUserData"`
-	PlatformApplicationArn string            `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
-	Token                  string            `json:"token" xml:"Token"`
+Attributes MapStringToString `json:"attributes" xml:"Attributes"`
+CustomUserData string `json:"customUserData" xml:"CustomUserData"`
+PlatformApplicationArn string `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
+Token string `json:"token" xml:"Token"`
 }
 
 type CreateSMSSandboxPhoneNumberInput struct {
-	LanguageCode string `json:"languageCode" xml:"LanguageCode"`
-	PhoneNumber  string `json:"phoneNumber" xml:"PhoneNumber"`
+LanguageCode string `json:"languageCode" xml:"LanguageCode"`
+PhoneNumber string `json:"phoneNumber" xml:"PhoneNumber"`
 }
 
 type CreateSMSSandboxPhoneNumberResult struct {
 }
 
 type CreateTopicInput struct {
-	Attributes           TopicAttributesMap `json:"attributes" xml:"Attributes"`
-	DataProtectionPolicy string             `json:"dataProtectionPolicy" xml:"DataProtectionPolicy"`
-	Name                 string             `json:"name" xml:"Name"`
-	Tags                 TagList            `json:"tags" xml:"Tags"`
+Attributes TopicAttributesMap `json:"attributes" xml:"Attributes"`
+DataProtectionPolicy string `json:"dataProtectionPolicy" xml:"DataProtectionPolicy"`
+Name string `json:"name" xml:"Name"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateTopicResponse struct {
-	TopicArn string `json:"topicArn" xml:"TopicArn"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type DeleteEndpointInput struct {
-	EndpointArn string `json:"endpointArn" xml:"EndpointArn"`
+EndpointArn string `json:"endpointArn" xml:"EndpointArn"`
 }
 
 type DeletePlatformApplicationInput struct {
-	PlatformApplicationArn string `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
+PlatformApplicationArn string `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
 }
 
 type DeleteSMSSandboxPhoneNumberInput struct {
-	PhoneNumber string `json:"phoneNumber" xml:"PhoneNumber"`
+PhoneNumber string `json:"phoneNumber" xml:"PhoneNumber"`
 }
 
 type DeleteSMSSandboxPhoneNumberResult struct {
 }
 
 type DeleteTopicInput struct {
-	TopicArn string `json:"topicArn" xml:"TopicArn"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type Endpoint struct {
-	Attributes  MapStringToString `json:"attributes" xml:"Attributes"`
-	EndpointArn string            `json:"endpointArn" xml:"EndpointArn"`
+Attributes MapStringToString `json:"attributes" xml:"Attributes"`
+EndpointArn string `json:"endpointArn" xml:"EndpointArn"`
 }
 
 type GetDataProtectionPolicyInput struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetDataProtectionPolicyResponse struct {
-	DataProtectionPolicy string `json:"dataProtectionPolicy" xml:"DataProtectionPolicy"`
+DataProtectionPolicy string `json:"dataProtectionPolicy" xml:"DataProtectionPolicy"`
 }
 
 type GetEndpointAttributesInput struct {
-	EndpointArn string `json:"endpointArn" xml:"EndpointArn"`
+EndpointArn string `json:"endpointArn" xml:"EndpointArn"`
 }
 
 type GetEndpointAttributesResponse struct {
-	Attributes MapStringToString `json:"attributes" xml:"Attributes"`
+Attributes MapStringToString `json:"attributes" xml:"Attributes"`
 }
 
 type GetPlatformApplicationAttributesInput struct {
-	PlatformApplicationArn string `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
+PlatformApplicationArn string `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
 }
 
 type GetPlatformApplicationAttributesResponse struct {
-	Attributes MapStringToString `json:"attributes" xml:"Attributes"`
+Attributes MapStringToString `json:"attributes" xml:"Attributes"`
 }
 
 type GetSMSAttributesInput struct {
-	Attributes ListString `json:"attributes" xml:"attributes"`
+Attributes ListString `json:"attributes" xml:"attributes"`
 }
 
 type GetSMSAttributesResponse struct {
-	Attributes MapStringToString `json:"attributes" xml:"attributes"`
+Attributes MapStringToString `json:"attributes" xml:"attributes"`
 }
 
 type GetSMSSandboxAccountStatusInput struct {
 }
 
 type GetSMSSandboxAccountStatusResult struct {
-	IsInSandbox bool `json:"isInSandbox" xml:"IsInSandbox"`
+IsInSandbox bool `json:"isInSandbox" xml:"IsInSandbox"`
 }
 
 type GetSubscriptionAttributesInput struct {
-	SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
+SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
 }
 
 type GetSubscriptionAttributesResponse struct {
-	Attributes SubscriptionAttributesMap `json:"attributes" xml:"Attributes"`
+Attributes SubscriptionAttributesMap `json:"attributes" xml:"Attributes"`
 }
 
 type GetTopicAttributesInput struct {
-	TopicArn string `json:"topicArn" xml:"TopicArn"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type GetTopicAttributesResponse struct {
-	Attributes TopicAttributesMap `json:"attributes" xml:"Attributes"`
+Attributes TopicAttributesMap `json:"attributes" xml:"Attributes"`
 }
 
 type ListEndpointsByPlatformApplicationInput struct {
-	NextToken              string `json:"nextToken" xml:"NextToken"`
-	PlatformApplicationArn string `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PlatformApplicationArn string `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
 }
 
 type ListEndpointsByPlatformApplicationResponse struct {
-	Endpoints ListOfEndpoints `json:"endpoints" xml:"Endpoints"`
-	NextToken string          `json:"nextToken" xml:"NextToken"`
+Endpoints ListOfEndpoints `json:"endpoints" xml:"Endpoints"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListOriginationNumbersRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListOriginationNumbersResult struct {
-	NextToken    string                     `json:"nextToken" xml:"NextToken"`
-	PhoneNumbers PhoneNumberInformationList `json:"phoneNumbers" xml:"PhoneNumbers"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PhoneNumbers PhoneNumberInformationList `json:"phoneNumbers" xml:"PhoneNumbers"`
 }
 
 type ListPhoneNumbersOptedOutInput struct {
-	NextToken string `json:"nextToken" xml:"nextToken"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListPhoneNumbersOptedOutResponse struct {
-	NextToken    string          `json:"nextToken" xml:"nextToken"`
-	PhoneNumbers PhoneNumberList `json:"phoneNumbers" xml:"phoneNumbers"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PhoneNumbers PhoneNumberList `json:"phoneNumbers" xml:"phoneNumbers"`
 }
 
 type ListPlatformApplicationsInput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListPlatformApplicationsResponse struct {
-	NextToken            string                     `json:"nextToken" xml:"NextToken"`
-	PlatformApplications ListOfPlatformApplications `json:"platformApplications" xml:"PlatformApplications"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PlatformApplications ListOfPlatformApplications `json:"platformApplications" xml:"PlatformApplications"`
 }
 
 type ListSMSSandboxPhoneNumbersInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListSMSSandboxPhoneNumbersResult struct {
-	NextToken    string                    `json:"nextToken" xml:"NextToken"`
-	PhoneNumbers SMSSandboxPhoneNumberList `json:"phoneNumbers" xml:"PhoneNumbers"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PhoneNumbers SMSSandboxPhoneNumberList `json:"phoneNumbers" xml:"PhoneNumbers"`
 }
 
 type ListSubscriptionsByTopicInput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
-	TopicArn  string `json:"topicArn" xml:"TopicArn"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type ListSubscriptionsByTopicResponse struct {
-	NextToken     string            `json:"nextToken" xml:"NextToken"`
-	Subscriptions SubscriptionsList `json:"subscriptions" xml:"Subscriptions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Subscriptions SubscriptionsList `json:"subscriptions" xml:"Subscriptions"`
 }
 
 type ListSubscriptionsInput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListSubscriptionsResponse struct {
-	NextToken     string            `json:"nextToken" xml:"NextToken"`
-	Subscriptions SubscriptionsList `json:"subscriptions" xml:"Subscriptions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Subscriptions SubscriptionsList `json:"subscriptions" xml:"Subscriptions"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags TagList `json:"tags" xml:"Tags"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type ListTopicsInput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListTopicsResponse struct {
-	NextToken string     `json:"nextToken" xml:"NextToken"`
-	Topics    TopicsList `json:"topics" xml:"Topics"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Topics TopicsList `json:"topics" xml:"Topics"`
 }
 
 type MessageAttributeValue struct {
-	BinaryValue []byte `json:"binaryValue" xml:"BinaryValue"`
-	DataType    string `json:"dataType" xml:"DataType"`
-	StringValue string `json:"stringValue" xml:"StringValue"`
+BinaryValue []byte `json:"binaryValue" xml:"BinaryValue"`
+DataType string `json:"dataType" xml:"DataType"`
+StringValue string `json:"stringValue" xml:"StringValue"`
 }
 
 type OptInPhoneNumberInput struct {
-	PhoneNumber string `json:"phoneNumber" xml:"phoneNumber"`
+PhoneNumber string `json:"phoneNumber" xml:"phoneNumber"`
 }
 
 type OptInPhoneNumberResponse struct {
 }
 
 type PhoneNumberInformation struct {
-	CreatedAt          time.Time            `json:"createdAt" xml:"CreatedAt"`
-	Iso2CountryCode    string               `json:"iso2CountryCode" xml:"Iso2CountryCode"`
-	NumberCapabilities NumberCapabilityList `json:"numberCapabilities" xml:"NumberCapabilities"`
-	PhoneNumber        string               `json:"phoneNumber" xml:"PhoneNumber"`
-	RouteType          string               `json:"routeType" xml:"RouteType"`
-	Status             string               `json:"status" xml:"Status"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+Iso2CountryCode string `json:"iso2CountryCode" xml:"Iso2CountryCode"`
+NumberCapabilities NumberCapabilityList `json:"numberCapabilities" xml:"NumberCapabilities"`
+PhoneNumber string `json:"phoneNumber" xml:"PhoneNumber"`
+RouteType string `json:"routeType" xml:"RouteType"`
+Status string `json:"status" xml:"Status"`
 }
 
 type PlatformApplication struct {
-	Attributes             MapStringToString `json:"attributes" xml:"Attributes"`
-	PlatformApplicationArn string            `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
+Attributes MapStringToString `json:"attributes" xml:"Attributes"`
+PlatformApplicationArn string `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
 }
 
 type PublishBatchInput struct {
-	PublishBatchRequestEntries PublishBatchRequestEntryList `json:"publishBatchRequestEntries" xml:"PublishBatchRequestEntries"`
-	TopicArn                   string                       `json:"topicArn" xml:"TopicArn"`
+PublishBatchRequestEntries PublishBatchRequestEntryList `json:"publishBatchRequestEntries" xml:"PublishBatchRequestEntries"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type PublishBatchRequestEntry struct {
-	Id                     string              `json:"id" xml:"Id"`
-	Message                string              `json:"message" xml:"Message"`
-	MessageAttributes      MessageAttributeMap `json:"messageAttributes" xml:"MessageAttributes"`
-	MessageDeduplicationId string              `json:"messageDeduplicationId" xml:"MessageDeduplicationId"`
-	MessageGroupId         string              `json:"messageGroupId" xml:"MessageGroupId"`
-	MessageStructure       string              `json:"messageStructure" xml:"MessageStructure"`
-	Subject                string              `json:"subject" xml:"Subject"`
+Id string `json:"id" xml:"Id"`
+Message string `json:"message" xml:"Message"`
+MessageAttributes MessageAttributeMap `json:"messageAttributes" xml:"MessageAttributes"`
+MessageDeduplicationId string `json:"messageDeduplicationId" xml:"MessageDeduplicationId"`
+MessageGroupId string `json:"messageGroupId" xml:"MessageGroupId"`
+MessageStructure string `json:"messageStructure" xml:"MessageStructure"`
+Subject string `json:"subject" xml:"Subject"`
 }
 
 type PublishBatchResponse struct {
-	Failed     BatchResultErrorEntryList   `json:"failed" xml:"Failed"`
-	Successful PublishBatchResultEntryList `json:"successful" xml:"Successful"`
+Failed BatchResultErrorEntryList `json:"failed" xml:"Failed"`
+Successful PublishBatchResultEntryList `json:"successful" xml:"Successful"`
 }
 
 type PublishBatchResultEntry struct {
-	Id             string `json:"id" xml:"Id"`
-	MessageId      string `json:"messageId" xml:"MessageId"`
-	SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
+Id string `json:"id" xml:"Id"`
+MessageId string `json:"messageId" xml:"MessageId"`
+SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
 }
 
 type PublishInput struct {
-	Message                string              `json:"message" xml:"Message"`
-	MessageAttributes      MessageAttributeMap `json:"messageAttributes" xml:"MessageAttributes"`
-	MessageDeduplicationId string              `json:"messageDeduplicationId" xml:"MessageDeduplicationId"`
-	MessageGroupId         string              `json:"messageGroupId" xml:"MessageGroupId"`
-	MessageStructure       string              `json:"messageStructure" xml:"MessageStructure"`
-	PhoneNumber            string              `json:"phoneNumber" xml:"PhoneNumber"`
-	Subject                string              `json:"subject" xml:"Subject"`
-	TargetArn              string              `json:"targetArn" xml:"TargetArn"`
-	TopicArn               string              `json:"topicArn" xml:"TopicArn"`
+Message string `json:"message" xml:"Message"`
+MessageAttributes MessageAttributeMap `json:"messageAttributes" xml:"MessageAttributes"`
+MessageDeduplicationId string `json:"messageDeduplicationId" xml:"MessageDeduplicationId"`
+MessageGroupId string `json:"messageGroupId" xml:"MessageGroupId"`
+MessageStructure string `json:"messageStructure" xml:"MessageStructure"`
+PhoneNumber string `json:"phoneNumber" xml:"PhoneNumber"`
+Subject string `json:"subject" xml:"Subject"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type PublishResponse struct {
-	MessageId      string `json:"messageId" xml:"MessageId"`
-	SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
+MessageId string `json:"messageId" xml:"MessageId"`
+SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
 }
 
 type PutDataProtectionPolicyInput struct {
-	DataProtectionPolicy string `json:"dataProtectionPolicy" xml:"DataProtectionPolicy"`
-	ResourceArn          string `json:"resourceArn" xml:"ResourceArn"`
+DataProtectionPolicy string `json:"dataProtectionPolicy" xml:"DataProtectionPolicy"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type RemovePermissionInput struct {
-	Label    string `json:"label" xml:"Label"`
-	TopicArn string `json:"topicArn" xml:"TopicArn"`
+Label string `json:"label" xml:"Label"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type SMSSandboxPhoneNumber struct {
-	PhoneNumber string `json:"phoneNumber" xml:"PhoneNumber"`
-	Status      string `json:"status" xml:"Status"`
+PhoneNumber string `json:"phoneNumber" xml:"PhoneNumber"`
+Status string `json:"status" xml:"Status"`
 }
 
 type SetEndpointAttributesInput struct {
-	Attributes  MapStringToString `json:"attributes" xml:"Attributes"`
-	EndpointArn string            `json:"endpointArn" xml:"EndpointArn"`
+Attributes MapStringToString `json:"attributes" xml:"Attributes"`
+EndpointArn string `json:"endpointArn" xml:"EndpointArn"`
 }
 
 type SetPlatformApplicationAttributesInput struct {
-	Attributes             MapStringToString `json:"attributes" xml:"Attributes"`
-	PlatformApplicationArn string            `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
+Attributes MapStringToString `json:"attributes" xml:"Attributes"`
+PlatformApplicationArn string `json:"platformApplicationArn" xml:"PlatformApplicationArn"`
 }
 
 type SetSMSAttributesInput struct {
-	Attributes MapStringToString `json:"attributes" xml:"attributes"`
+Attributes MapStringToString `json:"attributes" xml:"attributes"`
 }
 
 type SetSMSAttributesResponse struct {
 }
 
 type SetSubscriptionAttributesInput struct {
-	AttributeName   string `json:"attributeName" xml:"AttributeName"`
-	AttributeValue  string `json:"attributeValue" xml:"AttributeValue"`
-	SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
+AttributeName string `json:"attributeName" xml:"AttributeName"`
+AttributeValue string `json:"attributeValue" xml:"AttributeValue"`
+SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
 }
 
 type SetTopicAttributesInput struct {
-	AttributeName  string `json:"attributeName" xml:"AttributeName"`
-	AttributeValue string `json:"attributeValue" xml:"AttributeValue"`
-	TopicArn       string `json:"topicArn" xml:"TopicArn"`
+AttributeName string `json:"attributeName" xml:"AttributeName"`
+AttributeValue string `json:"attributeValue" xml:"AttributeValue"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type SmithyUnit struct {
 }
 
 type SubscribeInput struct {
-	Attributes            SubscriptionAttributesMap `json:"attributes" xml:"Attributes"`
-	Endpoint              string                    `json:"endpoint" xml:"Endpoint"`
-	Protocol              string                    `json:"protocol" xml:"Protocol"`
-	ReturnSubscriptionArn bool                      `json:"returnSubscriptionArn" xml:"ReturnSubscriptionArn"`
-	TopicArn              string                    `json:"topicArn" xml:"TopicArn"`
+Attributes SubscriptionAttributesMap `json:"attributes" xml:"Attributes"`
+Endpoint string `json:"endpoint" xml:"Endpoint"`
+Protocol string `json:"protocol" xml:"Protocol"`
+ReturnSubscriptionArn bool `json:"returnSubscriptionArn" xml:"ReturnSubscriptionArn"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type SubscribeResponse struct {
-	SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
+SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
 }
 
 type Subscription struct {
-	Endpoint        string `json:"endpoint" xml:"Endpoint"`
-	Owner           string `json:"owner" xml:"Owner"`
-	Protocol        string `json:"protocol" xml:"Protocol"`
-	SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
-	TopicArn        string `json:"topicArn" xml:"TopicArn"`
+Endpoint string `json:"endpoint" xml:"Endpoint"`
+Owner string `json:"owner" xml:"Owner"`
+Protocol string `json:"protocol" xml:"Protocol"`
+SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string  `json:"resourceArn" xml:"ResourceArn"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type Topic struct {
-	TopicArn string `json:"topicArn" xml:"TopicArn"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
 }
 
 type UnsubscribeInput struct {
-	SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
+SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string     `json:"resourceArn" xml:"ResourceArn"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type VerifySMSSandboxPhoneNumberInput struct {
-	OneTimePassword string `json:"oneTimePassword" xml:"OneTimePassword"`
-	PhoneNumber     string `json:"phoneNumber" xml:"PhoneNumber"`
+OneTimePassword string `json:"oneTimePassword" xml:"OneTimePassword"`
+PhoneNumber string `json:"phoneNumber" xml:"PhoneNumber"`
 }
 
 type VerifySMSSandboxPhoneNumberResult struct {
@@ -454,3 +454,4 @@ type MessageAttributeMap map[string]*MessageAttributeValue
 type SubscriptionAttributesMap map[string]string
 
 type TopicAttributesMap map[string]string
+

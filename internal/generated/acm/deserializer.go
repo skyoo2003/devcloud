@@ -177,3 +177,4 @@ func SerializeSearchCertificatesResponse(w http.ResponseWriter, output *SearchCe
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

@@ -154,3 +154,4 @@ func (b *BaseProvider) UpdateProtectionGroup(ctx context.Context, input *UpdateP
 func (b *BaseProvider) UpdateSubscription(ctx context.Context, input *UpdateSubscriptionRequest) (*UpdateSubscriptionResponse, error) {
 	return nil, fmt.Errorf("UpdateSubscription: %w", ErrNotImplemented)
 }
+

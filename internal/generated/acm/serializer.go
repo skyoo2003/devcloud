@@ -127,3 +127,4 @@ func DeserializeUpdateCertificateOptionsRequest(r *http.Request, pathParams Path
 
 	return input, nil
 }
+

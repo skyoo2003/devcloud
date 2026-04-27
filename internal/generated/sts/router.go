@@ -13,17 +13,17 @@ type OperationRoute struct {
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
-	{Method: "", Pattern: "", Operation: "AssumeRole"},
-	{Method: "", Pattern: "", Operation: "AssumeRoleWithSAML"},
-	{Method: "", Pattern: "", Operation: "AssumeRoleWithWebIdentity"},
-	{Method: "", Pattern: "", Operation: "AssumeRoot"},
-	{Method: "", Pattern: "", Operation: "DecodeAuthorizationMessage"},
-	{Method: "", Pattern: "", Operation: "GetAccessKeyInfo"},
-	{Method: "", Pattern: "", Operation: "GetCallerIdentity"},
-	{Method: "", Pattern: "", Operation: "GetDelegatedAccessToken"},
-	{Method: "", Pattern: "", Operation: "GetFederationToken"},
-	{Method: "", Pattern: "", Operation: "GetSessionToken"},
-	{Method: "", Pattern: "", Operation: "GetWebIdentityToken"},
+{Method: "", Pattern: "", Operation: "AssumeRole"},
+{Method: "", Pattern: "", Operation: "AssumeRoleWithSAML"},
+{Method: "", Pattern: "", Operation: "AssumeRoleWithWebIdentity"},
+{Method: "", Pattern: "", Operation: "AssumeRoot"},
+{Method: "", Pattern: "", Operation: "DecodeAuthorizationMessage"},
+{Method: "", Pattern: "", Operation: "GetAccessKeyInfo"},
+{Method: "", Pattern: "", Operation: "GetCallerIdentity"},
+{Method: "", Pattern: "", Operation: "GetDelegatedAccessToken"},
+{Method: "", Pattern: "", Operation: "GetFederationToken"},
+{Method: "", Pattern: "", Operation: "GetSessionToken"},
+{Method: "", Pattern: "", Operation: "GetWebIdentityToken"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

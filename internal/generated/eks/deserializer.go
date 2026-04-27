@@ -1007,3 +1007,4 @@ func SerializeUpdatePodIdentityAssociationResponse(w http.ResponseWriter, output
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

@@ -1729,3 +1729,4 @@ func SerializeRotateEncryptionKeyResult(w http.ResponseWriter, output *RotateEnc
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

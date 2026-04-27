@@ -7,538 +7,538 @@ import (
 )
 
 type Accessor struct {
-	Arn          string       `json:"arn" xml:"Arn"`
-	BillingToken string       `json:"billingToken" xml:"BillingToken"`
-	CreationDate time.Time    `json:"creationDate" xml:"CreationDate"`
-	Id           string       `json:"id" xml:"Id"`
-	NetworkType  string       `json:"networkType" xml:"NetworkType"`
-	Status       string       `json:"status" xml:"Status"`
-	Tags         OutputTagMap `json:"tags" xml:"Tags"`
-	Type         string       `json:"type" xml:"Type"`
+Arn string `json:"arn" xml:"Arn"`
+BillingToken string `json:"billingToken" xml:"BillingToken"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+Id string `json:"id" xml:"Id"`
+NetworkType string `json:"networkType" xml:"NetworkType"`
+Status string `json:"status" xml:"Status"`
+Tags OutputTagMap `json:"tags" xml:"Tags"`
+Type string `json:"type" xml:"Type"`
 }
 
 type AccessorSummary struct {
-	Arn          string    `json:"arn" xml:"Arn"`
-	CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
-	Id           string    `json:"id" xml:"Id"`
-	NetworkType  string    `json:"networkType" xml:"NetworkType"`
-	Status       string    `json:"status" xml:"Status"`
-	Type         string    `json:"type" xml:"Type"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+Id string `json:"id" xml:"Id"`
+NetworkType string `json:"networkType" xml:"NetworkType"`
+Status string `json:"status" xml:"Status"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ApprovalThresholdPolicy struct {
-	ProposalDurationInHours int32  `json:"proposalDurationInHours" xml:"ProposalDurationInHours"`
-	ThresholdComparator     string `json:"thresholdComparator" xml:"ThresholdComparator"`
-	ThresholdPercentage     int32  `json:"thresholdPercentage" xml:"ThresholdPercentage"`
+ProposalDurationInHours int32 `json:"proposalDurationInHours" xml:"ProposalDurationInHours"`
+ThresholdComparator string `json:"thresholdComparator" xml:"ThresholdComparator"`
+ThresholdPercentage int32 `json:"thresholdPercentage" xml:"ThresholdPercentage"`
 }
 
 type CreateAccessorInput struct {
-	AccessorType       string      `json:"accessorType" xml:"AccessorType"`
-	ClientRequestToken string      `json:"clientRequestToken" xml:"ClientRequestToken"`
-	NetworkType        string      `json:"networkType" xml:"NetworkType"`
-	Tags               InputTagMap `json:"tags" xml:"Tags"`
+AccessorType string `json:"accessorType" xml:"AccessorType"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+NetworkType string `json:"networkType" xml:"NetworkType"`
+Tags InputTagMap `json:"tags" xml:"Tags"`
 }
 
 type CreateAccessorOutput struct {
-	AccessorId   string `json:"accessorId" xml:"AccessorId"`
-	BillingToken string `json:"billingToken" xml:"BillingToken"`
-	NetworkType  string `json:"networkType" xml:"NetworkType"`
+AccessorId string `json:"accessorId" xml:"AccessorId"`
+BillingToken string `json:"billingToken" xml:"BillingToken"`
+NetworkType string `json:"networkType" xml:"NetworkType"`
 }
 
 type CreateMemberInput struct {
-	ClientRequestToken  string               `json:"clientRequestToken" xml:"ClientRequestToken"`
-	InvitationId        string               `json:"invitationId" xml:"InvitationId"`
-	MemberConfiguration *MemberConfiguration `json:"memberConfiguration" xml:"MemberConfiguration"`
-	NetworkId           string               `json:"networkId" xml:"NetworkId"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+InvitationId string `json:"invitationId" xml:"InvitationId"`
+MemberConfiguration *MemberConfiguration `json:"memberConfiguration" xml:"MemberConfiguration"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
 }
 
 type CreateMemberOutput struct {
-	MemberId string `json:"memberId" xml:"MemberId"`
+MemberId string `json:"memberId" xml:"MemberId"`
 }
 
 type CreateNetworkInput struct {
-	ClientRequestToken     string                         `json:"clientRequestToken" xml:"ClientRequestToken"`
-	Description            string                         `json:"description" xml:"Description"`
-	Framework              string                         `json:"framework" xml:"Framework"`
-	FrameworkConfiguration *NetworkFrameworkConfiguration `json:"frameworkConfiguration" xml:"FrameworkConfiguration"`
-	FrameworkVersion       string                         `json:"frameworkVersion" xml:"FrameworkVersion"`
-	MemberConfiguration    *MemberConfiguration           `json:"memberConfiguration" xml:"MemberConfiguration"`
-	Name                   string                         `json:"name" xml:"Name"`
-	Tags                   InputTagMap                    `json:"tags" xml:"Tags"`
-	VotingPolicy           *VotingPolicy                  `json:"votingPolicy" xml:"VotingPolicy"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+Description string `json:"description" xml:"Description"`
+Framework string `json:"framework" xml:"Framework"`
+FrameworkConfiguration *NetworkFrameworkConfiguration `json:"frameworkConfiguration" xml:"FrameworkConfiguration"`
+FrameworkVersion string `json:"frameworkVersion" xml:"FrameworkVersion"`
+MemberConfiguration *MemberConfiguration `json:"memberConfiguration" xml:"MemberConfiguration"`
+Name string `json:"name" xml:"Name"`
+Tags InputTagMap `json:"tags" xml:"Tags"`
+VotingPolicy *VotingPolicy `json:"votingPolicy" xml:"VotingPolicy"`
 }
 
 type CreateNetworkOutput struct {
-	MemberId  string `json:"memberId" xml:"MemberId"`
-	NetworkId string `json:"networkId" xml:"NetworkId"`
+MemberId string `json:"memberId" xml:"MemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
 }
 
 type CreateNodeInput struct {
-	ClientRequestToken string             `json:"clientRequestToken" xml:"ClientRequestToken"`
-	MemberId           string             `json:"memberId" xml:"MemberId"`
-	NetworkId          string             `json:"networkId" xml:"NetworkId"`
-	NodeConfiguration  *NodeConfiguration `json:"nodeConfiguration" xml:"NodeConfiguration"`
-	Tags               InputTagMap        `json:"tags" xml:"Tags"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+MemberId string `json:"memberId" xml:"MemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+NodeConfiguration *NodeConfiguration `json:"nodeConfiguration" xml:"NodeConfiguration"`
+Tags InputTagMap `json:"tags" xml:"Tags"`
 }
 
 type CreateNodeOutput struct {
-	NodeId string `json:"nodeId" xml:"NodeId"`
+NodeId string `json:"nodeId" xml:"NodeId"`
 }
 
 type CreateProposalInput struct {
-	Actions            *ProposalActions `json:"actions" xml:"Actions"`
-	ClientRequestToken string           `json:"clientRequestToken" xml:"ClientRequestToken"`
-	Description        string           `json:"description" xml:"Description"`
-	MemberId           string           `json:"memberId" xml:"MemberId"`
-	NetworkId          string           `json:"networkId" xml:"NetworkId"`
-	Tags               InputTagMap      `json:"tags" xml:"Tags"`
+Actions *ProposalActions `json:"actions" xml:"Actions"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+Description string `json:"description" xml:"Description"`
+MemberId string `json:"memberId" xml:"MemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+Tags InputTagMap `json:"tags" xml:"Tags"`
 }
 
 type CreateProposalOutput struct {
-	ProposalId string `json:"proposalId" xml:"ProposalId"`
+ProposalId string `json:"proposalId" xml:"ProposalId"`
 }
 
 type DeleteAccessorInput struct {
-	AccessorId string `json:"accessorId" xml:"AccessorId"`
+AccessorId string `json:"accessorId" xml:"AccessorId"`
 }
 
 type DeleteAccessorOutput struct {
 }
 
 type DeleteMemberInput struct {
-	MemberId  string `json:"memberId" xml:"MemberId"`
-	NetworkId string `json:"networkId" xml:"NetworkId"`
+MemberId string `json:"memberId" xml:"MemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
 }
 
 type DeleteMemberOutput struct {
 }
 
 type DeleteNodeInput struct {
-	MemberId  string `json:"memberId" xml:"MemberId"`
-	NetworkId string `json:"networkId" xml:"NetworkId"`
-	NodeId    string `json:"nodeId" xml:"NodeId"`
+MemberId string `json:"memberId" xml:"MemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+NodeId string `json:"nodeId" xml:"NodeId"`
 }
 
 type DeleteNodeOutput struct {
 }
 
 type GetAccessorInput struct {
-	AccessorId string `json:"accessorId" xml:"AccessorId"`
+AccessorId string `json:"accessorId" xml:"AccessorId"`
 }
 
 type GetAccessorOutput struct {
-	Accessor *Accessor `json:"accessor" xml:"Accessor"`
+Accessor *Accessor `json:"accessor" xml:"Accessor"`
 }
 
 type GetMemberInput struct {
-	MemberId  string `json:"memberId" xml:"MemberId"`
-	NetworkId string `json:"networkId" xml:"NetworkId"`
+MemberId string `json:"memberId" xml:"MemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
 }
 
 type GetMemberOutput struct {
-	Member *Member `json:"member" xml:"Member"`
+Member *Member `json:"member" xml:"Member"`
 }
 
 type GetNetworkInput struct {
-	NetworkId string `json:"networkId" xml:"NetworkId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
 }
 
 type GetNetworkOutput struct {
-	Network *Network `json:"network" xml:"Network"`
+Network *Network `json:"network" xml:"Network"`
 }
 
 type GetNodeInput struct {
-	MemberId  string `json:"memberId" xml:"MemberId"`
-	NetworkId string `json:"networkId" xml:"NetworkId"`
-	NodeId    string `json:"nodeId" xml:"NodeId"`
+MemberId string `json:"memberId" xml:"MemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+NodeId string `json:"nodeId" xml:"NodeId"`
 }
 
 type GetNodeOutput struct {
-	Node *Node `json:"node" xml:"Node"`
+Node *Node `json:"node" xml:"Node"`
 }
 
 type GetProposalInput struct {
-	NetworkId  string `json:"networkId" xml:"NetworkId"`
-	ProposalId string `json:"proposalId" xml:"ProposalId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+ProposalId string `json:"proposalId" xml:"ProposalId"`
 }
 
 type GetProposalOutput struct {
-	Proposal *Proposal `json:"proposal" xml:"Proposal"`
+Proposal *Proposal `json:"proposal" xml:"Proposal"`
 }
 
 type Invitation struct {
-	Arn            string          `json:"arn" xml:"Arn"`
-	CreationDate   time.Time       `json:"creationDate" xml:"CreationDate"`
-	ExpirationDate time.Time       `json:"expirationDate" xml:"ExpirationDate"`
-	InvitationId   string          `json:"invitationId" xml:"InvitationId"`
-	NetworkSummary *NetworkSummary `json:"networkSummary" xml:"NetworkSummary"`
-	Status         string          `json:"status" xml:"Status"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+ExpirationDate time.Time `json:"expirationDate" xml:"ExpirationDate"`
+InvitationId string `json:"invitationId" xml:"InvitationId"`
+NetworkSummary *NetworkSummary `json:"networkSummary" xml:"NetworkSummary"`
+Status string `json:"status" xml:"Status"`
 }
 
 type InviteAction struct {
-	Principal string `json:"principal" xml:"Principal"`
+Principal string `json:"principal" xml:"Principal"`
 }
 
 type ListAccessorsInput struct {
-	MaxResults  int32  `json:"maxResults" xml:"MaxResults"`
-	NetworkType string `json:"networkType" xml:"NetworkType"`
-	NextToken   string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NetworkType string `json:"networkType" xml:"NetworkType"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListAccessorsOutput struct {
-	Accessors AccessorSummaryList `json:"accessors" xml:"Accessors"`
-	NextToken string              `json:"nextToken" xml:"NextToken"`
+Accessors AccessorSummaryList `json:"accessors" xml:"Accessors"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListInvitationsInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListInvitationsOutput struct {
-	Invitations InvitationList `json:"invitations" xml:"Invitations"`
-	NextToken   string         `json:"nextToken" xml:"NextToken"`
+Invitations InvitationList `json:"invitations" xml:"Invitations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListMembersInput struct {
-	IsOwned    bool   `json:"isOwned" xml:"IsOwned"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	Name       string `json:"name" xml:"Name"`
-	NetworkId  string `json:"networkId" xml:"NetworkId"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	Status     string `json:"status" xml:"Status"`
+IsOwned bool `json:"isOwned" xml:"IsOwned"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+Name string `json:"name" xml:"Name"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ListMembersOutput struct {
-	Members   MemberSummaryList `json:"members" xml:"Members"`
-	NextToken string            `json:"nextToken" xml:"NextToken"`
+Members MemberSummaryList `json:"members" xml:"Members"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListNetworksInput struct {
-	Framework  string `json:"framework" xml:"Framework"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	Name       string `json:"name" xml:"Name"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	Status     string `json:"status" xml:"Status"`
+Framework string `json:"framework" xml:"Framework"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+Name string `json:"name" xml:"Name"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ListNetworksOutput struct {
-	Networks  NetworkSummaryList `json:"networks" xml:"Networks"`
-	NextToken string             `json:"nextToken" xml:"NextToken"`
+Networks NetworkSummaryList `json:"networks" xml:"Networks"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListNodesInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	MemberId   string `json:"memberId" xml:"MemberId"`
-	NetworkId  string `json:"networkId" xml:"NetworkId"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	Status     string `json:"status" xml:"Status"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+MemberId string `json:"memberId" xml:"MemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ListNodesOutput struct {
-	NextToken string          `json:"nextToken" xml:"NextToken"`
-	Nodes     NodeSummaryList `json:"nodes" xml:"Nodes"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Nodes NodeSummaryList `json:"nodes" xml:"Nodes"`
 }
 
 type ListProposalVotesInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NetworkId  string `json:"networkId" xml:"NetworkId"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	ProposalId string `json:"proposalId" xml:"ProposalId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ProposalId string `json:"proposalId" xml:"ProposalId"`
 }
 
 type ListProposalVotesOutput struct {
-	NextToken     string           `json:"nextToken" xml:"NextToken"`
-	ProposalVotes ProposalVoteList `json:"proposalVotes" xml:"ProposalVotes"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ProposalVotes ProposalVoteList `json:"proposalVotes" xml:"ProposalVotes"`
 }
 
 type ListProposalsInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NetworkId  string `json:"networkId" xml:"NetworkId"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListProposalsOutput struct {
-	NextToken string              `json:"nextToken" xml:"NextToken"`
-	Proposals ProposalSummaryList `json:"proposals" xml:"Proposals"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Proposals ProposalSummaryList `json:"proposals" xml:"Proposals"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags OutputTagMap `json:"tags" xml:"Tags"`
+Tags OutputTagMap `json:"tags" xml:"Tags"`
 }
 
 type LogConfiguration struct {
-	Enabled bool `json:"enabled" xml:"Enabled"`
+Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type LogConfigurations struct {
-	Cloudwatch *LogConfiguration `json:"cloudwatch" xml:"Cloudwatch"`
+Cloudwatch *LogConfiguration `json:"cloudwatch" xml:"Cloudwatch"`
 }
 
 type Member struct {
-	Arn                        string                            `json:"arn" xml:"Arn"`
-	CreationDate               time.Time                         `json:"creationDate" xml:"CreationDate"`
-	Description                string                            `json:"description" xml:"Description"`
-	FrameworkAttributes        *MemberFrameworkAttributes        `json:"frameworkAttributes" xml:"FrameworkAttributes"`
-	Id                         string                            `json:"id" xml:"Id"`
-	KmsKeyArn                  string                            `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	LogPublishingConfiguration *MemberLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
-	Name                       string                            `json:"name" xml:"Name"`
-	NetworkId                  string                            `json:"networkId" xml:"NetworkId"`
-	Status                     string                            `json:"status" xml:"Status"`
-	Tags                       OutputTagMap                      `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+Description string `json:"description" xml:"Description"`
+FrameworkAttributes *MemberFrameworkAttributes `json:"frameworkAttributes" xml:"FrameworkAttributes"`
+Id string `json:"id" xml:"Id"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+LogPublishingConfiguration *MemberLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
+Name string `json:"name" xml:"Name"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+Status string `json:"status" xml:"Status"`
+Tags OutputTagMap `json:"tags" xml:"Tags"`
 }
 
 type MemberConfiguration struct {
-	Description                string                            `json:"description" xml:"Description"`
-	FrameworkConfiguration     *MemberFrameworkConfiguration     `json:"frameworkConfiguration" xml:"FrameworkConfiguration"`
-	KmsKeyArn                  string                            `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	LogPublishingConfiguration *MemberLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
-	Name                       string                            `json:"name" xml:"Name"`
-	Tags                       InputTagMap                       `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+FrameworkConfiguration *MemberFrameworkConfiguration `json:"frameworkConfiguration" xml:"FrameworkConfiguration"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+LogPublishingConfiguration *MemberLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
+Name string `json:"name" xml:"Name"`
+Tags InputTagMap `json:"tags" xml:"Tags"`
 }
 
 type MemberFabricAttributes struct {
-	AdminUsername string `json:"adminUsername" xml:"AdminUsername"`
-	CaEndpoint    string `json:"caEndpoint" xml:"CaEndpoint"`
+AdminUsername string `json:"adminUsername" xml:"AdminUsername"`
+CaEndpoint string `json:"caEndpoint" xml:"CaEndpoint"`
 }
 
 type MemberFabricConfiguration struct {
-	AdminPassword string `json:"adminPassword" xml:"AdminPassword"`
-	AdminUsername string `json:"adminUsername" xml:"AdminUsername"`
+AdminPassword string `json:"adminPassword" xml:"AdminPassword"`
+AdminUsername string `json:"adminUsername" xml:"AdminUsername"`
 }
 
 type MemberFabricLogPublishingConfiguration struct {
-	CaLogs *LogConfigurations `json:"caLogs" xml:"CaLogs"`
+CaLogs *LogConfigurations `json:"caLogs" xml:"CaLogs"`
 }
 
 type MemberFrameworkAttributes struct {
-	Fabric *MemberFabricAttributes `json:"fabric" xml:"Fabric"`
+Fabric *MemberFabricAttributes `json:"fabric" xml:"Fabric"`
 }
 
 type MemberFrameworkConfiguration struct {
-	Fabric *MemberFabricConfiguration `json:"fabric" xml:"Fabric"`
+Fabric *MemberFabricConfiguration `json:"fabric" xml:"Fabric"`
 }
 
 type MemberLogPublishingConfiguration struct {
-	Fabric *MemberFabricLogPublishingConfiguration `json:"fabric" xml:"Fabric"`
+Fabric *MemberFabricLogPublishingConfiguration `json:"fabric" xml:"Fabric"`
 }
 
 type MemberSummary struct {
-	Arn          string    `json:"arn" xml:"Arn"`
-	CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
-	Description  string    `json:"description" xml:"Description"`
-	Id           string    `json:"id" xml:"Id"`
-	IsOwned      bool      `json:"isOwned" xml:"IsOwned"`
-	Name         string    `json:"name" xml:"Name"`
-	Status       string    `json:"status" xml:"Status"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+IsOwned bool `json:"isOwned" xml:"IsOwned"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type Network struct {
-	Arn                    string                      `json:"arn" xml:"Arn"`
-	CreationDate           time.Time                   `json:"creationDate" xml:"CreationDate"`
-	Description            string                      `json:"description" xml:"Description"`
-	Framework              string                      `json:"framework" xml:"Framework"`
-	FrameworkAttributes    *NetworkFrameworkAttributes `json:"frameworkAttributes" xml:"FrameworkAttributes"`
-	FrameworkVersion       string                      `json:"frameworkVersion" xml:"FrameworkVersion"`
-	Id                     string                      `json:"id" xml:"Id"`
-	Name                   string                      `json:"name" xml:"Name"`
-	Status                 string                      `json:"status" xml:"Status"`
-	Tags                   OutputTagMap                `json:"tags" xml:"Tags"`
-	VotingPolicy           *VotingPolicy               `json:"votingPolicy" xml:"VotingPolicy"`
-	VpcEndpointServiceName string                      `json:"vpcEndpointServiceName" xml:"VpcEndpointServiceName"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+Description string `json:"description" xml:"Description"`
+Framework string `json:"framework" xml:"Framework"`
+FrameworkAttributes *NetworkFrameworkAttributes `json:"frameworkAttributes" xml:"FrameworkAttributes"`
+FrameworkVersion string `json:"frameworkVersion" xml:"FrameworkVersion"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
+Tags OutputTagMap `json:"tags" xml:"Tags"`
+VotingPolicy *VotingPolicy `json:"votingPolicy" xml:"VotingPolicy"`
+VpcEndpointServiceName string `json:"vpcEndpointServiceName" xml:"VpcEndpointServiceName"`
 }
 
 type NetworkEthereumAttributes struct {
-	ChainId string `json:"chainId" xml:"ChainId"`
+ChainId string `json:"chainId" xml:"ChainId"`
 }
 
 type NetworkFabricAttributes struct {
-	Edition                 string `json:"edition" xml:"Edition"`
-	OrderingServiceEndpoint string `json:"orderingServiceEndpoint" xml:"OrderingServiceEndpoint"`
+Edition string `json:"edition" xml:"Edition"`
+OrderingServiceEndpoint string `json:"orderingServiceEndpoint" xml:"OrderingServiceEndpoint"`
 }
 
 type NetworkFabricConfiguration struct {
-	Edition string `json:"edition" xml:"Edition"`
+Edition string `json:"edition" xml:"Edition"`
 }
 
 type NetworkFrameworkAttributes struct {
-	Ethereum *NetworkEthereumAttributes `json:"ethereum" xml:"Ethereum"`
-	Fabric   *NetworkFabricAttributes   `json:"fabric" xml:"Fabric"`
+Ethereum *NetworkEthereumAttributes `json:"ethereum" xml:"Ethereum"`
+Fabric *NetworkFabricAttributes `json:"fabric" xml:"Fabric"`
 }
 
 type NetworkFrameworkConfiguration struct {
-	Fabric *NetworkFabricConfiguration `json:"fabric" xml:"Fabric"`
+Fabric *NetworkFabricConfiguration `json:"fabric" xml:"Fabric"`
 }
 
 type NetworkSummary struct {
-	Arn              string    `json:"arn" xml:"Arn"`
-	CreationDate     time.Time `json:"creationDate" xml:"CreationDate"`
-	Description      string    `json:"description" xml:"Description"`
-	Framework        string    `json:"framework" xml:"Framework"`
-	FrameworkVersion string    `json:"frameworkVersion" xml:"FrameworkVersion"`
-	Id               string    `json:"id" xml:"Id"`
-	Name             string    `json:"name" xml:"Name"`
-	Status           string    `json:"status" xml:"Status"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+Description string `json:"description" xml:"Description"`
+Framework string `json:"framework" xml:"Framework"`
+FrameworkVersion string `json:"frameworkVersion" xml:"FrameworkVersion"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type Node struct {
-	Arn                        string                          `json:"arn" xml:"Arn"`
-	AvailabilityZone           string                          `json:"availabilityZone" xml:"AvailabilityZone"`
-	CreationDate               time.Time                       `json:"creationDate" xml:"CreationDate"`
-	FrameworkAttributes        *NodeFrameworkAttributes        `json:"frameworkAttributes" xml:"FrameworkAttributes"`
-	Id                         string                          `json:"id" xml:"Id"`
-	InstanceType               string                          `json:"instanceType" xml:"InstanceType"`
-	KmsKeyArn                  string                          `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	LogPublishingConfiguration *NodeLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
-	MemberId                   string                          `json:"memberId" xml:"MemberId"`
-	NetworkId                  string                          `json:"networkId" xml:"NetworkId"`
-	StateDB                    string                          `json:"stateDB" xml:"StateDB"`
-	Status                     string                          `json:"status" xml:"Status"`
-	Tags                       OutputTagMap                    `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+FrameworkAttributes *NodeFrameworkAttributes `json:"frameworkAttributes" xml:"FrameworkAttributes"`
+Id string `json:"id" xml:"Id"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+LogPublishingConfiguration *NodeLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
+MemberId string `json:"memberId" xml:"MemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+StateDB string `json:"stateDB" xml:"StateDB"`
+Status string `json:"status" xml:"Status"`
+Tags OutputTagMap `json:"tags" xml:"Tags"`
 }
 
 type NodeConfiguration struct {
-	AvailabilityZone           string                          `json:"availabilityZone" xml:"AvailabilityZone"`
-	InstanceType               string                          `json:"instanceType" xml:"InstanceType"`
-	LogPublishingConfiguration *NodeLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
-	StateDB                    string                          `json:"stateDB" xml:"StateDB"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+LogPublishingConfiguration *NodeLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
+StateDB string `json:"stateDB" xml:"StateDB"`
 }
 
 type NodeEthereumAttributes struct {
-	HttpEndpoint      string `json:"httpEndpoint" xml:"HttpEndpoint"`
-	WebSocketEndpoint string `json:"webSocketEndpoint" xml:"WebSocketEndpoint"`
+HttpEndpoint string `json:"httpEndpoint" xml:"HttpEndpoint"`
+WebSocketEndpoint string `json:"webSocketEndpoint" xml:"WebSocketEndpoint"`
 }
 
 type NodeFabricAttributes struct {
-	PeerEndpoint      string `json:"peerEndpoint" xml:"PeerEndpoint"`
-	PeerEventEndpoint string `json:"peerEventEndpoint" xml:"PeerEventEndpoint"`
+PeerEndpoint string `json:"peerEndpoint" xml:"PeerEndpoint"`
+PeerEventEndpoint string `json:"peerEventEndpoint" xml:"PeerEventEndpoint"`
 }
 
 type NodeFabricLogPublishingConfiguration struct {
-	ChaincodeLogs *LogConfigurations `json:"chaincodeLogs" xml:"ChaincodeLogs"`
-	PeerLogs      *LogConfigurations `json:"peerLogs" xml:"PeerLogs"`
+ChaincodeLogs *LogConfigurations `json:"chaincodeLogs" xml:"ChaincodeLogs"`
+PeerLogs *LogConfigurations `json:"peerLogs" xml:"PeerLogs"`
 }
 
 type NodeFrameworkAttributes struct {
-	Ethereum *NodeEthereumAttributes `json:"ethereum" xml:"Ethereum"`
-	Fabric   *NodeFabricAttributes   `json:"fabric" xml:"Fabric"`
+Ethereum *NodeEthereumAttributes `json:"ethereum" xml:"Ethereum"`
+Fabric *NodeFabricAttributes `json:"fabric" xml:"Fabric"`
 }
 
 type NodeLogPublishingConfiguration struct {
-	Fabric *NodeFabricLogPublishingConfiguration `json:"fabric" xml:"Fabric"`
+Fabric *NodeFabricLogPublishingConfiguration `json:"fabric" xml:"Fabric"`
 }
 
 type NodeSummary struct {
-	Arn              string    `json:"arn" xml:"Arn"`
-	AvailabilityZone string    `json:"availabilityZone" xml:"AvailabilityZone"`
-	CreationDate     time.Time `json:"creationDate" xml:"CreationDate"`
-	Id               string    `json:"id" xml:"Id"`
-	InstanceType     string    `json:"instanceType" xml:"InstanceType"`
-	Status           string    `json:"status" xml:"Status"`
+Arn string `json:"arn" xml:"Arn"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+Id string `json:"id" xml:"Id"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+Status string `json:"status" xml:"Status"`
 }
 
 type Proposal struct {
-	Actions              *ProposalActions `json:"actions" xml:"Actions"`
-	Arn                  string           `json:"arn" xml:"Arn"`
-	CreationDate         time.Time        `json:"creationDate" xml:"CreationDate"`
-	Description          string           `json:"description" xml:"Description"`
-	ExpirationDate       time.Time        `json:"expirationDate" xml:"ExpirationDate"`
-	NetworkId            string           `json:"networkId" xml:"NetworkId"`
-	NoVoteCount          int32            `json:"noVoteCount" xml:"NoVoteCount"`
-	OutstandingVoteCount int32            `json:"outstandingVoteCount" xml:"OutstandingVoteCount"`
-	ProposalId           string           `json:"proposalId" xml:"ProposalId"`
-	ProposedByMemberId   string           `json:"proposedByMemberId" xml:"ProposedByMemberId"`
-	ProposedByMemberName string           `json:"proposedByMemberName" xml:"ProposedByMemberName"`
-	Status               string           `json:"status" xml:"Status"`
-	Tags                 OutputTagMap     `json:"tags" xml:"Tags"`
-	YesVoteCount         int32            `json:"yesVoteCount" xml:"YesVoteCount"`
+Actions *ProposalActions `json:"actions" xml:"Actions"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+Description string `json:"description" xml:"Description"`
+ExpirationDate time.Time `json:"expirationDate" xml:"ExpirationDate"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+NoVoteCount int32 `json:"noVoteCount" xml:"NoVoteCount"`
+OutstandingVoteCount int32 `json:"outstandingVoteCount" xml:"OutstandingVoteCount"`
+ProposalId string `json:"proposalId" xml:"ProposalId"`
+ProposedByMemberId string `json:"proposedByMemberId" xml:"ProposedByMemberId"`
+ProposedByMemberName string `json:"proposedByMemberName" xml:"ProposedByMemberName"`
+Status string `json:"status" xml:"Status"`
+Tags OutputTagMap `json:"tags" xml:"Tags"`
+YesVoteCount int32 `json:"yesVoteCount" xml:"YesVoteCount"`
 }
 
 type ProposalActions struct {
-	Invitations InviteActionList `json:"invitations" xml:"Invitations"`
-	Removals    RemoveActionList `json:"removals" xml:"Removals"`
+Invitations InviteActionList `json:"invitations" xml:"Invitations"`
+Removals RemoveActionList `json:"removals" xml:"Removals"`
 }
 
 type ProposalSummary struct {
-	Arn                  string    `json:"arn" xml:"Arn"`
-	CreationDate         time.Time `json:"creationDate" xml:"CreationDate"`
-	Description          string    `json:"description" xml:"Description"`
-	ExpirationDate       time.Time `json:"expirationDate" xml:"ExpirationDate"`
-	ProposalId           string    `json:"proposalId" xml:"ProposalId"`
-	ProposedByMemberId   string    `json:"proposedByMemberId" xml:"ProposedByMemberId"`
-	ProposedByMemberName string    `json:"proposedByMemberName" xml:"ProposedByMemberName"`
-	Status               string    `json:"status" xml:"Status"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+Description string `json:"description" xml:"Description"`
+ExpirationDate time.Time `json:"expirationDate" xml:"ExpirationDate"`
+ProposalId string `json:"proposalId" xml:"ProposalId"`
+ProposedByMemberId string `json:"proposedByMemberId" xml:"ProposedByMemberId"`
+ProposedByMemberName string `json:"proposedByMemberName" xml:"ProposedByMemberName"`
+Status string `json:"status" xml:"Status"`
 }
 
 type RejectInvitationInput struct {
-	InvitationId string `json:"invitationId" xml:"InvitationId"`
+InvitationId string `json:"invitationId" xml:"InvitationId"`
 }
 
 type RejectInvitationOutput struct {
 }
 
 type RemoveAction struct {
-	MemberId string `json:"memberId" xml:"MemberId"`
+MemberId string `json:"memberId" xml:"MemberId"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string      `json:"resourceArn" xml:"ResourceArn"`
-	Tags        InputTagMap `json:"tags" xml:"Tags"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Tags InputTagMap `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string     `json:"resourceArn" xml:"ResourceArn"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateMemberInput struct {
-	LogPublishingConfiguration *MemberLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
-	MemberId                   string                            `json:"memberId" xml:"MemberId"`
-	NetworkId                  string                            `json:"networkId" xml:"NetworkId"`
+LogPublishingConfiguration *MemberLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
+MemberId string `json:"memberId" xml:"MemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
 }
 
 type UpdateMemberOutput struct {
 }
 
 type UpdateNodeInput struct {
-	LogPublishingConfiguration *NodeLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
-	MemberId                   string                          `json:"memberId" xml:"MemberId"`
-	NetworkId                  string                          `json:"networkId" xml:"NetworkId"`
-	NodeId                     string                          `json:"nodeId" xml:"NodeId"`
+LogPublishingConfiguration *NodeLogPublishingConfiguration `json:"logPublishingConfiguration" xml:"LogPublishingConfiguration"`
+MemberId string `json:"memberId" xml:"MemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+NodeId string `json:"nodeId" xml:"NodeId"`
 }
 
 type UpdateNodeOutput struct {
 }
 
 type VoteOnProposalInput struct {
-	NetworkId     string `json:"networkId" xml:"NetworkId"`
-	ProposalId    string `json:"proposalId" xml:"ProposalId"`
-	Vote          string `json:"vote" xml:"Vote"`
-	VoterMemberId string `json:"voterMemberId" xml:"VoterMemberId"`
+NetworkId string `json:"networkId" xml:"NetworkId"`
+ProposalId string `json:"proposalId" xml:"ProposalId"`
+Vote string `json:"vote" xml:"Vote"`
+VoterMemberId string `json:"voterMemberId" xml:"VoterMemberId"`
 }
 
 type VoteOnProposalOutput struct {
 }
 
 type VoteSummary struct {
-	MemberId   string `json:"memberId" xml:"MemberId"`
-	MemberName string `json:"memberName" xml:"MemberName"`
-	Vote       string `json:"vote" xml:"Vote"`
+MemberId string `json:"memberId" xml:"MemberId"`
+MemberName string `json:"memberName" xml:"MemberName"`
+Vote string `json:"vote" xml:"Vote"`
 }
 
 type VotingPolicy struct {
-	ApprovalThresholdPolicy *ApprovalThresholdPolicy `json:"approvalThresholdPolicy" xml:"ApprovalThresholdPolicy"`
+ApprovalThresholdPolicy *ApprovalThresholdPolicy `json:"approvalThresholdPolicy" xml:"ApprovalThresholdPolicy"`
 }
 
 type AccessorSummaryList []*AccessorSummary
@@ -564,3 +564,4 @@ type TagKeyList []string
 type InputTagMap map[string]string
 
 type OutputTagMap map[string]string
+

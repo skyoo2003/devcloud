@@ -1209,3 +1209,4 @@ func SerializeUpdateXssMatchSetResponse(w http.ResponseWriter, output *UpdateXss
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

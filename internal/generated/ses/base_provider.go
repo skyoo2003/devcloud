@@ -294,3 +294,4 @@ func (b *BaseProvider) VerifyEmailAddress(ctx context.Context, input *VerifyEmai
 func (b *BaseProvider) VerifyEmailIdentity(ctx context.Context, input *VerifyEmailIdentityRequest) (*VerifyEmailIdentityResponse, error) {
 	return nil, fmt.Errorf("VerifyEmailIdentity: %w", ErrNotImplemented)
 }
+

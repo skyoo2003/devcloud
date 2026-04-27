@@ -246,3 +246,4 @@ func (b *BaseProvider) UpdateStorage(ctx context.Context, input *UpdateStorageRe
 func (b *BaseProvider) UpdateTopic(ctx context.Context, input *UpdateTopicRequest) (*UpdateTopicResponse, error) {
 	return nil, fmt.Errorf("UpdateTopic: %w", ErrNotImplemented)
 }
+

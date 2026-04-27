@@ -3034,3 +3034,4 @@ func (b *BaseProvider) UpdateSecurityGroupRuleDescriptionsIngress(ctx context.Co
 func (b *BaseProvider) WithdrawByoipCidr(ctx context.Context, input *WithdrawByoipCidrRequest) (*WithdrawByoipCidrResult, error) {
 	return nil, fmt.Errorf("WithdrawByoipCidr: %w", ErrNotImplemented)
 }
+

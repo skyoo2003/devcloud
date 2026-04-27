@@ -327,3 +327,4 @@ func DeserializeUpdateFunctionEventInvokeConfigRequest(r *http.Request, pathPara
 
 	return input, nil
 }
+

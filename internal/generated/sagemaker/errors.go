@@ -71,3 +71,4 @@ func (e *ResourceNotFound) ErrorCode() string {
 func (e *ResourceNotFound) HTTPStatus() int {
 	return 0
 }
+

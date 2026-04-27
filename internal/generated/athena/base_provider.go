@@ -290,3 +290,4 @@ func (b *BaseProvider) UpdatePreparedStatement(ctx context.Context, input *Updat
 func (b *BaseProvider) UpdateWorkGroup(ctx context.Context, input *UpdateWorkGroupInput) (*UpdateWorkGroupOutput, error) {
 	return nil, fmt.Errorf("UpdateWorkGroup: %w", ErrNotImplemented)
 }
+

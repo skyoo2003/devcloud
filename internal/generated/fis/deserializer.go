@@ -411,3 +411,4 @@ func SerializeUpdateTargetAccountConfigurationResponse(w http.ResponseWriter, ou
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

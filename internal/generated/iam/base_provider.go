@@ -714,3 +714,4 @@ func (b *BaseProvider) UploadServerCertificate(ctx context.Context, input *Uploa
 func (b *BaseProvider) UploadSigningCertificate(ctx context.Context, input *UploadSigningCertificateRequest) (*UploadSigningCertificateResponse, error) {
 	return nil, fmt.Errorf("UploadSigningCertificate: %w", ErrNotImplemented)
 }
+

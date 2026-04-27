@@ -7,1440 +7,1440 @@ import (
 )
 
 type AccountLimit struct {
-	CodeSizeUnzipped               int64 `json:"codeSizeUnzipped" xml:"CodeSizeUnzipped"`
-	CodeSizeZipped                 int64 `json:"codeSizeZipped" xml:"CodeSizeZipped"`
-	ConcurrentExecutions           int32 `json:"concurrentExecutions" xml:"ConcurrentExecutions"`
-	TotalCodeSize                  int64 `json:"totalCodeSize" xml:"TotalCodeSize"`
-	UnreservedConcurrentExecutions int32 `json:"unreservedConcurrentExecutions" xml:"UnreservedConcurrentExecutions"`
+CodeSizeUnzipped int64 `json:"codeSizeUnzipped" xml:"CodeSizeUnzipped"`
+CodeSizeZipped int64 `json:"codeSizeZipped" xml:"CodeSizeZipped"`
+ConcurrentExecutions int32 `json:"concurrentExecutions" xml:"ConcurrentExecutions"`
+TotalCodeSize int64 `json:"totalCodeSize" xml:"TotalCodeSize"`
+UnreservedConcurrentExecutions int32 `json:"unreservedConcurrentExecutions" xml:"UnreservedConcurrentExecutions"`
 }
 
 type AccountUsage struct {
-	FunctionCount int64 `json:"functionCount" xml:"FunctionCount"`
-	TotalCodeSize int64 `json:"totalCodeSize" xml:"TotalCodeSize"`
+FunctionCount int64 `json:"functionCount" xml:"FunctionCount"`
+TotalCodeSize int64 `json:"totalCodeSize" xml:"TotalCodeSize"`
 }
 
 type AddLayerVersionPermissionRequest struct {
-	Action         string `json:"action" xml:"Action"`
-	LayerName      string `json:"layerName" xml:"LayerName"`
-	OrganizationId string `json:"organizationId" xml:"OrganizationId"`
-	Principal      string `json:"principal" xml:"Principal"`
-	RevisionId     string `json:"revisionId" xml:"RevisionId"`
-	StatementId    string `json:"statementId" xml:"StatementId"`
-	VersionNumber  int64  `json:"versionNumber" xml:"VersionNumber"`
+Action string `json:"action" xml:"Action"`
+LayerName string `json:"layerName" xml:"LayerName"`
+OrganizationId string `json:"organizationId" xml:"OrganizationId"`
+Principal string `json:"principal" xml:"Principal"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
+StatementId string `json:"statementId" xml:"StatementId"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type AddLayerVersionPermissionResponse struct {
-	RevisionId string `json:"revisionId" xml:"RevisionId"`
-	Statement  string `json:"statement" xml:"Statement"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
+Statement string `json:"statement" xml:"Statement"`
 }
 
 type AddPermissionRequest struct {
-	Action                string `json:"action" xml:"Action"`
-	EventSourceToken      string `json:"eventSourceToken" xml:"EventSourceToken"`
-	FunctionName          string `json:"functionName" xml:"FunctionName"`
-	FunctionUrlAuthType   string `json:"functionUrlAuthType" xml:"FunctionUrlAuthType"`
-	InvokedViaFunctionUrl bool   `json:"invokedViaFunctionUrl" xml:"InvokedViaFunctionUrl"`
-	Principal             string `json:"principal" xml:"Principal"`
-	PrincipalOrgID        string `json:"principalOrgID" xml:"PrincipalOrgID"`
-	Qualifier             string `json:"qualifier" xml:"Qualifier"`
-	RevisionId            string `json:"revisionId" xml:"RevisionId"`
-	SourceAccount         string `json:"sourceAccount" xml:"SourceAccount"`
-	SourceArn             string `json:"sourceArn" xml:"SourceArn"`
-	StatementId           string `json:"statementId" xml:"StatementId"`
+Action string `json:"action" xml:"Action"`
+EventSourceToken string `json:"eventSourceToken" xml:"EventSourceToken"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionUrlAuthType string `json:"functionUrlAuthType" xml:"FunctionUrlAuthType"`
+InvokedViaFunctionUrl bool `json:"invokedViaFunctionUrl" xml:"InvokedViaFunctionUrl"`
+Principal string `json:"principal" xml:"Principal"`
+PrincipalOrgID string `json:"principalOrgID" xml:"PrincipalOrgID"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
+SourceAccount string `json:"sourceAccount" xml:"SourceAccount"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
+StatementId string `json:"statementId" xml:"StatementId"`
 }
 
 type AddPermissionResponse struct {
-	Statement string `json:"statement" xml:"Statement"`
+Statement string `json:"statement" xml:"Statement"`
 }
 
 type AliasConfiguration struct {
-	AliasArn        string                     `json:"aliasArn" xml:"AliasArn"`
-	Description     string                     `json:"description" xml:"Description"`
-	FunctionVersion string                     `json:"functionVersion" xml:"FunctionVersion"`
-	Name            string                     `json:"name" xml:"Name"`
-	RevisionId      string                     `json:"revisionId" xml:"RevisionId"`
-	RoutingConfig   *AliasRoutingConfiguration `json:"routingConfig" xml:"RoutingConfig"`
+AliasArn string `json:"aliasArn" xml:"AliasArn"`
+Description string `json:"description" xml:"Description"`
+FunctionVersion string `json:"functionVersion" xml:"FunctionVersion"`
+Name string `json:"name" xml:"Name"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
+RoutingConfig *AliasRoutingConfiguration `json:"routingConfig" xml:"RoutingConfig"`
 }
 
 type AliasRoutingConfiguration struct {
-	AdditionalVersionWeights AdditionalVersionWeights `json:"additionalVersionWeights" xml:"AdditionalVersionWeights"`
+AdditionalVersionWeights AdditionalVersionWeights `json:"additionalVersionWeights" xml:"AdditionalVersionWeights"`
 }
 
 type AllowedPublishers struct {
-	SigningProfileVersionArns SigningProfileVersionArns `json:"signingProfileVersionArns" xml:"SigningProfileVersionArns"`
+SigningProfileVersionArns SigningProfileVersionArns `json:"signingProfileVersionArns" xml:"SigningProfileVersionArns"`
 }
 
 type AmazonManagedKafkaEventSourceConfig struct {
-	ConsumerGroupId      string                     `json:"consumerGroupId" xml:"ConsumerGroupId"`
-	SchemaRegistryConfig *KafkaSchemaRegistryConfig `json:"schemaRegistryConfig" xml:"SchemaRegistryConfig"`
+ConsumerGroupId string `json:"consumerGroupId" xml:"ConsumerGroupId"`
+SchemaRegistryConfig *KafkaSchemaRegistryConfig `json:"schemaRegistryConfig" xml:"SchemaRegistryConfig"`
 }
 
 type CallbackDetails struct {
-	CallbackId string       `json:"callbackId" xml:"CallbackId"`
-	Error      *ErrorObject `json:"error" xml:"Error"`
-	Result     string       `json:"result" xml:"Result"`
+CallbackId string `json:"callbackId" xml:"CallbackId"`
+Error *ErrorObject `json:"error" xml:"Error"`
+Result string `json:"result" xml:"Result"`
 }
 
 type CallbackFailedDetails struct {
-	Error *EventError `json:"error" xml:"Error"`
+Error *EventError `json:"error" xml:"Error"`
 }
 
 type CallbackOptions struct {
-	HeartbeatTimeoutSeconds int32 `json:"heartbeatTimeoutSeconds" xml:"HeartbeatTimeoutSeconds"`
-	TimeoutSeconds          int32 `json:"timeoutSeconds" xml:"TimeoutSeconds"`
+HeartbeatTimeoutSeconds int32 `json:"heartbeatTimeoutSeconds" xml:"HeartbeatTimeoutSeconds"`
+TimeoutSeconds int32 `json:"timeoutSeconds" xml:"TimeoutSeconds"`
 }
 
 type CallbackStartedDetails struct {
-	CallbackId       string `json:"callbackId" xml:"CallbackId"`
-	HeartbeatTimeout int32  `json:"heartbeatTimeout" xml:"HeartbeatTimeout"`
-	Timeout          int32  `json:"timeout" xml:"Timeout"`
+CallbackId string `json:"callbackId" xml:"CallbackId"`
+HeartbeatTimeout int32 `json:"heartbeatTimeout" xml:"HeartbeatTimeout"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
 }
 
 type CallbackSucceededDetails struct {
-	Result *EventResult `json:"result" xml:"Result"`
+Result *EventResult `json:"result" xml:"Result"`
 }
 
 type CallbackTimedOutDetails struct {
-	Error *EventError `json:"error" xml:"Error"`
+Error *EventError `json:"error" xml:"Error"`
 }
 
 type CapacityProvider struct {
-	CapacityProviderArn           string                             `json:"capacityProviderArn" xml:"CapacityProviderArn"`
-	CapacityProviderScalingConfig *CapacityProviderScalingConfig     `json:"capacityProviderScalingConfig" xml:"CapacityProviderScalingConfig"`
-	InstanceRequirements          *InstanceRequirements              `json:"instanceRequirements" xml:"InstanceRequirements"`
-	KmsKeyArn                     string                             `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	LastModified                  string                             `json:"lastModified" xml:"LastModified"`
-	PermissionsConfig             *CapacityProviderPermissionsConfig `json:"permissionsConfig" xml:"PermissionsConfig"`
-	State                         string                             `json:"state" xml:"State"`
-	VpcConfig                     *CapacityProviderVpcConfig         `json:"vpcConfig" xml:"VpcConfig"`
+CapacityProviderArn string `json:"capacityProviderArn" xml:"CapacityProviderArn"`
+CapacityProviderScalingConfig *CapacityProviderScalingConfig `json:"capacityProviderScalingConfig" xml:"CapacityProviderScalingConfig"`
+InstanceRequirements *InstanceRequirements `json:"instanceRequirements" xml:"InstanceRequirements"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+LastModified string `json:"lastModified" xml:"LastModified"`
+PermissionsConfig *CapacityProviderPermissionsConfig `json:"permissionsConfig" xml:"PermissionsConfig"`
+State string `json:"state" xml:"State"`
+VpcConfig *CapacityProviderVpcConfig `json:"vpcConfig" xml:"VpcConfig"`
 }
 
 type CapacityProviderConfig struct {
-	LambdaManagedInstancesCapacityProviderConfig *LambdaManagedInstancesCapacityProviderConfig `json:"lambdaManagedInstancesCapacityProviderConfig" xml:"LambdaManagedInstancesCapacityProviderConfig"`
+LambdaManagedInstancesCapacityProviderConfig *LambdaManagedInstancesCapacityProviderConfig `json:"lambdaManagedInstancesCapacityProviderConfig" xml:"LambdaManagedInstancesCapacityProviderConfig"`
 }
 
 type CapacityProviderPermissionsConfig struct {
-	CapacityProviderOperatorRoleArn string `json:"capacityProviderOperatorRoleArn" xml:"CapacityProviderOperatorRoleArn"`
+CapacityProviderOperatorRoleArn string `json:"capacityProviderOperatorRoleArn" xml:"CapacityProviderOperatorRoleArn"`
 }
 
 type CapacityProviderScalingConfig struct {
-	MaxVCpuCount    int32                               `json:"maxVCpuCount" xml:"MaxVCpuCount"`
-	ScalingMode     string                              `json:"scalingMode" xml:"ScalingMode"`
-	ScalingPolicies CapacityProviderScalingPoliciesList `json:"scalingPolicies" xml:"ScalingPolicies"`
+MaxVCpuCount int32 `json:"maxVCpuCount" xml:"MaxVCpuCount"`
+ScalingMode string `json:"scalingMode" xml:"ScalingMode"`
+ScalingPolicies CapacityProviderScalingPoliciesList `json:"scalingPolicies" xml:"ScalingPolicies"`
 }
 
 type CapacityProviderVpcConfig struct {
-	SecurityGroupIds CapacityProviderSecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds        CapacityProviderSubnetIds        `json:"subnetIds" xml:"SubnetIds"`
+SecurityGroupIds CapacityProviderSecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds CapacityProviderSubnetIds `json:"subnetIds" xml:"SubnetIds"`
 }
 
 type ChainedInvokeDetails struct {
-	Error  *ErrorObject `json:"error" xml:"Error"`
-	Result string       `json:"result" xml:"Result"`
+Error *ErrorObject `json:"error" xml:"Error"`
+Result string `json:"result" xml:"Result"`
 }
 
 type ChainedInvokeFailedDetails struct {
-	Error *EventError `json:"error" xml:"Error"`
+Error *EventError `json:"error" xml:"Error"`
 }
 
 type ChainedInvokeOptions struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	TenantId     string `json:"tenantId" xml:"TenantId"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+TenantId string `json:"tenantId" xml:"TenantId"`
 }
 
 type ChainedInvokeStartedDetails struct {
-	DurableExecutionArn string      `json:"durableExecutionArn" xml:"DurableExecutionArn"`
-	ExecutedVersion     string      `json:"executedVersion" xml:"ExecutedVersion"`
-	FunctionName        string      `json:"functionName" xml:"FunctionName"`
-	Input               *EventInput `json:"input" xml:"Input"`
-	TenantId            string      `json:"tenantId" xml:"TenantId"`
+DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+ExecutedVersion string `json:"executedVersion" xml:"ExecutedVersion"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Input *EventInput `json:"input" xml:"Input"`
+TenantId string `json:"tenantId" xml:"TenantId"`
 }
 
 type ChainedInvokeStoppedDetails struct {
-	Error *EventError `json:"error" xml:"Error"`
+Error *EventError `json:"error" xml:"Error"`
 }
 
 type ChainedInvokeSucceededDetails struct {
-	Result *EventResult `json:"result" xml:"Result"`
+Result *EventResult `json:"result" xml:"Result"`
 }
 
 type ChainedInvokeTimedOutDetails struct {
-	Error *EventError `json:"error" xml:"Error"`
+Error *EventError `json:"error" xml:"Error"`
 }
 
 type CheckpointDurableExecutionRequest struct {
-	CheckpointToken     string           `json:"checkpointToken" xml:"CheckpointToken"`
-	ClientToken         string           `json:"clientToken" xml:"ClientToken"`
-	DurableExecutionArn string           `json:"durableExecutionArn" xml:"DurableExecutionArn"`
-	Updates             OperationUpdates `json:"updates" xml:"Updates"`
+CheckpointToken string `json:"checkpointToken" xml:"CheckpointToken"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+Updates OperationUpdates `json:"updates" xml:"Updates"`
 }
 
 type CheckpointDurableExecutionResponse struct {
-	CheckpointToken   string                           `json:"checkpointToken" xml:"CheckpointToken"`
-	NewExecutionState *CheckpointUpdatedExecutionState `json:"newExecutionState" xml:"NewExecutionState"`
+CheckpointToken string `json:"checkpointToken" xml:"CheckpointToken"`
+NewExecutionState *CheckpointUpdatedExecutionState `json:"newExecutionState" xml:"NewExecutionState"`
 }
 
 type CheckpointUpdatedExecutionState struct {
-	NextMarker string     `json:"nextMarker" xml:"NextMarker"`
-	Operations Operations `json:"operations" xml:"Operations"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Operations Operations `json:"operations" xml:"Operations"`
 }
 
 type CodeSigningConfig struct {
-	AllowedPublishers    *AllowedPublishers   `json:"allowedPublishers" xml:"AllowedPublishers"`
-	CodeSigningConfigArn string               `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
-	CodeSigningConfigId  string               `json:"codeSigningConfigId" xml:"CodeSigningConfigId"`
-	CodeSigningPolicies  *CodeSigningPolicies `json:"codeSigningPolicies" xml:"CodeSigningPolicies"`
-	Description          string               `json:"description" xml:"Description"`
-	LastModified         string               `json:"lastModified" xml:"LastModified"`
+AllowedPublishers *AllowedPublishers `json:"allowedPublishers" xml:"AllowedPublishers"`
+CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
+CodeSigningConfigId string `json:"codeSigningConfigId" xml:"CodeSigningConfigId"`
+CodeSigningPolicies *CodeSigningPolicies `json:"codeSigningPolicies" xml:"CodeSigningPolicies"`
+Description string `json:"description" xml:"Description"`
+LastModified string `json:"lastModified" xml:"LastModified"`
 }
 
 type CodeSigningPolicies struct {
-	UntrustedArtifactOnDeployment string `json:"untrustedArtifactOnDeployment" xml:"UntrustedArtifactOnDeployment"`
+UntrustedArtifactOnDeployment string `json:"untrustedArtifactOnDeployment" xml:"UntrustedArtifactOnDeployment"`
 }
 
 type Concurrency struct {
-	ReservedConcurrentExecutions int32 `json:"reservedConcurrentExecutions" xml:"ReservedConcurrentExecutions"`
+ReservedConcurrentExecutions int32 `json:"reservedConcurrentExecutions" xml:"ReservedConcurrentExecutions"`
 }
 
 type ContextDetails struct {
-	Error          *ErrorObject `json:"error" xml:"Error"`
-	ReplayChildren bool         `json:"replayChildren" xml:"ReplayChildren"`
-	Result         string       `json:"result" xml:"Result"`
+Error *ErrorObject `json:"error" xml:"Error"`
+ReplayChildren bool `json:"replayChildren" xml:"ReplayChildren"`
+Result string `json:"result" xml:"Result"`
 }
 
 type ContextFailedDetails struct {
-	Error *EventError `json:"error" xml:"Error"`
+Error *EventError `json:"error" xml:"Error"`
 }
 
 type ContextOptions struct {
-	ReplayChildren bool `json:"replayChildren" xml:"ReplayChildren"`
+ReplayChildren bool `json:"replayChildren" xml:"ReplayChildren"`
 }
 
 type ContextStartedDetails struct {
 }
 
 type ContextSucceededDetails struct {
-	Result *EventResult `json:"result" xml:"Result"`
+Result *EventResult `json:"result" xml:"Result"`
 }
 
 type Cors struct {
-	AllowCredentials bool             `json:"allowCredentials" xml:"AllowCredentials"`
-	AllowHeaders     HeadersList      `json:"allowHeaders" xml:"AllowHeaders"`
-	AllowMethods     AllowMethodsList `json:"allowMethods" xml:"AllowMethods"`
-	AllowOrigins     AllowOriginsList `json:"allowOrigins" xml:"AllowOrigins"`
-	ExposeHeaders    HeadersList      `json:"exposeHeaders" xml:"ExposeHeaders"`
-	MaxAge           int32            `json:"maxAge" xml:"MaxAge"`
+AllowCredentials bool `json:"allowCredentials" xml:"AllowCredentials"`
+AllowHeaders HeadersList `json:"allowHeaders" xml:"AllowHeaders"`
+AllowMethods AllowMethodsList `json:"allowMethods" xml:"AllowMethods"`
+AllowOrigins AllowOriginsList `json:"allowOrigins" xml:"AllowOrigins"`
+ExposeHeaders HeadersList `json:"exposeHeaders" xml:"ExposeHeaders"`
+MaxAge int32 `json:"maxAge" xml:"MaxAge"`
 }
 
 type CreateAliasRequest struct {
-	Description     string                     `json:"description" xml:"Description"`
-	FunctionName    string                     `json:"functionName" xml:"FunctionName"`
-	FunctionVersion string                     `json:"functionVersion" xml:"FunctionVersion"`
-	Name            string                     `json:"name" xml:"Name"`
-	RoutingConfig   *AliasRoutingConfiguration `json:"routingConfig" xml:"RoutingConfig"`
+Description string `json:"description" xml:"Description"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionVersion string `json:"functionVersion" xml:"FunctionVersion"`
+Name string `json:"name" xml:"Name"`
+RoutingConfig *AliasRoutingConfiguration `json:"routingConfig" xml:"RoutingConfig"`
 }
 
 type CreateCapacityProviderRequest struct {
-	CapacityProviderName          string                             `json:"capacityProviderName" xml:"CapacityProviderName"`
-	CapacityProviderScalingConfig *CapacityProviderScalingConfig     `json:"capacityProviderScalingConfig" xml:"CapacityProviderScalingConfig"`
-	InstanceRequirements          *InstanceRequirements              `json:"instanceRequirements" xml:"InstanceRequirements"`
-	KmsKeyArn                     string                             `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	PermissionsConfig             *CapacityProviderPermissionsConfig `json:"permissionsConfig" xml:"PermissionsConfig"`
-	Tags                          Tags                               `json:"tags" xml:"Tags"`
-	VpcConfig                     *CapacityProviderVpcConfig         `json:"vpcConfig" xml:"VpcConfig"`
+CapacityProviderName string `json:"capacityProviderName" xml:"CapacityProviderName"`
+CapacityProviderScalingConfig *CapacityProviderScalingConfig `json:"capacityProviderScalingConfig" xml:"CapacityProviderScalingConfig"`
+InstanceRequirements *InstanceRequirements `json:"instanceRequirements" xml:"InstanceRequirements"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+PermissionsConfig *CapacityProviderPermissionsConfig `json:"permissionsConfig" xml:"PermissionsConfig"`
+Tags Tags `json:"tags" xml:"Tags"`
+VpcConfig *CapacityProviderVpcConfig `json:"vpcConfig" xml:"VpcConfig"`
 }
 
 type CreateCapacityProviderResponse struct {
-	CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"CapacityProvider"`
+CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"CapacityProvider"`
 }
 
 type CreateCodeSigningConfigRequest struct {
-	AllowedPublishers   *AllowedPublishers   `json:"allowedPublishers" xml:"AllowedPublishers"`
-	CodeSigningPolicies *CodeSigningPolicies `json:"codeSigningPolicies" xml:"CodeSigningPolicies"`
-	Description         string               `json:"description" xml:"Description"`
-	Tags                Tags                 `json:"tags" xml:"Tags"`
+AllowedPublishers *AllowedPublishers `json:"allowedPublishers" xml:"AllowedPublishers"`
+CodeSigningPolicies *CodeSigningPolicies `json:"codeSigningPolicies" xml:"CodeSigningPolicies"`
+Description string `json:"description" xml:"Description"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateCodeSigningConfigResponse struct {
-	CodeSigningConfig *CodeSigningConfig `json:"codeSigningConfig" xml:"CodeSigningConfig"`
+CodeSigningConfig *CodeSigningConfig `json:"codeSigningConfig" xml:"CodeSigningConfig"`
 }
 
 type CreateEventSourceMappingRequest struct {
-	AmazonManagedKafkaEventSourceConfig *AmazonManagedKafkaEventSourceConfig `json:"amazonManagedKafkaEventSourceConfig" xml:"AmazonManagedKafkaEventSourceConfig"`
-	BatchSize                           int32                                `json:"batchSize" xml:"BatchSize"`
-	BisectBatchOnFunctionError          bool                                 `json:"bisectBatchOnFunctionError" xml:"BisectBatchOnFunctionError"`
-	DestinationConfig                   *DestinationConfig                   `json:"destinationConfig" xml:"DestinationConfig"`
-	DocumentDBEventSourceConfig         *DocumentDBEventSourceConfig         `json:"documentDBEventSourceConfig" xml:"DocumentDBEventSourceConfig"`
-	Enabled                             bool                                 `json:"enabled" xml:"Enabled"`
-	EventSourceArn                      string                               `json:"eventSourceArn" xml:"EventSourceArn"`
-	FilterCriteria                      *FilterCriteria                      `json:"filterCriteria" xml:"FilterCriteria"`
-	FunctionName                        string                               `json:"functionName" xml:"FunctionName"`
-	FunctionResponseTypes               FunctionResponseTypeList             `json:"functionResponseTypes" xml:"FunctionResponseTypes"`
-	KMSKeyArn                           string                               `json:"kMSKeyArn" xml:"KMSKeyArn"`
-	LoggingConfig                       *EventSourceMappingLoggingConfig     `json:"loggingConfig" xml:"LoggingConfig"`
-	MaximumBatchingWindowInSeconds      int32                                `json:"maximumBatchingWindowInSeconds" xml:"MaximumBatchingWindowInSeconds"`
-	MaximumRecordAgeInSeconds           int32                                `json:"maximumRecordAgeInSeconds" xml:"MaximumRecordAgeInSeconds"`
-	MaximumRetryAttempts                int32                                `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
-	MetricsConfig                       *EventSourceMappingMetricsConfig     `json:"metricsConfig" xml:"MetricsConfig"`
-	ParallelizationFactor               int32                                `json:"parallelizationFactor" xml:"ParallelizationFactor"`
-	ProvisionedPollerConfig             *ProvisionedPollerConfig             `json:"provisionedPollerConfig" xml:"ProvisionedPollerConfig"`
-	Queues                              Queues                               `json:"queues" xml:"Queues"`
-	ScalingConfig                       *ScalingConfig                       `json:"scalingConfig" xml:"ScalingConfig"`
-	SelfManagedEventSource              *SelfManagedEventSource              `json:"selfManagedEventSource" xml:"SelfManagedEventSource"`
-	SelfManagedKafkaEventSourceConfig   *SelfManagedKafkaEventSourceConfig   `json:"selfManagedKafkaEventSourceConfig" xml:"SelfManagedKafkaEventSourceConfig"`
-	SourceAccessConfigurations          SourceAccessConfigurations           `json:"sourceAccessConfigurations" xml:"SourceAccessConfigurations"`
-	StartingPosition                    string                               `json:"startingPosition" xml:"StartingPosition"`
-	StartingPositionTimestamp           time.Time                            `json:"startingPositionTimestamp" xml:"StartingPositionTimestamp"`
-	Tags                                Tags                                 `json:"tags" xml:"Tags"`
-	Topics                              Topics                               `json:"topics" xml:"Topics"`
-	TumblingWindowInSeconds             int32                                `json:"tumblingWindowInSeconds" xml:"TumblingWindowInSeconds"`
+AmazonManagedKafkaEventSourceConfig *AmazonManagedKafkaEventSourceConfig `json:"amazonManagedKafkaEventSourceConfig" xml:"AmazonManagedKafkaEventSourceConfig"`
+BatchSize int32 `json:"batchSize" xml:"BatchSize"`
+BisectBatchOnFunctionError bool `json:"bisectBatchOnFunctionError" xml:"BisectBatchOnFunctionError"`
+DestinationConfig *DestinationConfig `json:"destinationConfig" xml:"DestinationConfig"`
+DocumentDBEventSourceConfig *DocumentDBEventSourceConfig `json:"documentDBEventSourceConfig" xml:"DocumentDBEventSourceConfig"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+FilterCriteria *FilterCriteria `json:"filterCriteria" xml:"FilterCriteria"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionResponseTypes FunctionResponseTypeList `json:"functionResponseTypes" xml:"FunctionResponseTypes"`
+KMSKeyArn string `json:"kMSKeyArn" xml:"KMSKeyArn"`
+LoggingConfig *EventSourceMappingLoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
+MaximumBatchingWindowInSeconds int32 `json:"maximumBatchingWindowInSeconds" xml:"MaximumBatchingWindowInSeconds"`
+MaximumRecordAgeInSeconds int32 `json:"maximumRecordAgeInSeconds" xml:"MaximumRecordAgeInSeconds"`
+MaximumRetryAttempts int32 `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
+MetricsConfig *EventSourceMappingMetricsConfig `json:"metricsConfig" xml:"MetricsConfig"`
+ParallelizationFactor int32 `json:"parallelizationFactor" xml:"ParallelizationFactor"`
+ProvisionedPollerConfig *ProvisionedPollerConfig `json:"provisionedPollerConfig" xml:"ProvisionedPollerConfig"`
+Queues Queues `json:"queues" xml:"Queues"`
+ScalingConfig *ScalingConfig `json:"scalingConfig" xml:"ScalingConfig"`
+SelfManagedEventSource *SelfManagedEventSource `json:"selfManagedEventSource" xml:"SelfManagedEventSource"`
+SelfManagedKafkaEventSourceConfig *SelfManagedKafkaEventSourceConfig `json:"selfManagedKafkaEventSourceConfig" xml:"SelfManagedKafkaEventSourceConfig"`
+SourceAccessConfigurations SourceAccessConfigurations `json:"sourceAccessConfigurations" xml:"SourceAccessConfigurations"`
+StartingPosition string `json:"startingPosition" xml:"StartingPosition"`
+StartingPositionTimestamp time.Time `json:"startingPositionTimestamp" xml:"StartingPositionTimestamp"`
+Tags Tags `json:"tags" xml:"Tags"`
+Topics Topics `json:"topics" xml:"Topics"`
+TumblingWindowInSeconds int32 `json:"tumblingWindowInSeconds" xml:"TumblingWindowInSeconds"`
 }
 
 type CreateFunctionRequest struct {
-	Architectures          ArchitecturesList       `json:"architectures" xml:"Architectures"`
-	CapacityProviderConfig *CapacityProviderConfig `json:"capacityProviderConfig" xml:"CapacityProviderConfig"`
-	Code                   *FunctionCode           `json:"code" xml:"Code"`
-	CodeSigningConfigArn   string                  `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
-	DeadLetterConfig       *DeadLetterConfig       `json:"deadLetterConfig" xml:"DeadLetterConfig"`
-	Description            string                  `json:"description" xml:"Description"`
-	DurableConfig          *DurableConfig          `json:"durableConfig" xml:"DurableConfig"`
-	Environment            *Environment            `json:"environment" xml:"Environment"`
-	EphemeralStorage       *EphemeralStorage       `json:"ephemeralStorage" xml:"EphemeralStorage"`
-	FileSystemConfigs      FileSystemConfigList    `json:"fileSystemConfigs" xml:"FileSystemConfigs"`
-	FunctionName           string                  `json:"functionName" xml:"FunctionName"`
-	Handler                string                  `json:"handler" xml:"Handler"`
-	ImageConfig            *ImageConfig            `json:"imageConfig" xml:"ImageConfig"`
-	KMSKeyArn              string                  `json:"kMSKeyArn" xml:"KMSKeyArn"`
-	Layers                 LayerList               `json:"layers" xml:"Layers"`
-	LoggingConfig          *LoggingConfig          `json:"loggingConfig" xml:"LoggingConfig"`
-	MemorySize             int32                   `json:"memorySize" xml:"MemorySize"`
-	PackageType            string                  `json:"packageType" xml:"PackageType"`
-	Publish                bool                    `json:"publish" xml:"Publish"`
-	PublishTo              string                  `json:"publishTo" xml:"PublishTo"`
-	Role                   string                  `json:"role" xml:"Role"`
-	Runtime                string                  `json:"runtime" xml:"Runtime"`
-	SnapStart              *SnapStart              `json:"snapStart" xml:"SnapStart"`
-	Tags                   Tags                    `json:"tags" xml:"Tags"`
-	TenancyConfig          *TenancyConfig          `json:"tenancyConfig" xml:"TenancyConfig"`
-	Timeout                int32                   `json:"timeout" xml:"Timeout"`
-	TracingConfig          *TracingConfig          `json:"tracingConfig" xml:"TracingConfig"`
-	VpcConfig              *VpcConfig              `json:"vpcConfig" xml:"VpcConfig"`
+Architectures ArchitecturesList `json:"architectures" xml:"Architectures"`
+CapacityProviderConfig *CapacityProviderConfig `json:"capacityProviderConfig" xml:"CapacityProviderConfig"`
+Code *FunctionCode `json:"code" xml:"Code"`
+CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
+DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
+Description string `json:"description" xml:"Description"`
+DurableConfig *DurableConfig `json:"durableConfig" xml:"DurableConfig"`
+Environment *Environment `json:"environment" xml:"Environment"`
+EphemeralStorage *EphemeralStorage `json:"ephemeralStorage" xml:"EphemeralStorage"`
+FileSystemConfigs FileSystemConfigList `json:"fileSystemConfigs" xml:"FileSystemConfigs"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Handler string `json:"handler" xml:"Handler"`
+ImageConfig *ImageConfig `json:"imageConfig" xml:"ImageConfig"`
+KMSKeyArn string `json:"kMSKeyArn" xml:"KMSKeyArn"`
+Layers LayerList `json:"layers" xml:"Layers"`
+LoggingConfig *LoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
+MemorySize int32 `json:"memorySize" xml:"MemorySize"`
+PackageType string `json:"packageType" xml:"PackageType"`
+Publish bool `json:"publish" xml:"Publish"`
+PublishTo string `json:"publishTo" xml:"PublishTo"`
+Role string `json:"role" xml:"Role"`
+Runtime string `json:"runtime" xml:"Runtime"`
+SnapStart *SnapStart `json:"snapStart" xml:"SnapStart"`
+Tags Tags `json:"tags" xml:"Tags"`
+TenancyConfig *TenancyConfig `json:"tenancyConfig" xml:"TenancyConfig"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+TracingConfig *TracingConfig `json:"tracingConfig" xml:"TracingConfig"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"VpcConfig"`
 }
 
 type CreateFunctionUrlConfigRequest struct {
-	AuthType     string `json:"authType" xml:"AuthType"`
-	Cors         *Cors  `json:"cors" xml:"Cors"`
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	InvokeMode   string `json:"invokeMode" xml:"InvokeMode"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+AuthType string `json:"authType" xml:"AuthType"`
+Cors *Cors `json:"cors" xml:"Cors"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+InvokeMode string `json:"invokeMode" xml:"InvokeMode"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type CreateFunctionUrlConfigResponse struct {
-	AuthType     string `json:"authType" xml:"AuthType"`
-	Cors         *Cors  `json:"cors" xml:"Cors"`
-	CreationTime string `json:"creationTime" xml:"CreationTime"`
-	FunctionArn  string `json:"functionArn" xml:"FunctionArn"`
-	FunctionUrl  string `json:"functionUrl" xml:"FunctionUrl"`
-	InvokeMode   string `json:"invokeMode" xml:"InvokeMode"`
+AuthType string `json:"authType" xml:"AuthType"`
+Cors *Cors `json:"cors" xml:"Cors"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+FunctionUrl string `json:"functionUrl" xml:"FunctionUrl"`
+InvokeMode string `json:"invokeMode" xml:"InvokeMode"`
 }
 
 type DeadLetterConfig struct {
-	TargetArn string `json:"targetArn" xml:"TargetArn"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type DeleteAliasRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Name         string `json:"name" xml:"Name"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteCapacityProviderRequest struct {
-	CapacityProviderName string `json:"capacityProviderName" xml:"CapacityProviderName"`
+CapacityProviderName string `json:"capacityProviderName" xml:"CapacityProviderName"`
 }
 
 type DeleteCapacityProviderResponse struct {
-	CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"CapacityProvider"`
+CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"CapacityProvider"`
 }
 
 type DeleteCodeSigningConfigRequest struct {
-	CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
+CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
 }
 
 type DeleteCodeSigningConfigResponse struct {
 }
 
 type DeleteEventSourceMappingRequest struct {
-	UUID string `json:"uUID" xml:"UUID"`
+UUID string `json:"uUID" xml:"UUID"`
 }
 
 type DeleteFunctionCodeSigningConfigRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
 }
 
 type DeleteFunctionConcurrencyRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
 }
 
 type DeleteFunctionEventInvokeConfigRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type DeleteFunctionRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type DeleteFunctionResponse struct {
-	StatusCode int32 `json:"statusCode" xml:"StatusCode"`
+StatusCode int32 `json:"statusCode" xml:"StatusCode"`
 }
 
 type DeleteFunctionUrlConfigRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type DeleteLayerVersionRequest struct {
-	LayerName     string `json:"layerName" xml:"LayerName"`
-	VersionNumber int64  `json:"versionNumber" xml:"VersionNumber"`
+LayerName string `json:"layerName" xml:"LayerName"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type DeleteProvisionedConcurrencyConfigRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type DestinationConfig struct {
-	OnFailure *OnFailure `json:"onFailure" xml:"OnFailure"`
-	OnSuccess *OnSuccess `json:"onSuccess" xml:"OnSuccess"`
+OnFailure *OnFailure `json:"onFailure" xml:"OnFailure"`
+OnSuccess *OnSuccess `json:"onSuccess" xml:"OnSuccess"`
 }
 
 type DocumentDBEventSourceConfig struct {
-	CollectionName string `json:"collectionName" xml:"CollectionName"`
-	DatabaseName   string `json:"databaseName" xml:"DatabaseName"`
-	FullDocument   string `json:"fullDocument" xml:"FullDocument"`
+CollectionName string `json:"collectionName" xml:"CollectionName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+FullDocument string `json:"fullDocument" xml:"FullDocument"`
 }
 
 type DurableConfig struct {
-	ExecutionTimeout      int32 `json:"executionTimeout" xml:"ExecutionTimeout"`
-	RetentionPeriodInDays int32 `json:"retentionPeriodInDays" xml:"RetentionPeriodInDays"`
+ExecutionTimeout int32 `json:"executionTimeout" xml:"ExecutionTimeout"`
+RetentionPeriodInDays int32 `json:"retentionPeriodInDays" xml:"RetentionPeriodInDays"`
 }
 
 type Environment struct {
-	Variables EnvironmentVariables `json:"variables" xml:"Variables"`
+Variables EnvironmentVariables `json:"variables" xml:"Variables"`
 }
 
 type EnvironmentError struct {
-	ErrorCode string `json:"errorCode" xml:"ErrorCode"`
-	Message   string `json:"message" xml:"Message"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+Message string `json:"message" xml:"Message"`
 }
 
 type EnvironmentResponse struct {
-	Error     *EnvironmentError    `json:"error" xml:"Error"`
-	Variables EnvironmentVariables `json:"variables" xml:"Variables"`
+Error *EnvironmentError `json:"error" xml:"Error"`
+Variables EnvironmentVariables `json:"variables" xml:"Variables"`
 }
 
 type EphemeralStorage struct {
-	Size int32 `json:"size" xml:"Size"`
+Size int32 `json:"size" xml:"Size"`
 }
 
 type ErrorObject struct {
-	ErrorData    string            `json:"errorData" xml:"ErrorData"`
-	ErrorMessage string            `json:"errorMessage" xml:"ErrorMessage"`
-	ErrorType    string            `json:"errorType" xml:"ErrorType"`
-	StackTrace   StackTraceEntries `json:"stackTrace" xml:"StackTrace"`
+ErrorData string `json:"errorData" xml:"ErrorData"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ErrorType string `json:"errorType" xml:"ErrorType"`
+StackTrace StackTraceEntries `json:"stackTrace" xml:"StackTrace"`
 }
 
 type Event struct {
-	CallbackFailedDetails         *CallbackFailedDetails         `json:"callbackFailedDetails" xml:"CallbackFailedDetails"`
-	CallbackStartedDetails        *CallbackStartedDetails        `json:"callbackStartedDetails" xml:"CallbackStartedDetails"`
-	CallbackSucceededDetails      *CallbackSucceededDetails      `json:"callbackSucceededDetails" xml:"CallbackSucceededDetails"`
-	CallbackTimedOutDetails       *CallbackTimedOutDetails       `json:"callbackTimedOutDetails" xml:"CallbackTimedOutDetails"`
-	ChainedInvokeFailedDetails    *ChainedInvokeFailedDetails    `json:"chainedInvokeFailedDetails" xml:"ChainedInvokeFailedDetails"`
-	ChainedInvokeStartedDetails   *ChainedInvokeStartedDetails   `json:"chainedInvokeStartedDetails" xml:"ChainedInvokeStartedDetails"`
-	ChainedInvokeStoppedDetails   *ChainedInvokeStoppedDetails   `json:"chainedInvokeStoppedDetails" xml:"ChainedInvokeStoppedDetails"`
-	ChainedInvokeSucceededDetails *ChainedInvokeSucceededDetails `json:"chainedInvokeSucceededDetails" xml:"ChainedInvokeSucceededDetails"`
-	ChainedInvokeTimedOutDetails  *ChainedInvokeTimedOutDetails  `json:"chainedInvokeTimedOutDetails" xml:"ChainedInvokeTimedOutDetails"`
-	ContextFailedDetails          *ContextFailedDetails          `json:"contextFailedDetails" xml:"ContextFailedDetails"`
-	ContextStartedDetails         *ContextStartedDetails         `json:"contextStartedDetails" xml:"ContextStartedDetails"`
-	ContextSucceededDetails       *ContextSucceededDetails       `json:"contextSucceededDetails" xml:"ContextSucceededDetails"`
-	EventId                       int32                          `json:"eventId" xml:"EventId"`
-	EventTimestamp                time.Time                      `json:"eventTimestamp" xml:"EventTimestamp"`
-	EventType                     string                         `json:"eventType" xml:"EventType"`
-	ExecutionFailedDetails        *ExecutionFailedDetails        `json:"executionFailedDetails" xml:"ExecutionFailedDetails"`
-	ExecutionStartedDetails       *ExecutionStartedDetails       `json:"executionStartedDetails" xml:"ExecutionStartedDetails"`
-	ExecutionStoppedDetails       *ExecutionStoppedDetails       `json:"executionStoppedDetails" xml:"ExecutionStoppedDetails"`
-	ExecutionSucceededDetails     *ExecutionSucceededDetails     `json:"executionSucceededDetails" xml:"ExecutionSucceededDetails"`
-	ExecutionTimedOutDetails      *ExecutionTimedOutDetails      `json:"executionTimedOutDetails" xml:"ExecutionTimedOutDetails"`
-	Id                            string                         `json:"id" xml:"Id"`
-	InvocationCompletedDetails    *InvocationCompletedDetails    `json:"invocationCompletedDetails" xml:"InvocationCompletedDetails"`
-	Name                          string                         `json:"name" xml:"Name"`
-	ParentId                      string                         `json:"parentId" xml:"ParentId"`
-	StepFailedDetails             *StepFailedDetails             `json:"stepFailedDetails" xml:"StepFailedDetails"`
-	StepStartedDetails            *StepStartedDetails            `json:"stepStartedDetails" xml:"StepStartedDetails"`
-	StepSucceededDetails          *StepSucceededDetails          `json:"stepSucceededDetails" xml:"StepSucceededDetails"`
-	SubType                       string                         `json:"subType" xml:"SubType"`
-	WaitCancelledDetails          *WaitCancelledDetails          `json:"waitCancelledDetails" xml:"WaitCancelledDetails"`
-	WaitStartedDetails            *WaitStartedDetails            `json:"waitStartedDetails" xml:"WaitStartedDetails"`
-	WaitSucceededDetails          *WaitSucceededDetails          `json:"waitSucceededDetails" xml:"WaitSucceededDetails"`
+CallbackFailedDetails *CallbackFailedDetails `json:"callbackFailedDetails" xml:"CallbackFailedDetails"`
+CallbackStartedDetails *CallbackStartedDetails `json:"callbackStartedDetails" xml:"CallbackStartedDetails"`
+CallbackSucceededDetails *CallbackSucceededDetails `json:"callbackSucceededDetails" xml:"CallbackSucceededDetails"`
+CallbackTimedOutDetails *CallbackTimedOutDetails `json:"callbackTimedOutDetails" xml:"CallbackTimedOutDetails"`
+ChainedInvokeFailedDetails *ChainedInvokeFailedDetails `json:"chainedInvokeFailedDetails" xml:"ChainedInvokeFailedDetails"`
+ChainedInvokeStartedDetails *ChainedInvokeStartedDetails `json:"chainedInvokeStartedDetails" xml:"ChainedInvokeStartedDetails"`
+ChainedInvokeStoppedDetails *ChainedInvokeStoppedDetails `json:"chainedInvokeStoppedDetails" xml:"ChainedInvokeStoppedDetails"`
+ChainedInvokeSucceededDetails *ChainedInvokeSucceededDetails `json:"chainedInvokeSucceededDetails" xml:"ChainedInvokeSucceededDetails"`
+ChainedInvokeTimedOutDetails *ChainedInvokeTimedOutDetails `json:"chainedInvokeTimedOutDetails" xml:"ChainedInvokeTimedOutDetails"`
+ContextFailedDetails *ContextFailedDetails `json:"contextFailedDetails" xml:"ContextFailedDetails"`
+ContextStartedDetails *ContextStartedDetails `json:"contextStartedDetails" xml:"ContextStartedDetails"`
+ContextSucceededDetails *ContextSucceededDetails `json:"contextSucceededDetails" xml:"ContextSucceededDetails"`
+EventId int32 `json:"eventId" xml:"EventId"`
+EventTimestamp time.Time `json:"eventTimestamp" xml:"EventTimestamp"`
+EventType string `json:"eventType" xml:"EventType"`
+ExecutionFailedDetails *ExecutionFailedDetails `json:"executionFailedDetails" xml:"ExecutionFailedDetails"`
+ExecutionStartedDetails *ExecutionStartedDetails `json:"executionStartedDetails" xml:"ExecutionStartedDetails"`
+ExecutionStoppedDetails *ExecutionStoppedDetails `json:"executionStoppedDetails" xml:"ExecutionStoppedDetails"`
+ExecutionSucceededDetails *ExecutionSucceededDetails `json:"executionSucceededDetails" xml:"ExecutionSucceededDetails"`
+ExecutionTimedOutDetails *ExecutionTimedOutDetails `json:"executionTimedOutDetails" xml:"ExecutionTimedOutDetails"`
+Id string `json:"id" xml:"Id"`
+InvocationCompletedDetails *InvocationCompletedDetails `json:"invocationCompletedDetails" xml:"InvocationCompletedDetails"`
+Name string `json:"name" xml:"Name"`
+ParentId string `json:"parentId" xml:"ParentId"`
+StepFailedDetails *StepFailedDetails `json:"stepFailedDetails" xml:"StepFailedDetails"`
+StepStartedDetails *StepStartedDetails `json:"stepStartedDetails" xml:"StepStartedDetails"`
+StepSucceededDetails *StepSucceededDetails `json:"stepSucceededDetails" xml:"StepSucceededDetails"`
+SubType string `json:"subType" xml:"SubType"`
+WaitCancelledDetails *WaitCancelledDetails `json:"waitCancelledDetails" xml:"WaitCancelledDetails"`
+WaitStartedDetails *WaitStartedDetails `json:"waitStartedDetails" xml:"WaitStartedDetails"`
+WaitSucceededDetails *WaitSucceededDetails `json:"waitSucceededDetails" xml:"WaitSucceededDetails"`
 }
 
 type EventError struct {
-	Payload   *ErrorObject `json:"payload" xml:"Payload"`
-	Truncated bool         `json:"truncated" xml:"Truncated"`
+Payload *ErrorObject `json:"payload" xml:"Payload"`
+Truncated bool `json:"truncated" xml:"Truncated"`
 }
 
 type EventInput struct {
-	Payload   string `json:"payload" xml:"Payload"`
-	Truncated bool   `json:"truncated" xml:"Truncated"`
+Payload string `json:"payload" xml:"Payload"`
+Truncated bool `json:"truncated" xml:"Truncated"`
 }
 
 type EventResult struct {
-	Payload   string `json:"payload" xml:"Payload"`
-	Truncated bool   `json:"truncated" xml:"Truncated"`
+Payload string `json:"payload" xml:"Payload"`
+Truncated bool `json:"truncated" xml:"Truncated"`
 }
 
 type EventSourceMappingConfiguration struct {
-	AmazonManagedKafkaEventSourceConfig *AmazonManagedKafkaEventSourceConfig `json:"amazonManagedKafkaEventSourceConfig" xml:"AmazonManagedKafkaEventSourceConfig"`
-	BatchSize                           int32                                `json:"batchSize" xml:"BatchSize"`
-	BisectBatchOnFunctionError          bool                                 `json:"bisectBatchOnFunctionError" xml:"BisectBatchOnFunctionError"`
-	DestinationConfig                   *DestinationConfig                   `json:"destinationConfig" xml:"DestinationConfig"`
-	DocumentDBEventSourceConfig         *DocumentDBEventSourceConfig         `json:"documentDBEventSourceConfig" xml:"DocumentDBEventSourceConfig"`
-	EventSourceArn                      string                               `json:"eventSourceArn" xml:"EventSourceArn"`
-	EventSourceMappingArn               string                               `json:"eventSourceMappingArn" xml:"EventSourceMappingArn"`
-	FilterCriteria                      *FilterCriteria                      `json:"filterCriteria" xml:"FilterCriteria"`
-	FilterCriteriaError                 *FilterCriteriaError                 `json:"filterCriteriaError" xml:"FilterCriteriaError"`
-	FunctionArn                         string                               `json:"functionArn" xml:"FunctionArn"`
-	FunctionResponseTypes               FunctionResponseTypeList             `json:"functionResponseTypes" xml:"FunctionResponseTypes"`
-	KMSKeyArn                           string                               `json:"kMSKeyArn" xml:"KMSKeyArn"`
-	LastModified                        time.Time                            `json:"lastModified" xml:"LastModified"`
-	LastProcessingResult                string                               `json:"lastProcessingResult" xml:"LastProcessingResult"`
-	LoggingConfig                       *EventSourceMappingLoggingConfig     `json:"loggingConfig" xml:"LoggingConfig"`
-	MaximumBatchingWindowInSeconds      int32                                `json:"maximumBatchingWindowInSeconds" xml:"MaximumBatchingWindowInSeconds"`
-	MaximumRecordAgeInSeconds           int32                                `json:"maximumRecordAgeInSeconds" xml:"MaximumRecordAgeInSeconds"`
-	MaximumRetryAttempts                int32                                `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
-	MetricsConfig                       *EventSourceMappingMetricsConfig     `json:"metricsConfig" xml:"MetricsConfig"`
-	ParallelizationFactor               int32                                `json:"parallelizationFactor" xml:"ParallelizationFactor"`
-	ProvisionedPollerConfig             *ProvisionedPollerConfig             `json:"provisionedPollerConfig" xml:"ProvisionedPollerConfig"`
-	Queues                              Queues                               `json:"queues" xml:"Queues"`
-	ScalingConfig                       *ScalingConfig                       `json:"scalingConfig" xml:"ScalingConfig"`
-	SelfManagedEventSource              *SelfManagedEventSource              `json:"selfManagedEventSource" xml:"SelfManagedEventSource"`
-	SelfManagedKafkaEventSourceConfig   *SelfManagedKafkaEventSourceConfig   `json:"selfManagedKafkaEventSourceConfig" xml:"SelfManagedKafkaEventSourceConfig"`
-	SourceAccessConfigurations          SourceAccessConfigurations           `json:"sourceAccessConfigurations" xml:"SourceAccessConfigurations"`
-	StartingPosition                    string                               `json:"startingPosition" xml:"StartingPosition"`
-	StartingPositionTimestamp           time.Time                            `json:"startingPositionTimestamp" xml:"StartingPositionTimestamp"`
-	State                               string                               `json:"state" xml:"State"`
-	StateTransitionReason               string                               `json:"stateTransitionReason" xml:"StateTransitionReason"`
-	Topics                              Topics                               `json:"topics" xml:"Topics"`
-	TumblingWindowInSeconds             int32                                `json:"tumblingWindowInSeconds" xml:"TumblingWindowInSeconds"`
-	UUID                                string                               `json:"uUID" xml:"UUID"`
+AmazonManagedKafkaEventSourceConfig *AmazonManagedKafkaEventSourceConfig `json:"amazonManagedKafkaEventSourceConfig" xml:"AmazonManagedKafkaEventSourceConfig"`
+BatchSize int32 `json:"batchSize" xml:"BatchSize"`
+BisectBatchOnFunctionError bool `json:"bisectBatchOnFunctionError" xml:"BisectBatchOnFunctionError"`
+DestinationConfig *DestinationConfig `json:"destinationConfig" xml:"DestinationConfig"`
+DocumentDBEventSourceConfig *DocumentDBEventSourceConfig `json:"documentDBEventSourceConfig" xml:"DocumentDBEventSourceConfig"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+EventSourceMappingArn string `json:"eventSourceMappingArn" xml:"EventSourceMappingArn"`
+FilterCriteria *FilterCriteria `json:"filterCriteria" xml:"FilterCriteria"`
+FilterCriteriaError *FilterCriteriaError `json:"filterCriteriaError" xml:"FilterCriteriaError"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+FunctionResponseTypes FunctionResponseTypeList `json:"functionResponseTypes" xml:"FunctionResponseTypes"`
+KMSKeyArn string `json:"kMSKeyArn" xml:"KMSKeyArn"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+LastProcessingResult string `json:"lastProcessingResult" xml:"LastProcessingResult"`
+LoggingConfig *EventSourceMappingLoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
+MaximumBatchingWindowInSeconds int32 `json:"maximumBatchingWindowInSeconds" xml:"MaximumBatchingWindowInSeconds"`
+MaximumRecordAgeInSeconds int32 `json:"maximumRecordAgeInSeconds" xml:"MaximumRecordAgeInSeconds"`
+MaximumRetryAttempts int32 `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
+MetricsConfig *EventSourceMappingMetricsConfig `json:"metricsConfig" xml:"MetricsConfig"`
+ParallelizationFactor int32 `json:"parallelizationFactor" xml:"ParallelizationFactor"`
+ProvisionedPollerConfig *ProvisionedPollerConfig `json:"provisionedPollerConfig" xml:"ProvisionedPollerConfig"`
+Queues Queues `json:"queues" xml:"Queues"`
+ScalingConfig *ScalingConfig `json:"scalingConfig" xml:"ScalingConfig"`
+SelfManagedEventSource *SelfManagedEventSource `json:"selfManagedEventSource" xml:"SelfManagedEventSource"`
+SelfManagedKafkaEventSourceConfig *SelfManagedKafkaEventSourceConfig `json:"selfManagedKafkaEventSourceConfig" xml:"SelfManagedKafkaEventSourceConfig"`
+SourceAccessConfigurations SourceAccessConfigurations `json:"sourceAccessConfigurations" xml:"SourceAccessConfigurations"`
+StartingPosition string `json:"startingPosition" xml:"StartingPosition"`
+StartingPositionTimestamp time.Time `json:"startingPositionTimestamp" xml:"StartingPositionTimestamp"`
+State string `json:"state" xml:"State"`
+StateTransitionReason string `json:"stateTransitionReason" xml:"StateTransitionReason"`
+Topics Topics `json:"topics" xml:"Topics"`
+TumblingWindowInSeconds int32 `json:"tumblingWindowInSeconds" xml:"TumblingWindowInSeconds"`
+UUID string `json:"uUID" xml:"UUID"`
 }
 
 type EventSourceMappingLoggingConfig struct {
-	SystemLogLevel string `json:"systemLogLevel" xml:"SystemLogLevel"`
+SystemLogLevel string `json:"systemLogLevel" xml:"SystemLogLevel"`
 }
 
 type EventSourceMappingMetricsConfig struct {
-	Metrics EventSourceMappingMetricList `json:"metrics" xml:"Metrics"`
+Metrics EventSourceMappingMetricList `json:"metrics" xml:"Metrics"`
 }
 
 type Execution struct {
-	DurableExecutionArn  string    `json:"durableExecutionArn" xml:"DurableExecutionArn"`
-	DurableExecutionName string    `json:"durableExecutionName" xml:"DurableExecutionName"`
-	EndTimestamp         time.Time `json:"endTimestamp" xml:"EndTimestamp"`
-	FunctionArn          string    `json:"functionArn" xml:"FunctionArn"`
-	StartTimestamp       time.Time `json:"startTimestamp" xml:"StartTimestamp"`
-	Status               string    `json:"status" xml:"Status"`
+DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+DurableExecutionName string `json:"durableExecutionName" xml:"DurableExecutionName"`
+EndTimestamp time.Time `json:"endTimestamp" xml:"EndTimestamp"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+StartTimestamp time.Time `json:"startTimestamp" xml:"StartTimestamp"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ExecutionDetails struct {
-	InputPayload string `json:"inputPayload" xml:"InputPayload"`
+InputPayload string `json:"inputPayload" xml:"InputPayload"`
 }
 
 type ExecutionFailedDetails struct {
-	Error *EventError `json:"error" xml:"Error"`
+Error *EventError `json:"error" xml:"Error"`
 }
 
 type ExecutionStartedDetails struct {
-	ExecutionTimeout int32       `json:"executionTimeout" xml:"ExecutionTimeout"`
-	Input            *EventInput `json:"input" xml:"Input"`
+ExecutionTimeout int32 `json:"executionTimeout" xml:"ExecutionTimeout"`
+Input *EventInput `json:"input" xml:"Input"`
 }
 
 type ExecutionStoppedDetails struct {
-	Error *EventError `json:"error" xml:"Error"`
+Error *EventError `json:"error" xml:"Error"`
 }
 
 type ExecutionSucceededDetails struct {
-	Result *EventResult `json:"result" xml:"Result"`
+Result *EventResult `json:"result" xml:"Result"`
 }
 
 type ExecutionTimedOutDetails struct {
-	Error *EventError `json:"error" xml:"Error"`
+Error *EventError `json:"error" xml:"Error"`
 }
 
 type FileSystemConfig struct {
-	Arn            string `json:"arn" xml:"Arn"`
-	LocalMountPath string `json:"localMountPath" xml:"LocalMountPath"`
+Arn string `json:"arn" xml:"Arn"`
+LocalMountPath string `json:"localMountPath" xml:"LocalMountPath"`
 }
 
 type Filter struct {
-	Pattern string `json:"pattern" xml:"Pattern"`
+Pattern string `json:"pattern" xml:"Pattern"`
 }
 
 type FilterCriteria struct {
-	Filters FilterList `json:"filters" xml:"Filters"`
+Filters FilterList `json:"filters" xml:"Filters"`
 }
 
 type FilterCriteriaError struct {
-	ErrorCode string `json:"errorCode" xml:"ErrorCode"`
-	Message   string `json:"message" xml:"Message"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+Message string `json:"message" xml:"Message"`
 }
 
 type FunctionCode struct {
-	ImageUri        string `json:"imageUri" xml:"ImageUri"`
-	S3Bucket        string `json:"s3Bucket" xml:"S3Bucket"`
-	S3Key           string `json:"s3Key" xml:"S3Key"`
-	S3ObjectVersion string `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
-	SourceKMSKeyArn string `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
-	ZipFile         []byte `json:"zipFile" xml:"ZipFile"`
+ImageUri string `json:"imageUri" xml:"ImageUri"`
+S3Bucket string `json:"s3Bucket" xml:"S3Bucket"`
+S3Key string `json:"s3Key" xml:"S3Key"`
+S3ObjectVersion string `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
+SourceKMSKeyArn string `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
+ZipFile []byte `json:"zipFile" xml:"ZipFile"`
 }
 
 type FunctionCodeLocation struct {
-	ImageUri         string `json:"imageUri" xml:"ImageUri"`
-	Location         string `json:"location" xml:"Location"`
-	RepositoryType   string `json:"repositoryType" xml:"RepositoryType"`
-	ResolvedImageUri string `json:"resolvedImageUri" xml:"ResolvedImageUri"`
-	SourceKMSKeyArn  string `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
+ImageUri string `json:"imageUri" xml:"ImageUri"`
+Location string `json:"location" xml:"Location"`
+RepositoryType string `json:"repositoryType" xml:"RepositoryType"`
+ResolvedImageUri string `json:"resolvedImageUri" xml:"ResolvedImageUri"`
+SourceKMSKeyArn string `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
 }
 
 type FunctionConfiguration struct {
-	Architectures              ArchitecturesList       `json:"architectures" xml:"Architectures"`
-	CapacityProviderConfig     *CapacityProviderConfig `json:"capacityProviderConfig" xml:"CapacityProviderConfig"`
-	CodeSha256                 string                  `json:"codeSha256" xml:"CodeSha256"`
-	CodeSize                   int64                   `json:"codeSize" xml:"CodeSize"`
-	ConfigSha256               string                  `json:"configSha256" xml:"ConfigSha256"`
-	DeadLetterConfig           *DeadLetterConfig       `json:"deadLetterConfig" xml:"DeadLetterConfig"`
-	Description                string                  `json:"description" xml:"Description"`
-	DurableConfig              *DurableConfig          `json:"durableConfig" xml:"DurableConfig"`
-	Environment                *EnvironmentResponse    `json:"environment" xml:"Environment"`
-	EphemeralStorage           *EphemeralStorage       `json:"ephemeralStorage" xml:"EphemeralStorage"`
-	FileSystemConfigs          FileSystemConfigList    `json:"fileSystemConfigs" xml:"FileSystemConfigs"`
-	FunctionArn                string                  `json:"functionArn" xml:"FunctionArn"`
-	FunctionName               string                  `json:"functionName" xml:"FunctionName"`
-	Handler                    string                  `json:"handler" xml:"Handler"`
-	ImageConfigResponse        *ImageConfigResponse    `json:"imageConfigResponse" xml:"ImageConfigResponse"`
-	KMSKeyArn                  string                  `json:"kMSKeyArn" xml:"KMSKeyArn"`
-	LastModified               string                  `json:"lastModified" xml:"LastModified"`
-	LastUpdateStatus           string                  `json:"lastUpdateStatus" xml:"LastUpdateStatus"`
-	LastUpdateStatusReason     string                  `json:"lastUpdateStatusReason" xml:"LastUpdateStatusReason"`
-	LastUpdateStatusReasonCode string                  `json:"lastUpdateStatusReasonCode" xml:"LastUpdateStatusReasonCode"`
-	Layers                     LayersReferenceList     `json:"layers" xml:"Layers"`
-	LoggingConfig              *LoggingConfig          `json:"loggingConfig" xml:"LoggingConfig"`
-	MasterArn                  string                  `json:"masterArn" xml:"MasterArn"`
-	MemorySize                 int32                   `json:"memorySize" xml:"MemorySize"`
-	PackageType                string                  `json:"packageType" xml:"PackageType"`
-	RevisionId                 string                  `json:"revisionId" xml:"RevisionId"`
-	Role                       string                  `json:"role" xml:"Role"`
-	Runtime                    string                  `json:"runtime" xml:"Runtime"`
-	RuntimeVersionConfig       *RuntimeVersionConfig   `json:"runtimeVersionConfig" xml:"RuntimeVersionConfig"`
-	SigningJobArn              string                  `json:"signingJobArn" xml:"SigningJobArn"`
-	SigningProfileVersionArn   string                  `json:"signingProfileVersionArn" xml:"SigningProfileVersionArn"`
-	SnapStart                  *SnapStartResponse      `json:"snapStart" xml:"SnapStart"`
-	State                      string                  `json:"state" xml:"State"`
-	StateReason                string                  `json:"stateReason" xml:"StateReason"`
-	StateReasonCode            string                  `json:"stateReasonCode" xml:"StateReasonCode"`
-	TenancyConfig              *TenancyConfig          `json:"tenancyConfig" xml:"TenancyConfig"`
-	Timeout                    int32                   `json:"timeout" xml:"Timeout"`
-	TracingConfig              *TracingConfigResponse  `json:"tracingConfig" xml:"TracingConfig"`
-	Version                    string                  `json:"version" xml:"Version"`
-	VpcConfig                  *VpcConfigResponse      `json:"vpcConfig" xml:"VpcConfig"`
+Architectures ArchitecturesList `json:"architectures" xml:"Architectures"`
+CapacityProviderConfig *CapacityProviderConfig `json:"capacityProviderConfig" xml:"CapacityProviderConfig"`
+CodeSha256 string `json:"codeSha256" xml:"CodeSha256"`
+CodeSize int64 `json:"codeSize" xml:"CodeSize"`
+ConfigSha256 string `json:"configSha256" xml:"ConfigSha256"`
+DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
+Description string `json:"description" xml:"Description"`
+DurableConfig *DurableConfig `json:"durableConfig" xml:"DurableConfig"`
+Environment *EnvironmentResponse `json:"environment" xml:"Environment"`
+EphemeralStorage *EphemeralStorage `json:"ephemeralStorage" xml:"EphemeralStorage"`
+FileSystemConfigs FileSystemConfigList `json:"fileSystemConfigs" xml:"FileSystemConfigs"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Handler string `json:"handler" xml:"Handler"`
+ImageConfigResponse *ImageConfigResponse `json:"imageConfigResponse" xml:"ImageConfigResponse"`
+KMSKeyArn string `json:"kMSKeyArn" xml:"KMSKeyArn"`
+LastModified string `json:"lastModified" xml:"LastModified"`
+LastUpdateStatus string `json:"lastUpdateStatus" xml:"LastUpdateStatus"`
+LastUpdateStatusReason string `json:"lastUpdateStatusReason" xml:"LastUpdateStatusReason"`
+LastUpdateStatusReasonCode string `json:"lastUpdateStatusReasonCode" xml:"LastUpdateStatusReasonCode"`
+Layers LayersReferenceList `json:"layers" xml:"Layers"`
+LoggingConfig *LoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
+MasterArn string `json:"masterArn" xml:"MasterArn"`
+MemorySize int32 `json:"memorySize" xml:"MemorySize"`
+PackageType string `json:"packageType" xml:"PackageType"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
+Role string `json:"role" xml:"Role"`
+Runtime string `json:"runtime" xml:"Runtime"`
+RuntimeVersionConfig *RuntimeVersionConfig `json:"runtimeVersionConfig" xml:"RuntimeVersionConfig"`
+SigningJobArn string `json:"signingJobArn" xml:"SigningJobArn"`
+SigningProfileVersionArn string `json:"signingProfileVersionArn" xml:"SigningProfileVersionArn"`
+SnapStart *SnapStartResponse `json:"snapStart" xml:"SnapStart"`
+State string `json:"state" xml:"State"`
+StateReason string `json:"stateReason" xml:"StateReason"`
+StateReasonCode string `json:"stateReasonCode" xml:"StateReasonCode"`
+TenancyConfig *TenancyConfig `json:"tenancyConfig" xml:"TenancyConfig"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+TracingConfig *TracingConfigResponse `json:"tracingConfig" xml:"TracingConfig"`
+Version string `json:"version" xml:"Version"`
+VpcConfig *VpcConfigResponse `json:"vpcConfig" xml:"VpcConfig"`
 }
 
 type FunctionEventInvokeConfig struct {
-	DestinationConfig        *DestinationConfig `json:"destinationConfig" xml:"DestinationConfig"`
-	FunctionArn              string             `json:"functionArn" xml:"FunctionArn"`
-	LastModified             time.Time          `json:"lastModified" xml:"LastModified"`
-	MaximumEventAgeInSeconds int32              `json:"maximumEventAgeInSeconds" xml:"MaximumEventAgeInSeconds"`
-	MaximumRetryAttempts     int32              `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
+DestinationConfig *DestinationConfig `json:"destinationConfig" xml:"DestinationConfig"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+MaximumEventAgeInSeconds int32 `json:"maximumEventAgeInSeconds" xml:"MaximumEventAgeInSeconds"`
+MaximumRetryAttempts int32 `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
 }
 
 type FunctionScalingConfig struct {
-	MaxExecutionEnvironments int32 `json:"maxExecutionEnvironments" xml:"MaxExecutionEnvironments"`
-	MinExecutionEnvironments int32 `json:"minExecutionEnvironments" xml:"MinExecutionEnvironments"`
+MaxExecutionEnvironments int32 `json:"maxExecutionEnvironments" xml:"MaxExecutionEnvironments"`
+MinExecutionEnvironments int32 `json:"minExecutionEnvironments" xml:"MinExecutionEnvironments"`
 }
 
 type FunctionUrlConfig struct {
-	AuthType         string `json:"authType" xml:"AuthType"`
-	Cors             *Cors  `json:"cors" xml:"Cors"`
-	CreationTime     string `json:"creationTime" xml:"CreationTime"`
-	FunctionArn      string `json:"functionArn" xml:"FunctionArn"`
-	FunctionUrl      string `json:"functionUrl" xml:"FunctionUrl"`
-	InvokeMode       string `json:"invokeMode" xml:"InvokeMode"`
-	LastModifiedTime string `json:"lastModifiedTime" xml:"LastModifiedTime"`
+AuthType string `json:"authType" xml:"AuthType"`
+Cors *Cors `json:"cors" xml:"Cors"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+FunctionUrl string `json:"functionUrl" xml:"FunctionUrl"`
+InvokeMode string `json:"invokeMode" xml:"InvokeMode"`
+LastModifiedTime string `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type FunctionVersionsByCapacityProviderListItem struct {
-	FunctionArn string `json:"functionArn" xml:"FunctionArn"`
-	State       string `json:"state" xml:"State"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+State string `json:"state" xml:"State"`
 }
 
 type GetAccountSettingsRequest struct {
 }
 
 type GetAccountSettingsResponse struct {
-	AccountLimit *AccountLimit `json:"accountLimit" xml:"AccountLimit"`
-	AccountUsage *AccountUsage `json:"accountUsage" xml:"AccountUsage"`
+AccountLimit *AccountLimit `json:"accountLimit" xml:"AccountLimit"`
+AccountUsage *AccountUsage `json:"accountUsage" xml:"AccountUsage"`
 }
 
 type GetAliasRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Name         string `json:"name" xml:"Name"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetCapacityProviderRequest struct {
-	CapacityProviderName string `json:"capacityProviderName" xml:"CapacityProviderName"`
+CapacityProviderName string `json:"capacityProviderName" xml:"CapacityProviderName"`
 }
 
 type GetCapacityProviderResponse struct {
-	CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"CapacityProvider"`
+CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"CapacityProvider"`
 }
 
 type GetCodeSigningConfigRequest struct {
-	CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
+CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
 }
 
 type GetCodeSigningConfigResponse struct {
-	CodeSigningConfig *CodeSigningConfig `json:"codeSigningConfig" xml:"CodeSigningConfig"`
+CodeSigningConfig *CodeSigningConfig `json:"codeSigningConfig" xml:"CodeSigningConfig"`
 }
 
 type GetDurableExecutionHistoryRequest struct {
-	DurableExecutionArn  string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
-	IncludeExecutionData bool   `json:"includeExecutionData" xml:"IncludeExecutionData"`
-	Marker               string `json:"marker" xml:"Marker"`
-	MaxItems             int32  `json:"maxItems" xml:"MaxItems"`
-	ReverseOrder         bool   `json:"reverseOrder" xml:"ReverseOrder"`
+DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+IncludeExecutionData bool `json:"includeExecutionData" xml:"IncludeExecutionData"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+ReverseOrder bool `json:"reverseOrder" xml:"ReverseOrder"`
 }
 
 type GetDurableExecutionHistoryResponse struct {
-	Events     Events `json:"events" xml:"Events"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Events Events `json:"events" xml:"Events"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type GetDurableExecutionRequest struct {
-	DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
 }
 
 type GetDurableExecutionResponse struct {
-	DurableExecutionArn  string       `json:"durableExecutionArn" xml:"DurableExecutionArn"`
-	DurableExecutionName string       `json:"durableExecutionName" xml:"DurableExecutionName"`
-	EndTimestamp         time.Time    `json:"endTimestamp" xml:"EndTimestamp"`
-	Error                *ErrorObject `json:"error" xml:"Error"`
-	FunctionArn          string       `json:"functionArn" xml:"FunctionArn"`
-	InputPayload         string       `json:"inputPayload" xml:"InputPayload"`
-	Result               string       `json:"result" xml:"Result"`
-	StartTimestamp       time.Time    `json:"startTimestamp" xml:"StartTimestamp"`
-	Status               string       `json:"status" xml:"Status"`
-	TraceHeader          *TraceHeader `json:"traceHeader" xml:"TraceHeader"`
-	Version              string       `json:"version" xml:"Version"`
+DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+DurableExecutionName string `json:"durableExecutionName" xml:"DurableExecutionName"`
+EndTimestamp time.Time `json:"endTimestamp" xml:"EndTimestamp"`
+Error *ErrorObject `json:"error" xml:"Error"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+InputPayload string `json:"inputPayload" xml:"InputPayload"`
+Result string `json:"result" xml:"Result"`
+StartTimestamp time.Time `json:"startTimestamp" xml:"StartTimestamp"`
+Status string `json:"status" xml:"Status"`
+TraceHeader *TraceHeader `json:"traceHeader" xml:"TraceHeader"`
+Version string `json:"version" xml:"Version"`
 }
 
 type GetDurableExecutionStateRequest struct {
-	CheckpointToken     string `json:"checkpointToken" xml:"CheckpointToken"`
-	DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
-	Marker              string `json:"marker" xml:"Marker"`
-	MaxItems            int32  `json:"maxItems" xml:"MaxItems"`
+CheckpointToken string `json:"checkpointToken" xml:"CheckpointToken"`
+DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type GetDurableExecutionStateResponse struct {
-	NextMarker string     `json:"nextMarker" xml:"NextMarker"`
-	Operations Operations `json:"operations" xml:"Operations"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Operations Operations `json:"operations" xml:"Operations"`
 }
 
 type GetEventSourceMappingRequest struct {
-	UUID string `json:"uUID" xml:"UUID"`
+UUID string `json:"uUID" xml:"UUID"`
 }
 
 type GetFunctionCodeSigningConfigRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
 }
 
 type GetFunctionCodeSigningConfigResponse struct {
-	CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
-	FunctionName         string `json:"functionName" xml:"FunctionName"`
+CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
 }
 
 type GetFunctionConcurrencyRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
 }
 
 type GetFunctionConcurrencyResponse struct {
-	ReservedConcurrentExecutions int32 `json:"reservedConcurrentExecutions" xml:"ReservedConcurrentExecutions"`
+ReservedConcurrentExecutions int32 `json:"reservedConcurrentExecutions" xml:"ReservedConcurrentExecutions"`
 }
 
 type GetFunctionConfigurationRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type GetFunctionEventInvokeConfigRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type GetFunctionRecursionConfigRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
 }
 
 type GetFunctionRecursionConfigResponse struct {
-	RecursiveLoop string `json:"recursiveLoop" xml:"RecursiveLoop"`
+RecursiveLoop string `json:"recursiveLoop" xml:"RecursiveLoop"`
 }
 
 type GetFunctionRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type GetFunctionResponse struct {
-	Code          *FunctionCodeLocation  `json:"code" xml:"Code"`
-	Concurrency   *Concurrency           `json:"concurrency" xml:"Concurrency"`
-	Configuration *FunctionConfiguration `json:"configuration" xml:"Configuration"`
-	Tags          Tags                   `json:"tags" xml:"Tags"`
-	TagsError     *TagsError             `json:"tagsError" xml:"TagsError"`
+Code *FunctionCodeLocation `json:"code" xml:"Code"`
+Concurrency *Concurrency `json:"concurrency" xml:"Concurrency"`
+Configuration *FunctionConfiguration `json:"configuration" xml:"Configuration"`
+Tags Tags `json:"tags" xml:"Tags"`
+TagsError *TagsError `json:"tagsError" xml:"TagsError"`
 }
 
 type GetFunctionScalingConfigRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type GetFunctionScalingConfigResponse struct {
-	AppliedFunctionScalingConfig   *FunctionScalingConfig `json:"appliedFunctionScalingConfig" xml:"AppliedFunctionScalingConfig"`
-	FunctionArn                    string                 `json:"functionArn" xml:"FunctionArn"`
-	RequestedFunctionScalingConfig *FunctionScalingConfig `json:"requestedFunctionScalingConfig" xml:"RequestedFunctionScalingConfig"`
+AppliedFunctionScalingConfig *FunctionScalingConfig `json:"appliedFunctionScalingConfig" xml:"AppliedFunctionScalingConfig"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+RequestedFunctionScalingConfig *FunctionScalingConfig `json:"requestedFunctionScalingConfig" xml:"RequestedFunctionScalingConfig"`
 }
 
 type GetFunctionUrlConfigRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type GetFunctionUrlConfigResponse struct {
-	AuthType         string `json:"authType" xml:"AuthType"`
-	Cors             *Cors  `json:"cors" xml:"Cors"`
-	CreationTime     string `json:"creationTime" xml:"CreationTime"`
-	FunctionArn      string `json:"functionArn" xml:"FunctionArn"`
-	FunctionUrl      string `json:"functionUrl" xml:"FunctionUrl"`
-	InvokeMode       string `json:"invokeMode" xml:"InvokeMode"`
-	LastModifiedTime string `json:"lastModifiedTime" xml:"LastModifiedTime"`
+AuthType string `json:"authType" xml:"AuthType"`
+Cors *Cors `json:"cors" xml:"Cors"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+FunctionUrl string `json:"functionUrl" xml:"FunctionUrl"`
+InvokeMode string `json:"invokeMode" xml:"InvokeMode"`
+LastModifiedTime string `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type GetLayerVersionByArnRequest struct {
-	Arn string `json:"arn" xml:"Arn"`
+Arn string `json:"arn" xml:"Arn"`
 }
 
 type GetLayerVersionPolicyRequest struct {
-	LayerName     string `json:"layerName" xml:"LayerName"`
-	VersionNumber int64  `json:"versionNumber" xml:"VersionNumber"`
+LayerName string `json:"layerName" xml:"LayerName"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type GetLayerVersionPolicyResponse struct {
-	Policy     string `json:"policy" xml:"Policy"`
-	RevisionId string `json:"revisionId" xml:"RevisionId"`
+Policy string `json:"policy" xml:"Policy"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
 }
 
 type GetLayerVersionRequest struct {
-	LayerName     string `json:"layerName" xml:"LayerName"`
-	VersionNumber int64  `json:"versionNumber" xml:"VersionNumber"`
+LayerName string `json:"layerName" xml:"LayerName"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type GetLayerVersionResponse struct {
-	CompatibleArchitectures CompatibleArchitectures    `json:"compatibleArchitectures" xml:"CompatibleArchitectures"`
-	CompatibleRuntimes      CompatibleRuntimes         `json:"compatibleRuntimes" xml:"CompatibleRuntimes"`
-	Content                 *LayerVersionContentOutput `json:"content" xml:"Content"`
-	CreatedDate             string                     `json:"createdDate" xml:"CreatedDate"`
-	Description             string                     `json:"description" xml:"Description"`
-	LayerArn                string                     `json:"layerArn" xml:"LayerArn"`
-	LayerVersionArn         string                     `json:"layerVersionArn" xml:"LayerVersionArn"`
-	LicenseInfo             string                     `json:"licenseInfo" xml:"LicenseInfo"`
-	Version                 int64                      `json:"version" xml:"Version"`
+CompatibleArchitectures CompatibleArchitectures `json:"compatibleArchitectures" xml:"CompatibleArchitectures"`
+CompatibleRuntimes CompatibleRuntimes `json:"compatibleRuntimes" xml:"CompatibleRuntimes"`
+Content *LayerVersionContentOutput `json:"content" xml:"Content"`
+CreatedDate string `json:"createdDate" xml:"CreatedDate"`
+Description string `json:"description" xml:"Description"`
+LayerArn string `json:"layerArn" xml:"LayerArn"`
+LayerVersionArn string `json:"layerVersionArn" xml:"LayerVersionArn"`
+LicenseInfo string `json:"licenseInfo" xml:"LicenseInfo"`
+Version int64 `json:"version" xml:"Version"`
 }
 
 type GetPolicyRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type GetPolicyResponse struct {
-	Policy     string `json:"policy" xml:"Policy"`
-	RevisionId string `json:"revisionId" xml:"RevisionId"`
+Policy string `json:"policy" xml:"Policy"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
 }
 
 type GetProvisionedConcurrencyConfigRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type GetProvisionedConcurrencyConfigResponse struct {
-	AllocatedProvisionedConcurrentExecutions int32  `json:"allocatedProvisionedConcurrentExecutions" xml:"AllocatedProvisionedConcurrentExecutions"`
-	AvailableProvisionedConcurrentExecutions int32  `json:"availableProvisionedConcurrentExecutions" xml:"AvailableProvisionedConcurrentExecutions"`
-	LastModified                             string `json:"lastModified" xml:"LastModified"`
-	RequestedProvisionedConcurrentExecutions int32  `json:"requestedProvisionedConcurrentExecutions" xml:"RequestedProvisionedConcurrentExecutions"`
-	Status                                   string `json:"status" xml:"Status"`
-	StatusReason                             string `json:"statusReason" xml:"StatusReason"`
+AllocatedProvisionedConcurrentExecutions int32 `json:"allocatedProvisionedConcurrentExecutions" xml:"AllocatedProvisionedConcurrentExecutions"`
+AvailableProvisionedConcurrentExecutions int32 `json:"availableProvisionedConcurrentExecutions" xml:"AvailableProvisionedConcurrentExecutions"`
+LastModified string `json:"lastModified" xml:"LastModified"`
+RequestedProvisionedConcurrentExecutions int32 `json:"requestedProvisionedConcurrentExecutions" xml:"RequestedProvisionedConcurrentExecutions"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type GetRuntimeManagementConfigRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type GetRuntimeManagementConfigResponse struct {
-	FunctionArn       string `json:"functionArn" xml:"FunctionArn"`
-	RuntimeVersionArn string `json:"runtimeVersionArn" xml:"RuntimeVersionArn"`
-	UpdateRuntimeOn   string `json:"updateRuntimeOn" xml:"UpdateRuntimeOn"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+RuntimeVersionArn string `json:"runtimeVersionArn" xml:"RuntimeVersionArn"`
+UpdateRuntimeOn string `json:"updateRuntimeOn" xml:"UpdateRuntimeOn"`
 }
 
 type ImageConfig struct {
-	Command          StringList `json:"command" xml:"Command"`
-	EntryPoint       StringList `json:"entryPoint" xml:"EntryPoint"`
-	WorkingDirectory string     `json:"workingDirectory" xml:"WorkingDirectory"`
+Command StringList `json:"command" xml:"Command"`
+EntryPoint StringList `json:"entryPoint" xml:"EntryPoint"`
+WorkingDirectory string `json:"workingDirectory" xml:"WorkingDirectory"`
 }
 
 type ImageConfigError struct {
-	ErrorCode string `json:"errorCode" xml:"ErrorCode"`
-	Message   string `json:"message" xml:"Message"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+Message string `json:"message" xml:"Message"`
 }
 
 type ImageConfigResponse struct {
-	Error       *ImageConfigError `json:"error" xml:"Error"`
-	ImageConfig *ImageConfig      `json:"imageConfig" xml:"ImageConfig"`
+Error *ImageConfigError `json:"error" xml:"Error"`
+ImageConfig *ImageConfig `json:"imageConfig" xml:"ImageConfig"`
 }
 
 type InstanceRequirements struct {
-	AllowedInstanceTypes  InstanceTypeSet   `json:"allowedInstanceTypes" xml:"AllowedInstanceTypes"`
-	Architectures         ArchitecturesList `json:"architectures" xml:"Architectures"`
-	ExcludedInstanceTypes InstanceTypeSet   `json:"excludedInstanceTypes" xml:"ExcludedInstanceTypes"`
+AllowedInstanceTypes InstanceTypeSet `json:"allowedInstanceTypes" xml:"AllowedInstanceTypes"`
+Architectures ArchitecturesList `json:"architectures" xml:"Architectures"`
+ExcludedInstanceTypes InstanceTypeSet `json:"excludedInstanceTypes" xml:"ExcludedInstanceTypes"`
 }
 
 type InvocationCompletedDetails struct {
-	EndTimestamp   time.Time   `json:"endTimestamp" xml:"EndTimestamp"`
-	Error          *EventError `json:"error" xml:"Error"`
-	RequestId      string      `json:"requestId" xml:"RequestId"`
-	StartTimestamp time.Time   `json:"startTimestamp" xml:"StartTimestamp"`
+EndTimestamp time.Time `json:"endTimestamp" xml:"EndTimestamp"`
+Error *EventError `json:"error" xml:"Error"`
+RequestId string `json:"requestId" xml:"RequestId"`
+StartTimestamp time.Time `json:"startTimestamp" xml:"StartTimestamp"`
 }
 
 type InvocationRequest struct {
-	ClientContext        string `json:"clientContext" xml:"ClientContext"`
-	DurableExecutionName string `json:"durableExecutionName" xml:"DurableExecutionName"`
-	FunctionName         string `json:"functionName" xml:"FunctionName"`
-	InvocationType       string `json:"invocationType" xml:"InvocationType"`
-	LogType              string `json:"logType" xml:"LogType"`
-	Payload              []byte `json:"payload" xml:"Payload"`
-	Qualifier            string `json:"qualifier" xml:"Qualifier"`
-	TenantId             string `json:"tenantId" xml:"TenantId"`
+ClientContext string `json:"clientContext" xml:"ClientContext"`
+DurableExecutionName string `json:"durableExecutionName" xml:"DurableExecutionName"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+InvocationType string `json:"invocationType" xml:"InvocationType"`
+LogType string `json:"logType" xml:"LogType"`
+Payload []byte `json:"payload" xml:"Payload"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
+TenantId string `json:"tenantId" xml:"TenantId"`
 }
 
 type InvocationResponse struct {
-	DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
-	ExecutedVersion     string `json:"executedVersion" xml:"ExecutedVersion"`
-	FunctionError       string `json:"functionError" xml:"FunctionError"`
-	LogResult           string `json:"logResult" xml:"LogResult"`
-	Payload             []byte `json:"payload" xml:"Payload"`
-	StatusCode          int32  `json:"statusCode" xml:"StatusCode"`
+DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+ExecutedVersion string `json:"executedVersion" xml:"ExecutedVersion"`
+FunctionError string `json:"functionError" xml:"FunctionError"`
+LogResult string `json:"logResult" xml:"LogResult"`
+Payload []byte `json:"payload" xml:"Payload"`
+StatusCode int32 `json:"statusCode" xml:"StatusCode"`
 }
 
 type InvokeAsyncRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	InvokeArgs   []byte `json:"invokeArgs" xml:"InvokeArgs"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+InvokeArgs []byte `json:"invokeArgs" xml:"InvokeArgs"`
 }
 
 type InvokeAsyncResponse struct {
-	Status int32 `json:"status" xml:"Status"`
+Status int32 `json:"status" xml:"Status"`
 }
 
 type InvokeResponseStreamUpdate struct {
-	Payload []byte `json:"payload" xml:"Payload"`
+Payload []byte `json:"payload" xml:"Payload"`
 }
 
 type InvokeWithResponseStreamCompleteEvent struct {
-	ErrorCode    string `json:"errorCode" xml:"ErrorCode"`
-	ErrorDetails string `json:"errorDetails" xml:"ErrorDetails"`
-	LogResult    string `json:"logResult" xml:"LogResult"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorDetails string `json:"errorDetails" xml:"ErrorDetails"`
+LogResult string `json:"logResult" xml:"LogResult"`
 }
 
 type InvokeWithResponseStreamRequest struct {
-	ClientContext  string `json:"clientContext" xml:"ClientContext"`
-	FunctionName   string `json:"functionName" xml:"FunctionName"`
-	InvocationType string `json:"invocationType" xml:"InvocationType"`
-	LogType        string `json:"logType" xml:"LogType"`
-	Payload        []byte `json:"payload" xml:"Payload"`
-	Qualifier      string `json:"qualifier" xml:"Qualifier"`
-	TenantId       string `json:"tenantId" xml:"TenantId"`
+ClientContext string `json:"clientContext" xml:"ClientContext"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+InvocationType string `json:"invocationType" xml:"InvocationType"`
+LogType string `json:"logType" xml:"LogType"`
+Payload []byte `json:"payload" xml:"Payload"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
+TenantId string `json:"tenantId" xml:"TenantId"`
 }
 
 type InvokeWithResponseStreamResponse struct {
-	EventStream               interface{} `json:"eventStream" xml:"EventStream"`
-	ExecutedVersion           string      `json:"executedVersion" xml:"ExecutedVersion"`
-	ResponseStreamContentType string      `json:"responseStreamContentType" xml:"ResponseStreamContentType"`
-	StatusCode                int32       `json:"statusCode" xml:"StatusCode"`
+EventStream interface{} `json:"eventStream" xml:"EventStream"`
+ExecutedVersion string `json:"executedVersion" xml:"ExecutedVersion"`
+ResponseStreamContentType string `json:"responseStreamContentType" xml:"ResponseStreamContentType"`
+StatusCode int32 `json:"statusCode" xml:"StatusCode"`
 }
 
 type KafkaSchemaRegistryAccessConfig struct {
-	Type string `json:"type" xml:"Type"`
-	URI  string `json:"uRI" xml:"URI"`
+Type string `json:"type" xml:"Type"`
+URI string `json:"uRI" xml:"URI"`
 }
 
 type KafkaSchemaRegistryConfig struct {
-	AccessConfigs           KafkaSchemaRegistryAccessConfigList `json:"accessConfigs" xml:"AccessConfigs"`
-	EventRecordFormat       string                              `json:"eventRecordFormat" xml:"EventRecordFormat"`
-	SchemaRegistryURI       string                              `json:"schemaRegistryURI" xml:"SchemaRegistryURI"`
-	SchemaValidationConfigs KafkaSchemaValidationConfigList     `json:"schemaValidationConfigs" xml:"SchemaValidationConfigs"`
+AccessConfigs KafkaSchemaRegistryAccessConfigList `json:"accessConfigs" xml:"AccessConfigs"`
+EventRecordFormat string `json:"eventRecordFormat" xml:"EventRecordFormat"`
+SchemaRegistryURI string `json:"schemaRegistryURI" xml:"SchemaRegistryURI"`
+SchemaValidationConfigs KafkaSchemaValidationConfigList `json:"schemaValidationConfigs" xml:"SchemaValidationConfigs"`
 }
 
 type KafkaSchemaValidationConfig struct {
-	Attribute string `json:"attribute" xml:"Attribute"`
+Attribute string `json:"attribute" xml:"Attribute"`
 }
 
 type LambdaManagedInstancesCapacityProviderConfig struct {
-	CapacityProviderArn                   string  `json:"capacityProviderArn" xml:"CapacityProviderArn"`
-	ExecutionEnvironmentMemoryGiBPerVCpu  float64 `json:"executionEnvironmentMemoryGiBPerVCpu" xml:"ExecutionEnvironmentMemoryGiBPerVCpu"`
-	PerExecutionEnvironmentMaxConcurrency int32   `json:"perExecutionEnvironmentMaxConcurrency" xml:"PerExecutionEnvironmentMaxConcurrency"`
+CapacityProviderArn string `json:"capacityProviderArn" xml:"CapacityProviderArn"`
+ExecutionEnvironmentMemoryGiBPerVCpu float64 `json:"executionEnvironmentMemoryGiBPerVCpu" xml:"ExecutionEnvironmentMemoryGiBPerVCpu"`
+PerExecutionEnvironmentMaxConcurrency int32 `json:"perExecutionEnvironmentMaxConcurrency" xml:"PerExecutionEnvironmentMaxConcurrency"`
 }
 
 type Layer struct {
-	Arn                      string `json:"arn" xml:"Arn"`
-	CodeSize                 int64  `json:"codeSize" xml:"CodeSize"`
-	SigningJobArn            string `json:"signingJobArn" xml:"SigningJobArn"`
-	SigningProfileVersionArn string `json:"signingProfileVersionArn" xml:"SigningProfileVersionArn"`
+Arn string `json:"arn" xml:"Arn"`
+CodeSize int64 `json:"codeSize" xml:"CodeSize"`
+SigningJobArn string `json:"signingJobArn" xml:"SigningJobArn"`
+SigningProfileVersionArn string `json:"signingProfileVersionArn" xml:"SigningProfileVersionArn"`
 }
 
 type LayerVersionContentInput struct {
-	S3Bucket        string `json:"s3Bucket" xml:"S3Bucket"`
-	S3Key           string `json:"s3Key" xml:"S3Key"`
-	S3ObjectVersion string `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
-	ZipFile         []byte `json:"zipFile" xml:"ZipFile"`
+S3Bucket string `json:"s3Bucket" xml:"S3Bucket"`
+S3Key string `json:"s3Key" xml:"S3Key"`
+S3ObjectVersion string `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
+ZipFile []byte `json:"zipFile" xml:"ZipFile"`
 }
 
 type LayerVersionContentOutput struct {
-	CodeSha256               string `json:"codeSha256" xml:"CodeSha256"`
-	CodeSize                 int64  `json:"codeSize" xml:"CodeSize"`
-	Location                 string `json:"location" xml:"Location"`
-	SigningJobArn            string `json:"signingJobArn" xml:"SigningJobArn"`
-	SigningProfileVersionArn string `json:"signingProfileVersionArn" xml:"SigningProfileVersionArn"`
+CodeSha256 string `json:"codeSha256" xml:"CodeSha256"`
+CodeSize int64 `json:"codeSize" xml:"CodeSize"`
+Location string `json:"location" xml:"Location"`
+SigningJobArn string `json:"signingJobArn" xml:"SigningJobArn"`
+SigningProfileVersionArn string `json:"signingProfileVersionArn" xml:"SigningProfileVersionArn"`
 }
 
 type LayerVersionsListItem struct {
-	CompatibleArchitectures CompatibleArchitectures `json:"compatibleArchitectures" xml:"CompatibleArchitectures"`
-	CompatibleRuntimes      CompatibleRuntimes      `json:"compatibleRuntimes" xml:"CompatibleRuntimes"`
-	CreatedDate             string                  `json:"createdDate" xml:"CreatedDate"`
-	Description             string                  `json:"description" xml:"Description"`
-	LayerVersionArn         string                  `json:"layerVersionArn" xml:"LayerVersionArn"`
-	LicenseInfo             string                  `json:"licenseInfo" xml:"LicenseInfo"`
-	Version                 int64                   `json:"version" xml:"Version"`
+CompatibleArchitectures CompatibleArchitectures `json:"compatibleArchitectures" xml:"CompatibleArchitectures"`
+CompatibleRuntimes CompatibleRuntimes `json:"compatibleRuntimes" xml:"CompatibleRuntimes"`
+CreatedDate string `json:"createdDate" xml:"CreatedDate"`
+Description string `json:"description" xml:"Description"`
+LayerVersionArn string `json:"layerVersionArn" xml:"LayerVersionArn"`
+LicenseInfo string `json:"licenseInfo" xml:"LicenseInfo"`
+Version int64 `json:"version" xml:"Version"`
 }
 
 type LayersListItem struct {
-	LatestMatchingVersion *LayerVersionsListItem `json:"latestMatchingVersion" xml:"LatestMatchingVersion"`
-	LayerArn              string                 `json:"layerArn" xml:"LayerArn"`
-	LayerName             string                 `json:"layerName" xml:"LayerName"`
+LatestMatchingVersion *LayerVersionsListItem `json:"latestMatchingVersion" xml:"LatestMatchingVersion"`
+LayerArn string `json:"layerArn" xml:"LayerArn"`
+LayerName string `json:"layerName" xml:"LayerName"`
 }
 
 type ListAliasesRequest struct {
-	FunctionName    string `json:"functionName" xml:"FunctionName"`
-	FunctionVersion string `json:"functionVersion" xml:"FunctionVersion"`
-	Marker          string `json:"marker" xml:"Marker"`
-	MaxItems        int32  `json:"maxItems" xml:"MaxItems"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionVersion string `json:"functionVersion" xml:"FunctionVersion"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListAliasesResponse struct {
-	Aliases    AliasList `json:"aliases" xml:"Aliases"`
-	NextMarker string    `json:"nextMarker" xml:"NextMarker"`
+Aliases AliasList `json:"aliases" xml:"Aliases"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListCapacityProvidersRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	State    string `json:"state" xml:"State"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+State string `json:"state" xml:"State"`
 }
 
 type ListCapacityProvidersResponse struct {
-	CapacityProviders CapacityProvidersList `json:"capacityProviders" xml:"CapacityProviders"`
-	NextMarker        string                `json:"nextMarker" xml:"NextMarker"`
+CapacityProviders CapacityProvidersList `json:"capacityProviders" xml:"CapacityProviders"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListCodeSigningConfigsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListCodeSigningConfigsResponse struct {
-	CodeSigningConfigs CodeSigningConfigList `json:"codeSigningConfigs" xml:"CodeSigningConfigs"`
-	NextMarker         string                `json:"nextMarker" xml:"NextMarker"`
+CodeSigningConfigs CodeSigningConfigList `json:"codeSigningConfigs" xml:"CodeSigningConfigs"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListDurableExecutionsByFunctionRequest struct {
-	DurableExecutionName string              `json:"durableExecutionName" xml:"DurableExecutionName"`
-	FunctionName         string              `json:"functionName" xml:"FunctionName"`
-	Marker               string              `json:"marker" xml:"Marker"`
-	MaxItems             int32               `json:"maxItems" xml:"MaxItems"`
-	Qualifier            string              `json:"qualifier" xml:"Qualifier"`
-	ReverseOrder         bool                `json:"reverseOrder" xml:"ReverseOrder"`
-	StartedAfter         time.Time           `json:"startedAfter" xml:"StartedAfter"`
-	StartedBefore        time.Time           `json:"startedBefore" xml:"StartedBefore"`
-	Statuses             ExecutionStatusList `json:"statuses" xml:"Statuses"`
+DurableExecutionName string `json:"durableExecutionName" xml:"DurableExecutionName"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
+ReverseOrder bool `json:"reverseOrder" xml:"ReverseOrder"`
+StartedAfter time.Time `json:"startedAfter" xml:"StartedAfter"`
+StartedBefore time.Time `json:"startedBefore" xml:"StartedBefore"`
+Statuses ExecutionStatusList `json:"statuses" xml:"Statuses"`
 }
 
 type ListDurableExecutionsByFunctionResponse struct {
-	DurableExecutions DurableExecutions `json:"durableExecutions" xml:"DurableExecutions"`
-	NextMarker        string            `json:"nextMarker" xml:"NextMarker"`
+DurableExecutions DurableExecutions `json:"durableExecutions" xml:"DurableExecutions"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListEventSourceMappingsRequest struct {
-	EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
-	FunctionName   string `json:"functionName" xml:"FunctionName"`
-	Marker         string `json:"marker" xml:"Marker"`
-	MaxItems       int32  `json:"maxItems" xml:"MaxItems"`
+EventSourceArn string `json:"eventSourceArn" xml:"EventSourceArn"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListEventSourceMappingsResponse struct {
-	EventSourceMappings EventSourceMappingsList `json:"eventSourceMappings" xml:"EventSourceMappings"`
-	NextMarker          string                  `json:"nextMarker" xml:"NextMarker"`
+EventSourceMappings EventSourceMappingsList `json:"eventSourceMappings" xml:"EventSourceMappings"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListFunctionEventInvokeConfigsRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Marker       string `json:"marker" xml:"Marker"`
-	MaxItems     int32  `json:"maxItems" xml:"MaxItems"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListFunctionEventInvokeConfigsResponse struct {
-	FunctionEventInvokeConfigs FunctionEventInvokeConfigList `json:"functionEventInvokeConfigs" xml:"FunctionEventInvokeConfigs"`
-	NextMarker                 string                        `json:"nextMarker" xml:"NextMarker"`
+FunctionEventInvokeConfigs FunctionEventInvokeConfigList `json:"functionEventInvokeConfigs" xml:"FunctionEventInvokeConfigs"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListFunctionUrlConfigsRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Marker       string `json:"marker" xml:"Marker"`
-	MaxItems     int32  `json:"maxItems" xml:"MaxItems"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListFunctionUrlConfigsResponse struct {
-	FunctionUrlConfigs FunctionUrlConfigList `json:"functionUrlConfigs" xml:"FunctionUrlConfigs"`
-	NextMarker         string                `json:"nextMarker" xml:"NextMarker"`
+FunctionUrlConfigs FunctionUrlConfigList `json:"functionUrlConfigs" xml:"FunctionUrlConfigs"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListFunctionVersionsByCapacityProviderRequest struct {
-	CapacityProviderName string `json:"capacityProviderName" xml:"CapacityProviderName"`
-	Marker               string `json:"marker" xml:"Marker"`
-	MaxItems             int32  `json:"maxItems" xml:"MaxItems"`
+CapacityProviderName string `json:"capacityProviderName" xml:"CapacityProviderName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListFunctionVersionsByCapacityProviderResponse struct {
-	CapacityProviderArn string                                 `json:"capacityProviderArn" xml:"CapacityProviderArn"`
-	FunctionVersions    FunctionVersionsByCapacityProviderList `json:"functionVersions" xml:"FunctionVersions"`
-	NextMarker          string                                 `json:"nextMarker" xml:"NextMarker"`
+CapacityProviderArn string `json:"capacityProviderArn" xml:"CapacityProviderArn"`
+FunctionVersions FunctionVersionsByCapacityProviderList `json:"functionVersions" xml:"FunctionVersions"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListFunctionsByCodeSigningConfigRequest struct {
-	CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
-	Marker               string `json:"marker" xml:"Marker"`
-	MaxItems             int32  `json:"maxItems" xml:"MaxItems"`
+CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListFunctionsByCodeSigningConfigResponse struct {
-	FunctionArns FunctionArnList `json:"functionArns" xml:"FunctionArns"`
-	NextMarker   string          `json:"nextMarker" xml:"NextMarker"`
+FunctionArns FunctionArnList `json:"functionArns" xml:"FunctionArns"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListFunctionsRequest struct {
-	FunctionVersion string `json:"functionVersion" xml:"FunctionVersion"`
-	Marker          string `json:"marker" xml:"Marker"`
-	MasterRegion    string `json:"masterRegion" xml:"MasterRegion"`
-	MaxItems        int32  `json:"maxItems" xml:"MaxItems"`
+FunctionVersion string `json:"functionVersion" xml:"FunctionVersion"`
+Marker string `json:"marker" xml:"Marker"`
+MasterRegion string `json:"masterRegion" xml:"MasterRegion"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListFunctionsResponse struct {
-	Functions  FunctionList `json:"functions" xml:"Functions"`
-	NextMarker string       `json:"nextMarker" xml:"NextMarker"`
+Functions FunctionList `json:"functions" xml:"Functions"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListLayerVersionsRequest struct {
-	CompatibleArchitecture string `json:"compatibleArchitecture" xml:"CompatibleArchitecture"`
-	CompatibleRuntime      string `json:"compatibleRuntime" xml:"CompatibleRuntime"`
-	LayerName              string `json:"layerName" xml:"LayerName"`
-	Marker                 string `json:"marker" xml:"Marker"`
-	MaxItems               int32  `json:"maxItems" xml:"MaxItems"`
+CompatibleArchitecture string `json:"compatibleArchitecture" xml:"CompatibleArchitecture"`
+CompatibleRuntime string `json:"compatibleRuntime" xml:"CompatibleRuntime"`
+LayerName string `json:"layerName" xml:"LayerName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListLayerVersionsResponse struct {
-	LayerVersions LayerVersionsList `json:"layerVersions" xml:"LayerVersions"`
-	NextMarker    string            `json:"nextMarker" xml:"NextMarker"`
+LayerVersions LayerVersionsList `json:"layerVersions" xml:"LayerVersions"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListLayersRequest struct {
-	CompatibleArchitecture string `json:"compatibleArchitecture" xml:"CompatibleArchitecture"`
-	CompatibleRuntime      string `json:"compatibleRuntime" xml:"CompatibleRuntime"`
-	Marker                 string `json:"marker" xml:"Marker"`
-	MaxItems               int32  `json:"maxItems" xml:"MaxItems"`
+CompatibleArchitecture string `json:"compatibleArchitecture" xml:"CompatibleArchitecture"`
+CompatibleRuntime string `json:"compatibleRuntime" xml:"CompatibleRuntime"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListLayersResponse struct {
-	Layers     LayersList `json:"layers" xml:"Layers"`
-	NextMarker string     `json:"nextMarker" xml:"NextMarker"`
+Layers LayersList `json:"layers" xml:"Layers"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListProvisionedConcurrencyConfigsRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Marker       string `json:"marker" xml:"Marker"`
-	MaxItems     int32  `json:"maxItems" xml:"MaxItems"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListProvisionedConcurrencyConfigsResponse struct {
-	NextMarker                    string                           `json:"nextMarker" xml:"NextMarker"`
-	ProvisionedConcurrencyConfigs ProvisionedConcurrencyConfigList `json:"provisionedConcurrencyConfigs" xml:"ProvisionedConcurrencyConfigs"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+ProvisionedConcurrencyConfigs ProvisionedConcurrencyConfigList `json:"provisionedConcurrencyConfigs" xml:"ProvisionedConcurrencyConfigs"`
 }
 
 type ListTagsRequest struct {
-	Resource string `json:"resource" xml:"Resource"`
+Resource string `json:"resource" xml:"Resource"`
 }
 
 type ListTagsResponse struct {
-	Tags Tags `json:"tags" xml:"Tags"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type ListVersionsByFunctionRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Marker       string `json:"marker" xml:"Marker"`
-	MaxItems     int32  `json:"maxItems" xml:"MaxItems"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListVersionsByFunctionResponse struct {
-	NextMarker string       `json:"nextMarker" xml:"NextMarker"`
-	Versions   FunctionList `json:"versions" xml:"Versions"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Versions FunctionList `json:"versions" xml:"Versions"`
 }
 
 type LoggingConfig struct {
-	ApplicationLogLevel string `json:"applicationLogLevel" xml:"ApplicationLogLevel"`
-	LogFormat           string `json:"logFormat" xml:"LogFormat"`
-	LogGroup            string `json:"logGroup" xml:"LogGroup"`
-	SystemLogLevel      string `json:"systemLogLevel" xml:"SystemLogLevel"`
+ApplicationLogLevel string `json:"applicationLogLevel" xml:"ApplicationLogLevel"`
+LogFormat string `json:"logFormat" xml:"LogFormat"`
+LogGroup string `json:"logGroup" xml:"LogGroup"`
+SystemLogLevel string `json:"systemLogLevel" xml:"SystemLogLevel"`
 }
 
 type OnFailure struct {
-	Destination string `json:"destination" xml:"Destination"`
+Destination string `json:"destination" xml:"Destination"`
 }
 
 type OnSuccess struct {
-	Destination string `json:"destination" xml:"Destination"`
+Destination string `json:"destination" xml:"Destination"`
 }
 
 type Operation struct {
-	CallbackDetails      *CallbackDetails      `json:"callbackDetails" xml:"CallbackDetails"`
-	ChainedInvokeDetails *ChainedInvokeDetails `json:"chainedInvokeDetails" xml:"ChainedInvokeDetails"`
-	ContextDetails       *ContextDetails       `json:"contextDetails" xml:"ContextDetails"`
-	EndTimestamp         time.Time             `json:"endTimestamp" xml:"EndTimestamp"`
-	ExecutionDetails     *ExecutionDetails     `json:"executionDetails" xml:"ExecutionDetails"`
-	Id                   string                `json:"id" xml:"Id"`
-	Name                 string                `json:"name" xml:"Name"`
-	ParentId             string                `json:"parentId" xml:"ParentId"`
-	StartTimestamp       time.Time             `json:"startTimestamp" xml:"StartTimestamp"`
-	Status               string                `json:"status" xml:"Status"`
-	StepDetails          *StepDetails          `json:"stepDetails" xml:"StepDetails"`
-	SubType              string                `json:"subType" xml:"SubType"`
-	Type                 string                `json:"type" xml:"Type"`
-	WaitDetails          *WaitDetails          `json:"waitDetails" xml:"WaitDetails"`
+CallbackDetails *CallbackDetails `json:"callbackDetails" xml:"CallbackDetails"`
+ChainedInvokeDetails *ChainedInvokeDetails `json:"chainedInvokeDetails" xml:"ChainedInvokeDetails"`
+ContextDetails *ContextDetails `json:"contextDetails" xml:"ContextDetails"`
+EndTimestamp time.Time `json:"endTimestamp" xml:"EndTimestamp"`
+ExecutionDetails *ExecutionDetails `json:"executionDetails" xml:"ExecutionDetails"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+ParentId string `json:"parentId" xml:"ParentId"`
+StartTimestamp time.Time `json:"startTimestamp" xml:"StartTimestamp"`
+Status string `json:"status" xml:"Status"`
+StepDetails *StepDetails `json:"stepDetails" xml:"StepDetails"`
+SubType string `json:"subType" xml:"SubType"`
+Type string `json:"type" xml:"Type"`
+WaitDetails *WaitDetails `json:"waitDetails" xml:"WaitDetails"`
 }
 
 type OperationUpdate struct {
-	Action               string                `json:"action" xml:"Action"`
-	CallbackOptions      *CallbackOptions      `json:"callbackOptions" xml:"CallbackOptions"`
-	ChainedInvokeOptions *ChainedInvokeOptions `json:"chainedInvokeOptions" xml:"ChainedInvokeOptions"`
-	ContextOptions       *ContextOptions       `json:"contextOptions" xml:"ContextOptions"`
-	Error                *ErrorObject          `json:"error" xml:"Error"`
-	Id                   string                `json:"id" xml:"Id"`
-	Name                 string                `json:"name" xml:"Name"`
-	ParentId             string                `json:"parentId" xml:"ParentId"`
-	Payload              string                `json:"payload" xml:"Payload"`
-	StepOptions          *StepOptions          `json:"stepOptions" xml:"StepOptions"`
-	SubType              string                `json:"subType" xml:"SubType"`
-	Type                 string                `json:"type" xml:"Type"`
-	WaitOptions          *WaitOptions          `json:"waitOptions" xml:"WaitOptions"`
+Action string `json:"action" xml:"Action"`
+CallbackOptions *CallbackOptions `json:"callbackOptions" xml:"CallbackOptions"`
+ChainedInvokeOptions *ChainedInvokeOptions `json:"chainedInvokeOptions" xml:"ChainedInvokeOptions"`
+ContextOptions *ContextOptions `json:"contextOptions" xml:"ContextOptions"`
+Error *ErrorObject `json:"error" xml:"Error"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+ParentId string `json:"parentId" xml:"ParentId"`
+Payload string `json:"payload" xml:"Payload"`
+StepOptions *StepOptions `json:"stepOptions" xml:"StepOptions"`
+SubType string `json:"subType" xml:"SubType"`
+Type string `json:"type" xml:"Type"`
+WaitOptions *WaitOptions `json:"waitOptions" xml:"WaitOptions"`
 }
 
 type ProvisionedConcurrencyConfigListItem struct {
-	AllocatedProvisionedConcurrentExecutions int32  `json:"allocatedProvisionedConcurrentExecutions" xml:"AllocatedProvisionedConcurrentExecutions"`
-	AvailableProvisionedConcurrentExecutions int32  `json:"availableProvisionedConcurrentExecutions" xml:"AvailableProvisionedConcurrentExecutions"`
-	FunctionArn                              string `json:"functionArn" xml:"FunctionArn"`
-	LastModified                             string `json:"lastModified" xml:"LastModified"`
-	RequestedProvisionedConcurrentExecutions int32  `json:"requestedProvisionedConcurrentExecutions" xml:"RequestedProvisionedConcurrentExecutions"`
-	Status                                   string `json:"status" xml:"Status"`
-	StatusReason                             string `json:"statusReason" xml:"StatusReason"`
+AllocatedProvisionedConcurrentExecutions int32 `json:"allocatedProvisionedConcurrentExecutions" xml:"AllocatedProvisionedConcurrentExecutions"`
+AvailableProvisionedConcurrentExecutions int32 `json:"availableProvisionedConcurrentExecutions" xml:"AvailableProvisionedConcurrentExecutions"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+LastModified string `json:"lastModified" xml:"LastModified"`
+RequestedProvisionedConcurrentExecutions int32 `json:"requestedProvisionedConcurrentExecutions" xml:"RequestedProvisionedConcurrentExecutions"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type ProvisionedPollerConfig struct {
-	MaximumPollers  int32  `json:"maximumPollers" xml:"MaximumPollers"`
-	MinimumPollers  int32  `json:"minimumPollers" xml:"MinimumPollers"`
-	PollerGroupName string `json:"pollerGroupName" xml:"PollerGroupName"`
+MaximumPollers int32 `json:"maximumPollers" xml:"MaximumPollers"`
+MinimumPollers int32 `json:"minimumPollers" xml:"MinimumPollers"`
+PollerGroupName string `json:"pollerGroupName" xml:"PollerGroupName"`
 }
 
 type PublishLayerVersionRequest struct {
-	CompatibleArchitectures CompatibleArchitectures   `json:"compatibleArchitectures" xml:"CompatibleArchitectures"`
-	CompatibleRuntimes      CompatibleRuntimes        `json:"compatibleRuntimes" xml:"CompatibleRuntimes"`
-	Content                 *LayerVersionContentInput `json:"content" xml:"Content"`
-	Description             string                    `json:"description" xml:"Description"`
-	LayerName               string                    `json:"layerName" xml:"LayerName"`
-	LicenseInfo             string                    `json:"licenseInfo" xml:"LicenseInfo"`
+CompatibleArchitectures CompatibleArchitectures `json:"compatibleArchitectures" xml:"CompatibleArchitectures"`
+CompatibleRuntimes CompatibleRuntimes `json:"compatibleRuntimes" xml:"CompatibleRuntimes"`
+Content *LayerVersionContentInput `json:"content" xml:"Content"`
+Description string `json:"description" xml:"Description"`
+LayerName string `json:"layerName" xml:"LayerName"`
+LicenseInfo string `json:"licenseInfo" xml:"LicenseInfo"`
 }
 
 type PublishLayerVersionResponse struct {
-	CompatibleArchitectures CompatibleArchitectures    `json:"compatibleArchitectures" xml:"CompatibleArchitectures"`
-	CompatibleRuntimes      CompatibleRuntimes         `json:"compatibleRuntimes" xml:"CompatibleRuntimes"`
-	Content                 *LayerVersionContentOutput `json:"content" xml:"Content"`
-	CreatedDate             string                     `json:"createdDate" xml:"CreatedDate"`
-	Description             string                     `json:"description" xml:"Description"`
-	LayerArn                string                     `json:"layerArn" xml:"LayerArn"`
-	LayerVersionArn         string                     `json:"layerVersionArn" xml:"LayerVersionArn"`
-	LicenseInfo             string                     `json:"licenseInfo" xml:"LicenseInfo"`
-	Version                 int64                      `json:"version" xml:"Version"`
+CompatibleArchitectures CompatibleArchitectures `json:"compatibleArchitectures" xml:"CompatibleArchitectures"`
+CompatibleRuntimes CompatibleRuntimes `json:"compatibleRuntimes" xml:"CompatibleRuntimes"`
+Content *LayerVersionContentOutput `json:"content" xml:"Content"`
+CreatedDate string `json:"createdDate" xml:"CreatedDate"`
+Description string `json:"description" xml:"Description"`
+LayerArn string `json:"layerArn" xml:"LayerArn"`
+LayerVersionArn string `json:"layerVersionArn" xml:"LayerVersionArn"`
+LicenseInfo string `json:"licenseInfo" xml:"LicenseInfo"`
+Version int64 `json:"version" xml:"Version"`
 }
 
 type PublishVersionRequest struct {
-	CodeSha256   string `json:"codeSha256" xml:"CodeSha256"`
-	Description  string `json:"description" xml:"Description"`
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	PublishTo    string `json:"publishTo" xml:"PublishTo"`
-	RevisionId   string `json:"revisionId" xml:"RevisionId"`
+CodeSha256 string `json:"codeSha256" xml:"CodeSha256"`
+Description string `json:"description" xml:"Description"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+PublishTo string `json:"publishTo" xml:"PublishTo"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
 }
 
 type PutFunctionCodeSigningConfigRequest struct {
-	CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
-	FunctionName         string `json:"functionName" xml:"FunctionName"`
+CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
 }
 
 type PutFunctionCodeSigningConfigResponse struct {
-	CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
-	FunctionName         string `json:"functionName" xml:"FunctionName"`
+CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
 }
 
 type PutFunctionConcurrencyRequest struct {
-	FunctionName                 string `json:"functionName" xml:"FunctionName"`
-	ReservedConcurrentExecutions int32  `json:"reservedConcurrentExecutions" xml:"ReservedConcurrentExecutions"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+ReservedConcurrentExecutions int32 `json:"reservedConcurrentExecutions" xml:"ReservedConcurrentExecutions"`
 }
 
 type PutFunctionEventInvokeConfigRequest struct {
-	DestinationConfig        *DestinationConfig `json:"destinationConfig" xml:"DestinationConfig"`
-	FunctionName             string             `json:"functionName" xml:"FunctionName"`
-	MaximumEventAgeInSeconds int32              `json:"maximumEventAgeInSeconds" xml:"MaximumEventAgeInSeconds"`
-	MaximumRetryAttempts     int32              `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
-	Qualifier                string             `json:"qualifier" xml:"Qualifier"`
+DestinationConfig *DestinationConfig `json:"destinationConfig" xml:"DestinationConfig"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+MaximumEventAgeInSeconds int32 `json:"maximumEventAgeInSeconds" xml:"MaximumEventAgeInSeconds"`
+MaximumRetryAttempts int32 `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type PutFunctionRecursionConfigRequest struct {
-	FunctionName  string `json:"functionName" xml:"FunctionName"`
-	RecursiveLoop string `json:"recursiveLoop" xml:"RecursiveLoop"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+RecursiveLoop string `json:"recursiveLoop" xml:"RecursiveLoop"`
 }
 
 type PutFunctionRecursionConfigResponse struct {
-	RecursiveLoop string `json:"recursiveLoop" xml:"RecursiveLoop"`
+RecursiveLoop string `json:"recursiveLoop" xml:"RecursiveLoop"`
 }
 
 type PutFunctionScalingConfigRequest struct {
-	FunctionName          string                 `json:"functionName" xml:"FunctionName"`
-	FunctionScalingConfig *FunctionScalingConfig `json:"functionScalingConfig" xml:"FunctionScalingConfig"`
-	Qualifier             string                 `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionScalingConfig *FunctionScalingConfig `json:"functionScalingConfig" xml:"FunctionScalingConfig"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type PutFunctionScalingConfigResponse struct {
-	FunctionState string `json:"functionState" xml:"FunctionState"`
+FunctionState string `json:"functionState" xml:"FunctionState"`
 }
 
 type PutProvisionedConcurrencyConfigRequest struct {
-	FunctionName                    string `json:"functionName" xml:"FunctionName"`
-	ProvisionedConcurrentExecutions int32  `json:"provisionedConcurrentExecutions" xml:"ProvisionedConcurrentExecutions"`
-	Qualifier                       string `json:"qualifier" xml:"Qualifier"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+ProvisionedConcurrentExecutions int32 `json:"provisionedConcurrentExecutions" xml:"ProvisionedConcurrentExecutions"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type PutProvisionedConcurrencyConfigResponse struct {
-	AllocatedProvisionedConcurrentExecutions int32  `json:"allocatedProvisionedConcurrentExecutions" xml:"AllocatedProvisionedConcurrentExecutions"`
-	AvailableProvisionedConcurrentExecutions int32  `json:"availableProvisionedConcurrentExecutions" xml:"AvailableProvisionedConcurrentExecutions"`
-	LastModified                             string `json:"lastModified" xml:"LastModified"`
-	RequestedProvisionedConcurrentExecutions int32  `json:"requestedProvisionedConcurrentExecutions" xml:"RequestedProvisionedConcurrentExecutions"`
-	Status                                   string `json:"status" xml:"Status"`
-	StatusReason                             string `json:"statusReason" xml:"StatusReason"`
+AllocatedProvisionedConcurrentExecutions int32 `json:"allocatedProvisionedConcurrentExecutions" xml:"AllocatedProvisionedConcurrentExecutions"`
+AvailableProvisionedConcurrentExecutions int32 `json:"availableProvisionedConcurrentExecutions" xml:"AvailableProvisionedConcurrentExecutions"`
+LastModified string `json:"lastModified" xml:"LastModified"`
+RequestedProvisionedConcurrentExecutions int32 `json:"requestedProvisionedConcurrentExecutions" xml:"RequestedProvisionedConcurrentExecutions"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type PutRuntimeManagementConfigRequest struct {
-	FunctionName      string `json:"functionName" xml:"FunctionName"`
-	Qualifier         string `json:"qualifier" xml:"Qualifier"`
-	RuntimeVersionArn string `json:"runtimeVersionArn" xml:"RuntimeVersionArn"`
-	UpdateRuntimeOn   string `json:"updateRuntimeOn" xml:"UpdateRuntimeOn"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
+RuntimeVersionArn string `json:"runtimeVersionArn" xml:"RuntimeVersionArn"`
+UpdateRuntimeOn string `json:"updateRuntimeOn" xml:"UpdateRuntimeOn"`
 }
 
 type PutRuntimeManagementConfigResponse struct {
-	FunctionArn       string `json:"functionArn" xml:"FunctionArn"`
-	RuntimeVersionArn string `json:"runtimeVersionArn" xml:"RuntimeVersionArn"`
-	UpdateRuntimeOn   string `json:"updateRuntimeOn" xml:"UpdateRuntimeOn"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+RuntimeVersionArn string `json:"runtimeVersionArn" xml:"RuntimeVersionArn"`
+UpdateRuntimeOn string `json:"updateRuntimeOn" xml:"UpdateRuntimeOn"`
 }
 
 type RemoveLayerVersionPermissionRequest struct {
-	LayerName     string `json:"layerName" xml:"LayerName"`
-	RevisionId    string `json:"revisionId" xml:"RevisionId"`
-	StatementId   string `json:"statementId" xml:"StatementId"`
-	VersionNumber int64  `json:"versionNumber" xml:"VersionNumber"`
+LayerName string `json:"layerName" xml:"LayerName"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
+StatementId string `json:"statementId" xml:"StatementId"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type RemovePermissionRequest struct {
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
-	RevisionId   string `json:"revisionId" xml:"RevisionId"`
-	StatementId  string `json:"statementId" xml:"StatementId"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
+StatementId string `json:"statementId" xml:"StatementId"`
 }
 
 type RetryDetails struct {
-	CurrentAttempt          int32 `json:"currentAttempt" xml:"CurrentAttempt"`
-	NextAttemptDelaySeconds int32 `json:"nextAttemptDelaySeconds" xml:"NextAttemptDelaySeconds"`
+CurrentAttempt int32 `json:"currentAttempt" xml:"CurrentAttempt"`
+NextAttemptDelaySeconds int32 `json:"nextAttemptDelaySeconds" xml:"NextAttemptDelaySeconds"`
 }
 
 type RuntimeVersionConfig struct {
-	Error             *RuntimeVersionError `json:"error" xml:"Error"`
-	RuntimeVersionArn string               `json:"runtimeVersionArn" xml:"RuntimeVersionArn"`
+Error *RuntimeVersionError `json:"error" xml:"Error"`
+RuntimeVersionArn string `json:"runtimeVersionArn" xml:"RuntimeVersionArn"`
 }
 
 type RuntimeVersionError struct {
-	ErrorCode string `json:"errorCode" xml:"ErrorCode"`
-	Message   string `json:"message" xml:"Message"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+Message string `json:"message" xml:"Message"`
 }
 
 type ScalingConfig struct {
-	MaximumConcurrency int32 `json:"maximumConcurrency" xml:"MaximumConcurrency"`
+MaximumConcurrency int32 `json:"maximumConcurrency" xml:"MaximumConcurrency"`
 }
 
 type SelfManagedEventSource struct {
-	Endpoints Endpoints `json:"endpoints" xml:"Endpoints"`
+Endpoints Endpoints `json:"endpoints" xml:"Endpoints"`
 }
 
 type SelfManagedKafkaEventSourceConfig struct {
-	ConsumerGroupId      string                     `json:"consumerGroupId" xml:"ConsumerGroupId"`
-	SchemaRegistryConfig *KafkaSchemaRegistryConfig `json:"schemaRegistryConfig" xml:"SchemaRegistryConfig"`
+ConsumerGroupId string `json:"consumerGroupId" xml:"ConsumerGroupId"`
+SchemaRegistryConfig *KafkaSchemaRegistryConfig `json:"schemaRegistryConfig" xml:"SchemaRegistryConfig"`
 }
 
 type SendDurableExecutionCallbackFailureRequest struct {
-	CallbackId string       `json:"callbackId" xml:"CallbackId"`
-	Error      *ErrorObject `json:"error" xml:"Error"`
+CallbackId string `json:"callbackId" xml:"CallbackId"`
+Error *ErrorObject `json:"error" xml:"Error"`
 }
 
 type SendDurableExecutionCallbackFailureResponse struct {
 }
 
 type SendDurableExecutionCallbackHeartbeatRequest struct {
-	CallbackId string `json:"callbackId" xml:"CallbackId"`
+CallbackId string `json:"callbackId" xml:"CallbackId"`
 }
 
 type SendDurableExecutionCallbackHeartbeatResponse struct {
 }
 
 type SendDurableExecutionCallbackSuccessRequest struct {
-	CallbackId string `json:"callbackId" xml:"CallbackId"`
-	Result     []byte `json:"result" xml:"Result"`
+CallbackId string `json:"callbackId" xml:"CallbackId"`
+Result []byte `json:"result" xml:"Result"`
 }
 
 type SendDurableExecutionCallbackSuccessResponse struct {
@@ -1450,239 +1450,239 @@ type SmithyUnit struct {
 }
 
 type SnapStart struct {
-	ApplyOn string `json:"applyOn" xml:"ApplyOn"`
+ApplyOn string `json:"applyOn" xml:"ApplyOn"`
 }
 
 type SnapStartResponse struct {
-	ApplyOn            string `json:"applyOn" xml:"ApplyOn"`
-	OptimizationStatus string `json:"optimizationStatus" xml:"OptimizationStatus"`
+ApplyOn string `json:"applyOn" xml:"ApplyOn"`
+OptimizationStatus string `json:"optimizationStatus" xml:"OptimizationStatus"`
 }
 
 type SourceAccessConfiguration struct {
-	Type string `json:"type" xml:"Type"`
-	URI  string `json:"uRI" xml:"URI"`
+Type string `json:"type" xml:"Type"`
+URI string `json:"uRI" xml:"URI"`
 }
 
 type StepDetails struct {
-	Attempt              int32        `json:"attempt" xml:"Attempt"`
-	Error                *ErrorObject `json:"error" xml:"Error"`
-	NextAttemptTimestamp time.Time    `json:"nextAttemptTimestamp" xml:"NextAttemptTimestamp"`
-	Result               string       `json:"result" xml:"Result"`
+Attempt int32 `json:"attempt" xml:"Attempt"`
+Error *ErrorObject `json:"error" xml:"Error"`
+NextAttemptTimestamp time.Time `json:"nextAttemptTimestamp" xml:"NextAttemptTimestamp"`
+Result string `json:"result" xml:"Result"`
 }
 
 type StepFailedDetails struct {
-	Error        *EventError   `json:"error" xml:"Error"`
-	RetryDetails *RetryDetails `json:"retryDetails" xml:"RetryDetails"`
+Error *EventError `json:"error" xml:"Error"`
+RetryDetails *RetryDetails `json:"retryDetails" xml:"RetryDetails"`
 }
 
 type StepOptions struct {
-	NextAttemptDelaySeconds int32 `json:"nextAttemptDelaySeconds" xml:"NextAttemptDelaySeconds"`
+NextAttemptDelaySeconds int32 `json:"nextAttemptDelaySeconds" xml:"NextAttemptDelaySeconds"`
 }
 
 type StepStartedDetails struct {
 }
 
 type StepSucceededDetails struct {
-	Result       *EventResult  `json:"result" xml:"Result"`
-	RetryDetails *RetryDetails `json:"retryDetails" xml:"RetryDetails"`
+Result *EventResult `json:"result" xml:"Result"`
+RetryDetails *RetryDetails `json:"retryDetails" xml:"RetryDetails"`
 }
 
 type StopDurableExecutionRequest struct {
-	DurableExecutionArn string       `json:"durableExecutionArn" xml:"DurableExecutionArn"`
-	Error               *ErrorObject `json:"error" xml:"Error"`
+DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+Error *ErrorObject `json:"error" xml:"Error"`
 }
 
 type StopDurableExecutionResponse struct {
-	StopTimestamp time.Time `json:"stopTimestamp" xml:"StopTimestamp"`
+StopTimestamp time.Time `json:"stopTimestamp" xml:"StopTimestamp"`
 }
 
 type TagResourceRequest struct {
-	Resource string `json:"resource" xml:"Resource"`
-	Tags     Tags   `json:"tags" xml:"Tags"`
+Resource string `json:"resource" xml:"Resource"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type TagsError struct {
-	ErrorCode string `json:"errorCode" xml:"ErrorCode"`
-	Message   string `json:"message" xml:"Message"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+Message string `json:"message" xml:"Message"`
 }
 
 type TargetTrackingScalingPolicy struct {
-	PredefinedMetricType string  `json:"predefinedMetricType" xml:"PredefinedMetricType"`
-	TargetValue          float64 `json:"targetValue" xml:"TargetValue"`
+PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
+TargetValue float64 `json:"targetValue" xml:"TargetValue"`
 }
 
 type TenancyConfig struct {
-	TenantIsolationMode string `json:"tenantIsolationMode" xml:"TenantIsolationMode"`
+TenantIsolationMode string `json:"tenantIsolationMode" xml:"TenantIsolationMode"`
 }
 
 type TraceHeader struct {
-	XAmznTraceId string `json:"xAmznTraceId" xml:"XAmznTraceId"`
+XAmznTraceId string `json:"xAmznTraceId" xml:"XAmznTraceId"`
 }
 
 type TracingConfig struct {
-	Mode string `json:"mode" xml:"Mode"`
+Mode string `json:"mode" xml:"Mode"`
 }
 
 type TracingConfigResponse struct {
-	Mode string `json:"mode" xml:"Mode"`
+Mode string `json:"mode" xml:"Mode"`
 }
 
 type UntagResourceRequest struct {
-	Resource string     `json:"resource" xml:"Resource"`
-	TagKeys  TagKeyList `json:"tagKeys" xml:"TagKeys"`
+Resource string `json:"resource" xml:"Resource"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UpdateAliasRequest struct {
-	Description     string                     `json:"description" xml:"Description"`
-	FunctionName    string                     `json:"functionName" xml:"FunctionName"`
-	FunctionVersion string                     `json:"functionVersion" xml:"FunctionVersion"`
-	Name            string                     `json:"name" xml:"Name"`
-	RevisionId      string                     `json:"revisionId" xml:"RevisionId"`
-	RoutingConfig   *AliasRoutingConfiguration `json:"routingConfig" xml:"RoutingConfig"`
+Description string `json:"description" xml:"Description"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionVersion string `json:"functionVersion" xml:"FunctionVersion"`
+Name string `json:"name" xml:"Name"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
+RoutingConfig *AliasRoutingConfiguration `json:"routingConfig" xml:"RoutingConfig"`
 }
 
 type UpdateCapacityProviderRequest struct {
-	CapacityProviderName          string                         `json:"capacityProviderName" xml:"CapacityProviderName"`
-	CapacityProviderScalingConfig *CapacityProviderScalingConfig `json:"capacityProviderScalingConfig" xml:"CapacityProviderScalingConfig"`
+CapacityProviderName string `json:"capacityProviderName" xml:"CapacityProviderName"`
+CapacityProviderScalingConfig *CapacityProviderScalingConfig `json:"capacityProviderScalingConfig" xml:"CapacityProviderScalingConfig"`
 }
 
 type UpdateCapacityProviderResponse struct {
-	CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"CapacityProvider"`
+CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"CapacityProvider"`
 }
 
 type UpdateCodeSigningConfigRequest struct {
-	AllowedPublishers    *AllowedPublishers   `json:"allowedPublishers" xml:"AllowedPublishers"`
-	CodeSigningConfigArn string               `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
-	CodeSigningPolicies  *CodeSigningPolicies `json:"codeSigningPolicies" xml:"CodeSigningPolicies"`
-	Description          string               `json:"description" xml:"Description"`
+AllowedPublishers *AllowedPublishers `json:"allowedPublishers" xml:"AllowedPublishers"`
+CodeSigningConfigArn string `json:"codeSigningConfigArn" xml:"CodeSigningConfigArn"`
+CodeSigningPolicies *CodeSigningPolicies `json:"codeSigningPolicies" xml:"CodeSigningPolicies"`
+Description string `json:"description" xml:"Description"`
 }
 
 type UpdateCodeSigningConfigResponse struct {
-	CodeSigningConfig *CodeSigningConfig `json:"codeSigningConfig" xml:"CodeSigningConfig"`
+CodeSigningConfig *CodeSigningConfig `json:"codeSigningConfig" xml:"CodeSigningConfig"`
 }
 
 type UpdateEventSourceMappingRequest struct {
-	AmazonManagedKafkaEventSourceConfig *AmazonManagedKafkaEventSourceConfig `json:"amazonManagedKafkaEventSourceConfig" xml:"AmazonManagedKafkaEventSourceConfig"`
-	BatchSize                           int32                                `json:"batchSize" xml:"BatchSize"`
-	BisectBatchOnFunctionError          bool                                 `json:"bisectBatchOnFunctionError" xml:"BisectBatchOnFunctionError"`
-	DestinationConfig                   *DestinationConfig                   `json:"destinationConfig" xml:"DestinationConfig"`
-	DocumentDBEventSourceConfig         *DocumentDBEventSourceConfig         `json:"documentDBEventSourceConfig" xml:"DocumentDBEventSourceConfig"`
-	Enabled                             bool                                 `json:"enabled" xml:"Enabled"`
-	FilterCriteria                      *FilterCriteria                      `json:"filterCriteria" xml:"FilterCriteria"`
-	FunctionName                        string                               `json:"functionName" xml:"FunctionName"`
-	FunctionResponseTypes               FunctionResponseTypeList             `json:"functionResponseTypes" xml:"FunctionResponseTypes"`
-	KMSKeyArn                           string                               `json:"kMSKeyArn" xml:"KMSKeyArn"`
-	LoggingConfig                       *EventSourceMappingLoggingConfig     `json:"loggingConfig" xml:"LoggingConfig"`
-	MaximumBatchingWindowInSeconds      int32                                `json:"maximumBatchingWindowInSeconds" xml:"MaximumBatchingWindowInSeconds"`
-	MaximumRecordAgeInSeconds           int32                                `json:"maximumRecordAgeInSeconds" xml:"MaximumRecordAgeInSeconds"`
-	MaximumRetryAttempts                int32                                `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
-	MetricsConfig                       *EventSourceMappingMetricsConfig     `json:"metricsConfig" xml:"MetricsConfig"`
-	ParallelizationFactor               int32                                `json:"parallelizationFactor" xml:"ParallelizationFactor"`
-	ProvisionedPollerConfig             *ProvisionedPollerConfig             `json:"provisionedPollerConfig" xml:"ProvisionedPollerConfig"`
-	ScalingConfig                       *ScalingConfig                       `json:"scalingConfig" xml:"ScalingConfig"`
-	SelfManagedKafkaEventSourceConfig   *SelfManagedKafkaEventSourceConfig   `json:"selfManagedKafkaEventSourceConfig" xml:"SelfManagedKafkaEventSourceConfig"`
-	SourceAccessConfigurations          SourceAccessConfigurations           `json:"sourceAccessConfigurations" xml:"SourceAccessConfigurations"`
-	TumblingWindowInSeconds             int32                                `json:"tumblingWindowInSeconds" xml:"TumblingWindowInSeconds"`
-	UUID                                string                               `json:"uUID" xml:"UUID"`
+AmazonManagedKafkaEventSourceConfig *AmazonManagedKafkaEventSourceConfig `json:"amazonManagedKafkaEventSourceConfig" xml:"AmazonManagedKafkaEventSourceConfig"`
+BatchSize int32 `json:"batchSize" xml:"BatchSize"`
+BisectBatchOnFunctionError bool `json:"bisectBatchOnFunctionError" xml:"BisectBatchOnFunctionError"`
+DestinationConfig *DestinationConfig `json:"destinationConfig" xml:"DestinationConfig"`
+DocumentDBEventSourceConfig *DocumentDBEventSourceConfig `json:"documentDBEventSourceConfig" xml:"DocumentDBEventSourceConfig"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+FilterCriteria *FilterCriteria `json:"filterCriteria" xml:"FilterCriteria"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionResponseTypes FunctionResponseTypeList `json:"functionResponseTypes" xml:"FunctionResponseTypes"`
+KMSKeyArn string `json:"kMSKeyArn" xml:"KMSKeyArn"`
+LoggingConfig *EventSourceMappingLoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
+MaximumBatchingWindowInSeconds int32 `json:"maximumBatchingWindowInSeconds" xml:"MaximumBatchingWindowInSeconds"`
+MaximumRecordAgeInSeconds int32 `json:"maximumRecordAgeInSeconds" xml:"MaximumRecordAgeInSeconds"`
+MaximumRetryAttempts int32 `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
+MetricsConfig *EventSourceMappingMetricsConfig `json:"metricsConfig" xml:"MetricsConfig"`
+ParallelizationFactor int32 `json:"parallelizationFactor" xml:"ParallelizationFactor"`
+ProvisionedPollerConfig *ProvisionedPollerConfig `json:"provisionedPollerConfig" xml:"ProvisionedPollerConfig"`
+ScalingConfig *ScalingConfig `json:"scalingConfig" xml:"ScalingConfig"`
+SelfManagedKafkaEventSourceConfig *SelfManagedKafkaEventSourceConfig `json:"selfManagedKafkaEventSourceConfig" xml:"SelfManagedKafkaEventSourceConfig"`
+SourceAccessConfigurations SourceAccessConfigurations `json:"sourceAccessConfigurations" xml:"SourceAccessConfigurations"`
+TumblingWindowInSeconds int32 `json:"tumblingWindowInSeconds" xml:"TumblingWindowInSeconds"`
+UUID string `json:"uUID" xml:"UUID"`
 }
 
 type UpdateFunctionCodeRequest struct {
-	Architectures   ArchitecturesList `json:"architectures" xml:"Architectures"`
-	DryRun          bool              `json:"dryRun" xml:"DryRun"`
-	FunctionName    string            `json:"functionName" xml:"FunctionName"`
-	ImageUri        string            `json:"imageUri" xml:"ImageUri"`
-	Publish         bool              `json:"publish" xml:"Publish"`
-	PublishTo       string            `json:"publishTo" xml:"PublishTo"`
-	RevisionId      string            `json:"revisionId" xml:"RevisionId"`
-	S3Bucket        string            `json:"s3Bucket" xml:"S3Bucket"`
-	S3Key           string            `json:"s3Key" xml:"S3Key"`
-	S3ObjectVersion string            `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
-	SourceKMSKeyArn string            `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
-	ZipFile         []byte            `json:"zipFile" xml:"ZipFile"`
+Architectures ArchitecturesList `json:"architectures" xml:"Architectures"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+ImageUri string `json:"imageUri" xml:"ImageUri"`
+Publish bool `json:"publish" xml:"Publish"`
+PublishTo string `json:"publishTo" xml:"PublishTo"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
+S3Bucket string `json:"s3Bucket" xml:"S3Bucket"`
+S3Key string `json:"s3Key" xml:"S3Key"`
+S3ObjectVersion string `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
+SourceKMSKeyArn string `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
+ZipFile []byte `json:"zipFile" xml:"ZipFile"`
 }
 
 type UpdateFunctionConfigurationRequest struct {
-	CapacityProviderConfig *CapacityProviderConfig `json:"capacityProviderConfig" xml:"CapacityProviderConfig"`
-	DeadLetterConfig       *DeadLetterConfig       `json:"deadLetterConfig" xml:"DeadLetterConfig"`
-	Description            string                  `json:"description" xml:"Description"`
-	DurableConfig          *DurableConfig          `json:"durableConfig" xml:"DurableConfig"`
-	Environment            *Environment            `json:"environment" xml:"Environment"`
-	EphemeralStorage       *EphemeralStorage       `json:"ephemeralStorage" xml:"EphemeralStorage"`
-	FileSystemConfigs      FileSystemConfigList    `json:"fileSystemConfigs" xml:"FileSystemConfigs"`
-	FunctionName           string                  `json:"functionName" xml:"FunctionName"`
-	Handler                string                  `json:"handler" xml:"Handler"`
-	ImageConfig            *ImageConfig            `json:"imageConfig" xml:"ImageConfig"`
-	KMSKeyArn              string                  `json:"kMSKeyArn" xml:"KMSKeyArn"`
-	Layers                 LayerList               `json:"layers" xml:"Layers"`
-	LoggingConfig          *LoggingConfig          `json:"loggingConfig" xml:"LoggingConfig"`
-	MemorySize             int32                   `json:"memorySize" xml:"MemorySize"`
-	RevisionId             string                  `json:"revisionId" xml:"RevisionId"`
-	Role                   string                  `json:"role" xml:"Role"`
-	Runtime                string                  `json:"runtime" xml:"Runtime"`
-	SnapStart              *SnapStart              `json:"snapStart" xml:"SnapStart"`
-	Timeout                int32                   `json:"timeout" xml:"Timeout"`
-	TracingConfig          *TracingConfig          `json:"tracingConfig" xml:"TracingConfig"`
-	VpcConfig              *VpcConfig              `json:"vpcConfig" xml:"VpcConfig"`
+CapacityProviderConfig *CapacityProviderConfig `json:"capacityProviderConfig" xml:"CapacityProviderConfig"`
+DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig" xml:"DeadLetterConfig"`
+Description string `json:"description" xml:"Description"`
+DurableConfig *DurableConfig `json:"durableConfig" xml:"DurableConfig"`
+Environment *Environment `json:"environment" xml:"Environment"`
+EphemeralStorage *EphemeralStorage `json:"ephemeralStorage" xml:"EphemeralStorage"`
+FileSystemConfigs FileSystemConfigList `json:"fileSystemConfigs" xml:"FileSystemConfigs"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Handler string `json:"handler" xml:"Handler"`
+ImageConfig *ImageConfig `json:"imageConfig" xml:"ImageConfig"`
+KMSKeyArn string `json:"kMSKeyArn" xml:"KMSKeyArn"`
+Layers LayerList `json:"layers" xml:"Layers"`
+LoggingConfig *LoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
+MemorySize int32 `json:"memorySize" xml:"MemorySize"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
+Role string `json:"role" xml:"Role"`
+Runtime string `json:"runtime" xml:"Runtime"`
+SnapStart *SnapStart `json:"snapStart" xml:"SnapStart"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+TracingConfig *TracingConfig `json:"tracingConfig" xml:"TracingConfig"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"VpcConfig"`
 }
 
 type UpdateFunctionEventInvokeConfigRequest struct {
-	DestinationConfig        *DestinationConfig `json:"destinationConfig" xml:"DestinationConfig"`
-	FunctionName             string             `json:"functionName" xml:"FunctionName"`
-	MaximumEventAgeInSeconds int32              `json:"maximumEventAgeInSeconds" xml:"MaximumEventAgeInSeconds"`
-	MaximumRetryAttempts     int32              `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
-	Qualifier                string             `json:"qualifier" xml:"Qualifier"`
+DestinationConfig *DestinationConfig `json:"destinationConfig" xml:"DestinationConfig"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+MaximumEventAgeInSeconds int32 `json:"maximumEventAgeInSeconds" xml:"MaximumEventAgeInSeconds"`
+MaximumRetryAttempts int32 `json:"maximumRetryAttempts" xml:"MaximumRetryAttempts"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type UpdateFunctionUrlConfigRequest struct {
-	AuthType     string `json:"authType" xml:"AuthType"`
-	Cors         *Cors  `json:"cors" xml:"Cors"`
-	FunctionName string `json:"functionName" xml:"FunctionName"`
-	InvokeMode   string `json:"invokeMode" xml:"InvokeMode"`
-	Qualifier    string `json:"qualifier" xml:"Qualifier"`
+AuthType string `json:"authType" xml:"AuthType"`
+Cors *Cors `json:"cors" xml:"Cors"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+InvokeMode string `json:"invokeMode" xml:"InvokeMode"`
+Qualifier string `json:"qualifier" xml:"Qualifier"`
 }
 
 type UpdateFunctionUrlConfigResponse struct {
-	AuthType         string `json:"authType" xml:"AuthType"`
-	Cors             *Cors  `json:"cors" xml:"Cors"`
-	CreationTime     string `json:"creationTime" xml:"CreationTime"`
-	FunctionArn      string `json:"functionArn" xml:"FunctionArn"`
-	FunctionUrl      string `json:"functionUrl" xml:"FunctionUrl"`
-	InvokeMode       string `json:"invokeMode" xml:"InvokeMode"`
-	LastModifiedTime string `json:"lastModifiedTime" xml:"LastModifiedTime"`
+AuthType string `json:"authType" xml:"AuthType"`
+Cors *Cors `json:"cors" xml:"Cors"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+FunctionArn string `json:"functionArn" xml:"FunctionArn"`
+FunctionUrl string `json:"functionUrl" xml:"FunctionUrl"`
+InvokeMode string `json:"invokeMode" xml:"InvokeMode"`
+LastModifiedTime string `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type VpcConfig struct {
-	Ipv6AllowedForDualStack bool             `json:"ipv6AllowedForDualStack" xml:"Ipv6AllowedForDualStack"`
-	SecurityGroupIds        SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds               SubnetIds        `json:"subnetIds" xml:"SubnetIds"`
+Ipv6AllowedForDualStack bool `json:"ipv6AllowedForDualStack" xml:"Ipv6AllowedForDualStack"`
+SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds SubnetIds `json:"subnetIds" xml:"SubnetIds"`
 }
 
 type VpcConfigResponse struct {
-	Ipv6AllowedForDualStack bool             `json:"ipv6AllowedForDualStack" xml:"Ipv6AllowedForDualStack"`
-	SecurityGroupIds        SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetIds               SubnetIds        `json:"subnetIds" xml:"SubnetIds"`
-	VpcId                   string           `json:"vpcId" xml:"VpcId"`
+Ipv6AllowedForDualStack bool `json:"ipv6AllowedForDualStack" xml:"Ipv6AllowedForDualStack"`
+SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetIds SubnetIds `json:"subnetIds" xml:"SubnetIds"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type WaitCancelledDetails struct {
-	Error *EventError `json:"error" xml:"Error"`
+Error *EventError `json:"error" xml:"Error"`
 }
 
 type WaitDetails struct {
-	ScheduledEndTimestamp time.Time `json:"scheduledEndTimestamp" xml:"ScheduledEndTimestamp"`
+ScheduledEndTimestamp time.Time `json:"scheduledEndTimestamp" xml:"ScheduledEndTimestamp"`
 }
 
 type WaitOptions struct {
-	WaitSeconds int32 `json:"waitSeconds" xml:"WaitSeconds"`
+WaitSeconds int32 `json:"waitSeconds" xml:"WaitSeconds"`
 }
 
 type WaitStartedDetails struct {
-	Duration              int32     `json:"duration" xml:"Duration"`
-	ScheduledEndTimestamp time.Time `json:"scheduledEndTimestamp" xml:"ScheduledEndTimestamp"`
+Duration int32 `json:"duration" xml:"Duration"`
+ScheduledEndTimestamp time.Time `json:"scheduledEndTimestamp" xml:"ScheduledEndTimestamp"`
 }
 
 type WaitSucceededDetails struct {
-	Duration int32 `json:"duration" xml:"Duration"`
+Duration int32 `json:"duration" xml:"Duration"`
 }
 
 type AliasList []*AliasConfiguration
@@ -1784,3 +1784,4 @@ type EnvironmentVariables map[string]string
 type Tags map[string]string
 
 type InvokeWithResponseStreamResponseEvent interface{}
+

@@ -175,3 +175,4 @@ func SerializeUpdateEnvironmentOutput(w http.ResponseWriter, output *UpdateEnvir
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

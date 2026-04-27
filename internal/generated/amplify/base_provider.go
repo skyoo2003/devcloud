@@ -158,3 +158,4 @@ func (b *BaseProvider) UpdateDomainAssociation(ctx context.Context, input *Updat
 func (b *BaseProvider) UpdateWebhook(ctx context.Context, input *UpdateWebhookRequest) (*UpdateWebhookResult, error) {
 	return nil, fmt.Errorf("UpdateWebhook: %w", ErrNotImplemented)
 }
+

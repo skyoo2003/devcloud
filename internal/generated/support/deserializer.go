@@ -263,3 +263,4 @@ func SerializeResolveCaseResponse(w http.ResponseWriter, output *ResolveCaseResp
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

@@ -385,3 +385,4 @@ func SerializeVoteOnProposalOutput(w http.ResponseWriter, output *VoteOnProposal
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

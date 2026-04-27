@@ -496,3 +496,4 @@ func (e *TypeNotFoundException) ErrorCode() string {
 func (e *TypeNotFoundException) HTTPStatus() int {
 	return 404
 }
+

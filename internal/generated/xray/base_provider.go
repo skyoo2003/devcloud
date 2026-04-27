@@ -162,3 +162,4 @@ func (b *BaseProvider) UpdateSamplingRule(ctx context.Context, input *UpdateSamp
 func (b *BaseProvider) UpdateTraceSegmentDestination(ctx context.Context, input *UpdateTraceSegmentDestinationRequest) (*UpdateTraceSegmentDestinationResult, error) {
 	return nil, fmt.Errorf("UpdateTraceSegmentDestination: %w", ErrNotImplemented)
 }
+

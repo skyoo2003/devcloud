@@ -7,1334 +7,1334 @@ import (
 )
 
 type AutoRetryConfig struct {
-	AutoRetryLimit    int32  `json:"autoRetryLimit" xml:"autoRetryLimit"`
-	AutoRetryNumber   int32  `json:"autoRetryNumber" xml:"autoRetryNumber"`
-	NextAutoRetry     string `json:"nextAutoRetry" xml:"nextAutoRetry"`
-	PreviousAutoRetry string `json:"previousAutoRetry" xml:"previousAutoRetry"`
+AutoRetryLimit int32 `json:"autoRetryLimit" xml:"autoRetryLimit"`
+AutoRetryNumber int32 `json:"autoRetryNumber" xml:"autoRetryNumber"`
+NextAutoRetry string `json:"nextAutoRetry" xml:"nextAutoRetry"`
+PreviousAutoRetry string `json:"previousAutoRetry" xml:"previousAutoRetry"`
 }
 
 type BatchDeleteBuildsInput struct {
-	Ids BuildIds `json:"ids" xml:"ids"`
+Ids BuildIds `json:"ids" xml:"ids"`
 }
 
 type BatchDeleteBuildsOutput struct {
-	BuildsDeleted    BuildIds         `json:"buildsDeleted" xml:"buildsDeleted"`
-	BuildsNotDeleted BuildsNotDeleted `json:"buildsNotDeleted" xml:"buildsNotDeleted"`
+BuildsDeleted BuildIds `json:"buildsDeleted" xml:"buildsDeleted"`
+BuildsNotDeleted BuildsNotDeleted `json:"buildsNotDeleted" xml:"buildsNotDeleted"`
 }
 
 type BatchGetBuildBatchesInput struct {
-	Ids BuildBatchIds `json:"ids" xml:"ids"`
+Ids BuildBatchIds `json:"ids" xml:"ids"`
 }
 
 type BatchGetBuildBatchesOutput struct {
-	BuildBatches         BuildBatches  `json:"buildBatches" xml:"buildBatches"`
-	BuildBatchesNotFound BuildBatchIds `json:"buildBatchesNotFound" xml:"buildBatchesNotFound"`
+BuildBatches BuildBatches `json:"buildBatches" xml:"buildBatches"`
+BuildBatchesNotFound BuildBatchIds `json:"buildBatchesNotFound" xml:"buildBatchesNotFound"`
 }
 
 type BatchGetBuildsInput struct {
-	Ids BuildIds `json:"ids" xml:"ids"`
+Ids BuildIds `json:"ids" xml:"ids"`
 }
 
 type BatchGetBuildsOutput struct {
-	Builds         Builds   `json:"builds" xml:"builds"`
-	BuildsNotFound BuildIds `json:"buildsNotFound" xml:"buildsNotFound"`
+Builds Builds `json:"builds" xml:"builds"`
+BuildsNotFound BuildIds `json:"buildsNotFound" xml:"buildsNotFound"`
 }
 
 type BatchGetCommandExecutionsInput struct {
-	CommandExecutionIds CommandExecutionIds `json:"commandExecutionIds" xml:"commandExecutionIds"`
-	SandboxId           string              `json:"sandboxId" xml:"sandboxId"`
+CommandExecutionIds CommandExecutionIds `json:"commandExecutionIds" xml:"commandExecutionIds"`
+SandboxId string `json:"sandboxId" xml:"sandboxId"`
 }
 
 type BatchGetCommandExecutionsOutput struct {
-	CommandExecutions         CommandExecutions   `json:"commandExecutions" xml:"commandExecutions"`
-	CommandExecutionsNotFound CommandExecutionIds `json:"commandExecutionsNotFound" xml:"commandExecutionsNotFound"`
+CommandExecutions CommandExecutions `json:"commandExecutions" xml:"commandExecutions"`
+CommandExecutionsNotFound CommandExecutionIds `json:"commandExecutionsNotFound" xml:"commandExecutionsNotFound"`
 }
 
 type BatchGetFleetsInput struct {
-	Names FleetNames `json:"names" xml:"names"`
+Names FleetNames `json:"names" xml:"names"`
 }
 
 type BatchGetFleetsOutput struct {
-	Fleets         Fleets     `json:"fleets" xml:"fleets"`
-	FleetsNotFound FleetNames `json:"fleetsNotFound" xml:"fleetsNotFound"`
+Fleets Fleets `json:"fleets" xml:"fleets"`
+FleetsNotFound FleetNames `json:"fleetsNotFound" xml:"fleetsNotFound"`
 }
 
 type BatchGetProjectsInput struct {
-	Names ProjectNames `json:"names" xml:"names"`
+Names ProjectNames `json:"names" xml:"names"`
 }
 
 type BatchGetProjectsOutput struct {
-	Projects         Projects     `json:"projects" xml:"projects"`
-	ProjectsNotFound ProjectNames `json:"projectsNotFound" xml:"projectsNotFound"`
+Projects Projects `json:"projects" xml:"projects"`
+ProjectsNotFound ProjectNames `json:"projectsNotFound" xml:"projectsNotFound"`
 }
 
 type BatchGetReportGroupsInput struct {
-	ReportGroupArns ReportGroupArns `json:"reportGroupArns" xml:"reportGroupArns"`
+ReportGroupArns ReportGroupArns `json:"reportGroupArns" xml:"reportGroupArns"`
 }
 
 type BatchGetReportGroupsOutput struct {
-	ReportGroups         ReportGroups    `json:"reportGroups" xml:"reportGroups"`
-	ReportGroupsNotFound ReportGroupArns `json:"reportGroupsNotFound" xml:"reportGroupsNotFound"`
+ReportGroups ReportGroups `json:"reportGroups" xml:"reportGroups"`
+ReportGroupsNotFound ReportGroupArns `json:"reportGroupsNotFound" xml:"reportGroupsNotFound"`
 }
 
 type BatchGetReportsInput struct {
-	ReportArns ReportArns `json:"reportArns" xml:"reportArns"`
+ReportArns ReportArns `json:"reportArns" xml:"reportArns"`
 }
 
 type BatchGetReportsOutput struct {
-	Reports         Reports    `json:"reports" xml:"reports"`
-	ReportsNotFound ReportArns `json:"reportsNotFound" xml:"reportsNotFound"`
+Reports Reports `json:"reports" xml:"reports"`
+ReportsNotFound ReportArns `json:"reportsNotFound" xml:"reportsNotFound"`
 }
 
 type BatchGetSandboxesInput struct {
-	Ids SandboxIds `json:"ids" xml:"ids"`
+Ids SandboxIds `json:"ids" xml:"ids"`
 }
 
 type BatchGetSandboxesOutput struct {
-	Sandboxes         Sandboxes  `json:"sandboxes" xml:"sandboxes"`
-	SandboxesNotFound SandboxIds `json:"sandboxesNotFound" xml:"sandboxesNotFound"`
+Sandboxes Sandboxes `json:"sandboxes" xml:"sandboxes"`
+SandboxesNotFound SandboxIds `json:"sandboxesNotFound" xml:"sandboxesNotFound"`
 }
 
 type BatchRestrictions struct {
-	ComputeTypesAllowed  ComputeTypesAllowed `json:"computeTypesAllowed" xml:"computeTypesAllowed"`
-	FleetsAllowed        FleetsAllowed       `json:"fleetsAllowed" xml:"fleetsAllowed"`
-	MaximumBuildsAllowed int32               `json:"maximumBuildsAllowed" xml:"maximumBuildsAllowed"`
+ComputeTypesAllowed ComputeTypesAllowed `json:"computeTypesAllowed" xml:"computeTypesAllowed"`
+FleetsAllowed FleetsAllowed `json:"fleetsAllowed" xml:"fleetsAllowed"`
+MaximumBuildsAllowed int32 `json:"maximumBuildsAllowed" xml:"maximumBuildsAllowed"`
 }
 
 type Build struct {
-	Arn                          string                         `json:"arn" xml:"arn"`
-	Artifacts                    *BuildArtifacts                `json:"artifacts" xml:"artifacts"`
-	AutoRetryConfig              *AutoRetryConfig               `json:"autoRetryConfig" xml:"autoRetryConfig"`
-	BuildBatchArn                string                         `json:"buildBatchArn" xml:"buildBatchArn"`
-	BuildComplete                bool                           `json:"buildComplete" xml:"buildComplete"`
-	BuildNumber                  int64                          `json:"buildNumber" xml:"buildNumber"`
-	BuildStatus                  string                         `json:"buildStatus" xml:"buildStatus"`
-	Cache                        *ProjectCache                  `json:"cache" xml:"cache"`
-	CurrentPhase                 string                         `json:"currentPhase" xml:"currentPhase"`
-	DebugSession                 *DebugSession                  `json:"debugSession" xml:"debugSession"`
-	EncryptionKey                string                         `json:"encryptionKey" xml:"encryptionKey"`
-	EndTime                      time.Time                      `json:"endTime" xml:"endTime"`
-	Environment                  *ProjectEnvironment            `json:"environment" xml:"environment"`
-	ExportedEnvironmentVariables ExportedEnvironmentVariables   `json:"exportedEnvironmentVariables" xml:"exportedEnvironmentVariables"`
-	FileSystemLocations          ProjectFileSystemLocations     `json:"fileSystemLocations" xml:"fileSystemLocations"`
-	Id                           string                         `json:"id" xml:"id"`
-	Initiator                    string                         `json:"initiator" xml:"initiator"`
-	Logs                         *LogsLocation                  `json:"logs" xml:"logs"`
-	NetworkInterface             *NetworkInterface              `json:"networkInterface" xml:"networkInterface"`
-	Phases                       BuildPhases                    `json:"phases" xml:"phases"`
-	ProjectName                  string                         `json:"projectName" xml:"projectName"`
-	QueuedTimeoutInMinutes       int32                          `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
-	ReportArns                   BuildReportArns                `json:"reportArns" xml:"reportArns"`
-	ResolvedSourceVersion        string                         `json:"resolvedSourceVersion" xml:"resolvedSourceVersion"`
-	SecondaryArtifacts           BuildArtifactsList             `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
-	SecondarySourceVersions      ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
-	SecondarySources             ProjectSources                 `json:"secondarySources" xml:"secondarySources"`
-	ServiceRole                  string                         `json:"serviceRole" xml:"serviceRole"`
-	Source                       *ProjectSource                 `json:"source" xml:"source"`
-	SourceVersion                string                         `json:"sourceVersion" xml:"sourceVersion"`
-	StartTime                    time.Time                      `json:"startTime" xml:"startTime"`
-	TimeoutInMinutes             int32                          `json:"timeoutInMinutes" xml:"timeoutInMinutes"`
-	VpcConfig                    *VpcConfig                     `json:"vpcConfig" xml:"vpcConfig"`
+Arn string `json:"arn" xml:"arn"`
+Artifacts *BuildArtifacts `json:"artifacts" xml:"artifacts"`
+AutoRetryConfig *AutoRetryConfig `json:"autoRetryConfig" xml:"autoRetryConfig"`
+BuildBatchArn string `json:"buildBatchArn" xml:"buildBatchArn"`
+BuildComplete bool `json:"buildComplete" xml:"buildComplete"`
+BuildNumber int64 `json:"buildNumber" xml:"buildNumber"`
+BuildStatus string `json:"buildStatus" xml:"buildStatus"`
+Cache *ProjectCache `json:"cache" xml:"cache"`
+CurrentPhase string `json:"currentPhase" xml:"currentPhase"`
+DebugSession *DebugSession `json:"debugSession" xml:"debugSession"`
+EncryptionKey string `json:"encryptionKey" xml:"encryptionKey"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+Environment *ProjectEnvironment `json:"environment" xml:"environment"`
+ExportedEnvironmentVariables ExportedEnvironmentVariables `json:"exportedEnvironmentVariables" xml:"exportedEnvironmentVariables"`
+FileSystemLocations ProjectFileSystemLocations `json:"fileSystemLocations" xml:"fileSystemLocations"`
+Id string `json:"id" xml:"id"`
+Initiator string `json:"initiator" xml:"initiator"`
+Logs *LogsLocation `json:"logs" xml:"logs"`
+NetworkInterface *NetworkInterface `json:"networkInterface" xml:"networkInterface"`
+Phases BuildPhases `json:"phases" xml:"phases"`
+ProjectName string `json:"projectName" xml:"projectName"`
+QueuedTimeoutInMinutes int32 `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
+ReportArns BuildReportArns `json:"reportArns" xml:"reportArns"`
+ResolvedSourceVersion string `json:"resolvedSourceVersion" xml:"resolvedSourceVersion"`
+SecondaryArtifacts BuildArtifactsList `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
+SecondarySourceVersions ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
+SecondarySources ProjectSources `json:"secondarySources" xml:"secondarySources"`
+ServiceRole string `json:"serviceRole" xml:"serviceRole"`
+Source *ProjectSource `json:"source" xml:"source"`
+SourceVersion string `json:"sourceVersion" xml:"sourceVersion"`
+StartTime time.Time `json:"startTime" xml:"startTime"`
+TimeoutInMinutes int32 `json:"timeoutInMinutes" xml:"timeoutInMinutes"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type BuildArtifacts struct {
-	ArtifactIdentifier   string `json:"artifactIdentifier" xml:"artifactIdentifier"`
-	BucketOwnerAccess    string `json:"bucketOwnerAccess" xml:"bucketOwnerAccess"`
-	EncryptionDisabled   bool   `json:"encryptionDisabled" xml:"encryptionDisabled"`
-	Location             string `json:"location" xml:"location"`
-	Md5sum               string `json:"md5sum" xml:"md5sum"`
-	OverrideArtifactName bool   `json:"overrideArtifactName" xml:"overrideArtifactName"`
-	Sha256sum            string `json:"sha256sum" xml:"sha256sum"`
+ArtifactIdentifier string `json:"artifactIdentifier" xml:"artifactIdentifier"`
+BucketOwnerAccess string `json:"bucketOwnerAccess" xml:"bucketOwnerAccess"`
+EncryptionDisabled bool `json:"encryptionDisabled" xml:"encryptionDisabled"`
+Location string `json:"location" xml:"location"`
+Md5sum string `json:"md5sum" xml:"md5sum"`
+OverrideArtifactName bool `json:"overrideArtifactName" xml:"overrideArtifactName"`
+Sha256sum string `json:"sha256sum" xml:"sha256sum"`
 }
 
 type BuildBatch struct {
-	Arn                     string                         `json:"arn" xml:"arn"`
-	Artifacts               *BuildArtifacts                `json:"artifacts" xml:"artifacts"`
-	BuildBatchConfig        *ProjectBuildBatchConfig       `json:"buildBatchConfig" xml:"buildBatchConfig"`
-	BuildBatchNumber        int64                          `json:"buildBatchNumber" xml:"buildBatchNumber"`
-	BuildBatchStatus        string                         `json:"buildBatchStatus" xml:"buildBatchStatus"`
-	BuildGroups             BuildGroups                    `json:"buildGroups" xml:"buildGroups"`
-	BuildTimeoutInMinutes   int32                          `json:"buildTimeoutInMinutes" xml:"buildTimeoutInMinutes"`
-	Cache                   *ProjectCache                  `json:"cache" xml:"cache"`
-	Complete                bool                           `json:"complete" xml:"complete"`
-	CurrentPhase            string                         `json:"currentPhase" xml:"currentPhase"`
-	DebugSessionEnabled     bool                           `json:"debugSessionEnabled" xml:"debugSessionEnabled"`
-	EncryptionKey           string                         `json:"encryptionKey" xml:"encryptionKey"`
-	EndTime                 time.Time                      `json:"endTime" xml:"endTime"`
-	Environment             *ProjectEnvironment            `json:"environment" xml:"environment"`
-	FileSystemLocations     ProjectFileSystemLocations     `json:"fileSystemLocations" xml:"fileSystemLocations"`
-	Id                      string                         `json:"id" xml:"id"`
-	Initiator               string                         `json:"initiator" xml:"initiator"`
-	LogConfig               *LogsConfig                    `json:"logConfig" xml:"logConfig"`
-	Phases                  BuildBatchPhases               `json:"phases" xml:"phases"`
-	ProjectName             string                         `json:"projectName" xml:"projectName"`
-	QueuedTimeoutInMinutes  int32                          `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
-	ReportArns              BuildReportArns                `json:"reportArns" xml:"reportArns"`
-	ResolvedSourceVersion   string                         `json:"resolvedSourceVersion" xml:"resolvedSourceVersion"`
-	SecondaryArtifacts      BuildArtifactsList             `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
-	SecondarySourceVersions ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
-	SecondarySources        ProjectSources                 `json:"secondarySources" xml:"secondarySources"`
-	ServiceRole             string                         `json:"serviceRole" xml:"serviceRole"`
-	Source                  *ProjectSource                 `json:"source" xml:"source"`
-	SourceVersion           string                         `json:"sourceVersion" xml:"sourceVersion"`
-	StartTime               time.Time                      `json:"startTime" xml:"startTime"`
-	VpcConfig               *VpcConfig                     `json:"vpcConfig" xml:"vpcConfig"`
+Arn string `json:"arn" xml:"arn"`
+Artifacts *BuildArtifacts `json:"artifacts" xml:"artifacts"`
+BuildBatchConfig *ProjectBuildBatchConfig `json:"buildBatchConfig" xml:"buildBatchConfig"`
+BuildBatchNumber int64 `json:"buildBatchNumber" xml:"buildBatchNumber"`
+BuildBatchStatus string `json:"buildBatchStatus" xml:"buildBatchStatus"`
+BuildGroups BuildGroups `json:"buildGroups" xml:"buildGroups"`
+BuildTimeoutInMinutes int32 `json:"buildTimeoutInMinutes" xml:"buildTimeoutInMinutes"`
+Cache *ProjectCache `json:"cache" xml:"cache"`
+Complete bool `json:"complete" xml:"complete"`
+CurrentPhase string `json:"currentPhase" xml:"currentPhase"`
+DebugSessionEnabled bool `json:"debugSessionEnabled" xml:"debugSessionEnabled"`
+EncryptionKey string `json:"encryptionKey" xml:"encryptionKey"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+Environment *ProjectEnvironment `json:"environment" xml:"environment"`
+FileSystemLocations ProjectFileSystemLocations `json:"fileSystemLocations" xml:"fileSystemLocations"`
+Id string `json:"id" xml:"id"`
+Initiator string `json:"initiator" xml:"initiator"`
+LogConfig *LogsConfig `json:"logConfig" xml:"logConfig"`
+Phases BuildBatchPhases `json:"phases" xml:"phases"`
+ProjectName string `json:"projectName" xml:"projectName"`
+QueuedTimeoutInMinutes int32 `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
+ReportArns BuildReportArns `json:"reportArns" xml:"reportArns"`
+ResolvedSourceVersion string `json:"resolvedSourceVersion" xml:"resolvedSourceVersion"`
+SecondaryArtifacts BuildArtifactsList `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
+SecondarySourceVersions ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
+SecondarySources ProjectSources `json:"secondarySources" xml:"secondarySources"`
+ServiceRole string `json:"serviceRole" xml:"serviceRole"`
+Source *ProjectSource `json:"source" xml:"source"`
+SourceVersion string `json:"sourceVersion" xml:"sourceVersion"`
+StartTime time.Time `json:"startTime" xml:"startTime"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type BuildBatchFilter struct {
-	Status string `json:"status" xml:"status"`
+Status string `json:"status" xml:"status"`
 }
 
 type BuildBatchPhase struct {
-	Contexts          PhaseContexts `json:"contexts" xml:"contexts"`
-	DurationInSeconds int64         `json:"durationInSeconds" xml:"durationInSeconds"`
-	EndTime           time.Time     `json:"endTime" xml:"endTime"`
-	PhaseStatus       string        `json:"phaseStatus" xml:"phaseStatus"`
-	PhaseType         string        `json:"phaseType" xml:"phaseType"`
-	StartTime         time.Time     `json:"startTime" xml:"startTime"`
+Contexts PhaseContexts `json:"contexts" xml:"contexts"`
+DurationInSeconds int64 `json:"durationInSeconds" xml:"durationInSeconds"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+PhaseStatus string `json:"phaseStatus" xml:"phaseStatus"`
+PhaseType string `json:"phaseType" xml:"phaseType"`
+StartTime time.Time `json:"startTime" xml:"startTime"`
 }
 
 type BuildGroup struct {
-	CurrentBuildSummary   *BuildSummary  `json:"currentBuildSummary" xml:"currentBuildSummary"`
-	DependsOn             Identifiers    `json:"dependsOn" xml:"dependsOn"`
-	Identifier            string         `json:"identifier" xml:"identifier"`
-	IgnoreFailure         bool           `json:"ignoreFailure" xml:"ignoreFailure"`
-	PriorBuildSummaryList BuildSummaries `json:"priorBuildSummaryList" xml:"priorBuildSummaryList"`
+CurrentBuildSummary *BuildSummary `json:"currentBuildSummary" xml:"currentBuildSummary"`
+DependsOn Identifiers `json:"dependsOn" xml:"dependsOn"`
+Identifier string `json:"identifier" xml:"identifier"`
+IgnoreFailure bool `json:"ignoreFailure" xml:"ignoreFailure"`
+PriorBuildSummaryList BuildSummaries `json:"priorBuildSummaryList" xml:"priorBuildSummaryList"`
 }
 
 type BuildNotDeleted struct {
-	Id         string `json:"id" xml:"id"`
-	StatusCode string `json:"statusCode" xml:"statusCode"`
+Id string `json:"id" xml:"id"`
+StatusCode string `json:"statusCode" xml:"statusCode"`
 }
 
 type BuildPhase struct {
-	Contexts          PhaseContexts `json:"contexts" xml:"contexts"`
-	DurationInSeconds int64         `json:"durationInSeconds" xml:"durationInSeconds"`
-	EndTime           time.Time     `json:"endTime" xml:"endTime"`
-	PhaseStatus       string        `json:"phaseStatus" xml:"phaseStatus"`
-	PhaseType         string        `json:"phaseType" xml:"phaseType"`
-	StartTime         time.Time     `json:"startTime" xml:"startTime"`
+Contexts PhaseContexts `json:"contexts" xml:"contexts"`
+DurationInSeconds int64 `json:"durationInSeconds" xml:"durationInSeconds"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+PhaseStatus string `json:"phaseStatus" xml:"phaseStatus"`
+PhaseType string `json:"phaseType" xml:"phaseType"`
+StartTime time.Time `json:"startTime" xml:"startTime"`
 }
 
 type BuildStatusConfig struct {
-	Context   string `json:"context" xml:"context"`
-	TargetUrl string `json:"targetUrl" xml:"targetUrl"`
+Context string `json:"context" xml:"context"`
+TargetUrl string `json:"targetUrl" xml:"targetUrl"`
 }
 
 type BuildSummary struct {
-	Arn                string                     `json:"arn" xml:"arn"`
-	BuildStatus        string                     `json:"buildStatus" xml:"buildStatus"`
-	PrimaryArtifact    *ResolvedArtifact          `json:"primaryArtifact" xml:"primaryArtifact"`
-	RequestedOn        time.Time                  `json:"requestedOn" xml:"requestedOn"`
-	SecondaryArtifacts ResolvedSecondaryArtifacts `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
+Arn string `json:"arn" xml:"arn"`
+BuildStatus string `json:"buildStatus" xml:"buildStatus"`
+PrimaryArtifact *ResolvedArtifact `json:"primaryArtifact" xml:"primaryArtifact"`
+RequestedOn time.Time `json:"requestedOn" xml:"requestedOn"`
+SecondaryArtifacts ResolvedSecondaryArtifacts `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
 }
 
 type CloudWatchLogsConfig struct {
-	GroupName  string `json:"groupName" xml:"groupName"`
-	Status     string `json:"status" xml:"status"`
-	StreamName string `json:"streamName" xml:"streamName"`
+GroupName string `json:"groupName" xml:"groupName"`
+Status string `json:"status" xml:"status"`
+StreamName string `json:"streamName" xml:"streamName"`
 }
 
 type CodeCoverage struct {
-	BranchCoveragePercentage float64   `json:"branchCoveragePercentage" xml:"branchCoveragePercentage"`
-	BranchesCovered          int32     `json:"branchesCovered" xml:"branchesCovered"`
-	BranchesMissed           int32     `json:"branchesMissed" xml:"branchesMissed"`
-	Expired                  time.Time `json:"expired" xml:"expired"`
-	FilePath                 string    `json:"filePath" xml:"filePath"`
-	Id                       string    `json:"id" xml:"id"`
-	LineCoveragePercentage   float64   `json:"lineCoveragePercentage" xml:"lineCoveragePercentage"`
-	LinesCovered             int32     `json:"linesCovered" xml:"linesCovered"`
-	LinesMissed              int32     `json:"linesMissed" xml:"linesMissed"`
-	ReportARN                string    `json:"reportARN" xml:"reportARN"`
+BranchCoveragePercentage float64 `json:"branchCoveragePercentage" xml:"branchCoveragePercentage"`
+BranchesCovered int32 `json:"branchesCovered" xml:"branchesCovered"`
+BranchesMissed int32 `json:"branchesMissed" xml:"branchesMissed"`
+Expired time.Time `json:"expired" xml:"expired"`
+FilePath string `json:"filePath" xml:"filePath"`
+Id string `json:"id" xml:"id"`
+LineCoveragePercentage float64 `json:"lineCoveragePercentage" xml:"lineCoveragePercentage"`
+LinesCovered int32 `json:"linesCovered" xml:"linesCovered"`
+LinesMissed int32 `json:"linesMissed" xml:"linesMissed"`
+ReportARN string `json:"reportARN" xml:"reportARN"`
 }
 
 type CodeCoverageReportSummary struct {
-	BranchCoveragePercentage float64 `json:"branchCoveragePercentage" xml:"branchCoveragePercentage"`
-	BranchesCovered          int32   `json:"branchesCovered" xml:"branchesCovered"`
-	BranchesMissed           int32   `json:"branchesMissed" xml:"branchesMissed"`
-	LineCoveragePercentage   float64 `json:"lineCoveragePercentage" xml:"lineCoveragePercentage"`
-	LinesCovered             int32   `json:"linesCovered" xml:"linesCovered"`
-	LinesMissed              int32   `json:"linesMissed" xml:"linesMissed"`
+BranchCoveragePercentage float64 `json:"branchCoveragePercentage" xml:"branchCoveragePercentage"`
+BranchesCovered int32 `json:"branchesCovered" xml:"branchesCovered"`
+BranchesMissed int32 `json:"branchesMissed" xml:"branchesMissed"`
+LineCoveragePercentage float64 `json:"lineCoveragePercentage" xml:"lineCoveragePercentage"`
+LinesCovered int32 `json:"linesCovered" xml:"linesCovered"`
+LinesMissed int32 `json:"linesMissed" xml:"linesMissed"`
 }
 
 type CommandExecution struct {
-	Command               string        `json:"command" xml:"command"`
-	EndTime               time.Time     `json:"endTime" xml:"endTime"`
-	ExitCode              string        `json:"exitCode" xml:"exitCode"`
-	Id                    string        `json:"id" xml:"id"`
-	Logs                  *LogsLocation `json:"logs" xml:"logs"`
-	SandboxArn            string        `json:"sandboxArn" xml:"sandboxArn"`
-	SandboxId             string        `json:"sandboxId" xml:"sandboxId"`
-	StandardErrContent    string        `json:"standardErrContent" xml:"standardErrContent"`
-	StandardOutputContent string        `json:"standardOutputContent" xml:"standardOutputContent"`
-	StartTime             time.Time     `json:"startTime" xml:"startTime"`
-	Status                string        `json:"status" xml:"status"`
-	SubmitTime            time.Time     `json:"submitTime" xml:"submitTime"`
-	Type                  string        `json:"type" xml:"type"`
+Command string `json:"command" xml:"command"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+ExitCode string `json:"exitCode" xml:"exitCode"`
+Id string `json:"id" xml:"id"`
+Logs *LogsLocation `json:"logs" xml:"logs"`
+SandboxArn string `json:"sandboxArn" xml:"sandboxArn"`
+SandboxId string `json:"sandboxId" xml:"sandboxId"`
+StandardErrContent string `json:"standardErrContent" xml:"standardErrContent"`
+StandardOutputContent string `json:"standardOutputContent" xml:"standardOutputContent"`
+StartTime time.Time `json:"startTime" xml:"startTime"`
+Status string `json:"status" xml:"status"`
+SubmitTime time.Time `json:"submitTime" xml:"submitTime"`
+Type string `json:"type" xml:"type"`
 }
 
 type ComputeConfiguration struct {
-	Disk         int64  `json:"disk" xml:"disk"`
-	InstanceType string `json:"instanceType" xml:"instanceType"`
-	MachineType  string `json:"machineType" xml:"machineType"`
-	Memory       int64  `json:"memory" xml:"memory"`
-	VCpu         int64  `json:"vCpu" xml:"vCpu"`
+Disk int64 `json:"disk" xml:"disk"`
+InstanceType string `json:"instanceType" xml:"instanceType"`
+MachineType string `json:"machineType" xml:"machineType"`
+Memory int64 `json:"memory" xml:"memory"`
+VCpu int64 `json:"vCpu" xml:"vCpu"`
 }
 
 type CreateFleetInput struct {
-	BaseCapacity         int32                      `json:"baseCapacity" xml:"baseCapacity"`
-	ComputeConfiguration *ComputeConfiguration      `json:"computeConfiguration" xml:"computeConfiguration"`
-	ComputeType          string                     `json:"computeType" xml:"computeType"`
-	EnvironmentType      string                     `json:"environmentType" xml:"environmentType"`
-	FleetServiceRole     string                     `json:"fleetServiceRole" xml:"fleetServiceRole"`
-	ImageId              string                     `json:"imageId" xml:"imageId"`
-	Name                 string                     `json:"name" xml:"name"`
-	OverflowBehavior     string                     `json:"overflowBehavior" xml:"overflowBehavior"`
-	ProxyConfiguration   *ProxyConfiguration        `json:"proxyConfiguration" xml:"proxyConfiguration"`
-	ScalingConfiguration *ScalingConfigurationInput `json:"scalingConfiguration" xml:"scalingConfiguration"`
-	Tags                 TagList                    `json:"tags" xml:"tags"`
-	VpcConfig            *VpcConfig                 `json:"vpcConfig" xml:"vpcConfig"`
+BaseCapacity int32 `json:"baseCapacity" xml:"baseCapacity"`
+ComputeConfiguration *ComputeConfiguration `json:"computeConfiguration" xml:"computeConfiguration"`
+ComputeType string `json:"computeType" xml:"computeType"`
+EnvironmentType string `json:"environmentType" xml:"environmentType"`
+FleetServiceRole string `json:"fleetServiceRole" xml:"fleetServiceRole"`
+ImageId string `json:"imageId" xml:"imageId"`
+Name string `json:"name" xml:"name"`
+OverflowBehavior string `json:"overflowBehavior" xml:"overflowBehavior"`
+ProxyConfiguration *ProxyConfiguration `json:"proxyConfiguration" xml:"proxyConfiguration"`
+ScalingConfiguration *ScalingConfigurationInput `json:"scalingConfiguration" xml:"scalingConfiguration"`
+Tags TagList `json:"tags" xml:"tags"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type CreateFleetOutput struct {
-	Fleet *Fleet `json:"fleet" xml:"fleet"`
+Fleet *Fleet `json:"fleet" xml:"fleet"`
 }
 
 type CreateProjectInput struct {
-	Artifacts               *ProjectArtifacts              `json:"artifacts" xml:"artifacts"`
-	AutoRetryLimit          int32                          `json:"autoRetryLimit" xml:"autoRetryLimit"`
-	BadgeEnabled            bool                           `json:"badgeEnabled" xml:"badgeEnabled"`
-	BuildBatchConfig        *ProjectBuildBatchConfig       `json:"buildBatchConfig" xml:"buildBatchConfig"`
-	Cache                   *ProjectCache                  `json:"cache" xml:"cache"`
-	ConcurrentBuildLimit    int32                          `json:"concurrentBuildLimit" xml:"concurrentBuildLimit"`
-	Description             string                         `json:"description" xml:"description"`
-	EncryptionKey           string                         `json:"encryptionKey" xml:"encryptionKey"`
-	Environment             *ProjectEnvironment            `json:"environment" xml:"environment"`
-	FileSystemLocations     ProjectFileSystemLocations     `json:"fileSystemLocations" xml:"fileSystemLocations"`
-	LogsConfig              *LogsConfig                    `json:"logsConfig" xml:"logsConfig"`
-	Name                    string                         `json:"name" xml:"name"`
-	QueuedTimeoutInMinutes  int32                          `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
-	SecondaryArtifacts      ProjectArtifactsList           `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
-	SecondarySourceVersions ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
-	SecondarySources        ProjectSources                 `json:"secondarySources" xml:"secondarySources"`
-	ServiceRole             string                         `json:"serviceRole" xml:"serviceRole"`
-	Source                  *ProjectSource                 `json:"source" xml:"source"`
-	SourceVersion           string                         `json:"sourceVersion" xml:"sourceVersion"`
-	Tags                    TagList                        `json:"tags" xml:"tags"`
-	TimeoutInMinutes        int32                          `json:"timeoutInMinutes" xml:"timeoutInMinutes"`
-	VpcConfig               *VpcConfig                     `json:"vpcConfig" xml:"vpcConfig"`
+Artifacts *ProjectArtifacts `json:"artifacts" xml:"artifacts"`
+AutoRetryLimit int32 `json:"autoRetryLimit" xml:"autoRetryLimit"`
+BadgeEnabled bool `json:"badgeEnabled" xml:"badgeEnabled"`
+BuildBatchConfig *ProjectBuildBatchConfig `json:"buildBatchConfig" xml:"buildBatchConfig"`
+Cache *ProjectCache `json:"cache" xml:"cache"`
+ConcurrentBuildLimit int32 `json:"concurrentBuildLimit" xml:"concurrentBuildLimit"`
+Description string `json:"description" xml:"description"`
+EncryptionKey string `json:"encryptionKey" xml:"encryptionKey"`
+Environment *ProjectEnvironment `json:"environment" xml:"environment"`
+FileSystemLocations ProjectFileSystemLocations `json:"fileSystemLocations" xml:"fileSystemLocations"`
+LogsConfig *LogsConfig `json:"logsConfig" xml:"logsConfig"`
+Name string `json:"name" xml:"name"`
+QueuedTimeoutInMinutes int32 `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
+SecondaryArtifacts ProjectArtifactsList `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
+SecondarySourceVersions ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
+SecondarySources ProjectSources `json:"secondarySources" xml:"secondarySources"`
+ServiceRole string `json:"serviceRole" xml:"serviceRole"`
+Source *ProjectSource `json:"source" xml:"source"`
+SourceVersion string `json:"sourceVersion" xml:"sourceVersion"`
+Tags TagList `json:"tags" xml:"tags"`
+TimeoutInMinutes int32 `json:"timeoutInMinutes" xml:"timeoutInMinutes"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type CreateProjectOutput struct {
-	Project *Project `json:"project" xml:"project"`
+Project *Project `json:"project" xml:"project"`
 }
 
 type CreateReportGroupInput struct {
-	ExportConfig *ReportExportConfig `json:"exportConfig" xml:"exportConfig"`
-	Name         string              `json:"name" xml:"name"`
-	Tags         TagList             `json:"tags" xml:"tags"`
-	Type         string              `json:"type" xml:"type"`
+ExportConfig *ReportExportConfig `json:"exportConfig" xml:"exportConfig"`
+Name string `json:"name" xml:"name"`
+Tags TagList `json:"tags" xml:"tags"`
+Type string `json:"type" xml:"type"`
 }
 
 type CreateReportGroupOutput struct {
-	ReportGroup *ReportGroup `json:"reportGroup" xml:"reportGroup"`
+ReportGroup *ReportGroup `json:"reportGroup" xml:"reportGroup"`
 }
 
 type CreateWebhookInput struct {
-	BranchFilter           string                  `json:"branchFilter" xml:"branchFilter"`
-	BuildType              string                  `json:"buildType" xml:"buildType"`
-	FilterGroups           FilterGroups            `json:"filterGroups" xml:"filterGroups"`
-	ManualCreation         bool                    `json:"manualCreation" xml:"manualCreation"`
-	ProjectName            string                  `json:"projectName" xml:"projectName"`
-	PullRequestBuildPolicy *PullRequestBuildPolicy `json:"pullRequestBuildPolicy" xml:"pullRequestBuildPolicy"`
-	ScopeConfiguration     *ScopeConfiguration     `json:"scopeConfiguration" xml:"scopeConfiguration"`
+BranchFilter string `json:"branchFilter" xml:"branchFilter"`
+BuildType string `json:"buildType" xml:"buildType"`
+FilterGroups FilterGroups `json:"filterGroups" xml:"filterGroups"`
+ManualCreation bool `json:"manualCreation" xml:"manualCreation"`
+ProjectName string `json:"projectName" xml:"projectName"`
+PullRequestBuildPolicy *PullRequestBuildPolicy `json:"pullRequestBuildPolicy" xml:"pullRequestBuildPolicy"`
+ScopeConfiguration *ScopeConfiguration `json:"scopeConfiguration" xml:"scopeConfiguration"`
 }
 
 type CreateWebhookOutput struct {
-	Webhook *Webhook `json:"webhook" xml:"webhook"`
+Webhook *Webhook `json:"webhook" xml:"webhook"`
 }
 
 type DebugSession struct {
-	SessionEnabled bool   `json:"sessionEnabled" xml:"sessionEnabled"`
-	SessionTarget  string `json:"sessionTarget" xml:"sessionTarget"`
+SessionEnabled bool `json:"sessionEnabled" xml:"sessionEnabled"`
+SessionTarget string `json:"sessionTarget" xml:"sessionTarget"`
 }
 
 type DeleteBuildBatchInput struct {
-	Id string `json:"id" xml:"id"`
+Id string `json:"id" xml:"id"`
 }
 
 type DeleteBuildBatchOutput struct {
-	BuildsDeleted    BuildIds         `json:"buildsDeleted" xml:"buildsDeleted"`
-	BuildsNotDeleted BuildsNotDeleted `json:"buildsNotDeleted" xml:"buildsNotDeleted"`
-	StatusCode       string           `json:"statusCode" xml:"statusCode"`
+BuildsDeleted BuildIds `json:"buildsDeleted" xml:"buildsDeleted"`
+BuildsNotDeleted BuildsNotDeleted `json:"buildsNotDeleted" xml:"buildsNotDeleted"`
+StatusCode string `json:"statusCode" xml:"statusCode"`
 }
 
 type DeleteFleetInput struct {
-	Arn string `json:"arn" xml:"arn"`
+Arn string `json:"arn" xml:"arn"`
 }
 
 type DeleteFleetOutput struct {
 }
 
 type DeleteProjectInput struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type DeleteProjectOutput struct {
 }
 
 type DeleteReportGroupInput struct {
-	Arn           string `json:"arn" xml:"arn"`
-	DeleteReports bool   `json:"deleteReports" xml:"deleteReports"`
+Arn string `json:"arn" xml:"arn"`
+DeleteReports bool `json:"deleteReports" xml:"deleteReports"`
 }
 
 type DeleteReportGroupOutput struct {
 }
 
 type DeleteReportInput struct {
-	Arn string `json:"arn" xml:"arn"`
+Arn string `json:"arn" xml:"arn"`
 }
 
 type DeleteReportOutput struct {
 }
 
 type DeleteResourcePolicyInput struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type DeleteResourcePolicyOutput struct {
 }
 
 type DeleteSourceCredentialsInput struct {
-	Arn string `json:"arn" xml:"arn"`
+Arn string `json:"arn" xml:"arn"`
 }
 
 type DeleteSourceCredentialsOutput struct {
-	Arn string `json:"arn" xml:"arn"`
+Arn string `json:"arn" xml:"arn"`
 }
 
 type DeleteWebhookInput struct {
-	ProjectName string `json:"projectName" xml:"projectName"`
+ProjectName string `json:"projectName" xml:"projectName"`
 }
 
 type DeleteWebhookOutput struct {
 }
 
 type DescribeCodeCoveragesInput struct {
-	MaxLineCoveragePercentage float64 `json:"maxLineCoveragePercentage" xml:"maxLineCoveragePercentage"`
-	MaxResults                int32   `json:"maxResults" xml:"maxResults"`
-	MinLineCoveragePercentage float64 `json:"minLineCoveragePercentage" xml:"minLineCoveragePercentage"`
-	NextToken                 string  `json:"nextToken" xml:"nextToken"`
-	ReportArn                 string  `json:"reportArn" xml:"reportArn"`
-	SortBy                    string  `json:"sortBy" xml:"sortBy"`
-	SortOrder                 string  `json:"sortOrder" xml:"sortOrder"`
+MaxLineCoveragePercentage float64 `json:"maxLineCoveragePercentage" xml:"maxLineCoveragePercentage"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+MinLineCoveragePercentage float64 `json:"minLineCoveragePercentage" xml:"minLineCoveragePercentage"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ReportArn string `json:"reportArn" xml:"reportArn"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type DescribeCodeCoveragesOutput struct {
-	CodeCoverages CodeCoverages `json:"codeCoverages" xml:"codeCoverages"`
-	NextToken     string        `json:"nextToken" xml:"nextToken"`
+CodeCoverages CodeCoverages `json:"codeCoverages" xml:"codeCoverages"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeTestCasesInput struct {
-	Filter     *TestCaseFilter `json:"filter" xml:"filter"`
-	MaxResults int32           `json:"maxResults" xml:"maxResults"`
-	NextToken  string          `json:"nextToken" xml:"nextToken"`
-	ReportArn  string          `json:"reportArn" xml:"reportArn"`
+Filter *TestCaseFilter `json:"filter" xml:"filter"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ReportArn string `json:"reportArn" xml:"reportArn"`
 }
 
 type DescribeTestCasesOutput struct {
-	NextToken string    `json:"nextToken" xml:"nextToken"`
-	TestCases TestCases `json:"testCases" xml:"testCases"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+TestCases TestCases `json:"testCases" xml:"testCases"`
 }
 
 type DockerServer struct {
-	ComputeType      string              `json:"computeType" xml:"computeType"`
-	SecurityGroupIds SecurityGroupIds    `json:"securityGroupIds" xml:"securityGroupIds"`
-	Status           *DockerServerStatus `json:"status" xml:"status"`
+ComputeType string `json:"computeType" xml:"computeType"`
+SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"securityGroupIds"`
+Status *DockerServerStatus `json:"status" xml:"status"`
 }
 
 type DockerServerStatus struct {
-	Message string `json:"message" xml:"message"`
-	Status  string `json:"status" xml:"status"`
+Message string `json:"message" xml:"message"`
+Status string `json:"status" xml:"status"`
 }
 
 type EnvironmentImage struct {
-	Description string        `json:"description" xml:"description"`
-	Name        string        `json:"name" xml:"name"`
-	Versions    ImageVersions `json:"versions" xml:"versions"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+Versions ImageVersions `json:"versions" xml:"versions"`
 }
 
 type EnvironmentLanguage struct {
-	Images   EnvironmentImages `json:"images" xml:"images"`
-	Language string            `json:"language" xml:"language"`
+Images EnvironmentImages `json:"images" xml:"images"`
+Language string `json:"language" xml:"language"`
 }
 
 type EnvironmentPlatform struct {
-	Languages EnvironmentLanguages `json:"languages" xml:"languages"`
-	Platform  string               `json:"platform" xml:"platform"`
+Languages EnvironmentLanguages `json:"languages" xml:"languages"`
+Platform string `json:"platform" xml:"platform"`
 }
 
 type EnvironmentVariable struct {
-	Name  string `json:"name" xml:"name"`
-	Type  string `json:"type" xml:"type"`
-	Value string `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+Type string `json:"type" xml:"type"`
+Value string `json:"value" xml:"value"`
 }
 
 type ExportedEnvironmentVariable struct {
-	Name  string `json:"name" xml:"name"`
-	Value string `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+Value string `json:"value" xml:"value"`
 }
 
 type Fleet struct {
-	Arn                  string                      `json:"arn" xml:"arn"`
-	BaseCapacity         int32                       `json:"baseCapacity" xml:"baseCapacity"`
-	ComputeConfiguration *ComputeConfiguration       `json:"computeConfiguration" xml:"computeConfiguration"`
-	ComputeType          string                      `json:"computeType" xml:"computeType"`
-	Created              time.Time                   `json:"created" xml:"created"`
-	EnvironmentType      string                      `json:"environmentType" xml:"environmentType"`
-	FleetServiceRole     string                      `json:"fleetServiceRole" xml:"fleetServiceRole"`
-	Id                   string                      `json:"id" xml:"id"`
-	ImageId              string                      `json:"imageId" xml:"imageId"`
-	LastModified         time.Time                   `json:"lastModified" xml:"lastModified"`
-	Name                 string                      `json:"name" xml:"name"`
-	OverflowBehavior     string                      `json:"overflowBehavior" xml:"overflowBehavior"`
-	ProxyConfiguration   *ProxyConfiguration         `json:"proxyConfiguration" xml:"proxyConfiguration"`
-	ScalingConfiguration *ScalingConfigurationOutput `json:"scalingConfiguration" xml:"scalingConfiguration"`
-	Status               *FleetStatus                `json:"status" xml:"status"`
-	Tags                 TagList                     `json:"tags" xml:"tags"`
-	VpcConfig            *VpcConfig                  `json:"vpcConfig" xml:"vpcConfig"`
+Arn string `json:"arn" xml:"arn"`
+BaseCapacity int32 `json:"baseCapacity" xml:"baseCapacity"`
+ComputeConfiguration *ComputeConfiguration `json:"computeConfiguration" xml:"computeConfiguration"`
+ComputeType string `json:"computeType" xml:"computeType"`
+Created time.Time `json:"created" xml:"created"`
+EnvironmentType string `json:"environmentType" xml:"environmentType"`
+FleetServiceRole string `json:"fleetServiceRole" xml:"fleetServiceRole"`
+Id string `json:"id" xml:"id"`
+ImageId string `json:"imageId" xml:"imageId"`
+LastModified time.Time `json:"lastModified" xml:"lastModified"`
+Name string `json:"name" xml:"name"`
+OverflowBehavior string `json:"overflowBehavior" xml:"overflowBehavior"`
+ProxyConfiguration *ProxyConfiguration `json:"proxyConfiguration" xml:"proxyConfiguration"`
+ScalingConfiguration *ScalingConfigurationOutput `json:"scalingConfiguration" xml:"scalingConfiguration"`
+Status *FleetStatus `json:"status" xml:"status"`
+Tags TagList `json:"tags" xml:"tags"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type FleetProxyRule struct {
-	Effect   string                 `json:"effect" xml:"effect"`
-	Entities FleetProxyRuleEntities `json:"entities" xml:"entities"`
-	Type     string                 `json:"type" xml:"type"`
+Effect string `json:"effect" xml:"effect"`
+Entities FleetProxyRuleEntities `json:"entities" xml:"entities"`
+Type string `json:"type" xml:"type"`
 }
 
 type FleetStatus struct {
-	Context    string `json:"context" xml:"context"`
-	Message    string `json:"message" xml:"message"`
-	StatusCode string `json:"statusCode" xml:"statusCode"`
+Context string `json:"context" xml:"context"`
+Message string `json:"message" xml:"message"`
+StatusCode string `json:"statusCode" xml:"statusCode"`
 }
 
 type GetReportGroupTrendInput struct {
-	NumOfReports   int32  `json:"numOfReports" xml:"numOfReports"`
-	ReportGroupArn string `json:"reportGroupArn" xml:"reportGroupArn"`
-	TrendField     string `json:"trendField" xml:"trendField"`
+NumOfReports int32 `json:"numOfReports" xml:"numOfReports"`
+ReportGroupArn string `json:"reportGroupArn" xml:"reportGroupArn"`
+TrendField string `json:"trendField" xml:"trendField"`
 }
 
 type GetReportGroupTrendOutput struct {
-	RawData ReportGroupTrendRawDataList `json:"rawData" xml:"rawData"`
-	Stats   *ReportGroupTrendStats      `json:"stats" xml:"stats"`
+RawData ReportGroupTrendRawDataList `json:"rawData" xml:"rawData"`
+Stats *ReportGroupTrendStats `json:"stats" xml:"stats"`
 }
 
 type GetResourcePolicyInput struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type GetResourcePolicyOutput struct {
-	Policy string `json:"policy" xml:"policy"`
+Policy string `json:"policy" xml:"policy"`
 }
 
 type GitSubmodulesConfig struct {
-	FetchSubmodules bool `json:"fetchSubmodules" xml:"fetchSubmodules"`
+FetchSubmodules bool `json:"fetchSubmodules" xml:"fetchSubmodules"`
 }
 
 type ImportSourceCredentialsInput struct {
-	AuthType        string `json:"authType" xml:"authType"`
-	ServerType      string `json:"serverType" xml:"serverType"`
-	ShouldOverwrite bool   `json:"shouldOverwrite" xml:"shouldOverwrite"`
-	Token           string `json:"token" xml:"token"`
-	Username        string `json:"username" xml:"username"`
+AuthType string `json:"authType" xml:"authType"`
+ServerType string `json:"serverType" xml:"serverType"`
+ShouldOverwrite bool `json:"shouldOverwrite" xml:"shouldOverwrite"`
+Token string `json:"token" xml:"token"`
+Username string `json:"username" xml:"username"`
 }
 
 type ImportSourceCredentialsOutput struct {
-	Arn string `json:"arn" xml:"arn"`
+Arn string `json:"arn" xml:"arn"`
 }
 
 type InvalidateProjectCacheInput struct {
-	ProjectName string `json:"projectName" xml:"projectName"`
+ProjectName string `json:"projectName" xml:"projectName"`
 }
 
 type InvalidateProjectCacheOutput struct {
 }
 
 type ListBuildBatchesForProjectInput struct {
-	Filter      *BuildBatchFilter `json:"filter" xml:"filter"`
-	MaxResults  int32             `json:"maxResults" xml:"maxResults"`
-	NextToken   string            `json:"nextToken" xml:"nextToken"`
-	ProjectName string            `json:"projectName" xml:"projectName"`
-	SortOrder   string            `json:"sortOrder" xml:"sortOrder"`
+Filter *BuildBatchFilter `json:"filter" xml:"filter"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ProjectName string `json:"projectName" xml:"projectName"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListBuildBatchesForProjectOutput struct {
-	Ids       BuildBatchIds `json:"ids" xml:"ids"`
-	NextToken string        `json:"nextToken" xml:"nextToken"`
+Ids BuildBatchIds `json:"ids" xml:"ids"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListBuildBatchesInput struct {
-	Filter     *BuildBatchFilter `json:"filter" xml:"filter"`
-	MaxResults int32             `json:"maxResults" xml:"maxResults"`
-	NextToken  string            `json:"nextToken" xml:"nextToken"`
-	SortOrder  string            `json:"sortOrder" xml:"sortOrder"`
+Filter *BuildBatchFilter `json:"filter" xml:"filter"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListBuildBatchesOutput struct {
-	Ids       BuildBatchIds `json:"ids" xml:"ids"`
-	NextToken string        `json:"nextToken" xml:"nextToken"`
+Ids BuildBatchIds `json:"ids" xml:"ids"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListBuildsForProjectInput struct {
-	NextToken   string `json:"nextToken" xml:"nextToken"`
-	ProjectName string `json:"projectName" xml:"projectName"`
-	SortOrder   string `json:"sortOrder" xml:"sortOrder"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ProjectName string `json:"projectName" xml:"projectName"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListBuildsForProjectOutput struct {
-	Ids       BuildIds `json:"ids" xml:"ids"`
-	NextToken string   `json:"nextToken" xml:"nextToken"`
+Ids BuildIds `json:"ids" xml:"ids"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListBuildsInput struct {
-	NextToken string `json:"nextToken" xml:"nextToken"`
-	SortOrder string `json:"sortOrder" xml:"sortOrder"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListBuildsOutput struct {
-	Ids       BuildIds `json:"ids" xml:"ids"`
-	NextToken string   `json:"nextToken" xml:"nextToken"`
+Ids BuildIds `json:"ids" xml:"ids"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListCommandExecutionsForSandboxInput struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	SandboxId  string `json:"sandboxId" xml:"sandboxId"`
-	SortOrder  string `json:"sortOrder" xml:"sortOrder"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SandboxId string `json:"sandboxId" xml:"sandboxId"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListCommandExecutionsForSandboxOutput struct {
-	CommandExecutions CommandExecutions `json:"commandExecutions" xml:"commandExecutions"`
-	NextToken         string            `json:"nextToken" xml:"nextToken"`
+CommandExecutions CommandExecutions `json:"commandExecutions" xml:"commandExecutions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListCuratedEnvironmentImagesInput struct {
 }
 
 type ListCuratedEnvironmentImagesOutput struct {
-	Platforms EnvironmentPlatforms `json:"platforms" xml:"platforms"`
+Platforms EnvironmentPlatforms `json:"platforms" xml:"platforms"`
 }
 
 type ListFleetsInput struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	SortBy     string `json:"sortBy" xml:"sortBy"`
-	SortOrder  string `json:"sortOrder" xml:"sortOrder"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListFleetsOutput struct {
-	Fleets    FleetArns `json:"fleets" xml:"fleets"`
-	NextToken string    `json:"nextToken" xml:"nextToken"`
+Fleets FleetArns `json:"fleets" xml:"fleets"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListProjectsInput struct {
-	NextToken string `json:"nextToken" xml:"nextToken"`
-	SortBy    string `json:"sortBy" xml:"sortBy"`
-	SortOrder string `json:"sortOrder" xml:"sortOrder"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListProjectsOutput struct {
-	NextToken string       `json:"nextToken" xml:"nextToken"`
-	Projects  ProjectNames `json:"projects" xml:"projects"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Projects ProjectNames `json:"projects" xml:"projects"`
 }
 
 type ListReportGroupsInput struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	SortBy     string `json:"sortBy" xml:"sortBy"`
-	SortOrder  string `json:"sortOrder" xml:"sortOrder"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListReportGroupsOutput struct {
-	NextToken    string          `json:"nextToken" xml:"nextToken"`
-	ReportGroups ReportGroupArns `json:"reportGroups" xml:"reportGroups"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ReportGroups ReportGroupArns `json:"reportGroups" xml:"reportGroups"`
 }
 
 type ListReportsForReportGroupInput struct {
-	Filter         *ReportFilter `json:"filter" xml:"filter"`
-	MaxResults     int32         `json:"maxResults" xml:"maxResults"`
-	NextToken      string        `json:"nextToken" xml:"nextToken"`
-	ReportGroupArn string        `json:"reportGroupArn" xml:"reportGroupArn"`
-	SortOrder      string        `json:"sortOrder" xml:"sortOrder"`
+Filter *ReportFilter `json:"filter" xml:"filter"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ReportGroupArn string `json:"reportGroupArn" xml:"reportGroupArn"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListReportsForReportGroupOutput struct {
-	NextToken string     `json:"nextToken" xml:"nextToken"`
-	Reports   ReportArns `json:"reports" xml:"reports"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Reports ReportArns `json:"reports" xml:"reports"`
 }
 
 type ListReportsInput struct {
-	Filter     *ReportFilter `json:"filter" xml:"filter"`
-	MaxResults int32         `json:"maxResults" xml:"maxResults"`
-	NextToken  string        `json:"nextToken" xml:"nextToken"`
-	SortOrder  string        `json:"sortOrder" xml:"sortOrder"`
+Filter *ReportFilter `json:"filter" xml:"filter"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListReportsOutput struct {
-	NextToken string     `json:"nextToken" xml:"nextToken"`
-	Reports   ReportArns `json:"reports" xml:"reports"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Reports ReportArns `json:"reports" xml:"reports"`
 }
 
 type ListSandboxesForProjectInput struct {
-	MaxResults  int32  `json:"maxResults" xml:"maxResults"`
-	NextToken   string `json:"nextToken" xml:"nextToken"`
-	ProjectName string `json:"projectName" xml:"projectName"`
-	SortOrder   string `json:"sortOrder" xml:"sortOrder"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ProjectName string `json:"projectName" xml:"projectName"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListSandboxesForProjectOutput struct {
-	Ids       SandboxIds `json:"ids" xml:"ids"`
-	NextToken string     `json:"nextToken" xml:"nextToken"`
+Ids SandboxIds `json:"ids" xml:"ids"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListSandboxesInput struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	SortOrder  string `json:"sortOrder" xml:"sortOrder"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListSandboxesOutput struct {
-	Ids       SandboxIds `json:"ids" xml:"ids"`
-	NextToken string     `json:"nextToken" xml:"nextToken"`
+Ids SandboxIds `json:"ids" xml:"ids"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListSharedProjectsInput struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	SortBy     string `json:"sortBy" xml:"sortBy"`
-	SortOrder  string `json:"sortOrder" xml:"sortOrder"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListSharedProjectsOutput struct {
-	NextToken string      `json:"nextToken" xml:"nextToken"`
-	Projects  ProjectArns `json:"projects" xml:"projects"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Projects ProjectArns `json:"projects" xml:"projects"`
 }
 
 type ListSharedReportGroupsInput struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	SortBy     string `json:"sortBy" xml:"sortBy"`
-	SortOrder  string `json:"sortOrder" xml:"sortOrder"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListSharedReportGroupsOutput struct {
-	NextToken    string          `json:"nextToken" xml:"nextToken"`
-	ReportGroups ReportGroupArns `json:"reportGroups" xml:"reportGroups"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ReportGroups ReportGroupArns `json:"reportGroups" xml:"reportGroups"`
 }
 
 type ListSourceCredentialsInput struct {
 }
 
 type ListSourceCredentialsOutput struct {
-	SourceCredentialsInfos SourceCredentialsInfos `json:"sourceCredentialsInfos" xml:"sourceCredentialsInfos"`
+SourceCredentialsInfos SourceCredentialsInfos `json:"sourceCredentialsInfos" xml:"sourceCredentialsInfos"`
 }
 
 type LogsConfig struct {
-	CloudWatchLogs *CloudWatchLogsConfig `json:"cloudWatchLogs" xml:"cloudWatchLogs"`
-	S3Logs         *S3LogsConfig         `json:"s3Logs" xml:"s3Logs"`
+CloudWatchLogs *CloudWatchLogsConfig `json:"cloudWatchLogs" xml:"cloudWatchLogs"`
+S3Logs *S3LogsConfig `json:"s3Logs" xml:"s3Logs"`
 }
 
 type LogsLocation struct {
-	CloudWatchLogs    *CloudWatchLogsConfig `json:"cloudWatchLogs" xml:"cloudWatchLogs"`
-	CloudWatchLogsArn string                `json:"cloudWatchLogsArn" xml:"cloudWatchLogsArn"`
-	DeepLink          string                `json:"deepLink" xml:"deepLink"`
-	GroupName         string                `json:"groupName" xml:"groupName"`
-	S3DeepLink        string                `json:"s3DeepLink" xml:"s3DeepLink"`
-	S3Logs            *S3LogsConfig         `json:"s3Logs" xml:"s3Logs"`
-	S3LogsArn         string                `json:"s3LogsArn" xml:"s3LogsArn"`
-	StreamName        string                `json:"streamName" xml:"streamName"`
+CloudWatchLogs *CloudWatchLogsConfig `json:"cloudWatchLogs" xml:"cloudWatchLogs"`
+CloudWatchLogsArn string `json:"cloudWatchLogsArn" xml:"cloudWatchLogsArn"`
+DeepLink string `json:"deepLink" xml:"deepLink"`
+GroupName string `json:"groupName" xml:"groupName"`
+S3DeepLink string `json:"s3DeepLink" xml:"s3DeepLink"`
+S3Logs *S3LogsConfig `json:"s3Logs" xml:"s3Logs"`
+S3LogsArn string `json:"s3LogsArn" xml:"s3LogsArn"`
+StreamName string `json:"streamName" xml:"streamName"`
 }
 
 type NetworkInterface struct {
-	NetworkInterfaceId string `json:"networkInterfaceId" xml:"networkInterfaceId"`
-	SubnetId           string `json:"subnetId" xml:"subnetId"`
+NetworkInterfaceId string `json:"networkInterfaceId" xml:"networkInterfaceId"`
+SubnetId string `json:"subnetId" xml:"subnetId"`
 }
 
 type PhaseContext struct {
-	Message    string `json:"message" xml:"message"`
-	StatusCode string `json:"statusCode" xml:"statusCode"`
+Message string `json:"message" xml:"message"`
+StatusCode string `json:"statusCode" xml:"statusCode"`
 }
 
 type Project struct {
-	Arn                     string                         `json:"arn" xml:"arn"`
-	Artifacts               *ProjectArtifacts              `json:"artifacts" xml:"artifacts"`
-	AutoRetryLimit          int32                          `json:"autoRetryLimit" xml:"autoRetryLimit"`
-	Badge                   *ProjectBadge                  `json:"badge" xml:"badge"`
-	BuildBatchConfig        *ProjectBuildBatchConfig       `json:"buildBatchConfig" xml:"buildBatchConfig"`
-	Cache                   *ProjectCache                  `json:"cache" xml:"cache"`
-	ConcurrentBuildLimit    int32                          `json:"concurrentBuildLimit" xml:"concurrentBuildLimit"`
-	Created                 time.Time                      `json:"created" xml:"created"`
-	Description             string                         `json:"description" xml:"description"`
-	EncryptionKey           string                         `json:"encryptionKey" xml:"encryptionKey"`
-	Environment             *ProjectEnvironment            `json:"environment" xml:"environment"`
-	FileSystemLocations     ProjectFileSystemLocations     `json:"fileSystemLocations" xml:"fileSystemLocations"`
-	LastModified            time.Time                      `json:"lastModified" xml:"lastModified"`
-	LogsConfig              *LogsConfig                    `json:"logsConfig" xml:"logsConfig"`
-	Name                    string                         `json:"name" xml:"name"`
-	ProjectVisibility       string                         `json:"projectVisibility" xml:"projectVisibility"`
-	PublicProjectAlias      string                         `json:"publicProjectAlias" xml:"publicProjectAlias"`
-	QueuedTimeoutInMinutes  int32                          `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
-	ResourceAccessRole      string                         `json:"resourceAccessRole" xml:"resourceAccessRole"`
-	SecondaryArtifacts      ProjectArtifactsList           `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
-	SecondarySourceVersions ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
-	SecondarySources        ProjectSources                 `json:"secondarySources" xml:"secondarySources"`
-	ServiceRole             string                         `json:"serviceRole" xml:"serviceRole"`
-	Source                  *ProjectSource                 `json:"source" xml:"source"`
-	SourceVersion           string                         `json:"sourceVersion" xml:"sourceVersion"`
-	Tags                    TagList                        `json:"tags" xml:"tags"`
-	TimeoutInMinutes        int32                          `json:"timeoutInMinutes" xml:"timeoutInMinutes"`
-	VpcConfig               *VpcConfig                     `json:"vpcConfig" xml:"vpcConfig"`
-	Webhook                 *Webhook                       `json:"webhook" xml:"webhook"`
+Arn string `json:"arn" xml:"arn"`
+Artifacts *ProjectArtifacts `json:"artifacts" xml:"artifacts"`
+AutoRetryLimit int32 `json:"autoRetryLimit" xml:"autoRetryLimit"`
+Badge *ProjectBadge `json:"badge" xml:"badge"`
+BuildBatchConfig *ProjectBuildBatchConfig `json:"buildBatchConfig" xml:"buildBatchConfig"`
+Cache *ProjectCache `json:"cache" xml:"cache"`
+ConcurrentBuildLimit int32 `json:"concurrentBuildLimit" xml:"concurrentBuildLimit"`
+Created time.Time `json:"created" xml:"created"`
+Description string `json:"description" xml:"description"`
+EncryptionKey string `json:"encryptionKey" xml:"encryptionKey"`
+Environment *ProjectEnvironment `json:"environment" xml:"environment"`
+FileSystemLocations ProjectFileSystemLocations `json:"fileSystemLocations" xml:"fileSystemLocations"`
+LastModified time.Time `json:"lastModified" xml:"lastModified"`
+LogsConfig *LogsConfig `json:"logsConfig" xml:"logsConfig"`
+Name string `json:"name" xml:"name"`
+ProjectVisibility string `json:"projectVisibility" xml:"projectVisibility"`
+PublicProjectAlias string `json:"publicProjectAlias" xml:"publicProjectAlias"`
+QueuedTimeoutInMinutes int32 `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
+ResourceAccessRole string `json:"resourceAccessRole" xml:"resourceAccessRole"`
+SecondaryArtifacts ProjectArtifactsList `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
+SecondarySourceVersions ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
+SecondarySources ProjectSources `json:"secondarySources" xml:"secondarySources"`
+ServiceRole string `json:"serviceRole" xml:"serviceRole"`
+Source *ProjectSource `json:"source" xml:"source"`
+SourceVersion string `json:"sourceVersion" xml:"sourceVersion"`
+Tags TagList `json:"tags" xml:"tags"`
+TimeoutInMinutes int32 `json:"timeoutInMinutes" xml:"timeoutInMinutes"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
+Webhook *Webhook `json:"webhook" xml:"webhook"`
 }
 
 type ProjectArtifacts struct {
-	ArtifactIdentifier   string `json:"artifactIdentifier" xml:"artifactIdentifier"`
-	BucketOwnerAccess    string `json:"bucketOwnerAccess" xml:"bucketOwnerAccess"`
-	EncryptionDisabled   bool   `json:"encryptionDisabled" xml:"encryptionDisabled"`
-	Location             string `json:"location" xml:"location"`
-	Name                 string `json:"name" xml:"name"`
-	NamespaceType        string `json:"namespaceType" xml:"namespaceType"`
-	OverrideArtifactName bool   `json:"overrideArtifactName" xml:"overrideArtifactName"`
-	Packaging            string `json:"packaging" xml:"packaging"`
-	Path                 string `json:"path" xml:"path"`
-	Type                 string `json:"type" xml:"type"`
+ArtifactIdentifier string `json:"artifactIdentifier" xml:"artifactIdentifier"`
+BucketOwnerAccess string `json:"bucketOwnerAccess" xml:"bucketOwnerAccess"`
+EncryptionDisabled bool `json:"encryptionDisabled" xml:"encryptionDisabled"`
+Location string `json:"location" xml:"location"`
+Name string `json:"name" xml:"name"`
+NamespaceType string `json:"namespaceType" xml:"namespaceType"`
+OverrideArtifactName bool `json:"overrideArtifactName" xml:"overrideArtifactName"`
+Packaging string `json:"packaging" xml:"packaging"`
+Path string `json:"path" xml:"path"`
+Type string `json:"type" xml:"type"`
 }
 
 type ProjectBadge struct {
-	BadgeEnabled    bool   `json:"badgeEnabled" xml:"badgeEnabled"`
-	BadgeRequestUrl string `json:"badgeRequestUrl" xml:"badgeRequestUrl"`
+BadgeEnabled bool `json:"badgeEnabled" xml:"badgeEnabled"`
+BadgeRequestUrl string `json:"badgeRequestUrl" xml:"badgeRequestUrl"`
 }
 
 type ProjectBuildBatchConfig struct {
-	BatchReportMode  string             `json:"batchReportMode" xml:"batchReportMode"`
-	CombineArtifacts bool               `json:"combineArtifacts" xml:"combineArtifacts"`
-	Restrictions     *BatchRestrictions `json:"restrictions" xml:"restrictions"`
-	ServiceRole      string             `json:"serviceRole" xml:"serviceRole"`
-	TimeoutInMins    int32              `json:"timeoutInMins" xml:"timeoutInMins"`
+BatchReportMode string `json:"batchReportMode" xml:"batchReportMode"`
+CombineArtifacts bool `json:"combineArtifacts" xml:"combineArtifacts"`
+Restrictions *BatchRestrictions `json:"restrictions" xml:"restrictions"`
+ServiceRole string `json:"serviceRole" xml:"serviceRole"`
+TimeoutInMins int32 `json:"timeoutInMins" xml:"timeoutInMins"`
 }
 
 type ProjectCache struct {
-	CacheNamespace string            `json:"cacheNamespace" xml:"cacheNamespace"`
-	Location       string            `json:"location" xml:"location"`
-	Modes          ProjectCacheModes `json:"modes" xml:"modes"`
-	Type           string            `json:"type" xml:"type"`
+CacheNamespace string `json:"cacheNamespace" xml:"cacheNamespace"`
+Location string `json:"location" xml:"location"`
+Modes ProjectCacheModes `json:"modes" xml:"modes"`
+Type string `json:"type" xml:"type"`
 }
 
 type ProjectEnvironment struct {
-	Certificate              string                `json:"certificate" xml:"certificate"`
-	ComputeConfiguration     *ComputeConfiguration `json:"computeConfiguration" xml:"computeConfiguration"`
-	ComputeType              string                `json:"computeType" xml:"computeType"`
-	DockerServer             *DockerServer         `json:"dockerServer" xml:"dockerServer"`
-	EnvironmentVariables     EnvironmentVariables  `json:"environmentVariables" xml:"environmentVariables"`
-	Fleet                    *ProjectFleet         `json:"fleet" xml:"fleet"`
-	Image                    string                `json:"image" xml:"image"`
-	ImagePullCredentialsType string                `json:"imagePullCredentialsType" xml:"imagePullCredentialsType"`
-	PrivilegedMode           bool                  `json:"privilegedMode" xml:"privilegedMode"`
-	RegistryCredential       *RegistryCredential   `json:"registryCredential" xml:"registryCredential"`
-	Type                     string                `json:"type" xml:"type"`
+Certificate string `json:"certificate" xml:"certificate"`
+ComputeConfiguration *ComputeConfiguration `json:"computeConfiguration" xml:"computeConfiguration"`
+ComputeType string `json:"computeType" xml:"computeType"`
+DockerServer *DockerServer `json:"dockerServer" xml:"dockerServer"`
+EnvironmentVariables EnvironmentVariables `json:"environmentVariables" xml:"environmentVariables"`
+Fleet *ProjectFleet `json:"fleet" xml:"fleet"`
+Image string `json:"image" xml:"image"`
+ImagePullCredentialsType string `json:"imagePullCredentialsType" xml:"imagePullCredentialsType"`
+PrivilegedMode bool `json:"privilegedMode" xml:"privilegedMode"`
+RegistryCredential *RegistryCredential `json:"registryCredential" xml:"registryCredential"`
+Type string `json:"type" xml:"type"`
 }
 
 type ProjectFileSystemLocation struct {
-	Identifier   string `json:"identifier" xml:"identifier"`
-	Location     string `json:"location" xml:"location"`
-	MountOptions string `json:"mountOptions" xml:"mountOptions"`
-	MountPoint   string `json:"mountPoint" xml:"mountPoint"`
-	Type         string `json:"type" xml:"type"`
+Identifier string `json:"identifier" xml:"identifier"`
+Location string `json:"location" xml:"location"`
+MountOptions string `json:"mountOptions" xml:"mountOptions"`
+MountPoint string `json:"mountPoint" xml:"mountPoint"`
+Type string `json:"type" xml:"type"`
 }
 
 type ProjectFleet struct {
-	FleetArn string `json:"fleetArn" xml:"fleetArn"`
+FleetArn string `json:"fleetArn" xml:"fleetArn"`
 }
 
 type ProjectSource struct {
-	Auth                *SourceAuth          `json:"auth" xml:"auth"`
-	BuildStatusConfig   *BuildStatusConfig   `json:"buildStatusConfig" xml:"buildStatusConfig"`
-	Buildspec           string               `json:"buildspec" xml:"buildspec"`
-	GitCloneDepth       int32                `json:"gitCloneDepth" xml:"gitCloneDepth"`
-	GitSubmodulesConfig *GitSubmodulesConfig `json:"gitSubmodulesConfig" xml:"gitSubmodulesConfig"`
-	InsecureSsl         bool                 `json:"insecureSsl" xml:"insecureSsl"`
-	Location            string               `json:"location" xml:"location"`
-	ReportBuildStatus   bool                 `json:"reportBuildStatus" xml:"reportBuildStatus"`
-	SourceIdentifier    string               `json:"sourceIdentifier" xml:"sourceIdentifier"`
-	Type                string               `json:"type" xml:"type"`
+Auth *SourceAuth `json:"auth" xml:"auth"`
+BuildStatusConfig *BuildStatusConfig `json:"buildStatusConfig" xml:"buildStatusConfig"`
+Buildspec string `json:"buildspec" xml:"buildspec"`
+GitCloneDepth int32 `json:"gitCloneDepth" xml:"gitCloneDepth"`
+GitSubmodulesConfig *GitSubmodulesConfig `json:"gitSubmodulesConfig" xml:"gitSubmodulesConfig"`
+InsecureSsl bool `json:"insecureSsl" xml:"insecureSsl"`
+Location string `json:"location" xml:"location"`
+ReportBuildStatus bool `json:"reportBuildStatus" xml:"reportBuildStatus"`
+SourceIdentifier string `json:"sourceIdentifier" xml:"sourceIdentifier"`
+Type string `json:"type" xml:"type"`
 }
 
 type ProjectSourceVersion struct {
-	SourceIdentifier string `json:"sourceIdentifier" xml:"sourceIdentifier"`
-	SourceVersion    string `json:"sourceVersion" xml:"sourceVersion"`
+SourceIdentifier string `json:"sourceIdentifier" xml:"sourceIdentifier"`
+SourceVersion string `json:"sourceVersion" xml:"sourceVersion"`
 }
 
 type ProxyConfiguration struct {
-	DefaultBehavior   string          `json:"defaultBehavior" xml:"defaultBehavior"`
-	OrderedProxyRules FleetProxyRules `json:"orderedProxyRules" xml:"orderedProxyRules"`
+DefaultBehavior string `json:"defaultBehavior" xml:"defaultBehavior"`
+OrderedProxyRules FleetProxyRules `json:"orderedProxyRules" xml:"orderedProxyRules"`
 }
 
 type PullRequestBuildPolicy struct {
-	ApproverRoles           PullRequestBuildApproverRoles `json:"approverRoles" xml:"approverRoles"`
-	RequiresCommentApproval string                        `json:"requiresCommentApproval" xml:"requiresCommentApproval"`
+ApproverRoles PullRequestBuildApproverRoles `json:"approverRoles" xml:"approverRoles"`
+RequiresCommentApproval string `json:"requiresCommentApproval" xml:"requiresCommentApproval"`
 }
 
 type PutResourcePolicyInput struct {
-	Policy      string `json:"policy" xml:"policy"`
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+Policy string `json:"policy" xml:"policy"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type PutResourcePolicyOutput struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type RegistryCredential struct {
-	Credential         string `json:"credential" xml:"credential"`
-	CredentialProvider string `json:"credentialProvider" xml:"credentialProvider"`
+Credential string `json:"credential" xml:"credential"`
+CredentialProvider string `json:"credentialProvider" xml:"credentialProvider"`
 }
 
 type Report struct {
-	Arn                 string                     `json:"arn" xml:"arn"`
-	CodeCoverageSummary *CodeCoverageReportSummary `json:"codeCoverageSummary" xml:"codeCoverageSummary"`
-	Created             time.Time                  `json:"created" xml:"created"`
-	ExecutionId         string                     `json:"executionId" xml:"executionId"`
-	Expired             time.Time                  `json:"expired" xml:"expired"`
-	ExportConfig        *ReportExportConfig        `json:"exportConfig" xml:"exportConfig"`
-	Name                string                     `json:"name" xml:"name"`
-	ReportGroupArn      string                     `json:"reportGroupArn" xml:"reportGroupArn"`
-	Status              string                     `json:"status" xml:"status"`
-	TestSummary         *TestReportSummary         `json:"testSummary" xml:"testSummary"`
-	Truncated           bool                       `json:"truncated" xml:"truncated"`
-	Type                string                     `json:"type" xml:"type"`
+Arn string `json:"arn" xml:"arn"`
+CodeCoverageSummary *CodeCoverageReportSummary `json:"codeCoverageSummary" xml:"codeCoverageSummary"`
+Created time.Time `json:"created" xml:"created"`
+ExecutionId string `json:"executionId" xml:"executionId"`
+Expired time.Time `json:"expired" xml:"expired"`
+ExportConfig *ReportExportConfig `json:"exportConfig" xml:"exportConfig"`
+Name string `json:"name" xml:"name"`
+ReportGroupArn string `json:"reportGroupArn" xml:"reportGroupArn"`
+Status string `json:"status" xml:"status"`
+TestSummary *TestReportSummary `json:"testSummary" xml:"testSummary"`
+Truncated bool `json:"truncated" xml:"truncated"`
+Type string `json:"type" xml:"type"`
 }
 
 type ReportExportConfig struct {
-	ExportConfigType string                `json:"exportConfigType" xml:"exportConfigType"`
-	S3Destination    *S3ReportExportConfig `json:"s3Destination" xml:"s3Destination"`
+ExportConfigType string `json:"exportConfigType" xml:"exportConfigType"`
+S3Destination *S3ReportExportConfig `json:"s3Destination" xml:"s3Destination"`
 }
 
 type ReportFilter struct {
-	Status string `json:"status" xml:"status"`
+Status string `json:"status" xml:"status"`
 }
 
 type ReportGroup struct {
-	Arn          string              `json:"arn" xml:"arn"`
-	Created      time.Time           `json:"created" xml:"created"`
-	ExportConfig *ReportExportConfig `json:"exportConfig" xml:"exportConfig"`
-	LastModified time.Time           `json:"lastModified" xml:"lastModified"`
-	Name         string              `json:"name" xml:"name"`
-	Status       string              `json:"status" xml:"status"`
-	Tags         TagList             `json:"tags" xml:"tags"`
-	Type         string              `json:"type" xml:"type"`
+Arn string `json:"arn" xml:"arn"`
+Created time.Time `json:"created" xml:"created"`
+ExportConfig *ReportExportConfig `json:"exportConfig" xml:"exportConfig"`
+LastModified time.Time `json:"lastModified" xml:"lastModified"`
+Name string `json:"name" xml:"name"`
+Status string `json:"status" xml:"status"`
+Tags TagList `json:"tags" xml:"tags"`
+Type string `json:"type" xml:"type"`
 }
 
 type ReportGroupTrendStats struct {
-	Average string `json:"average" xml:"average"`
-	Max     string `json:"max" xml:"max"`
-	Min     string `json:"min" xml:"min"`
+Average string `json:"average" xml:"average"`
+Max string `json:"max" xml:"max"`
+Min string `json:"min" xml:"min"`
 }
 
 type ReportWithRawData struct {
-	Data      string `json:"data" xml:"data"`
-	ReportArn string `json:"reportArn" xml:"reportArn"`
+Data string `json:"data" xml:"data"`
+ReportArn string `json:"reportArn" xml:"reportArn"`
 }
 
 type ResolvedArtifact struct {
-	Identifier string `json:"identifier" xml:"identifier"`
-	Location   string `json:"location" xml:"location"`
-	Type       string `json:"type" xml:"type"`
+Identifier string `json:"identifier" xml:"identifier"`
+Location string `json:"location" xml:"location"`
+Type string `json:"type" xml:"type"`
 }
 
 type RetryBuildBatchInput struct {
-	Id               string `json:"id" xml:"id"`
-	IdempotencyToken string `json:"idempotencyToken" xml:"idempotencyToken"`
-	RetryType        string `json:"retryType" xml:"retryType"`
+Id string `json:"id" xml:"id"`
+IdempotencyToken string `json:"idempotencyToken" xml:"idempotencyToken"`
+RetryType string `json:"retryType" xml:"retryType"`
 }
 
 type RetryBuildBatchOutput struct {
-	BuildBatch *BuildBatch `json:"buildBatch" xml:"buildBatch"`
+BuildBatch *BuildBatch `json:"buildBatch" xml:"buildBatch"`
 }
 
 type RetryBuildInput struct {
-	Id               string `json:"id" xml:"id"`
-	IdempotencyToken string `json:"idempotencyToken" xml:"idempotencyToken"`
+Id string `json:"id" xml:"id"`
+IdempotencyToken string `json:"idempotencyToken" xml:"idempotencyToken"`
 }
 
 type RetryBuildOutput struct {
-	Build *Build `json:"build" xml:"build"`
+Build *Build `json:"build" xml:"build"`
 }
 
 type S3LogsConfig struct {
-	BucketOwnerAccess  string `json:"bucketOwnerAccess" xml:"bucketOwnerAccess"`
-	EncryptionDisabled bool   `json:"encryptionDisabled" xml:"encryptionDisabled"`
-	Location           string `json:"location" xml:"location"`
-	Status             string `json:"status" xml:"status"`
+BucketOwnerAccess string `json:"bucketOwnerAccess" xml:"bucketOwnerAccess"`
+EncryptionDisabled bool `json:"encryptionDisabled" xml:"encryptionDisabled"`
+Location string `json:"location" xml:"location"`
+Status string `json:"status" xml:"status"`
 }
 
 type S3ReportExportConfig struct {
-	Bucket             string `json:"bucket" xml:"bucket"`
-	BucketOwner        string `json:"bucketOwner" xml:"bucketOwner"`
-	EncryptionDisabled bool   `json:"encryptionDisabled" xml:"encryptionDisabled"`
-	EncryptionKey      string `json:"encryptionKey" xml:"encryptionKey"`
-	Packaging          string `json:"packaging" xml:"packaging"`
-	Path               string `json:"path" xml:"path"`
+Bucket string `json:"bucket" xml:"bucket"`
+BucketOwner string `json:"bucketOwner" xml:"bucketOwner"`
+EncryptionDisabled bool `json:"encryptionDisabled" xml:"encryptionDisabled"`
+EncryptionKey string `json:"encryptionKey" xml:"encryptionKey"`
+Packaging string `json:"packaging" xml:"packaging"`
+Path string `json:"path" xml:"path"`
 }
 
 type SSMSession struct {
-	SessionId  string `json:"sessionId" xml:"sessionId"`
-	StreamUrl  string `json:"streamUrl" xml:"streamUrl"`
-	TokenValue string `json:"tokenValue" xml:"tokenValue"`
+SessionId string `json:"sessionId" xml:"sessionId"`
+StreamUrl string `json:"streamUrl" xml:"streamUrl"`
+TokenValue string `json:"tokenValue" xml:"tokenValue"`
 }
 
 type Sandbox struct {
-	Arn                     string                         `json:"arn" xml:"arn"`
-	CurrentSession          *SandboxSession                `json:"currentSession" xml:"currentSession"`
-	EncryptionKey           string                         `json:"encryptionKey" xml:"encryptionKey"`
-	EndTime                 time.Time                      `json:"endTime" xml:"endTime"`
-	Environment             *ProjectEnvironment            `json:"environment" xml:"environment"`
-	FileSystemLocations     ProjectFileSystemLocations     `json:"fileSystemLocations" xml:"fileSystemLocations"`
-	Id                      string                         `json:"id" xml:"id"`
-	LogConfig               *LogsConfig                    `json:"logConfig" xml:"logConfig"`
-	ProjectName             string                         `json:"projectName" xml:"projectName"`
-	QueuedTimeoutInMinutes  int32                          `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
-	RequestTime             time.Time                      `json:"requestTime" xml:"requestTime"`
-	SecondarySourceVersions ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
-	SecondarySources        ProjectSources                 `json:"secondarySources" xml:"secondarySources"`
-	ServiceRole             string                         `json:"serviceRole" xml:"serviceRole"`
-	Source                  *ProjectSource                 `json:"source" xml:"source"`
-	SourceVersion           string                         `json:"sourceVersion" xml:"sourceVersion"`
-	StartTime               time.Time                      `json:"startTime" xml:"startTime"`
-	Status                  string                         `json:"status" xml:"status"`
-	TimeoutInMinutes        int32                          `json:"timeoutInMinutes" xml:"timeoutInMinutes"`
-	VpcConfig               *VpcConfig                     `json:"vpcConfig" xml:"vpcConfig"`
+Arn string `json:"arn" xml:"arn"`
+CurrentSession *SandboxSession `json:"currentSession" xml:"currentSession"`
+EncryptionKey string `json:"encryptionKey" xml:"encryptionKey"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+Environment *ProjectEnvironment `json:"environment" xml:"environment"`
+FileSystemLocations ProjectFileSystemLocations `json:"fileSystemLocations" xml:"fileSystemLocations"`
+Id string `json:"id" xml:"id"`
+LogConfig *LogsConfig `json:"logConfig" xml:"logConfig"`
+ProjectName string `json:"projectName" xml:"projectName"`
+QueuedTimeoutInMinutes int32 `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
+RequestTime time.Time `json:"requestTime" xml:"requestTime"`
+SecondarySourceVersions ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
+SecondarySources ProjectSources `json:"secondarySources" xml:"secondarySources"`
+ServiceRole string `json:"serviceRole" xml:"serviceRole"`
+Source *ProjectSource `json:"source" xml:"source"`
+SourceVersion string `json:"sourceVersion" xml:"sourceVersion"`
+StartTime time.Time `json:"startTime" xml:"startTime"`
+Status string `json:"status" xml:"status"`
+TimeoutInMinutes int32 `json:"timeoutInMinutes" xml:"timeoutInMinutes"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type SandboxSession struct {
-	CurrentPhase          string               `json:"currentPhase" xml:"currentPhase"`
-	EndTime               time.Time            `json:"endTime" xml:"endTime"`
-	Id                    string               `json:"id" xml:"id"`
-	Logs                  *LogsLocation        `json:"logs" xml:"logs"`
-	NetworkInterface      *NetworkInterface    `json:"networkInterface" xml:"networkInterface"`
-	Phases                SandboxSessionPhases `json:"phases" xml:"phases"`
-	ResolvedSourceVersion string               `json:"resolvedSourceVersion" xml:"resolvedSourceVersion"`
-	StartTime             time.Time            `json:"startTime" xml:"startTime"`
-	Status                string               `json:"status" xml:"status"`
+CurrentPhase string `json:"currentPhase" xml:"currentPhase"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+Id string `json:"id" xml:"id"`
+Logs *LogsLocation `json:"logs" xml:"logs"`
+NetworkInterface *NetworkInterface `json:"networkInterface" xml:"networkInterface"`
+Phases SandboxSessionPhases `json:"phases" xml:"phases"`
+ResolvedSourceVersion string `json:"resolvedSourceVersion" xml:"resolvedSourceVersion"`
+StartTime time.Time `json:"startTime" xml:"startTime"`
+Status string `json:"status" xml:"status"`
 }
 
 type SandboxSessionPhase struct {
-	Contexts          PhaseContexts `json:"contexts" xml:"contexts"`
-	DurationInSeconds int64         `json:"durationInSeconds" xml:"durationInSeconds"`
-	EndTime           time.Time     `json:"endTime" xml:"endTime"`
-	PhaseStatus       string        `json:"phaseStatus" xml:"phaseStatus"`
-	PhaseType         string        `json:"phaseType" xml:"phaseType"`
-	StartTime         time.Time     `json:"startTime" xml:"startTime"`
+Contexts PhaseContexts `json:"contexts" xml:"contexts"`
+DurationInSeconds int64 `json:"durationInSeconds" xml:"durationInSeconds"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+PhaseStatus string `json:"phaseStatus" xml:"phaseStatus"`
+PhaseType string `json:"phaseType" xml:"phaseType"`
+StartTime time.Time `json:"startTime" xml:"startTime"`
 }
 
 type ScalingConfigurationInput struct {
-	MaxCapacity                  int32                               `json:"maxCapacity" xml:"maxCapacity"`
-	ScalingType                  string                              `json:"scalingType" xml:"scalingType"`
-	TargetTrackingScalingConfigs TargetTrackingScalingConfigurations `json:"targetTrackingScalingConfigs" xml:"targetTrackingScalingConfigs"`
+MaxCapacity int32 `json:"maxCapacity" xml:"maxCapacity"`
+ScalingType string `json:"scalingType" xml:"scalingType"`
+TargetTrackingScalingConfigs TargetTrackingScalingConfigurations `json:"targetTrackingScalingConfigs" xml:"targetTrackingScalingConfigs"`
 }
 
 type ScalingConfigurationOutput struct {
-	DesiredCapacity              int32                               `json:"desiredCapacity" xml:"desiredCapacity"`
-	MaxCapacity                  int32                               `json:"maxCapacity" xml:"maxCapacity"`
-	ScalingType                  string                              `json:"scalingType" xml:"scalingType"`
-	TargetTrackingScalingConfigs TargetTrackingScalingConfigurations `json:"targetTrackingScalingConfigs" xml:"targetTrackingScalingConfigs"`
+DesiredCapacity int32 `json:"desiredCapacity" xml:"desiredCapacity"`
+MaxCapacity int32 `json:"maxCapacity" xml:"maxCapacity"`
+ScalingType string `json:"scalingType" xml:"scalingType"`
+TargetTrackingScalingConfigs TargetTrackingScalingConfigurations `json:"targetTrackingScalingConfigs" xml:"targetTrackingScalingConfigs"`
 }
 
 type ScopeConfiguration struct {
-	Domain string `json:"domain" xml:"domain"`
-	Name   string `json:"name" xml:"name"`
-	Scope  string `json:"scope" xml:"scope"`
+Domain string `json:"domain" xml:"domain"`
+Name string `json:"name" xml:"name"`
+Scope string `json:"scope" xml:"scope"`
 }
 
 type SourceAuth struct {
-	Resource string `json:"resource" xml:"resource"`
-	Type     string `json:"type" xml:"type"`
+Resource string `json:"resource" xml:"resource"`
+Type string `json:"type" xml:"type"`
 }
 
 type SourceCredentialsInfo struct {
-	Arn        string `json:"arn" xml:"arn"`
-	AuthType   string `json:"authType" xml:"authType"`
-	Resource   string `json:"resource" xml:"resource"`
-	ServerType string `json:"serverType" xml:"serverType"`
+Arn string `json:"arn" xml:"arn"`
+AuthType string `json:"authType" xml:"authType"`
+Resource string `json:"resource" xml:"resource"`
+ServerType string `json:"serverType" xml:"serverType"`
 }
 
 type StartBuildBatchInput struct {
-	ArtifactsOverride                *ProjectArtifacts              `json:"artifactsOverride" xml:"artifactsOverride"`
-	BuildBatchConfigOverride         *ProjectBuildBatchConfig       `json:"buildBatchConfigOverride" xml:"buildBatchConfigOverride"`
-	BuildTimeoutInMinutesOverride    int32                          `json:"buildTimeoutInMinutesOverride" xml:"buildTimeoutInMinutesOverride"`
-	BuildspecOverride                string                         `json:"buildspecOverride" xml:"buildspecOverride"`
-	CacheOverride                    *ProjectCache                  `json:"cacheOverride" xml:"cacheOverride"`
-	CertificateOverride              string                         `json:"certificateOverride" xml:"certificateOverride"`
-	ComputeTypeOverride              string                         `json:"computeTypeOverride" xml:"computeTypeOverride"`
-	DebugSessionEnabled              bool                           `json:"debugSessionEnabled" xml:"debugSessionEnabled"`
-	EncryptionKeyOverride            string                         `json:"encryptionKeyOverride" xml:"encryptionKeyOverride"`
-	EnvironmentTypeOverride          string                         `json:"environmentTypeOverride" xml:"environmentTypeOverride"`
-	EnvironmentVariablesOverride     EnvironmentVariables           `json:"environmentVariablesOverride" xml:"environmentVariablesOverride"`
-	GitCloneDepthOverride            int32                          `json:"gitCloneDepthOverride" xml:"gitCloneDepthOverride"`
-	GitSubmodulesConfigOverride      *GitSubmodulesConfig           `json:"gitSubmodulesConfigOverride" xml:"gitSubmodulesConfigOverride"`
-	IdempotencyToken                 string                         `json:"idempotencyToken" xml:"idempotencyToken"`
-	ImageOverride                    string                         `json:"imageOverride" xml:"imageOverride"`
-	ImagePullCredentialsTypeOverride string                         `json:"imagePullCredentialsTypeOverride" xml:"imagePullCredentialsTypeOverride"`
-	InsecureSslOverride              bool                           `json:"insecureSslOverride" xml:"insecureSslOverride"`
-	LogsConfigOverride               *LogsConfig                    `json:"logsConfigOverride" xml:"logsConfigOverride"`
-	PrivilegedModeOverride           bool                           `json:"privilegedModeOverride" xml:"privilegedModeOverride"`
-	ProjectName                      string                         `json:"projectName" xml:"projectName"`
-	QueuedTimeoutInMinutesOverride   int32                          `json:"queuedTimeoutInMinutesOverride" xml:"queuedTimeoutInMinutesOverride"`
-	RegistryCredentialOverride       *RegistryCredential            `json:"registryCredentialOverride" xml:"registryCredentialOverride"`
-	ReportBuildBatchStatusOverride   bool                           `json:"reportBuildBatchStatusOverride" xml:"reportBuildBatchStatusOverride"`
-	SecondaryArtifactsOverride       ProjectArtifactsList           `json:"secondaryArtifactsOverride" xml:"secondaryArtifactsOverride"`
-	SecondarySourcesOverride         ProjectSources                 `json:"secondarySourcesOverride" xml:"secondarySourcesOverride"`
-	SecondarySourcesVersionOverride  ProjectSecondarySourceVersions `json:"secondarySourcesVersionOverride" xml:"secondarySourcesVersionOverride"`
-	ServiceRoleOverride              string                         `json:"serviceRoleOverride" xml:"serviceRoleOverride"`
-	SourceAuthOverride               *SourceAuth                    `json:"sourceAuthOverride" xml:"sourceAuthOverride"`
-	SourceLocationOverride           string                         `json:"sourceLocationOverride" xml:"sourceLocationOverride"`
-	SourceTypeOverride               string                         `json:"sourceTypeOverride" xml:"sourceTypeOverride"`
-	SourceVersion                    string                         `json:"sourceVersion" xml:"sourceVersion"`
+ArtifactsOverride *ProjectArtifacts `json:"artifactsOverride" xml:"artifactsOverride"`
+BuildBatchConfigOverride *ProjectBuildBatchConfig `json:"buildBatchConfigOverride" xml:"buildBatchConfigOverride"`
+BuildTimeoutInMinutesOverride int32 `json:"buildTimeoutInMinutesOverride" xml:"buildTimeoutInMinutesOverride"`
+BuildspecOverride string `json:"buildspecOverride" xml:"buildspecOverride"`
+CacheOverride *ProjectCache `json:"cacheOverride" xml:"cacheOverride"`
+CertificateOverride string `json:"certificateOverride" xml:"certificateOverride"`
+ComputeTypeOverride string `json:"computeTypeOverride" xml:"computeTypeOverride"`
+DebugSessionEnabled bool `json:"debugSessionEnabled" xml:"debugSessionEnabled"`
+EncryptionKeyOverride string `json:"encryptionKeyOverride" xml:"encryptionKeyOverride"`
+EnvironmentTypeOverride string `json:"environmentTypeOverride" xml:"environmentTypeOverride"`
+EnvironmentVariablesOverride EnvironmentVariables `json:"environmentVariablesOverride" xml:"environmentVariablesOverride"`
+GitCloneDepthOverride int32 `json:"gitCloneDepthOverride" xml:"gitCloneDepthOverride"`
+GitSubmodulesConfigOverride *GitSubmodulesConfig `json:"gitSubmodulesConfigOverride" xml:"gitSubmodulesConfigOverride"`
+IdempotencyToken string `json:"idempotencyToken" xml:"idempotencyToken"`
+ImageOverride string `json:"imageOverride" xml:"imageOverride"`
+ImagePullCredentialsTypeOverride string `json:"imagePullCredentialsTypeOverride" xml:"imagePullCredentialsTypeOverride"`
+InsecureSslOverride bool `json:"insecureSslOverride" xml:"insecureSslOverride"`
+LogsConfigOverride *LogsConfig `json:"logsConfigOverride" xml:"logsConfigOverride"`
+PrivilegedModeOverride bool `json:"privilegedModeOverride" xml:"privilegedModeOverride"`
+ProjectName string `json:"projectName" xml:"projectName"`
+QueuedTimeoutInMinutesOverride int32 `json:"queuedTimeoutInMinutesOverride" xml:"queuedTimeoutInMinutesOverride"`
+RegistryCredentialOverride *RegistryCredential `json:"registryCredentialOverride" xml:"registryCredentialOverride"`
+ReportBuildBatchStatusOverride bool `json:"reportBuildBatchStatusOverride" xml:"reportBuildBatchStatusOverride"`
+SecondaryArtifactsOverride ProjectArtifactsList `json:"secondaryArtifactsOverride" xml:"secondaryArtifactsOverride"`
+SecondarySourcesOverride ProjectSources `json:"secondarySourcesOverride" xml:"secondarySourcesOverride"`
+SecondarySourcesVersionOverride ProjectSecondarySourceVersions `json:"secondarySourcesVersionOverride" xml:"secondarySourcesVersionOverride"`
+ServiceRoleOverride string `json:"serviceRoleOverride" xml:"serviceRoleOverride"`
+SourceAuthOverride *SourceAuth `json:"sourceAuthOverride" xml:"sourceAuthOverride"`
+SourceLocationOverride string `json:"sourceLocationOverride" xml:"sourceLocationOverride"`
+SourceTypeOverride string `json:"sourceTypeOverride" xml:"sourceTypeOverride"`
+SourceVersion string `json:"sourceVersion" xml:"sourceVersion"`
 }
 
 type StartBuildBatchOutput struct {
-	BuildBatch *BuildBatch `json:"buildBatch" xml:"buildBatch"`
+BuildBatch *BuildBatch `json:"buildBatch" xml:"buildBatch"`
 }
 
 type StartBuildInput struct {
-	ArtifactsOverride                *ProjectArtifacts              `json:"artifactsOverride" xml:"artifactsOverride"`
-	AutoRetryLimitOverride           int32                          `json:"autoRetryLimitOverride" xml:"autoRetryLimitOverride"`
-	BuildStatusConfigOverride        *BuildStatusConfig             `json:"buildStatusConfigOverride" xml:"buildStatusConfigOverride"`
-	BuildspecOverride                string                         `json:"buildspecOverride" xml:"buildspecOverride"`
-	CacheOverride                    *ProjectCache                  `json:"cacheOverride" xml:"cacheOverride"`
-	CertificateOverride              string                         `json:"certificateOverride" xml:"certificateOverride"`
-	ComputeTypeOverride              string                         `json:"computeTypeOverride" xml:"computeTypeOverride"`
-	DebugSessionEnabled              bool                           `json:"debugSessionEnabled" xml:"debugSessionEnabled"`
-	EncryptionKeyOverride            string                         `json:"encryptionKeyOverride" xml:"encryptionKeyOverride"`
-	EnvironmentTypeOverride          string                         `json:"environmentTypeOverride" xml:"environmentTypeOverride"`
-	EnvironmentVariablesOverride     EnvironmentVariables           `json:"environmentVariablesOverride" xml:"environmentVariablesOverride"`
-	FleetOverride                    *ProjectFleet                  `json:"fleetOverride" xml:"fleetOverride"`
-	GitCloneDepthOverride            int32                          `json:"gitCloneDepthOverride" xml:"gitCloneDepthOverride"`
-	GitSubmodulesConfigOverride      *GitSubmodulesConfig           `json:"gitSubmodulesConfigOverride" xml:"gitSubmodulesConfigOverride"`
-	IdempotencyToken                 string                         `json:"idempotencyToken" xml:"idempotencyToken"`
-	ImageOverride                    string                         `json:"imageOverride" xml:"imageOverride"`
-	ImagePullCredentialsTypeOverride string                         `json:"imagePullCredentialsTypeOverride" xml:"imagePullCredentialsTypeOverride"`
-	InsecureSslOverride              bool                           `json:"insecureSslOverride" xml:"insecureSslOverride"`
-	LogsConfigOverride               *LogsConfig                    `json:"logsConfigOverride" xml:"logsConfigOverride"`
-	PrivilegedModeOverride           bool                           `json:"privilegedModeOverride" xml:"privilegedModeOverride"`
-	ProjectName                      string                         `json:"projectName" xml:"projectName"`
-	QueuedTimeoutInMinutesOverride   int32                          `json:"queuedTimeoutInMinutesOverride" xml:"queuedTimeoutInMinutesOverride"`
-	RegistryCredentialOverride       *RegistryCredential            `json:"registryCredentialOverride" xml:"registryCredentialOverride"`
-	ReportBuildStatusOverride        bool                           `json:"reportBuildStatusOverride" xml:"reportBuildStatusOverride"`
-	SecondaryArtifactsOverride       ProjectArtifactsList           `json:"secondaryArtifactsOverride" xml:"secondaryArtifactsOverride"`
-	SecondarySourcesOverride         ProjectSources                 `json:"secondarySourcesOverride" xml:"secondarySourcesOverride"`
-	SecondarySourcesVersionOverride  ProjectSecondarySourceVersions `json:"secondarySourcesVersionOverride" xml:"secondarySourcesVersionOverride"`
-	ServiceRoleOverride              string                         `json:"serviceRoleOverride" xml:"serviceRoleOverride"`
-	SourceAuthOverride               *SourceAuth                    `json:"sourceAuthOverride" xml:"sourceAuthOverride"`
-	SourceLocationOverride           string                         `json:"sourceLocationOverride" xml:"sourceLocationOverride"`
-	SourceTypeOverride               string                         `json:"sourceTypeOverride" xml:"sourceTypeOverride"`
-	SourceVersion                    string                         `json:"sourceVersion" xml:"sourceVersion"`
-	TimeoutInMinutesOverride         int32                          `json:"timeoutInMinutesOverride" xml:"timeoutInMinutesOverride"`
+ArtifactsOverride *ProjectArtifacts `json:"artifactsOverride" xml:"artifactsOverride"`
+AutoRetryLimitOverride int32 `json:"autoRetryLimitOverride" xml:"autoRetryLimitOverride"`
+BuildStatusConfigOverride *BuildStatusConfig `json:"buildStatusConfigOverride" xml:"buildStatusConfigOverride"`
+BuildspecOverride string `json:"buildspecOverride" xml:"buildspecOverride"`
+CacheOverride *ProjectCache `json:"cacheOverride" xml:"cacheOverride"`
+CertificateOverride string `json:"certificateOverride" xml:"certificateOverride"`
+ComputeTypeOverride string `json:"computeTypeOverride" xml:"computeTypeOverride"`
+DebugSessionEnabled bool `json:"debugSessionEnabled" xml:"debugSessionEnabled"`
+EncryptionKeyOverride string `json:"encryptionKeyOverride" xml:"encryptionKeyOverride"`
+EnvironmentTypeOverride string `json:"environmentTypeOverride" xml:"environmentTypeOverride"`
+EnvironmentVariablesOverride EnvironmentVariables `json:"environmentVariablesOverride" xml:"environmentVariablesOverride"`
+FleetOverride *ProjectFleet `json:"fleetOverride" xml:"fleetOverride"`
+GitCloneDepthOverride int32 `json:"gitCloneDepthOverride" xml:"gitCloneDepthOverride"`
+GitSubmodulesConfigOverride *GitSubmodulesConfig `json:"gitSubmodulesConfigOverride" xml:"gitSubmodulesConfigOverride"`
+IdempotencyToken string `json:"idempotencyToken" xml:"idempotencyToken"`
+ImageOverride string `json:"imageOverride" xml:"imageOverride"`
+ImagePullCredentialsTypeOverride string `json:"imagePullCredentialsTypeOverride" xml:"imagePullCredentialsTypeOverride"`
+InsecureSslOverride bool `json:"insecureSslOverride" xml:"insecureSslOverride"`
+LogsConfigOverride *LogsConfig `json:"logsConfigOverride" xml:"logsConfigOverride"`
+PrivilegedModeOverride bool `json:"privilegedModeOverride" xml:"privilegedModeOverride"`
+ProjectName string `json:"projectName" xml:"projectName"`
+QueuedTimeoutInMinutesOverride int32 `json:"queuedTimeoutInMinutesOverride" xml:"queuedTimeoutInMinutesOverride"`
+RegistryCredentialOverride *RegistryCredential `json:"registryCredentialOverride" xml:"registryCredentialOverride"`
+ReportBuildStatusOverride bool `json:"reportBuildStatusOverride" xml:"reportBuildStatusOverride"`
+SecondaryArtifactsOverride ProjectArtifactsList `json:"secondaryArtifactsOverride" xml:"secondaryArtifactsOverride"`
+SecondarySourcesOverride ProjectSources `json:"secondarySourcesOverride" xml:"secondarySourcesOverride"`
+SecondarySourcesVersionOverride ProjectSecondarySourceVersions `json:"secondarySourcesVersionOverride" xml:"secondarySourcesVersionOverride"`
+ServiceRoleOverride string `json:"serviceRoleOverride" xml:"serviceRoleOverride"`
+SourceAuthOverride *SourceAuth `json:"sourceAuthOverride" xml:"sourceAuthOverride"`
+SourceLocationOverride string `json:"sourceLocationOverride" xml:"sourceLocationOverride"`
+SourceTypeOverride string `json:"sourceTypeOverride" xml:"sourceTypeOverride"`
+SourceVersion string `json:"sourceVersion" xml:"sourceVersion"`
+TimeoutInMinutesOverride int32 `json:"timeoutInMinutesOverride" xml:"timeoutInMinutesOverride"`
 }
 
 type StartBuildOutput struct {
-	Build *Build `json:"build" xml:"build"`
+Build *Build `json:"build" xml:"build"`
 }
 
 type StartCommandExecutionInput struct {
-	Command   string `json:"command" xml:"command"`
-	SandboxId string `json:"sandboxId" xml:"sandboxId"`
-	Type      string `json:"type" xml:"type"`
+Command string `json:"command" xml:"command"`
+SandboxId string `json:"sandboxId" xml:"sandboxId"`
+Type string `json:"type" xml:"type"`
 }
 
 type StartCommandExecutionOutput struct {
-	CommandExecution *CommandExecution `json:"commandExecution" xml:"commandExecution"`
+CommandExecution *CommandExecution `json:"commandExecution" xml:"commandExecution"`
 }
 
 type StartSandboxConnectionInput struct {
-	SandboxId string `json:"sandboxId" xml:"sandboxId"`
+SandboxId string `json:"sandboxId" xml:"sandboxId"`
 }
 
 type StartSandboxConnectionOutput struct {
-	SsmSession *SSMSession `json:"ssmSession" xml:"ssmSession"`
+SsmSession *SSMSession `json:"ssmSession" xml:"ssmSession"`
 }
 
 type StartSandboxInput struct {
-	IdempotencyToken string `json:"idempotencyToken" xml:"idempotencyToken"`
-	ProjectName      string `json:"projectName" xml:"projectName"`
+IdempotencyToken string `json:"idempotencyToken" xml:"idempotencyToken"`
+ProjectName string `json:"projectName" xml:"projectName"`
 }
 
 type StartSandboxOutput struct {
-	Sandbox *Sandbox `json:"sandbox" xml:"sandbox"`
+Sandbox *Sandbox `json:"sandbox" xml:"sandbox"`
 }
 
 type StopBuildBatchInput struct {
-	Id string `json:"id" xml:"id"`
+Id string `json:"id" xml:"id"`
 }
 
 type StopBuildBatchOutput struct {
-	BuildBatch *BuildBatch `json:"buildBatch" xml:"buildBatch"`
+BuildBatch *BuildBatch `json:"buildBatch" xml:"buildBatch"`
 }
 
 type StopBuildInput struct {
-	Id string `json:"id" xml:"id"`
+Id string `json:"id" xml:"id"`
 }
 
 type StopBuildOutput struct {
-	Build *Build `json:"build" xml:"build"`
+Build *Build `json:"build" xml:"build"`
 }
 
 type StopSandboxInput struct {
-	Id string `json:"id" xml:"id"`
+Id string `json:"id" xml:"id"`
 }
 
 type StopSandboxOutput struct {
-	Sandbox *Sandbox `json:"sandbox" xml:"sandbox"`
+Sandbox *Sandbox `json:"sandbox" xml:"sandbox"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"key"`
-	Value string `json:"value" xml:"value"`
+Key string `json:"key" xml:"key"`
+Value string `json:"value" xml:"value"`
 }
 
 type TargetTrackingScalingConfiguration struct {
-	MetricType  string  `json:"metricType" xml:"metricType"`
-	TargetValue float64 `json:"targetValue" xml:"targetValue"`
+MetricType string `json:"metricType" xml:"metricType"`
+TargetValue float64 `json:"targetValue" xml:"targetValue"`
 }
 
 type TestCase struct {
-	DurationInNanoSeconds int64     `json:"durationInNanoSeconds" xml:"durationInNanoSeconds"`
-	Expired               time.Time `json:"expired" xml:"expired"`
-	Message               string    `json:"message" xml:"message"`
-	Name                  string    `json:"name" xml:"name"`
-	Prefix                string    `json:"prefix" xml:"prefix"`
-	ReportArn             string    `json:"reportArn" xml:"reportArn"`
-	Status                string    `json:"status" xml:"status"`
-	TestRawDataPath       string    `json:"testRawDataPath" xml:"testRawDataPath"`
-	TestSuiteName         string    `json:"testSuiteName" xml:"testSuiteName"`
+DurationInNanoSeconds int64 `json:"durationInNanoSeconds" xml:"durationInNanoSeconds"`
+Expired time.Time `json:"expired" xml:"expired"`
+Message string `json:"message" xml:"message"`
+Name string `json:"name" xml:"name"`
+Prefix string `json:"prefix" xml:"prefix"`
+ReportArn string `json:"reportArn" xml:"reportArn"`
+Status string `json:"status" xml:"status"`
+TestRawDataPath string `json:"testRawDataPath" xml:"testRawDataPath"`
+TestSuiteName string `json:"testSuiteName" xml:"testSuiteName"`
 }
 
 type TestCaseFilter struct {
-	Keyword string `json:"keyword" xml:"keyword"`
-	Status  string `json:"status" xml:"status"`
+Keyword string `json:"keyword" xml:"keyword"`
+Status string `json:"status" xml:"status"`
 }
 
 type TestReportSummary struct {
-	DurationInNanoSeconds int64              `json:"durationInNanoSeconds" xml:"durationInNanoSeconds"`
-	StatusCounts          ReportStatusCounts `json:"statusCounts" xml:"statusCounts"`
-	Total                 int32              `json:"total" xml:"total"`
+DurationInNanoSeconds int64 `json:"durationInNanoSeconds" xml:"durationInNanoSeconds"`
+StatusCounts ReportStatusCounts `json:"statusCounts" xml:"statusCounts"`
+Total int32 `json:"total" xml:"total"`
 }
 
 type UpdateFleetInput struct {
-	Arn                  string                     `json:"arn" xml:"arn"`
-	BaseCapacity         int32                      `json:"baseCapacity" xml:"baseCapacity"`
-	ComputeConfiguration *ComputeConfiguration      `json:"computeConfiguration" xml:"computeConfiguration"`
-	ComputeType          string                     `json:"computeType" xml:"computeType"`
-	EnvironmentType      string                     `json:"environmentType" xml:"environmentType"`
-	FleetServiceRole     string                     `json:"fleetServiceRole" xml:"fleetServiceRole"`
-	ImageId              string                     `json:"imageId" xml:"imageId"`
-	OverflowBehavior     string                     `json:"overflowBehavior" xml:"overflowBehavior"`
-	ProxyConfiguration   *ProxyConfiguration        `json:"proxyConfiguration" xml:"proxyConfiguration"`
-	ScalingConfiguration *ScalingConfigurationInput `json:"scalingConfiguration" xml:"scalingConfiguration"`
-	Tags                 TagList                    `json:"tags" xml:"tags"`
-	VpcConfig            *VpcConfig                 `json:"vpcConfig" xml:"vpcConfig"`
+Arn string `json:"arn" xml:"arn"`
+BaseCapacity int32 `json:"baseCapacity" xml:"baseCapacity"`
+ComputeConfiguration *ComputeConfiguration `json:"computeConfiguration" xml:"computeConfiguration"`
+ComputeType string `json:"computeType" xml:"computeType"`
+EnvironmentType string `json:"environmentType" xml:"environmentType"`
+FleetServiceRole string `json:"fleetServiceRole" xml:"fleetServiceRole"`
+ImageId string `json:"imageId" xml:"imageId"`
+OverflowBehavior string `json:"overflowBehavior" xml:"overflowBehavior"`
+ProxyConfiguration *ProxyConfiguration `json:"proxyConfiguration" xml:"proxyConfiguration"`
+ScalingConfiguration *ScalingConfigurationInput `json:"scalingConfiguration" xml:"scalingConfiguration"`
+Tags TagList `json:"tags" xml:"tags"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type UpdateFleetOutput struct {
-	Fleet *Fleet `json:"fleet" xml:"fleet"`
+Fleet *Fleet `json:"fleet" xml:"fleet"`
 }
 
 type UpdateProjectInput struct {
-	Artifacts               *ProjectArtifacts              `json:"artifacts" xml:"artifacts"`
-	AutoRetryLimit          int32                          `json:"autoRetryLimit" xml:"autoRetryLimit"`
-	BadgeEnabled            bool                           `json:"badgeEnabled" xml:"badgeEnabled"`
-	BuildBatchConfig        *ProjectBuildBatchConfig       `json:"buildBatchConfig" xml:"buildBatchConfig"`
-	Cache                   *ProjectCache                  `json:"cache" xml:"cache"`
-	ConcurrentBuildLimit    int32                          `json:"concurrentBuildLimit" xml:"concurrentBuildLimit"`
-	Description             string                         `json:"description" xml:"description"`
-	EncryptionKey           string                         `json:"encryptionKey" xml:"encryptionKey"`
-	Environment             *ProjectEnvironment            `json:"environment" xml:"environment"`
-	FileSystemLocations     ProjectFileSystemLocations     `json:"fileSystemLocations" xml:"fileSystemLocations"`
-	LogsConfig              *LogsConfig                    `json:"logsConfig" xml:"logsConfig"`
-	Name                    string                         `json:"name" xml:"name"`
-	QueuedTimeoutInMinutes  int32                          `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
-	SecondaryArtifacts      ProjectArtifactsList           `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
-	SecondarySourceVersions ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
-	SecondarySources        ProjectSources                 `json:"secondarySources" xml:"secondarySources"`
-	ServiceRole             string                         `json:"serviceRole" xml:"serviceRole"`
-	Source                  *ProjectSource                 `json:"source" xml:"source"`
-	SourceVersion           string                         `json:"sourceVersion" xml:"sourceVersion"`
-	Tags                    TagList                        `json:"tags" xml:"tags"`
-	TimeoutInMinutes        int32                          `json:"timeoutInMinutes" xml:"timeoutInMinutes"`
-	VpcConfig               *VpcConfig                     `json:"vpcConfig" xml:"vpcConfig"`
+Artifacts *ProjectArtifacts `json:"artifacts" xml:"artifacts"`
+AutoRetryLimit int32 `json:"autoRetryLimit" xml:"autoRetryLimit"`
+BadgeEnabled bool `json:"badgeEnabled" xml:"badgeEnabled"`
+BuildBatchConfig *ProjectBuildBatchConfig `json:"buildBatchConfig" xml:"buildBatchConfig"`
+Cache *ProjectCache `json:"cache" xml:"cache"`
+ConcurrentBuildLimit int32 `json:"concurrentBuildLimit" xml:"concurrentBuildLimit"`
+Description string `json:"description" xml:"description"`
+EncryptionKey string `json:"encryptionKey" xml:"encryptionKey"`
+Environment *ProjectEnvironment `json:"environment" xml:"environment"`
+FileSystemLocations ProjectFileSystemLocations `json:"fileSystemLocations" xml:"fileSystemLocations"`
+LogsConfig *LogsConfig `json:"logsConfig" xml:"logsConfig"`
+Name string `json:"name" xml:"name"`
+QueuedTimeoutInMinutes int32 `json:"queuedTimeoutInMinutes" xml:"queuedTimeoutInMinutes"`
+SecondaryArtifacts ProjectArtifactsList `json:"secondaryArtifacts" xml:"secondaryArtifacts"`
+SecondarySourceVersions ProjectSecondarySourceVersions `json:"secondarySourceVersions" xml:"secondarySourceVersions"`
+SecondarySources ProjectSources `json:"secondarySources" xml:"secondarySources"`
+ServiceRole string `json:"serviceRole" xml:"serviceRole"`
+Source *ProjectSource `json:"source" xml:"source"`
+SourceVersion string `json:"sourceVersion" xml:"sourceVersion"`
+Tags TagList `json:"tags" xml:"tags"`
+TimeoutInMinutes int32 `json:"timeoutInMinutes" xml:"timeoutInMinutes"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type UpdateProjectOutput struct {
-	Project *Project `json:"project" xml:"project"`
+Project *Project `json:"project" xml:"project"`
 }
 
 type UpdateProjectVisibilityInput struct {
-	ProjectArn         string `json:"projectArn" xml:"projectArn"`
-	ProjectVisibility  string `json:"projectVisibility" xml:"projectVisibility"`
-	ResourceAccessRole string `json:"resourceAccessRole" xml:"resourceAccessRole"`
+ProjectArn string `json:"projectArn" xml:"projectArn"`
+ProjectVisibility string `json:"projectVisibility" xml:"projectVisibility"`
+ResourceAccessRole string `json:"resourceAccessRole" xml:"resourceAccessRole"`
 }
 
 type UpdateProjectVisibilityOutput struct {
-	ProjectArn         string `json:"projectArn" xml:"projectArn"`
-	ProjectVisibility  string `json:"projectVisibility" xml:"projectVisibility"`
-	PublicProjectAlias string `json:"publicProjectAlias" xml:"publicProjectAlias"`
+ProjectArn string `json:"projectArn" xml:"projectArn"`
+ProjectVisibility string `json:"projectVisibility" xml:"projectVisibility"`
+PublicProjectAlias string `json:"publicProjectAlias" xml:"publicProjectAlias"`
 }
 
 type UpdateReportGroupInput struct {
-	Arn          string              `json:"arn" xml:"arn"`
-	ExportConfig *ReportExportConfig `json:"exportConfig" xml:"exportConfig"`
-	Tags         TagList             `json:"tags" xml:"tags"`
+Arn string `json:"arn" xml:"arn"`
+ExportConfig *ReportExportConfig `json:"exportConfig" xml:"exportConfig"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type UpdateReportGroupOutput struct {
-	ReportGroup *ReportGroup `json:"reportGroup" xml:"reportGroup"`
+ReportGroup *ReportGroup `json:"reportGroup" xml:"reportGroup"`
 }
 
 type UpdateWebhookInput struct {
-	BranchFilter           string                  `json:"branchFilter" xml:"branchFilter"`
-	BuildType              string                  `json:"buildType" xml:"buildType"`
-	FilterGroups           FilterGroups            `json:"filterGroups" xml:"filterGroups"`
-	ProjectName            string                  `json:"projectName" xml:"projectName"`
-	PullRequestBuildPolicy *PullRequestBuildPolicy `json:"pullRequestBuildPolicy" xml:"pullRequestBuildPolicy"`
-	RotateSecret           bool                    `json:"rotateSecret" xml:"rotateSecret"`
+BranchFilter string `json:"branchFilter" xml:"branchFilter"`
+BuildType string `json:"buildType" xml:"buildType"`
+FilterGroups FilterGroups `json:"filterGroups" xml:"filterGroups"`
+ProjectName string `json:"projectName" xml:"projectName"`
+PullRequestBuildPolicy *PullRequestBuildPolicy `json:"pullRequestBuildPolicy" xml:"pullRequestBuildPolicy"`
+RotateSecret bool `json:"rotateSecret" xml:"rotateSecret"`
 }
 
 type UpdateWebhookOutput struct {
-	Webhook *Webhook `json:"webhook" xml:"webhook"`
+Webhook *Webhook `json:"webhook" xml:"webhook"`
 }
 
 type VpcConfig struct {
-	SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"securityGroupIds"`
-	Subnets          Subnets          `json:"subnets" xml:"subnets"`
-	VpcId            string           `json:"vpcId" xml:"vpcId"`
+SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"securityGroupIds"`
+Subnets Subnets `json:"subnets" xml:"subnets"`
+VpcId string `json:"vpcId" xml:"vpcId"`
 }
 
 type Webhook struct {
-	BranchFilter           string                  `json:"branchFilter" xml:"branchFilter"`
-	BuildType              string                  `json:"buildType" xml:"buildType"`
-	FilterGroups           FilterGroups            `json:"filterGroups" xml:"filterGroups"`
-	LastModifiedSecret     time.Time               `json:"lastModifiedSecret" xml:"lastModifiedSecret"`
-	ManualCreation         bool                    `json:"manualCreation" xml:"manualCreation"`
-	PayloadUrl             string                  `json:"payloadUrl" xml:"payloadUrl"`
-	PullRequestBuildPolicy *PullRequestBuildPolicy `json:"pullRequestBuildPolicy" xml:"pullRequestBuildPolicy"`
-	ScopeConfiguration     *ScopeConfiguration     `json:"scopeConfiguration" xml:"scopeConfiguration"`
-	Secret                 string                  `json:"secret" xml:"secret"`
-	Status                 string                  `json:"status" xml:"status"`
-	StatusMessage          string                  `json:"statusMessage" xml:"statusMessage"`
-	Url                    string                  `json:"url" xml:"url"`
+BranchFilter string `json:"branchFilter" xml:"branchFilter"`
+BuildType string `json:"buildType" xml:"buildType"`
+FilterGroups FilterGroups `json:"filterGroups" xml:"filterGroups"`
+LastModifiedSecret time.Time `json:"lastModifiedSecret" xml:"lastModifiedSecret"`
+ManualCreation bool `json:"manualCreation" xml:"manualCreation"`
+PayloadUrl string `json:"payloadUrl" xml:"payloadUrl"`
+PullRequestBuildPolicy *PullRequestBuildPolicy `json:"pullRequestBuildPolicy" xml:"pullRequestBuildPolicy"`
+ScopeConfiguration *ScopeConfiguration `json:"scopeConfiguration" xml:"scopeConfiguration"`
+Secret string `json:"secret" xml:"secret"`
+Status string `json:"status" xml:"status"`
+StatusMessage string `json:"statusMessage" xml:"statusMessage"`
+Url string `json:"url" xml:"url"`
 }
 
 type WebhookFilter struct {
-	ExcludeMatchedPattern bool   `json:"excludeMatchedPattern" xml:"excludeMatchedPattern"`
-	Pattern               string `json:"pattern" xml:"pattern"`
-	Type                  string `json:"type" xml:"type"`
+ExcludeMatchedPattern bool `json:"excludeMatchedPattern" xml:"excludeMatchedPattern"`
+Pattern string `json:"pattern" xml:"pattern"`
+Type string `json:"type" xml:"type"`
 }
 
 type BuildArtifactsList []*BuildArtifacts
@@ -1448,3 +1448,4 @@ type TargetTrackingScalingConfigurations []*TargetTrackingScalingConfiguration
 type TestCases []*TestCase
 
 type ReportStatusCounts map[string]int32
+

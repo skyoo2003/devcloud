@@ -598,3 +598,4 @@ func (e *TransactionInProgressException) ErrorCode() string {
 func (e *TransactionInProgressException) HTTPStatus() int {
 	return 0
 }
+

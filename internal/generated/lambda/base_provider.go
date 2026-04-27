@@ -86,3 +86,4 @@ func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRe
 func (b *BaseProvider) UpdateFunctionEventInvokeConfig(ctx context.Context, input *UpdateFunctionEventInvokeConfigRequest) (*FunctionEventInvokeConfig, error) {
 	return nil, fmt.Errorf("UpdateFunctionEventInvokeConfig: %w", ErrNotImplemented)
 }
+

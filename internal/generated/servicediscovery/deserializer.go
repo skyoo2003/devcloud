@@ -451,3 +451,4 @@ func SerializeUpdateServiceAttributesResponse(w http.ResponseWriter, output *Upd
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

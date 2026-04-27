@@ -1007,3 +1007,4 @@ func SerializeUpdateWorkGroupOutput(w http.ResponseWriter, output *UpdateWorkGro
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

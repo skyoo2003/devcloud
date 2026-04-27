@@ -122,3 +122,4 @@ func (e *UnauthorizedException) ErrorCode() string {
 func (e *UnauthorizedException) HTTPStatus() int {
 	return 401
 }
+

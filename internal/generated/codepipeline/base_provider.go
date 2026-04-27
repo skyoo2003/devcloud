@@ -186,3 +186,4 @@ func (b *BaseProvider) UpdateActionType(ctx context.Context, input *UpdateAction
 func (b *BaseProvider) UpdatePipeline(ctx context.Context, input *UpdatePipelineInput) (*UpdatePipelineOutput, error) {
 	return nil, fmt.Errorf("UpdatePipeline: %w", ErrNotImplemented)
 }
+

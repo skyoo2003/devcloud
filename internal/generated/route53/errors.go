@@ -1176,3 +1176,4 @@ func (e *VPCAssociationNotFound) ErrorCode() string {
 func (e *VPCAssociationNotFound) HTTPStatus() int {
 	return 404
 }
+

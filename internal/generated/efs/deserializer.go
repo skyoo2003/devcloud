@@ -289,3 +289,4 @@ func SerializeFileSystemProtectionDescription(w http.ResponseWriter, output *Fil
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

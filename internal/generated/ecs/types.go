@@ -7,2473 +7,2473 @@ import (
 )
 
 type AcceleratorCountRequest struct {
-	Max int32 `json:"max" xml:"max"`
-	Min int32 `json:"min" xml:"min"`
+Max int32 `json:"max" xml:"max"`
+Min int32 `json:"min" xml:"min"`
 }
 
 type AcceleratorTotalMemoryMiBRequest struct {
-	Max int32 `json:"max" xml:"max"`
-	Min int32 `json:"min" xml:"min"`
+Max int32 `json:"max" xml:"max"`
+Min int32 `json:"min" xml:"min"`
 }
 
 type AdvancedConfiguration struct {
-	AlternateTargetGroupArn string `json:"alternateTargetGroupArn" xml:"alternateTargetGroupArn"`
-	ProductionListenerRule  string `json:"productionListenerRule" xml:"productionListenerRule"`
-	RoleArn                 string `json:"roleArn" xml:"roleArn"`
-	TestListenerRule        string `json:"testListenerRule" xml:"testListenerRule"`
+AlternateTargetGroupArn string `json:"alternateTargetGroupArn" xml:"alternateTargetGroupArn"`
+ProductionListenerRule string `json:"productionListenerRule" xml:"productionListenerRule"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+TestListenerRule string `json:"testListenerRule" xml:"testListenerRule"`
 }
 
 type Attachment struct {
-	Details AttachmentDetails `json:"details" xml:"details"`
-	Id      string            `json:"id" xml:"id"`
-	Status  string            `json:"status" xml:"status"`
-	Type    string            `json:"type" xml:"type"`
+Details AttachmentDetails `json:"details" xml:"details"`
+Id string `json:"id" xml:"id"`
+Status string `json:"status" xml:"status"`
+Type string `json:"type" xml:"type"`
 }
 
 type AttachmentStateChange struct {
-	AttachmentArn string `json:"attachmentArn" xml:"attachmentArn"`
-	Status        string `json:"status" xml:"status"`
+AttachmentArn string `json:"attachmentArn" xml:"attachmentArn"`
+Status string `json:"status" xml:"status"`
 }
 
 type Attribute struct {
-	Name       string `json:"name" xml:"name"`
-	TargetId   string `json:"targetId" xml:"targetId"`
-	TargetType string `json:"targetType" xml:"targetType"`
-	Value      string `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+TargetId string `json:"targetId" xml:"targetId"`
+TargetType string `json:"targetType" xml:"targetType"`
+Value string `json:"value" xml:"value"`
 }
 
 type AutoScalingGroupProvider struct {
-	AutoScalingGroupArn          string          `json:"autoScalingGroupArn" xml:"autoScalingGroupArn"`
-	ManagedDraining              string          `json:"managedDraining" xml:"managedDraining"`
-	ManagedScaling               *ManagedScaling `json:"managedScaling" xml:"managedScaling"`
-	ManagedTerminationProtection string          `json:"managedTerminationProtection" xml:"managedTerminationProtection"`
+AutoScalingGroupArn string `json:"autoScalingGroupArn" xml:"autoScalingGroupArn"`
+ManagedDraining string `json:"managedDraining" xml:"managedDraining"`
+ManagedScaling *ManagedScaling `json:"managedScaling" xml:"managedScaling"`
+ManagedTerminationProtection string `json:"managedTerminationProtection" xml:"managedTerminationProtection"`
 }
 
 type AutoScalingGroupProviderUpdate struct {
-	ManagedDraining              string          `json:"managedDraining" xml:"managedDraining"`
-	ManagedScaling               *ManagedScaling `json:"managedScaling" xml:"managedScaling"`
-	ManagedTerminationProtection string          `json:"managedTerminationProtection" xml:"managedTerminationProtection"`
+ManagedDraining string `json:"managedDraining" xml:"managedDraining"`
+ManagedScaling *ManagedScaling `json:"managedScaling" xml:"managedScaling"`
+ManagedTerminationProtection string `json:"managedTerminationProtection" xml:"managedTerminationProtection"`
 }
 
 type AwsVpcConfiguration struct {
-	AssignPublicIp string     `json:"assignPublicIp" xml:"assignPublicIp"`
-	SecurityGroups StringList `json:"securityGroups" xml:"securityGroups"`
-	Subnets        StringList `json:"subnets" xml:"subnets"`
+AssignPublicIp string `json:"assignPublicIp" xml:"assignPublicIp"`
+SecurityGroups StringList `json:"securityGroups" xml:"securityGroups"`
+Subnets StringList `json:"subnets" xml:"subnets"`
 }
 
 type BaselineEbsBandwidthMbpsRequest struct {
-	Max int32 `json:"max" xml:"max"`
-	Min int32 `json:"min" xml:"min"`
+Max int32 `json:"max" xml:"max"`
+Min int32 `json:"min" xml:"min"`
 }
 
 type CanaryConfiguration struct {
-	CanaryBakeTimeInMinutes int32   `json:"canaryBakeTimeInMinutes" xml:"canaryBakeTimeInMinutes"`
-	CanaryPercent           float64 `json:"canaryPercent" xml:"canaryPercent"`
+CanaryBakeTimeInMinutes int32 `json:"canaryBakeTimeInMinutes" xml:"canaryBakeTimeInMinutes"`
+CanaryPercent float64 `json:"canaryPercent" xml:"canaryPercent"`
 }
 
 type CapacityProvider struct {
-	AutoScalingGroupProvider *AutoScalingGroupProvider `json:"autoScalingGroupProvider" xml:"autoScalingGroupProvider"`
-	CapacityProviderArn      string                    `json:"capacityProviderArn" xml:"capacityProviderArn"`
-	Cluster                  string                    `json:"cluster" xml:"cluster"`
-	ManagedInstancesProvider *ManagedInstancesProvider `json:"managedInstancesProvider" xml:"managedInstancesProvider"`
-	Name                     string                    `json:"name" xml:"name"`
-	Status                   string                    `json:"status" xml:"status"`
-	Tags                     Tags                      `json:"tags" xml:"tags"`
-	Type                     string                    `json:"type" xml:"type"`
-	UpdateStatus             string                    `json:"updateStatus" xml:"updateStatus"`
-	UpdateStatusReason       string                    `json:"updateStatusReason" xml:"updateStatusReason"`
+AutoScalingGroupProvider *AutoScalingGroupProvider `json:"autoScalingGroupProvider" xml:"autoScalingGroupProvider"`
+CapacityProviderArn string `json:"capacityProviderArn" xml:"capacityProviderArn"`
+Cluster string `json:"cluster" xml:"cluster"`
+ManagedInstancesProvider *ManagedInstancesProvider `json:"managedInstancesProvider" xml:"managedInstancesProvider"`
+Name string `json:"name" xml:"name"`
+Status string `json:"status" xml:"status"`
+Tags Tags `json:"tags" xml:"tags"`
+Type string `json:"type" xml:"type"`
+UpdateStatus string `json:"updateStatus" xml:"updateStatus"`
+UpdateStatusReason string `json:"updateStatusReason" xml:"updateStatusReason"`
 }
 
 type CapacityProviderStrategyItem struct {
-	Base             int32  `json:"base" xml:"base"`
-	CapacityProvider string `json:"capacityProvider" xml:"capacityProvider"`
-	Weight           int32  `json:"weight" xml:"weight"`
+Base int32 `json:"base" xml:"base"`
+CapacityProvider string `json:"capacityProvider" xml:"capacityProvider"`
+Weight int32 `json:"weight" xml:"weight"`
 }
 
 type CapacityReservationRequest struct {
-	ReservationGroupArn   string `json:"reservationGroupArn" xml:"reservationGroupArn"`
-	ReservationPreference string `json:"reservationPreference" xml:"reservationPreference"`
+ReservationGroupArn string `json:"reservationGroupArn" xml:"reservationGroupArn"`
+ReservationPreference string `json:"reservationPreference" xml:"reservationPreference"`
 }
 
 type Cluster struct {
-	ActiveServicesCount               int32                          `json:"activeServicesCount" xml:"activeServicesCount"`
-	Attachments                       Attachments                    `json:"attachments" xml:"attachments"`
-	AttachmentsStatus                 string                         `json:"attachmentsStatus" xml:"attachmentsStatus"`
-	CapacityProviders                 StringList                     `json:"capacityProviders" xml:"capacityProviders"`
-	ClusterArn                        string                         `json:"clusterArn" xml:"clusterArn"`
-	ClusterName                       string                         `json:"clusterName" xml:"clusterName"`
-	Configuration                     *ClusterConfiguration          `json:"configuration" xml:"configuration"`
-	DefaultCapacityProviderStrategy   CapacityProviderStrategy       `json:"defaultCapacityProviderStrategy" xml:"defaultCapacityProviderStrategy"`
-	PendingTasksCount                 int32                          `json:"pendingTasksCount" xml:"pendingTasksCount"`
-	RegisteredContainerInstancesCount int32                          `json:"registeredContainerInstancesCount" xml:"registeredContainerInstancesCount"`
-	RunningTasksCount                 int32                          `json:"runningTasksCount" xml:"runningTasksCount"`
-	ServiceConnectDefaults            *ClusterServiceConnectDefaults `json:"serviceConnectDefaults" xml:"serviceConnectDefaults"`
-	Settings                          ClusterSettings                `json:"settings" xml:"settings"`
-	Statistics                        Statistics                     `json:"statistics" xml:"statistics"`
-	Status                            string                         `json:"status" xml:"status"`
-	Tags                              Tags                           `json:"tags" xml:"tags"`
+ActiveServicesCount int32 `json:"activeServicesCount" xml:"activeServicesCount"`
+Attachments Attachments `json:"attachments" xml:"attachments"`
+AttachmentsStatus string `json:"attachmentsStatus" xml:"attachmentsStatus"`
+CapacityProviders StringList `json:"capacityProviders" xml:"capacityProviders"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+ClusterName string `json:"clusterName" xml:"clusterName"`
+Configuration *ClusterConfiguration `json:"configuration" xml:"configuration"`
+DefaultCapacityProviderStrategy CapacityProviderStrategy `json:"defaultCapacityProviderStrategy" xml:"defaultCapacityProviderStrategy"`
+PendingTasksCount int32 `json:"pendingTasksCount" xml:"pendingTasksCount"`
+RegisteredContainerInstancesCount int32 `json:"registeredContainerInstancesCount" xml:"registeredContainerInstancesCount"`
+RunningTasksCount int32 `json:"runningTasksCount" xml:"runningTasksCount"`
+ServiceConnectDefaults *ClusterServiceConnectDefaults `json:"serviceConnectDefaults" xml:"serviceConnectDefaults"`
+Settings ClusterSettings `json:"settings" xml:"settings"`
+Statistics Statistics `json:"statistics" xml:"statistics"`
+Status string `json:"status" xml:"status"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type ClusterConfiguration struct {
-	ExecuteCommandConfiguration *ExecuteCommandConfiguration `json:"executeCommandConfiguration" xml:"executeCommandConfiguration"`
-	ManagedStorageConfiguration *ManagedStorageConfiguration `json:"managedStorageConfiguration" xml:"managedStorageConfiguration"`
+ExecuteCommandConfiguration *ExecuteCommandConfiguration `json:"executeCommandConfiguration" xml:"executeCommandConfiguration"`
+ManagedStorageConfiguration *ManagedStorageConfiguration `json:"managedStorageConfiguration" xml:"managedStorageConfiguration"`
 }
 
 type ClusterServiceConnectDefaults struct {
-	Namespace string `json:"namespace" xml:"namespace"`
+Namespace string `json:"namespace" xml:"namespace"`
 }
 
 type ClusterServiceConnectDefaultsRequest struct {
-	Namespace string `json:"namespace" xml:"namespace"`
+Namespace string `json:"namespace" xml:"namespace"`
 }
 
 type ClusterSetting struct {
-	Name  string `json:"name" xml:"name"`
-	Value string `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+Value string `json:"value" xml:"value"`
 }
 
 type Container struct {
-	ContainerArn      string            `json:"containerArn" xml:"containerArn"`
-	Cpu               string            `json:"cpu" xml:"cpu"`
-	ExitCode          int32             `json:"exitCode" xml:"exitCode"`
-	GpuIds            GpuIds            `json:"gpuIds" xml:"gpuIds"`
-	HealthStatus      string            `json:"healthStatus" xml:"healthStatus"`
-	Image             string            `json:"image" xml:"image"`
-	ImageDigest       string            `json:"imageDigest" xml:"imageDigest"`
-	LastStatus        string            `json:"lastStatus" xml:"lastStatus"`
-	ManagedAgents     ManagedAgents     `json:"managedAgents" xml:"managedAgents"`
-	Memory            string            `json:"memory" xml:"memory"`
-	MemoryReservation string            `json:"memoryReservation" xml:"memoryReservation"`
-	Name              string            `json:"name" xml:"name"`
-	NetworkBindings   NetworkBindings   `json:"networkBindings" xml:"networkBindings"`
-	NetworkInterfaces NetworkInterfaces `json:"networkInterfaces" xml:"networkInterfaces"`
-	Reason            string            `json:"reason" xml:"reason"`
-	RuntimeId         string            `json:"runtimeId" xml:"runtimeId"`
-	TaskArn           string            `json:"taskArn" xml:"taskArn"`
+ContainerArn string `json:"containerArn" xml:"containerArn"`
+Cpu string `json:"cpu" xml:"cpu"`
+ExitCode int32 `json:"exitCode" xml:"exitCode"`
+GpuIds GpuIds `json:"gpuIds" xml:"gpuIds"`
+HealthStatus string `json:"healthStatus" xml:"healthStatus"`
+Image string `json:"image" xml:"image"`
+ImageDigest string `json:"imageDigest" xml:"imageDigest"`
+LastStatus string `json:"lastStatus" xml:"lastStatus"`
+ManagedAgents ManagedAgents `json:"managedAgents" xml:"managedAgents"`
+Memory string `json:"memory" xml:"memory"`
+MemoryReservation string `json:"memoryReservation" xml:"memoryReservation"`
+Name string `json:"name" xml:"name"`
+NetworkBindings NetworkBindings `json:"networkBindings" xml:"networkBindings"`
+NetworkInterfaces NetworkInterfaces `json:"networkInterfaces" xml:"networkInterfaces"`
+Reason string `json:"reason" xml:"reason"`
+RuntimeId string `json:"runtimeId" xml:"runtimeId"`
+TaskArn string `json:"taskArn" xml:"taskArn"`
 }
 
 type ContainerDefinition struct {
-	Command                StringList              `json:"command" xml:"command"`
-	Cpu                    int32                   `json:"cpu" xml:"cpu"`
-	CredentialSpecs        StringList              `json:"credentialSpecs" xml:"credentialSpecs"`
-	DependsOn              ContainerDependencies   `json:"dependsOn" xml:"dependsOn"`
-	DisableNetworking      bool                    `json:"disableNetworking" xml:"disableNetworking"`
-	DnsSearchDomains       StringList              `json:"dnsSearchDomains" xml:"dnsSearchDomains"`
-	DnsServers             StringList              `json:"dnsServers" xml:"dnsServers"`
-	DockerLabels           DockerLabelsMap         `json:"dockerLabels" xml:"dockerLabels"`
-	DockerSecurityOptions  StringList              `json:"dockerSecurityOptions" xml:"dockerSecurityOptions"`
-	EntryPoint             StringList              `json:"entryPoint" xml:"entryPoint"`
-	Environment            EnvironmentVariables    `json:"environment" xml:"environment"`
-	EnvironmentFiles       EnvironmentFiles        `json:"environmentFiles" xml:"environmentFiles"`
-	Essential              bool                    `json:"essential" xml:"essential"`
-	ExtraHosts             HostEntryList           `json:"extraHosts" xml:"extraHosts"`
-	FirelensConfiguration  *FirelensConfiguration  `json:"firelensConfiguration" xml:"firelensConfiguration"`
-	HealthCheck            *HealthCheck            `json:"healthCheck" xml:"healthCheck"`
-	Hostname               string                  `json:"hostname" xml:"hostname"`
-	Image                  string                  `json:"image" xml:"image"`
-	Interactive            bool                    `json:"interactive" xml:"interactive"`
-	Links                  StringList              `json:"links" xml:"links"`
-	LinuxParameters        *LinuxParameters        `json:"linuxParameters" xml:"linuxParameters"`
-	LogConfiguration       *LogConfiguration       `json:"logConfiguration" xml:"logConfiguration"`
-	Memory                 int32                   `json:"memory" xml:"memory"`
-	MemoryReservation      int32                   `json:"memoryReservation" xml:"memoryReservation"`
-	MountPoints            MountPointList          `json:"mountPoints" xml:"mountPoints"`
-	Name                   string                  `json:"name" xml:"name"`
-	PortMappings           PortMappingList         `json:"portMappings" xml:"portMappings"`
-	Privileged             bool                    `json:"privileged" xml:"privileged"`
-	PseudoTerminal         bool                    `json:"pseudoTerminal" xml:"pseudoTerminal"`
-	ReadonlyRootFilesystem bool                    `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
-	RepositoryCredentials  *RepositoryCredentials  `json:"repositoryCredentials" xml:"repositoryCredentials"`
-	ResourceRequirements   ResourceRequirements    `json:"resourceRequirements" xml:"resourceRequirements"`
-	RestartPolicy          *ContainerRestartPolicy `json:"restartPolicy" xml:"restartPolicy"`
-	Secrets                SecretList              `json:"secrets" xml:"secrets"`
-	StartTimeout           int32                   `json:"startTimeout" xml:"startTimeout"`
-	StopTimeout            int32                   `json:"stopTimeout" xml:"stopTimeout"`
-	SystemControls         SystemControls          `json:"systemControls" xml:"systemControls"`
-	Ulimits                UlimitList              `json:"ulimits" xml:"ulimits"`
-	User                   string                  `json:"user" xml:"user"`
-	VersionConsistency     string                  `json:"versionConsistency" xml:"versionConsistency"`
-	VolumesFrom            VolumeFromList          `json:"volumesFrom" xml:"volumesFrom"`
-	WorkingDirectory       string                  `json:"workingDirectory" xml:"workingDirectory"`
+Command StringList `json:"command" xml:"command"`
+Cpu int32 `json:"cpu" xml:"cpu"`
+CredentialSpecs StringList `json:"credentialSpecs" xml:"credentialSpecs"`
+DependsOn ContainerDependencies `json:"dependsOn" xml:"dependsOn"`
+DisableNetworking bool `json:"disableNetworking" xml:"disableNetworking"`
+DnsSearchDomains StringList `json:"dnsSearchDomains" xml:"dnsSearchDomains"`
+DnsServers StringList `json:"dnsServers" xml:"dnsServers"`
+DockerLabels DockerLabelsMap `json:"dockerLabels" xml:"dockerLabels"`
+DockerSecurityOptions StringList `json:"dockerSecurityOptions" xml:"dockerSecurityOptions"`
+EntryPoint StringList `json:"entryPoint" xml:"entryPoint"`
+Environment EnvironmentVariables `json:"environment" xml:"environment"`
+EnvironmentFiles EnvironmentFiles `json:"environmentFiles" xml:"environmentFiles"`
+Essential bool `json:"essential" xml:"essential"`
+ExtraHosts HostEntryList `json:"extraHosts" xml:"extraHosts"`
+FirelensConfiguration *FirelensConfiguration `json:"firelensConfiguration" xml:"firelensConfiguration"`
+HealthCheck *HealthCheck `json:"healthCheck" xml:"healthCheck"`
+Hostname string `json:"hostname" xml:"hostname"`
+Image string `json:"image" xml:"image"`
+Interactive bool `json:"interactive" xml:"interactive"`
+Links StringList `json:"links" xml:"links"`
+LinuxParameters *LinuxParameters `json:"linuxParameters" xml:"linuxParameters"`
+LogConfiguration *LogConfiguration `json:"logConfiguration" xml:"logConfiguration"`
+Memory int32 `json:"memory" xml:"memory"`
+MemoryReservation int32 `json:"memoryReservation" xml:"memoryReservation"`
+MountPoints MountPointList `json:"mountPoints" xml:"mountPoints"`
+Name string `json:"name" xml:"name"`
+PortMappings PortMappingList `json:"portMappings" xml:"portMappings"`
+Privileged bool `json:"privileged" xml:"privileged"`
+PseudoTerminal bool `json:"pseudoTerminal" xml:"pseudoTerminal"`
+ReadonlyRootFilesystem bool `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
+RepositoryCredentials *RepositoryCredentials `json:"repositoryCredentials" xml:"repositoryCredentials"`
+ResourceRequirements ResourceRequirements `json:"resourceRequirements" xml:"resourceRequirements"`
+RestartPolicy *ContainerRestartPolicy `json:"restartPolicy" xml:"restartPolicy"`
+Secrets SecretList `json:"secrets" xml:"secrets"`
+StartTimeout int32 `json:"startTimeout" xml:"startTimeout"`
+StopTimeout int32 `json:"stopTimeout" xml:"stopTimeout"`
+SystemControls SystemControls `json:"systemControls" xml:"systemControls"`
+Ulimits UlimitList `json:"ulimits" xml:"ulimits"`
+User string `json:"user" xml:"user"`
+VersionConsistency string `json:"versionConsistency" xml:"versionConsistency"`
+VolumesFrom VolumeFromList `json:"volumesFrom" xml:"volumesFrom"`
+WorkingDirectory string `json:"workingDirectory" xml:"workingDirectory"`
 }
 
 type ContainerDependency struct {
-	Condition     string `json:"condition" xml:"condition"`
-	ContainerName string `json:"containerName" xml:"containerName"`
+Condition string `json:"condition" xml:"condition"`
+ContainerName string `json:"containerName" xml:"containerName"`
 }
 
 type ContainerImage struct {
-	ContainerName string `json:"containerName" xml:"containerName"`
-	Image         string `json:"image" xml:"image"`
-	ImageDigest   string `json:"imageDigest" xml:"imageDigest"`
+ContainerName string `json:"containerName" xml:"containerName"`
+Image string `json:"image" xml:"image"`
+ImageDigest string `json:"imageDigest" xml:"imageDigest"`
 }
 
 type ContainerInstance struct {
-	AgentConnected       bool                           `json:"agentConnected" xml:"agentConnected"`
-	AgentUpdateStatus    string                         `json:"agentUpdateStatus" xml:"agentUpdateStatus"`
-	Attachments          Attachments                    `json:"attachments" xml:"attachments"`
-	Attributes           Attributes                     `json:"attributes" xml:"attributes"`
-	CapacityProviderName string                         `json:"capacityProviderName" xml:"capacityProviderName"`
-	ContainerInstanceArn string                         `json:"containerInstanceArn" xml:"containerInstanceArn"`
-	Ec2InstanceId        string                         `json:"ec2InstanceId" xml:"ec2InstanceId"`
-	HealthStatus         *ContainerInstanceHealthStatus `json:"healthStatus" xml:"healthStatus"`
-	PendingTasksCount    int32                          `json:"pendingTasksCount" xml:"pendingTasksCount"`
-	RegisteredAt         time.Time                      `json:"registeredAt" xml:"registeredAt"`
-	RegisteredResources  Resources                      `json:"registeredResources" xml:"registeredResources"`
-	RemainingResources   Resources                      `json:"remainingResources" xml:"remainingResources"`
-	RunningTasksCount    int32                          `json:"runningTasksCount" xml:"runningTasksCount"`
-	Status               string                         `json:"status" xml:"status"`
-	StatusReason         string                         `json:"statusReason" xml:"statusReason"`
-	Tags                 Tags                           `json:"tags" xml:"tags"`
-	Version              int64                          `json:"version" xml:"version"`
-	VersionInfo          *VersionInfo                   `json:"versionInfo" xml:"versionInfo"`
+AgentConnected bool `json:"agentConnected" xml:"agentConnected"`
+AgentUpdateStatus string `json:"agentUpdateStatus" xml:"agentUpdateStatus"`
+Attachments Attachments `json:"attachments" xml:"attachments"`
+Attributes Attributes `json:"attributes" xml:"attributes"`
+CapacityProviderName string `json:"capacityProviderName" xml:"capacityProviderName"`
+ContainerInstanceArn string `json:"containerInstanceArn" xml:"containerInstanceArn"`
+Ec2InstanceId string `json:"ec2InstanceId" xml:"ec2InstanceId"`
+HealthStatus *ContainerInstanceHealthStatus `json:"healthStatus" xml:"healthStatus"`
+PendingTasksCount int32 `json:"pendingTasksCount" xml:"pendingTasksCount"`
+RegisteredAt time.Time `json:"registeredAt" xml:"registeredAt"`
+RegisteredResources Resources `json:"registeredResources" xml:"registeredResources"`
+RemainingResources Resources `json:"remainingResources" xml:"remainingResources"`
+RunningTasksCount int32 `json:"runningTasksCount" xml:"runningTasksCount"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+Tags Tags `json:"tags" xml:"tags"`
+Version int64 `json:"version" xml:"version"`
+VersionInfo *VersionInfo `json:"versionInfo" xml:"versionInfo"`
 }
 
 type ContainerInstanceHealthStatus struct {
-	Details       InstanceHealthCheckResultList `json:"details" xml:"details"`
-	OverallStatus string                        `json:"overallStatus" xml:"overallStatus"`
+Details InstanceHealthCheckResultList `json:"details" xml:"details"`
+OverallStatus string `json:"overallStatus" xml:"overallStatus"`
 }
 
 type ContainerOverride struct {
-	Command              StringList           `json:"command" xml:"command"`
-	Cpu                  int32                `json:"cpu" xml:"cpu"`
-	Environment          EnvironmentVariables `json:"environment" xml:"environment"`
-	EnvironmentFiles     EnvironmentFiles     `json:"environmentFiles" xml:"environmentFiles"`
-	Memory               int32                `json:"memory" xml:"memory"`
-	MemoryReservation    int32                `json:"memoryReservation" xml:"memoryReservation"`
-	Name                 string               `json:"name" xml:"name"`
-	ResourceRequirements ResourceRequirements `json:"resourceRequirements" xml:"resourceRequirements"`
+Command StringList `json:"command" xml:"command"`
+Cpu int32 `json:"cpu" xml:"cpu"`
+Environment EnvironmentVariables `json:"environment" xml:"environment"`
+EnvironmentFiles EnvironmentFiles `json:"environmentFiles" xml:"environmentFiles"`
+Memory int32 `json:"memory" xml:"memory"`
+MemoryReservation int32 `json:"memoryReservation" xml:"memoryReservation"`
+Name string `json:"name" xml:"name"`
+ResourceRequirements ResourceRequirements `json:"resourceRequirements" xml:"resourceRequirements"`
 }
 
 type ContainerRestartPolicy struct {
-	Enabled              bool        `json:"enabled" xml:"enabled"`
-	IgnoredExitCodes     IntegerList `json:"ignoredExitCodes" xml:"ignoredExitCodes"`
-	RestartAttemptPeriod int32       `json:"restartAttemptPeriod" xml:"restartAttemptPeriod"`
+Enabled bool `json:"enabled" xml:"enabled"`
+IgnoredExitCodes IntegerList `json:"ignoredExitCodes" xml:"ignoredExitCodes"`
+RestartAttemptPeriod int32 `json:"restartAttemptPeriod" xml:"restartAttemptPeriod"`
 }
 
 type ContainerStateChange struct {
-	ContainerName   string          `json:"containerName" xml:"containerName"`
-	ExitCode        int32           `json:"exitCode" xml:"exitCode"`
-	ImageDigest     string          `json:"imageDigest" xml:"imageDigest"`
-	NetworkBindings NetworkBindings `json:"networkBindings" xml:"networkBindings"`
-	Reason          string          `json:"reason" xml:"reason"`
-	RuntimeId       string          `json:"runtimeId" xml:"runtimeId"`
-	Status          string          `json:"status" xml:"status"`
+ContainerName string `json:"containerName" xml:"containerName"`
+ExitCode int32 `json:"exitCode" xml:"exitCode"`
+ImageDigest string `json:"imageDigest" xml:"imageDigest"`
+NetworkBindings NetworkBindings `json:"networkBindings" xml:"networkBindings"`
+Reason string `json:"reason" xml:"reason"`
+RuntimeId string `json:"runtimeId" xml:"runtimeId"`
+Status string `json:"status" xml:"status"`
 }
 
 type CreateCapacityProviderRequest struct {
-	AutoScalingGroupProvider *AutoScalingGroupProvider                    `json:"autoScalingGroupProvider" xml:"autoScalingGroupProvider"`
-	Cluster                  string                                       `json:"cluster" xml:"cluster"`
-	ManagedInstancesProvider *CreateManagedInstancesProviderConfiguration `json:"managedInstancesProvider" xml:"managedInstancesProvider"`
-	Name                     string                                       `json:"name" xml:"name"`
-	Tags                     Tags                                         `json:"tags" xml:"tags"`
+AutoScalingGroupProvider *AutoScalingGroupProvider `json:"autoScalingGroupProvider" xml:"autoScalingGroupProvider"`
+Cluster string `json:"cluster" xml:"cluster"`
+ManagedInstancesProvider *CreateManagedInstancesProviderConfiguration `json:"managedInstancesProvider" xml:"managedInstancesProvider"`
+Name string `json:"name" xml:"name"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type CreateCapacityProviderResponse struct {
-	CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"capacityProvider"`
+CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"capacityProvider"`
 }
 
 type CreateClusterRequest struct {
-	CapacityProviders               StringList                            `json:"capacityProviders" xml:"capacityProviders"`
-	ClusterName                     string                                `json:"clusterName" xml:"clusterName"`
-	Configuration                   *ClusterConfiguration                 `json:"configuration" xml:"configuration"`
-	DefaultCapacityProviderStrategy CapacityProviderStrategy              `json:"defaultCapacityProviderStrategy" xml:"defaultCapacityProviderStrategy"`
-	ServiceConnectDefaults          *ClusterServiceConnectDefaultsRequest `json:"serviceConnectDefaults" xml:"serviceConnectDefaults"`
-	Settings                        ClusterSettings                       `json:"settings" xml:"settings"`
-	Tags                            Tags                                  `json:"tags" xml:"tags"`
+CapacityProviders StringList `json:"capacityProviders" xml:"capacityProviders"`
+ClusterName string `json:"clusterName" xml:"clusterName"`
+Configuration *ClusterConfiguration `json:"configuration" xml:"configuration"`
+DefaultCapacityProviderStrategy CapacityProviderStrategy `json:"defaultCapacityProviderStrategy" xml:"defaultCapacityProviderStrategy"`
+ServiceConnectDefaults *ClusterServiceConnectDefaultsRequest `json:"serviceConnectDefaults" xml:"serviceConnectDefaults"`
+Settings ClusterSettings `json:"settings" xml:"settings"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type CreateClusterResponse struct {
-	Cluster *Cluster `json:"cluster" xml:"cluster"`
+Cluster *Cluster `json:"cluster" xml:"cluster"`
 }
 
 type CreateDaemonRequest struct {
-	CapacityProviderArns    StringList                     `json:"capacityProviderArns" xml:"capacityProviderArns"`
-	ClientToken             string                         `json:"clientToken" xml:"clientToken"`
-	ClusterArn              string                         `json:"clusterArn" xml:"clusterArn"`
-	DaemonName              string                         `json:"daemonName" xml:"daemonName"`
-	DaemonTaskDefinitionArn string                         `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
-	DeploymentConfiguration *DaemonDeploymentConfiguration `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
-	EnableECSManagedTags    bool                           `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
-	EnableExecuteCommand    bool                           `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	PropagateTags           string                         `json:"propagateTags" xml:"propagateTags"`
-	Tags                    Tags                           `json:"tags" xml:"tags"`
+CapacityProviderArns StringList `json:"capacityProviderArns" xml:"capacityProviderArns"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+DaemonName string `json:"daemonName" xml:"daemonName"`
+DaemonTaskDefinitionArn string `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
+DeploymentConfiguration *DaemonDeploymentConfiguration `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
+EnableECSManagedTags bool `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type CreateDaemonResponse struct {
-	CreatedAt     time.Time `json:"createdAt" xml:"createdAt"`
-	DaemonArn     string    `json:"daemonArn" xml:"daemonArn"`
-	DeploymentArn string    `json:"deploymentArn" xml:"deploymentArn"`
-	Status        string    `json:"status" xml:"status"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DaemonArn string `json:"daemonArn" xml:"daemonArn"`
+DeploymentArn string `json:"deploymentArn" xml:"deploymentArn"`
+Status string `json:"status" xml:"status"`
 }
 
 type CreateExpressGatewayServiceRequest struct {
-	Cluster               string                                     `json:"cluster" xml:"cluster"`
-	Cpu                   string                                     `json:"cpu" xml:"cpu"`
-	ExecutionRoleArn      string                                     `json:"executionRoleArn" xml:"executionRoleArn"`
-	HealthCheckPath       string                                     `json:"healthCheckPath" xml:"healthCheckPath"`
-	InfrastructureRoleArn string                                     `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
-	Memory                string                                     `json:"memory" xml:"memory"`
-	NetworkConfiguration  *ExpressGatewayServiceNetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
-	PrimaryContainer      *ExpressGatewayContainer                   `json:"primaryContainer" xml:"primaryContainer"`
-	ScalingTarget         *ExpressGatewayScalingTarget               `json:"scalingTarget" xml:"scalingTarget"`
-	ServiceName           string                                     `json:"serviceName" xml:"serviceName"`
-	Tags                  Tags                                       `json:"tags" xml:"tags"`
-	TaskRoleArn           string                                     `json:"taskRoleArn" xml:"taskRoleArn"`
+Cluster string `json:"cluster" xml:"cluster"`
+Cpu string `json:"cpu" xml:"cpu"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+HealthCheckPath string `json:"healthCheckPath" xml:"healthCheckPath"`
+InfrastructureRoleArn string `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
+Memory string `json:"memory" xml:"memory"`
+NetworkConfiguration *ExpressGatewayServiceNetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PrimaryContainer *ExpressGatewayContainer `json:"primaryContainer" xml:"primaryContainer"`
+ScalingTarget *ExpressGatewayScalingTarget `json:"scalingTarget" xml:"scalingTarget"`
+ServiceName string `json:"serviceName" xml:"serviceName"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskRoleArn string `json:"taskRoleArn" xml:"taskRoleArn"`
 }
 
 type CreateExpressGatewayServiceResponse struct {
-	Service *ECSExpressGatewayService `json:"service" xml:"service"`
+Service *ECSExpressGatewayService `json:"service" xml:"service"`
 }
 
 type CreateManagedInstancesProviderConfiguration struct {
-	InfrastructureOptimization *InfrastructureOptimization `json:"infrastructureOptimization" xml:"infrastructureOptimization"`
-	InfrastructureRoleArn      string                      `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
-	InstanceLaunchTemplate     *InstanceLaunchTemplate     `json:"instanceLaunchTemplate" xml:"instanceLaunchTemplate"`
-	PropagateTags              string                      `json:"propagateTags" xml:"propagateTags"`
+InfrastructureOptimization *InfrastructureOptimization `json:"infrastructureOptimization" xml:"infrastructureOptimization"`
+InfrastructureRoleArn string `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
+InstanceLaunchTemplate *InstanceLaunchTemplate `json:"instanceLaunchTemplate" xml:"instanceLaunchTemplate"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
 }
 
 type CreateServiceRequest struct {
-	AvailabilityZoneRebalancing   string                       `json:"availabilityZoneRebalancing" xml:"availabilityZoneRebalancing"`
-	CapacityProviderStrategy      CapacityProviderStrategy     `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
-	ClientToken                   string                       `json:"clientToken" xml:"clientToken"`
-	Cluster                       string                       `json:"cluster" xml:"cluster"`
-	DeploymentConfiguration       *DeploymentConfiguration     `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
-	DeploymentController          *DeploymentController        `json:"deploymentController" xml:"deploymentController"`
-	DesiredCount                  int32                        `json:"desiredCount" xml:"desiredCount"`
-	EnableECSManagedTags          bool                         `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
-	EnableExecuteCommand          bool                         `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	HealthCheckGracePeriodSeconds int32                        `json:"healthCheckGracePeriodSeconds" xml:"healthCheckGracePeriodSeconds"`
-	LaunchType                    string                       `json:"launchType" xml:"launchType"`
-	LoadBalancers                 LoadBalancers                `json:"loadBalancers" xml:"loadBalancers"`
-	NetworkConfiguration          *NetworkConfiguration        `json:"networkConfiguration" xml:"networkConfiguration"`
-	PlacementConstraints          PlacementConstraints         `json:"placementConstraints" xml:"placementConstraints"`
-	PlacementStrategy             PlacementStrategies          `json:"placementStrategy" xml:"placementStrategy"`
-	PlatformVersion               string                       `json:"platformVersion" xml:"platformVersion"`
-	PropagateTags                 string                       `json:"propagateTags" xml:"propagateTags"`
-	Role                          string                       `json:"role" xml:"role"`
-	SchedulingStrategy            string                       `json:"schedulingStrategy" xml:"schedulingStrategy"`
-	ServiceConnectConfiguration   *ServiceConnectConfiguration `json:"serviceConnectConfiguration" xml:"serviceConnectConfiguration"`
-	ServiceName                   string                       `json:"serviceName" xml:"serviceName"`
-	ServiceRegistries             ServiceRegistries            `json:"serviceRegistries" xml:"serviceRegistries"`
-	Tags                          Tags                         `json:"tags" xml:"tags"`
-	TaskDefinition                string                       `json:"taskDefinition" xml:"taskDefinition"`
-	VolumeConfigurations          ServiceVolumeConfigurations  `json:"volumeConfigurations" xml:"volumeConfigurations"`
-	VpcLatticeConfigurations      VpcLatticeConfigurations     `json:"vpcLatticeConfigurations" xml:"vpcLatticeConfigurations"`
+AvailabilityZoneRebalancing string `json:"availabilityZoneRebalancing" xml:"availabilityZoneRebalancing"`
+CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Cluster string `json:"cluster" xml:"cluster"`
+DeploymentConfiguration *DeploymentConfiguration `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
+DeploymentController *DeploymentController `json:"deploymentController" xml:"deploymentController"`
+DesiredCount int32 `json:"desiredCount" xml:"desiredCount"`
+EnableECSManagedTags bool `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+HealthCheckGracePeriodSeconds int32 `json:"healthCheckGracePeriodSeconds" xml:"healthCheckGracePeriodSeconds"`
+LaunchType string `json:"launchType" xml:"launchType"`
+LoadBalancers LoadBalancers `json:"loadBalancers" xml:"loadBalancers"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PlacementConstraints PlacementConstraints `json:"placementConstraints" xml:"placementConstraints"`
+PlacementStrategy PlacementStrategies `json:"placementStrategy" xml:"placementStrategy"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
+Role string `json:"role" xml:"role"`
+SchedulingStrategy string `json:"schedulingStrategy" xml:"schedulingStrategy"`
+ServiceConnectConfiguration *ServiceConnectConfiguration `json:"serviceConnectConfiguration" xml:"serviceConnectConfiguration"`
+ServiceName string `json:"serviceName" xml:"serviceName"`
+ServiceRegistries ServiceRegistries `json:"serviceRegistries" xml:"serviceRegistries"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
+VolumeConfigurations ServiceVolumeConfigurations `json:"volumeConfigurations" xml:"volumeConfigurations"`
+VpcLatticeConfigurations VpcLatticeConfigurations `json:"vpcLatticeConfigurations" xml:"vpcLatticeConfigurations"`
 }
 
 type CreateServiceResponse struct {
-	Service *Service `json:"service" xml:"service"`
+Service *Service `json:"service" xml:"service"`
 }
 
 type CreateTaskSetRequest struct {
-	CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
-	ClientToken              string                   `json:"clientToken" xml:"clientToken"`
-	Cluster                  string                   `json:"cluster" xml:"cluster"`
-	ExternalId               string                   `json:"externalId" xml:"externalId"`
-	LaunchType               string                   `json:"launchType" xml:"launchType"`
-	LoadBalancers            LoadBalancers            `json:"loadBalancers" xml:"loadBalancers"`
-	NetworkConfiguration     *NetworkConfiguration    `json:"networkConfiguration" xml:"networkConfiguration"`
-	PlatformVersion          string                   `json:"platformVersion" xml:"platformVersion"`
-	Scale                    *Scale                   `json:"scale" xml:"scale"`
-	Service                  string                   `json:"service" xml:"service"`
-	ServiceRegistries        ServiceRegistries        `json:"serviceRegistries" xml:"serviceRegistries"`
-	Tags                     Tags                     `json:"tags" xml:"tags"`
-	TaskDefinition           string                   `json:"taskDefinition" xml:"taskDefinition"`
+CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Cluster string `json:"cluster" xml:"cluster"`
+ExternalId string `json:"externalId" xml:"externalId"`
+LaunchType string `json:"launchType" xml:"launchType"`
+LoadBalancers LoadBalancers `json:"loadBalancers" xml:"loadBalancers"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+Scale *Scale `json:"scale" xml:"scale"`
+Service string `json:"service" xml:"service"`
+ServiceRegistries ServiceRegistries `json:"serviceRegistries" xml:"serviceRegistries"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
 }
 
 type CreateTaskSetResponse struct {
-	TaskSet *TaskSet `json:"taskSet" xml:"taskSet"`
+TaskSet *TaskSet `json:"taskSet" xml:"taskSet"`
 }
 
 type CreatedAt struct {
-	After  time.Time `json:"after" xml:"after"`
-	Before time.Time `json:"before" xml:"before"`
+After time.Time `json:"after" xml:"after"`
+Before time.Time `json:"before" xml:"before"`
 }
 
 type DaemonAlarmConfiguration struct {
-	AlarmNames StringList `json:"alarmNames" xml:"alarmNames"`
-	Enable     bool       `json:"enable" xml:"enable"`
+AlarmNames StringList `json:"alarmNames" xml:"alarmNames"`
+Enable bool `json:"enable" xml:"enable"`
 }
 
 type DaemonCapacityProvider struct {
-	Arn          string `json:"arn" xml:"arn"`
-	RunningCount int32  `json:"runningCount" xml:"runningCount"`
+Arn string `json:"arn" xml:"arn"`
+RunningCount int32 `json:"runningCount" xml:"runningCount"`
 }
 
 type DaemonCircuitBreaker struct {
-	FailureCount int32  `json:"failureCount" xml:"failureCount"`
-	Status       string `json:"status" xml:"status"`
-	Threshold    int32  `json:"threshold" xml:"threshold"`
+FailureCount int32 `json:"failureCount" xml:"failureCount"`
+Status string `json:"status" xml:"status"`
+Threshold int32 `json:"threshold" xml:"threshold"`
 }
 
 type DaemonContainerDefinition struct {
-	Command                StringList              `json:"command" xml:"command"`
-	Cpu                    int32                   `json:"cpu" xml:"cpu"`
-	DependsOn              ContainerDependencies   `json:"dependsOn" xml:"dependsOn"`
-	EntryPoint             StringList              `json:"entryPoint" xml:"entryPoint"`
-	Environment            EnvironmentVariables    `json:"environment" xml:"environment"`
-	EnvironmentFiles       EnvironmentFiles        `json:"environmentFiles" xml:"environmentFiles"`
-	Essential              bool                    `json:"essential" xml:"essential"`
-	FirelensConfiguration  *FirelensConfiguration  `json:"firelensConfiguration" xml:"firelensConfiguration"`
-	HealthCheck            *HealthCheck            `json:"healthCheck" xml:"healthCheck"`
-	Image                  string                  `json:"image" xml:"image"`
-	Interactive            bool                    `json:"interactive" xml:"interactive"`
-	LinuxParameters        *DaemonLinuxParameters  `json:"linuxParameters" xml:"linuxParameters"`
-	LogConfiguration       *LogConfiguration       `json:"logConfiguration" xml:"logConfiguration"`
-	Memory                 int32                   `json:"memory" xml:"memory"`
-	MemoryReservation      int32                   `json:"memoryReservation" xml:"memoryReservation"`
-	MountPoints            MountPointList          `json:"mountPoints" xml:"mountPoints"`
-	Name                   string                  `json:"name" xml:"name"`
-	Privileged             bool                    `json:"privileged" xml:"privileged"`
-	PseudoTerminal         bool                    `json:"pseudoTerminal" xml:"pseudoTerminal"`
-	ReadonlyRootFilesystem bool                    `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
-	RepositoryCredentials  *RepositoryCredentials  `json:"repositoryCredentials" xml:"repositoryCredentials"`
-	RestartPolicy          *ContainerRestartPolicy `json:"restartPolicy" xml:"restartPolicy"`
-	Secrets                SecretList              `json:"secrets" xml:"secrets"`
-	StartTimeout           int32                   `json:"startTimeout" xml:"startTimeout"`
-	StopTimeout            int32                   `json:"stopTimeout" xml:"stopTimeout"`
-	SystemControls         SystemControls          `json:"systemControls" xml:"systemControls"`
-	Ulimits                UlimitList              `json:"ulimits" xml:"ulimits"`
-	User                   string                  `json:"user" xml:"user"`
-	WorkingDirectory       string                  `json:"workingDirectory" xml:"workingDirectory"`
+Command StringList `json:"command" xml:"command"`
+Cpu int32 `json:"cpu" xml:"cpu"`
+DependsOn ContainerDependencies `json:"dependsOn" xml:"dependsOn"`
+EntryPoint StringList `json:"entryPoint" xml:"entryPoint"`
+Environment EnvironmentVariables `json:"environment" xml:"environment"`
+EnvironmentFiles EnvironmentFiles `json:"environmentFiles" xml:"environmentFiles"`
+Essential bool `json:"essential" xml:"essential"`
+FirelensConfiguration *FirelensConfiguration `json:"firelensConfiguration" xml:"firelensConfiguration"`
+HealthCheck *HealthCheck `json:"healthCheck" xml:"healthCheck"`
+Image string `json:"image" xml:"image"`
+Interactive bool `json:"interactive" xml:"interactive"`
+LinuxParameters *DaemonLinuxParameters `json:"linuxParameters" xml:"linuxParameters"`
+LogConfiguration *LogConfiguration `json:"logConfiguration" xml:"logConfiguration"`
+Memory int32 `json:"memory" xml:"memory"`
+MemoryReservation int32 `json:"memoryReservation" xml:"memoryReservation"`
+MountPoints MountPointList `json:"mountPoints" xml:"mountPoints"`
+Name string `json:"name" xml:"name"`
+Privileged bool `json:"privileged" xml:"privileged"`
+PseudoTerminal bool `json:"pseudoTerminal" xml:"pseudoTerminal"`
+ReadonlyRootFilesystem bool `json:"readonlyRootFilesystem" xml:"readonlyRootFilesystem"`
+RepositoryCredentials *RepositoryCredentials `json:"repositoryCredentials" xml:"repositoryCredentials"`
+RestartPolicy *ContainerRestartPolicy `json:"restartPolicy" xml:"restartPolicy"`
+Secrets SecretList `json:"secrets" xml:"secrets"`
+StartTimeout int32 `json:"startTimeout" xml:"startTimeout"`
+StopTimeout int32 `json:"stopTimeout" xml:"stopTimeout"`
+SystemControls SystemControls `json:"systemControls" xml:"systemControls"`
+Ulimits UlimitList `json:"ulimits" xml:"ulimits"`
+User string `json:"user" xml:"user"`
+WorkingDirectory string `json:"workingDirectory" xml:"workingDirectory"`
 }
 
 type DaemonContainerImage struct {
-	ContainerName string `json:"containerName" xml:"containerName"`
-	Image         string `json:"image" xml:"image"`
-	ImageDigest   string `json:"imageDigest" xml:"imageDigest"`
+ContainerName string `json:"containerName" xml:"containerName"`
+Image string `json:"image" xml:"image"`
+ImageDigest string `json:"imageDigest" xml:"imageDigest"`
 }
 
 type DaemonDeployment struct {
-	Alarms                  *DaemonDeploymentAlarms            `json:"alarms" xml:"alarms"`
-	CircuitBreaker          *DaemonCircuitBreaker              `json:"circuitBreaker" xml:"circuitBreaker"`
-	ClusterArn              string                             `json:"clusterArn" xml:"clusterArn"`
-	CreatedAt               time.Time                          `json:"createdAt" xml:"createdAt"`
-	DaemonDeploymentArn     string                             `json:"daemonDeploymentArn" xml:"daemonDeploymentArn"`
-	DeploymentConfiguration *DaemonDeploymentConfiguration     `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
-	FinishedAt              time.Time                          `json:"finishedAt" xml:"finishedAt"`
-	Rollback                *DaemonRollback                    `json:"rollback" xml:"rollback"`
-	SourceDaemonRevisions   DaemonDeploymentRevisionDetailList `json:"sourceDaemonRevisions" xml:"sourceDaemonRevisions"`
-	StartedAt               time.Time                          `json:"startedAt" xml:"startedAt"`
-	Status                  string                             `json:"status" xml:"status"`
-	StatusReason            string                             `json:"statusReason" xml:"statusReason"`
-	StoppedAt               time.Time                          `json:"stoppedAt" xml:"stoppedAt"`
-	TargetDaemonRevision    *DaemonDeploymentRevisionDetail    `json:"targetDaemonRevision" xml:"targetDaemonRevision"`
+Alarms *DaemonDeploymentAlarms `json:"alarms" xml:"alarms"`
+CircuitBreaker *DaemonCircuitBreaker `json:"circuitBreaker" xml:"circuitBreaker"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DaemonDeploymentArn string `json:"daemonDeploymentArn" xml:"daemonDeploymentArn"`
+DeploymentConfiguration *DaemonDeploymentConfiguration `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
+FinishedAt time.Time `json:"finishedAt" xml:"finishedAt"`
+Rollback *DaemonRollback `json:"rollback" xml:"rollback"`
+SourceDaemonRevisions DaemonDeploymentRevisionDetailList `json:"sourceDaemonRevisions" xml:"sourceDaemonRevisions"`
+StartedAt time.Time `json:"startedAt" xml:"startedAt"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+StoppedAt time.Time `json:"stoppedAt" xml:"stoppedAt"`
+TargetDaemonRevision *DaemonDeploymentRevisionDetail `json:"targetDaemonRevision" xml:"targetDaemonRevision"`
 }
 
 type DaemonDeploymentAlarms struct {
-	AlarmNames          StringList `json:"alarmNames" xml:"alarmNames"`
-	Status              string     `json:"status" xml:"status"`
-	TriggeredAlarmNames StringList `json:"triggeredAlarmNames" xml:"triggeredAlarmNames"`
+AlarmNames StringList `json:"alarmNames" xml:"alarmNames"`
+Status string `json:"status" xml:"status"`
+TriggeredAlarmNames StringList `json:"triggeredAlarmNames" xml:"triggeredAlarmNames"`
 }
 
 type DaemonDeploymentCapacityProvider struct {
-	Arn                   string `json:"arn" xml:"arn"`
-	DrainingInstanceCount int32  `json:"drainingInstanceCount" xml:"drainingInstanceCount"`
-	RunningInstanceCount  int32  `json:"runningInstanceCount" xml:"runningInstanceCount"`
+Arn string `json:"arn" xml:"arn"`
+DrainingInstanceCount int32 `json:"drainingInstanceCount" xml:"drainingInstanceCount"`
+RunningInstanceCount int32 `json:"runningInstanceCount" xml:"runningInstanceCount"`
 }
 
 type DaemonDeploymentConfiguration struct {
-	Alarms            *DaemonAlarmConfiguration `json:"alarms" xml:"alarms"`
-	BakeTimeInMinutes int32                     `json:"bakeTimeInMinutes" xml:"bakeTimeInMinutes"`
-	DrainPercent      float64                   `json:"drainPercent" xml:"drainPercent"`
+Alarms *DaemonAlarmConfiguration `json:"alarms" xml:"alarms"`
+BakeTimeInMinutes int32 `json:"bakeTimeInMinutes" xml:"bakeTimeInMinutes"`
+DrainPercent float64 `json:"drainPercent" xml:"drainPercent"`
 }
 
 type DaemonDeploymentRevisionDetail struct {
-	Arn                        string                               `json:"arn" xml:"arn"`
-	CapacityProviders          DaemonDeploymentCapacityProviderList `json:"capacityProviders" xml:"capacityProviders"`
-	TotalDrainingInstanceCount int32                                `json:"totalDrainingInstanceCount" xml:"totalDrainingInstanceCount"`
-	TotalRunningInstanceCount  int32                                `json:"totalRunningInstanceCount" xml:"totalRunningInstanceCount"`
+Arn string `json:"arn" xml:"arn"`
+CapacityProviders DaemonDeploymentCapacityProviderList `json:"capacityProviders" xml:"capacityProviders"`
+TotalDrainingInstanceCount int32 `json:"totalDrainingInstanceCount" xml:"totalDrainingInstanceCount"`
+TotalRunningInstanceCount int32 `json:"totalRunningInstanceCount" xml:"totalRunningInstanceCount"`
 }
 
 type DaemonDeploymentSummary struct {
-	ClusterArn              string    `json:"clusterArn" xml:"clusterArn"`
-	CreatedAt               time.Time `json:"createdAt" xml:"createdAt"`
-	DaemonArn               string    `json:"daemonArn" xml:"daemonArn"`
-	DaemonDeploymentArn     string    `json:"daemonDeploymentArn" xml:"daemonDeploymentArn"`
-	FinishedAt              time.Time `json:"finishedAt" xml:"finishedAt"`
-	StartedAt               time.Time `json:"startedAt" xml:"startedAt"`
-	Status                  string    `json:"status" xml:"status"`
-	StatusReason            string    `json:"statusReason" xml:"statusReason"`
-	StoppedAt               time.Time `json:"stoppedAt" xml:"stoppedAt"`
-	TargetDaemonRevisionArn string    `json:"targetDaemonRevisionArn" xml:"targetDaemonRevisionArn"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DaemonArn string `json:"daemonArn" xml:"daemonArn"`
+DaemonDeploymentArn string `json:"daemonDeploymentArn" xml:"daemonDeploymentArn"`
+FinishedAt time.Time `json:"finishedAt" xml:"finishedAt"`
+StartedAt time.Time `json:"startedAt" xml:"startedAt"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+StoppedAt time.Time `json:"stoppedAt" xml:"stoppedAt"`
+TargetDaemonRevisionArn string `json:"targetDaemonRevisionArn" xml:"targetDaemonRevisionArn"`
 }
 
 type DaemonDetail struct {
-	ClusterArn       string                   `json:"clusterArn" xml:"clusterArn"`
-	CreatedAt        time.Time                `json:"createdAt" xml:"createdAt"`
-	CurrentRevisions DaemonRevisionDetailList `json:"currentRevisions" xml:"currentRevisions"`
-	DaemonArn        string                   `json:"daemonArn" xml:"daemonArn"`
-	DeploymentArn    string                   `json:"deploymentArn" xml:"deploymentArn"`
-	Status           string                   `json:"status" xml:"status"`
-	UpdatedAt        time.Time                `json:"updatedAt" xml:"updatedAt"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+CurrentRevisions DaemonRevisionDetailList `json:"currentRevisions" xml:"currentRevisions"`
+DaemonArn string `json:"daemonArn" xml:"daemonArn"`
+DeploymentArn string `json:"deploymentArn" xml:"deploymentArn"`
+Status string `json:"status" xml:"status"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type DaemonLinuxParameters struct {
-	Capabilities       *KernelCapabilities `json:"capabilities" xml:"capabilities"`
-	Devices            DevicesList         `json:"devices" xml:"devices"`
-	InitProcessEnabled bool                `json:"initProcessEnabled" xml:"initProcessEnabled"`
-	Tmpfs              TmpfsList           `json:"tmpfs" xml:"tmpfs"`
+Capabilities *KernelCapabilities `json:"capabilities" xml:"capabilities"`
+Devices DevicesList `json:"devices" xml:"devices"`
+InitProcessEnabled bool `json:"initProcessEnabled" xml:"initProcessEnabled"`
+Tmpfs TmpfsList `json:"tmpfs" xml:"tmpfs"`
 }
 
 type DaemonRevision struct {
-	ClusterArn              string                `json:"clusterArn" xml:"clusterArn"`
-	ContainerImages         DaemonContainerImages `json:"containerImages" xml:"containerImages"`
-	CreatedAt               time.Time             `json:"createdAt" xml:"createdAt"`
-	DaemonArn               string                `json:"daemonArn" xml:"daemonArn"`
-	DaemonRevisionArn       string                `json:"daemonRevisionArn" xml:"daemonRevisionArn"`
-	DaemonTaskDefinitionArn string                `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
-	EnableECSManagedTags    bool                  `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
-	EnableExecuteCommand    bool                  `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	PropagateTags           string                `json:"propagateTags" xml:"propagateTags"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+ContainerImages DaemonContainerImages `json:"containerImages" xml:"containerImages"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DaemonArn string `json:"daemonArn" xml:"daemonArn"`
+DaemonRevisionArn string `json:"daemonRevisionArn" xml:"daemonRevisionArn"`
+DaemonTaskDefinitionArn string `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
+EnableECSManagedTags bool `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
 }
 
 type DaemonRevisionDetail struct {
-	Arn               string                     `json:"arn" xml:"arn"`
-	CapacityProviders DaemonCapacityProviderList `json:"capacityProviders" xml:"capacityProviders"`
-	TotalRunningCount int32                      `json:"totalRunningCount" xml:"totalRunningCount"`
+Arn string `json:"arn" xml:"arn"`
+CapacityProviders DaemonCapacityProviderList `json:"capacityProviders" xml:"capacityProviders"`
+TotalRunningCount int32 `json:"totalRunningCount" xml:"totalRunningCount"`
 }
 
 type DaemonRollback struct {
-	Reason                          string     `json:"reason" xml:"reason"`
-	RollbackCapacityProviders       StringList `json:"rollbackCapacityProviders" xml:"rollbackCapacityProviders"`
-	RollbackTargetDaemonRevisionArn string     `json:"rollbackTargetDaemonRevisionArn" xml:"rollbackTargetDaemonRevisionArn"`
-	StartedAt                       time.Time  `json:"startedAt" xml:"startedAt"`
+Reason string `json:"reason" xml:"reason"`
+RollbackCapacityProviders StringList `json:"rollbackCapacityProviders" xml:"rollbackCapacityProviders"`
+RollbackTargetDaemonRevisionArn string `json:"rollbackTargetDaemonRevisionArn" xml:"rollbackTargetDaemonRevisionArn"`
+StartedAt time.Time `json:"startedAt" xml:"startedAt"`
 }
 
 type DaemonSummary struct {
-	CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
-	DaemonArn string    `json:"daemonArn" xml:"daemonArn"`
-	Status    string    `json:"status" xml:"status"`
-	UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DaemonArn string `json:"daemonArn" xml:"daemonArn"`
+Status string `json:"status" xml:"status"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type DaemonTaskDefinition struct {
-	ContainerDefinitions    DaemonContainerDefinitionList `json:"containerDefinitions" xml:"containerDefinitions"`
-	Cpu                     string                        `json:"cpu" xml:"cpu"`
-	DaemonTaskDefinitionArn string                        `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
-	DeleteRequestedAt       time.Time                     `json:"deleteRequestedAt" xml:"deleteRequestedAt"`
-	ExecutionRoleArn        string                        `json:"executionRoleArn" xml:"executionRoleArn"`
-	Family                  string                        `json:"family" xml:"family"`
-	Memory                  string                        `json:"memory" xml:"memory"`
-	RegisteredAt            time.Time                     `json:"registeredAt" xml:"registeredAt"`
-	RegisteredBy            string                        `json:"registeredBy" xml:"registeredBy"`
-	Revision                int32                         `json:"revision" xml:"revision"`
-	Status                  string                        `json:"status" xml:"status"`
-	TaskRoleArn             string                        `json:"taskRoleArn" xml:"taskRoleArn"`
-	Volumes                 DaemonVolumeList              `json:"volumes" xml:"volumes"`
+ContainerDefinitions DaemonContainerDefinitionList `json:"containerDefinitions" xml:"containerDefinitions"`
+Cpu string `json:"cpu" xml:"cpu"`
+DaemonTaskDefinitionArn string `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
+DeleteRequestedAt time.Time `json:"deleteRequestedAt" xml:"deleteRequestedAt"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+Family string `json:"family" xml:"family"`
+Memory string `json:"memory" xml:"memory"`
+RegisteredAt time.Time `json:"registeredAt" xml:"registeredAt"`
+RegisteredBy string `json:"registeredBy" xml:"registeredBy"`
+Revision int32 `json:"revision" xml:"revision"`
+Status string `json:"status" xml:"status"`
+TaskRoleArn string `json:"taskRoleArn" xml:"taskRoleArn"`
+Volumes DaemonVolumeList `json:"volumes" xml:"volumes"`
 }
 
 type DaemonTaskDefinitionSummary struct {
-	Arn               string    `json:"arn" xml:"arn"`
-	DeleteRequestedAt time.Time `json:"deleteRequestedAt" xml:"deleteRequestedAt"`
-	RegisteredAt      time.Time `json:"registeredAt" xml:"registeredAt"`
-	RegisteredBy      string    `json:"registeredBy" xml:"registeredBy"`
-	Status            string    `json:"status" xml:"status"`
+Arn string `json:"arn" xml:"arn"`
+DeleteRequestedAt time.Time `json:"deleteRequestedAt" xml:"deleteRequestedAt"`
+RegisteredAt time.Time `json:"registeredAt" xml:"registeredAt"`
+RegisteredBy string `json:"registeredBy" xml:"registeredBy"`
+Status string `json:"status" xml:"status"`
 }
 
 type DaemonVolume struct {
-	Host *HostVolumeProperties `json:"host" xml:"host"`
-	Name string                `json:"name" xml:"name"`
+Host *HostVolumeProperties `json:"host" xml:"host"`
+Name string `json:"name" xml:"name"`
 }
 
 type DeleteAccountSettingRequest struct {
-	Name         string `json:"name" xml:"name"`
-	PrincipalArn string `json:"principalArn" xml:"principalArn"`
+Name string `json:"name" xml:"name"`
+PrincipalArn string `json:"principalArn" xml:"principalArn"`
 }
 
 type DeleteAccountSettingResponse struct {
-	Setting *Setting `json:"setting" xml:"setting"`
+Setting *Setting `json:"setting" xml:"setting"`
 }
 
 type DeleteAttributesRequest struct {
-	Attributes Attributes `json:"attributes" xml:"attributes"`
-	Cluster    string     `json:"cluster" xml:"cluster"`
+Attributes Attributes `json:"attributes" xml:"attributes"`
+Cluster string `json:"cluster" xml:"cluster"`
 }
 
 type DeleteAttributesResponse struct {
-	Attributes Attributes `json:"attributes" xml:"attributes"`
+Attributes Attributes `json:"attributes" xml:"attributes"`
 }
 
 type DeleteCapacityProviderRequest struct {
-	CapacityProvider string `json:"capacityProvider" xml:"capacityProvider"`
-	Cluster          string `json:"cluster" xml:"cluster"`
+CapacityProvider string `json:"capacityProvider" xml:"capacityProvider"`
+Cluster string `json:"cluster" xml:"cluster"`
 }
 
 type DeleteCapacityProviderResponse struct {
-	CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"capacityProvider"`
+CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"capacityProvider"`
 }
 
 type DeleteClusterRequest struct {
-	Cluster string `json:"cluster" xml:"cluster"`
+Cluster string `json:"cluster" xml:"cluster"`
 }
 
 type DeleteClusterResponse struct {
-	Cluster *Cluster `json:"cluster" xml:"cluster"`
+Cluster *Cluster `json:"cluster" xml:"cluster"`
 }
 
 type DeleteDaemonRequest struct {
-	DaemonArn string `json:"daemonArn" xml:"daemonArn"`
+DaemonArn string `json:"daemonArn" xml:"daemonArn"`
 }
 
 type DeleteDaemonResponse struct {
-	CreatedAt     time.Time `json:"createdAt" xml:"createdAt"`
-	DaemonArn     string    `json:"daemonArn" xml:"daemonArn"`
-	DeploymentArn string    `json:"deploymentArn" xml:"deploymentArn"`
-	Status        string    `json:"status" xml:"status"`
-	UpdatedAt     time.Time `json:"updatedAt" xml:"updatedAt"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DaemonArn string `json:"daemonArn" xml:"daemonArn"`
+DeploymentArn string `json:"deploymentArn" xml:"deploymentArn"`
+Status string `json:"status" xml:"status"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type DeleteDaemonTaskDefinitionRequest struct {
-	DaemonTaskDefinition string `json:"daemonTaskDefinition" xml:"daemonTaskDefinition"`
+DaemonTaskDefinition string `json:"daemonTaskDefinition" xml:"daemonTaskDefinition"`
 }
 
 type DeleteDaemonTaskDefinitionResponse struct {
-	DaemonTaskDefinitionArn string `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
+DaemonTaskDefinitionArn string `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
 }
 
 type DeleteExpressGatewayServiceRequest struct {
-	ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+ServiceArn string `json:"serviceArn" xml:"serviceArn"`
 }
 
 type DeleteExpressGatewayServiceResponse struct {
-	Service *ECSExpressGatewayService `json:"service" xml:"service"`
+Service *ECSExpressGatewayService `json:"service" xml:"service"`
 }
 
 type DeleteServiceRequest struct {
-	Cluster string `json:"cluster" xml:"cluster"`
-	Force   bool   `json:"force" xml:"force"`
-	Service string `json:"service" xml:"service"`
+Cluster string `json:"cluster" xml:"cluster"`
+Force bool `json:"force" xml:"force"`
+Service string `json:"service" xml:"service"`
 }
 
 type DeleteServiceResponse struct {
-	Service *Service `json:"service" xml:"service"`
+Service *Service `json:"service" xml:"service"`
 }
 
 type DeleteTaskDefinitionsRequest struct {
-	TaskDefinitions StringList `json:"taskDefinitions" xml:"taskDefinitions"`
+TaskDefinitions StringList `json:"taskDefinitions" xml:"taskDefinitions"`
 }
 
 type DeleteTaskDefinitionsResponse struct {
-	Failures        Failures           `json:"failures" xml:"failures"`
-	TaskDefinitions TaskDefinitionList `json:"taskDefinitions" xml:"taskDefinitions"`
+Failures Failures `json:"failures" xml:"failures"`
+TaskDefinitions TaskDefinitionList `json:"taskDefinitions" xml:"taskDefinitions"`
 }
 
 type DeleteTaskSetRequest struct {
-	Cluster string `json:"cluster" xml:"cluster"`
-	Force   bool   `json:"force" xml:"force"`
-	Service string `json:"service" xml:"service"`
-	TaskSet string `json:"taskSet" xml:"taskSet"`
+Cluster string `json:"cluster" xml:"cluster"`
+Force bool `json:"force" xml:"force"`
+Service string `json:"service" xml:"service"`
+TaskSet string `json:"taskSet" xml:"taskSet"`
 }
 
 type DeleteTaskSetResponse struct {
-	TaskSet *TaskSet `json:"taskSet" xml:"taskSet"`
+TaskSet *TaskSet `json:"taskSet" xml:"taskSet"`
 }
 
 type Deployment struct {
-	CapacityProviderStrategy    CapacityProviderStrategy          `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
-	CreatedAt                   time.Time                         `json:"createdAt" xml:"createdAt"`
-	DesiredCount                int32                             `json:"desiredCount" xml:"desiredCount"`
-	FailedTasks                 int32                             `json:"failedTasks" xml:"failedTasks"`
-	FargateEphemeralStorage     *DeploymentEphemeralStorage       `json:"fargateEphemeralStorage" xml:"fargateEphemeralStorage"`
-	Id                          string                            `json:"id" xml:"id"`
-	LaunchType                  string                            `json:"launchType" xml:"launchType"`
-	NetworkConfiguration        *NetworkConfiguration             `json:"networkConfiguration" xml:"networkConfiguration"`
-	PendingCount                int32                             `json:"pendingCount" xml:"pendingCount"`
-	PlatformFamily              string                            `json:"platformFamily" xml:"platformFamily"`
-	PlatformVersion             string                            `json:"platformVersion" xml:"platformVersion"`
-	RolloutState                string                            `json:"rolloutState" xml:"rolloutState"`
-	RolloutStateReason          string                            `json:"rolloutStateReason" xml:"rolloutStateReason"`
-	RunningCount                int32                             `json:"runningCount" xml:"runningCount"`
-	ServiceConnectConfiguration *ServiceConnectConfiguration      `json:"serviceConnectConfiguration" xml:"serviceConnectConfiguration"`
-	ServiceConnectResources     ServiceConnectServiceResourceList `json:"serviceConnectResources" xml:"serviceConnectResources"`
-	Status                      string                            `json:"status" xml:"status"`
-	TaskDefinition              string                            `json:"taskDefinition" xml:"taskDefinition"`
-	UpdatedAt                   time.Time                         `json:"updatedAt" xml:"updatedAt"`
-	VolumeConfigurations        ServiceVolumeConfigurations       `json:"volumeConfigurations" xml:"volumeConfigurations"`
-	VpcLatticeConfigurations    VpcLatticeConfigurations          `json:"vpcLatticeConfigurations" xml:"vpcLatticeConfigurations"`
+CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DesiredCount int32 `json:"desiredCount" xml:"desiredCount"`
+FailedTasks int32 `json:"failedTasks" xml:"failedTasks"`
+FargateEphemeralStorage *DeploymentEphemeralStorage `json:"fargateEphemeralStorage" xml:"fargateEphemeralStorage"`
+Id string `json:"id" xml:"id"`
+LaunchType string `json:"launchType" xml:"launchType"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PendingCount int32 `json:"pendingCount" xml:"pendingCount"`
+PlatformFamily string `json:"platformFamily" xml:"platformFamily"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+RolloutState string `json:"rolloutState" xml:"rolloutState"`
+RolloutStateReason string `json:"rolloutStateReason" xml:"rolloutStateReason"`
+RunningCount int32 `json:"runningCount" xml:"runningCount"`
+ServiceConnectConfiguration *ServiceConnectConfiguration `json:"serviceConnectConfiguration" xml:"serviceConnectConfiguration"`
+ServiceConnectResources ServiceConnectServiceResourceList `json:"serviceConnectResources" xml:"serviceConnectResources"`
+Status string `json:"status" xml:"status"`
+TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
+VolumeConfigurations ServiceVolumeConfigurations `json:"volumeConfigurations" xml:"volumeConfigurations"`
+VpcLatticeConfigurations VpcLatticeConfigurations `json:"vpcLatticeConfigurations" xml:"vpcLatticeConfigurations"`
 }
 
 type DeploymentAlarms struct {
-	AlarmNames StringList `json:"alarmNames" xml:"alarmNames"`
-	Enable     bool       `json:"enable" xml:"enable"`
-	Rollback   bool       `json:"rollback" xml:"rollback"`
+AlarmNames StringList `json:"alarmNames" xml:"alarmNames"`
+Enable bool `json:"enable" xml:"enable"`
+Rollback bool `json:"rollback" xml:"rollback"`
 }
 
 type DeploymentCircuitBreaker struct {
-	Enable   bool `json:"enable" xml:"enable"`
-	Rollback bool `json:"rollback" xml:"rollback"`
+Enable bool `json:"enable" xml:"enable"`
+Rollback bool `json:"rollback" xml:"rollback"`
 }
 
 type DeploymentConfiguration struct {
-	Alarms                   *DeploymentAlarms           `json:"alarms" xml:"alarms"`
-	BakeTimeInMinutes        int32                       `json:"bakeTimeInMinutes" xml:"bakeTimeInMinutes"`
-	CanaryConfiguration      *CanaryConfiguration        `json:"canaryConfiguration" xml:"canaryConfiguration"`
-	DeploymentCircuitBreaker *DeploymentCircuitBreaker   `json:"deploymentCircuitBreaker" xml:"deploymentCircuitBreaker"`
-	LifecycleHooks           DeploymentLifecycleHookList `json:"lifecycleHooks" xml:"lifecycleHooks"`
-	LinearConfiguration      *LinearConfiguration        `json:"linearConfiguration" xml:"linearConfiguration"`
-	MaximumPercent           int32                       `json:"maximumPercent" xml:"maximumPercent"`
-	MinimumHealthyPercent    int32                       `json:"minimumHealthyPercent" xml:"minimumHealthyPercent"`
-	Strategy                 string                      `json:"strategy" xml:"strategy"`
+Alarms *DeploymentAlarms `json:"alarms" xml:"alarms"`
+BakeTimeInMinutes int32 `json:"bakeTimeInMinutes" xml:"bakeTimeInMinutes"`
+CanaryConfiguration *CanaryConfiguration `json:"canaryConfiguration" xml:"canaryConfiguration"`
+DeploymentCircuitBreaker *DeploymentCircuitBreaker `json:"deploymentCircuitBreaker" xml:"deploymentCircuitBreaker"`
+LifecycleHooks DeploymentLifecycleHookList `json:"lifecycleHooks" xml:"lifecycleHooks"`
+LinearConfiguration *LinearConfiguration `json:"linearConfiguration" xml:"linearConfiguration"`
+MaximumPercent int32 `json:"maximumPercent" xml:"maximumPercent"`
+MinimumHealthyPercent int32 `json:"minimumHealthyPercent" xml:"minimumHealthyPercent"`
+Strategy string `json:"strategy" xml:"strategy"`
 }
 
 type DeploymentController struct {
-	Type string `json:"type" xml:"type"`
+Type string `json:"type" xml:"type"`
 }
 
 type DeploymentEphemeralStorage struct {
-	KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
 }
 
 type DeploymentLifecycleHook struct {
-	HookDetails     interface{}                      `json:"hookDetails" xml:"hookDetails"`
-	HookTargetArn   string                           `json:"hookTargetArn" xml:"hookTargetArn"`
-	LifecycleStages DeploymentLifecycleHookStageList `json:"lifecycleStages" xml:"lifecycleStages"`
-	RoleArn         string                           `json:"roleArn" xml:"roleArn"`
+HookDetails interface{} `json:"hookDetails" xml:"hookDetails"`
+HookTargetArn string `json:"hookTargetArn" xml:"hookTargetArn"`
+LifecycleStages DeploymentLifecycleHookStageList `json:"lifecycleStages" xml:"lifecycleStages"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
 }
 
 type DeregisterContainerInstanceRequest struct {
-	Cluster           string `json:"cluster" xml:"cluster"`
-	ContainerInstance string `json:"containerInstance" xml:"containerInstance"`
-	Force             bool   `json:"force" xml:"force"`
+Cluster string `json:"cluster" xml:"cluster"`
+ContainerInstance string `json:"containerInstance" xml:"containerInstance"`
+Force bool `json:"force" xml:"force"`
 }
 
 type DeregisterContainerInstanceResponse struct {
-	ContainerInstance *ContainerInstance `json:"containerInstance" xml:"containerInstance"`
+ContainerInstance *ContainerInstance `json:"containerInstance" xml:"containerInstance"`
 }
 
 type DeregisterTaskDefinitionRequest struct {
-	TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
+TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
 }
 
 type DeregisterTaskDefinitionResponse struct {
-	TaskDefinition *TaskDefinition `json:"taskDefinition" xml:"taskDefinition"`
+TaskDefinition *TaskDefinition `json:"taskDefinition" xml:"taskDefinition"`
 }
 
 type DescribeCapacityProvidersRequest struct {
-	CapacityProviders StringList                `json:"capacityProviders" xml:"capacityProviders"`
-	Cluster           string                    `json:"cluster" xml:"cluster"`
-	Include           CapacityProviderFieldList `json:"include" xml:"include"`
-	MaxResults        int32                     `json:"maxResults" xml:"maxResults"`
-	NextToken         string                    `json:"nextToken" xml:"nextToken"`
+CapacityProviders StringList `json:"capacityProviders" xml:"capacityProviders"`
+Cluster string `json:"cluster" xml:"cluster"`
+Include CapacityProviderFieldList `json:"include" xml:"include"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeCapacityProvidersResponse struct {
-	CapacityProviders CapacityProviders `json:"capacityProviders" xml:"capacityProviders"`
-	Failures          Failures          `json:"failures" xml:"failures"`
-	NextToken         string            `json:"nextToken" xml:"nextToken"`
+CapacityProviders CapacityProviders `json:"capacityProviders" xml:"capacityProviders"`
+Failures Failures `json:"failures" xml:"failures"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeClustersRequest struct {
-	Clusters StringList       `json:"clusters" xml:"clusters"`
-	Include  ClusterFieldList `json:"include" xml:"include"`
+Clusters StringList `json:"clusters" xml:"clusters"`
+Include ClusterFieldList `json:"include" xml:"include"`
 }
 
 type DescribeClustersResponse struct {
-	Clusters Clusters `json:"clusters" xml:"clusters"`
-	Failures Failures `json:"failures" xml:"failures"`
+Clusters Clusters `json:"clusters" xml:"clusters"`
+Failures Failures `json:"failures" xml:"failures"`
 }
 
 type DescribeContainerInstancesRequest struct {
-	Cluster            string                     `json:"cluster" xml:"cluster"`
-	ContainerInstances StringList                 `json:"containerInstances" xml:"containerInstances"`
-	Include            ContainerInstanceFieldList `json:"include" xml:"include"`
+Cluster string `json:"cluster" xml:"cluster"`
+ContainerInstances StringList `json:"containerInstances" xml:"containerInstances"`
+Include ContainerInstanceFieldList `json:"include" xml:"include"`
 }
 
 type DescribeContainerInstancesResponse struct {
-	ContainerInstances ContainerInstances `json:"containerInstances" xml:"containerInstances"`
-	Failures           Failures           `json:"failures" xml:"failures"`
+ContainerInstances ContainerInstances `json:"containerInstances" xml:"containerInstances"`
+Failures Failures `json:"failures" xml:"failures"`
 }
 
 type DescribeDaemonDeploymentsRequest struct {
-	DaemonDeploymentArns StringList `json:"daemonDeploymentArns" xml:"daemonDeploymentArns"`
+DaemonDeploymentArns StringList `json:"daemonDeploymentArns" xml:"daemonDeploymentArns"`
 }
 
 type DescribeDaemonDeploymentsResponse struct {
-	DaemonDeployments DaemonDeploymentList `json:"daemonDeployments" xml:"daemonDeployments"`
-	Failures          Failures             `json:"failures" xml:"failures"`
+DaemonDeployments DaemonDeploymentList `json:"daemonDeployments" xml:"daemonDeployments"`
+Failures Failures `json:"failures" xml:"failures"`
 }
 
 type DescribeDaemonRequest struct {
-	DaemonArn string `json:"daemonArn" xml:"daemonArn"`
+DaemonArn string `json:"daemonArn" xml:"daemonArn"`
 }
 
 type DescribeDaemonResponse struct {
-	Daemon *DaemonDetail `json:"daemon" xml:"daemon"`
+Daemon *DaemonDetail `json:"daemon" xml:"daemon"`
 }
 
 type DescribeDaemonRevisionsRequest struct {
-	DaemonRevisionArns StringList `json:"daemonRevisionArns" xml:"daemonRevisionArns"`
+DaemonRevisionArns StringList `json:"daemonRevisionArns" xml:"daemonRevisionArns"`
 }
 
 type DescribeDaemonRevisionsResponse struct {
-	DaemonRevisions DaemonRevisions `json:"daemonRevisions" xml:"daemonRevisions"`
-	Failures        Failures        `json:"failures" xml:"failures"`
+DaemonRevisions DaemonRevisions `json:"daemonRevisions" xml:"daemonRevisions"`
+Failures Failures `json:"failures" xml:"failures"`
 }
 
 type DescribeDaemonTaskDefinitionRequest struct {
-	DaemonTaskDefinition string `json:"daemonTaskDefinition" xml:"daemonTaskDefinition"`
+DaemonTaskDefinition string `json:"daemonTaskDefinition" xml:"daemonTaskDefinition"`
 }
 
 type DescribeDaemonTaskDefinitionResponse struct {
-	DaemonTaskDefinition *DaemonTaskDefinition `json:"daemonTaskDefinition" xml:"daemonTaskDefinition"`
+DaemonTaskDefinition *DaemonTaskDefinition `json:"daemonTaskDefinition" xml:"daemonTaskDefinition"`
 }
 
 type DescribeExpressGatewayServiceRequest struct {
-	Include    ExpressGatewayServiceIncludeList `json:"include" xml:"include"`
-	ServiceArn string                           `json:"serviceArn" xml:"serviceArn"`
+Include ExpressGatewayServiceIncludeList `json:"include" xml:"include"`
+ServiceArn string `json:"serviceArn" xml:"serviceArn"`
 }
 
 type DescribeExpressGatewayServiceResponse struct {
-	Service *ECSExpressGatewayService `json:"service" xml:"service"`
+Service *ECSExpressGatewayService `json:"service" xml:"service"`
 }
 
 type DescribeServiceDeploymentsRequest struct {
-	ServiceDeploymentArns StringList `json:"serviceDeploymentArns" xml:"serviceDeploymentArns"`
+ServiceDeploymentArns StringList `json:"serviceDeploymentArns" xml:"serviceDeploymentArns"`
 }
 
 type DescribeServiceDeploymentsResponse struct {
-	Failures           Failures           `json:"failures" xml:"failures"`
-	ServiceDeployments ServiceDeployments `json:"serviceDeployments" xml:"serviceDeployments"`
+Failures Failures `json:"failures" xml:"failures"`
+ServiceDeployments ServiceDeployments `json:"serviceDeployments" xml:"serviceDeployments"`
 }
 
 type DescribeServiceRevisionsRequest struct {
-	ServiceRevisionArns StringList `json:"serviceRevisionArns" xml:"serviceRevisionArns"`
+ServiceRevisionArns StringList `json:"serviceRevisionArns" xml:"serviceRevisionArns"`
 }
 
 type DescribeServiceRevisionsResponse struct {
-	Failures         Failures         `json:"failures" xml:"failures"`
-	ServiceRevisions ServiceRevisions `json:"serviceRevisions" xml:"serviceRevisions"`
+Failures Failures `json:"failures" xml:"failures"`
+ServiceRevisions ServiceRevisions `json:"serviceRevisions" xml:"serviceRevisions"`
 }
 
 type DescribeServicesRequest struct {
-	Cluster  string           `json:"cluster" xml:"cluster"`
-	Include  ServiceFieldList `json:"include" xml:"include"`
-	Services StringList       `json:"services" xml:"services"`
+Cluster string `json:"cluster" xml:"cluster"`
+Include ServiceFieldList `json:"include" xml:"include"`
+Services StringList `json:"services" xml:"services"`
 }
 
 type DescribeServicesResponse struct {
-	Failures Failures `json:"failures" xml:"failures"`
-	Services Services `json:"services" xml:"services"`
+Failures Failures `json:"failures" xml:"failures"`
+Services Services `json:"services" xml:"services"`
 }
 
 type DescribeTaskDefinitionRequest struct {
-	Include        TaskDefinitionFieldList `json:"include" xml:"include"`
-	TaskDefinition string                  `json:"taskDefinition" xml:"taskDefinition"`
+Include TaskDefinitionFieldList `json:"include" xml:"include"`
+TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
 }
 
 type DescribeTaskDefinitionResponse struct {
-	Tags           Tags            `json:"tags" xml:"tags"`
-	TaskDefinition *TaskDefinition `json:"taskDefinition" xml:"taskDefinition"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskDefinition *TaskDefinition `json:"taskDefinition" xml:"taskDefinition"`
 }
 
 type DescribeTaskSetsRequest struct {
-	Cluster  string           `json:"cluster" xml:"cluster"`
-	Include  TaskSetFieldList `json:"include" xml:"include"`
-	Service  string           `json:"service" xml:"service"`
-	TaskSets StringList       `json:"taskSets" xml:"taskSets"`
+Cluster string `json:"cluster" xml:"cluster"`
+Include TaskSetFieldList `json:"include" xml:"include"`
+Service string `json:"service" xml:"service"`
+TaskSets StringList `json:"taskSets" xml:"taskSets"`
 }
 
 type DescribeTaskSetsResponse struct {
-	Failures Failures `json:"failures" xml:"failures"`
-	TaskSets TaskSets `json:"taskSets" xml:"taskSets"`
+Failures Failures `json:"failures" xml:"failures"`
+TaskSets TaskSets `json:"taskSets" xml:"taskSets"`
 }
 
 type DescribeTasksRequest struct {
-	Cluster string        `json:"cluster" xml:"cluster"`
-	Include TaskFieldList `json:"include" xml:"include"`
-	Tasks   StringList    `json:"tasks" xml:"tasks"`
+Cluster string `json:"cluster" xml:"cluster"`
+Include TaskFieldList `json:"include" xml:"include"`
+Tasks StringList `json:"tasks" xml:"tasks"`
 }
 
 type DescribeTasksResponse struct {
-	Failures Failures `json:"failures" xml:"failures"`
-	Tasks    Tasks    `json:"tasks" xml:"tasks"`
+Failures Failures `json:"failures" xml:"failures"`
+Tasks Tasks `json:"tasks" xml:"tasks"`
 }
 
 type Device struct {
-	ContainerPath string                  `json:"containerPath" xml:"containerPath"`
-	HostPath      string                  `json:"hostPath" xml:"hostPath"`
-	Permissions   DeviceCgroupPermissions `json:"permissions" xml:"permissions"`
+ContainerPath string `json:"containerPath" xml:"containerPath"`
+HostPath string `json:"hostPath" xml:"hostPath"`
+Permissions DeviceCgroupPermissions `json:"permissions" xml:"permissions"`
 }
 
 type DiscoverPollEndpointRequest struct {
-	Cluster           string `json:"cluster" xml:"cluster"`
-	ContainerInstance string `json:"containerInstance" xml:"containerInstance"`
+Cluster string `json:"cluster" xml:"cluster"`
+ContainerInstance string `json:"containerInstance" xml:"containerInstance"`
 }
 
 type DiscoverPollEndpointResponse struct {
-	Endpoint               string `json:"endpoint" xml:"endpoint"`
-	ServiceConnectEndpoint string `json:"serviceConnectEndpoint" xml:"serviceConnectEndpoint"`
-	TelemetryEndpoint      string `json:"telemetryEndpoint" xml:"telemetryEndpoint"`
+Endpoint string `json:"endpoint" xml:"endpoint"`
+ServiceConnectEndpoint string `json:"serviceConnectEndpoint" xml:"serviceConnectEndpoint"`
+TelemetryEndpoint string `json:"telemetryEndpoint" xml:"telemetryEndpoint"`
 }
 
 type DockerVolumeConfiguration struct {
-	Autoprovision bool      `json:"autoprovision" xml:"autoprovision"`
-	Driver        string    `json:"driver" xml:"driver"`
-	DriverOpts    StringMap `json:"driverOpts" xml:"driverOpts"`
-	Labels        StringMap `json:"labels" xml:"labels"`
-	Scope         string    `json:"scope" xml:"scope"`
+Autoprovision bool `json:"autoprovision" xml:"autoprovision"`
+Driver string `json:"driver" xml:"driver"`
+DriverOpts StringMap `json:"driverOpts" xml:"driverOpts"`
+Labels StringMap `json:"labels" xml:"labels"`
+Scope string `json:"scope" xml:"scope"`
 }
 
 type EBSTagSpecification struct {
-	PropagateTags string `json:"propagateTags" xml:"propagateTags"`
-	ResourceType  string `json:"resourceType" xml:"resourceType"`
-	Tags          Tags   `json:"tags" xml:"tags"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type ECSExpressGatewayService struct {
-	ActiveConfigurations  ExpressGatewayServiceConfigurations `json:"activeConfigurations" xml:"activeConfigurations"`
-	Cluster               string                              `json:"cluster" xml:"cluster"`
-	CreatedAt             time.Time                           `json:"createdAt" xml:"createdAt"`
-	CurrentDeployment     string                              `json:"currentDeployment" xml:"currentDeployment"`
-	InfrastructureRoleArn string                              `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
-	ServiceArn            string                              `json:"serviceArn" xml:"serviceArn"`
-	ServiceName           string                              `json:"serviceName" xml:"serviceName"`
-	Status                *ExpressGatewayServiceStatus        `json:"status" xml:"status"`
-	Tags                  Tags                                `json:"tags" xml:"tags"`
-	UpdatedAt             time.Time                           `json:"updatedAt" xml:"updatedAt"`
+ActiveConfigurations ExpressGatewayServiceConfigurations `json:"activeConfigurations" xml:"activeConfigurations"`
+Cluster string `json:"cluster" xml:"cluster"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+CurrentDeployment string `json:"currentDeployment" xml:"currentDeployment"`
+InfrastructureRoleArn string `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
+ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+ServiceName string `json:"serviceName" xml:"serviceName"`
+Status *ExpressGatewayServiceStatus `json:"status" xml:"status"`
+Tags Tags `json:"tags" xml:"tags"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ECSManagedResources struct {
-	AutoScaling           *ManagedAutoScaling   `json:"autoScaling" xml:"autoScaling"`
-	IngressPaths          ManagedIngressPaths   `json:"ingressPaths" xml:"ingressPaths"`
-	LogGroups             ManagedLogGroups      `json:"logGroups" xml:"logGroups"`
-	MetricAlarms          ManagedMetricAlarms   `json:"metricAlarms" xml:"metricAlarms"`
-	ServiceSecurityGroups ManagedSecurityGroups `json:"serviceSecurityGroups" xml:"serviceSecurityGroups"`
+AutoScaling *ManagedAutoScaling `json:"autoScaling" xml:"autoScaling"`
+IngressPaths ManagedIngressPaths `json:"ingressPaths" xml:"ingressPaths"`
+LogGroups ManagedLogGroups `json:"logGroups" xml:"logGroups"`
+MetricAlarms ManagedMetricAlarms `json:"metricAlarms" xml:"metricAlarms"`
+ServiceSecurityGroups ManagedSecurityGroups `json:"serviceSecurityGroups" xml:"serviceSecurityGroups"`
 }
 
 type EFSAuthorizationConfig struct {
-	AccessPointId string `json:"accessPointId" xml:"accessPointId"`
-	Iam           string `json:"iam" xml:"iam"`
+AccessPointId string `json:"accessPointId" xml:"accessPointId"`
+Iam string `json:"iam" xml:"iam"`
 }
 
 type EFSVolumeConfiguration struct {
-	AuthorizationConfig   *EFSAuthorizationConfig `json:"authorizationConfig" xml:"authorizationConfig"`
-	FileSystemId          string                  `json:"fileSystemId" xml:"fileSystemId"`
-	RootDirectory         string                  `json:"rootDirectory" xml:"rootDirectory"`
-	TransitEncryption     string                  `json:"transitEncryption" xml:"transitEncryption"`
-	TransitEncryptionPort int32                   `json:"transitEncryptionPort" xml:"transitEncryptionPort"`
+AuthorizationConfig *EFSAuthorizationConfig `json:"authorizationConfig" xml:"authorizationConfig"`
+FileSystemId string `json:"fileSystemId" xml:"fileSystemId"`
+RootDirectory string `json:"rootDirectory" xml:"rootDirectory"`
+TransitEncryption string `json:"transitEncryption" xml:"transitEncryption"`
+TransitEncryptionPort int32 `json:"transitEncryptionPort" xml:"transitEncryptionPort"`
 }
 
 type EnvironmentFile struct {
-	Type  string `json:"type" xml:"type"`
-	Value string `json:"value" xml:"value"`
+Type string `json:"type" xml:"type"`
+Value string `json:"value" xml:"value"`
 }
 
 type EphemeralStorage struct {
-	SizeInGiB int32 `json:"sizeInGiB" xml:"sizeInGiB"`
+SizeInGiB int32 `json:"sizeInGiB" xml:"sizeInGiB"`
 }
 
 type ExecuteCommandConfiguration struct {
-	KmsKeyId         string                          `json:"kmsKeyId" xml:"kmsKeyId"`
-	LogConfiguration *ExecuteCommandLogConfiguration `json:"logConfiguration" xml:"logConfiguration"`
-	Logging          string                          `json:"logging" xml:"logging"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LogConfiguration *ExecuteCommandLogConfiguration `json:"logConfiguration" xml:"logConfiguration"`
+Logging string `json:"logging" xml:"logging"`
 }
 
 type ExecuteCommandLogConfiguration struct {
-	CloudWatchEncryptionEnabled bool   `json:"cloudWatchEncryptionEnabled" xml:"cloudWatchEncryptionEnabled"`
-	CloudWatchLogGroupName      string `json:"cloudWatchLogGroupName" xml:"cloudWatchLogGroupName"`
-	S3BucketName                string `json:"s3BucketName" xml:"s3BucketName"`
-	S3EncryptionEnabled         bool   `json:"s3EncryptionEnabled" xml:"s3EncryptionEnabled"`
-	S3KeyPrefix                 string `json:"s3KeyPrefix" xml:"s3KeyPrefix"`
+CloudWatchEncryptionEnabled bool `json:"cloudWatchEncryptionEnabled" xml:"cloudWatchEncryptionEnabled"`
+CloudWatchLogGroupName string `json:"cloudWatchLogGroupName" xml:"cloudWatchLogGroupName"`
+S3BucketName string `json:"s3BucketName" xml:"s3BucketName"`
+S3EncryptionEnabled bool `json:"s3EncryptionEnabled" xml:"s3EncryptionEnabled"`
+S3KeyPrefix string `json:"s3KeyPrefix" xml:"s3KeyPrefix"`
 }
 
 type ExecuteCommandRequest struct {
-	Cluster     string `json:"cluster" xml:"cluster"`
-	Command     string `json:"command" xml:"command"`
-	Container   string `json:"container" xml:"container"`
-	Interactive bool   `json:"interactive" xml:"interactive"`
-	Task        string `json:"task" xml:"task"`
+Cluster string `json:"cluster" xml:"cluster"`
+Command string `json:"command" xml:"command"`
+Container string `json:"container" xml:"container"`
+Interactive bool `json:"interactive" xml:"interactive"`
+Task string `json:"task" xml:"task"`
 }
 
 type ExecuteCommandResponse struct {
-	ClusterArn    string   `json:"clusterArn" xml:"clusterArn"`
-	ContainerArn  string   `json:"containerArn" xml:"containerArn"`
-	ContainerName string   `json:"containerName" xml:"containerName"`
-	Interactive   bool     `json:"interactive" xml:"interactive"`
-	Session       *Session `json:"session" xml:"session"`
-	TaskArn       string   `json:"taskArn" xml:"taskArn"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+ContainerArn string `json:"containerArn" xml:"containerArn"`
+ContainerName string `json:"containerName" xml:"containerName"`
+Interactive bool `json:"interactive" xml:"interactive"`
+Session *Session `json:"session" xml:"session"`
+TaskArn string `json:"taskArn" xml:"taskArn"`
 }
 
 type ExpressGatewayContainer struct {
-	AwsLogsConfiguration  *ExpressGatewayServiceAwsLogsConfiguration `json:"awsLogsConfiguration" xml:"awsLogsConfiguration"`
-	Command               StringList                                 `json:"command" xml:"command"`
-	ContainerPort         int32                                      `json:"containerPort" xml:"containerPort"`
-	Environment           EnvironmentVariables                       `json:"environment" xml:"environment"`
-	Image                 string                                     `json:"image" xml:"image"`
-	RepositoryCredentials *ExpressGatewayRepositoryCredentials       `json:"repositoryCredentials" xml:"repositoryCredentials"`
-	Secrets               SecretList                                 `json:"secrets" xml:"secrets"`
+AwsLogsConfiguration *ExpressGatewayServiceAwsLogsConfiguration `json:"awsLogsConfiguration" xml:"awsLogsConfiguration"`
+Command StringList `json:"command" xml:"command"`
+ContainerPort int32 `json:"containerPort" xml:"containerPort"`
+Environment EnvironmentVariables `json:"environment" xml:"environment"`
+Image string `json:"image" xml:"image"`
+RepositoryCredentials *ExpressGatewayRepositoryCredentials `json:"repositoryCredentials" xml:"repositoryCredentials"`
+Secrets SecretList `json:"secrets" xml:"secrets"`
 }
 
 type ExpressGatewayRepositoryCredentials struct {
-	CredentialsParameter string `json:"credentialsParameter" xml:"credentialsParameter"`
+CredentialsParameter string `json:"credentialsParameter" xml:"credentialsParameter"`
 }
 
 type ExpressGatewayScalingTarget struct {
-	AutoScalingMetric      string `json:"autoScalingMetric" xml:"autoScalingMetric"`
-	AutoScalingTargetValue int32  `json:"autoScalingTargetValue" xml:"autoScalingTargetValue"`
-	MaxTaskCount           int32  `json:"maxTaskCount" xml:"maxTaskCount"`
-	MinTaskCount           int32  `json:"minTaskCount" xml:"minTaskCount"`
+AutoScalingMetric string `json:"autoScalingMetric" xml:"autoScalingMetric"`
+AutoScalingTargetValue int32 `json:"autoScalingTargetValue" xml:"autoScalingTargetValue"`
+MaxTaskCount int32 `json:"maxTaskCount" xml:"maxTaskCount"`
+MinTaskCount int32 `json:"minTaskCount" xml:"minTaskCount"`
 }
 
 type ExpressGatewayServiceAwsLogsConfiguration struct {
-	LogGroup        string `json:"logGroup" xml:"logGroup"`
-	LogStreamPrefix string `json:"logStreamPrefix" xml:"logStreamPrefix"`
+LogGroup string `json:"logGroup" xml:"logGroup"`
+LogStreamPrefix string `json:"logStreamPrefix" xml:"logStreamPrefix"`
 }
 
 type ExpressGatewayServiceConfiguration struct {
-	Cpu                  string                                     `json:"cpu" xml:"cpu"`
-	CreatedAt            time.Time                                  `json:"createdAt" xml:"createdAt"`
-	ExecutionRoleArn     string                                     `json:"executionRoleArn" xml:"executionRoleArn"`
-	HealthCheckPath      string                                     `json:"healthCheckPath" xml:"healthCheckPath"`
-	IngressPaths         IngressPathSummaries                       `json:"ingressPaths" xml:"ingressPaths"`
-	Memory               string                                     `json:"memory" xml:"memory"`
-	NetworkConfiguration *ExpressGatewayServiceNetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
-	PrimaryContainer     *ExpressGatewayContainer                   `json:"primaryContainer" xml:"primaryContainer"`
-	ScalingTarget        *ExpressGatewayScalingTarget               `json:"scalingTarget" xml:"scalingTarget"`
-	ServiceRevisionArn   string                                     `json:"serviceRevisionArn" xml:"serviceRevisionArn"`
-	TaskRoleArn          string                                     `json:"taskRoleArn" xml:"taskRoleArn"`
+Cpu string `json:"cpu" xml:"cpu"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+HealthCheckPath string `json:"healthCheckPath" xml:"healthCheckPath"`
+IngressPaths IngressPathSummaries `json:"ingressPaths" xml:"ingressPaths"`
+Memory string `json:"memory" xml:"memory"`
+NetworkConfiguration *ExpressGatewayServiceNetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PrimaryContainer *ExpressGatewayContainer `json:"primaryContainer" xml:"primaryContainer"`
+ScalingTarget *ExpressGatewayScalingTarget `json:"scalingTarget" xml:"scalingTarget"`
+ServiceRevisionArn string `json:"serviceRevisionArn" xml:"serviceRevisionArn"`
+TaskRoleArn string `json:"taskRoleArn" xml:"taskRoleArn"`
 }
 
 type ExpressGatewayServiceNetworkConfiguration struct {
-	SecurityGroups StringList `json:"securityGroups" xml:"securityGroups"`
-	Subnets        StringList `json:"subnets" xml:"subnets"`
+SecurityGroups StringList `json:"securityGroups" xml:"securityGroups"`
+Subnets StringList `json:"subnets" xml:"subnets"`
 }
 
 type ExpressGatewayServiceStatus struct {
-	StatusCode   string `json:"statusCode" xml:"statusCode"`
-	StatusReason string `json:"statusReason" xml:"statusReason"`
+StatusCode string `json:"statusCode" xml:"statusCode"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
 }
 
 type FSxWindowsFileServerAuthorizationConfig struct {
-	CredentialsParameter string `json:"credentialsParameter" xml:"credentialsParameter"`
-	Domain               string `json:"domain" xml:"domain"`
+CredentialsParameter string `json:"credentialsParameter" xml:"credentialsParameter"`
+Domain string `json:"domain" xml:"domain"`
 }
 
 type FSxWindowsFileServerVolumeConfiguration struct {
-	AuthorizationConfig *FSxWindowsFileServerAuthorizationConfig `json:"authorizationConfig" xml:"authorizationConfig"`
-	FileSystemId        string                                   `json:"fileSystemId" xml:"fileSystemId"`
-	RootDirectory       string                                   `json:"rootDirectory" xml:"rootDirectory"`
+AuthorizationConfig *FSxWindowsFileServerAuthorizationConfig `json:"authorizationConfig" xml:"authorizationConfig"`
+FileSystemId string `json:"fileSystemId" xml:"fileSystemId"`
+RootDirectory string `json:"rootDirectory" xml:"rootDirectory"`
 }
 
 type Failure struct {
-	Arn    string `json:"arn" xml:"arn"`
-	Detail string `json:"detail" xml:"detail"`
-	Reason string `json:"reason" xml:"reason"`
+Arn string `json:"arn" xml:"arn"`
+Detail string `json:"detail" xml:"detail"`
+Reason string `json:"reason" xml:"reason"`
 }
 
 type FirelensConfiguration struct {
-	Options FirelensConfigurationOptionsMap `json:"options" xml:"options"`
-	Type    string                          `json:"type" xml:"type"`
+Options FirelensConfigurationOptionsMap `json:"options" xml:"options"`
+Type string `json:"type" xml:"type"`
 }
 
 type GetTaskProtectionRequest struct {
-	Cluster string     `json:"cluster" xml:"cluster"`
-	Tasks   StringList `json:"tasks" xml:"tasks"`
+Cluster string `json:"cluster" xml:"cluster"`
+Tasks StringList `json:"tasks" xml:"tasks"`
 }
 
 type GetTaskProtectionResponse struct {
-	Failures       Failures       `json:"failures" xml:"failures"`
-	ProtectedTasks ProtectedTasks `json:"protectedTasks" xml:"protectedTasks"`
+Failures Failures `json:"failures" xml:"failures"`
+ProtectedTasks ProtectedTasks `json:"protectedTasks" xml:"protectedTasks"`
 }
 
 type HealthCheck struct {
-	Command     StringList `json:"command" xml:"command"`
-	Interval    int32      `json:"interval" xml:"interval"`
-	Retries     int32      `json:"retries" xml:"retries"`
-	StartPeriod int32      `json:"startPeriod" xml:"startPeriod"`
-	Timeout     int32      `json:"timeout" xml:"timeout"`
+Command StringList `json:"command" xml:"command"`
+Interval int32 `json:"interval" xml:"interval"`
+Retries int32 `json:"retries" xml:"retries"`
+StartPeriod int32 `json:"startPeriod" xml:"startPeriod"`
+Timeout int32 `json:"timeout" xml:"timeout"`
 }
 
 type HostEntry struct {
-	Hostname  string `json:"hostname" xml:"hostname"`
-	IpAddress string `json:"ipAddress" xml:"ipAddress"`
+Hostname string `json:"hostname" xml:"hostname"`
+IpAddress string `json:"ipAddress" xml:"ipAddress"`
 }
 
 type HostVolumeProperties struct {
-	SourcePath string `json:"sourcePath" xml:"sourcePath"`
+SourcePath string `json:"sourcePath" xml:"sourcePath"`
 }
 
 type InferenceAccelerator struct {
-	DeviceName string `json:"deviceName" xml:"deviceName"`
-	DeviceType string `json:"deviceType" xml:"deviceType"`
+DeviceName string `json:"deviceName" xml:"deviceName"`
+DeviceType string `json:"deviceType" xml:"deviceType"`
 }
 
 type InferenceAcceleratorOverride struct {
-	DeviceName string `json:"deviceName" xml:"deviceName"`
-	DeviceType string `json:"deviceType" xml:"deviceType"`
+DeviceName string `json:"deviceName" xml:"deviceName"`
+DeviceType string `json:"deviceType" xml:"deviceType"`
 }
 
 type InfrastructureOptimization struct {
-	ScaleInAfter int32 `json:"scaleInAfter" xml:"scaleInAfter"`
+ScaleInAfter int32 `json:"scaleInAfter" xml:"scaleInAfter"`
 }
 
 type IngressPathSummary struct {
-	AccessType string `json:"accessType" xml:"accessType"`
-	Endpoint   string `json:"endpoint" xml:"endpoint"`
+AccessType string `json:"accessType" xml:"accessType"`
+Endpoint string `json:"endpoint" xml:"endpoint"`
 }
 
 type InstanceHealthCheckResult struct {
-	LastStatusChange time.Time `json:"lastStatusChange" xml:"lastStatusChange"`
-	LastUpdated      time.Time `json:"lastUpdated" xml:"lastUpdated"`
-	Status           string    `json:"status" xml:"status"`
-	Type             string    `json:"type" xml:"type"`
+LastStatusChange time.Time `json:"lastStatusChange" xml:"lastStatusChange"`
+LastUpdated time.Time `json:"lastUpdated" xml:"lastUpdated"`
+Status string `json:"status" xml:"status"`
+Type string `json:"type" xml:"type"`
 }
 
 type InstanceLaunchTemplate struct {
-	CapacityOptionType              string                                     `json:"capacityOptionType" xml:"capacityOptionType"`
-	CapacityReservations            *CapacityReservationRequest                `json:"capacityReservations" xml:"capacityReservations"`
-	Ec2InstanceProfileArn           string                                     `json:"ec2InstanceProfileArn" xml:"ec2InstanceProfileArn"`
-	FipsEnabled                     bool                                       `json:"fipsEnabled" xml:"fipsEnabled"`
-	InstanceMetadataTagsPropagation bool                                       `json:"instanceMetadataTagsPropagation" xml:"instanceMetadataTagsPropagation"`
-	InstanceRequirements            *InstanceRequirementsRequest               `json:"instanceRequirements" xml:"instanceRequirements"`
-	LocalStorageConfiguration       *ManagedInstancesLocalStorageConfiguration `json:"localStorageConfiguration" xml:"localStorageConfiguration"`
-	Monitoring                      string                                     `json:"monitoring" xml:"monitoring"`
-	NetworkConfiguration            *ManagedInstancesNetworkConfiguration      `json:"networkConfiguration" xml:"networkConfiguration"`
-	StorageConfiguration            *ManagedInstancesStorageConfiguration      `json:"storageConfiguration" xml:"storageConfiguration"`
+CapacityOptionType string `json:"capacityOptionType" xml:"capacityOptionType"`
+CapacityReservations *CapacityReservationRequest `json:"capacityReservations" xml:"capacityReservations"`
+Ec2InstanceProfileArn string `json:"ec2InstanceProfileArn" xml:"ec2InstanceProfileArn"`
+FipsEnabled bool `json:"fipsEnabled" xml:"fipsEnabled"`
+InstanceMetadataTagsPropagation bool `json:"instanceMetadataTagsPropagation" xml:"instanceMetadataTagsPropagation"`
+InstanceRequirements *InstanceRequirementsRequest `json:"instanceRequirements" xml:"instanceRequirements"`
+LocalStorageConfiguration *ManagedInstancesLocalStorageConfiguration `json:"localStorageConfiguration" xml:"localStorageConfiguration"`
+Monitoring string `json:"monitoring" xml:"monitoring"`
+NetworkConfiguration *ManagedInstancesNetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+StorageConfiguration *ManagedInstancesStorageConfiguration `json:"storageConfiguration" xml:"storageConfiguration"`
 }
 
 type InstanceLaunchTemplateUpdate struct {
-	CapacityReservations            *CapacityReservationRequest                `json:"capacityReservations" xml:"capacityReservations"`
-	Ec2InstanceProfileArn           string                                     `json:"ec2InstanceProfileArn" xml:"ec2InstanceProfileArn"`
-	InstanceMetadataTagsPropagation bool                                       `json:"instanceMetadataTagsPropagation" xml:"instanceMetadataTagsPropagation"`
-	InstanceRequirements            *InstanceRequirementsRequest               `json:"instanceRequirements" xml:"instanceRequirements"`
-	LocalStorageConfiguration       *ManagedInstancesLocalStorageConfiguration `json:"localStorageConfiguration" xml:"localStorageConfiguration"`
-	Monitoring                      string                                     `json:"monitoring" xml:"monitoring"`
-	NetworkConfiguration            *ManagedInstancesNetworkConfiguration      `json:"networkConfiguration" xml:"networkConfiguration"`
-	StorageConfiguration            *ManagedInstancesStorageConfiguration      `json:"storageConfiguration" xml:"storageConfiguration"`
+CapacityReservations *CapacityReservationRequest `json:"capacityReservations" xml:"capacityReservations"`
+Ec2InstanceProfileArn string `json:"ec2InstanceProfileArn" xml:"ec2InstanceProfileArn"`
+InstanceMetadataTagsPropagation bool `json:"instanceMetadataTagsPropagation" xml:"instanceMetadataTagsPropagation"`
+InstanceRequirements *InstanceRequirementsRequest `json:"instanceRequirements" xml:"instanceRequirements"`
+LocalStorageConfiguration *ManagedInstancesLocalStorageConfiguration `json:"localStorageConfiguration" xml:"localStorageConfiguration"`
+Monitoring string `json:"monitoring" xml:"monitoring"`
+NetworkConfiguration *ManagedInstancesNetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+StorageConfiguration *ManagedInstancesStorageConfiguration `json:"storageConfiguration" xml:"storageConfiguration"`
 }
 
 type InstanceRequirementsRequest struct {
-	AcceleratorCount                               *AcceleratorCountRequest          `json:"acceleratorCount" xml:"acceleratorCount"`
-	AcceleratorManufacturers                       AcceleratorManufacturerSet        `json:"acceleratorManufacturers" xml:"acceleratorManufacturers"`
-	AcceleratorNames                               AcceleratorNameSet                `json:"acceleratorNames" xml:"acceleratorNames"`
-	AcceleratorTotalMemoryMiB                      *AcceleratorTotalMemoryMiBRequest `json:"acceleratorTotalMemoryMiB" xml:"acceleratorTotalMemoryMiB"`
-	AcceleratorTypes                               AcceleratorTypeSet                `json:"acceleratorTypes" xml:"acceleratorTypes"`
-	AllowedInstanceTypes                           AllowedInstanceTypeSet            `json:"allowedInstanceTypes" xml:"allowedInstanceTypes"`
-	BareMetal                                      string                            `json:"bareMetal" xml:"bareMetal"`
-	BaselineEbsBandwidthMbps                       *BaselineEbsBandwidthMbpsRequest  `json:"baselineEbsBandwidthMbps" xml:"baselineEbsBandwidthMbps"`
-	BurstablePerformance                           string                            `json:"burstablePerformance" xml:"burstablePerformance"`
-	CpuManufacturers                               CpuManufacturerSet                `json:"cpuManufacturers" xml:"cpuManufacturers"`
-	ExcludedInstanceTypes                          ExcludedInstanceTypeSet           `json:"excludedInstanceTypes" xml:"excludedInstanceTypes"`
-	InstanceGenerations                            InstanceGenerationSet             `json:"instanceGenerations" xml:"instanceGenerations"`
-	LocalStorage                                   string                            `json:"localStorage" xml:"localStorage"`
-	LocalStorageTypes                              LocalStorageTypeSet               `json:"localStorageTypes" xml:"localStorageTypes"`
-	MaxSpotPriceAsPercentageOfOptimalOnDemandPrice int32                             `json:"maxSpotPriceAsPercentageOfOptimalOnDemandPrice" xml:"maxSpotPriceAsPercentageOfOptimalOnDemandPrice"`
-	MemoryGiBPerVCpu                               *MemoryGiBPerVCpuRequest          `json:"memoryGiBPerVCpu" xml:"memoryGiBPerVCpu"`
-	MemoryMiB                                      *MemoryMiBRequest                 `json:"memoryMiB" xml:"memoryMiB"`
-	NetworkBandwidthGbps                           *NetworkBandwidthGbpsRequest      `json:"networkBandwidthGbps" xml:"networkBandwidthGbps"`
-	NetworkInterfaceCount                          *NetworkInterfaceCountRequest     `json:"networkInterfaceCount" xml:"networkInterfaceCount"`
-	OnDemandMaxPricePercentageOverLowestPrice      int32                             `json:"onDemandMaxPricePercentageOverLowestPrice" xml:"onDemandMaxPricePercentageOverLowestPrice"`
-	RequireHibernateSupport                        bool                              `json:"requireHibernateSupport" xml:"requireHibernateSupport"`
-	SpotMaxPricePercentageOverLowestPrice          int32                             `json:"spotMaxPricePercentageOverLowestPrice" xml:"spotMaxPricePercentageOverLowestPrice"`
-	TotalLocalStorageGB                            *TotalLocalStorageGBRequest       `json:"totalLocalStorageGB" xml:"totalLocalStorageGB"`
-	VCpuCount                                      *VCpuCountRangeRequest            `json:"vCpuCount" xml:"vCpuCount"`
+AcceleratorCount *AcceleratorCountRequest `json:"acceleratorCount" xml:"acceleratorCount"`
+AcceleratorManufacturers AcceleratorManufacturerSet `json:"acceleratorManufacturers" xml:"acceleratorManufacturers"`
+AcceleratorNames AcceleratorNameSet `json:"acceleratorNames" xml:"acceleratorNames"`
+AcceleratorTotalMemoryMiB *AcceleratorTotalMemoryMiBRequest `json:"acceleratorTotalMemoryMiB" xml:"acceleratorTotalMemoryMiB"`
+AcceleratorTypes AcceleratorTypeSet `json:"acceleratorTypes" xml:"acceleratorTypes"`
+AllowedInstanceTypes AllowedInstanceTypeSet `json:"allowedInstanceTypes" xml:"allowedInstanceTypes"`
+BareMetal string `json:"bareMetal" xml:"bareMetal"`
+BaselineEbsBandwidthMbps *BaselineEbsBandwidthMbpsRequest `json:"baselineEbsBandwidthMbps" xml:"baselineEbsBandwidthMbps"`
+BurstablePerformance string `json:"burstablePerformance" xml:"burstablePerformance"`
+CpuManufacturers CpuManufacturerSet `json:"cpuManufacturers" xml:"cpuManufacturers"`
+ExcludedInstanceTypes ExcludedInstanceTypeSet `json:"excludedInstanceTypes" xml:"excludedInstanceTypes"`
+InstanceGenerations InstanceGenerationSet `json:"instanceGenerations" xml:"instanceGenerations"`
+LocalStorage string `json:"localStorage" xml:"localStorage"`
+LocalStorageTypes LocalStorageTypeSet `json:"localStorageTypes" xml:"localStorageTypes"`
+MaxSpotPriceAsPercentageOfOptimalOnDemandPrice int32 `json:"maxSpotPriceAsPercentageOfOptimalOnDemandPrice" xml:"maxSpotPriceAsPercentageOfOptimalOnDemandPrice"`
+MemoryGiBPerVCpu *MemoryGiBPerVCpuRequest `json:"memoryGiBPerVCpu" xml:"memoryGiBPerVCpu"`
+MemoryMiB *MemoryMiBRequest `json:"memoryMiB" xml:"memoryMiB"`
+NetworkBandwidthGbps *NetworkBandwidthGbpsRequest `json:"networkBandwidthGbps" xml:"networkBandwidthGbps"`
+NetworkInterfaceCount *NetworkInterfaceCountRequest `json:"networkInterfaceCount" xml:"networkInterfaceCount"`
+OnDemandMaxPricePercentageOverLowestPrice int32 `json:"onDemandMaxPricePercentageOverLowestPrice" xml:"onDemandMaxPricePercentageOverLowestPrice"`
+RequireHibernateSupport bool `json:"requireHibernateSupport" xml:"requireHibernateSupport"`
+SpotMaxPricePercentageOverLowestPrice int32 `json:"spotMaxPricePercentageOverLowestPrice" xml:"spotMaxPricePercentageOverLowestPrice"`
+TotalLocalStorageGB *TotalLocalStorageGBRequest `json:"totalLocalStorageGB" xml:"totalLocalStorageGB"`
+VCpuCount *VCpuCountRangeRequest `json:"vCpuCount" xml:"vCpuCount"`
 }
 
 type KernelCapabilities struct {
-	Add  StringList `json:"add" xml:"add"`
-	Drop StringList `json:"drop" xml:"drop"`
+Add StringList `json:"add" xml:"add"`
+Drop StringList `json:"drop" xml:"drop"`
 }
 
 type KeyValuePair struct {
-	Name  string `json:"name" xml:"name"`
-	Value string `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+Value string `json:"value" xml:"value"`
 }
 
 type LinearConfiguration struct {
-	StepBakeTimeInMinutes int32   `json:"stepBakeTimeInMinutes" xml:"stepBakeTimeInMinutes"`
-	StepPercent           float64 `json:"stepPercent" xml:"stepPercent"`
+StepBakeTimeInMinutes int32 `json:"stepBakeTimeInMinutes" xml:"stepBakeTimeInMinutes"`
+StepPercent float64 `json:"stepPercent" xml:"stepPercent"`
 }
 
 type LinuxParameters struct {
-	Capabilities       *KernelCapabilities `json:"capabilities" xml:"capabilities"`
-	Devices            DevicesList         `json:"devices" xml:"devices"`
-	InitProcessEnabled bool                `json:"initProcessEnabled" xml:"initProcessEnabled"`
-	MaxSwap            int32               `json:"maxSwap" xml:"maxSwap"`
-	SharedMemorySize   int32               `json:"sharedMemorySize" xml:"sharedMemorySize"`
-	Swappiness         int32               `json:"swappiness" xml:"swappiness"`
-	Tmpfs              TmpfsList           `json:"tmpfs" xml:"tmpfs"`
+Capabilities *KernelCapabilities `json:"capabilities" xml:"capabilities"`
+Devices DevicesList `json:"devices" xml:"devices"`
+InitProcessEnabled bool `json:"initProcessEnabled" xml:"initProcessEnabled"`
+MaxSwap int32 `json:"maxSwap" xml:"maxSwap"`
+SharedMemorySize int32 `json:"sharedMemorySize" xml:"sharedMemorySize"`
+Swappiness int32 `json:"swappiness" xml:"swappiness"`
+Tmpfs TmpfsList `json:"tmpfs" xml:"tmpfs"`
 }
 
 type ListAccountSettingsRequest struct {
-	EffectiveSettings bool   `json:"effectiveSettings" xml:"effectiveSettings"`
-	MaxResults        int32  `json:"maxResults" xml:"maxResults"`
-	Name              string `json:"name" xml:"name"`
-	NextToken         string `json:"nextToken" xml:"nextToken"`
-	PrincipalArn      string `json:"principalArn" xml:"principalArn"`
-	Value             string `json:"value" xml:"value"`
+EffectiveSettings bool `json:"effectiveSettings" xml:"effectiveSettings"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+Name string `json:"name" xml:"name"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PrincipalArn string `json:"principalArn" xml:"principalArn"`
+Value string `json:"value" xml:"value"`
 }
 
 type ListAccountSettingsResponse struct {
-	NextToken string   `json:"nextToken" xml:"nextToken"`
-	Settings  Settings `json:"settings" xml:"settings"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Settings Settings `json:"settings" xml:"settings"`
 }
 
 type ListAttributesRequest struct {
-	AttributeName  string `json:"attributeName" xml:"attributeName"`
-	AttributeValue string `json:"attributeValue" xml:"attributeValue"`
-	Cluster        string `json:"cluster" xml:"cluster"`
-	MaxResults     int32  `json:"maxResults" xml:"maxResults"`
-	NextToken      string `json:"nextToken" xml:"nextToken"`
-	TargetType     string `json:"targetType" xml:"targetType"`
+AttributeName string `json:"attributeName" xml:"attributeName"`
+AttributeValue string `json:"attributeValue" xml:"attributeValue"`
+Cluster string `json:"cluster" xml:"cluster"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+TargetType string `json:"targetType" xml:"targetType"`
 }
 
 type ListAttributesResponse struct {
-	Attributes Attributes `json:"attributes" xml:"attributes"`
-	NextToken  string     `json:"nextToken" xml:"nextToken"`
+Attributes Attributes `json:"attributes" xml:"attributes"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListClustersRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListClustersResponse struct {
-	ClusterArns StringList `json:"clusterArns" xml:"clusterArns"`
-	NextToken   string     `json:"nextToken" xml:"nextToken"`
+ClusterArns StringList `json:"clusterArns" xml:"clusterArns"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListContainerInstancesRequest struct {
-	Cluster    string `json:"cluster" xml:"cluster"`
-	Filter     string `json:"filter" xml:"filter"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	Status     string `json:"status" xml:"status"`
+Cluster string `json:"cluster" xml:"cluster"`
+Filter string `json:"filter" xml:"filter"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Status string `json:"status" xml:"status"`
 }
 
 type ListContainerInstancesResponse struct {
-	ContainerInstanceArns StringList `json:"containerInstanceArns" xml:"containerInstanceArns"`
-	NextToken             string     `json:"nextToken" xml:"nextToken"`
+ContainerInstanceArns StringList `json:"containerInstanceArns" xml:"containerInstanceArns"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDaemonDeploymentsRequest struct {
-	CreatedAt  *CreatedAt                 `json:"createdAt" xml:"createdAt"`
-	DaemonArn  string                     `json:"daemonArn" xml:"daemonArn"`
-	MaxResults int32                      `json:"maxResults" xml:"maxResults"`
-	NextToken  string                     `json:"nextToken" xml:"nextToken"`
-	Status     DaemonDeploymentStatusList `json:"status" xml:"status"`
+CreatedAt *CreatedAt `json:"createdAt" xml:"createdAt"`
+DaemonArn string `json:"daemonArn" xml:"daemonArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Status DaemonDeploymentStatusList `json:"status" xml:"status"`
 }
 
 type ListDaemonDeploymentsResponse struct {
-	DaemonDeployments DaemonDeploymentSummaryList `json:"daemonDeployments" xml:"daemonDeployments"`
-	NextToken         string                      `json:"nextToken" xml:"nextToken"`
+DaemonDeployments DaemonDeploymentSummaryList `json:"daemonDeployments" xml:"daemonDeployments"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDaemonTaskDefinitionsRequest struct {
-	Family       string `json:"family" xml:"family"`
-	FamilyPrefix string `json:"familyPrefix" xml:"familyPrefix"`
-	MaxResults   int32  `json:"maxResults" xml:"maxResults"`
-	NextToken    string `json:"nextToken" xml:"nextToken"`
-	Revision     string `json:"revision" xml:"revision"`
-	Sort         string `json:"sort" xml:"sort"`
-	Status       string `json:"status" xml:"status"`
+Family string `json:"family" xml:"family"`
+FamilyPrefix string `json:"familyPrefix" xml:"familyPrefix"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Revision string `json:"revision" xml:"revision"`
+Sort string `json:"sort" xml:"sort"`
+Status string `json:"status" xml:"status"`
 }
 
 type ListDaemonTaskDefinitionsResponse struct {
-	DaemonTaskDefinitions DaemonTaskDefinitionSummaries `json:"daemonTaskDefinitions" xml:"daemonTaskDefinitions"`
-	NextToken             string                        `json:"nextToken" xml:"nextToken"`
+DaemonTaskDefinitions DaemonTaskDefinitionSummaries `json:"daemonTaskDefinitions" xml:"daemonTaskDefinitions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDaemonsRequest struct {
-	CapacityProviderArns StringList `json:"capacityProviderArns" xml:"capacityProviderArns"`
-	ClusterArn           string     `json:"clusterArn" xml:"clusterArn"`
-	MaxResults           int32      `json:"maxResults" xml:"maxResults"`
-	NextToken            string     `json:"nextToken" xml:"nextToken"`
+CapacityProviderArns StringList `json:"capacityProviderArns" xml:"capacityProviderArns"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDaemonsResponse struct {
-	DaemonSummariesList DaemonSummariesList `json:"daemonSummariesList" xml:"daemonSummariesList"`
-	NextToken           string              `json:"nextToken" xml:"nextToken"`
+DaemonSummariesList DaemonSummariesList `json:"daemonSummariesList" xml:"daemonSummariesList"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListServiceDeploymentsRequest struct {
-	Cluster    string                      `json:"cluster" xml:"cluster"`
-	CreatedAt  *CreatedAt                  `json:"createdAt" xml:"createdAt"`
-	MaxResults int32                       `json:"maxResults" xml:"maxResults"`
-	NextToken  string                      `json:"nextToken" xml:"nextToken"`
-	Service    string                      `json:"service" xml:"service"`
-	Status     ServiceDeploymentStatusList `json:"status" xml:"status"`
+Cluster string `json:"cluster" xml:"cluster"`
+CreatedAt *CreatedAt `json:"createdAt" xml:"createdAt"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Service string `json:"service" xml:"service"`
+Status ServiceDeploymentStatusList `json:"status" xml:"status"`
 }
 
 type ListServiceDeploymentsResponse struct {
-	NextToken          string                  `json:"nextToken" xml:"nextToken"`
-	ServiceDeployments ServiceDeploymentsBrief `json:"serviceDeployments" xml:"serviceDeployments"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ServiceDeployments ServiceDeploymentsBrief `json:"serviceDeployments" xml:"serviceDeployments"`
 }
 
 type ListServicesByNamespaceRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	Namespace  string `json:"namespace" xml:"namespace"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+Namespace string `json:"namespace" xml:"namespace"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListServicesByNamespaceResponse struct {
-	NextToken   string     `json:"nextToken" xml:"nextToken"`
-	ServiceArns StringList `json:"serviceArns" xml:"serviceArns"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ServiceArns StringList `json:"serviceArns" xml:"serviceArns"`
 }
 
 type ListServicesRequest struct {
-	Cluster                string `json:"cluster" xml:"cluster"`
-	LaunchType             string `json:"launchType" xml:"launchType"`
-	MaxResults             int32  `json:"maxResults" xml:"maxResults"`
-	NextToken              string `json:"nextToken" xml:"nextToken"`
-	ResourceManagementType string `json:"resourceManagementType" xml:"resourceManagementType"`
-	SchedulingStrategy     string `json:"schedulingStrategy" xml:"schedulingStrategy"`
+Cluster string `json:"cluster" xml:"cluster"`
+LaunchType string `json:"launchType" xml:"launchType"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceManagementType string `json:"resourceManagementType" xml:"resourceManagementType"`
+SchedulingStrategy string `json:"schedulingStrategy" xml:"schedulingStrategy"`
 }
 
 type ListServicesResponse struct {
-	NextToken   string     `json:"nextToken" xml:"nextToken"`
-	ServiceArns StringList `json:"serviceArns" xml:"serviceArns"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ServiceArns StringList `json:"serviceArns" xml:"serviceArns"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags Tags `json:"tags" xml:"tags"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type ListTaskDefinitionFamiliesRequest struct {
-	FamilyPrefix string `json:"familyPrefix" xml:"familyPrefix"`
-	MaxResults   int32  `json:"maxResults" xml:"maxResults"`
-	NextToken    string `json:"nextToken" xml:"nextToken"`
-	Status       string `json:"status" xml:"status"`
+FamilyPrefix string `json:"familyPrefix" xml:"familyPrefix"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Status string `json:"status" xml:"status"`
 }
 
 type ListTaskDefinitionFamiliesResponse struct {
-	Families  StringList `json:"families" xml:"families"`
-	NextToken string     `json:"nextToken" xml:"nextToken"`
+Families StringList `json:"families" xml:"families"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListTaskDefinitionsRequest struct {
-	FamilyPrefix string `json:"familyPrefix" xml:"familyPrefix"`
-	MaxResults   int32  `json:"maxResults" xml:"maxResults"`
-	NextToken    string `json:"nextToken" xml:"nextToken"`
-	Sort         string `json:"sort" xml:"sort"`
-	Status       string `json:"status" xml:"status"`
+FamilyPrefix string `json:"familyPrefix" xml:"familyPrefix"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Sort string `json:"sort" xml:"sort"`
+Status string `json:"status" xml:"status"`
 }
 
 type ListTaskDefinitionsResponse struct {
-	NextToken          string     `json:"nextToken" xml:"nextToken"`
-	TaskDefinitionArns StringList `json:"taskDefinitionArns" xml:"taskDefinitionArns"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+TaskDefinitionArns StringList `json:"taskDefinitionArns" xml:"taskDefinitionArns"`
 }
 
 type ListTasksRequest struct {
-	Cluster           string `json:"cluster" xml:"cluster"`
-	ContainerInstance string `json:"containerInstance" xml:"containerInstance"`
-	DaemonName        string `json:"daemonName" xml:"daemonName"`
-	DesiredStatus     string `json:"desiredStatus" xml:"desiredStatus"`
-	Family            string `json:"family" xml:"family"`
-	LaunchType        string `json:"launchType" xml:"launchType"`
-	MaxResults        int32  `json:"maxResults" xml:"maxResults"`
-	NextToken         string `json:"nextToken" xml:"nextToken"`
-	ServiceName       string `json:"serviceName" xml:"serviceName"`
-	StartedBy         string `json:"startedBy" xml:"startedBy"`
+Cluster string `json:"cluster" xml:"cluster"`
+ContainerInstance string `json:"containerInstance" xml:"containerInstance"`
+DaemonName string `json:"daemonName" xml:"daemonName"`
+DesiredStatus string `json:"desiredStatus" xml:"desiredStatus"`
+Family string `json:"family" xml:"family"`
+LaunchType string `json:"launchType" xml:"launchType"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ServiceName string `json:"serviceName" xml:"serviceName"`
+StartedBy string `json:"startedBy" xml:"startedBy"`
 }
 
 type ListTasksResponse struct {
-	NextToken string     `json:"nextToken" xml:"nextToken"`
-	TaskArns  StringList `json:"taskArns" xml:"taskArns"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+TaskArns StringList `json:"taskArns" xml:"taskArns"`
 }
 
 type LoadBalancer struct {
-	AdvancedConfiguration *AdvancedConfiguration `json:"advancedConfiguration" xml:"advancedConfiguration"`
-	ContainerName         string                 `json:"containerName" xml:"containerName"`
-	ContainerPort         int32                  `json:"containerPort" xml:"containerPort"`
-	LoadBalancerName      string                 `json:"loadBalancerName" xml:"loadBalancerName"`
-	TargetGroupArn        string                 `json:"targetGroupArn" xml:"targetGroupArn"`
+AdvancedConfiguration *AdvancedConfiguration `json:"advancedConfiguration" xml:"advancedConfiguration"`
+ContainerName string `json:"containerName" xml:"containerName"`
+ContainerPort int32 `json:"containerPort" xml:"containerPort"`
+LoadBalancerName string `json:"loadBalancerName" xml:"loadBalancerName"`
+TargetGroupArn string `json:"targetGroupArn" xml:"targetGroupArn"`
 }
 
 type LogConfiguration struct {
-	LogDriver     string                     `json:"logDriver" xml:"logDriver"`
-	Options       LogConfigurationOptionsMap `json:"options" xml:"options"`
-	SecretOptions SecretList                 `json:"secretOptions" xml:"secretOptions"`
+LogDriver string `json:"logDriver" xml:"logDriver"`
+Options LogConfigurationOptionsMap `json:"options" xml:"options"`
+SecretOptions SecretList `json:"secretOptions" xml:"secretOptions"`
 }
 
 type ManagedAgent struct {
-	LastStartedAt time.Time `json:"lastStartedAt" xml:"lastStartedAt"`
-	LastStatus    string    `json:"lastStatus" xml:"lastStatus"`
-	Name          string    `json:"name" xml:"name"`
-	Reason        string    `json:"reason" xml:"reason"`
+LastStartedAt time.Time `json:"lastStartedAt" xml:"lastStartedAt"`
+LastStatus string `json:"lastStatus" xml:"lastStatus"`
+Name string `json:"name" xml:"name"`
+Reason string `json:"reason" xml:"reason"`
 }
 
 type ManagedAgentStateChange struct {
-	ContainerName    string `json:"containerName" xml:"containerName"`
-	ManagedAgentName string `json:"managedAgentName" xml:"managedAgentName"`
-	Reason           string `json:"reason" xml:"reason"`
-	Status           string `json:"status" xml:"status"`
+ContainerName string `json:"containerName" xml:"containerName"`
+ManagedAgentName string `json:"managedAgentName" xml:"managedAgentName"`
+Reason string `json:"reason" xml:"reason"`
+Status string `json:"status" xml:"status"`
 }
 
 type ManagedApplicationAutoScalingPolicy struct {
-	Arn          string    `json:"arn" xml:"arn"`
-	Metric       string    `json:"metric" xml:"metric"`
-	PolicyType   string    `json:"policyType" xml:"policyType"`
-	Status       string    `json:"status" xml:"status"`
-	StatusReason string    `json:"statusReason" xml:"statusReason"`
-	TargetValue  float64   `json:"targetValue" xml:"targetValue"`
-	UpdatedAt    time.Time `json:"updatedAt" xml:"updatedAt"`
+Arn string `json:"arn" xml:"arn"`
+Metric string `json:"metric" xml:"metric"`
+PolicyType string `json:"policyType" xml:"policyType"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+TargetValue float64 `json:"targetValue" xml:"targetValue"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ManagedAutoScaling struct {
-	ApplicationAutoScalingPolicies ManagedApplicationAutoScalingPolicies `json:"applicationAutoScalingPolicies" xml:"applicationAutoScalingPolicies"`
-	ScalableTarget                 *ManagedScalableTarget                `json:"scalableTarget" xml:"scalableTarget"`
+ApplicationAutoScalingPolicies ManagedApplicationAutoScalingPolicies `json:"applicationAutoScalingPolicies" xml:"applicationAutoScalingPolicies"`
+ScalableTarget *ManagedScalableTarget `json:"scalableTarget" xml:"scalableTarget"`
 }
 
 type ManagedCertificate struct {
-	Arn          string    `json:"arn" xml:"arn"`
-	DomainName   string    `json:"domainName" xml:"domainName"`
-	Status       string    `json:"status" xml:"status"`
-	StatusReason string    `json:"statusReason" xml:"statusReason"`
-	UpdatedAt    time.Time `json:"updatedAt" xml:"updatedAt"`
+Arn string `json:"arn" xml:"arn"`
+DomainName string `json:"domainName" xml:"domainName"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ManagedIngressPath struct {
-	AccessType                 string                `json:"accessType" xml:"accessType"`
-	Certificate                *ManagedCertificate   `json:"certificate" xml:"certificate"`
-	Endpoint                   string                `json:"endpoint" xml:"endpoint"`
-	Listener                   *ManagedListener      `json:"listener" xml:"listener"`
-	LoadBalancer               *ManagedLoadBalancer  `json:"loadBalancer" xml:"loadBalancer"`
-	LoadBalancerSecurityGroups ManagedSecurityGroups `json:"loadBalancerSecurityGroups" xml:"loadBalancerSecurityGroups"`
-	Rule                       *ManagedListenerRule  `json:"rule" xml:"rule"`
-	TargetGroups               ManagedTargetGroups   `json:"targetGroups" xml:"targetGroups"`
+AccessType string `json:"accessType" xml:"accessType"`
+Certificate *ManagedCertificate `json:"certificate" xml:"certificate"`
+Endpoint string `json:"endpoint" xml:"endpoint"`
+Listener *ManagedListener `json:"listener" xml:"listener"`
+LoadBalancer *ManagedLoadBalancer `json:"loadBalancer" xml:"loadBalancer"`
+LoadBalancerSecurityGroups ManagedSecurityGroups `json:"loadBalancerSecurityGroups" xml:"loadBalancerSecurityGroups"`
+Rule *ManagedListenerRule `json:"rule" xml:"rule"`
+TargetGroups ManagedTargetGroups `json:"targetGroups" xml:"targetGroups"`
 }
 
 type ManagedInstancesLocalStorageConfiguration struct {
-	UseLocalStorage bool `json:"useLocalStorage" xml:"useLocalStorage"`
+UseLocalStorage bool `json:"useLocalStorage" xml:"useLocalStorage"`
 }
 
 type ManagedInstancesNetworkConfiguration struct {
-	SecurityGroups StringList `json:"securityGroups" xml:"securityGroups"`
-	Subnets        StringList `json:"subnets" xml:"subnets"`
+SecurityGroups StringList `json:"securityGroups" xml:"securityGroups"`
+Subnets StringList `json:"subnets" xml:"subnets"`
 }
 
 type ManagedInstancesProvider struct {
-	InfrastructureOptimization *InfrastructureOptimization `json:"infrastructureOptimization" xml:"infrastructureOptimization"`
-	InfrastructureRoleArn      string                      `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
-	InstanceLaunchTemplate     *InstanceLaunchTemplate     `json:"instanceLaunchTemplate" xml:"instanceLaunchTemplate"`
-	PropagateTags              string                      `json:"propagateTags" xml:"propagateTags"`
+InfrastructureOptimization *InfrastructureOptimization `json:"infrastructureOptimization" xml:"infrastructureOptimization"`
+InfrastructureRoleArn string `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
+InstanceLaunchTemplate *InstanceLaunchTemplate `json:"instanceLaunchTemplate" xml:"instanceLaunchTemplate"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
 }
 
 type ManagedInstancesStorageConfiguration struct {
-	StorageSizeGiB int32 `json:"storageSizeGiB" xml:"storageSizeGiB"`
+StorageSizeGiB int32 `json:"storageSizeGiB" xml:"storageSizeGiB"`
 }
 
 type ManagedListener struct {
-	Arn          string    `json:"arn" xml:"arn"`
-	Status       string    `json:"status" xml:"status"`
-	StatusReason string    `json:"statusReason" xml:"statusReason"`
-	UpdatedAt    time.Time `json:"updatedAt" xml:"updatedAt"`
+Arn string `json:"arn" xml:"arn"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ManagedListenerRule struct {
-	Arn          string    `json:"arn" xml:"arn"`
-	Status       string    `json:"status" xml:"status"`
-	StatusReason string    `json:"statusReason" xml:"statusReason"`
-	UpdatedAt    time.Time `json:"updatedAt" xml:"updatedAt"`
+Arn string `json:"arn" xml:"arn"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ManagedLoadBalancer struct {
-	Arn              string     `json:"arn" xml:"arn"`
-	Scheme           string     `json:"scheme" xml:"scheme"`
-	SecurityGroupIds StringList `json:"securityGroupIds" xml:"securityGroupIds"`
-	Status           string     `json:"status" xml:"status"`
-	StatusReason     string     `json:"statusReason" xml:"statusReason"`
-	SubnetIds        StringList `json:"subnetIds" xml:"subnetIds"`
-	UpdatedAt        time.Time  `json:"updatedAt" xml:"updatedAt"`
+Arn string `json:"arn" xml:"arn"`
+Scheme string `json:"scheme" xml:"scheme"`
+SecurityGroupIds StringList `json:"securityGroupIds" xml:"securityGroupIds"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+SubnetIds StringList `json:"subnetIds" xml:"subnetIds"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ManagedLogGroup struct {
-	Arn          string    `json:"arn" xml:"arn"`
-	LogGroupName string    `json:"logGroupName" xml:"logGroupName"`
-	Status       string    `json:"status" xml:"status"`
-	StatusReason string    `json:"statusReason" xml:"statusReason"`
-	UpdatedAt    time.Time `json:"updatedAt" xml:"updatedAt"`
+Arn string `json:"arn" xml:"arn"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ManagedMetricAlarm struct {
-	Arn          string    `json:"arn" xml:"arn"`
-	Status       string    `json:"status" xml:"status"`
-	StatusReason string    `json:"statusReason" xml:"statusReason"`
-	UpdatedAt    time.Time `json:"updatedAt" xml:"updatedAt"`
+Arn string `json:"arn" xml:"arn"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ManagedScalableTarget struct {
-	Arn          string    `json:"arn" xml:"arn"`
-	MaxCapacity  int32     `json:"maxCapacity" xml:"maxCapacity"`
-	MinCapacity  int32     `json:"minCapacity" xml:"minCapacity"`
-	Status       string    `json:"status" xml:"status"`
-	StatusReason string    `json:"statusReason" xml:"statusReason"`
-	UpdatedAt    time.Time `json:"updatedAt" xml:"updatedAt"`
+Arn string `json:"arn" xml:"arn"`
+MaxCapacity int32 `json:"maxCapacity" xml:"maxCapacity"`
+MinCapacity int32 `json:"minCapacity" xml:"minCapacity"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ManagedScaling struct {
-	InstanceWarmupPeriod   int32  `json:"instanceWarmupPeriod" xml:"instanceWarmupPeriod"`
-	MaximumScalingStepSize int32  `json:"maximumScalingStepSize" xml:"maximumScalingStepSize"`
-	MinimumScalingStepSize int32  `json:"minimumScalingStepSize" xml:"minimumScalingStepSize"`
-	Status                 string `json:"status" xml:"status"`
-	TargetCapacity         int32  `json:"targetCapacity" xml:"targetCapacity"`
+InstanceWarmupPeriod int32 `json:"instanceWarmupPeriod" xml:"instanceWarmupPeriod"`
+MaximumScalingStepSize int32 `json:"maximumScalingStepSize" xml:"maximumScalingStepSize"`
+MinimumScalingStepSize int32 `json:"minimumScalingStepSize" xml:"minimumScalingStepSize"`
+Status string `json:"status" xml:"status"`
+TargetCapacity int32 `json:"targetCapacity" xml:"targetCapacity"`
 }
 
 type ManagedSecurityGroup struct {
-	Arn          string    `json:"arn" xml:"arn"`
-	Status       string    `json:"status" xml:"status"`
-	StatusReason string    `json:"statusReason" xml:"statusReason"`
-	UpdatedAt    time.Time `json:"updatedAt" xml:"updatedAt"`
+Arn string `json:"arn" xml:"arn"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ManagedStorageConfiguration struct {
-	FargateEphemeralStorageKmsKeyId string `json:"fargateEphemeralStorageKmsKeyId" xml:"fargateEphemeralStorageKmsKeyId"`
-	KmsKeyId                        string `json:"kmsKeyId" xml:"kmsKeyId"`
+FargateEphemeralStorageKmsKeyId string `json:"fargateEphemeralStorageKmsKeyId" xml:"fargateEphemeralStorageKmsKeyId"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
 }
 
 type ManagedTargetGroup struct {
-	Arn             string    `json:"arn" xml:"arn"`
-	HealthCheckPath string    `json:"healthCheckPath" xml:"healthCheckPath"`
-	HealthCheckPort int32     `json:"healthCheckPort" xml:"healthCheckPort"`
-	Port            int32     `json:"port" xml:"port"`
-	Status          string    `json:"status" xml:"status"`
-	StatusReason    string    `json:"statusReason" xml:"statusReason"`
-	UpdatedAt       time.Time `json:"updatedAt" xml:"updatedAt"`
+Arn string `json:"arn" xml:"arn"`
+HealthCheckPath string `json:"healthCheckPath" xml:"healthCheckPath"`
+HealthCheckPort int32 `json:"healthCheckPort" xml:"healthCheckPort"`
+Port int32 `json:"port" xml:"port"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type MemoryGiBPerVCpuRequest struct {
-	Max float64 `json:"max" xml:"max"`
-	Min float64 `json:"min" xml:"min"`
+Max float64 `json:"max" xml:"max"`
+Min float64 `json:"min" xml:"min"`
 }
 
 type MemoryMiBRequest struct {
-	Max int32 `json:"max" xml:"max"`
-	Min int32 `json:"min" xml:"min"`
+Max int32 `json:"max" xml:"max"`
+Min int32 `json:"min" xml:"min"`
 }
 
 type MountPoint struct {
-	ContainerPath string `json:"containerPath" xml:"containerPath"`
-	ReadOnly      bool   `json:"readOnly" xml:"readOnly"`
-	SourceVolume  string `json:"sourceVolume" xml:"sourceVolume"`
+ContainerPath string `json:"containerPath" xml:"containerPath"`
+ReadOnly bool `json:"readOnly" xml:"readOnly"`
+SourceVolume string `json:"sourceVolume" xml:"sourceVolume"`
 }
 
 type NetworkBandwidthGbpsRequest struct {
-	Max float64 `json:"max" xml:"max"`
-	Min float64 `json:"min" xml:"min"`
+Max float64 `json:"max" xml:"max"`
+Min float64 `json:"min" xml:"min"`
 }
 
 type NetworkBinding struct {
-	BindIP             string `json:"bindIP" xml:"bindIP"`
-	ContainerPort      int32  `json:"containerPort" xml:"containerPort"`
-	ContainerPortRange string `json:"containerPortRange" xml:"containerPortRange"`
-	HostPort           int32  `json:"hostPort" xml:"hostPort"`
-	HostPortRange      string `json:"hostPortRange" xml:"hostPortRange"`
-	Protocol           string `json:"protocol" xml:"protocol"`
+BindIP string `json:"bindIP" xml:"bindIP"`
+ContainerPort int32 `json:"containerPort" xml:"containerPort"`
+ContainerPortRange string `json:"containerPortRange" xml:"containerPortRange"`
+HostPort int32 `json:"hostPort" xml:"hostPort"`
+HostPortRange string `json:"hostPortRange" xml:"hostPortRange"`
+Protocol string `json:"protocol" xml:"protocol"`
 }
 
 type NetworkConfiguration struct {
-	AwsvpcConfiguration *AwsVpcConfiguration `json:"awsvpcConfiguration" xml:"awsvpcConfiguration"`
+AwsvpcConfiguration *AwsVpcConfiguration `json:"awsvpcConfiguration" xml:"awsvpcConfiguration"`
 }
 
 type NetworkInterface struct {
-	AttachmentId       string `json:"attachmentId" xml:"attachmentId"`
-	Ipv6Address        string `json:"ipv6Address" xml:"ipv6Address"`
-	PrivateIpv4Address string `json:"privateIpv4Address" xml:"privateIpv4Address"`
+AttachmentId string `json:"attachmentId" xml:"attachmentId"`
+Ipv6Address string `json:"ipv6Address" xml:"ipv6Address"`
+PrivateIpv4Address string `json:"privateIpv4Address" xml:"privateIpv4Address"`
 }
 
 type NetworkInterfaceCountRequest struct {
-	Max int32 `json:"max" xml:"max"`
-	Min int32 `json:"min" xml:"min"`
+Max int32 `json:"max" xml:"max"`
+Min int32 `json:"min" xml:"min"`
 }
 
 type PlacementConstraint struct {
-	Expression string `json:"expression" xml:"expression"`
-	Type       string `json:"type" xml:"type"`
+Expression string `json:"expression" xml:"expression"`
+Type string `json:"type" xml:"type"`
 }
 
 type PlacementStrategy struct {
-	Field string `json:"field" xml:"field"`
-	Type  string `json:"type" xml:"type"`
+Field string `json:"field" xml:"field"`
+Type string `json:"type" xml:"type"`
 }
 
 type PlatformDevice struct {
-	Id   string `json:"id" xml:"id"`
-	Type string `json:"type" xml:"type"`
+Id string `json:"id" xml:"id"`
+Type string `json:"type" xml:"type"`
 }
 
 type PortMapping struct {
-	AppProtocol        string `json:"appProtocol" xml:"appProtocol"`
-	ContainerPort      int32  `json:"containerPort" xml:"containerPort"`
-	ContainerPortRange string `json:"containerPortRange" xml:"containerPortRange"`
-	HostPort           int32  `json:"hostPort" xml:"hostPort"`
-	Name               string `json:"name" xml:"name"`
-	Protocol           string `json:"protocol" xml:"protocol"`
+AppProtocol string `json:"appProtocol" xml:"appProtocol"`
+ContainerPort int32 `json:"containerPort" xml:"containerPort"`
+ContainerPortRange string `json:"containerPortRange" xml:"containerPortRange"`
+HostPort int32 `json:"hostPort" xml:"hostPort"`
+Name string `json:"name" xml:"name"`
+Protocol string `json:"protocol" xml:"protocol"`
 }
 
 type ProtectedTask struct {
-	ExpirationDate    time.Time `json:"expirationDate" xml:"expirationDate"`
-	ProtectionEnabled bool      `json:"protectionEnabled" xml:"protectionEnabled"`
-	TaskArn           string    `json:"taskArn" xml:"taskArn"`
+ExpirationDate time.Time `json:"expirationDate" xml:"expirationDate"`
+ProtectionEnabled bool `json:"protectionEnabled" xml:"protectionEnabled"`
+TaskArn string `json:"taskArn" xml:"taskArn"`
 }
 
 type ProxyConfiguration struct {
-	ContainerName string                       `json:"containerName" xml:"containerName"`
-	Properties    ProxyConfigurationProperties `json:"properties" xml:"properties"`
-	Type          string                       `json:"type" xml:"type"`
+ContainerName string `json:"containerName" xml:"containerName"`
+Properties ProxyConfigurationProperties `json:"properties" xml:"properties"`
+Type string `json:"type" xml:"type"`
 }
 
 type PutAccountSettingDefaultRequest struct {
-	Name  string `json:"name" xml:"name"`
-	Value string `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+Value string `json:"value" xml:"value"`
 }
 
 type PutAccountSettingDefaultResponse struct {
-	Setting *Setting `json:"setting" xml:"setting"`
+Setting *Setting `json:"setting" xml:"setting"`
 }
 
 type PutAccountSettingRequest struct {
-	Name         string `json:"name" xml:"name"`
-	PrincipalArn string `json:"principalArn" xml:"principalArn"`
-	Value        string `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+PrincipalArn string `json:"principalArn" xml:"principalArn"`
+Value string `json:"value" xml:"value"`
 }
 
 type PutAccountSettingResponse struct {
-	Setting *Setting `json:"setting" xml:"setting"`
+Setting *Setting `json:"setting" xml:"setting"`
 }
 
 type PutAttributesRequest struct {
-	Attributes Attributes `json:"attributes" xml:"attributes"`
-	Cluster    string     `json:"cluster" xml:"cluster"`
+Attributes Attributes `json:"attributes" xml:"attributes"`
+Cluster string `json:"cluster" xml:"cluster"`
 }
 
 type PutAttributesResponse struct {
-	Attributes Attributes `json:"attributes" xml:"attributes"`
+Attributes Attributes `json:"attributes" xml:"attributes"`
 }
 
 type PutClusterCapacityProvidersRequest struct {
-	CapacityProviders               StringList               `json:"capacityProviders" xml:"capacityProviders"`
-	Cluster                         string                   `json:"cluster" xml:"cluster"`
-	DefaultCapacityProviderStrategy CapacityProviderStrategy `json:"defaultCapacityProviderStrategy" xml:"defaultCapacityProviderStrategy"`
+CapacityProviders StringList `json:"capacityProviders" xml:"capacityProviders"`
+Cluster string `json:"cluster" xml:"cluster"`
+DefaultCapacityProviderStrategy CapacityProviderStrategy `json:"defaultCapacityProviderStrategy" xml:"defaultCapacityProviderStrategy"`
 }
 
 type PutClusterCapacityProvidersResponse struct {
-	Cluster *Cluster `json:"cluster" xml:"cluster"`
+Cluster *Cluster `json:"cluster" xml:"cluster"`
 }
 
 type RegisterContainerInstanceRequest struct {
-	Attributes                        Attributes      `json:"attributes" xml:"attributes"`
-	Cluster                           string          `json:"cluster" xml:"cluster"`
-	ContainerInstanceArn              string          `json:"containerInstanceArn" xml:"containerInstanceArn"`
-	InstanceIdentityDocument          string          `json:"instanceIdentityDocument" xml:"instanceIdentityDocument"`
-	InstanceIdentityDocumentSignature string          `json:"instanceIdentityDocumentSignature" xml:"instanceIdentityDocumentSignature"`
-	PlatformDevices                   PlatformDevices `json:"platformDevices" xml:"platformDevices"`
-	Tags                              Tags            `json:"tags" xml:"tags"`
-	TotalResources                    Resources       `json:"totalResources" xml:"totalResources"`
-	VersionInfo                       *VersionInfo    `json:"versionInfo" xml:"versionInfo"`
+Attributes Attributes `json:"attributes" xml:"attributes"`
+Cluster string `json:"cluster" xml:"cluster"`
+ContainerInstanceArn string `json:"containerInstanceArn" xml:"containerInstanceArn"`
+InstanceIdentityDocument string `json:"instanceIdentityDocument" xml:"instanceIdentityDocument"`
+InstanceIdentityDocumentSignature string `json:"instanceIdentityDocumentSignature" xml:"instanceIdentityDocumentSignature"`
+PlatformDevices PlatformDevices `json:"platformDevices" xml:"platformDevices"`
+Tags Tags `json:"tags" xml:"tags"`
+TotalResources Resources `json:"totalResources" xml:"totalResources"`
+VersionInfo *VersionInfo `json:"versionInfo" xml:"versionInfo"`
 }
 
 type RegisterContainerInstanceResponse struct {
-	ContainerInstance *ContainerInstance `json:"containerInstance" xml:"containerInstance"`
+ContainerInstance *ContainerInstance `json:"containerInstance" xml:"containerInstance"`
 }
 
 type RegisterDaemonTaskDefinitionRequest struct {
-	ContainerDefinitions DaemonContainerDefinitionList `json:"containerDefinitions" xml:"containerDefinitions"`
-	Cpu                  string                        `json:"cpu" xml:"cpu"`
-	ExecutionRoleArn     string                        `json:"executionRoleArn" xml:"executionRoleArn"`
-	Family               string                        `json:"family" xml:"family"`
-	Memory               string                        `json:"memory" xml:"memory"`
-	Tags                 Tags                          `json:"tags" xml:"tags"`
-	TaskRoleArn          string                        `json:"taskRoleArn" xml:"taskRoleArn"`
-	Volumes              DaemonVolumeList              `json:"volumes" xml:"volumes"`
+ContainerDefinitions DaemonContainerDefinitionList `json:"containerDefinitions" xml:"containerDefinitions"`
+Cpu string `json:"cpu" xml:"cpu"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+Family string `json:"family" xml:"family"`
+Memory string `json:"memory" xml:"memory"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskRoleArn string `json:"taskRoleArn" xml:"taskRoleArn"`
+Volumes DaemonVolumeList `json:"volumes" xml:"volumes"`
 }
 
 type RegisterDaemonTaskDefinitionResponse struct {
-	DaemonTaskDefinitionArn string `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
+DaemonTaskDefinitionArn string `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
 }
 
 type RegisterTaskDefinitionRequest struct {
-	ContainerDefinitions    ContainerDefinitions               `json:"containerDefinitions" xml:"containerDefinitions"`
-	Cpu                     string                             `json:"cpu" xml:"cpu"`
-	EnableFaultInjection    bool                               `json:"enableFaultInjection" xml:"enableFaultInjection"`
-	EphemeralStorage        *EphemeralStorage                  `json:"ephemeralStorage" xml:"ephemeralStorage"`
-	ExecutionRoleArn        string                             `json:"executionRoleArn" xml:"executionRoleArn"`
-	Family                  string                             `json:"family" xml:"family"`
-	InferenceAccelerators   InferenceAccelerators              `json:"inferenceAccelerators" xml:"inferenceAccelerators"`
-	IpcMode                 string                             `json:"ipcMode" xml:"ipcMode"`
-	Memory                  string                             `json:"memory" xml:"memory"`
-	NetworkMode             string                             `json:"networkMode" xml:"networkMode"`
-	PidMode                 string                             `json:"pidMode" xml:"pidMode"`
-	PlacementConstraints    TaskDefinitionPlacementConstraints `json:"placementConstraints" xml:"placementConstraints"`
-	ProxyConfiguration      *ProxyConfiguration                `json:"proxyConfiguration" xml:"proxyConfiguration"`
-	RequiresCompatibilities CompatibilityList                  `json:"requiresCompatibilities" xml:"requiresCompatibilities"`
-	RuntimePlatform         *RuntimePlatform                   `json:"runtimePlatform" xml:"runtimePlatform"`
-	Tags                    Tags                               `json:"tags" xml:"tags"`
-	TaskRoleArn             string                             `json:"taskRoleArn" xml:"taskRoleArn"`
-	Volumes                 VolumeList                         `json:"volumes" xml:"volumes"`
+ContainerDefinitions ContainerDefinitions `json:"containerDefinitions" xml:"containerDefinitions"`
+Cpu string `json:"cpu" xml:"cpu"`
+EnableFaultInjection bool `json:"enableFaultInjection" xml:"enableFaultInjection"`
+EphemeralStorage *EphemeralStorage `json:"ephemeralStorage" xml:"ephemeralStorage"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+Family string `json:"family" xml:"family"`
+InferenceAccelerators InferenceAccelerators `json:"inferenceAccelerators" xml:"inferenceAccelerators"`
+IpcMode string `json:"ipcMode" xml:"ipcMode"`
+Memory string `json:"memory" xml:"memory"`
+NetworkMode string `json:"networkMode" xml:"networkMode"`
+PidMode string `json:"pidMode" xml:"pidMode"`
+PlacementConstraints TaskDefinitionPlacementConstraints `json:"placementConstraints" xml:"placementConstraints"`
+ProxyConfiguration *ProxyConfiguration `json:"proxyConfiguration" xml:"proxyConfiguration"`
+RequiresCompatibilities CompatibilityList `json:"requiresCompatibilities" xml:"requiresCompatibilities"`
+RuntimePlatform *RuntimePlatform `json:"runtimePlatform" xml:"runtimePlatform"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskRoleArn string `json:"taskRoleArn" xml:"taskRoleArn"`
+Volumes VolumeList `json:"volumes" xml:"volumes"`
 }
 
 type RegisterTaskDefinitionResponse struct {
-	Tags           Tags            `json:"tags" xml:"tags"`
-	TaskDefinition *TaskDefinition `json:"taskDefinition" xml:"taskDefinition"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskDefinition *TaskDefinition `json:"taskDefinition" xml:"taskDefinition"`
 }
 
 type RepositoryCredentials struct {
-	CredentialsParameter string `json:"credentialsParameter" xml:"credentialsParameter"`
+CredentialsParameter string `json:"credentialsParameter" xml:"credentialsParameter"`
 }
 
 type ResolvedConfiguration struct {
-	LoadBalancers ServiceRevisionLoadBalancers `json:"loadBalancers" xml:"loadBalancers"`
+LoadBalancers ServiceRevisionLoadBalancers `json:"loadBalancers" xml:"loadBalancers"`
 }
 
 type Resource struct {
-	DoubleValue    float64    `json:"doubleValue" xml:"doubleValue"`
-	IntegerValue   int32      `json:"integerValue" xml:"integerValue"`
-	LongValue      int64      `json:"longValue" xml:"longValue"`
-	Name           string     `json:"name" xml:"name"`
-	StringSetValue StringList `json:"stringSetValue" xml:"stringSetValue"`
-	Type           string     `json:"type" xml:"type"`
+DoubleValue float64 `json:"doubleValue" xml:"doubleValue"`
+IntegerValue int32 `json:"integerValue" xml:"integerValue"`
+LongValue int64 `json:"longValue" xml:"longValue"`
+Name string `json:"name" xml:"name"`
+StringSetValue StringList `json:"stringSetValue" xml:"stringSetValue"`
+Type string `json:"type" xml:"type"`
 }
 
 type ResourceRequirement struct {
-	Type  string `json:"type" xml:"type"`
-	Value string `json:"value" xml:"value"`
+Type string `json:"type" xml:"type"`
+Value string `json:"value" xml:"value"`
 }
 
 type Rollback struct {
-	Reason             string    `json:"reason" xml:"reason"`
-	ServiceRevisionArn string    `json:"serviceRevisionArn" xml:"serviceRevisionArn"`
-	StartedAt          time.Time `json:"startedAt" xml:"startedAt"`
+Reason string `json:"reason" xml:"reason"`
+ServiceRevisionArn string `json:"serviceRevisionArn" xml:"serviceRevisionArn"`
+StartedAt time.Time `json:"startedAt" xml:"startedAt"`
 }
 
 type RunTaskRequest struct {
-	CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
-	ClientToken              string                   `json:"clientToken" xml:"clientToken"`
-	Cluster                  string                   `json:"cluster" xml:"cluster"`
-	Count                    int32                    `json:"count" xml:"count"`
-	EnableECSManagedTags     bool                     `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
-	EnableExecuteCommand     bool                     `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	Group                    string                   `json:"group" xml:"group"`
-	LaunchType               string                   `json:"launchType" xml:"launchType"`
-	NetworkConfiguration     *NetworkConfiguration    `json:"networkConfiguration" xml:"networkConfiguration"`
-	Overrides                *TaskOverride            `json:"overrides" xml:"overrides"`
-	PlacementConstraints     PlacementConstraints     `json:"placementConstraints" xml:"placementConstraints"`
-	PlacementStrategy        PlacementStrategies      `json:"placementStrategy" xml:"placementStrategy"`
-	PlatformVersion          string                   `json:"platformVersion" xml:"platformVersion"`
-	PropagateTags            string                   `json:"propagateTags" xml:"propagateTags"`
-	ReferenceId              string                   `json:"referenceId" xml:"referenceId"`
-	StartedBy                string                   `json:"startedBy" xml:"startedBy"`
-	Tags                     Tags                     `json:"tags" xml:"tags"`
-	TaskDefinition           string                   `json:"taskDefinition" xml:"taskDefinition"`
-	VolumeConfigurations     TaskVolumeConfigurations `json:"volumeConfigurations" xml:"volumeConfigurations"`
+CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Cluster string `json:"cluster" xml:"cluster"`
+Count int32 `json:"count" xml:"count"`
+EnableECSManagedTags bool `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+Group string `json:"group" xml:"group"`
+LaunchType string `json:"launchType" xml:"launchType"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+Overrides *TaskOverride `json:"overrides" xml:"overrides"`
+PlacementConstraints PlacementConstraints `json:"placementConstraints" xml:"placementConstraints"`
+PlacementStrategy PlacementStrategies `json:"placementStrategy" xml:"placementStrategy"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
+ReferenceId string `json:"referenceId" xml:"referenceId"`
+StartedBy string `json:"startedBy" xml:"startedBy"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
+VolumeConfigurations TaskVolumeConfigurations `json:"volumeConfigurations" xml:"volumeConfigurations"`
 }
 
 type RunTaskResponse struct {
-	Failures Failures `json:"failures" xml:"failures"`
-	Tasks    Tasks    `json:"tasks" xml:"tasks"`
+Failures Failures `json:"failures" xml:"failures"`
+Tasks Tasks `json:"tasks" xml:"tasks"`
 }
 
 type RuntimePlatform struct {
-	CpuArchitecture       string `json:"cpuArchitecture" xml:"cpuArchitecture"`
-	OperatingSystemFamily string `json:"operatingSystemFamily" xml:"operatingSystemFamily"`
+CpuArchitecture string `json:"cpuArchitecture" xml:"cpuArchitecture"`
+OperatingSystemFamily string `json:"operatingSystemFamily" xml:"operatingSystemFamily"`
 }
 
 type Scale struct {
-	Unit  string  `json:"unit" xml:"unit"`
-	Value float64 `json:"value" xml:"value"`
+Unit string `json:"unit" xml:"unit"`
+Value float64 `json:"value" xml:"value"`
 }
 
 type Secret struct {
-	Name      string `json:"name" xml:"name"`
-	ValueFrom string `json:"valueFrom" xml:"valueFrom"`
+Name string `json:"name" xml:"name"`
+ValueFrom string `json:"valueFrom" xml:"valueFrom"`
 }
 
 type Service struct {
-	AvailabilityZoneRebalancing   string                            `json:"availabilityZoneRebalancing" xml:"availabilityZoneRebalancing"`
-	CapacityProviderStrategy      CapacityProviderStrategy          `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
-	ClusterArn                    string                            `json:"clusterArn" xml:"clusterArn"`
-	CreatedAt                     time.Time                         `json:"createdAt" xml:"createdAt"`
-	CreatedBy                     string                            `json:"createdBy" xml:"createdBy"`
-	CurrentServiceDeployment      string                            `json:"currentServiceDeployment" xml:"currentServiceDeployment"`
-	CurrentServiceRevisions       ServiceCurrentRevisionSummaryList `json:"currentServiceRevisions" xml:"currentServiceRevisions"`
-	DeploymentConfiguration       *DeploymentConfiguration          `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
-	DeploymentController          *DeploymentController             `json:"deploymentController" xml:"deploymentController"`
-	Deployments                   Deployments                       `json:"deployments" xml:"deployments"`
-	DesiredCount                  int32                             `json:"desiredCount" xml:"desiredCount"`
-	EnableECSManagedTags          bool                              `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
-	EnableExecuteCommand          bool                              `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	Events                        ServiceEvents                     `json:"events" xml:"events"`
-	HealthCheckGracePeriodSeconds int32                             `json:"healthCheckGracePeriodSeconds" xml:"healthCheckGracePeriodSeconds"`
-	LaunchType                    string                            `json:"launchType" xml:"launchType"`
-	LoadBalancers                 LoadBalancers                     `json:"loadBalancers" xml:"loadBalancers"`
-	NetworkConfiguration          *NetworkConfiguration             `json:"networkConfiguration" xml:"networkConfiguration"`
-	PendingCount                  int32                             `json:"pendingCount" xml:"pendingCount"`
-	PlacementConstraints          PlacementConstraints              `json:"placementConstraints" xml:"placementConstraints"`
-	PlacementStrategy             PlacementStrategies               `json:"placementStrategy" xml:"placementStrategy"`
-	PlatformFamily                string                            `json:"platformFamily" xml:"platformFamily"`
-	PlatformVersion               string                            `json:"platformVersion" xml:"platformVersion"`
-	PropagateTags                 string                            `json:"propagateTags" xml:"propagateTags"`
-	ResourceManagementType        string                            `json:"resourceManagementType" xml:"resourceManagementType"`
-	RoleArn                       string                            `json:"roleArn" xml:"roleArn"`
-	RunningCount                  int32                             `json:"runningCount" xml:"runningCount"`
-	SchedulingStrategy            string                            `json:"schedulingStrategy" xml:"schedulingStrategy"`
-	ServiceArn                    string                            `json:"serviceArn" xml:"serviceArn"`
-	ServiceName                   string                            `json:"serviceName" xml:"serviceName"`
-	ServiceRegistries             ServiceRegistries                 `json:"serviceRegistries" xml:"serviceRegistries"`
-	Status                        string                            `json:"status" xml:"status"`
-	Tags                          Tags                              `json:"tags" xml:"tags"`
-	TaskDefinition                string                            `json:"taskDefinition" xml:"taskDefinition"`
-	TaskSets                      TaskSets                          `json:"taskSets" xml:"taskSets"`
+AvailabilityZoneRebalancing string `json:"availabilityZoneRebalancing" xml:"availabilityZoneRebalancing"`
+CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+CreatedBy string `json:"createdBy" xml:"createdBy"`
+CurrentServiceDeployment string `json:"currentServiceDeployment" xml:"currentServiceDeployment"`
+CurrentServiceRevisions ServiceCurrentRevisionSummaryList `json:"currentServiceRevisions" xml:"currentServiceRevisions"`
+DeploymentConfiguration *DeploymentConfiguration `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
+DeploymentController *DeploymentController `json:"deploymentController" xml:"deploymentController"`
+Deployments Deployments `json:"deployments" xml:"deployments"`
+DesiredCount int32 `json:"desiredCount" xml:"desiredCount"`
+EnableECSManagedTags bool `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+Events ServiceEvents `json:"events" xml:"events"`
+HealthCheckGracePeriodSeconds int32 `json:"healthCheckGracePeriodSeconds" xml:"healthCheckGracePeriodSeconds"`
+LaunchType string `json:"launchType" xml:"launchType"`
+LoadBalancers LoadBalancers `json:"loadBalancers" xml:"loadBalancers"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PendingCount int32 `json:"pendingCount" xml:"pendingCount"`
+PlacementConstraints PlacementConstraints `json:"placementConstraints" xml:"placementConstraints"`
+PlacementStrategy PlacementStrategies `json:"placementStrategy" xml:"placementStrategy"`
+PlatformFamily string `json:"platformFamily" xml:"platformFamily"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
+ResourceManagementType string `json:"resourceManagementType" xml:"resourceManagementType"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+RunningCount int32 `json:"runningCount" xml:"runningCount"`
+SchedulingStrategy string `json:"schedulingStrategy" xml:"schedulingStrategy"`
+ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+ServiceName string `json:"serviceName" xml:"serviceName"`
+ServiceRegistries ServiceRegistries `json:"serviceRegistries" xml:"serviceRegistries"`
+Status string `json:"status" xml:"status"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
+TaskSets TaskSets `json:"taskSets" xml:"taskSets"`
 }
 
 type ServiceConnectAccessLogConfiguration struct {
-	Format                 string `json:"format" xml:"format"`
-	IncludeQueryParameters string `json:"includeQueryParameters" xml:"includeQueryParameters"`
+Format string `json:"format" xml:"format"`
+IncludeQueryParameters string `json:"includeQueryParameters" xml:"includeQueryParameters"`
 }
 
 type ServiceConnectClientAlias struct {
-	DnsName          string                          `json:"dnsName" xml:"dnsName"`
-	Port             int32                           `json:"port" xml:"port"`
-	TestTrafficRules *ServiceConnectTestTrafficRules `json:"testTrafficRules" xml:"testTrafficRules"`
+DnsName string `json:"dnsName" xml:"dnsName"`
+Port int32 `json:"port" xml:"port"`
+TestTrafficRules *ServiceConnectTestTrafficRules `json:"testTrafficRules" xml:"testTrafficRules"`
 }
 
 type ServiceConnectConfiguration struct {
-	AccessLogConfiguration *ServiceConnectAccessLogConfiguration `json:"accessLogConfiguration" xml:"accessLogConfiguration"`
-	Enabled                bool                                  `json:"enabled" xml:"enabled"`
-	LogConfiguration       *LogConfiguration                     `json:"logConfiguration" xml:"logConfiguration"`
-	Namespace              string                                `json:"namespace" xml:"namespace"`
-	Services               ServiceConnectServiceList             `json:"services" xml:"services"`
+AccessLogConfiguration *ServiceConnectAccessLogConfiguration `json:"accessLogConfiguration" xml:"accessLogConfiguration"`
+Enabled bool `json:"enabled" xml:"enabled"`
+LogConfiguration *LogConfiguration `json:"logConfiguration" xml:"logConfiguration"`
+Namespace string `json:"namespace" xml:"namespace"`
+Services ServiceConnectServiceList `json:"services" xml:"services"`
 }
 
 type ServiceConnectService struct {
-	ClientAliases       ServiceConnectClientAliasList   `json:"clientAliases" xml:"clientAliases"`
-	DiscoveryName       string                          `json:"discoveryName" xml:"discoveryName"`
-	IngressPortOverride int32                           `json:"ingressPortOverride" xml:"ingressPortOverride"`
-	PortName            string                          `json:"portName" xml:"portName"`
-	Timeout             *TimeoutConfiguration           `json:"timeout" xml:"timeout"`
-	Tls                 *ServiceConnectTlsConfiguration `json:"tls" xml:"tls"`
+ClientAliases ServiceConnectClientAliasList `json:"clientAliases" xml:"clientAliases"`
+DiscoveryName string `json:"discoveryName" xml:"discoveryName"`
+IngressPortOverride int32 `json:"ingressPortOverride" xml:"ingressPortOverride"`
+PortName string `json:"portName" xml:"portName"`
+Timeout *TimeoutConfiguration `json:"timeout" xml:"timeout"`
+Tls *ServiceConnectTlsConfiguration `json:"tls" xml:"tls"`
 }
 
 type ServiceConnectServiceResource struct {
-	DiscoveryArn  string `json:"discoveryArn" xml:"discoveryArn"`
-	DiscoveryName string `json:"discoveryName" xml:"discoveryName"`
+DiscoveryArn string `json:"discoveryArn" xml:"discoveryArn"`
+DiscoveryName string `json:"discoveryName" xml:"discoveryName"`
 }
 
 type ServiceConnectTestTrafficHeaderMatchRules struct {
-	Exact string `json:"exact" xml:"exact"`
+Exact string `json:"exact" xml:"exact"`
 }
 
 type ServiceConnectTestTrafficHeaderRules struct {
-	Name  string                                     `json:"name" xml:"name"`
-	Value *ServiceConnectTestTrafficHeaderMatchRules `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+Value *ServiceConnectTestTrafficHeaderMatchRules `json:"value" xml:"value"`
 }
 
 type ServiceConnectTestTrafficRules struct {
-	Header *ServiceConnectTestTrafficHeaderRules `json:"header" xml:"header"`
+Header *ServiceConnectTestTrafficHeaderRules `json:"header" xml:"header"`
 }
 
 type ServiceConnectTlsCertificateAuthority struct {
-	AwsPcaAuthorityArn string `json:"awsPcaAuthorityArn" xml:"awsPcaAuthorityArn"`
+AwsPcaAuthorityArn string `json:"awsPcaAuthorityArn" xml:"awsPcaAuthorityArn"`
 }
 
 type ServiceConnectTlsConfiguration struct {
-	IssuerCertificateAuthority *ServiceConnectTlsCertificateAuthority `json:"issuerCertificateAuthority" xml:"issuerCertificateAuthority"`
-	KmsKey                     string                                 `json:"kmsKey" xml:"kmsKey"`
-	RoleArn                    string                                 `json:"roleArn" xml:"roleArn"`
+IssuerCertificateAuthority *ServiceConnectTlsCertificateAuthority `json:"issuerCertificateAuthority" xml:"issuerCertificateAuthority"`
+KmsKey string `json:"kmsKey" xml:"kmsKey"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
 }
 
 type ServiceCurrentRevisionSummary struct {
-	Arn                string `json:"arn" xml:"arn"`
-	PendingTaskCount   int32  `json:"pendingTaskCount" xml:"pendingTaskCount"`
-	RequestedTaskCount int32  `json:"requestedTaskCount" xml:"requestedTaskCount"`
-	RunningTaskCount   int32  `json:"runningTaskCount" xml:"runningTaskCount"`
+Arn string `json:"arn" xml:"arn"`
+PendingTaskCount int32 `json:"pendingTaskCount" xml:"pendingTaskCount"`
+RequestedTaskCount int32 `json:"requestedTaskCount" xml:"requestedTaskCount"`
+RunningTaskCount int32 `json:"runningTaskCount" xml:"runningTaskCount"`
 }
 
 type ServiceDeployment struct {
-	Alarms                   *ServiceDeploymentAlarms         `json:"alarms" xml:"alarms"`
-	ClusterArn               string                           `json:"clusterArn" xml:"clusterArn"`
-	CreatedAt                time.Time                        `json:"createdAt" xml:"createdAt"`
-	DeploymentCircuitBreaker *ServiceDeploymentCircuitBreaker `json:"deploymentCircuitBreaker" xml:"deploymentCircuitBreaker"`
-	DeploymentConfiguration  *DeploymentConfiguration         `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
-	FinishedAt               time.Time                        `json:"finishedAt" xml:"finishedAt"`
-	LifecycleStage           string                           `json:"lifecycleStage" xml:"lifecycleStage"`
-	Rollback                 *Rollback                        `json:"rollback" xml:"rollback"`
-	ServiceArn               string                           `json:"serviceArn" xml:"serviceArn"`
-	ServiceDeploymentArn     string                           `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
-	SourceServiceRevisions   ServiceRevisionsSummaryList      `json:"sourceServiceRevisions" xml:"sourceServiceRevisions"`
-	StartedAt                time.Time                        `json:"startedAt" xml:"startedAt"`
-	Status                   string                           `json:"status" xml:"status"`
-	StatusReason             string                           `json:"statusReason" xml:"statusReason"`
-	StoppedAt                time.Time                        `json:"stoppedAt" xml:"stoppedAt"`
-	TargetServiceRevision    *ServiceRevisionSummary          `json:"targetServiceRevision" xml:"targetServiceRevision"`
-	UpdatedAt                time.Time                        `json:"updatedAt" xml:"updatedAt"`
+Alarms *ServiceDeploymentAlarms `json:"alarms" xml:"alarms"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DeploymentCircuitBreaker *ServiceDeploymentCircuitBreaker `json:"deploymentCircuitBreaker" xml:"deploymentCircuitBreaker"`
+DeploymentConfiguration *DeploymentConfiguration `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
+FinishedAt time.Time `json:"finishedAt" xml:"finishedAt"`
+LifecycleStage string `json:"lifecycleStage" xml:"lifecycleStage"`
+Rollback *Rollback `json:"rollback" xml:"rollback"`
+ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+ServiceDeploymentArn string `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
+SourceServiceRevisions ServiceRevisionsSummaryList `json:"sourceServiceRevisions" xml:"sourceServiceRevisions"`
+StartedAt time.Time `json:"startedAt" xml:"startedAt"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+StoppedAt time.Time `json:"stoppedAt" xml:"stoppedAt"`
+TargetServiceRevision *ServiceRevisionSummary `json:"targetServiceRevision" xml:"targetServiceRevision"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ServiceDeploymentAlarms struct {
-	AlarmNames          StringList `json:"alarmNames" xml:"alarmNames"`
-	Status              string     `json:"status" xml:"status"`
-	TriggeredAlarmNames StringList `json:"triggeredAlarmNames" xml:"triggeredAlarmNames"`
+AlarmNames StringList `json:"alarmNames" xml:"alarmNames"`
+Status string `json:"status" xml:"status"`
+TriggeredAlarmNames StringList `json:"triggeredAlarmNames" xml:"triggeredAlarmNames"`
 }
 
 type ServiceDeploymentBrief struct {
-	ClusterArn               string    `json:"clusterArn" xml:"clusterArn"`
-	CreatedAt                time.Time `json:"createdAt" xml:"createdAt"`
-	FinishedAt               time.Time `json:"finishedAt" xml:"finishedAt"`
-	ServiceArn               string    `json:"serviceArn" xml:"serviceArn"`
-	ServiceDeploymentArn     string    `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
-	StartedAt                time.Time `json:"startedAt" xml:"startedAt"`
-	Status                   string    `json:"status" xml:"status"`
-	StatusReason             string    `json:"statusReason" xml:"statusReason"`
-	TargetServiceRevisionArn string    `json:"targetServiceRevisionArn" xml:"targetServiceRevisionArn"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+FinishedAt time.Time `json:"finishedAt" xml:"finishedAt"`
+ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+ServiceDeploymentArn string `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
+StartedAt time.Time `json:"startedAt" xml:"startedAt"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
+TargetServiceRevisionArn string `json:"targetServiceRevisionArn" xml:"targetServiceRevisionArn"`
 }
 
 type ServiceDeploymentCircuitBreaker struct {
-	FailureCount int32  `json:"failureCount" xml:"failureCount"`
-	Status       string `json:"status" xml:"status"`
-	Threshold    int32  `json:"threshold" xml:"threshold"`
+FailureCount int32 `json:"failureCount" xml:"failureCount"`
+Status string `json:"status" xml:"status"`
+Threshold int32 `json:"threshold" xml:"threshold"`
 }
 
 type ServiceEvent struct {
-	CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
-	Id        string    `json:"id" xml:"id"`
-	Message   string    `json:"message" xml:"message"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+Id string `json:"id" xml:"id"`
+Message string `json:"message" xml:"message"`
 }
 
 type ServiceManagedEBSVolumeConfiguration struct {
-	Encrypted                bool                 `json:"encrypted" xml:"encrypted"`
-	FilesystemType           string               `json:"filesystemType" xml:"filesystemType"`
-	Iops                     int32                `json:"iops" xml:"iops"`
-	KmsKeyId                 string               `json:"kmsKeyId" xml:"kmsKeyId"`
-	RoleArn                  string               `json:"roleArn" xml:"roleArn"`
-	SizeInGiB                int32                `json:"sizeInGiB" xml:"sizeInGiB"`
-	SnapshotId               string               `json:"snapshotId" xml:"snapshotId"`
-	TagSpecifications        EBSTagSpecifications `json:"tagSpecifications" xml:"tagSpecifications"`
-	Throughput               int32                `json:"throughput" xml:"throughput"`
-	VolumeInitializationRate int32                `json:"volumeInitializationRate" xml:"volumeInitializationRate"`
-	VolumeType               string               `json:"volumeType" xml:"volumeType"`
+Encrypted bool `json:"encrypted" xml:"encrypted"`
+FilesystemType string `json:"filesystemType" xml:"filesystemType"`
+Iops int32 `json:"iops" xml:"iops"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+SizeInGiB int32 `json:"sizeInGiB" xml:"sizeInGiB"`
+SnapshotId string `json:"snapshotId" xml:"snapshotId"`
+TagSpecifications EBSTagSpecifications `json:"tagSpecifications" xml:"tagSpecifications"`
+Throughput int32 `json:"throughput" xml:"throughput"`
+VolumeInitializationRate int32 `json:"volumeInitializationRate" xml:"volumeInitializationRate"`
+VolumeType string `json:"volumeType" xml:"volumeType"`
 }
 
 type ServiceRegistry struct {
-	ContainerName string `json:"containerName" xml:"containerName"`
-	ContainerPort int32  `json:"containerPort" xml:"containerPort"`
-	Port          int32  `json:"port" xml:"port"`
-	RegistryArn   string `json:"registryArn" xml:"registryArn"`
+ContainerName string `json:"containerName" xml:"containerName"`
+ContainerPort int32 `json:"containerPort" xml:"containerPort"`
+Port int32 `json:"port" xml:"port"`
+RegistryArn string `json:"registryArn" xml:"registryArn"`
 }
 
 type ServiceRevision struct {
-	CapacityProviderStrategy    CapacityProviderStrategy     `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
-	ClusterArn                  string                       `json:"clusterArn" xml:"clusterArn"`
-	ContainerImages             ContainerImages              `json:"containerImages" xml:"containerImages"`
-	CreatedAt                   time.Time                    `json:"createdAt" xml:"createdAt"`
-	EcsManagedResources         *ECSManagedResources         `json:"ecsManagedResources" xml:"ecsManagedResources"`
-	FargateEphemeralStorage     *DeploymentEphemeralStorage  `json:"fargateEphemeralStorage" xml:"fargateEphemeralStorage"`
-	GuardDutyEnabled            bool                         `json:"guardDutyEnabled" xml:"guardDutyEnabled"`
-	LaunchType                  string                       `json:"launchType" xml:"launchType"`
-	LoadBalancers               LoadBalancers                `json:"loadBalancers" xml:"loadBalancers"`
-	NetworkConfiguration        *NetworkConfiguration        `json:"networkConfiguration" xml:"networkConfiguration"`
-	PlatformFamily              string                       `json:"platformFamily" xml:"platformFamily"`
-	PlatformVersion             string                       `json:"platformVersion" xml:"platformVersion"`
-	ResolvedConfiguration       *ResolvedConfiguration       `json:"resolvedConfiguration" xml:"resolvedConfiguration"`
-	ServiceArn                  string                       `json:"serviceArn" xml:"serviceArn"`
-	ServiceConnectConfiguration *ServiceConnectConfiguration `json:"serviceConnectConfiguration" xml:"serviceConnectConfiguration"`
-	ServiceRegistries           ServiceRegistries            `json:"serviceRegistries" xml:"serviceRegistries"`
-	ServiceRevisionArn          string                       `json:"serviceRevisionArn" xml:"serviceRevisionArn"`
-	TaskDefinition              string                       `json:"taskDefinition" xml:"taskDefinition"`
-	VolumeConfigurations        ServiceVolumeConfigurations  `json:"volumeConfigurations" xml:"volumeConfigurations"`
-	VpcLatticeConfigurations    VpcLatticeConfigurations     `json:"vpcLatticeConfigurations" xml:"vpcLatticeConfigurations"`
+CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+ContainerImages ContainerImages `json:"containerImages" xml:"containerImages"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+EcsManagedResources *ECSManagedResources `json:"ecsManagedResources" xml:"ecsManagedResources"`
+FargateEphemeralStorage *DeploymentEphemeralStorage `json:"fargateEphemeralStorage" xml:"fargateEphemeralStorage"`
+GuardDutyEnabled bool `json:"guardDutyEnabled" xml:"guardDutyEnabled"`
+LaunchType string `json:"launchType" xml:"launchType"`
+LoadBalancers LoadBalancers `json:"loadBalancers" xml:"loadBalancers"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PlatformFamily string `json:"platformFamily" xml:"platformFamily"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+ResolvedConfiguration *ResolvedConfiguration `json:"resolvedConfiguration" xml:"resolvedConfiguration"`
+ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+ServiceConnectConfiguration *ServiceConnectConfiguration `json:"serviceConnectConfiguration" xml:"serviceConnectConfiguration"`
+ServiceRegistries ServiceRegistries `json:"serviceRegistries" xml:"serviceRegistries"`
+ServiceRevisionArn string `json:"serviceRevisionArn" xml:"serviceRevisionArn"`
+TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
+VolumeConfigurations ServiceVolumeConfigurations `json:"volumeConfigurations" xml:"volumeConfigurations"`
+VpcLatticeConfigurations VpcLatticeConfigurations `json:"vpcLatticeConfigurations" xml:"vpcLatticeConfigurations"`
 }
 
 type ServiceRevisionLoadBalancer struct {
-	ProductionListenerRule string `json:"productionListenerRule" xml:"productionListenerRule"`
-	TargetGroupArn         string `json:"targetGroupArn" xml:"targetGroupArn"`
+ProductionListenerRule string `json:"productionListenerRule" xml:"productionListenerRule"`
+TargetGroupArn string `json:"targetGroupArn" xml:"targetGroupArn"`
 }
 
 type ServiceRevisionSummary struct {
-	Arn                              string  `json:"arn" xml:"arn"`
-	PendingTaskCount                 int32   `json:"pendingTaskCount" xml:"pendingTaskCount"`
-	RequestedProductionTrafficWeight float64 `json:"requestedProductionTrafficWeight" xml:"requestedProductionTrafficWeight"`
-	RequestedTaskCount               int32   `json:"requestedTaskCount" xml:"requestedTaskCount"`
-	RequestedTestTrafficWeight       float64 `json:"requestedTestTrafficWeight" xml:"requestedTestTrafficWeight"`
-	RunningTaskCount                 int32   `json:"runningTaskCount" xml:"runningTaskCount"`
+Arn string `json:"arn" xml:"arn"`
+PendingTaskCount int32 `json:"pendingTaskCount" xml:"pendingTaskCount"`
+RequestedProductionTrafficWeight float64 `json:"requestedProductionTrafficWeight" xml:"requestedProductionTrafficWeight"`
+RequestedTaskCount int32 `json:"requestedTaskCount" xml:"requestedTaskCount"`
+RequestedTestTrafficWeight float64 `json:"requestedTestTrafficWeight" xml:"requestedTestTrafficWeight"`
+RunningTaskCount int32 `json:"runningTaskCount" xml:"runningTaskCount"`
 }
 
 type ServiceVolumeConfiguration struct {
-	ManagedEBSVolume *ServiceManagedEBSVolumeConfiguration `json:"managedEBSVolume" xml:"managedEBSVolume"`
-	Name             string                                `json:"name" xml:"name"`
+ManagedEBSVolume *ServiceManagedEBSVolumeConfiguration `json:"managedEBSVolume" xml:"managedEBSVolume"`
+Name string `json:"name" xml:"name"`
 }
 
 type Session struct {
-	SessionId  string `json:"sessionId" xml:"sessionId"`
-	StreamUrl  string `json:"streamUrl" xml:"streamUrl"`
-	TokenValue string `json:"tokenValue" xml:"tokenValue"`
+SessionId string `json:"sessionId" xml:"sessionId"`
+StreamUrl string `json:"streamUrl" xml:"streamUrl"`
+TokenValue string `json:"tokenValue" xml:"tokenValue"`
 }
 
 type Setting struct {
-	Name         string `json:"name" xml:"name"`
-	PrincipalArn string `json:"principalArn" xml:"principalArn"`
-	Type         string `json:"type" xml:"type"`
-	Value        string `json:"value" xml:"value"`
+Name string `json:"name" xml:"name"`
+PrincipalArn string `json:"principalArn" xml:"principalArn"`
+Type string `json:"type" xml:"type"`
+Value string `json:"value" xml:"value"`
 }
 
 type StartTaskRequest struct {
-	Cluster              string                   `json:"cluster" xml:"cluster"`
-	ContainerInstances   StringList               `json:"containerInstances" xml:"containerInstances"`
-	EnableECSManagedTags bool                     `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
-	EnableExecuteCommand bool                     `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	Group                string                   `json:"group" xml:"group"`
-	NetworkConfiguration *NetworkConfiguration    `json:"networkConfiguration" xml:"networkConfiguration"`
-	Overrides            *TaskOverride            `json:"overrides" xml:"overrides"`
-	PropagateTags        string                   `json:"propagateTags" xml:"propagateTags"`
-	ReferenceId          string                   `json:"referenceId" xml:"referenceId"`
-	StartedBy            string                   `json:"startedBy" xml:"startedBy"`
-	Tags                 Tags                     `json:"tags" xml:"tags"`
-	TaskDefinition       string                   `json:"taskDefinition" xml:"taskDefinition"`
-	VolumeConfigurations TaskVolumeConfigurations `json:"volumeConfigurations" xml:"volumeConfigurations"`
+Cluster string `json:"cluster" xml:"cluster"`
+ContainerInstances StringList `json:"containerInstances" xml:"containerInstances"`
+EnableECSManagedTags bool `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+Group string `json:"group" xml:"group"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+Overrides *TaskOverride `json:"overrides" xml:"overrides"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
+ReferenceId string `json:"referenceId" xml:"referenceId"`
+StartedBy string `json:"startedBy" xml:"startedBy"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
+VolumeConfigurations TaskVolumeConfigurations `json:"volumeConfigurations" xml:"volumeConfigurations"`
 }
 
 type StartTaskResponse struct {
-	Failures Failures `json:"failures" xml:"failures"`
-	Tasks    Tasks    `json:"tasks" xml:"tasks"`
+Failures Failures `json:"failures" xml:"failures"`
+Tasks Tasks `json:"tasks" xml:"tasks"`
 }
 
 type StopServiceDeploymentRequest struct {
-	ServiceDeploymentArn string `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
-	StopType             string `json:"stopType" xml:"stopType"`
+ServiceDeploymentArn string `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
+StopType string `json:"stopType" xml:"stopType"`
 }
 
 type StopServiceDeploymentResponse struct {
-	ServiceDeploymentArn string `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
+ServiceDeploymentArn string `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
 }
 
 type StopTaskRequest struct {
-	Cluster string `json:"cluster" xml:"cluster"`
-	Reason  string `json:"reason" xml:"reason"`
-	Task    string `json:"task" xml:"task"`
+Cluster string `json:"cluster" xml:"cluster"`
+Reason string `json:"reason" xml:"reason"`
+Task string `json:"task" xml:"task"`
 }
 
 type StopTaskResponse struct {
-	Task *Task `json:"task" xml:"task"`
+Task *Task `json:"task" xml:"task"`
 }
 
 type SubmitAttachmentStateChangesRequest struct {
-	Attachments AttachmentStateChanges `json:"attachments" xml:"attachments"`
-	Cluster     string                 `json:"cluster" xml:"cluster"`
+Attachments AttachmentStateChanges `json:"attachments" xml:"attachments"`
+Cluster string `json:"cluster" xml:"cluster"`
 }
 
 type SubmitAttachmentStateChangesResponse struct {
-	Acknowledgment string `json:"acknowledgment" xml:"acknowledgment"`
+Acknowledgment string `json:"acknowledgment" xml:"acknowledgment"`
 }
 
 type SubmitContainerStateChangeRequest struct {
-	Cluster         string          `json:"cluster" xml:"cluster"`
-	ContainerName   string          `json:"containerName" xml:"containerName"`
-	ExitCode        int32           `json:"exitCode" xml:"exitCode"`
-	NetworkBindings NetworkBindings `json:"networkBindings" xml:"networkBindings"`
-	Reason          string          `json:"reason" xml:"reason"`
-	RuntimeId       string          `json:"runtimeId" xml:"runtimeId"`
-	Status          string          `json:"status" xml:"status"`
-	Task            string          `json:"task" xml:"task"`
+Cluster string `json:"cluster" xml:"cluster"`
+ContainerName string `json:"containerName" xml:"containerName"`
+ExitCode int32 `json:"exitCode" xml:"exitCode"`
+NetworkBindings NetworkBindings `json:"networkBindings" xml:"networkBindings"`
+Reason string `json:"reason" xml:"reason"`
+RuntimeId string `json:"runtimeId" xml:"runtimeId"`
+Status string `json:"status" xml:"status"`
+Task string `json:"task" xml:"task"`
 }
 
 type SubmitContainerStateChangeResponse struct {
-	Acknowledgment string `json:"acknowledgment" xml:"acknowledgment"`
+Acknowledgment string `json:"acknowledgment" xml:"acknowledgment"`
 }
 
 type SubmitTaskStateChangeRequest struct {
-	Attachments        AttachmentStateChanges   `json:"attachments" xml:"attachments"`
-	Cluster            string                   `json:"cluster" xml:"cluster"`
-	Containers         ContainerStateChanges    `json:"containers" xml:"containers"`
-	ExecutionStoppedAt time.Time                `json:"executionStoppedAt" xml:"executionStoppedAt"`
-	ManagedAgents      ManagedAgentStateChanges `json:"managedAgents" xml:"managedAgents"`
-	PullStartedAt      time.Time                `json:"pullStartedAt" xml:"pullStartedAt"`
-	PullStoppedAt      time.Time                `json:"pullStoppedAt" xml:"pullStoppedAt"`
-	Reason             string                   `json:"reason" xml:"reason"`
-	Status             string                   `json:"status" xml:"status"`
-	Task               string                   `json:"task" xml:"task"`
+Attachments AttachmentStateChanges `json:"attachments" xml:"attachments"`
+Cluster string `json:"cluster" xml:"cluster"`
+Containers ContainerStateChanges `json:"containers" xml:"containers"`
+ExecutionStoppedAt time.Time `json:"executionStoppedAt" xml:"executionStoppedAt"`
+ManagedAgents ManagedAgentStateChanges `json:"managedAgents" xml:"managedAgents"`
+PullStartedAt time.Time `json:"pullStartedAt" xml:"pullStartedAt"`
+PullStoppedAt time.Time `json:"pullStoppedAt" xml:"pullStoppedAt"`
+Reason string `json:"reason" xml:"reason"`
+Status string `json:"status" xml:"status"`
+Task string `json:"task" xml:"task"`
 }
 
 type SubmitTaskStateChangeResponse struct {
-	Acknowledgment string `json:"acknowledgment" xml:"acknowledgment"`
+Acknowledgment string `json:"acknowledgment" xml:"acknowledgment"`
 }
 
 type SystemControl struct {
-	Namespace string `json:"namespace" xml:"namespace"`
-	Value     string `json:"value" xml:"value"`
+Namespace string `json:"namespace" xml:"namespace"`
+Value string `json:"value" xml:"value"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"key"`
-	Value string `json:"value" xml:"value"`
+Key string `json:"key" xml:"key"`
+Value string `json:"value" xml:"value"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
-	Tags        Tags   `json:"tags" xml:"tags"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type Task struct {
-	Attachments             Attachments           `json:"attachments" xml:"attachments"`
-	Attributes              Attributes            `json:"attributes" xml:"attributes"`
-	AvailabilityZone        string                `json:"availabilityZone" xml:"availabilityZone"`
-	CapacityProviderName    string                `json:"capacityProviderName" xml:"capacityProviderName"`
-	ClusterArn              string                `json:"clusterArn" xml:"clusterArn"`
-	Connectivity            string                `json:"connectivity" xml:"connectivity"`
-	ConnectivityAt          time.Time             `json:"connectivityAt" xml:"connectivityAt"`
-	ContainerInstanceArn    string                `json:"containerInstanceArn" xml:"containerInstanceArn"`
-	Containers              Containers            `json:"containers" xml:"containers"`
-	Cpu                     string                `json:"cpu" xml:"cpu"`
-	CreatedAt               time.Time             `json:"createdAt" xml:"createdAt"`
-	DesiredStatus           string                `json:"desiredStatus" xml:"desiredStatus"`
-	EnableExecuteCommand    bool                  `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	EphemeralStorage        *EphemeralStorage     `json:"ephemeralStorage" xml:"ephemeralStorage"`
-	ExecutionStoppedAt      time.Time             `json:"executionStoppedAt" xml:"executionStoppedAt"`
-	FargateEphemeralStorage *TaskEphemeralStorage `json:"fargateEphemeralStorage" xml:"fargateEphemeralStorage"`
-	Group                   string                `json:"group" xml:"group"`
-	HealthStatus            string                `json:"healthStatus" xml:"healthStatus"`
-	InferenceAccelerators   InferenceAccelerators `json:"inferenceAccelerators" xml:"inferenceAccelerators"`
-	LastStatus              string                `json:"lastStatus" xml:"lastStatus"`
-	LaunchType              string                `json:"launchType" xml:"launchType"`
-	Memory                  string                `json:"memory" xml:"memory"`
-	Overrides               *TaskOverride         `json:"overrides" xml:"overrides"`
-	PlatformFamily          string                `json:"platformFamily" xml:"platformFamily"`
-	PlatformVersion         string                `json:"platformVersion" xml:"platformVersion"`
-	PullStartedAt           time.Time             `json:"pullStartedAt" xml:"pullStartedAt"`
-	PullStoppedAt           time.Time             `json:"pullStoppedAt" xml:"pullStoppedAt"`
-	StartedAt               time.Time             `json:"startedAt" xml:"startedAt"`
-	StartedBy               string                `json:"startedBy" xml:"startedBy"`
-	StopCode                string                `json:"stopCode" xml:"stopCode"`
-	StoppedAt               time.Time             `json:"stoppedAt" xml:"stoppedAt"`
-	StoppedReason           string                `json:"stoppedReason" xml:"stoppedReason"`
-	StoppingAt              time.Time             `json:"stoppingAt" xml:"stoppingAt"`
-	Tags                    Tags                  `json:"tags" xml:"tags"`
-	TaskArn                 string                `json:"taskArn" xml:"taskArn"`
-	TaskDefinitionArn       string                `json:"taskDefinitionArn" xml:"taskDefinitionArn"`
-	Version                 int64                 `json:"version" xml:"version"`
+Attachments Attachments `json:"attachments" xml:"attachments"`
+Attributes Attributes `json:"attributes" xml:"attributes"`
+AvailabilityZone string `json:"availabilityZone" xml:"availabilityZone"`
+CapacityProviderName string `json:"capacityProviderName" xml:"capacityProviderName"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+Connectivity string `json:"connectivity" xml:"connectivity"`
+ConnectivityAt time.Time `json:"connectivityAt" xml:"connectivityAt"`
+ContainerInstanceArn string `json:"containerInstanceArn" xml:"containerInstanceArn"`
+Containers Containers `json:"containers" xml:"containers"`
+Cpu string `json:"cpu" xml:"cpu"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DesiredStatus string `json:"desiredStatus" xml:"desiredStatus"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+EphemeralStorage *EphemeralStorage `json:"ephemeralStorage" xml:"ephemeralStorage"`
+ExecutionStoppedAt time.Time `json:"executionStoppedAt" xml:"executionStoppedAt"`
+FargateEphemeralStorage *TaskEphemeralStorage `json:"fargateEphemeralStorage" xml:"fargateEphemeralStorage"`
+Group string `json:"group" xml:"group"`
+HealthStatus string `json:"healthStatus" xml:"healthStatus"`
+InferenceAccelerators InferenceAccelerators `json:"inferenceAccelerators" xml:"inferenceAccelerators"`
+LastStatus string `json:"lastStatus" xml:"lastStatus"`
+LaunchType string `json:"launchType" xml:"launchType"`
+Memory string `json:"memory" xml:"memory"`
+Overrides *TaskOverride `json:"overrides" xml:"overrides"`
+PlatformFamily string `json:"platformFamily" xml:"platformFamily"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+PullStartedAt time.Time `json:"pullStartedAt" xml:"pullStartedAt"`
+PullStoppedAt time.Time `json:"pullStoppedAt" xml:"pullStoppedAt"`
+StartedAt time.Time `json:"startedAt" xml:"startedAt"`
+StartedBy string `json:"startedBy" xml:"startedBy"`
+StopCode string `json:"stopCode" xml:"stopCode"`
+StoppedAt time.Time `json:"stoppedAt" xml:"stoppedAt"`
+StoppedReason string `json:"stoppedReason" xml:"stoppedReason"`
+StoppingAt time.Time `json:"stoppingAt" xml:"stoppingAt"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskArn string `json:"taskArn" xml:"taskArn"`
+TaskDefinitionArn string `json:"taskDefinitionArn" xml:"taskDefinitionArn"`
+Version int64 `json:"version" xml:"version"`
 }
 
 type TaskDefinition struct {
-	Compatibilities         CompatibilityList                  `json:"compatibilities" xml:"compatibilities"`
-	ContainerDefinitions    ContainerDefinitions               `json:"containerDefinitions" xml:"containerDefinitions"`
-	Cpu                     string                             `json:"cpu" xml:"cpu"`
-	DeleteRequestedAt       time.Time                          `json:"deleteRequestedAt" xml:"deleteRequestedAt"`
-	DeregisteredAt          time.Time                          `json:"deregisteredAt" xml:"deregisteredAt"`
-	EnableFaultInjection    bool                               `json:"enableFaultInjection" xml:"enableFaultInjection"`
-	EphemeralStorage        *EphemeralStorage                  `json:"ephemeralStorage" xml:"ephemeralStorage"`
-	ExecutionRoleArn        string                             `json:"executionRoleArn" xml:"executionRoleArn"`
-	Family                  string                             `json:"family" xml:"family"`
-	InferenceAccelerators   InferenceAccelerators              `json:"inferenceAccelerators" xml:"inferenceAccelerators"`
-	IpcMode                 string                             `json:"ipcMode" xml:"ipcMode"`
-	Memory                  string                             `json:"memory" xml:"memory"`
-	NetworkMode             string                             `json:"networkMode" xml:"networkMode"`
-	PidMode                 string                             `json:"pidMode" xml:"pidMode"`
-	PlacementConstraints    TaskDefinitionPlacementConstraints `json:"placementConstraints" xml:"placementConstraints"`
-	ProxyConfiguration      *ProxyConfiguration                `json:"proxyConfiguration" xml:"proxyConfiguration"`
-	RegisteredAt            time.Time                          `json:"registeredAt" xml:"registeredAt"`
-	RegisteredBy            string                             `json:"registeredBy" xml:"registeredBy"`
-	RequiresAttributes      RequiresAttributes                 `json:"requiresAttributes" xml:"requiresAttributes"`
-	RequiresCompatibilities CompatibilityList                  `json:"requiresCompatibilities" xml:"requiresCompatibilities"`
-	Revision                int32                              `json:"revision" xml:"revision"`
-	RuntimePlatform         *RuntimePlatform                   `json:"runtimePlatform" xml:"runtimePlatform"`
-	Status                  string                             `json:"status" xml:"status"`
-	TaskDefinitionArn       string                             `json:"taskDefinitionArn" xml:"taskDefinitionArn"`
-	TaskRoleArn             string                             `json:"taskRoleArn" xml:"taskRoleArn"`
-	Volumes                 VolumeList                         `json:"volumes" xml:"volumes"`
+Compatibilities CompatibilityList `json:"compatibilities" xml:"compatibilities"`
+ContainerDefinitions ContainerDefinitions `json:"containerDefinitions" xml:"containerDefinitions"`
+Cpu string `json:"cpu" xml:"cpu"`
+DeleteRequestedAt time.Time `json:"deleteRequestedAt" xml:"deleteRequestedAt"`
+DeregisteredAt time.Time `json:"deregisteredAt" xml:"deregisteredAt"`
+EnableFaultInjection bool `json:"enableFaultInjection" xml:"enableFaultInjection"`
+EphemeralStorage *EphemeralStorage `json:"ephemeralStorage" xml:"ephemeralStorage"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+Family string `json:"family" xml:"family"`
+InferenceAccelerators InferenceAccelerators `json:"inferenceAccelerators" xml:"inferenceAccelerators"`
+IpcMode string `json:"ipcMode" xml:"ipcMode"`
+Memory string `json:"memory" xml:"memory"`
+NetworkMode string `json:"networkMode" xml:"networkMode"`
+PidMode string `json:"pidMode" xml:"pidMode"`
+PlacementConstraints TaskDefinitionPlacementConstraints `json:"placementConstraints" xml:"placementConstraints"`
+ProxyConfiguration *ProxyConfiguration `json:"proxyConfiguration" xml:"proxyConfiguration"`
+RegisteredAt time.Time `json:"registeredAt" xml:"registeredAt"`
+RegisteredBy string `json:"registeredBy" xml:"registeredBy"`
+RequiresAttributes RequiresAttributes `json:"requiresAttributes" xml:"requiresAttributes"`
+RequiresCompatibilities CompatibilityList `json:"requiresCompatibilities" xml:"requiresCompatibilities"`
+Revision int32 `json:"revision" xml:"revision"`
+RuntimePlatform *RuntimePlatform `json:"runtimePlatform" xml:"runtimePlatform"`
+Status string `json:"status" xml:"status"`
+TaskDefinitionArn string `json:"taskDefinitionArn" xml:"taskDefinitionArn"`
+TaskRoleArn string `json:"taskRoleArn" xml:"taskRoleArn"`
+Volumes VolumeList `json:"volumes" xml:"volumes"`
 }
 
 type TaskDefinitionPlacementConstraint struct {
-	Expression string `json:"expression" xml:"expression"`
-	Type       string `json:"type" xml:"type"`
+Expression string `json:"expression" xml:"expression"`
+Type string `json:"type" xml:"type"`
 }
 
 type TaskEphemeralStorage struct {
-	KmsKeyId  string `json:"kmsKeyId" xml:"kmsKeyId"`
-	SizeInGiB int32  `json:"sizeInGiB" xml:"sizeInGiB"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+SizeInGiB int32 `json:"sizeInGiB" xml:"sizeInGiB"`
 }
 
 type TaskManagedEBSVolumeConfiguration struct {
-	Encrypted                bool                                   `json:"encrypted" xml:"encrypted"`
-	FilesystemType           string                                 `json:"filesystemType" xml:"filesystemType"`
-	Iops                     int32                                  `json:"iops" xml:"iops"`
-	KmsKeyId                 string                                 `json:"kmsKeyId" xml:"kmsKeyId"`
-	RoleArn                  string                                 `json:"roleArn" xml:"roleArn"`
-	SizeInGiB                int32                                  `json:"sizeInGiB" xml:"sizeInGiB"`
-	SnapshotId               string                                 `json:"snapshotId" xml:"snapshotId"`
-	TagSpecifications        EBSTagSpecifications                   `json:"tagSpecifications" xml:"tagSpecifications"`
-	TerminationPolicy        *TaskManagedEBSVolumeTerminationPolicy `json:"terminationPolicy" xml:"terminationPolicy"`
-	Throughput               int32                                  `json:"throughput" xml:"throughput"`
-	VolumeInitializationRate int32                                  `json:"volumeInitializationRate" xml:"volumeInitializationRate"`
-	VolumeType               string                                 `json:"volumeType" xml:"volumeType"`
+Encrypted bool `json:"encrypted" xml:"encrypted"`
+FilesystemType string `json:"filesystemType" xml:"filesystemType"`
+Iops int32 `json:"iops" xml:"iops"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+SizeInGiB int32 `json:"sizeInGiB" xml:"sizeInGiB"`
+SnapshotId string `json:"snapshotId" xml:"snapshotId"`
+TagSpecifications EBSTagSpecifications `json:"tagSpecifications" xml:"tagSpecifications"`
+TerminationPolicy *TaskManagedEBSVolumeTerminationPolicy `json:"terminationPolicy" xml:"terminationPolicy"`
+Throughput int32 `json:"throughput" xml:"throughput"`
+VolumeInitializationRate int32 `json:"volumeInitializationRate" xml:"volumeInitializationRate"`
+VolumeType string `json:"volumeType" xml:"volumeType"`
 }
 
 type TaskManagedEBSVolumeTerminationPolicy struct {
-	DeleteOnTermination bool `json:"deleteOnTermination" xml:"deleteOnTermination"`
+DeleteOnTermination bool `json:"deleteOnTermination" xml:"deleteOnTermination"`
 }
 
 type TaskOverride struct {
-	ContainerOverrides            ContainerOverrides            `json:"containerOverrides" xml:"containerOverrides"`
-	Cpu                           string                        `json:"cpu" xml:"cpu"`
-	EphemeralStorage              *EphemeralStorage             `json:"ephemeralStorage" xml:"ephemeralStorage"`
-	ExecutionRoleArn              string                        `json:"executionRoleArn" xml:"executionRoleArn"`
-	InferenceAcceleratorOverrides InferenceAcceleratorOverrides `json:"inferenceAcceleratorOverrides" xml:"inferenceAcceleratorOverrides"`
-	Memory                        string                        `json:"memory" xml:"memory"`
-	TaskRoleArn                   string                        `json:"taskRoleArn" xml:"taskRoleArn"`
+ContainerOverrides ContainerOverrides `json:"containerOverrides" xml:"containerOverrides"`
+Cpu string `json:"cpu" xml:"cpu"`
+EphemeralStorage *EphemeralStorage `json:"ephemeralStorage" xml:"ephemeralStorage"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+InferenceAcceleratorOverrides InferenceAcceleratorOverrides `json:"inferenceAcceleratorOverrides" xml:"inferenceAcceleratorOverrides"`
+Memory string `json:"memory" xml:"memory"`
+TaskRoleArn string `json:"taskRoleArn" xml:"taskRoleArn"`
 }
 
 type TaskSet struct {
-	CapacityProviderStrategy CapacityProviderStrategy    `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
-	ClusterArn               string                      `json:"clusterArn" xml:"clusterArn"`
-	ComputedDesiredCount     int32                       `json:"computedDesiredCount" xml:"computedDesiredCount"`
-	CreatedAt                time.Time                   `json:"createdAt" xml:"createdAt"`
-	ExternalId               string                      `json:"externalId" xml:"externalId"`
-	FargateEphemeralStorage  *DeploymentEphemeralStorage `json:"fargateEphemeralStorage" xml:"fargateEphemeralStorage"`
-	Id                       string                      `json:"id" xml:"id"`
-	LaunchType               string                      `json:"launchType" xml:"launchType"`
-	LoadBalancers            LoadBalancers               `json:"loadBalancers" xml:"loadBalancers"`
-	NetworkConfiguration     *NetworkConfiguration       `json:"networkConfiguration" xml:"networkConfiguration"`
-	PendingCount             int32                       `json:"pendingCount" xml:"pendingCount"`
-	PlatformFamily           string                      `json:"platformFamily" xml:"platformFamily"`
-	PlatformVersion          string                      `json:"platformVersion" xml:"platformVersion"`
-	RunningCount             int32                       `json:"runningCount" xml:"runningCount"`
-	Scale                    *Scale                      `json:"scale" xml:"scale"`
-	ServiceArn               string                      `json:"serviceArn" xml:"serviceArn"`
-	ServiceRegistries        ServiceRegistries           `json:"serviceRegistries" xml:"serviceRegistries"`
-	StabilityStatus          string                      `json:"stabilityStatus" xml:"stabilityStatus"`
-	StabilityStatusAt        time.Time                   `json:"stabilityStatusAt" xml:"stabilityStatusAt"`
-	StartedBy                string                      `json:"startedBy" xml:"startedBy"`
-	Status                   string                      `json:"status" xml:"status"`
-	Tags                     Tags                        `json:"tags" xml:"tags"`
-	TaskDefinition           string                      `json:"taskDefinition" xml:"taskDefinition"`
-	TaskSetArn               string                      `json:"taskSetArn" xml:"taskSetArn"`
-	UpdatedAt                time.Time                   `json:"updatedAt" xml:"updatedAt"`
+CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
+ClusterArn string `json:"clusterArn" xml:"clusterArn"`
+ComputedDesiredCount int32 `json:"computedDesiredCount" xml:"computedDesiredCount"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+ExternalId string `json:"externalId" xml:"externalId"`
+FargateEphemeralStorage *DeploymentEphemeralStorage `json:"fargateEphemeralStorage" xml:"fargateEphemeralStorage"`
+Id string `json:"id" xml:"id"`
+LaunchType string `json:"launchType" xml:"launchType"`
+LoadBalancers LoadBalancers `json:"loadBalancers" xml:"loadBalancers"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PendingCount int32 `json:"pendingCount" xml:"pendingCount"`
+PlatformFamily string `json:"platformFamily" xml:"platformFamily"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+RunningCount int32 `json:"runningCount" xml:"runningCount"`
+Scale *Scale `json:"scale" xml:"scale"`
+ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+ServiceRegistries ServiceRegistries `json:"serviceRegistries" xml:"serviceRegistries"`
+StabilityStatus string `json:"stabilityStatus" xml:"stabilityStatus"`
+StabilityStatusAt time.Time `json:"stabilityStatusAt" xml:"stabilityStatusAt"`
+StartedBy string `json:"startedBy" xml:"startedBy"`
+Status string `json:"status" xml:"status"`
+Tags Tags `json:"tags" xml:"tags"`
+TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
+TaskSetArn string `json:"taskSetArn" xml:"taskSetArn"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type TaskVolumeConfiguration struct {
-	ManagedEBSVolume *TaskManagedEBSVolumeConfiguration `json:"managedEBSVolume" xml:"managedEBSVolume"`
-	Name             string                             `json:"name" xml:"name"`
+ManagedEBSVolume *TaskManagedEBSVolumeConfiguration `json:"managedEBSVolume" xml:"managedEBSVolume"`
+Name string `json:"name" xml:"name"`
 }
 
 type TimeoutConfiguration struct {
-	IdleTimeoutSeconds       int32 `json:"idleTimeoutSeconds" xml:"idleTimeoutSeconds"`
-	PerRequestTimeoutSeconds int32 `json:"perRequestTimeoutSeconds" xml:"perRequestTimeoutSeconds"`
+IdleTimeoutSeconds int32 `json:"idleTimeoutSeconds" xml:"idleTimeoutSeconds"`
+PerRequestTimeoutSeconds int32 `json:"perRequestTimeoutSeconds" xml:"perRequestTimeoutSeconds"`
 }
 
 type Tmpfs struct {
-	ContainerPath string     `json:"containerPath" xml:"containerPath"`
-	MountOptions  StringList `json:"mountOptions" xml:"mountOptions"`
-	Size          int32      `json:"size" xml:"size"`
+ContainerPath string `json:"containerPath" xml:"containerPath"`
+MountOptions StringList `json:"mountOptions" xml:"mountOptions"`
+Size int32 `json:"size" xml:"size"`
 }
 
 type TotalLocalStorageGBRequest struct {
-	Max float64 `json:"max" xml:"max"`
-	Min float64 `json:"min" xml:"min"`
+Max float64 `json:"max" xml:"max"`
+Min float64 `json:"min" xml:"min"`
 }
 
 type Ulimit struct {
-	HardLimit int32  `json:"hardLimit" xml:"hardLimit"`
-	Name      string `json:"name" xml:"name"`
-	SoftLimit int32  `json:"softLimit" xml:"softLimit"`
+HardLimit int32 `json:"hardLimit" xml:"hardLimit"`
+Name string `json:"name" xml:"name"`
+SoftLimit int32 `json:"softLimit" xml:"softLimit"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string  `json:"resourceArn" xml:"resourceArn"`
-	TagKeys     TagKeys `json:"tagKeys" xml:"tagKeys"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+TagKeys TagKeys `json:"tagKeys" xml:"tagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateCapacityProviderRequest struct {
-	AutoScalingGroupProvider *AutoScalingGroupProviderUpdate              `json:"autoScalingGroupProvider" xml:"autoScalingGroupProvider"`
-	Cluster                  string                                       `json:"cluster" xml:"cluster"`
-	ManagedInstancesProvider *UpdateManagedInstancesProviderConfiguration `json:"managedInstancesProvider" xml:"managedInstancesProvider"`
-	Name                     string                                       `json:"name" xml:"name"`
+AutoScalingGroupProvider *AutoScalingGroupProviderUpdate `json:"autoScalingGroupProvider" xml:"autoScalingGroupProvider"`
+Cluster string `json:"cluster" xml:"cluster"`
+ManagedInstancesProvider *UpdateManagedInstancesProviderConfiguration `json:"managedInstancesProvider" xml:"managedInstancesProvider"`
+Name string `json:"name" xml:"name"`
 }
 
 type UpdateCapacityProviderResponse struct {
-	CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"capacityProvider"`
+CapacityProvider *CapacityProvider `json:"capacityProvider" xml:"capacityProvider"`
 }
 
 type UpdateClusterRequest struct {
-	Cluster                string                                `json:"cluster" xml:"cluster"`
-	Configuration          *ClusterConfiguration                 `json:"configuration" xml:"configuration"`
-	ServiceConnectDefaults *ClusterServiceConnectDefaultsRequest `json:"serviceConnectDefaults" xml:"serviceConnectDefaults"`
-	Settings               ClusterSettings                       `json:"settings" xml:"settings"`
+Cluster string `json:"cluster" xml:"cluster"`
+Configuration *ClusterConfiguration `json:"configuration" xml:"configuration"`
+ServiceConnectDefaults *ClusterServiceConnectDefaultsRequest `json:"serviceConnectDefaults" xml:"serviceConnectDefaults"`
+Settings ClusterSettings `json:"settings" xml:"settings"`
 }
 
 type UpdateClusterResponse struct {
-	Cluster *Cluster `json:"cluster" xml:"cluster"`
+Cluster *Cluster `json:"cluster" xml:"cluster"`
 }
 
 type UpdateClusterSettingsRequest struct {
-	Cluster  string          `json:"cluster" xml:"cluster"`
-	Settings ClusterSettings `json:"settings" xml:"settings"`
+Cluster string `json:"cluster" xml:"cluster"`
+Settings ClusterSettings `json:"settings" xml:"settings"`
 }
 
 type UpdateClusterSettingsResponse struct {
-	Cluster *Cluster `json:"cluster" xml:"cluster"`
+Cluster *Cluster `json:"cluster" xml:"cluster"`
 }
 
 type UpdateContainerAgentRequest struct {
-	Cluster           string `json:"cluster" xml:"cluster"`
-	ContainerInstance string `json:"containerInstance" xml:"containerInstance"`
+Cluster string `json:"cluster" xml:"cluster"`
+ContainerInstance string `json:"containerInstance" xml:"containerInstance"`
 }
 
 type UpdateContainerAgentResponse struct {
-	ContainerInstance *ContainerInstance `json:"containerInstance" xml:"containerInstance"`
+ContainerInstance *ContainerInstance `json:"containerInstance" xml:"containerInstance"`
 }
 
 type UpdateContainerInstancesStateRequest struct {
-	Cluster            string     `json:"cluster" xml:"cluster"`
-	ContainerInstances StringList `json:"containerInstances" xml:"containerInstances"`
-	Status             string     `json:"status" xml:"status"`
+Cluster string `json:"cluster" xml:"cluster"`
+ContainerInstances StringList `json:"containerInstances" xml:"containerInstances"`
+Status string `json:"status" xml:"status"`
 }
 
 type UpdateContainerInstancesStateResponse struct {
-	ContainerInstances ContainerInstances `json:"containerInstances" xml:"containerInstances"`
-	Failures           Failures           `json:"failures" xml:"failures"`
+ContainerInstances ContainerInstances `json:"containerInstances" xml:"containerInstances"`
+Failures Failures `json:"failures" xml:"failures"`
 }
 
 type UpdateDaemonRequest struct {
-	CapacityProviderArns    StringList                     `json:"capacityProviderArns" xml:"capacityProviderArns"`
-	DaemonArn               string                         `json:"daemonArn" xml:"daemonArn"`
-	DaemonTaskDefinitionArn string                         `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
-	DeploymentConfiguration *DaemonDeploymentConfiguration `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
-	EnableECSManagedTags    bool                           `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
-	EnableExecuteCommand    bool                           `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	PropagateTags           string                         `json:"propagateTags" xml:"propagateTags"`
+CapacityProviderArns StringList `json:"capacityProviderArns" xml:"capacityProviderArns"`
+DaemonArn string `json:"daemonArn" xml:"daemonArn"`
+DaemonTaskDefinitionArn string `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
+DeploymentConfiguration *DaemonDeploymentConfiguration `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
+EnableECSManagedTags bool `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
 }
 
 type UpdateDaemonResponse struct {
-	CreatedAt     time.Time `json:"createdAt" xml:"createdAt"`
-	DaemonArn     string    `json:"daemonArn" xml:"daemonArn"`
-	DeploymentArn string    `json:"deploymentArn" xml:"deploymentArn"`
-	Status        string    `json:"status" xml:"status"`
-	UpdatedAt     time.Time `json:"updatedAt" xml:"updatedAt"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DaemonArn string `json:"daemonArn" xml:"daemonArn"`
+DeploymentArn string `json:"deploymentArn" xml:"deploymentArn"`
+Status string `json:"status" xml:"status"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type UpdateExpressGatewayServiceRequest struct {
-	Cpu                  string                                     `json:"cpu" xml:"cpu"`
-	ExecutionRoleArn     string                                     `json:"executionRoleArn" xml:"executionRoleArn"`
-	HealthCheckPath      string                                     `json:"healthCheckPath" xml:"healthCheckPath"`
-	Memory               string                                     `json:"memory" xml:"memory"`
-	NetworkConfiguration *ExpressGatewayServiceNetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
-	PrimaryContainer     *ExpressGatewayContainer                   `json:"primaryContainer" xml:"primaryContainer"`
-	ScalingTarget        *ExpressGatewayScalingTarget               `json:"scalingTarget" xml:"scalingTarget"`
-	ServiceArn           string                                     `json:"serviceArn" xml:"serviceArn"`
-	TaskRoleArn          string                                     `json:"taskRoleArn" xml:"taskRoleArn"`
+Cpu string `json:"cpu" xml:"cpu"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+HealthCheckPath string `json:"healthCheckPath" xml:"healthCheckPath"`
+Memory string `json:"memory" xml:"memory"`
+NetworkConfiguration *ExpressGatewayServiceNetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PrimaryContainer *ExpressGatewayContainer `json:"primaryContainer" xml:"primaryContainer"`
+ScalingTarget *ExpressGatewayScalingTarget `json:"scalingTarget" xml:"scalingTarget"`
+ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+TaskRoleArn string `json:"taskRoleArn" xml:"taskRoleArn"`
 }
 
 type UpdateExpressGatewayServiceResponse struct {
-	Service *UpdatedExpressGatewayService `json:"service" xml:"service"`
+Service *UpdatedExpressGatewayService `json:"service" xml:"service"`
 }
 
 type UpdateManagedInstancesProviderConfiguration struct {
-	InfrastructureOptimization *InfrastructureOptimization   `json:"infrastructureOptimization" xml:"infrastructureOptimization"`
-	InfrastructureRoleArn      string                        `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
-	InstanceLaunchTemplate     *InstanceLaunchTemplateUpdate `json:"instanceLaunchTemplate" xml:"instanceLaunchTemplate"`
-	PropagateTags              string                        `json:"propagateTags" xml:"propagateTags"`
+InfrastructureOptimization *InfrastructureOptimization `json:"infrastructureOptimization" xml:"infrastructureOptimization"`
+InfrastructureRoleArn string `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
+InstanceLaunchTemplate *InstanceLaunchTemplateUpdate `json:"instanceLaunchTemplate" xml:"instanceLaunchTemplate"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
 }
 
 type UpdateServicePrimaryTaskSetRequest struct {
-	Cluster        string `json:"cluster" xml:"cluster"`
-	PrimaryTaskSet string `json:"primaryTaskSet" xml:"primaryTaskSet"`
-	Service        string `json:"service" xml:"service"`
+Cluster string `json:"cluster" xml:"cluster"`
+PrimaryTaskSet string `json:"primaryTaskSet" xml:"primaryTaskSet"`
+Service string `json:"service" xml:"service"`
 }
 
 type UpdateServicePrimaryTaskSetResponse struct {
-	TaskSet *TaskSet `json:"taskSet" xml:"taskSet"`
+TaskSet *TaskSet `json:"taskSet" xml:"taskSet"`
 }
 
 type UpdateServiceRequest struct {
-	AvailabilityZoneRebalancing   string                       `json:"availabilityZoneRebalancing" xml:"availabilityZoneRebalancing"`
-	CapacityProviderStrategy      CapacityProviderStrategy     `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
-	Cluster                       string                       `json:"cluster" xml:"cluster"`
-	DeploymentConfiguration       *DeploymentConfiguration     `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
-	DeploymentController          *DeploymentController        `json:"deploymentController" xml:"deploymentController"`
-	DesiredCount                  int32                        `json:"desiredCount" xml:"desiredCount"`
-	EnableECSManagedTags          bool                         `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
-	EnableExecuteCommand          bool                         `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
-	ForceNewDeployment            bool                         `json:"forceNewDeployment" xml:"forceNewDeployment"`
-	HealthCheckGracePeriodSeconds int32                        `json:"healthCheckGracePeriodSeconds" xml:"healthCheckGracePeriodSeconds"`
-	LoadBalancers                 LoadBalancers                `json:"loadBalancers" xml:"loadBalancers"`
-	NetworkConfiguration          *NetworkConfiguration        `json:"networkConfiguration" xml:"networkConfiguration"`
-	PlacementConstraints          PlacementConstraints         `json:"placementConstraints" xml:"placementConstraints"`
-	PlacementStrategy             PlacementStrategies          `json:"placementStrategy" xml:"placementStrategy"`
-	PlatformVersion               string                       `json:"platformVersion" xml:"platformVersion"`
-	PropagateTags                 string                       `json:"propagateTags" xml:"propagateTags"`
-	Service                       string                       `json:"service" xml:"service"`
-	ServiceConnectConfiguration   *ServiceConnectConfiguration `json:"serviceConnectConfiguration" xml:"serviceConnectConfiguration"`
-	ServiceRegistries             ServiceRegistries            `json:"serviceRegistries" xml:"serviceRegistries"`
-	TaskDefinition                string                       `json:"taskDefinition" xml:"taskDefinition"`
-	VolumeConfigurations          ServiceVolumeConfigurations  `json:"volumeConfigurations" xml:"volumeConfigurations"`
-	VpcLatticeConfigurations      VpcLatticeConfigurations     `json:"vpcLatticeConfigurations" xml:"vpcLatticeConfigurations"`
+AvailabilityZoneRebalancing string `json:"availabilityZoneRebalancing" xml:"availabilityZoneRebalancing"`
+CapacityProviderStrategy CapacityProviderStrategy `json:"capacityProviderStrategy" xml:"capacityProviderStrategy"`
+Cluster string `json:"cluster" xml:"cluster"`
+DeploymentConfiguration *DeploymentConfiguration `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
+DeploymentController *DeploymentController `json:"deploymentController" xml:"deploymentController"`
+DesiredCount int32 `json:"desiredCount" xml:"desiredCount"`
+EnableECSManagedTags bool `json:"enableECSManagedTags" xml:"enableECSManagedTags"`
+EnableExecuteCommand bool `json:"enableExecuteCommand" xml:"enableExecuteCommand"`
+ForceNewDeployment bool `json:"forceNewDeployment" xml:"forceNewDeployment"`
+HealthCheckGracePeriodSeconds int32 `json:"healthCheckGracePeriodSeconds" xml:"healthCheckGracePeriodSeconds"`
+LoadBalancers LoadBalancers `json:"loadBalancers" xml:"loadBalancers"`
+NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration" xml:"networkConfiguration"`
+PlacementConstraints PlacementConstraints `json:"placementConstraints" xml:"placementConstraints"`
+PlacementStrategy PlacementStrategies `json:"placementStrategy" xml:"placementStrategy"`
+PlatformVersion string `json:"platformVersion" xml:"platformVersion"`
+PropagateTags string `json:"propagateTags" xml:"propagateTags"`
+Service string `json:"service" xml:"service"`
+ServiceConnectConfiguration *ServiceConnectConfiguration `json:"serviceConnectConfiguration" xml:"serviceConnectConfiguration"`
+ServiceRegistries ServiceRegistries `json:"serviceRegistries" xml:"serviceRegistries"`
+TaskDefinition string `json:"taskDefinition" xml:"taskDefinition"`
+VolumeConfigurations ServiceVolumeConfigurations `json:"volumeConfigurations" xml:"volumeConfigurations"`
+VpcLatticeConfigurations VpcLatticeConfigurations `json:"vpcLatticeConfigurations" xml:"vpcLatticeConfigurations"`
 }
 
 type UpdateServiceResponse struct {
-	Service *Service `json:"service" xml:"service"`
+Service *Service `json:"service" xml:"service"`
 }
 
 type UpdateTaskProtectionRequest struct {
-	Cluster           string     `json:"cluster" xml:"cluster"`
-	ExpiresInMinutes  int32      `json:"expiresInMinutes" xml:"expiresInMinutes"`
-	ProtectionEnabled bool       `json:"protectionEnabled" xml:"protectionEnabled"`
-	Tasks             StringList `json:"tasks" xml:"tasks"`
+Cluster string `json:"cluster" xml:"cluster"`
+ExpiresInMinutes int32 `json:"expiresInMinutes" xml:"expiresInMinutes"`
+ProtectionEnabled bool `json:"protectionEnabled" xml:"protectionEnabled"`
+Tasks StringList `json:"tasks" xml:"tasks"`
 }
 
 type UpdateTaskProtectionResponse struct {
-	Failures       Failures       `json:"failures" xml:"failures"`
-	ProtectedTasks ProtectedTasks `json:"protectedTasks" xml:"protectedTasks"`
+Failures Failures `json:"failures" xml:"failures"`
+ProtectedTasks ProtectedTasks `json:"protectedTasks" xml:"protectedTasks"`
 }
 
 type UpdateTaskSetRequest struct {
-	Cluster string `json:"cluster" xml:"cluster"`
-	Scale   *Scale `json:"scale" xml:"scale"`
-	Service string `json:"service" xml:"service"`
-	TaskSet string `json:"taskSet" xml:"taskSet"`
+Cluster string `json:"cluster" xml:"cluster"`
+Scale *Scale `json:"scale" xml:"scale"`
+Service string `json:"service" xml:"service"`
+TaskSet string `json:"taskSet" xml:"taskSet"`
 }
 
 type UpdateTaskSetResponse struct {
-	TaskSet *TaskSet `json:"taskSet" xml:"taskSet"`
+TaskSet *TaskSet `json:"taskSet" xml:"taskSet"`
 }
 
 type UpdatedExpressGatewayService struct {
-	Cluster             string                              `json:"cluster" xml:"cluster"`
-	CreatedAt           time.Time                           `json:"createdAt" xml:"createdAt"`
-	ServiceArn          string                              `json:"serviceArn" xml:"serviceArn"`
-	ServiceName         string                              `json:"serviceName" xml:"serviceName"`
-	Status              *ExpressGatewayServiceStatus        `json:"status" xml:"status"`
-	TargetConfiguration *ExpressGatewayServiceConfiguration `json:"targetConfiguration" xml:"targetConfiguration"`
-	UpdatedAt           time.Time                           `json:"updatedAt" xml:"updatedAt"`
+Cluster string `json:"cluster" xml:"cluster"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+ServiceName string `json:"serviceName" xml:"serviceName"`
+Status *ExpressGatewayServiceStatus `json:"status" xml:"status"`
+TargetConfiguration *ExpressGatewayServiceConfiguration `json:"targetConfiguration" xml:"targetConfiguration"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type VCpuCountRangeRequest struct {
-	Max int32 `json:"max" xml:"max"`
-	Min int32 `json:"min" xml:"min"`
+Max int32 `json:"max" xml:"max"`
+Min int32 `json:"min" xml:"min"`
 }
 
 type VersionInfo struct {
-	AgentHash     string `json:"agentHash" xml:"agentHash"`
-	AgentVersion  string `json:"agentVersion" xml:"agentVersion"`
-	DockerVersion string `json:"dockerVersion" xml:"dockerVersion"`
+AgentHash string `json:"agentHash" xml:"agentHash"`
+AgentVersion string `json:"agentVersion" xml:"agentVersion"`
+DockerVersion string `json:"dockerVersion" xml:"dockerVersion"`
 }
 
 type Volume struct {
-	ConfiguredAtLaunch                      bool                                     `json:"configuredAtLaunch" xml:"configuredAtLaunch"`
-	DockerVolumeConfiguration               *DockerVolumeConfiguration               `json:"dockerVolumeConfiguration" xml:"dockerVolumeConfiguration"`
-	EfsVolumeConfiguration                  *EFSVolumeConfiguration                  `json:"efsVolumeConfiguration" xml:"efsVolumeConfiguration"`
-	FsxWindowsFileServerVolumeConfiguration *FSxWindowsFileServerVolumeConfiguration `json:"fsxWindowsFileServerVolumeConfiguration" xml:"fsxWindowsFileServerVolumeConfiguration"`
-	Host                                    *HostVolumeProperties                    `json:"host" xml:"host"`
-	Name                                    string                                   `json:"name" xml:"name"`
+ConfiguredAtLaunch bool `json:"configuredAtLaunch" xml:"configuredAtLaunch"`
+DockerVolumeConfiguration *DockerVolumeConfiguration `json:"dockerVolumeConfiguration" xml:"dockerVolumeConfiguration"`
+EfsVolumeConfiguration *EFSVolumeConfiguration `json:"efsVolumeConfiguration" xml:"efsVolumeConfiguration"`
+FsxWindowsFileServerVolumeConfiguration *FSxWindowsFileServerVolumeConfiguration `json:"fsxWindowsFileServerVolumeConfiguration" xml:"fsxWindowsFileServerVolumeConfiguration"`
+Host *HostVolumeProperties `json:"host" xml:"host"`
+Name string `json:"name" xml:"name"`
 }
 
 type VolumeFrom struct {
-	ReadOnly        bool   `json:"readOnly" xml:"readOnly"`
-	SourceContainer string `json:"sourceContainer" xml:"sourceContainer"`
+ReadOnly bool `json:"readOnly" xml:"readOnly"`
+SourceContainer string `json:"sourceContainer" xml:"sourceContainer"`
 }
 
 type VpcLatticeConfiguration struct {
-	PortName       string `json:"portName" xml:"portName"`
-	RoleArn        string `json:"roleArn" xml:"roleArn"`
-	TargetGroupArn string `json:"targetGroupArn" xml:"targetGroupArn"`
+PortName string `json:"portName" xml:"portName"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+TargetGroupArn string `json:"targetGroupArn" xml:"targetGroupArn"`
 }
 
 type AcceleratorManufacturerSet []string
@@ -2715,3 +2715,4 @@ type LogConfigurationOptionsMap map[string]string
 type StringMap map[string]string
 
 type HookDetails interface{}
+

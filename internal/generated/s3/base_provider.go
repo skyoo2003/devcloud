@@ -438,3 +438,4 @@ func (b *BaseProvider) UploadPartCopy(ctx context.Context, input *UploadPartCopy
 func (b *BaseProvider) WriteGetObjectResponse(ctx context.Context, input *WriteGetObjectResponseRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("WriteGetObjectResponse: %w", ErrNotImplemented)
 }
+

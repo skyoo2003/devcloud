@@ -1251,3 +1251,4 @@ func SerializeUpdateVpcLinkResponse(w http.ResponseWriter, output *UpdateVpcLink
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

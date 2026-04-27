@@ -102,3 +102,4 @@ func (b *BaseProvider) UpdateSecretVersionStage(ctx context.Context, input *Upda
 func (b *BaseProvider) ValidateResourcePolicy(ctx context.Context, input *ValidateResourcePolicyRequest) (*ValidateResourcePolicyResponse, error) {
 	return nil, fmt.Errorf("ValidateResourcePolicy: %w", ErrNotImplemented)
 }
+

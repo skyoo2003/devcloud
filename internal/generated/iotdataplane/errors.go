@@ -190,3 +190,4 @@ func (e *UnsupportedDocumentEncodingException) ErrorCode() string {
 func (e *UnsupportedDocumentEncodingException) HTTPStatus() int {
 	return 415
 }
+

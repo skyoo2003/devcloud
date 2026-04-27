@@ -7,843 +7,843 @@ import (
 )
 
 type ACL struct {
-	ARN                  string             `json:"aRN" xml:"ARN"`
-	Clusters             ACLClusterNameList `json:"clusters" xml:"Clusters"`
-	MinimumEngineVersion string             `json:"minimumEngineVersion" xml:"MinimumEngineVersion"`
-	Name                 string             `json:"name" xml:"Name"`
-	PendingChanges       *ACLPendingChanges `json:"pendingChanges" xml:"PendingChanges"`
-	Status               string             `json:"status" xml:"Status"`
-	UserNames            UserNameList       `json:"userNames" xml:"UserNames"`
+ARN string `json:"aRN" xml:"ARN"`
+Clusters ACLClusterNameList `json:"clusters" xml:"Clusters"`
+MinimumEngineVersion string `json:"minimumEngineVersion" xml:"MinimumEngineVersion"`
+Name string `json:"name" xml:"Name"`
+PendingChanges *ACLPendingChanges `json:"pendingChanges" xml:"PendingChanges"`
+Status string `json:"status" xml:"Status"`
+UserNames UserNameList `json:"userNames" xml:"UserNames"`
 }
 
 type ACLPendingChanges struct {
-	UserNamesToAdd    UserNameList `json:"userNamesToAdd" xml:"UserNamesToAdd"`
-	UserNamesToRemove UserNameList `json:"userNamesToRemove" xml:"UserNamesToRemove"`
+UserNamesToAdd UserNameList `json:"userNamesToAdd" xml:"UserNamesToAdd"`
+UserNamesToRemove UserNameList `json:"userNamesToRemove" xml:"UserNamesToRemove"`
 }
 
 type ACLsUpdateStatus struct {
-	ACLToApply string `json:"aCLToApply" xml:"ACLToApply"`
+ACLToApply string `json:"aCLToApply" xml:"ACLToApply"`
 }
 
 type Authentication struct {
-	PasswordCount int32  `json:"passwordCount" xml:"PasswordCount"`
-	Type          string `json:"type" xml:"Type"`
+PasswordCount int32 `json:"passwordCount" xml:"PasswordCount"`
+Type string `json:"type" xml:"Type"`
 }
 
 type AuthenticationMode struct {
-	Passwords PasswordListInput `json:"passwords" xml:"Passwords"`
-	Type      string            `json:"type" xml:"Type"`
+Passwords PasswordListInput `json:"passwords" xml:"Passwords"`
+Type string `json:"type" xml:"Type"`
 }
 
 type AvailabilityZone struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type BatchUpdateClusterRequest struct {
-	ClusterNames  ClusterNameList       `json:"clusterNames" xml:"ClusterNames"`
-	ServiceUpdate *ServiceUpdateRequest `json:"serviceUpdate" xml:"ServiceUpdate"`
+ClusterNames ClusterNameList `json:"clusterNames" xml:"ClusterNames"`
+ServiceUpdate *ServiceUpdateRequest `json:"serviceUpdate" xml:"ServiceUpdate"`
 }
 
 type BatchUpdateClusterResponse struct {
-	ProcessedClusters   ClusterList            `json:"processedClusters" xml:"ProcessedClusters"`
-	UnprocessedClusters UnprocessedClusterList `json:"unprocessedClusters" xml:"UnprocessedClusters"`
+ProcessedClusters ClusterList `json:"processedClusters" xml:"ProcessedClusters"`
+UnprocessedClusters UnprocessedClusterList `json:"unprocessedClusters" xml:"UnprocessedClusters"`
 }
 
 type Cluster struct {
-	ACLName                 string                      `json:"aCLName" xml:"ACLName"`
-	ARN                     string                      `json:"aRN" xml:"ARN"`
-	AutoMinorVersionUpgrade bool                        `json:"autoMinorVersionUpgrade" xml:"AutoMinorVersionUpgrade"`
-	AvailabilityMode        string                      `json:"availabilityMode" xml:"AvailabilityMode"`
-	ClusterEndpoint         *Endpoint                   `json:"clusterEndpoint" xml:"ClusterEndpoint"`
-	DataTiering             string                      `json:"dataTiering" xml:"DataTiering"`
-	Description             string                      `json:"description" xml:"Description"`
-	Engine                  string                      `json:"engine" xml:"Engine"`
-	EnginePatchVersion      string                      `json:"enginePatchVersion" xml:"EnginePatchVersion"`
-	EngineVersion           string                      `json:"engineVersion" xml:"EngineVersion"`
-	IpDiscovery             string                      `json:"ipDiscovery" xml:"IpDiscovery"`
-	KmsKeyId                string                      `json:"kmsKeyId" xml:"KmsKeyId"`
-	MaintenanceWindow       string                      `json:"maintenanceWindow" xml:"MaintenanceWindow"`
-	MultiRegionClusterName  string                      `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
-	Name                    string                      `json:"name" xml:"Name"`
-	NetworkType             string                      `json:"networkType" xml:"NetworkType"`
-	NodeType                string                      `json:"nodeType" xml:"NodeType"`
-	NumberOfShards          int32                       `json:"numberOfShards" xml:"NumberOfShards"`
-	ParameterGroupName      string                      `json:"parameterGroupName" xml:"ParameterGroupName"`
-	ParameterGroupStatus    string                      `json:"parameterGroupStatus" xml:"ParameterGroupStatus"`
-	PendingUpdates          *ClusterPendingUpdates      `json:"pendingUpdates" xml:"PendingUpdates"`
-	SecurityGroups          SecurityGroupMembershipList `json:"securityGroups" xml:"SecurityGroups"`
-	Shards                  ShardList                   `json:"shards" xml:"Shards"`
-	SnapshotRetentionLimit  int32                       `json:"snapshotRetentionLimit" xml:"SnapshotRetentionLimit"`
-	SnapshotWindow          string                      `json:"snapshotWindow" xml:"SnapshotWindow"`
-	SnsTopicArn             string                      `json:"snsTopicArn" xml:"SnsTopicArn"`
-	SnsTopicStatus          string                      `json:"snsTopicStatus" xml:"SnsTopicStatus"`
-	Status                  string                      `json:"status" xml:"Status"`
-	SubnetGroupName         string                      `json:"subnetGroupName" xml:"SubnetGroupName"`
-	TLSEnabled              bool                        `json:"tLSEnabled" xml:"TLSEnabled"`
+ACLName string `json:"aCLName" xml:"ACLName"`
+ARN string `json:"aRN" xml:"ARN"`
+AutoMinorVersionUpgrade bool `json:"autoMinorVersionUpgrade" xml:"AutoMinorVersionUpgrade"`
+AvailabilityMode string `json:"availabilityMode" xml:"AvailabilityMode"`
+ClusterEndpoint *Endpoint `json:"clusterEndpoint" xml:"ClusterEndpoint"`
+DataTiering string `json:"dataTiering" xml:"DataTiering"`
+Description string `json:"description" xml:"Description"`
+Engine string `json:"engine" xml:"Engine"`
+EnginePatchVersion string `json:"enginePatchVersion" xml:"EnginePatchVersion"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+IpDiscovery string `json:"ipDiscovery" xml:"IpDiscovery"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MaintenanceWindow string `json:"maintenanceWindow" xml:"MaintenanceWindow"`
+MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
+Name string `json:"name" xml:"Name"`
+NetworkType string `json:"networkType" xml:"NetworkType"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumberOfShards int32 `json:"numberOfShards" xml:"NumberOfShards"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+ParameterGroupStatus string `json:"parameterGroupStatus" xml:"ParameterGroupStatus"`
+PendingUpdates *ClusterPendingUpdates `json:"pendingUpdates" xml:"PendingUpdates"`
+SecurityGroups SecurityGroupMembershipList `json:"securityGroups" xml:"SecurityGroups"`
+Shards ShardList `json:"shards" xml:"Shards"`
+SnapshotRetentionLimit int32 `json:"snapshotRetentionLimit" xml:"SnapshotRetentionLimit"`
+SnapshotWindow string `json:"snapshotWindow" xml:"SnapshotWindow"`
+SnsTopicArn string `json:"snsTopicArn" xml:"SnsTopicArn"`
+SnsTopicStatus string `json:"snsTopicStatus" xml:"SnsTopicStatus"`
+Status string `json:"status" xml:"Status"`
+SubnetGroupName string `json:"subnetGroupName" xml:"SubnetGroupName"`
+TLSEnabled bool `json:"tLSEnabled" xml:"TLSEnabled"`
 }
 
 type ClusterConfiguration struct {
-	Description                   string       `json:"description" xml:"Description"`
-	Engine                        string       `json:"engine" xml:"Engine"`
-	EngineVersion                 string       `json:"engineVersion" xml:"EngineVersion"`
-	MaintenanceWindow             string       `json:"maintenanceWindow" xml:"MaintenanceWindow"`
-	MultiRegionClusterName        string       `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
-	MultiRegionParameterGroupName string       `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
-	Name                          string       `json:"name" xml:"Name"`
-	NodeType                      string       `json:"nodeType" xml:"NodeType"`
-	NumShards                     int32        `json:"numShards" xml:"NumShards"`
-	ParameterGroupName            string       `json:"parameterGroupName" xml:"ParameterGroupName"`
-	Port                          int32        `json:"port" xml:"Port"`
-	Shards                        ShardDetails `json:"shards" xml:"Shards"`
-	SnapshotRetentionLimit        int32        `json:"snapshotRetentionLimit" xml:"SnapshotRetentionLimit"`
-	SnapshotWindow                string       `json:"snapshotWindow" xml:"SnapshotWindow"`
-	SubnetGroupName               string       `json:"subnetGroupName" xml:"SubnetGroupName"`
-	TopicArn                      string       `json:"topicArn" xml:"TopicArn"`
-	VpcId                         string       `json:"vpcId" xml:"VpcId"`
+Description string `json:"description" xml:"Description"`
+Engine string `json:"engine" xml:"Engine"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+MaintenanceWindow string `json:"maintenanceWindow" xml:"MaintenanceWindow"`
+MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
+MultiRegionParameterGroupName string `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
+Name string `json:"name" xml:"Name"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumShards int32 `json:"numShards" xml:"NumShards"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+Port int32 `json:"port" xml:"Port"`
+Shards ShardDetails `json:"shards" xml:"Shards"`
+SnapshotRetentionLimit int32 `json:"snapshotRetentionLimit" xml:"SnapshotRetentionLimit"`
+SnapshotWindow string `json:"snapshotWindow" xml:"SnapshotWindow"`
+SubnetGroupName string `json:"subnetGroupName" xml:"SubnetGroupName"`
+TopicArn string `json:"topicArn" xml:"TopicArn"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type ClusterPendingUpdates struct {
-	ACLs           *ACLsUpdateStatus                `json:"aCLs" xml:"ACLs"`
-	Resharding     *ReshardingStatus                `json:"resharding" xml:"Resharding"`
-	ServiceUpdates PendingModifiedServiceUpdateList `json:"serviceUpdates" xml:"ServiceUpdates"`
+ACLs *ACLsUpdateStatus `json:"aCLs" xml:"ACLs"`
+Resharding *ReshardingStatus `json:"resharding" xml:"Resharding"`
+ServiceUpdates PendingModifiedServiceUpdateList `json:"serviceUpdates" xml:"ServiceUpdates"`
 }
 
 type CopySnapshotRequest struct {
-	KmsKeyId           string  `json:"kmsKeyId" xml:"KmsKeyId"`
-	SourceSnapshotName string  `json:"sourceSnapshotName" xml:"SourceSnapshotName"`
-	Tags               TagList `json:"tags" xml:"Tags"`
-	TargetBucket       string  `json:"targetBucket" xml:"TargetBucket"`
-	TargetSnapshotName string  `json:"targetSnapshotName" xml:"TargetSnapshotName"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+SourceSnapshotName string `json:"sourceSnapshotName" xml:"SourceSnapshotName"`
+Tags TagList `json:"tags" xml:"Tags"`
+TargetBucket string `json:"targetBucket" xml:"TargetBucket"`
+TargetSnapshotName string `json:"targetSnapshotName" xml:"TargetSnapshotName"`
 }
 
 type CopySnapshotResponse struct {
-	Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
+Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
 }
 
 type CreateACLRequest struct {
-	ACLName   string            `json:"aCLName" xml:"ACLName"`
-	Tags      TagList           `json:"tags" xml:"Tags"`
-	UserNames UserNameListInput `json:"userNames" xml:"UserNames"`
+ACLName string `json:"aCLName" xml:"ACLName"`
+Tags TagList `json:"tags" xml:"Tags"`
+UserNames UserNameListInput `json:"userNames" xml:"UserNames"`
 }
 
 type CreateACLResponse struct {
-	ACL *ACL `json:"aCL" xml:"ACL"`
+ACL *ACL `json:"aCL" xml:"ACL"`
 }
 
 type CreateClusterRequest struct {
-	ACLName                 string               `json:"aCLName" xml:"ACLName"`
-	AutoMinorVersionUpgrade bool                 `json:"autoMinorVersionUpgrade" xml:"AutoMinorVersionUpgrade"`
-	ClusterName             string               `json:"clusterName" xml:"ClusterName"`
-	DataTiering             bool                 `json:"dataTiering" xml:"DataTiering"`
-	Description             string               `json:"description" xml:"Description"`
-	Engine                  string               `json:"engine" xml:"Engine"`
-	EngineVersion           string               `json:"engineVersion" xml:"EngineVersion"`
-	IpDiscovery             string               `json:"ipDiscovery" xml:"IpDiscovery"`
-	KmsKeyId                string               `json:"kmsKeyId" xml:"KmsKeyId"`
-	MaintenanceWindow       string               `json:"maintenanceWindow" xml:"MaintenanceWindow"`
-	MultiRegionClusterName  string               `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
-	NetworkType             string               `json:"networkType" xml:"NetworkType"`
-	NodeType                string               `json:"nodeType" xml:"NodeType"`
-	NumReplicasPerShard     int32                `json:"numReplicasPerShard" xml:"NumReplicasPerShard"`
-	NumShards               int32                `json:"numShards" xml:"NumShards"`
-	ParameterGroupName      string               `json:"parameterGroupName" xml:"ParameterGroupName"`
-	Port                    int32                `json:"port" xml:"Port"`
-	SecurityGroupIds        SecurityGroupIdsList `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SnapshotArns            SnapshotArnsList     `json:"snapshotArns" xml:"SnapshotArns"`
-	SnapshotName            string               `json:"snapshotName" xml:"SnapshotName"`
-	SnapshotRetentionLimit  int32                `json:"snapshotRetentionLimit" xml:"SnapshotRetentionLimit"`
-	SnapshotWindow          string               `json:"snapshotWindow" xml:"SnapshotWindow"`
-	SnsTopicArn             string               `json:"snsTopicArn" xml:"SnsTopicArn"`
-	SubnetGroupName         string               `json:"subnetGroupName" xml:"SubnetGroupName"`
-	TLSEnabled              bool                 `json:"tLSEnabled" xml:"TLSEnabled"`
-	Tags                    TagList              `json:"tags" xml:"Tags"`
+ACLName string `json:"aCLName" xml:"ACLName"`
+AutoMinorVersionUpgrade bool `json:"autoMinorVersionUpgrade" xml:"AutoMinorVersionUpgrade"`
+ClusterName string `json:"clusterName" xml:"ClusterName"`
+DataTiering bool `json:"dataTiering" xml:"DataTiering"`
+Description string `json:"description" xml:"Description"`
+Engine string `json:"engine" xml:"Engine"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+IpDiscovery string `json:"ipDiscovery" xml:"IpDiscovery"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MaintenanceWindow string `json:"maintenanceWindow" xml:"MaintenanceWindow"`
+MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
+NetworkType string `json:"networkType" xml:"NetworkType"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumReplicasPerShard int32 `json:"numReplicasPerShard" xml:"NumReplicasPerShard"`
+NumShards int32 `json:"numShards" xml:"NumShards"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+Port int32 `json:"port" xml:"Port"`
+SecurityGroupIds SecurityGroupIdsList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SnapshotArns SnapshotArnsList `json:"snapshotArns" xml:"SnapshotArns"`
+SnapshotName string `json:"snapshotName" xml:"SnapshotName"`
+SnapshotRetentionLimit int32 `json:"snapshotRetentionLimit" xml:"SnapshotRetentionLimit"`
+SnapshotWindow string `json:"snapshotWindow" xml:"SnapshotWindow"`
+SnsTopicArn string `json:"snsTopicArn" xml:"SnsTopicArn"`
+SubnetGroupName string `json:"subnetGroupName" xml:"SubnetGroupName"`
+TLSEnabled bool `json:"tLSEnabled" xml:"TLSEnabled"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateClusterResponse struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type CreateMultiRegionClusterRequest struct {
-	Description                   string  `json:"description" xml:"Description"`
-	Engine                        string  `json:"engine" xml:"Engine"`
-	EngineVersion                 string  `json:"engineVersion" xml:"EngineVersion"`
-	MultiRegionClusterNameSuffix  string  `json:"multiRegionClusterNameSuffix" xml:"MultiRegionClusterNameSuffix"`
-	MultiRegionParameterGroupName string  `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
-	NodeType                      string  `json:"nodeType" xml:"NodeType"`
-	NumShards                     int32   `json:"numShards" xml:"NumShards"`
-	TLSEnabled                    bool    `json:"tLSEnabled" xml:"TLSEnabled"`
-	Tags                          TagList `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+Engine string `json:"engine" xml:"Engine"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+MultiRegionClusterNameSuffix string `json:"multiRegionClusterNameSuffix" xml:"MultiRegionClusterNameSuffix"`
+MultiRegionParameterGroupName string `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumShards int32 `json:"numShards" xml:"NumShards"`
+TLSEnabled bool `json:"tLSEnabled" xml:"TLSEnabled"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateMultiRegionClusterResponse struct {
-	MultiRegionCluster *MultiRegionCluster `json:"multiRegionCluster" xml:"MultiRegionCluster"`
+MultiRegionCluster *MultiRegionCluster `json:"multiRegionCluster" xml:"MultiRegionCluster"`
 }
 
 type CreateParameterGroupRequest struct {
-	Description        string  `json:"description" xml:"Description"`
-	Family             string  `json:"family" xml:"Family"`
-	ParameterGroupName string  `json:"parameterGroupName" xml:"ParameterGroupName"`
-	Tags               TagList `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+Family string `json:"family" xml:"Family"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateParameterGroupResponse struct {
-	ParameterGroup *ParameterGroup `json:"parameterGroup" xml:"ParameterGroup"`
+ParameterGroup *ParameterGroup `json:"parameterGroup" xml:"ParameterGroup"`
 }
 
 type CreateSnapshotRequest struct {
-	ClusterName  string  `json:"clusterName" xml:"ClusterName"`
-	KmsKeyId     string  `json:"kmsKeyId" xml:"KmsKeyId"`
-	SnapshotName string  `json:"snapshotName" xml:"SnapshotName"`
-	Tags         TagList `json:"tags" xml:"Tags"`
+ClusterName string `json:"clusterName" xml:"ClusterName"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+SnapshotName string `json:"snapshotName" xml:"SnapshotName"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateSnapshotResponse struct {
-	Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
+Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
 }
 
 type CreateSubnetGroupRequest struct {
-	Description     string               `json:"description" xml:"Description"`
-	SubnetGroupName string               `json:"subnetGroupName" xml:"SubnetGroupName"`
-	SubnetIds       SubnetIdentifierList `json:"subnetIds" xml:"SubnetIds"`
-	Tags            TagList              `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+SubnetGroupName string `json:"subnetGroupName" xml:"SubnetGroupName"`
+SubnetIds SubnetIdentifierList `json:"subnetIds" xml:"SubnetIds"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateSubnetGroupResponse struct {
-	SubnetGroup *SubnetGroup `json:"subnetGroup" xml:"SubnetGroup"`
+SubnetGroup *SubnetGroup `json:"subnetGroup" xml:"SubnetGroup"`
 }
 
 type CreateUserRequest struct {
-	AccessString       string              `json:"accessString" xml:"AccessString"`
-	AuthenticationMode *AuthenticationMode `json:"authenticationMode" xml:"AuthenticationMode"`
-	Tags               TagList             `json:"tags" xml:"Tags"`
-	UserName           string              `json:"userName" xml:"UserName"`
+AccessString string `json:"accessString" xml:"AccessString"`
+AuthenticationMode *AuthenticationMode `json:"authenticationMode" xml:"AuthenticationMode"`
+Tags TagList `json:"tags" xml:"Tags"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type CreateUserResponse struct {
-	User *User `json:"user" xml:"User"`
+User *User `json:"user" xml:"User"`
 }
 
 type DeleteACLRequest struct {
-	ACLName string `json:"aCLName" xml:"ACLName"`
+ACLName string `json:"aCLName" xml:"ACLName"`
 }
 
 type DeleteACLResponse struct {
-	ACL *ACL `json:"aCL" xml:"ACL"`
+ACL *ACL `json:"aCL" xml:"ACL"`
 }
 
 type DeleteClusterRequest struct {
-	ClusterName            string `json:"clusterName" xml:"ClusterName"`
-	FinalSnapshotName      string `json:"finalSnapshotName" xml:"FinalSnapshotName"`
-	MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
+ClusterName string `json:"clusterName" xml:"ClusterName"`
+FinalSnapshotName string `json:"finalSnapshotName" xml:"FinalSnapshotName"`
+MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
 }
 
 type DeleteClusterResponse struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type DeleteMultiRegionClusterRequest struct {
-	MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
+MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
 }
 
 type DeleteMultiRegionClusterResponse struct {
-	MultiRegionCluster *MultiRegionCluster `json:"multiRegionCluster" xml:"MultiRegionCluster"`
+MultiRegionCluster *MultiRegionCluster `json:"multiRegionCluster" xml:"MultiRegionCluster"`
 }
 
 type DeleteParameterGroupRequest struct {
-	ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
 }
 
 type DeleteParameterGroupResponse struct {
-	ParameterGroup *ParameterGroup `json:"parameterGroup" xml:"ParameterGroup"`
+ParameterGroup *ParameterGroup `json:"parameterGroup" xml:"ParameterGroup"`
 }
 
 type DeleteSnapshotRequest struct {
-	SnapshotName string `json:"snapshotName" xml:"SnapshotName"`
+SnapshotName string `json:"snapshotName" xml:"SnapshotName"`
 }
 
 type DeleteSnapshotResponse struct {
-	Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
+Snapshot *Snapshot `json:"snapshot" xml:"Snapshot"`
 }
 
 type DeleteSubnetGroupRequest struct {
-	SubnetGroupName string `json:"subnetGroupName" xml:"SubnetGroupName"`
+SubnetGroupName string `json:"subnetGroupName" xml:"SubnetGroupName"`
 }
 
 type DeleteSubnetGroupResponse struct {
-	SubnetGroup *SubnetGroup `json:"subnetGroup" xml:"SubnetGroup"`
+SubnetGroup *SubnetGroup `json:"subnetGroup" xml:"SubnetGroup"`
 }
 
 type DeleteUserRequest struct {
-	UserName string `json:"userName" xml:"UserName"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DeleteUserResponse struct {
-	User *User `json:"user" xml:"User"`
+User *User `json:"user" xml:"User"`
 }
 
 type DescribeACLsRequest struct {
-	ACLName    string `json:"aCLName" xml:"ACLName"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+ACLName string `json:"aCLName" xml:"ACLName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeACLsResponse struct {
-	ACLs      ACLList `json:"aCLs" xml:"ACLs"`
-	NextToken string  `json:"nextToken" xml:"NextToken"`
+ACLs ACLList `json:"aCLs" xml:"ACLs"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeClustersRequest struct {
-	ClusterName      string `json:"clusterName" xml:"ClusterName"`
-	MaxResults       int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken        string `json:"nextToken" xml:"NextToken"`
-	ShowShardDetails bool   `json:"showShardDetails" xml:"ShowShardDetails"`
+ClusterName string `json:"clusterName" xml:"ClusterName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ShowShardDetails bool `json:"showShardDetails" xml:"ShowShardDetails"`
 }
 
 type DescribeClustersResponse struct {
-	Clusters  ClusterList `json:"clusters" xml:"Clusters"`
-	NextToken string      `json:"nextToken" xml:"NextToken"`
+Clusters ClusterList `json:"clusters" xml:"Clusters"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeEngineVersionsRequest struct {
-	DefaultOnly          bool   `json:"defaultOnly" xml:"DefaultOnly"`
-	Engine               string `json:"engine" xml:"Engine"`
-	EngineVersion        string `json:"engineVersion" xml:"EngineVersion"`
-	MaxResults           int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken            string `json:"nextToken" xml:"NextToken"`
-	ParameterGroupFamily string `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
+DefaultOnly bool `json:"defaultOnly" xml:"DefaultOnly"`
+Engine string `json:"engine" xml:"Engine"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ParameterGroupFamily string `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
 }
 
 type DescribeEngineVersionsResponse struct {
-	EngineVersions EngineVersionInfoList `json:"engineVersions" xml:"EngineVersions"`
-	NextToken      string                `json:"nextToken" xml:"NextToken"`
+EngineVersions EngineVersionInfoList `json:"engineVersions" xml:"EngineVersions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeEventsRequest struct {
-	Duration   int32     `json:"duration" xml:"Duration"`
-	EndTime    time.Time `json:"endTime" xml:"EndTime"`
-	MaxResults int32     `json:"maxResults" xml:"MaxResults"`
-	NextToken  string    `json:"nextToken" xml:"NextToken"`
-	SourceName string    `json:"sourceName" xml:"SourceName"`
-	SourceType string    `json:"sourceType" xml:"SourceType"`
-	StartTime  time.Time `json:"startTime" xml:"StartTime"`
+Duration int32 `json:"duration" xml:"Duration"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SourceName string `json:"sourceName" xml:"SourceName"`
+SourceType string `json:"sourceType" xml:"SourceType"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type DescribeEventsResponse struct {
-	Events    EventList `json:"events" xml:"Events"`
-	NextToken string    `json:"nextToken" xml:"NextToken"`
+Events EventList `json:"events" xml:"Events"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeMultiRegionClustersRequest struct {
-	MaxResults             int32  `json:"maxResults" xml:"MaxResults"`
-	MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
-	NextToken              string `json:"nextToken" xml:"NextToken"`
-	ShowClusterDetails     bool   `json:"showClusterDetails" xml:"ShowClusterDetails"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ShowClusterDetails bool `json:"showClusterDetails" xml:"ShowClusterDetails"`
 }
 
 type DescribeMultiRegionClustersResponse struct {
-	MultiRegionClusters MultiRegionClusterList `json:"multiRegionClusters" xml:"MultiRegionClusters"`
-	NextToken           string                 `json:"nextToken" xml:"NextToken"`
+MultiRegionClusters MultiRegionClusterList `json:"multiRegionClusters" xml:"MultiRegionClusters"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeMultiRegionParameterGroupsRequest struct {
-	MaxResults                    int32  `json:"maxResults" xml:"MaxResults"`
-	MultiRegionParameterGroupName string `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
-	NextToken                     string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+MultiRegionParameterGroupName string `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeMultiRegionParameterGroupsResponse struct {
-	MultiRegionParameterGroups MultiRegionParameterGroupList `json:"multiRegionParameterGroups" xml:"MultiRegionParameterGroups"`
-	NextToken                  string                        `json:"nextToken" xml:"NextToken"`
+MultiRegionParameterGroups MultiRegionParameterGroupList `json:"multiRegionParameterGroups" xml:"MultiRegionParameterGroups"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeMultiRegionParametersRequest struct {
-	MaxResults                    int32  `json:"maxResults" xml:"MaxResults"`
-	MultiRegionParameterGroupName string `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
-	NextToken                     string `json:"nextToken" xml:"NextToken"`
-	Source                        string `json:"source" xml:"Source"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+MultiRegionParameterGroupName string `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Source string `json:"source" xml:"Source"`
 }
 
 type DescribeMultiRegionParametersResponse struct {
-	MultiRegionParameters MultiRegionParametersList `json:"multiRegionParameters" xml:"MultiRegionParameters"`
-	NextToken             string                    `json:"nextToken" xml:"NextToken"`
+MultiRegionParameters MultiRegionParametersList `json:"multiRegionParameters" xml:"MultiRegionParameters"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeParameterGroupsRequest struct {
-	MaxResults         int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken          string `json:"nextToken" xml:"NextToken"`
-	ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
 }
 
 type DescribeParameterGroupsResponse struct {
-	NextToken       string             `json:"nextToken" xml:"NextToken"`
-	ParameterGroups ParameterGroupList `json:"parameterGroups" xml:"ParameterGroups"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ParameterGroups ParameterGroupList `json:"parameterGroups" xml:"ParameterGroups"`
 }
 
 type DescribeParametersRequest struct {
-	MaxResults         int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken          string `json:"nextToken" xml:"NextToken"`
-	ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
 }
 
 type DescribeParametersResponse struct {
-	NextToken  string         `json:"nextToken" xml:"NextToken"`
-	Parameters ParametersList `json:"parameters" xml:"Parameters"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Parameters ParametersList `json:"parameters" xml:"Parameters"`
 }
 
 type DescribeReservedNodesOfferingsRequest struct {
-	Duration                string `json:"duration" xml:"Duration"`
-	MaxResults              int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken               string `json:"nextToken" xml:"NextToken"`
-	NodeType                string `json:"nodeType" xml:"NodeType"`
-	OfferingType            string `json:"offeringType" xml:"OfferingType"`
-	ReservedNodesOfferingId string `json:"reservedNodesOfferingId" xml:"ReservedNodesOfferingId"`
+Duration string `json:"duration" xml:"Duration"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+OfferingType string `json:"offeringType" xml:"OfferingType"`
+ReservedNodesOfferingId string `json:"reservedNodesOfferingId" xml:"ReservedNodesOfferingId"`
 }
 
 type DescribeReservedNodesOfferingsResponse struct {
-	NextToken              string                    `json:"nextToken" xml:"NextToken"`
-	ReservedNodesOfferings ReservedNodesOfferingList `json:"reservedNodesOfferings" xml:"ReservedNodesOfferings"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ReservedNodesOfferings ReservedNodesOfferingList `json:"reservedNodesOfferings" xml:"ReservedNodesOfferings"`
 }
 
 type DescribeReservedNodesRequest struct {
-	Duration                string `json:"duration" xml:"Duration"`
-	MaxResults              int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken               string `json:"nextToken" xml:"NextToken"`
-	NodeType                string `json:"nodeType" xml:"NodeType"`
-	OfferingType            string `json:"offeringType" xml:"OfferingType"`
-	ReservationId           string `json:"reservationId" xml:"ReservationId"`
-	ReservedNodesOfferingId string `json:"reservedNodesOfferingId" xml:"ReservedNodesOfferingId"`
+Duration string `json:"duration" xml:"Duration"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+OfferingType string `json:"offeringType" xml:"OfferingType"`
+ReservationId string `json:"reservationId" xml:"ReservationId"`
+ReservedNodesOfferingId string `json:"reservedNodesOfferingId" xml:"ReservedNodesOfferingId"`
 }
 
 type DescribeReservedNodesResponse struct {
-	NextToken     string           `json:"nextToken" xml:"NextToken"`
-	ReservedNodes ReservedNodeList `json:"reservedNodes" xml:"ReservedNodes"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ReservedNodes ReservedNodeList `json:"reservedNodes" xml:"ReservedNodes"`
 }
 
 type DescribeServiceUpdatesRequest struct {
-	ClusterNames      ClusterNameList         `json:"clusterNames" xml:"ClusterNames"`
-	MaxResults        int32                   `json:"maxResults" xml:"MaxResults"`
-	NextToken         string                  `json:"nextToken" xml:"NextToken"`
-	ServiceUpdateName string                  `json:"serviceUpdateName" xml:"ServiceUpdateName"`
-	Status            ServiceUpdateStatusList `json:"status" xml:"Status"`
+ClusterNames ClusterNameList `json:"clusterNames" xml:"ClusterNames"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ServiceUpdateName string `json:"serviceUpdateName" xml:"ServiceUpdateName"`
+Status ServiceUpdateStatusList `json:"status" xml:"Status"`
 }
 
 type DescribeServiceUpdatesResponse struct {
-	NextToken      string            `json:"nextToken" xml:"NextToken"`
-	ServiceUpdates ServiceUpdateList `json:"serviceUpdates" xml:"ServiceUpdates"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ServiceUpdates ServiceUpdateList `json:"serviceUpdates" xml:"ServiceUpdates"`
 }
 
 type DescribeSnapshotsRequest struct {
-	ClusterName  string `json:"clusterName" xml:"ClusterName"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	ShowDetail   bool   `json:"showDetail" xml:"ShowDetail"`
-	SnapshotName string `json:"snapshotName" xml:"SnapshotName"`
-	Source       string `json:"source" xml:"Source"`
+ClusterName string `json:"clusterName" xml:"ClusterName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ShowDetail bool `json:"showDetail" xml:"ShowDetail"`
+SnapshotName string `json:"snapshotName" xml:"SnapshotName"`
+Source string `json:"source" xml:"Source"`
 }
 
 type DescribeSnapshotsResponse struct {
-	NextToken string       `json:"nextToken" xml:"NextToken"`
-	Snapshots SnapshotList `json:"snapshots" xml:"Snapshots"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Snapshots SnapshotList `json:"snapshots" xml:"Snapshots"`
 }
 
 type DescribeSubnetGroupsRequest struct {
-	MaxResults      int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken       string `json:"nextToken" xml:"NextToken"`
-	SubnetGroupName string `json:"subnetGroupName" xml:"SubnetGroupName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SubnetGroupName string `json:"subnetGroupName" xml:"SubnetGroupName"`
 }
 
 type DescribeSubnetGroupsResponse struct {
-	NextToken    string          `json:"nextToken" xml:"NextToken"`
-	SubnetGroups SubnetGroupList `json:"subnetGroups" xml:"SubnetGroups"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SubnetGroups SubnetGroupList `json:"subnetGroups" xml:"SubnetGroups"`
 }
 
 type DescribeUsersRequest struct {
-	Filters    FilterList `json:"filters" xml:"Filters"`
-	MaxResults int32      `json:"maxResults" xml:"MaxResults"`
-	NextToken  string     `json:"nextToken" xml:"NextToken"`
-	UserName   string     `json:"userName" xml:"UserName"`
+Filters FilterList `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type DescribeUsersResponse struct {
-	NextToken string   `json:"nextToken" xml:"NextToken"`
-	Users     UserList `json:"users" xml:"Users"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Users UserList `json:"users" xml:"Users"`
 }
 
 type Endpoint struct {
-	Address string `json:"address" xml:"Address"`
-	Port    int32  `json:"port" xml:"Port"`
+Address string `json:"address" xml:"Address"`
+Port int32 `json:"port" xml:"Port"`
 }
 
 type EngineVersionInfo struct {
-	Engine               string `json:"engine" xml:"Engine"`
-	EnginePatchVersion   string `json:"enginePatchVersion" xml:"EnginePatchVersion"`
-	EngineVersion        string `json:"engineVersion" xml:"EngineVersion"`
-	ParameterGroupFamily string `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
+Engine string `json:"engine" xml:"Engine"`
+EnginePatchVersion string `json:"enginePatchVersion" xml:"EnginePatchVersion"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+ParameterGroupFamily string `json:"parameterGroupFamily" xml:"ParameterGroupFamily"`
 }
 
 type Event struct {
-	Date       time.Time `json:"date" xml:"Date"`
-	Message    string    `json:"message" xml:"Message"`
-	SourceName string    `json:"sourceName" xml:"SourceName"`
-	SourceType string    `json:"sourceType" xml:"SourceType"`
+Date time.Time `json:"date" xml:"Date"`
+Message string `json:"message" xml:"Message"`
+SourceName string `json:"sourceName" xml:"SourceName"`
+SourceType string `json:"sourceType" xml:"SourceType"`
 }
 
 type FailoverShardRequest struct {
-	ClusterName string `json:"clusterName" xml:"ClusterName"`
-	ShardName   string `json:"shardName" xml:"ShardName"`
+ClusterName string `json:"clusterName" xml:"ClusterName"`
+ShardName string `json:"shardName" xml:"ShardName"`
 }
 
 type FailoverShardResponse struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type Filter struct {
-	Name   string          `json:"name" xml:"Name"`
-	Values FilterValueList `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values FilterValueList `json:"values" xml:"Values"`
 }
 
 type ListAllowedMultiRegionClusterUpdatesRequest struct {
-	MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
+MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
 }
 
 type ListAllowedMultiRegionClusterUpdatesResponse struct {
-	ScaleDownNodeTypes NodeTypeList `json:"scaleDownNodeTypes" xml:"ScaleDownNodeTypes"`
-	ScaleUpNodeTypes   NodeTypeList `json:"scaleUpNodeTypes" xml:"ScaleUpNodeTypes"`
+ScaleDownNodeTypes NodeTypeList `json:"scaleDownNodeTypes" xml:"ScaleDownNodeTypes"`
+ScaleUpNodeTypes NodeTypeList `json:"scaleUpNodeTypes" xml:"ScaleUpNodeTypes"`
 }
 
 type ListAllowedNodeTypeUpdatesRequest struct {
-	ClusterName string `json:"clusterName" xml:"ClusterName"`
+ClusterName string `json:"clusterName" xml:"ClusterName"`
 }
 
 type ListAllowedNodeTypeUpdatesResponse struct {
-	ScaleDownNodeTypes NodeTypeList `json:"scaleDownNodeTypes" xml:"ScaleDownNodeTypes"`
-	ScaleUpNodeTypes   NodeTypeList `json:"scaleUpNodeTypes" xml:"ScaleUpNodeTypes"`
+ScaleDownNodeTypes NodeTypeList `json:"scaleDownNodeTypes" xml:"ScaleDownNodeTypes"`
+ScaleUpNodeTypes NodeTypeList `json:"scaleUpNodeTypes" xml:"ScaleUpNodeTypes"`
 }
 
 type ListTagsRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ListTagsResponse struct {
-	TagList TagList `json:"tagList" xml:"TagList"`
+TagList TagList `json:"tagList" xml:"TagList"`
 }
 
 type MultiRegionCluster struct {
-	ARN                           string              `json:"aRN" xml:"ARN"`
-	Clusters                      RegionalClusterList `json:"clusters" xml:"Clusters"`
-	Description                   string              `json:"description" xml:"Description"`
-	Engine                        string              `json:"engine" xml:"Engine"`
-	EngineVersion                 string              `json:"engineVersion" xml:"EngineVersion"`
-	MultiRegionClusterName        string              `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
-	MultiRegionParameterGroupName string              `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
-	NodeType                      string              `json:"nodeType" xml:"NodeType"`
-	NumberOfShards                int32               `json:"numberOfShards" xml:"NumberOfShards"`
-	Status                        string              `json:"status" xml:"Status"`
-	TLSEnabled                    bool                `json:"tLSEnabled" xml:"TLSEnabled"`
+ARN string `json:"aRN" xml:"ARN"`
+Clusters RegionalClusterList `json:"clusters" xml:"Clusters"`
+Description string `json:"description" xml:"Description"`
+Engine string `json:"engine" xml:"Engine"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
+MultiRegionParameterGroupName string `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+NumberOfShards int32 `json:"numberOfShards" xml:"NumberOfShards"`
+Status string `json:"status" xml:"Status"`
+TLSEnabled bool `json:"tLSEnabled" xml:"TLSEnabled"`
 }
 
 type MultiRegionParameter struct {
-	AllowedValues        string `json:"allowedValues" xml:"AllowedValues"`
-	DataType             string `json:"dataType" xml:"DataType"`
-	Description          string `json:"description" xml:"Description"`
-	MinimumEngineVersion string `json:"minimumEngineVersion" xml:"MinimumEngineVersion"`
-	Name                 string `json:"name" xml:"Name"`
-	Source               string `json:"source" xml:"Source"`
-	Value                string `json:"value" xml:"Value"`
+AllowedValues string `json:"allowedValues" xml:"AllowedValues"`
+DataType string `json:"dataType" xml:"DataType"`
+Description string `json:"description" xml:"Description"`
+MinimumEngineVersion string `json:"minimumEngineVersion" xml:"MinimumEngineVersion"`
+Name string `json:"name" xml:"Name"`
+Source string `json:"source" xml:"Source"`
+Value string `json:"value" xml:"Value"`
 }
 
 type MultiRegionParameterGroup struct {
-	ARN         string `json:"aRN" xml:"ARN"`
-	Description string `json:"description" xml:"Description"`
-	Family      string `json:"family" xml:"Family"`
-	Name        string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Description string `json:"description" xml:"Description"`
+Family string `json:"family" xml:"Family"`
+Name string `json:"name" xml:"Name"`
 }
 
 type Node struct {
-	AvailabilityZone string    `json:"availabilityZone" xml:"AvailabilityZone"`
-	CreateTime       time.Time `json:"createTime" xml:"CreateTime"`
-	Endpoint         *Endpoint `json:"endpoint" xml:"Endpoint"`
-	Name             string    `json:"name" xml:"Name"`
-	Status           string    `json:"status" xml:"Status"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+Endpoint *Endpoint `json:"endpoint" xml:"Endpoint"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type Parameter struct {
-	AllowedValues        string `json:"allowedValues" xml:"AllowedValues"`
-	DataType             string `json:"dataType" xml:"DataType"`
-	Description          string `json:"description" xml:"Description"`
-	MinimumEngineVersion string `json:"minimumEngineVersion" xml:"MinimumEngineVersion"`
-	Name                 string `json:"name" xml:"Name"`
-	Value                string `json:"value" xml:"Value"`
+AllowedValues string `json:"allowedValues" xml:"AllowedValues"`
+DataType string `json:"dataType" xml:"DataType"`
+Description string `json:"description" xml:"Description"`
+MinimumEngineVersion string `json:"minimumEngineVersion" xml:"MinimumEngineVersion"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ParameterGroup struct {
-	ARN         string `json:"aRN" xml:"ARN"`
-	Description string `json:"description" xml:"Description"`
-	Family      string `json:"family" xml:"Family"`
-	Name        string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Description string `json:"description" xml:"Description"`
+Family string `json:"family" xml:"Family"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ParameterNameValue struct {
-	ParameterName  string `json:"parameterName" xml:"ParameterName"`
-	ParameterValue string `json:"parameterValue" xml:"ParameterValue"`
+ParameterName string `json:"parameterName" xml:"ParameterName"`
+ParameterValue string `json:"parameterValue" xml:"ParameterValue"`
 }
 
 type PendingModifiedServiceUpdate struct {
-	ServiceUpdateName string `json:"serviceUpdateName" xml:"ServiceUpdateName"`
-	Status            string `json:"status" xml:"Status"`
+ServiceUpdateName string `json:"serviceUpdateName" xml:"ServiceUpdateName"`
+Status string `json:"status" xml:"Status"`
 }
 
 type PurchaseReservedNodesOfferingRequest struct {
-	NodeCount               int32   `json:"nodeCount" xml:"NodeCount"`
-	ReservationId           string  `json:"reservationId" xml:"ReservationId"`
-	ReservedNodesOfferingId string  `json:"reservedNodesOfferingId" xml:"ReservedNodesOfferingId"`
-	Tags                    TagList `json:"tags" xml:"Tags"`
+NodeCount int32 `json:"nodeCount" xml:"NodeCount"`
+ReservationId string `json:"reservationId" xml:"ReservationId"`
+ReservedNodesOfferingId string `json:"reservedNodesOfferingId" xml:"ReservedNodesOfferingId"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type PurchaseReservedNodesOfferingResponse struct {
-	ReservedNode *ReservedNode `json:"reservedNode" xml:"ReservedNode"`
+ReservedNode *ReservedNode `json:"reservedNode" xml:"ReservedNode"`
 }
 
 type RecurringCharge struct {
-	RecurringChargeAmount    float64 `json:"recurringChargeAmount" xml:"RecurringChargeAmount"`
-	RecurringChargeFrequency string  `json:"recurringChargeFrequency" xml:"RecurringChargeFrequency"`
+RecurringChargeAmount float64 `json:"recurringChargeAmount" xml:"RecurringChargeAmount"`
+RecurringChargeFrequency string `json:"recurringChargeFrequency" xml:"RecurringChargeFrequency"`
 }
 
 type RegionalCluster struct {
-	ARN         string `json:"aRN" xml:"ARN"`
-	ClusterName string `json:"clusterName" xml:"ClusterName"`
-	Region      string `json:"region" xml:"Region"`
-	Status      string `json:"status" xml:"Status"`
+ARN string `json:"aRN" xml:"ARN"`
+ClusterName string `json:"clusterName" xml:"ClusterName"`
+Region string `json:"region" xml:"Region"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ReplicaConfigurationRequest struct {
-	ReplicaCount int32 `json:"replicaCount" xml:"ReplicaCount"`
+ReplicaCount int32 `json:"replicaCount" xml:"ReplicaCount"`
 }
 
 type ReservedNode struct {
-	ARN                     string              `json:"aRN" xml:"ARN"`
-	Duration                int32               `json:"duration" xml:"Duration"`
-	FixedPrice              float64             `json:"fixedPrice" xml:"FixedPrice"`
-	NodeCount               int32               `json:"nodeCount" xml:"NodeCount"`
-	NodeType                string              `json:"nodeType" xml:"NodeType"`
-	OfferingType            string              `json:"offeringType" xml:"OfferingType"`
-	RecurringCharges        RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
-	ReservationId           string              `json:"reservationId" xml:"ReservationId"`
-	ReservedNodesOfferingId string              `json:"reservedNodesOfferingId" xml:"ReservedNodesOfferingId"`
-	StartTime               time.Time           `json:"startTime" xml:"StartTime"`
-	State                   string              `json:"state" xml:"State"`
+ARN string `json:"aRN" xml:"ARN"`
+Duration int32 `json:"duration" xml:"Duration"`
+FixedPrice float64 `json:"fixedPrice" xml:"FixedPrice"`
+NodeCount int32 `json:"nodeCount" xml:"NodeCount"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+OfferingType string `json:"offeringType" xml:"OfferingType"`
+RecurringCharges RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
+ReservationId string `json:"reservationId" xml:"ReservationId"`
+ReservedNodesOfferingId string `json:"reservedNodesOfferingId" xml:"ReservedNodesOfferingId"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+State string `json:"state" xml:"State"`
 }
 
 type ReservedNodesOffering struct {
-	Duration                int32               `json:"duration" xml:"Duration"`
-	FixedPrice              float64             `json:"fixedPrice" xml:"FixedPrice"`
-	NodeType                string              `json:"nodeType" xml:"NodeType"`
-	OfferingType            string              `json:"offeringType" xml:"OfferingType"`
-	RecurringCharges        RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
-	ReservedNodesOfferingId string              `json:"reservedNodesOfferingId" xml:"ReservedNodesOfferingId"`
+Duration int32 `json:"duration" xml:"Duration"`
+FixedPrice float64 `json:"fixedPrice" xml:"FixedPrice"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+OfferingType string `json:"offeringType" xml:"OfferingType"`
+RecurringCharges RecurringChargeList `json:"recurringCharges" xml:"RecurringCharges"`
+ReservedNodesOfferingId string `json:"reservedNodesOfferingId" xml:"ReservedNodesOfferingId"`
 }
 
 type ResetParameterGroupRequest struct {
-	AllParameters      bool              `json:"allParameters" xml:"AllParameters"`
-	ParameterGroupName string            `json:"parameterGroupName" xml:"ParameterGroupName"`
-	ParameterNames     ParameterNameList `json:"parameterNames" xml:"ParameterNames"`
+AllParameters bool `json:"allParameters" xml:"AllParameters"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+ParameterNames ParameterNameList `json:"parameterNames" xml:"ParameterNames"`
 }
 
 type ResetParameterGroupResponse struct {
-	ParameterGroup *ParameterGroup `json:"parameterGroup" xml:"ParameterGroup"`
+ParameterGroup *ParameterGroup `json:"parameterGroup" xml:"ParameterGroup"`
 }
 
 type ReshardingStatus struct {
-	SlotMigration *SlotMigration `json:"slotMigration" xml:"SlotMigration"`
+SlotMigration *SlotMigration `json:"slotMigration" xml:"SlotMigration"`
 }
 
 type SecurityGroupMembership struct {
-	SecurityGroupId string `json:"securityGroupId" xml:"SecurityGroupId"`
-	Status          string `json:"status" xml:"Status"`
+SecurityGroupId string `json:"securityGroupId" xml:"SecurityGroupId"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ServiceUpdate struct {
-	AutoUpdateStartDate time.Time `json:"autoUpdateStartDate" xml:"AutoUpdateStartDate"`
-	ClusterName         string    `json:"clusterName" xml:"ClusterName"`
-	Description         string    `json:"description" xml:"Description"`
-	Engine              string    `json:"engine" xml:"Engine"`
-	NodesUpdated        string    `json:"nodesUpdated" xml:"NodesUpdated"`
-	ReleaseDate         time.Time `json:"releaseDate" xml:"ReleaseDate"`
-	ServiceUpdateName   string    `json:"serviceUpdateName" xml:"ServiceUpdateName"`
-	Status              string    `json:"status" xml:"Status"`
-	Type                string    `json:"type" xml:"Type"`
+AutoUpdateStartDate time.Time `json:"autoUpdateStartDate" xml:"AutoUpdateStartDate"`
+ClusterName string `json:"clusterName" xml:"ClusterName"`
+Description string `json:"description" xml:"Description"`
+Engine string `json:"engine" xml:"Engine"`
+NodesUpdated string `json:"nodesUpdated" xml:"NodesUpdated"`
+ReleaseDate time.Time `json:"releaseDate" xml:"ReleaseDate"`
+ServiceUpdateName string `json:"serviceUpdateName" xml:"ServiceUpdateName"`
+Status string `json:"status" xml:"Status"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ServiceUpdateRequest struct {
-	ServiceUpdateNameToApply string `json:"serviceUpdateNameToApply" xml:"ServiceUpdateNameToApply"`
+ServiceUpdateNameToApply string `json:"serviceUpdateNameToApply" xml:"ServiceUpdateNameToApply"`
 }
 
 type Shard struct {
-	Name          string   `json:"name" xml:"Name"`
-	Nodes         NodeList `json:"nodes" xml:"Nodes"`
-	NumberOfNodes int32    `json:"numberOfNodes" xml:"NumberOfNodes"`
-	Slots         string   `json:"slots" xml:"Slots"`
-	Status        string   `json:"status" xml:"Status"`
+Name string `json:"name" xml:"Name"`
+Nodes NodeList `json:"nodes" xml:"Nodes"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
+Slots string `json:"slots" xml:"Slots"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ShardConfiguration struct {
-	ReplicaCount int32  `json:"replicaCount" xml:"ReplicaCount"`
-	Slots        string `json:"slots" xml:"Slots"`
+ReplicaCount int32 `json:"replicaCount" xml:"ReplicaCount"`
+Slots string `json:"slots" xml:"Slots"`
 }
 
 type ShardConfigurationRequest struct {
-	ShardCount int32 `json:"shardCount" xml:"ShardCount"`
+ShardCount int32 `json:"shardCount" xml:"ShardCount"`
 }
 
 type ShardDetail struct {
-	Configuration        *ShardConfiguration `json:"configuration" xml:"Configuration"`
-	Name                 string              `json:"name" xml:"Name"`
-	Size                 string              `json:"size" xml:"Size"`
-	SnapshotCreationTime time.Time           `json:"snapshotCreationTime" xml:"SnapshotCreationTime"`
+Configuration *ShardConfiguration `json:"configuration" xml:"Configuration"`
+Name string `json:"name" xml:"Name"`
+Size string `json:"size" xml:"Size"`
+SnapshotCreationTime time.Time `json:"snapshotCreationTime" xml:"SnapshotCreationTime"`
 }
 
 type SlotMigration struct {
-	ProgressPercentage float64 `json:"progressPercentage" xml:"ProgressPercentage"`
+ProgressPercentage float64 `json:"progressPercentage" xml:"ProgressPercentage"`
 }
 
 type Snapshot struct {
-	ARN                  string                `json:"aRN" xml:"ARN"`
-	ClusterConfiguration *ClusterConfiguration `json:"clusterConfiguration" xml:"ClusterConfiguration"`
-	DataTiering          string                `json:"dataTiering" xml:"DataTiering"`
-	KmsKeyId             string                `json:"kmsKeyId" xml:"KmsKeyId"`
-	Name                 string                `json:"name" xml:"Name"`
-	Source               string                `json:"source" xml:"Source"`
-	Status               string                `json:"status" xml:"Status"`
+ARN string `json:"aRN" xml:"ARN"`
+ClusterConfiguration *ClusterConfiguration `json:"clusterConfiguration" xml:"ClusterConfiguration"`
+DataTiering string `json:"dataTiering" xml:"DataTiering"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+Name string `json:"name" xml:"Name"`
+Source string `json:"source" xml:"Source"`
+Status string `json:"status" xml:"Status"`
 }
 
 type Subnet struct {
-	AvailabilityZone      *AvailabilityZone `json:"availabilityZone" xml:"AvailabilityZone"`
-	Identifier            string            `json:"identifier" xml:"Identifier"`
-	SupportedNetworkTypes NetworkTypeList   `json:"supportedNetworkTypes" xml:"SupportedNetworkTypes"`
+AvailabilityZone *AvailabilityZone `json:"availabilityZone" xml:"AvailabilityZone"`
+Identifier string `json:"identifier" xml:"Identifier"`
+SupportedNetworkTypes NetworkTypeList `json:"supportedNetworkTypes" xml:"SupportedNetworkTypes"`
 }
 
 type SubnetGroup struct {
-	ARN                   string          `json:"aRN" xml:"ARN"`
-	Description           string          `json:"description" xml:"Description"`
-	Name                  string          `json:"name" xml:"Name"`
-	Subnets               SubnetList      `json:"subnets" xml:"Subnets"`
-	SupportedNetworkTypes NetworkTypeList `json:"supportedNetworkTypes" xml:"SupportedNetworkTypes"`
-	VpcId                 string          `json:"vpcId" xml:"VpcId"`
+ARN string `json:"aRN" xml:"ARN"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Subnets SubnetList `json:"subnets" xml:"Subnets"`
+SupportedNetworkTypes NetworkTypeList `json:"supportedNetworkTypes" xml:"SupportedNetworkTypes"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string  `json:"resourceArn" xml:"ResourceArn"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
-	TagList TagList `json:"tagList" xml:"TagList"`
+TagList TagList `json:"tagList" xml:"TagList"`
 }
 
 type UnprocessedCluster struct {
-	ClusterName  string `json:"clusterName" xml:"ClusterName"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
-	ErrorType    string `json:"errorType" xml:"ErrorType"`
+ClusterName string `json:"clusterName" xml:"ClusterName"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ErrorType string `json:"errorType" xml:"ErrorType"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string  `json:"resourceArn" xml:"ResourceArn"`
-	TagKeys     KeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagKeys KeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceResponse struct {
-	TagList TagList `json:"tagList" xml:"TagList"`
+TagList TagList `json:"tagList" xml:"TagList"`
 }
 
 type UpdateACLRequest struct {
-	ACLName           string            `json:"aCLName" xml:"ACLName"`
-	UserNamesToAdd    UserNameListInput `json:"userNamesToAdd" xml:"UserNamesToAdd"`
-	UserNamesToRemove UserNameListInput `json:"userNamesToRemove" xml:"UserNamesToRemove"`
+ACLName string `json:"aCLName" xml:"ACLName"`
+UserNamesToAdd UserNameListInput `json:"userNamesToAdd" xml:"UserNamesToAdd"`
+UserNamesToRemove UserNameListInput `json:"userNamesToRemove" xml:"UserNamesToRemove"`
 }
 
 type UpdateACLResponse struct {
-	ACL *ACL `json:"aCL" xml:"ACL"`
+ACL *ACL `json:"aCL" xml:"ACL"`
 }
 
 type UpdateClusterRequest struct {
-	ACLName                string                       `json:"aCLName" xml:"ACLName"`
-	ClusterName            string                       `json:"clusterName" xml:"ClusterName"`
-	Description            string                       `json:"description" xml:"Description"`
-	Engine                 string                       `json:"engine" xml:"Engine"`
-	EngineVersion          string                       `json:"engineVersion" xml:"EngineVersion"`
-	IpDiscovery            string                       `json:"ipDiscovery" xml:"IpDiscovery"`
-	MaintenanceWindow      string                       `json:"maintenanceWindow" xml:"MaintenanceWindow"`
-	NodeType               string                       `json:"nodeType" xml:"NodeType"`
-	ParameterGroupName     string                       `json:"parameterGroupName" xml:"ParameterGroupName"`
-	ReplicaConfiguration   *ReplicaConfigurationRequest `json:"replicaConfiguration" xml:"ReplicaConfiguration"`
-	SecurityGroupIds       SecurityGroupIdsList         `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	ShardConfiguration     *ShardConfigurationRequest   `json:"shardConfiguration" xml:"ShardConfiguration"`
-	SnapshotRetentionLimit int32                        `json:"snapshotRetentionLimit" xml:"SnapshotRetentionLimit"`
-	SnapshotWindow         string                       `json:"snapshotWindow" xml:"SnapshotWindow"`
-	SnsTopicArn            string                       `json:"snsTopicArn" xml:"SnsTopicArn"`
-	SnsTopicStatus         string                       `json:"snsTopicStatus" xml:"SnsTopicStatus"`
+ACLName string `json:"aCLName" xml:"ACLName"`
+ClusterName string `json:"clusterName" xml:"ClusterName"`
+Description string `json:"description" xml:"Description"`
+Engine string `json:"engine" xml:"Engine"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+IpDiscovery string `json:"ipDiscovery" xml:"IpDiscovery"`
+MaintenanceWindow string `json:"maintenanceWindow" xml:"MaintenanceWindow"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+ReplicaConfiguration *ReplicaConfigurationRequest `json:"replicaConfiguration" xml:"ReplicaConfiguration"`
+SecurityGroupIds SecurityGroupIdsList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+ShardConfiguration *ShardConfigurationRequest `json:"shardConfiguration" xml:"ShardConfiguration"`
+SnapshotRetentionLimit int32 `json:"snapshotRetentionLimit" xml:"SnapshotRetentionLimit"`
+SnapshotWindow string `json:"snapshotWindow" xml:"SnapshotWindow"`
+SnsTopicArn string `json:"snsTopicArn" xml:"SnsTopicArn"`
+SnsTopicStatus string `json:"snsTopicStatus" xml:"SnsTopicStatus"`
 }
 
 type UpdateClusterResponse struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type UpdateMultiRegionClusterRequest struct {
-	Description                   string                     `json:"description" xml:"Description"`
-	EngineVersion                 string                     `json:"engineVersion" xml:"EngineVersion"`
-	MultiRegionClusterName        string                     `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
-	MultiRegionParameterGroupName string                     `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
-	NodeType                      string                     `json:"nodeType" xml:"NodeType"`
-	ShardConfiguration            *ShardConfigurationRequest `json:"shardConfiguration" xml:"ShardConfiguration"`
-	UpdateStrategy                string                     `json:"updateStrategy" xml:"UpdateStrategy"`
+Description string `json:"description" xml:"Description"`
+EngineVersion string `json:"engineVersion" xml:"EngineVersion"`
+MultiRegionClusterName string `json:"multiRegionClusterName" xml:"MultiRegionClusterName"`
+MultiRegionParameterGroupName string `json:"multiRegionParameterGroupName" xml:"MultiRegionParameterGroupName"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+ShardConfiguration *ShardConfigurationRequest `json:"shardConfiguration" xml:"ShardConfiguration"`
+UpdateStrategy string `json:"updateStrategy" xml:"UpdateStrategy"`
 }
 
 type UpdateMultiRegionClusterResponse struct {
-	MultiRegionCluster *MultiRegionCluster `json:"multiRegionCluster" xml:"MultiRegionCluster"`
+MultiRegionCluster *MultiRegionCluster `json:"multiRegionCluster" xml:"MultiRegionCluster"`
 }
 
 type UpdateParameterGroupRequest struct {
-	ParameterGroupName  string                 `json:"parameterGroupName" xml:"ParameterGroupName"`
-	ParameterNameValues ParameterNameValueList `json:"parameterNameValues" xml:"ParameterNameValues"`
+ParameterGroupName string `json:"parameterGroupName" xml:"ParameterGroupName"`
+ParameterNameValues ParameterNameValueList `json:"parameterNameValues" xml:"ParameterNameValues"`
 }
 
 type UpdateParameterGroupResponse struct {
-	ParameterGroup *ParameterGroup `json:"parameterGroup" xml:"ParameterGroup"`
+ParameterGroup *ParameterGroup `json:"parameterGroup" xml:"ParameterGroup"`
 }
 
 type UpdateSubnetGroupRequest struct {
-	Description     string               `json:"description" xml:"Description"`
-	SubnetGroupName string               `json:"subnetGroupName" xml:"SubnetGroupName"`
-	SubnetIds       SubnetIdentifierList `json:"subnetIds" xml:"SubnetIds"`
+Description string `json:"description" xml:"Description"`
+SubnetGroupName string `json:"subnetGroupName" xml:"SubnetGroupName"`
+SubnetIds SubnetIdentifierList `json:"subnetIds" xml:"SubnetIds"`
 }
 
 type UpdateSubnetGroupResponse struct {
-	SubnetGroup *SubnetGroup `json:"subnetGroup" xml:"SubnetGroup"`
+SubnetGroup *SubnetGroup `json:"subnetGroup" xml:"SubnetGroup"`
 }
 
 type UpdateUserRequest struct {
-	AccessString       string              `json:"accessString" xml:"AccessString"`
-	AuthenticationMode *AuthenticationMode `json:"authenticationMode" xml:"AuthenticationMode"`
-	UserName           string              `json:"userName" xml:"UserName"`
+AccessString string `json:"accessString" xml:"AccessString"`
+AuthenticationMode *AuthenticationMode `json:"authenticationMode" xml:"AuthenticationMode"`
+UserName string `json:"userName" xml:"UserName"`
 }
 
 type UpdateUserResponse struct {
-	User *User `json:"user" xml:"User"`
+User *User `json:"user" xml:"User"`
 }
 
 type User struct {
-	ACLNames             ACLNameList     `json:"aCLNames" xml:"ACLNames"`
-	ARN                  string          `json:"aRN" xml:"ARN"`
-	AccessString         string          `json:"accessString" xml:"AccessString"`
-	Authentication       *Authentication `json:"authentication" xml:"Authentication"`
-	MinimumEngineVersion string          `json:"minimumEngineVersion" xml:"MinimumEngineVersion"`
-	Name                 string          `json:"name" xml:"Name"`
-	Status               string          `json:"status" xml:"Status"`
+ACLNames ACLNameList `json:"aCLNames" xml:"ACLNames"`
+ARN string `json:"aRN" xml:"ARN"`
+AccessString string `json:"accessString" xml:"AccessString"`
+Authentication *Authentication `json:"authentication" xml:"Authentication"`
+MinimumEngineVersion string `json:"minimumEngineVersion" xml:"MinimumEngineVersion"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ACLClusterNameList []string
@@ -929,3 +929,4 @@ type UserList []*User
 type UserNameList []string
 
 type UserNameListInput []string
+

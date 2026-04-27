@@ -238,3 +238,4 @@ func (b *BaseProvider) UpdateEndpoint(ctx context.Context, input *UpdateEndpoint
 func (b *BaseProvider) UpdateEventBus(ctx context.Context, input *UpdateEventBusRequest) (*UpdateEventBusResponse, error) {
 	return nil, fmt.Errorf("UpdateEventBus: %w", ErrNotImplemented)
 }
+

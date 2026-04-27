@@ -346,3 +346,4 @@ func SerializeUploadMultipartPartOutput(w http.ResponseWriter, output *UploadMul
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

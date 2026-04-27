@@ -428,3 +428,4 @@ func DeserializeUpdateStudioSessionMappingInput(r *http.Request, pathParams Path
 
 	return input, nil
 }
+

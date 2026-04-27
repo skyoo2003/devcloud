@@ -817,3 +817,4 @@ func SerializeSwitchoverGlobalClusterResult(w http.ResponseWriter, output *Switc
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+
