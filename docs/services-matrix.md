@@ -2,6 +2,8 @@
 
 **Total**: 101 services, 4,451 operations, 96% boto3 compatibility
 
+> To refresh these numbers, run `make stats` and update the line above.
+
 _Last updated with each release. For unreleased changes, see [CHANGELOG.md](../CHANGELOG.md)._
 
 DevCloud is a Go-based local cloud environment with AWS API compatibility. This matrix tracks implemented operations per service.

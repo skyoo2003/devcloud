@@ -143,6 +143,8 @@ docker run -p 4747:4747 -e DEVCLOUD_SERVICES=tier1 ghcr.io/skyoo2003/devcloud:la
 
 Overrides the base data directory for **all** services. Each service's `data_dir` becomes `<DEVCLOUD_DATA_DIR>/<service_name>` regardless of what's in the YAML file.
 
+**Precedence**: `DEVCLOUD_DATA_DIR` wins over per-service `data_dir` values in YAML. When set, every service uses `<DEVCLOUD_DATA_DIR>/<service_name>` — the YAML `data_dir` is ignored entirely. When not set, each service falls back to its YAML `data_dir` value (or the embedded default).
+
 ```bash
 # Put all service data under /tmp/devcloud-local
 DEVCLOUD_DATA_DIR=/tmp/devcloud-local ./dist/devcloud

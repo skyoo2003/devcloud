@@ -1,4 +1,4 @@
-.PHONY: build test codegen run clean test-compat build-web build-all docker-build docker-run changelog
+.PHONY: build test codegen run clean test-compat build-web build-all docker-build docker-run changelog stats
 
 build:
 	go build -o dist/devcloud ./cmd/devcloud
@@ -39,3 +39,9 @@ changelog:
 	  exit 1; \
 	fi
 	@changie batch $(VERSION) && changie merge
+
+stats:
+	@svcs=$$(awk '/^services:/,/^auth:/' internal/config/default.yaml | grep -cE '^\s+[a-z][a-z0-9_]+:$$'); \
+	ops=$$(grep -r 'case "' internal/services/*/provider.go 2>/dev/null | wc -l | tr -d ' '); \
+	echo "Services: $$svcs"; \
+	echo "Operations: $$ops"

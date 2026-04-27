@@ -158,8 +158,8 @@ devcloud/
 │   ├── plugin/             # ServicePlugin interface, Registry
 │   ├── codegen/            # Smithy parser, code generators, templates
 │   ├── config/             # YAML config loading, env overrides
-│   ├── generated/          # Auto-generated code (DO NOT EDIT, 93 services)
-│   ├── services/           # Service implementations (101 services)
+│   ├── generated/          # Auto-generated code (DO NOT EDIT; run `make stats` for count)
+│   ├── services/           # Service implementations (run `make stats` for count)
 │   ├── dashboard/          # Dashboard REST API + WebSocket
 │   ├── eventbus/           # In-memory event pub/sub
 │   └── storage/            # Shared storage abstractions
@@ -178,7 +178,7 @@ devcloud/
 1. Load config from `devcloud.yaml` (or specified path), applying environment variable overrides (`DEVCLOUD_PORT`, `DEVCLOUD_SERVICES`, `DEVCLOUD_DATA_DIR`)
 2. Initialize structured logger (slog)
 3. Create plugin registry
-4. Register service factories (101 services)
+4. Register service factories (run `make stats` for count)
 5. Initialize services in dependency order (IAM before STS, etc.)
 6. IAM store is shared with STS via plugin config options
 7. Set up event bus, log collector, dashboard API

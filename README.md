@@ -23,7 +23,7 @@ Today DevCloud targets **AWS**. Our long-term goal is to support the full range 
 
 ## Features
 
-- **101 AWS services scaffolded** — 4,451 operations across all major categories (see [services-matrix.md](docs/services-matrix.md))
+- **101 AWS services scaffolded** — 4,451 operations across all major categories (run `make stats` to verify; see [services-matrix.md](docs/services-matrix.md))
 - **96% boto3 compatibility** — 671/699 SDK tests pass; works with most boto3 apps
 - **Cross-service integration** — CFN provisioning, DDB Streams → Lambda, EventBridge targets, S3 → Lambda
 - **Smithy-driven codegen** — auto-generate Go interfaces, types, and serializers from Smithy models
