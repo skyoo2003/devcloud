@@ -41,7 +41,7 @@ changelog:
 	@changie batch $(VERSION) && changie merge
 
 stats:
-	@svcs=$$(awk '/^services:/,/^auth:/' internal/config/default.yaml | grep -cE '^\s+[a-z][a-z0-9_]+:$$'); \
+	@svcs=$$(awk '/^services:/{found=1;next} /^[^ \t]/{found=0} found && /^[ \t]+[a-z][a-z0-9_]+:$$/' internal/config/default.yaml | wc -l | tr -d ' '); \
 	ops=$$(grep -r 'case "' internal/services/*/provider.go 2>/dev/null | wc -l | tr -d ' '); \
 	echo "Services: $$svcs"; \
 	echo "Operations: $$ops"
