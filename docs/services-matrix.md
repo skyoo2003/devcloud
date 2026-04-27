@@ -1,6 +1,6 @@
 # DevCloud Services Matrix
 
-**Total**: 96 services, 4,438 operations, 96% boto3 compatibility
+**Total**: 101 services, 4,451 operations, 96% boto3 compatibility
 
 _Last updated with each release. For unreleased changes, see [CHANGELOG.md](../CHANGELOG.md)._
 
@@ -21,7 +21,7 @@ DevCloud is a Go-based local cloud environment with AWS API compatibility. This 
 |---|---------|-----|----------|
 | 1 | sesv2 | 155 | Business Apps |
 | 2 | appconfig | 97 | Management |
-| 3 | pinpoint | 91 | Business Apps |
+| 3 | pinpoint | 93 | Business Apps |
 | 4 | opensearch | 87 | Analytics |
 | 5 | iot | 82 | IoT |
 | 6 | backup | 82 | Storage |
@@ -97,6 +97,9 @@ for svc in $(ls internal/services/); do
   count=$(grep -c 'case "' internal/services/$svc/provider.go 2>/dev/null || echo 0)
   [ "$count" -gt "0" ] && echo "$count $svc"
 done | sort -rn
+
+# Count total scaffolded services
+awk '/^services:/,/^auth:/' internal/config/default.yaml | grep -cE '^\s+[a-z][a-z0-9_]*:$'
 ```
 
 See [Getting Started](getting-started.md) for installation and [contributing.md](contributing.md) for development setup.

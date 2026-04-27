@@ -8,7 +8,13 @@ To override defaults, provide a YAML file. DevCloud looks for config in this ord
 2. `./devcloud.yaml` in the current working directory (auto-detected)
 3. Embedded defaults (used when neither of the above is present)
 
-Environment variables override YAML values for selected keys (see [Environment Variable Overrides](#environment-variable-overrides)).
+Environment variables override YAML values for selected keys (see [Environment Variable Overrides](#environment-variable-overrides)):
+
+| Variable | Overrides | Description |
+|----------|-----------|-------------|
+| `DEVCLOUD_PORT` | `server.port` | HTTP server port |
+| `DEVCLOUD_SERVICES` | `services.*.enabled` | Comma-separated list of services to enable |
+| `DEVCLOUD_DATA_DIR` | `services.*.data_dir` | Base data directory for all services |
 
 ## Configuration File
 
@@ -91,6 +97,18 @@ logging:
 ```
 
 ## Environment Variable Overrides
+
+### `DEVCLOUD_PORT`
+
+Overrides the HTTP server port. Takes precedence over both the YAML `server.port` value and the embedded default.
+
+```bash
+# Run on port 8080 instead of 4747
+DEVCLOUD_PORT=8080 ./dist/devcloud
+
+# With Docker (map the host port accordingly)
+docker run -p 8080:8080 -e DEVCLOUD_PORT=8080 ghcr.io/skyoo2003/devcloud:latest
+```
 
 ### `DEVCLOUD_SERVICES`
 
