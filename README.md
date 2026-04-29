@@ -23,12 +23,13 @@ Today DevCloud targets **AWS**. Our long-term goal is to support the full range 
 
 ## Features
 
-- **96 AWS services scaffolded** — 4,438 operations across all major categories (see [services-matrix.md](docs/services-matrix.md))
+- **101 AWS services scaffolded** — 4,451 operations across all major categories (run `make stats` to verify; see [services-matrix.md](docs/services-matrix.md))
 - **96% boto3 compatibility** — 671/699 SDK tests pass; works with most boto3 apps
 - **Cross-service integration** — CFN provisioning, DDB Streams → Lambda, EventBridge targets, S3 → Lambda
 - **Smithy-driven codegen** — auto-generate Go interfaces, types, and serializers from Smithy models
 - **Weekly auto-sync** — GitHub Actions keeps generated code up to date with upstream AWS API changes
 - **Single binary, zero-config** — one Docker image, one port (4747), no config file required (embedded defaults)
+- **Environment variable overrides** — `DEVCLOUD_SERVICES`, `DEVCLOUD_DATA_DIR`, `DEVCLOUD_PORT` for quick configuration without YAML
 - **SDK/CLI compatible** — works with the AWS SDK, CLI, Terraform, CDK out of the box
 - **Web dashboard** — real-time monitoring and resource browser
 

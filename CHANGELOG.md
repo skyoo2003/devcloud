@@ -50,7 +50,7 @@ First public release of DevCloud — a local development companion for cloud-nat
 - Generated files (`internal/generated/**`) include SPDX license headers and are marked `DO NOT EDIT`.
 
 **Web dashboard** (optional, gated on `dashboard.enabled`)
-- Next.js 15 / React 19 / Tailwind UI served statically by the Go server.
+- Next.js 16 / React 19 / Tailwind UI served statically by the Go server.
 - Service status, resource browser, WebSocket-based live API log stream.
 
 **Docker packaging**

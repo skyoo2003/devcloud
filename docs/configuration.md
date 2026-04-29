@@ -8,7 +8,13 @@ To override defaults, provide a YAML file. DevCloud looks for config in this ord
 2. `./devcloud.yaml` in the current working directory (auto-detected)
 3. Embedded defaults (used when neither of the above is present)
 
-Environment variables override YAML values for selected keys (see [Environment Variable Overrides](#environment-variable-overrides)).
+Environment variables override YAML values for selected keys (see [Environment Variable Overrides](#environment-variable-overrides)). All three env vars follow the same precedence: **env var wins over YAML, YAML wins over embedded default**.
+
+| Variable | Overrides | Description |
+|----------|-----------|-------------|
+| `DEVCLOUD_PORT` | `server.port` | HTTP server port |
+| `DEVCLOUD_SERVICES` | `services.*.enabled` | Comma-separated list of services to enable |
+| `DEVCLOUD_DATA_DIR` | `services.*.data_dir` | Base data directory for all services |
 
 ## Configuration File
 
@@ -92,9 +98,21 @@ logging:
 
 ## Environment Variable Overrides
 
+### `DEVCLOUD_PORT`
+
+Overrides the HTTP server port.
+
+```bash
+# Run on port 8080 instead of 4747
+DEVCLOUD_PORT=8080 ./dist/devcloud
+
+# With Docker (map the host port accordingly)
+docker run -p 8080:8080 -e DEVCLOUD_PORT=8080 ghcr.io/skyoo2003/devcloud:latest
+```
+
 ### `DEVCLOUD_SERVICES`
 
-Comma-separated list of services to enable. All other services listed in the config file are disabled. Accepts individual service names and tier shortcuts.
+Comma-separated list of services to enable. When set, **only** the listed services are enabled — all others are disabled regardless of their `enabled` setting in YAML. When not set, each service uses its YAML `enabled` value (or the embedded default of `true`).
 
 **Tier shortcuts** (expand to predefined service groups — see [`internal/config/config.go`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/config.go) for the exact list):
 
@@ -123,7 +141,7 @@ docker run -p 4747:4747 -e DEVCLOUD_SERVICES=tier1 ghcr.io/skyoo2003/devcloud:la
 
 ### `DEVCLOUD_DATA_DIR`
 
-Overrides the base data directory for **all** services. Each service's `data_dir` becomes `<DEVCLOUD_DATA_DIR>/<service_name>` regardless of what's in the YAML file.
+Overrides the base data directory for **all** services. When set, every service uses `<DEVCLOUD_DATA_DIR>/<service_name>` — per-service `data_dir` values in YAML are ignored. When not set, each service falls back to its YAML `data_dir` value (or the embedded default).
 
 ```bash
 # Put all service data under /tmp/devcloud-local
