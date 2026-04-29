@@ -212,7 +212,7 @@ func (s *LambdaStore) CreateFunction(info *FunctionInfo, codeZip []byte) (*Funct
 	if err != nil {
 		return nil, err
 	}
-	dir := filepath.Dir(path)
+	dir := filepath.Join(s.codeDir, info.AccountID, info.FunctionName)
 	if !isWithinDir(dir, s.codeDir) {
 		return nil, fmt.Errorf("path traversal detected: %s", dir)
 	}
