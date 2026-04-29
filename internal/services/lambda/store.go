@@ -14,6 +14,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/skyoo2003/devcloud/internal/shared"
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
 )
 
@@ -153,23 +154,6 @@ func isSafePathComponent(v string) bool {
 		!strings.ContainsAny(v, "/\\")
 }
 
-// isWithinDir returns true if child resolves to a path within parent.
-func isWithinDir(child, parent string) bool {
-	absChild, err := filepath.Abs(filepath.Clean(child))
-	if err != nil {
-		return false
-	}
-	absParent, err := filepath.Abs(filepath.Clean(parent))
-	if err != nil {
-		return false
-	}
-	rel, err := filepath.Rel(absParent, absChild)
-	if err != nil {
-		return false
-	}
-	return rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) && !filepath.IsAbs(rel)
-}
-
 // codePath returns the filesystem path for a function's code zip.
 // It validates that accountID and functionName are single path segments and that
 // the resolved path stays within s.codeDir to prevent path traversal.
@@ -213,7 +197,7 @@ func (s *LambdaStore) CreateFunction(info *FunctionInfo, codeZip []byte) (*Funct
 		return nil, err
 	}
 	dir := filepath.Join(s.codeDir, info.AccountID, info.FunctionName)
-	if !isWithinDir(dir, s.codeDir) {
+	if !shared.IsWithinDir(dir, s.codeDir) {
 		return nil, fmt.Errorf("path traversal detected: %s", dir)
 	}
 	if err := os.MkdirAll(dir, 0o755); err != nil {
@@ -431,7 +415,7 @@ func (s *LambdaStore) UpdateFunctionCode(accountID, functionName string, codeZip
 		return nil, err
 	}
 	dir := filepath.Dir(path)
-	if !isWithinDir(dir, s.codeDir) {
+	if !shared.IsWithinDir(dir, s.codeDir) {
 		return nil, fmt.Errorf("path traversal detected: %s", dir)
 	}
 	if err := os.MkdirAll(dir, 0o755); err != nil {
