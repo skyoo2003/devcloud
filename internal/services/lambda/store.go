@@ -195,7 +195,11 @@ func (s *LambdaStore) CreateFunction(info *FunctionInfo, codeZip []byte) (*Funct
 	if err != nil {
 		return nil, err
 	}
-	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+	dir := filepath.Dir(path)
+	if !strings.HasPrefix(filepath.Clean(dir), filepath.Clean(s.codeDir)+string(filepath.Separator)) {
+		return nil, fmt.Errorf("path traversal detected: %s", dir)
+	}
+	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return nil, fmt.Errorf("create code directory: %w", err)
 	}
 	if err := os.WriteFile(path, codeZip, 0o644); err != nil {
@@ -409,7 +413,11 @@ func (s *LambdaStore) UpdateFunctionCode(accountID, functionName string, codeZip
 	if err != nil {
 		return nil, err
 	}
-	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+	dir := filepath.Dir(path)
+	if !strings.HasPrefix(filepath.Clean(dir), filepath.Clean(s.codeDir)+string(filepath.Separator)) {
+		return nil, fmt.Errorf("path traversal detected: %s", dir)
+	}
+	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return nil, fmt.Errorf("create code directory: %w", err)
 	}
 	if err := os.WriteFile(path, codeZip, 0o644); err != nil {

@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/shared"
@@ -403,6 +404,10 @@ func (s *ECRStore) UploadLayerPart(accountID, repoName, uploadID string, partFir
 
 	// Save blob to filesystem.
 	dir := filepath.Join(s.dataDir, "_layers", uploadID, "parts")
+	cleaned := filepath.Clean(dir)
+	if !strings.HasPrefix(cleaned, filepath.Clean(s.dataDir)+string(filepath.Separator)) {
+		return fmt.Errorf("path traversal detected: %s", cleaned)
+	}
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return fmt.Errorf("mkdir layer parts: %w", err)
 	}
