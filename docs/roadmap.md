@@ -19,7 +19,7 @@ We pursue this vision through a **phased rollout** to manage scope, architectura
 **Goal**: prove the core thesis on AWS before expanding surface area.
 
 - [x] Core AWS services: S3, SQS, DynamoDB, Lambda, IAM, STS
-- [x] Smithy-based codegen pipeline (96 services, 4,438 operations scaffolded)
+- [x] Smithy-based codegen pipeline (run `make stats` for current counts)
 - [x] Cross-service integration (CFN, DDB Streams → Lambda, EventBridge, S3 → Lambda)
 - [x] boto3 compatibility suite (currently 671/699 passing)
 - [ ] Lift boto3 compatibility to ≥ 95%

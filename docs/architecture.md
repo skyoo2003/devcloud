@@ -158,19 +158,8 @@ devcloud/
 │   ├── plugin/             # ServicePlugin interface, Registry
 │   ├── codegen/            # Smithy parser, code generators, templates
 │   ├── config/             # YAML config loading, env overrides
-│   ├── generated/          # Auto-generated code (DO NOT EDIT)
-│   │   ├── s3/
-│   │   ├── sqs/
-│   │   ├── dynamodb/
-│   │   ├── lambda/
-│   │   ├── iam/
-│   │   └── sts/
-│   ├── services/           # Service implementations
-│   │   ├── s3/             # FileSystem + SQLite
-│   │   ├── sqs/            # In-memory queues
-│   │   ├── dynamodb/       # BadgerDB
-│   │   ├── lambda/         # SQLite + filesystem (stub runtime)
-│   │   └── iam/            # SQLite (IAM + STS)
+│   ├── generated/          # Auto-generated code (DO NOT EDIT; run `make stats` for count)
+│   ├── services/           # Service implementations (run `make stats` for count)
 │   ├── dashboard/          # Dashboard REST API + WebSocket
 │   ├── eventbus/           # In-memory event pub/sub
 │   └── storage/            # Shared storage abstractions
@@ -186,11 +175,11 @@ devcloud/
 
 ## Startup Flow
 
-1. Load config from `devcloud.yaml` (or specified path)
+1. Load config from `devcloud.yaml` (or specified path), applying environment variable overrides (`DEVCLOUD_PORT`, `DEVCLOUD_SERVICES`, `DEVCLOUD_DATA_DIR`)
 2. Initialize structured logger (slog)
 3. Create plugin registry
-4. Register service factories (S3, SQS, DynamoDB, IAM, Lambda)
-5. Initialize services in order: S3 → SQS → DynamoDB → IAM → STS → Lambda
+4. Register service factories (run `make stats` for count)
+5. Initialize services in dependency order (IAM before STS, etc.)
 6. IAM store is shared with STS via plugin config options
 7. Set up event bus, log collector, dashboard API
 8. Create gateway with middleware chain and service router
