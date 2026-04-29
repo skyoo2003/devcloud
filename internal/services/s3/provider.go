@@ -922,7 +922,7 @@ func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, upl
 		}
 		return nil, err
 	}
-	_ = upload
+	uploadID = upload.UploadID
 
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
@@ -999,14 +999,14 @@ func (p *S3Provider) abortMultipartUpload(_ context.Context, bucket, key, upload
 	if !shared.ValidateUploadID(uploadID) {
 		return xmlError("InvalidRequest", "invalid uploadId", http.StatusBadRequest), nil
 	}
-	if _, err := p.metaStore.GetMultipartUpload(uploadID); err != nil {
+	upload, err := p.metaStore.GetMultipartUpload(uploadID)
+	if err != nil {
 		if errors.Is(err, ErrUploadNotFound) {
 			return xmlError("NoSuchUpload", "upload not found", http.StatusNotFound), nil
 		}
 		return nil, err
 	}
-	_ = bucket
-	_ = key
+	uploadID = upload.UploadID
 
 	// Delete part files
 	if dir, err := p.multipartDir(uploadID); err == nil {

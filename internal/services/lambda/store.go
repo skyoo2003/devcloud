@@ -14,7 +14,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/skyoo2003/devcloud/internal/shared"
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
 )
 
@@ -196,10 +195,7 @@ func (s *LambdaStore) CreateFunction(info *FunctionInfo, codeZip []byte) (*Funct
 	if err != nil {
 		return nil, err
 	}
-	dir := filepath.Join(s.codeDir, info.AccountID, info.FunctionName)
-	if !shared.IsWithinDir(dir, s.codeDir) {
-		return nil, fmt.Errorf("path traversal detected: %s", dir)
-	}
+	dir := filepath.Dir(path)
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return nil, fmt.Errorf("create code directory: %w", err)
 	}
@@ -415,9 +411,6 @@ func (s *LambdaStore) UpdateFunctionCode(accountID, functionName string, codeZip
 		return nil, err
 	}
 	dir := filepath.Dir(path)
-	if !shared.IsWithinDir(dir, s.codeDir) {
-		return nil, fmt.Errorf("path traversal detected: %s", dir)
-	}
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return nil, fmt.Errorf("create code directory: %w", err)
 	}
