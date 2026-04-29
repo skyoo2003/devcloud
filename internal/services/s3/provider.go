@@ -889,7 +889,7 @@ func (p *S3Provider) uploadPart(_ context.Context, bucket, key, uploadID, partNu
 
 	partFile, err := p.partPath(uploadID, partNumber)
 	if err != nil {
-		return nil, err
+		return xmlError("InvalidRequest", "invalid multipart request", http.StatusBadRequest), nil
 	}
 	if err := os.WriteFile(partFile, data, 0o644); err != nil {
 		return nil, err
