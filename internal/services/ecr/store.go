@@ -19,6 +19,23 @@ import (
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
 )
 
+// isWithinDir returns true if child resolves to a path within parent.
+func isWithinDir(child, parent string) bool {
+	absChild, err := filepath.Abs(filepath.Clean(child))
+	if err != nil {
+		return false
+	}
+	absParent, err := filepath.Abs(filepath.Clean(parent))
+	if err != nil {
+		return false
+	}
+	rel, err := filepath.Rel(absParent, absChild)
+	if err != nil {
+		return false
+	}
+	return rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) && !filepath.IsAbs(rel)
+}
+
 var (
 	ErrRepositoryNotFound      = errors.New("repository not found")
 	ErrRepositoryAlreadyExists = errors.New("repository already exists")
@@ -404,9 +421,8 @@ func (s *ECRStore) UploadLayerPart(accountID, repoName, uploadID string, partFir
 
 	// Save blob to filesystem.
 	dir := filepath.Join(s.dataDir, "_layers", uploadID, "parts")
-	cleaned := filepath.Clean(dir)
-	if !strings.HasPrefix(cleaned, filepath.Clean(s.dataDir)+string(filepath.Separator)) {
-		return fmt.Errorf("path traversal detected: %s", cleaned)
+	if !isWithinDir(dir, s.dataDir) {
+		return fmt.Errorf("path traversal detected: %s", dir)
 	}
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return fmt.Errorf("mkdir layer parts: %w", err)

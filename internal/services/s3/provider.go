@@ -26,6 +26,23 @@ import (
 	"github.com/skyoo2003/devcloud/internal/plugin"
 )
 
+// isWithinDir returns true if child resolves to a path within parent.
+func isWithinDir(child, parent string) bool {
+	absChild, err := filepath.Abs(filepath.Clean(child))
+	if err != nil {
+		return false
+	}
+	absParent, err := filepath.Abs(filepath.Clean(parent))
+	if err != nil {
+		return false
+	}
+	rel, err := filepath.Rel(absParent, absChild)
+	if err != nil {
+		return false
+	}
+	return rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) && !filepath.IsAbs(rel)
+}
+
 const defaultAccountID = plugin.DefaultAccountID
 
 // S3Provider implements plugin.ServicePlugin using FileStore and MetadataStore.
@@ -470,11 +487,10 @@ func (p *S3Provider) multipartDir(uploadID string) (string, error) {
 		return "", fmt.Errorf("invalid upload id")
 	}
 	dir := filepath.Join(p.fileStore.baseDir, "_multipart", uploadID)
-	cleaned := filepath.Clean(dir)
-	if !strings.HasPrefix(cleaned, filepath.Clean(p.fileStore.baseDir)+string(filepath.Separator)) {
+	if !isWithinDir(dir, p.fileStore.baseDir) {
 		return "", fmt.Errorf("path traversal detected in multipart dir")
 	}
-	return cleaned, nil
+	return filepath.Clean(dir), nil
 }
 
 // partPath returns the path to a specific part file.
