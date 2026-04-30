@@ -403,6 +403,9 @@ func (s *ECRStore) UploadLayerPart(accountID, repoName, uploadID string, partFir
 
 	// Save blob to filesystem.
 	dir := filepath.Join(s.dataDir, "_layers", uploadID, "parts")
+	if !shared.IsWithinDir(dir, s.dataDir) {
+		return fmt.Errorf("path traversal detected: %s", dir)
+	}
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return fmt.Errorf("mkdir layer parts: %w", err)
 	}

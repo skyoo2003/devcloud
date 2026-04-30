@@ -463,13 +463,29 @@ func generateUploadID() (string, error) {
 }
 
 // multipartDir returns the directory used to store parts for an upload.
-func (p *S3Provider) multipartDir(uploadID string) string {
-	return filepath.Join(p.fileStore.baseDir, "_multipart", filepath.Base(uploadID))
+// It validates that uploadID is a safe hex string and that the resolved
+// path stays within the base directory.
+func (p *S3Provider) multipartDir(uploadID string) (string, error) {
+	if !shared.ValidateUploadID(uploadID) {
+		return "", fmt.Errorf("invalid upload id")
+	}
+	dir := filepath.Join(p.fileStore.baseDir, "_multipart", uploadID)
+	if !shared.IsWithinDir(dir, p.fileStore.baseDir) {
+		return "", fmt.Errorf("path traversal detected in multipart dir")
+	}
+	return filepath.Clean(dir), nil
 }
 
 // partPath returns the path to a specific part file.
-func (p *S3Provider) partPath(uploadID string, partNumber int) string {
-	return filepath.Join(p.multipartDir(uploadID), strconv.Itoa(partNumber))
+func (p *S3Provider) partPath(uploadID string, partNumber int) (string, error) {
+	if partNumber < 1 {
+		return "", fmt.Errorf("invalid part number")
+	}
+	dir, err := p.multipartDir(uploadID)
+	if err != nil {
+		return "", err
+	}
+	return filepath.Join(dir, strconv.Itoa(partNumber)), nil
 }
 
 // --- S3 operation implementations ---
@@ -832,7 +848,10 @@ func (p *S3Provider) createMultipartUpload(_ context.Context, bucket, key string
 		return nil, err
 	}
 	// Create directory for parts
-	dir := p.multipartDir(uploadID)
+	dir, err := p.multipartDir(uploadID)
+	if err != nil {
+		return nil, err
+	}
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return nil, err
 	}
@@ -868,7 +887,10 @@ func (p *S3Provider) uploadPart(_ context.Context, bucket, key, uploadID, partNu
 	sum := md5.Sum(data)
 	etag := fmt.Sprintf("\"%x\"", sum)
 
-	partFile := p.partPath(uploadID, partNumber)
+	partFile, err := p.partPath(uploadID, partNumber)
+	if err != nil {
+		return xmlError("InvalidRequest", "invalid multipart request", http.StatusBadRequest), nil
+	}
 	if err := os.WriteFile(partFile, data, 0o644); err != nil {
 		return nil, err
 	}
@@ -900,7 +922,7 @@ func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, upl
 		}
 		return nil, err
 	}
-	_ = upload
+	uploadID = upload.UploadID
 
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
@@ -920,7 +942,10 @@ func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, upl
 	// Concatenate parts
 	var buf bytes.Buffer
 	for _, part := range completeReq.Parts {
-		partFile := p.partPath(uploadID, part.PartNumber)
+		partFile, err := p.partPath(uploadID, part.PartNumber)
+		if err != nil {
+			return xmlError("InvalidPart", fmt.Sprintf("part %d invalid", part.PartNumber), http.StatusBadRequest), nil
+		}
 		data, err := os.ReadFile(partFile)
 		if err != nil {
 			return xmlError("InvalidPart", fmt.Sprintf("part %d not found", part.PartNumber), http.StatusBadRequest), nil
@@ -950,7 +975,9 @@ func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, upl
 	}
 
 	// Clean up parts directory
-	_ = os.RemoveAll(p.multipartDir(uploadID))
+	if dir, err := p.multipartDir(uploadID); err == nil {
+		_ = os.RemoveAll(dir)
+	}
 
 	// Remove upload from metadata
 	if err := p.metaStore.DeleteMultipartUpload(uploadID); err != nil {
@@ -972,17 +999,19 @@ func (p *S3Provider) abortMultipartUpload(_ context.Context, bucket, key, upload
 	if !shared.ValidateUploadID(uploadID) {
 		return xmlError("InvalidRequest", "invalid uploadId", http.StatusBadRequest), nil
 	}
-	if _, err := p.metaStore.GetMultipartUpload(uploadID); err != nil {
+	upload, err := p.metaStore.GetMultipartUpload(uploadID)
+	if err != nil {
 		if errors.Is(err, ErrUploadNotFound) {
 			return xmlError("NoSuchUpload", "upload not found", http.StatusNotFound), nil
 		}
 		return nil, err
 	}
-	_ = bucket
-	_ = key
+	uploadID = upload.UploadID
 
 	// Delete part files
-	_ = os.RemoveAll(p.multipartDir(uploadID))
+	if dir, err := p.multipartDir(uploadID); err == nil {
+		_ = os.RemoveAll(dir)
+	}
 
 	if err := p.metaStore.DeleteMultipartUpload(uploadID); err != nil {
 		return nil, err

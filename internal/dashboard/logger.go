@@ -67,6 +67,9 @@ func (c *LogCollector) Recent(n int) []RequestLog {
 	if n <= 0 || c.count == 0 {
 		return []RequestLog{}
 	}
+	if n > maxLogCollectorSize {
+		n = maxLogCollectorSize
+	}
 	if n > c.count {
 		n = c.count
 	}
