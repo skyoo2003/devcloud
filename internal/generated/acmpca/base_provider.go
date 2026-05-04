@@ -102,3 +102,4 @@ func (b *BaseProvider) UntagCertificateAuthority(ctx context.Context, input *Unt
 func (b *BaseProvider) UpdateCertificateAuthority(ctx context.Context, input *UpdateCertificateAuthorityRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("UpdateCertificateAuthority: %w", ErrNotImplemented)
 }
+

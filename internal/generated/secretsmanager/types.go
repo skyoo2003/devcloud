@@ -7,382 +7,382 @@ import (
 )
 
 type APIErrorType struct {
-	ErrorCode string `json:"errorCode" xml:"ErrorCode"`
-	Message   string `json:"message" xml:"Message"`
-	SecretId  string `json:"secretId" xml:"SecretId"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+Message string `json:"message" xml:"Message"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type BatchGetSecretValueRequest struct {
-	Filters      FiltersListType  `json:"filters" xml:"Filters"`
-	MaxResults   int32            `json:"maxResults" xml:"MaxResults"`
-	NextToken    string           `json:"nextToken" xml:"NextToken"`
-	SecretIdList SecretIdListType `json:"secretIdList" xml:"SecretIdList"`
+Filters FiltersListType `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SecretIdList SecretIdListType `json:"secretIdList" xml:"SecretIdList"`
 }
 
 type BatchGetSecretValueResponse struct {
-	Errors       APIErrorListType `json:"errors" xml:"Errors"`
-	NextToken    string           `json:"nextToken" xml:"NextToken"`
-	SecretValues SecretValuesType `json:"secretValues" xml:"SecretValues"`
+Errors APIErrorListType `json:"errors" xml:"Errors"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SecretValues SecretValuesType `json:"secretValues" xml:"SecretValues"`
 }
 
 type CancelRotateSecretRequest struct {
-	SecretId string `json:"secretId" xml:"SecretId"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type CancelRotateSecretResponse struct {
-	ARN       string `json:"aRN" xml:"ARN"`
-	Name      string `json:"name" xml:"Name"`
-	VersionId string `json:"versionId" xml:"VersionId"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type CreateSecretRequest struct {
-	AddReplicaRegions           AddReplicaRegionListType `json:"addReplicaRegions" xml:"AddReplicaRegions"`
-	ClientRequestToken          string                   `json:"clientRequestToken" xml:"ClientRequestToken"`
-	Description                 string                   `json:"description" xml:"Description"`
-	ForceOverwriteReplicaSecret bool                     `json:"forceOverwriteReplicaSecret" xml:"ForceOverwriteReplicaSecret"`
-	KmsKeyId                    string                   `json:"kmsKeyId" xml:"KmsKeyId"`
-	Name                        string                   `json:"name" xml:"Name"`
-	SecretBinary                []byte                   `json:"secretBinary" xml:"SecretBinary"`
-	SecretString                string                   `json:"secretString" xml:"SecretString"`
-	Tags                        TagListType              `json:"tags" xml:"Tags"`
-	Type                        string                   `json:"type" xml:"Type"`
+AddReplicaRegions AddReplicaRegionListType `json:"addReplicaRegions" xml:"AddReplicaRegions"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+Description string `json:"description" xml:"Description"`
+ForceOverwriteReplicaSecret bool `json:"forceOverwriteReplicaSecret" xml:"ForceOverwriteReplicaSecret"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+Name string `json:"name" xml:"Name"`
+SecretBinary []byte `json:"secretBinary" xml:"SecretBinary"`
+SecretString string `json:"secretString" xml:"SecretString"`
+Tags TagListType `json:"tags" xml:"Tags"`
+Type string `json:"type" xml:"Type"`
 }
 
 type CreateSecretResponse struct {
-	ARN               string                    `json:"aRN" xml:"ARN"`
-	Name              string                    `json:"name" xml:"Name"`
-	ReplicationStatus ReplicationStatusListType `json:"replicationStatus" xml:"ReplicationStatus"`
-	VersionId         string                    `json:"versionId" xml:"VersionId"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
+ReplicationStatus ReplicationStatusListType `json:"replicationStatus" xml:"ReplicationStatus"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type DeleteResourcePolicyRequest struct {
-	SecretId string `json:"secretId" xml:"SecretId"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type DeleteResourcePolicyResponse struct {
-	ARN  string `json:"aRN" xml:"ARN"`
-	Name string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteSecretRequest struct {
-	ForceDeleteWithoutRecovery bool   `json:"forceDeleteWithoutRecovery" xml:"ForceDeleteWithoutRecovery"`
-	RecoveryWindowInDays       int64  `json:"recoveryWindowInDays" xml:"RecoveryWindowInDays"`
-	SecretId                   string `json:"secretId" xml:"SecretId"`
+ForceDeleteWithoutRecovery bool `json:"forceDeleteWithoutRecovery" xml:"ForceDeleteWithoutRecovery"`
+RecoveryWindowInDays int64 `json:"recoveryWindowInDays" xml:"RecoveryWindowInDays"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type DeleteSecretResponse struct {
-	ARN          string    `json:"aRN" xml:"ARN"`
-	DeletionDate time.Time `json:"deletionDate" xml:"DeletionDate"`
-	Name         string    `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+DeletionDate time.Time `json:"deletionDate" xml:"DeletionDate"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeSecretRequest struct {
-	SecretId string `json:"secretId" xml:"SecretId"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type DescribeSecretResponse struct {
-	ARN                            string                             `json:"aRN" xml:"ARN"`
-	CreatedDate                    time.Time                          `json:"createdDate" xml:"CreatedDate"`
-	DeletedDate                    time.Time                          `json:"deletedDate" xml:"DeletedDate"`
-	Description                    string                             `json:"description" xml:"Description"`
-	ExternalSecretRotationMetadata ExternalSecretRotationMetadataType `json:"externalSecretRotationMetadata" xml:"ExternalSecretRotationMetadata"`
-	ExternalSecretRotationRoleArn  string                             `json:"externalSecretRotationRoleArn" xml:"ExternalSecretRotationRoleArn"`
-	KmsKeyId                       string                             `json:"kmsKeyId" xml:"KmsKeyId"`
-	LastAccessedDate               time.Time                          `json:"lastAccessedDate" xml:"LastAccessedDate"`
-	LastChangedDate                time.Time                          `json:"lastChangedDate" xml:"LastChangedDate"`
-	LastRotatedDate                time.Time                          `json:"lastRotatedDate" xml:"LastRotatedDate"`
-	Name                           string                             `json:"name" xml:"Name"`
-	NextRotationDate               time.Time                          `json:"nextRotationDate" xml:"NextRotationDate"`
-	OwningService                  string                             `json:"owningService" xml:"OwningService"`
-	PrimaryRegion                  string                             `json:"primaryRegion" xml:"PrimaryRegion"`
-	ReplicationStatus              ReplicationStatusListType          `json:"replicationStatus" xml:"ReplicationStatus"`
-	RotationEnabled                bool                               `json:"rotationEnabled" xml:"RotationEnabled"`
-	RotationLambdaARN              string                             `json:"rotationLambdaARN" xml:"RotationLambdaARN"`
-	RotationRules                  *RotationRulesType                 `json:"rotationRules" xml:"RotationRules"`
-	Tags                           TagListType                        `json:"tags" xml:"Tags"`
-	Type                           string                             `json:"type" xml:"Type"`
-	VersionIdsToStages             SecretVersionsToStagesMapType      `json:"versionIdsToStages" xml:"VersionIdsToStages"`
+ARN string `json:"aRN" xml:"ARN"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+DeletedDate time.Time `json:"deletedDate" xml:"DeletedDate"`
+Description string `json:"description" xml:"Description"`
+ExternalSecretRotationMetadata ExternalSecretRotationMetadataType `json:"externalSecretRotationMetadata" xml:"ExternalSecretRotationMetadata"`
+ExternalSecretRotationRoleArn string `json:"externalSecretRotationRoleArn" xml:"ExternalSecretRotationRoleArn"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+LastAccessedDate time.Time `json:"lastAccessedDate" xml:"LastAccessedDate"`
+LastChangedDate time.Time `json:"lastChangedDate" xml:"LastChangedDate"`
+LastRotatedDate time.Time `json:"lastRotatedDate" xml:"LastRotatedDate"`
+Name string `json:"name" xml:"Name"`
+NextRotationDate time.Time `json:"nextRotationDate" xml:"NextRotationDate"`
+OwningService string `json:"owningService" xml:"OwningService"`
+PrimaryRegion string `json:"primaryRegion" xml:"PrimaryRegion"`
+ReplicationStatus ReplicationStatusListType `json:"replicationStatus" xml:"ReplicationStatus"`
+RotationEnabled bool `json:"rotationEnabled" xml:"RotationEnabled"`
+RotationLambdaARN string `json:"rotationLambdaARN" xml:"RotationLambdaARN"`
+RotationRules *RotationRulesType `json:"rotationRules" xml:"RotationRules"`
+Tags TagListType `json:"tags" xml:"Tags"`
+Type string `json:"type" xml:"Type"`
+VersionIdsToStages SecretVersionsToStagesMapType `json:"versionIdsToStages" xml:"VersionIdsToStages"`
 }
 
 type ExternalSecretRotationMetadataItem struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type Filter struct {
-	Key    string                 `json:"key" xml:"Key"`
-	Values FilterValuesStringList `json:"values" xml:"Values"`
+Key string `json:"key" xml:"Key"`
+Values FilterValuesStringList `json:"values" xml:"Values"`
 }
 
 type GetRandomPasswordRequest struct {
-	ExcludeCharacters       string `json:"excludeCharacters" xml:"ExcludeCharacters"`
-	ExcludeLowercase        bool   `json:"excludeLowercase" xml:"ExcludeLowercase"`
-	ExcludeNumbers          bool   `json:"excludeNumbers" xml:"ExcludeNumbers"`
-	ExcludePunctuation      bool   `json:"excludePunctuation" xml:"ExcludePunctuation"`
-	ExcludeUppercase        bool   `json:"excludeUppercase" xml:"ExcludeUppercase"`
-	IncludeSpace            bool   `json:"includeSpace" xml:"IncludeSpace"`
-	PasswordLength          int64  `json:"passwordLength" xml:"PasswordLength"`
-	RequireEachIncludedType bool   `json:"requireEachIncludedType" xml:"RequireEachIncludedType"`
+ExcludeCharacters string `json:"excludeCharacters" xml:"ExcludeCharacters"`
+ExcludeLowercase bool `json:"excludeLowercase" xml:"ExcludeLowercase"`
+ExcludeNumbers bool `json:"excludeNumbers" xml:"ExcludeNumbers"`
+ExcludePunctuation bool `json:"excludePunctuation" xml:"ExcludePunctuation"`
+ExcludeUppercase bool `json:"excludeUppercase" xml:"ExcludeUppercase"`
+IncludeSpace bool `json:"includeSpace" xml:"IncludeSpace"`
+PasswordLength int64 `json:"passwordLength" xml:"PasswordLength"`
+RequireEachIncludedType bool `json:"requireEachIncludedType" xml:"RequireEachIncludedType"`
 }
 
 type GetRandomPasswordResponse struct {
-	RandomPassword string `json:"randomPassword" xml:"RandomPassword"`
+RandomPassword string `json:"randomPassword" xml:"RandomPassword"`
 }
 
 type GetResourcePolicyRequest struct {
-	SecretId string `json:"secretId" xml:"SecretId"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type GetResourcePolicyResponse struct {
-	ARN            string `json:"aRN" xml:"ARN"`
-	Name           string `json:"name" xml:"Name"`
-	ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
+ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
 }
 
 type GetSecretValueRequest struct {
-	SecretId     string `json:"secretId" xml:"SecretId"`
-	VersionId    string `json:"versionId" xml:"VersionId"`
-	VersionStage string `json:"versionStage" xml:"VersionStage"`
+SecretId string `json:"secretId" xml:"SecretId"`
+VersionId string `json:"versionId" xml:"VersionId"`
+VersionStage string `json:"versionStage" xml:"VersionStage"`
 }
 
 type GetSecretValueResponse struct {
-	ARN           string                  `json:"aRN" xml:"ARN"`
-	CreatedDate   time.Time               `json:"createdDate" xml:"CreatedDate"`
-	Name          string                  `json:"name" xml:"Name"`
-	SecretBinary  []byte                  `json:"secretBinary" xml:"SecretBinary"`
-	SecretString  string                  `json:"secretString" xml:"SecretString"`
-	VersionId     string                  `json:"versionId" xml:"VersionId"`
-	VersionStages SecretVersionStagesType `json:"versionStages" xml:"VersionStages"`
+ARN string `json:"aRN" xml:"ARN"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Name string `json:"name" xml:"Name"`
+SecretBinary []byte `json:"secretBinary" xml:"SecretBinary"`
+SecretString string `json:"secretString" xml:"SecretString"`
+VersionId string `json:"versionId" xml:"VersionId"`
+VersionStages SecretVersionStagesType `json:"versionStages" xml:"VersionStages"`
 }
 
 type ListSecretVersionIdsRequest struct {
-	IncludeDeprecated bool   `json:"includeDeprecated" xml:"IncludeDeprecated"`
-	MaxResults        int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken         string `json:"nextToken" xml:"NextToken"`
-	SecretId          string `json:"secretId" xml:"SecretId"`
+IncludeDeprecated bool `json:"includeDeprecated" xml:"IncludeDeprecated"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type ListSecretVersionIdsResponse struct {
-	ARN       string                 `json:"aRN" xml:"ARN"`
-	Name      string                 `json:"name" xml:"Name"`
-	NextToken string                 `json:"nextToken" xml:"NextToken"`
-	Versions  SecretVersionsListType `json:"versions" xml:"Versions"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Versions SecretVersionsListType `json:"versions" xml:"Versions"`
 }
 
 type ListSecretsRequest struct {
-	Filters                FiltersListType `json:"filters" xml:"Filters"`
-	IncludePlannedDeletion bool            `json:"includePlannedDeletion" xml:"IncludePlannedDeletion"`
-	MaxResults             int32           `json:"maxResults" xml:"MaxResults"`
-	NextToken              string          `json:"nextToken" xml:"NextToken"`
-	SortBy                 string          `json:"sortBy" xml:"SortBy"`
-	SortOrder              string          `json:"sortOrder" xml:"SortOrder"`
+Filters FiltersListType `json:"filters" xml:"Filters"`
+IncludePlannedDeletion bool `json:"includePlannedDeletion" xml:"IncludePlannedDeletion"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SortBy string `json:"sortBy" xml:"SortBy"`
+SortOrder string `json:"sortOrder" xml:"SortOrder"`
 }
 
 type ListSecretsResponse struct {
-	NextToken  string         `json:"nextToken" xml:"NextToken"`
-	SecretList SecretListType `json:"secretList" xml:"SecretList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SecretList SecretListType `json:"secretList" xml:"SecretList"`
 }
 
 type PutResourcePolicyRequest struct {
-	BlockPublicPolicy bool   `json:"blockPublicPolicy" xml:"BlockPublicPolicy"`
-	ResourcePolicy    string `json:"resourcePolicy" xml:"ResourcePolicy"`
-	SecretId          string `json:"secretId" xml:"SecretId"`
+BlockPublicPolicy bool `json:"blockPublicPolicy" xml:"BlockPublicPolicy"`
+ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type PutResourcePolicyResponse struct {
-	ARN  string `json:"aRN" xml:"ARN"`
-	Name string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
 }
 
 type PutSecretValueRequest struct {
-	ClientRequestToken string                  `json:"clientRequestToken" xml:"ClientRequestToken"`
-	RotationToken      string                  `json:"rotationToken" xml:"RotationToken"`
-	SecretBinary       []byte                  `json:"secretBinary" xml:"SecretBinary"`
-	SecretId           string                  `json:"secretId" xml:"SecretId"`
-	SecretString       string                  `json:"secretString" xml:"SecretString"`
-	VersionStages      SecretVersionStagesType `json:"versionStages" xml:"VersionStages"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+RotationToken string `json:"rotationToken" xml:"RotationToken"`
+SecretBinary []byte `json:"secretBinary" xml:"SecretBinary"`
+SecretId string `json:"secretId" xml:"SecretId"`
+SecretString string `json:"secretString" xml:"SecretString"`
+VersionStages SecretVersionStagesType `json:"versionStages" xml:"VersionStages"`
 }
 
 type PutSecretValueResponse struct {
-	ARN           string                  `json:"aRN" xml:"ARN"`
-	Name          string                  `json:"name" xml:"Name"`
-	VersionId     string                  `json:"versionId" xml:"VersionId"`
-	VersionStages SecretVersionStagesType `json:"versionStages" xml:"VersionStages"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
+VersionId string `json:"versionId" xml:"VersionId"`
+VersionStages SecretVersionStagesType `json:"versionStages" xml:"VersionStages"`
 }
 
 type RemoveRegionsFromReplicationRequest struct {
-	RemoveReplicaRegions RemoveReplicaRegionListType `json:"removeReplicaRegions" xml:"RemoveReplicaRegions"`
-	SecretId             string                      `json:"secretId" xml:"SecretId"`
+RemoveReplicaRegions RemoveReplicaRegionListType `json:"removeReplicaRegions" xml:"RemoveReplicaRegions"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type RemoveRegionsFromReplicationResponse struct {
-	ARN               string                    `json:"aRN" xml:"ARN"`
-	ReplicationStatus ReplicationStatusListType `json:"replicationStatus" xml:"ReplicationStatus"`
+ARN string `json:"aRN" xml:"ARN"`
+ReplicationStatus ReplicationStatusListType `json:"replicationStatus" xml:"ReplicationStatus"`
 }
 
 type ReplicaRegionType struct {
-	KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
-	Region   string `json:"region" xml:"Region"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+Region string `json:"region" xml:"Region"`
 }
 
 type ReplicateSecretToRegionsRequest struct {
-	AddReplicaRegions           AddReplicaRegionListType `json:"addReplicaRegions" xml:"AddReplicaRegions"`
-	ForceOverwriteReplicaSecret bool                     `json:"forceOverwriteReplicaSecret" xml:"ForceOverwriteReplicaSecret"`
-	SecretId                    string                   `json:"secretId" xml:"SecretId"`
+AddReplicaRegions AddReplicaRegionListType `json:"addReplicaRegions" xml:"AddReplicaRegions"`
+ForceOverwriteReplicaSecret bool `json:"forceOverwriteReplicaSecret" xml:"ForceOverwriteReplicaSecret"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type ReplicateSecretToRegionsResponse struct {
-	ARN               string                    `json:"aRN" xml:"ARN"`
-	ReplicationStatus ReplicationStatusListType `json:"replicationStatus" xml:"ReplicationStatus"`
+ARN string `json:"aRN" xml:"ARN"`
+ReplicationStatus ReplicationStatusListType `json:"replicationStatus" xml:"ReplicationStatus"`
 }
 
 type ReplicationStatusType struct {
-	KmsKeyId         string    `json:"kmsKeyId" xml:"KmsKeyId"`
-	LastAccessedDate time.Time `json:"lastAccessedDate" xml:"LastAccessedDate"`
-	Region           string    `json:"region" xml:"Region"`
-	Status           string    `json:"status" xml:"Status"`
-	StatusMessage    string    `json:"statusMessage" xml:"StatusMessage"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+LastAccessedDate time.Time `json:"lastAccessedDate" xml:"LastAccessedDate"`
+Region string `json:"region" xml:"Region"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type RestoreSecretRequest struct {
-	SecretId string `json:"secretId" xml:"SecretId"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type RestoreSecretResponse struct {
-	ARN  string `json:"aRN" xml:"ARN"`
-	Name string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
 }
 
 type RotateSecretRequest struct {
-	ClientRequestToken             string                             `json:"clientRequestToken" xml:"ClientRequestToken"`
-	ExternalSecretRotationMetadata ExternalSecretRotationMetadataType `json:"externalSecretRotationMetadata" xml:"ExternalSecretRotationMetadata"`
-	ExternalSecretRotationRoleArn  string                             `json:"externalSecretRotationRoleArn" xml:"ExternalSecretRotationRoleArn"`
-	RotateImmediately              bool                               `json:"rotateImmediately" xml:"RotateImmediately"`
-	RotationLambdaARN              string                             `json:"rotationLambdaARN" xml:"RotationLambdaARN"`
-	RotationRules                  *RotationRulesType                 `json:"rotationRules" xml:"RotationRules"`
-	SecretId                       string                             `json:"secretId" xml:"SecretId"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+ExternalSecretRotationMetadata ExternalSecretRotationMetadataType `json:"externalSecretRotationMetadata" xml:"ExternalSecretRotationMetadata"`
+ExternalSecretRotationRoleArn string `json:"externalSecretRotationRoleArn" xml:"ExternalSecretRotationRoleArn"`
+RotateImmediately bool `json:"rotateImmediately" xml:"RotateImmediately"`
+RotationLambdaARN string `json:"rotationLambdaARN" xml:"RotationLambdaARN"`
+RotationRules *RotationRulesType `json:"rotationRules" xml:"RotationRules"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type RotateSecretResponse struct {
-	ARN       string `json:"aRN" xml:"ARN"`
-	Name      string `json:"name" xml:"Name"`
-	VersionId string `json:"versionId" xml:"VersionId"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type RotationRulesType struct {
-	AutomaticallyAfterDays int64  `json:"automaticallyAfterDays" xml:"AutomaticallyAfterDays"`
-	Duration               string `json:"duration" xml:"Duration"`
-	ScheduleExpression     string `json:"scheduleExpression" xml:"ScheduleExpression"`
+AutomaticallyAfterDays int64 `json:"automaticallyAfterDays" xml:"AutomaticallyAfterDays"`
+Duration string `json:"duration" xml:"Duration"`
+ScheduleExpression string `json:"scheduleExpression" xml:"ScheduleExpression"`
 }
 
 type SecretListEntry struct {
-	ARN                            string                             `json:"aRN" xml:"ARN"`
-	CreatedDate                    time.Time                          `json:"createdDate" xml:"CreatedDate"`
-	DeletedDate                    time.Time                          `json:"deletedDate" xml:"DeletedDate"`
-	Description                    string                             `json:"description" xml:"Description"`
-	ExternalSecretRotationMetadata ExternalSecretRotationMetadataType `json:"externalSecretRotationMetadata" xml:"ExternalSecretRotationMetadata"`
-	ExternalSecretRotationRoleArn  string                             `json:"externalSecretRotationRoleArn" xml:"ExternalSecretRotationRoleArn"`
-	KmsKeyId                       string                             `json:"kmsKeyId" xml:"KmsKeyId"`
-	LastAccessedDate               time.Time                          `json:"lastAccessedDate" xml:"LastAccessedDate"`
-	LastChangedDate                time.Time                          `json:"lastChangedDate" xml:"LastChangedDate"`
-	LastRotatedDate                time.Time                          `json:"lastRotatedDate" xml:"LastRotatedDate"`
-	Name                           string                             `json:"name" xml:"Name"`
-	NextRotationDate               time.Time                          `json:"nextRotationDate" xml:"NextRotationDate"`
-	OwningService                  string                             `json:"owningService" xml:"OwningService"`
-	PrimaryRegion                  string                             `json:"primaryRegion" xml:"PrimaryRegion"`
-	RotationEnabled                bool                               `json:"rotationEnabled" xml:"RotationEnabled"`
-	RotationLambdaARN              string                             `json:"rotationLambdaARN" xml:"RotationLambdaARN"`
-	RotationRules                  *RotationRulesType                 `json:"rotationRules" xml:"RotationRules"`
-	SecretVersionsToStages         SecretVersionsToStagesMapType      `json:"secretVersionsToStages" xml:"SecretVersionsToStages"`
-	Tags                           TagListType                        `json:"tags" xml:"Tags"`
-	Type                           string                             `json:"type" xml:"Type"`
+ARN string `json:"aRN" xml:"ARN"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+DeletedDate time.Time `json:"deletedDate" xml:"DeletedDate"`
+Description string `json:"description" xml:"Description"`
+ExternalSecretRotationMetadata ExternalSecretRotationMetadataType `json:"externalSecretRotationMetadata" xml:"ExternalSecretRotationMetadata"`
+ExternalSecretRotationRoleArn string `json:"externalSecretRotationRoleArn" xml:"ExternalSecretRotationRoleArn"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+LastAccessedDate time.Time `json:"lastAccessedDate" xml:"LastAccessedDate"`
+LastChangedDate time.Time `json:"lastChangedDate" xml:"LastChangedDate"`
+LastRotatedDate time.Time `json:"lastRotatedDate" xml:"LastRotatedDate"`
+Name string `json:"name" xml:"Name"`
+NextRotationDate time.Time `json:"nextRotationDate" xml:"NextRotationDate"`
+OwningService string `json:"owningService" xml:"OwningService"`
+PrimaryRegion string `json:"primaryRegion" xml:"PrimaryRegion"`
+RotationEnabled bool `json:"rotationEnabled" xml:"RotationEnabled"`
+RotationLambdaARN string `json:"rotationLambdaARN" xml:"RotationLambdaARN"`
+RotationRules *RotationRulesType `json:"rotationRules" xml:"RotationRules"`
+SecretVersionsToStages SecretVersionsToStagesMapType `json:"secretVersionsToStages" xml:"SecretVersionsToStages"`
+Tags TagListType `json:"tags" xml:"Tags"`
+Type string `json:"type" xml:"Type"`
 }
 
 type SecretValueEntry struct {
-	ARN           string                  `json:"aRN" xml:"ARN"`
-	CreatedDate   time.Time               `json:"createdDate" xml:"CreatedDate"`
-	Name          string                  `json:"name" xml:"Name"`
-	SecretBinary  []byte                  `json:"secretBinary" xml:"SecretBinary"`
-	SecretString  string                  `json:"secretString" xml:"SecretString"`
-	VersionId     string                  `json:"versionId" xml:"VersionId"`
-	VersionStages SecretVersionStagesType `json:"versionStages" xml:"VersionStages"`
+ARN string `json:"aRN" xml:"ARN"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+Name string `json:"name" xml:"Name"`
+SecretBinary []byte `json:"secretBinary" xml:"SecretBinary"`
+SecretString string `json:"secretString" xml:"SecretString"`
+VersionId string `json:"versionId" xml:"VersionId"`
+VersionStages SecretVersionStagesType `json:"versionStages" xml:"VersionStages"`
 }
 
 type SecretVersionsListEntry struct {
-	CreatedDate      time.Time               `json:"createdDate" xml:"CreatedDate"`
-	KmsKeyIds        KmsKeyIdListType        `json:"kmsKeyIds" xml:"KmsKeyIds"`
-	LastAccessedDate time.Time               `json:"lastAccessedDate" xml:"LastAccessedDate"`
-	VersionId        string                  `json:"versionId" xml:"VersionId"`
-	VersionStages    SecretVersionStagesType `json:"versionStages" xml:"VersionStages"`
+CreatedDate time.Time `json:"createdDate" xml:"CreatedDate"`
+KmsKeyIds KmsKeyIdListType `json:"kmsKeyIds" xml:"KmsKeyIds"`
+LastAccessedDate time.Time `json:"lastAccessedDate" xml:"LastAccessedDate"`
+VersionId string `json:"versionId" xml:"VersionId"`
+VersionStages SecretVersionStagesType `json:"versionStages" xml:"VersionStages"`
 }
 
 type SmithyUnit struct {
 }
 
 type StopReplicationToReplicaRequest struct {
-	SecretId string `json:"secretId" xml:"SecretId"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type StopReplicationToReplicaResponse struct {
-	ARN string `json:"aRN" xml:"ARN"`
+ARN string `json:"aRN" xml:"ARN"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceRequest struct {
-	SecretId string      `json:"secretId" xml:"SecretId"`
-	Tags     TagListType `json:"tags" xml:"Tags"`
+SecretId string `json:"secretId" xml:"SecretId"`
+Tags TagListType `json:"tags" xml:"Tags"`
 }
 
 type UntagResourceRequest struct {
-	SecretId string         `json:"secretId" xml:"SecretId"`
-	TagKeys  TagKeyListType `json:"tagKeys" xml:"TagKeys"`
+SecretId string `json:"secretId" xml:"SecretId"`
+TagKeys TagKeyListType `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UpdateSecretRequest struct {
-	ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
-	Description        string `json:"description" xml:"Description"`
-	KmsKeyId           string `json:"kmsKeyId" xml:"KmsKeyId"`
-	SecretBinary       []byte `json:"secretBinary" xml:"SecretBinary"`
-	SecretId           string `json:"secretId" xml:"SecretId"`
-	SecretString       string `json:"secretString" xml:"SecretString"`
-	Type               string `json:"type" xml:"Type"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+Description string `json:"description" xml:"Description"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+SecretBinary []byte `json:"secretBinary" xml:"SecretBinary"`
+SecretId string `json:"secretId" xml:"SecretId"`
+SecretString string `json:"secretString" xml:"SecretString"`
+Type string `json:"type" xml:"Type"`
 }
 
 type UpdateSecretResponse struct {
-	ARN       string `json:"aRN" xml:"ARN"`
-	Name      string `json:"name" xml:"Name"`
-	VersionId string `json:"versionId" xml:"VersionId"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type UpdateSecretVersionStageRequest struct {
-	MoveToVersionId     string `json:"moveToVersionId" xml:"MoveToVersionId"`
-	RemoveFromVersionId string `json:"removeFromVersionId" xml:"RemoveFromVersionId"`
-	SecretId            string `json:"secretId" xml:"SecretId"`
-	VersionStage        string `json:"versionStage" xml:"VersionStage"`
+MoveToVersionId string `json:"moveToVersionId" xml:"MoveToVersionId"`
+RemoveFromVersionId string `json:"removeFromVersionId" xml:"RemoveFromVersionId"`
+SecretId string `json:"secretId" xml:"SecretId"`
+VersionStage string `json:"versionStage" xml:"VersionStage"`
 }
 
 type UpdateSecretVersionStageResponse struct {
-	ARN  string `json:"aRN" xml:"ARN"`
-	Name string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ValidateResourcePolicyRequest struct {
-	ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
-	SecretId       string `json:"secretId" xml:"SecretId"`
+ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
+SecretId string `json:"secretId" xml:"SecretId"`
 }
 
 type ValidateResourcePolicyResponse struct {
-	PolicyValidationPassed bool                 `json:"policyValidationPassed" xml:"PolicyValidationPassed"`
-	ValidationErrors       ValidationErrorsType `json:"validationErrors" xml:"ValidationErrors"`
+PolicyValidationPassed bool `json:"policyValidationPassed" xml:"PolicyValidationPassed"`
+ValidationErrors ValidationErrorsType `json:"validationErrors" xml:"ValidationErrors"`
 }
 
 type ValidationErrorsEntry struct {
-	CheckName    string `json:"checkName" xml:"CheckName"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+CheckName string `json:"checkName" xml:"CheckName"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
 }
 
 type APIErrorListType []*APIErrorType
@@ -418,3 +418,4 @@ type TagListType []*Tag
 type ValidationErrorsType []*ValidationErrorsEntry
 
 type SecretVersionsToStagesMapType map[string]SecretVersionStagesType
+

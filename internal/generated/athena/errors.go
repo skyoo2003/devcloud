@@ -105,3 +105,4 @@ func (e *TooManyRequestsException) ErrorCode() string {
 func (e *TooManyRequestsException) HTTPStatus() int {
 	return 0
 }
+

@@ -169,3 +169,4 @@ func DeserializeIdentityPool(r *http.Request, pathParams PathParams) (*IdentityP
 
 	return input, nil
 }
+

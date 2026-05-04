@@ -1070,3 +1070,4 @@ func (b *BaseProvider) UpdateUserDefinedFunction(ctx context.Context, input *Upd
 func (b *BaseProvider) UpdateWorkflow(ctx context.Context, input *UpdateWorkflowRequest) (*UpdateWorkflowResponse, error) {
 	return nil, fmt.Errorf("UpdateWorkflow: %w", ErrNotImplemented)
 }
+

@@ -479,3 +479,4 @@ func (e *UnmatchedPolicyPermissionException) ErrorCode() string {
 func (e *UnmatchedPolicyPermissionException) HTTPStatus() int {
 	return 400
 }
+

@@ -881,3 +881,4 @@ func SerializeUpdateTimeToLiveOutput(w http.ResponseWriter, output *UpdateTimeTo
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

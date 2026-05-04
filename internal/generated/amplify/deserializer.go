@@ -587,3 +587,4 @@ func SerializeUpdateWebhookResult(w http.ResponseWriter, output *UpdateWebhookRe
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

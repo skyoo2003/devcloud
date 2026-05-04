@@ -246,3 +246,4 @@ func (b *BaseProvider) UpdateReportGroup(ctx context.Context, input *UpdateRepor
 func (b *BaseProvider) UpdateWebhook(ctx context.Context, input *UpdateWebhookInput) (*UpdateWebhookOutput, error) {
 	return nil, fmt.Errorf("UpdateWebhook: %w", ErrNotImplemented)
 }
+

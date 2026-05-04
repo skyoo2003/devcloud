@@ -274,3 +274,4 @@ func (b *BaseProvider) TerminateInstanceInAutoScalingGroup(ctx context.Context, 
 func (b *BaseProvider) UpdateAutoScalingGroup(ctx context.Context, input *UpdateAutoScalingGroupType) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("UpdateAutoScalingGroup: %w", ErrNotImplemented)
 }
+

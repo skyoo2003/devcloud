@@ -7,531 +7,531 @@ import (
 )
 
 type AddTagsToStreamInput struct {
-	StreamARN  string `json:"streamARN" xml:"StreamARN"`
-	StreamId   string `json:"streamId" xml:"StreamId"`
-	StreamName string `json:"streamName" xml:"StreamName"`
-	Tags       TagMap `json:"tags" xml:"Tags"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type ChildShard struct {
-	HashKeyRange *HashKeyRange `json:"hashKeyRange" xml:"HashKeyRange"`
-	ParentShards ShardIdList   `json:"parentShards" xml:"ParentShards"`
-	ShardId      string        `json:"shardId" xml:"ShardId"`
+HashKeyRange *HashKeyRange `json:"hashKeyRange" xml:"HashKeyRange"`
+ParentShards ShardIdList `json:"parentShards" xml:"ParentShards"`
+ShardId string `json:"shardId" xml:"ShardId"`
 }
 
 type Consumer struct {
-	ConsumerARN               string    `json:"consumerARN" xml:"ConsumerARN"`
-	ConsumerCreationTimestamp time.Time `json:"consumerCreationTimestamp" xml:"ConsumerCreationTimestamp"`
-	ConsumerName              string    `json:"consumerName" xml:"ConsumerName"`
-	ConsumerStatus            string    `json:"consumerStatus" xml:"ConsumerStatus"`
+ConsumerARN string `json:"consumerARN" xml:"ConsumerARN"`
+ConsumerCreationTimestamp time.Time `json:"consumerCreationTimestamp" xml:"ConsumerCreationTimestamp"`
+ConsumerName string `json:"consumerName" xml:"ConsumerName"`
+ConsumerStatus string `json:"consumerStatus" xml:"ConsumerStatus"`
 }
 
 type ConsumerDescription struct {
-	ConsumerARN               string    `json:"consumerARN" xml:"ConsumerARN"`
-	ConsumerCreationTimestamp time.Time `json:"consumerCreationTimestamp" xml:"ConsumerCreationTimestamp"`
-	ConsumerName              string    `json:"consumerName" xml:"ConsumerName"`
-	ConsumerStatus            string    `json:"consumerStatus" xml:"ConsumerStatus"`
-	StreamARN                 string    `json:"streamARN" xml:"StreamARN"`
+ConsumerARN string `json:"consumerARN" xml:"ConsumerARN"`
+ConsumerCreationTimestamp time.Time `json:"consumerCreationTimestamp" xml:"ConsumerCreationTimestamp"`
+ConsumerName string `json:"consumerName" xml:"ConsumerName"`
+ConsumerStatus string `json:"consumerStatus" xml:"ConsumerStatus"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
 }
 
 type CreateStreamInput struct {
-	MaxRecordSizeInKiB  int32              `json:"maxRecordSizeInKiB" xml:"MaxRecordSizeInKiB"`
-	ShardCount          int32              `json:"shardCount" xml:"ShardCount"`
-	StreamModeDetails   *StreamModeDetails `json:"streamModeDetails" xml:"StreamModeDetails"`
-	StreamName          string             `json:"streamName" xml:"StreamName"`
-	Tags                TagMap             `json:"tags" xml:"Tags"`
-	WarmThroughputMiBps int32              `json:"warmThroughputMiBps" xml:"WarmThroughputMiBps"`
+MaxRecordSizeInKiB int32 `json:"maxRecordSizeInKiB" xml:"MaxRecordSizeInKiB"`
+ShardCount int32 `json:"shardCount" xml:"ShardCount"`
+StreamModeDetails *StreamModeDetails `json:"streamModeDetails" xml:"StreamModeDetails"`
+StreamName string `json:"streamName" xml:"StreamName"`
+Tags TagMap `json:"tags" xml:"Tags"`
+WarmThroughputMiBps int32 `json:"warmThroughputMiBps" xml:"WarmThroughputMiBps"`
 }
 
 type DecreaseStreamRetentionPeriodInput struct {
-	RetentionPeriodHours int32  `json:"retentionPeriodHours" xml:"RetentionPeriodHours"`
-	StreamARN            string `json:"streamARN" xml:"StreamARN"`
-	StreamId             string `json:"streamId" xml:"StreamId"`
-	StreamName           string `json:"streamName" xml:"StreamName"`
+RetentionPeriodHours int32 `json:"retentionPeriodHours" xml:"RetentionPeriodHours"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type DeleteResourcePolicyInput struct {
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
-	StreamId    string `json:"streamId" xml:"StreamId"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
 }
 
 type DeleteStreamInput struct {
-	EnforceConsumerDeletion bool   `json:"enforceConsumerDeletion" xml:"EnforceConsumerDeletion"`
-	StreamARN               string `json:"streamARN" xml:"StreamARN"`
-	StreamId                string `json:"streamId" xml:"StreamId"`
-	StreamName              string `json:"streamName" xml:"StreamName"`
+EnforceConsumerDeletion bool `json:"enforceConsumerDeletion" xml:"EnforceConsumerDeletion"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type DeregisterStreamConsumerInput struct {
-	ConsumerARN  string `json:"consumerARN" xml:"ConsumerARN"`
-	ConsumerName string `json:"consumerName" xml:"ConsumerName"`
-	StreamARN    string `json:"streamARN" xml:"StreamARN"`
-	StreamId     string `json:"streamId" xml:"StreamId"`
+ConsumerARN string `json:"consumerARN" xml:"ConsumerARN"`
+ConsumerName string `json:"consumerName" xml:"ConsumerName"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
 }
 
 type DescribeAccountSettingsInput struct {
 }
 
 type DescribeAccountSettingsOutput struct {
-	MinimumThroughputBillingCommitment *MinimumThroughputBillingCommitmentOutput `json:"minimumThroughputBillingCommitment" xml:"MinimumThroughputBillingCommitment"`
+MinimumThroughputBillingCommitment *MinimumThroughputBillingCommitmentOutput `json:"minimumThroughputBillingCommitment" xml:"MinimumThroughputBillingCommitment"`
 }
 
 type DescribeLimitsInput struct {
 }
 
 type DescribeLimitsOutput struct {
-	OnDemandStreamCount      int32 `json:"onDemandStreamCount" xml:"OnDemandStreamCount"`
-	OnDemandStreamCountLimit int32 `json:"onDemandStreamCountLimit" xml:"OnDemandStreamCountLimit"`
-	OpenShardCount           int32 `json:"openShardCount" xml:"OpenShardCount"`
-	ShardLimit               int32 `json:"shardLimit" xml:"ShardLimit"`
+OnDemandStreamCount int32 `json:"onDemandStreamCount" xml:"OnDemandStreamCount"`
+OnDemandStreamCountLimit int32 `json:"onDemandStreamCountLimit" xml:"OnDemandStreamCountLimit"`
+OpenShardCount int32 `json:"openShardCount" xml:"OpenShardCount"`
+ShardLimit int32 `json:"shardLimit" xml:"ShardLimit"`
 }
 
 type DescribeStreamConsumerInput struct {
-	ConsumerARN  string `json:"consumerARN" xml:"ConsumerARN"`
-	ConsumerName string `json:"consumerName" xml:"ConsumerName"`
-	StreamARN    string `json:"streamARN" xml:"StreamARN"`
-	StreamId     string `json:"streamId" xml:"StreamId"`
+ConsumerARN string `json:"consumerARN" xml:"ConsumerARN"`
+ConsumerName string `json:"consumerName" xml:"ConsumerName"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
 }
 
 type DescribeStreamConsumerOutput struct {
-	ConsumerDescription *ConsumerDescription `json:"consumerDescription" xml:"ConsumerDescription"`
+ConsumerDescription *ConsumerDescription `json:"consumerDescription" xml:"ConsumerDescription"`
 }
 
 type DescribeStreamInput struct {
-	ExclusiveStartShardId string `json:"exclusiveStartShardId" xml:"ExclusiveStartShardId"`
-	Limit                 int32  `json:"limit" xml:"Limit"`
-	StreamARN             string `json:"streamARN" xml:"StreamARN"`
-	StreamId              string `json:"streamId" xml:"StreamId"`
-	StreamName            string `json:"streamName" xml:"StreamName"`
+ExclusiveStartShardId string `json:"exclusiveStartShardId" xml:"ExclusiveStartShardId"`
+Limit int32 `json:"limit" xml:"Limit"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type DescribeStreamOutput struct {
-	StreamDescription *StreamDescription `json:"streamDescription" xml:"StreamDescription"`
+StreamDescription *StreamDescription `json:"streamDescription" xml:"StreamDescription"`
 }
 
 type DescribeStreamSummaryInput struct {
-	StreamARN  string `json:"streamARN" xml:"StreamARN"`
-	StreamId   string `json:"streamId" xml:"StreamId"`
-	StreamName string `json:"streamName" xml:"StreamName"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type DescribeStreamSummaryOutput struct {
-	StreamDescriptionSummary *StreamDescriptionSummary `json:"streamDescriptionSummary" xml:"StreamDescriptionSummary"`
+StreamDescriptionSummary *StreamDescriptionSummary `json:"streamDescriptionSummary" xml:"StreamDescriptionSummary"`
 }
 
 type DisableEnhancedMonitoringInput struct {
-	ShardLevelMetrics MetricsNameList `json:"shardLevelMetrics" xml:"ShardLevelMetrics"`
-	StreamARN         string          `json:"streamARN" xml:"StreamARN"`
-	StreamId          string          `json:"streamId" xml:"StreamId"`
-	StreamName        string          `json:"streamName" xml:"StreamName"`
+ShardLevelMetrics MetricsNameList `json:"shardLevelMetrics" xml:"ShardLevelMetrics"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type EnableEnhancedMonitoringInput struct {
-	ShardLevelMetrics MetricsNameList `json:"shardLevelMetrics" xml:"ShardLevelMetrics"`
-	StreamARN         string          `json:"streamARN" xml:"StreamARN"`
-	StreamId          string          `json:"streamId" xml:"StreamId"`
-	StreamName        string          `json:"streamName" xml:"StreamName"`
+ShardLevelMetrics MetricsNameList `json:"shardLevelMetrics" xml:"ShardLevelMetrics"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type EnhancedMetrics struct {
-	ShardLevelMetrics MetricsNameList `json:"shardLevelMetrics" xml:"ShardLevelMetrics"`
+ShardLevelMetrics MetricsNameList `json:"shardLevelMetrics" xml:"ShardLevelMetrics"`
 }
 
 type EnhancedMonitoringOutput struct {
-	CurrentShardLevelMetrics MetricsNameList `json:"currentShardLevelMetrics" xml:"CurrentShardLevelMetrics"`
-	DesiredShardLevelMetrics MetricsNameList `json:"desiredShardLevelMetrics" xml:"DesiredShardLevelMetrics"`
-	StreamARN                string          `json:"streamARN" xml:"StreamARN"`
-	StreamName               string          `json:"streamName" xml:"StreamName"`
+CurrentShardLevelMetrics MetricsNameList `json:"currentShardLevelMetrics" xml:"CurrentShardLevelMetrics"`
+DesiredShardLevelMetrics MetricsNameList `json:"desiredShardLevelMetrics" xml:"DesiredShardLevelMetrics"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type GetRecordsInput struct {
-	Limit         int32  `json:"limit" xml:"Limit"`
-	ShardIterator string `json:"shardIterator" xml:"ShardIterator"`
-	StreamARN     string `json:"streamARN" xml:"StreamARN"`
-	StreamId      string `json:"streamId" xml:"StreamId"`
+Limit int32 `json:"limit" xml:"Limit"`
+ShardIterator string `json:"shardIterator" xml:"ShardIterator"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
 }
 
 type GetRecordsOutput struct {
-	ChildShards        ChildShardList `json:"childShards" xml:"ChildShards"`
-	MillisBehindLatest int64          `json:"millisBehindLatest" xml:"MillisBehindLatest"`
-	NextShardIterator  string         `json:"nextShardIterator" xml:"NextShardIterator"`
-	Records            RecordList     `json:"records" xml:"Records"`
+ChildShards ChildShardList `json:"childShards" xml:"ChildShards"`
+MillisBehindLatest int64 `json:"millisBehindLatest" xml:"MillisBehindLatest"`
+NextShardIterator string `json:"nextShardIterator" xml:"NextShardIterator"`
+Records RecordList `json:"records" xml:"Records"`
 }
 
 type GetResourcePolicyInput struct {
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
-	StreamId    string `json:"streamId" xml:"StreamId"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
 }
 
 type GetResourcePolicyOutput struct {
-	Policy string `json:"policy" xml:"Policy"`
+Policy string `json:"policy" xml:"Policy"`
 }
 
 type GetShardIteratorInput struct {
-	ShardId                string    `json:"shardId" xml:"ShardId"`
-	ShardIteratorType      string    `json:"shardIteratorType" xml:"ShardIteratorType"`
-	StartingSequenceNumber string    `json:"startingSequenceNumber" xml:"StartingSequenceNumber"`
-	StreamARN              string    `json:"streamARN" xml:"StreamARN"`
-	StreamId               string    `json:"streamId" xml:"StreamId"`
-	StreamName             string    `json:"streamName" xml:"StreamName"`
-	Timestamp              time.Time `json:"timestamp" xml:"Timestamp"`
+ShardId string `json:"shardId" xml:"ShardId"`
+ShardIteratorType string `json:"shardIteratorType" xml:"ShardIteratorType"`
+StartingSequenceNumber string `json:"startingSequenceNumber" xml:"StartingSequenceNumber"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type GetShardIteratorOutput struct {
-	ShardIterator string `json:"shardIterator" xml:"ShardIterator"`
+ShardIterator string `json:"shardIterator" xml:"ShardIterator"`
 }
 
 type HashKeyRange struct {
-	EndingHashKey   string `json:"endingHashKey" xml:"EndingHashKey"`
-	StartingHashKey string `json:"startingHashKey" xml:"StartingHashKey"`
+EndingHashKey string `json:"endingHashKey" xml:"EndingHashKey"`
+StartingHashKey string `json:"startingHashKey" xml:"StartingHashKey"`
 }
 
 type IncreaseStreamRetentionPeriodInput struct {
-	RetentionPeriodHours int32  `json:"retentionPeriodHours" xml:"RetentionPeriodHours"`
-	StreamARN            string `json:"streamARN" xml:"StreamARN"`
-	StreamId             string `json:"streamId" xml:"StreamId"`
-	StreamName           string `json:"streamName" xml:"StreamName"`
+RetentionPeriodHours int32 `json:"retentionPeriodHours" xml:"RetentionPeriodHours"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type ListShardsInput struct {
-	ExclusiveStartShardId   string       `json:"exclusiveStartShardId" xml:"ExclusiveStartShardId"`
-	MaxResults              int32        `json:"maxResults" xml:"MaxResults"`
-	NextToken               string       `json:"nextToken" xml:"NextToken"`
-	ShardFilter             *ShardFilter `json:"shardFilter" xml:"ShardFilter"`
-	StreamARN               string       `json:"streamARN" xml:"StreamARN"`
-	StreamCreationTimestamp time.Time    `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
-	StreamId                string       `json:"streamId" xml:"StreamId"`
-	StreamName              string       `json:"streamName" xml:"StreamName"`
+ExclusiveStartShardId string `json:"exclusiveStartShardId" xml:"ExclusiveStartShardId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ShardFilter *ShardFilter `json:"shardFilter" xml:"ShardFilter"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamCreationTimestamp time.Time `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type ListShardsOutput struct {
-	NextToken string    `json:"nextToken" xml:"NextToken"`
-	Shards    ShardList `json:"shards" xml:"Shards"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Shards ShardList `json:"shards" xml:"Shards"`
 }
 
 type ListStreamConsumersInput struct {
-	MaxResults              int32     `json:"maxResults" xml:"MaxResults"`
-	NextToken               string    `json:"nextToken" xml:"NextToken"`
-	StreamARN               string    `json:"streamARN" xml:"StreamARN"`
-	StreamCreationTimestamp time.Time `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
-	StreamId                string    `json:"streamId" xml:"StreamId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamCreationTimestamp time.Time `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
+StreamId string `json:"streamId" xml:"StreamId"`
 }
 
 type ListStreamConsumersOutput struct {
-	Consumers ConsumerList `json:"consumers" xml:"Consumers"`
-	NextToken string       `json:"nextToken" xml:"NextToken"`
+Consumers ConsumerList `json:"consumers" xml:"Consumers"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListStreamsInput struct {
-	ExclusiveStartStreamName string `json:"exclusiveStartStreamName" xml:"ExclusiveStartStreamName"`
-	Limit                    int32  `json:"limit" xml:"Limit"`
-	NextToken                string `json:"nextToken" xml:"NextToken"`
+ExclusiveStartStreamName string `json:"exclusiveStartStreamName" xml:"ExclusiveStartStreamName"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListStreamsOutput struct {
-	HasMoreStreams  bool              `json:"hasMoreStreams" xml:"HasMoreStreams"`
-	NextToken       string            `json:"nextToken" xml:"NextToken"`
-	StreamNames     StreamNameList    `json:"streamNames" xml:"StreamNames"`
-	StreamSummaries StreamSummaryList `json:"streamSummaries" xml:"StreamSummaries"`
+HasMoreStreams bool `json:"hasMoreStreams" xml:"HasMoreStreams"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StreamNames StreamNameList `json:"streamNames" xml:"StreamNames"`
+StreamSummaries StreamSummaryList `json:"streamSummaries" xml:"StreamSummaries"`
 }
 
 type ListTagsForResourceInput struct {
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
-	StreamId    string `json:"streamId" xml:"StreamId"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
 }
 
 type ListTagsForResourceOutput struct {
-	Tags TagList `json:"tags" xml:"Tags"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type ListTagsForStreamInput struct {
-	ExclusiveStartTagKey string `json:"exclusiveStartTagKey" xml:"ExclusiveStartTagKey"`
-	Limit                int32  `json:"limit" xml:"Limit"`
-	StreamARN            string `json:"streamARN" xml:"StreamARN"`
-	StreamId             string `json:"streamId" xml:"StreamId"`
-	StreamName           string `json:"streamName" xml:"StreamName"`
+ExclusiveStartTagKey string `json:"exclusiveStartTagKey" xml:"ExclusiveStartTagKey"`
+Limit int32 `json:"limit" xml:"Limit"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type ListTagsForStreamOutput struct {
-	HasMoreTags bool    `json:"hasMoreTags" xml:"HasMoreTags"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+HasMoreTags bool `json:"hasMoreTags" xml:"HasMoreTags"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type MergeShardsInput struct {
-	AdjacentShardToMerge string `json:"adjacentShardToMerge" xml:"AdjacentShardToMerge"`
-	ShardToMerge         string `json:"shardToMerge" xml:"ShardToMerge"`
-	StreamARN            string `json:"streamARN" xml:"StreamARN"`
-	StreamId             string `json:"streamId" xml:"StreamId"`
-	StreamName           string `json:"streamName" xml:"StreamName"`
+AdjacentShardToMerge string `json:"adjacentShardToMerge" xml:"AdjacentShardToMerge"`
+ShardToMerge string `json:"shardToMerge" xml:"ShardToMerge"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type MinimumThroughputBillingCommitmentInput struct {
-	Status string `json:"status" xml:"Status"`
+Status string `json:"status" xml:"Status"`
 }
 
 type MinimumThroughputBillingCommitmentOutput struct {
-	EarliestAllowedEndAt time.Time `json:"earliestAllowedEndAt" xml:"EarliestAllowedEndAt"`
-	EndedAt              time.Time `json:"endedAt" xml:"EndedAt"`
-	StartedAt            time.Time `json:"startedAt" xml:"StartedAt"`
-	Status               string    `json:"status" xml:"Status"`
+EarliestAllowedEndAt time.Time `json:"earliestAllowedEndAt" xml:"EarliestAllowedEndAt"`
+EndedAt time.Time `json:"endedAt" xml:"EndedAt"`
+StartedAt time.Time `json:"startedAt" xml:"StartedAt"`
+Status string `json:"status" xml:"Status"`
 }
 
 type PutRecordInput struct {
-	Data                      []byte `json:"data" xml:"Data"`
-	ExplicitHashKey           string `json:"explicitHashKey" xml:"ExplicitHashKey"`
-	PartitionKey              string `json:"partitionKey" xml:"PartitionKey"`
-	SequenceNumberForOrdering string `json:"sequenceNumberForOrdering" xml:"SequenceNumberForOrdering"`
-	StreamARN                 string `json:"streamARN" xml:"StreamARN"`
-	StreamId                  string `json:"streamId" xml:"StreamId"`
-	StreamName                string `json:"streamName" xml:"StreamName"`
+Data []byte `json:"data" xml:"Data"`
+ExplicitHashKey string `json:"explicitHashKey" xml:"ExplicitHashKey"`
+PartitionKey string `json:"partitionKey" xml:"PartitionKey"`
+SequenceNumberForOrdering string `json:"sequenceNumberForOrdering" xml:"SequenceNumberForOrdering"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type PutRecordOutput struct {
-	EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
-	SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
-	ShardId        string `json:"shardId" xml:"ShardId"`
+EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
+SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
+ShardId string `json:"shardId" xml:"ShardId"`
 }
 
 type PutRecordsInput struct {
-	Records    PutRecordsRequestEntryList `json:"records" xml:"Records"`
-	StreamARN  string                     `json:"streamARN" xml:"StreamARN"`
-	StreamId   string                     `json:"streamId" xml:"StreamId"`
-	StreamName string                     `json:"streamName" xml:"StreamName"`
+Records PutRecordsRequestEntryList `json:"records" xml:"Records"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type PutRecordsOutput struct {
-	EncryptionType    string                    `json:"encryptionType" xml:"EncryptionType"`
-	FailedRecordCount int32                     `json:"failedRecordCount" xml:"FailedRecordCount"`
-	Records           PutRecordsResultEntryList `json:"records" xml:"Records"`
+EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
+FailedRecordCount int32 `json:"failedRecordCount" xml:"FailedRecordCount"`
+Records PutRecordsResultEntryList `json:"records" xml:"Records"`
 }
 
 type PutRecordsRequestEntry struct {
-	Data            []byte `json:"data" xml:"Data"`
-	ExplicitHashKey string `json:"explicitHashKey" xml:"ExplicitHashKey"`
-	PartitionKey    string `json:"partitionKey" xml:"PartitionKey"`
+Data []byte `json:"data" xml:"Data"`
+ExplicitHashKey string `json:"explicitHashKey" xml:"ExplicitHashKey"`
+PartitionKey string `json:"partitionKey" xml:"PartitionKey"`
 }
 
 type PutRecordsResultEntry struct {
-	ErrorCode      string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage   string `json:"errorMessage" xml:"ErrorMessage"`
-	SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
-	ShardId        string `json:"shardId" xml:"ShardId"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
+ShardId string `json:"shardId" xml:"ShardId"`
 }
 
 type PutResourcePolicyInput struct {
-	Policy      string `json:"policy" xml:"Policy"`
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
-	StreamId    string `json:"streamId" xml:"StreamId"`
+Policy string `json:"policy" xml:"Policy"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
 }
 
 type Record struct {
-	ApproximateArrivalTimestamp time.Time `json:"approximateArrivalTimestamp" xml:"ApproximateArrivalTimestamp"`
-	Data                        []byte    `json:"data" xml:"Data"`
-	EncryptionType              string    `json:"encryptionType" xml:"EncryptionType"`
-	PartitionKey                string    `json:"partitionKey" xml:"PartitionKey"`
-	SequenceNumber              string    `json:"sequenceNumber" xml:"SequenceNumber"`
+ApproximateArrivalTimestamp time.Time `json:"approximateArrivalTimestamp" xml:"ApproximateArrivalTimestamp"`
+Data []byte `json:"data" xml:"Data"`
+EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
+PartitionKey string `json:"partitionKey" xml:"PartitionKey"`
+SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
 }
 
 type RegisterStreamConsumerInput struct {
-	ConsumerName string `json:"consumerName" xml:"ConsumerName"`
-	StreamARN    string `json:"streamARN" xml:"StreamARN"`
-	StreamId     string `json:"streamId" xml:"StreamId"`
-	Tags         TagMap `json:"tags" xml:"Tags"`
+ConsumerName string `json:"consumerName" xml:"ConsumerName"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type RegisterStreamConsumerOutput struct {
-	Consumer *Consumer `json:"consumer" xml:"Consumer"`
+Consumer *Consumer `json:"consumer" xml:"Consumer"`
 }
 
 type RemoveTagsFromStreamInput struct {
-	StreamARN  string     `json:"streamARN" xml:"StreamARN"`
-	StreamId   string     `json:"streamId" xml:"StreamId"`
-	StreamName string     `json:"streamName" xml:"StreamName"`
-	TagKeys    TagKeyList `json:"tagKeys" xml:"TagKeys"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type SequenceNumberRange struct {
-	EndingSequenceNumber   string `json:"endingSequenceNumber" xml:"EndingSequenceNumber"`
-	StartingSequenceNumber string `json:"startingSequenceNumber" xml:"StartingSequenceNumber"`
+EndingSequenceNumber string `json:"endingSequenceNumber" xml:"EndingSequenceNumber"`
+StartingSequenceNumber string `json:"startingSequenceNumber" xml:"StartingSequenceNumber"`
 }
 
 type Shard struct {
-	AdjacentParentShardId string               `json:"adjacentParentShardId" xml:"AdjacentParentShardId"`
-	HashKeyRange          *HashKeyRange        `json:"hashKeyRange" xml:"HashKeyRange"`
-	ParentShardId         string               `json:"parentShardId" xml:"ParentShardId"`
-	SequenceNumberRange   *SequenceNumberRange `json:"sequenceNumberRange" xml:"SequenceNumberRange"`
-	ShardId               string               `json:"shardId" xml:"ShardId"`
+AdjacentParentShardId string `json:"adjacentParentShardId" xml:"AdjacentParentShardId"`
+HashKeyRange *HashKeyRange `json:"hashKeyRange" xml:"HashKeyRange"`
+ParentShardId string `json:"parentShardId" xml:"ParentShardId"`
+SequenceNumberRange *SequenceNumberRange `json:"sequenceNumberRange" xml:"SequenceNumberRange"`
+ShardId string `json:"shardId" xml:"ShardId"`
 }
 
 type ShardFilter struct {
-	ShardId   string    `json:"shardId" xml:"ShardId"`
-	Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
-	Type      string    `json:"type" xml:"Type"`
+ShardId string `json:"shardId" xml:"ShardId"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
+Type string `json:"type" xml:"Type"`
 }
 
 type SmithyUnit struct {
 }
 
 type SplitShardInput struct {
-	NewStartingHashKey string `json:"newStartingHashKey" xml:"NewStartingHashKey"`
-	ShardToSplit       string `json:"shardToSplit" xml:"ShardToSplit"`
-	StreamARN          string `json:"streamARN" xml:"StreamARN"`
-	StreamId           string `json:"streamId" xml:"StreamId"`
-	StreamName         string `json:"streamName" xml:"StreamName"`
+NewStartingHashKey string `json:"newStartingHashKey" xml:"NewStartingHashKey"`
+ShardToSplit string `json:"shardToSplit" xml:"ShardToSplit"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type StartStreamEncryptionInput struct {
-	EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
-	KeyId          string `json:"keyId" xml:"KeyId"`
-	StreamARN      string `json:"streamARN" xml:"StreamARN"`
-	StreamId       string `json:"streamId" xml:"StreamId"`
-	StreamName     string `json:"streamName" xml:"StreamName"`
+EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
+KeyId string `json:"keyId" xml:"KeyId"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type StartingPosition struct {
-	SequenceNumber string    `json:"sequenceNumber" xml:"SequenceNumber"`
-	Timestamp      time.Time `json:"timestamp" xml:"Timestamp"`
-	Type           string    `json:"type" xml:"Type"`
+SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
+Type string `json:"type" xml:"Type"`
 }
 
 type StopStreamEncryptionInput struct {
-	EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
-	KeyId          string `json:"keyId" xml:"KeyId"`
-	StreamARN      string `json:"streamARN" xml:"StreamARN"`
-	StreamId       string `json:"streamId" xml:"StreamId"`
-	StreamName     string `json:"streamName" xml:"StreamName"`
+EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
+KeyId string `json:"keyId" xml:"KeyId"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type StreamDescription struct {
-	EncryptionType          string                 `json:"encryptionType" xml:"EncryptionType"`
-	EnhancedMonitoring      EnhancedMonitoringList `json:"enhancedMonitoring" xml:"EnhancedMonitoring"`
-	HasMoreShards           bool                   `json:"hasMoreShards" xml:"HasMoreShards"`
-	KeyId                   string                 `json:"keyId" xml:"KeyId"`
-	RetentionPeriodHours    int32                  `json:"retentionPeriodHours" xml:"RetentionPeriodHours"`
-	Shards                  ShardList              `json:"shards" xml:"Shards"`
-	StreamARN               string                 `json:"streamARN" xml:"StreamARN"`
-	StreamCreationTimestamp time.Time              `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
-	StreamModeDetails       *StreamModeDetails     `json:"streamModeDetails" xml:"StreamModeDetails"`
-	StreamName              string                 `json:"streamName" xml:"StreamName"`
-	StreamStatus            string                 `json:"streamStatus" xml:"StreamStatus"`
+EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
+EnhancedMonitoring EnhancedMonitoringList `json:"enhancedMonitoring" xml:"EnhancedMonitoring"`
+HasMoreShards bool `json:"hasMoreShards" xml:"HasMoreShards"`
+KeyId string `json:"keyId" xml:"KeyId"`
+RetentionPeriodHours int32 `json:"retentionPeriodHours" xml:"RetentionPeriodHours"`
+Shards ShardList `json:"shards" xml:"Shards"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamCreationTimestamp time.Time `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
+StreamModeDetails *StreamModeDetails `json:"streamModeDetails" xml:"StreamModeDetails"`
+StreamName string `json:"streamName" xml:"StreamName"`
+StreamStatus string `json:"streamStatus" xml:"StreamStatus"`
 }
 
 type StreamDescriptionSummary struct {
-	ConsumerCount           int32                  `json:"consumerCount" xml:"ConsumerCount"`
-	EncryptionType          string                 `json:"encryptionType" xml:"EncryptionType"`
-	EnhancedMonitoring      EnhancedMonitoringList `json:"enhancedMonitoring" xml:"EnhancedMonitoring"`
-	KeyId                   string                 `json:"keyId" xml:"KeyId"`
-	MaxRecordSizeInKiB      int32                  `json:"maxRecordSizeInKiB" xml:"MaxRecordSizeInKiB"`
-	OpenShardCount          int32                  `json:"openShardCount" xml:"OpenShardCount"`
-	RetentionPeriodHours    int32                  `json:"retentionPeriodHours" xml:"RetentionPeriodHours"`
-	StreamARN               string                 `json:"streamARN" xml:"StreamARN"`
-	StreamCreationTimestamp time.Time              `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
-	StreamId                string                 `json:"streamId" xml:"StreamId"`
-	StreamModeDetails       *StreamModeDetails     `json:"streamModeDetails" xml:"StreamModeDetails"`
-	StreamName              string                 `json:"streamName" xml:"StreamName"`
-	StreamStatus            string                 `json:"streamStatus" xml:"StreamStatus"`
-	WarmThroughput          *WarmThroughputObject  `json:"warmThroughput" xml:"WarmThroughput"`
+ConsumerCount int32 `json:"consumerCount" xml:"ConsumerCount"`
+EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
+EnhancedMonitoring EnhancedMonitoringList `json:"enhancedMonitoring" xml:"EnhancedMonitoring"`
+KeyId string `json:"keyId" xml:"KeyId"`
+MaxRecordSizeInKiB int32 `json:"maxRecordSizeInKiB" xml:"MaxRecordSizeInKiB"`
+OpenShardCount int32 `json:"openShardCount" xml:"OpenShardCount"`
+RetentionPeriodHours int32 `json:"retentionPeriodHours" xml:"RetentionPeriodHours"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamCreationTimestamp time.Time `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamModeDetails *StreamModeDetails `json:"streamModeDetails" xml:"StreamModeDetails"`
+StreamName string `json:"streamName" xml:"StreamName"`
+StreamStatus string `json:"streamStatus" xml:"StreamStatus"`
+WarmThroughput *WarmThroughputObject `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type StreamModeDetails struct {
-	StreamMode string `json:"streamMode" xml:"StreamMode"`
+StreamMode string `json:"streamMode" xml:"StreamMode"`
 }
 
 type StreamSummary struct {
-	StreamARN               string             `json:"streamARN" xml:"StreamARN"`
-	StreamCreationTimestamp time.Time          `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
-	StreamModeDetails       *StreamModeDetails `json:"streamModeDetails" xml:"StreamModeDetails"`
-	StreamName              string             `json:"streamName" xml:"StreamName"`
-	StreamStatus            string             `json:"streamStatus" xml:"StreamStatus"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamCreationTimestamp time.Time `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
+StreamModeDetails *StreamModeDetails `json:"streamModeDetails" xml:"StreamModeDetails"`
+StreamName string `json:"streamName" xml:"StreamName"`
+StreamStatus string `json:"streamStatus" xml:"StreamStatus"`
 }
 
 type SubscribeToShardEvent struct {
-	ChildShards                ChildShardList `json:"childShards" xml:"ChildShards"`
-	ContinuationSequenceNumber string         `json:"continuationSequenceNumber" xml:"ContinuationSequenceNumber"`
-	MillisBehindLatest         int64          `json:"millisBehindLatest" xml:"MillisBehindLatest"`
-	Records                    RecordList     `json:"records" xml:"Records"`
+ChildShards ChildShardList `json:"childShards" xml:"ChildShards"`
+ContinuationSequenceNumber string `json:"continuationSequenceNumber" xml:"ContinuationSequenceNumber"`
+MillisBehindLatest int64 `json:"millisBehindLatest" xml:"MillisBehindLatest"`
+Records RecordList `json:"records" xml:"Records"`
 }
 
 type SubscribeToShardInput struct {
-	ConsumerARN      string            `json:"consumerARN" xml:"ConsumerARN"`
-	ShardId          string            `json:"shardId" xml:"ShardId"`
-	StartingPosition *StartingPosition `json:"startingPosition" xml:"StartingPosition"`
-	StreamId         string            `json:"streamId" xml:"StreamId"`
+ConsumerARN string `json:"consumerARN" xml:"ConsumerARN"`
+ShardId string `json:"shardId" xml:"ShardId"`
+StartingPosition *StartingPosition `json:"startingPosition" xml:"StartingPosition"`
+StreamId string `json:"streamId" xml:"StreamId"`
 }
 
 type SubscribeToShardOutput struct {
-	EventStream interface{} `json:"eventStream" xml:"EventStream"`
+EventStream interface{} `json:"eventStream" xml:"EventStream"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceInput struct {
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
-	StreamId    string `json:"streamId" xml:"StreamId"`
-	Tags        TagMap `json:"tags" xml:"Tags"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type UntagResourceInput struct {
-	ResourceARN string     `json:"resourceARN" xml:"ResourceARN"`
-	StreamId    string     `json:"streamId" xml:"StreamId"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UpdateAccountSettingsInput struct {
-	MinimumThroughputBillingCommitment *MinimumThroughputBillingCommitmentInput `json:"minimumThroughputBillingCommitment" xml:"MinimumThroughputBillingCommitment"`
+MinimumThroughputBillingCommitment *MinimumThroughputBillingCommitmentInput `json:"minimumThroughputBillingCommitment" xml:"MinimumThroughputBillingCommitment"`
 }
 
 type UpdateAccountSettingsOutput struct {
-	MinimumThroughputBillingCommitment *MinimumThroughputBillingCommitmentOutput `json:"minimumThroughputBillingCommitment" xml:"MinimumThroughputBillingCommitment"`
+MinimumThroughputBillingCommitment *MinimumThroughputBillingCommitmentOutput `json:"minimumThroughputBillingCommitment" xml:"MinimumThroughputBillingCommitment"`
 }
 
 type UpdateMaxRecordSizeInput struct {
-	MaxRecordSizeInKiB int32  `json:"maxRecordSizeInKiB" xml:"MaxRecordSizeInKiB"`
-	StreamARN          string `json:"streamARN" xml:"StreamARN"`
-	StreamId           string `json:"streamId" xml:"StreamId"`
+MaxRecordSizeInKiB int32 `json:"maxRecordSizeInKiB" xml:"MaxRecordSizeInKiB"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
 }
 
 type UpdateShardCountInput struct {
-	ScalingType      string `json:"scalingType" xml:"ScalingType"`
-	StreamARN        string `json:"streamARN" xml:"StreamARN"`
-	StreamId         string `json:"streamId" xml:"StreamId"`
-	StreamName       string `json:"streamName" xml:"StreamName"`
-	TargetShardCount int32  `json:"targetShardCount" xml:"TargetShardCount"`
+ScalingType string `json:"scalingType" xml:"ScalingType"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
+TargetShardCount int32 `json:"targetShardCount" xml:"TargetShardCount"`
 }
 
 type UpdateShardCountOutput struct {
-	CurrentShardCount int32  `json:"currentShardCount" xml:"CurrentShardCount"`
-	StreamARN         string `json:"streamARN" xml:"StreamARN"`
-	StreamName        string `json:"streamName" xml:"StreamName"`
-	TargetShardCount  int32  `json:"targetShardCount" xml:"TargetShardCount"`
+CurrentShardCount int32 `json:"currentShardCount" xml:"CurrentShardCount"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamName string `json:"streamName" xml:"StreamName"`
+TargetShardCount int32 `json:"targetShardCount" xml:"TargetShardCount"`
 }
 
 type UpdateStreamModeInput struct {
-	StreamARN           string             `json:"streamARN" xml:"StreamARN"`
-	StreamId            string             `json:"streamId" xml:"StreamId"`
-	StreamModeDetails   *StreamModeDetails `json:"streamModeDetails" xml:"StreamModeDetails"`
-	WarmThroughputMiBps int32              `json:"warmThroughputMiBps" xml:"WarmThroughputMiBps"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamModeDetails *StreamModeDetails `json:"streamModeDetails" xml:"StreamModeDetails"`
+WarmThroughputMiBps int32 `json:"warmThroughputMiBps" xml:"WarmThroughputMiBps"`
 }
 
 type UpdateStreamWarmThroughputInput struct {
-	StreamARN           string `json:"streamARN" xml:"StreamARN"`
-	StreamId            string `json:"streamId" xml:"StreamId"`
-	StreamName          string `json:"streamName" xml:"StreamName"`
-	WarmThroughputMiBps int32  `json:"warmThroughputMiBps" xml:"WarmThroughputMiBps"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamId string `json:"streamId" xml:"StreamId"`
+StreamName string `json:"streamName" xml:"StreamName"`
+WarmThroughputMiBps int32 `json:"warmThroughputMiBps" xml:"WarmThroughputMiBps"`
 }
 
 type UpdateStreamWarmThroughputOutput struct {
-	StreamARN      string                `json:"streamARN" xml:"StreamARN"`
-	StreamName     string                `json:"streamName" xml:"StreamName"`
-	WarmThroughput *WarmThroughputObject `json:"warmThroughput" xml:"WarmThroughput"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
+StreamName string `json:"streamName" xml:"StreamName"`
+WarmThroughput *WarmThroughputObject `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type WarmThroughputObject struct {
-	CurrentMiBps int32 `json:"currentMiBps" xml:"CurrentMiBps"`
-	TargetMiBps  int32 `json:"targetMiBps" xml:"TargetMiBps"`
+CurrentMiBps int32 `json:"currentMiBps" xml:"CurrentMiBps"`
+TargetMiBps int32 `json:"targetMiBps" xml:"TargetMiBps"`
 }
 
 type ChildShardList []*ChildShard
@@ -563,3 +563,4 @@ type TagList []*Tag
 type TagMap map[string]string
 
 type SubscribeToShardEventStream interface{}
+

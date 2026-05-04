@@ -833,3 +833,4 @@ func SerializeVerifyEmailIdentityResponse(w http.ResponseWriter, output *VerifyE
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

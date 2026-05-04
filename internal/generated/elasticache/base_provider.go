@@ -310,3 +310,4 @@ func (b *BaseProvider) TestFailover(ctx context.Context, input *TestFailoverMess
 func (b *BaseProvider) TestMigration(ctx context.Context, input *TestMigrationMessage) (*TestMigrationResponse, error) {
 	return nil, fmt.Errorf("TestMigration: %w", ErrNotImplemented)
 }
+

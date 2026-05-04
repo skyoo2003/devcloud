@@ -7,723 +7,723 @@ import (
 )
 
 type AliasListEntry struct {
-	AliasArn        string    `json:"aliasArn" xml:"AliasArn"`
-	AliasName       string    `json:"aliasName" xml:"AliasName"`
-	CreationDate    time.Time `json:"creationDate" xml:"CreationDate"`
-	LastUpdatedDate time.Time `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
-	TargetKeyId     string    `json:"targetKeyId" xml:"TargetKeyId"`
+AliasArn string `json:"aliasArn" xml:"AliasArn"`
+AliasName string `json:"aliasName" xml:"AliasName"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+LastUpdatedDate time.Time `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
+TargetKeyId string `json:"targetKeyId" xml:"TargetKeyId"`
 }
 
 type CancelKeyDeletionRequest struct {
-	KeyId string `json:"keyId" xml:"KeyId"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type CancelKeyDeletionResponse struct {
-	KeyId string `json:"keyId" xml:"KeyId"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type ConnectCustomKeyStoreRequest struct {
-	CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
+CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
 }
 
 type ConnectCustomKeyStoreResponse struct {
 }
 
 type CreateAliasRequest struct {
-	AliasName   string `json:"aliasName" xml:"AliasName"`
-	TargetKeyId string `json:"targetKeyId" xml:"TargetKeyId"`
+AliasName string `json:"aliasName" xml:"AliasName"`
+TargetKeyId string `json:"targetKeyId" xml:"TargetKeyId"`
 }
 
 type CreateCustomKeyStoreRequest struct {
-	CloudHsmClusterId                string                                `json:"cloudHsmClusterId" xml:"CloudHsmClusterId"`
-	CustomKeyStoreName               string                                `json:"customKeyStoreName" xml:"CustomKeyStoreName"`
-	CustomKeyStoreType               string                                `json:"customKeyStoreType" xml:"CustomKeyStoreType"`
-	KeyStorePassword                 string                                `json:"keyStorePassword" xml:"KeyStorePassword"`
-	TrustAnchorCertificate           string                                `json:"trustAnchorCertificate" xml:"TrustAnchorCertificate"`
-	XksProxyAuthenticationCredential *XksProxyAuthenticationCredentialType `json:"xksProxyAuthenticationCredential" xml:"XksProxyAuthenticationCredential"`
-	XksProxyConnectivity             string                                `json:"xksProxyConnectivity" xml:"XksProxyConnectivity"`
-	XksProxyUriEndpoint              string                                `json:"xksProxyUriEndpoint" xml:"XksProxyUriEndpoint"`
-	XksProxyUriPath                  string                                `json:"xksProxyUriPath" xml:"XksProxyUriPath"`
-	XksProxyVpcEndpointServiceName   string                                `json:"xksProxyVpcEndpointServiceName" xml:"XksProxyVpcEndpointServiceName"`
-	XksProxyVpcEndpointServiceOwner  string                                `json:"xksProxyVpcEndpointServiceOwner" xml:"XksProxyVpcEndpointServiceOwner"`
+CloudHsmClusterId string `json:"cloudHsmClusterId" xml:"CloudHsmClusterId"`
+CustomKeyStoreName string `json:"customKeyStoreName" xml:"CustomKeyStoreName"`
+CustomKeyStoreType string `json:"customKeyStoreType" xml:"CustomKeyStoreType"`
+KeyStorePassword string `json:"keyStorePassword" xml:"KeyStorePassword"`
+TrustAnchorCertificate string `json:"trustAnchorCertificate" xml:"TrustAnchorCertificate"`
+XksProxyAuthenticationCredential *XksProxyAuthenticationCredentialType `json:"xksProxyAuthenticationCredential" xml:"XksProxyAuthenticationCredential"`
+XksProxyConnectivity string `json:"xksProxyConnectivity" xml:"XksProxyConnectivity"`
+XksProxyUriEndpoint string `json:"xksProxyUriEndpoint" xml:"XksProxyUriEndpoint"`
+XksProxyUriPath string `json:"xksProxyUriPath" xml:"XksProxyUriPath"`
+XksProxyVpcEndpointServiceName string `json:"xksProxyVpcEndpointServiceName" xml:"XksProxyVpcEndpointServiceName"`
+XksProxyVpcEndpointServiceOwner string `json:"xksProxyVpcEndpointServiceOwner" xml:"XksProxyVpcEndpointServiceOwner"`
 }
 
 type CreateCustomKeyStoreResponse struct {
-	CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
+CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
 }
 
 type CreateGrantRequest struct {
-	Constraints       *GrantConstraints  `json:"constraints" xml:"Constraints"`
-	DryRun            bool               `json:"dryRun" xml:"DryRun"`
-	GrantTokens       GrantTokenList     `json:"grantTokens" xml:"GrantTokens"`
-	GranteePrincipal  string             `json:"granteePrincipal" xml:"GranteePrincipal"`
-	KeyId             string             `json:"keyId" xml:"KeyId"`
-	Name              string             `json:"name" xml:"Name"`
-	Operations        GrantOperationList `json:"operations" xml:"Operations"`
-	RetiringPrincipal string             `json:"retiringPrincipal" xml:"RetiringPrincipal"`
+Constraints *GrantConstraints `json:"constraints" xml:"Constraints"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+GranteePrincipal string `json:"granteePrincipal" xml:"GranteePrincipal"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Name string `json:"name" xml:"Name"`
+Operations GrantOperationList `json:"operations" xml:"Operations"`
+RetiringPrincipal string `json:"retiringPrincipal" xml:"RetiringPrincipal"`
 }
 
 type CreateGrantResponse struct {
-	GrantId    string `json:"grantId" xml:"GrantId"`
-	GrantToken string `json:"grantToken" xml:"GrantToken"`
+GrantId string `json:"grantId" xml:"GrantId"`
+GrantToken string `json:"grantToken" xml:"GrantToken"`
 }
 
 type CreateKeyRequest struct {
-	BypassPolicyLockoutSafetyCheck bool    `json:"bypassPolicyLockoutSafetyCheck" xml:"BypassPolicyLockoutSafetyCheck"`
-	CustomKeyStoreId               string  `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
-	CustomerMasterKeySpec          string  `json:"customerMasterKeySpec" xml:"CustomerMasterKeySpec"`
-	Description                    string  `json:"description" xml:"Description"`
-	KeySpec                        string  `json:"keySpec" xml:"KeySpec"`
-	KeyUsage                       string  `json:"keyUsage" xml:"KeyUsage"`
-	MultiRegion                    bool    `json:"multiRegion" xml:"MultiRegion"`
-	Origin                         string  `json:"origin" xml:"Origin"`
-	Policy                         string  `json:"policy" xml:"Policy"`
-	Tags                           TagList `json:"tags" xml:"Tags"`
-	XksKeyId                       string  `json:"xksKeyId" xml:"XksKeyId"`
+BypassPolicyLockoutSafetyCheck bool `json:"bypassPolicyLockoutSafetyCheck" xml:"BypassPolicyLockoutSafetyCheck"`
+CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
+CustomerMasterKeySpec string `json:"customerMasterKeySpec" xml:"CustomerMasterKeySpec"`
+Description string `json:"description" xml:"Description"`
+KeySpec string `json:"keySpec" xml:"KeySpec"`
+KeyUsage string `json:"keyUsage" xml:"KeyUsage"`
+MultiRegion bool `json:"multiRegion" xml:"MultiRegion"`
+Origin string `json:"origin" xml:"Origin"`
+Policy string `json:"policy" xml:"Policy"`
+Tags TagList `json:"tags" xml:"Tags"`
+XksKeyId string `json:"xksKeyId" xml:"XksKeyId"`
 }
 
 type CreateKeyResponse struct {
-	KeyMetadata *KeyMetadata `json:"keyMetadata" xml:"KeyMetadata"`
+KeyMetadata *KeyMetadata `json:"keyMetadata" xml:"KeyMetadata"`
 }
 
 type CustomKeyStoresListEntry struct {
-	CloudHsmClusterId      string                     `json:"cloudHsmClusterId" xml:"CloudHsmClusterId"`
-	ConnectionErrorCode    string                     `json:"connectionErrorCode" xml:"ConnectionErrorCode"`
-	ConnectionState        string                     `json:"connectionState" xml:"ConnectionState"`
-	CreationDate           time.Time                  `json:"creationDate" xml:"CreationDate"`
-	CustomKeyStoreId       string                     `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
-	CustomKeyStoreName     string                     `json:"customKeyStoreName" xml:"CustomKeyStoreName"`
-	CustomKeyStoreType     string                     `json:"customKeyStoreType" xml:"CustomKeyStoreType"`
-	TrustAnchorCertificate string                     `json:"trustAnchorCertificate" xml:"TrustAnchorCertificate"`
-	XksProxyConfiguration  *XksProxyConfigurationType `json:"xksProxyConfiguration" xml:"XksProxyConfiguration"`
+CloudHsmClusterId string `json:"cloudHsmClusterId" xml:"CloudHsmClusterId"`
+ConnectionErrorCode string `json:"connectionErrorCode" xml:"ConnectionErrorCode"`
+ConnectionState string `json:"connectionState" xml:"ConnectionState"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
+CustomKeyStoreName string `json:"customKeyStoreName" xml:"CustomKeyStoreName"`
+CustomKeyStoreType string `json:"customKeyStoreType" xml:"CustomKeyStoreType"`
+TrustAnchorCertificate string `json:"trustAnchorCertificate" xml:"TrustAnchorCertificate"`
+XksProxyConfiguration *XksProxyConfigurationType `json:"xksProxyConfiguration" xml:"XksProxyConfiguration"`
 }
 
 type DecryptRequest struct {
-	CiphertextBlob      []byte                `json:"ciphertextBlob" xml:"CiphertextBlob"`
-	DryRun              bool                  `json:"dryRun" xml:"DryRun"`
-	DryRunModifiers     DryRunModifierList    `json:"dryRunModifiers" xml:"DryRunModifiers"`
-	EncryptionAlgorithm string                `json:"encryptionAlgorithm" xml:"EncryptionAlgorithm"`
-	EncryptionContext   EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
-	GrantTokens         GrantTokenList        `json:"grantTokens" xml:"GrantTokens"`
-	KeyId               string                `json:"keyId" xml:"KeyId"`
-	Recipient           *RecipientInfo        `json:"recipient" xml:"Recipient"`
+CiphertextBlob []byte `json:"ciphertextBlob" xml:"CiphertextBlob"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+DryRunModifiers DryRunModifierList `json:"dryRunModifiers" xml:"DryRunModifiers"`
+EncryptionAlgorithm string `json:"encryptionAlgorithm" xml:"EncryptionAlgorithm"`
+EncryptionContext EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Recipient *RecipientInfo `json:"recipient" xml:"Recipient"`
 }
 
 type DecryptResponse struct {
-	CiphertextForRecipient []byte `json:"ciphertextForRecipient" xml:"CiphertextForRecipient"`
-	EncryptionAlgorithm    string `json:"encryptionAlgorithm" xml:"EncryptionAlgorithm"`
-	KeyId                  string `json:"keyId" xml:"KeyId"`
-	KeyMaterialId          string `json:"keyMaterialId" xml:"KeyMaterialId"`
-	Plaintext              []byte `json:"plaintext" xml:"Plaintext"`
+CiphertextForRecipient []byte `json:"ciphertextForRecipient" xml:"CiphertextForRecipient"`
+EncryptionAlgorithm string `json:"encryptionAlgorithm" xml:"EncryptionAlgorithm"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
+Plaintext []byte `json:"plaintext" xml:"Plaintext"`
 }
 
 type DeleteAliasRequest struct {
-	AliasName string `json:"aliasName" xml:"AliasName"`
+AliasName string `json:"aliasName" xml:"AliasName"`
 }
 
 type DeleteCustomKeyStoreRequest struct {
-	CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
+CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
 }
 
 type DeleteCustomKeyStoreResponse struct {
 }
 
 type DeleteImportedKeyMaterialRequest struct {
-	KeyId         string `json:"keyId" xml:"KeyId"`
-	KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
 }
 
 type DeleteImportedKeyMaterialResponse struct {
-	KeyId         string `json:"keyId" xml:"KeyId"`
-	KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
 }
 
 type DeriveSharedSecretRequest struct {
-	DryRun                bool           `json:"dryRun" xml:"DryRun"`
-	GrantTokens           GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
-	KeyAgreementAlgorithm string         `json:"keyAgreementAlgorithm" xml:"KeyAgreementAlgorithm"`
-	KeyId                 string         `json:"keyId" xml:"KeyId"`
-	PublicKey             []byte         `json:"publicKey" xml:"PublicKey"`
-	Recipient             *RecipientInfo `json:"recipient" xml:"Recipient"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyAgreementAlgorithm string `json:"keyAgreementAlgorithm" xml:"KeyAgreementAlgorithm"`
+KeyId string `json:"keyId" xml:"KeyId"`
+PublicKey []byte `json:"publicKey" xml:"PublicKey"`
+Recipient *RecipientInfo `json:"recipient" xml:"Recipient"`
 }
 
 type DeriveSharedSecretResponse struct {
-	CiphertextForRecipient []byte `json:"ciphertextForRecipient" xml:"CiphertextForRecipient"`
-	KeyAgreementAlgorithm  string `json:"keyAgreementAlgorithm" xml:"KeyAgreementAlgorithm"`
-	KeyId                  string `json:"keyId" xml:"KeyId"`
-	KeyOrigin              string `json:"keyOrigin" xml:"KeyOrigin"`
-	SharedSecret           []byte `json:"sharedSecret" xml:"SharedSecret"`
+CiphertextForRecipient []byte `json:"ciphertextForRecipient" xml:"CiphertextForRecipient"`
+KeyAgreementAlgorithm string `json:"keyAgreementAlgorithm" xml:"KeyAgreementAlgorithm"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyOrigin string `json:"keyOrigin" xml:"KeyOrigin"`
+SharedSecret []byte `json:"sharedSecret" xml:"SharedSecret"`
 }
 
 type DescribeCustomKeyStoresRequest struct {
-	CustomKeyStoreId   string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
-	CustomKeyStoreName string `json:"customKeyStoreName" xml:"CustomKeyStoreName"`
-	Limit              int32  `json:"limit" xml:"Limit"`
-	Marker             string `json:"marker" xml:"Marker"`
+CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
+CustomKeyStoreName string `json:"customKeyStoreName" xml:"CustomKeyStoreName"`
+Limit int32 `json:"limit" xml:"Limit"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type DescribeCustomKeyStoresResponse struct {
-	CustomKeyStores CustomKeyStoresList `json:"customKeyStores" xml:"CustomKeyStores"`
-	NextMarker      string              `json:"nextMarker" xml:"NextMarker"`
-	Truncated       bool                `json:"truncated" xml:"Truncated"`
+CustomKeyStores CustomKeyStoresList `json:"customKeyStores" xml:"CustomKeyStores"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Truncated bool `json:"truncated" xml:"Truncated"`
 }
 
 type DescribeKeyRequest struct {
-	GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
-	KeyId       string         `json:"keyId" xml:"KeyId"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type DescribeKeyResponse struct {
-	KeyMetadata *KeyMetadata `json:"keyMetadata" xml:"KeyMetadata"`
+KeyMetadata *KeyMetadata `json:"keyMetadata" xml:"KeyMetadata"`
 }
 
 type DisableKeyRequest struct {
-	KeyId string `json:"keyId" xml:"KeyId"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type DisableKeyRotationRequest struct {
-	KeyId string `json:"keyId" xml:"KeyId"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type DisconnectCustomKeyStoreRequest struct {
-	CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
+CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
 }
 
 type DisconnectCustomKeyStoreResponse struct {
 }
 
 type EnableKeyRequest struct {
-	KeyId string `json:"keyId" xml:"KeyId"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type EnableKeyRotationRequest struct {
-	KeyId                string `json:"keyId" xml:"KeyId"`
-	RotationPeriodInDays int32  `json:"rotationPeriodInDays" xml:"RotationPeriodInDays"`
+KeyId string `json:"keyId" xml:"KeyId"`
+RotationPeriodInDays int32 `json:"rotationPeriodInDays" xml:"RotationPeriodInDays"`
 }
 
 type EncryptRequest struct {
-	DryRun              bool                  `json:"dryRun" xml:"DryRun"`
-	EncryptionAlgorithm string                `json:"encryptionAlgorithm" xml:"EncryptionAlgorithm"`
-	EncryptionContext   EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
-	GrantTokens         GrantTokenList        `json:"grantTokens" xml:"GrantTokens"`
-	KeyId               string                `json:"keyId" xml:"KeyId"`
-	Plaintext           []byte                `json:"plaintext" xml:"Plaintext"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+EncryptionAlgorithm string `json:"encryptionAlgorithm" xml:"EncryptionAlgorithm"`
+EncryptionContext EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Plaintext []byte `json:"plaintext" xml:"Plaintext"`
 }
 
 type EncryptResponse struct {
-	CiphertextBlob      []byte `json:"ciphertextBlob" xml:"CiphertextBlob"`
-	EncryptionAlgorithm string `json:"encryptionAlgorithm" xml:"EncryptionAlgorithm"`
-	KeyId               string `json:"keyId" xml:"KeyId"`
+CiphertextBlob []byte `json:"ciphertextBlob" xml:"CiphertextBlob"`
+EncryptionAlgorithm string `json:"encryptionAlgorithm" xml:"EncryptionAlgorithm"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type GenerateDataKeyPairRequest struct {
-	DryRun            bool                  `json:"dryRun" xml:"DryRun"`
-	EncryptionContext EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
-	GrantTokens       GrantTokenList        `json:"grantTokens" xml:"GrantTokens"`
-	KeyId             string                `json:"keyId" xml:"KeyId"`
-	KeyPairSpec       string                `json:"keyPairSpec" xml:"KeyPairSpec"`
-	Recipient         *RecipientInfo        `json:"recipient" xml:"Recipient"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+EncryptionContext EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyPairSpec string `json:"keyPairSpec" xml:"KeyPairSpec"`
+Recipient *RecipientInfo `json:"recipient" xml:"Recipient"`
 }
 
 type GenerateDataKeyPairResponse struct {
-	CiphertextForRecipient   []byte `json:"ciphertextForRecipient" xml:"CiphertextForRecipient"`
-	KeyId                    string `json:"keyId" xml:"KeyId"`
-	KeyMaterialId            string `json:"keyMaterialId" xml:"KeyMaterialId"`
-	KeyPairSpec              string `json:"keyPairSpec" xml:"KeyPairSpec"`
-	PrivateKeyCiphertextBlob []byte `json:"privateKeyCiphertextBlob" xml:"PrivateKeyCiphertextBlob"`
-	PrivateKeyPlaintext      []byte `json:"privateKeyPlaintext" xml:"PrivateKeyPlaintext"`
-	PublicKey                []byte `json:"publicKey" xml:"PublicKey"`
+CiphertextForRecipient []byte `json:"ciphertextForRecipient" xml:"CiphertextForRecipient"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
+KeyPairSpec string `json:"keyPairSpec" xml:"KeyPairSpec"`
+PrivateKeyCiphertextBlob []byte `json:"privateKeyCiphertextBlob" xml:"PrivateKeyCiphertextBlob"`
+PrivateKeyPlaintext []byte `json:"privateKeyPlaintext" xml:"PrivateKeyPlaintext"`
+PublicKey []byte `json:"publicKey" xml:"PublicKey"`
 }
 
 type GenerateDataKeyPairWithoutPlaintextRequest struct {
-	DryRun            bool                  `json:"dryRun" xml:"DryRun"`
-	EncryptionContext EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
-	GrantTokens       GrantTokenList        `json:"grantTokens" xml:"GrantTokens"`
-	KeyId             string                `json:"keyId" xml:"KeyId"`
-	KeyPairSpec       string                `json:"keyPairSpec" xml:"KeyPairSpec"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+EncryptionContext EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyPairSpec string `json:"keyPairSpec" xml:"KeyPairSpec"`
 }
 
 type GenerateDataKeyPairWithoutPlaintextResponse struct {
-	KeyId                    string `json:"keyId" xml:"KeyId"`
-	KeyMaterialId            string `json:"keyMaterialId" xml:"KeyMaterialId"`
-	KeyPairSpec              string `json:"keyPairSpec" xml:"KeyPairSpec"`
-	PrivateKeyCiphertextBlob []byte `json:"privateKeyCiphertextBlob" xml:"PrivateKeyCiphertextBlob"`
-	PublicKey                []byte `json:"publicKey" xml:"PublicKey"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
+KeyPairSpec string `json:"keyPairSpec" xml:"KeyPairSpec"`
+PrivateKeyCiphertextBlob []byte `json:"privateKeyCiphertextBlob" xml:"PrivateKeyCiphertextBlob"`
+PublicKey []byte `json:"publicKey" xml:"PublicKey"`
 }
 
 type GenerateDataKeyRequest struct {
-	DryRun            bool                  `json:"dryRun" xml:"DryRun"`
-	EncryptionContext EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
-	GrantTokens       GrantTokenList        `json:"grantTokens" xml:"GrantTokens"`
-	KeyId             string                `json:"keyId" xml:"KeyId"`
-	KeySpec           string                `json:"keySpec" xml:"KeySpec"`
-	NumberOfBytes     int32                 `json:"numberOfBytes" xml:"NumberOfBytes"`
-	Recipient         *RecipientInfo        `json:"recipient" xml:"Recipient"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+EncryptionContext EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeySpec string `json:"keySpec" xml:"KeySpec"`
+NumberOfBytes int32 `json:"numberOfBytes" xml:"NumberOfBytes"`
+Recipient *RecipientInfo `json:"recipient" xml:"Recipient"`
 }
 
 type GenerateDataKeyResponse struct {
-	CiphertextBlob         []byte `json:"ciphertextBlob" xml:"CiphertextBlob"`
-	CiphertextForRecipient []byte `json:"ciphertextForRecipient" xml:"CiphertextForRecipient"`
-	KeyId                  string `json:"keyId" xml:"KeyId"`
-	KeyMaterialId          string `json:"keyMaterialId" xml:"KeyMaterialId"`
-	Plaintext              []byte `json:"plaintext" xml:"Plaintext"`
+CiphertextBlob []byte `json:"ciphertextBlob" xml:"CiphertextBlob"`
+CiphertextForRecipient []byte `json:"ciphertextForRecipient" xml:"CiphertextForRecipient"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
+Plaintext []byte `json:"plaintext" xml:"Plaintext"`
 }
 
 type GenerateDataKeyWithoutPlaintextRequest struct {
-	DryRun            bool                  `json:"dryRun" xml:"DryRun"`
-	EncryptionContext EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
-	GrantTokens       GrantTokenList        `json:"grantTokens" xml:"GrantTokens"`
-	KeyId             string                `json:"keyId" xml:"KeyId"`
-	KeySpec           string                `json:"keySpec" xml:"KeySpec"`
-	NumberOfBytes     int32                 `json:"numberOfBytes" xml:"NumberOfBytes"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+EncryptionContext EncryptionContextType `json:"encryptionContext" xml:"EncryptionContext"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeySpec string `json:"keySpec" xml:"KeySpec"`
+NumberOfBytes int32 `json:"numberOfBytes" xml:"NumberOfBytes"`
 }
 
 type GenerateDataKeyWithoutPlaintextResponse struct {
-	CiphertextBlob []byte `json:"ciphertextBlob" xml:"CiphertextBlob"`
-	KeyId          string `json:"keyId" xml:"KeyId"`
-	KeyMaterialId  string `json:"keyMaterialId" xml:"KeyMaterialId"`
+CiphertextBlob []byte `json:"ciphertextBlob" xml:"CiphertextBlob"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
 }
 
 type GenerateMacRequest struct {
-	DryRun       bool           `json:"dryRun" xml:"DryRun"`
-	GrantTokens  GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
-	KeyId        string         `json:"keyId" xml:"KeyId"`
-	MacAlgorithm string         `json:"macAlgorithm" xml:"MacAlgorithm"`
-	Message      []byte         `json:"message" xml:"Message"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
+MacAlgorithm string `json:"macAlgorithm" xml:"MacAlgorithm"`
+Message []byte `json:"message" xml:"Message"`
 }
 
 type GenerateMacResponse struct {
-	KeyId        string `json:"keyId" xml:"KeyId"`
-	Mac          []byte `json:"mac" xml:"Mac"`
-	MacAlgorithm string `json:"macAlgorithm" xml:"MacAlgorithm"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Mac []byte `json:"mac" xml:"Mac"`
+MacAlgorithm string `json:"macAlgorithm" xml:"MacAlgorithm"`
 }
 
 type GenerateRandomRequest struct {
-	CustomKeyStoreId string         `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
-	NumberOfBytes    int32          `json:"numberOfBytes" xml:"NumberOfBytes"`
-	Recipient        *RecipientInfo `json:"recipient" xml:"Recipient"`
+CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
+NumberOfBytes int32 `json:"numberOfBytes" xml:"NumberOfBytes"`
+Recipient *RecipientInfo `json:"recipient" xml:"Recipient"`
 }
 
 type GenerateRandomResponse struct {
-	CiphertextForRecipient []byte `json:"ciphertextForRecipient" xml:"CiphertextForRecipient"`
-	Plaintext              []byte `json:"plaintext" xml:"Plaintext"`
+CiphertextForRecipient []byte `json:"ciphertextForRecipient" xml:"CiphertextForRecipient"`
+Plaintext []byte `json:"plaintext" xml:"Plaintext"`
 }
 
 type GetKeyPolicyRequest struct {
-	KeyId      string `json:"keyId" xml:"KeyId"`
-	PolicyName string `json:"policyName" xml:"PolicyName"`
+KeyId string `json:"keyId" xml:"KeyId"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
 }
 
 type GetKeyPolicyResponse struct {
-	Policy     string `json:"policy" xml:"Policy"`
-	PolicyName string `json:"policyName" xml:"PolicyName"`
+Policy string `json:"policy" xml:"Policy"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
 }
 
 type GetKeyRotationStatusRequest struct {
-	KeyId string `json:"keyId" xml:"KeyId"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type GetKeyRotationStatusResponse struct {
-	KeyId                     string    `json:"keyId" xml:"KeyId"`
-	KeyRotationEnabled        bool      `json:"keyRotationEnabled" xml:"KeyRotationEnabled"`
-	NextRotationDate          time.Time `json:"nextRotationDate" xml:"NextRotationDate"`
-	OnDemandRotationStartDate time.Time `json:"onDemandRotationStartDate" xml:"OnDemandRotationStartDate"`
-	RotationPeriodInDays      int32     `json:"rotationPeriodInDays" xml:"RotationPeriodInDays"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyRotationEnabled bool `json:"keyRotationEnabled" xml:"KeyRotationEnabled"`
+NextRotationDate time.Time `json:"nextRotationDate" xml:"NextRotationDate"`
+OnDemandRotationStartDate time.Time `json:"onDemandRotationStartDate" xml:"OnDemandRotationStartDate"`
+RotationPeriodInDays int32 `json:"rotationPeriodInDays" xml:"RotationPeriodInDays"`
 }
 
 type GetParametersForImportRequest struct {
-	KeyId             string `json:"keyId" xml:"KeyId"`
-	WrappingAlgorithm string `json:"wrappingAlgorithm" xml:"WrappingAlgorithm"`
-	WrappingKeySpec   string `json:"wrappingKeySpec" xml:"WrappingKeySpec"`
+KeyId string `json:"keyId" xml:"KeyId"`
+WrappingAlgorithm string `json:"wrappingAlgorithm" xml:"WrappingAlgorithm"`
+WrappingKeySpec string `json:"wrappingKeySpec" xml:"WrappingKeySpec"`
 }
 
 type GetParametersForImportResponse struct {
-	ImportToken       []byte    `json:"importToken" xml:"ImportToken"`
-	KeyId             string    `json:"keyId" xml:"KeyId"`
-	ParametersValidTo time.Time `json:"parametersValidTo" xml:"ParametersValidTo"`
-	PublicKey         []byte    `json:"publicKey" xml:"PublicKey"`
+ImportToken []byte `json:"importToken" xml:"ImportToken"`
+KeyId string `json:"keyId" xml:"KeyId"`
+ParametersValidTo time.Time `json:"parametersValidTo" xml:"ParametersValidTo"`
+PublicKey []byte `json:"publicKey" xml:"PublicKey"`
 }
 
 type GetPublicKeyRequest struct {
-	GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
-	KeyId       string         `json:"keyId" xml:"KeyId"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type GetPublicKeyResponse struct {
-	CustomerMasterKeySpec  string                        `json:"customerMasterKeySpec" xml:"CustomerMasterKeySpec"`
-	EncryptionAlgorithms   EncryptionAlgorithmSpecList   `json:"encryptionAlgorithms" xml:"EncryptionAlgorithms"`
-	KeyAgreementAlgorithms KeyAgreementAlgorithmSpecList `json:"keyAgreementAlgorithms" xml:"KeyAgreementAlgorithms"`
-	KeyId                  string                        `json:"keyId" xml:"KeyId"`
-	KeySpec                string                        `json:"keySpec" xml:"KeySpec"`
-	KeyUsage               string                        `json:"keyUsage" xml:"KeyUsage"`
-	PublicKey              []byte                        `json:"publicKey" xml:"PublicKey"`
-	SigningAlgorithms      SigningAlgorithmSpecList      `json:"signingAlgorithms" xml:"SigningAlgorithms"`
+CustomerMasterKeySpec string `json:"customerMasterKeySpec" xml:"CustomerMasterKeySpec"`
+EncryptionAlgorithms EncryptionAlgorithmSpecList `json:"encryptionAlgorithms" xml:"EncryptionAlgorithms"`
+KeyAgreementAlgorithms KeyAgreementAlgorithmSpecList `json:"keyAgreementAlgorithms" xml:"KeyAgreementAlgorithms"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeySpec string `json:"keySpec" xml:"KeySpec"`
+KeyUsage string `json:"keyUsage" xml:"KeyUsage"`
+PublicKey []byte `json:"publicKey" xml:"PublicKey"`
+SigningAlgorithms SigningAlgorithmSpecList `json:"signingAlgorithms" xml:"SigningAlgorithms"`
 }
 
 type GrantConstraints struct {
-	EncryptionContextEquals EncryptionContextType `json:"encryptionContextEquals" xml:"EncryptionContextEquals"`
-	EncryptionContextSubset EncryptionContextType `json:"encryptionContextSubset" xml:"EncryptionContextSubset"`
+EncryptionContextEquals EncryptionContextType `json:"encryptionContextEquals" xml:"EncryptionContextEquals"`
+EncryptionContextSubset EncryptionContextType `json:"encryptionContextSubset" xml:"EncryptionContextSubset"`
 }
 
 type GrantListEntry struct {
-	Constraints       *GrantConstraints  `json:"constraints" xml:"Constraints"`
-	CreationDate      time.Time          `json:"creationDate" xml:"CreationDate"`
-	GrantId           string             `json:"grantId" xml:"GrantId"`
-	GranteePrincipal  string             `json:"granteePrincipal" xml:"GranteePrincipal"`
-	IssuingAccount    string             `json:"issuingAccount" xml:"IssuingAccount"`
-	KeyId             string             `json:"keyId" xml:"KeyId"`
-	Name              string             `json:"name" xml:"Name"`
-	Operations        GrantOperationList `json:"operations" xml:"Operations"`
-	RetiringPrincipal string             `json:"retiringPrincipal" xml:"RetiringPrincipal"`
+Constraints *GrantConstraints `json:"constraints" xml:"Constraints"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+GrantId string `json:"grantId" xml:"GrantId"`
+GranteePrincipal string `json:"granteePrincipal" xml:"GranteePrincipal"`
+IssuingAccount string `json:"issuingAccount" xml:"IssuingAccount"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Name string `json:"name" xml:"Name"`
+Operations GrantOperationList `json:"operations" xml:"Operations"`
+RetiringPrincipal string `json:"retiringPrincipal" xml:"RetiringPrincipal"`
 }
 
 type ImportKeyMaterialRequest struct {
-	EncryptedKeyMaterial   []byte    `json:"encryptedKeyMaterial" xml:"EncryptedKeyMaterial"`
-	ExpirationModel        string    `json:"expirationModel" xml:"ExpirationModel"`
-	ImportToken            []byte    `json:"importToken" xml:"ImportToken"`
-	ImportType             string    `json:"importType" xml:"ImportType"`
-	KeyId                  string    `json:"keyId" xml:"KeyId"`
-	KeyMaterialDescription string    `json:"keyMaterialDescription" xml:"KeyMaterialDescription"`
-	KeyMaterialId          string    `json:"keyMaterialId" xml:"KeyMaterialId"`
-	ValidTo                time.Time `json:"validTo" xml:"ValidTo"`
+EncryptedKeyMaterial []byte `json:"encryptedKeyMaterial" xml:"EncryptedKeyMaterial"`
+ExpirationModel string `json:"expirationModel" xml:"ExpirationModel"`
+ImportToken []byte `json:"importToken" xml:"ImportToken"`
+ImportType string `json:"importType" xml:"ImportType"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyMaterialDescription string `json:"keyMaterialDescription" xml:"KeyMaterialDescription"`
+KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
+ValidTo time.Time `json:"validTo" xml:"ValidTo"`
 }
 
 type ImportKeyMaterialResponse struct {
-	KeyId         string `json:"keyId" xml:"KeyId"`
-	KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
 }
 
 type KeyListEntry struct {
-	KeyArn string `json:"keyArn" xml:"KeyArn"`
-	KeyId  string `json:"keyId" xml:"KeyId"`
+KeyArn string `json:"keyArn" xml:"KeyArn"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type KeyMetadata struct {
-	AWSAccountId                string                        `json:"aWSAccountId" xml:"AWSAccountId"`
-	Arn                         string                        `json:"arn" xml:"Arn"`
-	CloudHsmClusterId           string                        `json:"cloudHsmClusterId" xml:"CloudHsmClusterId"`
-	CreationDate                time.Time                     `json:"creationDate" xml:"CreationDate"`
-	CurrentKeyMaterialId        string                        `json:"currentKeyMaterialId" xml:"CurrentKeyMaterialId"`
-	CustomKeyStoreId            string                        `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
-	CustomerMasterKeySpec       string                        `json:"customerMasterKeySpec" xml:"CustomerMasterKeySpec"`
-	DeletionDate                time.Time                     `json:"deletionDate" xml:"DeletionDate"`
-	Description                 string                        `json:"description" xml:"Description"`
-	Enabled                     bool                          `json:"enabled" xml:"Enabled"`
-	EncryptionAlgorithms        EncryptionAlgorithmSpecList   `json:"encryptionAlgorithms" xml:"EncryptionAlgorithms"`
-	ExpirationModel             string                        `json:"expirationModel" xml:"ExpirationModel"`
-	KeyAgreementAlgorithms      KeyAgreementAlgorithmSpecList `json:"keyAgreementAlgorithms" xml:"KeyAgreementAlgorithms"`
-	KeyId                       string                        `json:"keyId" xml:"KeyId"`
-	KeyManager                  string                        `json:"keyManager" xml:"KeyManager"`
-	KeySpec                     string                        `json:"keySpec" xml:"KeySpec"`
-	KeyState                    string                        `json:"keyState" xml:"KeyState"`
-	KeyUsage                    string                        `json:"keyUsage" xml:"KeyUsage"`
-	MacAlgorithms               MacAlgorithmSpecList          `json:"macAlgorithms" xml:"MacAlgorithms"`
-	MultiRegion                 bool                          `json:"multiRegion" xml:"MultiRegion"`
-	MultiRegionConfiguration    *MultiRegionConfiguration     `json:"multiRegionConfiguration" xml:"MultiRegionConfiguration"`
-	Origin                      string                        `json:"origin" xml:"Origin"`
-	PendingDeletionWindowInDays int32                         `json:"pendingDeletionWindowInDays" xml:"PendingDeletionWindowInDays"`
-	SigningAlgorithms           SigningAlgorithmSpecList      `json:"signingAlgorithms" xml:"SigningAlgorithms"`
-	ValidTo                     time.Time                     `json:"validTo" xml:"ValidTo"`
-	XksKeyConfiguration         *XksKeyConfigurationType      `json:"xksKeyConfiguration" xml:"XksKeyConfiguration"`
+AWSAccountId string `json:"aWSAccountId" xml:"AWSAccountId"`
+Arn string `json:"arn" xml:"Arn"`
+CloudHsmClusterId string `json:"cloudHsmClusterId" xml:"CloudHsmClusterId"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+CurrentKeyMaterialId string `json:"currentKeyMaterialId" xml:"CurrentKeyMaterialId"`
+CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
+CustomerMasterKeySpec string `json:"customerMasterKeySpec" xml:"CustomerMasterKeySpec"`
+DeletionDate time.Time `json:"deletionDate" xml:"DeletionDate"`
+Description string `json:"description" xml:"Description"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+EncryptionAlgorithms EncryptionAlgorithmSpecList `json:"encryptionAlgorithms" xml:"EncryptionAlgorithms"`
+ExpirationModel string `json:"expirationModel" xml:"ExpirationModel"`
+KeyAgreementAlgorithms KeyAgreementAlgorithmSpecList `json:"keyAgreementAlgorithms" xml:"KeyAgreementAlgorithms"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyManager string `json:"keyManager" xml:"KeyManager"`
+KeySpec string `json:"keySpec" xml:"KeySpec"`
+KeyState string `json:"keyState" xml:"KeyState"`
+KeyUsage string `json:"keyUsage" xml:"KeyUsage"`
+MacAlgorithms MacAlgorithmSpecList `json:"macAlgorithms" xml:"MacAlgorithms"`
+MultiRegion bool `json:"multiRegion" xml:"MultiRegion"`
+MultiRegionConfiguration *MultiRegionConfiguration `json:"multiRegionConfiguration" xml:"MultiRegionConfiguration"`
+Origin string `json:"origin" xml:"Origin"`
+PendingDeletionWindowInDays int32 `json:"pendingDeletionWindowInDays" xml:"PendingDeletionWindowInDays"`
+SigningAlgorithms SigningAlgorithmSpecList `json:"signingAlgorithms" xml:"SigningAlgorithms"`
+ValidTo time.Time `json:"validTo" xml:"ValidTo"`
+XksKeyConfiguration *XksKeyConfigurationType `json:"xksKeyConfiguration" xml:"XksKeyConfiguration"`
 }
 
 type ListAliasesRequest struct {
-	KeyId  string `json:"keyId" xml:"KeyId"`
-	Limit  int32  `json:"limit" xml:"Limit"`
-	Marker string `json:"marker" xml:"Marker"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Limit int32 `json:"limit" xml:"Limit"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListAliasesResponse struct {
-	Aliases    AliasList `json:"aliases" xml:"Aliases"`
-	NextMarker string    `json:"nextMarker" xml:"NextMarker"`
-	Truncated  bool      `json:"truncated" xml:"Truncated"`
+Aliases AliasList `json:"aliases" xml:"Aliases"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Truncated bool `json:"truncated" xml:"Truncated"`
 }
 
 type ListGrantsRequest struct {
-	GrantId          string `json:"grantId" xml:"GrantId"`
-	GranteePrincipal string `json:"granteePrincipal" xml:"GranteePrincipal"`
-	KeyId            string `json:"keyId" xml:"KeyId"`
-	Limit            int32  `json:"limit" xml:"Limit"`
-	Marker           string `json:"marker" xml:"Marker"`
+GrantId string `json:"grantId" xml:"GrantId"`
+GranteePrincipal string `json:"granteePrincipal" xml:"GranteePrincipal"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Limit int32 `json:"limit" xml:"Limit"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListGrantsResponse struct {
-	Grants     GrantList `json:"grants" xml:"Grants"`
-	NextMarker string    `json:"nextMarker" xml:"NextMarker"`
-	Truncated  bool      `json:"truncated" xml:"Truncated"`
+Grants GrantList `json:"grants" xml:"Grants"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Truncated bool `json:"truncated" xml:"Truncated"`
 }
 
 type ListKeyPoliciesRequest struct {
-	KeyId  string `json:"keyId" xml:"KeyId"`
-	Limit  int32  `json:"limit" xml:"Limit"`
-	Marker string `json:"marker" xml:"Marker"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Limit int32 `json:"limit" xml:"Limit"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListKeyPoliciesResponse struct {
-	NextMarker  string         `json:"nextMarker" xml:"NextMarker"`
-	PolicyNames PolicyNameList `json:"policyNames" xml:"PolicyNames"`
-	Truncated   bool           `json:"truncated" xml:"Truncated"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+PolicyNames PolicyNameList `json:"policyNames" xml:"PolicyNames"`
+Truncated bool `json:"truncated" xml:"Truncated"`
 }
 
 type ListKeyRotationsRequest struct {
-	IncludeKeyMaterial string `json:"includeKeyMaterial" xml:"IncludeKeyMaterial"`
-	KeyId              string `json:"keyId" xml:"KeyId"`
-	Limit              int32  `json:"limit" xml:"Limit"`
-	Marker             string `json:"marker" xml:"Marker"`
+IncludeKeyMaterial string `json:"includeKeyMaterial" xml:"IncludeKeyMaterial"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Limit int32 `json:"limit" xml:"Limit"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListKeyRotationsResponse struct {
-	NextMarker string        `json:"nextMarker" xml:"NextMarker"`
-	Rotations  RotationsList `json:"rotations" xml:"Rotations"`
-	Truncated  bool          `json:"truncated" xml:"Truncated"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Rotations RotationsList `json:"rotations" xml:"Rotations"`
+Truncated bool `json:"truncated" xml:"Truncated"`
 }
 
 type ListKeysRequest struct {
-	Limit  int32  `json:"limit" xml:"Limit"`
-	Marker string `json:"marker" xml:"Marker"`
+Limit int32 `json:"limit" xml:"Limit"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListKeysResponse struct {
-	Keys       KeyList `json:"keys" xml:"Keys"`
-	NextMarker string  `json:"nextMarker" xml:"NextMarker"`
-	Truncated  bool    `json:"truncated" xml:"Truncated"`
+Keys KeyList `json:"keys" xml:"Keys"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Truncated bool `json:"truncated" xml:"Truncated"`
 }
 
 type ListResourceTagsRequest struct {
-	KeyId  string `json:"keyId" xml:"KeyId"`
-	Limit  int32  `json:"limit" xml:"Limit"`
-	Marker string `json:"marker" xml:"Marker"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Limit int32 `json:"limit" xml:"Limit"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListResourceTagsResponse struct {
-	NextMarker string  `json:"nextMarker" xml:"NextMarker"`
-	Tags       TagList `json:"tags" xml:"Tags"`
-	Truncated  bool    `json:"truncated" xml:"Truncated"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Tags TagList `json:"tags" xml:"Tags"`
+Truncated bool `json:"truncated" xml:"Truncated"`
 }
 
 type ListRetirableGrantsRequest struct {
-	Limit             int32  `json:"limit" xml:"Limit"`
-	Marker            string `json:"marker" xml:"Marker"`
-	RetiringPrincipal string `json:"retiringPrincipal" xml:"RetiringPrincipal"`
+Limit int32 `json:"limit" xml:"Limit"`
+Marker string `json:"marker" xml:"Marker"`
+RetiringPrincipal string `json:"retiringPrincipal" xml:"RetiringPrincipal"`
 }
 
 type MultiRegionConfiguration struct {
-	MultiRegionKeyType string             `json:"multiRegionKeyType" xml:"MultiRegionKeyType"`
-	PrimaryKey         *MultiRegionKey    `json:"primaryKey" xml:"PrimaryKey"`
-	ReplicaKeys        MultiRegionKeyList `json:"replicaKeys" xml:"ReplicaKeys"`
+MultiRegionKeyType string `json:"multiRegionKeyType" xml:"MultiRegionKeyType"`
+PrimaryKey *MultiRegionKey `json:"primaryKey" xml:"PrimaryKey"`
+ReplicaKeys MultiRegionKeyList `json:"replicaKeys" xml:"ReplicaKeys"`
 }
 
 type MultiRegionKey struct {
-	Arn    string `json:"arn" xml:"Arn"`
-	Region string `json:"region" xml:"Region"`
+Arn string `json:"arn" xml:"Arn"`
+Region string `json:"region" xml:"Region"`
 }
 
 type PutKeyPolicyRequest struct {
-	BypassPolicyLockoutSafetyCheck bool   `json:"bypassPolicyLockoutSafetyCheck" xml:"BypassPolicyLockoutSafetyCheck"`
-	KeyId                          string `json:"keyId" xml:"KeyId"`
-	Policy                         string `json:"policy" xml:"Policy"`
-	PolicyName                     string `json:"policyName" xml:"PolicyName"`
+BypassPolicyLockoutSafetyCheck bool `json:"bypassPolicyLockoutSafetyCheck" xml:"BypassPolicyLockoutSafetyCheck"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Policy string `json:"policy" xml:"Policy"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
 }
 
 type ReEncryptRequest struct {
-	CiphertextBlob                 []byte                `json:"ciphertextBlob" xml:"CiphertextBlob"`
-	DestinationEncryptionAlgorithm string                `json:"destinationEncryptionAlgorithm" xml:"DestinationEncryptionAlgorithm"`
-	DestinationEncryptionContext   EncryptionContextType `json:"destinationEncryptionContext" xml:"DestinationEncryptionContext"`
-	DestinationKeyId               string                `json:"destinationKeyId" xml:"DestinationKeyId"`
-	DryRun                         bool                  `json:"dryRun" xml:"DryRun"`
-	DryRunModifiers                DryRunModifierList    `json:"dryRunModifiers" xml:"DryRunModifiers"`
-	GrantTokens                    GrantTokenList        `json:"grantTokens" xml:"GrantTokens"`
-	SourceEncryptionAlgorithm      string                `json:"sourceEncryptionAlgorithm" xml:"SourceEncryptionAlgorithm"`
-	SourceEncryptionContext        EncryptionContextType `json:"sourceEncryptionContext" xml:"SourceEncryptionContext"`
-	SourceKeyId                    string                `json:"sourceKeyId" xml:"SourceKeyId"`
+CiphertextBlob []byte `json:"ciphertextBlob" xml:"CiphertextBlob"`
+DestinationEncryptionAlgorithm string `json:"destinationEncryptionAlgorithm" xml:"DestinationEncryptionAlgorithm"`
+DestinationEncryptionContext EncryptionContextType `json:"destinationEncryptionContext" xml:"DestinationEncryptionContext"`
+DestinationKeyId string `json:"destinationKeyId" xml:"DestinationKeyId"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+DryRunModifiers DryRunModifierList `json:"dryRunModifiers" xml:"DryRunModifiers"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+SourceEncryptionAlgorithm string `json:"sourceEncryptionAlgorithm" xml:"SourceEncryptionAlgorithm"`
+SourceEncryptionContext EncryptionContextType `json:"sourceEncryptionContext" xml:"SourceEncryptionContext"`
+SourceKeyId string `json:"sourceKeyId" xml:"SourceKeyId"`
 }
 
 type ReEncryptResponse struct {
-	CiphertextBlob                 []byte `json:"ciphertextBlob" xml:"CiphertextBlob"`
-	DestinationEncryptionAlgorithm string `json:"destinationEncryptionAlgorithm" xml:"DestinationEncryptionAlgorithm"`
-	DestinationKeyMaterialId       string `json:"destinationKeyMaterialId" xml:"DestinationKeyMaterialId"`
-	KeyId                          string `json:"keyId" xml:"KeyId"`
-	SourceEncryptionAlgorithm      string `json:"sourceEncryptionAlgorithm" xml:"SourceEncryptionAlgorithm"`
-	SourceKeyId                    string `json:"sourceKeyId" xml:"SourceKeyId"`
-	SourceKeyMaterialId            string `json:"sourceKeyMaterialId" xml:"SourceKeyMaterialId"`
+CiphertextBlob []byte `json:"ciphertextBlob" xml:"CiphertextBlob"`
+DestinationEncryptionAlgorithm string `json:"destinationEncryptionAlgorithm" xml:"DestinationEncryptionAlgorithm"`
+DestinationKeyMaterialId string `json:"destinationKeyMaterialId" xml:"DestinationKeyMaterialId"`
+KeyId string `json:"keyId" xml:"KeyId"`
+SourceEncryptionAlgorithm string `json:"sourceEncryptionAlgorithm" xml:"SourceEncryptionAlgorithm"`
+SourceKeyId string `json:"sourceKeyId" xml:"SourceKeyId"`
+SourceKeyMaterialId string `json:"sourceKeyMaterialId" xml:"SourceKeyMaterialId"`
 }
 
 type RecipientInfo struct {
-	AttestationDocument    []byte `json:"attestationDocument" xml:"AttestationDocument"`
-	KeyEncryptionAlgorithm string `json:"keyEncryptionAlgorithm" xml:"KeyEncryptionAlgorithm"`
+AttestationDocument []byte `json:"attestationDocument" xml:"AttestationDocument"`
+KeyEncryptionAlgorithm string `json:"keyEncryptionAlgorithm" xml:"KeyEncryptionAlgorithm"`
 }
 
 type ReplicateKeyRequest struct {
-	BypassPolicyLockoutSafetyCheck bool    `json:"bypassPolicyLockoutSafetyCheck" xml:"BypassPolicyLockoutSafetyCheck"`
-	Description                    string  `json:"description" xml:"Description"`
-	KeyId                          string  `json:"keyId" xml:"KeyId"`
-	Policy                         string  `json:"policy" xml:"Policy"`
-	ReplicaRegion                  string  `json:"replicaRegion" xml:"ReplicaRegion"`
-	Tags                           TagList `json:"tags" xml:"Tags"`
+BypassPolicyLockoutSafetyCheck bool `json:"bypassPolicyLockoutSafetyCheck" xml:"BypassPolicyLockoutSafetyCheck"`
+Description string `json:"description" xml:"Description"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Policy string `json:"policy" xml:"Policy"`
+ReplicaRegion string `json:"replicaRegion" xml:"ReplicaRegion"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type ReplicateKeyResponse struct {
-	ReplicaKeyMetadata *KeyMetadata `json:"replicaKeyMetadata" xml:"ReplicaKeyMetadata"`
-	ReplicaPolicy      string       `json:"replicaPolicy" xml:"ReplicaPolicy"`
-	ReplicaTags        TagList      `json:"replicaTags" xml:"ReplicaTags"`
+ReplicaKeyMetadata *KeyMetadata `json:"replicaKeyMetadata" xml:"ReplicaKeyMetadata"`
+ReplicaPolicy string `json:"replicaPolicy" xml:"ReplicaPolicy"`
+ReplicaTags TagList `json:"replicaTags" xml:"ReplicaTags"`
 }
 
 type RetireGrantRequest struct {
-	DryRun     bool   `json:"dryRun" xml:"DryRun"`
-	GrantId    string `json:"grantId" xml:"GrantId"`
-	GrantToken string `json:"grantToken" xml:"GrantToken"`
-	KeyId      string `json:"keyId" xml:"KeyId"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+GrantId string `json:"grantId" xml:"GrantId"`
+GrantToken string `json:"grantToken" xml:"GrantToken"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type RevokeGrantRequest struct {
-	DryRun  bool   `json:"dryRun" xml:"DryRun"`
-	GrantId string `json:"grantId" xml:"GrantId"`
-	KeyId   string `json:"keyId" xml:"KeyId"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+GrantId string `json:"grantId" xml:"GrantId"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type RotateKeyOnDemandRequest struct {
-	KeyId string `json:"keyId" xml:"KeyId"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type RotateKeyOnDemandResponse struct {
-	KeyId string `json:"keyId" xml:"KeyId"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type RotationsListEntry struct {
-	ExpirationModel        string    `json:"expirationModel" xml:"ExpirationModel"`
-	ImportState            string    `json:"importState" xml:"ImportState"`
-	KeyId                  string    `json:"keyId" xml:"KeyId"`
-	KeyMaterialDescription string    `json:"keyMaterialDescription" xml:"KeyMaterialDescription"`
-	KeyMaterialId          string    `json:"keyMaterialId" xml:"KeyMaterialId"`
-	KeyMaterialState       string    `json:"keyMaterialState" xml:"KeyMaterialState"`
-	RotationDate           time.Time `json:"rotationDate" xml:"RotationDate"`
-	RotationType           string    `json:"rotationType" xml:"RotationType"`
-	ValidTo                time.Time `json:"validTo" xml:"ValidTo"`
+ExpirationModel string `json:"expirationModel" xml:"ExpirationModel"`
+ImportState string `json:"importState" xml:"ImportState"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyMaterialDescription string `json:"keyMaterialDescription" xml:"KeyMaterialDescription"`
+KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
+KeyMaterialState string `json:"keyMaterialState" xml:"KeyMaterialState"`
+RotationDate time.Time `json:"rotationDate" xml:"RotationDate"`
+RotationType string `json:"rotationType" xml:"RotationType"`
+ValidTo time.Time `json:"validTo" xml:"ValidTo"`
 }
 
 type ScheduleKeyDeletionRequest struct {
-	KeyId               string `json:"keyId" xml:"KeyId"`
-	PendingWindowInDays int32  `json:"pendingWindowInDays" xml:"PendingWindowInDays"`
+KeyId string `json:"keyId" xml:"KeyId"`
+PendingWindowInDays int32 `json:"pendingWindowInDays" xml:"PendingWindowInDays"`
 }
 
 type ScheduleKeyDeletionResponse struct {
-	DeletionDate        time.Time `json:"deletionDate" xml:"DeletionDate"`
-	KeyId               string    `json:"keyId" xml:"KeyId"`
-	KeyState            string    `json:"keyState" xml:"KeyState"`
-	PendingWindowInDays int32     `json:"pendingWindowInDays" xml:"PendingWindowInDays"`
+DeletionDate time.Time `json:"deletionDate" xml:"DeletionDate"`
+KeyId string `json:"keyId" xml:"KeyId"`
+KeyState string `json:"keyState" xml:"KeyState"`
+PendingWindowInDays int32 `json:"pendingWindowInDays" xml:"PendingWindowInDays"`
 }
 
 type SignRequest struct {
-	DryRun           bool           `json:"dryRun" xml:"DryRun"`
-	GrantTokens      GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
-	KeyId            string         `json:"keyId" xml:"KeyId"`
-	Message          []byte         `json:"message" xml:"Message"`
-	MessageType      string         `json:"messageType" xml:"MessageType"`
-	SigningAlgorithm string         `json:"signingAlgorithm" xml:"SigningAlgorithm"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Message []byte `json:"message" xml:"Message"`
+MessageType string `json:"messageType" xml:"MessageType"`
+SigningAlgorithm string `json:"signingAlgorithm" xml:"SigningAlgorithm"`
 }
 
 type SignResponse struct {
-	KeyId            string `json:"keyId" xml:"KeyId"`
-	Signature        []byte `json:"signature" xml:"Signature"`
-	SigningAlgorithm string `json:"signingAlgorithm" xml:"SigningAlgorithm"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Signature []byte `json:"signature" xml:"Signature"`
+SigningAlgorithm string `json:"signingAlgorithm" xml:"SigningAlgorithm"`
 }
 
 type SmithyUnit struct {
 }
 
 type Tag struct {
-	TagKey   string `json:"tagKey" xml:"TagKey"`
-	TagValue string `json:"tagValue" xml:"TagValue"`
+TagKey string `json:"tagKey" xml:"TagKey"`
+TagValue string `json:"tagValue" xml:"TagValue"`
 }
 
 type TagResourceRequest struct {
-	KeyId string  `json:"keyId" xml:"KeyId"`
-	Tags  TagList `json:"tags" xml:"Tags"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type UntagResourceRequest struct {
-	KeyId   string     `json:"keyId" xml:"KeyId"`
-	TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
+KeyId string `json:"keyId" xml:"KeyId"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UpdateAliasRequest struct {
-	AliasName   string `json:"aliasName" xml:"AliasName"`
-	TargetKeyId string `json:"targetKeyId" xml:"TargetKeyId"`
+AliasName string `json:"aliasName" xml:"AliasName"`
+TargetKeyId string `json:"targetKeyId" xml:"TargetKeyId"`
 }
 
 type UpdateCustomKeyStoreRequest struct {
-	CloudHsmClusterId                string                                `json:"cloudHsmClusterId" xml:"CloudHsmClusterId"`
-	CustomKeyStoreId                 string                                `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
-	KeyStorePassword                 string                                `json:"keyStorePassword" xml:"KeyStorePassword"`
-	NewCustomKeyStoreName            string                                `json:"newCustomKeyStoreName" xml:"NewCustomKeyStoreName"`
-	XksProxyAuthenticationCredential *XksProxyAuthenticationCredentialType `json:"xksProxyAuthenticationCredential" xml:"XksProxyAuthenticationCredential"`
-	XksProxyConnectivity             string                                `json:"xksProxyConnectivity" xml:"XksProxyConnectivity"`
-	XksProxyUriEndpoint              string                                `json:"xksProxyUriEndpoint" xml:"XksProxyUriEndpoint"`
-	XksProxyUriPath                  string                                `json:"xksProxyUriPath" xml:"XksProxyUriPath"`
-	XksProxyVpcEndpointServiceName   string                                `json:"xksProxyVpcEndpointServiceName" xml:"XksProxyVpcEndpointServiceName"`
-	XksProxyVpcEndpointServiceOwner  string                                `json:"xksProxyVpcEndpointServiceOwner" xml:"XksProxyVpcEndpointServiceOwner"`
+CloudHsmClusterId string `json:"cloudHsmClusterId" xml:"CloudHsmClusterId"`
+CustomKeyStoreId string `json:"customKeyStoreId" xml:"CustomKeyStoreId"`
+KeyStorePassword string `json:"keyStorePassword" xml:"KeyStorePassword"`
+NewCustomKeyStoreName string `json:"newCustomKeyStoreName" xml:"NewCustomKeyStoreName"`
+XksProxyAuthenticationCredential *XksProxyAuthenticationCredentialType `json:"xksProxyAuthenticationCredential" xml:"XksProxyAuthenticationCredential"`
+XksProxyConnectivity string `json:"xksProxyConnectivity" xml:"XksProxyConnectivity"`
+XksProxyUriEndpoint string `json:"xksProxyUriEndpoint" xml:"XksProxyUriEndpoint"`
+XksProxyUriPath string `json:"xksProxyUriPath" xml:"XksProxyUriPath"`
+XksProxyVpcEndpointServiceName string `json:"xksProxyVpcEndpointServiceName" xml:"XksProxyVpcEndpointServiceName"`
+XksProxyVpcEndpointServiceOwner string `json:"xksProxyVpcEndpointServiceOwner" xml:"XksProxyVpcEndpointServiceOwner"`
 }
 
 type UpdateCustomKeyStoreResponse struct {
 }
 
 type UpdateKeyDescriptionRequest struct {
-	Description string `json:"description" xml:"Description"`
-	KeyId       string `json:"keyId" xml:"KeyId"`
+Description string `json:"description" xml:"Description"`
+KeyId string `json:"keyId" xml:"KeyId"`
 }
 
 type UpdatePrimaryRegionRequest struct {
-	KeyId         string `json:"keyId" xml:"KeyId"`
-	PrimaryRegion string `json:"primaryRegion" xml:"PrimaryRegion"`
+KeyId string `json:"keyId" xml:"KeyId"`
+PrimaryRegion string `json:"primaryRegion" xml:"PrimaryRegion"`
 }
 
 type VerifyMacRequest struct {
-	DryRun       bool           `json:"dryRun" xml:"DryRun"`
-	GrantTokens  GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
-	KeyId        string         `json:"keyId" xml:"KeyId"`
-	Mac          []byte         `json:"mac" xml:"Mac"`
-	MacAlgorithm string         `json:"macAlgorithm" xml:"MacAlgorithm"`
-	Message      []byte         `json:"message" xml:"Message"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Mac []byte `json:"mac" xml:"Mac"`
+MacAlgorithm string `json:"macAlgorithm" xml:"MacAlgorithm"`
+Message []byte `json:"message" xml:"Message"`
 }
 
 type VerifyMacResponse struct {
-	KeyId        string `json:"keyId" xml:"KeyId"`
-	MacAlgorithm string `json:"macAlgorithm" xml:"MacAlgorithm"`
-	MacValid     bool   `json:"macValid" xml:"MacValid"`
+KeyId string `json:"keyId" xml:"KeyId"`
+MacAlgorithm string `json:"macAlgorithm" xml:"MacAlgorithm"`
+MacValid bool `json:"macValid" xml:"MacValid"`
 }
 
 type VerifyRequest struct {
-	DryRun           bool           `json:"dryRun" xml:"DryRun"`
-	GrantTokens      GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
-	KeyId            string         `json:"keyId" xml:"KeyId"`
-	Message          []byte         `json:"message" xml:"Message"`
-	MessageType      string         `json:"messageType" xml:"MessageType"`
-	Signature        []byte         `json:"signature" xml:"Signature"`
-	SigningAlgorithm string         `json:"signingAlgorithm" xml:"SigningAlgorithm"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+GrantTokens GrantTokenList `json:"grantTokens" xml:"GrantTokens"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Message []byte `json:"message" xml:"Message"`
+MessageType string `json:"messageType" xml:"MessageType"`
+Signature []byte `json:"signature" xml:"Signature"`
+SigningAlgorithm string `json:"signingAlgorithm" xml:"SigningAlgorithm"`
 }
 
 type VerifyResponse struct {
-	KeyId            string `json:"keyId" xml:"KeyId"`
-	SignatureValid   bool   `json:"signatureValid" xml:"SignatureValid"`
-	SigningAlgorithm string `json:"signingAlgorithm" xml:"SigningAlgorithm"`
+KeyId string `json:"keyId" xml:"KeyId"`
+SignatureValid bool `json:"signatureValid" xml:"SignatureValid"`
+SigningAlgorithm string `json:"signingAlgorithm" xml:"SigningAlgorithm"`
 }
 
 type XksKeyConfigurationType struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type XksProxyAuthenticationCredentialType struct {
-	AccessKeyId        string `json:"accessKeyId" xml:"AccessKeyId"`
-	RawSecretAccessKey string `json:"rawSecretAccessKey" xml:"RawSecretAccessKey"`
+AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
+RawSecretAccessKey string `json:"rawSecretAccessKey" xml:"RawSecretAccessKey"`
 }
 
 type XksProxyConfigurationType struct {
-	AccessKeyId             string `json:"accessKeyId" xml:"AccessKeyId"`
-	Connectivity            string `json:"connectivity" xml:"Connectivity"`
-	UriEndpoint             string `json:"uriEndpoint" xml:"UriEndpoint"`
-	UriPath                 string `json:"uriPath" xml:"UriPath"`
-	VpcEndpointServiceName  string `json:"vpcEndpointServiceName" xml:"VpcEndpointServiceName"`
-	VpcEndpointServiceOwner string `json:"vpcEndpointServiceOwner" xml:"VpcEndpointServiceOwner"`
+AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
+Connectivity string `json:"connectivity" xml:"Connectivity"`
+UriEndpoint string `json:"uriEndpoint" xml:"UriEndpoint"`
+UriPath string `json:"uriPath" xml:"UriPath"`
+VpcEndpointServiceName string `json:"vpcEndpointServiceName" xml:"VpcEndpointServiceName"`
+VpcEndpointServiceOwner string `json:"vpcEndpointServiceOwner" xml:"VpcEndpointServiceOwner"`
 }
 
 type AliasList []*AliasListEntry
@@ -759,3 +759,4 @@ type TagKeyList []string
 type TagList []*Tag
 
 type EncryptionContextType map[string]string
+

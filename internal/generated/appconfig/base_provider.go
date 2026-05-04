@@ -190,3 +190,4 @@ func (b *BaseProvider) UpdateExtensionAssociation(ctx context.Context, input *Up
 func (b *BaseProvider) ValidateConfiguration(ctx context.Context, input *ValidateConfigurationRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("ValidateConfiguration: %w", ErrNotImplemented)
 }
+

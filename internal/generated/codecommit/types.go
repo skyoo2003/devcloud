@@ -7,1300 +7,1300 @@ import (
 )
 
 type Approval struct {
-	ApprovalState string `json:"approvalState" xml:"approvalState"`
-	UserArn       string `json:"userArn" xml:"userArn"`
+ApprovalState string `json:"approvalState" xml:"approvalState"`
+UserArn string `json:"userArn" xml:"userArn"`
 }
 
 type ApprovalRule struct {
-	ApprovalRuleContent        string                      `json:"approvalRuleContent" xml:"approvalRuleContent"`
-	ApprovalRuleId             string                      `json:"approvalRuleId" xml:"approvalRuleId"`
-	ApprovalRuleName           string                      `json:"approvalRuleName" xml:"approvalRuleName"`
-	CreationDate               time.Time                   `json:"creationDate" xml:"creationDate"`
-	LastModifiedDate           time.Time                   `json:"lastModifiedDate" xml:"lastModifiedDate"`
-	LastModifiedUser           string                      `json:"lastModifiedUser" xml:"lastModifiedUser"`
-	OriginApprovalRuleTemplate *OriginApprovalRuleTemplate `json:"originApprovalRuleTemplate" xml:"originApprovalRuleTemplate"`
-	RuleContentSha256          string                      `json:"ruleContentSha256" xml:"ruleContentSha256"`
+ApprovalRuleContent string `json:"approvalRuleContent" xml:"approvalRuleContent"`
+ApprovalRuleId string `json:"approvalRuleId" xml:"approvalRuleId"`
+ApprovalRuleName string `json:"approvalRuleName" xml:"approvalRuleName"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+LastModifiedDate time.Time `json:"lastModifiedDate" xml:"lastModifiedDate"`
+LastModifiedUser string `json:"lastModifiedUser" xml:"lastModifiedUser"`
+OriginApprovalRuleTemplate *OriginApprovalRuleTemplate `json:"originApprovalRuleTemplate" xml:"originApprovalRuleTemplate"`
+RuleContentSha256 string `json:"ruleContentSha256" xml:"ruleContentSha256"`
 }
 
 type ApprovalRuleEventMetadata struct {
-	ApprovalRuleContent string `json:"approvalRuleContent" xml:"approvalRuleContent"`
-	ApprovalRuleId      string `json:"approvalRuleId" xml:"approvalRuleId"`
-	ApprovalRuleName    string `json:"approvalRuleName" xml:"approvalRuleName"`
+ApprovalRuleContent string `json:"approvalRuleContent" xml:"approvalRuleContent"`
+ApprovalRuleId string `json:"approvalRuleId" xml:"approvalRuleId"`
+ApprovalRuleName string `json:"approvalRuleName" xml:"approvalRuleName"`
 }
 
 type ApprovalRuleOverriddenEventMetadata struct {
-	OverrideStatus string `json:"overrideStatus" xml:"overrideStatus"`
-	RevisionId     string `json:"revisionId" xml:"revisionId"`
+OverrideStatus string `json:"overrideStatus" xml:"overrideStatus"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
 }
 
 type ApprovalRuleTemplate struct {
-	ApprovalRuleTemplateContent     string    `json:"approvalRuleTemplateContent" xml:"approvalRuleTemplateContent"`
-	ApprovalRuleTemplateDescription string    `json:"approvalRuleTemplateDescription" xml:"approvalRuleTemplateDescription"`
-	ApprovalRuleTemplateId          string    `json:"approvalRuleTemplateId" xml:"approvalRuleTemplateId"`
-	ApprovalRuleTemplateName        string    `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
-	CreationDate                    time.Time `json:"creationDate" xml:"creationDate"`
-	LastModifiedDate                time.Time `json:"lastModifiedDate" xml:"lastModifiedDate"`
-	LastModifiedUser                string    `json:"lastModifiedUser" xml:"lastModifiedUser"`
-	RuleContentSha256               string    `json:"ruleContentSha256" xml:"ruleContentSha256"`
+ApprovalRuleTemplateContent string `json:"approvalRuleTemplateContent" xml:"approvalRuleTemplateContent"`
+ApprovalRuleTemplateDescription string `json:"approvalRuleTemplateDescription" xml:"approvalRuleTemplateDescription"`
+ApprovalRuleTemplateId string `json:"approvalRuleTemplateId" xml:"approvalRuleTemplateId"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+LastModifiedDate time.Time `json:"lastModifiedDate" xml:"lastModifiedDate"`
+LastModifiedUser string `json:"lastModifiedUser" xml:"lastModifiedUser"`
+RuleContentSha256 string `json:"ruleContentSha256" xml:"ruleContentSha256"`
 }
 
 type ApprovalStateChangedEventMetadata struct {
-	ApprovalStatus string `json:"approvalStatus" xml:"approvalStatus"`
-	RevisionId     string `json:"revisionId" xml:"revisionId"`
+ApprovalStatus string `json:"approvalStatus" xml:"approvalStatus"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
 }
 
 type AssociateApprovalRuleTemplateWithRepositoryInput struct {
-	ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
-	RepositoryName           string `json:"repositoryName" xml:"repositoryName"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type BatchAssociateApprovalRuleTemplateWithRepositoriesError struct {
-	ErrorCode      string `json:"errorCode" xml:"errorCode"`
-	ErrorMessage   string `json:"errorMessage" xml:"errorMessage"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+ErrorCode string `json:"errorCode" xml:"errorCode"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type BatchAssociateApprovalRuleTemplateWithRepositoriesInput struct {
-	ApprovalRuleTemplateName string             `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
-	RepositoryNames          RepositoryNameList `json:"repositoryNames" xml:"repositoryNames"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+RepositoryNames RepositoryNameList `json:"repositoryNames" xml:"repositoryNames"`
 }
 
 type BatchAssociateApprovalRuleTemplateWithRepositoriesOutput struct {
-	AssociatedRepositoryNames RepositoryNameList                                           `json:"associatedRepositoryNames" xml:"associatedRepositoryNames"`
-	Errors                    BatchAssociateApprovalRuleTemplateWithRepositoriesErrorsList `json:"errors" xml:"errors"`
+AssociatedRepositoryNames RepositoryNameList `json:"associatedRepositoryNames" xml:"associatedRepositoryNames"`
+Errors BatchAssociateApprovalRuleTemplateWithRepositoriesErrorsList `json:"errors" xml:"errors"`
 }
 
 type BatchDescribeMergeConflictsError struct {
-	ExceptionName string `json:"exceptionName" xml:"exceptionName"`
-	FilePath      string `json:"filePath" xml:"filePath"`
-	Message       string `json:"message" xml:"message"`
+ExceptionName string `json:"exceptionName" xml:"exceptionName"`
+FilePath string `json:"filePath" xml:"filePath"`
+Message string `json:"message" xml:"message"`
 }
 
 type BatchDescribeMergeConflictsInput struct {
-	ConflictDetailLevel        string    `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
-	ConflictResolutionStrategy string    `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
-	DestinationCommitSpecifier string    `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
-	FilePaths                  FilePaths `json:"filePaths" xml:"filePaths"`
-	MaxConflictFiles           int32     `json:"maxConflictFiles" xml:"maxConflictFiles"`
-	MaxMergeHunks              int32     `json:"maxMergeHunks" xml:"maxMergeHunks"`
-	MergeOption                string    `json:"mergeOption" xml:"mergeOption"`
-	NextToken                  string    `json:"nextToken" xml:"nextToken"`
-	RepositoryName             string    `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitSpecifier      string    `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
+ConflictDetailLevel string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
+ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
+DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
+FilePaths FilePaths `json:"filePaths" xml:"filePaths"`
+MaxConflictFiles int32 `json:"maxConflictFiles" xml:"maxConflictFiles"`
+MaxMergeHunks int32 `json:"maxMergeHunks" xml:"maxMergeHunks"`
+MergeOption string `json:"mergeOption" xml:"mergeOption"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitSpecifier string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
 }
 
 type BatchDescribeMergeConflictsOutput struct {
-	BaseCommitId        string                            `json:"baseCommitId" xml:"baseCommitId"`
-	Conflicts           Conflicts                         `json:"conflicts" xml:"conflicts"`
-	DestinationCommitId string                            `json:"destinationCommitId" xml:"destinationCommitId"`
-	Errors              BatchDescribeMergeConflictsErrors `json:"errors" xml:"errors"`
-	NextToken           string                            `json:"nextToken" xml:"nextToken"`
-	SourceCommitId      string                            `json:"sourceCommitId" xml:"sourceCommitId"`
+BaseCommitId string `json:"baseCommitId" xml:"baseCommitId"`
+Conflicts Conflicts `json:"conflicts" xml:"conflicts"`
+DestinationCommitId string `json:"destinationCommitId" xml:"destinationCommitId"`
+Errors BatchDescribeMergeConflictsErrors `json:"errors" xml:"errors"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SourceCommitId string `json:"sourceCommitId" xml:"sourceCommitId"`
 }
 
 type BatchDisassociateApprovalRuleTemplateFromRepositoriesError struct {
-	ErrorCode      string `json:"errorCode" xml:"errorCode"`
-	ErrorMessage   string `json:"errorMessage" xml:"errorMessage"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+ErrorCode string `json:"errorCode" xml:"errorCode"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type BatchDisassociateApprovalRuleTemplateFromRepositoriesInput struct {
-	ApprovalRuleTemplateName string             `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
-	RepositoryNames          RepositoryNameList `json:"repositoryNames" xml:"repositoryNames"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+RepositoryNames RepositoryNameList `json:"repositoryNames" xml:"repositoryNames"`
 }
 
 type BatchDisassociateApprovalRuleTemplateFromRepositoriesOutput struct {
-	DisassociatedRepositoryNames RepositoryNameList                                              `json:"disassociatedRepositoryNames" xml:"disassociatedRepositoryNames"`
-	Errors                       BatchDisassociateApprovalRuleTemplateFromRepositoriesErrorsList `json:"errors" xml:"errors"`
+DisassociatedRepositoryNames RepositoryNameList `json:"disassociatedRepositoryNames" xml:"disassociatedRepositoryNames"`
+Errors BatchDisassociateApprovalRuleTemplateFromRepositoriesErrorsList `json:"errors" xml:"errors"`
 }
 
 type BatchGetCommitsError struct {
-	CommitId     string `json:"commitId" xml:"commitId"`
-	ErrorCode    string `json:"errorCode" xml:"errorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+CommitId string `json:"commitId" xml:"commitId"`
+ErrorCode string `json:"errorCode" xml:"errorCode"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
 }
 
 type BatchGetCommitsInput struct {
-	CommitIds      CommitIdsInputList `json:"commitIds" xml:"commitIds"`
-	RepositoryName string             `json:"repositoryName" xml:"repositoryName"`
+CommitIds CommitIdsInputList `json:"commitIds" xml:"commitIds"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type BatchGetCommitsOutput struct {
-	Commits CommitObjectsList         `json:"commits" xml:"commits"`
-	Errors  BatchGetCommitsErrorsList `json:"errors" xml:"errors"`
+Commits CommitObjectsList `json:"commits" xml:"commits"`
+Errors BatchGetCommitsErrorsList `json:"errors" xml:"errors"`
 }
 
 type BatchGetRepositoriesError struct {
-	ErrorCode      string `json:"errorCode" xml:"errorCode"`
-	ErrorMessage   string `json:"errorMessage" xml:"errorMessage"`
-	RepositoryId   string `json:"repositoryId" xml:"repositoryId"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+ErrorCode string `json:"errorCode" xml:"errorCode"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+RepositoryId string `json:"repositoryId" xml:"repositoryId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type BatchGetRepositoriesInput struct {
-	RepositoryNames RepositoryNameList `json:"repositoryNames" xml:"repositoryNames"`
+RepositoryNames RepositoryNameList `json:"repositoryNames" xml:"repositoryNames"`
 }
 
 type BatchGetRepositoriesOutput struct {
-	Errors               BatchGetRepositoriesErrorsList `json:"errors" xml:"errors"`
-	Repositories         RepositoryMetadataList         `json:"repositories" xml:"repositories"`
-	RepositoriesNotFound RepositoryNotFoundList         `json:"repositoriesNotFound" xml:"repositoriesNotFound"`
+Errors BatchGetRepositoriesErrorsList `json:"errors" xml:"errors"`
+Repositories RepositoryMetadataList `json:"repositories" xml:"repositories"`
+RepositoriesNotFound RepositoryNotFoundList `json:"repositoriesNotFound" xml:"repositoriesNotFound"`
 }
 
 type BlobMetadata struct {
-	BlobId string `json:"blobId" xml:"blobId"`
-	Mode   string `json:"mode" xml:"mode"`
-	Path   string `json:"path" xml:"path"`
+BlobId string `json:"blobId" xml:"blobId"`
+Mode string `json:"mode" xml:"mode"`
+Path string `json:"path" xml:"path"`
 }
 
 type BranchInfo struct {
-	BranchName string `json:"branchName" xml:"branchName"`
-	CommitId   string `json:"commitId" xml:"commitId"`
+BranchName string `json:"branchName" xml:"branchName"`
+CommitId string `json:"commitId" xml:"commitId"`
 }
 
 type Comment struct {
-	AuthorArn          string            `json:"authorArn" xml:"authorArn"`
-	CallerReactions    CallerReactions   `json:"callerReactions" xml:"callerReactions"`
-	ClientRequestToken string            `json:"clientRequestToken" xml:"clientRequestToken"`
-	CommentId          string            `json:"commentId" xml:"commentId"`
-	Content            string            `json:"content" xml:"content"`
-	CreationDate       time.Time         `json:"creationDate" xml:"creationDate"`
-	Deleted            bool              `json:"deleted" xml:"deleted"`
-	InReplyTo          string            `json:"inReplyTo" xml:"inReplyTo"`
-	LastModifiedDate   time.Time         `json:"lastModifiedDate" xml:"lastModifiedDate"`
-	ReactionCounts     ReactionCountsMap `json:"reactionCounts" xml:"reactionCounts"`
+AuthorArn string `json:"authorArn" xml:"authorArn"`
+CallerReactions CallerReactions `json:"callerReactions" xml:"callerReactions"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+CommentId string `json:"commentId" xml:"commentId"`
+Content string `json:"content" xml:"content"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+Deleted bool `json:"deleted" xml:"deleted"`
+InReplyTo string `json:"inReplyTo" xml:"inReplyTo"`
+LastModifiedDate time.Time `json:"lastModifiedDate" xml:"lastModifiedDate"`
+ReactionCounts ReactionCountsMap `json:"reactionCounts" xml:"reactionCounts"`
 }
 
 type CommentsForComparedCommit struct {
-	AfterBlobId    string    `json:"afterBlobId" xml:"afterBlobId"`
-	AfterCommitId  string    `json:"afterCommitId" xml:"afterCommitId"`
-	BeforeBlobId   string    `json:"beforeBlobId" xml:"beforeBlobId"`
-	BeforeCommitId string    `json:"beforeCommitId" xml:"beforeCommitId"`
-	Comments       Comments  `json:"comments" xml:"comments"`
-	Location       *Location `json:"location" xml:"location"`
-	RepositoryName string    `json:"repositoryName" xml:"repositoryName"`
+AfterBlobId string `json:"afterBlobId" xml:"afterBlobId"`
+AfterCommitId string `json:"afterCommitId" xml:"afterCommitId"`
+BeforeBlobId string `json:"beforeBlobId" xml:"beforeBlobId"`
+BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
+Comments Comments `json:"comments" xml:"comments"`
+Location *Location `json:"location" xml:"location"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type CommentsForPullRequest struct {
-	AfterBlobId    string    `json:"afterBlobId" xml:"afterBlobId"`
-	AfterCommitId  string    `json:"afterCommitId" xml:"afterCommitId"`
-	BeforeBlobId   string    `json:"beforeBlobId" xml:"beforeBlobId"`
-	BeforeCommitId string    `json:"beforeCommitId" xml:"beforeCommitId"`
-	Comments       Comments  `json:"comments" xml:"comments"`
-	Location       *Location `json:"location" xml:"location"`
-	PullRequestId  string    `json:"pullRequestId" xml:"pullRequestId"`
-	RepositoryName string    `json:"repositoryName" xml:"repositoryName"`
+AfterBlobId string `json:"afterBlobId" xml:"afterBlobId"`
+AfterCommitId string `json:"afterCommitId" xml:"afterCommitId"`
+BeforeBlobId string `json:"beforeBlobId" xml:"beforeBlobId"`
+BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
+Comments Comments `json:"comments" xml:"comments"`
+Location *Location `json:"location" xml:"location"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type Commit struct {
-	AdditionalData string     `json:"additionalData" xml:"additionalData"`
-	Author         *UserInfo  `json:"author" xml:"author"`
-	CommitId       string     `json:"commitId" xml:"commitId"`
-	Committer      *UserInfo  `json:"committer" xml:"committer"`
-	Message        string     `json:"message" xml:"message"`
-	Parents        ParentList `json:"parents" xml:"parents"`
-	TreeId         string     `json:"treeId" xml:"treeId"`
+AdditionalData string `json:"additionalData" xml:"additionalData"`
+Author *UserInfo `json:"author" xml:"author"`
+CommitId string `json:"commitId" xml:"commitId"`
+Committer *UserInfo `json:"committer" xml:"committer"`
+Message string `json:"message" xml:"message"`
+Parents ParentList `json:"parents" xml:"parents"`
+TreeId string `json:"treeId" xml:"treeId"`
 }
 
 type Conflict struct {
-	ConflictMetadata *ConflictMetadata `json:"conflictMetadata" xml:"conflictMetadata"`
-	MergeHunks       MergeHunks        `json:"mergeHunks" xml:"mergeHunks"`
+ConflictMetadata *ConflictMetadata `json:"conflictMetadata" xml:"conflictMetadata"`
+MergeHunks MergeHunks `json:"mergeHunks" xml:"mergeHunks"`
 }
 
 type ConflictMetadata struct {
-	ContentConflict    bool             `json:"contentConflict" xml:"contentConflict"`
-	FileModeConflict   bool             `json:"fileModeConflict" xml:"fileModeConflict"`
-	FileModes          *FileModes       `json:"fileModes" xml:"fileModes"`
-	FilePath           string           `json:"filePath" xml:"filePath"`
-	FileSizes          *FileSizes       `json:"fileSizes" xml:"fileSizes"`
-	IsBinaryFile       *IsBinaryFile    `json:"isBinaryFile" xml:"isBinaryFile"`
-	MergeOperations    *MergeOperations `json:"mergeOperations" xml:"mergeOperations"`
-	NumberOfConflicts  int32            `json:"numberOfConflicts" xml:"numberOfConflicts"`
-	ObjectTypeConflict bool             `json:"objectTypeConflict" xml:"objectTypeConflict"`
-	ObjectTypes        *ObjectTypes     `json:"objectTypes" xml:"objectTypes"`
+ContentConflict bool `json:"contentConflict" xml:"contentConflict"`
+FileModeConflict bool `json:"fileModeConflict" xml:"fileModeConflict"`
+FileModes *FileModes `json:"fileModes" xml:"fileModes"`
+FilePath string `json:"filePath" xml:"filePath"`
+FileSizes *FileSizes `json:"fileSizes" xml:"fileSizes"`
+IsBinaryFile *IsBinaryFile `json:"isBinaryFile" xml:"isBinaryFile"`
+MergeOperations *MergeOperations `json:"mergeOperations" xml:"mergeOperations"`
+NumberOfConflicts int32 `json:"numberOfConflicts" xml:"numberOfConflicts"`
+ObjectTypeConflict bool `json:"objectTypeConflict" xml:"objectTypeConflict"`
+ObjectTypes *ObjectTypes `json:"objectTypes" xml:"objectTypes"`
 }
 
 type ConflictResolution struct {
-	DeleteFiles     DeleteFileEntries     `json:"deleteFiles" xml:"deleteFiles"`
-	ReplaceContents ReplaceContentEntries `json:"replaceContents" xml:"replaceContents"`
-	SetFileModes    SetFileModeEntries    `json:"setFileModes" xml:"setFileModes"`
+DeleteFiles DeleteFileEntries `json:"deleteFiles" xml:"deleteFiles"`
+ReplaceContents ReplaceContentEntries `json:"replaceContents" xml:"replaceContents"`
+SetFileModes SetFileModeEntries `json:"setFileModes" xml:"setFileModes"`
 }
 
 type CreateApprovalRuleTemplateInput struct {
-	ApprovalRuleTemplateContent     string `json:"approvalRuleTemplateContent" xml:"approvalRuleTemplateContent"`
-	ApprovalRuleTemplateDescription string `json:"approvalRuleTemplateDescription" xml:"approvalRuleTemplateDescription"`
-	ApprovalRuleTemplateName        string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+ApprovalRuleTemplateContent string `json:"approvalRuleTemplateContent" xml:"approvalRuleTemplateContent"`
+ApprovalRuleTemplateDescription string `json:"approvalRuleTemplateDescription" xml:"approvalRuleTemplateDescription"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
 }
 
 type CreateApprovalRuleTemplateOutput struct {
-	ApprovalRuleTemplate *ApprovalRuleTemplate `json:"approvalRuleTemplate" xml:"approvalRuleTemplate"`
+ApprovalRuleTemplate *ApprovalRuleTemplate `json:"approvalRuleTemplate" xml:"approvalRuleTemplate"`
 }
 
 type CreateBranchInput struct {
-	BranchName     string `json:"branchName" xml:"branchName"`
-	CommitId       string `json:"commitId" xml:"commitId"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+BranchName string `json:"branchName" xml:"branchName"`
+CommitId string `json:"commitId" xml:"commitId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type CreateCommitInput struct {
-	AuthorName       string             `json:"authorName" xml:"authorName"`
-	BranchName       string             `json:"branchName" xml:"branchName"`
-	CommitMessage    string             `json:"commitMessage" xml:"commitMessage"`
-	DeleteFiles      DeleteFileEntries  `json:"deleteFiles" xml:"deleteFiles"`
-	Email            string             `json:"email" xml:"email"`
-	KeepEmptyFolders bool               `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
-	ParentCommitId   string             `json:"parentCommitId" xml:"parentCommitId"`
-	PutFiles         PutFileEntries     `json:"putFiles" xml:"putFiles"`
-	RepositoryName   string             `json:"repositoryName" xml:"repositoryName"`
-	SetFileModes     SetFileModeEntries `json:"setFileModes" xml:"setFileModes"`
+AuthorName string `json:"authorName" xml:"authorName"`
+BranchName string `json:"branchName" xml:"branchName"`
+CommitMessage string `json:"commitMessage" xml:"commitMessage"`
+DeleteFiles DeleteFileEntries `json:"deleteFiles" xml:"deleteFiles"`
+Email string `json:"email" xml:"email"`
+KeepEmptyFolders bool `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
+ParentCommitId string `json:"parentCommitId" xml:"parentCommitId"`
+PutFiles PutFileEntries `json:"putFiles" xml:"putFiles"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SetFileModes SetFileModeEntries `json:"setFileModes" xml:"setFileModes"`
 }
 
 type CreateCommitOutput struct {
-	CommitId     string        `json:"commitId" xml:"commitId"`
-	FilesAdded   FilesMetadata `json:"filesAdded" xml:"filesAdded"`
-	FilesDeleted FilesMetadata `json:"filesDeleted" xml:"filesDeleted"`
-	FilesUpdated FilesMetadata `json:"filesUpdated" xml:"filesUpdated"`
-	TreeId       string        `json:"treeId" xml:"treeId"`
+CommitId string `json:"commitId" xml:"commitId"`
+FilesAdded FilesMetadata `json:"filesAdded" xml:"filesAdded"`
+FilesDeleted FilesMetadata `json:"filesDeleted" xml:"filesDeleted"`
+FilesUpdated FilesMetadata `json:"filesUpdated" xml:"filesUpdated"`
+TreeId string `json:"treeId" xml:"treeId"`
 }
 
 type CreatePullRequestApprovalRuleInput struct {
-	ApprovalRuleContent string `json:"approvalRuleContent" xml:"approvalRuleContent"`
-	ApprovalRuleName    string `json:"approvalRuleName" xml:"approvalRuleName"`
-	PullRequestId       string `json:"pullRequestId" xml:"pullRequestId"`
+ApprovalRuleContent string `json:"approvalRuleContent" xml:"approvalRuleContent"`
+ApprovalRuleName string `json:"approvalRuleName" xml:"approvalRuleName"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
 }
 
 type CreatePullRequestApprovalRuleOutput struct {
-	ApprovalRule *ApprovalRule `json:"approvalRule" xml:"approvalRule"`
+ApprovalRule *ApprovalRule `json:"approvalRule" xml:"approvalRule"`
 }
 
 type CreatePullRequestInput struct {
-	ClientRequestToken string     `json:"clientRequestToken" xml:"clientRequestToken"`
-	Description        string     `json:"description" xml:"description"`
-	Targets            TargetList `json:"targets" xml:"targets"`
-	Title              string     `json:"title" xml:"title"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+Description string `json:"description" xml:"description"`
+Targets TargetList `json:"targets" xml:"targets"`
+Title string `json:"title" xml:"title"`
 }
 
 type CreatePullRequestOutput struct {
-	PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
+PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
 }
 
 type CreateRepositoryInput struct {
-	KmsKeyId              string  `json:"kmsKeyId" xml:"kmsKeyId"`
-	RepositoryDescription string  `json:"repositoryDescription" xml:"repositoryDescription"`
-	RepositoryName        string  `json:"repositoryName" xml:"repositoryName"`
-	Tags                  TagsMap `json:"tags" xml:"tags"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+RepositoryDescription string `json:"repositoryDescription" xml:"repositoryDescription"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+Tags TagsMap `json:"tags" xml:"tags"`
 }
 
 type CreateRepositoryOutput struct {
-	RepositoryMetadata *RepositoryMetadata `json:"repositoryMetadata" xml:"repositoryMetadata"`
+RepositoryMetadata *RepositoryMetadata `json:"repositoryMetadata" xml:"repositoryMetadata"`
 }
 
 type CreateUnreferencedMergeCommitInput struct {
-	AuthorName                 string              `json:"authorName" xml:"authorName"`
-	CommitMessage              string              `json:"commitMessage" xml:"commitMessage"`
-	ConflictDetailLevel        string              `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
-	ConflictResolution         *ConflictResolution `json:"conflictResolution" xml:"conflictResolution"`
-	ConflictResolutionStrategy string              `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
-	DestinationCommitSpecifier string              `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
-	Email                      string              `json:"email" xml:"email"`
-	KeepEmptyFolders           bool                `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
-	MergeOption                string              `json:"mergeOption" xml:"mergeOption"`
-	RepositoryName             string              `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitSpecifier      string              `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
+AuthorName string `json:"authorName" xml:"authorName"`
+CommitMessage string `json:"commitMessage" xml:"commitMessage"`
+ConflictDetailLevel string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
+ConflictResolution *ConflictResolution `json:"conflictResolution" xml:"conflictResolution"`
+ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
+DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
+Email string `json:"email" xml:"email"`
+KeepEmptyFolders bool `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
+MergeOption string `json:"mergeOption" xml:"mergeOption"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitSpecifier string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
 }
 
 type CreateUnreferencedMergeCommitOutput struct {
-	CommitId string `json:"commitId" xml:"commitId"`
-	TreeId   string `json:"treeId" xml:"treeId"`
+CommitId string `json:"commitId" xml:"commitId"`
+TreeId string `json:"treeId" xml:"treeId"`
 }
 
 type DeleteApprovalRuleTemplateInput struct {
-	ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
 }
 
 type DeleteApprovalRuleTemplateOutput struct {
-	ApprovalRuleTemplateId string `json:"approvalRuleTemplateId" xml:"approvalRuleTemplateId"`
+ApprovalRuleTemplateId string `json:"approvalRuleTemplateId" xml:"approvalRuleTemplateId"`
 }
 
 type DeleteBranchInput struct {
-	BranchName     string `json:"branchName" xml:"branchName"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+BranchName string `json:"branchName" xml:"branchName"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type DeleteBranchOutput struct {
-	DeletedBranch *BranchInfo `json:"deletedBranch" xml:"deletedBranch"`
+DeletedBranch *BranchInfo `json:"deletedBranch" xml:"deletedBranch"`
 }
 
 type DeleteCommentContentInput struct {
-	CommentId string `json:"commentId" xml:"commentId"`
+CommentId string `json:"commentId" xml:"commentId"`
 }
 
 type DeleteCommentContentOutput struct {
-	Comment *Comment `json:"comment" xml:"comment"`
+Comment *Comment `json:"comment" xml:"comment"`
 }
 
 type DeleteFileEntry struct {
-	FilePath string `json:"filePath" xml:"filePath"`
+FilePath string `json:"filePath" xml:"filePath"`
 }
 
 type DeleteFileInput struct {
-	BranchName       string `json:"branchName" xml:"branchName"`
-	CommitMessage    string `json:"commitMessage" xml:"commitMessage"`
-	Email            string `json:"email" xml:"email"`
-	FilePath         string `json:"filePath" xml:"filePath"`
-	KeepEmptyFolders bool   `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
-	Name             string `json:"name" xml:"name"`
-	ParentCommitId   string `json:"parentCommitId" xml:"parentCommitId"`
-	RepositoryName   string `json:"repositoryName" xml:"repositoryName"`
+BranchName string `json:"branchName" xml:"branchName"`
+CommitMessage string `json:"commitMessage" xml:"commitMessage"`
+Email string `json:"email" xml:"email"`
+FilePath string `json:"filePath" xml:"filePath"`
+KeepEmptyFolders bool `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
+Name string `json:"name" xml:"name"`
+ParentCommitId string `json:"parentCommitId" xml:"parentCommitId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type DeleteFileOutput struct {
-	BlobId   string `json:"blobId" xml:"blobId"`
-	CommitId string `json:"commitId" xml:"commitId"`
-	FilePath string `json:"filePath" xml:"filePath"`
-	TreeId   string `json:"treeId" xml:"treeId"`
+BlobId string `json:"blobId" xml:"blobId"`
+CommitId string `json:"commitId" xml:"commitId"`
+FilePath string `json:"filePath" xml:"filePath"`
+TreeId string `json:"treeId" xml:"treeId"`
 }
 
 type DeletePullRequestApprovalRuleInput struct {
-	ApprovalRuleName string `json:"approvalRuleName" xml:"approvalRuleName"`
-	PullRequestId    string `json:"pullRequestId" xml:"pullRequestId"`
+ApprovalRuleName string `json:"approvalRuleName" xml:"approvalRuleName"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
 }
 
 type DeletePullRequestApprovalRuleOutput struct {
-	ApprovalRuleId string `json:"approvalRuleId" xml:"approvalRuleId"`
+ApprovalRuleId string `json:"approvalRuleId" xml:"approvalRuleId"`
 }
 
 type DeleteRepositoryInput struct {
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type DeleteRepositoryOutput struct {
-	RepositoryId string `json:"repositoryId" xml:"repositoryId"`
+RepositoryId string `json:"repositoryId" xml:"repositoryId"`
 }
 
 type DescribeMergeConflictsInput struct {
-	ConflictDetailLevel        string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
-	ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
-	DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
-	FilePath                   string `json:"filePath" xml:"filePath"`
-	MaxMergeHunks              int32  `json:"maxMergeHunks" xml:"maxMergeHunks"`
-	MergeOption                string `json:"mergeOption" xml:"mergeOption"`
-	NextToken                  string `json:"nextToken" xml:"nextToken"`
-	RepositoryName             string `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitSpecifier      string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
+ConflictDetailLevel string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
+ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
+DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
+FilePath string `json:"filePath" xml:"filePath"`
+MaxMergeHunks int32 `json:"maxMergeHunks" xml:"maxMergeHunks"`
+MergeOption string `json:"mergeOption" xml:"mergeOption"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitSpecifier string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
 }
 
 type DescribeMergeConflictsOutput struct {
-	BaseCommitId        string            `json:"baseCommitId" xml:"baseCommitId"`
-	ConflictMetadata    *ConflictMetadata `json:"conflictMetadata" xml:"conflictMetadata"`
-	DestinationCommitId string            `json:"destinationCommitId" xml:"destinationCommitId"`
-	MergeHunks          MergeHunks        `json:"mergeHunks" xml:"mergeHunks"`
-	NextToken           string            `json:"nextToken" xml:"nextToken"`
-	SourceCommitId      string            `json:"sourceCommitId" xml:"sourceCommitId"`
+BaseCommitId string `json:"baseCommitId" xml:"baseCommitId"`
+ConflictMetadata *ConflictMetadata `json:"conflictMetadata" xml:"conflictMetadata"`
+DestinationCommitId string `json:"destinationCommitId" xml:"destinationCommitId"`
+MergeHunks MergeHunks `json:"mergeHunks" xml:"mergeHunks"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SourceCommitId string `json:"sourceCommitId" xml:"sourceCommitId"`
 }
 
 type DescribePullRequestEventsInput struct {
-	ActorArn             string `json:"actorArn" xml:"actorArn"`
-	MaxResults           int32  `json:"maxResults" xml:"maxResults"`
-	NextToken            string `json:"nextToken" xml:"nextToken"`
-	PullRequestEventType string `json:"pullRequestEventType" xml:"pullRequestEventType"`
-	PullRequestId        string `json:"pullRequestId" xml:"pullRequestId"`
+ActorArn string `json:"actorArn" xml:"actorArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PullRequestEventType string `json:"pullRequestEventType" xml:"pullRequestEventType"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
 }
 
 type DescribePullRequestEventsOutput struct {
-	NextToken         string               `json:"nextToken" xml:"nextToken"`
-	PullRequestEvents PullRequestEventList `json:"pullRequestEvents" xml:"pullRequestEvents"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PullRequestEvents PullRequestEventList `json:"pullRequestEvents" xml:"pullRequestEvents"`
 }
 
 type Difference struct {
-	AfterBlob  *BlobMetadata `json:"afterBlob" xml:"afterBlob"`
-	BeforeBlob *BlobMetadata `json:"beforeBlob" xml:"beforeBlob"`
-	ChangeType string        `json:"changeType" xml:"changeType"`
+AfterBlob *BlobMetadata `json:"afterBlob" xml:"afterBlob"`
+BeforeBlob *BlobMetadata `json:"beforeBlob" xml:"beforeBlob"`
+ChangeType string `json:"changeType" xml:"changeType"`
 }
 
 type DisassociateApprovalRuleTemplateFromRepositoryInput struct {
-	ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
-	RepositoryName           string `json:"repositoryName" xml:"repositoryName"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type EvaluatePullRequestApprovalRulesInput struct {
-	PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
-	RevisionId    string `json:"revisionId" xml:"revisionId"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
 }
 
 type EvaluatePullRequestApprovalRulesOutput struct {
-	Evaluation *Evaluation `json:"evaluation" xml:"evaluation"`
+Evaluation *Evaluation `json:"evaluation" xml:"evaluation"`
 }
 
 type Evaluation struct {
-	ApprovalRulesNotSatisfied ApprovalRulesNotSatisfiedList `json:"approvalRulesNotSatisfied" xml:"approvalRulesNotSatisfied"`
-	ApprovalRulesSatisfied    ApprovalRulesSatisfiedList    `json:"approvalRulesSatisfied" xml:"approvalRulesSatisfied"`
-	Approved                  bool                          `json:"approved" xml:"approved"`
-	Overridden                bool                          `json:"overridden" xml:"overridden"`
+ApprovalRulesNotSatisfied ApprovalRulesNotSatisfiedList `json:"approvalRulesNotSatisfied" xml:"approvalRulesNotSatisfied"`
+ApprovalRulesSatisfied ApprovalRulesSatisfiedList `json:"approvalRulesSatisfied" xml:"approvalRulesSatisfied"`
+Approved bool `json:"approved" xml:"approved"`
+Overridden bool `json:"overridden" xml:"overridden"`
 }
 
 type File struct {
-	AbsolutePath string `json:"absolutePath" xml:"absolutePath"`
-	BlobId       string `json:"blobId" xml:"blobId"`
-	FileMode     string `json:"fileMode" xml:"fileMode"`
-	RelativePath string `json:"relativePath" xml:"relativePath"`
+AbsolutePath string `json:"absolutePath" xml:"absolutePath"`
+BlobId string `json:"blobId" xml:"blobId"`
+FileMode string `json:"fileMode" xml:"fileMode"`
+RelativePath string `json:"relativePath" xml:"relativePath"`
 }
 
 type FileMetadata struct {
-	AbsolutePath string `json:"absolutePath" xml:"absolutePath"`
-	BlobId       string `json:"blobId" xml:"blobId"`
-	FileMode     string `json:"fileMode" xml:"fileMode"`
+AbsolutePath string `json:"absolutePath" xml:"absolutePath"`
+BlobId string `json:"blobId" xml:"blobId"`
+FileMode string `json:"fileMode" xml:"fileMode"`
 }
 
 type FileModes struct {
-	Base        string `json:"base" xml:"base"`
-	Destination string `json:"destination" xml:"destination"`
-	Source      string `json:"source" xml:"source"`
+Base string `json:"base" xml:"base"`
+Destination string `json:"destination" xml:"destination"`
+Source string `json:"source" xml:"source"`
 }
 
 type FileSizes struct {
-	Base        int64 `json:"base" xml:"base"`
-	Destination int64 `json:"destination" xml:"destination"`
-	Source      int64 `json:"source" xml:"source"`
+Base int64 `json:"base" xml:"base"`
+Destination int64 `json:"destination" xml:"destination"`
+Source int64 `json:"source" xml:"source"`
 }
 
 type FileVersion struct {
-	BlobId           string           `json:"blobId" xml:"blobId"`
-	Commit           *Commit          `json:"commit" xml:"commit"`
-	Path             string           `json:"path" xml:"path"`
-	RevisionChildren RevisionChildren `json:"revisionChildren" xml:"revisionChildren"`
+BlobId string `json:"blobId" xml:"blobId"`
+Commit *Commit `json:"commit" xml:"commit"`
+Path string `json:"path" xml:"path"`
+RevisionChildren RevisionChildren `json:"revisionChildren" xml:"revisionChildren"`
 }
 
 type Folder struct {
-	AbsolutePath string `json:"absolutePath" xml:"absolutePath"`
-	RelativePath string `json:"relativePath" xml:"relativePath"`
-	TreeId       string `json:"treeId" xml:"treeId"`
+AbsolutePath string `json:"absolutePath" xml:"absolutePath"`
+RelativePath string `json:"relativePath" xml:"relativePath"`
+TreeId string `json:"treeId" xml:"treeId"`
 }
 
 type GetApprovalRuleTemplateInput struct {
-	ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
 }
 
 type GetApprovalRuleTemplateOutput struct {
-	ApprovalRuleTemplate *ApprovalRuleTemplate `json:"approvalRuleTemplate" xml:"approvalRuleTemplate"`
+ApprovalRuleTemplate *ApprovalRuleTemplate `json:"approvalRuleTemplate" xml:"approvalRuleTemplate"`
 }
 
 type GetBlobInput struct {
-	BlobId         string `json:"blobId" xml:"blobId"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+BlobId string `json:"blobId" xml:"blobId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type GetBlobOutput struct {
-	Content []byte `json:"content" xml:"content"`
+Content []byte `json:"content" xml:"content"`
 }
 
 type GetBranchInput struct {
-	BranchName     string `json:"branchName" xml:"branchName"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+BranchName string `json:"branchName" xml:"branchName"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type GetBranchOutput struct {
-	Branch *BranchInfo `json:"branch" xml:"branch"`
+Branch *BranchInfo `json:"branch" xml:"branch"`
 }
 
 type GetCommentInput struct {
-	CommentId string `json:"commentId" xml:"commentId"`
+CommentId string `json:"commentId" xml:"commentId"`
 }
 
 type GetCommentOutput struct {
-	Comment *Comment `json:"comment" xml:"comment"`
+Comment *Comment `json:"comment" xml:"comment"`
 }
 
 type GetCommentReactionsInput struct {
-	CommentId       string `json:"commentId" xml:"commentId"`
-	MaxResults      int32  `json:"maxResults" xml:"maxResults"`
-	NextToken       string `json:"nextToken" xml:"nextToken"`
-	ReactionUserArn string `json:"reactionUserArn" xml:"reactionUserArn"`
+CommentId string `json:"commentId" xml:"commentId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ReactionUserArn string `json:"reactionUserArn" xml:"reactionUserArn"`
 }
 
 type GetCommentReactionsOutput struct {
-	NextToken           string                  `json:"nextToken" xml:"nextToken"`
-	ReactionsForComment ReactionsForCommentList `json:"reactionsForComment" xml:"reactionsForComment"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ReactionsForComment ReactionsForCommentList `json:"reactionsForComment" xml:"reactionsForComment"`
 }
 
 type GetCommentsForComparedCommitInput struct {
-	AfterCommitId  string `json:"afterCommitId" xml:"afterCommitId"`
-	BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
-	MaxResults     int32  `json:"maxResults" xml:"maxResults"`
-	NextToken      string `json:"nextToken" xml:"nextToken"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+AfterCommitId string `json:"afterCommitId" xml:"afterCommitId"`
+BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type GetCommentsForComparedCommitOutput struct {
-	CommentsForComparedCommitData CommentsForComparedCommitData `json:"commentsForComparedCommitData" xml:"commentsForComparedCommitData"`
-	NextToken                     string                        `json:"nextToken" xml:"nextToken"`
+CommentsForComparedCommitData CommentsForComparedCommitData `json:"commentsForComparedCommitData" xml:"commentsForComparedCommitData"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type GetCommentsForPullRequestInput struct {
-	AfterCommitId  string `json:"afterCommitId" xml:"afterCommitId"`
-	BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
-	MaxResults     int32  `json:"maxResults" xml:"maxResults"`
-	NextToken      string `json:"nextToken" xml:"nextToken"`
-	PullRequestId  string `json:"pullRequestId" xml:"pullRequestId"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+AfterCommitId string `json:"afterCommitId" xml:"afterCommitId"`
+BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type GetCommentsForPullRequestOutput struct {
-	CommentsForPullRequestData CommentsForPullRequestData `json:"commentsForPullRequestData" xml:"commentsForPullRequestData"`
-	NextToken                  string                     `json:"nextToken" xml:"nextToken"`
+CommentsForPullRequestData CommentsForPullRequestData `json:"commentsForPullRequestData" xml:"commentsForPullRequestData"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type GetCommitInput struct {
-	CommitId       string `json:"commitId" xml:"commitId"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+CommitId string `json:"commitId" xml:"commitId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type GetCommitOutput struct {
-	Commit *Commit `json:"commit" xml:"commit"`
+Commit *Commit `json:"commit" xml:"commit"`
 }
 
 type GetDifferencesInput struct {
-	MaxResults            int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken             string `json:"nextToken" xml:"NextToken"`
-	AfterCommitSpecifier  string `json:"afterCommitSpecifier" xml:"afterCommitSpecifier"`
-	AfterPath             string `json:"afterPath" xml:"afterPath"`
-	BeforeCommitSpecifier string `json:"beforeCommitSpecifier" xml:"beforeCommitSpecifier"`
-	BeforePath            string `json:"beforePath" xml:"beforePath"`
-	RepositoryName        string `json:"repositoryName" xml:"repositoryName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+AfterCommitSpecifier string `json:"afterCommitSpecifier" xml:"afterCommitSpecifier"`
+AfterPath string `json:"afterPath" xml:"afterPath"`
+BeforeCommitSpecifier string `json:"beforeCommitSpecifier" xml:"beforeCommitSpecifier"`
+BeforePath string `json:"beforePath" xml:"beforePath"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type GetDifferencesOutput struct {
-	NextToken   string         `json:"nextToken" xml:"NextToken"`
-	Differences DifferenceList `json:"differences" xml:"differences"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Differences DifferenceList `json:"differences" xml:"differences"`
 }
 
 type GetFileInput struct {
-	CommitSpecifier string `json:"commitSpecifier" xml:"commitSpecifier"`
-	FilePath        string `json:"filePath" xml:"filePath"`
-	RepositoryName  string `json:"repositoryName" xml:"repositoryName"`
+CommitSpecifier string `json:"commitSpecifier" xml:"commitSpecifier"`
+FilePath string `json:"filePath" xml:"filePath"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type GetFileOutput struct {
-	BlobId      string `json:"blobId" xml:"blobId"`
-	CommitId    string `json:"commitId" xml:"commitId"`
-	FileContent []byte `json:"fileContent" xml:"fileContent"`
-	FileMode    string `json:"fileMode" xml:"fileMode"`
-	FilePath    string `json:"filePath" xml:"filePath"`
-	FileSize    int64  `json:"fileSize" xml:"fileSize"`
+BlobId string `json:"blobId" xml:"blobId"`
+CommitId string `json:"commitId" xml:"commitId"`
+FileContent []byte `json:"fileContent" xml:"fileContent"`
+FileMode string `json:"fileMode" xml:"fileMode"`
+FilePath string `json:"filePath" xml:"filePath"`
+FileSize int64 `json:"fileSize" xml:"fileSize"`
 }
 
 type GetFolderInput struct {
-	CommitSpecifier string `json:"commitSpecifier" xml:"commitSpecifier"`
-	FolderPath      string `json:"folderPath" xml:"folderPath"`
-	RepositoryName  string `json:"repositoryName" xml:"repositoryName"`
+CommitSpecifier string `json:"commitSpecifier" xml:"commitSpecifier"`
+FolderPath string `json:"folderPath" xml:"folderPath"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type GetFolderOutput struct {
-	CommitId      string           `json:"commitId" xml:"commitId"`
-	Files         FileList         `json:"files" xml:"files"`
-	FolderPath    string           `json:"folderPath" xml:"folderPath"`
-	SubFolders    FolderList       `json:"subFolders" xml:"subFolders"`
-	SubModules    SubModuleList    `json:"subModules" xml:"subModules"`
-	SymbolicLinks SymbolicLinkList `json:"symbolicLinks" xml:"symbolicLinks"`
-	TreeId        string           `json:"treeId" xml:"treeId"`
+CommitId string `json:"commitId" xml:"commitId"`
+Files FileList `json:"files" xml:"files"`
+FolderPath string `json:"folderPath" xml:"folderPath"`
+SubFolders FolderList `json:"subFolders" xml:"subFolders"`
+SubModules SubModuleList `json:"subModules" xml:"subModules"`
+SymbolicLinks SymbolicLinkList `json:"symbolicLinks" xml:"symbolicLinks"`
+TreeId string `json:"treeId" xml:"treeId"`
 }
 
 type GetMergeCommitInput struct {
-	ConflictDetailLevel        string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
-	ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
-	DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
-	RepositoryName             string `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitSpecifier      string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
+ConflictDetailLevel string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
+ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
+DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitSpecifier string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
 }
 
 type GetMergeCommitOutput struct {
-	BaseCommitId        string `json:"baseCommitId" xml:"baseCommitId"`
-	DestinationCommitId string `json:"destinationCommitId" xml:"destinationCommitId"`
-	MergedCommitId      string `json:"mergedCommitId" xml:"mergedCommitId"`
-	SourceCommitId      string `json:"sourceCommitId" xml:"sourceCommitId"`
+BaseCommitId string `json:"baseCommitId" xml:"baseCommitId"`
+DestinationCommitId string `json:"destinationCommitId" xml:"destinationCommitId"`
+MergedCommitId string `json:"mergedCommitId" xml:"mergedCommitId"`
+SourceCommitId string `json:"sourceCommitId" xml:"sourceCommitId"`
 }
 
 type GetMergeConflictsInput struct {
-	ConflictDetailLevel        string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
-	ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
-	DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
-	MaxConflictFiles           int32  `json:"maxConflictFiles" xml:"maxConflictFiles"`
-	MergeOption                string `json:"mergeOption" xml:"mergeOption"`
-	NextToken                  string `json:"nextToken" xml:"nextToken"`
-	RepositoryName             string `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitSpecifier      string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
+ConflictDetailLevel string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
+ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
+DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
+MaxConflictFiles int32 `json:"maxConflictFiles" xml:"maxConflictFiles"`
+MergeOption string `json:"mergeOption" xml:"mergeOption"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitSpecifier string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
 }
 
 type GetMergeConflictsOutput struct {
-	BaseCommitId         string               `json:"baseCommitId" xml:"baseCommitId"`
-	ConflictMetadataList ConflictMetadataList `json:"conflictMetadataList" xml:"conflictMetadataList"`
-	DestinationCommitId  string               `json:"destinationCommitId" xml:"destinationCommitId"`
-	Mergeable            bool                 `json:"mergeable" xml:"mergeable"`
-	NextToken            string               `json:"nextToken" xml:"nextToken"`
-	SourceCommitId       string               `json:"sourceCommitId" xml:"sourceCommitId"`
+BaseCommitId string `json:"baseCommitId" xml:"baseCommitId"`
+ConflictMetadataList ConflictMetadataList `json:"conflictMetadataList" xml:"conflictMetadataList"`
+DestinationCommitId string `json:"destinationCommitId" xml:"destinationCommitId"`
+Mergeable bool `json:"mergeable" xml:"mergeable"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SourceCommitId string `json:"sourceCommitId" xml:"sourceCommitId"`
 }
 
 type GetMergeOptionsInput struct {
-	ConflictDetailLevel        string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
-	ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
-	DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
-	RepositoryName             string `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitSpecifier      string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
+ConflictDetailLevel string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
+ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
+DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitSpecifier string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
 }
 
 type GetMergeOptionsOutput struct {
-	BaseCommitId        string       `json:"baseCommitId" xml:"baseCommitId"`
-	DestinationCommitId string       `json:"destinationCommitId" xml:"destinationCommitId"`
-	MergeOptions        MergeOptions `json:"mergeOptions" xml:"mergeOptions"`
-	SourceCommitId      string       `json:"sourceCommitId" xml:"sourceCommitId"`
+BaseCommitId string `json:"baseCommitId" xml:"baseCommitId"`
+DestinationCommitId string `json:"destinationCommitId" xml:"destinationCommitId"`
+MergeOptions MergeOptions `json:"mergeOptions" xml:"mergeOptions"`
+SourceCommitId string `json:"sourceCommitId" xml:"sourceCommitId"`
 }
 
 type GetPullRequestApprovalStatesInput struct {
-	PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
-	RevisionId    string `json:"revisionId" xml:"revisionId"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
 }
 
 type GetPullRequestApprovalStatesOutput struct {
-	Approvals ApprovalList `json:"approvals" xml:"approvals"`
+Approvals ApprovalList `json:"approvals" xml:"approvals"`
 }
 
 type GetPullRequestInput struct {
-	PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
 }
 
 type GetPullRequestOutput struct {
-	PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
+PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
 }
 
 type GetPullRequestOverrideStateInput struct {
-	PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
-	RevisionId    string `json:"revisionId" xml:"revisionId"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
 }
 
 type GetPullRequestOverrideStateOutput struct {
-	Overridden bool   `json:"overridden" xml:"overridden"`
-	Overrider  string `json:"overrider" xml:"overrider"`
+Overridden bool `json:"overridden" xml:"overridden"`
+Overrider string `json:"overrider" xml:"overrider"`
 }
 
 type GetRepositoryInput struct {
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type GetRepositoryOutput struct {
-	RepositoryMetadata *RepositoryMetadata `json:"repositoryMetadata" xml:"repositoryMetadata"`
+RepositoryMetadata *RepositoryMetadata `json:"repositoryMetadata" xml:"repositoryMetadata"`
 }
 
 type GetRepositoryTriggersInput struct {
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type GetRepositoryTriggersOutput struct {
-	ConfigurationId string                 `json:"configurationId" xml:"configurationId"`
-	Triggers        RepositoryTriggersList `json:"triggers" xml:"triggers"`
+ConfigurationId string `json:"configurationId" xml:"configurationId"`
+Triggers RepositoryTriggersList `json:"triggers" xml:"triggers"`
 }
 
 type IsBinaryFile struct {
-	Base        bool `json:"base" xml:"base"`
-	Destination bool `json:"destination" xml:"destination"`
-	Source      bool `json:"source" xml:"source"`
+Base bool `json:"base" xml:"base"`
+Destination bool `json:"destination" xml:"destination"`
+Source bool `json:"source" xml:"source"`
 }
 
 type ListApprovalRuleTemplatesInput struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListApprovalRuleTemplatesOutput struct {
-	ApprovalRuleTemplateNames ApprovalRuleTemplateNameList `json:"approvalRuleTemplateNames" xml:"approvalRuleTemplateNames"`
-	NextToken                 string                       `json:"nextToken" xml:"nextToken"`
+ApprovalRuleTemplateNames ApprovalRuleTemplateNameList `json:"approvalRuleTemplateNames" xml:"approvalRuleTemplateNames"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListAssociatedApprovalRuleTemplatesForRepositoryInput struct {
-	MaxResults     int32  `json:"maxResults" xml:"maxResults"`
-	NextToken      string `json:"nextToken" xml:"nextToken"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type ListAssociatedApprovalRuleTemplatesForRepositoryOutput struct {
-	ApprovalRuleTemplateNames ApprovalRuleTemplateNameList `json:"approvalRuleTemplateNames" xml:"approvalRuleTemplateNames"`
-	NextToken                 string                       `json:"nextToken" xml:"nextToken"`
+ApprovalRuleTemplateNames ApprovalRuleTemplateNameList `json:"approvalRuleTemplateNames" xml:"approvalRuleTemplateNames"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListBranchesInput struct {
-	NextToken      string `json:"nextToken" xml:"nextToken"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type ListBranchesOutput struct {
-	Branches  BranchNameList `json:"branches" xml:"branches"`
-	NextToken string         `json:"nextToken" xml:"nextToken"`
+Branches BranchNameList `json:"branches" xml:"branches"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListFileCommitHistoryRequest struct {
-	CommitSpecifier string `json:"commitSpecifier" xml:"commitSpecifier"`
-	FilePath        string `json:"filePath" xml:"filePath"`
-	MaxResults      int32  `json:"maxResults" xml:"maxResults"`
-	NextToken       string `json:"nextToken" xml:"nextToken"`
-	RepositoryName  string `json:"repositoryName" xml:"repositoryName"`
+CommitSpecifier string `json:"commitSpecifier" xml:"commitSpecifier"`
+FilePath string `json:"filePath" xml:"filePath"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type ListFileCommitHistoryResponse struct {
-	NextToken   string      `json:"nextToken" xml:"nextToken"`
-	RevisionDag RevisionDag `json:"revisionDag" xml:"revisionDag"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RevisionDag RevisionDag `json:"revisionDag" xml:"revisionDag"`
 }
 
 type ListPullRequestsInput struct {
-	AuthorArn         string `json:"authorArn" xml:"authorArn"`
-	MaxResults        int32  `json:"maxResults" xml:"maxResults"`
-	NextToken         string `json:"nextToken" xml:"nextToken"`
-	PullRequestStatus string `json:"pullRequestStatus" xml:"pullRequestStatus"`
-	RepositoryName    string `json:"repositoryName" xml:"repositoryName"`
+AuthorArn string `json:"authorArn" xml:"authorArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PullRequestStatus string `json:"pullRequestStatus" xml:"pullRequestStatus"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type ListPullRequestsOutput struct {
-	NextToken      string            `json:"nextToken" xml:"nextToken"`
-	PullRequestIds PullRequestIdList `json:"pullRequestIds" xml:"pullRequestIds"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PullRequestIds PullRequestIdList `json:"pullRequestIds" xml:"pullRequestIds"`
 }
 
 type ListRepositoriesForApprovalRuleTemplateInput struct {
-	ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
-	MaxResults               int32  `json:"maxResults" xml:"maxResults"`
-	NextToken                string `json:"nextToken" xml:"nextToken"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListRepositoriesForApprovalRuleTemplateOutput struct {
-	NextToken       string             `json:"nextToken" xml:"nextToken"`
-	RepositoryNames RepositoryNameList `json:"repositoryNames" xml:"repositoryNames"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RepositoryNames RepositoryNameList `json:"repositoryNames" xml:"repositoryNames"`
 }
 
 type ListRepositoriesInput struct {
-	NextToken string `json:"nextToken" xml:"nextToken"`
-	Order     string `json:"order" xml:"order"`
-	SortBy    string `json:"sortBy" xml:"sortBy"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Order string `json:"order" xml:"order"`
+SortBy string `json:"sortBy" xml:"sortBy"`
 }
 
 type ListRepositoriesOutput struct {
-	NextToken    string                   `json:"nextToken" xml:"nextToken"`
-	Repositories RepositoryNameIdPairList `json:"repositories" xml:"repositories"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Repositories RepositoryNameIdPairList `json:"repositories" xml:"repositories"`
 }
 
 type ListTagsForResourceInput struct {
-	NextToken   string `json:"nextToken" xml:"nextToken"`
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type ListTagsForResourceOutput struct {
-	NextToken string  `json:"nextToken" xml:"nextToken"`
-	Tags      TagsMap `json:"tags" xml:"tags"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Tags TagsMap `json:"tags" xml:"tags"`
 }
 
 type Location struct {
-	FilePath            string `json:"filePath" xml:"filePath"`
-	FilePosition        int64  `json:"filePosition" xml:"filePosition"`
-	RelativeFileVersion string `json:"relativeFileVersion" xml:"relativeFileVersion"`
+FilePath string `json:"filePath" xml:"filePath"`
+FilePosition int64 `json:"filePosition" xml:"filePosition"`
+RelativeFileVersion string `json:"relativeFileVersion" xml:"relativeFileVersion"`
 }
 
 type MergeBranchesByFastForwardInput struct {
-	DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
-	RepositoryName             string `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitSpecifier      string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
-	TargetBranch               string `json:"targetBranch" xml:"targetBranch"`
+DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitSpecifier string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
+TargetBranch string `json:"targetBranch" xml:"targetBranch"`
 }
 
 type MergeBranchesByFastForwardOutput struct {
-	CommitId string `json:"commitId" xml:"commitId"`
-	TreeId   string `json:"treeId" xml:"treeId"`
+CommitId string `json:"commitId" xml:"commitId"`
+TreeId string `json:"treeId" xml:"treeId"`
 }
 
 type MergeBranchesBySquashInput struct {
-	AuthorName                 string              `json:"authorName" xml:"authorName"`
-	CommitMessage              string              `json:"commitMessage" xml:"commitMessage"`
-	ConflictDetailLevel        string              `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
-	ConflictResolution         *ConflictResolution `json:"conflictResolution" xml:"conflictResolution"`
-	ConflictResolutionStrategy string              `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
-	DestinationCommitSpecifier string              `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
-	Email                      string              `json:"email" xml:"email"`
-	KeepEmptyFolders           bool                `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
-	RepositoryName             string              `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitSpecifier      string              `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
-	TargetBranch               string              `json:"targetBranch" xml:"targetBranch"`
+AuthorName string `json:"authorName" xml:"authorName"`
+CommitMessage string `json:"commitMessage" xml:"commitMessage"`
+ConflictDetailLevel string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
+ConflictResolution *ConflictResolution `json:"conflictResolution" xml:"conflictResolution"`
+ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
+DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
+Email string `json:"email" xml:"email"`
+KeepEmptyFolders bool `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitSpecifier string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
+TargetBranch string `json:"targetBranch" xml:"targetBranch"`
 }
 
 type MergeBranchesBySquashOutput struct {
-	CommitId string `json:"commitId" xml:"commitId"`
-	TreeId   string `json:"treeId" xml:"treeId"`
+CommitId string `json:"commitId" xml:"commitId"`
+TreeId string `json:"treeId" xml:"treeId"`
 }
 
 type MergeBranchesByThreeWayInput struct {
-	AuthorName                 string              `json:"authorName" xml:"authorName"`
-	CommitMessage              string              `json:"commitMessage" xml:"commitMessage"`
-	ConflictDetailLevel        string              `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
-	ConflictResolution         *ConflictResolution `json:"conflictResolution" xml:"conflictResolution"`
-	ConflictResolutionStrategy string              `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
-	DestinationCommitSpecifier string              `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
-	Email                      string              `json:"email" xml:"email"`
-	KeepEmptyFolders           bool                `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
-	RepositoryName             string              `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitSpecifier      string              `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
-	TargetBranch               string              `json:"targetBranch" xml:"targetBranch"`
+AuthorName string `json:"authorName" xml:"authorName"`
+CommitMessage string `json:"commitMessage" xml:"commitMessage"`
+ConflictDetailLevel string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
+ConflictResolution *ConflictResolution `json:"conflictResolution" xml:"conflictResolution"`
+ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
+DestinationCommitSpecifier string `json:"destinationCommitSpecifier" xml:"destinationCommitSpecifier"`
+Email string `json:"email" xml:"email"`
+KeepEmptyFolders bool `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitSpecifier string `json:"sourceCommitSpecifier" xml:"sourceCommitSpecifier"`
+TargetBranch string `json:"targetBranch" xml:"targetBranch"`
 }
 
 type MergeBranchesByThreeWayOutput struct {
-	CommitId string `json:"commitId" xml:"commitId"`
-	TreeId   string `json:"treeId" xml:"treeId"`
+CommitId string `json:"commitId" xml:"commitId"`
+TreeId string `json:"treeId" xml:"treeId"`
 }
 
 type MergeHunk struct {
-	Base        *MergeHunkDetail `json:"base" xml:"base"`
-	Destination *MergeHunkDetail `json:"destination" xml:"destination"`
-	IsConflict  bool             `json:"isConflict" xml:"isConflict"`
-	Source      *MergeHunkDetail `json:"source" xml:"source"`
+Base *MergeHunkDetail `json:"base" xml:"base"`
+Destination *MergeHunkDetail `json:"destination" xml:"destination"`
+IsConflict bool `json:"isConflict" xml:"isConflict"`
+Source *MergeHunkDetail `json:"source" xml:"source"`
 }
 
 type MergeHunkDetail struct {
-	EndLine     int32  `json:"endLine" xml:"endLine"`
-	HunkContent string `json:"hunkContent" xml:"hunkContent"`
-	StartLine   int32  `json:"startLine" xml:"startLine"`
+EndLine int32 `json:"endLine" xml:"endLine"`
+HunkContent string `json:"hunkContent" xml:"hunkContent"`
+StartLine int32 `json:"startLine" xml:"startLine"`
 }
 
 type MergeMetadata struct {
-	IsMerged      bool   `json:"isMerged" xml:"isMerged"`
-	MergeCommitId string `json:"mergeCommitId" xml:"mergeCommitId"`
-	MergeOption   string `json:"mergeOption" xml:"mergeOption"`
-	MergedBy      string `json:"mergedBy" xml:"mergedBy"`
+IsMerged bool `json:"isMerged" xml:"isMerged"`
+MergeCommitId string `json:"mergeCommitId" xml:"mergeCommitId"`
+MergeOption string `json:"mergeOption" xml:"mergeOption"`
+MergedBy string `json:"mergedBy" xml:"mergedBy"`
 }
 
 type MergeOperations struct {
-	Destination string `json:"destination" xml:"destination"`
-	Source      string `json:"source" xml:"source"`
+Destination string `json:"destination" xml:"destination"`
+Source string `json:"source" xml:"source"`
 }
 
 type MergePullRequestByFastForwardInput struct {
-	PullRequestId  string `json:"pullRequestId" xml:"pullRequestId"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitId string `json:"sourceCommitId" xml:"sourceCommitId"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitId string `json:"sourceCommitId" xml:"sourceCommitId"`
 }
 
 type MergePullRequestByFastForwardOutput struct {
-	PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
+PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
 }
 
 type MergePullRequestBySquashInput struct {
-	AuthorName                 string              `json:"authorName" xml:"authorName"`
-	CommitMessage              string              `json:"commitMessage" xml:"commitMessage"`
-	ConflictDetailLevel        string              `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
-	ConflictResolution         *ConflictResolution `json:"conflictResolution" xml:"conflictResolution"`
-	ConflictResolutionStrategy string              `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
-	Email                      string              `json:"email" xml:"email"`
-	KeepEmptyFolders           bool                `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
-	PullRequestId              string              `json:"pullRequestId" xml:"pullRequestId"`
-	RepositoryName             string              `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitId             string              `json:"sourceCommitId" xml:"sourceCommitId"`
+AuthorName string `json:"authorName" xml:"authorName"`
+CommitMessage string `json:"commitMessage" xml:"commitMessage"`
+ConflictDetailLevel string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
+ConflictResolution *ConflictResolution `json:"conflictResolution" xml:"conflictResolution"`
+ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
+Email string `json:"email" xml:"email"`
+KeepEmptyFolders bool `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitId string `json:"sourceCommitId" xml:"sourceCommitId"`
 }
 
 type MergePullRequestBySquashOutput struct {
-	PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
+PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
 }
 
 type MergePullRequestByThreeWayInput struct {
-	AuthorName                 string              `json:"authorName" xml:"authorName"`
-	CommitMessage              string              `json:"commitMessage" xml:"commitMessage"`
-	ConflictDetailLevel        string              `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
-	ConflictResolution         *ConflictResolution `json:"conflictResolution" xml:"conflictResolution"`
-	ConflictResolutionStrategy string              `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
-	Email                      string              `json:"email" xml:"email"`
-	KeepEmptyFolders           bool                `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
-	PullRequestId              string              `json:"pullRequestId" xml:"pullRequestId"`
-	RepositoryName             string              `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitId             string              `json:"sourceCommitId" xml:"sourceCommitId"`
+AuthorName string `json:"authorName" xml:"authorName"`
+CommitMessage string `json:"commitMessage" xml:"commitMessage"`
+ConflictDetailLevel string `json:"conflictDetailLevel" xml:"conflictDetailLevel"`
+ConflictResolution *ConflictResolution `json:"conflictResolution" xml:"conflictResolution"`
+ConflictResolutionStrategy string `json:"conflictResolutionStrategy" xml:"conflictResolutionStrategy"`
+Email string `json:"email" xml:"email"`
+KeepEmptyFolders bool `json:"keepEmptyFolders" xml:"keepEmptyFolders"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitId string `json:"sourceCommitId" xml:"sourceCommitId"`
 }
 
 type MergePullRequestByThreeWayOutput struct {
-	PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
+PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
 }
 
 type ObjectTypes struct {
-	Base        string `json:"base" xml:"base"`
-	Destination string `json:"destination" xml:"destination"`
-	Source      string `json:"source" xml:"source"`
+Base string `json:"base" xml:"base"`
+Destination string `json:"destination" xml:"destination"`
+Source string `json:"source" xml:"source"`
 }
 
 type OriginApprovalRuleTemplate struct {
-	ApprovalRuleTemplateId   string `json:"approvalRuleTemplateId" xml:"approvalRuleTemplateId"`
-	ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+ApprovalRuleTemplateId string `json:"approvalRuleTemplateId" xml:"approvalRuleTemplateId"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
 }
 
 type OverridePullRequestApprovalRulesInput struct {
-	OverrideStatus string `json:"overrideStatus" xml:"overrideStatus"`
-	PullRequestId  string `json:"pullRequestId" xml:"pullRequestId"`
-	RevisionId     string `json:"revisionId" xml:"revisionId"`
+OverrideStatus string `json:"overrideStatus" xml:"overrideStatus"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
 }
 
 type PostCommentForComparedCommitInput struct {
-	AfterCommitId      string    `json:"afterCommitId" xml:"afterCommitId"`
-	BeforeCommitId     string    `json:"beforeCommitId" xml:"beforeCommitId"`
-	ClientRequestToken string    `json:"clientRequestToken" xml:"clientRequestToken"`
-	Content            string    `json:"content" xml:"content"`
-	Location           *Location `json:"location" xml:"location"`
-	RepositoryName     string    `json:"repositoryName" xml:"repositoryName"`
+AfterCommitId string `json:"afterCommitId" xml:"afterCommitId"`
+BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+Content string `json:"content" xml:"content"`
+Location *Location `json:"location" xml:"location"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type PostCommentForComparedCommitOutput struct {
-	AfterBlobId    string    `json:"afterBlobId" xml:"afterBlobId"`
-	AfterCommitId  string    `json:"afterCommitId" xml:"afterCommitId"`
-	BeforeBlobId   string    `json:"beforeBlobId" xml:"beforeBlobId"`
-	BeforeCommitId string    `json:"beforeCommitId" xml:"beforeCommitId"`
-	Comment        *Comment  `json:"comment" xml:"comment"`
-	Location       *Location `json:"location" xml:"location"`
-	RepositoryName string    `json:"repositoryName" xml:"repositoryName"`
+AfterBlobId string `json:"afterBlobId" xml:"afterBlobId"`
+AfterCommitId string `json:"afterCommitId" xml:"afterCommitId"`
+BeforeBlobId string `json:"beforeBlobId" xml:"beforeBlobId"`
+BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
+Comment *Comment `json:"comment" xml:"comment"`
+Location *Location `json:"location" xml:"location"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type PostCommentForPullRequestInput struct {
-	AfterCommitId      string    `json:"afterCommitId" xml:"afterCommitId"`
-	BeforeCommitId     string    `json:"beforeCommitId" xml:"beforeCommitId"`
-	ClientRequestToken string    `json:"clientRequestToken" xml:"clientRequestToken"`
-	Content            string    `json:"content" xml:"content"`
-	Location           *Location `json:"location" xml:"location"`
-	PullRequestId      string    `json:"pullRequestId" xml:"pullRequestId"`
-	RepositoryName     string    `json:"repositoryName" xml:"repositoryName"`
+AfterCommitId string `json:"afterCommitId" xml:"afterCommitId"`
+BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+Content string `json:"content" xml:"content"`
+Location *Location `json:"location" xml:"location"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type PostCommentForPullRequestOutput struct {
-	AfterBlobId    string    `json:"afterBlobId" xml:"afterBlobId"`
-	AfterCommitId  string    `json:"afterCommitId" xml:"afterCommitId"`
-	BeforeBlobId   string    `json:"beforeBlobId" xml:"beforeBlobId"`
-	BeforeCommitId string    `json:"beforeCommitId" xml:"beforeCommitId"`
-	Comment        *Comment  `json:"comment" xml:"comment"`
-	Location       *Location `json:"location" xml:"location"`
-	PullRequestId  string    `json:"pullRequestId" xml:"pullRequestId"`
-	RepositoryName string    `json:"repositoryName" xml:"repositoryName"`
+AfterBlobId string `json:"afterBlobId" xml:"afterBlobId"`
+AfterCommitId string `json:"afterCommitId" xml:"afterCommitId"`
+BeforeBlobId string `json:"beforeBlobId" xml:"beforeBlobId"`
+BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
+Comment *Comment `json:"comment" xml:"comment"`
+Location *Location `json:"location" xml:"location"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type PostCommentReplyInput struct {
-	ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
-	Content            string `json:"content" xml:"content"`
-	InReplyTo          string `json:"inReplyTo" xml:"inReplyTo"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+Content string `json:"content" xml:"content"`
+InReplyTo string `json:"inReplyTo" xml:"inReplyTo"`
 }
 
 type PostCommentReplyOutput struct {
-	Comment *Comment `json:"comment" xml:"comment"`
+Comment *Comment `json:"comment" xml:"comment"`
 }
 
 type PullRequest struct {
-	ApprovalRules      ApprovalRulesList     `json:"approvalRules" xml:"approvalRules"`
-	AuthorArn          string                `json:"authorArn" xml:"authorArn"`
-	ClientRequestToken string                `json:"clientRequestToken" xml:"clientRequestToken"`
-	CreationDate       time.Time             `json:"creationDate" xml:"creationDate"`
-	Description        string                `json:"description" xml:"description"`
-	LastActivityDate   time.Time             `json:"lastActivityDate" xml:"lastActivityDate"`
-	PullRequestId      string                `json:"pullRequestId" xml:"pullRequestId"`
-	PullRequestStatus  string                `json:"pullRequestStatus" xml:"pullRequestStatus"`
-	PullRequestTargets PullRequestTargetList `json:"pullRequestTargets" xml:"pullRequestTargets"`
-	RevisionId         string                `json:"revisionId" xml:"revisionId"`
-	Title              string                `json:"title" xml:"title"`
+ApprovalRules ApprovalRulesList `json:"approvalRules" xml:"approvalRules"`
+AuthorArn string `json:"authorArn" xml:"authorArn"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+Description string `json:"description" xml:"description"`
+LastActivityDate time.Time `json:"lastActivityDate" xml:"lastActivityDate"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+PullRequestStatus string `json:"pullRequestStatus" xml:"pullRequestStatus"`
+PullRequestTargets PullRequestTargetList `json:"pullRequestTargets" xml:"pullRequestTargets"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
+Title string `json:"title" xml:"title"`
 }
 
 type PullRequestCreatedEventMetadata struct {
-	DestinationCommitId string `json:"destinationCommitId" xml:"destinationCommitId"`
-	MergeBase           string `json:"mergeBase" xml:"mergeBase"`
-	RepositoryName      string `json:"repositoryName" xml:"repositoryName"`
-	SourceCommitId      string `json:"sourceCommitId" xml:"sourceCommitId"`
+DestinationCommitId string `json:"destinationCommitId" xml:"destinationCommitId"`
+MergeBase string `json:"mergeBase" xml:"mergeBase"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommitId string `json:"sourceCommitId" xml:"sourceCommitId"`
 }
 
 type PullRequestEvent struct {
-	ActorArn                                       string                                          `json:"actorArn" xml:"actorArn"`
-	ApprovalRuleEventMetadata                      *ApprovalRuleEventMetadata                      `json:"approvalRuleEventMetadata" xml:"approvalRuleEventMetadata"`
-	ApprovalRuleOverriddenEventMetadata            *ApprovalRuleOverriddenEventMetadata            `json:"approvalRuleOverriddenEventMetadata" xml:"approvalRuleOverriddenEventMetadata"`
-	ApprovalStateChangedEventMetadata              *ApprovalStateChangedEventMetadata              `json:"approvalStateChangedEventMetadata" xml:"approvalStateChangedEventMetadata"`
-	EventDate                                      time.Time                                       `json:"eventDate" xml:"eventDate"`
-	PullRequestCreatedEventMetadata                *PullRequestCreatedEventMetadata                `json:"pullRequestCreatedEventMetadata" xml:"pullRequestCreatedEventMetadata"`
-	PullRequestEventType                           string                                          `json:"pullRequestEventType" xml:"pullRequestEventType"`
-	PullRequestId                                  string                                          `json:"pullRequestId" xml:"pullRequestId"`
-	PullRequestMergedStateChangedEventMetadata     *PullRequestMergedStateChangedEventMetadata     `json:"pullRequestMergedStateChangedEventMetadata" xml:"pullRequestMergedStateChangedEventMetadata"`
-	PullRequestSourceReferenceUpdatedEventMetadata *PullRequestSourceReferenceUpdatedEventMetadata `json:"pullRequestSourceReferenceUpdatedEventMetadata" xml:"pullRequestSourceReferenceUpdatedEventMetadata"`
-	PullRequestStatusChangedEventMetadata          *PullRequestStatusChangedEventMetadata          `json:"pullRequestStatusChangedEventMetadata" xml:"pullRequestStatusChangedEventMetadata"`
+ActorArn string `json:"actorArn" xml:"actorArn"`
+ApprovalRuleEventMetadata *ApprovalRuleEventMetadata `json:"approvalRuleEventMetadata" xml:"approvalRuleEventMetadata"`
+ApprovalRuleOverriddenEventMetadata *ApprovalRuleOverriddenEventMetadata `json:"approvalRuleOverriddenEventMetadata" xml:"approvalRuleOverriddenEventMetadata"`
+ApprovalStateChangedEventMetadata *ApprovalStateChangedEventMetadata `json:"approvalStateChangedEventMetadata" xml:"approvalStateChangedEventMetadata"`
+EventDate time.Time `json:"eventDate" xml:"eventDate"`
+PullRequestCreatedEventMetadata *PullRequestCreatedEventMetadata `json:"pullRequestCreatedEventMetadata" xml:"pullRequestCreatedEventMetadata"`
+PullRequestEventType string `json:"pullRequestEventType" xml:"pullRequestEventType"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+PullRequestMergedStateChangedEventMetadata *PullRequestMergedStateChangedEventMetadata `json:"pullRequestMergedStateChangedEventMetadata" xml:"pullRequestMergedStateChangedEventMetadata"`
+PullRequestSourceReferenceUpdatedEventMetadata *PullRequestSourceReferenceUpdatedEventMetadata `json:"pullRequestSourceReferenceUpdatedEventMetadata" xml:"pullRequestSourceReferenceUpdatedEventMetadata"`
+PullRequestStatusChangedEventMetadata *PullRequestStatusChangedEventMetadata `json:"pullRequestStatusChangedEventMetadata" xml:"pullRequestStatusChangedEventMetadata"`
 }
 
 type PullRequestMergedStateChangedEventMetadata struct {
-	DestinationReference string         `json:"destinationReference" xml:"destinationReference"`
-	MergeMetadata        *MergeMetadata `json:"mergeMetadata" xml:"mergeMetadata"`
-	RepositoryName       string         `json:"repositoryName" xml:"repositoryName"`
+DestinationReference string `json:"destinationReference" xml:"destinationReference"`
+MergeMetadata *MergeMetadata `json:"mergeMetadata" xml:"mergeMetadata"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type PullRequestSourceReferenceUpdatedEventMetadata struct {
-	AfterCommitId  string `json:"afterCommitId" xml:"afterCommitId"`
-	BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
-	MergeBase      string `json:"mergeBase" xml:"mergeBase"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+AfterCommitId string `json:"afterCommitId" xml:"afterCommitId"`
+BeforeCommitId string `json:"beforeCommitId" xml:"beforeCommitId"`
+MergeBase string `json:"mergeBase" xml:"mergeBase"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type PullRequestStatusChangedEventMetadata struct {
-	PullRequestStatus string `json:"pullRequestStatus" xml:"pullRequestStatus"`
+PullRequestStatus string `json:"pullRequestStatus" xml:"pullRequestStatus"`
 }
 
 type PullRequestTarget struct {
-	DestinationCommit    string         `json:"destinationCommit" xml:"destinationCommit"`
-	DestinationReference string         `json:"destinationReference" xml:"destinationReference"`
-	MergeBase            string         `json:"mergeBase" xml:"mergeBase"`
-	MergeMetadata        *MergeMetadata `json:"mergeMetadata" xml:"mergeMetadata"`
-	RepositoryName       string         `json:"repositoryName" xml:"repositoryName"`
-	SourceCommit         string         `json:"sourceCommit" xml:"sourceCommit"`
-	SourceReference      string         `json:"sourceReference" xml:"sourceReference"`
+DestinationCommit string `json:"destinationCommit" xml:"destinationCommit"`
+DestinationReference string `json:"destinationReference" xml:"destinationReference"`
+MergeBase string `json:"mergeBase" xml:"mergeBase"`
+MergeMetadata *MergeMetadata `json:"mergeMetadata" xml:"mergeMetadata"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceCommit string `json:"sourceCommit" xml:"sourceCommit"`
+SourceReference string `json:"sourceReference" xml:"sourceReference"`
 }
 
 type PutCommentReactionInput struct {
-	CommentId     string `json:"commentId" xml:"commentId"`
-	ReactionValue string `json:"reactionValue" xml:"reactionValue"`
+CommentId string `json:"commentId" xml:"commentId"`
+ReactionValue string `json:"reactionValue" xml:"reactionValue"`
 }
 
 type PutFileEntry struct {
-	FileContent []byte               `json:"fileContent" xml:"fileContent"`
-	FileMode    string               `json:"fileMode" xml:"fileMode"`
-	FilePath    string               `json:"filePath" xml:"filePath"`
-	SourceFile  *SourceFileSpecifier `json:"sourceFile" xml:"sourceFile"`
+FileContent []byte `json:"fileContent" xml:"fileContent"`
+FileMode string `json:"fileMode" xml:"fileMode"`
+FilePath string `json:"filePath" xml:"filePath"`
+SourceFile *SourceFileSpecifier `json:"sourceFile" xml:"sourceFile"`
 }
 
 type PutFileInput struct {
-	BranchName     string `json:"branchName" xml:"branchName"`
-	CommitMessage  string `json:"commitMessage" xml:"commitMessage"`
-	Email          string `json:"email" xml:"email"`
-	FileContent    []byte `json:"fileContent" xml:"fileContent"`
-	FileMode       string `json:"fileMode" xml:"fileMode"`
-	FilePath       string `json:"filePath" xml:"filePath"`
-	Name           string `json:"name" xml:"name"`
-	ParentCommitId string `json:"parentCommitId" xml:"parentCommitId"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+BranchName string `json:"branchName" xml:"branchName"`
+CommitMessage string `json:"commitMessage" xml:"commitMessage"`
+Email string `json:"email" xml:"email"`
+FileContent []byte `json:"fileContent" xml:"fileContent"`
+FileMode string `json:"fileMode" xml:"fileMode"`
+FilePath string `json:"filePath" xml:"filePath"`
+Name string `json:"name" xml:"name"`
+ParentCommitId string `json:"parentCommitId" xml:"parentCommitId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type PutFileOutput struct {
-	BlobId   string `json:"blobId" xml:"blobId"`
-	CommitId string `json:"commitId" xml:"commitId"`
-	TreeId   string `json:"treeId" xml:"treeId"`
+BlobId string `json:"blobId" xml:"blobId"`
+CommitId string `json:"commitId" xml:"commitId"`
+TreeId string `json:"treeId" xml:"treeId"`
 }
 
 type PutRepositoryTriggersInput struct {
-	RepositoryName string                 `json:"repositoryName" xml:"repositoryName"`
-	Triggers       RepositoryTriggersList `json:"triggers" xml:"triggers"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+Triggers RepositoryTriggersList `json:"triggers" xml:"triggers"`
 }
 
 type PutRepositoryTriggersOutput struct {
-	ConfigurationId string `json:"configurationId" xml:"configurationId"`
+ConfigurationId string `json:"configurationId" xml:"configurationId"`
 }
 
 type ReactionForComment struct {
-	Reaction                       *ReactionValueFormats `json:"reaction" xml:"reaction"`
-	ReactionUsers                  ReactionUsersList     `json:"reactionUsers" xml:"reactionUsers"`
-	ReactionsFromDeletedUsersCount int32                 `json:"reactionsFromDeletedUsersCount" xml:"reactionsFromDeletedUsersCount"`
+Reaction *ReactionValueFormats `json:"reaction" xml:"reaction"`
+ReactionUsers ReactionUsersList `json:"reactionUsers" xml:"reactionUsers"`
+ReactionsFromDeletedUsersCount int32 `json:"reactionsFromDeletedUsersCount" xml:"reactionsFromDeletedUsersCount"`
 }
 
 type ReactionValueFormats struct {
-	Emoji     string `json:"emoji" xml:"emoji"`
-	ShortCode string `json:"shortCode" xml:"shortCode"`
-	Unicode   string `json:"unicode" xml:"unicode"`
+Emoji string `json:"emoji" xml:"emoji"`
+ShortCode string `json:"shortCode" xml:"shortCode"`
+Unicode string `json:"unicode" xml:"unicode"`
 }
 
 type ReplaceContentEntry struct {
-	Content         []byte `json:"content" xml:"content"`
-	FileMode        string `json:"fileMode" xml:"fileMode"`
-	FilePath        string `json:"filePath" xml:"filePath"`
-	ReplacementType string `json:"replacementType" xml:"replacementType"`
+Content []byte `json:"content" xml:"content"`
+FileMode string `json:"fileMode" xml:"fileMode"`
+FilePath string `json:"filePath" xml:"filePath"`
+ReplacementType string `json:"replacementType" xml:"replacementType"`
 }
 
 type RepositoryMetadata struct {
-	Arn                   string    `json:"arn" xml:"Arn"`
-	AccountId             string    `json:"accountId" xml:"accountId"`
-	CloneUrlHttp          string    `json:"cloneUrlHttp" xml:"cloneUrlHttp"`
-	CloneUrlSsh           string    `json:"cloneUrlSsh" xml:"cloneUrlSsh"`
-	CreationDate          time.Time `json:"creationDate" xml:"creationDate"`
-	DefaultBranch         string    `json:"defaultBranch" xml:"defaultBranch"`
-	KmsKeyId              string    `json:"kmsKeyId" xml:"kmsKeyId"`
-	LastModifiedDate      time.Time `json:"lastModifiedDate" xml:"lastModifiedDate"`
-	RepositoryDescription string    `json:"repositoryDescription" xml:"repositoryDescription"`
-	RepositoryId          string    `json:"repositoryId" xml:"repositoryId"`
-	RepositoryName        string    `json:"repositoryName" xml:"repositoryName"`
+Arn string `json:"arn" xml:"Arn"`
+AccountId string `json:"accountId" xml:"accountId"`
+CloneUrlHttp string `json:"cloneUrlHttp" xml:"cloneUrlHttp"`
+CloneUrlSsh string `json:"cloneUrlSsh" xml:"cloneUrlSsh"`
+CreationDate time.Time `json:"creationDate" xml:"creationDate"`
+DefaultBranch string `json:"defaultBranch" xml:"defaultBranch"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LastModifiedDate time.Time `json:"lastModifiedDate" xml:"lastModifiedDate"`
+RepositoryDescription string `json:"repositoryDescription" xml:"repositoryDescription"`
+RepositoryId string `json:"repositoryId" xml:"repositoryId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type RepositoryNameIdPair struct {
-	RepositoryId   string `json:"repositoryId" xml:"repositoryId"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+RepositoryId string `json:"repositoryId" xml:"repositoryId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type RepositoryTrigger struct {
-	Branches       BranchNameList             `json:"branches" xml:"branches"`
-	CustomData     string                     `json:"customData" xml:"customData"`
-	DestinationArn string                     `json:"destinationArn" xml:"destinationArn"`
-	Events         RepositoryTriggerEventList `json:"events" xml:"events"`
-	Name           string                     `json:"name" xml:"name"`
+Branches BranchNameList `json:"branches" xml:"branches"`
+CustomData string `json:"customData" xml:"customData"`
+DestinationArn string `json:"destinationArn" xml:"destinationArn"`
+Events RepositoryTriggerEventList `json:"events" xml:"events"`
+Name string `json:"name" xml:"name"`
 }
 
 type RepositoryTriggerExecutionFailure struct {
-	FailureMessage string `json:"failureMessage" xml:"failureMessage"`
-	Trigger        string `json:"trigger" xml:"trigger"`
+FailureMessage string `json:"failureMessage" xml:"failureMessage"`
+Trigger string `json:"trigger" xml:"trigger"`
 }
 
 type SetFileModeEntry struct {
-	FileMode string `json:"fileMode" xml:"fileMode"`
-	FilePath string `json:"filePath" xml:"filePath"`
+FileMode string `json:"fileMode" xml:"fileMode"`
+FilePath string `json:"filePath" xml:"filePath"`
 }
 
 type SmithyUnit struct {
 }
 
 type SourceFileSpecifier struct {
-	FilePath string `json:"filePath" xml:"filePath"`
-	IsMove   bool   `json:"isMove" xml:"isMove"`
+FilePath string `json:"filePath" xml:"filePath"`
+IsMove bool `json:"isMove" xml:"isMove"`
 }
 
 type SubModule struct {
-	AbsolutePath string `json:"absolutePath" xml:"absolutePath"`
-	CommitId     string `json:"commitId" xml:"commitId"`
-	RelativePath string `json:"relativePath" xml:"relativePath"`
+AbsolutePath string `json:"absolutePath" xml:"absolutePath"`
+CommitId string `json:"commitId" xml:"commitId"`
+RelativePath string `json:"relativePath" xml:"relativePath"`
 }
 
 type SymbolicLink struct {
-	AbsolutePath string `json:"absolutePath" xml:"absolutePath"`
-	BlobId       string `json:"blobId" xml:"blobId"`
-	FileMode     string `json:"fileMode" xml:"fileMode"`
-	RelativePath string `json:"relativePath" xml:"relativePath"`
+AbsolutePath string `json:"absolutePath" xml:"absolutePath"`
+BlobId string `json:"blobId" xml:"blobId"`
+FileMode string `json:"fileMode" xml:"fileMode"`
+RelativePath string `json:"relativePath" xml:"relativePath"`
 }
 
 type TagResourceInput struct {
-	ResourceArn string  `json:"resourceArn" xml:"resourceArn"`
-	Tags        TagsMap `json:"tags" xml:"tags"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+Tags TagsMap `json:"tags" xml:"tags"`
 }
 
 type Target struct {
-	DestinationReference string `json:"destinationReference" xml:"destinationReference"`
-	RepositoryName       string `json:"repositoryName" xml:"repositoryName"`
-	SourceReference      string `json:"sourceReference" xml:"sourceReference"`
+DestinationReference string `json:"destinationReference" xml:"destinationReference"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+SourceReference string `json:"sourceReference" xml:"sourceReference"`
 }
 
 type TestRepositoryTriggersInput struct {
-	RepositoryName string                 `json:"repositoryName" xml:"repositoryName"`
-	Triggers       RepositoryTriggersList `json:"triggers" xml:"triggers"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+Triggers RepositoryTriggersList `json:"triggers" xml:"triggers"`
 }
 
 type TestRepositoryTriggersOutput struct {
-	FailedExecutions     RepositoryTriggerExecutionFailureList `json:"failedExecutions" xml:"failedExecutions"`
-	SuccessfulExecutions RepositoryTriggerNameList             `json:"successfulExecutions" xml:"successfulExecutions"`
+FailedExecutions RepositoryTriggerExecutionFailureList `json:"failedExecutions" xml:"failedExecutions"`
+SuccessfulExecutions RepositoryTriggerNameList `json:"successfulExecutions" xml:"successfulExecutions"`
 }
 
 type UntagResourceInput struct {
-	ResourceArn string      `json:"resourceArn" xml:"resourceArn"`
-	TagKeys     TagKeysList `json:"tagKeys" xml:"tagKeys"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+TagKeys TagKeysList `json:"tagKeys" xml:"tagKeys"`
 }
 
 type UpdateApprovalRuleTemplateContentInput struct {
-	ApprovalRuleTemplateName  string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
-	ExistingRuleContentSha256 string `json:"existingRuleContentSha256" xml:"existingRuleContentSha256"`
-	NewRuleContent            string `json:"newRuleContent" xml:"newRuleContent"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+ExistingRuleContentSha256 string `json:"existingRuleContentSha256" xml:"existingRuleContentSha256"`
+NewRuleContent string `json:"newRuleContent" xml:"newRuleContent"`
 }
 
 type UpdateApprovalRuleTemplateContentOutput struct {
-	ApprovalRuleTemplate *ApprovalRuleTemplate `json:"approvalRuleTemplate" xml:"approvalRuleTemplate"`
+ApprovalRuleTemplate *ApprovalRuleTemplate `json:"approvalRuleTemplate" xml:"approvalRuleTemplate"`
 }
 
 type UpdateApprovalRuleTemplateDescriptionInput struct {
-	ApprovalRuleTemplateDescription string `json:"approvalRuleTemplateDescription" xml:"approvalRuleTemplateDescription"`
-	ApprovalRuleTemplateName        string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
+ApprovalRuleTemplateDescription string `json:"approvalRuleTemplateDescription" xml:"approvalRuleTemplateDescription"`
+ApprovalRuleTemplateName string `json:"approvalRuleTemplateName" xml:"approvalRuleTemplateName"`
 }
 
 type UpdateApprovalRuleTemplateDescriptionOutput struct {
-	ApprovalRuleTemplate *ApprovalRuleTemplate `json:"approvalRuleTemplate" xml:"approvalRuleTemplate"`
+ApprovalRuleTemplate *ApprovalRuleTemplate `json:"approvalRuleTemplate" xml:"approvalRuleTemplate"`
 }
 
 type UpdateApprovalRuleTemplateNameInput struct {
-	NewApprovalRuleTemplateName string `json:"newApprovalRuleTemplateName" xml:"newApprovalRuleTemplateName"`
-	OldApprovalRuleTemplateName string `json:"oldApprovalRuleTemplateName" xml:"oldApprovalRuleTemplateName"`
+NewApprovalRuleTemplateName string `json:"newApprovalRuleTemplateName" xml:"newApprovalRuleTemplateName"`
+OldApprovalRuleTemplateName string `json:"oldApprovalRuleTemplateName" xml:"oldApprovalRuleTemplateName"`
 }
 
 type UpdateApprovalRuleTemplateNameOutput struct {
-	ApprovalRuleTemplate *ApprovalRuleTemplate `json:"approvalRuleTemplate" xml:"approvalRuleTemplate"`
+ApprovalRuleTemplate *ApprovalRuleTemplate `json:"approvalRuleTemplate" xml:"approvalRuleTemplate"`
 }
 
 type UpdateCommentInput struct {
-	CommentId string `json:"commentId" xml:"commentId"`
-	Content   string `json:"content" xml:"content"`
+CommentId string `json:"commentId" xml:"commentId"`
+Content string `json:"content" xml:"content"`
 }
 
 type UpdateCommentOutput struct {
-	Comment *Comment `json:"comment" xml:"comment"`
+Comment *Comment `json:"comment" xml:"comment"`
 }
 
 type UpdateDefaultBranchInput struct {
-	DefaultBranchName string `json:"defaultBranchName" xml:"defaultBranchName"`
-	RepositoryName    string `json:"repositoryName" xml:"repositoryName"`
+DefaultBranchName string `json:"defaultBranchName" xml:"defaultBranchName"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type UpdatePullRequestApprovalRuleContentInput struct {
-	ApprovalRuleName          string `json:"approvalRuleName" xml:"approvalRuleName"`
-	ExistingRuleContentSha256 string `json:"existingRuleContentSha256" xml:"existingRuleContentSha256"`
-	NewRuleContent            string `json:"newRuleContent" xml:"newRuleContent"`
-	PullRequestId             string `json:"pullRequestId" xml:"pullRequestId"`
+ApprovalRuleName string `json:"approvalRuleName" xml:"approvalRuleName"`
+ExistingRuleContentSha256 string `json:"existingRuleContentSha256" xml:"existingRuleContentSha256"`
+NewRuleContent string `json:"newRuleContent" xml:"newRuleContent"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
 }
 
 type UpdatePullRequestApprovalRuleContentOutput struct {
-	ApprovalRule *ApprovalRule `json:"approvalRule" xml:"approvalRule"`
+ApprovalRule *ApprovalRule `json:"approvalRule" xml:"approvalRule"`
 }
 
 type UpdatePullRequestApprovalStateInput struct {
-	ApprovalState string `json:"approvalState" xml:"approvalState"`
-	PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
-	RevisionId    string `json:"revisionId" xml:"revisionId"`
+ApprovalState string `json:"approvalState" xml:"approvalState"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
 }
 
 type UpdatePullRequestDescriptionInput struct {
-	Description   string `json:"description" xml:"description"`
-	PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+Description string `json:"description" xml:"description"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
 }
 
 type UpdatePullRequestDescriptionOutput struct {
-	PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
+PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
 }
 
 type UpdatePullRequestStatusInput struct {
-	PullRequestId     string `json:"pullRequestId" xml:"pullRequestId"`
-	PullRequestStatus string `json:"pullRequestStatus" xml:"pullRequestStatus"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+PullRequestStatus string `json:"pullRequestStatus" xml:"pullRequestStatus"`
 }
 
 type UpdatePullRequestStatusOutput struct {
-	PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
+PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
 }
 
 type UpdatePullRequestTitleInput struct {
-	PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
-	Title         string `json:"title" xml:"title"`
+PullRequestId string `json:"pullRequestId" xml:"pullRequestId"`
+Title string `json:"title" xml:"title"`
 }
 
 type UpdatePullRequestTitleOutput struct {
-	PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
+PullRequest *PullRequest `json:"pullRequest" xml:"pullRequest"`
 }
 
 type UpdateRepositoryDescriptionInput struct {
-	RepositoryDescription string `json:"repositoryDescription" xml:"repositoryDescription"`
-	RepositoryName        string `json:"repositoryName" xml:"repositoryName"`
+RepositoryDescription string `json:"repositoryDescription" xml:"repositoryDescription"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type UpdateRepositoryEncryptionKeyInput struct {
-	KmsKeyId       string `json:"kmsKeyId" xml:"kmsKeyId"`
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type UpdateRepositoryEncryptionKeyOutput struct {
-	KmsKeyId         string `json:"kmsKeyId" xml:"kmsKeyId"`
-	OriginalKmsKeyId string `json:"originalKmsKeyId" xml:"originalKmsKeyId"`
-	RepositoryId     string `json:"repositoryId" xml:"repositoryId"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+OriginalKmsKeyId string `json:"originalKmsKeyId" xml:"originalKmsKeyId"`
+RepositoryId string `json:"repositoryId" xml:"repositoryId"`
 }
 
 type UpdateRepositoryNameInput struct {
-	NewName string `json:"newName" xml:"newName"`
-	OldName string `json:"oldName" xml:"oldName"`
+NewName string `json:"newName" xml:"newName"`
+OldName string `json:"oldName" xml:"oldName"`
 }
 
 type UserInfo struct {
-	Date  string `json:"date" xml:"date"`
-	Email string `json:"email" xml:"email"`
-	Name  string `json:"name" xml:"name"`
+Date string `json:"date" xml:"date"`
+Email string `json:"email" xml:"email"`
+Name string `json:"name" xml:"name"`
 }
 
 type ApprovalList []*Approval
@@ -1406,3 +1406,4 @@ type TargetList []*Target
 type ReactionCountsMap map[string]int32
 
 type TagsMap map[string]string
+

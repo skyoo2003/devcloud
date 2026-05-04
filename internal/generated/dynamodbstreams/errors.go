@@ -88,3 +88,4 @@ func (e *TrimmedDataAccessException) ErrorCode() string {
 func (e *TrimmedDataAccessException) HTTPStatus() int {
 	return 0
 }
+

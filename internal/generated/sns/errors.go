@@ -581,3 +581,4 @@ func (e *VerificationException) ErrorCode() string {
 func (e *VerificationException) HTTPStatus() int {
 	return 0
 }
+

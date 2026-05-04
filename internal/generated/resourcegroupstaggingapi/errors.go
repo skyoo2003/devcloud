@@ -105,3 +105,4 @@ func (e *ThrottledException) ErrorCode() string {
 func (e *ThrottledException) HTTPStatus() int {
 	return 0
 }
+

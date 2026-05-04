@@ -2,949 +2,950 @@
 // SPDX-License-Identifier: Apache-2.0
 package route53resolver
 
+
 type AssociateFirewallRuleGroupRequest struct {
-	CreatorRequestId    string  `json:"creatorRequestId" xml:"CreatorRequestId"`
-	FirewallRuleGroupId string  `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
-	MutationProtection  string  `json:"mutationProtection" xml:"MutationProtection"`
-	Name                string  `json:"name" xml:"Name"`
-	Priority            int32   `json:"priority" xml:"Priority"`
-	Tags                TagList `json:"tags" xml:"Tags"`
-	VpcId               string  `json:"vpcId" xml:"VpcId"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+MutationProtection string `json:"mutationProtection" xml:"MutationProtection"`
+Name string `json:"name" xml:"Name"`
+Priority int32 `json:"priority" xml:"Priority"`
+Tags TagList `json:"tags" xml:"Tags"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type AssociateFirewallRuleGroupResponse struct {
-	FirewallRuleGroupAssociation *FirewallRuleGroupAssociation `json:"firewallRuleGroupAssociation" xml:"FirewallRuleGroupAssociation"`
+FirewallRuleGroupAssociation *FirewallRuleGroupAssociation `json:"firewallRuleGroupAssociation" xml:"FirewallRuleGroupAssociation"`
 }
 
 type AssociateResolverEndpointIpAddressRequest struct {
-	IpAddress          *IpAddressUpdate `json:"ipAddress" xml:"IpAddress"`
-	ResolverEndpointId string           `json:"resolverEndpointId" xml:"ResolverEndpointId"`
+IpAddress *IpAddressUpdate `json:"ipAddress" xml:"IpAddress"`
+ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
 }
 
 type AssociateResolverEndpointIpAddressResponse struct {
-	ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
+ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
 }
 
 type AssociateResolverQueryLogConfigRequest struct {
-	ResolverQueryLogConfigId string `json:"resolverQueryLogConfigId" xml:"ResolverQueryLogConfigId"`
-	ResourceId               string `json:"resourceId" xml:"ResourceId"`
+ResolverQueryLogConfigId string `json:"resolverQueryLogConfigId" xml:"ResolverQueryLogConfigId"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
 }
 
 type AssociateResolverQueryLogConfigResponse struct {
-	ResolverQueryLogConfigAssociation *ResolverQueryLogConfigAssociation `json:"resolverQueryLogConfigAssociation" xml:"ResolverQueryLogConfigAssociation"`
+ResolverQueryLogConfigAssociation *ResolverQueryLogConfigAssociation `json:"resolverQueryLogConfigAssociation" xml:"ResolverQueryLogConfigAssociation"`
 }
 
 type AssociateResolverRuleRequest struct {
-	Name           string `json:"name" xml:"Name"`
-	ResolverRuleId string `json:"resolverRuleId" xml:"ResolverRuleId"`
-	VPCId          string `json:"vPCId" xml:"VPCId"`
+Name string `json:"name" xml:"Name"`
+ResolverRuleId string `json:"resolverRuleId" xml:"ResolverRuleId"`
+VPCId string `json:"vPCId" xml:"VPCId"`
 }
 
 type AssociateResolverRuleResponse struct {
-	ResolverRuleAssociation *ResolverRuleAssociation `json:"resolverRuleAssociation" xml:"ResolverRuleAssociation"`
+ResolverRuleAssociation *ResolverRuleAssociation `json:"resolverRuleAssociation" xml:"ResolverRuleAssociation"`
 }
 
 type CreateFirewallDomainListRequest struct {
-	CreatorRequestId string  `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Name             string  `json:"name" xml:"Name"`
-	Tags             TagList `json:"tags" xml:"Tags"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Name string `json:"name" xml:"Name"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateFirewallDomainListResponse struct {
-	FirewallDomainList *FirewallDomainList `json:"firewallDomainList" xml:"FirewallDomainList"`
+FirewallDomainList *FirewallDomainList `json:"firewallDomainList" xml:"FirewallDomainList"`
 }
 
 type CreateFirewallRuleGroupRequest struct {
-	CreatorRequestId string  `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Name             string  `json:"name" xml:"Name"`
-	Tags             TagList `json:"tags" xml:"Tags"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Name string `json:"name" xml:"Name"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateFirewallRuleGroupResponse struct {
-	FirewallRuleGroup *FirewallRuleGroup `json:"firewallRuleGroup" xml:"FirewallRuleGroup"`
+FirewallRuleGroup *FirewallRuleGroup `json:"firewallRuleGroup" xml:"FirewallRuleGroup"`
 }
 
 type CreateFirewallRuleRequest struct {
-	Action                          string `json:"action" xml:"Action"`
-	BlockOverrideDnsType            string `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
-	BlockOverrideDomain             string `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
-	BlockOverrideTtl                int32  `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
-	BlockResponse                   string `json:"blockResponse" xml:"BlockResponse"`
-	ConfidenceThreshold             string `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
-	CreatorRequestId                string `json:"creatorRequestId" xml:"CreatorRequestId"`
-	DnsThreatProtection             string `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
-	FirewallDomainListId            string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
-	FirewallDomainRedirectionAction string `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
-	FirewallRuleGroupId             string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
-	Name                            string `json:"name" xml:"Name"`
-	Priority                        int32  `json:"priority" xml:"Priority"`
-	Qtype                           string `json:"qtype" xml:"Qtype"`
+Action string `json:"action" xml:"Action"`
+BlockOverrideDnsType string `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
+BlockOverrideDomain string `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
+BlockOverrideTtl int32 `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
+BlockResponse string `json:"blockResponse" xml:"BlockResponse"`
+ConfidenceThreshold string `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+DnsThreatProtection string `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
+FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+FirewallDomainRedirectionAction string `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
+FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+Name string `json:"name" xml:"Name"`
+Priority int32 `json:"priority" xml:"Priority"`
+Qtype string `json:"qtype" xml:"Qtype"`
 }
 
 type CreateFirewallRuleResponse struct {
-	FirewallRule *FirewallRule `json:"firewallRule" xml:"FirewallRule"`
+FirewallRule *FirewallRule `json:"firewallRule" xml:"FirewallRule"`
 }
 
 type CreateOutpostResolverRequest struct {
-	CreatorRequestId      string  `json:"creatorRequestId" xml:"CreatorRequestId"`
-	InstanceCount         int32   `json:"instanceCount" xml:"InstanceCount"`
-	Name                  string  `json:"name" xml:"Name"`
-	OutpostArn            string  `json:"outpostArn" xml:"OutpostArn"`
-	PreferredInstanceType string  `json:"preferredInstanceType" xml:"PreferredInstanceType"`
-	Tags                  TagList `json:"tags" xml:"Tags"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+Name string `json:"name" xml:"Name"`
+OutpostArn string `json:"outpostArn" xml:"OutpostArn"`
+PreferredInstanceType string `json:"preferredInstanceType" xml:"PreferredInstanceType"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateOutpostResolverResponse struct {
-	OutpostResolver *OutpostResolver `json:"outpostResolver" xml:"OutpostResolver"`
+OutpostResolver *OutpostResolver `json:"outpostResolver" xml:"OutpostResolver"`
 }
 
 type CreateResolverEndpointRequest struct {
-	CreatorRequestId               string             `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Direction                      string             `json:"direction" xml:"Direction"`
-	IpAddresses                    IpAddressesRequest `json:"ipAddresses" xml:"IpAddresses"`
-	Name                           string             `json:"name" xml:"Name"`
-	OutpostArn                     string             `json:"outpostArn" xml:"OutpostArn"`
-	PreferredInstanceType          string             `json:"preferredInstanceType" xml:"PreferredInstanceType"`
-	Protocols                      ProtocolList       `json:"protocols" xml:"Protocols"`
-	ResolverEndpointType           string             `json:"resolverEndpointType" xml:"ResolverEndpointType"`
-	RniEnhancedMetricsEnabled      bool               `json:"rniEnhancedMetricsEnabled" xml:"RniEnhancedMetricsEnabled"`
-	SecurityGroupIds               SecurityGroupIds   `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	Tags                           TagList            `json:"tags" xml:"Tags"`
-	TargetNameServerMetricsEnabled bool               `json:"targetNameServerMetricsEnabled" xml:"TargetNameServerMetricsEnabled"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Direction string `json:"direction" xml:"Direction"`
+IpAddresses IpAddressesRequest `json:"ipAddresses" xml:"IpAddresses"`
+Name string `json:"name" xml:"Name"`
+OutpostArn string `json:"outpostArn" xml:"OutpostArn"`
+PreferredInstanceType string `json:"preferredInstanceType" xml:"PreferredInstanceType"`
+Protocols ProtocolList `json:"protocols" xml:"Protocols"`
+ResolverEndpointType string `json:"resolverEndpointType" xml:"ResolverEndpointType"`
+RniEnhancedMetricsEnabled bool `json:"rniEnhancedMetricsEnabled" xml:"RniEnhancedMetricsEnabled"`
+SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
+Tags TagList `json:"tags" xml:"Tags"`
+TargetNameServerMetricsEnabled bool `json:"targetNameServerMetricsEnabled" xml:"TargetNameServerMetricsEnabled"`
 }
 
 type CreateResolverEndpointResponse struct {
-	ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
+ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
 }
 
 type CreateResolverQueryLogConfigRequest struct {
-	CreatorRequestId string  `json:"creatorRequestId" xml:"CreatorRequestId"`
-	DestinationArn   string  `json:"destinationArn" xml:"DestinationArn"`
-	Name             string  `json:"name" xml:"Name"`
-	Tags             TagList `json:"tags" xml:"Tags"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+DestinationArn string `json:"destinationArn" xml:"DestinationArn"`
+Name string `json:"name" xml:"Name"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateResolverQueryLogConfigResponse struct {
-	ResolverQueryLogConfig *ResolverQueryLogConfig `json:"resolverQueryLogConfig" xml:"ResolverQueryLogConfig"`
+ResolverQueryLogConfig *ResolverQueryLogConfig `json:"resolverQueryLogConfig" xml:"ResolverQueryLogConfig"`
 }
 
 type CreateResolverRuleRequest struct {
-	CreatorRequestId   string     `json:"creatorRequestId" xml:"CreatorRequestId"`
-	DelegationRecord   string     `json:"delegationRecord" xml:"DelegationRecord"`
-	DomainName         string     `json:"domainName" xml:"DomainName"`
-	Name               string     `json:"name" xml:"Name"`
-	ResolverEndpointId string     `json:"resolverEndpointId" xml:"ResolverEndpointId"`
-	RuleType           string     `json:"ruleType" xml:"RuleType"`
-	Tags               TagList    `json:"tags" xml:"Tags"`
-	TargetIps          TargetList `json:"targetIps" xml:"TargetIps"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+DelegationRecord string `json:"delegationRecord" xml:"DelegationRecord"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Name string `json:"name" xml:"Name"`
+ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
+RuleType string `json:"ruleType" xml:"RuleType"`
+Tags TagList `json:"tags" xml:"Tags"`
+TargetIps TargetList `json:"targetIps" xml:"TargetIps"`
 }
 
 type CreateResolverRuleResponse struct {
-	ResolverRule *ResolverRule `json:"resolverRule" xml:"ResolverRule"`
+ResolverRule *ResolverRule `json:"resolverRule" xml:"ResolverRule"`
 }
 
 type DeleteFirewallDomainListRequest struct {
-	FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
 }
 
 type DeleteFirewallDomainListResponse struct {
-	FirewallDomainList *FirewallDomainList `json:"firewallDomainList" xml:"FirewallDomainList"`
+FirewallDomainList *FirewallDomainList `json:"firewallDomainList" xml:"FirewallDomainList"`
 }
 
 type DeleteFirewallRuleGroupRequest struct {
-	FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
 }
 
 type DeleteFirewallRuleGroupResponse struct {
-	FirewallRuleGroup *FirewallRuleGroup `json:"firewallRuleGroup" xml:"FirewallRuleGroup"`
+FirewallRuleGroup *FirewallRuleGroup `json:"firewallRuleGroup" xml:"FirewallRuleGroup"`
 }
 
 type DeleteFirewallRuleRequest struct {
-	FirewallDomainListId       string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
-	FirewallRuleGroupId        string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
-	FirewallThreatProtectionId string `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
-	Qtype                      string `json:"qtype" xml:"Qtype"`
+FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+FirewallThreatProtectionId string `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
+Qtype string `json:"qtype" xml:"Qtype"`
 }
 
 type DeleteFirewallRuleResponse struct {
-	FirewallRule *FirewallRule `json:"firewallRule" xml:"FirewallRule"`
+FirewallRule *FirewallRule `json:"firewallRule" xml:"FirewallRule"`
 }
 
 type DeleteOutpostResolverRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type DeleteOutpostResolverResponse struct {
-	OutpostResolver *OutpostResolver `json:"outpostResolver" xml:"OutpostResolver"`
+OutpostResolver *OutpostResolver `json:"outpostResolver" xml:"OutpostResolver"`
 }
 
 type DeleteResolverEndpointRequest struct {
-	ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
+ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
 }
 
 type DeleteResolverEndpointResponse struct {
-	ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
+ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
 }
 
 type DeleteResolverQueryLogConfigRequest struct {
-	ResolverQueryLogConfigId string `json:"resolverQueryLogConfigId" xml:"ResolverQueryLogConfigId"`
+ResolverQueryLogConfigId string `json:"resolverQueryLogConfigId" xml:"ResolverQueryLogConfigId"`
 }
 
 type DeleteResolverQueryLogConfigResponse struct {
-	ResolverQueryLogConfig *ResolverQueryLogConfig `json:"resolverQueryLogConfig" xml:"ResolverQueryLogConfig"`
+ResolverQueryLogConfig *ResolverQueryLogConfig `json:"resolverQueryLogConfig" xml:"ResolverQueryLogConfig"`
 }
 
 type DeleteResolverRuleRequest struct {
-	ResolverRuleId string `json:"resolverRuleId" xml:"ResolverRuleId"`
+ResolverRuleId string `json:"resolverRuleId" xml:"ResolverRuleId"`
 }
 
 type DeleteResolverRuleResponse struct {
-	ResolverRule *ResolverRule `json:"resolverRule" xml:"ResolverRule"`
+ResolverRule *ResolverRule `json:"resolverRule" xml:"ResolverRule"`
 }
 
 type DisassociateFirewallRuleGroupRequest struct {
-	FirewallRuleGroupAssociationId string `json:"firewallRuleGroupAssociationId" xml:"FirewallRuleGroupAssociationId"`
+FirewallRuleGroupAssociationId string `json:"firewallRuleGroupAssociationId" xml:"FirewallRuleGroupAssociationId"`
 }
 
 type DisassociateFirewallRuleGroupResponse struct {
-	FirewallRuleGroupAssociation *FirewallRuleGroupAssociation `json:"firewallRuleGroupAssociation" xml:"FirewallRuleGroupAssociation"`
+FirewallRuleGroupAssociation *FirewallRuleGroupAssociation `json:"firewallRuleGroupAssociation" xml:"FirewallRuleGroupAssociation"`
 }
 
 type DisassociateResolverEndpointIpAddressRequest struct {
-	IpAddress          *IpAddressUpdate `json:"ipAddress" xml:"IpAddress"`
-	ResolverEndpointId string           `json:"resolverEndpointId" xml:"ResolverEndpointId"`
+IpAddress *IpAddressUpdate `json:"ipAddress" xml:"IpAddress"`
+ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
 }
 
 type DisassociateResolverEndpointIpAddressResponse struct {
-	ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
+ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
 }
 
 type DisassociateResolverQueryLogConfigRequest struct {
-	ResolverQueryLogConfigId string `json:"resolverQueryLogConfigId" xml:"ResolverQueryLogConfigId"`
-	ResourceId               string `json:"resourceId" xml:"ResourceId"`
+ResolverQueryLogConfigId string `json:"resolverQueryLogConfigId" xml:"ResolverQueryLogConfigId"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
 }
 
 type DisassociateResolverQueryLogConfigResponse struct {
-	ResolverQueryLogConfigAssociation *ResolverQueryLogConfigAssociation `json:"resolverQueryLogConfigAssociation" xml:"ResolverQueryLogConfigAssociation"`
+ResolverQueryLogConfigAssociation *ResolverQueryLogConfigAssociation `json:"resolverQueryLogConfigAssociation" xml:"ResolverQueryLogConfigAssociation"`
 }
 
 type DisassociateResolverRuleRequest struct {
-	ResolverRuleId string `json:"resolverRuleId" xml:"ResolverRuleId"`
-	VPCId          string `json:"vPCId" xml:"VPCId"`
+ResolverRuleId string `json:"resolverRuleId" xml:"ResolverRuleId"`
+VPCId string `json:"vPCId" xml:"VPCId"`
 }
 
 type DisassociateResolverRuleResponse struct {
-	ResolverRuleAssociation *ResolverRuleAssociation `json:"resolverRuleAssociation" xml:"ResolverRuleAssociation"`
+ResolverRuleAssociation *ResolverRuleAssociation `json:"resolverRuleAssociation" xml:"ResolverRuleAssociation"`
 }
 
 type Filter struct {
-	Name   string       `json:"name" xml:"Name"`
-	Values FilterValues `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values FilterValues `json:"values" xml:"Values"`
 }
 
 type FirewallConfig struct {
-	FirewallFailOpen string `json:"firewallFailOpen" xml:"FirewallFailOpen"`
-	Id               string `json:"id" xml:"Id"`
-	OwnerId          string `json:"ownerId" xml:"OwnerId"`
-	ResourceId       string `json:"resourceId" xml:"ResourceId"`
+FirewallFailOpen string `json:"firewallFailOpen" xml:"FirewallFailOpen"`
+Id string `json:"id" xml:"Id"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
 }
 
 type FirewallDomainList struct {
-	Arn              string `json:"arn" xml:"Arn"`
-	CreationTime     string `json:"creationTime" xml:"CreationTime"`
-	CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
-	DomainCount      int32  `json:"domainCount" xml:"DomainCount"`
-	Id               string `json:"id" xml:"Id"`
-	ManagedOwnerName string `json:"managedOwnerName" xml:"ManagedOwnerName"`
-	ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
-	Name             string `json:"name" xml:"Name"`
-	Status           string `json:"status" xml:"Status"`
-	StatusMessage    string `json:"statusMessage" xml:"StatusMessage"`
+Arn string `json:"arn" xml:"Arn"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+DomainCount int32 `json:"domainCount" xml:"DomainCount"`
+Id string `json:"id" xml:"Id"`
+ManagedOwnerName string `json:"managedOwnerName" xml:"ManagedOwnerName"`
+ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type FirewallDomainListMetadata struct {
-	Arn              string `json:"arn" xml:"Arn"`
-	CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Id               string `json:"id" xml:"Id"`
-	ManagedOwnerName string `json:"managedOwnerName" xml:"ManagedOwnerName"`
-	Name             string `json:"name" xml:"Name"`
+Arn string `json:"arn" xml:"Arn"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Id string `json:"id" xml:"Id"`
+ManagedOwnerName string `json:"managedOwnerName" xml:"ManagedOwnerName"`
+Name string `json:"name" xml:"Name"`
 }
 
 type FirewallRule struct {
-	Action                          string `json:"action" xml:"Action"`
-	BlockOverrideDnsType            string `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
-	BlockOverrideDomain             string `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
-	BlockOverrideTtl                int32  `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
-	BlockResponse                   string `json:"blockResponse" xml:"BlockResponse"`
-	ConfidenceThreshold             string `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
-	CreationTime                    string `json:"creationTime" xml:"CreationTime"`
-	CreatorRequestId                string `json:"creatorRequestId" xml:"CreatorRequestId"`
-	DnsThreatProtection             string `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
-	FirewallDomainListId            string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
-	FirewallDomainRedirectionAction string `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
-	FirewallRuleGroupId             string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
-	FirewallThreatProtectionId      string `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
-	ModificationTime                string `json:"modificationTime" xml:"ModificationTime"`
-	Name                            string `json:"name" xml:"Name"`
-	Priority                        int32  `json:"priority" xml:"Priority"`
-	Qtype                           string `json:"qtype" xml:"Qtype"`
+Action string `json:"action" xml:"Action"`
+BlockOverrideDnsType string `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
+BlockOverrideDomain string `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
+BlockOverrideTtl int32 `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
+BlockResponse string `json:"blockResponse" xml:"BlockResponse"`
+ConfidenceThreshold string `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+DnsThreatProtection string `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
+FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+FirewallDomainRedirectionAction string `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
+FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+FirewallThreatProtectionId string `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
+ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
+Name string `json:"name" xml:"Name"`
+Priority int32 `json:"priority" xml:"Priority"`
+Qtype string `json:"qtype" xml:"Qtype"`
 }
 
 type FirewallRuleGroup struct {
-	Arn              string `json:"arn" xml:"Arn"`
-	CreationTime     string `json:"creationTime" xml:"CreationTime"`
-	CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Id               string `json:"id" xml:"Id"`
-	ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
-	Name             string `json:"name" xml:"Name"`
-	OwnerId          string `json:"ownerId" xml:"OwnerId"`
-	RuleCount        int32  `json:"ruleCount" xml:"RuleCount"`
-	ShareStatus      string `json:"shareStatus" xml:"ShareStatus"`
-	Status           string `json:"status" xml:"Status"`
-	StatusMessage    string `json:"statusMessage" xml:"StatusMessage"`
+Arn string `json:"arn" xml:"Arn"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Id string `json:"id" xml:"Id"`
+ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
+Name string `json:"name" xml:"Name"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+RuleCount int32 `json:"ruleCount" xml:"RuleCount"`
+ShareStatus string `json:"shareStatus" xml:"ShareStatus"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type FirewallRuleGroupAssociation struct {
-	Arn                 string `json:"arn" xml:"Arn"`
-	CreationTime        string `json:"creationTime" xml:"CreationTime"`
-	CreatorRequestId    string `json:"creatorRequestId" xml:"CreatorRequestId"`
-	FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
-	Id                  string `json:"id" xml:"Id"`
-	ManagedOwnerName    string `json:"managedOwnerName" xml:"ManagedOwnerName"`
-	ModificationTime    string `json:"modificationTime" xml:"ModificationTime"`
-	MutationProtection  string `json:"mutationProtection" xml:"MutationProtection"`
-	Name                string `json:"name" xml:"Name"`
-	Priority            int32  `json:"priority" xml:"Priority"`
-	Status              string `json:"status" xml:"Status"`
-	StatusMessage       string `json:"statusMessage" xml:"StatusMessage"`
-	VpcId               string `json:"vpcId" xml:"VpcId"`
+Arn string `json:"arn" xml:"Arn"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+Id string `json:"id" xml:"Id"`
+ManagedOwnerName string `json:"managedOwnerName" xml:"ManagedOwnerName"`
+ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
+MutationProtection string `json:"mutationProtection" xml:"MutationProtection"`
+Name string `json:"name" xml:"Name"`
+Priority int32 `json:"priority" xml:"Priority"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type FirewallRuleGroupMetadata struct {
-	Arn              string `json:"arn" xml:"Arn"`
-	CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Id               string `json:"id" xml:"Id"`
-	Name             string `json:"name" xml:"Name"`
-	OwnerId          string `json:"ownerId" xml:"OwnerId"`
-	ShareStatus      string `json:"shareStatus" xml:"ShareStatus"`
+Arn string `json:"arn" xml:"Arn"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+ShareStatus string `json:"shareStatus" xml:"ShareStatus"`
 }
 
 type GetFirewallConfigRequest struct {
-	ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
 }
 
 type GetFirewallConfigResponse struct {
-	FirewallConfig *FirewallConfig `json:"firewallConfig" xml:"FirewallConfig"`
+FirewallConfig *FirewallConfig `json:"firewallConfig" xml:"FirewallConfig"`
 }
 
 type GetFirewallDomainListRequest struct {
-	FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
 }
 
 type GetFirewallDomainListResponse struct {
-	FirewallDomainList *FirewallDomainList `json:"firewallDomainList" xml:"FirewallDomainList"`
+FirewallDomainList *FirewallDomainList `json:"firewallDomainList" xml:"FirewallDomainList"`
 }
 
 type GetFirewallRuleGroupAssociationRequest struct {
-	FirewallRuleGroupAssociationId string `json:"firewallRuleGroupAssociationId" xml:"FirewallRuleGroupAssociationId"`
+FirewallRuleGroupAssociationId string `json:"firewallRuleGroupAssociationId" xml:"FirewallRuleGroupAssociationId"`
 }
 
 type GetFirewallRuleGroupAssociationResponse struct {
-	FirewallRuleGroupAssociation *FirewallRuleGroupAssociation `json:"firewallRuleGroupAssociation" xml:"FirewallRuleGroupAssociation"`
+FirewallRuleGroupAssociation *FirewallRuleGroupAssociation `json:"firewallRuleGroupAssociation" xml:"FirewallRuleGroupAssociation"`
 }
 
 type GetFirewallRuleGroupPolicyRequest struct {
-	Arn string `json:"arn" xml:"Arn"`
+Arn string `json:"arn" xml:"Arn"`
 }
 
 type GetFirewallRuleGroupPolicyResponse struct {
-	FirewallRuleGroupPolicy string `json:"firewallRuleGroupPolicy" xml:"FirewallRuleGroupPolicy"`
+FirewallRuleGroupPolicy string `json:"firewallRuleGroupPolicy" xml:"FirewallRuleGroupPolicy"`
 }
 
 type GetFirewallRuleGroupRequest struct {
-	FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
 }
 
 type GetFirewallRuleGroupResponse struct {
-	FirewallRuleGroup *FirewallRuleGroup `json:"firewallRuleGroup" xml:"FirewallRuleGroup"`
+FirewallRuleGroup *FirewallRuleGroup `json:"firewallRuleGroup" xml:"FirewallRuleGroup"`
 }
 
 type GetOutpostResolverRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetOutpostResolverResponse struct {
-	OutpostResolver *OutpostResolver `json:"outpostResolver" xml:"OutpostResolver"`
+OutpostResolver *OutpostResolver `json:"outpostResolver" xml:"OutpostResolver"`
 }
 
 type GetResolverConfigRequest struct {
-	ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
 }
 
 type GetResolverConfigResponse struct {
-	ResolverConfig *ResolverConfig `json:"resolverConfig" xml:"ResolverConfig"`
+ResolverConfig *ResolverConfig `json:"resolverConfig" xml:"ResolverConfig"`
 }
 
 type GetResolverDnssecConfigRequest struct {
-	ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
 }
 
 type GetResolverDnssecConfigResponse struct {
-	ResolverDNSSECConfig *ResolverDnssecConfig `json:"resolverDNSSECConfig" xml:"ResolverDNSSECConfig"`
+ResolverDNSSECConfig *ResolverDnssecConfig `json:"resolverDNSSECConfig" xml:"ResolverDNSSECConfig"`
 }
 
 type GetResolverEndpointRequest struct {
-	ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
+ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
 }
 
 type GetResolverEndpointResponse struct {
-	ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
+ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
 }
 
 type GetResolverQueryLogConfigAssociationRequest struct {
-	ResolverQueryLogConfigAssociationId string `json:"resolverQueryLogConfigAssociationId" xml:"ResolverQueryLogConfigAssociationId"`
+ResolverQueryLogConfigAssociationId string `json:"resolverQueryLogConfigAssociationId" xml:"ResolverQueryLogConfigAssociationId"`
 }
 
 type GetResolverQueryLogConfigAssociationResponse struct {
-	ResolverQueryLogConfigAssociation *ResolverQueryLogConfigAssociation `json:"resolverQueryLogConfigAssociation" xml:"ResolverQueryLogConfigAssociation"`
+ResolverQueryLogConfigAssociation *ResolverQueryLogConfigAssociation `json:"resolverQueryLogConfigAssociation" xml:"ResolverQueryLogConfigAssociation"`
 }
 
 type GetResolverQueryLogConfigPolicyRequest struct {
-	Arn string `json:"arn" xml:"Arn"`
+Arn string `json:"arn" xml:"Arn"`
 }
 
 type GetResolverQueryLogConfigPolicyResponse struct {
-	ResolverQueryLogConfigPolicy string `json:"resolverQueryLogConfigPolicy" xml:"ResolverQueryLogConfigPolicy"`
+ResolverQueryLogConfigPolicy string `json:"resolverQueryLogConfigPolicy" xml:"ResolverQueryLogConfigPolicy"`
 }
 
 type GetResolverQueryLogConfigRequest struct {
-	ResolverQueryLogConfigId string `json:"resolverQueryLogConfigId" xml:"ResolverQueryLogConfigId"`
+ResolverQueryLogConfigId string `json:"resolverQueryLogConfigId" xml:"ResolverQueryLogConfigId"`
 }
 
 type GetResolverQueryLogConfigResponse struct {
-	ResolverQueryLogConfig *ResolverQueryLogConfig `json:"resolverQueryLogConfig" xml:"ResolverQueryLogConfig"`
+ResolverQueryLogConfig *ResolverQueryLogConfig `json:"resolverQueryLogConfig" xml:"ResolverQueryLogConfig"`
 }
 
 type GetResolverRuleAssociationRequest struct {
-	ResolverRuleAssociationId string `json:"resolverRuleAssociationId" xml:"ResolverRuleAssociationId"`
+ResolverRuleAssociationId string `json:"resolverRuleAssociationId" xml:"ResolverRuleAssociationId"`
 }
 
 type GetResolverRuleAssociationResponse struct {
-	ResolverRuleAssociation *ResolverRuleAssociation `json:"resolverRuleAssociation" xml:"ResolverRuleAssociation"`
+ResolverRuleAssociation *ResolverRuleAssociation `json:"resolverRuleAssociation" xml:"ResolverRuleAssociation"`
 }
 
 type GetResolverRulePolicyRequest struct {
-	Arn string `json:"arn" xml:"Arn"`
+Arn string `json:"arn" xml:"Arn"`
 }
 
 type GetResolverRulePolicyResponse struct {
-	ResolverRulePolicy string `json:"resolverRulePolicy" xml:"ResolverRulePolicy"`
+ResolverRulePolicy string `json:"resolverRulePolicy" xml:"ResolverRulePolicy"`
 }
 
 type GetResolverRuleRequest struct {
-	ResolverRuleId string `json:"resolverRuleId" xml:"ResolverRuleId"`
+ResolverRuleId string `json:"resolverRuleId" xml:"ResolverRuleId"`
 }
 
 type GetResolverRuleResponse struct {
-	ResolverRule *ResolverRule `json:"resolverRule" xml:"ResolverRule"`
+ResolverRule *ResolverRule `json:"resolverRule" xml:"ResolverRule"`
 }
 
 type ImportFirewallDomainsRequest struct {
-	DomainFileUrl        string `json:"domainFileUrl" xml:"DomainFileUrl"`
-	FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
-	Operation            string `json:"operation" xml:"Operation"`
+DomainFileUrl string `json:"domainFileUrl" xml:"DomainFileUrl"`
+FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+Operation string `json:"operation" xml:"Operation"`
 }
 
 type ImportFirewallDomainsResponse struct {
-	Id            string `json:"id" xml:"Id"`
-	Name          string `json:"name" xml:"Name"`
-	Status        string `json:"status" xml:"Status"`
-	StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type IpAddressRequest struct {
-	Ip       string `json:"ip" xml:"Ip"`
-	Ipv6     string `json:"ipv6" xml:"Ipv6"`
-	SubnetId string `json:"subnetId" xml:"SubnetId"`
+Ip string `json:"ip" xml:"Ip"`
+Ipv6 string `json:"ipv6" xml:"Ipv6"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
 }
 
 type IpAddressResponse struct {
-	CreationTime     string `json:"creationTime" xml:"CreationTime"`
-	Ip               string `json:"ip" xml:"Ip"`
-	IpId             string `json:"ipId" xml:"IpId"`
-	Ipv6             string `json:"ipv6" xml:"Ipv6"`
-	ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
-	Status           string `json:"status" xml:"Status"`
-	StatusMessage    string `json:"statusMessage" xml:"StatusMessage"`
-	SubnetId         string `json:"subnetId" xml:"SubnetId"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+Ip string `json:"ip" xml:"Ip"`
+IpId string `json:"ipId" xml:"IpId"`
+Ipv6 string `json:"ipv6" xml:"Ipv6"`
+ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
 }
 
 type IpAddressUpdate struct {
-	Ip       string `json:"ip" xml:"Ip"`
-	IpId     string `json:"ipId" xml:"IpId"`
-	Ipv6     string `json:"ipv6" xml:"Ipv6"`
-	SubnetId string `json:"subnetId" xml:"SubnetId"`
+Ip string `json:"ip" xml:"Ip"`
+IpId string `json:"ipId" xml:"IpId"`
+Ipv6 string `json:"ipv6" xml:"Ipv6"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
 }
 
 type ListFirewallConfigsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListFirewallConfigsResponse struct {
-	FirewallConfigs FirewallConfigList `json:"firewallConfigs" xml:"FirewallConfigs"`
-	NextToken       string             `json:"nextToken" xml:"NextToken"`
+FirewallConfigs FirewallConfigList `json:"firewallConfigs" xml:"FirewallConfigs"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListFirewallDomainListsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListFirewallDomainListsResponse struct {
-	FirewallDomainLists FirewallDomainListMetadataList `json:"firewallDomainLists" xml:"FirewallDomainLists"`
-	NextToken           string                         `json:"nextToken" xml:"NextToken"`
+FirewallDomainLists FirewallDomainListMetadataList `json:"firewallDomainLists" xml:"FirewallDomainLists"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListFirewallDomainsRequest struct {
-	FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
-	MaxResults           int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken            string `json:"nextToken" xml:"NextToken"`
+FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListFirewallDomainsResponse struct {
-	Domains   FirewallDomains `json:"domains" xml:"Domains"`
-	NextToken string          `json:"nextToken" xml:"NextToken"`
+Domains FirewallDomains `json:"domains" xml:"Domains"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListFirewallRuleGroupAssociationsRequest struct {
-	FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
-	MaxResults          int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken           string `json:"nextToken" xml:"NextToken"`
-	Priority            int32  `json:"priority" xml:"Priority"`
-	Status              string `json:"status" xml:"Status"`
-	VpcId               string `json:"vpcId" xml:"VpcId"`
+FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Priority int32 `json:"priority" xml:"Priority"`
+Status string `json:"status" xml:"Status"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type ListFirewallRuleGroupAssociationsResponse struct {
-	FirewallRuleGroupAssociations FirewallRuleGroupAssociations `json:"firewallRuleGroupAssociations" xml:"FirewallRuleGroupAssociations"`
-	NextToken                     string                        `json:"nextToken" xml:"NextToken"`
+FirewallRuleGroupAssociations FirewallRuleGroupAssociations `json:"firewallRuleGroupAssociations" xml:"FirewallRuleGroupAssociations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListFirewallRuleGroupsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListFirewallRuleGroupsResponse struct {
-	FirewallRuleGroups FirewallRuleGroupMetadataList `json:"firewallRuleGroups" xml:"FirewallRuleGroups"`
-	NextToken          string                        `json:"nextToken" xml:"NextToken"`
+FirewallRuleGroups FirewallRuleGroupMetadataList `json:"firewallRuleGroups" xml:"FirewallRuleGroups"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListFirewallRulesRequest struct {
-	Action              string `json:"action" xml:"Action"`
-	FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
-	MaxResults          int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken           string `json:"nextToken" xml:"NextToken"`
-	Priority            int32  `json:"priority" xml:"Priority"`
+Action string `json:"action" xml:"Action"`
+FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Priority int32 `json:"priority" xml:"Priority"`
 }
 
 type ListFirewallRulesResponse struct {
-	FirewallRules FirewallRules `json:"firewallRules" xml:"FirewallRules"`
-	NextToken     string        `json:"nextToken" xml:"NextToken"`
+FirewallRules FirewallRules `json:"firewallRules" xml:"FirewallRules"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListOutpostResolversRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	OutpostArn string `json:"outpostArn" xml:"OutpostArn"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OutpostArn string `json:"outpostArn" xml:"OutpostArn"`
 }
 
 type ListOutpostResolversResponse struct {
-	NextToken        string              `json:"nextToken" xml:"NextToken"`
-	OutpostResolvers OutpostResolverList `json:"outpostResolvers" xml:"OutpostResolvers"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OutpostResolvers OutpostResolverList `json:"outpostResolvers" xml:"OutpostResolvers"`
 }
 
 type ListResolverConfigsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListResolverConfigsResponse struct {
-	NextToken       string             `json:"nextToken" xml:"NextToken"`
-	ResolverConfigs ResolverConfigList `json:"resolverConfigs" xml:"ResolverConfigs"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResolverConfigs ResolverConfigList `json:"resolverConfigs" xml:"ResolverConfigs"`
 }
 
 type ListResolverDnssecConfigsRequest struct {
-	Filters    Filters `json:"filters" xml:"Filters"`
-	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
+Filters Filters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListResolverDnssecConfigsResponse struct {
-	NextToken             string                   `json:"nextToken" xml:"NextToken"`
-	ResolverDnssecConfigs ResolverDnssecConfigList `json:"resolverDnssecConfigs" xml:"ResolverDnssecConfigs"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResolverDnssecConfigs ResolverDnssecConfigList `json:"resolverDnssecConfigs" xml:"ResolverDnssecConfigs"`
 }
 
 type ListResolverEndpointIpAddressesRequest struct {
-	MaxResults         int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken          string `json:"nextToken" xml:"NextToken"`
-	ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
 }
 
 type ListResolverEndpointIpAddressesResponse struct {
-	IpAddresses IpAddressesResponse `json:"ipAddresses" xml:"IpAddresses"`
-	MaxResults  int32               `json:"maxResults" xml:"MaxResults"`
-	NextToken   string              `json:"nextToken" xml:"NextToken"`
+IpAddresses IpAddressesResponse `json:"ipAddresses" xml:"IpAddresses"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListResolverEndpointsRequest struct {
-	Filters    Filters `json:"filters" xml:"Filters"`
-	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
+Filters Filters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListResolverEndpointsResponse struct {
-	MaxResults        int32             `json:"maxResults" xml:"MaxResults"`
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
-	ResolverEndpoints ResolverEndpoints `json:"resolverEndpoints" xml:"ResolverEndpoints"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResolverEndpoints ResolverEndpoints `json:"resolverEndpoints" xml:"ResolverEndpoints"`
 }
 
 type ListResolverQueryLogConfigAssociationsRequest struct {
-	Filters    Filters `json:"filters" xml:"Filters"`
-	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
-	SortBy     string  `json:"sortBy" xml:"SortBy"`
-	SortOrder  string  `json:"sortOrder" xml:"SortOrder"`
+Filters Filters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SortBy string `json:"sortBy" xml:"SortBy"`
+SortOrder string `json:"sortOrder" xml:"SortOrder"`
 }
 
 type ListResolverQueryLogConfigAssociationsResponse struct {
-	NextToken                          string                                `json:"nextToken" xml:"NextToken"`
-	ResolverQueryLogConfigAssociations ResolverQueryLogConfigAssociationList `json:"resolverQueryLogConfigAssociations" xml:"ResolverQueryLogConfigAssociations"`
-	TotalCount                         int32                                 `json:"totalCount" xml:"TotalCount"`
-	TotalFilteredCount                 int32                                 `json:"totalFilteredCount" xml:"TotalFilteredCount"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResolverQueryLogConfigAssociations ResolverQueryLogConfigAssociationList `json:"resolverQueryLogConfigAssociations" xml:"ResolverQueryLogConfigAssociations"`
+TotalCount int32 `json:"totalCount" xml:"TotalCount"`
+TotalFilteredCount int32 `json:"totalFilteredCount" xml:"TotalFilteredCount"`
 }
 
 type ListResolverQueryLogConfigsRequest struct {
-	Filters    Filters `json:"filters" xml:"Filters"`
-	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
-	SortBy     string  `json:"sortBy" xml:"SortBy"`
-	SortOrder  string  `json:"sortOrder" xml:"SortOrder"`
+Filters Filters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SortBy string `json:"sortBy" xml:"SortBy"`
+SortOrder string `json:"sortOrder" xml:"SortOrder"`
 }
 
 type ListResolverQueryLogConfigsResponse struct {
-	NextToken               string                     `json:"nextToken" xml:"NextToken"`
-	ResolverQueryLogConfigs ResolverQueryLogConfigList `json:"resolverQueryLogConfigs" xml:"ResolverQueryLogConfigs"`
-	TotalCount              int32                      `json:"totalCount" xml:"TotalCount"`
-	TotalFilteredCount      int32                      `json:"totalFilteredCount" xml:"TotalFilteredCount"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResolverQueryLogConfigs ResolverQueryLogConfigList `json:"resolverQueryLogConfigs" xml:"ResolverQueryLogConfigs"`
+TotalCount int32 `json:"totalCount" xml:"TotalCount"`
+TotalFilteredCount int32 `json:"totalFilteredCount" xml:"TotalFilteredCount"`
 }
 
 type ListResolverRuleAssociationsRequest struct {
-	Filters    Filters `json:"filters" xml:"Filters"`
-	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
+Filters Filters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListResolverRuleAssociationsResponse struct {
-	MaxResults               int32                    `json:"maxResults" xml:"MaxResults"`
-	NextToken                string                   `json:"nextToken" xml:"NextToken"`
-	ResolverRuleAssociations ResolverRuleAssociations `json:"resolverRuleAssociations" xml:"ResolverRuleAssociations"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResolverRuleAssociations ResolverRuleAssociations `json:"resolverRuleAssociations" xml:"ResolverRuleAssociations"`
 }
 
 type ListResolverRulesRequest struct {
-	Filters    Filters `json:"filters" xml:"Filters"`
-	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
+Filters Filters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListResolverRulesResponse struct {
-	MaxResults    int32         `json:"maxResults" xml:"MaxResults"`
-	NextToken     string        `json:"nextToken" xml:"NextToken"`
-	ResolverRules ResolverRules `json:"resolverRules" xml:"ResolverRules"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResolverRules ResolverRules `json:"resolverRules" xml:"ResolverRules"`
 }
 
 type ListTagsForResourceRequest struct {
-	MaxResults  int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken   string `json:"nextToken" xml:"NextToken"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ListTagsForResourceResponse struct {
-	NextToken string  `json:"nextToken" xml:"NextToken"`
-	Tags      TagList `json:"tags" xml:"Tags"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type OutpostResolver struct {
-	Arn                   string `json:"arn" xml:"Arn"`
-	CreationTime          string `json:"creationTime" xml:"CreationTime"`
-	CreatorRequestId      string `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Id                    string `json:"id" xml:"Id"`
-	InstanceCount         int32  `json:"instanceCount" xml:"InstanceCount"`
-	ModificationTime      string `json:"modificationTime" xml:"ModificationTime"`
-	Name                  string `json:"name" xml:"Name"`
-	OutpostArn            string `json:"outpostArn" xml:"OutpostArn"`
-	PreferredInstanceType string `json:"preferredInstanceType" xml:"PreferredInstanceType"`
-	Status                string `json:"status" xml:"Status"`
-	StatusMessage         string `json:"statusMessage" xml:"StatusMessage"`
+Arn string `json:"arn" xml:"Arn"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Id string `json:"id" xml:"Id"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
+Name string `json:"name" xml:"Name"`
+OutpostArn string `json:"outpostArn" xml:"OutpostArn"`
+PreferredInstanceType string `json:"preferredInstanceType" xml:"PreferredInstanceType"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type PutFirewallRuleGroupPolicyRequest struct {
-	Arn                     string `json:"arn" xml:"Arn"`
-	FirewallRuleGroupPolicy string `json:"firewallRuleGroupPolicy" xml:"FirewallRuleGroupPolicy"`
+Arn string `json:"arn" xml:"Arn"`
+FirewallRuleGroupPolicy string `json:"firewallRuleGroupPolicy" xml:"FirewallRuleGroupPolicy"`
 }
 
 type PutFirewallRuleGroupPolicyResponse struct {
-	ReturnValue bool `json:"returnValue" xml:"ReturnValue"`
+ReturnValue bool `json:"returnValue" xml:"ReturnValue"`
 }
 
 type PutResolverQueryLogConfigPolicyRequest struct {
-	Arn                          string `json:"arn" xml:"Arn"`
-	ResolverQueryLogConfigPolicy string `json:"resolverQueryLogConfigPolicy" xml:"ResolverQueryLogConfigPolicy"`
+Arn string `json:"arn" xml:"Arn"`
+ResolverQueryLogConfigPolicy string `json:"resolverQueryLogConfigPolicy" xml:"ResolverQueryLogConfigPolicy"`
 }
 
 type PutResolverQueryLogConfigPolicyResponse struct {
-	ReturnValue bool `json:"returnValue" xml:"ReturnValue"`
+ReturnValue bool `json:"returnValue" xml:"ReturnValue"`
 }
 
 type PutResolverRulePolicyRequest struct {
-	Arn                string `json:"arn" xml:"Arn"`
-	ResolverRulePolicy string `json:"resolverRulePolicy" xml:"ResolverRulePolicy"`
+Arn string `json:"arn" xml:"Arn"`
+ResolverRulePolicy string `json:"resolverRulePolicy" xml:"ResolverRulePolicy"`
 }
 
 type PutResolverRulePolicyResponse struct {
-	ReturnValue bool `json:"returnValue" xml:"ReturnValue"`
+ReturnValue bool `json:"returnValue" xml:"ReturnValue"`
 }
 
 type ResolverConfig struct {
-	AutodefinedReverse string `json:"autodefinedReverse" xml:"AutodefinedReverse"`
-	Id                 string `json:"id" xml:"Id"`
-	OwnerId            string `json:"ownerId" xml:"OwnerId"`
-	ResourceId         string `json:"resourceId" xml:"ResourceId"`
+AutodefinedReverse string `json:"autodefinedReverse" xml:"AutodefinedReverse"`
+Id string `json:"id" xml:"Id"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
 }
 
 type ResolverDnssecConfig struct {
-	Id               string `json:"id" xml:"Id"`
-	OwnerId          string `json:"ownerId" xml:"OwnerId"`
-	ResourceId       string `json:"resourceId" xml:"ResourceId"`
-	ValidationStatus string `json:"validationStatus" xml:"ValidationStatus"`
+Id string `json:"id" xml:"Id"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ValidationStatus string `json:"validationStatus" xml:"ValidationStatus"`
 }
 
 type ResolverEndpoint struct {
-	Arn                            string           `json:"arn" xml:"Arn"`
-	CreationTime                   string           `json:"creationTime" xml:"CreationTime"`
-	CreatorRequestId               string           `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Direction                      string           `json:"direction" xml:"Direction"`
-	HostVPCId                      string           `json:"hostVPCId" xml:"HostVPCId"`
-	Id                             string           `json:"id" xml:"Id"`
-	IpAddressCount                 int32            `json:"ipAddressCount" xml:"IpAddressCount"`
-	ModificationTime               string           `json:"modificationTime" xml:"ModificationTime"`
-	Name                           string           `json:"name" xml:"Name"`
-	OutpostArn                     string           `json:"outpostArn" xml:"OutpostArn"`
-	PreferredInstanceType          string           `json:"preferredInstanceType" xml:"PreferredInstanceType"`
-	Protocols                      ProtocolList     `json:"protocols" xml:"Protocols"`
-	ResolverEndpointType           string           `json:"resolverEndpointType" xml:"ResolverEndpointType"`
-	RniEnhancedMetricsEnabled      bool             `json:"rniEnhancedMetricsEnabled" xml:"RniEnhancedMetricsEnabled"`
-	SecurityGroupIds               SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	Status                         string           `json:"status" xml:"Status"`
-	StatusMessage                  string           `json:"statusMessage" xml:"StatusMessage"`
-	TargetNameServerMetricsEnabled bool             `json:"targetNameServerMetricsEnabled" xml:"TargetNameServerMetricsEnabled"`
+Arn string `json:"arn" xml:"Arn"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Direction string `json:"direction" xml:"Direction"`
+HostVPCId string `json:"hostVPCId" xml:"HostVPCId"`
+Id string `json:"id" xml:"Id"`
+IpAddressCount int32 `json:"ipAddressCount" xml:"IpAddressCount"`
+ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
+Name string `json:"name" xml:"Name"`
+OutpostArn string `json:"outpostArn" xml:"OutpostArn"`
+PreferredInstanceType string `json:"preferredInstanceType" xml:"PreferredInstanceType"`
+Protocols ProtocolList `json:"protocols" xml:"Protocols"`
+ResolverEndpointType string `json:"resolverEndpointType" xml:"ResolverEndpointType"`
+RniEnhancedMetricsEnabled bool `json:"rniEnhancedMetricsEnabled" xml:"RniEnhancedMetricsEnabled"`
+SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+TargetNameServerMetricsEnabled bool `json:"targetNameServerMetricsEnabled" xml:"TargetNameServerMetricsEnabled"`
 }
 
 type ResolverQueryLogConfig struct {
-	Arn              string `json:"arn" xml:"Arn"`
-	AssociationCount int32  `json:"associationCount" xml:"AssociationCount"`
-	CreationTime     string `json:"creationTime" xml:"CreationTime"`
-	CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
-	DestinationArn   string `json:"destinationArn" xml:"DestinationArn"`
-	Id               string `json:"id" xml:"Id"`
-	Name             string `json:"name" xml:"Name"`
-	OwnerId          string `json:"ownerId" xml:"OwnerId"`
-	ShareStatus      string `json:"shareStatus" xml:"ShareStatus"`
-	Status           string `json:"status" xml:"Status"`
+Arn string `json:"arn" xml:"Arn"`
+AssociationCount int32 `json:"associationCount" xml:"AssociationCount"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+DestinationArn string `json:"destinationArn" xml:"DestinationArn"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+ShareStatus string `json:"shareStatus" xml:"ShareStatus"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ResolverQueryLogConfigAssociation struct {
-	CreationTime             string `json:"creationTime" xml:"CreationTime"`
-	Error                    string `json:"error" xml:"Error"`
-	ErrorMessage             string `json:"errorMessage" xml:"ErrorMessage"`
-	Id                       string `json:"id" xml:"Id"`
-	ResolverQueryLogConfigId string `json:"resolverQueryLogConfigId" xml:"ResolverQueryLogConfigId"`
-	ResourceId               string `json:"resourceId" xml:"ResourceId"`
-	Status                   string `json:"status" xml:"Status"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+Error string `json:"error" xml:"Error"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+Id string `json:"id" xml:"Id"`
+ResolverQueryLogConfigId string `json:"resolverQueryLogConfigId" xml:"ResolverQueryLogConfigId"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ResolverRule struct {
-	Arn                string     `json:"arn" xml:"Arn"`
-	CreationTime       string     `json:"creationTime" xml:"CreationTime"`
-	CreatorRequestId   string     `json:"creatorRequestId" xml:"CreatorRequestId"`
-	DelegationRecord   string     `json:"delegationRecord" xml:"DelegationRecord"`
-	DomainName         string     `json:"domainName" xml:"DomainName"`
-	Id                 string     `json:"id" xml:"Id"`
-	ModificationTime   string     `json:"modificationTime" xml:"ModificationTime"`
-	Name               string     `json:"name" xml:"Name"`
-	OwnerId            string     `json:"ownerId" xml:"OwnerId"`
-	ResolverEndpointId string     `json:"resolverEndpointId" xml:"ResolverEndpointId"`
-	RuleType           string     `json:"ruleType" xml:"RuleType"`
-	ShareStatus        string     `json:"shareStatus" xml:"ShareStatus"`
-	Status             string     `json:"status" xml:"Status"`
-	StatusMessage      string     `json:"statusMessage" xml:"StatusMessage"`
-	TargetIps          TargetList `json:"targetIps" xml:"TargetIps"`
+Arn string `json:"arn" xml:"Arn"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+DelegationRecord string `json:"delegationRecord" xml:"DelegationRecord"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Id string `json:"id" xml:"Id"`
+ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
+Name string `json:"name" xml:"Name"`
+OwnerId string `json:"ownerId" xml:"OwnerId"`
+ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
+RuleType string `json:"ruleType" xml:"RuleType"`
+ShareStatus string `json:"shareStatus" xml:"ShareStatus"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+TargetIps TargetList `json:"targetIps" xml:"TargetIps"`
 }
 
 type ResolverRuleAssociation struct {
-	Id             string `json:"id" xml:"Id"`
-	Name           string `json:"name" xml:"Name"`
-	ResolverRuleId string `json:"resolverRuleId" xml:"ResolverRuleId"`
-	Status         string `json:"status" xml:"Status"`
-	StatusMessage  string `json:"statusMessage" xml:"StatusMessage"`
-	VPCId          string `json:"vPCId" xml:"VPCId"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+ResolverRuleId string `json:"resolverRuleId" xml:"ResolverRuleId"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+VPCId string `json:"vPCId" xml:"VPCId"`
 }
 
 type ResolverRuleConfig struct {
-	Name               string     `json:"name" xml:"Name"`
-	ResolverEndpointId string     `json:"resolverEndpointId" xml:"ResolverEndpointId"`
-	TargetIps          TargetList `json:"targetIps" xml:"TargetIps"`
+Name string `json:"name" xml:"Name"`
+ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
+TargetIps TargetList `json:"targetIps" xml:"TargetIps"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string  `json:"resourceArn" xml:"ResourceArn"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type TargetAddress struct {
-	Ip                   string `json:"ip" xml:"Ip"`
-	Ipv6                 string `json:"ipv6" xml:"Ipv6"`
-	Port                 int32  `json:"port" xml:"Port"`
-	Protocol             string `json:"protocol" xml:"Protocol"`
-	ServerNameIndication string `json:"serverNameIndication" xml:"ServerNameIndication"`
+Ip string `json:"ip" xml:"Ip"`
+Ipv6 string `json:"ipv6" xml:"Ipv6"`
+Port int32 `json:"port" xml:"Port"`
+Protocol string `json:"protocol" xml:"Protocol"`
+ServerNameIndication string `json:"serverNameIndication" xml:"ServerNameIndication"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string     `json:"resourceArn" xml:"ResourceArn"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateFirewallConfigRequest struct {
-	FirewallFailOpen string `json:"firewallFailOpen" xml:"FirewallFailOpen"`
-	ResourceId       string `json:"resourceId" xml:"ResourceId"`
+FirewallFailOpen string `json:"firewallFailOpen" xml:"FirewallFailOpen"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
 }
 
 type UpdateFirewallConfigResponse struct {
-	FirewallConfig *FirewallConfig `json:"firewallConfig" xml:"FirewallConfig"`
+FirewallConfig *FirewallConfig `json:"firewallConfig" xml:"FirewallConfig"`
 }
 
 type UpdateFirewallDomainsRequest struct {
-	Domains              FirewallDomains `json:"domains" xml:"Domains"`
-	FirewallDomainListId string          `json:"firewallDomainListId" xml:"FirewallDomainListId"`
-	Operation            string          `json:"operation" xml:"Operation"`
+Domains FirewallDomains `json:"domains" xml:"Domains"`
+FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+Operation string `json:"operation" xml:"Operation"`
 }
 
 type UpdateFirewallDomainsResponse struct {
-	Id            string `json:"id" xml:"Id"`
-	Name          string `json:"name" xml:"Name"`
-	Status        string `json:"status" xml:"Status"`
-	StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type UpdateFirewallRuleGroupAssociationRequest struct {
-	FirewallRuleGroupAssociationId string `json:"firewallRuleGroupAssociationId" xml:"FirewallRuleGroupAssociationId"`
-	MutationProtection             string `json:"mutationProtection" xml:"MutationProtection"`
-	Name                           string `json:"name" xml:"Name"`
-	Priority                       int32  `json:"priority" xml:"Priority"`
+FirewallRuleGroupAssociationId string `json:"firewallRuleGroupAssociationId" xml:"FirewallRuleGroupAssociationId"`
+MutationProtection string `json:"mutationProtection" xml:"MutationProtection"`
+Name string `json:"name" xml:"Name"`
+Priority int32 `json:"priority" xml:"Priority"`
 }
 
 type UpdateFirewallRuleGroupAssociationResponse struct {
-	FirewallRuleGroupAssociation *FirewallRuleGroupAssociation `json:"firewallRuleGroupAssociation" xml:"FirewallRuleGroupAssociation"`
+FirewallRuleGroupAssociation *FirewallRuleGroupAssociation `json:"firewallRuleGroupAssociation" xml:"FirewallRuleGroupAssociation"`
 }
 
 type UpdateFirewallRuleRequest struct {
-	Action                          string `json:"action" xml:"Action"`
-	BlockOverrideDnsType            string `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
-	BlockOverrideDomain             string `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
-	BlockOverrideTtl                int32  `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
-	BlockResponse                   string `json:"blockResponse" xml:"BlockResponse"`
-	ConfidenceThreshold             string `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
-	DnsThreatProtection             string `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
-	FirewallDomainListId            string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
-	FirewallDomainRedirectionAction string `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
-	FirewallRuleGroupId             string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
-	FirewallThreatProtectionId      string `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
-	Name                            string `json:"name" xml:"Name"`
-	Priority                        int32  `json:"priority" xml:"Priority"`
-	Qtype                           string `json:"qtype" xml:"Qtype"`
+Action string `json:"action" xml:"Action"`
+BlockOverrideDnsType string `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
+BlockOverrideDomain string `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
+BlockOverrideTtl int32 `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
+BlockResponse string `json:"blockResponse" xml:"BlockResponse"`
+ConfidenceThreshold string `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
+DnsThreatProtection string `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
+FirewallDomainListId string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+FirewallDomainRedirectionAction string `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
+FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+FirewallThreatProtectionId string `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
+Name string `json:"name" xml:"Name"`
+Priority int32 `json:"priority" xml:"Priority"`
+Qtype string `json:"qtype" xml:"Qtype"`
 }
 
 type UpdateFirewallRuleResponse struct {
-	FirewallRule *FirewallRule `json:"firewallRule" xml:"FirewallRule"`
+FirewallRule *FirewallRule `json:"firewallRule" xml:"FirewallRule"`
 }
 
 type UpdateIpAddress struct {
-	IpId string `json:"ipId" xml:"IpId"`
-	Ipv6 string `json:"ipv6" xml:"Ipv6"`
+IpId string `json:"ipId" xml:"IpId"`
+Ipv6 string `json:"ipv6" xml:"Ipv6"`
 }
 
 type UpdateOutpostResolverRequest struct {
-	Id                    string `json:"id" xml:"Id"`
-	InstanceCount         int32  `json:"instanceCount" xml:"InstanceCount"`
-	Name                  string `json:"name" xml:"Name"`
-	PreferredInstanceType string `json:"preferredInstanceType" xml:"PreferredInstanceType"`
+Id string `json:"id" xml:"Id"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+Name string `json:"name" xml:"Name"`
+PreferredInstanceType string `json:"preferredInstanceType" xml:"PreferredInstanceType"`
 }
 
 type UpdateOutpostResolverResponse struct {
-	OutpostResolver *OutpostResolver `json:"outpostResolver" xml:"OutpostResolver"`
+OutpostResolver *OutpostResolver `json:"outpostResolver" xml:"OutpostResolver"`
 }
 
 type UpdateResolverConfigRequest struct {
-	AutodefinedReverseFlag string `json:"autodefinedReverseFlag" xml:"AutodefinedReverseFlag"`
-	ResourceId             string `json:"resourceId" xml:"ResourceId"`
+AutodefinedReverseFlag string `json:"autodefinedReverseFlag" xml:"AutodefinedReverseFlag"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
 }
 
 type UpdateResolverConfigResponse struct {
-	ResolverConfig *ResolverConfig `json:"resolverConfig" xml:"ResolverConfig"`
+ResolverConfig *ResolverConfig `json:"resolverConfig" xml:"ResolverConfig"`
 }
 
 type UpdateResolverDnssecConfigRequest struct {
-	ResourceId string `json:"resourceId" xml:"ResourceId"`
-	Validation string `json:"validation" xml:"Validation"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+Validation string `json:"validation" xml:"Validation"`
 }
 
 type UpdateResolverDnssecConfigResponse struct {
-	ResolverDNSSECConfig *ResolverDnssecConfig `json:"resolverDNSSECConfig" xml:"ResolverDNSSECConfig"`
+ResolverDNSSECConfig *ResolverDnssecConfig `json:"resolverDNSSECConfig" xml:"ResolverDNSSECConfig"`
 }
 
 type UpdateResolverEndpointRequest struct {
-	Name                           string            `json:"name" xml:"Name"`
-	Protocols                      ProtocolList      `json:"protocols" xml:"Protocols"`
-	ResolverEndpointId             string            `json:"resolverEndpointId" xml:"ResolverEndpointId"`
-	ResolverEndpointType           string            `json:"resolverEndpointType" xml:"ResolverEndpointType"`
-	RniEnhancedMetricsEnabled      bool              `json:"rniEnhancedMetricsEnabled" xml:"RniEnhancedMetricsEnabled"`
-	TargetNameServerMetricsEnabled bool              `json:"targetNameServerMetricsEnabled" xml:"TargetNameServerMetricsEnabled"`
-	UpdateIpAddresses              UpdateIpAddresses `json:"updateIpAddresses" xml:"UpdateIpAddresses"`
+Name string `json:"name" xml:"Name"`
+Protocols ProtocolList `json:"protocols" xml:"Protocols"`
+ResolverEndpointId string `json:"resolverEndpointId" xml:"ResolverEndpointId"`
+ResolverEndpointType string `json:"resolverEndpointType" xml:"ResolverEndpointType"`
+RniEnhancedMetricsEnabled bool `json:"rniEnhancedMetricsEnabled" xml:"RniEnhancedMetricsEnabled"`
+TargetNameServerMetricsEnabled bool `json:"targetNameServerMetricsEnabled" xml:"TargetNameServerMetricsEnabled"`
+UpdateIpAddresses UpdateIpAddresses `json:"updateIpAddresses" xml:"UpdateIpAddresses"`
 }
 
 type UpdateResolverEndpointResponse struct {
-	ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
+ResolverEndpoint *ResolverEndpoint `json:"resolverEndpoint" xml:"ResolverEndpoint"`
 }
 
 type UpdateResolverRuleRequest struct {
-	Config         *ResolverRuleConfig `json:"config" xml:"Config"`
-	ResolverRuleId string              `json:"resolverRuleId" xml:"ResolverRuleId"`
+Config *ResolverRuleConfig `json:"config" xml:"Config"`
+ResolverRuleId string `json:"resolverRuleId" xml:"ResolverRuleId"`
 }
 
 type UpdateResolverRuleResponse struct {
-	ResolverRule *ResolverRule `json:"resolverRule" xml:"ResolverRule"`
+ResolverRule *ResolverRule `json:"resolverRule" xml:"ResolverRule"`
 }
 
 type FilterValues []string
@@ -994,3 +995,4 @@ type TagList []*Tag
 type TargetList []*TargetAddress
 
 type UpdateIpAddresses []*UpdateIpAddress
+

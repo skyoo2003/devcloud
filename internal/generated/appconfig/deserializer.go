@@ -347,3 +347,4 @@ func SerializeResourceTags(w http.ResponseWriter, output *ResourceTags, protocol
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

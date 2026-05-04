@@ -223,3 +223,4 @@ func SerializeStopDurableExecutionResponse(w http.ResponseWriter, output *StopDu
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

@@ -819,3 +819,4 @@ func (e *XksProxyVpcEndpointServiceNotFoundException) ErrorCode() string {
 func (e *XksProxyVpcEndpointServiceNotFoundException) HTTPStatus() int {
 	return 400
 }
+

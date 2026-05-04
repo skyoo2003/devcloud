@@ -451,3 +451,4 @@ func SerializeUpdateSubscriptionResponse(w http.ResponseWriter, output *UpdateSu
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

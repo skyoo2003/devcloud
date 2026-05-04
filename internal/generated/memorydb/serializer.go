@@ -323,3 +323,4 @@ func DeserializeUpdateUserRequest(r *http.Request, pathParams PathParams) (*Upda
 
 	return input, nil
 }
+

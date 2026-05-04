@@ -163,3 +163,4 @@ func SerializeUpdateDestinationOutput(w http.ResponseWriter, output *UpdateDesti
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

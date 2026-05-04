@@ -202,3 +202,4 @@ func (b *BaseProvider) UpdatePackageVersionsStatus(ctx context.Context, input *U
 func (b *BaseProvider) UpdateRepository(ctx context.Context, input *UpdateRepositoryRequest) (*UpdateRepositoryResult, error) {
 	return nil, fmt.Errorf("UpdateRepository: %w", ErrNotImplemented)
 }
+

@@ -574,3 +574,4 @@ func (b *BaseProvider) RotateEncryptionKey(ctx context.Context, input *RotateEnc
 func (b *BaseProvider) UpdatePartnerStatus(ctx context.Context, input *UpdatePartnerStatusInputMessage) (*PartnerIntegrationOutputMessage, error) {
 	return nil, fmt.Errorf("UpdatePartnerStatus: %w", ErrNotImplemented)
 }
+

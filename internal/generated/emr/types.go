@@ -7,1457 +7,1457 @@ import (
 )
 
 type AddInstanceFleetInput struct {
-	ClusterId     string               `json:"clusterId" xml:"ClusterId"`
-	InstanceFleet *InstanceFleetConfig `json:"instanceFleet" xml:"InstanceFleet"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+InstanceFleet *InstanceFleetConfig `json:"instanceFleet" xml:"InstanceFleet"`
 }
 
 type AddInstanceFleetOutput struct {
-	ClusterArn      string `json:"clusterArn" xml:"ClusterArn"`
-	ClusterId       string `json:"clusterId" xml:"ClusterId"`
-	InstanceFleetId string `json:"instanceFleetId" xml:"InstanceFleetId"`
+ClusterArn string `json:"clusterArn" xml:"ClusterArn"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+InstanceFleetId string `json:"instanceFleetId" xml:"InstanceFleetId"`
 }
 
 type AddInstanceGroupsInput struct {
-	InstanceGroups InstanceGroupConfigList `json:"instanceGroups" xml:"InstanceGroups"`
-	JobFlowId      string                  `json:"jobFlowId" xml:"JobFlowId"`
+InstanceGroups InstanceGroupConfigList `json:"instanceGroups" xml:"InstanceGroups"`
+JobFlowId string `json:"jobFlowId" xml:"JobFlowId"`
 }
 
 type AddInstanceGroupsOutput struct {
-	ClusterArn       string               `json:"clusterArn" xml:"ClusterArn"`
-	InstanceGroupIds InstanceGroupIdsList `json:"instanceGroupIds" xml:"InstanceGroupIds"`
-	JobFlowId        string               `json:"jobFlowId" xml:"JobFlowId"`
+ClusterArn string `json:"clusterArn" xml:"ClusterArn"`
+InstanceGroupIds InstanceGroupIdsList `json:"instanceGroupIds" xml:"InstanceGroupIds"`
+JobFlowId string `json:"jobFlowId" xml:"JobFlowId"`
 }
 
 type AddJobFlowStepsInput struct {
-	ExecutionRoleArn string         `json:"executionRoleArn" xml:"ExecutionRoleArn"`
-	JobFlowId        string         `json:"jobFlowId" xml:"JobFlowId"`
-	Steps            StepConfigList `json:"steps" xml:"Steps"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+JobFlowId string `json:"jobFlowId" xml:"JobFlowId"`
+Steps StepConfigList `json:"steps" xml:"Steps"`
 }
 
 type AddJobFlowStepsOutput struct {
-	StepIds StepIdsList `json:"stepIds" xml:"StepIds"`
+StepIds StepIdsList `json:"stepIds" xml:"StepIds"`
 }
 
 type AddTagsInput struct {
-	ResourceId string  `json:"resourceId" xml:"ResourceId"`
-	Tags       TagList `json:"tags" xml:"Tags"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type AddTagsOutput struct {
 }
 
 type Application struct {
-	AdditionalInfo StringMap  `json:"additionalInfo" xml:"AdditionalInfo"`
-	Args           StringList `json:"args" xml:"Args"`
-	Name           string     `json:"name" xml:"Name"`
-	Version        string     `json:"version" xml:"Version"`
+AdditionalInfo StringMap `json:"additionalInfo" xml:"AdditionalInfo"`
+Args StringList `json:"args" xml:"Args"`
+Name string `json:"name" xml:"Name"`
+Version string `json:"version" xml:"Version"`
 }
 
 type AutoScalingPolicy struct {
-	Constraints *ScalingConstraints `json:"constraints" xml:"Constraints"`
-	Rules       ScalingRuleList     `json:"rules" xml:"Rules"`
+Constraints *ScalingConstraints `json:"constraints" xml:"Constraints"`
+Rules ScalingRuleList `json:"rules" xml:"Rules"`
 }
 
 type AutoScalingPolicyDescription struct {
-	Constraints *ScalingConstraints      `json:"constraints" xml:"Constraints"`
-	Rules       ScalingRuleList          `json:"rules" xml:"Rules"`
-	Status      *AutoScalingPolicyStatus `json:"status" xml:"Status"`
+Constraints *ScalingConstraints `json:"constraints" xml:"Constraints"`
+Rules ScalingRuleList `json:"rules" xml:"Rules"`
+Status *AutoScalingPolicyStatus `json:"status" xml:"Status"`
 }
 
 type AutoScalingPolicyStateChangeReason struct {
-	Code    string `json:"code" xml:"Code"`
-	Message string `json:"message" xml:"Message"`
+Code string `json:"code" xml:"Code"`
+Message string `json:"message" xml:"Message"`
 }
 
 type AutoScalingPolicyStatus struct {
-	State             string                              `json:"state" xml:"State"`
-	StateChangeReason *AutoScalingPolicyStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
+State string `json:"state" xml:"State"`
+StateChangeReason *AutoScalingPolicyStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
 }
 
 type AutoTerminationPolicy struct {
-	IdleTimeout int64 `json:"idleTimeout" xml:"IdleTimeout"`
+IdleTimeout int64 `json:"idleTimeout" xml:"IdleTimeout"`
 }
 
 type BlockPublicAccessConfiguration struct {
-	BlockPublicSecurityGroupRules          bool              `json:"blockPublicSecurityGroupRules" xml:"BlockPublicSecurityGroupRules"`
-	Classification                         string            `json:"classification" xml:"Classification"`
-	Configurations                         ConfigurationList `json:"configurations" xml:"Configurations"`
-	PermittedPublicSecurityGroupRuleRanges PortRanges        `json:"permittedPublicSecurityGroupRuleRanges" xml:"PermittedPublicSecurityGroupRuleRanges"`
-	Properties                             StringMap         `json:"properties" xml:"Properties"`
+BlockPublicSecurityGroupRules bool `json:"blockPublicSecurityGroupRules" xml:"BlockPublicSecurityGroupRules"`
+Classification string `json:"classification" xml:"Classification"`
+Configurations ConfigurationList `json:"configurations" xml:"Configurations"`
+PermittedPublicSecurityGroupRuleRanges PortRanges `json:"permittedPublicSecurityGroupRuleRanges" xml:"PermittedPublicSecurityGroupRuleRanges"`
+Properties StringMap `json:"properties" xml:"Properties"`
 }
 
 type BlockPublicAccessConfigurationMetadata struct {
-	CreatedByArn     string    `json:"createdByArn" xml:"CreatedByArn"`
-	CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+CreatedByArn string `json:"createdByArn" xml:"CreatedByArn"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
 }
 
 type BootstrapActionConfig struct {
-	Name                  string                       `json:"name" xml:"Name"`
-	ScriptBootstrapAction *ScriptBootstrapActionConfig `json:"scriptBootstrapAction" xml:"ScriptBootstrapAction"`
+Name string `json:"name" xml:"Name"`
+ScriptBootstrapAction *ScriptBootstrapActionConfig `json:"scriptBootstrapAction" xml:"ScriptBootstrapAction"`
 }
 
 type BootstrapActionDetail struct {
-	BootstrapActionConfig *BootstrapActionConfig `json:"bootstrapActionConfig" xml:"BootstrapActionConfig"`
+BootstrapActionConfig *BootstrapActionConfig `json:"bootstrapActionConfig" xml:"BootstrapActionConfig"`
 }
 
 type CancelStepsInfo struct {
-	Reason string `json:"reason" xml:"Reason"`
-	Status string `json:"status" xml:"Status"`
-	StepId string `json:"stepId" xml:"StepId"`
+Reason string `json:"reason" xml:"Reason"`
+Status string `json:"status" xml:"Status"`
+StepId string `json:"stepId" xml:"StepId"`
 }
 
 type CancelStepsInput struct {
-	ClusterId              string      `json:"clusterId" xml:"ClusterId"`
-	StepCancellationOption string      `json:"stepCancellationOption" xml:"StepCancellationOption"`
-	StepIds                StepIdsList `json:"stepIds" xml:"StepIds"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+StepCancellationOption string `json:"stepCancellationOption" xml:"StepCancellationOption"`
+StepIds StepIdsList `json:"stepIds" xml:"StepIds"`
 }
 
 type CancelStepsOutput struct {
-	CancelStepsInfoList CancelStepsInfoList `json:"cancelStepsInfoList" xml:"CancelStepsInfoList"`
+CancelStepsInfoList CancelStepsInfoList `json:"cancelStepsInfoList" xml:"CancelStepsInfoList"`
 }
 
 type CloudWatchAlarmDefinition struct {
-	ComparisonOperator string              `json:"comparisonOperator" xml:"ComparisonOperator"`
-	Dimensions         MetricDimensionList `json:"dimensions" xml:"Dimensions"`
-	EvaluationPeriods  int32               `json:"evaluationPeriods" xml:"EvaluationPeriods"`
-	MetricName         string              `json:"metricName" xml:"MetricName"`
-	Namespace          string              `json:"namespace" xml:"Namespace"`
-	Period             int32               `json:"period" xml:"Period"`
-	Statistic          string              `json:"statistic" xml:"Statistic"`
-	Threshold          float64             `json:"threshold" xml:"Threshold"`
-	Unit               string              `json:"unit" xml:"Unit"`
+ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
+Dimensions MetricDimensionList `json:"dimensions" xml:"Dimensions"`
+EvaluationPeriods int32 `json:"evaluationPeriods" xml:"EvaluationPeriods"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
+Period int32 `json:"period" xml:"Period"`
+Statistic string `json:"statistic" xml:"Statistic"`
+Threshold float64 `json:"threshold" xml:"Threshold"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type CloudWatchLogConfiguration struct {
-	Enabled             bool        `json:"enabled" xml:"Enabled"`
-	EncryptionKeyArn    string      `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
-	LogGroupName        string      `json:"logGroupName" xml:"LogGroupName"`
-	LogStreamNamePrefix string      `json:"logStreamNamePrefix" xml:"LogStreamNamePrefix"`
-	LogTypes            LogTypesMap `json:"logTypes" xml:"LogTypes"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+EncryptionKeyArn string `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
+LogGroupName string `json:"logGroupName" xml:"LogGroupName"`
+LogStreamNamePrefix string `json:"logStreamNamePrefix" xml:"LogStreamNamePrefix"`
+LogTypes LogTypesMap `json:"logTypes" xml:"LogTypes"`
 }
 
 type Cluster struct {
-	Applications             ApplicationList          `json:"applications" xml:"Applications"`
-	AutoScalingRole          string                   `json:"autoScalingRole" xml:"AutoScalingRole"`
-	AutoTerminate            bool                     `json:"autoTerminate" xml:"AutoTerminate"`
-	ClusterArn               string                   `json:"clusterArn" xml:"ClusterArn"`
-	Configurations           ConfigurationList        `json:"configurations" xml:"Configurations"`
-	CustomAmiId              string                   `json:"customAmiId" xml:"CustomAmiId"`
-	EbsRootVolumeIops        int32                    `json:"ebsRootVolumeIops" xml:"EbsRootVolumeIops"`
-	EbsRootVolumeSize        int32                    `json:"ebsRootVolumeSize" xml:"EbsRootVolumeSize"`
-	EbsRootVolumeThroughput  int32                    `json:"ebsRootVolumeThroughput" xml:"EbsRootVolumeThroughput"`
-	Ec2InstanceAttributes    *Ec2InstanceAttributes   `json:"ec2InstanceAttributes" xml:"Ec2InstanceAttributes"`
-	ExtendedSupport          bool                     `json:"extendedSupport" xml:"ExtendedSupport"`
-	Id                       string                   `json:"id" xml:"Id"`
-	InstanceCollectionType   string                   `json:"instanceCollectionType" xml:"InstanceCollectionType"`
-	KerberosAttributes       *KerberosAttributes      `json:"kerberosAttributes" xml:"KerberosAttributes"`
-	LogEncryptionKmsKeyId    string                   `json:"logEncryptionKmsKeyId" xml:"LogEncryptionKmsKeyId"`
-	LogUri                   string                   `json:"logUri" xml:"LogUri"`
-	MasterPublicDnsName      string                   `json:"masterPublicDnsName" xml:"MasterPublicDnsName"`
-	MonitoringConfiguration  *MonitoringConfiguration `json:"monitoringConfiguration" xml:"MonitoringConfiguration"`
-	Name                     string                   `json:"name" xml:"Name"`
-	NormalizedInstanceHours  int32                    `json:"normalizedInstanceHours" xml:"NormalizedInstanceHours"`
-	OSReleaseLabel           string                   `json:"oSReleaseLabel" xml:"OSReleaseLabel"`
-	OutpostArn               string                   `json:"outpostArn" xml:"OutpostArn"`
-	PlacementGroups          PlacementGroupConfigList `json:"placementGroups" xml:"PlacementGroups"`
-	ReleaseLabel             string                   `json:"releaseLabel" xml:"ReleaseLabel"`
-	RepoUpgradeOnBoot        string                   `json:"repoUpgradeOnBoot" xml:"RepoUpgradeOnBoot"`
-	RequestedAmiVersion      string                   `json:"requestedAmiVersion" xml:"RequestedAmiVersion"`
-	RunningAmiVersion        string                   `json:"runningAmiVersion" xml:"RunningAmiVersion"`
-	ScaleDownBehavior        string                   `json:"scaleDownBehavior" xml:"ScaleDownBehavior"`
-	SecurityConfiguration    string                   `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	ServiceRole              string                   `json:"serviceRole" xml:"ServiceRole"`
-	Status                   *ClusterStatus           `json:"status" xml:"Status"`
-	StepConcurrencyLevel     int32                    `json:"stepConcurrencyLevel" xml:"StepConcurrencyLevel"`
-	Tags                     TagList                  `json:"tags" xml:"Tags"`
-	TerminationProtected     bool                     `json:"terminationProtected" xml:"TerminationProtected"`
-	UnhealthyNodeReplacement bool                     `json:"unhealthyNodeReplacement" xml:"UnhealthyNodeReplacement"`
-	VisibleToAllUsers        bool                     `json:"visibleToAllUsers" xml:"VisibleToAllUsers"`
+Applications ApplicationList `json:"applications" xml:"Applications"`
+AutoScalingRole string `json:"autoScalingRole" xml:"AutoScalingRole"`
+AutoTerminate bool `json:"autoTerminate" xml:"AutoTerminate"`
+ClusterArn string `json:"clusterArn" xml:"ClusterArn"`
+Configurations ConfigurationList `json:"configurations" xml:"Configurations"`
+CustomAmiId string `json:"customAmiId" xml:"CustomAmiId"`
+EbsRootVolumeIops int32 `json:"ebsRootVolumeIops" xml:"EbsRootVolumeIops"`
+EbsRootVolumeSize int32 `json:"ebsRootVolumeSize" xml:"EbsRootVolumeSize"`
+EbsRootVolumeThroughput int32 `json:"ebsRootVolumeThroughput" xml:"EbsRootVolumeThroughput"`
+Ec2InstanceAttributes *Ec2InstanceAttributes `json:"ec2InstanceAttributes" xml:"Ec2InstanceAttributes"`
+ExtendedSupport bool `json:"extendedSupport" xml:"ExtendedSupport"`
+Id string `json:"id" xml:"Id"`
+InstanceCollectionType string `json:"instanceCollectionType" xml:"InstanceCollectionType"`
+KerberosAttributes *KerberosAttributes `json:"kerberosAttributes" xml:"KerberosAttributes"`
+LogEncryptionKmsKeyId string `json:"logEncryptionKmsKeyId" xml:"LogEncryptionKmsKeyId"`
+LogUri string `json:"logUri" xml:"LogUri"`
+MasterPublicDnsName string `json:"masterPublicDnsName" xml:"MasterPublicDnsName"`
+MonitoringConfiguration *MonitoringConfiguration `json:"monitoringConfiguration" xml:"MonitoringConfiguration"`
+Name string `json:"name" xml:"Name"`
+NormalizedInstanceHours int32 `json:"normalizedInstanceHours" xml:"NormalizedInstanceHours"`
+OSReleaseLabel string `json:"oSReleaseLabel" xml:"OSReleaseLabel"`
+OutpostArn string `json:"outpostArn" xml:"OutpostArn"`
+PlacementGroups PlacementGroupConfigList `json:"placementGroups" xml:"PlacementGroups"`
+ReleaseLabel string `json:"releaseLabel" xml:"ReleaseLabel"`
+RepoUpgradeOnBoot string `json:"repoUpgradeOnBoot" xml:"RepoUpgradeOnBoot"`
+RequestedAmiVersion string `json:"requestedAmiVersion" xml:"RequestedAmiVersion"`
+RunningAmiVersion string `json:"runningAmiVersion" xml:"RunningAmiVersion"`
+ScaleDownBehavior string `json:"scaleDownBehavior" xml:"ScaleDownBehavior"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+ServiceRole string `json:"serviceRole" xml:"ServiceRole"`
+Status *ClusterStatus `json:"status" xml:"Status"`
+StepConcurrencyLevel int32 `json:"stepConcurrencyLevel" xml:"StepConcurrencyLevel"`
+Tags TagList `json:"tags" xml:"Tags"`
+TerminationProtected bool `json:"terminationProtected" xml:"TerminationProtected"`
+UnhealthyNodeReplacement bool `json:"unhealthyNodeReplacement" xml:"UnhealthyNodeReplacement"`
+VisibleToAllUsers bool `json:"visibleToAllUsers" xml:"VisibleToAllUsers"`
 }
 
 type ClusterStateChangeReason struct {
-	Code    string `json:"code" xml:"Code"`
-	Message string `json:"message" xml:"Message"`
+Code string `json:"code" xml:"Code"`
+Message string `json:"message" xml:"Message"`
 }
 
 type ClusterStatus struct {
-	ErrorDetails      ErrorDetailList           `json:"errorDetails" xml:"ErrorDetails"`
-	State             string                    `json:"state" xml:"State"`
-	StateChangeReason *ClusterStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
-	Timeline          *ClusterTimeline          `json:"timeline" xml:"Timeline"`
+ErrorDetails ErrorDetailList `json:"errorDetails" xml:"ErrorDetails"`
+State string `json:"state" xml:"State"`
+StateChangeReason *ClusterStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
+Timeline *ClusterTimeline `json:"timeline" xml:"Timeline"`
 }
 
 type ClusterSummary struct {
-	ClusterArn              string         `json:"clusterArn" xml:"ClusterArn"`
-	Id                      string         `json:"id" xml:"Id"`
-	Name                    string         `json:"name" xml:"Name"`
-	NormalizedInstanceHours int32          `json:"normalizedInstanceHours" xml:"NormalizedInstanceHours"`
-	OutpostArn              string         `json:"outpostArn" xml:"OutpostArn"`
-	Status                  *ClusterStatus `json:"status" xml:"Status"`
+ClusterArn string `json:"clusterArn" xml:"ClusterArn"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+NormalizedInstanceHours int32 `json:"normalizedInstanceHours" xml:"NormalizedInstanceHours"`
+OutpostArn string `json:"outpostArn" xml:"OutpostArn"`
+Status *ClusterStatus `json:"status" xml:"Status"`
 }
 
 type ClusterTimeline struct {
-	CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
-	EndDateTime      time.Time `json:"endDateTime" xml:"EndDateTime"`
-	ReadyDateTime    time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+EndDateTime time.Time `json:"endDateTime" xml:"EndDateTime"`
+ReadyDateTime time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
 }
 
 type Command struct {
-	Args       StringList `json:"args" xml:"Args"`
-	Name       string     `json:"name" xml:"Name"`
-	ScriptPath string     `json:"scriptPath" xml:"ScriptPath"`
+Args StringList `json:"args" xml:"Args"`
+Name string `json:"name" xml:"Name"`
+ScriptPath string `json:"scriptPath" xml:"ScriptPath"`
 }
 
 type ComputeLimits struct {
-	MaximumCapacityUnits         int32  `json:"maximumCapacityUnits" xml:"MaximumCapacityUnits"`
-	MaximumCoreCapacityUnits     int32  `json:"maximumCoreCapacityUnits" xml:"MaximumCoreCapacityUnits"`
-	MaximumOnDemandCapacityUnits int32  `json:"maximumOnDemandCapacityUnits" xml:"MaximumOnDemandCapacityUnits"`
-	MinimumCapacityUnits         int32  `json:"minimumCapacityUnits" xml:"MinimumCapacityUnits"`
-	UnitType                     string `json:"unitType" xml:"UnitType"`
+MaximumCapacityUnits int32 `json:"maximumCapacityUnits" xml:"MaximumCapacityUnits"`
+MaximumCoreCapacityUnits int32 `json:"maximumCoreCapacityUnits" xml:"MaximumCoreCapacityUnits"`
+MaximumOnDemandCapacityUnits int32 `json:"maximumOnDemandCapacityUnits" xml:"MaximumOnDemandCapacityUnits"`
+MinimumCapacityUnits int32 `json:"minimumCapacityUnits" xml:"MinimumCapacityUnits"`
+UnitType string `json:"unitType" xml:"UnitType"`
 }
 
 type Configuration struct {
-	Classification string            `json:"classification" xml:"Classification"`
-	Configurations ConfigurationList `json:"configurations" xml:"Configurations"`
-	Properties     StringMap         `json:"properties" xml:"Properties"`
+Classification string `json:"classification" xml:"Classification"`
+Configurations ConfigurationList `json:"configurations" xml:"Configurations"`
+Properties StringMap `json:"properties" xml:"Properties"`
 }
 
 type CreatePersistentAppUIInput struct {
-	EMRContainersConfig *EMRContainersConfig `json:"eMRContainersConfig" xml:"EMRContainersConfig"`
-	ProfilerType        string               `json:"profilerType" xml:"ProfilerType"`
-	Tags                TagList              `json:"tags" xml:"Tags"`
-	TargetResourceArn   string               `json:"targetResourceArn" xml:"TargetResourceArn"`
-	XReferer            string               `json:"xReferer" xml:"XReferer"`
+EMRContainersConfig *EMRContainersConfig `json:"eMRContainersConfig" xml:"EMRContainersConfig"`
+ProfilerType string `json:"profilerType" xml:"ProfilerType"`
+Tags TagList `json:"tags" xml:"Tags"`
+TargetResourceArn string `json:"targetResourceArn" xml:"TargetResourceArn"`
+XReferer string `json:"xReferer" xml:"XReferer"`
 }
 
 type CreatePersistentAppUIOutput struct {
-	PersistentAppUIId         string `json:"persistentAppUIId" xml:"PersistentAppUIId"`
-	RuntimeRoleEnabledCluster bool   `json:"runtimeRoleEnabledCluster" xml:"RuntimeRoleEnabledCluster"`
+PersistentAppUIId string `json:"persistentAppUIId" xml:"PersistentAppUIId"`
+RuntimeRoleEnabledCluster bool `json:"runtimeRoleEnabledCluster" xml:"RuntimeRoleEnabledCluster"`
 }
 
 type CreateSecurityConfigurationInput struct {
-	Name                  string `json:"name" xml:"Name"`
-	SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+Name string `json:"name" xml:"Name"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
 }
 
 type CreateSecurityConfigurationOutput struct {
-	CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
-	Name             string    `json:"name" xml:"Name"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateStudioInput struct {
-	AuthMode                          string       `json:"authMode" xml:"AuthMode"`
-	DefaultS3Location                 string       `json:"defaultS3Location" xml:"DefaultS3Location"`
-	Description                       string       `json:"description" xml:"Description"`
-	EncryptionKeyArn                  string       `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
-	EngineSecurityGroupId             string       `json:"engineSecurityGroupId" xml:"EngineSecurityGroupId"`
-	IdcInstanceArn                    string       `json:"idcInstanceArn" xml:"IdcInstanceArn"`
-	IdcUserAssignment                 string       `json:"idcUserAssignment" xml:"IdcUserAssignment"`
-	IdpAuthUrl                        string       `json:"idpAuthUrl" xml:"IdpAuthUrl"`
-	IdpRelayStateParameterName        string       `json:"idpRelayStateParameterName" xml:"IdpRelayStateParameterName"`
-	Name                              string       `json:"name" xml:"Name"`
-	ServiceRole                       string       `json:"serviceRole" xml:"ServiceRole"`
-	SubnetIds                         SubnetIdList `json:"subnetIds" xml:"SubnetIds"`
-	Tags                              TagList      `json:"tags" xml:"Tags"`
-	TrustedIdentityPropagationEnabled bool         `json:"trustedIdentityPropagationEnabled" xml:"TrustedIdentityPropagationEnabled"`
-	UserRole                          string       `json:"userRole" xml:"UserRole"`
-	VpcId                             string       `json:"vpcId" xml:"VpcId"`
-	WorkspaceSecurityGroupId          string       `json:"workspaceSecurityGroupId" xml:"WorkspaceSecurityGroupId"`
+AuthMode string `json:"authMode" xml:"AuthMode"`
+DefaultS3Location string `json:"defaultS3Location" xml:"DefaultS3Location"`
+Description string `json:"description" xml:"Description"`
+EncryptionKeyArn string `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
+EngineSecurityGroupId string `json:"engineSecurityGroupId" xml:"EngineSecurityGroupId"`
+IdcInstanceArn string `json:"idcInstanceArn" xml:"IdcInstanceArn"`
+IdcUserAssignment string `json:"idcUserAssignment" xml:"IdcUserAssignment"`
+IdpAuthUrl string `json:"idpAuthUrl" xml:"IdpAuthUrl"`
+IdpRelayStateParameterName string `json:"idpRelayStateParameterName" xml:"IdpRelayStateParameterName"`
+Name string `json:"name" xml:"Name"`
+ServiceRole string `json:"serviceRole" xml:"ServiceRole"`
+SubnetIds SubnetIdList `json:"subnetIds" xml:"SubnetIds"`
+Tags TagList `json:"tags" xml:"Tags"`
+TrustedIdentityPropagationEnabled bool `json:"trustedIdentityPropagationEnabled" xml:"TrustedIdentityPropagationEnabled"`
+UserRole string `json:"userRole" xml:"UserRole"`
+VpcId string `json:"vpcId" xml:"VpcId"`
+WorkspaceSecurityGroupId string `json:"workspaceSecurityGroupId" xml:"WorkspaceSecurityGroupId"`
 }
 
 type CreateStudioOutput struct {
-	StudioId string `json:"studioId" xml:"StudioId"`
-	Url      string `json:"url" xml:"Url"`
+StudioId string `json:"studioId" xml:"StudioId"`
+Url string `json:"url" xml:"Url"`
 }
 
 type CreateStudioSessionMappingInput struct {
-	IdentityId       string `json:"identityId" xml:"IdentityId"`
-	IdentityName     string `json:"identityName" xml:"IdentityName"`
-	IdentityType     string `json:"identityType" xml:"IdentityType"`
-	SessionPolicyArn string `json:"sessionPolicyArn" xml:"SessionPolicyArn"`
-	StudioId         string `json:"studioId" xml:"StudioId"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityName string `json:"identityName" xml:"IdentityName"`
+IdentityType string `json:"identityType" xml:"IdentityType"`
+SessionPolicyArn string `json:"sessionPolicyArn" xml:"SessionPolicyArn"`
+StudioId string `json:"studioId" xml:"StudioId"`
 }
 
 type DeleteSecurityConfigurationInput struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteSecurityConfigurationOutput struct {
 }
 
 type DeleteStudioInput struct {
-	StudioId string `json:"studioId" xml:"StudioId"`
+StudioId string `json:"studioId" xml:"StudioId"`
 }
 
 type DeleteStudioSessionMappingInput struct {
-	IdentityId   string `json:"identityId" xml:"IdentityId"`
-	IdentityName string `json:"identityName" xml:"IdentityName"`
-	IdentityType string `json:"identityType" xml:"IdentityType"`
-	StudioId     string `json:"studioId" xml:"StudioId"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityName string `json:"identityName" xml:"IdentityName"`
+IdentityType string `json:"identityType" xml:"IdentityType"`
+StudioId string `json:"studioId" xml:"StudioId"`
 }
 
 type DescribeClusterInput struct {
-	ClusterId string `json:"clusterId" xml:"ClusterId"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
 }
 
 type DescribeClusterOutput struct {
-	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+Cluster *Cluster `json:"cluster" xml:"Cluster"`
 }
 
 type DescribeJobFlowsInput struct {
-	CreatedAfter  time.Time                 `json:"createdAfter" xml:"CreatedAfter"`
-	CreatedBefore time.Time                 `json:"createdBefore" xml:"CreatedBefore"`
-	JobFlowIds    XmlStringList             `json:"jobFlowIds" xml:"JobFlowIds"`
-	JobFlowStates JobFlowExecutionStateList `json:"jobFlowStates" xml:"JobFlowStates"`
+CreatedAfter time.Time `json:"createdAfter" xml:"CreatedAfter"`
+CreatedBefore time.Time `json:"createdBefore" xml:"CreatedBefore"`
+JobFlowIds XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
+JobFlowStates JobFlowExecutionStateList `json:"jobFlowStates" xml:"JobFlowStates"`
 }
 
 type DescribeJobFlowsOutput struct {
-	JobFlows JobFlowDetailList `json:"jobFlows" xml:"JobFlows"`
+JobFlows JobFlowDetailList `json:"jobFlows" xml:"JobFlows"`
 }
 
 type DescribeNotebookExecutionInput struct {
-	NotebookExecutionId string `json:"notebookExecutionId" xml:"NotebookExecutionId"`
+NotebookExecutionId string `json:"notebookExecutionId" xml:"NotebookExecutionId"`
 }
 
 type DescribeNotebookExecutionOutput struct {
-	NotebookExecution *NotebookExecution `json:"notebookExecution" xml:"NotebookExecution"`
+NotebookExecution *NotebookExecution `json:"notebookExecution" xml:"NotebookExecution"`
 }
 
 type DescribePersistentAppUIInput struct {
-	PersistentAppUIId string `json:"persistentAppUIId" xml:"PersistentAppUIId"`
+PersistentAppUIId string `json:"persistentAppUIId" xml:"PersistentAppUIId"`
 }
 
 type DescribePersistentAppUIOutput struct {
-	PersistentAppUI *PersistentAppUI `json:"persistentAppUI" xml:"PersistentAppUI"`
+PersistentAppUI *PersistentAppUI `json:"persistentAppUI" xml:"PersistentAppUI"`
 }
 
 type DescribeReleaseLabelInput struct {
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	ReleaseLabel string `json:"releaseLabel" xml:"ReleaseLabel"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ReleaseLabel string `json:"releaseLabel" xml:"ReleaseLabel"`
 }
 
 type DescribeReleaseLabelOutput struct {
-	Applications        SimplifiedApplicationList `json:"applications" xml:"Applications"`
-	AvailableOSReleases OSReleaseList             `json:"availableOSReleases" xml:"AvailableOSReleases"`
-	NextToken           string                    `json:"nextToken" xml:"NextToken"`
-	ReleaseLabel        string                    `json:"releaseLabel" xml:"ReleaseLabel"`
+Applications SimplifiedApplicationList `json:"applications" xml:"Applications"`
+AvailableOSReleases OSReleaseList `json:"availableOSReleases" xml:"AvailableOSReleases"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ReleaseLabel string `json:"releaseLabel" xml:"ReleaseLabel"`
 }
 
 type DescribeSecurityConfigurationInput struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeSecurityConfigurationOutput struct {
-	CreationDateTime      time.Time `json:"creationDateTime" xml:"CreationDateTime"`
-	Name                  string    `json:"name" xml:"Name"`
-	SecurityConfiguration string    `json:"securityConfiguration" xml:"SecurityConfiguration"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+Name string `json:"name" xml:"Name"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
 }
 
 type DescribeStepInput struct {
-	ClusterId string `json:"clusterId" xml:"ClusterId"`
-	StepId    string `json:"stepId" xml:"StepId"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+StepId string `json:"stepId" xml:"StepId"`
 }
 
 type DescribeStepOutput struct {
-	Step *Step `json:"step" xml:"Step"`
+Step *Step `json:"step" xml:"Step"`
 }
 
 type DescribeStudioInput struct {
-	StudioId string `json:"studioId" xml:"StudioId"`
+StudioId string `json:"studioId" xml:"StudioId"`
 }
 
 type DescribeStudioOutput struct {
-	Studio *Studio `json:"studio" xml:"Studio"`
+Studio *Studio `json:"studio" xml:"Studio"`
 }
 
 type EMRContainersConfig struct {
-	JobRunId string `json:"jobRunId" xml:"JobRunId"`
+JobRunId string `json:"jobRunId" xml:"JobRunId"`
 }
 
 type EbsBlockDevice struct {
-	Device              string               `json:"device" xml:"Device"`
-	VolumeSpecification *VolumeSpecification `json:"volumeSpecification" xml:"VolumeSpecification"`
+Device string `json:"device" xml:"Device"`
+VolumeSpecification *VolumeSpecification `json:"volumeSpecification" xml:"VolumeSpecification"`
 }
 
 type EbsBlockDeviceConfig struct {
-	VolumeSpecification *VolumeSpecification `json:"volumeSpecification" xml:"VolumeSpecification"`
-	VolumesPerInstance  int32                `json:"volumesPerInstance" xml:"VolumesPerInstance"`
+VolumeSpecification *VolumeSpecification `json:"volumeSpecification" xml:"VolumeSpecification"`
+VolumesPerInstance int32 `json:"volumesPerInstance" xml:"VolumesPerInstance"`
 }
 
 type EbsConfiguration struct {
-	EbsBlockDeviceConfigs EbsBlockDeviceConfigList `json:"ebsBlockDeviceConfigs" xml:"EbsBlockDeviceConfigs"`
-	EbsOptimized          bool                     `json:"ebsOptimized" xml:"EbsOptimized"`
+EbsBlockDeviceConfigs EbsBlockDeviceConfigList `json:"ebsBlockDeviceConfigs" xml:"EbsBlockDeviceConfigs"`
+EbsOptimized bool `json:"ebsOptimized" xml:"EbsOptimized"`
 }
 
 type EbsVolume struct {
-	Device   string `json:"device" xml:"Device"`
-	VolumeId string `json:"volumeId" xml:"VolumeId"`
+Device string `json:"device" xml:"Device"`
+VolumeId string `json:"volumeId" xml:"VolumeId"`
 }
 
 type Ec2InstanceAttributes struct {
-	AdditionalMasterSecurityGroups StringList             `json:"additionalMasterSecurityGroups" xml:"AdditionalMasterSecurityGroups"`
-	AdditionalSlaveSecurityGroups  StringList             `json:"additionalSlaveSecurityGroups" xml:"AdditionalSlaveSecurityGroups"`
-	Ec2AvailabilityZone            string                 `json:"ec2AvailabilityZone" xml:"Ec2AvailabilityZone"`
-	Ec2KeyName                     string                 `json:"ec2KeyName" xml:"Ec2KeyName"`
-	Ec2SubnetId                    string                 `json:"ec2SubnetId" xml:"Ec2SubnetId"`
-	EmrManagedMasterSecurityGroup  string                 `json:"emrManagedMasterSecurityGroup" xml:"EmrManagedMasterSecurityGroup"`
-	EmrManagedSlaveSecurityGroup   string                 `json:"emrManagedSlaveSecurityGroup" xml:"EmrManagedSlaveSecurityGroup"`
-	IamInstanceProfile             string                 `json:"iamInstanceProfile" xml:"IamInstanceProfile"`
-	RequestedEc2AvailabilityZones  XmlStringMaxLen256List `json:"requestedEc2AvailabilityZones" xml:"RequestedEc2AvailabilityZones"`
-	RequestedEc2SubnetIds          XmlStringMaxLen256List `json:"requestedEc2SubnetIds" xml:"RequestedEc2SubnetIds"`
-	ServiceAccessSecurityGroup     string                 `json:"serviceAccessSecurityGroup" xml:"ServiceAccessSecurityGroup"`
+AdditionalMasterSecurityGroups StringList `json:"additionalMasterSecurityGroups" xml:"AdditionalMasterSecurityGroups"`
+AdditionalSlaveSecurityGroups StringList `json:"additionalSlaveSecurityGroups" xml:"AdditionalSlaveSecurityGroups"`
+Ec2AvailabilityZone string `json:"ec2AvailabilityZone" xml:"Ec2AvailabilityZone"`
+Ec2KeyName string `json:"ec2KeyName" xml:"Ec2KeyName"`
+Ec2SubnetId string `json:"ec2SubnetId" xml:"Ec2SubnetId"`
+EmrManagedMasterSecurityGroup string `json:"emrManagedMasterSecurityGroup" xml:"EmrManagedMasterSecurityGroup"`
+EmrManagedSlaveSecurityGroup string `json:"emrManagedSlaveSecurityGroup" xml:"EmrManagedSlaveSecurityGroup"`
+IamInstanceProfile string `json:"iamInstanceProfile" xml:"IamInstanceProfile"`
+RequestedEc2AvailabilityZones XmlStringMaxLen256List `json:"requestedEc2AvailabilityZones" xml:"RequestedEc2AvailabilityZones"`
+RequestedEc2SubnetIds XmlStringMaxLen256List `json:"requestedEc2SubnetIds" xml:"RequestedEc2SubnetIds"`
+ServiceAccessSecurityGroup string `json:"serviceAccessSecurityGroup" xml:"ServiceAccessSecurityGroup"`
 }
 
 type ErrorDetail struct {
-	ErrorCode    string    `json:"errorCode" xml:"ErrorCode"`
-	ErrorData    ErrorData `json:"errorData" xml:"ErrorData"`
-	ErrorMessage string    `json:"errorMessage" xml:"ErrorMessage"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorData ErrorData `json:"errorData" xml:"ErrorData"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
 }
 
 type ExecutionEngineConfig struct {
-	ExecutionRoleArn              string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
-	Id                            string `json:"id" xml:"Id"`
-	MasterInstanceSecurityGroupId string `json:"masterInstanceSecurityGroupId" xml:"MasterInstanceSecurityGroupId"`
-	Type                          string `json:"type" xml:"Type"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+Id string `json:"id" xml:"Id"`
+MasterInstanceSecurityGroupId string `json:"masterInstanceSecurityGroupId" xml:"MasterInstanceSecurityGroupId"`
+Type string `json:"type" xml:"Type"`
 }
 
 type FailureDetails struct {
-	LogFile string `json:"logFile" xml:"LogFile"`
-	Message string `json:"message" xml:"Message"`
-	Reason  string `json:"reason" xml:"Reason"`
+LogFile string `json:"logFile" xml:"LogFile"`
+Message string `json:"message" xml:"Message"`
+Reason string `json:"reason" xml:"Reason"`
 }
 
 type GetAutoTerminationPolicyInput struct {
-	ClusterId string `json:"clusterId" xml:"ClusterId"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
 }
 
 type GetAutoTerminationPolicyOutput struct {
-	AutoTerminationPolicy *AutoTerminationPolicy `json:"autoTerminationPolicy" xml:"AutoTerminationPolicy"`
+AutoTerminationPolicy *AutoTerminationPolicy `json:"autoTerminationPolicy" xml:"AutoTerminationPolicy"`
 }
 
 type GetBlockPublicAccessConfigurationInput struct {
 }
 
 type GetBlockPublicAccessConfigurationOutput struct {
-	BlockPublicAccessConfiguration         *BlockPublicAccessConfiguration         `json:"blockPublicAccessConfiguration" xml:"BlockPublicAccessConfiguration"`
-	BlockPublicAccessConfigurationMetadata *BlockPublicAccessConfigurationMetadata `json:"blockPublicAccessConfigurationMetadata" xml:"BlockPublicAccessConfigurationMetadata"`
+BlockPublicAccessConfiguration *BlockPublicAccessConfiguration `json:"blockPublicAccessConfiguration" xml:"BlockPublicAccessConfiguration"`
+BlockPublicAccessConfigurationMetadata *BlockPublicAccessConfigurationMetadata `json:"blockPublicAccessConfigurationMetadata" xml:"BlockPublicAccessConfigurationMetadata"`
 }
 
 type GetClusterSessionCredentialsInput struct {
-	ClusterId        string `json:"clusterId" xml:"ClusterId"`
-	ExecutionRoleArn string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
 }
 
 type GetClusterSessionCredentialsOutput struct {
-	Credentials interface{} `json:"credentials" xml:"Credentials"`
-	ExpiresAt   time.Time   `json:"expiresAt" xml:"ExpiresAt"`
+Credentials interface{} `json:"credentials" xml:"Credentials"`
+ExpiresAt time.Time `json:"expiresAt" xml:"ExpiresAt"`
 }
 
 type GetManagedScalingPolicyInput struct {
-	ClusterId string `json:"clusterId" xml:"ClusterId"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
 }
 
 type GetManagedScalingPolicyOutput struct {
-	ManagedScalingPolicy *ManagedScalingPolicy `json:"managedScalingPolicy" xml:"ManagedScalingPolicy"`
+ManagedScalingPolicy *ManagedScalingPolicy `json:"managedScalingPolicy" xml:"ManagedScalingPolicy"`
 }
 
 type GetOnClusterAppUIPresignedURLInput struct {
-	ApplicationId      string `json:"applicationId" xml:"ApplicationId"`
-	ClusterId          string `json:"clusterId" xml:"ClusterId"`
-	DryRun             bool   `json:"dryRun" xml:"DryRun"`
-	ExecutionRoleArn   string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
-	OnClusterAppUIType string `json:"onClusterAppUIType" xml:"OnClusterAppUIType"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+DryRun bool `json:"dryRun" xml:"DryRun"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+OnClusterAppUIType string `json:"onClusterAppUIType" xml:"OnClusterAppUIType"`
 }
 
 type GetOnClusterAppUIPresignedURLOutput struct {
-	PresignedURL      string `json:"presignedURL" xml:"PresignedURL"`
-	PresignedURLReady bool   `json:"presignedURLReady" xml:"PresignedURLReady"`
+PresignedURL string `json:"presignedURL" xml:"PresignedURL"`
+PresignedURLReady bool `json:"presignedURLReady" xml:"PresignedURLReady"`
 }
 
 type GetPersistentAppUIPresignedURLInput struct {
-	ApplicationId       string `json:"applicationId" xml:"ApplicationId"`
-	AuthProxyCall       bool   `json:"authProxyCall" xml:"AuthProxyCall"`
-	ExecutionRoleArn    string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
-	PersistentAppUIId   string `json:"persistentAppUIId" xml:"PersistentAppUIId"`
-	PersistentAppUIType string `json:"persistentAppUIType" xml:"PersistentAppUIType"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+AuthProxyCall bool `json:"authProxyCall" xml:"AuthProxyCall"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+PersistentAppUIId string `json:"persistentAppUIId" xml:"PersistentAppUIId"`
+PersistentAppUIType string `json:"persistentAppUIType" xml:"PersistentAppUIType"`
 }
 
 type GetPersistentAppUIPresignedURLOutput struct {
-	PresignedURL      string `json:"presignedURL" xml:"PresignedURL"`
-	PresignedURLReady bool   `json:"presignedURLReady" xml:"PresignedURLReady"`
+PresignedURL string `json:"presignedURL" xml:"PresignedURL"`
+PresignedURLReady bool `json:"presignedURLReady" xml:"PresignedURLReady"`
 }
 
 type GetStudioSessionMappingInput struct {
-	IdentityId   string `json:"identityId" xml:"IdentityId"`
-	IdentityName string `json:"identityName" xml:"IdentityName"`
-	IdentityType string `json:"identityType" xml:"IdentityType"`
-	StudioId     string `json:"studioId" xml:"StudioId"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityName string `json:"identityName" xml:"IdentityName"`
+IdentityType string `json:"identityType" xml:"IdentityType"`
+StudioId string `json:"studioId" xml:"StudioId"`
 }
 
 type GetStudioSessionMappingOutput struct {
-	SessionMapping *SessionMappingDetail `json:"sessionMapping" xml:"SessionMapping"`
+SessionMapping *SessionMappingDetail `json:"sessionMapping" xml:"SessionMapping"`
 }
 
 type HadoopJarStepConfig struct {
-	Args       XmlStringList `json:"args" xml:"Args"`
-	Jar        string        `json:"jar" xml:"Jar"`
-	MainClass  string        `json:"mainClass" xml:"MainClass"`
-	Properties KeyValueList  `json:"properties" xml:"Properties"`
+Args XmlStringList `json:"args" xml:"Args"`
+Jar string `json:"jar" xml:"Jar"`
+MainClass string `json:"mainClass" xml:"MainClass"`
+Properties KeyValueList `json:"properties" xml:"Properties"`
 }
 
 type HadoopStepConfig struct {
-	Args       StringList `json:"args" xml:"Args"`
-	Jar        string     `json:"jar" xml:"Jar"`
-	MainClass  string     `json:"mainClass" xml:"MainClass"`
-	Properties StringMap  `json:"properties" xml:"Properties"`
+Args StringList `json:"args" xml:"Args"`
+Jar string `json:"jar" xml:"Jar"`
+MainClass string `json:"mainClass" xml:"MainClass"`
+Properties StringMap `json:"properties" xml:"Properties"`
 }
 
 type Instance struct {
-	EbsVolumes       EbsVolumeList   `json:"ebsVolumes" xml:"EbsVolumes"`
-	Ec2InstanceId    string          `json:"ec2InstanceId" xml:"Ec2InstanceId"`
-	Id               string          `json:"id" xml:"Id"`
-	InstanceFleetId  string          `json:"instanceFleetId" xml:"InstanceFleetId"`
-	InstanceGroupId  string          `json:"instanceGroupId" xml:"InstanceGroupId"`
-	InstanceType     string          `json:"instanceType" xml:"InstanceType"`
-	Market           string          `json:"market" xml:"Market"`
-	PrivateDnsName   string          `json:"privateDnsName" xml:"PrivateDnsName"`
-	PrivateIpAddress string          `json:"privateIpAddress" xml:"PrivateIpAddress"`
-	PublicDnsName    string          `json:"publicDnsName" xml:"PublicDnsName"`
-	PublicIpAddress  string          `json:"publicIpAddress" xml:"PublicIpAddress"`
-	Status           *InstanceStatus `json:"status" xml:"Status"`
+EbsVolumes EbsVolumeList `json:"ebsVolumes" xml:"EbsVolumes"`
+Ec2InstanceId string `json:"ec2InstanceId" xml:"Ec2InstanceId"`
+Id string `json:"id" xml:"Id"`
+InstanceFleetId string `json:"instanceFleetId" xml:"InstanceFleetId"`
+InstanceGroupId string `json:"instanceGroupId" xml:"InstanceGroupId"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+Market string `json:"market" xml:"Market"`
+PrivateDnsName string `json:"privateDnsName" xml:"PrivateDnsName"`
+PrivateIpAddress string `json:"privateIpAddress" xml:"PrivateIpAddress"`
+PublicDnsName string `json:"publicDnsName" xml:"PublicDnsName"`
+PublicIpAddress string `json:"publicIpAddress" xml:"PublicIpAddress"`
+Status *InstanceStatus `json:"status" xml:"Status"`
 }
 
 type InstanceFleet struct {
-	Context                     string                                   `json:"context" xml:"Context"`
-	Id                          string                                   `json:"id" xml:"Id"`
-	InstanceFleetType           string                                   `json:"instanceFleetType" xml:"InstanceFleetType"`
-	InstanceTypeSpecifications  InstanceTypeSpecificationList            `json:"instanceTypeSpecifications" xml:"InstanceTypeSpecifications"`
-	LaunchSpecifications        *InstanceFleetProvisioningSpecifications `json:"launchSpecifications" xml:"LaunchSpecifications"`
-	Name                        string                                   `json:"name" xml:"Name"`
-	ProvisionedOnDemandCapacity int32                                    `json:"provisionedOnDemandCapacity" xml:"ProvisionedOnDemandCapacity"`
-	ProvisionedSpotCapacity     int32                                    `json:"provisionedSpotCapacity" xml:"ProvisionedSpotCapacity"`
-	ResizeSpecifications        *InstanceFleetResizingSpecifications     `json:"resizeSpecifications" xml:"ResizeSpecifications"`
-	Status                      *InstanceFleetStatus                     `json:"status" xml:"Status"`
-	TargetOnDemandCapacity      int32                                    `json:"targetOnDemandCapacity" xml:"TargetOnDemandCapacity"`
-	TargetSpotCapacity          int32                                    `json:"targetSpotCapacity" xml:"TargetSpotCapacity"`
+Context string `json:"context" xml:"Context"`
+Id string `json:"id" xml:"Id"`
+InstanceFleetType string `json:"instanceFleetType" xml:"InstanceFleetType"`
+InstanceTypeSpecifications InstanceTypeSpecificationList `json:"instanceTypeSpecifications" xml:"InstanceTypeSpecifications"`
+LaunchSpecifications *InstanceFleetProvisioningSpecifications `json:"launchSpecifications" xml:"LaunchSpecifications"`
+Name string `json:"name" xml:"Name"`
+ProvisionedOnDemandCapacity int32 `json:"provisionedOnDemandCapacity" xml:"ProvisionedOnDemandCapacity"`
+ProvisionedSpotCapacity int32 `json:"provisionedSpotCapacity" xml:"ProvisionedSpotCapacity"`
+ResizeSpecifications *InstanceFleetResizingSpecifications `json:"resizeSpecifications" xml:"ResizeSpecifications"`
+Status *InstanceFleetStatus `json:"status" xml:"Status"`
+TargetOnDemandCapacity int32 `json:"targetOnDemandCapacity" xml:"TargetOnDemandCapacity"`
+TargetSpotCapacity int32 `json:"targetSpotCapacity" xml:"TargetSpotCapacity"`
 }
 
 type InstanceFleetConfig struct {
-	Context                string                                   `json:"context" xml:"Context"`
-	InstanceFleetType      string                                   `json:"instanceFleetType" xml:"InstanceFleetType"`
-	InstanceTypeConfigs    InstanceTypeConfigList                   `json:"instanceTypeConfigs" xml:"InstanceTypeConfigs"`
-	LaunchSpecifications   *InstanceFleetProvisioningSpecifications `json:"launchSpecifications" xml:"LaunchSpecifications"`
-	Name                   string                                   `json:"name" xml:"Name"`
-	ResizeSpecifications   *InstanceFleetResizingSpecifications     `json:"resizeSpecifications" xml:"ResizeSpecifications"`
-	TargetOnDemandCapacity int32                                    `json:"targetOnDemandCapacity" xml:"TargetOnDemandCapacity"`
-	TargetSpotCapacity     int32                                    `json:"targetSpotCapacity" xml:"TargetSpotCapacity"`
+Context string `json:"context" xml:"Context"`
+InstanceFleetType string `json:"instanceFleetType" xml:"InstanceFleetType"`
+InstanceTypeConfigs InstanceTypeConfigList `json:"instanceTypeConfigs" xml:"InstanceTypeConfigs"`
+LaunchSpecifications *InstanceFleetProvisioningSpecifications `json:"launchSpecifications" xml:"LaunchSpecifications"`
+Name string `json:"name" xml:"Name"`
+ResizeSpecifications *InstanceFleetResizingSpecifications `json:"resizeSpecifications" xml:"ResizeSpecifications"`
+TargetOnDemandCapacity int32 `json:"targetOnDemandCapacity" xml:"TargetOnDemandCapacity"`
+TargetSpotCapacity int32 `json:"targetSpotCapacity" xml:"TargetSpotCapacity"`
 }
 
 type InstanceFleetModifyConfig struct {
-	Context                string                               `json:"context" xml:"Context"`
-	InstanceFleetId        string                               `json:"instanceFleetId" xml:"InstanceFleetId"`
-	InstanceTypeConfigs    InstanceTypeConfigList               `json:"instanceTypeConfigs" xml:"InstanceTypeConfigs"`
-	ResizeSpecifications   *InstanceFleetResizingSpecifications `json:"resizeSpecifications" xml:"ResizeSpecifications"`
-	TargetOnDemandCapacity int32                                `json:"targetOnDemandCapacity" xml:"TargetOnDemandCapacity"`
-	TargetSpotCapacity     int32                                `json:"targetSpotCapacity" xml:"TargetSpotCapacity"`
+Context string `json:"context" xml:"Context"`
+InstanceFleetId string `json:"instanceFleetId" xml:"InstanceFleetId"`
+InstanceTypeConfigs InstanceTypeConfigList `json:"instanceTypeConfigs" xml:"InstanceTypeConfigs"`
+ResizeSpecifications *InstanceFleetResizingSpecifications `json:"resizeSpecifications" xml:"ResizeSpecifications"`
+TargetOnDemandCapacity int32 `json:"targetOnDemandCapacity" xml:"TargetOnDemandCapacity"`
+TargetSpotCapacity int32 `json:"targetSpotCapacity" xml:"TargetSpotCapacity"`
 }
 
 type InstanceFleetProvisioningSpecifications struct {
-	OnDemandSpecification *OnDemandProvisioningSpecification `json:"onDemandSpecification" xml:"OnDemandSpecification"`
-	SpotSpecification     *SpotProvisioningSpecification     `json:"spotSpecification" xml:"SpotSpecification"`
+OnDemandSpecification *OnDemandProvisioningSpecification `json:"onDemandSpecification" xml:"OnDemandSpecification"`
+SpotSpecification *SpotProvisioningSpecification `json:"spotSpecification" xml:"SpotSpecification"`
 }
 
 type InstanceFleetResizingSpecifications struct {
-	OnDemandResizeSpecification *OnDemandResizingSpecification `json:"onDemandResizeSpecification" xml:"OnDemandResizeSpecification"`
-	SpotResizeSpecification     *SpotResizingSpecification     `json:"spotResizeSpecification" xml:"SpotResizeSpecification"`
+OnDemandResizeSpecification *OnDemandResizingSpecification `json:"onDemandResizeSpecification" xml:"OnDemandResizeSpecification"`
+SpotResizeSpecification *SpotResizingSpecification `json:"spotResizeSpecification" xml:"SpotResizeSpecification"`
 }
 
 type InstanceFleetStateChangeReason struct {
-	Code    string `json:"code" xml:"Code"`
-	Message string `json:"message" xml:"Message"`
+Code string `json:"code" xml:"Code"`
+Message string `json:"message" xml:"Message"`
 }
 
 type InstanceFleetStatus struct {
-	State             string                          `json:"state" xml:"State"`
-	StateChangeReason *InstanceFleetStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
-	Timeline          *InstanceFleetTimeline          `json:"timeline" xml:"Timeline"`
+State string `json:"state" xml:"State"`
+StateChangeReason *InstanceFleetStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
+Timeline *InstanceFleetTimeline `json:"timeline" xml:"Timeline"`
 }
 
 type InstanceFleetTimeline struct {
-	CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
-	EndDateTime      time.Time `json:"endDateTime" xml:"EndDateTime"`
-	ReadyDateTime    time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+EndDateTime time.Time `json:"endDateTime" xml:"EndDateTime"`
+ReadyDateTime time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
 }
 
 type InstanceGroup struct {
-	AutoScalingPolicy                            *AutoScalingPolicyDescription `json:"autoScalingPolicy" xml:"AutoScalingPolicy"`
-	BidPrice                                     string                        `json:"bidPrice" xml:"BidPrice"`
-	Configurations                               ConfigurationList             `json:"configurations" xml:"Configurations"`
-	ConfigurationsVersion                        int64                         `json:"configurationsVersion" xml:"ConfigurationsVersion"`
-	CustomAmiId                                  string                        `json:"customAmiId" xml:"CustomAmiId"`
-	EbsBlockDevices                              EbsBlockDeviceList            `json:"ebsBlockDevices" xml:"EbsBlockDevices"`
-	EbsOptimized                                 bool                          `json:"ebsOptimized" xml:"EbsOptimized"`
-	Id                                           string                        `json:"id" xml:"Id"`
-	InstanceGroupType                            string                        `json:"instanceGroupType" xml:"InstanceGroupType"`
-	InstanceType                                 string                        `json:"instanceType" xml:"InstanceType"`
-	LastSuccessfullyAppliedConfigurations        ConfigurationList             `json:"lastSuccessfullyAppliedConfigurations" xml:"LastSuccessfullyAppliedConfigurations"`
-	LastSuccessfullyAppliedConfigurationsVersion int64                         `json:"lastSuccessfullyAppliedConfigurationsVersion" xml:"LastSuccessfullyAppliedConfigurationsVersion"`
-	Market                                       string                        `json:"market" xml:"Market"`
-	Name                                         string                        `json:"name" xml:"Name"`
-	RequestedInstanceCount                       int32                         `json:"requestedInstanceCount" xml:"RequestedInstanceCount"`
-	RunningInstanceCount                         int32                         `json:"runningInstanceCount" xml:"RunningInstanceCount"`
-	ShrinkPolicy                                 *ShrinkPolicy                 `json:"shrinkPolicy" xml:"ShrinkPolicy"`
-	Status                                       *InstanceGroupStatus          `json:"status" xml:"Status"`
+AutoScalingPolicy *AutoScalingPolicyDescription `json:"autoScalingPolicy" xml:"AutoScalingPolicy"`
+BidPrice string `json:"bidPrice" xml:"BidPrice"`
+Configurations ConfigurationList `json:"configurations" xml:"Configurations"`
+ConfigurationsVersion int64 `json:"configurationsVersion" xml:"ConfigurationsVersion"`
+CustomAmiId string `json:"customAmiId" xml:"CustomAmiId"`
+EbsBlockDevices EbsBlockDeviceList `json:"ebsBlockDevices" xml:"EbsBlockDevices"`
+EbsOptimized bool `json:"ebsOptimized" xml:"EbsOptimized"`
+Id string `json:"id" xml:"Id"`
+InstanceGroupType string `json:"instanceGroupType" xml:"InstanceGroupType"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+LastSuccessfullyAppliedConfigurations ConfigurationList `json:"lastSuccessfullyAppliedConfigurations" xml:"LastSuccessfullyAppliedConfigurations"`
+LastSuccessfullyAppliedConfigurationsVersion int64 `json:"lastSuccessfullyAppliedConfigurationsVersion" xml:"LastSuccessfullyAppliedConfigurationsVersion"`
+Market string `json:"market" xml:"Market"`
+Name string `json:"name" xml:"Name"`
+RequestedInstanceCount int32 `json:"requestedInstanceCount" xml:"RequestedInstanceCount"`
+RunningInstanceCount int32 `json:"runningInstanceCount" xml:"RunningInstanceCount"`
+ShrinkPolicy *ShrinkPolicy `json:"shrinkPolicy" xml:"ShrinkPolicy"`
+Status *InstanceGroupStatus `json:"status" xml:"Status"`
 }
 
 type InstanceGroupConfig struct {
-	AutoScalingPolicy *AutoScalingPolicy `json:"autoScalingPolicy" xml:"AutoScalingPolicy"`
-	BidPrice          string             `json:"bidPrice" xml:"BidPrice"`
-	Configurations    ConfigurationList  `json:"configurations" xml:"Configurations"`
-	CustomAmiId       string             `json:"customAmiId" xml:"CustomAmiId"`
-	EbsConfiguration  *EbsConfiguration  `json:"ebsConfiguration" xml:"EbsConfiguration"`
-	InstanceCount     int32              `json:"instanceCount" xml:"InstanceCount"`
-	InstanceRole      string             `json:"instanceRole" xml:"InstanceRole"`
-	InstanceType      string             `json:"instanceType" xml:"InstanceType"`
-	Market            string             `json:"market" xml:"Market"`
-	Name              string             `json:"name" xml:"Name"`
+AutoScalingPolicy *AutoScalingPolicy `json:"autoScalingPolicy" xml:"AutoScalingPolicy"`
+BidPrice string `json:"bidPrice" xml:"BidPrice"`
+Configurations ConfigurationList `json:"configurations" xml:"Configurations"`
+CustomAmiId string `json:"customAmiId" xml:"CustomAmiId"`
+EbsConfiguration *EbsConfiguration `json:"ebsConfiguration" xml:"EbsConfiguration"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+InstanceRole string `json:"instanceRole" xml:"InstanceRole"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+Market string `json:"market" xml:"Market"`
+Name string `json:"name" xml:"Name"`
 }
 
 type InstanceGroupDetail struct {
-	BidPrice              string    `json:"bidPrice" xml:"BidPrice"`
-	CreationDateTime      time.Time `json:"creationDateTime" xml:"CreationDateTime"`
-	CustomAmiId           string    `json:"customAmiId" xml:"CustomAmiId"`
-	EndDateTime           time.Time `json:"endDateTime" xml:"EndDateTime"`
-	InstanceGroupId       string    `json:"instanceGroupId" xml:"InstanceGroupId"`
-	InstanceRequestCount  int32     `json:"instanceRequestCount" xml:"InstanceRequestCount"`
-	InstanceRole          string    `json:"instanceRole" xml:"InstanceRole"`
-	InstanceRunningCount  int32     `json:"instanceRunningCount" xml:"InstanceRunningCount"`
-	InstanceType          string    `json:"instanceType" xml:"InstanceType"`
-	LastStateChangeReason string    `json:"lastStateChangeReason" xml:"LastStateChangeReason"`
-	Market                string    `json:"market" xml:"Market"`
-	Name                  string    `json:"name" xml:"Name"`
-	ReadyDateTime         time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
-	StartDateTime         time.Time `json:"startDateTime" xml:"StartDateTime"`
-	State                 string    `json:"state" xml:"State"`
+BidPrice string `json:"bidPrice" xml:"BidPrice"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+CustomAmiId string `json:"customAmiId" xml:"CustomAmiId"`
+EndDateTime time.Time `json:"endDateTime" xml:"EndDateTime"`
+InstanceGroupId string `json:"instanceGroupId" xml:"InstanceGroupId"`
+InstanceRequestCount int32 `json:"instanceRequestCount" xml:"InstanceRequestCount"`
+InstanceRole string `json:"instanceRole" xml:"InstanceRole"`
+InstanceRunningCount int32 `json:"instanceRunningCount" xml:"InstanceRunningCount"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+LastStateChangeReason string `json:"lastStateChangeReason" xml:"LastStateChangeReason"`
+Market string `json:"market" xml:"Market"`
+Name string `json:"name" xml:"Name"`
+ReadyDateTime time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
+StartDateTime time.Time `json:"startDateTime" xml:"StartDateTime"`
+State string `json:"state" xml:"State"`
 }
 
 type InstanceGroupModifyConfig struct {
-	Configurations            ConfigurationList             `json:"configurations" xml:"Configurations"`
-	EC2InstanceIdsToTerminate EC2InstanceIdsToTerminateList `json:"eC2InstanceIdsToTerminate" xml:"EC2InstanceIdsToTerminate"`
-	InstanceCount             int32                         `json:"instanceCount" xml:"InstanceCount"`
-	InstanceGroupId           string                        `json:"instanceGroupId" xml:"InstanceGroupId"`
-	ReconfigurationType       string                        `json:"reconfigurationType" xml:"ReconfigurationType"`
-	ShrinkPolicy              *ShrinkPolicy                 `json:"shrinkPolicy" xml:"ShrinkPolicy"`
+Configurations ConfigurationList `json:"configurations" xml:"Configurations"`
+EC2InstanceIdsToTerminate EC2InstanceIdsToTerminateList `json:"eC2InstanceIdsToTerminate" xml:"EC2InstanceIdsToTerminate"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+InstanceGroupId string `json:"instanceGroupId" xml:"InstanceGroupId"`
+ReconfigurationType string `json:"reconfigurationType" xml:"ReconfigurationType"`
+ShrinkPolicy *ShrinkPolicy `json:"shrinkPolicy" xml:"ShrinkPolicy"`
 }
 
 type InstanceGroupStateChangeReason struct {
-	Code    string `json:"code" xml:"Code"`
-	Message string `json:"message" xml:"Message"`
+Code string `json:"code" xml:"Code"`
+Message string `json:"message" xml:"Message"`
 }
 
 type InstanceGroupStatus struct {
-	State             string                          `json:"state" xml:"State"`
-	StateChangeReason *InstanceGroupStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
-	Timeline          *InstanceGroupTimeline          `json:"timeline" xml:"Timeline"`
+State string `json:"state" xml:"State"`
+StateChangeReason *InstanceGroupStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
+Timeline *InstanceGroupTimeline `json:"timeline" xml:"Timeline"`
 }
 
 type InstanceGroupTimeline struct {
-	CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
-	EndDateTime      time.Time `json:"endDateTime" xml:"EndDateTime"`
-	ReadyDateTime    time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+EndDateTime time.Time `json:"endDateTime" xml:"EndDateTime"`
+ReadyDateTime time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
 }
 
 type InstanceResizePolicy struct {
-	InstanceTerminationTimeout int32              `json:"instanceTerminationTimeout" xml:"InstanceTerminationTimeout"`
-	InstancesToProtect         EC2InstanceIdsList `json:"instancesToProtect" xml:"InstancesToProtect"`
-	InstancesToTerminate       EC2InstanceIdsList `json:"instancesToTerminate" xml:"InstancesToTerminate"`
+InstanceTerminationTimeout int32 `json:"instanceTerminationTimeout" xml:"InstanceTerminationTimeout"`
+InstancesToProtect EC2InstanceIdsList `json:"instancesToProtect" xml:"InstancesToProtect"`
+InstancesToTerminate EC2InstanceIdsList `json:"instancesToTerminate" xml:"InstancesToTerminate"`
 }
 
 type InstanceStateChangeReason struct {
-	Code    string `json:"code" xml:"Code"`
-	Message string `json:"message" xml:"Message"`
+Code string `json:"code" xml:"Code"`
+Message string `json:"message" xml:"Message"`
 }
 
 type InstanceStatus struct {
-	State             string                     `json:"state" xml:"State"`
-	StateChangeReason *InstanceStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
-	Timeline          *InstanceTimeline          `json:"timeline" xml:"Timeline"`
+State string `json:"state" xml:"State"`
+StateChangeReason *InstanceStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
+Timeline *InstanceTimeline `json:"timeline" xml:"Timeline"`
 }
 
 type InstanceTimeline struct {
-	CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
-	EndDateTime      time.Time `json:"endDateTime" xml:"EndDateTime"`
-	ReadyDateTime    time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+EndDateTime time.Time `json:"endDateTime" xml:"EndDateTime"`
+ReadyDateTime time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
 }
 
 type InstanceTypeConfig struct {
-	BidPrice                            string            `json:"bidPrice" xml:"BidPrice"`
-	BidPriceAsPercentageOfOnDemandPrice float64           `json:"bidPriceAsPercentageOfOnDemandPrice" xml:"BidPriceAsPercentageOfOnDemandPrice"`
-	Configurations                      ConfigurationList `json:"configurations" xml:"Configurations"`
-	CustomAmiId                         string            `json:"customAmiId" xml:"CustomAmiId"`
-	EbsConfiguration                    *EbsConfiguration `json:"ebsConfiguration" xml:"EbsConfiguration"`
-	InstanceType                        string            `json:"instanceType" xml:"InstanceType"`
-	Priority                            float64           `json:"priority" xml:"Priority"`
-	WeightedCapacity                    int32             `json:"weightedCapacity" xml:"WeightedCapacity"`
+BidPrice string `json:"bidPrice" xml:"BidPrice"`
+BidPriceAsPercentageOfOnDemandPrice float64 `json:"bidPriceAsPercentageOfOnDemandPrice" xml:"BidPriceAsPercentageOfOnDemandPrice"`
+Configurations ConfigurationList `json:"configurations" xml:"Configurations"`
+CustomAmiId string `json:"customAmiId" xml:"CustomAmiId"`
+EbsConfiguration *EbsConfiguration `json:"ebsConfiguration" xml:"EbsConfiguration"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+Priority float64 `json:"priority" xml:"Priority"`
+WeightedCapacity int32 `json:"weightedCapacity" xml:"WeightedCapacity"`
 }
 
 type InstanceTypeSpecification struct {
-	BidPrice                            string             `json:"bidPrice" xml:"BidPrice"`
-	BidPriceAsPercentageOfOnDemandPrice float64            `json:"bidPriceAsPercentageOfOnDemandPrice" xml:"BidPriceAsPercentageOfOnDemandPrice"`
-	Configurations                      ConfigurationList  `json:"configurations" xml:"Configurations"`
-	CustomAmiId                         string             `json:"customAmiId" xml:"CustomAmiId"`
-	EbsBlockDevices                     EbsBlockDeviceList `json:"ebsBlockDevices" xml:"EbsBlockDevices"`
-	EbsOptimized                        bool               `json:"ebsOptimized" xml:"EbsOptimized"`
-	InstanceType                        string             `json:"instanceType" xml:"InstanceType"`
-	Priority                            float64            `json:"priority" xml:"Priority"`
-	WeightedCapacity                    int32              `json:"weightedCapacity" xml:"WeightedCapacity"`
+BidPrice string `json:"bidPrice" xml:"BidPrice"`
+BidPriceAsPercentageOfOnDemandPrice float64 `json:"bidPriceAsPercentageOfOnDemandPrice" xml:"BidPriceAsPercentageOfOnDemandPrice"`
+Configurations ConfigurationList `json:"configurations" xml:"Configurations"`
+CustomAmiId string `json:"customAmiId" xml:"CustomAmiId"`
+EbsBlockDevices EbsBlockDeviceList `json:"ebsBlockDevices" xml:"EbsBlockDevices"`
+EbsOptimized bool `json:"ebsOptimized" xml:"EbsOptimized"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+Priority float64 `json:"priority" xml:"Priority"`
+WeightedCapacity int32 `json:"weightedCapacity" xml:"WeightedCapacity"`
 }
 
 type JobFlowDetail struct {
-	AmiVersion            string                        `json:"amiVersion" xml:"AmiVersion"`
-	AutoScalingRole       string                        `json:"autoScalingRole" xml:"AutoScalingRole"`
-	BootstrapActions      BootstrapActionDetailList     `json:"bootstrapActions" xml:"BootstrapActions"`
-	ExecutionStatusDetail *JobFlowExecutionStatusDetail `json:"executionStatusDetail" xml:"ExecutionStatusDetail"`
-	Instances             *JobFlowInstancesDetail       `json:"instances" xml:"Instances"`
-	JobFlowId             string                        `json:"jobFlowId" xml:"JobFlowId"`
-	JobFlowRole           string                        `json:"jobFlowRole" xml:"JobFlowRole"`
-	LogEncryptionKmsKeyId string                        `json:"logEncryptionKmsKeyId" xml:"LogEncryptionKmsKeyId"`
-	LogUri                string                        `json:"logUri" xml:"LogUri"`
-	Name                  string                        `json:"name" xml:"Name"`
-	ScaleDownBehavior     string                        `json:"scaleDownBehavior" xml:"ScaleDownBehavior"`
-	ServiceRole           string                        `json:"serviceRole" xml:"ServiceRole"`
-	Steps                 StepDetailList                `json:"steps" xml:"Steps"`
-	SupportedProducts     SupportedProductsList         `json:"supportedProducts" xml:"SupportedProducts"`
-	VisibleToAllUsers     bool                          `json:"visibleToAllUsers" xml:"VisibleToAllUsers"`
+AmiVersion string `json:"amiVersion" xml:"AmiVersion"`
+AutoScalingRole string `json:"autoScalingRole" xml:"AutoScalingRole"`
+BootstrapActions BootstrapActionDetailList `json:"bootstrapActions" xml:"BootstrapActions"`
+ExecutionStatusDetail *JobFlowExecutionStatusDetail `json:"executionStatusDetail" xml:"ExecutionStatusDetail"`
+Instances *JobFlowInstancesDetail `json:"instances" xml:"Instances"`
+JobFlowId string `json:"jobFlowId" xml:"JobFlowId"`
+JobFlowRole string `json:"jobFlowRole" xml:"JobFlowRole"`
+LogEncryptionKmsKeyId string `json:"logEncryptionKmsKeyId" xml:"LogEncryptionKmsKeyId"`
+LogUri string `json:"logUri" xml:"LogUri"`
+Name string `json:"name" xml:"Name"`
+ScaleDownBehavior string `json:"scaleDownBehavior" xml:"ScaleDownBehavior"`
+ServiceRole string `json:"serviceRole" xml:"ServiceRole"`
+Steps StepDetailList `json:"steps" xml:"Steps"`
+SupportedProducts SupportedProductsList `json:"supportedProducts" xml:"SupportedProducts"`
+VisibleToAllUsers bool `json:"visibleToAllUsers" xml:"VisibleToAllUsers"`
 }
 
 type JobFlowExecutionStatusDetail struct {
-	CreationDateTime      time.Time `json:"creationDateTime" xml:"CreationDateTime"`
-	EndDateTime           time.Time `json:"endDateTime" xml:"EndDateTime"`
-	LastStateChangeReason string    `json:"lastStateChangeReason" xml:"LastStateChangeReason"`
-	ReadyDateTime         time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
-	StartDateTime         time.Time `json:"startDateTime" xml:"StartDateTime"`
-	State                 string    `json:"state" xml:"State"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+EndDateTime time.Time `json:"endDateTime" xml:"EndDateTime"`
+LastStateChangeReason string `json:"lastStateChangeReason" xml:"LastStateChangeReason"`
+ReadyDateTime time.Time `json:"readyDateTime" xml:"ReadyDateTime"`
+StartDateTime time.Time `json:"startDateTime" xml:"StartDateTime"`
+State string `json:"state" xml:"State"`
 }
 
 type JobFlowInstancesConfig struct {
-	AdditionalMasterSecurityGroups SecurityGroupsList      `json:"additionalMasterSecurityGroups" xml:"AdditionalMasterSecurityGroups"`
-	AdditionalSlaveSecurityGroups  SecurityGroupsList      `json:"additionalSlaveSecurityGroups" xml:"AdditionalSlaveSecurityGroups"`
-	Ec2KeyName                     string                  `json:"ec2KeyName" xml:"Ec2KeyName"`
-	Ec2SubnetId                    string                  `json:"ec2SubnetId" xml:"Ec2SubnetId"`
-	Ec2SubnetIds                   XmlStringMaxLen256List  `json:"ec2SubnetIds" xml:"Ec2SubnetIds"`
-	EmrManagedMasterSecurityGroup  string                  `json:"emrManagedMasterSecurityGroup" xml:"EmrManagedMasterSecurityGroup"`
-	EmrManagedSlaveSecurityGroup   string                  `json:"emrManagedSlaveSecurityGroup" xml:"EmrManagedSlaveSecurityGroup"`
-	HadoopVersion                  string                  `json:"hadoopVersion" xml:"HadoopVersion"`
-	InstanceCount                  int32                   `json:"instanceCount" xml:"InstanceCount"`
-	InstanceFleets                 InstanceFleetConfigList `json:"instanceFleets" xml:"InstanceFleets"`
-	InstanceGroups                 InstanceGroupConfigList `json:"instanceGroups" xml:"InstanceGroups"`
-	KeepJobFlowAliveWhenNoSteps    bool                    `json:"keepJobFlowAliveWhenNoSteps" xml:"KeepJobFlowAliveWhenNoSteps"`
-	MasterInstanceType             string                  `json:"masterInstanceType" xml:"MasterInstanceType"`
-	Placement                      *PlacementType          `json:"placement" xml:"Placement"`
-	ServiceAccessSecurityGroup     string                  `json:"serviceAccessSecurityGroup" xml:"ServiceAccessSecurityGroup"`
-	SlaveInstanceType              string                  `json:"slaveInstanceType" xml:"SlaveInstanceType"`
-	TerminationProtected           bool                    `json:"terminationProtected" xml:"TerminationProtected"`
-	UnhealthyNodeReplacement       bool                    `json:"unhealthyNodeReplacement" xml:"UnhealthyNodeReplacement"`
+AdditionalMasterSecurityGroups SecurityGroupsList `json:"additionalMasterSecurityGroups" xml:"AdditionalMasterSecurityGroups"`
+AdditionalSlaveSecurityGroups SecurityGroupsList `json:"additionalSlaveSecurityGroups" xml:"AdditionalSlaveSecurityGroups"`
+Ec2KeyName string `json:"ec2KeyName" xml:"Ec2KeyName"`
+Ec2SubnetId string `json:"ec2SubnetId" xml:"Ec2SubnetId"`
+Ec2SubnetIds XmlStringMaxLen256List `json:"ec2SubnetIds" xml:"Ec2SubnetIds"`
+EmrManagedMasterSecurityGroup string `json:"emrManagedMasterSecurityGroup" xml:"EmrManagedMasterSecurityGroup"`
+EmrManagedSlaveSecurityGroup string `json:"emrManagedSlaveSecurityGroup" xml:"EmrManagedSlaveSecurityGroup"`
+HadoopVersion string `json:"hadoopVersion" xml:"HadoopVersion"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+InstanceFleets InstanceFleetConfigList `json:"instanceFleets" xml:"InstanceFleets"`
+InstanceGroups InstanceGroupConfigList `json:"instanceGroups" xml:"InstanceGroups"`
+KeepJobFlowAliveWhenNoSteps bool `json:"keepJobFlowAliveWhenNoSteps" xml:"KeepJobFlowAliveWhenNoSteps"`
+MasterInstanceType string `json:"masterInstanceType" xml:"MasterInstanceType"`
+Placement *PlacementType `json:"placement" xml:"Placement"`
+ServiceAccessSecurityGroup string `json:"serviceAccessSecurityGroup" xml:"ServiceAccessSecurityGroup"`
+SlaveInstanceType string `json:"slaveInstanceType" xml:"SlaveInstanceType"`
+TerminationProtected bool `json:"terminationProtected" xml:"TerminationProtected"`
+UnhealthyNodeReplacement bool `json:"unhealthyNodeReplacement" xml:"UnhealthyNodeReplacement"`
 }
 
 type JobFlowInstancesDetail struct {
-	Ec2KeyName                  string                  `json:"ec2KeyName" xml:"Ec2KeyName"`
-	Ec2SubnetId                 string                  `json:"ec2SubnetId" xml:"Ec2SubnetId"`
-	HadoopVersion               string                  `json:"hadoopVersion" xml:"HadoopVersion"`
-	InstanceCount               int32                   `json:"instanceCount" xml:"InstanceCount"`
-	InstanceGroups              InstanceGroupDetailList `json:"instanceGroups" xml:"InstanceGroups"`
-	KeepJobFlowAliveWhenNoSteps bool                    `json:"keepJobFlowAliveWhenNoSteps" xml:"KeepJobFlowAliveWhenNoSteps"`
-	MasterInstanceId            string                  `json:"masterInstanceId" xml:"MasterInstanceId"`
-	MasterInstanceType          string                  `json:"masterInstanceType" xml:"MasterInstanceType"`
-	MasterPublicDnsName         string                  `json:"masterPublicDnsName" xml:"MasterPublicDnsName"`
-	NormalizedInstanceHours     int32                   `json:"normalizedInstanceHours" xml:"NormalizedInstanceHours"`
-	Placement                   *PlacementType          `json:"placement" xml:"Placement"`
-	SlaveInstanceType           string                  `json:"slaveInstanceType" xml:"SlaveInstanceType"`
-	TerminationProtected        bool                    `json:"terminationProtected" xml:"TerminationProtected"`
-	UnhealthyNodeReplacement    bool                    `json:"unhealthyNodeReplacement" xml:"UnhealthyNodeReplacement"`
+Ec2KeyName string `json:"ec2KeyName" xml:"Ec2KeyName"`
+Ec2SubnetId string `json:"ec2SubnetId" xml:"Ec2SubnetId"`
+HadoopVersion string `json:"hadoopVersion" xml:"HadoopVersion"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+InstanceGroups InstanceGroupDetailList `json:"instanceGroups" xml:"InstanceGroups"`
+KeepJobFlowAliveWhenNoSteps bool `json:"keepJobFlowAliveWhenNoSteps" xml:"KeepJobFlowAliveWhenNoSteps"`
+MasterInstanceId string `json:"masterInstanceId" xml:"MasterInstanceId"`
+MasterInstanceType string `json:"masterInstanceType" xml:"MasterInstanceType"`
+MasterPublicDnsName string `json:"masterPublicDnsName" xml:"MasterPublicDnsName"`
+NormalizedInstanceHours int32 `json:"normalizedInstanceHours" xml:"NormalizedInstanceHours"`
+Placement *PlacementType `json:"placement" xml:"Placement"`
+SlaveInstanceType string `json:"slaveInstanceType" xml:"SlaveInstanceType"`
+TerminationProtected bool `json:"terminationProtected" xml:"TerminationProtected"`
+UnhealthyNodeReplacement bool `json:"unhealthyNodeReplacement" xml:"UnhealthyNodeReplacement"`
 }
 
 type KerberosAttributes struct {
-	ADDomainJoinPassword             string `json:"aDDomainJoinPassword" xml:"ADDomainJoinPassword"`
-	ADDomainJoinUser                 string `json:"aDDomainJoinUser" xml:"ADDomainJoinUser"`
-	CrossRealmTrustPrincipalPassword string `json:"crossRealmTrustPrincipalPassword" xml:"CrossRealmTrustPrincipalPassword"`
-	KdcAdminPassword                 string `json:"kdcAdminPassword" xml:"KdcAdminPassword"`
-	Realm                            string `json:"realm" xml:"Realm"`
+ADDomainJoinPassword string `json:"aDDomainJoinPassword" xml:"ADDomainJoinPassword"`
+ADDomainJoinUser string `json:"aDDomainJoinUser" xml:"ADDomainJoinUser"`
+CrossRealmTrustPrincipalPassword string `json:"crossRealmTrustPrincipalPassword" xml:"CrossRealmTrustPrincipalPassword"`
+KdcAdminPassword string `json:"kdcAdminPassword" xml:"KdcAdminPassword"`
+Realm string `json:"realm" xml:"Realm"`
 }
 
 type KeyValue struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ListBootstrapActionsInput struct {
-	ClusterId string `json:"clusterId" xml:"ClusterId"`
-	Marker    string `json:"marker" xml:"Marker"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListBootstrapActionsOutput struct {
-	BootstrapActions CommandList `json:"bootstrapActions" xml:"BootstrapActions"`
-	Marker           string      `json:"marker" xml:"Marker"`
+BootstrapActions CommandList `json:"bootstrapActions" xml:"BootstrapActions"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListClustersInput struct {
-	ClusterStates ClusterStateList `json:"clusterStates" xml:"ClusterStates"`
-	CreatedAfter  time.Time        `json:"createdAfter" xml:"CreatedAfter"`
-	CreatedBefore time.Time        `json:"createdBefore" xml:"CreatedBefore"`
-	Marker        string           `json:"marker" xml:"Marker"`
+ClusterStates ClusterStateList `json:"clusterStates" xml:"ClusterStates"`
+CreatedAfter time.Time `json:"createdAfter" xml:"CreatedAfter"`
+CreatedBefore time.Time `json:"createdBefore" xml:"CreatedBefore"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListClustersOutput struct {
-	Clusters ClusterSummaryList `json:"clusters" xml:"Clusters"`
-	Marker   string             `json:"marker" xml:"Marker"`
+Clusters ClusterSummaryList `json:"clusters" xml:"Clusters"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListInstanceFleetsInput struct {
-	ClusterId string `json:"clusterId" xml:"ClusterId"`
-	Marker    string `json:"marker" xml:"Marker"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListInstanceFleetsOutput struct {
-	InstanceFleets InstanceFleetList `json:"instanceFleets" xml:"InstanceFleets"`
-	Marker         string            `json:"marker" xml:"Marker"`
+InstanceFleets InstanceFleetList `json:"instanceFleets" xml:"InstanceFleets"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListInstanceGroupsInput struct {
-	ClusterId string `json:"clusterId" xml:"ClusterId"`
-	Marker    string `json:"marker" xml:"Marker"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListInstanceGroupsOutput struct {
-	InstanceGroups InstanceGroupList `json:"instanceGroups" xml:"InstanceGroups"`
-	Marker         string            `json:"marker" xml:"Marker"`
+InstanceGroups InstanceGroupList `json:"instanceGroups" xml:"InstanceGroups"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListInstancesInput struct {
-	ClusterId          string                `json:"clusterId" xml:"ClusterId"`
-	InstanceFleetId    string                `json:"instanceFleetId" xml:"InstanceFleetId"`
-	InstanceFleetType  string                `json:"instanceFleetType" xml:"InstanceFleetType"`
-	InstanceGroupId    string                `json:"instanceGroupId" xml:"InstanceGroupId"`
-	InstanceGroupTypes InstanceGroupTypeList `json:"instanceGroupTypes" xml:"InstanceGroupTypes"`
-	InstanceStates     InstanceStateList     `json:"instanceStates" xml:"InstanceStates"`
-	Marker             string                `json:"marker" xml:"Marker"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+InstanceFleetId string `json:"instanceFleetId" xml:"InstanceFleetId"`
+InstanceFleetType string `json:"instanceFleetType" xml:"InstanceFleetType"`
+InstanceGroupId string `json:"instanceGroupId" xml:"InstanceGroupId"`
+InstanceGroupTypes InstanceGroupTypeList `json:"instanceGroupTypes" xml:"InstanceGroupTypes"`
+InstanceStates InstanceStateList `json:"instanceStates" xml:"InstanceStates"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListInstancesOutput struct {
-	Instances InstanceList `json:"instances" xml:"Instances"`
-	Marker    string       `json:"marker" xml:"Marker"`
+Instances InstanceList `json:"instances" xml:"Instances"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListNotebookExecutionsInput struct {
-	EditorId          string    `json:"editorId" xml:"EditorId"`
-	ExecutionEngineId string    `json:"executionEngineId" xml:"ExecutionEngineId"`
-	From              time.Time `json:"from" xml:"From"`
-	Marker            string    `json:"marker" xml:"Marker"`
-	Status            string    `json:"status" xml:"Status"`
-	To                time.Time `json:"to" xml:"To"`
+EditorId string `json:"editorId" xml:"EditorId"`
+ExecutionEngineId string `json:"executionEngineId" xml:"ExecutionEngineId"`
+From time.Time `json:"from" xml:"From"`
+Marker string `json:"marker" xml:"Marker"`
+Status string `json:"status" xml:"Status"`
+To time.Time `json:"to" xml:"To"`
 }
 
 type ListNotebookExecutionsOutput struct {
-	Marker             string                       `json:"marker" xml:"Marker"`
-	NotebookExecutions NotebookExecutionSummaryList `json:"notebookExecutions" xml:"NotebookExecutions"`
+Marker string `json:"marker" xml:"Marker"`
+NotebookExecutions NotebookExecutionSummaryList `json:"notebookExecutions" xml:"NotebookExecutions"`
 }
 
 type ListReleaseLabelsInput struct {
-	Filters    *ReleaseLabelFilter `json:"filters" xml:"Filters"`
-	MaxResults int32               `json:"maxResults" xml:"MaxResults"`
-	NextToken  string              `json:"nextToken" xml:"NextToken"`
+Filters *ReleaseLabelFilter `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListReleaseLabelsOutput struct {
-	NextToken     string     `json:"nextToken" xml:"NextToken"`
-	ReleaseLabels StringList `json:"releaseLabels" xml:"ReleaseLabels"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ReleaseLabels StringList `json:"releaseLabels" xml:"ReleaseLabels"`
 }
 
 type ListSecurityConfigurationsInput struct {
-	Marker string `json:"marker" xml:"Marker"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListSecurityConfigurationsOutput struct {
-	Marker                 string                    `json:"marker" xml:"Marker"`
-	SecurityConfigurations SecurityConfigurationList `json:"securityConfigurations" xml:"SecurityConfigurations"`
+Marker string `json:"marker" xml:"Marker"`
+SecurityConfigurations SecurityConfigurationList `json:"securityConfigurations" xml:"SecurityConfigurations"`
 }
 
 type ListStepsInput struct {
-	ClusterId  string        `json:"clusterId" xml:"ClusterId"`
-	Marker     string        `json:"marker" xml:"Marker"`
-	StepIds    XmlStringList `json:"stepIds" xml:"StepIds"`
-	StepStates StepStateList `json:"stepStates" xml:"StepStates"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+Marker string `json:"marker" xml:"Marker"`
+StepIds XmlStringList `json:"stepIds" xml:"StepIds"`
+StepStates StepStateList `json:"stepStates" xml:"StepStates"`
 }
 
 type ListStepsOutput struct {
-	Marker string          `json:"marker" xml:"Marker"`
-	Steps  StepSummaryList `json:"steps" xml:"Steps"`
+Marker string `json:"marker" xml:"Marker"`
+Steps StepSummaryList `json:"steps" xml:"Steps"`
 }
 
 type ListStudioSessionMappingsInput struct {
-	IdentityType string `json:"identityType" xml:"IdentityType"`
-	Marker       string `json:"marker" xml:"Marker"`
-	StudioId     string `json:"studioId" xml:"StudioId"`
+IdentityType string `json:"identityType" xml:"IdentityType"`
+Marker string `json:"marker" xml:"Marker"`
+StudioId string `json:"studioId" xml:"StudioId"`
 }
 
 type ListStudioSessionMappingsOutput struct {
-	Marker          string                    `json:"marker" xml:"Marker"`
-	SessionMappings SessionMappingSummaryList `json:"sessionMappings" xml:"SessionMappings"`
+Marker string `json:"marker" xml:"Marker"`
+SessionMappings SessionMappingSummaryList `json:"sessionMappings" xml:"SessionMappings"`
 }
 
 type ListStudiosInput struct {
-	Marker string `json:"marker" xml:"Marker"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListStudiosOutput struct {
-	Marker  string            `json:"marker" xml:"Marker"`
-	Studios StudioSummaryList `json:"studios" xml:"Studios"`
+Marker string `json:"marker" xml:"Marker"`
+Studios StudioSummaryList `json:"studios" xml:"Studios"`
 }
 
 type ListSupportedInstanceTypesInput struct {
-	Marker       string `json:"marker" xml:"Marker"`
-	ReleaseLabel string `json:"releaseLabel" xml:"ReleaseLabel"`
+Marker string `json:"marker" xml:"Marker"`
+ReleaseLabel string `json:"releaseLabel" xml:"ReleaseLabel"`
 }
 
 type ListSupportedInstanceTypesOutput struct {
-	Marker                 string                     `json:"marker" xml:"Marker"`
-	SupportedInstanceTypes SupportedInstanceTypesList `json:"supportedInstanceTypes" xml:"SupportedInstanceTypes"`
+Marker string `json:"marker" xml:"Marker"`
+SupportedInstanceTypes SupportedInstanceTypesList `json:"supportedInstanceTypes" xml:"SupportedInstanceTypes"`
 }
 
 type ManagedScalingPolicy struct {
-	ComputeLimits               *ComputeLimits `json:"computeLimits" xml:"ComputeLimits"`
-	ScalingStrategy             string         `json:"scalingStrategy" xml:"ScalingStrategy"`
-	UtilizationPerformanceIndex int32          `json:"utilizationPerformanceIndex" xml:"UtilizationPerformanceIndex"`
+ComputeLimits *ComputeLimits `json:"computeLimits" xml:"ComputeLimits"`
+ScalingStrategy string `json:"scalingStrategy" xml:"ScalingStrategy"`
+UtilizationPerformanceIndex int32 `json:"utilizationPerformanceIndex" xml:"UtilizationPerformanceIndex"`
 }
 
 type MetricDimension struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ModifyClusterInput struct {
-	ClusterId            string `json:"clusterId" xml:"ClusterId"`
-	ExtendedSupport      bool   `json:"extendedSupport" xml:"ExtendedSupport"`
-	StepConcurrencyLevel int32  `json:"stepConcurrencyLevel" xml:"StepConcurrencyLevel"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+ExtendedSupport bool `json:"extendedSupport" xml:"ExtendedSupport"`
+StepConcurrencyLevel int32 `json:"stepConcurrencyLevel" xml:"StepConcurrencyLevel"`
 }
 
 type ModifyClusterOutput struct {
-	ExtendedSupport      bool  `json:"extendedSupport" xml:"ExtendedSupport"`
-	StepConcurrencyLevel int32 `json:"stepConcurrencyLevel" xml:"StepConcurrencyLevel"`
+ExtendedSupport bool `json:"extendedSupport" xml:"ExtendedSupport"`
+StepConcurrencyLevel int32 `json:"stepConcurrencyLevel" xml:"StepConcurrencyLevel"`
 }
 
 type ModifyInstanceFleetInput struct {
-	ClusterId     string                     `json:"clusterId" xml:"ClusterId"`
-	InstanceFleet *InstanceFleetModifyConfig `json:"instanceFleet" xml:"InstanceFleet"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+InstanceFleet *InstanceFleetModifyConfig `json:"instanceFleet" xml:"InstanceFleet"`
 }
 
 type ModifyInstanceGroupsInput struct {
-	ClusterId      string                        `json:"clusterId" xml:"ClusterId"`
-	InstanceGroups InstanceGroupModifyConfigList `json:"instanceGroups" xml:"InstanceGroups"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+InstanceGroups InstanceGroupModifyConfigList `json:"instanceGroups" xml:"InstanceGroups"`
 }
 
 type MonitoringConfiguration struct {
-	CloudWatchLogConfiguration *CloudWatchLogConfiguration `json:"cloudWatchLogConfiguration" xml:"CloudWatchLogConfiguration"`
-	S3LoggingConfiguration     *S3LoggingConfiguration     `json:"s3LoggingConfiguration" xml:"S3LoggingConfiguration"`
+CloudWatchLogConfiguration *CloudWatchLogConfiguration `json:"cloudWatchLogConfiguration" xml:"CloudWatchLogConfiguration"`
+S3LoggingConfiguration *S3LoggingConfiguration `json:"s3LoggingConfiguration" xml:"S3LoggingConfiguration"`
 }
 
 type NotebookExecution struct {
-	Arn                             string                             `json:"arn" xml:"Arn"`
-	EditorId                        string                             `json:"editorId" xml:"EditorId"`
-	EndTime                         time.Time                          `json:"endTime" xml:"EndTime"`
-	EnvironmentVariables            EnvironmentVariablesMap            `json:"environmentVariables" xml:"EnvironmentVariables"`
-	ExecutionEngine                 *ExecutionEngineConfig             `json:"executionEngine" xml:"ExecutionEngine"`
-	LastStateChangeReason           string                             `json:"lastStateChangeReason" xml:"LastStateChangeReason"`
-	NotebookExecutionId             string                             `json:"notebookExecutionId" xml:"NotebookExecutionId"`
-	NotebookExecutionName           string                             `json:"notebookExecutionName" xml:"NotebookExecutionName"`
-	NotebookInstanceSecurityGroupId string                             `json:"notebookInstanceSecurityGroupId" xml:"NotebookInstanceSecurityGroupId"`
-	NotebookParams                  string                             `json:"notebookParams" xml:"NotebookParams"`
-	NotebookS3Location              *NotebookS3LocationForOutput       `json:"notebookS3Location" xml:"NotebookS3Location"`
-	OutputNotebookFormat            string                             `json:"outputNotebookFormat" xml:"OutputNotebookFormat"`
-	OutputNotebookS3Location        *OutputNotebookS3LocationForOutput `json:"outputNotebookS3Location" xml:"OutputNotebookS3Location"`
-	OutputNotebookURI               string                             `json:"outputNotebookURI" xml:"OutputNotebookURI"`
-	StartTime                       time.Time                          `json:"startTime" xml:"StartTime"`
-	Status                          string                             `json:"status" xml:"Status"`
-	Tags                            TagList                            `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+EditorId string `json:"editorId" xml:"EditorId"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+EnvironmentVariables EnvironmentVariablesMap `json:"environmentVariables" xml:"EnvironmentVariables"`
+ExecutionEngine *ExecutionEngineConfig `json:"executionEngine" xml:"ExecutionEngine"`
+LastStateChangeReason string `json:"lastStateChangeReason" xml:"LastStateChangeReason"`
+NotebookExecutionId string `json:"notebookExecutionId" xml:"NotebookExecutionId"`
+NotebookExecutionName string `json:"notebookExecutionName" xml:"NotebookExecutionName"`
+NotebookInstanceSecurityGroupId string `json:"notebookInstanceSecurityGroupId" xml:"NotebookInstanceSecurityGroupId"`
+NotebookParams string `json:"notebookParams" xml:"NotebookParams"`
+NotebookS3Location *NotebookS3LocationForOutput `json:"notebookS3Location" xml:"NotebookS3Location"`
+OutputNotebookFormat string `json:"outputNotebookFormat" xml:"OutputNotebookFormat"`
+OutputNotebookS3Location *OutputNotebookS3LocationForOutput `json:"outputNotebookS3Location" xml:"OutputNotebookS3Location"`
+OutputNotebookURI string `json:"outputNotebookURI" xml:"OutputNotebookURI"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Status string `json:"status" xml:"Status"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type NotebookExecutionSummary struct {
-	EditorId              string                       `json:"editorId" xml:"EditorId"`
-	EndTime               time.Time                    `json:"endTime" xml:"EndTime"`
-	ExecutionEngineId     string                       `json:"executionEngineId" xml:"ExecutionEngineId"`
-	NotebookExecutionId   string                       `json:"notebookExecutionId" xml:"NotebookExecutionId"`
-	NotebookExecutionName string                       `json:"notebookExecutionName" xml:"NotebookExecutionName"`
-	NotebookS3Location    *NotebookS3LocationForOutput `json:"notebookS3Location" xml:"NotebookS3Location"`
-	StartTime             time.Time                    `json:"startTime" xml:"StartTime"`
-	Status                string                       `json:"status" xml:"Status"`
+EditorId string `json:"editorId" xml:"EditorId"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+ExecutionEngineId string `json:"executionEngineId" xml:"ExecutionEngineId"`
+NotebookExecutionId string `json:"notebookExecutionId" xml:"NotebookExecutionId"`
+NotebookExecutionName string `json:"notebookExecutionName" xml:"NotebookExecutionName"`
+NotebookS3Location *NotebookS3LocationForOutput `json:"notebookS3Location" xml:"NotebookS3Location"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Status string `json:"status" xml:"Status"`
 }
 
 type NotebookS3LocationForOutput struct {
-	Bucket string `json:"bucket" xml:"Bucket"`
-	Key    string `json:"key" xml:"Key"`
+Bucket string `json:"bucket" xml:"Bucket"`
+Key string `json:"key" xml:"Key"`
 }
 
 type NotebookS3LocationFromInput struct {
-	Bucket string `json:"bucket" xml:"Bucket"`
-	Key    string `json:"key" xml:"Key"`
+Bucket string `json:"bucket" xml:"Bucket"`
+Key string `json:"key" xml:"Key"`
 }
 
 type OSRelease struct {
-	Label string `json:"label" xml:"Label"`
+Label string `json:"label" xml:"Label"`
 }
 
 type OnDemandCapacityReservationOptions struct {
-	CapacityReservationPreference       string `json:"capacityReservationPreference" xml:"CapacityReservationPreference"`
-	CapacityReservationResourceGroupArn string `json:"capacityReservationResourceGroupArn" xml:"CapacityReservationResourceGroupArn"`
-	UsageStrategy                       string `json:"usageStrategy" xml:"UsageStrategy"`
+CapacityReservationPreference string `json:"capacityReservationPreference" xml:"CapacityReservationPreference"`
+CapacityReservationResourceGroupArn string `json:"capacityReservationResourceGroupArn" xml:"CapacityReservationResourceGroupArn"`
+UsageStrategy string `json:"usageStrategy" xml:"UsageStrategy"`
 }
 
 type OnDemandProvisioningSpecification struct {
-	AllocationStrategy         string                              `json:"allocationStrategy" xml:"AllocationStrategy"`
-	CapacityReservationOptions *OnDemandCapacityReservationOptions `json:"capacityReservationOptions" xml:"CapacityReservationOptions"`
+AllocationStrategy string `json:"allocationStrategy" xml:"AllocationStrategy"`
+CapacityReservationOptions *OnDemandCapacityReservationOptions `json:"capacityReservationOptions" xml:"CapacityReservationOptions"`
 }
 
 type OnDemandResizingSpecification struct {
-	AllocationStrategy         string                              `json:"allocationStrategy" xml:"AllocationStrategy"`
-	CapacityReservationOptions *OnDemandCapacityReservationOptions `json:"capacityReservationOptions" xml:"CapacityReservationOptions"`
-	TimeoutDurationMinutes     int32                               `json:"timeoutDurationMinutes" xml:"TimeoutDurationMinutes"`
+AllocationStrategy string `json:"allocationStrategy" xml:"AllocationStrategy"`
+CapacityReservationOptions *OnDemandCapacityReservationOptions `json:"capacityReservationOptions" xml:"CapacityReservationOptions"`
+TimeoutDurationMinutes int32 `json:"timeoutDurationMinutes" xml:"TimeoutDurationMinutes"`
 }
 
 type OutputNotebookS3LocationForOutput struct {
-	Bucket string `json:"bucket" xml:"Bucket"`
-	Key    string `json:"key" xml:"Key"`
+Bucket string `json:"bucket" xml:"Bucket"`
+Key string `json:"key" xml:"Key"`
 }
 
 type OutputNotebookS3LocationFromInput struct {
-	Bucket string `json:"bucket" xml:"Bucket"`
-	Key    string `json:"key" xml:"Key"`
+Bucket string `json:"bucket" xml:"Bucket"`
+Key string `json:"key" xml:"Key"`
 }
 
 type PersistentAppUI struct {
-	AuthorId                string                  `json:"authorId" xml:"AuthorId"`
-	CreationTime            time.Time               `json:"creationTime" xml:"CreationTime"`
-	LastModifiedTime        time.Time               `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	LastStateChangeReason   string                  `json:"lastStateChangeReason" xml:"LastStateChangeReason"`
-	PersistentAppUIId       string                  `json:"persistentAppUIId" xml:"PersistentAppUIId"`
-	PersistentAppUIStatus   string                  `json:"persistentAppUIStatus" xml:"PersistentAppUIStatus"`
-	PersistentAppUITypeList PersistentAppUITypeList `json:"persistentAppUITypeList" xml:"PersistentAppUITypeList"`
-	Tags                    TagList                 `json:"tags" xml:"Tags"`
+AuthorId string `json:"authorId" xml:"AuthorId"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+LastStateChangeReason string `json:"lastStateChangeReason" xml:"LastStateChangeReason"`
+PersistentAppUIId string `json:"persistentAppUIId" xml:"PersistentAppUIId"`
+PersistentAppUIStatus string `json:"persistentAppUIStatus" xml:"PersistentAppUIStatus"`
+PersistentAppUITypeList PersistentAppUITypeList `json:"persistentAppUITypeList" xml:"PersistentAppUITypeList"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type PlacementGroupConfig struct {
-	InstanceRole      string `json:"instanceRole" xml:"InstanceRole"`
-	PlacementStrategy string `json:"placementStrategy" xml:"PlacementStrategy"`
+InstanceRole string `json:"instanceRole" xml:"InstanceRole"`
+PlacementStrategy string `json:"placementStrategy" xml:"PlacementStrategy"`
 }
 
 type PlacementType struct {
-	AvailabilityZone  string                 `json:"availabilityZone" xml:"AvailabilityZone"`
-	AvailabilityZones XmlStringMaxLen256List `json:"availabilityZones" xml:"AvailabilityZones"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+AvailabilityZones XmlStringMaxLen256List `json:"availabilityZones" xml:"AvailabilityZones"`
 }
 
 type PortRange struct {
-	MaxRange int32 `json:"maxRange" xml:"MaxRange"`
-	MinRange int32 `json:"minRange" xml:"MinRange"`
+MaxRange int32 `json:"maxRange" xml:"MaxRange"`
+MinRange int32 `json:"minRange" xml:"MinRange"`
 }
 
 type PutAutoScalingPolicyInput struct {
-	AutoScalingPolicy *AutoScalingPolicy `json:"autoScalingPolicy" xml:"AutoScalingPolicy"`
-	ClusterId         string             `json:"clusterId" xml:"ClusterId"`
-	InstanceGroupId   string             `json:"instanceGroupId" xml:"InstanceGroupId"`
+AutoScalingPolicy *AutoScalingPolicy `json:"autoScalingPolicy" xml:"AutoScalingPolicy"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+InstanceGroupId string `json:"instanceGroupId" xml:"InstanceGroupId"`
 }
 
 type PutAutoScalingPolicyOutput struct {
-	AutoScalingPolicy *AutoScalingPolicyDescription `json:"autoScalingPolicy" xml:"AutoScalingPolicy"`
-	ClusterArn        string                        `json:"clusterArn" xml:"ClusterArn"`
-	ClusterId         string                        `json:"clusterId" xml:"ClusterId"`
-	InstanceGroupId   string                        `json:"instanceGroupId" xml:"InstanceGroupId"`
+AutoScalingPolicy *AutoScalingPolicyDescription `json:"autoScalingPolicy" xml:"AutoScalingPolicy"`
+ClusterArn string `json:"clusterArn" xml:"ClusterArn"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+InstanceGroupId string `json:"instanceGroupId" xml:"InstanceGroupId"`
 }
 
 type PutAutoTerminationPolicyInput struct {
-	AutoTerminationPolicy *AutoTerminationPolicy `json:"autoTerminationPolicy" xml:"AutoTerminationPolicy"`
-	ClusterId             string                 `json:"clusterId" xml:"ClusterId"`
+AutoTerminationPolicy *AutoTerminationPolicy `json:"autoTerminationPolicy" xml:"AutoTerminationPolicy"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
 }
 
 type PutAutoTerminationPolicyOutput struct {
 }
 
 type PutBlockPublicAccessConfigurationInput struct {
-	BlockPublicAccessConfiguration *BlockPublicAccessConfiguration `json:"blockPublicAccessConfiguration" xml:"BlockPublicAccessConfiguration"`
+BlockPublicAccessConfiguration *BlockPublicAccessConfiguration `json:"blockPublicAccessConfiguration" xml:"BlockPublicAccessConfiguration"`
 }
 
 type PutBlockPublicAccessConfigurationOutput struct {
 }
 
 type PutManagedScalingPolicyInput struct {
-	ClusterId            string                `json:"clusterId" xml:"ClusterId"`
-	ManagedScalingPolicy *ManagedScalingPolicy `json:"managedScalingPolicy" xml:"ManagedScalingPolicy"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+ManagedScalingPolicy *ManagedScalingPolicy `json:"managedScalingPolicy" xml:"ManagedScalingPolicy"`
 }
 
 type PutManagedScalingPolicyOutput struct {
 }
 
 type ReleaseLabelFilter struct {
-	Application string `json:"application" xml:"Application"`
-	Prefix      string `json:"prefix" xml:"Prefix"`
+Application string `json:"application" xml:"Application"`
+Prefix string `json:"prefix" xml:"Prefix"`
 }
 
 type RemoveAutoScalingPolicyInput struct {
-	ClusterId       string `json:"clusterId" xml:"ClusterId"`
-	InstanceGroupId string `json:"instanceGroupId" xml:"InstanceGroupId"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+InstanceGroupId string `json:"instanceGroupId" xml:"InstanceGroupId"`
 }
 
 type RemoveAutoScalingPolicyOutput struct {
 }
 
 type RemoveAutoTerminationPolicyInput struct {
-	ClusterId string `json:"clusterId" xml:"ClusterId"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
 }
 
 type RemoveAutoTerminationPolicyOutput struct {
 }
 
 type RemoveManagedScalingPolicyInput struct {
-	ClusterId string `json:"clusterId" xml:"ClusterId"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
 }
 
 type RemoveManagedScalingPolicyOutput struct {
 }
 
 type RemoveTagsInput struct {
-	ResourceId string     `json:"resourceId" xml:"ResourceId"`
-	TagKeys    StringList `json:"tagKeys" xml:"TagKeys"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+TagKeys StringList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type RemoveTagsOutput struct {
 }
 
 type RunJobFlowInput struct {
-	AdditionalInfo          string                    `json:"additionalInfo" xml:"AdditionalInfo"`
-	AmiVersion              string                    `json:"amiVersion" xml:"AmiVersion"`
-	Applications            ApplicationList           `json:"applications" xml:"Applications"`
-	AutoScalingRole         string                    `json:"autoScalingRole" xml:"AutoScalingRole"`
-	AutoTerminationPolicy   *AutoTerminationPolicy    `json:"autoTerminationPolicy" xml:"AutoTerminationPolicy"`
-	BootstrapActions        BootstrapActionConfigList `json:"bootstrapActions" xml:"BootstrapActions"`
-	Configurations          ConfigurationList         `json:"configurations" xml:"Configurations"`
-	CustomAmiId             string                    `json:"customAmiId" xml:"CustomAmiId"`
-	EbsRootVolumeIops       int32                     `json:"ebsRootVolumeIops" xml:"EbsRootVolumeIops"`
-	EbsRootVolumeSize       int32                     `json:"ebsRootVolumeSize" xml:"EbsRootVolumeSize"`
-	EbsRootVolumeThroughput int32                     `json:"ebsRootVolumeThroughput" xml:"EbsRootVolumeThroughput"`
-	ExtendedSupport         bool                      `json:"extendedSupport" xml:"ExtendedSupport"`
-	Instances               *JobFlowInstancesConfig   `json:"instances" xml:"Instances"`
-	JobFlowRole             string                    `json:"jobFlowRole" xml:"JobFlowRole"`
-	KerberosAttributes      *KerberosAttributes       `json:"kerberosAttributes" xml:"KerberosAttributes"`
-	LogEncryptionKmsKeyId   string                    `json:"logEncryptionKmsKeyId" xml:"LogEncryptionKmsKeyId"`
-	LogUri                  string                    `json:"logUri" xml:"LogUri"`
-	ManagedScalingPolicy    *ManagedScalingPolicy     `json:"managedScalingPolicy" xml:"ManagedScalingPolicy"`
-	MonitoringConfiguration *MonitoringConfiguration  `json:"monitoringConfiguration" xml:"MonitoringConfiguration"`
-	Name                    string                    `json:"name" xml:"Name"`
-	NewSupportedProducts    NewSupportedProductsList  `json:"newSupportedProducts" xml:"NewSupportedProducts"`
-	OSReleaseLabel          string                    `json:"oSReleaseLabel" xml:"OSReleaseLabel"`
-	PlacementGroupConfigs   PlacementGroupConfigList  `json:"placementGroupConfigs" xml:"PlacementGroupConfigs"`
-	ReleaseLabel            string                    `json:"releaseLabel" xml:"ReleaseLabel"`
-	RepoUpgradeOnBoot       string                    `json:"repoUpgradeOnBoot" xml:"RepoUpgradeOnBoot"`
-	ScaleDownBehavior       string                    `json:"scaleDownBehavior" xml:"ScaleDownBehavior"`
-	SecurityConfiguration   string                    `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	ServiceRole             string                    `json:"serviceRole" xml:"ServiceRole"`
-	StepConcurrencyLevel    int32                     `json:"stepConcurrencyLevel" xml:"StepConcurrencyLevel"`
-	StepExecutionRoleArn    string                    `json:"stepExecutionRoleArn" xml:"StepExecutionRoleArn"`
-	Steps                   StepConfigList            `json:"steps" xml:"Steps"`
-	SupportedProducts       SupportedProductsList     `json:"supportedProducts" xml:"SupportedProducts"`
-	Tags                    TagList                   `json:"tags" xml:"Tags"`
-	VisibleToAllUsers       bool                      `json:"visibleToAllUsers" xml:"VisibleToAllUsers"`
+AdditionalInfo string `json:"additionalInfo" xml:"AdditionalInfo"`
+AmiVersion string `json:"amiVersion" xml:"AmiVersion"`
+Applications ApplicationList `json:"applications" xml:"Applications"`
+AutoScalingRole string `json:"autoScalingRole" xml:"AutoScalingRole"`
+AutoTerminationPolicy *AutoTerminationPolicy `json:"autoTerminationPolicy" xml:"AutoTerminationPolicy"`
+BootstrapActions BootstrapActionConfigList `json:"bootstrapActions" xml:"BootstrapActions"`
+Configurations ConfigurationList `json:"configurations" xml:"Configurations"`
+CustomAmiId string `json:"customAmiId" xml:"CustomAmiId"`
+EbsRootVolumeIops int32 `json:"ebsRootVolumeIops" xml:"EbsRootVolumeIops"`
+EbsRootVolumeSize int32 `json:"ebsRootVolumeSize" xml:"EbsRootVolumeSize"`
+EbsRootVolumeThroughput int32 `json:"ebsRootVolumeThroughput" xml:"EbsRootVolumeThroughput"`
+ExtendedSupport bool `json:"extendedSupport" xml:"ExtendedSupport"`
+Instances *JobFlowInstancesConfig `json:"instances" xml:"Instances"`
+JobFlowRole string `json:"jobFlowRole" xml:"JobFlowRole"`
+KerberosAttributes *KerberosAttributes `json:"kerberosAttributes" xml:"KerberosAttributes"`
+LogEncryptionKmsKeyId string `json:"logEncryptionKmsKeyId" xml:"LogEncryptionKmsKeyId"`
+LogUri string `json:"logUri" xml:"LogUri"`
+ManagedScalingPolicy *ManagedScalingPolicy `json:"managedScalingPolicy" xml:"ManagedScalingPolicy"`
+MonitoringConfiguration *MonitoringConfiguration `json:"monitoringConfiguration" xml:"MonitoringConfiguration"`
+Name string `json:"name" xml:"Name"`
+NewSupportedProducts NewSupportedProductsList `json:"newSupportedProducts" xml:"NewSupportedProducts"`
+OSReleaseLabel string `json:"oSReleaseLabel" xml:"OSReleaseLabel"`
+PlacementGroupConfigs PlacementGroupConfigList `json:"placementGroupConfigs" xml:"PlacementGroupConfigs"`
+ReleaseLabel string `json:"releaseLabel" xml:"ReleaseLabel"`
+RepoUpgradeOnBoot string `json:"repoUpgradeOnBoot" xml:"RepoUpgradeOnBoot"`
+ScaleDownBehavior string `json:"scaleDownBehavior" xml:"ScaleDownBehavior"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+ServiceRole string `json:"serviceRole" xml:"ServiceRole"`
+StepConcurrencyLevel int32 `json:"stepConcurrencyLevel" xml:"StepConcurrencyLevel"`
+StepExecutionRoleArn string `json:"stepExecutionRoleArn" xml:"StepExecutionRoleArn"`
+Steps StepConfigList `json:"steps" xml:"Steps"`
+SupportedProducts SupportedProductsList `json:"supportedProducts" xml:"SupportedProducts"`
+Tags TagList `json:"tags" xml:"Tags"`
+VisibleToAllUsers bool `json:"visibleToAllUsers" xml:"VisibleToAllUsers"`
 }
 
 type RunJobFlowOutput struct {
-	ClusterArn string `json:"clusterArn" xml:"ClusterArn"`
-	JobFlowId  string `json:"jobFlowId" xml:"JobFlowId"`
+ClusterArn string `json:"clusterArn" xml:"ClusterArn"`
+JobFlowId string `json:"jobFlowId" xml:"JobFlowId"`
 }
 
 type S3LoggingConfiguration struct {
-	LogTypeUploadPolicy LogTypeMap `json:"logTypeUploadPolicy" xml:"LogTypeUploadPolicy"`
+LogTypeUploadPolicy LogTypeMap `json:"logTypeUploadPolicy" xml:"LogTypeUploadPolicy"`
 }
 
 type S3MonitoringConfiguration struct {
-	EncryptionKeyArn string `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
-	LogUri           string `json:"logUri" xml:"LogUri"`
+EncryptionKeyArn string `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
+LogUri string `json:"logUri" xml:"LogUri"`
 }
 
 type ScalingAction struct {
-	Market                           string                            `json:"market" xml:"Market"`
-	SimpleScalingPolicyConfiguration *SimpleScalingPolicyConfiguration `json:"simpleScalingPolicyConfiguration" xml:"SimpleScalingPolicyConfiguration"`
+Market string `json:"market" xml:"Market"`
+SimpleScalingPolicyConfiguration *SimpleScalingPolicyConfiguration `json:"simpleScalingPolicyConfiguration" xml:"SimpleScalingPolicyConfiguration"`
 }
 
 type ScalingConstraints struct {
-	MaxCapacity int32 `json:"maxCapacity" xml:"MaxCapacity"`
-	MinCapacity int32 `json:"minCapacity" xml:"MinCapacity"`
+MaxCapacity int32 `json:"maxCapacity" xml:"MaxCapacity"`
+MinCapacity int32 `json:"minCapacity" xml:"MinCapacity"`
 }
 
 type ScalingRule struct {
-	Action      *ScalingAction  `json:"action" xml:"Action"`
-	Description string          `json:"description" xml:"Description"`
-	Name        string          `json:"name" xml:"Name"`
-	Trigger     *ScalingTrigger `json:"trigger" xml:"Trigger"`
+Action *ScalingAction `json:"action" xml:"Action"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Trigger *ScalingTrigger `json:"trigger" xml:"Trigger"`
 }
 
 type ScalingTrigger struct {
-	CloudWatchAlarmDefinition *CloudWatchAlarmDefinition `json:"cloudWatchAlarmDefinition" xml:"CloudWatchAlarmDefinition"`
+CloudWatchAlarmDefinition *CloudWatchAlarmDefinition `json:"cloudWatchAlarmDefinition" xml:"CloudWatchAlarmDefinition"`
 }
 
 type ScriptBootstrapActionConfig struct {
-	Args XmlStringList `json:"args" xml:"Args"`
-	Path string        `json:"path" xml:"Path"`
+Args XmlStringList `json:"args" xml:"Args"`
+Path string `json:"path" xml:"Path"`
 }
 
 type SecurityConfigurationSummary struct {
-	CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
-	Name             string    `json:"name" xml:"Name"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+Name string `json:"name" xml:"Name"`
 }
 
 type SessionMappingDetail struct {
-	CreationTime     time.Time `json:"creationTime" xml:"CreationTime"`
-	IdentityId       string    `json:"identityId" xml:"IdentityId"`
-	IdentityName     string    `json:"identityName" xml:"IdentityName"`
-	IdentityType     string    `json:"identityType" xml:"IdentityType"`
-	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	SessionPolicyArn string    `json:"sessionPolicyArn" xml:"SessionPolicyArn"`
-	StudioId         string    `json:"studioId" xml:"StudioId"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityName string `json:"identityName" xml:"IdentityName"`
+IdentityType string `json:"identityType" xml:"IdentityType"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+SessionPolicyArn string `json:"sessionPolicyArn" xml:"SessionPolicyArn"`
+StudioId string `json:"studioId" xml:"StudioId"`
 }
 
 type SessionMappingSummary struct {
-	CreationTime     time.Time `json:"creationTime" xml:"CreationTime"`
-	IdentityId       string    `json:"identityId" xml:"IdentityId"`
-	IdentityName     string    `json:"identityName" xml:"IdentityName"`
-	IdentityType     string    `json:"identityType" xml:"IdentityType"`
-	SessionPolicyArn string    `json:"sessionPolicyArn" xml:"SessionPolicyArn"`
-	StudioId         string    `json:"studioId" xml:"StudioId"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityName string `json:"identityName" xml:"IdentityName"`
+IdentityType string `json:"identityType" xml:"IdentityType"`
+SessionPolicyArn string `json:"sessionPolicyArn" xml:"SessionPolicyArn"`
+StudioId string `json:"studioId" xml:"StudioId"`
 }
 
 type SetKeepJobFlowAliveWhenNoStepsInput struct {
-	JobFlowIds                  XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
-	KeepJobFlowAliveWhenNoSteps bool          `json:"keepJobFlowAliveWhenNoSteps" xml:"KeepJobFlowAliveWhenNoSteps"`
+JobFlowIds XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
+KeepJobFlowAliveWhenNoSteps bool `json:"keepJobFlowAliveWhenNoSteps" xml:"KeepJobFlowAliveWhenNoSteps"`
 }
 
 type SetTerminationProtectionInput struct {
-	JobFlowIds           XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
-	TerminationProtected bool          `json:"terminationProtected" xml:"TerminationProtected"`
+JobFlowIds XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
+TerminationProtected bool `json:"terminationProtected" xml:"TerminationProtected"`
 }
 
 type SetUnhealthyNodeReplacementInput struct {
-	JobFlowIds               XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
-	UnhealthyNodeReplacement bool          `json:"unhealthyNodeReplacement" xml:"UnhealthyNodeReplacement"`
+JobFlowIds XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
+UnhealthyNodeReplacement bool `json:"unhealthyNodeReplacement" xml:"UnhealthyNodeReplacement"`
 }
 
 type SetVisibleToAllUsersInput struct {
-	JobFlowIds        XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
-	VisibleToAllUsers bool          `json:"visibleToAllUsers" xml:"VisibleToAllUsers"`
+JobFlowIds XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
+VisibleToAllUsers bool `json:"visibleToAllUsers" xml:"VisibleToAllUsers"`
 }
 
 type ShrinkPolicy struct {
-	DecommissionTimeout  int32                 `json:"decommissionTimeout" xml:"DecommissionTimeout"`
-	InstanceResizePolicy *InstanceResizePolicy `json:"instanceResizePolicy" xml:"InstanceResizePolicy"`
+DecommissionTimeout int32 `json:"decommissionTimeout" xml:"DecommissionTimeout"`
+InstanceResizePolicy *InstanceResizePolicy `json:"instanceResizePolicy" xml:"InstanceResizePolicy"`
 }
 
 type SimpleScalingPolicyConfiguration struct {
-	AdjustmentType    string `json:"adjustmentType" xml:"AdjustmentType"`
-	CoolDown          int32  `json:"coolDown" xml:"CoolDown"`
-	ScalingAdjustment int32  `json:"scalingAdjustment" xml:"ScalingAdjustment"`
+AdjustmentType string `json:"adjustmentType" xml:"AdjustmentType"`
+CoolDown int32 `json:"coolDown" xml:"CoolDown"`
+ScalingAdjustment int32 `json:"scalingAdjustment" xml:"ScalingAdjustment"`
 }
 
 type SimplifiedApplication struct {
-	Name    string `json:"name" xml:"Name"`
-	Version string `json:"version" xml:"Version"`
+Name string `json:"name" xml:"Name"`
+Version string `json:"version" xml:"Version"`
 }
 
 type SmithyUnit struct {
 }
 
 type SpotProvisioningSpecification struct {
-	AllocationStrategy     string `json:"allocationStrategy" xml:"AllocationStrategy"`
-	BlockDurationMinutes   int32  `json:"blockDurationMinutes" xml:"BlockDurationMinutes"`
-	TimeoutAction          string `json:"timeoutAction" xml:"TimeoutAction"`
-	TimeoutDurationMinutes int32  `json:"timeoutDurationMinutes" xml:"TimeoutDurationMinutes"`
+AllocationStrategy string `json:"allocationStrategy" xml:"AllocationStrategy"`
+BlockDurationMinutes int32 `json:"blockDurationMinutes" xml:"BlockDurationMinutes"`
+TimeoutAction string `json:"timeoutAction" xml:"TimeoutAction"`
+TimeoutDurationMinutes int32 `json:"timeoutDurationMinutes" xml:"TimeoutDurationMinutes"`
 }
 
 type SpotResizingSpecification struct {
-	AllocationStrategy     string `json:"allocationStrategy" xml:"AllocationStrategy"`
-	TimeoutDurationMinutes int32  `json:"timeoutDurationMinutes" xml:"TimeoutDurationMinutes"`
+AllocationStrategy string `json:"allocationStrategy" xml:"AllocationStrategy"`
+TimeoutDurationMinutes int32 `json:"timeoutDurationMinutes" xml:"TimeoutDurationMinutes"`
 }
 
 type StartNotebookExecutionInput struct {
-	EditorId                        string                             `json:"editorId" xml:"EditorId"`
-	EnvironmentVariables            EnvironmentVariablesMap            `json:"environmentVariables" xml:"EnvironmentVariables"`
-	ExecutionEngine                 *ExecutionEngineConfig             `json:"executionEngine" xml:"ExecutionEngine"`
-	NotebookExecutionName           string                             `json:"notebookExecutionName" xml:"NotebookExecutionName"`
-	NotebookInstanceSecurityGroupId string                             `json:"notebookInstanceSecurityGroupId" xml:"NotebookInstanceSecurityGroupId"`
-	NotebookParams                  string                             `json:"notebookParams" xml:"NotebookParams"`
-	NotebookS3Location              *NotebookS3LocationFromInput       `json:"notebookS3Location" xml:"NotebookS3Location"`
-	OutputNotebookFormat            string                             `json:"outputNotebookFormat" xml:"OutputNotebookFormat"`
-	OutputNotebookS3Location        *OutputNotebookS3LocationFromInput `json:"outputNotebookS3Location" xml:"OutputNotebookS3Location"`
-	RelativePath                    string                             `json:"relativePath" xml:"RelativePath"`
-	ServiceRole                     string                             `json:"serviceRole" xml:"ServiceRole"`
-	Tags                            TagList                            `json:"tags" xml:"Tags"`
+EditorId string `json:"editorId" xml:"EditorId"`
+EnvironmentVariables EnvironmentVariablesMap `json:"environmentVariables" xml:"EnvironmentVariables"`
+ExecutionEngine *ExecutionEngineConfig `json:"executionEngine" xml:"ExecutionEngine"`
+NotebookExecutionName string `json:"notebookExecutionName" xml:"NotebookExecutionName"`
+NotebookInstanceSecurityGroupId string `json:"notebookInstanceSecurityGroupId" xml:"NotebookInstanceSecurityGroupId"`
+NotebookParams string `json:"notebookParams" xml:"NotebookParams"`
+NotebookS3Location *NotebookS3LocationFromInput `json:"notebookS3Location" xml:"NotebookS3Location"`
+OutputNotebookFormat string `json:"outputNotebookFormat" xml:"OutputNotebookFormat"`
+OutputNotebookS3Location *OutputNotebookS3LocationFromInput `json:"outputNotebookS3Location" xml:"OutputNotebookS3Location"`
+RelativePath string `json:"relativePath" xml:"RelativePath"`
+ServiceRole string `json:"serviceRole" xml:"ServiceRole"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type StartNotebookExecutionOutput struct {
-	NotebookExecutionId string `json:"notebookExecutionId" xml:"NotebookExecutionId"`
+NotebookExecutionId string `json:"notebookExecutionId" xml:"NotebookExecutionId"`
 }
 
 type Step struct {
-	ActionOnFailure  string            `json:"actionOnFailure" xml:"ActionOnFailure"`
-	Config           *HadoopStepConfig `json:"config" xml:"Config"`
-	EncryptionKeyArn string            `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
-	ExecutionRoleArn string            `json:"executionRoleArn" xml:"ExecutionRoleArn"`
-	Id               string            `json:"id" xml:"Id"`
-	LogUri           string            `json:"logUri" xml:"LogUri"`
-	Name             string            `json:"name" xml:"Name"`
-	Status           *StepStatus       `json:"status" xml:"Status"`
+ActionOnFailure string `json:"actionOnFailure" xml:"ActionOnFailure"`
+Config *HadoopStepConfig `json:"config" xml:"Config"`
+EncryptionKeyArn string `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+Id string `json:"id" xml:"Id"`
+LogUri string `json:"logUri" xml:"LogUri"`
+Name string `json:"name" xml:"Name"`
+Status *StepStatus `json:"status" xml:"Status"`
 }
 
 type StepConfig struct {
-	ActionOnFailure             string                       `json:"actionOnFailure" xml:"ActionOnFailure"`
-	HadoopJarStep               *HadoopJarStepConfig         `json:"hadoopJarStep" xml:"HadoopJarStep"`
-	Name                        string                       `json:"name" xml:"Name"`
-	StepMonitoringConfiguration *StepMonitoringConfiguration `json:"stepMonitoringConfiguration" xml:"StepMonitoringConfiguration"`
+ActionOnFailure string `json:"actionOnFailure" xml:"ActionOnFailure"`
+HadoopJarStep *HadoopJarStepConfig `json:"hadoopJarStep" xml:"HadoopJarStep"`
+Name string `json:"name" xml:"Name"`
+StepMonitoringConfiguration *StepMonitoringConfiguration `json:"stepMonitoringConfiguration" xml:"StepMonitoringConfiguration"`
 }
 
 type StepDetail struct {
-	ExecutionStatusDetail *StepExecutionStatusDetail `json:"executionStatusDetail" xml:"ExecutionStatusDetail"`
-	StepConfig            *StepConfig                `json:"stepConfig" xml:"StepConfig"`
+ExecutionStatusDetail *StepExecutionStatusDetail `json:"executionStatusDetail" xml:"ExecutionStatusDetail"`
+StepConfig *StepConfig `json:"stepConfig" xml:"StepConfig"`
 }
 
 type StepExecutionStatusDetail struct {
-	CreationDateTime      time.Time `json:"creationDateTime" xml:"CreationDateTime"`
-	EndDateTime           time.Time `json:"endDateTime" xml:"EndDateTime"`
-	LastStateChangeReason string    `json:"lastStateChangeReason" xml:"LastStateChangeReason"`
-	StartDateTime         time.Time `json:"startDateTime" xml:"StartDateTime"`
-	State                 string    `json:"state" xml:"State"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+EndDateTime time.Time `json:"endDateTime" xml:"EndDateTime"`
+LastStateChangeReason string `json:"lastStateChangeReason" xml:"LastStateChangeReason"`
+StartDateTime time.Time `json:"startDateTime" xml:"StartDateTime"`
+State string `json:"state" xml:"State"`
 }
 
 type StepMonitoringConfiguration struct {
-	S3MonitoringConfiguration *S3MonitoringConfiguration `json:"s3MonitoringConfiguration" xml:"S3MonitoringConfiguration"`
+S3MonitoringConfiguration *S3MonitoringConfiguration `json:"s3MonitoringConfiguration" xml:"S3MonitoringConfiguration"`
 }
 
 type StepStateChangeReason struct {
-	Code    string `json:"code" xml:"Code"`
-	Message string `json:"message" xml:"Message"`
+Code string `json:"code" xml:"Code"`
+Message string `json:"message" xml:"Message"`
 }
 
 type StepStatus struct {
-	FailureDetails    *FailureDetails        `json:"failureDetails" xml:"FailureDetails"`
-	State             string                 `json:"state" xml:"State"`
-	StateChangeReason *StepStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
-	Timeline          *StepTimeline          `json:"timeline" xml:"Timeline"`
+FailureDetails *FailureDetails `json:"failureDetails" xml:"FailureDetails"`
+State string `json:"state" xml:"State"`
+StateChangeReason *StepStateChangeReason `json:"stateChangeReason" xml:"StateChangeReason"`
+Timeline *StepTimeline `json:"timeline" xml:"Timeline"`
 }
 
 type StepSummary struct {
-	ActionOnFailure  string            `json:"actionOnFailure" xml:"ActionOnFailure"`
-	Config           *HadoopStepConfig `json:"config" xml:"Config"`
-	EncryptionKeyArn string            `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
-	Id               string            `json:"id" xml:"Id"`
-	LogUri           string            `json:"logUri" xml:"LogUri"`
-	Name             string            `json:"name" xml:"Name"`
-	Status           *StepStatus       `json:"status" xml:"Status"`
+ActionOnFailure string `json:"actionOnFailure" xml:"ActionOnFailure"`
+Config *HadoopStepConfig `json:"config" xml:"Config"`
+EncryptionKeyArn string `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
+Id string `json:"id" xml:"Id"`
+LogUri string `json:"logUri" xml:"LogUri"`
+Name string `json:"name" xml:"Name"`
+Status *StepStatus `json:"status" xml:"Status"`
 }
 
 type StepTimeline struct {
-	CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
-	EndDateTime      time.Time `json:"endDateTime" xml:"EndDateTime"`
-	StartDateTime    time.Time `json:"startDateTime" xml:"StartDateTime"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+EndDateTime time.Time `json:"endDateTime" xml:"EndDateTime"`
+StartDateTime time.Time `json:"startDateTime" xml:"StartDateTime"`
 }
 
 type StopNotebookExecutionInput struct {
-	NotebookExecutionId string `json:"notebookExecutionId" xml:"NotebookExecutionId"`
+NotebookExecutionId string `json:"notebookExecutionId" xml:"NotebookExecutionId"`
 }
 
 type Studio struct {
-	AuthMode                          string       `json:"authMode" xml:"AuthMode"`
-	CreationTime                      time.Time    `json:"creationTime" xml:"CreationTime"`
-	DefaultS3Location                 string       `json:"defaultS3Location" xml:"DefaultS3Location"`
-	Description                       string       `json:"description" xml:"Description"`
-	EncryptionKeyArn                  string       `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
-	EngineSecurityGroupId             string       `json:"engineSecurityGroupId" xml:"EngineSecurityGroupId"`
-	IdcInstanceArn                    string       `json:"idcInstanceArn" xml:"IdcInstanceArn"`
-	IdcUserAssignment                 string       `json:"idcUserAssignment" xml:"IdcUserAssignment"`
-	IdpAuthUrl                        string       `json:"idpAuthUrl" xml:"IdpAuthUrl"`
-	IdpRelayStateParameterName        string       `json:"idpRelayStateParameterName" xml:"IdpRelayStateParameterName"`
-	Name                              string       `json:"name" xml:"Name"`
-	ServiceRole                       string       `json:"serviceRole" xml:"ServiceRole"`
-	StudioArn                         string       `json:"studioArn" xml:"StudioArn"`
-	StudioId                          string       `json:"studioId" xml:"StudioId"`
-	SubnetIds                         SubnetIdList `json:"subnetIds" xml:"SubnetIds"`
-	Tags                              TagList      `json:"tags" xml:"Tags"`
-	TrustedIdentityPropagationEnabled bool         `json:"trustedIdentityPropagationEnabled" xml:"TrustedIdentityPropagationEnabled"`
-	Url                               string       `json:"url" xml:"Url"`
-	UserRole                          string       `json:"userRole" xml:"UserRole"`
-	VpcId                             string       `json:"vpcId" xml:"VpcId"`
-	WorkspaceSecurityGroupId          string       `json:"workspaceSecurityGroupId" xml:"WorkspaceSecurityGroupId"`
+AuthMode string `json:"authMode" xml:"AuthMode"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+DefaultS3Location string `json:"defaultS3Location" xml:"DefaultS3Location"`
+Description string `json:"description" xml:"Description"`
+EncryptionKeyArn string `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
+EngineSecurityGroupId string `json:"engineSecurityGroupId" xml:"EngineSecurityGroupId"`
+IdcInstanceArn string `json:"idcInstanceArn" xml:"IdcInstanceArn"`
+IdcUserAssignment string `json:"idcUserAssignment" xml:"IdcUserAssignment"`
+IdpAuthUrl string `json:"idpAuthUrl" xml:"IdpAuthUrl"`
+IdpRelayStateParameterName string `json:"idpRelayStateParameterName" xml:"IdpRelayStateParameterName"`
+Name string `json:"name" xml:"Name"`
+ServiceRole string `json:"serviceRole" xml:"ServiceRole"`
+StudioArn string `json:"studioArn" xml:"StudioArn"`
+StudioId string `json:"studioId" xml:"StudioId"`
+SubnetIds SubnetIdList `json:"subnetIds" xml:"SubnetIds"`
+Tags TagList `json:"tags" xml:"Tags"`
+TrustedIdentityPropagationEnabled bool `json:"trustedIdentityPropagationEnabled" xml:"TrustedIdentityPropagationEnabled"`
+Url string `json:"url" xml:"Url"`
+UserRole string `json:"userRole" xml:"UserRole"`
+VpcId string `json:"vpcId" xml:"VpcId"`
+WorkspaceSecurityGroupId string `json:"workspaceSecurityGroupId" xml:"WorkspaceSecurityGroupId"`
 }
 
 type StudioSummary struct {
-	AuthMode     string    `json:"authMode" xml:"AuthMode"`
-	CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
-	Description  string    `json:"description" xml:"Description"`
-	Name         string    `json:"name" xml:"Name"`
-	StudioId     string    `json:"studioId" xml:"StudioId"`
-	Url          string    `json:"url" xml:"Url"`
-	VpcId        string    `json:"vpcId" xml:"VpcId"`
+AuthMode string `json:"authMode" xml:"AuthMode"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+StudioId string `json:"studioId" xml:"StudioId"`
+Url string `json:"url" xml:"Url"`
+VpcId string `json:"vpcId" xml:"VpcId"`
 }
 
 type SupportedInstanceType struct {
-	Architecture          string  `json:"architecture" xml:"Architecture"`
-	EbsOptimizedAvailable bool    `json:"ebsOptimizedAvailable" xml:"EbsOptimizedAvailable"`
-	EbsOptimizedByDefault bool    `json:"ebsOptimizedByDefault" xml:"EbsOptimizedByDefault"`
-	EbsStorageOnly        bool    `json:"ebsStorageOnly" xml:"EbsStorageOnly"`
-	InstanceFamilyId      string  `json:"instanceFamilyId" xml:"InstanceFamilyId"`
-	Is64BitsOnly          bool    `json:"is64BitsOnly" xml:"Is64BitsOnly"`
-	MemoryGB              float32 `json:"memoryGB" xml:"MemoryGB"`
-	NumberOfDisks         int32   `json:"numberOfDisks" xml:"NumberOfDisks"`
-	StorageGB             int32   `json:"storageGB" xml:"StorageGB"`
-	Type                  string  `json:"type" xml:"Type"`
-	VCPU                  int32   `json:"vCPU" xml:"VCPU"`
+Architecture string `json:"architecture" xml:"Architecture"`
+EbsOptimizedAvailable bool `json:"ebsOptimizedAvailable" xml:"EbsOptimizedAvailable"`
+EbsOptimizedByDefault bool `json:"ebsOptimizedByDefault" xml:"EbsOptimizedByDefault"`
+EbsStorageOnly bool `json:"ebsStorageOnly" xml:"EbsStorageOnly"`
+InstanceFamilyId string `json:"instanceFamilyId" xml:"InstanceFamilyId"`
+Is64BitsOnly bool `json:"is64BitsOnly" xml:"Is64BitsOnly"`
+MemoryGB float32 `json:"memoryGB" xml:"MemoryGB"`
+NumberOfDisks int32 `json:"numberOfDisks" xml:"NumberOfDisks"`
+StorageGB int32 `json:"storageGB" xml:"StorageGB"`
+Type string `json:"type" xml:"Type"`
+VCPU int32 `json:"vCPU" xml:"VCPU"`
 }
 
 type SupportedProductConfig struct {
-	Args XmlStringList `json:"args" xml:"Args"`
-	Name string        `json:"name" xml:"Name"`
+Args XmlStringList `json:"args" xml:"Args"`
+Name string `json:"name" xml:"Name"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TerminateJobFlowsInput struct {
-	JobFlowIds XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
+JobFlowIds XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
 }
 
 type UpdateStudioInput struct {
-	DefaultS3Location string       `json:"defaultS3Location" xml:"DefaultS3Location"`
-	Description       string       `json:"description" xml:"Description"`
-	EncryptionKeyArn  string       `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
-	Name              string       `json:"name" xml:"Name"`
-	StudioId          string       `json:"studioId" xml:"StudioId"`
-	SubnetIds         SubnetIdList `json:"subnetIds" xml:"SubnetIds"`
+DefaultS3Location string `json:"defaultS3Location" xml:"DefaultS3Location"`
+Description string `json:"description" xml:"Description"`
+EncryptionKeyArn string `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
+Name string `json:"name" xml:"Name"`
+StudioId string `json:"studioId" xml:"StudioId"`
+SubnetIds SubnetIdList `json:"subnetIds" xml:"SubnetIds"`
 }
 
 type UpdateStudioSessionMappingInput struct {
-	IdentityId       string `json:"identityId" xml:"IdentityId"`
-	IdentityName     string `json:"identityName" xml:"IdentityName"`
-	IdentityType     string `json:"identityType" xml:"IdentityType"`
-	SessionPolicyArn string `json:"sessionPolicyArn" xml:"SessionPolicyArn"`
-	StudioId         string `json:"studioId" xml:"StudioId"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityName string `json:"identityName" xml:"IdentityName"`
+IdentityType string `json:"identityType" xml:"IdentityType"`
+SessionPolicyArn string `json:"sessionPolicyArn" xml:"SessionPolicyArn"`
+StudioId string `json:"studioId" xml:"StudioId"`
 }
 
 type UsernamePassword struct {
-	Password string `json:"password" xml:"Password"`
-	Username string `json:"username" xml:"Username"`
+Password string `json:"password" xml:"Password"`
+Username string `json:"username" xml:"Username"`
 }
 
 type VolumeSpecification struct {
-	Iops       int32  `json:"iops" xml:"Iops"`
-	SizeInGB   int32  `json:"sizeInGB" xml:"SizeInGB"`
-	Throughput int32  `json:"throughput" xml:"Throughput"`
-	VolumeType string `json:"volumeType" xml:"VolumeType"`
+Iops int32 `json:"iops" xml:"Iops"`
+SizeInGB int32 `json:"sizeInGB" xml:"SizeInGB"`
+Throughput int32 `json:"throughput" xml:"Throughput"`
+VolumeType string `json:"volumeType" xml:"VolumeType"`
 }
 
 type ApplicationList []*Application
@@ -1579,3 +1579,4 @@ type LogTypesMap map[string]XmlStringList
 type StringMap map[string]string
 
 type Credentials interface{}
+

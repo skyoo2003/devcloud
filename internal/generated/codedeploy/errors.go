@@ -1873,3 +1873,4 @@ func (e *UnsupportedActionForDeploymentTypeException) ErrorCode() string {
 func (e *UnsupportedActionForDeploymentTypeException) HTTPStatus() int {
 	return 0
 }
+

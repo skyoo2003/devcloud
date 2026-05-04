@@ -422,3 +422,4 @@ func (b *BaseProvider) UpdateStage(ctx context.Context, input *UpdateStageReques
 func (b *BaseProvider) UpdateVpcLink(ctx context.Context, input *UpdateVpcLinkRequest) (*UpdateVpcLinkResponse, error) {
 	return nil, fmt.Errorf("UpdateVpcLink: %w", ErrNotImplemented)
 }
+

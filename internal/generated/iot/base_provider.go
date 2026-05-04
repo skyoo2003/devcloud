@@ -1098,3 +1098,4 @@ func (b *BaseProvider) UpdateTopicRuleDestination(ctx context.Context, input *Up
 func (b *BaseProvider) ValidateSecurityProfileBehaviors(ctx context.Context, input *ValidateSecurityProfileBehaviorsRequest) (*ValidateSecurityProfileBehaviorsResponse, error) {
 	return nil, fmt.Errorf("ValidateSecurityProfileBehaviors: %w", ErrNotImplemented)
 }
+

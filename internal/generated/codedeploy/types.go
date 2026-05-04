@@ -7,855 +7,855 @@ import (
 )
 
 type AddTagsToOnPremisesInstancesInput struct {
-	InstanceNames InstanceNameList `json:"instanceNames" xml:"instanceNames"`
-	Tags          TagList          `json:"tags" xml:"tags"`
+InstanceNames InstanceNameList `json:"instanceNames" xml:"instanceNames"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type Alarm struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type AlarmConfiguration struct {
-	Alarms                 AlarmList `json:"alarms" xml:"alarms"`
-	Enabled                bool      `json:"enabled" xml:"enabled"`
-	IgnorePollAlarmFailure bool      `json:"ignorePollAlarmFailure" xml:"ignorePollAlarmFailure"`
+Alarms AlarmList `json:"alarms" xml:"alarms"`
+Enabled bool `json:"enabled" xml:"enabled"`
+IgnorePollAlarmFailure bool `json:"ignorePollAlarmFailure" xml:"ignorePollAlarmFailure"`
 }
 
 type AppSpecContent struct {
-	Content string `json:"content" xml:"content"`
-	Sha256  string `json:"sha256" xml:"sha256"`
+Content string `json:"content" xml:"content"`
+Sha256 string `json:"sha256" xml:"sha256"`
 }
 
 type ApplicationInfo struct {
-	ApplicationId     string    `json:"applicationId" xml:"applicationId"`
-	ApplicationName   string    `json:"applicationName" xml:"applicationName"`
-	ComputePlatform   string    `json:"computePlatform" xml:"computePlatform"`
-	CreateTime        time.Time `json:"createTime" xml:"createTime"`
-	GitHubAccountName string    `json:"gitHubAccountName" xml:"gitHubAccountName"`
-	LinkedToGitHub    bool      `json:"linkedToGitHub" xml:"linkedToGitHub"`
+ApplicationId string `json:"applicationId" xml:"applicationId"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+ComputePlatform string `json:"computePlatform" xml:"computePlatform"`
+CreateTime time.Time `json:"createTime" xml:"createTime"`
+GitHubAccountName string `json:"gitHubAccountName" xml:"gitHubAccountName"`
+LinkedToGitHub bool `json:"linkedToGitHub" xml:"linkedToGitHub"`
 }
 
 type AutoRollbackConfiguration struct {
-	Enabled bool                   `json:"enabled" xml:"enabled"`
-	Events  AutoRollbackEventsList `json:"events" xml:"events"`
+Enabled bool `json:"enabled" xml:"enabled"`
+Events AutoRollbackEventsList `json:"events" xml:"events"`
 }
 
 type AutoScalingGroup struct {
-	Hook            string `json:"hook" xml:"hook"`
-	Name            string `json:"name" xml:"name"`
-	TerminationHook string `json:"terminationHook" xml:"terminationHook"`
+Hook string `json:"hook" xml:"hook"`
+Name string `json:"name" xml:"name"`
+TerminationHook string `json:"terminationHook" xml:"terminationHook"`
 }
 
 type BatchGetApplicationRevisionsInput struct {
-	ApplicationName string               `json:"applicationName" xml:"applicationName"`
-	Revisions       RevisionLocationList `json:"revisions" xml:"revisions"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+Revisions RevisionLocationList `json:"revisions" xml:"revisions"`
 }
 
 type BatchGetApplicationRevisionsOutput struct {
-	ApplicationName string           `json:"applicationName" xml:"applicationName"`
-	ErrorMessage    string           `json:"errorMessage" xml:"errorMessage"`
-	Revisions       RevisionInfoList `json:"revisions" xml:"revisions"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+Revisions RevisionInfoList `json:"revisions" xml:"revisions"`
 }
 
 type BatchGetApplicationsInput struct {
-	ApplicationNames ApplicationsList `json:"applicationNames" xml:"applicationNames"`
+ApplicationNames ApplicationsList `json:"applicationNames" xml:"applicationNames"`
 }
 
 type BatchGetApplicationsOutput struct {
-	ApplicationsInfo ApplicationsInfoList `json:"applicationsInfo" xml:"applicationsInfo"`
+ApplicationsInfo ApplicationsInfoList `json:"applicationsInfo" xml:"applicationsInfo"`
 }
 
 type BatchGetDeploymentGroupsInput struct {
-	ApplicationName      string               `json:"applicationName" xml:"applicationName"`
-	DeploymentGroupNames DeploymentGroupsList `json:"deploymentGroupNames" xml:"deploymentGroupNames"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+DeploymentGroupNames DeploymentGroupsList `json:"deploymentGroupNames" xml:"deploymentGroupNames"`
 }
 
 type BatchGetDeploymentGroupsOutput struct {
-	DeploymentGroupsInfo DeploymentGroupInfoList `json:"deploymentGroupsInfo" xml:"deploymentGroupsInfo"`
-	ErrorMessage         string                  `json:"errorMessage" xml:"errorMessage"`
+DeploymentGroupsInfo DeploymentGroupInfoList `json:"deploymentGroupsInfo" xml:"deploymentGroupsInfo"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
 }
 
 type BatchGetDeploymentInstancesInput struct {
-	DeploymentId string        `json:"deploymentId" xml:"deploymentId"`
-	InstanceIds  InstancesList `json:"instanceIds" xml:"instanceIds"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+InstanceIds InstancesList `json:"instanceIds" xml:"instanceIds"`
 }
 
 type BatchGetDeploymentInstancesOutput struct {
-	ErrorMessage     string              `json:"errorMessage" xml:"errorMessage"`
-	InstancesSummary InstanceSummaryList `json:"instancesSummary" xml:"instancesSummary"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+InstancesSummary InstanceSummaryList `json:"instancesSummary" xml:"instancesSummary"`
 }
 
 type BatchGetDeploymentTargetsInput struct {
-	DeploymentId string       `json:"deploymentId" xml:"deploymentId"`
-	TargetIds    TargetIdList `json:"targetIds" xml:"targetIds"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+TargetIds TargetIdList `json:"targetIds" xml:"targetIds"`
 }
 
 type BatchGetDeploymentTargetsOutput struct {
-	DeploymentTargets DeploymentTargetList `json:"deploymentTargets" xml:"deploymentTargets"`
+DeploymentTargets DeploymentTargetList `json:"deploymentTargets" xml:"deploymentTargets"`
 }
 
 type BatchGetDeploymentsInput struct {
-	DeploymentIds DeploymentsList `json:"deploymentIds" xml:"deploymentIds"`
+DeploymentIds DeploymentsList `json:"deploymentIds" xml:"deploymentIds"`
 }
 
 type BatchGetDeploymentsOutput struct {
-	DeploymentsInfo DeploymentsInfoList `json:"deploymentsInfo" xml:"deploymentsInfo"`
+DeploymentsInfo DeploymentsInfoList `json:"deploymentsInfo" xml:"deploymentsInfo"`
 }
 
 type BatchGetOnPremisesInstancesInput struct {
-	InstanceNames InstanceNameList `json:"instanceNames" xml:"instanceNames"`
+InstanceNames InstanceNameList `json:"instanceNames" xml:"instanceNames"`
 }
 
 type BatchGetOnPremisesInstancesOutput struct {
-	InstanceInfos InstanceInfoList `json:"instanceInfos" xml:"instanceInfos"`
+InstanceInfos InstanceInfoList `json:"instanceInfos" xml:"instanceInfos"`
 }
 
 type BlueGreenDeploymentConfiguration struct {
-	DeploymentReadyOption                     *DeploymentReadyOption         `json:"deploymentReadyOption" xml:"deploymentReadyOption"`
-	GreenFleetProvisioningOption              *GreenFleetProvisioningOption  `json:"greenFleetProvisioningOption" xml:"greenFleetProvisioningOption"`
-	TerminateBlueInstancesOnDeploymentSuccess *BlueInstanceTerminationOption `json:"terminateBlueInstancesOnDeploymentSuccess" xml:"terminateBlueInstancesOnDeploymentSuccess"`
+DeploymentReadyOption *DeploymentReadyOption `json:"deploymentReadyOption" xml:"deploymentReadyOption"`
+GreenFleetProvisioningOption *GreenFleetProvisioningOption `json:"greenFleetProvisioningOption" xml:"greenFleetProvisioningOption"`
+TerminateBlueInstancesOnDeploymentSuccess *BlueInstanceTerminationOption `json:"terminateBlueInstancesOnDeploymentSuccess" xml:"terminateBlueInstancesOnDeploymentSuccess"`
 }
 
 type BlueInstanceTerminationOption struct {
-	Action                       string `json:"action" xml:"action"`
-	TerminationWaitTimeInMinutes int32  `json:"terminationWaitTimeInMinutes" xml:"terminationWaitTimeInMinutes"`
+Action string `json:"action" xml:"action"`
+TerminationWaitTimeInMinutes int32 `json:"terminationWaitTimeInMinutes" xml:"terminationWaitTimeInMinutes"`
 }
 
 type CloudFormationTarget struct {
-	DeploymentId        string             `json:"deploymentId" xml:"deploymentId"`
-	LastUpdatedAt       time.Time          `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	LifecycleEvents     LifecycleEventList `json:"lifecycleEvents" xml:"lifecycleEvents"`
-	ResourceType        string             `json:"resourceType" xml:"resourceType"`
-	Status              string             `json:"status" xml:"status"`
-	TargetId            string             `json:"targetId" xml:"targetId"`
-	TargetVersionWeight float64            `json:"targetVersionWeight" xml:"targetVersionWeight"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+LifecycleEvents LifecycleEventList `json:"lifecycleEvents" xml:"lifecycleEvents"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+Status string `json:"status" xml:"status"`
+TargetId string `json:"targetId" xml:"targetId"`
+TargetVersionWeight float64 `json:"targetVersionWeight" xml:"targetVersionWeight"`
 }
 
 type ContinueDeploymentInput struct {
-	DeploymentId       string `json:"deploymentId" xml:"deploymentId"`
-	DeploymentWaitType string `json:"deploymentWaitType" xml:"deploymentWaitType"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+DeploymentWaitType string `json:"deploymentWaitType" xml:"deploymentWaitType"`
 }
 
 type CreateApplicationInput struct {
-	ApplicationName string  `json:"applicationName" xml:"applicationName"`
-	ComputePlatform string  `json:"computePlatform" xml:"computePlatform"`
-	Tags            TagList `json:"tags" xml:"tags"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+ComputePlatform string `json:"computePlatform" xml:"computePlatform"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreateApplicationOutput struct {
-	ApplicationId string `json:"applicationId" xml:"applicationId"`
+ApplicationId string `json:"applicationId" xml:"applicationId"`
 }
 
 type CreateDeploymentConfigInput struct {
-	ComputePlatform      string                `json:"computePlatform" xml:"computePlatform"`
-	DeploymentConfigName string                `json:"deploymentConfigName" xml:"deploymentConfigName"`
-	MinimumHealthyHosts  *MinimumHealthyHosts  `json:"minimumHealthyHosts" xml:"minimumHealthyHosts"`
-	TrafficRoutingConfig *TrafficRoutingConfig `json:"trafficRoutingConfig" xml:"trafficRoutingConfig"`
-	ZonalConfig          *ZonalConfig          `json:"zonalConfig" xml:"zonalConfig"`
+ComputePlatform string `json:"computePlatform" xml:"computePlatform"`
+DeploymentConfigName string `json:"deploymentConfigName" xml:"deploymentConfigName"`
+MinimumHealthyHosts *MinimumHealthyHosts `json:"minimumHealthyHosts" xml:"minimumHealthyHosts"`
+TrafficRoutingConfig *TrafficRoutingConfig `json:"trafficRoutingConfig" xml:"trafficRoutingConfig"`
+ZonalConfig *ZonalConfig `json:"zonalConfig" xml:"zonalConfig"`
 }
 
 type CreateDeploymentConfigOutput struct {
-	DeploymentConfigId string `json:"deploymentConfigId" xml:"deploymentConfigId"`
+DeploymentConfigId string `json:"deploymentConfigId" xml:"deploymentConfigId"`
 }
 
 type CreateDeploymentGroupInput struct {
-	AlarmConfiguration               *AlarmConfiguration               `json:"alarmConfiguration" xml:"alarmConfiguration"`
-	ApplicationName                  string                            `json:"applicationName" xml:"applicationName"`
-	AutoRollbackConfiguration        *AutoRollbackConfiguration        `json:"autoRollbackConfiguration" xml:"autoRollbackConfiguration"`
-	AutoScalingGroups                AutoScalingGroupNameList          `json:"autoScalingGroups" xml:"autoScalingGroups"`
-	BlueGreenDeploymentConfiguration *BlueGreenDeploymentConfiguration `json:"blueGreenDeploymentConfiguration" xml:"blueGreenDeploymentConfiguration"`
-	DeploymentConfigName             string                            `json:"deploymentConfigName" xml:"deploymentConfigName"`
-	DeploymentGroupName              string                            `json:"deploymentGroupName" xml:"deploymentGroupName"`
-	DeploymentStyle                  *DeploymentStyle                  `json:"deploymentStyle" xml:"deploymentStyle"`
-	Ec2TagFilters                    EC2TagFilterList                  `json:"ec2TagFilters" xml:"ec2TagFilters"`
-	Ec2TagSet                        *EC2TagSet                        `json:"ec2TagSet" xml:"ec2TagSet"`
-	EcsServices                      ECSServiceList                    `json:"ecsServices" xml:"ecsServices"`
-	LoadBalancerInfo                 *LoadBalancerInfo                 `json:"loadBalancerInfo" xml:"loadBalancerInfo"`
-	OnPremisesInstanceTagFilters     TagFilterList                     `json:"onPremisesInstanceTagFilters" xml:"onPremisesInstanceTagFilters"`
-	OnPremisesTagSet                 *OnPremisesTagSet                 `json:"onPremisesTagSet" xml:"onPremisesTagSet"`
-	OutdatedInstancesStrategy        string                            `json:"outdatedInstancesStrategy" xml:"outdatedInstancesStrategy"`
-	ServiceRoleArn                   string                            `json:"serviceRoleArn" xml:"serviceRoleArn"`
-	Tags                             TagList                           `json:"tags" xml:"tags"`
-	TerminationHookEnabled           bool                              `json:"terminationHookEnabled" xml:"terminationHookEnabled"`
-	TriggerConfigurations            TriggerConfigList                 `json:"triggerConfigurations" xml:"triggerConfigurations"`
+AlarmConfiguration *AlarmConfiguration `json:"alarmConfiguration" xml:"alarmConfiguration"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+AutoRollbackConfiguration *AutoRollbackConfiguration `json:"autoRollbackConfiguration" xml:"autoRollbackConfiguration"`
+AutoScalingGroups AutoScalingGroupNameList `json:"autoScalingGroups" xml:"autoScalingGroups"`
+BlueGreenDeploymentConfiguration *BlueGreenDeploymentConfiguration `json:"blueGreenDeploymentConfiguration" xml:"blueGreenDeploymentConfiguration"`
+DeploymentConfigName string `json:"deploymentConfigName" xml:"deploymentConfigName"`
+DeploymentGroupName string `json:"deploymentGroupName" xml:"deploymentGroupName"`
+DeploymentStyle *DeploymentStyle `json:"deploymentStyle" xml:"deploymentStyle"`
+Ec2TagFilters EC2TagFilterList `json:"ec2TagFilters" xml:"ec2TagFilters"`
+Ec2TagSet *EC2TagSet `json:"ec2TagSet" xml:"ec2TagSet"`
+EcsServices ECSServiceList `json:"ecsServices" xml:"ecsServices"`
+LoadBalancerInfo *LoadBalancerInfo `json:"loadBalancerInfo" xml:"loadBalancerInfo"`
+OnPremisesInstanceTagFilters TagFilterList `json:"onPremisesInstanceTagFilters" xml:"onPremisesInstanceTagFilters"`
+OnPremisesTagSet *OnPremisesTagSet `json:"onPremisesTagSet" xml:"onPremisesTagSet"`
+OutdatedInstancesStrategy string `json:"outdatedInstancesStrategy" xml:"outdatedInstancesStrategy"`
+ServiceRoleArn string `json:"serviceRoleArn" xml:"serviceRoleArn"`
+Tags TagList `json:"tags" xml:"tags"`
+TerminationHookEnabled bool `json:"terminationHookEnabled" xml:"terminationHookEnabled"`
+TriggerConfigurations TriggerConfigList `json:"triggerConfigurations" xml:"triggerConfigurations"`
 }
 
 type CreateDeploymentGroupOutput struct {
-	DeploymentGroupId string `json:"deploymentGroupId" xml:"deploymentGroupId"`
+DeploymentGroupId string `json:"deploymentGroupId" xml:"deploymentGroupId"`
 }
 
 type CreateDeploymentInput struct {
-	ApplicationName               string                     `json:"applicationName" xml:"applicationName"`
-	AutoRollbackConfiguration     *AutoRollbackConfiguration `json:"autoRollbackConfiguration" xml:"autoRollbackConfiguration"`
-	DeploymentConfigName          string                     `json:"deploymentConfigName" xml:"deploymentConfigName"`
-	DeploymentGroupName           string                     `json:"deploymentGroupName" xml:"deploymentGroupName"`
-	Description                   string                     `json:"description" xml:"description"`
-	FileExistsBehavior            string                     `json:"fileExistsBehavior" xml:"fileExistsBehavior"`
-	IgnoreApplicationStopFailures bool                       `json:"ignoreApplicationStopFailures" xml:"ignoreApplicationStopFailures"`
-	OverrideAlarmConfiguration    *AlarmConfiguration        `json:"overrideAlarmConfiguration" xml:"overrideAlarmConfiguration"`
-	Revision                      *RevisionLocation          `json:"revision" xml:"revision"`
-	TargetInstances               *TargetInstances           `json:"targetInstances" xml:"targetInstances"`
-	UpdateOutdatedInstancesOnly   bool                       `json:"updateOutdatedInstancesOnly" xml:"updateOutdatedInstancesOnly"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+AutoRollbackConfiguration *AutoRollbackConfiguration `json:"autoRollbackConfiguration" xml:"autoRollbackConfiguration"`
+DeploymentConfigName string `json:"deploymentConfigName" xml:"deploymentConfigName"`
+DeploymentGroupName string `json:"deploymentGroupName" xml:"deploymentGroupName"`
+Description string `json:"description" xml:"description"`
+FileExistsBehavior string `json:"fileExistsBehavior" xml:"fileExistsBehavior"`
+IgnoreApplicationStopFailures bool `json:"ignoreApplicationStopFailures" xml:"ignoreApplicationStopFailures"`
+OverrideAlarmConfiguration *AlarmConfiguration `json:"overrideAlarmConfiguration" xml:"overrideAlarmConfiguration"`
+Revision *RevisionLocation `json:"revision" xml:"revision"`
+TargetInstances *TargetInstances `json:"targetInstances" xml:"targetInstances"`
+UpdateOutdatedInstancesOnly bool `json:"updateOutdatedInstancesOnly" xml:"updateOutdatedInstancesOnly"`
 }
 
 type CreateDeploymentOutput struct {
-	DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
 }
 
 type DeleteApplicationInput struct {
-	ApplicationName string `json:"applicationName" xml:"applicationName"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
 }
 
 type DeleteDeploymentConfigInput struct {
-	DeploymentConfigName string `json:"deploymentConfigName" xml:"deploymentConfigName"`
+DeploymentConfigName string `json:"deploymentConfigName" xml:"deploymentConfigName"`
 }
 
 type DeleteDeploymentGroupInput struct {
-	ApplicationName     string `json:"applicationName" xml:"applicationName"`
-	DeploymentGroupName string `json:"deploymentGroupName" xml:"deploymentGroupName"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+DeploymentGroupName string `json:"deploymentGroupName" xml:"deploymentGroupName"`
 }
 
 type DeleteDeploymentGroupOutput struct {
-	HooksNotCleanedUp AutoScalingGroupList `json:"hooksNotCleanedUp" xml:"hooksNotCleanedUp"`
+HooksNotCleanedUp AutoScalingGroupList `json:"hooksNotCleanedUp" xml:"hooksNotCleanedUp"`
 }
 
 type DeleteGitHubAccountTokenInput struct {
-	TokenName string `json:"tokenName" xml:"tokenName"`
+TokenName string `json:"tokenName" xml:"tokenName"`
 }
 
 type DeleteGitHubAccountTokenOutput struct {
-	TokenName string `json:"tokenName" xml:"tokenName"`
+TokenName string `json:"tokenName" xml:"tokenName"`
 }
 
 type DeleteResourcesByExternalIdInput struct {
-	ExternalId string `json:"externalId" xml:"externalId"`
+ExternalId string `json:"externalId" xml:"externalId"`
 }
 
 type DeleteResourcesByExternalIdOutput struct {
 }
 
 type DeploymentConfigInfo struct {
-	ComputePlatform      string                `json:"computePlatform" xml:"computePlatform"`
-	CreateTime           time.Time             `json:"createTime" xml:"createTime"`
-	DeploymentConfigId   string                `json:"deploymentConfigId" xml:"deploymentConfigId"`
-	DeploymentConfigName string                `json:"deploymentConfigName" xml:"deploymentConfigName"`
-	MinimumHealthyHosts  *MinimumHealthyHosts  `json:"minimumHealthyHosts" xml:"minimumHealthyHosts"`
-	TrafficRoutingConfig *TrafficRoutingConfig `json:"trafficRoutingConfig" xml:"trafficRoutingConfig"`
-	ZonalConfig          *ZonalConfig          `json:"zonalConfig" xml:"zonalConfig"`
+ComputePlatform string `json:"computePlatform" xml:"computePlatform"`
+CreateTime time.Time `json:"createTime" xml:"createTime"`
+DeploymentConfigId string `json:"deploymentConfigId" xml:"deploymentConfigId"`
+DeploymentConfigName string `json:"deploymentConfigName" xml:"deploymentConfigName"`
+MinimumHealthyHosts *MinimumHealthyHosts `json:"minimumHealthyHosts" xml:"minimumHealthyHosts"`
+TrafficRoutingConfig *TrafficRoutingConfig `json:"trafficRoutingConfig" xml:"trafficRoutingConfig"`
+ZonalConfig *ZonalConfig `json:"zonalConfig" xml:"zonalConfig"`
 }
 
 type DeploymentGroupInfo struct {
-	AlarmConfiguration               *AlarmConfiguration               `json:"alarmConfiguration" xml:"alarmConfiguration"`
-	ApplicationName                  string                            `json:"applicationName" xml:"applicationName"`
-	AutoRollbackConfiguration        *AutoRollbackConfiguration        `json:"autoRollbackConfiguration" xml:"autoRollbackConfiguration"`
-	AutoScalingGroups                AutoScalingGroupList              `json:"autoScalingGroups" xml:"autoScalingGroups"`
-	BlueGreenDeploymentConfiguration *BlueGreenDeploymentConfiguration `json:"blueGreenDeploymentConfiguration" xml:"blueGreenDeploymentConfiguration"`
-	ComputePlatform                  string                            `json:"computePlatform" xml:"computePlatform"`
-	DeploymentConfigName             string                            `json:"deploymentConfigName" xml:"deploymentConfigName"`
-	DeploymentGroupId                string                            `json:"deploymentGroupId" xml:"deploymentGroupId"`
-	DeploymentGroupName              string                            `json:"deploymentGroupName" xml:"deploymentGroupName"`
-	DeploymentStyle                  *DeploymentStyle                  `json:"deploymentStyle" xml:"deploymentStyle"`
-	Ec2TagFilters                    EC2TagFilterList                  `json:"ec2TagFilters" xml:"ec2TagFilters"`
-	Ec2TagSet                        *EC2TagSet                        `json:"ec2TagSet" xml:"ec2TagSet"`
-	EcsServices                      ECSServiceList                    `json:"ecsServices" xml:"ecsServices"`
-	LastAttemptedDeployment          *LastDeploymentInfo               `json:"lastAttemptedDeployment" xml:"lastAttemptedDeployment"`
-	LastSuccessfulDeployment         *LastDeploymentInfo               `json:"lastSuccessfulDeployment" xml:"lastSuccessfulDeployment"`
-	LoadBalancerInfo                 *LoadBalancerInfo                 `json:"loadBalancerInfo" xml:"loadBalancerInfo"`
-	OnPremisesInstanceTagFilters     TagFilterList                     `json:"onPremisesInstanceTagFilters" xml:"onPremisesInstanceTagFilters"`
-	OnPremisesTagSet                 *OnPremisesTagSet                 `json:"onPremisesTagSet" xml:"onPremisesTagSet"`
-	OutdatedInstancesStrategy        string                            `json:"outdatedInstancesStrategy" xml:"outdatedInstancesStrategy"`
-	ServiceRoleArn                   string                            `json:"serviceRoleArn" xml:"serviceRoleArn"`
-	TargetRevision                   *RevisionLocation                 `json:"targetRevision" xml:"targetRevision"`
-	TerminationHookEnabled           bool                              `json:"terminationHookEnabled" xml:"terminationHookEnabled"`
-	TriggerConfigurations            TriggerConfigList                 `json:"triggerConfigurations" xml:"triggerConfigurations"`
+AlarmConfiguration *AlarmConfiguration `json:"alarmConfiguration" xml:"alarmConfiguration"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+AutoRollbackConfiguration *AutoRollbackConfiguration `json:"autoRollbackConfiguration" xml:"autoRollbackConfiguration"`
+AutoScalingGroups AutoScalingGroupList `json:"autoScalingGroups" xml:"autoScalingGroups"`
+BlueGreenDeploymentConfiguration *BlueGreenDeploymentConfiguration `json:"blueGreenDeploymentConfiguration" xml:"blueGreenDeploymentConfiguration"`
+ComputePlatform string `json:"computePlatform" xml:"computePlatform"`
+DeploymentConfigName string `json:"deploymentConfigName" xml:"deploymentConfigName"`
+DeploymentGroupId string `json:"deploymentGroupId" xml:"deploymentGroupId"`
+DeploymentGroupName string `json:"deploymentGroupName" xml:"deploymentGroupName"`
+DeploymentStyle *DeploymentStyle `json:"deploymentStyle" xml:"deploymentStyle"`
+Ec2TagFilters EC2TagFilterList `json:"ec2TagFilters" xml:"ec2TagFilters"`
+Ec2TagSet *EC2TagSet `json:"ec2TagSet" xml:"ec2TagSet"`
+EcsServices ECSServiceList `json:"ecsServices" xml:"ecsServices"`
+LastAttemptedDeployment *LastDeploymentInfo `json:"lastAttemptedDeployment" xml:"lastAttemptedDeployment"`
+LastSuccessfulDeployment *LastDeploymentInfo `json:"lastSuccessfulDeployment" xml:"lastSuccessfulDeployment"`
+LoadBalancerInfo *LoadBalancerInfo `json:"loadBalancerInfo" xml:"loadBalancerInfo"`
+OnPremisesInstanceTagFilters TagFilterList `json:"onPremisesInstanceTagFilters" xml:"onPremisesInstanceTagFilters"`
+OnPremisesTagSet *OnPremisesTagSet `json:"onPremisesTagSet" xml:"onPremisesTagSet"`
+OutdatedInstancesStrategy string `json:"outdatedInstancesStrategy" xml:"outdatedInstancesStrategy"`
+ServiceRoleArn string `json:"serviceRoleArn" xml:"serviceRoleArn"`
+TargetRevision *RevisionLocation `json:"targetRevision" xml:"targetRevision"`
+TerminationHookEnabled bool `json:"terminationHookEnabled" xml:"terminationHookEnabled"`
+TriggerConfigurations TriggerConfigList `json:"triggerConfigurations" xml:"triggerConfigurations"`
 }
 
 type DeploymentInfo struct {
-	AdditionalDeploymentStatusInfo     string                            `json:"additionalDeploymentStatusInfo" xml:"additionalDeploymentStatusInfo"`
-	ApplicationName                    string                            `json:"applicationName" xml:"applicationName"`
-	AutoRollbackConfiguration          *AutoRollbackConfiguration        `json:"autoRollbackConfiguration" xml:"autoRollbackConfiguration"`
-	BlueGreenDeploymentConfiguration   *BlueGreenDeploymentConfiguration `json:"blueGreenDeploymentConfiguration" xml:"blueGreenDeploymentConfiguration"`
-	CompleteTime                       time.Time                         `json:"completeTime" xml:"completeTime"`
-	ComputePlatform                    string                            `json:"computePlatform" xml:"computePlatform"`
-	CreateTime                         time.Time                         `json:"createTime" xml:"createTime"`
-	Creator                            string                            `json:"creator" xml:"creator"`
-	DeploymentConfigName               string                            `json:"deploymentConfigName" xml:"deploymentConfigName"`
-	DeploymentGroupName                string                            `json:"deploymentGroupName" xml:"deploymentGroupName"`
-	DeploymentId                       string                            `json:"deploymentId" xml:"deploymentId"`
-	DeploymentOverview                 *DeploymentOverview               `json:"deploymentOverview" xml:"deploymentOverview"`
-	DeploymentStatusMessages           DeploymentStatusMessageList       `json:"deploymentStatusMessages" xml:"deploymentStatusMessages"`
-	DeploymentStyle                    *DeploymentStyle                  `json:"deploymentStyle" xml:"deploymentStyle"`
-	Description                        string                            `json:"description" xml:"description"`
-	ErrorInformation                   *ErrorInformation                 `json:"errorInformation" xml:"errorInformation"`
-	ExternalId                         string                            `json:"externalId" xml:"externalId"`
-	FileExistsBehavior                 string                            `json:"fileExistsBehavior" xml:"fileExistsBehavior"`
-	IgnoreApplicationStopFailures      bool                              `json:"ignoreApplicationStopFailures" xml:"ignoreApplicationStopFailures"`
-	InstanceTerminationWaitTimeStarted bool                              `json:"instanceTerminationWaitTimeStarted" xml:"instanceTerminationWaitTimeStarted"`
-	LoadBalancerInfo                   *LoadBalancerInfo                 `json:"loadBalancerInfo" xml:"loadBalancerInfo"`
-	OverrideAlarmConfiguration         *AlarmConfiguration               `json:"overrideAlarmConfiguration" xml:"overrideAlarmConfiguration"`
-	PreviousRevision                   *RevisionLocation                 `json:"previousRevision" xml:"previousRevision"`
-	RelatedDeployments                 *RelatedDeployments               `json:"relatedDeployments" xml:"relatedDeployments"`
-	Revision                           *RevisionLocation                 `json:"revision" xml:"revision"`
-	RollbackInfo                       *RollbackInfo                     `json:"rollbackInfo" xml:"rollbackInfo"`
-	StartTime                          time.Time                         `json:"startTime" xml:"startTime"`
-	Status                             string                            `json:"status" xml:"status"`
-	TargetInstances                    *TargetInstances                  `json:"targetInstances" xml:"targetInstances"`
-	UpdateOutdatedInstancesOnly        bool                              `json:"updateOutdatedInstancesOnly" xml:"updateOutdatedInstancesOnly"`
+AdditionalDeploymentStatusInfo string `json:"additionalDeploymentStatusInfo" xml:"additionalDeploymentStatusInfo"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+AutoRollbackConfiguration *AutoRollbackConfiguration `json:"autoRollbackConfiguration" xml:"autoRollbackConfiguration"`
+BlueGreenDeploymentConfiguration *BlueGreenDeploymentConfiguration `json:"blueGreenDeploymentConfiguration" xml:"blueGreenDeploymentConfiguration"`
+CompleteTime time.Time `json:"completeTime" xml:"completeTime"`
+ComputePlatform string `json:"computePlatform" xml:"computePlatform"`
+CreateTime time.Time `json:"createTime" xml:"createTime"`
+Creator string `json:"creator" xml:"creator"`
+DeploymentConfigName string `json:"deploymentConfigName" xml:"deploymentConfigName"`
+DeploymentGroupName string `json:"deploymentGroupName" xml:"deploymentGroupName"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+DeploymentOverview *DeploymentOverview `json:"deploymentOverview" xml:"deploymentOverview"`
+DeploymentStatusMessages DeploymentStatusMessageList `json:"deploymentStatusMessages" xml:"deploymentStatusMessages"`
+DeploymentStyle *DeploymentStyle `json:"deploymentStyle" xml:"deploymentStyle"`
+Description string `json:"description" xml:"description"`
+ErrorInformation *ErrorInformation `json:"errorInformation" xml:"errorInformation"`
+ExternalId string `json:"externalId" xml:"externalId"`
+FileExistsBehavior string `json:"fileExistsBehavior" xml:"fileExistsBehavior"`
+IgnoreApplicationStopFailures bool `json:"ignoreApplicationStopFailures" xml:"ignoreApplicationStopFailures"`
+InstanceTerminationWaitTimeStarted bool `json:"instanceTerminationWaitTimeStarted" xml:"instanceTerminationWaitTimeStarted"`
+LoadBalancerInfo *LoadBalancerInfo `json:"loadBalancerInfo" xml:"loadBalancerInfo"`
+OverrideAlarmConfiguration *AlarmConfiguration `json:"overrideAlarmConfiguration" xml:"overrideAlarmConfiguration"`
+PreviousRevision *RevisionLocation `json:"previousRevision" xml:"previousRevision"`
+RelatedDeployments *RelatedDeployments `json:"relatedDeployments" xml:"relatedDeployments"`
+Revision *RevisionLocation `json:"revision" xml:"revision"`
+RollbackInfo *RollbackInfo `json:"rollbackInfo" xml:"rollbackInfo"`
+StartTime time.Time `json:"startTime" xml:"startTime"`
+Status string `json:"status" xml:"status"`
+TargetInstances *TargetInstances `json:"targetInstances" xml:"targetInstances"`
+UpdateOutdatedInstancesOnly bool `json:"updateOutdatedInstancesOnly" xml:"updateOutdatedInstancesOnly"`
 }
 
 type DeploymentOverview struct {
-	Failed     int64 `json:"failed" xml:"Failed"`
-	InProgress int64 `json:"inProgress" xml:"InProgress"`
-	Pending    int64 `json:"pending" xml:"Pending"`
-	Ready      int64 `json:"ready" xml:"Ready"`
-	Skipped    int64 `json:"skipped" xml:"Skipped"`
-	Succeeded  int64 `json:"succeeded" xml:"Succeeded"`
+Failed int64 `json:"failed" xml:"Failed"`
+InProgress int64 `json:"inProgress" xml:"InProgress"`
+Pending int64 `json:"pending" xml:"Pending"`
+Ready int64 `json:"ready" xml:"Ready"`
+Skipped int64 `json:"skipped" xml:"Skipped"`
+Succeeded int64 `json:"succeeded" xml:"Succeeded"`
 }
 
 type DeploymentReadyOption struct {
-	ActionOnTimeout   string `json:"actionOnTimeout" xml:"actionOnTimeout"`
-	WaitTimeInMinutes int32  `json:"waitTimeInMinutes" xml:"waitTimeInMinutes"`
+ActionOnTimeout string `json:"actionOnTimeout" xml:"actionOnTimeout"`
+WaitTimeInMinutes int32 `json:"waitTimeInMinutes" xml:"waitTimeInMinutes"`
 }
 
 type DeploymentStyle struct {
-	DeploymentOption string `json:"deploymentOption" xml:"deploymentOption"`
-	DeploymentType   string `json:"deploymentType" xml:"deploymentType"`
+DeploymentOption string `json:"deploymentOption" xml:"deploymentOption"`
+DeploymentType string `json:"deploymentType" xml:"deploymentType"`
 }
 
 type DeploymentTarget struct {
-	CloudFormationTarget *CloudFormationTarget `json:"cloudFormationTarget" xml:"cloudFormationTarget"`
-	DeploymentTargetType string                `json:"deploymentTargetType" xml:"deploymentTargetType"`
-	EcsTarget            *ECSTarget            `json:"ecsTarget" xml:"ecsTarget"`
-	InstanceTarget       *InstanceTarget       `json:"instanceTarget" xml:"instanceTarget"`
-	LambdaTarget         *LambdaTarget         `json:"lambdaTarget" xml:"lambdaTarget"`
+CloudFormationTarget *CloudFormationTarget `json:"cloudFormationTarget" xml:"cloudFormationTarget"`
+DeploymentTargetType string `json:"deploymentTargetType" xml:"deploymentTargetType"`
+EcsTarget *ECSTarget `json:"ecsTarget" xml:"ecsTarget"`
+InstanceTarget *InstanceTarget `json:"instanceTarget" xml:"instanceTarget"`
+LambdaTarget *LambdaTarget `json:"lambdaTarget" xml:"lambdaTarget"`
 }
 
 type DeregisterOnPremisesInstanceInput struct {
-	InstanceName string `json:"instanceName" xml:"instanceName"`
+InstanceName string `json:"instanceName" xml:"instanceName"`
 }
 
 type Diagnostics struct {
-	ErrorCode  string `json:"errorCode" xml:"errorCode"`
-	LogTail    string `json:"logTail" xml:"logTail"`
-	Message    string `json:"message" xml:"message"`
-	ScriptName string `json:"scriptName" xml:"scriptName"`
+ErrorCode string `json:"errorCode" xml:"errorCode"`
+LogTail string `json:"logTail" xml:"logTail"`
+Message string `json:"message" xml:"message"`
+ScriptName string `json:"scriptName" xml:"scriptName"`
 }
 
 type EC2TagFilter struct {
-	Key   string `json:"key" xml:"Key"`
-	Type  string `json:"type" xml:"Type"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Type string `json:"type" xml:"Type"`
+Value string `json:"value" xml:"Value"`
 }
 
 type EC2TagSet struct {
-	Ec2TagSetList EC2TagSetList `json:"ec2TagSetList" xml:"ec2TagSetList"`
+Ec2TagSetList EC2TagSetList `json:"ec2TagSetList" xml:"ec2TagSetList"`
 }
 
 type ECSService struct {
-	ClusterName string `json:"clusterName" xml:"clusterName"`
-	ServiceName string `json:"serviceName" xml:"serviceName"`
+ClusterName string `json:"clusterName" xml:"clusterName"`
+ServiceName string `json:"serviceName" xml:"serviceName"`
 }
 
 type ECSTarget struct {
-	DeploymentId    string             `json:"deploymentId" xml:"deploymentId"`
-	LastUpdatedAt   time.Time          `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	LifecycleEvents LifecycleEventList `json:"lifecycleEvents" xml:"lifecycleEvents"`
-	Status          string             `json:"status" xml:"status"`
-	TargetArn       string             `json:"targetArn" xml:"targetArn"`
-	TargetId        string             `json:"targetId" xml:"targetId"`
-	TaskSetsInfo    ECSTaskSetList     `json:"taskSetsInfo" xml:"taskSetsInfo"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+LifecycleEvents LifecycleEventList `json:"lifecycleEvents" xml:"lifecycleEvents"`
+Status string `json:"status" xml:"status"`
+TargetArn string `json:"targetArn" xml:"targetArn"`
+TargetId string `json:"targetId" xml:"targetId"`
+TaskSetsInfo ECSTaskSetList `json:"taskSetsInfo" xml:"taskSetsInfo"`
 }
 
 type ECSTaskSet struct {
-	DesiredCount  int64            `json:"desiredCount" xml:"desiredCount"`
-	Identifer     string           `json:"identifer" xml:"identifer"`
-	PendingCount  int64            `json:"pendingCount" xml:"pendingCount"`
-	RunningCount  int64            `json:"runningCount" xml:"runningCount"`
-	Status        string           `json:"status" xml:"status"`
-	TargetGroup   *TargetGroupInfo `json:"targetGroup" xml:"targetGroup"`
-	TaskSetLabel  string           `json:"taskSetLabel" xml:"taskSetLabel"`
-	TrafficWeight float64          `json:"trafficWeight" xml:"trafficWeight"`
+DesiredCount int64 `json:"desiredCount" xml:"desiredCount"`
+Identifer string `json:"identifer" xml:"identifer"`
+PendingCount int64 `json:"pendingCount" xml:"pendingCount"`
+RunningCount int64 `json:"runningCount" xml:"runningCount"`
+Status string `json:"status" xml:"status"`
+TargetGroup *TargetGroupInfo `json:"targetGroup" xml:"targetGroup"`
+TaskSetLabel string `json:"taskSetLabel" xml:"taskSetLabel"`
+TrafficWeight float64 `json:"trafficWeight" xml:"trafficWeight"`
 }
 
 type ELBInfo struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type ErrorInformation struct {
-	Code    string `json:"code" xml:"code"`
-	Message string `json:"message" xml:"message"`
+Code string `json:"code" xml:"code"`
+Message string `json:"message" xml:"message"`
 }
 
 type GenericRevisionInfo struct {
-	DeploymentGroups DeploymentGroupsList `json:"deploymentGroups" xml:"deploymentGroups"`
-	Description      string               `json:"description" xml:"description"`
-	FirstUsedTime    time.Time            `json:"firstUsedTime" xml:"firstUsedTime"`
-	LastUsedTime     time.Time            `json:"lastUsedTime" xml:"lastUsedTime"`
-	RegisterTime     time.Time            `json:"registerTime" xml:"registerTime"`
+DeploymentGroups DeploymentGroupsList `json:"deploymentGroups" xml:"deploymentGroups"`
+Description string `json:"description" xml:"description"`
+FirstUsedTime time.Time `json:"firstUsedTime" xml:"firstUsedTime"`
+LastUsedTime time.Time `json:"lastUsedTime" xml:"lastUsedTime"`
+RegisterTime time.Time `json:"registerTime" xml:"registerTime"`
 }
 
 type GetApplicationInput struct {
-	ApplicationName string `json:"applicationName" xml:"applicationName"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
 }
 
 type GetApplicationOutput struct {
-	Application *ApplicationInfo `json:"application" xml:"application"`
+Application *ApplicationInfo `json:"application" xml:"application"`
 }
 
 type GetApplicationRevisionInput struct {
-	ApplicationName string            `json:"applicationName" xml:"applicationName"`
-	Revision        *RevisionLocation `json:"revision" xml:"revision"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+Revision *RevisionLocation `json:"revision" xml:"revision"`
 }
 
 type GetApplicationRevisionOutput struct {
-	ApplicationName string               `json:"applicationName" xml:"applicationName"`
-	Revision        *RevisionLocation    `json:"revision" xml:"revision"`
-	RevisionInfo    *GenericRevisionInfo `json:"revisionInfo" xml:"revisionInfo"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+Revision *RevisionLocation `json:"revision" xml:"revision"`
+RevisionInfo *GenericRevisionInfo `json:"revisionInfo" xml:"revisionInfo"`
 }
 
 type GetDeploymentConfigInput struct {
-	DeploymentConfigName string `json:"deploymentConfigName" xml:"deploymentConfigName"`
+DeploymentConfigName string `json:"deploymentConfigName" xml:"deploymentConfigName"`
 }
 
 type GetDeploymentConfigOutput struct {
-	DeploymentConfigInfo *DeploymentConfigInfo `json:"deploymentConfigInfo" xml:"deploymentConfigInfo"`
+DeploymentConfigInfo *DeploymentConfigInfo `json:"deploymentConfigInfo" xml:"deploymentConfigInfo"`
 }
 
 type GetDeploymentGroupInput struct {
-	ApplicationName     string `json:"applicationName" xml:"applicationName"`
-	DeploymentGroupName string `json:"deploymentGroupName" xml:"deploymentGroupName"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+DeploymentGroupName string `json:"deploymentGroupName" xml:"deploymentGroupName"`
 }
 
 type GetDeploymentGroupOutput struct {
-	DeploymentGroupInfo *DeploymentGroupInfo `json:"deploymentGroupInfo" xml:"deploymentGroupInfo"`
+DeploymentGroupInfo *DeploymentGroupInfo `json:"deploymentGroupInfo" xml:"deploymentGroupInfo"`
 }
 
 type GetDeploymentInput struct {
-	DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
 }
 
 type GetDeploymentInstanceInput struct {
-	DeploymentId string `json:"deploymentId" xml:"deploymentId"`
-	InstanceId   string `json:"instanceId" xml:"instanceId"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+InstanceId string `json:"instanceId" xml:"instanceId"`
 }
 
 type GetDeploymentInstanceOutput struct {
-	InstanceSummary *InstanceSummary `json:"instanceSummary" xml:"instanceSummary"`
+InstanceSummary *InstanceSummary `json:"instanceSummary" xml:"instanceSummary"`
 }
 
 type GetDeploymentOutput struct {
-	DeploymentInfo *DeploymentInfo `json:"deploymentInfo" xml:"deploymentInfo"`
+DeploymentInfo *DeploymentInfo `json:"deploymentInfo" xml:"deploymentInfo"`
 }
 
 type GetDeploymentTargetInput struct {
-	DeploymentId string `json:"deploymentId" xml:"deploymentId"`
-	TargetId     string `json:"targetId" xml:"targetId"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+TargetId string `json:"targetId" xml:"targetId"`
 }
 
 type GetDeploymentTargetOutput struct {
-	DeploymentTarget *DeploymentTarget `json:"deploymentTarget" xml:"deploymentTarget"`
+DeploymentTarget *DeploymentTarget `json:"deploymentTarget" xml:"deploymentTarget"`
 }
 
 type GetOnPremisesInstanceInput struct {
-	InstanceName string `json:"instanceName" xml:"instanceName"`
+InstanceName string `json:"instanceName" xml:"instanceName"`
 }
 
 type GetOnPremisesInstanceOutput struct {
-	InstanceInfo *InstanceInfo `json:"instanceInfo" xml:"instanceInfo"`
+InstanceInfo *InstanceInfo `json:"instanceInfo" xml:"instanceInfo"`
 }
 
 type GitHubLocation struct {
-	CommitId   string `json:"commitId" xml:"commitId"`
-	Repository string `json:"repository" xml:"repository"`
+CommitId string `json:"commitId" xml:"commitId"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type GreenFleetProvisioningOption struct {
-	Action string `json:"action" xml:"action"`
+Action string `json:"action" xml:"action"`
 }
 
 type InstanceInfo struct {
-	DeregisterTime time.Time `json:"deregisterTime" xml:"deregisterTime"`
-	IamSessionArn  string    `json:"iamSessionArn" xml:"iamSessionArn"`
-	IamUserArn     string    `json:"iamUserArn" xml:"iamUserArn"`
-	InstanceArn    string    `json:"instanceArn" xml:"instanceArn"`
-	InstanceName   string    `json:"instanceName" xml:"instanceName"`
-	RegisterTime   time.Time `json:"registerTime" xml:"registerTime"`
-	Tags           TagList   `json:"tags" xml:"tags"`
+DeregisterTime time.Time `json:"deregisterTime" xml:"deregisterTime"`
+IamSessionArn string `json:"iamSessionArn" xml:"iamSessionArn"`
+IamUserArn string `json:"iamUserArn" xml:"iamUserArn"`
+InstanceArn string `json:"instanceArn" xml:"instanceArn"`
+InstanceName string `json:"instanceName" xml:"instanceName"`
+RegisterTime time.Time `json:"registerTime" xml:"registerTime"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type InstanceSummary struct {
-	DeploymentId    string             `json:"deploymentId" xml:"deploymentId"`
-	InstanceId      string             `json:"instanceId" xml:"instanceId"`
-	InstanceType    string             `json:"instanceType" xml:"instanceType"`
-	LastUpdatedAt   time.Time          `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	LifecycleEvents LifecycleEventList `json:"lifecycleEvents" xml:"lifecycleEvents"`
-	Status          string             `json:"status" xml:"status"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+InstanceId string `json:"instanceId" xml:"instanceId"`
+InstanceType string `json:"instanceType" xml:"instanceType"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+LifecycleEvents LifecycleEventList `json:"lifecycleEvents" xml:"lifecycleEvents"`
+Status string `json:"status" xml:"status"`
 }
 
 type InstanceTarget struct {
-	DeploymentId    string             `json:"deploymentId" xml:"deploymentId"`
-	InstanceLabel   string             `json:"instanceLabel" xml:"instanceLabel"`
-	LastUpdatedAt   time.Time          `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	LifecycleEvents LifecycleEventList `json:"lifecycleEvents" xml:"lifecycleEvents"`
-	Status          string             `json:"status" xml:"status"`
-	TargetArn       string             `json:"targetArn" xml:"targetArn"`
-	TargetId        string             `json:"targetId" xml:"targetId"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+InstanceLabel string `json:"instanceLabel" xml:"instanceLabel"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+LifecycleEvents LifecycleEventList `json:"lifecycleEvents" xml:"lifecycleEvents"`
+Status string `json:"status" xml:"status"`
+TargetArn string `json:"targetArn" xml:"targetArn"`
+TargetId string `json:"targetId" xml:"targetId"`
 }
 
 type LambdaFunctionInfo struct {
-	CurrentVersion      string  `json:"currentVersion" xml:"currentVersion"`
-	FunctionAlias       string  `json:"functionAlias" xml:"functionAlias"`
-	FunctionName        string  `json:"functionName" xml:"functionName"`
-	TargetVersion       string  `json:"targetVersion" xml:"targetVersion"`
-	TargetVersionWeight float64 `json:"targetVersionWeight" xml:"targetVersionWeight"`
+CurrentVersion string `json:"currentVersion" xml:"currentVersion"`
+FunctionAlias string `json:"functionAlias" xml:"functionAlias"`
+FunctionName string `json:"functionName" xml:"functionName"`
+TargetVersion string `json:"targetVersion" xml:"targetVersion"`
+TargetVersionWeight float64 `json:"targetVersionWeight" xml:"targetVersionWeight"`
 }
 
 type LambdaTarget struct {
-	DeploymentId       string              `json:"deploymentId" xml:"deploymentId"`
-	LambdaFunctionInfo *LambdaFunctionInfo `json:"lambdaFunctionInfo" xml:"lambdaFunctionInfo"`
-	LastUpdatedAt      time.Time           `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	LifecycleEvents    LifecycleEventList  `json:"lifecycleEvents" xml:"lifecycleEvents"`
-	Status             string              `json:"status" xml:"status"`
-	TargetArn          string              `json:"targetArn" xml:"targetArn"`
-	TargetId           string              `json:"targetId" xml:"targetId"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+LambdaFunctionInfo *LambdaFunctionInfo `json:"lambdaFunctionInfo" xml:"lambdaFunctionInfo"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+LifecycleEvents LifecycleEventList `json:"lifecycleEvents" xml:"lifecycleEvents"`
+Status string `json:"status" xml:"status"`
+TargetArn string `json:"targetArn" xml:"targetArn"`
+TargetId string `json:"targetId" xml:"targetId"`
 }
 
 type LastDeploymentInfo struct {
-	CreateTime   time.Time `json:"createTime" xml:"createTime"`
-	DeploymentId string    `json:"deploymentId" xml:"deploymentId"`
-	EndTime      time.Time `json:"endTime" xml:"endTime"`
-	Status       string    `json:"status" xml:"status"`
+CreateTime time.Time `json:"createTime" xml:"createTime"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+Status string `json:"status" xml:"status"`
 }
 
 type LifecycleEvent struct {
-	Diagnostics        *Diagnostics `json:"diagnostics" xml:"diagnostics"`
-	EndTime            time.Time    `json:"endTime" xml:"endTime"`
-	LifecycleEventName string       `json:"lifecycleEventName" xml:"lifecycleEventName"`
-	StartTime          time.Time    `json:"startTime" xml:"startTime"`
-	Status             string       `json:"status" xml:"status"`
+Diagnostics *Diagnostics `json:"diagnostics" xml:"diagnostics"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+LifecycleEventName string `json:"lifecycleEventName" xml:"lifecycleEventName"`
+StartTime time.Time `json:"startTime" xml:"startTime"`
+Status string `json:"status" xml:"status"`
 }
 
 type ListApplicationRevisionsInput struct {
-	ApplicationName string `json:"applicationName" xml:"applicationName"`
-	Deployed        string `json:"deployed" xml:"deployed"`
-	NextToken       string `json:"nextToken" xml:"nextToken"`
-	S3Bucket        string `json:"s3Bucket" xml:"s3Bucket"`
-	S3KeyPrefix     string `json:"s3KeyPrefix" xml:"s3KeyPrefix"`
-	SortBy          string `json:"sortBy" xml:"sortBy"`
-	SortOrder       string `json:"sortOrder" xml:"sortOrder"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+Deployed string `json:"deployed" xml:"deployed"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+S3Bucket string `json:"s3Bucket" xml:"s3Bucket"`
+S3KeyPrefix string `json:"s3KeyPrefix" xml:"s3KeyPrefix"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListApplicationRevisionsOutput struct {
-	NextToken string               `json:"nextToken" xml:"nextToken"`
-	Revisions RevisionLocationList `json:"revisions" xml:"revisions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Revisions RevisionLocationList `json:"revisions" xml:"revisions"`
 }
 
 type ListApplicationsInput struct {
-	NextToken string `json:"nextToken" xml:"nextToken"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListApplicationsOutput struct {
-	Applications ApplicationsList `json:"applications" xml:"applications"`
-	NextToken    string           `json:"nextToken" xml:"nextToken"`
+Applications ApplicationsList `json:"applications" xml:"applications"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDeploymentConfigsInput struct {
-	NextToken string `json:"nextToken" xml:"nextToken"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDeploymentConfigsOutput struct {
-	DeploymentConfigsList DeploymentConfigsList `json:"deploymentConfigsList" xml:"deploymentConfigsList"`
-	NextToken             string                `json:"nextToken" xml:"nextToken"`
+DeploymentConfigsList DeploymentConfigsList `json:"deploymentConfigsList" xml:"deploymentConfigsList"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDeploymentGroupsInput struct {
-	ApplicationName string `json:"applicationName" xml:"applicationName"`
-	NextToken       string `json:"nextToken" xml:"nextToken"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDeploymentGroupsOutput struct {
-	ApplicationName  string               `json:"applicationName" xml:"applicationName"`
-	DeploymentGroups DeploymentGroupsList `json:"deploymentGroups" xml:"deploymentGroups"`
-	NextToken        string               `json:"nextToken" xml:"nextToken"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+DeploymentGroups DeploymentGroupsList `json:"deploymentGroups" xml:"deploymentGroups"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDeploymentInstancesInput struct {
-	DeploymentId         string             `json:"deploymentId" xml:"deploymentId"`
-	InstanceStatusFilter InstanceStatusList `json:"instanceStatusFilter" xml:"instanceStatusFilter"`
-	InstanceTypeFilter   InstanceTypeList   `json:"instanceTypeFilter" xml:"instanceTypeFilter"`
-	NextToken            string             `json:"nextToken" xml:"nextToken"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+InstanceStatusFilter InstanceStatusList `json:"instanceStatusFilter" xml:"instanceStatusFilter"`
+InstanceTypeFilter InstanceTypeList `json:"instanceTypeFilter" xml:"instanceTypeFilter"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDeploymentInstancesOutput struct {
-	InstancesList InstancesList `json:"instancesList" xml:"instancesList"`
-	NextToken     string        `json:"nextToken" xml:"nextToken"`
+InstancesList InstancesList `json:"instancesList" xml:"instancesList"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDeploymentTargetsInput struct {
-	DeploymentId  string        `json:"deploymentId" xml:"deploymentId"`
-	NextToken     string        `json:"nextToken" xml:"nextToken"`
-	TargetFilters TargetFilters `json:"targetFilters" xml:"targetFilters"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+TargetFilters TargetFilters `json:"targetFilters" xml:"targetFilters"`
 }
 
 type ListDeploymentTargetsOutput struct {
-	NextToken string       `json:"nextToken" xml:"nextToken"`
-	TargetIds TargetIdList `json:"targetIds" xml:"targetIds"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+TargetIds TargetIdList `json:"targetIds" xml:"targetIds"`
 }
 
 type ListDeploymentsInput struct {
-	ApplicationName     string               `json:"applicationName" xml:"applicationName"`
-	CreateTimeRange     *TimeRange           `json:"createTimeRange" xml:"createTimeRange"`
-	DeploymentGroupName string               `json:"deploymentGroupName" xml:"deploymentGroupName"`
-	ExternalId          string               `json:"externalId" xml:"externalId"`
-	IncludeOnlyStatuses DeploymentStatusList `json:"includeOnlyStatuses" xml:"includeOnlyStatuses"`
-	NextToken           string               `json:"nextToken" xml:"nextToken"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+CreateTimeRange *TimeRange `json:"createTimeRange" xml:"createTimeRange"`
+DeploymentGroupName string `json:"deploymentGroupName" xml:"deploymentGroupName"`
+ExternalId string `json:"externalId" xml:"externalId"`
+IncludeOnlyStatuses DeploymentStatusList `json:"includeOnlyStatuses" xml:"includeOnlyStatuses"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDeploymentsOutput struct {
-	Deployments DeploymentsList `json:"deployments" xml:"deployments"`
-	NextToken   string          `json:"nextToken" xml:"nextToken"`
+Deployments DeploymentsList `json:"deployments" xml:"deployments"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListGitHubAccountTokenNamesInput struct {
-	NextToken string `json:"nextToken" xml:"nextToken"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListGitHubAccountTokenNamesOutput struct {
-	NextToken     string                     `json:"nextToken" xml:"nextToken"`
-	TokenNameList GitHubAccountTokenNameList `json:"tokenNameList" xml:"tokenNameList"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+TokenNameList GitHubAccountTokenNameList `json:"tokenNameList" xml:"tokenNameList"`
 }
 
 type ListOnPremisesInstancesInput struct {
-	NextToken          string        `json:"nextToken" xml:"nextToken"`
-	RegistrationStatus string        `json:"registrationStatus" xml:"registrationStatus"`
-	TagFilters         TagFilterList `json:"tagFilters" xml:"tagFilters"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RegistrationStatus string `json:"registrationStatus" xml:"registrationStatus"`
+TagFilters TagFilterList `json:"tagFilters" xml:"tagFilters"`
 }
 
 type ListOnPremisesInstancesOutput struct {
-	InstanceNames InstanceNameList `json:"instanceNames" xml:"instanceNames"`
-	NextToken     string           `json:"nextToken" xml:"nextToken"`
+InstanceNames InstanceNameList `json:"instanceNames" xml:"instanceNames"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListTagsForResourceInput struct {
-	NextToken   string `json:"nextToken" xml:"NextToken"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ListTagsForResourceOutput struct {
-	NextToken string  `json:"nextToken" xml:"NextToken"`
-	Tags      TagList `json:"tags" xml:"Tags"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type LoadBalancerInfo struct {
-	ElbInfoList             ELBInfoList             `json:"elbInfoList" xml:"elbInfoList"`
-	TargetGroupInfoList     TargetGroupInfoList     `json:"targetGroupInfoList" xml:"targetGroupInfoList"`
-	TargetGroupPairInfoList TargetGroupPairInfoList `json:"targetGroupPairInfoList" xml:"targetGroupPairInfoList"`
+ElbInfoList ELBInfoList `json:"elbInfoList" xml:"elbInfoList"`
+TargetGroupInfoList TargetGroupInfoList `json:"targetGroupInfoList" xml:"targetGroupInfoList"`
+TargetGroupPairInfoList TargetGroupPairInfoList `json:"targetGroupPairInfoList" xml:"targetGroupPairInfoList"`
 }
 
 type MinimumHealthyHosts struct {
-	Type  string `json:"type" xml:"type"`
-	Value int32  `json:"value" xml:"value"`
+Type string `json:"type" xml:"type"`
+Value int32 `json:"value" xml:"value"`
 }
 
 type MinimumHealthyHostsPerZone struct {
-	Type  string `json:"type" xml:"type"`
-	Value int32  `json:"value" xml:"value"`
+Type string `json:"type" xml:"type"`
+Value int32 `json:"value" xml:"value"`
 }
 
 type OnPremisesTagSet struct {
-	OnPremisesTagSetList OnPremisesTagSetList `json:"onPremisesTagSetList" xml:"onPremisesTagSetList"`
+OnPremisesTagSetList OnPremisesTagSetList `json:"onPremisesTagSetList" xml:"onPremisesTagSetList"`
 }
 
 type PutLifecycleEventHookExecutionStatusInput struct {
-	DeploymentId                  string `json:"deploymentId" xml:"deploymentId"`
-	LifecycleEventHookExecutionId string `json:"lifecycleEventHookExecutionId" xml:"lifecycleEventHookExecutionId"`
-	Status                        string `json:"status" xml:"status"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+LifecycleEventHookExecutionId string `json:"lifecycleEventHookExecutionId" xml:"lifecycleEventHookExecutionId"`
+Status string `json:"status" xml:"status"`
 }
 
 type PutLifecycleEventHookExecutionStatusOutput struct {
-	LifecycleEventHookExecutionId string `json:"lifecycleEventHookExecutionId" xml:"lifecycleEventHookExecutionId"`
+LifecycleEventHookExecutionId string `json:"lifecycleEventHookExecutionId" xml:"lifecycleEventHookExecutionId"`
 }
 
 type RawString struct {
-	Content string `json:"content" xml:"content"`
-	Sha256  string `json:"sha256" xml:"sha256"`
+Content string `json:"content" xml:"content"`
+Sha256 string `json:"sha256" xml:"sha256"`
 }
 
 type RegisterApplicationRevisionInput struct {
-	ApplicationName string            `json:"applicationName" xml:"applicationName"`
-	Description     string            `json:"description" xml:"description"`
-	Revision        *RevisionLocation `json:"revision" xml:"revision"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+Description string `json:"description" xml:"description"`
+Revision *RevisionLocation `json:"revision" xml:"revision"`
 }
 
 type RegisterOnPremisesInstanceInput struct {
-	IamSessionArn string `json:"iamSessionArn" xml:"iamSessionArn"`
-	IamUserArn    string `json:"iamUserArn" xml:"iamUserArn"`
-	InstanceName  string `json:"instanceName" xml:"instanceName"`
+IamSessionArn string `json:"iamSessionArn" xml:"iamSessionArn"`
+IamUserArn string `json:"iamUserArn" xml:"iamUserArn"`
+InstanceName string `json:"instanceName" xml:"instanceName"`
 }
 
 type RelatedDeployments struct {
-	AutoUpdateOutdatedInstancesDeploymentIds    DeploymentsList `json:"autoUpdateOutdatedInstancesDeploymentIds" xml:"autoUpdateOutdatedInstancesDeploymentIds"`
-	AutoUpdateOutdatedInstancesRootDeploymentId string          `json:"autoUpdateOutdatedInstancesRootDeploymentId" xml:"autoUpdateOutdatedInstancesRootDeploymentId"`
+AutoUpdateOutdatedInstancesDeploymentIds DeploymentsList `json:"autoUpdateOutdatedInstancesDeploymentIds" xml:"autoUpdateOutdatedInstancesDeploymentIds"`
+AutoUpdateOutdatedInstancesRootDeploymentId string `json:"autoUpdateOutdatedInstancesRootDeploymentId" xml:"autoUpdateOutdatedInstancesRootDeploymentId"`
 }
 
 type RemoveTagsFromOnPremisesInstancesInput struct {
-	InstanceNames InstanceNameList `json:"instanceNames" xml:"instanceNames"`
-	Tags          TagList          `json:"tags" xml:"tags"`
+InstanceNames InstanceNameList `json:"instanceNames" xml:"instanceNames"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type RevisionInfo struct {
-	GenericRevisionInfo *GenericRevisionInfo `json:"genericRevisionInfo" xml:"genericRevisionInfo"`
-	RevisionLocation    *RevisionLocation    `json:"revisionLocation" xml:"revisionLocation"`
+GenericRevisionInfo *GenericRevisionInfo `json:"genericRevisionInfo" xml:"genericRevisionInfo"`
+RevisionLocation *RevisionLocation `json:"revisionLocation" xml:"revisionLocation"`
 }
 
 type RevisionLocation struct {
-	AppSpecContent *AppSpecContent `json:"appSpecContent" xml:"appSpecContent"`
-	GitHubLocation *GitHubLocation `json:"gitHubLocation" xml:"gitHubLocation"`
-	RevisionType   string          `json:"revisionType" xml:"revisionType"`
-	S3Location     *S3Location     `json:"s3Location" xml:"s3Location"`
-	String         *RawString      `json:"string" xml:"string"`
+AppSpecContent *AppSpecContent `json:"appSpecContent" xml:"appSpecContent"`
+GitHubLocation *GitHubLocation `json:"gitHubLocation" xml:"gitHubLocation"`
+RevisionType string `json:"revisionType" xml:"revisionType"`
+S3Location *S3Location `json:"s3Location" xml:"s3Location"`
+String *RawString `json:"string" xml:"string"`
 }
 
 type RollbackInfo struct {
-	RollbackDeploymentId           string `json:"rollbackDeploymentId" xml:"rollbackDeploymentId"`
-	RollbackMessage                string `json:"rollbackMessage" xml:"rollbackMessage"`
-	RollbackTriggeringDeploymentId string `json:"rollbackTriggeringDeploymentId" xml:"rollbackTriggeringDeploymentId"`
+RollbackDeploymentId string `json:"rollbackDeploymentId" xml:"rollbackDeploymentId"`
+RollbackMessage string `json:"rollbackMessage" xml:"rollbackMessage"`
+RollbackTriggeringDeploymentId string `json:"rollbackTriggeringDeploymentId" xml:"rollbackTriggeringDeploymentId"`
 }
 
 type S3Location struct {
-	Bucket     string `json:"bucket" xml:"bucket"`
-	BundleType string `json:"bundleType" xml:"bundleType"`
-	ETag       string `json:"eTag" xml:"eTag"`
-	Key        string `json:"key" xml:"key"`
-	Version    string `json:"version" xml:"version"`
+Bucket string `json:"bucket" xml:"bucket"`
+BundleType string `json:"bundleType" xml:"bundleType"`
+ETag string `json:"eTag" xml:"eTag"`
+Key string `json:"key" xml:"key"`
+Version string `json:"version" xml:"version"`
 }
 
 type SkipWaitTimeForInstanceTerminationInput struct {
-	DeploymentId string `json:"deploymentId" xml:"deploymentId"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
 }
 
 type SmithyUnit struct {
 }
 
 type StopDeploymentInput struct {
-	AutoRollbackEnabled bool   `json:"autoRollbackEnabled" xml:"autoRollbackEnabled"`
-	DeploymentId        string `json:"deploymentId" xml:"deploymentId"`
+AutoRollbackEnabled bool `json:"autoRollbackEnabled" xml:"autoRollbackEnabled"`
+DeploymentId string `json:"deploymentId" xml:"deploymentId"`
 }
 
 type StopDeploymentOutput struct {
-	Status        string `json:"status" xml:"status"`
-	StatusMessage string `json:"statusMessage" xml:"statusMessage"`
+Status string `json:"status" xml:"status"`
+StatusMessage string `json:"statusMessage" xml:"statusMessage"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagFilter struct {
-	Key   string `json:"key" xml:"Key"`
-	Type  string `json:"type" xml:"Type"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Type string `json:"type" xml:"Type"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceInput struct {
-	ResourceArn string  `json:"resourceArn" xml:"ResourceArn"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type TagResourceOutput struct {
 }
 
 type TargetGroupInfo struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type TargetGroupPairInfo struct {
-	ProdTrafficRoute *TrafficRoute       `json:"prodTrafficRoute" xml:"prodTrafficRoute"`
-	TargetGroups     TargetGroupInfoList `json:"targetGroups" xml:"targetGroups"`
-	TestTrafficRoute *TrafficRoute       `json:"testTrafficRoute" xml:"testTrafficRoute"`
+ProdTrafficRoute *TrafficRoute `json:"prodTrafficRoute" xml:"prodTrafficRoute"`
+TargetGroups TargetGroupInfoList `json:"targetGroups" xml:"targetGroups"`
+TestTrafficRoute *TrafficRoute `json:"testTrafficRoute" xml:"testTrafficRoute"`
 }
 
 type TargetInstances struct {
-	AutoScalingGroups AutoScalingGroupNameList `json:"autoScalingGroups" xml:"autoScalingGroups"`
-	Ec2TagSet         *EC2TagSet               `json:"ec2TagSet" xml:"ec2TagSet"`
-	TagFilters        EC2TagFilterList         `json:"tagFilters" xml:"tagFilters"`
+AutoScalingGroups AutoScalingGroupNameList `json:"autoScalingGroups" xml:"autoScalingGroups"`
+Ec2TagSet *EC2TagSet `json:"ec2TagSet" xml:"ec2TagSet"`
+TagFilters EC2TagFilterList `json:"tagFilters" xml:"tagFilters"`
 }
 
 type TimeBasedCanary struct {
-	CanaryInterval   int32 `json:"canaryInterval" xml:"canaryInterval"`
-	CanaryPercentage int32 `json:"canaryPercentage" xml:"canaryPercentage"`
+CanaryInterval int32 `json:"canaryInterval" xml:"canaryInterval"`
+CanaryPercentage int32 `json:"canaryPercentage" xml:"canaryPercentage"`
 }
 
 type TimeBasedLinear struct {
-	LinearInterval   int32 `json:"linearInterval" xml:"linearInterval"`
-	LinearPercentage int32 `json:"linearPercentage" xml:"linearPercentage"`
+LinearInterval int32 `json:"linearInterval" xml:"linearInterval"`
+LinearPercentage int32 `json:"linearPercentage" xml:"linearPercentage"`
 }
 
 type TimeRange struct {
-	End   time.Time `json:"end" xml:"end"`
-	Start time.Time `json:"start" xml:"start"`
+End time.Time `json:"end" xml:"end"`
+Start time.Time `json:"start" xml:"start"`
 }
 
 type TrafficRoute struct {
-	ListenerArns ListenerArnList `json:"listenerArns" xml:"listenerArns"`
+ListenerArns ListenerArnList `json:"listenerArns" xml:"listenerArns"`
 }
 
 type TrafficRoutingConfig struct {
-	TimeBasedCanary *TimeBasedCanary `json:"timeBasedCanary" xml:"timeBasedCanary"`
-	TimeBasedLinear *TimeBasedLinear `json:"timeBasedLinear" xml:"timeBasedLinear"`
-	Type            string           `json:"type" xml:"type"`
+TimeBasedCanary *TimeBasedCanary `json:"timeBasedCanary" xml:"timeBasedCanary"`
+TimeBasedLinear *TimeBasedLinear `json:"timeBasedLinear" xml:"timeBasedLinear"`
+Type string `json:"type" xml:"type"`
 }
 
 type TriggerConfig struct {
-	TriggerEvents    TriggerEventTypeList `json:"triggerEvents" xml:"triggerEvents"`
-	TriggerName      string               `json:"triggerName" xml:"triggerName"`
-	TriggerTargetArn string               `json:"triggerTargetArn" xml:"triggerTargetArn"`
+TriggerEvents TriggerEventTypeList `json:"triggerEvents" xml:"triggerEvents"`
+TriggerName string `json:"triggerName" xml:"triggerName"`
+TriggerTargetArn string `json:"triggerTargetArn" xml:"triggerTargetArn"`
 }
 
 type UntagResourceInput struct {
-	ResourceArn string     `json:"resourceArn" xml:"ResourceArn"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceOutput struct {
 }
 
 type UpdateApplicationInput struct {
-	ApplicationName    string `json:"applicationName" xml:"applicationName"`
-	NewApplicationName string `json:"newApplicationName" xml:"newApplicationName"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+NewApplicationName string `json:"newApplicationName" xml:"newApplicationName"`
 }
 
 type UpdateDeploymentGroupInput struct {
-	AlarmConfiguration               *AlarmConfiguration               `json:"alarmConfiguration" xml:"alarmConfiguration"`
-	ApplicationName                  string                            `json:"applicationName" xml:"applicationName"`
-	AutoRollbackConfiguration        *AutoRollbackConfiguration        `json:"autoRollbackConfiguration" xml:"autoRollbackConfiguration"`
-	AutoScalingGroups                AutoScalingGroupNameList          `json:"autoScalingGroups" xml:"autoScalingGroups"`
-	BlueGreenDeploymentConfiguration *BlueGreenDeploymentConfiguration `json:"blueGreenDeploymentConfiguration" xml:"blueGreenDeploymentConfiguration"`
-	CurrentDeploymentGroupName       string                            `json:"currentDeploymentGroupName" xml:"currentDeploymentGroupName"`
-	DeploymentConfigName             string                            `json:"deploymentConfigName" xml:"deploymentConfigName"`
-	DeploymentStyle                  *DeploymentStyle                  `json:"deploymentStyle" xml:"deploymentStyle"`
-	Ec2TagFilters                    EC2TagFilterList                  `json:"ec2TagFilters" xml:"ec2TagFilters"`
-	Ec2TagSet                        *EC2TagSet                        `json:"ec2TagSet" xml:"ec2TagSet"`
-	EcsServices                      ECSServiceList                    `json:"ecsServices" xml:"ecsServices"`
-	LoadBalancerInfo                 *LoadBalancerInfo                 `json:"loadBalancerInfo" xml:"loadBalancerInfo"`
-	NewDeploymentGroupName           string                            `json:"newDeploymentGroupName" xml:"newDeploymentGroupName"`
-	OnPremisesInstanceTagFilters     TagFilterList                     `json:"onPremisesInstanceTagFilters" xml:"onPremisesInstanceTagFilters"`
-	OnPremisesTagSet                 *OnPremisesTagSet                 `json:"onPremisesTagSet" xml:"onPremisesTagSet"`
-	OutdatedInstancesStrategy        string                            `json:"outdatedInstancesStrategy" xml:"outdatedInstancesStrategy"`
-	ServiceRoleArn                   string                            `json:"serviceRoleArn" xml:"serviceRoleArn"`
-	TerminationHookEnabled           bool                              `json:"terminationHookEnabled" xml:"terminationHookEnabled"`
-	TriggerConfigurations            TriggerConfigList                 `json:"triggerConfigurations" xml:"triggerConfigurations"`
+AlarmConfiguration *AlarmConfiguration `json:"alarmConfiguration" xml:"alarmConfiguration"`
+ApplicationName string `json:"applicationName" xml:"applicationName"`
+AutoRollbackConfiguration *AutoRollbackConfiguration `json:"autoRollbackConfiguration" xml:"autoRollbackConfiguration"`
+AutoScalingGroups AutoScalingGroupNameList `json:"autoScalingGroups" xml:"autoScalingGroups"`
+BlueGreenDeploymentConfiguration *BlueGreenDeploymentConfiguration `json:"blueGreenDeploymentConfiguration" xml:"blueGreenDeploymentConfiguration"`
+CurrentDeploymentGroupName string `json:"currentDeploymentGroupName" xml:"currentDeploymentGroupName"`
+DeploymentConfigName string `json:"deploymentConfigName" xml:"deploymentConfigName"`
+DeploymentStyle *DeploymentStyle `json:"deploymentStyle" xml:"deploymentStyle"`
+Ec2TagFilters EC2TagFilterList `json:"ec2TagFilters" xml:"ec2TagFilters"`
+Ec2TagSet *EC2TagSet `json:"ec2TagSet" xml:"ec2TagSet"`
+EcsServices ECSServiceList `json:"ecsServices" xml:"ecsServices"`
+LoadBalancerInfo *LoadBalancerInfo `json:"loadBalancerInfo" xml:"loadBalancerInfo"`
+NewDeploymentGroupName string `json:"newDeploymentGroupName" xml:"newDeploymentGroupName"`
+OnPremisesInstanceTagFilters TagFilterList `json:"onPremisesInstanceTagFilters" xml:"onPremisesInstanceTagFilters"`
+OnPremisesTagSet *OnPremisesTagSet `json:"onPremisesTagSet" xml:"onPremisesTagSet"`
+OutdatedInstancesStrategy string `json:"outdatedInstancesStrategy" xml:"outdatedInstancesStrategy"`
+ServiceRoleArn string `json:"serviceRoleArn" xml:"serviceRoleArn"`
+TerminationHookEnabled bool `json:"terminationHookEnabled" xml:"terminationHookEnabled"`
+TriggerConfigurations TriggerConfigList `json:"triggerConfigurations" xml:"triggerConfigurations"`
 }
 
 type UpdateDeploymentGroupOutput struct {
-	HooksNotCleanedUp AutoScalingGroupList `json:"hooksNotCleanedUp" xml:"hooksNotCleanedUp"`
+HooksNotCleanedUp AutoScalingGroupList `json:"hooksNotCleanedUp" xml:"hooksNotCleanedUp"`
 }
 
 type ZonalConfig struct {
-	FirstZoneMonitorDurationInSeconds int64                       `json:"firstZoneMonitorDurationInSeconds" xml:"firstZoneMonitorDurationInSeconds"`
-	MinimumHealthyHostsPerZone        *MinimumHealthyHostsPerZone `json:"minimumHealthyHostsPerZone" xml:"minimumHealthyHostsPerZone"`
-	MonitorDurationInSeconds          int64                       `json:"monitorDurationInSeconds" xml:"monitorDurationInSeconds"`
+FirstZoneMonitorDurationInSeconds int64 `json:"firstZoneMonitorDurationInSeconds" xml:"firstZoneMonitorDurationInSeconds"`
+MinimumHealthyHostsPerZone *MinimumHealthyHostsPerZone `json:"minimumHealthyHostsPerZone" xml:"minimumHealthyHostsPerZone"`
+MonitorDurationInSeconds int64 `json:"monitorDurationInSeconds" xml:"monitorDurationInSeconds"`
 }
 
 type AlarmList []*Alarm
@@ -939,3 +939,4 @@ type TriggerConfigList []*TriggerConfig
 type TriggerEventTypeList []string
 
 type TargetFilters map[string]FilterValueList
+

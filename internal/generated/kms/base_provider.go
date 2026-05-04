@@ -222,3 +222,4 @@ func (b *BaseProvider) Verify(ctx context.Context, input *VerifyRequest) (*Verif
 func (b *BaseProvider) VerifyMac(ctx context.Context, input *VerifyMacRequest) (*VerifyMacResponse, error) {
 	return nil, fmt.Errorf("VerifyMac: %w", ErrNotImplemented)
 }
+

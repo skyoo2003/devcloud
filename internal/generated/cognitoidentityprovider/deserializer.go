@@ -1569,3 +1569,4 @@ func SerializeVerifyUserAttributeResponse(w http.ResponseWriter, output *VerifyU
 	w.WriteHeader(http.StatusOK)
 	return nil
 }
+

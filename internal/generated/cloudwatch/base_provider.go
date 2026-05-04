@@ -194,3 +194,4 @@ func (b *BaseProvider) TagResource(ctx context.Context, input *TagResourceInput)
 func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceInput) (*UntagResourceOutput, error) {
 	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
 }
+

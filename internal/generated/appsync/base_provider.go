@@ -306,3 +306,4 @@ func (b *BaseProvider) UpdateSourceApiAssociation(ctx context.Context, input *Up
 func (b *BaseProvider) UpdateType(ctx context.Context, input *UpdateTypeRequest) (*UpdateTypeResponse, error) {
 	return nil, fmt.Errorf("UpdateType: %w", ErrNotImplemented)
 }
+

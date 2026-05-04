@@ -13,22 +13,22 @@ type OperationRoute struct {
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
-	{Method: "", Pattern: "", Operation: "AddAttachmentsToSet"},
-	{Method: "", Pattern: "", Operation: "AddCommunicationToCase"},
-	{Method: "", Pattern: "", Operation: "CreateCase"},
-	{Method: "", Pattern: "", Operation: "DescribeAttachment"},
-	{Method: "", Pattern: "", Operation: "DescribeCases"},
-	{Method: "", Pattern: "", Operation: "DescribeCommunications"},
-	{Method: "", Pattern: "", Operation: "DescribeCreateCaseOptions"},
-	{Method: "", Pattern: "", Operation: "DescribeServices"},
-	{Method: "", Pattern: "", Operation: "DescribeSeverityLevels"},
-	{Method: "", Pattern: "", Operation: "DescribeSupportedLanguages"},
-	{Method: "", Pattern: "", Operation: "DescribeTrustedAdvisorCheckRefreshStatuses"},
-	{Method: "", Pattern: "", Operation: "DescribeTrustedAdvisorCheckResult"},
-	{Method: "", Pattern: "", Operation: "DescribeTrustedAdvisorCheckSummaries"},
-	{Method: "", Pattern: "", Operation: "DescribeTrustedAdvisorChecks"},
-	{Method: "", Pattern: "", Operation: "RefreshTrustedAdvisorCheck"},
-	{Method: "", Pattern: "", Operation: "ResolveCase"},
+{Method: "", Pattern: "", Operation: "AddAttachmentsToSet"},
+{Method: "", Pattern: "", Operation: "AddCommunicationToCase"},
+{Method: "", Pattern: "", Operation: "CreateCase"},
+{Method: "", Pattern: "", Operation: "DescribeAttachment"},
+{Method: "", Pattern: "", Operation: "DescribeCases"},
+{Method: "", Pattern: "", Operation: "DescribeCommunications"},
+{Method: "", Pattern: "", Operation: "DescribeCreateCaseOptions"},
+{Method: "", Pattern: "", Operation: "DescribeServices"},
+{Method: "", Pattern: "", Operation: "DescribeSeverityLevels"},
+{Method: "", Pattern: "", Operation: "DescribeSupportedLanguages"},
+{Method: "", Pattern: "", Operation: "DescribeTrustedAdvisorCheckRefreshStatuses"},
+{Method: "", Pattern: "", Operation: "DescribeTrustedAdvisorCheckResult"},
+{Method: "", Pattern: "", Operation: "DescribeTrustedAdvisorCheckSummaries"},
+{Method: "", Pattern: "", Operation: "DescribeTrustedAdvisorChecks"},
+{Method: "", Pattern: "", Operation: "RefreshTrustedAdvisorCheck"},
+{Method: "", Pattern: "", Operation: "ResolveCase"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

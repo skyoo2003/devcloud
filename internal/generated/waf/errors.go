@@ -326,3 +326,4 @@ func (e *WAFTagOperationInternalErrorException) ErrorCode() string {
 func (e *WAFTagOperationInternalErrorException) HTTPStatus() int {
 	return 0
 }
+

@@ -190,3 +190,4 @@ func (b *BaseProvider) UpdateSubnetGroup(ctx context.Context, input *UpdateSubne
 func (b *BaseProvider) UpdateUser(ctx context.Context, input *UpdateUserRequest) (*UpdateUserResponse, error) {
 	return nil, fmt.Errorf("UpdateUser: %w", ErrNotImplemented)
 }
+

@@ -2485,3 +2485,4 @@ func (e *VpcEncryptionControlViolationException) ErrorCode() string {
 func (e *VpcEncryptionControlViolationException) HTTPStatus() int {
 	return 400
 }
+

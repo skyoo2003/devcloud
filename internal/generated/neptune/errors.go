@@ -1142,3 +1142,4 @@ func (e *SubscriptionNotFoundFault) ErrorCode() string {
 func (e *SubscriptionNotFoundFault) HTTPStatus() int {
 	return 404
 }
+

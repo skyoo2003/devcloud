@@ -370,3 +370,4 @@ func (b *BaseProvider) UpdateTerminationProtection(ctx context.Context, input *U
 func (b *BaseProvider) ValidateTemplate(ctx context.Context, input *ValidateTemplateInput) (*ValidateTemplateOutput, error) {
 	return nil, fmt.Errorf("ValidateTemplate: %w", ErrNotImplemented)
 }
+

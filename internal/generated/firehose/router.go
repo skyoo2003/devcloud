@@ -13,18 +13,18 @@ type OperationRoute struct {
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
-	{Method: "", Pattern: "", Operation: "CreateDeliveryStream"},
-	{Method: "", Pattern: "", Operation: "DeleteDeliveryStream"},
-	{Method: "", Pattern: "", Operation: "DescribeDeliveryStream"},
-	{Method: "", Pattern: "", Operation: "ListDeliveryStreams"},
-	{Method: "", Pattern: "", Operation: "ListTagsForDeliveryStream"},
-	{Method: "", Pattern: "", Operation: "PutRecord"},
-	{Method: "", Pattern: "", Operation: "PutRecordBatch"},
-	{Method: "", Pattern: "", Operation: "StartDeliveryStreamEncryption"},
-	{Method: "", Pattern: "", Operation: "StopDeliveryStreamEncryption"},
-	{Method: "", Pattern: "", Operation: "TagDeliveryStream"},
-	{Method: "", Pattern: "", Operation: "UntagDeliveryStream"},
-	{Method: "", Pattern: "", Operation: "UpdateDestination"},
+{Method: "", Pattern: "", Operation: "CreateDeliveryStream"},
+{Method: "", Pattern: "", Operation: "DeleteDeliveryStream"},
+{Method: "", Pattern: "", Operation: "DescribeDeliveryStream"},
+{Method: "", Pattern: "", Operation: "ListDeliveryStreams"},
+{Method: "", Pattern: "", Operation: "ListTagsForDeliveryStream"},
+{Method: "", Pattern: "", Operation: "PutRecord"},
+{Method: "", Pattern: "", Operation: "PutRecordBatch"},
+{Method: "", Pattern: "", Operation: "StartDeliveryStreamEncryption"},
+{Method: "", Pattern: "", Operation: "StopDeliveryStreamEncryption"},
+{Method: "", Pattern: "", Operation: "TagDeliveryStream"},
+{Method: "", Pattern: "", Operation: "UntagDeliveryStream"},
+{Method: "", Pattern: "", Operation: "UpdateDestination"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

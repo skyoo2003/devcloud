@@ -353,3 +353,4 @@ func SerializeUpdateStreamWarmThroughputOutput(w http.ResponseWriter, output *Up
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

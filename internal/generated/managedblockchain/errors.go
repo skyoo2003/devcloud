@@ -173,3 +173,4 @@ func (e *TooManyTagsException) ErrorCode() string {
 func (e *TooManyTagsException) HTTPStatus() int {
 	return 400
 }
+

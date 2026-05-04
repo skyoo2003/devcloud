@@ -7,1042 +7,1042 @@ import (
 )
 
 type ActivatedRule struct {
-	Action         *WafAction         `json:"action" xml:"Action"`
-	ExcludedRules  ExcludedRules      `json:"excludedRules" xml:"ExcludedRules"`
-	OverrideAction *WafOverrideAction `json:"overrideAction" xml:"OverrideAction"`
-	Priority       int32              `json:"priority" xml:"Priority"`
-	RuleId         string             `json:"ruleId" xml:"RuleId"`
-	Type           string             `json:"type" xml:"Type"`
+Action *WafAction `json:"action" xml:"Action"`
+ExcludedRules ExcludedRules `json:"excludedRules" xml:"ExcludedRules"`
+OverrideAction *WafOverrideAction `json:"overrideAction" xml:"OverrideAction"`
+Priority int32 `json:"priority" xml:"Priority"`
+RuleId string `json:"ruleId" xml:"RuleId"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ByteMatchSet struct {
-	ByteMatchSetId  string          `json:"byteMatchSetId" xml:"ByteMatchSetId"`
-	ByteMatchTuples ByteMatchTuples `json:"byteMatchTuples" xml:"ByteMatchTuples"`
-	Name            string          `json:"name" xml:"Name"`
+ByteMatchSetId string `json:"byteMatchSetId" xml:"ByteMatchSetId"`
+ByteMatchTuples ByteMatchTuples `json:"byteMatchTuples" xml:"ByteMatchTuples"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ByteMatchSetSummary struct {
-	ByteMatchSetId string `json:"byteMatchSetId" xml:"ByteMatchSetId"`
-	Name           string `json:"name" xml:"Name"`
+ByteMatchSetId string `json:"byteMatchSetId" xml:"ByteMatchSetId"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ByteMatchSetUpdate struct {
-	Action         string          `json:"action" xml:"Action"`
-	ByteMatchTuple *ByteMatchTuple `json:"byteMatchTuple" xml:"ByteMatchTuple"`
+Action string `json:"action" xml:"Action"`
+ByteMatchTuple *ByteMatchTuple `json:"byteMatchTuple" xml:"ByteMatchTuple"`
 }
 
 type ByteMatchTuple struct {
-	FieldToMatch         *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
-	PositionalConstraint string        `json:"positionalConstraint" xml:"PositionalConstraint"`
-	TargetString         []byte        `json:"targetString" xml:"TargetString"`
-	TextTransformation   string        `json:"textTransformation" xml:"TextTransformation"`
+FieldToMatch *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
+PositionalConstraint string `json:"positionalConstraint" xml:"PositionalConstraint"`
+TargetString []byte `json:"targetString" xml:"TargetString"`
+TextTransformation string `json:"textTransformation" xml:"TextTransformation"`
 }
 
 type CreateByteMatchSetRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	Name        string `json:"name" xml:"Name"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateByteMatchSetResponse struct {
-	ByteMatchSet *ByteMatchSet `json:"byteMatchSet" xml:"ByteMatchSet"`
-	ChangeToken  string        `json:"changeToken" xml:"ChangeToken"`
+ByteMatchSet *ByteMatchSet `json:"byteMatchSet" xml:"ByteMatchSet"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type CreateGeoMatchSetRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	Name        string `json:"name" xml:"Name"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateGeoMatchSetResponse struct {
-	ChangeToken string       `json:"changeToken" xml:"ChangeToken"`
-	GeoMatchSet *GeoMatchSet `json:"geoMatchSet" xml:"GeoMatchSet"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+GeoMatchSet *GeoMatchSet `json:"geoMatchSet" xml:"GeoMatchSet"`
 }
 
 type CreateIPSetRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	Name        string `json:"name" xml:"Name"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateIPSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	IPSet       *IPSet `json:"iPSet" xml:"IPSet"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+IPSet *IPSet `json:"iPSet" xml:"IPSet"`
 }
 
 type CreateRateBasedRuleRequest struct {
-	ChangeToken string  `json:"changeToken" xml:"ChangeToken"`
-	MetricName  string  `json:"metricName" xml:"MetricName"`
-	Name        string  `json:"name" xml:"Name"`
-	RateKey     string  `json:"rateKey" xml:"RateKey"`
-	RateLimit   int64   `json:"rateLimit" xml:"RateLimit"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Name string `json:"name" xml:"Name"`
+RateKey string `json:"rateKey" xml:"RateKey"`
+RateLimit int64 `json:"rateLimit" xml:"RateLimit"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateRateBasedRuleResponse struct {
-	ChangeToken string         `json:"changeToken" xml:"ChangeToken"`
-	Rule        *RateBasedRule `json:"rule" xml:"Rule"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Rule *RateBasedRule `json:"rule" xml:"Rule"`
 }
 
 type CreateRegexMatchSetRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	Name        string `json:"name" xml:"Name"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateRegexMatchSetResponse struct {
-	ChangeToken   string         `json:"changeToken" xml:"ChangeToken"`
-	RegexMatchSet *RegexMatchSet `json:"regexMatchSet" xml:"RegexMatchSet"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RegexMatchSet *RegexMatchSet `json:"regexMatchSet" xml:"RegexMatchSet"`
 }
 
 type CreateRegexPatternSetRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	Name        string `json:"name" xml:"Name"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateRegexPatternSetResponse struct {
-	ChangeToken     string           `json:"changeToken" xml:"ChangeToken"`
-	RegexPatternSet *RegexPatternSet `json:"regexPatternSet" xml:"RegexPatternSet"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RegexPatternSet *RegexPatternSet `json:"regexPatternSet" xml:"RegexPatternSet"`
 }
 
 type CreateRuleGroupRequest struct {
-	ChangeToken string  `json:"changeToken" xml:"ChangeToken"`
-	MetricName  string  `json:"metricName" xml:"MetricName"`
-	Name        string  `json:"name" xml:"Name"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Name string `json:"name" xml:"Name"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateRuleGroupResponse struct {
-	ChangeToken string     `json:"changeToken" xml:"ChangeToken"`
-	RuleGroup   *RuleGroup `json:"ruleGroup" xml:"RuleGroup"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RuleGroup *RuleGroup `json:"ruleGroup" xml:"RuleGroup"`
 }
 
 type CreateRuleRequest struct {
-	ChangeToken string  `json:"changeToken" xml:"ChangeToken"`
-	MetricName  string  `json:"metricName" xml:"MetricName"`
-	Name        string  `json:"name" xml:"Name"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Name string `json:"name" xml:"Name"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateRuleResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	Rule        *Rule  `json:"rule" xml:"Rule"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Rule *Rule `json:"rule" xml:"Rule"`
 }
 
 type CreateSizeConstraintSetRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	Name        string `json:"name" xml:"Name"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateSizeConstraintSetResponse struct {
-	ChangeToken       string             `json:"changeToken" xml:"ChangeToken"`
-	SizeConstraintSet *SizeConstraintSet `json:"sizeConstraintSet" xml:"SizeConstraintSet"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+SizeConstraintSet *SizeConstraintSet `json:"sizeConstraintSet" xml:"SizeConstraintSet"`
 }
 
 type CreateSqlInjectionMatchSetRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	Name        string `json:"name" xml:"Name"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateSqlInjectionMatchSetResponse struct {
-	ChangeToken          string                `json:"changeToken" xml:"ChangeToken"`
-	SqlInjectionMatchSet *SqlInjectionMatchSet `json:"sqlInjectionMatchSet" xml:"SqlInjectionMatchSet"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+SqlInjectionMatchSet *SqlInjectionMatchSet `json:"sqlInjectionMatchSet" xml:"SqlInjectionMatchSet"`
 }
 
 type CreateWebACLMigrationStackRequest struct {
-	IgnoreUnsupportedType bool   `json:"ignoreUnsupportedType" xml:"IgnoreUnsupportedType"`
-	S3BucketName          string `json:"s3BucketName" xml:"S3BucketName"`
-	WebACLId              string `json:"webACLId" xml:"WebACLId"`
+IgnoreUnsupportedType bool `json:"ignoreUnsupportedType" xml:"IgnoreUnsupportedType"`
+S3BucketName string `json:"s3BucketName" xml:"S3BucketName"`
+WebACLId string `json:"webACLId" xml:"WebACLId"`
 }
 
 type CreateWebACLMigrationStackResponse struct {
-	S3ObjectUrl string `json:"s3ObjectUrl" xml:"S3ObjectUrl"`
+S3ObjectUrl string `json:"s3ObjectUrl" xml:"S3ObjectUrl"`
 }
 
 type CreateWebACLRequest struct {
-	ChangeToken   string     `json:"changeToken" xml:"ChangeToken"`
-	DefaultAction *WafAction `json:"defaultAction" xml:"DefaultAction"`
-	MetricName    string     `json:"metricName" xml:"MetricName"`
-	Name          string     `json:"name" xml:"Name"`
-	Tags          TagList    `json:"tags" xml:"Tags"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+DefaultAction *WafAction `json:"defaultAction" xml:"DefaultAction"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Name string `json:"name" xml:"Name"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateWebACLResponse struct {
-	ChangeToken string  `json:"changeToken" xml:"ChangeToken"`
-	WebACL      *WebACL `json:"webACL" xml:"WebACL"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+WebACL *WebACL `json:"webACL" xml:"WebACL"`
 }
 
 type CreateXssMatchSetRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	Name        string `json:"name" xml:"Name"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateXssMatchSetResponse struct {
-	ChangeToken string       `json:"changeToken" xml:"ChangeToken"`
-	XssMatchSet *XssMatchSet `json:"xssMatchSet" xml:"XssMatchSet"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+XssMatchSet *XssMatchSet `json:"xssMatchSet" xml:"XssMatchSet"`
 }
 
 type DeleteByteMatchSetRequest struct {
-	ByteMatchSetId string `json:"byteMatchSetId" xml:"ByteMatchSetId"`
-	ChangeToken    string `json:"changeToken" xml:"ChangeToken"`
+ByteMatchSetId string `json:"byteMatchSetId" xml:"ByteMatchSetId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteByteMatchSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteGeoMatchSetRequest struct {
-	ChangeToken   string `json:"changeToken" xml:"ChangeToken"`
-	GeoMatchSetId string `json:"geoMatchSetId" xml:"GeoMatchSetId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+GeoMatchSetId string `json:"geoMatchSetId" xml:"GeoMatchSetId"`
 }
 
 type DeleteGeoMatchSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteIPSetRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	IPSetId     string `json:"iPSetId" xml:"IPSetId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+IPSetId string `json:"iPSetId" xml:"IPSetId"`
 }
 
 type DeleteIPSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteLoggingConfigurationRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DeleteLoggingConfigurationResponse struct {
 }
 
 type DeletePermissionPolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DeletePermissionPolicyResponse struct {
 }
 
 type DeleteRateBasedRuleRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	RuleId      string `json:"ruleId" xml:"RuleId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RuleId string `json:"ruleId" xml:"RuleId"`
 }
 
 type DeleteRateBasedRuleResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteRegexMatchSetRequest struct {
-	ChangeToken     string `json:"changeToken" xml:"ChangeToken"`
-	RegexMatchSetId string `json:"regexMatchSetId" xml:"RegexMatchSetId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RegexMatchSetId string `json:"regexMatchSetId" xml:"RegexMatchSetId"`
 }
 
 type DeleteRegexMatchSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteRegexPatternSetRequest struct {
-	ChangeToken       string `json:"changeToken" xml:"ChangeToken"`
-	RegexPatternSetId string `json:"regexPatternSetId" xml:"RegexPatternSetId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RegexPatternSetId string `json:"regexPatternSetId" xml:"RegexPatternSetId"`
 }
 
 type DeleteRegexPatternSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteRuleGroupRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
 }
 
 type DeleteRuleGroupResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteRuleRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	RuleId      string `json:"ruleId" xml:"RuleId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RuleId string `json:"ruleId" xml:"RuleId"`
 }
 
 type DeleteRuleResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteSizeConstraintSetRequest struct {
-	ChangeToken         string `json:"changeToken" xml:"ChangeToken"`
-	SizeConstraintSetId string `json:"sizeConstraintSetId" xml:"SizeConstraintSetId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+SizeConstraintSetId string `json:"sizeConstraintSetId" xml:"SizeConstraintSetId"`
 }
 
 type DeleteSizeConstraintSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteSqlInjectionMatchSetRequest struct {
-	ChangeToken            string `json:"changeToken" xml:"ChangeToken"`
-	SqlInjectionMatchSetId string `json:"sqlInjectionMatchSetId" xml:"SqlInjectionMatchSetId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+SqlInjectionMatchSetId string `json:"sqlInjectionMatchSetId" xml:"SqlInjectionMatchSetId"`
 }
 
 type DeleteSqlInjectionMatchSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteWebACLRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
-	WebACLId    string `json:"webACLId" xml:"WebACLId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+WebACLId string `json:"webACLId" xml:"WebACLId"`
 }
 
 type DeleteWebACLResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type DeleteXssMatchSetRequest struct {
-	ChangeToken   string `json:"changeToken" xml:"ChangeToken"`
-	XssMatchSetId string `json:"xssMatchSetId" xml:"XssMatchSetId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+XssMatchSetId string `json:"xssMatchSetId" xml:"XssMatchSetId"`
 }
 
 type DeleteXssMatchSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type ExcludedRule struct {
-	RuleId string `json:"ruleId" xml:"RuleId"`
+RuleId string `json:"ruleId" xml:"RuleId"`
 }
 
 type FieldToMatch struct {
-	Data string `json:"data" xml:"Data"`
-	Type string `json:"type" xml:"Type"`
+Data string `json:"data" xml:"Data"`
+Type string `json:"type" xml:"Type"`
 }
 
 type GeoMatchConstraint struct {
-	Type  string `json:"type" xml:"Type"`
-	Value string `json:"value" xml:"Value"`
+Type string `json:"type" xml:"Type"`
+Value string `json:"value" xml:"Value"`
 }
 
 type GeoMatchSet struct {
-	GeoMatchConstraints GeoMatchConstraints `json:"geoMatchConstraints" xml:"GeoMatchConstraints"`
-	GeoMatchSetId       string              `json:"geoMatchSetId" xml:"GeoMatchSetId"`
-	Name                string              `json:"name" xml:"Name"`
+GeoMatchConstraints GeoMatchConstraints `json:"geoMatchConstraints" xml:"GeoMatchConstraints"`
+GeoMatchSetId string `json:"geoMatchSetId" xml:"GeoMatchSetId"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GeoMatchSetSummary struct {
-	GeoMatchSetId string `json:"geoMatchSetId" xml:"GeoMatchSetId"`
-	Name          string `json:"name" xml:"Name"`
+GeoMatchSetId string `json:"geoMatchSetId" xml:"GeoMatchSetId"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GeoMatchSetUpdate struct {
-	Action             string              `json:"action" xml:"Action"`
-	GeoMatchConstraint *GeoMatchConstraint `json:"geoMatchConstraint" xml:"GeoMatchConstraint"`
+Action string `json:"action" xml:"Action"`
+GeoMatchConstraint *GeoMatchConstraint `json:"geoMatchConstraint" xml:"GeoMatchConstraint"`
 }
 
 type GetByteMatchSetRequest struct {
-	ByteMatchSetId string `json:"byteMatchSetId" xml:"ByteMatchSetId"`
+ByteMatchSetId string `json:"byteMatchSetId" xml:"ByteMatchSetId"`
 }
 
 type GetByteMatchSetResponse struct {
-	ByteMatchSet *ByteMatchSet `json:"byteMatchSet" xml:"ByteMatchSet"`
+ByteMatchSet *ByteMatchSet `json:"byteMatchSet" xml:"ByteMatchSet"`
 }
 
 type GetChangeTokenRequest struct {
 }
 
 type GetChangeTokenResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type GetChangeTokenStatusRequest struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type GetChangeTokenStatusResponse struct {
-	ChangeTokenStatus string `json:"changeTokenStatus" xml:"ChangeTokenStatus"`
+ChangeTokenStatus string `json:"changeTokenStatus" xml:"ChangeTokenStatus"`
 }
 
 type GetGeoMatchSetRequest struct {
-	GeoMatchSetId string `json:"geoMatchSetId" xml:"GeoMatchSetId"`
+GeoMatchSetId string `json:"geoMatchSetId" xml:"GeoMatchSetId"`
 }
 
 type GetGeoMatchSetResponse struct {
-	GeoMatchSet *GeoMatchSet `json:"geoMatchSet" xml:"GeoMatchSet"`
+GeoMatchSet *GeoMatchSet `json:"geoMatchSet" xml:"GeoMatchSet"`
 }
 
 type GetIPSetRequest struct {
-	IPSetId string `json:"iPSetId" xml:"IPSetId"`
+IPSetId string `json:"iPSetId" xml:"IPSetId"`
 }
 
 type GetIPSetResponse struct {
-	IPSet *IPSet `json:"iPSet" xml:"IPSet"`
+IPSet *IPSet `json:"iPSet" xml:"IPSet"`
 }
 
 type GetLoggingConfigurationRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetLoggingConfigurationResponse struct {
-	LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
+LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
 }
 
 type GetPermissionPolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetPermissionPolicyResponse struct {
-	Policy string `json:"policy" xml:"Policy"`
+Policy string `json:"policy" xml:"Policy"`
 }
 
 type GetRateBasedRuleManagedKeysRequest struct {
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
-	RuleId     string `json:"ruleId" xml:"RuleId"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+RuleId string `json:"ruleId" xml:"RuleId"`
 }
 
 type GetRateBasedRuleManagedKeysResponse struct {
-	ManagedKeys ManagedKeys `json:"managedKeys" xml:"ManagedKeys"`
-	NextMarker  string      `json:"nextMarker" xml:"NextMarker"`
+ManagedKeys ManagedKeys `json:"managedKeys" xml:"ManagedKeys"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type GetRateBasedRuleRequest struct {
-	RuleId string `json:"ruleId" xml:"RuleId"`
+RuleId string `json:"ruleId" xml:"RuleId"`
 }
 
 type GetRateBasedRuleResponse struct {
-	Rule *RateBasedRule `json:"rule" xml:"Rule"`
+Rule *RateBasedRule `json:"rule" xml:"Rule"`
 }
 
 type GetRegexMatchSetRequest struct {
-	RegexMatchSetId string `json:"regexMatchSetId" xml:"RegexMatchSetId"`
+RegexMatchSetId string `json:"regexMatchSetId" xml:"RegexMatchSetId"`
 }
 
 type GetRegexMatchSetResponse struct {
-	RegexMatchSet *RegexMatchSet `json:"regexMatchSet" xml:"RegexMatchSet"`
+RegexMatchSet *RegexMatchSet `json:"regexMatchSet" xml:"RegexMatchSet"`
 }
 
 type GetRegexPatternSetRequest struct {
-	RegexPatternSetId string `json:"regexPatternSetId" xml:"RegexPatternSetId"`
+RegexPatternSetId string `json:"regexPatternSetId" xml:"RegexPatternSetId"`
 }
 
 type GetRegexPatternSetResponse struct {
-	RegexPatternSet *RegexPatternSet `json:"regexPatternSet" xml:"RegexPatternSet"`
+RegexPatternSet *RegexPatternSet `json:"regexPatternSet" xml:"RegexPatternSet"`
 }
 
 type GetRuleGroupRequest struct {
-	RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
+RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
 }
 
 type GetRuleGroupResponse struct {
-	RuleGroup *RuleGroup `json:"ruleGroup" xml:"RuleGroup"`
+RuleGroup *RuleGroup `json:"ruleGroup" xml:"RuleGroup"`
 }
 
 type GetRuleRequest struct {
-	RuleId string `json:"ruleId" xml:"RuleId"`
+RuleId string `json:"ruleId" xml:"RuleId"`
 }
 
 type GetRuleResponse struct {
-	Rule *Rule `json:"rule" xml:"Rule"`
+Rule *Rule `json:"rule" xml:"Rule"`
 }
 
 type GetSampledRequestsRequest struct {
-	MaxItems   int64       `json:"maxItems" xml:"MaxItems"`
-	RuleId     string      `json:"ruleId" xml:"RuleId"`
-	TimeWindow *TimeWindow `json:"timeWindow" xml:"TimeWindow"`
-	WebAclId   string      `json:"webAclId" xml:"WebAclId"`
+MaxItems int64 `json:"maxItems" xml:"MaxItems"`
+RuleId string `json:"ruleId" xml:"RuleId"`
+TimeWindow *TimeWindow `json:"timeWindow" xml:"TimeWindow"`
+WebAclId string `json:"webAclId" xml:"WebAclId"`
 }
 
 type GetSampledRequestsResponse struct {
-	PopulationSize  int64               `json:"populationSize" xml:"PopulationSize"`
-	SampledRequests SampledHTTPRequests `json:"sampledRequests" xml:"SampledRequests"`
-	TimeWindow      *TimeWindow         `json:"timeWindow" xml:"TimeWindow"`
+PopulationSize int64 `json:"populationSize" xml:"PopulationSize"`
+SampledRequests SampledHTTPRequests `json:"sampledRequests" xml:"SampledRequests"`
+TimeWindow *TimeWindow `json:"timeWindow" xml:"TimeWindow"`
 }
 
 type GetSizeConstraintSetRequest struct {
-	SizeConstraintSetId string `json:"sizeConstraintSetId" xml:"SizeConstraintSetId"`
+SizeConstraintSetId string `json:"sizeConstraintSetId" xml:"SizeConstraintSetId"`
 }
 
 type GetSizeConstraintSetResponse struct {
-	SizeConstraintSet *SizeConstraintSet `json:"sizeConstraintSet" xml:"SizeConstraintSet"`
+SizeConstraintSet *SizeConstraintSet `json:"sizeConstraintSet" xml:"SizeConstraintSet"`
 }
 
 type GetSqlInjectionMatchSetRequest struct {
-	SqlInjectionMatchSetId string `json:"sqlInjectionMatchSetId" xml:"SqlInjectionMatchSetId"`
+SqlInjectionMatchSetId string `json:"sqlInjectionMatchSetId" xml:"SqlInjectionMatchSetId"`
 }
 
 type GetSqlInjectionMatchSetResponse struct {
-	SqlInjectionMatchSet *SqlInjectionMatchSet `json:"sqlInjectionMatchSet" xml:"SqlInjectionMatchSet"`
+SqlInjectionMatchSet *SqlInjectionMatchSet `json:"sqlInjectionMatchSet" xml:"SqlInjectionMatchSet"`
 }
 
 type GetWebACLRequest struct {
-	WebACLId string `json:"webACLId" xml:"WebACLId"`
+WebACLId string `json:"webACLId" xml:"WebACLId"`
 }
 
 type GetWebACLResponse struct {
-	WebACL *WebACL `json:"webACL" xml:"WebACL"`
+WebACL *WebACL `json:"webACL" xml:"WebACL"`
 }
 
 type GetXssMatchSetRequest struct {
-	XssMatchSetId string `json:"xssMatchSetId" xml:"XssMatchSetId"`
+XssMatchSetId string `json:"xssMatchSetId" xml:"XssMatchSetId"`
 }
 
 type GetXssMatchSetResponse struct {
-	XssMatchSet *XssMatchSet `json:"xssMatchSet" xml:"XssMatchSet"`
+XssMatchSet *XssMatchSet `json:"xssMatchSet" xml:"XssMatchSet"`
 }
 
 type HTTPHeader struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type HTTPRequest struct {
-	ClientIP    string      `json:"clientIP" xml:"ClientIP"`
-	Country     string      `json:"country" xml:"Country"`
-	HTTPVersion string      `json:"hTTPVersion" xml:"HTTPVersion"`
-	Headers     HTTPHeaders `json:"headers" xml:"Headers"`
-	Method      string      `json:"method" xml:"Method"`
-	URI         string      `json:"uRI" xml:"URI"`
+ClientIP string `json:"clientIP" xml:"ClientIP"`
+Country string `json:"country" xml:"Country"`
+HTTPVersion string `json:"hTTPVersion" xml:"HTTPVersion"`
+Headers HTTPHeaders `json:"headers" xml:"Headers"`
+Method string `json:"method" xml:"Method"`
+URI string `json:"uRI" xml:"URI"`
 }
 
 type IPSet struct {
-	IPSetDescriptors IPSetDescriptors `json:"iPSetDescriptors" xml:"IPSetDescriptors"`
-	IPSetId          string           `json:"iPSetId" xml:"IPSetId"`
-	Name             string           `json:"name" xml:"Name"`
+IPSetDescriptors IPSetDescriptors `json:"iPSetDescriptors" xml:"IPSetDescriptors"`
+IPSetId string `json:"iPSetId" xml:"IPSetId"`
+Name string `json:"name" xml:"Name"`
 }
 
 type IPSetDescriptor struct {
-	Type  string `json:"type" xml:"Type"`
-	Value string `json:"value" xml:"Value"`
+Type string `json:"type" xml:"Type"`
+Value string `json:"value" xml:"Value"`
 }
 
 type IPSetSummary struct {
-	IPSetId string `json:"iPSetId" xml:"IPSetId"`
-	Name    string `json:"name" xml:"Name"`
+IPSetId string `json:"iPSetId" xml:"IPSetId"`
+Name string `json:"name" xml:"Name"`
 }
 
 type IPSetUpdate struct {
-	Action          string           `json:"action" xml:"Action"`
-	IPSetDescriptor *IPSetDescriptor `json:"iPSetDescriptor" xml:"IPSetDescriptor"`
+Action string `json:"action" xml:"Action"`
+IPSetDescriptor *IPSetDescriptor `json:"iPSetDescriptor" xml:"IPSetDescriptor"`
 }
 
 type ListActivatedRulesInRuleGroupRequest struct {
-	Limit       int32  `json:"limit" xml:"Limit"`
-	NextMarker  string `json:"nextMarker" xml:"NextMarker"`
-	RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
 }
 
 type ListActivatedRulesInRuleGroupResponse struct {
-	ActivatedRules ActivatedRules `json:"activatedRules" xml:"ActivatedRules"`
-	NextMarker     string         `json:"nextMarker" xml:"NextMarker"`
+ActivatedRules ActivatedRules `json:"activatedRules" xml:"ActivatedRules"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListByteMatchSetsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListByteMatchSetsResponse struct {
-	ByteMatchSets ByteMatchSetSummaries `json:"byteMatchSets" xml:"ByteMatchSets"`
-	NextMarker    string                `json:"nextMarker" xml:"NextMarker"`
+ByteMatchSets ByteMatchSetSummaries `json:"byteMatchSets" xml:"ByteMatchSets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListGeoMatchSetsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListGeoMatchSetsResponse struct {
-	GeoMatchSets GeoMatchSetSummaries `json:"geoMatchSets" xml:"GeoMatchSets"`
-	NextMarker   string               `json:"nextMarker" xml:"NextMarker"`
+GeoMatchSets GeoMatchSetSummaries `json:"geoMatchSets" xml:"GeoMatchSets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListIPSetsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListIPSetsResponse struct {
-	IPSets     IPSetSummaries `json:"iPSets" xml:"IPSets"`
-	NextMarker string         `json:"nextMarker" xml:"NextMarker"`
+IPSets IPSetSummaries `json:"iPSets" xml:"IPSets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListLoggingConfigurationsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListLoggingConfigurationsResponse struct {
-	LoggingConfigurations LoggingConfigurations `json:"loggingConfigurations" xml:"LoggingConfigurations"`
-	NextMarker            string                `json:"nextMarker" xml:"NextMarker"`
+LoggingConfigurations LoggingConfigurations `json:"loggingConfigurations" xml:"LoggingConfigurations"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListRateBasedRulesRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListRateBasedRulesResponse struct {
-	NextMarker string        `json:"nextMarker" xml:"NextMarker"`
-	Rules      RuleSummaries `json:"rules" xml:"Rules"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Rules RuleSummaries `json:"rules" xml:"Rules"`
 }
 
 type ListRegexMatchSetsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListRegexMatchSetsResponse struct {
-	NextMarker     string                 `json:"nextMarker" xml:"NextMarker"`
-	RegexMatchSets RegexMatchSetSummaries `json:"regexMatchSets" xml:"RegexMatchSets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+RegexMatchSets RegexMatchSetSummaries `json:"regexMatchSets" xml:"RegexMatchSets"`
 }
 
 type ListRegexPatternSetsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListRegexPatternSetsResponse struct {
-	NextMarker       string                   `json:"nextMarker" xml:"NextMarker"`
-	RegexPatternSets RegexPatternSetSummaries `json:"regexPatternSets" xml:"RegexPatternSets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+RegexPatternSets RegexPatternSetSummaries `json:"regexPatternSets" xml:"RegexPatternSets"`
 }
 
 type ListRuleGroupsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListRuleGroupsResponse struct {
-	NextMarker string             `json:"nextMarker" xml:"NextMarker"`
-	RuleGroups RuleGroupSummaries `json:"ruleGroups" xml:"RuleGroups"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+RuleGroups RuleGroupSummaries `json:"ruleGroups" xml:"RuleGroups"`
 }
 
 type ListRulesRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListRulesResponse struct {
-	NextMarker string        `json:"nextMarker" xml:"NextMarker"`
-	Rules      RuleSummaries `json:"rules" xml:"Rules"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Rules RuleSummaries `json:"rules" xml:"Rules"`
 }
 
 type ListSizeConstraintSetsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListSizeConstraintSetsResponse struct {
-	NextMarker         string                     `json:"nextMarker" xml:"NextMarker"`
-	SizeConstraintSets SizeConstraintSetSummaries `json:"sizeConstraintSets" xml:"SizeConstraintSets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+SizeConstraintSets SizeConstraintSetSummaries `json:"sizeConstraintSets" xml:"SizeConstraintSets"`
 }
 
 type ListSqlInjectionMatchSetsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListSqlInjectionMatchSetsResponse struct {
-	NextMarker            string                        `json:"nextMarker" xml:"NextMarker"`
-	SqlInjectionMatchSets SqlInjectionMatchSetSummaries `json:"sqlInjectionMatchSets" xml:"SqlInjectionMatchSets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+SqlInjectionMatchSets SqlInjectionMatchSetSummaries `json:"sqlInjectionMatchSets" xml:"SqlInjectionMatchSets"`
 }
 
 type ListSubscribedRuleGroupsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListSubscribedRuleGroupsResponse struct {
-	NextMarker string                       `json:"nextMarker" xml:"NextMarker"`
-	RuleGroups SubscribedRuleGroupSummaries `json:"ruleGroups" xml:"RuleGroups"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+RuleGroups SubscribedRuleGroupSummaries `json:"ruleGroups" xml:"RuleGroups"`
 }
 
 type ListTagsForResourceRequest struct {
-	Limit       int32  `json:"limit" xml:"Limit"`
-	NextMarker  string `json:"nextMarker" xml:"NextMarker"`
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
 }
 
 type ListTagsForResourceResponse struct {
-	NextMarker         string              `json:"nextMarker" xml:"NextMarker"`
-	TagInfoForResource *TagInfoForResource `json:"tagInfoForResource" xml:"TagInfoForResource"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+TagInfoForResource *TagInfoForResource `json:"tagInfoForResource" xml:"TagInfoForResource"`
 }
 
 type ListWebACLsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListWebACLsResponse struct {
-	NextMarker string          `json:"nextMarker" xml:"NextMarker"`
-	WebACLs    WebACLSummaries `json:"webACLs" xml:"WebACLs"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+WebACLs WebACLSummaries `json:"webACLs" xml:"WebACLs"`
 }
 
 type ListXssMatchSetsRequest struct {
-	Limit      int32  `json:"limit" xml:"Limit"`
-	NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListXssMatchSetsResponse struct {
-	NextMarker   string               `json:"nextMarker" xml:"NextMarker"`
-	XssMatchSets XssMatchSetSummaries `json:"xssMatchSets" xml:"XssMatchSets"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+XssMatchSets XssMatchSetSummaries `json:"xssMatchSets" xml:"XssMatchSets"`
 }
 
 type LoggingConfiguration struct {
-	LogDestinationConfigs LogDestinationConfigs `json:"logDestinationConfigs" xml:"LogDestinationConfigs"`
-	RedactedFields        RedactedFields        `json:"redactedFields" xml:"RedactedFields"`
-	ResourceArn           string                `json:"resourceArn" xml:"ResourceArn"`
+LogDestinationConfigs LogDestinationConfigs `json:"logDestinationConfigs" xml:"LogDestinationConfigs"`
+RedactedFields RedactedFields `json:"redactedFields" xml:"RedactedFields"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type Predicate struct {
-	DataId  string `json:"dataId" xml:"DataId"`
-	Negated bool   `json:"negated" xml:"Negated"`
-	Type    string `json:"type" xml:"Type"`
+DataId string `json:"dataId" xml:"DataId"`
+Negated bool `json:"negated" xml:"Negated"`
+Type string `json:"type" xml:"Type"`
 }
 
 type PutLoggingConfigurationRequest struct {
-	LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
+LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
 }
 
 type PutLoggingConfigurationResponse struct {
-	LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
+LoggingConfiguration *LoggingConfiguration `json:"loggingConfiguration" xml:"LoggingConfiguration"`
 }
 
 type PutPermissionPolicyRequest struct {
-	Policy      string `json:"policy" xml:"Policy"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Policy string `json:"policy" xml:"Policy"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type PutPermissionPolicyResponse struct {
 }
 
 type RateBasedRule struct {
-	MatchPredicates Predicates `json:"matchPredicates" xml:"MatchPredicates"`
-	MetricName      string     `json:"metricName" xml:"MetricName"`
-	Name            string     `json:"name" xml:"Name"`
-	RateKey         string     `json:"rateKey" xml:"RateKey"`
-	RateLimit       int64      `json:"rateLimit" xml:"RateLimit"`
-	RuleId          string     `json:"ruleId" xml:"RuleId"`
+MatchPredicates Predicates `json:"matchPredicates" xml:"MatchPredicates"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Name string `json:"name" xml:"Name"`
+RateKey string `json:"rateKey" xml:"RateKey"`
+RateLimit int64 `json:"rateLimit" xml:"RateLimit"`
+RuleId string `json:"ruleId" xml:"RuleId"`
 }
 
 type RegexMatchSet struct {
-	Name             string           `json:"name" xml:"Name"`
-	RegexMatchSetId  string           `json:"regexMatchSetId" xml:"RegexMatchSetId"`
-	RegexMatchTuples RegexMatchTuples `json:"regexMatchTuples" xml:"RegexMatchTuples"`
+Name string `json:"name" xml:"Name"`
+RegexMatchSetId string `json:"regexMatchSetId" xml:"RegexMatchSetId"`
+RegexMatchTuples RegexMatchTuples `json:"regexMatchTuples" xml:"RegexMatchTuples"`
 }
 
 type RegexMatchSetSummary struct {
-	Name            string `json:"name" xml:"Name"`
-	RegexMatchSetId string `json:"regexMatchSetId" xml:"RegexMatchSetId"`
+Name string `json:"name" xml:"Name"`
+RegexMatchSetId string `json:"regexMatchSetId" xml:"RegexMatchSetId"`
 }
 
 type RegexMatchSetUpdate struct {
-	Action          string           `json:"action" xml:"Action"`
-	RegexMatchTuple *RegexMatchTuple `json:"regexMatchTuple" xml:"RegexMatchTuple"`
+Action string `json:"action" xml:"Action"`
+RegexMatchTuple *RegexMatchTuple `json:"regexMatchTuple" xml:"RegexMatchTuple"`
 }
 
 type RegexMatchTuple struct {
-	FieldToMatch       *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
-	RegexPatternSetId  string        `json:"regexPatternSetId" xml:"RegexPatternSetId"`
-	TextTransformation string        `json:"textTransformation" xml:"TextTransformation"`
+FieldToMatch *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
+RegexPatternSetId string `json:"regexPatternSetId" xml:"RegexPatternSetId"`
+TextTransformation string `json:"textTransformation" xml:"TextTransformation"`
 }
 
 type RegexPatternSet struct {
-	Name                string              `json:"name" xml:"Name"`
-	RegexPatternSetId   string              `json:"regexPatternSetId" xml:"RegexPatternSetId"`
-	RegexPatternStrings RegexPatternStrings `json:"regexPatternStrings" xml:"RegexPatternStrings"`
+Name string `json:"name" xml:"Name"`
+RegexPatternSetId string `json:"regexPatternSetId" xml:"RegexPatternSetId"`
+RegexPatternStrings RegexPatternStrings `json:"regexPatternStrings" xml:"RegexPatternStrings"`
 }
 
 type RegexPatternSetSummary struct {
-	Name              string `json:"name" xml:"Name"`
-	RegexPatternSetId string `json:"regexPatternSetId" xml:"RegexPatternSetId"`
+Name string `json:"name" xml:"Name"`
+RegexPatternSetId string `json:"regexPatternSetId" xml:"RegexPatternSetId"`
 }
 
 type RegexPatternSetUpdate struct {
-	Action             string `json:"action" xml:"Action"`
-	RegexPatternString string `json:"regexPatternString" xml:"RegexPatternString"`
+Action string `json:"action" xml:"Action"`
+RegexPatternString string `json:"regexPatternString" xml:"RegexPatternString"`
 }
 
 type Rule struct {
-	MetricName string     `json:"metricName" xml:"MetricName"`
-	Name       string     `json:"name" xml:"Name"`
-	Predicates Predicates `json:"predicates" xml:"Predicates"`
-	RuleId     string     `json:"ruleId" xml:"RuleId"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Name string `json:"name" xml:"Name"`
+Predicates Predicates `json:"predicates" xml:"Predicates"`
+RuleId string `json:"ruleId" xml:"RuleId"`
 }
 
 type RuleGroup struct {
-	MetricName  string `json:"metricName" xml:"MetricName"`
-	Name        string `json:"name" xml:"Name"`
-	RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Name string `json:"name" xml:"Name"`
+RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
 }
 
 type RuleGroupSummary struct {
-	Name        string `json:"name" xml:"Name"`
-	RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
+Name string `json:"name" xml:"Name"`
+RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
 }
 
 type RuleGroupUpdate struct {
-	Action        string         `json:"action" xml:"Action"`
-	ActivatedRule *ActivatedRule `json:"activatedRule" xml:"ActivatedRule"`
+Action string `json:"action" xml:"Action"`
+ActivatedRule *ActivatedRule `json:"activatedRule" xml:"ActivatedRule"`
 }
 
 type RuleSummary struct {
-	Name   string `json:"name" xml:"Name"`
-	RuleId string `json:"ruleId" xml:"RuleId"`
+Name string `json:"name" xml:"Name"`
+RuleId string `json:"ruleId" xml:"RuleId"`
 }
 
 type RuleUpdate struct {
-	Action    string     `json:"action" xml:"Action"`
-	Predicate *Predicate `json:"predicate" xml:"Predicate"`
+Action string `json:"action" xml:"Action"`
+Predicate *Predicate `json:"predicate" xml:"Predicate"`
 }
 
 type SampledHTTPRequest struct {
-	Action              string       `json:"action" xml:"Action"`
-	Request             *HTTPRequest `json:"request" xml:"Request"`
-	RuleWithinRuleGroup string       `json:"ruleWithinRuleGroup" xml:"RuleWithinRuleGroup"`
-	Timestamp           time.Time    `json:"timestamp" xml:"Timestamp"`
-	Weight              int64        `json:"weight" xml:"Weight"`
+Action string `json:"action" xml:"Action"`
+Request *HTTPRequest `json:"request" xml:"Request"`
+RuleWithinRuleGroup string `json:"ruleWithinRuleGroup" xml:"RuleWithinRuleGroup"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
+Weight int64 `json:"weight" xml:"Weight"`
 }
 
 type SizeConstraint struct {
-	ComparisonOperator string        `json:"comparisonOperator" xml:"ComparisonOperator"`
-	FieldToMatch       *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
-	Size               int64         `json:"size" xml:"Size"`
-	TextTransformation string        `json:"textTransformation" xml:"TextTransformation"`
+ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
+FieldToMatch *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
+Size int64 `json:"size" xml:"Size"`
+TextTransformation string `json:"textTransformation" xml:"TextTransformation"`
 }
 
 type SizeConstraintSet struct {
-	Name                string          `json:"name" xml:"Name"`
-	SizeConstraintSetId string          `json:"sizeConstraintSetId" xml:"SizeConstraintSetId"`
-	SizeConstraints     SizeConstraints `json:"sizeConstraints" xml:"SizeConstraints"`
+Name string `json:"name" xml:"Name"`
+SizeConstraintSetId string `json:"sizeConstraintSetId" xml:"SizeConstraintSetId"`
+SizeConstraints SizeConstraints `json:"sizeConstraints" xml:"SizeConstraints"`
 }
 
 type SizeConstraintSetSummary struct {
-	Name                string `json:"name" xml:"Name"`
-	SizeConstraintSetId string `json:"sizeConstraintSetId" xml:"SizeConstraintSetId"`
+Name string `json:"name" xml:"Name"`
+SizeConstraintSetId string `json:"sizeConstraintSetId" xml:"SizeConstraintSetId"`
 }
 
 type SizeConstraintSetUpdate struct {
-	Action         string          `json:"action" xml:"Action"`
-	SizeConstraint *SizeConstraint `json:"sizeConstraint" xml:"SizeConstraint"`
+Action string `json:"action" xml:"Action"`
+SizeConstraint *SizeConstraint `json:"sizeConstraint" xml:"SizeConstraint"`
 }
 
 type SqlInjectionMatchSet struct {
-	Name                    string                  `json:"name" xml:"Name"`
-	SqlInjectionMatchSetId  string                  `json:"sqlInjectionMatchSetId" xml:"SqlInjectionMatchSetId"`
-	SqlInjectionMatchTuples SqlInjectionMatchTuples `json:"sqlInjectionMatchTuples" xml:"SqlInjectionMatchTuples"`
+Name string `json:"name" xml:"Name"`
+SqlInjectionMatchSetId string `json:"sqlInjectionMatchSetId" xml:"SqlInjectionMatchSetId"`
+SqlInjectionMatchTuples SqlInjectionMatchTuples `json:"sqlInjectionMatchTuples" xml:"SqlInjectionMatchTuples"`
 }
 
 type SqlInjectionMatchSetSummary struct {
-	Name                   string `json:"name" xml:"Name"`
-	SqlInjectionMatchSetId string `json:"sqlInjectionMatchSetId" xml:"SqlInjectionMatchSetId"`
+Name string `json:"name" xml:"Name"`
+SqlInjectionMatchSetId string `json:"sqlInjectionMatchSetId" xml:"SqlInjectionMatchSetId"`
 }
 
 type SqlInjectionMatchSetUpdate struct {
-	Action                 string                  `json:"action" xml:"Action"`
-	SqlInjectionMatchTuple *SqlInjectionMatchTuple `json:"sqlInjectionMatchTuple" xml:"SqlInjectionMatchTuple"`
+Action string `json:"action" xml:"Action"`
+SqlInjectionMatchTuple *SqlInjectionMatchTuple `json:"sqlInjectionMatchTuple" xml:"SqlInjectionMatchTuple"`
 }
 
 type SqlInjectionMatchTuple struct {
-	FieldToMatch       *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
-	TextTransformation string        `json:"textTransformation" xml:"TextTransformation"`
+FieldToMatch *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
+TextTransformation string `json:"textTransformation" xml:"TextTransformation"`
 }
 
 type SubscribedRuleGroupSummary struct {
-	MetricName  string `json:"metricName" xml:"MetricName"`
-	Name        string `json:"name" xml:"Name"`
-	RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Name string `json:"name" xml:"Name"`
+RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagInfoForResource struct {
-	ResourceARN string  `json:"resourceARN" xml:"ResourceARN"`
-	TagList     TagList `json:"tagList" xml:"TagList"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+TagList TagList `json:"tagList" xml:"TagList"`
 }
 
 type TagResourceRequest struct {
-	ResourceARN string  `json:"resourceARN" xml:"ResourceARN"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type TimeWindow struct {
-	EndTime   time.Time `json:"endTime" xml:"EndTime"`
-	StartTime time.Time `json:"startTime" xml:"StartTime"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type UntagResourceRequest struct {
-	ResourceARN string     `json:"resourceARN" xml:"ResourceARN"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateByteMatchSetRequest struct {
-	ByteMatchSetId string              `json:"byteMatchSetId" xml:"ByteMatchSetId"`
-	ChangeToken    string              `json:"changeToken" xml:"ChangeToken"`
-	Updates        ByteMatchSetUpdates `json:"updates" xml:"Updates"`
+ByteMatchSetId string `json:"byteMatchSetId" xml:"ByteMatchSetId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Updates ByteMatchSetUpdates `json:"updates" xml:"Updates"`
 }
 
 type UpdateByteMatchSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type UpdateGeoMatchSetRequest struct {
-	ChangeToken   string             `json:"changeToken" xml:"ChangeToken"`
-	GeoMatchSetId string             `json:"geoMatchSetId" xml:"GeoMatchSetId"`
-	Updates       GeoMatchSetUpdates `json:"updates" xml:"Updates"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+GeoMatchSetId string `json:"geoMatchSetId" xml:"GeoMatchSetId"`
+Updates GeoMatchSetUpdates `json:"updates" xml:"Updates"`
 }
 
 type UpdateGeoMatchSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type UpdateIPSetRequest struct {
-	ChangeToken string       `json:"changeToken" xml:"ChangeToken"`
-	IPSetId     string       `json:"iPSetId" xml:"IPSetId"`
-	Updates     IPSetUpdates `json:"updates" xml:"Updates"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+IPSetId string `json:"iPSetId" xml:"IPSetId"`
+Updates IPSetUpdates `json:"updates" xml:"Updates"`
 }
 
 type UpdateIPSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type UpdateRateBasedRuleRequest struct {
-	ChangeToken string      `json:"changeToken" xml:"ChangeToken"`
-	RateLimit   int64       `json:"rateLimit" xml:"RateLimit"`
-	RuleId      string      `json:"ruleId" xml:"RuleId"`
-	Updates     RuleUpdates `json:"updates" xml:"Updates"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RateLimit int64 `json:"rateLimit" xml:"RateLimit"`
+RuleId string `json:"ruleId" xml:"RuleId"`
+Updates RuleUpdates `json:"updates" xml:"Updates"`
 }
 
 type UpdateRateBasedRuleResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type UpdateRegexMatchSetRequest struct {
-	ChangeToken     string               `json:"changeToken" xml:"ChangeToken"`
-	RegexMatchSetId string               `json:"regexMatchSetId" xml:"RegexMatchSetId"`
-	Updates         RegexMatchSetUpdates `json:"updates" xml:"Updates"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RegexMatchSetId string `json:"regexMatchSetId" xml:"RegexMatchSetId"`
+Updates RegexMatchSetUpdates `json:"updates" xml:"Updates"`
 }
 
 type UpdateRegexMatchSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type UpdateRegexPatternSetRequest struct {
-	ChangeToken       string                 `json:"changeToken" xml:"ChangeToken"`
-	RegexPatternSetId string                 `json:"regexPatternSetId" xml:"RegexPatternSetId"`
-	Updates           RegexPatternSetUpdates `json:"updates" xml:"Updates"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RegexPatternSetId string `json:"regexPatternSetId" xml:"RegexPatternSetId"`
+Updates RegexPatternSetUpdates `json:"updates" xml:"Updates"`
 }
 
 type UpdateRegexPatternSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type UpdateRuleGroupRequest struct {
-	ChangeToken string           `json:"changeToken" xml:"ChangeToken"`
-	RuleGroupId string           `json:"ruleGroupId" xml:"RuleGroupId"`
-	Updates     RuleGroupUpdates `json:"updates" xml:"Updates"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RuleGroupId string `json:"ruleGroupId" xml:"RuleGroupId"`
+Updates RuleGroupUpdates `json:"updates" xml:"Updates"`
 }
 
 type UpdateRuleGroupResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type UpdateRuleRequest struct {
-	ChangeToken string      `json:"changeToken" xml:"ChangeToken"`
-	RuleId      string      `json:"ruleId" xml:"RuleId"`
-	Updates     RuleUpdates `json:"updates" xml:"Updates"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+RuleId string `json:"ruleId" xml:"RuleId"`
+Updates RuleUpdates `json:"updates" xml:"Updates"`
 }
 
 type UpdateRuleResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type UpdateSizeConstraintSetRequest struct {
-	ChangeToken         string                   `json:"changeToken" xml:"ChangeToken"`
-	SizeConstraintSetId string                   `json:"sizeConstraintSetId" xml:"SizeConstraintSetId"`
-	Updates             SizeConstraintSetUpdates `json:"updates" xml:"Updates"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+SizeConstraintSetId string `json:"sizeConstraintSetId" xml:"SizeConstraintSetId"`
+Updates SizeConstraintSetUpdates `json:"updates" xml:"Updates"`
 }
 
 type UpdateSizeConstraintSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type UpdateSqlInjectionMatchSetRequest struct {
-	ChangeToken            string                      `json:"changeToken" xml:"ChangeToken"`
-	SqlInjectionMatchSetId string                      `json:"sqlInjectionMatchSetId" xml:"SqlInjectionMatchSetId"`
-	Updates                SqlInjectionMatchSetUpdates `json:"updates" xml:"Updates"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+SqlInjectionMatchSetId string `json:"sqlInjectionMatchSetId" xml:"SqlInjectionMatchSetId"`
+Updates SqlInjectionMatchSetUpdates `json:"updates" xml:"Updates"`
 }
 
 type UpdateSqlInjectionMatchSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type UpdateWebACLRequest struct {
-	ChangeToken   string        `json:"changeToken" xml:"ChangeToken"`
-	DefaultAction *WafAction    `json:"defaultAction" xml:"DefaultAction"`
-	Updates       WebACLUpdates `json:"updates" xml:"Updates"`
-	WebACLId      string        `json:"webACLId" xml:"WebACLId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+DefaultAction *WafAction `json:"defaultAction" xml:"DefaultAction"`
+Updates WebACLUpdates `json:"updates" xml:"Updates"`
+WebACLId string `json:"webACLId" xml:"WebACLId"`
 }
 
 type UpdateWebACLResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type UpdateXssMatchSetRequest struct {
-	ChangeToken   string             `json:"changeToken" xml:"ChangeToken"`
-	Updates       XssMatchSetUpdates `json:"updates" xml:"Updates"`
-	XssMatchSetId string             `json:"xssMatchSetId" xml:"XssMatchSetId"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+Updates XssMatchSetUpdates `json:"updates" xml:"Updates"`
+XssMatchSetId string `json:"xssMatchSetId" xml:"XssMatchSetId"`
 }
 
 type UpdateXssMatchSetResponse struct {
-	ChangeToken string `json:"changeToken" xml:"ChangeToken"`
+ChangeToken string `json:"changeToken" xml:"ChangeToken"`
 }
 
 type WafAction struct {
-	Type string `json:"type" xml:"Type"`
+Type string `json:"type" xml:"Type"`
 }
 
 type WafOverrideAction struct {
-	Type string `json:"type" xml:"Type"`
+Type string `json:"type" xml:"Type"`
 }
 
 type WebACL struct {
-	DefaultAction *WafAction     `json:"defaultAction" xml:"DefaultAction"`
-	MetricName    string         `json:"metricName" xml:"MetricName"`
-	Name          string         `json:"name" xml:"Name"`
-	Rules         ActivatedRules `json:"rules" xml:"Rules"`
-	WebACLArn     string         `json:"webACLArn" xml:"WebACLArn"`
-	WebACLId      string         `json:"webACLId" xml:"WebACLId"`
+DefaultAction *WafAction `json:"defaultAction" xml:"DefaultAction"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Name string `json:"name" xml:"Name"`
+Rules ActivatedRules `json:"rules" xml:"Rules"`
+WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
+WebACLId string `json:"webACLId" xml:"WebACLId"`
 }
 
 type WebACLSummary struct {
-	Name     string `json:"name" xml:"Name"`
-	WebACLId string `json:"webACLId" xml:"WebACLId"`
+Name string `json:"name" xml:"Name"`
+WebACLId string `json:"webACLId" xml:"WebACLId"`
 }
 
 type WebACLUpdate struct {
-	Action        string         `json:"action" xml:"Action"`
-	ActivatedRule *ActivatedRule `json:"activatedRule" xml:"ActivatedRule"`
+Action string `json:"action" xml:"Action"`
+ActivatedRule *ActivatedRule `json:"activatedRule" xml:"ActivatedRule"`
 }
 
 type XssMatchSet struct {
-	Name           string         `json:"name" xml:"Name"`
-	XssMatchSetId  string         `json:"xssMatchSetId" xml:"XssMatchSetId"`
-	XssMatchTuples XssMatchTuples `json:"xssMatchTuples" xml:"XssMatchTuples"`
+Name string `json:"name" xml:"Name"`
+XssMatchSetId string `json:"xssMatchSetId" xml:"XssMatchSetId"`
+XssMatchTuples XssMatchTuples `json:"xssMatchTuples" xml:"XssMatchTuples"`
 }
 
 type XssMatchSetSummary struct {
-	Name          string `json:"name" xml:"Name"`
-	XssMatchSetId string `json:"xssMatchSetId" xml:"XssMatchSetId"`
+Name string `json:"name" xml:"Name"`
+XssMatchSetId string `json:"xssMatchSetId" xml:"XssMatchSetId"`
 }
 
 type XssMatchSetUpdate struct {
-	Action        string         `json:"action" xml:"Action"`
-	XssMatchTuple *XssMatchTuple `json:"xssMatchTuple" xml:"XssMatchTuple"`
+Action string `json:"action" xml:"Action"`
+XssMatchTuple *XssMatchTuple `json:"xssMatchTuple" xml:"XssMatchTuple"`
 }
 
 type XssMatchTuple struct {
-	FieldToMatch       *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
-	TextTransformation string        `json:"textTransformation" xml:"TextTransformation"`
+FieldToMatch *FieldToMatch `json:"fieldToMatch" xml:"FieldToMatch"`
+TextTransformation string `json:"textTransformation" xml:"TextTransformation"`
 }
 
 type ActivatedRules []*ActivatedRule
@@ -1128,3 +1128,4 @@ type XssMatchSetSummaries []*XssMatchSetSummary
 type XssMatchSetUpdates []*XssMatchSetUpdate
 
 type XssMatchTuples []*XssMatchTuple
+

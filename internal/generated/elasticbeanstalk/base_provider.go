@@ -198,3 +198,4 @@ func (b *BaseProvider) UpdateTagsForResource(ctx context.Context, input *UpdateT
 func (b *BaseProvider) ValidateConfigurationSettings(ctx context.Context, input *ValidateConfigurationSettingsMessage) (*ConfigurationSettingsValidationMessages, error) {
 	return nil, fmt.Errorf("ValidateConfigurationSettings: %w", ErrNotImplemented)
 }
+

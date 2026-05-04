@@ -258,3 +258,4 @@ func (e *UnresolvableUsageUnitException) ErrorCode() string {
 func (e *UnresolvableUsageUnitException) HTTPStatus() int {
 	return 0
 }
+

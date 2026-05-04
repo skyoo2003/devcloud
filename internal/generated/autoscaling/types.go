@@ -7,1296 +7,1296 @@ import (
 )
 
 type AcceleratorCountRequest struct {
-	Max int32 `json:"max" xml:"Max"`
-	Min int32 `json:"min" xml:"Min"`
+Max int32 `json:"max" xml:"Max"`
+Min int32 `json:"min" xml:"Min"`
 }
 
 type AcceleratorTotalMemoryMiBRequest struct {
-	Max int32 `json:"max" xml:"Max"`
-	Min int32 `json:"min" xml:"Min"`
+Max int32 `json:"max" xml:"Max"`
+Min int32 `json:"min" xml:"Min"`
 }
 
 type ActivitiesType struct {
-	Activities Activities `json:"activities" xml:"Activities"`
-	NextToken  string     `json:"nextToken" xml:"NextToken"`
+Activities Activities `json:"activities" xml:"Activities"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type Activity struct {
-	ActivityId            string    `json:"activityId" xml:"ActivityId"`
-	AutoScalingGroupARN   string    `json:"autoScalingGroupARN" xml:"AutoScalingGroupARN"`
-	AutoScalingGroupName  string    `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	AutoScalingGroupState string    `json:"autoScalingGroupState" xml:"AutoScalingGroupState"`
-	Cause                 string    `json:"cause" xml:"Cause"`
-	Description           string    `json:"description" xml:"Description"`
-	Details               string    `json:"details" xml:"Details"`
-	EndTime               time.Time `json:"endTime" xml:"EndTime"`
-	Progress              int32     `json:"progress" xml:"Progress"`
-	StartTime             time.Time `json:"startTime" xml:"StartTime"`
-	StatusCode            string    `json:"statusCode" xml:"StatusCode"`
-	StatusMessage         string    `json:"statusMessage" xml:"StatusMessage"`
+ActivityId string `json:"activityId" xml:"ActivityId"`
+AutoScalingGroupARN string `json:"autoScalingGroupARN" xml:"AutoScalingGroupARN"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+AutoScalingGroupState string `json:"autoScalingGroupState" xml:"AutoScalingGroupState"`
+Cause string `json:"cause" xml:"Cause"`
+Description string `json:"description" xml:"Description"`
+Details string `json:"details" xml:"Details"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+Progress int32 `json:"progress" xml:"Progress"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+StatusCode string `json:"statusCode" xml:"StatusCode"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type ActivityType struct {
-	Activity *Activity `json:"activity" xml:"Activity"`
+Activity *Activity `json:"activity" xml:"Activity"`
 }
 
 type AdjustmentType struct {
-	AdjustmentType string `json:"adjustmentType" xml:"AdjustmentType"`
+AdjustmentType string `json:"adjustmentType" xml:"AdjustmentType"`
 }
 
 type Alarm struct {
-	AlarmARN  string `json:"alarmARN" xml:"AlarmARN"`
-	AlarmName string `json:"alarmName" xml:"AlarmName"`
+AlarmARN string `json:"alarmARN" xml:"AlarmARN"`
+AlarmName string `json:"alarmName" xml:"AlarmName"`
 }
 
 type AlarmSpecification struct {
-	Alarms AlarmList `json:"alarms" xml:"Alarms"`
+Alarms AlarmList `json:"alarms" xml:"Alarms"`
 }
 
 type AttachInstancesQuery struct {
-	AutoScalingGroupName string      `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	InstanceIds          InstanceIds `json:"instanceIds" xml:"InstanceIds"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+InstanceIds InstanceIds `json:"instanceIds" xml:"InstanceIds"`
 }
 
 type AttachLoadBalancerTargetGroupsResultType struct {
 }
 
 type AttachLoadBalancerTargetGroupsType struct {
-	AutoScalingGroupName string          `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	TargetGroupARNs      TargetGroupARNs `json:"targetGroupARNs" xml:"TargetGroupARNs"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+TargetGroupARNs TargetGroupARNs `json:"targetGroupARNs" xml:"TargetGroupARNs"`
 }
 
 type AttachLoadBalancersResultType struct {
 }
 
 type AttachLoadBalancersType struct {
-	AutoScalingGroupName string            `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	LoadBalancerNames    LoadBalancerNames `json:"loadBalancerNames" xml:"LoadBalancerNames"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+LoadBalancerNames LoadBalancerNames `json:"loadBalancerNames" xml:"LoadBalancerNames"`
 }
 
 type AttachTrafficSourcesResultType struct {
 }
 
 type AttachTrafficSourcesType struct {
-	AutoScalingGroupName     string         `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	SkipZonalShiftValidation bool           `json:"skipZonalShiftValidation" xml:"SkipZonalShiftValidation"`
-	TrafficSources           TrafficSources `json:"trafficSources" xml:"TrafficSources"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+SkipZonalShiftValidation bool `json:"skipZonalShiftValidation" xml:"SkipZonalShiftValidation"`
+TrafficSources TrafficSources `json:"trafficSources" xml:"TrafficSources"`
 }
 
 type AutoScalingGroup struct {
-	AutoScalingGroupARN              string                            `json:"autoScalingGroupARN" xml:"AutoScalingGroupARN"`
-	AutoScalingGroupName             string                            `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	AvailabilityZoneDistribution     *AvailabilityZoneDistribution     `json:"availabilityZoneDistribution" xml:"AvailabilityZoneDistribution"`
-	AvailabilityZoneImpairmentPolicy *AvailabilityZoneImpairmentPolicy `json:"availabilityZoneImpairmentPolicy" xml:"AvailabilityZoneImpairmentPolicy"`
-	AvailabilityZones                AvailabilityZones                 `json:"availabilityZones" xml:"AvailabilityZones"`
-	CapacityRebalance                bool                              `json:"capacityRebalance" xml:"CapacityRebalance"`
-	CapacityReservationSpecification *CapacityReservationSpecification `json:"capacityReservationSpecification" xml:"CapacityReservationSpecification"`
-	Context                          string                            `json:"context" xml:"Context"`
-	CreatedTime                      time.Time                         `json:"createdTime" xml:"CreatedTime"`
-	DefaultCooldown                  int32                             `json:"defaultCooldown" xml:"DefaultCooldown"`
-	DefaultInstanceWarmup            int32                             `json:"defaultInstanceWarmup" xml:"DefaultInstanceWarmup"`
-	DeletionProtection               string                            `json:"deletionProtection" xml:"DeletionProtection"`
-	DesiredCapacity                  int32                             `json:"desiredCapacity" xml:"DesiredCapacity"`
-	DesiredCapacityType              string                            `json:"desiredCapacityType" xml:"DesiredCapacityType"`
-	EnabledMetrics                   EnabledMetrics                    `json:"enabledMetrics" xml:"EnabledMetrics"`
-	HealthCheckGracePeriod           int32                             `json:"healthCheckGracePeriod" xml:"HealthCheckGracePeriod"`
-	HealthCheckType                  string                            `json:"healthCheckType" xml:"HealthCheckType"`
-	InstanceLifecyclePolicy          *InstanceLifecyclePolicy          `json:"instanceLifecyclePolicy" xml:"InstanceLifecyclePolicy"`
-	InstanceMaintenancePolicy        *InstanceMaintenancePolicy        `json:"instanceMaintenancePolicy" xml:"InstanceMaintenancePolicy"`
-	Instances                        Instances                         `json:"instances" xml:"Instances"`
-	LaunchConfigurationName          string                            `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
-	LaunchTemplate                   *LaunchTemplateSpecification      `json:"launchTemplate" xml:"LaunchTemplate"`
-	LoadBalancerNames                LoadBalancerNames                 `json:"loadBalancerNames" xml:"LoadBalancerNames"`
-	MaxInstanceLifetime              int32                             `json:"maxInstanceLifetime" xml:"MaxInstanceLifetime"`
-	MaxSize                          int32                             `json:"maxSize" xml:"MaxSize"`
-	MinSize                          int32                             `json:"minSize" xml:"MinSize"`
-	MixedInstancesPolicy             *MixedInstancesPolicy             `json:"mixedInstancesPolicy" xml:"MixedInstancesPolicy"`
-	NewInstancesProtectedFromScaleIn bool                              `json:"newInstancesProtectedFromScaleIn" xml:"NewInstancesProtectedFromScaleIn"`
-	PlacementGroup                   string                            `json:"placementGroup" xml:"PlacementGroup"`
-	PredictedCapacity                int32                             `json:"predictedCapacity" xml:"PredictedCapacity"`
-	ServiceLinkedRoleARN             string                            `json:"serviceLinkedRoleARN" xml:"ServiceLinkedRoleARN"`
-	Status                           string                            `json:"status" xml:"Status"`
-	SuspendedProcesses               SuspendedProcesses                `json:"suspendedProcesses" xml:"SuspendedProcesses"`
-	Tags                             TagDescriptionList                `json:"tags" xml:"Tags"`
-	TargetGroupARNs                  TargetGroupARNs                   `json:"targetGroupARNs" xml:"TargetGroupARNs"`
-	TerminationPolicies              TerminationPolicies               `json:"terminationPolicies" xml:"TerminationPolicies"`
-	TrafficSources                   TrafficSources                    `json:"trafficSources" xml:"TrafficSources"`
-	VPCZoneIdentifier                string                            `json:"vPCZoneIdentifier" xml:"VPCZoneIdentifier"`
-	WarmPoolConfiguration            *WarmPoolConfiguration            `json:"warmPoolConfiguration" xml:"WarmPoolConfiguration"`
-	WarmPoolSize                     int32                             `json:"warmPoolSize" xml:"WarmPoolSize"`
+AutoScalingGroupARN string `json:"autoScalingGroupARN" xml:"AutoScalingGroupARN"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+AvailabilityZoneDistribution *AvailabilityZoneDistribution `json:"availabilityZoneDistribution" xml:"AvailabilityZoneDistribution"`
+AvailabilityZoneImpairmentPolicy *AvailabilityZoneImpairmentPolicy `json:"availabilityZoneImpairmentPolicy" xml:"AvailabilityZoneImpairmentPolicy"`
+AvailabilityZones AvailabilityZones `json:"availabilityZones" xml:"AvailabilityZones"`
+CapacityRebalance bool `json:"capacityRebalance" xml:"CapacityRebalance"`
+CapacityReservationSpecification *CapacityReservationSpecification `json:"capacityReservationSpecification" xml:"CapacityReservationSpecification"`
+Context string `json:"context" xml:"Context"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+DefaultCooldown int32 `json:"defaultCooldown" xml:"DefaultCooldown"`
+DefaultInstanceWarmup int32 `json:"defaultInstanceWarmup" xml:"DefaultInstanceWarmup"`
+DeletionProtection string `json:"deletionProtection" xml:"DeletionProtection"`
+DesiredCapacity int32 `json:"desiredCapacity" xml:"DesiredCapacity"`
+DesiredCapacityType string `json:"desiredCapacityType" xml:"DesiredCapacityType"`
+EnabledMetrics EnabledMetrics `json:"enabledMetrics" xml:"EnabledMetrics"`
+HealthCheckGracePeriod int32 `json:"healthCheckGracePeriod" xml:"HealthCheckGracePeriod"`
+HealthCheckType string `json:"healthCheckType" xml:"HealthCheckType"`
+InstanceLifecyclePolicy *InstanceLifecyclePolicy `json:"instanceLifecyclePolicy" xml:"InstanceLifecyclePolicy"`
+InstanceMaintenancePolicy *InstanceMaintenancePolicy `json:"instanceMaintenancePolicy" xml:"InstanceMaintenancePolicy"`
+Instances Instances `json:"instances" xml:"Instances"`
+LaunchConfigurationName string `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
+LaunchTemplate *LaunchTemplateSpecification `json:"launchTemplate" xml:"LaunchTemplate"`
+LoadBalancerNames LoadBalancerNames `json:"loadBalancerNames" xml:"LoadBalancerNames"`
+MaxInstanceLifetime int32 `json:"maxInstanceLifetime" xml:"MaxInstanceLifetime"`
+MaxSize int32 `json:"maxSize" xml:"MaxSize"`
+MinSize int32 `json:"minSize" xml:"MinSize"`
+MixedInstancesPolicy *MixedInstancesPolicy `json:"mixedInstancesPolicy" xml:"MixedInstancesPolicy"`
+NewInstancesProtectedFromScaleIn bool `json:"newInstancesProtectedFromScaleIn" xml:"NewInstancesProtectedFromScaleIn"`
+PlacementGroup string `json:"placementGroup" xml:"PlacementGroup"`
+PredictedCapacity int32 `json:"predictedCapacity" xml:"PredictedCapacity"`
+ServiceLinkedRoleARN string `json:"serviceLinkedRoleARN" xml:"ServiceLinkedRoleARN"`
+Status string `json:"status" xml:"Status"`
+SuspendedProcesses SuspendedProcesses `json:"suspendedProcesses" xml:"SuspendedProcesses"`
+Tags TagDescriptionList `json:"tags" xml:"Tags"`
+TargetGroupARNs TargetGroupARNs `json:"targetGroupARNs" xml:"TargetGroupARNs"`
+TerminationPolicies TerminationPolicies `json:"terminationPolicies" xml:"TerminationPolicies"`
+TrafficSources TrafficSources `json:"trafficSources" xml:"TrafficSources"`
+VPCZoneIdentifier string `json:"vPCZoneIdentifier" xml:"VPCZoneIdentifier"`
+WarmPoolConfiguration *WarmPoolConfiguration `json:"warmPoolConfiguration" xml:"WarmPoolConfiguration"`
+WarmPoolSize int32 `json:"warmPoolSize" xml:"WarmPoolSize"`
 }
 
 type AutoScalingGroupNamesType struct {
-	AutoScalingGroupNames AutoScalingGroupNames `json:"autoScalingGroupNames" xml:"AutoScalingGroupNames"`
-	Filters               Filters               `json:"filters" xml:"Filters"`
-	IncludeInstances      bool                  `json:"includeInstances" xml:"IncludeInstances"`
-	MaxRecords            int32                 `json:"maxRecords" xml:"MaxRecords"`
-	NextToken             string                `json:"nextToken" xml:"NextToken"`
+AutoScalingGroupNames AutoScalingGroupNames `json:"autoScalingGroupNames" xml:"AutoScalingGroupNames"`
+Filters Filters `json:"filters" xml:"Filters"`
+IncludeInstances bool `json:"includeInstances" xml:"IncludeInstances"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type AutoScalingGroupsType struct {
-	AutoScalingGroups AutoScalingGroups `json:"autoScalingGroups" xml:"AutoScalingGroups"`
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
+AutoScalingGroups AutoScalingGroups `json:"autoScalingGroups" xml:"AutoScalingGroups"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type AutoScalingInstanceDetails struct {
-	AutoScalingGroupName    string                       `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	AvailabilityZone        string                       `json:"availabilityZone" xml:"AvailabilityZone"`
-	HealthStatus            string                       `json:"healthStatus" xml:"HealthStatus"`
-	ImageId                 string                       `json:"imageId" xml:"ImageId"`
-	InstanceId              string                       `json:"instanceId" xml:"InstanceId"`
-	InstanceType            string                       `json:"instanceType" xml:"InstanceType"`
-	LaunchConfigurationName string                       `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
-	LaunchTemplate          *LaunchTemplateSpecification `json:"launchTemplate" xml:"LaunchTemplate"`
-	LifecycleState          string                       `json:"lifecycleState" xml:"LifecycleState"`
-	ProtectedFromScaleIn    bool                         `json:"protectedFromScaleIn" xml:"ProtectedFromScaleIn"`
-	WeightedCapacity        string                       `json:"weightedCapacity" xml:"WeightedCapacity"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+HealthStatus string `json:"healthStatus" xml:"HealthStatus"`
+ImageId string `json:"imageId" xml:"ImageId"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+LaunchConfigurationName string `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
+LaunchTemplate *LaunchTemplateSpecification `json:"launchTemplate" xml:"LaunchTemplate"`
+LifecycleState string `json:"lifecycleState" xml:"LifecycleState"`
+ProtectedFromScaleIn bool `json:"protectedFromScaleIn" xml:"ProtectedFromScaleIn"`
+WeightedCapacity string `json:"weightedCapacity" xml:"WeightedCapacity"`
 }
 
 type AutoScalingInstancesType struct {
-	AutoScalingInstances AutoScalingInstances `json:"autoScalingInstances" xml:"AutoScalingInstances"`
-	NextToken            string               `json:"nextToken" xml:"NextToken"`
+AutoScalingInstances AutoScalingInstances `json:"autoScalingInstances" xml:"AutoScalingInstances"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type AvailabilityZoneDistribution struct {
-	CapacityDistributionStrategy string `json:"capacityDistributionStrategy" xml:"CapacityDistributionStrategy"`
+CapacityDistributionStrategy string `json:"capacityDistributionStrategy" xml:"CapacityDistributionStrategy"`
 }
 
 type AvailabilityZoneImpairmentPolicy struct {
-	ImpairedZoneHealthCheckBehavior string `json:"impairedZoneHealthCheckBehavior" xml:"ImpairedZoneHealthCheckBehavior"`
-	ZonalShiftEnabled               bool   `json:"zonalShiftEnabled" xml:"ZonalShiftEnabled"`
+ImpairedZoneHealthCheckBehavior string `json:"impairedZoneHealthCheckBehavior" xml:"ImpairedZoneHealthCheckBehavior"`
+ZonalShiftEnabled bool `json:"zonalShiftEnabled" xml:"ZonalShiftEnabled"`
 }
 
 type BaselineEbsBandwidthMbpsRequest struct {
-	Max int32 `json:"max" xml:"Max"`
-	Min int32 `json:"min" xml:"Min"`
+Max int32 `json:"max" xml:"Max"`
+Min int32 `json:"min" xml:"Min"`
 }
 
 type BaselinePerformanceFactorsRequest struct {
-	Cpu *CpuPerformanceFactorRequest `json:"cpu" xml:"Cpu"`
+Cpu *CpuPerformanceFactorRequest `json:"cpu" xml:"Cpu"`
 }
 
 type BatchDeleteScheduledActionAnswer struct {
-	FailedScheduledActions FailedScheduledUpdateGroupActionRequests `json:"failedScheduledActions" xml:"FailedScheduledActions"`
+FailedScheduledActions FailedScheduledUpdateGroupActionRequests `json:"failedScheduledActions" xml:"FailedScheduledActions"`
 }
 
 type BatchDeleteScheduledActionType struct {
-	AutoScalingGroupName string               `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	ScheduledActionNames ScheduledActionNames `json:"scheduledActionNames" xml:"ScheduledActionNames"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+ScheduledActionNames ScheduledActionNames `json:"scheduledActionNames" xml:"ScheduledActionNames"`
 }
 
 type BatchPutScheduledUpdateGroupActionAnswer struct {
-	FailedScheduledUpdateGroupActions FailedScheduledUpdateGroupActionRequests `json:"failedScheduledUpdateGroupActions" xml:"FailedScheduledUpdateGroupActions"`
+FailedScheduledUpdateGroupActions FailedScheduledUpdateGroupActionRequests `json:"failedScheduledUpdateGroupActions" xml:"FailedScheduledUpdateGroupActions"`
 }
 
 type BatchPutScheduledUpdateGroupActionType struct {
-	AutoScalingGroupName        string                             `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	ScheduledUpdateGroupActions ScheduledUpdateGroupActionRequests `json:"scheduledUpdateGroupActions" xml:"ScheduledUpdateGroupActions"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+ScheduledUpdateGroupActions ScheduledUpdateGroupActionRequests `json:"scheduledUpdateGroupActions" xml:"ScheduledUpdateGroupActions"`
 }
 
 type BlockDeviceMapping struct {
-	DeviceName  string `json:"deviceName" xml:"DeviceName"`
-	Ebs         *Ebs   `json:"ebs" xml:"Ebs"`
-	NoDevice    bool   `json:"noDevice" xml:"NoDevice"`
-	VirtualName string `json:"virtualName" xml:"VirtualName"`
+DeviceName string `json:"deviceName" xml:"DeviceName"`
+Ebs *Ebs `json:"ebs" xml:"Ebs"`
+NoDevice bool `json:"noDevice" xml:"NoDevice"`
+VirtualName string `json:"virtualName" xml:"VirtualName"`
 }
 
 type CancelInstanceRefreshAnswer struct {
-	InstanceRefreshId string `json:"instanceRefreshId" xml:"InstanceRefreshId"`
+InstanceRefreshId string `json:"instanceRefreshId" xml:"InstanceRefreshId"`
 }
 
 type CancelInstanceRefreshType struct {
-	AutoScalingGroupName          string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	WaitForTransitioningInstances bool   `json:"waitForTransitioningInstances" xml:"WaitForTransitioningInstances"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+WaitForTransitioningInstances bool `json:"waitForTransitioningInstances" xml:"WaitForTransitioningInstances"`
 }
 
 type CapacityForecast struct {
-	Timestamps PredictiveScalingForecastTimestamps `json:"timestamps" xml:"Timestamps"`
-	Values     PredictiveScalingForecastValues     `json:"values" xml:"Values"`
+Timestamps PredictiveScalingForecastTimestamps `json:"timestamps" xml:"Timestamps"`
+Values PredictiveScalingForecastValues `json:"values" xml:"Values"`
 }
 
 type CapacityReservationSpecification struct {
-	CapacityReservationPreference string                     `json:"capacityReservationPreference" xml:"CapacityReservationPreference"`
-	CapacityReservationTarget     *CapacityReservationTarget `json:"capacityReservationTarget" xml:"CapacityReservationTarget"`
+CapacityReservationPreference string `json:"capacityReservationPreference" xml:"CapacityReservationPreference"`
+CapacityReservationTarget *CapacityReservationTarget `json:"capacityReservationTarget" xml:"CapacityReservationTarget"`
 }
 
 type CapacityReservationTarget struct {
-	CapacityReservationIds               CapacityReservationIds               `json:"capacityReservationIds" xml:"CapacityReservationIds"`
-	CapacityReservationResourceGroupArns CapacityReservationResourceGroupArns `json:"capacityReservationResourceGroupArns" xml:"CapacityReservationResourceGroupArns"`
+CapacityReservationIds CapacityReservationIds `json:"capacityReservationIds" xml:"CapacityReservationIds"`
+CapacityReservationResourceGroupArns CapacityReservationResourceGroupArns `json:"capacityReservationResourceGroupArns" xml:"CapacityReservationResourceGroupArns"`
 }
 
 type CompleteLifecycleActionAnswer struct {
 }
 
 type CompleteLifecycleActionType struct {
-	AutoScalingGroupName  string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	InstanceId            string `json:"instanceId" xml:"InstanceId"`
-	LifecycleActionResult string `json:"lifecycleActionResult" xml:"LifecycleActionResult"`
-	LifecycleActionToken  string `json:"lifecycleActionToken" xml:"LifecycleActionToken"`
-	LifecycleHookName     string `json:"lifecycleHookName" xml:"LifecycleHookName"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+LifecycleActionResult string `json:"lifecycleActionResult" xml:"LifecycleActionResult"`
+LifecycleActionToken string `json:"lifecycleActionToken" xml:"LifecycleActionToken"`
+LifecycleHookName string `json:"lifecycleHookName" xml:"LifecycleHookName"`
 }
 
 type CpuPerformanceFactorRequest struct {
-	References PerformanceFactorReferenceSetRequest `json:"references" xml:"References"`
+References PerformanceFactorReferenceSetRequest `json:"references" xml:"References"`
 }
 
 type CreateAutoScalingGroupType struct {
-	AutoScalingGroupName             string                            `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	AvailabilityZoneDistribution     *AvailabilityZoneDistribution     `json:"availabilityZoneDistribution" xml:"AvailabilityZoneDistribution"`
-	AvailabilityZoneImpairmentPolicy *AvailabilityZoneImpairmentPolicy `json:"availabilityZoneImpairmentPolicy" xml:"AvailabilityZoneImpairmentPolicy"`
-	AvailabilityZones                AvailabilityZones                 `json:"availabilityZones" xml:"AvailabilityZones"`
-	CapacityRebalance                bool                              `json:"capacityRebalance" xml:"CapacityRebalance"`
-	CapacityReservationSpecification *CapacityReservationSpecification `json:"capacityReservationSpecification" xml:"CapacityReservationSpecification"`
-	Context                          string                            `json:"context" xml:"Context"`
-	DefaultCooldown                  int32                             `json:"defaultCooldown" xml:"DefaultCooldown"`
-	DefaultInstanceWarmup            int32                             `json:"defaultInstanceWarmup" xml:"DefaultInstanceWarmup"`
-	DeletionProtection               string                            `json:"deletionProtection" xml:"DeletionProtection"`
-	DesiredCapacity                  int32                             `json:"desiredCapacity" xml:"DesiredCapacity"`
-	DesiredCapacityType              string                            `json:"desiredCapacityType" xml:"DesiredCapacityType"`
-	HealthCheckGracePeriod           int32                             `json:"healthCheckGracePeriod" xml:"HealthCheckGracePeriod"`
-	HealthCheckType                  string                            `json:"healthCheckType" xml:"HealthCheckType"`
-	InstanceId                       string                            `json:"instanceId" xml:"InstanceId"`
-	InstanceLifecyclePolicy          *InstanceLifecyclePolicy          `json:"instanceLifecyclePolicy" xml:"InstanceLifecyclePolicy"`
-	InstanceMaintenancePolicy        *InstanceMaintenancePolicy        `json:"instanceMaintenancePolicy" xml:"InstanceMaintenancePolicy"`
-	LaunchConfigurationName          string                            `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
-	LaunchTemplate                   *LaunchTemplateSpecification      `json:"launchTemplate" xml:"LaunchTemplate"`
-	LifecycleHookSpecificationList   LifecycleHookSpecifications       `json:"lifecycleHookSpecificationList" xml:"LifecycleHookSpecificationList"`
-	LoadBalancerNames                LoadBalancerNames                 `json:"loadBalancerNames" xml:"LoadBalancerNames"`
-	MaxInstanceLifetime              int32                             `json:"maxInstanceLifetime" xml:"MaxInstanceLifetime"`
-	MaxSize                          int32                             `json:"maxSize" xml:"MaxSize"`
-	MinSize                          int32                             `json:"minSize" xml:"MinSize"`
-	MixedInstancesPolicy             *MixedInstancesPolicy             `json:"mixedInstancesPolicy" xml:"MixedInstancesPolicy"`
-	NewInstancesProtectedFromScaleIn bool                              `json:"newInstancesProtectedFromScaleIn" xml:"NewInstancesProtectedFromScaleIn"`
-	PlacementGroup                   string                            `json:"placementGroup" xml:"PlacementGroup"`
-	ServiceLinkedRoleARN             string                            `json:"serviceLinkedRoleARN" xml:"ServiceLinkedRoleARN"`
-	SkipZonalShiftValidation         bool                              `json:"skipZonalShiftValidation" xml:"SkipZonalShiftValidation"`
-	Tags                             Tags                              `json:"tags" xml:"Tags"`
-	TargetGroupARNs                  TargetGroupARNs                   `json:"targetGroupARNs" xml:"TargetGroupARNs"`
-	TerminationPolicies              TerminationPolicies               `json:"terminationPolicies" xml:"TerminationPolicies"`
-	TrafficSources                   TrafficSources                    `json:"trafficSources" xml:"TrafficSources"`
-	VPCZoneIdentifier                string                            `json:"vPCZoneIdentifier" xml:"VPCZoneIdentifier"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+AvailabilityZoneDistribution *AvailabilityZoneDistribution `json:"availabilityZoneDistribution" xml:"AvailabilityZoneDistribution"`
+AvailabilityZoneImpairmentPolicy *AvailabilityZoneImpairmentPolicy `json:"availabilityZoneImpairmentPolicy" xml:"AvailabilityZoneImpairmentPolicy"`
+AvailabilityZones AvailabilityZones `json:"availabilityZones" xml:"AvailabilityZones"`
+CapacityRebalance bool `json:"capacityRebalance" xml:"CapacityRebalance"`
+CapacityReservationSpecification *CapacityReservationSpecification `json:"capacityReservationSpecification" xml:"CapacityReservationSpecification"`
+Context string `json:"context" xml:"Context"`
+DefaultCooldown int32 `json:"defaultCooldown" xml:"DefaultCooldown"`
+DefaultInstanceWarmup int32 `json:"defaultInstanceWarmup" xml:"DefaultInstanceWarmup"`
+DeletionProtection string `json:"deletionProtection" xml:"DeletionProtection"`
+DesiredCapacity int32 `json:"desiredCapacity" xml:"DesiredCapacity"`
+DesiredCapacityType string `json:"desiredCapacityType" xml:"DesiredCapacityType"`
+HealthCheckGracePeriod int32 `json:"healthCheckGracePeriod" xml:"HealthCheckGracePeriod"`
+HealthCheckType string `json:"healthCheckType" xml:"HealthCheckType"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+InstanceLifecyclePolicy *InstanceLifecyclePolicy `json:"instanceLifecyclePolicy" xml:"InstanceLifecyclePolicy"`
+InstanceMaintenancePolicy *InstanceMaintenancePolicy `json:"instanceMaintenancePolicy" xml:"InstanceMaintenancePolicy"`
+LaunchConfigurationName string `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
+LaunchTemplate *LaunchTemplateSpecification `json:"launchTemplate" xml:"LaunchTemplate"`
+LifecycleHookSpecificationList LifecycleHookSpecifications `json:"lifecycleHookSpecificationList" xml:"LifecycleHookSpecificationList"`
+LoadBalancerNames LoadBalancerNames `json:"loadBalancerNames" xml:"LoadBalancerNames"`
+MaxInstanceLifetime int32 `json:"maxInstanceLifetime" xml:"MaxInstanceLifetime"`
+MaxSize int32 `json:"maxSize" xml:"MaxSize"`
+MinSize int32 `json:"minSize" xml:"MinSize"`
+MixedInstancesPolicy *MixedInstancesPolicy `json:"mixedInstancesPolicy" xml:"MixedInstancesPolicy"`
+NewInstancesProtectedFromScaleIn bool `json:"newInstancesProtectedFromScaleIn" xml:"NewInstancesProtectedFromScaleIn"`
+PlacementGroup string `json:"placementGroup" xml:"PlacementGroup"`
+ServiceLinkedRoleARN string `json:"serviceLinkedRoleARN" xml:"ServiceLinkedRoleARN"`
+SkipZonalShiftValidation bool `json:"skipZonalShiftValidation" xml:"SkipZonalShiftValidation"`
+Tags Tags `json:"tags" xml:"Tags"`
+TargetGroupARNs TargetGroupARNs `json:"targetGroupARNs" xml:"TargetGroupARNs"`
+TerminationPolicies TerminationPolicies `json:"terminationPolicies" xml:"TerminationPolicies"`
+TrafficSources TrafficSources `json:"trafficSources" xml:"TrafficSources"`
+VPCZoneIdentifier string `json:"vPCZoneIdentifier" xml:"VPCZoneIdentifier"`
 }
 
 type CreateLaunchConfigurationType struct {
-	AssociatePublicIpAddress     bool                         `json:"associatePublicIpAddress" xml:"AssociatePublicIpAddress"`
-	BlockDeviceMappings          BlockDeviceMappings          `json:"blockDeviceMappings" xml:"BlockDeviceMappings"`
-	ClassicLinkVPCId             string                       `json:"classicLinkVPCId" xml:"ClassicLinkVPCId"`
-	ClassicLinkVPCSecurityGroups ClassicLinkVPCSecurityGroups `json:"classicLinkVPCSecurityGroups" xml:"ClassicLinkVPCSecurityGroups"`
-	EbsOptimized                 bool                         `json:"ebsOptimized" xml:"EbsOptimized"`
-	IamInstanceProfile           string                       `json:"iamInstanceProfile" xml:"IamInstanceProfile"`
-	ImageId                      string                       `json:"imageId" xml:"ImageId"`
-	InstanceId                   string                       `json:"instanceId" xml:"InstanceId"`
-	InstanceMonitoring           *InstanceMonitoring          `json:"instanceMonitoring" xml:"InstanceMonitoring"`
-	InstanceType                 string                       `json:"instanceType" xml:"InstanceType"`
-	KernelId                     string                       `json:"kernelId" xml:"KernelId"`
-	KeyName                      string                       `json:"keyName" xml:"KeyName"`
-	LaunchConfigurationName      string                       `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
-	MetadataOptions              *InstanceMetadataOptions     `json:"metadataOptions" xml:"MetadataOptions"`
-	PlacementTenancy             string                       `json:"placementTenancy" xml:"PlacementTenancy"`
-	RamdiskId                    string                       `json:"ramdiskId" xml:"RamdiskId"`
-	SecurityGroups               SecurityGroups               `json:"securityGroups" xml:"SecurityGroups"`
-	SpotPrice                    string                       `json:"spotPrice" xml:"SpotPrice"`
-	UserData                     string                       `json:"userData" xml:"UserData"`
+AssociatePublicIpAddress bool `json:"associatePublicIpAddress" xml:"AssociatePublicIpAddress"`
+BlockDeviceMappings BlockDeviceMappings `json:"blockDeviceMappings" xml:"BlockDeviceMappings"`
+ClassicLinkVPCId string `json:"classicLinkVPCId" xml:"ClassicLinkVPCId"`
+ClassicLinkVPCSecurityGroups ClassicLinkVPCSecurityGroups `json:"classicLinkVPCSecurityGroups" xml:"ClassicLinkVPCSecurityGroups"`
+EbsOptimized bool `json:"ebsOptimized" xml:"EbsOptimized"`
+IamInstanceProfile string `json:"iamInstanceProfile" xml:"IamInstanceProfile"`
+ImageId string `json:"imageId" xml:"ImageId"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+InstanceMonitoring *InstanceMonitoring `json:"instanceMonitoring" xml:"InstanceMonitoring"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+KernelId string `json:"kernelId" xml:"KernelId"`
+KeyName string `json:"keyName" xml:"KeyName"`
+LaunchConfigurationName string `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
+MetadataOptions *InstanceMetadataOptions `json:"metadataOptions" xml:"MetadataOptions"`
+PlacementTenancy string `json:"placementTenancy" xml:"PlacementTenancy"`
+RamdiskId string `json:"ramdiskId" xml:"RamdiskId"`
+SecurityGroups SecurityGroups `json:"securityGroups" xml:"SecurityGroups"`
+SpotPrice string `json:"spotPrice" xml:"SpotPrice"`
+UserData string `json:"userData" xml:"UserData"`
 }
 
 type CreateOrUpdateTagsType struct {
-	Tags Tags `json:"tags" xml:"Tags"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type CustomizedMetricSpecification struct {
-	Dimensions MetricDimensions                `json:"dimensions" xml:"Dimensions"`
-	MetricName string                          `json:"metricName" xml:"MetricName"`
-	Metrics    TargetTrackingMetricDataQueries `json:"metrics" xml:"Metrics"`
-	Namespace  string                          `json:"namespace" xml:"Namespace"`
-	Period     int32                           `json:"period" xml:"Period"`
-	Statistic  string                          `json:"statistic" xml:"Statistic"`
-	Unit       string                          `json:"unit" xml:"Unit"`
+Dimensions MetricDimensions `json:"dimensions" xml:"Dimensions"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Metrics TargetTrackingMetricDataQueries `json:"metrics" xml:"Metrics"`
+Namespace string `json:"namespace" xml:"Namespace"`
+Period int32 `json:"period" xml:"Period"`
+Statistic string `json:"statistic" xml:"Statistic"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type DeleteAutoScalingGroupType struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	ForceDelete          bool   `json:"forceDelete" xml:"ForceDelete"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+ForceDelete bool `json:"forceDelete" xml:"ForceDelete"`
 }
 
 type DeleteLifecycleHookAnswer struct {
 }
 
 type DeleteLifecycleHookType struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	LifecycleHookName    string `json:"lifecycleHookName" xml:"LifecycleHookName"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+LifecycleHookName string `json:"lifecycleHookName" xml:"LifecycleHookName"`
 }
 
 type DeleteNotificationConfigurationType struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	TopicARN             string `json:"topicARN" xml:"TopicARN"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+TopicARN string `json:"topicARN" xml:"TopicARN"`
 }
 
 type DeletePolicyType struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	PolicyName           string `json:"policyName" xml:"PolicyName"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
 }
 
 type DeleteScheduledActionType struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	ScheduledActionName  string `json:"scheduledActionName" xml:"ScheduledActionName"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
 }
 
 type DeleteTagsType struct {
-	Tags Tags `json:"tags" xml:"Tags"`
+Tags Tags `json:"tags" xml:"Tags"`
 }
 
 type DeleteWarmPoolAnswer struct {
 }
 
 type DeleteWarmPoolType struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	ForceDelete          bool   `json:"forceDelete" xml:"ForceDelete"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+ForceDelete bool `json:"forceDelete" xml:"ForceDelete"`
 }
 
 type DescribeAccountLimitsAnswer struct {
-	MaxNumberOfAutoScalingGroups    int32 `json:"maxNumberOfAutoScalingGroups" xml:"MaxNumberOfAutoScalingGroups"`
-	MaxNumberOfLaunchConfigurations int32 `json:"maxNumberOfLaunchConfigurations" xml:"MaxNumberOfLaunchConfigurations"`
-	NumberOfAutoScalingGroups       int32 `json:"numberOfAutoScalingGroups" xml:"NumberOfAutoScalingGroups"`
-	NumberOfLaunchConfigurations    int32 `json:"numberOfLaunchConfigurations" xml:"NumberOfLaunchConfigurations"`
+MaxNumberOfAutoScalingGroups int32 `json:"maxNumberOfAutoScalingGroups" xml:"MaxNumberOfAutoScalingGroups"`
+MaxNumberOfLaunchConfigurations int32 `json:"maxNumberOfLaunchConfigurations" xml:"MaxNumberOfLaunchConfigurations"`
+NumberOfAutoScalingGroups int32 `json:"numberOfAutoScalingGroups" xml:"NumberOfAutoScalingGroups"`
+NumberOfLaunchConfigurations int32 `json:"numberOfLaunchConfigurations" xml:"NumberOfLaunchConfigurations"`
 }
 
 type DescribeAdjustmentTypesAnswer struct {
-	AdjustmentTypes AdjustmentTypes `json:"adjustmentTypes" xml:"AdjustmentTypes"`
+AdjustmentTypes AdjustmentTypes `json:"adjustmentTypes" xml:"AdjustmentTypes"`
 }
 
 type DescribeAutoScalingInstancesType struct {
-	InstanceIds InstanceIds `json:"instanceIds" xml:"InstanceIds"`
-	MaxRecords  int32       `json:"maxRecords" xml:"MaxRecords"`
-	NextToken   string      `json:"nextToken" xml:"NextToken"`
+InstanceIds InstanceIds `json:"instanceIds" xml:"InstanceIds"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAutoScalingNotificationTypesAnswer struct {
-	AutoScalingNotificationTypes AutoScalingNotificationTypes `json:"autoScalingNotificationTypes" xml:"AutoScalingNotificationTypes"`
+AutoScalingNotificationTypes AutoScalingNotificationTypes `json:"autoScalingNotificationTypes" xml:"AutoScalingNotificationTypes"`
 }
 
 type DescribeInstanceRefreshesAnswer struct {
-	InstanceRefreshes InstanceRefreshes `json:"instanceRefreshes" xml:"InstanceRefreshes"`
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
+InstanceRefreshes InstanceRefreshes `json:"instanceRefreshes" xml:"InstanceRefreshes"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeInstanceRefreshesType struct {
-	AutoScalingGroupName string             `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	InstanceRefreshIds   InstanceRefreshIds `json:"instanceRefreshIds" xml:"InstanceRefreshIds"`
-	MaxRecords           int32              `json:"maxRecords" xml:"MaxRecords"`
-	NextToken            string             `json:"nextToken" xml:"NextToken"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+InstanceRefreshIds InstanceRefreshIds `json:"instanceRefreshIds" xml:"InstanceRefreshIds"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeLifecycleHookTypesAnswer struct {
-	LifecycleHookTypes AutoScalingNotificationTypes `json:"lifecycleHookTypes" xml:"LifecycleHookTypes"`
+LifecycleHookTypes AutoScalingNotificationTypes `json:"lifecycleHookTypes" xml:"LifecycleHookTypes"`
 }
 
 type DescribeLifecycleHooksAnswer struct {
-	LifecycleHooks LifecycleHooks `json:"lifecycleHooks" xml:"LifecycleHooks"`
+LifecycleHooks LifecycleHooks `json:"lifecycleHooks" xml:"LifecycleHooks"`
 }
 
 type DescribeLifecycleHooksType struct {
-	AutoScalingGroupName string             `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	LifecycleHookNames   LifecycleHookNames `json:"lifecycleHookNames" xml:"LifecycleHookNames"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+LifecycleHookNames LifecycleHookNames `json:"lifecycleHookNames" xml:"LifecycleHookNames"`
 }
 
 type DescribeLoadBalancerTargetGroupsRequest struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	MaxRecords           int32  `json:"maxRecords" xml:"MaxRecords"`
-	NextToken            string `json:"nextToken" xml:"NextToken"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeLoadBalancerTargetGroupsResponse struct {
-	LoadBalancerTargetGroups LoadBalancerTargetGroupStates `json:"loadBalancerTargetGroups" xml:"LoadBalancerTargetGroups"`
-	NextToken                string                        `json:"nextToken" xml:"NextToken"`
+LoadBalancerTargetGroups LoadBalancerTargetGroupStates `json:"loadBalancerTargetGroups" xml:"LoadBalancerTargetGroups"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeLoadBalancersRequest struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	MaxRecords           int32  `json:"maxRecords" xml:"MaxRecords"`
-	NextToken            string `json:"nextToken" xml:"NextToken"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeLoadBalancersResponse struct {
-	LoadBalancers LoadBalancerStates `json:"loadBalancers" xml:"LoadBalancers"`
-	NextToken     string             `json:"nextToken" xml:"NextToken"`
+LoadBalancers LoadBalancerStates `json:"loadBalancers" xml:"LoadBalancers"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeMetricCollectionTypesAnswer struct {
-	Granularities MetricGranularityTypes `json:"granularities" xml:"Granularities"`
-	Metrics       MetricCollectionTypes  `json:"metrics" xml:"Metrics"`
+Granularities MetricGranularityTypes `json:"granularities" xml:"Granularities"`
+Metrics MetricCollectionTypes `json:"metrics" xml:"Metrics"`
 }
 
 type DescribeNotificationConfigurationsAnswer struct {
-	NextToken                  string                     `json:"nextToken" xml:"NextToken"`
-	NotificationConfigurations NotificationConfigurations `json:"notificationConfigurations" xml:"NotificationConfigurations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+NotificationConfigurations NotificationConfigurations `json:"notificationConfigurations" xml:"NotificationConfigurations"`
 }
 
 type DescribeNotificationConfigurationsType struct {
-	AutoScalingGroupNames AutoScalingGroupNames `json:"autoScalingGroupNames" xml:"AutoScalingGroupNames"`
-	MaxRecords            int32                 `json:"maxRecords" xml:"MaxRecords"`
-	NextToken             string                `json:"nextToken" xml:"NextToken"`
+AutoScalingGroupNames AutoScalingGroupNames `json:"autoScalingGroupNames" xml:"AutoScalingGroupNames"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribePoliciesType struct {
-	AutoScalingGroupName string      `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	MaxRecords           int32       `json:"maxRecords" xml:"MaxRecords"`
-	NextToken            string      `json:"nextToken" xml:"NextToken"`
-	PolicyNames          PolicyNames `json:"policyNames" xml:"PolicyNames"`
-	PolicyTypes          PolicyTypes `json:"policyTypes" xml:"PolicyTypes"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PolicyNames PolicyNames `json:"policyNames" xml:"PolicyNames"`
+PolicyTypes PolicyTypes `json:"policyTypes" xml:"PolicyTypes"`
 }
 
 type DescribeScalingActivitiesType struct {
-	ActivityIds          ActivityIds `json:"activityIds" xml:"ActivityIds"`
-	AutoScalingGroupName string      `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	Filters              Filters     `json:"filters" xml:"Filters"`
-	IncludeDeletedGroups bool        `json:"includeDeletedGroups" xml:"IncludeDeletedGroups"`
-	MaxRecords           int32       `json:"maxRecords" xml:"MaxRecords"`
-	NextToken            string      `json:"nextToken" xml:"NextToken"`
+ActivityIds ActivityIds `json:"activityIds" xml:"ActivityIds"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+Filters Filters `json:"filters" xml:"Filters"`
+IncludeDeletedGroups bool `json:"includeDeletedGroups" xml:"IncludeDeletedGroups"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeScheduledActionsType struct {
-	AutoScalingGroupName string               `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	EndTime              time.Time            `json:"endTime" xml:"EndTime"`
-	MaxRecords           int32                `json:"maxRecords" xml:"MaxRecords"`
-	NextToken            string               `json:"nextToken" xml:"NextToken"`
-	ScheduledActionNames ScheduledActionNames `json:"scheduledActionNames" xml:"ScheduledActionNames"`
-	StartTime            time.Time            `json:"startTime" xml:"StartTime"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ScheduledActionNames ScheduledActionNames `json:"scheduledActionNames" xml:"ScheduledActionNames"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type DescribeTagsType struct {
-	Filters    Filters `json:"filters" xml:"Filters"`
-	MaxRecords int32   `json:"maxRecords" xml:"MaxRecords"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
+Filters Filters `json:"filters" xml:"Filters"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeTerminationPolicyTypesAnswer struct {
-	TerminationPolicyTypes TerminationPolicies `json:"terminationPolicyTypes" xml:"TerminationPolicyTypes"`
+TerminationPolicyTypes TerminationPolicies `json:"terminationPolicyTypes" xml:"TerminationPolicyTypes"`
 }
 
 type DescribeTrafficSourcesRequest struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	MaxRecords           int32  `json:"maxRecords" xml:"MaxRecords"`
-	NextToken            string `json:"nextToken" xml:"NextToken"`
-	TrafficSourceType    string `json:"trafficSourceType" xml:"TrafficSourceType"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TrafficSourceType string `json:"trafficSourceType" xml:"TrafficSourceType"`
 }
 
 type DescribeTrafficSourcesResponse struct {
-	NextToken      string              `json:"nextToken" xml:"NextToken"`
-	TrafficSources TrafficSourceStates `json:"trafficSources" xml:"TrafficSources"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TrafficSources TrafficSourceStates `json:"trafficSources" xml:"TrafficSources"`
 }
 
 type DescribeWarmPoolAnswer struct {
-	Instances             Instances              `json:"instances" xml:"Instances"`
-	NextToken             string                 `json:"nextToken" xml:"NextToken"`
-	WarmPoolConfiguration *WarmPoolConfiguration `json:"warmPoolConfiguration" xml:"WarmPoolConfiguration"`
+Instances Instances `json:"instances" xml:"Instances"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+WarmPoolConfiguration *WarmPoolConfiguration `json:"warmPoolConfiguration" xml:"WarmPoolConfiguration"`
 }
 
 type DescribeWarmPoolType struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	MaxRecords           int32  `json:"maxRecords" xml:"MaxRecords"`
-	NextToken            string `json:"nextToken" xml:"NextToken"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DesiredConfiguration struct {
-	LaunchTemplate       *LaunchTemplateSpecification `json:"launchTemplate" xml:"LaunchTemplate"`
-	MixedInstancesPolicy *MixedInstancesPolicy        `json:"mixedInstancesPolicy" xml:"MixedInstancesPolicy"`
+LaunchTemplate *LaunchTemplateSpecification `json:"launchTemplate" xml:"LaunchTemplate"`
+MixedInstancesPolicy *MixedInstancesPolicy `json:"mixedInstancesPolicy" xml:"MixedInstancesPolicy"`
 }
 
 type DetachInstancesAnswer struct {
-	Activities Activities `json:"activities" xml:"Activities"`
+Activities Activities `json:"activities" xml:"Activities"`
 }
 
 type DetachInstancesQuery struct {
-	AutoScalingGroupName           string      `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	InstanceIds                    InstanceIds `json:"instanceIds" xml:"InstanceIds"`
-	ShouldDecrementDesiredCapacity bool        `json:"shouldDecrementDesiredCapacity" xml:"ShouldDecrementDesiredCapacity"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+InstanceIds InstanceIds `json:"instanceIds" xml:"InstanceIds"`
+ShouldDecrementDesiredCapacity bool `json:"shouldDecrementDesiredCapacity" xml:"ShouldDecrementDesiredCapacity"`
 }
 
 type DetachLoadBalancerTargetGroupsResultType struct {
 }
 
 type DetachLoadBalancerTargetGroupsType struct {
-	AutoScalingGroupName string          `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	TargetGroupARNs      TargetGroupARNs `json:"targetGroupARNs" xml:"TargetGroupARNs"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+TargetGroupARNs TargetGroupARNs `json:"targetGroupARNs" xml:"TargetGroupARNs"`
 }
 
 type DetachLoadBalancersResultType struct {
 }
 
 type DetachLoadBalancersType struct {
-	AutoScalingGroupName string            `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	LoadBalancerNames    LoadBalancerNames `json:"loadBalancerNames" xml:"LoadBalancerNames"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+LoadBalancerNames LoadBalancerNames `json:"loadBalancerNames" xml:"LoadBalancerNames"`
 }
 
 type DetachTrafficSourcesResultType struct {
 }
 
 type DetachTrafficSourcesType struct {
-	AutoScalingGroupName string         `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	TrafficSources       TrafficSources `json:"trafficSources" xml:"TrafficSources"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+TrafficSources TrafficSources `json:"trafficSources" xml:"TrafficSources"`
 }
 
 type DisableMetricsCollectionQuery struct {
-	AutoScalingGroupName string  `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	Metrics              Metrics `json:"metrics" xml:"Metrics"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+Metrics Metrics `json:"metrics" xml:"Metrics"`
 }
 
 type Ebs struct {
-	DeleteOnTermination bool   `json:"deleteOnTermination" xml:"DeleteOnTermination"`
-	Encrypted           bool   `json:"encrypted" xml:"Encrypted"`
-	Iops                int32  `json:"iops" xml:"Iops"`
-	SnapshotId          string `json:"snapshotId" xml:"SnapshotId"`
-	Throughput          int32  `json:"throughput" xml:"Throughput"`
-	VolumeSize          int32  `json:"volumeSize" xml:"VolumeSize"`
-	VolumeType          string `json:"volumeType" xml:"VolumeType"`
+DeleteOnTermination bool `json:"deleteOnTermination" xml:"DeleteOnTermination"`
+Encrypted bool `json:"encrypted" xml:"Encrypted"`
+Iops int32 `json:"iops" xml:"Iops"`
+SnapshotId string `json:"snapshotId" xml:"SnapshotId"`
+Throughput int32 `json:"throughput" xml:"Throughput"`
+VolumeSize int32 `json:"volumeSize" xml:"VolumeSize"`
+VolumeType string `json:"volumeType" xml:"VolumeType"`
 }
 
 type EnableMetricsCollectionQuery struct {
-	AutoScalingGroupName string  `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	Granularity          string  `json:"granularity" xml:"Granularity"`
-	Metrics              Metrics `json:"metrics" xml:"Metrics"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+Granularity string `json:"granularity" xml:"Granularity"`
+Metrics Metrics `json:"metrics" xml:"Metrics"`
 }
 
 type EnabledMetric struct {
-	Granularity string `json:"granularity" xml:"Granularity"`
-	Metric      string `json:"metric" xml:"Metric"`
+Granularity string `json:"granularity" xml:"Granularity"`
+Metric string `json:"metric" xml:"Metric"`
 }
 
 type EnterStandbyAnswer struct {
-	Activities Activities `json:"activities" xml:"Activities"`
+Activities Activities `json:"activities" xml:"Activities"`
 }
 
 type EnterStandbyQuery struct {
-	AutoScalingGroupName           string      `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	InstanceIds                    InstanceIds `json:"instanceIds" xml:"InstanceIds"`
-	ShouldDecrementDesiredCapacity bool        `json:"shouldDecrementDesiredCapacity" xml:"ShouldDecrementDesiredCapacity"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+InstanceIds InstanceIds `json:"instanceIds" xml:"InstanceIds"`
+ShouldDecrementDesiredCapacity bool `json:"shouldDecrementDesiredCapacity" xml:"ShouldDecrementDesiredCapacity"`
 }
 
 type ExecutePolicyType struct {
-	AutoScalingGroupName string  `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	BreachThreshold      float64 `json:"breachThreshold" xml:"BreachThreshold"`
-	HonorCooldown        bool    `json:"honorCooldown" xml:"HonorCooldown"`
-	MetricValue          float64 `json:"metricValue" xml:"MetricValue"`
-	PolicyName           string  `json:"policyName" xml:"PolicyName"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+BreachThreshold float64 `json:"breachThreshold" xml:"BreachThreshold"`
+HonorCooldown bool `json:"honorCooldown" xml:"HonorCooldown"`
+MetricValue float64 `json:"metricValue" xml:"MetricValue"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
 }
 
 type ExitStandbyAnswer struct {
-	Activities Activities `json:"activities" xml:"Activities"`
+Activities Activities `json:"activities" xml:"Activities"`
 }
 
 type ExitStandbyQuery struct {
-	AutoScalingGroupName string      `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	InstanceIds          InstanceIds `json:"instanceIds" xml:"InstanceIds"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+InstanceIds InstanceIds `json:"instanceIds" xml:"InstanceIds"`
 }
 
 type FailedScheduledUpdateGroupActionRequest struct {
-	ErrorCode           string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage        string `json:"errorMessage" xml:"ErrorMessage"`
-	ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
 }
 
 type Filter struct {
-	Name   string `json:"name" xml:"Name"`
-	Values Values `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values Values `json:"values" xml:"Values"`
 }
 
 type GetPredictiveScalingForecastAnswer struct {
-	CapacityForecast *CapacityForecast `json:"capacityForecast" xml:"CapacityForecast"`
-	LoadForecast     LoadForecasts     `json:"loadForecast" xml:"LoadForecast"`
-	UpdateTime       time.Time         `json:"updateTime" xml:"UpdateTime"`
+CapacityForecast *CapacityForecast `json:"capacityForecast" xml:"CapacityForecast"`
+LoadForecast LoadForecasts `json:"loadForecast" xml:"LoadForecast"`
+UpdateTime time.Time `json:"updateTime" xml:"UpdateTime"`
 }
 
 type GetPredictiveScalingForecastType struct {
-	AutoScalingGroupName string    `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	EndTime              time.Time `json:"endTime" xml:"EndTime"`
-	PolicyName           string    `json:"policyName" xml:"PolicyName"`
-	StartTime            time.Time `json:"startTime" xml:"StartTime"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type Instance struct {
-	AvailabilityZone        string                       `json:"availabilityZone" xml:"AvailabilityZone"`
-	HealthStatus            string                       `json:"healthStatus" xml:"HealthStatus"`
-	ImageId                 string                       `json:"imageId" xml:"ImageId"`
-	InstanceId              string                       `json:"instanceId" xml:"InstanceId"`
-	InstanceType            string                       `json:"instanceType" xml:"InstanceType"`
-	LaunchConfigurationName string                       `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
-	LaunchTemplate          *LaunchTemplateSpecification `json:"launchTemplate" xml:"LaunchTemplate"`
-	LifecycleState          string                       `json:"lifecycleState" xml:"LifecycleState"`
-	ProtectedFromScaleIn    bool                         `json:"protectedFromScaleIn" xml:"ProtectedFromScaleIn"`
-	WeightedCapacity        string                       `json:"weightedCapacity" xml:"WeightedCapacity"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+HealthStatus string `json:"healthStatus" xml:"HealthStatus"`
+ImageId string `json:"imageId" xml:"ImageId"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+LaunchConfigurationName string `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
+LaunchTemplate *LaunchTemplateSpecification `json:"launchTemplate" xml:"LaunchTemplate"`
+LifecycleState string `json:"lifecycleState" xml:"LifecycleState"`
+ProtectedFromScaleIn bool `json:"protectedFromScaleIn" xml:"ProtectedFromScaleIn"`
+WeightedCapacity string `json:"weightedCapacity" xml:"WeightedCapacity"`
 }
 
 type InstanceCollection struct {
-	AvailabilityZone   string      `json:"availabilityZone" xml:"AvailabilityZone"`
-	AvailabilityZoneId string      `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
-	InstanceIds        InstanceIds `json:"instanceIds" xml:"InstanceIds"`
-	InstanceType       string      `json:"instanceType" xml:"InstanceType"`
-	MarketType         string      `json:"marketType" xml:"MarketType"`
-	SubnetId           string      `json:"subnetId" xml:"SubnetId"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+AvailabilityZoneId string `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
+InstanceIds InstanceIds `json:"instanceIds" xml:"InstanceIds"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+MarketType string `json:"marketType" xml:"MarketType"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
 }
 
 type InstanceLifecyclePolicy struct {
-	RetentionTriggers *RetentionTriggers `json:"retentionTriggers" xml:"RetentionTriggers"`
+RetentionTriggers *RetentionTriggers `json:"retentionTriggers" xml:"RetentionTriggers"`
 }
 
 type InstanceMaintenancePolicy struct {
-	MaxHealthyPercentage int32 `json:"maxHealthyPercentage" xml:"MaxHealthyPercentage"`
-	MinHealthyPercentage int32 `json:"minHealthyPercentage" xml:"MinHealthyPercentage"`
+MaxHealthyPercentage int32 `json:"maxHealthyPercentage" xml:"MaxHealthyPercentage"`
+MinHealthyPercentage int32 `json:"minHealthyPercentage" xml:"MinHealthyPercentage"`
 }
 
 type InstanceMetadataOptions struct {
-	HttpEndpoint            string `json:"httpEndpoint" xml:"HttpEndpoint"`
-	HttpPutResponseHopLimit int32  `json:"httpPutResponseHopLimit" xml:"HttpPutResponseHopLimit"`
-	HttpTokens              string `json:"httpTokens" xml:"HttpTokens"`
+HttpEndpoint string `json:"httpEndpoint" xml:"HttpEndpoint"`
+HttpPutResponseHopLimit int32 `json:"httpPutResponseHopLimit" xml:"HttpPutResponseHopLimit"`
+HttpTokens string `json:"httpTokens" xml:"HttpTokens"`
 }
 
 type InstanceMonitoring struct {
-	Enabled bool `json:"enabled" xml:"Enabled"`
+Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type InstanceRefresh struct {
-	AutoScalingGroupName string                          `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	DesiredConfiguration *DesiredConfiguration           `json:"desiredConfiguration" xml:"DesiredConfiguration"`
-	EndTime              time.Time                       `json:"endTime" xml:"EndTime"`
-	InstanceRefreshId    string                          `json:"instanceRefreshId" xml:"InstanceRefreshId"`
-	InstancesToUpdate    int32                           `json:"instancesToUpdate" xml:"InstancesToUpdate"`
-	PercentageComplete   int32                           `json:"percentageComplete" xml:"PercentageComplete"`
-	Preferences          *RefreshPreferences             `json:"preferences" xml:"Preferences"`
-	ProgressDetails      *InstanceRefreshProgressDetails `json:"progressDetails" xml:"ProgressDetails"`
-	RollbackDetails      *RollbackDetails                `json:"rollbackDetails" xml:"RollbackDetails"`
-	StartTime            time.Time                       `json:"startTime" xml:"StartTime"`
-	Status               string                          `json:"status" xml:"Status"`
-	StatusReason         string                          `json:"statusReason" xml:"StatusReason"`
-	Strategy             string                          `json:"strategy" xml:"Strategy"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+DesiredConfiguration *DesiredConfiguration `json:"desiredConfiguration" xml:"DesiredConfiguration"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+InstanceRefreshId string `json:"instanceRefreshId" xml:"InstanceRefreshId"`
+InstancesToUpdate int32 `json:"instancesToUpdate" xml:"InstancesToUpdate"`
+PercentageComplete int32 `json:"percentageComplete" xml:"PercentageComplete"`
+Preferences *RefreshPreferences `json:"preferences" xml:"Preferences"`
+ProgressDetails *InstanceRefreshProgressDetails `json:"progressDetails" xml:"ProgressDetails"`
+RollbackDetails *RollbackDetails `json:"rollbackDetails" xml:"RollbackDetails"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
+Strategy string `json:"strategy" xml:"Strategy"`
 }
 
 type InstanceRefreshLivePoolProgress struct {
-	InstancesToUpdate  int32 `json:"instancesToUpdate" xml:"InstancesToUpdate"`
-	PercentageComplete int32 `json:"percentageComplete" xml:"PercentageComplete"`
+InstancesToUpdate int32 `json:"instancesToUpdate" xml:"InstancesToUpdate"`
+PercentageComplete int32 `json:"percentageComplete" xml:"PercentageComplete"`
 }
 
 type InstanceRefreshProgressDetails struct {
-	LivePoolProgress *InstanceRefreshLivePoolProgress `json:"livePoolProgress" xml:"LivePoolProgress"`
-	WarmPoolProgress *InstanceRefreshWarmPoolProgress `json:"warmPoolProgress" xml:"WarmPoolProgress"`
+LivePoolProgress *InstanceRefreshLivePoolProgress `json:"livePoolProgress" xml:"LivePoolProgress"`
+WarmPoolProgress *InstanceRefreshWarmPoolProgress `json:"warmPoolProgress" xml:"WarmPoolProgress"`
 }
 
 type InstanceRefreshWarmPoolProgress struct {
-	InstancesToUpdate  int32 `json:"instancesToUpdate" xml:"InstancesToUpdate"`
-	PercentageComplete int32 `json:"percentageComplete" xml:"PercentageComplete"`
+InstancesToUpdate int32 `json:"instancesToUpdate" xml:"InstancesToUpdate"`
+PercentageComplete int32 `json:"percentageComplete" xml:"PercentageComplete"`
 }
 
 type InstanceRequirements struct {
-	AcceleratorCount                               *AcceleratorCountRequest           `json:"acceleratorCount" xml:"AcceleratorCount"`
-	AcceleratorManufacturers                       AcceleratorManufacturers           `json:"acceleratorManufacturers" xml:"AcceleratorManufacturers"`
-	AcceleratorNames                               AcceleratorNames                   `json:"acceleratorNames" xml:"AcceleratorNames"`
-	AcceleratorTotalMemoryMiB                      *AcceleratorTotalMemoryMiBRequest  `json:"acceleratorTotalMemoryMiB" xml:"AcceleratorTotalMemoryMiB"`
-	AcceleratorTypes                               AcceleratorTypes                   `json:"acceleratorTypes" xml:"AcceleratorTypes"`
-	AllowedInstanceTypes                           AllowedInstanceTypes               `json:"allowedInstanceTypes" xml:"AllowedInstanceTypes"`
-	BareMetal                                      string                             `json:"bareMetal" xml:"BareMetal"`
-	BaselineEbsBandwidthMbps                       *BaselineEbsBandwidthMbpsRequest   `json:"baselineEbsBandwidthMbps" xml:"BaselineEbsBandwidthMbps"`
-	BaselinePerformanceFactors                     *BaselinePerformanceFactorsRequest `json:"baselinePerformanceFactors" xml:"BaselinePerformanceFactors"`
-	BurstablePerformance                           string                             `json:"burstablePerformance" xml:"BurstablePerformance"`
-	CpuManufacturers                               CpuManufacturers                   `json:"cpuManufacturers" xml:"CpuManufacturers"`
-	ExcludedInstanceTypes                          ExcludedInstanceTypes              `json:"excludedInstanceTypes" xml:"ExcludedInstanceTypes"`
-	InstanceGenerations                            InstanceGenerations                `json:"instanceGenerations" xml:"InstanceGenerations"`
-	LocalStorage                                   string                             `json:"localStorage" xml:"LocalStorage"`
-	LocalStorageTypes                              LocalStorageTypes                  `json:"localStorageTypes" xml:"LocalStorageTypes"`
-	MaxSpotPriceAsPercentageOfOptimalOnDemandPrice int32                              `json:"maxSpotPriceAsPercentageOfOptimalOnDemandPrice" xml:"MaxSpotPriceAsPercentageOfOptimalOnDemandPrice"`
-	MemoryGiBPerVCpu                               *MemoryGiBPerVCpuRequest           `json:"memoryGiBPerVCpu" xml:"MemoryGiBPerVCpu"`
-	MemoryMiB                                      *MemoryMiBRequest                  `json:"memoryMiB" xml:"MemoryMiB"`
-	NetworkBandwidthGbps                           *NetworkBandwidthGbpsRequest       `json:"networkBandwidthGbps" xml:"NetworkBandwidthGbps"`
-	NetworkInterfaceCount                          *NetworkInterfaceCountRequest      `json:"networkInterfaceCount" xml:"NetworkInterfaceCount"`
-	OnDemandMaxPricePercentageOverLowestPrice      int32                              `json:"onDemandMaxPricePercentageOverLowestPrice" xml:"OnDemandMaxPricePercentageOverLowestPrice"`
-	RequireHibernateSupport                        bool                               `json:"requireHibernateSupport" xml:"RequireHibernateSupport"`
-	SpotMaxPricePercentageOverLowestPrice          int32                              `json:"spotMaxPricePercentageOverLowestPrice" xml:"SpotMaxPricePercentageOverLowestPrice"`
-	TotalLocalStorageGB                            *TotalLocalStorageGBRequest        `json:"totalLocalStorageGB" xml:"TotalLocalStorageGB"`
-	VCpuCount                                      *VCpuCountRequest                  `json:"vCpuCount" xml:"VCpuCount"`
+AcceleratorCount *AcceleratorCountRequest `json:"acceleratorCount" xml:"AcceleratorCount"`
+AcceleratorManufacturers AcceleratorManufacturers `json:"acceleratorManufacturers" xml:"AcceleratorManufacturers"`
+AcceleratorNames AcceleratorNames `json:"acceleratorNames" xml:"AcceleratorNames"`
+AcceleratorTotalMemoryMiB *AcceleratorTotalMemoryMiBRequest `json:"acceleratorTotalMemoryMiB" xml:"AcceleratorTotalMemoryMiB"`
+AcceleratorTypes AcceleratorTypes `json:"acceleratorTypes" xml:"AcceleratorTypes"`
+AllowedInstanceTypes AllowedInstanceTypes `json:"allowedInstanceTypes" xml:"AllowedInstanceTypes"`
+BareMetal string `json:"bareMetal" xml:"BareMetal"`
+BaselineEbsBandwidthMbps *BaselineEbsBandwidthMbpsRequest `json:"baselineEbsBandwidthMbps" xml:"BaselineEbsBandwidthMbps"`
+BaselinePerformanceFactors *BaselinePerformanceFactorsRequest `json:"baselinePerformanceFactors" xml:"BaselinePerformanceFactors"`
+BurstablePerformance string `json:"burstablePerformance" xml:"BurstablePerformance"`
+CpuManufacturers CpuManufacturers `json:"cpuManufacturers" xml:"CpuManufacturers"`
+ExcludedInstanceTypes ExcludedInstanceTypes `json:"excludedInstanceTypes" xml:"ExcludedInstanceTypes"`
+InstanceGenerations InstanceGenerations `json:"instanceGenerations" xml:"InstanceGenerations"`
+LocalStorage string `json:"localStorage" xml:"LocalStorage"`
+LocalStorageTypes LocalStorageTypes `json:"localStorageTypes" xml:"LocalStorageTypes"`
+MaxSpotPriceAsPercentageOfOptimalOnDemandPrice int32 `json:"maxSpotPriceAsPercentageOfOptimalOnDemandPrice" xml:"MaxSpotPriceAsPercentageOfOptimalOnDemandPrice"`
+MemoryGiBPerVCpu *MemoryGiBPerVCpuRequest `json:"memoryGiBPerVCpu" xml:"MemoryGiBPerVCpu"`
+MemoryMiB *MemoryMiBRequest `json:"memoryMiB" xml:"MemoryMiB"`
+NetworkBandwidthGbps *NetworkBandwidthGbpsRequest `json:"networkBandwidthGbps" xml:"NetworkBandwidthGbps"`
+NetworkInterfaceCount *NetworkInterfaceCountRequest `json:"networkInterfaceCount" xml:"NetworkInterfaceCount"`
+OnDemandMaxPricePercentageOverLowestPrice int32 `json:"onDemandMaxPricePercentageOverLowestPrice" xml:"OnDemandMaxPricePercentageOverLowestPrice"`
+RequireHibernateSupport bool `json:"requireHibernateSupport" xml:"RequireHibernateSupport"`
+SpotMaxPricePercentageOverLowestPrice int32 `json:"spotMaxPricePercentageOverLowestPrice" xml:"SpotMaxPricePercentageOverLowestPrice"`
+TotalLocalStorageGB *TotalLocalStorageGBRequest `json:"totalLocalStorageGB" xml:"TotalLocalStorageGB"`
+VCpuCount *VCpuCountRequest `json:"vCpuCount" xml:"VCpuCount"`
 }
 
 type InstanceReusePolicy struct {
-	ReuseOnScaleIn bool `json:"reuseOnScaleIn" xml:"ReuseOnScaleIn"`
+ReuseOnScaleIn bool `json:"reuseOnScaleIn" xml:"ReuseOnScaleIn"`
 }
 
 type InstancesDistribution struct {
-	OnDemandAllocationStrategy          string `json:"onDemandAllocationStrategy" xml:"OnDemandAllocationStrategy"`
-	OnDemandBaseCapacity                int32  `json:"onDemandBaseCapacity" xml:"OnDemandBaseCapacity"`
-	OnDemandPercentageAboveBaseCapacity int32  `json:"onDemandPercentageAboveBaseCapacity" xml:"OnDemandPercentageAboveBaseCapacity"`
-	SpotAllocationStrategy              string `json:"spotAllocationStrategy" xml:"SpotAllocationStrategy"`
-	SpotInstancePools                   int32  `json:"spotInstancePools" xml:"SpotInstancePools"`
-	SpotMaxPrice                        string `json:"spotMaxPrice" xml:"SpotMaxPrice"`
+OnDemandAllocationStrategy string `json:"onDemandAllocationStrategy" xml:"OnDemandAllocationStrategy"`
+OnDemandBaseCapacity int32 `json:"onDemandBaseCapacity" xml:"OnDemandBaseCapacity"`
+OnDemandPercentageAboveBaseCapacity int32 `json:"onDemandPercentageAboveBaseCapacity" xml:"OnDemandPercentageAboveBaseCapacity"`
+SpotAllocationStrategy string `json:"spotAllocationStrategy" xml:"SpotAllocationStrategy"`
+SpotInstancePools int32 `json:"spotInstancePools" xml:"SpotInstancePools"`
+SpotMaxPrice string `json:"spotMaxPrice" xml:"SpotMaxPrice"`
 }
 
 type LaunchConfiguration struct {
-	AssociatePublicIpAddress     bool                         `json:"associatePublicIpAddress" xml:"AssociatePublicIpAddress"`
-	BlockDeviceMappings          BlockDeviceMappings          `json:"blockDeviceMappings" xml:"BlockDeviceMappings"`
-	ClassicLinkVPCId             string                       `json:"classicLinkVPCId" xml:"ClassicLinkVPCId"`
-	ClassicLinkVPCSecurityGroups ClassicLinkVPCSecurityGroups `json:"classicLinkVPCSecurityGroups" xml:"ClassicLinkVPCSecurityGroups"`
-	CreatedTime                  time.Time                    `json:"createdTime" xml:"CreatedTime"`
-	EbsOptimized                 bool                         `json:"ebsOptimized" xml:"EbsOptimized"`
-	IamInstanceProfile           string                       `json:"iamInstanceProfile" xml:"IamInstanceProfile"`
-	ImageId                      string                       `json:"imageId" xml:"ImageId"`
-	InstanceMonitoring           *InstanceMonitoring          `json:"instanceMonitoring" xml:"InstanceMonitoring"`
-	InstanceType                 string                       `json:"instanceType" xml:"InstanceType"`
-	KernelId                     string                       `json:"kernelId" xml:"KernelId"`
-	KeyName                      string                       `json:"keyName" xml:"KeyName"`
-	LaunchConfigurationARN       string                       `json:"launchConfigurationARN" xml:"LaunchConfigurationARN"`
-	LaunchConfigurationName      string                       `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
-	MetadataOptions              *InstanceMetadataOptions     `json:"metadataOptions" xml:"MetadataOptions"`
-	PlacementTenancy             string                       `json:"placementTenancy" xml:"PlacementTenancy"`
-	RamdiskId                    string                       `json:"ramdiskId" xml:"RamdiskId"`
-	SecurityGroups               SecurityGroups               `json:"securityGroups" xml:"SecurityGroups"`
-	SpotPrice                    string                       `json:"spotPrice" xml:"SpotPrice"`
-	UserData                     string                       `json:"userData" xml:"UserData"`
+AssociatePublicIpAddress bool `json:"associatePublicIpAddress" xml:"AssociatePublicIpAddress"`
+BlockDeviceMappings BlockDeviceMappings `json:"blockDeviceMappings" xml:"BlockDeviceMappings"`
+ClassicLinkVPCId string `json:"classicLinkVPCId" xml:"ClassicLinkVPCId"`
+ClassicLinkVPCSecurityGroups ClassicLinkVPCSecurityGroups `json:"classicLinkVPCSecurityGroups" xml:"ClassicLinkVPCSecurityGroups"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+EbsOptimized bool `json:"ebsOptimized" xml:"EbsOptimized"`
+IamInstanceProfile string `json:"iamInstanceProfile" xml:"IamInstanceProfile"`
+ImageId string `json:"imageId" xml:"ImageId"`
+InstanceMonitoring *InstanceMonitoring `json:"instanceMonitoring" xml:"InstanceMonitoring"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+KernelId string `json:"kernelId" xml:"KernelId"`
+KeyName string `json:"keyName" xml:"KeyName"`
+LaunchConfigurationARN string `json:"launchConfigurationARN" xml:"LaunchConfigurationARN"`
+LaunchConfigurationName string `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
+MetadataOptions *InstanceMetadataOptions `json:"metadataOptions" xml:"MetadataOptions"`
+PlacementTenancy string `json:"placementTenancy" xml:"PlacementTenancy"`
+RamdiskId string `json:"ramdiskId" xml:"RamdiskId"`
+SecurityGroups SecurityGroups `json:"securityGroups" xml:"SecurityGroups"`
+SpotPrice string `json:"spotPrice" xml:"SpotPrice"`
+UserData string `json:"userData" xml:"UserData"`
 }
 
 type LaunchConfigurationNameType struct {
-	LaunchConfigurationName string `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
+LaunchConfigurationName string `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
 }
 
 type LaunchConfigurationNamesType struct {
-	LaunchConfigurationNames LaunchConfigurationNames `json:"launchConfigurationNames" xml:"LaunchConfigurationNames"`
-	MaxRecords               int32                    `json:"maxRecords" xml:"MaxRecords"`
-	NextToken                string                   `json:"nextToken" xml:"NextToken"`
+LaunchConfigurationNames LaunchConfigurationNames `json:"launchConfigurationNames" xml:"LaunchConfigurationNames"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type LaunchConfigurationsType struct {
-	LaunchConfigurations LaunchConfigurations `json:"launchConfigurations" xml:"LaunchConfigurations"`
-	NextToken            string               `json:"nextToken" xml:"NextToken"`
+LaunchConfigurations LaunchConfigurations `json:"launchConfigurations" xml:"LaunchConfigurations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type LaunchInstancesError struct {
-	AvailabilityZone   string `json:"availabilityZone" xml:"AvailabilityZone"`
-	AvailabilityZoneId string `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
-	ErrorCode          string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage       string `json:"errorMessage" xml:"ErrorMessage"`
-	InstanceType       string `json:"instanceType" xml:"InstanceType"`
-	MarketType         string `json:"marketType" xml:"MarketType"`
-	SubnetId           string `json:"subnetId" xml:"SubnetId"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+AvailabilityZoneId string `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+MarketType string `json:"marketType" xml:"MarketType"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
 }
 
 type LaunchInstancesRequest struct {
-	AutoScalingGroupName string                    `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	AvailabilityZoneIds  AvailabilityZoneIdsLimit1 `json:"availabilityZoneIds" xml:"AvailabilityZoneIds"`
-	AvailabilityZones    AvailabilityZonesLimit1   `json:"availabilityZones" xml:"AvailabilityZones"`
-	ClientToken          string                    `json:"clientToken" xml:"ClientToken"`
-	RequestedCapacity    int32                     `json:"requestedCapacity" xml:"RequestedCapacity"`
-	RetryStrategy        string                    `json:"retryStrategy" xml:"RetryStrategy"`
-	SubnetIds            SubnetIdsLimit1           `json:"subnetIds" xml:"SubnetIds"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+AvailabilityZoneIds AvailabilityZoneIdsLimit1 `json:"availabilityZoneIds" xml:"AvailabilityZoneIds"`
+AvailabilityZones AvailabilityZonesLimit1 `json:"availabilityZones" xml:"AvailabilityZones"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+RequestedCapacity int32 `json:"requestedCapacity" xml:"RequestedCapacity"`
+RetryStrategy string `json:"retryStrategy" xml:"RetryStrategy"`
+SubnetIds SubnetIdsLimit1 `json:"subnetIds" xml:"SubnetIds"`
 }
 
 type LaunchInstancesResult struct {
-	AutoScalingGroupName string                `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	ClientToken          string                `json:"clientToken" xml:"ClientToken"`
-	Errors               LaunchInstancesErrors `json:"errors" xml:"Errors"`
-	Instances            InstanceCollections   `json:"instances" xml:"Instances"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+Errors LaunchInstancesErrors `json:"errors" xml:"Errors"`
+Instances InstanceCollections `json:"instances" xml:"Instances"`
 }
 
 type LaunchTemplate struct {
-	LaunchTemplateSpecification *LaunchTemplateSpecification `json:"launchTemplateSpecification" xml:"LaunchTemplateSpecification"`
-	Overrides                   Overrides                    `json:"overrides" xml:"Overrides"`
+LaunchTemplateSpecification *LaunchTemplateSpecification `json:"launchTemplateSpecification" xml:"LaunchTemplateSpecification"`
+Overrides Overrides `json:"overrides" xml:"Overrides"`
 }
 
 type LaunchTemplateOverrides struct {
-	ImageId                     string                       `json:"imageId" xml:"ImageId"`
-	InstanceRequirements        *InstanceRequirements        `json:"instanceRequirements" xml:"InstanceRequirements"`
-	InstanceType                string                       `json:"instanceType" xml:"InstanceType"`
-	LaunchTemplateSpecification *LaunchTemplateSpecification `json:"launchTemplateSpecification" xml:"LaunchTemplateSpecification"`
-	WeightedCapacity            string                       `json:"weightedCapacity" xml:"WeightedCapacity"`
+ImageId string `json:"imageId" xml:"ImageId"`
+InstanceRequirements *InstanceRequirements `json:"instanceRequirements" xml:"InstanceRequirements"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+LaunchTemplateSpecification *LaunchTemplateSpecification `json:"launchTemplateSpecification" xml:"LaunchTemplateSpecification"`
+WeightedCapacity string `json:"weightedCapacity" xml:"WeightedCapacity"`
 }
 
 type LaunchTemplateSpecification struct {
-	LaunchTemplateId   string `json:"launchTemplateId" xml:"LaunchTemplateId"`
-	LaunchTemplateName string `json:"launchTemplateName" xml:"LaunchTemplateName"`
-	Version            string `json:"version" xml:"Version"`
+LaunchTemplateId string `json:"launchTemplateId" xml:"LaunchTemplateId"`
+LaunchTemplateName string `json:"launchTemplateName" xml:"LaunchTemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type LifecycleHook struct {
-	AutoScalingGroupName  string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	DefaultResult         string `json:"defaultResult" xml:"DefaultResult"`
-	GlobalTimeout         int32  `json:"globalTimeout" xml:"GlobalTimeout"`
-	HeartbeatTimeout      int32  `json:"heartbeatTimeout" xml:"HeartbeatTimeout"`
-	LifecycleHookName     string `json:"lifecycleHookName" xml:"LifecycleHookName"`
-	LifecycleTransition   string `json:"lifecycleTransition" xml:"LifecycleTransition"`
-	NotificationMetadata  string `json:"notificationMetadata" xml:"NotificationMetadata"`
-	NotificationTargetARN string `json:"notificationTargetARN" xml:"NotificationTargetARN"`
-	RoleARN               string `json:"roleARN" xml:"RoleARN"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+DefaultResult string `json:"defaultResult" xml:"DefaultResult"`
+GlobalTimeout int32 `json:"globalTimeout" xml:"GlobalTimeout"`
+HeartbeatTimeout int32 `json:"heartbeatTimeout" xml:"HeartbeatTimeout"`
+LifecycleHookName string `json:"lifecycleHookName" xml:"LifecycleHookName"`
+LifecycleTransition string `json:"lifecycleTransition" xml:"LifecycleTransition"`
+NotificationMetadata string `json:"notificationMetadata" xml:"NotificationMetadata"`
+NotificationTargetARN string `json:"notificationTargetARN" xml:"NotificationTargetARN"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
 }
 
 type LifecycleHookSpecification struct {
-	DefaultResult         string `json:"defaultResult" xml:"DefaultResult"`
-	HeartbeatTimeout      int32  `json:"heartbeatTimeout" xml:"HeartbeatTimeout"`
-	LifecycleHookName     string `json:"lifecycleHookName" xml:"LifecycleHookName"`
-	LifecycleTransition   string `json:"lifecycleTransition" xml:"LifecycleTransition"`
-	NotificationMetadata  string `json:"notificationMetadata" xml:"NotificationMetadata"`
-	NotificationTargetARN string `json:"notificationTargetARN" xml:"NotificationTargetARN"`
-	RoleARN               string `json:"roleARN" xml:"RoleARN"`
+DefaultResult string `json:"defaultResult" xml:"DefaultResult"`
+HeartbeatTimeout int32 `json:"heartbeatTimeout" xml:"HeartbeatTimeout"`
+LifecycleHookName string `json:"lifecycleHookName" xml:"LifecycleHookName"`
+LifecycleTransition string `json:"lifecycleTransition" xml:"LifecycleTransition"`
+NotificationMetadata string `json:"notificationMetadata" xml:"NotificationMetadata"`
+NotificationTargetARN string `json:"notificationTargetARN" xml:"NotificationTargetARN"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
 }
 
 type LoadBalancerState struct {
-	LoadBalancerName string `json:"loadBalancerName" xml:"LoadBalancerName"`
-	State            string `json:"state" xml:"State"`
+LoadBalancerName string `json:"loadBalancerName" xml:"LoadBalancerName"`
+State string `json:"state" xml:"State"`
 }
 
 type LoadBalancerTargetGroupState struct {
-	LoadBalancerTargetGroupARN string `json:"loadBalancerTargetGroupARN" xml:"LoadBalancerTargetGroupARN"`
-	State                      string `json:"state" xml:"State"`
+LoadBalancerTargetGroupARN string `json:"loadBalancerTargetGroupARN" xml:"LoadBalancerTargetGroupARN"`
+State string `json:"state" xml:"State"`
 }
 
 type LoadForecast struct {
-	MetricSpecification *PredictiveScalingMetricSpecification `json:"metricSpecification" xml:"MetricSpecification"`
-	Timestamps          PredictiveScalingForecastTimestamps   `json:"timestamps" xml:"Timestamps"`
-	Values              PredictiveScalingForecastValues       `json:"values" xml:"Values"`
+MetricSpecification *PredictiveScalingMetricSpecification `json:"metricSpecification" xml:"MetricSpecification"`
+Timestamps PredictiveScalingForecastTimestamps `json:"timestamps" xml:"Timestamps"`
+Values PredictiveScalingForecastValues `json:"values" xml:"Values"`
 }
 
 type MemoryGiBPerVCpuRequest struct {
-	Max float64 `json:"max" xml:"Max"`
-	Min float64 `json:"min" xml:"Min"`
+Max float64 `json:"max" xml:"Max"`
+Min float64 `json:"min" xml:"Min"`
 }
 
 type MemoryMiBRequest struct {
-	Max int32 `json:"max" xml:"Max"`
-	Min int32 `json:"min" xml:"Min"`
+Max int32 `json:"max" xml:"Max"`
+Min int32 `json:"min" xml:"Min"`
 }
 
 type Metric struct {
-	Dimensions MetricDimensions `json:"dimensions" xml:"Dimensions"`
-	MetricName string           `json:"metricName" xml:"MetricName"`
-	Namespace  string           `json:"namespace" xml:"Namespace"`
+Dimensions MetricDimensions `json:"dimensions" xml:"Dimensions"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
 }
 
 type MetricCollectionType struct {
-	Metric string `json:"metric" xml:"Metric"`
+Metric string `json:"metric" xml:"Metric"`
 }
 
 type MetricDataQuery struct {
-	Expression string      `json:"expression" xml:"Expression"`
-	Id         string      `json:"id" xml:"Id"`
-	Label      string      `json:"label" xml:"Label"`
-	MetricStat *MetricStat `json:"metricStat" xml:"MetricStat"`
-	ReturnData bool        `json:"returnData" xml:"ReturnData"`
+Expression string `json:"expression" xml:"Expression"`
+Id string `json:"id" xml:"Id"`
+Label string `json:"label" xml:"Label"`
+MetricStat *MetricStat `json:"metricStat" xml:"MetricStat"`
+ReturnData bool `json:"returnData" xml:"ReturnData"`
 }
 
 type MetricDimension struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type MetricGranularityType struct {
-	Granularity string `json:"granularity" xml:"Granularity"`
+Granularity string `json:"granularity" xml:"Granularity"`
 }
 
 type MetricStat struct {
-	Metric *Metric `json:"metric" xml:"Metric"`
-	Stat   string  `json:"stat" xml:"Stat"`
-	Unit   string  `json:"unit" xml:"Unit"`
+Metric *Metric `json:"metric" xml:"Metric"`
+Stat string `json:"stat" xml:"Stat"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type MixedInstancesPolicy struct {
-	InstancesDistribution *InstancesDistribution `json:"instancesDistribution" xml:"InstancesDistribution"`
-	LaunchTemplate        *LaunchTemplate        `json:"launchTemplate" xml:"LaunchTemplate"`
+InstancesDistribution *InstancesDistribution `json:"instancesDistribution" xml:"InstancesDistribution"`
+LaunchTemplate *LaunchTemplate `json:"launchTemplate" xml:"LaunchTemplate"`
 }
 
 type NetworkBandwidthGbpsRequest struct {
-	Max float64 `json:"max" xml:"Max"`
-	Min float64 `json:"min" xml:"Min"`
+Max float64 `json:"max" xml:"Max"`
+Min float64 `json:"min" xml:"Min"`
 }
 
 type NetworkInterfaceCountRequest struct {
-	Max int32 `json:"max" xml:"Max"`
-	Min int32 `json:"min" xml:"Min"`
+Max int32 `json:"max" xml:"Max"`
+Min int32 `json:"min" xml:"Min"`
 }
 
 type NotificationConfiguration struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	NotificationType     string `json:"notificationType" xml:"NotificationType"`
-	TopicARN             string `json:"topicARN" xml:"TopicARN"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+NotificationType string `json:"notificationType" xml:"NotificationType"`
+TopicARN string `json:"topicARN" xml:"TopicARN"`
 }
 
 type PerformanceFactorReferenceRequest struct {
-	InstanceFamily string `json:"instanceFamily" xml:"InstanceFamily"`
+InstanceFamily string `json:"instanceFamily" xml:"InstanceFamily"`
 }
 
 type PoliciesType struct {
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
-	ScalingPolicies ScalingPolicies `json:"scalingPolicies" xml:"ScalingPolicies"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ScalingPolicies ScalingPolicies `json:"scalingPolicies" xml:"ScalingPolicies"`
 }
 
 type PolicyARNType struct {
-	Alarms    Alarms `json:"alarms" xml:"Alarms"`
-	PolicyARN string `json:"policyARN" xml:"PolicyARN"`
+Alarms Alarms `json:"alarms" xml:"Alarms"`
+PolicyARN string `json:"policyARN" xml:"PolicyARN"`
 }
 
 type PredefinedMetricSpecification struct {
-	PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
-	ResourceLabel        string `json:"resourceLabel" xml:"ResourceLabel"`
+PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
+ResourceLabel string `json:"resourceLabel" xml:"ResourceLabel"`
 }
 
 type PredictiveScalingConfiguration struct {
-	MaxCapacityBreachBehavior string                                `json:"maxCapacityBreachBehavior" xml:"MaxCapacityBreachBehavior"`
-	MaxCapacityBuffer         int32                                 `json:"maxCapacityBuffer" xml:"MaxCapacityBuffer"`
-	MetricSpecifications      PredictiveScalingMetricSpecifications `json:"metricSpecifications" xml:"MetricSpecifications"`
-	Mode                      string                                `json:"mode" xml:"Mode"`
-	SchedulingBufferTime      int32                                 `json:"schedulingBufferTime" xml:"SchedulingBufferTime"`
+MaxCapacityBreachBehavior string `json:"maxCapacityBreachBehavior" xml:"MaxCapacityBreachBehavior"`
+MaxCapacityBuffer int32 `json:"maxCapacityBuffer" xml:"MaxCapacityBuffer"`
+MetricSpecifications PredictiveScalingMetricSpecifications `json:"metricSpecifications" xml:"MetricSpecifications"`
+Mode string `json:"mode" xml:"Mode"`
+SchedulingBufferTime int32 `json:"schedulingBufferTime" xml:"SchedulingBufferTime"`
 }
 
 type PredictiveScalingCustomizedCapacityMetric struct {
-	MetricDataQueries MetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
+MetricDataQueries MetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
 }
 
 type PredictiveScalingCustomizedLoadMetric struct {
-	MetricDataQueries MetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
+MetricDataQueries MetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
 }
 
 type PredictiveScalingCustomizedScalingMetric struct {
-	MetricDataQueries MetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
+MetricDataQueries MetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
 }
 
 type PredictiveScalingMetricSpecification struct {
-	CustomizedCapacityMetricSpecification *PredictiveScalingCustomizedCapacityMetric `json:"customizedCapacityMetricSpecification" xml:"CustomizedCapacityMetricSpecification"`
-	CustomizedLoadMetricSpecification     *PredictiveScalingCustomizedLoadMetric     `json:"customizedLoadMetricSpecification" xml:"CustomizedLoadMetricSpecification"`
-	CustomizedScalingMetricSpecification  *PredictiveScalingCustomizedScalingMetric  `json:"customizedScalingMetricSpecification" xml:"CustomizedScalingMetricSpecification"`
-	PredefinedLoadMetricSpecification     *PredictiveScalingPredefinedLoadMetric     `json:"predefinedLoadMetricSpecification" xml:"PredefinedLoadMetricSpecification"`
-	PredefinedMetricPairSpecification     *PredictiveScalingPredefinedMetricPair     `json:"predefinedMetricPairSpecification" xml:"PredefinedMetricPairSpecification"`
-	PredefinedScalingMetricSpecification  *PredictiveScalingPredefinedScalingMetric  `json:"predefinedScalingMetricSpecification" xml:"PredefinedScalingMetricSpecification"`
-	TargetValue                           float64                                    `json:"targetValue" xml:"TargetValue"`
+CustomizedCapacityMetricSpecification *PredictiveScalingCustomizedCapacityMetric `json:"customizedCapacityMetricSpecification" xml:"CustomizedCapacityMetricSpecification"`
+CustomizedLoadMetricSpecification *PredictiveScalingCustomizedLoadMetric `json:"customizedLoadMetricSpecification" xml:"CustomizedLoadMetricSpecification"`
+CustomizedScalingMetricSpecification *PredictiveScalingCustomizedScalingMetric `json:"customizedScalingMetricSpecification" xml:"CustomizedScalingMetricSpecification"`
+PredefinedLoadMetricSpecification *PredictiveScalingPredefinedLoadMetric `json:"predefinedLoadMetricSpecification" xml:"PredefinedLoadMetricSpecification"`
+PredefinedMetricPairSpecification *PredictiveScalingPredefinedMetricPair `json:"predefinedMetricPairSpecification" xml:"PredefinedMetricPairSpecification"`
+PredefinedScalingMetricSpecification *PredictiveScalingPredefinedScalingMetric `json:"predefinedScalingMetricSpecification" xml:"PredefinedScalingMetricSpecification"`
+TargetValue float64 `json:"targetValue" xml:"TargetValue"`
 }
 
 type PredictiveScalingPredefinedLoadMetric struct {
-	PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
-	ResourceLabel        string `json:"resourceLabel" xml:"ResourceLabel"`
+PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
+ResourceLabel string `json:"resourceLabel" xml:"ResourceLabel"`
 }
 
 type PredictiveScalingPredefinedMetricPair struct {
-	PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
-	ResourceLabel        string `json:"resourceLabel" xml:"ResourceLabel"`
+PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
+ResourceLabel string `json:"resourceLabel" xml:"ResourceLabel"`
 }
 
 type PredictiveScalingPredefinedScalingMetric struct {
-	PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
-	ResourceLabel        string `json:"resourceLabel" xml:"ResourceLabel"`
+PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
+ResourceLabel string `json:"resourceLabel" xml:"ResourceLabel"`
 }
 
 type ProcessType struct {
-	ProcessName string `json:"processName" xml:"ProcessName"`
+ProcessName string `json:"processName" xml:"ProcessName"`
 }
 
 type ProcessesType struct {
-	Processes Processes `json:"processes" xml:"Processes"`
+Processes Processes `json:"processes" xml:"Processes"`
 }
 
 type PutLifecycleHookAnswer struct {
 }
 
 type PutLifecycleHookType struct {
-	AutoScalingGroupName  string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	DefaultResult         string `json:"defaultResult" xml:"DefaultResult"`
-	HeartbeatTimeout      int32  `json:"heartbeatTimeout" xml:"HeartbeatTimeout"`
-	LifecycleHookName     string `json:"lifecycleHookName" xml:"LifecycleHookName"`
-	LifecycleTransition   string `json:"lifecycleTransition" xml:"LifecycleTransition"`
-	NotificationMetadata  string `json:"notificationMetadata" xml:"NotificationMetadata"`
-	NotificationTargetARN string `json:"notificationTargetARN" xml:"NotificationTargetARN"`
-	RoleARN               string `json:"roleARN" xml:"RoleARN"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+DefaultResult string `json:"defaultResult" xml:"DefaultResult"`
+HeartbeatTimeout int32 `json:"heartbeatTimeout" xml:"HeartbeatTimeout"`
+LifecycleHookName string `json:"lifecycleHookName" xml:"LifecycleHookName"`
+LifecycleTransition string `json:"lifecycleTransition" xml:"LifecycleTransition"`
+NotificationMetadata string `json:"notificationMetadata" xml:"NotificationMetadata"`
+NotificationTargetARN string `json:"notificationTargetARN" xml:"NotificationTargetARN"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
 }
 
 type PutNotificationConfigurationType struct {
-	AutoScalingGroupName string                       `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	NotificationTypes    AutoScalingNotificationTypes `json:"notificationTypes" xml:"NotificationTypes"`
-	TopicARN             string                       `json:"topicARN" xml:"TopicARN"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+NotificationTypes AutoScalingNotificationTypes `json:"notificationTypes" xml:"NotificationTypes"`
+TopicARN string `json:"topicARN" xml:"TopicARN"`
 }
 
 type PutScalingPolicyType struct {
-	AdjustmentType                 string                          `json:"adjustmentType" xml:"AdjustmentType"`
-	AutoScalingGroupName           string                          `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	Cooldown                       int32                           `json:"cooldown" xml:"Cooldown"`
-	Enabled                        bool                            `json:"enabled" xml:"Enabled"`
-	EstimatedInstanceWarmup        int32                           `json:"estimatedInstanceWarmup" xml:"EstimatedInstanceWarmup"`
-	MetricAggregationType          string                          `json:"metricAggregationType" xml:"MetricAggregationType"`
-	MinAdjustmentMagnitude         int32                           `json:"minAdjustmentMagnitude" xml:"MinAdjustmentMagnitude"`
-	MinAdjustmentStep              int32                           `json:"minAdjustmentStep" xml:"MinAdjustmentStep"`
-	PolicyName                     string                          `json:"policyName" xml:"PolicyName"`
-	PolicyType                     string                          `json:"policyType" xml:"PolicyType"`
-	PredictiveScalingConfiguration *PredictiveScalingConfiguration `json:"predictiveScalingConfiguration" xml:"PredictiveScalingConfiguration"`
-	ScalingAdjustment              int32                           `json:"scalingAdjustment" xml:"ScalingAdjustment"`
-	StepAdjustments                StepAdjustments                 `json:"stepAdjustments" xml:"StepAdjustments"`
-	TargetTrackingConfiguration    *TargetTrackingConfiguration    `json:"targetTrackingConfiguration" xml:"TargetTrackingConfiguration"`
+AdjustmentType string `json:"adjustmentType" xml:"AdjustmentType"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+Cooldown int32 `json:"cooldown" xml:"Cooldown"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+EstimatedInstanceWarmup int32 `json:"estimatedInstanceWarmup" xml:"EstimatedInstanceWarmup"`
+MetricAggregationType string `json:"metricAggregationType" xml:"MetricAggregationType"`
+MinAdjustmentMagnitude int32 `json:"minAdjustmentMagnitude" xml:"MinAdjustmentMagnitude"`
+MinAdjustmentStep int32 `json:"minAdjustmentStep" xml:"MinAdjustmentStep"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+PolicyType string `json:"policyType" xml:"PolicyType"`
+PredictiveScalingConfiguration *PredictiveScalingConfiguration `json:"predictiveScalingConfiguration" xml:"PredictiveScalingConfiguration"`
+ScalingAdjustment int32 `json:"scalingAdjustment" xml:"ScalingAdjustment"`
+StepAdjustments StepAdjustments `json:"stepAdjustments" xml:"StepAdjustments"`
+TargetTrackingConfiguration *TargetTrackingConfiguration `json:"targetTrackingConfiguration" xml:"TargetTrackingConfiguration"`
 }
 
 type PutScheduledUpdateGroupActionType struct {
-	AutoScalingGroupName string    `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	DesiredCapacity      int32     `json:"desiredCapacity" xml:"DesiredCapacity"`
-	EndTime              time.Time `json:"endTime" xml:"EndTime"`
-	MaxSize              int32     `json:"maxSize" xml:"MaxSize"`
-	MinSize              int32     `json:"minSize" xml:"MinSize"`
-	Recurrence           string    `json:"recurrence" xml:"Recurrence"`
-	ScheduledActionName  string    `json:"scheduledActionName" xml:"ScheduledActionName"`
-	StartTime            time.Time `json:"startTime" xml:"StartTime"`
-	Time                 time.Time `json:"time" xml:"Time"`
-	TimeZone             string    `json:"timeZone" xml:"TimeZone"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+DesiredCapacity int32 `json:"desiredCapacity" xml:"DesiredCapacity"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+MaxSize int32 `json:"maxSize" xml:"MaxSize"`
+MinSize int32 `json:"minSize" xml:"MinSize"`
+Recurrence string `json:"recurrence" xml:"Recurrence"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Time time.Time `json:"time" xml:"Time"`
+TimeZone string `json:"timeZone" xml:"TimeZone"`
 }
 
 type PutWarmPoolAnswer struct {
 }
 
 type PutWarmPoolType struct {
-	AutoScalingGroupName     string               `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	InstanceReusePolicy      *InstanceReusePolicy `json:"instanceReusePolicy" xml:"InstanceReusePolicy"`
-	MaxGroupPreparedCapacity int32                `json:"maxGroupPreparedCapacity" xml:"MaxGroupPreparedCapacity"`
-	MinSize                  int32                `json:"minSize" xml:"MinSize"`
-	PoolState                string               `json:"poolState" xml:"PoolState"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+InstanceReusePolicy *InstanceReusePolicy `json:"instanceReusePolicy" xml:"InstanceReusePolicy"`
+MaxGroupPreparedCapacity int32 `json:"maxGroupPreparedCapacity" xml:"MaxGroupPreparedCapacity"`
+MinSize int32 `json:"minSize" xml:"MinSize"`
+PoolState string `json:"poolState" xml:"PoolState"`
 }
 
 type RecordLifecycleActionHeartbeatAnswer struct {
 }
 
 type RecordLifecycleActionHeartbeatType struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	InstanceId           string `json:"instanceId" xml:"InstanceId"`
-	LifecycleActionToken string `json:"lifecycleActionToken" xml:"LifecycleActionToken"`
-	LifecycleHookName    string `json:"lifecycleHookName" xml:"LifecycleHookName"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+LifecycleActionToken string `json:"lifecycleActionToken" xml:"LifecycleActionToken"`
+LifecycleHookName string `json:"lifecycleHookName" xml:"LifecycleHookName"`
 }
 
 type RefreshPreferences struct {
-	AlarmSpecification        *AlarmSpecification   `json:"alarmSpecification" xml:"AlarmSpecification"`
-	AutoRollback              bool                  `json:"autoRollback" xml:"AutoRollback"`
-	BakeTime                  int32                 `json:"bakeTime" xml:"BakeTime"`
-	CheckpointDelay           int32                 `json:"checkpointDelay" xml:"CheckpointDelay"`
-	CheckpointPercentages     CheckpointPercentages `json:"checkpointPercentages" xml:"CheckpointPercentages"`
-	InstanceWarmup            int32                 `json:"instanceWarmup" xml:"InstanceWarmup"`
-	MaxHealthyPercentage      int32                 `json:"maxHealthyPercentage" xml:"MaxHealthyPercentage"`
-	MinHealthyPercentage      int32                 `json:"minHealthyPercentage" xml:"MinHealthyPercentage"`
-	ScaleInProtectedInstances string                `json:"scaleInProtectedInstances" xml:"ScaleInProtectedInstances"`
-	SkipMatching              bool                  `json:"skipMatching" xml:"SkipMatching"`
-	StandbyInstances          string                `json:"standbyInstances" xml:"StandbyInstances"`
+AlarmSpecification *AlarmSpecification `json:"alarmSpecification" xml:"AlarmSpecification"`
+AutoRollback bool `json:"autoRollback" xml:"AutoRollback"`
+BakeTime int32 `json:"bakeTime" xml:"BakeTime"`
+CheckpointDelay int32 `json:"checkpointDelay" xml:"CheckpointDelay"`
+CheckpointPercentages CheckpointPercentages `json:"checkpointPercentages" xml:"CheckpointPercentages"`
+InstanceWarmup int32 `json:"instanceWarmup" xml:"InstanceWarmup"`
+MaxHealthyPercentage int32 `json:"maxHealthyPercentage" xml:"MaxHealthyPercentage"`
+MinHealthyPercentage int32 `json:"minHealthyPercentage" xml:"MinHealthyPercentage"`
+ScaleInProtectedInstances string `json:"scaleInProtectedInstances" xml:"ScaleInProtectedInstances"`
+SkipMatching bool `json:"skipMatching" xml:"SkipMatching"`
+StandbyInstances string `json:"standbyInstances" xml:"StandbyInstances"`
 }
 
 type RetentionTriggers struct {
-	TerminateHookAbandon string `json:"terminateHookAbandon" xml:"TerminateHookAbandon"`
+TerminateHookAbandon string `json:"terminateHookAbandon" xml:"TerminateHookAbandon"`
 }
 
 type RollbackDetails struct {
-	InstancesToUpdateOnRollback  int32                           `json:"instancesToUpdateOnRollback" xml:"InstancesToUpdateOnRollback"`
-	PercentageCompleteOnRollback int32                           `json:"percentageCompleteOnRollback" xml:"PercentageCompleteOnRollback"`
-	ProgressDetailsOnRollback    *InstanceRefreshProgressDetails `json:"progressDetailsOnRollback" xml:"ProgressDetailsOnRollback"`
-	RollbackReason               string                          `json:"rollbackReason" xml:"RollbackReason"`
-	RollbackStartTime            time.Time                       `json:"rollbackStartTime" xml:"RollbackStartTime"`
+InstancesToUpdateOnRollback int32 `json:"instancesToUpdateOnRollback" xml:"InstancesToUpdateOnRollback"`
+PercentageCompleteOnRollback int32 `json:"percentageCompleteOnRollback" xml:"PercentageCompleteOnRollback"`
+ProgressDetailsOnRollback *InstanceRefreshProgressDetails `json:"progressDetailsOnRollback" xml:"ProgressDetailsOnRollback"`
+RollbackReason string `json:"rollbackReason" xml:"RollbackReason"`
+RollbackStartTime time.Time `json:"rollbackStartTime" xml:"RollbackStartTime"`
 }
 
 type RollbackInstanceRefreshAnswer struct {
-	InstanceRefreshId string `json:"instanceRefreshId" xml:"InstanceRefreshId"`
+InstanceRefreshId string `json:"instanceRefreshId" xml:"InstanceRefreshId"`
 }
 
 type RollbackInstanceRefreshType struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
 }
 
 type ScalingPolicy struct {
-	AdjustmentType                 string                          `json:"adjustmentType" xml:"AdjustmentType"`
-	Alarms                         Alarms                          `json:"alarms" xml:"Alarms"`
-	AutoScalingGroupName           string                          `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	Cooldown                       int32                           `json:"cooldown" xml:"Cooldown"`
-	Enabled                        bool                            `json:"enabled" xml:"Enabled"`
-	EstimatedInstanceWarmup        int32                           `json:"estimatedInstanceWarmup" xml:"EstimatedInstanceWarmup"`
-	MetricAggregationType          string                          `json:"metricAggregationType" xml:"MetricAggregationType"`
-	MinAdjustmentMagnitude         int32                           `json:"minAdjustmentMagnitude" xml:"MinAdjustmentMagnitude"`
-	MinAdjustmentStep              int32                           `json:"minAdjustmentStep" xml:"MinAdjustmentStep"`
-	PolicyARN                      string                          `json:"policyARN" xml:"PolicyARN"`
-	PolicyName                     string                          `json:"policyName" xml:"PolicyName"`
-	PolicyType                     string                          `json:"policyType" xml:"PolicyType"`
-	PredictiveScalingConfiguration *PredictiveScalingConfiguration `json:"predictiveScalingConfiguration" xml:"PredictiveScalingConfiguration"`
-	ScalingAdjustment              int32                           `json:"scalingAdjustment" xml:"ScalingAdjustment"`
-	StepAdjustments                StepAdjustments                 `json:"stepAdjustments" xml:"StepAdjustments"`
-	TargetTrackingConfiguration    *TargetTrackingConfiguration    `json:"targetTrackingConfiguration" xml:"TargetTrackingConfiguration"`
+AdjustmentType string `json:"adjustmentType" xml:"AdjustmentType"`
+Alarms Alarms `json:"alarms" xml:"Alarms"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+Cooldown int32 `json:"cooldown" xml:"Cooldown"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+EstimatedInstanceWarmup int32 `json:"estimatedInstanceWarmup" xml:"EstimatedInstanceWarmup"`
+MetricAggregationType string `json:"metricAggregationType" xml:"MetricAggregationType"`
+MinAdjustmentMagnitude int32 `json:"minAdjustmentMagnitude" xml:"MinAdjustmentMagnitude"`
+MinAdjustmentStep int32 `json:"minAdjustmentStep" xml:"MinAdjustmentStep"`
+PolicyARN string `json:"policyARN" xml:"PolicyARN"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+PolicyType string `json:"policyType" xml:"PolicyType"`
+PredictiveScalingConfiguration *PredictiveScalingConfiguration `json:"predictiveScalingConfiguration" xml:"PredictiveScalingConfiguration"`
+ScalingAdjustment int32 `json:"scalingAdjustment" xml:"ScalingAdjustment"`
+StepAdjustments StepAdjustments `json:"stepAdjustments" xml:"StepAdjustments"`
+TargetTrackingConfiguration *TargetTrackingConfiguration `json:"targetTrackingConfiguration" xml:"TargetTrackingConfiguration"`
 }
 
 type ScalingProcessQuery struct {
-	AutoScalingGroupName string       `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	ScalingProcesses     ProcessNames `json:"scalingProcesses" xml:"ScalingProcesses"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+ScalingProcesses ProcessNames `json:"scalingProcesses" xml:"ScalingProcesses"`
 }
 
 type ScheduledActionsType struct {
-	NextToken                   string                      `json:"nextToken" xml:"NextToken"`
-	ScheduledUpdateGroupActions ScheduledUpdateGroupActions `json:"scheduledUpdateGroupActions" xml:"ScheduledUpdateGroupActions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ScheduledUpdateGroupActions ScheduledUpdateGroupActions `json:"scheduledUpdateGroupActions" xml:"ScheduledUpdateGroupActions"`
 }
 
 type ScheduledUpdateGroupAction struct {
-	AutoScalingGroupName string    `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	DesiredCapacity      int32     `json:"desiredCapacity" xml:"DesiredCapacity"`
-	EndTime              time.Time `json:"endTime" xml:"EndTime"`
-	MaxSize              int32     `json:"maxSize" xml:"MaxSize"`
-	MinSize              int32     `json:"minSize" xml:"MinSize"`
-	Recurrence           string    `json:"recurrence" xml:"Recurrence"`
-	ScheduledActionARN   string    `json:"scheduledActionARN" xml:"ScheduledActionARN"`
-	ScheduledActionName  string    `json:"scheduledActionName" xml:"ScheduledActionName"`
-	StartTime            time.Time `json:"startTime" xml:"StartTime"`
-	Time                 time.Time `json:"time" xml:"Time"`
-	TimeZone             string    `json:"timeZone" xml:"TimeZone"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+DesiredCapacity int32 `json:"desiredCapacity" xml:"DesiredCapacity"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+MaxSize int32 `json:"maxSize" xml:"MaxSize"`
+MinSize int32 `json:"minSize" xml:"MinSize"`
+Recurrence string `json:"recurrence" xml:"Recurrence"`
+ScheduledActionARN string `json:"scheduledActionARN" xml:"ScheduledActionARN"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Time time.Time `json:"time" xml:"Time"`
+TimeZone string `json:"timeZone" xml:"TimeZone"`
 }
 
 type ScheduledUpdateGroupActionRequest struct {
-	DesiredCapacity     int32     `json:"desiredCapacity" xml:"DesiredCapacity"`
-	EndTime             time.Time `json:"endTime" xml:"EndTime"`
-	MaxSize             int32     `json:"maxSize" xml:"MaxSize"`
-	MinSize             int32     `json:"minSize" xml:"MinSize"`
-	Recurrence          string    `json:"recurrence" xml:"Recurrence"`
-	ScheduledActionName string    `json:"scheduledActionName" xml:"ScheduledActionName"`
-	StartTime           time.Time `json:"startTime" xml:"StartTime"`
-	TimeZone            string    `json:"timeZone" xml:"TimeZone"`
+DesiredCapacity int32 `json:"desiredCapacity" xml:"DesiredCapacity"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+MaxSize int32 `json:"maxSize" xml:"MaxSize"`
+MinSize int32 `json:"minSize" xml:"MinSize"`
+Recurrence string `json:"recurrence" xml:"Recurrence"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+TimeZone string `json:"timeZone" xml:"TimeZone"`
 }
 
 type SetDesiredCapacityType struct {
-	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	DesiredCapacity      int32  `json:"desiredCapacity" xml:"DesiredCapacity"`
-	HonorCooldown        bool   `json:"honorCooldown" xml:"HonorCooldown"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+DesiredCapacity int32 `json:"desiredCapacity" xml:"DesiredCapacity"`
+HonorCooldown bool `json:"honorCooldown" xml:"HonorCooldown"`
 }
 
 type SetInstanceHealthQuery struct {
-	HealthStatus             string `json:"healthStatus" xml:"HealthStatus"`
-	InstanceId               string `json:"instanceId" xml:"InstanceId"`
-	ShouldRespectGracePeriod bool   `json:"shouldRespectGracePeriod" xml:"ShouldRespectGracePeriod"`
+HealthStatus string `json:"healthStatus" xml:"HealthStatus"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+ShouldRespectGracePeriod bool `json:"shouldRespectGracePeriod" xml:"ShouldRespectGracePeriod"`
 }
 
 type SetInstanceProtectionAnswer struct {
 }
 
 type SetInstanceProtectionQuery struct {
-	AutoScalingGroupName string      `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	InstanceIds          InstanceIds `json:"instanceIds" xml:"InstanceIds"`
-	ProtectedFromScaleIn bool        `json:"protectedFromScaleIn" xml:"ProtectedFromScaleIn"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+InstanceIds InstanceIds `json:"instanceIds" xml:"InstanceIds"`
+ProtectedFromScaleIn bool `json:"protectedFromScaleIn" xml:"ProtectedFromScaleIn"`
 }
 
 type SmithyUnit struct {
 }
 
 type StartInstanceRefreshAnswer struct {
-	InstanceRefreshId string `json:"instanceRefreshId" xml:"InstanceRefreshId"`
+InstanceRefreshId string `json:"instanceRefreshId" xml:"InstanceRefreshId"`
 }
 
 type StartInstanceRefreshType struct {
-	AutoScalingGroupName string                `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	DesiredConfiguration *DesiredConfiguration `json:"desiredConfiguration" xml:"DesiredConfiguration"`
-	Preferences          *RefreshPreferences   `json:"preferences" xml:"Preferences"`
-	Strategy             string                `json:"strategy" xml:"Strategy"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+DesiredConfiguration *DesiredConfiguration `json:"desiredConfiguration" xml:"DesiredConfiguration"`
+Preferences *RefreshPreferences `json:"preferences" xml:"Preferences"`
+Strategy string `json:"strategy" xml:"Strategy"`
 }
 
 type StepAdjustment struct {
-	MetricIntervalLowerBound float64 `json:"metricIntervalLowerBound" xml:"MetricIntervalLowerBound"`
-	MetricIntervalUpperBound float64 `json:"metricIntervalUpperBound" xml:"MetricIntervalUpperBound"`
-	ScalingAdjustment        int32   `json:"scalingAdjustment" xml:"ScalingAdjustment"`
+MetricIntervalLowerBound float64 `json:"metricIntervalLowerBound" xml:"MetricIntervalLowerBound"`
+MetricIntervalUpperBound float64 `json:"metricIntervalUpperBound" xml:"MetricIntervalUpperBound"`
+ScalingAdjustment int32 `json:"scalingAdjustment" xml:"ScalingAdjustment"`
 }
 
 type SuspendedProcess struct {
-	ProcessName      string `json:"processName" xml:"ProcessName"`
-	SuspensionReason string `json:"suspensionReason" xml:"SuspensionReason"`
+ProcessName string `json:"processName" xml:"ProcessName"`
+SuspensionReason string `json:"suspensionReason" xml:"SuspensionReason"`
 }
 
 type Tag struct {
-	Key               string `json:"key" xml:"Key"`
-	PropagateAtLaunch bool   `json:"propagateAtLaunch" xml:"PropagateAtLaunch"`
-	ResourceId        string `json:"resourceId" xml:"ResourceId"`
-	ResourceType      string `json:"resourceType" xml:"ResourceType"`
-	Value             string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+PropagateAtLaunch bool `json:"propagateAtLaunch" xml:"PropagateAtLaunch"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagDescription struct {
-	Key               string `json:"key" xml:"Key"`
-	PropagateAtLaunch bool   `json:"propagateAtLaunch" xml:"PropagateAtLaunch"`
-	ResourceId        string `json:"resourceId" xml:"ResourceId"`
-	ResourceType      string `json:"resourceType" xml:"ResourceType"`
-	Value             string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+PropagateAtLaunch bool `json:"propagateAtLaunch" xml:"PropagateAtLaunch"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagsType struct {
-	NextToken string             `json:"nextToken" xml:"NextToken"`
-	Tags      TagDescriptionList `json:"tags" xml:"Tags"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagDescriptionList `json:"tags" xml:"Tags"`
 }
 
 type TargetTrackingConfiguration struct {
-	CustomizedMetricSpecification *CustomizedMetricSpecification `json:"customizedMetricSpecification" xml:"CustomizedMetricSpecification"`
-	DisableScaleIn                bool                           `json:"disableScaleIn" xml:"DisableScaleIn"`
-	PredefinedMetricSpecification *PredefinedMetricSpecification `json:"predefinedMetricSpecification" xml:"PredefinedMetricSpecification"`
-	TargetValue                   float64                        `json:"targetValue" xml:"TargetValue"`
+CustomizedMetricSpecification *CustomizedMetricSpecification `json:"customizedMetricSpecification" xml:"CustomizedMetricSpecification"`
+DisableScaleIn bool `json:"disableScaleIn" xml:"DisableScaleIn"`
+PredefinedMetricSpecification *PredefinedMetricSpecification `json:"predefinedMetricSpecification" xml:"PredefinedMetricSpecification"`
+TargetValue float64 `json:"targetValue" xml:"TargetValue"`
 }
 
 type TargetTrackingMetricDataQuery struct {
-	Expression string                    `json:"expression" xml:"Expression"`
-	Id         string                    `json:"id" xml:"Id"`
-	Label      string                    `json:"label" xml:"Label"`
-	MetricStat *TargetTrackingMetricStat `json:"metricStat" xml:"MetricStat"`
-	Period     int32                     `json:"period" xml:"Period"`
-	ReturnData bool                      `json:"returnData" xml:"ReturnData"`
+Expression string `json:"expression" xml:"Expression"`
+Id string `json:"id" xml:"Id"`
+Label string `json:"label" xml:"Label"`
+MetricStat *TargetTrackingMetricStat `json:"metricStat" xml:"MetricStat"`
+Period int32 `json:"period" xml:"Period"`
+ReturnData bool `json:"returnData" xml:"ReturnData"`
 }
 
 type TargetTrackingMetricStat struct {
-	Metric *Metric `json:"metric" xml:"Metric"`
-	Period int32   `json:"period" xml:"Period"`
-	Stat   string  `json:"stat" xml:"Stat"`
-	Unit   string  `json:"unit" xml:"Unit"`
+Metric *Metric `json:"metric" xml:"Metric"`
+Period int32 `json:"period" xml:"Period"`
+Stat string `json:"stat" xml:"Stat"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type TerminateInstanceInAutoScalingGroupType struct {
-	InstanceId                     string `json:"instanceId" xml:"InstanceId"`
-	ShouldDecrementDesiredCapacity bool   `json:"shouldDecrementDesiredCapacity" xml:"ShouldDecrementDesiredCapacity"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+ShouldDecrementDesiredCapacity bool `json:"shouldDecrementDesiredCapacity" xml:"ShouldDecrementDesiredCapacity"`
 }
 
 type TotalLocalStorageGBRequest struct {
-	Max float64 `json:"max" xml:"Max"`
-	Min float64 `json:"min" xml:"Min"`
+Max float64 `json:"max" xml:"Max"`
+Min float64 `json:"min" xml:"Min"`
 }
 
 type TrafficSourceIdentifier struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
-	Type       string `json:"type" xml:"Type"`
+Identifier string `json:"identifier" xml:"Identifier"`
+Type string `json:"type" xml:"Type"`
 }
 
 type TrafficSourceState struct {
-	Identifier    string `json:"identifier" xml:"Identifier"`
-	State         string `json:"state" xml:"State"`
-	TrafficSource string `json:"trafficSource" xml:"TrafficSource"`
-	Type          string `json:"type" xml:"Type"`
+Identifier string `json:"identifier" xml:"Identifier"`
+State string `json:"state" xml:"State"`
+TrafficSource string `json:"trafficSource" xml:"TrafficSource"`
+Type string `json:"type" xml:"Type"`
 }
 
 type UpdateAutoScalingGroupType struct {
-	AutoScalingGroupName             string                            `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
-	AvailabilityZoneDistribution     *AvailabilityZoneDistribution     `json:"availabilityZoneDistribution" xml:"AvailabilityZoneDistribution"`
-	AvailabilityZoneImpairmentPolicy *AvailabilityZoneImpairmentPolicy `json:"availabilityZoneImpairmentPolicy" xml:"AvailabilityZoneImpairmentPolicy"`
-	AvailabilityZones                AvailabilityZones                 `json:"availabilityZones" xml:"AvailabilityZones"`
-	CapacityRebalance                bool                              `json:"capacityRebalance" xml:"CapacityRebalance"`
-	CapacityReservationSpecification *CapacityReservationSpecification `json:"capacityReservationSpecification" xml:"CapacityReservationSpecification"`
-	Context                          string                            `json:"context" xml:"Context"`
-	DefaultCooldown                  int32                             `json:"defaultCooldown" xml:"DefaultCooldown"`
-	DefaultInstanceWarmup            int32                             `json:"defaultInstanceWarmup" xml:"DefaultInstanceWarmup"`
-	DeletionProtection               string                            `json:"deletionProtection" xml:"DeletionProtection"`
-	DesiredCapacity                  int32                             `json:"desiredCapacity" xml:"DesiredCapacity"`
-	DesiredCapacityType              string                            `json:"desiredCapacityType" xml:"DesiredCapacityType"`
-	HealthCheckGracePeriod           int32                             `json:"healthCheckGracePeriod" xml:"HealthCheckGracePeriod"`
-	HealthCheckType                  string                            `json:"healthCheckType" xml:"HealthCheckType"`
-	InstanceLifecyclePolicy          *InstanceLifecyclePolicy          `json:"instanceLifecyclePolicy" xml:"InstanceLifecyclePolicy"`
-	InstanceMaintenancePolicy        *InstanceMaintenancePolicy        `json:"instanceMaintenancePolicy" xml:"InstanceMaintenancePolicy"`
-	LaunchConfigurationName          string                            `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
-	LaunchTemplate                   *LaunchTemplateSpecification      `json:"launchTemplate" xml:"LaunchTemplate"`
-	MaxInstanceLifetime              int32                             `json:"maxInstanceLifetime" xml:"MaxInstanceLifetime"`
-	MaxSize                          int32                             `json:"maxSize" xml:"MaxSize"`
-	MinSize                          int32                             `json:"minSize" xml:"MinSize"`
-	MixedInstancesPolicy             *MixedInstancesPolicy             `json:"mixedInstancesPolicy" xml:"MixedInstancesPolicy"`
-	NewInstancesProtectedFromScaleIn bool                              `json:"newInstancesProtectedFromScaleIn" xml:"NewInstancesProtectedFromScaleIn"`
-	PlacementGroup                   string                            `json:"placementGroup" xml:"PlacementGroup"`
-	ServiceLinkedRoleARN             string                            `json:"serviceLinkedRoleARN" xml:"ServiceLinkedRoleARN"`
-	SkipZonalShiftValidation         bool                              `json:"skipZonalShiftValidation" xml:"SkipZonalShiftValidation"`
-	TerminationPolicies              TerminationPolicies               `json:"terminationPolicies" xml:"TerminationPolicies"`
-	VPCZoneIdentifier                string                            `json:"vPCZoneIdentifier" xml:"VPCZoneIdentifier"`
+AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+AvailabilityZoneDistribution *AvailabilityZoneDistribution `json:"availabilityZoneDistribution" xml:"AvailabilityZoneDistribution"`
+AvailabilityZoneImpairmentPolicy *AvailabilityZoneImpairmentPolicy `json:"availabilityZoneImpairmentPolicy" xml:"AvailabilityZoneImpairmentPolicy"`
+AvailabilityZones AvailabilityZones `json:"availabilityZones" xml:"AvailabilityZones"`
+CapacityRebalance bool `json:"capacityRebalance" xml:"CapacityRebalance"`
+CapacityReservationSpecification *CapacityReservationSpecification `json:"capacityReservationSpecification" xml:"CapacityReservationSpecification"`
+Context string `json:"context" xml:"Context"`
+DefaultCooldown int32 `json:"defaultCooldown" xml:"DefaultCooldown"`
+DefaultInstanceWarmup int32 `json:"defaultInstanceWarmup" xml:"DefaultInstanceWarmup"`
+DeletionProtection string `json:"deletionProtection" xml:"DeletionProtection"`
+DesiredCapacity int32 `json:"desiredCapacity" xml:"DesiredCapacity"`
+DesiredCapacityType string `json:"desiredCapacityType" xml:"DesiredCapacityType"`
+HealthCheckGracePeriod int32 `json:"healthCheckGracePeriod" xml:"HealthCheckGracePeriod"`
+HealthCheckType string `json:"healthCheckType" xml:"HealthCheckType"`
+InstanceLifecyclePolicy *InstanceLifecyclePolicy `json:"instanceLifecyclePolicy" xml:"InstanceLifecyclePolicy"`
+InstanceMaintenancePolicy *InstanceMaintenancePolicy `json:"instanceMaintenancePolicy" xml:"InstanceMaintenancePolicy"`
+LaunchConfigurationName string `json:"launchConfigurationName" xml:"LaunchConfigurationName"`
+LaunchTemplate *LaunchTemplateSpecification `json:"launchTemplate" xml:"LaunchTemplate"`
+MaxInstanceLifetime int32 `json:"maxInstanceLifetime" xml:"MaxInstanceLifetime"`
+MaxSize int32 `json:"maxSize" xml:"MaxSize"`
+MinSize int32 `json:"minSize" xml:"MinSize"`
+MixedInstancesPolicy *MixedInstancesPolicy `json:"mixedInstancesPolicy" xml:"MixedInstancesPolicy"`
+NewInstancesProtectedFromScaleIn bool `json:"newInstancesProtectedFromScaleIn" xml:"NewInstancesProtectedFromScaleIn"`
+PlacementGroup string `json:"placementGroup" xml:"PlacementGroup"`
+ServiceLinkedRoleARN string `json:"serviceLinkedRoleARN" xml:"ServiceLinkedRoleARN"`
+SkipZonalShiftValidation bool `json:"skipZonalShiftValidation" xml:"SkipZonalShiftValidation"`
+TerminationPolicies TerminationPolicies `json:"terminationPolicies" xml:"TerminationPolicies"`
+VPCZoneIdentifier string `json:"vPCZoneIdentifier" xml:"VPCZoneIdentifier"`
 }
 
 type VCpuCountRequest struct {
-	Max int32 `json:"max" xml:"Max"`
-	Min int32 `json:"min" xml:"Min"`
+Max int32 `json:"max" xml:"Max"`
+Min int32 `json:"min" xml:"Min"`
 }
 
 type WarmPoolConfiguration struct {
-	InstanceReusePolicy      *InstanceReusePolicy `json:"instanceReusePolicy" xml:"InstanceReusePolicy"`
-	MaxGroupPreparedCapacity int32                `json:"maxGroupPreparedCapacity" xml:"MaxGroupPreparedCapacity"`
-	MinSize                  int32                `json:"minSize" xml:"MinSize"`
-	PoolState                string               `json:"poolState" xml:"PoolState"`
-	Status                   string               `json:"status" xml:"Status"`
+InstanceReusePolicy *InstanceReusePolicy `json:"instanceReusePolicy" xml:"InstanceReusePolicy"`
+MaxGroupPreparedCapacity int32 `json:"maxGroupPreparedCapacity" xml:"MaxGroupPreparedCapacity"`
+MinSize int32 `json:"minSize" xml:"MinSize"`
+PoolState string `json:"poolState" xml:"PoolState"`
+Status string `json:"status" xml:"Status"`
 }
 
 type AcceleratorManufacturers []string
@@ -1446,3 +1446,4 @@ type TrafficSourceStates []*TrafficSourceState
 type TrafficSources []*TrafficSourceIdentifier
 
 type Values []string
+

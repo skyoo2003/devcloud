@@ -751,3 +751,4 @@ func (e *UnsupportedMediaTypeException) ErrorCode() string {
 func (e *UnsupportedMediaTypeException) HTTPStatus() int {
 	return 415
 }
+

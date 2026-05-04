@@ -1295,3 +1295,4 @@ func SerializeValidateTemplateOutput(w http.ResponseWriter, output *ValidateTemp
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

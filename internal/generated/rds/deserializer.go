@@ -2251,3 +2251,4 @@ func SerializeSwitchoverReadReplicaResult(w http.ResponseWriter, output *Switcho
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

@@ -649,3 +649,4 @@ func SerializeUpdateServiceJobResponse(w http.ResponseWriter, output *UpdateServ
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

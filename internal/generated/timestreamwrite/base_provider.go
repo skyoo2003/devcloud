@@ -86,3 +86,4 @@ func (b *BaseProvider) UpdateTable(ctx context.Context, input *UpdateTableReques
 func (b *BaseProvider) WriteRecords(ctx context.Context, input *WriteRecordsRequest) (*WriteRecordsResponse, error) {
 	return nil, fmt.Errorf("WriteRecords: %w", ErrNotImplemented)
 }
+

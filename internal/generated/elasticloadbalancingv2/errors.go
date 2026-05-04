@@ -955,3 +955,4 @@ func (e *UnsupportedProtocolException) ErrorCode() string {
 func (e *UnsupportedProtocolException) HTTPStatus() int {
 	return 400
 }
+

@@ -13,20 +13,20 @@ type OperationRoute struct {
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
-	{Method: "", Pattern: "", Operation: "DeleteScalingPolicy"},
-	{Method: "", Pattern: "", Operation: "DeleteScheduledAction"},
-	{Method: "", Pattern: "", Operation: "DeregisterScalableTarget"},
-	{Method: "", Pattern: "", Operation: "DescribeScalableTargets"},
-	{Method: "", Pattern: "", Operation: "DescribeScalingActivities"},
-	{Method: "", Pattern: "", Operation: "DescribeScalingPolicies"},
-	{Method: "", Pattern: "", Operation: "DescribeScheduledActions"},
-	{Method: "", Pattern: "", Operation: "GetPredictiveScalingForecast"},
-	{Method: "", Pattern: "", Operation: "ListTagsForResource"},
-	{Method: "", Pattern: "", Operation: "PutScalingPolicy"},
-	{Method: "", Pattern: "", Operation: "PutScheduledAction"},
-	{Method: "", Pattern: "", Operation: "RegisterScalableTarget"},
-	{Method: "", Pattern: "", Operation: "TagResource"},
-	{Method: "", Pattern: "", Operation: "UntagResource"},
+{Method: "", Pattern: "", Operation: "DeleteScalingPolicy"},
+{Method: "", Pattern: "", Operation: "DeleteScheduledAction"},
+{Method: "", Pattern: "", Operation: "DeregisterScalableTarget"},
+{Method: "", Pattern: "", Operation: "DescribeScalableTargets"},
+{Method: "", Pattern: "", Operation: "DescribeScalingActivities"},
+{Method: "", Pattern: "", Operation: "DescribeScalingPolicies"},
+{Method: "", Pattern: "", Operation: "DescribeScheduledActions"},
+{Method: "", Pattern: "", Operation: "GetPredictiveScalingForecast"},
+{Method: "", Pattern: "", Operation: "ListTagsForResource"},
+{Method: "", Pattern: "", Operation: "PutScalingPolicy"},
+{Method: "", Pattern: "", Operation: "PutScheduledAction"},
+{Method: "", Pattern: "", Operation: "RegisterScalableTarget"},
+{Method: "", Pattern: "", Operation: "TagResource"},
+{Method: "", Pattern: "", Operation: "UntagResource"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

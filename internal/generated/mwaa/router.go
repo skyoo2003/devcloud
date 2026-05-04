@@ -13,18 +13,18 @@ type OperationRoute struct {
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
-	{Method: "POST", Pattern: "/clitoken/{Name}", Operation: "CreateCliToken"},
-	{Method: "PUT", Pattern: "/environments/{Name}", Operation: "CreateEnvironment"},
-	{Method: "POST", Pattern: "/webtoken/{Name}", Operation: "CreateWebLoginToken"},
-	{Method: "DELETE", Pattern: "/environments/{Name}", Operation: "DeleteEnvironment"},
-	{Method: "GET", Pattern: "/environments/{Name}", Operation: "GetEnvironment"},
-	{Method: "POST", Pattern: "/restapi/{Name}", Operation: "InvokeRestApi"},
-	{Method: "GET", Pattern: "/environments", Operation: "ListEnvironments"},
-	{Method: "GET", Pattern: "/tags/{ResourceArn}", Operation: "ListTagsForResource"},
-	{Method: "POST", Pattern: "/metrics/environments/{EnvironmentName}", Operation: "PublishMetrics"},
-	{Method: "POST", Pattern: "/tags/{ResourceArn}", Operation: "TagResource"},
-	{Method: "DELETE", Pattern: "/tags/{ResourceArn}", Operation: "UntagResource"},
-	{Method: "PATCH", Pattern: "/environments/{Name}", Operation: "UpdateEnvironment"},
+{Method: "POST", Pattern: "/clitoken/{Name}", Operation: "CreateCliToken"},
+{Method: "PUT", Pattern: "/environments/{Name}", Operation: "CreateEnvironment"},
+{Method: "POST", Pattern: "/webtoken/{Name}", Operation: "CreateWebLoginToken"},
+{Method: "DELETE", Pattern: "/environments/{Name}", Operation: "DeleteEnvironment"},
+{Method: "GET", Pattern: "/environments/{Name}", Operation: "GetEnvironment"},
+{Method: "POST", Pattern: "/restapi/{Name}", Operation: "InvokeRestApi"},
+{Method: "GET", Pattern: "/environments", Operation: "ListEnvironments"},
+{Method: "GET", Pattern: "/tags/{ResourceArn}", Operation: "ListTagsForResource"},
+{Method: "POST", Pattern: "/metrics/environments/{EnvironmentName}", Operation: "PublishMetrics"},
+{Method: "POST", Pattern: "/tags/{ResourceArn}", Operation: "TagResource"},
+{Method: "DELETE", Pattern: "/tags/{ResourceArn}", Operation: "UntagResource"},
+{Method: "PATCH", Pattern: "/environments/{Name}", Operation: "UpdateEnvironment"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

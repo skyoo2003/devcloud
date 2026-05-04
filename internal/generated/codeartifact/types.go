@@ -7,843 +7,843 @@ import (
 )
 
 type AssetSummary struct {
-	Hashes AssetHashes `json:"hashes" xml:"hashes"`
-	Name   string      `json:"name" xml:"name"`
-	Size   int64       `json:"size" xml:"size"`
+Hashes AssetHashes `json:"hashes" xml:"hashes"`
+Name string `json:"name" xml:"name"`
+Size int64 `json:"size" xml:"size"`
 }
 
 type AssociateExternalConnectionRequest struct {
-	Domain             string `json:"domain" xml:"domain"`
-	DomainOwner        string `json:"domainOwner" xml:"domainOwner"`
-	ExternalConnection string `json:"externalConnection" xml:"externalConnection"`
-	Repository         string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+ExternalConnection string `json:"externalConnection" xml:"externalConnection"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type AssociateExternalConnectionResult struct {
-	Repository *RepositoryDescription `json:"repository" xml:"repository"`
+Repository *RepositoryDescription `json:"repository" xml:"repository"`
 }
 
 type AssociatedPackage struct {
-	AssociationType string `json:"associationType" xml:"associationType"`
-	Format          string `json:"format" xml:"format"`
-	Namespace       string `json:"namespace" xml:"namespace"`
-	Package         string `json:"package" xml:"package"`
+AssociationType string `json:"associationType" xml:"associationType"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
 }
 
 type CopyPackageVersionsRequest struct {
-	AllowOverwrite        bool                      `json:"allowOverwrite" xml:"allowOverwrite"`
-	DestinationRepository string                    `json:"destinationRepository" xml:"destinationRepository"`
-	Domain                string                    `json:"domain" xml:"domain"`
-	DomainOwner           string                    `json:"domainOwner" xml:"domainOwner"`
-	Format                string                    `json:"format" xml:"format"`
-	IncludeFromUpstream   bool                      `json:"includeFromUpstream" xml:"includeFromUpstream"`
-	Namespace             string                    `json:"namespace" xml:"namespace"`
-	Package               string                    `json:"package" xml:"package"`
-	SourceRepository      string                    `json:"sourceRepository" xml:"sourceRepository"`
-	VersionRevisions      PackageVersionRevisionMap `json:"versionRevisions" xml:"versionRevisions"`
-	Versions              PackageVersionList        `json:"versions" xml:"versions"`
+AllowOverwrite bool `json:"allowOverwrite" xml:"allowOverwrite"`
+DestinationRepository string `json:"destinationRepository" xml:"destinationRepository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+IncludeFromUpstream bool `json:"includeFromUpstream" xml:"includeFromUpstream"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+SourceRepository string `json:"sourceRepository" xml:"sourceRepository"`
+VersionRevisions PackageVersionRevisionMap `json:"versionRevisions" xml:"versionRevisions"`
+Versions PackageVersionList `json:"versions" xml:"versions"`
 }
 
 type CopyPackageVersionsResult struct {
-	FailedVersions     PackageVersionErrorMap          `json:"failedVersions" xml:"failedVersions"`
-	SuccessfulVersions SuccessfulPackageVersionInfoMap `json:"successfulVersions" xml:"successfulVersions"`
+FailedVersions PackageVersionErrorMap `json:"failedVersions" xml:"failedVersions"`
+SuccessfulVersions SuccessfulPackageVersionInfoMap `json:"successfulVersions" xml:"successfulVersions"`
 }
 
 type CreateDomainRequest struct {
-	Domain        string  `json:"domain" xml:"domain"`
-	EncryptionKey string  `json:"encryptionKey" xml:"encryptionKey"`
-	Tags          TagList `json:"tags" xml:"tags"`
+Domain string `json:"domain" xml:"domain"`
+EncryptionKey string `json:"encryptionKey" xml:"encryptionKey"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreateDomainResult struct {
-	Domain *DomainDescription `json:"domain" xml:"domain"`
+Domain *DomainDescription `json:"domain" xml:"domain"`
 }
 
 type CreatePackageGroupRequest struct {
-	ContactInfo  string  `json:"contactInfo" xml:"contactInfo"`
-	Description  string  `json:"description" xml:"description"`
-	Domain       string  `json:"domain" xml:"domain"`
-	DomainOwner  string  `json:"domainOwner" xml:"domainOwner"`
-	PackageGroup string  `json:"packageGroup" xml:"packageGroup"`
-	Tags         TagList `json:"tags" xml:"tags"`
+ContactInfo string `json:"contactInfo" xml:"contactInfo"`
+Description string `json:"description" xml:"description"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+PackageGroup string `json:"packageGroup" xml:"packageGroup"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreatePackageGroupResult struct {
-	PackageGroup *PackageGroupDescription `json:"packageGroup" xml:"packageGroup"`
+PackageGroup *PackageGroupDescription `json:"packageGroup" xml:"packageGroup"`
 }
 
 type CreateRepositoryRequest struct {
-	Description string                 `json:"description" xml:"description"`
-	Domain      string                 `json:"domain" xml:"domain"`
-	DomainOwner string                 `json:"domainOwner" xml:"domainOwner"`
-	Repository  string                 `json:"repository" xml:"repository"`
-	Tags        TagList                `json:"tags" xml:"tags"`
-	Upstreams   UpstreamRepositoryList `json:"upstreams" xml:"upstreams"`
+Description string `json:"description" xml:"description"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Repository string `json:"repository" xml:"repository"`
+Tags TagList `json:"tags" xml:"tags"`
+Upstreams UpstreamRepositoryList `json:"upstreams" xml:"upstreams"`
 }
 
 type CreateRepositoryResult struct {
-	Repository *RepositoryDescription `json:"repository" xml:"repository"`
+Repository *RepositoryDescription `json:"repository" xml:"repository"`
 }
 
 type DeleteDomainPermissionsPolicyRequest struct {
-	Domain         string `json:"domain" xml:"domain"`
-	DomainOwner    string `json:"domainOwner" xml:"domainOwner"`
-	PolicyRevision string `json:"policyRevision" xml:"policyRevision"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+PolicyRevision string `json:"policyRevision" xml:"policyRevision"`
 }
 
 type DeleteDomainPermissionsPolicyResult struct {
-	Policy *ResourcePolicy `json:"policy" xml:"policy"`
+Policy *ResourcePolicy `json:"policy" xml:"policy"`
 }
 
 type DeleteDomainRequest struct {
-	Domain      string `json:"domain" xml:"domain"`
-	DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
 }
 
 type DeleteDomainResult struct {
-	Domain *DomainDescription `json:"domain" xml:"domain"`
+Domain *DomainDescription `json:"domain" xml:"domain"`
 }
 
 type DeletePackageGroupRequest struct {
-	Domain       string `json:"domain" xml:"domain"`
-	DomainOwner  string `json:"domainOwner" xml:"domainOwner"`
-	PackageGroup string `json:"packageGroup" xml:"packageGroup"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+PackageGroup string `json:"packageGroup" xml:"packageGroup"`
 }
 
 type DeletePackageGroupResult struct {
-	PackageGroup *PackageGroupDescription `json:"packageGroup" xml:"packageGroup"`
+PackageGroup *PackageGroupDescription `json:"packageGroup" xml:"packageGroup"`
 }
 
 type DeletePackageRequest struct {
-	Domain      string `json:"domain" xml:"domain"`
-	DomainOwner string `json:"domainOwner" xml:"domainOwner"`
-	Format      string `json:"format" xml:"format"`
-	Namespace   string `json:"namespace" xml:"namespace"`
-	Package     string `json:"package" xml:"package"`
-	Repository  string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type DeletePackageResult struct {
-	DeletedPackage *PackageSummary `json:"deletedPackage" xml:"deletedPackage"`
+DeletedPackage *PackageSummary `json:"deletedPackage" xml:"deletedPackage"`
 }
 
 type DeletePackageVersionsRequest struct {
-	Domain         string             `json:"domain" xml:"domain"`
-	DomainOwner    string             `json:"domainOwner" xml:"domainOwner"`
-	ExpectedStatus string             `json:"expectedStatus" xml:"expectedStatus"`
-	Format         string             `json:"format" xml:"format"`
-	Namespace      string             `json:"namespace" xml:"namespace"`
-	Package        string             `json:"package" xml:"package"`
-	Repository     string             `json:"repository" xml:"repository"`
-	Versions       PackageVersionList `json:"versions" xml:"versions"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+ExpectedStatus string `json:"expectedStatus" xml:"expectedStatus"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+Repository string `json:"repository" xml:"repository"`
+Versions PackageVersionList `json:"versions" xml:"versions"`
 }
 
 type DeletePackageVersionsResult struct {
-	FailedVersions     PackageVersionErrorMap          `json:"failedVersions" xml:"failedVersions"`
-	SuccessfulVersions SuccessfulPackageVersionInfoMap `json:"successfulVersions" xml:"successfulVersions"`
+FailedVersions PackageVersionErrorMap `json:"failedVersions" xml:"failedVersions"`
+SuccessfulVersions SuccessfulPackageVersionInfoMap `json:"successfulVersions" xml:"successfulVersions"`
 }
 
 type DeleteRepositoryPermissionsPolicyRequest struct {
-	Domain         string `json:"domain" xml:"domain"`
-	DomainOwner    string `json:"domainOwner" xml:"domainOwner"`
-	PolicyRevision string `json:"policyRevision" xml:"policyRevision"`
-	Repository     string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+PolicyRevision string `json:"policyRevision" xml:"policyRevision"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type DeleteRepositoryPermissionsPolicyResult struct {
-	Policy *ResourcePolicy `json:"policy" xml:"policy"`
+Policy *ResourcePolicy `json:"policy" xml:"policy"`
 }
 
 type DeleteRepositoryRequest struct {
-	Domain      string `json:"domain" xml:"domain"`
-	DomainOwner string `json:"domainOwner" xml:"domainOwner"`
-	Repository  string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type DeleteRepositoryResult struct {
-	Repository *RepositoryDescription `json:"repository" xml:"repository"`
+Repository *RepositoryDescription `json:"repository" xml:"repository"`
 }
 
 type DescribeDomainRequest struct {
-	Domain      string `json:"domain" xml:"domain"`
-	DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
 }
 
 type DescribeDomainResult struct {
-	Domain *DomainDescription `json:"domain" xml:"domain"`
+Domain *DomainDescription `json:"domain" xml:"domain"`
 }
 
 type DescribePackageGroupRequest struct {
-	Domain       string `json:"domain" xml:"domain"`
-	DomainOwner  string `json:"domainOwner" xml:"domainOwner"`
-	PackageGroup string `json:"packageGroup" xml:"packageGroup"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+PackageGroup string `json:"packageGroup" xml:"packageGroup"`
 }
 
 type DescribePackageGroupResult struct {
-	PackageGroup *PackageGroupDescription `json:"packageGroup" xml:"packageGroup"`
+PackageGroup *PackageGroupDescription `json:"packageGroup" xml:"packageGroup"`
 }
 
 type DescribePackageRequest struct {
-	Domain      string `json:"domain" xml:"domain"`
-	DomainOwner string `json:"domainOwner" xml:"domainOwner"`
-	Format      string `json:"format" xml:"format"`
-	Namespace   string `json:"namespace" xml:"namespace"`
-	Package     string `json:"package" xml:"package"`
-	Repository  string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type DescribePackageResult struct {
-	Package *PackageDescription `json:"package" xml:"package"`
+Package *PackageDescription `json:"package" xml:"package"`
 }
 
 type DescribePackageVersionRequest struct {
-	Domain         string `json:"domain" xml:"domain"`
-	DomainOwner    string `json:"domainOwner" xml:"domainOwner"`
-	Format         string `json:"format" xml:"format"`
-	Namespace      string `json:"namespace" xml:"namespace"`
-	Package        string `json:"package" xml:"package"`
-	PackageVersion string `json:"packageVersion" xml:"packageVersion"`
-	Repository     string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+PackageVersion string `json:"packageVersion" xml:"packageVersion"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type DescribePackageVersionResult struct {
-	PackageVersion *PackageVersionDescription `json:"packageVersion" xml:"packageVersion"`
+PackageVersion *PackageVersionDescription `json:"packageVersion" xml:"packageVersion"`
 }
 
 type DescribeRepositoryRequest struct {
-	Domain      string `json:"domain" xml:"domain"`
-	DomainOwner string `json:"domainOwner" xml:"domainOwner"`
-	Repository  string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type DescribeRepositoryResult struct {
-	Repository *RepositoryDescription `json:"repository" xml:"repository"`
+Repository *RepositoryDescription `json:"repository" xml:"repository"`
 }
 
 type DisassociateExternalConnectionRequest struct {
-	Domain             string `json:"domain" xml:"domain"`
-	DomainOwner        string `json:"domainOwner" xml:"domainOwner"`
-	ExternalConnection string `json:"externalConnection" xml:"externalConnection"`
-	Repository         string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+ExternalConnection string `json:"externalConnection" xml:"externalConnection"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type DisassociateExternalConnectionResult struct {
-	Repository *RepositoryDescription `json:"repository" xml:"repository"`
+Repository *RepositoryDescription `json:"repository" xml:"repository"`
 }
 
 type DisposePackageVersionsRequest struct {
-	Domain           string                    `json:"domain" xml:"domain"`
-	DomainOwner      string                    `json:"domainOwner" xml:"domainOwner"`
-	ExpectedStatus   string                    `json:"expectedStatus" xml:"expectedStatus"`
-	Format           string                    `json:"format" xml:"format"`
-	Namespace        string                    `json:"namespace" xml:"namespace"`
-	Package          string                    `json:"package" xml:"package"`
-	Repository       string                    `json:"repository" xml:"repository"`
-	VersionRevisions PackageVersionRevisionMap `json:"versionRevisions" xml:"versionRevisions"`
-	Versions         PackageVersionList        `json:"versions" xml:"versions"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+ExpectedStatus string `json:"expectedStatus" xml:"expectedStatus"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+Repository string `json:"repository" xml:"repository"`
+VersionRevisions PackageVersionRevisionMap `json:"versionRevisions" xml:"versionRevisions"`
+Versions PackageVersionList `json:"versions" xml:"versions"`
 }
 
 type DisposePackageVersionsResult struct {
-	FailedVersions     PackageVersionErrorMap          `json:"failedVersions" xml:"failedVersions"`
-	SuccessfulVersions SuccessfulPackageVersionInfoMap `json:"successfulVersions" xml:"successfulVersions"`
+FailedVersions PackageVersionErrorMap `json:"failedVersions" xml:"failedVersions"`
+SuccessfulVersions SuccessfulPackageVersionInfoMap `json:"successfulVersions" xml:"successfulVersions"`
 }
 
 type DomainDescription struct {
-	Arn             string    `json:"arn" xml:"arn"`
-	AssetSizeBytes  int64     `json:"assetSizeBytes" xml:"assetSizeBytes"`
-	CreatedTime     time.Time `json:"createdTime" xml:"createdTime"`
-	EncryptionKey   string    `json:"encryptionKey" xml:"encryptionKey"`
-	Name            string    `json:"name" xml:"name"`
-	Owner           string    `json:"owner" xml:"owner"`
-	RepositoryCount int32     `json:"repositoryCount" xml:"repositoryCount"`
-	S3BucketArn     string    `json:"s3BucketArn" xml:"s3BucketArn"`
-	Status          string    `json:"status" xml:"status"`
+Arn string `json:"arn" xml:"arn"`
+AssetSizeBytes int64 `json:"assetSizeBytes" xml:"assetSizeBytes"`
+CreatedTime time.Time `json:"createdTime" xml:"createdTime"`
+EncryptionKey string `json:"encryptionKey" xml:"encryptionKey"`
+Name string `json:"name" xml:"name"`
+Owner string `json:"owner" xml:"owner"`
+RepositoryCount int32 `json:"repositoryCount" xml:"repositoryCount"`
+S3BucketArn string `json:"s3BucketArn" xml:"s3BucketArn"`
+Status string `json:"status" xml:"status"`
 }
 
 type DomainEntryPoint struct {
-	ExternalConnectionName string `json:"externalConnectionName" xml:"externalConnectionName"`
-	RepositoryName         string `json:"repositoryName" xml:"repositoryName"`
+ExternalConnectionName string `json:"externalConnectionName" xml:"externalConnectionName"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type DomainSummary struct {
-	Arn           string    `json:"arn" xml:"arn"`
-	CreatedTime   time.Time `json:"createdTime" xml:"createdTime"`
-	EncryptionKey string    `json:"encryptionKey" xml:"encryptionKey"`
-	Name          string    `json:"name" xml:"name"`
-	Owner         string    `json:"owner" xml:"owner"`
-	Status        string    `json:"status" xml:"status"`
+Arn string `json:"arn" xml:"arn"`
+CreatedTime time.Time `json:"createdTime" xml:"createdTime"`
+EncryptionKey string `json:"encryptionKey" xml:"encryptionKey"`
+Name string `json:"name" xml:"name"`
+Owner string `json:"owner" xml:"owner"`
+Status string `json:"status" xml:"status"`
 }
 
 type GetAssociatedPackageGroupRequest struct {
-	Domain      string `json:"domain" xml:"domain"`
-	DomainOwner string `json:"domainOwner" xml:"domainOwner"`
-	Format      string `json:"format" xml:"format"`
-	Namespace   string `json:"namespace" xml:"namespace"`
-	Package     string `json:"package" xml:"package"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
 }
 
 type GetAssociatedPackageGroupResult struct {
-	AssociationType string                   `json:"associationType" xml:"associationType"`
-	PackageGroup    *PackageGroupDescription `json:"packageGroup" xml:"packageGroup"`
+AssociationType string `json:"associationType" xml:"associationType"`
+PackageGroup *PackageGroupDescription `json:"packageGroup" xml:"packageGroup"`
 }
 
 type GetAuthorizationTokenRequest struct {
-	Domain          string `json:"domain" xml:"domain"`
-	DomainOwner     string `json:"domainOwner" xml:"domainOwner"`
-	DurationSeconds int64  `json:"durationSeconds" xml:"durationSeconds"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+DurationSeconds int64 `json:"durationSeconds" xml:"durationSeconds"`
 }
 
 type GetAuthorizationTokenResult struct {
-	AuthorizationToken string    `json:"authorizationToken" xml:"authorizationToken"`
-	Expiration         time.Time `json:"expiration" xml:"expiration"`
+AuthorizationToken string `json:"authorizationToken" xml:"authorizationToken"`
+Expiration time.Time `json:"expiration" xml:"expiration"`
 }
 
 type GetDomainPermissionsPolicyRequest struct {
-	Domain      string `json:"domain" xml:"domain"`
-	DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
 }
 
 type GetDomainPermissionsPolicyResult struct {
-	Policy *ResourcePolicy `json:"policy" xml:"policy"`
+Policy *ResourcePolicy `json:"policy" xml:"policy"`
 }
 
 type GetPackageVersionAssetRequest struct {
-	Asset                  string `json:"asset" xml:"asset"`
-	Domain                 string `json:"domain" xml:"domain"`
-	DomainOwner            string `json:"domainOwner" xml:"domainOwner"`
-	Format                 string `json:"format" xml:"format"`
-	Namespace              string `json:"namespace" xml:"namespace"`
-	Package                string `json:"package" xml:"package"`
-	PackageVersion         string `json:"packageVersion" xml:"packageVersion"`
-	PackageVersionRevision string `json:"packageVersionRevision" xml:"packageVersionRevision"`
-	Repository             string `json:"repository" xml:"repository"`
+Asset string `json:"asset" xml:"asset"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+PackageVersion string `json:"packageVersion" xml:"packageVersion"`
+PackageVersionRevision string `json:"packageVersionRevision" xml:"packageVersionRevision"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type GetPackageVersionAssetResult struct {
-	Asset                  []byte `json:"asset" xml:"asset"`
-	AssetName              string `json:"assetName" xml:"assetName"`
-	PackageVersion         string `json:"packageVersion" xml:"packageVersion"`
-	PackageVersionRevision string `json:"packageVersionRevision" xml:"packageVersionRevision"`
+Asset []byte `json:"asset" xml:"asset"`
+AssetName string `json:"assetName" xml:"assetName"`
+PackageVersion string `json:"packageVersion" xml:"packageVersion"`
+PackageVersionRevision string `json:"packageVersionRevision" xml:"packageVersionRevision"`
 }
 
 type GetPackageVersionReadmeRequest struct {
-	Domain         string `json:"domain" xml:"domain"`
-	DomainOwner    string `json:"domainOwner" xml:"domainOwner"`
-	Format         string `json:"format" xml:"format"`
-	Namespace      string `json:"namespace" xml:"namespace"`
-	Package        string `json:"package" xml:"package"`
-	PackageVersion string `json:"packageVersion" xml:"packageVersion"`
-	Repository     string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+PackageVersion string `json:"packageVersion" xml:"packageVersion"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type GetPackageVersionReadmeResult struct {
-	Format          string `json:"format" xml:"format"`
-	Namespace       string `json:"namespace" xml:"namespace"`
-	Package         string `json:"package" xml:"package"`
-	Readme          string `json:"readme" xml:"readme"`
-	Version         string `json:"version" xml:"version"`
-	VersionRevision string `json:"versionRevision" xml:"versionRevision"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+Readme string `json:"readme" xml:"readme"`
+Version string `json:"version" xml:"version"`
+VersionRevision string `json:"versionRevision" xml:"versionRevision"`
 }
 
 type GetRepositoryEndpointRequest struct {
-	Domain       string `json:"domain" xml:"domain"`
-	DomainOwner  string `json:"domainOwner" xml:"domainOwner"`
-	EndpointType string `json:"endpointType" xml:"endpointType"`
-	Format       string `json:"format" xml:"format"`
-	Repository   string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+EndpointType string `json:"endpointType" xml:"endpointType"`
+Format string `json:"format" xml:"format"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type GetRepositoryEndpointResult struct {
-	RepositoryEndpoint string `json:"repositoryEndpoint" xml:"repositoryEndpoint"`
+RepositoryEndpoint string `json:"repositoryEndpoint" xml:"repositoryEndpoint"`
 }
 
 type GetRepositoryPermissionsPolicyRequest struct {
-	Domain      string `json:"domain" xml:"domain"`
-	DomainOwner string `json:"domainOwner" xml:"domainOwner"`
-	Repository  string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type GetRepositoryPermissionsPolicyResult struct {
-	Policy *ResourcePolicy `json:"policy" xml:"policy"`
+Policy *ResourcePolicy `json:"policy" xml:"policy"`
 }
 
 type LicenseInfo struct {
-	Name string `json:"name" xml:"name"`
-	Url  string `json:"url" xml:"url"`
+Name string `json:"name" xml:"name"`
+Url string `json:"url" xml:"url"`
 }
 
 type ListAllowedRepositoriesForGroupRequest struct {
-	Domain                string `json:"domain" xml:"domain"`
-	DomainOwner           string `json:"domainOwner" xml:"domainOwner"`
-	MaxResults            int32  `json:"maxResults" xml:"maxResults"`
-	NextToken             string `json:"nextToken" xml:"nextToken"`
-	OriginRestrictionType string `json:"originRestrictionType" xml:"originRestrictionType"`
-	PackageGroup          string `json:"packageGroup" xml:"packageGroup"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+OriginRestrictionType string `json:"originRestrictionType" xml:"originRestrictionType"`
+PackageGroup string `json:"packageGroup" xml:"packageGroup"`
 }
 
 type ListAllowedRepositoriesForGroupResult struct {
-	AllowedRepositories RepositoryNameList `json:"allowedRepositories" xml:"allowedRepositories"`
-	NextToken           string             `json:"nextToken" xml:"nextToken"`
+AllowedRepositories RepositoryNameList `json:"allowedRepositories" xml:"allowedRepositories"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListAssociatedPackagesRequest struct {
-	Domain       string `json:"domain" xml:"domain"`
-	DomainOwner  string `json:"domainOwner" xml:"domainOwner"`
-	MaxResults   int32  `json:"maxResults" xml:"maxResults"`
-	NextToken    string `json:"nextToken" xml:"nextToken"`
-	PackageGroup string `json:"packageGroup" xml:"packageGroup"`
-	Preview      bool   `json:"preview" xml:"preview"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PackageGroup string `json:"packageGroup" xml:"packageGroup"`
+Preview bool `json:"preview" xml:"preview"`
 }
 
 type ListAssociatedPackagesResult struct {
-	NextToken string                `json:"nextToken" xml:"nextToken"`
-	Packages  AssociatedPackageList `json:"packages" xml:"packages"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Packages AssociatedPackageList `json:"packages" xml:"packages"`
 }
 
 type ListDomainsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDomainsResult struct {
-	Domains   DomainSummaryList `json:"domains" xml:"domains"`
-	NextToken string            `json:"nextToken" xml:"nextToken"`
+Domains DomainSummaryList `json:"domains" xml:"domains"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListPackageGroupsRequest struct {
-	Domain      string `json:"domain" xml:"domain"`
-	DomainOwner string `json:"domainOwner" xml:"domainOwner"`
-	MaxResults  int32  `json:"maxResults" xml:"maxResults"`
-	NextToken   string `json:"nextToken" xml:"nextToken"`
-	Prefix      string `json:"prefix" xml:"prefix"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Prefix string `json:"prefix" xml:"prefix"`
 }
 
 type ListPackageGroupsResult struct {
-	NextToken     string                  `json:"nextToken" xml:"nextToken"`
-	PackageGroups PackageGroupSummaryList `json:"packageGroups" xml:"packageGroups"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PackageGroups PackageGroupSummaryList `json:"packageGroups" xml:"packageGroups"`
 }
 
 type ListPackageVersionAssetsRequest struct {
-	Domain         string `json:"domain" xml:"domain"`
-	DomainOwner    string `json:"domainOwner" xml:"domainOwner"`
-	Format         string `json:"format" xml:"format"`
-	MaxResults     int32  `json:"maxResults" xml:"maxResults"`
-	Namespace      string `json:"namespace" xml:"namespace"`
-	NextToken      string `json:"nextToken" xml:"nextToken"`
-	Package        string `json:"package" xml:"package"`
-	PackageVersion string `json:"packageVersion" xml:"packageVersion"`
-	Repository     string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+Namespace string `json:"namespace" xml:"namespace"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Package string `json:"package" xml:"package"`
+PackageVersion string `json:"packageVersion" xml:"packageVersion"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type ListPackageVersionAssetsResult struct {
-	Assets          AssetSummaryList `json:"assets" xml:"assets"`
-	Format          string           `json:"format" xml:"format"`
-	Namespace       string           `json:"namespace" xml:"namespace"`
-	NextToken       string           `json:"nextToken" xml:"nextToken"`
-	Package         string           `json:"package" xml:"package"`
-	Version         string           `json:"version" xml:"version"`
-	VersionRevision string           `json:"versionRevision" xml:"versionRevision"`
+Assets AssetSummaryList `json:"assets" xml:"assets"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Package string `json:"package" xml:"package"`
+Version string `json:"version" xml:"version"`
+VersionRevision string `json:"versionRevision" xml:"versionRevision"`
 }
 
 type ListPackageVersionDependenciesRequest struct {
-	Domain         string `json:"domain" xml:"domain"`
-	DomainOwner    string `json:"domainOwner" xml:"domainOwner"`
-	Format         string `json:"format" xml:"format"`
-	Namespace      string `json:"namespace" xml:"namespace"`
-	NextToken      string `json:"nextToken" xml:"nextToken"`
-	Package        string `json:"package" xml:"package"`
-	PackageVersion string `json:"packageVersion" xml:"packageVersion"`
-	Repository     string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Package string `json:"package" xml:"package"`
+PackageVersion string `json:"packageVersion" xml:"packageVersion"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type ListPackageVersionDependenciesResult struct {
-	Dependencies    PackageDependencyList `json:"dependencies" xml:"dependencies"`
-	Format          string                `json:"format" xml:"format"`
-	Namespace       string                `json:"namespace" xml:"namespace"`
-	NextToken       string                `json:"nextToken" xml:"nextToken"`
-	Package         string                `json:"package" xml:"package"`
-	Version         string                `json:"version" xml:"version"`
-	VersionRevision string                `json:"versionRevision" xml:"versionRevision"`
+Dependencies PackageDependencyList `json:"dependencies" xml:"dependencies"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Package string `json:"package" xml:"package"`
+Version string `json:"version" xml:"version"`
+VersionRevision string `json:"versionRevision" xml:"versionRevision"`
 }
 
 type ListPackageVersionsRequest struct {
-	Domain      string `json:"domain" xml:"domain"`
-	DomainOwner string `json:"domainOwner" xml:"domainOwner"`
-	Format      string `json:"format" xml:"format"`
-	MaxResults  int32  `json:"maxResults" xml:"maxResults"`
-	Namespace   string `json:"namespace" xml:"namespace"`
-	NextToken   string `json:"nextToken" xml:"nextToken"`
-	OriginType  string `json:"originType" xml:"originType"`
-	Package     string `json:"package" xml:"package"`
-	Repository  string `json:"repository" xml:"repository"`
-	SortBy      string `json:"sortBy" xml:"sortBy"`
-	Status      string `json:"status" xml:"status"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+Namespace string `json:"namespace" xml:"namespace"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+OriginType string `json:"originType" xml:"originType"`
+Package string `json:"package" xml:"package"`
+Repository string `json:"repository" xml:"repository"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+Status string `json:"status" xml:"status"`
 }
 
 type ListPackageVersionsResult struct {
-	DefaultDisplayVersion string                    `json:"defaultDisplayVersion" xml:"defaultDisplayVersion"`
-	Format                string                    `json:"format" xml:"format"`
-	Namespace             string                    `json:"namespace" xml:"namespace"`
-	NextToken             string                    `json:"nextToken" xml:"nextToken"`
-	Package               string                    `json:"package" xml:"package"`
-	Versions              PackageVersionSummaryList `json:"versions" xml:"versions"`
+DefaultDisplayVersion string `json:"defaultDisplayVersion" xml:"defaultDisplayVersion"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Package string `json:"package" xml:"package"`
+Versions PackageVersionSummaryList `json:"versions" xml:"versions"`
 }
 
 type ListPackagesRequest struct {
-	Domain        string `json:"domain" xml:"domain"`
-	DomainOwner   string `json:"domainOwner" xml:"domainOwner"`
-	Format        string `json:"format" xml:"format"`
-	MaxResults    int32  `json:"maxResults" xml:"maxResults"`
-	Namespace     string `json:"namespace" xml:"namespace"`
-	NextToken     string `json:"nextToken" xml:"nextToken"`
-	PackagePrefix string `json:"packagePrefix" xml:"packagePrefix"`
-	Publish       string `json:"publish" xml:"publish"`
-	Repository    string `json:"repository" xml:"repository"`
-	Upstream      string `json:"upstream" xml:"upstream"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+Namespace string `json:"namespace" xml:"namespace"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PackagePrefix string `json:"packagePrefix" xml:"packagePrefix"`
+Publish string `json:"publish" xml:"publish"`
+Repository string `json:"repository" xml:"repository"`
+Upstream string `json:"upstream" xml:"upstream"`
 }
 
 type ListPackagesResult struct {
-	NextToken string             `json:"nextToken" xml:"nextToken"`
-	Packages  PackageSummaryList `json:"packages" xml:"packages"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Packages PackageSummaryList `json:"packages" xml:"packages"`
 }
 
 type ListRepositoriesInDomainRequest struct {
-	AdministratorAccount string `json:"administratorAccount" xml:"administratorAccount"`
-	Domain               string `json:"domain" xml:"domain"`
-	DomainOwner          string `json:"domainOwner" xml:"domainOwner"`
-	MaxResults           int32  `json:"maxResults" xml:"maxResults"`
-	NextToken            string `json:"nextToken" xml:"nextToken"`
-	RepositoryPrefix     string `json:"repositoryPrefix" xml:"repositoryPrefix"`
+AdministratorAccount string `json:"administratorAccount" xml:"administratorAccount"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RepositoryPrefix string `json:"repositoryPrefix" xml:"repositoryPrefix"`
 }
 
 type ListRepositoriesInDomainResult struct {
-	NextToken    string                `json:"nextToken" xml:"nextToken"`
-	Repositories RepositorySummaryList `json:"repositories" xml:"repositories"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Repositories RepositorySummaryList `json:"repositories" xml:"repositories"`
 }
 
 type ListRepositoriesRequest struct {
-	MaxResults       int32  `json:"maxResults" xml:"maxResults"`
-	NextToken        string `json:"nextToken" xml:"nextToken"`
-	RepositoryPrefix string `json:"repositoryPrefix" xml:"repositoryPrefix"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+RepositoryPrefix string `json:"repositoryPrefix" xml:"repositoryPrefix"`
 }
 
 type ListRepositoriesResult struct {
-	NextToken    string                `json:"nextToken" xml:"nextToken"`
-	Repositories RepositorySummaryList `json:"repositories" xml:"repositories"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Repositories RepositorySummaryList `json:"repositories" xml:"repositories"`
 }
 
 type ListSubPackageGroupsRequest struct {
-	Domain       string `json:"domain" xml:"domain"`
-	DomainOwner  string `json:"domainOwner" xml:"domainOwner"`
-	MaxResults   int32  `json:"maxResults" xml:"maxResults"`
-	NextToken    string `json:"nextToken" xml:"nextToken"`
-	PackageGroup string `json:"packageGroup" xml:"packageGroup"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PackageGroup string `json:"packageGroup" xml:"packageGroup"`
 }
 
 type ListSubPackageGroupsResult struct {
-	NextToken     string                  `json:"nextToken" xml:"nextToken"`
-	PackageGroups PackageGroupSummaryList `json:"packageGroups" xml:"packageGroups"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PackageGroups PackageGroupSummaryList `json:"packageGroups" xml:"packageGroups"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type ListTagsForResourceResult struct {
-	Tags TagList `json:"tags" xml:"tags"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type PackageDependency struct {
-	DependencyType     string `json:"dependencyType" xml:"dependencyType"`
-	Namespace          string `json:"namespace" xml:"namespace"`
-	Package            string `json:"package" xml:"package"`
-	VersionRequirement string `json:"versionRequirement" xml:"versionRequirement"`
+DependencyType string `json:"dependencyType" xml:"dependencyType"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+VersionRequirement string `json:"versionRequirement" xml:"versionRequirement"`
 }
 
 type PackageDescription struct {
-	Format              string                      `json:"format" xml:"format"`
-	Name                string                      `json:"name" xml:"name"`
-	Namespace           string                      `json:"namespace" xml:"namespace"`
-	OriginConfiguration *PackageOriginConfiguration `json:"originConfiguration" xml:"originConfiguration"`
+Format string `json:"format" xml:"format"`
+Name string `json:"name" xml:"name"`
+Namespace string `json:"namespace" xml:"namespace"`
+OriginConfiguration *PackageOriginConfiguration `json:"originConfiguration" xml:"originConfiguration"`
 }
 
 type PackageGroupAllowedRepository struct {
-	OriginRestrictionType string `json:"originRestrictionType" xml:"originRestrictionType"`
-	RepositoryName        string `json:"repositoryName" xml:"repositoryName"`
+OriginRestrictionType string `json:"originRestrictionType" xml:"originRestrictionType"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type PackageGroupDescription struct {
-	Arn                 string                           `json:"arn" xml:"arn"`
-	ContactInfo         string                           `json:"contactInfo" xml:"contactInfo"`
-	CreatedTime         time.Time                        `json:"createdTime" xml:"createdTime"`
-	Description         string                           `json:"description" xml:"description"`
-	DomainName          string                           `json:"domainName" xml:"domainName"`
-	DomainOwner         string                           `json:"domainOwner" xml:"domainOwner"`
-	OriginConfiguration *PackageGroupOriginConfiguration `json:"originConfiguration" xml:"originConfiguration"`
-	Parent              *PackageGroupReference           `json:"parent" xml:"parent"`
-	Pattern             string                           `json:"pattern" xml:"pattern"`
+Arn string `json:"arn" xml:"arn"`
+ContactInfo string `json:"contactInfo" xml:"contactInfo"`
+CreatedTime time.Time `json:"createdTime" xml:"createdTime"`
+Description string `json:"description" xml:"description"`
+DomainName string `json:"domainName" xml:"domainName"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+OriginConfiguration *PackageGroupOriginConfiguration `json:"originConfiguration" xml:"originConfiguration"`
+Parent *PackageGroupReference `json:"parent" xml:"parent"`
+Pattern string `json:"pattern" xml:"pattern"`
 }
 
 type PackageGroupOriginConfiguration struct {
-	Restrictions PackageGroupOriginRestrictions `json:"restrictions" xml:"restrictions"`
+Restrictions PackageGroupOriginRestrictions `json:"restrictions" xml:"restrictions"`
 }
 
 type PackageGroupOriginRestriction struct {
-	EffectiveMode     string                 `json:"effectiveMode" xml:"effectiveMode"`
-	InheritedFrom     *PackageGroupReference `json:"inheritedFrom" xml:"inheritedFrom"`
-	Mode              string                 `json:"mode" xml:"mode"`
-	RepositoriesCount int64                  `json:"repositoriesCount" xml:"repositoriesCount"`
+EffectiveMode string `json:"effectiveMode" xml:"effectiveMode"`
+InheritedFrom *PackageGroupReference `json:"inheritedFrom" xml:"inheritedFrom"`
+Mode string `json:"mode" xml:"mode"`
+RepositoriesCount int64 `json:"repositoriesCount" xml:"repositoriesCount"`
 }
 
 type PackageGroupReference struct {
-	Arn     string `json:"arn" xml:"arn"`
-	Pattern string `json:"pattern" xml:"pattern"`
+Arn string `json:"arn" xml:"arn"`
+Pattern string `json:"pattern" xml:"pattern"`
 }
 
 type PackageGroupSummary struct {
-	Arn                 string                           `json:"arn" xml:"arn"`
-	ContactInfo         string                           `json:"contactInfo" xml:"contactInfo"`
-	CreatedTime         time.Time                        `json:"createdTime" xml:"createdTime"`
-	Description         string                           `json:"description" xml:"description"`
-	DomainName          string                           `json:"domainName" xml:"domainName"`
-	DomainOwner         string                           `json:"domainOwner" xml:"domainOwner"`
-	OriginConfiguration *PackageGroupOriginConfiguration `json:"originConfiguration" xml:"originConfiguration"`
-	Parent              *PackageGroupReference           `json:"parent" xml:"parent"`
-	Pattern             string                           `json:"pattern" xml:"pattern"`
+Arn string `json:"arn" xml:"arn"`
+ContactInfo string `json:"contactInfo" xml:"contactInfo"`
+CreatedTime time.Time `json:"createdTime" xml:"createdTime"`
+Description string `json:"description" xml:"description"`
+DomainName string `json:"domainName" xml:"domainName"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+OriginConfiguration *PackageGroupOriginConfiguration `json:"originConfiguration" xml:"originConfiguration"`
+Parent *PackageGroupReference `json:"parent" xml:"parent"`
+Pattern string `json:"pattern" xml:"pattern"`
 }
 
 type PackageOriginConfiguration struct {
-	Restrictions *PackageOriginRestrictions `json:"restrictions" xml:"restrictions"`
+Restrictions *PackageOriginRestrictions `json:"restrictions" xml:"restrictions"`
 }
 
 type PackageOriginRestrictions struct {
-	Publish  string `json:"publish" xml:"publish"`
-	Upstream string `json:"upstream" xml:"upstream"`
+Publish string `json:"publish" xml:"publish"`
+Upstream string `json:"upstream" xml:"upstream"`
 }
 
 type PackageSummary struct {
-	Format              string                      `json:"format" xml:"format"`
-	Namespace           string                      `json:"namespace" xml:"namespace"`
-	OriginConfiguration *PackageOriginConfiguration `json:"originConfiguration" xml:"originConfiguration"`
-	Package             string                      `json:"package" xml:"package"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+OriginConfiguration *PackageOriginConfiguration `json:"originConfiguration" xml:"originConfiguration"`
+Package string `json:"package" xml:"package"`
 }
 
 type PackageVersionDescription struct {
-	DisplayName          string                `json:"displayName" xml:"displayName"`
-	Format               string                `json:"format" xml:"format"`
-	HomePage             string                `json:"homePage" xml:"homePage"`
-	Licenses             LicenseInfoList       `json:"licenses" xml:"licenses"`
-	Namespace            string                `json:"namespace" xml:"namespace"`
-	Origin               *PackageVersionOrigin `json:"origin" xml:"origin"`
-	PackageName          string                `json:"packageName" xml:"packageName"`
-	PublishedTime        time.Time             `json:"publishedTime" xml:"publishedTime"`
-	Revision             string                `json:"revision" xml:"revision"`
-	SourceCodeRepository string                `json:"sourceCodeRepository" xml:"sourceCodeRepository"`
-	Status               string                `json:"status" xml:"status"`
-	Summary              string                `json:"summary" xml:"summary"`
-	Version              string                `json:"version" xml:"version"`
+DisplayName string `json:"displayName" xml:"displayName"`
+Format string `json:"format" xml:"format"`
+HomePage string `json:"homePage" xml:"homePage"`
+Licenses LicenseInfoList `json:"licenses" xml:"licenses"`
+Namespace string `json:"namespace" xml:"namespace"`
+Origin *PackageVersionOrigin `json:"origin" xml:"origin"`
+PackageName string `json:"packageName" xml:"packageName"`
+PublishedTime time.Time `json:"publishedTime" xml:"publishedTime"`
+Revision string `json:"revision" xml:"revision"`
+SourceCodeRepository string `json:"sourceCodeRepository" xml:"sourceCodeRepository"`
+Status string `json:"status" xml:"status"`
+Summary string `json:"summary" xml:"summary"`
+Version string `json:"version" xml:"version"`
 }
 
 type PackageVersionError struct {
-	ErrorCode    string `json:"errorCode" xml:"errorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+ErrorCode string `json:"errorCode" xml:"errorCode"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
 }
 
 type PackageVersionOrigin struct {
-	DomainEntryPoint *DomainEntryPoint `json:"domainEntryPoint" xml:"domainEntryPoint"`
-	OriginType       string            `json:"originType" xml:"originType"`
+DomainEntryPoint *DomainEntryPoint `json:"domainEntryPoint" xml:"domainEntryPoint"`
+OriginType string `json:"originType" xml:"originType"`
 }
 
 type PackageVersionSummary struct {
-	Origin   *PackageVersionOrigin `json:"origin" xml:"origin"`
-	Revision string                `json:"revision" xml:"revision"`
-	Status   string                `json:"status" xml:"status"`
-	Version  string                `json:"version" xml:"version"`
+Origin *PackageVersionOrigin `json:"origin" xml:"origin"`
+Revision string `json:"revision" xml:"revision"`
+Status string `json:"status" xml:"status"`
+Version string `json:"version" xml:"version"`
 }
 
 type PublishPackageVersionRequest struct {
-	AssetContent   []byte `json:"assetContent" xml:"assetContent"`
-	AssetName      string `json:"assetName" xml:"assetName"`
-	AssetSHA256    string `json:"assetSHA256" xml:"assetSHA256"`
-	Domain         string `json:"domain" xml:"domain"`
-	DomainOwner    string `json:"domainOwner" xml:"domainOwner"`
-	Format         string `json:"format" xml:"format"`
-	Namespace      string `json:"namespace" xml:"namespace"`
-	Package        string `json:"package" xml:"package"`
-	PackageVersion string `json:"packageVersion" xml:"packageVersion"`
-	Repository     string `json:"repository" xml:"repository"`
-	Unfinished     bool   `json:"unfinished" xml:"unfinished"`
+AssetContent []byte `json:"assetContent" xml:"assetContent"`
+AssetName string `json:"assetName" xml:"assetName"`
+AssetSHA256 string `json:"assetSHA256" xml:"assetSHA256"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+PackageVersion string `json:"packageVersion" xml:"packageVersion"`
+Repository string `json:"repository" xml:"repository"`
+Unfinished bool `json:"unfinished" xml:"unfinished"`
 }
 
 type PublishPackageVersionResult struct {
-	Asset           *AssetSummary `json:"asset" xml:"asset"`
-	Format          string        `json:"format" xml:"format"`
-	Namespace       string        `json:"namespace" xml:"namespace"`
-	Package         string        `json:"package" xml:"package"`
-	Status          string        `json:"status" xml:"status"`
-	Version         string        `json:"version" xml:"version"`
-	VersionRevision string        `json:"versionRevision" xml:"versionRevision"`
+Asset *AssetSummary `json:"asset" xml:"asset"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+Status string `json:"status" xml:"status"`
+Version string `json:"version" xml:"version"`
+VersionRevision string `json:"versionRevision" xml:"versionRevision"`
 }
 
 type PutDomainPermissionsPolicyRequest struct {
-	Domain         string `json:"domain" xml:"domain"`
-	DomainOwner    string `json:"domainOwner" xml:"domainOwner"`
-	PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
-	PolicyRevision string `json:"policyRevision" xml:"policyRevision"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
+PolicyRevision string `json:"policyRevision" xml:"policyRevision"`
 }
 
 type PutDomainPermissionsPolicyResult struct {
-	Policy *ResourcePolicy `json:"policy" xml:"policy"`
+Policy *ResourcePolicy `json:"policy" xml:"policy"`
 }
 
 type PutPackageOriginConfigurationRequest struct {
-	Domain       string                     `json:"domain" xml:"domain"`
-	DomainOwner  string                     `json:"domainOwner" xml:"domainOwner"`
-	Format       string                     `json:"format" xml:"format"`
-	Namespace    string                     `json:"namespace" xml:"namespace"`
-	Package      string                     `json:"package" xml:"package"`
-	Repository   string                     `json:"repository" xml:"repository"`
-	Restrictions *PackageOriginRestrictions `json:"restrictions" xml:"restrictions"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+Repository string `json:"repository" xml:"repository"`
+Restrictions *PackageOriginRestrictions `json:"restrictions" xml:"restrictions"`
 }
 
 type PutPackageOriginConfigurationResult struct {
-	OriginConfiguration *PackageOriginConfiguration `json:"originConfiguration" xml:"originConfiguration"`
+OriginConfiguration *PackageOriginConfiguration `json:"originConfiguration" xml:"originConfiguration"`
 }
 
 type PutRepositoryPermissionsPolicyRequest struct {
-	Domain         string `json:"domain" xml:"domain"`
-	DomainOwner    string `json:"domainOwner" xml:"domainOwner"`
-	PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
-	PolicyRevision string `json:"policyRevision" xml:"policyRevision"`
-	Repository     string `json:"repository" xml:"repository"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
+PolicyRevision string `json:"policyRevision" xml:"policyRevision"`
+Repository string `json:"repository" xml:"repository"`
 }
 
 type PutRepositoryPermissionsPolicyResult struct {
-	Policy *ResourcePolicy `json:"policy" xml:"policy"`
+Policy *ResourcePolicy `json:"policy" xml:"policy"`
 }
 
 type RepositoryDescription struct {
-	AdministratorAccount string                               `json:"administratorAccount" xml:"administratorAccount"`
-	Arn                  string                               `json:"arn" xml:"arn"`
-	CreatedTime          time.Time                            `json:"createdTime" xml:"createdTime"`
-	Description          string                               `json:"description" xml:"description"`
-	DomainName           string                               `json:"domainName" xml:"domainName"`
-	DomainOwner          string                               `json:"domainOwner" xml:"domainOwner"`
-	ExternalConnections  RepositoryExternalConnectionInfoList `json:"externalConnections" xml:"externalConnections"`
-	Name                 string                               `json:"name" xml:"name"`
-	Upstreams            UpstreamRepositoryInfoList           `json:"upstreams" xml:"upstreams"`
+AdministratorAccount string `json:"administratorAccount" xml:"administratorAccount"`
+Arn string `json:"arn" xml:"arn"`
+CreatedTime time.Time `json:"createdTime" xml:"createdTime"`
+Description string `json:"description" xml:"description"`
+DomainName string `json:"domainName" xml:"domainName"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+ExternalConnections RepositoryExternalConnectionInfoList `json:"externalConnections" xml:"externalConnections"`
+Name string `json:"name" xml:"name"`
+Upstreams UpstreamRepositoryInfoList `json:"upstreams" xml:"upstreams"`
 }
 
 type RepositoryExternalConnectionInfo struct {
-	ExternalConnectionName string `json:"externalConnectionName" xml:"externalConnectionName"`
-	PackageFormat          string `json:"packageFormat" xml:"packageFormat"`
-	Status                 string `json:"status" xml:"status"`
+ExternalConnectionName string `json:"externalConnectionName" xml:"externalConnectionName"`
+PackageFormat string `json:"packageFormat" xml:"packageFormat"`
+Status string `json:"status" xml:"status"`
 }
 
 type RepositorySummary struct {
-	AdministratorAccount string    `json:"administratorAccount" xml:"administratorAccount"`
-	Arn                  string    `json:"arn" xml:"arn"`
-	CreatedTime          time.Time `json:"createdTime" xml:"createdTime"`
-	Description          string    `json:"description" xml:"description"`
-	DomainName           string    `json:"domainName" xml:"domainName"`
-	DomainOwner          string    `json:"domainOwner" xml:"domainOwner"`
-	Name                 string    `json:"name" xml:"name"`
+AdministratorAccount string `json:"administratorAccount" xml:"administratorAccount"`
+Arn string `json:"arn" xml:"arn"`
+CreatedTime time.Time `json:"createdTime" xml:"createdTime"`
+Description string `json:"description" xml:"description"`
+DomainName string `json:"domainName" xml:"domainName"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Name string `json:"name" xml:"name"`
 }
 
 type ResourcePolicy struct {
-	Document    string `json:"document" xml:"document"`
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
-	Revision    string `json:"revision" xml:"revision"`
+Document string `json:"document" xml:"document"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+Revision string `json:"revision" xml:"revision"`
 }
 
 type SuccessfulPackageVersionInfo struct {
-	Revision string `json:"revision" xml:"revision"`
-	Status   string `json:"status" xml:"status"`
+Revision string `json:"revision" xml:"revision"`
+Status string `json:"status" xml:"status"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"key"`
-	Value string `json:"value" xml:"value"`
+Key string `json:"key" xml:"key"`
+Value string `json:"value" xml:"value"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string  `json:"resourceArn" xml:"resourceArn"`
-	Tags        TagList `json:"tags" xml:"tags"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type TagResourceResult struct {
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string     `json:"resourceArn" xml:"resourceArn"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"tagKeys"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"tagKeys"`
 }
 
 type UntagResourceResult struct {
 }
 
 type UpdatePackageGroupOriginConfigurationRequest struct {
-	AddAllowedRepositories    PackageGroupAllowedRepositoryList `json:"addAllowedRepositories" xml:"addAllowedRepositories"`
-	Domain                    string                            `json:"domain" xml:"domain"`
-	DomainOwner               string                            `json:"domainOwner" xml:"domainOwner"`
-	PackageGroup              string                            `json:"packageGroup" xml:"packageGroup"`
-	RemoveAllowedRepositories PackageGroupAllowedRepositoryList `json:"removeAllowedRepositories" xml:"removeAllowedRepositories"`
-	Restrictions              OriginRestrictions                `json:"restrictions" xml:"restrictions"`
+AddAllowedRepositories PackageGroupAllowedRepositoryList `json:"addAllowedRepositories" xml:"addAllowedRepositories"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+PackageGroup string `json:"packageGroup" xml:"packageGroup"`
+RemoveAllowedRepositories PackageGroupAllowedRepositoryList `json:"removeAllowedRepositories" xml:"removeAllowedRepositories"`
+Restrictions OriginRestrictions `json:"restrictions" xml:"restrictions"`
 }
 
 type UpdatePackageGroupOriginConfigurationResult struct {
-	AllowedRepositoryUpdates PackageGroupAllowedRepositoryUpdates `json:"allowedRepositoryUpdates" xml:"allowedRepositoryUpdates"`
-	PackageGroup             *PackageGroupDescription             `json:"packageGroup" xml:"packageGroup"`
+AllowedRepositoryUpdates PackageGroupAllowedRepositoryUpdates `json:"allowedRepositoryUpdates" xml:"allowedRepositoryUpdates"`
+PackageGroup *PackageGroupDescription `json:"packageGroup" xml:"packageGroup"`
 }
 
 type UpdatePackageGroupRequest struct {
-	ContactInfo  string `json:"contactInfo" xml:"contactInfo"`
-	Description  string `json:"description" xml:"description"`
-	Domain       string `json:"domain" xml:"domain"`
-	DomainOwner  string `json:"domainOwner" xml:"domainOwner"`
-	PackageGroup string `json:"packageGroup" xml:"packageGroup"`
+ContactInfo string `json:"contactInfo" xml:"contactInfo"`
+Description string `json:"description" xml:"description"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+PackageGroup string `json:"packageGroup" xml:"packageGroup"`
 }
 
 type UpdatePackageGroupResult struct {
-	PackageGroup *PackageGroupDescription `json:"packageGroup" xml:"packageGroup"`
+PackageGroup *PackageGroupDescription `json:"packageGroup" xml:"packageGroup"`
 }
 
 type UpdatePackageVersionsStatusRequest struct {
-	Domain           string                    `json:"domain" xml:"domain"`
-	DomainOwner      string                    `json:"domainOwner" xml:"domainOwner"`
-	ExpectedStatus   string                    `json:"expectedStatus" xml:"expectedStatus"`
-	Format           string                    `json:"format" xml:"format"`
-	Namespace        string                    `json:"namespace" xml:"namespace"`
-	Package          string                    `json:"package" xml:"package"`
-	Repository       string                    `json:"repository" xml:"repository"`
-	TargetStatus     string                    `json:"targetStatus" xml:"targetStatus"`
-	VersionRevisions PackageVersionRevisionMap `json:"versionRevisions" xml:"versionRevisions"`
-	Versions         PackageVersionList        `json:"versions" xml:"versions"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+ExpectedStatus string `json:"expectedStatus" xml:"expectedStatus"`
+Format string `json:"format" xml:"format"`
+Namespace string `json:"namespace" xml:"namespace"`
+Package string `json:"package" xml:"package"`
+Repository string `json:"repository" xml:"repository"`
+TargetStatus string `json:"targetStatus" xml:"targetStatus"`
+VersionRevisions PackageVersionRevisionMap `json:"versionRevisions" xml:"versionRevisions"`
+Versions PackageVersionList `json:"versions" xml:"versions"`
 }
 
 type UpdatePackageVersionsStatusResult struct {
-	FailedVersions     PackageVersionErrorMap          `json:"failedVersions" xml:"failedVersions"`
-	SuccessfulVersions SuccessfulPackageVersionInfoMap `json:"successfulVersions" xml:"successfulVersions"`
+FailedVersions PackageVersionErrorMap `json:"failedVersions" xml:"failedVersions"`
+SuccessfulVersions SuccessfulPackageVersionInfoMap `json:"successfulVersions" xml:"successfulVersions"`
 }
 
 type UpdateRepositoryRequest struct {
-	Description string                 `json:"description" xml:"description"`
-	Domain      string                 `json:"domain" xml:"domain"`
-	DomainOwner string                 `json:"domainOwner" xml:"domainOwner"`
-	Repository  string                 `json:"repository" xml:"repository"`
-	Upstreams   UpstreamRepositoryList `json:"upstreams" xml:"upstreams"`
+Description string `json:"description" xml:"description"`
+Domain string `json:"domain" xml:"domain"`
+DomainOwner string `json:"domainOwner" xml:"domainOwner"`
+Repository string `json:"repository" xml:"repository"`
+Upstreams UpstreamRepositoryList `json:"upstreams" xml:"upstreams"`
 }
 
 type UpdateRepositoryResult struct {
-	Repository *RepositoryDescription `json:"repository" xml:"repository"`
+Repository *RepositoryDescription `json:"repository" xml:"repository"`
 }
 
 type UpstreamRepository struct {
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type UpstreamRepositoryInfo struct {
-	RepositoryName string `json:"repositoryName" xml:"repositoryName"`
+RepositoryName string `json:"repositoryName" xml:"repositoryName"`
 }
 
 type AssetSummaryList []*AssetSummary
@@ -895,3 +895,4 @@ type PackageVersionErrorMap map[string]*PackageVersionError
 type PackageVersionRevisionMap map[string]string
 
 type SuccessfulPackageVersionInfoMap map[string]*SuccessfulPackageVersionInfo
+

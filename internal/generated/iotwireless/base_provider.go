@@ -458,3 +458,4 @@ func (b *BaseProvider) UpdateWirelessDeviceImportTask(ctx context.Context, input
 func (b *BaseProvider) UpdateWirelessGateway(ctx context.Context, input *UpdateWirelessGatewayRequest) (*UpdateWirelessGatewayResponse, error) {
 	return nil, fmt.Errorf("UpdateWirelessGateway: %w", ErrNotImplemented)
 }
+

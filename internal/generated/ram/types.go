@@ -7,563 +7,563 @@ import (
 )
 
 type AcceptResourceShareInvitationRequest struct {
-	ClientToken                string `json:"clientToken" xml:"clientToken"`
-	ResourceShareInvitationArn string `json:"resourceShareInvitationArn" xml:"resourceShareInvitationArn"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ResourceShareInvitationArn string `json:"resourceShareInvitationArn" xml:"resourceShareInvitationArn"`
 }
 
 type AcceptResourceShareInvitationResponse struct {
-	ClientToken             string                   `json:"clientToken" xml:"clientToken"`
-	ResourceShareInvitation *ResourceShareInvitation `json:"resourceShareInvitation" xml:"resourceShareInvitation"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ResourceShareInvitation *ResourceShareInvitation `json:"resourceShareInvitation" xml:"resourceShareInvitation"`
 }
 
 type AssociateResourceSharePermissionRequest struct {
-	ClientToken       string `json:"clientToken" xml:"clientToken"`
-	PermissionArn     string `json:"permissionArn" xml:"permissionArn"`
-	PermissionVersion int32  `json:"permissionVersion" xml:"permissionVersion"`
-	Replace           bool   `json:"replace" xml:"replace"`
-	ResourceShareArn  string `json:"resourceShareArn" xml:"resourceShareArn"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+PermissionArn string `json:"permissionArn" xml:"permissionArn"`
+PermissionVersion int32 `json:"permissionVersion" xml:"permissionVersion"`
+Replace bool `json:"replace" xml:"replace"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
 }
 
 type AssociateResourceSharePermissionResponse struct {
-	ClientToken string `json:"clientToken" xml:"clientToken"`
-	ReturnValue bool   `json:"returnValue" xml:"returnValue"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ReturnValue bool `json:"returnValue" xml:"returnValue"`
 }
 
 type AssociateResourceShareRequest struct {
-	ClientToken      string                 `json:"clientToken" xml:"clientToken"`
-	Principals       PrincipalArnOrIdList   `json:"principals" xml:"principals"`
-	ResourceArns     ResourceArnList        `json:"resourceArns" xml:"resourceArns"`
-	ResourceShareArn string                 `json:"resourceShareArn" xml:"resourceShareArn"`
-	Sources          SourceArnOrAccountList `json:"sources" xml:"sources"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Principals PrincipalArnOrIdList `json:"principals" xml:"principals"`
+ResourceArns ResourceArnList `json:"resourceArns" xml:"resourceArns"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+Sources SourceArnOrAccountList `json:"sources" xml:"sources"`
 }
 
 type AssociateResourceShareResponse struct {
-	ClientToken               string                       `json:"clientToken" xml:"clientToken"`
-	ResourceShareAssociations ResourceShareAssociationList `json:"resourceShareAssociations" xml:"resourceShareAssociations"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ResourceShareAssociations ResourceShareAssociationList `json:"resourceShareAssociations" xml:"resourceShareAssociations"`
 }
 
 type AssociatedPermission struct {
-	Arn               string    `json:"arn" xml:"arn"`
-	DefaultVersion    bool      `json:"defaultVersion" xml:"defaultVersion"`
-	FeatureSet        string    `json:"featureSet" xml:"featureSet"`
-	LastUpdatedTime   time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	PermissionVersion string    `json:"permissionVersion" xml:"permissionVersion"`
-	ResourceShareArn  string    `json:"resourceShareArn" xml:"resourceShareArn"`
-	ResourceType      string    `json:"resourceType" xml:"resourceType"`
-	Status            string    `json:"status" xml:"status"`
+Arn string `json:"arn" xml:"arn"`
+DefaultVersion bool `json:"defaultVersion" xml:"defaultVersion"`
+FeatureSet string `json:"featureSet" xml:"featureSet"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+PermissionVersion string `json:"permissionVersion" xml:"permissionVersion"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+Status string `json:"status" xml:"status"`
 }
 
 type AssociatedSource struct {
-	CreationTime     time.Time `json:"creationTime" xml:"creationTime"`
-	LastUpdatedTime  time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	ResourceShareArn string    `json:"resourceShareArn" xml:"resourceShareArn"`
-	SourceId         string    `json:"sourceId" xml:"sourceId"`
-	SourceType       string    `json:"sourceType" xml:"sourceType"`
-	Status           string    `json:"status" xml:"status"`
-	StatusMessage    string    `json:"statusMessage" xml:"statusMessage"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+SourceId string `json:"sourceId" xml:"sourceId"`
+SourceType string `json:"sourceType" xml:"sourceType"`
+Status string `json:"status" xml:"status"`
+StatusMessage string `json:"statusMessage" xml:"statusMessage"`
 }
 
 type CreatePermissionRequest struct {
-	ClientToken    string  `json:"clientToken" xml:"clientToken"`
-	Name           string  `json:"name" xml:"name"`
-	PolicyTemplate string  `json:"policyTemplate" xml:"policyTemplate"`
-	ResourceType   string  `json:"resourceType" xml:"resourceType"`
-	Tags           TagList `json:"tags" xml:"tags"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Name string `json:"name" xml:"name"`
+PolicyTemplate string `json:"policyTemplate" xml:"policyTemplate"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreatePermissionResponse struct {
-	ClientToken string                          `json:"clientToken" xml:"clientToken"`
-	Permission  *ResourceSharePermissionSummary `json:"permission" xml:"permission"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Permission *ResourceSharePermissionSummary `json:"permission" xml:"permission"`
 }
 
 type CreatePermissionVersionRequest struct {
-	ClientToken    string `json:"clientToken" xml:"clientToken"`
-	PermissionArn  string `json:"permissionArn" xml:"permissionArn"`
-	PolicyTemplate string `json:"policyTemplate" xml:"policyTemplate"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+PermissionArn string `json:"permissionArn" xml:"permissionArn"`
+PolicyTemplate string `json:"policyTemplate" xml:"policyTemplate"`
 }
 
 type CreatePermissionVersionResponse struct {
-	ClientToken string                         `json:"clientToken" xml:"clientToken"`
-	Permission  *ResourceSharePermissionDetail `json:"permission" xml:"permission"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Permission *ResourceSharePermissionDetail `json:"permission" xml:"permission"`
 }
 
 type CreateResourceShareRequest struct {
-	AllowExternalPrincipals    bool                        `json:"allowExternalPrincipals" xml:"allowExternalPrincipals"`
-	ClientToken                string                      `json:"clientToken" xml:"clientToken"`
-	Name                       string                      `json:"name" xml:"name"`
-	PermissionArns             PermissionArnList           `json:"permissionArns" xml:"permissionArns"`
-	Principals                 PrincipalArnOrIdList        `json:"principals" xml:"principals"`
-	ResourceArns               ResourceArnList             `json:"resourceArns" xml:"resourceArns"`
-	ResourceShareConfiguration *ResourceShareConfiguration `json:"resourceShareConfiguration" xml:"resourceShareConfiguration"`
-	Sources                    SourceArnOrAccountList      `json:"sources" xml:"sources"`
-	Tags                       TagList                     `json:"tags" xml:"tags"`
+AllowExternalPrincipals bool `json:"allowExternalPrincipals" xml:"allowExternalPrincipals"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Name string `json:"name" xml:"name"`
+PermissionArns PermissionArnList `json:"permissionArns" xml:"permissionArns"`
+Principals PrincipalArnOrIdList `json:"principals" xml:"principals"`
+ResourceArns ResourceArnList `json:"resourceArns" xml:"resourceArns"`
+ResourceShareConfiguration *ResourceShareConfiguration `json:"resourceShareConfiguration" xml:"resourceShareConfiguration"`
+Sources SourceArnOrAccountList `json:"sources" xml:"sources"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreateResourceShareResponse struct {
-	ClientToken   string         `json:"clientToken" xml:"clientToken"`
-	ResourceShare *ResourceShare `json:"resourceShare" xml:"resourceShare"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ResourceShare *ResourceShare `json:"resourceShare" xml:"resourceShare"`
 }
 
 type DeletePermissionRequest struct {
-	ClientToken   string `json:"clientToken" xml:"clientToken"`
-	PermissionArn string `json:"permissionArn" xml:"permissionArn"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+PermissionArn string `json:"permissionArn" xml:"permissionArn"`
 }
 
 type DeletePermissionResponse struct {
-	ClientToken      string `json:"clientToken" xml:"clientToken"`
-	PermissionStatus string `json:"permissionStatus" xml:"permissionStatus"`
-	ReturnValue      bool   `json:"returnValue" xml:"returnValue"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+PermissionStatus string `json:"permissionStatus" xml:"permissionStatus"`
+ReturnValue bool `json:"returnValue" xml:"returnValue"`
 }
 
 type DeletePermissionVersionRequest struct {
-	ClientToken       string `json:"clientToken" xml:"clientToken"`
-	PermissionArn     string `json:"permissionArn" xml:"permissionArn"`
-	PermissionVersion int32  `json:"permissionVersion" xml:"permissionVersion"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+PermissionArn string `json:"permissionArn" xml:"permissionArn"`
+PermissionVersion int32 `json:"permissionVersion" xml:"permissionVersion"`
 }
 
 type DeletePermissionVersionResponse struct {
-	ClientToken      string `json:"clientToken" xml:"clientToken"`
-	PermissionStatus string `json:"permissionStatus" xml:"permissionStatus"`
-	ReturnValue      bool   `json:"returnValue" xml:"returnValue"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+PermissionStatus string `json:"permissionStatus" xml:"permissionStatus"`
+ReturnValue bool `json:"returnValue" xml:"returnValue"`
 }
 
 type DeleteResourceShareRequest struct {
-	ClientToken      string `json:"clientToken" xml:"clientToken"`
-	ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
 }
 
 type DeleteResourceShareResponse struct {
-	ClientToken string `json:"clientToken" xml:"clientToken"`
-	ReturnValue bool   `json:"returnValue" xml:"returnValue"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ReturnValue bool `json:"returnValue" xml:"returnValue"`
 }
 
 type DisassociateResourceSharePermissionRequest struct {
-	ClientToken      string `json:"clientToken" xml:"clientToken"`
-	PermissionArn    string `json:"permissionArn" xml:"permissionArn"`
-	ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+PermissionArn string `json:"permissionArn" xml:"permissionArn"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
 }
 
 type DisassociateResourceSharePermissionResponse struct {
-	ClientToken string `json:"clientToken" xml:"clientToken"`
-	ReturnValue bool   `json:"returnValue" xml:"returnValue"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ReturnValue bool `json:"returnValue" xml:"returnValue"`
 }
 
 type DisassociateResourceShareRequest struct {
-	ClientToken      string                 `json:"clientToken" xml:"clientToken"`
-	Principals       PrincipalArnOrIdList   `json:"principals" xml:"principals"`
-	ResourceArns     ResourceArnList        `json:"resourceArns" xml:"resourceArns"`
-	ResourceShareArn string                 `json:"resourceShareArn" xml:"resourceShareArn"`
-	Sources          SourceArnOrAccountList `json:"sources" xml:"sources"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Principals PrincipalArnOrIdList `json:"principals" xml:"principals"`
+ResourceArns ResourceArnList `json:"resourceArns" xml:"resourceArns"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+Sources SourceArnOrAccountList `json:"sources" xml:"sources"`
 }
 
 type DisassociateResourceShareResponse struct {
-	ClientToken               string                       `json:"clientToken" xml:"clientToken"`
-	ResourceShareAssociations ResourceShareAssociationList `json:"resourceShareAssociations" xml:"resourceShareAssociations"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ResourceShareAssociations ResourceShareAssociationList `json:"resourceShareAssociations" xml:"resourceShareAssociations"`
 }
 
 type EnableSharingWithAwsOrganizationRequest struct {
 }
 
 type EnableSharingWithAwsOrganizationResponse struct {
-	ReturnValue bool `json:"returnValue" xml:"returnValue"`
+ReturnValue bool `json:"returnValue" xml:"returnValue"`
 }
 
 type GetPermissionRequest struct {
-	PermissionArn     string `json:"permissionArn" xml:"permissionArn"`
-	PermissionVersion int32  `json:"permissionVersion" xml:"permissionVersion"`
+PermissionArn string `json:"permissionArn" xml:"permissionArn"`
+PermissionVersion int32 `json:"permissionVersion" xml:"permissionVersion"`
 }
 
 type GetPermissionResponse struct {
-	Permission *ResourceSharePermissionDetail `json:"permission" xml:"permission"`
+Permission *ResourceSharePermissionDetail `json:"permission" xml:"permission"`
 }
 
 type GetResourcePoliciesRequest struct {
-	MaxResults   int32           `json:"maxResults" xml:"maxResults"`
-	NextToken    string          `json:"nextToken" xml:"nextToken"`
-	Principal    string          `json:"principal" xml:"principal"`
-	ResourceArns ResourceArnList `json:"resourceArns" xml:"resourceArns"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Principal string `json:"principal" xml:"principal"`
+ResourceArns ResourceArnList `json:"resourceArns" xml:"resourceArns"`
 }
 
 type GetResourcePoliciesResponse struct {
-	NextToken string     `json:"nextToken" xml:"nextToken"`
-	Policies  PolicyList `json:"policies" xml:"policies"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Policies PolicyList `json:"policies" xml:"policies"`
 }
 
 type GetResourceShareAssociationsRequest struct {
-	AssociationStatus string               `json:"associationStatus" xml:"associationStatus"`
-	AssociationType   string               `json:"associationType" xml:"associationType"`
-	MaxResults        int32                `json:"maxResults" xml:"maxResults"`
-	NextToken         string               `json:"nextToken" xml:"nextToken"`
-	Principal         string               `json:"principal" xml:"principal"`
-	ResourceArn       string               `json:"resourceArn" xml:"resourceArn"`
-	ResourceShareArns ResourceShareArnList `json:"resourceShareArns" xml:"resourceShareArns"`
+AssociationStatus string `json:"associationStatus" xml:"associationStatus"`
+AssociationType string `json:"associationType" xml:"associationType"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Principal string `json:"principal" xml:"principal"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceShareArns ResourceShareArnList `json:"resourceShareArns" xml:"resourceShareArns"`
 }
 
 type GetResourceShareAssociationsResponse struct {
-	NextToken                 string                       `json:"nextToken" xml:"nextToken"`
-	ResourceShareAssociations ResourceShareAssociationList `json:"resourceShareAssociations" xml:"resourceShareAssociations"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceShareAssociations ResourceShareAssociationList `json:"resourceShareAssociations" xml:"resourceShareAssociations"`
 }
 
 type GetResourceShareInvitationsRequest struct {
-	MaxResults                  int32                          `json:"maxResults" xml:"maxResults"`
-	NextToken                   string                         `json:"nextToken" xml:"nextToken"`
-	ResourceShareArns           ResourceShareArnList           `json:"resourceShareArns" xml:"resourceShareArns"`
-	ResourceShareInvitationArns ResourceShareInvitationArnList `json:"resourceShareInvitationArns" xml:"resourceShareInvitationArns"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceShareArns ResourceShareArnList `json:"resourceShareArns" xml:"resourceShareArns"`
+ResourceShareInvitationArns ResourceShareInvitationArnList `json:"resourceShareInvitationArns" xml:"resourceShareInvitationArns"`
 }
 
 type GetResourceShareInvitationsResponse struct {
-	NextToken                string                      `json:"nextToken" xml:"nextToken"`
-	ResourceShareInvitations ResourceShareInvitationList `json:"resourceShareInvitations" xml:"resourceShareInvitations"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceShareInvitations ResourceShareInvitationList `json:"resourceShareInvitations" xml:"resourceShareInvitations"`
 }
 
 type GetResourceSharesRequest struct {
-	MaxResults          int32                `json:"maxResults" xml:"maxResults"`
-	Name                string               `json:"name" xml:"name"`
-	NextToken           string               `json:"nextToken" xml:"nextToken"`
-	PermissionArn       string               `json:"permissionArn" xml:"permissionArn"`
-	PermissionVersion   int32                `json:"permissionVersion" xml:"permissionVersion"`
-	ResourceOwner       string               `json:"resourceOwner" xml:"resourceOwner"`
-	ResourceShareArns   ResourceShareArnList `json:"resourceShareArns" xml:"resourceShareArns"`
-	ResourceShareStatus string               `json:"resourceShareStatus" xml:"resourceShareStatus"`
-	TagFilters          TagFilters           `json:"tagFilters" xml:"tagFilters"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+Name string `json:"name" xml:"name"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PermissionArn string `json:"permissionArn" xml:"permissionArn"`
+PermissionVersion int32 `json:"permissionVersion" xml:"permissionVersion"`
+ResourceOwner string `json:"resourceOwner" xml:"resourceOwner"`
+ResourceShareArns ResourceShareArnList `json:"resourceShareArns" xml:"resourceShareArns"`
+ResourceShareStatus string `json:"resourceShareStatus" xml:"resourceShareStatus"`
+TagFilters TagFilters `json:"tagFilters" xml:"tagFilters"`
 }
 
 type GetResourceSharesResponse struct {
-	NextToken      string            `json:"nextToken" xml:"nextToken"`
-	ResourceShares ResourceShareList `json:"resourceShares" xml:"resourceShares"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceShares ResourceShareList `json:"resourceShares" xml:"resourceShares"`
 }
 
 type ListPendingInvitationResourcesRequest struct {
-	MaxResults                 int32  `json:"maxResults" xml:"maxResults"`
-	NextToken                  string `json:"nextToken" xml:"nextToken"`
-	ResourceRegionScope        string `json:"resourceRegionScope" xml:"resourceRegionScope"`
-	ResourceShareInvitationArn string `json:"resourceShareInvitationArn" xml:"resourceShareInvitationArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceRegionScope string `json:"resourceRegionScope" xml:"resourceRegionScope"`
+ResourceShareInvitationArn string `json:"resourceShareInvitationArn" xml:"resourceShareInvitationArn"`
 }
 
 type ListPendingInvitationResourcesResponse struct {
-	NextToken string       `json:"nextToken" xml:"nextToken"`
-	Resources ResourceList `json:"resources" xml:"resources"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Resources ResourceList `json:"resources" xml:"resources"`
 }
 
 type ListPermissionAssociationsRequest struct {
-	AssociationStatus string `json:"associationStatus" xml:"associationStatus"`
-	DefaultVersion    bool   `json:"defaultVersion" xml:"defaultVersion"`
-	FeatureSet        string `json:"featureSet" xml:"featureSet"`
-	MaxResults        int32  `json:"maxResults" xml:"maxResults"`
-	NextToken         string `json:"nextToken" xml:"nextToken"`
-	PermissionArn     string `json:"permissionArn" xml:"permissionArn"`
-	PermissionVersion int32  `json:"permissionVersion" xml:"permissionVersion"`
-	ResourceType      string `json:"resourceType" xml:"resourceType"`
+AssociationStatus string `json:"associationStatus" xml:"associationStatus"`
+DefaultVersion bool `json:"defaultVersion" xml:"defaultVersion"`
+FeatureSet string `json:"featureSet" xml:"featureSet"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PermissionArn string `json:"permissionArn" xml:"permissionArn"`
+PermissionVersion int32 `json:"permissionVersion" xml:"permissionVersion"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type ListPermissionAssociationsResponse struct {
-	NextToken   string                   `json:"nextToken" xml:"nextToken"`
-	Permissions AssociatedPermissionList `json:"permissions" xml:"permissions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Permissions AssociatedPermissionList `json:"permissions" xml:"permissions"`
 }
 
 type ListPermissionVersionsRequest struct {
-	MaxResults    int32  `json:"maxResults" xml:"maxResults"`
-	NextToken     string `json:"nextToken" xml:"nextToken"`
-	PermissionArn string `json:"permissionArn" xml:"permissionArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PermissionArn string `json:"permissionArn" xml:"permissionArn"`
 }
 
 type ListPermissionVersionsResponse struct {
-	NextToken   string                      `json:"nextToken" xml:"nextToken"`
-	Permissions ResourceSharePermissionList `json:"permissions" xml:"permissions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Permissions ResourceSharePermissionList `json:"permissions" xml:"permissions"`
 }
 
 type ListPermissionsRequest struct {
-	MaxResults     int32  `json:"maxResults" xml:"maxResults"`
-	NextToken      string `json:"nextToken" xml:"nextToken"`
-	PermissionType string `json:"permissionType" xml:"permissionType"`
-	ResourceType   string `json:"resourceType" xml:"resourceType"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PermissionType string `json:"permissionType" xml:"permissionType"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type ListPermissionsResponse struct {
-	NextToken   string                      `json:"nextToken" xml:"nextToken"`
-	Permissions ResourceSharePermissionList `json:"permissions" xml:"permissions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Permissions ResourceSharePermissionList `json:"permissions" xml:"permissions"`
 }
 
 type ListPrincipalsRequest struct {
-	MaxResults        int32                `json:"maxResults" xml:"maxResults"`
-	NextToken         string               `json:"nextToken" xml:"nextToken"`
-	Principals        PrincipalArnOrIdList `json:"principals" xml:"principals"`
-	ResourceArn       string               `json:"resourceArn" xml:"resourceArn"`
-	ResourceOwner     string               `json:"resourceOwner" xml:"resourceOwner"`
-	ResourceShareArns ResourceShareArnList `json:"resourceShareArns" xml:"resourceShareArns"`
-	ResourceType      string               `json:"resourceType" xml:"resourceType"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Principals PrincipalArnOrIdList `json:"principals" xml:"principals"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceOwner string `json:"resourceOwner" xml:"resourceOwner"`
+ResourceShareArns ResourceShareArnList `json:"resourceShareArns" xml:"resourceShareArns"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type ListPrincipalsResponse struct {
-	NextToken  string        `json:"nextToken" xml:"nextToken"`
-	Principals PrincipalList `json:"principals" xml:"principals"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Principals PrincipalList `json:"principals" xml:"principals"`
 }
 
 type ListReplacePermissionAssociationsWorkRequest struct {
-	MaxResults int32                                   `json:"maxResults" xml:"maxResults"`
-	NextToken  string                                  `json:"nextToken" xml:"nextToken"`
-	Status     string                                  `json:"status" xml:"status"`
-	WorkIds    ReplacePermissionAssociationsWorkIdList `json:"workIds" xml:"workIds"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Status string `json:"status" xml:"status"`
+WorkIds ReplacePermissionAssociationsWorkIdList `json:"workIds" xml:"workIds"`
 }
 
 type ListReplacePermissionAssociationsWorkResponse struct {
-	NextToken                          string                                `json:"nextToken" xml:"nextToken"`
-	ReplacePermissionAssociationsWorks ReplacePermissionAssociationsWorkList `json:"replacePermissionAssociationsWorks" xml:"replacePermissionAssociationsWorks"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ReplacePermissionAssociationsWorks ReplacePermissionAssociationsWorkList `json:"replacePermissionAssociationsWorks" xml:"replacePermissionAssociationsWorks"`
 }
 
 type ListResourceSharePermissionsRequest struct {
-	MaxResults       int32  `json:"maxResults" xml:"maxResults"`
-	NextToken        string `json:"nextToken" xml:"nextToken"`
-	ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
 }
 
 type ListResourceSharePermissionsResponse struct {
-	NextToken   string                      `json:"nextToken" xml:"nextToken"`
-	Permissions ResourceSharePermissionList `json:"permissions" xml:"permissions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Permissions ResourceSharePermissionList `json:"permissions" xml:"permissions"`
 }
 
 type ListResourceTypesRequest struct {
-	MaxResults          int32  `json:"maxResults" xml:"maxResults"`
-	NextToken           string `json:"nextToken" xml:"nextToken"`
-	ResourceRegionScope string `json:"resourceRegionScope" xml:"resourceRegionScope"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceRegionScope string `json:"resourceRegionScope" xml:"resourceRegionScope"`
 }
 
 type ListResourceTypesResponse struct {
-	NextToken     string                         `json:"nextToken" xml:"nextToken"`
-	ResourceTypes ServiceNameAndResourceTypeList `json:"resourceTypes" xml:"resourceTypes"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceTypes ServiceNameAndResourceTypeList `json:"resourceTypes" xml:"resourceTypes"`
 }
 
 type ListResourcesRequest struct {
-	MaxResults          int32                `json:"maxResults" xml:"maxResults"`
-	NextToken           string               `json:"nextToken" xml:"nextToken"`
-	Principal           string               `json:"principal" xml:"principal"`
-	ResourceArns        ResourceArnList      `json:"resourceArns" xml:"resourceArns"`
-	ResourceOwner       string               `json:"resourceOwner" xml:"resourceOwner"`
-	ResourceRegionScope string               `json:"resourceRegionScope" xml:"resourceRegionScope"`
-	ResourceShareArns   ResourceShareArnList `json:"resourceShareArns" xml:"resourceShareArns"`
-	ResourceType        string               `json:"resourceType" xml:"resourceType"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Principal string `json:"principal" xml:"principal"`
+ResourceArns ResourceArnList `json:"resourceArns" xml:"resourceArns"`
+ResourceOwner string `json:"resourceOwner" xml:"resourceOwner"`
+ResourceRegionScope string `json:"resourceRegionScope" xml:"resourceRegionScope"`
+ResourceShareArns ResourceShareArnList `json:"resourceShareArns" xml:"resourceShareArns"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
 }
 
 type ListResourcesResponse struct {
-	NextToken string       `json:"nextToken" xml:"nextToken"`
-	Resources ResourceList `json:"resources" xml:"resources"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Resources ResourceList `json:"resources" xml:"resources"`
 }
 
 type ListSourceAssociationsRequest struct {
-	AssociationStatus string               `json:"associationStatus" xml:"associationStatus"`
-	MaxResults        int32                `json:"maxResults" xml:"maxResults"`
-	NextToken         string               `json:"nextToken" xml:"nextToken"`
-	ResourceShareArns ResourceShareArnList `json:"resourceShareArns" xml:"resourceShareArns"`
-	SourceId          string               `json:"sourceId" xml:"sourceId"`
-	SourceType        string               `json:"sourceType" xml:"sourceType"`
+AssociationStatus string `json:"associationStatus" xml:"associationStatus"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceShareArns ResourceShareArnList `json:"resourceShareArns" xml:"resourceShareArns"`
+SourceId string `json:"sourceId" xml:"sourceId"`
+SourceType string `json:"sourceType" xml:"sourceType"`
 }
 
 type ListSourceAssociationsResponse struct {
-	NextToken          string               `json:"nextToken" xml:"nextToken"`
-	SourceAssociations AssociatedSourceList `json:"sourceAssociations" xml:"sourceAssociations"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SourceAssociations AssociatedSourceList `json:"sourceAssociations" xml:"sourceAssociations"`
 }
 
 type Principal struct {
-	CreationTime     time.Time `json:"creationTime" xml:"creationTime"`
-	External         bool      `json:"external" xml:"external"`
-	Id               string    `json:"id" xml:"id"`
-	LastUpdatedTime  time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	ResourceShareArn string    `json:"resourceShareArn" xml:"resourceShareArn"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+External bool `json:"external" xml:"external"`
+Id string `json:"id" xml:"id"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
 }
 
 type PromotePermissionCreatedFromPolicyRequest struct {
-	ClientToken   string `json:"clientToken" xml:"clientToken"`
-	Name          string `json:"name" xml:"name"`
-	PermissionArn string `json:"permissionArn" xml:"permissionArn"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Name string `json:"name" xml:"name"`
+PermissionArn string `json:"permissionArn" xml:"permissionArn"`
 }
 
 type PromotePermissionCreatedFromPolicyResponse struct {
-	ClientToken string                          `json:"clientToken" xml:"clientToken"`
-	Permission  *ResourceSharePermissionSummary `json:"permission" xml:"permission"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Permission *ResourceSharePermissionSummary `json:"permission" xml:"permission"`
 }
 
 type PromoteResourceShareCreatedFromPolicyRequest struct {
-	ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
 }
 
 type PromoteResourceShareCreatedFromPolicyResponse struct {
-	ReturnValue bool `json:"returnValue" xml:"returnValue"`
+ReturnValue bool `json:"returnValue" xml:"returnValue"`
 }
 
 type RejectResourceShareInvitationRequest struct {
-	ClientToken                string `json:"clientToken" xml:"clientToken"`
-	ResourceShareInvitationArn string `json:"resourceShareInvitationArn" xml:"resourceShareInvitationArn"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ResourceShareInvitationArn string `json:"resourceShareInvitationArn" xml:"resourceShareInvitationArn"`
 }
 
 type RejectResourceShareInvitationResponse struct {
-	ClientToken             string                   `json:"clientToken" xml:"clientToken"`
-	ResourceShareInvitation *ResourceShareInvitation `json:"resourceShareInvitation" xml:"resourceShareInvitation"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ResourceShareInvitation *ResourceShareInvitation `json:"resourceShareInvitation" xml:"resourceShareInvitation"`
 }
 
 type ReplacePermissionAssociationsRequest struct {
-	ClientToken           string `json:"clientToken" xml:"clientToken"`
-	FromPermissionArn     string `json:"fromPermissionArn" xml:"fromPermissionArn"`
-	FromPermissionVersion int32  `json:"fromPermissionVersion" xml:"fromPermissionVersion"`
-	ToPermissionArn       string `json:"toPermissionArn" xml:"toPermissionArn"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+FromPermissionArn string `json:"fromPermissionArn" xml:"fromPermissionArn"`
+FromPermissionVersion int32 `json:"fromPermissionVersion" xml:"fromPermissionVersion"`
+ToPermissionArn string `json:"toPermissionArn" xml:"toPermissionArn"`
 }
 
 type ReplacePermissionAssociationsResponse struct {
-	ClientToken                       string                             `json:"clientToken" xml:"clientToken"`
-	ReplacePermissionAssociationsWork *ReplacePermissionAssociationsWork `json:"replacePermissionAssociationsWork" xml:"replacePermissionAssociationsWork"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ReplacePermissionAssociationsWork *ReplacePermissionAssociationsWork `json:"replacePermissionAssociationsWork" xml:"replacePermissionAssociationsWork"`
 }
 
 type ReplacePermissionAssociationsWork struct {
-	CreationTime          time.Time `json:"creationTime" xml:"creationTime"`
-	FromPermissionArn     string    `json:"fromPermissionArn" xml:"fromPermissionArn"`
-	FromPermissionVersion string    `json:"fromPermissionVersion" xml:"fromPermissionVersion"`
-	Id                    string    `json:"id" xml:"id"`
-	LastUpdatedTime       time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	Status                string    `json:"status" xml:"status"`
-	StatusMessage         string    `json:"statusMessage" xml:"statusMessage"`
-	ToPermissionArn       string    `json:"toPermissionArn" xml:"toPermissionArn"`
-	ToPermissionVersion   string    `json:"toPermissionVersion" xml:"toPermissionVersion"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+FromPermissionArn string `json:"fromPermissionArn" xml:"fromPermissionArn"`
+FromPermissionVersion string `json:"fromPermissionVersion" xml:"fromPermissionVersion"`
+Id string `json:"id" xml:"id"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+Status string `json:"status" xml:"status"`
+StatusMessage string `json:"statusMessage" xml:"statusMessage"`
+ToPermissionArn string `json:"toPermissionArn" xml:"toPermissionArn"`
+ToPermissionVersion string `json:"toPermissionVersion" xml:"toPermissionVersion"`
 }
 
 type Resource struct {
-	Arn                 string    `json:"arn" xml:"arn"`
-	CreationTime        time.Time `json:"creationTime" xml:"creationTime"`
-	LastUpdatedTime     time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	ResourceGroupArn    string    `json:"resourceGroupArn" xml:"resourceGroupArn"`
-	ResourceRegionScope string    `json:"resourceRegionScope" xml:"resourceRegionScope"`
-	ResourceShareArn    string    `json:"resourceShareArn" xml:"resourceShareArn"`
-	Status              string    `json:"status" xml:"status"`
-	StatusMessage       string    `json:"statusMessage" xml:"statusMessage"`
-	Type                string    `json:"type" xml:"type"`
+Arn string `json:"arn" xml:"arn"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+ResourceGroupArn string `json:"resourceGroupArn" xml:"resourceGroupArn"`
+ResourceRegionScope string `json:"resourceRegionScope" xml:"resourceRegionScope"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+Status string `json:"status" xml:"status"`
+StatusMessage string `json:"statusMessage" xml:"statusMessage"`
+Type string `json:"type" xml:"type"`
 }
 
 type ResourceShare struct {
-	AllowExternalPrincipals    bool                        `json:"allowExternalPrincipals" xml:"allowExternalPrincipals"`
-	CreationTime               time.Time                   `json:"creationTime" xml:"creationTime"`
-	FeatureSet                 string                      `json:"featureSet" xml:"featureSet"`
-	LastUpdatedTime            time.Time                   `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	Name                       string                      `json:"name" xml:"name"`
-	OwningAccountId            string                      `json:"owningAccountId" xml:"owningAccountId"`
-	ResourceShareArn           string                      `json:"resourceShareArn" xml:"resourceShareArn"`
-	ResourceShareConfiguration *ResourceShareConfiguration `json:"resourceShareConfiguration" xml:"resourceShareConfiguration"`
-	Status                     string                      `json:"status" xml:"status"`
-	StatusMessage              string                      `json:"statusMessage" xml:"statusMessage"`
-	Tags                       TagList                     `json:"tags" xml:"tags"`
+AllowExternalPrincipals bool `json:"allowExternalPrincipals" xml:"allowExternalPrincipals"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+FeatureSet string `json:"featureSet" xml:"featureSet"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+Name string `json:"name" xml:"name"`
+OwningAccountId string `json:"owningAccountId" xml:"owningAccountId"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+ResourceShareConfiguration *ResourceShareConfiguration `json:"resourceShareConfiguration" xml:"resourceShareConfiguration"`
+Status string `json:"status" xml:"status"`
+StatusMessage string `json:"statusMessage" xml:"statusMessage"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type ResourceShareAssociation struct {
-	AssociatedEntity  string    `json:"associatedEntity" xml:"associatedEntity"`
-	AssociationType   string    `json:"associationType" xml:"associationType"`
-	CreationTime      time.Time `json:"creationTime" xml:"creationTime"`
-	External          bool      `json:"external" xml:"external"`
-	LastUpdatedTime   time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	ResourceShareArn  string    `json:"resourceShareArn" xml:"resourceShareArn"`
-	ResourceShareName string    `json:"resourceShareName" xml:"resourceShareName"`
-	Status            string    `json:"status" xml:"status"`
-	StatusMessage     string    `json:"statusMessage" xml:"statusMessage"`
+AssociatedEntity string `json:"associatedEntity" xml:"associatedEntity"`
+AssociationType string `json:"associationType" xml:"associationType"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+External bool `json:"external" xml:"external"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+ResourceShareName string `json:"resourceShareName" xml:"resourceShareName"`
+Status string `json:"status" xml:"status"`
+StatusMessage string `json:"statusMessage" xml:"statusMessage"`
 }
 
 type ResourceShareConfiguration struct {
-	RetainSharingOnAccountLeaveOrganization bool `json:"retainSharingOnAccountLeaveOrganization" xml:"retainSharingOnAccountLeaveOrganization"`
+RetainSharingOnAccountLeaveOrganization bool `json:"retainSharingOnAccountLeaveOrganization" xml:"retainSharingOnAccountLeaveOrganization"`
 }
 
 type ResourceShareInvitation struct {
-	InvitationTimestamp        time.Time                    `json:"invitationTimestamp" xml:"invitationTimestamp"`
-	ReceiverAccountId          string                       `json:"receiverAccountId" xml:"receiverAccountId"`
-	ReceiverArn                string                       `json:"receiverArn" xml:"receiverArn"`
-	ResourceShareArn           string                       `json:"resourceShareArn" xml:"resourceShareArn"`
-	ResourceShareAssociations  ResourceShareAssociationList `json:"resourceShareAssociations" xml:"resourceShareAssociations"`
-	ResourceShareInvitationArn string                       `json:"resourceShareInvitationArn" xml:"resourceShareInvitationArn"`
-	ResourceShareName          string                       `json:"resourceShareName" xml:"resourceShareName"`
-	SenderAccountId            string                       `json:"senderAccountId" xml:"senderAccountId"`
-	Status                     string                       `json:"status" xml:"status"`
+InvitationTimestamp time.Time `json:"invitationTimestamp" xml:"invitationTimestamp"`
+ReceiverAccountId string `json:"receiverAccountId" xml:"receiverAccountId"`
+ReceiverArn string `json:"receiverArn" xml:"receiverArn"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+ResourceShareAssociations ResourceShareAssociationList `json:"resourceShareAssociations" xml:"resourceShareAssociations"`
+ResourceShareInvitationArn string `json:"resourceShareInvitationArn" xml:"resourceShareInvitationArn"`
+ResourceShareName string `json:"resourceShareName" xml:"resourceShareName"`
+SenderAccountId string `json:"senderAccountId" xml:"senderAccountId"`
+Status string `json:"status" xml:"status"`
 }
 
 type ResourceSharePermissionDetail struct {
-	Arn                   string    `json:"arn" xml:"arn"`
-	CreationTime          time.Time `json:"creationTime" xml:"creationTime"`
-	DefaultVersion        bool      `json:"defaultVersion" xml:"defaultVersion"`
-	FeatureSet            string    `json:"featureSet" xml:"featureSet"`
-	IsResourceTypeDefault bool      `json:"isResourceTypeDefault" xml:"isResourceTypeDefault"`
-	LastUpdatedTime       time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	Name                  string    `json:"name" xml:"name"`
-	Permission            string    `json:"permission" xml:"permission"`
-	PermissionType        string    `json:"permissionType" xml:"permissionType"`
-	ResourceType          string    `json:"resourceType" xml:"resourceType"`
-	Status                string    `json:"status" xml:"status"`
-	Tags                  TagList   `json:"tags" xml:"tags"`
-	Version               string    `json:"version" xml:"version"`
+Arn string `json:"arn" xml:"arn"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+DefaultVersion bool `json:"defaultVersion" xml:"defaultVersion"`
+FeatureSet string `json:"featureSet" xml:"featureSet"`
+IsResourceTypeDefault bool `json:"isResourceTypeDefault" xml:"isResourceTypeDefault"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+Name string `json:"name" xml:"name"`
+Permission string `json:"permission" xml:"permission"`
+PermissionType string `json:"permissionType" xml:"permissionType"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+Status string `json:"status" xml:"status"`
+Tags TagList `json:"tags" xml:"tags"`
+Version string `json:"version" xml:"version"`
 }
 
 type ResourceSharePermissionSummary struct {
-	Arn                   string    `json:"arn" xml:"arn"`
-	CreationTime          time.Time `json:"creationTime" xml:"creationTime"`
-	DefaultVersion        bool      `json:"defaultVersion" xml:"defaultVersion"`
-	FeatureSet            string    `json:"featureSet" xml:"featureSet"`
-	IsResourceTypeDefault bool      `json:"isResourceTypeDefault" xml:"isResourceTypeDefault"`
-	LastUpdatedTime       time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	Name                  string    `json:"name" xml:"name"`
-	PermissionType        string    `json:"permissionType" xml:"permissionType"`
-	ResourceType          string    `json:"resourceType" xml:"resourceType"`
-	Status                string    `json:"status" xml:"status"`
-	Tags                  TagList   `json:"tags" xml:"tags"`
-	Version               string    `json:"version" xml:"version"`
+Arn string `json:"arn" xml:"arn"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+DefaultVersion bool `json:"defaultVersion" xml:"defaultVersion"`
+FeatureSet string `json:"featureSet" xml:"featureSet"`
+IsResourceTypeDefault bool `json:"isResourceTypeDefault" xml:"isResourceTypeDefault"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+Name string `json:"name" xml:"name"`
+PermissionType string `json:"permissionType" xml:"permissionType"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+Status string `json:"status" xml:"status"`
+Tags TagList `json:"tags" xml:"tags"`
+Version string `json:"version" xml:"version"`
 }
 
 type ServiceNameAndResourceType struct {
-	ResourceRegionScope string `json:"resourceRegionScope" xml:"resourceRegionScope"`
-	ResourceType        string `json:"resourceType" xml:"resourceType"`
-	ServiceName         string `json:"serviceName" xml:"serviceName"`
+ResourceRegionScope string `json:"resourceRegionScope" xml:"resourceRegionScope"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+ServiceName string `json:"serviceName" xml:"serviceName"`
 }
 
 type SetDefaultPermissionVersionRequest struct {
-	ClientToken       string `json:"clientToken" xml:"clientToken"`
-	PermissionArn     string `json:"permissionArn" xml:"permissionArn"`
-	PermissionVersion int32  `json:"permissionVersion" xml:"permissionVersion"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+PermissionArn string `json:"permissionArn" xml:"permissionArn"`
+PermissionVersion int32 `json:"permissionVersion" xml:"permissionVersion"`
 }
 
 type SetDefaultPermissionVersionResponse struct {
-	ClientToken string `json:"clientToken" xml:"clientToken"`
-	ReturnValue bool   `json:"returnValue" xml:"returnValue"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ReturnValue bool `json:"returnValue" xml:"returnValue"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"key"`
-	Value string `json:"value" xml:"value"`
+Key string `json:"key" xml:"key"`
+Value string `json:"value" xml:"value"`
 }
 
 type TagFilter struct {
-	TagKey    string       `json:"tagKey" xml:"tagKey"`
-	TagValues TagValueList `json:"tagValues" xml:"tagValues"`
+TagKey string `json:"tagKey" xml:"tagKey"`
+TagValues TagValueList `json:"tagValues" xml:"tagValues"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn      string  `json:"resourceArn" xml:"resourceArn"`
-	ResourceShareArn string  `json:"resourceShareArn" xml:"resourceShareArn"`
-	Tags             TagList `json:"tags" xml:"tags"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type UntagResourceRequest struct {
-	ResourceArn      string     `json:"resourceArn" xml:"resourceArn"`
-	ResourceShareArn string     `json:"resourceShareArn" xml:"resourceShareArn"`
-	TagKeys          TagKeyList `json:"tagKeys" xml:"tagKeys"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"tagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateResourceShareRequest struct {
-	AllowExternalPrincipals bool   `json:"allowExternalPrincipals" xml:"allowExternalPrincipals"`
-	ClientToken             string `json:"clientToken" xml:"clientToken"`
-	Name                    string `json:"name" xml:"name"`
-	ResourceShareArn        string `json:"resourceShareArn" xml:"resourceShareArn"`
+AllowExternalPrincipals bool `json:"allowExternalPrincipals" xml:"allowExternalPrincipals"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+Name string `json:"name" xml:"name"`
+ResourceShareArn string `json:"resourceShareArn" xml:"resourceShareArn"`
 }
 
 type UpdateResourceShareResponse struct {
-	ClientToken   string         `json:"clientToken" xml:"clientToken"`
-	ResourceShare *ResourceShare `json:"resourceShare" xml:"resourceShare"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+ResourceShare *ResourceShare `json:"resourceShare" xml:"resourceShare"`
 }
 
 type AssociatedPermissionList []*AssociatedPermission
@@ -609,3 +609,4 @@ type TagKeyList []string
 type TagList []*Tag
 
 type TagValueList []string
+

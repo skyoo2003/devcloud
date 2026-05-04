@@ -142,3 +142,4 @@ func DeserializeStartSnapshotRequest(r *http.Request, pathParams PathParams) (*S
 
 	return input, nil
 }
+

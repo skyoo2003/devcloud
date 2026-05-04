@@ -2,1390 +2,1391 @@
 // SPDX-License-Identifier: Apache-2.0
 package costexplorer
 
+
 type AnalysisDetails struct {
-	SavingsPlansPurchaseAnalysisDetails *SavingsPlansPurchaseAnalysisDetails `json:"savingsPlansPurchaseAnalysisDetails" xml:"SavingsPlansPurchaseAnalysisDetails"`
+SavingsPlansPurchaseAnalysisDetails *SavingsPlansPurchaseAnalysisDetails `json:"savingsPlansPurchaseAnalysisDetails" xml:"SavingsPlansPurchaseAnalysisDetails"`
 }
 
 type AnalysisSummary struct {
-	AnalysisCompletionTime                  string                                   `json:"analysisCompletionTime" xml:"AnalysisCompletionTime"`
-	AnalysisId                              string                                   `json:"analysisId" xml:"AnalysisId"`
-	AnalysisStartedTime                     string                                   `json:"analysisStartedTime" xml:"AnalysisStartedTime"`
-	AnalysisStatus                          string                                   `json:"analysisStatus" xml:"AnalysisStatus"`
-	CommitmentPurchaseAnalysisConfiguration *CommitmentPurchaseAnalysisConfiguration `json:"commitmentPurchaseAnalysisConfiguration" xml:"CommitmentPurchaseAnalysisConfiguration"`
-	ErrorCode                               string                                   `json:"errorCode" xml:"ErrorCode"`
-	EstimatedCompletionTime                 string                                   `json:"estimatedCompletionTime" xml:"EstimatedCompletionTime"`
+AnalysisCompletionTime string `json:"analysisCompletionTime" xml:"AnalysisCompletionTime"`
+AnalysisId string `json:"analysisId" xml:"AnalysisId"`
+AnalysisStartedTime string `json:"analysisStartedTime" xml:"AnalysisStartedTime"`
+AnalysisStatus string `json:"analysisStatus" xml:"AnalysisStatus"`
+CommitmentPurchaseAnalysisConfiguration *CommitmentPurchaseAnalysisConfiguration `json:"commitmentPurchaseAnalysisConfiguration" xml:"CommitmentPurchaseAnalysisConfiguration"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+EstimatedCompletionTime string `json:"estimatedCompletionTime" xml:"EstimatedCompletionTime"`
 }
 
 type Anomaly struct {
-	AnomalyEndDate   string        `json:"anomalyEndDate" xml:"AnomalyEndDate"`
-	AnomalyId        string        `json:"anomalyId" xml:"AnomalyId"`
-	AnomalyScore     *AnomalyScore `json:"anomalyScore" xml:"AnomalyScore"`
-	AnomalyStartDate string        `json:"anomalyStartDate" xml:"AnomalyStartDate"`
-	DimensionValue   string        `json:"dimensionValue" xml:"DimensionValue"`
-	Feedback         string        `json:"feedback" xml:"Feedback"`
-	Impact           *Impact       `json:"impact" xml:"Impact"`
-	MonitorArn       string        `json:"monitorArn" xml:"MonitorArn"`
-	RootCauses       RootCauses    `json:"rootCauses" xml:"RootCauses"`
+AnomalyEndDate string `json:"anomalyEndDate" xml:"AnomalyEndDate"`
+AnomalyId string `json:"anomalyId" xml:"AnomalyId"`
+AnomalyScore *AnomalyScore `json:"anomalyScore" xml:"AnomalyScore"`
+AnomalyStartDate string `json:"anomalyStartDate" xml:"AnomalyStartDate"`
+DimensionValue string `json:"dimensionValue" xml:"DimensionValue"`
+Feedback string `json:"feedback" xml:"Feedback"`
+Impact *Impact `json:"impact" xml:"Impact"`
+MonitorArn string `json:"monitorArn" xml:"MonitorArn"`
+RootCauses RootCauses `json:"rootCauses" xml:"RootCauses"`
 }
 
 type AnomalyDateInterval struct {
-	EndDate   string `json:"endDate" xml:"EndDate"`
-	StartDate string `json:"startDate" xml:"StartDate"`
+EndDate string `json:"endDate" xml:"EndDate"`
+StartDate string `json:"startDate" xml:"StartDate"`
 }
 
 type AnomalyMonitor struct {
-	CreationDate          string      `json:"creationDate" xml:"CreationDate"`
-	DimensionalValueCount int32       `json:"dimensionalValueCount" xml:"DimensionalValueCount"`
-	LastEvaluatedDate     string      `json:"lastEvaluatedDate" xml:"LastEvaluatedDate"`
-	LastUpdatedDate       string      `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
-	MonitorArn            string      `json:"monitorArn" xml:"MonitorArn"`
-	MonitorDimension      string      `json:"monitorDimension" xml:"MonitorDimension"`
-	MonitorName           string      `json:"monitorName" xml:"MonitorName"`
-	MonitorSpecification  *Expression `json:"monitorSpecification" xml:"MonitorSpecification"`
-	MonitorType           string      `json:"monitorType" xml:"MonitorType"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+DimensionalValueCount int32 `json:"dimensionalValueCount" xml:"DimensionalValueCount"`
+LastEvaluatedDate string `json:"lastEvaluatedDate" xml:"LastEvaluatedDate"`
+LastUpdatedDate string `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
+MonitorArn string `json:"monitorArn" xml:"MonitorArn"`
+MonitorDimension string `json:"monitorDimension" xml:"MonitorDimension"`
+MonitorName string `json:"monitorName" xml:"MonitorName"`
+MonitorSpecification *Expression `json:"monitorSpecification" xml:"MonitorSpecification"`
+MonitorType string `json:"monitorType" xml:"MonitorType"`
 }
 
 type AnomalyScore struct {
-	CurrentScore float64 `json:"currentScore" xml:"CurrentScore"`
-	MaxScore     float64 `json:"maxScore" xml:"MaxScore"`
+CurrentScore float64 `json:"currentScore" xml:"CurrentScore"`
+MaxScore float64 `json:"maxScore" xml:"MaxScore"`
 }
 
 type AnomalySubscription struct {
-	AccountId           string         `json:"accountId" xml:"AccountId"`
-	Frequency           string         `json:"frequency" xml:"Frequency"`
-	MonitorArnList      MonitorArnList `json:"monitorArnList" xml:"MonitorArnList"`
-	Subscribers         Subscribers    `json:"subscribers" xml:"Subscribers"`
-	SubscriptionArn     string         `json:"subscriptionArn" xml:"SubscriptionArn"`
-	SubscriptionName    string         `json:"subscriptionName" xml:"SubscriptionName"`
-	Threshold           float64        `json:"threshold" xml:"Threshold"`
-	ThresholdExpression *Expression    `json:"thresholdExpression" xml:"ThresholdExpression"`
+AccountId string `json:"accountId" xml:"AccountId"`
+Frequency string `json:"frequency" xml:"Frequency"`
+MonitorArnList MonitorArnList `json:"monitorArnList" xml:"MonitorArnList"`
+Subscribers Subscribers `json:"subscribers" xml:"Subscribers"`
+SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
+SubscriptionName string `json:"subscriptionName" xml:"SubscriptionName"`
+Threshold float64 `json:"threshold" xml:"Threshold"`
+ThresholdExpression *Expression `json:"thresholdExpression" xml:"ThresholdExpression"`
 }
 
 type CommitmentPurchaseAnalysisConfiguration struct {
-	SavingsPlansPurchaseAnalysisConfiguration *SavingsPlansPurchaseAnalysisConfiguration `json:"savingsPlansPurchaseAnalysisConfiguration" xml:"SavingsPlansPurchaseAnalysisConfiguration"`
+SavingsPlansPurchaseAnalysisConfiguration *SavingsPlansPurchaseAnalysisConfiguration `json:"savingsPlansPurchaseAnalysisConfiguration" xml:"SavingsPlansPurchaseAnalysisConfiguration"`
 }
 
 type ComparisonMetricValue struct {
-	BaselineTimePeriodAmount   string `json:"baselineTimePeriodAmount" xml:"BaselineTimePeriodAmount"`
-	ComparisonTimePeriodAmount string `json:"comparisonTimePeriodAmount" xml:"ComparisonTimePeriodAmount"`
-	Difference                 string `json:"difference" xml:"Difference"`
-	Unit                       string `json:"unit" xml:"Unit"`
+BaselineTimePeriodAmount string `json:"baselineTimePeriodAmount" xml:"BaselineTimePeriodAmount"`
+ComparisonTimePeriodAmount string `json:"comparisonTimePeriodAmount" xml:"ComparisonTimePeriodAmount"`
+Difference string `json:"difference" xml:"Difference"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type CostAllocationTag struct {
-	LastUpdatedDate string `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
-	LastUsedDate    string `json:"lastUsedDate" xml:"LastUsedDate"`
-	Status          string `json:"status" xml:"Status"`
-	TagKey          string `json:"tagKey" xml:"TagKey"`
-	Type            string `json:"type" xml:"Type"`
+LastUpdatedDate string `json:"lastUpdatedDate" xml:"LastUpdatedDate"`
+LastUsedDate string `json:"lastUsedDate" xml:"LastUsedDate"`
+Status string `json:"status" xml:"Status"`
+TagKey string `json:"tagKey" xml:"TagKey"`
+Type string `json:"type" xml:"Type"`
 }
 
 type CostAllocationTagBackfillRequest struct {
-	BackfillFrom   string `json:"backfillFrom" xml:"BackfillFrom"`
-	BackfillStatus string `json:"backfillStatus" xml:"BackfillStatus"`
-	CompletedAt    string `json:"completedAt" xml:"CompletedAt"`
-	LastUpdatedAt  string `json:"lastUpdatedAt" xml:"LastUpdatedAt"`
-	RequestedAt    string `json:"requestedAt" xml:"RequestedAt"`
+BackfillFrom string `json:"backfillFrom" xml:"BackfillFrom"`
+BackfillStatus string `json:"backfillStatus" xml:"BackfillStatus"`
+CompletedAt string `json:"completedAt" xml:"CompletedAt"`
+LastUpdatedAt string `json:"lastUpdatedAt" xml:"LastUpdatedAt"`
+RequestedAt string `json:"requestedAt" xml:"RequestedAt"`
 }
 
 type CostAllocationTagStatusEntry struct {
-	Status string `json:"status" xml:"Status"`
-	TagKey string `json:"tagKey" xml:"TagKey"`
+Status string `json:"status" xml:"Status"`
+TagKey string `json:"tagKey" xml:"TagKey"`
 }
 
 type CostAndUsageComparison struct {
-	CostAndUsageSelector *Expression       `json:"costAndUsageSelector" xml:"CostAndUsageSelector"`
-	Metrics              ComparisonMetrics `json:"metrics" xml:"Metrics"`
+CostAndUsageSelector *Expression `json:"costAndUsageSelector" xml:"CostAndUsageSelector"`
+Metrics ComparisonMetrics `json:"metrics" xml:"Metrics"`
 }
 
 type CostCategory struct {
-	CostCategoryArn  string                           `json:"costCategoryArn" xml:"CostCategoryArn"`
-	DefaultValue     string                           `json:"defaultValue" xml:"DefaultValue"`
-	EffectiveEnd     string                           `json:"effectiveEnd" xml:"EffectiveEnd"`
-	EffectiveStart   string                           `json:"effectiveStart" xml:"EffectiveStart"`
-	Name             string                           `json:"name" xml:"Name"`
-	ProcessingStatus CostCategoryProcessingStatusList `json:"processingStatus" xml:"ProcessingStatus"`
-	RuleVersion      string                           `json:"ruleVersion" xml:"RuleVersion"`
-	Rules            CostCategoryRulesList            `json:"rules" xml:"Rules"`
-	SplitChargeRules CostCategorySplitChargeRulesList `json:"splitChargeRules" xml:"SplitChargeRules"`
+CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+EffectiveEnd string `json:"effectiveEnd" xml:"EffectiveEnd"`
+EffectiveStart string `json:"effectiveStart" xml:"EffectiveStart"`
+Name string `json:"name" xml:"Name"`
+ProcessingStatus CostCategoryProcessingStatusList `json:"processingStatus" xml:"ProcessingStatus"`
+RuleVersion string `json:"ruleVersion" xml:"RuleVersion"`
+Rules CostCategoryRulesList `json:"rules" xml:"Rules"`
+SplitChargeRules CostCategorySplitChargeRulesList `json:"splitChargeRules" xml:"SplitChargeRules"`
 }
 
 type CostCategoryInheritedValueDimension struct {
-	DimensionKey  string `json:"dimensionKey" xml:"DimensionKey"`
-	DimensionName string `json:"dimensionName" xml:"DimensionName"`
+DimensionKey string `json:"dimensionKey" xml:"DimensionKey"`
+DimensionName string `json:"dimensionName" xml:"DimensionName"`
 }
 
 type CostCategoryProcessingStatus struct {
-	Component string `json:"component" xml:"Component"`
-	Status    string `json:"status" xml:"Status"`
+Component string `json:"component" xml:"Component"`
+Status string `json:"status" xml:"Status"`
 }
 
 type CostCategoryReference struct {
-	CostCategoryArn        string                           `json:"costCategoryArn" xml:"CostCategoryArn"`
-	DefaultValue           string                           `json:"defaultValue" xml:"DefaultValue"`
-	EffectiveEnd           string                           `json:"effectiveEnd" xml:"EffectiveEnd"`
-	EffectiveStart         string                           `json:"effectiveStart" xml:"EffectiveStart"`
-	Name                   string                           `json:"name" xml:"Name"`
-	NumberOfRules          int32                            `json:"numberOfRules" xml:"NumberOfRules"`
-	ProcessingStatus       CostCategoryProcessingStatusList `json:"processingStatus" xml:"ProcessingStatus"`
-	SupportedResourceTypes ResourceTypes                    `json:"supportedResourceTypes" xml:"SupportedResourceTypes"`
-	Values                 CostCategoryValuesList           `json:"values" xml:"Values"`
+CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+EffectiveEnd string `json:"effectiveEnd" xml:"EffectiveEnd"`
+EffectiveStart string `json:"effectiveStart" xml:"EffectiveStart"`
+Name string `json:"name" xml:"Name"`
+NumberOfRules int32 `json:"numberOfRules" xml:"NumberOfRules"`
+ProcessingStatus CostCategoryProcessingStatusList `json:"processingStatus" xml:"ProcessingStatus"`
+SupportedResourceTypes ResourceTypes `json:"supportedResourceTypes" xml:"SupportedResourceTypes"`
+Values CostCategoryValuesList `json:"values" xml:"Values"`
 }
 
 type CostCategoryResourceAssociation struct {
-	CostCategoryArn  string `json:"costCategoryArn" xml:"CostCategoryArn"`
-	CostCategoryName string `json:"costCategoryName" xml:"CostCategoryName"`
-	ResourceArn      string `json:"resourceArn" xml:"ResourceArn"`
+CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
+CostCategoryName string `json:"costCategoryName" xml:"CostCategoryName"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type CostCategoryRule struct {
-	InheritedValue *CostCategoryInheritedValueDimension `json:"inheritedValue" xml:"InheritedValue"`
-	Rule           *Expression                          `json:"rule" xml:"Rule"`
-	Type           string                               `json:"type" xml:"Type"`
-	Value          string                               `json:"value" xml:"Value"`
+InheritedValue *CostCategoryInheritedValueDimension `json:"inheritedValue" xml:"InheritedValue"`
+Rule *Expression `json:"rule" xml:"Rule"`
+Type string `json:"type" xml:"Type"`
+Value string `json:"value" xml:"Value"`
 }
 
 type CostCategorySplitChargeRule struct {
-	Method     string                                    `json:"method" xml:"Method"`
-	Parameters CostCategorySplitChargeRuleParametersList `json:"parameters" xml:"Parameters"`
-	Source     string                                    `json:"source" xml:"Source"`
-	Targets    CostCategorySplitChargeRuleTargetsList    `json:"targets" xml:"Targets"`
+Method string `json:"method" xml:"Method"`
+Parameters CostCategorySplitChargeRuleParametersList `json:"parameters" xml:"Parameters"`
+Source string `json:"source" xml:"Source"`
+Targets CostCategorySplitChargeRuleTargetsList `json:"targets" xml:"Targets"`
 }
 
 type CostCategorySplitChargeRuleParameter struct {
-	Type   string                                         `json:"type" xml:"Type"`
-	Values CostCategorySplitChargeRuleParameterValuesList `json:"values" xml:"Values"`
+Type string `json:"type" xml:"Type"`
+Values CostCategorySplitChargeRuleParameterValuesList `json:"values" xml:"Values"`
 }
 
 type CostCategoryValues struct {
-	Key          string       `json:"key" xml:"Key"`
-	MatchOptions MatchOptions `json:"matchOptions" xml:"MatchOptions"`
-	Values       Values       `json:"values" xml:"Values"`
+Key string `json:"key" xml:"Key"`
+MatchOptions MatchOptions `json:"matchOptions" xml:"MatchOptions"`
+Values Values `json:"values" xml:"Values"`
 }
 
 type CostComparisonDriver struct {
-	CostDrivers  CostDrivers       `json:"costDrivers" xml:"CostDrivers"`
-	CostSelector *Expression       `json:"costSelector" xml:"CostSelector"`
-	Metrics      ComparisonMetrics `json:"metrics" xml:"Metrics"`
+CostDrivers CostDrivers `json:"costDrivers" xml:"CostDrivers"`
+CostSelector *Expression `json:"costSelector" xml:"CostSelector"`
+Metrics ComparisonMetrics `json:"metrics" xml:"Metrics"`
 }
 
 type CostDriver struct {
-	Metrics ComparisonMetrics `json:"metrics" xml:"Metrics"`
-	Name    string            `json:"name" xml:"Name"`
-	Type    string            `json:"type" xml:"Type"`
+Metrics ComparisonMetrics `json:"metrics" xml:"Metrics"`
+Name string `json:"name" xml:"Name"`
+Type string `json:"type" xml:"Type"`
 }
 
 type Coverage struct {
-	CoverageCost            *CoverageCost            `json:"coverageCost" xml:"CoverageCost"`
-	CoverageHours           *CoverageHours           `json:"coverageHours" xml:"CoverageHours"`
-	CoverageNormalizedUnits *CoverageNormalizedUnits `json:"coverageNormalizedUnits" xml:"CoverageNormalizedUnits"`
+CoverageCost *CoverageCost `json:"coverageCost" xml:"CoverageCost"`
+CoverageHours *CoverageHours `json:"coverageHours" xml:"CoverageHours"`
+CoverageNormalizedUnits *CoverageNormalizedUnits `json:"coverageNormalizedUnits" xml:"CoverageNormalizedUnits"`
 }
 
 type CoverageByTime struct {
-	Groups     ReservationCoverageGroups `json:"groups" xml:"Groups"`
-	TimePeriod *DateInterval             `json:"timePeriod" xml:"TimePeriod"`
-	Total      *Coverage                 `json:"total" xml:"Total"`
+Groups ReservationCoverageGroups `json:"groups" xml:"Groups"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
+Total *Coverage `json:"total" xml:"Total"`
 }
 
 type CoverageCost struct {
-	OnDemandCost string `json:"onDemandCost" xml:"OnDemandCost"`
+OnDemandCost string `json:"onDemandCost" xml:"OnDemandCost"`
 }
 
 type CoverageHours struct {
-	CoverageHoursPercentage string `json:"coverageHoursPercentage" xml:"CoverageHoursPercentage"`
-	OnDemandHours           string `json:"onDemandHours" xml:"OnDemandHours"`
-	ReservedHours           string `json:"reservedHours" xml:"ReservedHours"`
-	TotalRunningHours       string `json:"totalRunningHours" xml:"TotalRunningHours"`
+CoverageHoursPercentage string `json:"coverageHoursPercentage" xml:"CoverageHoursPercentage"`
+OnDemandHours string `json:"onDemandHours" xml:"OnDemandHours"`
+ReservedHours string `json:"reservedHours" xml:"ReservedHours"`
+TotalRunningHours string `json:"totalRunningHours" xml:"TotalRunningHours"`
 }
 
 type CoverageNormalizedUnits struct {
-	CoverageNormalizedUnitsPercentage string `json:"coverageNormalizedUnitsPercentage" xml:"CoverageNormalizedUnitsPercentage"`
-	OnDemandNormalizedUnits           string `json:"onDemandNormalizedUnits" xml:"OnDemandNormalizedUnits"`
-	ReservedNormalizedUnits           string `json:"reservedNormalizedUnits" xml:"ReservedNormalizedUnits"`
-	TotalRunningNormalizedUnits       string `json:"totalRunningNormalizedUnits" xml:"TotalRunningNormalizedUnits"`
+CoverageNormalizedUnitsPercentage string `json:"coverageNormalizedUnitsPercentage" xml:"CoverageNormalizedUnitsPercentage"`
+OnDemandNormalizedUnits string `json:"onDemandNormalizedUnits" xml:"OnDemandNormalizedUnits"`
+ReservedNormalizedUnits string `json:"reservedNormalizedUnits" xml:"ReservedNormalizedUnits"`
+TotalRunningNormalizedUnits string `json:"totalRunningNormalizedUnits" xml:"TotalRunningNormalizedUnits"`
 }
 
 type CreateAnomalyMonitorRequest struct {
-	AnomalyMonitor *AnomalyMonitor `json:"anomalyMonitor" xml:"AnomalyMonitor"`
-	ResourceTags   ResourceTagList `json:"resourceTags" xml:"ResourceTags"`
+AnomalyMonitor *AnomalyMonitor `json:"anomalyMonitor" xml:"AnomalyMonitor"`
+ResourceTags ResourceTagList `json:"resourceTags" xml:"ResourceTags"`
 }
 
 type CreateAnomalyMonitorResponse struct {
-	MonitorArn string `json:"monitorArn" xml:"MonitorArn"`
+MonitorArn string `json:"monitorArn" xml:"MonitorArn"`
 }
 
 type CreateAnomalySubscriptionRequest struct {
-	AnomalySubscription *AnomalySubscription `json:"anomalySubscription" xml:"AnomalySubscription"`
-	ResourceTags        ResourceTagList      `json:"resourceTags" xml:"ResourceTags"`
+AnomalySubscription *AnomalySubscription `json:"anomalySubscription" xml:"AnomalySubscription"`
+ResourceTags ResourceTagList `json:"resourceTags" xml:"ResourceTags"`
 }
 
 type CreateAnomalySubscriptionResponse struct {
-	SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
+SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
 }
 
 type CreateCostCategoryDefinitionRequest struct {
-	DefaultValue     string                           `json:"defaultValue" xml:"DefaultValue"`
-	EffectiveStart   string                           `json:"effectiveStart" xml:"EffectiveStart"`
-	Name             string                           `json:"name" xml:"Name"`
-	ResourceTags     ResourceTagList                  `json:"resourceTags" xml:"ResourceTags"`
-	RuleVersion      string                           `json:"ruleVersion" xml:"RuleVersion"`
-	Rules            CostCategoryRulesList            `json:"rules" xml:"Rules"`
-	SplitChargeRules CostCategorySplitChargeRulesList `json:"splitChargeRules" xml:"SplitChargeRules"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+EffectiveStart string `json:"effectiveStart" xml:"EffectiveStart"`
+Name string `json:"name" xml:"Name"`
+ResourceTags ResourceTagList `json:"resourceTags" xml:"ResourceTags"`
+RuleVersion string `json:"ruleVersion" xml:"RuleVersion"`
+Rules CostCategoryRulesList `json:"rules" xml:"Rules"`
+SplitChargeRules CostCategorySplitChargeRulesList `json:"splitChargeRules" xml:"SplitChargeRules"`
 }
 
 type CreateCostCategoryDefinitionResponse struct {
-	CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
-	EffectiveStart  string `json:"effectiveStart" xml:"EffectiveStart"`
+CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
+EffectiveStart string `json:"effectiveStart" xml:"EffectiveStart"`
 }
 
 type CurrentInstance struct {
-	CurrencyCode                             string               `json:"currencyCode" xml:"CurrencyCode"`
-	InstanceName                             string               `json:"instanceName" xml:"InstanceName"`
-	MonthlyCost                              string               `json:"monthlyCost" xml:"MonthlyCost"`
-	OnDemandHoursInLookbackPeriod            string               `json:"onDemandHoursInLookbackPeriod" xml:"OnDemandHoursInLookbackPeriod"`
-	ReservationCoveredHoursInLookbackPeriod  string               `json:"reservationCoveredHoursInLookbackPeriod" xml:"ReservationCoveredHoursInLookbackPeriod"`
-	ResourceDetails                          *ResourceDetails     `json:"resourceDetails" xml:"ResourceDetails"`
-	ResourceId                               string               `json:"resourceId" xml:"ResourceId"`
-	ResourceUtilization                      *ResourceUtilization `json:"resourceUtilization" xml:"ResourceUtilization"`
-	SavingsPlansCoveredHoursInLookbackPeriod string               `json:"savingsPlansCoveredHoursInLookbackPeriod" xml:"SavingsPlansCoveredHoursInLookbackPeriod"`
-	Tags                                     TagValuesList        `json:"tags" xml:"Tags"`
-	TotalRunningHoursInLookbackPeriod        string               `json:"totalRunningHoursInLookbackPeriod" xml:"TotalRunningHoursInLookbackPeriod"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+InstanceName string `json:"instanceName" xml:"InstanceName"`
+MonthlyCost string `json:"monthlyCost" xml:"MonthlyCost"`
+OnDemandHoursInLookbackPeriod string `json:"onDemandHoursInLookbackPeriod" xml:"OnDemandHoursInLookbackPeriod"`
+ReservationCoveredHoursInLookbackPeriod string `json:"reservationCoveredHoursInLookbackPeriod" xml:"ReservationCoveredHoursInLookbackPeriod"`
+ResourceDetails *ResourceDetails `json:"resourceDetails" xml:"ResourceDetails"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceUtilization *ResourceUtilization `json:"resourceUtilization" xml:"ResourceUtilization"`
+SavingsPlansCoveredHoursInLookbackPeriod string `json:"savingsPlansCoveredHoursInLookbackPeriod" xml:"SavingsPlansCoveredHoursInLookbackPeriod"`
+Tags TagValuesList `json:"tags" xml:"Tags"`
+TotalRunningHoursInLookbackPeriod string `json:"totalRunningHoursInLookbackPeriod" xml:"TotalRunningHoursInLookbackPeriod"`
 }
 
 type DateInterval struct {
-	End   string `json:"end" xml:"End"`
-	Start string `json:"start" xml:"Start"`
+End string `json:"end" xml:"End"`
+Start string `json:"start" xml:"Start"`
 }
 
 type DeleteAnomalyMonitorRequest struct {
-	MonitorArn string `json:"monitorArn" xml:"MonitorArn"`
+MonitorArn string `json:"monitorArn" xml:"MonitorArn"`
 }
 
 type DeleteAnomalyMonitorResponse struct {
 }
 
 type DeleteAnomalySubscriptionRequest struct {
-	SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
+SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
 }
 
 type DeleteAnomalySubscriptionResponse struct {
 }
 
 type DeleteCostCategoryDefinitionRequest struct {
-	CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
+CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
 }
 
 type DeleteCostCategoryDefinitionResponse struct {
-	CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
-	EffectiveEnd    string `json:"effectiveEnd" xml:"EffectiveEnd"`
+CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
+EffectiveEnd string `json:"effectiveEnd" xml:"EffectiveEnd"`
 }
 
 type DescribeCostCategoryDefinitionRequest struct {
-	CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
-	EffectiveOn     string `json:"effectiveOn" xml:"EffectiveOn"`
+CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
+EffectiveOn string `json:"effectiveOn" xml:"EffectiveOn"`
 }
 
 type DescribeCostCategoryDefinitionResponse struct {
-	CostCategory *CostCategory `json:"costCategory" xml:"CostCategory"`
+CostCategory *CostCategory `json:"costCategory" xml:"CostCategory"`
 }
 
 type DimensionValues struct {
-	Key          string       `json:"key" xml:"Key"`
-	MatchOptions MatchOptions `json:"matchOptions" xml:"MatchOptions"`
-	Values       Values       `json:"values" xml:"Values"`
+Key string `json:"key" xml:"Key"`
+MatchOptions MatchOptions `json:"matchOptions" xml:"MatchOptions"`
+Values Values `json:"values" xml:"Values"`
 }
 
 type DimensionValuesWithAttributes struct {
-	Attributes Attributes `json:"attributes" xml:"Attributes"`
-	Value      string     `json:"value" xml:"Value"`
+Attributes Attributes `json:"attributes" xml:"Attributes"`
+Value string `json:"value" xml:"Value"`
 }
 
 type DiskResourceUtilization struct {
-	DiskReadBytesPerSecond  string `json:"diskReadBytesPerSecond" xml:"DiskReadBytesPerSecond"`
-	DiskReadOpsPerSecond    string `json:"diskReadOpsPerSecond" xml:"DiskReadOpsPerSecond"`
-	DiskWriteBytesPerSecond string `json:"diskWriteBytesPerSecond" xml:"DiskWriteBytesPerSecond"`
-	DiskWriteOpsPerSecond   string `json:"diskWriteOpsPerSecond" xml:"DiskWriteOpsPerSecond"`
+DiskReadBytesPerSecond string `json:"diskReadBytesPerSecond" xml:"DiskReadBytesPerSecond"`
+DiskReadOpsPerSecond string `json:"diskReadOpsPerSecond" xml:"DiskReadOpsPerSecond"`
+DiskWriteBytesPerSecond string `json:"diskWriteBytesPerSecond" xml:"DiskWriteBytesPerSecond"`
+DiskWriteOpsPerSecond string `json:"diskWriteOpsPerSecond" xml:"DiskWriteOpsPerSecond"`
 }
 
 type DynamoDBCapacityDetails struct {
-	CapacityUnits string `json:"capacityUnits" xml:"CapacityUnits"`
-	Region        string `json:"region" xml:"Region"`
+CapacityUnits string `json:"capacityUnits" xml:"CapacityUnits"`
+Region string `json:"region" xml:"Region"`
 }
 
 type EBSResourceUtilization struct {
-	EbsReadBytesPerSecond  string `json:"ebsReadBytesPerSecond" xml:"EbsReadBytesPerSecond"`
-	EbsReadOpsPerSecond    string `json:"ebsReadOpsPerSecond" xml:"EbsReadOpsPerSecond"`
-	EbsWriteBytesPerSecond string `json:"ebsWriteBytesPerSecond" xml:"EbsWriteBytesPerSecond"`
-	EbsWriteOpsPerSecond   string `json:"ebsWriteOpsPerSecond" xml:"EbsWriteOpsPerSecond"`
+EbsReadBytesPerSecond string `json:"ebsReadBytesPerSecond" xml:"EbsReadBytesPerSecond"`
+EbsReadOpsPerSecond string `json:"ebsReadOpsPerSecond" xml:"EbsReadOpsPerSecond"`
+EbsWriteBytesPerSecond string `json:"ebsWriteBytesPerSecond" xml:"EbsWriteBytesPerSecond"`
+EbsWriteOpsPerSecond string `json:"ebsWriteOpsPerSecond" xml:"EbsWriteOpsPerSecond"`
 }
 
 type EC2InstanceDetails struct {
-	AvailabilityZone  string `json:"availabilityZone" xml:"AvailabilityZone"`
-	CurrentGeneration bool   `json:"currentGeneration" xml:"CurrentGeneration"`
-	Family            string `json:"family" xml:"Family"`
-	InstanceType      string `json:"instanceType" xml:"InstanceType"`
-	Platform          string `json:"platform" xml:"Platform"`
-	Region            string `json:"region" xml:"Region"`
-	SizeFlexEligible  bool   `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
-	Tenancy           string `json:"tenancy" xml:"Tenancy"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+CurrentGeneration bool `json:"currentGeneration" xml:"CurrentGeneration"`
+Family string `json:"family" xml:"Family"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+Platform string `json:"platform" xml:"Platform"`
+Region string `json:"region" xml:"Region"`
+SizeFlexEligible bool `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
+Tenancy string `json:"tenancy" xml:"Tenancy"`
 }
 
 type EC2ResourceDetails struct {
-	HourlyOnDemandRate string `json:"hourlyOnDemandRate" xml:"HourlyOnDemandRate"`
-	InstanceType       string `json:"instanceType" xml:"InstanceType"`
-	Memory             string `json:"memory" xml:"Memory"`
-	NetworkPerformance string `json:"networkPerformance" xml:"NetworkPerformance"`
-	Platform           string `json:"platform" xml:"Platform"`
-	Region             string `json:"region" xml:"Region"`
-	Sku                string `json:"sku" xml:"Sku"`
-	Storage            string `json:"storage" xml:"Storage"`
-	Vcpu               string `json:"vcpu" xml:"Vcpu"`
+HourlyOnDemandRate string `json:"hourlyOnDemandRate" xml:"HourlyOnDemandRate"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+Memory string `json:"memory" xml:"Memory"`
+NetworkPerformance string `json:"networkPerformance" xml:"NetworkPerformance"`
+Platform string `json:"platform" xml:"Platform"`
+Region string `json:"region" xml:"Region"`
+Sku string `json:"sku" xml:"Sku"`
+Storage string `json:"storage" xml:"Storage"`
+Vcpu string `json:"vcpu" xml:"Vcpu"`
 }
 
 type EC2ResourceUtilization struct {
-	DiskResourceUtilization         *DiskResourceUtilization    `json:"diskResourceUtilization" xml:"DiskResourceUtilization"`
-	EBSResourceUtilization          *EBSResourceUtilization     `json:"eBSResourceUtilization" xml:"EBSResourceUtilization"`
-	MaxCpuUtilizationPercentage     string                      `json:"maxCpuUtilizationPercentage" xml:"MaxCpuUtilizationPercentage"`
-	MaxMemoryUtilizationPercentage  string                      `json:"maxMemoryUtilizationPercentage" xml:"MaxMemoryUtilizationPercentage"`
-	MaxStorageUtilizationPercentage string                      `json:"maxStorageUtilizationPercentage" xml:"MaxStorageUtilizationPercentage"`
-	NetworkResourceUtilization      *NetworkResourceUtilization `json:"networkResourceUtilization" xml:"NetworkResourceUtilization"`
+DiskResourceUtilization *DiskResourceUtilization `json:"diskResourceUtilization" xml:"DiskResourceUtilization"`
+EBSResourceUtilization *EBSResourceUtilization `json:"eBSResourceUtilization" xml:"EBSResourceUtilization"`
+MaxCpuUtilizationPercentage string `json:"maxCpuUtilizationPercentage" xml:"MaxCpuUtilizationPercentage"`
+MaxMemoryUtilizationPercentage string `json:"maxMemoryUtilizationPercentage" xml:"MaxMemoryUtilizationPercentage"`
+MaxStorageUtilizationPercentage string `json:"maxStorageUtilizationPercentage" xml:"MaxStorageUtilizationPercentage"`
+NetworkResourceUtilization *NetworkResourceUtilization `json:"networkResourceUtilization" xml:"NetworkResourceUtilization"`
 }
 
 type EC2Specification struct {
-	OfferingClass string `json:"offeringClass" xml:"OfferingClass"`
+OfferingClass string `json:"offeringClass" xml:"OfferingClass"`
 }
 
 type ESInstanceDetails struct {
-	CurrentGeneration bool   `json:"currentGeneration" xml:"CurrentGeneration"`
-	InstanceClass     string `json:"instanceClass" xml:"InstanceClass"`
-	InstanceSize      string `json:"instanceSize" xml:"InstanceSize"`
-	Region            string `json:"region" xml:"Region"`
-	SizeFlexEligible  bool   `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
+CurrentGeneration bool `json:"currentGeneration" xml:"CurrentGeneration"`
+InstanceClass string `json:"instanceClass" xml:"InstanceClass"`
+InstanceSize string `json:"instanceSize" xml:"InstanceSize"`
+Region string `json:"region" xml:"Region"`
+SizeFlexEligible bool `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
 }
 
 type ElastiCacheInstanceDetails struct {
-	CurrentGeneration  bool   `json:"currentGeneration" xml:"CurrentGeneration"`
-	Family             string `json:"family" xml:"Family"`
-	NodeType           string `json:"nodeType" xml:"NodeType"`
-	ProductDescription string `json:"productDescription" xml:"ProductDescription"`
-	Region             string `json:"region" xml:"Region"`
-	SizeFlexEligible   bool   `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
+CurrentGeneration bool `json:"currentGeneration" xml:"CurrentGeneration"`
+Family string `json:"family" xml:"Family"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+ProductDescription string `json:"productDescription" xml:"ProductDescription"`
+Region string `json:"region" xml:"Region"`
+SizeFlexEligible bool `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
 }
 
 type Expression struct {
-	And            Expressions         `json:"and" xml:"And"`
-	CostCategories *CostCategoryValues `json:"costCategories" xml:"CostCategories"`
-	Dimensions     *DimensionValues    `json:"dimensions" xml:"Dimensions"`
-	Not            *Expression         `json:"not" xml:"Not"`
-	Or             Expressions         `json:"or" xml:"Or"`
-	Tags           *TagValues          `json:"tags" xml:"Tags"`
+And Expressions `json:"and" xml:"And"`
+CostCategories *CostCategoryValues `json:"costCategories" xml:"CostCategories"`
+Dimensions *DimensionValues `json:"dimensions" xml:"Dimensions"`
+Not *Expression `json:"not" xml:"Not"`
+Or Expressions `json:"or" xml:"Or"`
+Tags *TagValues `json:"tags" xml:"Tags"`
 }
 
 type ForecastResult struct {
-	MeanValue                    string        `json:"meanValue" xml:"MeanValue"`
-	PredictionIntervalLowerBound string        `json:"predictionIntervalLowerBound" xml:"PredictionIntervalLowerBound"`
-	PredictionIntervalUpperBound string        `json:"predictionIntervalUpperBound" xml:"PredictionIntervalUpperBound"`
-	TimePeriod                   *DateInterval `json:"timePeriod" xml:"TimePeriod"`
+MeanValue string `json:"meanValue" xml:"MeanValue"`
+PredictionIntervalLowerBound string `json:"predictionIntervalLowerBound" xml:"PredictionIntervalLowerBound"`
+PredictionIntervalUpperBound string `json:"predictionIntervalUpperBound" xml:"PredictionIntervalUpperBound"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GenerationSummary struct {
-	EstimatedCompletionTime  string `json:"estimatedCompletionTime" xml:"EstimatedCompletionTime"`
-	GenerationCompletionTime string `json:"generationCompletionTime" xml:"GenerationCompletionTime"`
-	GenerationStartedTime    string `json:"generationStartedTime" xml:"GenerationStartedTime"`
-	GenerationStatus         string `json:"generationStatus" xml:"GenerationStatus"`
-	RecommendationId         string `json:"recommendationId" xml:"RecommendationId"`
+EstimatedCompletionTime string `json:"estimatedCompletionTime" xml:"EstimatedCompletionTime"`
+GenerationCompletionTime string `json:"generationCompletionTime" xml:"GenerationCompletionTime"`
+GenerationStartedTime string `json:"generationStartedTime" xml:"GenerationStartedTime"`
+GenerationStatus string `json:"generationStatus" xml:"GenerationStatus"`
+RecommendationId string `json:"recommendationId" xml:"RecommendationId"`
 }
 
 type GetAnomaliesRequest struct {
-	DateInterval  *AnomalyDateInterval `json:"dateInterval" xml:"DateInterval"`
-	Feedback      string               `json:"feedback" xml:"Feedback"`
-	MaxResults    int32                `json:"maxResults" xml:"MaxResults"`
-	MonitorArn    string               `json:"monitorArn" xml:"MonitorArn"`
-	NextPageToken string               `json:"nextPageToken" xml:"NextPageToken"`
-	TotalImpact   *TotalImpactFilter   `json:"totalImpact" xml:"TotalImpact"`
+DateInterval *AnomalyDateInterval `json:"dateInterval" xml:"DateInterval"`
+Feedback string `json:"feedback" xml:"Feedback"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+MonitorArn string `json:"monitorArn" xml:"MonitorArn"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+TotalImpact *TotalImpactFilter `json:"totalImpact" xml:"TotalImpact"`
 }
 
 type GetAnomaliesResponse struct {
-	Anomalies     Anomalies `json:"anomalies" xml:"Anomalies"`
-	NextPageToken string    `json:"nextPageToken" xml:"NextPageToken"`
+Anomalies Anomalies `json:"anomalies" xml:"Anomalies"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
 }
 
 type GetAnomalyMonitorsRequest struct {
-	MaxResults     int32  `json:"maxResults" xml:"MaxResults"`
-	MonitorArnList Values `json:"monitorArnList" xml:"MonitorArnList"`
-	NextPageToken  string `json:"nextPageToken" xml:"NextPageToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+MonitorArnList Values `json:"monitorArnList" xml:"MonitorArnList"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
 }
 
 type GetAnomalyMonitorsResponse struct {
-	AnomalyMonitors AnomalyMonitors `json:"anomalyMonitors" xml:"AnomalyMonitors"`
-	NextPageToken   string          `json:"nextPageToken" xml:"NextPageToken"`
+AnomalyMonitors AnomalyMonitors `json:"anomalyMonitors" xml:"AnomalyMonitors"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
 }
 
 type GetAnomalySubscriptionsRequest struct {
-	MaxResults          int32  `json:"maxResults" xml:"MaxResults"`
-	MonitorArn          string `json:"monitorArn" xml:"MonitorArn"`
-	NextPageToken       string `json:"nextPageToken" xml:"NextPageToken"`
-	SubscriptionArnList Values `json:"subscriptionArnList" xml:"SubscriptionArnList"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+MonitorArn string `json:"monitorArn" xml:"MonitorArn"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+SubscriptionArnList Values `json:"subscriptionArnList" xml:"SubscriptionArnList"`
 }
 
 type GetAnomalySubscriptionsResponse struct {
-	AnomalySubscriptions AnomalySubscriptions `json:"anomalySubscriptions" xml:"AnomalySubscriptions"`
-	NextPageToken        string               `json:"nextPageToken" xml:"NextPageToken"`
+AnomalySubscriptions AnomalySubscriptions `json:"anomalySubscriptions" xml:"AnomalySubscriptions"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
 }
 
 type GetApproximateUsageRecordsRequest struct {
-	ApproximationDimension string        `json:"approximationDimension" xml:"ApproximationDimension"`
-	Granularity            string        `json:"granularity" xml:"Granularity"`
-	Services               UsageServices `json:"services" xml:"Services"`
+ApproximationDimension string `json:"approximationDimension" xml:"ApproximationDimension"`
+Granularity string `json:"granularity" xml:"Granularity"`
+Services UsageServices `json:"services" xml:"Services"`
 }
 
 type GetApproximateUsageRecordsResponse struct {
-	LookbackPeriod *DateInterval                     `json:"lookbackPeriod" xml:"LookbackPeriod"`
-	Services       ApproximateUsageRecordsPerService `json:"services" xml:"Services"`
-	TotalRecords   int64                             `json:"totalRecords" xml:"TotalRecords"`
+LookbackPeriod *DateInterval `json:"lookbackPeriod" xml:"LookbackPeriod"`
+Services ApproximateUsageRecordsPerService `json:"services" xml:"Services"`
+TotalRecords int64 `json:"totalRecords" xml:"TotalRecords"`
 }
 
 type GetCommitmentPurchaseAnalysisRequest struct {
-	AnalysisId string `json:"analysisId" xml:"AnalysisId"`
+AnalysisId string `json:"analysisId" xml:"AnalysisId"`
 }
 
 type GetCommitmentPurchaseAnalysisResponse struct {
-	AnalysisCompletionTime                  string                                   `json:"analysisCompletionTime" xml:"AnalysisCompletionTime"`
-	AnalysisDetails                         *AnalysisDetails                         `json:"analysisDetails" xml:"AnalysisDetails"`
-	AnalysisId                              string                                   `json:"analysisId" xml:"AnalysisId"`
-	AnalysisStartedTime                     string                                   `json:"analysisStartedTime" xml:"AnalysisStartedTime"`
-	AnalysisStatus                          string                                   `json:"analysisStatus" xml:"AnalysisStatus"`
-	CommitmentPurchaseAnalysisConfiguration *CommitmentPurchaseAnalysisConfiguration `json:"commitmentPurchaseAnalysisConfiguration" xml:"CommitmentPurchaseAnalysisConfiguration"`
-	ErrorCode                               string                                   `json:"errorCode" xml:"ErrorCode"`
-	EstimatedCompletionTime                 string                                   `json:"estimatedCompletionTime" xml:"EstimatedCompletionTime"`
+AnalysisCompletionTime string `json:"analysisCompletionTime" xml:"AnalysisCompletionTime"`
+AnalysisDetails *AnalysisDetails `json:"analysisDetails" xml:"AnalysisDetails"`
+AnalysisId string `json:"analysisId" xml:"AnalysisId"`
+AnalysisStartedTime string `json:"analysisStartedTime" xml:"AnalysisStartedTime"`
+AnalysisStatus string `json:"analysisStatus" xml:"AnalysisStatus"`
+CommitmentPurchaseAnalysisConfiguration *CommitmentPurchaseAnalysisConfiguration `json:"commitmentPurchaseAnalysisConfiguration" xml:"CommitmentPurchaseAnalysisConfiguration"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+EstimatedCompletionTime string `json:"estimatedCompletionTime" xml:"EstimatedCompletionTime"`
 }
 
 type GetCostAndUsageComparisonsRequest struct {
-	BaselineTimePeriod   *DateInterval    `json:"baselineTimePeriod" xml:"BaselineTimePeriod"`
-	BillingViewArn       string           `json:"billingViewArn" xml:"BillingViewArn"`
-	ComparisonTimePeriod *DateInterval    `json:"comparisonTimePeriod" xml:"ComparisonTimePeriod"`
-	Filter               *Expression      `json:"filter" xml:"Filter"`
-	GroupBy              GroupDefinitions `json:"groupBy" xml:"GroupBy"`
-	MaxResults           int32            `json:"maxResults" xml:"MaxResults"`
-	MetricForComparison  string           `json:"metricForComparison" xml:"MetricForComparison"`
-	NextPageToken        string           `json:"nextPageToken" xml:"NextPageToken"`
+BaselineTimePeriod *DateInterval `json:"baselineTimePeriod" xml:"BaselineTimePeriod"`
+BillingViewArn string `json:"billingViewArn" xml:"BillingViewArn"`
+ComparisonTimePeriod *DateInterval `json:"comparisonTimePeriod" xml:"ComparisonTimePeriod"`
+Filter *Expression `json:"filter" xml:"Filter"`
+GroupBy GroupDefinitions `json:"groupBy" xml:"GroupBy"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+MetricForComparison string `json:"metricForComparison" xml:"MetricForComparison"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
 }
 
 type GetCostAndUsageComparisonsResponse struct {
-	CostAndUsageComparisons CostAndUsageComparisons `json:"costAndUsageComparisons" xml:"CostAndUsageComparisons"`
-	NextPageToken           string                  `json:"nextPageToken" xml:"NextPageToken"`
-	TotalCostAndUsage       ComparisonMetrics       `json:"totalCostAndUsage" xml:"TotalCostAndUsage"`
+CostAndUsageComparisons CostAndUsageComparisons `json:"costAndUsageComparisons" xml:"CostAndUsageComparisons"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+TotalCostAndUsage ComparisonMetrics `json:"totalCostAndUsage" xml:"TotalCostAndUsage"`
 }
 
 type GetCostAndUsageRequest struct {
-	BillingViewArn string           `json:"billingViewArn" xml:"BillingViewArn"`
-	Filter         *Expression      `json:"filter" xml:"Filter"`
-	Granularity    string           `json:"granularity" xml:"Granularity"`
-	GroupBy        GroupDefinitions `json:"groupBy" xml:"GroupBy"`
-	Metrics        MetricNames      `json:"metrics" xml:"Metrics"`
-	NextPageToken  string           `json:"nextPageToken" xml:"NextPageToken"`
-	TimePeriod     *DateInterval    `json:"timePeriod" xml:"TimePeriod"`
+BillingViewArn string `json:"billingViewArn" xml:"BillingViewArn"`
+Filter *Expression `json:"filter" xml:"Filter"`
+Granularity string `json:"granularity" xml:"Granularity"`
+GroupBy GroupDefinitions `json:"groupBy" xml:"GroupBy"`
+Metrics MetricNames `json:"metrics" xml:"Metrics"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetCostAndUsageResponse struct {
-	DimensionValueAttributes DimensionValuesWithAttributesList `json:"dimensionValueAttributes" xml:"DimensionValueAttributes"`
-	GroupDefinitions         GroupDefinitions                  `json:"groupDefinitions" xml:"GroupDefinitions"`
-	NextPageToken            string                            `json:"nextPageToken" xml:"NextPageToken"`
-	ResultsByTime            ResultsByTime                     `json:"resultsByTime" xml:"ResultsByTime"`
+DimensionValueAttributes DimensionValuesWithAttributesList `json:"dimensionValueAttributes" xml:"DimensionValueAttributes"`
+GroupDefinitions GroupDefinitions `json:"groupDefinitions" xml:"GroupDefinitions"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+ResultsByTime ResultsByTime `json:"resultsByTime" xml:"ResultsByTime"`
 }
 
 type GetCostAndUsageWithResourcesRequest struct {
-	BillingViewArn string           `json:"billingViewArn" xml:"BillingViewArn"`
-	Filter         *Expression      `json:"filter" xml:"Filter"`
-	Granularity    string           `json:"granularity" xml:"Granularity"`
-	GroupBy        GroupDefinitions `json:"groupBy" xml:"GroupBy"`
-	Metrics        MetricNames      `json:"metrics" xml:"Metrics"`
-	NextPageToken  string           `json:"nextPageToken" xml:"NextPageToken"`
-	TimePeriod     *DateInterval    `json:"timePeriod" xml:"TimePeriod"`
+BillingViewArn string `json:"billingViewArn" xml:"BillingViewArn"`
+Filter *Expression `json:"filter" xml:"Filter"`
+Granularity string `json:"granularity" xml:"Granularity"`
+GroupBy GroupDefinitions `json:"groupBy" xml:"GroupBy"`
+Metrics MetricNames `json:"metrics" xml:"Metrics"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetCostAndUsageWithResourcesResponse struct {
-	DimensionValueAttributes DimensionValuesWithAttributesList `json:"dimensionValueAttributes" xml:"DimensionValueAttributes"`
-	GroupDefinitions         GroupDefinitions                  `json:"groupDefinitions" xml:"GroupDefinitions"`
-	NextPageToken            string                            `json:"nextPageToken" xml:"NextPageToken"`
-	ResultsByTime            ResultsByTime                     `json:"resultsByTime" xml:"ResultsByTime"`
+DimensionValueAttributes DimensionValuesWithAttributesList `json:"dimensionValueAttributes" xml:"DimensionValueAttributes"`
+GroupDefinitions GroupDefinitions `json:"groupDefinitions" xml:"GroupDefinitions"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+ResultsByTime ResultsByTime `json:"resultsByTime" xml:"ResultsByTime"`
 }
 
 type GetCostCategoriesRequest struct {
-	BillingViewArn   string          `json:"billingViewArn" xml:"BillingViewArn"`
-	CostCategoryName string          `json:"costCategoryName" xml:"CostCategoryName"`
-	Filter           *Expression     `json:"filter" xml:"Filter"`
-	MaxResults       int32           `json:"maxResults" xml:"MaxResults"`
-	NextPageToken    string          `json:"nextPageToken" xml:"NextPageToken"`
-	SearchString     string          `json:"searchString" xml:"SearchString"`
-	SortBy           SortDefinitions `json:"sortBy" xml:"SortBy"`
-	TimePeriod       *DateInterval   `json:"timePeriod" xml:"TimePeriod"`
+BillingViewArn string `json:"billingViewArn" xml:"BillingViewArn"`
+CostCategoryName string `json:"costCategoryName" xml:"CostCategoryName"`
+Filter *Expression `json:"filter" xml:"Filter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+SearchString string `json:"searchString" xml:"SearchString"`
+SortBy SortDefinitions `json:"sortBy" xml:"SortBy"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetCostCategoriesResponse struct {
-	CostCategoryNames  CostCategoryNamesList  `json:"costCategoryNames" xml:"CostCategoryNames"`
-	CostCategoryValues CostCategoryValuesList `json:"costCategoryValues" xml:"CostCategoryValues"`
-	NextPageToken      string                 `json:"nextPageToken" xml:"NextPageToken"`
-	ReturnSize         int32                  `json:"returnSize" xml:"ReturnSize"`
-	TotalSize          int32                  `json:"totalSize" xml:"TotalSize"`
+CostCategoryNames CostCategoryNamesList `json:"costCategoryNames" xml:"CostCategoryNames"`
+CostCategoryValues CostCategoryValuesList `json:"costCategoryValues" xml:"CostCategoryValues"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+ReturnSize int32 `json:"returnSize" xml:"ReturnSize"`
+TotalSize int32 `json:"totalSize" xml:"TotalSize"`
 }
 
 type GetCostComparisonDriversRequest struct {
-	BaselineTimePeriod   *DateInterval    `json:"baselineTimePeriod" xml:"BaselineTimePeriod"`
-	BillingViewArn       string           `json:"billingViewArn" xml:"BillingViewArn"`
-	ComparisonTimePeriod *DateInterval    `json:"comparisonTimePeriod" xml:"ComparisonTimePeriod"`
-	Filter               *Expression      `json:"filter" xml:"Filter"`
-	GroupBy              GroupDefinitions `json:"groupBy" xml:"GroupBy"`
-	MaxResults           int32            `json:"maxResults" xml:"MaxResults"`
-	MetricForComparison  string           `json:"metricForComparison" xml:"MetricForComparison"`
-	NextPageToken        string           `json:"nextPageToken" xml:"NextPageToken"`
+BaselineTimePeriod *DateInterval `json:"baselineTimePeriod" xml:"BaselineTimePeriod"`
+BillingViewArn string `json:"billingViewArn" xml:"BillingViewArn"`
+ComparisonTimePeriod *DateInterval `json:"comparisonTimePeriod" xml:"ComparisonTimePeriod"`
+Filter *Expression `json:"filter" xml:"Filter"`
+GroupBy GroupDefinitions `json:"groupBy" xml:"GroupBy"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+MetricForComparison string `json:"metricForComparison" xml:"MetricForComparison"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
 }
 
 type GetCostComparisonDriversResponse struct {
-	CostComparisonDrivers CostComparisonDrivers `json:"costComparisonDrivers" xml:"CostComparisonDrivers"`
-	NextPageToken         string                `json:"nextPageToken" xml:"NextPageToken"`
+CostComparisonDrivers CostComparisonDrivers `json:"costComparisonDrivers" xml:"CostComparisonDrivers"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
 }
 
 type GetCostForecastRequest struct {
-	BillingViewArn          string        `json:"billingViewArn" xml:"BillingViewArn"`
-	Filter                  *Expression   `json:"filter" xml:"Filter"`
-	Granularity             string        `json:"granularity" xml:"Granularity"`
-	Metric                  string        `json:"metric" xml:"Metric"`
-	PredictionIntervalLevel int32         `json:"predictionIntervalLevel" xml:"PredictionIntervalLevel"`
-	TimePeriod              *DateInterval `json:"timePeriod" xml:"TimePeriod"`
+BillingViewArn string `json:"billingViewArn" xml:"BillingViewArn"`
+Filter *Expression `json:"filter" xml:"Filter"`
+Granularity string `json:"granularity" xml:"Granularity"`
+Metric string `json:"metric" xml:"Metric"`
+PredictionIntervalLevel int32 `json:"predictionIntervalLevel" xml:"PredictionIntervalLevel"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetCostForecastResponse struct {
-	ForecastResultsByTime ForecastResultsByTime `json:"forecastResultsByTime" xml:"ForecastResultsByTime"`
-	Total                 *MetricValue          `json:"total" xml:"Total"`
+ForecastResultsByTime ForecastResultsByTime `json:"forecastResultsByTime" xml:"ForecastResultsByTime"`
+Total *MetricValue `json:"total" xml:"Total"`
 }
 
 type GetDimensionValuesRequest struct {
-	BillingViewArn string          `json:"billingViewArn" xml:"BillingViewArn"`
-	Context        string          `json:"context" xml:"Context"`
-	Dimension      string          `json:"dimension" xml:"Dimension"`
-	Filter         *Expression     `json:"filter" xml:"Filter"`
-	MaxResults     int32           `json:"maxResults" xml:"MaxResults"`
-	NextPageToken  string          `json:"nextPageToken" xml:"NextPageToken"`
-	SearchString   string          `json:"searchString" xml:"SearchString"`
-	SortBy         SortDefinitions `json:"sortBy" xml:"SortBy"`
-	TimePeriod     *DateInterval   `json:"timePeriod" xml:"TimePeriod"`
+BillingViewArn string `json:"billingViewArn" xml:"BillingViewArn"`
+Context string `json:"context" xml:"Context"`
+Dimension string `json:"dimension" xml:"Dimension"`
+Filter *Expression `json:"filter" xml:"Filter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+SearchString string `json:"searchString" xml:"SearchString"`
+SortBy SortDefinitions `json:"sortBy" xml:"SortBy"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetDimensionValuesResponse struct {
-	DimensionValues DimensionValuesWithAttributesList `json:"dimensionValues" xml:"DimensionValues"`
-	NextPageToken   string                            `json:"nextPageToken" xml:"NextPageToken"`
-	ReturnSize      int32                             `json:"returnSize" xml:"ReturnSize"`
-	TotalSize       int32                             `json:"totalSize" xml:"TotalSize"`
+DimensionValues DimensionValuesWithAttributesList `json:"dimensionValues" xml:"DimensionValues"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+ReturnSize int32 `json:"returnSize" xml:"ReturnSize"`
+TotalSize int32 `json:"totalSize" xml:"TotalSize"`
 }
 
 type GetReservationCoverageRequest struct {
-	Filter        *Expression      `json:"filter" xml:"Filter"`
-	Granularity   string           `json:"granularity" xml:"Granularity"`
-	GroupBy       GroupDefinitions `json:"groupBy" xml:"GroupBy"`
-	MaxResults    int32            `json:"maxResults" xml:"MaxResults"`
-	Metrics       MetricNames      `json:"metrics" xml:"Metrics"`
-	NextPageToken string           `json:"nextPageToken" xml:"NextPageToken"`
-	SortBy        *SortDefinition  `json:"sortBy" xml:"SortBy"`
-	TimePeriod    *DateInterval    `json:"timePeriod" xml:"TimePeriod"`
+Filter *Expression `json:"filter" xml:"Filter"`
+Granularity string `json:"granularity" xml:"Granularity"`
+GroupBy GroupDefinitions `json:"groupBy" xml:"GroupBy"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+Metrics MetricNames `json:"metrics" xml:"Metrics"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+SortBy *SortDefinition `json:"sortBy" xml:"SortBy"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetReservationCoverageResponse struct {
-	CoveragesByTime CoveragesByTime `json:"coveragesByTime" xml:"CoveragesByTime"`
-	NextPageToken   string          `json:"nextPageToken" xml:"NextPageToken"`
-	Total           *Coverage       `json:"total" xml:"Total"`
+CoveragesByTime CoveragesByTime `json:"coveragesByTime" xml:"CoveragesByTime"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+Total *Coverage `json:"total" xml:"Total"`
 }
 
 type GetReservationPurchaseRecommendationRequest struct {
-	AccountId            string                `json:"accountId" xml:"AccountId"`
-	AccountScope         string                `json:"accountScope" xml:"AccountScope"`
-	Filter               *Expression           `json:"filter" xml:"Filter"`
-	LookbackPeriodInDays string                `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
-	NextPageToken        string                `json:"nextPageToken" xml:"NextPageToken"`
-	PageSize             int32                 `json:"pageSize" xml:"PageSize"`
-	PaymentOption        string                `json:"paymentOption" xml:"PaymentOption"`
-	Service              string                `json:"service" xml:"Service"`
-	ServiceSpecification *ServiceSpecification `json:"serviceSpecification" xml:"ServiceSpecification"`
-	TermInYears          string                `json:"termInYears" xml:"TermInYears"`
+AccountId string `json:"accountId" xml:"AccountId"`
+AccountScope string `json:"accountScope" xml:"AccountScope"`
+Filter *Expression `json:"filter" xml:"Filter"`
+LookbackPeriodInDays string `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+PageSize int32 `json:"pageSize" xml:"PageSize"`
+PaymentOption string `json:"paymentOption" xml:"PaymentOption"`
+Service string `json:"service" xml:"Service"`
+ServiceSpecification *ServiceSpecification `json:"serviceSpecification" xml:"ServiceSpecification"`
+TermInYears string `json:"termInYears" xml:"TermInYears"`
 }
 
 type GetReservationPurchaseRecommendationResponse struct {
-	Metadata        *ReservationPurchaseRecommendationMetadata `json:"metadata" xml:"Metadata"`
-	NextPageToken   string                                     `json:"nextPageToken" xml:"NextPageToken"`
-	Recommendations ReservationPurchaseRecommendations         `json:"recommendations" xml:"Recommendations"`
+Metadata *ReservationPurchaseRecommendationMetadata `json:"metadata" xml:"Metadata"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+Recommendations ReservationPurchaseRecommendations `json:"recommendations" xml:"Recommendations"`
 }
 
 type GetReservationUtilizationRequest struct {
-	Filter        *Expression      `json:"filter" xml:"Filter"`
-	Granularity   string           `json:"granularity" xml:"Granularity"`
-	GroupBy       GroupDefinitions `json:"groupBy" xml:"GroupBy"`
-	MaxResults    int32            `json:"maxResults" xml:"MaxResults"`
-	NextPageToken string           `json:"nextPageToken" xml:"NextPageToken"`
-	SortBy        *SortDefinition  `json:"sortBy" xml:"SortBy"`
-	TimePeriod    *DateInterval    `json:"timePeriod" xml:"TimePeriod"`
+Filter *Expression `json:"filter" xml:"Filter"`
+Granularity string `json:"granularity" xml:"Granularity"`
+GroupBy GroupDefinitions `json:"groupBy" xml:"GroupBy"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+SortBy *SortDefinition `json:"sortBy" xml:"SortBy"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetReservationUtilizationResponse struct {
-	NextPageToken      string                 `json:"nextPageToken" xml:"NextPageToken"`
-	Total              *ReservationAggregates `json:"total" xml:"Total"`
-	UtilizationsByTime UtilizationsByTime     `json:"utilizationsByTime" xml:"UtilizationsByTime"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+Total *ReservationAggregates `json:"total" xml:"Total"`
+UtilizationsByTime UtilizationsByTime `json:"utilizationsByTime" xml:"UtilizationsByTime"`
 }
 
 type GetRightsizingRecommendationRequest struct {
-	Configuration *RightsizingRecommendationConfiguration `json:"configuration" xml:"Configuration"`
-	Filter        *Expression                             `json:"filter" xml:"Filter"`
-	NextPageToken string                                  `json:"nextPageToken" xml:"NextPageToken"`
-	PageSize      int32                                   `json:"pageSize" xml:"PageSize"`
-	Service       string                                  `json:"service" xml:"Service"`
+Configuration *RightsizingRecommendationConfiguration `json:"configuration" xml:"Configuration"`
+Filter *Expression `json:"filter" xml:"Filter"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+PageSize int32 `json:"pageSize" xml:"PageSize"`
+Service string `json:"service" xml:"Service"`
 }
 
 type GetRightsizingRecommendationResponse struct {
-	Configuration              *RightsizingRecommendationConfiguration `json:"configuration" xml:"Configuration"`
-	Metadata                   *RightsizingRecommendationMetadata      `json:"metadata" xml:"Metadata"`
-	NextPageToken              string                                  `json:"nextPageToken" xml:"NextPageToken"`
-	RightsizingRecommendations RightsizingRecommendationList           `json:"rightsizingRecommendations" xml:"RightsizingRecommendations"`
-	Summary                    *RightsizingRecommendationSummary       `json:"summary" xml:"Summary"`
+Configuration *RightsizingRecommendationConfiguration `json:"configuration" xml:"Configuration"`
+Metadata *RightsizingRecommendationMetadata `json:"metadata" xml:"Metadata"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+RightsizingRecommendations RightsizingRecommendationList `json:"rightsizingRecommendations" xml:"RightsizingRecommendations"`
+Summary *RightsizingRecommendationSummary `json:"summary" xml:"Summary"`
 }
 
 type GetSavingsPlanPurchaseRecommendationDetailsRequest struct {
-	RecommendationDetailId string `json:"recommendationDetailId" xml:"RecommendationDetailId"`
+RecommendationDetailId string `json:"recommendationDetailId" xml:"RecommendationDetailId"`
 }
 
 type GetSavingsPlanPurchaseRecommendationDetailsResponse struct {
-	RecommendationDetailData *RecommendationDetailData `json:"recommendationDetailData" xml:"RecommendationDetailData"`
-	RecommendationDetailId   string                    `json:"recommendationDetailId" xml:"RecommendationDetailId"`
+RecommendationDetailData *RecommendationDetailData `json:"recommendationDetailData" xml:"RecommendationDetailData"`
+RecommendationDetailId string `json:"recommendationDetailId" xml:"RecommendationDetailId"`
 }
 
 type GetSavingsPlansCoverageRequest struct {
-	Filter      *Expression      `json:"filter" xml:"Filter"`
-	Granularity string           `json:"granularity" xml:"Granularity"`
-	GroupBy     GroupDefinitions `json:"groupBy" xml:"GroupBy"`
-	MaxResults  int32            `json:"maxResults" xml:"MaxResults"`
-	Metrics     MetricNames      `json:"metrics" xml:"Metrics"`
-	NextToken   string           `json:"nextToken" xml:"NextToken"`
-	SortBy      *SortDefinition  `json:"sortBy" xml:"SortBy"`
-	TimePeriod  *DateInterval    `json:"timePeriod" xml:"TimePeriod"`
+Filter *Expression `json:"filter" xml:"Filter"`
+Granularity string `json:"granularity" xml:"Granularity"`
+GroupBy GroupDefinitions `json:"groupBy" xml:"GroupBy"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+Metrics MetricNames `json:"metrics" xml:"Metrics"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SortBy *SortDefinition `json:"sortBy" xml:"SortBy"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetSavingsPlansCoverageResponse struct {
-	NextToken             string                `json:"nextToken" xml:"NextToken"`
-	SavingsPlansCoverages SavingsPlansCoverages `json:"savingsPlansCoverages" xml:"SavingsPlansCoverages"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SavingsPlansCoverages SavingsPlansCoverages `json:"savingsPlansCoverages" xml:"SavingsPlansCoverages"`
 }
 
 type GetSavingsPlansPurchaseRecommendationRequest struct {
-	AccountScope         string      `json:"accountScope" xml:"AccountScope"`
-	Filter               *Expression `json:"filter" xml:"Filter"`
-	LookbackPeriodInDays string      `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
-	NextPageToken        string      `json:"nextPageToken" xml:"NextPageToken"`
-	PageSize             int32       `json:"pageSize" xml:"PageSize"`
-	PaymentOption        string      `json:"paymentOption" xml:"PaymentOption"`
-	SavingsPlansType     string      `json:"savingsPlansType" xml:"SavingsPlansType"`
-	TermInYears          string      `json:"termInYears" xml:"TermInYears"`
+AccountScope string `json:"accountScope" xml:"AccountScope"`
+Filter *Expression `json:"filter" xml:"Filter"`
+LookbackPeriodInDays string `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+PageSize int32 `json:"pageSize" xml:"PageSize"`
+PaymentOption string `json:"paymentOption" xml:"PaymentOption"`
+SavingsPlansType string `json:"savingsPlansType" xml:"SavingsPlansType"`
+TermInYears string `json:"termInYears" xml:"TermInYears"`
 }
 
 type GetSavingsPlansPurchaseRecommendationResponse struct {
-	Metadata                           *SavingsPlansPurchaseRecommendationMetadata `json:"metadata" xml:"Metadata"`
-	NextPageToken                      string                                      `json:"nextPageToken" xml:"NextPageToken"`
-	SavingsPlansPurchaseRecommendation *SavingsPlansPurchaseRecommendation         `json:"savingsPlansPurchaseRecommendation" xml:"SavingsPlansPurchaseRecommendation"`
+Metadata *SavingsPlansPurchaseRecommendationMetadata `json:"metadata" xml:"Metadata"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+SavingsPlansPurchaseRecommendation *SavingsPlansPurchaseRecommendation `json:"savingsPlansPurchaseRecommendation" xml:"SavingsPlansPurchaseRecommendation"`
 }
 
 type GetSavingsPlansUtilizationDetailsRequest struct {
-	DataType   SavingsPlansDataTypes `json:"dataType" xml:"DataType"`
-	Filter     *Expression           `json:"filter" xml:"Filter"`
-	MaxResults int32                 `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                `json:"nextToken" xml:"NextToken"`
-	SortBy     *SortDefinition       `json:"sortBy" xml:"SortBy"`
-	TimePeriod *DateInterval         `json:"timePeriod" xml:"TimePeriod"`
+DataType SavingsPlansDataTypes `json:"dataType" xml:"DataType"`
+Filter *Expression `json:"filter" xml:"Filter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SortBy *SortDefinition `json:"sortBy" xml:"SortBy"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetSavingsPlansUtilizationDetailsResponse struct {
-	NextToken                      string                             `json:"nextToken" xml:"NextToken"`
-	SavingsPlansUtilizationDetails SavingsPlansUtilizationDetails     `json:"savingsPlansUtilizationDetails" xml:"SavingsPlansUtilizationDetails"`
-	TimePeriod                     *DateInterval                      `json:"timePeriod" xml:"TimePeriod"`
-	Total                          *SavingsPlansUtilizationAggregates `json:"total" xml:"Total"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SavingsPlansUtilizationDetails SavingsPlansUtilizationDetails `json:"savingsPlansUtilizationDetails" xml:"SavingsPlansUtilizationDetails"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
+Total *SavingsPlansUtilizationAggregates `json:"total" xml:"Total"`
 }
 
 type GetSavingsPlansUtilizationRequest struct {
-	Filter      *Expression     `json:"filter" xml:"Filter"`
-	Granularity string          `json:"granularity" xml:"Granularity"`
-	SortBy      *SortDefinition `json:"sortBy" xml:"SortBy"`
-	TimePeriod  *DateInterval   `json:"timePeriod" xml:"TimePeriod"`
+Filter *Expression `json:"filter" xml:"Filter"`
+Granularity string `json:"granularity" xml:"Granularity"`
+SortBy *SortDefinition `json:"sortBy" xml:"SortBy"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetSavingsPlansUtilizationResponse struct {
-	SavingsPlansUtilizationsByTime SavingsPlansUtilizationsByTime     `json:"savingsPlansUtilizationsByTime" xml:"SavingsPlansUtilizationsByTime"`
-	Total                          *SavingsPlansUtilizationAggregates `json:"total" xml:"Total"`
+SavingsPlansUtilizationsByTime SavingsPlansUtilizationsByTime `json:"savingsPlansUtilizationsByTime" xml:"SavingsPlansUtilizationsByTime"`
+Total *SavingsPlansUtilizationAggregates `json:"total" xml:"Total"`
 }
 
 type GetTagsRequest struct {
-	BillingViewArn string          `json:"billingViewArn" xml:"BillingViewArn"`
-	Filter         *Expression     `json:"filter" xml:"Filter"`
-	MaxResults     int32           `json:"maxResults" xml:"MaxResults"`
-	NextPageToken  string          `json:"nextPageToken" xml:"NextPageToken"`
-	SearchString   string          `json:"searchString" xml:"SearchString"`
-	SortBy         SortDefinitions `json:"sortBy" xml:"SortBy"`
-	TagKey         string          `json:"tagKey" xml:"TagKey"`
-	TimePeriod     *DateInterval   `json:"timePeriod" xml:"TimePeriod"`
+BillingViewArn string `json:"billingViewArn" xml:"BillingViewArn"`
+Filter *Expression `json:"filter" xml:"Filter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+SearchString string `json:"searchString" xml:"SearchString"`
+SortBy SortDefinitions `json:"sortBy" xml:"SortBy"`
+TagKey string `json:"tagKey" xml:"TagKey"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetTagsResponse struct {
-	NextPageToken string  `json:"nextPageToken" xml:"NextPageToken"`
-	ReturnSize    int32   `json:"returnSize" xml:"ReturnSize"`
-	Tags          TagList `json:"tags" xml:"Tags"`
-	TotalSize     int32   `json:"totalSize" xml:"TotalSize"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+ReturnSize int32 `json:"returnSize" xml:"ReturnSize"`
+Tags TagList `json:"tags" xml:"Tags"`
+TotalSize int32 `json:"totalSize" xml:"TotalSize"`
 }
 
 type GetUsageForecastRequest struct {
-	BillingViewArn          string        `json:"billingViewArn" xml:"BillingViewArn"`
-	Filter                  *Expression   `json:"filter" xml:"Filter"`
-	Granularity             string        `json:"granularity" xml:"Granularity"`
-	Metric                  string        `json:"metric" xml:"Metric"`
-	PredictionIntervalLevel int32         `json:"predictionIntervalLevel" xml:"PredictionIntervalLevel"`
-	TimePeriod              *DateInterval `json:"timePeriod" xml:"TimePeriod"`
+BillingViewArn string `json:"billingViewArn" xml:"BillingViewArn"`
+Filter *Expression `json:"filter" xml:"Filter"`
+Granularity string `json:"granularity" xml:"Granularity"`
+Metric string `json:"metric" xml:"Metric"`
+PredictionIntervalLevel int32 `json:"predictionIntervalLevel" xml:"PredictionIntervalLevel"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type GetUsageForecastResponse struct {
-	ForecastResultsByTime ForecastResultsByTime `json:"forecastResultsByTime" xml:"ForecastResultsByTime"`
-	Total                 *MetricValue          `json:"total" xml:"Total"`
+ForecastResultsByTime ForecastResultsByTime `json:"forecastResultsByTime" xml:"ForecastResultsByTime"`
+Total *MetricValue `json:"total" xml:"Total"`
 }
 
 type Group struct {
-	Keys    Keys    `json:"keys" xml:"Keys"`
-	Metrics Metrics `json:"metrics" xml:"Metrics"`
+Keys Keys `json:"keys" xml:"Keys"`
+Metrics Metrics `json:"metrics" xml:"Metrics"`
 }
 
 type GroupDefinition struct {
-	Key  string `json:"key" xml:"Key"`
-	Type string `json:"type" xml:"Type"`
+Key string `json:"key" xml:"Key"`
+Type string `json:"type" xml:"Type"`
 }
 
 type Impact struct {
-	MaxImpact             float64 `json:"maxImpact" xml:"MaxImpact"`
-	TotalActualSpend      float64 `json:"totalActualSpend" xml:"TotalActualSpend"`
-	TotalExpectedSpend    float64 `json:"totalExpectedSpend" xml:"TotalExpectedSpend"`
-	TotalImpact           float64 `json:"totalImpact" xml:"TotalImpact"`
-	TotalImpactPercentage float64 `json:"totalImpactPercentage" xml:"TotalImpactPercentage"`
+MaxImpact float64 `json:"maxImpact" xml:"MaxImpact"`
+TotalActualSpend float64 `json:"totalActualSpend" xml:"TotalActualSpend"`
+TotalExpectedSpend float64 `json:"totalExpectedSpend" xml:"TotalExpectedSpend"`
+TotalImpact float64 `json:"totalImpact" xml:"TotalImpact"`
+TotalImpactPercentage float64 `json:"totalImpactPercentage" xml:"TotalImpactPercentage"`
 }
 
 type InstanceDetails struct {
-	EC2InstanceDetails         *EC2InstanceDetails         `json:"eC2InstanceDetails" xml:"EC2InstanceDetails"`
-	ESInstanceDetails          *ESInstanceDetails          `json:"eSInstanceDetails" xml:"ESInstanceDetails"`
-	ElastiCacheInstanceDetails *ElastiCacheInstanceDetails `json:"elastiCacheInstanceDetails" xml:"ElastiCacheInstanceDetails"`
-	MemoryDBInstanceDetails    *MemoryDBInstanceDetails    `json:"memoryDBInstanceDetails" xml:"MemoryDBInstanceDetails"`
-	RDSInstanceDetails         *RDSInstanceDetails         `json:"rDSInstanceDetails" xml:"RDSInstanceDetails"`
-	RedshiftInstanceDetails    *RedshiftInstanceDetails    `json:"redshiftInstanceDetails" xml:"RedshiftInstanceDetails"`
+EC2InstanceDetails *EC2InstanceDetails `json:"eC2InstanceDetails" xml:"EC2InstanceDetails"`
+ESInstanceDetails *ESInstanceDetails `json:"eSInstanceDetails" xml:"ESInstanceDetails"`
+ElastiCacheInstanceDetails *ElastiCacheInstanceDetails `json:"elastiCacheInstanceDetails" xml:"ElastiCacheInstanceDetails"`
+MemoryDBInstanceDetails *MemoryDBInstanceDetails `json:"memoryDBInstanceDetails" xml:"MemoryDBInstanceDetails"`
+RDSInstanceDetails *RDSInstanceDetails `json:"rDSInstanceDetails" xml:"RDSInstanceDetails"`
+RedshiftInstanceDetails *RedshiftInstanceDetails `json:"redshiftInstanceDetails" xml:"RedshiftInstanceDetails"`
 }
 
 type ListCommitmentPurchaseAnalysesRequest struct {
-	AnalysisIds    AnalysisIds `json:"analysisIds" xml:"AnalysisIds"`
-	AnalysisStatus string      `json:"analysisStatus" xml:"AnalysisStatus"`
-	NextPageToken  string      `json:"nextPageToken" xml:"NextPageToken"`
-	PageSize       int32       `json:"pageSize" xml:"PageSize"`
+AnalysisIds AnalysisIds `json:"analysisIds" xml:"AnalysisIds"`
+AnalysisStatus string `json:"analysisStatus" xml:"AnalysisStatus"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+PageSize int32 `json:"pageSize" xml:"PageSize"`
 }
 
 type ListCommitmentPurchaseAnalysesResponse struct {
-	AnalysisSummaryList AnalysisSummaryList `json:"analysisSummaryList" xml:"AnalysisSummaryList"`
-	NextPageToken       string              `json:"nextPageToken" xml:"NextPageToken"`
+AnalysisSummaryList AnalysisSummaryList `json:"analysisSummaryList" xml:"AnalysisSummaryList"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
 }
 
 type ListCostAllocationTagBackfillHistoryRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCostAllocationTagBackfillHistoryResponse struct {
-	BackfillRequests CostAllocationTagBackfillRequestList `json:"backfillRequests" xml:"BackfillRequests"`
-	NextToken        string                               `json:"nextToken" xml:"NextToken"`
+BackfillRequests CostAllocationTagBackfillRequestList `json:"backfillRequests" xml:"BackfillRequests"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCostAllocationTagsRequest struct {
-	MaxResults int32                    `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                   `json:"nextToken" xml:"NextToken"`
-	Status     string                   `json:"status" xml:"Status"`
-	TagKeys    CostAllocationTagKeyList `json:"tagKeys" xml:"TagKeys"`
-	Type       string                   `json:"type" xml:"Type"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Status string `json:"status" xml:"Status"`
+TagKeys CostAllocationTagKeyList `json:"tagKeys" xml:"TagKeys"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ListCostAllocationTagsResponse struct {
-	CostAllocationTags CostAllocationTagList `json:"costAllocationTags" xml:"CostAllocationTags"`
-	NextToken          string                `json:"nextToken" xml:"NextToken"`
+CostAllocationTags CostAllocationTagList `json:"costAllocationTags" xml:"CostAllocationTags"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCostCategoryDefinitionsRequest struct {
-	EffectiveOn            string                   `json:"effectiveOn" xml:"EffectiveOn"`
-	MaxResults             int32                    `json:"maxResults" xml:"MaxResults"`
-	NextToken              string                   `json:"nextToken" xml:"NextToken"`
-	SupportedResourceTypes ResourceTypesFilterInput `json:"supportedResourceTypes" xml:"SupportedResourceTypes"`
+EffectiveOn string `json:"effectiveOn" xml:"EffectiveOn"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SupportedResourceTypes ResourceTypesFilterInput `json:"supportedResourceTypes" xml:"SupportedResourceTypes"`
 }
 
 type ListCostCategoryDefinitionsResponse struct {
-	CostCategoryReferences CostCategoryReferencesList `json:"costCategoryReferences" xml:"CostCategoryReferences"`
-	NextToken              string                     `json:"nextToken" xml:"NextToken"`
+CostCategoryReferences CostCategoryReferencesList `json:"costCategoryReferences" xml:"CostCategoryReferences"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCostCategoryResourceAssociationsRequest struct {
-	CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
-	MaxResults      int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken       string `json:"nextToken" xml:"NextToken"`
+CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCostCategoryResourceAssociationsResponse struct {
-	CostCategoryResourceAssociations CostCategoryResourceAssociations `json:"costCategoryResourceAssociations" xml:"CostCategoryResourceAssociations"`
-	NextToken                        string                           `json:"nextToken" xml:"NextToken"`
+CostCategoryResourceAssociations CostCategoryResourceAssociations `json:"costCategoryResourceAssociations" xml:"CostCategoryResourceAssociations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListSavingsPlansPurchaseRecommendationGenerationRequest struct {
-	GenerationStatus  string               `json:"generationStatus" xml:"GenerationStatus"`
-	NextPageToken     string               `json:"nextPageToken" xml:"NextPageToken"`
-	PageSize          int32                `json:"pageSize" xml:"PageSize"`
-	RecommendationIds RecommendationIdList `json:"recommendationIds" xml:"RecommendationIds"`
+GenerationStatus string `json:"generationStatus" xml:"GenerationStatus"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
+PageSize int32 `json:"pageSize" xml:"PageSize"`
+RecommendationIds RecommendationIdList `json:"recommendationIds" xml:"RecommendationIds"`
 }
 
 type ListSavingsPlansPurchaseRecommendationGenerationResponse struct {
-	GenerationSummaryList GenerationSummaryList `json:"generationSummaryList" xml:"GenerationSummaryList"`
-	NextPageToken         string                `json:"nextPageToken" xml:"NextPageToken"`
+GenerationSummaryList GenerationSummaryList `json:"generationSummaryList" xml:"GenerationSummaryList"`
+NextPageToken string `json:"nextPageToken" xml:"NextPageToken"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ListTagsForResourceResponse struct {
-	ResourceTags ResourceTagList `json:"resourceTags" xml:"ResourceTags"`
+ResourceTags ResourceTagList `json:"resourceTags" xml:"ResourceTags"`
 }
 
 type MemoryDBInstanceDetails struct {
-	CurrentGeneration bool   `json:"currentGeneration" xml:"CurrentGeneration"`
-	Family            string `json:"family" xml:"Family"`
-	NodeType          string `json:"nodeType" xml:"NodeType"`
-	Region            string `json:"region" xml:"Region"`
-	SizeFlexEligible  bool   `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
+CurrentGeneration bool `json:"currentGeneration" xml:"CurrentGeneration"`
+Family string `json:"family" xml:"Family"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+Region string `json:"region" xml:"Region"`
+SizeFlexEligible bool `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
 }
 
 type MetricValue struct {
-	Amount string `json:"amount" xml:"Amount"`
-	Unit   string `json:"unit" xml:"Unit"`
+Amount string `json:"amount" xml:"Amount"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type ModifyRecommendationDetail struct {
-	TargetInstances TargetInstancesList `json:"targetInstances" xml:"TargetInstances"`
+TargetInstances TargetInstancesList `json:"targetInstances" xml:"TargetInstances"`
 }
 
 type NetworkResourceUtilization struct {
-	NetworkInBytesPerSecond    string `json:"networkInBytesPerSecond" xml:"NetworkInBytesPerSecond"`
-	NetworkOutBytesPerSecond   string `json:"networkOutBytesPerSecond" xml:"NetworkOutBytesPerSecond"`
-	NetworkPacketsInPerSecond  string `json:"networkPacketsInPerSecond" xml:"NetworkPacketsInPerSecond"`
-	NetworkPacketsOutPerSecond string `json:"networkPacketsOutPerSecond" xml:"NetworkPacketsOutPerSecond"`
+NetworkInBytesPerSecond string `json:"networkInBytesPerSecond" xml:"NetworkInBytesPerSecond"`
+NetworkOutBytesPerSecond string `json:"networkOutBytesPerSecond" xml:"NetworkOutBytesPerSecond"`
+NetworkPacketsInPerSecond string `json:"networkPacketsInPerSecond" xml:"NetworkPacketsInPerSecond"`
+NetworkPacketsOutPerSecond string `json:"networkPacketsOutPerSecond" xml:"NetworkPacketsOutPerSecond"`
 }
 
 type ProvideAnomalyFeedbackRequest struct {
-	AnomalyId string `json:"anomalyId" xml:"AnomalyId"`
-	Feedback  string `json:"feedback" xml:"Feedback"`
+AnomalyId string `json:"anomalyId" xml:"AnomalyId"`
+Feedback string `json:"feedback" xml:"Feedback"`
 }
 
 type ProvideAnomalyFeedbackResponse struct {
-	AnomalyId string `json:"anomalyId" xml:"AnomalyId"`
+AnomalyId string `json:"anomalyId" xml:"AnomalyId"`
 }
 
 type RDSInstanceDetails struct {
-	CurrentGeneration bool   `json:"currentGeneration" xml:"CurrentGeneration"`
-	DatabaseEdition   string `json:"databaseEdition" xml:"DatabaseEdition"`
-	DatabaseEngine    string `json:"databaseEngine" xml:"DatabaseEngine"`
-	DeploymentModel   string `json:"deploymentModel" xml:"DeploymentModel"`
-	DeploymentOption  string `json:"deploymentOption" xml:"DeploymentOption"`
-	Family            string `json:"family" xml:"Family"`
-	InstanceType      string `json:"instanceType" xml:"InstanceType"`
-	LicenseModel      string `json:"licenseModel" xml:"LicenseModel"`
-	Region            string `json:"region" xml:"Region"`
-	SizeFlexEligible  bool   `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
+CurrentGeneration bool `json:"currentGeneration" xml:"CurrentGeneration"`
+DatabaseEdition string `json:"databaseEdition" xml:"DatabaseEdition"`
+DatabaseEngine string `json:"databaseEngine" xml:"DatabaseEngine"`
+DeploymentModel string `json:"deploymentModel" xml:"DeploymentModel"`
+DeploymentOption string `json:"deploymentOption" xml:"DeploymentOption"`
+Family string `json:"family" xml:"Family"`
+InstanceType string `json:"instanceType" xml:"InstanceType"`
+LicenseModel string `json:"licenseModel" xml:"LicenseModel"`
+Region string `json:"region" xml:"Region"`
+SizeFlexEligible bool `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
 }
 
 type RecommendationDetailData struct {
-	AccountId                                  string                    `json:"accountId" xml:"AccountId"`
-	AccountScope                               string                    `json:"accountScope" xml:"AccountScope"`
-	CurrencyCode                               string                    `json:"currencyCode" xml:"CurrencyCode"`
-	CurrentAverageCoverage                     string                    `json:"currentAverageCoverage" xml:"CurrentAverageCoverage"`
-	CurrentAverageHourlyOnDemandSpend          string                    `json:"currentAverageHourlyOnDemandSpend" xml:"CurrentAverageHourlyOnDemandSpend"`
-	CurrentMaximumHourlyOnDemandSpend          string                    `json:"currentMaximumHourlyOnDemandSpend" xml:"CurrentMaximumHourlyOnDemandSpend"`
-	CurrentMinimumHourlyOnDemandSpend          string                    `json:"currentMinimumHourlyOnDemandSpend" xml:"CurrentMinimumHourlyOnDemandSpend"`
-	EstimatedAverageCoverage                   string                    `json:"estimatedAverageCoverage" xml:"EstimatedAverageCoverage"`
-	EstimatedAverageUtilization                string                    `json:"estimatedAverageUtilization" xml:"EstimatedAverageUtilization"`
-	EstimatedMonthlySavingsAmount              string                    `json:"estimatedMonthlySavingsAmount" xml:"EstimatedMonthlySavingsAmount"`
-	EstimatedOnDemandCost                      string                    `json:"estimatedOnDemandCost" xml:"EstimatedOnDemandCost"`
-	EstimatedOnDemandCostWithCurrentCommitment string                    `json:"estimatedOnDemandCostWithCurrentCommitment" xml:"EstimatedOnDemandCostWithCurrentCommitment"`
-	EstimatedROI                               string                    `json:"estimatedROI" xml:"EstimatedROI"`
-	EstimatedSPCost                            string                    `json:"estimatedSPCost" xml:"EstimatedSPCost"`
-	EstimatedSavingsAmount                     string                    `json:"estimatedSavingsAmount" xml:"EstimatedSavingsAmount"`
-	EstimatedSavingsPercentage                 string                    `json:"estimatedSavingsPercentage" xml:"EstimatedSavingsPercentage"`
-	ExistingHourlyCommitment                   string                    `json:"existingHourlyCommitment" xml:"ExistingHourlyCommitment"`
-	GenerationTimestamp                        string                    `json:"generationTimestamp" xml:"GenerationTimestamp"`
-	HourlyCommitmentToPurchase                 string                    `json:"hourlyCommitmentToPurchase" xml:"HourlyCommitmentToPurchase"`
-	InstanceFamily                             string                    `json:"instanceFamily" xml:"InstanceFamily"`
-	LatestUsageTimestamp                       string                    `json:"latestUsageTimestamp" xml:"LatestUsageTimestamp"`
-	LookbackPeriodInDays                       string                    `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
-	MetricsOverLookbackPeriod                  MetricsOverLookbackPeriod `json:"metricsOverLookbackPeriod" xml:"MetricsOverLookbackPeriod"`
-	OfferingId                                 string                    `json:"offeringId" xml:"OfferingId"`
-	PaymentOption                              string                    `json:"paymentOption" xml:"PaymentOption"`
-	Region                                     string                    `json:"region" xml:"Region"`
-	SavingsPlansType                           string                    `json:"savingsPlansType" xml:"SavingsPlansType"`
-	TermInYears                                string                    `json:"termInYears" xml:"TermInYears"`
-	UpfrontCost                                string                    `json:"upfrontCost" xml:"UpfrontCost"`
+AccountId string `json:"accountId" xml:"AccountId"`
+AccountScope string `json:"accountScope" xml:"AccountScope"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+CurrentAverageCoverage string `json:"currentAverageCoverage" xml:"CurrentAverageCoverage"`
+CurrentAverageHourlyOnDemandSpend string `json:"currentAverageHourlyOnDemandSpend" xml:"CurrentAverageHourlyOnDemandSpend"`
+CurrentMaximumHourlyOnDemandSpend string `json:"currentMaximumHourlyOnDemandSpend" xml:"CurrentMaximumHourlyOnDemandSpend"`
+CurrentMinimumHourlyOnDemandSpend string `json:"currentMinimumHourlyOnDemandSpend" xml:"CurrentMinimumHourlyOnDemandSpend"`
+EstimatedAverageCoverage string `json:"estimatedAverageCoverage" xml:"EstimatedAverageCoverage"`
+EstimatedAverageUtilization string `json:"estimatedAverageUtilization" xml:"EstimatedAverageUtilization"`
+EstimatedMonthlySavingsAmount string `json:"estimatedMonthlySavingsAmount" xml:"EstimatedMonthlySavingsAmount"`
+EstimatedOnDemandCost string `json:"estimatedOnDemandCost" xml:"EstimatedOnDemandCost"`
+EstimatedOnDemandCostWithCurrentCommitment string `json:"estimatedOnDemandCostWithCurrentCommitment" xml:"EstimatedOnDemandCostWithCurrentCommitment"`
+EstimatedROI string `json:"estimatedROI" xml:"EstimatedROI"`
+EstimatedSPCost string `json:"estimatedSPCost" xml:"EstimatedSPCost"`
+EstimatedSavingsAmount string `json:"estimatedSavingsAmount" xml:"EstimatedSavingsAmount"`
+EstimatedSavingsPercentage string `json:"estimatedSavingsPercentage" xml:"EstimatedSavingsPercentage"`
+ExistingHourlyCommitment string `json:"existingHourlyCommitment" xml:"ExistingHourlyCommitment"`
+GenerationTimestamp string `json:"generationTimestamp" xml:"GenerationTimestamp"`
+HourlyCommitmentToPurchase string `json:"hourlyCommitmentToPurchase" xml:"HourlyCommitmentToPurchase"`
+InstanceFamily string `json:"instanceFamily" xml:"InstanceFamily"`
+LatestUsageTimestamp string `json:"latestUsageTimestamp" xml:"LatestUsageTimestamp"`
+LookbackPeriodInDays string `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
+MetricsOverLookbackPeriod MetricsOverLookbackPeriod `json:"metricsOverLookbackPeriod" xml:"MetricsOverLookbackPeriod"`
+OfferingId string `json:"offeringId" xml:"OfferingId"`
+PaymentOption string `json:"paymentOption" xml:"PaymentOption"`
+Region string `json:"region" xml:"Region"`
+SavingsPlansType string `json:"savingsPlansType" xml:"SavingsPlansType"`
+TermInYears string `json:"termInYears" xml:"TermInYears"`
+UpfrontCost string `json:"upfrontCost" xml:"UpfrontCost"`
 }
 
 type RecommendationDetailHourlyMetrics struct {
-	CurrentCoverage                   string `json:"currentCoverage" xml:"CurrentCoverage"`
-	EstimatedCoverage                 string `json:"estimatedCoverage" xml:"EstimatedCoverage"`
-	EstimatedNewCommitmentUtilization string `json:"estimatedNewCommitmentUtilization" xml:"EstimatedNewCommitmentUtilization"`
-	EstimatedOnDemandCost             string `json:"estimatedOnDemandCost" xml:"EstimatedOnDemandCost"`
-	StartTime                         string `json:"startTime" xml:"StartTime"`
+CurrentCoverage string `json:"currentCoverage" xml:"CurrentCoverage"`
+EstimatedCoverage string `json:"estimatedCoverage" xml:"EstimatedCoverage"`
+EstimatedNewCommitmentUtilization string `json:"estimatedNewCommitmentUtilization" xml:"EstimatedNewCommitmentUtilization"`
+EstimatedOnDemandCost string `json:"estimatedOnDemandCost" xml:"EstimatedOnDemandCost"`
+StartTime string `json:"startTime" xml:"StartTime"`
 }
 
 type RedshiftInstanceDetails struct {
-	CurrentGeneration bool   `json:"currentGeneration" xml:"CurrentGeneration"`
-	Family            string `json:"family" xml:"Family"`
-	NodeType          string `json:"nodeType" xml:"NodeType"`
-	Region            string `json:"region" xml:"Region"`
-	SizeFlexEligible  bool   `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
+CurrentGeneration bool `json:"currentGeneration" xml:"CurrentGeneration"`
+Family string `json:"family" xml:"Family"`
+NodeType string `json:"nodeType" xml:"NodeType"`
+Region string `json:"region" xml:"Region"`
+SizeFlexEligible bool `json:"sizeFlexEligible" xml:"SizeFlexEligible"`
 }
 
 type ReservationAggregates struct {
-	AmortizedRecurringFee        string `json:"amortizedRecurringFee" xml:"AmortizedRecurringFee"`
-	AmortizedUpfrontFee          string `json:"amortizedUpfrontFee" xml:"AmortizedUpfrontFee"`
-	NetRISavings                 string `json:"netRISavings" xml:"NetRISavings"`
-	OnDemandCostOfRIHoursUsed    string `json:"onDemandCostOfRIHoursUsed" xml:"OnDemandCostOfRIHoursUsed"`
-	PurchasedHours               string `json:"purchasedHours" xml:"PurchasedHours"`
-	PurchasedUnits               string `json:"purchasedUnits" xml:"PurchasedUnits"`
-	RICostForUnusedHours         string `json:"rICostForUnusedHours" xml:"RICostForUnusedHours"`
-	RealizedSavings              string `json:"realizedSavings" xml:"RealizedSavings"`
-	TotalActualHours             string `json:"totalActualHours" xml:"TotalActualHours"`
-	TotalActualUnits             string `json:"totalActualUnits" xml:"TotalActualUnits"`
-	TotalAmortizedFee            string `json:"totalAmortizedFee" xml:"TotalAmortizedFee"`
-	TotalPotentialRISavings      string `json:"totalPotentialRISavings" xml:"TotalPotentialRISavings"`
-	UnrealizedSavings            string `json:"unrealizedSavings" xml:"UnrealizedSavings"`
-	UnusedHours                  string `json:"unusedHours" xml:"UnusedHours"`
-	UnusedUnits                  string `json:"unusedUnits" xml:"UnusedUnits"`
-	UtilizationPercentage        string `json:"utilizationPercentage" xml:"UtilizationPercentage"`
-	UtilizationPercentageInUnits string `json:"utilizationPercentageInUnits" xml:"UtilizationPercentageInUnits"`
+AmortizedRecurringFee string `json:"amortizedRecurringFee" xml:"AmortizedRecurringFee"`
+AmortizedUpfrontFee string `json:"amortizedUpfrontFee" xml:"AmortizedUpfrontFee"`
+NetRISavings string `json:"netRISavings" xml:"NetRISavings"`
+OnDemandCostOfRIHoursUsed string `json:"onDemandCostOfRIHoursUsed" xml:"OnDemandCostOfRIHoursUsed"`
+PurchasedHours string `json:"purchasedHours" xml:"PurchasedHours"`
+PurchasedUnits string `json:"purchasedUnits" xml:"PurchasedUnits"`
+RICostForUnusedHours string `json:"rICostForUnusedHours" xml:"RICostForUnusedHours"`
+RealizedSavings string `json:"realizedSavings" xml:"RealizedSavings"`
+TotalActualHours string `json:"totalActualHours" xml:"TotalActualHours"`
+TotalActualUnits string `json:"totalActualUnits" xml:"TotalActualUnits"`
+TotalAmortizedFee string `json:"totalAmortizedFee" xml:"TotalAmortizedFee"`
+TotalPotentialRISavings string `json:"totalPotentialRISavings" xml:"TotalPotentialRISavings"`
+UnrealizedSavings string `json:"unrealizedSavings" xml:"UnrealizedSavings"`
+UnusedHours string `json:"unusedHours" xml:"UnusedHours"`
+UnusedUnits string `json:"unusedUnits" xml:"UnusedUnits"`
+UtilizationPercentage string `json:"utilizationPercentage" xml:"UtilizationPercentage"`
+UtilizationPercentageInUnits string `json:"utilizationPercentageInUnits" xml:"UtilizationPercentageInUnits"`
 }
 
 type ReservationCoverageGroup struct {
-	Attributes Attributes `json:"attributes" xml:"Attributes"`
-	Coverage   *Coverage  `json:"coverage" xml:"Coverage"`
+Attributes Attributes `json:"attributes" xml:"Attributes"`
+Coverage *Coverage `json:"coverage" xml:"Coverage"`
 }
 
 type ReservationPurchaseRecommendation struct {
-	AccountScope          string                                    `json:"accountScope" xml:"AccountScope"`
-	LookbackPeriodInDays  string                                    `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
-	PaymentOption         string                                    `json:"paymentOption" xml:"PaymentOption"`
-	RecommendationDetails ReservationPurchaseRecommendationDetails  `json:"recommendationDetails" xml:"RecommendationDetails"`
-	RecommendationSummary *ReservationPurchaseRecommendationSummary `json:"recommendationSummary" xml:"RecommendationSummary"`
-	ServiceSpecification  *ServiceSpecification                     `json:"serviceSpecification" xml:"ServiceSpecification"`
-	TermInYears           string                                    `json:"termInYears" xml:"TermInYears"`
+AccountScope string `json:"accountScope" xml:"AccountScope"`
+LookbackPeriodInDays string `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
+PaymentOption string `json:"paymentOption" xml:"PaymentOption"`
+RecommendationDetails ReservationPurchaseRecommendationDetails `json:"recommendationDetails" xml:"RecommendationDetails"`
+RecommendationSummary *ReservationPurchaseRecommendationSummary `json:"recommendationSummary" xml:"RecommendationSummary"`
+ServiceSpecification *ServiceSpecification `json:"serviceSpecification" xml:"ServiceSpecification"`
+TermInYears string `json:"termInYears" xml:"TermInYears"`
 }
 
 type ReservationPurchaseRecommendationDetail struct {
-	AccountId                                  string                   `json:"accountId" xml:"AccountId"`
-	AverageNormalizedUnitsUsedPerHour          string                   `json:"averageNormalizedUnitsUsedPerHour" xml:"AverageNormalizedUnitsUsedPerHour"`
-	AverageNumberOfCapacityUnitsUsedPerHour    string                   `json:"averageNumberOfCapacityUnitsUsedPerHour" xml:"AverageNumberOfCapacityUnitsUsedPerHour"`
-	AverageNumberOfInstancesUsedPerHour        string                   `json:"averageNumberOfInstancesUsedPerHour" xml:"AverageNumberOfInstancesUsedPerHour"`
-	AverageUtilization                         string                   `json:"averageUtilization" xml:"AverageUtilization"`
-	CurrencyCode                               string                   `json:"currencyCode" xml:"CurrencyCode"`
-	EstimatedBreakEvenInMonths                 string                   `json:"estimatedBreakEvenInMonths" xml:"EstimatedBreakEvenInMonths"`
-	EstimatedMonthlyOnDemandCost               string                   `json:"estimatedMonthlyOnDemandCost" xml:"EstimatedMonthlyOnDemandCost"`
-	EstimatedMonthlySavingsAmount              string                   `json:"estimatedMonthlySavingsAmount" xml:"EstimatedMonthlySavingsAmount"`
-	EstimatedMonthlySavingsPercentage          string                   `json:"estimatedMonthlySavingsPercentage" xml:"EstimatedMonthlySavingsPercentage"`
-	EstimatedReservationCostForLookbackPeriod  string                   `json:"estimatedReservationCostForLookbackPeriod" xml:"EstimatedReservationCostForLookbackPeriod"`
-	InstanceDetails                            *InstanceDetails         `json:"instanceDetails" xml:"InstanceDetails"`
-	MaximumNormalizedUnitsUsedPerHour          string                   `json:"maximumNormalizedUnitsUsedPerHour" xml:"MaximumNormalizedUnitsUsedPerHour"`
-	MaximumNumberOfCapacityUnitsUsedPerHour    string                   `json:"maximumNumberOfCapacityUnitsUsedPerHour" xml:"MaximumNumberOfCapacityUnitsUsedPerHour"`
-	MaximumNumberOfInstancesUsedPerHour        string                   `json:"maximumNumberOfInstancesUsedPerHour" xml:"MaximumNumberOfInstancesUsedPerHour"`
-	MinimumNormalizedUnitsUsedPerHour          string                   `json:"minimumNormalizedUnitsUsedPerHour" xml:"MinimumNormalizedUnitsUsedPerHour"`
-	MinimumNumberOfCapacityUnitsUsedPerHour    string                   `json:"minimumNumberOfCapacityUnitsUsedPerHour" xml:"MinimumNumberOfCapacityUnitsUsedPerHour"`
-	MinimumNumberOfInstancesUsedPerHour        string                   `json:"minimumNumberOfInstancesUsedPerHour" xml:"MinimumNumberOfInstancesUsedPerHour"`
-	RecommendedNormalizedUnitsToPurchase       string                   `json:"recommendedNormalizedUnitsToPurchase" xml:"RecommendedNormalizedUnitsToPurchase"`
-	RecommendedNumberOfCapacityUnitsToPurchase string                   `json:"recommendedNumberOfCapacityUnitsToPurchase" xml:"RecommendedNumberOfCapacityUnitsToPurchase"`
-	RecommendedNumberOfInstancesToPurchase     string                   `json:"recommendedNumberOfInstancesToPurchase" xml:"RecommendedNumberOfInstancesToPurchase"`
-	RecurringStandardMonthlyCost               string                   `json:"recurringStandardMonthlyCost" xml:"RecurringStandardMonthlyCost"`
-	ReservedCapacityDetails                    *ReservedCapacityDetails `json:"reservedCapacityDetails" xml:"ReservedCapacityDetails"`
-	UpfrontCost                                string                   `json:"upfrontCost" xml:"UpfrontCost"`
+AccountId string `json:"accountId" xml:"AccountId"`
+AverageNormalizedUnitsUsedPerHour string `json:"averageNormalizedUnitsUsedPerHour" xml:"AverageNormalizedUnitsUsedPerHour"`
+AverageNumberOfCapacityUnitsUsedPerHour string `json:"averageNumberOfCapacityUnitsUsedPerHour" xml:"AverageNumberOfCapacityUnitsUsedPerHour"`
+AverageNumberOfInstancesUsedPerHour string `json:"averageNumberOfInstancesUsedPerHour" xml:"AverageNumberOfInstancesUsedPerHour"`
+AverageUtilization string `json:"averageUtilization" xml:"AverageUtilization"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+EstimatedBreakEvenInMonths string `json:"estimatedBreakEvenInMonths" xml:"EstimatedBreakEvenInMonths"`
+EstimatedMonthlyOnDemandCost string `json:"estimatedMonthlyOnDemandCost" xml:"EstimatedMonthlyOnDemandCost"`
+EstimatedMonthlySavingsAmount string `json:"estimatedMonthlySavingsAmount" xml:"EstimatedMonthlySavingsAmount"`
+EstimatedMonthlySavingsPercentage string `json:"estimatedMonthlySavingsPercentage" xml:"EstimatedMonthlySavingsPercentage"`
+EstimatedReservationCostForLookbackPeriod string `json:"estimatedReservationCostForLookbackPeriod" xml:"EstimatedReservationCostForLookbackPeriod"`
+InstanceDetails *InstanceDetails `json:"instanceDetails" xml:"InstanceDetails"`
+MaximumNormalizedUnitsUsedPerHour string `json:"maximumNormalizedUnitsUsedPerHour" xml:"MaximumNormalizedUnitsUsedPerHour"`
+MaximumNumberOfCapacityUnitsUsedPerHour string `json:"maximumNumberOfCapacityUnitsUsedPerHour" xml:"MaximumNumberOfCapacityUnitsUsedPerHour"`
+MaximumNumberOfInstancesUsedPerHour string `json:"maximumNumberOfInstancesUsedPerHour" xml:"MaximumNumberOfInstancesUsedPerHour"`
+MinimumNormalizedUnitsUsedPerHour string `json:"minimumNormalizedUnitsUsedPerHour" xml:"MinimumNormalizedUnitsUsedPerHour"`
+MinimumNumberOfCapacityUnitsUsedPerHour string `json:"minimumNumberOfCapacityUnitsUsedPerHour" xml:"MinimumNumberOfCapacityUnitsUsedPerHour"`
+MinimumNumberOfInstancesUsedPerHour string `json:"minimumNumberOfInstancesUsedPerHour" xml:"MinimumNumberOfInstancesUsedPerHour"`
+RecommendedNormalizedUnitsToPurchase string `json:"recommendedNormalizedUnitsToPurchase" xml:"RecommendedNormalizedUnitsToPurchase"`
+RecommendedNumberOfCapacityUnitsToPurchase string `json:"recommendedNumberOfCapacityUnitsToPurchase" xml:"RecommendedNumberOfCapacityUnitsToPurchase"`
+RecommendedNumberOfInstancesToPurchase string `json:"recommendedNumberOfInstancesToPurchase" xml:"RecommendedNumberOfInstancesToPurchase"`
+RecurringStandardMonthlyCost string `json:"recurringStandardMonthlyCost" xml:"RecurringStandardMonthlyCost"`
+ReservedCapacityDetails *ReservedCapacityDetails `json:"reservedCapacityDetails" xml:"ReservedCapacityDetails"`
+UpfrontCost string `json:"upfrontCost" xml:"UpfrontCost"`
 }
 
 type ReservationPurchaseRecommendationMetadata struct {
-	AdditionalMetadata  string `json:"additionalMetadata" xml:"AdditionalMetadata"`
-	GenerationTimestamp string `json:"generationTimestamp" xml:"GenerationTimestamp"`
-	RecommendationId    string `json:"recommendationId" xml:"RecommendationId"`
+AdditionalMetadata string `json:"additionalMetadata" xml:"AdditionalMetadata"`
+GenerationTimestamp string `json:"generationTimestamp" xml:"GenerationTimestamp"`
+RecommendationId string `json:"recommendationId" xml:"RecommendationId"`
 }
 
 type ReservationPurchaseRecommendationSummary struct {
-	CurrencyCode                           string `json:"currencyCode" xml:"CurrencyCode"`
-	TotalEstimatedMonthlySavingsAmount     string `json:"totalEstimatedMonthlySavingsAmount" xml:"TotalEstimatedMonthlySavingsAmount"`
-	TotalEstimatedMonthlySavingsPercentage string `json:"totalEstimatedMonthlySavingsPercentage" xml:"TotalEstimatedMonthlySavingsPercentage"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+TotalEstimatedMonthlySavingsAmount string `json:"totalEstimatedMonthlySavingsAmount" xml:"TotalEstimatedMonthlySavingsAmount"`
+TotalEstimatedMonthlySavingsPercentage string `json:"totalEstimatedMonthlySavingsPercentage" xml:"TotalEstimatedMonthlySavingsPercentage"`
 }
 
 type ReservationUtilizationGroup struct {
-	Attributes  Attributes             `json:"attributes" xml:"Attributes"`
-	Key         string                 `json:"key" xml:"Key"`
-	Utilization *ReservationAggregates `json:"utilization" xml:"Utilization"`
-	Value       string                 `json:"value" xml:"Value"`
+Attributes Attributes `json:"attributes" xml:"Attributes"`
+Key string `json:"key" xml:"Key"`
+Utilization *ReservationAggregates `json:"utilization" xml:"Utilization"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ReservedCapacityDetails struct {
-	DynamoDBCapacityDetails *DynamoDBCapacityDetails `json:"dynamoDBCapacityDetails" xml:"DynamoDBCapacityDetails"`
+DynamoDBCapacityDetails *DynamoDBCapacityDetails `json:"dynamoDBCapacityDetails" xml:"DynamoDBCapacityDetails"`
 }
 
 type ResourceDetails struct {
-	EC2ResourceDetails *EC2ResourceDetails `json:"eC2ResourceDetails" xml:"EC2ResourceDetails"`
+EC2ResourceDetails *EC2ResourceDetails `json:"eC2ResourceDetails" xml:"EC2ResourceDetails"`
 }
 
 type ResourceTag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ResourceUtilization struct {
-	EC2ResourceUtilization *EC2ResourceUtilization `json:"eC2ResourceUtilization" xml:"EC2ResourceUtilization"`
+EC2ResourceUtilization *EC2ResourceUtilization `json:"eC2ResourceUtilization" xml:"EC2ResourceUtilization"`
 }
 
 type ResultByTime struct {
-	Estimated  bool          `json:"estimated" xml:"Estimated"`
-	Groups     Groups        `json:"groups" xml:"Groups"`
-	TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
-	Total      Metrics       `json:"total" xml:"Total"`
+Estimated bool `json:"estimated" xml:"Estimated"`
+Groups Groups `json:"groups" xml:"Groups"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
+Total Metrics `json:"total" xml:"Total"`
 }
 
 type RightsizingRecommendation struct {
-	AccountId                     string                         `json:"accountId" xml:"AccountId"`
-	CurrentInstance               *CurrentInstance               `json:"currentInstance" xml:"CurrentInstance"`
-	FindingReasonCodes            FindingReasonCodes             `json:"findingReasonCodes" xml:"FindingReasonCodes"`
-	ModifyRecommendationDetail    *ModifyRecommendationDetail    `json:"modifyRecommendationDetail" xml:"ModifyRecommendationDetail"`
-	RightsizingType               string                         `json:"rightsizingType" xml:"RightsizingType"`
-	TerminateRecommendationDetail *TerminateRecommendationDetail `json:"terminateRecommendationDetail" xml:"TerminateRecommendationDetail"`
+AccountId string `json:"accountId" xml:"AccountId"`
+CurrentInstance *CurrentInstance `json:"currentInstance" xml:"CurrentInstance"`
+FindingReasonCodes FindingReasonCodes `json:"findingReasonCodes" xml:"FindingReasonCodes"`
+ModifyRecommendationDetail *ModifyRecommendationDetail `json:"modifyRecommendationDetail" xml:"ModifyRecommendationDetail"`
+RightsizingType string `json:"rightsizingType" xml:"RightsizingType"`
+TerminateRecommendationDetail *TerminateRecommendationDetail `json:"terminateRecommendationDetail" xml:"TerminateRecommendationDetail"`
 }
 
 type RightsizingRecommendationConfiguration struct {
-	BenefitsConsidered   bool   `json:"benefitsConsidered" xml:"BenefitsConsidered"`
-	RecommendationTarget string `json:"recommendationTarget" xml:"RecommendationTarget"`
+BenefitsConsidered bool `json:"benefitsConsidered" xml:"BenefitsConsidered"`
+RecommendationTarget string `json:"recommendationTarget" xml:"RecommendationTarget"`
 }
 
 type RightsizingRecommendationMetadata struct {
-	AdditionalMetadata   string `json:"additionalMetadata" xml:"AdditionalMetadata"`
-	GenerationTimestamp  string `json:"generationTimestamp" xml:"GenerationTimestamp"`
-	LookbackPeriodInDays string `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
-	RecommendationId     string `json:"recommendationId" xml:"RecommendationId"`
+AdditionalMetadata string `json:"additionalMetadata" xml:"AdditionalMetadata"`
+GenerationTimestamp string `json:"generationTimestamp" xml:"GenerationTimestamp"`
+LookbackPeriodInDays string `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
+RecommendationId string `json:"recommendationId" xml:"RecommendationId"`
 }
 
 type RightsizingRecommendationSummary struct {
-	EstimatedTotalMonthlySavingsAmount string `json:"estimatedTotalMonthlySavingsAmount" xml:"EstimatedTotalMonthlySavingsAmount"`
-	SavingsCurrencyCode                string `json:"savingsCurrencyCode" xml:"SavingsCurrencyCode"`
-	SavingsPercentage                  string `json:"savingsPercentage" xml:"SavingsPercentage"`
-	TotalRecommendationCount           string `json:"totalRecommendationCount" xml:"TotalRecommendationCount"`
+EstimatedTotalMonthlySavingsAmount string `json:"estimatedTotalMonthlySavingsAmount" xml:"EstimatedTotalMonthlySavingsAmount"`
+SavingsCurrencyCode string `json:"savingsCurrencyCode" xml:"SavingsCurrencyCode"`
+SavingsPercentage string `json:"savingsPercentage" xml:"SavingsPercentage"`
+TotalRecommendationCount string `json:"totalRecommendationCount" xml:"TotalRecommendationCount"`
 }
 
 type RootCause struct {
-	Impact            *RootCauseImpact `json:"impact" xml:"Impact"`
-	LinkedAccount     string           `json:"linkedAccount" xml:"LinkedAccount"`
-	LinkedAccountName string           `json:"linkedAccountName" xml:"LinkedAccountName"`
-	Region            string           `json:"region" xml:"Region"`
-	Service           string           `json:"service" xml:"Service"`
-	UsageType         string           `json:"usageType" xml:"UsageType"`
+Impact *RootCauseImpact `json:"impact" xml:"Impact"`
+LinkedAccount string `json:"linkedAccount" xml:"LinkedAccount"`
+LinkedAccountName string `json:"linkedAccountName" xml:"LinkedAccountName"`
+Region string `json:"region" xml:"Region"`
+Service string `json:"service" xml:"Service"`
+UsageType string `json:"usageType" xml:"UsageType"`
 }
 
 type RootCauseImpact struct {
-	Contribution float64 `json:"contribution" xml:"Contribution"`
+Contribution float64 `json:"contribution" xml:"Contribution"`
 }
 
 type SavingsPlans struct {
-	InstanceFamily         string  `json:"instanceFamily" xml:"InstanceFamily"`
-	OfferingId             string  `json:"offeringId" xml:"OfferingId"`
-	PaymentOption          string  `json:"paymentOption" xml:"PaymentOption"`
-	Region                 string  `json:"region" xml:"Region"`
-	SavingsPlansCommitment float64 `json:"savingsPlansCommitment" xml:"SavingsPlansCommitment"`
-	SavingsPlansType       string  `json:"savingsPlansType" xml:"SavingsPlansType"`
-	TermInYears            string  `json:"termInYears" xml:"TermInYears"`
+InstanceFamily string `json:"instanceFamily" xml:"InstanceFamily"`
+OfferingId string `json:"offeringId" xml:"OfferingId"`
+PaymentOption string `json:"paymentOption" xml:"PaymentOption"`
+Region string `json:"region" xml:"Region"`
+SavingsPlansCommitment float64 `json:"savingsPlansCommitment" xml:"SavingsPlansCommitment"`
+SavingsPlansType string `json:"savingsPlansType" xml:"SavingsPlansType"`
+TermInYears string `json:"termInYears" xml:"TermInYears"`
 }
 
 type SavingsPlansAmortizedCommitment struct {
-	AmortizedRecurringCommitment string `json:"amortizedRecurringCommitment" xml:"AmortizedRecurringCommitment"`
-	AmortizedUpfrontCommitment   string `json:"amortizedUpfrontCommitment" xml:"AmortizedUpfrontCommitment"`
-	TotalAmortizedCommitment     string `json:"totalAmortizedCommitment" xml:"TotalAmortizedCommitment"`
+AmortizedRecurringCommitment string `json:"amortizedRecurringCommitment" xml:"AmortizedRecurringCommitment"`
+AmortizedUpfrontCommitment string `json:"amortizedUpfrontCommitment" xml:"AmortizedUpfrontCommitment"`
+TotalAmortizedCommitment string `json:"totalAmortizedCommitment" xml:"TotalAmortizedCommitment"`
 }
 
 type SavingsPlansCoverage struct {
-	Attributes Attributes                `json:"attributes" xml:"Attributes"`
-	Coverage   *SavingsPlansCoverageData `json:"coverage" xml:"Coverage"`
-	TimePeriod *DateInterval             `json:"timePeriod" xml:"TimePeriod"`
+Attributes Attributes `json:"attributes" xml:"Attributes"`
+Coverage *SavingsPlansCoverageData `json:"coverage" xml:"Coverage"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
 }
 
 type SavingsPlansCoverageData struct {
-	CoveragePercentage         string `json:"coveragePercentage" xml:"CoveragePercentage"`
-	OnDemandCost               string `json:"onDemandCost" xml:"OnDemandCost"`
-	SpendCoveredBySavingsPlans string `json:"spendCoveredBySavingsPlans" xml:"SpendCoveredBySavingsPlans"`
-	TotalCost                  string `json:"totalCost" xml:"TotalCost"`
+CoveragePercentage string `json:"coveragePercentage" xml:"CoveragePercentage"`
+OnDemandCost string `json:"onDemandCost" xml:"OnDemandCost"`
+SpendCoveredBySavingsPlans string `json:"spendCoveredBySavingsPlans" xml:"SpendCoveredBySavingsPlans"`
+TotalCost string `json:"totalCost" xml:"TotalCost"`
 }
 
 type SavingsPlansDetails struct {
-	InstanceFamily string `json:"instanceFamily" xml:"InstanceFamily"`
-	OfferingId     string `json:"offeringId" xml:"OfferingId"`
-	Region         string `json:"region" xml:"Region"`
+InstanceFamily string `json:"instanceFamily" xml:"InstanceFamily"`
+OfferingId string `json:"offeringId" xml:"OfferingId"`
+Region string `json:"region" xml:"Region"`
 }
 
 type SavingsPlansPurchaseAnalysisConfiguration struct {
-	AccountId             string                `json:"accountId" xml:"AccountId"`
-	AccountScope          string                `json:"accountScope" xml:"AccountScope"`
-	AnalysisType          string                `json:"analysisType" xml:"AnalysisType"`
-	LookBackTimePeriod    *DateInterval         `json:"lookBackTimePeriod" xml:"LookBackTimePeriod"`
-	SavingsPlansToAdd     SavingsPlansToAdd     `json:"savingsPlansToAdd" xml:"SavingsPlansToAdd"`
-	SavingsPlansToExclude SavingsPlansToExclude `json:"savingsPlansToExclude" xml:"SavingsPlansToExclude"`
+AccountId string `json:"accountId" xml:"AccountId"`
+AccountScope string `json:"accountScope" xml:"AccountScope"`
+AnalysisType string `json:"analysisType" xml:"AnalysisType"`
+LookBackTimePeriod *DateInterval `json:"lookBackTimePeriod" xml:"LookBackTimePeriod"`
+SavingsPlansToAdd SavingsPlansToAdd `json:"savingsPlansToAdd" xml:"SavingsPlansToAdd"`
+SavingsPlansToExclude SavingsPlansToExclude `json:"savingsPlansToExclude" xml:"SavingsPlansToExclude"`
 }
 
 type SavingsPlansPurchaseAnalysisDetails struct {
-	AdditionalMetadata                         string                    `json:"additionalMetadata" xml:"AdditionalMetadata"`
-	CurrencyCode                               string                    `json:"currencyCode" xml:"CurrencyCode"`
-	CurrentAverageCoverage                     string                    `json:"currentAverageCoverage" xml:"CurrentAverageCoverage"`
-	CurrentAverageHourlyOnDemandSpend          string                    `json:"currentAverageHourlyOnDemandSpend" xml:"CurrentAverageHourlyOnDemandSpend"`
-	CurrentMaximumHourlyOnDemandSpend          string                    `json:"currentMaximumHourlyOnDemandSpend" xml:"CurrentMaximumHourlyOnDemandSpend"`
-	CurrentMinimumHourlyOnDemandSpend          string                    `json:"currentMinimumHourlyOnDemandSpend" xml:"CurrentMinimumHourlyOnDemandSpend"`
-	CurrentOnDemandSpend                       string                    `json:"currentOnDemandSpend" xml:"CurrentOnDemandSpend"`
-	EstimatedAverageCoverage                   string                    `json:"estimatedAverageCoverage" xml:"EstimatedAverageCoverage"`
-	EstimatedAverageUtilization                string                    `json:"estimatedAverageUtilization" xml:"EstimatedAverageUtilization"`
-	EstimatedCommitmentCost                    string                    `json:"estimatedCommitmentCost" xml:"EstimatedCommitmentCost"`
-	EstimatedMonthlySavingsAmount              string                    `json:"estimatedMonthlySavingsAmount" xml:"EstimatedMonthlySavingsAmount"`
-	EstimatedOnDemandCost                      string                    `json:"estimatedOnDemandCost" xml:"EstimatedOnDemandCost"`
-	EstimatedOnDemandCostWithCurrentCommitment string                    `json:"estimatedOnDemandCostWithCurrentCommitment" xml:"EstimatedOnDemandCostWithCurrentCommitment"`
-	EstimatedROI                               string                    `json:"estimatedROI" xml:"EstimatedROI"`
-	EstimatedSavingsAmount                     string                    `json:"estimatedSavingsAmount" xml:"EstimatedSavingsAmount"`
-	EstimatedSavingsPercentage                 string                    `json:"estimatedSavingsPercentage" xml:"EstimatedSavingsPercentage"`
-	ExistingHourlyCommitment                   string                    `json:"existingHourlyCommitment" xml:"ExistingHourlyCommitment"`
-	HourlyCommitmentToPurchase                 string                    `json:"hourlyCommitmentToPurchase" xml:"HourlyCommitmentToPurchase"`
-	LatestUsageTimestamp                       string                    `json:"latestUsageTimestamp" xml:"LatestUsageTimestamp"`
-	LookbackPeriodInHours                      string                    `json:"lookbackPeriodInHours" xml:"LookbackPeriodInHours"`
-	MetricsOverLookbackPeriod                  MetricsOverLookbackPeriod `json:"metricsOverLookbackPeriod" xml:"MetricsOverLookbackPeriod"`
-	UpfrontCost                                string                    `json:"upfrontCost" xml:"UpfrontCost"`
+AdditionalMetadata string `json:"additionalMetadata" xml:"AdditionalMetadata"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+CurrentAverageCoverage string `json:"currentAverageCoverage" xml:"CurrentAverageCoverage"`
+CurrentAverageHourlyOnDemandSpend string `json:"currentAverageHourlyOnDemandSpend" xml:"CurrentAverageHourlyOnDemandSpend"`
+CurrentMaximumHourlyOnDemandSpend string `json:"currentMaximumHourlyOnDemandSpend" xml:"CurrentMaximumHourlyOnDemandSpend"`
+CurrentMinimumHourlyOnDemandSpend string `json:"currentMinimumHourlyOnDemandSpend" xml:"CurrentMinimumHourlyOnDemandSpend"`
+CurrentOnDemandSpend string `json:"currentOnDemandSpend" xml:"CurrentOnDemandSpend"`
+EstimatedAverageCoverage string `json:"estimatedAverageCoverage" xml:"EstimatedAverageCoverage"`
+EstimatedAverageUtilization string `json:"estimatedAverageUtilization" xml:"EstimatedAverageUtilization"`
+EstimatedCommitmentCost string `json:"estimatedCommitmentCost" xml:"EstimatedCommitmentCost"`
+EstimatedMonthlySavingsAmount string `json:"estimatedMonthlySavingsAmount" xml:"EstimatedMonthlySavingsAmount"`
+EstimatedOnDemandCost string `json:"estimatedOnDemandCost" xml:"EstimatedOnDemandCost"`
+EstimatedOnDemandCostWithCurrentCommitment string `json:"estimatedOnDemandCostWithCurrentCommitment" xml:"EstimatedOnDemandCostWithCurrentCommitment"`
+EstimatedROI string `json:"estimatedROI" xml:"EstimatedROI"`
+EstimatedSavingsAmount string `json:"estimatedSavingsAmount" xml:"EstimatedSavingsAmount"`
+EstimatedSavingsPercentage string `json:"estimatedSavingsPercentage" xml:"EstimatedSavingsPercentage"`
+ExistingHourlyCommitment string `json:"existingHourlyCommitment" xml:"ExistingHourlyCommitment"`
+HourlyCommitmentToPurchase string `json:"hourlyCommitmentToPurchase" xml:"HourlyCommitmentToPurchase"`
+LatestUsageTimestamp string `json:"latestUsageTimestamp" xml:"LatestUsageTimestamp"`
+LookbackPeriodInHours string `json:"lookbackPeriodInHours" xml:"LookbackPeriodInHours"`
+MetricsOverLookbackPeriod MetricsOverLookbackPeriod `json:"metricsOverLookbackPeriod" xml:"MetricsOverLookbackPeriod"`
+UpfrontCost string `json:"upfrontCost" xml:"UpfrontCost"`
 }
 
 type SavingsPlansPurchaseRecommendation struct {
-	AccountScope                              string                                       `json:"accountScope" xml:"AccountScope"`
-	LookbackPeriodInDays                      string                                       `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
-	PaymentOption                             string                                       `json:"paymentOption" xml:"PaymentOption"`
-	SavingsPlansPurchaseRecommendationDetails SavingsPlansPurchaseRecommendationDetailList `json:"savingsPlansPurchaseRecommendationDetails" xml:"SavingsPlansPurchaseRecommendationDetails"`
-	SavingsPlansPurchaseRecommendationSummary *SavingsPlansPurchaseRecommendationSummary   `json:"savingsPlansPurchaseRecommendationSummary" xml:"SavingsPlansPurchaseRecommendationSummary"`
-	SavingsPlansType                          string                                       `json:"savingsPlansType" xml:"SavingsPlansType"`
-	TermInYears                               string                                       `json:"termInYears" xml:"TermInYears"`
+AccountScope string `json:"accountScope" xml:"AccountScope"`
+LookbackPeriodInDays string `json:"lookbackPeriodInDays" xml:"LookbackPeriodInDays"`
+PaymentOption string `json:"paymentOption" xml:"PaymentOption"`
+SavingsPlansPurchaseRecommendationDetails SavingsPlansPurchaseRecommendationDetailList `json:"savingsPlansPurchaseRecommendationDetails" xml:"SavingsPlansPurchaseRecommendationDetails"`
+SavingsPlansPurchaseRecommendationSummary *SavingsPlansPurchaseRecommendationSummary `json:"savingsPlansPurchaseRecommendationSummary" xml:"SavingsPlansPurchaseRecommendationSummary"`
+SavingsPlansType string `json:"savingsPlansType" xml:"SavingsPlansType"`
+TermInYears string `json:"termInYears" xml:"TermInYears"`
 }
 
 type SavingsPlansPurchaseRecommendationDetail struct {
-	AccountId                                  string               `json:"accountId" xml:"AccountId"`
-	CurrencyCode                               string               `json:"currencyCode" xml:"CurrencyCode"`
-	CurrentAverageHourlyOnDemandSpend          string               `json:"currentAverageHourlyOnDemandSpend" xml:"CurrentAverageHourlyOnDemandSpend"`
-	CurrentMaximumHourlyOnDemandSpend          string               `json:"currentMaximumHourlyOnDemandSpend" xml:"CurrentMaximumHourlyOnDemandSpend"`
-	CurrentMinimumHourlyOnDemandSpend          string               `json:"currentMinimumHourlyOnDemandSpend" xml:"CurrentMinimumHourlyOnDemandSpend"`
-	EstimatedAverageUtilization                string               `json:"estimatedAverageUtilization" xml:"EstimatedAverageUtilization"`
-	EstimatedMonthlySavingsAmount              string               `json:"estimatedMonthlySavingsAmount" xml:"EstimatedMonthlySavingsAmount"`
-	EstimatedOnDemandCost                      string               `json:"estimatedOnDemandCost" xml:"EstimatedOnDemandCost"`
-	EstimatedOnDemandCostWithCurrentCommitment string               `json:"estimatedOnDemandCostWithCurrentCommitment" xml:"EstimatedOnDemandCostWithCurrentCommitment"`
-	EstimatedROI                               string               `json:"estimatedROI" xml:"EstimatedROI"`
-	EstimatedSPCost                            string               `json:"estimatedSPCost" xml:"EstimatedSPCost"`
-	EstimatedSavingsAmount                     string               `json:"estimatedSavingsAmount" xml:"EstimatedSavingsAmount"`
-	EstimatedSavingsPercentage                 string               `json:"estimatedSavingsPercentage" xml:"EstimatedSavingsPercentage"`
-	HourlyCommitmentToPurchase                 string               `json:"hourlyCommitmentToPurchase" xml:"HourlyCommitmentToPurchase"`
-	RecommendationDetailId                     string               `json:"recommendationDetailId" xml:"RecommendationDetailId"`
-	SavingsPlansDetails                        *SavingsPlansDetails `json:"savingsPlansDetails" xml:"SavingsPlansDetails"`
-	UpfrontCost                                string               `json:"upfrontCost" xml:"UpfrontCost"`
+AccountId string `json:"accountId" xml:"AccountId"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+CurrentAverageHourlyOnDemandSpend string `json:"currentAverageHourlyOnDemandSpend" xml:"CurrentAverageHourlyOnDemandSpend"`
+CurrentMaximumHourlyOnDemandSpend string `json:"currentMaximumHourlyOnDemandSpend" xml:"CurrentMaximumHourlyOnDemandSpend"`
+CurrentMinimumHourlyOnDemandSpend string `json:"currentMinimumHourlyOnDemandSpend" xml:"CurrentMinimumHourlyOnDemandSpend"`
+EstimatedAverageUtilization string `json:"estimatedAverageUtilization" xml:"EstimatedAverageUtilization"`
+EstimatedMonthlySavingsAmount string `json:"estimatedMonthlySavingsAmount" xml:"EstimatedMonthlySavingsAmount"`
+EstimatedOnDemandCost string `json:"estimatedOnDemandCost" xml:"EstimatedOnDemandCost"`
+EstimatedOnDemandCostWithCurrentCommitment string `json:"estimatedOnDemandCostWithCurrentCommitment" xml:"EstimatedOnDemandCostWithCurrentCommitment"`
+EstimatedROI string `json:"estimatedROI" xml:"EstimatedROI"`
+EstimatedSPCost string `json:"estimatedSPCost" xml:"EstimatedSPCost"`
+EstimatedSavingsAmount string `json:"estimatedSavingsAmount" xml:"EstimatedSavingsAmount"`
+EstimatedSavingsPercentage string `json:"estimatedSavingsPercentage" xml:"EstimatedSavingsPercentage"`
+HourlyCommitmentToPurchase string `json:"hourlyCommitmentToPurchase" xml:"HourlyCommitmentToPurchase"`
+RecommendationDetailId string `json:"recommendationDetailId" xml:"RecommendationDetailId"`
+SavingsPlansDetails *SavingsPlansDetails `json:"savingsPlansDetails" xml:"SavingsPlansDetails"`
+UpfrontCost string `json:"upfrontCost" xml:"UpfrontCost"`
 }
 
 type SavingsPlansPurchaseRecommendationMetadata struct {
-	AdditionalMetadata  string `json:"additionalMetadata" xml:"AdditionalMetadata"`
-	GenerationTimestamp string `json:"generationTimestamp" xml:"GenerationTimestamp"`
-	RecommendationId    string `json:"recommendationId" xml:"RecommendationId"`
+AdditionalMetadata string `json:"additionalMetadata" xml:"AdditionalMetadata"`
+GenerationTimestamp string `json:"generationTimestamp" xml:"GenerationTimestamp"`
+RecommendationId string `json:"recommendationId" xml:"RecommendationId"`
 }
 
 type SavingsPlansPurchaseRecommendationSummary struct {
-	CurrencyCode                               string `json:"currencyCode" xml:"CurrencyCode"`
-	CurrentOnDemandSpend                       string `json:"currentOnDemandSpend" xml:"CurrentOnDemandSpend"`
-	DailyCommitmentToPurchase                  string `json:"dailyCommitmentToPurchase" xml:"DailyCommitmentToPurchase"`
-	EstimatedMonthlySavingsAmount              string `json:"estimatedMonthlySavingsAmount" xml:"EstimatedMonthlySavingsAmount"`
-	EstimatedOnDemandCostWithCurrentCommitment string `json:"estimatedOnDemandCostWithCurrentCommitment" xml:"EstimatedOnDemandCostWithCurrentCommitment"`
-	EstimatedROI                               string `json:"estimatedROI" xml:"EstimatedROI"`
-	EstimatedSavingsAmount                     string `json:"estimatedSavingsAmount" xml:"EstimatedSavingsAmount"`
-	EstimatedSavingsPercentage                 string `json:"estimatedSavingsPercentage" xml:"EstimatedSavingsPercentage"`
-	EstimatedTotalCost                         string `json:"estimatedTotalCost" xml:"EstimatedTotalCost"`
-	HourlyCommitmentToPurchase                 string `json:"hourlyCommitmentToPurchase" xml:"HourlyCommitmentToPurchase"`
-	TotalRecommendationCount                   string `json:"totalRecommendationCount" xml:"TotalRecommendationCount"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+CurrentOnDemandSpend string `json:"currentOnDemandSpend" xml:"CurrentOnDemandSpend"`
+DailyCommitmentToPurchase string `json:"dailyCommitmentToPurchase" xml:"DailyCommitmentToPurchase"`
+EstimatedMonthlySavingsAmount string `json:"estimatedMonthlySavingsAmount" xml:"EstimatedMonthlySavingsAmount"`
+EstimatedOnDemandCostWithCurrentCommitment string `json:"estimatedOnDemandCostWithCurrentCommitment" xml:"EstimatedOnDemandCostWithCurrentCommitment"`
+EstimatedROI string `json:"estimatedROI" xml:"EstimatedROI"`
+EstimatedSavingsAmount string `json:"estimatedSavingsAmount" xml:"EstimatedSavingsAmount"`
+EstimatedSavingsPercentage string `json:"estimatedSavingsPercentage" xml:"EstimatedSavingsPercentage"`
+EstimatedTotalCost string `json:"estimatedTotalCost" xml:"EstimatedTotalCost"`
+HourlyCommitmentToPurchase string `json:"hourlyCommitmentToPurchase" xml:"HourlyCommitmentToPurchase"`
+TotalRecommendationCount string `json:"totalRecommendationCount" xml:"TotalRecommendationCount"`
 }
 
 type SavingsPlansSavings struct {
-	NetSavings             string `json:"netSavings" xml:"NetSavings"`
-	OnDemandCostEquivalent string `json:"onDemandCostEquivalent" xml:"OnDemandCostEquivalent"`
+NetSavings string `json:"netSavings" xml:"NetSavings"`
+OnDemandCostEquivalent string `json:"onDemandCostEquivalent" xml:"OnDemandCostEquivalent"`
 }
 
 type SavingsPlansUtilization struct {
-	TotalCommitment       string `json:"totalCommitment" xml:"TotalCommitment"`
-	UnusedCommitment      string `json:"unusedCommitment" xml:"UnusedCommitment"`
-	UsedCommitment        string `json:"usedCommitment" xml:"UsedCommitment"`
-	UtilizationPercentage string `json:"utilizationPercentage" xml:"UtilizationPercentage"`
+TotalCommitment string `json:"totalCommitment" xml:"TotalCommitment"`
+UnusedCommitment string `json:"unusedCommitment" xml:"UnusedCommitment"`
+UsedCommitment string `json:"usedCommitment" xml:"UsedCommitment"`
+UtilizationPercentage string `json:"utilizationPercentage" xml:"UtilizationPercentage"`
 }
 
 type SavingsPlansUtilizationAggregates struct {
-	AmortizedCommitment *SavingsPlansAmortizedCommitment `json:"amortizedCommitment" xml:"AmortizedCommitment"`
-	Savings             *SavingsPlansSavings             `json:"savings" xml:"Savings"`
-	Utilization         *SavingsPlansUtilization         `json:"utilization" xml:"Utilization"`
+AmortizedCommitment *SavingsPlansAmortizedCommitment `json:"amortizedCommitment" xml:"AmortizedCommitment"`
+Savings *SavingsPlansSavings `json:"savings" xml:"Savings"`
+Utilization *SavingsPlansUtilization `json:"utilization" xml:"Utilization"`
 }
 
 type SavingsPlansUtilizationByTime struct {
-	AmortizedCommitment *SavingsPlansAmortizedCommitment `json:"amortizedCommitment" xml:"AmortizedCommitment"`
-	Savings             *SavingsPlansSavings             `json:"savings" xml:"Savings"`
-	TimePeriod          *DateInterval                    `json:"timePeriod" xml:"TimePeriod"`
-	Utilization         *SavingsPlansUtilization         `json:"utilization" xml:"Utilization"`
+AmortizedCommitment *SavingsPlansAmortizedCommitment `json:"amortizedCommitment" xml:"AmortizedCommitment"`
+Savings *SavingsPlansSavings `json:"savings" xml:"Savings"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
+Utilization *SavingsPlansUtilization `json:"utilization" xml:"Utilization"`
 }
 
 type SavingsPlansUtilizationDetail struct {
-	AmortizedCommitment *SavingsPlansAmortizedCommitment `json:"amortizedCommitment" xml:"AmortizedCommitment"`
-	Attributes          Attributes                       `json:"attributes" xml:"Attributes"`
-	Savings             *SavingsPlansSavings             `json:"savings" xml:"Savings"`
-	SavingsPlanArn      string                           `json:"savingsPlanArn" xml:"SavingsPlanArn"`
-	Utilization         *SavingsPlansUtilization         `json:"utilization" xml:"Utilization"`
+AmortizedCommitment *SavingsPlansAmortizedCommitment `json:"amortizedCommitment" xml:"AmortizedCommitment"`
+Attributes Attributes `json:"attributes" xml:"Attributes"`
+Savings *SavingsPlansSavings `json:"savings" xml:"Savings"`
+SavingsPlanArn string `json:"savingsPlanArn" xml:"SavingsPlanArn"`
+Utilization *SavingsPlansUtilization `json:"utilization" xml:"Utilization"`
 }
 
 type ServiceSpecification struct {
-	EC2Specification *EC2Specification `json:"eC2Specification" xml:"EC2Specification"`
+EC2Specification *EC2Specification `json:"eC2Specification" xml:"EC2Specification"`
 }
 
 type SortDefinition struct {
-	Key       string `json:"key" xml:"Key"`
-	SortOrder string `json:"sortOrder" xml:"SortOrder"`
+Key string `json:"key" xml:"Key"`
+SortOrder string `json:"sortOrder" xml:"SortOrder"`
 }
 
 type StartCommitmentPurchaseAnalysisRequest struct {
-	CommitmentPurchaseAnalysisConfiguration *CommitmentPurchaseAnalysisConfiguration `json:"commitmentPurchaseAnalysisConfiguration" xml:"CommitmentPurchaseAnalysisConfiguration"`
+CommitmentPurchaseAnalysisConfiguration *CommitmentPurchaseAnalysisConfiguration `json:"commitmentPurchaseAnalysisConfiguration" xml:"CommitmentPurchaseAnalysisConfiguration"`
 }
 
 type StartCommitmentPurchaseAnalysisResponse struct {
-	AnalysisId              string `json:"analysisId" xml:"AnalysisId"`
-	AnalysisStartedTime     string `json:"analysisStartedTime" xml:"AnalysisStartedTime"`
-	EstimatedCompletionTime string `json:"estimatedCompletionTime" xml:"EstimatedCompletionTime"`
+AnalysisId string `json:"analysisId" xml:"AnalysisId"`
+AnalysisStartedTime string `json:"analysisStartedTime" xml:"AnalysisStartedTime"`
+EstimatedCompletionTime string `json:"estimatedCompletionTime" xml:"EstimatedCompletionTime"`
 }
 
 type StartCostAllocationTagBackfillRequest struct {
-	BackfillFrom string `json:"backfillFrom" xml:"BackfillFrom"`
+BackfillFrom string `json:"backfillFrom" xml:"BackfillFrom"`
 }
 
 type StartCostAllocationTagBackfillResponse struct {
-	BackfillRequest *CostAllocationTagBackfillRequest `json:"backfillRequest" xml:"BackfillRequest"`
+BackfillRequest *CostAllocationTagBackfillRequest `json:"backfillRequest" xml:"BackfillRequest"`
 }
 
 type StartSavingsPlansPurchaseRecommendationGenerationRequest struct {
 }
 
 type StartSavingsPlansPurchaseRecommendationGenerationResponse struct {
-	EstimatedCompletionTime string `json:"estimatedCompletionTime" xml:"EstimatedCompletionTime"`
-	GenerationStartedTime   string `json:"generationStartedTime" xml:"GenerationStartedTime"`
-	RecommendationId        string `json:"recommendationId" xml:"RecommendationId"`
+EstimatedCompletionTime string `json:"estimatedCompletionTime" xml:"EstimatedCompletionTime"`
+GenerationStartedTime string `json:"generationStartedTime" xml:"GenerationStartedTime"`
+RecommendationId string `json:"recommendationId" xml:"RecommendationId"`
 }
 
 type Subscriber struct {
-	Address string `json:"address" xml:"Address"`
-	Status  string `json:"status" xml:"Status"`
-	Type    string `json:"type" xml:"Type"`
+Address string `json:"address" xml:"Address"`
+Status string `json:"status" xml:"Status"`
+Type string `json:"type" xml:"Type"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn  string          `json:"resourceArn" xml:"ResourceArn"`
-	ResourceTags ResourceTagList `json:"resourceTags" xml:"ResourceTags"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceTags ResourceTagList `json:"resourceTags" xml:"ResourceTags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type TagValues struct {
-	Key          string       `json:"key" xml:"Key"`
-	MatchOptions MatchOptions `json:"matchOptions" xml:"MatchOptions"`
-	Values       Values       `json:"values" xml:"Values"`
+Key string `json:"key" xml:"Key"`
+MatchOptions MatchOptions `json:"matchOptions" xml:"MatchOptions"`
+Values Values `json:"values" xml:"Values"`
 }
 
 type TargetInstance struct {
-	CurrencyCode                string               `json:"currencyCode" xml:"CurrencyCode"`
-	DefaultTargetInstance       bool                 `json:"defaultTargetInstance" xml:"DefaultTargetInstance"`
-	EstimatedMonthlyCost        string               `json:"estimatedMonthlyCost" xml:"EstimatedMonthlyCost"`
-	EstimatedMonthlySavings     string               `json:"estimatedMonthlySavings" xml:"EstimatedMonthlySavings"`
-	ExpectedResourceUtilization *ResourceUtilization `json:"expectedResourceUtilization" xml:"ExpectedResourceUtilization"`
-	PlatformDifferences         PlatformDifferences  `json:"platformDifferences" xml:"PlatformDifferences"`
-	ResourceDetails             *ResourceDetails     `json:"resourceDetails" xml:"ResourceDetails"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+DefaultTargetInstance bool `json:"defaultTargetInstance" xml:"DefaultTargetInstance"`
+EstimatedMonthlyCost string `json:"estimatedMonthlyCost" xml:"EstimatedMonthlyCost"`
+EstimatedMonthlySavings string `json:"estimatedMonthlySavings" xml:"EstimatedMonthlySavings"`
+ExpectedResourceUtilization *ResourceUtilization `json:"expectedResourceUtilization" xml:"ExpectedResourceUtilization"`
+PlatformDifferences PlatformDifferences `json:"platformDifferences" xml:"PlatformDifferences"`
+ResourceDetails *ResourceDetails `json:"resourceDetails" xml:"ResourceDetails"`
 }
 
 type TerminateRecommendationDetail struct {
-	CurrencyCode            string `json:"currencyCode" xml:"CurrencyCode"`
-	EstimatedMonthlySavings string `json:"estimatedMonthlySavings" xml:"EstimatedMonthlySavings"`
+CurrencyCode string `json:"currencyCode" xml:"CurrencyCode"`
+EstimatedMonthlySavings string `json:"estimatedMonthlySavings" xml:"EstimatedMonthlySavings"`
 }
 
 type TotalImpactFilter struct {
-	EndValue        float64 `json:"endValue" xml:"EndValue"`
-	NumericOperator string  `json:"numericOperator" xml:"NumericOperator"`
-	StartValue      float64 `json:"startValue" xml:"StartValue"`
+EndValue float64 `json:"endValue" xml:"EndValue"`
+NumericOperator string `json:"numericOperator" xml:"NumericOperator"`
+StartValue float64 `json:"startValue" xml:"StartValue"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn     string             `json:"resourceArn" xml:"ResourceArn"`
-	ResourceTagKeys ResourceTagKeyList `json:"resourceTagKeys" xml:"ResourceTagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceTagKeys ResourceTagKeyList `json:"resourceTagKeys" xml:"ResourceTagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateAnomalyMonitorRequest struct {
-	MonitorArn  string `json:"monitorArn" xml:"MonitorArn"`
-	MonitorName string `json:"monitorName" xml:"MonitorName"`
+MonitorArn string `json:"monitorArn" xml:"MonitorArn"`
+MonitorName string `json:"monitorName" xml:"MonitorName"`
 }
 
 type UpdateAnomalyMonitorResponse struct {
-	MonitorArn string `json:"monitorArn" xml:"MonitorArn"`
+MonitorArn string `json:"monitorArn" xml:"MonitorArn"`
 }
 
 type UpdateAnomalySubscriptionRequest struct {
-	Frequency           string         `json:"frequency" xml:"Frequency"`
-	MonitorArnList      MonitorArnList `json:"monitorArnList" xml:"MonitorArnList"`
-	Subscribers         Subscribers    `json:"subscribers" xml:"Subscribers"`
-	SubscriptionArn     string         `json:"subscriptionArn" xml:"SubscriptionArn"`
-	SubscriptionName    string         `json:"subscriptionName" xml:"SubscriptionName"`
-	Threshold           float64        `json:"threshold" xml:"Threshold"`
-	ThresholdExpression *Expression    `json:"thresholdExpression" xml:"ThresholdExpression"`
+Frequency string `json:"frequency" xml:"Frequency"`
+MonitorArnList MonitorArnList `json:"monitorArnList" xml:"MonitorArnList"`
+Subscribers Subscribers `json:"subscribers" xml:"Subscribers"`
+SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
+SubscriptionName string `json:"subscriptionName" xml:"SubscriptionName"`
+Threshold float64 `json:"threshold" xml:"Threshold"`
+ThresholdExpression *Expression `json:"thresholdExpression" xml:"ThresholdExpression"`
 }
 
 type UpdateAnomalySubscriptionResponse struct {
-	SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
+SubscriptionArn string `json:"subscriptionArn" xml:"SubscriptionArn"`
 }
 
 type UpdateCostAllocationTagsStatusError struct {
-	Code    string `json:"code" xml:"Code"`
-	Message string `json:"message" xml:"Message"`
-	TagKey  string `json:"tagKey" xml:"TagKey"`
+Code string `json:"code" xml:"Code"`
+Message string `json:"message" xml:"Message"`
+TagKey string `json:"tagKey" xml:"TagKey"`
 }
 
 type UpdateCostAllocationTagsStatusRequest struct {
-	CostAllocationTagsStatus CostAllocationTagStatusList `json:"costAllocationTagsStatus" xml:"CostAllocationTagsStatus"`
+CostAllocationTagsStatus CostAllocationTagStatusList `json:"costAllocationTagsStatus" xml:"CostAllocationTagsStatus"`
 }
 
 type UpdateCostAllocationTagsStatusResponse struct {
-	Errors UpdateCostAllocationTagsStatusErrors `json:"errors" xml:"Errors"`
+Errors UpdateCostAllocationTagsStatusErrors `json:"errors" xml:"Errors"`
 }
 
 type UpdateCostCategoryDefinitionRequest struct {
-	CostCategoryArn  string                           `json:"costCategoryArn" xml:"CostCategoryArn"`
-	DefaultValue     string                           `json:"defaultValue" xml:"DefaultValue"`
-	EffectiveStart   string                           `json:"effectiveStart" xml:"EffectiveStart"`
-	RuleVersion      string                           `json:"ruleVersion" xml:"RuleVersion"`
-	Rules            CostCategoryRulesList            `json:"rules" xml:"Rules"`
-	SplitChargeRules CostCategorySplitChargeRulesList `json:"splitChargeRules" xml:"SplitChargeRules"`
+CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+EffectiveStart string `json:"effectiveStart" xml:"EffectiveStart"`
+RuleVersion string `json:"ruleVersion" xml:"RuleVersion"`
+Rules CostCategoryRulesList `json:"rules" xml:"Rules"`
+SplitChargeRules CostCategorySplitChargeRulesList `json:"splitChargeRules" xml:"SplitChargeRules"`
 }
 
 type UpdateCostCategoryDefinitionResponse struct {
-	CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
-	EffectiveStart  string `json:"effectiveStart" xml:"EffectiveStart"`
+CostCategoryArn string `json:"costCategoryArn" xml:"CostCategoryArn"`
+EffectiveStart string `json:"effectiveStart" xml:"EffectiveStart"`
 }
 
 type UtilizationByTime struct {
-	Groups     ReservationUtilizationGroups `json:"groups" xml:"Groups"`
-	TimePeriod *DateInterval                `json:"timePeriod" xml:"TimePeriod"`
-	Total      *ReservationAggregates       `json:"total" xml:"Total"`
+Groups ReservationUtilizationGroups `json:"groups" xml:"Groups"`
+TimePeriod *DateInterval `json:"timePeriod" xml:"TimePeriod"`
+Total *ReservationAggregates `json:"total" xml:"Total"`
 }
 
 type AnalysisIds []string
@@ -1523,3 +1524,4 @@ type Attributes map[string]string
 type ComparisonMetrics map[string]*ComparisonMetricValue
 
 type Metrics map[string]*MetricValue
+

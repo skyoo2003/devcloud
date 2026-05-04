@@ -1107,3 +1107,4 @@ func SerializeUpdateTypeResponse(w http.ResponseWriter, output *UpdateTypeRespon
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

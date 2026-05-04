@@ -7,1482 +7,1482 @@ import (
 )
 
 type ArchivalSummary struct {
-	ArchivalBackupArn string    `json:"archivalBackupArn" xml:"ArchivalBackupArn"`
-	ArchivalDateTime  time.Time `json:"archivalDateTime" xml:"ArchivalDateTime"`
-	ArchivalReason    string    `json:"archivalReason" xml:"ArchivalReason"`
+ArchivalBackupArn string `json:"archivalBackupArn" xml:"ArchivalBackupArn"`
+ArchivalDateTime time.Time `json:"archivalDateTime" xml:"ArchivalDateTime"`
+ArchivalReason string `json:"archivalReason" xml:"ArchivalReason"`
 }
 
 type AttributeDefinition struct {
-	AttributeName string `json:"attributeName" xml:"AttributeName"`
-	AttributeType string `json:"attributeType" xml:"AttributeType"`
+AttributeName string `json:"attributeName" xml:"AttributeName"`
+AttributeType string `json:"attributeType" xml:"AttributeType"`
 }
 
 type AttributeValueUpdate struct {
-	Action string      `json:"action" xml:"Action"`
-	Value  interface{} `json:"value" xml:"Value"`
+Action string `json:"action" xml:"Action"`
+Value interface{} `json:"value" xml:"Value"`
 }
 
 type AutoScalingPolicyDescription struct {
-	PolicyName                               string                                                          `json:"policyName" xml:"PolicyName"`
-	TargetTrackingScalingPolicyConfiguration *AutoScalingTargetTrackingScalingPolicyConfigurationDescription `json:"targetTrackingScalingPolicyConfiguration" xml:"TargetTrackingScalingPolicyConfiguration"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+TargetTrackingScalingPolicyConfiguration *AutoScalingTargetTrackingScalingPolicyConfigurationDescription `json:"targetTrackingScalingPolicyConfiguration" xml:"TargetTrackingScalingPolicyConfiguration"`
 }
 
 type AutoScalingPolicyUpdate struct {
-	PolicyName                               string                                                     `json:"policyName" xml:"PolicyName"`
-	TargetTrackingScalingPolicyConfiguration *AutoScalingTargetTrackingScalingPolicyConfigurationUpdate `json:"targetTrackingScalingPolicyConfiguration" xml:"TargetTrackingScalingPolicyConfiguration"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+TargetTrackingScalingPolicyConfiguration *AutoScalingTargetTrackingScalingPolicyConfigurationUpdate `json:"targetTrackingScalingPolicyConfiguration" xml:"TargetTrackingScalingPolicyConfiguration"`
 }
 
 type AutoScalingSettingsDescription struct {
-	AutoScalingDisabled bool                             `json:"autoScalingDisabled" xml:"AutoScalingDisabled"`
-	AutoScalingRoleArn  string                           `json:"autoScalingRoleArn" xml:"AutoScalingRoleArn"`
-	MaximumUnits        int64                            `json:"maximumUnits" xml:"MaximumUnits"`
-	MinimumUnits        int64                            `json:"minimumUnits" xml:"MinimumUnits"`
-	ScalingPolicies     AutoScalingPolicyDescriptionList `json:"scalingPolicies" xml:"ScalingPolicies"`
+AutoScalingDisabled bool `json:"autoScalingDisabled" xml:"AutoScalingDisabled"`
+AutoScalingRoleArn string `json:"autoScalingRoleArn" xml:"AutoScalingRoleArn"`
+MaximumUnits int64 `json:"maximumUnits" xml:"MaximumUnits"`
+MinimumUnits int64 `json:"minimumUnits" xml:"MinimumUnits"`
+ScalingPolicies AutoScalingPolicyDescriptionList `json:"scalingPolicies" xml:"ScalingPolicies"`
 }
 
 type AutoScalingSettingsUpdate struct {
-	AutoScalingDisabled bool                     `json:"autoScalingDisabled" xml:"AutoScalingDisabled"`
-	AutoScalingRoleArn  string                   `json:"autoScalingRoleArn" xml:"AutoScalingRoleArn"`
-	MaximumUnits        int64                    `json:"maximumUnits" xml:"MaximumUnits"`
-	MinimumUnits        int64                    `json:"minimumUnits" xml:"MinimumUnits"`
-	ScalingPolicyUpdate *AutoScalingPolicyUpdate `json:"scalingPolicyUpdate" xml:"ScalingPolicyUpdate"`
+AutoScalingDisabled bool `json:"autoScalingDisabled" xml:"AutoScalingDisabled"`
+AutoScalingRoleArn string `json:"autoScalingRoleArn" xml:"AutoScalingRoleArn"`
+MaximumUnits int64 `json:"maximumUnits" xml:"MaximumUnits"`
+MinimumUnits int64 `json:"minimumUnits" xml:"MinimumUnits"`
+ScalingPolicyUpdate *AutoScalingPolicyUpdate `json:"scalingPolicyUpdate" xml:"ScalingPolicyUpdate"`
 }
 
 type AutoScalingTargetTrackingScalingPolicyConfigurationDescription struct {
-	DisableScaleIn   bool    `json:"disableScaleIn" xml:"DisableScaleIn"`
-	ScaleInCooldown  int32   `json:"scaleInCooldown" xml:"ScaleInCooldown"`
-	ScaleOutCooldown int32   `json:"scaleOutCooldown" xml:"ScaleOutCooldown"`
-	TargetValue      float64 `json:"targetValue" xml:"TargetValue"`
+DisableScaleIn bool `json:"disableScaleIn" xml:"DisableScaleIn"`
+ScaleInCooldown int32 `json:"scaleInCooldown" xml:"ScaleInCooldown"`
+ScaleOutCooldown int32 `json:"scaleOutCooldown" xml:"ScaleOutCooldown"`
+TargetValue float64 `json:"targetValue" xml:"TargetValue"`
 }
 
 type AutoScalingTargetTrackingScalingPolicyConfigurationUpdate struct {
-	DisableScaleIn   bool    `json:"disableScaleIn" xml:"DisableScaleIn"`
-	ScaleInCooldown  int32   `json:"scaleInCooldown" xml:"ScaleInCooldown"`
-	ScaleOutCooldown int32   `json:"scaleOutCooldown" xml:"ScaleOutCooldown"`
-	TargetValue      float64 `json:"targetValue" xml:"TargetValue"`
+DisableScaleIn bool `json:"disableScaleIn" xml:"DisableScaleIn"`
+ScaleInCooldown int32 `json:"scaleInCooldown" xml:"ScaleInCooldown"`
+ScaleOutCooldown int32 `json:"scaleOutCooldown" xml:"ScaleOutCooldown"`
+TargetValue float64 `json:"targetValue" xml:"TargetValue"`
 }
 
 type BackupDescription struct {
-	BackupDetails             *BackupDetails             `json:"backupDetails" xml:"BackupDetails"`
-	SourceTableDetails        *SourceTableDetails        `json:"sourceTableDetails" xml:"SourceTableDetails"`
-	SourceTableFeatureDetails *SourceTableFeatureDetails `json:"sourceTableFeatureDetails" xml:"SourceTableFeatureDetails"`
+BackupDetails *BackupDetails `json:"backupDetails" xml:"BackupDetails"`
+SourceTableDetails *SourceTableDetails `json:"sourceTableDetails" xml:"SourceTableDetails"`
+SourceTableFeatureDetails *SourceTableFeatureDetails `json:"sourceTableFeatureDetails" xml:"SourceTableFeatureDetails"`
 }
 
 type BackupDetails struct {
-	BackupArn              string    `json:"backupArn" xml:"BackupArn"`
-	BackupCreationDateTime time.Time `json:"backupCreationDateTime" xml:"BackupCreationDateTime"`
-	BackupExpiryDateTime   time.Time `json:"backupExpiryDateTime" xml:"BackupExpiryDateTime"`
-	BackupName             string    `json:"backupName" xml:"BackupName"`
-	BackupSizeBytes        int64     `json:"backupSizeBytes" xml:"BackupSizeBytes"`
-	BackupStatus           string    `json:"backupStatus" xml:"BackupStatus"`
-	BackupType             string    `json:"backupType" xml:"BackupType"`
+BackupArn string `json:"backupArn" xml:"BackupArn"`
+BackupCreationDateTime time.Time `json:"backupCreationDateTime" xml:"BackupCreationDateTime"`
+BackupExpiryDateTime time.Time `json:"backupExpiryDateTime" xml:"BackupExpiryDateTime"`
+BackupName string `json:"backupName" xml:"BackupName"`
+BackupSizeBytes int64 `json:"backupSizeBytes" xml:"BackupSizeBytes"`
+BackupStatus string `json:"backupStatus" xml:"BackupStatus"`
+BackupType string `json:"backupType" xml:"BackupType"`
 }
 
 type BackupSummary struct {
-	BackupArn              string    `json:"backupArn" xml:"BackupArn"`
-	BackupCreationDateTime time.Time `json:"backupCreationDateTime" xml:"BackupCreationDateTime"`
-	BackupExpiryDateTime   time.Time `json:"backupExpiryDateTime" xml:"BackupExpiryDateTime"`
-	BackupName             string    `json:"backupName" xml:"BackupName"`
-	BackupSizeBytes        int64     `json:"backupSizeBytes" xml:"BackupSizeBytes"`
-	BackupStatus           string    `json:"backupStatus" xml:"BackupStatus"`
-	BackupType             string    `json:"backupType" xml:"BackupType"`
-	TableArn               string    `json:"tableArn" xml:"TableArn"`
-	TableId                string    `json:"tableId" xml:"TableId"`
-	TableName              string    `json:"tableName" xml:"TableName"`
+BackupArn string `json:"backupArn" xml:"BackupArn"`
+BackupCreationDateTime time.Time `json:"backupCreationDateTime" xml:"BackupCreationDateTime"`
+BackupExpiryDateTime time.Time `json:"backupExpiryDateTime" xml:"BackupExpiryDateTime"`
+BackupName string `json:"backupName" xml:"BackupName"`
+BackupSizeBytes int64 `json:"backupSizeBytes" xml:"BackupSizeBytes"`
+BackupStatus string `json:"backupStatus" xml:"BackupStatus"`
+BackupType string `json:"backupType" xml:"BackupType"`
+TableArn string `json:"tableArn" xml:"TableArn"`
+TableId string `json:"tableId" xml:"TableId"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type BatchExecuteStatementInput struct {
-	ReturnConsumedCapacity string              `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	Statements             PartiQLBatchRequest `json:"statements" xml:"Statements"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+Statements PartiQLBatchRequest `json:"statements" xml:"Statements"`
 }
 
 type BatchExecuteStatementOutput struct {
-	ConsumedCapacity ConsumedCapacityMultiple `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	Responses        PartiQLBatchResponse     `json:"responses" xml:"Responses"`
+ConsumedCapacity ConsumedCapacityMultiple `json:"consumedCapacity" xml:"ConsumedCapacity"`
+Responses PartiQLBatchResponse `json:"responses" xml:"Responses"`
 }
 
 type BatchGetItemInput struct {
-	RequestItems           BatchGetRequestMap `json:"requestItems" xml:"RequestItems"`
-	ReturnConsumedCapacity string             `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+RequestItems BatchGetRequestMap `json:"requestItems" xml:"RequestItems"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
 }
 
 type BatchGetItemOutput struct {
-	ConsumedCapacity ConsumedCapacityMultiple `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	Responses        BatchGetResponseMap      `json:"responses" xml:"Responses"`
-	UnprocessedKeys  BatchGetRequestMap       `json:"unprocessedKeys" xml:"UnprocessedKeys"`
+ConsumedCapacity ConsumedCapacityMultiple `json:"consumedCapacity" xml:"ConsumedCapacity"`
+Responses BatchGetResponseMap `json:"responses" xml:"Responses"`
+UnprocessedKeys BatchGetRequestMap `json:"unprocessedKeys" xml:"UnprocessedKeys"`
 }
 
 type BatchStatementError struct {
-	Code    string       `json:"code" xml:"Code"`
-	Item    AttributeMap `json:"item" xml:"Item"`
-	Message string       `json:"message" xml:"Message"`
+Code string `json:"code" xml:"Code"`
+Item AttributeMap `json:"item" xml:"Item"`
+Message string `json:"message" xml:"Message"`
 }
 
 type BatchStatementRequest struct {
-	ConsistentRead                      bool                        `json:"consistentRead" xml:"ConsistentRead"`
-	Parameters                          PreparedStatementParameters `json:"parameters" xml:"Parameters"`
-	ReturnValuesOnConditionCheckFailure string                      `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
-	Statement                           string                      `json:"statement" xml:"Statement"`
+ConsistentRead bool `json:"consistentRead" xml:"ConsistentRead"`
+Parameters PreparedStatementParameters `json:"parameters" xml:"Parameters"`
+ReturnValuesOnConditionCheckFailure string `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
+Statement string `json:"statement" xml:"Statement"`
 }
 
 type BatchStatementResponse struct {
-	Error     *BatchStatementError `json:"error" xml:"Error"`
-	Item      AttributeMap         `json:"item" xml:"Item"`
-	TableName string               `json:"tableName" xml:"TableName"`
+Error *BatchStatementError `json:"error" xml:"Error"`
+Item AttributeMap `json:"item" xml:"Item"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type BatchWriteItemInput struct {
-	RequestItems                BatchWriteItemRequestMap `json:"requestItems" xml:"RequestItems"`
-	ReturnConsumedCapacity      string                   `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	ReturnItemCollectionMetrics string                   `json:"returnItemCollectionMetrics" xml:"ReturnItemCollectionMetrics"`
+RequestItems BatchWriteItemRequestMap `json:"requestItems" xml:"RequestItems"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+ReturnItemCollectionMetrics string `json:"returnItemCollectionMetrics" xml:"ReturnItemCollectionMetrics"`
 }
 
 type BatchWriteItemOutput struct {
-	ConsumedCapacity      ConsumedCapacityMultiple      `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	ItemCollectionMetrics ItemCollectionMetricsPerTable `json:"itemCollectionMetrics" xml:"ItemCollectionMetrics"`
-	UnprocessedItems      BatchWriteItemRequestMap      `json:"unprocessedItems" xml:"UnprocessedItems"`
+ConsumedCapacity ConsumedCapacityMultiple `json:"consumedCapacity" xml:"ConsumedCapacity"`
+ItemCollectionMetrics ItemCollectionMetricsPerTable `json:"itemCollectionMetrics" xml:"ItemCollectionMetrics"`
+UnprocessedItems BatchWriteItemRequestMap `json:"unprocessedItems" xml:"UnprocessedItems"`
 }
 
 type BillingModeSummary struct {
-	BillingMode                       string    `json:"billingMode" xml:"BillingMode"`
-	LastUpdateToPayPerRequestDateTime time.Time `json:"lastUpdateToPayPerRequestDateTime" xml:"LastUpdateToPayPerRequestDateTime"`
+BillingMode string `json:"billingMode" xml:"BillingMode"`
+LastUpdateToPayPerRequestDateTime time.Time `json:"lastUpdateToPayPerRequestDateTime" xml:"LastUpdateToPayPerRequestDateTime"`
 }
 
 type CancellationReason struct {
-	Code    string       `json:"code" xml:"Code"`
-	Item    AttributeMap `json:"item" xml:"Item"`
-	Message string       `json:"message" xml:"Message"`
+Code string `json:"code" xml:"Code"`
+Item AttributeMap `json:"item" xml:"Item"`
+Message string `json:"message" xml:"Message"`
 }
 
 type Capacity struct {
-	CapacityUnits      float64 `json:"capacityUnits" xml:"CapacityUnits"`
-	ReadCapacityUnits  float64 `json:"readCapacityUnits" xml:"ReadCapacityUnits"`
-	WriteCapacityUnits float64 `json:"writeCapacityUnits" xml:"WriteCapacityUnits"`
+CapacityUnits float64 `json:"capacityUnits" xml:"CapacityUnits"`
+ReadCapacityUnits float64 `json:"readCapacityUnits" xml:"ReadCapacityUnits"`
+WriteCapacityUnits float64 `json:"writeCapacityUnits" xml:"WriteCapacityUnits"`
 }
 
 type Condition struct {
-	AttributeValueList AttributeValueList `json:"attributeValueList" xml:"AttributeValueList"`
-	ComparisonOperator string             `json:"comparisonOperator" xml:"ComparisonOperator"`
+AttributeValueList AttributeValueList `json:"attributeValueList" xml:"AttributeValueList"`
+ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
 }
 
 type ConditionCheck struct {
-	ConditionExpression                 string                      `json:"conditionExpression" xml:"ConditionExpression"`
-	ExpressionAttributeNames            ExpressionAttributeNameMap  `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	ExpressionAttributeValues           ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
-	Key                                 Key                         `json:"key" xml:"Key"`
-	ReturnValuesOnConditionCheckFailure string                      `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
-	TableName                           string                      `json:"tableName" xml:"TableName"`
+ConditionExpression string `json:"conditionExpression" xml:"ConditionExpression"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
+Key Key `json:"key" xml:"Key"`
+ReturnValuesOnConditionCheckFailure string `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type ConsumedCapacity struct {
-	CapacityUnits          float64                     `json:"capacityUnits" xml:"CapacityUnits"`
-	GlobalSecondaryIndexes SecondaryIndexesCapacityMap `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
-	LocalSecondaryIndexes  SecondaryIndexesCapacityMap `json:"localSecondaryIndexes" xml:"LocalSecondaryIndexes"`
-	ReadCapacityUnits      float64                     `json:"readCapacityUnits" xml:"ReadCapacityUnits"`
-	Table                  *Capacity                   `json:"table" xml:"Table"`
-	TableName              string                      `json:"tableName" xml:"TableName"`
-	WriteCapacityUnits     float64                     `json:"writeCapacityUnits" xml:"WriteCapacityUnits"`
+CapacityUnits float64 `json:"capacityUnits" xml:"CapacityUnits"`
+GlobalSecondaryIndexes SecondaryIndexesCapacityMap `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
+LocalSecondaryIndexes SecondaryIndexesCapacityMap `json:"localSecondaryIndexes" xml:"LocalSecondaryIndexes"`
+ReadCapacityUnits float64 `json:"readCapacityUnits" xml:"ReadCapacityUnits"`
+Table *Capacity `json:"table" xml:"Table"`
+TableName string `json:"tableName" xml:"TableName"`
+WriteCapacityUnits float64 `json:"writeCapacityUnits" xml:"WriteCapacityUnits"`
 }
 
 type ContinuousBackupsDescription struct {
-	ContinuousBackupsStatus        string                          `json:"continuousBackupsStatus" xml:"ContinuousBackupsStatus"`
-	PointInTimeRecoveryDescription *PointInTimeRecoveryDescription `json:"pointInTimeRecoveryDescription" xml:"PointInTimeRecoveryDescription"`
+ContinuousBackupsStatus string `json:"continuousBackupsStatus" xml:"ContinuousBackupsStatus"`
+PointInTimeRecoveryDescription *PointInTimeRecoveryDescription `json:"pointInTimeRecoveryDescription" xml:"PointInTimeRecoveryDescription"`
 }
 
 type ContributorInsightsSummary struct {
-	ContributorInsightsMode   string `json:"contributorInsightsMode" xml:"ContributorInsightsMode"`
-	ContributorInsightsStatus string `json:"contributorInsightsStatus" xml:"ContributorInsightsStatus"`
-	IndexName                 string `json:"indexName" xml:"IndexName"`
-	TableName                 string `json:"tableName" xml:"TableName"`
+ContributorInsightsMode string `json:"contributorInsightsMode" xml:"ContributorInsightsMode"`
+ContributorInsightsStatus string `json:"contributorInsightsStatus" xml:"ContributorInsightsStatus"`
+IndexName string `json:"indexName" xml:"IndexName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type CreateBackupInput struct {
-	BackupName string `json:"backupName" xml:"BackupName"`
-	TableName  string `json:"tableName" xml:"TableName"`
+BackupName string `json:"backupName" xml:"BackupName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type CreateBackupOutput struct {
-	BackupDetails *BackupDetails `json:"backupDetails" xml:"BackupDetails"`
+BackupDetails *BackupDetails `json:"backupDetails" xml:"BackupDetails"`
 }
 
 type CreateGlobalSecondaryIndexAction struct {
-	IndexName             string                 `json:"indexName" xml:"IndexName"`
-	KeySchema             KeySchema              `json:"keySchema" xml:"KeySchema"`
-	OnDemandThroughput    *OnDemandThroughput    `json:"onDemandThroughput" xml:"OnDemandThroughput"`
-	Projection            *Projection            `json:"projection" xml:"Projection"`
-	ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
-	WarmThroughput        *WarmThroughput        `json:"warmThroughput" xml:"WarmThroughput"`
+IndexName string `json:"indexName" xml:"IndexName"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+OnDemandThroughput *OnDemandThroughput `json:"onDemandThroughput" xml:"OnDemandThroughput"`
+Projection *Projection `json:"projection" xml:"Projection"`
+ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
+WarmThroughput *WarmThroughput `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type CreateGlobalTableInput struct {
-	GlobalTableName  string      `json:"globalTableName" xml:"GlobalTableName"`
-	ReplicationGroup ReplicaList `json:"replicationGroup" xml:"ReplicationGroup"`
+GlobalTableName string `json:"globalTableName" xml:"GlobalTableName"`
+ReplicationGroup ReplicaList `json:"replicationGroup" xml:"ReplicationGroup"`
 }
 
 type CreateGlobalTableOutput struct {
-	GlobalTableDescription *GlobalTableDescription `json:"globalTableDescription" xml:"GlobalTableDescription"`
+GlobalTableDescription *GlobalTableDescription `json:"globalTableDescription" xml:"GlobalTableDescription"`
 }
 
 type CreateGlobalTableWitnessGroupMemberAction struct {
-	RegionName string `json:"regionName" xml:"RegionName"`
+RegionName string `json:"regionName" xml:"RegionName"`
 }
 
 type CreateReplicaAction struct {
-	RegionName string `json:"regionName" xml:"RegionName"`
+RegionName string `json:"regionName" xml:"RegionName"`
 }
 
 type CreateReplicationGroupMemberAction struct {
-	GlobalSecondaryIndexes        ReplicaGlobalSecondaryIndexList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
-	KMSMasterKeyId                string                          `json:"kMSMasterKeyId" xml:"KMSMasterKeyId"`
-	OnDemandThroughputOverride    *OnDemandThroughputOverride     `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
-	ProvisionedThroughputOverride *ProvisionedThroughputOverride  `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
-	RegionName                    string                          `json:"regionName" xml:"RegionName"`
-	TableClassOverride            string                          `json:"tableClassOverride" xml:"TableClassOverride"`
+GlobalSecondaryIndexes ReplicaGlobalSecondaryIndexList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
+KMSMasterKeyId string `json:"kMSMasterKeyId" xml:"KMSMasterKeyId"`
+OnDemandThroughputOverride *OnDemandThroughputOverride `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
+ProvisionedThroughputOverride *ProvisionedThroughputOverride `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
+RegionName string `json:"regionName" xml:"RegionName"`
+TableClassOverride string `json:"tableClassOverride" xml:"TableClassOverride"`
 }
 
 type CreateTableInput struct {
-	AttributeDefinitions               AttributeDefinitions     `json:"attributeDefinitions" xml:"AttributeDefinitions"`
-	BillingMode                        string                   `json:"billingMode" xml:"BillingMode"`
-	DeletionProtectionEnabled          bool                     `json:"deletionProtectionEnabled" xml:"DeletionProtectionEnabled"`
-	GlobalSecondaryIndexes             GlobalSecondaryIndexList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
-	GlobalTableSettingsReplicationMode string                   `json:"globalTableSettingsReplicationMode" xml:"GlobalTableSettingsReplicationMode"`
-	GlobalTableSourceArn               string                   `json:"globalTableSourceArn" xml:"GlobalTableSourceArn"`
-	KeySchema                          KeySchema                `json:"keySchema" xml:"KeySchema"`
-	LocalSecondaryIndexes              LocalSecondaryIndexList  `json:"localSecondaryIndexes" xml:"LocalSecondaryIndexes"`
-	OnDemandThroughput                 *OnDemandThroughput      `json:"onDemandThroughput" xml:"OnDemandThroughput"`
-	ProvisionedThroughput              *ProvisionedThroughput   `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
-	ResourcePolicy                     string                   `json:"resourcePolicy" xml:"ResourcePolicy"`
-	SSESpecification                   *SSESpecification        `json:"sSESpecification" xml:"SSESpecification"`
-	StreamSpecification                *StreamSpecification     `json:"streamSpecification" xml:"StreamSpecification"`
-	TableClass                         string                   `json:"tableClass" xml:"TableClass"`
-	TableName                          string                   `json:"tableName" xml:"TableName"`
-	Tags                               TagList                  `json:"tags" xml:"Tags"`
-	WarmThroughput                     *WarmThroughput          `json:"warmThroughput" xml:"WarmThroughput"`
+AttributeDefinitions AttributeDefinitions `json:"attributeDefinitions" xml:"AttributeDefinitions"`
+BillingMode string `json:"billingMode" xml:"BillingMode"`
+DeletionProtectionEnabled bool `json:"deletionProtectionEnabled" xml:"DeletionProtectionEnabled"`
+GlobalSecondaryIndexes GlobalSecondaryIndexList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
+GlobalTableSettingsReplicationMode string `json:"globalTableSettingsReplicationMode" xml:"GlobalTableSettingsReplicationMode"`
+GlobalTableSourceArn string `json:"globalTableSourceArn" xml:"GlobalTableSourceArn"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+LocalSecondaryIndexes LocalSecondaryIndexList `json:"localSecondaryIndexes" xml:"LocalSecondaryIndexes"`
+OnDemandThroughput *OnDemandThroughput `json:"onDemandThroughput" xml:"OnDemandThroughput"`
+ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
+ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
+SSESpecification *SSESpecification `json:"sSESpecification" xml:"SSESpecification"`
+StreamSpecification *StreamSpecification `json:"streamSpecification" xml:"StreamSpecification"`
+TableClass string `json:"tableClass" xml:"TableClass"`
+TableName string `json:"tableName" xml:"TableName"`
+Tags TagList `json:"tags" xml:"Tags"`
+WarmThroughput *WarmThroughput `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type CreateTableOutput struct {
-	TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
+TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
 }
 
 type CsvOptions struct {
-	Delimiter  string        `json:"delimiter" xml:"Delimiter"`
-	HeaderList CsvHeaderList `json:"headerList" xml:"HeaderList"`
+Delimiter string `json:"delimiter" xml:"Delimiter"`
+HeaderList CsvHeaderList `json:"headerList" xml:"HeaderList"`
 }
 
 type Delete struct {
-	ConditionExpression                 string                      `json:"conditionExpression" xml:"ConditionExpression"`
-	ExpressionAttributeNames            ExpressionAttributeNameMap  `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	ExpressionAttributeValues           ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
-	Key                                 Key                         `json:"key" xml:"Key"`
-	ReturnValuesOnConditionCheckFailure string                      `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
-	TableName                           string                      `json:"tableName" xml:"TableName"`
+ConditionExpression string `json:"conditionExpression" xml:"ConditionExpression"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
+Key Key `json:"key" xml:"Key"`
+ReturnValuesOnConditionCheckFailure string `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DeleteBackupInput struct {
-	BackupArn string `json:"backupArn" xml:"BackupArn"`
+BackupArn string `json:"backupArn" xml:"BackupArn"`
 }
 
 type DeleteBackupOutput struct {
-	BackupDescription *BackupDescription `json:"backupDescription" xml:"BackupDescription"`
+BackupDescription *BackupDescription `json:"backupDescription" xml:"BackupDescription"`
 }
 
 type DeleteGlobalSecondaryIndexAction struct {
-	IndexName string `json:"indexName" xml:"IndexName"`
+IndexName string `json:"indexName" xml:"IndexName"`
 }
 
 type DeleteGlobalTableWitnessGroupMemberAction struct {
-	RegionName string `json:"regionName" xml:"RegionName"`
+RegionName string `json:"regionName" xml:"RegionName"`
 }
 
 type DeleteItemInput struct {
-	ConditionExpression                 string                      `json:"conditionExpression" xml:"ConditionExpression"`
-	ConditionalOperator                 string                      `json:"conditionalOperator" xml:"ConditionalOperator"`
-	Expected                            ExpectedAttributeMap        `json:"expected" xml:"Expected"`
-	ExpressionAttributeNames            ExpressionAttributeNameMap  `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	ExpressionAttributeValues           ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
-	Key                                 Key                         `json:"key" xml:"Key"`
-	ReturnConsumedCapacity              string                      `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	ReturnItemCollectionMetrics         string                      `json:"returnItemCollectionMetrics" xml:"ReturnItemCollectionMetrics"`
-	ReturnValues                        string                      `json:"returnValues" xml:"ReturnValues"`
-	ReturnValuesOnConditionCheckFailure string                      `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
-	TableName                           string                      `json:"tableName" xml:"TableName"`
+ConditionExpression string `json:"conditionExpression" xml:"ConditionExpression"`
+ConditionalOperator string `json:"conditionalOperator" xml:"ConditionalOperator"`
+Expected ExpectedAttributeMap `json:"expected" xml:"Expected"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
+Key Key `json:"key" xml:"Key"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+ReturnItemCollectionMetrics string `json:"returnItemCollectionMetrics" xml:"ReturnItemCollectionMetrics"`
+ReturnValues string `json:"returnValues" xml:"ReturnValues"`
+ReturnValuesOnConditionCheckFailure string `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DeleteItemOutput struct {
-	Attributes            AttributeMap           `json:"attributes" xml:"Attributes"`
-	ConsumedCapacity      *ConsumedCapacity      `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	ItemCollectionMetrics *ItemCollectionMetrics `json:"itemCollectionMetrics" xml:"ItemCollectionMetrics"`
+Attributes AttributeMap `json:"attributes" xml:"Attributes"`
+ConsumedCapacity *ConsumedCapacity `json:"consumedCapacity" xml:"ConsumedCapacity"`
+ItemCollectionMetrics *ItemCollectionMetrics `json:"itemCollectionMetrics" xml:"ItemCollectionMetrics"`
 }
 
 type DeleteReplicaAction struct {
-	RegionName string `json:"regionName" xml:"RegionName"`
+RegionName string `json:"regionName" xml:"RegionName"`
 }
 
 type DeleteReplicationGroupMemberAction struct {
-	RegionName string `json:"regionName" xml:"RegionName"`
+RegionName string `json:"regionName" xml:"RegionName"`
 }
 
 type DeleteRequest struct {
-	Key Key `json:"key" xml:"Key"`
+Key Key `json:"key" xml:"Key"`
 }
 
 type DeleteResourcePolicyInput struct {
-	ExpectedRevisionId string `json:"expectedRevisionId" xml:"ExpectedRevisionId"`
-	ResourceArn        string `json:"resourceArn" xml:"ResourceArn"`
+ExpectedRevisionId string `json:"expectedRevisionId" xml:"ExpectedRevisionId"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DeleteResourcePolicyOutput struct {
-	RevisionId string `json:"revisionId" xml:"RevisionId"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
 }
 
 type DeleteTableInput struct {
-	TableName string `json:"tableName" xml:"TableName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DeleteTableOutput struct {
-	TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
+TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
 }
 
 type DescribeBackupInput struct {
-	BackupArn string `json:"backupArn" xml:"BackupArn"`
+BackupArn string `json:"backupArn" xml:"BackupArn"`
 }
 
 type DescribeBackupOutput struct {
-	BackupDescription *BackupDescription `json:"backupDescription" xml:"BackupDescription"`
+BackupDescription *BackupDescription `json:"backupDescription" xml:"BackupDescription"`
 }
 
 type DescribeContinuousBackupsInput struct {
-	TableName string `json:"tableName" xml:"TableName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DescribeContinuousBackupsOutput struct {
-	ContinuousBackupsDescription *ContinuousBackupsDescription `json:"continuousBackupsDescription" xml:"ContinuousBackupsDescription"`
+ContinuousBackupsDescription *ContinuousBackupsDescription `json:"continuousBackupsDescription" xml:"ContinuousBackupsDescription"`
 }
 
 type DescribeContributorInsightsInput struct {
-	IndexName string `json:"indexName" xml:"IndexName"`
-	TableName string `json:"tableName" xml:"TableName"`
+IndexName string `json:"indexName" xml:"IndexName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DescribeContributorInsightsOutput struct {
-	ContributorInsightsMode     string                      `json:"contributorInsightsMode" xml:"ContributorInsightsMode"`
-	ContributorInsightsRuleList ContributorInsightsRuleList `json:"contributorInsightsRuleList" xml:"ContributorInsightsRuleList"`
-	ContributorInsightsStatus   string                      `json:"contributorInsightsStatus" xml:"ContributorInsightsStatus"`
-	FailureException            *FailureException           `json:"failureException" xml:"FailureException"`
-	IndexName                   string                      `json:"indexName" xml:"IndexName"`
-	LastUpdateDateTime          time.Time                   `json:"lastUpdateDateTime" xml:"LastUpdateDateTime"`
-	TableName                   string                      `json:"tableName" xml:"TableName"`
+ContributorInsightsMode string `json:"contributorInsightsMode" xml:"ContributorInsightsMode"`
+ContributorInsightsRuleList ContributorInsightsRuleList `json:"contributorInsightsRuleList" xml:"ContributorInsightsRuleList"`
+ContributorInsightsStatus string `json:"contributorInsightsStatus" xml:"ContributorInsightsStatus"`
+FailureException *FailureException `json:"failureException" xml:"FailureException"`
+IndexName string `json:"indexName" xml:"IndexName"`
+LastUpdateDateTime time.Time `json:"lastUpdateDateTime" xml:"LastUpdateDateTime"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DescribeEndpointsRequest struct {
 }
 
 type DescribeEndpointsResponse struct {
-	Endpoints Endpoints `json:"endpoints" xml:"Endpoints"`
+Endpoints Endpoints `json:"endpoints" xml:"Endpoints"`
 }
 
 type DescribeExportInput struct {
-	ExportArn string `json:"exportArn" xml:"ExportArn"`
+ExportArn string `json:"exportArn" xml:"ExportArn"`
 }
 
 type DescribeExportOutput struct {
-	ExportDescription *ExportDescription `json:"exportDescription" xml:"ExportDescription"`
+ExportDescription *ExportDescription `json:"exportDescription" xml:"ExportDescription"`
 }
 
 type DescribeGlobalTableInput struct {
-	GlobalTableName string `json:"globalTableName" xml:"GlobalTableName"`
+GlobalTableName string `json:"globalTableName" xml:"GlobalTableName"`
 }
 
 type DescribeGlobalTableOutput struct {
-	GlobalTableDescription *GlobalTableDescription `json:"globalTableDescription" xml:"GlobalTableDescription"`
+GlobalTableDescription *GlobalTableDescription `json:"globalTableDescription" xml:"GlobalTableDescription"`
 }
 
 type DescribeGlobalTableSettingsInput struct {
-	GlobalTableName string `json:"globalTableName" xml:"GlobalTableName"`
+GlobalTableName string `json:"globalTableName" xml:"GlobalTableName"`
 }
 
 type DescribeGlobalTableSettingsOutput struct {
-	GlobalTableName string                         `json:"globalTableName" xml:"GlobalTableName"`
-	ReplicaSettings ReplicaSettingsDescriptionList `json:"replicaSettings" xml:"ReplicaSettings"`
+GlobalTableName string `json:"globalTableName" xml:"GlobalTableName"`
+ReplicaSettings ReplicaSettingsDescriptionList `json:"replicaSettings" xml:"ReplicaSettings"`
 }
 
 type DescribeImportInput struct {
-	ImportArn string `json:"importArn" xml:"ImportArn"`
+ImportArn string `json:"importArn" xml:"ImportArn"`
 }
 
 type DescribeImportOutput struct {
-	ImportTableDescription *ImportTableDescription `json:"importTableDescription" xml:"ImportTableDescription"`
+ImportTableDescription *ImportTableDescription `json:"importTableDescription" xml:"ImportTableDescription"`
 }
 
 type DescribeKinesisStreamingDestinationInput struct {
-	TableName string `json:"tableName" xml:"TableName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DescribeKinesisStreamingDestinationOutput struct {
-	KinesisDataStreamDestinations KinesisDataStreamDestinations `json:"kinesisDataStreamDestinations" xml:"KinesisDataStreamDestinations"`
-	TableName                     string                        `json:"tableName" xml:"TableName"`
+KinesisDataStreamDestinations KinesisDataStreamDestinations `json:"kinesisDataStreamDestinations" xml:"KinesisDataStreamDestinations"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DescribeLimitsInput struct {
 }
 
 type DescribeLimitsOutput struct {
-	AccountMaxReadCapacityUnits  int64 `json:"accountMaxReadCapacityUnits" xml:"AccountMaxReadCapacityUnits"`
-	AccountMaxWriteCapacityUnits int64 `json:"accountMaxWriteCapacityUnits" xml:"AccountMaxWriteCapacityUnits"`
-	TableMaxReadCapacityUnits    int64 `json:"tableMaxReadCapacityUnits" xml:"TableMaxReadCapacityUnits"`
-	TableMaxWriteCapacityUnits   int64 `json:"tableMaxWriteCapacityUnits" xml:"TableMaxWriteCapacityUnits"`
+AccountMaxReadCapacityUnits int64 `json:"accountMaxReadCapacityUnits" xml:"AccountMaxReadCapacityUnits"`
+AccountMaxWriteCapacityUnits int64 `json:"accountMaxWriteCapacityUnits" xml:"AccountMaxWriteCapacityUnits"`
+TableMaxReadCapacityUnits int64 `json:"tableMaxReadCapacityUnits" xml:"TableMaxReadCapacityUnits"`
+TableMaxWriteCapacityUnits int64 `json:"tableMaxWriteCapacityUnits" xml:"TableMaxWriteCapacityUnits"`
 }
 
 type DescribeTableInput struct {
-	TableName string `json:"tableName" xml:"TableName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DescribeTableOutput struct {
-	Table *TableDescription `json:"table" xml:"Table"`
+Table *TableDescription `json:"table" xml:"Table"`
 }
 
 type DescribeTableReplicaAutoScalingInput struct {
-	TableName string `json:"tableName" xml:"TableName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DescribeTableReplicaAutoScalingOutput struct {
-	TableAutoScalingDescription *TableAutoScalingDescription `json:"tableAutoScalingDescription" xml:"TableAutoScalingDescription"`
+TableAutoScalingDescription *TableAutoScalingDescription `json:"tableAutoScalingDescription" xml:"TableAutoScalingDescription"`
 }
 
 type DescribeTimeToLiveInput struct {
-	TableName string `json:"tableName" xml:"TableName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DescribeTimeToLiveOutput struct {
-	TimeToLiveDescription *TimeToLiveDescription `json:"timeToLiveDescription" xml:"TimeToLiveDescription"`
+TimeToLiveDescription *TimeToLiveDescription `json:"timeToLiveDescription" xml:"TimeToLiveDescription"`
 }
 
 type EnableKinesisStreamingConfiguration struct {
-	ApproximateCreationDateTimePrecision string `json:"approximateCreationDateTimePrecision" xml:"ApproximateCreationDateTimePrecision"`
+ApproximateCreationDateTimePrecision string `json:"approximateCreationDateTimePrecision" xml:"ApproximateCreationDateTimePrecision"`
 }
 
 type Endpoint struct {
-	Address              string `json:"address" xml:"Address"`
-	CachePeriodInMinutes int64  `json:"cachePeriodInMinutes" xml:"CachePeriodInMinutes"`
+Address string `json:"address" xml:"Address"`
+CachePeriodInMinutes int64 `json:"cachePeriodInMinutes" xml:"CachePeriodInMinutes"`
 }
 
 type ExecuteStatementInput struct {
-	ConsistentRead                      bool                        `json:"consistentRead" xml:"ConsistentRead"`
-	Limit                               int32                       `json:"limit" xml:"Limit"`
-	NextToken                           string                      `json:"nextToken" xml:"NextToken"`
-	Parameters                          PreparedStatementParameters `json:"parameters" xml:"Parameters"`
-	ReturnConsumedCapacity              string                      `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	ReturnValuesOnConditionCheckFailure string                      `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
-	Statement                           string                      `json:"statement" xml:"Statement"`
+ConsistentRead bool `json:"consistentRead" xml:"ConsistentRead"`
+Limit int32 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Parameters PreparedStatementParameters `json:"parameters" xml:"Parameters"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+ReturnValuesOnConditionCheckFailure string `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
+Statement string `json:"statement" xml:"Statement"`
 }
 
 type ExecuteStatementOutput struct {
-	ConsumedCapacity *ConsumedCapacity `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	Items            ItemList          `json:"items" xml:"Items"`
-	LastEvaluatedKey Key               `json:"lastEvaluatedKey" xml:"LastEvaluatedKey"`
-	NextToken        string            `json:"nextToken" xml:"NextToken"`
+ConsumedCapacity *ConsumedCapacity `json:"consumedCapacity" xml:"ConsumedCapacity"`
+Items ItemList `json:"items" xml:"Items"`
+LastEvaluatedKey Key `json:"lastEvaluatedKey" xml:"LastEvaluatedKey"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ExecuteTransactionInput struct {
-	ClientRequestToken     string                  `json:"clientRequestToken" xml:"ClientRequestToken"`
-	ReturnConsumedCapacity string                  `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	TransactStatements     ParameterizedStatements `json:"transactStatements" xml:"TransactStatements"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+TransactStatements ParameterizedStatements `json:"transactStatements" xml:"TransactStatements"`
 }
 
 type ExecuteTransactionOutput struct {
-	ConsumedCapacity ConsumedCapacityMultiple `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	Responses        ItemResponseList         `json:"responses" xml:"Responses"`
+ConsumedCapacity ConsumedCapacityMultiple `json:"consumedCapacity" xml:"ConsumedCapacity"`
+Responses ItemResponseList `json:"responses" xml:"Responses"`
 }
 
 type ExpectedAttributeValue struct {
-	AttributeValueList AttributeValueList `json:"attributeValueList" xml:"AttributeValueList"`
-	ComparisonOperator string             `json:"comparisonOperator" xml:"ComparisonOperator"`
-	Exists             bool               `json:"exists" xml:"Exists"`
-	Value              interface{}        `json:"value" xml:"Value"`
+AttributeValueList AttributeValueList `json:"attributeValueList" xml:"AttributeValueList"`
+ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
+Exists bool `json:"exists" xml:"Exists"`
+Value interface{} `json:"value" xml:"Value"`
 }
 
 type ExportDescription struct {
-	BilledSizeBytes                int64                           `json:"billedSizeBytes" xml:"BilledSizeBytes"`
-	ClientToken                    string                          `json:"clientToken" xml:"ClientToken"`
-	EndTime                        time.Time                       `json:"endTime" xml:"EndTime"`
-	ExportArn                      string                          `json:"exportArn" xml:"ExportArn"`
-	ExportFormat                   string                          `json:"exportFormat" xml:"ExportFormat"`
-	ExportManifest                 string                          `json:"exportManifest" xml:"ExportManifest"`
-	ExportStatus                   string                          `json:"exportStatus" xml:"ExportStatus"`
-	ExportTime                     time.Time                       `json:"exportTime" xml:"ExportTime"`
-	ExportType                     string                          `json:"exportType" xml:"ExportType"`
-	FailureCode                    string                          `json:"failureCode" xml:"FailureCode"`
-	FailureMessage                 string                          `json:"failureMessage" xml:"FailureMessage"`
-	IncrementalExportSpecification *IncrementalExportSpecification `json:"incrementalExportSpecification" xml:"IncrementalExportSpecification"`
-	ItemCount                      int64                           `json:"itemCount" xml:"ItemCount"`
-	S3Bucket                       string                          `json:"s3Bucket" xml:"S3Bucket"`
-	S3BucketOwner                  string                          `json:"s3BucketOwner" xml:"S3BucketOwner"`
-	S3Prefix                       string                          `json:"s3Prefix" xml:"S3Prefix"`
-	S3SseAlgorithm                 string                          `json:"s3SseAlgorithm" xml:"S3SseAlgorithm"`
-	S3SseKmsKeyId                  string                          `json:"s3SseKmsKeyId" xml:"S3SseKmsKeyId"`
-	StartTime                      time.Time                       `json:"startTime" xml:"StartTime"`
-	TableArn                       string                          `json:"tableArn" xml:"TableArn"`
-	TableId                        string                          `json:"tableId" xml:"TableId"`
+BilledSizeBytes int64 `json:"billedSizeBytes" xml:"BilledSizeBytes"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+ExportArn string `json:"exportArn" xml:"ExportArn"`
+ExportFormat string `json:"exportFormat" xml:"ExportFormat"`
+ExportManifest string `json:"exportManifest" xml:"ExportManifest"`
+ExportStatus string `json:"exportStatus" xml:"ExportStatus"`
+ExportTime time.Time `json:"exportTime" xml:"ExportTime"`
+ExportType string `json:"exportType" xml:"ExportType"`
+FailureCode string `json:"failureCode" xml:"FailureCode"`
+FailureMessage string `json:"failureMessage" xml:"FailureMessage"`
+IncrementalExportSpecification *IncrementalExportSpecification `json:"incrementalExportSpecification" xml:"IncrementalExportSpecification"`
+ItemCount int64 `json:"itemCount" xml:"ItemCount"`
+S3Bucket string `json:"s3Bucket" xml:"S3Bucket"`
+S3BucketOwner string `json:"s3BucketOwner" xml:"S3BucketOwner"`
+S3Prefix string `json:"s3Prefix" xml:"S3Prefix"`
+S3SseAlgorithm string `json:"s3SseAlgorithm" xml:"S3SseAlgorithm"`
+S3SseKmsKeyId string `json:"s3SseKmsKeyId" xml:"S3SseKmsKeyId"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+TableArn string `json:"tableArn" xml:"TableArn"`
+TableId string `json:"tableId" xml:"TableId"`
 }
 
 type ExportSummary struct {
-	ExportArn    string `json:"exportArn" xml:"ExportArn"`
-	ExportStatus string `json:"exportStatus" xml:"ExportStatus"`
-	ExportType   string `json:"exportType" xml:"ExportType"`
+ExportArn string `json:"exportArn" xml:"ExportArn"`
+ExportStatus string `json:"exportStatus" xml:"ExportStatus"`
+ExportType string `json:"exportType" xml:"ExportType"`
 }
 
 type ExportTableToPointInTimeInput struct {
-	ClientToken                    string                          `json:"clientToken" xml:"ClientToken"`
-	ExportFormat                   string                          `json:"exportFormat" xml:"ExportFormat"`
-	ExportTime                     time.Time                       `json:"exportTime" xml:"ExportTime"`
-	ExportType                     string                          `json:"exportType" xml:"ExportType"`
-	IncrementalExportSpecification *IncrementalExportSpecification `json:"incrementalExportSpecification" xml:"IncrementalExportSpecification"`
-	S3Bucket                       string                          `json:"s3Bucket" xml:"S3Bucket"`
-	S3BucketOwner                  string                          `json:"s3BucketOwner" xml:"S3BucketOwner"`
-	S3Prefix                       string                          `json:"s3Prefix" xml:"S3Prefix"`
-	S3SseAlgorithm                 string                          `json:"s3SseAlgorithm" xml:"S3SseAlgorithm"`
-	S3SseKmsKeyId                  string                          `json:"s3SseKmsKeyId" xml:"S3SseKmsKeyId"`
-	TableArn                       string                          `json:"tableArn" xml:"TableArn"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+ExportFormat string `json:"exportFormat" xml:"ExportFormat"`
+ExportTime time.Time `json:"exportTime" xml:"ExportTime"`
+ExportType string `json:"exportType" xml:"ExportType"`
+IncrementalExportSpecification *IncrementalExportSpecification `json:"incrementalExportSpecification" xml:"IncrementalExportSpecification"`
+S3Bucket string `json:"s3Bucket" xml:"S3Bucket"`
+S3BucketOwner string `json:"s3BucketOwner" xml:"S3BucketOwner"`
+S3Prefix string `json:"s3Prefix" xml:"S3Prefix"`
+S3SseAlgorithm string `json:"s3SseAlgorithm" xml:"S3SseAlgorithm"`
+S3SseKmsKeyId string `json:"s3SseKmsKeyId" xml:"S3SseKmsKeyId"`
+TableArn string `json:"tableArn" xml:"TableArn"`
 }
 
 type ExportTableToPointInTimeOutput struct {
-	ExportDescription *ExportDescription `json:"exportDescription" xml:"ExportDescription"`
+ExportDescription *ExportDescription `json:"exportDescription" xml:"ExportDescription"`
 }
 
 type FailureException struct {
-	ExceptionDescription string `json:"exceptionDescription" xml:"ExceptionDescription"`
-	ExceptionName        string `json:"exceptionName" xml:"ExceptionName"`
+ExceptionDescription string `json:"exceptionDescription" xml:"ExceptionDescription"`
+ExceptionName string `json:"exceptionName" xml:"ExceptionName"`
 }
 
 type Get struct {
-	ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	Key                      Key                        `json:"key" xml:"Key"`
-	ProjectionExpression     string                     `json:"projectionExpression" xml:"ProjectionExpression"`
-	TableName                string                     `json:"tableName" xml:"TableName"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+Key Key `json:"key" xml:"Key"`
+ProjectionExpression string `json:"projectionExpression" xml:"ProjectionExpression"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetItemInput struct {
-	AttributesToGet          AttributeNameList          `json:"attributesToGet" xml:"AttributesToGet"`
-	ConsistentRead           bool                       `json:"consistentRead" xml:"ConsistentRead"`
-	ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	Key                      Key                        `json:"key" xml:"Key"`
-	ProjectionExpression     string                     `json:"projectionExpression" xml:"ProjectionExpression"`
-	ReturnConsumedCapacity   string                     `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	TableName                string                     `json:"tableName" xml:"TableName"`
+AttributesToGet AttributeNameList `json:"attributesToGet" xml:"AttributesToGet"`
+ConsistentRead bool `json:"consistentRead" xml:"ConsistentRead"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+Key Key `json:"key" xml:"Key"`
+ProjectionExpression string `json:"projectionExpression" xml:"ProjectionExpression"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetItemOutput struct {
-	ConsumedCapacity *ConsumedCapacity `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	Item             AttributeMap      `json:"item" xml:"Item"`
+ConsumedCapacity *ConsumedCapacity `json:"consumedCapacity" xml:"ConsumedCapacity"`
+Item AttributeMap `json:"item" xml:"Item"`
 }
 
 type GetResourcePolicyInput struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetResourcePolicyOutput struct {
-	Policy     string `json:"policy" xml:"Policy"`
-	RevisionId string `json:"revisionId" xml:"RevisionId"`
+Policy string `json:"policy" xml:"Policy"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
 }
 
 type GlobalSecondaryIndex struct {
-	IndexName             string                 `json:"indexName" xml:"IndexName"`
-	KeySchema             KeySchema              `json:"keySchema" xml:"KeySchema"`
-	OnDemandThroughput    *OnDemandThroughput    `json:"onDemandThroughput" xml:"OnDemandThroughput"`
-	Projection            *Projection            `json:"projection" xml:"Projection"`
-	ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
-	WarmThroughput        *WarmThroughput        `json:"warmThroughput" xml:"WarmThroughput"`
+IndexName string `json:"indexName" xml:"IndexName"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+OnDemandThroughput *OnDemandThroughput `json:"onDemandThroughput" xml:"OnDemandThroughput"`
+Projection *Projection `json:"projection" xml:"Projection"`
+ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
+WarmThroughput *WarmThroughput `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type GlobalSecondaryIndexAutoScalingUpdate struct {
-	IndexName                                 string                     `json:"indexName" xml:"IndexName"`
-	ProvisionedWriteCapacityAutoScalingUpdate *AutoScalingSettingsUpdate `json:"provisionedWriteCapacityAutoScalingUpdate" xml:"ProvisionedWriteCapacityAutoScalingUpdate"`
+IndexName string `json:"indexName" xml:"IndexName"`
+ProvisionedWriteCapacityAutoScalingUpdate *AutoScalingSettingsUpdate `json:"provisionedWriteCapacityAutoScalingUpdate" xml:"ProvisionedWriteCapacityAutoScalingUpdate"`
 }
 
 type GlobalSecondaryIndexDescription struct {
-	Backfilling           bool                                           `json:"backfilling" xml:"Backfilling"`
-	IndexArn              string                                         `json:"indexArn" xml:"IndexArn"`
-	IndexName             string                                         `json:"indexName" xml:"IndexName"`
-	IndexSizeBytes        int64                                          `json:"indexSizeBytes" xml:"IndexSizeBytes"`
-	IndexStatus           string                                         `json:"indexStatus" xml:"IndexStatus"`
-	ItemCount             int64                                          `json:"itemCount" xml:"ItemCount"`
-	KeySchema             KeySchema                                      `json:"keySchema" xml:"KeySchema"`
-	OnDemandThroughput    *OnDemandThroughput                            `json:"onDemandThroughput" xml:"OnDemandThroughput"`
-	Projection            *Projection                                    `json:"projection" xml:"Projection"`
-	ProvisionedThroughput *ProvisionedThroughputDescription              `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
-	WarmThroughput        *GlobalSecondaryIndexWarmThroughputDescription `json:"warmThroughput" xml:"WarmThroughput"`
+Backfilling bool `json:"backfilling" xml:"Backfilling"`
+IndexArn string `json:"indexArn" xml:"IndexArn"`
+IndexName string `json:"indexName" xml:"IndexName"`
+IndexSizeBytes int64 `json:"indexSizeBytes" xml:"IndexSizeBytes"`
+IndexStatus string `json:"indexStatus" xml:"IndexStatus"`
+ItemCount int64 `json:"itemCount" xml:"ItemCount"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+OnDemandThroughput *OnDemandThroughput `json:"onDemandThroughput" xml:"OnDemandThroughput"`
+Projection *Projection `json:"projection" xml:"Projection"`
+ProvisionedThroughput *ProvisionedThroughputDescription `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
+WarmThroughput *GlobalSecondaryIndexWarmThroughputDescription `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type GlobalSecondaryIndexInfo struct {
-	IndexName             string                 `json:"indexName" xml:"IndexName"`
-	KeySchema             KeySchema              `json:"keySchema" xml:"KeySchema"`
-	OnDemandThroughput    *OnDemandThroughput    `json:"onDemandThroughput" xml:"OnDemandThroughput"`
-	Projection            *Projection            `json:"projection" xml:"Projection"`
-	ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
+IndexName string `json:"indexName" xml:"IndexName"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+OnDemandThroughput *OnDemandThroughput `json:"onDemandThroughput" xml:"OnDemandThroughput"`
+Projection *Projection `json:"projection" xml:"Projection"`
+ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
 }
 
 type GlobalSecondaryIndexUpdate struct {
-	Create *CreateGlobalSecondaryIndexAction `json:"create" xml:"Create"`
-	Delete *DeleteGlobalSecondaryIndexAction `json:"delete" xml:"Delete"`
-	Update *UpdateGlobalSecondaryIndexAction `json:"update" xml:"Update"`
+Create *CreateGlobalSecondaryIndexAction `json:"create" xml:"Create"`
+Delete *DeleteGlobalSecondaryIndexAction `json:"delete" xml:"Delete"`
+Update *UpdateGlobalSecondaryIndexAction `json:"update" xml:"Update"`
 }
 
 type GlobalSecondaryIndexWarmThroughputDescription struct {
-	ReadUnitsPerSecond  int64  `json:"readUnitsPerSecond" xml:"ReadUnitsPerSecond"`
-	Status              string `json:"status" xml:"Status"`
-	WriteUnitsPerSecond int64  `json:"writeUnitsPerSecond" xml:"WriteUnitsPerSecond"`
+ReadUnitsPerSecond int64 `json:"readUnitsPerSecond" xml:"ReadUnitsPerSecond"`
+Status string `json:"status" xml:"Status"`
+WriteUnitsPerSecond int64 `json:"writeUnitsPerSecond" xml:"WriteUnitsPerSecond"`
 }
 
 type GlobalTable struct {
-	GlobalTableName  string      `json:"globalTableName" xml:"GlobalTableName"`
-	ReplicationGroup ReplicaList `json:"replicationGroup" xml:"ReplicationGroup"`
+GlobalTableName string `json:"globalTableName" xml:"GlobalTableName"`
+ReplicationGroup ReplicaList `json:"replicationGroup" xml:"ReplicationGroup"`
 }
 
 type GlobalTableDescription struct {
-	CreationDateTime  time.Time              `json:"creationDateTime" xml:"CreationDateTime"`
-	GlobalTableArn    string                 `json:"globalTableArn" xml:"GlobalTableArn"`
-	GlobalTableName   string                 `json:"globalTableName" xml:"GlobalTableName"`
-	GlobalTableStatus string                 `json:"globalTableStatus" xml:"GlobalTableStatus"`
-	ReplicationGroup  ReplicaDescriptionList `json:"replicationGroup" xml:"ReplicationGroup"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+GlobalTableArn string `json:"globalTableArn" xml:"GlobalTableArn"`
+GlobalTableName string `json:"globalTableName" xml:"GlobalTableName"`
+GlobalTableStatus string `json:"globalTableStatus" xml:"GlobalTableStatus"`
+ReplicationGroup ReplicaDescriptionList `json:"replicationGroup" xml:"ReplicationGroup"`
 }
 
 type GlobalTableGlobalSecondaryIndexSettingsUpdate struct {
-	IndexName                                         string                     `json:"indexName" xml:"IndexName"`
-	ProvisionedWriteCapacityAutoScalingSettingsUpdate *AutoScalingSettingsUpdate `json:"provisionedWriteCapacityAutoScalingSettingsUpdate" xml:"ProvisionedWriteCapacityAutoScalingSettingsUpdate"`
-	ProvisionedWriteCapacityUnits                     int64                      `json:"provisionedWriteCapacityUnits" xml:"ProvisionedWriteCapacityUnits"`
+IndexName string `json:"indexName" xml:"IndexName"`
+ProvisionedWriteCapacityAutoScalingSettingsUpdate *AutoScalingSettingsUpdate `json:"provisionedWriteCapacityAutoScalingSettingsUpdate" xml:"ProvisionedWriteCapacityAutoScalingSettingsUpdate"`
+ProvisionedWriteCapacityUnits int64 `json:"provisionedWriteCapacityUnits" xml:"ProvisionedWriteCapacityUnits"`
 }
 
 type GlobalTableWitnessDescription struct {
-	RegionName    string `json:"regionName" xml:"RegionName"`
-	WitnessStatus string `json:"witnessStatus" xml:"WitnessStatus"`
+RegionName string `json:"regionName" xml:"RegionName"`
+WitnessStatus string `json:"witnessStatus" xml:"WitnessStatus"`
 }
 
 type GlobalTableWitnessGroupUpdate struct {
-	Create *CreateGlobalTableWitnessGroupMemberAction `json:"create" xml:"Create"`
-	Delete *DeleteGlobalTableWitnessGroupMemberAction `json:"delete" xml:"Delete"`
+Create *CreateGlobalTableWitnessGroupMemberAction `json:"create" xml:"Create"`
+Delete *DeleteGlobalTableWitnessGroupMemberAction `json:"delete" xml:"Delete"`
 }
 
 type ImportSummary struct {
-	CloudWatchLogGroupArn string          `json:"cloudWatchLogGroupArn" xml:"CloudWatchLogGroupArn"`
-	EndTime               time.Time       `json:"endTime" xml:"EndTime"`
-	ImportArn             string          `json:"importArn" xml:"ImportArn"`
-	ImportStatus          string          `json:"importStatus" xml:"ImportStatus"`
-	InputFormat           string          `json:"inputFormat" xml:"InputFormat"`
-	S3BucketSource        *S3BucketSource `json:"s3BucketSource" xml:"S3BucketSource"`
-	StartTime             time.Time       `json:"startTime" xml:"StartTime"`
-	TableArn              string          `json:"tableArn" xml:"TableArn"`
+CloudWatchLogGroupArn string `json:"cloudWatchLogGroupArn" xml:"CloudWatchLogGroupArn"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+ImportArn string `json:"importArn" xml:"ImportArn"`
+ImportStatus string `json:"importStatus" xml:"ImportStatus"`
+InputFormat string `json:"inputFormat" xml:"InputFormat"`
+S3BucketSource *S3BucketSource `json:"s3BucketSource" xml:"S3BucketSource"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+TableArn string `json:"tableArn" xml:"TableArn"`
 }
 
 type ImportTableDescription struct {
-	ClientToken             string                   `json:"clientToken" xml:"ClientToken"`
-	CloudWatchLogGroupArn   string                   `json:"cloudWatchLogGroupArn" xml:"CloudWatchLogGroupArn"`
-	EndTime                 time.Time                `json:"endTime" xml:"EndTime"`
-	ErrorCount              int64                    `json:"errorCount" xml:"ErrorCount"`
-	FailureCode             string                   `json:"failureCode" xml:"FailureCode"`
-	FailureMessage          string                   `json:"failureMessage" xml:"FailureMessage"`
-	ImportArn               string                   `json:"importArn" xml:"ImportArn"`
-	ImportStatus            string                   `json:"importStatus" xml:"ImportStatus"`
-	ImportedItemCount       int64                    `json:"importedItemCount" xml:"ImportedItemCount"`
-	InputCompressionType    string                   `json:"inputCompressionType" xml:"InputCompressionType"`
-	InputFormat             string                   `json:"inputFormat" xml:"InputFormat"`
-	InputFormatOptions      *InputFormatOptions      `json:"inputFormatOptions" xml:"InputFormatOptions"`
-	ProcessedItemCount      int64                    `json:"processedItemCount" xml:"ProcessedItemCount"`
-	ProcessedSizeBytes      int64                    `json:"processedSizeBytes" xml:"ProcessedSizeBytes"`
-	S3BucketSource          *S3BucketSource          `json:"s3BucketSource" xml:"S3BucketSource"`
-	StartTime               time.Time                `json:"startTime" xml:"StartTime"`
-	TableArn                string                   `json:"tableArn" xml:"TableArn"`
-	TableCreationParameters *TableCreationParameters `json:"tableCreationParameters" xml:"TableCreationParameters"`
-	TableId                 string                   `json:"tableId" xml:"TableId"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+CloudWatchLogGroupArn string `json:"cloudWatchLogGroupArn" xml:"CloudWatchLogGroupArn"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+ErrorCount int64 `json:"errorCount" xml:"ErrorCount"`
+FailureCode string `json:"failureCode" xml:"FailureCode"`
+FailureMessage string `json:"failureMessage" xml:"FailureMessage"`
+ImportArn string `json:"importArn" xml:"ImportArn"`
+ImportStatus string `json:"importStatus" xml:"ImportStatus"`
+ImportedItemCount int64 `json:"importedItemCount" xml:"ImportedItemCount"`
+InputCompressionType string `json:"inputCompressionType" xml:"InputCompressionType"`
+InputFormat string `json:"inputFormat" xml:"InputFormat"`
+InputFormatOptions *InputFormatOptions `json:"inputFormatOptions" xml:"InputFormatOptions"`
+ProcessedItemCount int64 `json:"processedItemCount" xml:"ProcessedItemCount"`
+ProcessedSizeBytes int64 `json:"processedSizeBytes" xml:"ProcessedSizeBytes"`
+S3BucketSource *S3BucketSource `json:"s3BucketSource" xml:"S3BucketSource"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+TableArn string `json:"tableArn" xml:"TableArn"`
+TableCreationParameters *TableCreationParameters `json:"tableCreationParameters" xml:"TableCreationParameters"`
+TableId string `json:"tableId" xml:"TableId"`
 }
 
 type ImportTableInput struct {
-	ClientToken             string                   `json:"clientToken" xml:"ClientToken"`
-	InputCompressionType    string                   `json:"inputCompressionType" xml:"InputCompressionType"`
-	InputFormat             string                   `json:"inputFormat" xml:"InputFormat"`
-	InputFormatOptions      *InputFormatOptions      `json:"inputFormatOptions" xml:"InputFormatOptions"`
-	S3BucketSource          *S3BucketSource          `json:"s3BucketSource" xml:"S3BucketSource"`
-	TableCreationParameters *TableCreationParameters `json:"tableCreationParameters" xml:"TableCreationParameters"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+InputCompressionType string `json:"inputCompressionType" xml:"InputCompressionType"`
+InputFormat string `json:"inputFormat" xml:"InputFormat"`
+InputFormatOptions *InputFormatOptions `json:"inputFormatOptions" xml:"InputFormatOptions"`
+S3BucketSource *S3BucketSource `json:"s3BucketSource" xml:"S3BucketSource"`
+TableCreationParameters *TableCreationParameters `json:"tableCreationParameters" xml:"TableCreationParameters"`
 }
 
 type ImportTableOutput struct {
-	ImportTableDescription *ImportTableDescription `json:"importTableDescription" xml:"ImportTableDescription"`
+ImportTableDescription *ImportTableDescription `json:"importTableDescription" xml:"ImportTableDescription"`
 }
 
 type IncrementalExportSpecification struct {
-	ExportFromTime time.Time `json:"exportFromTime" xml:"ExportFromTime"`
-	ExportToTime   time.Time `json:"exportToTime" xml:"ExportToTime"`
-	ExportViewType string    `json:"exportViewType" xml:"ExportViewType"`
+ExportFromTime time.Time `json:"exportFromTime" xml:"ExportFromTime"`
+ExportToTime time.Time `json:"exportToTime" xml:"ExportToTime"`
+ExportViewType string `json:"exportViewType" xml:"ExportViewType"`
 }
 
 type InputFormatOptions struct {
-	Csv *CsvOptions `json:"csv" xml:"Csv"`
+Csv *CsvOptions `json:"csv" xml:"Csv"`
 }
 
 type ItemCollectionMetrics struct {
-	ItemCollectionKey   ItemCollectionKeyAttributeMap   `json:"itemCollectionKey" xml:"ItemCollectionKey"`
-	SizeEstimateRangeGB ItemCollectionSizeEstimateRange `json:"sizeEstimateRangeGB" xml:"SizeEstimateRangeGB"`
+ItemCollectionKey ItemCollectionKeyAttributeMap `json:"itemCollectionKey" xml:"ItemCollectionKey"`
+SizeEstimateRangeGB ItemCollectionSizeEstimateRange `json:"sizeEstimateRangeGB" xml:"SizeEstimateRangeGB"`
 }
 
 type ItemResponse struct {
-	Item AttributeMap `json:"item" xml:"Item"`
+Item AttributeMap `json:"item" xml:"Item"`
 }
 
 type KeySchemaElement struct {
-	AttributeName string `json:"attributeName" xml:"AttributeName"`
-	KeyType       string `json:"keyType" xml:"KeyType"`
+AttributeName string `json:"attributeName" xml:"AttributeName"`
+KeyType string `json:"keyType" xml:"KeyType"`
 }
 
 type KeysAndAttributes struct {
-	AttributesToGet          AttributeNameList          `json:"attributesToGet" xml:"AttributesToGet"`
-	ConsistentRead           bool                       `json:"consistentRead" xml:"ConsistentRead"`
-	ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	Keys                     KeyList                    `json:"keys" xml:"Keys"`
-	ProjectionExpression     string                     `json:"projectionExpression" xml:"ProjectionExpression"`
+AttributesToGet AttributeNameList `json:"attributesToGet" xml:"AttributesToGet"`
+ConsistentRead bool `json:"consistentRead" xml:"ConsistentRead"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+Keys KeyList `json:"keys" xml:"Keys"`
+ProjectionExpression string `json:"projectionExpression" xml:"ProjectionExpression"`
 }
 
 type KinesisDataStreamDestination struct {
-	ApproximateCreationDateTimePrecision string `json:"approximateCreationDateTimePrecision" xml:"ApproximateCreationDateTimePrecision"`
-	DestinationStatus                    string `json:"destinationStatus" xml:"DestinationStatus"`
-	DestinationStatusDescription         string `json:"destinationStatusDescription" xml:"DestinationStatusDescription"`
-	StreamArn                            string `json:"streamArn" xml:"StreamArn"`
+ApproximateCreationDateTimePrecision string `json:"approximateCreationDateTimePrecision" xml:"ApproximateCreationDateTimePrecision"`
+DestinationStatus string `json:"destinationStatus" xml:"DestinationStatus"`
+DestinationStatusDescription string `json:"destinationStatusDescription" xml:"DestinationStatusDescription"`
+StreamArn string `json:"streamArn" xml:"StreamArn"`
 }
 
 type KinesisStreamingDestinationInput struct {
-	EnableKinesisStreamingConfiguration *EnableKinesisStreamingConfiguration `json:"enableKinesisStreamingConfiguration" xml:"EnableKinesisStreamingConfiguration"`
-	StreamArn                           string                               `json:"streamArn" xml:"StreamArn"`
-	TableName                           string                               `json:"tableName" xml:"TableName"`
+EnableKinesisStreamingConfiguration *EnableKinesisStreamingConfiguration `json:"enableKinesisStreamingConfiguration" xml:"EnableKinesisStreamingConfiguration"`
+StreamArn string `json:"streamArn" xml:"StreamArn"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type KinesisStreamingDestinationOutput struct {
-	DestinationStatus                   string                               `json:"destinationStatus" xml:"DestinationStatus"`
-	EnableKinesisStreamingConfiguration *EnableKinesisStreamingConfiguration `json:"enableKinesisStreamingConfiguration" xml:"EnableKinesisStreamingConfiguration"`
-	StreamArn                           string                               `json:"streamArn" xml:"StreamArn"`
-	TableName                           string                               `json:"tableName" xml:"TableName"`
+DestinationStatus string `json:"destinationStatus" xml:"DestinationStatus"`
+EnableKinesisStreamingConfiguration *EnableKinesisStreamingConfiguration `json:"enableKinesisStreamingConfiguration" xml:"EnableKinesisStreamingConfiguration"`
+StreamArn string `json:"streamArn" xml:"StreamArn"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type ListBackupsInput struct {
-	BackupType              string    `json:"backupType" xml:"BackupType"`
-	ExclusiveStartBackupArn string    `json:"exclusiveStartBackupArn" xml:"ExclusiveStartBackupArn"`
-	Limit                   int32     `json:"limit" xml:"Limit"`
-	TableName               string    `json:"tableName" xml:"TableName"`
-	TimeRangeLowerBound     time.Time `json:"timeRangeLowerBound" xml:"TimeRangeLowerBound"`
-	TimeRangeUpperBound     time.Time `json:"timeRangeUpperBound" xml:"TimeRangeUpperBound"`
+BackupType string `json:"backupType" xml:"BackupType"`
+ExclusiveStartBackupArn string `json:"exclusiveStartBackupArn" xml:"ExclusiveStartBackupArn"`
+Limit int32 `json:"limit" xml:"Limit"`
+TableName string `json:"tableName" xml:"TableName"`
+TimeRangeLowerBound time.Time `json:"timeRangeLowerBound" xml:"TimeRangeLowerBound"`
+TimeRangeUpperBound time.Time `json:"timeRangeUpperBound" xml:"TimeRangeUpperBound"`
 }
 
 type ListBackupsOutput struct {
-	BackupSummaries        BackupSummaries `json:"backupSummaries" xml:"BackupSummaries"`
-	LastEvaluatedBackupArn string          `json:"lastEvaluatedBackupArn" xml:"LastEvaluatedBackupArn"`
+BackupSummaries BackupSummaries `json:"backupSummaries" xml:"BackupSummaries"`
+LastEvaluatedBackupArn string `json:"lastEvaluatedBackupArn" xml:"LastEvaluatedBackupArn"`
 }
 
 type ListContributorInsightsInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	TableName  string `json:"tableName" xml:"TableName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type ListContributorInsightsOutput struct {
-	ContributorInsightsSummaries ContributorInsightsSummaries `json:"contributorInsightsSummaries" xml:"ContributorInsightsSummaries"`
-	NextToken                    string                       `json:"nextToken" xml:"NextToken"`
+ContributorInsightsSummaries ContributorInsightsSummaries `json:"contributorInsightsSummaries" xml:"ContributorInsightsSummaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListExportsInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	TableArn   string `json:"tableArn" xml:"TableArn"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TableArn string `json:"tableArn" xml:"TableArn"`
 }
 
 type ListExportsOutput struct {
-	ExportSummaries ExportSummaries `json:"exportSummaries" xml:"ExportSummaries"`
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
+ExportSummaries ExportSummaries `json:"exportSummaries" xml:"ExportSummaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListGlobalTablesInput struct {
-	ExclusiveStartGlobalTableName string `json:"exclusiveStartGlobalTableName" xml:"ExclusiveStartGlobalTableName"`
-	Limit                         int32  `json:"limit" xml:"Limit"`
-	RegionName                    string `json:"regionName" xml:"RegionName"`
+ExclusiveStartGlobalTableName string `json:"exclusiveStartGlobalTableName" xml:"ExclusiveStartGlobalTableName"`
+Limit int32 `json:"limit" xml:"Limit"`
+RegionName string `json:"regionName" xml:"RegionName"`
 }
 
 type ListGlobalTablesOutput struct {
-	GlobalTables                 GlobalTableList `json:"globalTables" xml:"GlobalTables"`
-	LastEvaluatedGlobalTableName string          `json:"lastEvaluatedGlobalTableName" xml:"LastEvaluatedGlobalTableName"`
+GlobalTables GlobalTableList `json:"globalTables" xml:"GlobalTables"`
+LastEvaluatedGlobalTableName string `json:"lastEvaluatedGlobalTableName" xml:"LastEvaluatedGlobalTableName"`
 }
 
 type ListImportsInput struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
-	PageSize  int32  `json:"pageSize" xml:"PageSize"`
-	TableArn  string `json:"tableArn" xml:"TableArn"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PageSize int32 `json:"pageSize" xml:"PageSize"`
+TableArn string `json:"tableArn" xml:"TableArn"`
 }
 
 type ListImportsOutput struct {
-	ImportSummaryList ImportSummaryList `json:"importSummaryList" xml:"ImportSummaryList"`
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
+ImportSummaryList ImportSummaryList `json:"importSummaryList" xml:"ImportSummaryList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListTablesInput struct {
-	ExclusiveStartTableName string `json:"exclusiveStartTableName" xml:"ExclusiveStartTableName"`
-	Limit                   int32  `json:"limit" xml:"Limit"`
+ExclusiveStartTableName string `json:"exclusiveStartTableName" xml:"ExclusiveStartTableName"`
+Limit int32 `json:"limit" xml:"Limit"`
 }
 
 type ListTablesOutput struct {
-	LastEvaluatedTableName string        `json:"lastEvaluatedTableName" xml:"LastEvaluatedTableName"`
-	TableNames             TableNameList `json:"tableNames" xml:"TableNames"`
+LastEvaluatedTableName string `json:"lastEvaluatedTableName" xml:"LastEvaluatedTableName"`
+TableNames TableNameList `json:"tableNames" xml:"TableNames"`
 }
 
 type ListTagsOfResourceInput struct {
-	NextToken   string `json:"nextToken" xml:"NextToken"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ListTagsOfResourceOutput struct {
-	NextToken string  `json:"nextToken" xml:"NextToken"`
-	Tags      TagList `json:"tags" xml:"Tags"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type LocalSecondaryIndex struct {
-	IndexName  string      `json:"indexName" xml:"IndexName"`
-	KeySchema  KeySchema   `json:"keySchema" xml:"KeySchema"`
-	Projection *Projection `json:"projection" xml:"Projection"`
+IndexName string `json:"indexName" xml:"IndexName"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+Projection *Projection `json:"projection" xml:"Projection"`
 }
 
 type LocalSecondaryIndexDescription struct {
-	IndexArn       string      `json:"indexArn" xml:"IndexArn"`
-	IndexName      string      `json:"indexName" xml:"IndexName"`
-	IndexSizeBytes int64       `json:"indexSizeBytes" xml:"IndexSizeBytes"`
-	ItemCount      int64       `json:"itemCount" xml:"ItemCount"`
-	KeySchema      KeySchema   `json:"keySchema" xml:"KeySchema"`
-	Projection     *Projection `json:"projection" xml:"Projection"`
+IndexArn string `json:"indexArn" xml:"IndexArn"`
+IndexName string `json:"indexName" xml:"IndexName"`
+IndexSizeBytes int64 `json:"indexSizeBytes" xml:"IndexSizeBytes"`
+ItemCount int64 `json:"itemCount" xml:"ItemCount"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+Projection *Projection `json:"projection" xml:"Projection"`
 }
 
 type LocalSecondaryIndexInfo struct {
-	IndexName  string      `json:"indexName" xml:"IndexName"`
-	KeySchema  KeySchema   `json:"keySchema" xml:"KeySchema"`
-	Projection *Projection `json:"projection" xml:"Projection"`
+IndexName string `json:"indexName" xml:"IndexName"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+Projection *Projection `json:"projection" xml:"Projection"`
 }
 
 type OnDemandThroughput struct {
-	MaxReadRequestUnits  int64 `json:"maxReadRequestUnits" xml:"MaxReadRequestUnits"`
-	MaxWriteRequestUnits int64 `json:"maxWriteRequestUnits" xml:"MaxWriteRequestUnits"`
+MaxReadRequestUnits int64 `json:"maxReadRequestUnits" xml:"MaxReadRequestUnits"`
+MaxWriteRequestUnits int64 `json:"maxWriteRequestUnits" xml:"MaxWriteRequestUnits"`
 }
 
 type OnDemandThroughputOverride struct {
-	MaxReadRequestUnits int64 `json:"maxReadRequestUnits" xml:"MaxReadRequestUnits"`
+MaxReadRequestUnits int64 `json:"maxReadRequestUnits" xml:"MaxReadRequestUnits"`
 }
 
 type ParameterizedStatement struct {
-	Parameters                          PreparedStatementParameters `json:"parameters" xml:"Parameters"`
-	ReturnValuesOnConditionCheckFailure string                      `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
-	Statement                           string                      `json:"statement" xml:"Statement"`
+Parameters PreparedStatementParameters `json:"parameters" xml:"Parameters"`
+ReturnValuesOnConditionCheckFailure string `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
+Statement string `json:"statement" xml:"Statement"`
 }
 
 type PointInTimeRecoveryDescription struct {
-	EarliestRestorableDateTime time.Time `json:"earliestRestorableDateTime" xml:"EarliestRestorableDateTime"`
-	LatestRestorableDateTime   time.Time `json:"latestRestorableDateTime" xml:"LatestRestorableDateTime"`
-	PointInTimeRecoveryStatus  string    `json:"pointInTimeRecoveryStatus" xml:"PointInTimeRecoveryStatus"`
-	RecoveryPeriodInDays       int32     `json:"recoveryPeriodInDays" xml:"RecoveryPeriodInDays"`
+EarliestRestorableDateTime time.Time `json:"earliestRestorableDateTime" xml:"EarliestRestorableDateTime"`
+LatestRestorableDateTime time.Time `json:"latestRestorableDateTime" xml:"LatestRestorableDateTime"`
+PointInTimeRecoveryStatus string `json:"pointInTimeRecoveryStatus" xml:"PointInTimeRecoveryStatus"`
+RecoveryPeriodInDays int32 `json:"recoveryPeriodInDays" xml:"RecoveryPeriodInDays"`
 }
 
 type PointInTimeRecoverySpecification struct {
-	PointInTimeRecoveryEnabled bool  `json:"pointInTimeRecoveryEnabled" xml:"PointInTimeRecoveryEnabled"`
-	RecoveryPeriodInDays       int32 `json:"recoveryPeriodInDays" xml:"RecoveryPeriodInDays"`
+PointInTimeRecoveryEnabled bool `json:"pointInTimeRecoveryEnabled" xml:"PointInTimeRecoveryEnabled"`
+RecoveryPeriodInDays int32 `json:"recoveryPeriodInDays" xml:"RecoveryPeriodInDays"`
 }
 
 type Projection struct {
-	NonKeyAttributes NonKeyAttributeNameList `json:"nonKeyAttributes" xml:"NonKeyAttributes"`
-	ProjectionType   string                  `json:"projectionType" xml:"ProjectionType"`
+NonKeyAttributes NonKeyAttributeNameList `json:"nonKeyAttributes" xml:"NonKeyAttributes"`
+ProjectionType string `json:"projectionType" xml:"ProjectionType"`
 }
 
 type ProvisionedThroughput struct {
-	ReadCapacityUnits  int64 `json:"readCapacityUnits" xml:"ReadCapacityUnits"`
-	WriteCapacityUnits int64 `json:"writeCapacityUnits" xml:"WriteCapacityUnits"`
+ReadCapacityUnits int64 `json:"readCapacityUnits" xml:"ReadCapacityUnits"`
+WriteCapacityUnits int64 `json:"writeCapacityUnits" xml:"WriteCapacityUnits"`
 }
 
 type ProvisionedThroughputDescription struct {
-	LastDecreaseDateTime   time.Time `json:"lastDecreaseDateTime" xml:"LastDecreaseDateTime"`
-	LastIncreaseDateTime   time.Time `json:"lastIncreaseDateTime" xml:"LastIncreaseDateTime"`
-	NumberOfDecreasesToday int64     `json:"numberOfDecreasesToday" xml:"NumberOfDecreasesToday"`
-	ReadCapacityUnits      int64     `json:"readCapacityUnits" xml:"ReadCapacityUnits"`
-	WriteCapacityUnits     int64     `json:"writeCapacityUnits" xml:"WriteCapacityUnits"`
+LastDecreaseDateTime time.Time `json:"lastDecreaseDateTime" xml:"LastDecreaseDateTime"`
+LastIncreaseDateTime time.Time `json:"lastIncreaseDateTime" xml:"LastIncreaseDateTime"`
+NumberOfDecreasesToday int64 `json:"numberOfDecreasesToday" xml:"NumberOfDecreasesToday"`
+ReadCapacityUnits int64 `json:"readCapacityUnits" xml:"ReadCapacityUnits"`
+WriteCapacityUnits int64 `json:"writeCapacityUnits" xml:"WriteCapacityUnits"`
 }
 
 type ProvisionedThroughputOverride struct {
-	ReadCapacityUnits int64 `json:"readCapacityUnits" xml:"ReadCapacityUnits"`
+ReadCapacityUnits int64 `json:"readCapacityUnits" xml:"ReadCapacityUnits"`
 }
 
 type Put struct {
-	ConditionExpression                 string                      `json:"conditionExpression" xml:"ConditionExpression"`
-	ExpressionAttributeNames            ExpressionAttributeNameMap  `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	ExpressionAttributeValues           ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
-	Item                                PutItemInputAttributeMap    `json:"item" xml:"Item"`
-	ReturnValuesOnConditionCheckFailure string                      `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
-	TableName                           string                      `json:"tableName" xml:"TableName"`
+ConditionExpression string `json:"conditionExpression" xml:"ConditionExpression"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
+Item PutItemInputAttributeMap `json:"item" xml:"Item"`
+ReturnValuesOnConditionCheckFailure string `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type PutItemInput struct {
-	ConditionExpression                 string                      `json:"conditionExpression" xml:"ConditionExpression"`
-	ConditionalOperator                 string                      `json:"conditionalOperator" xml:"ConditionalOperator"`
-	Expected                            ExpectedAttributeMap        `json:"expected" xml:"Expected"`
-	ExpressionAttributeNames            ExpressionAttributeNameMap  `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	ExpressionAttributeValues           ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
-	Item                                PutItemInputAttributeMap    `json:"item" xml:"Item"`
-	ReturnConsumedCapacity              string                      `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	ReturnItemCollectionMetrics         string                      `json:"returnItemCollectionMetrics" xml:"ReturnItemCollectionMetrics"`
-	ReturnValues                        string                      `json:"returnValues" xml:"ReturnValues"`
-	ReturnValuesOnConditionCheckFailure string                      `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
-	TableName                           string                      `json:"tableName" xml:"TableName"`
+ConditionExpression string `json:"conditionExpression" xml:"ConditionExpression"`
+ConditionalOperator string `json:"conditionalOperator" xml:"ConditionalOperator"`
+Expected ExpectedAttributeMap `json:"expected" xml:"Expected"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
+Item PutItemInputAttributeMap `json:"item" xml:"Item"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+ReturnItemCollectionMetrics string `json:"returnItemCollectionMetrics" xml:"ReturnItemCollectionMetrics"`
+ReturnValues string `json:"returnValues" xml:"ReturnValues"`
+ReturnValuesOnConditionCheckFailure string `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type PutItemOutput struct {
-	Attributes            AttributeMap           `json:"attributes" xml:"Attributes"`
-	ConsumedCapacity      *ConsumedCapacity      `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	ItemCollectionMetrics *ItemCollectionMetrics `json:"itemCollectionMetrics" xml:"ItemCollectionMetrics"`
+Attributes AttributeMap `json:"attributes" xml:"Attributes"`
+ConsumedCapacity *ConsumedCapacity `json:"consumedCapacity" xml:"ConsumedCapacity"`
+ItemCollectionMetrics *ItemCollectionMetrics `json:"itemCollectionMetrics" xml:"ItemCollectionMetrics"`
 }
 
 type PutRequest struct {
-	Item PutItemInputAttributeMap `json:"item" xml:"Item"`
+Item PutItemInputAttributeMap `json:"item" xml:"Item"`
 }
 
 type PutResourcePolicyInput struct {
-	ConfirmRemoveSelfResourceAccess bool   `json:"confirmRemoveSelfResourceAccess" xml:"ConfirmRemoveSelfResourceAccess"`
-	ExpectedRevisionId              string `json:"expectedRevisionId" xml:"ExpectedRevisionId"`
-	Policy                          string `json:"policy" xml:"Policy"`
-	ResourceArn                     string `json:"resourceArn" xml:"ResourceArn"`
+ConfirmRemoveSelfResourceAccess bool `json:"confirmRemoveSelfResourceAccess" xml:"ConfirmRemoveSelfResourceAccess"`
+ExpectedRevisionId string `json:"expectedRevisionId" xml:"ExpectedRevisionId"`
+Policy string `json:"policy" xml:"Policy"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type PutResourcePolicyOutput struct {
-	RevisionId string `json:"revisionId" xml:"RevisionId"`
+RevisionId string `json:"revisionId" xml:"RevisionId"`
 }
 
 type QueryInput struct {
-	AttributesToGet           AttributeNameList           `json:"attributesToGet" xml:"AttributesToGet"`
-	ConditionalOperator       string                      `json:"conditionalOperator" xml:"ConditionalOperator"`
-	ConsistentRead            bool                        `json:"consistentRead" xml:"ConsistentRead"`
-	ExclusiveStartKey         Key                         `json:"exclusiveStartKey" xml:"ExclusiveStartKey"`
-	ExpressionAttributeNames  ExpressionAttributeNameMap  `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
-	FilterExpression          string                      `json:"filterExpression" xml:"FilterExpression"`
-	IndexName                 string                      `json:"indexName" xml:"IndexName"`
-	KeyConditionExpression    string                      `json:"keyConditionExpression" xml:"KeyConditionExpression"`
-	KeyConditions             KeyConditions               `json:"keyConditions" xml:"KeyConditions"`
-	Limit                     int32                       `json:"limit" xml:"Limit"`
-	ProjectionExpression      string                      `json:"projectionExpression" xml:"ProjectionExpression"`
-	QueryFilter               FilterConditionMap          `json:"queryFilter" xml:"QueryFilter"`
-	ReturnConsumedCapacity    string                      `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	ScanIndexForward          bool                        `json:"scanIndexForward" xml:"ScanIndexForward"`
-	Select                    string                      `json:"select" xml:"Select"`
-	TableName                 string                      `json:"tableName" xml:"TableName"`
+AttributesToGet AttributeNameList `json:"attributesToGet" xml:"AttributesToGet"`
+ConditionalOperator string `json:"conditionalOperator" xml:"ConditionalOperator"`
+ConsistentRead bool `json:"consistentRead" xml:"ConsistentRead"`
+ExclusiveStartKey Key `json:"exclusiveStartKey" xml:"ExclusiveStartKey"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
+FilterExpression string `json:"filterExpression" xml:"FilterExpression"`
+IndexName string `json:"indexName" xml:"IndexName"`
+KeyConditionExpression string `json:"keyConditionExpression" xml:"KeyConditionExpression"`
+KeyConditions KeyConditions `json:"keyConditions" xml:"KeyConditions"`
+Limit int32 `json:"limit" xml:"Limit"`
+ProjectionExpression string `json:"projectionExpression" xml:"ProjectionExpression"`
+QueryFilter FilterConditionMap `json:"queryFilter" xml:"QueryFilter"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+ScanIndexForward bool `json:"scanIndexForward" xml:"ScanIndexForward"`
+Select string `json:"select" xml:"Select"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type QueryOutput struct {
-	ConsumedCapacity *ConsumedCapacity `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	Count            int32             `json:"count" xml:"Count"`
-	Items            ItemList          `json:"items" xml:"Items"`
-	LastEvaluatedKey Key               `json:"lastEvaluatedKey" xml:"LastEvaluatedKey"`
-	ScannedCount     int32             `json:"scannedCount" xml:"ScannedCount"`
+ConsumedCapacity *ConsumedCapacity `json:"consumedCapacity" xml:"ConsumedCapacity"`
+Count int32 `json:"count" xml:"Count"`
+Items ItemList `json:"items" xml:"Items"`
+LastEvaluatedKey Key `json:"lastEvaluatedKey" xml:"LastEvaluatedKey"`
+ScannedCount int32 `json:"scannedCount" xml:"ScannedCount"`
 }
 
 type Replica struct {
-	RegionName string `json:"regionName" xml:"RegionName"`
+RegionName string `json:"regionName" xml:"RegionName"`
 }
 
 type ReplicaAutoScalingDescription struct {
-	GlobalSecondaryIndexes                             ReplicaGlobalSecondaryIndexAutoScalingDescriptionList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
-	RegionName                                         string                                                `json:"regionName" xml:"RegionName"`
-	ReplicaProvisionedReadCapacityAutoScalingSettings  *AutoScalingSettingsDescription                       `json:"replicaProvisionedReadCapacityAutoScalingSettings" xml:"ReplicaProvisionedReadCapacityAutoScalingSettings"`
-	ReplicaProvisionedWriteCapacityAutoScalingSettings *AutoScalingSettingsDescription                       `json:"replicaProvisionedWriteCapacityAutoScalingSettings" xml:"ReplicaProvisionedWriteCapacityAutoScalingSettings"`
-	ReplicaStatus                                      string                                                `json:"replicaStatus" xml:"ReplicaStatus"`
+GlobalSecondaryIndexes ReplicaGlobalSecondaryIndexAutoScalingDescriptionList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
+RegionName string `json:"regionName" xml:"RegionName"`
+ReplicaProvisionedReadCapacityAutoScalingSettings *AutoScalingSettingsDescription `json:"replicaProvisionedReadCapacityAutoScalingSettings" xml:"ReplicaProvisionedReadCapacityAutoScalingSettings"`
+ReplicaProvisionedWriteCapacityAutoScalingSettings *AutoScalingSettingsDescription `json:"replicaProvisionedWriteCapacityAutoScalingSettings" xml:"ReplicaProvisionedWriteCapacityAutoScalingSettings"`
+ReplicaStatus string `json:"replicaStatus" xml:"ReplicaStatus"`
 }
 
 type ReplicaAutoScalingUpdate struct {
-	RegionName                                      string                                           `json:"regionName" xml:"RegionName"`
-	ReplicaGlobalSecondaryIndexUpdates              ReplicaGlobalSecondaryIndexAutoScalingUpdateList `json:"replicaGlobalSecondaryIndexUpdates" xml:"ReplicaGlobalSecondaryIndexUpdates"`
-	ReplicaProvisionedReadCapacityAutoScalingUpdate *AutoScalingSettingsUpdate                       `json:"replicaProvisionedReadCapacityAutoScalingUpdate" xml:"ReplicaProvisionedReadCapacityAutoScalingUpdate"`
+RegionName string `json:"regionName" xml:"RegionName"`
+ReplicaGlobalSecondaryIndexUpdates ReplicaGlobalSecondaryIndexAutoScalingUpdateList `json:"replicaGlobalSecondaryIndexUpdates" xml:"ReplicaGlobalSecondaryIndexUpdates"`
+ReplicaProvisionedReadCapacityAutoScalingUpdate *AutoScalingSettingsUpdate `json:"replicaProvisionedReadCapacityAutoScalingUpdate" xml:"ReplicaProvisionedReadCapacityAutoScalingUpdate"`
 }
 
 type ReplicaDescription struct {
-	GlobalSecondaryIndexes             ReplicaGlobalSecondaryIndexDescriptionList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
-	GlobalTableSettingsReplicationMode string                                     `json:"globalTableSettingsReplicationMode" xml:"GlobalTableSettingsReplicationMode"`
-	KMSMasterKeyId                     string                                     `json:"kMSMasterKeyId" xml:"KMSMasterKeyId"`
-	OnDemandThroughputOverride         *OnDemandThroughputOverride                `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
-	ProvisionedThroughputOverride      *ProvisionedThroughputOverride             `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
-	RegionName                         string                                     `json:"regionName" xml:"RegionName"`
-	ReplicaArn                         string                                     `json:"replicaArn" xml:"ReplicaArn"`
-	ReplicaInaccessibleDateTime        time.Time                                  `json:"replicaInaccessibleDateTime" xml:"ReplicaInaccessibleDateTime"`
-	ReplicaStatus                      string                                     `json:"replicaStatus" xml:"ReplicaStatus"`
-	ReplicaStatusDescription           string                                     `json:"replicaStatusDescription" xml:"ReplicaStatusDescription"`
-	ReplicaStatusPercentProgress       string                                     `json:"replicaStatusPercentProgress" xml:"ReplicaStatusPercentProgress"`
-	ReplicaTableClassSummary           *TableClassSummary                         `json:"replicaTableClassSummary" xml:"ReplicaTableClassSummary"`
-	WarmThroughput                     *TableWarmThroughputDescription            `json:"warmThroughput" xml:"WarmThroughput"`
+GlobalSecondaryIndexes ReplicaGlobalSecondaryIndexDescriptionList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
+GlobalTableSettingsReplicationMode string `json:"globalTableSettingsReplicationMode" xml:"GlobalTableSettingsReplicationMode"`
+KMSMasterKeyId string `json:"kMSMasterKeyId" xml:"KMSMasterKeyId"`
+OnDemandThroughputOverride *OnDemandThroughputOverride `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
+ProvisionedThroughputOverride *ProvisionedThroughputOverride `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
+RegionName string `json:"regionName" xml:"RegionName"`
+ReplicaArn string `json:"replicaArn" xml:"ReplicaArn"`
+ReplicaInaccessibleDateTime time.Time `json:"replicaInaccessibleDateTime" xml:"ReplicaInaccessibleDateTime"`
+ReplicaStatus string `json:"replicaStatus" xml:"ReplicaStatus"`
+ReplicaStatusDescription string `json:"replicaStatusDescription" xml:"ReplicaStatusDescription"`
+ReplicaStatusPercentProgress string `json:"replicaStatusPercentProgress" xml:"ReplicaStatusPercentProgress"`
+ReplicaTableClassSummary *TableClassSummary `json:"replicaTableClassSummary" xml:"ReplicaTableClassSummary"`
+WarmThroughput *TableWarmThroughputDescription `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type ReplicaGlobalSecondaryIndex struct {
-	IndexName                     string                         `json:"indexName" xml:"IndexName"`
-	OnDemandThroughputOverride    *OnDemandThroughputOverride    `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
-	ProvisionedThroughputOverride *ProvisionedThroughputOverride `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
+IndexName string `json:"indexName" xml:"IndexName"`
+OnDemandThroughputOverride *OnDemandThroughputOverride `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
+ProvisionedThroughputOverride *ProvisionedThroughputOverride `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
 }
 
 type ReplicaGlobalSecondaryIndexAutoScalingDescription struct {
-	IndexName                                   string                          `json:"indexName" xml:"IndexName"`
-	IndexStatus                                 string                          `json:"indexStatus" xml:"IndexStatus"`
-	ProvisionedReadCapacityAutoScalingSettings  *AutoScalingSettingsDescription `json:"provisionedReadCapacityAutoScalingSettings" xml:"ProvisionedReadCapacityAutoScalingSettings"`
-	ProvisionedWriteCapacityAutoScalingSettings *AutoScalingSettingsDescription `json:"provisionedWriteCapacityAutoScalingSettings" xml:"ProvisionedWriteCapacityAutoScalingSettings"`
+IndexName string `json:"indexName" xml:"IndexName"`
+IndexStatus string `json:"indexStatus" xml:"IndexStatus"`
+ProvisionedReadCapacityAutoScalingSettings *AutoScalingSettingsDescription `json:"provisionedReadCapacityAutoScalingSettings" xml:"ProvisionedReadCapacityAutoScalingSettings"`
+ProvisionedWriteCapacityAutoScalingSettings *AutoScalingSettingsDescription `json:"provisionedWriteCapacityAutoScalingSettings" xml:"ProvisionedWriteCapacityAutoScalingSettings"`
 }
 
 type ReplicaGlobalSecondaryIndexAutoScalingUpdate struct {
-	IndexName                                string                     `json:"indexName" xml:"IndexName"`
-	ProvisionedReadCapacityAutoScalingUpdate *AutoScalingSettingsUpdate `json:"provisionedReadCapacityAutoScalingUpdate" xml:"ProvisionedReadCapacityAutoScalingUpdate"`
+IndexName string `json:"indexName" xml:"IndexName"`
+ProvisionedReadCapacityAutoScalingUpdate *AutoScalingSettingsUpdate `json:"provisionedReadCapacityAutoScalingUpdate" xml:"ProvisionedReadCapacityAutoScalingUpdate"`
 }
 
 type ReplicaGlobalSecondaryIndexDescription struct {
-	IndexName                     string                                         `json:"indexName" xml:"IndexName"`
-	OnDemandThroughputOverride    *OnDemandThroughputOverride                    `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
-	ProvisionedThroughputOverride *ProvisionedThroughputOverride                 `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
-	WarmThroughput                *GlobalSecondaryIndexWarmThroughputDescription `json:"warmThroughput" xml:"WarmThroughput"`
+IndexName string `json:"indexName" xml:"IndexName"`
+OnDemandThroughputOverride *OnDemandThroughputOverride `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
+ProvisionedThroughputOverride *ProvisionedThroughputOverride `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
+WarmThroughput *GlobalSecondaryIndexWarmThroughputDescription `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type ReplicaGlobalSecondaryIndexSettingsDescription struct {
-	IndexName                                   string                          `json:"indexName" xml:"IndexName"`
-	IndexStatus                                 string                          `json:"indexStatus" xml:"IndexStatus"`
-	ProvisionedReadCapacityAutoScalingSettings  *AutoScalingSettingsDescription `json:"provisionedReadCapacityAutoScalingSettings" xml:"ProvisionedReadCapacityAutoScalingSettings"`
-	ProvisionedReadCapacityUnits                int64                           `json:"provisionedReadCapacityUnits" xml:"ProvisionedReadCapacityUnits"`
-	ProvisionedWriteCapacityAutoScalingSettings *AutoScalingSettingsDescription `json:"provisionedWriteCapacityAutoScalingSettings" xml:"ProvisionedWriteCapacityAutoScalingSettings"`
-	ProvisionedWriteCapacityUnits               int64                           `json:"provisionedWriteCapacityUnits" xml:"ProvisionedWriteCapacityUnits"`
+IndexName string `json:"indexName" xml:"IndexName"`
+IndexStatus string `json:"indexStatus" xml:"IndexStatus"`
+ProvisionedReadCapacityAutoScalingSettings *AutoScalingSettingsDescription `json:"provisionedReadCapacityAutoScalingSettings" xml:"ProvisionedReadCapacityAutoScalingSettings"`
+ProvisionedReadCapacityUnits int64 `json:"provisionedReadCapacityUnits" xml:"ProvisionedReadCapacityUnits"`
+ProvisionedWriteCapacityAutoScalingSettings *AutoScalingSettingsDescription `json:"provisionedWriteCapacityAutoScalingSettings" xml:"ProvisionedWriteCapacityAutoScalingSettings"`
+ProvisionedWriteCapacityUnits int64 `json:"provisionedWriteCapacityUnits" xml:"ProvisionedWriteCapacityUnits"`
 }
 
 type ReplicaGlobalSecondaryIndexSettingsUpdate struct {
-	IndexName                                        string                     `json:"indexName" xml:"IndexName"`
-	ProvisionedReadCapacityAutoScalingSettingsUpdate *AutoScalingSettingsUpdate `json:"provisionedReadCapacityAutoScalingSettingsUpdate" xml:"ProvisionedReadCapacityAutoScalingSettingsUpdate"`
-	ProvisionedReadCapacityUnits                     int64                      `json:"provisionedReadCapacityUnits" xml:"ProvisionedReadCapacityUnits"`
+IndexName string `json:"indexName" xml:"IndexName"`
+ProvisionedReadCapacityAutoScalingSettingsUpdate *AutoScalingSettingsUpdate `json:"provisionedReadCapacityAutoScalingSettingsUpdate" xml:"ProvisionedReadCapacityAutoScalingSettingsUpdate"`
+ProvisionedReadCapacityUnits int64 `json:"provisionedReadCapacityUnits" xml:"ProvisionedReadCapacityUnits"`
 }
 
 type ReplicaSettingsDescription struct {
-	RegionName                                         string                                             `json:"regionName" xml:"RegionName"`
-	ReplicaBillingModeSummary                          *BillingModeSummary                                `json:"replicaBillingModeSummary" xml:"ReplicaBillingModeSummary"`
-	ReplicaGlobalSecondaryIndexSettings                ReplicaGlobalSecondaryIndexSettingsDescriptionList `json:"replicaGlobalSecondaryIndexSettings" xml:"ReplicaGlobalSecondaryIndexSettings"`
-	ReplicaProvisionedReadCapacityAutoScalingSettings  *AutoScalingSettingsDescription                    `json:"replicaProvisionedReadCapacityAutoScalingSettings" xml:"ReplicaProvisionedReadCapacityAutoScalingSettings"`
-	ReplicaProvisionedReadCapacityUnits                int64                                              `json:"replicaProvisionedReadCapacityUnits" xml:"ReplicaProvisionedReadCapacityUnits"`
-	ReplicaProvisionedWriteCapacityAutoScalingSettings *AutoScalingSettingsDescription                    `json:"replicaProvisionedWriteCapacityAutoScalingSettings" xml:"ReplicaProvisionedWriteCapacityAutoScalingSettings"`
-	ReplicaProvisionedWriteCapacityUnits               int64                                              `json:"replicaProvisionedWriteCapacityUnits" xml:"ReplicaProvisionedWriteCapacityUnits"`
-	ReplicaStatus                                      string                                             `json:"replicaStatus" xml:"ReplicaStatus"`
-	ReplicaTableClassSummary                           *TableClassSummary                                 `json:"replicaTableClassSummary" xml:"ReplicaTableClassSummary"`
+RegionName string `json:"regionName" xml:"RegionName"`
+ReplicaBillingModeSummary *BillingModeSummary `json:"replicaBillingModeSummary" xml:"ReplicaBillingModeSummary"`
+ReplicaGlobalSecondaryIndexSettings ReplicaGlobalSecondaryIndexSettingsDescriptionList `json:"replicaGlobalSecondaryIndexSettings" xml:"ReplicaGlobalSecondaryIndexSettings"`
+ReplicaProvisionedReadCapacityAutoScalingSettings *AutoScalingSettingsDescription `json:"replicaProvisionedReadCapacityAutoScalingSettings" xml:"ReplicaProvisionedReadCapacityAutoScalingSettings"`
+ReplicaProvisionedReadCapacityUnits int64 `json:"replicaProvisionedReadCapacityUnits" xml:"ReplicaProvisionedReadCapacityUnits"`
+ReplicaProvisionedWriteCapacityAutoScalingSettings *AutoScalingSettingsDescription `json:"replicaProvisionedWriteCapacityAutoScalingSettings" xml:"ReplicaProvisionedWriteCapacityAutoScalingSettings"`
+ReplicaProvisionedWriteCapacityUnits int64 `json:"replicaProvisionedWriteCapacityUnits" xml:"ReplicaProvisionedWriteCapacityUnits"`
+ReplicaStatus string `json:"replicaStatus" xml:"ReplicaStatus"`
+ReplicaTableClassSummary *TableClassSummary `json:"replicaTableClassSummary" xml:"ReplicaTableClassSummary"`
 }
 
 type ReplicaSettingsUpdate struct {
-	RegionName                                              string                                        `json:"regionName" xml:"RegionName"`
-	ReplicaGlobalSecondaryIndexSettingsUpdate               ReplicaGlobalSecondaryIndexSettingsUpdateList `json:"replicaGlobalSecondaryIndexSettingsUpdate" xml:"ReplicaGlobalSecondaryIndexSettingsUpdate"`
-	ReplicaProvisionedReadCapacityAutoScalingSettingsUpdate *AutoScalingSettingsUpdate                    `json:"replicaProvisionedReadCapacityAutoScalingSettingsUpdate" xml:"ReplicaProvisionedReadCapacityAutoScalingSettingsUpdate"`
-	ReplicaProvisionedReadCapacityUnits                     int64                                         `json:"replicaProvisionedReadCapacityUnits" xml:"ReplicaProvisionedReadCapacityUnits"`
-	ReplicaTableClass                                       string                                        `json:"replicaTableClass" xml:"ReplicaTableClass"`
+RegionName string `json:"regionName" xml:"RegionName"`
+ReplicaGlobalSecondaryIndexSettingsUpdate ReplicaGlobalSecondaryIndexSettingsUpdateList `json:"replicaGlobalSecondaryIndexSettingsUpdate" xml:"ReplicaGlobalSecondaryIndexSettingsUpdate"`
+ReplicaProvisionedReadCapacityAutoScalingSettingsUpdate *AutoScalingSettingsUpdate `json:"replicaProvisionedReadCapacityAutoScalingSettingsUpdate" xml:"ReplicaProvisionedReadCapacityAutoScalingSettingsUpdate"`
+ReplicaProvisionedReadCapacityUnits int64 `json:"replicaProvisionedReadCapacityUnits" xml:"ReplicaProvisionedReadCapacityUnits"`
+ReplicaTableClass string `json:"replicaTableClass" xml:"ReplicaTableClass"`
 }
 
 type ReplicaUpdate struct {
-	Create *CreateReplicaAction `json:"create" xml:"Create"`
-	Delete *DeleteReplicaAction `json:"delete" xml:"Delete"`
+Create *CreateReplicaAction `json:"create" xml:"Create"`
+Delete *DeleteReplicaAction `json:"delete" xml:"Delete"`
 }
 
 type ReplicationGroupUpdate struct {
-	Create *CreateReplicationGroupMemberAction `json:"create" xml:"Create"`
-	Delete *DeleteReplicationGroupMemberAction `json:"delete" xml:"Delete"`
-	Update *UpdateReplicationGroupMemberAction `json:"update" xml:"Update"`
+Create *CreateReplicationGroupMemberAction `json:"create" xml:"Create"`
+Delete *DeleteReplicationGroupMemberAction `json:"delete" xml:"Delete"`
+Update *UpdateReplicationGroupMemberAction `json:"update" xml:"Update"`
 }
 
 type RestoreSummary struct {
-	RestoreDateTime   time.Time `json:"restoreDateTime" xml:"RestoreDateTime"`
-	RestoreInProgress bool      `json:"restoreInProgress" xml:"RestoreInProgress"`
-	SourceBackupArn   string    `json:"sourceBackupArn" xml:"SourceBackupArn"`
-	SourceTableArn    string    `json:"sourceTableArn" xml:"SourceTableArn"`
+RestoreDateTime time.Time `json:"restoreDateTime" xml:"RestoreDateTime"`
+RestoreInProgress bool `json:"restoreInProgress" xml:"RestoreInProgress"`
+SourceBackupArn string `json:"sourceBackupArn" xml:"SourceBackupArn"`
+SourceTableArn string `json:"sourceTableArn" xml:"SourceTableArn"`
 }
 
 type RestoreTableFromBackupInput struct {
-	BackupArn                     string                   `json:"backupArn" xml:"BackupArn"`
-	BillingModeOverride           string                   `json:"billingModeOverride" xml:"BillingModeOverride"`
-	GlobalSecondaryIndexOverride  GlobalSecondaryIndexList `json:"globalSecondaryIndexOverride" xml:"GlobalSecondaryIndexOverride"`
-	LocalSecondaryIndexOverride   LocalSecondaryIndexList  `json:"localSecondaryIndexOverride" xml:"LocalSecondaryIndexOverride"`
-	OnDemandThroughputOverride    *OnDemandThroughput      `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
-	ProvisionedThroughputOverride *ProvisionedThroughput   `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
-	SSESpecificationOverride      *SSESpecification        `json:"sSESpecificationOverride" xml:"SSESpecificationOverride"`
-	TargetTableName               string                   `json:"targetTableName" xml:"TargetTableName"`
+BackupArn string `json:"backupArn" xml:"BackupArn"`
+BillingModeOverride string `json:"billingModeOverride" xml:"BillingModeOverride"`
+GlobalSecondaryIndexOverride GlobalSecondaryIndexList `json:"globalSecondaryIndexOverride" xml:"GlobalSecondaryIndexOverride"`
+LocalSecondaryIndexOverride LocalSecondaryIndexList `json:"localSecondaryIndexOverride" xml:"LocalSecondaryIndexOverride"`
+OnDemandThroughputOverride *OnDemandThroughput `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
+ProvisionedThroughputOverride *ProvisionedThroughput `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
+SSESpecificationOverride *SSESpecification `json:"sSESpecificationOverride" xml:"SSESpecificationOverride"`
+TargetTableName string `json:"targetTableName" xml:"TargetTableName"`
 }
 
 type RestoreTableFromBackupOutput struct {
-	TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
+TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
 }
 
 type RestoreTableToPointInTimeInput struct {
-	BillingModeOverride           string                   `json:"billingModeOverride" xml:"BillingModeOverride"`
-	GlobalSecondaryIndexOverride  GlobalSecondaryIndexList `json:"globalSecondaryIndexOverride" xml:"GlobalSecondaryIndexOverride"`
-	LocalSecondaryIndexOverride   LocalSecondaryIndexList  `json:"localSecondaryIndexOverride" xml:"LocalSecondaryIndexOverride"`
-	OnDemandThroughputOverride    *OnDemandThroughput      `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
-	ProvisionedThroughputOverride *ProvisionedThroughput   `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
-	RestoreDateTime               time.Time                `json:"restoreDateTime" xml:"RestoreDateTime"`
-	SSESpecificationOverride      *SSESpecification        `json:"sSESpecificationOverride" xml:"SSESpecificationOverride"`
-	SourceTableArn                string                   `json:"sourceTableArn" xml:"SourceTableArn"`
-	SourceTableName               string                   `json:"sourceTableName" xml:"SourceTableName"`
-	TargetTableName               string                   `json:"targetTableName" xml:"TargetTableName"`
-	UseLatestRestorableTime       bool                     `json:"useLatestRestorableTime" xml:"UseLatestRestorableTime"`
+BillingModeOverride string `json:"billingModeOverride" xml:"BillingModeOverride"`
+GlobalSecondaryIndexOverride GlobalSecondaryIndexList `json:"globalSecondaryIndexOverride" xml:"GlobalSecondaryIndexOverride"`
+LocalSecondaryIndexOverride LocalSecondaryIndexList `json:"localSecondaryIndexOverride" xml:"LocalSecondaryIndexOverride"`
+OnDemandThroughputOverride *OnDemandThroughput `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
+ProvisionedThroughputOverride *ProvisionedThroughput `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
+RestoreDateTime time.Time `json:"restoreDateTime" xml:"RestoreDateTime"`
+SSESpecificationOverride *SSESpecification `json:"sSESpecificationOverride" xml:"SSESpecificationOverride"`
+SourceTableArn string `json:"sourceTableArn" xml:"SourceTableArn"`
+SourceTableName string `json:"sourceTableName" xml:"SourceTableName"`
+TargetTableName string `json:"targetTableName" xml:"TargetTableName"`
+UseLatestRestorableTime bool `json:"useLatestRestorableTime" xml:"UseLatestRestorableTime"`
 }
 
 type RestoreTableToPointInTimeOutput struct {
-	TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
+TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
 }
 
 type S3BucketSource struct {
-	S3Bucket      string `json:"s3Bucket" xml:"S3Bucket"`
-	S3BucketOwner string `json:"s3BucketOwner" xml:"S3BucketOwner"`
-	S3KeyPrefix   string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
+S3Bucket string `json:"s3Bucket" xml:"S3Bucket"`
+S3BucketOwner string `json:"s3BucketOwner" xml:"S3BucketOwner"`
+S3KeyPrefix string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
 }
 
 type SSEDescription struct {
-	InaccessibleEncryptionDateTime time.Time `json:"inaccessibleEncryptionDateTime" xml:"InaccessibleEncryptionDateTime"`
-	KMSMasterKeyArn                string    `json:"kMSMasterKeyArn" xml:"KMSMasterKeyArn"`
-	SSEType                        string    `json:"sSEType" xml:"SSEType"`
-	Status                         string    `json:"status" xml:"Status"`
+InaccessibleEncryptionDateTime time.Time `json:"inaccessibleEncryptionDateTime" xml:"InaccessibleEncryptionDateTime"`
+KMSMasterKeyArn string `json:"kMSMasterKeyArn" xml:"KMSMasterKeyArn"`
+SSEType string `json:"sSEType" xml:"SSEType"`
+Status string `json:"status" xml:"Status"`
 }
 
 type SSESpecification struct {
-	Enabled        bool   `json:"enabled" xml:"Enabled"`
-	KMSMasterKeyId string `json:"kMSMasterKeyId" xml:"KMSMasterKeyId"`
-	SSEType        string `json:"sSEType" xml:"SSEType"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+KMSMasterKeyId string `json:"kMSMasterKeyId" xml:"KMSMasterKeyId"`
+SSEType string `json:"sSEType" xml:"SSEType"`
 }
 
 type ScanInput struct {
-	AttributesToGet           AttributeNameList           `json:"attributesToGet" xml:"AttributesToGet"`
-	ConditionalOperator       string                      `json:"conditionalOperator" xml:"ConditionalOperator"`
-	ConsistentRead            bool                        `json:"consistentRead" xml:"ConsistentRead"`
-	ExclusiveStartKey         Key                         `json:"exclusiveStartKey" xml:"ExclusiveStartKey"`
-	ExpressionAttributeNames  ExpressionAttributeNameMap  `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
-	FilterExpression          string                      `json:"filterExpression" xml:"FilterExpression"`
-	IndexName                 string                      `json:"indexName" xml:"IndexName"`
-	Limit                     int32                       `json:"limit" xml:"Limit"`
-	ProjectionExpression      string                      `json:"projectionExpression" xml:"ProjectionExpression"`
-	ReturnConsumedCapacity    string                      `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	ScanFilter                FilterConditionMap          `json:"scanFilter" xml:"ScanFilter"`
-	Segment                   int32                       `json:"segment" xml:"Segment"`
-	Select                    string                      `json:"select" xml:"Select"`
-	TableName                 string                      `json:"tableName" xml:"TableName"`
-	TotalSegments             int32                       `json:"totalSegments" xml:"TotalSegments"`
+AttributesToGet AttributeNameList `json:"attributesToGet" xml:"AttributesToGet"`
+ConditionalOperator string `json:"conditionalOperator" xml:"ConditionalOperator"`
+ConsistentRead bool `json:"consistentRead" xml:"ConsistentRead"`
+ExclusiveStartKey Key `json:"exclusiveStartKey" xml:"ExclusiveStartKey"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
+FilterExpression string `json:"filterExpression" xml:"FilterExpression"`
+IndexName string `json:"indexName" xml:"IndexName"`
+Limit int32 `json:"limit" xml:"Limit"`
+ProjectionExpression string `json:"projectionExpression" xml:"ProjectionExpression"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+ScanFilter FilterConditionMap `json:"scanFilter" xml:"ScanFilter"`
+Segment int32 `json:"segment" xml:"Segment"`
+Select string `json:"select" xml:"Select"`
+TableName string `json:"tableName" xml:"TableName"`
+TotalSegments int32 `json:"totalSegments" xml:"TotalSegments"`
 }
 
 type ScanOutput struct {
-	ConsumedCapacity *ConsumedCapacity `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	Count            int32             `json:"count" xml:"Count"`
-	Items            ItemList          `json:"items" xml:"Items"`
-	LastEvaluatedKey Key               `json:"lastEvaluatedKey" xml:"LastEvaluatedKey"`
-	ScannedCount     int32             `json:"scannedCount" xml:"ScannedCount"`
+ConsumedCapacity *ConsumedCapacity `json:"consumedCapacity" xml:"ConsumedCapacity"`
+Count int32 `json:"count" xml:"Count"`
+Items ItemList `json:"items" xml:"Items"`
+LastEvaluatedKey Key `json:"lastEvaluatedKey" xml:"LastEvaluatedKey"`
+ScannedCount int32 `json:"scannedCount" xml:"ScannedCount"`
 }
 
 type SmithyUnit struct {
 }
 
 type SourceTableDetails struct {
-	BillingMode           string                 `json:"billingMode" xml:"BillingMode"`
-	ItemCount             int64                  `json:"itemCount" xml:"ItemCount"`
-	KeySchema             KeySchema              `json:"keySchema" xml:"KeySchema"`
-	OnDemandThroughput    *OnDemandThroughput    `json:"onDemandThroughput" xml:"OnDemandThroughput"`
-	ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
-	TableArn              string                 `json:"tableArn" xml:"TableArn"`
-	TableCreationDateTime time.Time              `json:"tableCreationDateTime" xml:"TableCreationDateTime"`
-	TableId               string                 `json:"tableId" xml:"TableId"`
-	TableName             string                 `json:"tableName" xml:"TableName"`
-	TableSizeBytes        int64                  `json:"tableSizeBytes" xml:"TableSizeBytes"`
+BillingMode string `json:"billingMode" xml:"BillingMode"`
+ItemCount int64 `json:"itemCount" xml:"ItemCount"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+OnDemandThroughput *OnDemandThroughput `json:"onDemandThroughput" xml:"OnDemandThroughput"`
+ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
+TableArn string `json:"tableArn" xml:"TableArn"`
+TableCreationDateTime time.Time `json:"tableCreationDateTime" xml:"TableCreationDateTime"`
+TableId string `json:"tableId" xml:"TableId"`
+TableName string `json:"tableName" xml:"TableName"`
+TableSizeBytes int64 `json:"tableSizeBytes" xml:"TableSizeBytes"`
 }
 
 type SourceTableFeatureDetails struct {
-	GlobalSecondaryIndexes GlobalSecondaryIndexes `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
-	LocalSecondaryIndexes  LocalSecondaryIndexes  `json:"localSecondaryIndexes" xml:"LocalSecondaryIndexes"`
-	SSEDescription         *SSEDescription        `json:"sSEDescription" xml:"SSEDescription"`
-	StreamDescription      *StreamSpecification   `json:"streamDescription" xml:"StreamDescription"`
-	TimeToLiveDescription  *TimeToLiveDescription `json:"timeToLiveDescription" xml:"TimeToLiveDescription"`
+GlobalSecondaryIndexes GlobalSecondaryIndexes `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
+LocalSecondaryIndexes LocalSecondaryIndexes `json:"localSecondaryIndexes" xml:"LocalSecondaryIndexes"`
+SSEDescription *SSEDescription `json:"sSEDescription" xml:"SSEDescription"`
+StreamDescription *StreamSpecification `json:"streamDescription" xml:"StreamDescription"`
+TimeToLiveDescription *TimeToLiveDescription `json:"timeToLiveDescription" xml:"TimeToLiveDescription"`
 }
 
 type StreamSpecification struct {
-	StreamEnabled  bool   `json:"streamEnabled" xml:"StreamEnabled"`
-	StreamViewType string `json:"streamViewType" xml:"StreamViewType"`
+StreamEnabled bool `json:"streamEnabled" xml:"StreamEnabled"`
+StreamViewType string `json:"streamViewType" xml:"StreamViewType"`
 }
 
 type TableAutoScalingDescription struct {
-	Replicas    ReplicaAutoScalingDescriptionList `json:"replicas" xml:"Replicas"`
-	TableName   string                            `json:"tableName" xml:"TableName"`
-	TableStatus string                            `json:"tableStatus" xml:"TableStatus"`
+Replicas ReplicaAutoScalingDescriptionList `json:"replicas" xml:"Replicas"`
+TableName string `json:"tableName" xml:"TableName"`
+TableStatus string `json:"tableStatus" xml:"TableStatus"`
 }
 
 type TableClassSummary struct {
-	LastUpdateDateTime time.Time `json:"lastUpdateDateTime" xml:"LastUpdateDateTime"`
-	TableClass         string    `json:"tableClass" xml:"TableClass"`
+LastUpdateDateTime time.Time `json:"lastUpdateDateTime" xml:"LastUpdateDateTime"`
+TableClass string `json:"tableClass" xml:"TableClass"`
 }
 
 type TableCreationParameters struct {
-	AttributeDefinitions   AttributeDefinitions     `json:"attributeDefinitions" xml:"AttributeDefinitions"`
-	BillingMode            string                   `json:"billingMode" xml:"BillingMode"`
-	GlobalSecondaryIndexes GlobalSecondaryIndexList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
-	KeySchema              KeySchema                `json:"keySchema" xml:"KeySchema"`
-	OnDemandThroughput     *OnDemandThroughput      `json:"onDemandThroughput" xml:"OnDemandThroughput"`
-	ProvisionedThroughput  *ProvisionedThroughput   `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
-	SSESpecification       *SSESpecification        `json:"sSESpecification" xml:"SSESpecification"`
-	TableName              string                   `json:"tableName" xml:"TableName"`
+AttributeDefinitions AttributeDefinitions `json:"attributeDefinitions" xml:"AttributeDefinitions"`
+BillingMode string `json:"billingMode" xml:"BillingMode"`
+GlobalSecondaryIndexes GlobalSecondaryIndexList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+OnDemandThroughput *OnDemandThroughput `json:"onDemandThroughput" xml:"OnDemandThroughput"`
+ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
+SSESpecification *SSESpecification `json:"sSESpecification" xml:"SSESpecification"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type TableDescription struct {
-	ArchivalSummary                    *ArchivalSummary                    `json:"archivalSummary" xml:"ArchivalSummary"`
-	AttributeDefinitions               AttributeDefinitions                `json:"attributeDefinitions" xml:"AttributeDefinitions"`
-	BillingModeSummary                 *BillingModeSummary                 `json:"billingModeSummary" xml:"BillingModeSummary"`
-	CreationDateTime                   time.Time                           `json:"creationDateTime" xml:"CreationDateTime"`
-	DeletionProtectionEnabled          bool                                `json:"deletionProtectionEnabled" xml:"DeletionProtectionEnabled"`
-	GlobalSecondaryIndexes             GlobalSecondaryIndexDescriptionList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
-	GlobalTableSettingsReplicationMode string                              `json:"globalTableSettingsReplicationMode" xml:"GlobalTableSettingsReplicationMode"`
-	GlobalTableVersion                 string                              `json:"globalTableVersion" xml:"GlobalTableVersion"`
-	GlobalTableWitnesses               GlobalTableWitnessDescriptionList   `json:"globalTableWitnesses" xml:"GlobalTableWitnesses"`
-	ItemCount                          int64                               `json:"itemCount" xml:"ItemCount"`
-	KeySchema                          KeySchema                           `json:"keySchema" xml:"KeySchema"`
-	LatestStreamArn                    string                              `json:"latestStreamArn" xml:"LatestStreamArn"`
-	LatestStreamLabel                  string                              `json:"latestStreamLabel" xml:"LatestStreamLabel"`
-	LocalSecondaryIndexes              LocalSecondaryIndexDescriptionList  `json:"localSecondaryIndexes" xml:"LocalSecondaryIndexes"`
-	MultiRegionConsistency             string                              `json:"multiRegionConsistency" xml:"MultiRegionConsistency"`
-	OnDemandThroughput                 *OnDemandThroughput                 `json:"onDemandThroughput" xml:"OnDemandThroughput"`
-	ProvisionedThroughput              *ProvisionedThroughputDescription   `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
-	Replicas                           ReplicaDescriptionList              `json:"replicas" xml:"Replicas"`
-	RestoreSummary                     *RestoreSummary                     `json:"restoreSummary" xml:"RestoreSummary"`
-	SSEDescription                     *SSEDescription                     `json:"sSEDescription" xml:"SSEDescription"`
-	StreamSpecification                *StreamSpecification                `json:"streamSpecification" xml:"StreamSpecification"`
-	TableArn                           string                              `json:"tableArn" xml:"TableArn"`
-	TableClassSummary                  *TableClassSummary                  `json:"tableClassSummary" xml:"TableClassSummary"`
-	TableId                            string                              `json:"tableId" xml:"TableId"`
-	TableName                          string                              `json:"tableName" xml:"TableName"`
-	TableSizeBytes                     int64                               `json:"tableSizeBytes" xml:"TableSizeBytes"`
-	TableStatus                        string                              `json:"tableStatus" xml:"TableStatus"`
-	WarmThroughput                     *TableWarmThroughputDescription     `json:"warmThroughput" xml:"WarmThroughput"`
+ArchivalSummary *ArchivalSummary `json:"archivalSummary" xml:"ArchivalSummary"`
+AttributeDefinitions AttributeDefinitions `json:"attributeDefinitions" xml:"AttributeDefinitions"`
+BillingModeSummary *BillingModeSummary `json:"billingModeSummary" xml:"BillingModeSummary"`
+CreationDateTime time.Time `json:"creationDateTime" xml:"CreationDateTime"`
+DeletionProtectionEnabled bool `json:"deletionProtectionEnabled" xml:"DeletionProtectionEnabled"`
+GlobalSecondaryIndexes GlobalSecondaryIndexDescriptionList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
+GlobalTableSettingsReplicationMode string `json:"globalTableSettingsReplicationMode" xml:"GlobalTableSettingsReplicationMode"`
+GlobalTableVersion string `json:"globalTableVersion" xml:"GlobalTableVersion"`
+GlobalTableWitnesses GlobalTableWitnessDescriptionList `json:"globalTableWitnesses" xml:"GlobalTableWitnesses"`
+ItemCount int64 `json:"itemCount" xml:"ItemCount"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+LatestStreamArn string `json:"latestStreamArn" xml:"LatestStreamArn"`
+LatestStreamLabel string `json:"latestStreamLabel" xml:"LatestStreamLabel"`
+LocalSecondaryIndexes LocalSecondaryIndexDescriptionList `json:"localSecondaryIndexes" xml:"LocalSecondaryIndexes"`
+MultiRegionConsistency string `json:"multiRegionConsistency" xml:"MultiRegionConsistency"`
+OnDemandThroughput *OnDemandThroughput `json:"onDemandThroughput" xml:"OnDemandThroughput"`
+ProvisionedThroughput *ProvisionedThroughputDescription `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
+Replicas ReplicaDescriptionList `json:"replicas" xml:"Replicas"`
+RestoreSummary *RestoreSummary `json:"restoreSummary" xml:"RestoreSummary"`
+SSEDescription *SSEDescription `json:"sSEDescription" xml:"SSEDescription"`
+StreamSpecification *StreamSpecification `json:"streamSpecification" xml:"StreamSpecification"`
+TableArn string `json:"tableArn" xml:"TableArn"`
+TableClassSummary *TableClassSummary `json:"tableClassSummary" xml:"TableClassSummary"`
+TableId string `json:"tableId" xml:"TableId"`
+TableName string `json:"tableName" xml:"TableName"`
+TableSizeBytes int64 `json:"tableSizeBytes" xml:"TableSizeBytes"`
+TableStatus string `json:"tableStatus" xml:"TableStatus"`
+WarmThroughput *TableWarmThroughputDescription `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type TableWarmThroughputDescription struct {
-	ReadUnitsPerSecond  int64  `json:"readUnitsPerSecond" xml:"ReadUnitsPerSecond"`
-	Status              string `json:"status" xml:"Status"`
-	WriteUnitsPerSecond int64  `json:"writeUnitsPerSecond" xml:"WriteUnitsPerSecond"`
+ReadUnitsPerSecond int64 `json:"readUnitsPerSecond" xml:"ReadUnitsPerSecond"`
+Status string `json:"status" xml:"Status"`
+WriteUnitsPerSecond int64 `json:"writeUnitsPerSecond" xml:"WriteUnitsPerSecond"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceInput struct {
-	ResourceArn string  `json:"resourceArn" xml:"ResourceArn"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type ThrottlingReason struct {
-	Reason   string `json:"reason" xml:"reason"`
-	Resource string `json:"resource" xml:"resource"`
+Reason string `json:"reason" xml:"reason"`
+Resource string `json:"resource" xml:"resource"`
 }
 
 type TimeToLiveDescription struct {
-	AttributeName    string `json:"attributeName" xml:"AttributeName"`
-	TimeToLiveStatus string `json:"timeToLiveStatus" xml:"TimeToLiveStatus"`
+AttributeName string `json:"attributeName" xml:"AttributeName"`
+TimeToLiveStatus string `json:"timeToLiveStatus" xml:"TimeToLiveStatus"`
 }
 
 type TimeToLiveSpecification struct {
-	AttributeName string `json:"attributeName" xml:"AttributeName"`
-	Enabled       bool   `json:"enabled" xml:"Enabled"`
+AttributeName string `json:"attributeName" xml:"AttributeName"`
+Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type TransactGetItem struct {
-	Get *Get `json:"get" xml:"Get"`
+Get *Get `json:"get" xml:"Get"`
 }
 
 type TransactGetItemsInput struct {
-	ReturnConsumedCapacity string              `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	TransactItems          TransactGetItemList `json:"transactItems" xml:"TransactItems"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+TransactItems TransactGetItemList `json:"transactItems" xml:"TransactItems"`
 }
 
 type TransactGetItemsOutput struct {
-	ConsumedCapacity ConsumedCapacityMultiple `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	Responses        ItemResponseList         `json:"responses" xml:"Responses"`
+ConsumedCapacity ConsumedCapacityMultiple `json:"consumedCapacity" xml:"ConsumedCapacity"`
+Responses ItemResponseList `json:"responses" xml:"Responses"`
 }
 
 type TransactWriteItem struct {
-	ConditionCheck *ConditionCheck `json:"conditionCheck" xml:"ConditionCheck"`
-	Delete         *Delete         `json:"delete" xml:"Delete"`
-	Put            *Put            `json:"put" xml:"Put"`
-	Update         *Update         `json:"update" xml:"Update"`
+ConditionCheck *ConditionCheck `json:"conditionCheck" xml:"ConditionCheck"`
+Delete *Delete `json:"delete" xml:"Delete"`
+Put *Put `json:"put" xml:"Put"`
+Update *Update `json:"update" xml:"Update"`
 }
 
 type TransactWriteItemsInput struct {
-	ClientRequestToken          string                `json:"clientRequestToken" xml:"ClientRequestToken"`
-	ReturnConsumedCapacity      string                `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	ReturnItemCollectionMetrics string                `json:"returnItemCollectionMetrics" xml:"ReturnItemCollectionMetrics"`
-	TransactItems               TransactWriteItemList `json:"transactItems" xml:"TransactItems"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+ReturnItemCollectionMetrics string `json:"returnItemCollectionMetrics" xml:"ReturnItemCollectionMetrics"`
+TransactItems TransactWriteItemList `json:"transactItems" xml:"TransactItems"`
 }
 
 type TransactWriteItemsOutput struct {
-	ConsumedCapacity      ConsumedCapacityMultiple      `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	ItemCollectionMetrics ItemCollectionMetricsPerTable `json:"itemCollectionMetrics" xml:"ItemCollectionMetrics"`
+ConsumedCapacity ConsumedCapacityMultiple `json:"consumedCapacity" xml:"ConsumedCapacity"`
+ItemCollectionMetrics ItemCollectionMetricsPerTable `json:"itemCollectionMetrics" xml:"ItemCollectionMetrics"`
 }
 
 type UntagResourceInput struct {
-	ResourceArn string     `json:"resourceArn" xml:"ResourceArn"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type Update struct {
-	ConditionExpression                 string                      `json:"conditionExpression" xml:"ConditionExpression"`
-	ExpressionAttributeNames            ExpressionAttributeNameMap  `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	ExpressionAttributeValues           ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
-	Key                                 Key                         `json:"key" xml:"Key"`
-	ReturnValuesOnConditionCheckFailure string                      `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
-	TableName                           string                      `json:"tableName" xml:"TableName"`
-	UpdateExpression                    string                      `json:"updateExpression" xml:"UpdateExpression"`
+ConditionExpression string `json:"conditionExpression" xml:"ConditionExpression"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
+Key Key `json:"key" xml:"Key"`
+ReturnValuesOnConditionCheckFailure string `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
+TableName string `json:"tableName" xml:"TableName"`
+UpdateExpression string `json:"updateExpression" xml:"UpdateExpression"`
 }
 
 type UpdateContinuousBackupsInput struct {
-	PointInTimeRecoverySpecification *PointInTimeRecoverySpecification `json:"pointInTimeRecoverySpecification" xml:"PointInTimeRecoverySpecification"`
-	TableName                        string                            `json:"tableName" xml:"TableName"`
+PointInTimeRecoverySpecification *PointInTimeRecoverySpecification `json:"pointInTimeRecoverySpecification" xml:"PointInTimeRecoverySpecification"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type UpdateContinuousBackupsOutput struct {
-	ContinuousBackupsDescription *ContinuousBackupsDescription `json:"continuousBackupsDescription" xml:"ContinuousBackupsDescription"`
+ContinuousBackupsDescription *ContinuousBackupsDescription `json:"continuousBackupsDescription" xml:"ContinuousBackupsDescription"`
 }
 
 type UpdateContributorInsightsInput struct {
-	ContributorInsightsAction string `json:"contributorInsightsAction" xml:"ContributorInsightsAction"`
-	ContributorInsightsMode   string `json:"contributorInsightsMode" xml:"ContributorInsightsMode"`
-	IndexName                 string `json:"indexName" xml:"IndexName"`
-	TableName                 string `json:"tableName" xml:"TableName"`
+ContributorInsightsAction string `json:"contributorInsightsAction" xml:"ContributorInsightsAction"`
+ContributorInsightsMode string `json:"contributorInsightsMode" xml:"ContributorInsightsMode"`
+IndexName string `json:"indexName" xml:"IndexName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type UpdateContributorInsightsOutput struct {
-	ContributorInsightsMode   string `json:"contributorInsightsMode" xml:"ContributorInsightsMode"`
-	ContributorInsightsStatus string `json:"contributorInsightsStatus" xml:"ContributorInsightsStatus"`
-	IndexName                 string `json:"indexName" xml:"IndexName"`
-	TableName                 string `json:"tableName" xml:"TableName"`
+ContributorInsightsMode string `json:"contributorInsightsMode" xml:"ContributorInsightsMode"`
+ContributorInsightsStatus string `json:"contributorInsightsStatus" xml:"ContributorInsightsStatus"`
+IndexName string `json:"indexName" xml:"IndexName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type UpdateGlobalSecondaryIndexAction struct {
-	IndexName             string                 `json:"indexName" xml:"IndexName"`
-	OnDemandThroughput    *OnDemandThroughput    `json:"onDemandThroughput" xml:"OnDemandThroughput"`
-	ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
-	WarmThroughput        *WarmThroughput        `json:"warmThroughput" xml:"WarmThroughput"`
+IndexName string `json:"indexName" xml:"IndexName"`
+OnDemandThroughput *OnDemandThroughput `json:"onDemandThroughput" xml:"OnDemandThroughput"`
+ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
+WarmThroughput *WarmThroughput `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type UpdateGlobalTableInput struct {
-	GlobalTableName string            `json:"globalTableName" xml:"GlobalTableName"`
-	ReplicaUpdates  ReplicaUpdateList `json:"replicaUpdates" xml:"ReplicaUpdates"`
+GlobalTableName string `json:"globalTableName" xml:"GlobalTableName"`
+ReplicaUpdates ReplicaUpdateList `json:"replicaUpdates" xml:"ReplicaUpdates"`
 }
 
 type UpdateGlobalTableOutput struct {
-	GlobalTableDescription *GlobalTableDescription `json:"globalTableDescription" xml:"GlobalTableDescription"`
+GlobalTableDescription *GlobalTableDescription `json:"globalTableDescription" xml:"GlobalTableDescription"`
 }
 
 type UpdateGlobalTableSettingsInput struct {
-	GlobalTableBillingMode                                       string                                            `json:"globalTableBillingMode" xml:"GlobalTableBillingMode"`
-	GlobalTableGlobalSecondaryIndexSettingsUpdate                GlobalTableGlobalSecondaryIndexSettingsUpdateList `json:"globalTableGlobalSecondaryIndexSettingsUpdate" xml:"GlobalTableGlobalSecondaryIndexSettingsUpdate"`
-	GlobalTableName                                              string                                            `json:"globalTableName" xml:"GlobalTableName"`
-	GlobalTableProvisionedWriteCapacityAutoScalingSettingsUpdate *AutoScalingSettingsUpdate                        `json:"globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate" xml:"GlobalTableProvisionedWriteCapacityAutoScalingSettingsUpdate"`
-	GlobalTableProvisionedWriteCapacityUnits                     int64                                             `json:"globalTableProvisionedWriteCapacityUnits" xml:"GlobalTableProvisionedWriteCapacityUnits"`
-	ReplicaSettingsUpdate                                        ReplicaSettingsUpdateList                         `json:"replicaSettingsUpdate" xml:"ReplicaSettingsUpdate"`
+GlobalTableBillingMode string `json:"globalTableBillingMode" xml:"GlobalTableBillingMode"`
+GlobalTableGlobalSecondaryIndexSettingsUpdate GlobalTableGlobalSecondaryIndexSettingsUpdateList `json:"globalTableGlobalSecondaryIndexSettingsUpdate" xml:"GlobalTableGlobalSecondaryIndexSettingsUpdate"`
+GlobalTableName string `json:"globalTableName" xml:"GlobalTableName"`
+GlobalTableProvisionedWriteCapacityAutoScalingSettingsUpdate *AutoScalingSettingsUpdate `json:"globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate" xml:"GlobalTableProvisionedWriteCapacityAutoScalingSettingsUpdate"`
+GlobalTableProvisionedWriteCapacityUnits int64 `json:"globalTableProvisionedWriteCapacityUnits" xml:"GlobalTableProvisionedWriteCapacityUnits"`
+ReplicaSettingsUpdate ReplicaSettingsUpdateList `json:"replicaSettingsUpdate" xml:"ReplicaSettingsUpdate"`
 }
 
 type UpdateGlobalTableSettingsOutput struct {
-	GlobalTableName string                         `json:"globalTableName" xml:"GlobalTableName"`
-	ReplicaSettings ReplicaSettingsDescriptionList `json:"replicaSettings" xml:"ReplicaSettings"`
+GlobalTableName string `json:"globalTableName" xml:"GlobalTableName"`
+ReplicaSettings ReplicaSettingsDescriptionList `json:"replicaSettings" xml:"ReplicaSettings"`
 }
 
 type UpdateItemInput struct {
-	AttributeUpdates                    AttributeUpdates            `json:"attributeUpdates" xml:"AttributeUpdates"`
-	ConditionExpression                 string                      `json:"conditionExpression" xml:"ConditionExpression"`
-	ConditionalOperator                 string                      `json:"conditionalOperator" xml:"ConditionalOperator"`
-	Expected                            ExpectedAttributeMap        `json:"expected" xml:"Expected"`
-	ExpressionAttributeNames            ExpressionAttributeNameMap  `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
-	ExpressionAttributeValues           ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
-	Key                                 Key                         `json:"key" xml:"Key"`
-	ReturnConsumedCapacity              string                      `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
-	ReturnItemCollectionMetrics         string                      `json:"returnItemCollectionMetrics" xml:"ReturnItemCollectionMetrics"`
-	ReturnValues                        string                      `json:"returnValues" xml:"ReturnValues"`
-	ReturnValuesOnConditionCheckFailure string                      `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
-	TableName                           string                      `json:"tableName" xml:"TableName"`
-	UpdateExpression                    string                      `json:"updateExpression" xml:"UpdateExpression"`
+AttributeUpdates AttributeUpdates `json:"attributeUpdates" xml:"AttributeUpdates"`
+ConditionExpression string `json:"conditionExpression" xml:"ConditionExpression"`
+ConditionalOperator string `json:"conditionalOperator" xml:"ConditionalOperator"`
+Expected ExpectedAttributeMap `json:"expected" xml:"Expected"`
+ExpressionAttributeNames ExpressionAttributeNameMap `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
+Key Key `json:"key" xml:"Key"`
+ReturnConsumedCapacity string `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+ReturnItemCollectionMetrics string `json:"returnItemCollectionMetrics" xml:"ReturnItemCollectionMetrics"`
+ReturnValues string `json:"returnValues" xml:"ReturnValues"`
+ReturnValuesOnConditionCheckFailure string `json:"returnValuesOnConditionCheckFailure" xml:"ReturnValuesOnConditionCheckFailure"`
+TableName string `json:"tableName" xml:"TableName"`
+UpdateExpression string `json:"updateExpression" xml:"UpdateExpression"`
 }
 
 type UpdateItemOutput struct {
-	Attributes            AttributeMap           `json:"attributes" xml:"Attributes"`
-	ConsumedCapacity      *ConsumedCapacity      `json:"consumedCapacity" xml:"ConsumedCapacity"`
-	ItemCollectionMetrics *ItemCollectionMetrics `json:"itemCollectionMetrics" xml:"ItemCollectionMetrics"`
+Attributes AttributeMap `json:"attributes" xml:"Attributes"`
+ConsumedCapacity *ConsumedCapacity `json:"consumedCapacity" xml:"ConsumedCapacity"`
+ItemCollectionMetrics *ItemCollectionMetrics `json:"itemCollectionMetrics" xml:"ItemCollectionMetrics"`
 }
 
 type UpdateKinesisStreamingConfiguration struct {
-	ApproximateCreationDateTimePrecision string `json:"approximateCreationDateTimePrecision" xml:"ApproximateCreationDateTimePrecision"`
+ApproximateCreationDateTimePrecision string `json:"approximateCreationDateTimePrecision" xml:"ApproximateCreationDateTimePrecision"`
 }
 
 type UpdateKinesisStreamingDestinationInput struct {
-	StreamArn                           string                               `json:"streamArn" xml:"StreamArn"`
-	TableName                           string                               `json:"tableName" xml:"TableName"`
-	UpdateKinesisStreamingConfiguration *UpdateKinesisStreamingConfiguration `json:"updateKinesisStreamingConfiguration" xml:"UpdateKinesisStreamingConfiguration"`
+StreamArn string `json:"streamArn" xml:"StreamArn"`
+TableName string `json:"tableName" xml:"TableName"`
+UpdateKinesisStreamingConfiguration *UpdateKinesisStreamingConfiguration `json:"updateKinesisStreamingConfiguration" xml:"UpdateKinesisStreamingConfiguration"`
 }
 
 type UpdateKinesisStreamingDestinationOutput struct {
-	DestinationStatus                   string                               `json:"destinationStatus" xml:"DestinationStatus"`
-	StreamArn                           string                               `json:"streamArn" xml:"StreamArn"`
-	TableName                           string                               `json:"tableName" xml:"TableName"`
-	UpdateKinesisStreamingConfiguration *UpdateKinesisStreamingConfiguration `json:"updateKinesisStreamingConfiguration" xml:"UpdateKinesisStreamingConfiguration"`
+DestinationStatus string `json:"destinationStatus" xml:"DestinationStatus"`
+StreamArn string `json:"streamArn" xml:"StreamArn"`
+TableName string `json:"tableName" xml:"TableName"`
+UpdateKinesisStreamingConfiguration *UpdateKinesisStreamingConfiguration `json:"updateKinesisStreamingConfiguration" xml:"UpdateKinesisStreamingConfiguration"`
 }
 
 type UpdateReplicationGroupMemberAction struct {
-	GlobalSecondaryIndexes        ReplicaGlobalSecondaryIndexList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
-	KMSMasterKeyId                string                          `json:"kMSMasterKeyId" xml:"KMSMasterKeyId"`
-	OnDemandThroughputOverride    *OnDemandThroughputOverride     `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
-	ProvisionedThroughputOverride *ProvisionedThroughputOverride  `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
-	RegionName                    string                          `json:"regionName" xml:"RegionName"`
-	TableClassOverride            string                          `json:"tableClassOverride" xml:"TableClassOverride"`
+GlobalSecondaryIndexes ReplicaGlobalSecondaryIndexList `json:"globalSecondaryIndexes" xml:"GlobalSecondaryIndexes"`
+KMSMasterKeyId string `json:"kMSMasterKeyId" xml:"KMSMasterKeyId"`
+OnDemandThroughputOverride *OnDemandThroughputOverride `json:"onDemandThroughputOverride" xml:"OnDemandThroughputOverride"`
+ProvisionedThroughputOverride *ProvisionedThroughputOverride `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
+RegionName string `json:"regionName" xml:"RegionName"`
+TableClassOverride string `json:"tableClassOverride" xml:"TableClassOverride"`
 }
 
 type UpdateTableInput struct {
-	AttributeDefinitions               AttributeDefinitions              `json:"attributeDefinitions" xml:"AttributeDefinitions"`
-	BillingMode                        string                            `json:"billingMode" xml:"BillingMode"`
-	DeletionProtectionEnabled          bool                              `json:"deletionProtectionEnabled" xml:"DeletionProtectionEnabled"`
-	GlobalSecondaryIndexUpdates        GlobalSecondaryIndexUpdateList    `json:"globalSecondaryIndexUpdates" xml:"GlobalSecondaryIndexUpdates"`
-	GlobalTableSettingsReplicationMode string                            `json:"globalTableSettingsReplicationMode" xml:"GlobalTableSettingsReplicationMode"`
-	GlobalTableWitnessUpdates          GlobalTableWitnessGroupUpdateList `json:"globalTableWitnessUpdates" xml:"GlobalTableWitnessUpdates"`
-	MultiRegionConsistency             string                            `json:"multiRegionConsistency" xml:"MultiRegionConsistency"`
-	OnDemandThroughput                 *OnDemandThroughput               `json:"onDemandThroughput" xml:"OnDemandThroughput"`
-	ProvisionedThroughput              *ProvisionedThroughput            `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
-	ReplicaUpdates                     ReplicationGroupUpdateList        `json:"replicaUpdates" xml:"ReplicaUpdates"`
-	SSESpecification                   *SSESpecification                 `json:"sSESpecification" xml:"SSESpecification"`
-	StreamSpecification                *StreamSpecification              `json:"streamSpecification" xml:"StreamSpecification"`
-	TableClass                         string                            `json:"tableClass" xml:"TableClass"`
-	TableName                          string                            `json:"tableName" xml:"TableName"`
-	WarmThroughput                     *WarmThroughput                   `json:"warmThroughput" xml:"WarmThroughput"`
+AttributeDefinitions AttributeDefinitions `json:"attributeDefinitions" xml:"AttributeDefinitions"`
+BillingMode string `json:"billingMode" xml:"BillingMode"`
+DeletionProtectionEnabled bool `json:"deletionProtectionEnabled" xml:"DeletionProtectionEnabled"`
+GlobalSecondaryIndexUpdates GlobalSecondaryIndexUpdateList `json:"globalSecondaryIndexUpdates" xml:"GlobalSecondaryIndexUpdates"`
+GlobalTableSettingsReplicationMode string `json:"globalTableSettingsReplicationMode" xml:"GlobalTableSettingsReplicationMode"`
+GlobalTableWitnessUpdates GlobalTableWitnessGroupUpdateList `json:"globalTableWitnessUpdates" xml:"GlobalTableWitnessUpdates"`
+MultiRegionConsistency string `json:"multiRegionConsistency" xml:"MultiRegionConsistency"`
+OnDemandThroughput *OnDemandThroughput `json:"onDemandThroughput" xml:"OnDemandThroughput"`
+ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
+ReplicaUpdates ReplicationGroupUpdateList `json:"replicaUpdates" xml:"ReplicaUpdates"`
+SSESpecification *SSESpecification `json:"sSESpecification" xml:"SSESpecification"`
+StreamSpecification *StreamSpecification `json:"streamSpecification" xml:"StreamSpecification"`
+TableClass string `json:"tableClass" xml:"TableClass"`
+TableName string `json:"tableName" xml:"TableName"`
+WarmThroughput *WarmThroughput `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type UpdateTableOutput struct {
-	TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
+TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
 }
 
 type UpdateTableReplicaAutoScalingInput struct {
-	GlobalSecondaryIndexUpdates               GlobalSecondaryIndexAutoScalingUpdateList `json:"globalSecondaryIndexUpdates" xml:"GlobalSecondaryIndexUpdates"`
-	ProvisionedWriteCapacityAutoScalingUpdate *AutoScalingSettingsUpdate                `json:"provisionedWriteCapacityAutoScalingUpdate" xml:"ProvisionedWriteCapacityAutoScalingUpdate"`
-	ReplicaUpdates                            ReplicaAutoScalingUpdateList              `json:"replicaUpdates" xml:"ReplicaUpdates"`
-	TableName                                 string                                    `json:"tableName" xml:"TableName"`
+GlobalSecondaryIndexUpdates GlobalSecondaryIndexAutoScalingUpdateList `json:"globalSecondaryIndexUpdates" xml:"GlobalSecondaryIndexUpdates"`
+ProvisionedWriteCapacityAutoScalingUpdate *AutoScalingSettingsUpdate `json:"provisionedWriteCapacityAutoScalingUpdate" xml:"ProvisionedWriteCapacityAutoScalingUpdate"`
+ReplicaUpdates ReplicaAutoScalingUpdateList `json:"replicaUpdates" xml:"ReplicaUpdates"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type UpdateTableReplicaAutoScalingOutput struct {
-	TableAutoScalingDescription *TableAutoScalingDescription `json:"tableAutoScalingDescription" xml:"TableAutoScalingDescription"`
+TableAutoScalingDescription *TableAutoScalingDescription `json:"tableAutoScalingDescription" xml:"TableAutoScalingDescription"`
 }
 
 type UpdateTimeToLiveInput struct {
-	TableName               string                   `json:"tableName" xml:"TableName"`
-	TimeToLiveSpecification *TimeToLiveSpecification `json:"timeToLiveSpecification" xml:"TimeToLiveSpecification"`
+TableName string `json:"tableName" xml:"TableName"`
+TimeToLiveSpecification *TimeToLiveSpecification `json:"timeToLiveSpecification" xml:"TimeToLiveSpecification"`
 }
 
 type UpdateTimeToLiveOutput struct {
-	TimeToLiveSpecification *TimeToLiveSpecification `json:"timeToLiveSpecification" xml:"TimeToLiveSpecification"`
+TimeToLiveSpecification *TimeToLiveSpecification `json:"timeToLiveSpecification" xml:"TimeToLiveSpecification"`
 }
 
 type WarmThroughput struct {
-	ReadUnitsPerSecond  int64 `json:"readUnitsPerSecond" xml:"ReadUnitsPerSecond"`
-	WriteUnitsPerSecond int64 `json:"writeUnitsPerSecond" xml:"WriteUnitsPerSecond"`
+ReadUnitsPerSecond int64 `json:"readUnitsPerSecond" xml:"ReadUnitsPerSecond"`
+WriteUnitsPerSecond int64 `json:"writeUnitsPerSecond" xml:"WriteUnitsPerSecond"`
 }
 
 type WriteRequest struct {
-	DeleteRequest *DeleteRequest `json:"deleteRequest" xml:"DeleteRequest"`
-	PutRequest    *PutRequest    `json:"putRequest" xml:"PutRequest"`
+DeleteRequest *DeleteRequest `json:"deleteRequest" xml:"DeleteRequest"`
+PutRequest *PutRequest `json:"putRequest" xml:"PutRequest"`
 }
 
 type AttributeDefinitions []*AttributeDefinition
@@ -1642,3 +1642,4 @@ type PutItemInputAttributeMap map[string]interface{}
 type SecondaryIndexesCapacityMap map[string]*Capacity
 
 type AttributeValue interface{}
+

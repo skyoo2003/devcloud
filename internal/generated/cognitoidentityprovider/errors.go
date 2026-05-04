@@ -972,3 +972,4 @@ func (e *WebAuthnRelyingPartyMismatchException) ErrorCode() string {
 func (e *WebAuthnRelyingPartyMismatchException) HTTPStatus() int {
 	return 400
 }
+

@@ -601,3 +601,4 @@ func SerializeVerifyMacResponse(w http.ResponseWriter, output *VerifyMacResponse
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

@@ -126,3 +126,4 @@ func (b *BaseProvider) UpdateAccess(ctx context.Context, input *UpdateAccessRequ
 func (b *BaseProvider) UpdateHostKey(ctx context.Context, input *UpdateHostKeyRequest) (*UpdateHostKeyResponse, error) {
 	return nil, fmt.Errorf("UpdateHostKey: %w", ErrNotImplemented)
 }
+

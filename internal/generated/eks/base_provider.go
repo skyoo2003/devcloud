@@ -266,3 +266,4 @@ func (b *BaseProvider) UpdateNodegroupVersion(ctx context.Context, input *Update
 func (b *BaseProvider) UpdatePodIdentityAssociation(ctx context.Context, input *UpdatePodIdentityAssociationRequest) (*UpdatePodIdentityAssociationResponse, error) {
 	return nil, fmt.Errorf("UpdatePodIdentityAssociation: %w", ErrNotImplemented)
 }
+

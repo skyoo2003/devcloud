@@ -799,3 +799,4 @@ func DeserializeUpdateScheduledQueryRequest(r *http.Request, pathParams PathPara
 
 	return input, nil
 }
+

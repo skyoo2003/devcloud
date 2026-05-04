@@ -166,3 +166,4 @@ func (b *BaseProvider) UpdateStreamMode(ctx context.Context, input *UpdateStream
 func (b *BaseProvider) UpdateStreamWarmThroughput(ctx context.Context, input *UpdateStreamWarmThroughputInput) (*UpdateStreamWarmThroughputOutput, error) {
 	return nil, fmt.Errorf("UpdateStreamWarmThroughput: %w", ErrNotImplemented)
 }
+

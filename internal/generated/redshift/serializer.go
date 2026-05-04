@@ -988,3 +988,4 @@ func DeserializeUpdatePartnerStatusInputMessage(r *http.Request, pathParams Path
 
 	return input, nil
 }
+

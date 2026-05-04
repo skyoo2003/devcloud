@@ -190,3 +190,4 @@ func (e *ServiceLinkedRoleFailure) ErrorCode() string {
 func (e *ServiceLinkedRoleFailure) HTTPStatus() int {
 	return 500
 }
+

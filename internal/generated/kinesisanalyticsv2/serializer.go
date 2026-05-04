@@ -239,3 +239,4 @@ func DeserializeUpdateApplicationMaintenanceConfigurationRequest(r *http.Request
 
 	return input, nil
 }
+

@@ -7,1228 +7,1228 @@ import (
 )
 
 type AdditionalAuthenticationProvider struct {
-	AuthenticationType     string                  `json:"authenticationType" xml:"authenticationType"`
-	LambdaAuthorizerConfig *LambdaAuthorizerConfig `json:"lambdaAuthorizerConfig" xml:"lambdaAuthorizerConfig"`
-	OpenIDConnectConfig    *OpenIDConnectConfig    `json:"openIDConnectConfig" xml:"openIDConnectConfig"`
-	UserPoolConfig         *CognitoUserPoolConfig  `json:"userPoolConfig" xml:"userPoolConfig"`
+AuthenticationType string `json:"authenticationType" xml:"authenticationType"`
+LambdaAuthorizerConfig *LambdaAuthorizerConfig `json:"lambdaAuthorizerConfig" xml:"lambdaAuthorizerConfig"`
+OpenIDConnectConfig *OpenIDConnectConfig `json:"openIDConnectConfig" xml:"openIDConnectConfig"`
+UserPoolConfig *CognitoUserPoolConfig `json:"userPoolConfig" xml:"userPoolConfig"`
 }
 
 type Api struct {
-	ApiArn       string              `json:"apiArn" xml:"apiArn"`
-	ApiId        string              `json:"apiId" xml:"apiId"`
-	Created      time.Time           `json:"created" xml:"created"`
-	Dns          MapOfStringToString `json:"dns" xml:"dns"`
-	EventConfig  *EventConfig        `json:"eventConfig" xml:"eventConfig"`
-	Name         string              `json:"name" xml:"name"`
-	OwnerContact string              `json:"ownerContact" xml:"ownerContact"`
-	Tags         TagMap              `json:"tags" xml:"tags"`
-	WafWebAclArn string              `json:"wafWebAclArn" xml:"wafWebAclArn"`
-	XrayEnabled  bool                `json:"xrayEnabled" xml:"xrayEnabled"`
+ApiArn string `json:"apiArn" xml:"apiArn"`
+ApiId string `json:"apiId" xml:"apiId"`
+Created time.Time `json:"created" xml:"created"`
+Dns MapOfStringToString `json:"dns" xml:"dns"`
+EventConfig *EventConfig `json:"eventConfig" xml:"eventConfig"`
+Name string `json:"name" xml:"name"`
+OwnerContact string `json:"ownerContact" xml:"ownerContact"`
+Tags TagMap `json:"tags" xml:"tags"`
+WafWebAclArn string `json:"wafWebAclArn" xml:"wafWebAclArn"`
+XrayEnabled bool `json:"xrayEnabled" xml:"xrayEnabled"`
 }
 
 type ApiAssociation struct {
-	ApiId             string `json:"apiId" xml:"apiId"`
-	AssociationStatus string `json:"associationStatus" xml:"associationStatus"`
-	DeploymentDetail  string `json:"deploymentDetail" xml:"deploymentDetail"`
-	DomainName        string `json:"domainName" xml:"domainName"`
+ApiId string `json:"apiId" xml:"apiId"`
+AssociationStatus string `json:"associationStatus" xml:"associationStatus"`
+DeploymentDetail string `json:"deploymentDetail" xml:"deploymentDetail"`
+DomainName string `json:"domainName" xml:"domainName"`
 }
 
 type ApiCache struct {
-	ApiCachingBehavior       string `json:"apiCachingBehavior" xml:"apiCachingBehavior"`
-	AtRestEncryptionEnabled  bool   `json:"atRestEncryptionEnabled" xml:"atRestEncryptionEnabled"`
-	HealthMetricsConfig      string `json:"healthMetricsConfig" xml:"healthMetricsConfig"`
-	Status                   string `json:"status" xml:"status"`
-	TransitEncryptionEnabled bool   `json:"transitEncryptionEnabled" xml:"transitEncryptionEnabled"`
-	Ttl                      int64  `json:"ttl" xml:"ttl"`
-	Type                     string `json:"type" xml:"type"`
+ApiCachingBehavior string `json:"apiCachingBehavior" xml:"apiCachingBehavior"`
+AtRestEncryptionEnabled bool `json:"atRestEncryptionEnabled" xml:"atRestEncryptionEnabled"`
+HealthMetricsConfig string `json:"healthMetricsConfig" xml:"healthMetricsConfig"`
+Status string `json:"status" xml:"status"`
+TransitEncryptionEnabled bool `json:"transitEncryptionEnabled" xml:"transitEncryptionEnabled"`
+Ttl int64 `json:"ttl" xml:"ttl"`
+Type string `json:"type" xml:"type"`
 }
 
 type ApiKey struct {
-	Deletes     int64  `json:"deletes" xml:"deletes"`
-	Description string `json:"description" xml:"description"`
-	Expires     int64  `json:"expires" xml:"expires"`
-	Id          string `json:"id" xml:"id"`
+Deletes int64 `json:"deletes" xml:"deletes"`
+Description string `json:"description" xml:"description"`
+Expires int64 `json:"expires" xml:"expires"`
+Id string `json:"id" xml:"id"`
 }
 
 type AppSyncRuntime struct {
-	Name           string `json:"name" xml:"name"`
-	RuntimeVersion string `json:"runtimeVersion" xml:"runtimeVersion"`
+Name string `json:"name" xml:"name"`
+RuntimeVersion string `json:"runtimeVersion" xml:"runtimeVersion"`
 }
 
 type AssociateApiRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	DomainName string `json:"domainName" xml:"domainName"`
+ApiId string `json:"apiId" xml:"apiId"`
+DomainName string `json:"domainName" xml:"domainName"`
 }
 
 type AssociateApiResponse struct {
-	ApiAssociation *ApiAssociation `json:"apiAssociation" xml:"apiAssociation"`
+ApiAssociation *ApiAssociation `json:"apiAssociation" xml:"apiAssociation"`
 }
 
 type AssociateMergedGraphqlApiRequest struct {
-	Description                string                      `json:"description" xml:"description"`
-	MergedApiIdentifier        string                      `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
-	SourceApiAssociationConfig *SourceApiAssociationConfig `json:"sourceApiAssociationConfig" xml:"sourceApiAssociationConfig"`
-	SourceApiIdentifier        string                      `json:"sourceApiIdentifier" xml:"sourceApiIdentifier"`
+Description string `json:"description" xml:"description"`
+MergedApiIdentifier string `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
+SourceApiAssociationConfig *SourceApiAssociationConfig `json:"sourceApiAssociationConfig" xml:"sourceApiAssociationConfig"`
+SourceApiIdentifier string `json:"sourceApiIdentifier" xml:"sourceApiIdentifier"`
 }
 
 type AssociateMergedGraphqlApiResponse struct {
-	SourceApiAssociation *SourceApiAssociation `json:"sourceApiAssociation" xml:"sourceApiAssociation"`
+SourceApiAssociation *SourceApiAssociation `json:"sourceApiAssociation" xml:"sourceApiAssociation"`
 }
 
 type AssociateSourceGraphqlApiRequest struct {
-	Description                string                      `json:"description" xml:"description"`
-	MergedApiIdentifier        string                      `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
-	SourceApiAssociationConfig *SourceApiAssociationConfig `json:"sourceApiAssociationConfig" xml:"sourceApiAssociationConfig"`
-	SourceApiIdentifier        string                      `json:"sourceApiIdentifier" xml:"sourceApiIdentifier"`
+Description string `json:"description" xml:"description"`
+MergedApiIdentifier string `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
+SourceApiAssociationConfig *SourceApiAssociationConfig `json:"sourceApiAssociationConfig" xml:"sourceApiAssociationConfig"`
+SourceApiIdentifier string `json:"sourceApiIdentifier" xml:"sourceApiIdentifier"`
 }
 
 type AssociateSourceGraphqlApiResponse struct {
-	SourceApiAssociation *SourceApiAssociation `json:"sourceApiAssociation" xml:"sourceApiAssociation"`
+SourceApiAssociation *SourceApiAssociation `json:"sourceApiAssociation" xml:"sourceApiAssociation"`
 }
 
 type AuthMode struct {
-	AuthType string `json:"authType" xml:"authType"`
+AuthType string `json:"authType" xml:"authType"`
 }
 
 type AuthProvider struct {
-	AuthType               string                  `json:"authType" xml:"authType"`
-	CognitoConfig          *CognitoConfig          `json:"cognitoConfig" xml:"cognitoConfig"`
-	LambdaAuthorizerConfig *LambdaAuthorizerConfig `json:"lambdaAuthorizerConfig" xml:"lambdaAuthorizerConfig"`
-	OpenIDConnectConfig    *OpenIDConnectConfig    `json:"openIDConnectConfig" xml:"openIDConnectConfig"`
+AuthType string `json:"authType" xml:"authType"`
+CognitoConfig *CognitoConfig `json:"cognitoConfig" xml:"cognitoConfig"`
+LambdaAuthorizerConfig *LambdaAuthorizerConfig `json:"lambdaAuthorizerConfig" xml:"lambdaAuthorizerConfig"`
+OpenIDConnectConfig *OpenIDConnectConfig `json:"openIDConnectConfig" xml:"openIDConnectConfig"`
 }
 
 type AuthorizationConfig struct {
-	AuthorizationType string        `json:"authorizationType" xml:"authorizationType"`
-	AwsIamConfig      *AwsIamConfig `json:"awsIamConfig" xml:"awsIamConfig"`
+AuthorizationType string `json:"authorizationType" xml:"authorizationType"`
+AwsIamConfig *AwsIamConfig `json:"awsIamConfig" xml:"awsIamConfig"`
 }
 
 type AwsIamConfig struct {
-	SigningRegion      string `json:"signingRegion" xml:"signingRegion"`
-	SigningServiceName string `json:"signingServiceName" xml:"signingServiceName"`
+SigningRegion string `json:"signingRegion" xml:"signingRegion"`
+SigningServiceName string `json:"signingServiceName" xml:"signingServiceName"`
 }
 
 type BadRequestDetail struct {
-	CodeErrors CodeErrors `json:"codeErrors" xml:"codeErrors"`
+CodeErrors CodeErrors `json:"codeErrors" xml:"codeErrors"`
 }
 
 type CachingConfig struct {
-	CachingKeys CachingKeys `json:"cachingKeys" xml:"cachingKeys"`
-	Ttl         int64       `json:"ttl" xml:"ttl"`
+CachingKeys CachingKeys `json:"cachingKeys" xml:"cachingKeys"`
+Ttl int64 `json:"ttl" xml:"ttl"`
 }
 
 type ChannelNamespace struct {
-	ApiId               string          `json:"apiId" xml:"apiId"`
-	ChannelNamespaceArn string          `json:"channelNamespaceArn" xml:"channelNamespaceArn"`
-	CodeHandlers        string          `json:"codeHandlers" xml:"codeHandlers"`
-	Created             time.Time       `json:"created" xml:"created"`
-	HandlerConfigs      *HandlerConfigs `json:"handlerConfigs" xml:"handlerConfigs"`
-	LastModified        time.Time       `json:"lastModified" xml:"lastModified"`
-	Name                string          `json:"name" xml:"name"`
-	PublishAuthModes    AuthModes       `json:"publishAuthModes" xml:"publishAuthModes"`
-	SubscribeAuthModes  AuthModes       `json:"subscribeAuthModes" xml:"subscribeAuthModes"`
-	Tags                TagMap          `json:"tags" xml:"tags"`
+ApiId string `json:"apiId" xml:"apiId"`
+ChannelNamespaceArn string `json:"channelNamespaceArn" xml:"channelNamespaceArn"`
+CodeHandlers string `json:"codeHandlers" xml:"codeHandlers"`
+Created time.Time `json:"created" xml:"created"`
+HandlerConfigs *HandlerConfigs `json:"handlerConfigs" xml:"handlerConfigs"`
+LastModified time.Time `json:"lastModified" xml:"lastModified"`
+Name string `json:"name" xml:"name"`
+PublishAuthModes AuthModes `json:"publishAuthModes" xml:"publishAuthModes"`
+SubscribeAuthModes AuthModes `json:"subscribeAuthModes" xml:"subscribeAuthModes"`
+Tags TagMap `json:"tags" xml:"tags"`
 }
 
 type CodeError struct {
-	ErrorType string             `json:"errorType" xml:"errorType"`
-	Location  *CodeErrorLocation `json:"location" xml:"location"`
-	Value     string             `json:"value" xml:"value"`
+ErrorType string `json:"errorType" xml:"errorType"`
+Location *CodeErrorLocation `json:"location" xml:"location"`
+Value string `json:"value" xml:"value"`
 }
 
 type CodeErrorLocation struct {
-	Column int32 `json:"column" xml:"column"`
-	Line   int32 `json:"line" xml:"line"`
-	Span   int32 `json:"span" xml:"span"`
+Column int32 `json:"column" xml:"column"`
+Line int32 `json:"line" xml:"line"`
+Span int32 `json:"span" xml:"span"`
 }
 
 type CognitoConfig struct {
-	AppIdClientRegex string `json:"appIdClientRegex" xml:"appIdClientRegex"`
-	AwsRegion        string `json:"awsRegion" xml:"awsRegion"`
-	UserPoolId       string `json:"userPoolId" xml:"userPoolId"`
+AppIdClientRegex string `json:"appIdClientRegex" xml:"appIdClientRegex"`
+AwsRegion string `json:"awsRegion" xml:"awsRegion"`
+UserPoolId string `json:"userPoolId" xml:"userPoolId"`
 }
 
 type CognitoUserPoolConfig struct {
-	AppIdClientRegex string `json:"appIdClientRegex" xml:"appIdClientRegex"`
-	AwsRegion        string `json:"awsRegion" xml:"awsRegion"`
-	UserPoolId       string `json:"userPoolId" xml:"userPoolId"`
+AppIdClientRegex string `json:"appIdClientRegex" xml:"appIdClientRegex"`
+AwsRegion string `json:"awsRegion" xml:"awsRegion"`
+UserPoolId string `json:"userPoolId" xml:"userPoolId"`
 }
 
 type CreateApiCacheRequest struct {
-	ApiCachingBehavior       string `json:"apiCachingBehavior" xml:"apiCachingBehavior"`
-	ApiId                    string `json:"apiId" xml:"apiId"`
-	AtRestEncryptionEnabled  bool   `json:"atRestEncryptionEnabled" xml:"atRestEncryptionEnabled"`
-	HealthMetricsConfig      string `json:"healthMetricsConfig" xml:"healthMetricsConfig"`
-	TransitEncryptionEnabled bool   `json:"transitEncryptionEnabled" xml:"transitEncryptionEnabled"`
-	Ttl                      int64  `json:"ttl" xml:"ttl"`
-	Type                     string `json:"type" xml:"type"`
+ApiCachingBehavior string `json:"apiCachingBehavior" xml:"apiCachingBehavior"`
+ApiId string `json:"apiId" xml:"apiId"`
+AtRestEncryptionEnabled bool `json:"atRestEncryptionEnabled" xml:"atRestEncryptionEnabled"`
+HealthMetricsConfig string `json:"healthMetricsConfig" xml:"healthMetricsConfig"`
+TransitEncryptionEnabled bool `json:"transitEncryptionEnabled" xml:"transitEncryptionEnabled"`
+Ttl int64 `json:"ttl" xml:"ttl"`
+Type string `json:"type" xml:"type"`
 }
 
 type CreateApiCacheResponse struct {
-	ApiCache *ApiCache `json:"apiCache" xml:"apiCache"`
+ApiCache *ApiCache `json:"apiCache" xml:"apiCache"`
 }
 
 type CreateApiKeyRequest struct {
-	ApiId       string `json:"apiId" xml:"apiId"`
-	Description string `json:"description" xml:"description"`
-	Expires     int64  `json:"expires" xml:"expires"`
+ApiId string `json:"apiId" xml:"apiId"`
+Description string `json:"description" xml:"description"`
+Expires int64 `json:"expires" xml:"expires"`
 }
 
 type CreateApiKeyResponse struct {
-	ApiKey *ApiKey `json:"apiKey" xml:"apiKey"`
+ApiKey *ApiKey `json:"apiKey" xml:"apiKey"`
 }
 
 type CreateApiRequest struct {
-	EventConfig  *EventConfig `json:"eventConfig" xml:"eventConfig"`
-	Name         string       `json:"name" xml:"name"`
-	OwnerContact string       `json:"ownerContact" xml:"ownerContact"`
-	Tags         TagMap       `json:"tags" xml:"tags"`
+EventConfig *EventConfig `json:"eventConfig" xml:"eventConfig"`
+Name string `json:"name" xml:"name"`
+OwnerContact string `json:"ownerContact" xml:"ownerContact"`
+Tags TagMap `json:"tags" xml:"tags"`
 }
 
 type CreateApiResponse struct {
-	Api *Api `json:"api" xml:"api"`
+Api *Api `json:"api" xml:"api"`
 }
 
 type CreateChannelNamespaceRequest struct {
-	ApiId              string          `json:"apiId" xml:"apiId"`
-	CodeHandlers       string          `json:"codeHandlers" xml:"codeHandlers"`
-	HandlerConfigs     *HandlerConfigs `json:"handlerConfigs" xml:"handlerConfigs"`
-	Name               string          `json:"name" xml:"name"`
-	PublishAuthModes   AuthModes       `json:"publishAuthModes" xml:"publishAuthModes"`
-	SubscribeAuthModes AuthModes       `json:"subscribeAuthModes" xml:"subscribeAuthModes"`
-	Tags               TagMap          `json:"tags" xml:"tags"`
+ApiId string `json:"apiId" xml:"apiId"`
+CodeHandlers string `json:"codeHandlers" xml:"codeHandlers"`
+HandlerConfigs *HandlerConfigs `json:"handlerConfigs" xml:"handlerConfigs"`
+Name string `json:"name" xml:"name"`
+PublishAuthModes AuthModes `json:"publishAuthModes" xml:"publishAuthModes"`
+SubscribeAuthModes AuthModes `json:"subscribeAuthModes" xml:"subscribeAuthModes"`
+Tags TagMap `json:"tags" xml:"tags"`
 }
 
 type CreateChannelNamespaceResponse struct {
-	ChannelNamespace *ChannelNamespace `json:"channelNamespace" xml:"channelNamespace"`
+ChannelNamespace *ChannelNamespace `json:"channelNamespace" xml:"channelNamespace"`
 }
 
 type CreateDataSourceRequest struct {
-	ApiId                    string                              `json:"apiId" xml:"apiId"`
-	Description              string                              `json:"description" xml:"description"`
-	DynamodbConfig           *DynamodbDataSourceConfig           `json:"dynamodbConfig" xml:"dynamodbConfig"`
-	ElasticsearchConfig      *ElasticsearchDataSourceConfig      `json:"elasticsearchConfig" xml:"elasticsearchConfig"`
-	EventBridgeConfig        *EventBridgeDataSourceConfig        `json:"eventBridgeConfig" xml:"eventBridgeConfig"`
-	HttpConfig               *HttpDataSourceConfig               `json:"httpConfig" xml:"httpConfig"`
-	LambdaConfig             *LambdaDataSourceConfig             `json:"lambdaConfig" xml:"lambdaConfig"`
-	MetricsConfig            string                              `json:"metricsConfig" xml:"metricsConfig"`
-	Name                     string                              `json:"name" xml:"name"`
-	OpenSearchServiceConfig  *OpenSearchServiceDataSourceConfig  `json:"openSearchServiceConfig" xml:"openSearchServiceConfig"`
-	RelationalDatabaseConfig *RelationalDatabaseDataSourceConfig `json:"relationalDatabaseConfig" xml:"relationalDatabaseConfig"`
-	ServiceRoleArn           string                              `json:"serviceRoleArn" xml:"serviceRoleArn"`
-	Type                     string                              `json:"type" xml:"type"`
+ApiId string `json:"apiId" xml:"apiId"`
+Description string `json:"description" xml:"description"`
+DynamodbConfig *DynamodbDataSourceConfig `json:"dynamodbConfig" xml:"dynamodbConfig"`
+ElasticsearchConfig *ElasticsearchDataSourceConfig `json:"elasticsearchConfig" xml:"elasticsearchConfig"`
+EventBridgeConfig *EventBridgeDataSourceConfig `json:"eventBridgeConfig" xml:"eventBridgeConfig"`
+HttpConfig *HttpDataSourceConfig `json:"httpConfig" xml:"httpConfig"`
+LambdaConfig *LambdaDataSourceConfig `json:"lambdaConfig" xml:"lambdaConfig"`
+MetricsConfig string `json:"metricsConfig" xml:"metricsConfig"`
+Name string `json:"name" xml:"name"`
+OpenSearchServiceConfig *OpenSearchServiceDataSourceConfig `json:"openSearchServiceConfig" xml:"openSearchServiceConfig"`
+RelationalDatabaseConfig *RelationalDatabaseDataSourceConfig `json:"relationalDatabaseConfig" xml:"relationalDatabaseConfig"`
+ServiceRoleArn string `json:"serviceRoleArn" xml:"serviceRoleArn"`
+Type string `json:"type" xml:"type"`
 }
 
 type CreateDataSourceResponse struct {
-	DataSource *DataSource `json:"dataSource" xml:"dataSource"`
+DataSource *DataSource `json:"dataSource" xml:"dataSource"`
 }
 
 type CreateDomainNameRequest struct {
-	CertificateArn string `json:"certificateArn" xml:"certificateArn"`
-	Description    string `json:"description" xml:"description"`
-	DomainName     string `json:"domainName" xml:"domainName"`
-	Tags           TagMap `json:"tags" xml:"tags"`
+CertificateArn string `json:"certificateArn" xml:"certificateArn"`
+Description string `json:"description" xml:"description"`
+DomainName string `json:"domainName" xml:"domainName"`
+Tags TagMap `json:"tags" xml:"tags"`
 }
 
 type CreateDomainNameResponse struct {
-	DomainNameConfig *DomainNameConfig `json:"domainNameConfig" xml:"domainNameConfig"`
+DomainNameConfig *DomainNameConfig `json:"domainNameConfig" xml:"domainNameConfig"`
 }
 
 type CreateFunctionRequest struct {
-	ApiId                   string          `json:"apiId" xml:"apiId"`
-	Code                    string          `json:"code" xml:"code"`
-	DataSourceName          string          `json:"dataSourceName" xml:"dataSourceName"`
-	Description             string          `json:"description" xml:"description"`
-	FunctionVersion         string          `json:"functionVersion" xml:"functionVersion"`
-	MaxBatchSize            int32           `json:"maxBatchSize" xml:"maxBatchSize"`
-	Name                    string          `json:"name" xml:"name"`
-	RequestMappingTemplate  string          `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
-	ResponseMappingTemplate string          `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
-	Runtime                 *AppSyncRuntime `json:"runtime" xml:"runtime"`
-	SyncConfig              *SyncConfig     `json:"syncConfig" xml:"syncConfig"`
+ApiId string `json:"apiId" xml:"apiId"`
+Code string `json:"code" xml:"code"`
+DataSourceName string `json:"dataSourceName" xml:"dataSourceName"`
+Description string `json:"description" xml:"description"`
+FunctionVersion string `json:"functionVersion" xml:"functionVersion"`
+MaxBatchSize int32 `json:"maxBatchSize" xml:"maxBatchSize"`
+Name string `json:"name" xml:"name"`
+RequestMappingTemplate string `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
+ResponseMappingTemplate string `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
+Runtime *AppSyncRuntime `json:"runtime" xml:"runtime"`
+SyncConfig *SyncConfig `json:"syncConfig" xml:"syncConfig"`
 }
 
 type CreateFunctionResponse struct {
-	FunctionConfiguration *FunctionConfiguration `json:"functionConfiguration" xml:"functionConfiguration"`
+FunctionConfiguration *FunctionConfiguration `json:"functionConfiguration" xml:"functionConfiguration"`
 }
 
 type CreateGraphqlApiRequest struct {
-	AdditionalAuthenticationProviders AdditionalAuthenticationProviders `json:"additionalAuthenticationProviders" xml:"additionalAuthenticationProviders"`
-	ApiType                           string                            `json:"apiType" xml:"apiType"`
-	AuthenticationType                string                            `json:"authenticationType" xml:"authenticationType"`
-	EnhancedMetricsConfig             *EnhancedMetricsConfig            `json:"enhancedMetricsConfig" xml:"enhancedMetricsConfig"`
-	IntrospectionConfig               string                            `json:"introspectionConfig" xml:"introspectionConfig"`
-	LambdaAuthorizerConfig            *LambdaAuthorizerConfig           `json:"lambdaAuthorizerConfig" xml:"lambdaAuthorizerConfig"`
-	LogConfig                         *LogConfig                        `json:"logConfig" xml:"logConfig"`
-	MergedApiExecutionRoleArn         string                            `json:"mergedApiExecutionRoleArn" xml:"mergedApiExecutionRoleArn"`
-	Name                              string                            `json:"name" xml:"name"`
-	OpenIDConnectConfig               *OpenIDConnectConfig              `json:"openIDConnectConfig" xml:"openIDConnectConfig"`
-	OwnerContact                      string                            `json:"ownerContact" xml:"ownerContact"`
-	QueryDepthLimit                   int32                             `json:"queryDepthLimit" xml:"queryDepthLimit"`
-	ResolverCountLimit                int32                             `json:"resolverCountLimit" xml:"resolverCountLimit"`
-	Tags                              TagMap                            `json:"tags" xml:"tags"`
-	UserPoolConfig                    *UserPoolConfig                   `json:"userPoolConfig" xml:"userPoolConfig"`
-	Visibility                        string                            `json:"visibility" xml:"visibility"`
-	XrayEnabled                       bool                              `json:"xrayEnabled" xml:"xrayEnabled"`
+AdditionalAuthenticationProviders AdditionalAuthenticationProviders `json:"additionalAuthenticationProviders" xml:"additionalAuthenticationProviders"`
+ApiType string `json:"apiType" xml:"apiType"`
+AuthenticationType string `json:"authenticationType" xml:"authenticationType"`
+EnhancedMetricsConfig *EnhancedMetricsConfig `json:"enhancedMetricsConfig" xml:"enhancedMetricsConfig"`
+IntrospectionConfig string `json:"introspectionConfig" xml:"introspectionConfig"`
+LambdaAuthorizerConfig *LambdaAuthorizerConfig `json:"lambdaAuthorizerConfig" xml:"lambdaAuthorizerConfig"`
+LogConfig *LogConfig `json:"logConfig" xml:"logConfig"`
+MergedApiExecutionRoleArn string `json:"mergedApiExecutionRoleArn" xml:"mergedApiExecutionRoleArn"`
+Name string `json:"name" xml:"name"`
+OpenIDConnectConfig *OpenIDConnectConfig `json:"openIDConnectConfig" xml:"openIDConnectConfig"`
+OwnerContact string `json:"ownerContact" xml:"ownerContact"`
+QueryDepthLimit int32 `json:"queryDepthLimit" xml:"queryDepthLimit"`
+ResolverCountLimit int32 `json:"resolverCountLimit" xml:"resolverCountLimit"`
+Tags TagMap `json:"tags" xml:"tags"`
+UserPoolConfig *UserPoolConfig `json:"userPoolConfig" xml:"userPoolConfig"`
+Visibility string `json:"visibility" xml:"visibility"`
+XrayEnabled bool `json:"xrayEnabled" xml:"xrayEnabled"`
 }
 
 type CreateGraphqlApiResponse struct {
-	GraphqlApi *GraphqlApi `json:"graphqlApi" xml:"graphqlApi"`
+GraphqlApi *GraphqlApi `json:"graphqlApi" xml:"graphqlApi"`
 }
 
 type CreateResolverRequest struct {
-	ApiId                   string          `json:"apiId" xml:"apiId"`
-	CachingConfig           *CachingConfig  `json:"cachingConfig" xml:"cachingConfig"`
-	Code                    string          `json:"code" xml:"code"`
-	DataSourceName          string          `json:"dataSourceName" xml:"dataSourceName"`
-	FieldName               string          `json:"fieldName" xml:"fieldName"`
-	Kind                    string          `json:"kind" xml:"kind"`
-	MaxBatchSize            int32           `json:"maxBatchSize" xml:"maxBatchSize"`
-	MetricsConfig           string          `json:"metricsConfig" xml:"metricsConfig"`
-	PipelineConfig          *PipelineConfig `json:"pipelineConfig" xml:"pipelineConfig"`
-	RequestMappingTemplate  string          `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
-	ResponseMappingTemplate string          `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
-	Runtime                 *AppSyncRuntime `json:"runtime" xml:"runtime"`
-	SyncConfig              *SyncConfig     `json:"syncConfig" xml:"syncConfig"`
-	TypeName                string          `json:"typeName" xml:"typeName"`
+ApiId string `json:"apiId" xml:"apiId"`
+CachingConfig *CachingConfig `json:"cachingConfig" xml:"cachingConfig"`
+Code string `json:"code" xml:"code"`
+DataSourceName string `json:"dataSourceName" xml:"dataSourceName"`
+FieldName string `json:"fieldName" xml:"fieldName"`
+Kind string `json:"kind" xml:"kind"`
+MaxBatchSize int32 `json:"maxBatchSize" xml:"maxBatchSize"`
+MetricsConfig string `json:"metricsConfig" xml:"metricsConfig"`
+PipelineConfig *PipelineConfig `json:"pipelineConfig" xml:"pipelineConfig"`
+RequestMappingTemplate string `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
+ResponseMappingTemplate string `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
+Runtime *AppSyncRuntime `json:"runtime" xml:"runtime"`
+SyncConfig *SyncConfig `json:"syncConfig" xml:"syncConfig"`
+TypeName string `json:"typeName" xml:"typeName"`
 }
 
 type CreateResolverResponse struct {
-	Resolver *Resolver `json:"resolver" xml:"resolver"`
+Resolver *Resolver `json:"resolver" xml:"resolver"`
 }
 
 type CreateTypeRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	Definition string `json:"definition" xml:"definition"`
-	Format     string `json:"format" xml:"format"`
+ApiId string `json:"apiId" xml:"apiId"`
+Definition string `json:"definition" xml:"definition"`
+Format string `json:"format" xml:"format"`
 }
 
 type CreateTypeResponse struct {
-	Type *Type `json:"type" xml:"type"`
+Type *Type `json:"type" xml:"type"`
 }
 
 type DataSource struct {
-	DataSourceArn            string                              `json:"dataSourceArn" xml:"dataSourceArn"`
-	Description              string                              `json:"description" xml:"description"`
-	DynamodbConfig           *DynamodbDataSourceConfig           `json:"dynamodbConfig" xml:"dynamodbConfig"`
-	ElasticsearchConfig      *ElasticsearchDataSourceConfig      `json:"elasticsearchConfig" xml:"elasticsearchConfig"`
-	EventBridgeConfig        *EventBridgeDataSourceConfig        `json:"eventBridgeConfig" xml:"eventBridgeConfig"`
-	HttpConfig               *HttpDataSourceConfig               `json:"httpConfig" xml:"httpConfig"`
-	LambdaConfig             *LambdaDataSourceConfig             `json:"lambdaConfig" xml:"lambdaConfig"`
-	MetricsConfig            string                              `json:"metricsConfig" xml:"metricsConfig"`
-	Name                     string                              `json:"name" xml:"name"`
-	OpenSearchServiceConfig  *OpenSearchServiceDataSourceConfig  `json:"openSearchServiceConfig" xml:"openSearchServiceConfig"`
-	RelationalDatabaseConfig *RelationalDatabaseDataSourceConfig `json:"relationalDatabaseConfig" xml:"relationalDatabaseConfig"`
-	ServiceRoleArn           string                              `json:"serviceRoleArn" xml:"serviceRoleArn"`
-	Type                     string                              `json:"type" xml:"type"`
+DataSourceArn string `json:"dataSourceArn" xml:"dataSourceArn"`
+Description string `json:"description" xml:"description"`
+DynamodbConfig *DynamodbDataSourceConfig `json:"dynamodbConfig" xml:"dynamodbConfig"`
+ElasticsearchConfig *ElasticsearchDataSourceConfig `json:"elasticsearchConfig" xml:"elasticsearchConfig"`
+EventBridgeConfig *EventBridgeDataSourceConfig `json:"eventBridgeConfig" xml:"eventBridgeConfig"`
+HttpConfig *HttpDataSourceConfig `json:"httpConfig" xml:"httpConfig"`
+LambdaConfig *LambdaDataSourceConfig `json:"lambdaConfig" xml:"lambdaConfig"`
+MetricsConfig string `json:"metricsConfig" xml:"metricsConfig"`
+Name string `json:"name" xml:"name"`
+OpenSearchServiceConfig *OpenSearchServiceDataSourceConfig `json:"openSearchServiceConfig" xml:"openSearchServiceConfig"`
+RelationalDatabaseConfig *RelationalDatabaseDataSourceConfig `json:"relationalDatabaseConfig" xml:"relationalDatabaseConfig"`
+ServiceRoleArn string `json:"serviceRoleArn" xml:"serviceRoleArn"`
+Type string `json:"type" xml:"type"`
 }
 
 type DataSourceIntrospectionModel struct {
-	Fields     DataSourceIntrospectionModelFields  `json:"fields" xml:"fields"`
-	Indexes    DataSourceIntrospectionModelIndexes `json:"indexes" xml:"indexes"`
-	Name       string                              `json:"name" xml:"name"`
-	PrimaryKey *DataSourceIntrospectionModelIndex  `json:"primaryKey" xml:"primaryKey"`
-	Sdl        string                              `json:"sdl" xml:"sdl"`
+Fields DataSourceIntrospectionModelFields `json:"fields" xml:"fields"`
+Indexes DataSourceIntrospectionModelIndexes `json:"indexes" xml:"indexes"`
+Name string `json:"name" xml:"name"`
+PrimaryKey *DataSourceIntrospectionModelIndex `json:"primaryKey" xml:"primaryKey"`
+Sdl string `json:"sdl" xml:"sdl"`
 }
 
 type DataSourceIntrospectionModelField struct {
-	Length int64                                  `json:"length" xml:"length"`
-	Name   string                                 `json:"name" xml:"name"`
-	Type   *DataSourceIntrospectionModelFieldType `json:"type" xml:"type"`
+Length int64 `json:"length" xml:"length"`
+Name string `json:"name" xml:"name"`
+Type *DataSourceIntrospectionModelFieldType `json:"type" xml:"type"`
 }
 
 type DataSourceIntrospectionModelFieldType struct {
-	Kind   string                                      `json:"kind" xml:"kind"`
-	Name   string                                      `json:"name" xml:"name"`
-	Type   *DataSourceIntrospectionModelFieldType      `json:"type" xml:"type"`
-	Values DataSourceIntrospectionModelFieldTypeValues `json:"values" xml:"values"`
+Kind string `json:"kind" xml:"kind"`
+Name string `json:"name" xml:"name"`
+Type *DataSourceIntrospectionModelFieldType `json:"type" xml:"type"`
+Values DataSourceIntrospectionModelFieldTypeValues `json:"values" xml:"values"`
 }
 
 type DataSourceIntrospectionModelIndex struct {
-	Fields DataSourceIntrospectionModelIndexFields `json:"fields" xml:"fields"`
-	Name   string                                  `json:"name" xml:"name"`
+Fields DataSourceIntrospectionModelIndexFields `json:"fields" xml:"fields"`
+Name string `json:"name" xml:"name"`
 }
 
 type DataSourceIntrospectionResult struct {
-	Models    DataSourceIntrospectionModels `json:"models" xml:"models"`
-	NextToken string                        `json:"nextToken" xml:"nextToken"`
+Models DataSourceIntrospectionModels `json:"models" xml:"models"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DeleteApiCacheRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
+ApiId string `json:"apiId" xml:"apiId"`
 }
 
 type DeleteApiCacheResponse struct {
 }
 
 type DeleteApiKeyRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
-	Id    string `json:"id" xml:"id"`
+ApiId string `json:"apiId" xml:"apiId"`
+Id string `json:"id" xml:"id"`
 }
 
 type DeleteApiKeyResponse struct {
 }
 
 type DeleteApiRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
+ApiId string `json:"apiId" xml:"apiId"`
 }
 
 type DeleteApiResponse struct {
 }
 
 type DeleteChannelNamespaceRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
-	Name  string `json:"name" xml:"name"`
+ApiId string `json:"apiId" xml:"apiId"`
+Name string `json:"name" xml:"name"`
 }
 
 type DeleteChannelNamespaceResponse struct {
 }
 
 type DeleteDataSourceRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
-	Name  string `json:"name" xml:"name"`
+ApiId string `json:"apiId" xml:"apiId"`
+Name string `json:"name" xml:"name"`
 }
 
 type DeleteDataSourceResponse struct {
 }
 
 type DeleteDomainNameRequest struct {
-	DomainName string `json:"domainName" xml:"domainName"`
+DomainName string `json:"domainName" xml:"domainName"`
 }
 
 type DeleteDomainNameResponse struct {
 }
 
 type DeleteFunctionRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	FunctionId string `json:"functionId" xml:"functionId"`
+ApiId string `json:"apiId" xml:"apiId"`
+FunctionId string `json:"functionId" xml:"functionId"`
 }
 
 type DeleteFunctionResponse struct {
 }
 
 type DeleteGraphqlApiRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
+ApiId string `json:"apiId" xml:"apiId"`
 }
 
 type DeleteGraphqlApiResponse struct {
 }
 
 type DeleteResolverRequest struct {
-	ApiId     string `json:"apiId" xml:"apiId"`
-	FieldName string `json:"fieldName" xml:"fieldName"`
-	TypeName  string `json:"typeName" xml:"typeName"`
+ApiId string `json:"apiId" xml:"apiId"`
+FieldName string `json:"fieldName" xml:"fieldName"`
+TypeName string `json:"typeName" xml:"typeName"`
 }
 
 type DeleteResolverResponse struct {
 }
 
 type DeleteTypeRequest struct {
-	ApiId    string `json:"apiId" xml:"apiId"`
-	TypeName string `json:"typeName" xml:"typeName"`
+ApiId string `json:"apiId" xml:"apiId"`
+TypeName string `json:"typeName" xml:"typeName"`
 }
 
 type DeleteTypeResponse struct {
 }
 
 type DeltaSyncConfig struct {
-	BaseTableTTL       int64  `json:"baseTableTTL" xml:"baseTableTTL"`
-	DeltaSyncTableName string `json:"deltaSyncTableName" xml:"deltaSyncTableName"`
-	DeltaSyncTableTTL  int64  `json:"deltaSyncTableTTL" xml:"deltaSyncTableTTL"`
+BaseTableTTL int64 `json:"baseTableTTL" xml:"baseTableTTL"`
+DeltaSyncTableName string `json:"deltaSyncTableName" xml:"deltaSyncTableName"`
+DeltaSyncTableTTL int64 `json:"deltaSyncTableTTL" xml:"deltaSyncTableTTL"`
 }
 
 type DisassociateApiRequest struct {
-	DomainName string `json:"domainName" xml:"domainName"`
+DomainName string `json:"domainName" xml:"domainName"`
 }
 
 type DisassociateApiResponse struct {
 }
 
 type DisassociateMergedGraphqlApiRequest struct {
-	AssociationId       string `json:"associationId" xml:"associationId"`
-	SourceApiIdentifier string `json:"sourceApiIdentifier" xml:"sourceApiIdentifier"`
+AssociationId string `json:"associationId" xml:"associationId"`
+SourceApiIdentifier string `json:"sourceApiIdentifier" xml:"sourceApiIdentifier"`
 }
 
 type DisassociateMergedGraphqlApiResponse struct {
-	SourceApiAssociationStatus string `json:"sourceApiAssociationStatus" xml:"sourceApiAssociationStatus"`
+SourceApiAssociationStatus string `json:"sourceApiAssociationStatus" xml:"sourceApiAssociationStatus"`
 }
 
 type DisassociateSourceGraphqlApiRequest struct {
-	AssociationId       string `json:"associationId" xml:"associationId"`
-	MergedApiIdentifier string `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
+AssociationId string `json:"associationId" xml:"associationId"`
+MergedApiIdentifier string `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
 }
 
 type DisassociateSourceGraphqlApiResponse struct {
-	SourceApiAssociationStatus string `json:"sourceApiAssociationStatus" xml:"sourceApiAssociationStatus"`
+SourceApiAssociationStatus string `json:"sourceApiAssociationStatus" xml:"sourceApiAssociationStatus"`
 }
 
 type DomainNameConfig struct {
-	AppsyncDomainName string `json:"appsyncDomainName" xml:"appsyncDomainName"`
-	CertificateArn    string `json:"certificateArn" xml:"certificateArn"`
-	Description       string `json:"description" xml:"description"`
-	DomainName        string `json:"domainName" xml:"domainName"`
-	DomainNameArn     string `json:"domainNameArn" xml:"domainNameArn"`
-	HostedZoneId      string `json:"hostedZoneId" xml:"hostedZoneId"`
-	Tags              TagMap `json:"tags" xml:"tags"`
+AppsyncDomainName string `json:"appsyncDomainName" xml:"appsyncDomainName"`
+CertificateArn string `json:"certificateArn" xml:"certificateArn"`
+Description string `json:"description" xml:"description"`
+DomainName string `json:"domainName" xml:"domainName"`
+DomainNameArn string `json:"domainNameArn" xml:"domainNameArn"`
+HostedZoneId string `json:"hostedZoneId" xml:"hostedZoneId"`
+Tags TagMap `json:"tags" xml:"tags"`
 }
 
 type DynamodbDataSourceConfig struct {
-	AwsRegion            string           `json:"awsRegion" xml:"awsRegion"`
-	DeltaSyncConfig      *DeltaSyncConfig `json:"deltaSyncConfig" xml:"deltaSyncConfig"`
-	TableName            string           `json:"tableName" xml:"tableName"`
-	UseCallerCredentials bool             `json:"useCallerCredentials" xml:"useCallerCredentials"`
-	Versioned            bool             `json:"versioned" xml:"versioned"`
+AwsRegion string `json:"awsRegion" xml:"awsRegion"`
+DeltaSyncConfig *DeltaSyncConfig `json:"deltaSyncConfig" xml:"deltaSyncConfig"`
+TableName string `json:"tableName" xml:"tableName"`
+UseCallerCredentials bool `json:"useCallerCredentials" xml:"useCallerCredentials"`
+Versioned bool `json:"versioned" xml:"versioned"`
 }
 
 type ElasticsearchDataSourceConfig struct {
-	AwsRegion string `json:"awsRegion" xml:"awsRegion"`
-	Endpoint  string `json:"endpoint" xml:"endpoint"`
+AwsRegion string `json:"awsRegion" xml:"awsRegion"`
+Endpoint string `json:"endpoint" xml:"endpoint"`
 }
 
 type EnhancedMetricsConfig struct {
-	DataSourceLevelMetricsBehavior string `json:"dataSourceLevelMetricsBehavior" xml:"dataSourceLevelMetricsBehavior"`
-	OperationLevelMetricsConfig    string `json:"operationLevelMetricsConfig" xml:"operationLevelMetricsConfig"`
-	ResolverLevelMetricsBehavior   string `json:"resolverLevelMetricsBehavior" xml:"resolverLevelMetricsBehavior"`
+DataSourceLevelMetricsBehavior string `json:"dataSourceLevelMetricsBehavior" xml:"dataSourceLevelMetricsBehavior"`
+OperationLevelMetricsConfig string `json:"operationLevelMetricsConfig" xml:"operationLevelMetricsConfig"`
+ResolverLevelMetricsBehavior string `json:"resolverLevelMetricsBehavior" xml:"resolverLevelMetricsBehavior"`
 }
 
 type ErrorDetail struct {
-	Message string `json:"message" xml:"message"`
+Message string `json:"message" xml:"message"`
 }
 
 type EvaluateCodeErrorDetail struct {
-	CodeErrors CodeErrors `json:"codeErrors" xml:"codeErrors"`
-	Message    string     `json:"message" xml:"message"`
+CodeErrors CodeErrors `json:"codeErrors" xml:"codeErrors"`
+Message string `json:"message" xml:"message"`
 }
 
 type EvaluateCodeRequest struct {
-	Code     string          `json:"code" xml:"code"`
-	Context  string          `json:"context" xml:"context"`
-	Function string          `json:"function" xml:"function"`
-	Runtime  *AppSyncRuntime `json:"runtime" xml:"runtime"`
+Code string `json:"code" xml:"code"`
+Context string `json:"context" xml:"context"`
+Function string `json:"function" xml:"function"`
+Runtime *AppSyncRuntime `json:"runtime" xml:"runtime"`
 }
 
 type EvaluateCodeResponse struct {
-	Error            *EvaluateCodeErrorDetail `json:"error" xml:"error"`
-	EvaluationResult string                   `json:"evaluationResult" xml:"evaluationResult"`
-	Logs             Logs                     `json:"logs" xml:"logs"`
-	OutErrors        string                   `json:"outErrors" xml:"outErrors"`
-	Stash            string                   `json:"stash" xml:"stash"`
+Error *EvaluateCodeErrorDetail `json:"error" xml:"error"`
+EvaluationResult string `json:"evaluationResult" xml:"evaluationResult"`
+Logs Logs `json:"logs" xml:"logs"`
+OutErrors string `json:"outErrors" xml:"outErrors"`
+Stash string `json:"stash" xml:"stash"`
 }
 
 type EvaluateMappingTemplateRequest struct {
-	Context  string `json:"context" xml:"context"`
-	Template string `json:"template" xml:"template"`
+Context string `json:"context" xml:"context"`
+Template string `json:"template" xml:"template"`
 }
 
 type EvaluateMappingTemplateResponse struct {
-	Error            *ErrorDetail `json:"error" xml:"error"`
-	EvaluationResult string       `json:"evaluationResult" xml:"evaluationResult"`
-	Logs             Logs         `json:"logs" xml:"logs"`
-	OutErrors        string       `json:"outErrors" xml:"outErrors"`
-	Stash            string       `json:"stash" xml:"stash"`
+Error *ErrorDetail `json:"error" xml:"error"`
+EvaluationResult string `json:"evaluationResult" xml:"evaluationResult"`
+Logs Logs `json:"logs" xml:"logs"`
+OutErrors string `json:"outErrors" xml:"outErrors"`
+Stash string `json:"stash" xml:"stash"`
 }
 
 type EventBridgeDataSourceConfig struct {
-	EventBusArn string `json:"eventBusArn" xml:"eventBusArn"`
+EventBusArn string `json:"eventBusArn" xml:"eventBusArn"`
 }
 
 type EventConfig struct {
-	AuthProviders             AuthProviders   `json:"authProviders" xml:"authProviders"`
-	ConnectionAuthModes       AuthModes       `json:"connectionAuthModes" xml:"connectionAuthModes"`
-	DefaultPublishAuthModes   AuthModes       `json:"defaultPublishAuthModes" xml:"defaultPublishAuthModes"`
-	DefaultSubscribeAuthModes AuthModes       `json:"defaultSubscribeAuthModes" xml:"defaultSubscribeAuthModes"`
-	LogConfig                 *EventLogConfig `json:"logConfig" xml:"logConfig"`
+AuthProviders AuthProviders `json:"authProviders" xml:"authProviders"`
+ConnectionAuthModes AuthModes `json:"connectionAuthModes" xml:"connectionAuthModes"`
+DefaultPublishAuthModes AuthModes `json:"defaultPublishAuthModes" xml:"defaultPublishAuthModes"`
+DefaultSubscribeAuthModes AuthModes `json:"defaultSubscribeAuthModes" xml:"defaultSubscribeAuthModes"`
+LogConfig *EventLogConfig `json:"logConfig" xml:"logConfig"`
 }
 
 type EventLogConfig struct {
-	CloudWatchLogsRoleArn string `json:"cloudWatchLogsRoleArn" xml:"cloudWatchLogsRoleArn"`
-	LogLevel              string `json:"logLevel" xml:"logLevel"`
+CloudWatchLogsRoleArn string `json:"cloudWatchLogsRoleArn" xml:"cloudWatchLogsRoleArn"`
+LogLevel string `json:"logLevel" xml:"logLevel"`
 }
 
 type FlushApiCacheRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
+ApiId string `json:"apiId" xml:"apiId"`
 }
 
 type FlushApiCacheResponse struct {
 }
 
 type FunctionConfiguration struct {
-	Code                    string          `json:"code" xml:"code"`
-	DataSourceName          string          `json:"dataSourceName" xml:"dataSourceName"`
-	Description             string          `json:"description" xml:"description"`
-	FunctionArn             string          `json:"functionArn" xml:"functionArn"`
-	FunctionId              string          `json:"functionId" xml:"functionId"`
-	FunctionVersion         string          `json:"functionVersion" xml:"functionVersion"`
-	MaxBatchSize            int32           `json:"maxBatchSize" xml:"maxBatchSize"`
-	Name                    string          `json:"name" xml:"name"`
-	RequestMappingTemplate  string          `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
-	ResponseMappingTemplate string          `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
-	Runtime                 *AppSyncRuntime `json:"runtime" xml:"runtime"`
-	SyncConfig              *SyncConfig     `json:"syncConfig" xml:"syncConfig"`
+Code string `json:"code" xml:"code"`
+DataSourceName string `json:"dataSourceName" xml:"dataSourceName"`
+Description string `json:"description" xml:"description"`
+FunctionArn string `json:"functionArn" xml:"functionArn"`
+FunctionId string `json:"functionId" xml:"functionId"`
+FunctionVersion string `json:"functionVersion" xml:"functionVersion"`
+MaxBatchSize int32 `json:"maxBatchSize" xml:"maxBatchSize"`
+Name string `json:"name" xml:"name"`
+RequestMappingTemplate string `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
+ResponseMappingTemplate string `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
+Runtime *AppSyncRuntime `json:"runtime" xml:"runtime"`
+SyncConfig *SyncConfig `json:"syncConfig" xml:"syncConfig"`
 }
 
 type GetApiAssociationRequest struct {
-	DomainName string `json:"domainName" xml:"domainName"`
+DomainName string `json:"domainName" xml:"domainName"`
 }
 
 type GetApiAssociationResponse struct {
-	ApiAssociation *ApiAssociation `json:"apiAssociation" xml:"apiAssociation"`
+ApiAssociation *ApiAssociation `json:"apiAssociation" xml:"apiAssociation"`
 }
 
 type GetApiCacheRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
+ApiId string `json:"apiId" xml:"apiId"`
 }
 
 type GetApiCacheResponse struct {
-	ApiCache *ApiCache `json:"apiCache" xml:"apiCache"`
+ApiCache *ApiCache `json:"apiCache" xml:"apiCache"`
 }
 
 type GetApiRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
+ApiId string `json:"apiId" xml:"apiId"`
 }
 
 type GetApiResponse struct {
-	Api *Api `json:"api" xml:"api"`
+Api *Api `json:"api" xml:"api"`
 }
 
 type GetChannelNamespaceRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
-	Name  string `json:"name" xml:"name"`
+ApiId string `json:"apiId" xml:"apiId"`
+Name string `json:"name" xml:"name"`
 }
 
 type GetChannelNamespaceResponse struct {
-	ChannelNamespace *ChannelNamespace `json:"channelNamespace" xml:"channelNamespace"`
+ChannelNamespace *ChannelNamespace `json:"channelNamespace" xml:"channelNamespace"`
 }
 
 type GetDataSourceIntrospectionRequest struct {
-	IncludeModelsSDL bool   `json:"includeModelsSDL" xml:"includeModelsSDL"`
-	IntrospectionId  string `json:"introspectionId" xml:"introspectionId"`
-	MaxResults       int32  `json:"maxResults" xml:"maxResults"`
-	NextToken        string `json:"nextToken" xml:"nextToken"`
+IncludeModelsSDL bool `json:"includeModelsSDL" xml:"includeModelsSDL"`
+IntrospectionId string `json:"introspectionId" xml:"introspectionId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type GetDataSourceIntrospectionResponse struct {
-	IntrospectionId           string                         `json:"introspectionId" xml:"introspectionId"`
-	IntrospectionResult       *DataSourceIntrospectionResult `json:"introspectionResult" xml:"introspectionResult"`
-	IntrospectionStatus       string                         `json:"introspectionStatus" xml:"introspectionStatus"`
-	IntrospectionStatusDetail string                         `json:"introspectionStatusDetail" xml:"introspectionStatusDetail"`
+IntrospectionId string `json:"introspectionId" xml:"introspectionId"`
+IntrospectionResult *DataSourceIntrospectionResult `json:"introspectionResult" xml:"introspectionResult"`
+IntrospectionStatus string `json:"introspectionStatus" xml:"introspectionStatus"`
+IntrospectionStatusDetail string `json:"introspectionStatusDetail" xml:"introspectionStatusDetail"`
 }
 
 type GetDataSourceRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
-	Name  string `json:"name" xml:"name"`
+ApiId string `json:"apiId" xml:"apiId"`
+Name string `json:"name" xml:"name"`
 }
 
 type GetDataSourceResponse struct {
-	DataSource *DataSource `json:"dataSource" xml:"dataSource"`
+DataSource *DataSource `json:"dataSource" xml:"dataSource"`
 }
 
 type GetDomainNameRequest struct {
-	DomainName string `json:"domainName" xml:"domainName"`
+DomainName string `json:"domainName" xml:"domainName"`
 }
 
 type GetDomainNameResponse struct {
-	DomainNameConfig *DomainNameConfig `json:"domainNameConfig" xml:"domainNameConfig"`
+DomainNameConfig *DomainNameConfig `json:"domainNameConfig" xml:"domainNameConfig"`
 }
 
 type GetFunctionRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	FunctionId string `json:"functionId" xml:"functionId"`
+ApiId string `json:"apiId" xml:"apiId"`
+FunctionId string `json:"functionId" xml:"functionId"`
 }
 
 type GetFunctionResponse struct {
-	FunctionConfiguration *FunctionConfiguration `json:"functionConfiguration" xml:"functionConfiguration"`
+FunctionConfiguration *FunctionConfiguration `json:"functionConfiguration" xml:"functionConfiguration"`
 }
 
 type GetGraphqlApiEnvironmentVariablesRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
+ApiId string `json:"apiId" xml:"apiId"`
 }
 
 type GetGraphqlApiEnvironmentVariablesResponse struct {
-	EnvironmentVariables EnvironmentVariableMap `json:"environmentVariables" xml:"environmentVariables"`
+EnvironmentVariables EnvironmentVariableMap `json:"environmentVariables" xml:"environmentVariables"`
 }
 
 type GetGraphqlApiRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
+ApiId string `json:"apiId" xml:"apiId"`
 }
 
 type GetGraphqlApiResponse struct {
-	GraphqlApi *GraphqlApi `json:"graphqlApi" xml:"graphqlApi"`
+GraphqlApi *GraphqlApi `json:"graphqlApi" xml:"graphqlApi"`
 }
 
 type GetIntrospectionSchemaRequest struct {
-	ApiId             string `json:"apiId" xml:"apiId"`
-	Format            string `json:"format" xml:"format"`
-	IncludeDirectives bool   `json:"includeDirectives" xml:"includeDirectives"`
+ApiId string `json:"apiId" xml:"apiId"`
+Format string `json:"format" xml:"format"`
+IncludeDirectives bool `json:"includeDirectives" xml:"includeDirectives"`
 }
 
 type GetIntrospectionSchemaResponse struct {
-	Schema []byte `json:"schema" xml:"schema"`
+Schema []byte `json:"schema" xml:"schema"`
 }
 
 type GetResolverRequest struct {
-	ApiId     string `json:"apiId" xml:"apiId"`
-	FieldName string `json:"fieldName" xml:"fieldName"`
-	TypeName  string `json:"typeName" xml:"typeName"`
+ApiId string `json:"apiId" xml:"apiId"`
+FieldName string `json:"fieldName" xml:"fieldName"`
+TypeName string `json:"typeName" xml:"typeName"`
 }
 
 type GetResolverResponse struct {
-	Resolver *Resolver `json:"resolver" xml:"resolver"`
+Resolver *Resolver `json:"resolver" xml:"resolver"`
 }
 
 type GetSchemaCreationStatusRequest struct {
-	ApiId string `json:"apiId" xml:"apiId"`
+ApiId string `json:"apiId" xml:"apiId"`
 }
 
 type GetSchemaCreationStatusResponse struct {
-	Details string `json:"details" xml:"details"`
-	Status  string `json:"status" xml:"status"`
+Details string `json:"details" xml:"details"`
+Status string `json:"status" xml:"status"`
 }
 
 type GetSourceApiAssociationRequest struct {
-	AssociationId       string `json:"associationId" xml:"associationId"`
-	MergedApiIdentifier string `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
+AssociationId string `json:"associationId" xml:"associationId"`
+MergedApiIdentifier string `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
 }
 
 type GetSourceApiAssociationResponse struct {
-	SourceApiAssociation *SourceApiAssociation `json:"sourceApiAssociation" xml:"sourceApiAssociation"`
+SourceApiAssociation *SourceApiAssociation `json:"sourceApiAssociation" xml:"sourceApiAssociation"`
 }
 
 type GetTypeRequest struct {
-	ApiId    string `json:"apiId" xml:"apiId"`
-	Format   string `json:"format" xml:"format"`
-	TypeName string `json:"typeName" xml:"typeName"`
+ApiId string `json:"apiId" xml:"apiId"`
+Format string `json:"format" xml:"format"`
+TypeName string `json:"typeName" xml:"typeName"`
 }
 
 type GetTypeResponse struct {
-	Type *Type `json:"type" xml:"type"`
+Type *Type `json:"type" xml:"type"`
 }
 
 type GraphqlApi struct {
-	AdditionalAuthenticationProviders AdditionalAuthenticationProviders `json:"additionalAuthenticationProviders" xml:"additionalAuthenticationProviders"`
-	ApiId                             string                            `json:"apiId" xml:"apiId"`
-	ApiType                           string                            `json:"apiType" xml:"apiType"`
-	Arn                               string                            `json:"arn" xml:"arn"`
-	AuthenticationType                string                            `json:"authenticationType" xml:"authenticationType"`
-	Dns                               MapOfStringToString               `json:"dns" xml:"dns"`
-	EnhancedMetricsConfig             *EnhancedMetricsConfig            `json:"enhancedMetricsConfig" xml:"enhancedMetricsConfig"`
-	IntrospectionConfig               string                            `json:"introspectionConfig" xml:"introspectionConfig"`
-	LambdaAuthorizerConfig            *LambdaAuthorizerConfig           `json:"lambdaAuthorizerConfig" xml:"lambdaAuthorizerConfig"`
-	LogConfig                         *LogConfig                        `json:"logConfig" xml:"logConfig"`
-	MergedApiExecutionRoleArn         string                            `json:"mergedApiExecutionRoleArn" xml:"mergedApiExecutionRoleArn"`
-	Name                              string                            `json:"name" xml:"name"`
-	OpenIDConnectConfig               *OpenIDConnectConfig              `json:"openIDConnectConfig" xml:"openIDConnectConfig"`
-	Owner                             string                            `json:"owner" xml:"owner"`
-	OwnerContact                      string                            `json:"ownerContact" xml:"ownerContact"`
-	QueryDepthLimit                   int32                             `json:"queryDepthLimit" xml:"queryDepthLimit"`
-	ResolverCountLimit                int32                             `json:"resolverCountLimit" xml:"resolverCountLimit"`
-	Tags                              TagMap                            `json:"tags" xml:"tags"`
-	Uris                              MapOfStringToString               `json:"uris" xml:"uris"`
-	UserPoolConfig                    *UserPoolConfig                   `json:"userPoolConfig" xml:"userPoolConfig"`
-	Visibility                        string                            `json:"visibility" xml:"visibility"`
-	WafWebAclArn                      string                            `json:"wafWebAclArn" xml:"wafWebAclArn"`
-	XrayEnabled                       bool                              `json:"xrayEnabled" xml:"xrayEnabled"`
+AdditionalAuthenticationProviders AdditionalAuthenticationProviders `json:"additionalAuthenticationProviders" xml:"additionalAuthenticationProviders"`
+ApiId string `json:"apiId" xml:"apiId"`
+ApiType string `json:"apiType" xml:"apiType"`
+Arn string `json:"arn" xml:"arn"`
+AuthenticationType string `json:"authenticationType" xml:"authenticationType"`
+Dns MapOfStringToString `json:"dns" xml:"dns"`
+EnhancedMetricsConfig *EnhancedMetricsConfig `json:"enhancedMetricsConfig" xml:"enhancedMetricsConfig"`
+IntrospectionConfig string `json:"introspectionConfig" xml:"introspectionConfig"`
+LambdaAuthorizerConfig *LambdaAuthorizerConfig `json:"lambdaAuthorizerConfig" xml:"lambdaAuthorizerConfig"`
+LogConfig *LogConfig `json:"logConfig" xml:"logConfig"`
+MergedApiExecutionRoleArn string `json:"mergedApiExecutionRoleArn" xml:"mergedApiExecutionRoleArn"`
+Name string `json:"name" xml:"name"`
+OpenIDConnectConfig *OpenIDConnectConfig `json:"openIDConnectConfig" xml:"openIDConnectConfig"`
+Owner string `json:"owner" xml:"owner"`
+OwnerContact string `json:"ownerContact" xml:"ownerContact"`
+QueryDepthLimit int32 `json:"queryDepthLimit" xml:"queryDepthLimit"`
+ResolverCountLimit int32 `json:"resolverCountLimit" xml:"resolverCountLimit"`
+Tags TagMap `json:"tags" xml:"tags"`
+Uris MapOfStringToString `json:"uris" xml:"uris"`
+UserPoolConfig *UserPoolConfig `json:"userPoolConfig" xml:"userPoolConfig"`
+Visibility string `json:"visibility" xml:"visibility"`
+WafWebAclArn string `json:"wafWebAclArn" xml:"wafWebAclArn"`
+XrayEnabled bool `json:"xrayEnabled" xml:"xrayEnabled"`
 }
 
 type HandlerConfig struct {
-	Behavior    string       `json:"behavior" xml:"behavior"`
-	Integration *Integration `json:"integration" xml:"integration"`
+Behavior string `json:"behavior" xml:"behavior"`
+Integration *Integration `json:"integration" xml:"integration"`
 }
 
 type HandlerConfigs struct {
-	OnPublish   *HandlerConfig `json:"onPublish" xml:"onPublish"`
-	OnSubscribe *HandlerConfig `json:"onSubscribe" xml:"onSubscribe"`
+OnPublish *HandlerConfig `json:"onPublish" xml:"onPublish"`
+OnSubscribe *HandlerConfig `json:"onSubscribe" xml:"onSubscribe"`
 }
 
 type HttpDataSourceConfig struct {
-	AuthorizationConfig *AuthorizationConfig `json:"authorizationConfig" xml:"authorizationConfig"`
-	Endpoint            string               `json:"endpoint" xml:"endpoint"`
+AuthorizationConfig *AuthorizationConfig `json:"authorizationConfig" xml:"authorizationConfig"`
+Endpoint string `json:"endpoint" xml:"endpoint"`
 }
 
 type Integration struct {
-	DataSourceName string        `json:"dataSourceName" xml:"dataSourceName"`
-	LambdaConfig   *LambdaConfig `json:"lambdaConfig" xml:"lambdaConfig"`
+DataSourceName string `json:"dataSourceName" xml:"dataSourceName"`
+LambdaConfig *LambdaConfig `json:"lambdaConfig" xml:"lambdaConfig"`
 }
 
 type LambdaAuthorizerConfig struct {
-	AuthorizerResultTtlInSeconds int32  `json:"authorizerResultTtlInSeconds" xml:"authorizerResultTtlInSeconds"`
-	AuthorizerUri                string `json:"authorizerUri" xml:"authorizerUri"`
-	IdentityValidationExpression string `json:"identityValidationExpression" xml:"identityValidationExpression"`
+AuthorizerResultTtlInSeconds int32 `json:"authorizerResultTtlInSeconds" xml:"authorizerResultTtlInSeconds"`
+AuthorizerUri string `json:"authorizerUri" xml:"authorizerUri"`
+IdentityValidationExpression string `json:"identityValidationExpression" xml:"identityValidationExpression"`
 }
 
 type LambdaConfig struct {
-	InvokeType string `json:"invokeType" xml:"invokeType"`
+InvokeType string `json:"invokeType" xml:"invokeType"`
 }
 
 type LambdaConflictHandlerConfig struct {
-	LambdaConflictHandlerArn string `json:"lambdaConflictHandlerArn" xml:"lambdaConflictHandlerArn"`
+LambdaConflictHandlerArn string `json:"lambdaConflictHandlerArn" xml:"lambdaConflictHandlerArn"`
 }
 
 type LambdaDataSourceConfig struct {
-	LambdaFunctionArn string `json:"lambdaFunctionArn" xml:"lambdaFunctionArn"`
+LambdaFunctionArn string `json:"lambdaFunctionArn" xml:"lambdaFunctionArn"`
 }
 
 type ListApiKeysRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+ApiId string `json:"apiId" xml:"apiId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListApiKeysResponse struct {
-	ApiKeys   ApiKeys `json:"apiKeys" xml:"apiKeys"`
-	NextToken string  `json:"nextToken" xml:"nextToken"`
+ApiKeys ApiKeys `json:"apiKeys" xml:"apiKeys"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListApisRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListApisResponse struct {
-	Apis      Apis   `json:"apis" xml:"apis"`
-	NextToken string `json:"nextToken" xml:"nextToken"`
+Apis Apis `json:"apis" xml:"apis"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListChannelNamespacesRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+ApiId string `json:"apiId" xml:"apiId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListChannelNamespacesResponse struct {
-	ChannelNamespaces ChannelNamespaces `json:"channelNamespaces" xml:"channelNamespaces"`
-	NextToken         string            `json:"nextToken" xml:"nextToken"`
+ChannelNamespaces ChannelNamespaces `json:"channelNamespaces" xml:"channelNamespaces"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDataSourcesRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+ApiId string `json:"apiId" xml:"apiId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDataSourcesResponse struct {
-	DataSources DataSources `json:"dataSources" xml:"dataSources"`
-	NextToken   string      `json:"nextToken" xml:"nextToken"`
+DataSources DataSources `json:"dataSources" xml:"dataSources"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDomainNamesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListDomainNamesResponse struct {
-	DomainNameConfigs DomainNameConfigs `json:"domainNameConfigs" xml:"domainNameConfigs"`
-	NextToken         string            `json:"nextToken" xml:"nextToken"`
+DomainNameConfigs DomainNameConfigs `json:"domainNameConfigs" xml:"domainNameConfigs"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListFunctionsRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+ApiId string `json:"apiId" xml:"apiId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListFunctionsResponse struct {
-	Functions Functions `json:"functions" xml:"functions"`
-	NextToken string    `json:"nextToken" xml:"nextToken"`
+Functions Functions `json:"functions" xml:"functions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListGraphqlApisRequest struct {
-	ApiType    string `json:"apiType" xml:"apiType"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	Owner      string `json:"owner" xml:"owner"`
+ApiType string `json:"apiType" xml:"apiType"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Owner string `json:"owner" xml:"owner"`
 }
 
 type ListGraphqlApisResponse struct {
-	GraphqlApis GraphqlApis `json:"graphqlApis" xml:"graphqlApis"`
-	NextToken   string      `json:"nextToken" xml:"nextToken"`
+GraphqlApis GraphqlApis `json:"graphqlApis" xml:"graphqlApis"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListResolversByFunctionRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	FunctionId string `json:"functionId" xml:"functionId"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+ApiId string `json:"apiId" xml:"apiId"`
+FunctionId string `json:"functionId" xml:"functionId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListResolversByFunctionResponse struct {
-	NextToken string    `json:"nextToken" xml:"nextToken"`
-	Resolvers Resolvers `json:"resolvers" xml:"resolvers"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Resolvers Resolvers `json:"resolvers" xml:"resolvers"`
 }
 
 type ListResolversRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	TypeName   string `json:"typeName" xml:"typeName"`
+ApiId string `json:"apiId" xml:"apiId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+TypeName string `json:"typeName" xml:"typeName"`
 }
 
 type ListResolversResponse struct {
-	NextToken string    `json:"nextToken" xml:"nextToken"`
-	Resolvers Resolvers `json:"resolvers" xml:"resolvers"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Resolvers Resolvers `json:"resolvers" xml:"resolvers"`
 }
 
 type ListSourceApiAssociationsRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+ApiId string `json:"apiId" xml:"apiId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListSourceApiAssociationsResponse struct {
-	NextToken                     string                          `json:"nextToken" xml:"nextToken"`
-	SourceApiAssociationSummaries SourceApiAssociationSummaryList `json:"sourceApiAssociationSummaries" xml:"sourceApiAssociationSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SourceApiAssociationSummaries SourceApiAssociationSummaryList `json:"sourceApiAssociationSummaries" xml:"sourceApiAssociationSummaries"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags TagMap `json:"tags" xml:"tags"`
+Tags TagMap `json:"tags" xml:"tags"`
 }
 
 type ListTypesByAssociationRequest struct {
-	AssociationId       string `json:"associationId" xml:"associationId"`
-	Format              string `json:"format" xml:"format"`
-	MaxResults          int32  `json:"maxResults" xml:"maxResults"`
-	MergedApiIdentifier string `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
-	NextToken           string `json:"nextToken" xml:"nextToken"`
+AssociationId string `json:"associationId" xml:"associationId"`
+Format string `json:"format" xml:"format"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+MergedApiIdentifier string `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListTypesByAssociationResponse struct {
-	NextToken string   `json:"nextToken" xml:"nextToken"`
-	Types     TypeList `json:"types" xml:"types"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Types TypeList `json:"types" xml:"types"`
 }
 
 type ListTypesRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	Format     string `json:"format" xml:"format"`
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+ApiId string `json:"apiId" xml:"apiId"`
+Format string `json:"format" xml:"format"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListTypesResponse struct {
-	NextToken string   `json:"nextToken" xml:"nextToken"`
-	Types     TypeList `json:"types" xml:"types"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Types TypeList `json:"types" xml:"types"`
 }
 
 type LogConfig struct {
-	CloudWatchLogsRoleArn string `json:"cloudWatchLogsRoleArn" xml:"cloudWatchLogsRoleArn"`
-	ExcludeVerboseContent bool   `json:"excludeVerboseContent" xml:"excludeVerboseContent"`
-	FieldLogLevel         string `json:"fieldLogLevel" xml:"fieldLogLevel"`
+CloudWatchLogsRoleArn string `json:"cloudWatchLogsRoleArn" xml:"cloudWatchLogsRoleArn"`
+ExcludeVerboseContent bool `json:"excludeVerboseContent" xml:"excludeVerboseContent"`
+FieldLogLevel string `json:"fieldLogLevel" xml:"fieldLogLevel"`
 }
 
 type OpenIDConnectConfig struct {
-	AuthTTL  int64  `json:"authTTL" xml:"authTTL"`
-	ClientId string `json:"clientId" xml:"clientId"`
-	IatTTL   int64  `json:"iatTTL" xml:"iatTTL"`
-	Issuer   string `json:"issuer" xml:"issuer"`
+AuthTTL int64 `json:"authTTL" xml:"authTTL"`
+ClientId string `json:"clientId" xml:"clientId"`
+IatTTL int64 `json:"iatTTL" xml:"iatTTL"`
+Issuer string `json:"issuer" xml:"issuer"`
 }
 
 type OpenSearchServiceDataSourceConfig struct {
-	AwsRegion string `json:"awsRegion" xml:"awsRegion"`
-	Endpoint  string `json:"endpoint" xml:"endpoint"`
+AwsRegion string `json:"awsRegion" xml:"awsRegion"`
+Endpoint string `json:"endpoint" xml:"endpoint"`
 }
 
 type PipelineConfig struct {
-	Functions FunctionsIds `json:"functions" xml:"functions"`
+Functions FunctionsIds `json:"functions" xml:"functions"`
 }
 
 type PutGraphqlApiEnvironmentVariablesRequest struct {
-	ApiId                string                 `json:"apiId" xml:"apiId"`
-	EnvironmentVariables EnvironmentVariableMap `json:"environmentVariables" xml:"environmentVariables"`
+ApiId string `json:"apiId" xml:"apiId"`
+EnvironmentVariables EnvironmentVariableMap `json:"environmentVariables" xml:"environmentVariables"`
 }
 
 type PutGraphqlApiEnvironmentVariablesResponse struct {
-	EnvironmentVariables EnvironmentVariableMap `json:"environmentVariables" xml:"environmentVariables"`
+EnvironmentVariables EnvironmentVariableMap `json:"environmentVariables" xml:"environmentVariables"`
 }
 
 type RdsDataApiConfig struct {
-	DatabaseName string `json:"databaseName" xml:"databaseName"`
-	ResourceArn  string `json:"resourceArn" xml:"resourceArn"`
-	SecretArn    string `json:"secretArn" xml:"secretArn"`
+DatabaseName string `json:"databaseName" xml:"databaseName"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+SecretArn string `json:"secretArn" xml:"secretArn"`
 }
 
 type RdsHttpEndpointConfig struct {
-	AwsRegion           string `json:"awsRegion" xml:"awsRegion"`
-	AwsSecretStoreArn   string `json:"awsSecretStoreArn" xml:"awsSecretStoreArn"`
-	DatabaseName        string `json:"databaseName" xml:"databaseName"`
-	DbClusterIdentifier string `json:"dbClusterIdentifier" xml:"dbClusterIdentifier"`
-	Schema              string `json:"schema" xml:"schema"`
+AwsRegion string `json:"awsRegion" xml:"awsRegion"`
+AwsSecretStoreArn string `json:"awsSecretStoreArn" xml:"awsSecretStoreArn"`
+DatabaseName string `json:"databaseName" xml:"databaseName"`
+DbClusterIdentifier string `json:"dbClusterIdentifier" xml:"dbClusterIdentifier"`
+Schema string `json:"schema" xml:"schema"`
 }
 
 type RelationalDatabaseDataSourceConfig struct {
-	RdsHttpEndpointConfig        *RdsHttpEndpointConfig `json:"rdsHttpEndpointConfig" xml:"rdsHttpEndpointConfig"`
-	RelationalDatabaseSourceType string                 `json:"relationalDatabaseSourceType" xml:"relationalDatabaseSourceType"`
+RdsHttpEndpointConfig *RdsHttpEndpointConfig `json:"rdsHttpEndpointConfig" xml:"rdsHttpEndpointConfig"`
+RelationalDatabaseSourceType string `json:"relationalDatabaseSourceType" xml:"relationalDatabaseSourceType"`
 }
 
 type Resolver struct {
-	CachingConfig           *CachingConfig  `json:"cachingConfig" xml:"cachingConfig"`
-	Code                    string          `json:"code" xml:"code"`
-	DataSourceName          string          `json:"dataSourceName" xml:"dataSourceName"`
-	FieldName               string          `json:"fieldName" xml:"fieldName"`
-	Kind                    string          `json:"kind" xml:"kind"`
-	MaxBatchSize            int32           `json:"maxBatchSize" xml:"maxBatchSize"`
-	MetricsConfig           string          `json:"metricsConfig" xml:"metricsConfig"`
-	PipelineConfig          *PipelineConfig `json:"pipelineConfig" xml:"pipelineConfig"`
-	RequestMappingTemplate  string          `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
-	ResolverArn             string          `json:"resolverArn" xml:"resolverArn"`
-	ResponseMappingTemplate string          `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
-	Runtime                 *AppSyncRuntime `json:"runtime" xml:"runtime"`
-	SyncConfig              *SyncConfig     `json:"syncConfig" xml:"syncConfig"`
-	TypeName                string          `json:"typeName" xml:"typeName"`
+CachingConfig *CachingConfig `json:"cachingConfig" xml:"cachingConfig"`
+Code string `json:"code" xml:"code"`
+DataSourceName string `json:"dataSourceName" xml:"dataSourceName"`
+FieldName string `json:"fieldName" xml:"fieldName"`
+Kind string `json:"kind" xml:"kind"`
+MaxBatchSize int32 `json:"maxBatchSize" xml:"maxBatchSize"`
+MetricsConfig string `json:"metricsConfig" xml:"metricsConfig"`
+PipelineConfig *PipelineConfig `json:"pipelineConfig" xml:"pipelineConfig"`
+RequestMappingTemplate string `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
+ResolverArn string `json:"resolverArn" xml:"resolverArn"`
+ResponseMappingTemplate string `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
+Runtime *AppSyncRuntime `json:"runtime" xml:"runtime"`
+SyncConfig *SyncConfig `json:"syncConfig" xml:"syncConfig"`
+TypeName string `json:"typeName" xml:"typeName"`
 }
 
 type SourceApiAssociation struct {
-	AssociationArn                   string                      `json:"associationArn" xml:"associationArn"`
-	AssociationId                    string                      `json:"associationId" xml:"associationId"`
-	Description                      string                      `json:"description" xml:"description"`
-	LastSuccessfulMergeDate          time.Time                   `json:"lastSuccessfulMergeDate" xml:"lastSuccessfulMergeDate"`
-	MergedApiArn                     string                      `json:"mergedApiArn" xml:"mergedApiArn"`
-	MergedApiId                      string                      `json:"mergedApiId" xml:"mergedApiId"`
-	SourceApiArn                     string                      `json:"sourceApiArn" xml:"sourceApiArn"`
-	SourceApiAssociationConfig       *SourceApiAssociationConfig `json:"sourceApiAssociationConfig" xml:"sourceApiAssociationConfig"`
-	SourceApiAssociationStatus       string                      `json:"sourceApiAssociationStatus" xml:"sourceApiAssociationStatus"`
-	SourceApiAssociationStatusDetail string                      `json:"sourceApiAssociationStatusDetail" xml:"sourceApiAssociationStatusDetail"`
-	SourceApiId                      string                      `json:"sourceApiId" xml:"sourceApiId"`
+AssociationArn string `json:"associationArn" xml:"associationArn"`
+AssociationId string `json:"associationId" xml:"associationId"`
+Description string `json:"description" xml:"description"`
+LastSuccessfulMergeDate time.Time `json:"lastSuccessfulMergeDate" xml:"lastSuccessfulMergeDate"`
+MergedApiArn string `json:"mergedApiArn" xml:"mergedApiArn"`
+MergedApiId string `json:"mergedApiId" xml:"mergedApiId"`
+SourceApiArn string `json:"sourceApiArn" xml:"sourceApiArn"`
+SourceApiAssociationConfig *SourceApiAssociationConfig `json:"sourceApiAssociationConfig" xml:"sourceApiAssociationConfig"`
+SourceApiAssociationStatus string `json:"sourceApiAssociationStatus" xml:"sourceApiAssociationStatus"`
+SourceApiAssociationStatusDetail string `json:"sourceApiAssociationStatusDetail" xml:"sourceApiAssociationStatusDetail"`
+SourceApiId string `json:"sourceApiId" xml:"sourceApiId"`
 }
 
 type SourceApiAssociationConfig struct {
-	MergeType string `json:"mergeType" xml:"mergeType"`
+MergeType string `json:"mergeType" xml:"mergeType"`
 }
 
 type SourceApiAssociationSummary struct {
-	AssociationArn string `json:"associationArn" xml:"associationArn"`
-	AssociationId  string `json:"associationId" xml:"associationId"`
-	Description    string `json:"description" xml:"description"`
-	MergedApiArn   string `json:"mergedApiArn" xml:"mergedApiArn"`
-	MergedApiId    string `json:"mergedApiId" xml:"mergedApiId"`
-	SourceApiArn   string `json:"sourceApiArn" xml:"sourceApiArn"`
-	SourceApiId    string `json:"sourceApiId" xml:"sourceApiId"`
+AssociationArn string `json:"associationArn" xml:"associationArn"`
+AssociationId string `json:"associationId" xml:"associationId"`
+Description string `json:"description" xml:"description"`
+MergedApiArn string `json:"mergedApiArn" xml:"mergedApiArn"`
+MergedApiId string `json:"mergedApiId" xml:"mergedApiId"`
+SourceApiArn string `json:"sourceApiArn" xml:"sourceApiArn"`
+SourceApiId string `json:"sourceApiId" xml:"sourceApiId"`
 }
 
 type StartDataSourceIntrospectionRequest struct {
-	RdsDataApiConfig *RdsDataApiConfig `json:"rdsDataApiConfig" xml:"rdsDataApiConfig"`
+RdsDataApiConfig *RdsDataApiConfig `json:"rdsDataApiConfig" xml:"rdsDataApiConfig"`
 }
 
 type StartDataSourceIntrospectionResponse struct {
-	IntrospectionId           string `json:"introspectionId" xml:"introspectionId"`
-	IntrospectionStatus       string `json:"introspectionStatus" xml:"introspectionStatus"`
-	IntrospectionStatusDetail string `json:"introspectionStatusDetail" xml:"introspectionStatusDetail"`
+IntrospectionId string `json:"introspectionId" xml:"introspectionId"`
+IntrospectionStatus string `json:"introspectionStatus" xml:"introspectionStatus"`
+IntrospectionStatusDetail string `json:"introspectionStatusDetail" xml:"introspectionStatusDetail"`
 }
 
 type StartSchemaCreationRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	Definition []byte `json:"definition" xml:"definition"`
+ApiId string `json:"apiId" xml:"apiId"`
+Definition []byte `json:"definition" xml:"definition"`
 }
 
 type StartSchemaCreationResponse struct {
-	Status string `json:"status" xml:"status"`
+Status string `json:"status" xml:"status"`
 }
 
 type StartSchemaMergeRequest struct {
-	AssociationId       string `json:"associationId" xml:"associationId"`
-	MergedApiIdentifier string `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
+AssociationId string `json:"associationId" xml:"associationId"`
+MergedApiIdentifier string `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
 }
 
 type StartSchemaMergeResponse struct {
-	SourceApiAssociationStatus string `json:"sourceApiAssociationStatus" xml:"sourceApiAssociationStatus"`
+SourceApiAssociationStatus string `json:"sourceApiAssociationStatus" xml:"sourceApiAssociationStatus"`
 }
 
 type SyncConfig struct {
-	ConflictDetection           string                       `json:"conflictDetection" xml:"conflictDetection"`
-	ConflictHandler             string                       `json:"conflictHandler" xml:"conflictHandler"`
-	LambdaConflictHandlerConfig *LambdaConflictHandlerConfig `json:"lambdaConflictHandlerConfig" xml:"lambdaConflictHandlerConfig"`
+ConflictDetection string `json:"conflictDetection" xml:"conflictDetection"`
+ConflictHandler string `json:"conflictHandler" xml:"conflictHandler"`
+LambdaConflictHandlerConfig *LambdaConflictHandlerConfig `json:"lambdaConflictHandlerConfig" xml:"lambdaConflictHandlerConfig"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
-	Tags        TagMap `json:"tags" xml:"tags"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+Tags TagMap `json:"tags" xml:"tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type Type struct {
-	Arn         string `json:"arn" xml:"arn"`
-	Definition  string `json:"definition" xml:"definition"`
-	Description string `json:"description" xml:"description"`
-	Format      string `json:"format" xml:"format"`
-	Name        string `json:"name" xml:"name"`
+Arn string `json:"arn" xml:"arn"`
+Definition string `json:"definition" xml:"definition"`
+Description string `json:"description" xml:"description"`
+Format string `json:"format" xml:"format"`
+Name string `json:"name" xml:"name"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string     `json:"resourceArn" xml:"resourceArn"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"tagKeys"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"tagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateApiCacheRequest struct {
-	ApiCachingBehavior  string `json:"apiCachingBehavior" xml:"apiCachingBehavior"`
-	ApiId               string `json:"apiId" xml:"apiId"`
-	HealthMetricsConfig string `json:"healthMetricsConfig" xml:"healthMetricsConfig"`
-	Ttl                 int64  `json:"ttl" xml:"ttl"`
-	Type                string `json:"type" xml:"type"`
+ApiCachingBehavior string `json:"apiCachingBehavior" xml:"apiCachingBehavior"`
+ApiId string `json:"apiId" xml:"apiId"`
+HealthMetricsConfig string `json:"healthMetricsConfig" xml:"healthMetricsConfig"`
+Ttl int64 `json:"ttl" xml:"ttl"`
+Type string `json:"type" xml:"type"`
 }
 
 type UpdateApiCacheResponse struct {
-	ApiCache *ApiCache `json:"apiCache" xml:"apiCache"`
+ApiCache *ApiCache `json:"apiCache" xml:"apiCache"`
 }
 
 type UpdateApiKeyRequest struct {
-	ApiId       string `json:"apiId" xml:"apiId"`
-	Description string `json:"description" xml:"description"`
-	Expires     int64  `json:"expires" xml:"expires"`
-	Id          string `json:"id" xml:"id"`
+ApiId string `json:"apiId" xml:"apiId"`
+Description string `json:"description" xml:"description"`
+Expires int64 `json:"expires" xml:"expires"`
+Id string `json:"id" xml:"id"`
 }
 
 type UpdateApiKeyResponse struct {
-	ApiKey *ApiKey `json:"apiKey" xml:"apiKey"`
+ApiKey *ApiKey `json:"apiKey" xml:"apiKey"`
 }
 
 type UpdateApiRequest struct {
-	ApiId        string       `json:"apiId" xml:"apiId"`
-	EventConfig  *EventConfig `json:"eventConfig" xml:"eventConfig"`
-	Name         string       `json:"name" xml:"name"`
-	OwnerContact string       `json:"ownerContact" xml:"ownerContact"`
+ApiId string `json:"apiId" xml:"apiId"`
+EventConfig *EventConfig `json:"eventConfig" xml:"eventConfig"`
+Name string `json:"name" xml:"name"`
+OwnerContact string `json:"ownerContact" xml:"ownerContact"`
 }
 
 type UpdateApiResponse struct {
-	Api *Api `json:"api" xml:"api"`
+Api *Api `json:"api" xml:"api"`
 }
 
 type UpdateChannelNamespaceRequest struct {
-	ApiId              string          `json:"apiId" xml:"apiId"`
-	CodeHandlers       string          `json:"codeHandlers" xml:"codeHandlers"`
-	HandlerConfigs     *HandlerConfigs `json:"handlerConfigs" xml:"handlerConfigs"`
-	Name               string          `json:"name" xml:"name"`
-	PublishAuthModes   AuthModes       `json:"publishAuthModes" xml:"publishAuthModes"`
-	SubscribeAuthModes AuthModes       `json:"subscribeAuthModes" xml:"subscribeAuthModes"`
+ApiId string `json:"apiId" xml:"apiId"`
+CodeHandlers string `json:"codeHandlers" xml:"codeHandlers"`
+HandlerConfigs *HandlerConfigs `json:"handlerConfigs" xml:"handlerConfigs"`
+Name string `json:"name" xml:"name"`
+PublishAuthModes AuthModes `json:"publishAuthModes" xml:"publishAuthModes"`
+SubscribeAuthModes AuthModes `json:"subscribeAuthModes" xml:"subscribeAuthModes"`
 }
 
 type UpdateChannelNamespaceResponse struct {
-	ChannelNamespace *ChannelNamespace `json:"channelNamespace" xml:"channelNamespace"`
+ChannelNamespace *ChannelNamespace `json:"channelNamespace" xml:"channelNamespace"`
 }
 
 type UpdateDataSourceRequest struct {
-	ApiId                    string                              `json:"apiId" xml:"apiId"`
-	Description              string                              `json:"description" xml:"description"`
-	DynamodbConfig           *DynamodbDataSourceConfig           `json:"dynamodbConfig" xml:"dynamodbConfig"`
-	ElasticsearchConfig      *ElasticsearchDataSourceConfig      `json:"elasticsearchConfig" xml:"elasticsearchConfig"`
-	EventBridgeConfig        *EventBridgeDataSourceConfig        `json:"eventBridgeConfig" xml:"eventBridgeConfig"`
-	HttpConfig               *HttpDataSourceConfig               `json:"httpConfig" xml:"httpConfig"`
-	LambdaConfig             *LambdaDataSourceConfig             `json:"lambdaConfig" xml:"lambdaConfig"`
-	MetricsConfig            string                              `json:"metricsConfig" xml:"metricsConfig"`
-	Name                     string                              `json:"name" xml:"name"`
-	OpenSearchServiceConfig  *OpenSearchServiceDataSourceConfig  `json:"openSearchServiceConfig" xml:"openSearchServiceConfig"`
-	RelationalDatabaseConfig *RelationalDatabaseDataSourceConfig `json:"relationalDatabaseConfig" xml:"relationalDatabaseConfig"`
-	ServiceRoleArn           string                              `json:"serviceRoleArn" xml:"serviceRoleArn"`
-	Type                     string                              `json:"type" xml:"type"`
+ApiId string `json:"apiId" xml:"apiId"`
+Description string `json:"description" xml:"description"`
+DynamodbConfig *DynamodbDataSourceConfig `json:"dynamodbConfig" xml:"dynamodbConfig"`
+ElasticsearchConfig *ElasticsearchDataSourceConfig `json:"elasticsearchConfig" xml:"elasticsearchConfig"`
+EventBridgeConfig *EventBridgeDataSourceConfig `json:"eventBridgeConfig" xml:"eventBridgeConfig"`
+HttpConfig *HttpDataSourceConfig `json:"httpConfig" xml:"httpConfig"`
+LambdaConfig *LambdaDataSourceConfig `json:"lambdaConfig" xml:"lambdaConfig"`
+MetricsConfig string `json:"metricsConfig" xml:"metricsConfig"`
+Name string `json:"name" xml:"name"`
+OpenSearchServiceConfig *OpenSearchServiceDataSourceConfig `json:"openSearchServiceConfig" xml:"openSearchServiceConfig"`
+RelationalDatabaseConfig *RelationalDatabaseDataSourceConfig `json:"relationalDatabaseConfig" xml:"relationalDatabaseConfig"`
+ServiceRoleArn string `json:"serviceRoleArn" xml:"serviceRoleArn"`
+Type string `json:"type" xml:"type"`
 }
 
 type UpdateDataSourceResponse struct {
-	DataSource *DataSource `json:"dataSource" xml:"dataSource"`
+DataSource *DataSource `json:"dataSource" xml:"dataSource"`
 }
 
 type UpdateDomainNameRequest struct {
-	Description string `json:"description" xml:"description"`
-	DomainName  string `json:"domainName" xml:"domainName"`
+Description string `json:"description" xml:"description"`
+DomainName string `json:"domainName" xml:"domainName"`
 }
 
 type UpdateDomainNameResponse struct {
-	DomainNameConfig *DomainNameConfig `json:"domainNameConfig" xml:"domainNameConfig"`
+DomainNameConfig *DomainNameConfig `json:"domainNameConfig" xml:"domainNameConfig"`
 }
 
 type UpdateFunctionRequest struct {
-	ApiId                   string          `json:"apiId" xml:"apiId"`
-	Code                    string          `json:"code" xml:"code"`
-	DataSourceName          string          `json:"dataSourceName" xml:"dataSourceName"`
-	Description             string          `json:"description" xml:"description"`
-	FunctionId              string          `json:"functionId" xml:"functionId"`
-	FunctionVersion         string          `json:"functionVersion" xml:"functionVersion"`
-	MaxBatchSize            int32           `json:"maxBatchSize" xml:"maxBatchSize"`
-	Name                    string          `json:"name" xml:"name"`
-	RequestMappingTemplate  string          `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
-	ResponseMappingTemplate string          `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
-	Runtime                 *AppSyncRuntime `json:"runtime" xml:"runtime"`
-	SyncConfig              *SyncConfig     `json:"syncConfig" xml:"syncConfig"`
+ApiId string `json:"apiId" xml:"apiId"`
+Code string `json:"code" xml:"code"`
+DataSourceName string `json:"dataSourceName" xml:"dataSourceName"`
+Description string `json:"description" xml:"description"`
+FunctionId string `json:"functionId" xml:"functionId"`
+FunctionVersion string `json:"functionVersion" xml:"functionVersion"`
+MaxBatchSize int32 `json:"maxBatchSize" xml:"maxBatchSize"`
+Name string `json:"name" xml:"name"`
+RequestMappingTemplate string `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
+ResponseMappingTemplate string `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
+Runtime *AppSyncRuntime `json:"runtime" xml:"runtime"`
+SyncConfig *SyncConfig `json:"syncConfig" xml:"syncConfig"`
 }
 
 type UpdateFunctionResponse struct {
-	FunctionConfiguration *FunctionConfiguration `json:"functionConfiguration" xml:"functionConfiguration"`
+FunctionConfiguration *FunctionConfiguration `json:"functionConfiguration" xml:"functionConfiguration"`
 }
 
 type UpdateGraphqlApiRequest struct {
-	AdditionalAuthenticationProviders AdditionalAuthenticationProviders `json:"additionalAuthenticationProviders" xml:"additionalAuthenticationProviders"`
-	ApiId                             string                            `json:"apiId" xml:"apiId"`
-	AuthenticationType                string                            `json:"authenticationType" xml:"authenticationType"`
-	EnhancedMetricsConfig             *EnhancedMetricsConfig            `json:"enhancedMetricsConfig" xml:"enhancedMetricsConfig"`
-	IntrospectionConfig               string                            `json:"introspectionConfig" xml:"introspectionConfig"`
-	LambdaAuthorizerConfig            *LambdaAuthorizerConfig           `json:"lambdaAuthorizerConfig" xml:"lambdaAuthorizerConfig"`
-	LogConfig                         *LogConfig                        `json:"logConfig" xml:"logConfig"`
-	MergedApiExecutionRoleArn         string                            `json:"mergedApiExecutionRoleArn" xml:"mergedApiExecutionRoleArn"`
-	Name                              string                            `json:"name" xml:"name"`
-	OpenIDConnectConfig               *OpenIDConnectConfig              `json:"openIDConnectConfig" xml:"openIDConnectConfig"`
-	OwnerContact                      string                            `json:"ownerContact" xml:"ownerContact"`
-	QueryDepthLimit                   int32                             `json:"queryDepthLimit" xml:"queryDepthLimit"`
-	ResolverCountLimit                int32                             `json:"resolverCountLimit" xml:"resolverCountLimit"`
-	UserPoolConfig                    *UserPoolConfig                   `json:"userPoolConfig" xml:"userPoolConfig"`
-	XrayEnabled                       bool                              `json:"xrayEnabled" xml:"xrayEnabled"`
+AdditionalAuthenticationProviders AdditionalAuthenticationProviders `json:"additionalAuthenticationProviders" xml:"additionalAuthenticationProviders"`
+ApiId string `json:"apiId" xml:"apiId"`
+AuthenticationType string `json:"authenticationType" xml:"authenticationType"`
+EnhancedMetricsConfig *EnhancedMetricsConfig `json:"enhancedMetricsConfig" xml:"enhancedMetricsConfig"`
+IntrospectionConfig string `json:"introspectionConfig" xml:"introspectionConfig"`
+LambdaAuthorizerConfig *LambdaAuthorizerConfig `json:"lambdaAuthorizerConfig" xml:"lambdaAuthorizerConfig"`
+LogConfig *LogConfig `json:"logConfig" xml:"logConfig"`
+MergedApiExecutionRoleArn string `json:"mergedApiExecutionRoleArn" xml:"mergedApiExecutionRoleArn"`
+Name string `json:"name" xml:"name"`
+OpenIDConnectConfig *OpenIDConnectConfig `json:"openIDConnectConfig" xml:"openIDConnectConfig"`
+OwnerContact string `json:"ownerContact" xml:"ownerContact"`
+QueryDepthLimit int32 `json:"queryDepthLimit" xml:"queryDepthLimit"`
+ResolverCountLimit int32 `json:"resolverCountLimit" xml:"resolverCountLimit"`
+UserPoolConfig *UserPoolConfig `json:"userPoolConfig" xml:"userPoolConfig"`
+XrayEnabled bool `json:"xrayEnabled" xml:"xrayEnabled"`
 }
 
 type UpdateGraphqlApiResponse struct {
-	GraphqlApi *GraphqlApi `json:"graphqlApi" xml:"graphqlApi"`
+GraphqlApi *GraphqlApi `json:"graphqlApi" xml:"graphqlApi"`
 }
 
 type UpdateResolverRequest struct {
-	ApiId                   string          `json:"apiId" xml:"apiId"`
-	CachingConfig           *CachingConfig  `json:"cachingConfig" xml:"cachingConfig"`
-	Code                    string          `json:"code" xml:"code"`
-	DataSourceName          string          `json:"dataSourceName" xml:"dataSourceName"`
-	FieldName               string          `json:"fieldName" xml:"fieldName"`
-	Kind                    string          `json:"kind" xml:"kind"`
-	MaxBatchSize            int32           `json:"maxBatchSize" xml:"maxBatchSize"`
-	MetricsConfig           string          `json:"metricsConfig" xml:"metricsConfig"`
-	PipelineConfig          *PipelineConfig `json:"pipelineConfig" xml:"pipelineConfig"`
-	RequestMappingTemplate  string          `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
-	ResponseMappingTemplate string          `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
-	Runtime                 *AppSyncRuntime `json:"runtime" xml:"runtime"`
-	SyncConfig              *SyncConfig     `json:"syncConfig" xml:"syncConfig"`
-	TypeName                string          `json:"typeName" xml:"typeName"`
+ApiId string `json:"apiId" xml:"apiId"`
+CachingConfig *CachingConfig `json:"cachingConfig" xml:"cachingConfig"`
+Code string `json:"code" xml:"code"`
+DataSourceName string `json:"dataSourceName" xml:"dataSourceName"`
+FieldName string `json:"fieldName" xml:"fieldName"`
+Kind string `json:"kind" xml:"kind"`
+MaxBatchSize int32 `json:"maxBatchSize" xml:"maxBatchSize"`
+MetricsConfig string `json:"metricsConfig" xml:"metricsConfig"`
+PipelineConfig *PipelineConfig `json:"pipelineConfig" xml:"pipelineConfig"`
+RequestMappingTemplate string `json:"requestMappingTemplate" xml:"requestMappingTemplate"`
+ResponseMappingTemplate string `json:"responseMappingTemplate" xml:"responseMappingTemplate"`
+Runtime *AppSyncRuntime `json:"runtime" xml:"runtime"`
+SyncConfig *SyncConfig `json:"syncConfig" xml:"syncConfig"`
+TypeName string `json:"typeName" xml:"typeName"`
 }
 
 type UpdateResolverResponse struct {
-	Resolver *Resolver `json:"resolver" xml:"resolver"`
+Resolver *Resolver `json:"resolver" xml:"resolver"`
 }
 
 type UpdateSourceApiAssociationRequest struct {
-	AssociationId              string                      `json:"associationId" xml:"associationId"`
-	Description                string                      `json:"description" xml:"description"`
-	MergedApiIdentifier        string                      `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
-	SourceApiAssociationConfig *SourceApiAssociationConfig `json:"sourceApiAssociationConfig" xml:"sourceApiAssociationConfig"`
+AssociationId string `json:"associationId" xml:"associationId"`
+Description string `json:"description" xml:"description"`
+MergedApiIdentifier string `json:"mergedApiIdentifier" xml:"mergedApiIdentifier"`
+SourceApiAssociationConfig *SourceApiAssociationConfig `json:"sourceApiAssociationConfig" xml:"sourceApiAssociationConfig"`
 }
 
 type UpdateSourceApiAssociationResponse struct {
-	SourceApiAssociation *SourceApiAssociation `json:"sourceApiAssociation" xml:"sourceApiAssociation"`
+SourceApiAssociation *SourceApiAssociation `json:"sourceApiAssociation" xml:"sourceApiAssociation"`
 }
 
 type UpdateTypeRequest struct {
-	ApiId      string `json:"apiId" xml:"apiId"`
-	Definition string `json:"definition" xml:"definition"`
-	Format     string `json:"format" xml:"format"`
-	TypeName   string `json:"typeName" xml:"typeName"`
+ApiId string `json:"apiId" xml:"apiId"`
+Definition string `json:"definition" xml:"definition"`
+Format string `json:"format" xml:"format"`
+TypeName string `json:"typeName" xml:"typeName"`
 }
 
 type UpdateTypeResponse struct {
-	Type *Type `json:"type" xml:"type"`
+Type *Type `json:"type" xml:"type"`
 }
 
 type UserPoolConfig struct {
-	AppIdClientRegex string `json:"appIdClientRegex" xml:"appIdClientRegex"`
-	AwsRegion        string `json:"awsRegion" xml:"awsRegion"`
-	DefaultAction    string `json:"defaultAction" xml:"defaultAction"`
-	UserPoolId       string `json:"userPoolId" xml:"userPoolId"`
+AppIdClientRegex string `json:"appIdClientRegex" xml:"appIdClientRegex"`
+AwsRegion string `json:"awsRegion" xml:"awsRegion"`
+DefaultAction string `json:"defaultAction" xml:"defaultAction"`
+UserPoolId string `json:"userPoolId" xml:"userPoolId"`
 }
 
 type AdditionalAuthenticationProviders []*AdditionalAuthenticationProvider
@@ -1282,3 +1282,4 @@ type EnvironmentVariableMap map[string]string
 type MapOfStringToString map[string]string
 
 type TagMap map[string]string
+

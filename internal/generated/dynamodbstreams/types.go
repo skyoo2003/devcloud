@@ -7,110 +7,110 @@ import (
 )
 
 type DescribeStreamInput struct {
-	ExclusiveStartShardId string       `json:"exclusiveStartShardId" xml:"ExclusiveStartShardId"`
-	Limit                 int32        `json:"limit" xml:"Limit"`
-	ShardFilter           *ShardFilter `json:"shardFilter" xml:"ShardFilter"`
-	StreamArn             string       `json:"streamArn" xml:"StreamArn"`
+ExclusiveStartShardId string `json:"exclusiveStartShardId" xml:"ExclusiveStartShardId"`
+Limit int32 `json:"limit" xml:"Limit"`
+ShardFilter *ShardFilter `json:"shardFilter" xml:"ShardFilter"`
+StreamArn string `json:"streamArn" xml:"StreamArn"`
 }
 
 type DescribeStreamOutput struct {
-	StreamDescription *StreamDescription `json:"streamDescription" xml:"StreamDescription"`
+StreamDescription *StreamDescription `json:"streamDescription" xml:"StreamDescription"`
 }
 
 type GetRecordsInput struct {
-	Limit         int32  `json:"limit" xml:"Limit"`
-	ShardIterator string `json:"shardIterator" xml:"ShardIterator"`
+Limit int32 `json:"limit" xml:"Limit"`
+ShardIterator string `json:"shardIterator" xml:"ShardIterator"`
 }
 
 type GetRecordsOutput struct {
-	NextShardIterator string     `json:"nextShardIterator" xml:"NextShardIterator"`
-	Records           RecordList `json:"records" xml:"Records"`
+NextShardIterator string `json:"nextShardIterator" xml:"NextShardIterator"`
+Records RecordList `json:"records" xml:"Records"`
 }
 
 type GetShardIteratorInput struct {
-	SequenceNumber    string `json:"sequenceNumber" xml:"SequenceNumber"`
-	ShardId           string `json:"shardId" xml:"ShardId"`
-	ShardIteratorType string `json:"shardIteratorType" xml:"ShardIteratorType"`
-	StreamArn         string `json:"streamArn" xml:"StreamArn"`
+SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
+ShardId string `json:"shardId" xml:"ShardId"`
+ShardIteratorType string `json:"shardIteratorType" xml:"ShardIteratorType"`
+StreamArn string `json:"streamArn" xml:"StreamArn"`
 }
 
 type GetShardIteratorOutput struct {
-	ShardIterator string `json:"shardIterator" xml:"ShardIterator"`
+ShardIterator string `json:"shardIterator" xml:"ShardIterator"`
 }
 
 type Identity struct {
-	PrincipalId string `json:"principalId" xml:"PrincipalId"`
-	Type        string `json:"type" xml:"Type"`
+PrincipalId string `json:"principalId" xml:"PrincipalId"`
+Type string `json:"type" xml:"Type"`
 }
 
 type KeySchemaElement struct {
-	AttributeName string `json:"attributeName" xml:"AttributeName"`
-	KeyType       string `json:"keyType" xml:"KeyType"`
+AttributeName string `json:"attributeName" xml:"AttributeName"`
+KeyType string `json:"keyType" xml:"KeyType"`
 }
 
 type ListStreamsInput struct {
-	ExclusiveStartStreamArn string `json:"exclusiveStartStreamArn" xml:"ExclusiveStartStreamArn"`
-	Limit                   int32  `json:"limit" xml:"Limit"`
-	TableName               string `json:"tableName" xml:"TableName"`
+ExclusiveStartStreamArn string `json:"exclusiveStartStreamArn" xml:"ExclusiveStartStreamArn"`
+Limit int32 `json:"limit" xml:"Limit"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type ListStreamsOutput struct {
-	LastEvaluatedStreamArn string     `json:"lastEvaluatedStreamArn" xml:"LastEvaluatedStreamArn"`
-	Streams                StreamList `json:"streams" xml:"Streams"`
+LastEvaluatedStreamArn string `json:"lastEvaluatedStreamArn" xml:"LastEvaluatedStreamArn"`
+Streams StreamList `json:"streams" xml:"Streams"`
 }
 
 type Record struct {
-	AwsRegion    string        `json:"awsRegion" xml:"awsRegion"`
-	Dynamodb     *StreamRecord `json:"dynamodb" xml:"dynamodb"`
-	EventID      string        `json:"eventID" xml:"eventID"`
-	EventName    string        `json:"eventName" xml:"eventName"`
-	EventSource  string        `json:"eventSource" xml:"eventSource"`
-	EventVersion string        `json:"eventVersion" xml:"eventVersion"`
-	UserIdentity *Identity     `json:"userIdentity" xml:"userIdentity"`
+AwsRegion string `json:"awsRegion" xml:"awsRegion"`
+Dynamodb *StreamRecord `json:"dynamodb" xml:"dynamodb"`
+EventID string `json:"eventID" xml:"eventID"`
+EventName string `json:"eventName" xml:"eventName"`
+EventSource string `json:"eventSource" xml:"eventSource"`
+EventVersion string `json:"eventVersion" xml:"eventVersion"`
+UserIdentity *Identity `json:"userIdentity" xml:"userIdentity"`
 }
 
 type SequenceNumberRange struct {
-	EndingSequenceNumber   string `json:"endingSequenceNumber" xml:"EndingSequenceNumber"`
-	StartingSequenceNumber string `json:"startingSequenceNumber" xml:"StartingSequenceNumber"`
+EndingSequenceNumber string `json:"endingSequenceNumber" xml:"EndingSequenceNumber"`
+StartingSequenceNumber string `json:"startingSequenceNumber" xml:"StartingSequenceNumber"`
 }
 
 type Shard struct {
-	ParentShardId       string               `json:"parentShardId" xml:"ParentShardId"`
-	SequenceNumberRange *SequenceNumberRange `json:"sequenceNumberRange" xml:"SequenceNumberRange"`
-	ShardId             string               `json:"shardId" xml:"ShardId"`
+ParentShardId string `json:"parentShardId" xml:"ParentShardId"`
+SequenceNumberRange *SequenceNumberRange `json:"sequenceNumberRange" xml:"SequenceNumberRange"`
+ShardId string `json:"shardId" xml:"ShardId"`
 }
 
 type ShardFilter struct {
-	ShardId string `json:"shardId" xml:"ShardId"`
-	Type    string `json:"type" xml:"Type"`
+ShardId string `json:"shardId" xml:"ShardId"`
+Type string `json:"type" xml:"Type"`
 }
 
 type Stream struct {
-	StreamArn   string `json:"streamArn" xml:"StreamArn"`
-	StreamLabel string `json:"streamLabel" xml:"StreamLabel"`
-	TableName   string `json:"tableName" xml:"TableName"`
+StreamArn string `json:"streamArn" xml:"StreamArn"`
+StreamLabel string `json:"streamLabel" xml:"StreamLabel"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type StreamDescription struct {
-	CreationRequestDateTime time.Time            `json:"creationRequestDateTime" xml:"CreationRequestDateTime"`
-	KeySchema               KeySchema            `json:"keySchema" xml:"KeySchema"`
-	LastEvaluatedShardId    string               `json:"lastEvaluatedShardId" xml:"LastEvaluatedShardId"`
-	Shards                  ShardDescriptionList `json:"shards" xml:"Shards"`
-	StreamArn               string               `json:"streamArn" xml:"StreamArn"`
-	StreamLabel             string               `json:"streamLabel" xml:"StreamLabel"`
-	StreamStatus            string               `json:"streamStatus" xml:"StreamStatus"`
-	StreamViewType          string               `json:"streamViewType" xml:"StreamViewType"`
-	TableName               string               `json:"tableName" xml:"TableName"`
+CreationRequestDateTime time.Time `json:"creationRequestDateTime" xml:"CreationRequestDateTime"`
+KeySchema KeySchema `json:"keySchema" xml:"KeySchema"`
+LastEvaluatedShardId string `json:"lastEvaluatedShardId" xml:"LastEvaluatedShardId"`
+Shards ShardDescriptionList `json:"shards" xml:"Shards"`
+StreamArn string `json:"streamArn" xml:"StreamArn"`
+StreamLabel string `json:"streamLabel" xml:"StreamLabel"`
+StreamStatus string `json:"streamStatus" xml:"StreamStatus"`
+StreamViewType string `json:"streamViewType" xml:"StreamViewType"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type StreamRecord struct {
-	ApproximateCreationDateTime time.Time    `json:"approximateCreationDateTime" xml:"ApproximateCreationDateTime"`
-	Keys                        AttributeMap `json:"keys" xml:"Keys"`
-	NewImage                    AttributeMap `json:"newImage" xml:"NewImage"`
-	OldImage                    AttributeMap `json:"oldImage" xml:"OldImage"`
-	SequenceNumber              string       `json:"sequenceNumber" xml:"SequenceNumber"`
-	SizeBytes                   int64        `json:"sizeBytes" xml:"SizeBytes"`
-	StreamViewType              string       `json:"streamViewType" xml:"StreamViewType"`
+ApproximateCreationDateTime time.Time `json:"approximateCreationDateTime" xml:"ApproximateCreationDateTime"`
+Keys AttributeMap `json:"keys" xml:"Keys"`
+NewImage AttributeMap `json:"newImage" xml:"NewImage"`
+OldImage AttributeMap `json:"oldImage" xml:"OldImage"`
+SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
+SizeBytes int64 `json:"sizeBytes" xml:"SizeBytes"`
+StreamViewType string `json:"streamViewType" xml:"StreamViewType"`
 }
 
 type BinarySetAttributeValue [][]byte
@@ -134,3 +134,4 @@ type AttributeMap map[string]interface{}
 type MapAttributeValue map[string]interface{}
 
 type AttributeValue interface{}
+

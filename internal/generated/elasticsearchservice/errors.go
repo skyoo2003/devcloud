@@ -190,3 +190,4 @@ func (e *ValidationException) ErrorCode() string {
 func (e *ValidationException) HTTPStatus() int {
 	return 400
 }
+

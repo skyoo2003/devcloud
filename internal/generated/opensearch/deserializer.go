@@ -1349,3 +1349,4 @@ func SerializeUpgradeDomainResponse(w http.ResponseWriter, output *UpgradeDomain
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

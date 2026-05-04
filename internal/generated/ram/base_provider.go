@@ -150,3 +150,4 @@ func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRe
 func (b *BaseProvider) UpdateResourceShare(ctx context.Context, input *UpdateResourceShareRequest) (*UpdateResourceShareResponse, error) {
 	return nil, fmt.Errorf("UpdateResourceShare: %w", ErrNotImplemented)
 }
+

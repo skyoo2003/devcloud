@@ -581,3 +581,4 @@ func (e *TrackingOptionsDoesNotExistException) ErrorCode() string {
 func (e *TrackingOptionsDoesNotExistException) HTTPStatus() int {
 	return 400
 }
+

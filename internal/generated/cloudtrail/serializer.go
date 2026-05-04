@@ -428,3 +428,4 @@ func DeserializeUpdateTrailRequest(r *http.Request, pathParams PathParams) (*Upd
 
 	return input, nil
 }
+

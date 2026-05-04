@@ -442,3 +442,4 @@ func (b *BaseProvider) UpdateRestoreTestingSelection(ctx context.Context, input 
 func (b *BaseProvider) UpdateTieringConfiguration(ctx context.Context, input *UpdateTieringConfigurationInput) (*UpdateTieringConfigurationOutput, error) {
 	return nil, fmt.Errorf("UpdateTieringConfiguration: %w", ErrNotImplemented)
 }
+

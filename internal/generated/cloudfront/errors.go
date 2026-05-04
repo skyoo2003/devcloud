@@ -2587,3 +2587,4 @@ func (e *UnsupportedOperation) ErrorCode() string {
 func (e *UnsupportedOperation) HTTPStatus() int {
 	return 400
 }
+

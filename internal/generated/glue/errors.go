@@ -819,3 +819,4 @@ func (e *VersionMismatchException) ErrorCode() string {
 func (e *VersionMismatchException) HTTPStatus() int {
 	return 0
 }
+

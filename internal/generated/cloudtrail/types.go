@@ -7,1042 +7,1042 @@ import (
 )
 
 type AddTagsRequest struct {
-	ResourceId string   `json:"resourceId" xml:"ResourceId"`
-	TagsList   TagsList `json:"tagsList" xml:"TagsList"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+TagsList TagsList `json:"tagsList" xml:"TagsList"`
 }
 
 type AddTagsResponse struct {
 }
 
 type AdvancedEventSelector struct {
-	FieldSelectors AdvancedFieldSelectors `json:"fieldSelectors" xml:"FieldSelectors"`
-	Name           string                 `json:"name" xml:"Name"`
+FieldSelectors AdvancedFieldSelectors `json:"fieldSelectors" xml:"FieldSelectors"`
+Name string `json:"name" xml:"Name"`
 }
 
 type AdvancedFieldSelector struct {
-	EndsWith      Operator `json:"endsWith" xml:"EndsWith"`
-	Equals        Operator `json:"equals" xml:"Equals"`
-	Field         string   `json:"field" xml:"Field"`
-	NotEndsWith   Operator `json:"notEndsWith" xml:"NotEndsWith"`
-	NotEquals     Operator `json:"notEquals" xml:"NotEquals"`
-	NotStartsWith Operator `json:"notStartsWith" xml:"NotStartsWith"`
-	StartsWith    Operator `json:"startsWith" xml:"StartsWith"`
+EndsWith Operator `json:"endsWith" xml:"EndsWith"`
+Equals Operator `json:"equals" xml:"Equals"`
+Field string `json:"field" xml:"Field"`
+NotEndsWith Operator `json:"notEndsWith" xml:"NotEndsWith"`
+NotEquals Operator `json:"notEquals" xml:"NotEquals"`
+NotStartsWith Operator `json:"notStartsWith" xml:"NotStartsWith"`
+StartsWith Operator `json:"startsWith" xml:"StartsWith"`
 }
 
 type AggregationConfiguration struct {
-	EventCategory string    `json:"eventCategory" xml:"EventCategory"`
-	Templates     Templates `json:"templates" xml:"Templates"`
+EventCategory string `json:"eventCategory" xml:"EventCategory"`
+Templates Templates `json:"templates" xml:"Templates"`
 }
 
 type CancelQueryRequest struct {
-	EventDataStore               string `json:"eventDataStore" xml:"EventDataStore"`
-	EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
-	QueryId                      string `json:"queryId" xml:"QueryId"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
+QueryId string `json:"queryId" xml:"QueryId"`
 }
 
 type CancelQueryResponse struct {
-	EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
-	QueryId                      string `json:"queryId" xml:"QueryId"`
-	QueryStatus                  string `json:"queryStatus" xml:"QueryStatus"`
+EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
+QueryId string `json:"queryId" xml:"QueryId"`
+QueryStatus string `json:"queryStatus" xml:"QueryStatus"`
 }
 
 type Channel struct {
-	ChannelArn string `json:"channelArn" xml:"ChannelArn"`
-	Name       string `json:"name" xml:"Name"`
+ChannelArn string `json:"channelArn" xml:"ChannelArn"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ContextKeySelector struct {
-	Equals OperatorTargetList `json:"equals" xml:"Equals"`
-	Type   string             `json:"type" xml:"Type"`
+Equals OperatorTargetList `json:"equals" xml:"Equals"`
+Type string `json:"type" xml:"Type"`
 }
 
 type CreateChannelRequest struct {
-	Destinations Destinations `json:"destinations" xml:"Destinations"`
-	Name         string       `json:"name" xml:"Name"`
-	Source       string       `json:"source" xml:"Source"`
-	Tags         TagsList     `json:"tags" xml:"Tags"`
+Destinations Destinations `json:"destinations" xml:"Destinations"`
+Name string `json:"name" xml:"Name"`
+Source string `json:"source" xml:"Source"`
+Tags TagsList `json:"tags" xml:"Tags"`
 }
 
 type CreateChannelResponse struct {
-	ChannelArn   string       `json:"channelArn" xml:"ChannelArn"`
-	Destinations Destinations `json:"destinations" xml:"Destinations"`
-	Name         string       `json:"name" xml:"Name"`
-	Source       string       `json:"source" xml:"Source"`
-	Tags         TagsList     `json:"tags" xml:"Tags"`
+ChannelArn string `json:"channelArn" xml:"ChannelArn"`
+Destinations Destinations `json:"destinations" xml:"Destinations"`
+Name string `json:"name" xml:"Name"`
+Source string `json:"source" xml:"Source"`
+Tags TagsList `json:"tags" xml:"Tags"`
 }
 
 type CreateDashboardRequest struct {
-	Name                         string            `json:"name" xml:"Name"`
-	RefreshSchedule              *RefreshSchedule  `json:"refreshSchedule" xml:"RefreshSchedule"`
-	TagsList                     TagsList          `json:"tagsList" xml:"TagsList"`
-	TerminationProtectionEnabled bool              `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
-	Widgets                      RequestWidgetList `json:"widgets" xml:"Widgets"`
+Name string `json:"name" xml:"Name"`
+RefreshSchedule *RefreshSchedule `json:"refreshSchedule" xml:"RefreshSchedule"`
+TagsList TagsList `json:"tagsList" xml:"TagsList"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+Widgets RequestWidgetList `json:"widgets" xml:"Widgets"`
 }
 
 type CreateDashboardResponse struct {
-	DashboardArn                 string           `json:"dashboardArn" xml:"DashboardArn"`
-	Name                         string           `json:"name" xml:"Name"`
-	RefreshSchedule              *RefreshSchedule `json:"refreshSchedule" xml:"RefreshSchedule"`
-	TagsList                     TagsList         `json:"tagsList" xml:"TagsList"`
-	TerminationProtectionEnabled bool             `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
-	Type                         string           `json:"type" xml:"Type"`
-	Widgets                      WidgetList       `json:"widgets" xml:"Widgets"`
+DashboardArn string `json:"dashboardArn" xml:"DashboardArn"`
+Name string `json:"name" xml:"Name"`
+RefreshSchedule *RefreshSchedule `json:"refreshSchedule" xml:"RefreshSchedule"`
+TagsList TagsList `json:"tagsList" xml:"TagsList"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+Type string `json:"type" xml:"Type"`
+Widgets WidgetList `json:"widgets" xml:"Widgets"`
 }
 
 type CreateEventDataStoreRequest struct {
-	AdvancedEventSelectors       AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
-	BillingMode                  string                 `json:"billingMode" xml:"BillingMode"`
-	KmsKeyId                     string                 `json:"kmsKeyId" xml:"KmsKeyId"`
-	MultiRegionEnabled           bool                   `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
-	Name                         string                 `json:"name" xml:"Name"`
-	OrganizationEnabled          bool                   `json:"organizationEnabled" xml:"OrganizationEnabled"`
-	RetentionPeriod              int32                  `json:"retentionPeriod" xml:"RetentionPeriod"`
-	StartIngestion               bool                   `json:"startIngestion" xml:"StartIngestion"`
-	TagsList                     TagsList               `json:"tagsList" xml:"TagsList"`
-	TerminationProtectionEnabled bool                   `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
+BillingMode string `json:"billingMode" xml:"BillingMode"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MultiRegionEnabled bool `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
+Name string `json:"name" xml:"Name"`
+OrganizationEnabled bool `json:"organizationEnabled" xml:"OrganizationEnabled"`
+RetentionPeriod int32 `json:"retentionPeriod" xml:"RetentionPeriod"`
+StartIngestion bool `json:"startIngestion" xml:"StartIngestion"`
+TagsList TagsList `json:"tagsList" xml:"TagsList"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
 }
 
 type CreateEventDataStoreResponse struct {
-	AdvancedEventSelectors       AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
-	BillingMode                  string                 `json:"billingMode" xml:"BillingMode"`
-	CreatedTimestamp             time.Time              `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	EventDataStoreArn            string                 `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
-	KmsKeyId                     string                 `json:"kmsKeyId" xml:"KmsKeyId"`
-	MultiRegionEnabled           bool                   `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
-	Name                         string                 `json:"name" xml:"Name"`
-	OrganizationEnabled          bool                   `json:"organizationEnabled" xml:"OrganizationEnabled"`
-	RetentionPeriod              int32                  `json:"retentionPeriod" xml:"RetentionPeriod"`
-	Status                       string                 `json:"status" xml:"Status"`
-	TagsList                     TagsList               `json:"tagsList" xml:"TagsList"`
-	TerminationProtectionEnabled bool                   `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
-	UpdatedTimestamp             time.Time              `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
+AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
+BillingMode string `json:"billingMode" xml:"BillingMode"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MultiRegionEnabled bool `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
+Name string `json:"name" xml:"Name"`
+OrganizationEnabled bool `json:"organizationEnabled" xml:"OrganizationEnabled"`
+RetentionPeriod int32 `json:"retentionPeriod" xml:"RetentionPeriod"`
+Status string `json:"status" xml:"Status"`
+TagsList TagsList `json:"tagsList" xml:"TagsList"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+UpdatedTimestamp time.Time `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
 }
 
 type CreateTrailRequest struct {
-	CloudWatchLogsLogGroupArn  string   `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
-	CloudWatchLogsRoleArn      string   `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
-	EnableLogFileValidation    bool     `json:"enableLogFileValidation" xml:"EnableLogFileValidation"`
-	IncludeGlobalServiceEvents bool     `json:"includeGlobalServiceEvents" xml:"IncludeGlobalServiceEvents"`
-	IsMultiRegionTrail         bool     `json:"isMultiRegionTrail" xml:"IsMultiRegionTrail"`
-	IsOrganizationTrail        bool     `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
-	KmsKeyId                   string   `json:"kmsKeyId" xml:"KmsKeyId"`
-	Name                       string   `json:"name" xml:"Name"`
-	S3BucketName               string   `json:"s3BucketName" xml:"S3BucketName"`
-	S3KeyPrefix                string   `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
-	SnsTopicName               string   `json:"snsTopicName" xml:"SnsTopicName"`
-	TagsList                   TagsList `json:"tagsList" xml:"TagsList"`
+CloudWatchLogsLogGroupArn string `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
+CloudWatchLogsRoleArn string `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
+EnableLogFileValidation bool `json:"enableLogFileValidation" xml:"EnableLogFileValidation"`
+IncludeGlobalServiceEvents bool `json:"includeGlobalServiceEvents" xml:"IncludeGlobalServiceEvents"`
+IsMultiRegionTrail bool `json:"isMultiRegionTrail" xml:"IsMultiRegionTrail"`
+IsOrganizationTrail bool `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+Name string `json:"name" xml:"Name"`
+S3BucketName string `json:"s3BucketName" xml:"S3BucketName"`
+S3KeyPrefix string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
+SnsTopicName string `json:"snsTopicName" xml:"SnsTopicName"`
+TagsList TagsList `json:"tagsList" xml:"TagsList"`
 }
 
 type CreateTrailResponse struct {
-	CloudWatchLogsLogGroupArn  string `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
-	CloudWatchLogsRoleArn      string `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
-	IncludeGlobalServiceEvents bool   `json:"includeGlobalServiceEvents" xml:"IncludeGlobalServiceEvents"`
-	IsMultiRegionTrail         bool   `json:"isMultiRegionTrail" xml:"IsMultiRegionTrail"`
-	IsOrganizationTrail        bool   `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
-	KmsKeyId                   string `json:"kmsKeyId" xml:"KmsKeyId"`
-	LogFileValidationEnabled   bool   `json:"logFileValidationEnabled" xml:"LogFileValidationEnabled"`
-	Name                       string `json:"name" xml:"Name"`
-	S3BucketName               string `json:"s3BucketName" xml:"S3BucketName"`
-	S3KeyPrefix                string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
-	SnsTopicARN                string `json:"snsTopicARN" xml:"SnsTopicARN"`
-	SnsTopicName               string `json:"snsTopicName" xml:"SnsTopicName"`
-	TrailARN                   string `json:"trailARN" xml:"TrailARN"`
+CloudWatchLogsLogGroupArn string `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
+CloudWatchLogsRoleArn string `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
+IncludeGlobalServiceEvents bool `json:"includeGlobalServiceEvents" xml:"IncludeGlobalServiceEvents"`
+IsMultiRegionTrail bool `json:"isMultiRegionTrail" xml:"IsMultiRegionTrail"`
+IsOrganizationTrail bool `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+LogFileValidationEnabled bool `json:"logFileValidationEnabled" xml:"LogFileValidationEnabled"`
+Name string `json:"name" xml:"Name"`
+S3BucketName string `json:"s3BucketName" xml:"S3BucketName"`
+S3KeyPrefix string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
+SnsTopicARN string `json:"snsTopicARN" xml:"SnsTopicARN"`
+SnsTopicName string `json:"snsTopicName" xml:"SnsTopicName"`
+TrailARN string `json:"trailARN" xml:"TrailARN"`
 }
 
 type DashboardDetail struct {
-	DashboardArn string `json:"dashboardArn" xml:"DashboardArn"`
-	Type         string `json:"type" xml:"Type"`
+DashboardArn string `json:"dashboardArn" xml:"DashboardArn"`
+Type string `json:"type" xml:"Type"`
 }
 
 type DataResource struct {
-	Type   string             `json:"type" xml:"Type"`
-	Values DataResourceValues `json:"values" xml:"Values"`
+Type string `json:"type" xml:"Type"`
+Values DataResourceValues `json:"values" xml:"Values"`
 }
 
 type DeleteChannelRequest struct {
-	Channel string `json:"channel" xml:"Channel"`
+Channel string `json:"channel" xml:"Channel"`
 }
 
 type DeleteChannelResponse struct {
 }
 
 type DeleteDashboardRequest struct {
-	DashboardId string `json:"dashboardId" xml:"DashboardId"`
+DashboardId string `json:"dashboardId" xml:"DashboardId"`
 }
 
 type DeleteDashboardResponse struct {
 }
 
 type DeleteEventDataStoreRequest struct {
-	EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
 }
 
 type DeleteEventDataStoreResponse struct {
 }
 
 type DeleteResourcePolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DeleteResourcePolicyResponse struct {
 }
 
 type DeleteTrailRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteTrailResponse struct {
 }
 
 type DeregisterOrganizationDelegatedAdminRequest struct {
-	DelegatedAdminAccountId string `json:"delegatedAdminAccountId" xml:"DelegatedAdminAccountId"`
+DelegatedAdminAccountId string `json:"delegatedAdminAccountId" xml:"DelegatedAdminAccountId"`
 }
 
 type DeregisterOrganizationDelegatedAdminResponse struct {
 }
 
 type DescribeQueryRequest struct {
-	EventDataStore               string `json:"eventDataStore" xml:"EventDataStore"`
-	EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
-	QueryAlias                   string `json:"queryAlias" xml:"QueryAlias"`
-	QueryId                      string `json:"queryId" xml:"QueryId"`
-	RefreshId                    string `json:"refreshId" xml:"RefreshId"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
+QueryAlias string `json:"queryAlias" xml:"QueryAlias"`
+QueryId string `json:"queryId" xml:"QueryId"`
+RefreshId string `json:"refreshId" xml:"RefreshId"`
 }
 
 type DescribeQueryResponse struct {
-	DeliveryS3Uri                string                           `json:"deliveryS3Uri" xml:"DeliveryS3Uri"`
-	DeliveryStatus               string                           `json:"deliveryStatus" xml:"DeliveryStatus"`
-	ErrorMessage                 string                           `json:"errorMessage" xml:"ErrorMessage"`
-	EventDataStoreOwnerAccountId string                           `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
-	Prompt                       string                           `json:"prompt" xml:"Prompt"`
-	QueryId                      string                           `json:"queryId" xml:"QueryId"`
-	QueryStatistics              *QueryStatisticsForDescribeQuery `json:"queryStatistics" xml:"QueryStatistics"`
-	QueryStatus                  string                           `json:"queryStatus" xml:"QueryStatus"`
-	QueryString                  string                           `json:"queryString" xml:"QueryString"`
+DeliveryS3Uri string `json:"deliveryS3Uri" xml:"DeliveryS3Uri"`
+DeliveryStatus string `json:"deliveryStatus" xml:"DeliveryStatus"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
+Prompt string `json:"prompt" xml:"Prompt"`
+QueryId string `json:"queryId" xml:"QueryId"`
+QueryStatistics *QueryStatisticsForDescribeQuery `json:"queryStatistics" xml:"QueryStatistics"`
+QueryStatus string `json:"queryStatus" xml:"QueryStatus"`
+QueryString string `json:"queryString" xml:"QueryString"`
 }
 
 type DescribeTrailsRequest struct {
-	IncludeShadowTrails bool          `json:"includeShadowTrails" xml:"includeShadowTrails"`
-	TrailNameList       TrailNameList `json:"trailNameList" xml:"trailNameList"`
+IncludeShadowTrails bool `json:"includeShadowTrails" xml:"includeShadowTrails"`
+TrailNameList TrailNameList `json:"trailNameList" xml:"trailNameList"`
 }
 
 type DescribeTrailsResponse struct {
-	TrailList TrailList `json:"trailList" xml:"trailList"`
+TrailList TrailList `json:"trailList" xml:"trailList"`
 }
 
 type Destination struct {
-	Location string `json:"location" xml:"Location"`
-	Type     string `json:"type" xml:"Type"`
+Location string `json:"location" xml:"Location"`
+Type string `json:"type" xml:"Type"`
 }
 
 type DisableFederationRequest struct {
-	EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
 }
 
 type DisableFederationResponse struct {
-	EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
-	FederationStatus  string `json:"federationStatus" xml:"FederationStatus"`
+EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
+FederationStatus string `json:"federationStatus" xml:"FederationStatus"`
 }
 
 type EnableFederationRequest struct {
-	EventDataStore    string `json:"eventDataStore" xml:"EventDataStore"`
-	FederationRoleArn string `json:"federationRoleArn" xml:"FederationRoleArn"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+FederationRoleArn string `json:"federationRoleArn" xml:"FederationRoleArn"`
 }
 
 type EnableFederationResponse struct {
-	EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
-	FederationRoleArn string `json:"federationRoleArn" xml:"FederationRoleArn"`
-	FederationStatus  string `json:"federationStatus" xml:"FederationStatus"`
+EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
+FederationRoleArn string `json:"federationRoleArn" xml:"FederationRoleArn"`
+FederationStatus string `json:"federationStatus" xml:"FederationStatus"`
 }
 
 type Event struct {
-	AccessKeyId     string       `json:"accessKeyId" xml:"AccessKeyId"`
-	CloudTrailEvent string       `json:"cloudTrailEvent" xml:"CloudTrailEvent"`
-	EventId         string       `json:"eventId" xml:"EventId"`
-	EventName       string       `json:"eventName" xml:"EventName"`
-	EventSource     string       `json:"eventSource" xml:"EventSource"`
-	EventTime       time.Time    `json:"eventTime" xml:"EventTime"`
-	ReadOnly        string       `json:"readOnly" xml:"ReadOnly"`
-	Resources       ResourceList `json:"resources" xml:"Resources"`
-	Username        string       `json:"username" xml:"Username"`
+AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
+CloudTrailEvent string `json:"cloudTrailEvent" xml:"CloudTrailEvent"`
+EventId string `json:"eventId" xml:"EventId"`
+EventName string `json:"eventName" xml:"EventName"`
+EventSource string `json:"eventSource" xml:"EventSource"`
+EventTime time.Time `json:"eventTime" xml:"EventTime"`
+ReadOnly string `json:"readOnly" xml:"ReadOnly"`
+Resources ResourceList `json:"resources" xml:"Resources"`
+Username string `json:"username" xml:"Username"`
 }
 
 type EventDataStore struct {
-	AdvancedEventSelectors       AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
-	CreatedTimestamp             time.Time              `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	EventDataStoreArn            string                 `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
-	MultiRegionEnabled           bool                   `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
-	Name                         string                 `json:"name" xml:"Name"`
-	OrganizationEnabled          bool                   `json:"organizationEnabled" xml:"OrganizationEnabled"`
-	RetentionPeriod              int32                  `json:"retentionPeriod" xml:"RetentionPeriod"`
-	Status                       string                 `json:"status" xml:"Status"`
-	TerminationProtectionEnabled bool                   `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
-	UpdatedTimestamp             time.Time              `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
+AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
+MultiRegionEnabled bool `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
+Name string `json:"name" xml:"Name"`
+OrganizationEnabled bool `json:"organizationEnabled" xml:"OrganizationEnabled"`
+RetentionPeriod int32 `json:"retentionPeriod" xml:"RetentionPeriod"`
+Status string `json:"status" xml:"Status"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+UpdatedTimestamp time.Time `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
 }
 
 type EventSelector struct {
-	DataResources                 DataResources                 `json:"dataResources" xml:"DataResources"`
-	ExcludeManagementEventSources ExcludeManagementEventSources `json:"excludeManagementEventSources" xml:"ExcludeManagementEventSources"`
-	IncludeManagementEvents       bool                          `json:"includeManagementEvents" xml:"IncludeManagementEvents"`
-	ReadWriteType                 string                        `json:"readWriteType" xml:"ReadWriteType"`
+DataResources DataResources `json:"dataResources" xml:"DataResources"`
+ExcludeManagementEventSources ExcludeManagementEventSources `json:"excludeManagementEventSources" xml:"ExcludeManagementEventSources"`
+IncludeManagementEvents bool `json:"includeManagementEvents" xml:"IncludeManagementEvents"`
+ReadWriteType string `json:"readWriteType" xml:"ReadWriteType"`
 }
 
 type GenerateQueryRequest struct {
-	EventDataStores EventDataStoreList `json:"eventDataStores" xml:"EventDataStores"`
-	Prompt          string             `json:"prompt" xml:"Prompt"`
+EventDataStores EventDataStoreList `json:"eventDataStores" xml:"EventDataStores"`
+Prompt string `json:"prompt" xml:"Prompt"`
 }
 
 type GenerateQueryResponse struct {
-	EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
-	QueryAlias                   string `json:"queryAlias" xml:"QueryAlias"`
-	QueryStatement               string `json:"queryStatement" xml:"QueryStatement"`
+EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
+QueryAlias string `json:"queryAlias" xml:"QueryAlias"`
+QueryStatement string `json:"queryStatement" xml:"QueryStatement"`
 }
 
 type GetChannelRequest struct {
-	Channel string `json:"channel" xml:"Channel"`
+Channel string `json:"channel" xml:"Channel"`
 }
 
 type GetChannelResponse struct {
-	ChannelArn      string           `json:"channelArn" xml:"ChannelArn"`
-	Destinations    Destinations     `json:"destinations" xml:"Destinations"`
-	IngestionStatus *IngestionStatus `json:"ingestionStatus" xml:"IngestionStatus"`
-	Name            string           `json:"name" xml:"Name"`
-	Source          string           `json:"source" xml:"Source"`
-	SourceConfig    *SourceConfig    `json:"sourceConfig" xml:"SourceConfig"`
+ChannelArn string `json:"channelArn" xml:"ChannelArn"`
+Destinations Destinations `json:"destinations" xml:"Destinations"`
+IngestionStatus *IngestionStatus `json:"ingestionStatus" xml:"IngestionStatus"`
+Name string `json:"name" xml:"Name"`
+Source string `json:"source" xml:"Source"`
+SourceConfig *SourceConfig `json:"sourceConfig" xml:"SourceConfig"`
 }
 
 type GetDashboardRequest struct {
-	DashboardId string `json:"dashboardId" xml:"DashboardId"`
+DashboardId string `json:"dashboardId" xml:"DashboardId"`
 }
 
 type GetDashboardResponse struct {
-	CreatedTimestamp             time.Time        `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	DashboardArn                 string           `json:"dashboardArn" xml:"DashboardArn"`
-	LastRefreshFailureReason     string           `json:"lastRefreshFailureReason" xml:"LastRefreshFailureReason"`
-	LastRefreshId                string           `json:"lastRefreshId" xml:"LastRefreshId"`
-	RefreshSchedule              *RefreshSchedule `json:"refreshSchedule" xml:"RefreshSchedule"`
-	Status                       string           `json:"status" xml:"Status"`
-	TerminationProtectionEnabled bool             `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
-	Type                         string           `json:"type" xml:"Type"`
-	UpdatedTimestamp             time.Time        `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
-	Widgets                      WidgetList       `json:"widgets" xml:"Widgets"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+DashboardArn string `json:"dashboardArn" xml:"DashboardArn"`
+LastRefreshFailureReason string `json:"lastRefreshFailureReason" xml:"LastRefreshFailureReason"`
+LastRefreshId string `json:"lastRefreshId" xml:"LastRefreshId"`
+RefreshSchedule *RefreshSchedule `json:"refreshSchedule" xml:"RefreshSchedule"`
+Status string `json:"status" xml:"Status"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+Type string `json:"type" xml:"Type"`
+UpdatedTimestamp time.Time `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
+Widgets WidgetList `json:"widgets" xml:"Widgets"`
 }
 
 type GetEventConfigurationRequest struct {
-	EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
-	TrailName      string `json:"trailName" xml:"TrailName"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+TrailName string `json:"trailName" xml:"TrailName"`
 }
 
 type GetEventConfigurationResponse struct {
-	AggregationConfigurations AggregationConfigurations `json:"aggregationConfigurations" xml:"AggregationConfigurations"`
-	ContextKeySelectors       ContextKeySelectors       `json:"contextKeySelectors" xml:"ContextKeySelectors"`
-	EventDataStoreArn         string                    `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
-	MaxEventSize              string                    `json:"maxEventSize" xml:"MaxEventSize"`
-	TrailARN                  string                    `json:"trailARN" xml:"TrailARN"`
+AggregationConfigurations AggregationConfigurations `json:"aggregationConfigurations" xml:"AggregationConfigurations"`
+ContextKeySelectors ContextKeySelectors `json:"contextKeySelectors" xml:"ContextKeySelectors"`
+EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
+MaxEventSize string `json:"maxEventSize" xml:"MaxEventSize"`
+TrailARN string `json:"trailARN" xml:"TrailARN"`
 }
 
 type GetEventDataStoreRequest struct {
-	EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
 }
 
 type GetEventDataStoreResponse struct {
-	AdvancedEventSelectors       AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
-	BillingMode                  string                 `json:"billingMode" xml:"BillingMode"`
-	CreatedTimestamp             time.Time              `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	EventDataStoreArn            string                 `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
-	FederationRoleArn            string                 `json:"federationRoleArn" xml:"FederationRoleArn"`
-	FederationStatus             string                 `json:"federationStatus" xml:"FederationStatus"`
-	KmsKeyId                     string                 `json:"kmsKeyId" xml:"KmsKeyId"`
-	MultiRegionEnabled           bool                   `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
-	Name                         string                 `json:"name" xml:"Name"`
-	OrganizationEnabled          bool                   `json:"organizationEnabled" xml:"OrganizationEnabled"`
-	PartitionKeys                PartitionKeyList       `json:"partitionKeys" xml:"PartitionKeys"`
-	RetentionPeriod              int32                  `json:"retentionPeriod" xml:"RetentionPeriod"`
-	Status                       string                 `json:"status" xml:"Status"`
-	TerminationProtectionEnabled bool                   `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
-	UpdatedTimestamp             time.Time              `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
+AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
+BillingMode string `json:"billingMode" xml:"BillingMode"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
+FederationRoleArn string `json:"federationRoleArn" xml:"FederationRoleArn"`
+FederationStatus string `json:"federationStatus" xml:"FederationStatus"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MultiRegionEnabled bool `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
+Name string `json:"name" xml:"Name"`
+OrganizationEnabled bool `json:"organizationEnabled" xml:"OrganizationEnabled"`
+PartitionKeys PartitionKeyList `json:"partitionKeys" xml:"PartitionKeys"`
+RetentionPeriod int32 `json:"retentionPeriod" xml:"RetentionPeriod"`
+Status string `json:"status" xml:"Status"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+UpdatedTimestamp time.Time `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
 }
 
 type GetEventSelectorsRequest struct {
-	TrailName string `json:"trailName" xml:"TrailName"`
+TrailName string `json:"trailName" xml:"TrailName"`
 }
 
 type GetEventSelectorsResponse struct {
-	AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
-	EventSelectors         EventSelectors         `json:"eventSelectors" xml:"EventSelectors"`
-	TrailARN               string                 `json:"trailARN" xml:"TrailARN"`
+AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
+EventSelectors EventSelectors `json:"eventSelectors" xml:"EventSelectors"`
+TrailARN string `json:"trailARN" xml:"TrailARN"`
 }
 
 type GetImportRequest struct {
-	ImportId string `json:"importId" xml:"ImportId"`
+ImportId string `json:"importId" xml:"ImportId"`
 }
 
 type GetImportResponse struct {
-	CreatedTimestamp time.Time          `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	Destinations     ImportDestinations `json:"destinations" xml:"Destinations"`
-	EndEventTime     time.Time          `json:"endEventTime" xml:"EndEventTime"`
-	ImportId         string             `json:"importId" xml:"ImportId"`
-	ImportSource     *ImportSource      `json:"importSource" xml:"ImportSource"`
-	ImportStatistics *ImportStatistics  `json:"importStatistics" xml:"ImportStatistics"`
-	ImportStatus     string             `json:"importStatus" xml:"ImportStatus"`
-	StartEventTime   time.Time          `json:"startEventTime" xml:"StartEventTime"`
-	UpdatedTimestamp time.Time          `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+Destinations ImportDestinations `json:"destinations" xml:"Destinations"`
+EndEventTime time.Time `json:"endEventTime" xml:"EndEventTime"`
+ImportId string `json:"importId" xml:"ImportId"`
+ImportSource *ImportSource `json:"importSource" xml:"ImportSource"`
+ImportStatistics *ImportStatistics `json:"importStatistics" xml:"ImportStatistics"`
+ImportStatus string `json:"importStatus" xml:"ImportStatus"`
+StartEventTime time.Time `json:"startEventTime" xml:"StartEventTime"`
+UpdatedTimestamp time.Time `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
 }
 
 type GetInsightSelectorsRequest struct {
-	EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
-	TrailName      string `json:"trailName" xml:"TrailName"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+TrailName string `json:"trailName" xml:"TrailName"`
 }
 
 type GetInsightSelectorsResponse struct {
-	EventDataStoreArn   string           `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
-	InsightSelectors    InsightSelectors `json:"insightSelectors" xml:"InsightSelectors"`
-	InsightsDestination string           `json:"insightsDestination" xml:"InsightsDestination"`
-	TrailARN            string           `json:"trailARN" xml:"TrailARN"`
+EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
+InsightSelectors InsightSelectors `json:"insightSelectors" xml:"InsightSelectors"`
+InsightsDestination string `json:"insightsDestination" xml:"InsightsDestination"`
+TrailARN string `json:"trailARN" xml:"TrailARN"`
 }
 
 type GetQueryResultsRequest struct {
-	EventDataStore               string `json:"eventDataStore" xml:"EventDataStore"`
-	EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
-	MaxQueryResults              int32  `json:"maxQueryResults" xml:"MaxQueryResults"`
-	NextToken                    string `json:"nextToken" xml:"NextToken"`
-	QueryId                      string `json:"queryId" xml:"QueryId"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
+MaxQueryResults int32 `json:"maxQueryResults" xml:"MaxQueryResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueryId string `json:"queryId" xml:"QueryId"`
 }
 
 type GetQueryResultsResponse struct {
-	ErrorMessage    string           `json:"errorMessage" xml:"ErrorMessage"`
-	NextToken       string           `json:"nextToken" xml:"NextToken"`
-	QueryResultRows QueryResultRows  `json:"queryResultRows" xml:"QueryResultRows"`
-	QueryStatistics *QueryStatistics `json:"queryStatistics" xml:"QueryStatistics"`
-	QueryStatus     string           `json:"queryStatus" xml:"QueryStatus"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueryResultRows QueryResultRows `json:"queryResultRows" xml:"QueryResultRows"`
+QueryStatistics *QueryStatistics `json:"queryStatistics" xml:"QueryStatistics"`
+QueryStatus string `json:"queryStatus" xml:"QueryStatus"`
 }
 
 type GetResourcePolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetResourcePolicyResponse struct {
-	DelegatedAdminResourcePolicy string `json:"delegatedAdminResourcePolicy" xml:"DelegatedAdminResourcePolicy"`
-	ResourceArn                  string `json:"resourceArn" xml:"ResourceArn"`
-	ResourcePolicy               string `json:"resourcePolicy" xml:"ResourcePolicy"`
+DelegatedAdminResourcePolicy string `json:"delegatedAdminResourcePolicy" xml:"DelegatedAdminResourcePolicy"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
 }
 
 type GetTrailRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetTrailResponse struct {
-	Trail *Trail `json:"trail" xml:"Trail"`
+Trail *Trail `json:"trail" xml:"Trail"`
 }
 
 type GetTrailStatusRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetTrailStatusResponse struct {
-	IsLogging                          bool      `json:"isLogging" xml:"IsLogging"`
-	LatestCloudWatchLogsDeliveryError  string    `json:"latestCloudWatchLogsDeliveryError" xml:"LatestCloudWatchLogsDeliveryError"`
-	LatestCloudWatchLogsDeliveryTime   time.Time `json:"latestCloudWatchLogsDeliveryTime" xml:"LatestCloudWatchLogsDeliveryTime"`
-	LatestDeliveryAttemptSucceeded     string    `json:"latestDeliveryAttemptSucceeded" xml:"LatestDeliveryAttemptSucceeded"`
-	LatestDeliveryAttemptTime          string    `json:"latestDeliveryAttemptTime" xml:"LatestDeliveryAttemptTime"`
-	LatestDeliveryError                string    `json:"latestDeliveryError" xml:"LatestDeliveryError"`
-	LatestDeliveryTime                 time.Time `json:"latestDeliveryTime" xml:"LatestDeliveryTime"`
-	LatestDigestDeliveryError          string    `json:"latestDigestDeliveryError" xml:"LatestDigestDeliveryError"`
-	LatestDigestDeliveryTime           time.Time `json:"latestDigestDeliveryTime" xml:"LatestDigestDeliveryTime"`
-	LatestNotificationAttemptSucceeded string    `json:"latestNotificationAttemptSucceeded" xml:"LatestNotificationAttemptSucceeded"`
-	LatestNotificationAttemptTime      string    `json:"latestNotificationAttemptTime" xml:"LatestNotificationAttemptTime"`
-	LatestNotificationError            string    `json:"latestNotificationError" xml:"LatestNotificationError"`
-	LatestNotificationTime             time.Time `json:"latestNotificationTime" xml:"LatestNotificationTime"`
-	StartLoggingTime                   time.Time `json:"startLoggingTime" xml:"StartLoggingTime"`
-	StopLoggingTime                    time.Time `json:"stopLoggingTime" xml:"StopLoggingTime"`
-	TimeLoggingStarted                 string    `json:"timeLoggingStarted" xml:"TimeLoggingStarted"`
-	TimeLoggingStopped                 string    `json:"timeLoggingStopped" xml:"TimeLoggingStopped"`
+IsLogging bool `json:"isLogging" xml:"IsLogging"`
+LatestCloudWatchLogsDeliveryError string `json:"latestCloudWatchLogsDeliveryError" xml:"LatestCloudWatchLogsDeliveryError"`
+LatestCloudWatchLogsDeliveryTime time.Time `json:"latestCloudWatchLogsDeliveryTime" xml:"LatestCloudWatchLogsDeliveryTime"`
+LatestDeliveryAttemptSucceeded string `json:"latestDeliveryAttemptSucceeded" xml:"LatestDeliveryAttemptSucceeded"`
+LatestDeliveryAttemptTime string `json:"latestDeliveryAttemptTime" xml:"LatestDeliveryAttemptTime"`
+LatestDeliveryError string `json:"latestDeliveryError" xml:"LatestDeliveryError"`
+LatestDeliveryTime time.Time `json:"latestDeliveryTime" xml:"LatestDeliveryTime"`
+LatestDigestDeliveryError string `json:"latestDigestDeliveryError" xml:"LatestDigestDeliveryError"`
+LatestDigestDeliveryTime time.Time `json:"latestDigestDeliveryTime" xml:"LatestDigestDeliveryTime"`
+LatestNotificationAttemptSucceeded string `json:"latestNotificationAttemptSucceeded" xml:"LatestNotificationAttemptSucceeded"`
+LatestNotificationAttemptTime string `json:"latestNotificationAttemptTime" xml:"LatestNotificationAttemptTime"`
+LatestNotificationError string `json:"latestNotificationError" xml:"LatestNotificationError"`
+LatestNotificationTime time.Time `json:"latestNotificationTime" xml:"LatestNotificationTime"`
+StartLoggingTime time.Time `json:"startLoggingTime" xml:"StartLoggingTime"`
+StopLoggingTime time.Time `json:"stopLoggingTime" xml:"StopLoggingTime"`
+TimeLoggingStarted string `json:"timeLoggingStarted" xml:"TimeLoggingStarted"`
+TimeLoggingStopped string `json:"timeLoggingStopped" xml:"TimeLoggingStopped"`
 }
 
 type ImportFailureListItem struct {
-	ErrorMessage    string    `json:"errorMessage" xml:"ErrorMessage"`
-	ErrorType       string    `json:"errorType" xml:"ErrorType"`
-	LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	Location        string    `json:"location" xml:"Location"`
-	Status          string    `json:"status" xml:"Status"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ErrorType string `json:"errorType" xml:"ErrorType"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+Location string `json:"location" xml:"Location"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ImportSource struct {
-	S3 *S3ImportSource `json:"s3" xml:"S3"`
+S3 *S3ImportSource `json:"s3" xml:"S3"`
 }
 
 type ImportStatistics struct {
-	EventsCompleted   int64 `json:"eventsCompleted" xml:"EventsCompleted"`
-	FailedEntries     int64 `json:"failedEntries" xml:"FailedEntries"`
-	FilesCompleted    int64 `json:"filesCompleted" xml:"FilesCompleted"`
-	PrefixesCompleted int64 `json:"prefixesCompleted" xml:"PrefixesCompleted"`
-	PrefixesFound     int64 `json:"prefixesFound" xml:"PrefixesFound"`
+EventsCompleted int64 `json:"eventsCompleted" xml:"EventsCompleted"`
+FailedEntries int64 `json:"failedEntries" xml:"FailedEntries"`
+FilesCompleted int64 `json:"filesCompleted" xml:"FilesCompleted"`
+PrefixesCompleted int64 `json:"prefixesCompleted" xml:"PrefixesCompleted"`
+PrefixesFound int64 `json:"prefixesFound" xml:"PrefixesFound"`
 }
 
 type ImportsListItem struct {
-	CreatedTimestamp time.Time          `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	Destinations     ImportDestinations `json:"destinations" xml:"Destinations"`
-	ImportId         string             `json:"importId" xml:"ImportId"`
-	ImportStatus     string             `json:"importStatus" xml:"ImportStatus"`
-	UpdatedTimestamp time.Time          `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+Destinations ImportDestinations `json:"destinations" xml:"Destinations"`
+ImportId string `json:"importId" xml:"ImportId"`
+ImportStatus string `json:"importStatus" xml:"ImportStatus"`
+UpdatedTimestamp time.Time `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
 }
 
 type IngestionStatus struct {
-	LatestIngestionAttemptEventID string    `json:"latestIngestionAttemptEventID" xml:"LatestIngestionAttemptEventID"`
-	LatestIngestionAttemptTime    time.Time `json:"latestIngestionAttemptTime" xml:"LatestIngestionAttemptTime"`
-	LatestIngestionErrorCode      string    `json:"latestIngestionErrorCode" xml:"LatestIngestionErrorCode"`
-	LatestIngestionSuccessEventID string    `json:"latestIngestionSuccessEventID" xml:"LatestIngestionSuccessEventID"`
-	LatestIngestionSuccessTime    time.Time `json:"latestIngestionSuccessTime" xml:"LatestIngestionSuccessTime"`
+LatestIngestionAttemptEventID string `json:"latestIngestionAttemptEventID" xml:"LatestIngestionAttemptEventID"`
+LatestIngestionAttemptTime time.Time `json:"latestIngestionAttemptTime" xml:"LatestIngestionAttemptTime"`
+LatestIngestionErrorCode string `json:"latestIngestionErrorCode" xml:"LatestIngestionErrorCode"`
+LatestIngestionSuccessEventID string `json:"latestIngestionSuccessEventID" xml:"LatestIngestionSuccessEventID"`
+LatestIngestionSuccessTime time.Time `json:"latestIngestionSuccessTime" xml:"LatestIngestionSuccessTime"`
 }
 
 type InsightSelector struct {
-	EventCategories SourceEventCategories `json:"eventCategories" xml:"EventCategories"`
-	InsightType     string                `json:"insightType" xml:"InsightType"`
+EventCategories SourceEventCategories `json:"eventCategories" xml:"EventCategories"`
+InsightType string `json:"insightType" xml:"InsightType"`
 }
 
 type ListChannelsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListChannelsResponse struct {
-	Channels  Channels `json:"channels" xml:"Channels"`
-	NextToken string   `json:"nextToken" xml:"NextToken"`
+Channels Channels `json:"channels" xml:"Channels"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDashboardsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	Type       string `json:"type" xml:"Type"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NamePrefix string `json:"namePrefix" xml:"NamePrefix"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ListDashboardsResponse struct {
-	Dashboards Dashboards `json:"dashboards" xml:"Dashboards"`
-	NextToken  string     `json:"nextToken" xml:"NextToken"`
+Dashboards Dashboards `json:"dashboards" xml:"Dashboards"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListEventDataStoresRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListEventDataStoresResponse struct {
-	EventDataStores EventDataStores `json:"eventDataStores" xml:"EventDataStores"`
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
+EventDataStores EventDataStores `json:"eventDataStores" xml:"EventDataStores"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListImportFailuresRequest struct {
-	ImportId   string `json:"importId" xml:"ImportId"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+ImportId string `json:"importId" xml:"ImportId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListImportFailuresResponse struct {
-	Failures  ImportFailureList `json:"failures" xml:"Failures"`
-	NextToken string            `json:"nextToken" xml:"NextToken"`
+Failures ImportFailureList `json:"failures" xml:"Failures"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListImportsRequest struct {
-	Destination  string `json:"destination" xml:"Destination"`
-	ImportStatus string `json:"importStatus" xml:"ImportStatus"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
+Destination string `json:"destination" xml:"Destination"`
+ImportStatus string `json:"importStatus" xml:"ImportStatus"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListImportsResponse struct {
-	Imports   ImportsList `json:"imports" xml:"Imports"`
-	NextToken string      `json:"nextToken" xml:"NextToken"`
+Imports ImportsList `json:"imports" xml:"Imports"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListInsightsDataRequest struct {
-	DataType      string                     `json:"dataType" xml:"DataType"`
-	Dimensions    ListInsightsDataDimensions `json:"dimensions" xml:"Dimensions"`
-	EndTime       time.Time                  `json:"endTime" xml:"EndTime"`
-	InsightSource string                     `json:"insightSource" xml:"InsightSource"`
-	MaxResults    int32                      `json:"maxResults" xml:"MaxResults"`
-	NextToken     string                     `json:"nextToken" xml:"NextToken"`
-	StartTime     time.Time                  `json:"startTime" xml:"StartTime"`
+DataType string `json:"dataType" xml:"DataType"`
+Dimensions ListInsightsDataDimensions `json:"dimensions" xml:"Dimensions"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+InsightSource string `json:"insightSource" xml:"InsightSource"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type ListInsightsDataResponse struct {
-	Events    EventsList `json:"events" xml:"Events"`
-	NextToken string     `json:"nextToken" xml:"NextToken"`
+Events EventsList `json:"events" xml:"Events"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListInsightsMetricDataRequest struct {
-	DataType    string    `json:"dataType" xml:"DataType"`
-	EndTime     time.Time `json:"endTime" xml:"EndTime"`
-	ErrorCode   string    `json:"errorCode" xml:"ErrorCode"`
-	EventName   string    `json:"eventName" xml:"EventName"`
-	EventSource string    `json:"eventSource" xml:"EventSource"`
-	InsightType string    `json:"insightType" xml:"InsightType"`
-	MaxResults  int32     `json:"maxResults" xml:"MaxResults"`
-	NextToken   string    `json:"nextToken" xml:"NextToken"`
-	Period      int32     `json:"period" xml:"Period"`
-	StartTime   time.Time `json:"startTime" xml:"StartTime"`
-	TrailName   string    `json:"trailName" xml:"TrailName"`
+DataType string `json:"dataType" xml:"DataType"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+EventName string `json:"eventName" xml:"EventName"`
+EventSource string `json:"eventSource" xml:"EventSource"`
+InsightType string `json:"insightType" xml:"InsightType"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Period int32 `json:"period" xml:"Period"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+TrailName string `json:"trailName" xml:"TrailName"`
 }
 
 type ListInsightsMetricDataResponse struct {
-	ErrorCode   string               `json:"errorCode" xml:"ErrorCode"`
-	EventName   string               `json:"eventName" xml:"EventName"`
-	EventSource string               `json:"eventSource" xml:"EventSource"`
-	InsightType string               `json:"insightType" xml:"InsightType"`
-	NextToken   string               `json:"nextToken" xml:"NextToken"`
-	Timestamps  Timestamps           `json:"timestamps" xml:"Timestamps"`
-	TrailARN    string               `json:"trailARN" xml:"TrailARN"`
-	Values      InsightsMetricValues `json:"values" xml:"Values"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+EventName string `json:"eventName" xml:"EventName"`
+EventSource string `json:"eventSource" xml:"EventSource"`
+InsightType string `json:"insightType" xml:"InsightType"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Timestamps Timestamps `json:"timestamps" xml:"Timestamps"`
+TrailARN string `json:"trailARN" xml:"TrailARN"`
+Values InsightsMetricValues `json:"values" xml:"Values"`
 }
 
 type ListPublicKeysRequest struct {
-	EndTime   time.Time `json:"endTime" xml:"EndTime"`
-	NextToken string    `json:"nextToken" xml:"NextToken"`
-	StartTime time.Time `json:"startTime" xml:"StartTime"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type ListPublicKeysResponse struct {
-	NextToken     string        `json:"nextToken" xml:"NextToken"`
-	PublicKeyList PublicKeyList `json:"publicKeyList" xml:"PublicKeyList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PublicKeyList PublicKeyList `json:"publicKeyList" xml:"PublicKeyList"`
 }
 
 type ListQueriesRequest struct {
-	EndTime        time.Time `json:"endTime" xml:"EndTime"`
-	EventDataStore string    `json:"eventDataStore" xml:"EventDataStore"`
-	MaxResults     int32     `json:"maxResults" xml:"MaxResults"`
-	NextToken      string    `json:"nextToken" xml:"NextToken"`
-	QueryStatus    string    `json:"queryStatus" xml:"QueryStatus"`
-	StartTime      time.Time `json:"startTime" xml:"StartTime"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueryStatus string `json:"queryStatus" xml:"QueryStatus"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type ListQueriesResponse struct {
-	NextToken string  `json:"nextToken" xml:"NextToken"`
-	Queries   Queries `json:"queries" xml:"Queries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Queries Queries `json:"queries" xml:"Queries"`
 }
 
 type ListTagsRequest struct {
-	NextToken      string         `json:"nextToken" xml:"NextToken"`
-	ResourceIdList ResourceIdList `json:"resourceIdList" xml:"ResourceIdList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceIdList ResourceIdList `json:"resourceIdList" xml:"ResourceIdList"`
 }
 
 type ListTagsResponse struct {
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
-	ResourceTagList ResourceTagList `json:"resourceTagList" xml:"ResourceTagList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceTagList ResourceTagList `json:"resourceTagList" xml:"ResourceTagList"`
 }
 
 type ListTrailsRequest struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListTrailsResponse struct {
-	NextToken string `json:"nextToken" xml:"NextToken"`
-	Trails    Trails `json:"trails" xml:"Trails"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Trails Trails `json:"trails" xml:"Trails"`
 }
 
 type LookupAttribute struct {
-	AttributeKey   string `json:"attributeKey" xml:"AttributeKey"`
-	AttributeValue string `json:"attributeValue" xml:"AttributeValue"`
+AttributeKey string `json:"attributeKey" xml:"AttributeKey"`
+AttributeValue string `json:"attributeValue" xml:"AttributeValue"`
 }
 
 type LookupEventsRequest struct {
-	EndTime          time.Time            `json:"endTime" xml:"EndTime"`
-	EventCategory    string               `json:"eventCategory" xml:"EventCategory"`
-	LookupAttributes LookupAttributesList `json:"lookupAttributes" xml:"LookupAttributes"`
-	MaxResults       int32                `json:"maxResults" xml:"MaxResults"`
-	NextToken        string               `json:"nextToken" xml:"NextToken"`
-	StartTime        time.Time            `json:"startTime" xml:"StartTime"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+EventCategory string `json:"eventCategory" xml:"EventCategory"`
+LookupAttributes LookupAttributesList `json:"lookupAttributes" xml:"LookupAttributes"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type LookupEventsResponse struct {
-	Events    EventsList `json:"events" xml:"Events"`
-	NextToken string     `json:"nextToken" xml:"NextToken"`
+Events EventsList `json:"events" xml:"Events"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type PartitionKey struct {
-	Name string `json:"name" xml:"Name"`
-	Type string `json:"type" xml:"Type"`
+Name string `json:"name" xml:"Name"`
+Type string `json:"type" xml:"Type"`
 }
 
 type PublicKey struct {
-	Fingerprint       string    `json:"fingerprint" xml:"Fingerprint"`
-	ValidityEndTime   time.Time `json:"validityEndTime" xml:"ValidityEndTime"`
-	ValidityStartTime time.Time `json:"validityStartTime" xml:"ValidityStartTime"`
-	Value             []byte    `json:"value" xml:"Value"`
+Fingerprint string `json:"fingerprint" xml:"Fingerprint"`
+ValidityEndTime time.Time `json:"validityEndTime" xml:"ValidityEndTime"`
+ValidityStartTime time.Time `json:"validityStartTime" xml:"ValidityStartTime"`
+Value []byte `json:"value" xml:"Value"`
 }
 
 type PutEventConfigurationRequest struct {
-	AggregationConfigurations AggregationConfigurations `json:"aggregationConfigurations" xml:"AggregationConfigurations"`
-	ContextKeySelectors       ContextKeySelectors       `json:"contextKeySelectors" xml:"ContextKeySelectors"`
-	EventDataStore            string                    `json:"eventDataStore" xml:"EventDataStore"`
-	MaxEventSize              string                    `json:"maxEventSize" xml:"MaxEventSize"`
-	TrailName                 string                    `json:"trailName" xml:"TrailName"`
+AggregationConfigurations AggregationConfigurations `json:"aggregationConfigurations" xml:"AggregationConfigurations"`
+ContextKeySelectors ContextKeySelectors `json:"contextKeySelectors" xml:"ContextKeySelectors"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+MaxEventSize string `json:"maxEventSize" xml:"MaxEventSize"`
+TrailName string `json:"trailName" xml:"TrailName"`
 }
 
 type PutEventConfigurationResponse struct {
-	AggregationConfigurations AggregationConfigurations `json:"aggregationConfigurations" xml:"AggregationConfigurations"`
-	ContextKeySelectors       ContextKeySelectors       `json:"contextKeySelectors" xml:"ContextKeySelectors"`
-	EventDataStoreArn         string                    `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
-	MaxEventSize              string                    `json:"maxEventSize" xml:"MaxEventSize"`
-	TrailARN                  string                    `json:"trailARN" xml:"TrailARN"`
+AggregationConfigurations AggregationConfigurations `json:"aggregationConfigurations" xml:"AggregationConfigurations"`
+ContextKeySelectors ContextKeySelectors `json:"contextKeySelectors" xml:"ContextKeySelectors"`
+EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
+MaxEventSize string `json:"maxEventSize" xml:"MaxEventSize"`
+TrailARN string `json:"trailARN" xml:"TrailARN"`
 }
 
 type PutEventSelectorsRequest struct {
-	AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
-	EventSelectors         EventSelectors         `json:"eventSelectors" xml:"EventSelectors"`
-	TrailName              string                 `json:"trailName" xml:"TrailName"`
+AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
+EventSelectors EventSelectors `json:"eventSelectors" xml:"EventSelectors"`
+TrailName string `json:"trailName" xml:"TrailName"`
 }
 
 type PutEventSelectorsResponse struct {
-	AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
-	EventSelectors         EventSelectors         `json:"eventSelectors" xml:"EventSelectors"`
-	TrailARN               string                 `json:"trailARN" xml:"TrailARN"`
+AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
+EventSelectors EventSelectors `json:"eventSelectors" xml:"EventSelectors"`
+TrailARN string `json:"trailARN" xml:"TrailARN"`
 }
 
 type PutInsightSelectorsRequest struct {
-	EventDataStore      string           `json:"eventDataStore" xml:"EventDataStore"`
-	InsightSelectors    InsightSelectors `json:"insightSelectors" xml:"InsightSelectors"`
-	InsightsDestination string           `json:"insightsDestination" xml:"InsightsDestination"`
-	TrailName           string           `json:"trailName" xml:"TrailName"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+InsightSelectors InsightSelectors `json:"insightSelectors" xml:"InsightSelectors"`
+InsightsDestination string `json:"insightsDestination" xml:"InsightsDestination"`
+TrailName string `json:"trailName" xml:"TrailName"`
 }
 
 type PutInsightSelectorsResponse struct {
-	EventDataStoreArn   string           `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
-	InsightSelectors    InsightSelectors `json:"insightSelectors" xml:"InsightSelectors"`
-	InsightsDestination string           `json:"insightsDestination" xml:"InsightsDestination"`
-	TrailARN            string           `json:"trailARN" xml:"TrailARN"`
+EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
+InsightSelectors InsightSelectors `json:"insightSelectors" xml:"InsightSelectors"`
+InsightsDestination string `json:"insightsDestination" xml:"InsightsDestination"`
+TrailARN string `json:"trailARN" xml:"TrailARN"`
 }
 
 type PutResourcePolicyRequest struct {
-	ResourceArn    string `json:"resourceArn" xml:"ResourceArn"`
-	ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
 }
 
 type PutResourcePolicyResponse struct {
-	DelegatedAdminResourcePolicy string `json:"delegatedAdminResourcePolicy" xml:"DelegatedAdminResourcePolicy"`
-	ResourceArn                  string `json:"resourceArn" xml:"ResourceArn"`
-	ResourcePolicy               string `json:"resourcePolicy" xml:"ResourcePolicy"`
+DelegatedAdminResourcePolicy string `json:"delegatedAdminResourcePolicy" xml:"DelegatedAdminResourcePolicy"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourcePolicy string `json:"resourcePolicy" xml:"ResourcePolicy"`
 }
 
 type Query struct {
-	CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
-	QueryId      string    `json:"queryId" xml:"QueryId"`
-	QueryStatus  string    `json:"queryStatus" xml:"QueryStatus"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+QueryId string `json:"queryId" xml:"QueryId"`
+QueryStatus string `json:"queryStatus" xml:"QueryStatus"`
 }
 
 type QueryStatistics struct {
-	BytesScanned      int64 `json:"bytesScanned" xml:"BytesScanned"`
-	ResultsCount      int32 `json:"resultsCount" xml:"ResultsCount"`
-	TotalResultsCount int32 `json:"totalResultsCount" xml:"TotalResultsCount"`
+BytesScanned int64 `json:"bytesScanned" xml:"BytesScanned"`
+ResultsCount int32 `json:"resultsCount" xml:"ResultsCount"`
+TotalResultsCount int32 `json:"totalResultsCount" xml:"TotalResultsCount"`
 }
 
 type QueryStatisticsForDescribeQuery struct {
-	BytesScanned          int64     `json:"bytesScanned" xml:"BytesScanned"`
-	CreationTime          time.Time `json:"creationTime" xml:"CreationTime"`
-	EventsMatched         int64     `json:"eventsMatched" xml:"EventsMatched"`
-	EventsScanned         int64     `json:"eventsScanned" xml:"EventsScanned"`
-	ExecutionTimeInMillis int32     `json:"executionTimeInMillis" xml:"ExecutionTimeInMillis"`
+BytesScanned int64 `json:"bytesScanned" xml:"BytesScanned"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+EventsMatched int64 `json:"eventsMatched" xml:"EventsMatched"`
+EventsScanned int64 `json:"eventsScanned" xml:"EventsScanned"`
+ExecutionTimeInMillis int32 `json:"executionTimeInMillis" xml:"ExecutionTimeInMillis"`
 }
 
 type RefreshSchedule struct {
-	Frequency *RefreshScheduleFrequency `json:"frequency" xml:"Frequency"`
-	Status    string                    `json:"status" xml:"Status"`
-	TimeOfDay string                    `json:"timeOfDay" xml:"TimeOfDay"`
+Frequency *RefreshScheduleFrequency `json:"frequency" xml:"Frequency"`
+Status string `json:"status" xml:"Status"`
+TimeOfDay string `json:"timeOfDay" xml:"TimeOfDay"`
 }
 
 type RefreshScheduleFrequency struct {
-	Unit  string `json:"unit" xml:"Unit"`
-	Value int32  `json:"value" xml:"Value"`
+Unit string `json:"unit" xml:"Unit"`
+Value int32 `json:"value" xml:"Value"`
 }
 
 type RegisterOrganizationDelegatedAdminRequest struct {
-	MemberAccountId string `json:"memberAccountId" xml:"MemberAccountId"`
+MemberAccountId string `json:"memberAccountId" xml:"MemberAccountId"`
 }
 
 type RegisterOrganizationDelegatedAdminResponse struct {
 }
 
 type RemoveTagsRequest struct {
-	ResourceId string   `json:"resourceId" xml:"ResourceId"`
-	TagsList   TagsList `json:"tagsList" xml:"TagsList"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+TagsList TagsList `json:"tagsList" xml:"TagsList"`
 }
 
 type RemoveTagsResponse struct {
 }
 
 type RequestWidget struct {
-	QueryParameters QueryParameters   `json:"queryParameters" xml:"QueryParameters"`
-	QueryStatement  string            `json:"queryStatement" xml:"QueryStatement"`
-	ViewProperties  ViewPropertiesMap `json:"viewProperties" xml:"ViewProperties"`
+QueryParameters QueryParameters `json:"queryParameters" xml:"QueryParameters"`
+QueryStatement string `json:"queryStatement" xml:"QueryStatement"`
+ViewProperties ViewPropertiesMap `json:"viewProperties" xml:"ViewProperties"`
 }
 
 type Resource struct {
-	ResourceName string `json:"resourceName" xml:"ResourceName"`
-	ResourceType string `json:"resourceType" xml:"ResourceType"`
+ResourceName string `json:"resourceName" xml:"ResourceName"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ResourceTag struct {
-	ResourceId string   `json:"resourceId" xml:"ResourceId"`
-	TagsList   TagsList `json:"tagsList" xml:"TagsList"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+TagsList TagsList `json:"tagsList" xml:"TagsList"`
 }
 
 type RestoreEventDataStoreRequest struct {
-	EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
 }
 
 type RestoreEventDataStoreResponse struct {
-	AdvancedEventSelectors       AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
-	BillingMode                  string                 `json:"billingMode" xml:"BillingMode"`
-	CreatedTimestamp             time.Time              `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	EventDataStoreArn            string                 `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
-	KmsKeyId                     string                 `json:"kmsKeyId" xml:"KmsKeyId"`
-	MultiRegionEnabled           bool                   `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
-	Name                         string                 `json:"name" xml:"Name"`
-	OrganizationEnabled          bool                   `json:"organizationEnabled" xml:"OrganizationEnabled"`
-	RetentionPeriod              int32                  `json:"retentionPeriod" xml:"RetentionPeriod"`
-	Status                       string                 `json:"status" xml:"Status"`
-	TerminationProtectionEnabled bool                   `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
-	UpdatedTimestamp             time.Time              `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
+AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
+BillingMode string `json:"billingMode" xml:"BillingMode"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MultiRegionEnabled bool `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
+Name string `json:"name" xml:"Name"`
+OrganizationEnabled bool `json:"organizationEnabled" xml:"OrganizationEnabled"`
+RetentionPeriod int32 `json:"retentionPeriod" xml:"RetentionPeriod"`
+Status string `json:"status" xml:"Status"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+UpdatedTimestamp time.Time `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
 }
 
 type S3ImportSource struct {
-	S3BucketAccessRoleArn string `json:"s3BucketAccessRoleArn" xml:"S3BucketAccessRoleArn"`
-	S3BucketRegion        string `json:"s3BucketRegion" xml:"S3BucketRegion"`
-	S3LocationUri         string `json:"s3LocationUri" xml:"S3LocationUri"`
+S3BucketAccessRoleArn string `json:"s3BucketAccessRoleArn" xml:"S3BucketAccessRoleArn"`
+S3BucketRegion string `json:"s3BucketRegion" xml:"S3BucketRegion"`
+S3LocationUri string `json:"s3LocationUri" xml:"S3LocationUri"`
 }
 
 type SearchSampleQueriesRequest struct {
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	SearchPhrase string `json:"searchPhrase" xml:"SearchPhrase"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SearchPhrase string `json:"searchPhrase" xml:"SearchPhrase"`
 }
 
 type SearchSampleQueriesResponse struct {
-	NextToken     string                           `json:"nextToken" xml:"NextToken"`
-	SearchResults SearchSampleQueriesSearchResults `json:"searchResults" xml:"SearchResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SearchResults SearchSampleQueriesSearchResults `json:"searchResults" xml:"SearchResults"`
 }
 
 type SearchSampleQueriesSearchResult struct {
-	Description string  `json:"description" xml:"Description"`
-	Name        string  `json:"name" xml:"Name"`
-	Relevance   float32 `json:"relevance" xml:"Relevance"`
-	SQL         string  `json:"sQL" xml:"SQL"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Relevance float32 `json:"relevance" xml:"Relevance"`
+SQL string `json:"sQL" xml:"SQL"`
 }
 
 type SourceConfig struct {
-	AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
-	ApplyToAllRegions      bool                   `json:"applyToAllRegions" xml:"ApplyToAllRegions"`
+AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
+ApplyToAllRegions bool `json:"applyToAllRegions" xml:"ApplyToAllRegions"`
 }
 
 type StartDashboardRefreshRequest struct {
-	DashboardId          string               `json:"dashboardId" xml:"DashboardId"`
-	QueryParameterValues QueryParameterValues `json:"queryParameterValues" xml:"QueryParameterValues"`
+DashboardId string `json:"dashboardId" xml:"DashboardId"`
+QueryParameterValues QueryParameterValues `json:"queryParameterValues" xml:"QueryParameterValues"`
 }
 
 type StartDashboardRefreshResponse struct {
-	RefreshId string `json:"refreshId" xml:"RefreshId"`
+RefreshId string `json:"refreshId" xml:"RefreshId"`
 }
 
 type StartEventDataStoreIngestionRequest struct {
-	EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
 }
 
 type StartEventDataStoreIngestionResponse struct {
 }
 
 type StartImportRequest struct {
-	Destinations   ImportDestinations `json:"destinations" xml:"Destinations"`
-	EndEventTime   time.Time          `json:"endEventTime" xml:"EndEventTime"`
-	ImportId       string             `json:"importId" xml:"ImportId"`
-	ImportSource   *ImportSource      `json:"importSource" xml:"ImportSource"`
-	StartEventTime time.Time          `json:"startEventTime" xml:"StartEventTime"`
+Destinations ImportDestinations `json:"destinations" xml:"Destinations"`
+EndEventTime time.Time `json:"endEventTime" xml:"EndEventTime"`
+ImportId string `json:"importId" xml:"ImportId"`
+ImportSource *ImportSource `json:"importSource" xml:"ImportSource"`
+StartEventTime time.Time `json:"startEventTime" xml:"StartEventTime"`
 }
 
 type StartImportResponse struct {
-	CreatedTimestamp time.Time          `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	Destinations     ImportDestinations `json:"destinations" xml:"Destinations"`
-	EndEventTime     time.Time          `json:"endEventTime" xml:"EndEventTime"`
-	ImportId         string             `json:"importId" xml:"ImportId"`
-	ImportSource     *ImportSource      `json:"importSource" xml:"ImportSource"`
-	ImportStatus     string             `json:"importStatus" xml:"ImportStatus"`
-	StartEventTime   time.Time          `json:"startEventTime" xml:"StartEventTime"`
-	UpdatedTimestamp time.Time          `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+Destinations ImportDestinations `json:"destinations" xml:"Destinations"`
+EndEventTime time.Time `json:"endEventTime" xml:"EndEventTime"`
+ImportId string `json:"importId" xml:"ImportId"`
+ImportSource *ImportSource `json:"importSource" xml:"ImportSource"`
+ImportStatus string `json:"importStatus" xml:"ImportStatus"`
+StartEventTime time.Time `json:"startEventTime" xml:"StartEventTime"`
+UpdatedTimestamp time.Time `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
 }
 
 type StartLoggingRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type StartLoggingResponse struct {
 }
 
 type StartQueryRequest struct {
-	DeliveryS3Uri                string          `json:"deliveryS3Uri" xml:"DeliveryS3Uri"`
-	EventDataStoreOwnerAccountId string          `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
-	QueryAlias                   string          `json:"queryAlias" xml:"QueryAlias"`
-	QueryParameters              QueryParameters `json:"queryParameters" xml:"QueryParameters"`
-	QueryStatement               string          `json:"queryStatement" xml:"QueryStatement"`
+DeliveryS3Uri string `json:"deliveryS3Uri" xml:"DeliveryS3Uri"`
+EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
+QueryAlias string `json:"queryAlias" xml:"QueryAlias"`
+QueryParameters QueryParameters `json:"queryParameters" xml:"QueryParameters"`
+QueryStatement string `json:"queryStatement" xml:"QueryStatement"`
 }
 
 type StartQueryResponse struct {
-	EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
-	QueryId                      string `json:"queryId" xml:"QueryId"`
+EventDataStoreOwnerAccountId string `json:"eventDataStoreOwnerAccountId" xml:"EventDataStoreOwnerAccountId"`
+QueryId string `json:"queryId" xml:"QueryId"`
 }
 
 type StopEventDataStoreIngestionRequest struct {
-	EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
 }
 
 type StopEventDataStoreIngestionResponse struct {
 }
 
 type StopImportRequest struct {
-	ImportId string `json:"importId" xml:"ImportId"`
+ImportId string `json:"importId" xml:"ImportId"`
 }
 
 type StopImportResponse struct {
-	CreatedTimestamp time.Time          `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	Destinations     ImportDestinations `json:"destinations" xml:"Destinations"`
-	EndEventTime     time.Time          `json:"endEventTime" xml:"EndEventTime"`
-	ImportId         string             `json:"importId" xml:"ImportId"`
-	ImportSource     *ImportSource      `json:"importSource" xml:"ImportSource"`
-	ImportStatistics *ImportStatistics  `json:"importStatistics" xml:"ImportStatistics"`
-	ImportStatus     string             `json:"importStatus" xml:"ImportStatus"`
-	StartEventTime   time.Time          `json:"startEventTime" xml:"StartEventTime"`
-	UpdatedTimestamp time.Time          `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+Destinations ImportDestinations `json:"destinations" xml:"Destinations"`
+EndEventTime time.Time `json:"endEventTime" xml:"EndEventTime"`
+ImportId string `json:"importId" xml:"ImportId"`
+ImportSource *ImportSource `json:"importSource" xml:"ImportSource"`
+ImportStatistics *ImportStatistics `json:"importStatistics" xml:"ImportStatistics"`
+ImportStatus string `json:"importStatus" xml:"ImportStatus"`
+StartEventTime time.Time `json:"startEventTime" xml:"StartEventTime"`
+UpdatedTimestamp time.Time `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
 }
 
 type StopLoggingRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type StopLoggingResponse struct {
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type Trail struct {
-	CloudWatchLogsLogGroupArn  string `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
-	CloudWatchLogsRoleArn      string `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
-	HasCustomEventSelectors    bool   `json:"hasCustomEventSelectors" xml:"HasCustomEventSelectors"`
-	HasInsightSelectors        bool   `json:"hasInsightSelectors" xml:"HasInsightSelectors"`
-	HomeRegion                 string `json:"homeRegion" xml:"HomeRegion"`
-	IncludeGlobalServiceEvents bool   `json:"includeGlobalServiceEvents" xml:"IncludeGlobalServiceEvents"`
-	IsMultiRegionTrail         bool   `json:"isMultiRegionTrail" xml:"IsMultiRegionTrail"`
-	IsOrganizationTrail        bool   `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
-	KmsKeyId                   string `json:"kmsKeyId" xml:"KmsKeyId"`
-	LogFileValidationEnabled   bool   `json:"logFileValidationEnabled" xml:"LogFileValidationEnabled"`
-	Name                       string `json:"name" xml:"Name"`
-	S3BucketName               string `json:"s3BucketName" xml:"S3BucketName"`
-	S3KeyPrefix                string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
-	SnsTopicARN                string `json:"snsTopicARN" xml:"SnsTopicARN"`
-	SnsTopicName               string `json:"snsTopicName" xml:"SnsTopicName"`
-	TrailARN                   string `json:"trailARN" xml:"TrailARN"`
+CloudWatchLogsLogGroupArn string `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
+CloudWatchLogsRoleArn string `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
+HasCustomEventSelectors bool `json:"hasCustomEventSelectors" xml:"HasCustomEventSelectors"`
+HasInsightSelectors bool `json:"hasInsightSelectors" xml:"HasInsightSelectors"`
+HomeRegion string `json:"homeRegion" xml:"HomeRegion"`
+IncludeGlobalServiceEvents bool `json:"includeGlobalServiceEvents" xml:"IncludeGlobalServiceEvents"`
+IsMultiRegionTrail bool `json:"isMultiRegionTrail" xml:"IsMultiRegionTrail"`
+IsOrganizationTrail bool `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+LogFileValidationEnabled bool `json:"logFileValidationEnabled" xml:"LogFileValidationEnabled"`
+Name string `json:"name" xml:"Name"`
+S3BucketName string `json:"s3BucketName" xml:"S3BucketName"`
+S3KeyPrefix string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
+SnsTopicARN string `json:"snsTopicARN" xml:"SnsTopicARN"`
+SnsTopicName string `json:"snsTopicName" xml:"SnsTopicName"`
+TrailARN string `json:"trailARN" xml:"TrailARN"`
 }
 
 type TrailInfo struct {
-	HomeRegion string `json:"homeRegion" xml:"HomeRegion"`
-	Name       string `json:"name" xml:"Name"`
-	TrailARN   string `json:"trailARN" xml:"TrailARN"`
+HomeRegion string `json:"homeRegion" xml:"HomeRegion"`
+Name string `json:"name" xml:"Name"`
+TrailARN string `json:"trailARN" xml:"TrailARN"`
 }
 
 type UpdateChannelRequest struct {
-	Channel      string       `json:"channel" xml:"Channel"`
-	Destinations Destinations `json:"destinations" xml:"Destinations"`
-	Name         string       `json:"name" xml:"Name"`
+Channel string `json:"channel" xml:"Channel"`
+Destinations Destinations `json:"destinations" xml:"Destinations"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateChannelResponse struct {
-	ChannelArn   string       `json:"channelArn" xml:"ChannelArn"`
-	Destinations Destinations `json:"destinations" xml:"Destinations"`
-	Name         string       `json:"name" xml:"Name"`
-	Source       string       `json:"source" xml:"Source"`
+ChannelArn string `json:"channelArn" xml:"ChannelArn"`
+Destinations Destinations `json:"destinations" xml:"Destinations"`
+Name string `json:"name" xml:"Name"`
+Source string `json:"source" xml:"Source"`
 }
 
 type UpdateDashboardRequest struct {
-	DashboardId                  string            `json:"dashboardId" xml:"DashboardId"`
-	RefreshSchedule              *RefreshSchedule  `json:"refreshSchedule" xml:"RefreshSchedule"`
-	TerminationProtectionEnabled bool              `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
-	Widgets                      RequestWidgetList `json:"widgets" xml:"Widgets"`
+DashboardId string `json:"dashboardId" xml:"DashboardId"`
+RefreshSchedule *RefreshSchedule `json:"refreshSchedule" xml:"RefreshSchedule"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+Widgets RequestWidgetList `json:"widgets" xml:"Widgets"`
 }
 
 type UpdateDashboardResponse struct {
-	CreatedTimestamp             time.Time        `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	DashboardArn                 string           `json:"dashboardArn" xml:"DashboardArn"`
-	Name                         string           `json:"name" xml:"Name"`
-	RefreshSchedule              *RefreshSchedule `json:"refreshSchedule" xml:"RefreshSchedule"`
-	TerminationProtectionEnabled bool             `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
-	Type                         string           `json:"type" xml:"Type"`
-	UpdatedTimestamp             time.Time        `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
-	Widgets                      WidgetList       `json:"widgets" xml:"Widgets"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+DashboardArn string `json:"dashboardArn" xml:"DashboardArn"`
+Name string `json:"name" xml:"Name"`
+RefreshSchedule *RefreshSchedule `json:"refreshSchedule" xml:"RefreshSchedule"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+Type string `json:"type" xml:"Type"`
+UpdatedTimestamp time.Time `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
+Widgets WidgetList `json:"widgets" xml:"Widgets"`
 }
 
 type UpdateEventDataStoreRequest struct {
-	AdvancedEventSelectors       AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
-	BillingMode                  string                 `json:"billingMode" xml:"BillingMode"`
-	EventDataStore               string                 `json:"eventDataStore" xml:"EventDataStore"`
-	KmsKeyId                     string                 `json:"kmsKeyId" xml:"KmsKeyId"`
-	MultiRegionEnabled           bool                   `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
-	Name                         string                 `json:"name" xml:"Name"`
-	OrganizationEnabled          bool                   `json:"organizationEnabled" xml:"OrganizationEnabled"`
-	RetentionPeriod              int32                  `json:"retentionPeriod" xml:"RetentionPeriod"`
-	TerminationProtectionEnabled bool                   `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
+BillingMode string `json:"billingMode" xml:"BillingMode"`
+EventDataStore string `json:"eventDataStore" xml:"EventDataStore"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MultiRegionEnabled bool `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
+Name string `json:"name" xml:"Name"`
+OrganizationEnabled bool `json:"organizationEnabled" xml:"OrganizationEnabled"`
+RetentionPeriod int32 `json:"retentionPeriod" xml:"RetentionPeriod"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
 }
 
 type UpdateEventDataStoreResponse struct {
-	AdvancedEventSelectors       AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
-	BillingMode                  string                 `json:"billingMode" xml:"BillingMode"`
-	CreatedTimestamp             time.Time              `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	EventDataStoreArn            string                 `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
-	FederationRoleArn            string                 `json:"federationRoleArn" xml:"FederationRoleArn"`
-	FederationStatus             string                 `json:"federationStatus" xml:"FederationStatus"`
-	KmsKeyId                     string                 `json:"kmsKeyId" xml:"KmsKeyId"`
-	MultiRegionEnabled           bool                   `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
-	Name                         string                 `json:"name" xml:"Name"`
-	OrganizationEnabled          bool                   `json:"organizationEnabled" xml:"OrganizationEnabled"`
-	RetentionPeriod              int32                  `json:"retentionPeriod" xml:"RetentionPeriod"`
-	Status                       string                 `json:"status" xml:"Status"`
-	TerminationProtectionEnabled bool                   `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
-	UpdatedTimestamp             time.Time              `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
+AdvancedEventSelectors AdvancedEventSelectors `json:"advancedEventSelectors" xml:"AdvancedEventSelectors"`
+BillingMode string `json:"billingMode" xml:"BillingMode"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+EventDataStoreArn string `json:"eventDataStoreArn" xml:"EventDataStoreArn"`
+FederationRoleArn string `json:"federationRoleArn" xml:"FederationRoleArn"`
+FederationStatus string `json:"federationStatus" xml:"FederationStatus"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MultiRegionEnabled bool `json:"multiRegionEnabled" xml:"MultiRegionEnabled"`
+Name string `json:"name" xml:"Name"`
+OrganizationEnabled bool `json:"organizationEnabled" xml:"OrganizationEnabled"`
+RetentionPeriod int32 `json:"retentionPeriod" xml:"RetentionPeriod"`
+Status string `json:"status" xml:"Status"`
+TerminationProtectionEnabled bool `json:"terminationProtectionEnabled" xml:"TerminationProtectionEnabled"`
+UpdatedTimestamp time.Time `json:"updatedTimestamp" xml:"UpdatedTimestamp"`
 }
 
 type UpdateTrailRequest struct {
-	CloudWatchLogsLogGroupArn  string `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
-	CloudWatchLogsRoleArn      string `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
-	EnableLogFileValidation    bool   `json:"enableLogFileValidation" xml:"EnableLogFileValidation"`
-	IncludeGlobalServiceEvents bool   `json:"includeGlobalServiceEvents" xml:"IncludeGlobalServiceEvents"`
-	IsMultiRegionTrail         bool   `json:"isMultiRegionTrail" xml:"IsMultiRegionTrail"`
-	IsOrganizationTrail        bool   `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
-	KmsKeyId                   string `json:"kmsKeyId" xml:"KmsKeyId"`
-	Name                       string `json:"name" xml:"Name"`
-	S3BucketName               string `json:"s3BucketName" xml:"S3BucketName"`
-	S3KeyPrefix                string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
-	SnsTopicName               string `json:"snsTopicName" xml:"SnsTopicName"`
+CloudWatchLogsLogGroupArn string `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
+CloudWatchLogsRoleArn string `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
+EnableLogFileValidation bool `json:"enableLogFileValidation" xml:"EnableLogFileValidation"`
+IncludeGlobalServiceEvents bool `json:"includeGlobalServiceEvents" xml:"IncludeGlobalServiceEvents"`
+IsMultiRegionTrail bool `json:"isMultiRegionTrail" xml:"IsMultiRegionTrail"`
+IsOrganizationTrail bool `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+Name string `json:"name" xml:"Name"`
+S3BucketName string `json:"s3BucketName" xml:"S3BucketName"`
+S3KeyPrefix string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
+SnsTopicName string `json:"snsTopicName" xml:"SnsTopicName"`
 }
 
 type UpdateTrailResponse struct {
-	CloudWatchLogsLogGroupArn  string `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
-	CloudWatchLogsRoleArn      string `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
-	IncludeGlobalServiceEvents bool   `json:"includeGlobalServiceEvents" xml:"IncludeGlobalServiceEvents"`
-	IsMultiRegionTrail         bool   `json:"isMultiRegionTrail" xml:"IsMultiRegionTrail"`
-	IsOrganizationTrail        bool   `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
-	KmsKeyId                   string `json:"kmsKeyId" xml:"KmsKeyId"`
-	LogFileValidationEnabled   bool   `json:"logFileValidationEnabled" xml:"LogFileValidationEnabled"`
-	Name                       string `json:"name" xml:"Name"`
-	S3BucketName               string `json:"s3BucketName" xml:"S3BucketName"`
-	S3KeyPrefix                string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
-	SnsTopicARN                string `json:"snsTopicARN" xml:"SnsTopicARN"`
-	SnsTopicName               string `json:"snsTopicName" xml:"SnsTopicName"`
-	TrailARN                   string `json:"trailARN" xml:"TrailARN"`
+CloudWatchLogsLogGroupArn string `json:"cloudWatchLogsLogGroupArn" xml:"CloudWatchLogsLogGroupArn"`
+CloudWatchLogsRoleArn string `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
+IncludeGlobalServiceEvents bool `json:"includeGlobalServiceEvents" xml:"IncludeGlobalServiceEvents"`
+IsMultiRegionTrail bool `json:"isMultiRegionTrail" xml:"IsMultiRegionTrail"`
+IsOrganizationTrail bool `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+LogFileValidationEnabled bool `json:"logFileValidationEnabled" xml:"LogFileValidationEnabled"`
+Name string `json:"name" xml:"Name"`
+S3BucketName string `json:"s3BucketName" xml:"S3BucketName"`
+S3KeyPrefix string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
+SnsTopicARN string `json:"snsTopicARN" xml:"SnsTopicARN"`
+SnsTopicName string `json:"snsTopicName" xml:"SnsTopicName"`
+TrailARN string `json:"trailARN" xml:"TrailARN"`
 }
 
 type Widget struct {
-	QueryAlias      string            `json:"queryAlias" xml:"QueryAlias"`
-	QueryParameters QueryParameters   `json:"queryParameters" xml:"QueryParameters"`
-	QueryStatement  string            `json:"queryStatement" xml:"QueryStatement"`
-	ViewProperties  ViewPropertiesMap `json:"viewProperties" xml:"ViewProperties"`
+QueryAlias string `json:"queryAlias" xml:"QueryAlias"`
+QueryParameters QueryParameters `json:"queryParameters" xml:"QueryParameters"`
+QueryStatement string `json:"queryStatement" xml:"QueryStatement"`
+ViewProperties ViewPropertiesMap `json:"viewProperties" xml:"ViewProperties"`
 }
 
 type AdvancedEventSelectors []*AdvancedEventSelector
@@ -1134,3 +1134,4 @@ type QueryParameterValues map[string]string
 type QueryResultColumn map[string]string
 
 type ViewPropertiesMap map[string]string
+

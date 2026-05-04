@@ -169,3 +169,4 @@ func DeserializeValidateResourcePolicyRequest(r *http.Request, pathParams PathPa
 
 	return input, nil
 }
+

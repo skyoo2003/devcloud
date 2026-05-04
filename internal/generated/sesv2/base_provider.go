@@ -450,3 +450,4 @@ func (b *BaseProvider) UpdateReputationEntityCustomerManagedStatus(ctx context.C
 func (b *BaseProvider) UpdateReputationEntityPolicy(ctx context.Context, input *UpdateReputationEntityPolicyRequest) (*UpdateReputationEntityPolicyResponse, error) {
 	return nil, fmt.Errorf("UpdateReputationEntityPolicy: %w", ErrNotImplemented)
 }
+

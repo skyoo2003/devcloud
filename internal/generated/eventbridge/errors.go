@@ -224,3 +224,4 @@ func (e *ThrottlingException) ErrorCode() string {
 func (e *ThrottlingException) HTTPStatus() int {
 	return 0
 }
+

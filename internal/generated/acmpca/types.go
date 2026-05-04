@@ -7,371 +7,371 @@ import (
 )
 
 type ASN1Subject struct {
-	CommonName                 string              `json:"commonName" xml:"CommonName"`
-	Country                    string              `json:"country" xml:"Country"`
-	CustomAttributes           CustomAttributeList `json:"customAttributes" xml:"CustomAttributes"`
-	DistinguishedNameQualifier string              `json:"distinguishedNameQualifier" xml:"DistinguishedNameQualifier"`
-	GenerationQualifier        string              `json:"generationQualifier" xml:"GenerationQualifier"`
-	GivenName                  string              `json:"givenName" xml:"GivenName"`
-	Initials                   string              `json:"initials" xml:"Initials"`
-	Locality                   string              `json:"locality" xml:"Locality"`
-	Organization               string              `json:"organization" xml:"Organization"`
-	OrganizationalUnit         string              `json:"organizationalUnit" xml:"OrganizationalUnit"`
-	Pseudonym                  string              `json:"pseudonym" xml:"Pseudonym"`
-	SerialNumber               string              `json:"serialNumber" xml:"SerialNumber"`
-	State                      string              `json:"state" xml:"State"`
-	Surname                    string              `json:"surname" xml:"Surname"`
-	Title                      string              `json:"title" xml:"Title"`
+CommonName string `json:"commonName" xml:"CommonName"`
+Country string `json:"country" xml:"Country"`
+CustomAttributes CustomAttributeList `json:"customAttributes" xml:"CustomAttributes"`
+DistinguishedNameQualifier string `json:"distinguishedNameQualifier" xml:"DistinguishedNameQualifier"`
+GenerationQualifier string `json:"generationQualifier" xml:"GenerationQualifier"`
+GivenName string `json:"givenName" xml:"GivenName"`
+Initials string `json:"initials" xml:"Initials"`
+Locality string `json:"locality" xml:"Locality"`
+Organization string `json:"organization" xml:"Organization"`
+OrganizationalUnit string `json:"organizationalUnit" xml:"OrganizationalUnit"`
+Pseudonym string `json:"pseudonym" xml:"Pseudonym"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+State string `json:"state" xml:"State"`
+Surname string `json:"surname" xml:"Surname"`
+Title string `json:"title" xml:"Title"`
 }
 
 type AccessDescription struct {
-	AccessLocation *GeneralName  `json:"accessLocation" xml:"AccessLocation"`
-	AccessMethod   *AccessMethod `json:"accessMethod" xml:"AccessMethod"`
+AccessLocation *GeneralName `json:"accessLocation" xml:"AccessLocation"`
+AccessMethod *AccessMethod `json:"accessMethod" xml:"AccessMethod"`
 }
 
 type AccessMethod struct {
-	AccessMethodType       string `json:"accessMethodType" xml:"AccessMethodType"`
-	CustomObjectIdentifier string `json:"customObjectIdentifier" xml:"CustomObjectIdentifier"`
+AccessMethodType string `json:"accessMethodType" xml:"AccessMethodType"`
+CustomObjectIdentifier string `json:"customObjectIdentifier" xml:"CustomObjectIdentifier"`
 }
 
 type ApiPassthrough struct {
-	Extensions *Extensions  `json:"extensions" xml:"Extensions"`
-	Subject    *ASN1Subject `json:"subject" xml:"Subject"`
+Extensions *Extensions `json:"extensions" xml:"Extensions"`
+Subject *ASN1Subject `json:"subject" xml:"Subject"`
 }
 
 type CertificateAuthority struct {
-	Arn                               string                             `json:"arn" xml:"Arn"`
-	CertificateAuthorityConfiguration *CertificateAuthorityConfiguration `json:"certificateAuthorityConfiguration" xml:"CertificateAuthorityConfiguration"`
-	CreatedAt                         time.Time                          `json:"createdAt" xml:"CreatedAt"`
-	FailureReason                     string                             `json:"failureReason" xml:"FailureReason"`
-	KeyStorageSecurityStandard        string                             `json:"keyStorageSecurityStandard" xml:"KeyStorageSecurityStandard"`
-	LastStateChangeAt                 time.Time                          `json:"lastStateChangeAt" xml:"LastStateChangeAt"`
-	NotAfter                          time.Time                          `json:"notAfter" xml:"NotAfter"`
-	NotBefore                         time.Time                          `json:"notBefore" xml:"NotBefore"`
-	OwnerAccount                      string                             `json:"ownerAccount" xml:"OwnerAccount"`
-	RestorableUntil                   time.Time                          `json:"restorableUntil" xml:"RestorableUntil"`
-	RevocationConfiguration           *RevocationConfiguration           `json:"revocationConfiguration" xml:"RevocationConfiguration"`
-	Serial                            string                             `json:"serial" xml:"Serial"`
-	Status                            string                             `json:"status" xml:"Status"`
-	Type                              string                             `json:"type" xml:"Type"`
-	UsageMode                         string                             `json:"usageMode" xml:"UsageMode"`
+Arn string `json:"arn" xml:"Arn"`
+CertificateAuthorityConfiguration *CertificateAuthorityConfiguration `json:"certificateAuthorityConfiguration" xml:"CertificateAuthorityConfiguration"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+KeyStorageSecurityStandard string `json:"keyStorageSecurityStandard" xml:"KeyStorageSecurityStandard"`
+LastStateChangeAt time.Time `json:"lastStateChangeAt" xml:"LastStateChangeAt"`
+NotAfter time.Time `json:"notAfter" xml:"NotAfter"`
+NotBefore time.Time `json:"notBefore" xml:"NotBefore"`
+OwnerAccount string `json:"ownerAccount" xml:"OwnerAccount"`
+RestorableUntil time.Time `json:"restorableUntil" xml:"RestorableUntil"`
+RevocationConfiguration *RevocationConfiguration `json:"revocationConfiguration" xml:"RevocationConfiguration"`
+Serial string `json:"serial" xml:"Serial"`
+Status string `json:"status" xml:"Status"`
+Type string `json:"type" xml:"Type"`
+UsageMode string `json:"usageMode" xml:"UsageMode"`
 }
 
 type CertificateAuthorityConfiguration struct {
-	CsrExtensions    *CsrExtensions `json:"csrExtensions" xml:"CsrExtensions"`
-	KeyAlgorithm     string         `json:"keyAlgorithm" xml:"KeyAlgorithm"`
-	SigningAlgorithm string         `json:"signingAlgorithm" xml:"SigningAlgorithm"`
-	Subject          *ASN1Subject   `json:"subject" xml:"Subject"`
+CsrExtensions *CsrExtensions `json:"csrExtensions" xml:"CsrExtensions"`
+KeyAlgorithm string `json:"keyAlgorithm" xml:"KeyAlgorithm"`
+SigningAlgorithm string `json:"signingAlgorithm" xml:"SigningAlgorithm"`
+Subject *ASN1Subject `json:"subject" xml:"Subject"`
 }
 
 type CreateCertificateAuthorityAuditReportRequest struct {
-	AuditReportResponseFormat string `json:"auditReportResponseFormat" xml:"AuditReportResponseFormat"`
-	CertificateAuthorityArn   string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	S3BucketName              string `json:"s3BucketName" xml:"S3BucketName"`
+AuditReportResponseFormat string `json:"auditReportResponseFormat" xml:"AuditReportResponseFormat"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+S3BucketName string `json:"s3BucketName" xml:"S3BucketName"`
 }
 
 type CreateCertificateAuthorityAuditReportResponse struct {
-	AuditReportId string `json:"auditReportId" xml:"AuditReportId"`
-	S3Key         string `json:"s3Key" xml:"S3Key"`
+AuditReportId string `json:"auditReportId" xml:"AuditReportId"`
+S3Key string `json:"s3Key" xml:"S3Key"`
 }
 
 type CreateCertificateAuthorityRequest struct {
-	CertificateAuthorityConfiguration *CertificateAuthorityConfiguration `json:"certificateAuthorityConfiguration" xml:"CertificateAuthorityConfiguration"`
-	CertificateAuthorityType          string                             `json:"certificateAuthorityType" xml:"CertificateAuthorityType"`
-	IdempotencyToken                  string                             `json:"idempotencyToken" xml:"IdempotencyToken"`
-	KeyStorageSecurityStandard        string                             `json:"keyStorageSecurityStandard" xml:"KeyStorageSecurityStandard"`
-	RevocationConfiguration           *RevocationConfiguration           `json:"revocationConfiguration" xml:"RevocationConfiguration"`
-	Tags                              TagList                            `json:"tags" xml:"Tags"`
-	UsageMode                         string                             `json:"usageMode" xml:"UsageMode"`
+CertificateAuthorityConfiguration *CertificateAuthorityConfiguration `json:"certificateAuthorityConfiguration" xml:"CertificateAuthorityConfiguration"`
+CertificateAuthorityType string `json:"certificateAuthorityType" xml:"CertificateAuthorityType"`
+IdempotencyToken string `json:"idempotencyToken" xml:"IdempotencyToken"`
+KeyStorageSecurityStandard string `json:"keyStorageSecurityStandard" xml:"KeyStorageSecurityStandard"`
+RevocationConfiguration *RevocationConfiguration `json:"revocationConfiguration" xml:"RevocationConfiguration"`
+Tags TagList `json:"tags" xml:"Tags"`
+UsageMode string `json:"usageMode" xml:"UsageMode"`
 }
 
 type CreateCertificateAuthorityResponse struct {
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
 }
 
 type CreatePermissionRequest struct {
-	Actions                 ActionList `json:"actions" xml:"Actions"`
-	CertificateAuthorityArn string     `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	Principal               string     `json:"principal" xml:"Principal"`
-	SourceAccount           string     `json:"sourceAccount" xml:"SourceAccount"`
+Actions ActionList `json:"actions" xml:"Actions"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+Principal string `json:"principal" xml:"Principal"`
+SourceAccount string `json:"sourceAccount" xml:"SourceAccount"`
 }
 
 type CrlConfiguration struct {
-	CrlDistributionPointExtensionConfiguration *CrlDistributionPointExtensionConfiguration `json:"crlDistributionPointExtensionConfiguration" xml:"CrlDistributionPointExtensionConfiguration"`
-	CrlType                                    string                                      `json:"crlType" xml:"CrlType"`
-	CustomCname                                string                                      `json:"customCname" xml:"CustomCname"`
-	CustomPath                                 string                                      `json:"customPath" xml:"CustomPath"`
-	Enabled                                    bool                                        `json:"enabled" xml:"Enabled"`
-	ExpirationInDays                           int32                                       `json:"expirationInDays" xml:"ExpirationInDays"`
-	S3BucketName                               string                                      `json:"s3BucketName" xml:"S3BucketName"`
-	S3ObjectAcl                                string                                      `json:"s3ObjectAcl" xml:"S3ObjectAcl"`
+CrlDistributionPointExtensionConfiguration *CrlDistributionPointExtensionConfiguration `json:"crlDistributionPointExtensionConfiguration" xml:"CrlDistributionPointExtensionConfiguration"`
+CrlType string `json:"crlType" xml:"CrlType"`
+CustomCname string `json:"customCname" xml:"CustomCname"`
+CustomPath string `json:"customPath" xml:"CustomPath"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+ExpirationInDays int32 `json:"expirationInDays" xml:"ExpirationInDays"`
+S3BucketName string `json:"s3BucketName" xml:"S3BucketName"`
+S3ObjectAcl string `json:"s3ObjectAcl" xml:"S3ObjectAcl"`
 }
 
 type CrlDistributionPointExtensionConfiguration struct {
-	OmitExtension bool `json:"omitExtension" xml:"OmitExtension"`
+OmitExtension bool `json:"omitExtension" xml:"OmitExtension"`
 }
 
 type CsrExtensions struct {
-	KeyUsage                 *KeyUsage             `json:"keyUsage" xml:"KeyUsage"`
-	SubjectInformationAccess AccessDescriptionList `json:"subjectInformationAccess" xml:"SubjectInformationAccess"`
+KeyUsage *KeyUsage `json:"keyUsage" xml:"KeyUsage"`
+SubjectInformationAccess AccessDescriptionList `json:"subjectInformationAccess" xml:"SubjectInformationAccess"`
 }
 
 type CustomAttribute struct {
-	ObjectIdentifier string `json:"objectIdentifier" xml:"ObjectIdentifier"`
-	Value            string `json:"value" xml:"Value"`
+ObjectIdentifier string `json:"objectIdentifier" xml:"ObjectIdentifier"`
+Value string `json:"value" xml:"Value"`
 }
 
 type CustomExtension struct {
-	Critical         bool   `json:"critical" xml:"Critical"`
-	ObjectIdentifier string `json:"objectIdentifier" xml:"ObjectIdentifier"`
-	Value            string `json:"value" xml:"Value"`
+Critical bool `json:"critical" xml:"Critical"`
+ObjectIdentifier string `json:"objectIdentifier" xml:"ObjectIdentifier"`
+Value string `json:"value" xml:"Value"`
 }
 
 type DeleteCertificateAuthorityRequest struct {
-	CertificateAuthorityArn     string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	PermanentDeletionTimeInDays int32  `json:"permanentDeletionTimeInDays" xml:"PermanentDeletionTimeInDays"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+PermanentDeletionTimeInDays int32 `json:"permanentDeletionTimeInDays" xml:"PermanentDeletionTimeInDays"`
 }
 
 type DeletePermissionRequest struct {
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	Principal               string `json:"principal" xml:"Principal"`
-	SourceAccount           string `json:"sourceAccount" xml:"SourceAccount"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+Principal string `json:"principal" xml:"Principal"`
+SourceAccount string `json:"sourceAccount" xml:"SourceAccount"`
 }
 
 type DeletePolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DescribeCertificateAuthorityAuditReportRequest struct {
-	AuditReportId           string `json:"auditReportId" xml:"AuditReportId"`
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+AuditReportId string `json:"auditReportId" xml:"AuditReportId"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
 }
 
 type DescribeCertificateAuthorityAuditReportResponse struct {
-	AuditReportStatus string    `json:"auditReportStatus" xml:"AuditReportStatus"`
-	CreatedAt         time.Time `json:"createdAt" xml:"CreatedAt"`
-	S3BucketName      string    `json:"s3BucketName" xml:"S3BucketName"`
-	S3Key             string    `json:"s3Key" xml:"S3Key"`
+AuditReportStatus string `json:"auditReportStatus" xml:"AuditReportStatus"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+S3BucketName string `json:"s3BucketName" xml:"S3BucketName"`
+S3Key string `json:"s3Key" xml:"S3Key"`
 }
 
 type DescribeCertificateAuthorityRequest struct {
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
 }
 
 type DescribeCertificateAuthorityResponse struct {
-	CertificateAuthority *CertificateAuthority `json:"certificateAuthority" xml:"CertificateAuthority"`
+CertificateAuthority *CertificateAuthority `json:"certificateAuthority" xml:"CertificateAuthority"`
 }
 
 type EdiPartyName struct {
-	NameAssigner string `json:"nameAssigner" xml:"NameAssigner"`
-	PartyName    string `json:"partyName" xml:"PartyName"`
+NameAssigner string `json:"nameAssigner" xml:"NameAssigner"`
+PartyName string `json:"partyName" xml:"PartyName"`
 }
 
 type ExtendedKeyUsage struct {
-	ExtendedKeyUsageObjectIdentifier string `json:"extendedKeyUsageObjectIdentifier" xml:"ExtendedKeyUsageObjectIdentifier"`
-	ExtendedKeyUsageType             string `json:"extendedKeyUsageType" xml:"ExtendedKeyUsageType"`
+ExtendedKeyUsageObjectIdentifier string `json:"extendedKeyUsageObjectIdentifier" xml:"ExtendedKeyUsageObjectIdentifier"`
+ExtendedKeyUsageType string `json:"extendedKeyUsageType" xml:"ExtendedKeyUsageType"`
 }
 
 type Extensions struct {
-	CertificatePolicies     CertificatePolicyList `json:"certificatePolicies" xml:"CertificatePolicies"`
-	CustomExtensions        CustomExtensionList   `json:"customExtensions" xml:"CustomExtensions"`
-	ExtendedKeyUsage        ExtendedKeyUsageList  `json:"extendedKeyUsage" xml:"ExtendedKeyUsage"`
-	KeyUsage                *KeyUsage             `json:"keyUsage" xml:"KeyUsage"`
-	SubjectAlternativeNames GeneralNameList       `json:"subjectAlternativeNames" xml:"SubjectAlternativeNames"`
+CertificatePolicies CertificatePolicyList `json:"certificatePolicies" xml:"CertificatePolicies"`
+CustomExtensions CustomExtensionList `json:"customExtensions" xml:"CustomExtensions"`
+ExtendedKeyUsage ExtendedKeyUsageList `json:"extendedKeyUsage" xml:"ExtendedKeyUsage"`
+KeyUsage *KeyUsage `json:"keyUsage" xml:"KeyUsage"`
+SubjectAlternativeNames GeneralNameList `json:"subjectAlternativeNames" xml:"SubjectAlternativeNames"`
 }
 
 type GeneralName struct {
-	DirectoryName             *ASN1Subject  `json:"directoryName" xml:"DirectoryName"`
-	DnsName                   string        `json:"dnsName" xml:"DnsName"`
-	EdiPartyName              *EdiPartyName `json:"ediPartyName" xml:"EdiPartyName"`
-	IpAddress                 string        `json:"ipAddress" xml:"IpAddress"`
-	OtherName                 *OtherName    `json:"otherName" xml:"OtherName"`
-	RegisteredId              string        `json:"registeredId" xml:"RegisteredId"`
-	Rfc822Name                string        `json:"rfc822Name" xml:"Rfc822Name"`
-	UniformResourceIdentifier string        `json:"uniformResourceIdentifier" xml:"UniformResourceIdentifier"`
+DirectoryName *ASN1Subject `json:"directoryName" xml:"DirectoryName"`
+DnsName string `json:"dnsName" xml:"DnsName"`
+EdiPartyName *EdiPartyName `json:"ediPartyName" xml:"EdiPartyName"`
+IpAddress string `json:"ipAddress" xml:"IpAddress"`
+OtherName *OtherName `json:"otherName" xml:"OtherName"`
+RegisteredId string `json:"registeredId" xml:"RegisteredId"`
+Rfc822Name string `json:"rfc822Name" xml:"Rfc822Name"`
+UniformResourceIdentifier string `json:"uniformResourceIdentifier" xml:"UniformResourceIdentifier"`
 }
 
 type GetCertificateAuthorityCertificateRequest struct {
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
 }
 
 type GetCertificateAuthorityCertificateResponse struct {
-	Certificate      string `json:"certificate" xml:"Certificate"`
-	CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
+Certificate string `json:"certificate" xml:"Certificate"`
+CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
 }
 
 type GetCertificateAuthorityCsrRequest struct {
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
 }
 
 type GetCertificateAuthorityCsrResponse struct {
-	Csr string `json:"csr" xml:"Csr"`
+Csr string `json:"csr" xml:"Csr"`
 }
 
 type GetCertificateRequest struct {
-	CertificateArn          string `json:"certificateArn" xml:"CertificateArn"`
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
 }
 
 type GetCertificateResponse struct {
-	Certificate      string `json:"certificate" xml:"Certificate"`
-	CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
+Certificate string `json:"certificate" xml:"Certificate"`
+CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
 }
 
 type GetPolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetPolicyResponse struct {
-	Policy string `json:"policy" xml:"Policy"`
+Policy string `json:"policy" xml:"Policy"`
 }
 
 type ImportCertificateAuthorityCertificateRequest struct {
-	Certificate             []byte `json:"certificate" xml:"Certificate"`
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	CertificateChain        []byte `json:"certificateChain" xml:"CertificateChain"`
+Certificate []byte `json:"certificate" xml:"Certificate"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+CertificateChain []byte `json:"certificateChain" xml:"CertificateChain"`
 }
 
 type IssueCertificateRequest struct {
-	ApiPassthrough          *ApiPassthrough `json:"apiPassthrough" xml:"ApiPassthrough"`
-	CertificateAuthorityArn string          `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	Csr                     []byte          `json:"csr" xml:"Csr"`
-	IdempotencyToken        string          `json:"idempotencyToken" xml:"IdempotencyToken"`
-	SigningAlgorithm        string          `json:"signingAlgorithm" xml:"SigningAlgorithm"`
-	TemplateArn             string          `json:"templateArn" xml:"TemplateArn"`
-	Validity                *Validity       `json:"validity" xml:"Validity"`
-	ValidityNotBefore       *Validity       `json:"validityNotBefore" xml:"ValidityNotBefore"`
+ApiPassthrough *ApiPassthrough `json:"apiPassthrough" xml:"ApiPassthrough"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+Csr []byte `json:"csr" xml:"Csr"`
+IdempotencyToken string `json:"idempotencyToken" xml:"IdempotencyToken"`
+SigningAlgorithm string `json:"signingAlgorithm" xml:"SigningAlgorithm"`
+TemplateArn string `json:"templateArn" xml:"TemplateArn"`
+Validity *Validity `json:"validity" xml:"Validity"`
+ValidityNotBefore *Validity `json:"validityNotBefore" xml:"ValidityNotBefore"`
 }
 
 type IssueCertificateResponse struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
 }
 
 type KeyUsage struct {
-	CRLSign          bool `json:"cRLSign" xml:"CRLSign"`
-	DataEncipherment bool `json:"dataEncipherment" xml:"DataEncipherment"`
-	DecipherOnly     bool `json:"decipherOnly" xml:"DecipherOnly"`
-	DigitalSignature bool `json:"digitalSignature" xml:"DigitalSignature"`
-	EncipherOnly     bool `json:"encipherOnly" xml:"EncipherOnly"`
-	KeyAgreement     bool `json:"keyAgreement" xml:"KeyAgreement"`
-	KeyCertSign      bool `json:"keyCertSign" xml:"KeyCertSign"`
-	KeyEncipherment  bool `json:"keyEncipherment" xml:"KeyEncipherment"`
-	NonRepudiation   bool `json:"nonRepudiation" xml:"NonRepudiation"`
+CRLSign bool `json:"cRLSign" xml:"CRLSign"`
+DataEncipherment bool `json:"dataEncipherment" xml:"DataEncipherment"`
+DecipherOnly bool `json:"decipherOnly" xml:"DecipherOnly"`
+DigitalSignature bool `json:"digitalSignature" xml:"DigitalSignature"`
+EncipherOnly bool `json:"encipherOnly" xml:"EncipherOnly"`
+KeyAgreement bool `json:"keyAgreement" xml:"KeyAgreement"`
+KeyCertSign bool `json:"keyCertSign" xml:"KeyCertSign"`
+KeyEncipherment bool `json:"keyEncipherment" xml:"KeyEncipherment"`
+NonRepudiation bool `json:"nonRepudiation" xml:"NonRepudiation"`
 }
 
 type ListCertificateAuthoritiesRequest struct {
-	MaxResults    int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
-	ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
 }
 
 type ListCertificateAuthoritiesResponse struct {
-	CertificateAuthorities CertificateAuthorities `json:"certificateAuthorities" xml:"CertificateAuthorities"`
-	NextToken              string                 `json:"nextToken" xml:"NextToken"`
+CertificateAuthorities CertificateAuthorities `json:"certificateAuthorities" xml:"CertificateAuthorities"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListPermissionsRequest struct {
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	MaxResults              int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken               string `json:"nextToken" xml:"NextToken"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListPermissionsResponse struct {
-	NextToken   string         `json:"nextToken" xml:"NextToken"`
-	Permissions PermissionList `json:"permissions" xml:"Permissions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Permissions PermissionList `json:"permissions" xml:"Permissions"`
 }
 
 type ListTagsRequest struct {
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	MaxResults              int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken               string `json:"nextToken" xml:"NextToken"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListTagsResponse struct {
-	NextToken string  `json:"nextToken" xml:"NextToken"`
-	Tags      TagList `json:"tags" xml:"Tags"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type OcspConfiguration struct {
-	Enabled         bool   `json:"enabled" xml:"Enabled"`
-	OcspCustomCname string `json:"ocspCustomCname" xml:"OcspCustomCname"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+OcspCustomCname string `json:"ocspCustomCname" xml:"OcspCustomCname"`
 }
 
 type OtherName struct {
-	TypeId string `json:"typeId" xml:"TypeId"`
-	Value  string `json:"value" xml:"Value"`
+TypeId string `json:"typeId" xml:"TypeId"`
+Value string `json:"value" xml:"Value"`
 }
 
 type Permission struct {
-	Actions                 ActionList `json:"actions" xml:"Actions"`
-	CertificateAuthorityArn string     `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	CreatedAt               time.Time  `json:"createdAt" xml:"CreatedAt"`
-	Policy                  string     `json:"policy" xml:"Policy"`
-	Principal               string     `json:"principal" xml:"Principal"`
-	SourceAccount           string     `json:"sourceAccount" xml:"SourceAccount"`
+Actions ActionList `json:"actions" xml:"Actions"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+Policy string `json:"policy" xml:"Policy"`
+Principal string `json:"principal" xml:"Principal"`
+SourceAccount string `json:"sourceAccount" xml:"SourceAccount"`
 }
 
 type PolicyInformation struct {
-	CertPolicyId     string                  `json:"certPolicyId" xml:"CertPolicyId"`
-	PolicyQualifiers PolicyQualifierInfoList `json:"policyQualifiers" xml:"PolicyQualifiers"`
+CertPolicyId string `json:"certPolicyId" xml:"CertPolicyId"`
+PolicyQualifiers PolicyQualifierInfoList `json:"policyQualifiers" xml:"PolicyQualifiers"`
 }
 
 type PolicyQualifierInfo struct {
-	PolicyQualifierId string     `json:"policyQualifierId" xml:"PolicyQualifierId"`
-	Qualifier         *Qualifier `json:"qualifier" xml:"Qualifier"`
+PolicyQualifierId string `json:"policyQualifierId" xml:"PolicyQualifierId"`
+Qualifier *Qualifier `json:"qualifier" xml:"Qualifier"`
 }
 
 type PutPolicyRequest struct {
-	Policy      string `json:"policy" xml:"Policy"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Policy string `json:"policy" xml:"Policy"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type Qualifier struct {
-	CpsUri string `json:"cpsUri" xml:"CpsUri"`
+CpsUri string `json:"cpsUri" xml:"CpsUri"`
 }
 
 type RestoreCertificateAuthorityRequest struct {
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
 }
 
 type RevocationConfiguration struct {
-	CrlConfiguration  *CrlConfiguration  `json:"crlConfiguration" xml:"CrlConfiguration"`
-	OcspConfiguration *OcspConfiguration `json:"ocspConfiguration" xml:"OcspConfiguration"`
+CrlConfiguration *CrlConfiguration `json:"crlConfiguration" xml:"CrlConfiguration"`
+OcspConfiguration *OcspConfiguration `json:"ocspConfiguration" xml:"OcspConfiguration"`
 }
 
 type RevokeCertificateRequest struct {
-	CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	CertificateSerial       string `json:"certificateSerial" xml:"CertificateSerial"`
-	RevocationReason        string `json:"revocationReason" xml:"RevocationReason"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+CertificateSerial string `json:"certificateSerial" xml:"CertificateSerial"`
+RevocationReason string `json:"revocationReason" xml:"RevocationReason"`
 }
 
 type SmithyUnit struct {
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagCertificateAuthorityRequest struct {
-	CertificateAuthorityArn string  `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	Tags                    TagList `json:"tags" xml:"Tags"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type UntagCertificateAuthorityRequest struct {
-	CertificateAuthorityArn string  `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	Tags                    TagList `json:"tags" xml:"Tags"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type UpdateCertificateAuthorityRequest struct {
-	CertificateAuthorityArn string                   `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	RevocationConfiguration *RevocationConfiguration `json:"revocationConfiguration" xml:"RevocationConfiguration"`
-	Status                  string                   `json:"status" xml:"Status"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+RevocationConfiguration *RevocationConfiguration `json:"revocationConfiguration" xml:"RevocationConfiguration"`
+Status string `json:"status" xml:"Status"`
 }
 
 type Validity struct {
-	Type  string `json:"type" xml:"Type"`
-	Value int64  `json:"value" xml:"Value"`
+Type string `json:"type" xml:"Type"`
+Value int64 `json:"value" xml:"Value"`
 }
 
 type AccessDescriptionList []*AccessDescription
@@ -395,3 +395,4 @@ type PermissionList []*Permission
 type PolicyQualifierInfoList []*PolicyQualifierInfo
 
 type TagList []*Tag
+

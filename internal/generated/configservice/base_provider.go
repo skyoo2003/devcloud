@@ -398,3 +398,4 @@ func (b *BaseProvider) TagResource(ctx context.Context, input *TagResourceReques
 func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
 }
+

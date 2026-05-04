@@ -7,2928 +7,2928 @@ import (
 )
 
 type ADMChannelRequest struct {
-	ClientId     string `json:"clientId" xml:"ClientId"`
-	ClientSecret string `json:"clientSecret" xml:"ClientSecret"`
-	Enabled      bool   `json:"enabled" xml:"Enabled"`
+ClientId string `json:"clientId" xml:"ClientId"`
+ClientSecret string `json:"clientSecret" xml:"ClientSecret"`
+Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type ADMChannelResponse struct {
-	ApplicationId    string `json:"applicationId" xml:"ApplicationId"`
-	CreationDate     string `json:"creationDate" xml:"CreationDate"`
-	Enabled          bool   `json:"enabled" xml:"Enabled"`
-	HasCredential    bool   `json:"hasCredential" xml:"HasCredential"`
-	Id               string `json:"id" xml:"Id"`
-	IsArchived       bool   `json:"isArchived" xml:"IsArchived"`
-	LastModifiedBy   string `json:"lastModifiedBy" xml:"LastModifiedBy"`
-	LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Platform         string `json:"platform" xml:"Platform"`
-	Version          int32  `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HasCredential bool `json:"hasCredential" xml:"HasCredential"`
+Id string `json:"id" xml:"Id"`
+IsArchived bool `json:"isArchived" xml:"IsArchived"`
+LastModifiedBy string `json:"lastModifiedBy" xml:"LastModifiedBy"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Platform string `json:"platform" xml:"Platform"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type ADMMessage struct {
-	Action            string              `json:"action" xml:"Action"`
-	Body              string              `json:"body" xml:"Body"`
-	ConsolidationKey  string              `json:"consolidationKey" xml:"ConsolidationKey"`
-	Data              MapOf__string       `json:"data" xml:"Data"`
-	ExpiresAfter      string              `json:"expiresAfter" xml:"ExpiresAfter"`
-	IconReference     string              `json:"iconReference" xml:"IconReference"`
-	ImageIconUrl      string              `json:"imageIconUrl" xml:"ImageIconUrl"`
-	ImageUrl          string              `json:"imageUrl" xml:"ImageUrl"`
-	MD5               string              `json:"mD5" xml:"MD5"`
-	RawContent        string              `json:"rawContent" xml:"RawContent"`
-	SilentPush        bool                `json:"silentPush" xml:"SilentPush"`
-	SmallImageIconUrl string              `json:"smallImageIconUrl" xml:"SmallImageIconUrl"`
-	Sound             string              `json:"sound" xml:"Sound"`
-	Substitutions     MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
-	Title             string              `json:"title" xml:"Title"`
-	Url               string              `json:"url" xml:"Url"`
+Action string `json:"action" xml:"Action"`
+Body string `json:"body" xml:"Body"`
+ConsolidationKey string `json:"consolidationKey" xml:"ConsolidationKey"`
+Data MapOf__string `json:"data" xml:"Data"`
+ExpiresAfter string `json:"expiresAfter" xml:"ExpiresAfter"`
+IconReference string `json:"iconReference" xml:"IconReference"`
+ImageIconUrl string `json:"imageIconUrl" xml:"ImageIconUrl"`
+ImageUrl string `json:"imageUrl" xml:"ImageUrl"`
+MD5 string `json:"mD5" xml:"MD5"`
+RawContent string `json:"rawContent" xml:"RawContent"`
+SilentPush bool `json:"silentPush" xml:"SilentPush"`
+SmallImageIconUrl string `json:"smallImageIconUrl" xml:"SmallImageIconUrl"`
+Sound string `json:"sound" xml:"Sound"`
+Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
+Title string `json:"title" xml:"Title"`
+Url string `json:"url" xml:"Url"`
 }
 
 type APNSChannelRequest struct {
-	BundleId                    string `json:"bundleId" xml:"BundleId"`
-	Certificate                 string `json:"certificate" xml:"Certificate"`
-	DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	PrivateKey                  string `json:"privateKey" xml:"PrivateKey"`
-	TeamId                      string `json:"teamId" xml:"TeamId"`
-	TokenKey                    string `json:"tokenKey" xml:"TokenKey"`
-	TokenKeyId                  string `json:"tokenKeyId" xml:"TokenKeyId"`
+BundleId string `json:"bundleId" xml:"BundleId"`
+Certificate string `json:"certificate" xml:"Certificate"`
+DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+PrivateKey string `json:"privateKey" xml:"PrivateKey"`
+TeamId string `json:"teamId" xml:"TeamId"`
+TokenKey string `json:"tokenKey" xml:"TokenKey"`
+TokenKeyId string `json:"tokenKeyId" xml:"TokenKeyId"`
 }
 
 type APNSChannelResponse struct {
-	ApplicationId               string `json:"applicationId" xml:"ApplicationId"`
-	CreationDate                string `json:"creationDate" xml:"CreationDate"`
-	DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	HasCredential               bool   `json:"hasCredential" xml:"HasCredential"`
-	HasTokenKey                 bool   `json:"hasTokenKey" xml:"HasTokenKey"`
-	Id                          string `json:"id" xml:"Id"`
-	IsArchived                  bool   `json:"isArchived" xml:"IsArchived"`
-	LastModifiedBy              string `json:"lastModifiedBy" xml:"LastModifiedBy"`
-	LastModifiedDate            string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Platform                    string `json:"platform" xml:"Platform"`
-	Version                     int32  `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HasCredential bool `json:"hasCredential" xml:"HasCredential"`
+HasTokenKey bool `json:"hasTokenKey" xml:"HasTokenKey"`
+Id string `json:"id" xml:"Id"`
+IsArchived bool `json:"isArchived" xml:"IsArchived"`
+LastModifiedBy string `json:"lastModifiedBy" xml:"LastModifiedBy"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Platform string `json:"platform" xml:"Platform"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type APNSMessage struct {
-	APNSPushType                  string              `json:"aPNSPushType" xml:"APNSPushType"`
-	Action                        string              `json:"action" xml:"Action"`
-	Badge                         int32               `json:"badge" xml:"Badge"`
-	Body                          string              `json:"body" xml:"Body"`
-	Category                      string              `json:"category" xml:"Category"`
-	CollapseId                    string              `json:"collapseId" xml:"CollapseId"`
-	Data                          MapOf__string       `json:"data" xml:"Data"`
-	MediaUrl                      string              `json:"mediaUrl" xml:"MediaUrl"`
-	PreferredAuthenticationMethod string              `json:"preferredAuthenticationMethod" xml:"PreferredAuthenticationMethod"`
-	Priority                      string              `json:"priority" xml:"Priority"`
-	RawContent                    string              `json:"rawContent" xml:"RawContent"`
-	SilentPush                    bool                `json:"silentPush" xml:"SilentPush"`
-	Sound                         string              `json:"sound" xml:"Sound"`
-	Substitutions                 MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
-	ThreadId                      string              `json:"threadId" xml:"ThreadId"`
-	TimeToLive                    int32               `json:"timeToLive" xml:"TimeToLive"`
-	Title                         string              `json:"title" xml:"Title"`
-	Url                           string              `json:"url" xml:"Url"`
+APNSPushType string `json:"aPNSPushType" xml:"APNSPushType"`
+Action string `json:"action" xml:"Action"`
+Badge int32 `json:"badge" xml:"Badge"`
+Body string `json:"body" xml:"Body"`
+Category string `json:"category" xml:"Category"`
+CollapseId string `json:"collapseId" xml:"CollapseId"`
+Data MapOf__string `json:"data" xml:"Data"`
+MediaUrl string `json:"mediaUrl" xml:"MediaUrl"`
+PreferredAuthenticationMethod string `json:"preferredAuthenticationMethod" xml:"PreferredAuthenticationMethod"`
+Priority string `json:"priority" xml:"Priority"`
+RawContent string `json:"rawContent" xml:"RawContent"`
+SilentPush bool `json:"silentPush" xml:"SilentPush"`
+Sound string `json:"sound" xml:"Sound"`
+Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
+ThreadId string `json:"threadId" xml:"ThreadId"`
+TimeToLive int32 `json:"timeToLive" xml:"TimeToLive"`
+Title string `json:"title" xml:"Title"`
+Url string `json:"url" xml:"Url"`
 }
 
 type APNSPushNotificationTemplate struct {
-	Action     string `json:"action" xml:"Action"`
-	Body       string `json:"body" xml:"Body"`
-	MediaUrl   string `json:"mediaUrl" xml:"MediaUrl"`
-	RawContent string `json:"rawContent" xml:"RawContent"`
-	Sound      string `json:"sound" xml:"Sound"`
-	Title      string `json:"title" xml:"Title"`
-	Url        string `json:"url" xml:"Url"`
+Action string `json:"action" xml:"Action"`
+Body string `json:"body" xml:"Body"`
+MediaUrl string `json:"mediaUrl" xml:"MediaUrl"`
+RawContent string `json:"rawContent" xml:"RawContent"`
+Sound string `json:"sound" xml:"Sound"`
+Title string `json:"title" xml:"Title"`
+Url string `json:"url" xml:"Url"`
 }
 
 type APNSSandboxChannelRequest struct {
-	BundleId                    string `json:"bundleId" xml:"BundleId"`
-	Certificate                 string `json:"certificate" xml:"Certificate"`
-	DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	PrivateKey                  string `json:"privateKey" xml:"PrivateKey"`
-	TeamId                      string `json:"teamId" xml:"TeamId"`
-	TokenKey                    string `json:"tokenKey" xml:"TokenKey"`
-	TokenKeyId                  string `json:"tokenKeyId" xml:"TokenKeyId"`
+BundleId string `json:"bundleId" xml:"BundleId"`
+Certificate string `json:"certificate" xml:"Certificate"`
+DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+PrivateKey string `json:"privateKey" xml:"PrivateKey"`
+TeamId string `json:"teamId" xml:"TeamId"`
+TokenKey string `json:"tokenKey" xml:"TokenKey"`
+TokenKeyId string `json:"tokenKeyId" xml:"TokenKeyId"`
 }
 
 type APNSSandboxChannelResponse struct {
-	ApplicationId               string `json:"applicationId" xml:"ApplicationId"`
-	CreationDate                string `json:"creationDate" xml:"CreationDate"`
-	DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	HasCredential               bool   `json:"hasCredential" xml:"HasCredential"`
-	HasTokenKey                 bool   `json:"hasTokenKey" xml:"HasTokenKey"`
-	Id                          string `json:"id" xml:"Id"`
-	IsArchived                  bool   `json:"isArchived" xml:"IsArchived"`
-	LastModifiedBy              string `json:"lastModifiedBy" xml:"LastModifiedBy"`
-	LastModifiedDate            string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Platform                    string `json:"platform" xml:"Platform"`
-	Version                     int32  `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HasCredential bool `json:"hasCredential" xml:"HasCredential"`
+HasTokenKey bool `json:"hasTokenKey" xml:"HasTokenKey"`
+Id string `json:"id" xml:"Id"`
+IsArchived bool `json:"isArchived" xml:"IsArchived"`
+LastModifiedBy string `json:"lastModifiedBy" xml:"LastModifiedBy"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Platform string `json:"platform" xml:"Platform"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type APNSVoipChannelRequest struct {
-	BundleId                    string `json:"bundleId" xml:"BundleId"`
-	Certificate                 string `json:"certificate" xml:"Certificate"`
-	DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	PrivateKey                  string `json:"privateKey" xml:"PrivateKey"`
-	TeamId                      string `json:"teamId" xml:"TeamId"`
-	TokenKey                    string `json:"tokenKey" xml:"TokenKey"`
-	TokenKeyId                  string `json:"tokenKeyId" xml:"TokenKeyId"`
+BundleId string `json:"bundleId" xml:"BundleId"`
+Certificate string `json:"certificate" xml:"Certificate"`
+DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+PrivateKey string `json:"privateKey" xml:"PrivateKey"`
+TeamId string `json:"teamId" xml:"TeamId"`
+TokenKey string `json:"tokenKey" xml:"TokenKey"`
+TokenKeyId string `json:"tokenKeyId" xml:"TokenKeyId"`
 }
 
 type APNSVoipChannelResponse struct {
-	ApplicationId               string `json:"applicationId" xml:"ApplicationId"`
-	CreationDate                string `json:"creationDate" xml:"CreationDate"`
-	DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	HasCredential               bool   `json:"hasCredential" xml:"HasCredential"`
-	HasTokenKey                 bool   `json:"hasTokenKey" xml:"HasTokenKey"`
-	Id                          string `json:"id" xml:"Id"`
-	IsArchived                  bool   `json:"isArchived" xml:"IsArchived"`
-	LastModifiedBy              string `json:"lastModifiedBy" xml:"LastModifiedBy"`
-	LastModifiedDate            string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Platform                    string `json:"platform" xml:"Platform"`
-	Version                     int32  `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HasCredential bool `json:"hasCredential" xml:"HasCredential"`
+HasTokenKey bool `json:"hasTokenKey" xml:"HasTokenKey"`
+Id string `json:"id" xml:"Id"`
+IsArchived bool `json:"isArchived" xml:"IsArchived"`
+LastModifiedBy string `json:"lastModifiedBy" xml:"LastModifiedBy"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Platform string `json:"platform" xml:"Platform"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type APNSVoipSandboxChannelRequest struct {
-	BundleId                    string `json:"bundleId" xml:"BundleId"`
-	Certificate                 string `json:"certificate" xml:"Certificate"`
-	DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	PrivateKey                  string `json:"privateKey" xml:"PrivateKey"`
-	TeamId                      string `json:"teamId" xml:"TeamId"`
-	TokenKey                    string `json:"tokenKey" xml:"TokenKey"`
-	TokenKeyId                  string `json:"tokenKeyId" xml:"TokenKeyId"`
+BundleId string `json:"bundleId" xml:"BundleId"`
+Certificate string `json:"certificate" xml:"Certificate"`
+DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+PrivateKey string `json:"privateKey" xml:"PrivateKey"`
+TeamId string `json:"teamId" xml:"TeamId"`
+TokenKey string `json:"tokenKey" xml:"TokenKey"`
+TokenKeyId string `json:"tokenKeyId" xml:"TokenKeyId"`
 }
 
 type APNSVoipSandboxChannelResponse struct {
-	ApplicationId               string `json:"applicationId" xml:"ApplicationId"`
-	CreationDate                string `json:"creationDate" xml:"CreationDate"`
-	DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	HasCredential               bool   `json:"hasCredential" xml:"HasCredential"`
-	HasTokenKey                 bool   `json:"hasTokenKey" xml:"HasTokenKey"`
-	Id                          string `json:"id" xml:"Id"`
-	IsArchived                  bool   `json:"isArchived" xml:"IsArchived"`
-	LastModifiedBy              string `json:"lastModifiedBy" xml:"LastModifiedBy"`
-	LastModifiedDate            string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Platform                    string `json:"platform" xml:"Platform"`
-	Version                     int32  `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HasCredential bool `json:"hasCredential" xml:"HasCredential"`
+HasTokenKey bool `json:"hasTokenKey" xml:"HasTokenKey"`
+Id string `json:"id" xml:"Id"`
+IsArchived bool `json:"isArchived" xml:"IsArchived"`
+LastModifiedBy string `json:"lastModifiedBy" xml:"LastModifiedBy"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Platform string `json:"platform" xml:"Platform"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type ActivitiesResponse struct {
-	Item      ListOfActivityResponse `json:"item" xml:"Item"`
-	NextToken string                 `json:"nextToken" xml:"NextToken"`
+Item ListOfActivityResponse `json:"item" xml:"Item"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type Activity struct {
-	CUSTOM           *CustomMessageActivity         `json:"cUSTOM" xml:"CUSTOM"`
-	ConditionalSplit *ConditionalSplitActivity      `json:"conditionalSplit" xml:"ConditionalSplit"`
-	ContactCenter    *ContactCenterActivity         `json:"contactCenter" xml:"ContactCenter"`
-	Description      string                         `json:"description" xml:"Description"`
-	EMAIL            *EmailMessageActivity          `json:"eMAIL" xml:"EMAIL"`
-	Holdout          *HoldoutActivity               `json:"holdout" xml:"Holdout"`
-	MultiCondition   *MultiConditionalSplitActivity `json:"multiCondition" xml:"MultiCondition"`
-	PUSH             *PushMessageActivity           `json:"pUSH" xml:"PUSH"`
-	RandomSplit      *RandomSplitActivity           `json:"randomSplit" xml:"RandomSplit"`
-	SMS              *SMSMessageActivity            `json:"sMS" xml:"SMS"`
-	Wait             *WaitActivity                  `json:"wait" xml:"Wait"`
+CUSTOM *CustomMessageActivity `json:"cUSTOM" xml:"CUSTOM"`
+ConditionalSplit *ConditionalSplitActivity `json:"conditionalSplit" xml:"ConditionalSplit"`
+ContactCenter *ContactCenterActivity `json:"contactCenter" xml:"ContactCenter"`
+Description string `json:"description" xml:"Description"`
+EMAIL *EmailMessageActivity `json:"eMAIL" xml:"EMAIL"`
+Holdout *HoldoutActivity `json:"holdout" xml:"Holdout"`
+MultiCondition *MultiConditionalSplitActivity `json:"multiCondition" xml:"MultiCondition"`
+PUSH *PushMessageActivity `json:"pUSH" xml:"PUSH"`
+RandomSplit *RandomSplitActivity `json:"randomSplit" xml:"RandomSplit"`
+SMS *SMSMessageActivity `json:"sMS" xml:"SMS"`
+Wait *WaitActivity `json:"wait" xml:"Wait"`
 }
 
 type ActivityResponse struct {
-	ApplicationId           string        `json:"applicationId" xml:"ApplicationId"`
-	CampaignId              string        `json:"campaignId" xml:"CampaignId"`
-	End                     string        `json:"end" xml:"End"`
-	ExecutionMetrics        MapOf__string `json:"executionMetrics" xml:"ExecutionMetrics"`
-	Id                      string        `json:"id" xml:"Id"`
-	Result                  string        `json:"result" xml:"Result"`
-	ScheduledStart          string        `json:"scheduledStart" xml:"ScheduledStart"`
-	Start                   string        `json:"start" xml:"Start"`
-	State                   string        `json:"state" xml:"State"`
-	SuccessfulEndpointCount int32         `json:"successfulEndpointCount" xml:"SuccessfulEndpointCount"`
-	TimezonesCompletedCount int32         `json:"timezonesCompletedCount" xml:"TimezonesCompletedCount"`
-	TimezonesTotalCount     int32         `json:"timezonesTotalCount" xml:"TimezonesTotalCount"`
-	TotalEndpointCount      int32         `json:"totalEndpointCount" xml:"TotalEndpointCount"`
-	TreatmentId             string        `json:"treatmentId" xml:"TreatmentId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CampaignId string `json:"campaignId" xml:"CampaignId"`
+End string `json:"end" xml:"End"`
+ExecutionMetrics MapOf__string `json:"executionMetrics" xml:"ExecutionMetrics"`
+Id string `json:"id" xml:"Id"`
+Result string `json:"result" xml:"Result"`
+ScheduledStart string `json:"scheduledStart" xml:"ScheduledStart"`
+Start string `json:"start" xml:"Start"`
+State string `json:"state" xml:"State"`
+SuccessfulEndpointCount int32 `json:"successfulEndpointCount" xml:"SuccessfulEndpointCount"`
+TimezonesCompletedCount int32 `json:"timezonesCompletedCount" xml:"TimezonesCompletedCount"`
+TimezonesTotalCount int32 `json:"timezonesTotalCount" xml:"TimezonesTotalCount"`
+TotalEndpointCount int32 `json:"totalEndpointCount" xml:"TotalEndpointCount"`
+TreatmentId string `json:"treatmentId" xml:"TreatmentId"`
 }
 
 type AddressConfiguration struct {
-	BodyOverride  string              `json:"bodyOverride" xml:"BodyOverride"`
-	ChannelType   string              `json:"channelType" xml:"ChannelType"`
-	Context       MapOf__string       `json:"context" xml:"Context"`
-	RawContent    string              `json:"rawContent" xml:"RawContent"`
-	Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
-	TitleOverride string              `json:"titleOverride" xml:"TitleOverride"`
+BodyOverride string `json:"bodyOverride" xml:"BodyOverride"`
+ChannelType string `json:"channelType" xml:"ChannelType"`
+Context MapOf__string `json:"context" xml:"Context"`
+RawContent string `json:"rawContent" xml:"RawContent"`
+Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
+TitleOverride string `json:"titleOverride" xml:"TitleOverride"`
 }
 
 type AndroidPushNotificationTemplate struct {
-	Action            string `json:"action" xml:"Action"`
-	Body              string `json:"body" xml:"Body"`
-	ImageIconUrl      string `json:"imageIconUrl" xml:"ImageIconUrl"`
-	ImageUrl          string `json:"imageUrl" xml:"ImageUrl"`
-	RawContent        string `json:"rawContent" xml:"RawContent"`
-	SmallImageIconUrl string `json:"smallImageIconUrl" xml:"SmallImageIconUrl"`
-	Sound             string `json:"sound" xml:"Sound"`
-	Title             string `json:"title" xml:"Title"`
-	Url               string `json:"url" xml:"Url"`
+Action string `json:"action" xml:"Action"`
+Body string `json:"body" xml:"Body"`
+ImageIconUrl string `json:"imageIconUrl" xml:"ImageIconUrl"`
+ImageUrl string `json:"imageUrl" xml:"ImageUrl"`
+RawContent string `json:"rawContent" xml:"RawContent"`
+SmallImageIconUrl string `json:"smallImageIconUrl" xml:"SmallImageIconUrl"`
+Sound string `json:"sound" xml:"Sound"`
+Title string `json:"title" xml:"Title"`
+Url string `json:"url" xml:"Url"`
 }
 
 type ApplicationDateRangeKpiResponse struct {
-	ApplicationId string         `json:"applicationId" xml:"ApplicationId"`
-	EndTime       time.Time      `json:"endTime" xml:"EndTime"`
-	KpiName       string         `json:"kpiName" xml:"KpiName"`
-	KpiResult     *BaseKpiResult `json:"kpiResult" xml:"KpiResult"`
-	NextToken     string         `json:"nextToken" xml:"NextToken"`
-	StartTime     time.Time      `json:"startTime" xml:"StartTime"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+KpiName string `json:"kpiName" xml:"KpiName"`
+KpiResult *BaseKpiResult `json:"kpiResult" xml:"KpiResult"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type ApplicationResponse struct {
-	Arn          string        `json:"arn" xml:"Arn"`
-	CreationDate string        `json:"creationDate" xml:"CreationDate"`
-	Id           string        `json:"id" xml:"Id"`
-	Name         string        `json:"name" xml:"Name"`
-	Tags         MapOf__string `json:"tags" xml:"tags"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type ApplicationSettingsJourneyLimits struct {
-	DailyCap     int32                `json:"dailyCap" xml:"DailyCap"`
-	TimeframeCap *JourneyTimeframeCap `json:"timeframeCap" xml:"TimeframeCap"`
-	TotalCap     int32                `json:"totalCap" xml:"TotalCap"`
+DailyCap int32 `json:"dailyCap" xml:"DailyCap"`
+TimeframeCap *JourneyTimeframeCap `json:"timeframeCap" xml:"TimeframeCap"`
+TotalCap int32 `json:"totalCap" xml:"TotalCap"`
 }
 
 type ApplicationSettingsResource struct {
-	ApplicationId    string                            `json:"applicationId" xml:"ApplicationId"`
-	CampaignHook     *CampaignHook                     `json:"campaignHook" xml:"CampaignHook"`
-	JourneyLimits    *ApplicationSettingsJourneyLimits `json:"journeyLimits" xml:"JourneyLimits"`
-	LastModifiedDate string                            `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Limits           *CampaignLimits                   `json:"limits" xml:"Limits"`
-	QuietTime        *QuietTime                        `json:"quietTime" xml:"QuietTime"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CampaignHook *CampaignHook `json:"campaignHook" xml:"CampaignHook"`
+JourneyLimits *ApplicationSettingsJourneyLimits `json:"journeyLimits" xml:"JourneyLimits"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Limits *CampaignLimits `json:"limits" xml:"Limits"`
+QuietTime *QuietTime `json:"quietTime" xml:"QuietTime"`
 }
 
 type ApplicationsResponse struct {
-	Item      ListOfApplicationResponse `json:"item" xml:"Item"`
-	NextToken string                    `json:"nextToken" xml:"NextToken"`
+Item ListOfApplicationResponse `json:"item" xml:"Item"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type AttributeDimension struct {
-	AttributeType string         `json:"attributeType" xml:"AttributeType"`
-	Values        ListOf__string `json:"values" xml:"Values"`
+AttributeType string `json:"attributeType" xml:"AttributeType"`
+Values ListOf__string `json:"values" xml:"Values"`
 }
 
 type AttributesResource struct {
-	ApplicationId string         `json:"applicationId" xml:"ApplicationId"`
-	AttributeType string         `json:"attributeType" xml:"AttributeType"`
-	Attributes    ListOf__string `json:"attributes" xml:"Attributes"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+AttributeType string `json:"attributeType" xml:"AttributeType"`
+Attributes ListOf__string `json:"attributes" xml:"Attributes"`
 }
 
 type BaiduChannelRequest struct {
-	ApiKey    string `json:"apiKey" xml:"ApiKey"`
-	Enabled   bool   `json:"enabled" xml:"Enabled"`
-	SecretKey string `json:"secretKey" xml:"SecretKey"`
+ApiKey string `json:"apiKey" xml:"ApiKey"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+SecretKey string `json:"secretKey" xml:"SecretKey"`
 }
 
 type BaiduChannelResponse struct {
-	ApplicationId    string `json:"applicationId" xml:"ApplicationId"`
-	CreationDate     string `json:"creationDate" xml:"CreationDate"`
-	Credential       string `json:"credential" xml:"Credential"`
-	Enabled          bool   `json:"enabled" xml:"Enabled"`
-	HasCredential    bool   `json:"hasCredential" xml:"HasCredential"`
-	Id               string `json:"id" xml:"Id"`
-	IsArchived       bool   `json:"isArchived" xml:"IsArchived"`
-	LastModifiedBy   string `json:"lastModifiedBy" xml:"LastModifiedBy"`
-	LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Platform         string `json:"platform" xml:"Platform"`
-	Version          int32  `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Credential string `json:"credential" xml:"Credential"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HasCredential bool `json:"hasCredential" xml:"HasCredential"`
+Id string `json:"id" xml:"Id"`
+IsArchived bool `json:"isArchived" xml:"IsArchived"`
+LastModifiedBy string `json:"lastModifiedBy" xml:"LastModifiedBy"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Platform string `json:"platform" xml:"Platform"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type BaiduMessage struct {
-	Action            string              `json:"action" xml:"Action"`
-	Body              string              `json:"body" xml:"Body"`
-	Data              MapOf__string       `json:"data" xml:"Data"`
-	IconReference     string              `json:"iconReference" xml:"IconReference"`
-	ImageIconUrl      string              `json:"imageIconUrl" xml:"ImageIconUrl"`
-	ImageUrl          string              `json:"imageUrl" xml:"ImageUrl"`
-	RawContent        string              `json:"rawContent" xml:"RawContent"`
-	SilentPush        bool                `json:"silentPush" xml:"SilentPush"`
-	SmallImageIconUrl string              `json:"smallImageIconUrl" xml:"SmallImageIconUrl"`
-	Sound             string              `json:"sound" xml:"Sound"`
-	Substitutions     MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
-	TimeToLive        int32               `json:"timeToLive" xml:"TimeToLive"`
-	Title             string              `json:"title" xml:"Title"`
-	Url               string              `json:"url" xml:"Url"`
+Action string `json:"action" xml:"Action"`
+Body string `json:"body" xml:"Body"`
+Data MapOf__string `json:"data" xml:"Data"`
+IconReference string `json:"iconReference" xml:"IconReference"`
+ImageIconUrl string `json:"imageIconUrl" xml:"ImageIconUrl"`
+ImageUrl string `json:"imageUrl" xml:"ImageUrl"`
+RawContent string `json:"rawContent" xml:"RawContent"`
+SilentPush bool `json:"silentPush" xml:"SilentPush"`
+SmallImageIconUrl string `json:"smallImageIconUrl" xml:"SmallImageIconUrl"`
+Sound string `json:"sound" xml:"Sound"`
+Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
+TimeToLive int32 `json:"timeToLive" xml:"TimeToLive"`
+Title string `json:"title" xml:"Title"`
+Url string `json:"url" xml:"Url"`
 }
 
 type BaseKpiResult struct {
-	Rows ListOfResultRow `json:"rows" xml:"Rows"`
+Rows ListOfResultRow `json:"rows" xml:"Rows"`
 }
 
 type CampaignCustomMessage struct {
-	Data string `json:"data" xml:"Data"`
+Data string `json:"data" xml:"Data"`
 }
 
 type CampaignDateRangeKpiResponse struct {
-	ApplicationId string         `json:"applicationId" xml:"ApplicationId"`
-	CampaignId    string         `json:"campaignId" xml:"CampaignId"`
-	EndTime       time.Time      `json:"endTime" xml:"EndTime"`
-	KpiName       string         `json:"kpiName" xml:"KpiName"`
-	KpiResult     *BaseKpiResult `json:"kpiResult" xml:"KpiResult"`
-	NextToken     string         `json:"nextToken" xml:"NextToken"`
-	StartTime     time.Time      `json:"startTime" xml:"StartTime"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CampaignId string `json:"campaignId" xml:"CampaignId"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+KpiName string `json:"kpiName" xml:"KpiName"`
+KpiResult *BaseKpiResult `json:"kpiResult" xml:"KpiResult"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type CampaignEmailMessage struct {
-	Body        string              `json:"body" xml:"Body"`
-	FromAddress string              `json:"fromAddress" xml:"FromAddress"`
-	Headers     ListOfMessageHeader `json:"headers" xml:"Headers"`
-	HtmlBody    string              `json:"htmlBody" xml:"HtmlBody"`
-	Title       string              `json:"title" xml:"Title"`
+Body string `json:"body" xml:"Body"`
+FromAddress string `json:"fromAddress" xml:"FromAddress"`
+Headers ListOfMessageHeader `json:"headers" xml:"Headers"`
+HtmlBody string `json:"htmlBody" xml:"HtmlBody"`
+Title string `json:"title" xml:"Title"`
 }
 
 type CampaignEventFilter struct {
-	Dimensions *EventDimensions `json:"dimensions" xml:"Dimensions"`
-	FilterType string           `json:"filterType" xml:"FilterType"`
+Dimensions *EventDimensions `json:"dimensions" xml:"Dimensions"`
+FilterType string `json:"filterType" xml:"FilterType"`
 }
 
 type CampaignHook struct {
-	LambdaFunctionName string `json:"lambdaFunctionName" xml:"LambdaFunctionName"`
-	Mode               string `json:"mode" xml:"Mode"`
-	WebUrl             string `json:"webUrl" xml:"WebUrl"`
+LambdaFunctionName string `json:"lambdaFunctionName" xml:"LambdaFunctionName"`
+Mode string `json:"mode" xml:"Mode"`
+WebUrl string `json:"webUrl" xml:"WebUrl"`
 }
 
 type CampaignInAppMessage struct {
-	Body         string                    `json:"body" xml:"Body"`
-	Content      ListOfInAppMessageContent `json:"content" xml:"Content"`
-	CustomConfig MapOf__string             `json:"customConfig" xml:"CustomConfig"`
-	Layout       string                    `json:"layout" xml:"Layout"`
+Body string `json:"body" xml:"Body"`
+Content ListOfInAppMessageContent `json:"content" xml:"Content"`
+CustomConfig MapOf__string `json:"customConfig" xml:"CustomConfig"`
+Layout string `json:"layout" xml:"Layout"`
 }
 
 type CampaignLimits struct {
-	Daily             int32 `json:"daily" xml:"Daily"`
-	MaximumDuration   int32 `json:"maximumDuration" xml:"MaximumDuration"`
-	MessagesPerSecond int32 `json:"messagesPerSecond" xml:"MessagesPerSecond"`
-	Session           int32 `json:"session" xml:"Session"`
-	Total             int32 `json:"total" xml:"Total"`
+Daily int32 `json:"daily" xml:"Daily"`
+MaximumDuration int32 `json:"maximumDuration" xml:"MaximumDuration"`
+MessagesPerSecond int32 `json:"messagesPerSecond" xml:"MessagesPerSecond"`
+Session int32 `json:"session" xml:"Session"`
+Total int32 `json:"total" xml:"Total"`
 }
 
 type CampaignResponse struct {
-	AdditionalTreatments        ListOfTreatmentResource      `json:"additionalTreatments" xml:"AdditionalTreatments"`
-	ApplicationId               string                       `json:"applicationId" xml:"ApplicationId"`
-	Arn                         string                       `json:"arn" xml:"Arn"`
-	CreationDate                string                       `json:"creationDate" xml:"CreationDate"`
-	CustomDeliveryConfiguration *CustomDeliveryConfiguration `json:"customDeliveryConfiguration" xml:"CustomDeliveryConfiguration"`
-	DefaultState                *CampaignState               `json:"defaultState" xml:"DefaultState"`
-	Description                 string                       `json:"description" xml:"Description"`
-	HoldoutPercent              int32                        `json:"holdoutPercent" xml:"HoldoutPercent"`
-	Hook                        *CampaignHook                `json:"hook" xml:"Hook"`
-	Id                          string                       `json:"id" xml:"Id"`
-	IsPaused                    bool                         `json:"isPaused" xml:"IsPaused"`
-	LastModifiedDate            string                       `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Limits                      *CampaignLimits              `json:"limits" xml:"Limits"`
-	MessageConfiguration        *MessageConfiguration        `json:"messageConfiguration" xml:"MessageConfiguration"`
-	Name                        string                       `json:"name" xml:"Name"`
-	Priority                    int32                        `json:"priority" xml:"Priority"`
-	Schedule                    *Schedule                    `json:"schedule" xml:"Schedule"`
-	SegmentId                   string                       `json:"segmentId" xml:"SegmentId"`
-	SegmentVersion              int32                        `json:"segmentVersion" xml:"SegmentVersion"`
-	State                       *CampaignState               `json:"state" xml:"State"`
-	TemplateConfiguration       *TemplateConfiguration       `json:"templateConfiguration" xml:"TemplateConfiguration"`
-	TreatmentDescription        string                       `json:"treatmentDescription" xml:"TreatmentDescription"`
-	TreatmentName               string                       `json:"treatmentName" xml:"TreatmentName"`
-	Version                     int32                        `json:"version" xml:"Version"`
-	Tags                        MapOf__string                `json:"tags" xml:"tags"`
+AdditionalTreatments ListOfTreatmentResource `json:"additionalTreatments" xml:"AdditionalTreatments"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+CustomDeliveryConfiguration *CustomDeliveryConfiguration `json:"customDeliveryConfiguration" xml:"CustomDeliveryConfiguration"`
+DefaultState *CampaignState `json:"defaultState" xml:"DefaultState"`
+Description string `json:"description" xml:"Description"`
+HoldoutPercent int32 `json:"holdoutPercent" xml:"HoldoutPercent"`
+Hook *CampaignHook `json:"hook" xml:"Hook"`
+Id string `json:"id" xml:"Id"`
+IsPaused bool `json:"isPaused" xml:"IsPaused"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Limits *CampaignLimits `json:"limits" xml:"Limits"`
+MessageConfiguration *MessageConfiguration `json:"messageConfiguration" xml:"MessageConfiguration"`
+Name string `json:"name" xml:"Name"`
+Priority int32 `json:"priority" xml:"Priority"`
+Schedule *Schedule `json:"schedule" xml:"Schedule"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
+SegmentVersion int32 `json:"segmentVersion" xml:"SegmentVersion"`
+State *CampaignState `json:"state" xml:"State"`
+TemplateConfiguration *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
+TreatmentDescription string `json:"treatmentDescription" xml:"TreatmentDescription"`
+TreatmentName string `json:"treatmentName" xml:"TreatmentName"`
+Version int32 `json:"version" xml:"Version"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type CampaignSmsMessage struct {
-	Body              string `json:"body" xml:"Body"`
-	EntityId          string `json:"entityId" xml:"EntityId"`
-	MessageType       string `json:"messageType" xml:"MessageType"`
-	OriginationNumber string `json:"originationNumber" xml:"OriginationNumber"`
-	SenderId          string `json:"senderId" xml:"SenderId"`
-	TemplateId        string `json:"templateId" xml:"TemplateId"`
+Body string `json:"body" xml:"Body"`
+EntityId string `json:"entityId" xml:"EntityId"`
+MessageType string `json:"messageType" xml:"MessageType"`
+OriginationNumber string `json:"originationNumber" xml:"OriginationNumber"`
+SenderId string `json:"senderId" xml:"SenderId"`
+TemplateId string `json:"templateId" xml:"TemplateId"`
 }
 
 type CampaignState struct {
-	CampaignStatus string `json:"campaignStatus" xml:"CampaignStatus"`
+CampaignStatus string `json:"campaignStatus" xml:"CampaignStatus"`
 }
 
 type CampaignsResponse struct {
-	Item      ListOfCampaignResponse `json:"item" xml:"Item"`
-	NextToken string                 `json:"nextToken" xml:"NextToken"`
+Item ListOfCampaignResponse `json:"item" xml:"Item"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ChannelResponse struct {
-	ApplicationId    string `json:"applicationId" xml:"ApplicationId"`
-	CreationDate     string `json:"creationDate" xml:"CreationDate"`
-	Enabled          bool   `json:"enabled" xml:"Enabled"`
-	HasCredential    bool   `json:"hasCredential" xml:"HasCredential"`
-	Id               string `json:"id" xml:"Id"`
-	IsArchived       bool   `json:"isArchived" xml:"IsArchived"`
-	LastModifiedBy   string `json:"lastModifiedBy" xml:"LastModifiedBy"`
-	LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Version          int32  `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HasCredential bool `json:"hasCredential" xml:"HasCredential"`
+Id string `json:"id" xml:"Id"`
+IsArchived bool `json:"isArchived" xml:"IsArchived"`
+LastModifiedBy string `json:"lastModifiedBy" xml:"LastModifiedBy"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type ChannelsResponse struct {
-	Channels MapOfChannelResponse `json:"channels" xml:"Channels"`
+Channels MapOfChannelResponse `json:"channels" xml:"Channels"`
 }
 
 type ClosedDays struct {
-	CUSTOM ListOfClosedDaysRules `json:"cUSTOM" xml:"CUSTOM"`
-	EMAIL  ListOfClosedDaysRules `json:"eMAIL" xml:"EMAIL"`
-	PUSH   ListOfClosedDaysRules `json:"pUSH" xml:"PUSH"`
-	SMS    ListOfClosedDaysRules `json:"sMS" xml:"SMS"`
-	VOICE  ListOfClosedDaysRules `json:"vOICE" xml:"VOICE"`
+CUSTOM ListOfClosedDaysRules `json:"cUSTOM" xml:"CUSTOM"`
+EMAIL ListOfClosedDaysRules `json:"eMAIL" xml:"EMAIL"`
+PUSH ListOfClosedDaysRules `json:"pUSH" xml:"PUSH"`
+SMS ListOfClosedDaysRules `json:"sMS" xml:"SMS"`
+VOICE ListOfClosedDaysRules `json:"vOICE" xml:"VOICE"`
 }
 
 type ClosedDaysRule struct {
-	EndDateTime   string `json:"endDateTime" xml:"EndDateTime"`
-	Name          string `json:"name" xml:"Name"`
-	StartDateTime string `json:"startDateTime" xml:"StartDateTime"`
+EndDateTime string `json:"endDateTime" xml:"EndDateTime"`
+Name string `json:"name" xml:"Name"`
+StartDateTime string `json:"startDateTime" xml:"StartDateTime"`
 }
 
 type Condition struct {
-	Conditions ListOfSimpleCondition `json:"conditions" xml:"Conditions"`
-	Operator   string                `json:"operator" xml:"Operator"`
+Conditions ListOfSimpleCondition `json:"conditions" xml:"Conditions"`
+Operator string `json:"operator" xml:"Operator"`
 }
 
 type ConditionalSplitActivity struct {
-	Condition          *Condition `json:"condition" xml:"Condition"`
-	EvaluationWaitTime *WaitTime  `json:"evaluationWaitTime" xml:"EvaluationWaitTime"`
-	FalseActivity      string     `json:"falseActivity" xml:"FalseActivity"`
-	TrueActivity       string     `json:"trueActivity" xml:"TrueActivity"`
+Condition *Condition `json:"condition" xml:"Condition"`
+EvaluationWaitTime *WaitTime `json:"evaluationWaitTime" xml:"EvaluationWaitTime"`
+FalseActivity string `json:"falseActivity" xml:"FalseActivity"`
+TrueActivity string `json:"trueActivity" xml:"TrueActivity"`
 }
 
 type ContactCenterActivity struct {
-	NextActivity string `json:"nextActivity" xml:"NextActivity"`
+NextActivity string `json:"nextActivity" xml:"NextActivity"`
 }
 
 type CreateAppRequest struct {
-	CreateApplicationRequest *CreateApplicationRequest `json:"createApplicationRequest" xml:"CreateApplicationRequest"`
+CreateApplicationRequest *CreateApplicationRequest `json:"createApplicationRequest" xml:"CreateApplicationRequest"`
 }
 
 type CreateAppResponse struct {
-	ApplicationResponse *ApplicationResponse `json:"applicationResponse" xml:"ApplicationResponse"`
+ApplicationResponse *ApplicationResponse `json:"applicationResponse" xml:"ApplicationResponse"`
 }
 
 type CreateApplicationRequest struct {
-	Name string        `json:"name" xml:"Name"`
-	Tags MapOf__string `json:"tags" xml:"tags"`
+Name string `json:"name" xml:"Name"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type CreateCampaignRequest struct {
-	ApplicationId        string                `json:"applicationId" xml:"ApplicationId"`
-	WriteCampaignRequest *WriteCampaignRequest `json:"writeCampaignRequest" xml:"WriteCampaignRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+WriteCampaignRequest *WriteCampaignRequest `json:"writeCampaignRequest" xml:"WriteCampaignRequest"`
 }
 
 type CreateCampaignResponse struct {
-	CampaignResponse *CampaignResponse `json:"campaignResponse" xml:"CampaignResponse"`
+CampaignResponse *CampaignResponse `json:"campaignResponse" xml:"CampaignResponse"`
 }
 
 type CreateEmailTemplateRequest struct {
-	EmailTemplateRequest *EmailTemplateRequest `json:"emailTemplateRequest" xml:"EmailTemplateRequest"`
-	TemplateName         string                `json:"templateName" xml:"TemplateName"`
+EmailTemplateRequest *EmailTemplateRequest `json:"emailTemplateRequest" xml:"EmailTemplateRequest"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
 }
 
 type CreateEmailTemplateResponse struct {
-	CreateTemplateMessageBody *CreateTemplateMessageBody `json:"createTemplateMessageBody" xml:"CreateTemplateMessageBody"`
+CreateTemplateMessageBody *CreateTemplateMessageBody `json:"createTemplateMessageBody" xml:"CreateTemplateMessageBody"`
 }
 
 type CreateExportJobRequest struct {
-	ApplicationId    string            `json:"applicationId" xml:"ApplicationId"`
-	ExportJobRequest *ExportJobRequest `json:"exportJobRequest" xml:"ExportJobRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ExportJobRequest *ExportJobRequest `json:"exportJobRequest" xml:"ExportJobRequest"`
 }
 
 type CreateExportJobResponse struct {
-	ExportJobResponse *ExportJobResponse `json:"exportJobResponse" xml:"ExportJobResponse"`
+ExportJobResponse *ExportJobResponse `json:"exportJobResponse" xml:"ExportJobResponse"`
 }
 
 type CreateImportJobRequest struct {
-	ApplicationId    string            `json:"applicationId" xml:"ApplicationId"`
-	ImportJobRequest *ImportJobRequest `json:"importJobRequest" xml:"ImportJobRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ImportJobRequest *ImportJobRequest `json:"importJobRequest" xml:"ImportJobRequest"`
 }
 
 type CreateImportJobResponse struct {
-	ImportJobResponse *ImportJobResponse `json:"importJobResponse" xml:"ImportJobResponse"`
+ImportJobResponse *ImportJobResponse `json:"importJobResponse" xml:"ImportJobResponse"`
 }
 
 type CreateInAppTemplateRequest struct {
-	InAppTemplateRequest *InAppTemplateRequest `json:"inAppTemplateRequest" xml:"InAppTemplateRequest"`
-	TemplateName         string                `json:"templateName" xml:"TemplateName"`
+InAppTemplateRequest *InAppTemplateRequest `json:"inAppTemplateRequest" xml:"InAppTemplateRequest"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
 }
 
 type CreateInAppTemplateResponse struct {
-	TemplateCreateMessageBody *TemplateCreateMessageBody `json:"templateCreateMessageBody" xml:"TemplateCreateMessageBody"`
+TemplateCreateMessageBody *TemplateCreateMessageBody `json:"templateCreateMessageBody" xml:"TemplateCreateMessageBody"`
 }
 
 type CreateJourneyRequest struct {
-	ApplicationId       string               `json:"applicationId" xml:"ApplicationId"`
-	WriteJourneyRequest *WriteJourneyRequest `json:"writeJourneyRequest" xml:"WriteJourneyRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+WriteJourneyRequest *WriteJourneyRequest `json:"writeJourneyRequest" xml:"WriteJourneyRequest"`
 }
 
 type CreateJourneyResponse struct {
-	JourneyResponse *JourneyResponse `json:"journeyResponse" xml:"JourneyResponse"`
+JourneyResponse *JourneyResponse `json:"journeyResponse" xml:"JourneyResponse"`
 }
 
 type CreatePushTemplateRequest struct {
-	PushNotificationTemplateRequest *PushNotificationTemplateRequest `json:"pushNotificationTemplateRequest" xml:"PushNotificationTemplateRequest"`
-	TemplateName                    string                           `json:"templateName" xml:"TemplateName"`
+PushNotificationTemplateRequest *PushNotificationTemplateRequest `json:"pushNotificationTemplateRequest" xml:"PushNotificationTemplateRequest"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
 }
 
 type CreatePushTemplateResponse struct {
-	CreateTemplateMessageBody *CreateTemplateMessageBody `json:"createTemplateMessageBody" xml:"CreateTemplateMessageBody"`
+CreateTemplateMessageBody *CreateTemplateMessageBody `json:"createTemplateMessageBody" xml:"CreateTemplateMessageBody"`
 }
 
 type CreateRecommenderConfigurationRequest struct {
-	CreateRecommenderConfiguration *CreateRecommenderConfigurationShape `json:"createRecommenderConfiguration" xml:"CreateRecommenderConfiguration"`
+CreateRecommenderConfiguration *CreateRecommenderConfigurationShape `json:"createRecommenderConfiguration" xml:"CreateRecommenderConfiguration"`
 }
 
 type CreateRecommenderConfigurationResponse struct {
-	RecommenderConfigurationResponse *RecommenderConfigurationResponse `json:"recommenderConfigurationResponse" xml:"RecommenderConfigurationResponse"`
+RecommenderConfigurationResponse *RecommenderConfigurationResponse `json:"recommenderConfigurationResponse" xml:"RecommenderConfigurationResponse"`
 }
 
 type CreateRecommenderConfigurationShape struct {
-	Attributes                    MapOf__string `json:"attributes" xml:"Attributes"`
-	Description                   string        `json:"description" xml:"Description"`
-	Name                          string        `json:"name" xml:"Name"`
-	RecommendationProviderIdType  string        `json:"recommendationProviderIdType" xml:"RecommendationProviderIdType"`
-	RecommendationProviderRoleArn string        `json:"recommendationProviderRoleArn" xml:"RecommendationProviderRoleArn"`
-	RecommendationProviderUri     string        `json:"recommendationProviderUri" xml:"RecommendationProviderUri"`
-	RecommendationTransformerUri  string        `json:"recommendationTransformerUri" xml:"RecommendationTransformerUri"`
-	RecommendationsDisplayName    string        `json:"recommendationsDisplayName" xml:"RecommendationsDisplayName"`
-	RecommendationsPerMessage     int32         `json:"recommendationsPerMessage" xml:"RecommendationsPerMessage"`
+Attributes MapOf__string `json:"attributes" xml:"Attributes"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+RecommendationProviderIdType string `json:"recommendationProviderIdType" xml:"RecommendationProviderIdType"`
+RecommendationProviderRoleArn string `json:"recommendationProviderRoleArn" xml:"RecommendationProviderRoleArn"`
+RecommendationProviderUri string `json:"recommendationProviderUri" xml:"RecommendationProviderUri"`
+RecommendationTransformerUri string `json:"recommendationTransformerUri" xml:"RecommendationTransformerUri"`
+RecommendationsDisplayName string `json:"recommendationsDisplayName" xml:"RecommendationsDisplayName"`
+RecommendationsPerMessage int32 `json:"recommendationsPerMessage" xml:"RecommendationsPerMessage"`
 }
 
 type CreateSegmentRequest struct {
-	ApplicationId       string               `json:"applicationId" xml:"ApplicationId"`
-	WriteSegmentRequest *WriteSegmentRequest `json:"writeSegmentRequest" xml:"WriteSegmentRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+WriteSegmentRequest *WriteSegmentRequest `json:"writeSegmentRequest" xml:"WriteSegmentRequest"`
 }
 
 type CreateSegmentResponse struct {
-	SegmentResponse *SegmentResponse `json:"segmentResponse" xml:"SegmentResponse"`
+SegmentResponse *SegmentResponse `json:"segmentResponse" xml:"SegmentResponse"`
 }
 
 type CreateSmsTemplateRequest struct {
-	SMSTemplateRequest *SMSTemplateRequest `json:"sMSTemplateRequest" xml:"SMSTemplateRequest"`
-	TemplateName       string              `json:"templateName" xml:"TemplateName"`
+SMSTemplateRequest *SMSTemplateRequest `json:"sMSTemplateRequest" xml:"SMSTemplateRequest"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
 }
 
 type CreateSmsTemplateResponse struct {
-	CreateTemplateMessageBody *CreateTemplateMessageBody `json:"createTemplateMessageBody" xml:"CreateTemplateMessageBody"`
+CreateTemplateMessageBody *CreateTemplateMessageBody `json:"createTemplateMessageBody" xml:"CreateTemplateMessageBody"`
 }
 
 type CreateTemplateMessageBody struct {
-	Arn       string `json:"arn" xml:"Arn"`
-	Message   string `json:"message" xml:"Message"`
-	RequestID string `json:"requestID" xml:"RequestID"`
+Arn string `json:"arn" xml:"Arn"`
+Message string `json:"message" xml:"Message"`
+RequestID string `json:"requestID" xml:"RequestID"`
 }
 
 type CreateVoiceTemplateRequest struct {
-	TemplateName         string                `json:"templateName" xml:"TemplateName"`
-	VoiceTemplateRequest *VoiceTemplateRequest `json:"voiceTemplateRequest" xml:"VoiceTemplateRequest"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+VoiceTemplateRequest *VoiceTemplateRequest `json:"voiceTemplateRequest" xml:"VoiceTemplateRequest"`
 }
 
 type CreateVoiceTemplateResponse struct {
-	CreateTemplateMessageBody *CreateTemplateMessageBody `json:"createTemplateMessageBody" xml:"CreateTemplateMessageBody"`
+CreateTemplateMessageBody *CreateTemplateMessageBody `json:"createTemplateMessageBody" xml:"CreateTemplateMessageBody"`
 }
 
 type CustomDeliveryConfiguration struct {
-	DeliveryUri   string                       `json:"deliveryUri" xml:"DeliveryUri"`
-	EndpointTypes ListOf__EndpointTypesElement `json:"endpointTypes" xml:"EndpointTypes"`
+DeliveryUri string `json:"deliveryUri" xml:"DeliveryUri"`
+EndpointTypes ListOf__EndpointTypesElement `json:"endpointTypes" xml:"EndpointTypes"`
 }
 
 type CustomMessageActivity struct {
-	DeliveryUri     string                       `json:"deliveryUri" xml:"DeliveryUri"`
-	EndpointTypes   ListOf__EndpointTypesElement `json:"endpointTypes" xml:"EndpointTypes"`
-	MessageConfig   *JourneyCustomMessage        `json:"messageConfig" xml:"MessageConfig"`
-	NextActivity    string                       `json:"nextActivity" xml:"NextActivity"`
-	TemplateName    string                       `json:"templateName" xml:"TemplateName"`
-	TemplateVersion string                       `json:"templateVersion" xml:"TemplateVersion"`
+DeliveryUri string `json:"deliveryUri" xml:"DeliveryUri"`
+EndpointTypes ListOf__EndpointTypesElement `json:"endpointTypes" xml:"EndpointTypes"`
+MessageConfig *JourneyCustomMessage `json:"messageConfig" xml:"MessageConfig"`
+NextActivity string `json:"nextActivity" xml:"NextActivity"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateVersion string `json:"templateVersion" xml:"TemplateVersion"`
 }
 
 type DefaultButtonConfiguration struct {
-	BackgroundColor string `json:"backgroundColor" xml:"BackgroundColor"`
-	BorderRadius    int32  `json:"borderRadius" xml:"BorderRadius"`
-	ButtonAction    string `json:"buttonAction" xml:"ButtonAction"`
-	Link            string `json:"link" xml:"Link"`
-	Text            string `json:"text" xml:"Text"`
-	TextColor       string `json:"textColor" xml:"TextColor"`
+BackgroundColor string `json:"backgroundColor" xml:"BackgroundColor"`
+BorderRadius int32 `json:"borderRadius" xml:"BorderRadius"`
+ButtonAction string `json:"buttonAction" xml:"ButtonAction"`
+Link string `json:"link" xml:"Link"`
+Text string `json:"text" xml:"Text"`
+TextColor string `json:"textColor" xml:"TextColor"`
 }
 
 type DefaultMessage struct {
-	Body          string              `json:"body" xml:"Body"`
-	Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
+Body string `json:"body" xml:"Body"`
+Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
 }
 
 type DefaultPushNotificationMessage struct {
-	Action        string              `json:"action" xml:"Action"`
-	Body          string              `json:"body" xml:"Body"`
-	Data          MapOf__string       `json:"data" xml:"Data"`
-	SilentPush    bool                `json:"silentPush" xml:"SilentPush"`
-	Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
-	Title         string              `json:"title" xml:"Title"`
-	Url           string              `json:"url" xml:"Url"`
+Action string `json:"action" xml:"Action"`
+Body string `json:"body" xml:"Body"`
+Data MapOf__string `json:"data" xml:"Data"`
+SilentPush bool `json:"silentPush" xml:"SilentPush"`
+Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
+Title string `json:"title" xml:"Title"`
+Url string `json:"url" xml:"Url"`
 }
 
 type DefaultPushNotificationTemplate struct {
-	Action string `json:"action" xml:"Action"`
-	Body   string `json:"body" xml:"Body"`
-	Sound  string `json:"sound" xml:"Sound"`
-	Title  string `json:"title" xml:"Title"`
-	Url    string `json:"url" xml:"Url"`
+Action string `json:"action" xml:"Action"`
+Body string `json:"body" xml:"Body"`
+Sound string `json:"sound" xml:"Sound"`
+Title string `json:"title" xml:"Title"`
+Url string `json:"url" xml:"Url"`
 }
 
 type DeleteAdmChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteAdmChannelResponse struct {
-	ADMChannelResponse *ADMChannelResponse `json:"aDMChannelResponse" xml:"ADMChannelResponse"`
+ADMChannelResponse *ADMChannelResponse `json:"aDMChannelResponse" xml:"ADMChannelResponse"`
 }
 
 type DeleteApnsChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteApnsChannelResponse struct {
-	APNSChannelResponse *APNSChannelResponse `json:"aPNSChannelResponse" xml:"APNSChannelResponse"`
+APNSChannelResponse *APNSChannelResponse `json:"aPNSChannelResponse" xml:"APNSChannelResponse"`
 }
 
 type DeleteApnsSandboxChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteApnsSandboxChannelResponse struct {
-	APNSSandboxChannelResponse *APNSSandboxChannelResponse `json:"aPNSSandboxChannelResponse" xml:"APNSSandboxChannelResponse"`
+APNSSandboxChannelResponse *APNSSandboxChannelResponse `json:"aPNSSandboxChannelResponse" xml:"APNSSandboxChannelResponse"`
 }
 
 type DeleteApnsVoipChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteApnsVoipChannelResponse struct {
-	APNSVoipChannelResponse *APNSVoipChannelResponse `json:"aPNSVoipChannelResponse" xml:"APNSVoipChannelResponse"`
+APNSVoipChannelResponse *APNSVoipChannelResponse `json:"aPNSVoipChannelResponse" xml:"APNSVoipChannelResponse"`
 }
 
 type DeleteApnsVoipSandboxChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteApnsVoipSandboxChannelResponse struct {
-	APNSVoipSandboxChannelResponse *APNSVoipSandboxChannelResponse `json:"aPNSVoipSandboxChannelResponse" xml:"APNSVoipSandboxChannelResponse"`
+APNSVoipSandboxChannelResponse *APNSVoipSandboxChannelResponse `json:"aPNSVoipSandboxChannelResponse" xml:"APNSVoipSandboxChannelResponse"`
 }
 
 type DeleteAppRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteAppResponse struct {
-	ApplicationResponse *ApplicationResponse `json:"applicationResponse" xml:"ApplicationResponse"`
+ApplicationResponse *ApplicationResponse `json:"applicationResponse" xml:"ApplicationResponse"`
 }
 
 type DeleteBaiduChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteBaiduChannelResponse struct {
-	BaiduChannelResponse *BaiduChannelResponse `json:"baiduChannelResponse" xml:"BaiduChannelResponse"`
+BaiduChannelResponse *BaiduChannelResponse `json:"baiduChannelResponse" xml:"BaiduChannelResponse"`
 }
 
 type DeleteCampaignRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	CampaignId    string `json:"campaignId" xml:"CampaignId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CampaignId string `json:"campaignId" xml:"CampaignId"`
 }
 
 type DeleteCampaignResponse struct {
-	CampaignResponse *CampaignResponse `json:"campaignResponse" xml:"CampaignResponse"`
+CampaignResponse *CampaignResponse `json:"campaignResponse" xml:"CampaignResponse"`
 }
 
 type DeleteEmailChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteEmailChannelResponse struct {
-	EmailChannelResponse *EmailChannelResponse `json:"emailChannelResponse" xml:"EmailChannelResponse"`
+EmailChannelResponse *EmailChannelResponse `json:"emailChannelResponse" xml:"EmailChannelResponse"`
 }
 
 type DeleteEmailTemplateRequest struct {
-	TemplateName string `json:"templateName" xml:"TemplateName"`
-	Version      string `json:"version" xml:"Version"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type DeleteEmailTemplateResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type DeleteEndpointRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	EndpointId    string `json:"endpointId" xml:"EndpointId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EndpointId string `json:"endpointId" xml:"EndpointId"`
 }
 
 type DeleteEndpointResponse struct {
-	EndpointResponse *EndpointResponse `json:"endpointResponse" xml:"EndpointResponse"`
+EndpointResponse *EndpointResponse `json:"endpointResponse" xml:"EndpointResponse"`
 }
 
 type DeleteEventStreamRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteEventStreamResponse struct {
-	EventStream *EventStream `json:"eventStream" xml:"EventStream"`
+EventStream *EventStream `json:"eventStream" xml:"EventStream"`
 }
 
 type DeleteGcmChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteGcmChannelResponse struct {
-	GCMChannelResponse *GCMChannelResponse `json:"gCMChannelResponse" xml:"GCMChannelResponse"`
+GCMChannelResponse *GCMChannelResponse `json:"gCMChannelResponse" xml:"GCMChannelResponse"`
 }
 
 type DeleteInAppTemplateRequest struct {
-	TemplateName string `json:"templateName" xml:"TemplateName"`
-	Version      string `json:"version" xml:"Version"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type DeleteInAppTemplateResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type DeleteJourneyRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	JourneyId     string `json:"journeyId" xml:"JourneyId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
 }
 
 type DeleteJourneyResponse struct {
-	JourneyResponse *JourneyResponse `json:"journeyResponse" xml:"JourneyResponse"`
+JourneyResponse *JourneyResponse `json:"journeyResponse" xml:"JourneyResponse"`
 }
 
 type DeletePushTemplateRequest struct {
-	TemplateName string `json:"templateName" xml:"TemplateName"`
-	Version      string `json:"version" xml:"Version"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type DeletePushTemplateResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type DeleteRecommenderConfigurationRequest struct {
-	RecommenderId string `json:"recommenderId" xml:"RecommenderId"`
+RecommenderId string `json:"recommenderId" xml:"RecommenderId"`
 }
 
 type DeleteRecommenderConfigurationResponse struct {
-	RecommenderConfigurationResponse *RecommenderConfigurationResponse `json:"recommenderConfigurationResponse" xml:"RecommenderConfigurationResponse"`
+RecommenderConfigurationResponse *RecommenderConfigurationResponse `json:"recommenderConfigurationResponse" xml:"RecommenderConfigurationResponse"`
 }
 
 type DeleteSegmentRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	SegmentId     string `json:"segmentId" xml:"SegmentId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
 }
 
 type DeleteSegmentResponse struct {
-	SegmentResponse *SegmentResponse `json:"segmentResponse" xml:"SegmentResponse"`
+SegmentResponse *SegmentResponse `json:"segmentResponse" xml:"SegmentResponse"`
 }
 
 type DeleteSmsChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteSmsChannelResponse struct {
-	SMSChannelResponse *SMSChannelResponse `json:"sMSChannelResponse" xml:"SMSChannelResponse"`
+SMSChannelResponse *SMSChannelResponse `json:"sMSChannelResponse" xml:"SMSChannelResponse"`
 }
 
 type DeleteSmsTemplateRequest struct {
-	TemplateName string `json:"templateName" xml:"TemplateName"`
-	Version      string `json:"version" xml:"Version"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type DeleteSmsTemplateResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type DeleteUserEndpointsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	UserId        string `json:"userId" xml:"UserId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+UserId string `json:"userId" xml:"UserId"`
 }
 
 type DeleteUserEndpointsResponse struct {
-	EndpointsResponse *EndpointsResponse `json:"endpointsResponse" xml:"EndpointsResponse"`
+EndpointsResponse *EndpointsResponse `json:"endpointsResponse" xml:"EndpointsResponse"`
 }
 
 type DeleteVoiceChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type DeleteVoiceChannelResponse struct {
-	VoiceChannelResponse *VoiceChannelResponse `json:"voiceChannelResponse" xml:"VoiceChannelResponse"`
+VoiceChannelResponse *VoiceChannelResponse `json:"voiceChannelResponse" xml:"VoiceChannelResponse"`
 }
 
 type DeleteVoiceTemplateRequest struct {
-	TemplateName string `json:"templateName" xml:"TemplateName"`
-	Version      string `json:"version" xml:"Version"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type DeleteVoiceTemplateResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type DirectMessageConfiguration struct {
-	ADMMessage                     *ADMMessage                     `json:"aDMMessage" xml:"ADMMessage"`
-	APNSMessage                    *APNSMessage                    `json:"aPNSMessage" xml:"APNSMessage"`
-	BaiduMessage                   *BaiduMessage                   `json:"baiduMessage" xml:"BaiduMessage"`
-	DefaultMessage                 *DefaultMessage                 `json:"defaultMessage" xml:"DefaultMessage"`
-	DefaultPushNotificationMessage *DefaultPushNotificationMessage `json:"defaultPushNotificationMessage" xml:"DefaultPushNotificationMessage"`
-	EmailMessage                   *EmailMessage                   `json:"emailMessage" xml:"EmailMessage"`
-	GCMMessage                     *GCMMessage                     `json:"gCMMessage" xml:"GCMMessage"`
-	SMSMessage                     *SMSMessage                     `json:"sMSMessage" xml:"SMSMessage"`
-	VoiceMessage                   *VoiceMessage                   `json:"voiceMessage" xml:"VoiceMessage"`
+ADMMessage *ADMMessage `json:"aDMMessage" xml:"ADMMessage"`
+APNSMessage *APNSMessage `json:"aPNSMessage" xml:"APNSMessage"`
+BaiduMessage *BaiduMessage `json:"baiduMessage" xml:"BaiduMessage"`
+DefaultMessage *DefaultMessage `json:"defaultMessage" xml:"DefaultMessage"`
+DefaultPushNotificationMessage *DefaultPushNotificationMessage `json:"defaultPushNotificationMessage" xml:"DefaultPushNotificationMessage"`
+EmailMessage *EmailMessage `json:"emailMessage" xml:"EmailMessage"`
+GCMMessage *GCMMessage `json:"gCMMessage" xml:"GCMMessage"`
+SMSMessage *SMSMessage `json:"sMSMessage" xml:"SMSMessage"`
+VoiceMessage *VoiceMessage `json:"voiceMessage" xml:"VoiceMessage"`
 }
 
 type EmailChannelRequest struct {
-	ConfigurationSet            string `json:"configurationSet" xml:"ConfigurationSet"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	FromAddress                 string `json:"fromAddress" xml:"FromAddress"`
-	Identity                    string `json:"identity" xml:"Identity"`
-	OrchestrationSendingRoleArn string `json:"orchestrationSendingRoleArn" xml:"OrchestrationSendingRoleArn"`
-	RoleArn                     string `json:"roleArn" xml:"RoleArn"`
+ConfigurationSet string `json:"configurationSet" xml:"ConfigurationSet"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+FromAddress string `json:"fromAddress" xml:"FromAddress"`
+Identity string `json:"identity" xml:"Identity"`
+OrchestrationSendingRoleArn string `json:"orchestrationSendingRoleArn" xml:"OrchestrationSendingRoleArn"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type EmailChannelResponse struct {
-	ApplicationId               string `json:"applicationId" xml:"ApplicationId"`
-	ConfigurationSet            string `json:"configurationSet" xml:"ConfigurationSet"`
-	CreationDate                string `json:"creationDate" xml:"CreationDate"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	FromAddress                 string `json:"fromAddress" xml:"FromAddress"`
-	HasCredential               bool   `json:"hasCredential" xml:"HasCredential"`
-	Id                          string `json:"id" xml:"Id"`
-	Identity                    string `json:"identity" xml:"Identity"`
-	IsArchived                  bool   `json:"isArchived" xml:"IsArchived"`
-	LastModifiedBy              string `json:"lastModifiedBy" xml:"LastModifiedBy"`
-	LastModifiedDate            string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	MessagesPerSecond           int32  `json:"messagesPerSecond" xml:"MessagesPerSecond"`
-	OrchestrationSendingRoleArn string `json:"orchestrationSendingRoleArn" xml:"OrchestrationSendingRoleArn"`
-	Platform                    string `json:"platform" xml:"Platform"`
-	RoleArn                     string `json:"roleArn" xml:"RoleArn"`
-	Version                     int32  `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ConfigurationSet string `json:"configurationSet" xml:"ConfigurationSet"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+FromAddress string `json:"fromAddress" xml:"FromAddress"`
+HasCredential bool `json:"hasCredential" xml:"HasCredential"`
+Id string `json:"id" xml:"Id"`
+Identity string `json:"identity" xml:"Identity"`
+IsArchived bool `json:"isArchived" xml:"IsArchived"`
+LastModifiedBy string `json:"lastModifiedBy" xml:"LastModifiedBy"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+MessagesPerSecond int32 `json:"messagesPerSecond" xml:"MessagesPerSecond"`
+OrchestrationSendingRoleArn string `json:"orchestrationSendingRoleArn" xml:"OrchestrationSendingRoleArn"`
+Platform string `json:"platform" xml:"Platform"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type EmailMessage struct {
-	Body                      string              `json:"body" xml:"Body"`
-	FeedbackForwardingAddress string              `json:"feedbackForwardingAddress" xml:"FeedbackForwardingAddress"`
-	FromAddress               string              `json:"fromAddress" xml:"FromAddress"`
-	RawEmail                  *RawEmail           `json:"rawEmail" xml:"RawEmail"`
-	ReplyToAddresses          ListOf__string      `json:"replyToAddresses" xml:"ReplyToAddresses"`
-	SimpleEmail               *SimpleEmail        `json:"simpleEmail" xml:"SimpleEmail"`
-	Substitutions             MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
+Body string `json:"body" xml:"Body"`
+FeedbackForwardingAddress string `json:"feedbackForwardingAddress" xml:"FeedbackForwardingAddress"`
+FromAddress string `json:"fromAddress" xml:"FromAddress"`
+RawEmail *RawEmail `json:"rawEmail" xml:"RawEmail"`
+ReplyToAddresses ListOf__string `json:"replyToAddresses" xml:"ReplyToAddresses"`
+SimpleEmail *SimpleEmail `json:"simpleEmail" xml:"SimpleEmail"`
+Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
 }
 
 type EmailMessageActivity struct {
-	MessageConfig   *JourneyEmailMessage `json:"messageConfig" xml:"MessageConfig"`
-	NextActivity    string               `json:"nextActivity" xml:"NextActivity"`
-	TemplateName    string               `json:"templateName" xml:"TemplateName"`
-	TemplateVersion string               `json:"templateVersion" xml:"TemplateVersion"`
+MessageConfig *JourneyEmailMessage `json:"messageConfig" xml:"MessageConfig"`
+NextActivity string `json:"nextActivity" xml:"NextActivity"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateVersion string `json:"templateVersion" xml:"TemplateVersion"`
 }
 
 type EmailTemplateRequest struct {
-	DefaultSubstitutions string              `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
-	Headers              ListOfMessageHeader `json:"headers" xml:"Headers"`
-	HtmlPart             string              `json:"htmlPart" xml:"HtmlPart"`
-	RecommenderId        string              `json:"recommenderId" xml:"RecommenderId"`
-	Subject              string              `json:"subject" xml:"Subject"`
-	TemplateDescription  string              `json:"templateDescription" xml:"TemplateDescription"`
-	TextPart             string              `json:"textPart" xml:"TextPart"`
-	Tags                 MapOf__string       `json:"tags" xml:"tags"`
+DefaultSubstitutions string `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
+Headers ListOfMessageHeader `json:"headers" xml:"Headers"`
+HtmlPart string `json:"htmlPart" xml:"HtmlPart"`
+RecommenderId string `json:"recommenderId" xml:"RecommenderId"`
+Subject string `json:"subject" xml:"Subject"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+TextPart string `json:"textPart" xml:"TextPart"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type EmailTemplateResponse struct {
-	Arn                  string              `json:"arn" xml:"Arn"`
-	CreationDate         string              `json:"creationDate" xml:"CreationDate"`
-	DefaultSubstitutions string              `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
-	Headers              ListOfMessageHeader `json:"headers" xml:"Headers"`
-	HtmlPart             string              `json:"htmlPart" xml:"HtmlPart"`
-	LastModifiedDate     string              `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	RecommenderId        string              `json:"recommenderId" xml:"RecommenderId"`
-	Subject              string              `json:"subject" xml:"Subject"`
-	TemplateDescription  string              `json:"templateDescription" xml:"TemplateDescription"`
-	TemplateName         string              `json:"templateName" xml:"TemplateName"`
-	TemplateType         string              `json:"templateType" xml:"TemplateType"`
-	TextPart             string              `json:"textPart" xml:"TextPart"`
-	Version              string              `json:"version" xml:"Version"`
-	Tags                 MapOf__string       `json:"tags" xml:"tags"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+DefaultSubstitutions string `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
+Headers ListOfMessageHeader `json:"headers" xml:"Headers"`
+HtmlPart string `json:"htmlPart" xml:"HtmlPart"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+RecommenderId string `json:"recommenderId" xml:"RecommenderId"`
+Subject string `json:"subject" xml:"Subject"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateType string `json:"templateType" xml:"TemplateType"`
+TextPart string `json:"textPart" xml:"TextPart"`
+Version string `json:"version" xml:"Version"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type EndpointBatchItem struct {
-	Address        string               `json:"address" xml:"Address"`
-	Attributes     MapOfListOf__string  `json:"attributes" xml:"Attributes"`
-	ChannelType    string               `json:"channelType" xml:"ChannelType"`
-	Demographic    *EndpointDemographic `json:"demographic" xml:"Demographic"`
-	EffectiveDate  string               `json:"effectiveDate" xml:"EffectiveDate"`
-	EndpointStatus string               `json:"endpointStatus" xml:"EndpointStatus"`
-	Id             string               `json:"id" xml:"Id"`
-	Location       *EndpointLocation    `json:"location" xml:"Location"`
-	Metrics        MapOf__double        `json:"metrics" xml:"Metrics"`
-	OptOut         string               `json:"optOut" xml:"OptOut"`
-	RequestId      string               `json:"requestId" xml:"RequestId"`
-	User           *EndpointUser        `json:"user" xml:"User"`
+Address string `json:"address" xml:"Address"`
+Attributes MapOfListOf__string `json:"attributes" xml:"Attributes"`
+ChannelType string `json:"channelType" xml:"ChannelType"`
+Demographic *EndpointDemographic `json:"demographic" xml:"Demographic"`
+EffectiveDate string `json:"effectiveDate" xml:"EffectiveDate"`
+EndpointStatus string `json:"endpointStatus" xml:"EndpointStatus"`
+Id string `json:"id" xml:"Id"`
+Location *EndpointLocation `json:"location" xml:"Location"`
+Metrics MapOf__double `json:"metrics" xml:"Metrics"`
+OptOut string `json:"optOut" xml:"OptOut"`
+RequestId string `json:"requestId" xml:"RequestId"`
+User *EndpointUser `json:"user" xml:"User"`
 }
 
 type EndpointBatchRequest struct {
-	Item ListOfEndpointBatchItem `json:"item" xml:"Item"`
+Item ListOfEndpointBatchItem `json:"item" xml:"Item"`
 }
 
 type EndpointDemographic struct {
-	AppVersion      string `json:"appVersion" xml:"AppVersion"`
-	Locale          string `json:"locale" xml:"Locale"`
-	Make            string `json:"make" xml:"Make"`
-	Model           string `json:"model" xml:"Model"`
-	ModelVersion    string `json:"modelVersion" xml:"ModelVersion"`
-	Platform        string `json:"platform" xml:"Platform"`
-	PlatformVersion string `json:"platformVersion" xml:"PlatformVersion"`
-	Timezone        string `json:"timezone" xml:"Timezone"`
+AppVersion string `json:"appVersion" xml:"AppVersion"`
+Locale string `json:"locale" xml:"Locale"`
+Make string `json:"make" xml:"Make"`
+Model string `json:"model" xml:"Model"`
+ModelVersion string `json:"modelVersion" xml:"ModelVersion"`
+Platform string `json:"platform" xml:"Platform"`
+PlatformVersion string `json:"platformVersion" xml:"PlatformVersion"`
+Timezone string `json:"timezone" xml:"Timezone"`
 }
 
 type EndpointItemResponse struct {
-	Message    string `json:"message" xml:"Message"`
-	StatusCode int32  `json:"statusCode" xml:"StatusCode"`
+Message string `json:"message" xml:"Message"`
+StatusCode int32 `json:"statusCode" xml:"StatusCode"`
 }
 
 type EndpointLocation struct {
-	City       string  `json:"city" xml:"City"`
-	Country    string  `json:"country" xml:"Country"`
-	Latitude   float64 `json:"latitude" xml:"Latitude"`
-	Longitude  float64 `json:"longitude" xml:"Longitude"`
-	PostalCode string  `json:"postalCode" xml:"PostalCode"`
-	Region     string  `json:"region" xml:"Region"`
+City string `json:"city" xml:"City"`
+Country string `json:"country" xml:"Country"`
+Latitude float64 `json:"latitude" xml:"Latitude"`
+Longitude float64 `json:"longitude" xml:"Longitude"`
+PostalCode string `json:"postalCode" xml:"PostalCode"`
+Region string `json:"region" xml:"Region"`
 }
 
 type EndpointMessageResult struct {
-	Address        string `json:"address" xml:"Address"`
-	DeliveryStatus string `json:"deliveryStatus" xml:"DeliveryStatus"`
-	MessageId      string `json:"messageId" xml:"MessageId"`
-	StatusCode     int32  `json:"statusCode" xml:"StatusCode"`
-	StatusMessage  string `json:"statusMessage" xml:"StatusMessage"`
-	UpdatedToken   string `json:"updatedToken" xml:"UpdatedToken"`
+Address string `json:"address" xml:"Address"`
+DeliveryStatus string `json:"deliveryStatus" xml:"DeliveryStatus"`
+MessageId string `json:"messageId" xml:"MessageId"`
+StatusCode int32 `json:"statusCode" xml:"StatusCode"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+UpdatedToken string `json:"updatedToken" xml:"UpdatedToken"`
 }
 
 type EndpointRequest struct {
-	Address        string               `json:"address" xml:"Address"`
-	Attributes     MapOfListOf__string  `json:"attributes" xml:"Attributes"`
-	ChannelType    string               `json:"channelType" xml:"ChannelType"`
-	Demographic    *EndpointDemographic `json:"demographic" xml:"Demographic"`
-	EffectiveDate  string               `json:"effectiveDate" xml:"EffectiveDate"`
-	EndpointStatus string               `json:"endpointStatus" xml:"EndpointStatus"`
-	Location       *EndpointLocation    `json:"location" xml:"Location"`
-	Metrics        MapOf__double        `json:"metrics" xml:"Metrics"`
-	OptOut         string               `json:"optOut" xml:"OptOut"`
-	RequestId      string               `json:"requestId" xml:"RequestId"`
-	User           *EndpointUser        `json:"user" xml:"User"`
+Address string `json:"address" xml:"Address"`
+Attributes MapOfListOf__string `json:"attributes" xml:"Attributes"`
+ChannelType string `json:"channelType" xml:"ChannelType"`
+Demographic *EndpointDemographic `json:"demographic" xml:"Demographic"`
+EffectiveDate string `json:"effectiveDate" xml:"EffectiveDate"`
+EndpointStatus string `json:"endpointStatus" xml:"EndpointStatus"`
+Location *EndpointLocation `json:"location" xml:"Location"`
+Metrics MapOf__double `json:"metrics" xml:"Metrics"`
+OptOut string `json:"optOut" xml:"OptOut"`
+RequestId string `json:"requestId" xml:"RequestId"`
+User *EndpointUser `json:"user" xml:"User"`
 }
 
 type EndpointResponse struct {
-	Address        string               `json:"address" xml:"Address"`
-	ApplicationId  string               `json:"applicationId" xml:"ApplicationId"`
-	Attributes     MapOfListOf__string  `json:"attributes" xml:"Attributes"`
-	ChannelType    string               `json:"channelType" xml:"ChannelType"`
-	CohortId       string               `json:"cohortId" xml:"CohortId"`
-	CreationDate   string               `json:"creationDate" xml:"CreationDate"`
-	Demographic    *EndpointDemographic `json:"demographic" xml:"Demographic"`
-	EffectiveDate  string               `json:"effectiveDate" xml:"EffectiveDate"`
-	EndpointStatus string               `json:"endpointStatus" xml:"EndpointStatus"`
-	Id             string               `json:"id" xml:"Id"`
-	Location       *EndpointLocation    `json:"location" xml:"Location"`
-	Metrics        MapOf__double        `json:"metrics" xml:"Metrics"`
-	OptOut         string               `json:"optOut" xml:"OptOut"`
-	RequestId      string               `json:"requestId" xml:"RequestId"`
-	User           *EndpointUser        `json:"user" xml:"User"`
+Address string `json:"address" xml:"Address"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+Attributes MapOfListOf__string `json:"attributes" xml:"Attributes"`
+ChannelType string `json:"channelType" xml:"ChannelType"`
+CohortId string `json:"cohortId" xml:"CohortId"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Demographic *EndpointDemographic `json:"demographic" xml:"Demographic"`
+EffectiveDate string `json:"effectiveDate" xml:"EffectiveDate"`
+EndpointStatus string `json:"endpointStatus" xml:"EndpointStatus"`
+Id string `json:"id" xml:"Id"`
+Location *EndpointLocation `json:"location" xml:"Location"`
+Metrics MapOf__double `json:"metrics" xml:"Metrics"`
+OptOut string `json:"optOut" xml:"OptOut"`
+RequestId string `json:"requestId" xml:"RequestId"`
+User *EndpointUser `json:"user" xml:"User"`
 }
 
 type EndpointSendConfiguration struct {
-	BodyOverride  string              `json:"bodyOverride" xml:"BodyOverride"`
-	Context       MapOf__string       `json:"context" xml:"Context"`
-	RawContent    string              `json:"rawContent" xml:"RawContent"`
-	Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
-	TitleOverride string              `json:"titleOverride" xml:"TitleOverride"`
+BodyOverride string `json:"bodyOverride" xml:"BodyOverride"`
+Context MapOf__string `json:"context" xml:"Context"`
+RawContent string `json:"rawContent" xml:"RawContent"`
+Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
+TitleOverride string `json:"titleOverride" xml:"TitleOverride"`
 }
 
 type EndpointUser struct {
-	UserAttributes MapOfListOf__string `json:"userAttributes" xml:"UserAttributes"`
-	UserId         string              `json:"userId" xml:"UserId"`
+UserAttributes MapOfListOf__string `json:"userAttributes" xml:"UserAttributes"`
+UserId string `json:"userId" xml:"UserId"`
 }
 
 type EndpointsResponse struct {
-	Item ListOfEndpointResponse `json:"item" xml:"Item"`
+Item ListOfEndpointResponse `json:"item" xml:"Item"`
 }
 
 type Event struct {
-	AppPackageName   string        `json:"appPackageName" xml:"AppPackageName"`
-	AppTitle         string        `json:"appTitle" xml:"AppTitle"`
-	AppVersionCode   string        `json:"appVersionCode" xml:"AppVersionCode"`
-	Attributes       MapOf__string `json:"attributes" xml:"Attributes"`
-	ClientSdkVersion string        `json:"clientSdkVersion" xml:"ClientSdkVersion"`
-	EventType        string        `json:"eventType" xml:"EventType"`
-	Metrics          MapOf__double `json:"metrics" xml:"Metrics"`
-	SdkName          string        `json:"sdkName" xml:"SdkName"`
-	Session          *Session      `json:"session" xml:"Session"`
-	Timestamp        string        `json:"timestamp" xml:"Timestamp"`
+AppPackageName string `json:"appPackageName" xml:"AppPackageName"`
+AppTitle string `json:"appTitle" xml:"AppTitle"`
+AppVersionCode string `json:"appVersionCode" xml:"AppVersionCode"`
+Attributes MapOf__string `json:"attributes" xml:"Attributes"`
+ClientSdkVersion string `json:"clientSdkVersion" xml:"ClientSdkVersion"`
+EventType string `json:"eventType" xml:"EventType"`
+Metrics MapOf__double `json:"metrics" xml:"Metrics"`
+SdkName string `json:"sdkName" xml:"SdkName"`
+Session *Session `json:"session" xml:"Session"`
+Timestamp string `json:"timestamp" xml:"Timestamp"`
 }
 
 type EventCondition struct {
-	Dimensions      *EventDimensions `json:"dimensions" xml:"Dimensions"`
-	MessageActivity string           `json:"messageActivity" xml:"MessageActivity"`
+Dimensions *EventDimensions `json:"dimensions" xml:"Dimensions"`
+MessageActivity string `json:"messageActivity" xml:"MessageActivity"`
 }
 
 type EventDimensions struct {
-	Attributes MapOfAttributeDimension `json:"attributes" xml:"Attributes"`
-	EventType  *SetDimension           `json:"eventType" xml:"EventType"`
-	Metrics    MapOfMetricDimension    `json:"metrics" xml:"Metrics"`
+Attributes MapOfAttributeDimension `json:"attributes" xml:"Attributes"`
+EventType *SetDimension `json:"eventType" xml:"EventType"`
+Metrics MapOfMetricDimension `json:"metrics" xml:"Metrics"`
 }
 
 type EventFilter struct {
-	Dimensions *EventDimensions `json:"dimensions" xml:"Dimensions"`
-	FilterType string           `json:"filterType" xml:"FilterType"`
+Dimensions *EventDimensions `json:"dimensions" xml:"Dimensions"`
+FilterType string `json:"filterType" xml:"FilterType"`
 }
 
 type EventItemResponse struct {
-	Message    string `json:"message" xml:"Message"`
-	StatusCode int32  `json:"statusCode" xml:"StatusCode"`
+Message string `json:"message" xml:"Message"`
+StatusCode int32 `json:"statusCode" xml:"StatusCode"`
 }
 
 type EventStartCondition struct {
-	EventFilter *EventFilter `json:"eventFilter" xml:"EventFilter"`
-	SegmentId   string       `json:"segmentId" xml:"SegmentId"`
+EventFilter *EventFilter `json:"eventFilter" xml:"EventFilter"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
 }
 
 type EventStream struct {
-	ApplicationId        string `json:"applicationId" xml:"ApplicationId"`
-	DestinationStreamArn string `json:"destinationStreamArn" xml:"DestinationStreamArn"`
-	ExternalId           string `json:"externalId" xml:"ExternalId"`
-	LastModifiedDate     string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	LastUpdatedBy        string `json:"lastUpdatedBy" xml:"LastUpdatedBy"`
-	RoleArn              string `json:"roleArn" xml:"RoleArn"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+DestinationStreamArn string `json:"destinationStreamArn" xml:"DestinationStreamArn"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+LastUpdatedBy string `json:"lastUpdatedBy" xml:"LastUpdatedBy"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type EventsBatch struct {
-	Endpoint *PublicEndpoint `json:"endpoint" xml:"Endpoint"`
-	Events   MapOfEvent      `json:"events" xml:"Events"`
+Endpoint *PublicEndpoint `json:"endpoint" xml:"Endpoint"`
+Events MapOfEvent `json:"events" xml:"Events"`
 }
 
 type EventsRequest struct {
-	BatchItem MapOfEventsBatch `json:"batchItem" xml:"BatchItem"`
+BatchItem MapOfEventsBatch `json:"batchItem" xml:"BatchItem"`
 }
 
 type EventsResponse struct {
-	Results MapOfItemResponse `json:"results" xml:"Results"`
+Results MapOfItemResponse `json:"results" xml:"Results"`
 }
 
 type ExportJobRequest struct {
-	RoleArn        string `json:"roleArn" xml:"RoleArn"`
-	S3UrlPrefix    string `json:"s3UrlPrefix" xml:"S3UrlPrefix"`
-	SegmentId      string `json:"segmentId" xml:"SegmentId"`
-	SegmentVersion int32  `json:"segmentVersion" xml:"SegmentVersion"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+S3UrlPrefix string `json:"s3UrlPrefix" xml:"S3UrlPrefix"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
+SegmentVersion int32 `json:"segmentVersion" xml:"SegmentVersion"`
 }
 
 type ExportJobResource struct {
-	RoleArn        string `json:"roleArn" xml:"RoleArn"`
-	S3UrlPrefix    string `json:"s3UrlPrefix" xml:"S3UrlPrefix"`
-	SegmentId      string `json:"segmentId" xml:"SegmentId"`
-	SegmentVersion int32  `json:"segmentVersion" xml:"SegmentVersion"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+S3UrlPrefix string `json:"s3UrlPrefix" xml:"S3UrlPrefix"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
+SegmentVersion int32 `json:"segmentVersion" xml:"SegmentVersion"`
 }
 
 type ExportJobResponse struct {
-	ApplicationId   string             `json:"applicationId" xml:"ApplicationId"`
-	CompletedPieces int32              `json:"completedPieces" xml:"CompletedPieces"`
-	CompletionDate  string             `json:"completionDate" xml:"CompletionDate"`
-	CreationDate    string             `json:"creationDate" xml:"CreationDate"`
-	Definition      *ExportJobResource `json:"definition" xml:"Definition"`
-	FailedPieces    int32              `json:"failedPieces" xml:"FailedPieces"`
-	Failures        ListOf__string     `json:"failures" xml:"Failures"`
-	Id              string             `json:"id" xml:"Id"`
-	JobStatus       string             `json:"jobStatus" xml:"JobStatus"`
-	TotalFailures   int32              `json:"totalFailures" xml:"TotalFailures"`
-	TotalPieces     int32              `json:"totalPieces" xml:"TotalPieces"`
-	TotalProcessed  int32              `json:"totalProcessed" xml:"TotalProcessed"`
-	Type            string             `json:"type" xml:"Type"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CompletedPieces int32 `json:"completedPieces" xml:"CompletedPieces"`
+CompletionDate string `json:"completionDate" xml:"CompletionDate"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Definition *ExportJobResource `json:"definition" xml:"Definition"`
+FailedPieces int32 `json:"failedPieces" xml:"FailedPieces"`
+Failures ListOf__string `json:"failures" xml:"Failures"`
+Id string `json:"id" xml:"Id"`
+JobStatus string `json:"jobStatus" xml:"JobStatus"`
+TotalFailures int32 `json:"totalFailures" xml:"TotalFailures"`
+TotalPieces int32 `json:"totalPieces" xml:"TotalPieces"`
+TotalProcessed int32 `json:"totalProcessed" xml:"TotalProcessed"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ExportJobsResponse struct {
-	Item      ListOfExportJobResponse `json:"item" xml:"Item"`
-	NextToken string                  `json:"nextToken" xml:"NextToken"`
+Item ListOfExportJobResponse `json:"item" xml:"Item"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GCMChannelRequest struct {
-	ApiKey                      string `json:"apiKey" xml:"ApiKey"`
-	DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	ServiceJson                 string `json:"serviceJson" xml:"ServiceJson"`
+ApiKey string `json:"apiKey" xml:"ApiKey"`
+DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+ServiceJson string `json:"serviceJson" xml:"ServiceJson"`
 }
 
 type GCMChannelResponse struct {
-	ApplicationId               string `json:"applicationId" xml:"ApplicationId"`
-	CreationDate                string `json:"creationDate" xml:"CreationDate"`
-	Credential                  string `json:"credential" xml:"Credential"`
-	DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
-	Enabled                     bool   `json:"enabled" xml:"Enabled"`
-	HasCredential               bool   `json:"hasCredential" xml:"HasCredential"`
-	HasFcmServiceCredentials    bool   `json:"hasFcmServiceCredentials" xml:"HasFcmServiceCredentials"`
-	Id                          string `json:"id" xml:"Id"`
-	IsArchived                  bool   `json:"isArchived" xml:"IsArchived"`
-	LastModifiedBy              string `json:"lastModifiedBy" xml:"LastModifiedBy"`
-	LastModifiedDate            string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Platform                    string `json:"platform" xml:"Platform"`
-	Version                     int32  `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Credential string `json:"credential" xml:"Credential"`
+DefaultAuthenticationMethod string `json:"defaultAuthenticationMethod" xml:"DefaultAuthenticationMethod"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HasCredential bool `json:"hasCredential" xml:"HasCredential"`
+HasFcmServiceCredentials bool `json:"hasFcmServiceCredentials" xml:"HasFcmServiceCredentials"`
+Id string `json:"id" xml:"Id"`
+IsArchived bool `json:"isArchived" xml:"IsArchived"`
+LastModifiedBy string `json:"lastModifiedBy" xml:"LastModifiedBy"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Platform string `json:"platform" xml:"Platform"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type GCMMessage struct {
-	Action                        string              `json:"action" xml:"Action"`
-	Body                          string              `json:"body" xml:"Body"`
-	CollapseKey                   string              `json:"collapseKey" xml:"CollapseKey"`
-	Data                          MapOf__string       `json:"data" xml:"Data"`
-	IconReference                 string              `json:"iconReference" xml:"IconReference"`
-	ImageIconUrl                  string              `json:"imageIconUrl" xml:"ImageIconUrl"`
-	ImageUrl                      string              `json:"imageUrl" xml:"ImageUrl"`
-	PreferredAuthenticationMethod string              `json:"preferredAuthenticationMethod" xml:"PreferredAuthenticationMethod"`
-	Priority                      string              `json:"priority" xml:"Priority"`
-	RawContent                    string              `json:"rawContent" xml:"RawContent"`
-	RestrictedPackageName         string              `json:"restrictedPackageName" xml:"RestrictedPackageName"`
-	SilentPush                    bool                `json:"silentPush" xml:"SilentPush"`
-	SmallImageIconUrl             string              `json:"smallImageIconUrl" xml:"SmallImageIconUrl"`
-	Sound                         string              `json:"sound" xml:"Sound"`
-	Substitutions                 MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
-	TimeToLive                    int32               `json:"timeToLive" xml:"TimeToLive"`
-	Title                         string              `json:"title" xml:"Title"`
-	Url                           string              `json:"url" xml:"Url"`
+Action string `json:"action" xml:"Action"`
+Body string `json:"body" xml:"Body"`
+CollapseKey string `json:"collapseKey" xml:"CollapseKey"`
+Data MapOf__string `json:"data" xml:"Data"`
+IconReference string `json:"iconReference" xml:"IconReference"`
+ImageIconUrl string `json:"imageIconUrl" xml:"ImageIconUrl"`
+ImageUrl string `json:"imageUrl" xml:"ImageUrl"`
+PreferredAuthenticationMethod string `json:"preferredAuthenticationMethod" xml:"PreferredAuthenticationMethod"`
+Priority string `json:"priority" xml:"Priority"`
+RawContent string `json:"rawContent" xml:"RawContent"`
+RestrictedPackageName string `json:"restrictedPackageName" xml:"RestrictedPackageName"`
+SilentPush bool `json:"silentPush" xml:"SilentPush"`
+SmallImageIconUrl string `json:"smallImageIconUrl" xml:"SmallImageIconUrl"`
+Sound string `json:"sound" xml:"Sound"`
+Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
+TimeToLive int32 `json:"timeToLive" xml:"TimeToLive"`
+Title string `json:"title" xml:"Title"`
+Url string `json:"url" xml:"Url"`
 }
 
 type GPSCoordinates struct {
-	Latitude  float64 `json:"latitude" xml:"Latitude"`
-	Longitude float64 `json:"longitude" xml:"Longitude"`
+Latitude float64 `json:"latitude" xml:"Latitude"`
+Longitude float64 `json:"longitude" xml:"Longitude"`
 }
 
 type GPSPointDimension struct {
-	Coordinates       *GPSCoordinates `json:"coordinates" xml:"Coordinates"`
-	RangeInKilometers float64         `json:"rangeInKilometers" xml:"RangeInKilometers"`
+Coordinates *GPSCoordinates `json:"coordinates" xml:"Coordinates"`
+RangeInKilometers float64 `json:"rangeInKilometers" xml:"RangeInKilometers"`
 }
 
 type GetAdmChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetAdmChannelResponse struct {
-	ADMChannelResponse *ADMChannelResponse `json:"aDMChannelResponse" xml:"ADMChannelResponse"`
+ADMChannelResponse *ADMChannelResponse `json:"aDMChannelResponse" xml:"ADMChannelResponse"`
 }
 
 type GetApnsChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetApnsChannelResponse struct {
-	APNSChannelResponse *APNSChannelResponse `json:"aPNSChannelResponse" xml:"APNSChannelResponse"`
+APNSChannelResponse *APNSChannelResponse `json:"aPNSChannelResponse" xml:"APNSChannelResponse"`
 }
 
 type GetApnsSandboxChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetApnsSandboxChannelResponse struct {
-	APNSSandboxChannelResponse *APNSSandboxChannelResponse `json:"aPNSSandboxChannelResponse" xml:"APNSSandboxChannelResponse"`
+APNSSandboxChannelResponse *APNSSandboxChannelResponse `json:"aPNSSandboxChannelResponse" xml:"APNSSandboxChannelResponse"`
 }
 
 type GetApnsVoipChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetApnsVoipChannelResponse struct {
-	APNSVoipChannelResponse *APNSVoipChannelResponse `json:"aPNSVoipChannelResponse" xml:"APNSVoipChannelResponse"`
+APNSVoipChannelResponse *APNSVoipChannelResponse `json:"aPNSVoipChannelResponse" xml:"APNSVoipChannelResponse"`
 }
 
 type GetApnsVoipSandboxChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetApnsVoipSandboxChannelResponse struct {
-	APNSVoipSandboxChannelResponse *APNSVoipSandboxChannelResponse `json:"aPNSVoipSandboxChannelResponse" xml:"APNSVoipSandboxChannelResponse"`
+APNSVoipSandboxChannelResponse *APNSVoipSandboxChannelResponse `json:"aPNSVoipSandboxChannelResponse" xml:"APNSVoipSandboxChannelResponse"`
 }
 
 type GetAppRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetAppResponse struct {
-	ApplicationResponse *ApplicationResponse `json:"applicationResponse" xml:"ApplicationResponse"`
+ApplicationResponse *ApplicationResponse `json:"applicationResponse" xml:"ApplicationResponse"`
 }
 
 type GetApplicationDateRangeKpiRequest struct {
-	ApplicationId string    `json:"applicationId" xml:"ApplicationId"`
-	EndTime       time.Time `json:"endTime" xml:"EndTime"`
-	KpiName       string    `json:"kpiName" xml:"KpiName"`
-	NextToken     string    `json:"nextToken" xml:"NextToken"`
-	PageSize      string    `json:"pageSize" xml:"PageSize"`
-	StartTime     time.Time `json:"startTime" xml:"StartTime"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+KpiName string `json:"kpiName" xml:"KpiName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type GetApplicationDateRangeKpiResponse struct {
-	ApplicationDateRangeKpiResponse *ApplicationDateRangeKpiResponse `json:"applicationDateRangeKpiResponse" xml:"ApplicationDateRangeKpiResponse"`
+ApplicationDateRangeKpiResponse *ApplicationDateRangeKpiResponse `json:"applicationDateRangeKpiResponse" xml:"ApplicationDateRangeKpiResponse"`
 }
 
 type GetApplicationSettingsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetApplicationSettingsResponse struct {
-	ApplicationSettingsResource *ApplicationSettingsResource `json:"applicationSettingsResource" xml:"ApplicationSettingsResource"`
+ApplicationSettingsResource *ApplicationSettingsResource `json:"applicationSettingsResource" xml:"ApplicationSettingsResource"`
 }
 
 type GetAppsRequest struct {
-	PageSize string `json:"pageSize" xml:"PageSize"`
-	Token    string `json:"token" xml:"Token"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetAppsResponse struct {
-	ApplicationsResponse *ApplicationsResponse `json:"applicationsResponse" xml:"ApplicationsResponse"`
+ApplicationsResponse *ApplicationsResponse `json:"applicationsResponse" xml:"ApplicationsResponse"`
 }
 
 type GetBaiduChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetBaiduChannelResponse struct {
-	BaiduChannelResponse *BaiduChannelResponse `json:"baiduChannelResponse" xml:"BaiduChannelResponse"`
+BaiduChannelResponse *BaiduChannelResponse `json:"baiduChannelResponse" xml:"BaiduChannelResponse"`
 }
 
 type GetCampaignActivitiesRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	CampaignId    string `json:"campaignId" xml:"CampaignId"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	Token         string `json:"token" xml:"Token"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CampaignId string `json:"campaignId" xml:"CampaignId"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetCampaignActivitiesResponse struct {
-	ActivitiesResponse *ActivitiesResponse `json:"activitiesResponse" xml:"ActivitiesResponse"`
+ActivitiesResponse *ActivitiesResponse `json:"activitiesResponse" xml:"ActivitiesResponse"`
 }
 
 type GetCampaignDateRangeKpiRequest struct {
-	ApplicationId string    `json:"applicationId" xml:"ApplicationId"`
-	CampaignId    string    `json:"campaignId" xml:"CampaignId"`
-	EndTime       time.Time `json:"endTime" xml:"EndTime"`
-	KpiName       string    `json:"kpiName" xml:"KpiName"`
-	NextToken     string    `json:"nextToken" xml:"NextToken"`
-	PageSize      string    `json:"pageSize" xml:"PageSize"`
-	StartTime     time.Time `json:"startTime" xml:"StartTime"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CampaignId string `json:"campaignId" xml:"CampaignId"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+KpiName string `json:"kpiName" xml:"KpiName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type GetCampaignDateRangeKpiResponse struct {
-	CampaignDateRangeKpiResponse *CampaignDateRangeKpiResponse `json:"campaignDateRangeKpiResponse" xml:"CampaignDateRangeKpiResponse"`
+CampaignDateRangeKpiResponse *CampaignDateRangeKpiResponse `json:"campaignDateRangeKpiResponse" xml:"CampaignDateRangeKpiResponse"`
 }
 
 type GetCampaignRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	CampaignId    string `json:"campaignId" xml:"CampaignId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CampaignId string `json:"campaignId" xml:"CampaignId"`
 }
 
 type GetCampaignResponse struct {
-	CampaignResponse *CampaignResponse `json:"campaignResponse" xml:"CampaignResponse"`
+CampaignResponse *CampaignResponse `json:"campaignResponse" xml:"CampaignResponse"`
 }
 
 type GetCampaignVersionRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	CampaignId    string `json:"campaignId" xml:"CampaignId"`
-	Version       string `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CampaignId string `json:"campaignId" xml:"CampaignId"`
+Version string `json:"version" xml:"Version"`
 }
 
 type GetCampaignVersionResponse struct {
-	CampaignResponse *CampaignResponse `json:"campaignResponse" xml:"CampaignResponse"`
+CampaignResponse *CampaignResponse `json:"campaignResponse" xml:"CampaignResponse"`
 }
 
 type GetCampaignVersionsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	CampaignId    string `json:"campaignId" xml:"CampaignId"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	Token         string `json:"token" xml:"Token"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CampaignId string `json:"campaignId" xml:"CampaignId"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetCampaignVersionsResponse struct {
-	CampaignsResponse *CampaignsResponse `json:"campaignsResponse" xml:"CampaignsResponse"`
+CampaignsResponse *CampaignsResponse `json:"campaignsResponse" xml:"CampaignsResponse"`
 }
 
 type GetCampaignsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	Token         string `json:"token" xml:"Token"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetCampaignsResponse struct {
-	CampaignsResponse *CampaignsResponse `json:"campaignsResponse" xml:"CampaignsResponse"`
+CampaignsResponse *CampaignsResponse `json:"campaignsResponse" xml:"CampaignsResponse"`
 }
 
 type GetChannelsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetChannelsResponse struct {
-	ChannelsResponse *ChannelsResponse `json:"channelsResponse" xml:"ChannelsResponse"`
+ChannelsResponse *ChannelsResponse `json:"channelsResponse" xml:"ChannelsResponse"`
 }
 
 type GetEmailChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetEmailChannelResponse struct {
-	EmailChannelResponse *EmailChannelResponse `json:"emailChannelResponse" xml:"EmailChannelResponse"`
+EmailChannelResponse *EmailChannelResponse `json:"emailChannelResponse" xml:"EmailChannelResponse"`
 }
 
 type GetEmailTemplateRequest struct {
-	TemplateName string `json:"templateName" xml:"TemplateName"`
-	Version      string `json:"version" xml:"Version"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type GetEmailTemplateResponse struct {
-	EmailTemplateResponse *EmailTemplateResponse `json:"emailTemplateResponse" xml:"EmailTemplateResponse"`
+EmailTemplateResponse *EmailTemplateResponse `json:"emailTemplateResponse" xml:"EmailTemplateResponse"`
 }
 
 type GetEndpointRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	EndpointId    string `json:"endpointId" xml:"EndpointId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EndpointId string `json:"endpointId" xml:"EndpointId"`
 }
 
 type GetEndpointResponse struct {
-	EndpointResponse *EndpointResponse `json:"endpointResponse" xml:"EndpointResponse"`
+EndpointResponse *EndpointResponse `json:"endpointResponse" xml:"EndpointResponse"`
 }
 
 type GetEventStreamRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetEventStreamResponse struct {
-	EventStream *EventStream `json:"eventStream" xml:"EventStream"`
+EventStream *EventStream `json:"eventStream" xml:"EventStream"`
 }
 
 type GetExportJobRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	JobId         string `json:"jobId" xml:"JobId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JobId string `json:"jobId" xml:"JobId"`
 }
 
 type GetExportJobResponse struct {
-	ExportJobResponse *ExportJobResponse `json:"exportJobResponse" xml:"ExportJobResponse"`
+ExportJobResponse *ExportJobResponse `json:"exportJobResponse" xml:"ExportJobResponse"`
 }
 
 type GetExportJobsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	Token         string `json:"token" xml:"Token"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetExportJobsResponse struct {
-	ExportJobsResponse *ExportJobsResponse `json:"exportJobsResponse" xml:"ExportJobsResponse"`
+ExportJobsResponse *ExportJobsResponse `json:"exportJobsResponse" xml:"ExportJobsResponse"`
 }
 
 type GetGcmChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetGcmChannelResponse struct {
-	GCMChannelResponse *GCMChannelResponse `json:"gCMChannelResponse" xml:"GCMChannelResponse"`
+GCMChannelResponse *GCMChannelResponse `json:"gCMChannelResponse" xml:"GCMChannelResponse"`
 }
 
 type GetImportJobRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	JobId         string `json:"jobId" xml:"JobId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JobId string `json:"jobId" xml:"JobId"`
 }
 
 type GetImportJobResponse struct {
-	ImportJobResponse *ImportJobResponse `json:"importJobResponse" xml:"ImportJobResponse"`
+ImportJobResponse *ImportJobResponse `json:"importJobResponse" xml:"ImportJobResponse"`
 }
 
 type GetImportJobsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	Token         string `json:"token" xml:"Token"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetImportJobsResponse struct {
-	ImportJobsResponse *ImportJobsResponse `json:"importJobsResponse" xml:"ImportJobsResponse"`
+ImportJobsResponse *ImportJobsResponse `json:"importJobsResponse" xml:"ImportJobsResponse"`
 }
 
 type GetInAppMessagesRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	EndpointId    string `json:"endpointId" xml:"EndpointId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EndpointId string `json:"endpointId" xml:"EndpointId"`
 }
 
 type GetInAppMessagesResponse struct {
-	InAppMessagesResponse *InAppMessagesResponse `json:"inAppMessagesResponse" xml:"InAppMessagesResponse"`
+InAppMessagesResponse *InAppMessagesResponse `json:"inAppMessagesResponse" xml:"InAppMessagesResponse"`
 }
 
 type GetInAppTemplateRequest struct {
-	TemplateName string `json:"templateName" xml:"TemplateName"`
-	Version      string `json:"version" xml:"Version"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type GetInAppTemplateResponse struct {
-	InAppTemplateResponse *InAppTemplateResponse `json:"inAppTemplateResponse" xml:"InAppTemplateResponse"`
+InAppTemplateResponse *InAppTemplateResponse `json:"inAppTemplateResponse" xml:"InAppTemplateResponse"`
 }
 
 type GetJourneyDateRangeKpiRequest struct {
-	ApplicationId string    `json:"applicationId" xml:"ApplicationId"`
-	EndTime       time.Time `json:"endTime" xml:"EndTime"`
-	JourneyId     string    `json:"journeyId" xml:"JourneyId"`
-	KpiName       string    `json:"kpiName" xml:"KpiName"`
-	NextToken     string    `json:"nextToken" xml:"NextToken"`
-	PageSize      string    `json:"pageSize" xml:"PageSize"`
-	StartTime     time.Time `json:"startTime" xml:"StartTime"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+KpiName string `json:"kpiName" xml:"KpiName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type GetJourneyDateRangeKpiResponse struct {
-	JourneyDateRangeKpiResponse *JourneyDateRangeKpiResponse `json:"journeyDateRangeKpiResponse" xml:"JourneyDateRangeKpiResponse"`
+JourneyDateRangeKpiResponse *JourneyDateRangeKpiResponse `json:"journeyDateRangeKpiResponse" xml:"JourneyDateRangeKpiResponse"`
 }
 
 type GetJourneyExecutionActivityMetricsRequest struct {
-	ApplicationId     string `json:"applicationId" xml:"ApplicationId"`
-	JourneyActivityId string `json:"journeyActivityId" xml:"JourneyActivityId"`
-	JourneyId         string `json:"journeyId" xml:"JourneyId"`
-	NextToken         string `json:"nextToken" xml:"NextToken"`
-	PageSize          string `json:"pageSize" xml:"PageSize"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyActivityId string `json:"journeyActivityId" xml:"JourneyActivityId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PageSize string `json:"pageSize" xml:"PageSize"`
 }
 
 type GetJourneyExecutionActivityMetricsResponse struct {
-	JourneyExecutionActivityMetricsResponse *JourneyExecutionActivityMetricsResponse `json:"journeyExecutionActivityMetricsResponse" xml:"JourneyExecutionActivityMetricsResponse"`
+JourneyExecutionActivityMetricsResponse *JourneyExecutionActivityMetricsResponse `json:"journeyExecutionActivityMetricsResponse" xml:"JourneyExecutionActivityMetricsResponse"`
 }
 
 type GetJourneyExecutionMetricsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	JourneyId     string `json:"journeyId" xml:"JourneyId"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PageSize string `json:"pageSize" xml:"PageSize"`
 }
 
 type GetJourneyExecutionMetricsResponse struct {
-	JourneyExecutionMetricsResponse *JourneyExecutionMetricsResponse `json:"journeyExecutionMetricsResponse" xml:"JourneyExecutionMetricsResponse"`
+JourneyExecutionMetricsResponse *JourneyExecutionMetricsResponse `json:"journeyExecutionMetricsResponse" xml:"JourneyExecutionMetricsResponse"`
 }
 
 type GetJourneyRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	JourneyId     string `json:"journeyId" xml:"JourneyId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
 }
 
 type GetJourneyResponse struct {
-	JourneyResponse *JourneyResponse `json:"journeyResponse" xml:"JourneyResponse"`
+JourneyResponse *JourneyResponse `json:"journeyResponse" xml:"JourneyResponse"`
 }
 
 type GetJourneyRunExecutionActivityMetricsRequest struct {
-	ApplicationId     string `json:"applicationId" xml:"ApplicationId"`
-	JourneyActivityId string `json:"journeyActivityId" xml:"JourneyActivityId"`
-	JourneyId         string `json:"journeyId" xml:"JourneyId"`
-	NextToken         string `json:"nextToken" xml:"NextToken"`
-	PageSize          string `json:"pageSize" xml:"PageSize"`
-	RunId             string `json:"runId" xml:"RunId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyActivityId string `json:"journeyActivityId" xml:"JourneyActivityId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type GetJourneyRunExecutionActivityMetricsResponse struct {
-	JourneyRunExecutionActivityMetricsResponse *JourneyRunExecutionActivityMetricsResponse `json:"journeyRunExecutionActivityMetricsResponse" xml:"JourneyRunExecutionActivityMetricsResponse"`
+JourneyRunExecutionActivityMetricsResponse *JourneyRunExecutionActivityMetricsResponse `json:"journeyRunExecutionActivityMetricsResponse" xml:"JourneyRunExecutionActivityMetricsResponse"`
 }
 
 type GetJourneyRunExecutionMetricsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	JourneyId     string `json:"journeyId" xml:"JourneyId"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	RunId         string `json:"runId" xml:"RunId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type GetJourneyRunExecutionMetricsResponse struct {
-	JourneyRunExecutionMetricsResponse *JourneyRunExecutionMetricsResponse `json:"journeyRunExecutionMetricsResponse" xml:"JourneyRunExecutionMetricsResponse"`
+JourneyRunExecutionMetricsResponse *JourneyRunExecutionMetricsResponse `json:"journeyRunExecutionMetricsResponse" xml:"JourneyRunExecutionMetricsResponse"`
 }
 
 type GetJourneyRunsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	JourneyId     string `json:"journeyId" xml:"JourneyId"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	Token         string `json:"token" xml:"Token"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetJourneyRunsResponse struct {
-	JourneyRunsResponse *JourneyRunsResponse `json:"journeyRunsResponse" xml:"JourneyRunsResponse"`
+JourneyRunsResponse *JourneyRunsResponse `json:"journeyRunsResponse" xml:"JourneyRunsResponse"`
 }
 
 type GetPushTemplateRequest struct {
-	TemplateName string `json:"templateName" xml:"TemplateName"`
-	Version      string `json:"version" xml:"Version"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type GetPushTemplateResponse struct {
-	PushNotificationTemplateResponse *PushNotificationTemplateResponse `json:"pushNotificationTemplateResponse" xml:"PushNotificationTemplateResponse"`
+PushNotificationTemplateResponse *PushNotificationTemplateResponse `json:"pushNotificationTemplateResponse" xml:"PushNotificationTemplateResponse"`
 }
 
 type GetRecommenderConfigurationRequest struct {
-	RecommenderId string `json:"recommenderId" xml:"RecommenderId"`
+RecommenderId string `json:"recommenderId" xml:"RecommenderId"`
 }
 
 type GetRecommenderConfigurationResponse struct {
-	RecommenderConfigurationResponse *RecommenderConfigurationResponse `json:"recommenderConfigurationResponse" xml:"RecommenderConfigurationResponse"`
+RecommenderConfigurationResponse *RecommenderConfigurationResponse `json:"recommenderConfigurationResponse" xml:"RecommenderConfigurationResponse"`
 }
 
 type GetRecommenderConfigurationsRequest struct {
-	PageSize string `json:"pageSize" xml:"PageSize"`
-	Token    string `json:"token" xml:"Token"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetRecommenderConfigurationsResponse struct {
-	ListRecommenderConfigurationsResponse *ListRecommenderConfigurationsResponse `json:"listRecommenderConfigurationsResponse" xml:"ListRecommenderConfigurationsResponse"`
+ListRecommenderConfigurationsResponse *ListRecommenderConfigurationsResponse `json:"listRecommenderConfigurationsResponse" xml:"ListRecommenderConfigurationsResponse"`
 }
 
 type GetSegmentExportJobsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	SegmentId     string `json:"segmentId" xml:"SegmentId"`
-	Token         string `json:"token" xml:"Token"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetSegmentExportJobsResponse struct {
-	ExportJobsResponse *ExportJobsResponse `json:"exportJobsResponse" xml:"ExportJobsResponse"`
+ExportJobsResponse *ExportJobsResponse `json:"exportJobsResponse" xml:"ExportJobsResponse"`
 }
 
 type GetSegmentImportJobsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	SegmentId     string `json:"segmentId" xml:"SegmentId"`
-	Token         string `json:"token" xml:"Token"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetSegmentImportJobsResponse struct {
-	ImportJobsResponse *ImportJobsResponse `json:"importJobsResponse" xml:"ImportJobsResponse"`
+ImportJobsResponse *ImportJobsResponse `json:"importJobsResponse" xml:"ImportJobsResponse"`
 }
 
 type GetSegmentRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	SegmentId     string `json:"segmentId" xml:"SegmentId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
 }
 
 type GetSegmentResponse struct {
-	SegmentResponse *SegmentResponse `json:"segmentResponse" xml:"SegmentResponse"`
+SegmentResponse *SegmentResponse `json:"segmentResponse" xml:"SegmentResponse"`
 }
 
 type GetSegmentVersionRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	SegmentId     string `json:"segmentId" xml:"SegmentId"`
-	Version       string `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
+Version string `json:"version" xml:"Version"`
 }
 
 type GetSegmentVersionResponse struct {
-	SegmentResponse *SegmentResponse `json:"segmentResponse" xml:"SegmentResponse"`
+SegmentResponse *SegmentResponse `json:"segmentResponse" xml:"SegmentResponse"`
 }
 
 type GetSegmentVersionsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	SegmentId     string `json:"segmentId" xml:"SegmentId"`
-	Token         string `json:"token" xml:"Token"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetSegmentVersionsResponse struct {
-	SegmentsResponse *SegmentsResponse `json:"segmentsResponse" xml:"SegmentsResponse"`
+SegmentsResponse *SegmentsResponse `json:"segmentsResponse" xml:"SegmentsResponse"`
 }
 
 type GetSegmentsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	Token         string `json:"token" xml:"Token"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetSegmentsResponse struct {
-	SegmentsResponse *SegmentsResponse `json:"segmentsResponse" xml:"SegmentsResponse"`
+SegmentsResponse *SegmentsResponse `json:"segmentsResponse" xml:"SegmentsResponse"`
 }
 
 type GetSmsChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetSmsChannelResponse struct {
-	SMSChannelResponse *SMSChannelResponse `json:"sMSChannelResponse" xml:"SMSChannelResponse"`
+SMSChannelResponse *SMSChannelResponse `json:"sMSChannelResponse" xml:"SMSChannelResponse"`
 }
 
 type GetSmsTemplateRequest struct {
-	TemplateName string `json:"templateName" xml:"TemplateName"`
-	Version      string `json:"version" xml:"Version"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type GetSmsTemplateResponse struct {
-	SMSTemplateResponse *SMSTemplateResponse `json:"sMSTemplateResponse" xml:"SMSTemplateResponse"`
+SMSTemplateResponse *SMSTemplateResponse `json:"sMSTemplateResponse" xml:"SMSTemplateResponse"`
 }
 
 type GetUserEndpointsRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	UserId        string `json:"userId" xml:"UserId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+UserId string `json:"userId" xml:"UserId"`
 }
 
 type GetUserEndpointsResponse struct {
-	EndpointsResponse *EndpointsResponse `json:"endpointsResponse" xml:"EndpointsResponse"`
+EndpointsResponse *EndpointsResponse `json:"endpointsResponse" xml:"EndpointsResponse"`
 }
 
 type GetVoiceChannelRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type GetVoiceChannelResponse struct {
-	VoiceChannelResponse *VoiceChannelResponse `json:"voiceChannelResponse" xml:"VoiceChannelResponse"`
+VoiceChannelResponse *VoiceChannelResponse `json:"voiceChannelResponse" xml:"VoiceChannelResponse"`
 }
 
 type GetVoiceTemplateRequest struct {
-	TemplateName string `json:"templateName" xml:"TemplateName"`
-	Version      string `json:"version" xml:"Version"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type GetVoiceTemplateResponse struct {
-	VoiceTemplateResponse *VoiceTemplateResponse `json:"voiceTemplateResponse" xml:"VoiceTemplateResponse"`
+VoiceTemplateResponse *VoiceTemplateResponse `json:"voiceTemplateResponse" xml:"VoiceTemplateResponse"`
 }
 
 type HoldoutActivity struct {
-	NextActivity string `json:"nextActivity" xml:"NextActivity"`
-	Percentage   int32  `json:"percentage" xml:"Percentage"`
+NextActivity string `json:"nextActivity" xml:"NextActivity"`
+Percentage int32 `json:"percentage" xml:"Percentage"`
 }
 
 type ImportJobRequest struct {
-	DefineSegment     bool   `json:"defineSegment" xml:"DefineSegment"`
-	ExternalId        string `json:"externalId" xml:"ExternalId"`
-	Format            string `json:"format" xml:"Format"`
-	RegisterEndpoints bool   `json:"registerEndpoints" xml:"RegisterEndpoints"`
-	RoleArn           string `json:"roleArn" xml:"RoleArn"`
-	S3Url             string `json:"s3Url" xml:"S3Url"`
-	SegmentId         string `json:"segmentId" xml:"SegmentId"`
-	SegmentName       string `json:"segmentName" xml:"SegmentName"`
+DefineSegment bool `json:"defineSegment" xml:"DefineSegment"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+Format string `json:"format" xml:"Format"`
+RegisterEndpoints bool `json:"registerEndpoints" xml:"RegisterEndpoints"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+S3Url string `json:"s3Url" xml:"S3Url"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
+SegmentName string `json:"segmentName" xml:"SegmentName"`
 }
 
 type ImportJobResource struct {
-	DefineSegment     bool   `json:"defineSegment" xml:"DefineSegment"`
-	ExternalId        string `json:"externalId" xml:"ExternalId"`
-	Format            string `json:"format" xml:"Format"`
-	RegisterEndpoints bool   `json:"registerEndpoints" xml:"RegisterEndpoints"`
-	RoleArn           string `json:"roleArn" xml:"RoleArn"`
-	S3Url             string `json:"s3Url" xml:"S3Url"`
-	SegmentId         string `json:"segmentId" xml:"SegmentId"`
-	SegmentName       string `json:"segmentName" xml:"SegmentName"`
+DefineSegment bool `json:"defineSegment" xml:"DefineSegment"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+Format string `json:"format" xml:"Format"`
+RegisterEndpoints bool `json:"registerEndpoints" xml:"RegisterEndpoints"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+S3Url string `json:"s3Url" xml:"S3Url"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
+SegmentName string `json:"segmentName" xml:"SegmentName"`
 }
 
 type ImportJobResponse struct {
-	ApplicationId   string             `json:"applicationId" xml:"ApplicationId"`
-	CompletedPieces int32              `json:"completedPieces" xml:"CompletedPieces"`
-	CompletionDate  string             `json:"completionDate" xml:"CompletionDate"`
-	CreationDate    string             `json:"creationDate" xml:"CreationDate"`
-	Definition      *ImportJobResource `json:"definition" xml:"Definition"`
-	FailedPieces    int32              `json:"failedPieces" xml:"FailedPieces"`
-	Failures        ListOf__string     `json:"failures" xml:"Failures"`
-	Id              string             `json:"id" xml:"Id"`
-	JobStatus       string             `json:"jobStatus" xml:"JobStatus"`
-	TotalFailures   int32              `json:"totalFailures" xml:"TotalFailures"`
-	TotalPieces     int32              `json:"totalPieces" xml:"TotalPieces"`
-	TotalProcessed  int32              `json:"totalProcessed" xml:"TotalProcessed"`
-	Type            string             `json:"type" xml:"Type"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CompletedPieces int32 `json:"completedPieces" xml:"CompletedPieces"`
+CompletionDate string `json:"completionDate" xml:"CompletionDate"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Definition *ImportJobResource `json:"definition" xml:"Definition"`
+FailedPieces int32 `json:"failedPieces" xml:"FailedPieces"`
+Failures ListOf__string `json:"failures" xml:"Failures"`
+Id string `json:"id" xml:"Id"`
+JobStatus string `json:"jobStatus" xml:"JobStatus"`
+TotalFailures int32 `json:"totalFailures" xml:"TotalFailures"`
+TotalPieces int32 `json:"totalPieces" xml:"TotalPieces"`
+TotalProcessed int32 `json:"totalProcessed" xml:"TotalProcessed"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ImportJobsResponse struct {
-	Item      ListOfImportJobResponse `json:"item" xml:"Item"`
-	NextToken string                  `json:"nextToken" xml:"NextToken"`
+Item ListOfImportJobResponse `json:"item" xml:"Item"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type InAppCampaignSchedule struct {
-	EndDate     string               `json:"endDate" xml:"EndDate"`
-	EventFilter *CampaignEventFilter `json:"eventFilter" xml:"EventFilter"`
-	QuietTime   *QuietTime           `json:"quietTime" xml:"QuietTime"`
+EndDate string `json:"endDate" xml:"EndDate"`
+EventFilter *CampaignEventFilter `json:"eventFilter" xml:"EventFilter"`
+QuietTime *QuietTime `json:"quietTime" xml:"QuietTime"`
 }
 
 type InAppMessage struct {
-	Content      ListOfInAppMessageContent `json:"content" xml:"Content"`
-	CustomConfig MapOf__string             `json:"customConfig" xml:"CustomConfig"`
-	Layout       string                    `json:"layout" xml:"Layout"`
+Content ListOfInAppMessageContent `json:"content" xml:"Content"`
+CustomConfig MapOf__string `json:"customConfig" xml:"CustomConfig"`
+Layout string `json:"layout" xml:"Layout"`
 }
 
 type InAppMessageBodyConfig struct {
-	Alignment string `json:"alignment" xml:"Alignment"`
-	Body      string `json:"body" xml:"Body"`
-	TextColor string `json:"textColor" xml:"TextColor"`
+Alignment string `json:"alignment" xml:"Alignment"`
+Body string `json:"body" xml:"Body"`
+TextColor string `json:"textColor" xml:"TextColor"`
 }
 
 type InAppMessageButton struct {
-	Android       *OverrideButtonConfiguration `json:"android" xml:"Android"`
-	DefaultConfig *DefaultButtonConfiguration  `json:"defaultConfig" xml:"DefaultConfig"`
-	IOS           *OverrideButtonConfiguration `json:"iOS" xml:"IOS"`
-	Web           *OverrideButtonConfiguration `json:"web" xml:"Web"`
+Android *OverrideButtonConfiguration `json:"android" xml:"Android"`
+DefaultConfig *DefaultButtonConfiguration `json:"defaultConfig" xml:"DefaultConfig"`
+IOS *OverrideButtonConfiguration `json:"iOS" xml:"IOS"`
+Web *OverrideButtonConfiguration `json:"web" xml:"Web"`
 }
 
 type InAppMessageCampaign struct {
-	CampaignId   string                 `json:"campaignId" xml:"CampaignId"`
-	DailyCap     int32                  `json:"dailyCap" xml:"DailyCap"`
-	InAppMessage *InAppMessage          `json:"inAppMessage" xml:"InAppMessage"`
-	Priority     int32                  `json:"priority" xml:"Priority"`
-	Schedule     *InAppCampaignSchedule `json:"schedule" xml:"Schedule"`
-	SessionCap   int32                  `json:"sessionCap" xml:"SessionCap"`
-	TotalCap     int32                  `json:"totalCap" xml:"TotalCap"`
-	TreatmentId  string                 `json:"treatmentId" xml:"TreatmentId"`
+CampaignId string `json:"campaignId" xml:"CampaignId"`
+DailyCap int32 `json:"dailyCap" xml:"DailyCap"`
+InAppMessage *InAppMessage `json:"inAppMessage" xml:"InAppMessage"`
+Priority int32 `json:"priority" xml:"Priority"`
+Schedule *InAppCampaignSchedule `json:"schedule" xml:"Schedule"`
+SessionCap int32 `json:"sessionCap" xml:"SessionCap"`
+TotalCap int32 `json:"totalCap" xml:"TotalCap"`
+TreatmentId string `json:"treatmentId" xml:"TreatmentId"`
 }
 
 type InAppMessageContent struct {
-	BackgroundColor string                    `json:"backgroundColor" xml:"BackgroundColor"`
-	BodyConfig      *InAppMessageBodyConfig   `json:"bodyConfig" xml:"BodyConfig"`
-	HeaderConfig    *InAppMessageHeaderConfig `json:"headerConfig" xml:"HeaderConfig"`
-	ImageUrl        string                    `json:"imageUrl" xml:"ImageUrl"`
-	PrimaryBtn      *InAppMessageButton       `json:"primaryBtn" xml:"PrimaryBtn"`
-	SecondaryBtn    *InAppMessageButton       `json:"secondaryBtn" xml:"SecondaryBtn"`
+BackgroundColor string `json:"backgroundColor" xml:"BackgroundColor"`
+BodyConfig *InAppMessageBodyConfig `json:"bodyConfig" xml:"BodyConfig"`
+HeaderConfig *InAppMessageHeaderConfig `json:"headerConfig" xml:"HeaderConfig"`
+ImageUrl string `json:"imageUrl" xml:"ImageUrl"`
+PrimaryBtn *InAppMessageButton `json:"primaryBtn" xml:"PrimaryBtn"`
+SecondaryBtn *InAppMessageButton `json:"secondaryBtn" xml:"SecondaryBtn"`
 }
 
 type InAppMessageHeaderConfig struct {
-	Alignment string `json:"alignment" xml:"Alignment"`
-	Header    string `json:"header" xml:"Header"`
-	TextColor string `json:"textColor" xml:"TextColor"`
+Alignment string `json:"alignment" xml:"Alignment"`
+Header string `json:"header" xml:"Header"`
+TextColor string `json:"textColor" xml:"TextColor"`
 }
 
 type InAppMessagesResponse struct {
-	InAppMessageCampaigns ListOfInAppMessageCampaign `json:"inAppMessageCampaigns" xml:"InAppMessageCampaigns"`
+InAppMessageCampaigns ListOfInAppMessageCampaign `json:"inAppMessageCampaigns" xml:"InAppMessageCampaigns"`
 }
 
 type InAppTemplateRequest struct {
-	Content             ListOfInAppMessageContent `json:"content" xml:"Content"`
-	CustomConfig        MapOf__string             `json:"customConfig" xml:"CustomConfig"`
-	Layout              string                    `json:"layout" xml:"Layout"`
-	TemplateDescription string                    `json:"templateDescription" xml:"TemplateDescription"`
-	Tags                MapOf__string             `json:"tags" xml:"tags"`
+Content ListOfInAppMessageContent `json:"content" xml:"Content"`
+CustomConfig MapOf__string `json:"customConfig" xml:"CustomConfig"`
+Layout string `json:"layout" xml:"Layout"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type InAppTemplateResponse struct {
-	Arn                 string                    `json:"arn" xml:"Arn"`
-	Content             ListOfInAppMessageContent `json:"content" xml:"Content"`
-	CreationDate        string                    `json:"creationDate" xml:"CreationDate"`
-	CustomConfig        MapOf__string             `json:"customConfig" xml:"CustomConfig"`
-	LastModifiedDate    string                    `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Layout              string                    `json:"layout" xml:"Layout"`
-	TemplateDescription string                    `json:"templateDescription" xml:"TemplateDescription"`
-	TemplateName        string                    `json:"templateName" xml:"TemplateName"`
-	TemplateType        string                    `json:"templateType" xml:"TemplateType"`
-	Version             string                    `json:"version" xml:"Version"`
-	Tags                MapOf__string             `json:"tags" xml:"tags"`
+Arn string `json:"arn" xml:"Arn"`
+Content ListOfInAppMessageContent `json:"content" xml:"Content"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+CustomConfig MapOf__string `json:"customConfig" xml:"CustomConfig"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Layout string `json:"layout" xml:"Layout"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateType string `json:"templateType" xml:"TemplateType"`
+Version string `json:"version" xml:"Version"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type ItemResponse struct {
-	EndpointItemResponse *EndpointItemResponse  `json:"endpointItemResponse" xml:"EndpointItemResponse"`
-	EventsItemResponse   MapOfEventItemResponse `json:"eventsItemResponse" xml:"EventsItemResponse"`
+EndpointItemResponse *EndpointItemResponse `json:"endpointItemResponse" xml:"EndpointItemResponse"`
+EventsItemResponse MapOfEventItemResponse `json:"eventsItemResponse" xml:"EventsItemResponse"`
 }
 
 type JourneyChannelSettings struct {
-	ConnectCampaignArn              string `json:"connectCampaignArn" xml:"ConnectCampaignArn"`
-	ConnectCampaignExecutionRoleArn string `json:"connectCampaignExecutionRoleArn" xml:"ConnectCampaignExecutionRoleArn"`
+ConnectCampaignArn string `json:"connectCampaignArn" xml:"ConnectCampaignArn"`
+ConnectCampaignExecutionRoleArn string `json:"connectCampaignExecutionRoleArn" xml:"ConnectCampaignExecutionRoleArn"`
 }
 
 type JourneyCustomMessage struct {
-	Data string `json:"data" xml:"Data"`
+Data string `json:"data" xml:"Data"`
 }
 
 type JourneyDateRangeKpiResponse struct {
-	ApplicationId string         `json:"applicationId" xml:"ApplicationId"`
-	EndTime       time.Time      `json:"endTime" xml:"EndTime"`
-	JourneyId     string         `json:"journeyId" xml:"JourneyId"`
-	KpiName       string         `json:"kpiName" xml:"KpiName"`
-	KpiResult     *BaseKpiResult `json:"kpiResult" xml:"KpiResult"`
-	NextToken     string         `json:"nextToken" xml:"NextToken"`
-	StartTime     time.Time      `json:"startTime" xml:"StartTime"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+KpiName string `json:"kpiName" xml:"KpiName"`
+KpiResult *BaseKpiResult `json:"kpiResult" xml:"KpiResult"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type JourneyEmailMessage struct {
-	FromAddress string `json:"fromAddress" xml:"FromAddress"`
+FromAddress string `json:"fromAddress" xml:"FromAddress"`
 }
 
 type JourneyExecutionActivityMetricsResponse struct {
-	ActivityType      string        `json:"activityType" xml:"ActivityType"`
-	ApplicationId     string        `json:"applicationId" xml:"ApplicationId"`
-	JourneyActivityId string        `json:"journeyActivityId" xml:"JourneyActivityId"`
-	JourneyId         string        `json:"journeyId" xml:"JourneyId"`
-	LastEvaluatedTime string        `json:"lastEvaluatedTime" xml:"LastEvaluatedTime"`
-	Metrics           MapOf__string `json:"metrics" xml:"Metrics"`
+ActivityType string `json:"activityType" xml:"ActivityType"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyActivityId string `json:"journeyActivityId" xml:"JourneyActivityId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+LastEvaluatedTime string `json:"lastEvaluatedTime" xml:"LastEvaluatedTime"`
+Metrics MapOf__string `json:"metrics" xml:"Metrics"`
 }
 
 type JourneyExecutionMetricsResponse struct {
-	ApplicationId     string        `json:"applicationId" xml:"ApplicationId"`
-	JourneyId         string        `json:"journeyId" xml:"JourneyId"`
-	LastEvaluatedTime string        `json:"lastEvaluatedTime" xml:"LastEvaluatedTime"`
-	Metrics           MapOf__string `json:"metrics" xml:"Metrics"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+LastEvaluatedTime string `json:"lastEvaluatedTime" xml:"LastEvaluatedTime"`
+Metrics MapOf__string `json:"metrics" xml:"Metrics"`
 }
 
 type JourneyLimits struct {
-	DailyCap                int32                `json:"dailyCap" xml:"DailyCap"`
-	EndpointReentryCap      int32                `json:"endpointReentryCap" xml:"EndpointReentryCap"`
-	EndpointReentryInterval string               `json:"endpointReentryInterval" xml:"EndpointReentryInterval"`
-	MessagesPerSecond       int32                `json:"messagesPerSecond" xml:"MessagesPerSecond"`
-	TimeframeCap            *JourneyTimeframeCap `json:"timeframeCap" xml:"TimeframeCap"`
-	TotalCap                int32                `json:"totalCap" xml:"TotalCap"`
+DailyCap int32 `json:"dailyCap" xml:"DailyCap"`
+EndpointReentryCap int32 `json:"endpointReentryCap" xml:"EndpointReentryCap"`
+EndpointReentryInterval string `json:"endpointReentryInterval" xml:"EndpointReentryInterval"`
+MessagesPerSecond int32 `json:"messagesPerSecond" xml:"MessagesPerSecond"`
+TimeframeCap *JourneyTimeframeCap `json:"timeframeCap" xml:"TimeframeCap"`
+TotalCap int32 `json:"totalCap" xml:"TotalCap"`
 }
 
 type JourneyPushMessage struct {
-	TimeToLive string `json:"timeToLive" xml:"TimeToLive"`
+TimeToLive string `json:"timeToLive" xml:"TimeToLive"`
 }
 
 type JourneyResponse struct {
-	Activities                MapOfActivity                            `json:"activities" xml:"Activities"`
-	ApplicationId             string                                   `json:"applicationId" xml:"ApplicationId"`
-	ClosedDays                *ClosedDays                              `json:"closedDays" xml:"ClosedDays"`
-	CreationDate              string                                   `json:"creationDate" xml:"CreationDate"`
-	Id                        string                                   `json:"id" xml:"Id"`
-	JourneyChannelSettings    *JourneyChannelSettings                  `json:"journeyChannelSettings" xml:"JourneyChannelSettings"`
-	LastModifiedDate          string                                   `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Limits                    *JourneyLimits                           `json:"limits" xml:"Limits"`
-	LocalTime                 bool                                     `json:"localTime" xml:"LocalTime"`
-	Name                      string                                   `json:"name" xml:"Name"`
-	OpenHours                 *OpenHours                               `json:"openHours" xml:"OpenHours"`
-	QuietTime                 *QuietTime                               `json:"quietTime" xml:"QuietTime"`
-	RefreshFrequency          string                                   `json:"refreshFrequency" xml:"RefreshFrequency"`
-	RefreshOnSegmentUpdate    bool                                     `json:"refreshOnSegmentUpdate" xml:"RefreshOnSegmentUpdate"`
-	Schedule                  *JourneySchedule                         `json:"schedule" xml:"Schedule"`
-	SendingSchedule           bool                                     `json:"sendingSchedule" xml:"SendingSchedule"`
-	StartActivity             string                                   `json:"startActivity" xml:"StartActivity"`
-	StartCondition            *StartCondition                          `json:"startCondition" xml:"StartCondition"`
-	State                     string                                   `json:"state" xml:"State"`
-	TimezoneEstimationMethods ListOf__TimezoneEstimationMethodsElement `json:"timezoneEstimationMethods" xml:"TimezoneEstimationMethods"`
-	WaitForQuietTime          bool                                     `json:"waitForQuietTime" xml:"WaitForQuietTime"`
-	Tags                      MapOf__string                            `json:"tags" xml:"tags"`
+Activities MapOfActivity `json:"activities" xml:"Activities"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+ClosedDays *ClosedDays `json:"closedDays" xml:"ClosedDays"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Id string `json:"id" xml:"Id"`
+JourneyChannelSettings *JourneyChannelSettings `json:"journeyChannelSettings" xml:"JourneyChannelSettings"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Limits *JourneyLimits `json:"limits" xml:"Limits"`
+LocalTime bool `json:"localTime" xml:"LocalTime"`
+Name string `json:"name" xml:"Name"`
+OpenHours *OpenHours `json:"openHours" xml:"OpenHours"`
+QuietTime *QuietTime `json:"quietTime" xml:"QuietTime"`
+RefreshFrequency string `json:"refreshFrequency" xml:"RefreshFrequency"`
+RefreshOnSegmentUpdate bool `json:"refreshOnSegmentUpdate" xml:"RefreshOnSegmentUpdate"`
+Schedule *JourneySchedule `json:"schedule" xml:"Schedule"`
+SendingSchedule bool `json:"sendingSchedule" xml:"SendingSchedule"`
+StartActivity string `json:"startActivity" xml:"StartActivity"`
+StartCondition *StartCondition `json:"startCondition" xml:"StartCondition"`
+State string `json:"state" xml:"State"`
+TimezoneEstimationMethods ListOf__TimezoneEstimationMethodsElement `json:"timezoneEstimationMethods" xml:"TimezoneEstimationMethods"`
+WaitForQuietTime bool `json:"waitForQuietTime" xml:"WaitForQuietTime"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type JourneyRunExecutionActivityMetricsResponse struct {
-	ActivityType      string        `json:"activityType" xml:"ActivityType"`
-	ApplicationId     string        `json:"applicationId" xml:"ApplicationId"`
-	JourneyActivityId string        `json:"journeyActivityId" xml:"JourneyActivityId"`
-	JourneyId         string        `json:"journeyId" xml:"JourneyId"`
-	LastEvaluatedTime string        `json:"lastEvaluatedTime" xml:"LastEvaluatedTime"`
-	Metrics           MapOf__string `json:"metrics" xml:"Metrics"`
-	RunId             string        `json:"runId" xml:"RunId"`
+ActivityType string `json:"activityType" xml:"ActivityType"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyActivityId string `json:"journeyActivityId" xml:"JourneyActivityId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+LastEvaluatedTime string `json:"lastEvaluatedTime" xml:"LastEvaluatedTime"`
+Metrics MapOf__string `json:"metrics" xml:"Metrics"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type JourneyRunExecutionMetricsResponse struct {
-	ApplicationId     string        `json:"applicationId" xml:"ApplicationId"`
-	JourneyId         string        `json:"journeyId" xml:"JourneyId"`
-	LastEvaluatedTime string        `json:"lastEvaluatedTime" xml:"LastEvaluatedTime"`
-	Metrics           MapOf__string `json:"metrics" xml:"Metrics"`
-	RunId             string        `json:"runId" xml:"RunId"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+LastEvaluatedTime string `json:"lastEvaluatedTime" xml:"LastEvaluatedTime"`
+Metrics MapOf__string `json:"metrics" xml:"Metrics"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type JourneyRunResponse struct {
-	CreationTime   string `json:"creationTime" xml:"CreationTime"`
-	LastUpdateTime string `json:"lastUpdateTime" xml:"LastUpdateTime"`
-	RunId          string `json:"runId" xml:"RunId"`
-	Status         string `json:"status" xml:"Status"`
+CreationTime string `json:"creationTime" xml:"CreationTime"`
+LastUpdateTime string `json:"lastUpdateTime" xml:"LastUpdateTime"`
+RunId string `json:"runId" xml:"RunId"`
+Status string `json:"status" xml:"Status"`
 }
 
 type JourneyRunsResponse struct {
-	Item      ListOfJourneyRunResponse `json:"item" xml:"Item"`
-	NextToken string                   `json:"nextToken" xml:"NextToken"`
+Item ListOfJourneyRunResponse `json:"item" xml:"Item"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type JourneySMSMessage struct {
-	EntityId          string `json:"entityId" xml:"EntityId"`
-	MessageType       string `json:"messageType" xml:"MessageType"`
-	OriginationNumber string `json:"originationNumber" xml:"OriginationNumber"`
-	SenderId          string `json:"senderId" xml:"SenderId"`
-	TemplateId        string `json:"templateId" xml:"TemplateId"`
+EntityId string `json:"entityId" xml:"EntityId"`
+MessageType string `json:"messageType" xml:"MessageType"`
+OriginationNumber string `json:"originationNumber" xml:"OriginationNumber"`
+SenderId string `json:"senderId" xml:"SenderId"`
+TemplateId string `json:"templateId" xml:"TemplateId"`
 }
 
 type JourneySchedule struct {
-	EndTime   time.Time `json:"endTime" xml:"EndTime"`
-	StartTime time.Time `json:"startTime" xml:"StartTime"`
-	Timezone  string    `json:"timezone" xml:"Timezone"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Timezone string `json:"timezone" xml:"Timezone"`
 }
 
 type JourneyStateRequest struct {
-	State string `json:"state" xml:"State"`
+State string `json:"state" xml:"State"`
 }
 
 type JourneyTimeframeCap struct {
-	Cap  int32 `json:"cap" xml:"Cap"`
-	Days int32 `json:"days" xml:"Days"`
+Cap int32 `json:"cap" xml:"Cap"`
+Days int32 `json:"days" xml:"Days"`
 }
 
 type JourneysResponse struct {
-	Item      ListOfJourneyResponse `json:"item" xml:"Item"`
-	NextToken string                `json:"nextToken" xml:"NextToken"`
+Item ListOfJourneyResponse `json:"item" xml:"Item"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListJourneysRequest struct {
-	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
-	PageSize      string `json:"pageSize" xml:"PageSize"`
-	Token         string `json:"token" xml:"Token"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+Token string `json:"token" xml:"Token"`
 }
 
 type ListJourneysResponse struct {
-	JourneysResponse *JourneysResponse `json:"journeysResponse" xml:"JourneysResponse"`
+JourneysResponse *JourneysResponse `json:"journeysResponse" xml:"JourneysResponse"`
 }
 
 type ListRecommenderConfigurationsResponse struct {
-	Item      ListOfRecommenderConfigurationResponse `json:"item" xml:"Item"`
-	NextToken string                                 `json:"nextToken" xml:"NextToken"`
+Item ListOfRecommenderConfigurationResponse `json:"item" xml:"Item"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ListTagsForResourceResponse struct {
-	TagsModel *TagsModel `json:"tagsModel" xml:"TagsModel"`
+TagsModel *TagsModel `json:"tagsModel" xml:"TagsModel"`
 }
 
 type ListTemplateVersionsRequest struct {
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	PageSize     string `json:"pageSize" xml:"PageSize"`
-	TemplateName string `json:"templateName" xml:"TemplateName"`
-	TemplateType string `json:"templateType" xml:"TemplateType"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateType string `json:"templateType" xml:"TemplateType"`
 }
 
 type ListTemplateVersionsResponse struct {
-	TemplateVersionsResponse *TemplateVersionsResponse `json:"templateVersionsResponse" xml:"TemplateVersionsResponse"`
+TemplateVersionsResponse *TemplateVersionsResponse `json:"templateVersionsResponse" xml:"TemplateVersionsResponse"`
 }
 
 type ListTemplatesRequest struct {
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	PageSize     string `json:"pageSize" xml:"PageSize"`
-	Prefix       string `json:"prefix" xml:"Prefix"`
-	TemplateType string `json:"templateType" xml:"TemplateType"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PageSize string `json:"pageSize" xml:"PageSize"`
+Prefix string `json:"prefix" xml:"Prefix"`
+TemplateType string `json:"templateType" xml:"TemplateType"`
 }
 
 type ListTemplatesResponse struct {
-	TemplatesResponse *TemplatesResponse `json:"templatesResponse" xml:"TemplatesResponse"`
+TemplatesResponse *TemplatesResponse `json:"templatesResponse" xml:"TemplatesResponse"`
 }
 
 type Message struct {
-	Action            string `json:"action" xml:"Action"`
-	Body              string `json:"body" xml:"Body"`
-	ImageIconUrl      string `json:"imageIconUrl" xml:"ImageIconUrl"`
-	ImageSmallIconUrl string `json:"imageSmallIconUrl" xml:"ImageSmallIconUrl"`
-	ImageUrl          string `json:"imageUrl" xml:"ImageUrl"`
-	JsonBody          string `json:"jsonBody" xml:"JsonBody"`
-	MediaUrl          string `json:"mediaUrl" xml:"MediaUrl"`
-	RawContent        string `json:"rawContent" xml:"RawContent"`
-	SilentPush        bool   `json:"silentPush" xml:"SilentPush"`
-	TimeToLive        int32  `json:"timeToLive" xml:"TimeToLive"`
-	Title             string `json:"title" xml:"Title"`
-	Url               string `json:"url" xml:"Url"`
+Action string `json:"action" xml:"Action"`
+Body string `json:"body" xml:"Body"`
+ImageIconUrl string `json:"imageIconUrl" xml:"ImageIconUrl"`
+ImageSmallIconUrl string `json:"imageSmallIconUrl" xml:"ImageSmallIconUrl"`
+ImageUrl string `json:"imageUrl" xml:"ImageUrl"`
+JsonBody string `json:"jsonBody" xml:"JsonBody"`
+MediaUrl string `json:"mediaUrl" xml:"MediaUrl"`
+RawContent string `json:"rawContent" xml:"RawContent"`
+SilentPush bool `json:"silentPush" xml:"SilentPush"`
+TimeToLive int32 `json:"timeToLive" xml:"TimeToLive"`
+Title string `json:"title" xml:"Title"`
+Url string `json:"url" xml:"Url"`
 }
 
 type MessageBody struct {
-	Message   string `json:"message" xml:"Message"`
-	RequestID string `json:"requestID" xml:"RequestID"`
+Message string `json:"message" xml:"Message"`
+RequestID string `json:"requestID" xml:"RequestID"`
 }
 
 type MessageConfiguration struct {
-	ADMMessage     *Message               `json:"aDMMessage" xml:"ADMMessage"`
-	APNSMessage    *Message               `json:"aPNSMessage" xml:"APNSMessage"`
-	BaiduMessage   *Message               `json:"baiduMessage" xml:"BaiduMessage"`
-	CustomMessage  *CampaignCustomMessage `json:"customMessage" xml:"CustomMessage"`
-	DefaultMessage *Message               `json:"defaultMessage" xml:"DefaultMessage"`
-	EmailMessage   *CampaignEmailMessage  `json:"emailMessage" xml:"EmailMessage"`
-	GCMMessage     *Message               `json:"gCMMessage" xml:"GCMMessage"`
-	InAppMessage   *CampaignInAppMessage  `json:"inAppMessage" xml:"InAppMessage"`
-	SMSMessage     *CampaignSmsMessage    `json:"sMSMessage" xml:"SMSMessage"`
+ADMMessage *Message `json:"aDMMessage" xml:"ADMMessage"`
+APNSMessage *Message `json:"aPNSMessage" xml:"APNSMessage"`
+BaiduMessage *Message `json:"baiduMessage" xml:"BaiduMessage"`
+CustomMessage *CampaignCustomMessage `json:"customMessage" xml:"CustomMessage"`
+DefaultMessage *Message `json:"defaultMessage" xml:"DefaultMessage"`
+EmailMessage *CampaignEmailMessage `json:"emailMessage" xml:"EmailMessage"`
+GCMMessage *Message `json:"gCMMessage" xml:"GCMMessage"`
+InAppMessage *CampaignInAppMessage `json:"inAppMessage" xml:"InAppMessage"`
+SMSMessage *CampaignSmsMessage `json:"sMSMessage" xml:"SMSMessage"`
 }
 
 type MessageHeader struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type MessageRequest struct {
-	Addresses             MapOfAddressConfiguration      `json:"addresses" xml:"Addresses"`
-	Context               MapOf__string                  `json:"context" xml:"Context"`
-	Endpoints             MapOfEndpointSendConfiguration `json:"endpoints" xml:"Endpoints"`
-	MessageConfiguration  *DirectMessageConfiguration    `json:"messageConfiguration" xml:"MessageConfiguration"`
-	TemplateConfiguration *TemplateConfiguration         `json:"templateConfiguration" xml:"TemplateConfiguration"`
-	TraceId               string                         `json:"traceId" xml:"TraceId"`
+Addresses MapOfAddressConfiguration `json:"addresses" xml:"Addresses"`
+Context MapOf__string `json:"context" xml:"Context"`
+Endpoints MapOfEndpointSendConfiguration `json:"endpoints" xml:"Endpoints"`
+MessageConfiguration *DirectMessageConfiguration `json:"messageConfiguration" xml:"MessageConfiguration"`
+TemplateConfiguration *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
+TraceId string `json:"traceId" xml:"TraceId"`
 }
 
 type MessageResponse struct {
-	ApplicationId  string                     `json:"applicationId" xml:"ApplicationId"`
-	EndpointResult MapOfEndpointMessageResult `json:"endpointResult" xml:"EndpointResult"`
-	RequestId      string                     `json:"requestId" xml:"RequestId"`
-	Result         MapOfMessageResult         `json:"result" xml:"Result"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EndpointResult MapOfEndpointMessageResult `json:"endpointResult" xml:"EndpointResult"`
+RequestId string `json:"requestId" xml:"RequestId"`
+Result MapOfMessageResult `json:"result" xml:"Result"`
 }
 
 type MessageResult struct {
-	DeliveryStatus string `json:"deliveryStatus" xml:"DeliveryStatus"`
-	MessageId      string `json:"messageId" xml:"MessageId"`
-	StatusCode     int32  `json:"statusCode" xml:"StatusCode"`
-	StatusMessage  string `json:"statusMessage" xml:"StatusMessage"`
-	UpdatedToken   string `json:"updatedToken" xml:"UpdatedToken"`
+DeliveryStatus string `json:"deliveryStatus" xml:"DeliveryStatus"`
+MessageId string `json:"messageId" xml:"MessageId"`
+StatusCode int32 `json:"statusCode" xml:"StatusCode"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+UpdatedToken string `json:"updatedToken" xml:"UpdatedToken"`
 }
 
 type MetricDimension struct {
-	ComparisonOperator string  `json:"comparisonOperator" xml:"ComparisonOperator"`
-	Value              float64 `json:"value" xml:"Value"`
+ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
+Value float64 `json:"value" xml:"Value"`
 }
 
 type MultiConditionalBranch struct {
-	Condition    *SimpleCondition `json:"condition" xml:"Condition"`
-	NextActivity string           `json:"nextActivity" xml:"NextActivity"`
+Condition *SimpleCondition `json:"condition" xml:"Condition"`
+NextActivity string `json:"nextActivity" xml:"NextActivity"`
 }
 
 type MultiConditionalSplitActivity struct {
-	Branches           ListOfMultiConditionalBranch `json:"branches" xml:"Branches"`
-	DefaultActivity    string                       `json:"defaultActivity" xml:"DefaultActivity"`
-	EvaluationWaitTime *WaitTime                    `json:"evaluationWaitTime" xml:"EvaluationWaitTime"`
+Branches ListOfMultiConditionalBranch `json:"branches" xml:"Branches"`
+DefaultActivity string `json:"defaultActivity" xml:"DefaultActivity"`
+EvaluationWaitTime *WaitTime `json:"evaluationWaitTime" xml:"EvaluationWaitTime"`
 }
 
 type NumberValidateRequest struct {
-	IsoCountryCode string `json:"isoCountryCode" xml:"IsoCountryCode"`
-	PhoneNumber    string `json:"phoneNumber" xml:"PhoneNumber"`
+IsoCountryCode string `json:"isoCountryCode" xml:"IsoCountryCode"`
+PhoneNumber string `json:"phoneNumber" xml:"PhoneNumber"`
 }
 
 type NumberValidateResponse struct {
-	Carrier                     string `json:"carrier" xml:"Carrier"`
-	City                        string `json:"city" xml:"City"`
-	CleansedPhoneNumberE164     string `json:"cleansedPhoneNumberE164" xml:"CleansedPhoneNumberE164"`
-	CleansedPhoneNumberNational string `json:"cleansedPhoneNumberNational" xml:"CleansedPhoneNumberNational"`
-	Country                     string `json:"country" xml:"Country"`
-	CountryCodeIso2             string `json:"countryCodeIso2" xml:"CountryCodeIso2"`
-	CountryCodeNumeric          string `json:"countryCodeNumeric" xml:"CountryCodeNumeric"`
-	County                      string `json:"county" xml:"County"`
-	OriginalCountryCodeIso2     string `json:"originalCountryCodeIso2" xml:"OriginalCountryCodeIso2"`
-	OriginalPhoneNumber         string `json:"originalPhoneNumber" xml:"OriginalPhoneNumber"`
-	PhoneType                   string `json:"phoneType" xml:"PhoneType"`
-	PhoneTypeCode               int32  `json:"phoneTypeCode" xml:"PhoneTypeCode"`
-	Timezone                    string `json:"timezone" xml:"Timezone"`
-	ZipCode                     string `json:"zipCode" xml:"ZipCode"`
+Carrier string `json:"carrier" xml:"Carrier"`
+City string `json:"city" xml:"City"`
+CleansedPhoneNumberE164 string `json:"cleansedPhoneNumberE164" xml:"CleansedPhoneNumberE164"`
+CleansedPhoneNumberNational string `json:"cleansedPhoneNumberNational" xml:"CleansedPhoneNumberNational"`
+Country string `json:"country" xml:"Country"`
+CountryCodeIso2 string `json:"countryCodeIso2" xml:"CountryCodeIso2"`
+CountryCodeNumeric string `json:"countryCodeNumeric" xml:"CountryCodeNumeric"`
+County string `json:"county" xml:"County"`
+OriginalCountryCodeIso2 string `json:"originalCountryCodeIso2" xml:"OriginalCountryCodeIso2"`
+OriginalPhoneNumber string `json:"originalPhoneNumber" xml:"OriginalPhoneNumber"`
+PhoneType string `json:"phoneType" xml:"PhoneType"`
+PhoneTypeCode int32 `json:"phoneTypeCode" xml:"PhoneTypeCode"`
+Timezone string `json:"timezone" xml:"Timezone"`
+ZipCode string `json:"zipCode" xml:"ZipCode"`
 }
 
 type OpenHours struct {
-	CUSTOM MapOfListOfOpenHoursRules `json:"cUSTOM" xml:"CUSTOM"`
-	EMAIL  MapOfListOfOpenHoursRules `json:"eMAIL" xml:"EMAIL"`
-	PUSH   MapOfListOfOpenHoursRules `json:"pUSH" xml:"PUSH"`
-	SMS    MapOfListOfOpenHoursRules `json:"sMS" xml:"SMS"`
-	VOICE  MapOfListOfOpenHoursRules `json:"vOICE" xml:"VOICE"`
+CUSTOM MapOfListOfOpenHoursRules `json:"cUSTOM" xml:"CUSTOM"`
+EMAIL MapOfListOfOpenHoursRules `json:"eMAIL" xml:"EMAIL"`
+PUSH MapOfListOfOpenHoursRules `json:"pUSH" xml:"PUSH"`
+SMS MapOfListOfOpenHoursRules `json:"sMS" xml:"SMS"`
+VOICE MapOfListOfOpenHoursRules `json:"vOICE" xml:"VOICE"`
 }
 
 type OpenHoursRule struct {
-	EndTime   string `json:"endTime" xml:"EndTime"`
-	StartTime string `json:"startTime" xml:"StartTime"`
+EndTime string `json:"endTime" xml:"EndTime"`
+StartTime string `json:"startTime" xml:"StartTime"`
 }
 
 type OverrideButtonConfiguration struct {
-	ButtonAction string `json:"buttonAction" xml:"ButtonAction"`
-	Link         string `json:"link" xml:"Link"`
+ButtonAction string `json:"buttonAction" xml:"ButtonAction"`
+Link string `json:"link" xml:"Link"`
 }
 
 type PhoneNumberValidateRequest struct {
-	NumberValidateRequest *NumberValidateRequest `json:"numberValidateRequest" xml:"NumberValidateRequest"`
+NumberValidateRequest *NumberValidateRequest `json:"numberValidateRequest" xml:"NumberValidateRequest"`
 }
 
 type PhoneNumberValidateResponse struct {
-	NumberValidateResponse *NumberValidateResponse `json:"numberValidateResponse" xml:"NumberValidateResponse"`
+NumberValidateResponse *NumberValidateResponse `json:"numberValidateResponse" xml:"NumberValidateResponse"`
 }
 
 type PublicEndpoint struct {
-	Address        string               `json:"address" xml:"Address"`
-	Attributes     MapOfListOf__string  `json:"attributes" xml:"Attributes"`
-	ChannelType    string               `json:"channelType" xml:"ChannelType"`
-	Demographic    *EndpointDemographic `json:"demographic" xml:"Demographic"`
-	EffectiveDate  string               `json:"effectiveDate" xml:"EffectiveDate"`
-	EndpointStatus string               `json:"endpointStatus" xml:"EndpointStatus"`
-	Location       *EndpointLocation    `json:"location" xml:"Location"`
-	Metrics        MapOf__double        `json:"metrics" xml:"Metrics"`
-	OptOut         string               `json:"optOut" xml:"OptOut"`
-	RequestId      string               `json:"requestId" xml:"RequestId"`
-	User           *EndpointUser        `json:"user" xml:"User"`
+Address string `json:"address" xml:"Address"`
+Attributes MapOfListOf__string `json:"attributes" xml:"Attributes"`
+ChannelType string `json:"channelType" xml:"ChannelType"`
+Demographic *EndpointDemographic `json:"demographic" xml:"Demographic"`
+EffectiveDate string `json:"effectiveDate" xml:"EffectiveDate"`
+EndpointStatus string `json:"endpointStatus" xml:"EndpointStatus"`
+Location *EndpointLocation `json:"location" xml:"Location"`
+Metrics MapOf__double `json:"metrics" xml:"Metrics"`
+OptOut string `json:"optOut" xml:"OptOut"`
+RequestId string `json:"requestId" xml:"RequestId"`
+User *EndpointUser `json:"user" xml:"User"`
 }
 
 type PushMessageActivity struct {
-	MessageConfig   *JourneyPushMessage `json:"messageConfig" xml:"MessageConfig"`
-	NextActivity    string              `json:"nextActivity" xml:"NextActivity"`
-	TemplateName    string              `json:"templateName" xml:"TemplateName"`
-	TemplateVersion string              `json:"templateVersion" xml:"TemplateVersion"`
+MessageConfig *JourneyPushMessage `json:"messageConfig" xml:"MessageConfig"`
+NextActivity string `json:"nextActivity" xml:"NextActivity"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateVersion string `json:"templateVersion" xml:"TemplateVersion"`
 }
 
 type PushNotificationTemplateRequest struct {
-	ADM                  *AndroidPushNotificationTemplate `json:"aDM" xml:"ADM"`
-	APNS                 *APNSPushNotificationTemplate    `json:"aPNS" xml:"APNS"`
-	Baidu                *AndroidPushNotificationTemplate `json:"baidu" xml:"Baidu"`
-	Default              *DefaultPushNotificationTemplate `json:"default" xml:"Default"`
-	DefaultSubstitutions string                           `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
-	GCM                  *AndroidPushNotificationTemplate `json:"gCM" xml:"GCM"`
-	RecommenderId        string                           `json:"recommenderId" xml:"RecommenderId"`
-	TemplateDescription  string                           `json:"templateDescription" xml:"TemplateDescription"`
-	Tags                 MapOf__string                    `json:"tags" xml:"tags"`
+ADM *AndroidPushNotificationTemplate `json:"aDM" xml:"ADM"`
+APNS *APNSPushNotificationTemplate `json:"aPNS" xml:"APNS"`
+Baidu *AndroidPushNotificationTemplate `json:"baidu" xml:"Baidu"`
+Default *DefaultPushNotificationTemplate `json:"default" xml:"Default"`
+DefaultSubstitutions string `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
+GCM *AndroidPushNotificationTemplate `json:"gCM" xml:"GCM"`
+RecommenderId string `json:"recommenderId" xml:"RecommenderId"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type PushNotificationTemplateResponse struct {
-	ADM                  *AndroidPushNotificationTemplate `json:"aDM" xml:"ADM"`
-	APNS                 *APNSPushNotificationTemplate    `json:"aPNS" xml:"APNS"`
-	Arn                  string                           `json:"arn" xml:"Arn"`
-	Baidu                *AndroidPushNotificationTemplate `json:"baidu" xml:"Baidu"`
-	CreationDate         string                           `json:"creationDate" xml:"CreationDate"`
-	Default              *DefaultPushNotificationTemplate `json:"default" xml:"Default"`
-	DefaultSubstitutions string                           `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
-	GCM                  *AndroidPushNotificationTemplate `json:"gCM" xml:"GCM"`
-	LastModifiedDate     string                           `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	RecommenderId        string                           `json:"recommenderId" xml:"RecommenderId"`
-	TemplateDescription  string                           `json:"templateDescription" xml:"TemplateDescription"`
-	TemplateName         string                           `json:"templateName" xml:"TemplateName"`
-	TemplateType         string                           `json:"templateType" xml:"TemplateType"`
-	Version              string                           `json:"version" xml:"Version"`
-	Tags                 MapOf__string                    `json:"tags" xml:"tags"`
+ADM *AndroidPushNotificationTemplate `json:"aDM" xml:"ADM"`
+APNS *APNSPushNotificationTemplate `json:"aPNS" xml:"APNS"`
+Arn string `json:"arn" xml:"Arn"`
+Baidu *AndroidPushNotificationTemplate `json:"baidu" xml:"Baidu"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Default *DefaultPushNotificationTemplate `json:"default" xml:"Default"`
+DefaultSubstitutions string `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
+GCM *AndroidPushNotificationTemplate `json:"gCM" xml:"GCM"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+RecommenderId string `json:"recommenderId" xml:"RecommenderId"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateType string `json:"templateType" xml:"TemplateType"`
+Version string `json:"version" xml:"Version"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type PutEventStreamRequest struct {
-	ApplicationId    string            `json:"applicationId" xml:"ApplicationId"`
-	WriteEventStream *WriteEventStream `json:"writeEventStream" xml:"WriteEventStream"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+WriteEventStream *WriteEventStream `json:"writeEventStream" xml:"WriteEventStream"`
 }
 
 type PutEventStreamResponse struct {
-	EventStream *EventStream `json:"eventStream" xml:"EventStream"`
+EventStream *EventStream `json:"eventStream" xml:"EventStream"`
 }
 
 type PutEventsRequest struct {
-	ApplicationId string         `json:"applicationId" xml:"ApplicationId"`
-	EventsRequest *EventsRequest `json:"eventsRequest" xml:"EventsRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EventsRequest *EventsRequest `json:"eventsRequest" xml:"EventsRequest"`
 }
 
 type PutEventsResponse struct {
-	EventsResponse *EventsResponse `json:"eventsResponse" xml:"EventsResponse"`
+EventsResponse *EventsResponse `json:"eventsResponse" xml:"EventsResponse"`
 }
 
 type QuietTime struct {
-	End   string `json:"end" xml:"End"`
-	Start string `json:"start" xml:"Start"`
+End string `json:"end" xml:"End"`
+Start string `json:"start" xml:"Start"`
 }
 
 type RandomSplitActivity struct {
-	Branches ListOfRandomSplitEntry `json:"branches" xml:"Branches"`
+Branches ListOfRandomSplitEntry `json:"branches" xml:"Branches"`
 }
 
 type RandomSplitEntry struct {
-	NextActivity string `json:"nextActivity" xml:"NextActivity"`
-	Percentage   int32  `json:"percentage" xml:"Percentage"`
+NextActivity string `json:"nextActivity" xml:"NextActivity"`
+Percentage int32 `json:"percentage" xml:"Percentage"`
 }
 
 type RawEmail struct {
-	Data []byte `json:"data" xml:"Data"`
+Data []byte `json:"data" xml:"Data"`
 }
 
 type RecencyDimension struct {
-	Duration    string `json:"duration" xml:"Duration"`
-	RecencyType string `json:"recencyType" xml:"RecencyType"`
+Duration string `json:"duration" xml:"Duration"`
+RecencyType string `json:"recencyType" xml:"RecencyType"`
 }
 
 type RecommenderConfigurationResponse struct {
-	Attributes                    MapOf__string `json:"attributes" xml:"Attributes"`
-	CreationDate                  string        `json:"creationDate" xml:"CreationDate"`
-	Description                   string        `json:"description" xml:"Description"`
-	Id                            string        `json:"id" xml:"Id"`
-	LastModifiedDate              string        `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Name                          string        `json:"name" xml:"Name"`
-	RecommendationProviderIdType  string        `json:"recommendationProviderIdType" xml:"RecommendationProviderIdType"`
-	RecommendationProviderRoleArn string        `json:"recommendationProviderRoleArn" xml:"RecommendationProviderRoleArn"`
-	RecommendationProviderUri     string        `json:"recommendationProviderUri" xml:"RecommendationProviderUri"`
-	RecommendationTransformerUri  string        `json:"recommendationTransformerUri" xml:"RecommendationTransformerUri"`
-	RecommendationsDisplayName    string        `json:"recommendationsDisplayName" xml:"RecommendationsDisplayName"`
-	RecommendationsPerMessage     int32         `json:"recommendationsPerMessage" xml:"RecommendationsPerMessage"`
+Attributes MapOf__string `json:"attributes" xml:"Attributes"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Name string `json:"name" xml:"Name"`
+RecommendationProviderIdType string `json:"recommendationProviderIdType" xml:"RecommendationProviderIdType"`
+RecommendationProviderRoleArn string `json:"recommendationProviderRoleArn" xml:"RecommendationProviderRoleArn"`
+RecommendationProviderUri string `json:"recommendationProviderUri" xml:"RecommendationProviderUri"`
+RecommendationTransformerUri string `json:"recommendationTransformerUri" xml:"RecommendationTransformerUri"`
+RecommendationsDisplayName string `json:"recommendationsDisplayName" xml:"RecommendationsDisplayName"`
+RecommendationsPerMessage int32 `json:"recommendationsPerMessage" xml:"RecommendationsPerMessage"`
 }
 
 type RemoveAttributesRequest struct {
-	ApplicationId           string                   `json:"applicationId" xml:"ApplicationId"`
-	AttributeType           string                   `json:"attributeType" xml:"AttributeType"`
-	UpdateAttributesRequest *UpdateAttributesRequest `json:"updateAttributesRequest" xml:"UpdateAttributesRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+AttributeType string `json:"attributeType" xml:"AttributeType"`
+UpdateAttributesRequest *UpdateAttributesRequest `json:"updateAttributesRequest" xml:"UpdateAttributesRequest"`
 }
 
 type RemoveAttributesResponse struct {
-	AttributesResource *AttributesResource `json:"attributesResource" xml:"AttributesResource"`
+AttributesResource *AttributesResource `json:"attributesResource" xml:"AttributesResource"`
 }
 
 type ResultRow struct {
-	GroupedBys ListOfResultRowValue `json:"groupedBys" xml:"GroupedBys"`
-	Values     ListOfResultRowValue `json:"values" xml:"Values"`
+GroupedBys ListOfResultRowValue `json:"groupedBys" xml:"GroupedBys"`
+Values ListOfResultRowValue `json:"values" xml:"Values"`
 }
 
 type ResultRowValue struct {
-	Key   string `json:"key" xml:"Key"`
-	Type  string `json:"type" xml:"Type"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Type string `json:"type" xml:"Type"`
+Value string `json:"value" xml:"Value"`
 }
 
 type SMSChannelRequest struct {
-	Enabled   bool   `json:"enabled" xml:"Enabled"`
-	SenderId  string `json:"senderId" xml:"SenderId"`
-	ShortCode string `json:"shortCode" xml:"ShortCode"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+SenderId string `json:"senderId" xml:"SenderId"`
+ShortCode string `json:"shortCode" xml:"ShortCode"`
 }
 
 type SMSChannelResponse struct {
-	ApplicationId                  string `json:"applicationId" xml:"ApplicationId"`
-	CreationDate                   string `json:"creationDate" xml:"CreationDate"`
-	Enabled                        bool   `json:"enabled" xml:"Enabled"`
-	HasCredential                  bool   `json:"hasCredential" xml:"HasCredential"`
-	Id                             string `json:"id" xml:"Id"`
-	IsArchived                     bool   `json:"isArchived" xml:"IsArchived"`
-	LastModifiedBy                 string `json:"lastModifiedBy" xml:"LastModifiedBy"`
-	LastModifiedDate               string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Platform                       string `json:"platform" xml:"Platform"`
-	PromotionalMessagesPerSecond   int32  `json:"promotionalMessagesPerSecond" xml:"PromotionalMessagesPerSecond"`
-	SenderId                       string `json:"senderId" xml:"SenderId"`
-	ShortCode                      string `json:"shortCode" xml:"ShortCode"`
-	TransactionalMessagesPerSecond int32  `json:"transactionalMessagesPerSecond" xml:"TransactionalMessagesPerSecond"`
-	Version                        int32  `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HasCredential bool `json:"hasCredential" xml:"HasCredential"`
+Id string `json:"id" xml:"Id"`
+IsArchived bool `json:"isArchived" xml:"IsArchived"`
+LastModifiedBy string `json:"lastModifiedBy" xml:"LastModifiedBy"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Platform string `json:"platform" xml:"Platform"`
+PromotionalMessagesPerSecond int32 `json:"promotionalMessagesPerSecond" xml:"PromotionalMessagesPerSecond"`
+SenderId string `json:"senderId" xml:"SenderId"`
+ShortCode string `json:"shortCode" xml:"ShortCode"`
+TransactionalMessagesPerSecond int32 `json:"transactionalMessagesPerSecond" xml:"TransactionalMessagesPerSecond"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type SMSMessage struct {
-	Body              string              `json:"body" xml:"Body"`
-	EntityId          string              `json:"entityId" xml:"EntityId"`
-	Keyword           string              `json:"keyword" xml:"Keyword"`
-	MediaUrl          string              `json:"mediaUrl" xml:"MediaUrl"`
-	MessageType       string              `json:"messageType" xml:"MessageType"`
-	OriginationNumber string              `json:"originationNumber" xml:"OriginationNumber"`
-	SenderId          string              `json:"senderId" xml:"SenderId"`
-	Substitutions     MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
-	TemplateId        string              `json:"templateId" xml:"TemplateId"`
+Body string `json:"body" xml:"Body"`
+EntityId string `json:"entityId" xml:"EntityId"`
+Keyword string `json:"keyword" xml:"Keyword"`
+MediaUrl string `json:"mediaUrl" xml:"MediaUrl"`
+MessageType string `json:"messageType" xml:"MessageType"`
+OriginationNumber string `json:"originationNumber" xml:"OriginationNumber"`
+SenderId string `json:"senderId" xml:"SenderId"`
+Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
+TemplateId string `json:"templateId" xml:"TemplateId"`
 }
 
 type SMSMessageActivity struct {
-	MessageConfig   *JourneySMSMessage `json:"messageConfig" xml:"MessageConfig"`
-	NextActivity    string             `json:"nextActivity" xml:"NextActivity"`
-	TemplateName    string             `json:"templateName" xml:"TemplateName"`
-	TemplateVersion string             `json:"templateVersion" xml:"TemplateVersion"`
+MessageConfig *JourneySMSMessage `json:"messageConfig" xml:"MessageConfig"`
+NextActivity string `json:"nextActivity" xml:"NextActivity"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateVersion string `json:"templateVersion" xml:"TemplateVersion"`
 }
 
 type SMSTemplateRequest struct {
-	Body                 string        `json:"body" xml:"Body"`
-	DefaultSubstitutions string        `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
-	RecommenderId        string        `json:"recommenderId" xml:"RecommenderId"`
-	TemplateDescription  string        `json:"templateDescription" xml:"TemplateDescription"`
-	Tags                 MapOf__string `json:"tags" xml:"tags"`
+Body string `json:"body" xml:"Body"`
+DefaultSubstitutions string `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
+RecommenderId string `json:"recommenderId" xml:"RecommenderId"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type SMSTemplateResponse struct {
-	Arn                  string        `json:"arn" xml:"Arn"`
-	Body                 string        `json:"body" xml:"Body"`
-	CreationDate         string        `json:"creationDate" xml:"CreationDate"`
-	DefaultSubstitutions string        `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
-	LastModifiedDate     string        `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	RecommenderId        string        `json:"recommenderId" xml:"RecommenderId"`
-	TemplateDescription  string        `json:"templateDescription" xml:"TemplateDescription"`
-	TemplateName         string        `json:"templateName" xml:"TemplateName"`
-	TemplateType         string        `json:"templateType" xml:"TemplateType"`
-	Version              string        `json:"version" xml:"Version"`
-	Tags                 MapOf__string `json:"tags" xml:"tags"`
+Arn string `json:"arn" xml:"Arn"`
+Body string `json:"body" xml:"Body"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+DefaultSubstitutions string `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+RecommenderId string `json:"recommenderId" xml:"RecommenderId"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateType string `json:"templateType" xml:"TemplateType"`
+Version string `json:"version" xml:"Version"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type Schedule struct {
-	EndTime     string               `json:"endTime" xml:"EndTime"`
-	EventFilter *CampaignEventFilter `json:"eventFilter" xml:"EventFilter"`
-	Frequency   string               `json:"frequency" xml:"Frequency"`
-	IsLocalTime bool                 `json:"isLocalTime" xml:"IsLocalTime"`
-	QuietTime   *QuietTime           `json:"quietTime" xml:"QuietTime"`
-	StartTime   string               `json:"startTime" xml:"StartTime"`
-	Timezone    string               `json:"timezone" xml:"Timezone"`
+EndTime string `json:"endTime" xml:"EndTime"`
+EventFilter *CampaignEventFilter `json:"eventFilter" xml:"EventFilter"`
+Frequency string `json:"frequency" xml:"Frequency"`
+IsLocalTime bool `json:"isLocalTime" xml:"IsLocalTime"`
+QuietTime *QuietTime `json:"quietTime" xml:"QuietTime"`
+StartTime string `json:"startTime" xml:"StartTime"`
+Timezone string `json:"timezone" xml:"Timezone"`
 }
 
 type SegmentBehaviors struct {
-	Recency *RecencyDimension `json:"recency" xml:"Recency"`
+Recency *RecencyDimension `json:"recency" xml:"Recency"`
 }
 
 type SegmentCondition struct {
-	SegmentId string `json:"segmentId" xml:"SegmentId"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
 }
 
 type SegmentDemographics struct {
-	AppVersion *SetDimension `json:"appVersion" xml:"AppVersion"`
-	Channel    *SetDimension `json:"channel" xml:"Channel"`
-	DeviceType *SetDimension `json:"deviceType" xml:"DeviceType"`
-	Make       *SetDimension `json:"make" xml:"Make"`
-	Model      *SetDimension `json:"model" xml:"Model"`
-	Platform   *SetDimension `json:"platform" xml:"Platform"`
+AppVersion *SetDimension `json:"appVersion" xml:"AppVersion"`
+Channel *SetDimension `json:"channel" xml:"Channel"`
+DeviceType *SetDimension `json:"deviceType" xml:"DeviceType"`
+Make *SetDimension `json:"make" xml:"Make"`
+Model *SetDimension `json:"model" xml:"Model"`
+Platform *SetDimension `json:"platform" xml:"Platform"`
 }
 
 type SegmentDimensions struct {
-	Attributes     MapOfAttributeDimension `json:"attributes" xml:"Attributes"`
-	Behavior       *SegmentBehaviors       `json:"behavior" xml:"Behavior"`
-	Demographic    *SegmentDemographics    `json:"demographic" xml:"Demographic"`
-	Location       *SegmentLocation        `json:"location" xml:"Location"`
-	Metrics        MapOfMetricDimension    `json:"metrics" xml:"Metrics"`
-	UserAttributes MapOfAttributeDimension `json:"userAttributes" xml:"UserAttributes"`
+Attributes MapOfAttributeDimension `json:"attributes" xml:"Attributes"`
+Behavior *SegmentBehaviors `json:"behavior" xml:"Behavior"`
+Demographic *SegmentDemographics `json:"demographic" xml:"Demographic"`
+Location *SegmentLocation `json:"location" xml:"Location"`
+Metrics MapOfMetricDimension `json:"metrics" xml:"Metrics"`
+UserAttributes MapOfAttributeDimension `json:"userAttributes" xml:"UserAttributes"`
 }
 
 type SegmentGroup struct {
-	Dimensions     ListOfSegmentDimensions `json:"dimensions" xml:"Dimensions"`
-	SourceSegments ListOfSegmentReference  `json:"sourceSegments" xml:"SourceSegments"`
-	SourceType     string                  `json:"sourceType" xml:"SourceType"`
-	Type           string                  `json:"type" xml:"Type"`
+Dimensions ListOfSegmentDimensions `json:"dimensions" xml:"Dimensions"`
+SourceSegments ListOfSegmentReference `json:"sourceSegments" xml:"SourceSegments"`
+SourceType string `json:"sourceType" xml:"SourceType"`
+Type string `json:"type" xml:"Type"`
 }
 
 type SegmentGroupList struct {
-	Groups  ListOfSegmentGroup `json:"groups" xml:"Groups"`
-	Include string             `json:"include" xml:"Include"`
+Groups ListOfSegmentGroup `json:"groups" xml:"Groups"`
+Include string `json:"include" xml:"Include"`
 }
 
 type SegmentImportResource struct {
-	ChannelCounts MapOf__integer `json:"channelCounts" xml:"ChannelCounts"`
-	ExternalId    string         `json:"externalId" xml:"ExternalId"`
-	Format        string         `json:"format" xml:"Format"`
-	RoleArn       string         `json:"roleArn" xml:"RoleArn"`
-	S3Url         string         `json:"s3Url" xml:"S3Url"`
-	Size          int32          `json:"size" xml:"Size"`
+ChannelCounts MapOf__integer `json:"channelCounts" xml:"ChannelCounts"`
+ExternalId string `json:"externalId" xml:"ExternalId"`
+Format string `json:"format" xml:"Format"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+S3Url string `json:"s3Url" xml:"S3Url"`
+Size int32 `json:"size" xml:"Size"`
 }
 
 type SegmentLocation struct {
-	Country  *SetDimension      `json:"country" xml:"Country"`
-	GPSPoint *GPSPointDimension `json:"gPSPoint" xml:"GPSPoint"`
+Country *SetDimension `json:"country" xml:"Country"`
+GPSPoint *GPSPointDimension `json:"gPSPoint" xml:"GPSPoint"`
 }
 
 type SegmentReference struct {
-	Id      string `json:"id" xml:"Id"`
-	Version int32  `json:"version" xml:"Version"`
+Id string `json:"id" xml:"Id"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type SegmentResponse struct {
-	ApplicationId    string                 `json:"applicationId" xml:"ApplicationId"`
-	Arn              string                 `json:"arn" xml:"Arn"`
-	CreationDate     string                 `json:"creationDate" xml:"CreationDate"`
-	Dimensions       *SegmentDimensions     `json:"dimensions" xml:"Dimensions"`
-	Id               string                 `json:"id" xml:"Id"`
-	ImportDefinition *SegmentImportResource `json:"importDefinition" xml:"ImportDefinition"`
-	LastModifiedDate string                 `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Name             string                 `json:"name" xml:"Name"`
-	SegmentGroups    *SegmentGroupList      `json:"segmentGroups" xml:"SegmentGroups"`
-	SegmentType      string                 `json:"segmentType" xml:"SegmentType"`
-	Version          int32                  `json:"version" xml:"Version"`
-	Tags             MapOf__string          `json:"tags" xml:"tags"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Dimensions *SegmentDimensions `json:"dimensions" xml:"Dimensions"`
+Id string `json:"id" xml:"Id"`
+ImportDefinition *SegmentImportResource `json:"importDefinition" xml:"ImportDefinition"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Name string `json:"name" xml:"Name"`
+SegmentGroups *SegmentGroupList `json:"segmentGroups" xml:"SegmentGroups"`
+SegmentType string `json:"segmentType" xml:"SegmentType"`
+Version int32 `json:"version" xml:"Version"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type SegmentsResponse struct {
-	Item      ListOfSegmentResponse `json:"item" xml:"Item"`
-	NextToken string                `json:"nextToken" xml:"NextToken"`
+Item ListOfSegmentResponse `json:"item" xml:"Item"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type SendMessagesRequest struct {
-	ApplicationId  string          `json:"applicationId" xml:"ApplicationId"`
-	MessageRequest *MessageRequest `json:"messageRequest" xml:"MessageRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+MessageRequest *MessageRequest `json:"messageRequest" xml:"MessageRequest"`
 }
 
 type SendMessagesResponse struct {
-	MessageResponse *MessageResponse `json:"messageResponse" xml:"MessageResponse"`
+MessageResponse *MessageResponse `json:"messageResponse" xml:"MessageResponse"`
 }
 
 type SendOTPMessageRequest struct {
-	ApplicationId                   string                           `json:"applicationId" xml:"ApplicationId"`
-	SendOTPMessageRequestParameters *SendOTPMessageRequestParameters `json:"sendOTPMessageRequestParameters" xml:"SendOTPMessageRequestParameters"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+SendOTPMessageRequestParameters *SendOTPMessageRequestParameters `json:"sendOTPMessageRequestParameters" xml:"SendOTPMessageRequestParameters"`
 }
 
 type SendOTPMessageRequestParameters struct {
-	AllowedAttempts     int32  `json:"allowedAttempts" xml:"AllowedAttempts"`
-	BrandName           string `json:"brandName" xml:"BrandName"`
-	Channel             string `json:"channel" xml:"Channel"`
-	CodeLength          int32  `json:"codeLength" xml:"CodeLength"`
-	DestinationIdentity string `json:"destinationIdentity" xml:"DestinationIdentity"`
-	EntityId            string `json:"entityId" xml:"EntityId"`
-	Language            string `json:"language" xml:"Language"`
-	OriginationIdentity string `json:"originationIdentity" xml:"OriginationIdentity"`
-	ReferenceId         string `json:"referenceId" xml:"ReferenceId"`
-	TemplateId          string `json:"templateId" xml:"TemplateId"`
-	ValidityPeriod      int32  `json:"validityPeriod" xml:"ValidityPeriod"`
+AllowedAttempts int32 `json:"allowedAttempts" xml:"AllowedAttempts"`
+BrandName string `json:"brandName" xml:"BrandName"`
+Channel string `json:"channel" xml:"Channel"`
+CodeLength int32 `json:"codeLength" xml:"CodeLength"`
+DestinationIdentity string `json:"destinationIdentity" xml:"DestinationIdentity"`
+EntityId string `json:"entityId" xml:"EntityId"`
+Language string `json:"language" xml:"Language"`
+OriginationIdentity string `json:"originationIdentity" xml:"OriginationIdentity"`
+ReferenceId string `json:"referenceId" xml:"ReferenceId"`
+TemplateId string `json:"templateId" xml:"TemplateId"`
+ValidityPeriod int32 `json:"validityPeriod" xml:"ValidityPeriod"`
 }
 
 type SendOTPMessageResponse struct {
-	MessageResponse *MessageResponse `json:"messageResponse" xml:"MessageResponse"`
+MessageResponse *MessageResponse `json:"messageResponse" xml:"MessageResponse"`
 }
 
 type SendUsersMessageRequest struct {
-	Context               MapOf__string                  `json:"context" xml:"Context"`
-	MessageConfiguration  *DirectMessageConfiguration    `json:"messageConfiguration" xml:"MessageConfiguration"`
-	TemplateConfiguration *TemplateConfiguration         `json:"templateConfiguration" xml:"TemplateConfiguration"`
-	TraceId               string                         `json:"traceId" xml:"TraceId"`
-	Users                 MapOfEndpointSendConfiguration `json:"users" xml:"Users"`
+Context MapOf__string `json:"context" xml:"Context"`
+MessageConfiguration *DirectMessageConfiguration `json:"messageConfiguration" xml:"MessageConfiguration"`
+TemplateConfiguration *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
+TraceId string `json:"traceId" xml:"TraceId"`
+Users MapOfEndpointSendConfiguration `json:"users" xml:"Users"`
 }
 
 type SendUsersMessageResponse struct {
-	ApplicationId string                          `json:"applicationId" xml:"ApplicationId"`
-	RequestId     string                          `json:"requestId" xml:"RequestId"`
-	Result        MapOfMapOfEndpointMessageResult `json:"result" xml:"Result"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+RequestId string `json:"requestId" xml:"RequestId"`
+Result MapOfMapOfEndpointMessageResult `json:"result" xml:"Result"`
 }
 
 type SendUsersMessagesRequest struct {
-	ApplicationId           string                   `json:"applicationId" xml:"ApplicationId"`
-	SendUsersMessageRequest *SendUsersMessageRequest `json:"sendUsersMessageRequest" xml:"SendUsersMessageRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+SendUsersMessageRequest *SendUsersMessageRequest `json:"sendUsersMessageRequest" xml:"SendUsersMessageRequest"`
 }
 
 type SendUsersMessagesResponse struct {
-	SendUsersMessageResponse *SendUsersMessageResponse `json:"sendUsersMessageResponse" xml:"SendUsersMessageResponse"`
+SendUsersMessageResponse *SendUsersMessageResponse `json:"sendUsersMessageResponse" xml:"SendUsersMessageResponse"`
 }
 
 type Session struct {
-	Duration       int32  `json:"duration" xml:"Duration"`
-	Id             string `json:"id" xml:"Id"`
-	StartTimestamp string `json:"startTimestamp" xml:"StartTimestamp"`
-	StopTimestamp  string `json:"stopTimestamp" xml:"StopTimestamp"`
+Duration int32 `json:"duration" xml:"Duration"`
+Id string `json:"id" xml:"Id"`
+StartTimestamp string `json:"startTimestamp" xml:"StartTimestamp"`
+StopTimestamp string `json:"stopTimestamp" xml:"StopTimestamp"`
 }
 
 type SetDimension struct {
-	DimensionType string         `json:"dimensionType" xml:"DimensionType"`
-	Values        ListOf__string `json:"values" xml:"Values"`
+DimensionType string `json:"dimensionType" xml:"DimensionType"`
+Values ListOf__string `json:"values" xml:"Values"`
 }
 
 type SimpleCondition struct {
-	EventCondition    *EventCondition    `json:"eventCondition" xml:"EventCondition"`
-	SegmentCondition  *SegmentCondition  `json:"segmentCondition" xml:"SegmentCondition"`
-	SegmentDimensions *SegmentDimensions `json:"segmentDimensions" xml:"SegmentDimensions"`
+EventCondition *EventCondition `json:"eventCondition" xml:"EventCondition"`
+SegmentCondition *SegmentCondition `json:"segmentCondition" xml:"SegmentCondition"`
+SegmentDimensions *SegmentDimensions `json:"segmentDimensions" xml:"SegmentDimensions"`
 }
 
 type SimpleEmail struct {
-	Headers  ListOfMessageHeader `json:"headers" xml:"Headers"`
-	HtmlPart *SimpleEmailPart    `json:"htmlPart" xml:"HtmlPart"`
-	Subject  *SimpleEmailPart    `json:"subject" xml:"Subject"`
-	TextPart *SimpleEmailPart    `json:"textPart" xml:"TextPart"`
+Headers ListOfMessageHeader `json:"headers" xml:"Headers"`
+HtmlPart *SimpleEmailPart `json:"htmlPart" xml:"HtmlPart"`
+Subject *SimpleEmailPart `json:"subject" xml:"Subject"`
+TextPart *SimpleEmailPart `json:"textPart" xml:"TextPart"`
 }
 
 type SimpleEmailPart struct {
-	Charset string `json:"charset" xml:"Charset"`
-	Data    string `json:"data" xml:"Data"`
+Charset string `json:"charset" xml:"Charset"`
+Data string `json:"data" xml:"Data"`
 }
 
 type SmithyUnit struct {
 }
 
 type StartCondition struct {
-	Description           string               `json:"description" xml:"Description"`
-	EventStartCondition   *EventStartCondition `json:"eventStartCondition" xml:"EventStartCondition"`
-	SegmentStartCondition *SegmentCondition    `json:"segmentStartCondition" xml:"SegmentStartCondition"`
+Description string `json:"description" xml:"Description"`
+EventStartCondition *EventStartCondition `json:"eventStartCondition" xml:"EventStartCondition"`
+SegmentStartCondition *SegmentCondition `json:"segmentStartCondition" xml:"SegmentStartCondition"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string     `json:"resourceArn" xml:"ResourceArn"`
-	TagsModel   *TagsModel `json:"tagsModel" xml:"TagsModel"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagsModel *TagsModel `json:"tagsModel" xml:"TagsModel"`
 }
 
 type TagsModel struct {
-	Tags MapOf__string `json:"tags" xml:"tags"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type Template struct {
-	Name    string `json:"name" xml:"Name"`
-	Version string `json:"version" xml:"Version"`
+Name string `json:"name" xml:"Name"`
+Version string `json:"version" xml:"Version"`
 }
 
 type TemplateActiveVersionRequest struct {
-	Version string `json:"version" xml:"Version"`
+Version string `json:"version" xml:"Version"`
 }
 
 type TemplateConfiguration struct {
-	EmailTemplate *Template `json:"emailTemplate" xml:"EmailTemplate"`
-	InAppTemplate *Template `json:"inAppTemplate" xml:"InAppTemplate"`
-	PushTemplate  *Template `json:"pushTemplate" xml:"PushTemplate"`
-	SMSTemplate   *Template `json:"sMSTemplate" xml:"SMSTemplate"`
-	VoiceTemplate *Template `json:"voiceTemplate" xml:"VoiceTemplate"`
+EmailTemplate *Template `json:"emailTemplate" xml:"EmailTemplate"`
+InAppTemplate *Template `json:"inAppTemplate" xml:"InAppTemplate"`
+PushTemplate *Template `json:"pushTemplate" xml:"PushTemplate"`
+SMSTemplate *Template `json:"sMSTemplate" xml:"SMSTemplate"`
+VoiceTemplate *Template `json:"voiceTemplate" xml:"VoiceTemplate"`
 }
 
 type TemplateCreateMessageBody struct {
-	Arn       string `json:"arn" xml:"Arn"`
-	Message   string `json:"message" xml:"Message"`
-	RequestID string `json:"requestID" xml:"RequestID"`
+Arn string `json:"arn" xml:"Arn"`
+Message string `json:"message" xml:"Message"`
+RequestID string `json:"requestID" xml:"RequestID"`
 }
 
 type TemplateResponse struct {
-	Arn                  string        `json:"arn" xml:"Arn"`
-	CreationDate         string        `json:"creationDate" xml:"CreationDate"`
-	DefaultSubstitutions string        `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
-	LastModifiedDate     string        `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	TemplateDescription  string        `json:"templateDescription" xml:"TemplateDescription"`
-	TemplateName         string        `json:"templateName" xml:"TemplateName"`
-	TemplateType         string        `json:"templateType" xml:"TemplateType"`
-	Version              string        `json:"version" xml:"Version"`
-	Tags                 MapOf__string `json:"tags" xml:"tags"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+DefaultSubstitutions string `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateType string `json:"templateType" xml:"TemplateType"`
+Version string `json:"version" xml:"Version"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type TemplateVersionResponse struct {
-	CreationDate         string `json:"creationDate" xml:"CreationDate"`
-	DefaultSubstitutions string `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
-	LastModifiedDate     string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	TemplateDescription  string `json:"templateDescription" xml:"TemplateDescription"`
-	TemplateName         string `json:"templateName" xml:"TemplateName"`
-	TemplateType         string `json:"templateType" xml:"TemplateType"`
-	Version              string `json:"version" xml:"Version"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+DefaultSubstitutions string `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateType string `json:"templateType" xml:"TemplateType"`
+Version string `json:"version" xml:"Version"`
 }
 
 type TemplateVersionsResponse struct {
-	Item      ListOfTemplateVersionResponse `json:"item" xml:"Item"`
-	Message   string                        `json:"message" xml:"Message"`
-	NextToken string                        `json:"nextToken" xml:"NextToken"`
-	RequestID string                        `json:"requestID" xml:"RequestID"`
+Item ListOfTemplateVersionResponse `json:"item" xml:"Item"`
+Message string `json:"message" xml:"Message"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RequestID string `json:"requestID" xml:"RequestID"`
 }
 
 type TemplatesResponse struct {
-	Item      ListOfTemplateResponse `json:"item" xml:"Item"`
-	NextToken string                 `json:"nextToken" xml:"NextToken"`
+Item ListOfTemplateResponse `json:"item" xml:"Item"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type TreatmentResource struct {
-	CustomDeliveryConfiguration *CustomDeliveryConfiguration `json:"customDeliveryConfiguration" xml:"CustomDeliveryConfiguration"`
-	Id                          string                       `json:"id" xml:"Id"`
-	MessageConfiguration        *MessageConfiguration        `json:"messageConfiguration" xml:"MessageConfiguration"`
-	Schedule                    *Schedule                    `json:"schedule" xml:"Schedule"`
-	SizePercent                 int32                        `json:"sizePercent" xml:"SizePercent"`
-	State                       *CampaignState               `json:"state" xml:"State"`
-	TemplateConfiguration       *TemplateConfiguration       `json:"templateConfiguration" xml:"TemplateConfiguration"`
-	TreatmentDescription        string                       `json:"treatmentDescription" xml:"TreatmentDescription"`
-	TreatmentName               string                       `json:"treatmentName" xml:"TreatmentName"`
+CustomDeliveryConfiguration *CustomDeliveryConfiguration `json:"customDeliveryConfiguration" xml:"CustomDeliveryConfiguration"`
+Id string `json:"id" xml:"Id"`
+MessageConfiguration *MessageConfiguration `json:"messageConfiguration" xml:"MessageConfiguration"`
+Schedule *Schedule `json:"schedule" xml:"Schedule"`
+SizePercent int32 `json:"sizePercent" xml:"SizePercent"`
+State *CampaignState `json:"state" xml:"State"`
+TemplateConfiguration *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
+TreatmentDescription string `json:"treatmentDescription" xml:"TreatmentDescription"`
+TreatmentName string `json:"treatmentName" xml:"TreatmentName"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string         `json:"resourceArn" xml:"ResourceArn"`
-	TagKeys     ListOf__string `json:"tagKeys" xml:"TagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagKeys ListOf__string `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UpdateAdmChannelRequest struct {
-	ADMChannelRequest *ADMChannelRequest `json:"aDMChannelRequest" xml:"ADMChannelRequest"`
-	ApplicationId     string             `json:"applicationId" xml:"ApplicationId"`
+ADMChannelRequest *ADMChannelRequest `json:"aDMChannelRequest" xml:"ADMChannelRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type UpdateAdmChannelResponse struct {
-	ADMChannelResponse *ADMChannelResponse `json:"aDMChannelResponse" xml:"ADMChannelResponse"`
+ADMChannelResponse *ADMChannelResponse `json:"aDMChannelResponse" xml:"ADMChannelResponse"`
 }
 
 type UpdateApnsChannelRequest struct {
-	APNSChannelRequest *APNSChannelRequest `json:"aPNSChannelRequest" xml:"APNSChannelRequest"`
-	ApplicationId      string              `json:"applicationId" xml:"ApplicationId"`
+APNSChannelRequest *APNSChannelRequest `json:"aPNSChannelRequest" xml:"APNSChannelRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type UpdateApnsChannelResponse struct {
-	APNSChannelResponse *APNSChannelResponse `json:"aPNSChannelResponse" xml:"APNSChannelResponse"`
+APNSChannelResponse *APNSChannelResponse `json:"aPNSChannelResponse" xml:"APNSChannelResponse"`
 }
 
 type UpdateApnsSandboxChannelRequest struct {
-	APNSSandboxChannelRequest *APNSSandboxChannelRequest `json:"aPNSSandboxChannelRequest" xml:"APNSSandboxChannelRequest"`
-	ApplicationId             string                     `json:"applicationId" xml:"ApplicationId"`
+APNSSandboxChannelRequest *APNSSandboxChannelRequest `json:"aPNSSandboxChannelRequest" xml:"APNSSandboxChannelRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type UpdateApnsSandboxChannelResponse struct {
-	APNSSandboxChannelResponse *APNSSandboxChannelResponse `json:"aPNSSandboxChannelResponse" xml:"APNSSandboxChannelResponse"`
+APNSSandboxChannelResponse *APNSSandboxChannelResponse `json:"aPNSSandboxChannelResponse" xml:"APNSSandboxChannelResponse"`
 }
 
 type UpdateApnsVoipChannelRequest struct {
-	APNSVoipChannelRequest *APNSVoipChannelRequest `json:"aPNSVoipChannelRequest" xml:"APNSVoipChannelRequest"`
-	ApplicationId          string                  `json:"applicationId" xml:"ApplicationId"`
+APNSVoipChannelRequest *APNSVoipChannelRequest `json:"aPNSVoipChannelRequest" xml:"APNSVoipChannelRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type UpdateApnsVoipChannelResponse struct {
-	APNSVoipChannelResponse *APNSVoipChannelResponse `json:"aPNSVoipChannelResponse" xml:"APNSVoipChannelResponse"`
+APNSVoipChannelResponse *APNSVoipChannelResponse `json:"aPNSVoipChannelResponse" xml:"APNSVoipChannelResponse"`
 }
 
 type UpdateApnsVoipSandboxChannelRequest struct {
-	APNSVoipSandboxChannelRequest *APNSVoipSandboxChannelRequest `json:"aPNSVoipSandboxChannelRequest" xml:"APNSVoipSandboxChannelRequest"`
-	ApplicationId                 string                         `json:"applicationId" xml:"ApplicationId"`
+APNSVoipSandboxChannelRequest *APNSVoipSandboxChannelRequest `json:"aPNSVoipSandboxChannelRequest" xml:"APNSVoipSandboxChannelRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
 
 type UpdateApnsVoipSandboxChannelResponse struct {
-	APNSVoipSandboxChannelResponse *APNSVoipSandboxChannelResponse `json:"aPNSVoipSandboxChannelResponse" xml:"APNSVoipSandboxChannelResponse"`
+APNSVoipSandboxChannelResponse *APNSVoipSandboxChannelResponse `json:"aPNSVoipSandboxChannelResponse" xml:"APNSVoipSandboxChannelResponse"`
 }
 
 type UpdateApplicationSettingsRequest struct {
-	ApplicationId                   string                           `json:"applicationId" xml:"ApplicationId"`
-	WriteApplicationSettingsRequest *WriteApplicationSettingsRequest `json:"writeApplicationSettingsRequest" xml:"WriteApplicationSettingsRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+WriteApplicationSettingsRequest *WriteApplicationSettingsRequest `json:"writeApplicationSettingsRequest" xml:"WriteApplicationSettingsRequest"`
 }
 
 type UpdateApplicationSettingsResponse struct {
-	ApplicationSettingsResource *ApplicationSettingsResource `json:"applicationSettingsResource" xml:"ApplicationSettingsResource"`
+ApplicationSettingsResource *ApplicationSettingsResource `json:"applicationSettingsResource" xml:"ApplicationSettingsResource"`
 }
 
 type UpdateAttributesRequest struct {
-	Blacklist ListOf__string `json:"blacklist" xml:"Blacklist"`
+Blacklist ListOf__string `json:"blacklist" xml:"Blacklist"`
 }
 
 type UpdateBaiduChannelRequest struct {
-	ApplicationId       string               `json:"applicationId" xml:"ApplicationId"`
-	BaiduChannelRequest *BaiduChannelRequest `json:"baiduChannelRequest" xml:"BaiduChannelRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+BaiduChannelRequest *BaiduChannelRequest `json:"baiduChannelRequest" xml:"BaiduChannelRequest"`
 }
 
 type UpdateBaiduChannelResponse struct {
-	BaiduChannelResponse *BaiduChannelResponse `json:"baiduChannelResponse" xml:"BaiduChannelResponse"`
+BaiduChannelResponse *BaiduChannelResponse `json:"baiduChannelResponse" xml:"BaiduChannelResponse"`
 }
 
 type UpdateCampaignRequest struct {
-	ApplicationId        string                `json:"applicationId" xml:"ApplicationId"`
-	CampaignId           string                `json:"campaignId" xml:"CampaignId"`
-	WriteCampaignRequest *WriteCampaignRequest `json:"writeCampaignRequest" xml:"WriteCampaignRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CampaignId string `json:"campaignId" xml:"CampaignId"`
+WriteCampaignRequest *WriteCampaignRequest `json:"writeCampaignRequest" xml:"WriteCampaignRequest"`
 }
 
 type UpdateCampaignResponse struct {
-	CampaignResponse *CampaignResponse `json:"campaignResponse" xml:"CampaignResponse"`
+CampaignResponse *CampaignResponse `json:"campaignResponse" xml:"CampaignResponse"`
 }
 
 type UpdateEmailChannelRequest struct {
-	ApplicationId       string               `json:"applicationId" xml:"ApplicationId"`
-	EmailChannelRequest *EmailChannelRequest `json:"emailChannelRequest" xml:"EmailChannelRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EmailChannelRequest *EmailChannelRequest `json:"emailChannelRequest" xml:"EmailChannelRequest"`
 }
 
 type UpdateEmailChannelResponse struct {
-	EmailChannelResponse *EmailChannelResponse `json:"emailChannelResponse" xml:"EmailChannelResponse"`
+EmailChannelResponse *EmailChannelResponse `json:"emailChannelResponse" xml:"EmailChannelResponse"`
 }
 
 type UpdateEmailTemplateRequest struct {
-	CreateNewVersion     bool                  `json:"createNewVersion" xml:"CreateNewVersion"`
-	EmailTemplateRequest *EmailTemplateRequest `json:"emailTemplateRequest" xml:"EmailTemplateRequest"`
-	TemplateName         string                `json:"templateName" xml:"TemplateName"`
-	Version              string                `json:"version" xml:"Version"`
+CreateNewVersion bool `json:"createNewVersion" xml:"CreateNewVersion"`
+EmailTemplateRequest *EmailTemplateRequest `json:"emailTemplateRequest" xml:"EmailTemplateRequest"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type UpdateEmailTemplateResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type UpdateEndpointRequest struct {
-	ApplicationId   string           `json:"applicationId" xml:"ApplicationId"`
-	EndpointId      string           `json:"endpointId" xml:"EndpointId"`
-	EndpointRequest *EndpointRequest `json:"endpointRequest" xml:"EndpointRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EndpointId string `json:"endpointId" xml:"EndpointId"`
+EndpointRequest *EndpointRequest `json:"endpointRequest" xml:"EndpointRequest"`
 }
 
 type UpdateEndpointResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type UpdateEndpointsBatchRequest struct {
-	ApplicationId        string                `json:"applicationId" xml:"ApplicationId"`
-	EndpointBatchRequest *EndpointBatchRequest `json:"endpointBatchRequest" xml:"EndpointBatchRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+EndpointBatchRequest *EndpointBatchRequest `json:"endpointBatchRequest" xml:"EndpointBatchRequest"`
 }
 
 type UpdateEndpointsBatchResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type UpdateGcmChannelRequest struct {
-	ApplicationId     string             `json:"applicationId" xml:"ApplicationId"`
-	GCMChannelRequest *GCMChannelRequest `json:"gCMChannelRequest" xml:"GCMChannelRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+GCMChannelRequest *GCMChannelRequest `json:"gCMChannelRequest" xml:"GCMChannelRequest"`
 }
 
 type UpdateGcmChannelResponse struct {
-	GCMChannelResponse *GCMChannelResponse `json:"gCMChannelResponse" xml:"GCMChannelResponse"`
+GCMChannelResponse *GCMChannelResponse `json:"gCMChannelResponse" xml:"GCMChannelResponse"`
 }
 
 type UpdateInAppTemplateRequest struct {
-	CreateNewVersion     bool                  `json:"createNewVersion" xml:"CreateNewVersion"`
-	InAppTemplateRequest *InAppTemplateRequest `json:"inAppTemplateRequest" xml:"InAppTemplateRequest"`
-	TemplateName         string                `json:"templateName" xml:"TemplateName"`
-	Version              string                `json:"version" xml:"Version"`
+CreateNewVersion bool `json:"createNewVersion" xml:"CreateNewVersion"`
+InAppTemplateRequest *InAppTemplateRequest `json:"inAppTemplateRequest" xml:"InAppTemplateRequest"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type UpdateInAppTemplateResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type UpdateJourneyRequest struct {
-	ApplicationId       string               `json:"applicationId" xml:"ApplicationId"`
-	JourneyId           string               `json:"journeyId" xml:"JourneyId"`
-	WriteJourneyRequest *WriteJourneyRequest `json:"writeJourneyRequest" xml:"WriteJourneyRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+WriteJourneyRequest *WriteJourneyRequest `json:"writeJourneyRequest" xml:"WriteJourneyRequest"`
 }
 
 type UpdateJourneyResponse struct {
-	JourneyResponse *JourneyResponse `json:"journeyResponse" xml:"JourneyResponse"`
+JourneyResponse *JourneyResponse `json:"journeyResponse" xml:"JourneyResponse"`
 }
 
 type UpdateJourneyStateRequest struct {
-	ApplicationId       string               `json:"applicationId" xml:"ApplicationId"`
-	JourneyId           string               `json:"journeyId" xml:"JourneyId"`
-	JourneyStateRequest *JourneyStateRequest `json:"journeyStateRequest" xml:"JourneyStateRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+JourneyId string `json:"journeyId" xml:"JourneyId"`
+JourneyStateRequest *JourneyStateRequest `json:"journeyStateRequest" xml:"JourneyStateRequest"`
 }
 
 type UpdateJourneyStateResponse struct {
-	JourneyResponse *JourneyResponse `json:"journeyResponse" xml:"JourneyResponse"`
+JourneyResponse *JourneyResponse `json:"journeyResponse" xml:"JourneyResponse"`
 }
 
 type UpdatePushTemplateRequest struct {
-	CreateNewVersion                bool                             `json:"createNewVersion" xml:"CreateNewVersion"`
-	PushNotificationTemplateRequest *PushNotificationTemplateRequest `json:"pushNotificationTemplateRequest" xml:"PushNotificationTemplateRequest"`
-	TemplateName                    string                           `json:"templateName" xml:"TemplateName"`
-	Version                         string                           `json:"version" xml:"Version"`
+CreateNewVersion bool `json:"createNewVersion" xml:"CreateNewVersion"`
+PushNotificationTemplateRequest *PushNotificationTemplateRequest `json:"pushNotificationTemplateRequest" xml:"PushNotificationTemplateRequest"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type UpdatePushTemplateResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type UpdateRecommenderConfigurationRequest struct {
-	RecommenderId                  string                               `json:"recommenderId" xml:"RecommenderId"`
-	UpdateRecommenderConfiguration *UpdateRecommenderConfigurationShape `json:"updateRecommenderConfiguration" xml:"UpdateRecommenderConfiguration"`
+RecommenderId string `json:"recommenderId" xml:"RecommenderId"`
+UpdateRecommenderConfiguration *UpdateRecommenderConfigurationShape `json:"updateRecommenderConfiguration" xml:"UpdateRecommenderConfiguration"`
 }
 
 type UpdateRecommenderConfigurationResponse struct {
-	RecommenderConfigurationResponse *RecommenderConfigurationResponse `json:"recommenderConfigurationResponse" xml:"RecommenderConfigurationResponse"`
+RecommenderConfigurationResponse *RecommenderConfigurationResponse `json:"recommenderConfigurationResponse" xml:"RecommenderConfigurationResponse"`
 }
 
 type UpdateRecommenderConfigurationShape struct {
-	Attributes                    MapOf__string `json:"attributes" xml:"Attributes"`
-	Description                   string        `json:"description" xml:"Description"`
-	Name                          string        `json:"name" xml:"Name"`
-	RecommendationProviderIdType  string        `json:"recommendationProviderIdType" xml:"RecommendationProviderIdType"`
-	RecommendationProviderRoleArn string        `json:"recommendationProviderRoleArn" xml:"RecommendationProviderRoleArn"`
-	RecommendationProviderUri     string        `json:"recommendationProviderUri" xml:"RecommendationProviderUri"`
-	RecommendationTransformerUri  string        `json:"recommendationTransformerUri" xml:"RecommendationTransformerUri"`
-	RecommendationsDisplayName    string        `json:"recommendationsDisplayName" xml:"RecommendationsDisplayName"`
-	RecommendationsPerMessage     int32         `json:"recommendationsPerMessage" xml:"RecommendationsPerMessage"`
+Attributes MapOf__string `json:"attributes" xml:"Attributes"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+RecommendationProviderIdType string `json:"recommendationProviderIdType" xml:"RecommendationProviderIdType"`
+RecommendationProviderRoleArn string `json:"recommendationProviderRoleArn" xml:"RecommendationProviderRoleArn"`
+RecommendationProviderUri string `json:"recommendationProviderUri" xml:"RecommendationProviderUri"`
+RecommendationTransformerUri string `json:"recommendationTransformerUri" xml:"RecommendationTransformerUri"`
+RecommendationsDisplayName string `json:"recommendationsDisplayName" xml:"RecommendationsDisplayName"`
+RecommendationsPerMessage int32 `json:"recommendationsPerMessage" xml:"RecommendationsPerMessage"`
 }
 
 type UpdateSegmentRequest struct {
-	ApplicationId       string               `json:"applicationId" xml:"ApplicationId"`
-	SegmentId           string               `json:"segmentId" xml:"SegmentId"`
-	WriteSegmentRequest *WriteSegmentRequest `json:"writeSegmentRequest" xml:"WriteSegmentRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
+WriteSegmentRequest *WriteSegmentRequest `json:"writeSegmentRequest" xml:"WriteSegmentRequest"`
 }
 
 type UpdateSegmentResponse struct {
-	SegmentResponse *SegmentResponse `json:"segmentResponse" xml:"SegmentResponse"`
+SegmentResponse *SegmentResponse `json:"segmentResponse" xml:"SegmentResponse"`
 }
 
 type UpdateSmsChannelRequest struct {
-	ApplicationId     string             `json:"applicationId" xml:"ApplicationId"`
-	SMSChannelRequest *SMSChannelRequest `json:"sMSChannelRequest" xml:"SMSChannelRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+SMSChannelRequest *SMSChannelRequest `json:"sMSChannelRequest" xml:"SMSChannelRequest"`
 }
 
 type UpdateSmsChannelResponse struct {
-	SMSChannelResponse *SMSChannelResponse `json:"sMSChannelResponse" xml:"SMSChannelResponse"`
+SMSChannelResponse *SMSChannelResponse `json:"sMSChannelResponse" xml:"SMSChannelResponse"`
 }
 
 type UpdateSmsTemplateRequest struct {
-	CreateNewVersion   bool                `json:"createNewVersion" xml:"CreateNewVersion"`
-	SMSTemplateRequest *SMSTemplateRequest `json:"sMSTemplateRequest" xml:"SMSTemplateRequest"`
-	TemplateName       string              `json:"templateName" xml:"TemplateName"`
-	Version            string              `json:"version" xml:"Version"`
+CreateNewVersion bool `json:"createNewVersion" xml:"CreateNewVersion"`
+SMSTemplateRequest *SMSTemplateRequest `json:"sMSTemplateRequest" xml:"SMSTemplateRequest"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type UpdateSmsTemplateResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type UpdateTemplateActiveVersionRequest struct {
-	TemplateActiveVersionRequest *TemplateActiveVersionRequest `json:"templateActiveVersionRequest" xml:"TemplateActiveVersionRequest"`
-	TemplateName                 string                        `json:"templateName" xml:"TemplateName"`
-	TemplateType                 string                        `json:"templateType" xml:"TemplateType"`
+TemplateActiveVersionRequest *TemplateActiveVersionRequest `json:"templateActiveVersionRequest" xml:"TemplateActiveVersionRequest"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateType string `json:"templateType" xml:"TemplateType"`
 }
 
 type UpdateTemplateActiveVersionResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type UpdateVoiceChannelRequest struct {
-	ApplicationId       string               `json:"applicationId" xml:"ApplicationId"`
-	VoiceChannelRequest *VoiceChannelRequest `json:"voiceChannelRequest" xml:"VoiceChannelRequest"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+VoiceChannelRequest *VoiceChannelRequest `json:"voiceChannelRequest" xml:"VoiceChannelRequest"`
 }
 
 type UpdateVoiceChannelResponse struct {
-	VoiceChannelResponse *VoiceChannelResponse `json:"voiceChannelResponse" xml:"VoiceChannelResponse"`
+VoiceChannelResponse *VoiceChannelResponse `json:"voiceChannelResponse" xml:"VoiceChannelResponse"`
 }
 
 type UpdateVoiceTemplateRequest struct {
-	CreateNewVersion     bool                  `json:"createNewVersion" xml:"CreateNewVersion"`
-	TemplateName         string                `json:"templateName" xml:"TemplateName"`
-	Version              string                `json:"version" xml:"Version"`
-	VoiceTemplateRequest *VoiceTemplateRequest `json:"voiceTemplateRequest" xml:"VoiceTemplateRequest"`
+CreateNewVersion bool `json:"createNewVersion" xml:"CreateNewVersion"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+Version string `json:"version" xml:"Version"`
+VoiceTemplateRequest *VoiceTemplateRequest `json:"voiceTemplateRequest" xml:"VoiceTemplateRequest"`
 }
 
 type UpdateVoiceTemplateResponse struct {
-	MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
+MessageBody *MessageBody `json:"messageBody" xml:"MessageBody"`
 }
 
 type VerificationResponse struct {
-	Valid bool `json:"valid" xml:"Valid"`
+Valid bool `json:"valid" xml:"Valid"`
 }
 
 type VerifyOTPMessageRequest struct {
-	ApplicationId                     string                             `json:"applicationId" xml:"ApplicationId"`
-	VerifyOTPMessageRequestParameters *VerifyOTPMessageRequestParameters `json:"verifyOTPMessageRequestParameters" xml:"VerifyOTPMessageRequestParameters"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+VerifyOTPMessageRequestParameters *VerifyOTPMessageRequestParameters `json:"verifyOTPMessageRequestParameters" xml:"VerifyOTPMessageRequestParameters"`
 }
 
 type VerifyOTPMessageRequestParameters struct {
-	DestinationIdentity string `json:"destinationIdentity" xml:"DestinationIdentity"`
-	Otp                 string `json:"otp" xml:"Otp"`
-	ReferenceId         string `json:"referenceId" xml:"ReferenceId"`
+DestinationIdentity string `json:"destinationIdentity" xml:"DestinationIdentity"`
+Otp string `json:"otp" xml:"Otp"`
+ReferenceId string `json:"referenceId" xml:"ReferenceId"`
 }
 
 type VerifyOTPMessageResponse struct {
-	VerificationResponse *VerificationResponse `json:"verificationResponse" xml:"VerificationResponse"`
+VerificationResponse *VerificationResponse `json:"verificationResponse" xml:"VerificationResponse"`
 }
 
 type VoiceChannelRequest struct {
-	Enabled bool `json:"enabled" xml:"Enabled"`
+Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type VoiceChannelResponse struct {
-	ApplicationId    string `json:"applicationId" xml:"ApplicationId"`
-	CreationDate     string `json:"creationDate" xml:"CreationDate"`
-	Enabled          bool   `json:"enabled" xml:"Enabled"`
-	HasCredential    bool   `json:"hasCredential" xml:"HasCredential"`
-	Id               string `json:"id" xml:"Id"`
-	IsArchived       bool   `json:"isArchived" xml:"IsArchived"`
-	LastModifiedBy   string `json:"lastModifiedBy" xml:"LastModifiedBy"`
-	LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Platform         string `json:"platform" xml:"Platform"`
-	Version          int32  `json:"version" xml:"Version"`
+ApplicationId string `json:"applicationId" xml:"ApplicationId"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HasCredential bool `json:"hasCredential" xml:"HasCredential"`
+Id string `json:"id" xml:"Id"`
+IsArchived bool `json:"isArchived" xml:"IsArchived"`
+LastModifiedBy string `json:"lastModifiedBy" xml:"LastModifiedBy"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Platform string `json:"platform" xml:"Platform"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type VoiceMessage struct {
-	Body              string              `json:"body" xml:"Body"`
-	LanguageCode      string              `json:"languageCode" xml:"LanguageCode"`
-	OriginationNumber string              `json:"originationNumber" xml:"OriginationNumber"`
-	Substitutions     MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
-	VoiceId           string              `json:"voiceId" xml:"VoiceId"`
+Body string `json:"body" xml:"Body"`
+LanguageCode string `json:"languageCode" xml:"LanguageCode"`
+OriginationNumber string `json:"originationNumber" xml:"OriginationNumber"`
+Substitutions MapOfListOf__string `json:"substitutions" xml:"Substitutions"`
+VoiceId string `json:"voiceId" xml:"VoiceId"`
 }
 
 type VoiceTemplateRequest struct {
-	Body                 string        `json:"body" xml:"Body"`
-	DefaultSubstitutions string        `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
-	LanguageCode         string        `json:"languageCode" xml:"LanguageCode"`
-	TemplateDescription  string        `json:"templateDescription" xml:"TemplateDescription"`
-	VoiceId              string        `json:"voiceId" xml:"VoiceId"`
-	Tags                 MapOf__string `json:"tags" xml:"tags"`
+Body string `json:"body" xml:"Body"`
+DefaultSubstitutions string `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
+LanguageCode string `json:"languageCode" xml:"LanguageCode"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+VoiceId string `json:"voiceId" xml:"VoiceId"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type VoiceTemplateResponse struct {
-	Arn                  string        `json:"arn" xml:"Arn"`
-	Body                 string        `json:"body" xml:"Body"`
-	CreationDate         string        `json:"creationDate" xml:"CreationDate"`
-	DefaultSubstitutions string        `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
-	LanguageCode         string        `json:"languageCode" xml:"LanguageCode"`
-	LastModifiedDate     string        `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	TemplateDescription  string        `json:"templateDescription" xml:"TemplateDescription"`
-	TemplateName         string        `json:"templateName" xml:"TemplateName"`
-	TemplateType         string        `json:"templateType" xml:"TemplateType"`
-	Version              string        `json:"version" xml:"Version"`
-	VoiceId              string        `json:"voiceId" xml:"VoiceId"`
-	Tags                 MapOf__string `json:"tags" xml:"tags"`
+Arn string `json:"arn" xml:"Arn"`
+Body string `json:"body" xml:"Body"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+DefaultSubstitutions string `json:"defaultSubstitutions" xml:"DefaultSubstitutions"`
+LanguageCode string `json:"languageCode" xml:"LanguageCode"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+TemplateDescription string `json:"templateDescription" xml:"TemplateDescription"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
+TemplateType string `json:"templateType" xml:"TemplateType"`
+Version string `json:"version" xml:"Version"`
+VoiceId string `json:"voiceId" xml:"VoiceId"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type WaitActivity struct {
-	NextActivity string    `json:"nextActivity" xml:"NextActivity"`
-	WaitTime     *WaitTime `json:"waitTime" xml:"WaitTime"`
+NextActivity string `json:"nextActivity" xml:"NextActivity"`
+WaitTime *WaitTime `json:"waitTime" xml:"WaitTime"`
 }
 
 type WaitTime struct {
-	WaitFor   string `json:"waitFor" xml:"WaitFor"`
-	WaitUntil string `json:"waitUntil" xml:"WaitUntil"`
+WaitFor string `json:"waitFor" xml:"WaitFor"`
+WaitUntil string `json:"waitUntil" xml:"WaitUntil"`
 }
 
 type WriteApplicationSettingsRequest struct {
-	CampaignHook             *CampaignHook                     `json:"campaignHook" xml:"CampaignHook"`
-	CloudWatchMetricsEnabled bool                              `json:"cloudWatchMetricsEnabled" xml:"CloudWatchMetricsEnabled"`
-	EventTaggingEnabled      bool                              `json:"eventTaggingEnabled" xml:"EventTaggingEnabled"`
-	JourneyLimits            *ApplicationSettingsJourneyLimits `json:"journeyLimits" xml:"JourneyLimits"`
-	Limits                   *CampaignLimits                   `json:"limits" xml:"Limits"`
-	QuietTime                *QuietTime                        `json:"quietTime" xml:"QuietTime"`
+CampaignHook *CampaignHook `json:"campaignHook" xml:"CampaignHook"`
+CloudWatchMetricsEnabled bool `json:"cloudWatchMetricsEnabled" xml:"CloudWatchMetricsEnabled"`
+EventTaggingEnabled bool `json:"eventTaggingEnabled" xml:"EventTaggingEnabled"`
+JourneyLimits *ApplicationSettingsJourneyLimits `json:"journeyLimits" xml:"JourneyLimits"`
+Limits *CampaignLimits `json:"limits" xml:"Limits"`
+QuietTime *QuietTime `json:"quietTime" xml:"QuietTime"`
 }
 
 type WriteCampaignRequest struct {
-	AdditionalTreatments        ListOfWriteTreatmentResource `json:"additionalTreatments" xml:"AdditionalTreatments"`
-	CustomDeliveryConfiguration *CustomDeliveryConfiguration `json:"customDeliveryConfiguration" xml:"CustomDeliveryConfiguration"`
-	Description                 string                       `json:"description" xml:"Description"`
-	HoldoutPercent              int32                        `json:"holdoutPercent" xml:"HoldoutPercent"`
-	Hook                        *CampaignHook                `json:"hook" xml:"Hook"`
-	IsPaused                    bool                         `json:"isPaused" xml:"IsPaused"`
-	Limits                      *CampaignLimits              `json:"limits" xml:"Limits"`
-	MessageConfiguration        *MessageConfiguration        `json:"messageConfiguration" xml:"MessageConfiguration"`
-	Name                        string                       `json:"name" xml:"Name"`
-	Priority                    int32                        `json:"priority" xml:"Priority"`
-	Schedule                    *Schedule                    `json:"schedule" xml:"Schedule"`
-	SegmentId                   string                       `json:"segmentId" xml:"SegmentId"`
-	SegmentVersion              int32                        `json:"segmentVersion" xml:"SegmentVersion"`
-	TemplateConfiguration       *TemplateConfiguration       `json:"templateConfiguration" xml:"TemplateConfiguration"`
-	TreatmentDescription        string                       `json:"treatmentDescription" xml:"TreatmentDescription"`
-	TreatmentName               string                       `json:"treatmentName" xml:"TreatmentName"`
-	Tags                        MapOf__string                `json:"tags" xml:"tags"`
+AdditionalTreatments ListOfWriteTreatmentResource `json:"additionalTreatments" xml:"AdditionalTreatments"`
+CustomDeliveryConfiguration *CustomDeliveryConfiguration `json:"customDeliveryConfiguration" xml:"CustomDeliveryConfiguration"`
+Description string `json:"description" xml:"Description"`
+HoldoutPercent int32 `json:"holdoutPercent" xml:"HoldoutPercent"`
+Hook *CampaignHook `json:"hook" xml:"Hook"`
+IsPaused bool `json:"isPaused" xml:"IsPaused"`
+Limits *CampaignLimits `json:"limits" xml:"Limits"`
+MessageConfiguration *MessageConfiguration `json:"messageConfiguration" xml:"MessageConfiguration"`
+Name string `json:"name" xml:"Name"`
+Priority int32 `json:"priority" xml:"Priority"`
+Schedule *Schedule `json:"schedule" xml:"Schedule"`
+SegmentId string `json:"segmentId" xml:"SegmentId"`
+SegmentVersion int32 `json:"segmentVersion" xml:"SegmentVersion"`
+TemplateConfiguration *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
+TreatmentDescription string `json:"treatmentDescription" xml:"TreatmentDescription"`
+TreatmentName string `json:"treatmentName" xml:"TreatmentName"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type WriteEventStream struct {
-	DestinationStreamArn string `json:"destinationStreamArn" xml:"DestinationStreamArn"`
-	RoleArn              string `json:"roleArn" xml:"RoleArn"`
+DestinationStreamArn string `json:"destinationStreamArn" xml:"DestinationStreamArn"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type WriteJourneyRequest struct {
-	Activities                MapOfActivity                            `json:"activities" xml:"Activities"`
-	ClosedDays                *ClosedDays                              `json:"closedDays" xml:"ClosedDays"`
-	CreationDate              string                                   `json:"creationDate" xml:"CreationDate"`
-	JourneyChannelSettings    *JourneyChannelSettings                  `json:"journeyChannelSettings" xml:"JourneyChannelSettings"`
-	LastModifiedDate          string                                   `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Limits                    *JourneyLimits                           `json:"limits" xml:"Limits"`
-	LocalTime                 bool                                     `json:"localTime" xml:"LocalTime"`
-	Name                      string                                   `json:"name" xml:"Name"`
-	OpenHours                 *OpenHours                               `json:"openHours" xml:"OpenHours"`
-	QuietTime                 *QuietTime                               `json:"quietTime" xml:"QuietTime"`
-	RefreshFrequency          string                                   `json:"refreshFrequency" xml:"RefreshFrequency"`
-	RefreshOnSegmentUpdate    bool                                     `json:"refreshOnSegmentUpdate" xml:"RefreshOnSegmentUpdate"`
-	Schedule                  *JourneySchedule                         `json:"schedule" xml:"Schedule"`
-	SendingSchedule           bool                                     `json:"sendingSchedule" xml:"SendingSchedule"`
-	StartActivity             string                                   `json:"startActivity" xml:"StartActivity"`
-	StartCondition            *StartCondition                          `json:"startCondition" xml:"StartCondition"`
-	State                     string                                   `json:"state" xml:"State"`
-	TimezoneEstimationMethods ListOf__TimezoneEstimationMethodsElement `json:"timezoneEstimationMethods" xml:"TimezoneEstimationMethods"`
-	WaitForQuietTime          bool                                     `json:"waitForQuietTime" xml:"WaitForQuietTime"`
+Activities MapOfActivity `json:"activities" xml:"Activities"`
+ClosedDays *ClosedDays `json:"closedDays" xml:"ClosedDays"`
+CreationDate string `json:"creationDate" xml:"CreationDate"`
+JourneyChannelSettings *JourneyChannelSettings `json:"journeyChannelSettings" xml:"JourneyChannelSettings"`
+LastModifiedDate string `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Limits *JourneyLimits `json:"limits" xml:"Limits"`
+LocalTime bool `json:"localTime" xml:"LocalTime"`
+Name string `json:"name" xml:"Name"`
+OpenHours *OpenHours `json:"openHours" xml:"OpenHours"`
+QuietTime *QuietTime `json:"quietTime" xml:"QuietTime"`
+RefreshFrequency string `json:"refreshFrequency" xml:"RefreshFrequency"`
+RefreshOnSegmentUpdate bool `json:"refreshOnSegmentUpdate" xml:"RefreshOnSegmentUpdate"`
+Schedule *JourneySchedule `json:"schedule" xml:"Schedule"`
+SendingSchedule bool `json:"sendingSchedule" xml:"SendingSchedule"`
+StartActivity string `json:"startActivity" xml:"StartActivity"`
+StartCondition *StartCondition `json:"startCondition" xml:"StartCondition"`
+State string `json:"state" xml:"State"`
+TimezoneEstimationMethods ListOf__TimezoneEstimationMethodsElement `json:"timezoneEstimationMethods" xml:"TimezoneEstimationMethods"`
+WaitForQuietTime bool `json:"waitForQuietTime" xml:"WaitForQuietTime"`
 }
 
 type WriteSegmentRequest struct {
-	Dimensions    *SegmentDimensions `json:"dimensions" xml:"Dimensions"`
-	Name          string             `json:"name" xml:"Name"`
-	SegmentGroups *SegmentGroupList  `json:"segmentGroups" xml:"SegmentGroups"`
-	Tags          MapOf__string      `json:"tags" xml:"tags"`
+Dimensions *SegmentDimensions `json:"dimensions" xml:"Dimensions"`
+Name string `json:"name" xml:"Name"`
+SegmentGroups *SegmentGroupList `json:"segmentGroups" xml:"SegmentGroups"`
+Tags MapOf__string `json:"tags" xml:"tags"`
 }
 
 type WriteTreatmentResource struct {
-	CustomDeliveryConfiguration *CustomDeliveryConfiguration `json:"customDeliveryConfiguration" xml:"CustomDeliveryConfiguration"`
-	MessageConfiguration        *MessageConfiguration        `json:"messageConfiguration" xml:"MessageConfiguration"`
-	Schedule                    *Schedule                    `json:"schedule" xml:"Schedule"`
-	SizePercent                 int32                        `json:"sizePercent" xml:"SizePercent"`
-	TemplateConfiguration       *TemplateConfiguration       `json:"templateConfiguration" xml:"TemplateConfiguration"`
-	TreatmentDescription        string                       `json:"treatmentDescription" xml:"TreatmentDescription"`
-	TreatmentName               string                       `json:"treatmentName" xml:"TreatmentName"`
+CustomDeliveryConfiguration *CustomDeliveryConfiguration `json:"customDeliveryConfiguration" xml:"CustomDeliveryConfiguration"`
+MessageConfiguration *MessageConfiguration `json:"messageConfiguration" xml:"MessageConfiguration"`
+Schedule *Schedule `json:"schedule" xml:"Schedule"`
+SizePercent int32 `json:"sizePercent" xml:"SizePercent"`
+TemplateConfiguration *TemplateConfiguration `json:"templateConfiguration" xml:"TemplateConfiguration"`
+TreatmentDescription string `json:"treatmentDescription" xml:"TreatmentDescription"`
+TreatmentName string `json:"treatmentName" xml:"TreatmentName"`
 }
 
 type ListOfActivityResponse []*ActivityResponse
@@ -3028,3 +3028,4 @@ type MapOf__double map[string]float64
 type MapOf__integer map[string]int32
 
 type MapOf__string map[string]string
+

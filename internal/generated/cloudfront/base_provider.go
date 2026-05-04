@@ -678,3 +678,4 @@ func (b *BaseProvider) UpdateVpcOrigin(ctx context.Context, input *UpdateVpcOrig
 func (b *BaseProvider) VerifyDnsConfiguration(ctx context.Context, input *VerifyDnsConfigurationRequest) (*VerifyDnsConfigurationResult, error) {
 	return nil, fmt.Errorf("VerifyDnsConfiguration: %w", ErrNotImplemented)
 }
+

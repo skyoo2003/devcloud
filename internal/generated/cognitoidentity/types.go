@@ -7,266 +7,266 @@ import (
 )
 
 type CognitoIdentityProvider struct {
-	ClientId             string `json:"clientId" xml:"ClientId"`
-	ProviderName         string `json:"providerName" xml:"ProviderName"`
-	ServerSideTokenCheck bool   `json:"serverSideTokenCheck" xml:"ServerSideTokenCheck"`
+ClientId string `json:"clientId" xml:"ClientId"`
+ProviderName string `json:"providerName" xml:"ProviderName"`
+ServerSideTokenCheck bool `json:"serverSideTokenCheck" xml:"ServerSideTokenCheck"`
 }
 
 type CreateIdentityPoolInput struct {
-	AllowClassicFlow               bool                        `json:"allowClassicFlow" xml:"AllowClassicFlow"`
-	AllowUnauthenticatedIdentities bool                        `json:"allowUnauthenticatedIdentities" xml:"AllowUnauthenticatedIdentities"`
-	CognitoIdentityProviders       CognitoIdentityProviderList `json:"cognitoIdentityProviders" xml:"CognitoIdentityProviders"`
-	DeveloperProviderName          string                      `json:"developerProviderName" xml:"DeveloperProviderName"`
-	IdentityPoolName               string                      `json:"identityPoolName" xml:"IdentityPoolName"`
-	IdentityPoolTags               IdentityPoolTagsType        `json:"identityPoolTags" xml:"IdentityPoolTags"`
-	OpenIdConnectProviderARNs      OIDCProviderList            `json:"openIdConnectProviderARNs" xml:"OpenIdConnectProviderARNs"`
-	SamlProviderARNs               SAMLProviderList            `json:"samlProviderARNs" xml:"SamlProviderARNs"`
-	SupportedLoginProviders        IdentityProviders           `json:"supportedLoginProviders" xml:"SupportedLoginProviders"`
+AllowClassicFlow bool `json:"allowClassicFlow" xml:"AllowClassicFlow"`
+AllowUnauthenticatedIdentities bool `json:"allowUnauthenticatedIdentities" xml:"AllowUnauthenticatedIdentities"`
+CognitoIdentityProviders CognitoIdentityProviderList `json:"cognitoIdentityProviders" xml:"CognitoIdentityProviders"`
+DeveloperProviderName string `json:"developerProviderName" xml:"DeveloperProviderName"`
+IdentityPoolName string `json:"identityPoolName" xml:"IdentityPoolName"`
+IdentityPoolTags IdentityPoolTagsType `json:"identityPoolTags" xml:"IdentityPoolTags"`
+OpenIdConnectProviderARNs OIDCProviderList `json:"openIdConnectProviderARNs" xml:"OpenIdConnectProviderARNs"`
+SamlProviderARNs SAMLProviderList `json:"samlProviderARNs" xml:"SamlProviderARNs"`
+SupportedLoginProviders IdentityProviders `json:"supportedLoginProviders" xml:"SupportedLoginProviders"`
 }
 
 type Credentials struct {
-	AccessKeyId  string    `json:"accessKeyId" xml:"AccessKeyId"`
-	Expiration   time.Time `json:"expiration" xml:"Expiration"`
-	SecretKey    string    `json:"secretKey" xml:"SecretKey"`
-	SessionToken string    `json:"sessionToken" xml:"SessionToken"`
+AccessKeyId string `json:"accessKeyId" xml:"AccessKeyId"`
+Expiration time.Time `json:"expiration" xml:"Expiration"`
+SecretKey string `json:"secretKey" xml:"SecretKey"`
+SessionToken string `json:"sessionToken" xml:"SessionToken"`
 }
 
 type DeleteIdentitiesInput struct {
-	IdentityIdsToDelete IdentityIdList `json:"identityIdsToDelete" xml:"IdentityIdsToDelete"`
+IdentityIdsToDelete IdentityIdList `json:"identityIdsToDelete" xml:"IdentityIdsToDelete"`
 }
 
 type DeleteIdentitiesResponse struct {
-	UnprocessedIdentityIds UnprocessedIdentityIdList `json:"unprocessedIdentityIds" xml:"UnprocessedIdentityIds"`
+UnprocessedIdentityIds UnprocessedIdentityIdList `json:"unprocessedIdentityIds" xml:"UnprocessedIdentityIds"`
 }
 
 type DeleteIdentityPoolInput struct {
-	IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
 }
 
 type DescribeIdentityInput struct {
-	IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
 }
 
 type DescribeIdentityPoolInput struct {
-	IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
 }
 
 type GetCredentialsForIdentityInput struct {
-	CustomRoleArn string    `json:"customRoleArn" xml:"CustomRoleArn"`
-	IdentityId    string    `json:"identityId" xml:"IdentityId"`
-	Logins        LoginsMap `json:"logins" xml:"Logins"`
+CustomRoleArn string `json:"customRoleArn" xml:"CustomRoleArn"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+Logins LoginsMap `json:"logins" xml:"Logins"`
 }
 
 type GetCredentialsForIdentityResponse struct {
-	Credentials *Credentials `json:"credentials" xml:"Credentials"`
-	IdentityId  string       `json:"identityId" xml:"IdentityId"`
+Credentials *Credentials `json:"credentials" xml:"Credentials"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
 }
 
 type GetIdInput struct {
-	AccountId      string    `json:"accountId" xml:"AccountId"`
-	IdentityPoolId string    `json:"identityPoolId" xml:"IdentityPoolId"`
-	Logins         LoginsMap `json:"logins" xml:"Logins"`
+AccountId string `json:"accountId" xml:"AccountId"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+Logins LoginsMap `json:"logins" xml:"Logins"`
 }
 
 type GetIdResponse struct {
-	IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
 }
 
 type GetIdentityPoolRolesInput struct {
-	IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
 }
 
 type GetIdentityPoolRolesResponse struct {
-	IdentityPoolId string         `json:"identityPoolId" xml:"IdentityPoolId"`
-	RoleMappings   RoleMappingMap `json:"roleMappings" xml:"RoleMappings"`
-	Roles          RolesMap       `json:"roles" xml:"Roles"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+RoleMappings RoleMappingMap `json:"roleMappings" xml:"RoleMappings"`
+Roles RolesMap `json:"roles" xml:"Roles"`
 }
 
 type GetOpenIdTokenForDeveloperIdentityInput struct {
-	IdentityId     string        `json:"identityId" xml:"IdentityId"`
-	IdentityPoolId string        `json:"identityPoolId" xml:"IdentityPoolId"`
-	Logins         LoginsMap     `json:"logins" xml:"Logins"`
-	PrincipalTags  PrincipalTags `json:"principalTags" xml:"PrincipalTags"`
-	TokenDuration  int64         `json:"tokenDuration" xml:"TokenDuration"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+Logins LoginsMap `json:"logins" xml:"Logins"`
+PrincipalTags PrincipalTags `json:"principalTags" xml:"PrincipalTags"`
+TokenDuration int64 `json:"tokenDuration" xml:"TokenDuration"`
 }
 
 type GetOpenIdTokenForDeveloperIdentityResponse struct {
-	IdentityId string `json:"identityId" xml:"IdentityId"`
-	Token      string `json:"token" xml:"Token"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetOpenIdTokenInput struct {
-	IdentityId string    `json:"identityId" xml:"IdentityId"`
-	Logins     LoginsMap `json:"logins" xml:"Logins"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+Logins LoginsMap `json:"logins" xml:"Logins"`
 }
 
 type GetOpenIdTokenResponse struct {
-	IdentityId string `json:"identityId" xml:"IdentityId"`
-	Token      string `json:"token" xml:"Token"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+Token string `json:"token" xml:"Token"`
 }
 
 type GetPrincipalTagAttributeMapInput struct {
-	IdentityPoolId       string `json:"identityPoolId" xml:"IdentityPoolId"`
-	IdentityProviderName string `json:"identityProviderName" xml:"IdentityProviderName"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+IdentityProviderName string `json:"identityProviderName" xml:"IdentityProviderName"`
 }
 
 type GetPrincipalTagAttributeMapResponse struct {
-	IdentityPoolId       string        `json:"identityPoolId" xml:"IdentityPoolId"`
-	IdentityProviderName string        `json:"identityProviderName" xml:"IdentityProviderName"`
-	PrincipalTags        PrincipalTags `json:"principalTags" xml:"PrincipalTags"`
-	UseDefaults          bool          `json:"useDefaults" xml:"UseDefaults"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+IdentityProviderName string `json:"identityProviderName" xml:"IdentityProviderName"`
+PrincipalTags PrincipalTags `json:"principalTags" xml:"PrincipalTags"`
+UseDefaults bool `json:"useDefaults" xml:"UseDefaults"`
 }
 
 type IdentityDescription struct {
-	CreationDate     time.Time  `json:"creationDate" xml:"CreationDate"`
-	IdentityId       string     `json:"identityId" xml:"IdentityId"`
-	LastModifiedDate time.Time  `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Logins           LoginsList `json:"logins" xml:"Logins"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+LastModifiedDate time.Time `json:"lastModifiedDate" xml:"LastModifiedDate"`
+Logins LoginsList `json:"logins" xml:"Logins"`
 }
 
 type IdentityPool struct {
-	AllowClassicFlow               bool                        `json:"allowClassicFlow" xml:"AllowClassicFlow"`
-	AllowUnauthenticatedIdentities bool                        `json:"allowUnauthenticatedIdentities" xml:"AllowUnauthenticatedIdentities"`
-	CognitoIdentityProviders       CognitoIdentityProviderList `json:"cognitoIdentityProviders" xml:"CognitoIdentityProviders"`
-	DeveloperProviderName          string                      `json:"developerProviderName" xml:"DeveloperProviderName"`
-	IdentityPoolId                 string                      `json:"identityPoolId" xml:"IdentityPoolId"`
-	IdentityPoolName               string                      `json:"identityPoolName" xml:"IdentityPoolName"`
-	IdentityPoolTags               IdentityPoolTagsType        `json:"identityPoolTags" xml:"IdentityPoolTags"`
-	OpenIdConnectProviderARNs      OIDCProviderList            `json:"openIdConnectProviderARNs" xml:"OpenIdConnectProviderARNs"`
-	SamlProviderARNs               SAMLProviderList            `json:"samlProviderARNs" xml:"SamlProviderARNs"`
-	SupportedLoginProviders        IdentityProviders           `json:"supportedLoginProviders" xml:"SupportedLoginProviders"`
+AllowClassicFlow bool `json:"allowClassicFlow" xml:"AllowClassicFlow"`
+AllowUnauthenticatedIdentities bool `json:"allowUnauthenticatedIdentities" xml:"AllowUnauthenticatedIdentities"`
+CognitoIdentityProviders CognitoIdentityProviderList `json:"cognitoIdentityProviders" xml:"CognitoIdentityProviders"`
+DeveloperProviderName string `json:"developerProviderName" xml:"DeveloperProviderName"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+IdentityPoolName string `json:"identityPoolName" xml:"IdentityPoolName"`
+IdentityPoolTags IdentityPoolTagsType `json:"identityPoolTags" xml:"IdentityPoolTags"`
+OpenIdConnectProviderARNs OIDCProviderList `json:"openIdConnectProviderARNs" xml:"OpenIdConnectProviderARNs"`
+SamlProviderARNs SAMLProviderList `json:"samlProviderARNs" xml:"SamlProviderARNs"`
+SupportedLoginProviders IdentityProviders `json:"supportedLoginProviders" xml:"SupportedLoginProviders"`
 }
 
 type IdentityPoolShortDescription struct {
-	IdentityPoolId   string `json:"identityPoolId" xml:"IdentityPoolId"`
-	IdentityPoolName string `json:"identityPoolName" xml:"IdentityPoolName"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+IdentityPoolName string `json:"identityPoolName" xml:"IdentityPoolName"`
 }
 
 type ListIdentitiesInput struct {
-	HideDisabled   bool   `json:"hideDisabled" xml:"HideDisabled"`
-	IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
-	MaxResults     int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken      string `json:"nextToken" xml:"NextToken"`
+HideDisabled bool `json:"hideDisabled" xml:"HideDisabled"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListIdentitiesResponse struct {
-	Identities     IdentitiesList `json:"identities" xml:"Identities"`
-	IdentityPoolId string         `json:"identityPoolId" xml:"IdentityPoolId"`
-	NextToken      string         `json:"nextToken" xml:"NextToken"`
+Identities IdentitiesList `json:"identities" xml:"Identities"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListIdentityPoolsInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListIdentityPoolsResponse struct {
-	IdentityPools IdentityPoolsList `json:"identityPools" xml:"IdentityPools"`
-	NextToken     string            `json:"nextToken" xml:"NextToken"`
+IdentityPools IdentityPoolsList `json:"identityPools" xml:"IdentityPools"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListTagsForResourceInput struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags IdentityPoolTagsType `json:"tags" xml:"Tags"`
+Tags IdentityPoolTagsType `json:"tags" xml:"Tags"`
 }
 
 type LookupDeveloperIdentityInput struct {
-	DeveloperUserIdentifier string `json:"developerUserIdentifier" xml:"DeveloperUserIdentifier"`
-	IdentityId              string `json:"identityId" xml:"IdentityId"`
-	IdentityPoolId          string `json:"identityPoolId" xml:"IdentityPoolId"`
-	MaxResults              int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken               string `json:"nextToken" xml:"NextToken"`
+DeveloperUserIdentifier string `json:"developerUserIdentifier" xml:"DeveloperUserIdentifier"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type LookupDeveloperIdentityResponse struct {
-	DeveloperUserIdentifierList DeveloperUserIdentifierList `json:"developerUserIdentifierList" xml:"DeveloperUserIdentifierList"`
-	IdentityId                  string                      `json:"identityId" xml:"IdentityId"`
-	NextToken                   string                      `json:"nextToken" xml:"NextToken"`
+DeveloperUserIdentifierList DeveloperUserIdentifierList `json:"developerUserIdentifierList" xml:"DeveloperUserIdentifierList"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type MappingRule struct {
-	Claim     string `json:"claim" xml:"Claim"`
-	MatchType string `json:"matchType" xml:"MatchType"`
-	RoleARN   string `json:"roleARN" xml:"RoleARN"`
-	Value     string `json:"value" xml:"Value"`
+Claim string `json:"claim" xml:"Claim"`
+MatchType string `json:"matchType" xml:"MatchType"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
+Value string `json:"value" xml:"Value"`
 }
 
 type MergeDeveloperIdentitiesInput struct {
-	DestinationUserIdentifier string `json:"destinationUserIdentifier" xml:"DestinationUserIdentifier"`
-	DeveloperProviderName     string `json:"developerProviderName" xml:"DeveloperProviderName"`
-	IdentityPoolId            string `json:"identityPoolId" xml:"IdentityPoolId"`
-	SourceUserIdentifier      string `json:"sourceUserIdentifier" xml:"SourceUserIdentifier"`
+DestinationUserIdentifier string `json:"destinationUserIdentifier" xml:"DestinationUserIdentifier"`
+DeveloperProviderName string `json:"developerProviderName" xml:"DeveloperProviderName"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+SourceUserIdentifier string `json:"sourceUserIdentifier" xml:"SourceUserIdentifier"`
 }
 
 type MergeDeveloperIdentitiesResponse struct {
-	IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
 }
 
 type RoleMapping struct {
-	AmbiguousRoleResolution string                  `json:"ambiguousRoleResolution" xml:"AmbiguousRoleResolution"`
-	RulesConfiguration      *RulesConfigurationType `json:"rulesConfiguration" xml:"RulesConfiguration"`
-	Type                    string                  `json:"type" xml:"Type"`
+AmbiguousRoleResolution string `json:"ambiguousRoleResolution" xml:"AmbiguousRoleResolution"`
+RulesConfiguration *RulesConfigurationType `json:"rulesConfiguration" xml:"RulesConfiguration"`
+Type string `json:"type" xml:"Type"`
 }
 
 type RulesConfigurationType struct {
-	Rules MappingRulesList `json:"rules" xml:"Rules"`
+Rules MappingRulesList `json:"rules" xml:"Rules"`
 }
 
 type SetIdentityPoolRolesInput struct {
-	IdentityPoolId string         `json:"identityPoolId" xml:"IdentityPoolId"`
-	RoleMappings   RoleMappingMap `json:"roleMappings" xml:"RoleMappings"`
-	Roles          RolesMap       `json:"roles" xml:"Roles"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+RoleMappings RoleMappingMap `json:"roleMappings" xml:"RoleMappings"`
+Roles RolesMap `json:"roles" xml:"Roles"`
 }
 
 type SetPrincipalTagAttributeMapInput struct {
-	IdentityPoolId       string        `json:"identityPoolId" xml:"IdentityPoolId"`
-	IdentityProviderName string        `json:"identityProviderName" xml:"IdentityProviderName"`
-	PrincipalTags        PrincipalTags `json:"principalTags" xml:"PrincipalTags"`
-	UseDefaults          bool          `json:"useDefaults" xml:"UseDefaults"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+IdentityProviderName string `json:"identityProviderName" xml:"IdentityProviderName"`
+PrincipalTags PrincipalTags `json:"principalTags" xml:"PrincipalTags"`
+UseDefaults bool `json:"useDefaults" xml:"UseDefaults"`
 }
 
 type SetPrincipalTagAttributeMapResponse struct {
-	IdentityPoolId       string        `json:"identityPoolId" xml:"IdentityPoolId"`
-	IdentityProviderName string        `json:"identityProviderName" xml:"IdentityProviderName"`
-	PrincipalTags        PrincipalTags `json:"principalTags" xml:"PrincipalTags"`
-	UseDefaults          bool          `json:"useDefaults" xml:"UseDefaults"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
+IdentityProviderName string `json:"identityProviderName" xml:"IdentityProviderName"`
+PrincipalTags PrincipalTags `json:"principalTags" xml:"PrincipalTags"`
+UseDefaults bool `json:"useDefaults" xml:"UseDefaults"`
 }
 
 type SmithyUnit struct {
 }
 
 type TagResourceInput struct {
-	ResourceArn string               `json:"resourceArn" xml:"ResourceArn"`
-	Tags        IdentityPoolTagsType `json:"tags" xml:"Tags"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Tags IdentityPoolTagsType `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type UnlinkDeveloperIdentityInput struct {
-	DeveloperProviderName   string `json:"developerProviderName" xml:"DeveloperProviderName"`
-	DeveloperUserIdentifier string `json:"developerUserIdentifier" xml:"DeveloperUserIdentifier"`
-	IdentityId              string `json:"identityId" xml:"IdentityId"`
-	IdentityPoolId          string `json:"identityPoolId" xml:"IdentityPoolId"`
+DeveloperProviderName string `json:"developerProviderName" xml:"DeveloperProviderName"`
+DeveloperUserIdentifier string `json:"developerUserIdentifier" xml:"DeveloperUserIdentifier"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+IdentityPoolId string `json:"identityPoolId" xml:"IdentityPoolId"`
 }
 
 type UnlinkIdentityInput struct {
-	IdentityId     string     `json:"identityId" xml:"IdentityId"`
-	Logins         LoginsMap  `json:"logins" xml:"Logins"`
-	LoginsToRemove LoginsList `json:"loginsToRemove" xml:"LoginsToRemove"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
+Logins LoginsMap `json:"logins" xml:"Logins"`
+LoginsToRemove LoginsList `json:"loginsToRemove" xml:"LoginsToRemove"`
 }
 
 type UnprocessedIdentityId struct {
-	ErrorCode  string `json:"errorCode" xml:"ErrorCode"`
-	IdentityId string `json:"identityId" xml:"IdentityId"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+IdentityId string `json:"identityId" xml:"IdentityId"`
 }
 
 type UntagResourceInput struct {
-	ResourceArn string                   `json:"resourceArn" xml:"ResourceArn"`
-	TagKeys     IdentityPoolTagsListType `json:"tagKeys" xml:"TagKeys"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagKeys IdentityPoolTagsListType `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceResponse struct {
@@ -305,3 +305,4 @@ type PrincipalTags map[string]string
 type RoleMappingMap map[string]*RoleMapping
 
 type RolesMap map[string]string
+

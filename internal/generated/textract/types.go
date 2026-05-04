@@ -7,600 +7,600 @@ import (
 )
 
 type Adapter struct {
-	AdapterId string       `json:"adapterId" xml:"AdapterId"`
-	Pages     AdapterPages `json:"pages" xml:"Pages"`
-	Version   string       `json:"version" xml:"Version"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+Pages AdapterPages `json:"pages" xml:"Pages"`
+Version string `json:"version" xml:"Version"`
 }
 
 type AdapterOverview struct {
-	AdapterId    string       `json:"adapterId" xml:"AdapterId"`
-	AdapterName  string       `json:"adapterName" xml:"AdapterName"`
-	CreationTime time.Time    `json:"creationTime" xml:"CreationTime"`
-	FeatureTypes FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterName string `json:"adapterName" xml:"AdapterName"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+FeatureTypes FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
 }
 
 type AdapterVersionDatasetConfig struct {
-	ManifestS3Object *S3Object `json:"manifestS3Object" xml:"ManifestS3Object"`
+ManifestS3Object *S3Object `json:"manifestS3Object" xml:"ManifestS3Object"`
 }
 
 type AdapterVersionEvaluationMetric struct {
-	AdapterVersion *EvaluationMetric `json:"adapterVersion" xml:"AdapterVersion"`
-	Baseline       *EvaluationMetric `json:"baseline" xml:"Baseline"`
-	FeatureType    string            `json:"featureType" xml:"FeatureType"`
+AdapterVersion *EvaluationMetric `json:"adapterVersion" xml:"AdapterVersion"`
+Baseline *EvaluationMetric `json:"baseline" xml:"Baseline"`
+FeatureType string `json:"featureType" xml:"FeatureType"`
 }
 
 type AdapterVersionOverview struct {
-	AdapterId      string       `json:"adapterId" xml:"AdapterId"`
-	AdapterVersion string       `json:"adapterVersion" xml:"AdapterVersion"`
-	CreationTime   time.Time    `json:"creationTime" xml:"CreationTime"`
-	FeatureTypes   FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
-	Status         string       `json:"status" xml:"Status"`
-	StatusMessage  string       `json:"statusMessage" xml:"StatusMessage"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterVersion string `json:"adapterVersion" xml:"AdapterVersion"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+FeatureTypes FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type AdaptersConfig struct {
-	Adapters Adapters `json:"adapters" xml:"Adapters"`
+Adapters Adapters `json:"adapters" xml:"Adapters"`
 }
 
 type AnalyzeDocumentRequest struct {
-	AdaptersConfig  *AdaptersConfig  `json:"adaptersConfig" xml:"AdaptersConfig"`
-	Document        *Document        `json:"document" xml:"Document"`
-	FeatureTypes    FeatureTypes     `json:"featureTypes" xml:"FeatureTypes"`
-	HumanLoopConfig *HumanLoopConfig `json:"humanLoopConfig" xml:"HumanLoopConfig"`
-	QueriesConfig   *QueriesConfig   `json:"queriesConfig" xml:"QueriesConfig"`
+AdaptersConfig *AdaptersConfig `json:"adaptersConfig" xml:"AdaptersConfig"`
+Document *Document `json:"document" xml:"Document"`
+FeatureTypes FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
+HumanLoopConfig *HumanLoopConfig `json:"humanLoopConfig" xml:"HumanLoopConfig"`
+QueriesConfig *QueriesConfig `json:"queriesConfig" xml:"QueriesConfig"`
 }
 
 type AnalyzeDocumentResponse struct {
-	AnalyzeDocumentModelVersion string                     `json:"analyzeDocumentModelVersion" xml:"AnalyzeDocumentModelVersion"`
-	Blocks                      BlockList                  `json:"blocks" xml:"Blocks"`
-	DocumentMetadata            *DocumentMetadata          `json:"documentMetadata" xml:"DocumentMetadata"`
-	HumanLoopActivationOutput   *HumanLoopActivationOutput `json:"humanLoopActivationOutput" xml:"HumanLoopActivationOutput"`
+AnalyzeDocumentModelVersion string `json:"analyzeDocumentModelVersion" xml:"AnalyzeDocumentModelVersion"`
+Blocks BlockList `json:"blocks" xml:"Blocks"`
+DocumentMetadata *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
+HumanLoopActivationOutput *HumanLoopActivationOutput `json:"humanLoopActivationOutput" xml:"HumanLoopActivationOutput"`
 }
 
 type AnalyzeExpenseRequest struct {
-	Document *Document `json:"document" xml:"Document"`
+Document *Document `json:"document" xml:"Document"`
 }
 
 type AnalyzeExpenseResponse struct {
-	DocumentMetadata *DocumentMetadata   `json:"documentMetadata" xml:"DocumentMetadata"`
-	ExpenseDocuments ExpenseDocumentList `json:"expenseDocuments" xml:"ExpenseDocuments"`
+DocumentMetadata *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
+ExpenseDocuments ExpenseDocumentList `json:"expenseDocuments" xml:"ExpenseDocuments"`
 }
 
 type AnalyzeIDDetections struct {
-	Confidence      float32          `json:"confidence" xml:"Confidence"`
-	NormalizedValue *NormalizedValue `json:"normalizedValue" xml:"NormalizedValue"`
-	Text            string           `json:"text" xml:"Text"`
+Confidence float32 `json:"confidence" xml:"Confidence"`
+NormalizedValue *NormalizedValue `json:"normalizedValue" xml:"NormalizedValue"`
+Text string `json:"text" xml:"Text"`
 }
 
 type AnalyzeIDRequest struct {
-	DocumentPages DocumentPages `json:"documentPages" xml:"DocumentPages"`
+DocumentPages DocumentPages `json:"documentPages" xml:"DocumentPages"`
 }
 
 type AnalyzeIDResponse struct {
-	AnalyzeIDModelVersion string               `json:"analyzeIDModelVersion" xml:"AnalyzeIDModelVersion"`
-	DocumentMetadata      *DocumentMetadata    `json:"documentMetadata" xml:"DocumentMetadata"`
-	IdentityDocuments     IdentityDocumentList `json:"identityDocuments" xml:"IdentityDocuments"`
+AnalyzeIDModelVersion string `json:"analyzeIDModelVersion" xml:"AnalyzeIDModelVersion"`
+DocumentMetadata *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
+IdentityDocuments IdentityDocumentList `json:"identityDocuments" xml:"IdentityDocuments"`
 }
 
 type Block struct {
-	BlockType       string           `json:"blockType" xml:"BlockType"`
-	ColumnIndex     int32            `json:"columnIndex" xml:"ColumnIndex"`
-	ColumnSpan      int32            `json:"columnSpan" xml:"ColumnSpan"`
-	Confidence      float32          `json:"confidence" xml:"Confidence"`
-	EntityTypes     EntityTypes      `json:"entityTypes" xml:"EntityTypes"`
-	Geometry        *Geometry        `json:"geometry" xml:"Geometry"`
-	Id              string           `json:"id" xml:"Id"`
-	Page            int32            `json:"page" xml:"Page"`
-	Query           *Query           `json:"query" xml:"Query"`
-	Relationships   RelationshipList `json:"relationships" xml:"Relationships"`
-	RowIndex        int32            `json:"rowIndex" xml:"RowIndex"`
-	RowSpan         int32            `json:"rowSpan" xml:"RowSpan"`
-	SelectionStatus string           `json:"selectionStatus" xml:"SelectionStatus"`
-	Text            string           `json:"text" xml:"Text"`
-	TextType        string           `json:"textType" xml:"TextType"`
+BlockType string `json:"blockType" xml:"BlockType"`
+ColumnIndex int32 `json:"columnIndex" xml:"ColumnIndex"`
+ColumnSpan int32 `json:"columnSpan" xml:"ColumnSpan"`
+Confidence float32 `json:"confidence" xml:"Confidence"`
+EntityTypes EntityTypes `json:"entityTypes" xml:"EntityTypes"`
+Geometry *Geometry `json:"geometry" xml:"Geometry"`
+Id string `json:"id" xml:"Id"`
+Page int32 `json:"page" xml:"Page"`
+Query *Query `json:"query" xml:"Query"`
+Relationships RelationshipList `json:"relationships" xml:"Relationships"`
+RowIndex int32 `json:"rowIndex" xml:"RowIndex"`
+RowSpan int32 `json:"rowSpan" xml:"RowSpan"`
+SelectionStatus string `json:"selectionStatus" xml:"SelectionStatus"`
+Text string `json:"text" xml:"Text"`
+TextType string `json:"textType" xml:"TextType"`
 }
 
 type BoundingBox struct {
-	Height float32 `json:"height" xml:"Height"`
-	Left   float32 `json:"left" xml:"Left"`
-	Top    float32 `json:"top" xml:"Top"`
-	Width  float32 `json:"width" xml:"Width"`
+Height float32 `json:"height" xml:"Height"`
+Left float32 `json:"left" xml:"Left"`
+Top float32 `json:"top" xml:"Top"`
+Width float32 `json:"width" xml:"Width"`
 }
 
 type CreateAdapterRequest struct {
-	AdapterName        string       `json:"adapterName" xml:"AdapterName"`
-	AutoUpdate         string       `json:"autoUpdate" xml:"AutoUpdate"`
-	ClientRequestToken string       `json:"clientRequestToken" xml:"ClientRequestToken"`
-	Description        string       `json:"description" xml:"Description"`
-	FeatureTypes       FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
-	Tags               TagMap       `json:"tags" xml:"Tags"`
+AdapterName string `json:"adapterName" xml:"AdapterName"`
+AutoUpdate string `json:"autoUpdate" xml:"AutoUpdate"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+Description string `json:"description" xml:"Description"`
+FeatureTypes FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type CreateAdapterResponse struct {
-	AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
 }
 
 type CreateAdapterVersionRequest struct {
-	AdapterId          string                       `json:"adapterId" xml:"AdapterId"`
-	ClientRequestToken string                       `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DatasetConfig      *AdapterVersionDatasetConfig `json:"datasetConfig" xml:"DatasetConfig"`
-	KMSKeyId           string                       `json:"kMSKeyId" xml:"KMSKeyId"`
-	OutputConfig       *OutputConfig                `json:"outputConfig" xml:"OutputConfig"`
-	Tags               TagMap                       `json:"tags" xml:"Tags"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+DatasetConfig *AdapterVersionDatasetConfig `json:"datasetConfig" xml:"DatasetConfig"`
+KMSKeyId string `json:"kMSKeyId" xml:"KMSKeyId"`
+OutputConfig *OutputConfig `json:"outputConfig" xml:"OutputConfig"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type CreateAdapterVersionResponse struct {
-	AdapterId      string `json:"adapterId" xml:"AdapterId"`
-	AdapterVersion string `json:"adapterVersion" xml:"AdapterVersion"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterVersion string `json:"adapterVersion" xml:"AdapterVersion"`
 }
 
 type DeleteAdapterRequest struct {
-	AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
 }
 
 type DeleteAdapterResponse struct {
 }
 
 type DeleteAdapterVersionRequest struct {
-	AdapterId      string `json:"adapterId" xml:"AdapterId"`
-	AdapterVersion string `json:"adapterVersion" xml:"AdapterVersion"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterVersion string `json:"adapterVersion" xml:"AdapterVersion"`
 }
 
 type DeleteAdapterVersionResponse struct {
 }
 
 type DetectDocumentTextRequest struct {
-	Document *Document `json:"document" xml:"Document"`
+Document *Document `json:"document" xml:"Document"`
 }
 
 type DetectDocumentTextResponse struct {
-	Blocks                         BlockList         `json:"blocks" xml:"Blocks"`
-	DetectDocumentTextModelVersion string            `json:"detectDocumentTextModelVersion" xml:"DetectDocumentTextModelVersion"`
-	DocumentMetadata               *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
+Blocks BlockList `json:"blocks" xml:"Blocks"`
+DetectDocumentTextModelVersion string `json:"detectDocumentTextModelVersion" xml:"DetectDocumentTextModelVersion"`
+DocumentMetadata *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
 }
 
 type DetectedSignature struct {
-	Page int32 `json:"page" xml:"Page"`
+Page int32 `json:"page" xml:"Page"`
 }
 
 type Document struct {
-	Bytes    []byte    `json:"bytes" xml:"Bytes"`
-	S3Object *S3Object `json:"s3Object" xml:"S3Object"`
+Bytes []byte `json:"bytes" xml:"Bytes"`
+S3Object *S3Object `json:"s3Object" xml:"S3Object"`
 }
 
 type DocumentGroup struct {
-	DetectedSignatures   DetectedSignatureList   `json:"detectedSignatures" xml:"DetectedSignatures"`
-	SplitDocuments       SplitDocumentList       `json:"splitDocuments" xml:"SplitDocuments"`
-	Type                 string                  `json:"type" xml:"Type"`
-	UndetectedSignatures UndetectedSignatureList `json:"undetectedSignatures" xml:"UndetectedSignatures"`
+DetectedSignatures DetectedSignatureList `json:"detectedSignatures" xml:"DetectedSignatures"`
+SplitDocuments SplitDocumentList `json:"splitDocuments" xml:"SplitDocuments"`
+Type string `json:"type" xml:"Type"`
+UndetectedSignatures UndetectedSignatureList `json:"undetectedSignatures" xml:"UndetectedSignatures"`
 }
 
 type DocumentLocation struct {
-	S3Object *S3Object `json:"s3Object" xml:"S3Object"`
+S3Object *S3Object `json:"s3Object" xml:"S3Object"`
 }
 
 type DocumentMetadata struct {
-	Pages int32 `json:"pages" xml:"Pages"`
+Pages int32 `json:"pages" xml:"Pages"`
 }
 
 type EvaluationMetric struct {
-	F1Score   float32 `json:"f1Score" xml:"F1Score"`
-	Precision float32 `json:"precision" xml:"Precision"`
-	Recall    float32 `json:"recall" xml:"Recall"`
+F1Score float32 `json:"f1Score" xml:"F1Score"`
+Precision float32 `json:"precision" xml:"Precision"`
+Recall float32 `json:"recall" xml:"Recall"`
 }
 
 type ExpenseCurrency struct {
-	Code       string  `json:"code" xml:"Code"`
-	Confidence float32 `json:"confidence" xml:"Confidence"`
+Code string `json:"code" xml:"Code"`
+Confidence float32 `json:"confidence" xml:"Confidence"`
 }
 
 type ExpenseDetection struct {
-	Confidence float32   `json:"confidence" xml:"Confidence"`
-	Geometry   *Geometry `json:"geometry" xml:"Geometry"`
-	Text       string    `json:"text" xml:"Text"`
+Confidence float32 `json:"confidence" xml:"Confidence"`
+Geometry *Geometry `json:"geometry" xml:"Geometry"`
+Text string `json:"text" xml:"Text"`
 }
 
 type ExpenseDocument struct {
-	Blocks         BlockList         `json:"blocks" xml:"Blocks"`
-	ExpenseIndex   int32             `json:"expenseIndex" xml:"ExpenseIndex"`
-	LineItemGroups LineItemGroupList `json:"lineItemGroups" xml:"LineItemGroups"`
-	SummaryFields  ExpenseFieldList  `json:"summaryFields" xml:"SummaryFields"`
+Blocks BlockList `json:"blocks" xml:"Blocks"`
+ExpenseIndex int32 `json:"expenseIndex" xml:"ExpenseIndex"`
+LineItemGroups LineItemGroupList `json:"lineItemGroups" xml:"LineItemGroups"`
+SummaryFields ExpenseFieldList `json:"summaryFields" xml:"SummaryFields"`
 }
 
 type ExpenseField struct {
-	Currency        *ExpenseCurrency         `json:"currency" xml:"Currency"`
-	GroupProperties ExpenseGroupPropertyList `json:"groupProperties" xml:"GroupProperties"`
-	LabelDetection  *ExpenseDetection        `json:"labelDetection" xml:"LabelDetection"`
-	PageNumber      int32                    `json:"pageNumber" xml:"PageNumber"`
-	Type            *ExpenseType             `json:"type" xml:"Type"`
-	ValueDetection  *ExpenseDetection        `json:"valueDetection" xml:"ValueDetection"`
+Currency *ExpenseCurrency `json:"currency" xml:"Currency"`
+GroupProperties ExpenseGroupPropertyList `json:"groupProperties" xml:"GroupProperties"`
+LabelDetection *ExpenseDetection `json:"labelDetection" xml:"LabelDetection"`
+PageNumber int32 `json:"pageNumber" xml:"PageNumber"`
+Type *ExpenseType `json:"type" xml:"Type"`
+ValueDetection *ExpenseDetection `json:"valueDetection" xml:"ValueDetection"`
 }
 
 type ExpenseGroupProperty struct {
-	Id    string     `json:"id" xml:"Id"`
-	Types StringList `json:"types" xml:"Types"`
+Id string `json:"id" xml:"Id"`
+Types StringList `json:"types" xml:"Types"`
 }
 
 type ExpenseType struct {
-	Confidence float32 `json:"confidence" xml:"Confidence"`
-	Text       string  `json:"text" xml:"Text"`
+Confidence float32 `json:"confidence" xml:"Confidence"`
+Text string `json:"text" xml:"Text"`
 }
 
 type Extraction struct {
-	ExpenseDocument  *ExpenseDocument  `json:"expenseDocument" xml:"ExpenseDocument"`
-	IdentityDocument *IdentityDocument `json:"identityDocument" xml:"IdentityDocument"`
-	LendingDocument  *LendingDocument  `json:"lendingDocument" xml:"LendingDocument"`
+ExpenseDocument *ExpenseDocument `json:"expenseDocument" xml:"ExpenseDocument"`
+IdentityDocument *IdentityDocument `json:"identityDocument" xml:"IdentityDocument"`
+LendingDocument *LendingDocument `json:"lendingDocument" xml:"LendingDocument"`
 }
 
 type Geometry struct {
-	BoundingBox   *BoundingBox `json:"boundingBox" xml:"BoundingBox"`
-	Polygon       Polygon      `json:"polygon" xml:"Polygon"`
-	RotationAngle float32      `json:"rotationAngle" xml:"RotationAngle"`
+BoundingBox *BoundingBox `json:"boundingBox" xml:"BoundingBox"`
+Polygon Polygon `json:"polygon" xml:"Polygon"`
+RotationAngle float32 `json:"rotationAngle" xml:"RotationAngle"`
 }
 
 type GetAdapterRequest struct {
-	AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
 }
 
 type GetAdapterResponse struct {
-	AdapterId    string       `json:"adapterId" xml:"AdapterId"`
-	AdapterName  string       `json:"adapterName" xml:"AdapterName"`
-	AutoUpdate   string       `json:"autoUpdate" xml:"AutoUpdate"`
-	CreationTime time.Time    `json:"creationTime" xml:"CreationTime"`
-	Description  string       `json:"description" xml:"Description"`
-	FeatureTypes FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
-	Tags         TagMap       `json:"tags" xml:"Tags"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterName string `json:"adapterName" xml:"AdapterName"`
+AutoUpdate string `json:"autoUpdate" xml:"AutoUpdate"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Description string `json:"description" xml:"Description"`
+FeatureTypes FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type GetAdapterVersionRequest struct {
-	AdapterId      string `json:"adapterId" xml:"AdapterId"`
-	AdapterVersion string `json:"adapterVersion" xml:"AdapterVersion"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterVersion string `json:"adapterVersion" xml:"AdapterVersion"`
 }
 
 type GetAdapterVersionResponse struct {
-	AdapterId         string                          `json:"adapterId" xml:"AdapterId"`
-	AdapterVersion    string                          `json:"adapterVersion" xml:"AdapterVersion"`
-	CreationTime      time.Time                       `json:"creationTime" xml:"CreationTime"`
-	DatasetConfig     *AdapterVersionDatasetConfig    `json:"datasetConfig" xml:"DatasetConfig"`
-	EvaluationMetrics AdapterVersionEvaluationMetrics `json:"evaluationMetrics" xml:"EvaluationMetrics"`
-	FeatureTypes      FeatureTypes                    `json:"featureTypes" xml:"FeatureTypes"`
-	KMSKeyId          string                          `json:"kMSKeyId" xml:"KMSKeyId"`
-	OutputConfig      *OutputConfig                   `json:"outputConfig" xml:"OutputConfig"`
-	Status            string                          `json:"status" xml:"Status"`
-	StatusMessage     string                          `json:"statusMessage" xml:"StatusMessage"`
-	Tags              TagMap                          `json:"tags" xml:"Tags"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterVersion string `json:"adapterVersion" xml:"AdapterVersion"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+DatasetConfig *AdapterVersionDatasetConfig `json:"datasetConfig" xml:"DatasetConfig"`
+EvaluationMetrics AdapterVersionEvaluationMetrics `json:"evaluationMetrics" xml:"EvaluationMetrics"`
+FeatureTypes FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
+KMSKeyId string `json:"kMSKeyId" xml:"KMSKeyId"`
+OutputConfig *OutputConfig `json:"outputConfig" xml:"OutputConfig"`
+Status string `json:"status" xml:"Status"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type GetDocumentAnalysisRequest struct {
-	JobId      string `json:"jobId" xml:"JobId"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+JobId string `json:"jobId" xml:"JobId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetDocumentAnalysisResponse struct {
-	AnalyzeDocumentModelVersion string            `json:"analyzeDocumentModelVersion" xml:"AnalyzeDocumentModelVersion"`
-	Blocks                      BlockList         `json:"blocks" xml:"Blocks"`
-	DocumentMetadata            *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
-	JobStatus                   string            `json:"jobStatus" xml:"JobStatus"`
-	NextToken                   string            `json:"nextToken" xml:"NextToken"`
-	StatusMessage               string            `json:"statusMessage" xml:"StatusMessage"`
-	Warnings                    Warnings          `json:"warnings" xml:"Warnings"`
+AnalyzeDocumentModelVersion string `json:"analyzeDocumentModelVersion" xml:"AnalyzeDocumentModelVersion"`
+Blocks BlockList `json:"blocks" xml:"Blocks"`
+DocumentMetadata *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
+JobStatus string `json:"jobStatus" xml:"JobStatus"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+Warnings Warnings `json:"warnings" xml:"Warnings"`
 }
 
 type GetDocumentTextDetectionRequest struct {
-	JobId      string `json:"jobId" xml:"JobId"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+JobId string `json:"jobId" xml:"JobId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetDocumentTextDetectionResponse struct {
-	Blocks                         BlockList         `json:"blocks" xml:"Blocks"`
-	DetectDocumentTextModelVersion string            `json:"detectDocumentTextModelVersion" xml:"DetectDocumentTextModelVersion"`
-	DocumentMetadata               *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
-	JobStatus                      string            `json:"jobStatus" xml:"JobStatus"`
-	NextToken                      string            `json:"nextToken" xml:"NextToken"`
-	StatusMessage                  string            `json:"statusMessage" xml:"StatusMessage"`
-	Warnings                       Warnings          `json:"warnings" xml:"Warnings"`
+Blocks BlockList `json:"blocks" xml:"Blocks"`
+DetectDocumentTextModelVersion string `json:"detectDocumentTextModelVersion" xml:"DetectDocumentTextModelVersion"`
+DocumentMetadata *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
+JobStatus string `json:"jobStatus" xml:"JobStatus"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+Warnings Warnings `json:"warnings" xml:"Warnings"`
 }
 
 type GetExpenseAnalysisRequest struct {
-	JobId      string `json:"jobId" xml:"JobId"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+JobId string `json:"jobId" xml:"JobId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetExpenseAnalysisResponse struct {
-	AnalyzeExpenseModelVersion string              `json:"analyzeExpenseModelVersion" xml:"AnalyzeExpenseModelVersion"`
-	DocumentMetadata           *DocumentMetadata   `json:"documentMetadata" xml:"DocumentMetadata"`
-	ExpenseDocuments           ExpenseDocumentList `json:"expenseDocuments" xml:"ExpenseDocuments"`
-	JobStatus                  string              `json:"jobStatus" xml:"JobStatus"`
-	NextToken                  string              `json:"nextToken" xml:"NextToken"`
-	StatusMessage              string              `json:"statusMessage" xml:"StatusMessage"`
-	Warnings                   Warnings            `json:"warnings" xml:"Warnings"`
+AnalyzeExpenseModelVersion string `json:"analyzeExpenseModelVersion" xml:"AnalyzeExpenseModelVersion"`
+DocumentMetadata *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
+ExpenseDocuments ExpenseDocumentList `json:"expenseDocuments" xml:"ExpenseDocuments"`
+JobStatus string `json:"jobStatus" xml:"JobStatus"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+Warnings Warnings `json:"warnings" xml:"Warnings"`
 }
 
 type GetLendingAnalysisRequest struct {
-	JobId      string `json:"jobId" xml:"JobId"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+JobId string `json:"jobId" xml:"JobId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetLendingAnalysisResponse struct {
-	AnalyzeLendingModelVersion string            `json:"analyzeLendingModelVersion" xml:"AnalyzeLendingModelVersion"`
-	DocumentMetadata           *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
-	JobStatus                  string            `json:"jobStatus" xml:"JobStatus"`
-	NextToken                  string            `json:"nextToken" xml:"NextToken"`
-	Results                    LendingResultList `json:"results" xml:"Results"`
-	StatusMessage              string            `json:"statusMessage" xml:"StatusMessage"`
-	Warnings                   Warnings          `json:"warnings" xml:"Warnings"`
+AnalyzeLendingModelVersion string `json:"analyzeLendingModelVersion" xml:"AnalyzeLendingModelVersion"`
+DocumentMetadata *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
+JobStatus string `json:"jobStatus" xml:"JobStatus"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Results LendingResultList `json:"results" xml:"Results"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+Warnings Warnings `json:"warnings" xml:"Warnings"`
 }
 
 type GetLendingAnalysisSummaryRequest struct {
-	JobId string `json:"jobId" xml:"JobId"`
+JobId string `json:"jobId" xml:"JobId"`
 }
 
 type GetLendingAnalysisSummaryResponse struct {
-	AnalyzeLendingModelVersion string            `json:"analyzeLendingModelVersion" xml:"AnalyzeLendingModelVersion"`
-	DocumentMetadata           *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
-	JobStatus                  string            `json:"jobStatus" xml:"JobStatus"`
-	StatusMessage              string            `json:"statusMessage" xml:"StatusMessage"`
-	Summary                    *LendingSummary   `json:"summary" xml:"Summary"`
-	Warnings                   Warnings          `json:"warnings" xml:"Warnings"`
+AnalyzeLendingModelVersion string `json:"analyzeLendingModelVersion" xml:"AnalyzeLendingModelVersion"`
+DocumentMetadata *DocumentMetadata `json:"documentMetadata" xml:"DocumentMetadata"`
+JobStatus string `json:"jobStatus" xml:"JobStatus"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
+Summary *LendingSummary `json:"summary" xml:"Summary"`
+Warnings Warnings `json:"warnings" xml:"Warnings"`
 }
 
 type HumanLoopActivationOutput struct {
-	HumanLoopActivationConditionsEvaluationResults string                     `json:"humanLoopActivationConditionsEvaluationResults" xml:"HumanLoopActivationConditionsEvaluationResults"`
-	HumanLoopActivationReasons                     HumanLoopActivationReasons `json:"humanLoopActivationReasons" xml:"HumanLoopActivationReasons"`
-	HumanLoopArn                                   string                     `json:"humanLoopArn" xml:"HumanLoopArn"`
+HumanLoopActivationConditionsEvaluationResults string `json:"humanLoopActivationConditionsEvaluationResults" xml:"HumanLoopActivationConditionsEvaluationResults"`
+HumanLoopActivationReasons HumanLoopActivationReasons `json:"humanLoopActivationReasons" xml:"HumanLoopActivationReasons"`
+HumanLoopArn string `json:"humanLoopArn" xml:"HumanLoopArn"`
 }
 
 type HumanLoopConfig struct {
-	DataAttributes    *HumanLoopDataAttributes `json:"dataAttributes" xml:"DataAttributes"`
-	FlowDefinitionArn string                   `json:"flowDefinitionArn" xml:"FlowDefinitionArn"`
-	HumanLoopName     string                   `json:"humanLoopName" xml:"HumanLoopName"`
+DataAttributes *HumanLoopDataAttributes `json:"dataAttributes" xml:"DataAttributes"`
+FlowDefinitionArn string `json:"flowDefinitionArn" xml:"FlowDefinitionArn"`
+HumanLoopName string `json:"humanLoopName" xml:"HumanLoopName"`
 }
 
 type HumanLoopDataAttributes struct {
-	ContentClassifiers ContentClassifiers `json:"contentClassifiers" xml:"ContentClassifiers"`
+ContentClassifiers ContentClassifiers `json:"contentClassifiers" xml:"ContentClassifiers"`
 }
 
 type IdentityDocument struct {
-	Blocks                 BlockList                 `json:"blocks" xml:"Blocks"`
-	DocumentIndex          int32                     `json:"documentIndex" xml:"DocumentIndex"`
-	IdentityDocumentFields IdentityDocumentFieldList `json:"identityDocumentFields" xml:"IdentityDocumentFields"`
+Blocks BlockList `json:"blocks" xml:"Blocks"`
+DocumentIndex int32 `json:"documentIndex" xml:"DocumentIndex"`
+IdentityDocumentFields IdentityDocumentFieldList `json:"identityDocumentFields" xml:"IdentityDocumentFields"`
 }
 
 type IdentityDocumentField struct {
-	Type           *AnalyzeIDDetections `json:"type" xml:"Type"`
-	ValueDetection *AnalyzeIDDetections `json:"valueDetection" xml:"ValueDetection"`
+Type *AnalyzeIDDetections `json:"type" xml:"Type"`
+ValueDetection *AnalyzeIDDetections `json:"valueDetection" xml:"ValueDetection"`
 }
 
 type LendingDetection struct {
-	Confidence      float32   `json:"confidence" xml:"Confidence"`
-	Geometry        *Geometry `json:"geometry" xml:"Geometry"`
-	SelectionStatus string    `json:"selectionStatus" xml:"SelectionStatus"`
-	Text            string    `json:"text" xml:"Text"`
+Confidence float32 `json:"confidence" xml:"Confidence"`
+Geometry *Geometry `json:"geometry" xml:"Geometry"`
+SelectionStatus string `json:"selectionStatus" xml:"SelectionStatus"`
+Text string `json:"text" xml:"Text"`
 }
 
 type LendingDocument struct {
-	LendingFields       LendingFieldList       `json:"lendingFields" xml:"LendingFields"`
-	SignatureDetections SignatureDetectionList `json:"signatureDetections" xml:"SignatureDetections"`
+LendingFields LendingFieldList `json:"lendingFields" xml:"LendingFields"`
+SignatureDetections SignatureDetectionList `json:"signatureDetections" xml:"SignatureDetections"`
 }
 
 type LendingField struct {
-	KeyDetection    *LendingDetection    `json:"keyDetection" xml:"KeyDetection"`
-	Type            string               `json:"type" xml:"Type"`
-	ValueDetections LendingDetectionList `json:"valueDetections" xml:"ValueDetections"`
+KeyDetection *LendingDetection `json:"keyDetection" xml:"KeyDetection"`
+Type string `json:"type" xml:"Type"`
+ValueDetections LendingDetectionList `json:"valueDetections" xml:"ValueDetections"`
 }
 
 type LendingResult struct {
-	Extractions        ExtractionList      `json:"extractions" xml:"Extractions"`
-	Page               int32               `json:"page" xml:"Page"`
-	PageClassification *PageClassification `json:"pageClassification" xml:"PageClassification"`
+Extractions ExtractionList `json:"extractions" xml:"Extractions"`
+Page int32 `json:"page" xml:"Page"`
+PageClassification *PageClassification `json:"pageClassification" xml:"PageClassification"`
 }
 
 type LendingSummary struct {
-	DocumentGroups          DocumentGroupList          `json:"documentGroups" xml:"DocumentGroups"`
-	UndetectedDocumentTypes UndetectedDocumentTypeList `json:"undetectedDocumentTypes" xml:"UndetectedDocumentTypes"`
+DocumentGroups DocumentGroupList `json:"documentGroups" xml:"DocumentGroups"`
+UndetectedDocumentTypes UndetectedDocumentTypeList `json:"undetectedDocumentTypes" xml:"UndetectedDocumentTypes"`
 }
 
 type LineItemFields struct {
-	LineItemExpenseFields ExpenseFieldList `json:"lineItemExpenseFields" xml:"LineItemExpenseFields"`
+LineItemExpenseFields ExpenseFieldList `json:"lineItemExpenseFields" xml:"LineItemExpenseFields"`
 }
 
 type LineItemGroup struct {
-	LineItemGroupIndex int32        `json:"lineItemGroupIndex" xml:"LineItemGroupIndex"`
-	LineItems          LineItemList `json:"lineItems" xml:"LineItems"`
+LineItemGroupIndex int32 `json:"lineItemGroupIndex" xml:"LineItemGroupIndex"`
+LineItems LineItemList `json:"lineItems" xml:"LineItems"`
 }
 
 type ListAdapterVersionsRequest struct {
-	AdapterId          string    `json:"adapterId" xml:"AdapterId"`
-	AfterCreationTime  time.Time `json:"afterCreationTime" xml:"AfterCreationTime"`
-	BeforeCreationTime time.Time `json:"beforeCreationTime" xml:"BeforeCreationTime"`
-	MaxResults         int32     `json:"maxResults" xml:"MaxResults"`
-	NextToken          string    `json:"nextToken" xml:"NextToken"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+AfterCreationTime time.Time `json:"afterCreationTime" xml:"AfterCreationTime"`
+BeforeCreationTime time.Time `json:"beforeCreationTime" xml:"BeforeCreationTime"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListAdapterVersionsResponse struct {
-	AdapterVersions AdapterVersionList `json:"adapterVersions" xml:"AdapterVersions"`
-	NextToken       string             `json:"nextToken" xml:"NextToken"`
+AdapterVersions AdapterVersionList `json:"adapterVersions" xml:"AdapterVersions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListAdaptersRequest struct {
-	AfterCreationTime  time.Time `json:"afterCreationTime" xml:"AfterCreationTime"`
-	BeforeCreationTime time.Time `json:"beforeCreationTime" xml:"BeforeCreationTime"`
-	MaxResults         int32     `json:"maxResults" xml:"MaxResults"`
-	NextToken          string    `json:"nextToken" xml:"NextToken"`
+AfterCreationTime time.Time `json:"afterCreationTime" xml:"AfterCreationTime"`
+BeforeCreationTime time.Time `json:"beforeCreationTime" xml:"BeforeCreationTime"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListAdaptersResponse struct {
-	Adapters  AdapterList `json:"adapters" xml:"Adapters"`
-	NextToken string      `json:"nextToken" xml:"NextToken"`
+Adapters AdapterList `json:"adapters" xml:"Adapters"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags TagMap `json:"tags" xml:"Tags"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type NormalizedValue struct {
-	Value     string `json:"value" xml:"Value"`
-	ValueType string `json:"valueType" xml:"ValueType"`
+Value string `json:"value" xml:"Value"`
+ValueType string `json:"valueType" xml:"ValueType"`
 }
 
 type NotificationChannel struct {
-	RoleArn     string `json:"roleArn" xml:"RoleArn"`
-	SNSTopicArn string `json:"sNSTopicArn" xml:"SNSTopicArn"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+SNSTopicArn string `json:"sNSTopicArn" xml:"SNSTopicArn"`
 }
 
 type OutputConfig struct {
-	S3Bucket string `json:"s3Bucket" xml:"S3Bucket"`
-	S3Prefix string `json:"s3Prefix" xml:"S3Prefix"`
+S3Bucket string `json:"s3Bucket" xml:"S3Bucket"`
+S3Prefix string `json:"s3Prefix" xml:"S3Prefix"`
 }
 
 type PageClassification struct {
-	PageNumber PredictionList `json:"pageNumber" xml:"PageNumber"`
-	PageType   PredictionList `json:"pageType" xml:"PageType"`
+PageNumber PredictionList `json:"pageNumber" xml:"PageNumber"`
+PageType PredictionList `json:"pageType" xml:"PageType"`
 }
 
 type Point struct {
-	X float32 `json:"x" xml:"X"`
-	Y float32 `json:"y" xml:"Y"`
+X float32 `json:"x" xml:"X"`
+Y float32 `json:"y" xml:"Y"`
 }
 
 type Prediction struct {
-	Confidence float32 `json:"confidence" xml:"Confidence"`
-	Value      string  `json:"value" xml:"Value"`
+Confidence float32 `json:"confidence" xml:"Confidence"`
+Value string `json:"value" xml:"Value"`
 }
 
 type QueriesConfig struct {
-	Queries Queries `json:"queries" xml:"Queries"`
+Queries Queries `json:"queries" xml:"Queries"`
 }
 
 type Query struct {
-	Alias string     `json:"alias" xml:"Alias"`
-	Pages QueryPages `json:"pages" xml:"Pages"`
-	Text  string     `json:"text" xml:"Text"`
+Alias string `json:"alias" xml:"Alias"`
+Pages QueryPages `json:"pages" xml:"Pages"`
+Text string `json:"text" xml:"Text"`
 }
 
 type Relationship struct {
-	Ids  IdList `json:"ids" xml:"Ids"`
-	Type string `json:"type" xml:"Type"`
+Ids IdList `json:"ids" xml:"Ids"`
+Type string `json:"type" xml:"Type"`
 }
 
 type S3Object struct {
-	Bucket  string `json:"bucket" xml:"Bucket"`
-	Name    string `json:"name" xml:"Name"`
-	Version string `json:"version" xml:"Version"`
+Bucket string `json:"bucket" xml:"Bucket"`
+Name string `json:"name" xml:"Name"`
+Version string `json:"version" xml:"Version"`
 }
 
 type SignatureDetection struct {
-	Confidence float32   `json:"confidence" xml:"Confidence"`
-	Geometry   *Geometry `json:"geometry" xml:"Geometry"`
+Confidence float32 `json:"confidence" xml:"Confidence"`
+Geometry *Geometry `json:"geometry" xml:"Geometry"`
 }
 
 type SplitDocument struct {
-	Index int32    `json:"index" xml:"Index"`
-	Pages PageList `json:"pages" xml:"Pages"`
+Index int32 `json:"index" xml:"Index"`
+Pages PageList `json:"pages" xml:"Pages"`
 }
 
 type StartDocumentAnalysisRequest struct {
-	AdaptersConfig      *AdaptersConfig      `json:"adaptersConfig" xml:"AdaptersConfig"`
-	ClientRequestToken  string               `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DocumentLocation    *DocumentLocation    `json:"documentLocation" xml:"DocumentLocation"`
-	FeatureTypes        FeatureTypes         `json:"featureTypes" xml:"FeatureTypes"`
-	JobTag              string               `json:"jobTag" xml:"JobTag"`
-	KMSKeyId            string               `json:"kMSKeyId" xml:"KMSKeyId"`
-	NotificationChannel *NotificationChannel `json:"notificationChannel" xml:"NotificationChannel"`
-	OutputConfig        *OutputConfig        `json:"outputConfig" xml:"OutputConfig"`
-	QueriesConfig       *QueriesConfig       `json:"queriesConfig" xml:"QueriesConfig"`
+AdaptersConfig *AdaptersConfig `json:"adaptersConfig" xml:"AdaptersConfig"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+DocumentLocation *DocumentLocation `json:"documentLocation" xml:"DocumentLocation"`
+FeatureTypes FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
+JobTag string `json:"jobTag" xml:"JobTag"`
+KMSKeyId string `json:"kMSKeyId" xml:"KMSKeyId"`
+NotificationChannel *NotificationChannel `json:"notificationChannel" xml:"NotificationChannel"`
+OutputConfig *OutputConfig `json:"outputConfig" xml:"OutputConfig"`
+QueriesConfig *QueriesConfig `json:"queriesConfig" xml:"QueriesConfig"`
 }
 
 type StartDocumentAnalysisResponse struct {
-	JobId string `json:"jobId" xml:"JobId"`
+JobId string `json:"jobId" xml:"JobId"`
 }
 
 type StartDocumentTextDetectionRequest struct {
-	ClientRequestToken  string               `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DocumentLocation    *DocumentLocation    `json:"documentLocation" xml:"DocumentLocation"`
-	JobTag              string               `json:"jobTag" xml:"JobTag"`
-	KMSKeyId            string               `json:"kMSKeyId" xml:"KMSKeyId"`
-	NotificationChannel *NotificationChannel `json:"notificationChannel" xml:"NotificationChannel"`
-	OutputConfig        *OutputConfig        `json:"outputConfig" xml:"OutputConfig"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+DocumentLocation *DocumentLocation `json:"documentLocation" xml:"DocumentLocation"`
+JobTag string `json:"jobTag" xml:"JobTag"`
+KMSKeyId string `json:"kMSKeyId" xml:"KMSKeyId"`
+NotificationChannel *NotificationChannel `json:"notificationChannel" xml:"NotificationChannel"`
+OutputConfig *OutputConfig `json:"outputConfig" xml:"OutputConfig"`
 }
 
 type StartDocumentTextDetectionResponse struct {
-	JobId string `json:"jobId" xml:"JobId"`
+JobId string `json:"jobId" xml:"JobId"`
 }
 
 type StartExpenseAnalysisRequest struct {
-	ClientRequestToken  string               `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DocumentLocation    *DocumentLocation    `json:"documentLocation" xml:"DocumentLocation"`
-	JobTag              string               `json:"jobTag" xml:"JobTag"`
-	KMSKeyId            string               `json:"kMSKeyId" xml:"KMSKeyId"`
-	NotificationChannel *NotificationChannel `json:"notificationChannel" xml:"NotificationChannel"`
-	OutputConfig        *OutputConfig        `json:"outputConfig" xml:"OutputConfig"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+DocumentLocation *DocumentLocation `json:"documentLocation" xml:"DocumentLocation"`
+JobTag string `json:"jobTag" xml:"JobTag"`
+KMSKeyId string `json:"kMSKeyId" xml:"KMSKeyId"`
+NotificationChannel *NotificationChannel `json:"notificationChannel" xml:"NotificationChannel"`
+OutputConfig *OutputConfig `json:"outputConfig" xml:"OutputConfig"`
 }
 
 type StartExpenseAnalysisResponse struct {
-	JobId string `json:"jobId" xml:"JobId"`
+JobId string `json:"jobId" xml:"JobId"`
 }
 
 type StartLendingAnalysisRequest struct {
-	ClientRequestToken  string               `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DocumentLocation    *DocumentLocation    `json:"documentLocation" xml:"DocumentLocation"`
-	JobTag              string               `json:"jobTag" xml:"JobTag"`
-	KMSKeyId            string               `json:"kMSKeyId" xml:"KMSKeyId"`
-	NotificationChannel *NotificationChannel `json:"notificationChannel" xml:"NotificationChannel"`
-	OutputConfig        *OutputConfig        `json:"outputConfig" xml:"OutputConfig"`
+ClientRequestToken string `json:"clientRequestToken" xml:"ClientRequestToken"`
+DocumentLocation *DocumentLocation `json:"documentLocation" xml:"DocumentLocation"`
+JobTag string `json:"jobTag" xml:"JobTag"`
+KMSKeyId string `json:"kMSKeyId" xml:"KMSKeyId"`
+NotificationChannel *NotificationChannel `json:"notificationChannel" xml:"NotificationChannel"`
+OutputConfig *OutputConfig `json:"outputConfig" xml:"OutputConfig"`
 }
 
 type StartLendingAnalysisResponse struct {
-	JobId string `json:"jobId" xml:"JobId"`
+JobId string `json:"jobId" xml:"JobId"`
 }
 
 type TagResourceRequest struct {
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
-	Tags        TagMap `json:"tags" xml:"Tags"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type UndetectedSignature struct {
-	Page int32 `json:"page" xml:"Page"`
+Page int32 `json:"page" xml:"Page"`
 }
 
 type UntagResourceRequest struct {
-	ResourceARN string     `json:"resourceARN" xml:"ResourceARN"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateAdapterRequest struct {
-	AdapterId   string `json:"adapterId" xml:"AdapterId"`
-	AdapterName string `json:"adapterName" xml:"AdapterName"`
-	AutoUpdate  string `json:"autoUpdate" xml:"AutoUpdate"`
-	Description string `json:"description" xml:"Description"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterName string `json:"adapterName" xml:"AdapterName"`
+AutoUpdate string `json:"autoUpdate" xml:"AutoUpdate"`
+Description string `json:"description" xml:"Description"`
 }
 
 type UpdateAdapterResponse struct {
-	AdapterId    string       `json:"adapterId" xml:"AdapterId"`
-	AdapterName  string       `json:"adapterName" xml:"AdapterName"`
-	AutoUpdate   string       `json:"autoUpdate" xml:"AutoUpdate"`
-	CreationTime time.Time    `json:"creationTime" xml:"CreationTime"`
-	Description  string       `json:"description" xml:"Description"`
-	FeatureTypes FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
+AdapterId string `json:"adapterId" xml:"AdapterId"`
+AdapterName string `json:"adapterName" xml:"AdapterName"`
+AutoUpdate string `json:"autoUpdate" xml:"AutoUpdate"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Description string `json:"description" xml:"Description"`
+FeatureTypes FeatureTypes `json:"featureTypes" xml:"FeatureTypes"`
 }
 
 type Warning struct {
-	ErrorCode string `json:"errorCode" xml:"ErrorCode"`
-	Pages     Pages  `json:"pages" xml:"Pages"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+Pages Pages `json:"pages" xml:"Pages"`
 }
 
 type AdapterList []*AdapterOverview
@@ -682,3 +682,4 @@ type UndetectedSignatureList []*UndetectedSignature
 type Warnings []*Warning
 
 type TagMap map[string]string
+

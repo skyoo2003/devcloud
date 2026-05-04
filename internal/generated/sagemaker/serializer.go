@@ -2675,3 +2675,4 @@ func DeserializeUpdateWorkteamRequest(r *http.Request, pathParams PathParams) (*
 
 	return input, nil
 }
+

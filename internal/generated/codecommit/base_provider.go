@@ -326,3 +326,4 @@ func (b *BaseProvider) UpdateRepositoryEncryptionKey(ctx context.Context, input 
 func (b *BaseProvider) UpdateRepositoryName(ctx context.Context, input *UpdateRepositoryNameInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("UpdateRepositoryName: %w", ErrNotImplemented)
 }
+

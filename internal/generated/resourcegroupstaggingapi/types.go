@@ -2,142 +2,143 @@
 // SPDX-License-Identifier: Apache-2.0
 package resourcegroupstaggingapi
 
+
 type ComplianceDetails struct {
-	ComplianceStatus           bool       `json:"complianceStatus" xml:"ComplianceStatus"`
-	KeysWithNoncompliantValues TagKeyList `json:"keysWithNoncompliantValues" xml:"KeysWithNoncompliantValues"`
-	NoncompliantKeys           TagKeyList `json:"noncompliantKeys" xml:"NoncompliantKeys"`
+ComplianceStatus bool `json:"complianceStatus" xml:"ComplianceStatus"`
+KeysWithNoncompliantValues TagKeyList `json:"keysWithNoncompliantValues" xml:"KeysWithNoncompliantValues"`
+NoncompliantKeys TagKeyList `json:"noncompliantKeys" xml:"NoncompliantKeys"`
 }
 
 type DescribeReportCreationInput struct {
 }
 
 type DescribeReportCreationOutput struct {
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
-	S3Location   string `json:"s3Location" xml:"S3Location"`
-	StartDate    string `json:"startDate" xml:"StartDate"`
-	Status       string `json:"status" xml:"Status"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+S3Location string `json:"s3Location" xml:"S3Location"`
+StartDate string `json:"startDate" xml:"StartDate"`
+Status string `json:"status" xml:"Status"`
 }
 
 type FailureInfo struct {
-	ErrorCode    string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
-	StatusCode   int32  `json:"statusCode" xml:"StatusCode"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+StatusCode int32 `json:"statusCode" xml:"StatusCode"`
 }
 
 type GetComplianceSummaryInput struct {
-	GroupBy             GroupBy                `json:"groupBy" xml:"GroupBy"`
-	MaxResults          int32                  `json:"maxResults" xml:"MaxResults"`
-	PaginationToken     string                 `json:"paginationToken" xml:"PaginationToken"`
-	RegionFilters       RegionFilterList       `json:"regionFilters" xml:"RegionFilters"`
-	ResourceTypeFilters ResourceTypeFilterList `json:"resourceTypeFilters" xml:"ResourceTypeFilters"`
-	TagKeyFilters       TagKeyFilterList       `json:"tagKeyFilters" xml:"TagKeyFilters"`
-	TargetIdFilters     TargetIdFilterList     `json:"targetIdFilters" xml:"TargetIdFilters"`
+GroupBy GroupBy `json:"groupBy" xml:"GroupBy"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+PaginationToken string `json:"paginationToken" xml:"PaginationToken"`
+RegionFilters RegionFilterList `json:"regionFilters" xml:"RegionFilters"`
+ResourceTypeFilters ResourceTypeFilterList `json:"resourceTypeFilters" xml:"ResourceTypeFilters"`
+TagKeyFilters TagKeyFilterList `json:"tagKeyFilters" xml:"TagKeyFilters"`
+TargetIdFilters TargetIdFilterList `json:"targetIdFilters" xml:"TargetIdFilters"`
 }
 
 type GetComplianceSummaryOutput struct {
-	PaginationToken string      `json:"paginationToken" xml:"PaginationToken"`
-	SummaryList     SummaryList `json:"summaryList" xml:"SummaryList"`
+PaginationToken string `json:"paginationToken" xml:"PaginationToken"`
+SummaryList SummaryList `json:"summaryList" xml:"SummaryList"`
 }
 
 type GetResourcesInput struct {
-	ExcludeCompliantResources bool                   `json:"excludeCompliantResources" xml:"ExcludeCompliantResources"`
-	IncludeComplianceDetails  bool                   `json:"includeComplianceDetails" xml:"IncludeComplianceDetails"`
-	PaginationToken           string                 `json:"paginationToken" xml:"PaginationToken"`
-	ResourceARNList           ResourceARNListForGet  `json:"resourceARNList" xml:"ResourceARNList"`
-	ResourceTypeFilters       ResourceTypeFilterList `json:"resourceTypeFilters" xml:"ResourceTypeFilters"`
-	ResourcesPerPage          int32                  `json:"resourcesPerPage" xml:"ResourcesPerPage"`
-	TagFilters                TagFilterList          `json:"tagFilters" xml:"TagFilters"`
-	TagsPerPage               int32                  `json:"tagsPerPage" xml:"TagsPerPage"`
+ExcludeCompliantResources bool `json:"excludeCompliantResources" xml:"ExcludeCompliantResources"`
+IncludeComplianceDetails bool `json:"includeComplianceDetails" xml:"IncludeComplianceDetails"`
+PaginationToken string `json:"paginationToken" xml:"PaginationToken"`
+ResourceARNList ResourceARNListForGet `json:"resourceARNList" xml:"ResourceARNList"`
+ResourceTypeFilters ResourceTypeFilterList `json:"resourceTypeFilters" xml:"ResourceTypeFilters"`
+ResourcesPerPage int32 `json:"resourcesPerPage" xml:"ResourcesPerPage"`
+TagFilters TagFilterList `json:"tagFilters" xml:"TagFilters"`
+TagsPerPage int32 `json:"tagsPerPage" xml:"TagsPerPage"`
 }
 
 type GetResourcesOutput struct {
-	PaginationToken        string                 `json:"paginationToken" xml:"PaginationToken"`
-	ResourceTagMappingList ResourceTagMappingList `json:"resourceTagMappingList" xml:"ResourceTagMappingList"`
+PaginationToken string `json:"paginationToken" xml:"PaginationToken"`
+ResourceTagMappingList ResourceTagMappingList `json:"resourceTagMappingList" xml:"ResourceTagMappingList"`
 }
 
 type GetTagKeysInput struct {
-	PaginationToken string `json:"paginationToken" xml:"PaginationToken"`
+PaginationToken string `json:"paginationToken" xml:"PaginationToken"`
 }
 
 type GetTagKeysOutput struct {
-	PaginationToken string     `json:"paginationToken" xml:"PaginationToken"`
-	TagKeys         TagKeyList `json:"tagKeys" xml:"TagKeys"`
+PaginationToken string `json:"paginationToken" xml:"PaginationToken"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type GetTagValuesInput struct {
-	Key             string `json:"key" xml:"Key"`
-	PaginationToken string `json:"paginationToken" xml:"PaginationToken"`
+Key string `json:"key" xml:"Key"`
+PaginationToken string `json:"paginationToken" xml:"PaginationToken"`
 }
 
 type GetTagValuesOutput struct {
-	PaginationToken string              `json:"paginationToken" xml:"PaginationToken"`
-	TagValues       TagValuesOutputList `json:"tagValues" xml:"TagValues"`
+PaginationToken string `json:"paginationToken" xml:"PaginationToken"`
+TagValues TagValuesOutputList `json:"tagValues" xml:"TagValues"`
 }
 
 type ListRequiredTagsInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListRequiredTagsOutput struct {
-	NextToken    string                          `json:"nextToken" xml:"NextToken"`
-	RequiredTags RequiredTagsForListRequiredTags `json:"requiredTags" xml:"RequiredTags"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RequiredTags RequiredTagsForListRequiredTags `json:"requiredTags" xml:"RequiredTags"`
 }
 
 type RequiredTag struct {
-	CloudFormationResourceTypes CloudFormationResourceTypes `json:"cloudFormationResourceTypes" xml:"CloudFormationResourceTypes"`
-	ReportingTagKeys            ReportingTagKeys            `json:"reportingTagKeys" xml:"ReportingTagKeys"`
-	ResourceType                string                      `json:"resourceType" xml:"ResourceType"`
+CloudFormationResourceTypes CloudFormationResourceTypes `json:"cloudFormationResourceTypes" xml:"CloudFormationResourceTypes"`
+ReportingTagKeys ReportingTagKeys `json:"reportingTagKeys" xml:"ReportingTagKeys"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type ResourceTagMapping struct {
-	ComplianceDetails *ComplianceDetails `json:"complianceDetails" xml:"ComplianceDetails"`
-	ResourceARN       string             `json:"resourceARN" xml:"ResourceARN"`
-	Tags              TagList            `json:"tags" xml:"Tags"`
+ComplianceDetails *ComplianceDetails `json:"complianceDetails" xml:"ComplianceDetails"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type StartReportCreationInput struct {
-	S3Bucket string `json:"s3Bucket" xml:"S3Bucket"`
+S3Bucket string `json:"s3Bucket" xml:"S3Bucket"`
 }
 
 type StartReportCreationOutput struct {
 }
 
 type Summary struct {
-	LastUpdated           string `json:"lastUpdated" xml:"LastUpdated"`
-	NonCompliantResources int64  `json:"nonCompliantResources" xml:"NonCompliantResources"`
-	Region                string `json:"region" xml:"Region"`
-	ResourceType          string `json:"resourceType" xml:"ResourceType"`
-	TargetId              string `json:"targetId" xml:"TargetId"`
-	TargetIdType          string `json:"targetIdType" xml:"TargetIdType"`
+LastUpdated string `json:"lastUpdated" xml:"LastUpdated"`
+NonCompliantResources int64 `json:"nonCompliantResources" xml:"NonCompliantResources"`
+Region string `json:"region" xml:"Region"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+TargetId string `json:"targetId" xml:"TargetId"`
+TargetIdType string `json:"targetIdType" xml:"TargetIdType"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagFilter struct {
-	Key    string       `json:"key" xml:"Key"`
-	Values TagValueList `json:"values" xml:"Values"`
+Key string `json:"key" xml:"Key"`
+Values TagValueList `json:"values" xml:"Values"`
 }
 
 type TagResourcesInput struct {
-	ResourceARNList ResourceARNListForTagUntag `json:"resourceARNList" xml:"ResourceARNList"`
-	Tags            TagMap                     `json:"tags" xml:"Tags"`
+ResourceARNList ResourceARNListForTagUntag `json:"resourceARNList" xml:"ResourceARNList"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type TagResourcesOutput struct {
-	FailedResourcesMap FailedResourcesMap `json:"failedResourcesMap" xml:"FailedResourcesMap"`
+FailedResourcesMap FailedResourcesMap `json:"failedResourcesMap" xml:"FailedResourcesMap"`
 }
 
 type UntagResourcesInput struct {
-	ResourceARNList ResourceARNListForTagUntag `json:"resourceARNList" xml:"ResourceARNList"`
-	TagKeys         TagKeyListForUntag         `json:"tagKeys" xml:"TagKeys"`
+ResourceARNList ResourceARNListForTagUntag `json:"resourceARNList" xml:"ResourceARNList"`
+TagKeys TagKeyListForUntag `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourcesOutput struct {
-	FailedResourcesMap FailedResourcesMap `json:"failedResourcesMap" xml:"FailedResourcesMap"`
+FailedResourcesMap FailedResourcesMap `json:"failedResourcesMap" xml:"FailedResourcesMap"`
 }
 
 type CloudFormationResourceTypes []string
@@ -179,3 +180,4 @@ type TargetIdFilterList []string
 type FailedResourcesMap map[string]*FailureInfo
 
 type TagMap map[string]string
+

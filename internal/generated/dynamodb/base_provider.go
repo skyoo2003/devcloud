@@ -238,3 +238,4 @@ func (b *BaseProvider) UpdateTableReplicaAutoScaling(ctx context.Context, input 
 func (b *BaseProvider) UpdateTimeToLive(ctx context.Context, input *UpdateTimeToLiveInput) (*UpdateTimeToLiveOutput, error) {
 	return nil, fmt.Errorf("UpdateTimeToLive: %w", ErrNotImplemented)
 }
+

@@ -102,3 +102,4 @@ func (b *BaseProvider) UpdateGroup(ctx context.Context, input *UpdateGroupInput)
 func (b *BaseProvider) UpdateGroupQuery(ctx context.Context, input *UpdateGroupQueryInput) (*UpdateGroupQueryOutput, error) {
 	return nil, fmt.Errorf("UpdateGroupQuery: %w", ErrNotImplemented)
 }
+

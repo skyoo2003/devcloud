@@ -271,3 +271,4 @@ func SerializeWriteRecordsResponse(w http.ResponseWriter, output *WriteRecordsRe
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

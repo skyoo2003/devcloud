@@ -2434,3 +2434,4 @@ func (e *UsageLimitNotFoundFault) ErrorCode() string {
 func (e *UsageLimitNotFoundFault) HTTPStatus() int {
 	return 404
 }
+

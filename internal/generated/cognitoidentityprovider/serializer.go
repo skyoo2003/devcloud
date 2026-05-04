@@ -862,3 +862,4 @@ func DeserializeVerifyUserAttributeRequest(r *http.Request, pathParams PathParam
 
 	return input, nil
 }
+

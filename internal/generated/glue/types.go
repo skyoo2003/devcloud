@@ -7,1921 +7,1921 @@ import (
 )
 
 type Action struct {
-	Arguments             GenericMap            `json:"arguments" xml:"Arguments"`
-	CrawlerName           string                `json:"crawlerName" xml:"CrawlerName"`
-	JobName               string                `json:"jobName" xml:"JobName"`
-	NotificationProperty  *NotificationProperty `json:"notificationProperty" xml:"NotificationProperty"`
-	SecurityConfiguration string                `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	Timeout               int32                 `json:"timeout" xml:"Timeout"`
+Arguments GenericMap `json:"arguments" xml:"Arguments"`
+CrawlerName string `json:"crawlerName" xml:"CrawlerName"`
+JobName string `json:"jobName" xml:"JobName"`
+NotificationProperty *NotificationProperty `json:"notificationProperty" xml:"NotificationProperty"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
 }
 
 type Aggregate struct {
-	Aggs   AggregateOperations `json:"aggs" xml:"Aggs"`
-	Groups GlueStudioPathList  `json:"groups" xml:"Groups"`
-	Inputs OneInput            `json:"inputs" xml:"Inputs"`
-	Name   string              `json:"name" xml:"Name"`
+Aggs AggregateOperations `json:"aggs" xml:"Aggs"`
+Groups GlueStudioPathList `json:"groups" xml:"Groups"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
 }
 
 type AggregateOperation struct {
-	AggFunc string                     `json:"aggFunc" xml:"AggFunc"`
-	Column  EnclosedInStringProperties `json:"column" xml:"Column"`
+AggFunc string `json:"aggFunc" xml:"AggFunc"`
+Column EnclosedInStringProperties `json:"column" xml:"Column"`
 }
 
 type AllowedValue struct {
-	Description string `json:"description" xml:"Description"`
-	Value       string `json:"value" xml:"Value"`
+Description string `json:"description" xml:"Description"`
+Value string `json:"value" xml:"Value"`
 }
 
 type AmazonRedshiftAdvancedOption struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type AmazonRedshiftNodeData struct {
-	AccessType            string                        `json:"accessType" xml:"AccessType"`
-	Action                string                        `json:"action" xml:"Action"`
-	AdvancedOptions       AmazonRedshiftAdvancedOptions `json:"advancedOptions" xml:"AdvancedOptions"`
-	CatalogDatabase       *Option                       `json:"catalogDatabase" xml:"CatalogDatabase"`
-	CatalogRedshiftSchema string                        `json:"catalogRedshiftSchema" xml:"CatalogRedshiftSchema"`
-	CatalogRedshiftTable  string                        `json:"catalogRedshiftTable" xml:"CatalogRedshiftTable"`
-	CatalogTable          *Option                       `json:"catalogTable" xml:"CatalogTable"`
-	Connection            *Option                       `json:"connection" xml:"Connection"`
-	CrawlerConnection     string                        `json:"crawlerConnection" xml:"CrawlerConnection"`
-	IamRole               *Option                       `json:"iamRole" xml:"IamRole"`
-	MergeAction           string                        `json:"mergeAction" xml:"MergeAction"`
-	MergeClause           string                        `json:"mergeClause" xml:"MergeClause"`
-	MergeWhenMatched      string                        `json:"mergeWhenMatched" xml:"MergeWhenMatched"`
-	MergeWhenNotMatched   string                        `json:"mergeWhenNotMatched" xml:"MergeWhenNotMatched"`
-	PostAction            string                        `json:"postAction" xml:"PostAction"`
-	PreAction             string                        `json:"preAction" xml:"PreAction"`
-	SampleQuery           string                        `json:"sampleQuery" xml:"SampleQuery"`
-	Schema                *Option                       `json:"schema" xml:"Schema"`
-	SelectedColumns       OptionList                    `json:"selectedColumns" xml:"SelectedColumns"`
-	SourceType            string                        `json:"sourceType" xml:"SourceType"`
-	StagingTable          string                        `json:"stagingTable" xml:"StagingTable"`
-	Table                 *Option                       `json:"table" xml:"Table"`
-	TablePrefix           string                        `json:"tablePrefix" xml:"TablePrefix"`
-	TableSchema           OptionList                    `json:"tableSchema" xml:"TableSchema"`
-	TempDir               string                        `json:"tempDir" xml:"TempDir"`
-	Upsert                bool                          `json:"upsert" xml:"Upsert"`
+AccessType string `json:"accessType" xml:"AccessType"`
+Action string `json:"action" xml:"Action"`
+AdvancedOptions AmazonRedshiftAdvancedOptions `json:"advancedOptions" xml:"AdvancedOptions"`
+CatalogDatabase *Option `json:"catalogDatabase" xml:"CatalogDatabase"`
+CatalogRedshiftSchema string `json:"catalogRedshiftSchema" xml:"CatalogRedshiftSchema"`
+CatalogRedshiftTable string `json:"catalogRedshiftTable" xml:"CatalogRedshiftTable"`
+CatalogTable *Option `json:"catalogTable" xml:"CatalogTable"`
+Connection *Option `json:"connection" xml:"Connection"`
+CrawlerConnection string `json:"crawlerConnection" xml:"CrawlerConnection"`
+IamRole *Option `json:"iamRole" xml:"IamRole"`
+MergeAction string `json:"mergeAction" xml:"MergeAction"`
+MergeClause string `json:"mergeClause" xml:"MergeClause"`
+MergeWhenMatched string `json:"mergeWhenMatched" xml:"MergeWhenMatched"`
+MergeWhenNotMatched string `json:"mergeWhenNotMatched" xml:"MergeWhenNotMatched"`
+PostAction string `json:"postAction" xml:"PostAction"`
+PreAction string `json:"preAction" xml:"PreAction"`
+SampleQuery string `json:"sampleQuery" xml:"SampleQuery"`
+Schema *Option `json:"schema" xml:"Schema"`
+SelectedColumns OptionList `json:"selectedColumns" xml:"SelectedColumns"`
+SourceType string `json:"sourceType" xml:"SourceType"`
+StagingTable string `json:"stagingTable" xml:"StagingTable"`
+Table *Option `json:"table" xml:"Table"`
+TablePrefix string `json:"tablePrefix" xml:"TablePrefix"`
+TableSchema OptionList `json:"tableSchema" xml:"TableSchema"`
+TempDir string `json:"tempDir" xml:"TempDir"`
+Upsert bool `json:"upsert" xml:"Upsert"`
 }
 
 type AmazonRedshiftSource struct {
-	Data *AmazonRedshiftNodeData `json:"data" xml:"Data"`
-	Name string                  `json:"name" xml:"Name"`
+Data *AmazonRedshiftNodeData `json:"data" xml:"Data"`
+Name string `json:"name" xml:"Name"`
 }
 
 type AmazonRedshiftTarget struct {
-	Data   *AmazonRedshiftNodeData `json:"data" xml:"Data"`
-	Inputs OneInput                `json:"inputs" xml:"Inputs"`
-	Name   string                  `json:"name" xml:"Name"`
+Data *AmazonRedshiftNodeData `json:"data" xml:"Data"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
 }
 
 type AnnotationError struct {
-	FailureReason string `json:"failureReason" xml:"FailureReason"`
-	ProfileId     string `json:"profileId" xml:"ProfileId"`
-	StatisticId   string `json:"statisticId" xml:"StatisticId"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+StatisticId string `json:"statisticId" xml:"StatisticId"`
 }
 
 type ApplyMapping struct {
-	Inputs  OneInput `json:"inputs" xml:"Inputs"`
-	Mapping Mappings `json:"mapping" xml:"Mapping"`
-	Name    string   `json:"name" xml:"Name"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Mapping Mappings `json:"mapping" xml:"Mapping"`
+Name string `json:"name" xml:"Name"`
 }
 
 type AthenaConnectorSource struct {
-	ConnectionName  string      `json:"connectionName" xml:"ConnectionName"`
-	ConnectionTable string      `json:"connectionTable" xml:"ConnectionTable"`
-	ConnectionType  string      `json:"connectionType" xml:"ConnectionType"`
-	ConnectorName   string      `json:"connectorName" xml:"ConnectorName"`
-	Name            string      `json:"name" xml:"Name"`
-	OutputSchemas   GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
-	SchemaName      string      `json:"schemaName" xml:"SchemaName"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+ConnectionTable string `json:"connectionTable" xml:"ConnectionTable"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ConnectorName string `json:"connectorName" xml:"ConnectorName"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+SchemaName string `json:"schemaName" xml:"SchemaName"`
 }
 
 type AuditContext struct {
-	AdditionalAuditContext string               `json:"additionalAuditContext" xml:"AdditionalAuditContext"`
-	AllColumnsRequested    bool                 `json:"allColumnsRequested" xml:"AllColumnsRequested"`
-	RequestedColumns       AuditColumnNamesList `json:"requestedColumns" xml:"RequestedColumns"`
+AdditionalAuditContext string `json:"additionalAuditContext" xml:"AdditionalAuditContext"`
+AllColumnsRequested bool `json:"allColumnsRequested" xml:"AllColumnsRequested"`
+RequestedColumns AuditColumnNamesList `json:"requestedColumns" xml:"RequestedColumns"`
 }
 
 type AuthConfiguration struct {
-	AuthenticationType             *Property     `json:"authenticationType" xml:"AuthenticationType"`
-	BasicAuthenticationProperties  PropertiesMap `json:"basicAuthenticationProperties" xml:"BasicAuthenticationProperties"`
-	CustomAuthenticationProperties PropertiesMap `json:"customAuthenticationProperties" xml:"CustomAuthenticationProperties"`
-	OAuth2Properties               PropertiesMap `json:"oAuth2Properties" xml:"OAuth2Properties"`
-	SecretArn                      *Property     `json:"secretArn" xml:"SecretArn"`
+AuthenticationType *Property `json:"authenticationType" xml:"AuthenticationType"`
+BasicAuthenticationProperties PropertiesMap `json:"basicAuthenticationProperties" xml:"BasicAuthenticationProperties"`
+CustomAuthenticationProperties PropertiesMap `json:"customAuthenticationProperties" xml:"CustomAuthenticationProperties"`
+OAuth2Properties PropertiesMap `json:"oAuth2Properties" xml:"OAuth2Properties"`
+SecretArn *Property `json:"secretArn" xml:"SecretArn"`
 }
 
 type AuthenticationConfiguration struct {
-	AuthenticationType string            `json:"authenticationType" xml:"AuthenticationType"`
-	KmsKeyArn          string            `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	OAuth2Properties   *OAuth2Properties `json:"oAuth2Properties" xml:"OAuth2Properties"`
-	SecretArn          string            `json:"secretArn" xml:"SecretArn"`
+AuthenticationType string `json:"authenticationType" xml:"AuthenticationType"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+OAuth2Properties *OAuth2Properties `json:"oAuth2Properties" xml:"OAuth2Properties"`
+SecretArn string `json:"secretArn" xml:"SecretArn"`
 }
 
 type AuthenticationConfigurationInput struct {
-	AuthenticationType              string                          `json:"authenticationType" xml:"AuthenticationType"`
-	BasicAuthenticationCredentials  *BasicAuthenticationCredentials `json:"basicAuthenticationCredentials" xml:"BasicAuthenticationCredentials"`
-	CustomAuthenticationCredentials CredentialMap                   `json:"customAuthenticationCredentials" xml:"CustomAuthenticationCredentials"`
-	KmsKeyArn                       string                          `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	OAuth2Properties                *OAuth2PropertiesInput          `json:"oAuth2Properties" xml:"OAuth2Properties"`
-	SecretArn                       string                          `json:"secretArn" xml:"SecretArn"`
+AuthenticationType string `json:"authenticationType" xml:"AuthenticationType"`
+BasicAuthenticationCredentials *BasicAuthenticationCredentials `json:"basicAuthenticationCredentials" xml:"BasicAuthenticationCredentials"`
+CustomAuthenticationCredentials CredentialMap `json:"customAuthenticationCredentials" xml:"CustomAuthenticationCredentials"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+OAuth2Properties *OAuth2PropertiesInput `json:"oAuth2Properties" xml:"OAuth2Properties"`
+SecretArn string `json:"secretArn" xml:"SecretArn"`
 }
 
 type AuthorizationCodeProperties struct {
-	AuthorizationCode string `json:"authorizationCode" xml:"AuthorizationCode"`
-	RedirectUri       string `json:"redirectUri" xml:"RedirectUri"`
+AuthorizationCode string `json:"authorizationCode" xml:"AuthorizationCode"`
+RedirectUri string `json:"redirectUri" xml:"RedirectUri"`
 }
 
 type AutoDataQuality struct {
-	EvaluationContext string `json:"evaluationContext" xml:"EvaluationContext"`
-	IsEnabled         bool   `json:"isEnabled" xml:"IsEnabled"`
+EvaluationContext string `json:"evaluationContext" xml:"EvaluationContext"`
+IsEnabled bool `json:"isEnabled" xml:"IsEnabled"`
 }
 
 type BackfillError struct {
-	Code       string                        `json:"code" xml:"Code"`
-	Partitions BackfillErroredPartitionsList `json:"partitions" xml:"Partitions"`
+Code string `json:"code" xml:"Code"`
+Partitions BackfillErroredPartitionsList `json:"partitions" xml:"Partitions"`
 }
 
 type BasicAuthenticationCredentials struct {
-	Password string `json:"password" xml:"Password"`
-	Username string `json:"username" xml:"Username"`
+Password string `json:"password" xml:"Password"`
+Username string `json:"username" xml:"Username"`
 }
 
 type BasicAuthenticationProperties struct {
-	Password *ConnectorProperty `json:"password" xml:"Password"`
-	Username *ConnectorProperty `json:"username" xml:"Username"`
+Password *ConnectorProperty `json:"password" xml:"Password"`
+Username *ConnectorProperty `json:"username" xml:"Username"`
 }
 
 type BasicCatalogTarget struct {
-	Database      string             `json:"database" xml:"Database"`
-	Inputs        OneInput           `json:"inputs" xml:"Inputs"`
-	Name          string             `json:"name" xml:"Name"`
-	PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
-	Table         string             `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+Table string `json:"table" xml:"Table"`
 }
 
 type BatchCreatePartitionRequest struct {
-	CatalogId          string             `json:"catalogId" xml:"CatalogId"`
-	DatabaseName       string             `json:"databaseName" xml:"DatabaseName"`
-	PartitionInputList PartitionInputList `json:"partitionInputList" xml:"PartitionInputList"`
-	TableName          string             `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionInputList PartitionInputList `json:"partitionInputList" xml:"PartitionInputList"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type BatchCreatePartitionResponse struct {
-	Errors PartitionErrors `json:"errors" xml:"Errors"`
+Errors PartitionErrors `json:"errors" xml:"Errors"`
 }
 
 type BatchDeleteConnectionRequest struct {
-	CatalogId          string                   `json:"catalogId" xml:"CatalogId"`
-	ConnectionNameList DeleteConnectionNameList `json:"connectionNameList" xml:"ConnectionNameList"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ConnectionNameList DeleteConnectionNameList `json:"connectionNameList" xml:"ConnectionNameList"`
 }
 
 type BatchDeleteConnectionResponse struct {
-	Errors    ErrorByName    `json:"errors" xml:"Errors"`
-	Succeeded NameStringList `json:"succeeded" xml:"Succeeded"`
+Errors ErrorByName `json:"errors" xml:"Errors"`
+Succeeded NameStringList `json:"succeeded" xml:"Succeeded"`
 }
 
 type BatchDeletePartitionRequest struct {
-	CatalogId          string                        `json:"catalogId" xml:"CatalogId"`
-	DatabaseName       string                        `json:"databaseName" xml:"DatabaseName"`
-	PartitionsToDelete BatchDeletePartitionValueList `json:"partitionsToDelete" xml:"PartitionsToDelete"`
-	TableName          string                        `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionsToDelete BatchDeletePartitionValueList `json:"partitionsToDelete" xml:"PartitionsToDelete"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type BatchDeletePartitionResponse struct {
-	Errors PartitionErrors `json:"errors" xml:"Errors"`
+Errors PartitionErrors `json:"errors" xml:"Errors"`
 }
 
 type BatchDeleteTableRequest struct {
-	CatalogId      string                   `json:"catalogId" xml:"CatalogId"`
-	DatabaseName   string                   `json:"databaseName" xml:"DatabaseName"`
-	TablesToDelete BatchDeleteTableNameList `json:"tablesToDelete" xml:"TablesToDelete"`
-	TransactionId  string                   `json:"transactionId" xml:"TransactionId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TablesToDelete BatchDeleteTableNameList `json:"tablesToDelete" xml:"TablesToDelete"`
+TransactionId string `json:"transactionId" xml:"TransactionId"`
 }
 
 type BatchDeleteTableResponse struct {
-	Errors TableErrors `json:"errors" xml:"Errors"`
+Errors TableErrors `json:"errors" xml:"Errors"`
 }
 
 type BatchDeleteTableVersionRequest struct {
-	CatalogId    string                      `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string                      `json:"databaseName" xml:"DatabaseName"`
-	TableName    string                      `json:"tableName" xml:"TableName"`
-	VersionIds   BatchDeleteTableVersionList `json:"versionIds" xml:"VersionIds"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
+VersionIds BatchDeleteTableVersionList `json:"versionIds" xml:"VersionIds"`
 }
 
 type BatchDeleteTableVersionResponse struct {
-	Errors TableVersionErrors `json:"errors" xml:"Errors"`
+Errors TableVersionErrors `json:"errors" xml:"Errors"`
 }
 
 type BatchGetBlueprintsRequest struct {
-	IncludeBlueprint     bool                   `json:"includeBlueprint" xml:"IncludeBlueprint"`
-	IncludeParameterSpec bool                   `json:"includeParameterSpec" xml:"IncludeParameterSpec"`
-	Names                BatchGetBlueprintNames `json:"names" xml:"Names"`
+IncludeBlueprint bool `json:"includeBlueprint" xml:"IncludeBlueprint"`
+IncludeParameterSpec bool `json:"includeParameterSpec" xml:"IncludeParameterSpec"`
+Names BatchGetBlueprintNames `json:"names" xml:"Names"`
 }
 
 type BatchGetBlueprintsResponse struct {
-	Blueprints        Blueprints     `json:"blueprints" xml:"Blueprints"`
-	MissingBlueprints BlueprintNames `json:"missingBlueprints" xml:"MissingBlueprints"`
+Blueprints Blueprints `json:"blueprints" xml:"Blueprints"`
+MissingBlueprints BlueprintNames `json:"missingBlueprints" xml:"MissingBlueprints"`
 }
 
 type BatchGetCrawlersRequest struct {
-	CrawlerNames CrawlerNameList `json:"crawlerNames" xml:"CrawlerNames"`
+CrawlerNames CrawlerNameList `json:"crawlerNames" xml:"CrawlerNames"`
 }
 
 type BatchGetCrawlersResponse struct {
-	Crawlers         CrawlerList     `json:"crawlers" xml:"Crawlers"`
-	CrawlersNotFound CrawlerNameList `json:"crawlersNotFound" xml:"CrawlersNotFound"`
+Crawlers CrawlerList `json:"crawlers" xml:"Crawlers"`
+CrawlersNotFound CrawlerNameList `json:"crawlersNotFound" xml:"CrawlersNotFound"`
 }
 
 type BatchGetCustomEntityTypesRequest struct {
-	Names CustomEntityTypeNames `json:"names" xml:"Names"`
+Names CustomEntityTypeNames `json:"names" xml:"Names"`
 }
 
 type BatchGetCustomEntityTypesResponse struct {
-	CustomEntityTypes         CustomEntityTypes     `json:"customEntityTypes" xml:"CustomEntityTypes"`
-	CustomEntityTypesNotFound CustomEntityTypeNames `json:"customEntityTypesNotFound" xml:"CustomEntityTypesNotFound"`
+CustomEntityTypes CustomEntityTypes `json:"customEntityTypes" xml:"CustomEntityTypes"`
+CustomEntityTypesNotFound CustomEntityTypeNames `json:"customEntityTypesNotFound" xml:"CustomEntityTypesNotFound"`
 }
 
 type BatchGetDataQualityResultRequest struct {
-	ResultIds DataQualityResultIds `json:"resultIds" xml:"ResultIds"`
+ResultIds DataQualityResultIds `json:"resultIds" xml:"ResultIds"`
 }
 
 type BatchGetDataQualityResultResponse struct {
-	Results         DataQualityResultsList `json:"results" xml:"Results"`
-	ResultsNotFound DataQualityResultIds   `json:"resultsNotFound" xml:"ResultsNotFound"`
+Results DataQualityResultsList `json:"results" xml:"Results"`
+ResultsNotFound DataQualityResultIds `json:"resultsNotFound" xml:"ResultsNotFound"`
 }
 
 type BatchGetDevEndpointsRequest struct {
-	DevEndpointNames DevEndpointNames `json:"devEndpointNames" xml:"DevEndpointNames"`
+DevEndpointNames DevEndpointNames `json:"devEndpointNames" xml:"DevEndpointNames"`
 }
 
 type BatchGetDevEndpointsResponse struct {
-	DevEndpoints         DevEndpointList  `json:"devEndpoints" xml:"DevEndpoints"`
-	DevEndpointsNotFound DevEndpointNames `json:"devEndpointsNotFound" xml:"DevEndpointsNotFound"`
+DevEndpoints DevEndpointList `json:"devEndpoints" xml:"DevEndpoints"`
+DevEndpointsNotFound DevEndpointNames `json:"devEndpointsNotFound" xml:"DevEndpointsNotFound"`
 }
 
 type BatchGetJobsRequest struct {
-	JobNames JobNameList `json:"jobNames" xml:"JobNames"`
+JobNames JobNameList `json:"jobNames" xml:"JobNames"`
 }
 
 type BatchGetJobsResponse struct {
-	Jobs         JobList     `json:"jobs" xml:"Jobs"`
-	JobsNotFound JobNameList `json:"jobsNotFound" xml:"JobsNotFound"`
+Jobs JobList `json:"jobs" xml:"Jobs"`
+JobsNotFound JobNameList `json:"jobsNotFound" xml:"JobsNotFound"`
 }
 
 type BatchGetPartitionRequest struct {
-	AuditContext        *AuditContext              `json:"auditContext" xml:"AuditContext"`
-	CatalogId           string                     `json:"catalogId" xml:"CatalogId"`
-	DatabaseName        string                     `json:"databaseName" xml:"DatabaseName"`
-	PartitionsToGet     BatchGetPartitionValueList `json:"partitionsToGet" xml:"PartitionsToGet"`
-	QuerySessionContext *QuerySessionContext       `json:"querySessionContext" xml:"QuerySessionContext"`
-	TableName           string                     `json:"tableName" xml:"TableName"`
+AuditContext *AuditContext `json:"auditContext" xml:"AuditContext"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionsToGet BatchGetPartitionValueList `json:"partitionsToGet" xml:"PartitionsToGet"`
+QuerySessionContext *QuerySessionContext `json:"querySessionContext" xml:"QuerySessionContext"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type BatchGetPartitionResponse struct {
-	Partitions      PartitionList              `json:"partitions" xml:"Partitions"`
-	UnprocessedKeys BatchGetPartitionValueList `json:"unprocessedKeys" xml:"UnprocessedKeys"`
+Partitions PartitionList `json:"partitions" xml:"Partitions"`
+UnprocessedKeys BatchGetPartitionValueList `json:"unprocessedKeys" xml:"UnprocessedKeys"`
 }
 
 type BatchGetTableOptimizerEntry struct {
-	CatalogId    string `json:"catalogId" xml:"catalogId"`
-	DatabaseName string `json:"databaseName" xml:"databaseName"`
-	TableName    string `json:"tableName" xml:"tableName"`
-	Type         string `json:"type" xml:"type"`
+CatalogId string `json:"catalogId" xml:"catalogId"`
+DatabaseName string `json:"databaseName" xml:"databaseName"`
+TableName string `json:"tableName" xml:"tableName"`
+Type string `json:"type" xml:"type"`
 }
 
 type BatchGetTableOptimizerError struct {
-	CatalogId    string       `json:"catalogId" xml:"catalogId"`
-	DatabaseName string       `json:"databaseName" xml:"databaseName"`
-	Error        *ErrorDetail `json:"error" xml:"error"`
-	TableName    string       `json:"tableName" xml:"tableName"`
-	Type         string       `json:"type" xml:"type"`
+CatalogId string `json:"catalogId" xml:"catalogId"`
+DatabaseName string `json:"databaseName" xml:"databaseName"`
+Error *ErrorDetail `json:"error" xml:"error"`
+TableName string `json:"tableName" xml:"tableName"`
+Type string `json:"type" xml:"type"`
 }
 
 type BatchGetTableOptimizerRequest struct {
-	Entries BatchGetTableOptimizerEntries `json:"entries" xml:"Entries"`
+Entries BatchGetTableOptimizerEntries `json:"entries" xml:"Entries"`
 }
 
 type BatchGetTableOptimizerResponse struct {
-	Failures        BatchGetTableOptimizerErrors `json:"failures" xml:"Failures"`
-	TableOptimizers BatchTableOptimizers         `json:"tableOptimizers" xml:"TableOptimizers"`
+Failures BatchGetTableOptimizerErrors `json:"failures" xml:"Failures"`
+TableOptimizers BatchTableOptimizers `json:"tableOptimizers" xml:"TableOptimizers"`
 }
 
 type BatchGetTriggersRequest struct {
-	TriggerNames TriggerNameList `json:"triggerNames" xml:"TriggerNames"`
+TriggerNames TriggerNameList `json:"triggerNames" xml:"TriggerNames"`
 }
 
 type BatchGetTriggersResponse struct {
-	Triggers         TriggerList     `json:"triggers" xml:"Triggers"`
-	TriggersNotFound TriggerNameList `json:"triggersNotFound" xml:"TriggersNotFound"`
+Triggers TriggerList `json:"triggers" xml:"Triggers"`
+TriggersNotFound TriggerNameList `json:"triggersNotFound" xml:"TriggersNotFound"`
 }
 
 type BatchGetWorkflowsRequest struct {
-	IncludeGraph bool          `json:"includeGraph" xml:"IncludeGraph"`
-	Names        WorkflowNames `json:"names" xml:"Names"`
+IncludeGraph bool `json:"includeGraph" xml:"IncludeGraph"`
+Names WorkflowNames `json:"names" xml:"Names"`
 }
 
 type BatchGetWorkflowsResponse struct {
-	MissingWorkflows WorkflowNames `json:"missingWorkflows" xml:"MissingWorkflows"`
-	Workflows        Workflows     `json:"workflows" xml:"Workflows"`
+MissingWorkflows WorkflowNames `json:"missingWorkflows" xml:"MissingWorkflows"`
+Workflows Workflows `json:"workflows" xml:"Workflows"`
 }
 
 type BatchPutDataQualityStatisticAnnotationRequest struct {
-	ClientToken          string                  `json:"clientToken" xml:"ClientToken"`
-	InclusionAnnotations InclusionAnnotationList `json:"inclusionAnnotations" xml:"InclusionAnnotations"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+InclusionAnnotations InclusionAnnotationList `json:"inclusionAnnotations" xml:"InclusionAnnotations"`
 }
 
 type BatchPutDataQualityStatisticAnnotationResponse struct {
-	FailedInclusionAnnotations AnnotationErrorList `json:"failedInclusionAnnotations" xml:"FailedInclusionAnnotations"`
+FailedInclusionAnnotations AnnotationErrorList `json:"failedInclusionAnnotations" xml:"FailedInclusionAnnotations"`
 }
 
 type BatchStopJobRunError struct {
-	ErrorDetail *ErrorDetail `json:"errorDetail" xml:"ErrorDetail"`
-	JobName     string       `json:"jobName" xml:"JobName"`
-	JobRunId    string       `json:"jobRunId" xml:"JobRunId"`
+ErrorDetail *ErrorDetail `json:"errorDetail" xml:"ErrorDetail"`
+JobName string `json:"jobName" xml:"JobName"`
+JobRunId string `json:"jobRunId" xml:"JobRunId"`
 }
 
 type BatchStopJobRunRequest struct {
-	JobName   string                      `json:"jobName" xml:"JobName"`
-	JobRunIds BatchStopJobRunJobRunIdList `json:"jobRunIds" xml:"JobRunIds"`
+JobName string `json:"jobName" xml:"JobName"`
+JobRunIds BatchStopJobRunJobRunIdList `json:"jobRunIds" xml:"JobRunIds"`
 }
 
 type BatchStopJobRunResponse struct {
-	Errors                BatchStopJobRunErrorList                `json:"errors" xml:"Errors"`
-	SuccessfulSubmissions BatchStopJobRunSuccessfulSubmissionList `json:"successfulSubmissions" xml:"SuccessfulSubmissions"`
+Errors BatchStopJobRunErrorList `json:"errors" xml:"Errors"`
+SuccessfulSubmissions BatchStopJobRunSuccessfulSubmissionList `json:"successfulSubmissions" xml:"SuccessfulSubmissions"`
 }
 
 type BatchStopJobRunSuccessfulSubmission struct {
-	JobName  string `json:"jobName" xml:"JobName"`
-	JobRunId string `json:"jobRunId" xml:"JobRunId"`
+JobName string `json:"jobName" xml:"JobName"`
+JobRunId string `json:"jobRunId" xml:"JobRunId"`
 }
 
 type BatchTableOptimizer struct {
-	CatalogId      string          `json:"catalogId" xml:"catalogId"`
-	DatabaseName   string          `json:"databaseName" xml:"databaseName"`
-	TableName      string          `json:"tableName" xml:"tableName"`
-	TableOptimizer *TableOptimizer `json:"tableOptimizer" xml:"tableOptimizer"`
+CatalogId string `json:"catalogId" xml:"catalogId"`
+DatabaseName string `json:"databaseName" xml:"databaseName"`
+TableName string `json:"tableName" xml:"tableName"`
+TableOptimizer *TableOptimizer `json:"tableOptimizer" xml:"tableOptimizer"`
 }
 
 type BatchUpdatePartitionFailureEntry struct {
-	ErrorDetail        *ErrorDetail              `json:"errorDetail" xml:"ErrorDetail"`
-	PartitionValueList BoundedPartitionValueList `json:"partitionValueList" xml:"PartitionValueList"`
+ErrorDetail *ErrorDetail `json:"errorDetail" xml:"ErrorDetail"`
+PartitionValueList BoundedPartitionValueList `json:"partitionValueList" xml:"PartitionValueList"`
 }
 
 type BatchUpdatePartitionRequest struct {
-	CatalogId    string                               `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string                               `json:"databaseName" xml:"DatabaseName"`
-	Entries      BatchUpdatePartitionRequestEntryList `json:"entries" xml:"Entries"`
-	TableName    string                               `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Entries BatchUpdatePartitionRequestEntryList `json:"entries" xml:"Entries"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type BatchUpdatePartitionRequestEntry struct {
-	PartitionInput     *PartitionInput           `json:"partitionInput" xml:"PartitionInput"`
-	PartitionValueList BoundedPartitionValueList `json:"partitionValueList" xml:"PartitionValueList"`
+PartitionInput *PartitionInput `json:"partitionInput" xml:"PartitionInput"`
+PartitionValueList BoundedPartitionValueList `json:"partitionValueList" xml:"PartitionValueList"`
 }
 
 type BatchUpdatePartitionResponse struct {
-	Errors BatchUpdatePartitionFailureList `json:"errors" xml:"Errors"`
+Errors BatchUpdatePartitionFailureList `json:"errors" xml:"Errors"`
 }
 
 type BinaryColumnStatisticsData struct {
-	AverageLength float64 `json:"averageLength" xml:"AverageLength"`
-	MaximumLength int64   `json:"maximumLength" xml:"MaximumLength"`
-	NumberOfNulls int64   `json:"numberOfNulls" xml:"NumberOfNulls"`
+AverageLength float64 `json:"averageLength" xml:"AverageLength"`
+MaximumLength int64 `json:"maximumLength" xml:"MaximumLength"`
+NumberOfNulls int64 `json:"numberOfNulls" xml:"NumberOfNulls"`
 }
 
 type Blueprint struct {
-	BlueprintLocation        string                `json:"blueprintLocation" xml:"BlueprintLocation"`
-	BlueprintServiceLocation string                `json:"blueprintServiceLocation" xml:"BlueprintServiceLocation"`
-	CreatedOn                time.Time             `json:"createdOn" xml:"CreatedOn"`
-	Description              string                `json:"description" xml:"Description"`
-	ErrorMessage             string                `json:"errorMessage" xml:"ErrorMessage"`
-	LastActiveDefinition     *LastActiveDefinition `json:"lastActiveDefinition" xml:"LastActiveDefinition"`
-	LastModifiedOn           time.Time             `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	Name                     string                `json:"name" xml:"Name"`
-	ParameterSpec            string                `json:"parameterSpec" xml:"ParameterSpec"`
-	Status                   string                `json:"status" xml:"Status"`
+BlueprintLocation string `json:"blueprintLocation" xml:"BlueprintLocation"`
+BlueprintServiceLocation string `json:"blueprintServiceLocation" xml:"BlueprintServiceLocation"`
+CreatedOn time.Time `json:"createdOn" xml:"CreatedOn"`
+Description string `json:"description" xml:"Description"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+LastActiveDefinition *LastActiveDefinition `json:"lastActiveDefinition" xml:"LastActiveDefinition"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+Name string `json:"name" xml:"Name"`
+ParameterSpec string `json:"parameterSpec" xml:"ParameterSpec"`
+Status string `json:"status" xml:"Status"`
 }
 
 type BlueprintDetails struct {
-	BlueprintName string `json:"blueprintName" xml:"BlueprintName"`
-	RunId         string `json:"runId" xml:"RunId"`
+BlueprintName string `json:"blueprintName" xml:"BlueprintName"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type BlueprintRun struct {
-	BlueprintName        string    `json:"blueprintName" xml:"BlueprintName"`
-	CompletedOn          time.Time `json:"completedOn" xml:"CompletedOn"`
-	ErrorMessage         string    `json:"errorMessage" xml:"ErrorMessage"`
-	Parameters           string    `json:"parameters" xml:"Parameters"`
-	RoleArn              string    `json:"roleArn" xml:"RoleArn"`
-	RollbackErrorMessage string    `json:"rollbackErrorMessage" xml:"RollbackErrorMessage"`
-	RunId                string    `json:"runId" xml:"RunId"`
-	StartedOn            time.Time `json:"startedOn" xml:"StartedOn"`
-	State                string    `json:"state" xml:"State"`
-	WorkflowName         string    `json:"workflowName" xml:"WorkflowName"`
+BlueprintName string `json:"blueprintName" xml:"BlueprintName"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+Parameters string `json:"parameters" xml:"Parameters"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+RollbackErrorMessage string `json:"rollbackErrorMessage" xml:"RollbackErrorMessage"`
+RunId string `json:"runId" xml:"RunId"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
+State string `json:"state" xml:"State"`
+WorkflowName string `json:"workflowName" xml:"WorkflowName"`
 }
 
 type BooleanColumnStatisticsData struct {
-	NumberOfFalses int64 `json:"numberOfFalses" xml:"NumberOfFalses"`
-	NumberOfNulls  int64 `json:"numberOfNulls" xml:"NumberOfNulls"`
-	NumberOfTrues  int64 `json:"numberOfTrues" xml:"NumberOfTrues"`
+NumberOfFalses int64 `json:"numberOfFalses" xml:"NumberOfFalses"`
+NumberOfNulls int64 `json:"numberOfNulls" xml:"NumberOfNulls"`
+NumberOfTrues int64 `json:"numberOfTrues" xml:"NumberOfTrues"`
 }
 
 type CancelDataQualityRuleRecommendationRunRequest struct {
-	RunId string `json:"runId" xml:"RunId"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type CancelDataQualityRuleRecommendationRunResponse struct {
 }
 
 type CancelDataQualityRulesetEvaluationRunRequest struct {
-	RunId string `json:"runId" xml:"RunId"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type CancelDataQualityRulesetEvaluationRunResponse struct {
 }
 
 type CancelMLTaskRunRequest struct {
-	TaskRunId   string `json:"taskRunId" xml:"TaskRunId"`
-	TransformId string `json:"transformId" xml:"TransformId"`
+TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type CancelMLTaskRunResponse struct {
-	Status      string `json:"status" xml:"Status"`
-	TaskRunId   string `json:"taskRunId" xml:"TaskRunId"`
-	TransformId string `json:"transformId" xml:"TransformId"`
+Status string `json:"status" xml:"Status"`
+TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type CancelStatementRequest struct {
-	Id            int32  `json:"id" xml:"Id"`
-	RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
-	SessionId     string `json:"sessionId" xml:"SessionId"`
+Id int32 `json:"id" xml:"Id"`
+RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
+SessionId string `json:"sessionId" xml:"SessionId"`
 }
 
 type CancelStatementResponse struct {
 }
 
 type Capabilities struct {
-	SupportedAuthenticationTypes AuthenticationTypes `json:"supportedAuthenticationTypes" xml:"SupportedAuthenticationTypes"`
-	SupportedComputeEnvironments ComputeEnvironments `json:"supportedComputeEnvironments" xml:"SupportedComputeEnvironments"`
-	SupportedDataOperations      DataOperations      `json:"supportedDataOperations" xml:"SupportedDataOperations"`
+SupportedAuthenticationTypes AuthenticationTypes `json:"supportedAuthenticationTypes" xml:"SupportedAuthenticationTypes"`
+SupportedComputeEnvironments ComputeEnvironments `json:"supportedComputeEnvironments" xml:"SupportedComputeEnvironments"`
+SupportedDataOperations DataOperations `json:"supportedDataOperations" xml:"SupportedDataOperations"`
 }
 
 type Catalog struct {
-	AllowFullTableExternalDataAccess string                   `json:"allowFullTableExternalDataAccess" xml:"AllowFullTableExternalDataAccess"`
-	CatalogId                        string                   `json:"catalogId" xml:"CatalogId"`
-	CatalogProperties                *CatalogPropertiesOutput `json:"catalogProperties" xml:"CatalogProperties"`
-	CreateDatabaseDefaultPermissions PrincipalPermissionsList `json:"createDatabaseDefaultPermissions" xml:"CreateDatabaseDefaultPermissions"`
-	CreateTableDefaultPermissions    PrincipalPermissionsList `json:"createTableDefaultPermissions" xml:"CreateTableDefaultPermissions"`
-	CreateTime                       time.Time                `json:"createTime" xml:"CreateTime"`
-	Description                      string                   `json:"description" xml:"Description"`
-	FederatedCatalog                 *FederatedCatalog        `json:"federatedCatalog" xml:"FederatedCatalog"`
-	Name                             string                   `json:"name" xml:"Name"`
-	Parameters                       ParametersMap            `json:"parameters" xml:"Parameters"`
-	ResourceArn                      string                   `json:"resourceArn" xml:"ResourceArn"`
-	TargetRedshiftCatalog            *TargetRedshiftCatalog   `json:"targetRedshiftCatalog" xml:"TargetRedshiftCatalog"`
-	UpdateTime                       time.Time                `json:"updateTime" xml:"UpdateTime"`
+AllowFullTableExternalDataAccess string `json:"allowFullTableExternalDataAccess" xml:"AllowFullTableExternalDataAccess"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+CatalogProperties *CatalogPropertiesOutput `json:"catalogProperties" xml:"CatalogProperties"`
+CreateDatabaseDefaultPermissions PrincipalPermissionsList `json:"createDatabaseDefaultPermissions" xml:"CreateDatabaseDefaultPermissions"`
+CreateTableDefaultPermissions PrincipalPermissionsList `json:"createTableDefaultPermissions" xml:"CreateTableDefaultPermissions"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+Description string `json:"description" xml:"Description"`
+FederatedCatalog *FederatedCatalog `json:"federatedCatalog" xml:"FederatedCatalog"`
+Name string `json:"name" xml:"Name"`
+Parameters ParametersMap `json:"parameters" xml:"Parameters"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TargetRedshiftCatalog *TargetRedshiftCatalog `json:"targetRedshiftCatalog" xml:"TargetRedshiftCatalog"`
+UpdateTime time.Time `json:"updateTime" xml:"UpdateTime"`
 }
 
 type CatalogDeltaSource struct {
-	AdditionalDeltaOptions AdditionalOptions `json:"additionalDeltaOptions" xml:"AdditionalDeltaOptions"`
-	Database               string            `json:"database" xml:"Database"`
-	Name                   string            `json:"name" xml:"Name"`
-	OutputSchemas          GlueSchemas       `json:"outputSchemas" xml:"OutputSchemas"`
-	Table                  string            `json:"table" xml:"Table"`
+AdditionalDeltaOptions AdditionalOptions `json:"additionalDeltaOptions" xml:"AdditionalDeltaOptions"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Table string `json:"table" xml:"Table"`
 }
 
 type CatalogEntry struct {
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type CatalogHudiSource struct {
-	AdditionalHudiOptions AdditionalOptions `json:"additionalHudiOptions" xml:"AdditionalHudiOptions"`
-	Database              string            `json:"database" xml:"Database"`
-	Name                  string            `json:"name" xml:"Name"`
-	OutputSchemas         GlueSchemas       `json:"outputSchemas" xml:"OutputSchemas"`
-	Table                 string            `json:"table" xml:"Table"`
+AdditionalHudiOptions AdditionalOptions `json:"additionalHudiOptions" xml:"AdditionalHudiOptions"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Table string `json:"table" xml:"Table"`
 }
 
 type CatalogIcebergSource struct {
-	AdditionalIcebergOptions AdditionalOptions `json:"additionalIcebergOptions" xml:"AdditionalIcebergOptions"`
-	Database                 string            `json:"database" xml:"Database"`
-	Name                     string            `json:"name" xml:"Name"`
-	OutputSchemas            GlueSchemas       `json:"outputSchemas" xml:"OutputSchemas"`
-	Table                    string            `json:"table" xml:"Table"`
+AdditionalIcebergOptions AdditionalOptions `json:"additionalIcebergOptions" xml:"AdditionalIcebergOptions"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Table string `json:"table" xml:"Table"`
 }
 
 type CatalogImportStatus struct {
-	ImportCompleted bool      `json:"importCompleted" xml:"ImportCompleted"`
-	ImportTime      time.Time `json:"importTime" xml:"ImportTime"`
-	ImportedBy      string    `json:"importedBy" xml:"ImportedBy"`
+ImportCompleted bool `json:"importCompleted" xml:"ImportCompleted"`
+ImportTime time.Time `json:"importTime" xml:"ImportTime"`
+ImportedBy string `json:"importedBy" xml:"ImportedBy"`
 }
 
 type CatalogInput struct {
-	AllowFullTableExternalDataAccess             string                   `json:"allowFullTableExternalDataAccess" xml:"AllowFullTableExternalDataAccess"`
-	CatalogProperties                            *CatalogProperties       `json:"catalogProperties" xml:"CatalogProperties"`
-	CreateDatabaseDefaultPermissions             PrincipalPermissionsList `json:"createDatabaseDefaultPermissions" xml:"CreateDatabaseDefaultPermissions"`
-	CreateTableDefaultPermissions                PrincipalPermissionsList `json:"createTableDefaultPermissions" xml:"CreateTableDefaultPermissions"`
-	Description                                  string                   `json:"description" xml:"Description"`
-	FederatedCatalog                             *FederatedCatalog        `json:"federatedCatalog" xml:"FederatedCatalog"`
-	OverwriteChildResourcePermissionsWithDefault string                   `json:"overwriteChildResourcePermissionsWithDefault" xml:"OverwriteChildResourcePermissionsWithDefault"`
-	Parameters                                   ParametersMap            `json:"parameters" xml:"Parameters"`
-	TargetRedshiftCatalog                        *TargetRedshiftCatalog   `json:"targetRedshiftCatalog" xml:"TargetRedshiftCatalog"`
+AllowFullTableExternalDataAccess string `json:"allowFullTableExternalDataAccess" xml:"AllowFullTableExternalDataAccess"`
+CatalogProperties *CatalogProperties `json:"catalogProperties" xml:"CatalogProperties"`
+CreateDatabaseDefaultPermissions PrincipalPermissionsList `json:"createDatabaseDefaultPermissions" xml:"CreateDatabaseDefaultPermissions"`
+CreateTableDefaultPermissions PrincipalPermissionsList `json:"createTableDefaultPermissions" xml:"CreateTableDefaultPermissions"`
+Description string `json:"description" xml:"Description"`
+FederatedCatalog *FederatedCatalog `json:"federatedCatalog" xml:"FederatedCatalog"`
+OverwriteChildResourcePermissionsWithDefault string `json:"overwriteChildResourcePermissionsWithDefault" xml:"OverwriteChildResourcePermissionsWithDefault"`
+Parameters ParametersMap `json:"parameters" xml:"Parameters"`
+TargetRedshiftCatalog *TargetRedshiftCatalog `json:"targetRedshiftCatalog" xml:"TargetRedshiftCatalog"`
 }
 
 type CatalogKafkaSource struct {
-	DataPreviewOptions *StreamingDataPreviewOptions `json:"dataPreviewOptions" xml:"DataPreviewOptions"`
-	Database           string                       `json:"database" xml:"Database"`
-	DetectSchema       bool                         `json:"detectSchema" xml:"DetectSchema"`
-	Name               string                       `json:"name" xml:"Name"`
-	StreamingOptions   *KafkaStreamingSourceOptions `json:"streamingOptions" xml:"StreamingOptions"`
-	Table              string                       `json:"table" xml:"Table"`
-	WindowSize         int32                        `json:"windowSize" xml:"WindowSize"`
+DataPreviewOptions *StreamingDataPreviewOptions `json:"dataPreviewOptions" xml:"DataPreviewOptions"`
+Database string `json:"database" xml:"Database"`
+DetectSchema bool `json:"detectSchema" xml:"DetectSchema"`
+Name string `json:"name" xml:"Name"`
+StreamingOptions *KafkaStreamingSourceOptions `json:"streamingOptions" xml:"StreamingOptions"`
+Table string `json:"table" xml:"Table"`
+WindowSize int32 `json:"windowSize" xml:"WindowSize"`
 }
 
 type CatalogKinesisSource struct {
-	DataPreviewOptions *StreamingDataPreviewOptions   `json:"dataPreviewOptions" xml:"DataPreviewOptions"`
-	Database           string                         `json:"database" xml:"Database"`
-	DetectSchema       bool                           `json:"detectSchema" xml:"DetectSchema"`
-	Name               string                         `json:"name" xml:"Name"`
-	StreamingOptions   *KinesisStreamingSourceOptions `json:"streamingOptions" xml:"StreamingOptions"`
-	Table              string                         `json:"table" xml:"Table"`
-	WindowSize         int32                          `json:"windowSize" xml:"WindowSize"`
+DataPreviewOptions *StreamingDataPreviewOptions `json:"dataPreviewOptions" xml:"DataPreviewOptions"`
+Database string `json:"database" xml:"Database"`
+DetectSchema bool `json:"detectSchema" xml:"DetectSchema"`
+Name string `json:"name" xml:"Name"`
+StreamingOptions *KinesisStreamingSourceOptions `json:"streamingOptions" xml:"StreamingOptions"`
+Table string `json:"table" xml:"Table"`
+WindowSize int32 `json:"windowSize" xml:"WindowSize"`
 }
 
 type CatalogProperties struct {
-	CustomProperties              ParametersMap                  `json:"customProperties" xml:"CustomProperties"`
-	DataLakeAccessProperties      *DataLakeAccessProperties      `json:"dataLakeAccessProperties" xml:"DataLakeAccessProperties"`
-	IcebergOptimizationProperties *IcebergOptimizationProperties `json:"icebergOptimizationProperties" xml:"IcebergOptimizationProperties"`
+CustomProperties ParametersMap `json:"customProperties" xml:"CustomProperties"`
+DataLakeAccessProperties *DataLakeAccessProperties `json:"dataLakeAccessProperties" xml:"DataLakeAccessProperties"`
+IcebergOptimizationProperties *IcebergOptimizationProperties `json:"icebergOptimizationProperties" xml:"IcebergOptimizationProperties"`
 }
 
 type CatalogPropertiesOutput struct {
-	CustomProperties              ParametersMap                        `json:"customProperties" xml:"CustomProperties"`
-	DataLakeAccessProperties      *DataLakeAccessPropertiesOutput      `json:"dataLakeAccessProperties" xml:"DataLakeAccessProperties"`
-	IcebergOptimizationProperties *IcebergOptimizationPropertiesOutput `json:"icebergOptimizationProperties" xml:"IcebergOptimizationProperties"`
+CustomProperties ParametersMap `json:"customProperties" xml:"CustomProperties"`
+DataLakeAccessProperties *DataLakeAccessPropertiesOutput `json:"dataLakeAccessProperties" xml:"DataLakeAccessProperties"`
+IcebergOptimizationProperties *IcebergOptimizationPropertiesOutput `json:"icebergOptimizationProperties" xml:"IcebergOptimizationProperties"`
 }
 
 type CatalogSchemaChangePolicy struct {
-	EnableUpdateCatalog bool   `json:"enableUpdateCatalog" xml:"EnableUpdateCatalog"`
-	UpdateBehavior      string `json:"updateBehavior" xml:"UpdateBehavior"`
+EnableUpdateCatalog bool `json:"enableUpdateCatalog" xml:"EnableUpdateCatalog"`
+UpdateBehavior string `json:"updateBehavior" xml:"UpdateBehavior"`
 }
 
 type CatalogSource struct {
-	Database           string      `json:"database" xml:"Database"`
-	Name               string      `json:"name" xml:"Name"`
-	OutputSchemas      GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
-	PartitionPredicate string      `json:"partitionPredicate" xml:"PartitionPredicate"`
-	Table              string      `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+PartitionPredicate string `json:"partitionPredicate" xml:"PartitionPredicate"`
+Table string `json:"table" xml:"Table"`
 }
 
 type CatalogTarget struct {
-	ConnectionName   string            `json:"connectionName" xml:"ConnectionName"`
-	DatabaseName     string            `json:"databaseName" xml:"DatabaseName"`
-	DlqEventQueueArn string            `json:"dlqEventQueueArn" xml:"DlqEventQueueArn"`
-	EventQueueArn    string            `json:"eventQueueArn" xml:"EventQueueArn"`
-	Tables           CatalogTablesList `json:"tables" xml:"Tables"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+DlqEventQueueArn string `json:"dlqEventQueueArn" xml:"DlqEventQueueArn"`
+EventQueueArn string `json:"eventQueueArn" xml:"EventQueueArn"`
+Tables CatalogTablesList `json:"tables" xml:"Tables"`
 }
 
 type CheckSchemaVersionValidityInput struct {
-	DataFormat       string `json:"dataFormat" xml:"DataFormat"`
-	SchemaDefinition string `json:"schemaDefinition" xml:"SchemaDefinition"`
+DataFormat string `json:"dataFormat" xml:"DataFormat"`
+SchemaDefinition string `json:"schemaDefinition" xml:"SchemaDefinition"`
 }
 
 type CheckSchemaVersionValidityResponse struct {
-	Error string `json:"error" xml:"Error"`
-	Valid bool   `json:"valid" xml:"Valid"`
+Error string `json:"error" xml:"Error"`
+Valid bool `json:"valid" xml:"Valid"`
 }
 
 type Classifier struct {
-	CsvClassifier  *CsvClassifier  `json:"csvClassifier" xml:"CsvClassifier"`
-	GrokClassifier *GrokClassifier `json:"grokClassifier" xml:"GrokClassifier"`
-	JsonClassifier *JsonClassifier `json:"jsonClassifier" xml:"JsonClassifier"`
-	XMLClassifier  *XMLClassifier  `json:"xMLClassifier" xml:"XMLClassifier"`
+CsvClassifier *CsvClassifier `json:"csvClassifier" xml:"CsvClassifier"`
+GrokClassifier *GrokClassifier `json:"grokClassifier" xml:"GrokClassifier"`
+JsonClassifier *JsonClassifier `json:"jsonClassifier" xml:"JsonClassifier"`
+XMLClassifier *XMLClassifier `json:"xMLClassifier" xml:"XMLClassifier"`
 }
 
 type ClientCredentialsProperties struct {
-	ClientId           *ConnectorProperty    `json:"clientId" xml:"ClientId"`
-	ClientSecret       *ConnectorProperty    `json:"clientSecret" xml:"ClientSecret"`
-	ContentType        string                `json:"contentType" xml:"ContentType"`
-	RequestMethod      string                `json:"requestMethod" xml:"RequestMethod"`
-	Scope              *ConnectorProperty    `json:"scope" xml:"Scope"`
-	TokenUrl           *ConnectorProperty    `json:"tokenUrl" xml:"TokenUrl"`
-	TokenUrlParameters ConnectorPropertyList `json:"tokenUrlParameters" xml:"TokenUrlParameters"`
+ClientId *ConnectorProperty `json:"clientId" xml:"ClientId"`
+ClientSecret *ConnectorProperty `json:"clientSecret" xml:"ClientSecret"`
+ContentType string `json:"contentType" xml:"ContentType"`
+RequestMethod string `json:"requestMethod" xml:"RequestMethod"`
+Scope *ConnectorProperty `json:"scope" xml:"Scope"`
+TokenUrl *ConnectorProperty `json:"tokenUrl" xml:"TokenUrl"`
+TokenUrlParameters ConnectorPropertyList `json:"tokenUrlParameters" xml:"TokenUrlParameters"`
 }
 
 type CloudWatchEncryption struct {
-	CloudWatchEncryptionMode string `json:"cloudWatchEncryptionMode" xml:"CloudWatchEncryptionMode"`
-	KmsKeyArn                string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+CloudWatchEncryptionMode string `json:"cloudWatchEncryptionMode" xml:"CloudWatchEncryptionMode"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
 }
 
 type CodeGenConfigurationNode struct {
-	Aggregate                       *Aggregate                       `json:"aggregate" xml:"Aggregate"`
-	AmazonRedshiftSource            *AmazonRedshiftSource            `json:"amazonRedshiftSource" xml:"AmazonRedshiftSource"`
-	AmazonRedshiftTarget            *AmazonRedshiftTarget            `json:"amazonRedshiftTarget" xml:"AmazonRedshiftTarget"`
-	ApplyMapping                    *ApplyMapping                    `json:"applyMapping" xml:"ApplyMapping"`
-	AthenaConnectorSource           *AthenaConnectorSource           `json:"athenaConnectorSource" xml:"AthenaConnectorSource"`
-	CatalogDeltaSource              *CatalogDeltaSource              `json:"catalogDeltaSource" xml:"CatalogDeltaSource"`
-	CatalogHudiSource               *CatalogHudiSource               `json:"catalogHudiSource" xml:"CatalogHudiSource"`
-	CatalogIcebergSource            *CatalogIcebergSource            `json:"catalogIcebergSource" xml:"CatalogIcebergSource"`
-	CatalogKafkaSource              *CatalogKafkaSource              `json:"catalogKafkaSource" xml:"CatalogKafkaSource"`
-	CatalogKinesisSource            *CatalogKinesisSource            `json:"catalogKinesisSource" xml:"CatalogKinesisSource"`
-	CatalogSource                   *CatalogSource                   `json:"catalogSource" xml:"CatalogSource"`
-	CatalogTarget                   *BasicCatalogTarget              `json:"catalogTarget" xml:"CatalogTarget"`
-	ConnectorDataSource             *ConnectorDataSource             `json:"connectorDataSource" xml:"ConnectorDataSource"`
-	ConnectorDataTarget             *ConnectorDataTarget             `json:"connectorDataTarget" xml:"ConnectorDataTarget"`
-	CustomCode                      *CustomCode                      `json:"customCode" xml:"CustomCode"`
-	DirectJDBCSource                *DirectJDBCSource                `json:"directJDBCSource" xml:"DirectJDBCSource"`
-	DirectKafkaSource               *DirectKafkaSource               `json:"directKafkaSource" xml:"DirectKafkaSource"`
-	DirectKinesisSource             *DirectKinesisSource             `json:"directKinesisSource" xml:"DirectKinesisSource"`
-	DropDuplicates                  *DropDuplicates                  `json:"dropDuplicates" xml:"DropDuplicates"`
-	DropFields                      *DropFields                      `json:"dropFields" xml:"DropFields"`
-	DropNullFields                  *DropNullFields                  `json:"dropNullFields" xml:"DropNullFields"`
-	DynamicTransform                *DynamicTransform                `json:"dynamicTransform" xml:"DynamicTransform"`
-	DynamoDBCatalogSource           *DynamoDBCatalogSource           `json:"dynamoDBCatalogSource" xml:"DynamoDBCatalogSource"`
-	DynamoDBELTConnectorSource      *DynamoDBELTConnectorSource      `json:"dynamoDBELTConnectorSource" xml:"DynamoDBELTConnectorSource"`
-	EvaluateDataQuality             *EvaluateDataQuality             `json:"evaluateDataQuality" xml:"EvaluateDataQuality"`
-	EvaluateDataQualityMultiFrame   *EvaluateDataQualityMultiFrame   `json:"evaluateDataQualityMultiFrame" xml:"EvaluateDataQualityMultiFrame"`
-	FillMissingValues               *FillMissingValues               `json:"fillMissingValues" xml:"FillMissingValues"`
-	Filter                          *Filter                          `json:"filter" xml:"Filter"`
-	GovernedCatalogSource           *GovernedCatalogSource           `json:"governedCatalogSource" xml:"GovernedCatalogSource"`
-	GovernedCatalogTarget           *GovernedCatalogTarget           `json:"governedCatalogTarget" xml:"GovernedCatalogTarget"`
-	JDBCConnectorSource             *JDBCConnectorSource             `json:"jDBCConnectorSource" xml:"JDBCConnectorSource"`
-	JDBCConnectorTarget             *JDBCConnectorTarget             `json:"jDBCConnectorTarget" xml:"JDBCConnectorTarget"`
-	Join                            *Join                            `json:"join" xml:"Join"`
-	Merge                           *Merge                           `json:"merge" xml:"Merge"`
-	MicrosoftSQLServerCatalogSource *MicrosoftSQLServerCatalogSource `json:"microsoftSQLServerCatalogSource" xml:"MicrosoftSQLServerCatalogSource"`
-	MicrosoftSQLServerCatalogTarget *MicrosoftSQLServerCatalogTarget `json:"microsoftSQLServerCatalogTarget" xml:"MicrosoftSQLServerCatalogTarget"`
-	MySQLCatalogSource              *MySQLCatalogSource              `json:"mySQLCatalogSource" xml:"MySQLCatalogSource"`
-	MySQLCatalogTarget              *MySQLCatalogTarget              `json:"mySQLCatalogTarget" xml:"MySQLCatalogTarget"`
-	OracleSQLCatalogSource          *OracleSQLCatalogSource          `json:"oracleSQLCatalogSource" xml:"OracleSQLCatalogSource"`
-	OracleSQLCatalogTarget          *OracleSQLCatalogTarget          `json:"oracleSQLCatalogTarget" xml:"OracleSQLCatalogTarget"`
-	PIIDetection                    *PIIDetection                    `json:"pIIDetection" xml:"PIIDetection"`
-	PostgreSQLCatalogSource         *PostgreSQLCatalogSource         `json:"postgreSQLCatalogSource" xml:"PostgreSQLCatalogSource"`
-	PostgreSQLCatalogTarget         *PostgreSQLCatalogTarget         `json:"postgreSQLCatalogTarget" xml:"PostgreSQLCatalogTarget"`
-	Recipe                          *Recipe                          `json:"recipe" xml:"Recipe"`
-	RedshiftSource                  *RedshiftSource                  `json:"redshiftSource" xml:"RedshiftSource"`
-	RedshiftTarget                  *RedshiftTarget                  `json:"redshiftTarget" xml:"RedshiftTarget"`
-	RelationalCatalogSource         *RelationalCatalogSource         `json:"relationalCatalogSource" xml:"RelationalCatalogSource"`
-	RenameField                     *RenameField                     `json:"renameField" xml:"RenameField"`
-	Route                           *Route                           `json:"route" xml:"Route"`
-	S3CatalogDeltaSource            *S3CatalogDeltaSource            `json:"s3CatalogDeltaSource" xml:"S3CatalogDeltaSource"`
-	S3CatalogHudiSource             *S3CatalogHudiSource             `json:"s3CatalogHudiSource" xml:"S3CatalogHudiSource"`
-	S3CatalogIcebergSource          *S3CatalogIcebergSource          `json:"s3CatalogIcebergSource" xml:"S3CatalogIcebergSource"`
-	S3CatalogSource                 *S3CatalogSource                 `json:"s3CatalogSource" xml:"S3CatalogSource"`
-	S3CatalogTarget                 *S3CatalogTarget                 `json:"s3CatalogTarget" xml:"S3CatalogTarget"`
-	S3CsvSource                     *S3CsvSource                     `json:"s3CsvSource" xml:"S3CsvSource"`
-	S3DeltaCatalogTarget            *S3DeltaCatalogTarget            `json:"s3DeltaCatalogTarget" xml:"S3DeltaCatalogTarget"`
-	S3DeltaDirectTarget             *S3DeltaDirectTarget             `json:"s3DeltaDirectTarget" xml:"S3DeltaDirectTarget"`
-	S3DeltaSource                   *S3DeltaSource                   `json:"s3DeltaSource" xml:"S3DeltaSource"`
-	S3DirectTarget                  *S3DirectTarget                  `json:"s3DirectTarget" xml:"S3DirectTarget"`
-	S3ExcelSource                   *S3ExcelSource                   `json:"s3ExcelSource" xml:"S3ExcelSource"`
-	S3GlueParquetTarget             *S3GlueParquetTarget             `json:"s3GlueParquetTarget" xml:"S3GlueParquetTarget"`
-	S3HudiCatalogTarget             *S3HudiCatalogTarget             `json:"s3HudiCatalogTarget" xml:"S3HudiCatalogTarget"`
-	S3HudiDirectTarget              *S3HudiDirectTarget              `json:"s3HudiDirectTarget" xml:"S3HudiDirectTarget"`
-	S3HudiSource                    *S3HudiSource                    `json:"s3HudiSource" xml:"S3HudiSource"`
-	S3HyperDirectTarget             *S3HyperDirectTarget             `json:"s3HyperDirectTarget" xml:"S3HyperDirectTarget"`
-	S3IcebergCatalogTarget          *S3IcebergCatalogTarget          `json:"s3IcebergCatalogTarget" xml:"S3IcebergCatalogTarget"`
-	S3IcebergDirectTarget           *S3IcebergDirectTarget           `json:"s3IcebergDirectTarget" xml:"S3IcebergDirectTarget"`
-	S3JsonSource                    *S3JsonSource                    `json:"s3JsonSource" xml:"S3JsonSource"`
-	S3ParquetSource                 *S3ParquetSource                 `json:"s3ParquetSource" xml:"S3ParquetSource"`
-	SelectFields                    *SelectFields                    `json:"selectFields" xml:"SelectFields"`
-	SelectFromCollection            *SelectFromCollection            `json:"selectFromCollection" xml:"SelectFromCollection"`
-	SnowflakeSource                 *SnowflakeSource                 `json:"snowflakeSource" xml:"SnowflakeSource"`
-	SnowflakeTarget                 *SnowflakeTarget                 `json:"snowflakeTarget" xml:"SnowflakeTarget"`
-	SparkConnectorSource            *SparkConnectorSource            `json:"sparkConnectorSource" xml:"SparkConnectorSource"`
-	SparkConnectorTarget            *SparkConnectorTarget            `json:"sparkConnectorTarget" xml:"SparkConnectorTarget"`
-	SparkSQL                        *SparkSQL                        `json:"sparkSQL" xml:"SparkSQL"`
-	Spigot                          *Spigot                          `json:"spigot" xml:"Spigot"`
-	SplitFields                     *SplitFields                     `json:"splitFields" xml:"SplitFields"`
-	Union                           *Union                           `json:"union" xml:"Union"`
+Aggregate *Aggregate `json:"aggregate" xml:"Aggregate"`
+AmazonRedshiftSource *AmazonRedshiftSource `json:"amazonRedshiftSource" xml:"AmazonRedshiftSource"`
+AmazonRedshiftTarget *AmazonRedshiftTarget `json:"amazonRedshiftTarget" xml:"AmazonRedshiftTarget"`
+ApplyMapping *ApplyMapping `json:"applyMapping" xml:"ApplyMapping"`
+AthenaConnectorSource *AthenaConnectorSource `json:"athenaConnectorSource" xml:"AthenaConnectorSource"`
+CatalogDeltaSource *CatalogDeltaSource `json:"catalogDeltaSource" xml:"CatalogDeltaSource"`
+CatalogHudiSource *CatalogHudiSource `json:"catalogHudiSource" xml:"CatalogHudiSource"`
+CatalogIcebergSource *CatalogIcebergSource `json:"catalogIcebergSource" xml:"CatalogIcebergSource"`
+CatalogKafkaSource *CatalogKafkaSource `json:"catalogKafkaSource" xml:"CatalogKafkaSource"`
+CatalogKinesisSource *CatalogKinesisSource `json:"catalogKinesisSource" xml:"CatalogKinesisSource"`
+CatalogSource *CatalogSource `json:"catalogSource" xml:"CatalogSource"`
+CatalogTarget *BasicCatalogTarget `json:"catalogTarget" xml:"CatalogTarget"`
+ConnectorDataSource *ConnectorDataSource `json:"connectorDataSource" xml:"ConnectorDataSource"`
+ConnectorDataTarget *ConnectorDataTarget `json:"connectorDataTarget" xml:"ConnectorDataTarget"`
+CustomCode *CustomCode `json:"customCode" xml:"CustomCode"`
+DirectJDBCSource *DirectJDBCSource `json:"directJDBCSource" xml:"DirectJDBCSource"`
+DirectKafkaSource *DirectKafkaSource `json:"directKafkaSource" xml:"DirectKafkaSource"`
+DirectKinesisSource *DirectKinesisSource `json:"directKinesisSource" xml:"DirectKinesisSource"`
+DropDuplicates *DropDuplicates `json:"dropDuplicates" xml:"DropDuplicates"`
+DropFields *DropFields `json:"dropFields" xml:"DropFields"`
+DropNullFields *DropNullFields `json:"dropNullFields" xml:"DropNullFields"`
+DynamicTransform *DynamicTransform `json:"dynamicTransform" xml:"DynamicTransform"`
+DynamoDBCatalogSource *DynamoDBCatalogSource `json:"dynamoDBCatalogSource" xml:"DynamoDBCatalogSource"`
+DynamoDBELTConnectorSource *DynamoDBELTConnectorSource `json:"dynamoDBELTConnectorSource" xml:"DynamoDBELTConnectorSource"`
+EvaluateDataQuality *EvaluateDataQuality `json:"evaluateDataQuality" xml:"EvaluateDataQuality"`
+EvaluateDataQualityMultiFrame *EvaluateDataQualityMultiFrame `json:"evaluateDataQualityMultiFrame" xml:"EvaluateDataQualityMultiFrame"`
+FillMissingValues *FillMissingValues `json:"fillMissingValues" xml:"FillMissingValues"`
+Filter *Filter `json:"filter" xml:"Filter"`
+GovernedCatalogSource *GovernedCatalogSource `json:"governedCatalogSource" xml:"GovernedCatalogSource"`
+GovernedCatalogTarget *GovernedCatalogTarget `json:"governedCatalogTarget" xml:"GovernedCatalogTarget"`
+JDBCConnectorSource *JDBCConnectorSource `json:"jDBCConnectorSource" xml:"JDBCConnectorSource"`
+JDBCConnectorTarget *JDBCConnectorTarget `json:"jDBCConnectorTarget" xml:"JDBCConnectorTarget"`
+Join *Join `json:"join" xml:"Join"`
+Merge *Merge `json:"merge" xml:"Merge"`
+MicrosoftSQLServerCatalogSource *MicrosoftSQLServerCatalogSource `json:"microsoftSQLServerCatalogSource" xml:"MicrosoftSQLServerCatalogSource"`
+MicrosoftSQLServerCatalogTarget *MicrosoftSQLServerCatalogTarget `json:"microsoftSQLServerCatalogTarget" xml:"MicrosoftSQLServerCatalogTarget"`
+MySQLCatalogSource *MySQLCatalogSource `json:"mySQLCatalogSource" xml:"MySQLCatalogSource"`
+MySQLCatalogTarget *MySQLCatalogTarget `json:"mySQLCatalogTarget" xml:"MySQLCatalogTarget"`
+OracleSQLCatalogSource *OracleSQLCatalogSource `json:"oracleSQLCatalogSource" xml:"OracleSQLCatalogSource"`
+OracleSQLCatalogTarget *OracleSQLCatalogTarget `json:"oracleSQLCatalogTarget" xml:"OracleSQLCatalogTarget"`
+PIIDetection *PIIDetection `json:"pIIDetection" xml:"PIIDetection"`
+PostgreSQLCatalogSource *PostgreSQLCatalogSource `json:"postgreSQLCatalogSource" xml:"PostgreSQLCatalogSource"`
+PostgreSQLCatalogTarget *PostgreSQLCatalogTarget `json:"postgreSQLCatalogTarget" xml:"PostgreSQLCatalogTarget"`
+Recipe *Recipe `json:"recipe" xml:"Recipe"`
+RedshiftSource *RedshiftSource `json:"redshiftSource" xml:"RedshiftSource"`
+RedshiftTarget *RedshiftTarget `json:"redshiftTarget" xml:"RedshiftTarget"`
+RelationalCatalogSource *RelationalCatalogSource `json:"relationalCatalogSource" xml:"RelationalCatalogSource"`
+RenameField *RenameField `json:"renameField" xml:"RenameField"`
+Route *Route `json:"route" xml:"Route"`
+S3CatalogDeltaSource *S3CatalogDeltaSource `json:"s3CatalogDeltaSource" xml:"S3CatalogDeltaSource"`
+S3CatalogHudiSource *S3CatalogHudiSource `json:"s3CatalogHudiSource" xml:"S3CatalogHudiSource"`
+S3CatalogIcebergSource *S3CatalogIcebergSource `json:"s3CatalogIcebergSource" xml:"S3CatalogIcebergSource"`
+S3CatalogSource *S3CatalogSource `json:"s3CatalogSource" xml:"S3CatalogSource"`
+S3CatalogTarget *S3CatalogTarget `json:"s3CatalogTarget" xml:"S3CatalogTarget"`
+S3CsvSource *S3CsvSource `json:"s3CsvSource" xml:"S3CsvSource"`
+S3DeltaCatalogTarget *S3DeltaCatalogTarget `json:"s3DeltaCatalogTarget" xml:"S3DeltaCatalogTarget"`
+S3DeltaDirectTarget *S3DeltaDirectTarget `json:"s3DeltaDirectTarget" xml:"S3DeltaDirectTarget"`
+S3DeltaSource *S3DeltaSource `json:"s3DeltaSource" xml:"S3DeltaSource"`
+S3DirectTarget *S3DirectTarget `json:"s3DirectTarget" xml:"S3DirectTarget"`
+S3ExcelSource *S3ExcelSource `json:"s3ExcelSource" xml:"S3ExcelSource"`
+S3GlueParquetTarget *S3GlueParquetTarget `json:"s3GlueParquetTarget" xml:"S3GlueParquetTarget"`
+S3HudiCatalogTarget *S3HudiCatalogTarget `json:"s3HudiCatalogTarget" xml:"S3HudiCatalogTarget"`
+S3HudiDirectTarget *S3HudiDirectTarget `json:"s3HudiDirectTarget" xml:"S3HudiDirectTarget"`
+S3HudiSource *S3HudiSource `json:"s3HudiSource" xml:"S3HudiSource"`
+S3HyperDirectTarget *S3HyperDirectTarget `json:"s3HyperDirectTarget" xml:"S3HyperDirectTarget"`
+S3IcebergCatalogTarget *S3IcebergCatalogTarget `json:"s3IcebergCatalogTarget" xml:"S3IcebergCatalogTarget"`
+S3IcebergDirectTarget *S3IcebergDirectTarget `json:"s3IcebergDirectTarget" xml:"S3IcebergDirectTarget"`
+S3JsonSource *S3JsonSource `json:"s3JsonSource" xml:"S3JsonSource"`
+S3ParquetSource *S3ParquetSource `json:"s3ParquetSource" xml:"S3ParquetSource"`
+SelectFields *SelectFields `json:"selectFields" xml:"SelectFields"`
+SelectFromCollection *SelectFromCollection `json:"selectFromCollection" xml:"SelectFromCollection"`
+SnowflakeSource *SnowflakeSource `json:"snowflakeSource" xml:"SnowflakeSource"`
+SnowflakeTarget *SnowflakeTarget `json:"snowflakeTarget" xml:"SnowflakeTarget"`
+SparkConnectorSource *SparkConnectorSource `json:"sparkConnectorSource" xml:"SparkConnectorSource"`
+SparkConnectorTarget *SparkConnectorTarget `json:"sparkConnectorTarget" xml:"SparkConnectorTarget"`
+SparkSQL *SparkSQL `json:"sparkSQL" xml:"SparkSQL"`
+Spigot *Spigot `json:"spigot" xml:"Spigot"`
+SplitFields *SplitFields `json:"splitFields" xml:"SplitFields"`
+Union *Union `json:"union" xml:"Union"`
 }
 
 type CodeGenEdge struct {
-	Source          string `json:"source" xml:"Source"`
-	Target          string `json:"target" xml:"Target"`
-	TargetParameter string `json:"targetParameter" xml:"TargetParameter"`
+Source string `json:"source" xml:"Source"`
+Target string `json:"target" xml:"Target"`
+TargetParameter string `json:"targetParameter" xml:"TargetParameter"`
 }
 
 type CodeGenNode struct {
-	Args       CodeGenNodeArgs `json:"args" xml:"Args"`
-	Id         string          `json:"id" xml:"Id"`
-	LineNumber int32           `json:"lineNumber" xml:"LineNumber"`
-	NodeType   string          `json:"nodeType" xml:"NodeType"`
+Args CodeGenNodeArgs `json:"args" xml:"Args"`
+Id string `json:"id" xml:"Id"`
+LineNumber int32 `json:"lineNumber" xml:"LineNumber"`
+NodeType string `json:"nodeType" xml:"NodeType"`
 }
 
 type CodeGenNodeArg struct {
-	Name  string `json:"name" xml:"Name"`
-	Param bool   `json:"param" xml:"Param"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Param bool `json:"param" xml:"Param"`
+Value string `json:"value" xml:"Value"`
 }
 
 type Column struct {
-	Comment    string        `json:"comment" xml:"Comment"`
-	Name       string        `json:"name" xml:"Name"`
-	Parameters ParametersMap `json:"parameters" xml:"Parameters"`
-	Type       string        `json:"type" xml:"Type"`
+Comment string `json:"comment" xml:"Comment"`
+Name string `json:"name" xml:"Name"`
+Parameters ParametersMap `json:"parameters" xml:"Parameters"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ColumnError struct {
-	ColumnName string       `json:"columnName" xml:"ColumnName"`
-	Error      *ErrorDetail `json:"error" xml:"Error"`
+ColumnName string `json:"columnName" xml:"ColumnName"`
+Error *ErrorDetail `json:"error" xml:"Error"`
 }
 
 type ColumnImportance struct {
-	ColumnName string  `json:"columnName" xml:"ColumnName"`
-	Importance float64 `json:"importance" xml:"Importance"`
+ColumnName string `json:"columnName" xml:"ColumnName"`
+Importance float64 `json:"importance" xml:"Importance"`
 }
 
 type ColumnRowFilter struct {
-	ColumnName          string `json:"columnName" xml:"ColumnName"`
-	RowFilterExpression string `json:"rowFilterExpression" xml:"RowFilterExpression"`
+ColumnName string `json:"columnName" xml:"ColumnName"`
+RowFilterExpression string `json:"rowFilterExpression" xml:"RowFilterExpression"`
 }
 
 type ColumnStatistics struct {
-	AnalyzedTime   time.Time             `json:"analyzedTime" xml:"AnalyzedTime"`
-	ColumnName     string                `json:"columnName" xml:"ColumnName"`
-	ColumnType     string                `json:"columnType" xml:"ColumnType"`
-	StatisticsData *ColumnStatisticsData `json:"statisticsData" xml:"StatisticsData"`
+AnalyzedTime time.Time `json:"analyzedTime" xml:"AnalyzedTime"`
+ColumnName string `json:"columnName" xml:"ColumnName"`
+ColumnType string `json:"columnType" xml:"ColumnType"`
+StatisticsData *ColumnStatisticsData `json:"statisticsData" xml:"StatisticsData"`
 }
 
 type ColumnStatisticsData struct {
-	BinaryColumnStatisticsData  *BinaryColumnStatisticsData  `json:"binaryColumnStatisticsData" xml:"BinaryColumnStatisticsData"`
-	BooleanColumnStatisticsData *BooleanColumnStatisticsData `json:"booleanColumnStatisticsData" xml:"BooleanColumnStatisticsData"`
-	DateColumnStatisticsData    *DateColumnStatisticsData    `json:"dateColumnStatisticsData" xml:"DateColumnStatisticsData"`
-	DecimalColumnStatisticsData *DecimalColumnStatisticsData `json:"decimalColumnStatisticsData" xml:"DecimalColumnStatisticsData"`
-	DoubleColumnStatisticsData  *DoubleColumnStatisticsData  `json:"doubleColumnStatisticsData" xml:"DoubleColumnStatisticsData"`
-	LongColumnStatisticsData    *LongColumnStatisticsData    `json:"longColumnStatisticsData" xml:"LongColumnStatisticsData"`
-	StringColumnStatisticsData  *StringColumnStatisticsData  `json:"stringColumnStatisticsData" xml:"StringColumnStatisticsData"`
-	Type                        string                       `json:"type" xml:"Type"`
+BinaryColumnStatisticsData *BinaryColumnStatisticsData `json:"binaryColumnStatisticsData" xml:"BinaryColumnStatisticsData"`
+BooleanColumnStatisticsData *BooleanColumnStatisticsData `json:"booleanColumnStatisticsData" xml:"BooleanColumnStatisticsData"`
+DateColumnStatisticsData *DateColumnStatisticsData `json:"dateColumnStatisticsData" xml:"DateColumnStatisticsData"`
+DecimalColumnStatisticsData *DecimalColumnStatisticsData `json:"decimalColumnStatisticsData" xml:"DecimalColumnStatisticsData"`
+DoubleColumnStatisticsData *DoubleColumnStatisticsData `json:"doubleColumnStatisticsData" xml:"DoubleColumnStatisticsData"`
+LongColumnStatisticsData *LongColumnStatisticsData `json:"longColumnStatisticsData" xml:"LongColumnStatisticsData"`
+StringColumnStatisticsData *StringColumnStatisticsData `json:"stringColumnStatisticsData" xml:"StringColumnStatisticsData"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ColumnStatisticsError struct {
-	ColumnStatistics *ColumnStatistics `json:"columnStatistics" xml:"ColumnStatistics"`
-	Error            *ErrorDetail      `json:"error" xml:"Error"`
+ColumnStatistics *ColumnStatistics `json:"columnStatistics" xml:"ColumnStatistics"`
+Error *ErrorDetail `json:"error" xml:"Error"`
 }
 
 type ColumnStatisticsTaskRun struct {
-	CatalogID                 string         `json:"catalogID" xml:"CatalogID"`
-	ColumnNameList            ColumnNameList `json:"columnNameList" xml:"ColumnNameList"`
-	ColumnStatisticsTaskRunId string         `json:"columnStatisticsTaskRunId" xml:"ColumnStatisticsTaskRunId"`
-	ComputationType           string         `json:"computationType" xml:"ComputationType"`
-	CreationTime              time.Time      `json:"creationTime" xml:"CreationTime"`
-	CustomerId                string         `json:"customerId" xml:"CustomerId"`
-	DPUSeconds                float64        `json:"dPUSeconds" xml:"DPUSeconds"`
-	DatabaseName              string         `json:"databaseName" xml:"DatabaseName"`
-	EndTime                   time.Time      `json:"endTime" xml:"EndTime"`
-	ErrorMessage              string         `json:"errorMessage" xml:"ErrorMessage"`
-	LastUpdated               time.Time      `json:"lastUpdated" xml:"LastUpdated"`
-	NumberOfWorkers           int32          `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	Role                      string         `json:"role" xml:"Role"`
-	SampleSize                float64        `json:"sampleSize" xml:"SampleSize"`
-	SecurityConfiguration     string         `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	StartTime                 time.Time      `json:"startTime" xml:"StartTime"`
-	Status                    string         `json:"status" xml:"Status"`
-	TableName                 string         `json:"tableName" xml:"TableName"`
-	WorkerType                string         `json:"workerType" xml:"WorkerType"`
+CatalogID string `json:"catalogID" xml:"CatalogID"`
+ColumnNameList ColumnNameList `json:"columnNameList" xml:"ColumnNameList"`
+ColumnStatisticsTaskRunId string `json:"columnStatisticsTaskRunId" xml:"ColumnStatisticsTaskRunId"`
+ComputationType string `json:"computationType" xml:"ComputationType"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+CustomerId string `json:"customerId" xml:"CustomerId"`
+DPUSeconds float64 `json:"dPUSeconds" xml:"DPUSeconds"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+Role string `json:"role" xml:"Role"`
+SampleSize float64 `json:"sampleSize" xml:"SampleSize"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Status string `json:"status" xml:"Status"`
+TableName string `json:"tableName" xml:"TableName"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type ColumnStatisticsTaskSettings struct {
-	CatalogID             string            `json:"catalogID" xml:"CatalogID"`
-	ColumnNameList        ColumnNameList    `json:"columnNameList" xml:"ColumnNameList"`
-	DatabaseName          string            `json:"databaseName" xml:"DatabaseName"`
-	LastExecutionAttempt  *ExecutionAttempt `json:"lastExecutionAttempt" xml:"LastExecutionAttempt"`
-	Role                  string            `json:"role" xml:"Role"`
-	SampleSize            float64           `json:"sampleSize" xml:"SampleSize"`
-	Schedule              *Schedule         `json:"schedule" xml:"Schedule"`
-	ScheduleType          string            `json:"scheduleType" xml:"ScheduleType"`
-	SecurityConfiguration string            `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	SettingSource         string            `json:"settingSource" xml:"SettingSource"`
-	TableName             string            `json:"tableName" xml:"TableName"`
+CatalogID string `json:"catalogID" xml:"CatalogID"`
+ColumnNameList ColumnNameList `json:"columnNameList" xml:"ColumnNameList"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+LastExecutionAttempt *ExecutionAttempt `json:"lastExecutionAttempt" xml:"LastExecutionAttempt"`
+Role string `json:"role" xml:"Role"`
+SampleSize float64 `json:"sampleSize" xml:"SampleSize"`
+Schedule *Schedule `json:"schedule" xml:"Schedule"`
+ScheduleType string `json:"scheduleType" xml:"ScheduleType"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+SettingSource string `json:"settingSource" xml:"SettingSource"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type CompactionConfiguration struct {
-	IcebergConfiguration *IcebergCompactionConfiguration `json:"icebergConfiguration" xml:"icebergConfiguration"`
+IcebergConfiguration *IcebergCompactionConfiguration `json:"icebergConfiguration" xml:"icebergConfiguration"`
 }
 
 type CompactionMetrics struct {
-	IcebergMetrics *IcebergCompactionMetrics `json:"icebergMetrics" xml:"IcebergMetrics"`
+IcebergMetrics *IcebergCompactionMetrics `json:"icebergMetrics" xml:"IcebergMetrics"`
 }
 
 type ComputeEnvironmentConfiguration struct {
-	ComputeEnvironment                    string                `json:"computeEnvironment" xml:"ComputeEnvironment"`
-	ConnectionOptionNameOverrides         PropertyNameOverrides `json:"connectionOptionNameOverrides" xml:"ConnectionOptionNameOverrides"`
-	ConnectionOptions                     PropertiesMap         `json:"connectionOptions" xml:"ConnectionOptions"`
-	ConnectionPropertiesRequiredOverrides ListOfString          `json:"connectionPropertiesRequiredOverrides" xml:"ConnectionPropertiesRequiredOverrides"`
-	ConnectionPropertyNameOverrides       PropertyNameOverrides `json:"connectionPropertyNameOverrides" xml:"ConnectionPropertyNameOverrides"`
-	Description                           string                `json:"description" xml:"Description"`
-	Name                                  string                `json:"name" xml:"Name"`
-	PhysicalConnectionPropertiesRequired  bool                  `json:"physicalConnectionPropertiesRequired" xml:"PhysicalConnectionPropertiesRequired"`
-	SupportedAuthenticationTypes          AuthenticationTypes   `json:"supportedAuthenticationTypes" xml:"SupportedAuthenticationTypes"`
+ComputeEnvironment string `json:"computeEnvironment" xml:"ComputeEnvironment"`
+ConnectionOptionNameOverrides PropertyNameOverrides `json:"connectionOptionNameOverrides" xml:"ConnectionOptionNameOverrides"`
+ConnectionOptions PropertiesMap `json:"connectionOptions" xml:"ConnectionOptions"`
+ConnectionPropertiesRequiredOverrides ListOfString `json:"connectionPropertiesRequiredOverrides" xml:"ConnectionPropertiesRequiredOverrides"`
+ConnectionPropertyNameOverrides PropertyNameOverrides `json:"connectionPropertyNameOverrides" xml:"ConnectionPropertyNameOverrides"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+PhysicalConnectionPropertiesRequired bool `json:"physicalConnectionPropertiesRequired" xml:"PhysicalConnectionPropertiesRequired"`
+SupportedAuthenticationTypes AuthenticationTypes `json:"supportedAuthenticationTypes" xml:"SupportedAuthenticationTypes"`
 }
 
 type Condition struct {
-	CrawlState      string `json:"crawlState" xml:"CrawlState"`
-	CrawlerName     string `json:"crawlerName" xml:"CrawlerName"`
-	JobName         string `json:"jobName" xml:"JobName"`
-	LogicalOperator string `json:"logicalOperator" xml:"LogicalOperator"`
-	State           string `json:"state" xml:"State"`
+CrawlState string `json:"crawlState" xml:"CrawlState"`
+CrawlerName string `json:"crawlerName" xml:"CrawlerName"`
+JobName string `json:"jobName" xml:"JobName"`
+LogicalOperator string `json:"logicalOperator" xml:"LogicalOperator"`
+State string `json:"state" xml:"State"`
 }
 
 type ConditionExpression struct {
-	Condition    string `json:"condition" xml:"Condition"`
-	TargetColumn string `json:"targetColumn" xml:"TargetColumn"`
-	Value        string `json:"value" xml:"Value"`
+Condition string `json:"condition" xml:"Condition"`
+TargetColumn string `json:"targetColumn" xml:"TargetColumn"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ConfigurationObject struct {
-	AllowedValues AllowedValuesStringList `json:"allowedValues" xml:"AllowedValues"`
-	DefaultValue  string                  `json:"defaultValue" xml:"DefaultValue"`
-	MaxValue      string                  `json:"maxValue" xml:"MaxValue"`
-	MinValue      string                  `json:"minValue" xml:"MinValue"`
+AllowedValues AllowedValuesStringList `json:"allowedValues" xml:"AllowedValues"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+MaxValue string `json:"maxValue" xml:"MaxValue"`
+MinValue string `json:"minValue" xml:"MinValue"`
 }
 
 type ConfusionMatrix struct {
-	NumFalseNegatives int64 `json:"numFalseNegatives" xml:"NumFalseNegatives"`
-	NumFalsePositives int64 `json:"numFalsePositives" xml:"NumFalsePositives"`
-	NumTrueNegatives  int64 `json:"numTrueNegatives" xml:"NumTrueNegatives"`
-	NumTruePositives  int64 `json:"numTruePositives" xml:"NumTruePositives"`
+NumFalseNegatives int64 `json:"numFalseNegatives" xml:"NumFalseNegatives"`
+NumFalsePositives int64 `json:"numFalsePositives" xml:"NumFalsePositives"`
+NumTrueNegatives int64 `json:"numTrueNegatives" xml:"NumTrueNegatives"`
+NumTruePositives int64 `json:"numTruePositives" xml:"NumTruePositives"`
 }
 
 type Connection struct {
-	AthenaProperties               PropertyMap                     `json:"athenaProperties" xml:"AthenaProperties"`
-	AuthenticationConfiguration    *AuthenticationConfiguration    `json:"authenticationConfiguration" xml:"AuthenticationConfiguration"`
-	CompatibleComputeEnvironments  ComputeEnvironmentList          `json:"compatibleComputeEnvironments" xml:"CompatibleComputeEnvironments"`
-	ConnectionProperties           ConnectionProperties            `json:"connectionProperties" xml:"ConnectionProperties"`
-	ConnectionSchemaVersion        int32                           `json:"connectionSchemaVersion" xml:"ConnectionSchemaVersion"`
-	ConnectionType                 string                          `json:"connectionType" xml:"ConnectionType"`
-	CreationTime                   time.Time                       `json:"creationTime" xml:"CreationTime"`
-	Description                    string                          `json:"description" xml:"Description"`
-	LastConnectionValidationTime   time.Time                       `json:"lastConnectionValidationTime" xml:"LastConnectionValidationTime"`
-	LastUpdatedBy                  string                          `json:"lastUpdatedBy" xml:"LastUpdatedBy"`
-	LastUpdatedTime                time.Time                       `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	MatchCriteria                  MatchCriteria                   `json:"matchCriteria" xml:"MatchCriteria"`
-	Name                           string                          `json:"name" xml:"Name"`
-	PhysicalConnectionRequirements *PhysicalConnectionRequirements `json:"physicalConnectionRequirements" xml:"PhysicalConnectionRequirements"`
-	PythonProperties               PropertyMap                     `json:"pythonProperties" xml:"PythonProperties"`
-	SparkProperties                PropertyMap                     `json:"sparkProperties" xml:"SparkProperties"`
-	Status                         string                          `json:"status" xml:"Status"`
-	StatusReason                   string                          `json:"statusReason" xml:"StatusReason"`
+AthenaProperties PropertyMap `json:"athenaProperties" xml:"AthenaProperties"`
+AuthenticationConfiguration *AuthenticationConfiguration `json:"authenticationConfiguration" xml:"AuthenticationConfiguration"`
+CompatibleComputeEnvironments ComputeEnvironmentList `json:"compatibleComputeEnvironments" xml:"CompatibleComputeEnvironments"`
+ConnectionProperties ConnectionProperties `json:"connectionProperties" xml:"ConnectionProperties"`
+ConnectionSchemaVersion int32 `json:"connectionSchemaVersion" xml:"ConnectionSchemaVersion"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+Description string `json:"description" xml:"Description"`
+LastConnectionValidationTime time.Time `json:"lastConnectionValidationTime" xml:"LastConnectionValidationTime"`
+LastUpdatedBy string `json:"lastUpdatedBy" xml:"LastUpdatedBy"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+MatchCriteria MatchCriteria `json:"matchCriteria" xml:"MatchCriteria"`
+Name string `json:"name" xml:"Name"`
+PhysicalConnectionRequirements *PhysicalConnectionRequirements `json:"physicalConnectionRequirements" xml:"PhysicalConnectionRequirements"`
+PythonProperties PropertyMap `json:"pythonProperties" xml:"PythonProperties"`
+SparkProperties PropertyMap `json:"sparkProperties" xml:"SparkProperties"`
+Status string `json:"status" xml:"Status"`
+StatusReason string `json:"statusReason" xml:"StatusReason"`
 }
 
 type ConnectionInput struct {
-	AthenaProperties               PropertyMap                       `json:"athenaProperties" xml:"AthenaProperties"`
-	AuthenticationConfiguration    *AuthenticationConfigurationInput `json:"authenticationConfiguration" xml:"AuthenticationConfiguration"`
-	ConnectionProperties           ConnectionProperties              `json:"connectionProperties" xml:"ConnectionProperties"`
-	ConnectionType                 string                            `json:"connectionType" xml:"ConnectionType"`
-	Description                    string                            `json:"description" xml:"Description"`
-	MatchCriteria                  MatchCriteria                     `json:"matchCriteria" xml:"MatchCriteria"`
-	Name                           string                            `json:"name" xml:"Name"`
-	PhysicalConnectionRequirements *PhysicalConnectionRequirements   `json:"physicalConnectionRequirements" xml:"PhysicalConnectionRequirements"`
-	PythonProperties               PropertyMap                       `json:"pythonProperties" xml:"PythonProperties"`
-	SparkProperties                PropertyMap                       `json:"sparkProperties" xml:"SparkProperties"`
-	ValidateCredentials            bool                              `json:"validateCredentials" xml:"ValidateCredentials"`
-	ValidateForComputeEnvironments ComputeEnvironmentList            `json:"validateForComputeEnvironments" xml:"ValidateForComputeEnvironments"`
+AthenaProperties PropertyMap `json:"athenaProperties" xml:"AthenaProperties"`
+AuthenticationConfiguration *AuthenticationConfigurationInput `json:"authenticationConfiguration" xml:"AuthenticationConfiguration"`
+ConnectionProperties ConnectionProperties `json:"connectionProperties" xml:"ConnectionProperties"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+Description string `json:"description" xml:"Description"`
+MatchCriteria MatchCriteria `json:"matchCriteria" xml:"MatchCriteria"`
+Name string `json:"name" xml:"Name"`
+PhysicalConnectionRequirements *PhysicalConnectionRequirements `json:"physicalConnectionRequirements" xml:"PhysicalConnectionRequirements"`
+PythonProperties PropertyMap `json:"pythonProperties" xml:"PythonProperties"`
+SparkProperties PropertyMap `json:"sparkProperties" xml:"SparkProperties"`
+ValidateCredentials bool `json:"validateCredentials" xml:"ValidateCredentials"`
+ValidateForComputeEnvironments ComputeEnvironmentList `json:"validateForComputeEnvironments" xml:"ValidateForComputeEnvironments"`
 }
 
 type ConnectionPasswordEncryption struct {
-	AwsKmsKeyId                       string `json:"awsKmsKeyId" xml:"AwsKmsKeyId"`
-	ReturnConnectionPasswordEncrypted bool   `json:"returnConnectionPasswordEncrypted" xml:"ReturnConnectionPasswordEncrypted"`
+AwsKmsKeyId string `json:"awsKmsKeyId" xml:"AwsKmsKeyId"`
+ReturnConnectionPasswordEncrypted bool `json:"returnConnectionPasswordEncrypted" xml:"ReturnConnectionPasswordEncrypted"`
 }
 
 type ConnectionPropertiesConfiguration struct {
-	AdditionalRequestParameters ConnectorPropertyList `json:"additionalRequestParameters" xml:"AdditionalRequestParameters"`
-	Url                         *ConnectorProperty    `json:"url" xml:"Url"`
+AdditionalRequestParameters ConnectorPropertyList `json:"additionalRequestParameters" xml:"AdditionalRequestParameters"`
+Url *ConnectorProperty `json:"url" xml:"Url"`
 }
 
 type ConnectionTypeBrief struct {
-	Capabilities           *Capabilities             `json:"capabilities" xml:"Capabilities"`
-	Categories             ListOfString              `json:"categories" xml:"Categories"`
-	ConnectionType         string                    `json:"connectionType" xml:"ConnectionType"`
-	ConnectionTypeVariants ConnectionTypeVariantList `json:"connectionTypeVariants" xml:"ConnectionTypeVariants"`
-	Description            string                    `json:"description" xml:"Description"`
-	DisplayName            string                    `json:"displayName" xml:"DisplayName"`
-	LogoUrl                string                    `json:"logoUrl" xml:"LogoUrl"`
-	Vendor                 string                    `json:"vendor" xml:"Vendor"`
+Capabilities *Capabilities `json:"capabilities" xml:"Capabilities"`
+Categories ListOfString `json:"categories" xml:"Categories"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ConnectionTypeVariants ConnectionTypeVariantList `json:"connectionTypeVariants" xml:"ConnectionTypeVariants"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+LogoUrl string `json:"logoUrl" xml:"LogoUrl"`
+Vendor string `json:"vendor" xml:"Vendor"`
 }
 
 type ConnectionTypeVariant struct {
-	ConnectionTypeVariantName string `json:"connectionTypeVariantName" xml:"ConnectionTypeVariantName"`
-	Description               string `json:"description" xml:"Description"`
-	DisplayName               string `json:"displayName" xml:"DisplayName"`
-	LogoUrl                   string `json:"logoUrl" xml:"LogoUrl"`
+ConnectionTypeVariantName string `json:"connectionTypeVariantName" xml:"ConnectionTypeVariantName"`
+Description string `json:"description" xml:"Description"`
+DisplayName string `json:"displayName" xml:"DisplayName"`
+LogoUrl string `json:"logoUrl" xml:"LogoUrl"`
 }
 
 type ConnectionsList struct {
-	Connections ConnectionStringList `json:"connections" xml:"Connections"`
+Connections ConnectionStringList `json:"connections" xml:"Connections"`
 }
 
 type ConnectorAuthenticationConfiguration struct {
-	AuthenticationTypes            AuthenticationTypes             `json:"authenticationTypes" xml:"AuthenticationTypes"`
-	BasicAuthenticationProperties  *BasicAuthenticationProperties  `json:"basicAuthenticationProperties" xml:"BasicAuthenticationProperties"`
-	CustomAuthenticationProperties *CustomAuthenticationProperties `json:"customAuthenticationProperties" xml:"CustomAuthenticationProperties"`
-	OAuth2Properties               *ConnectorOAuth2Properties      `json:"oAuth2Properties" xml:"OAuth2Properties"`
+AuthenticationTypes AuthenticationTypes `json:"authenticationTypes" xml:"AuthenticationTypes"`
+BasicAuthenticationProperties *BasicAuthenticationProperties `json:"basicAuthenticationProperties" xml:"BasicAuthenticationProperties"`
+CustomAuthenticationProperties *CustomAuthenticationProperties `json:"customAuthenticationProperties" xml:"CustomAuthenticationProperties"`
+OAuth2Properties *ConnectorOAuth2Properties `json:"oAuth2Properties" xml:"OAuth2Properties"`
 }
 
 type ConnectorAuthorizationCodeProperties struct {
-	AuthorizationCode    *ConnectorProperty    `json:"authorizationCode" xml:"AuthorizationCode"`
-	AuthorizationCodeUrl *ConnectorProperty    `json:"authorizationCodeUrl" xml:"AuthorizationCodeUrl"`
-	ClientId             *ConnectorProperty    `json:"clientId" xml:"ClientId"`
-	ClientSecret         *ConnectorProperty    `json:"clientSecret" xml:"ClientSecret"`
-	ContentType          string                `json:"contentType" xml:"ContentType"`
-	Prompt               *ConnectorProperty    `json:"prompt" xml:"Prompt"`
-	RedirectUri          *ConnectorProperty    `json:"redirectUri" xml:"RedirectUri"`
-	RequestMethod        string                `json:"requestMethod" xml:"RequestMethod"`
-	Scope                *ConnectorProperty    `json:"scope" xml:"Scope"`
-	TokenUrl             *ConnectorProperty    `json:"tokenUrl" xml:"TokenUrl"`
-	TokenUrlParameters   ConnectorPropertyList `json:"tokenUrlParameters" xml:"TokenUrlParameters"`
+AuthorizationCode *ConnectorProperty `json:"authorizationCode" xml:"AuthorizationCode"`
+AuthorizationCodeUrl *ConnectorProperty `json:"authorizationCodeUrl" xml:"AuthorizationCodeUrl"`
+ClientId *ConnectorProperty `json:"clientId" xml:"ClientId"`
+ClientSecret *ConnectorProperty `json:"clientSecret" xml:"ClientSecret"`
+ContentType string `json:"contentType" xml:"ContentType"`
+Prompt *ConnectorProperty `json:"prompt" xml:"Prompt"`
+RedirectUri *ConnectorProperty `json:"redirectUri" xml:"RedirectUri"`
+RequestMethod string `json:"requestMethod" xml:"RequestMethod"`
+Scope *ConnectorProperty `json:"scope" xml:"Scope"`
+TokenUrl *ConnectorProperty `json:"tokenUrl" xml:"TokenUrl"`
+TokenUrlParameters ConnectorPropertyList `json:"tokenUrlParameters" xml:"TokenUrlParameters"`
 }
 
 type ConnectorDataSource struct {
-	ConnectionType string           `json:"connectionType" xml:"ConnectionType"`
-	Data           ConnectorOptions `json:"data" xml:"Data"`
-	Name           string           `json:"name" xml:"Name"`
-	OutputSchemas  GlueSchemas      `json:"outputSchemas" xml:"OutputSchemas"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+Data ConnectorOptions `json:"data" xml:"Data"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
 }
 
 type ConnectorDataTarget struct {
-	ConnectionType string           `json:"connectionType" xml:"ConnectionType"`
-	Data           ConnectorOptions `json:"data" xml:"Data"`
-	Inputs         OneInput         `json:"inputs" xml:"Inputs"`
-	Name           string           `json:"name" xml:"Name"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+Data ConnectorOptions `json:"data" xml:"Data"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ConnectorOAuth2Properties struct {
-	AuthorizationCodeProperties *ConnectorAuthorizationCodeProperties `json:"authorizationCodeProperties" xml:"AuthorizationCodeProperties"`
-	ClientCredentialsProperties *ClientCredentialsProperties          `json:"clientCredentialsProperties" xml:"ClientCredentialsProperties"`
-	JWTBearerProperties         *JWTBearerProperties                  `json:"jWTBearerProperties" xml:"JWTBearerProperties"`
-	OAuth2GrantType             string                                `json:"oAuth2GrantType" xml:"OAuth2GrantType"`
+AuthorizationCodeProperties *ConnectorAuthorizationCodeProperties `json:"authorizationCodeProperties" xml:"AuthorizationCodeProperties"`
+ClientCredentialsProperties *ClientCredentialsProperties `json:"clientCredentialsProperties" xml:"ClientCredentialsProperties"`
+JWTBearerProperties *JWTBearerProperties `json:"jWTBearerProperties" xml:"JWTBearerProperties"`
+OAuth2GrantType string `json:"oAuth2GrantType" xml:"OAuth2GrantType"`
 }
 
 type ConnectorProperty struct {
-	AllowedValues    ListOfString `json:"allowedValues" xml:"AllowedValues"`
-	DefaultValue     string       `json:"defaultValue" xml:"DefaultValue"`
-	KeyOverride      string       `json:"keyOverride" xml:"KeyOverride"`
-	Name             string       `json:"name" xml:"Name"`
-	PropertyLocation string       `json:"propertyLocation" xml:"PropertyLocation"`
-	PropertyType     string       `json:"propertyType" xml:"PropertyType"`
-	Required         bool         `json:"required" xml:"Required"`
+AllowedValues ListOfString `json:"allowedValues" xml:"AllowedValues"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+KeyOverride string `json:"keyOverride" xml:"KeyOverride"`
+Name string `json:"name" xml:"Name"`
+PropertyLocation string `json:"propertyLocation" xml:"PropertyLocation"`
+PropertyType string `json:"propertyType" xml:"PropertyType"`
+Required bool `json:"required" xml:"Required"`
 }
 
 type Crawl struct {
-	CompletedOn  time.Time `json:"completedOn" xml:"CompletedOn"`
-	ErrorMessage string    `json:"errorMessage" xml:"ErrorMessage"`
-	LogGroup     string    `json:"logGroup" xml:"LogGroup"`
-	LogStream    string    `json:"logStream" xml:"LogStream"`
-	StartedOn    time.Time `json:"startedOn" xml:"StartedOn"`
-	State        string    `json:"state" xml:"State"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+LogGroup string `json:"logGroup" xml:"LogGroup"`
+LogStream string `json:"logStream" xml:"LogStream"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
+State string `json:"state" xml:"State"`
 }
 
 type Crawler struct {
-	Classifiers                  ClassifierNameList          `json:"classifiers" xml:"Classifiers"`
-	Configuration                string                      `json:"configuration" xml:"Configuration"`
-	CrawlElapsedTime             int64                       `json:"crawlElapsedTime" xml:"CrawlElapsedTime"`
-	CrawlerSecurityConfiguration string                      `json:"crawlerSecurityConfiguration" xml:"CrawlerSecurityConfiguration"`
-	CreationTime                 time.Time                   `json:"creationTime" xml:"CreationTime"`
-	DatabaseName                 string                      `json:"databaseName" xml:"DatabaseName"`
-	Description                  string                      `json:"description" xml:"Description"`
-	LakeFormationConfiguration   *LakeFormationConfiguration `json:"lakeFormationConfiguration" xml:"LakeFormationConfiguration"`
-	LastCrawl                    *LastCrawlInfo              `json:"lastCrawl" xml:"LastCrawl"`
-	LastUpdated                  time.Time                   `json:"lastUpdated" xml:"LastUpdated"`
-	LineageConfiguration         *LineageConfiguration       `json:"lineageConfiguration" xml:"LineageConfiguration"`
-	Name                         string                      `json:"name" xml:"Name"`
-	RecrawlPolicy                *RecrawlPolicy              `json:"recrawlPolicy" xml:"RecrawlPolicy"`
-	Role                         string                      `json:"role" xml:"Role"`
-	Schedule                     *Schedule                   `json:"schedule" xml:"Schedule"`
-	SchemaChangePolicy           *SchemaChangePolicy         `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
-	State                        string                      `json:"state" xml:"State"`
-	TablePrefix                  string                      `json:"tablePrefix" xml:"TablePrefix"`
-	Targets                      *CrawlerTargets             `json:"targets" xml:"Targets"`
-	Version                      int64                       `json:"version" xml:"Version"`
+Classifiers ClassifierNameList `json:"classifiers" xml:"Classifiers"`
+Configuration string `json:"configuration" xml:"Configuration"`
+CrawlElapsedTime int64 `json:"crawlElapsedTime" xml:"CrawlElapsedTime"`
+CrawlerSecurityConfiguration string `json:"crawlerSecurityConfiguration" xml:"CrawlerSecurityConfiguration"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Description string `json:"description" xml:"Description"`
+LakeFormationConfiguration *LakeFormationConfiguration `json:"lakeFormationConfiguration" xml:"LakeFormationConfiguration"`
+LastCrawl *LastCrawlInfo `json:"lastCrawl" xml:"LastCrawl"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+LineageConfiguration *LineageConfiguration `json:"lineageConfiguration" xml:"LineageConfiguration"`
+Name string `json:"name" xml:"Name"`
+RecrawlPolicy *RecrawlPolicy `json:"recrawlPolicy" xml:"RecrawlPolicy"`
+Role string `json:"role" xml:"Role"`
+Schedule *Schedule `json:"schedule" xml:"Schedule"`
+SchemaChangePolicy *SchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+State string `json:"state" xml:"State"`
+TablePrefix string `json:"tablePrefix" xml:"TablePrefix"`
+Targets *CrawlerTargets `json:"targets" xml:"Targets"`
+Version int64 `json:"version" xml:"Version"`
 }
 
 type CrawlerHistory struct {
-	CrawlId       string    `json:"crawlId" xml:"CrawlId"`
-	DPUHour       float64   `json:"dPUHour" xml:"DPUHour"`
-	EndTime       time.Time `json:"endTime" xml:"EndTime"`
-	ErrorMessage  string    `json:"errorMessage" xml:"ErrorMessage"`
-	LogGroup      string    `json:"logGroup" xml:"LogGroup"`
-	LogStream     string    `json:"logStream" xml:"LogStream"`
-	MessagePrefix string    `json:"messagePrefix" xml:"MessagePrefix"`
-	StartTime     time.Time `json:"startTime" xml:"StartTime"`
-	State         string    `json:"state" xml:"State"`
-	Summary       string    `json:"summary" xml:"Summary"`
+CrawlId string `json:"crawlId" xml:"CrawlId"`
+DPUHour float64 `json:"dPUHour" xml:"DPUHour"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+LogGroup string `json:"logGroup" xml:"LogGroup"`
+LogStream string `json:"logStream" xml:"LogStream"`
+MessagePrefix string `json:"messagePrefix" xml:"MessagePrefix"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+State string `json:"state" xml:"State"`
+Summary string `json:"summary" xml:"Summary"`
 }
 
 type CrawlerMetrics struct {
-	CrawlerName          string  `json:"crawlerName" xml:"CrawlerName"`
-	LastRuntimeSeconds   float64 `json:"lastRuntimeSeconds" xml:"LastRuntimeSeconds"`
-	MedianRuntimeSeconds float64 `json:"medianRuntimeSeconds" xml:"MedianRuntimeSeconds"`
-	StillEstimating      bool    `json:"stillEstimating" xml:"StillEstimating"`
-	TablesCreated        int32   `json:"tablesCreated" xml:"TablesCreated"`
-	TablesDeleted        int32   `json:"tablesDeleted" xml:"TablesDeleted"`
-	TablesUpdated        int32   `json:"tablesUpdated" xml:"TablesUpdated"`
-	TimeLeftSeconds      float64 `json:"timeLeftSeconds" xml:"TimeLeftSeconds"`
+CrawlerName string `json:"crawlerName" xml:"CrawlerName"`
+LastRuntimeSeconds float64 `json:"lastRuntimeSeconds" xml:"LastRuntimeSeconds"`
+MedianRuntimeSeconds float64 `json:"medianRuntimeSeconds" xml:"MedianRuntimeSeconds"`
+StillEstimating bool `json:"stillEstimating" xml:"StillEstimating"`
+TablesCreated int32 `json:"tablesCreated" xml:"TablesCreated"`
+TablesDeleted int32 `json:"tablesDeleted" xml:"TablesDeleted"`
+TablesUpdated int32 `json:"tablesUpdated" xml:"TablesUpdated"`
+TimeLeftSeconds float64 `json:"timeLeftSeconds" xml:"TimeLeftSeconds"`
 }
 
 type CrawlerNodeDetails struct {
-	Crawls CrawlList `json:"crawls" xml:"Crawls"`
+Crawls CrawlList `json:"crawls" xml:"Crawls"`
 }
 
 type CrawlerTargets struct {
-	CatalogTargets  CatalogTargetList  `json:"catalogTargets" xml:"CatalogTargets"`
-	DeltaTargets    DeltaTargetList    `json:"deltaTargets" xml:"DeltaTargets"`
-	DynamoDBTargets DynamoDBTargetList `json:"dynamoDBTargets" xml:"DynamoDBTargets"`
-	HudiTargets     HudiTargetList     `json:"hudiTargets" xml:"HudiTargets"`
-	IcebergTargets  IcebergTargetList  `json:"icebergTargets" xml:"IcebergTargets"`
-	JdbcTargets     JdbcTargetList     `json:"jdbcTargets" xml:"JdbcTargets"`
-	MongoDBTargets  MongoDBTargetList  `json:"mongoDBTargets" xml:"MongoDBTargets"`
-	S3Targets       S3TargetList       `json:"s3Targets" xml:"S3Targets"`
+CatalogTargets CatalogTargetList `json:"catalogTargets" xml:"CatalogTargets"`
+DeltaTargets DeltaTargetList `json:"deltaTargets" xml:"DeltaTargets"`
+DynamoDBTargets DynamoDBTargetList `json:"dynamoDBTargets" xml:"DynamoDBTargets"`
+HudiTargets HudiTargetList `json:"hudiTargets" xml:"HudiTargets"`
+IcebergTargets IcebergTargetList `json:"icebergTargets" xml:"IcebergTargets"`
+JdbcTargets JdbcTargetList `json:"jdbcTargets" xml:"JdbcTargets"`
+MongoDBTargets MongoDBTargetList `json:"mongoDBTargets" xml:"MongoDBTargets"`
+S3Targets S3TargetList `json:"s3Targets" xml:"S3Targets"`
 }
 
 type CrawlsFilter struct {
-	FieldName      string `json:"fieldName" xml:"FieldName"`
-	FieldValue     string `json:"fieldValue" xml:"FieldValue"`
-	FilterOperator string `json:"filterOperator" xml:"FilterOperator"`
+FieldName string `json:"fieldName" xml:"FieldName"`
+FieldValue string `json:"fieldValue" xml:"FieldValue"`
+FilterOperator string `json:"filterOperator" xml:"FilterOperator"`
 }
 
 type CreateBlueprintRequest struct {
-	BlueprintLocation string  `json:"blueprintLocation" xml:"BlueprintLocation"`
-	Description       string  `json:"description" xml:"Description"`
-	Name              string  `json:"name" xml:"Name"`
-	Tags              TagsMap `json:"tags" xml:"Tags"`
+BlueprintLocation string `json:"blueprintLocation" xml:"BlueprintLocation"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateBlueprintResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateCatalogRequest struct {
-	CatalogInput *CatalogInput `json:"catalogInput" xml:"CatalogInput"`
-	Name         string        `json:"name" xml:"Name"`
-	Tags         TagsMap       `json:"tags" xml:"Tags"`
+CatalogInput *CatalogInput `json:"catalogInput" xml:"CatalogInput"`
+Name string `json:"name" xml:"Name"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateCatalogResponse struct {
 }
 
 type CreateClassifierRequest struct {
-	CsvClassifier  *CreateCsvClassifierRequest  `json:"csvClassifier" xml:"CsvClassifier"`
-	GrokClassifier *CreateGrokClassifierRequest `json:"grokClassifier" xml:"GrokClassifier"`
-	JsonClassifier *CreateJsonClassifierRequest `json:"jsonClassifier" xml:"JsonClassifier"`
-	XMLClassifier  *CreateXMLClassifierRequest  `json:"xMLClassifier" xml:"XMLClassifier"`
+CsvClassifier *CreateCsvClassifierRequest `json:"csvClassifier" xml:"CsvClassifier"`
+GrokClassifier *CreateGrokClassifierRequest `json:"grokClassifier" xml:"GrokClassifier"`
+JsonClassifier *CreateJsonClassifierRequest `json:"jsonClassifier" xml:"JsonClassifier"`
+XMLClassifier *CreateXMLClassifierRequest `json:"xMLClassifier" xml:"XMLClassifier"`
 }
 
 type CreateClassifierResponse struct {
 }
 
 type CreateColumnStatisticsTaskSettingsRequest struct {
-	CatalogID             string         `json:"catalogID" xml:"CatalogID"`
-	ColumnNameList        ColumnNameList `json:"columnNameList" xml:"ColumnNameList"`
-	DatabaseName          string         `json:"databaseName" xml:"DatabaseName"`
-	Role                  string         `json:"role" xml:"Role"`
-	SampleSize            float64        `json:"sampleSize" xml:"SampleSize"`
-	Schedule              string         `json:"schedule" xml:"Schedule"`
-	SecurityConfiguration string         `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	TableName             string         `json:"tableName" xml:"TableName"`
-	Tags                  TagsMap        `json:"tags" xml:"Tags"`
+CatalogID string `json:"catalogID" xml:"CatalogID"`
+ColumnNameList ColumnNameList `json:"columnNameList" xml:"ColumnNameList"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Role string `json:"role" xml:"Role"`
+SampleSize float64 `json:"sampleSize" xml:"SampleSize"`
+Schedule string `json:"schedule" xml:"Schedule"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+TableName string `json:"tableName" xml:"TableName"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateColumnStatisticsTaskSettingsResponse struct {
 }
 
 type CreateConnectionRequest struct {
-	CatalogId       string           `json:"catalogId" xml:"CatalogId"`
-	ConnectionInput *ConnectionInput `json:"connectionInput" xml:"ConnectionInput"`
-	Tags            TagsMap          `json:"tags" xml:"Tags"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ConnectionInput *ConnectionInput `json:"connectionInput" xml:"ConnectionInput"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateConnectionResponse struct {
-	CreateConnectionStatus string `json:"createConnectionStatus" xml:"CreateConnectionStatus"`
+CreateConnectionStatus string `json:"createConnectionStatus" xml:"CreateConnectionStatus"`
 }
 
 type CreateCrawlerRequest struct {
-	Classifiers                  ClassifierNameList          `json:"classifiers" xml:"Classifiers"`
-	Configuration                string                      `json:"configuration" xml:"Configuration"`
-	CrawlerSecurityConfiguration string                      `json:"crawlerSecurityConfiguration" xml:"CrawlerSecurityConfiguration"`
-	DatabaseName                 string                      `json:"databaseName" xml:"DatabaseName"`
-	Description                  string                      `json:"description" xml:"Description"`
-	LakeFormationConfiguration   *LakeFormationConfiguration `json:"lakeFormationConfiguration" xml:"LakeFormationConfiguration"`
-	LineageConfiguration         *LineageConfiguration       `json:"lineageConfiguration" xml:"LineageConfiguration"`
-	Name                         string                      `json:"name" xml:"Name"`
-	RecrawlPolicy                *RecrawlPolicy              `json:"recrawlPolicy" xml:"RecrawlPolicy"`
-	Role                         string                      `json:"role" xml:"Role"`
-	Schedule                     string                      `json:"schedule" xml:"Schedule"`
-	SchemaChangePolicy           *SchemaChangePolicy         `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
-	TablePrefix                  string                      `json:"tablePrefix" xml:"TablePrefix"`
-	Tags                         TagsMap                     `json:"tags" xml:"Tags"`
-	Targets                      *CrawlerTargets             `json:"targets" xml:"Targets"`
+Classifiers ClassifierNameList `json:"classifiers" xml:"Classifiers"`
+Configuration string `json:"configuration" xml:"Configuration"`
+CrawlerSecurityConfiguration string `json:"crawlerSecurityConfiguration" xml:"CrawlerSecurityConfiguration"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Description string `json:"description" xml:"Description"`
+LakeFormationConfiguration *LakeFormationConfiguration `json:"lakeFormationConfiguration" xml:"LakeFormationConfiguration"`
+LineageConfiguration *LineageConfiguration `json:"lineageConfiguration" xml:"LineageConfiguration"`
+Name string `json:"name" xml:"Name"`
+RecrawlPolicy *RecrawlPolicy `json:"recrawlPolicy" xml:"RecrawlPolicy"`
+Role string `json:"role" xml:"Role"`
+Schedule string `json:"schedule" xml:"Schedule"`
+SchemaChangePolicy *SchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+TablePrefix string `json:"tablePrefix" xml:"TablePrefix"`
+Tags TagsMap `json:"tags" xml:"Tags"`
+Targets *CrawlerTargets `json:"targets" xml:"Targets"`
 }
 
 type CreateCrawlerResponse struct {
 }
 
 type CreateCsvClassifierRequest struct {
-	AllowSingleColumn        bool            `json:"allowSingleColumn" xml:"AllowSingleColumn"`
-	ContainsHeader           string          `json:"containsHeader" xml:"ContainsHeader"`
-	CustomDatatypeConfigured bool            `json:"customDatatypeConfigured" xml:"CustomDatatypeConfigured"`
-	CustomDatatypes          CustomDatatypes `json:"customDatatypes" xml:"CustomDatatypes"`
-	Delimiter                string          `json:"delimiter" xml:"Delimiter"`
-	DisableValueTrimming     bool            `json:"disableValueTrimming" xml:"DisableValueTrimming"`
-	Header                   CsvHeader       `json:"header" xml:"Header"`
-	Name                     string          `json:"name" xml:"Name"`
-	QuoteSymbol              string          `json:"quoteSymbol" xml:"QuoteSymbol"`
-	Serde                    string          `json:"serde" xml:"Serde"`
+AllowSingleColumn bool `json:"allowSingleColumn" xml:"AllowSingleColumn"`
+ContainsHeader string `json:"containsHeader" xml:"ContainsHeader"`
+CustomDatatypeConfigured bool `json:"customDatatypeConfigured" xml:"CustomDatatypeConfigured"`
+CustomDatatypes CustomDatatypes `json:"customDatatypes" xml:"CustomDatatypes"`
+Delimiter string `json:"delimiter" xml:"Delimiter"`
+DisableValueTrimming bool `json:"disableValueTrimming" xml:"DisableValueTrimming"`
+Header CsvHeader `json:"header" xml:"Header"`
+Name string `json:"name" xml:"Name"`
+QuoteSymbol string `json:"quoteSymbol" xml:"QuoteSymbol"`
+Serde string `json:"serde" xml:"Serde"`
 }
 
 type CreateCustomEntityTypeRequest struct {
-	ContextWords ContextWords `json:"contextWords" xml:"ContextWords"`
-	Name         string       `json:"name" xml:"Name"`
-	RegexString  string       `json:"regexString" xml:"RegexString"`
-	Tags         TagsMap      `json:"tags" xml:"Tags"`
+ContextWords ContextWords `json:"contextWords" xml:"ContextWords"`
+Name string `json:"name" xml:"Name"`
+RegexString string `json:"regexString" xml:"RegexString"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateCustomEntityTypeResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateDataQualityRulesetRequest struct {
-	ClientToken                      string                  `json:"clientToken" xml:"ClientToken"`
-	DataQualitySecurityConfiguration string                  `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
-	Description                      string                  `json:"description" xml:"Description"`
-	Name                             string                  `json:"name" xml:"Name"`
-	Ruleset                          string                  `json:"ruleset" xml:"Ruleset"`
-	Tags                             TagsMap                 `json:"tags" xml:"Tags"`
-	TargetTable                      *DataQualityTargetTable `json:"targetTable" xml:"TargetTable"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+DataQualitySecurityConfiguration string `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Ruleset string `json:"ruleset" xml:"Ruleset"`
+Tags TagsMap `json:"tags" xml:"Tags"`
+TargetTable *DataQualityTargetTable `json:"targetTable" xml:"TargetTable"`
 }
 
 type CreateDataQualityRulesetResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateDatabaseRequest struct {
-	CatalogId     string         `json:"catalogId" xml:"CatalogId"`
-	DatabaseInput *DatabaseInput `json:"databaseInput" xml:"DatabaseInput"`
-	Tags          TagsMap        `json:"tags" xml:"Tags"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseInput *DatabaseInput `json:"databaseInput" xml:"DatabaseInput"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateDatabaseResponse struct {
 }
 
 type CreateDevEndpointRequest struct {
-	Arguments             MapValue       `json:"arguments" xml:"Arguments"`
-	EndpointName          string         `json:"endpointName" xml:"EndpointName"`
-	ExtraJarsS3Path       string         `json:"extraJarsS3Path" xml:"ExtraJarsS3Path"`
-	ExtraPythonLibsS3Path string         `json:"extraPythonLibsS3Path" xml:"ExtraPythonLibsS3Path"`
-	GlueVersion           string         `json:"glueVersion" xml:"GlueVersion"`
-	NumberOfNodes         int32          `json:"numberOfNodes" xml:"NumberOfNodes"`
-	NumberOfWorkers       int32          `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	PublicKey             string         `json:"publicKey" xml:"PublicKey"`
-	PublicKeys            PublicKeysList `json:"publicKeys" xml:"PublicKeys"`
-	RoleArn               string         `json:"roleArn" xml:"RoleArn"`
-	SecurityConfiguration string         `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	SecurityGroupIds      StringList     `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SubnetId              string         `json:"subnetId" xml:"SubnetId"`
-	Tags                  TagsMap        `json:"tags" xml:"Tags"`
-	WorkerType            string         `json:"workerType" xml:"WorkerType"`
+Arguments MapValue `json:"arguments" xml:"Arguments"`
+EndpointName string `json:"endpointName" xml:"EndpointName"`
+ExtraJarsS3Path string `json:"extraJarsS3Path" xml:"ExtraJarsS3Path"`
+ExtraPythonLibsS3Path string `json:"extraPythonLibsS3Path" xml:"ExtraPythonLibsS3Path"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+PublicKey string `json:"publicKey" xml:"PublicKey"`
+PublicKeys PublicKeysList `json:"publicKeys" xml:"PublicKeys"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+SecurityGroupIds StringList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
+Tags TagsMap `json:"tags" xml:"Tags"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type CreateDevEndpointResponse struct {
-	Arguments                          MapValue   `json:"arguments" xml:"Arguments"`
-	AvailabilityZone                   string     `json:"availabilityZone" xml:"AvailabilityZone"`
-	CreatedTimestamp                   time.Time  `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	EndpointName                       string     `json:"endpointName" xml:"EndpointName"`
-	ExtraJarsS3Path                    string     `json:"extraJarsS3Path" xml:"ExtraJarsS3Path"`
-	ExtraPythonLibsS3Path              string     `json:"extraPythonLibsS3Path" xml:"ExtraPythonLibsS3Path"`
-	FailureReason                      string     `json:"failureReason" xml:"FailureReason"`
-	GlueVersion                        string     `json:"glueVersion" xml:"GlueVersion"`
-	NumberOfNodes                      int32      `json:"numberOfNodes" xml:"NumberOfNodes"`
-	NumberOfWorkers                    int32      `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	RoleArn                            string     `json:"roleArn" xml:"RoleArn"`
-	SecurityConfiguration              string     `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	SecurityGroupIds                   StringList `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	Status                             string     `json:"status" xml:"Status"`
-	SubnetId                           string     `json:"subnetId" xml:"SubnetId"`
-	VpcId                              string     `json:"vpcId" xml:"VpcId"`
-	WorkerType                         string     `json:"workerType" xml:"WorkerType"`
-	YarnEndpointAddress                string     `json:"yarnEndpointAddress" xml:"YarnEndpointAddress"`
-	ZeppelinRemoteSparkInterpreterPort int32      `json:"zeppelinRemoteSparkInterpreterPort" xml:"ZeppelinRemoteSparkInterpreterPort"`
+Arguments MapValue `json:"arguments" xml:"Arguments"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+EndpointName string `json:"endpointName" xml:"EndpointName"`
+ExtraJarsS3Path string `json:"extraJarsS3Path" xml:"ExtraJarsS3Path"`
+ExtraPythonLibsS3Path string `json:"extraPythonLibsS3Path" xml:"ExtraPythonLibsS3Path"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+SecurityGroupIds StringList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+Status string `json:"status" xml:"Status"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
+VpcId string `json:"vpcId" xml:"VpcId"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
+YarnEndpointAddress string `json:"yarnEndpointAddress" xml:"YarnEndpointAddress"`
+ZeppelinRemoteSparkInterpreterPort int32 `json:"zeppelinRemoteSparkInterpreterPort" xml:"ZeppelinRemoteSparkInterpreterPort"`
 }
 
 type CreateGlueIdentityCenterConfigurationRequest struct {
-	InstanceArn                   string                   `json:"instanceArn" xml:"InstanceArn"`
-	Scopes                        IdentityCenterScopesList `json:"scopes" xml:"Scopes"`
-	UserBackgroundSessionsEnabled bool                     `json:"userBackgroundSessionsEnabled" xml:"UserBackgroundSessionsEnabled"`
+InstanceArn string `json:"instanceArn" xml:"InstanceArn"`
+Scopes IdentityCenterScopesList `json:"scopes" xml:"Scopes"`
+UserBackgroundSessionsEnabled bool `json:"userBackgroundSessionsEnabled" xml:"UserBackgroundSessionsEnabled"`
 }
 
 type CreateGlueIdentityCenterConfigurationResponse struct {
-	ApplicationArn string `json:"applicationArn" xml:"ApplicationArn"`
+ApplicationArn string `json:"applicationArn" xml:"ApplicationArn"`
 }
 
 type CreateGrokClassifierRequest struct {
-	Classification string `json:"classification" xml:"Classification"`
-	CustomPatterns string `json:"customPatterns" xml:"CustomPatterns"`
-	GrokPattern    string `json:"grokPattern" xml:"GrokPattern"`
-	Name           string `json:"name" xml:"Name"`
+Classification string `json:"classification" xml:"Classification"`
+CustomPatterns string `json:"customPatterns" xml:"CustomPatterns"`
+GrokPattern string `json:"grokPattern" xml:"GrokPattern"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateIcebergTableInput struct {
-	Location      string                `json:"location" xml:"Location"`
-	PartitionSpec *IcebergPartitionSpec `json:"partitionSpec" xml:"PartitionSpec"`
-	Properties    StringToStringMap     `json:"properties" xml:"Properties"`
-	Schema        *IcebergSchema        `json:"schema" xml:"Schema"`
-	WriteOrder    *IcebergSortOrder     `json:"writeOrder" xml:"WriteOrder"`
+Location string `json:"location" xml:"Location"`
+PartitionSpec *IcebergPartitionSpec `json:"partitionSpec" xml:"PartitionSpec"`
+Properties StringToStringMap `json:"properties" xml:"Properties"`
+Schema *IcebergSchema `json:"schema" xml:"Schema"`
+WriteOrder *IcebergSortOrder `json:"writeOrder" xml:"WriteOrder"`
 }
 
 type CreateIntegrationRequest struct {
-	AdditionalEncryptionContext IntegrationAdditionalEncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
-	DataFilter                  string                                    `json:"dataFilter" xml:"DataFilter"`
-	Description                 string                                    `json:"description" xml:"Description"`
-	IntegrationConfig           *IntegrationConfig                        `json:"integrationConfig" xml:"IntegrationConfig"`
-	IntegrationName             string                                    `json:"integrationName" xml:"IntegrationName"`
-	KmsKeyId                    string                                    `json:"kmsKeyId" xml:"KmsKeyId"`
-	SourceArn                   string                                    `json:"sourceArn" xml:"SourceArn"`
-	Tags                        IntegrationTagsList                       `json:"tags" xml:"Tags"`
-	TargetArn                   string                                    `json:"targetArn" xml:"TargetArn"`
+AdditionalEncryptionContext IntegrationAdditionalEncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
+DataFilter string `json:"dataFilter" xml:"DataFilter"`
+Description string `json:"description" xml:"Description"`
+IntegrationConfig *IntegrationConfig `json:"integrationConfig" xml:"IntegrationConfig"`
+IntegrationName string `json:"integrationName" xml:"IntegrationName"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
+Tags IntegrationTagsList `json:"tags" xml:"Tags"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type CreateIntegrationResourcePropertyRequest struct {
-	ResourceArn                string                      `json:"resourceArn" xml:"ResourceArn"`
-	SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
-	Tags                       IntegrationTagsList         `json:"tags" xml:"Tags"`
-	TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
+Tags IntegrationTagsList `json:"tags" xml:"Tags"`
+TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
 }
 
 type CreateIntegrationResourcePropertyResponse struct {
-	ResourceArn                string                      `json:"resourceArn" xml:"ResourceArn"`
-	ResourcePropertyArn        string                      `json:"resourcePropertyArn" xml:"ResourcePropertyArn"`
-	SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
-	TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourcePropertyArn string `json:"resourcePropertyArn" xml:"ResourcePropertyArn"`
+SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
+TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
 }
 
 type CreateIntegrationResponse struct {
-	AdditionalEncryptionContext IntegrationAdditionalEncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
-	CreateTime                  time.Time                                 `json:"createTime" xml:"CreateTime"`
-	DataFilter                  string                                    `json:"dataFilter" xml:"DataFilter"`
-	Description                 string                                    `json:"description" xml:"Description"`
-	Errors                      IntegrationErrorList                      `json:"errors" xml:"Errors"`
-	IntegrationArn              string                                    `json:"integrationArn" xml:"IntegrationArn"`
-	IntegrationConfig           *IntegrationConfig                        `json:"integrationConfig" xml:"IntegrationConfig"`
-	IntegrationName             string                                    `json:"integrationName" xml:"IntegrationName"`
-	KmsKeyId                    string                                    `json:"kmsKeyId" xml:"KmsKeyId"`
-	SourceArn                   string                                    `json:"sourceArn" xml:"SourceArn"`
-	Status                      string                                    `json:"status" xml:"Status"`
-	Tags                        IntegrationTagsList                       `json:"tags" xml:"Tags"`
-	TargetArn                   string                                    `json:"targetArn" xml:"TargetArn"`
+AdditionalEncryptionContext IntegrationAdditionalEncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+DataFilter string `json:"dataFilter" xml:"DataFilter"`
+Description string `json:"description" xml:"Description"`
+Errors IntegrationErrorList `json:"errors" xml:"Errors"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+IntegrationConfig *IntegrationConfig `json:"integrationConfig" xml:"IntegrationConfig"`
+IntegrationName string `json:"integrationName" xml:"IntegrationName"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
+Status string `json:"status" xml:"Status"`
+Tags IntegrationTagsList `json:"tags" xml:"Tags"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type CreateIntegrationTablePropertiesRequest struct {
-	ResourceArn       string             `json:"resourceArn" xml:"ResourceArn"`
-	SourceTableConfig *SourceTableConfig `json:"sourceTableConfig" xml:"SourceTableConfig"`
-	TableName         string             `json:"tableName" xml:"TableName"`
-	TargetTableConfig *TargetTableConfig `json:"targetTableConfig" xml:"TargetTableConfig"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+SourceTableConfig *SourceTableConfig `json:"sourceTableConfig" xml:"SourceTableConfig"`
+TableName string `json:"tableName" xml:"TableName"`
+TargetTableConfig *TargetTableConfig `json:"targetTableConfig" xml:"TargetTableConfig"`
 }
 
 type CreateIntegrationTablePropertiesResponse struct {
 }
 
 type CreateJobRequest struct {
-	AllocatedCapacity         int32                     `json:"allocatedCapacity" xml:"AllocatedCapacity"`
-	CodeGenConfigurationNodes CodeGenConfigurationNodes `json:"codeGenConfigurationNodes" xml:"CodeGenConfigurationNodes"`
-	Command                   *JobCommand               `json:"command" xml:"Command"`
-	Connections               *ConnectionsList          `json:"connections" xml:"Connections"`
-	DefaultArguments          GenericMap                `json:"defaultArguments" xml:"DefaultArguments"`
-	Description               string                    `json:"description" xml:"Description"`
-	ExecutionClass            string                    `json:"executionClass" xml:"ExecutionClass"`
-	ExecutionProperty         *ExecutionProperty        `json:"executionProperty" xml:"ExecutionProperty"`
-	GlueVersion               string                    `json:"glueVersion" xml:"GlueVersion"`
-	JobMode                   string                    `json:"jobMode" xml:"JobMode"`
-	JobRunQueuingEnabled      bool                      `json:"jobRunQueuingEnabled" xml:"JobRunQueuingEnabled"`
-	LogUri                    string                    `json:"logUri" xml:"LogUri"`
-	MaintenanceWindow         string                    `json:"maintenanceWindow" xml:"MaintenanceWindow"`
-	MaxCapacity               float64                   `json:"maxCapacity" xml:"MaxCapacity"`
-	MaxRetries                int32                     `json:"maxRetries" xml:"MaxRetries"`
-	Name                      string                    `json:"name" xml:"Name"`
-	NonOverridableArguments   GenericMap                `json:"nonOverridableArguments" xml:"NonOverridableArguments"`
-	NotificationProperty      *NotificationProperty     `json:"notificationProperty" xml:"NotificationProperty"`
-	NumberOfWorkers           int32                     `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	Role                      string                    `json:"role" xml:"Role"`
-	SecurityConfiguration     string                    `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	SourceControlDetails      *SourceControlDetails     `json:"sourceControlDetails" xml:"SourceControlDetails"`
-	Tags                      TagsMap                   `json:"tags" xml:"Tags"`
-	Timeout                   int32                     `json:"timeout" xml:"Timeout"`
-	WorkerType                string                    `json:"workerType" xml:"WorkerType"`
+AllocatedCapacity int32 `json:"allocatedCapacity" xml:"AllocatedCapacity"`
+CodeGenConfigurationNodes CodeGenConfigurationNodes `json:"codeGenConfigurationNodes" xml:"CodeGenConfigurationNodes"`
+Command *JobCommand `json:"command" xml:"Command"`
+Connections *ConnectionsList `json:"connections" xml:"Connections"`
+DefaultArguments GenericMap `json:"defaultArguments" xml:"DefaultArguments"`
+Description string `json:"description" xml:"Description"`
+ExecutionClass string `json:"executionClass" xml:"ExecutionClass"`
+ExecutionProperty *ExecutionProperty `json:"executionProperty" xml:"ExecutionProperty"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+JobMode string `json:"jobMode" xml:"JobMode"`
+JobRunQueuingEnabled bool `json:"jobRunQueuingEnabled" xml:"JobRunQueuingEnabled"`
+LogUri string `json:"logUri" xml:"LogUri"`
+MaintenanceWindow string `json:"maintenanceWindow" xml:"MaintenanceWindow"`
+MaxCapacity float64 `json:"maxCapacity" xml:"MaxCapacity"`
+MaxRetries int32 `json:"maxRetries" xml:"MaxRetries"`
+Name string `json:"name" xml:"Name"`
+NonOverridableArguments GenericMap `json:"nonOverridableArguments" xml:"NonOverridableArguments"`
+NotificationProperty *NotificationProperty `json:"notificationProperty" xml:"NotificationProperty"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+Role string `json:"role" xml:"Role"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+SourceControlDetails *SourceControlDetails `json:"sourceControlDetails" xml:"SourceControlDetails"`
+Tags TagsMap `json:"tags" xml:"Tags"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type CreateJobResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateJsonClassifierRequest struct {
-	JsonPath string `json:"jsonPath" xml:"JsonPath"`
-	Name     string `json:"name" xml:"Name"`
+JsonPath string `json:"jsonPath" xml:"JsonPath"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateMLTransformRequest struct {
-	Description         string               `json:"description" xml:"Description"`
-	GlueVersion         string               `json:"glueVersion" xml:"GlueVersion"`
-	InputRecordTables   GlueTables           `json:"inputRecordTables" xml:"InputRecordTables"`
-	MaxCapacity         float64              `json:"maxCapacity" xml:"MaxCapacity"`
-	MaxRetries          int32                `json:"maxRetries" xml:"MaxRetries"`
-	Name                string               `json:"name" xml:"Name"`
-	NumberOfWorkers     int32                `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	Parameters          *TransformParameters `json:"parameters" xml:"Parameters"`
-	Role                string               `json:"role" xml:"Role"`
-	Tags                TagsMap              `json:"tags" xml:"Tags"`
-	Timeout             int32                `json:"timeout" xml:"Timeout"`
-	TransformEncryption *TransformEncryption `json:"transformEncryption" xml:"TransformEncryption"`
-	WorkerType          string               `json:"workerType" xml:"WorkerType"`
+Description string `json:"description" xml:"Description"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+InputRecordTables GlueTables `json:"inputRecordTables" xml:"InputRecordTables"`
+MaxCapacity float64 `json:"maxCapacity" xml:"MaxCapacity"`
+MaxRetries int32 `json:"maxRetries" xml:"MaxRetries"`
+Name string `json:"name" xml:"Name"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+Parameters *TransformParameters `json:"parameters" xml:"Parameters"`
+Role string `json:"role" xml:"Role"`
+Tags TagsMap `json:"tags" xml:"Tags"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+TransformEncryption *TransformEncryption `json:"transformEncryption" xml:"TransformEncryption"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type CreateMLTransformResponse struct {
-	TransformId string `json:"transformId" xml:"TransformId"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type CreatePartitionIndexRequest struct {
-	CatalogId      string          `json:"catalogId" xml:"CatalogId"`
-	DatabaseName   string          `json:"databaseName" xml:"DatabaseName"`
-	PartitionIndex *PartitionIndex `json:"partitionIndex" xml:"PartitionIndex"`
-	TableName      string          `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionIndex *PartitionIndex `json:"partitionIndex" xml:"PartitionIndex"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type CreatePartitionIndexResponse struct {
 }
 
 type CreatePartitionRequest struct {
-	CatalogId      string          `json:"catalogId" xml:"CatalogId"`
-	DatabaseName   string          `json:"databaseName" xml:"DatabaseName"`
-	PartitionInput *PartitionInput `json:"partitionInput" xml:"PartitionInput"`
-	TableName      string          `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionInput *PartitionInput `json:"partitionInput" xml:"PartitionInput"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type CreatePartitionResponse struct {
 }
 
 type CreateRegistryInput struct {
-	Description  string  `json:"description" xml:"Description"`
-	RegistryName string  `json:"registryName" xml:"RegistryName"`
-	Tags         TagsMap `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateRegistryResponse struct {
-	Description  string  `json:"description" xml:"Description"`
-	RegistryArn  string  `json:"registryArn" xml:"RegistryArn"`
-	RegistryName string  `json:"registryName" xml:"RegistryName"`
-	Tags         TagsMap `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+RegistryArn string `json:"registryArn" xml:"RegistryArn"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateSchemaInput struct {
-	Compatibility    string      `json:"compatibility" xml:"Compatibility"`
-	DataFormat       string      `json:"dataFormat" xml:"DataFormat"`
-	Description      string      `json:"description" xml:"Description"`
-	RegistryId       *RegistryId `json:"registryId" xml:"RegistryId"`
-	SchemaDefinition string      `json:"schemaDefinition" xml:"SchemaDefinition"`
-	SchemaName       string      `json:"schemaName" xml:"SchemaName"`
-	Tags             TagsMap     `json:"tags" xml:"Tags"`
+Compatibility string `json:"compatibility" xml:"Compatibility"`
+DataFormat string `json:"dataFormat" xml:"DataFormat"`
+Description string `json:"description" xml:"Description"`
+RegistryId *RegistryId `json:"registryId" xml:"RegistryId"`
+SchemaDefinition string `json:"schemaDefinition" xml:"SchemaDefinition"`
+SchemaName string `json:"schemaName" xml:"SchemaName"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateSchemaResponse struct {
-	Compatibility       string  `json:"compatibility" xml:"Compatibility"`
-	DataFormat          string  `json:"dataFormat" xml:"DataFormat"`
-	Description         string  `json:"description" xml:"Description"`
-	LatestSchemaVersion int64   `json:"latestSchemaVersion" xml:"LatestSchemaVersion"`
-	NextSchemaVersion   int64   `json:"nextSchemaVersion" xml:"NextSchemaVersion"`
-	RegistryArn         string  `json:"registryArn" xml:"RegistryArn"`
-	RegistryName        string  `json:"registryName" xml:"RegistryName"`
-	SchemaArn           string  `json:"schemaArn" xml:"SchemaArn"`
-	SchemaCheckpoint    int64   `json:"schemaCheckpoint" xml:"SchemaCheckpoint"`
-	SchemaName          string  `json:"schemaName" xml:"SchemaName"`
-	SchemaStatus        string  `json:"schemaStatus" xml:"SchemaStatus"`
-	SchemaVersionId     string  `json:"schemaVersionId" xml:"SchemaVersionId"`
-	SchemaVersionStatus string  `json:"schemaVersionStatus" xml:"SchemaVersionStatus"`
-	Tags                TagsMap `json:"tags" xml:"Tags"`
+Compatibility string `json:"compatibility" xml:"Compatibility"`
+DataFormat string `json:"dataFormat" xml:"DataFormat"`
+Description string `json:"description" xml:"Description"`
+LatestSchemaVersion int64 `json:"latestSchemaVersion" xml:"LatestSchemaVersion"`
+NextSchemaVersion int64 `json:"nextSchemaVersion" xml:"NextSchemaVersion"`
+RegistryArn string `json:"registryArn" xml:"RegistryArn"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+SchemaArn string `json:"schemaArn" xml:"SchemaArn"`
+SchemaCheckpoint int64 `json:"schemaCheckpoint" xml:"SchemaCheckpoint"`
+SchemaName string `json:"schemaName" xml:"SchemaName"`
+SchemaStatus string `json:"schemaStatus" xml:"SchemaStatus"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+SchemaVersionStatus string `json:"schemaVersionStatus" xml:"SchemaVersionStatus"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateScriptRequest struct {
-	DagEdges DagEdges `json:"dagEdges" xml:"DagEdges"`
-	DagNodes DagNodes `json:"dagNodes" xml:"DagNodes"`
-	Language string   `json:"language" xml:"Language"`
+DagEdges DagEdges `json:"dagEdges" xml:"DagEdges"`
+DagNodes DagNodes `json:"dagNodes" xml:"DagNodes"`
+Language string `json:"language" xml:"Language"`
 }
 
 type CreateScriptResponse struct {
-	PythonScript string `json:"pythonScript" xml:"PythonScript"`
-	ScalaCode    string `json:"scalaCode" xml:"ScalaCode"`
+PythonScript string `json:"pythonScript" xml:"PythonScript"`
+ScalaCode string `json:"scalaCode" xml:"ScalaCode"`
 }
 
 type CreateSecurityConfigurationRequest struct {
-	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
-	Name                    string                   `json:"name" xml:"Name"`
+EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateSecurityConfigurationResponse struct {
-	CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	Name             string    `json:"name" xml:"Name"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateSessionRequest struct {
-	Command               *SessionCommand           `json:"command" xml:"Command"`
-	Connections           *ConnectionsList          `json:"connections" xml:"Connections"`
-	DefaultArguments      OrchestrationArgumentsMap `json:"defaultArguments" xml:"DefaultArguments"`
-	Description           string                    `json:"description" xml:"Description"`
-	GlueVersion           string                    `json:"glueVersion" xml:"GlueVersion"`
-	Id                    string                    `json:"id" xml:"Id"`
-	IdleTimeout           int32                     `json:"idleTimeout" xml:"IdleTimeout"`
-	MaxCapacity           float64                   `json:"maxCapacity" xml:"MaxCapacity"`
-	NumberOfWorkers       int32                     `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	RequestOrigin         string                    `json:"requestOrigin" xml:"RequestOrigin"`
-	Role                  string                    `json:"role" xml:"Role"`
-	SecurityConfiguration string                    `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	Tags                  TagsMap                   `json:"tags" xml:"Tags"`
-	Timeout               int32                     `json:"timeout" xml:"Timeout"`
-	WorkerType            string                    `json:"workerType" xml:"WorkerType"`
+Command *SessionCommand `json:"command" xml:"Command"`
+Connections *ConnectionsList `json:"connections" xml:"Connections"`
+DefaultArguments OrchestrationArgumentsMap `json:"defaultArguments" xml:"DefaultArguments"`
+Description string `json:"description" xml:"Description"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+Id string `json:"id" xml:"Id"`
+IdleTimeout int32 `json:"idleTimeout" xml:"IdleTimeout"`
+MaxCapacity float64 `json:"maxCapacity" xml:"MaxCapacity"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
+Role string `json:"role" xml:"Role"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+Tags TagsMap `json:"tags" xml:"Tags"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type CreateSessionResponse struct {
-	Session *Session `json:"session" xml:"Session"`
+Session *Session `json:"session" xml:"Session"`
 }
 
 type CreateTableOptimizerRequest struct {
-	CatalogId                   string                       `json:"catalogId" xml:"CatalogId"`
-	DatabaseName                string                       `json:"databaseName" xml:"DatabaseName"`
-	TableName                   string                       `json:"tableName" xml:"TableName"`
-	TableOptimizerConfiguration *TableOptimizerConfiguration `json:"tableOptimizerConfiguration" xml:"TableOptimizerConfiguration"`
-	Type                        string                       `json:"type" xml:"Type"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
+TableOptimizerConfiguration *TableOptimizerConfiguration `json:"tableOptimizerConfiguration" xml:"TableOptimizerConfiguration"`
+Type string `json:"type" xml:"Type"`
 }
 
 type CreateTableOptimizerResponse struct {
 }
 
 type CreateTableRequest struct {
-	CatalogId            string                `json:"catalogId" xml:"CatalogId"`
-	DatabaseName         string                `json:"databaseName" xml:"DatabaseName"`
-	Name                 string                `json:"name" xml:"Name"`
-	OpenTableFormatInput *OpenTableFormatInput `json:"openTableFormatInput" xml:"OpenTableFormatInput"`
-	PartitionIndexes     PartitionIndexList    `json:"partitionIndexes" xml:"PartitionIndexes"`
-	TableInput           *TableInput           `json:"tableInput" xml:"TableInput"`
-	TransactionId        string                `json:"transactionId" xml:"TransactionId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Name string `json:"name" xml:"Name"`
+OpenTableFormatInput *OpenTableFormatInput `json:"openTableFormatInput" xml:"OpenTableFormatInput"`
+PartitionIndexes PartitionIndexList `json:"partitionIndexes" xml:"PartitionIndexes"`
+TableInput *TableInput `json:"tableInput" xml:"TableInput"`
+TransactionId string `json:"transactionId" xml:"TransactionId"`
 }
 
 type CreateTableResponse struct {
 }
 
 type CreateTriggerRequest struct {
-	Actions                ActionList              `json:"actions" xml:"Actions"`
-	Description            string                  `json:"description" xml:"Description"`
-	EventBatchingCondition *EventBatchingCondition `json:"eventBatchingCondition" xml:"EventBatchingCondition"`
-	Name                   string                  `json:"name" xml:"Name"`
-	Predicate              *Predicate              `json:"predicate" xml:"Predicate"`
-	Schedule               string                  `json:"schedule" xml:"Schedule"`
-	StartOnCreation        bool                    `json:"startOnCreation" xml:"StartOnCreation"`
-	Tags                   TagsMap                 `json:"tags" xml:"Tags"`
-	Type                   string                  `json:"type" xml:"Type"`
-	WorkflowName           string                  `json:"workflowName" xml:"WorkflowName"`
+Actions ActionList `json:"actions" xml:"Actions"`
+Description string `json:"description" xml:"Description"`
+EventBatchingCondition *EventBatchingCondition `json:"eventBatchingCondition" xml:"EventBatchingCondition"`
+Name string `json:"name" xml:"Name"`
+Predicate *Predicate `json:"predicate" xml:"Predicate"`
+Schedule string `json:"schedule" xml:"Schedule"`
+StartOnCreation bool `json:"startOnCreation" xml:"StartOnCreation"`
+Tags TagsMap `json:"tags" xml:"Tags"`
+Type string `json:"type" xml:"Type"`
+WorkflowName string `json:"workflowName" xml:"WorkflowName"`
 }
 
 type CreateTriggerResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateUsageProfileRequest struct {
-	Configuration *ProfileConfiguration `json:"configuration" xml:"Configuration"`
-	Description   string                `json:"description" xml:"Description"`
-	Name          string                `json:"name" xml:"Name"`
-	Tags          TagsMap               `json:"tags" xml:"Tags"`
+Configuration *ProfileConfiguration `json:"configuration" xml:"Configuration"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateUsageProfileResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateUserDefinedFunctionRequest struct {
-	CatalogId     string                    `json:"catalogId" xml:"CatalogId"`
-	DatabaseName  string                    `json:"databaseName" xml:"DatabaseName"`
-	FunctionInput *UserDefinedFunctionInput `json:"functionInput" xml:"FunctionInput"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+FunctionInput *UserDefinedFunctionInput `json:"functionInput" xml:"FunctionInput"`
 }
 
 type CreateUserDefinedFunctionResponse struct {
 }
 
 type CreateWorkflowRequest struct {
-	DefaultRunProperties WorkflowRunProperties `json:"defaultRunProperties" xml:"DefaultRunProperties"`
-	Description          string                `json:"description" xml:"Description"`
-	MaxConcurrentRuns    int32                 `json:"maxConcurrentRuns" xml:"MaxConcurrentRuns"`
-	Name                 string                `json:"name" xml:"Name"`
-	Tags                 TagsMap               `json:"tags" xml:"Tags"`
+DefaultRunProperties WorkflowRunProperties `json:"defaultRunProperties" xml:"DefaultRunProperties"`
+Description string `json:"description" xml:"Description"`
+MaxConcurrentRuns int32 `json:"maxConcurrentRuns" xml:"MaxConcurrentRuns"`
+Name string `json:"name" xml:"Name"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type CreateWorkflowResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateXMLClassifierRequest struct {
-	Classification string `json:"classification" xml:"Classification"`
-	Name           string `json:"name" xml:"Name"`
-	RowTag         string `json:"rowTag" xml:"RowTag"`
+Classification string `json:"classification" xml:"Classification"`
+Name string `json:"name" xml:"Name"`
+RowTag string `json:"rowTag" xml:"RowTag"`
 }
 
 type CsvClassifier struct {
-	AllowSingleColumn        bool            `json:"allowSingleColumn" xml:"AllowSingleColumn"`
-	ContainsHeader           string          `json:"containsHeader" xml:"ContainsHeader"`
-	CreationTime             time.Time       `json:"creationTime" xml:"CreationTime"`
-	CustomDatatypeConfigured bool            `json:"customDatatypeConfigured" xml:"CustomDatatypeConfigured"`
-	CustomDatatypes          CustomDatatypes `json:"customDatatypes" xml:"CustomDatatypes"`
-	Delimiter                string          `json:"delimiter" xml:"Delimiter"`
-	DisableValueTrimming     bool            `json:"disableValueTrimming" xml:"DisableValueTrimming"`
-	Header                   CsvHeader       `json:"header" xml:"Header"`
-	LastUpdated              time.Time       `json:"lastUpdated" xml:"LastUpdated"`
-	Name                     string          `json:"name" xml:"Name"`
-	QuoteSymbol              string          `json:"quoteSymbol" xml:"QuoteSymbol"`
-	Serde                    string          `json:"serde" xml:"Serde"`
-	Version                  int64           `json:"version" xml:"Version"`
+AllowSingleColumn bool `json:"allowSingleColumn" xml:"AllowSingleColumn"`
+ContainsHeader string `json:"containsHeader" xml:"ContainsHeader"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+CustomDatatypeConfigured bool `json:"customDatatypeConfigured" xml:"CustomDatatypeConfigured"`
+CustomDatatypes CustomDatatypes `json:"customDatatypes" xml:"CustomDatatypes"`
+Delimiter string `json:"delimiter" xml:"Delimiter"`
+DisableValueTrimming bool `json:"disableValueTrimming" xml:"DisableValueTrimming"`
+Header CsvHeader `json:"header" xml:"Header"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+Name string `json:"name" xml:"Name"`
+QuoteSymbol string `json:"quoteSymbol" xml:"QuoteSymbol"`
+Serde string `json:"serde" xml:"Serde"`
+Version int64 `json:"version" xml:"Version"`
 }
 
 type CursorConfiguration struct {
-	LimitParameter *ExtractedParameter `json:"limitParameter" xml:"LimitParameter"`
-	NextPage       *ExtractedParameter `json:"nextPage" xml:"NextPage"`
+LimitParameter *ExtractedParameter `json:"limitParameter" xml:"LimitParameter"`
+NextPage *ExtractedParameter `json:"nextPage" xml:"NextPage"`
 }
 
 type CustomAuthenticationProperties struct {
-	AuthenticationParameters ConnectorPropertyList `json:"authenticationParameters" xml:"AuthenticationParameters"`
+AuthenticationParameters ConnectorPropertyList `json:"authenticationParameters" xml:"AuthenticationParameters"`
 }
 
 type CustomCode struct {
-	ClassName     string      `json:"className" xml:"ClassName"`
-	Code          string      `json:"code" xml:"Code"`
-	Inputs        ManyInputs  `json:"inputs" xml:"Inputs"`
-	Name          string      `json:"name" xml:"Name"`
-	OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+ClassName string `json:"className" xml:"ClassName"`
+Code string `json:"code" xml:"Code"`
+Inputs ManyInputs `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
 }
 
 type CustomEntityType struct {
-	ContextWords ContextWords `json:"contextWords" xml:"ContextWords"`
-	Name         string       `json:"name" xml:"Name"`
-	RegexString  string       `json:"regexString" xml:"RegexString"`
+ContextWords ContextWords `json:"contextWords" xml:"ContextWords"`
+Name string `json:"name" xml:"Name"`
+RegexString string `json:"regexString" xml:"RegexString"`
 }
 
 type DDBELTCatalogAdditionalOptions struct {
-	DynamodbExport        string `json:"dynamodbExport" xml:"DynamodbExport"`
-	DynamodbUnnestDDBJson bool   `json:"dynamodbUnnestDDBJson" xml:"DynamodbUnnestDDBJson"`
+DynamodbExport string `json:"dynamodbExport" xml:"DynamodbExport"`
+DynamodbUnnestDDBJson bool `json:"dynamodbUnnestDDBJson" xml:"DynamodbUnnestDDBJson"`
 }
 
 type DDBELTConnectionOptions struct {
-	DynamodbExport        string `json:"dynamodbExport" xml:"DynamodbExport"`
-	DynamodbS3Bucket      string `json:"dynamodbS3Bucket" xml:"DynamodbS3Bucket"`
-	DynamodbS3BucketOwner string `json:"dynamodbS3BucketOwner" xml:"DynamodbS3BucketOwner"`
-	DynamodbS3Prefix      string `json:"dynamodbS3Prefix" xml:"DynamodbS3Prefix"`
-	DynamodbStsRoleArn    string `json:"dynamodbStsRoleArn" xml:"DynamodbStsRoleArn"`
-	DynamodbTableArn      string `json:"dynamodbTableArn" xml:"DynamodbTableArn"`
-	DynamodbUnnestDDBJson bool   `json:"dynamodbUnnestDDBJson" xml:"DynamodbUnnestDDBJson"`
+DynamodbExport string `json:"dynamodbExport" xml:"DynamodbExport"`
+DynamodbS3Bucket string `json:"dynamodbS3Bucket" xml:"DynamodbS3Bucket"`
+DynamodbS3BucketOwner string `json:"dynamodbS3BucketOwner" xml:"DynamodbS3BucketOwner"`
+DynamodbS3Prefix string `json:"dynamodbS3Prefix" xml:"DynamodbS3Prefix"`
+DynamodbStsRoleArn string `json:"dynamodbStsRoleArn" xml:"DynamodbStsRoleArn"`
+DynamodbTableArn string `json:"dynamodbTableArn" xml:"DynamodbTableArn"`
+DynamodbUnnestDDBJson bool `json:"dynamodbUnnestDDBJson" xml:"DynamodbUnnestDDBJson"`
 }
 
 type DQResultsPublishingOptions struct {
-	CloudWatchMetricsEnabled bool   `json:"cloudWatchMetricsEnabled" xml:"CloudWatchMetricsEnabled"`
-	EvaluationContext        string `json:"evaluationContext" xml:"EvaluationContext"`
-	ResultsPublishingEnabled bool   `json:"resultsPublishingEnabled" xml:"ResultsPublishingEnabled"`
-	ResultsS3Prefix          string `json:"resultsS3Prefix" xml:"ResultsS3Prefix"`
+CloudWatchMetricsEnabled bool `json:"cloudWatchMetricsEnabled" xml:"CloudWatchMetricsEnabled"`
+EvaluationContext string `json:"evaluationContext" xml:"EvaluationContext"`
+ResultsPublishingEnabled bool `json:"resultsPublishingEnabled" xml:"ResultsPublishingEnabled"`
+ResultsS3Prefix string `json:"resultsS3Prefix" xml:"ResultsS3Prefix"`
 }
 
 type DQStopJobOnFailureOptions struct {
-	StopJobOnFailureTiming string `json:"stopJobOnFailureTiming" xml:"StopJobOnFailureTiming"`
+StopJobOnFailureTiming string `json:"stopJobOnFailureTiming" xml:"StopJobOnFailureTiming"`
 }
 
 type DataCatalogEncryptionSettings struct {
-	ConnectionPasswordEncryption *ConnectionPasswordEncryption `json:"connectionPasswordEncryption" xml:"ConnectionPasswordEncryption"`
-	EncryptionAtRest             *EncryptionAtRest             `json:"encryptionAtRest" xml:"EncryptionAtRest"`
+ConnectionPasswordEncryption *ConnectionPasswordEncryption `json:"connectionPasswordEncryption" xml:"ConnectionPasswordEncryption"`
+EncryptionAtRest *EncryptionAtRest `json:"encryptionAtRest" xml:"EncryptionAtRest"`
 }
 
 type DataLakeAccessProperties struct {
-	CatalogType      string `json:"catalogType" xml:"CatalogType"`
-	DataLakeAccess   bool   `json:"dataLakeAccess" xml:"DataLakeAccess"`
-	DataTransferRole string `json:"dataTransferRole" xml:"DataTransferRole"`
-	KmsKey           string `json:"kmsKey" xml:"KmsKey"`
+CatalogType string `json:"catalogType" xml:"CatalogType"`
+DataLakeAccess bool `json:"dataLakeAccess" xml:"DataLakeAccess"`
+DataTransferRole string `json:"dataTransferRole" xml:"DataTransferRole"`
+KmsKey string `json:"kmsKey" xml:"KmsKey"`
 }
 
 type DataLakeAccessPropertiesOutput struct {
-	CatalogType            string `json:"catalogType" xml:"CatalogType"`
-	DataLakeAccess         bool   `json:"dataLakeAccess" xml:"DataLakeAccess"`
-	DataTransferRole       string `json:"dataTransferRole" xml:"DataTransferRole"`
-	KmsKey                 string `json:"kmsKey" xml:"KmsKey"`
-	ManagedWorkgroupName   string `json:"managedWorkgroupName" xml:"ManagedWorkgroupName"`
-	ManagedWorkgroupStatus string `json:"managedWorkgroupStatus" xml:"ManagedWorkgroupStatus"`
-	RedshiftDatabaseName   string `json:"redshiftDatabaseName" xml:"RedshiftDatabaseName"`
-	StatusMessage          string `json:"statusMessage" xml:"StatusMessage"`
+CatalogType string `json:"catalogType" xml:"CatalogType"`
+DataLakeAccess bool `json:"dataLakeAccess" xml:"DataLakeAccess"`
+DataTransferRole string `json:"dataTransferRole" xml:"DataTransferRole"`
+KmsKey string `json:"kmsKey" xml:"KmsKey"`
+ManagedWorkgroupName string `json:"managedWorkgroupName" xml:"ManagedWorkgroupName"`
+ManagedWorkgroupStatus string `json:"managedWorkgroupStatus" xml:"ManagedWorkgroupStatus"`
+RedshiftDatabaseName string `json:"redshiftDatabaseName" xml:"RedshiftDatabaseName"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type DataLakePrincipal struct {
-	DataLakePrincipalIdentifier string `json:"dataLakePrincipalIdentifier" xml:"DataLakePrincipalIdentifier"`
+DataLakePrincipalIdentifier string `json:"dataLakePrincipalIdentifier" xml:"DataLakePrincipalIdentifier"`
 }
 
 type DataQualityAggregatedMetrics struct {
-	TotalRowsFailed     float64 `json:"totalRowsFailed" xml:"TotalRowsFailed"`
-	TotalRowsPassed     float64 `json:"totalRowsPassed" xml:"TotalRowsPassed"`
-	TotalRowsProcessed  float64 `json:"totalRowsProcessed" xml:"TotalRowsProcessed"`
-	TotalRulesFailed    float64 `json:"totalRulesFailed" xml:"TotalRulesFailed"`
-	TotalRulesPassed    float64 `json:"totalRulesPassed" xml:"TotalRulesPassed"`
-	TotalRulesProcessed float64 `json:"totalRulesProcessed" xml:"TotalRulesProcessed"`
+TotalRowsFailed float64 `json:"totalRowsFailed" xml:"TotalRowsFailed"`
+TotalRowsPassed float64 `json:"totalRowsPassed" xml:"TotalRowsPassed"`
+TotalRowsProcessed float64 `json:"totalRowsProcessed" xml:"TotalRowsProcessed"`
+TotalRulesFailed float64 `json:"totalRulesFailed" xml:"TotalRulesFailed"`
+TotalRulesPassed float64 `json:"totalRulesPassed" xml:"TotalRulesPassed"`
+TotalRulesProcessed float64 `json:"totalRulesProcessed" xml:"TotalRulesProcessed"`
 }
 
 type DataQualityAnalyzerResult struct {
-	Description       string              `json:"description" xml:"Description"`
-	EvaluatedMetrics  EvaluatedMetricsMap `json:"evaluatedMetrics" xml:"EvaluatedMetrics"`
-	EvaluationMessage string              `json:"evaluationMessage" xml:"EvaluationMessage"`
-	Name              string              `json:"name" xml:"Name"`
+Description string `json:"description" xml:"Description"`
+EvaluatedMetrics EvaluatedMetricsMap `json:"evaluatedMetrics" xml:"EvaluatedMetrics"`
+EvaluationMessage string `json:"evaluationMessage" xml:"EvaluationMessage"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DataQualityEncryption struct {
-	DataQualityEncryptionMode string `json:"dataQualityEncryptionMode" xml:"DataQualityEncryptionMode"`
-	KmsKeyArn                 string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+DataQualityEncryptionMode string `json:"dataQualityEncryptionMode" xml:"DataQualityEncryptionMode"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
 }
 
 type DataQualityEvaluationRunAdditionalRunOptions struct {
-	CloudWatchMetricsEnabled      bool   `json:"cloudWatchMetricsEnabled" xml:"CloudWatchMetricsEnabled"`
-	CompositeRuleEvaluationMethod string `json:"compositeRuleEvaluationMethod" xml:"CompositeRuleEvaluationMethod"`
-	ResultsS3Prefix               string `json:"resultsS3Prefix" xml:"ResultsS3Prefix"`
+CloudWatchMetricsEnabled bool `json:"cloudWatchMetricsEnabled" xml:"CloudWatchMetricsEnabled"`
+CompositeRuleEvaluationMethod string `json:"compositeRuleEvaluationMethod" xml:"CompositeRuleEvaluationMethod"`
+ResultsS3Prefix string `json:"resultsS3Prefix" xml:"ResultsS3Prefix"`
 }
 
 type DataQualityGlueTable struct {
-	AdditionalOptions  GlueTableAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	CatalogId          string                     `json:"catalogId" xml:"CatalogId"`
-	ConnectionName     string                     `json:"connectionName" xml:"ConnectionName"`
-	DatabaseName       string                     `json:"databaseName" xml:"DatabaseName"`
-	PreProcessingQuery string                     `json:"preProcessingQuery" xml:"PreProcessingQuery"`
-	TableName          string                     `json:"tableName" xml:"TableName"`
+AdditionalOptions GlueTableAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PreProcessingQuery string `json:"preProcessingQuery" xml:"PreProcessingQuery"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DataQualityMetricValues struct {
-	ActualValue   float64 `json:"actualValue" xml:"ActualValue"`
-	ExpectedValue float64 `json:"expectedValue" xml:"ExpectedValue"`
-	LowerLimit    float64 `json:"lowerLimit" xml:"LowerLimit"`
-	UpperLimit    float64 `json:"upperLimit" xml:"UpperLimit"`
+ActualValue float64 `json:"actualValue" xml:"ActualValue"`
+ExpectedValue float64 `json:"expectedValue" xml:"ExpectedValue"`
+LowerLimit float64 `json:"lowerLimit" xml:"LowerLimit"`
+UpperLimit float64 `json:"upperLimit" xml:"UpperLimit"`
 }
 
 type DataQualityObservation struct {
-	Description            string                  `json:"description" xml:"Description"`
-	MetricBasedObservation *MetricBasedObservation `json:"metricBasedObservation" xml:"MetricBasedObservation"`
+Description string `json:"description" xml:"Description"`
+MetricBasedObservation *MetricBasedObservation `json:"metricBasedObservation" xml:"MetricBasedObservation"`
 }
 
 type DataQualityResult struct {
-	AggregatedMetrics      *DataQualityAggregatedMetrics `json:"aggregatedMetrics" xml:"AggregatedMetrics"`
-	AnalyzerResults        DataQualityAnalyzerResults    `json:"analyzerResults" xml:"AnalyzerResults"`
-	CompletedOn            time.Time                     `json:"completedOn" xml:"CompletedOn"`
-	DataSource             *DataSource                   `json:"dataSource" xml:"DataSource"`
-	EvaluationContext      string                        `json:"evaluationContext" xml:"EvaluationContext"`
-	JobName                string                        `json:"jobName" xml:"JobName"`
-	JobRunId               string                        `json:"jobRunId" xml:"JobRunId"`
-	Observations           DataQualityObservations       `json:"observations" xml:"Observations"`
-	ProfileId              string                        `json:"profileId" xml:"ProfileId"`
-	ResultId               string                        `json:"resultId" xml:"ResultId"`
-	RuleResults            DataQualityRuleResults        `json:"ruleResults" xml:"RuleResults"`
-	RulesetEvaluationRunId string                        `json:"rulesetEvaluationRunId" xml:"RulesetEvaluationRunId"`
-	RulesetName            string                        `json:"rulesetName" xml:"RulesetName"`
-	Score                  float64                       `json:"score" xml:"Score"`
-	StartedOn              time.Time                     `json:"startedOn" xml:"StartedOn"`
+AggregatedMetrics *DataQualityAggregatedMetrics `json:"aggregatedMetrics" xml:"AggregatedMetrics"`
+AnalyzerResults DataQualityAnalyzerResults `json:"analyzerResults" xml:"AnalyzerResults"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+EvaluationContext string `json:"evaluationContext" xml:"EvaluationContext"`
+JobName string `json:"jobName" xml:"JobName"`
+JobRunId string `json:"jobRunId" xml:"JobRunId"`
+Observations DataQualityObservations `json:"observations" xml:"Observations"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+ResultId string `json:"resultId" xml:"ResultId"`
+RuleResults DataQualityRuleResults `json:"ruleResults" xml:"RuleResults"`
+RulesetEvaluationRunId string `json:"rulesetEvaluationRunId" xml:"RulesetEvaluationRunId"`
+RulesetName string `json:"rulesetName" xml:"RulesetName"`
+Score float64 `json:"score" xml:"Score"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
 }
 
 type DataQualityResultDescription struct {
-	DataSource *DataSource `json:"dataSource" xml:"DataSource"`
-	JobName    string      `json:"jobName" xml:"JobName"`
-	JobRunId   string      `json:"jobRunId" xml:"JobRunId"`
-	ResultId   string      `json:"resultId" xml:"ResultId"`
-	StartedOn  time.Time   `json:"startedOn" xml:"StartedOn"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+JobName string `json:"jobName" xml:"JobName"`
+JobRunId string `json:"jobRunId" xml:"JobRunId"`
+ResultId string `json:"resultId" xml:"ResultId"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
 }
 
 type DataQualityResultFilterCriteria struct {
-	DataSource    *DataSource `json:"dataSource" xml:"DataSource"`
-	JobName       string      `json:"jobName" xml:"JobName"`
-	JobRunId      string      `json:"jobRunId" xml:"JobRunId"`
-	StartedAfter  time.Time   `json:"startedAfter" xml:"StartedAfter"`
-	StartedBefore time.Time   `json:"startedBefore" xml:"StartedBefore"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+JobName string `json:"jobName" xml:"JobName"`
+JobRunId string `json:"jobRunId" xml:"JobRunId"`
+StartedAfter time.Time `json:"startedAfter" xml:"StartedAfter"`
+StartedBefore time.Time `json:"startedBefore" xml:"StartedBefore"`
 }
 
 type DataQualityRuleRecommendationRunDescription struct {
-	DataSource *DataSource `json:"dataSource" xml:"DataSource"`
-	RunId      string      `json:"runId" xml:"RunId"`
-	StartedOn  time.Time   `json:"startedOn" xml:"StartedOn"`
-	Status     string      `json:"status" xml:"Status"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+RunId string `json:"runId" xml:"RunId"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DataQualityRuleRecommendationRunFilter struct {
-	DataSource    *DataSource `json:"dataSource" xml:"DataSource"`
-	StartedAfter  time.Time   `json:"startedAfter" xml:"StartedAfter"`
-	StartedBefore time.Time   `json:"startedBefore" xml:"StartedBefore"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+StartedAfter time.Time `json:"startedAfter" xml:"StartedAfter"`
+StartedBefore time.Time `json:"startedBefore" xml:"StartedBefore"`
 }
 
 type DataQualityRuleResult struct {
-	Description       string              `json:"description" xml:"Description"`
-	EvaluatedMetrics  EvaluatedMetricsMap `json:"evaluatedMetrics" xml:"EvaluatedMetrics"`
-	EvaluatedRule     string              `json:"evaluatedRule" xml:"EvaluatedRule"`
-	EvaluationMessage string              `json:"evaluationMessage" xml:"EvaluationMessage"`
-	Labels            Labels              `json:"labels" xml:"Labels"`
-	Name              string              `json:"name" xml:"Name"`
-	Result            string              `json:"result" xml:"Result"`
-	RuleMetrics       RuleMetricsMap      `json:"ruleMetrics" xml:"RuleMetrics"`
+Description string `json:"description" xml:"Description"`
+EvaluatedMetrics EvaluatedMetricsMap `json:"evaluatedMetrics" xml:"EvaluatedMetrics"`
+EvaluatedRule string `json:"evaluatedRule" xml:"EvaluatedRule"`
+EvaluationMessage string `json:"evaluationMessage" xml:"EvaluationMessage"`
+Labels Labels `json:"labels" xml:"Labels"`
+Name string `json:"name" xml:"Name"`
+Result string `json:"result" xml:"Result"`
+RuleMetrics RuleMetricsMap `json:"ruleMetrics" xml:"RuleMetrics"`
 }
 
 type DataQualityRulesetEvaluationRunDescription struct {
-	DataSource *DataSource `json:"dataSource" xml:"DataSource"`
-	RunId      string      `json:"runId" xml:"RunId"`
-	StartedOn  time.Time   `json:"startedOn" xml:"StartedOn"`
-	Status     string      `json:"status" xml:"Status"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+RunId string `json:"runId" xml:"RunId"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DataQualityRulesetEvaluationRunFilter struct {
-	DataSource    *DataSource `json:"dataSource" xml:"DataSource"`
-	StartedAfter  time.Time   `json:"startedAfter" xml:"StartedAfter"`
-	StartedBefore time.Time   `json:"startedBefore" xml:"StartedBefore"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+StartedAfter time.Time `json:"startedAfter" xml:"StartedAfter"`
+StartedBefore time.Time `json:"startedBefore" xml:"StartedBefore"`
 }
 
 type DataQualityRulesetFilterCriteria struct {
-	CreatedAfter       time.Time               `json:"createdAfter" xml:"CreatedAfter"`
-	CreatedBefore      time.Time               `json:"createdBefore" xml:"CreatedBefore"`
-	Description        string                  `json:"description" xml:"Description"`
-	LastModifiedAfter  time.Time               `json:"lastModifiedAfter" xml:"LastModifiedAfter"`
-	LastModifiedBefore time.Time               `json:"lastModifiedBefore" xml:"LastModifiedBefore"`
-	Name               string                  `json:"name" xml:"Name"`
-	TargetTable        *DataQualityTargetTable `json:"targetTable" xml:"TargetTable"`
+CreatedAfter time.Time `json:"createdAfter" xml:"CreatedAfter"`
+CreatedBefore time.Time `json:"createdBefore" xml:"CreatedBefore"`
+Description string `json:"description" xml:"Description"`
+LastModifiedAfter time.Time `json:"lastModifiedAfter" xml:"LastModifiedAfter"`
+LastModifiedBefore time.Time `json:"lastModifiedBefore" xml:"LastModifiedBefore"`
+Name string `json:"name" xml:"Name"`
+TargetTable *DataQualityTargetTable `json:"targetTable" xml:"TargetTable"`
 }
 
 type DataQualityRulesetListDetails struct {
-	CreatedOn           time.Time               `json:"createdOn" xml:"CreatedOn"`
-	Description         string                  `json:"description" xml:"Description"`
-	LastModifiedOn      time.Time               `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	Name                string                  `json:"name" xml:"Name"`
-	RecommendationRunId string                  `json:"recommendationRunId" xml:"RecommendationRunId"`
-	RuleCount           int32                   `json:"ruleCount" xml:"RuleCount"`
-	TargetTable         *DataQualityTargetTable `json:"targetTable" xml:"TargetTable"`
+CreatedOn time.Time `json:"createdOn" xml:"CreatedOn"`
+Description string `json:"description" xml:"Description"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+Name string `json:"name" xml:"Name"`
+RecommendationRunId string `json:"recommendationRunId" xml:"RecommendationRunId"`
+RuleCount int32 `json:"ruleCount" xml:"RuleCount"`
+TargetTable *DataQualityTargetTable `json:"targetTable" xml:"TargetTable"`
 }
 
 type DataQualityTargetTable struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DataSource struct {
-	DataQualityGlueTable *DataQualityGlueTable `json:"dataQualityGlueTable" xml:"DataQualityGlueTable"`
-	GlueTable            *GlueTable            `json:"glueTable" xml:"GlueTable"`
+DataQualityGlueTable *DataQualityGlueTable `json:"dataQualityGlueTable" xml:"DataQualityGlueTable"`
+GlueTable *GlueTable `json:"glueTable" xml:"GlueTable"`
 }
 
 type Database struct {
-	CatalogId                     string                   `json:"catalogId" xml:"CatalogId"`
-	CreateTableDefaultPermissions PrincipalPermissionsList `json:"createTableDefaultPermissions" xml:"CreateTableDefaultPermissions"`
-	CreateTime                    time.Time                `json:"createTime" xml:"CreateTime"`
-	Description                   string                   `json:"description" xml:"Description"`
-	FederatedDatabase             *FederatedDatabase       `json:"federatedDatabase" xml:"FederatedDatabase"`
-	LocationUri                   string                   `json:"locationUri" xml:"LocationUri"`
-	Name                          string                   `json:"name" xml:"Name"`
-	Parameters                    ParametersMap            `json:"parameters" xml:"Parameters"`
-	TargetDatabase                *DatabaseIdentifier      `json:"targetDatabase" xml:"TargetDatabase"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+CreateTableDefaultPermissions PrincipalPermissionsList `json:"createTableDefaultPermissions" xml:"CreateTableDefaultPermissions"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+Description string `json:"description" xml:"Description"`
+FederatedDatabase *FederatedDatabase `json:"federatedDatabase" xml:"FederatedDatabase"`
+LocationUri string `json:"locationUri" xml:"LocationUri"`
+Name string `json:"name" xml:"Name"`
+Parameters ParametersMap `json:"parameters" xml:"Parameters"`
+TargetDatabase *DatabaseIdentifier `json:"targetDatabase" xml:"TargetDatabase"`
 }
 
 type DatabaseIdentifier struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	Region       string `json:"region" xml:"Region"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Region string `json:"region" xml:"Region"`
 }
 
 type DatabaseInput struct {
-	CreateTableDefaultPermissions PrincipalPermissionsList `json:"createTableDefaultPermissions" xml:"CreateTableDefaultPermissions"`
-	Description                   string                   `json:"description" xml:"Description"`
-	FederatedDatabase             *FederatedDatabase       `json:"federatedDatabase" xml:"FederatedDatabase"`
-	LocationUri                   string                   `json:"locationUri" xml:"LocationUri"`
-	Name                          string                   `json:"name" xml:"Name"`
-	Parameters                    ParametersMap            `json:"parameters" xml:"Parameters"`
-	TargetDatabase                *DatabaseIdentifier      `json:"targetDatabase" xml:"TargetDatabase"`
+CreateTableDefaultPermissions PrincipalPermissionsList `json:"createTableDefaultPermissions" xml:"CreateTableDefaultPermissions"`
+Description string `json:"description" xml:"Description"`
+FederatedDatabase *FederatedDatabase `json:"federatedDatabase" xml:"FederatedDatabase"`
+LocationUri string `json:"locationUri" xml:"LocationUri"`
+Name string `json:"name" xml:"Name"`
+Parameters ParametersMap `json:"parameters" xml:"Parameters"`
+TargetDatabase *DatabaseIdentifier `json:"targetDatabase" xml:"TargetDatabase"`
 }
 
 type DatapointInclusionAnnotation struct {
-	InclusionAnnotation string `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
-	ProfileId           string `json:"profileId" xml:"ProfileId"`
-	StatisticId         string `json:"statisticId" xml:"StatisticId"`
+InclusionAnnotation string `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+StatisticId string `json:"statisticId" xml:"StatisticId"`
 }
 
 type Datatype struct {
-	Id    string `json:"id" xml:"Id"`
-	Label string `json:"label" xml:"Label"`
+Id string `json:"id" xml:"Id"`
+Label string `json:"label" xml:"Label"`
 }
 
 type DateColumnStatisticsData struct {
-	MaximumValue           time.Time `json:"maximumValue" xml:"MaximumValue"`
-	MinimumValue           time.Time `json:"minimumValue" xml:"MinimumValue"`
-	NumberOfDistinctValues int64     `json:"numberOfDistinctValues" xml:"NumberOfDistinctValues"`
-	NumberOfNulls          int64     `json:"numberOfNulls" xml:"NumberOfNulls"`
+MaximumValue time.Time `json:"maximumValue" xml:"MaximumValue"`
+MinimumValue time.Time `json:"minimumValue" xml:"MinimumValue"`
+NumberOfDistinctValues int64 `json:"numberOfDistinctValues" xml:"NumberOfDistinctValues"`
+NumberOfNulls int64 `json:"numberOfNulls" xml:"NumberOfNulls"`
 }
 
 type DecimalColumnStatisticsData struct {
-	MaximumValue           *DecimalNumber `json:"maximumValue" xml:"MaximumValue"`
-	MinimumValue           *DecimalNumber `json:"minimumValue" xml:"MinimumValue"`
-	NumberOfDistinctValues int64          `json:"numberOfDistinctValues" xml:"NumberOfDistinctValues"`
-	NumberOfNulls          int64          `json:"numberOfNulls" xml:"NumberOfNulls"`
+MaximumValue *DecimalNumber `json:"maximumValue" xml:"MaximumValue"`
+MinimumValue *DecimalNumber `json:"minimumValue" xml:"MinimumValue"`
+NumberOfDistinctValues int64 `json:"numberOfDistinctValues" xml:"NumberOfDistinctValues"`
+NumberOfNulls int64 `json:"numberOfNulls" xml:"NumberOfNulls"`
 }
 
 type DecimalNumber struct {
-	Scale         int32  `json:"scale" xml:"Scale"`
-	UnscaledValue []byte `json:"unscaledValue" xml:"UnscaledValue"`
+Scale int32 `json:"scale" xml:"Scale"`
+UnscaledValue []byte `json:"unscaledValue" xml:"UnscaledValue"`
 }
 
 type DeleteBlueprintRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteBlueprintResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteCatalogRequest struct {
-	CatalogId string `json:"catalogId" xml:"CatalogId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
 }
 
 type DeleteCatalogResponse struct {
 }
 
 type DeleteClassifierRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteClassifierResponse struct {
 }
 
 type DeleteColumnStatisticsForPartitionRequest struct {
-	CatalogId       string          `json:"catalogId" xml:"CatalogId"`
-	ColumnName      string          `json:"columnName" xml:"ColumnName"`
-	DatabaseName    string          `json:"databaseName" xml:"DatabaseName"`
-	PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
-	TableName       string          `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ColumnName string `json:"columnName" xml:"ColumnName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DeleteColumnStatisticsForPartitionResponse struct {
 }
 
 type DeleteColumnStatisticsForTableRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	ColumnName   string `json:"columnName" xml:"ColumnName"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ColumnName string `json:"columnName" xml:"ColumnName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DeleteColumnStatisticsForTableResponse struct {
 }
 
 type DeleteColumnStatisticsTaskSettingsRequest struct {
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DeleteColumnStatisticsTaskSettingsResponse struct {
 }
 
 type DeleteConnectionRequest struct {
-	CatalogId      string `json:"catalogId" xml:"CatalogId"`
-	ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
 }
 
 type DeleteConnectionResponse struct {
 }
 
 type DeleteConnectionTypeRequest struct {
-	ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
 }
 
 type DeleteConnectionTypeResponse struct {
 }
 
 type DeleteCrawlerRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteCrawlerResponse struct {
 }
 
 type DeleteCustomEntityTypeRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteCustomEntityTypeResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteDataQualityRulesetRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteDataQualityRulesetResponse struct {
 }
 
 type DeleteDatabaseRequest struct {
-	CatalogId string `json:"catalogId" xml:"CatalogId"`
-	Name      string `json:"name" xml:"Name"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteDatabaseResponse struct {
 }
 
 type DeleteDevEndpointRequest struct {
-	EndpointName string `json:"endpointName" xml:"EndpointName"`
+EndpointName string `json:"endpointName" xml:"EndpointName"`
 }
 
 type DeleteDevEndpointResponse struct {
@@ -1934,4636 +1934,4636 @@ type DeleteGlueIdentityCenterConfigurationResponse struct {
 }
 
 type DeleteIntegrationRequest struct {
-	IntegrationIdentifier string `json:"integrationIdentifier" xml:"IntegrationIdentifier"`
+IntegrationIdentifier string `json:"integrationIdentifier" xml:"IntegrationIdentifier"`
 }
 
 type DeleteIntegrationResourcePropertyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DeleteIntegrationResourcePropertyResponse struct {
 }
 
 type DeleteIntegrationResponse struct {
-	AdditionalEncryptionContext IntegrationAdditionalEncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
-	CreateTime                  time.Time                                 `json:"createTime" xml:"CreateTime"`
-	DataFilter                  string                                    `json:"dataFilter" xml:"DataFilter"`
-	Description                 string                                    `json:"description" xml:"Description"`
-	Errors                      IntegrationErrorList                      `json:"errors" xml:"Errors"`
-	IntegrationArn              string                                    `json:"integrationArn" xml:"IntegrationArn"`
-	IntegrationName             string                                    `json:"integrationName" xml:"IntegrationName"`
-	KmsKeyId                    string                                    `json:"kmsKeyId" xml:"KmsKeyId"`
-	SourceArn                   string                                    `json:"sourceArn" xml:"SourceArn"`
-	Status                      string                                    `json:"status" xml:"Status"`
-	Tags                        IntegrationTagsList                       `json:"tags" xml:"Tags"`
-	TargetArn                   string                                    `json:"targetArn" xml:"TargetArn"`
+AdditionalEncryptionContext IntegrationAdditionalEncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+DataFilter string `json:"dataFilter" xml:"DataFilter"`
+Description string `json:"description" xml:"Description"`
+Errors IntegrationErrorList `json:"errors" xml:"Errors"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+IntegrationName string `json:"integrationName" xml:"IntegrationName"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
+Status string `json:"status" xml:"Status"`
+Tags IntegrationTagsList `json:"tags" xml:"Tags"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type DeleteIntegrationTablePropertiesRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
-	TableName   string `json:"tableName" xml:"TableName"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DeleteIntegrationTablePropertiesResponse struct {
 }
 
 type DeleteJobRequest struct {
-	JobName string `json:"jobName" xml:"JobName"`
+JobName string `json:"jobName" xml:"JobName"`
 }
 
 type DeleteJobResponse struct {
-	JobName string `json:"jobName" xml:"JobName"`
+JobName string `json:"jobName" xml:"JobName"`
 }
 
 type DeleteMLTransformRequest struct {
-	TransformId string `json:"transformId" xml:"TransformId"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type DeleteMLTransformResponse struct {
-	TransformId string `json:"transformId" xml:"TransformId"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type DeletePartitionIndexRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	IndexName    string `json:"indexName" xml:"IndexName"`
-	TableName    string `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+IndexName string `json:"indexName" xml:"IndexName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DeletePartitionIndexResponse struct {
 }
 
 type DeletePartitionRequest struct {
-	CatalogId       string          `json:"catalogId" xml:"CatalogId"`
-	DatabaseName    string          `json:"databaseName" xml:"DatabaseName"`
-	PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
-	TableName       string          `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type DeletePartitionResponse struct {
 }
 
 type DeleteRegistryInput struct {
-	RegistryId *RegistryId `json:"registryId" xml:"RegistryId"`
+RegistryId *RegistryId `json:"registryId" xml:"RegistryId"`
 }
 
 type DeleteRegistryResponse struct {
-	RegistryArn  string `json:"registryArn" xml:"RegistryArn"`
-	RegistryName string `json:"registryName" xml:"RegistryName"`
-	Status       string `json:"status" xml:"Status"`
+RegistryArn string `json:"registryArn" xml:"RegistryArn"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DeleteResourcePolicyRequest struct {
-	PolicyHashCondition string `json:"policyHashCondition" xml:"PolicyHashCondition"`
-	ResourceArn         string `json:"resourceArn" xml:"ResourceArn"`
+PolicyHashCondition string `json:"policyHashCondition" xml:"PolicyHashCondition"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DeleteResourcePolicyResponse struct {
 }
 
 type DeleteSchemaInput struct {
-	SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
 }
 
 type DeleteSchemaResponse struct {
-	SchemaArn  string `json:"schemaArn" xml:"SchemaArn"`
-	SchemaName string `json:"schemaName" xml:"SchemaName"`
-	Status     string `json:"status" xml:"Status"`
+SchemaArn string `json:"schemaArn" xml:"SchemaArn"`
+SchemaName string `json:"schemaName" xml:"SchemaName"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DeleteSchemaVersionsInput struct {
-	SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
-	Versions string    `json:"versions" xml:"Versions"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
+Versions string `json:"versions" xml:"Versions"`
 }
 
 type DeleteSchemaVersionsResponse struct {
-	SchemaVersionErrors SchemaVersionErrorList `json:"schemaVersionErrors" xml:"SchemaVersionErrors"`
+SchemaVersionErrors SchemaVersionErrorList `json:"schemaVersionErrors" xml:"SchemaVersionErrors"`
 }
 
 type DeleteSecurityConfigurationRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteSecurityConfigurationResponse struct {
 }
 
 type DeleteSessionRequest struct {
-	Id            string `json:"id" xml:"Id"`
-	RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
+Id string `json:"id" xml:"Id"`
+RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
 }
 
 type DeleteSessionResponse struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type DeleteTableOptimizerRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
-	Type         string `json:"type" xml:"Type"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
+Type string `json:"type" xml:"Type"`
 }
 
 type DeleteTableOptimizerResponse struct {
 }
 
 type DeleteTableRequest struct {
-	CatalogId     string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName  string `json:"databaseName" xml:"DatabaseName"`
-	Name          string `json:"name" xml:"Name"`
-	TransactionId string `json:"transactionId" xml:"TransactionId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Name string `json:"name" xml:"Name"`
+TransactionId string `json:"transactionId" xml:"TransactionId"`
 }
 
 type DeleteTableResponse struct {
 }
 
 type DeleteTableVersionRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
-	VersionId    string `json:"versionId" xml:"VersionId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type DeleteTableVersionResponse struct {
 }
 
 type DeleteTriggerRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteTriggerResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteUsageProfileRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteUsageProfileResponse struct {
 }
 
 type DeleteUserDefinedFunctionRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	FunctionName string `json:"functionName" xml:"FunctionName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
 }
 
 type DeleteUserDefinedFunctionResponse struct {
 }
 
 type DeleteWorkflowRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteWorkflowResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeltaTarget struct {
-	ConnectionName         string   `json:"connectionName" xml:"ConnectionName"`
-	CreateNativeDeltaTable bool     `json:"createNativeDeltaTable" xml:"CreateNativeDeltaTable"`
-	DeltaTables            PathList `json:"deltaTables" xml:"DeltaTables"`
-	WriteManifest          bool     `json:"writeManifest" xml:"WriteManifest"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+CreateNativeDeltaTable bool `json:"createNativeDeltaTable" xml:"CreateNativeDeltaTable"`
+DeltaTables PathList `json:"deltaTables" xml:"DeltaTables"`
+WriteManifest bool `json:"writeManifest" xml:"WriteManifest"`
 }
 
 type DescribeConnectionTypeRequest struct {
-	ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
 }
 
 type DescribeConnectionTypeResponse struct {
-	AthenaConnectionProperties       PropertiesMap                      `json:"athenaConnectionProperties" xml:"AthenaConnectionProperties"`
-	AuthenticationConfiguration      *AuthConfiguration                 `json:"authenticationConfiguration" xml:"AuthenticationConfiguration"`
-	Capabilities                     *Capabilities                      `json:"capabilities" xml:"Capabilities"`
-	ComputeEnvironmentConfigurations ComputeEnvironmentConfigurationMap `json:"computeEnvironmentConfigurations" xml:"ComputeEnvironmentConfigurations"`
-	ConnectionOptions                PropertiesMap                      `json:"connectionOptions" xml:"ConnectionOptions"`
-	ConnectionProperties             PropertiesMap                      `json:"connectionProperties" xml:"ConnectionProperties"`
-	ConnectionType                   string                             `json:"connectionType" xml:"ConnectionType"`
-	Description                      string                             `json:"description" xml:"Description"`
-	PhysicalConnectionRequirements   PropertiesMap                      `json:"physicalConnectionRequirements" xml:"PhysicalConnectionRequirements"`
-	PythonConnectionProperties       PropertiesMap                      `json:"pythonConnectionProperties" xml:"PythonConnectionProperties"`
-	RestConfiguration                *RestConfiguration                 `json:"restConfiguration" xml:"RestConfiguration"`
-	SparkConnectionProperties        PropertiesMap                      `json:"sparkConnectionProperties" xml:"SparkConnectionProperties"`
+AthenaConnectionProperties PropertiesMap `json:"athenaConnectionProperties" xml:"AthenaConnectionProperties"`
+AuthenticationConfiguration *AuthConfiguration `json:"authenticationConfiguration" xml:"AuthenticationConfiguration"`
+Capabilities *Capabilities `json:"capabilities" xml:"Capabilities"`
+ComputeEnvironmentConfigurations ComputeEnvironmentConfigurationMap `json:"computeEnvironmentConfigurations" xml:"ComputeEnvironmentConfigurations"`
+ConnectionOptions PropertiesMap `json:"connectionOptions" xml:"ConnectionOptions"`
+ConnectionProperties PropertiesMap `json:"connectionProperties" xml:"ConnectionProperties"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+Description string `json:"description" xml:"Description"`
+PhysicalConnectionRequirements PropertiesMap `json:"physicalConnectionRequirements" xml:"PhysicalConnectionRequirements"`
+PythonConnectionProperties PropertiesMap `json:"pythonConnectionProperties" xml:"PythonConnectionProperties"`
+RestConfiguration *RestConfiguration `json:"restConfiguration" xml:"RestConfiguration"`
+SparkConnectionProperties PropertiesMap `json:"sparkConnectionProperties" xml:"SparkConnectionProperties"`
 }
 
 type DescribeEntityRequest struct {
-	CatalogId           string `json:"catalogId" xml:"CatalogId"`
-	ConnectionName      string `json:"connectionName" xml:"ConnectionName"`
-	DataStoreApiVersion string `json:"dataStoreApiVersion" xml:"DataStoreApiVersion"`
-	EntityName          string `json:"entityName" xml:"EntityName"`
-	NextToken           string `json:"nextToken" xml:"NextToken"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+DataStoreApiVersion string `json:"dataStoreApiVersion" xml:"DataStoreApiVersion"`
+EntityName string `json:"entityName" xml:"EntityName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeEntityResponse struct {
-	Fields    FieldsList `json:"fields" xml:"Fields"`
-	NextToken string     `json:"nextToken" xml:"NextToken"`
+Fields FieldsList `json:"fields" xml:"Fields"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeInboundIntegrationsRequest struct {
-	IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
-	Marker         string `json:"marker" xml:"Marker"`
-	MaxRecords     int32  `json:"maxRecords" xml:"MaxRecords"`
-	TargetArn      string `json:"targetArn" xml:"TargetArn"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type DescribeInboundIntegrationsResponse struct {
-	InboundIntegrations InboundIntegrationsList `json:"inboundIntegrations" xml:"InboundIntegrations"`
-	Marker              string                  `json:"marker" xml:"Marker"`
+InboundIntegrations InboundIntegrationsList `json:"inboundIntegrations" xml:"InboundIntegrations"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type DescribeIntegrationsRequest struct {
-	Filters               IntegrationFilterList `json:"filters" xml:"Filters"`
-	IntegrationIdentifier string                `json:"integrationIdentifier" xml:"IntegrationIdentifier"`
-	Marker                string                `json:"marker" xml:"Marker"`
-	MaxRecords            int32                 `json:"maxRecords" xml:"MaxRecords"`
+Filters IntegrationFilterList `json:"filters" xml:"Filters"`
+IntegrationIdentifier string `json:"integrationIdentifier" xml:"IntegrationIdentifier"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
 }
 
 type DescribeIntegrationsResponse struct {
-	Integrations IntegrationsList `json:"integrations" xml:"Integrations"`
-	Marker       string           `json:"marker" xml:"Marker"`
+Integrations IntegrationsList `json:"integrations" xml:"Integrations"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type DevEndpoint struct {
-	Arguments                          MapValue       `json:"arguments" xml:"Arguments"`
-	AvailabilityZone                   string         `json:"availabilityZone" xml:"AvailabilityZone"`
-	CreatedTimestamp                   time.Time      `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	EndpointName                       string         `json:"endpointName" xml:"EndpointName"`
-	ExtraJarsS3Path                    string         `json:"extraJarsS3Path" xml:"ExtraJarsS3Path"`
-	ExtraPythonLibsS3Path              string         `json:"extraPythonLibsS3Path" xml:"ExtraPythonLibsS3Path"`
-	FailureReason                      string         `json:"failureReason" xml:"FailureReason"`
-	GlueVersion                        string         `json:"glueVersion" xml:"GlueVersion"`
-	LastModifiedTimestamp              time.Time      `json:"lastModifiedTimestamp" xml:"LastModifiedTimestamp"`
-	LastUpdateStatus                   string         `json:"lastUpdateStatus" xml:"LastUpdateStatus"`
-	NumberOfNodes                      int32          `json:"numberOfNodes" xml:"NumberOfNodes"`
-	NumberOfWorkers                    int32          `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	PrivateAddress                     string         `json:"privateAddress" xml:"PrivateAddress"`
-	PublicAddress                      string         `json:"publicAddress" xml:"PublicAddress"`
-	PublicKey                          string         `json:"publicKey" xml:"PublicKey"`
-	PublicKeys                         PublicKeysList `json:"publicKeys" xml:"PublicKeys"`
-	RoleArn                            string         `json:"roleArn" xml:"RoleArn"`
-	SecurityConfiguration              string         `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	SecurityGroupIds                   StringList     `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	Status                             string         `json:"status" xml:"Status"`
-	SubnetId                           string         `json:"subnetId" xml:"SubnetId"`
-	VpcId                              string         `json:"vpcId" xml:"VpcId"`
-	WorkerType                         string         `json:"workerType" xml:"WorkerType"`
-	YarnEndpointAddress                string         `json:"yarnEndpointAddress" xml:"YarnEndpointAddress"`
-	ZeppelinRemoteSparkInterpreterPort int32          `json:"zeppelinRemoteSparkInterpreterPort" xml:"ZeppelinRemoteSparkInterpreterPort"`
+Arguments MapValue `json:"arguments" xml:"Arguments"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
+EndpointName string `json:"endpointName" xml:"EndpointName"`
+ExtraJarsS3Path string `json:"extraJarsS3Path" xml:"ExtraJarsS3Path"`
+ExtraPythonLibsS3Path string `json:"extraPythonLibsS3Path" xml:"ExtraPythonLibsS3Path"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+LastModifiedTimestamp time.Time `json:"lastModifiedTimestamp" xml:"LastModifiedTimestamp"`
+LastUpdateStatus string `json:"lastUpdateStatus" xml:"LastUpdateStatus"`
+NumberOfNodes int32 `json:"numberOfNodes" xml:"NumberOfNodes"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+PrivateAddress string `json:"privateAddress" xml:"PrivateAddress"`
+PublicAddress string `json:"publicAddress" xml:"PublicAddress"`
+PublicKey string `json:"publicKey" xml:"PublicKey"`
+PublicKeys PublicKeysList `json:"publicKeys" xml:"PublicKeys"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+SecurityGroupIds StringList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+Status string `json:"status" xml:"Status"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
+VpcId string `json:"vpcId" xml:"VpcId"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
+YarnEndpointAddress string `json:"yarnEndpointAddress" xml:"YarnEndpointAddress"`
+ZeppelinRemoteSparkInterpreterPort int32 `json:"zeppelinRemoteSparkInterpreterPort" xml:"ZeppelinRemoteSparkInterpreterPort"`
 }
 
 type DevEndpointCustomLibraries struct {
-	ExtraJarsS3Path       string `json:"extraJarsS3Path" xml:"ExtraJarsS3Path"`
-	ExtraPythonLibsS3Path string `json:"extraPythonLibsS3Path" xml:"ExtraPythonLibsS3Path"`
+ExtraJarsS3Path string `json:"extraJarsS3Path" xml:"ExtraJarsS3Path"`
+ExtraPythonLibsS3Path string `json:"extraPythonLibsS3Path" xml:"ExtraPythonLibsS3Path"`
 }
 
 type DirectJDBCSource struct {
-	ConnectionName string      `json:"connectionName" xml:"ConnectionName"`
-	ConnectionType string      `json:"connectionType" xml:"ConnectionType"`
-	Database       string      `json:"database" xml:"Database"`
-	Name           string      `json:"name" xml:"Name"`
-	OutputSchemas  GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
-	RedshiftTmpDir string      `json:"redshiftTmpDir" xml:"RedshiftTmpDir"`
-	Table          string      `json:"table" xml:"Table"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+RedshiftTmpDir string `json:"redshiftTmpDir" xml:"RedshiftTmpDir"`
+Table string `json:"table" xml:"Table"`
 }
 
 type DirectKafkaSource struct {
-	DataPreviewOptions *StreamingDataPreviewOptions `json:"dataPreviewOptions" xml:"DataPreviewOptions"`
-	DetectSchema       bool                         `json:"detectSchema" xml:"DetectSchema"`
-	Name               string                       `json:"name" xml:"Name"`
-	StreamingOptions   *KafkaStreamingSourceOptions `json:"streamingOptions" xml:"StreamingOptions"`
-	WindowSize         int32                        `json:"windowSize" xml:"WindowSize"`
+DataPreviewOptions *StreamingDataPreviewOptions `json:"dataPreviewOptions" xml:"DataPreviewOptions"`
+DetectSchema bool `json:"detectSchema" xml:"DetectSchema"`
+Name string `json:"name" xml:"Name"`
+StreamingOptions *KafkaStreamingSourceOptions `json:"streamingOptions" xml:"StreamingOptions"`
+WindowSize int32 `json:"windowSize" xml:"WindowSize"`
 }
 
 type DirectKinesisSource struct {
-	DataPreviewOptions *StreamingDataPreviewOptions   `json:"dataPreviewOptions" xml:"DataPreviewOptions"`
-	DetectSchema       bool                           `json:"detectSchema" xml:"DetectSchema"`
-	Name               string                         `json:"name" xml:"Name"`
-	StreamingOptions   *KinesisStreamingSourceOptions `json:"streamingOptions" xml:"StreamingOptions"`
-	WindowSize         int32                          `json:"windowSize" xml:"WindowSize"`
+DataPreviewOptions *StreamingDataPreviewOptions `json:"dataPreviewOptions" xml:"DataPreviewOptions"`
+DetectSchema bool `json:"detectSchema" xml:"DetectSchema"`
+Name string `json:"name" xml:"Name"`
+StreamingOptions *KinesisStreamingSourceOptions `json:"streamingOptions" xml:"StreamingOptions"`
+WindowSize int32 `json:"windowSize" xml:"WindowSize"`
 }
 
 type DirectSchemaChangePolicy struct {
-	Database            string `json:"database" xml:"Database"`
-	EnableUpdateCatalog bool   `json:"enableUpdateCatalog" xml:"EnableUpdateCatalog"`
-	Table               string `json:"table" xml:"Table"`
-	UpdateBehavior      string `json:"updateBehavior" xml:"UpdateBehavior"`
+Database string `json:"database" xml:"Database"`
+EnableUpdateCatalog bool `json:"enableUpdateCatalog" xml:"EnableUpdateCatalog"`
+Table string `json:"table" xml:"Table"`
+UpdateBehavior string `json:"updateBehavior" xml:"UpdateBehavior"`
 }
 
 type DoubleColumnStatisticsData struct {
-	MaximumValue           float64 `json:"maximumValue" xml:"MaximumValue"`
-	MinimumValue           float64 `json:"minimumValue" xml:"MinimumValue"`
-	NumberOfDistinctValues int64   `json:"numberOfDistinctValues" xml:"NumberOfDistinctValues"`
-	NumberOfNulls          int64   `json:"numberOfNulls" xml:"NumberOfNulls"`
+MaximumValue float64 `json:"maximumValue" xml:"MaximumValue"`
+MinimumValue float64 `json:"minimumValue" xml:"MinimumValue"`
+NumberOfDistinctValues int64 `json:"numberOfDistinctValues" xml:"NumberOfDistinctValues"`
+NumberOfNulls int64 `json:"numberOfNulls" xml:"NumberOfNulls"`
 }
 
 type DropDuplicates struct {
-	Columns LimitedPathList `json:"columns" xml:"Columns"`
-	Inputs  OneInput        `json:"inputs" xml:"Inputs"`
-	Name    string          `json:"name" xml:"Name"`
+Columns LimitedPathList `json:"columns" xml:"Columns"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DropFields struct {
-	Inputs OneInput           `json:"inputs" xml:"Inputs"`
-	Name   string             `json:"name" xml:"Name"`
-	Paths  GlueStudioPathList `json:"paths" xml:"Paths"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+Paths GlueStudioPathList `json:"paths" xml:"Paths"`
 }
 
 type DropNullFields struct {
-	Inputs           OneInput          `json:"inputs" xml:"Inputs"`
-	Name             string            `json:"name" xml:"Name"`
-	NullCheckBoxList *NullCheckBoxList `json:"nullCheckBoxList" xml:"NullCheckBoxList"`
-	NullTextList     NullValueFields   `json:"nullTextList" xml:"NullTextList"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+NullCheckBoxList *NullCheckBoxList `json:"nullCheckBoxList" xml:"NullCheckBoxList"`
+NullTextList NullValueFields `json:"nullTextList" xml:"NullTextList"`
 }
 
 type DynamicTransform struct {
-	FunctionName  string                       `json:"functionName" xml:"FunctionName"`
-	Inputs        OneInput                     `json:"inputs" xml:"Inputs"`
-	Name          string                       `json:"name" xml:"Name"`
-	OutputSchemas GlueSchemas                  `json:"outputSchemas" xml:"OutputSchemas"`
-	Parameters    TransformConfigParameterList `json:"parameters" xml:"Parameters"`
-	Path          string                       `json:"path" xml:"Path"`
-	TransformName string                       `json:"transformName" xml:"TransformName"`
-	Version       string                       `json:"version" xml:"Version"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Parameters TransformConfigParameterList `json:"parameters" xml:"Parameters"`
+Path string `json:"path" xml:"Path"`
+TransformName string `json:"transformName" xml:"TransformName"`
+Version string `json:"version" xml:"Version"`
 }
 
 type DynamoDBCatalogSource struct {
-	AdditionalOptions *DDBELTCatalogAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	Database          string                          `json:"database" xml:"Database"`
-	Name              string                          `json:"name" xml:"Name"`
-	PitrEnabled       bool                            `json:"pitrEnabled" xml:"PitrEnabled"`
-	Table             string                          `json:"table" xml:"Table"`
+AdditionalOptions *DDBELTCatalogAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+PitrEnabled bool `json:"pitrEnabled" xml:"PitrEnabled"`
+Table string `json:"table" xml:"Table"`
 }
 
 type DynamoDBELTConnectorSource struct {
-	ConnectionOptions *DDBELTConnectionOptions `json:"connectionOptions" xml:"ConnectionOptions"`
-	Name              string                   `json:"name" xml:"Name"`
-	OutputSchemas     GlueSchemas              `json:"outputSchemas" xml:"OutputSchemas"`
+ConnectionOptions *DDBELTConnectionOptions `json:"connectionOptions" xml:"ConnectionOptions"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
 }
 
 type DynamoDBTarget struct {
-	Path     string  `json:"path" xml:"Path"`
-	ScanAll  bool    `json:"scanAll" xml:"scanAll"`
-	ScanRate float64 `json:"scanRate" xml:"scanRate"`
+Path string `json:"path" xml:"Path"`
+ScanAll bool `json:"scanAll" xml:"scanAll"`
+ScanRate float64 `json:"scanRate" xml:"scanRate"`
 }
 
 type Edge struct {
-	DestinationId string `json:"destinationId" xml:"DestinationId"`
-	SourceId      string `json:"sourceId" xml:"SourceId"`
+DestinationId string `json:"destinationId" xml:"DestinationId"`
+SourceId string `json:"sourceId" xml:"SourceId"`
 }
 
 type EncryptionAtRest struct {
-	CatalogEncryptionMode        string `json:"catalogEncryptionMode" xml:"CatalogEncryptionMode"`
-	CatalogEncryptionServiceRole string `json:"catalogEncryptionServiceRole" xml:"CatalogEncryptionServiceRole"`
-	SseAwsKmsKeyId               string `json:"sseAwsKmsKeyId" xml:"SseAwsKmsKeyId"`
+CatalogEncryptionMode string `json:"catalogEncryptionMode" xml:"CatalogEncryptionMode"`
+CatalogEncryptionServiceRole string `json:"catalogEncryptionServiceRole" xml:"CatalogEncryptionServiceRole"`
+SseAwsKmsKeyId string `json:"sseAwsKmsKeyId" xml:"SseAwsKmsKeyId"`
 }
 
 type EncryptionConfiguration struct {
-	CloudWatchEncryption   *CloudWatchEncryption   `json:"cloudWatchEncryption" xml:"CloudWatchEncryption"`
-	DataQualityEncryption  *DataQualityEncryption  `json:"dataQualityEncryption" xml:"DataQualityEncryption"`
-	JobBookmarksEncryption *JobBookmarksEncryption `json:"jobBookmarksEncryption" xml:"JobBookmarksEncryption"`
-	S3Encryption           S3EncryptionList        `json:"s3Encryption" xml:"S3Encryption"`
+CloudWatchEncryption *CloudWatchEncryption `json:"cloudWatchEncryption" xml:"CloudWatchEncryption"`
+DataQualityEncryption *DataQualityEncryption `json:"dataQualityEncryption" xml:"DataQualityEncryption"`
+JobBookmarksEncryption *JobBookmarksEncryption `json:"jobBookmarksEncryption" xml:"JobBookmarksEncryption"`
+S3Encryption S3EncryptionList `json:"s3Encryption" xml:"S3Encryption"`
 }
 
 type Entity struct {
-	Category         string           `json:"category" xml:"Category"`
-	CustomProperties CustomProperties `json:"customProperties" xml:"CustomProperties"`
-	Description      string           `json:"description" xml:"Description"`
-	EntityName       string           `json:"entityName" xml:"EntityName"`
-	IsParentEntity   bool             `json:"isParentEntity" xml:"IsParentEntity"`
-	Label            string           `json:"label" xml:"Label"`
+Category string `json:"category" xml:"Category"`
+CustomProperties CustomProperties `json:"customProperties" xml:"CustomProperties"`
+Description string `json:"description" xml:"Description"`
+EntityName string `json:"entityName" xml:"EntityName"`
+IsParentEntity bool `json:"isParentEntity" xml:"IsParentEntity"`
+Label string `json:"label" xml:"Label"`
 }
 
 type EntityConfiguration struct {
-	Schema              FieldDefinitionMap   `json:"schema" xml:"Schema"`
-	SourceConfiguration *SourceConfiguration `json:"sourceConfiguration" xml:"SourceConfiguration"`
+Schema FieldDefinitionMap `json:"schema" xml:"Schema"`
+SourceConfiguration *SourceConfiguration `json:"sourceConfiguration" xml:"SourceConfiguration"`
 }
 
 type ErrorDetail struct {
-	ErrorCode    string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
 }
 
 type ErrorDetails struct {
-	ErrorCode    string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
 }
 
 type EvaluateDataQuality struct {
-	Inputs                  OneInput                    `json:"inputs" xml:"Inputs"`
-	Name                    string                      `json:"name" xml:"Name"`
-	Output                  string                      `json:"output" xml:"Output"`
-	PublishingOptions       *DQResultsPublishingOptions `json:"publishingOptions" xml:"PublishingOptions"`
-	Ruleset                 string                      `json:"ruleset" xml:"Ruleset"`
-	StopJobOnFailureOptions *DQStopJobOnFailureOptions  `json:"stopJobOnFailureOptions" xml:"StopJobOnFailureOptions"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+Output string `json:"output" xml:"Output"`
+PublishingOptions *DQResultsPublishingOptions `json:"publishingOptions" xml:"PublishingOptions"`
+Ruleset string `json:"ruleset" xml:"Ruleset"`
+StopJobOnFailureOptions *DQStopJobOnFailureOptions `json:"stopJobOnFailureOptions" xml:"StopJobOnFailureOptions"`
 }
 
 type EvaluateDataQualityMultiFrame struct {
-	AdditionalDataSources   DQDLAliases                 `json:"additionalDataSources" xml:"AdditionalDataSources"`
-	AdditionalOptions       DQAdditionalOptions         `json:"additionalOptions" xml:"AdditionalOptions"`
-	Inputs                  ManyInputs                  `json:"inputs" xml:"Inputs"`
-	Name                    string                      `json:"name" xml:"Name"`
-	PublishingOptions       *DQResultsPublishingOptions `json:"publishingOptions" xml:"PublishingOptions"`
-	Ruleset                 string                      `json:"ruleset" xml:"Ruleset"`
-	StopJobOnFailureOptions *DQStopJobOnFailureOptions  `json:"stopJobOnFailureOptions" xml:"StopJobOnFailureOptions"`
+AdditionalDataSources DQDLAliases `json:"additionalDataSources" xml:"AdditionalDataSources"`
+AdditionalOptions DQAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+Inputs ManyInputs `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+PublishingOptions *DQResultsPublishingOptions `json:"publishingOptions" xml:"PublishingOptions"`
+Ruleset string `json:"ruleset" xml:"Ruleset"`
+StopJobOnFailureOptions *DQStopJobOnFailureOptions `json:"stopJobOnFailureOptions" xml:"StopJobOnFailureOptions"`
 }
 
 type EvaluationMetrics struct {
-	FindMatchesMetrics *FindMatchesMetrics `json:"findMatchesMetrics" xml:"FindMatchesMetrics"`
-	TransformType      string              `json:"transformType" xml:"TransformType"`
+FindMatchesMetrics *FindMatchesMetrics `json:"findMatchesMetrics" xml:"FindMatchesMetrics"`
+TransformType string `json:"transformType" xml:"TransformType"`
 }
 
 type EventBatchingCondition struct {
-	BatchSize   int32 `json:"batchSize" xml:"BatchSize"`
-	BatchWindow int32 `json:"batchWindow" xml:"BatchWindow"`
+BatchSize int32 `json:"batchSize" xml:"BatchSize"`
+BatchWindow int32 `json:"batchWindow" xml:"BatchWindow"`
 }
 
 type ExecutionAttempt struct {
-	ColumnStatisticsTaskRunId string    `json:"columnStatisticsTaskRunId" xml:"ColumnStatisticsTaskRunId"`
-	ErrorMessage              string    `json:"errorMessage" xml:"ErrorMessage"`
-	ExecutionTimestamp        time.Time `json:"executionTimestamp" xml:"ExecutionTimestamp"`
-	Status                    string    `json:"status" xml:"Status"`
+ColumnStatisticsTaskRunId string `json:"columnStatisticsTaskRunId" xml:"ColumnStatisticsTaskRunId"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ExecutionTimestamp time.Time `json:"executionTimestamp" xml:"ExecutionTimestamp"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ExecutionProperty struct {
-	MaxConcurrentRuns int32 `json:"maxConcurrentRuns" xml:"MaxConcurrentRuns"`
+MaxConcurrentRuns int32 `json:"maxConcurrentRuns" xml:"MaxConcurrentRuns"`
 }
 
 type ExportLabelsTaskRunProperties struct {
-	OutputS3Path string `json:"outputS3Path" xml:"OutputS3Path"`
+OutputS3Path string `json:"outputS3Path" xml:"OutputS3Path"`
 }
 
 type ExtractedParameter struct {
-	DefaultValue     string                     `json:"defaultValue" xml:"DefaultValue"`
-	Key              string                     `json:"key" xml:"Key"`
-	PropertyLocation string                     `json:"propertyLocation" xml:"PropertyLocation"`
-	Value            *ResponseExtractionMapping `json:"value" xml:"Value"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+Key string `json:"key" xml:"Key"`
+PropertyLocation string `json:"propertyLocation" xml:"PropertyLocation"`
+Value *ResponseExtractionMapping `json:"value" xml:"Value"`
 }
 
 type FederatedCatalog struct {
-	ConnectionName string `json:"connectionName" xml:"ConnectionName"`
-	ConnectionType string `json:"connectionType" xml:"ConnectionType"`
-	Identifier     string `json:"identifier" xml:"Identifier"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type FederatedDatabase struct {
-	ConnectionName string `json:"connectionName" xml:"ConnectionName"`
-	ConnectionType string `json:"connectionType" xml:"ConnectionType"`
-	Identifier     string `json:"identifier" xml:"Identifier"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type FederatedTable struct {
-	ConnectionName     string `json:"connectionName" xml:"ConnectionName"`
-	ConnectionType     string `json:"connectionType" xml:"ConnectionType"`
-	DatabaseIdentifier string `json:"databaseIdentifier" xml:"DatabaseIdentifier"`
-	Identifier         string `json:"identifier" xml:"Identifier"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+DatabaseIdentifier string `json:"databaseIdentifier" xml:"DatabaseIdentifier"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type Field struct {
-	CustomProperties         CustomProperties         `json:"customProperties" xml:"CustomProperties"`
-	Description              string                   `json:"description" xml:"Description"`
-	FieldName                string                   `json:"fieldName" xml:"FieldName"`
-	FieldType                string                   `json:"fieldType" xml:"FieldType"`
-	IsCreateable             bool                     `json:"isCreateable" xml:"IsCreateable"`
-	IsDefaultOnCreate        bool                     `json:"isDefaultOnCreate" xml:"IsDefaultOnCreate"`
-	IsFilterable             bool                     `json:"isFilterable" xml:"IsFilterable"`
-	IsNullable               bool                     `json:"isNullable" xml:"IsNullable"`
-	IsPartitionable          bool                     `json:"isPartitionable" xml:"IsPartitionable"`
-	IsPrimaryKey             bool                     `json:"isPrimaryKey" xml:"IsPrimaryKey"`
-	IsRetrievable            bool                     `json:"isRetrievable" xml:"IsRetrievable"`
-	IsUpdateable             bool                     `json:"isUpdateable" xml:"IsUpdateable"`
-	IsUpsertable             bool                     `json:"isUpsertable" xml:"IsUpsertable"`
-	Label                    string                   `json:"label" xml:"Label"`
-	NativeDataType           string                   `json:"nativeDataType" xml:"NativeDataType"`
-	ParentField              string                   `json:"parentField" xml:"ParentField"`
-	SupportedFilterOperators FieldFilterOperatorsList `json:"supportedFilterOperators" xml:"SupportedFilterOperators"`
-	SupportedValues          ListOfString             `json:"supportedValues" xml:"SupportedValues"`
+CustomProperties CustomProperties `json:"customProperties" xml:"CustomProperties"`
+Description string `json:"description" xml:"Description"`
+FieldName string `json:"fieldName" xml:"FieldName"`
+FieldType string `json:"fieldType" xml:"FieldType"`
+IsCreateable bool `json:"isCreateable" xml:"IsCreateable"`
+IsDefaultOnCreate bool `json:"isDefaultOnCreate" xml:"IsDefaultOnCreate"`
+IsFilterable bool `json:"isFilterable" xml:"IsFilterable"`
+IsNullable bool `json:"isNullable" xml:"IsNullable"`
+IsPartitionable bool `json:"isPartitionable" xml:"IsPartitionable"`
+IsPrimaryKey bool `json:"isPrimaryKey" xml:"IsPrimaryKey"`
+IsRetrievable bool `json:"isRetrievable" xml:"IsRetrievable"`
+IsUpdateable bool `json:"isUpdateable" xml:"IsUpdateable"`
+IsUpsertable bool `json:"isUpsertable" xml:"IsUpsertable"`
+Label string `json:"label" xml:"Label"`
+NativeDataType string `json:"nativeDataType" xml:"NativeDataType"`
+ParentField string `json:"parentField" xml:"ParentField"`
+SupportedFilterOperators FieldFilterOperatorsList `json:"supportedFilterOperators" xml:"SupportedFilterOperators"`
+SupportedValues ListOfString `json:"supportedValues" xml:"SupportedValues"`
 }
 
 type FieldDefinition struct {
-	FieldDataType string `json:"fieldDataType" xml:"FieldDataType"`
-	Name          string `json:"name" xml:"Name"`
+FieldDataType string `json:"fieldDataType" xml:"FieldDataType"`
+Name string `json:"name" xml:"Name"`
 }
 
 type FillMissingValues struct {
-	FilledPath  string   `json:"filledPath" xml:"FilledPath"`
-	ImputedPath string   `json:"imputedPath" xml:"ImputedPath"`
-	Inputs      OneInput `json:"inputs" xml:"Inputs"`
-	Name        string   `json:"name" xml:"Name"`
+FilledPath string `json:"filledPath" xml:"FilledPath"`
+ImputedPath string `json:"imputedPath" xml:"ImputedPath"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
 }
 
 type Filter struct {
-	Filters         FilterExpressions `json:"filters" xml:"Filters"`
-	Inputs          OneInput          `json:"inputs" xml:"Inputs"`
-	LogicalOperator string            `json:"logicalOperator" xml:"LogicalOperator"`
-	Name            string            `json:"name" xml:"Name"`
+Filters FilterExpressions `json:"filters" xml:"Filters"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+LogicalOperator string `json:"logicalOperator" xml:"LogicalOperator"`
+Name string `json:"name" xml:"Name"`
 }
 
 type FilterExpression struct {
-	Negated   bool         `json:"negated" xml:"Negated"`
-	Operation string       `json:"operation" xml:"Operation"`
-	Values    FilterValues `json:"values" xml:"Values"`
+Negated bool `json:"negated" xml:"Negated"`
+Operation string `json:"operation" xml:"Operation"`
+Values FilterValues `json:"values" xml:"Values"`
 }
 
 type FilterValue struct {
-	Type  string                     `json:"type" xml:"Type"`
-	Value EnclosedInStringProperties `json:"value" xml:"Value"`
+Type string `json:"type" xml:"Type"`
+Value EnclosedInStringProperties `json:"value" xml:"Value"`
 }
 
 type FindMatchesMetrics struct {
-	AreaUnderPRCurve  float64              `json:"areaUnderPRCurve" xml:"AreaUnderPRCurve"`
-	ColumnImportances ColumnImportanceList `json:"columnImportances" xml:"ColumnImportances"`
-	ConfusionMatrix   *ConfusionMatrix     `json:"confusionMatrix" xml:"ConfusionMatrix"`
-	F1                float64              `json:"f1" xml:"F1"`
-	Precision         float64              `json:"precision" xml:"Precision"`
-	Recall            float64              `json:"recall" xml:"Recall"`
+AreaUnderPRCurve float64 `json:"areaUnderPRCurve" xml:"AreaUnderPRCurve"`
+ColumnImportances ColumnImportanceList `json:"columnImportances" xml:"ColumnImportances"`
+ConfusionMatrix *ConfusionMatrix `json:"confusionMatrix" xml:"ConfusionMatrix"`
+F1 float64 `json:"f1" xml:"F1"`
+Precision float64 `json:"precision" xml:"Precision"`
+Recall float64 `json:"recall" xml:"Recall"`
 }
 
 type FindMatchesParameters struct {
-	AccuracyCostTradeoff    float64 `json:"accuracyCostTradeoff" xml:"AccuracyCostTradeoff"`
-	EnforceProvidedLabels   bool    `json:"enforceProvidedLabels" xml:"EnforceProvidedLabels"`
-	PrecisionRecallTradeoff float64 `json:"precisionRecallTradeoff" xml:"PrecisionRecallTradeoff"`
-	PrimaryKeyColumnName    string  `json:"primaryKeyColumnName" xml:"PrimaryKeyColumnName"`
+AccuracyCostTradeoff float64 `json:"accuracyCostTradeoff" xml:"AccuracyCostTradeoff"`
+EnforceProvidedLabels bool `json:"enforceProvidedLabels" xml:"EnforceProvidedLabels"`
+PrecisionRecallTradeoff float64 `json:"precisionRecallTradeoff" xml:"PrecisionRecallTradeoff"`
+PrimaryKeyColumnName string `json:"primaryKeyColumnName" xml:"PrimaryKeyColumnName"`
 }
 
 type FindMatchesTaskRunProperties struct {
-	JobId    string `json:"jobId" xml:"JobId"`
-	JobName  string `json:"jobName" xml:"JobName"`
-	JobRunId string `json:"jobRunId" xml:"JobRunId"`
+JobId string `json:"jobId" xml:"JobId"`
+JobName string `json:"jobName" xml:"JobName"`
+JobRunId string `json:"jobRunId" xml:"JobRunId"`
 }
 
 type GetBlueprintRequest struct {
-	IncludeBlueprint     bool   `json:"includeBlueprint" xml:"IncludeBlueprint"`
-	IncludeParameterSpec bool   `json:"includeParameterSpec" xml:"IncludeParameterSpec"`
-	Name                 string `json:"name" xml:"Name"`
+IncludeBlueprint bool `json:"includeBlueprint" xml:"IncludeBlueprint"`
+IncludeParameterSpec bool `json:"includeParameterSpec" xml:"IncludeParameterSpec"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetBlueprintResponse struct {
-	Blueprint *Blueprint `json:"blueprint" xml:"Blueprint"`
+Blueprint *Blueprint `json:"blueprint" xml:"Blueprint"`
 }
 
 type GetBlueprintRunRequest struct {
-	BlueprintName string `json:"blueprintName" xml:"BlueprintName"`
-	RunId         string `json:"runId" xml:"RunId"`
+BlueprintName string `json:"blueprintName" xml:"BlueprintName"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type GetBlueprintRunResponse struct {
-	BlueprintRun *BlueprintRun `json:"blueprintRun" xml:"BlueprintRun"`
+BlueprintRun *BlueprintRun `json:"blueprintRun" xml:"BlueprintRun"`
 }
 
 type GetBlueprintRunsRequest struct {
-	BlueprintName string `json:"blueprintName" xml:"BlueprintName"`
-	MaxResults    int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken     string `json:"nextToken" xml:"NextToken"`
+BlueprintName string `json:"blueprintName" xml:"BlueprintName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetBlueprintRunsResponse struct {
-	BlueprintRuns BlueprintRuns `json:"blueprintRuns" xml:"BlueprintRuns"`
-	NextToken     string        `json:"nextToken" xml:"NextToken"`
+BlueprintRuns BlueprintRuns `json:"blueprintRuns" xml:"BlueprintRuns"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetCatalogImportStatusRequest struct {
-	CatalogId string `json:"catalogId" xml:"CatalogId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
 }
 
 type GetCatalogImportStatusResponse struct {
-	ImportStatus *CatalogImportStatus `json:"importStatus" xml:"ImportStatus"`
+ImportStatus *CatalogImportStatus `json:"importStatus" xml:"ImportStatus"`
 }
 
 type GetCatalogRequest struct {
-	CatalogId string `json:"catalogId" xml:"CatalogId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
 }
 
 type GetCatalogResponse struct {
-	Catalog *Catalog `json:"catalog" xml:"Catalog"`
+Catalog *Catalog `json:"catalog" xml:"Catalog"`
 }
 
 type GetCatalogsRequest struct {
-	IncludeRoot     bool   `json:"includeRoot" xml:"IncludeRoot"`
-	MaxResults      int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken       string `json:"nextToken" xml:"NextToken"`
-	ParentCatalogId string `json:"parentCatalogId" xml:"ParentCatalogId"`
-	Recursive       bool   `json:"recursive" xml:"Recursive"`
+IncludeRoot bool `json:"includeRoot" xml:"IncludeRoot"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ParentCatalogId string `json:"parentCatalogId" xml:"ParentCatalogId"`
+Recursive bool `json:"recursive" xml:"Recursive"`
 }
 
 type GetCatalogsResponse struct {
-	CatalogList CatalogList `json:"catalogList" xml:"CatalogList"`
-	NextToken   string      `json:"nextToken" xml:"NextToken"`
+CatalogList CatalogList `json:"catalogList" xml:"CatalogList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetClassifierRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetClassifierResponse struct {
-	Classifier *Classifier `json:"classifier" xml:"Classifier"`
+Classifier *Classifier `json:"classifier" xml:"Classifier"`
 }
 
 type GetClassifiersRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetClassifiersResponse struct {
-	Classifiers ClassifierList `json:"classifiers" xml:"Classifiers"`
-	NextToken   string         `json:"nextToken" xml:"NextToken"`
+Classifiers ClassifierList `json:"classifiers" xml:"Classifiers"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetColumnStatisticsForPartitionRequest struct {
-	CatalogId       string             `json:"catalogId" xml:"CatalogId"`
-	ColumnNames     GetColumnNamesList `json:"columnNames" xml:"ColumnNames"`
-	DatabaseName    string             `json:"databaseName" xml:"DatabaseName"`
-	PartitionValues ValueStringList    `json:"partitionValues" xml:"PartitionValues"`
-	TableName       string             `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ColumnNames GetColumnNamesList `json:"columnNames" xml:"ColumnNames"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetColumnStatisticsForPartitionResponse struct {
-	ColumnStatisticsList ColumnStatisticsList `json:"columnStatisticsList" xml:"ColumnStatisticsList"`
-	Errors               ColumnErrors         `json:"errors" xml:"Errors"`
+ColumnStatisticsList ColumnStatisticsList `json:"columnStatisticsList" xml:"ColumnStatisticsList"`
+Errors ColumnErrors `json:"errors" xml:"Errors"`
 }
 
 type GetColumnStatisticsForTableRequest struct {
-	CatalogId    string             `json:"catalogId" xml:"CatalogId"`
-	ColumnNames  GetColumnNamesList `json:"columnNames" xml:"ColumnNames"`
-	DatabaseName string             `json:"databaseName" xml:"DatabaseName"`
-	TableName    string             `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ColumnNames GetColumnNamesList `json:"columnNames" xml:"ColumnNames"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetColumnStatisticsForTableResponse struct {
-	ColumnStatisticsList ColumnStatisticsList `json:"columnStatisticsList" xml:"ColumnStatisticsList"`
-	Errors               ColumnErrors         `json:"errors" xml:"Errors"`
+ColumnStatisticsList ColumnStatisticsList `json:"columnStatisticsList" xml:"ColumnStatisticsList"`
+Errors ColumnErrors `json:"errors" xml:"Errors"`
 }
 
 type GetColumnStatisticsTaskRunRequest struct {
-	ColumnStatisticsTaskRunId string `json:"columnStatisticsTaskRunId" xml:"ColumnStatisticsTaskRunId"`
+ColumnStatisticsTaskRunId string `json:"columnStatisticsTaskRunId" xml:"ColumnStatisticsTaskRunId"`
 }
 
 type GetColumnStatisticsTaskRunResponse struct {
-	ColumnStatisticsTaskRun *ColumnStatisticsTaskRun `json:"columnStatisticsTaskRun" xml:"ColumnStatisticsTaskRun"`
+ColumnStatisticsTaskRun *ColumnStatisticsTaskRun `json:"columnStatisticsTaskRun" xml:"ColumnStatisticsTaskRun"`
 }
 
 type GetColumnStatisticsTaskRunsRequest struct {
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	TableName    string `json:"tableName" xml:"TableName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetColumnStatisticsTaskRunsResponse struct {
-	ColumnStatisticsTaskRuns ColumnStatisticsTaskRunsList `json:"columnStatisticsTaskRuns" xml:"ColumnStatisticsTaskRuns"`
-	NextToken                string                       `json:"nextToken" xml:"NextToken"`
+ColumnStatisticsTaskRuns ColumnStatisticsTaskRunsList `json:"columnStatisticsTaskRuns" xml:"ColumnStatisticsTaskRuns"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetColumnStatisticsTaskSettingsRequest struct {
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetColumnStatisticsTaskSettingsResponse struct {
-	ColumnStatisticsTaskSettings *ColumnStatisticsTaskSettings `json:"columnStatisticsTaskSettings" xml:"ColumnStatisticsTaskSettings"`
+ColumnStatisticsTaskSettings *ColumnStatisticsTaskSettings `json:"columnStatisticsTaskSettings" xml:"ColumnStatisticsTaskSettings"`
 }
 
 type GetConnectionRequest struct {
-	ApplyOverrideForComputeEnvironment string `json:"applyOverrideForComputeEnvironment" xml:"ApplyOverrideForComputeEnvironment"`
-	CatalogId                          string `json:"catalogId" xml:"CatalogId"`
-	HidePassword                       bool   `json:"hidePassword" xml:"HidePassword"`
-	Name                               string `json:"name" xml:"Name"`
+ApplyOverrideForComputeEnvironment string `json:"applyOverrideForComputeEnvironment" xml:"ApplyOverrideForComputeEnvironment"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+HidePassword bool `json:"hidePassword" xml:"HidePassword"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetConnectionResponse struct {
-	Connection *Connection `json:"connection" xml:"Connection"`
+Connection *Connection `json:"connection" xml:"Connection"`
 }
 
 type GetConnectionsFilter struct {
-	ConnectionSchemaVersion int32         `json:"connectionSchemaVersion" xml:"ConnectionSchemaVersion"`
-	ConnectionType          string        `json:"connectionType" xml:"ConnectionType"`
-	MatchCriteria           MatchCriteria `json:"matchCriteria" xml:"MatchCriteria"`
+ConnectionSchemaVersion int32 `json:"connectionSchemaVersion" xml:"ConnectionSchemaVersion"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+MatchCriteria MatchCriteria `json:"matchCriteria" xml:"MatchCriteria"`
 }
 
 type GetConnectionsRequest struct {
-	CatalogId    string                `json:"catalogId" xml:"CatalogId"`
-	Filter       *GetConnectionsFilter `json:"filter" xml:"Filter"`
-	HidePassword bool                  `json:"hidePassword" xml:"HidePassword"`
-	MaxResults   int32                 `json:"maxResults" xml:"MaxResults"`
-	NextToken    string                `json:"nextToken" xml:"NextToken"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+Filter *GetConnectionsFilter `json:"filter" xml:"Filter"`
+HidePassword bool `json:"hidePassword" xml:"HidePassword"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetConnectionsResponse struct {
-	ConnectionList ConnectionList `json:"connectionList" xml:"ConnectionList"`
-	NextToken      string         `json:"nextToken" xml:"NextToken"`
+ConnectionList ConnectionList `json:"connectionList" xml:"ConnectionList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetCrawlerMetricsRequest struct {
-	CrawlerNameList CrawlerNameList `json:"crawlerNameList" xml:"CrawlerNameList"`
-	MaxResults      int32           `json:"maxResults" xml:"MaxResults"`
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
+CrawlerNameList CrawlerNameList `json:"crawlerNameList" xml:"CrawlerNameList"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetCrawlerMetricsResponse struct {
-	CrawlerMetricsList CrawlerMetricsList `json:"crawlerMetricsList" xml:"CrawlerMetricsList"`
-	NextToken          string             `json:"nextToken" xml:"NextToken"`
+CrawlerMetricsList CrawlerMetricsList `json:"crawlerMetricsList" xml:"CrawlerMetricsList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetCrawlerRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetCrawlerResponse struct {
-	Crawler *Crawler `json:"crawler" xml:"Crawler"`
+Crawler *Crawler `json:"crawler" xml:"Crawler"`
 }
 
 type GetCrawlersRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetCrawlersResponse struct {
-	Crawlers  CrawlerList `json:"crawlers" xml:"Crawlers"`
-	NextToken string      `json:"nextToken" xml:"NextToken"`
+Crawlers CrawlerList `json:"crawlers" xml:"Crawlers"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetCustomEntityTypeRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetCustomEntityTypeResponse struct {
-	ContextWords ContextWords `json:"contextWords" xml:"ContextWords"`
-	Name         string       `json:"name" xml:"Name"`
-	RegexString  string       `json:"regexString" xml:"RegexString"`
+ContextWords ContextWords `json:"contextWords" xml:"ContextWords"`
+Name string `json:"name" xml:"Name"`
+RegexString string `json:"regexString" xml:"RegexString"`
 }
 
 type GetDataCatalogEncryptionSettingsRequest struct {
-	CatalogId string `json:"catalogId" xml:"CatalogId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
 }
 
 type GetDataCatalogEncryptionSettingsResponse struct {
-	DataCatalogEncryptionSettings *DataCatalogEncryptionSettings `json:"dataCatalogEncryptionSettings" xml:"DataCatalogEncryptionSettings"`
+DataCatalogEncryptionSettings *DataCatalogEncryptionSettings `json:"dataCatalogEncryptionSettings" xml:"DataCatalogEncryptionSettings"`
 }
 
 type GetDataQualityModelRequest struct {
-	ProfileId   string `json:"profileId" xml:"ProfileId"`
-	StatisticId string `json:"statisticId" xml:"StatisticId"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+StatisticId string `json:"statisticId" xml:"StatisticId"`
 }
 
 type GetDataQualityModelResponse struct {
-	CompletedOn   time.Time `json:"completedOn" xml:"CompletedOn"`
-	FailureReason string    `json:"failureReason" xml:"FailureReason"`
-	StartedOn     time.Time `json:"startedOn" xml:"StartedOn"`
-	Status        string    `json:"status" xml:"Status"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
+Status string `json:"status" xml:"Status"`
 }
 
 type GetDataQualityModelResultRequest struct {
-	ProfileId   string `json:"profileId" xml:"ProfileId"`
-	StatisticId string `json:"statisticId" xml:"StatisticId"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+StatisticId string `json:"statisticId" xml:"StatisticId"`
 }
 
 type GetDataQualityModelResultResponse struct {
-	CompletedOn time.Time             `json:"completedOn" xml:"CompletedOn"`
-	Model       StatisticModelResults `json:"model" xml:"Model"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+Model StatisticModelResults `json:"model" xml:"Model"`
 }
 
 type GetDataQualityResultRequest struct {
-	ResultId string `json:"resultId" xml:"ResultId"`
+ResultId string `json:"resultId" xml:"ResultId"`
 }
 
 type GetDataQualityResultResponse struct {
-	AggregatedMetrics      *DataQualityAggregatedMetrics `json:"aggregatedMetrics" xml:"AggregatedMetrics"`
-	AnalyzerResults        DataQualityAnalyzerResults    `json:"analyzerResults" xml:"AnalyzerResults"`
-	CompletedOn            time.Time                     `json:"completedOn" xml:"CompletedOn"`
-	DataSource             *DataSource                   `json:"dataSource" xml:"DataSource"`
-	EvaluationContext      string                        `json:"evaluationContext" xml:"EvaluationContext"`
-	JobName                string                        `json:"jobName" xml:"JobName"`
-	JobRunId               string                        `json:"jobRunId" xml:"JobRunId"`
-	Observations           DataQualityObservations       `json:"observations" xml:"Observations"`
-	ProfileId              string                        `json:"profileId" xml:"ProfileId"`
-	ResultId               string                        `json:"resultId" xml:"ResultId"`
-	RuleResults            DataQualityRuleResults        `json:"ruleResults" xml:"RuleResults"`
-	RulesetEvaluationRunId string                        `json:"rulesetEvaluationRunId" xml:"RulesetEvaluationRunId"`
-	RulesetName            string                        `json:"rulesetName" xml:"RulesetName"`
-	Score                  float64                       `json:"score" xml:"Score"`
-	StartedOn              time.Time                     `json:"startedOn" xml:"StartedOn"`
+AggregatedMetrics *DataQualityAggregatedMetrics `json:"aggregatedMetrics" xml:"AggregatedMetrics"`
+AnalyzerResults DataQualityAnalyzerResults `json:"analyzerResults" xml:"AnalyzerResults"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+EvaluationContext string `json:"evaluationContext" xml:"EvaluationContext"`
+JobName string `json:"jobName" xml:"JobName"`
+JobRunId string `json:"jobRunId" xml:"JobRunId"`
+Observations DataQualityObservations `json:"observations" xml:"Observations"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+ResultId string `json:"resultId" xml:"ResultId"`
+RuleResults DataQualityRuleResults `json:"ruleResults" xml:"RuleResults"`
+RulesetEvaluationRunId string `json:"rulesetEvaluationRunId" xml:"RulesetEvaluationRunId"`
+RulesetName string `json:"rulesetName" xml:"RulesetName"`
+Score float64 `json:"score" xml:"Score"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
 }
 
 type GetDataQualityRuleRecommendationRunRequest struct {
-	RunId string `json:"runId" xml:"RunId"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type GetDataQualityRuleRecommendationRunResponse struct {
-	CompletedOn                      time.Time   `json:"completedOn" xml:"CompletedOn"`
-	CreatedRulesetName               string      `json:"createdRulesetName" xml:"CreatedRulesetName"`
-	DataQualitySecurityConfiguration string      `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
-	DataSource                       *DataSource `json:"dataSource" xml:"DataSource"`
-	ErrorString                      string      `json:"errorString" xml:"ErrorString"`
-	ExecutionTime                    int32       `json:"executionTime" xml:"ExecutionTime"`
-	LastModifiedOn                   time.Time   `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	NumberOfWorkers                  int32       `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	RecommendedRuleset               string      `json:"recommendedRuleset" xml:"RecommendedRuleset"`
-	Role                             string      `json:"role" xml:"Role"`
-	RunId                            string      `json:"runId" xml:"RunId"`
-	StartedOn                        time.Time   `json:"startedOn" xml:"StartedOn"`
-	Status                           string      `json:"status" xml:"Status"`
-	Timeout                          int32       `json:"timeout" xml:"Timeout"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+CreatedRulesetName string `json:"createdRulesetName" xml:"CreatedRulesetName"`
+DataQualitySecurityConfiguration string `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+ErrorString string `json:"errorString" xml:"ErrorString"`
+ExecutionTime int32 `json:"executionTime" xml:"ExecutionTime"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+RecommendedRuleset string `json:"recommendedRuleset" xml:"RecommendedRuleset"`
+Role string `json:"role" xml:"Role"`
+RunId string `json:"runId" xml:"RunId"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
+Status string `json:"status" xml:"Status"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
 }
 
 type GetDataQualityRulesetEvaluationRunRequest struct {
-	RunId string `json:"runId" xml:"RunId"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type GetDataQualityRulesetEvaluationRunResponse struct {
-	AdditionalDataSources DataSourceMap                                 `json:"additionalDataSources" xml:"AdditionalDataSources"`
-	AdditionalRunOptions  *DataQualityEvaluationRunAdditionalRunOptions `json:"additionalRunOptions" xml:"AdditionalRunOptions"`
-	CompletedOn           time.Time                                     `json:"completedOn" xml:"CompletedOn"`
-	DataSource            *DataSource                                   `json:"dataSource" xml:"DataSource"`
-	ErrorString           string                                        `json:"errorString" xml:"ErrorString"`
-	ExecutionTime         int32                                         `json:"executionTime" xml:"ExecutionTime"`
-	LastModifiedOn        time.Time                                     `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	NumberOfWorkers       int32                                         `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	ResultIds             DataQualityResultIdList                       `json:"resultIds" xml:"ResultIds"`
-	Role                  string                                        `json:"role" xml:"Role"`
-	RulesetNames          RulesetNames                                  `json:"rulesetNames" xml:"RulesetNames"`
-	RunId                 string                                        `json:"runId" xml:"RunId"`
-	StartedOn             time.Time                                     `json:"startedOn" xml:"StartedOn"`
-	Status                string                                        `json:"status" xml:"Status"`
-	Timeout               int32                                         `json:"timeout" xml:"Timeout"`
+AdditionalDataSources DataSourceMap `json:"additionalDataSources" xml:"AdditionalDataSources"`
+AdditionalRunOptions *DataQualityEvaluationRunAdditionalRunOptions `json:"additionalRunOptions" xml:"AdditionalRunOptions"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+ErrorString string `json:"errorString" xml:"ErrorString"`
+ExecutionTime int32 `json:"executionTime" xml:"ExecutionTime"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+ResultIds DataQualityResultIdList `json:"resultIds" xml:"ResultIds"`
+Role string `json:"role" xml:"Role"`
+RulesetNames RulesetNames `json:"rulesetNames" xml:"RulesetNames"`
+RunId string `json:"runId" xml:"RunId"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
+Status string `json:"status" xml:"Status"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
 }
 
 type GetDataQualityRulesetRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetDataQualityRulesetResponse struct {
-	CreatedOn                        time.Time               `json:"createdOn" xml:"CreatedOn"`
-	DataQualitySecurityConfiguration string                  `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
-	Description                      string                  `json:"description" xml:"Description"`
-	LastModifiedOn                   time.Time               `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	Name                             string                  `json:"name" xml:"Name"`
-	RecommendationRunId              string                  `json:"recommendationRunId" xml:"RecommendationRunId"`
-	Ruleset                          string                  `json:"ruleset" xml:"Ruleset"`
-	TargetTable                      *DataQualityTargetTable `json:"targetTable" xml:"TargetTable"`
+CreatedOn time.Time `json:"createdOn" xml:"CreatedOn"`
+DataQualitySecurityConfiguration string `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
+Description string `json:"description" xml:"Description"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+Name string `json:"name" xml:"Name"`
+RecommendationRunId string `json:"recommendationRunId" xml:"RecommendationRunId"`
+Ruleset string `json:"ruleset" xml:"Ruleset"`
+TargetTable *DataQualityTargetTable `json:"targetTable" xml:"TargetTable"`
 }
 
 type GetDatabaseRequest struct {
-	CatalogId string `json:"catalogId" xml:"CatalogId"`
-	Name      string `json:"name" xml:"Name"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetDatabaseResponse struct {
-	Database *Database `json:"database" xml:"Database"`
+Database *Database `json:"database" xml:"Database"`
 }
 
 type GetDatabasesRequest struct {
-	AttributesToGet   DatabaseAttributesList `json:"attributesToGet" xml:"AttributesToGet"`
-	CatalogId         string                 `json:"catalogId" xml:"CatalogId"`
-	MaxResults        int32                  `json:"maxResults" xml:"MaxResults"`
-	NextToken         string                 `json:"nextToken" xml:"NextToken"`
-	ResourceShareType string                 `json:"resourceShareType" xml:"ResourceShareType"`
+AttributesToGet DatabaseAttributesList `json:"attributesToGet" xml:"AttributesToGet"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceShareType string `json:"resourceShareType" xml:"ResourceShareType"`
 }
 
 type GetDatabasesResponse struct {
-	DatabaseList DatabaseList `json:"databaseList" xml:"DatabaseList"`
-	NextToken    string       `json:"nextToken" xml:"NextToken"`
+DatabaseList DatabaseList `json:"databaseList" xml:"DatabaseList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetDataflowGraphRequest struct {
-	PythonScript string `json:"pythonScript" xml:"PythonScript"`
+PythonScript string `json:"pythonScript" xml:"PythonScript"`
 }
 
 type GetDataflowGraphResponse struct {
-	DagEdges DagEdges `json:"dagEdges" xml:"DagEdges"`
-	DagNodes DagNodes `json:"dagNodes" xml:"DagNodes"`
+DagEdges DagEdges `json:"dagEdges" xml:"DagEdges"`
+DagNodes DagNodes `json:"dagNodes" xml:"DagNodes"`
 }
 
 type GetDevEndpointRequest struct {
-	EndpointName string `json:"endpointName" xml:"EndpointName"`
+EndpointName string `json:"endpointName" xml:"EndpointName"`
 }
 
 type GetDevEndpointResponse struct {
-	DevEndpoint *DevEndpoint `json:"devEndpoint" xml:"DevEndpoint"`
+DevEndpoint *DevEndpoint `json:"devEndpoint" xml:"DevEndpoint"`
 }
 
 type GetDevEndpointsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetDevEndpointsResponse struct {
-	DevEndpoints DevEndpointList `json:"devEndpoints" xml:"DevEndpoints"`
-	NextToken    string          `json:"nextToken" xml:"NextToken"`
+DevEndpoints DevEndpointList `json:"devEndpoints" xml:"DevEndpoints"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetEntityRecordsRequest struct {
-	CatalogId           string            `json:"catalogId" xml:"CatalogId"`
-	ConnectionName      string            `json:"connectionName" xml:"ConnectionName"`
-	ConnectionOptions   ConnectionOptions `json:"connectionOptions" xml:"ConnectionOptions"`
-	DataStoreApiVersion string            `json:"dataStoreApiVersion" xml:"DataStoreApiVersion"`
-	EntityName          string            `json:"entityName" xml:"EntityName"`
-	FilterPredicate     string            `json:"filterPredicate" xml:"FilterPredicate"`
-	Limit               int64             `json:"limit" xml:"Limit"`
-	NextToken           string            `json:"nextToken" xml:"NextToken"`
-	OrderBy             string            `json:"orderBy" xml:"OrderBy"`
-	SelectedFields      SelectedFields    `json:"selectedFields" xml:"SelectedFields"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+ConnectionOptions ConnectionOptions `json:"connectionOptions" xml:"ConnectionOptions"`
+DataStoreApiVersion string `json:"dataStoreApiVersion" xml:"DataStoreApiVersion"`
+EntityName string `json:"entityName" xml:"EntityName"`
+FilterPredicate string `json:"filterPredicate" xml:"FilterPredicate"`
+Limit int64 `json:"limit" xml:"Limit"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OrderBy string `json:"orderBy" xml:"OrderBy"`
+SelectedFields SelectedFields `json:"selectedFields" xml:"SelectedFields"`
 }
 
 type GetEntityRecordsResponse struct {
-	NextToken string  `json:"nextToken" xml:"NextToken"`
-	Records   Records `json:"records" xml:"Records"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Records Records `json:"records" xml:"Records"`
 }
 
 type GetGlueIdentityCenterConfigurationRequest struct {
 }
 
 type GetGlueIdentityCenterConfigurationResponse struct {
-	ApplicationArn                string                  `json:"applicationArn" xml:"ApplicationArn"`
-	InstanceArn                   string                  `json:"instanceArn" xml:"InstanceArn"`
-	Scopes                        OrchestrationStringList `json:"scopes" xml:"Scopes"`
-	UserBackgroundSessionsEnabled bool                    `json:"userBackgroundSessionsEnabled" xml:"UserBackgroundSessionsEnabled"`
+ApplicationArn string `json:"applicationArn" xml:"ApplicationArn"`
+InstanceArn string `json:"instanceArn" xml:"InstanceArn"`
+Scopes OrchestrationStringList `json:"scopes" xml:"Scopes"`
+UserBackgroundSessionsEnabled bool `json:"userBackgroundSessionsEnabled" xml:"UserBackgroundSessionsEnabled"`
 }
 
 type GetIntegrationResourcePropertyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetIntegrationResourcePropertyResponse struct {
-	ResourceArn                string                      `json:"resourceArn" xml:"ResourceArn"`
-	ResourcePropertyArn        string                      `json:"resourcePropertyArn" xml:"ResourcePropertyArn"`
-	SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
-	TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourcePropertyArn string `json:"resourcePropertyArn" xml:"ResourcePropertyArn"`
+SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
+TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
 }
 
 type GetIntegrationTablePropertiesRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
-	TableName   string `json:"tableName" xml:"TableName"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetIntegrationTablePropertiesResponse struct {
-	ResourceArn       string             `json:"resourceArn" xml:"ResourceArn"`
-	SourceTableConfig *SourceTableConfig `json:"sourceTableConfig" xml:"SourceTableConfig"`
-	TableName         string             `json:"tableName" xml:"TableName"`
-	TargetTableConfig *TargetTableConfig `json:"targetTableConfig" xml:"TargetTableConfig"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+SourceTableConfig *SourceTableConfig `json:"sourceTableConfig" xml:"SourceTableConfig"`
+TableName string `json:"tableName" xml:"TableName"`
+TargetTableConfig *TargetTableConfig `json:"targetTableConfig" xml:"TargetTableConfig"`
 }
 
 type GetJobBookmarkRequest struct {
-	JobName string `json:"jobName" xml:"JobName"`
-	RunId   string `json:"runId" xml:"RunId"`
+JobName string `json:"jobName" xml:"JobName"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type GetJobBookmarkResponse struct {
-	JobBookmarkEntry *JobBookmarkEntry `json:"jobBookmarkEntry" xml:"JobBookmarkEntry"`
+JobBookmarkEntry *JobBookmarkEntry `json:"jobBookmarkEntry" xml:"JobBookmarkEntry"`
 }
 
 type GetJobRequest struct {
-	JobName string `json:"jobName" xml:"JobName"`
+JobName string `json:"jobName" xml:"JobName"`
 }
 
 type GetJobResponse struct {
-	Job *Job `json:"job" xml:"Job"`
+Job *Job `json:"job" xml:"Job"`
 }
 
 type GetJobRunRequest struct {
-	JobName              string `json:"jobName" xml:"JobName"`
-	PredecessorsIncluded bool   `json:"predecessorsIncluded" xml:"PredecessorsIncluded"`
-	RunId                string `json:"runId" xml:"RunId"`
+JobName string `json:"jobName" xml:"JobName"`
+PredecessorsIncluded bool `json:"predecessorsIncluded" xml:"PredecessorsIncluded"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type GetJobRunResponse struct {
-	JobRun *JobRun `json:"jobRun" xml:"JobRun"`
+JobRun *JobRun `json:"jobRun" xml:"JobRun"`
 }
 
 type GetJobRunsRequest struct {
-	JobName    string `json:"jobName" xml:"JobName"`
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+JobName string `json:"jobName" xml:"JobName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetJobRunsResponse struct {
-	JobRuns   JobRunList `json:"jobRuns" xml:"JobRuns"`
-	NextToken string     `json:"nextToken" xml:"NextToken"`
+JobRuns JobRunList `json:"jobRuns" xml:"JobRuns"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetJobsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetJobsResponse struct {
-	Jobs      JobList `json:"jobs" xml:"Jobs"`
-	NextToken string  `json:"nextToken" xml:"NextToken"`
+Jobs JobList `json:"jobs" xml:"Jobs"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetMLTaskRunRequest struct {
-	TaskRunId   string `json:"taskRunId" xml:"TaskRunId"`
-	TransformId string `json:"transformId" xml:"TransformId"`
+TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type GetMLTaskRunResponse struct {
-	CompletedOn    time.Time          `json:"completedOn" xml:"CompletedOn"`
-	ErrorString    string             `json:"errorString" xml:"ErrorString"`
-	ExecutionTime  int32              `json:"executionTime" xml:"ExecutionTime"`
-	LastModifiedOn time.Time          `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	LogGroupName   string             `json:"logGroupName" xml:"LogGroupName"`
-	Properties     *TaskRunProperties `json:"properties" xml:"Properties"`
-	StartedOn      time.Time          `json:"startedOn" xml:"StartedOn"`
-	Status         string             `json:"status" xml:"Status"`
-	TaskRunId      string             `json:"taskRunId" xml:"TaskRunId"`
-	TransformId    string             `json:"transformId" xml:"TransformId"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+ErrorString string `json:"errorString" xml:"ErrorString"`
+ExecutionTime int32 `json:"executionTime" xml:"ExecutionTime"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+LogGroupName string `json:"logGroupName" xml:"LogGroupName"`
+Properties *TaskRunProperties `json:"properties" xml:"Properties"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
+Status string `json:"status" xml:"Status"`
+TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type GetMLTaskRunsRequest struct {
-	Filter      *TaskRunFilterCriteria `json:"filter" xml:"Filter"`
-	MaxResults  int32                  `json:"maxResults" xml:"MaxResults"`
-	NextToken   string                 `json:"nextToken" xml:"NextToken"`
-	Sort        *TaskRunSortCriteria   `json:"sort" xml:"Sort"`
-	TransformId string                 `json:"transformId" xml:"TransformId"`
+Filter *TaskRunFilterCriteria `json:"filter" xml:"Filter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Sort *TaskRunSortCriteria `json:"sort" xml:"Sort"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type GetMLTaskRunsResponse struct {
-	NextToken string      `json:"nextToken" xml:"NextToken"`
-	TaskRuns  TaskRunList `json:"taskRuns" xml:"TaskRuns"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TaskRuns TaskRunList `json:"taskRuns" xml:"TaskRuns"`
 }
 
 type GetMLTransformRequest struct {
-	TransformId string `json:"transformId" xml:"TransformId"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type GetMLTransformResponse struct {
-	CreatedOn           time.Time            `json:"createdOn" xml:"CreatedOn"`
-	Description         string               `json:"description" xml:"Description"`
-	EvaluationMetrics   *EvaluationMetrics   `json:"evaluationMetrics" xml:"EvaluationMetrics"`
-	GlueVersion         string               `json:"glueVersion" xml:"GlueVersion"`
-	InputRecordTables   GlueTables           `json:"inputRecordTables" xml:"InputRecordTables"`
-	LabelCount          int32                `json:"labelCount" xml:"LabelCount"`
-	LastModifiedOn      time.Time            `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	MaxCapacity         float64              `json:"maxCapacity" xml:"MaxCapacity"`
-	MaxRetries          int32                `json:"maxRetries" xml:"MaxRetries"`
-	Name                string               `json:"name" xml:"Name"`
-	NumberOfWorkers     int32                `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	Parameters          *TransformParameters `json:"parameters" xml:"Parameters"`
-	Role                string               `json:"role" xml:"Role"`
-	Schema              TransformSchema      `json:"schema" xml:"Schema"`
-	Status              string               `json:"status" xml:"Status"`
-	Timeout             int32                `json:"timeout" xml:"Timeout"`
-	TransformEncryption *TransformEncryption `json:"transformEncryption" xml:"TransformEncryption"`
-	TransformId         string               `json:"transformId" xml:"TransformId"`
-	WorkerType          string               `json:"workerType" xml:"WorkerType"`
+CreatedOn time.Time `json:"createdOn" xml:"CreatedOn"`
+Description string `json:"description" xml:"Description"`
+EvaluationMetrics *EvaluationMetrics `json:"evaluationMetrics" xml:"EvaluationMetrics"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+InputRecordTables GlueTables `json:"inputRecordTables" xml:"InputRecordTables"`
+LabelCount int32 `json:"labelCount" xml:"LabelCount"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+MaxCapacity float64 `json:"maxCapacity" xml:"MaxCapacity"`
+MaxRetries int32 `json:"maxRetries" xml:"MaxRetries"`
+Name string `json:"name" xml:"Name"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+Parameters *TransformParameters `json:"parameters" xml:"Parameters"`
+Role string `json:"role" xml:"Role"`
+Schema TransformSchema `json:"schema" xml:"Schema"`
+Status string `json:"status" xml:"Status"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+TransformEncryption *TransformEncryption `json:"transformEncryption" xml:"TransformEncryption"`
+TransformId string `json:"transformId" xml:"TransformId"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type GetMLTransformsRequest struct {
-	Filter     *TransformFilterCriteria `json:"filter" xml:"Filter"`
-	MaxResults int32                    `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                   `json:"nextToken" xml:"NextToken"`
-	Sort       *TransformSortCriteria   `json:"sort" xml:"Sort"`
+Filter *TransformFilterCriteria `json:"filter" xml:"Filter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Sort *TransformSortCriteria `json:"sort" xml:"Sort"`
 }
 
 type GetMLTransformsResponse struct {
-	NextToken  string        `json:"nextToken" xml:"NextToken"`
-	Transforms TransformList `json:"transforms" xml:"Transforms"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Transforms TransformList `json:"transforms" xml:"Transforms"`
 }
 
 type GetMappingRequest struct {
-	Location *Location      `json:"location" xml:"Location"`
-	Sinks    CatalogEntries `json:"sinks" xml:"Sinks"`
-	Source   *CatalogEntry  `json:"source" xml:"Source"`
+Location *Location `json:"location" xml:"Location"`
+Sinks CatalogEntries `json:"sinks" xml:"Sinks"`
+Source *CatalogEntry `json:"source" xml:"Source"`
 }
 
 type GetMappingResponse struct {
-	Mapping MappingList `json:"mapping" xml:"Mapping"`
+Mapping MappingList `json:"mapping" xml:"Mapping"`
 }
 
 type GetMaterializedViewRefreshTaskRunRequest struct {
-	CatalogId                        string `json:"catalogId" xml:"CatalogId"`
-	MaterializedViewRefreshTaskRunId string `json:"materializedViewRefreshTaskRunId" xml:"MaterializedViewRefreshTaskRunId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+MaterializedViewRefreshTaskRunId string `json:"materializedViewRefreshTaskRunId" xml:"MaterializedViewRefreshTaskRunId"`
 }
 
 type GetMaterializedViewRefreshTaskRunResponse struct {
-	MaterializedViewRefreshTaskRun *MaterializedViewRefreshTaskRun `json:"materializedViewRefreshTaskRun" xml:"MaterializedViewRefreshTaskRun"`
+MaterializedViewRefreshTaskRun *MaterializedViewRefreshTaskRun `json:"materializedViewRefreshTaskRun" xml:"MaterializedViewRefreshTaskRun"`
 }
 
 type GetPartitionIndexesRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	TableName    string `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetPartitionIndexesResponse struct {
-	NextToken                    string                       `json:"nextToken" xml:"NextToken"`
-	PartitionIndexDescriptorList PartitionIndexDescriptorList `json:"partitionIndexDescriptorList" xml:"PartitionIndexDescriptorList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PartitionIndexDescriptorList PartitionIndexDescriptorList `json:"partitionIndexDescriptorList" xml:"PartitionIndexDescriptorList"`
 }
 
 type GetPartitionRequest struct {
-	CatalogId       string          `json:"catalogId" xml:"CatalogId"`
-	DatabaseName    string          `json:"databaseName" xml:"DatabaseName"`
-	PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
-	TableName       string          `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetPartitionResponse struct {
-	Partition *Partition `json:"partition" xml:"Partition"`
+Partition *Partition `json:"partition" xml:"Partition"`
 }
 
 type GetPartitionsRequest struct {
-	CatalogId           string    `json:"catalogId" xml:"CatalogId"`
-	DatabaseName        string    `json:"databaseName" xml:"DatabaseName"`
-	ExcludeColumnSchema bool      `json:"excludeColumnSchema" xml:"ExcludeColumnSchema"`
-	Expression          string    `json:"expression" xml:"Expression"`
-	MaxResults          int32     `json:"maxResults" xml:"MaxResults"`
-	NextToken           string    `json:"nextToken" xml:"NextToken"`
-	QueryAsOfTime       time.Time `json:"queryAsOfTime" xml:"QueryAsOfTime"`
-	Segment             *Segment  `json:"segment" xml:"Segment"`
-	TableName           string    `json:"tableName" xml:"TableName"`
-	TransactionId       string    `json:"transactionId" xml:"TransactionId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+ExcludeColumnSchema bool `json:"excludeColumnSchema" xml:"ExcludeColumnSchema"`
+Expression string `json:"expression" xml:"Expression"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueryAsOfTime time.Time `json:"queryAsOfTime" xml:"QueryAsOfTime"`
+Segment *Segment `json:"segment" xml:"Segment"`
+TableName string `json:"tableName" xml:"TableName"`
+TransactionId string `json:"transactionId" xml:"TransactionId"`
 }
 
 type GetPartitionsResponse struct {
-	NextToken  string        `json:"nextToken" xml:"NextToken"`
-	Partitions PartitionList `json:"partitions" xml:"Partitions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Partitions PartitionList `json:"partitions" xml:"Partitions"`
 }
 
 type GetPlanRequest struct {
-	AdditionalPlanOptionsMap AdditionalPlanOptionsMap `json:"additionalPlanOptionsMap" xml:"AdditionalPlanOptionsMap"`
-	Language                 string                   `json:"language" xml:"Language"`
-	Location                 *Location                `json:"location" xml:"Location"`
-	Mapping                  MappingList              `json:"mapping" xml:"Mapping"`
-	Sinks                    CatalogEntries           `json:"sinks" xml:"Sinks"`
-	Source                   *CatalogEntry            `json:"source" xml:"Source"`
+AdditionalPlanOptionsMap AdditionalPlanOptionsMap `json:"additionalPlanOptionsMap" xml:"AdditionalPlanOptionsMap"`
+Language string `json:"language" xml:"Language"`
+Location *Location `json:"location" xml:"Location"`
+Mapping MappingList `json:"mapping" xml:"Mapping"`
+Sinks CatalogEntries `json:"sinks" xml:"Sinks"`
+Source *CatalogEntry `json:"source" xml:"Source"`
 }
 
 type GetPlanResponse struct {
-	PythonScript string `json:"pythonScript" xml:"PythonScript"`
-	ScalaCode    string `json:"scalaCode" xml:"ScalaCode"`
+PythonScript string `json:"pythonScript" xml:"PythonScript"`
+ScalaCode string `json:"scalaCode" xml:"ScalaCode"`
 }
 
 type GetRegistryInput struct {
-	RegistryId *RegistryId `json:"registryId" xml:"RegistryId"`
+RegistryId *RegistryId `json:"registryId" xml:"RegistryId"`
 }
 
 type GetRegistryResponse struct {
-	CreatedTime  string `json:"createdTime" xml:"CreatedTime"`
-	Description  string `json:"description" xml:"Description"`
-	RegistryArn  string `json:"registryArn" xml:"RegistryArn"`
-	RegistryName string `json:"registryName" xml:"RegistryName"`
-	Status       string `json:"status" xml:"Status"`
-	UpdatedTime  string `json:"updatedTime" xml:"UpdatedTime"`
+CreatedTime string `json:"createdTime" xml:"CreatedTime"`
+Description string `json:"description" xml:"Description"`
+RegistryArn string `json:"registryArn" xml:"RegistryArn"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+Status string `json:"status" xml:"Status"`
+UpdatedTime string `json:"updatedTime" xml:"UpdatedTime"`
 }
 
 type GetResourcePoliciesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetResourcePoliciesResponse struct {
-	GetResourcePoliciesResponseList GetResourcePoliciesResponseList `json:"getResourcePoliciesResponseList" xml:"GetResourcePoliciesResponseList"`
-	NextToken                       string                          `json:"nextToken" xml:"NextToken"`
+GetResourcePoliciesResponseList GetResourcePoliciesResponseList `json:"getResourcePoliciesResponseList" xml:"GetResourcePoliciesResponseList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetResourcePolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetResourcePolicyResponse struct {
-	CreateTime   time.Time `json:"createTime" xml:"CreateTime"`
-	PolicyHash   string    `json:"policyHash" xml:"PolicyHash"`
-	PolicyInJson string    `json:"policyInJson" xml:"PolicyInJson"`
-	UpdateTime   time.Time `json:"updateTime" xml:"UpdateTime"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+PolicyHash string `json:"policyHash" xml:"PolicyHash"`
+PolicyInJson string `json:"policyInJson" xml:"PolicyInJson"`
+UpdateTime time.Time `json:"updateTime" xml:"UpdateTime"`
 }
 
 type GetSchemaByDefinitionInput struct {
-	SchemaDefinition string    `json:"schemaDefinition" xml:"SchemaDefinition"`
-	SchemaId         *SchemaId `json:"schemaId" xml:"SchemaId"`
+SchemaDefinition string `json:"schemaDefinition" xml:"SchemaDefinition"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
 }
 
 type GetSchemaByDefinitionResponse struct {
-	CreatedTime     string `json:"createdTime" xml:"CreatedTime"`
-	DataFormat      string `json:"dataFormat" xml:"DataFormat"`
-	SchemaArn       string `json:"schemaArn" xml:"SchemaArn"`
-	SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
-	Status          string `json:"status" xml:"Status"`
+CreatedTime string `json:"createdTime" xml:"CreatedTime"`
+DataFormat string `json:"dataFormat" xml:"DataFormat"`
+SchemaArn string `json:"schemaArn" xml:"SchemaArn"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+Status string `json:"status" xml:"Status"`
 }
 
 type GetSchemaInput struct {
-	SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
 }
 
 type GetSchemaResponse struct {
-	Compatibility       string `json:"compatibility" xml:"Compatibility"`
-	CreatedTime         string `json:"createdTime" xml:"CreatedTime"`
-	DataFormat          string `json:"dataFormat" xml:"DataFormat"`
-	Description         string `json:"description" xml:"Description"`
-	LatestSchemaVersion int64  `json:"latestSchemaVersion" xml:"LatestSchemaVersion"`
-	NextSchemaVersion   int64  `json:"nextSchemaVersion" xml:"NextSchemaVersion"`
-	RegistryArn         string `json:"registryArn" xml:"RegistryArn"`
-	RegistryName        string `json:"registryName" xml:"RegistryName"`
-	SchemaArn           string `json:"schemaArn" xml:"SchemaArn"`
-	SchemaCheckpoint    int64  `json:"schemaCheckpoint" xml:"SchemaCheckpoint"`
-	SchemaName          string `json:"schemaName" xml:"SchemaName"`
-	SchemaStatus        string `json:"schemaStatus" xml:"SchemaStatus"`
-	UpdatedTime         string `json:"updatedTime" xml:"UpdatedTime"`
+Compatibility string `json:"compatibility" xml:"Compatibility"`
+CreatedTime string `json:"createdTime" xml:"CreatedTime"`
+DataFormat string `json:"dataFormat" xml:"DataFormat"`
+Description string `json:"description" xml:"Description"`
+LatestSchemaVersion int64 `json:"latestSchemaVersion" xml:"LatestSchemaVersion"`
+NextSchemaVersion int64 `json:"nextSchemaVersion" xml:"NextSchemaVersion"`
+RegistryArn string `json:"registryArn" xml:"RegistryArn"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+SchemaArn string `json:"schemaArn" xml:"SchemaArn"`
+SchemaCheckpoint int64 `json:"schemaCheckpoint" xml:"SchemaCheckpoint"`
+SchemaName string `json:"schemaName" xml:"SchemaName"`
+SchemaStatus string `json:"schemaStatus" xml:"SchemaStatus"`
+UpdatedTime string `json:"updatedTime" xml:"UpdatedTime"`
 }
 
 type GetSchemaVersionInput struct {
-	SchemaId            *SchemaId            `json:"schemaId" xml:"SchemaId"`
-	SchemaVersionId     string               `json:"schemaVersionId" xml:"SchemaVersionId"`
-	SchemaVersionNumber *SchemaVersionNumber `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+SchemaVersionNumber *SchemaVersionNumber `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
 }
 
 type GetSchemaVersionResponse struct {
-	CreatedTime      string `json:"createdTime" xml:"CreatedTime"`
-	DataFormat       string `json:"dataFormat" xml:"DataFormat"`
-	SchemaArn        string `json:"schemaArn" xml:"SchemaArn"`
-	SchemaDefinition string `json:"schemaDefinition" xml:"SchemaDefinition"`
-	SchemaVersionId  string `json:"schemaVersionId" xml:"SchemaVersionId"`
-	Status           string `json:"status" xml:"Status"`
-	VersionNumber    int64  `json:"versionNumber" xml:"VersionNumber"`
+CreatedTime string `json:"createdTime" xml:"CreatedTime"`
+DataFormat string `json:"dataFormat" xml:"DataFormat"`
+SchemaArn string `json:"schemaArn" xml:"SchemaArn"`
+SchemaDefinition string `json:"schemaDefinition" xml:"SchemaDefinition"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+Status string `json:"status" xml:"Status"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type GetSchemaVersionsDiffInput struct {
-	FirstSchemaVersionNumber  *SchemaVersionNumber `json:"firstSchemaVersionNumber" xml:"FirstSchemaVersionNumber"`
-	SchemaDiffType            string               `json:"schemaDiffType" xml:"SchemaDiffType"`
-	SchemaId                  *SchemaId            `json:"schemaId" xml:"SchemaId"`
-	SecondSchemaVersionNumber *SchemaVersionNumber `json:"secondSchemaVersionNumber" xml:"SecondSchemaVersionNumber"`
+FirstSchemaVersionNumber *SchemaVersionNumber `json:"firstSchemaVersionNumber" xml:"FirstSchemaVersionNumber"`
+SchemaDiffType string `json:"schemaDiffType" xml:"SchemaDiffType"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
+SecondSchemaVersionNumber *SchemaVersionNumber `json:"secondSchemaVersionNumber" xml:"SecondSchemaVersionNumber"`
 }
 
 type GetSchemaVersionsDiffResponse struct {
-	Diff string `json:"diff" xml:"Diff"`
+Diff string `json:"diff" xml:"Diff"`
 }
 
 type GetSecurityConfigurationRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetSecurityConfigurationResponse struct {
-	SecurityConfiguration *SecurityConfiguration `json:"securityConfiguration" xml:"SecurityConfiguration"`
+SecurityConfiguration *SecurityConfiguration `json:"securityConfiguration" xml:"SecurityConfiguration"`
 }
 
 type GetSecurityConfigurationsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetSecurityConfigurationsResponse struct {
-	NextToken              string                    `json:"nextToken" xml:"NextToken"`
-	SecurityConfigurations SecurityConfigurationList `json:"securityConfigurations" xml:"SecurityConfigurations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SecurityConfigurations SecurityConfigurationList `json:"securityConfigurations" xml:"SecurityConfigurations"`
 }
 
 type GetSessionRequest struct {
-	Id            string `json:"id" xml:"Id"`
-	RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
+Id string `json:"id" xml:"Id"`
+RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
 }
 
 type GetSessionResponse struct {
-	Session *Session `json:"session" xml:"Session"`
+Session *Session `json:"session" xml:"Session"`
 }
 
 type GetStatementRequest struct {
-	Id            int32  `json:"id" xml:"Id"`
-	RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
-	SessionId     string `json:"sessionId" xml:"SessionId"`
+Id int32 `json:"id" xml:"Id"`
+RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
+SessionId string `json:"sessionId" xml:"SessionId"`
 }
 
 type GetStatementResponse struct {
-	Statement *Statement `json:"statement" xml:"Statement"`
+Statement *Statement `json:"statement" xml:"Statement"`
 }
 
 type GetTableOptimizerRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
-	Type         string `json:"type" xml:"Type"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
+Type string `json:"type" xml:"Type"`
 }
 
 type GetTableOptimizerResponse struct {
-	CatalogId      string          `json:"catalogId" xml:"CatalogId"`
-	DatabaseName   string          `json:"databaseName" xml:"DatabaseName"`
-	TableName      string          `json:"tableName" xml:"TableName"`
-	TableOptimizer *TableOptimizer `json:"tableOptimizer" xml:"TableOptimizer"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
+TableOptimizer *TableOptimizer `json:"tableOptimizer" xml:"TableOptimizer"`
 }
 
 type GetTableRequest struct {
-	AuditContext         *AuditContext `json:"auditContext" xml:"AuditContext"`
-	CatalogId            string        `json:"catalogId" xml:"CatalogId"`
-	DatabaseName         string        `json:"databaseName" xml:"DatabaseName"`
-	IncludeStatusDetails bool          `json:"includeStatusDetails" xml:"IncludeStatusDetails"`
-	Name                 string        `json:"name" xml:"Name"`
-	QueryAsOfTime        time.Time     `json:"queryAsOfTime" xml:"QueryAsOfTime"`
-	TransactionId        string        `json:"transactionId" xml:"TransactionId"`
+AuditContext *AuditContext `json:"auditContext" xml:"AuditContext"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+IncludeStatusDetails bool `json:"includeStatusDetails" xml:"IncludeStatusDetails"`
+Name string `json:"name" xml:"Name"`
+QueryAsOfTime time.Time `json:"queryAsOfTime" xml:"QueryAsOfTime"`
+TransactionId string `json:"transactionId" xml:"TransactionId"`
 }
 
 type GetTableResponse struct {
-	Table *Table `json:"table" xml:"Table"`
+Table *Table `json:"table" xml:"Table"`
 }
 
 type GetTableVersionRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
-	VersionId    string `json:"versionId" xml:"VersionId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type GetTableVersionResponse struct {
-	TableVersion *TableVersion `json:"tableVersion" xml:"TableVersion"`
+TableVersion *TableVersion `json:"tableVersion" xml:"TableVersion"`
 }
 
 type GetTableVersionsRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	TableName    string `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetTableVersionsResponse struct {
-	NextToken     string               `json:"nextToken" xml:"NextToken"`
-	TableVersions GetTableVersionsList `json:"tableVersions" xml:"TableVersions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TableVersions GetTableVersionsList `json:"tableVersions" xml:"TableVersions"`
 }
 
 type GetTablesRequest struct {
-	AttributesToGet      TableAttributesList `json:"attributesToGet" xml:"AttributesToGet"`
-	AuditContext         *AuditContext       `json:"auditContext" xml:"AuditContext"`
-	CatalogId            string              `json:"catalogId" xml:"CatalogId"`
-	DatabaseName         string              `json:"databaseName" xml:"DatabaseName"`
-	Expression           string              `json:"expression" xml:"Expression"`
-	IncludeStatusDetails bool                `json:"includeStatusDetails" xml:"IncludeStatusDetails"`
-	MaxResults           int32               `json:"maxResults" xml:"MaxResults"`
-	NextToken            string              `json:"nextToken" xml:"NextToken"`
-	QueryAsOfTime        time.Time           `json:"queryAsOfTime" xml:"QueryAsOfTime"`
-	TransactionId        string              `json:"transactionId" xml:"TransactionId"`
+AttributesToGet TableAttributesList `json:"attributesToGet" xml:"AttributesToGet"`
+AuditContext *AuditContext `json:"auditContext" xml:"AuditContext"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Expression string `json:"expression" xml:"Expression"`
+IncludeStatusDetails bool `json:"includeStatusDetails" xml:"IncludeStatusDetails"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueryAsOfTime time.Time `json:"queryAsOfTime" xml:"QueryAsOfTime"`
+TransactionId string `json:"transactionId" xml:"TransactionId"`
 }
 
 type GetTablesResponse struct {
-	NextToken string    `json:"nextToken" xml:"NextToken"`
-	TableList TableList `json:"tableList" xml:"TableList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TableList TableList `json:"tableList" xml:"TableList"`
 }
 
 type GetTagsRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetTagsResponse struct {
-	Tags TagsMap `json:"tags" xml:"Tags"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type GetTriggerRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetTriggerResponse struct {
-	Trigger *Trigger `json:"trigger" xml:"Trigger"`
+Trigger *Trigger `json:"trigger" xml:"Trigger"`
 }
 
 type GetTriggersRequest struct {
-	DependentJobName string `json:"dependentJobName" xml:"DependentJobName"`
-	MaxResults       int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken        string `json:"nextToken" xml:"NextToken"`
+DependentJobName string `json:"dependentJobName" xml:"DependentJobName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetTriggersResponse struct {
-	NextToken string      `json:"nextToken" xml:"NextToken"`
-	Triggers  TriggerList `json:"triggers" xml:"Triggers"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Triggers TriggerList `json:"triggers" xml:"Triggers"`
 }
 
 type GetUnfilteredPartitionMetadataRequest struct {
-	AuditContext             *AuditContext        `json:"auditContext" xml:"AuditContext"`
-	CatalogId                string               `json:"catalogId" xml:"CatalogId"`
-	DatabaseName             string               `json:"databaseName" xml:"DatabaseName"`
-	PartitionValues          ValueStringList      `json:"partitionValues" xml:"PartitionValues"`
-	QuerySessionContext      *QuerySessionContext `json:"querySessionContext" xml:"QuerySessionContext"`
-	Region                   string               `json:"region" xml:"Region"`
-	SupportedPermissionTypes PermissionTypeList   `json:"supportedPermissionTypes" xml:"SupportedPermissionTypes"`
-	TableName                string               `json:"tableName" xml:"TableName"`
+AuditContext *AuditContext `json:"auditContext" xml:"AuditContext"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
+QuerySessionContext *QuerySessionContext `json:"querySessionContext" xml:"QuerySessionContext"`
+Region string `json:"region" xml:"Region"`
+SupportedPermissionTypes PermissionTypeList `json:"supportedPermissionTypes" xml:"SupportedPermissionTypes"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetUnfilteredPartitionMetadataResponse struct {
-	AuthorizedColumns             NameStringList `json:"authorizedColumns" xml:"AuthorizedColumns"`
-	IsRegisteredWithLakeFormation bool           `json:"isRegisteredWithLakeFormation" xml:"IsRegisteredWithLakeFormation"`
-	Partition                     *Partition     `json:"partition" xml:"Partition"`
+AuthorizedColumns NameStringList `json:"authorizedColumns" xml:"AuthorizedColumns"`
+IsRegisteredWithLakeFormation bool `json:"isRegisteredWithLakeFormation" xml:"IsRegisteredWithLakeFormation"`
+Partition *Partition `json:"partition" xml:"Partition"`
 }
 
 type GetUnfilteredPartitionsMetadataRequest struct {
-	AuditContext             *AuditContext        `json:"auditContext" xml:"AuditContext"`
-	CatalogId                string               `json:"catalogId" xml:"CatalogId"`
-	DatabaseName             string               `json:"databaseName" xml:"DatabaseName"`
-	Expression               string               `json:"expression" xml:"Expression"`
-	MaxResults               int32                `json:"maxResults" xml:"MaxResults"`
-	NextToken                string               `json:"nextToken" xml:"NextToken"`
-	QuerySessionContext      *QuerySessionContext `json:"querySessionContext" xml:"QuerySessionContext"`
-	Region                   string               `json:"region" xml:"Region"`
-	Segment                  *Segment             `json:"segment" xml:"Segment"`
-	SupportedPermissionTypes PermissionTypeList   `json:"supportedPermissionTypes" xml:"SupportedPermissionTypes"`
-	TableName                string               `json:"tableName" xml:"TableName"`
+AuditContext *AuditContext `json:"auditContext" xml:"AuditContext"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Expression string `json:"expression" xml:"Expression"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QuerySessionContext *QuerySessionContext `json:"querySessionContext" xml:"QuerySessionContext"`
+Region string `json:"region" xml:"Region"`
+Segment *Segment `json:"segment" xml:"Segment"`
+SupportedPermissionTypes PermissionTypeList `json:"supportedPermissionTypes" xml:"SupportedPermissionTypes"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GetUnfilteredPartitionsMetadataResponse struct {
-	NextToken            string                  `json:"nextToken" xml:"NextToken"`
-	UnfilteredPartitions UnfilteredPartitionList `json:"unfilteredPartitions" xml:"UnfilteredPartitions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+UnfilteredPartitions UnfilteredPartitionList `json:"unfilteredPartitions" xml:"UnfilteredPartitions"`
 }
 
 type GetUnfilteredTableMetadataRequest struct {
-	AuditContext             *AuditContext        `json:"auditContext" xml:"AuditContext"`
-	CatalogId                string               `json:"catalogId" xml:"CatalogId"`
-	DatabaseName             string               `json:"databaseName" xml:"DatabaseName"`
-	Name                     string               `json:"name" xml:"Name"`
-	ParentResourceArn        string               `json:"parentResourceArn" xml:"ParentResourceArn"`
-	Permissions              PermissionList       `json:"permissions" xml:"Permissions"`
-	QuerySessionContext      *QuerySessionContext `json:"querySessionContext" xml:"QuerySessionContext"`
-	Region                   string               `json:"region" xml:"Region"`
-	RootResourceArn          string               `json:"rootResourceArn" xml:"RootResourceArn"`
-	SupportedDialect         *SupportedDialect    `json:"supportedDialect" xml:"SupportedDialect"`
-	SupportedPermissionTypes PermissionTypeList   `json:"supportedPermissionTypes" xml:"SupportedPermissionTypes"`
+AuditContext *AuditContext `json:"auditContext" xml:"AuditContext"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Name string `json:"name" xml:"Name"`
+ParentResourceArn string `json:"parentResourceArn" xml:"ParentResourceArn"`
+Permissions PermissionList `json:"permissions" xml:"Permissions"`
+QuerySessionContext *QuerySessionContext `json:"querySessionContext" xml:"QuerySessionContext"`
+Region string `json:"region" xml:"Region"`
+RootResourceArn string `json:"rootResourceArn" xml:"RootResourceArn"`
+SupportedDialect *SupportedDialect `json:"supportedDialect" xml:"SupportedDialect"`
+SupportedPermissionTypes PermissionTypeList `json:"supportedPermissionTypes" xml:"SupportedPermissionTypes"`
 }
 
 type GetUnfilteredTableMetadataResponse struct {
-	AuthorizedColumns             NameStringList      `json:"authorizedColumns" xml:"AuthorizedColumns"`
-	CellFilters                   ColumnRowFilterList `json:"cellFilters" xml:"CellFilters"`
-	IsMaterializedView            bool                `json:"isMaterializedView" xml:"IsMaterializedView"`
-	IsMultiDialectView            bool                `json:"isMultiDialectView" xml:"IsMultiDialectView"`
-	IsProtected                   bool                `json:"isProtected" xml:"IsProtected"`
-	IsRegisteredWithLakeFormation bool                `json:"isRegisteredWithLakeFormation" xml:"IsRegisteredWithLakeFormation"`
-	Permissions                   PermissionList      `json:"permissions" xml:"Permissions"`
-	QueryAuthorizationId          string              `json:"queryAuthorizationId" xml:"QueryAuthorizationId"`
-	ResourceArn                   string              `json:"resourceArn" xml:"ResourceArn"`
-	RowFilter                     string              `json:"rowFilter" xml:"RowFilter"`
-	Table                         *Table              `json:"table" xml:"Table"`
+AuthorizedColumns NameStringList `json:"authorizedColumns" xml:"AuthorizedColumns"`
+CellFilters ColumnRowFilterList `json:"cellFilters" xml:"CellFilters"`
+IsMaterializedView bool `json:"isMaterializedView" xml:"IsMaterializedView"`
+IsMultiDialectView bool `json:"isMultiDialectView" xml:"IsMultiDialectView"`
+IsProtected bool `json:"isProtected" xml:"IsProtected"`
+IsRegisteredWithLakeFormation bool `json:"isRegisteredWithLakeFormation" xml:"IsRegisteredWithLakeFormation"`
+Permissions PermissionList `json:"permissions" xml:"Permissions"`
+QueryAuthorizationId string `json:"queryAuthorizationId" xml:"QueryAuthorizationId"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+RowFilter string `json:"rowFilter" xml:"RowFilter"`
+Table *Table `json:"table" xml:"Table"`
 }
 
 type GetUsageProfileRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetUsageProfileResponse struct {
-	Configuration  *ProfileConfiguration `json:"configuration" xml:"Configuration"`
-	CreatedOn      time.Time             `json:"createdOn" xml:"CreatedOn"`
-	Description    string                `json:"description" xml:"Description"`
-	LastModifiedOn time.Time             `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	Name           string                `json:"name" xml:"Name"`
+Configuration *ProfileConfiguration `json:"configuration" xml:"Configuration"`
+CreatedOn time.Time `json:"createdOn" xml:"CreatedOn"`
+Description string `json:"description" xml:"Description"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetUserDefinedFunctionRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	FunctionName string `json:"functionName" xml:"FunctionName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
 }
 
 type GetUserDefinedFunctionResponse struct {
-	UserDefinedFunction *UserDefinedFunction `json:"userDefinedFunction" xml:"UserDefinedFunction"`
+UserDefinedFunction *UserDefinedFunction `json:"userDefinedFunction" xml:"UserDefinedFunction"`
 }
 
 type GetUserDefinedFunctionsRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	FunctionType string `json:"functionType" xml:"FunctionType"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	Pattern      string `json:"pattern" xml:"Pattern"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+FunctionType string `json:"functionType" xml:"FunctionType"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Pattern string `json:"pattern" xml:"Pattern"`
 }
 
 type GetUserDefinedFunctionsResponse struct {
-	NextToken            string                  `json:"nextToken" xml:"NextToken"`
-	UserDefinedFunctions UserDefinedFunctionList `json:"userDefinedFunctions" xml:"UserDefinedFunctions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+UserDefinedFunctions UserDefinedFunctionList `json:"userDefinedFunctions" xml:"UserDefinedFunctions"`
 }
 
 type GetWorkflowRequest struct {
-	IncludeGraph bool   `json:"includeGraph" xml:"IncludeGraph"`
-	Name         string `json:"name" xml:"Name"`
+IncludeGraph bool `json:"includeGraph" xml:"IncludeGraph"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetWorkflowResponse struct {
-	Workflow *Workflow `json:"workflow" xml:"Workflow"`
+Workflow *Workflow `json:"workflow" xml:"Workflow"`
 }
 
 type GetWorkflowRunPropertiesRequest struct {
-	Name  string `json:"name" xml:"Name"`
-	RunId string `json:"runId" xml:"RunId"`
+Name string `json:"name" xml:"Name"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type GetWorkflowRunPropertiesResponse struct {
-	RunProperties WorkflowRunProperties `json:"runProperties" xml:"RunProperties"`
+RunProperties WorkflowRunProperties `json:"runProperties" xml:"RunProperties"`
 }
 
 type GetWorkflowRunRequest struct {
-	IncludeGraph bool   `json:"includeGraph" xml:"IncludeGraph"`
-	Name         string `json:"name" xml:"Name"`
-	RunId        string `json:"runId" xml:"RunId"`
+IncludeGraph bool `json:"includeGraph" xml:"IncludeGraph"`
+Name string `json:"name" xml:"Name"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type GetWorkflowRunResponse struct {
-	Run *WorkflowRun `json:"run" xml:"Run"`
+Run *WorkflowRun `json:"run" xml:"Run"`
 }
 
 type GetWorkflowRunsRequest struct {
-	IncludeGraph bool   `json:"includeGraph" xml:"IncludeGraph"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	Name         string `json:"name" xml:"Name"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
+IncludeGraph bool `json:"includeGraph" xml:"IncludeGraph"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+Name string `json:"name" xml:"Name"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetWorkflowRunsResponse struct {
-	NextToken string       `json:"nextToken" xml:"NextToken"`
-	Runs      WorkflowRuns `json:"runs" xml:"Runs"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Runs WorkflowRuns `json:"runs" xml:"Runs"`
 }
 
 type GluePolicy struct {
-	CreateTime   time.Time `json:"createTime" xml:"CreateTime"`
-	PolicyHash   string    `json:"policyHash" xml:"PolicyHash"`
-	PolicyInJson string    `json:"policyInJson" xml:"PolicyInJson"`
-	UpdateTime   time.Time `json:"updateTime" xml:"UpdateTime"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+PolicyHash string `json:"policyHash" xml:"PolicyHash"`
+PolicyInJson string `json:"policyInJson" xml:"PolicyInJson"`
+UpdateTime time.Time `json:"updateTime" xml:"UpdateTime"`
 }
 
 type GlueSchema struct {
-	Columns GlueStudioSchemaColumnList `json:"columns" xml:"Columns"`
+Columns GlueStudioSchemaColumnList `json:"columns" xml:"Columns"`
 }
 
 type GlueStudioSchemaColumn struct {
-	GlueStudioType string `json:"glueStudioType" xml:"GlueStudioType"`
-	Name           string `json:"name" xml:"Name"`
-	Type           string `json:"type" xml:"Type"`
+GlueStudioType string `json:"glueStudioType" xml:"GlueStudioType"`
+Name string `json:"name" xml:"Name"`
+Type string `json:"type" xml:"Type"`
 }
 
 type GlueTable struct {
-	AdditionalOptions GlueTableAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	CatalogId         string                     `json:"catalogId" xml:"CatalogId"`
-	ConnectionName    string                     `json:"connectionName" xml:"ConnectionName"`
-	DatabaseName      string                     `json:"databaseName" xml:"DatabaseName"`
-	TableName         string                     `json:"tableName" xml:"TableName"`
+AdditionalOptions GlueTableAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type GovernedCatalogSource struct {
-	AdditionalOptions  *S3SourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	Database           string                     `json:"database" xml:"Database"`
-	Name               string                     `json:"name" xml:"Name"`
-	PartitionPredicate string                     `json:"partitionPredicate" xml:"PartitionPredicate"`
-	Table              string                     `json:"table" xml:"Table"`
+AdditionalOptions *S3SourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+PartitionPredicate string `json:"partitionPredicate" xml:"PartitionPredicate"`
+Table string `json:"table" xml:"Table"`
 }
 
 type GovernedCatalogTarget struct {
-	Database           string                     `json:"database" xml:"Database"`
-	Inputs             OneInput                   `json:"inputs" xml:"Inputs"`
-	Name               string                     `json:"name" xml:"Name"`
-	PartitionKeys      GlueStudioPathList         `json:"partitionKeys" xml:"PartitionKeys"`
-	SchemaChangePolicy *CatalogSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
-	Table              string                     `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+SchemaChangePolicy *CatalogSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+Table string `json:"table" xml:"Table"`
 }
 
 type GrokClassifier struct {
-	Classification string    `json:"classification" xml:"Classification"`
-	CreationTime   time.Time `json:"creationTime" xml:"CreationTime"`
-	CustomPatterns string    `json:"customPatterns" xml:"CustomPatterns"`
-	GrokPattern    string    `json:"grokPattern" xml:"GrokPattern"`
-	LastUpdated    time.Time `json:"lastUpdated" xml:"LastUpdated"`
-	Name           string    `json:"name" xml:"Name"`
-	Version        int64     `json:"version" xml:"Version"`
+Classification string `json:"classification" xml:"Classification"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+CustomPatterns string `json:"customPatterns" xml:"CustomPatterns"`
+GrokPattern string `json:"grokPattern" xml:"GrokPattern"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+Name string `json:"name" xml:"Name"`
+Version int64 `json:"version" xml:"Version"`
 }
 
 type GroupFilters struct {
-	Filters         FilterExpressions `json:"filters" xml:"Filters"`
-	GroupName       string            `json:"groupName" xml:"GroupName"`
-	LogicalOperator string            `json:"logicalOperator" xml:"LogicalOperator"`
+Filters FilterExpressions `json:"filters" xml:"Filters"`
+GroupName string `json:"groupName" xml:"GroupName"`
+LogicalOperator string `json:"logicalOperator" xml:"LogicalOperator"`
 }
 
 type HudiTarget struct {
-	ConnectionName        string   `json:"connectionName" xml:"ConnectionName"`
-	Exclusions            PathList `json:"exclusions" xml:"Exclusions"`
-	MaximumTraversalDepth int32    `json:"maximumTraversalDepth" xml:"MaximumTraversalDepth"`
-	Paths                 PathList `json:"paths" xml:"Paths"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+Exclusions PathList `json:"exclusions" xml:"Exclusions"`
+MaximumTraversalDepth int32 `json:"maximumTraversalDepth" xml:"MaximumTraversalDepth"`
+Paths PathList `json:"paths" xml:"Paths"`
 }
 
 type IcebergCompactionConfiguration struct {
-	DeleteFileThreshold int32  `json:"deleteFileThreshold" xml:"deleteFileThreshold"`
-	MinInputFiles       int32  `json:"minInputFiles" xml:"minInputFiles"`
-	Strategy            string `json:"strategy" xml:"strategy"`
+DeleteFileThreshold int32 `json:"deleteFileThreshold" xml:"deleteFileThreshold"`
+MinInputFiles int32 `json:"minInputFiles" xml:"minInputFiles"`
+Strategy string `json:"strategy" xml:"strategy"`
 }
 
 type IcebergCompactionMetrics struct {
-	DpuHours               float64 `json:"dpuHours" xml:"DpuHours"`
-	JobDurationInHour      float64 `json:"jobDurationInHour" xml:"JobDurationInHour"`
-	NumberOfBytesCompacted int64   `json:"numberOfBytesCompacted" xml:"NumberOfBytesCompacted"`
-	NumberOfDpus           int32   `json:"numberOfDpus" xml:"NumberOfDpus"`
-	NumberOfFilesCompacted int64   `json:"numberOfFilesCompacted" xml:"NumberOfFilesCompacted"`
+DpuHours float64 `json:"dpuHours" xml:"DpuHours"`
+JobDurationInHour float64 `json:"jobDurationInHour" xml:"JobDurationInHour"`
+NumberOfBytesCompacted int64 `json:"numberOfBytesCompacted" xml:"NumberOfBytesCompacted"`
+NumberOfDpus int32 `json:"numberOfDpus" xml:"NumberOfDpus"`
+NumberOfFilesCompacted int64 `json:"numberOfFilesCompacted" xml:"NumberOfFilesCompacted"`
 }
 
 type IcebergEncryptedKey struct {
-	EncryptedById        string            `json:"encryptedById" xml:"EncryptedById"`
-	EncryptedKeyMetadata string            `json:"encryptedKeyMetadata" xml:"EncryptedKeyMetadata"`
-	KeyId                string            `json:"keyId" xml:"KeyId"`
-	Properties           StringToStringMap `json:"properties" xml:"Properties"`
+EncryptedById string `json:"encryptedById" xml:"EncryptedById"`
+EncryptedKeyMetadata string `json:"encryptedKeyMetadata" xml:"EncryptedKeyMetadata"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Properties StringToStringMap `json:"properties" xml:"Properties"`
 }
 
 type IcebergInput struct {
-	CreateIcebergTableInput *CreateIcebergTableInput `json:"createIcebergTableInput" xml:"CreateIcebergTableInput"`
-	MetadataOperation       string                   `json:"metadataOperation" xml:"MetadataOperation"`
-	Version                 string                   `json:"version" xml:"Version"`
+CreateIcebergTableInput *CreateIcebergTableInput `json:"createIcebergTableInput" xml:"CreateIcebergTableInput"`
+MetadataOperation string `json:"metadataOperation" xml:"MetadataOperation"`
+Version string `json:"version" xml:"Version"`
 }
 
 type IcebergOptimizationProperties struct {
-	Compaction         ParametersMap `json:"compaction" xml:"Compaction"`
-	OrphanFileDeletion ParametersMap `json:"orphanFileDeletion" xml:"OrphanFileDeletion"`
-	Retention          ParametersMap `json:"retention" xml:"Retention"`
-	RoleArn            string        `json:"roleArn" xml:"RoleArn"`
+Compaction ParametersMap `json:"compaction" xml:"Compaction"`
+OrphanFileDeletion ParametersMap `json:"orphanFileDeletion" xml:"OrphanFileDeletion"`
+Retention ParametersMap `json:"retention" xml:"Retention"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type IcebergOptimizationPropertiesOutput struct {
-	Compaction         ParametersMap `json:"compaction" xml:"Compaction"`
-	LastUpdatedTime    time.Time     `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
-	OrphanFileDeletion ParametersMap `json:"orphanFileDeletion" xml:"OrphanFileDeletion"`
-	Retention          ParametersMap `json:"retention" xml:"Retention"`
-	RoleArn            string        `json:"roleArn" xml:"RoleArn"`
+Compaction ParametersMap `json:"compaction" xml:"Compaction"`
+LastUpdatedTime time.Time `json:"lastUpdatedTime" xml:"LastUpdatedTime"`
+OrphanFileDeletion ParametersMap `json:"orphanFileDeletion" xml:"OrphanFileDeletion"`
+Retention ParametersMap `json:"retention" xml:"Retention"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type IcebergOrphanFileDeletionConfiguration struct {
-	Location                        string `json:"location" xml:"location"`
-	OrphanFileRetentionPeriodInDays int32  `json:"orphanFileRetentionPeriodInDays" xml:"orphanFileRetentionPeriodInDays"`
-	RunRateInHours                  int32  `json:"runRateInHours" xml:"runRateInHours"`
+Location string `json:"location" xml:"location"`
+OrphanFileRetentionPeriodInDays int32 `json:"orphanFileRetentionPeriodInDays" xml:"orphanFileRetentionPeriodInDays"`
+RunRateInHours int32 `json:"runRateInHours" xml:"runRateInHours"`
 }
 
 type IcebergOrphanFileDeletionMetrics struct {
-	DpuHours                   float64 `json:"dpuHours" xml:"DpuHours"`
-	JobDurationInHour          float64 `json:"jobDurationInHour" xml:"JobDurationInHour"`
-	NumberOfDpus               int32   `json:"numberOfDpus" xml:"NumberOfDpus"`
-	NumberOfOrphanFilesDeleted int64   `json:"numberOfOrphanFilesDeleted" xml:"NumberOfOrphanFilesDeleted"`
+DpuHours float64 `json:"dpuHours" xml:"DpuHours"`
+JobDurationInHour float64 `json:"jobDurationInHour" xml:"JobDurationInHour"`
+NumberOfDpus int32 `json:"numberOfDpus" xml:"NumberOfDpus"`
+NumberOfOrphanFilesDeleted int64 `json:"numberOfOrphanFilesDeleted" xml:"NumberOfOrphanFilesDeleted"`
 }
 
 type IcebergPartitionField struct {
-	FieldId   int32  `json:"fieldId" xml:"FieldId"`
-	Name      string `json:"name" xml:"Name"`
-	SourceId  int32  `json:"sourceId" xml:"SourceId"`
-	Transform string `json:"transform" xml:"Transform"`
+FieldId int32 `json:"fieldId" xml:"FieldId"`
+Name string `json:"name" xml:"Name"`
+SourceId int32 `json:"sourceId" xml:"SourceId"`
+Transform string `json:"transform" xml:"Transform"`
 }
 
 type IcebergPartitionSpec struct {
-	Fields IcebergPartitionSpecFieldList `json:"fields" xml:"Fields"`
-	SpecId int32                         `json:"specId" xml:"SpecId"`
+Fields IcebergPartitionSpecFieldList `json:"fields" xml:"Fields"`
+SpecId int32 `json:"specId" xml:"SpecId"`
 }
 
 type IcebergRetentionConfiguration struct {
-	CleanExpiredFiles             bool  `json:"cleanExpiredFiles" xml:"cleanExpiredFiles"`
-	NumberOfSnapshotsToRetain     int32 `json:"numberOfSnapshotsToRetain" xml:"numberOfSnapshotsToRetain"`
-	RunRateInHours                int32 `json:"runRateInHours" xml:"runRateInHours"`
-	SnapshotRetentionPeriodInDays int32 `json:"snapshotRetentionPeriodInDays" xml:"snapshotRetentionPeriodInDays"`
+CleanExpiredFiles bool `json:"cleanExpiredFiles" xml:"cleanExpiredFiles"`
+NumberOfSnapshotsToRetain int32 `json:"numberOfSnapshotsToRetain" xml:"numberOfSnapshotsToRetain"`
+RunRateInHours int32 `json:"runRateInHours" xml:"runRateInHours"`
+SnapshotRetentionPeriodInDays int32 `json:"snapshotRetentionPeriodInDays" xml:"snapshotRetentionPeriodInDays"`
 }
 
 type IcebergRetentionMetrics struct {
-	DpuHours                     float64 `json:"dpuHours" xml:"DpuHours"`
-	JobDurationInHour            float64 `json:"jobDurationInHour" xml:"JobDurationInHour"`
-	NumberOfDataFilesDeleted     int64   `json:"numberOfDataFilesDeleted" xml:"NumberOfDataFilesDeleted"`
-	NumberOfDpus                 int32   `json:"numberOfDpus" xml:"NumberOfDpus"`
-	NumberOfManifestFilesDeleted int64   `json:"numberOfManifestFilesDeleted" xml:"NumberOfManifestFilesDeleted"`
-	NumberOfManifestListsDeleted int64   `json:"numberOfManifestListsDeleted" xml:"NumberOfManifestListsDeleted"`
+DpuHours float64 `json:"dpuHours" xml:"DpuHours"`
+JobDurationInHour float64 `json:"jobDurationInHour" xml:"JobDurationInHour"`
+NumberOfDataFilesDeleted int64 `json:"numberOfDataFilesDeleted" xml:"NumberOfDataFilesDeleted"`
+NumberOfDpus int32 `json:"numberOfDpus" xml:"NumberOfDpus"`
+NumberOfManifestFilesDeleted int64 `json:"numberOfManifestFilesDeleted" xml:"NumberOfManifestFilesDeleted"`
+NumberOfManifestListsDeleted int64 `json:"numberOfManifestListsDeleted" xml:"NumberOfManifestListsDeleted"`
 }
 
 type IcebergSchema struct {
-	Fields             IcebergStructFieldList `json:"fields" xml:"Fields"`
-	IdentifierFieldIds IntegerList            `json:"identifierFieldIds" xml:"IdentifierFieldIds"`
-	SchemaId           int32                  `json:"schemaId" xml:"SchemaId"`
-	Type               string                 `json:"type" xml:"Type"`
+Fields IcebergStructFieldList `json:"fields" xml:"Fields"`
+IdentifierFieldIds IntegerList `json:"identifierFieldIds" xml:"IdentifierFieldIds"`
+SchemaId int32 `json:"schemaId" xml:"SchemaId"`
+Type string `json:"type" xml:"Type"`
 }
 
 type IcebergSortField struct {
-	Direction string `json:"direction" xml:"Direction"`
-	NullOrder string `json:"nullOrder" xml:"NullOrder"`
-	SourceId  int32  `json:"sourceId" xml:"SourceId"`
-	Transform string `json:"transform" xml:"Transform"`
+Direction string `json:"direction" xml:"Direction"`
+NullOrder string `json:"nullOrder" xml:"NullOrder"`
+SourceId int32 `json:"sourceId" xml:"SourceId"`
+Transform string `json:"transform" xml:"Transform"`
 }
 
 type IcebergSortOrder struct {
-	Fields  IcebergSortOrderFieldList `json:"fields" xml:"Fields"`
-	OrderId int32                     `json:"orderId" xml:"OrderId"`
+Fields IcebergSortOrderFieldList `json:"fields" xml:"Fields"`
+OrderId int32 `json:"orderId" xml:"OrderId"`
 }
 
 type IcebergStructField struct {
-	Doc            string      `json:"doc" xml:"Doc"`
-	Id             int32       `json:"id" xml:"Id"`
-	InitialDefault interface{} `json:"initialDefault" xml:"InitialDefault"`
-	Name           string      `json:"name" xml:"Name"`
-	Required       bool        `json:"required" xml:"Required"`
-	Type           interface{} `json:"type" xml:"Type"`
-	WriteDefault   interface{} `json:"writeDefault" xml:"WriteDefault"`
+Doc string `json:"doc" xml:"Doc"`
+Id int32 `json:"id" xml:"Id"`
+InitialDefault interface{} `json:"initialDefault" xml:"InitialDefault"`
+Name string `json:"name" xml:"Name"`
+Required bool `json:"required" xml:"Required"`
+Type interface{} `json:"type" xml:"Type"`
+WriteDefault interface{} `json:"writeDefault" xml:"WriteDefault"`
 }
 
 type IcebergTableUpdate struct {
-	Action        string                `json:"action" xml:"Action"`
-	EncryptionKey *IcebergEncryptedKey  `json:"encryptionKey" xml:"EncryptionKey"`
-	KeyId         string                `json:"keyId" xml:"KeyId"`
-	Location      string                `json:"location" xml:"Location"`
-	PartitionSpec *IcebergPartitionSpec `json:"partitionSpec" xml:"PartitionSpec"`
-	Properties    StringToStringMap     `json:"properties" xml:"Properties"`
-	Schema        *IcebergSchema        `json:"schema" xml:"Schema"`
-	SortOrder     *IcebergSortOrder     `json:"sortOrder" xml:"SortOrder"`
+Action string `json:"action" xml:"Action"`
+EncryptionKey *IcebergEncryptedKey `json:"encryptionKey" xml:"EncryptionKey"`
+KeyId string `json:"keyId" xml:"KeyId"`
+Location string `json:"location" xml:"Location"`
+PartitionSpec *IcebergPartitionSpec `json:"partitionSpec" xml:"PartitionSpec"`
+Properties StringToStringMap `json:"properties" xml:"Properties"`
+Schema *IcebergSchema `json:"schema" xml:"Schema"`
+SortOrder *IcebergSortOrder `json:"sortOrder" xml:"SortOrder"`
 }
 
 type IcebergTarget struct {
-	ConnectionName        string   `json:"connectionName" xml:"ConnectionName"`
-	Exclusions            PathList `json:"exclusions" xml:"Exclusions"`
-	MaximumTraversalDepth int32    `json:"maximumTraversalDepth" xml:"MaximumTraversalDepth"`
-	Paths                 PathList `json:"paths" xml:"Paths"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+Exclusions PathList `json:"exclusions" xml:"Exclusions"`
+MaximumTraversalDepth int32 `json:"maximumTraversalDepth" xml:"MaximumTraversalDepth"`
+Paths PathList `json:"paths" xml:"Paths"`
 }
 
 type ImportCatalogToGlueRequest struct {
-	CatalogId string `json:"catalogId" xml:"CatalogId"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
 }
 
 type ImportCatalogToGlueResponse struct {
 }
 
 type ImportLabelsTaskRunProperties struct {
-	InputS3Path string `json:"inputS3Path" xml:"InputS3Path"`
-	Replace     bool   `json:"replace" xml:"Replace"`
+InputS3Path string `json:"inputS3Path" xml:"InputS3Path"`
+Replace bool `json:"replace" xml:"Replace"`
 }
 
 type InboundIntegration struct {
-	CreateTime        time.Time            `json:"createTime" xml:"CreateTime"`
-	Errors            IntegrationErrorList `json:"errors" xml:"Errors"`
-	IntegrationArn    string               `json:"integrationArn" xml:"IntegrationArn"`
-	IntegrationConfig *IntegrationConfig   `json:"integrationConfig" xml:"IntegrationConfig"`
-	SourceArn         string               `json:"sourceArn" xml:"SourceArn"`
-	Status            string               `json:"status" xml:"Status"`
-	TargetArn         string               `json:"targetArn" xml:"TargetArn"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+Errors IntegrationErrorList `json:"errors" xml:"Errors"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+IntegrationConfig *IntegrationConfig `json:"integrationConfig" xml:"IntegrationConfig"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
+Status string `json:"status" xml:"Status"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type Integration struct {
-	AdditionalEncryptionContext IntegrationAdditionalEncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
-	CreateTime                  time.Time                                 `json:"createTime" xml:"CreateTime"`
-	DataFilter                  string                                    `json:"dataFilter" xml:"DataFilter"`
-	Description                 string                                    `json:"description" xml:"Description"`
-	Errors                      IntegrationErrorList                      `json:"errors" xml:"Errors"`
-	IntegrationArn              string                                    `json:"integrationArn" xml:"IntegrationArn"`
-	IntegrationConfig           *IntegrationConfig                        `json:"integrationConfig" xml:"IntegrationConfig"`
-	IntegrationName             string                                    `json:"integrationName" xml:"IntegrationName"`
-	KmsKeyId                    string                                    `json:"kmsKeyId" xml:"KmsKeyId"`
-	SourceArn                   string                                    `json:"sourceArn" xml:"SourceArn"`
-	Status                      string                                    `json:"status" xml:"Status"`
-	Tags                        IntegrationTagsList                       `json:"tags" xml:"Tags"`
-	TargetArn                   string                                    `json:"targetArn" xml:"TargetArn"`
+AdditionalEncryptionContext IntegrationAdditionalEncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+DataFilter string `json:"dataFilter" xml:"DataFilter"`
+Description string `json:"description" xml:"Description"`
+Errors IntegrationErrorList `json:"errors" xml:"Errors"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+IntegrationConfig *IntegrationConfig `json:"integrationConfig" xml:"IntegrationConfig"`
+IntegrationName string `json:"integrationName" xml:"IntegrationName"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
+Status string `json:"status" xml:"Status"`
+Tags IntegrationTagsList `json:"tags" xml:"Tags"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type IntegrationConfig struct {
-	ContinuousSync   bool                           `json:"continuousSync" xml:"ContinuousSync"`
-	RefreshInterval  string                         `json:"refreshInterval" xml:"RefreshInterval"`
-	SourceProperties IntegrationSourcePropertiesMap `json:"sourceProperties" xml:"SourceProperties"`
+ContinuousSync bool `json:"continuousSync" xml:"ContinuousSync"`
+RefreshInterval string `json:"refreshInterval" xml:"RefreshInterval"`
+SourceProperties IntegrationSourcePropertiesMap `json:"sourceProperties" xml:"SourceProperties"`
 }
 
 type IntegrationError struct {
-	ErrorCode    string `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
 }
 
 type IntegrationFilter struct {
-	Name   string                  `json:"name" xml:"Name"`
-	Values IntegrationFilterValues `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values IntegrationFilterValues `json:"values" xml:"Values"`
 }
 
 type IntegrationPartition struct {
-	ConversionSpec string `json:"conversionSpec" xml:"ConversionSpec"`
-	FieldName      string `json:"fieldName" xml:"FieldName"`
-	FunctionSpec   string `json:"functionSpec" xml:"FunctionSpec"`
+ConversionSpec string `json:"conversionSpec" xml:"ConversionSpec"`
+FieldName string `json:"fieldName" xml:"FieldName"`
+FunctionSpec string `json:"functionSpec" xml:"FunctionSpec"`
 }
 
 type IntegrationResourceProperty struct {
-	ResourceArn                string                      `json:"resourceArn" xml:"ResourceArn"`
-	ResourcePropertyArn        string                      `json:"resourcePropertyArn" xml:"ResourcePropertyArn"`
-	SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
-	TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourcePropertyArn string `json:"resourcePropertyArn" xml:"ResourcePropertyArn"`
+SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
+TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
 }
 
 type IntegrationResourcePropertyFilter struct {
-	Name   string                                  `json:"name" xml:"Name"`
-	Values IntegrationResourcePropertyFilterValues `json:"values" xml:"Values"`
+Name string `json:"name" xml:"Name"`
+Values IntegrationResourcePropertyFilterValues `json:"values" xml:"Values"`
 }
 
 type JDBCConnectorOptions struct {
-	DataTypeMapping          JDBCDataTypeMapping        `json:"dataTypeMapping" xml:"DataTypeMapping"`
-	FilterPredicate          string                     `json:"filterPredicate" xml:"FilterPredicate"`
-	JobBookmarkKeys          EnclosedInStringProperties `json:"jobBookmarkKeys" xml:"JobBookmarkKeys"`
-	JobBookmarkKeysSortOrder string                     `json:"jobBookmarkKeysSortOrder" xml:"JobBookmarkKeysSortOrder"`
-	LowerBound               int64                      `json:"lowerBound" xml:"LowerBound"`
-	NumPartitions            int64                      `json:"numPartitions" xml:"NumPartitions"`
-	PartitionColumn          string                     `json:"partitionColumn" xml:"PartitionColumn"`
-	UpperBound               int64                      `json:"upperBound" xml:"UpperBound"`
+DataTypeMapping JDBCDataTypeMapping `json:"dataTypeMapping" xml:"DataTypeMapping"`
+FilterPredicate string `json:"filterPredicate" xml:"FilterPredicate"`
+JobBookmarkKeys EnclosedInStringProperties `json:"jobBookmarkKeys" xml:"JobBookmarkKeys"`
+JobBookmarkKeysSortOrder string `json:"jobBookmarkKeysSortOrder" xml:"JobBookmarkKeysSortOrder"`
+LowerBound int64 `json:"lowerBound" xml:"LowerBound"`
+NumPartitions int64 `json:"numPartitions" xml:"NumPartitions"`
+PartitionColumn string `json:"partitionColumn" xml:"PartitionColumn"`
+UpperBound int64 `json:"upperBound" xml:"UpperBound"`
 }
 
 type JDBCConnectorSource struct {
-	AdditionalOptions *JDBCConnectorOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	ConnectionName    string                `json:"connectionName" xml:"ConnectionName"`
-	ConnectionTable   string                `json:"connectionTable" xml:"ConnectionTable"`
-	ConnectionType    string                `json:"connectionType" xml:"ConnectionType"`
-	ConnectorName     string                `json:"connectorName" xml:"ConnectorName"`
-	Name              string                `json:"name" xml:"Name"`
-	OutputSchemas     GlueSchemas           `json:"outputSchemas" xml:"OutputSchemas"`
-	Query             string                `json:"query" xml:"Query"`
+AdditionalOptions *JDBCConnectorOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+ConnectionTable string `json:"connectionTable" xml:"ConnectionTable"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ConnectorName string `json:"connectorName" xml:"ConnectorName"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Query string `json:"query" xml:"Query"`
 }
 
 type JDBCConnectorTarget struct {
-	AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	ConnectionName    string            `json:"connectionName" xml:"ConnectionName"`
-	ConnectionTable   string            `json:"connectionTable" xml:"ConnectionTable"`
-	ConnectionType    string            `json:"connectionType" xml:"ConnectionType"`
-	ConnectorName     string            `json:"connectorName" xml:"ConnectorName"`
-	Inputs            OneInput          `json:"inputs" xml:"Inputs"`
-	Name              string            `json:"name" xml:"Name"`
-	OutputSchemas     GlueSchemas       `json:"outputSchemas" xml:"OutputSchemas"`
+AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+ConnectionTable string `json:"connectionTable" xml:"ConnectionTable"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ConnectorName string `json:"connectorName" xml:"ConnectorName"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
 }
 
 type JWTBearerProperties struct {
-	ContentType        string                `json:"contentType" xml:"ContentType"`
-	JwtToken           *ConnectorProperty    `json:"jwtToken" xml:"JwtToken"`
-	RequestMethod      string                `json:"requestMethod" xml:"RequestMethod"`
-	TokenUrl           *ConnectorProperty    `json:"tokenUrl" xml:"TokenUrl"`
-	TokenUrlParameters ConnectorPropertyList `json:"tokenUrlParameters" xml:"TokenUrlParameters"`
+ContentType string `json:"contentType" xml:"ContentType"`
+JwtToken *ConnectorProperty `json:"jwtToken" xml:"JwtToken"`
+RequestMethod string `json:"requestMethod" xml:"RequestMethod"`
+TokenUrl *ConnectorProperty `json:"tokenUrl" xml:"TokenUrl"`
+TokenUrlParameters ConnectorPropertyList `json:"tokenUrlParameters" xml:"TokenUrlParameters"`
 }
 
 type JdbcTarget struct {
-	ConnectionName           string                   `json:"connectionName" xml:"ConnectionName"`
-	EnableAdditionalMetadata EnableAdditionalMetadata `json:"enableAdditionalMetadata" xml:"EnableAdditionalMetadata"`
-	Exclusions               PathList                 `json:"exclusions" xml:"Exclusions"`
-	Path                     string                   `json:"path" xml:"Path"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+EnableAdditionalMetadata EnableAdditionalMetadata `json:"enableAdditionalMetadata" xml:"EnableAdditionalMetadata"`
+Exclusions PathList `json:"exclusions" xml:"Exclusions"`
+Path string `json:"path" xml:"Path"`
 }
 
 type Job struct {
-	AllocatedCapacity         int32                     `json:"allocatedCapacity" xml:"AllocatedCapacity"`
-	CodeGenConfigurationNodes CodeGenConfigurationNodes `json:"codeGenConfigurationNodes" xml:"CodeGenConfigurationNodes"`
-	Command                   *JobCommand               `json:"command" xml:"Command"`
-	Connections               *ConnectionsList          `json:"connections" xml:"Connections"`
-	CreatedOn                 time.Time                 `json:"createdOn" xml:"CreatedOn"`
-	DefaultArguments          GenericMap                `json:"defaultArguments" xml:"DefaultArguments"`
-	Description               string                    `json:"description" xml:"Description"`
-	ExecutionClass            string                    `json:"executionClass" xml:"ExecutionClass"`
-	ExecutionProperty         *ExecutionProperty        `json:"executionProperty" xml:"ExecutionProperty"`
-	GlueVersion               string                    `json:"glueVersion" xml:"GlueVersion"`
-	JobMode                   string                    `json:"jobMode" xml:"JobMode"`
-	JobRunQueuingEnabled      bool                      `json:"jobRunQueuingEnabled" xml:"JobRunQueuingEnabled"`
-	LastModifiedOn            time.Time                 `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	LogUri                    string                    `json:"logUri" xml:"LogUri"`
-	MaintenanceWindow         string                    `json:"maintenanceWindow" xml:"MaintenanceWindow"`
-	MaxCapacity               float64                   `json:"maxCapacity" xml:"MaxCapacity"`
-	MaxRetries                int32                     `json:"maxRetries" xml:"MaxRetries"`
-	Name                      string                    `json:"name" xml:"Name"`
-	NonOverridableArguments   GenericMap                `json:"nonOverridableArguments" xml:"NonOverridableArguments"`
-	NotificationProperty      *NotificationProperty     `json:"notificationProperty" xml:"NotificationProperty"`
-	NumberOfWorkers           int32                     `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	ProfileName               string                    `json:"profileName" xml:"ProfileName"`
-	Role                      string                    `json:"role" xml:"Role"`
-	SecurityConfiguration     string                    `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	SourceControlDetails      *SourceControlDetails     `json:"sourceControlDetails" xml:"SourceControlDetails"`
-	Timeout                   int32                     `json:"timeout" xml:"Timeout"`
-	WorkerType                string                    `json:"workerType" xml:"WorkerType"`
+AllocatedCapacity int32 `json:"allocatedCapacity" xml:"AllocatedCapacity"`
+CodeGenConfigurationNodes CodeGenConfigurationNodes `json:"codeGenConfigurationNodes" xml:"CodeGenConfigurationNodes"`
+Command *JobCommand `json:"command" xml:"Command"`
+Connections *ConnectionsList `json:"connections" xml:"Connections"`
+CreatedOn time.Time `json:"createdOn" xml:"CreatedOn"`
+DefaultArguments GenericMap `json:"defaultArguments" xml:"DefaultArguments"`
+Description string `json:"description" xml:"Description"`
+ExecutionClass string `json:"executionClass" xml:"ExecutionClass"`
+ExecutionProperty *ExecutionProperty `json:"executionProperty" xml:"ExecutionProperty"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+JobMode string `json:"jobMode" xml:"JobMode"`
+JobRunQueuingEnabled bool `json:"jobRunQueuingEnabled" xml:"JobRunQueuingEnabled"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+LogUri string `json:"logUri" xml:"LogUri"`
+MaintenanceWindow string `json:"maintenanceWindow" xml:"MaintenanceWindow"`
+MaxCapacity float64 `json:"maxCapacity" xml:"MaxCapacity"`
+MaxRetries int32 `json:"maxRetries" xml:"MaxRetries"`
+Name string `json:"name" xml:"Name"`
+NonOverridableArguments GenericMap `json:"nonOverridableArguments" xml:"NonOverridableArguments"`
+NotificationProperty *NotificationProperty `json:"notificationProperty" xml:"NotificationProperty"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+ProfileName string `json:"profileName" xml:"ProfileName"`
+Role string `json:"role" xml:"Role"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+SourceControlDetails *SourceControlDetails `json:"sourceControlDetails" xml:"SourceControlDetails"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type JobBookmarkEntry struct {
-	Attempt       int32  `json:"attempt" xml:"Attempt"`
-	JobBookmark   string `json:"jobBookmark" xml:"JobBookmark"`
-	JobName       string `json:"jobName" xml:"JobName"`
-	PreviousRunId string `json:"previousRunId" xml:"PreviousRunId"`
-	Run           int32  `json:"run" xml:"Run"`
-	RunId         string `json:"runId" xml:"RunId"`
-	Version       int32  `json:"version" xml:"Version"`
+Attempt int32 `json:"attempt" xml:"Attempt"`
+JobBookmark string `json:"jobBookmark" xml:"JobBookmark"`
+JobName string `json:"jobName" xml:"JobName"`
+PreviousRunId string `json:"previousRunId" xml:"PreviousRunId"`
+Run int32 `json:"run" xml:"Run"`
+RunId string `json:"runId" xml:"RunId"`
+Version int32 `json:"version" xml:"Version"`
 }
 
 type JobBookmarksEncryption struct {
-	JobBookmarksEncryptionMode string `json:"jobBookmarksEncryptionMode" xml:"JobBookmarksEncryptionMode"`
-	KmsKeyArn                  string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+JobBookmarksEncryptionMode string `json:"jobBookmarksEncryptionMode" xml:"JobBookmarksEncryptionMode"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
 }
 
 type JobCommand struct {
-	Name           string `json:"name" xml:"Name"`
-	PythonVersion  string `json:"pythonVersion" xml:"PythonVersion"`
-	Runtime        string `json:"runtime" xml:"Runtime"`
-	ScriptLocation string `json:"scriptLocation" xml:"ScriptLocation"`
+Name string `json:"name" xml:"Name"`
+PythonVersion string `json:"pythonVersion" xml:"PythonVersion"`
+Runtime string `json:"runtime" xml:"Runtime"`
+ScriptLocation string `json:"scriptLocation" xml:"ScriptLocation"`
 }
 
 type JobNodeDetails struct {
-	JobRuns JobRunList `json:"jobRuns" xml:"JobRuns"`
+JobRuns JobRunList `json:"jobRuns" xml:"JobRuns"`
 }
 
 type JobRun struct {
-	AllocatedCapacity          int32                 `json:"allocatedCapacity" xml:"AllocatedCapacity"`
-	Arguments                  GenericMap            `json:"arguments" xml:"Arguments"`
-	Attempt                    int32                 `json:"attempt" xml:"Attempt"`
-	CompletedOn                time.Time             `json:"completedOn" xml:"CompletedOn"`
-	DPUSeconds                 float64               `json:"dPUSeconds" xml:"DPUSeconds"`
-	ErrorMessage               string                `json:"errorMessage" xml:"ErrorMessage"`
-	ExecutionClass             string                `json:"executionClass" xml:"ExecutionClass"`
-	ExecutionRoleSessionPolicy string                `json:"executionRoleSessionPolicy" xml:"ExecutionRoleSessionPolicy"`
-	ExecutionTime              int32                 `json:"executionTime" xml:"ExecutionTime"`
-	GlueVersion                string                `json:"glueVersion" xml:"GlueVersion"`
-	Id                         string                `json:"id" xml:"Id"`
-	JobMode                    string                `json:"jobMode" xml:"JobMode"`
-	JobName                    string                `json:"jobName" xml:"JobName"`
-	JobRunQueuingEnabled       bool                  `json:"jobRunQueuingEnabled" xml:"JobRunQueuingEnabled"`
-	JobRunState                string                `json:"jobRunState" xml:"JobRunState"`
-	LastModifiedOn             time.Time             `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	LogGroupName               string                `json:"logGroupName" xml:"LogGroupName"`
-	MaintenanceWindow          string                `json:"maintenanceWindow" xml:"MaintenanceWindow"`
-	MaxCapacity                float64               `json:"maxCapacity" xml:"MaxCapacity"`
-	NotificationProperty       *NotificationProperty `json:"notificationProperty" xml:"NotificationProperty"`
-	NumberOfWorkers            int32                 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	PredecessorRuns            PredecessorList       `json:"predecessorRuns" xml:"PredecessorRuns"`
-	PreviousRunId              string                `json:"previousRunId" xml:"PreviousRunId"`
-	ProfileName                string                `json:"profileName" xml:"ProfileName"`
-	SecurityConfiguration      string                `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	StartedOn                  time.Time             `json:"startedOn" xml:"StartedOn"`
-	StateDetail                string                `json:"stateDetail" xml:"StateDetail"`
-	Timeout                    int32                 `json:"timeout" xml:"Timeout"`
-	TriggerName                string                `json:"triggerName" xml:"TriggerName"`
-	WorkerType                 string                `json:"workerType" xml:"WorkerType"`
+AllocatedCapacity int32 `json:"allocatedCapacity" xml:"AllocatedCapacity"`
+Arguments GenericMap `json:"arguments" xml:"Arguments"`
+Attempt int32 `json:"attempt" xml:"Attempt"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+DPUSeconds float64 `json:"dPUSeconds" xml:"DPUSeconds"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ExecutionClass string `json:"executionClass" xml:"ExecutionClass"`
+ExecutionRoleSessionPolicy string `json:"executionRoleSessionPolicy" xml:"ExecutionRoleSessionPolicy"`
+ExecutionTime int32 `json:"executionTime" xml:"ExecutionTime"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+Id string `json:"id" xml:"Id"`
+JobMode string `json:"jobMode" xml:"JobMode"`
+JobName string `json:"jobName" xml:"JobName"`
+JobRunQueuingEnabled bool `json:"jobRunQueuingEnabled" xml:"JobRunQueuingEnabled"`
+JobRunState string `json:"jobRunState" xml:"JobRunState"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+LogGroupName string `json:"logGroupName" xml:"LogGroupName"`
+MaintenanceWindow string `json:"maintenanceWindow" xml:"MaintenanceWindow"`
+MaxCapacity float64 `json:"maxCapacity" xml:"MaxCapacity"`
+NotificationProperty *NotificationProperty `json:"notificationProperty" xml:"NotificationProperty"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+PredecessorRuns PredecessorList `json:"predecessorRuns" xml:"PredecessorRuns"`
+PreviousRunId string `json:"previousRunId" xml:"PreviousRunId"`
+ProfileName string `json:"profileName" xml:"ProfileName"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
+StateDetail string `json:"stateDetail" xml:"StateDetail"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+TriggerName string `json:"triggerName" xml:"TriggerName"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type JobUpdate struct {
-	AllocatedCapacity         int32                     `json:"allocatedCapacity" xml:"AllocatedCapacity"`
-	CodeGenConfigurationNodes CodeGenConfigurationNodes `json:"codeGenConfigurationNodes" xml:"CodeGenConfigurationNodes"`
-	Command                   *JobCommand               `json:"command" xml:"Command"`
-	Connections               *ConnectionsList          `json:"connections" xml:"Connections"`
-	DefaultArguments          GenericMap                `json:"defaultArguments" xml:"DefaultArguments"`
-	Description               string                    `json:"description" xml:"Description"`
-	ExecutionClass            string                    `json:"executionClass" xml:"ExecutionClass"`
-	ExecutionProperty         *ExecutionProperty        `json:"executionProperty" xml:"ExecutionProperty"`
-	GlueVersion               string                    `json:"glueVersion" xml:"GlueVersion"`
-	JobMode                   string                    `json:"jobMode" xml:"JobMode"`
-	JobRunQueuingEnabled      bool                      `json:"jobRunQueuingEnabled" xml:"JobRunQueuingEnabled"`
-	LogUri                    string                    `json:"logUri" xml:"LogUri"`
-	MaintenanceWindow         string                    `json:"maintenanceWindow" xml:"MaintenanceWindow"`
-	MaxCapacity               float64                   `json:"maxCapacity" xml:"MaxCapacity"`
-	MaxRetries                int32                     `json:"maxRetries" xml:"MaxRetries"`
-	NonOverridableArguments   GenericMap                `json:"nonOverridableArguments" xml:"NonOverridableArguments"`
-	NotificationProperty      *NotificationProperty     `json:"notificationProperty" xml:"NotificationProperty"`
-	NumberOfWorkers           int32                     `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	Role                      string                    `json:"role" xml:"Role"`
-	SecurityConfiguration     string                    `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	SourceControlDetails      *SourceControlDetails     `json:"sourceControlDetails" xml:"SourceControlDetails"`
-	Timeout                   int32                     `json:"timeout" xml:"Timeout"`
-	WorkerType                string                    `json:"workerType" xml:"WorkerType"`
+AllocatedCapacity int32 `json:"allocatedCapacity" xml:"AllocatedCapacity"`
+CodeGenConfigurationNodes CodeGenConfigurationNodes `json:"codeGenConfigurationNodes" xml:"CodeGenConfigurationNodes"`
+Command *JobCommand `json:"command" xml:"Command"`
+Connections *ConnectionsList `json:"connections" xml:"Connections"`
+DefaultArguments GenericMap `json:"defaultArguments" xml:"DefaultArguments"`
+Description string `json:"description" xml:"Description"`
+ExecutionClass string `json:"executionClass" xml:"ExecutionClass"`
+ExecutionProperty *ExecutionProperty `json:"executionProperty" xml:"ExecutionProperty"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+JobMode string `json:"jobMode" xml:"JobMode"`
+JobRunQueuingEnabled bool `json:"jobRunQueuingEnabled" xml:"JobRunQueuingEnabled"`
+LogUri string `json:"logUri" xml:"LogUri"`
+MaintenanceWindow string `json:"maintenanceWindow" xml:"MaintenanceWindow"`
+MaxCapacity float64 `json:"maxCapacity" xml:"MaxCapacity"`
+MaxRetries int32 `json:"maxRetries" xml:"MaxRetries"`
+NonOverridableArguments GenericMap `json:"nonOverridableArguments" xml:"NonOverridableArguments"`
+NotificationProperty *NotificationProperty `json:"notificationProperty" xml:"NotificationProperty"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+Role string `json:"role" xml:"Role"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+SourceControlDetails *SourceControlDetails `json:"sourceControlDetails" xml:"SourceControlDetails"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type Join struct {
-	Columns  JoinColumns `json:"columns" xml:"Columns"`
-	Inputs   TwoInputs   `json:"inputs" xml:"Inputs"`
-	JoinType string      `json:"joinType" xml:"JoinType"`
-	Name     string      `json:"name" xml:"Name"`
+Columns JoinColumns `json:"columns" xml:"Columns"`
+Inputs TwoInputs `json:"inputs" xml:"Inputs"`
+JoinType string `json:"joinType" xml:"JoinType"`
+Name string `json:"name" xml:"Name"`
 }
 
 type JoinColumn struct {
-	From string             `json:"from" xml:"From"`
-	Keys GlueStudioPathList `json:"keys" xml:"Keys"`
+From string `json:"from" xml:"From"`
+Keys GlueStudioPathList `json:"keys" xml:"Keys"`
 }
 
 type JsonClassifier struct {
-	CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
-	JsonPath     string    `json:"jsonPath" xml:"JsonPath"`
-	LastUpdated  time.Time `json:"lastUpdated" xml:"LastUpdated"`
-	Name         string    `json:"name" xml:"Name"`
-	Version      int64     `json:"version" xml:"Version"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+JsonPath string `json:"jsonPath" xml:"JsonPath"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+Name string `json:"name" xml:"Name"`
+Version int64 `json:"version" xml:"Version"`
 }
 
 type KafkaStreamingSourceOptions struct {
-	AddRecordTimestamp     string    `json:"addRecordTimestamp" xml:"AddRecordTimestamp"`
-	Assign                 string    `json:"assign" xml:"Assign"`
-	BootstrapServers       string    `json:"bootstrapServers" xml:"BootstrapServers"`
-	Classification         string    `json:"classification" xml:"Classification"`
-	ConnectionName         string    `json:"connectionName" xml:"ConnectionName"`
-	Delimiter              string    `json:"delimiter" xml:"Delimiter"`
-	EmitConsumerLagMetrics string    `json:"emitConsumerLagMetrics" xml:"EmitConsumerLagMetrics"`
-	EndingOffsets          string    `json:"endingOffsets" xml:"EndingOffsets"`
-	IncludeHeaders         bool      `json:"includeHeaders" xml:"IncludeHeaders"`
-	MaxOffsetsPerTrigger   int64     `json:"maxOffsetsPerTrigger" xml:"MaxOffsetsPerTrigger"`
-	MinPartitions          int32     `json:"minPartitions" xml:"MinPartitions"`
-	NumRetries             int32     `json:"numRetries" xml:"NumRetries"`
-	PollTimeoutMs          int64     `json:"pollTimeoutMs" xml:"PollTimeoutMs"`
-	RetryIntervalMs        int64     `json:"retryIntervalMs" xml:"RetryIntervalMs"`
-	SecurityProtocol       string    `json:"securityProtocol" xml:"SecurityProtocol"`
-	StartingOffsets        string    `json:"startingOffsets" xml:"StartingOffsets"`
-	StartingTimestamp      time.Time `json:"startingTimestamp" xml:"StartingTimestamp"`
-	SubscribePattern       string    `json:"subscribePattern" xml:"SubscribePattern"`
-	TopicName              string    `json:"topicName" xml:"TopicName"`
+AddRecordTimestamp string `json:"addRecordTimestamp" xml:"AddRecordTimestamp"`
+Assign string `json:"assign" xml:"Assign"`
+BootstrapServers string `json:"bootstrapServers" xml:"BootstrapServers"`
+Classification string `json:"classification" xml:"Classification"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+Delimiter string `json:"delimiter" xml:"Delimiter"`
+EmitConsumerLagMetrics string `json:"emitConsumerLagMetrics" xml:"EmitConsumerLagMetrics"`
+EndingOffsets string `json:"endingOffsets" xml:"EndingOffsets"`
+IncludeHeaders bool `json:"includeHeaders" xml:"IncludeHeaders"`
+MaxOffsetsPerTrigger int64 `json:"maxOffsetsPerTrigger" xml:"MaxOffsetsPerTrigger"`
+MinPartitions int32 `json:"minPartitions" xml:"MinPartitions"`
+NumRetries int32 `json:"numRetries" xml:"NumRetries"`
+PollTimeoutMs int64 `json:"pollTimeoutMs" xml:"PollTimeoutMs"`
+RetryIntervalMs int64 `json:"retryIntervalMs" xml:"RetryIntervalMs"`
+SecurityProtocol string `json:"securityProtocol" xml:"SecurityProtocol"`
+StartingOffsets string `json:"startingOffsets" xml:"StartingOffsets"`
+StartingTimestamp time.Time `json:"startingTimestamp" xml:"StartingTimestamp"`
+SubscribePattern string `json:"subscribePattern" xml:"SubscribePattern"`
+TopicName string `json:"topicName" xml:"TopicName"`
 }
 
 type KeySchemaElement struct {
-	Name string `json:"name" xml:"Name"`
-	Type string `json:"type" xml:"Type"`
+Name string `json:"name" xml:"Name"`
+Type string `json:"type" xml:"Type"`
 }
 
 type KinesisStreamingSourceOptions struct {
-	AddIdleTimeBetweenReads  bool      `json:"addIdleTimeBetweenReads" xml:"AddIdleTimeBetweenReads"`
-	AddRecordTimestamp       string    `json:"addRecordTimestamp" xml:"AddRecordTimestamp"`
-	AvoidEmptyBatches        bool      `json:"avoidEmptyBatches" xml:"AvoidEmptyBatches"`
-	Classification           string    `json:"classification" xml:"Classification"`
-	Delimiter                string    `json:"delimiter" xml:"Delimiter"`
-	DescribeShardInterval    int64     `json:"describeShardInterval" xml:"DescribeShardInterval"`
-	EmitConsumerLagMetrics   string    `json:"emitConsumerLagMetrics" xml:"EmitConsumerLagMetrics"`
-	EndpointUrl              string    `json:"endpointUrl" xml:"EndpointUrl"`
-	FanoutConsumerARN        string    `json:"fanoutConsumerARN" xml:"FanoutConsumerARN"`
-	IdleTimeBetweenReadsInMs int64     `json:"idleTimeBetweenReadsInMs" xml:"IdleTimeBetweenReadsInMs"`
-	MaxFetchRecordsPerShard  int64     `json:"maxFetchRecordsPerShard" xml:"MaxFetchRecordsPerShard"`
-	MaxFetchTimeInMs         int64     `json:"maxFetchTimeInMs" xml:"MaxFetchTimeInMs"`
-	MaxRecordPerRead         int64     `json:"maxRecordPerRead" xml:"MaxRecordPerRead"`
-	MaxRetryIntervalMs       int64     `json:"maxRetryIntervalMs" xml:"MaxRetryIntervalMs"`
-	NumRetries               int32     `json:"numRetries" xml:"NumRetries"`
-	RetryIntervalMs          int64     `json:"retryIntervalMs" xml:"RetryIntervalMs"`
-	RoleArn                  string    `json:"roleArn" xml:"RoleArn"`
-	RoleSessionName          string    `json:"roleSessionName" xml:"RoleSessionName"`
-	StartingPosition         string    `json:"startingPosition" xml:"StartingPosition"`
-	StartingTimestamp        time.Time `json:"startingTimestamp" xml:"StartingTimestamp"`
-	StreamArn                string    `json:"streamArn" xml:"StreamArn"`
-	StreamName               string    `json:"streamName" xml:"StreamName"`
+AddIdleTimeBetweenReads bool `json:"addIdleTimeBetweenReads" xml:"AddIdleTimeBetweenReads"`
+AddRecordTimestamp string `json:"addRecordTimestamp" xml:"AddRecordTimestamp"`
+AvoidEmptyBatches bool `json:"avoidEmptyBatches" xml:"AvoidEmptyBatches"`
+Classification string `json:"classification" xml:"Classification"`
+Delimiter string `json:"delimiter" xml:"Delimiter"`
+DescribeShardInterval int64 `json:"describeShardInterval" xml:"DescribeShardInterval"`
+EmitConsumerLagMetrics string `json:"emitConsumerLagMetrics" xml:"EmitConsumerLagMetrics"`
+EndpointUrl string `json:"endpointUrl" xml:"EndpointUrl"`
+FanoutConsumerARN string `json:"fanoutConsumerARN" xml:"FanoutConsumerARN"`
+IdleTimeBetweenReadsInMs int64 `json:"idleTimeBetweenReadsInMs" xml:"IdleTimeBetweenReadsInMs"`
+MaxFetchRecordsPerShard int64 `json:"maxFetchRecordsPerShard" xml:"MaxFetchRecordsPerShard"`
+MaxFetchTimeInMs int64 `json:"maxFetchTimeInMs" xml:"MaxFetchTimeInMs"`
+MaxRecordPerRead int64 `json:"maxRecordPerRead" xml:"MaxRecordPerRead"`
+MaxRetryIntervalMs int64 `json:"maxRetryIntervalMs" xml:"MaxRetryIntervalMs"`
+NumRetries int32 `json:"numRetries" xml:"NumRetries"`
+RetryIntervalMs int64 `json:"retryIntervalMs" xml:"RetryIntervalMs"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+RoleSessionName string `json:"roleSessionName" xml:"RoleSessionName"`
+StartingPosition string `json:"startingPosition" xml:"StartingPosition"`
+StartingTimestamp time.Time `json:"startingTimestamp" xml:"StartingTimestamp"`
+StreamArn string `json:"streamArn" xml:"StreamArn"`
+StreamName string `json:"streamName" xml:"StreamName"`
 }
 
 type LabelingSetGenerationTaskRunProperties struct {
-	OutputS3Path string `json:"outputS3Path" xml:"OutputS3Path"`
+OutputS3Path string `json:"outputS3Path" xml:"OutputS3Path"`
 }
 
 type LakeFormationConfiguration struct {
-	AccountId                   string `json:"accountId" xml:"AccountId"`
-	UseLakeFormationCredentials bool   `json:"useLakeFormationCredentials" xml:"UseLakeFormationCredentials"`
+AccountId string `json:"accountId" xml:"AccountId"`
+UseLakeFormationCredentials bool `json:"useLakeFormationCredentials" xml:"UseLakeFormationCredentials"`
 }
 
 type LastActiveDefinition struct {
-	BlueprintLocation        string    `json:"blueprintLocation" xml:"BlueprintLocation"`
-	BlueprintServiceLocation string    `json:"blueprintServiceLocation" xml:"BlueprintServiceLocation"`
-	Description              string    `json:"description" xml:"Description"`
-	LastModifiedOn           time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	ParameterSpec            string    `json:"parameterSpec" xml:"ParameterSpec"`
+BlueprintLocation string `json:"blueprintLocation" xml:"BlueprintLocation"`
+BlueprintServiceLocation string `json:"blueprintServiceLocation" xml:"BlueprintServiceLocation"`
+Description string `json:"description" xml:"Description"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+ParameterSpec string `json:"parameterSpec" xml:"ParameterSpec"`
 }
 
 type LastCrawlInfo struct {
-	ErrorMessage  string    `json:"errorMessage" xml:"ErrorMessage"`
-	LogGroup      string    `json:"logGroup" xml:"LogGroup"`
-	LogStream     string    `json:"logStream" xml:"LogStream"`
-	MessagePrefix string    `json:"messagePrefix" xml:"MessagePrefix"`
-	StartTime     time.Time `json:"startTime" xml:"StartTime"`
-	Status        string    `json:"status" xml:"Status"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+LogGroup string `json:"logGroup" xml:"LogGroup"`
+LogStream string `json:"logStream" xml:"LogStream"`
+MessagePrefix string `json:"messagePrefix" xml:"MessagePrefix"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Status string `json:"status" xml:"Status"`
 }
 
 type LineageConfiguration struct {
-	CrawlerLineageSettings string `json:"crawlerLineageSettings" xml:"CrawlerLineageSettings"`
+CrawlerLineageSettings string `json:"crawlerLineageSettings" xml:"CrawlerLineageSettings"`
 }
 
 type ListBlueprintsRequest struct {
-	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
-	Tags       TagsMap `json:"tags" xml:"Tags"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type ListBlueprintsResponse struct {
-	Blueprints BlueprintNames `json:"blueprints" xml:"Blueprints"`
-	NextToken  string         `json:"nextToken" xml:"NextToken"`
+Blueprints BlueprintNames `json:"blueprints" xml:"Blueprints"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListColumnStatisticsTaskRunsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListColumnStatisticsTaskRunsResponse struct {
-	ColumnStatisticsTaskRunIds ColumnStatisticsTaskRunIdList `json:"columnStatisticsTaskRunIds" xml:"ColumnStatisticsTaskRunIds"`
-	NextToken                  string                        `json:"nextToken" xml:"NextToken"`
+ColumnStatisticsTaskRunIds ColumnStatisticsTaskRunIdList `json:"columnStatisticsTaskRunIds" xml:"ColumnStatisticsTaskRunIds"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListConnectionTypesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListConnectionTypesResponse struct {
-	ConnectionTypes ConnectionTypeList `json:"connectionTypes" xml:"ConnectionTypes"`
-	NextToken       string             `json:"nextToken" xml:"NextToken"`
+ConnectionTypes ConnectionTypeList `json:"connectionTypes" xml:"ConnectionTypes"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCrawlersRequest struct {
-	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
-	Tags       TagsMap `json:"tags" xml:"Tags"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type ListCrawlersResponse struct {
-	CrawlerNames CrawlerNameList `json:"crawlerNames" xml:"CrawlerNames"`
-	NextToken    string          `json:"nextToken" xml:"NextToken"`
+CrawlerNames CrawlerNameList `json:"crawlerNames" xml:"CrawlerNames"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCrawlsRequest struct {
-	CrawlerName string           `json:"crawlerName" xml:"CrawlerName"`
-	Filters     CrawlsFilterList `json:"filters" xml:"Filters"`
-	MaxResults  int32            `json:"maxResults" xml:"MaxResults"`
-	NextToken   string           `json:"nextToken" xml:"NextToken"`
+CrawlerName string `json:"crawlerName" xml:"CrawlerName"`
+Filters CrawlsFilterList `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCrawlsResponse struct {
-	Crawls    CrawlerHistoryList `json:"crawls" xml:"Crawls"`
-	NextToken string             `json:"nextToken" xml:"NextToken"`
+Crawls CrawlerHistoryList `json:"crawls" xml:"Crawls"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCustomEntityTypesRequest struct {
-	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
-	Tags       TagsMap `json:"tags" xml:"Tags"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type ListCustomEntityTypesResponse struct {
-	CustomEntityTypes CustomEntityTypes `json:"customEntityTypes" xml:"CustomEntityTypes"`
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
+CustomEntityTypes CustomEntityTypes `json:"customEntityTypes" xml:"CustomEntityTypes"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDataQualityResultsRequest struct {
-	Filter     *DataQualityResultFilterCriteria `json:"filter" xml:"Filter"`
-	MaxResults int32                            `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                           `json:"nextToken" xml:"NextToken"`
+Filter *DataQualityResultFilterCriteria `json:"filter" xml:"Filter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDataQualityResultsResponse struct {
-	NextToken string                           `json:"nextToken" xml:"NextToken"`
-	Results   DataQualityResultDescriptionList `json:"results" xml:"Results"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Results DataQualityResultDescriptionList `json:"results" xml:"Results"`
 }
 
 type ListDataQualityRuleRecommendationRunsRequest struct {
-	Filter     *DataQualityRuleRecommendationRunFilter `json:"filter" xml:"Filter"`
-	MaxResults int32                                   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                                  `json:"nextToken" xml:"NextToken"`
+Filter *DataQualityRuleRecommendationRunFilter `json:"filter" xml:"Filter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDataQualityRuleRecommendationRunsResponse struct {
-	NextToken string                               `json:"nextToken" xml:"NextToken"`
-	Runs      DataQualityRuleRecommendationRunList `json:"runs" xml:"Runs"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Runs DataQualityRuleRecommendationRunList `json:"runs" xml:"Runs"`
 }
 
 type ListDataQualityRulesetEvaluationRunsRequest struct {
-	Filter     *DataQualityRulesetEvaluationRunFilter `json:"filter" xml:"Filter"`
-	MaxResults int32                                  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                                 `json:"nextToken" xml:"NextToken"`
+Filter *DataQualityRulesetEvaluationRunFilter `json:"filter" xml:"Filter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDataQualityRulesetEvaluationRunsResponse struct {
-	NextToken string                              `json:"nextToken" xml:"NextToken"`
-	Runs      DataQualityRulesetEvaluationRunList `json:"runs" xml:"Runs"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Runs DataQualityRulesetEvaluationRunList `json:"runs" xml:"Runs"`
 }
 
 type ListDataQualityRulesetsRequest struct {
-	Filter     *DataQualityRulesetFilterCriteria `json:"filter" xml:"Filter"`
-	MaxResults int32                             `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                            `json:"nextToken" xml:"NextToken"`
-	Tags       TagsMap                           `json:"tags" xml:"Tags"`
+Filter *DataQualityRulesetFilterCriteria `json:"filter" xml:"Filter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type ListDataQualityRulesetsResponse struct {
-	NextToken string                 `json:"nextToken" xml:"NextToken"`
-	Rulesets  DataQualityRulesetList `json:"rulesets" xml:"Rulesets"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Rulesets DataQualityRulesetList `json:"rulesets" xml:"Rulesets"`
 }
 
 type ListDataQualityStatisticAnnotationsRequest struct {
-	MaxResults      int32            `json:"maxResults" xml:"MaxResults"`
-	NextToken       string           `json:"nextToken" xml:"NextToken"`
-	ProfileId       string           `json:"profileId" xml:"ProfileId"`
-	StatisticId     string           `json:"statisticId" xml:"StatisticId"`
-	TimestampFilter *TimestampFilter `json:"timestampFilter" xml:"TimestampFilter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+StatisticId string `json:"statisticId" xml:"StatisticId"`
+TimestampFilter *TimestampFilter `json:"timestampFilter" xml:"TimestampFilter"`
 }
 
 type ListDataQualityStatisticAnnotationsResponse struct {
-	Annotations AnnotationList `json:"annotations" xml:"Annotations"`
-	NextToken   string         `json:"nextToken" xml:"NextToken"`
+Annotations AnnotationList `json:"annotations" xml:"Annotations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDataQualityStatisticsRequest struct {
-	MaxResults      int32            `json:"maxResults" xml:"MaxResults"`
-	NextToken       string           `json:"nextToken" xml:"NextToken"`
-	ProfileId       string           `json:"profileId" xml:"ProfileId"`
-	StatisticId     string           `json:"statisticId" xml:"StatisticId"`
-	TimestampFilter *TimestampFilter `json:"timestampFilter" xml:"TimestampFilter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+StatisticId string `json:"statisticId" xml:"StatisticId"`
+TimestampFilter *TimestampFilter `json:"timestampFilter" xml:"TimestampFilter"`
 }
 
 type ListDataQualityStatisticsResponse struct {
-	NextToken  string               `json:"nextToken" xml:"NextToken"`
-	Statistics StatisticSummaryList `json:"statistics" xml:"Statistics"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Statistics StatisticSummaryList `json:"statistics" xml:"Statistics"`
 }
 
 type ListDevEndpointsRequest struct {
-	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
-	Tags       TagsMap `json:"tags" xml:"Tags"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type ListDevEndpointsResponse struct {
-	DevEndpointNames DevEndpointNameList `json:"devEndpointNames" xml:"DevEndpointNames"`
-	NextToken        string              `json:"nextToken" xml:"NextToken"`
+DevEndpointNames DevEndpointNameList `json:"devEndpointNames" xml:"DevEndpointNames"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListEntitiesRequest struct {
-	CatalogId           string `json:"catalogId" xml:"CatalogId"`
-	ConnectionName      string `json:"connectionName" xml:"ConnectionName"`
-	DataStoreApiVersion string `json:"dataStoreApiVersion" xml:"DataStoreApiVersion"`
-	NextToken           string `json:"nextToken" xml:"NextToken"`
-	ParentEntityName    string `json:"parentEntityName" xml:"ParentEntityName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+DataStoreApiVersion string `json:"dataStoreApiVersion" xml:"DataStoreApiVersion"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ParentEntityName string `json:"parentEntityName" xml:"ParentEntityName"`
 }
 
 type ListEntitiesResponse struct {
-	Entities  EntityList `json:"entities" xml:"Entities"`
-	NextToken string     `json:"nextToken" xml:"NextToken"`
+Entities EntityList `json:"entities" xml:"Entities"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListIntegrationResourcePropertiesRequest struct {
-	Filters    IntegrationResourcePropertyFilterList `json:"filters" xml:"Filters"`
-	Marker     string                                `json:"marker" xml:"Marker"`
-	MaxRecords int32                                 `json:"maxRecords" xml:"MaxRecords"`
+Filters IntegrationResourcePropertyFilterList `json:"filters" xml:"Filters"`
+Marker string `json:"marker" xml:"Marker"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
 }
 
 type ListIntegrationResourcePropertiesResponse struct {
-	IntegrationResourcePropertyList IntegrationResourcePropertyList `json:"integrationResourcePropertyList" xml:"IntegrationResourcePropertyList"`
-	Marker                          string                          `json:"marker" xml:"Marker"`
+IntegrationResourcePropertyList IntegrationResourcePropertyList `json:"integrationResourcePropertyList" xml:"IntegrationResourcePropertyList"`
+Marker string `json:"marker" xml:"Marker"`
 }
 
 type ListJobsRequest struct {
-	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken  string  `json:"nextToken" xml:"NextToken"`
-	Tags       TagsMap `json:"tags" xml:"Tags"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type ListJobsResponse struct {
-	JobNames  JobNameList `json:"jobNames" xml:"JobNames"`
-	NextToken string      `json:"nextToken" xml:"NextToken"`
+JobNames JobNameList `json:"jobNames" xml:"JobNames"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListMLTransformsRequest struct {
-	Filter     *TransformFilterCriteria `json:"filter" xml:"Filter"`
-	MaxResults int32                    `json:"maxResults" xml:"MaxResults"`
-	NextToken  string                   `json:"nextToken" xml:"NextToken"`
-	Sort       *TransformSortCriteria   `json:"sort" xml:"Sort"`
-	Tags       TagsMap                  `json:"tags" xml:"Tags"`
+Filter *TransformFilterCriteria `json:"filter" xml:"Filter"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Sort *TransformSortCriteria `json:"sort" xml:"Sort"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type ListMLTransformsResponse struct {
-	NextToken    string          `json:"nextToken" xml:"NextToken"`
-	TransformIds TransformIdList `json:"transformIds" xml:"TransformIds"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TransformIds TransformIdList `json:"transformIds" xml:"TransformIds"`
 }
 
 type ListMaterializedViewRefreshTaskRunsRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	TableName    string `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type ListMaterializedViewRefreshTaskRunsResponse struct {
-	MaterializedViewRefreshTaskRuns MaterializedViewRefreshTaskRunsList `json:"materializedViewRefreshTaskRuns" xml:"MaterializedViewRefreshTaskRuns"`
-	NextToken                       string                              `json:"nextToken" xml:"NextToken"`
+MaterializedViewRefreshTaskRuns MaterializedViewRefreshTaskRunsList `json:"materializedViewRefreshTaskRuns" xml:"MaterializedViewRefreshTaskRuns"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListRegistriesInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListRegistriesResponse struct {
-	NextToken  string                 `json:"nextToken" xml:"NextToken"`
-	Registries RegistryListDefinition `json:"registries" xml:"Registries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Registries RegistryListDefinition `json:"registries" xml:"Registries"`
 }
 
 type ListSchemaVersionsInput struct {
-	MaxResults int32     `json:"maxResults" xml:"MaxResults"`
-	NextToken  string    `json:"nextToken" xml:"NextToken"`
-	SchemaId   *SchemaId `json:"schemaId" xml:"SchemaId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
 }
 
 type ListSchemaVersionsResponse struct {
-	NextToken string            `json:"nextToken" xml:"NextToken"`
-	Schemas   SchemaVersionList `json:"schemas" xml:"Schemas"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Schemas SchemaVersionList `json:"schemas" xml:"Schemas"`
 }
 
 type ListSchemasInput struct {
-	MaxResults int32       `json:"maxResults" xml:"MaxResults"`
-	NextToken  string      `json:"nextToken" xml:"NextToken"`
-	RegistryId *RegistryId `json:"registryId" xml:"RegistryId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RegistryId *RegistryId `json:"registryId" xml:"RegistryId"`
 }
 
 type ListSchemasResponse struct {
-	NextToken string               `json:"nextToken" xml:"NextToken"`
-	Schemas   SchemaListDefinition `json:"schemas" xml:"Schemas"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Schemas SchemaListDefinition `json:"schemas" xml:"Schemas"`
 }
 
 type ListSessionsRequest struct {
-	MaxResults    int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken     string  `json:"nextToken" xml:"NextToken"`
-	RequestOrigin string  `json:"requestOrigin" xml:"RequestOrigin"`
-	Tags          TagsMap `json:"tags" xml:"Tags"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type ListSessionsResponse struct {
-	Ids       SessionIdList `json:"ids" xml:"Ids"`
-	NextToken string        `json:"nextToken" xml:"NextToken"`
-	Sessions  SessionList   `json:"sessions" xml:"Sessions"`
+Ids SessionIdList `json:"ids" xml:"Ids"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Sessions SessionList `json:"sessions" xml:"Sessions"`
 }
 
 type ListStatementsRequest struct {
-	NextToken     string `json:"nextToken" xml:"NextToken"`
-	RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
-	SessionId     string `json:"sessionId" xml:"SessionId"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
+SessionId string `json:"sessionId" xml:"SessionId"`
 }
 
 type ListStatementsResponse struct {
-	NextToken  string        `json:"nextToken" xml:"NextToken"`
-	Statements StatementList `json:"statements" xml:"Statements"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Statements StatementList `json:"statements" xml:"Statements"`
 }
 
 type ListTableOptimizerRunsRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	TableName    string `json:"tableName" xml:"TableName"`
-	Type         string `json:"type" xml:"Type"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TableName string `json:"tableName" xml:"TableName"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ListTableOptimizerRunsResponse struct {
-	CatalogId          string             `json:"catalogId" xml:"CatalogId"`
-	DatabaseName       string             `json:"databaseName" xml:"DatabaseName"`
-	NextToken          string             `json:"nextToken" xml:"NextToken"`
-	TableName          string             `json:"tableName" xml:"TableName"`
-	TableOptimizerRuns TableOptimizerRuns `json:"tableOptimizerRuns" xml:"TableOptimizerRuns"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TableName string `json:"tableName" xml:"TableName"`
+TableOptimizerRuns TableOptimizerRuns `json:"tableOptimizerRuns" xml:"TableOptimizerRuns"`
 }
 
 type ListTriggersRequest struct {
-	DependentJobName string  `json:"dependentJobName" xml:"DependentJobName"`
-	MaxResults       int32   `json:"maxResults" xml:"MaxResults"`
-	NextToken        string  `json:"nextToken" xml:"NextToken"`
-	Tags             TagsMap `json:"tags" xml:"Tags"`
+DependentJobName string `json:"dependentJobName" xml:"DependentJobName"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type ListTriggersResponse struct {
-	NextToken    string          `json:"nextToken" xml:"NextToken"`
-	TriggerNames TriggerNameList `json:"triggerNames" xml:"TriggerNames"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TriggerNames TriggerNameList `json:"triggerNames" xml:"TriggerNames"`
 }
 
 type ListUsageProfilesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListUsageProfilesResponse struct {
-	NextToken string                     `json:"nextToken" xml:"NextToken"`
-	Profiles  UsageProfileDefinitionList `json:"profiles" xml:"Profiles"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Profiles UsageProfileDefinitionList `json:"profiles" xml:"Profiles"`
 }
 
 type ListWorkflowsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListWorkflowsResponse struct {
-	NextToken string        `json:"nextToken" xml:"NextToken"`
-	Workflows WorkflowNames `json:"workflows" xml:"Workflows"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Workflows WorkflowNames `json:"workflows" xml:"Workflows"`
 }
 
 type Location struct {
-	DynamoDB CodeGenNodeArgs `json:"dynamoDB" xml:"DynamoDB"`
-	Jdbc     CodeGenNodeArgs `json:"jdbc" xml:"Jdbc"`
-	S3       CodeGenNodeArgs `json:"s3" xml:"S3"`
+DynamoDB CodeGenNodeArgs `json:"dynamoDB" xml:"DynamoDB"`
+Jdbc CodeGenNodeArgs `json:"jdbc" xml:"Jdbc"`
+S3 CodeGenNodeArgs `json:"s3" xml:"S3"`
 }
 
 type LongColumnStatisticsData struct {
-	MaximumValue           int64 `json:"maximumValue" xml:"MaximumValue"`
-	MinimumValue           int64 `json:"minimumValue" xml:"MinimumValue"`
-	NumberOfDistinctValues int64 `json:"numberOfDistinctValues" xml:"NumberOfDistinctValues"`
-	NumberOfNulls          int64 `json:"numberOfNulls" xml:"NumberOfNulls"`
+MaximumValue int64 `json:"maximumValue" xml:"MaximumValue"`
+MinimumValue int64 `json:"minimumValue" xml:"MinimumValue"`
+NumberOfDistinctValues int64 `json:"numberOfDistinctValues" xml:"NumberOfDistinctValues"`
+NumberOfNulls int64 `json:"numberOfNulls" xml:"NumberOfNulls"`
 }
 
 type MLTransform struct {
-	CreatedOn           time.Time            `json:"createdOn" xml:"CreatedOn"`
-	Description         string               `json:"description" xml:"Description"`
-	EvaluationMetrics   *EvaluationMetrics   `json:"evaluationMetrics" xml:"EvaluationMetrics"`
-	GlueVersion         string               `json:"glueVersion" xml:"GlueVersion"`
-	InputRecordTables   GlueTables           `json:"inputRecordTables" xml:"InputRecordTables"`
-	LabelCount          int32                `json:"labelCount" xml:"LabelCount"`
-	LastModifiedOn      time.Time            `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	MaxCapacity         float64              `json:"maxCapacity" xml:"MaxCapacity"`
-	MaxRetries          int32                `json:"maxRetries" xml:"MaxRetries"`
-	Name                string               `json:"name" xml:"Name"`
-	NumberOfWorkers     int32                `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	Parameters          *TransformParameters `json:"parameters" xml:"Parameters"`
-	Role                string               `json:"role" xml:"Role"`
-	Schema              TransformSchema      `json:"schema" xml:"Schema"`
-	Status              string               `json:"status" xml:"Status"`
-	Timeout             int32                `json:"timeout" xml:"Timeout"`
-	TransformEncryption *TransformEncryption `json:"transformEncryption" xml:"TransformEncryption"`
-	TransformId         string               `json:"transformId" xml:"TransformId"`
-	WorkerType          string               `json:"workerType" xml:"WorkerType"`
+CreatedOn time.Time `json:"createdOn" xml:"CreatedOn"`
+Description string `json:"description" xml:"Description"`
+EvaluationMetrics *EvaluationMetrics `json:"evaluationMetrics" xml:"EvaluationMetrics"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+InputRecordTables GlueTables `json:"inputRecordTables" xml:"InputRecordTables"`
+LabelCount int32 `json:"labelCount" xml:"LabelCount"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+MaxCapacity float64 `json:"maxCapacity" xml:"MaxCapacity"`
+MaxRetries int32 `json:"maxRetries" xml:"MaxRetries"`
+Name string `json:"name" xml:"Name"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+Parameters *TransformParameters `json:"parameters" xml:"Parameters"`
+Role string `json:"role" xml:"Role"`
+Schema TransformSchema `json:"schema" xml:"Schema"`
+Status string `json:"status" xml:"Status"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+TransformEncryption *TransformEncryption `json:"transformEncryption" xml:"TransformEncryption"`
+TransformId string `json:"transformId" xml:"TransformId"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type MLUserDataEncryption struct {
-	KmsKeyId                 string `json:"kmsKeyId" xml:"KmsKeyId"`
-	MlUserDataEncryptionMode string `json:"mlUserDataEncryptionMode" xml:"MlUserDataEncryptionMode"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+MlUserDataEncryptionMode string `json:"mlUserDataEncryptionMode" xml:"MlUserDataEncryptionMode"`
 }
 
 type Mapping struct {
-	Children Mappings                   `json:"children" xml:"Children"`
-	Dropped  bool                       `json:"dropped" xml:"Dropped"`
-	FromPath EnclosedInStringProperties `json:"fromPath" xml:"FromPath"`
-	FromType string                     `json:"fromType" xml:"FromType"`
-	ToKey    string                     `json:"toKey" xml:"ToKey"`
-	ToType   string                     `json:"toType" xml:"ToType"`
+Children Mappings `json:"children" xml:"Children"`
+Dropped bool `json:"dropped" xml:"Dropped"`
+FromPath EnclosedInStringProperties `json:"fromPath" xml:"FromPath"`
+FromType string `json:"fromType" xml:"FromType"`
+ToKey string `json:"toKey" xml:"ToKey"`
+ToType string `json:"toType" xml:"ToType"`
 }
 
 type MappingEntry struct {
-	SourcePath  string `json:"sourcePath" xml:"SourcePath"`
-	SourceTable string `json:"sourceTable" xml:"SourceTable"`
-	SourceType  string `json:"sourceType" xml:"SourceType"`
-	TargetPath  string `json:"targetPath" xml:"TargetPath"`
-	TargetTable string `json:"targetTable" xml:"TargetTable"`
-	TargetType  string `json:"targetType" xml:"TargetType"`
+SourcePath string `json:"sourcePath" xml:"SourcePath"`
+SourceTable string `json:"sourceTable" xml:"SourceTable"`
+SourceType string `json:"sourceType" xml:"SourceType"`
+TargetPath string `json:"targetPath" xml:"TargetPath"`
+TargetTable string `json:"targetTable" xml:"TargetTable"`
+TargetType string `json:"targetType" xml:"TargetType"`
 }
 
 type MaterializedViewRefreshTaskRun struct {
-	CatalogId                        string    `json:"catalogId" xml:"CatalogId"`
-	CreationTime                     time.Time `json:"creationTime" xml:"CreationTime"`
-	CustomerId                       string    `json:"customerId" xml:"CustomerId"`
-	DPUSeconds                       float64   `json:"dPUSeconds" xml:"DPUSeconds"`
-	DatabaseName                     string    `json:"databaseName" xml:"DatabaseName"`
-	EndTime                          time.Time `json:"endTime" xml:"EndTime"`
-	ErrorMessage                     string    `json:"errorMessage" xml:"ErrorMessage"`
-	LastUpdated                      time.Time `json:"lastUpdated" xml:"LastUpdated"`
-	MaterializedViewRefreshTaskRunId string    `json:"materializedViewRefreshTaskRunId" xml:"MaterializedViewRefreshTaskRunId"`
-	ProcessedBytes                   int64     `json:"processedBytes" xml:"ProcessedBytes"`
-	RefreshType                      string    `json:"refreshType" xml:"RefreshType"`
-	Role                             string    `json:"role" xml:"Role"`
-	StartTime                        time.Time `json:"startTime" xml:"StartTime"`
-	Status                           string    `json:"status" xml:"Status"`
-	TableName                        string    `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+CustomerId string `json:"customerId" xml:"CustomerId"`
+DPUSeconds float64 `json:"dPUSeconds" xml:"DPUSeconds"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+MaterializedViewRefreshTaskRunId string `json:"materializedViewRefreshTaskRunId" xml:"MaterializedViewRefreshTaskRunId"`
+ProcessedBytes int64 `json:"processedBytes" xml:"ProcessedBytes"`
+RefreshType string `json:"refreshType" xml:"RefreshType"`
+Role string `json:"role" xml:"Role"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Status string `json:"status" xml:"Status"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type Merge struct {
-	Inputs      TwoInputs          `json:"inputs" xml:"Inputs"`
-	Name        string             `json:"name" xml:"Name"`
-	PrimaryKeys GlueStudioPathList `json:"primaryKeys" xml:"PrimaryKeys"`
-	Source      string             `json:"source" xml:"Source"`
+Inputs TwoInputs `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+PrimaryKeys GlueStudioPathList `json:"primaryKeys" xml:"PrimaryKeys"`
+Source string `json:"source" xml:"Source"`
 }
 
 type MetadataInfo struct {
-	CreatedTime            string                 `json:"createdTime" xml:"CreatedTime"`
-	MetadataValue          string                 `json:"metadataValue" xml:"MetadataValue"`
-	OtherMetadataValueList OtherMetadataValueList `json:"otherMetadataValueList" xml:"OtherMetadataValueList"`
+CreatedTime string `json:"createdTime" xml:"CreatedTime"`
+MetadataValue string `json:"metadataValue" xml:"MetadataValue"`
+OtherMetadataValueList OtherMetadataValueList `json:"otherMetadataValueList" xml:"OtherMetadataValueList"`
 }
 
 type MetadataKeyValuePair struct {
-	MetadataKey   string `json:"metadataKey" xml:"MetadataKey"`
-	MetadataValue string `json:"metadataValue" xml:"MetadataValue"`
+MetadataKey string `json:"metadataKey" xml:"MetadataKey"`
+MetadataValue string `json:"metadataValue" xml:"MetadataValue"`
 }
 
 type MetricBasedObservation struct {
-	MetricName   string                   `json:"metricName" xml:"MetricName"`
-	MetricValues *DataQualityMetricValues `json:"metricValues" xml:"MetricValues"`
-	NewRules     NewRules                 `json:"newRules" xml:"NewRules"`
-	StatisticId  string                   `json:"statisticId" xml:"StatisticId"`
+MetricName string `json:"metricName" xml:"MetricName"`
+MetricValues *DataQualityMetricValues `json:"metricValues" xml:"MetricValues"`
+NewRules NewRules `json:"newRules" xml:"NewRules"`
+StatisticId string `json:"statisticId" xml:"StatisticId"`
 }
 
 type MicrosoftSQLServerCatalogSource struct {
-	Database string `json:"database" xml:"Database"`
-	Name     string `json:"name" xml:"Name"`
-	Table    string `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+Table string `json:"table" xml:"Table"`
 }
 
 type MicrosoftSQLServerCatalogTarget struct {
-	Database string   `json:"database" xml:"Database"`
-	Inputs   OneInput `json:"inputs" xml:"Inputs"`
-	Name     string   `json:"name" xml:"Name"`
-	Table    string   `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+Table string `json:"table" xml:"Table"`
 }
 
 type ModifyIntegrationRequest struct {
-	DataFilter            string             `json:"dataFilter" xml:"DataFilter"`
-	Description           string             `json:"description" xml:"Description"`
-	IntegrationConfig     *IntegrationConfig `json:"integrationConfig" xml:"IntegrationConfig"`
-	IntegrationIdentifier string             `json:"integrationIdentifier" xml:"IntegrationIdentifier"`
-	IntegrationName       string             `json:"integrationName" xml:"IntegrationName"`
+DataFilter string `json:"dataFilter" xml:"DataFilter"`
+Description string `json:"description" xml:"Description"`
+IntegrationConfig *IntegrationConfig `json:"integrationConfig" xml:"IntegrationConfig"`
+IntegrationIdentifier string `json:"integrationIdentifier" xml:"IntegrationIdentifier"`
+IntegrationName string `json:"integrationName" xml:"IntegrationName"`
 }
 
 type ModifyIntegrationResponse struct {
-	AdditionalEncryptionContext IntegrationAdditionalEncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
-	CreateTime                  time.Time                                 `json:"createTime" xml:"CreateTime"`
-	DataFilter                  string                                    `json:"dataFilter" xml:"DataFilter"`
-	Description                 string                                    `json:"description" xml:"Description"`
-	Errors                      IntegrationErrorList                      `json:"errors" xml:"Errors"`
-	IntegrationArn              string                                    `json:"integrationArn" xml:"IntegrationArn"`
-	IntegrationConfig           *IntegrationConfig                        `json:"integrationConfig" xml:"IntegrationConfig"`
-	IntegrationName             string                                    `json:"integrationName" xml:"IntegrationName"`
-	KmsKeyId                    string                                    `json:"kmsKeyId" xml:"KmsKeyId"`
-	SourceArn                   string                                    `json:"sourceArn" xml:"SourceArn"`
-	Status                      string                                    `json:"status" xml:"Status"`
-	Tags                        IntegrationTagsList                       `json:"tags" xml:"Tags"`
-	TargetArn                   string                                    `json:"targetArn" xml:"TargetArn"`
+AdditionalEncryptionContext IntegrationAdditionalEncryptionContextMap `json:"additionalEncryptionContext" xml:"AdditionalEncryptionContext"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+DataFilter string `json:"dataFilter" xml:"DataFilter"`
+Description string `json:"description" xml:"Description"`
+Errors IntegrationErrorList `json:"errors" xml:"Errors"`
+IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+IntegrationConfig *IntegrationConfig `json:"integrationConfig" xml:"IntegrationConfig"`
+IntegrationName string `json:"integrationName" xml:"IntegrationName"`
+KmsKeyId string `json:"kmsKeyId" xml:"KmsKeyId"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
+Status string `json:"status" xml:"Status"`
+Tags IntegrationTagsList `json:"tags" xml:"Tags"`
+TargetArn string `json:"targetArn" xml:"TargetArn"`
 }
 
 type MongoDBTarget struct {
-	ConnectionName string `json:"connectionName" xml:"ConnectionName"`
-	Path           string `json:"path" xml:"Path"`
-	ScanAll        bool   `json:"scanAll" xml:"ScanAll"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+Path string `json:"path" xml:"Path"`
+ScanAll bool `json:"scanAll" xml:"ScanAll"`
 }
 
 type MySQLCatalogSource struct {
-	Database string `json:"database" xml:"Database"`
-	Name     string `json:"name" xml:"Name"`
-	Table    string `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+Table string `json:"table" xml:"Table"`
 }
 
 type MySQLCatalogTarget struct {
-	Database string   `json:"database" xml:"Database"`
-	Inputs   OneInput `json:"inputs" xml:"Inputs"`
-	Name     string   `json:"name" xml:"Name"`
-	Table    string   `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+Table string `json:"table" xml:"Table"`
 }
 
 type Node struct {
-	CrawlerDetails *CrawlerNodeDetails `json:"crawlerDetails" xml:"CrawlerDetails"`
-	JobDetails     *JobNodeDetails     `json:"jobDetails" xml:"JobDetails"`
-	Name           string              `json:"name" xml:"Name"`
-	TriggerDetails *TriggerNodeDetails `json:"triggerDetails" xml:"TriggerDetails"`
-	Type           string              `json:"type" xml:"Type"`
-	UniqueId       string              `json:"uniqueId" xml:"UniqueId"`
+CrawlerDetails *CrawlerNodeDetails `json:"crawlerDetails" xml:"CrawlerDetails"`
+JobDetails *JobNodeDetails `json:"jobDetails" xml:"JobDetails"`
+Name string `json:"name" xml:"Name"`
+TriggerDetails *TriggerNodeDetails `json:"triggerDetails" xml:"TriggerDetails"`
+Type string `json:"type" xml:"Type"`
+UniqueId string `json:"uniqueId" xml:"UniqueId"`
 }
 
 type NotificationProperty struct {
-	NotifyDelayAfter int32 `json:"notifyDelayAfter" xml:"NotifyDelayAfter"`
+NotifyDelayAfter int32 `json:"notifyDelayAfter" xml:"NotifyDelayAfter"`
 }
 
 type NullCheckBoxList struct {
-	IsEmpty      bool `json:"isEmpty" xml:"IsEmpty"`
-	IsNegOne     bool `json:"isNegOne" xml:"IsNegOne"`
-	IsNullString bool `json:"isNullString" xml:"IsNullString"`
+IsEmpty bool `json:"isEmpty" xml:"IsEmpty"`
+IsNegOne bool `json:"isNegOne" xml:"IsNegOne"`
+IsNullString bool `json:"isNullString" xml:"IsNullString"`
 }
 
 type NullValueField struct {
-	Datatype *Datatype `json:"datatype" xml:"Datatype"`
-	Value    string    `json:"value" xml:"Value"`
+Datatype *Datatype `json:"datatype" xml:"Datatype"`
+Value string `json:"value" xml:"Value"`
 }
 
 type OAuth2ClientApplication struct {
-	AWSManagedClientApplicationReference string `json:"aWSManagedClientApplicationReference" xml:"AWSManagedClientApplicationReference"`
-	UserManagedClientApplicationClientId string `json:"userManagedClientApplicationClientId" xml:"UserManagedClientApplicationClientId"`
+AWSManagedClientApplicationReference string `json:"aWSManagedClientApplicationReference" xml:"AWSManagedClientApplicationReference"`
+UserManagedClientApplicationClientId string `json:"userManagedClientApplicationClientId" xml:"UserManagedClientApplicationClientId"`
 }
 
 type OAuth2Credentials struct {
-	AccessToken                              string `json:"accessToken" xml:"AccessToken"`
-	JwtToken                                 string `json:"jwtToken" xml:"JwtToken"`
-	RefreshToken                             string `json:"refreshToken" xml:"RefreshToken"`
-	UserManagedClientApplicationClientSecret string `json:"userManagedClientApplicationClientSecret" xml:"UserManagedClientApplicationClientSecret"`
+AccessToken string `json:"accessToken" xml:"AccessToken"`
+JwtToken string `json:"jwtToken" xml:"JwtToken"`
+RefreshToken string `json:"refreshToken" xml:"RefreshToken"`
+UserManagedClientApplicationClientSecret string `json:"userManagedClientApplicationClientSecret" xml:"UserManagedClientApplicationClientSecret"`
 }
 
 type OAuth2Properties struct {
-	OAuth2ClientApplication *OAuth2ClientApplication `json:"oAuth2ClientApplication" xml:"OAuth2ClientApplication"`
-	OAuth2GrantType         string                   `json:"oAuth2GrantType" xml:"OAuth2GrantType"`
-	TokenUrl                string                   `json:"tokenUrl" xml:"TokenUrl"`
-	TokenUrlParametersMap   TokenUrlParametersMap    `json:"tokenUrlParametersMap" xml:"TokenUrlParametersMap"`
+OAuth2ClientApplication *OAuth2ClientApplication `json:"oAuth2ClientApplication" xml:"OAuth2ClientApplication"`
+OAuth2GrantType string `json:"oAuth2GrantType" xml:"OAuth2GrantType"`
+TokenUrl string `json:"tokenUrl" xml:"TokenUrl"`
+TokenUrlParametersMap TokenUrlParametersMap `json:"tokenUrlParametersMap" xml:"TokenUrlParametersMap"`
 }
 
 type OAuth2PropertiesInput struct {
-	AuthorizationCodeProperties *AuthorizationCodeProperties `json:"authorizationCodeProperties" xml:"AuthorizationCodeProperties"`
-	OAuth2ClientApplication     *OAuth2ClientApplication     `json:"oAuth2ClientApplication" xml:"OAuth2ClientApplication"`
-	OAuth2Credentials           *OAuth2Credentials           `json:"oAuth2Credentials" xml:"OAuth2Credentials"`
-	OAuth2GrantType             string                       `json:"oAuth2GrantType" xml:"OAuth2GrantType"`
-	TokenUrl                    string                       `json:"tokenUrl" xml:"TokenUrl"`
-	TokenUrlParametersMap       TokenUrlParametersMap        `json:"tokenUrlParametersMap" xml:"TokenUrlParametersMap"`
+AuthorizationCodeProperties *AuthorizationCodeProperties `json:"authorizationCodeProperties" xml:"AuthorizationCodeProperties"`
+OAuth2ClientApplication *OAuth2ClientApplication `json:"oAuth2ClientApplication" xml:"OAuth2ClientApplication"`
+OAuth2Credentials *OAuth2Credentials `json:"oAuth2Credentials" xml:"OAuth2Credentials"`
+OAuth2GrantType string `json:"oAuth2GrantType" xml:"OAuth2GrantType"`
+TokenUrl string `json:"tokenUrl" xml:"TokenUrl"`
+TokenUrlParametersMap TokenUrlParametersMap `json:"tokenUrlParametersMap" xml:"TokenUrlParametersMap"`
 }
 
 type OffsetConfiguration struct {
-	LimitParameter  *ExtractedParameter `json:"limitParameter" xml:"LimitParameter"`
-	OffsetParameter *ExtractedParameter `json:"offsetParameter" xml:"OffsetParameter"`
+LimitParameter *ExtractedParameter `json:"limitParameter" xml:"LimitParameter"`
+OffsetParameter *ExtractedParameter `json:"offsetParameter" xml:"OffsetParameter"`
 }
 
 type OpenTableFormatInput struct {
-	IcebergInput *IcebergInput `json:"icebergInput" xml:"IcebergInput"`
+IcebergInput *IcebergInput `json:"icebergInput" xml:"IcebergInput"`
 }
 
 type Option struct {
-	Description string `json:"description" xml:"Description"`
-	Label       string `json:"label" xml:"Label"`
-	Value       string `json:"value" xml:"Value"`
+Description string `json:"description" xml:"Description"`
+Label string `json:"label" xml:"Label"`
+Value string `json:"value" xml:"Value"`
 }
 
 type OracleSQLCatalogSource struct {
-	Database string `json:"database" xml:"Database"`
-	Name     string `json:"name" xml:"Name"`
-	Table    string `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+Table string `json:"table" xml:"Table"`
 }
 
 type OracleSQLCatalogTarget struct {
-	Database string   `json:"database" xml:"Database"`
-	Inputs   OneInput `json:"inputs" xml:"Inputs"`
-	Name     string   `json:"name" xml:"Name"`
-	Table    string   `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+Table string `json:"table" xml:"Table"`
 }
 
 type Order struct {
-	Column    string `json:"column" xml:"Column"`
-	SortOrder int32  `json:"sortOrder" xml:"SortOrder"`
+Column string `json:"column" xml:"Column"`
+SortOrder int32 `json:"sortOrder" xml:"SortOrder"`
 }
 
 type OrphanFileDeletionConfiguration struct {
-	IcebergConfiguration *IcebergOrphanFileDeletionConfiguration `json:"icebergConfiguration" xml:"icebergConfiguration"`
+IcebergConfiguration *IcebergOrphanFileDeletionConfiguration `json:"icebergConfiguration" xml:"icebergConfiguration"`
 }
 
 type OrphanFileDeletionMetrics struct {
-	IcebergMetrics *IcebergOrphanFileDeletionMetrics `json:"icebergMetrics" xml:"IcebergMetrics"`
+IcebergMetrics *IcebergOrphanFileDeletionMetrics `json:"icebergMetrics" xml:"IcebergMetrics"`
 }
 
 type OtherMetadataValueListItem struct {
-	CreatedTime   string `json:"createdTime" xml:"CreatedTime"`
-	MetadataValue string `json:"metadataValue" xml:"MetadataValue"`
+CreatedTime string `json:"createdTime" xml:"CreatedTime"`
+MetadataValue string `json:"metadataValue" xml:"MetadataValue"`
 }
 
 type PIIDetection struct {
-	DetectionParameters    string                     `json:"detectionParameters" xml:"DetectionParameters"`
-	DetectionSensitivity   string                     `json:"detectionSensitivity" xml:"DetectionSensitivity"`
-	EntityTypesToDetect    EnclosedInStringProperties `json:"entityTypesToDetect" xml:"EntityTypesToDetect"`
-	Inputs                 OneInput                   `json:"inputs" xml:"Inputs"`
-	MaskValue              string                     `json:"maskValue" xml:"MaskValue"`
-	MatchPattern           string                     `json:"matchPattern" xml:"MatchPattern"`
-	Name                   string                     `json:"name" xml:"Name"`
-	NumLeftCharsToExclude  int32                      `json:"numLeftCharsToExclude" xml:"NumLeftCharsToExclude"`
-	NumRightCharsToExclude int32                      `json:"numRightCharsToExclude" xml:"NumRightCharsToExclude"`
-	OutputColumnName       string                     `json:"outputColumnName" xml:"OutputColumnName"`
-	PiiType                string                     `json:"piiType" xml:"PiiType"`
-	RedactChar             string                     `json:"redactChar" xml:"RedactChar"`
-	RedactText             string                     `json:"redactText" xml:"RedactText"`
-	SampleFraction         float64                    `json:"sampleFraction" xml:"SampleFraction"`
-	ThresholdFraction      float64                    `json:"thresholdFraction" xml:"ThresholdFraction"`
+DetectionParameters string `json:"detectionParameters" xml:"DetectionParameters"`
+DetectionSensitivity string `json:"detectionSensitivity" xml:"DetectionSensitivity"`
+EntityTypesToDetect EnclosedInStringProperties `json:"entityTypesToDetect" xml:"EntityTypesToDetect"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+MaskValue string `json:"maskValue" xml:"MaskValue"`
+MatchPattern string `json:"matchPattern" xml:"MatchPattern"`
+Name string `json:"name" xml:"Name"`
+NumLeftCharsToExclude int32 `json:"numLeftCharsToExclude" xml:"NumLeftCharsToExclude"`
+NumRightCharsToExclude int32 `json:"numRightCharsToExclude" xml:"NumRightCharsToExclude"`
+OutputColumnName string `json:"outputColumnName" xml:"OutputColumnName"`
+PiiType string `json:"piiType" xml:"PiiType"`
+RedactChar string `json:"redactChar" xml:"RedactChar"`
+RedactText string `json:"redactText" xml:"RedactText"`
+SampleFraction float64 `json:"sampleFraction" xml:"SampleFraction"`
+ThresholdFraction float64 `json:"thresholdFraction" xml:"ThresholdFraction"`
 }
 
 type PaginationConfiguration struct {
-	CursorConfiguration *CursorConfiguration `json:"cursorConfiguration" xml:"CursorConfiguration"`
-	OffsetConfiguration *OffsetConfiguration `json:"offsetConfiguration" xml:"OffsetConfiguration"`
+CursorConfiguration *CursorConfiguration `json:"cursorConfiguration" xml:"CursorConfiguration"`
+OffsetConfiguration *OffsetConfiguration `json:"offsetConfiguration" xml:"OffsetConfiguration"`
 }
 
 type Partition struct {
-	CatalogId         string             `json:"catalogId" xml:"CatalogId"`
-	CreationTime      time.Time          `json:"creationTime" xml:"CreationTime"`
-	DatabaseName      string             `json:"databaseName" xml:"DatabaseName"`
-	LastAccessTime    time.Time          `json:"lastAccessTime" xml:"LastAccessTime"`
-	LastAnalyzedTime  time.Time          `json:"lastAnalyzedTime" xml:"LastAnalyzedTime"`
-	Parameters        ParametersMap      `json:"parameters" xml:"Parameters"`
-	StorageDescriptor *StorageDescriptor `json:"storageDescriptor" xml:"StorageDescriptor"`
-	TableName         string             `json:"tableName" xml:"TableName"`
-	Values            ValueStringList    `json:"values" xml:"Values"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+LastAccessTime time.Time `json:"lastAccessTime" xml:"LastAccessTime"`
+LastAnalyzedTime time.Time `json:"lastAnalyzedTime" xml:"LastAnalyzedTime"`
+Parameters ParametersMap `json:"parameters" xml:"Parameters"`
+StorageDescriptor *StorageDescriptor `json:"storageDescriptor" xml:"StorageDescriptor"`
+TableName string `json:"tableName" xml:"TableName"`
+Values ValueStringList `json:"values" xml:"Values"`
 }
 
 type PartitionError struct {
-	ErrorDetail     *ErrorDetail    `json:"errorDetail" xml:"ErrorDetail"`
-	PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
+ErrorDetail *ErrorDetail `json:"errorDetail" xml:"ErrorDetail"`
+PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
 }
 
 type PartitionIndex struct {
-	IndexName string  `json:"indexName" xml:"IndexName"`
-	Keys      KeyList `json:"keys" xml:"Keys"`
+IndexName string `json:"indexName" xml:"IndexName"`
+Keys KeyList `json:"keys" xml:"Keys"`
 }
 
 type PartitionIndexDescriptor struct {
-	BackfillErrors BackfillErrors       `json:"backfillErrors" xml:"BackfillErrors"`
-	IndexName      string               `json:"indexName" xml:"IndexName"`
-	IndexStatus    string               `json:"indexStatus" xml:"IndexStatus"`
-	Keys           KeySchemaElementList `json:"keys" xml:"Keys"`
+BackfillErrors BackfillErrors `json:"backfillErrors" xml:"BackfillErrors"`
+IndexName string `json:"indexName" xml:"IndexName"`
+IndexStatus string `json:"indexStatus" xml:"IndexStatus"`
+Keys KeySchemaElementList `json:"keys" xml:"Keys"`
 }
 
 type PartitionInput struct {
-	LastAccessTime    time.Time          `json:"lastAccessTime" xml:"LastAccessTime"`
-	LastAnalyzedTime  time.Time          `json:"lastAnalyzedTime" xml:"LastAnalyzedTime"`
-	Parameters        ParametersMap      `json:"parameters" xml:"Parameters"`
-	StorageDescriptor *StorageDescriptor `json:"storageDescriptor" xml:"StorageDescriptor"`
-	Values            ValueStringList    `json:"values" xml:"Values"`
+LastAccessTime time.Time `json:"lastAccessTime" xml:"LastAccessTime"`
+LastAnalyzedTime time.Time `json:"lastAnalyzedTime" xml:"LastAnalyzedTime"`
+Parameters ParametersMap `json:"parameters" xml:"Parameters"`
+StorageDescriptor *StorageDescriptor `json:"storageDescriptor" xml:"StorageDescriptor"`
+Values ValueStringList `json:"values" xml:"Values"`
 }
 
 type PartitionValueList struct {
-	Values ValueStringList `json:"values" xml:"Values"`
+Values ValueStringList `json:"values" xml:"Values"`
 }
 
 type PhysicalConnectionRequirements struct {
-	AvailabilityZone    string              `json:"availabilityZone" xml:"AvailabilityZone"`
-	SecurityGroupIdList SecurityGroupIdList `json:"securityGroupIdList" xml:"SecurityGroupIdList"`
-	SubnetId            string              `json:"subnetId" xml:"SubnetId"`
+AvailabilityZone string `json:"availabilityZone" xml:"AvailabilityZone"`
+SecurityGroupIdList SecurityGroupIdList `json:"securityGroupIdList" xml:"SecurityGroupIdList"`
+SubnetId string `json:"subnetId" xml:"SubnetId"`
 }
 
 type PostgreSQLCatalogSource struct {
-	Database string `json:"database" xml:"Database"`
-	Name     string `json:"name" xml:"Name"`
-	Table    string `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+Table string `json:"table" xml:"Table"`
 }
 
 type PostgreSQLCatalogTarget struct {
-	Database string   `json:"database" xml:"Database"`
-	Inputs   OneInput `json:"inputs" xml:"Inputs"`
-	Name     string   `json:"name" xml:"Name"`
-	Table    string   `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+Table string `json:"table" xml:"Table"`
 }
 
 type Predecessor struct {
-	JobName string `json:"jobName" xml:"JobName"`
-	RunId   string `json:"runId" xml:"RunId"`
+JobName string `json:"jobName" xml:"JobName"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type Predicate struct {
-	Conditions ConditionList `json:"conditions" xml:"Conditions"`
-	Logical    string        `json:"logical" xml:"Logical"`
+Conditions ConditionList `json:"conditions" xml:"Conditions"`
+Logical string `json:"logical" xml:"Logical"`
 }
 
 type PrincipalPermissions struct {
-	Permissions PermissionList     `json:"permissions" xml:"Permissions"`
-	Principal   *DataLakePrincipal `json:"principal" xml:"Principal"`
+Permissions PermissionList `json:"permissions" xml:"Permissions"`
+Principal *DataLakePrincipal `json:"principal" xml:"Principal"`
 }
 
 type ProfileConfiguration struct {
-	JobConfiguration     ConfigurationMap `json:"jobConfiguration" xml:"JobConfiguration"`
-	SessionConfiguration ConfigurationMap `json:"sessionConfiguration" xml:"SessionConfiguration"`
+JobConfiguration ConfigurationMap `json:"jobConfiguration" xml:"JobConfiguration"`
+SessionConfiguration ConfigurationMap `json:"sessionConfiguration" xml:"SessionConfiguration"`
 }
 
 type Property struct {
-	AllowedValues       AllowedValues  `json:"allowedValues" xml:"AllowedValues"`
-	DataOperationScopes DataOperations `json:"dataOperationScopes" xml:"DataOperationScopes"`
-	DefaultValue        string         `json:"defaultValue" xml:"DefaultValue"`
-	Description         string         `json:"description" xml:"Description"`
-	KeyOverride         string         `json:"keyOverride" xml:"KeyOverride"`
-	Name                string         `json:"name" xml:"Name"`
-	PropertyLocation    string         `json:"propertyLocation" xml:"PropertyLocation"`
-	PropertyTypes       PropertyTypes  `json:"propertyTypes" xml:"PropertyTypes"`
-	Required            bool           `json:"required" xml:"Required"`
+AllowedValues AllowedValues `json:"allowedValues" xml:"AllowedValues"`
+DataOperationScopes DataOperations `json:"dataOperationScopes" xml:"DataOperationScopes"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+Description string `json:"description" xml:"Description"`
+KeyOverride string `json:"keyOverride" xml:"KeyOverride"`
+Name string `json:"name" xml:"Name"`
+PropertyLocation string `json:"propertyLocation" xml:"PropertyLocation"`
+PropertyTypes PropertyTypes `json:"propertyTypes" xml:"PropertyTypes"`
+Required bool `json:"required" xml:"Required"`
 }
 
 type PropertyPredicate struct {
-	Comparator string `json:"comparator" xml:"Comparator"`
-	Key        string `json:"key" xml:"Key"`
-	Value      string `json:"value" xml:"Value"`
+Comparator string `json:"comparator" xml:"Comparator"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type PutDataCatalogEncryptionSettingsRequest struct {
-	CatalogId                     string                         `json:"catalogId" xml:"CatalogId"`
-	DataCatalogEncryptionSettings *DataCatalogEncryptionSettings `json:"dataCatalogEncryptionSettings" xml:"DataCatalogEncryptionSettings"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DataCatalogEncryptionSettings *DataCatalogEncryptionSettings `json:"dataCatalogEncryptionSettings" xml:"DataCatalogEncryptionSettings"`
 }
 
 type PutDataCatalogEncryptionSettingsResponse struct {
 }
 
 type PutDataQualityProfileAnnotationRequest struct {
-	InclusionAnnotation string `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
-	ProfileId           string `json:"profileId" xml:"ProfileId"`
+InclusionAnnotation string `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
 }
 
 type PutDataQualityProfileAnnotationResponse struct {
 }
 
 type PutResourcePolicyRequest struct {
-	EnableHybrid          string `json:"enableHybrid" xml:"EnableHybrid"`
-	PolicyExistsCondition string `json:"policyExistsCondition" xml:"PolicyExistsCondition"`
-	PolicyHashCondition   string `json:"policyHashCondition" xml:"PolicyHashCondition"`
-	PolicyInJson          string `json:"policyInJson" xml:"PolicyInJson"`
-	ResourceArn           string `json:"resourceArn" xml:"ResourceArn"`
+EnableHybrid string `json:"enableHybrid" xml:"EnableHybrid"`
+PolicyExistsCondition string `json:"policyExistsCondition" xml:"PolicyExistsCondition"`
+PolicyHashCondition string `json:"policyHashCondition" xml:"PolicyHashCondition"`
+PolicyInJson string `json:"policyInJson" xml:"PolicyInJson"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type PutResourcePolicyResponse struct {
-	PolicyHash string `json:"policyHash" xml:"PolicyHash"`
+PolicyHash string `json:"policyHash" xml:"PolicyHash"`
 }
 
 type PutSchemaVersionMetadataInput struct {
-	MetadataKeyValue    *MetadataKeyValuePair `json:"metadataKeyValue" xml:"MetadataKeyValue"`
-	SchemaId            *SchemaId             `json:"schemaId" xml:"SchemaId"`
-	SchemaVersionId     string                `json:"schemaVersionId" xml:"SchemaVersionId"`
-	SchemaVersionNumber *SchemaVersionNumber  `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
+MetadataKeyValue *MetadataKeyValuePair `json:"metadataKeyValue" xml:"MetadataKeyValue"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+SchemaVersionNumber *SchemaVersionNumber `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
 }
 
 type PutSchemaVersionMetadataResponse struct {
-	LatestVersion   bool   `json:"latestVersion" xml:"LatestVersion"`
-	MetadataKey     string `json:"metadataKey" xml:"MetadataKey"`
-	MetadataValue   string `json:"metadataValue" xml:"MetadataValue"`
-	RegistryName    string `json:"registryName" xml:"RegistryName"`
-	SchemaArn       string `json:"schemaArn" xml:"SchemaArn"`
-	SchemaName      string `json:"schemaName" xml:"SchemaName"`
-	SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
-	VersionNumber   int64  `json:"versionNumber" xml:"VersionNumber"`
+LatestVersion bool `json:"latestVersion" xml:"LatestVersion"`
+MetadataKey string `json:"metadataKey" xml:"MetadataKey"`
+MetadataValue string `json:"metadataValue" xml:"MetadataValue"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+SchemaArn string `json:"schemaArn" xml:"SchemaArn"`
+SchemaName string `json:"schemaName" xml:"SchemaName"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type PutWorkflowRunPropertiesRequest struct {
-	Name          string                `json:"name" xml:"Name"`
-	RunId         string                `json:"runId" xml:"RunId"`
-	RunProperties WorkflowRunProperties `json:"runProperties" xml:"RunProperties"`
+Name string `json:"name" xml:"Name"`
+RunId string `json:"runId" xml:"RunId"`
+RunProperties WorkflowRunProperties `json:"runProperties" xml:"RunProperties"`
 }
 
 type PutWorkflowRunPropertiesResponse struct {
 }
 
 type QuerySchemaVersionMetadataInput struct {
-	MaxResults          int32                `json:"maxResults" xml:"MaxResults"`
-	MetadataList        MetadataList         `json:"metadataList" xml:"MetadataList"`
-	NextToken           string               `json:"nextToken" xml:"NextToken"`
-	SchemaId            *SchemaId            `json:"schemaId" xml:"SchemaId"`
-	SchemaVersionId     string               `json:"schemaVersionId" xml:"SchemaVersionId"`
-	SchemaVersionNumber *SchemaVersionNumber `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+MetadataList MetadataList `json:"metadataList" xml:"MetadataList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+SchemaVersionNumber *SchemaVersionNumber `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
 }
 
 type QuerySchemaVersionMetadataResponse struct {
-	MetadataInfoMap MetadataInfoMap `json:"metadataInfoMap" xml:"MetadataInfoMap"`
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
-	SchemaVersionId string          `json:"schemaVersionId" xml:"SchemaVersionId"`
+MetadataInfoMap MetadataInfoMap `json:"metadataInfoMap" xml:"MetadataInfoMap"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
 }
 
 type QuerySessionContext struct {
-	AdditionalContext    AdditionalContextMap `json:"additionalContext" xml:"AdditionalContext"`
-	ClusterId            string               `json:"clusterId" xml:"ClusterId"`
-	QueryAuthorizationId string               `json:"queryAuthorizationId" xml:"QueryAuthorizationId"`
-	QueryId              string               `json:"queryId" xml:"QueryId"`
-	QueryStartTime       time.Time            `json:"queryStartTime" xml:"QueryStartTime"`
+AdditionalContext AdditionalContextMap `json:"additionalContext" xml:"AdditionalContext"`
+ClusterId string `json:"clusterId" xml:"ClusterId"`
+QueryAuthorizationId string `json:"queryAuthorizationId" xml:"QueryAuthorizationId"`
+QueryId string `json:"queryId" xml:"QueryId"`
+QueryStartTime time.Time `json:"queryStartTime" xml:"QueryStartTime"`
 }
 
 type Recipe struct {
-	Inputs          OneInput         `json:"inputs" xml:"Inputs"`
-	Name            string           `json:"name" xml:"Name"`
-	RecipeReference *RecipeReference `json:"recipeReference" xml:"RecipeReference"`
-	RecipeSteps     RecipeSteps      `json:"recipeSteps" xml:"RecipeSteps"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+RecipeReference *RecipeReference `json:"recipeReference" xml:"RecipeReference"`
+RecipeSteps RecipeSteps `json:"recipeSteps" xml:"RecipeSteps"`
 }
 
 type RecipeAction struct {
-	Operation  string       `json:"operation" xml:"Operation"`
-	Parameters ParameterMap `json:"parameters" xml:"Parameters"`
+Operation string `json:"operation" xml:"Operation"`
+Parameters ParameterMap `json:"parameters" xml:"Parameters"`
 }
 
 type RecipeReference struct {
-	RecipeArn     string `json:"recipeArn" xml:"RecipeArn"`
-	RecipeVersion string `json:"recipeVersion" xml:"RecipeVersion"`
+RecipeArn string `json:"recipeArn" xml:"RecipeArn"`
+RecipeVersion string `json:"recipeVersion" xml:"RecipeVersion"`
 }
 
 type RecipeStep struct {
-	Action               *RecipeAction           `json:"action" xml:"Action"`
-	ConditionExpressions ConditionExpressionList `json:"conditionExpressions" xml:"ConditionExpressions"`
+Action *RecipeAction `json:"action" xml:"Action"`
+ConditionExpressions ConditionExpressionList `json:"conditionExpressions" xml:"ConditionExpressions"`
 }
 
 type RecrawlPolicy struct {
-	RecrawlBehavior string `json:"recrawlBehavior" xml:"RecrawlBehavior"`
+RecrawlBehavior string `json:"recrawlBehavior" xml:"RecrawlBehavior"`
 }
 
 type RedshiftSource struct {
-	Database       string `json:"database" xml:"Database"`
-	Name           string `json:"name" xml:"Name"`
-	RedshiftTmpDir string `json:"redshiftTmpDir" xml:"RedshiftTmpDir"`
-	Table          string `json:"table" xml:"Table"`
-	TmpDirIAMRole  string `json:"tmpDirIAMRole" xml:"TmpDirIAMRole"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+RedshiftTmpDir string `json:"redshiftTmpDir" xml:"RedshiftTmpDir"`
+Table string `json:"table" xml:"Table"`
+TmpDirIAMRole string `json:"tmpDirIAMRole" xml:"TmpDirIAMRole"`
 }
 
 type RedshiftTarget struct {
-	Database              string                       `json:"database" xml:"Database"`
-	Inputs                OneInput                     `json:"inputs" xml:"Inputs"`
-	Name                  string                       `json:"name" xml:"Name"`
-	RedshiftTmpDir        string                       `json:"redshiftTmpDir" xml:"RedshiftTmpDir"`
-	Table                 string                       `json:"table" xml:"Table"`
-	TmpDirIAMRole         string                       `json:"tmpDirIAMRole" xml:"TmpDirIAMRole"`
-	UpsertRedshiftOptions *UpsertRedshiftTargetOptions `json:"upsertRedshiftOptions" xml:"UpsertRedshiftOptions"`
+Database string `json:"database" xml:"Database"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+RedshiftTmpDir string `json:"redshiftTmpDir" xml:"RedshiftTmpDir"`
+Table string `json:"table" xml:"Table"`
+TmpDirIAMRole string `json:"tmpDirIAMRole" xml:"TmpDirIAMRole"`
+UpsertRedshiftOptions *UpsertRedshiftTargetOptions `json:"upsertRedshiftOptions" xml:"UpsertRedshiftOptions"`
 }
 
 type RegisterConnectionTypeRequest struct {
-	ConnectionProperties                 *ConnectionPropertiesConfiguration    `json:"connectionProperties" xml:"ConnectionProperties"`
-	ConnectionType                       string                                `json:"connectionType" xml:"ConnectionType"`
-	ConnectorAuthenticationConfiguration *ConnectorAuthenticationConfiguration `json:"connectorAuthenticationConfiguration" xml:"ConnectorAuthenticationConfiguration"`
-	Description                          string                                `json:"description" xml:"Description"`
-	IntegrationType                      string                                `json:"integrationType" xml:"IntegrationType"`
-	RestConfiguration                    *RestConfiguration                    `json:"restConfiguration" xml:"RestConfiguration"`
-	Tags                                 TagsMap                               `json:"tags" xml:"Tags"`
+ConnectionProperties *ConnectionPropertiesConfiguration `json:"connectionProperties" xml:"ConnectionProperties"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ConnectorAuthenticationConfiguration *ConnectorAuthenticationConfiguration `json:"connectorAuthenticationConfiguration" xml:"ConnectorAuthenticationConfiguration"`
+Description string `json:"description" xml:"Description"`
+IntegrationType string `json:"integrationType" xml:"IntegrationType"`
+RestConfiguration *RestConfiguration `json:"restConfiguration" xml:"RestConfiguration"`
+Tags TagsMap `json:"tags" xml:"Tags"`
 }
 
 type RegisterConnectionTypeResponse struct {
-	ConnectionTypeArn string `json:"connectionTypeArn" xml:"ConnectionTypeArn"`
+ConnectionTypeArn string `json:"connectionTypeArn" xml:"ConnectionTypeArn"`
 }
 
 type RegisterSchemaVersionInput struct {
-	SchemaDefinition string    `json:"schemaDefinition" xml:"SchemaDefinition"`
-	SchemaId         *SchemaId `json:"schemaId" xml:"SchemaId"`
+SchemaDefinition string `json:"schemaDefinition" xml:"SchemaDefinition"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
 }
 
 type RegisterSchemaVersionResponse struct {
-	SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
-	Status          string `json:"status" xml:"Status"`
-	VersionNumber   int64  `json:"versionNumber" xml:"VersionNumber"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+Status string `json:"status" xml:"Status"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type RegistryId struct {
-	RegistryArn  string `json:"registryArn" xml:"RegistryArn"`
-	RegistryName string `json:"registryName" xml:"RegistryName"`
+RegistryArn string `json:"registryArn" xml:"RegistryArn"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
 }
 
 type RegistryListItem struct {
-	CreatedTime  string `json:"createdTime" xml:"CreatedTime"`
-	Description  string `json:"description" xml:"Description"`
-	RegistryArn  string `json:"registryArn" xml:"RegistryArn"`
-	RegistryName string `json:"registryName" xml:"RegistryName"`
-	Status       string `json:"status" xml:"Status"`
-	UpdatedTime  string `json:"updatedTime" xml:"UpdatedTime"`
+CreatedTime string `json:"createdTime" xml:"CreatedTime"`
+Description string `json:"description" xml:"Description"`
+RegistryArn string `json:"registryArn" xml:"RegistryArn"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+Status string `json:"status" xml:"Status"`
+UpdatedTime string `json:"updatedTime" xml:"UpdatedTime"`
 }
 
 type RelationalCatalogSource struct {
-	Database string `json:"database" xml:"Database"`
-	Name     string `json:"name" xml:"Name"`
-	Table    string `json:"table" xml:"Table"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+Table string `json:"table" xml:"Table"`
 }
 
 type RemoveSchemaVersionMetadataInput struct {
-	MetadataKeyValue    *MetadataKeyValuePair `json:"metadataKeyValue" xml:"MetadataKeyValue"`
-	SchemaId            *SchemaId             `json:"schemaId" xml:"SchemaId"`
-	SchemaVersionId     string                `json:"schemaVersionId" xml:"SchemaVersionId"`
-	SchemaVersionNumber *SchemaVersionNumber  `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
+MetadataKeyValue *MetadataKeyValuePair `json:"metadataKeyValue" xml:"MetadataKeyValue"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+SchemaVersionNumber *SchemaVersionNumber `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
 }
 
 type RemoveSchemaVersionMetadataResponse struct {
-	LatestVersion   bool   `json:"latestVersion" xml:"LatestVersion"`
-	MetadataKey     string `json:"metadataKey" xml:"MetadataKey"`
-	MetadataValue   string `json:"metadataValue" xml:"MetadataValue"`
-	RegistryName    string `json:"registryName" xml:"RegistryName"`
-	SchemaArn       string `json:"schemaArn" xml:"SchemaArn"`
-	SchemaName      string `json:"schemaName" xml:"SchemaName"`
-	SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
-	VersionNumber   int64  `json:"versionNumber" xml:"VersionNumber"`
+LatestVersion bool `json:"latestVersion" xml:"LatestVersion"`
+MetadataKey string `json:"metadataKey" xml:"MetadataKey"`
+MetadataValue string `json:"metadataValue" xml:"MetadataValue"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+SchemaArn string `json:"schemaArn" xml:"SchemaArn"`
+SchemaName string `json:"schemaName" xml:"SchemaName"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type RenameField struct {
-	Inputs     OneInput                   `json:"inputs" xml:"Inputs"`
-	Name       string                     `json:"name" xml:"Name"`
-	SourcePath EnclosedInStringProperties `json:"sourcePath" xml:"SourcePath"`
-	TargetPath EnclosedInStringProperties `json:"targetPath" xml:"TargetPath"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+SourcePath EnclosedInStringProperties `json:"sourcePath" xml:"SourcePath"`
+TargetPath EnclosedInStringProperties `json:"targetPath" xml:"TargetPath"`
 }
 
 type ResetJobBookmarkRequest struct {
-	JobName string `json:"jobName" xml:"JobName"`
-	RunId   string `json:"runId" xml:"RunId"`
+JobName string `json:"jobName" xml:"JobName"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type ResetJobBookmarkResponse struct {
-	JobBookmarkEntry *JobBookmarkEntry `json:"jobBookmarkEntry" xml:"JobBookmarkEntry"`
+JobBookmarkEntry *JobBookmarkEntry `json:"jobBookmarkEntry" xml:"JobBookmarkEntry"`
 }
 
 type ResourceUri struct {
-	ResourceType string `json:"resourceType" xml:"ResourceType"`
-	Uri          string `json:"uri" xml:"Uri"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
+Uri string `json:"uri" xml:"Uri"`
 }
 
 type ResponseConfiguration struct {
-	ErrorPath  string `json:"errorPath" xml:"ErrorPath"`
-	ResultPath string `json:"resultPath" xml:"ResultPath"`
+ErrorPath string `json:"errorPath" xml:"ErrorPath"`
+ResultPath string `json:"resultPath" xml:"ResultPath"`
 }
 
 type ResponseExtractionMapping struct {
-	ContentPath string `json:"contentPath" xml:"ContentPath"`
-	HeaderKey   string `json:"headerKey" xml:"HeaderKey"`
+ContentPath string `json:"contentPath" xml:"ContentPath"`
+HeaderKey string `json:"headerKey" xml:"HeaderKey"`
 }
 
 type RestConfiguration struct {
-	EntityConfigurations            EntityConfigurationMap `json:"entityConfigurations" xml:"EntityConfigurations"`
-	GlobalSourceConfiguration       *SourceConfiguration   `json:"globalSourceConfiguration" xml:"GlobalSourceConfiguration"`
-	ValidationEndpointConfiguration *SourceConfiguration   `json:"validationEndpointConfiguration" xml:"ValidationEndpointConfiguration"`
+EntityConfigurations EntityConfigurationMap `json:"entityConfigurations" xml:"EntityConfigurations"`
+GlobalSourceConfiguration *SourceConfiguration `json:"globalSourceConfiguration" xml:"GlobalSourceConfiguration"`
+ValidationEndpointConfiguration *SourceConfiguration `json:"validationEndpointConfiguration" xml:"ValidationEndpointConfiguration"`
 }
 
 type ResumeWorkflowRunRequest struct {
-	Name    string     `json:"name" xml:"Name"`
-	NodeIds NodeIdList `json:"nodeIds" xml:"NodeIds"`
-	RunId   string     `json:"runId" xml:"RunId"`
+Name string `json:"name" xml:"Name"`
+NodeIds NodeIdList `json:"nodeIds" xml:"NodeIds"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type ResumeWorkflowRunResponse struct {
-	NodeIds NodeIdList `json:"nodeIds" xml:"NodeIds"`
-	RunId   string     `json:"runId" xml:"RunId"`
+NodeIds NodeIdList `json:"nodeIds" xml:"NodeIds"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type RetentionConfiguration struct {
-	IcebergConfiguration *IcebergRetentionConfiguration `json:"icebergConfiguration" xml:"icebergConfiguration"`
+IcebergConfiguration *IcebergRetentionConfiguration `json:"icebergConfiguration" xml:"icebergConfiguration"`
 }
 
 type RetentionMetrics struct {
-	IcebergMetrics *IcebergRetentionMetrics `json:"icebergMetrics" xml:"IcebergMetrics"`
+IcebergMetrics *IcebergRetentionMetrics `json:"icebergMetrics" xml:"IcebergMetrics"`
 }
 
 type Route struct {
-	GroupFiltersList GroupFiltersList `json:"groupFiltersList" xml:"GroupFiltersList"`
-	Inputs           OneInput         `json:"inputs" xml:"Inputs"`
-	Name             string           `json:"name" xml:"Name"`
+GroupFiltersList GroupFiltersList `json:"groupFiltersList" xml:"GroupFiltersList"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
 }
 
 type RunIdentifier struct {
-	JobRunId string `json:"jobRunId" xml:"JobRunId"`
-	RunId    string `json:"runId" xml:"RunId"`
+JobRunId string `json:"jobRunId" xml:"JobRunId"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type RunMetrics struct {
-	JobDurationInHour      string `json:"jobDurationInHour" xml:"JobDurationInHour"`
-	NumberOfBytesCompacted string `json:"numberOfBytesCompacted" xml:"NumberOfBytesCompacted"`
-	NumberOfDpus           string `json:"numberOfDpus" xml:"NumberOfDpus"`
-	NumberOfFilesCompacted string `json:"numberOfFilesCompacted" xml:"NumberOfFilesCompacted"`
+JobDurationInHour string `json:"jobDurationInHour" xml:"JobDurationInHour"`
+NumberOfBytesCompacted string `json:"numberOfBytesCompacted" xml:"NumberOfBytesCompacted"`
+NumberOfDpus string `json:"numberOfDpus" xml:"NumberOfDpus"`
+NumberOfFilesCompacted string `json:"numberOfFilesCompacted" xml:"NumberOfFilesCompacted"`
 }
 
 type RunStatementRequest struct {
-	Code          string `json:"code" xml:"Code"`
-	RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
-	SessionId     string `json:"sessionId" xml:"SessionId"`
+Code string `json:"code" xml:"Code"`
+RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
+SessionId string `json:"sessionId" xml:"SessionId"`
 }
 
 type RunStatementResponse struct {
-	Id int32 `json:"id" xml:"Id"`
+Id int32 `json:"id" xml:"Id"`
 }
 
 type S3CatalogDeltaSource struct {
-	AdditionalDeltaOptions AdditionalOptions `json:"additionalDeltaOptions" xml:"AdditionalDeltaOptions"`
-	Database               string            `json:"database" xml:"Database"`
-	Name                   string            `json:"name" xml:"Name"`
-	OutputSchemas          GlueSchemas       `json:"outputSchemas" xml:"OutputSchemas"`
-	Table                  string            `json:"table" xml:"Table"`
+AdditionalDeltaOptions AdditionalOptions `json:"additionalDeltaOptions" xml:"AdditionalDeltaOptions"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Table string `json:"table" xml:"Table"`
 }
 
 type S3CatalogHudiSource struct {
-	AdditionalHudiOptions AdditionalOptions `json:"additionalHudiOptions" xml:"AdditionalHudiOptions"`
-	Database              string            `json:"database" xml:"Database"`
-	Name                  string            `json:"name" xml:"Name"`
-	OutputSchemas         GlueSchemas       `json:"outputSchemas" xml:"OutputSchemas"`
-	Table                 string            `json:"table" xml:"Table"`
+AdditionalHudiOptions AdditionalOptions `json:"additionalHudiOptions" xml:"AdditionalHudiOptions"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Table string `json:"table" xml:"Table"`
 }
 
 type S3CatalogIcebergSource struct {
-	AdditionalIcebergOptions AdditionalOptions `json:"additionalIcebergOptions" xml:"AdditionalIcebergOptions"`
-	Database                 string            `json:"database" xml:"Database"`
-	Name                     string            `json:"name" xml:"Name"`
-	OutputSchemas            GlueSchemas       `json:"outputSchemas" xml:"OutputSchemas"`
-	Table                    string            `json:"table" xml:"Table"`
+AdditionalIcebergOptions AdditionalOptions `json:"additionalIcebergOptions" xml:"AdditionalIcebergOptions"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Table string `json:"table" xml:"Table"`
 }
 
 type S3CatalogSource struct {
-	AdditionalOptions  *S3SourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	Database           string                     `json:"database" xml:"Database"`
-	Name               string                     `json:"name" xml:"Name"`
-	PartitionPredicate string                     `json:"partitionPredicate" xml:"PartitionPredicate"`
-	Table              string                     `json:"table" xml:"Table"`
+AdditionalOptions *S3SourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+Database string `json:"database" xml:"Database"`
+Name string `json:"name" xml:"Name"`
+PartitionPredicate string `json:"partitionPredicate" xml:"PartitionPredicate"`
+Table string `json:"table" xml:"Table"`
 }
 
 type S3CatalogTarget struct {
-	AutoDataQuality    *AutoDataQuality           `json:"autoDataQuality" xml:"AutoDataQuality"`
-	Database           string                     `json:"database" xml:"Database"`
-	Inputs             OneInput                   `json:"inputs" xml:"Inputs"`
-	Name               string                     `json:"name" xml:"Name"`
-	PartitionKeys      GlueStudioPathList         `json:"partitionKeys" xml:"PartitionKeys"`
-	SchemaChangePolicy *CatalogSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
-	Table              string                     `json:"table" xml:"Table"`
+AutoDataQuality *AutoDataQuality `json:"autoDataQuality" xml:"AutoDataQuality"`
+Database string `json:"database" xml:"Database"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+SchemaChangePolicy *CatalogSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+Table string `json:"table" xml:"Table"`
 }
 
 type S3CsvSource struct {
-	AdditionalOptions   *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	CompressionType     string                           `json:"compressionType" xml:"CompressionType"`
-	Escaper             string                           `json:"escaper" xml:"Escaper"`
-	Exclusions          EnclosedInStringProperties       `json:"exclusions" xml:"Exclusions"`
-	GroupFiles          string                           `json:"groupFiles" xml:"GroupFiles"`
-	GroupSize           string                           `json:"groupSize" xml:"GroupSize"`
-	MaxBand             int32                            `json:"maxBand" xml:"MaxBand"`
-	MaxFilesInBand      int32                            `json:"maxFilesInBand" xml:"MaxFilesInBand"`
-	Multiline           bool                             `json:"multiline" xml:"Multiline"`
-	Name                string                           `json:"name" xml:"Name"`
-	OptimizePerformance bool                             `json:"optimizePerformance" xml:"OptimizePerformance"`
-	OutputSchemas       GlueSchemas                      `json:"outputSchemas" xml:"OutputSchemas"`
-	Paths               EnclosedInStringProperties       `json:"paths" xml:"Paths"`
-	QuoteChar           string                           `json:"quoteChar" xml:"QuoteChar"`
-	Recurse             bool                             `json:"recurse" xml:"Recurse"`
-	Separator           string                           `json:"separator" xml:"Separator"`
-	SkipFirst           bool                             `json:"skipFirst" xml:"SkipFirst"`
-	WithHeader          bool                             `json:"withHeader" xml:"WithHeader"`
-	WriteHeader         bool                             `json:"writeHeader" xml:"WriteHeader"`
+AdditionalOptions *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+CompressionType string `json:"compressionType" xml:"CompressionType"`
+Escaper string `json:"escaper" xml:"Escaper"`
+Exclusions EnclosedInStringProperties `json:"exclusions" xml:"Exclusions"`
+GroupFiles string `json:"groupFiles" xml:"GroupFiles"`
+GroupSize string `json:"groupSize" xml:"GroupSize"`
+MaxBand int32 `json:"maxBand" xml:"MaxBand"`
+MaxFilesInBand int32 `json:"maxFilesInBand" xml:"MaxFilesInBand"`
+Multiline bool `json:"multiline" xml:"Multiline"`
+Name string `json:"name" xml:"Name"`
+OptimizePerformance bool `json:"optimizePerformance" xml:"OptimizePerformance"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Paths EnclosedInStringProperties `json:"paths" xml:"Paths"`
+QuoteChar string `json:"quoteChar" xml:"QuoteChar"`
+Recurse bool `json:"recurse" xml:"Recurse"`
+Separator string `json:"separator" xml:"Separator"`
+SkipFirst bool `json:"skipFirst" xml:"SkipFirst"`
+WithHeader bool `json:"withHeader" xml:"WithHeader"`
+WriteHeader bool `json:"writeHeader" xml:"WriteHeader"`
 }
 
 type S3DeltaCatalogTarget struct {
-	AdditionalOptions  AdditionalOptions          `json:"additionalOptions" xml:"AdditionalOptions"`
-	AutoDataQuality    *AutoDataQuality           `json:"autoDataQuality" xml:"AutoDataQuality"`
-	Database           string                     `json:"database" xml:"Database"`
-	Inputs             OneInput                   `json:"inputs" xml:"Inputs"`
-	Name               string                     `json:"name" xml:"Name"`
-	OutputSchemas      GlueSchemas                `json:"outputSchemas" xml:"OutputSchemas"`
-	PartitionKeys      GlueStudioPathList         `json:"partitionKeys" xml:"PartitionKeys"`
-	SchemaChangePolicy *CatalogSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
-	Table              string                     `json:"table" xml:"Table"`
+AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+AutoDataQuality *AutoDataQuality `json:"autoDataQuality" xml:"AutoDataQuality"`
+Database string `json:"database" xml:"Database"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+SchemaChangePolicy *CatalogSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+Table string `json:"table" xml:"Table"`
 }
 
 type S3DeltaDirectTarget struct {
-	AdditionalOptions      AdditionalOptions         `json:"additionalOptions" xml:"AdditionalOptions"`
-	AutoDataQuality        *AutoDataQuality          `json:"autoDataQuality" xml:"AutoDataQuality"`
-	Compression            string                    `json:"compression" xml:"Compression"`
-	Format                 string                    `json:"format" xml:"Format"`
-	Inputs                 OneInput                  `json:"inputs" xml:"Inputs"`
-	Name                   string                    `json:"name" xml:"Name"`
-	NumberTargetPartitions string                    `json:"numberTargetPartitions" xml:"NumberTargetPartitions"`
-	PartitionKeys          GlueStudioPathList        `json:"partitionKeys" xml:"PartitionKeys"`
-	Path                   string                    `json:"path" xml:"Path"`
-	SchemaChangePolicy     *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+AutoDataQuality *AutoDataQuality `json:"autoDataQuality" xml:"AutoDataQuality"`
+Compression string `json:"compression" xml:"Compression"`
+Format string `json:"format" xml:"Format"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+NumberTargetPartitions string `json:"numberTargetPartitions" xml:"NumberTargetPartitions"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+Path string `json:"path" xml:"Path"`
+SchemaChangePolicy *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
 }
 
 type S3DeltaSource struct {
-	AdditionalDeltaOptions AdditionalOptions                `json:"additionalDeltaOptions" xml:"AdditionalDeltaOptions"`
-	AdditionalOptions      *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	Name                   string                           `json:"name" xml:"Name"`
-	OutputSchemas          GlueSchemas                      `json:"outputSchemas" xml:"OutputSchemas"`
-	Paths                  EnclosedInStringProperties       `json:"paths" xml:"Paths"`
+AdditionalDeltaOptions AdditionalOptions `json:"additionalDeltaOptions" xml:"AdditionalDeltaOptions"`
+AdditionalOptions *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Paths EnclosedInStringProperties `json:"paths" xml:"Paths"`
 }
 
 type S3DirectSourceAdditionalOptions struct {
-	BoundedFiles     int64  `json:"boundedFiles" xml:"BoundedFiles"`
-	BoundedSize      int64  `json:"boundedSize" xml:"BoundedSize"`
-	EnableSamplePath bool   `json:"enableSamplePath" xml:"EnableSamplePath"`
-	SamplePath       string `json:"samplePath" xml:"SamplePath"`
+BoundedFiles int64 `json:"boundedFiles" xml:"BoundedFiles"`
+BoundedSize int64 `json:"boundedSize" xml:"BoundedSize"`
+EnableSamplePath bool `json:"enableSamplePath" xml:"EnableSamplePath"`
+SamplePath string `json:"samplePath" xml:"SamplePath"`
 }
 
 type S3DirectTarget struct {
-	AutoDataQuality        *AutoDataQuality          `json:"autoDataQuality" xml:"AutoDataQuality"`
-	Compression            string                    `json:"compression" xml:"Compression"`
-	Format                 string                    `json:"format" xml:"Format"`
-	Inputs                 OneInput                  `json:"inputs" xml:"Inputs"`
-	Name                   string                    `json:"name" xml:"Name"`
-	NumberTargetPartitions string                    `json:"numberTargetPartitions" xml:"NumberTargetPartitions"`
-	OutputSchemas          GlueSchemas               `json:"outputSchemas" xml:"OutputSchemas"`
-	PartitionKeys          GlueStudioPathList        `json:"partitionKeys" xml:"PartitionKeys"`
-	Path                   string                    `json:"path" xml:"Path"`
-	SchemaChangePolicy     *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+AutoDataQuality *AutoDataQuality `json:"autoDataQuality" xml:"AutoDataQuality"`
+Compression string `json:"compression" xml:"Compression"`
+Format string `json:"format" xml:"Format"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+NumberTargetPartitions string `json:"numberTargetPartitions" xml:"NumberTargetPartitions"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+Path string `json:"path" xml:"Path"`
+SchemaChangePolicy *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
 }
 
 type S3Encryption struct {
-	KmsKeyArn        string `json:"kmsKeyArn" xml:"KmsKeyArn"`
-	S3EncryptionMode string `json:"s3EncryptionMode" xml:"S3EncryptionMode"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+S3EncryptionMode string `json:"s3EncryptionMode" xml:"S3EncryptionMode"`
 }
 
 type S3ExcelSource struct {
-	AdditionalOptions *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	CompressionType   string                           `json:"compressionType" xml:"CompressionType"`
-	Exclusions        EnclosedInStringProperties       `json:"exclusions" xml:"Exclusions"`
-	GroupFiles        string                           `json:"groupFiles" xml:"GroupFiles"`
-	GroupSize         string                           `json:"groupSize" xml:"GroupSize"`
-	MaxBand           int32                            `json:"maxBand" xml:"MaxBand"`
-	MaxFilesInBand    int32                            `json:"maxFilesInBand" xml:"MaxFilesInBand"`
-	Name              string                           `json:"name" xml:"Name"`
-	NumberRows        int64                            `json:"numberRows" xml:"NumberRows"`
-	OutputSchemas     GlueSchemas                      `json:"outputSchemas" xml:"OutputSchemas"`
-	Paths             EnclosedInStringProperties       `json:"paths" xml:"Paths"`
-	Recurse           bool                             `json:"recurse" xml:"Recurse"`
-	SkipFooter        int32                            `json:"skipFooter" xml:"SkipFooter"`
+AdditionalOptions *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+CompressionType string `json:"compressionType" xml:"CompressionType"`
+Exclusions EnclosedInStringProperties `json:"exclusions" xml:"Exclusions"`
+GroupFiles string `json:"groupFiles" xml:"GroupFiles"`
+GroupSize string `json:"groupSize" xml:"GroupSize"`
+MaxBand int32 `json:"maxBand" xml:"MaxBand"`
+MaxFilesInBand int32 `json:"maxFilesInBand" xml:"MaxFilesInBand"`
+Name string `json:"name" xml:"Name"`
+NumberRows int64 `json:"numberRows" xml:"NumberRows"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Paths EnclosedInStringProperties `json:"paths" xml:"Paths"`
+Recurse bool `json:"recurse" xml:"Recurse"`
+SkipFooter int32 `json:"skipFooter" xml:"SkipFooter"`
 }
 
 type S3GlueParquetTarget struct {
-	AutoDataQuality        *AutoDataQuality          `json:"autoDataQuality" xml:"AutoDataQuality"`
-	Compression            string                    `json:"compression" xml:"Compression"`
-	Inputs                 OneInput                  `json:"inputs" xml:"Inputs"`
-	Name                   string                    `json:"name" xml:"Name"`
-	NumberTargetPartitions string                    `json:"numberTargetPartitions" xml:"NumberTargetPartitions"`
-	PartitionKeys          GlueStudioPathList        `json:"partitionKeys" xml:"PartitionKeys"`
-	Path                   string                    `json:"path" xml:"Path"`
-	SchemaChangePolicy     *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+AutoDataQuality *AutoDataQuality `json:"autoDataQuality" xml:"AutoDataQuality"`
+Compression string `json:"compression" xml:"Compression"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+NumberTargetPartitions string `json:"numberTargetPartitions" xml:"NumberTargetPartitions"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+Path string `json:"path" xml:"Path"`
+SchemaChangePolicy *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
 }
 
 type S3HudiCatalogTarget struct {
-	AdditionalOptions  AdditionalOptions          `json:"additionalOptions" xml:"AdditionalOptions"`
-	AutoDataQuality    *AutoDataQuality           `json:"autoDataQuality" xml:"AutoDataQuality"`
-	Database           string                     `json:"database" xml:"Database"`
-	Inputs             OneInput                   `json:"inputs" xml:"Inputs"`
-	Name               string                     `json:"name" xml:"Name"`
-	OutputSchemas      GlueSchemas                `json:"outputSchemas" xml:"OutputSchemas"`
-	PartitionKeys      GlueStudioPathList         `json:"partitionKeys" xml:"PartitionKeys"`
-	SchemaChangePolicy *CatalogSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
-	Table              string                     `json:"table" xml:"Table"`
+AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+AutoDataQuality *AutoDataQuality `json:"autoDataQuality" xml:"AutoDataQuality"`
+Database string `json:"database" xml:"Database"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+SchemaChangePolicy *CatalogSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+Table string `json:"table" xml:"Table"`
 }
 
 type S3HudiDirectTarget struct {
-	AdditionalOptions      AdditionalOptions         `json:"additionalOptions" xml:"AdditionalOptions"`
-	AutoDataQuality        *AutoDataQuality          `json:"autoDataQuality" xml:"AutoDataQuality"`
-	Compression            string                    `json:"compression" xml:"Compression"`
-	Format                 string                    `json:"format" xml:"Format"`
-	Inputs                 OneInput                  `json:"inputs" xml:"Inputs"`
-	Name                   string                    `json:"name" xml:"Name"`
-	NumberTargetPartitions string                    `json:"numberTargetPartitions" xml:"NumberTargetPartitions"`
-	PartitionKeys          GlueStudioPathList        `json:"partitionKeys" xml:"PartitionKeys"`
-	Path                   string                    `json:"path" xml:"Path"`
-	SchemaChangePolicy     *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+AutoDataQuality *AutoDataQuality `json:"autoDataQuality" xml:"AutoDataQuality"`
+Compression string `json:"compression" xml:"Compression"`
+Format string `json:"format" xml:"Format"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+NumberTargetPartitions string `json:"numberTargetPartitions" xml:"NumberTargetPartitions"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+Path string `json:"path" xml:"Path"`
+SchemaChangePolicy *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
 }
 
 type S3HudiSource struct {
-	AdditionalHudiOptions AdditionalOptions                `json:"additionalHudiOptions" xml:"AdditionalHudiOptions"`
-	AdditionalOptions     *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	Name                  string                           `json:"name" xml:"Name"`
-	OutputSchemas         GlueSchemas                      `json:"outputSchemas" xml:"OutputSchemas"`
-	Paths                 EnclosedInStringProperties       `json:"paths" xml:"Paths"`
+AdditionalHudiOptions AdditionalOptions `json:"additionalHudiOptions" xml:"AdditionalHudiOptions"`
+AdditionalOptions *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Paths EnclosedInStringProperties `json:"paths" xml:"Paths"`
 }
 
 type S3HyperDirectTarget struct {
-	AutoDataQuality    *AutoDataQuality          `json:"autoDataQuality" xml:"AutoDataQuality"`
-	Compression        string                    `json:"compression" xml:"Compression"`
-	Format             string                    `json:"format" xml:"Format"`
-	Inputs             OneInput                  `json:"inputs" xml:"Inputs"`
-	Name               string                    `json:"name" xml:"Name"`
-	OutputSchemas      GlueSchemas               `json:"outputSchemas" xml:"OutputSchemas"`
-	PartitionKeys      GlueStudioPathList        `json:"partitionKeys" xml:"PartitionKeys"`
-	Path               string                    `json:"path" xml:"Path"`
-	SchemaChangePolicy *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+AutoDataQuality *AutoDataQuality `json:"autoDataQuality" xml:"AutoDataQuality"`
+Compression string `json:"compression" xml:"Compression"`
+Format string `json:"format" xml:"Format"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+Path string `json:"path" xml:"Path"`
+SchemaChangePolicy *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
 }
 
 type S3IcebergCatalogTarget struct {
-	AdditionalOptions  AdditionalOptions          `json:"additionalOptions" xml:"AdditionalOptions"`
-	AutoDataQuality    *AutoDataQuality           `json:"autoDataQuality" xml:"AutoDataQuality"`
-	Database           string                     `json:"database" xml:"Database"`
-	Inputs             OneInput                   `json:"inputs" xml:"Inputs"`
-	Name               string                     `json:"name" xml:"Name"`
-	PartitionKeys      GlueStudioPathList         `json:"partitionKeys" xml:"PartitionKeys"`
-	SchemaChangePolicy *CatalogSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
-	Table              string                     `json:"table" xml:"Table"`
+AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+AutoDataQuality *AutoDataQuality `json:"autoDataQuality" xml:"AutoDataQuality"`
+Database string `json:"database" xml:"Database"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+SchemaChangePolicy *CatalogSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+Table string `json:"table" xml:"Table"`
 }
 
 type S3IcebergDirectTarget struct {
-	AdditionalOptions      AdditionalOptions         `json:"additionalOptions" xml:"AdditionalOptions"`
-	AutoDataQuality        *AutoDataQuality          `json:"autoDataQuality" xml:"AutoDataQuality"`
-	Compression            string                    `json:"compression" xml:"Compression"`
-	Format                 string                    `json:"format" xml:"Format"`
-	Inputs                 OneInput                  `json:"inputs" xml:"Inputs"`
-	Name                   string                    `json:"name" xml:"Name"`
-	NumberTargetPartitions string                    `json:"numberTargetPartitions" xml:"NumberTargetPartitions"`
-	OutputSchemas          GlueSchemas               `json:"outputSchemas" xml:"OutputSchemas"`
-	PartitionKeys          GlueStudioPathList        `json:"partitionKeys" xml:"PartitionKeys"`
-	Path                   string                    `json:"path" xml:"Path"`
-	SchemaChangePolicy     *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+AutoDataQuality *AutoDataQuality `json:"autoDataQuality" xml:"AutoDataQuality"`
+Compression string `json:"compression" xml:"Compression"`
+Format string `json:"format" xml:"Format"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+NumberTargetPartitions string `json:"numberTargetPartitions" xml:"NumberTargetPartitions"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+PartitionKeys GlueStudioPathList `json:"partitionKeys" xml:"PartitionKeys"`
+Path string `json:"path" xml:"Path"`
+SchemaChangePolicy *DirectSchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
 }
 
 type S3JsonSource struct {
-	AdditionalOptions *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	CompressionType   string                           `json:"compressionType" xml:"CompressionType"`
-	Exclusions        EnclosedInStringProperties       `json:"exclusions" xml:"Exclusions"`
-	GroupFiles        string                           `json:"groupFiles" xml:"GroupFiles"`
-	GroupSize         string                           `json:"groupSize" xml:"GroupSize"`
-	JsonPath          string                           `json:"jsonPath" xml:"JsonPath"`
-	MaxBand           int32                            `json:"maxBand" xml:"MaxBand"`
-	MaxFilesInBand    int32                            `json:"maxFilesInBand" xml:"MaxFilesInBand"`
-	Multiline         bool                             `json:"multiline" xml:"Multiline"`
-	Name              string                           `json:"name" xml:"Name"`
-	OutputSchemas     GlueSchemas                      `json:"outputSchemas" xml:"OutputSchemas"`
-	Paths             EnclosedInStringProperties       `json:"paths" xml:"Paths"`
-	Recurse           bool                             `json:"recurse" xml:"Recurse"`
+AdditionalOptions *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+CompressionType string `json:"compressionType" xml:"CompressionType"`
+Exclusions EnclosedInStringProperties `json:"exclusions" xml:"Exclusions"`
+GroupFiles string `json:"groupFiles" xml:"GroupFiles"`
+GroupSize string `json:"groupSize" xml:"GroupSize"`
+JsonPath string `json:"jsonPath" xml:"JsonPath"`
+MaxBand int32 `json:"maxBand" xml:"MaxBand"`
+MaxFilesInBand int32 `json:"maxFilesInBand" xml:"MaxFilesInBand"`
+Multiline bool `json:"multiline" xml:"Multiline"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Paths EnclosedInStringProperties `json:"paths" xml:"Paths"`
+Recurse bool `json:"recurse" xml:"Recurse"`
 }
 
 type S3ParquetSource struct {
-	AdditionalOptions *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	CompressionType   string                           `json:"compressionType" xml:"CompressionType"`
-	Exclusions        EnclosedInStringProperties       `json:"exclusions" xml:"Exclusions"`
-	GroupFiles        string                           `json:"groupFiles" xml:"GroupFiles"`
-	GroupSize         string                           `json:"groupSize" xml:"GroupSize"`
-	MaxBand           int32                            `json:"maxBand" xml:"MaxBand"`
-	MaxFilesInBand    int32                            `json:"maxFilesInBand" xml:"MaxFilesInBand"`
-	Name              string                           `json:"name" xml:"Name"`
-	OutputSchemas     GlueSchemas                      `json:"outputSchemas" xml:"OutputSchemas"`
-	Paths             EnclosedInStringProperties       `json:"paths" xml:"Paths"`
-	Recurse           bool                             `json:"recurse" xml:"Recurse"`
+AdditionalOptions *S3DirectSourceAdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+CompressionType string `json:"compressionType" xml:"CompressionType"`
+Exclusions EnclosedInStringProperties `json:"exclusions" xml:"Exclusions"`
+GroupFiles string `json:"groupFiles" xml:"GroupFiles"`
+GroupSize string `json:"groupSize" xml:"GroupSize"`
+MaxBand int32 `json:"maxBand" xml:"MaxBand"`
+MaxFilesInBand int32 `json:"maxFilesInBand" xml:"MaxFilesInBand"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+Paths EnclosedInStringProperties `json:"paths" xml:"Paths"`
+Recurse bool `json:"recurse" xml:"Recurse"`
 }
 
 type S3SourceAdditionalOptions struct {
-	BoundedFiles int64 `json:"boundedFiles" xml:"BoundedFiles"`
-	BoundedSize  int64 `json:"boundedSize" xml:"BoundedSize"`
+BoundedFiles int64 `json:"boundedFiles" xml:"BoundedFiles"`
+BoundedSize int64 `json:"boundedSize" xml:"BoundedSize"`
 }
 
 type S3Target struct {
-	ConnectionName   string   `json:"connectionName" xml:"ConnectionName"`
-	DlqEventQueueArn string   `json:"dlqEventQueueArn" xml:"DlqEventQueueArn"`
-	EventQueueArn    string   `json:"eventQueueArn" xml:"EventQueueArn"`
-	Exclusions       PathList `json:"exclusions" xml:"Exclusions"`
-	Path             string   `json:"path" xml:"Path"`
-	SampleSize       int32    `json:"sampleSize" xml:"SampleSize"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+DlqEventQueueArn string `json:"dlqEventQueueArn" xml:"DlqEventQueueArn"`
+EventQueueArn string `json:"eventQueueArn" xml:"EventQueueArn"`
+Exclusions PathList `json:"exclusions" xml:"Exclusions"`
+Path string `json:"path" xml:"Path"`
+SampleSize int32 `json:"sampleSize" xml:"SampleSize"`
 }
 
 type Schedule struct {
-	ScheduleExpression string `json:"scheduleExpression" xml:"ScheduleExpression"`
-	State              string `json:"state" xml:"State"`
+ScheduleExpression string `json:"scheduleExpression" xml:"ScheduleExpression"`
+State string `json:"state" xml:"State"`
 }
 
 type SchemaChangePolicy struct {
-	DeleteBehavior string `json:"deleteBehavior" xml:"DeleteBehavior"`
-	UpdateBehavior string `json:"updateBehavior" xml:"UpdateBehavior"`
+DeleteBehavior string `json:"deleteBehavior" xml:"DeleteBehavior"`
+UpdateBehavior string `json:"updateBehavior" xml:"UpdateBehavior"`
 }
 
 type SchemaColumn struct {
-	DataType string `json:"dataType" xml:"DataType"`
-	Name     string `json:"name" xml:"Name"`
+DataType string `json:"dataType" xml:"DataType"`
+Name string `json:"name" xml:"Name"`
 }
 
 type SchemaId struct {
-	RegistryName string `json:"registryName" xml:"RegistryName"`
-	SchemaArn    string `json:"schemaArn" xml:"SchemaArn"`
-	SchemaName   string `json:"schemaName" xml:"SchemaName"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+SchemaArn string `json:"schemaArn" xml:"SchemaArn"`
+SchemaName string `json:"schemaName" xml:"SchemaName"`
 }
 
 type SchemaListItem struct {
-	CreatedTime  string `json:"createdTime" xml:"CreatedTime"`
-	Description  string `json:"description" xml:"Description"`
-	RegistryName string `json:"registryName" xml:"RegistryName"`
-	SchemaArn    string `json:"schemaArn" xml:"SchemaArn"`
-	SchemaName   string `json:"schemaName" xml:"SchemaName"`
-	SchemaStatus string `json:"schemaStatus" xml:"SchemaStatus"`
-	UpdatedTime  string `json:"updatedTime" xml:"UpdatedTime"`
+CreatedTime string `json:"createdTime" xml:"CreatedTime"`
+Description string `json:"description" xml:"Description"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+SchemaArn string `json:"schemaArn" xml:"SchemaArn"`
+SchemaName string `json:"schemaName" xml:"SchemaName"`
+SchemaStatus string `json:"schemaStatus" xml:"SchemaStatus"`
+UpdatedTime string `json:"updatedTime" xml:"UpdatedTime"`
 }
 
 type SchemaReference struct {
-	SchemaId            *SchemaId `json:"schemaId" xml:"SchemaId"`
-	SchemaVersionId     string    `json:"schemaVersionId" xml:"SchemaVersionId"`
-	SchemaVersionNumber int64     `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+SchemaVersionNumber int64 `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
 }
 
 type SchemaVersionErrorItem struct {
-	ErrorDetails  *ErrorDetails `json:"errorDetails" xml:"ErrorDetails"`
-	VersionNumber int64         `json:"versionNumber" xml:"VersionNumber"`
+ErrorDetails *ErrorDetails `json:"errorDetails" xml:"ErrorDetails"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type SchemaVersionListItem struct {
-	CreatedTime     string `json:"createdTime" xml:"CreatedTime"`
-	SchemaArn       string `json:"schemaArn" xml:"SchemaArn"`
-	SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
-	Status          string `json:"status" xml:"Status"`
-	VersionNumber   int64  `json:"versionNumber" xml:"VersionNumber"`
+CreatedTime string `json:"createdTime" xml:"CreatedTime"`
+SchemaArn string `json:"schemaArn" xml:"SchemaArn"`
+SchemaVersionId string `json:"schemaVersionId" xml:"SchemaVersionId"`
+Status string `json:"status" xml:"Status"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type SchemaVersionNumber struct {
-	LatestVersion bool  `json:"latestVersion" xml:"LatestVersion"`
-	VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
+LatestVersion bool `json:"latestVersion" xml:"LatestVersion"`
+VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
 type SearchTablesRequest struct {
-	CatalogId            string                   `json:"catalogId" xml:"CatalogId"`
-	Filters              SearchPropertyPredicates `json:"filters" xml:"Filters"`
-	IncludeStatusDetails bool                     `json:"includeStatusDetails" xml:"IncludeStatusDetails"`
-	MaxResults           int32                    `json:"maxResults" xml:"MaxResults"`
-	NextToken            string                   `json:"nextToken" xml:"NextToken"`
-	ResourceShareType    string                   `json:"resourceShareType" xml:"ResourceShareType"`
-	SearchText           string                   `json:"searchText" xml:"SearchText"`
-	SortCriteria         SortCriteria             `json:"sortCriteria" xml:"SortCriteria"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+Filters SearchPropertyPredicates `json:"filters" xml:"Filters"`
+IncludeStatusDetails bool `json:"includeStatusDetails" xml:"IncludeStatusDetails"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceShareType string `json:"resourceShareType" xml:"ResourceShareType"`
+SearchText string `json:"searchText" xml:"SearchText"`
+SortCriteria SortCriteria `json:"sortCriteria" xml:"SortCriteria"`
 }
 
 type SearchTablesResponse struct {
-	NextToken string    `json:"nextToken" xml:"NextToken"`
-	TableList TableList `json:"tableList" xml:"TableList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+TableList TableList `json:"tableList" xml:"TableList"`
 }
 
 type SecurityConfiguration struct {
-	CreatedTimeStamp        time.Time                `json:"createdTimeStamp" xml:"CreatedTimeStamp"`
-	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
-	Name                    string                   `json:"name" xml:"Name"`
+CreatedTimeStamp time.Time `json:"createdTimeStamp" xml:"CreatedTimeStamp"`
+EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+Name string `json:"name" xml:"Name"`
 }
 
 type Segment struct {
-	SegmentNumber int32 `json:"segmentNumber" xml:"SegmentNumber"`
-	TotalSegments int32 `json:"totalSegments" xml:"TotalSegments"`
+SegmentNumber int32 `json:"segmentNumber" xml:"SegmentNumber"`
+TotalSegments int32 `json:"totalSegments" xml:"TotalSegments"`
 }
 
 type SelectFields struct {
-	Inputs OneInput           `json:"inputs" xml:"Inputs"`
-	Name   string             `json:"name" xml:"Name"`
-	Paths  GlueStudioPathList `json:"paths" xml:"Paths"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+Paths GlueStudioPathList `json:"paths" xml:"Paths"`
 }
 
 type SelectFromCollection struct {
-	Index  int32    `json:"index" xml:"Index"`
-	Inputs OneInput `json:"inputs" xml:"Inputs"`
-	Name   string   `json:"name" xml:"Name"`
+Index int32 `json:"index" xml:"Index"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
 }
 
 type SerDeInfo struct {
-	Name                 string        `json:"name" xml:"Name"`
-	Parameters           ParametersMap `json:"parameters" xml:"Parameters"`
-	SerializationLibrary string        `json:"serializationLibrary" xml:"SerializationLibrary"`
+Name string `json:"name" xml:"Name"`
+Parameters ParametersMap `json:"parameters" xml:"Parameters"`
+SerializationLibrary string `json:"serializationLibrary" xml:"SerializationLibrary"`
 }
 
 type Session struct {
-	Command               *SessionCommand           `json:"command" xml:"Command"`
-	CompletedOn           time.Time                 `json:"completedOn" xml:"CompletedOn"`
-	Connections           *ConnectionsList          `json:"connections" xml:"Connections"`
-	CreatedOn             time.Time                 `json:"createdOn" xml:"CreatedOn"`
-	DPUSeconds            float64                   `json:"dPUSeconds" xml:"DPUSeconds"`
-	DefaultArguments      OrchestrationArgumentsMap `json:"defaultArguments" xml:"DefaultArguments"`
-	Description           string                    `json:"description" xml:"Description"`
-	ErrorMessage          string                    `json:"errorMessage" xml:"ErrorMessage"`
-	ExecutionTime         float64                   `json:"executionTime" xml:"ExecutionTime"`
-	GlueVersion           string                    `json:"glueVersion" xml:"GlueVersion"`
-	Id                    string                    `json:"id" xml:"Id"`
-	IdleTimeout           int32                     `json:"idleTimeout" xml:"IdleTimeout"`
-	MaxCapacity           float64                   `json:"maxCapacity" xml:"MaxCapacity"`
-	NumberOfWorkers       int32                     `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	ProfileName           string                    `json:"profileName" xml:"ProfileName"`
-	Progress              float64                   `json:"progress" xml:"Progress"`
-	Role                  string                    `json:"role" xml:"Role"`
-	SecurityConfiguration string                    `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	Status                string                    `json:"status" xml:"Status"`
-	WorkerType            string                    `json:"workerType" xml:"WorkerType"`
+Command *SessionCommand `json:"command" xml:"Command"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+Connections *ConnectionsList `json:"connections" xml:"Connections"`
+CreatedOn time.Time `json:"createdOn" xml:"CreatedOn"`
+DPUSeconds float64 `json:"dPUSeconds" xml:"DPUSeconds"`
+DefaultArguments OrchestrationArgumentsMap `json:"defaultArguments" xml:"DefaultArguments"`
+Description string `json:"description" xml:"Description"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+ExecutionTime float64 `json:"executionTime" xml:"ExecutionTime"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+Id string `json:"id" xml:"Id"`
+IdleTimeout int32 `json:"idleTimeout" xml:"IdleTimeout"`
+MaxCapacity float64 `json:"maxCapacity" xml:"MaxCapacity"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+ProfileName string `json:"profileName" xml:"ProfileName"`
+Progress float64 `json:"progress" xml:"Progress"`
+Role string `json:"role" xml:"Role"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+Status string `json:"status" xml:"Status"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type SessionCommand struct {
-	Name          string `json:"name" xml:"Name"`
-	PythonVersion string `json:"pythonVersion" xml:"PythonVersion"`
+Name string `json:"name" xml:"Name"`
+PythonVersion string `json:"pythonVersion" xml:"PythonVersion"`
 }
 
 type SkewedInfo struct {
-	SkewedColumnNames             NameStringList        `json:"skewedColumnNames" xml:"SkewedColumnNames"`
-	SkewedColumnValueLocationMaps LocationMap           `json:"skewedColumnValueLocationMaps" xml:"SkewedColumnValueLocationMaps"`
-	SkewedColumnValues            ColumnValueStringList `json:"skewedColumnValues" xml:"SkewedColumnValues"`
+SkewedColumnNames NameStringList `json:"skewedColumnNames" xml:"SkewedColumnNames"`
+SkewedColumnValueLocationMaps LocationMap `json:"skewedColumnValueLocationMaps" xml:"SkewedColumnValueLocationMaps"`
+SkewedColumnValues ColumnValueStringList `json:"skewedColumnValues" xml:"SkewedColumnValues"`
 }
 
 type SnowflakeNodeData struct {
-	Action              string            `json:"action" xml:"Action"`
-	AdditionalOptions   AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	AutoPushdown        bool              `json:"autoPushdown" xml:"AutoPushdown"`
-	Connection          *Option           `json:"connection" xml:"Connection"`
-	Database            string            `json:"database" xml:"Database"`
-	IamRole             *Option           `json:"iamRole" xml:"IamRole"`
-	MergeAction         string            `json:"mergeAction" xml:"MergeAction"`
-	MergeClause         string            `json:"mergeClause" xml:"MergeClause"`
-	MergeWhenMatched    string            `json:"mergeWhenMatched" xml:"MergeWhenMatched"`
-	MergeWhenNotMatched string            `json:"mergeWhenNotMatched" xml:"MergeWhenNotMatched"`
-	PostAction          string            `json:"postAction" xml:"PostAction"`
-	PreAction           string            `json:"preAction" xml:"PreAction"`
-	SampleQuery         string            `json:"sampleQuery" xml:"SampleQuery"`
-	Schema              string            `json:"schema" xml:"Schema"`
-	SelectedColumns     OptionList        `json:"selectedColumns" xml:"SelectedColumns"`
-	SourceType          string            `json:"sourceType" xml:"SourceType"`
-	StagingTable        string            `json:"stagingTable" xml:"StagingTable"`
-	Table               string            `json:"table" xml:"Table"`
-	TableSchema         OptionList        `json:"tableSchema" xml:"TableSchema"`
-	TempDir             string            `json:"tempDir" xml:"TempDir"`
-	Upsert              bool              `json:"upsert" xml:"Upsert"`
+Action string `json:"action" xml:"Action"`
+AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+AutoPushdown bool `json:"autoPushdown" xml:"AutoPushdown"`
+Connection *Option `json:"connection" xml:"Connection"`
+Database string `json:"database" xml:"Database"`
+IamRole *Option `json:"iamRole" xml:"IamRole"`
+MergeAction string `json:"mergeAction" xml:"MergeAction"`
+MergeClause string `json:"mergeClause" xml:"MergeClause"`
+MergeWhenMatched string `json:"mergeWhenMatched" xml:"MergeWhenMatched"`
+MergeWhenNotMatched string `json:"mergeWhenNotMatched" xml:"MergeWhenNotMatched"`
+PostAction string `json:"postAction" xml:"PostAction"`
+PreAction string `json:"preAction" xml:"PreAction"`
+SampleQuery string `json:"sampleQuery" xml:"SampleQuery"`
+Schema string `json:"schema" xml:"Schema"`
+SelectedColumns OptionList `json:"selectedColumns" xml:"SelectedColumns"`
+SourceType string `json:"sourceType" xml:"SourceType"`
+StagingTable string `json:"stagingTable" xml:"StagingTable"`
+Table string `json:"table" xml:"Table"`
+TableSchema OptionList `json:"tableSchema" xml:"TableSchema"`
+TempDir string `json:"tempDir" xml:"TempDir"`
+Upsert bool `json:"upsert" xml:"Upsert"`
 }
 
 type SnowflakeSource struct {
-	Data          *SnowflakeNodeData `json:"data" xml:"Data"`
-	Name          string             `json:"name" xml:"Name"`
-	OutputSchemas GlueSchemas        `json:"outputSchemas" xml:"OutputSchemas"`
+Data *SnowflakeNodeData `json:"data" xml:"Data"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
 }
 
 type SnowflakeTarget struct {
-	Data   *SnowflakeNodeData `json:"data" xml:"Data"`
-	Inputs OneInput           `json:"inputs" xml:"Inputs"`
-	Name   string             `json:"name" xml:"Name"`
+Data *SnowflakeNodeData `json:"data" xml:"Data"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
 }
 
 type SortCriterion struct {
-	FieldName string `json:"fieldName" xml:"FieldName"`
-	Sort      string `json:"sort" xml:"Sort"`
+FieldName string `json:"fieldName" xml:"FieldName"`
+Sort string `json:"sort" xml:"Sort"`
 }
 
 type SourceConfiguration struct {
-	PaginationConfiguration *PaginationConfiguration `json:"paginationConfiguration" xml:"PaginationConfiguration"`
-	RequestMethod           string                   `json:"requestMethod" xml:"RequestMethod"`
-	RequestParameters       ConnectorPropertyList    `json:"requestParameters" xml:"RequestParameters"`
-	RequestPath             string                   `json:"requestPath" xml:"RequestPath"`
-	ResponseConfiguration   *ResponseConfiguration   `json:"responseConfiguration" xml:"ResponseConfiguration"`
+PaginationConfiguration *PaginationConfiguration `json:"paginationConfiguration" xml:"PaginationConfiguration"`
+RequestMethod string `json:"requestMethod" xml:"RequestMethod"`
+RequestParameters ConnectorPropertyList `json:"requestParameters" xml:"RequestParameters"`
+RequestPath string `json:"requestPath" xml:"RequestPath"`
+ResponseConfiguration *ResponseConfiguration `json:"responseConfiguration" xml:"ResponseConfiguration"`
 }
 
 type SourceControlDetails struct {
-	AuthStrategy string `json:"authStrategy" xml:"AuthStrategy"`
-	AuthToken    string `json:"authToken" xml:"AuthToken"`
-	Branch       string `json:"branch" xml:"Branch"`
-	Folder       string `json:"folder" xml:"Folder"`
-	LastCommitId string `json:"lastCommitId" xml:"LastCommitId"`
-	Owner        string `json:"owner" xml:"Owner"`
-	Provider     string `json:"provider" xml:"Provider"`
-	Repository   string `json:"repository" xml:"Repository"`
+AuthStrategy string `json:"authStrategy" xml:"AuthStrategy"`
+AuthToken string `json:"authToken" xml:"AuthToken"`
+Branch string `json:"branch" xml:"Branch"`
+Folder string `json:"folder" xml:"Folder"`
+LastCommitId string `json:"lastCommitId" xml:"LastCommitId"`
+Owner string `json:"owner" xml:"Owner"`
+Provider string `json:"provider" xml:"Provider"`
+Repository string `json:"repository" xml:"Repository"`
 }
 
 type SourceProcessingProperties struct {
-	RoleArn string `json:"roleArn" xml:"RoleArn"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type SourceTableConfig struct {
-	Fields            SourceTableFieldsList `json:"fields" xml:"Fields"`
-	FilterPredicate   string                `json:"filterPredicate" xml:"FilterPredicate"`
-	PrimaryKey        PrimaryKeyList        `json:"primaryKey" xml:"PrimaryKey"`
-	RecordUpdateField string                `json:"recordUpdateField" xml:"RecordUpdateField"`
+Fields SourceTableFieldsList `json:"fields" xml:"Fields"`
+FilterPredicate string `json:"filterPredicate" xml:"FilterPredicate"`
+PrimaryKey PrimaryKeyList `json:"primaryKey" xml:"PrimaryKey"`
+RecordUpdateField string `json:"recordUpdateField" xml:"RecordUpdateField"`
 }
 
 type SparkConnectorSource struct {
-	AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	ConnectionName    string            `json:"connectionName" xml:"ConnectionName"`
-	ConnectionType    string            `json:"connectionType" xml:"ConnectionType"`
-	ConnectorName     string            `json:"connectorName" xml:"ConnectorName"`
-	Name              string            `json:"name" xml:"Name"`
-	OutputSchemas     GlueSchemas       `json:"outputSchemas" xml:"OutputSchemas"`
+AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ConnectorName string `json:"connectorName" xml:"ConnectorName"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
 }
 
 type SparkConnectorTarget struct {
-	AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
-	ConnectionName    string            `json:"connectionName" xml:"ConnectionName"`
-	ConnectionType    string            `json:"connectionType" xml:"ConnectionType"`
-	ConnectorName     string            `json:"connectorName" xml:"ConnectorName"`
-	Inputs            OneInput          `json:"inputs" xml:"Inputs"`
-	Name              string            `json:"name" xml:"Name"`
-	OutputSchemas     GlueSchemas       `json:"outputSchemas" xml:"OutputSchemas"`
+AdditionalOptions AdditionalOptions `json:"additionalOptions" xml:"AdditionalOptions"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
+ConnectorName string `json:"connectorName" xml:"ConnectorName"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
 }
 
 type SparkSQL struct {
-	Inputs        ManyInputs  `json:"inputs" xml:"Inputs"`
-	Name          string      `json:"name" xml:"Name"`
-	OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
-	SqlAliases    SqlAliases  `json:"sqlAliases" xml:"SqlAliases"`
-	SqlQuery      string      `json:"sqlQuery" xml:"SqlQuery"`
+Inputs ManyInputs `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+OutputSchemas GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
+SqlAliases SqlAliases `json:"sqlAliases" xml:"SqlAliases"`
+SqlQuery string `json:"sqlQuery" xml:"SqlQuery"`
 }
 
 type Spigot struct {
-	Inputs OneInput `json:"inputs" xml:"Inputs"`
-	Name   string   `json:"name" xml:"Name"`
-	Path   string   `json:"path" xml:"Path"`
-	Prob   float64  `json:"prob" xml:"Prob"`
-	Topk   int32    `json:"topk" xml:"Topk"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+Path string `json:"path" xml:"Path"`
+Prob float64 `json:"prob" xml:"Prob"`
+Topk int32 `json:"topk" xml:"Topk"`
 }
 
 type SplitFields struct {
-	Inputs OneInput           `json:"inputs" xml:"Inputs"`
-	Name   string             `json:"name" xml:"Name"`
-	Paths  GlueStudioPathList `json:"paths" xml:"Paths"`
+Inputs OneInput `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+Paths GlueStudioPathList `json:"paths" xml:"Paths"`
 }
 
 type SqlAlias struct {
-	Alias string `json:"alias" xml:"Alias"`
-	From  string `json:"from" xml:"From"`
+Alias string `json:"alias" xml:"Alias"`
+From string `json:"from" xml:"From"`
 }
 
 type StartBlueprintRunRequest struct {
-	BlueprintName string `json:"blueprintName" xml:"BlueprintName"`
-	Parameters    string `json:"parameters" xml:"Parameters"`
-	RoleArn       string `json:"roleArn" xml:"RoleArn"`
+BlueprintName string `json:"blueprintName" xml:"BlueprintName"`
+Parameters string `json:"parameters" xml:"Parameters"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type StartBlueprintRunResponse struct {
-	RunId string `json:"runId" xml:"RunId"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type StartColumnStatisticsTaskRunRequest struct {
-	CatalogID             string         `json:"catalogID" xml:"CatalogID"`
-	ColumnNameList        ColumnNameList `json:"columnNameList" xml:"ColumnNameList"`
-	DatabaseName          string         `json:"databaseName" xml:"DatabaseName"`
-	Role                  string         `json:"role" xml:"Role"`
-	SampleSize            float64        `json:"sampleSize" xml:"SampleSize"`
-	SecurityConfiguration string         `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	TableName             string         `json:"tableName" xml:"TableName"`
+CatalogID string `json:"catalogID" xml:"CatalogID"`
+ColumnNameList ColumnNameList `json:"columnNameList" xml:"ColumnNameList"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Role string `json:"role" xml:"Role"`
+SampleSize float64 `json:"sampleSize" xml:"SampleSize"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type StartColumnStatisticsTaskRunResponse struct {
-	ColumnStatisticsTaskRunId string `json:"columnStatisticsTaskRunId" xml:"ColumnStatisticsTaskRunId"`
+ColumnStatisticsTaskRunId string `json:"columnStatisticsTaskRunId" xml:"ColumnStatisticsTaskRunId"`
 }
 
 type StartColumnStatisticsTaskRunScheduleRequest struct {
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type StartColumnStatisticsTaskRunScheduleResponse struct {
 }
 
 type StartCrawlerRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type StartCrawlerResponse struct {
 }
 
 type StartCrawlerScheduleRequest struct {
-	CrawlerName string `json:"crawlerName" xml:"CrawlerName"`
+CrawlerName string `json:"crawlerName" xml:"CrawlerName"`
 }
 
 type StartCrawlerScheduleResponse struct {
 }
 
 type StartDataQualityRuleRecommendationRunRequest struct {
-	ClientToken                      string      `json:"clientToken" xml:"ClientToken"`
-	CreatedRulesetName               string      `json:"createdRulesetName" xml:"CreatedRulesetName"`
-	DataQualitySecurityConfiguration string      `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
-	DataSource                       *DataSource `json:"dataSource" xml:"DataSource"`
-	NumberOfWorkers                  int32       `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	Role                             string      `json:"role" xml:"Role"`
-	Timeout                          int32       `json:"timeout" xml:"Timeout"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+CreatedRulesetName string `json:"createdRulesetName" xml:"CreatedRulesetName"`
+DataQualitySecurityConfiguration string `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+Role string `json:"role" xml:"Role"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
 }
 
 type StartDataQualityRuleRecommendationRunResponse struct {
-	RunId string `json:"runId" xml:"RunId"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type StartDataQualityRulesetEvaluationRunRequest struct {
-	AdditionalDataSources DataSourceMap                                 `json:"additionalDataSources" xml:"AdditionalDataSources"`
-	AdditionalRunOptions  *DataQualityEvaluationRunAdditionalRunOptions `json:"additionalRunOptions" xml:"AdditionalRunOptions"`
-	ClientToken           string                                        `json:"clientToken" xml:"ClientToken"`
-	DataSource            *DataSource                                   `json:"dataSource" xml:"DataSource"`
-	NumberOfWorkers       int32                                         `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	Role                  string                                        `json:"role" xml:"Role"`
-	RulesetNames          RulesetNames                                  `json:"rulesetNames" xml:"RulesetNames"`
-	Timeout               int32                                         `json:"timeout" xml:"Timeout"`
+AdditionalDataSources DataSourceMap `json:"additionalDataSources" xml:"AdditionalDataSources"`
+AdditionalRunOptions *DataQualityEvaluationRunAdditionalRunOptions `json:"additionalRunOptions" xml:"AdditionalRunOptions"`
+ClientToken string `json:"clientToken" xml:"ClientToken"`
+DataSource *DataSource `json:"dataSource" xml:"DataSource"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+Role string `json:"role" xml:"Role"`
+RulesetNames RulesetNames `json:"rulesetNames" xml:"RulesetNames"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
 }
 
 type StartDataQualityRulesetEvaluationRunResponse struct {
-	RunId string `json:"runId" xml:"RunId"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type StartExportLabelsTaskRunRequest struct {
-	OutputS3Path string `json:"outputS3Path" xml:"OutputS3Path"`
-	TransformId  string `json:"transformId" xml:"TransformId"`
+OutputS3Path string `json:"outputS3Path" xml:"OutputS3Path"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type StartExportLabelsTaskRunResponse struct {
-	TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
+TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
 }
 
 type StartImportLabelsTaskRunRequest struct {
-	InputS3Path      string `json:"inputS3Path" xml:"InputS3Path"`
-	ReplaceAllLabels bool   `json:"replaceAllLabels" xml:"ReplaceAllLabels"`
-	TransformId      string `json:"transformId" xml:"TransformId"`
+InputS3Path string `json:"inputS3Path" xml:"InputS3Path"`
+ReplaceAllLabels bool `json:"replaceAllLabels" xml:"ReplaceAllLabels"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type StartImportLabelsTaskRunResponse struct {
-	TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
+TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
 }
 
 type StartJobRunRequest struct {
-	AllocatedCapacity          int32                 `json:"allocatedCapacity" xml:"AllocatedCapacity"`
-	Arguments                  GenericMap            `json:"arguments" xml:"Arguments"`
-	ExecutionClass             string                `json:"executionClass" xml:"ExecutionClass"`
-	ExecutionRoleSessionPolicy string                `json:"executionRoleSessionPolicy" xml:"ExecutionRoleSessionPolicy"`
-	JobName                    string                `json:"jobName" xml:"JobName"`
-	JobRunId                   string                `json:"jobRunId" xml:"JobRunId"`
-	JobRunQueuingEnabled       bool                  `json:"jobRunQueuingEnabled" xml:"JobRunQueuingEnabled"`
-	MaxCapacity                float64               `json:"maxCapacity" xml:"MaxCapacity"`
-	NotificationProperty       *NotificationProperty `json:"notificationProperty" xml:"NotificationProperty"`
-	NumberOfWorkers            int32                 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	SecurityConfiguration      string                `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	Timeout                    int32                 `json:"timeout" xml:"Timeout"`
-	WorkerType                 string                `json:"workerType" xml:"WorkerType"`
+AllocatedCapacity int32 `json:"allocatedCapacity" xml:"AllocatedCapacity"`
+Arguments GenericMap `json:"arguments" xml:"Arguments"`
+ExecutionClass string `json:"executionClass" xml:"ExecutionClass"`
+ExecutionRoleSessionPolicy string `json:"executionRoleSessionPolicy" xml:"ExecutionRoleSessionPolicy"`
+JobName string `json:"jobName" xml:"JobName"`
+JobRunId string `json:"jobRunId" xml:"JobRunId"`
+JobRunQueuingEnabled bool `json:"jobRunQueuingEnabled" xml:"JobRunQueuingEnabled"`
+MaxCapacity float64 `json:"maxCapacity" xml:"MaxCapacity"`
+NotificationProperty *NotificationProperty `json:"notificationProperty" xml:"NotificationProperty"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type StartJobRunResponse struct {
-	JobRunId string `json:"jobRunId" xml:"JobRunId"`
+JobRunId string `json:"jobRunId" xml:"JobRunId"`
 }
 
 type StartMLEvaluationTaskRunRequest struct {
-	TransformId string `json:"transformId" xml:"TransformId"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type StartMLEvaluationTaskRunResponse struct {
-	TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
+TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
 }
 
 type StartMLLabelingSetGenerationTaskRunRequest struct {
-	OutputS3Path string `json:"outputS3Path" xml:"OutputS3Path"`
-	TransformId  string `json:"transformId" xml:"TransformId"`
+OutputS3Path string `json:"outputS3Path" xml:"OutputS3Path"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type StartMLLabelingSetGenerationTaskRunResponse struct {
-	TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
+TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
 }
 
 type StartMaterializedViewRefreshTaskRunRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	FullRefresh  bool   `json:"fullRefresh" xml:"FullRefresh"`
-	TableName    string `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+FullRefresh bool `json:"fullRefresh" xml:"FullRefresh"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type StartMaterializedViewRefreshTaskRunResponse struct {
-	MaterializedViewRefreshTaskRunId string `json:"materializedViewRefreshTaskRunId" xml:"MaterializedViewRefreshTaskRunId"`
+MaterializedViewRefreshTaskRunId string `json:"materializedViewRefreshTaskRunId" xml:"MaterializedViewRefreshTaskRunId"`
 }
 
 type StartTriggerRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type StartTriggerResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type StartWorkflowRunRequest struct {
-	Name          string                `json:"name" xml:"Name"`
-	RunProperties WorkflowRunProperties `json:"runProperties" xml:"RunProperties"`
+Name string `json:"name" xml:"Name"`
+RunProperties WorkflowRunProperties `json:"runProperties" xml:"RunProperties"`
 }
 
 type StartWorkflowRunResponse struct {
-	RunId string `json:"runId" xml:"RunId"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type StartingEventBatchCondition struct {
-	BatchSize   int32 `json:"batchSize" xml:"BatchSize"`
-	BatchWindow int32 `json:"batchWindow" xml:"BatchWindow"`
+BatchSize int32 `json:"batchSize" xml:"BatchSize"`
+BatchWindow int32 `json:"batchWindow" xml:"BatchWindow"`
 }
 
 type Statement struct {
-	Code        string           `json:"code" xml:"Code"`
-	CompletedOn int64            `json:"completedOn" xml:"CompletedOn"`
-	Id          int32            `json:"id" xml:"Id"`
-	Output      *StatementOutput `json:"output" xml:"Output"`
-	Progress    float64          `json:"progress" xml:"Progress"`
-	StartedOn   int64            `json:"startedOn" xml:"StartedOn"`
-	State       string           `json:"state" xml:"State"`
+Code string `json:"code" xml:"Code"`
+CompletedOn int64 `json:"completedOn" xml:"CompletedOn"`
+Id int32 `json:"id" xml:"Id"`
+Output *StatementOutput `json:"output" xml:"Output"`
+Progress float64 `json:"progress" xml:"Progress"`
+StartedOn int64 `json:"startedOn" xml:"StartedOn"`
+State string `json:"state" xml:"State"`
 }
 
 type StatementOutput struct {
-	Data           *StatementOutputData    `json:"data" xml:"Data"`
-	ErrorName      string                  `json:"errorName" xml:"ErrorName"`
-	ErrorValue     string                  `json:"errorValue" xml:"ErrorValue"`
-	ExecutionCount int32                   `json:"executionCount" xml:"ExecutionCount"`
-	Status         string                  `json:"status" xml:"Status"`
-	Traceback      OrchestrationStringList `json:"traceback" xml:"Traceback"`
+Data *StatementOutputData `json:"data" xml:"Data"`
+ErrorName string `json:"errorName" xml:"ErrorName"`
+ErrorValue string `json:"errorValue" xml:"ErrorValue"`
+ExecutionCount int32 `json:"executionCount" xml:"ExecutionCount"`
+Status string `json:"status" xml:"Status"`
+Traceback OrchestrationStringList `json:"traceback" xml:"Traceback"`
 }
 
 type StatementOutputData struct {
-	TextPlain string `json:"textPlain" xml:"TextPlain"`
+TextPlain string `json:"textPlain" xml:"TextPlain"`
 }
 
 type StatisticAnnotation struct {
-	InclusionAnnotation *TimestampedInclusionAnnotation `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
-	ProfileId           string                          `json:"profileId" xml:"ProfileId"`
-	StatisticId         string                          `json:"statisticId" xml:"StatisticId"`
-	StatisticRecordedOn time.Time                       `json:"statisticRecordedOn" xml:"StatisticRecordedOn"`
+InclusionAnnotation *TimestampedInclusionAnnotation `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+StatisticId string `json:"statisticId" xml:"StatisticId"`
+StatisticRecordedOn time.Time `json:"statisticRecordedOn" xml:"StatisticRecordedOn"`
 }
 
 type StatisticModelResult struct {
-	ActualValue         float64   `json:"actualValue" xml:"ActualValue"`
-	Date                time.Time `json:"date" xml:"Date"`
-	InclusionAnnotation string    `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
-	LowerBound          float64   `json:"lowerBound" xml:"LowerBound"`
-	PredictedValue      float64   `json:"predictedValue" xml:"PredictedValue"`
-	UpperBound          float64   `json:"upperBound" xml:"UpperBound"`
+ActualValue float64 `json:"actualValue" xml:"ActualValue"`
+Date time.Time `json:"date" xml:"Date"`
+InclusionAnnotation string `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
+LowerBound float64 `json:"lowerBound" xml:"LowerBound"`
+PredictedValue float64 `json:"predictedValue" xml:"PredictedValue"`
+UpperBound float64 `json:"upperBound" xml:"UpperBound"`
 }
 
 type StatisticSummary struct {
-	ColumnsReferenced   ColumnNameList                  `json:"columnsReferenced" xml:"ColumnsReferenced"`
-	DoubleValue         float64                         `json:"doubleValue" xml:"DoubleValue"`
-	EvaluationLevel     string                          `json:"evaluationLevel" xml:"EvaluationLevel"`
-	InclusionAnnotation *TimestampedInclusionAnnotation `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
-	ProfileId           string                          `json:"profileId" xml:"ProfileId"`
-	RecordedOn          time.Time                       `json:"recordedOn" xml:"RecordedOn"`
-	ReferencedDatasets  ReferenceDatasetsList           `json:"referencedDatasets" xml:"ReferencedDatasets"`
-	RunIdentifier       *RunIdentifier                  `json:"runIdentifier" xml:"RunIdentifier"`
-	StatisticId         string                          `json:"statisticId" xml:"StatisticId"`
-	StatisticName       string                          `json:"statisticName" xml:"StatisticName"`
-	StatisticProperties StatisticPropertiesMap          `json:"statisticProperties" xml:"StatisticProperties"`
+ColumnsReferenced ColumnNameList `json:"columnsReferenced" xml:"ColumnsReferenced"`
+DoubleValue float64 `json:"doubleValue" xml:"DoubleValue"`
+EvaluationLevel string `json:"evaluationLevel" xml:"EvaluationLevel"`
+InclusionAnnotation *TimestampedInclusionAnnotation `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+RecordedOn time.Time `json:"recordedOn" xml:"RecordedOn"`
+ReferencedDatasets ReferenceDatasetsList `json:"referencedDatasets" xml:"ReferencedDatasets"`
+RunIdentifier *RunIdentifier `json:"runIdentifier" xml:"RunIdentifier"`
+StatisticId string `json:"statisticId" xml:"StatisticId"`
+StatisticName string `json:"statisticName" xml:"StatisticName"`
+StatisticProperties StatisticPropertiesMap `json:"statisticProperties" xml:"StatisticProperties"`
 }
 
 type StatusDetails struct {
-	RequestedChange *Table             `json:"requestedChange" xml:"RequestedChange"`
-	ViewValidations ViewValidationList `json:"viewValidations" xml:"ViewValidations"`
+RequestedChange *Table `json:"requestedChange" xml:"RequestedChange"`
+ViewValidations ViewValidationList `json:"viewValidations" xml:"ViewValidations"`
 }
 
 type StopColumnStatisticsTaskRunRequest struct {
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type StopColumnStatisticsTaskRunResponse struct {
 }
 
 type StopColumnStatisticsTaskRunScheduleRequest struct {
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type StopColumnStatisticsTaskRunScheduleResponse struct {
 }
 
 type StopCrawlerRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type StopCrawlerResponse struct {
 }
 
 type StopCrawlerScheduleRequest struct {
-	CrawlerName string `json:"crawlerName" xml:"CrawlerName"`
+CrawlerName string `json:"crawlerName" xml:"CrawlerName"`
 }
 
 type StopCrawlerScheduleResponse struct {
 }
 
 type StopMaterializedViewRefreshTaskRunRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type StopMaterializedViewRefreshTaskRunResponse struct {
 }
 
 type StopSessionRequest struct {
-	Id            string `json:"id" xml:"Id"`
-	RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
+Id string `json:"id" xml:"Id"`
+RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
 }
 
 type StopSessionResponse struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type StopTriggerRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type StopTriggerResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type StopWorkflowRunRequest struct {
-	Name  string `json:"name" xml:"Name"`
-	RunId string `json:"runId" xml:"RunId"`
+Name string `json:"name" xml:"Name"`
+RunId string `json:"runId" xml:"RunId"`
 }
 
 type StopWorkflowRunResponse struct {
 }
 
 type StorageDescriptor struct {
-	AdditionalLocations    LocationStringList `json:"additionalLocations" xml:"AdditionalLocations"`
-	BucketColumns          NameStringList     `json:"bucketColumns" xml:"BucketColumns"`
-	Columns                ColumnList         `json:"columns" xml:"Columns"`
-	Compressed             bool               `json:"compressed" xml:"Compressed"`
-	InputFormat            string             `json:"inputFormat" xml:"InputFormat"`
-	Location               string             `json:"location" xml:"Location"`
-	NumberOfBuckets        int32              `json:"numberOfBuckets" xml:"NumberOfBuckets"`
-	OutputFormat           string             `json:"outputFormat" xml:"OutputFormat"`
-	Parameters             ParametersMap      `json:"parameters" xml:"Parameters"`
-	SchemaReference        *SchemaReference   `json:"schemaReference" xml:"SchemaReference"`
-	SerdeInfo              *SerDeInfo         `json:"serdeInfo" xml:"SerdeInfo"`
-	SkewedInfo             *SkewedInfo        `json:"skewedInfo" xml:"SkewedInfo"`
-	SortColumns            OrderList          `json:"sortColumns" xml:"SortColumns"`
-	StoredAsSubDirectories bool               `json:"storedAsSubDirectories" xml:"StoredAsSubDirectories"`
+AdditionalLocations LocationStringList `json:"additionalLocations" xml:"AdditionalLocations"`
+BucketColumns NameStringList `json:"bucketColumns" xml:"BucketColumns"`
+Columns ColumnList `json:"columns" xml:"Columns"`
+Compressed bool `json:"compressed" xml:"Compressed"`
+InputFormat string `json:"inputFormat" xml:"InputFormat"`
+Location string `json:"location" xml:"Location"`
+NumberOfBuckets int32 `json:"numberOfBuckets" xml:"NumberOfBuckets"`
+OutputFormat string `json:"outputFormat" xml:"OutputFormat"`
+Parameters ParametersMap `json:"parameters" xml:"Parameters"`
+SchemaReference *SchemaReference `json:"schemaReference" xml:"SchemaReference"`
+SerdeInfo *SerDeInfo `json:"serdeInfo" xml:"SerdeInfo"`
+SkewedInfo *SkewedInfo `json:"skewedInfo" xml:"SkewedInfo"`
+SortColumns OrderList `json:"sortColumns" xml:"SortColumns"`
+StoredAsSubDirectories bool `json:"storedAsSubDirectories" xml:"StoredAsSubDirectories"`
 }
 
 type StreamingDataPreviewOptions struct {
-	PollingTime        int64 `json:"pollingTime" xml:"PollingTime"`
-	RecordPollingLimit int64 `json:"recordPollingLimit" xml:"RecordPollingLimit"`
+PollingTime int64 `json:"pollingTime" xml:"PollingTime"`
+RecordPollingLimit int64 `json:"recordPollingLimit" xml:"RecordPollingLimit"`
 }
 
 type StringColumnStatisticsData struct {
-	AverageLength          float64 `json:"averageLength" xml:"AverageLength"`
-	MaximumLength          int64   `json:"maximumLength" xml:"MaximumLength"`
-	NumberOfDistinctValues int64   `json:"numberOfDistinctValues" xml:"NumberOfDistinctValues"`
-	NumberOfNulls          int64   `json:"numberOfNulls" xml:"NumberOfNulls"`
+AverageLength float64 `json:"averageLength" xml:"AverageLength"`
+MaximumLength int64 `json:"maximumLength" xml:"MaximumLength"`
+NumberOfDistinctValues int64 `json:"numberOfDistinctValues" xml:"NumberOfDistinctValues"`
+NumberOfNulls int64 `json:"numberOfNulls" xml:"NumberOfNulls"`
 }
 
 type SupportedDialect struct {
-	Dialect        string `json:"dialect" xml:"Dialect"`
-	DialectVersion string `json:"dialectVersion" xml:"DialectVersion"`
+Dialect string `json:"dialect" xml:"Dialect"`
+DialectVersion string `json:"dialectVersion" xml:"DialectVersion"`
 }
 
 type Table struct {
-	CatalogId                     string             `json:"catalogId" xml:"CatalogId"`
-	CreateTime                    time.Time          `json:"createTime" xml:"CreateTime"`
-	CreatedBy                     string             `json:"createdBy" xml:"CreatedBy"`
-	DatabaseName                  string             `json:"databaseName" xml:"DatabaseName"`
-	Description                   string             `json:"description" xml:"Description"`
-	FederatedTable                *FederatedTable    `json:"federatedTable" xml:"FederatedTable"`
-	IsMaterializedView            bool               `json:"isMaterializedView" xml:"IsMaterializedView"`
-	IsMultiDialectView            bool               `json:"isMultiDialectView" xml:"IsMultiDialectView"`
-	IsRegisteredWithLakeFormation bool               `json:"isRegisteredWithLakeFormation" xml:"IsRegisteredWithLakeFormation"`
-	LastAccessTime                time.Time          `json:"lastAccessTime" xml:"LastAccessTime"`
-	LastAnalyzedTime              time.Time          `json:"lastAnalyzedTime" xml:"LastAnalyzedTime"`
-	Name                          string             `json:"name" xml:"Name"`
-	Owner                         string             `json:"owner" xml:"Owner"`
-	Parameters                    ParametersMap      `json:"parameters" xml:"Parameters"`
-	PartitionKeys                 ColumnList         `json:"partitionKeys" xml:"PartitionKeys"`
-	Retention                     int32              `json:"retention" xml:"Retention"`
-	Status                        *TableStatus       `json:"status" xml:"Status"`
-	StorageDescriptor             *StorageDescriptor `json:"storageDescriptor" xml:"StorageDescriptor"`
-	TableType                     string             `json:"tableType" xml:"TableType"`
-	TargetTable                   *TableIdentifier   `json:"targetTable" xml:"TargetTable"`
-	UpdateTime                    time.Time          `json:"updateTime" xml:"UpdateTime"`
-	VersionId                     string             `json:"versionId" xml:"VersionId"`
-	ViewDefinition                *ViewDefinition    `json:"viewDefinition" xml:"ViewDefinition"`
-	ViewExpandedText              string             `json:"viewExpandedText" xml:"ViewExpandedText"`
-	ViewOriginalText              string             `json:"viewOriginalText" xml:"ViewOriginalText"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+CreatedBy string `json:"createdBy" xml:"CreatedBy"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Description string `json:"description" xml:"Description"`
+FederatedTable *FederatedTable `json:"federatedTable" xml:"FederatedTable"`
+IsMaterializedView bool `json:"isMaterializedView" xml:"IsMaterializedView"`
+IsMultiDialectView bool `json:"isMultiDialectView" xml:"IsMultiDialectView"`
+IsRegisteredWithLakeFormation bool `json:"isRegisteredWithLakeFormation" xml:"IsRegisteredWithLakeFormation"`
+LastAccessTime time.Time `json:"lastAccessTime" xml:"LastAccessTime"`
+LastAnalyzedTime time.Time `json:"lastAnalyzedTime" xml:"LastAnalyzedTime"`
+Name string `json:"name" xml:"Name"`
+Owner string `json:"owner" xml:"Owner"`
+Parameters ParametersMap `json:"parameters" xml:"Parameters"`
+PartitionKeys ColumnList `json:"partitionKeys" xml:"PartitionKeys"`
+Retention int32 `json:"retention" xml:"Retention"`
+Status *TableStatus `json:"status" xml:"Status"`
+StorageDescriptor *StorageDescriptor `json:"storageDescriptor" xml:"StorageDescriptor"`
+TableType string `json:"tableType" xml:"TableType"`
+TargetTable *TableIdentifier `json:"targetTable" xml:"TargetTable"`
+UpdateTime time.Time `json:"updateTime" xml:"UpdateTime"`
+VersionId string `json:"versionId" xml:"VersionId"`
+ViewDefinition *ViewDefinition `json:"viewDefinition" xml:"ViewDefinition"`
+ViewExpandedText string `json:"viewExpandedText" xml:"ViewExpandedText"`
+ViewOriginalText string `json:"viewOriginalText" xml:"ViewOriginalText"`
 }
 
 type TableError struct {
-	ErrorDetail *ErrorDetail `json:"errorDetail" xml:"ErrorDetail"`
-	TableName   string       `json:"tableName" xml:"TableName"`
+ErrorDetail *ErrorDetail `json:"errorDetail" xml:"ErrorDetail"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type TableIdentifier struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	Name         string `json:"name" xml:"Name"`
-	Region       string `json:"region" xml:"Region"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Name string `json:"name" xml:"Name"`
+Region string `json:"region" xml:"Region"`
 }
 
 type TableInput struct {
-	Description       string               `json:"description" xml:"Description"`
-	LastAccessTime    time.Time            `json:"lastAccessTime" xml:"LastAccessTime"`
-	LastAnalyzedTime  time.Time            `json:"lastAnalyzedTime" xml:"LastAnalyzedTime"`
-	Name              string               `json:"name" xml:"Name"`
-	Owner             string               `json:"owner" xml:"Owner"`
-	Parameters        ParametersMap        `json:"parameters" xml:"Parameters"`
-	PartitionKeys     ColumnList           `json:"partitionKeys" xml:"PartitionKeys"`
-	Retention         int32                `json:"retention" xml:"Retention"`
-	StorageDescriptor *StorageDescriptor   `json:"storageDescriptor" xml:"StorageDescriptor"`
-	TableType         string               `json:"tableType" xml:"TableType"`
-	TargetTable       *TableIdentifier     `json:"targetTable" xml:"TargetTable"`
-	ViewDefinition    *ViewDefinitionInput `json:"viewDefinition" xml:"ViewDefinition"`
-	ViewExpandedText  string               `json:"viewExpandedText" xml:"ViewExpandedText"`
-	ViewOriginalText  string               `json:"viewOriginalText" xml:"ViewOriginalText"`
+Description string `json:"description" xml:"Description"`
+LastAccessTime time.Time `json:"lastAccessTime" xml:"LastAccessTime"`
+LastAnalyzedTime time.Time `json:"lastAnalyzedTime" xml:"LastAnalyzedTime"`
+Name string `json:"name" xml:"Name"`
+Owner string `json:"owner" xml:"Owner"`
+Parameters ParametersMap `json:"parameters" xml:"Parameters"`
+PartitionKeys ColumnList `json:"partitionKeys" xml:"PartitionKeys"`
+Retention int32 `json:"retention" xml:"Retention"`
+StorageDescriptor *StorageDescriptor `json:"storageDescriptor" xml:"StorageDescriptor"`
+TableType string `json:"tableType" xml:"TableType"`
+TargetTable *TableIdentifier `json:"targetTable" xml:"TargetTable"`
+ViewDefinition *ViewDefinitionInput `json:"viewDefinition" xml:"ViewDefinition"`
+ViewExpandedText string `json:"viewExpandedText" xml:"ViewExpandedText"`
+ViewOriginalText string `json:"viewOriginalText" xml:"ViewOriginalText"`
 }
 
 type TableOptimizer struct {
-	Configuration       *TableOptimizerConfiguration `json:"configuration" xml:"configuration"`
-	ConfigurationSource string                       `json:"configurationSource" xml:"configurationSource"`
-	LastRun             *TableOptimizerRun           `json:"lastRun" xml:"lastRun"`
-	Type                string                       `json:"type" xml:"type"`
+Configuration *TableOptimizerConfiguration `json:"configuration" xml:"configuration"`
+ConfigurationSource string `json:"configurationSource" xml:"configurationSource"`
+LastRun *TableOptimizerRun `json:"lastRun" xml:"lastRun"`
+Type string `json:"type" xml:"type"`
 }
 
 type TableOptimizerConfiguration struct {
-	CompactionConfiguration         *CompactionConfiguration         `json:"compactionConfiguration" xml:"compactionConfiguration"`
-	Enabled                         bool                             `json:"enabled" xml:"enabled"`
-	OrphanFileDeletionConfiguration *OrphanFileDeletionConfiguration `json:"orphanFileDeletionConfiguration" xml:"orphanFileDeletionConfiguration"`
-	RetentionConfiguration          *RetentionConfiguration          `json:"retentionConfiguration" xml:"retentionConfiguration"`
-	RoleArn                         string                           `json:"roleArn" xml:"roleArn"`
-	VpcConfiguration                interface{}                      `json:"vpcConfiguration" xml:"vpcConfiguration"`
+CompactionConfiguration *CompactionConfiguration `json:"compactionConfiguration" xml:"compactionConfiguration"`
+Enabled bool `json:"enabled" xml:"enabled"`
+OrphanFileDeletionConfiguration *OrphanFileDeletionConfiguration `json:"orphanFileDeletionConfiguration" xml:"orphanFileDeletionConfiguration"`
+RetentionConfiguration *RetentionConfiguration `json:"retentionConfiguration" xml:"retentionConfiguration"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+VpcConfiguration interface{} `json:"vpcConfiguration" xml:"vpcConfiguration"`
 }
 
 type TableOptimizerRun struct {
-	CompactionMetrics         *CompactionMetrics         `json:"compactionMetrics" xml:"compactionMetrics"`
-	CompactionStrategy        string                     `json:"compactionStrategy" xml:"compactionStrategy"`
-	EndTimestamp              time.Time                  `json:"endTimestamp" xml:"endTimestamp"`
-	Error                     string                     `json:"error" xml:"error"`
-	EventType                 string                     `json:"eventType" xml:"eventType"`
-	Metrics                   *RunMetrics                `json:"metrics" xml:"metrics"`
-	OrphanFileDeletionMetrics *OrphanFileDeletionMetrics `json:"orphanFileDeletionMetrics" xml:"orphanFileDeletionMetrics"`
-	RetentionMetrics          *RetentionMetrics          `json:"retentionMetrics" xml:"retentionMetrics"`
-	StartTimestamp            time.Time                  `json:"startTimestamp" xml:"startTimestamp"`
+CompactionMetrics *CompactionMetrics `json:"compactionMetrics" xml:"compactionMetrics"`
+CompactionStrategy string `json:"compactionStrategy" xml:"compactionStrategy"`
+EndTimestamp time.Time `json:"endTimestamp" xml:"endTimestamp"`
+Error string `json:"error" xml:"error"`
+EventType string `json:"eventType" xml:"eventType"`
+Metrics *RunMetrics `json:"metrics" xml:"metrics"`
+OrphanFileDeletionMetrics *OrphanFileDeletionMetrics `json:"orphanFileDeletionMetrics" xml:"orphanFileDeletionMetrics"`
+RetentionMetrics *RetentionMetrics `json:"retentionMetrics" xml:"retentionMetrics"`
+StartTimestamp time.Time `json:"startTimestamp" xml:"startTimestamp"`
 }
 
 type TableStatus struct {
-	Action      string         `json:"action" xml:"Action"`
-	Details     *StatusDetails `json:"details" xml:"Details"`
-	Error       *ErrorDetail   `json:"error" xml:"Error"`
-	RequestTime time.Time      `json:"requestTime" xml:"RequestTime"`
-	RequestedBy string         `json:"requestedBy" xml:"RequestedBy"`
-	State       string         `json:"state" xml:"State"`
-	UpdateTime  time.Time      `json:"updateTime" xml:"UpdateTime"`
-	UpdatedBy   string         `json:"updatedBy" xml:"UpdatedBy"`
+Action string `json:"action" xml:"Action"`
+Details *StatusDetails `json:"details" xml:"Details"`
+Error *ErrorDetail `json:"error" xml:"Error"`
+RequestTime time.Time `json:"requestTime" xml:"RequestTime"`
+RequestedBy string `json:"requestedBy" xml:"RequestedBy"`
+State string `json:"state" xml:"State"`
+UpdateTime time.Time `json:"updateTime" xml:"UpdateTime"`
+UpdatedBy string `json:"updatedBy" xml:"UpdatedBy"`
 }
 
 type TableVersion struct {
-	Table     *Table `json:"table" xml:"Table"`
-	VersionId string `json:"versionId" xml:"VersionId"`
+Table *Table `json:"table" xml:"Table"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type TableVersionError struct {
-	ErrorDetail *ErrorDetail `json:"errorDetail" xml:"ErrorDetail"`
-	TableName   string       `json:"tableName" xml:"TableName"`
-	VersionId   string       `json:"versionId" xml:"VersionId"`
+ErrorDetail *ErrorDetail `json:"errorDetail" xml:"ErrorDetail"`
+TableName string `json:"tableName" xml:"TableName"`
+VersionId string `json:"versionId" xml:"VersionId"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"key"`
-	Value string `json:"value" xml:"value"`
+Key string `json:"key" xml:"key"`
+Value string `json:"value" xml:"value"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string  `json:"resourceArn" xml:"ResourceArn"`
-	TagsToAdd   TagsMap `json:"tagsToAdd" xml:"TagsToAdd"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagsToAdd TagsMap `json:"tagsToAdd" xml:"TagsToAdd"`
 }
 
 type TagResourceResponse struct {
 }
 
 type TargetProcessingProperties struct {
-	ConnectionName string `json:"connectionName" xml:"ConnectionName"`
-	EventBusArn    string `json:"eventBusArn" xml:"EventBusArn"`
-	KmsArn         string `json:"kmsArn" xml:"KmsArn"`
-	RoleArn        string `json:"roleArn" xml:"RoleArn"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+EventBusArn string `json:"eventBusArn" xml:"EventBusArn"`
+KmsArn string `json:"kmsArn" xml:"KmsArn"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
 }
 
 type TargetRedshiftCatalog struct {
-	CatalogArn string `json:"catalogArn" xml:"CatalogArn"`
+CatalogArn string `json:"catalogArn" xml:"CatalogArn"`
 }
 
 type TargetTableConfig struct {
-	PartitionSpec   IntegrationPartitionSpecList `json:"partitionSpec" xml:"PartitionSpec"`
-	TargetTableName string                       `json:"targetTableName" xml:"TargetTableName"`
-	UnnestSpec      string                       `json:"unnestSpec" xml:"UnnestSpec"`
+PartitionSpec IntegrationPartitionSpecList `json:"partitionSpec" xml:"PartitionSpec"`
+TargetTableName string `json:"targetTableName" xml:"TargetTableName"`
+UnnestSpec string `json:"unnestSpec" xml:"UnnestSpec"`
 }
 
 type TaskRun struct {
-	CompletedOn    time.Time          `json:"completedOn" xml:"CompletedOn"`
-	ErrorString    string             `json:"errorString" xml:"ErrorString"`
-	ExecutionTime  int32              `json:"executionTime" xml:"ExecutionTime"`
-	LastModifiedOn time.Time          `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	LogGroupName   string             `json:"logGroupName" xml:"LogGroupName"`
-	Properties     *TaskRunProperties `json:"properties" xml:"Properties"`
-	StartedOn      time.Time          `json:"startedOn" xml:"StartedOn"`
-	Status         string             `json:"status" xml:"Status"`
-	TaskRunId      string             `json:"taskRunId" xml:"TaskRunId"`
-	TransformId    string             `json:"transformId" xml:"TransformId"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+ErrorString string `json:"errorString" xml:"ErrorString"`
+ExecutionTime int32 `json:"executionTime" xml:"ExecutionTime"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+LogGroupName string `json:"logGroupName" xml:"LogGroupName"`
+Properties *TaskRunProperties `json:"properties" xml:"Properties"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
+Status string `json:"status" xml:"Status"`
+TaskRunId string `json:"taskRunId" xml:"TaskRunId"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type TaskRunFilterCriteria struct {
-	StartedAfter  time.Time `json:"startedAfter" xml:"StartedAfter"`
-	StartedBefore time.Time `json:"startedBefore" xml:"StartedBefore"`
-	Status        string    `json:"status" xml:"Status"`
-	TaskRunType   string    `json:"taskRunType" xml:"TaskRunType"`
+StartedAfter time.Time `json:"startedAfter" xml:"StartedAfter"`
+StartedBefore time.Time `json:"startedBefore" xml:"StartedBefore"`
+Status string `json:"status" xml:"Status"`
+TaskRunType string `json:"taskRunType" xml:"TaskRunType"`
 }
 
 type TaskRunProperties struct {
-	ExportLabelsTaskRunProperties          *ExportLabelsTaskRunProperties          `json:"exportLabelsTaskRunProperties" xml:"ExportLabelsTaskRunProperties"`
-	FindMatchesTaskRunProperties           *FindMatchesTaskRunProperties           `json:"findMatchesTaskRunProperties" xml:"FindMatchesTaskRunProperties"`
-	ImportLabelsTaskRunProperties          *ImportLabelsTaskRunProperties          `json:"importLabelsTaskRunProperties" xml:"ImportLabelsTaskRunProperties"`
-	LabelingSetGenerationTaskRunProperties *LabelingSetGenerationTaskRunProperties `json:"labelingSetGenerationTaskRunProperties" xml:"LabelingSetGenerationTaskRunProperties"`
-	TaskType                               string                                  `json:"taskType" xml:"TaskType"`
+ExportLabelsTaskRunProperties *ExportLabelsTaskRunProperties `json:"exportLabelsTaskRunProperties" xml:"ExportLabelsTaskRunProperties"`
+FindMatchesTaskRunProperties *FindMatchesTaskRunProperties `json:"findMatchesTaskRunProperties" xml:"FindMatchesTaskRunProperties"`
+ImportLabelsTaskRunProperties *ImportLabelsTaskRunProperties `json:"importLabelsTaskRunProperties" xml:"ImportLabelsTaskRunProperties"`
+LabelingSetGenerationTaskRunProperties *LabelingSetGenerationTaskRunProperties `json:"labelingSetGenerationTaskRunProperties" xml:"LabelingSetGenerationTaskRunProperties"`
+TaskType string `json:"taskType" xml:"TaskType"`
 }
 
 type TaskRunSortCriteria struct {
-	Column        string `json:"column" xml:"Column"`
-	SortDirection string `json:"sortDirection" xml:"SortDirection"`
+Column string `json:"column" xml:"Column"`
+SortDirection string `json:"sortDirection" xml:"SortDirection"`
 }
 
 type TestConnectionInput struct {
-	AuthenticationConfiguration *AuthenticationConfigurationInput `json:"authenticationConfiguration" xml:"AuthenticationConfiguration"`
-	ConnectionProperties        ConnectionProperties              `json:"connectionProperties" xml:"ConnectionProperties"`
-	ConnectionType              string                            `json:"connectionType" xml:"ConnectionType"`
+AuthenticationConfiguration *AuthenticationConfigurationInput `json:"authenticationConfiguration" xml:"AuthenticationConfiguration"`
+ConnectionProperties ConnectionProperties `json:"connectionProperties" xml:"ConnectionProperties"`
+ConnectionType string `json:"connectionType" xml:"ConnectionType"`
 }
 
 type TestConnectionRequest struct {
-	CatalogId           string               `json:"catalogId" xml:"CatalogId"`
-	ConnectionName      string               `json:"connectionName" xml:"ConnectionName"`
-	TestConnectionInput *TestConnectionInput `json:"testConnectionInput" xml:"TestConnectionInput"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+TestConnectionInput *TestConnectionInput `json:"testConnectionInput" xml:"TestConnectionInput"`
 }
 
 type TestConnectionResponse struct {
 }
 
 type TimestampFilter struct {
-	RecordedAfter  time.Time `json:"recordedAfter" xml:"RecordedAfter"`
-	RecordedBefore time.Time `json:"recordedBefore" xml:"RecordedBefore"`
+RecordedAfter time.Time `json:"recordedAfter" xml:"RecordedAfter"`
+RecordedBefore time.Time `json:"recordedBefore" xml:"RecordedBefore"`
 }
 
 type TimestampedInclusionAnnotation struct {
-	LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	Value          string    `json:"value" xml:"Value"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TransformConfigParameter struct {
-	IsOptional        bool                       `json:"isOptional" xml:"IsOptional"`
-	ListType          string                     `json:"listType" xml:"ListType"`
-	Name              string                     `json:"name" xml:"Name"`
-	Type              string                     `json:"type" xml:"Type"`
-	ValidationMessage string                     `json:"validationMessage" xml:"ValidationMessage"`
-	ValidationRule    string                     `json:"validationRule" xml:"ValidationRule"`
-	Value             EnclosedInStringProperties `json:"value" xml:"Value"`
+IsOptional bool `json:"isOptional" xml:"IsOptional"`
+ListType string `json:"listType" xml:"ListType"`
+Name string `json:"name" xml:"Name"`
+Type string `json:"type" xml:"Type"`
+ValidationMessage string `json:"validationMessage" xml:"ValidationMessage"`
+ValidationRule string `json:"validationRule" xml:"ValidationRule"`
+Value EnclosedInStringProperties `json:"value" xml:"Value"`
 }
 
 type TransformEncryption struct {
-	MlUserDataEncryption             *MLUserDataEncryption `json:"mlUserDataEncryption" xml:"MlUserDataEncryption"`
-	TaskRunSecurityConfigurationName string                `json:"taskRunSecurityConfigurationName" xml:"TaskRunSecurityConfigurationName"`
+MlUserDataEncryption *MLUserDataEncryption `json:"mlUserDataEncryption" xml:"MlUserDataEncryption"`
+TaskRunSecurityConfigurationName string `json:"taskRunSecurityConfigurationName" xml:"TaskRunSecurityConfigurationName"`
 }
 
 type TransformFilterCriteria struct {
-	CreatedAfter       time.Time       `json:"createdAfter" xml:"CreatedAfter"`
-	CreatedBefore      time.Time       `json:"createdBefore" xml:"CreatedBefore"`
-	GlueVersion        string          `json:"glueVersion" xml:"GlueVersion"`
-	LastModifiedAfter  time.Time       `json:"lastModifiedAfter" xml:"LastModifiedAfter"`
-	LastModifiedBefore time.Time       `json:"lastModifiedBefore" xml:"LastModifiedBefore"`
-	Name               string          `json:"name" xml:"Name"`
-	Schema             TransformSchema `json:"schema" xml:"Schema"`
-	Status             string          `json:"status" xml:"Status"`
-	TransformType      string          `json:"transformType" xml:"TransformType"`
+CreatedAfter time.Time `json:"createdAfter" xml:"CreatedAfter"`
+CreatedBefore time.Time `json:"createdBefore" xml:"CreatedBefore"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+LastModifiedAfter time.Time `json:"lastModifiedAfter" xml:"LastModifiedAfter"`
+LastModifiedBefore time.Time `json:"lastModifiedBefore" xml:"LastModifiedBefore"`
+Name string `json:"name" xml:"Name"`
+Schema TransformSchema `json:"schema" xml:"Schema"`
+Status string `json:"status" xml:"Status"`
+TransformType string `json:"transformType" xml:"TransformType"`
 }
 
 type TransformParameters struct {
-	FindMatchesParameters *FindMatchesParameters `json:"findMatchesParameters" xml:"FindMatchesParameters"`
-	TransformType         string                 `json:"transformType" xml:"TransformType"`
+FindMatchesParameters *FindMatchesParameters `json:"findMatchesParameters" xml:"FindMatchesParameters"`
+TransformType string `json:"transformType" xml:"TransformType"`
 }
 
 type TransformSortCriteria struct {
-	Column        string `json:"column" xml:"Column"`
-	SortDirection string `json:"sortDirection" xml:"SortDirection"`
+Column string `json:"column" xml:"Column"`
+SortDirection string `json:"sortDirection" xml:"SortDirection"`
 }
 
 type Trigger struct {
-	Actions                ActionList              `json:"actions" xml:"Actions"`
-	Description            string                  `json:"description" xml:"Description"`
-	EventBatchingCondition *EventBatchingCondition `json:"eventBatchingCondition" xml:"EventBatchingCondition"`
-	Id                     string                  `json:"id" xml:"Id"`
-	Name                   string                  `json:"name" xml:"Name"`
-	Predicate              *Predicate              `json:"predicate" xml:"Predicate"`
-	Schedule               string                  `json:"schedule" xml:"Schedule"`
-	State                  string                  `json:"state" xml:"State"`
-	Type                   string                  `json:"type" xml:"Type"`
-	WorkflowName           string                  `json:"workflowName" xml:"WorkflowName"`
+Actions ActionList `json:"actions" xml:"Actions"`
+Description string `json:"description" xml:"Description"`
+EventBatchingCondition *EventBatchingCondition `json:"eventBatchingCondition" xml:"EventBatchingCondition"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Predicate *Predicate `json:"predicate" xml:"Predicate"`
+Schedule string `json:"schedule" xml:"Schedule"`
+State string `json:"state" xml:"State"`
+Type string `json:"type" xml:"Type"`
+WorkflowName string `json:"workflowName" xml:"WorkflowName"`
 }
 
 type TriggerNodeDetails struct {
-	Trigger *Trigger `json:"trigger" xml:"Trigger"`
+Trigger *Trigger `json:"trigger" xml:"Trigger"`
 }
 
 type TriggerUpdate struct {
-	Actions                ActionList              `json:"actions" xml:"Actions"`
-	Description            string                  `json:"description" xml:"Description"`
-	EventBatchingCondition *EventBatchingCondition `json:"eventBatchingCondition" xml:"EventBatchingCondition"`
-	Name                   string                  `json:"name" xml:"Name"`
-	Predicate              *Predicate              `json:"predicate" xml:"Predicate"`
-	Schedule               string                  `json:"schedule" xml:"Schedule"`
+Actions ActionList `json:"actions" xml:"Actions"`
+Description string `json:"description" xml:"Description"`
+EventBatchingCondition *EventBatchingCondition `json:"eventBatchingCondition" xml:"EventBatchingCondition"`
+Name string `json:"name" xml:"Name"`
+Predicate *Predicate `json:"predicate" xml:"Predicate"`
+Schedule string `json:"schedule" xml:"Schedule"`
 }
 
 type UnfilteredPartition struct {
-	AuthorizedColumns             NameStringList `json:"authorizedColumns" xml:"AuthorizedColumns"`
-	IsRegisteredWithLakeFormation bool           `json:"isRegisteredWithLakeFormation" xml:"IsRegisteredWithLakeFormation"`
-	Partition                     *Partition     `json:"partition" xml:"Partition"`
+AuthorizedColumns NameStringList `json:"authorizedColumns" xml:"AuthorizedColumns"`
+IsRegisteredWithLakeFormation bool `json:"isRegisteredWithLakeFormation" xml:"IsRegisteredWithLakeFormation"`
+Partition *Partition `json:"partition" xml:"Partition"`
 }
 
 type Union struct {
-	Inputs    TwoInputs `json:"inputs" xml:"Inputs"`
-	Name      string    `json:"name" xml:"Name"`
-	UnionType string    `json:"unionType" xml:"UnionType"`
+Inputs TwoInputs `json:"inputs" xml:"Inputs"`
+Name string `json:"name" xml:"Name"`
+UnionType string `json:"unionType" xml:"UnionType"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn  string      `json:"resourceArn" xml:"ResourceArn"`
-	TagsToRemove TagKeysList `json:"tagsToRemove" xml:"TagsToRemove"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+TagsToRemove TagKeysList `json:"tagsToRemove" xml:"TagsToRemove"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateBlueprintRequest struct {
-	BlueprintLocation string `json:"blueprintLocation" xml:"BlueprintLocation"`
-	Description       string `json:"description" xml:"Description"`
-	Name              string `json:"name" xml:"Name"`
+BlueprintLocation string `json:"blueprintLocation" xml:"BlueprintLocation"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateBlueprintResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateCatalogRequest struct {
-	CatalogId    string        `json:"catalogId" xml:"CatalogId"`
-	CatalogInput *CatalogInput `json:"catalogInput" xml:"CatalogInput"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+CatalogInput *CatalogInput `json:"catalogInput" xml:"CatalogInput"`
 }
 
 type UpdateCatalogResponse struct {
 }
 
 type UpdateClassifierRequest struct {
-	CsvClassifier  *UpdateCsvClassifierRequest  `json:"csvClassifier" xml:"CsvClassifier"`
-	GrokClassifier *UpdateGrokClassifierRequest `json:"grokClassifier" xml:"GrokClassifier"`
-	JsonClassifier *UpdateJsonClassifierRequest `json:"jsonClassifier" xml:"JsonClassifier"`
-	XMLClassifier  *UpdateXMLClassifierRequest  `json:"xMLClassifier" xml:"XMLClassifier"`
+CsvClassifier *UpdateCsvClassifierRequest `json:"csvClassifier" xml:"CsvClassifier"`
+GrokClassifier *UpdateGrokClassifierRequest `json:"grokClassifier" xml:"GrokClassifier"`
+JsonClassifier *UpdateJsonClassifierRequest `json:"jsonClassifier" xml:"JsonClassifier"`
+XMLClassifier *UpdateXMLClassifierRequest `json:"xMLClassifier" xml:"XMLClassifier"`
 }
 
 type UpdateClassifierResponse struct {
 }
 
 type UpdateColumnStatisticsForPartitionRequest struct {
-	CatalogId            string                     `json:"catalogId" xml:"CatalogId"`
-	ColumnStatisticsList UpdateColumnStatisticsList `json:"columnStatisticsList" xml:"ColumnStatisticsList"`
-	DatabaseName         string                     `json:"databaseName" xml:"DatabaseName"`
-	PartitionValues      ValueStringList            `json:"partitionValues" xml:"PartitionValues"`
-	TableName            string                     `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ColumnStatisticsList UpdateColumnStatisticsList `json:"columnStatisticsList" xml:"ColumnStatisticsList"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type UpdateColumnStatisticsForPartitionResponse struct {
-	Errors ColumnStatisticsErrors `json:"errors" xml:"Errors"`
+Errors ColumnStatisticsErrors `json:"errors" xml:"Errors"`
 }
 
 type UpdateColumnStatisticsForTableRequest struct {
-	CatalogId            string                     `json:"catalogId" xml:"CatalogId"`
-	ColumnStatisticsList UpdateColumnStatisticsList `json:"columnStatisticsList" xml:"ColumnStatisticsList"`
-	DatabaseName         string                     `json:"databaseName" xml:"DatabaseName"`
-	TableName            string                     `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ColumnStatisticsList UpdateColumnStatisticsList `json:"columnStatisticsList" xml:"ColumnStatisticsList"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type UpdateColumnStatisticsForTableResponse struct {
-	Errors ColumnStatisticsErrors `json:"errors" xml:"Errors"`
+Errors ColumnStatisticsErrors `json:"errors" xml:"Errors"`
 }
 
 type UpdateColumnStatisticsTaskSettingsRequest struct {
-	CatalogID             string         `json:"catalogID" xml:"CatalogID"`
-	ColumnNameList        ColumnNameList `json:"columnNameList" xml:"ColumnNameList"`
-	DatabaseName          string         `json:"databaseName" xml:"DatabaseName"`
-	Role                  string         `json:"role" xml:"Role"`
-	SampleSize            float64        `json:"sampleSize" xml:"SampleSize"`
-	Schedule              string         `json:"schedule" xml:"Schedule"`
-	SecurityConfiguration string         `json:"securityConfiguration" xml:"SecurityConfiguration"`
-	TableName             string         `json:"tableName" xml:"TableName"`
+CatalogID string `json:"catalogID" xml:"CatalogID"`
+ColumnNameList ColumnNameList `json:"columnNameList" xml:"ColumnNameList"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Role string `json:"role" xml:"Role"`
+SampleSize float64 `json:"sampleSize" xml:"SampleSize"`
+Schedule string `json:"schedule" xml:"Schedule"`
+SecurityConfiguration string `json:"securityConfiguration" xml:"SecurityConfiguration"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type UpdateColumnStatisticsTaskSettingsResponse struct {
 }
 
 type UpdateConnectionRequest struct {
-	CatalogId       string           `json:"catalogId" xml:"CatalogId"`
-	ConnectionInput *ConnectionInput `json:"connectionInput" xml:"ConnectionInput"`
-	Name            string           `json:"name" xml:"Name"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ConnectionInput *ConnectionInput `json:"connectionInput" xml:"ConnectionInput"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateConnectionResponse struct {
 }
 
 type UpdateCrawlerRequest struct {
-	Classifiers                  ClassifierNameList          `json:"classifiers" xml:"Classifiers"`
-	Configuration                string                      `json:"configuration" xml:"Configuration"`
-	CrawlerSecurityConfiguration string                      `json:"crawlerSecurityConfiguration" xml:"CrawlerSecurityConfiguration"`
-	DatabaseName                 string                      `json:"databaseName" xml:"DatabaseName"`
-	Description                  string                      `json:"description" xml:"Description"`
-	LakeFormationConfiguration   *LakeFormationConfiguration `json:"lakeFormationConfiguration" xml:"LakeFormationConfiguration"`
-	LineageConfiguration         *LineageConfiguration       `json:"lineageConfiguration" xml:"LineageConfiguration"`
-	Name                         string                      `json:"name" xml:"Name"`
-	RecrawlPolicy                *RecrawlPolicy              `json:"recrawlPolicy" xml:"RecrawlPolicy"`
-	Role                         string                      `json:"role" xml:"Role"`
-	Schedule                     string                      `json:"schedule" xml:"Schedule"`
-	SchemaChangePolicy           *SchemaChangePolicy         `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
-	TablePrefix                  string                      `json:"tablePrefix" xml:"TablePrefix"`
-	Targets                      *CrawlerTargets             `json:"targets" xml:"Targets"`
+Classifiers ClassifierNameList `json:"classifiers" xml:"Classifiers"`
+Configuration string `json:"configuration" xml:"Configuration"`
+CrawlerSecurityConfiguration string `json:"crawlerSecurityConfiguration" xml:"CrawlerSecurityConfiguration"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Description string `json:"description" xml:"Description"`
+LakeFormationConfiguration *LakeFormationConfiguration `json:"lakeFormationConfiguration" xml:"LakeFormationConfiguration"`
+LineageConfiguration *LineageConfiguration `json:"lineageConfiguration" xml:"LineageConfiguration"`
+Name string `json:"name" xml:"Name"`
+RecrawlPolicy *RecrawlPolicy `json:"recrawlPolicy" xml:"RecrawlPolicy"`
+Role string `json:"role" xml:"Role"`
+Schedule string `json:"schedule" xml:"Schedule"`
+SchemaChangePolicy *SchemaChangePolicy `json:"schemaChangePolicy" xml:"SchemaChangePolicy"`
+TablePrefix string `json:"tablePrefix" xml:"TablePrefix"`
+Targets *CrawlerTargets `json:"targets" xml:"Targets"`
 }
 
 type UpdateCrawlerResponse struct {
 }
 
 type UpdateCrawlerScheduleRequest struct {
-	CrawlerName string `json:"crawlerName" xml:"CrawlerName"`
-	Schedule    string `json:"schedule" xml:"Schedule"`
+CrawlerName string `json:"crawlerName" xml:"CrawlerName"`
+Schedule string `json:"schedule" xml:"Schedule"`
 }
 
 type UpdateCrawlerScheduleResponse struct {
 }
 
 type UpdateCsvClassifierRequest struct {
-	AllowSingleColumn        bool            `json:"allowSingleColumn" xml:"AllowSingleColumn"`
-	ContainsHeader           string          `json:"containsHeader" xml:"ContainsHeader"`
-	CustomDatatypeConfigured bool            `json:"customDatatypeConfigured" xml:"CustomDatatypeConfigured"`
-	CustomDatatypes          CustomDatatypes `json:"customDatatypes" xml:"CustomDatatypes"`
-	Delimiter                string          `json:"delimiter" xml:"Delimiter"`
-	DisableValueTrimming     bool            `json:"disableValueTrimming" xml:"DisableValueTrimming"`
-	Header                   CsvHeader       `json:"header" xml:"Header"`
-	Name                     string          `json:"name" xml:"Name"`
-	QuoteSymbol              string          `json:"quoteSymbol" xml:"QuoteSymbol"`
-	Serde                    string          `json:"serde" xml:"Serde"`
+AllowSingleColumn bool `json:"allowSingleColumn" xml:"AllowSingleColumn"`
+ContainsHeader string `json:"containsHeader" xml:"ContainsHeader"`
+CustomDatatypeConfigured bool `json:"customDatatypeConfigured" xml:"CustomDatatypeConfigured"`
+CustomDatatypes CustomDatatypes `json:"customDatatypes" xml:"CustomDatatypes"`
+Delimiter string `json:"delimiter" xml:"Delimiter"`
+DisableValueTrimming bool `json:"disableValueTrimming" xml:"DisableValueTrimming"`
+Header CsvHeader `json:"header" xml:"Header"`
+Name string `json:"name" xml:"Name"`
+QuoteSymbol string `json:"quoteSymbol" xml:"QuoteSymbol"`
+Serde string `json:"serde" xml:"Serde"`
 }
 
 type UpdateDataQualityRulesetRequest struct {
-	Description string `json:"description" xml:"Description"`
-	Name        string `json:"name" xml:"Name"`
-	Ruleset     string `json:"ruleset" xml:"Ruleset"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Ruleset string `json:"ruleset" xml:"Ruleset"`
 }
 
 type UpdateDataQualityRulesetResponse struct {
-	Description string `json:"description" xml:"Description"`
-	Name        string `json:"name" xml:"Name"`
-	Ruleset     string `json:"ruleset" xml:"Ruleset"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Ruleset string `json:"ruleset" xml:"Ruleset"`
 }
 
 type UpdateDatabaseRequest struct {
-	CatalogId     string         `json:"catalogId" xml:"CatalogId"`
-	DatabaseInput *DatabaseInput `json:"databaseInput" xml:"DatabaseInput"`
-	Name          string         `json:"name" xml:"Name"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseInput *DatabaseInput `json:"databaseInput" xml:"DatabaseInput"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateDatabaseResponse struct {
 }
 
 type UpdateDevEndpointRequest struct {
-	AddArguments       MapValue                    `json:"addArguments" xml:"AddArguments"`
-	AddPublicKeys      PublicKeysList              `json:"addPublicKeys" xml:"AddPublicKeys"`
-	CustomLibraries    *DevEndpointCustomLibraries `json:"customLibraries" xml:"CustomLibraries"`
-	DeleteArguments    StringList                  `json:"deleteArguments" xml:"DeleteArguments"`
-	DeletePublicKeys   PublicKeysList              `json:"deletePublicKeys" xml:"DeletePublicKeys"`
-	EndpointName       string                      `json:"endpointName" xml:"EndpointName"`
-	PublicKey          string                      `json:"publicKey" xml:"PublicKey"`
-	UpdateEtlLibraries bool                        `json:"updateEtlLibraries" xml:"UpdateEtlLibraries"`
+AddArguments MapValue `json:"addArguments" xml:"AddArguments"`
+AddPublicKeys PublicKeysList `json:"addPublicKeys" xml:"AddPublicKeys"`
+CustomLibraries *DevEndpointCustomLibraries `json:"customLibraries" xml:"CustomLibraries"`
+DeleteArguments StringList `json:"deleteArguments" xml:"DeleteArguments"`
+DeletePublicKeys PublicKeysList `json:"deletePublicKeys" xml:"DeletePublicKeys"`
+EndpointName string `json:"endpointName" xml:"EndpointName"`
+PublicKey string `json:"publicKey" xml:"PublicKey"`
+UpdateEtlLibraries bool `json:"updateEtlLibraries" xml:"UpdateEtlLibraries"`
 }
 
 type UpdateDevEndpointResponse struct {
 }
 
 type UpdateGlueIdentityCenterConfigurationRequest struct {
-	Scopes                        IdentityCenterScopesList `json:"scopes" xml:"Scopes"`
-	UserBackgroundSessionsEnabled bool                     `json:"userBackgroundSessionsEnabled" xml:"UserBackgroundSessionsEnabled"`
+Scopes IdentityCenterScopesList `json:"scopes" xml:"Scopes"`
+UserBackgroundSessionsEnabled bool `json:"userBackgroundSessionsEnabled" xml:"UserBackgroundSessionsEnabled"`
 }
 
 type UpdateGlueIdentityCenterConfigurationResponse struct {
 }
 
 type UpdateGrokClassifierRequest struct {
-	Classification string `json:"classification" xml:"Classification"`
-	CustomPatterns string `json:"customPatterns" xml:"CustomPatterns"`
-	GrokPattern    string `json:"grokPattern" xml:"GrokPattern"`
-	Name           string `json:"name" xml:"Name"`
+Classification string `json:"classification" xml:"Classification"`
+CustomPatterns string `json:"customPatterns" xml:"CustomPatterns"`
+GrokPattern string `json:"grokPattern" xml:"GrokPattern"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateIcebergInput struct {
-	UpdateIcebergTableInput *UpdateIcebergTableInput `json:"updateIcebergTableInput" xml:"UpdateIcebergTableInput"`
+UpdateIcebergTableInput *UpdateIcebergTableInput `json:"updateIcebergTableInput" xml:"UpdateIcebergTableInput"`
 }
 
 type UpdateIcebergTableInput struct {
-	Updates IcebergTableUpdateList `json:"updates" xml:"Updates"`
+Updates IcebergTableUpdateList `json:"updates" xml:"Updates"`
 }
 
 type UpdateIntegrationResourcePropertyRequest struct {
-	ResourceArn                string                      `json:"resourceArn" xml:"ResourceArn"`
-	SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
-	TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
+TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
 }
 
 type UpdateIntegrationResourcePropertyResponse struct {
-	ResourceArn                string                      `json:"resourceArn" xml:"ResourceArn"`
-	ResourcePropertyArn        string                      `json:"resourcePropertyArn" xml:"ResourcePropertyArn"`
-	SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
-	TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourcePropertyArn string `json:"resourcePropertyArn" xml:"ResourcePropertyArn"`
+SourceProcessingProperties *SourceProcessingProperties `json:"sourceProcessingProperties" xml:"SourceProcessingProperties"`
+TargetProcessingProperties *TargetProcessingProperties `json:"targetProcessingProperties" xml:"TargetProcessingProperties"`
 }
 
 type UpdateIntegrationTablePropertiesRequest struct {
-	ResourceArn       string             `json:"resourceArn" xml:"ResourceArn"`
-	SourceTableConfig *SourceTableConfig `json:"sourceTableConfig" xml:"SourceTableConfig"`
-	TableName         string             `json:"tableName" xml:"TableName"`
-	TargetTableConfig *TargetTableConfig `json:"targetTableConfig" xml:"TargetTableConfig"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+SourceTableConfig *SourceTableConfig `json:"sourceTableConfig" xml:"SourceTableConfig"`
+TableName string `json:"tableName" xml:"TableName"`
+TargetTableConfig *TargetTableConfig `json:"targetTableConfig" xml:"TargetTableConfig"`
 }
 
 type UpdateIntegrationTablePropertiesResponse struct {
 }
 
 type UpdateJobFromSourceControlRequest struct {
-	AuthStrategy    string `json:"authStrategy" xml:"AuthStrategy"`
-	AuthToken       string `json:"authToken" xml:"AuthToken"`
-	BranchName      string `json:"branchName" xml:"BranchName"`
-	CommitId        string `json:"commitId" xml:"CommitId"`
-	Folder          string `json:"folder" xml:"Folder"`
-	JobName         string `json:"jobName" xml:"JobName"`
-	Provider        string `json:"provider" xml:"Provider"`
-	RepositoryName  string `json:"repositoryName" xml:"RepositoryName"`
-	RepositoryOwner string `json:"repositoryOwner" xml:"RepositoryOwner"`
+AuthStrategy string `json:"authStrategy" xml:"AuthStrategy"`
+AuthToken string `json:"authToken" xml:"AuthToken"`
+BranchName string `json:"branchName" xml:"BranchName"`
+CommitId string `json:"commitId" xml:"CommitId"`
+Folder string `json:"folder" xml:"Folder"`
+JobName string `json:"jobName" xml:"JobName"`
+Provider string `json:"provider" xml:"Provider"`
+RepositoryName string `json:"repositoryName" xml:"RepositoryName"`
+RepositoryOwner string `json:"repositoryOwner" xml:"RepositoryOwner"`
 }
 
 type UpdateJobFromSourceControlResponse struct {
-	JobName string `json:"jobName" xml:"JobName"`
+JobName string `json:"jobName" xml:"JobName"`
 }
 
 type UpdateJobRequest struct {
-	JobName   string     `json:"jobName" xml:"JobName"`
-	JobUpdate *JobUpdate `json:"jobUpdate" xml:"JobUpdate"`
+JobName string `json:"jobName" xml:"JobName"`
+JobUpdate *JobUpdate `json:"jobUpdate" xml:"JobUpdate"`
 }
 
 type UpdateJobResponse struct {
-	JobName string `json:"jobName" xml:"JobName"`
+JobName string `json:"jobName" xml:"JobName"`
 }
 
 type UpdateJsonClassifierRequest struct {
-	JsonPath string `json:"jsonPath" xml:"JsonPath"`
-	Name     string `json:"name" xml:"Name"`
+JsonPath string `json:"jsonPath" xml:"JsonPath"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateMLTransformRequest struct {
-	Description     string               `json:"description" xml:"Description"`
-	GlueVersion     string               `json:"glueVersion" xml:"GlueVersion"`
-	MaxCapacity     float64              `json:"maxCapacity" xml:"MaxCapacity"`
-	MaxRetries      int32                `json:"maxRetries" xml:"MaxRetries"`
-	Name            string               `json:"name" xml:"Name"`
-	NumberOfWorkers int32                `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	Parameters      *TransformParameters `json:"parameters" xml:"Parameters"`
-	Role            string               `json:"role" xml:"Role"`
-	Timeout         int32                `json:"timeout" xml:"Timeout"`
-	TransformId     string               `json:"transformId" xml:"TransformId"`
-	WorkerType      string               `json:"workerType" xml:"WorkerType"`
+Description string `json:"description" xml:"Description"`
+GlueVersion string `json:"glueVersion" xml:"GlueVersion"`
+MaxCapacity float64 `json:"maxCapacity" xml:"MaxCapacity"`
+MaxRetries int32 `json:"maxRetries" xml:"MaxRetries"`
+Name string `json:"name" xml:"Name"`
+NumberOfWorkers int32 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+Parameters *TransformParameters `json:"parameters" xml:"Parameters"`
+Role string `json:"role" xml:"Role"`
+Timeout int32 `json:"timeout" xml:"Timeout"`
+TransformId string `json:"transformId" xml:"TransformId"`
+WorkerType string `json:"workerType" xml:"WorkerType"`
 }
 
 type UpdateMLTransformResponse struct {
-	TransformId string `json:"transformId" xml:"TransformId"`
+TransformId string `json:"transformId" xml:"TransformId"`
 }
 
 type UpdateOpenTableFormatInput struct {
-	UpdateIcebergInput *UpdateIcebergInput `json:"updateIcebergInput" xml:"UpdateIcebergInput"`
+UpdateIcebergInput *UpdateIcebergInput `json:"updateIcebergInput" xml:"UpdateIcebergInput"`
 }
 
 type UpdatePartitionRequest struct {
-	CatalogId          string                    `json:"catalogId" xml:"CatalogId"`
-	DatabaseName       string                    `json:"databaseName" xml:"DatabaseName"`
-	PartitionInput     *PartitionInput           `json:"partitionInput" xml:"PartitionInput"`
-	PartitionValueList BoundedPartitionValueList `json:"partitionValueList" xml:"PartitionValueList"`
-	TableName          string                    `json:"tableName" xml:"TableName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+PartitionInput *PartitionInput `json:"partitionInput" xml:"PartitionInput"`
+PartitionValueList BoundedPartitionValueList `json:"partitionValueList" xml:"PartitionValueList"`
+TableName string `json:"tableName" xml:"TableName"`
 }
 
 type UpdatePartitionResponse struct {
 }
 
 type UpdateRegistryInput struct {
-	Description string      `json:"description" xml:"Description"`
-	RegistryId  *RegistryId `json:"registryId" xml:"RegistryId"`
+Description string `json:"description" xml:"Description"`
+RegistryId *RegistryId `json:"registryId" xml:"RegistryId"`
 }
 
 type UpdateRegistryResponse struct {
-	RegistryArn  string `json:"registryArn" xml:"RegistryArn"`
-	RegistryName string `json:"registryName" xml:"RegistryName"`
+RegistryArn string `json:"registryArn" xml:"RegistryArn"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
 }
 
 type UpdateSchemaInput struct {
-	Compatibility       string               `json:"compatibility" xml:"Compatibility"`
-	Description         string               `json:"description" xml:"Description"`
-	SchemaId            *SchemaId            `json:"schemaId" xml:"SchemaId"`
-	SchemaVersionNumber *SchemaVersionNumber `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
+Compatibility string `json:"compatibility" xml:"Compatibility"`
+Description string `json:"description" xml:"Description"`
+SchemaId *SchemaId `json:"schemaId" xml:"SchemaId"`
+SchemaVersionNumber *SchemaVersionNumber `json:"schemaVersionNumber" xml:"SchemaVersionNumber"`
 }
 
 type UpdateSchemaResponse struct {
-	RegistryName string `json:"registryName" xml:"RegistryName"`
-	SchemaArn    string `json:"schemaArn" xml:"SchemaArn"`
-	SchemaName   string `json:"schemaName" xml:"SchemaName"`
+RegistryName string `json:"registryName" xml:"RegistryName"`
+SchemaArn string `json:"schemaArn" xml:"SchemaArn"`
+SchemaName string `json:"schemaName" xml:"SchemaName"`
 }
 
 type UpdateSourceControlFromJobRequest struct {
-	AuthStrategy    string `json:"authStrategy" xml:"AuthStrategy"`
-	AuthToken       string `json:"authToken" xml:"AuthToken"`
-	BranchName      string `json:"branchName" xml:"BranchName"`
-	CommitId        string `json:"commitId" xml:"CommitId"`
-	Folder          string `json:"folder" xml:"Folder"`
-	JobName         string `json:"jobName" xml:"JobName"`
-	Provider        string `json:"provider" xml:"Provider"`
-	RepositoryName  string `json:"repositoryName" xml:"RepositoryName"`
-	RepositoryOwner string `json:"repositoryOwner" xml:"RepositoryOwner"`
+AuthStrategy string `json:"authStrategy" xml:"AuthStrategy"`
+AuthToken string `json:"authToken" xml:"AuthToken"`
+BranchName string `json:"branchName" xml:"BranchName"`
+CommitId string `json:"commitId" xml:"CommitId"`
+Folder string `json:"folder" xml:"Folder"`
+JobName string `json:"jobName" xml:"JobName"`
+Provider string `json:"provider" xml:"Provider"`
+RepositoryName string `json:"repositoryName" xml:"RepositoryName"`
+RepositoryOwner string `json:"repositoryOwner" xml:"RepositoryOwner"`
 }
 
 type UpdateSourceControlFromJobResponse struct {
-	JobName string `json:"jobName" xml:"JobName"`
+JobName string `json:"jobName" xml:"JobName"`
 }
 
 type UpdateTableOptimizerRequest struct {
-	CatalogId                   string                       `json:"catalogId" xml:"CatalogId"`
-	DatabaseName                string                       `json:"databaseName" xml:"DatabaseName"`
-	TableName                   string                       `json:"tableName" xml:"TableName"`
-	TableOptimizerConfiguration *TableOptimizerConfiguration `json:"tableOptimizerConfiguration" xml:"TableOptimizerConfiguration"`
-	Type                        string                       `json:"type" xml:"Type"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+TableName string `json:"tableName" xml:"TableName"`
+TableOptimizerConfiguration *TableOptimizerConfiguration `json:"tableOptimizerConfiguration" xml:"TableOptimizerConfiguration"`
+Type string `json:"type" xml:"Type"`
 }
 
 type UpdateTableOptimizerResponse struct {
 }
 
 type UpdateTableRequest struct {
-	CatalogId                  string                      `json:"catalogId" xml:"CatalogId"`
-	DatabaseName               string                      `json:"databaseName" xml:"DatabaseName"`
-	Force                      bool                        `json:"force" xml:"Force"`
-	Name                       string                      `json:"name" xml:"Name"`
-	SkipArchive                bool                        `json:"skipArchive" xml:"SkipArchive"`
-	TableInput                 *TableInput                 `json:"tableInput" xml:"TableInput"`
-	TransactionId              string                      `json:"transactionId" xml:"TransactionId"`
-	UpdateOpenTableFormatInput *UpdateOpenTableFormatInput `json:"updateOpenTableFormatInput" xml:"UpdateOpenTableFormatInput"`
-	VersionId                  string                      `json:"versionId" xml:"VersionId"`
-	ViewUpdateAction           string                      `json:"viewUpdateAction" xml:"ViewUpdateAction"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+Force bool `json:"force" xml:"Force"`
+Name string `json:"name" xml:"Name"`
+SkipArchive bool `json:"skipArchive" xml:"SkipArchive"`
+TableInput *TableInput `json:"tableInput" xml:"TableInput"`
+TransactionId string `json:"transactionId" xml:"TransactionId"`
+UpdateOpenTableFormatInput *UpdateOpenTableFormatInput `json:"updateOpenTableFormatInput" xml:"UpdateOpenTableFormatInput"`
+VersionId string `json:"versionId" xml:"VersionId"`
+ViewUpdateAction string `json:"viewUpdateAction" xml:"ViewUpdateAction"`
 }
 
 type UpdateTableResponse struct {
 }
 
 type UpdateTriggerRequest struct {
-	Name          string         `json:"name" xml:"Name"`
-	TriggerUpdate *TriggerUpdate `json:"triggerUpdate" xml:"TriggerUpdate"`
+Name string `json:"name" xml:"Name"`
+TriggerUpdate *TriggerUpdate `json:"triggerUpdate" xml:"TriggerUpdate"`
 }
 
 type UpdateTriggerResponse struct {
-	Trigger *Trigger `json:"trigger" xml:"Trigger"`
+Trigger *Trigger `json:"trigger" xml:"Trigger"`
 }
 
 type UpdateUsageProfileRequest struct {
-	Configuration *ProfileConfiguration `json:"configuration" xml:"Configuration"`
-	Description   string                `json:"description" xml:"Description"`
-	Name          string                `json:"name" xml:"Name"`
+Configuration *ProfileConfiguration `json:"configuration" xml:"Configuration"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateUsageProfileResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateUserDefinedFunctionRequest struct {
-	CatalogId     string                    `json:"catalogId" xml:"CatalogId"`
-	DatabaseName  string                    `json:"databaseName" xml:"DatabaseName"`
-	FunctionInput *UserDefinedFunctionInput `json:"functionInput" xml:"FunctionInput"`
-	FunctionName  string                    `json:"functionName" xml:"FunctionName"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+FunctionInput *UserDefinedFunctionInput `json:"functionInput" xml:"FunctionInput"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
 }
 
 type UpdateUserDefinedFunctionResponse struct {
 }
 
 type UpdateWorkflowRequest struct {
-	DefaultRunProperties WorkflowRunProperties `json:"defaultRunProperties" xml:"DefaultRunProperties"`
-	Description          string                `json:"description" xml:"Description"`
-	MaxConcurrentRuns    int32                 `json:"maxConcurrentRuns" xml:"MaxConcurrentRuns"`
-	Name                 string                `json:"name" xml:"Name"`
+DefaultRunProperties WorkflowRunProperties `json:"defaultRunProperties" xml:"DefaultRunProperties"`
+Description string `json:"description" xml:"Description"`
+MaxConcurrentRuns int32 `json:"maxConcurrentRuns" xml:"MaxConcurrentRuns"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateWorkflowResponse struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateXMLClassifierRequest struct {
-	Classification string `json:"classification" xml:"Classification"`
-	Name           string `json:"name" xml:"Name"`
-	RowTag         string `json:"rowTag" xml:"RowTag"`
+Classification string `json:"classification" xml:"Classification"`
+Name string `json:"name" xml:"Name"`
+RowTag string `json:"rowTag" xml:"RowTag"`
 }
 
 type UpsertRedshiftTargetOptions struct {
-	ConnectionName string                           `json:"connectionName" xml:"ConnectionName"`
-	TableLocation  string                           `json:"tableLocation" xml:"TableLocation"`
-	UpsertKeys     EnclosedInStringPropertiesMinOne `json:"upsertKeys" xml:"UpsertKeys"`
+ConnectionName string `json:"connectionName" xml:"ConnectionName"`
+TableLocation string `json:"tableLocation" xml:"TableLocation"`
+UpsertKeys EnclosedInStringPropertiesMinOne `json:"upsertKeys" xml:"UpsertKeys"`
 }
 
 type UsageProfileDefinition struct {
-	CreatedOn      time.Time `json:"createdOn" xml:"CreatedOn"`
-	Description    string    `json:"description" xml:"Description"`
-	LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	Name           string    `json:"name" xml:"Name"`
+CreatedOn time.Time `json:"createdOn" xml:"CreatedOn"`
+Description string `json:"description" xml:"Description"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UserDefinedFunction struct {
-	CatalogId    string          `json:"catalogId" xml:"CatalogId"`
-	ClassName    string          `json:"className" xml:"ClassName"`
-	CreateTime   time.Time       `json:"createTime" xml:"CreateTime"`
-	DatabaseName string          `json:"databaseName" xml:"DatabaseName"`
-	FunctionName string          `json:"functionName" xml:"FunctionName"`
-	FunctionType string          `json:"functionType" xml:"FunctionType"`
-	OwnerName    string          `json:"ownerName" xml:"OwnerName"`
-	OwnerType    string          `json:"ownerType" xml:"OwnerType"`
-	ResourceUris ResourceUriList `json:"resourceUris" xml:"ResourceUris"`
+CatalogId string `json:"catalogId" xml:"CatalogId"`
+ClassName string `json:"className" xml:"ClassName"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionType string `json:"functionType" xml:"FunctionType"`
+OwnerName string `json:"ownerName" xml:"OwnerName"`
+OwnerType string `json:"ownerType" xml:"OwnerType"`
+ResourceUris ResourceUriList `json:"resourceUris" xml:"ResourceUris"`
 }
 
 type UserDefinedFunctionInput struct {
-	ClassName    string          `json:"className" xml:"ClassName"`
-	FunctionName string          `json:"functionName" xml:"FunctionName"`
-	FunctionType string          `json:"functionType" xml:"FunctionType"`
-	OwnerName    string          `json:"ownerName" xml:"OwnerName"`
-	OwnerType    string          `json:"ownerType" xml:"OwnerType"`
-	ResourceUris ResourceUriList `json:"resourceUris" xml:"ResourceUris"`
+ClassName string `json:"className" xml:"ClassName"`
+FunctionName string `json:"functionName" xml:"FunctionName"`
+FunctionType string `json:"functionType" xml:"FunctionType"`
+OwnerName string `json:"ownerName" xml:"OwnerName"`
+OwnerType string `json:"ownerType" xml:"OwnerType"`
+ResourceUris ResourceUriList `json:"resourceUris" xml:"ResourceUris"`
 }
 
 type ViewDefinition struct {
-	Definer             string                      `json:"definer" xml:"Definer"`
-	IsProtected         bool                        `json:"isProtected" xml:"IsProtected"`
-	LastRefreshType     string                      `json:"lastRefreshType" xml:"LastRefreshType"`
-	RefreshSeconds      int64                       `json:"refreshSeconds" xml:"RefreshSeconds"`
-	Representations     ViewRepresentationList      `json:"representations" xml:"Representations"`
-	SubObjectVersionIds ViewSubObjectVersionIdsList `json:"subObjectVersionIds" xml:"SubObjectVersionIds"`
-	SubObjects          ViewSubObjectsList          `json:"subObjects" xml:"SubObjects"`
-	ViewVersionId       int64                       `json:"viewVersionId" xml:"ViewVersionId"`
-	ViewVersionToken    string                      `json:"viewVersionToken" xml:"ViewVersionToken"`
+Definer string `json:"definer" xml:"Definer"`
+IsProtected bool `json:"isProtected" xml:"IsProtected"`
+LastRefreshType string `json:"lastRefreshType" xml:"LastRefreshType"`
+RefreshSeconds int64 `json:"refreshSeconds" xml:"RefreshSeconds"`
+Representations ViewRepresentationList `json:"representations" xml:"Representations"`
+SubObjectVersionIds ViewSubObjectVersionIdsList `json:"subObjectVersionIds" xml:"SubObjectVersionIds"`
+SubObjects ViewSubObjectsList `json:"subObjects" xml:"SubObjects"`
+ViewVersionId int64 `json:"viewVersionId" xml:"ViewVersionId"`
+ViewVersionToken string `json:"viewVersionToken" xml:"ViewVersionToken"`
 }
 
 type ViewDefinitionInput struct {
-	Definer             string                      `json:"definer" xml:"Definer"`
-	IsProtected         bool                        `json:"isProtected" xml:"IsProtected"`
-	LastRefreshType     string                      `json:"lastRefreshType" xml:"LastRefreshType"`
-	RefreshSeconds      int64                       `json:"refreshSeconds" xml:"RefreshSeconds"`
-	Representations     ViewRepresentationInputList `json:"representations" xml:"Representations"`
-	SubObjectVersionIds ViewSubObjectVersionIdsList `json:"subObjectVersionIds" xml:"SubObjectVersionIds"`
-	SubObjects          ViewSubObjectsList          `json:"subObjects" xml:"SubObjects"`
-	ViewVersionId       int64                       `json:"viewVersionId" xml:"ViewVersionId"`
-	ViewVersionToken    string                      `json:"viewVersionToken" xml:"ViewVersionToken"`
+Definer string `json:"definer" xml:"Definer"`
+IsProtected bool `json:"isProtected" xml:"IsProtected"`
+LastRefreshType string `json:"lastRefreshType" xml:"LastRefreshType"`
+RefreshSeconds int64 `json:"refreshSeconds" xml:"RefreshSeconds"`
+Representations ViewRepresentationInputList `json:"representations" xml:"Representations"`
+SubObjectVersionIds ViewSubObjectVersionIdsList `json:"subObjectVersionIds" xml:"SubObjectVersionIds"`
+SubObjects ViewSubObjectsList `json:"subObjects" xml:"SubObjects"`
+ViewVersionId int64 `json:"viewVersionId" xml:"ViewVersionId"`
+ViewVersionToken string `json:"viewVersionToken" xml:"ViewVersionToken"`
 }
 
 type ViewRepresentation struct {
-	Dialect              string `json:"dialect" xml:"Dialect"`
-	DialectVersion       string `json:"dialectVersion" xml:"DialectVersion"`
-	IsStale              bool   `json:"isStale" xml:"IsStale"`
-	ValidationConnection string `json:"validationConnection" xml:"ValidationConnection"`
-	ViewExpandedText     string `json:"viewExpandedText" xml:"ViewExpandedText"`
-	ViewOriginalText     string `json:"viewOriginalText" xml:"ViewOriginalText"`
+Dialect string `json:"dialect" xml:"Dialect"`
+DialectVersion string `json:"dialectVersion" xml:"DialectVersion"`
+IsStale bool `json:"isStale" xml:"IsStale"`
+ValidationConnection string `json:"validationConnection" xml:"ValidationConnection"`
+ViewExpandedText string `json:"viewExpandedText" xml:"ViewExpandedText"`
+ViewOriginalText string `json:"viewOriginalText" xml:"ViewOriginalText"`
 }
 
 type ViewRepresentationInput struct {
-	Dialect              string `json:"dialect" xml:"Dialect"`
-	DialectVersion       string `json:"dialectVersion" xml:"DialectVersion"`
-	ValidationConnection string `json:"validationConnection" xml:"ValidationConnection"`
-	ViewExpandedText     string `json:"viewExpandedText" xml:"ViewExpandedText"`
-	ViewOriginalText     string `json:"viewOriginalText" xml:"ViewOriginalText"`
+Dialect string `json:"dialect" xml:"Dialect"`
+DialectVersion string `json:"dialectVersion" xml:"DialectVersion"`
+ValidationConnection string `json:"validationConnection" xml:"ValidationConnection"`
+ViewExpandedText string `json:"viewExpandedText" xml:"ViewExpandedText"`
+ViewOriginalText string `json:"viewOriginalText" xml:"ViewOriginalText"`
 }
 
 type ViewValidation struct {
-	Dialect            string       `json:"dialect" xml:"Dialect"`
-	DialectVersion     string       `json:"dialectVersion" xml:"DialectVersion"`
-	Error              *ErrorDetail `json:"error" xml:"Error"`
-	State              string       `json:"state" xml:"State"`
-	UpdateTime         time.Time    `json:"updateTime" xml:"UpdateTime"`
-	ViewValidationText string       `json:"viewValidationText" xml:"ViewValidationText"`
+Dialect string `json:"dialect" xml:"Dialect"`
+DialectVersion string `json:"dialectVersion" xml:"DialectVersion"`
+Error *ErrorDetail `json:"error" xml:"Error"`
+State string `json:"state" xml:"State"`
+UpdateTime time.Time `json:"updateTime" xml:"UpdateTime"`
+ViewValidationText string `json:"viewValidationText" xml:"ViewValidationText"`
 }
 
 type Workflow struct {
-	BlueprintDetails     *BlueprintDetails     `json:"blueprintDetails" xml:"BlueprintDetails"`
-	CreatedOn            time.Time             `json:"createdOn" xml:"CreatedOn"`
-	DefaultRunProperties WorkflowRunProperties `json:"defaultRunProperties" xml:"DefaultRunProperties"`
-	Description          string                `json:"description" xml:"Description"`
-	Graph                *WorkflowGraph        `json:"graph" xml:"Graph"`
-	LastModifiedOn       time.Time             `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	LastRun              *WorkflowRun          `json:"lastRun" xml:"LastRun"`
-	MaxConcurrentRuns    int32                 `json:"maxConcurrentRuns" xml:"MaxConcurrentRuns"`
-	Name                 string                `json:"name" xml:"Name"`
+BlueprintDetails *BlueprintDetails `json:"blueprintDetails" xml:"BlueprintDetails"`
+CreatedOn time.Time `json:"createdOn" xml:"CreatedOn"`
+DefaultRunProperties WorkflowRunProperties `json:"defaultRunProperties" xml:"DefaultRunProperties"`
+Description string `json:"description" xml:"Description"`
+Graph *WorkflowGraph `json:"graph" xml:"Graph"`
+LastModifiedOn time.Time `json:"lastModifiedOn" xml:"LastModifiedOn"`
+LastRun *WorkflowRun `json:"lastRun" xml:"LastRun"`
+MaxConcurrentRuns int32 `json:"maxConcurrentRuns" xml:"MaxConcurrentRuns"`
+Name string `json:"name" xml:"Name"`
 }
 
 type WorkflowGraph struct {
-	Edges EdgeList `json:"edges" xml:"Edges"`
-	Nodes NodeList `json:"nodes" xml:"Nodes"`
+Edges EdgeList `json:"edges" xml:"Edges"`
+Nodes NodeList `json:"nodes" xml:"Nodes"`
 }
 
 type WorkflowRun struct {
-	CompletedOn                 time.Time                    `json:"completedOn" xml:"CompletedOn"`
-	ErrorMessage                string                       `json:"errorMessage" xml:"ErrorMessage"`
-	Graph                       *WorkflowGraph               `json:"graph" xml:"Graph"`
-	Name                        string                       `json:"name" xml:"Name"`
-	PreviousRunId               string                       `json:"previousRunId" xml:"PreviousRunId"`
-	StartedOn                   time.Time                    `json:"startedOn" xml:"StartedOn"`
-	StartingEventBatchCondition *StartingEventBatchCondition `json:"startingEventBatchCondition" xml:"StartingEventBatchCondition"`
-	Statistics                  *WorkflowRunStatistics       `json:"statistics" xml:"Statistics"`
-	Status                      string                       `json:"status" xml:"Status"`
-	WorkflowRunId               string                       `json:"workflowRunId" xml:"WorkflowRunId"`
-	WorkflowRunProperties       WorkflowRunProperties        `json:"workflowRunProperties" xml:"WorkflowRunProperties"`
+CompletedOn time.Time `json:"completedOn" xml:"CompletedOn"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+Graph *WorkflowGraph `json:"graph" xml:"Graph"`
+Name string `json:"name" xml:"Name"`
+PreviousRunId string `json:"previousRunId" xml:"PreviousRunId"`
+StartedOn time.Time `json:"startedOn" xml:"StartedOn"`
+StartingEventBatchCondition *StartingEventBatchCondition `json:"startingEventBatchCondition" xml:"StartingEventBatchCondition"`
+Statistics *WorkflowRunStatistics `json:"statistics" xml:"Statistics"`
+Status string `json:"status" xml:"Status"`
+WorkflowRunId string `json:"workflowRunId" xml:"WorkflowRunId"`
+WorkflowRunProperties WorkflowRunProperties `json:"workflowRunProperties" xml:"WorkflowRunProperties"`
 }
 
 type WorkflowRunStatistics struct {
-	ErroredActions   int32 `json:"erroredActions" xml:"ErroredActions"`
-	FailedActions    int32 `json:"failedActions" xml:"FailedActions"`
-	RunningActions   int32 `json:"runningActions" xml:"RunningActions"`
-	StoppedActions   int32 `json:"stoppedActions" xml:"StoppedActions"`
-	SucceededActions int32 `json:"succeededActions" xml:"SucceededActions"`
-	TimeoutActions   int32 `json:"timeoutActions" xml:"TimeoutActions"`
-	TotalActions     int32 `json:"totalActions" xml:"TotalActions"`
-	WaitingActions   int32 `json:"waitingActions" xml:"WaitingActions"`
+ErroredActions int32 `json:"erroredActions" xml:"ErroredActions"`
+FailedActions int32 `json:"failedActions" xml:"FailedActions"`
+RunningActions int32 `json:"runningActions" xml:"RunningActions"`
+StoppedActions int32 `json:"stoppedActions" xml:"StoppedActions"`
+SucceededActions int32 `json:"succeededActions" xml:"SucceededActions"`
+TimeoutActions int32 `json:"timeoutActions" xml:"TimeoutActions"`
+TotalActions int32 `json:"totalActions" xml:"TotalActions"`
+WaitingActions int32 `json:"waitingActions" xml:"WaitingActions"`
 }
 
 type XMLClassifier struct {
-	Classification string    `json:"classification" xml:"Classification"`
-	CreationTime   time.Time `json:"creationTime" xml:"CreationTime"`
-	LastUpdated    time.Time `json:"lastUpdated" xml:"LastUpdated"`
-	Name           string    `json:"name" xml:"Name"`
-	RowTag         string    `json:"rowTag" xml:"RowTag"`
-	Version        int64     `json:"version" xml:"Version"`
+Classification string `json:"classification" xml:"Classification"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+LastUpdated time.Time `json:"lastUpdated" xml:"LastUpdated"`
+Name string `json:"name" xml:"Name"`
+RowTag string `json:"rowTag" xml:"RowTag"`
+Version int64 `json:"version" xml:"Version"`
 }
 
 type ActionList []*Action
@@ -7077,3 +7077,4 @@ type IcebergDocument interface{}
 type Record interface{}
 
 type TableOptimizerVpcConfiguration interface{}
+

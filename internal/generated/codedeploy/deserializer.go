@@ -591,3 +591,4 @@ func SerializeUpdateDeploymentGroupOutput(w http.ResponseWriter, output *UpdateD
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

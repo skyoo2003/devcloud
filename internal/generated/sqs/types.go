@@ -2,284 +2,285 @@
 // SPDX-License-Identifier: Apache-2.0
 package sqs
 
+
 type AddPermissionRequest struct {
-	AWSAccountIds AWSAccountIdList `json:"aWSAccountIds" xml:"AWSAccountIds"`
-	Actions       ActionNameList   `json:"actions" xml:"Actions"`
-	Label         string           `json:"label" xml:"Label"`
-	QueueUrl      string           `json:"queueUrl" xml:"QueueUrl"`
+AWSAccountIds AWSAccountIdList `json:"aWSAccountIds" xml:"AWSAccountIds"`
+Actions ActionNameList `json:"actions" xml:"Actions"`
+Label string `json:"label" xml:"Label"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type BatchResultErrorEntry struct {
-	Code        string `json:"code" xml:"Code"`
-	Id          string `json:"id" xml:"Id"`
-	Message     string `json:"message" xml:"Message"`
-	SenderFault bool   `json:"senderFault" xml:"SenderFault"`
+Code string `json:"code" xml:"Code"`
+Id string `json:"id" xml:"Id"`
+Message string `json:"message" xml:"Message"`
+SenderFault bool `json:"senderFault" xml:"SenderFault"`
 }
 
 type CancelMessageMoveTaskRequest struct {
-	TaskHandle string `json:"taskHandle" xml:"TaskHandle"`
+TaskHandle string `json:"taskHandle" xml:"TaskHandle"`
 }
 
 type CancelMessageMoveTaskResult struct {
-	ApproximateNumberOfMessagesMoved int64 `json:"approximateNumberOfMessagesMoved" xml:"ApproximateNumberOfMessagesMoved"`
+ApproximateNumberOfMessagesMoved int64 `json:"approximateNumberOfMessagesMoved" xml:"ApproximateNumberOfMessagesMoved"`
 }
 
 type ChangeMessageVisibilityBatchRequest struct {
-	Entries  ChangeMessageVisibilityBatchRequestEntryList `json:"entries" xml:"Entries"`
-	QueueUrl string                                       `json:"queueUrl" xml:"QueueUrl"`
+Entries ChangeMessageVisibilityBatchRequestEntryList `json:"entries" xml:"Entries"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type ChangeMessageVisibilityBatchRequestEntry struct {
-	Id                string `json:"id" xml:"Id"`
-	ReceiptHandle     string `json:"receiptHandle" xml:"ReceiptHandle"`
-	VisibilityTimeout int32  `json:"visibilityTimeout" xml:"VisibilityTimeout"`
+Id string `json:"id" xml:"Id"`
+ReceiptHandle string `json:"receiptHandle" xml:"ReceiptHandle"`
+VisibilityTimeout int32 `json:"visibilityTimeout" xml:"VisibilityTimeout"`
 }
 
 type ChangeMessageVisibilityBatchResult struct {
-	Failed     BatchResultErrorEntryList                   `json:"failed" xml:"Failed"`
-	Successful ChangeMessageVisibilityBatchResultEntryList `json:"successful" xml:"Successful"`
+Failed BatchResultErrorEntryList `json:"failed" xml:"Failed"`
+Successful ChangeMessageVisibilityBatchResultEntryList `json:"successful" xml:"Successful"`
 }
 
 type ChangeMessageVisibilityBatchResultEntry struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type ChangeMessageVisibilityRequest struct {
-	QueueUrl          string `json:"queueUrl" xml:"QueueUrl"`
-	ReceiptHandle     string `json:"receiptHandle" xml:"ReceiptHandle"`
-	VisibilityTimeout int32  `json:"visibilityTimeout" xml:"VisibilityTimeout"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
+ReceiptHandle string `json:"receiptHandle" xml:"ReceiptHandle"`
+VisibilityTimeout int32 `json:"visibilityTimeout" xml:"VisibilityTimeout"`
 }
 
 type CreateQueueRequest struct {
-	Attributes QueueAttributeMap `json:"attributes" xml:"Attributes"`
-	QueueName  string            `json:"queueName" xml:"QueueName"`
-	Tags       TagMap            `json:"tags" xml:"tags"`
+Attributes QueueAttributeMap `json:"attributes" xml:"Attributes"`
+QueueName string `json:"queueName" xml:"QueueName"`
+Tags TagMap `json:"tags" xml:"tags"`
 }
 
 type CreateQueueResult struct {
-	QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type DeleteMessageBatchRequest struct {
-	Entries  DeleteMessageBatchRequestEntryList `json:"entries" xml:"Entries"`
-	QueueUrl string                             `json:"queueUrl" xml:"QueueUrl"`
+Entries DeleteMessageBatchRequestEntryList `json:"entries" xml:"Entries"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type DeleteMessageBatchRequestEntry struct {
-	Id            string `json:"id" xml:"Id"`
-	ReceiptHandle string `json:"receiptHandle" xml:"ReceiptHandle"`
+Id string `json:"id" xml:"Id"`
+ReceiptHandle string `json:"receiptHandle" xml:"ReceiptHandle"`
 }
 
 type DeleteMessageBatchResult struct {
-	Failed     BatchResultErrorEntryList         `json:"failed" xml:"Failed"`
-	Successful DeleteMessageBatchResultEntryList `json:"successful" xml:"Successful"`
+Failed BatchResultErrorEntryList `json:"failed" xml:"Failed"`
+Successful DeleteMessageBatchResultEntryList `json:"successful" xml:"Successful"`
 }
 
 type DeleteMessageBatchResultEntry struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type DeleteMessageRequest struct {
-	QueueUrl      string `json:"queueUrl" xml:"QueueUrl"`
-	ReceiptHandle string `json:"receiptHandle" xml:"ReceiptHandle"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
+ReceiptHandle string `json:"receiptHandle" xml:"ReceiptHandle"`
 }
 
 type DeleteQueueRequest struct {
-	QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type GetQueueAttributesRequest struct {
-	AttributeNames AttributeNameList `json:"attributeNames" xml:"AttributeNames"`
-	QueueUrl       string            `json:"queueUrl" xml:"QueueUrl"`
+AttributeNames AttributeNameList `json:"attributeNames" xml:"AttributeNames"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type GetQueueAttributesResult struct {
-	Attributes QueueAttributeMap `json:"attributes" xml:"Attributes"`
+Attributes QueueAttributeMap `json:"attributes" xml:"Attributes"`
 }
 
 type GetQueueUrlRequest struct {
-	QueueName              string `json:"queueName" xml:"QueueName"`
-	QueueOwnerAWSAccountId string `json:"queueOwnerAWSAccountId" xml:"QueueOwnerAWSAccountId"`
+QueueName string `json:"queueName" xml:"QueueName"`
+QueueOwnerAWSAccountId string `json:"queueOwnerAWSAccountId" xml:"QueueOwnerAWSAccountId"`
 }
 
 type GetQueueUrlResult struct {
-	QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type ListDeadLetterSourceQueuesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	QueueUrl   string `json:"queueUrl" xml:"QueueUrl"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type ListDeadLetterSourceQueuesResult struct {
-	NextToken string       `json:"nextToken" xml:"NextToken"`
-	QueueUrls QueueUrlList `json:"queueUrls" xml:"queueUrls"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueueUrls QueueUrlList `json:"queueUrls" xml:"queueUrls"`
 }
 
 type ListMessageMoveTasksRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	SourceArn  string `json:"sourceArn" xml:"SourceArn"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
 }
 
 type ListMessageMoveTasksResult struct {
-	Results ListMessageMoveTasksResultEntryList `json:"results" xml:"Results"`
+Results ListMessageMoveTasksResultEntryList `json:"results" xml:"Results"`
 }
 
 type ListMessageMoveTasksResultEntry struct {
-	ApproximateNumberOfMessagesMoved  int64  `json:"approximateNumberOfMessagesMoved" xml:"ApproximateNumberOfMessagesMoved"`
-	ApproximateNumberOfMessagesToMove int64  `json:"approximateNumberOfMessagesToMove" xml:"ApproximateNumberOfMessagesToMove"`
-	DestinationArn                    string `json:"destinationArn" xml:"DestinationArn"`
-	FailureReason                     string `json:"failureReason" xml:"FailureReason"`
-	MaxNumberOfMessagesPerSecond      int32  `json:"maxNumberOfMessagesPerSecond" xml:"MaxNumberOfMessagesPerSecond"`
-	SourceArn                         string `json:"sourceArn" xml:"SourceArn"`
-	StartedTimestamp                  int64  `json:"startedTimestamp" xml:"StartedTimestamp"`
-	Status                            string `json:"status" xml:"Status"`
-	TaskHandle                        string `json:"taskHandle" xml:"TaskHandle"`
+ApproximateNumberOfMessagesMoved int64 `json:"approximateNumberOfMessagesMoved" xml:"ApproximateNumberOfMessagesMoved"`
+ApproximateNumberOfMessagesToMove int64 `json:"approximateNumberOfMessagesToMove" xml:"ApproximateNumberOfMessagesToMove"`
+DestinationArn string `json:"destinationArn" xml:"DestinationArn"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+MaxNumberOfMessagesPerSecond int32 `json:"maxNumberOfMessagesPerSecond" xml:"MaxNumberOfMessagesPerSecond"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
+StartedTimestamp int64 `json:"startedTimestamp" xml:"StartedTimestamp"`
+Status string `json:"status" xml:"Status"`
+TaskHandle string `json:"taskHandle" xml:"TaskHandle"`
 }
 
 type ListQueueTagsRequest struct {
-	QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type ListQueueTagsResult struct {
-	Tags TagMap `json:"tags" xml:"Tags"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type ListQueuesRequest struct {
-	MaxResults      int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken       string `json:"nextToken" xml:"NextToken"`
-	QueueNamePrefix string `json:"queueNamePrefix" xml:"QueueNamePrefix"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueueNamePrefix string `json:"queueNamePrefix" xml:"QueueNamePrefix"`
 }
 
 type ListQueuesResult struct {
-	NextToken string       `json:"nextToken" xml:"NextToken"`
-	QueueUrls QueueUrlList `json:"queueUrls" xml:"QueueUrls"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+QueueUrls QueueUrlList `json:"queueUrls" xml:"QueueUrls"`
 }
 
 type Message struct {
-	Attributes             MessageSystemAttributeMap `json:"attributes" xml:"Attributes"`
-	Body                   string                    `json:"body" xml:"Body"`
-	MD5OfBody              string                    `json:"mD5OfBody" xml:"MD5OfBody"`
-	MD5OfMessageAttributes string                    `json:"mD5OfMessageAttributes" xml:"MD5OfMessageAttributes"`
-	MessageAttributes      MessageBodyAttributeMap   `json:"messageAttributes" xml:"MessageAttributes"`
-	MessageId              string                    `json:"messageId" xml:"MessageId"`
-	ReceiptHandle          string                    `json:"receiptHandle" xml:"ReceiptHandle"`
+Attributes MessageSystemAttributeMap `json:"attributes" xml:"Attributes"`
+Body string `json:"body" xml:"Body"`
+MD5OfBody string `json:"mD5OfBody" xml:"MD5OfBody"`
+MD5OfMessageAttributes string `json:"mD5OfMessageAttributes" xml:"MD5OfMessageAttributes"`
+MessageAttributes MessageBodyAttributeMap `json:"messageAttributes" xml:"MessageAttributes"`
+MessageId string `json:"messageId" xml:"MessageId"`
+ReceiptHandle string `json:"receiptHandle" xml:"ReceiptHandle"`
 }
 
 type MessageAttributeValue struct {
-	BinaryListValues BinaryList `json:"binaryListValues" xml:"BinaryListValues"`
-	BinaryValue      []byte     `json:"binaryValue" xml:"BinaryValue"`
-	DataType         string     `json:"dataType" xml:"DataType"`
-	StringListValues StringList `json:"stringListValues" xml:"StringListValues"`
-	StringValue      string     `json:"stringValue" xml:"StringValue"`
+BinaryListValues BinaryList `json:"binaryListValues" xml:"BinaryListValues"`
+BinaryValue []byte `json:"binaryValue" xml:"BinaryValue"`
+DataType string `json:"dataType" xml:"DataType"`
+StringListValues StringList `json:"stringListValues" xml:"StringListValues"`
+StringValue string `json:"stringValue" xml:"StringValue"`
 }
 
 type MessageSystemAttributeValue struct {
-	BinaryListValues BinaryList `json:"binaryListValues" xml:"BinaryListValues"`
-	BinaryValue      []byte     `json:"binaryValue" xml:"BinaryValue"`
-	DataType         string     `json:"dataType" xml:"DataType"`
-	StringListValues StringList `json:"stringListValues" xml:"StringListValues"`
-	StringValue      string     `json:"stringValue" xml:"StringValue"`
+BinaryListValues BinaryList `json:"binaryListValues" xml:"BinaryListValues"`
+BinaryValue []byte `json:"binaryValue" xml:"BinaryValue"`
+DataType string `json:"dataType" xml:"DataType"`
+StringListValues StringList `json:"stringListValues" xml:"StringListValues"`
+StringValue string `json:"stringValue" xml:"StringValue"`
 }
 
 type PurgeQueueRequest struct {
-	QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type ReceiveMessageRequest struct {
-	AttributeNames              AttributeNameList          `json:"attributeNames" xml:"AttributeNames"`
-	MaxNumberOfMessages         int32                      `json:"maxNumberOfMessages" xml:"MaxNumberOfMessages"`
-	MessageAttributeNames       MessageAttributeNameList   `json:"messageAttributeNames" xml:"MessageAttributeNames"`
-	MessageSystemAttributeNames MessageSystemAttributeList `json:"messageSystemAttributeNames" xml:"MessageSystemAttributeNames"`
-	QueueUrl                    string                     `json:"queueUrl" xml:"QueueUrl"`
-	ReceiveRequestAttemptId     string                     `json:"receiveRequestAttemptId" xml:"ReceiveRequestAttemptId"`
-	VisibilityTimeout           int32                      `json:"visibilityTimeout" xml:"VisibilityTimeout"`
-	WaitTimeSeconds             int32                      `json:"waitTimeSeconds" xml:"WaitTimeSeconds"`
+AttributeNames AttributeNameList `json:"attributeNames" xml:"AttributeNames"`
+MaxNumberOfMessages int32 `json:"maxNumberOfMessages" xml:"MaxNumberOfMessages"`
+MessageAttributeNames MessageAttributeNameList `json:"messageAttributeNames" xml:"MessageAttributeNames"`
+MessageSystemAttributeNames MessageSystemAttributeList `json:"messageSystemAttributeNames" xml:"MessageSystemAttributeNames"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
+ReceiveRequestAttemptId string `json:"receiveRequestAttemptId" xml:"ReceiveRequestAttemptId"`
+VisibilityTimeout int32 `json:"visibilityTimeout" xml:"VisibilityTimeout"`
+WaitTimeSeconds int32 `json:"waitTimeSeconds" xml:"WaitTimeSeconds"`
 }
 
 type ReceiveMessageResult struct {
-	Messages MessageList `json:"messages" xml:"Messages"`
+Messages MessageList `json:"messages" xml:"Messages"`
 }
 
 type RemovePermissionRequest struct {
-	Label    string `json:"label" xml:"Label"`
-	QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
+Label string `json:"label" xml:"Label"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type SendMessageBatchRequest struct {
-	Entries  SendMessageBatchRequestEntryList `json:"entries" xml:"Entries"`
-	QueueUrl string                           `json:"queueUrl" xml:"QueueUrl"`
+Entries SendMessageBatchRequestEntryList `json:"entries" xml:"Entries"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type SendMessageBatchRequestEntry struct {
-	DelaySeconds            int32                         `json:"delaySeconds" xml:"DelaySeconds"`
-	Id                      string                        `json:"id" xml:"Id"`
-	MessageAttributes       MessageBodyAttributeMap       `json:"messageAttributes" xml:"MessageAttributes"`
-	MessageBody             string                        `json:"messageBody" xml:"MessageBody"`
-	MessageDeduplicationId  string                        `json:"messageDeduplicationId" xml:"MessageDeduplicationId"`
-	MessageGroupId          string                        `json:"messageGroupId" xml:"MessageGroupId"`
-	MessageSystemAttributes MessageBodySystemAttributeMap `json:"messageSystemAttributes" xml:"MessageSystemAttributes"`
+DelaySeconds int32 `json:"delaySeconds" xml:"DelaySeconds"`
+Id string `json:"id" xml:"Id"`
+MessageAttributes MessageBodyAttributeMap `json:"messageAttributes" xml:"MessageAttributes"`
+MessageBody string `json:"messageBody" xml:"MessageBody"`
+MessageDeduplicationId string `json:"messageDeduplicationId" xml:"MessageDeduplicationId"`
+MessageGroupId string `json:"messageGroupId" xml:"MessageGroupId"`
+MessageSystemAttributes MessageBodySystemAttributeMap `json:"messageSystemAttributes" xml:"MessageSystemAttributes"`
 }
 
 type SendMessageBatchResult struct {
-	Failed     BatchResultErrorEntryList       `json:"failed" xml:"Failed"`
-	Successful SendMessageBatchResultEntryList `json:"successful" xml:"Successful"`
+Failed BatchResultErrorEntryList `json:"failed" xml:"Failed"`
+Successful SendMessageBatchResultEntryList `json:"successful" xml:"Successful"`
 }
 
 type SendMessageBatchResultEntry struct {
-	Id                           string `json:"id" xml:"Id"`
-	MD5OfMessageAttributes       string `json:"mD5OfMessageAttributes" xml:"MD5OfMessageAttributes"`
-	MD5OfMessageBody             string `json:"mD5OfMessageBody" xml:"MD5OfMessageBody"`
-	MD5OfMessageSystemAttributes string `json:"mD5OfMessageSystemAttributes" xml:"MD5OfMessageSystemAttributes"`
-	MessageId                    string `json:"messageId" xml:"MessageId"`
-	SequenceNumber               string `json:"sequenceNumber" xml:"SequenceNumber"`
+Id string `json:"id" xml:"Id"`
+MD5OfMessageAttributes string `json:"mD5OfMessageAttributes" xml:"MD5OfMessageAttributes"`
+MD5OfMessageBody string `json:"mD5OfMessageBody" xml:"MD5OfMessageBody"`
+MD5OfMessageSystemAttributes string `json:"mD5OfMessageSystemAttributes" xml:"MD5OfMessageSystemAttributes"`
+MessageId string `json:"messageId" xml:"MessageId"`
+SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
 }
 
 type SendMessageRequest struct {
-	DelaySeconds            int32                         `json:"delaySeconds" xml:"DelaySeconds"`
-	MessageAttributes       MessageBodyAttributeMap       `json:"messageAttributes" xml:"MessageAttributes"`
-	MessageBody             string                        `json:"messageBody" xml:"MessageBody"`
-	MessageDeduplicationId  string                        `json:"messageDeduplicationId" xml:"MessageDeduplicationId"`
-	MessageGroupId          string                        `json:"messageGroupId" xml:"MessageGroupId"`
-	MessageSystemAttributes MessageBodySystemAttributeMap `json:"messageSystemAttributes" xml:"MessageSystemAttributes"`
-	QueueUrl                string                        `json:"queueUrl" xml:"QueueUrl"`
+DelaySeconds int32 `json:"delaySeconds" xml:"DelaySeconds"`
+MessageAttributes MessageBodyAttributeMap `json:"messageAttributes" xml:"MessageAttributes"`
+MessageBody string `json:"messageBody" xml:"MessageBody"`
+MessageDeduplicationId string `json:"messageDeduplicationId" xml:"MessageDeduplicationId"`
+MessageGroupId string `json:"messageGroupId" xml:"MessageGroupId"`
+MessageSystemAttributes MessageBodySystemAttributeMap `json:"messageSystemAttributes" xml:"MessageSystemAttributes"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type SendMessageResult struct {
-	MD5OfMessageAttributes       string `json:"mD5OfMessageAttributes" xml:"MD5OfMessageAttributes"`
-	MD5OfMessageBody             string `json:"mD5OfMessageBody" xml:"MD5OfMessageBody"`
-	MD5OfMessageSystemAttributes string `json:"mD5OfMessageSystemAttributes" xml:"MD5OfMessageSystemAttributes"`
-	MessageId                    string `json:"messageId" xml:"MessageId"`
-	SequenceNumber               string `json:"sequenceNumber" xml:"SequenceNumber"`
+MD5OfMessageAttributes string `json:"mD5OfMessageAttributes" xml:"MD5OfMessageAttributes"`
+MD5OfMessageBody string `json:"mD5OfMessageBody" xml:"MD5OfMessageBody"`
+MD5OfMessageSystemAttributes string `json:"mD5OfMessageSystemAttributes" xml:"MD5OfMessageSystemAttributes"`
+MessageId string `json:"messageId" xml:"MessageId"`
+SequenceNumber string `json:"sequenceNumber" xml:"SequenceNumber"`
 }
 
 type SetQueueAttributesRequest struct {
-	Attributes QueueAttributeMap `json:"attributes" xml:"Attributes"`
-	QueueUrl   string            `json:"queueUrl" xml:"QueueUrl"`
+Attributes QueueAttributeMap `json:"attributes" xml:"Attributes"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
 }
 
 type SmithyUnit struct {
 }
 
 type StartMessageMoveTaskRequest struct {
-	DestinationArn               string `json:"destinationArn" xml:"DestinationArn"`
-	MaxNumberOfMessagesPerSecond int32  `json:"maxNumberOfMessagesPerSecond" xml:"MaxNumberOfMessagesPerSecond"`
-	SourceArn                    string `json:"sourceArn" xml:"SourceArn"`
+DestinationArn string `json:"destinationArn" xml:"DestinationArn"`
+MaxNumberOfMessagesPerSecond int32 `json:"maxNumberOfMessagesPerSecond" xml:"MaxNumberOfMessagesPerSecond"`
+SourceArn string `json:"sourceArn" xml:"SourceArn"`
 }
 
 type StartMessageMoveTaskResult struct {
-	TaskHandle string `json:"taskHandle" xml:"TaskHandle"`
+TaskHandle string `json:"taskHandle" xml:"TaskHandle"`
 }
 
 type TagQueueRequest struct {
-	QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
-	Tags     TagMap `json:"tags" xml:"Tags"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type UntagQueueRequest struct {
-	QueueUrl string     `json:"queueUrl" xml:"QueueUrl"`
-	TagKeys  TagKeyList `json:"tagKeys" xml:"TagKeys"`
+QueueUrl string `json:"queueUrl" xml:"QueueUrl"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type AWSAccountIdList []string
@@ -327,3 +328,4 @@ type MessageSystemAttributeMap map[string]string
 type QueueAttributeMap map[string]string
 
 type TagMap map[string]string
+

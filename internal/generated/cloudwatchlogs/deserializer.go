@@ -1257,3 +1257,4 @@ func SerializeUpdateScheduledQueryResponse(w http.ResponseWriter, output *Update
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

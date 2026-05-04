@@ -505,3 +505,4 @@ func SerializeUpdateApplicationMaintenanceConfigurationResponse(w http.ResponseW
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

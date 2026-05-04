@@ -397,3 +397,4 @@ func DeserializeVoteOnProposalInput(r *http.Request, pathParams PathParams) (*Vo
 
 	return input, nil
 }
+

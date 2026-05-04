@@ -106,3 +106,4 @@ func (b *BaseProvider) UpdateConfiguration(ctx context.Context, input *UpdateCon
 func (b *BaseProvider) UpdateUser(ctx context.Context, input *UpdateUserRequest) (*UpdateUserResponse, error) {
 	return nil, fmt.Errorf("UpdateUser: %w", ErrNotImplemented)
 }
+

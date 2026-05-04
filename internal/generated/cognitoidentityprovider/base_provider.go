@@ -498,3 +498,4 @@ func (b *BaseProvider) VerifySoftwareToken(ctx context.Context, input *VerifySof
 func (b *BaseProvider) VerifyUserAttribute(ctx context.Context, input *VerifyUserAttributeRequest) (*VerifyUserAttributeResponse, error) {
 	return nil, fmt.Errorf("VerifyUserAttribute: %w", ErrNotImplemented)
 }
+

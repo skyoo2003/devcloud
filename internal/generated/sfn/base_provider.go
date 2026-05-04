@@ -158,3 +158,4 @@ func (b *BaseProvider) UpdateStateMachineAlias(ctx context.Context, input *Updat
 func (b *BaseProvider) ValidateStateMachineDefinition(ctx context.Context, input *ValidateStateMachineDefinitionInput) (*ValidateStateMachineDefinitionOutput, error) {
 	return nil, fmt.Errorf("ValidateStateMachineDefinition: %w", ErrNotImplemented)
 }
+

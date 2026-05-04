@@ -190,3 +190,4 @@ func (e *WorkflowExecutionAlreadyStartedFault) ErrorCode() string {
 func (e *WorkflowExecutionAlreadyStartedFault) HTTPStatus() int {
 	return 0
 }
+

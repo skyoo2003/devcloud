@@ -230,3 +230,4 @@ func (b *BaseProvider) UpdateRuleGroup(ctx context.Context, input *UpdateRuleGro
 func (b *BaseProvider) UpdateWebACL(ctx context.Context, input *UpdateWebACLRequest) (*UpdateWebACLResponse, error) {
 	return nil, fmt.Errorf("UpdateWebACL: %w", ErrNotImplemented)
 }
+

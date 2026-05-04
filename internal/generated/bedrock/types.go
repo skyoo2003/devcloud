@@ -7,886 +7,886 @@ import (
 )
 
 type AccountEnforcedGuardrailInferenceInputConfiguration struct {
-	GuardrailIdentifier      string                    `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
-	GuardrailVersion         string                    `json:"guardrailVersion" xml:"guardrailVersion"`
-	ModelEnforcement         *ModelEnforcement         `json:"modelEnforcement" xml:"modelEnforcement"`
-	SelectiveContentGuarding *SelectiveContentGuarding `json:"selectiveContentGuarding" xml:"selectiveContentGuarding"`
+GuardrailIdentifier string `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
+GuardrailVersion string `json:"guardrailVersion" xml:"guardrailVersion"`
+ModelEnforcement *ModelEnforcement `json:"modelEnforcement" xml:"modelEnforcement"`
+SelectiveContentGuarding *SelectiveContentGuarding `json:"selectiveContentGuarding" xml:"selectiveContentGuarding"`
 }
 
 type AccountEnforcedGuardrailOutputConfiguration struct {
-	ConfigId                 string                    `json:"configId" xml:"configId"`
-	CreatedAt                time.Time                 `json:"createdAt" xml:"createdAt"`
-	CreatedBy                string                    `json:"createdBy" xml:"createdBy"`
-	GuardrailArn             string                    `json:"guardrailArn" xml:"guardrailArn"`
-	GuardrailId              string                    `json:"guardrailId" xml:"guardrailId"`
-	GuardrailVersion         string                    `json:"guardrailVersion" xml:"guardrailVersion"`
-	InputTags                string                    `json:"inputTags" xml:"inputTags"`
-	ModelEnforcement         *ModelEnforcement         `json:"modelEnforcement" xml:"modelEnforcement"`
-	Owner                    string                    `json:"owner" xml:"owner"`
-	SelectiveContentGuarding *SelectiveContentGuarding `json:"selectiveContentGuarding" xml:"selectiveContentGuarding"`
-	UpdatedAt                time.Time                 `json:"updatedAt" xml:"updatedAt"`
-	UpdatedBy                string                    `json:"updatedBy" xml:"updatedBy"`
+ConfigId string `json:"configId" xml:"configId"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+CreatedBy string `json:"createdBy" xml:"createdBy"`
+GuardrailArn string `json:"guardrailArn" xml:"guardrailArn"`
+GuardrailId string `json:"guardrailId" xml:"guardrailId"`
+GuardrailVersion string `json:"guardrailVersion" xml:"guardrailVersion"`
+InputTags string `json:"inputTags" xml:"inputTags"`
+ModelEnforcement *ModelEnforcement `json:"modelEnforcement" xml:"modelEnforcement"`
+Owner string `json:"owner" xml:"owner"`
+SelectiveContentGuarding *SelectiveContentGuarding `json:"selectiveContentGuarding" xml:"selectiveContentGuarding"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
+UpdatedBy string `json:"updatedBy" xml:"updatedBy"`
 }
 
 type AgreementAvailability struct {
-	ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
-	Status       string `json:"status" xml:"status"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+Status string `json:"status" xml:"status"`
 }
 
 type AutomatedEvaluationConfig struct {
-	CustomMetricConfig   *AutomatedEvaluationCustomMetricConfig `json:"customMetricConfig" xml:"customMetricConfig"`
-	DatasetMetricConfigs EvaluationDatasetMetricConfigs         `json:"datasetMetricConfigs" xml:"datasetMetricConfigs"`
-	EvaluatorModelConfig interface{}                            `json:"evaluatorModelConfig" xml:"evaluatorModelConfig"`
+CustomMetricConfig *AutomatedEvaluationCustomMetricConfig `json:"customMetricConfig" xml:"customMetricConfig"`
+DatasetMetricConfigs EvaluationDatasetMetricConfigs `json:"datasetMetricConfigs" xml:"datasetMetricConfigs"`
+EvaluatorModelConfig interface{} `json:"evaluatorModelConfig" xml:"evaluatorModelConfig"`
 }
 
 type AutomatedEvaluationCustomMetricConfig struct {
-	CustomMetrics        AutomatedEvaluationCustomMetrics  `json:"customMetrics" xml:"customMetrics"`
-	EvaluatorModelConfig *CustomMetricEvaluatorModelConfig `json:"evaluatorModelConfig" xml:"evaluatorModelConfig"`
+CustomMetrics AutomatedEvaluationCustomMetrics `json:"customMetrics" xml:"customMetrics"`
+EvaluatorModelConfig *CustomMetricEvaluatorModelConfig `json:"evaluatorModelConfig" xml:"evaluatorModelConfig"`
 }
 
 type AutomatedReasoningCheckImpossibleFinding struct {
-	ContradictingRules AutomatedReasoningCheckRuleList      `json:"contradictingRules" xml:"contradictingRules"`
-	LogicWarning       *AutomatedReasoningCheckLogicWarning `json:"logicWarning" xml:"logicWarning"`
-	Translation        *AutomatedReasoningCheckTranslation  `json:"translation" xml:"translation"`
+ContradictingRules AutomatedReasoningCheckRuleList `json:"contradictingRules" xml:"contradictingRules"`
+LogicWarning *AutomatedReasoningCheckLogicWarning `json:"logicWarning" xml:"logicWarning"`
+Translation *AutomatedReasoningCheckTranslation `json:"translation" xml:"translation"`
 }
 
 type AutomatedReasoningCheckInputTextReference struct {
-	Text string `json:"text" xml:"text"`
+Text string `json:"text" xml:"text"`
 }
 
 type AutomatedReasoningCheckInvalidFinding struct {
-	ContradictingRules AutomatedReasoningCheckRuleList      `json:"contradictingRules" xml:"contradictingRules"`
-	LogicWarning       *AutomatedReasoningCheckLogicWarning `json:"logicWarning" xml:"logicWarning"`
-	Translation        *AutomatedReasoningCheckTranslation  `json:"translation" xml:"translation"`
+ContradictingRules AutomatedReasoningCheckRuleList `json:"contradictingRules" xml:"contradictingRules"`
+LogicWarning *AutomatedReasoningCheckLogicWarning `json:"logicWarning" xml:"logicWarning"`
+Translation *AutomatedReasoningCheckTranslation `json:"translation" xml:"translation"`
 }
 
 type AutomatedReasoningCheckLogicWarning struct {
-	Claims   AutomatedReasoningLogicStatementList `json:"claims" xml:"claims"`
-	Premises AutomatedReasoningLogicStatementList `json:"premises" xml:"premises"`
-	Type     string                               `json:"type" xml:"type"`
+Claims AutomatedReasoningLogicStatementList `json:"claims" xml:"claims"`
+Premises AutomatedReasoningLogicStatementList `json:"premises" xml:"premises"`
+Type string `json:"type" xml:"type"`
 }
 
 type AutomatedReasoningCheckNoTranslationsFinding struct {
 }
 
 type AutomatedReasoningCheckRule struct {
-	Id               string `json:"id" xml:"id"`
-	PolicyVersionArn string `json:"policyVersionArn" xml:"policyVersionArn"`
+Id string `json:"id" xml:"id"`
+PolicyVersionArn string `json:"policyVersionArn" xml:"policyVersionArn"`
 }
 
 type AutomatedReasoningCheckSatisfiableFinding struct {
-	ClaimsFalseScenario *AutomatedReasoningCheckScenario     `json:"claimsFalseScenario" xml:"claimsFalseScenario"`
-	ClaimsTrueScenario  *AutomatedReasoningCheckScenario     `json:"claimsTrueScenario" xml:"claimsTrueScenario"`
-	LogicWarning        *AutomatedReasoningCheckLogicWarning `json:"logicWarning" xml:"logicWarning"`
-	Translation         *AutomatedReasoningCheckTranslation  `json:"translation" xml:"translation"`
+ClaimsFalseScenario *AutomatedReasoningCheckScenario `json:"claimsFalseScenario" xml:"claimsFalseScenario"`
+ClaimsTrueScenario *AutomatedReasoningCheckScenario `json:"claimsTrueScenario" xml:"claimsTrueScenario"`
+LogicWarning *AutomatedReasoningCheckLogicWarning `json:"logicWarning" xml:"logicWarning"`
+Translation *AutomatedReasoningCheckTranslation `json:"translation" xml:"translation"`
 }
 
 type AutomatedReasoningCheckScenario struct {
-	Statements AutomatedReasoningLogicStatementList `json:"statements" xml:"statements"`
+Statements AutomatedReasoningLogicStatementList `json:"statements" xml:"statements"`
 }
 
 type AutomatedReasoningCheckTooComplexFinding struct {
 }
 
 type AutomatedReasoningCheckTranslation struct {
-	Claims               AutomatedReasoningLogicStatementList          `json:"claims" xml:"claims"`
-	Confidence           float64                                       `json:"confidence" xml:"confidence"`
-	Premises             AutomatedReasoningLogicStatementList          `json:"premises" xml:"premises"`
-	UntranslatedClaims   AutomatedReasoningCheckInputTextReferenceList `json:"untranslatedClaims" xml:"untranslatedClaims"`
-	UntranslatedPremises AutomatedReasoningCheckInputTextReferenceList `json:"untranslatedPremises" xml:"untranslatedPremises"`
+Claims AutomatedReasoningLogicStatementList `json:"claims" xml:"claims"`
+Confidence float64 `json:"confidence" xml:"confidence"`
+Premises AutomatedReasoningLogicStatementList `json:"premises" xml:"premises"`
+UntranslatedClaims AutomatedReasoningCheckInputTextReferenceList `json:"untranslatedClaims" xml:"untranslatedClaims"`
+UntranslatedPremises AutomatedReasoningCheckInputTextReferenceList `json:"untranslatedPremises" xml:"untranslatedPremises"`
 }
 
 type AutomatedReasoningCheckTranslationAmbiguousFinding struct {
-	DifferenceScenarios AutomatedReasoningCheckDifferenceScenarioList `json:"differenceScenarios" xml:"differenceScenarios"`
-	Options             AutomatedReasoningCheckTranslationOptionList  `json:"options" xml:"options"`
+DifferenceScenarios AutomatedReasoningCheckDifferenceScenarioList `json:"differenceScenarios" xml:"differenceScenarios"`
+Options AutomatedReasoningCheckTranslationOptionList `json:"options" xml:"options"`
 }
 
 type AutomatedReasoningCheckTranslationOption struct {
-	Translations AutomatedReasoningCheckTranslationList `json:"translations" xml:"translations"`
+Translations AutomatedReasoningCheckTranslationList `json:"translations" xml:"translations"`
 }
 
 type AutomatedReasoningCheckValidFinding struct {
-	ClaimsTrueScenario *AutomatedReasoningCheckScenario     `json:"claimsTrueScenario" xml:"claimsTrueScenario"`
-	LogicWarning       *AutomatedReasoningCheckLogicWarning `json:"logicWarning" xml:"logicWarning"`
-	SupportingRules    AutomatedReasoningCheckRuleList      `json:"supportingRules" xml:"supportingRules"`
-	Translation        *AutomatedReasoningCheckTranslation  `json:"translation" xml:"translation"`
+ClaimsTrueScenario *AutomatedReasoningCheckScenario `json:"claimsTrueScenario" xml:"claimsTrueScenario"`
+LogicWarning *AutomatedReasoningCheckLogicWarning `json:"logicWarning" xml:"logicWarning"`
+SupportingRules AutomatedReasoningCheckRuleList `json:"supportingRules" xml:"supportingRules"`
+Translation *AutomatedReasoningCheckTranslation `json:"translation" xml:"translation"`
 }
 
 type AutomatedReasoningLogicStatement struct {
-	Logic           string `json:"logic" xml:"logic"`
-	NaturalLanguage string `json:"naturalLanguage" xml:"naturalLanguage"`
+Logic string `json:"logic" xml:"logic"`
+NaturalLanguage string `json:"naturalLanguage" xml:"naturalLanguage"`
 }
 
 type AutomatedReasoningPolicyAddRuleAnnotation struct {
-	Expression string `json:"expression" xml:"expression"`
+Expression string `json:"expression" xml:"expression"`
 }
 
 type AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation struct {
-	NaturalLanguage string `json:"naturalLanguage" xml:"naturalLanguage"`
+NaturalLanguage string `json:"naturalLanguage" xml:"naturalLanguage"`
 }
 
 type AutomatedReasoningPolicyAddRuleMutation struct {
-	Rule *AutomatedReasoningPolicyDefinitionRule `json:"rule" xml:"rule"`
+Rule *AutomatedReasoningPolicyDefinitionRule `json:"rule" xml:"rule"`
 }
 
 type AutomatedReasoningPolicyAddTypeAnnotation struct {
-	Description string                                          `json:"description" xml:"description"`
-	Name        string                                          `json:"name" xml:"name"`
-	Values      AutomatedReasoningPolicyDefinitionTypeValueList `json:"values" xml:"values"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+Values AutomatedReasoningPolicyDefinitionTypeValueList `json:"values" xml:"values"`
 }
 
 type AutomatedReasoningPolicyAddTypeMutation struct {
-	Type *AutomatedReasoningPolicyDefinitionType `json:"type" xml:"type"`
+Type *AutomatedReasoningPolicyDefinitionType `json:"type" xml:"type"`
 }
 
 type AutomatedReasoningPolicyAddTypeValue struct {
-	Description string `json:"description" xml:"description"`
-	Value       string `json:"value" xml:"value"`
+Description string `json:"description" xml:"description"`
+Value string `json:"value" xml:"value"`
 }
 
 type AutomatedReasoningPolicyAddVariableAnnotation struct {
-	Description string `json:"description" xml:"description"`
-	Name        string `json:"name" xml:"name"`
-	Type        string `json:"type" xml:"type"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+Type string `json:"type" xml:"type"`
 }
 
 type AutomatedReasoningPolicyAddVariableMutation struct {
-	Variable *AutomatedReasoningPolicyDefinitionVariable `json:"variable" xml:"variable"`
+Variable *AutomatedReasoningPolicyDefinitionVariable `json:"variable" xml:"variable"`
 }
 
 type AutomatedReasoningPolicyAnnotatedChunk struct {
-	Content    AutomatedReasoningPolicyAnnotatedContentList `json:"content" xml:"content"`
-	PageNumber int32                                        `json:"pageNumber" xml:"pageNumber"`
+Content AutomatedReasoningPolicyAnnotatedContentList `json:"content" xml:"content"`
+PageNumber int32 `json:"pageNumber" xml:"pageNumber"`
 }
 
 type AutomatedReasoningPolicyAnnotatedLine struct {
-	LineNumber int32  `json:"lineNumber" xml:"lineNumber"`
-	LineText   string `json:"lineText" xml:"lineText"`
+LineNumber int32 `json:"lineNumber" xml:"lineNumber"`
+LineText string `json:"lineText" xml:"lineText"`
 }
 
 type AutomatedReasoningPolicyAtomicStatement struct {
-	Id       string                                     `json:"id" xml:"id"`
-	Location *AutomatedReasoningPolicyStatementLocation `json:"location" xml:"location"`
-	Text     string                                     `json:"text" xml:"text"`
+Id string `json:"id" xml:"id"`
+Location *AutomatedReasoningPolicyStatementLocation `json:"location" xml:"location"`
+Text string `json:"text" xml:"text"`
 }
 
 type AutomatedReasoningPolicyBuildLog struct {
-	Entries AutomatedReasoningPolicyBuildLogEntryList `json:"entries" xml:"entries"`
+Entries AutomatedReasoningPolicyBuildLogEntryList `json:"entries" xml:"entries"`
 }
 
 type AutomatedReasoningPolicyBuildLogEntry struct {
-	Annotation interface{}                           `json:"annotation" xml:"annotation"`
-	BuildSteps AutomatedReasoningPolicyBuildStepList `json:"buildSteps" xml:"buildSteps"`
-	Status     string                                `json:"status" xml:"status"`
+Annotation interface{} `json:"annotation" xml:"annotation"`
+BuildSteps AutomatedReasoningPolicyBuildStepList `json:"buildSteps" xml:"buildSteps"`
+Status string `json:"status" xml:"status"`
 }
 
 type AutomatedReasoningPolicyBuildResultAssetManifest struct {
-	Entries AutomatedReasoningPolicyBuildResultAssetManifestList `json:"entries" xml:"entries"`
+Entries AutomatedReasoningPolicyBuildResultAssetManifestList `json:"entries" xml:"entries"`
 }
 
 type AutomatedReasoningPolicyBuildResultAssetManifestEntry struct {
-	AssetId   string `json:"assetId" xml:"assetId"`
-	AssetName string `json:"assetName" xml:"assetName"`
-	AssetType string `json:"assetType" xml:"assetType"`
+AssetId string `json:"assetId" xml:"assetId"`
+AssetName string `json:"assetName" xml:"assetName"`
+AssetType string `json:"assetType" xml:"assetType"`
 }
 
 type AutomatedReasoningPolicyBuildStep struct {
-	Context      interface{}                                  `json:"context" xml:"context"`
-	Messages     AutomatedReasoningPolicyBuildStepMessageList `json:"messages" xml:"messages"`
-	PriorElement interface{}                                  `json:"priorElement" xml:"priorElement"`
+Context interface{} `json:"context" xml:"context"`
+Messages AutomatedReasoningPolicyBuildStepMessageList `json:"messages" xml:"messages"`
+PriorElement interface{} `json:"priorElement" xml:"priorElement"`
 }
 
 type AutomatedReasoningPolicyBuildStepMessage struct {
-	Message     string `json:"message" xml:"message"`
-	MessageType string `json:"messageType" xml:"messageType"`
+Message string `json:"message" xml:"message"`
+MessageType string `json:"messageType" xml:"messageType"`
 }
 
 type AutomatedReasoningPolicyBuildWorkflowDocument struct {
-	Document            []byte `json:"document" xml:"document"`
-	DocumentContentType string `json:"documentContentType" xml:"documentContentType"`
-	DocumentDescription string `json:"documentDescription" xml:"documentDescription"`
-	DocumentName        string `json:"documentName" xml:"documentName"`
+Document []byte `json:"document" xml:"document"`
+DocumentContentType string `json:"documentContentType" xml:"documentContentType"`
+DocumentDescription string `json:"documentDescription" xml:"documentDescription"`
+DocumentName string `json:"documentName" xml:"documentName"`
 }
 
 type AutomatedReasoningPolicyBuildWorkflowRepairContent struct {
-	Annotations AutomatedReasoningPolicyAnnotationList `json:"annotations" xml:"annotations"`
+Annotations AutomatedReasoningPolicyAnnotationList `json:"annotations" xml:"annotations"`
 }
 
 type AutomatedReasoningPolicyBuildWorkflowSource struct {
-	PolicyDefinition *AutomatedReasoningPolicyDefinition `json:"policyDefinition" xml:"policyDefinition"`
-	WorkflowContent  interface{}                         `json:"workflowContent" xml:"workflowContent"`
+PolicyDefinition *AutomatedReasoningPolicyDefinition `json:"policyDefinition" xml:"policyDefinition"`
+WorkflowContent interface{} `json:"workflowContent" xml:"workflowContent"`
 }
 
 type AutomatedReasoningPolicyBuildWorkflowSummary struct {
-	BuildWorkflowId   string    `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	BuildWorkflowType string    `json:"buildWorkflowType" xml:"buildWorkflowType"`
-	CreatedAt         time.Time `json:"createdAt" xml:"createdAt"`
-	PolicyArn         string    `json:"policyArn" xml:"policyArn"`
-	Status            string    `json:"status" xml:"status"`
-	UpdatedAt         time.Time `json:"updatedAt" xml:"updatedAt"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+BuildWorkflowType string `json:"buildWorkflowType" xml:"buildWorkflowType"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+Status string `json:"status" xml:"status"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type AutomatedReasoningPolicyDefinition struct {
-	Rules     AutomatedReasoningPolicyDefinitionRuleList     `json:"rules" xml:"rules"`
-	Types     AutomatedReasoningPolicyDefinitionTypeList     `json:"types" xml:"types"`
-	Variables AutomatedReasoningPolicyDefinitionVariableList `json:"variables" xml:"variables"`
-	Version   string                                         `json:"version" xml:"version"`
+Rules AutomatedReasoningPolicyDefinitionRuleList `json:"rules" xml:"rules"`
+Types AutomatedReasoningPolicyDefinitionTypeList `json:"types" xml:"types"`
+Variables AutomatedReasoningPolicyDefinitionVariableList `json:"variables" xml:"variables"`
+Version string `json:"version" xml:"version"`
 }
 
 type AutomatedReasoningPolicyDefinitionQualityReport struct {
-	ConflictingRules AutomatedReasoningPolicyConflictedRuleIdList        `json:"conflictingRules" xml:"conflictingRules"`
-	DisjointRuleSets AutomatedReasoningPolicyDisjointRuleSetList         `json:"disjointRuleSets" xml:"disjointRuleSets"`
-	RuleCount        int32                                               `json:"ruleCount" xml:"ruleCount"`
-	TypeCount        int32                                               `json:"typeCount" xml:"typeCount"`
-	UnusedTypeValues AutomatedReasoningPolicyDefinitionTypeValuePairList `json:"unusedTypeValues" xml:"unusedTypeValues"`
-	UnusedTypes      AutomatedReasoningPolicyDefinitionTypeNameList      `json:"unusedTypes" xml:"unusedTypes"`
-	UnusedVariables  AutomatedReasoningPolicyDefinitionVariableNameList  `json:"unusedVariables" xml:"unusedVariables"`
-	VariableCount    int32                                               `json:"variableCount" xml:"variableCount"`
+ConflictingRules AutomatedReasoningPolicyConflictedRuleIdList `json:"conflictingRules" xml:"conflictingRules"`
+DisjointRuleSets AutomatedReasoningPolicyDisjointRuleSetList `json:"disjointRuleSets" xml:"disjointRuleSets"`
+RuleCount int32 `json:"ruleCount" xml:"ruleCount"`
+TypeCount int32 `json:"typeCount" xml:"typeCount"`
+UnusedTypeValues AutomatedReasoningPolicyDefinitionTypeValuePairList `json:"unusedTypeValues" xml:"unusedTypeValues"`
+UnusedTypes AutomatedReasoningPolicyDefinitionTypeNameList `json:"unusedTypes" xml:"unusedTypes"`
+UnusedVariables AutomatedReasoningPolicyDefinitionVariableNameList `json:"unusedVariables" xml:"unusedVariables"`
+VariableCount int32 `json:"variableCount" xml:"variableCount"`
 }
 
 type AutomatedReasoningPolicyDefinitionRule struct {
-	AlternateExpression string `json:"alternateExpression" xml:"alternateExpression"`
-	Expression          string `json:"expression" xml:"expression"`
-	Id                  string `json:"id" xml:"id"`
+AlternateExpression string `json:"alternateExpression" xml:"alternateExpression"`
+Expression string `json:"expression" xml:"expression"`
+Id string `json:"id" xml:"id"`
 }
 
 type AutomatedReasoningPolicyDefinitionType struct {
-	Description string                                          `json:"description" xml:"description"`
-	Name        string                                          `json:"name" xml:"name"`
-	Values      AutomatedReasoningPolicyDefinitionTypeValueList `json:"values" xml:"values"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+Values AutomatedReasoningPolicyDefinitionTypeValueList `json:"values" xml:"values"`
 }
 
 type AutomatedReasoningPolicyDefinitionTypeValue struct {
-	Description string `json:"description" xml:"description"`
-	Value       string `json:"value" xml:"value"`
+Description string `json:"description" xml:"description"`
+Value string `json:"value" xml:"value"`
 }
 
 type AutomatedReasoningPolicyDefinitionTypeValuePair struct {
-	TypeName  string `json:"typeName" xml:"typeName"`
-	ValueName string `json:"valueName" xml:"valueName"`
+TypeName string `json:"typeName" xml:"typeName"`
+ValueName string `json:"valueName" xml:"valueName"`
 }
 
 type AutomatedReasoningPolicyDefinitionVariable struct {
-	Description string `json:"description" xml:"description"`
-	Name        string `json:"name" xml:"name"`
-	Type        string `json:"type" xml:"type"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+Type string `json:"type" xml:"type"`
 }
 
 type AutomatedReasoningPolicyDeleteRuleAnnotation struct {
-	RuleId string `json:"ruleId" xml:"ruleId"`
+RuleId string `json:"ruleId" xml:"ruleId"`
 }
 
 type AutomatedReasoningPolicyDeleteRuleMutation struct {
-	Id string `json:"id" xml:"id"`
+Id string `json:"id" xml:"id"`
 }
 
 type AutomatedReasoningPolicyDeleteTypeAnnotation struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type AutomatedReasoningPolicyDeleteTypeMutation struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type AutomatedReasoningPolicyDeleteTypeValue struct {
-	Value string `json:"value" xml:"value"`
+Value string `json:"value" xml:"value"`
 }
 
 type AutomatedReasoningPolicyDeleteVariableAnnotation struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type AutomatedReasoningPolicyDeleteVariableMutation struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type AutomatedReasoningPolicyDisjointRuleSet struct {
-	Rules     AutomatedReasoningPolicyDisjointedRuleIdList       `json:"rules" xml:"rules"`
-	Variables AutomatedReasoningPolicyDefinitionVariableNameList `json:"variables" xml:"variables"`
+Rules AutomatedReasoningPolicyDisjointedRuleIdList `json:"rules" xml:"rules"`
+Variables AutomatedReasoningPolicyDefinitionVariableNameList `json:"variables" xml:"variables"`
 }
 
 type AutomatedReasoningPolicyFidelityReport struct {
-	AccuracyScore   float64                                          `json:"accuracyScore" xml:"accuracyScore"`
-	CoverageScore   float64                                          `json:"coverageScore" xml:"coverageScore"`
-	DocumentSources AutomatedReasoningPolicyReportSourceDocumentList `json:"documentSources" xml:"documentSources"`
-	RuleReports     AutomatedReasoningPolicyRuleReportMap            `json:"ruleReports" xml:"ruleReports"`
-	VariableReports AutomatedReasoningPolicyVariableReportMap        `json:"variableReports" xml:"variableReports"`
+AccuracyScore float64 `json:"accuracyScore" xml:"accuracyScore"`
+CoverageScore float64 `json:"coverageScore" xml:"coverageScore"`
+DocumentSources AutomatedReasoningPolicyReportSourceDocumentList `json:"documentSources" xml:"documentSources"`
+RuleReports AutomatedReasoningPolicyRuleReportMap `json:"ruleReports" xml:"ruleReports"`
+VariableReports AutomatedReasoningPolicyVariableReportMap `json:"variableReports" xml:"variableReports"`
 }
 
 type AutomatedReasoningPolicyGeneratedTestCase struct {
-	ExpectedAggregatedFindingsResult string `json:"expectedAggregatedFindingsResult" xml:"expectedAggregatedFindingsResult"`
-	GuardContent                     string `json:"guardContent" xml:"guardContent"`
-	QueryContent                     string `json:"queryContent" xml:"queryContent"`
+ExpectedAggregatedFindingsResult string `json:"expectedAggregatedFindingsResult" xml:"expectedAggregatedFindingsResult"`
+GuardContent string `json:"guardContent" xml:"guardContent"`
+QueryContent string `json:"queryContent" xml:"queryContent"`
 }
 
 type AutomatedReasoningPolicyGeneratedTestCases struct {
-	GeneratedTestCases AutomatedReasoningPolicyGeneratedTestCaseList `json:"generatedTestCases" xml:"generatedTestCases"`
+GeneratedTestCases AutomatedReasoningPolicyGeneratedTestCaseList `json:"generatedTestCases" xml:"generatedTestCases"`
 }
 
 type AutomatedReasoningPolicyIngestContentAnnotation struct {
-	Content string `json:"content" xml:"content"`
+Content string `json:"content" xml:"content"`
 }
 
 type AutomatedReasoningPolicyPlanning struct {
 }
 
 type AutomatedReasoningPolicyReportSourceDocument struct {
-	AtomicStatements AutomatedReasoningPolicyAtomicStatementList `json:"atomicStatements" xml:"atomicStatements"`
-	DocumentContent  AutomatedReasoningPolicyAnnotatedChunkList  `json:"documentContent" xml:"documentContent"`
-	DocumentHash     string                                      `json:"documentHash" xml:"documentHash"`
-	DocumentId       string                                      `json:"documentId" xml:"documentId"`
-	DocumentName     string                                      `json:"documentName" xml:"documentName"`
+AtomicStatements AutomatedReasoningPolicyAtomicStatementList `json:"atomicStatements" xml:"atomicStatements"`
+DocumentContent AutomatedReasoningPolicyAnnotatedChunkList `json:"documentContent" xml:"documentContent"`
+DocumentHash string `json:"documentHash" xml:"documentHash"`
+DocumentId string `json:"documentId" xml:"documentId"`
+DocumentName string `json:"documentName" xml:"documentName"`
 }
 
 type AutomatedReasoningPolicyRuleReport struct {
-	AccuracyJustification   string                                         `json:"accuracyJustification" xml:"accuracyJustification"`
-	AccuracyScore           float64                                        `json:"accuracyScore" xml:"accuracyScore"`
-	GroundingJustifications AutomatedReasoningPolicyJustificationList      `json:"groundingJustifications" xml:"groundingJustifications"`
-	GroundingStatements     AutomatedReasoningPolicyStatementReferenceList `json:"groundingStatements" xml:"groundingStatements"`
-	Rule                    string                                         `json:"rule" xml:"rule"`
+AccuracyJustification string `json:"accuracyJustification" xml:"accuracyJustification"`
+AccuracyScore float64 `json:"accuracyScore" xml:"accuracyScore"`
+GroundingJustifications AutomatedReasoningPolicyJustificationList `json:"groundingJustifications" xml:"groundingJustifications"`
+GroundingStatements AutomatedReasoningPolicyStatementReferenceList `json:"groundingStatements" xml:"groundingStatements"`
+Rule string `json:"rule" xml:"rule"`
 }
 
 type AutomatedReasoningPolicyScenario struct {
-	AlternateExpression string                                       `json:"alternateExpression" xml:"alternateExpression"`
-	ExpectedResult      string                                       `json:"expectedResult" xml:"expectedResult"`
-	Expression          string                                       `json:"expression" xml:"expression"`
-	RuleIds             AutomatedReasoningPolicyDefinitionRuleIdList `json:"ruleIds" xml:"ruleIds"`
+AlternateExpression string `json:"alternateExpression" xml:"alternateExpression"`
+ExpectedResult string `json:"expectedResult" xml:"expectedResult"`
+Expression string `json:"expression" xml:"expression"`
+RuleIds AutomatedReasoningPolicyDefinitionRuleIdList `json:"ruleIds" xml:"ruleIds"`
 }
 
 type AutomatedReasoningPolicyScenarios struct {
-	PolicyScenarios AutomatedReasoningPolicyScenarioList `json:"policyScenarios" xml:"policyScenarios"`
+PolicyScenarios AutomatedReasoningPolicyScenarioList `json:"policyScenarios" xml:"policyScenarios"`
 }
 
 type AutomatedReasoningPolicySourceDocument struct {
-	Document            []byte `json:"document" xml:"document"`
-	DocumentContentType string `json:"documentContentType" xml:"documentContentType"`
-	DocumentDescription string `json:"documentDescription" xml:"documentDescription"`
-	DocumentHash        string `json:"documentHash" xml:"documentHash"`
-	DocumentName        string `json:"documentName" xml:"documentName"`
+Document []byte `json:"document" xml:"document"`
+DocumentContentType string `json:"documentContentType" xml:"documentContentType"`
+DocumentDescription string `json:"documentDescription" xml:"documentDescription"`
+DocumentHash string `json:"documentHash" xml:"documentHash"`
+DocumentName string `json:"documentName" xml:"documentName"`
 }
 
 type AutomatedReasoningPolicyStatementLocation struct {
-	Lines AutomatedReasoningPolicyLineNumberList `json:"lines" xml:"lines"`
+Lines AutomatedReasoningPolicyLineNumberList `json:"lines" xml:"lines"`
 }
 
 type AutomatedReasoningPolicyStatementReference struct {
-	DocumentId  string `json:"documentId" xml:"documentId"`
-	StatementId string `json:"statementId" xml:"statementId"`
+DocumentId string `json:"documentId" xml:"documentId"`
+StatementId string `json:"statementId" xml:"statementId"`
 }
 
 type AutomatedReasoningPolicySummary struct {
-	CreatedAt   time.Time `json:"createdAt" xml:"createdAt"`
-	Description string    `json:"description" xml:"description"`
-	Name        string    `json:"name" xml:"name"`
-	PolicyArn   string    `json:"policyArn" xml:"policyArn"`
-	PolicyId    string    `json:"policyId" xml:"policyId"`
-	UpdatedAt   time.Time `json:"updatedAt" xml:"updatedAt"`
-	Version     string    `json:"version" xml:"version"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+PolicyId string `json:"policyId" xml:"policyId"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
+Version string `json:"version" xml:"version"`
 }
 
 type AutomatedReasoningPolicyTestCase struct {
-	ConfidenceThreshold              float64   `json:"confidenceThreshold" xml:"confidenceThreshold"`
-	CreatedAt                        time.Time `json:"createdAt" xml:"createdAt"`
-	ExpectedAggregatedFindingsResult string    `json:"expectedAggregatedFindingsResult" xml:"expectedAggregatedFindingsResult"`
-	GuardContent                     string    `json:"guardContent" xml:"guardContent"`
-	QueryContent                     string    `json:"queryContent" xml:"queryContent"`
-	TestCaseId                       string    `json:"testCaseId" xml:"testCaseId"`
-	UpdatedAt                        time.Time `json:"updatedAt" xml:"updatedAt"`
+ConfidenceThreshold float64 `json:"confidenceThreshold" xml:"confidenceThreshold"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+ExpectedAggregatedFindingsResult string `json:"expectedAggregatedFindingsResult" xml:"expectedAggregatedFindingsResult"`
+GuardContent string `json:"guardContent" xml:"guardContent"`
+QueryContent string `json:"queryContent" xml:"queryContent"`
+TestCaseId string `json:"testCaseId" xml:"testCaseId"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type AutomatedReasoningPolicyTestResult struct {
-	AggregatedTestFindingsResult string                             `json:"aggregatedTestFindingsResult" xml:"aggregatedTestFindingsResult"`
-	PolicyArn                    string                             `json:"policyArn" xml:"policyArn"`
-	TestCase                     *AutomatedReasoningPolicyTestCase  `json:"testCase" xml:"testCase"`
-	TestFindings                 AutomatedReasoningCheckFindingList `json:"testFindings" xml:"testFindings"`
-	TestRunResult                string                             `json:"testRunResult" xml:"testRunResult"`
-	TestRunStatus                string                             `json:"testRunStatus" xml:"testRunStatus"`
-	UpdatedAt                    time.Time                          `json:"updatedAt" xml:"updatedAt"`
+AggregatedTestFindingsResult string `json:"aggregatedTestFindingsResult" xml:"aggregatedTestFindingsResult"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+TestCase *AutomatedReasoningPolicyTestCase `json:"testCase" xml:"testCase"`
+TestFindings AutomatedReasoningCheckFindingList `json:"testFindings" xml:"testFindings"`
+TestRunResult string `json:"testRunResult" xml:"testRunResult"`
+TestRunStatus string `json:"testRunStatus" xml:"testRunStatus"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation struct {
-	Feedback string                                       `json:"feedback" xml:"feedback"`
-	RuleIds  AutomatedReasoningPolicyDefinitionRuleIdList `json:"ruleIds" xml:"ruleIds"`
+Feedback string `json:"feedback" xml:"feedback"`
+RuleIds AutomatedReasoningPolicyDefinitionRuleIdList `json:"ruleIds" xml:"ruleIds"`
 }
 
 type AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation struct {
-	Feedback           string                                       `json:"feedback" xml:"feedback"`
-	RuleIds            AutomatedReasoningPolicyDefinitionRuleIdList `json:"ruleIds" xml:"ruleIds"`
-	ScenarioExpression string                                       `json:"scenarioExpression" xml:"scenarioExpression"`
+Feedback string `json:"feedback" xml:"feedback"`
+RuleIds AutomatedReasoningPolicyDefinitionRuleIdList `json:"ruleIds" xml:"ruleIds"`
+ScenarioExpression string `json:"scenarioExpression" xml:"scenarioExpression"`
 }
 
 type AutomatedReasoningPolicyUpdateRuleAnnotation struct {
-	Expression string `json:"expression" xml:"expression"`
-	RuleId     string `json:"ruleId" xml:"ruleId"`
+Expression string `json:"expression" xml:"expression"`
+RuleId string `json:"ruleId" xml:"ruleId"`
 }
 
 type AutomatedReasoningPolicyUpdateRuleMutation struct {
-	Rule *AutomatedReasoningPolicyDefinitionRule `json:"rule" xml:"rule"`
+Rule *AutomatedReasoningPolicyDefinitionRule `json:"rule" xml:"rule"`
 }
 
 type AutomatedReasoningPolicyUpdateTypeAnnotation struct {
-	Description string                                          `json:"description" xml:"description"`
-	Name        string                                          `json:"name" xml:"name"`
-	NewName     string                                          `json:"newName" xml:"newName"`
-	Values      AutomatedReasoningPolicyTypeValueAnnotationList `json:"values" xml:"values"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+NewName string `json:"newName" xml:"newName"`
+Values AutomatedReasoningPolicyTypeValueAnnotationList `json:"values" xml:"values"`
 }
 
 type AutomatedReasoningPolicyUpdateTypeMutation struct {
-	Type *AutomatedReasoningPolicyDefinitionType `json:"type" xml:"type"`
+Type *AutomatedReasoningPolicyDefinitionType `json:"type" xml:"type"`
 }
 
 type AutomatedReasoningPolicyUpdateTypeValue struct {
-	Description string `json:"description" xml:"description"`
-	NewValue    string `json:"newValue" xml:"newValue"`
-	Value       string `json:"value" xml:"value"`
+Description string `json:"description" xml:"description"`
+NewValue string `json:"newValue" xml:"newValue"`
+Value string `json:"value" xml:"value"`
 }
 
 type AutomatedReasoningPolicyUpdateVariableAnnotation struct {
-	Description string `json:"description" xml:"description"`
-	Name        string `json:"name" xml:"name"`
-	NewName     string `json:"newName" xml:"newName"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+NewName string `json:"newName" xml:"newName"`
 }
 
 type AutomatedReasoningPolicyUpdateVariableMutation struct {
-	Variable *AutomatedReasoningPolicyDefinitionVariable `json:"variable" xml:"variable"`
+Variable *AutomatedReasoningPolicyDefinitionVariable `json:"variable" xml:"variable"`
 }
 
 type AutomatedReasoningPolicyVariableReport struct {
-	AccuracyJustification   string                                         `json:"accuracyJustification" xml:"accuracyJustification"`
-	AccuracyScore           float64                                        `json:"accuracyScore" xml:"accuracyScore"`
-	GroundingJustifications AutomatedReasoningPolicyJustificationList      `json:"groundingJustifications" xml:"groundingJustifications"`
-	GroundingStatements     AutomatedReasoningPolicyStatementReferenceList `json:"groundingStatements" xml:"groundingStatements"`
-	PolicyVariable          string                                         `json:"policyVariable" xml:"policyVariable"`
+AccuracyJustification string `json:"accuracyJustification" xml:"accuracyJustification"`
+AccuracyScore float64 `json:"accuracyScore" xml:"accuracyScore"`
+GroundingJustifications AutomatedReasoningPolicyJustificationList `json:"groundingJustifications" xml:"groundingJustifications"`
+GroundingStatements AutomatedReasoningPolicyStatementReferenceList `json:"groundingStatements" xml:"groundingStatements"`
+PolicyVariable string `json:"policyVariable" xml:"policyVariable"`
 }
 
 type BatchDeleteEvaluationJobError struct {
-	Code          string `json:"code" xml:"code"`
-	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
-	Message       string `json:"message" xml:"message"`
+Code string `json:"code" xml:"code"`
+JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+Message string `json:"message" xml:"message"`
 }
 
 type BatchDeleteEvaluationJobItem struct {
-	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
-	JobStatus     string `json:"jobStatus" xml:"jobStatus"`
+JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+JobStatus string `json:"jobStatus" xml:"jobStatus"`
 }
 
 type BatchDeleteEvaluationJobRequest struct {
-	JobIdentifiers EvaluationJobIdentifiers `json:"jobIdentifiers" xml:"jobIdentifiers"`
+JobIdentifiers EvaluationJobIdentifiers `json:"jobIdentifiers" xml:"jobIdentifiers"`
 }
 
 type BatchDeleteEvaluationJobResponse struct {
-	Errors         BatchDeleteEvaluationJobErrors `json:"errors" xml:"errors"`
-	EvaluationJobs BatchDeleteEvaluationJobItems  `json:"evaluationJobs" xml:"evaluationJobs"`
+Errors BatchDeleteEvaluationJobErrors `json:"errors" xml:"errors"`
+EvaluationJobs BatchDeleteEvaluationJobItems `json:"evaluationJobs" xml:"evaluationJobs"`
 }
 
 type BedrockEvaluatorModel struct {
-	ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
+ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
 }
 
 type ByteContentDoc struct {
-	ContentType string `json:"contentType" xml:"contentType"`
-	Data        []byte `json:"data" xml:"data"`
-	Identifier  string `json:"identifier" xml:"identifier"`
+ContentType string `json:"contentType" xml:"contentType"`
+Data []byte `json:"data" xml:"data"`
+Identifier string `json:"identifier" xml:"identifier"`
 }
 
 type CancelAutomatedReasoningPolicyBuildWorkflowRequest struct {
-	BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	PolicyArn       string `json:"policyArn" xml:"policyArn"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type CancelAutomatedReasoningPolicyBuildWorkflowResponse struct {
 }
 
 type CloudWatchConfig struct {
-	LargeDataDeliveryS3Config *S3Config `json:"largeDataDeliveryS3Config" xml:"largeDataDeliveryS3Config"`
-	LogGroupName              string    `json:"logGroupName" xml:"logGroupName"`
-	RoleArn                   string    `json:"roleArn" xml:"roleArn"`
+LargeDataDeliveryS3Config *S3Config `json:"largeDataDeliveryS3Config" xml:"largeDataDeliveryS3Config"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
 }
 
 type CreateAutomatedReasoningPolicyRequest struct {
-	ClientRequestToken string                              `json:"clientRequestToken" xml:"clientRequestToken"`
-	Description        string                              `json:"description" xml:"description"`
-	KmsKeyId           string                              `json:"kmsKeyId" xml:"kmsKeyId"`
-	Name               string                              `json:"name" xml:"name"`
-	PolicyDefinition   *AutomatedReasoningPolicyDefinition `json:"policyDefinition" xml:"policyDefinition"`
-	Tags               TagList                             `json:"tags" xml:"tags"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+Description string `json:"description" xml:"description"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+Name string `json:"name" xml:"name"`
+PolicyDefinition *AutomatedReasoningPolicyDefinition `json:"policyDefinition" xml:"policyDefinition"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreateAutomatedReasoningPolicyResponse struct {
-	CreatedAt      time.Time `json:"createdAt" xml:"createdAt"`
-	DefinitionHash string    `json:"definitionHash" xml:"definitionHash"`
-	Description    string    `json:"description" xml:"description"`
-	Name           string    `json:"name" xml:"name"`
-	PolicyArn      string    `json:"policyArn" xml:"policyArn"`
-	UpdatedAt      time.Time `json:"updatedAt" xml:"updatedAt"`
-	Version        string    `json:"version" xml:"version"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DefinitionHash string `json:"definitionHash" xml:"definitionHash"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
+Version string `json:"version" xml:"version"`
 }
 
 type CreateAutomatedReasoningPolicyTestCaseRequest struct {
-	ClientRequestToken               string  `json:"clientRequestToken" xml:"clientRequestToken"`
-	ConfidenceThreshold              float64 `json:"confidenceThreshold" xml:"confidenceThreshold"`
-	ExpectedAggregatedFindingsResult string  `json:"expectedAggregatedFindingsResult" xml:"expectedAggregatedFindingsResult"`
-	GuardContent                     string  `json:"guardContent" xml:"guardContent"`
-	PolicyArn                        string  `json:"policyArn" xml:"policyArn"`
-	QueryContent                     string  `json:"queryContent" xml:"queryContent"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+ConfidenceThreshold float64 `json:"confidenceThreshold" xml:"confidenceThreshold"`
+ExpectedAggregatedFindingsResult string `json:"expectedAggregatedFindingsResult" xml:"expectedAggregatedFindingsResult"`
+GuardContent string `json:"guardContent" xml:"guardContent"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+QueryContent string `json:"queryContent" xml:"queryContent"`
 }
 
 type CreateAutomatedReasoningPolicyTestCaseResponse struct {
-	PolicyArn  string `json:"policyArn" xml:"policyArn"`
-	TestCaseId string `json:"testCaseId" xml:"testCaseId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+TestCaseId string `json:"testCaseId" xml:"testCaseId"`
 }
 
 type CreateAutomatedReasoningPolicyVersionRequest struct {
-	ClientRequestToken        string  `json:"clientRequestToken" xml:"clientRequestToken"`
-	LastUpdatedDefinitionHash string  `json:"lastUpdatedDefinitionHash" xml:"lastUpdatedDefinitionHash"`
-	PolicyArn                 string  `json:"policyArn" xml:"policyArn"`
-	Tags                      TagList `json:"tags" xml:"tags"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+LastUpdatedDefinitionHash string `json:"lastUpdatedDefinitionHash" xml:"lastUpdatedDefinitionHash"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreateAutomatedReasoningPolicyVersionResponse struct {
-	CreatedAt      time.Time `json:"createdAt" xml:"createdAt"`
-	DefinitionHash string    `json:"definitionHash" xml:"definitionHash"`
-	Description    string    `json:"description" xml:"description"`
-	Name           string    `json:"name" xml:"name"`
-	PolicyArn      string    `json:"policyArn" xml:"policyArn"`
-	Version        string    `json:"version" xml:"version"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DefinitionHash string `json:"definitionHash" xml:"definitionHash"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+Version string `json:"version" xml:"version"`
 }
 
 type CreateCustomModelDeploymentRequest struct {
-	ClientRequestToken  string  `json:"clientRequestToken" xml:"clientRequestToken"`
-	Description         string  `json:"description" xml:"description"`
-	ModelArn            string  `json:"modelArn" xml:"modelArn"`
-	ModelDeploymentName string  `json:"modelDeploymentName" xml:"modelDeploymentName"`
-	Tags                TagList `json:"tags" xml:"tags"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+Description string `json:"description" xml:"description"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelDeploymentName string `json:"modelDeploymentName" xml:"modelDeploymentName"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreateCustomModelDeploymentResponse struct {
-	CustomModelDeploymentArn string `json:"customModelDeploymentArn" xml:"customModelDeploymentArn"`
+CustomModelDeploymentArn string `json:"customModelDeploymentArn" xml:"customModelDeploymentArn"`
 }
 
 type CreateCustomModelRequest struct {
-	ClientRequestToken string      `json:"clientRequestToken" xml:"clientRequestToken"`
-	ModelKmsKeyArn     string      `json:"modelKmsKeyArn" xml:"modelKmsKeyArn"`
-	ModelName          string      `json:"modelName" xml:"modelName"`
-	ModelSourceConfig  interface{} `json:"modelSourceConfig" xml:"modelSourceConfig"`
-	ModelTags          TagList     `json:"modelTags" xml:"modelTags"`
-	RoleArn            string      `json:"roleArn" xml:"roleArn"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+ModelKmsKeyArn string `json:"modelKmsKeyArn" xml:"modelKmsKeyArn"`
+ModelName string `json:"modelName" xml:"modelName"`
+ModelSourceConfig interface{} `json:"modelSourceConfig" xml:"modelSourceConfig"`
+ModelTags TagList `json:"modelTags" xml:"modelTags"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
 }
 
 type CreateCustomModelResponse struct {
-	ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
 }
 
 type CreateEvaluationJobRequest struct {
-	ApplicationType         string                      `json:"applicationType" xml:"applicationType"`
-	ClientRequestToken      string                      `json:"clientRequestToken" xml:"clientRequestToken"`
-	CustomerEncryptionKeyId string                      `json:"customerEncryptionKeyId" xml:"customerEncryptionKeyId"`
-	EvaluationConfig        interface{}                 `json:"evaluationConfig" xml:"evaluationConfig"`
-	InferenceConfig         interface{}                 `json:"inferenceConfig" xml:"inferenceConfig"`
-	JobDescription          string                      `json:"jobDescription" xml:"jobDescription"`
-	JobName                 string                      `json:"jobName" xml:"jobName"`
-	JobTags                 TagList                     `json:"jobTags" xml:"jobTags"`
-	OutputDataConfig        *EvaluationOutputDataConfig `json:"outputDataConfig" xml:"outputDataConfig"`
-	RoleArn                 string                      `json:"roleArn" xml:"roleArn"`
+ApplicationType string `json:"applicationType" xml:"applicationType"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+CustomerEncryptionKeyId string `json:"customerEncryptionKeyId" xml:"customerEncryptionKeyId"`
+EvaluationConfig interface{} `json:"evaluationConfig" xml:"evaluationConfig"`
+InferenceConfig interface{} `json:"inferenceConfig" xml:"inferenceConfig"`
+JobDescription string `json:"jobDescription" xml:"jobDescription"`
+JobName string `json:"jobName" xml:"jobName"`
+JobTags TagList `json:"jobTags" xml:"jobTags"`
+OutputDataConfig *EvaluationOutputDataConfig `json:"outputDataConfig" xml:"outputDataConfig"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
 }
 
 type CreateEvaluationJobResponse struct {
-	JobArn string `json:"jobArn" xml:"jobArn"`
+JobArn string `json:"jobArn" xml:"jobArn"`
 }
 
 type CreateFoundationModelAgreementRequest struct {
-	ModelId    string `json:"modelId" xml:"modelId"`
-	OfferToken string `json:"offerToken" xml:"offerToken"`
+ModelId string `json:"modelId" xml:"modelId"`
+OfferToken string `json:"offerToken" xml:"offerToken"`
 }
 
 type CreateFoundationModelAgreementResponse struct {
-	ModelId string `json:"modelId" xml:"modelId"`
+ModelId string `json:"modelId" xml:"modelId"`
 }
 
 type CreateGuardrailRequest struct {
-	AutomatedReasoningPolicyConfig   *GuardrailAutomatedReasoningPolicyConfig   `json:"automatedReasoningPolicyConfig" xml:"automatedReasoningPolicyConfig"`
-	BlockedInputMessaging            string                                     `json:"blockedInputMessaging" xml:"blockedInputMessaging"`
-	BlockedOutputsMessaging          string                                     `json:"blockedOutputsMessaging" xml:"blockedOutputsMessaging"`
-	ClientRequestToken               string                                     `json:"clientRequestToken" xml:"clientRequestToken"`
-	ContentPolicyConfig              *GuardrailContentPolicyConfig              `json:"contentPolicyConfig" xml:"contentPolicyConfig"`
-	ContextualGroundingPolicyConfig  *GuardrailContextualGroundingPolicyConfig  `json:"contextualGroundingPolicyConfig" xml:"contextualGroundingPolicyConfig"`
-	CrossRegionConfig                *GuardrailCrossRegionConfig                `json:"crossRegionConfig" xml:"crossRegionConfig"`
-	Description                      string                                     `json:"description" xml:"description"`
-	KmsKeyId                         string                                     `json:"kmsKeyId" xml:"kmsKeyId"`
-	Name                             string                                     `json:"name" xml:"name"`
-	SensitiveInformationPolicyConfig *GuardrailSensitiveInformationPolicyConfig `json:"sensitiveInformationPolicyConfig" xml:"sensitiveInformationPolicyConfig"`
-	Tags                             TagList                                    `json:"tags" xml:"tags"`
-	TopicPolicyConfig                *GuardrailTopicPolicyConfig                `json:"topicPolicyConfig" xml:"topicPolicyConfig"`
-	WordPolicyConfig                 *GuardrailWordPolicyConfig                 `json:"wordPolicyConfig" xml:"wordPolicyConfig"`
+AutomatedReasoningPolicyConfig *GuardrailAutomatedReasoningPolicyConfig `json:"automatedReasoningPolicyConfig" xml:"automatedReasoningPolicyConfig"`
+BlockedInputMessaging string `json:"blockedInputMessaging" xml:"blockedInputMessaging"`
+BlockedOutputsMessaging string `json:"blockedOutputsMessaging" xml:"blockedOutputsMessaging"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+ContentPolicyConfig *GuardrailContentPolicyConfig `json:"contentPolicyConfig" xml:"contentPolicyConfig"`
+ContextualGroundingPolicyConfig *GuardrailContextualGroundingPolicyConfig `json:"contextualGroundingPolicyConfig" xml:"contextualGroundingPolicyConfig"`
+CrossRegionConfig *GuardrailCrossRegionConfig `json:"crossRegionConfig" xml:"crossRegionConfig"`
+Description string `json:"description" xml:"description"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+Name string `json:"name" xml:"name"`
+SensitiveInformationPolicyConfig *GuardrailSensitiveInformationPolicyConfig `json:"sensitiveInformationPolicyConfig" xml:"sensitiveInformationPolicyConfig"`
+Tags TagList `json:"tags" xml:"tags"`
+TopicPolicyConfig *GuardrailTopicPolicyConfig `json:"topicPolicyConfig" xml:"topicPolicyConfig"`
+WordPolicyConfig *GuardrailWordPolicyConfig `json:"wordPolicyConfig" xml:"wordPolicyConfig"`
 }
 
 type CreateGuardrailResponse struct {
-	CreatedAt    time.Time `json:"createdAt" xml:"createdAt"`
-	GuardrailArn string    `json:"guardrailArn" xml:"guardrailArn"`
-	GuardrailId  string    `json:"guardrailId" xml:"guardrailId"`
-	Version      string    `json:"version" xml:"version"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+GuardrailArn string `json:"guardrailArn" xml:"guardrailArn"`
+GuardrailId string `json:"guardrailId" xml:"guardrailId"`
+Version string `json:"version" xml:"version"`
 }
 
 type CreateGuardrailVersionRequest struct {
-	ClientRequestToken  string `json:"clientRequestToken" xml:"clientRequestToken"`
-	Description         string `json:"description" xml:"description"`
-	GuardrailIdentifier string `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+Description string `json:"description" xml:"description"`
+GuardrailIdentifier string `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
 }
 
 type CreateGuardrailVersionResponse struct {
-	GuardrailId string `json:"guardrailId" xml:"guardrailId"`
-	Version     string `json:"version" xml:"version"`
+GuardrailId string `json:"guardrailId" xml:"guardrailId"`
+Version string `json:"version" xml:"version"`
 }
 
 type CreateInferenceProfileRequest struct {
-	ClientRequestToken   string      `json:"clientRequestToken" xml:"clientRequestToken"`
-	Description          string      `json:"description" xml:"description"`
-	InferenceProfileName string      `json:"inferenceProfileName" xml:"inferenceProfileName"`
-	ModelSource          interface{} `json:"modelSource" xml:"modelSource"`
-	Tags                 TagList     `json:"tags" xml:"tags"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+Description string `json:"description" xml:"description"`
+InferenceProfileName string `json:"inferenceProfileName" xml:"inferenceProfileName"`
+ModelSource interface{} `json:"modelSource" xml:"modelSource"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreateInferenceProfileResponse struct {
-	InferenceProfileArn string `json:"inferenceProfileArn" xml:"inferenceProfileArn"`
-	Status              string `json:"status" xml:"status"`
+InferenceProfileArn string `json:"inferenceProfileArn" xml:"inferenceProfileArn"`
+Status string `json:"status" xml:"status"`
 }
 
 type CreateMarketplaceModelEndpointRequest struct {
-	AcceptEula            bool        `json:"acceptEula" xml:"acceptEula"`
-	ClientRequestToken    string      `json:"clientRequestToken" xml:"clientRequestToken"`
-	EndpointConfig        interface{} `json:"endpointConfig" xml:"endpointConfig"`
-	EndpointName          string      `json:"endpointName" xml:"endpointName"`
-	ModelSourceIdentifier string      `json:"modelSourceIdentifier" xml:"modelSourceIdentifier"`
-	Tags                  TagList     `json:"tags" xml:"tags"`
+AcceptEula bool `json:"acceptEula" xml:"acceptEula"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+EndpointConfig interface{} `json:"endpointConfig" xml:"endpointConfig"`
+EndpointName string `json:"endpointName" xml:"endpointName"`
+ModelSourceIdentifier string `json:"modelSourceIdentifier" xml:"modelSourceIdentifier"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreateMarketplaceModelEndpointResponse struct {
-	MarketplaceModelEndpoint *MarketplaceModelEndpoint `json:"marketplaceModelEndpoint" xml:"marketplaceModelEndpoint"`
+MarketplaceModelEndpoint *MarketplaceModelEndpoint `json:"marketplaceModelEndpoint" xml:"marketplaceModelEndpoint"`
 }
 
 type CreateModelCopyJobRequest struct {
-	ClientRequestToken string  `json:"clientRequestToken" xml:"clientRequestToken"`
-	ModelKmsKeyId      string  `json:"modelKmsKeyId" xml:"modelKmsKeyId"`
-	SourceModelArn     string  `json:"sourceModelArn" xml:"sourceModelArn"`
-	TargetModelName    string  `json:"targetModelName" xml:"targetModelName"`
-	TargetModelTags    TagList `json:"targetModelTags" xml:"targetModelTags"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+ModelKmsKeyId string `json:"modelKmsKeyId" xml:"modelKmsKeyId"`
+SourceModelArn string `json:"sourceModelArn" xml:"sourceModelArn"`
+TargetModelName string `json:"targetModelName" xml:"targetModelName"`
+TargetModelTags TagList `json:"targetModelTags" xml:"targetModelTags"`
 }
 
 type CreateModelCopyJobResponse struct {
-	JobArn string `json:"jobArn" xml:"jobArn"`
+JobArn string `json:"jobArn" xml:"jobArn"`
 }
 
 type CreateModelCustomizationJobRequest struct {
-	BaseModelIdentifier  string                            `json:"baseModelIdentifier" xml:"baseModelIdentifier"`
-	ClientRequestToken   string                            `json:"clientRequestToken" xml:"clientRequestToken"`
-	CustomModelKmsKeyId  string                            `json:"customModelKmsKeyId" xml:"customModelKmsKeyId"`
-	CustomModelName      string                            `json:"customModelName" xml:"customModelName"`
-	CustomModelTags      TagList                           `json:"customModelTags" xml:"customModelTags"`
-	CustomizationConfig  interface{}                       `json:"customizationConfig" xml:"customizationConfig"`
-	CustomizationType    string                            `json:"customizationType" xml:"customizationType"`
-	HyperParameters      ModelCustomizationHyperParameters `json:"hyperParameters" xml:"hyperParameters"`
-	JobName              string                            `json:"jobName" xml:"jobName"`
-	JobTags              TagList                           `json:"jobTags" xml:"jobTags"`
-	OutputDataConfig     *OutputDataConfig                 `json:"outputDataConfig" xml:"outputDataConfig"`
-	RoleArn              string                            `json:"roleArn" xml:"roleArn"`
-	TrainingDataConfig   *TrainingDataConfig               `json:"trainingDataConfig" xml:"trainingDataConfig"`
-	ValidationDataConfig *ValidationDataConfig             `json:"validationDataConfig" xml:"validationDataConfig"`
-	VpcConfig            *VpcConfig                        `json:"vpcConfig" xml:"vpcConfig"`
+BaseModelIdentifier string `json:"baseModelIdentifier" xml:"baseModelIdentifier"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+CustomModelKmsKeyId string `json:"customModelKmsKeyId" xml:"customModelKmsKeyId"`
+CustomModelName string `json:"customModelName" xml:"customModelName"`
+CustomModelTags TagList `json:"customModelTags" xml:"customModelTags"`
+CustomizationConfig interface{} `json:"customizationConfig" xml:"customizationConfig"`
+CustomizationType string `json:"customizationType" xml:"customizationType"`
+HyperParameters ModelCustomizationHyperParameters `json:"hyperParameters" xml:"hyperParameters"`
+JobName string `json:"jobName" xml:"jobName"`
+JobTags TagList `json:"jobTags" xml:"jobTags"`
+OutputDataConfig *OutputDataConfig `json:"outputDataConfig" xml:"outputDataConfig"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+TrainingDataConfig *TrainingDataConfig `json:"trainingDataConfig" xml:"trainingDataConfig"`
+ValidationDataConfig *ValidationDataConfig `json:"validationDataConfig" xml:"validationDataConfig"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type CreateModelCustomizationJobResponse struct {
-	JobArn string `json:"jobArn" xml:"jobArn"`
+JobArn string `json:"jobArn" xml:"jobArn"`
 }
 
 type CreateModelImportJobRequest struct {
-	ClientRequestToken    string      `json:"clientRequestToken" xml:"clientRequestToken"`
-	ImportedModelKmsKeyId string      `json:"importedModelKmsKeyId" xml:"importedModelKmsKeyId"`
-	ImportedModelName     string      `json:"importedModelName" xml:"importedModelName"`
-	ImportedModelTags     TagList     `json:"importedModelTags" xml:"importedModelTags"`
-	JobName               string      `json:"jobName" xml:"jobName"`
-	JobTags               TagList     `json:"jobTags" xml:"jobTags"`
-	ModelDataSource       interface{} `json:"modelDataSource" xml:"modelDataSource"`
-	RoleArn               string      `json:"roleArn" xml:"roleArn"`
-	VpcConfig             *VpcConfig  `json:"vpcConfig" xml:"vpcConfig"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+ImportedModelKmsKeyId string `json:"importedModelKmsKeyId" xml:"importedModelKmsKeyId"`
+ImportedModelName string `json:"importedModelName" xml:"importedModelName"`
+ImportedModelTags TagList `json:"importedModelTags" xml:"importedModelTags"`
+JobName string `json:"jobName" xml:"jobName"`
+JobTags TagList `json:"jobTags" xml:"jobTags"`
+ModelDataSource interface{} `json:"modelDataSource" xml:"modelDataSource"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type CreateModelImportJobResponse struct {
-	JobArn string `json:"jobArn" xml:"jobArn"`
+JobArn string `json:"jobArn" xml:"jobArn"`
 }
 
 type CreateModelInvocationJobRequest struct {
-	ClientRequestToken     string      `json:"clientRequestToken" xml:"clientRequestToken"`
-	InputDataConfig        interface{} `json:"inputDataConfig" xml:"inputDataConfig"`
-	JobName                string      `json:"jobName" xml:"jobName"`
-	ModelId                string      `json:"modelId" xml:"modelId"`
-	ModelInvocationType    string      `json:"modelInvocationType" xml:"modelInvocationType"`
-	OutputDataConfig       interface{} `json:"outputDataConfig" xml:"outputDataConfig"`
-	RoleArn                string      `json:"roleArn" xml:"roleArn"`
-	Tags                   TagList     `json:"tags" xml:"tags"`
-	TimeoutDurationInHours int32       `json:"timeoutDurationInHours" xml:"timeoutDurationInHours"`
-	VpcConfig              *VpcConfig  `json:"vpcConfig" xml:"vpcConfig"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+InputDataConfig interface{} `json:"inputDataConfig" xml:"inputDataConfig"`
+JobName string `json:"jobName" xml:"jobName"`
+ModelId string `json:"modelId" xml:"modelId"`
+ModelInvocationType string `json:"modelInvocationType" xml:"modelInvocationType"`
+OutputDataConfig interface{} `json:"outputDataConfig" xml:"outputDataConfig"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+Tags TagList `json:"tags" xml:"tags"`
+TimeoutDurationInHours int32 `json:"timeoutDurationInHours" xml:"timeoutDurationInHours"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type CreateModelInvocationJobResponse struct {
-	JobArn string `json:"jobArn" xml:"jobArn"`
+JobArn string `json:"jobArn" xml:"jobArn"`
 }
 
 type CreatePromptRouterRequest struct {
-	ClientRequestToken string                   `json:"clientRequestToken" xml:"clientRequestToken"`
-	Description        string                   `json:"description" xml:"description"`
-	FallbackModel      *PromptRouterTargetModel `json:"fallbackModel" xml:"fallbackModel"`
-	Models             PromptRouterTargetModels `json:"models" xml:"models"`
-	PromptRouterName   string                   `json:"promptRouterName" xml:"promptRouterName"`
-	RoutingCriteria    *RoutingCriteria         `json:"routingCriteria" xml:"routingCriteria"`
-	Tags               TagList                  `json:"tags" xml:"tags"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+Description string `json:"description" xml:"description"`
+FallbackModel *PromptRouterTargetModel `json:"fallbackModel" xml:"fallbackModel"`
+Models PromptRouterTargetModels `json:"models" xml:"models"`
+PromptRouterName string `json:"promptRouterName" xml:"promptRouterName"`
+RoutingCriteria *RoutingCriteria `json:"routingCriteria" xml:"routingCriteria"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreatePromptRouterResponse struct {
-	PromptRouterArn string `json:"promptRouterArn" xml:"promptRouterArn"`
+PromptRouterArn string `json:"promptRouterArn" xml:"promptRouterArn"`
 }
 
 type CreateProvisionedModelThroughputRequest struct {
-	ClientRequestToken   string  `json:"clientRequestToken" xml:"clientRequestToken"`
-	CommitmentDuration   string  `json:"commitmentDuration" xml:"commitmentDuration"`
-	ModelId              string  `json:"modelId" xml:"modelId"`
-	ModelUnits           int32   `json:"modelUnits" xml:"modelUnits"`
-	ProvisionedModelName string  `json:"provisionedModelName" xml:"provisionedModelName"`
-	Tags                 TagList `json:"tags" xml:"tags"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+CommitmentDuration string `json:"commitmentDuration" xml:"commitmentDuration"`
+ModelId string `json:"modelId" xml:"modelId"`
+ModelUnits int32 `json:"modelUnits" xml:"modelUnits"`
+ProvisionedModelName string `json:"provisionedModelName" xml:"provisionedModelName"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type CreateProvisionedModelThroughputResponse struct {
-	ProvisionedModelArn string `json:"provisionedModelArn" xml:"provisionedModelArn"`
+ProvisionedModelArn string `json:"provisionedModelArn" xml:"provisionedModelArn"`
 }
 
 type CustomMetricBedrockEvaluatorModel struct {
-	ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
+ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
 }
 
 type CustomMetricDefinition struct {
-	Instructions string      `json:"instructions" xml:"instructions"`
-	Name         string      `json:"name" xml:"name"`
-	RatingScale  RatingScale `json:"ratingScale" xml:"ratingScale"`
+Instructions string `json:"instructions" xml:"instructions"`
+Name string `json:"name" xml:"name"`
+RatingScale RatingScale `json:"ratingScale" xml:"ratingScale"`
 }
 
 type CustomMetricEvaluatorModelConfig struct {
-	BedrockEvaluatorModels CustomMetricBedrockEvaluatorModels `json:"bedrockEvaluatorModels" xml:"bedrockEvaluatorModels"`
+BedrockEvaluatorModels CustomMetricBedrockEvaluatorModels `json:"bedrockEvaluatorModels" xml:"bedrockEvaluatorModels"`
 }
 
 type CustomModelDeploymentSummary struct {
-	CreatedAt                 time.Time `json:"createdAt" xml:"createdAt"`
-	CustomModelDeploymentArn  string    `json:"customModelDeploymentArn" xml:"customModelDeploymentArn"`
-	CustomModelDeploymentName string    `json:"customModelDeploymentName" xml:"customModelDeploymentName"`
-	FailureMessage            string    `json:"failureMessage" xml:"failureMessage"`
-	LastUpdatedAt             time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	ModelArn                  string    `json:"modelArn" xml:"modelArn"`
-	Status                    string    `json:"status" xml:"status"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+CustomModelDeploymentArn string `json:"customModelDeploymentArn" xml:"customModelDeploymentArn"`
+CustomModelDeploymentName string `json:"customModelDeploymentName" xml:"customModelDeploymentName"`
+FailureMessage string `json:"failureMessage" xml:"failureMessage"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+Status string `json:"status" xml:"status"`
 }
 
 type CustomModelDeploymentUpdateDetails struct {
-	ModelArn     string `json:"modelArn" xml:"modelArn"`
-	UpdateStatus string `json:"updateStatus" xml:"updateStatus"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+UpdateStatus string `json:"updateStatus" xml:"updateStatus"`
 }
 
 type CustomModelSummary struct {
-	BaseModelArn      string    `json:"baseModelArn" xml:"baseModelArn"`
-	BaseModelName     string    `json:"baseModelName" xml:"baseModelName"`
-	CreationTime      time.Time `json:"creationTime" xml:"creationTime"`
-	CustomizationType string    `json:"customizationType" xml:"customizationType"`
-	ModelArn          string    `json:"modelArn" xml:"modelArn"`
-	ModelName         string    `json:"modelName" xml:"modelName"`
-	ModelStatus       string    `json:"modelStatus" xml:"modelStatus"`
-	OwnerAccountId    string    `json:"ownerAccountId" xml:"ownerAccountId"`
+BaseModelArn string `json:"baseModelArn" xml:"baseModelArn"`
+BaseModelName string `json:"baseModelName" xml:"baseModelName"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+CustomizationType string `json:"customizationType" xml:"customizationType"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelName string `json:"modelName" xml:"modelName"`
+ModelStatus string `json:"modelStatus" xml:"modelStatus"`
+OwnerAccountId string `json:"ownerAccountId" xml:"ownerAccountId"`
 }
 
 type CustomModelUnits struct {
-	CustomModelUnitsPerModelCopy int32  `json:"customModelUnitsPerModelCopy" xml:"customModelUnitsPerModelCopy"`
-	CustomModelUnitsVersion      string `json:"customModelUnitsVersion" xml:"customModelUnitsVersion"`
+CustomModelUnitsPerModelCopy int32 `json:"customModelUnitsPerModelCopy" xml:"customModelUnitsPerModelCopy"`
+CustomModelUnitsVersion string `json:"customModelUnitsVersion" xml:"customModelUnitsVersion"`
 }
 
 type DataProcessingDetails struct {
-	CreationTime     time.Time `json:"creationTime" xml:"creationTime"`
-	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	Status           string    `json:"status" xml:"status"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+Status string `json:"status" xml:"status"`
 }
 
 type DeleteAutomatedReasoningPolicyBuildWorkflowRequest struct {
-	BuildWorkflowId string    `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	LastUpdatedAt   time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	PolicyArn       string    `json:"policyArn" xml:"policyArn"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type DeleteAutomatedReasoningPolicyBuildWorkflowResponse struct {
 }
 
 type DeleteAutomatedReasoningPolicyRequest struct {
-	Force     bool   `json:"force" xml:"force"`
-	PolicyArn string `json:"policyArn" xml:"policyArn"`
+Force bool `json:"force" xml:"force"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type DeleteAutomatedReasoningPolicyResponse struct {
 }
 
 type DeleteAutomatedReasoningPolicyTestCaseRequest struct {
-	LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	PolicyArn     string    `json:"policyArn" xml:"policyArn"`
-	TestCaseId    string    `json:"testCaseId" xml:"testCaseId"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+TestCaseId string `json:"testCaseId" xml:"testCaseId"`
 }
 
 type DeleteAutomatedReasoningPolicyTestCaseResponse struct {
 }
 
 type DeleteCustomModelDeploymentRequest struct {
-	CustomModelDeploymentIdentifier string `json:"customModelDeploymentIdentifier" xml:"customModelDeploymentIdentifier"`
+CustomModelDeploymentIdentifier string `json:"customModelDeploymentIdentifier" xml:"customModelDeploymentIdentifier"`
 }
 
 type DeleteCustomModelDeploymentResponse struct {
 }
 
 type DeleteCustomModelRequest struct {
-	ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
+ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
 }
 
 type DeleteCustomModelResponse struct {
 }
 
 type DeleteEnforcedGuardrailConfigurationRequest struct {
-	ConfigId string `json:"configId" xml:"configId"`
+ConfigId string `json:"configId" xml:"configId"`
 }
 
 type DeleteEnforcedGuardrailConfigurationResponse struct {
 }
 
 type DeleteFoundationModelAgreementRequest struct {
-	ModelId string `json:"modelId" xml:"modelId"`
+ModelId string `json:"modelId" xml:"modelId"`
 }
 
 type DeleteFoundationModelAgreementResponse struct {
 }
 
 type DeleteGuardrailRequest struct {
-	GuardrailIdentifier string `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
-	GuardrailVersion    string `json:"guardrailVersion" xml:"guardrailVersion"`
+GuardrailIdentifier string `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
+GuardrailVersion string `json:"guardrailVersion" xml:"guardrailVersion"`
 }
 
 type DeleteGuardrailResponse struct {
 }
 
 type DeleteImportedModelRequest struct {
-	ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
+ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
 }
 
 type DeleteImportedModelResponse struct {
 }
 
 type DeleteInferenceProfileRequest struct {
-	InferenceProfileIdentifier string `json:"inferenceProfileIdentifier" xml:"inferenceProfileIdentifier"`
+InferenceProfileIdentifier string `json:"inferenceProfileIdentifier" xml:"inferenceProfileIdentifier"`
 }
 
 type DeleteInferenceProfileResponse struct {
 }
 
 type DeleteMarketplaceModelEndpointRequest struct {
-	EndpointArn string `json:"endpointArn" xml:"endpointArn"`
+EndpointArn string `json:"endpointArn" xml:"endpointArn"`
 }
 
 type DeleteMarketplaceModelEndpointResponse struct {
@@ -899,1710 +899,1710 @@ type DeleteModelInvocationLoggingConfigurationResponse struct {
 }
 
 type DeletePromptRouterRequest struct {
-	PromptRouterArn string `json:"promptRouterArn" xml:"promptRouterArn"`
+PromptRouterArn string `json:"promptRouterArn" xml:"promptRouterArn"`
 }
 
 type DeletePromptRouterResponse struct {
 }
 
 type DeleteProvisionedModelThroughputRequest struct {
-	ProvisionedModelId string `json:"provisionedModelId" xml:"provisionedModelId"`
+ProvisionedModelId string `json:"provisionedModelId" xml:"provisionedModelId"`
 }
 
 type DeleteProvisionedModelThroughputResponse struct {
 }
 
 type DeleteResourcePolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type DeleteResourcePolicyResponse struct {
 }
 
 type DeregisterMarketplaceModelEndpointRequest struct {
-	EndpointArn string `json:"endpointArn" xml:"endpointArn"`
+EndpointArn string `json:"endpointArn" xml:"endpointArn"`
 }
 
 type DeregisterMarketplaceModelEndpointResponse struct {
 }
 
 type DimensionalPriceRate struct {
-	Description string `json:"description" xml:"description"`
-	Dimension   string `json:"dimension" xml:"dimension"`
-	Price       string `json:"price" xml:"price"`
-	Unit        string `json:"unit" xml:"unit"`
+Description string `json:"description" xml:"description"`
+Dimension string `json:"dimension" xml:"dimension"`
+Price string `json:"price" xml:"price"`
+Unit string `json:"unit" xml:"unit"`
 }
 
 type DistillationConfig struct {
-	TeacherModelConfig *TeacherModelConfig `json:"teacherModelConfig" xml:"teacherModelConfig"`
+TeacherModelConfig *TeacherModelConfig `json:"teacherModelConfig" xml:"teacherModelConfig"`
 }
 
 type EvaluationBedrockModel struct {
-	InferenceParams   string                    `json:"inferenceParams" xml:"inferenceParams"`
-	ModelIdentifier   string                    `json:"modelIdentifier" xml:"modelIdentifier"`
-	PerformanceConfig *PerformanceConfiguration `json:"performanceConfig" xml:"performanceConfig"`
+InferenceParams string `json:"inferenceParams" xml:"inferenceParams"`
+ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
+PerformanceConfig *PerformanceConfiguration `json:"performanceConfig" xml:"performanceConfig"`
 }
 
 type EvaluationDataset struct {
-	DatasetLocation interface{} `json:"datasetLocation" xml:"datasetLocation"`
-	Name            string      `json:"name" xml:"name"`
+DatasetLocation interface{} `json:"datasetLocation" xml:"datasetLocation"`
+Name string `json:"name" xml:"name"`
 }
 
 type EvaluationDatasetMetricConfig struct {
-	Dataset     *EvaluationDataset    `json:"dataset" xml:"dataset"`
-	MetricNames EvaluationMetricNames `json:"metricNames" xml:"metricNames"`
-	TaskType    string                `json:"taskType" xml:"taskType"`
+Dataset *EvaluationDataset `json:"dataset" xml:"dataset"`
+MetricNames EvaluationMetricNames `json:"metricNames" xml:"metricNames"`
+TaskType string `json:"taskType" xml:"taskType"`
 }
 
 type EvaluationInferenceConfigSummary struct {
-	ModelConfigSummary *EvaluationModelConfigSummary `json:"modelConfigSummary" xml:"modelConfigSummary"`
-	RagConfigSummary   *EvaluationRagConfigSummary   `json:"ragConfigSummary" xml:"ragConfigSummary"`
+ModelConfigSummary *EvaluationModelConfigSummary `json:"modelConfigSummary" xml:"modelConfigSummary"`
+RagConfigSummary *EvaluationRagConfigSummary `json:"ragConfigSummary" xml:"ragConfigSummary"`
 }
 
 type EvaluationModelConfigSummary struct {
-	BedrockModelIdentifiers               EvaluationBedrockModelIdentifiers               `json:"bedrockModelIdentifiers" xml:"bedrockModelIdentifiers"`
-	PrecomputedInferenceSourceIdentifiers EvaluationPrecomputedInferenceSourceIdentifiers `json:"precomputedInferenceSourceIdentifiers" xml:"precomputedInferenceSourceIdentifiers"`
+BedrockModelIdentifiers EvaluationBedrockModelIdentifiers `json:"bedrockModelIdentifiers" xml:"bedrockModelIdentifiers"`
+PrecomputedInferenceSourceIdentifiers EvaluationPrecomputedInferenceSourceIdentifiers `json:"precomputedInferenceSourceIdentifiers" xml:"precomputedInferenceSourceIdentifiers"`
 }
 
 type EvaluationOutputDataConfig struct {
-	S3Uri string `json:"s3Uri" xml:"s3Uri"`
+S3Uri string `json:"s3Uri" xml:"s3Uri"`
 }
 
 type EvaluationPrecomputedInferenceSource struct {
-	InferenceSourceIdentifier string `json:"inferenceSourceIdentifier" xml:"inferenceSourceIdentifier"`
+InferenceSourceIdentifier string `json:"inferenceSourceIdentifier" xml:"inferenceSourceIdentifier"`
 }
 
 type EvaluationPrecomputedRetrieveAndGenerateSourceConfig struct {
-	RagSourceIdentifier string `json:"ragSourceIdentifier" xml:"ragSourceIdentifier"`
+RagSourceIdentifier string `json:"ragSourceIdentifier" xml:"ragSourceIdentifier"`
 }
 
 type EvaluationPrecomputedRetrieveSourceConfig struct {
-	RagSourceIdentifier string `json:"ragSourceIdentifier" xml:"ragSourceIdentifier"`
+RagSourceIdentifier string `json:"ragSourceIdentifier" xml:"ragSourceIdentifier"`
 }
 
 type EvaluationRagConfigSummary struct {
-	BedrockKnowledgeBaseIdentifiers EvaluationBedrockKnowledgeBaseIdentifiers `json:"bedrockKnowledgeBaseIdentifiers" xml:"bedrockKnowledgeBaseIdentifiers"`
-	PrecomputedRagSourceIdentifiers EvaluationPrecomputedRagSourceIdentifiers `json:"precomputedRagSourceIdentifiers" xml:"precomputedRagSourceIdentifiers"`
+BedrockKnowledgeBaseIdentifiers EvaluationBedrockKnowledgeBaseIdentifiers `json:"bedrockKnowledgeBaseIdentifiers" xml:"bedrockKnowledgeBaseIdentifiers"`
+PrecomputedRagSourceIdentifiers EvaluationPrecomputedRagSourceIdentifiers `json:"precomputedRagSourceIdentifiers" xml:"precomputedRagSourceIdentifiers"`
 }
 
 type EvaluationSummary struct {
-	ApplicationType                        string                                    `json:"applicationType" xml:"applicationType"`
-	CreationTime                           time.Time                                 `json:"creationTime" xml:"creationTime"`
-	CustomMetricsEvaluatorModelIdentifiers EvaluatorModelIdentifiers                 `json:"customMetricsEvaluatorModelIdentifiers" xml:"customMetricsEvaluatorModelIdentifiers"`
-	EvaluationTaskTypes                    EvaluationTaskTypes                       `json:"evaluationTaskTypes" xml:"evaluationTaskTypes"`
-	EvaluatorModelIdentifiers              EvaluatorModelIdentifiers                 `json:"evaluatorModelIdentifiers" xml:"evaluatorModelIdentifiers"`
-	InferenceConfigSummary                 *EvaluationInferenceConfigSummary         `json:"inferenceConfigSummary" xml:"inferenceConfigSummary"`
-	JobArn                                 string                                    `json:"jobArn" xml:"jobArn"`
-	JobName                                string                                    `json:"jobName" xml:"jobName"`
-	JobType                                string                                    `json:"jobType" xml:"jobType"`
-	ModelIdentifiers                       EvaluationBedrockModelIdentifiers         `json:"modelIdentifiers" xml:"modelIdentifiers"`
-	RagIdentifiers                         EvaluationBedrockKnowledgeBaseIdentifiers `json:"ragIdentifiers" xml:"ragIdentifiers"`
-	Status                                 string                                    `json:"status" xml:"status"`
+ApplicationType string `json:"applicationType" xml:"applicationType"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+CustomMetricsEvaluatorModelIdentifiers EvaluatorModelIdentifiers `json:"customMetricsEvaluatorModelIdentifiers" xml:"customMetricsEvaluatorModelIdentifiers"`
+EvaluationTaskTypes EvaluationTaskTypes `json:"evaluationTaskTypes" xml:"evaluationTaskTypes"`
+EvaluatorModelIdentifiers EvaluatorModelIdentifiers `json:"evaluatorModelIdentifiers" xml:"evaluatorModelIdentifiers"`
+InferenceConfigSummary *EvaluationInferenceConfigSummary `json:"inferenceConfigSummary" xml:"inferenceConfigSummary"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobName string `json:"jobName" xml:"jobName"`
+JobType string `json:"jobType" xml:"jobType"`
+ModelIdentifiers EvaluationBedrockModelIdentifiers `json:"modelIdentifiers" xml:"modelIdentifiers"`
+RagIdentifiers EvaluationBedrockKnowledgeBaseIdentifiers `json:"ragIdentifiers" xml:"ragIdentifiers"`
+Status string `json:"status" xml:"status"`
 }
 
 type ExportAutomatedReasoningPolicyVersionRequest struct {
-	PolicyArn string `json:"policyArn" xml:"policyArn"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type ExportAutomatedReasoningPolicyVersionResponse struct {
-	PolicyDefinition *AutomatedReasoningPolicyDefinition `json:"policyDefinition" xml:"policyDefinition"`
+PolicyDefinition *AutomatedReasoningPolicyDefinition `json:"policyDefinition" xml:"policyDefinition"`
 }
 
 type ExternalSource struct {
-	ByteContent *ByteContentDoc `json:"byteContent" xml:"byteContent"`
-	S3Location  *S3ObjectDoc    `json:"s3Location" xml:"s3Location"`
-	SourceType  string          `json:"sourceType" xml:"sourceType"`
+ByteContent *ByteContentDoc `json:"byteContent" xml:"byteContent"`
+S3Location *S3ObjectDoc `json:"s3Location" xml:"s3Location"`
+SourceType string `json:"sourceType" xml:"sourceType"`
 }
 
 type ExternalSourcesGenerationConfiguration struct {
-	AdditionalModelRequestFields AdditionalModelRequestFields `json:"additionalModelRequestFields" xml:"additionalModelRequestFields"`
-	GuardrailConfiguration       *GuardrailConfiguration      `json:"guardrailConfiguration" xml:"guardrailConfiguration"`
-	KbInferenceConfig            *KbInferenceConfig           `json:"kbInferenceConfig" xml:"kbInferenceConfig"`
-	PromptTemplate               *PromptTemplate              `json:"promptTemplate" xml:"promptTemplate"`
+AdditionalModelRequestFields AdditionalModelRequestFields `json:"additionalModelRequestFields" xml:"additionalModelRequestFields"`
+GuardrailConfiguration *GuardrailConfiguration `json:"guardrailConfiguration" xml:"guardrailConfiguration"`
+KbInferenceConfig *KbInferenceConfig `json:"kbInferenceConfig" xml:"kbInferenceConfig"`
+PromptTemplate *PromptTemplate `json:"promptTemplate" xml:"promptTemplate"`
 }
 
 type ExternalSourcesRetrieveAndGenerateConfiguration struct {
-	GenerationConfiguration *ExternalSourcesGenerationConfiguration `json:"generationConfiguration" xml:"generationConfiguration"`
-	ModelArn                string                                  `json:"modelArn" xml:"modelArn"`
-	Sources                 ExternalSources                         `json:"sources" xml:"sources"`
+GenerationConfiguration *ExternalSourcesGenerationConfiguration `json:"generationConfiguration" xml:"generationConfiguration"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+Sources ExternalSources `json:"sources" xml:"sources"`
 }
 
 type FieldForReranking struct {
-	FieldName string `json:"fieldName" xml:"fieldName"`
+FieldName string `json:"fieldName" xml:"fieldName"`
 }
 
 type FilterAttribute struct {
-	Key   string      `json:"key" xml:"key"`
-	Value interface{} `json:"value" xml:"value"`
+Key string `json:"key" xml:"key"`
+Value interface{} `json:"value" xml:"value"`
 }
 
 type FoundationModelDetails struct {
-	CustomizationsSupported    ModelCustomizationList    `json:"customizationsSupported" xml:"customizationsSupported"`
-	InferenceTypesSupported    InferenceTypeList         `json:"inferenceTypesSupported" xml:"inferenceTypesSupported"`
-	InputModalities            ModelModalityList         `json:"inputModalities" xml:"inputModalities"`
-	ModelArn                   string                    `json:"modelArn" xml:"modelArn"`
-	ModelId                    string                    `json:"modelId" xml:"modelId"`
-	ModelLifecycle             *FoundationModelLifecycle `json:"modelLifecycle" xml:"modelLifecycle"`
-	ModelName                  string                    `json:"modelName" xml:"modelName"`
-	OutputModalities           ModelModalityList         `json:"outputModalities" xml:"outputModalities"`
-	ProviderName               string                    `json:"providerName" xml:"providerName"`
-	ResponseStreamingSupported bool                      `json:"responseStreamingSupported" xml:"responseStreamingSupported"`
+CustomizationsSupported ModelCustomizationList `json:"customizationsSupported" xml:"customizationsSupported"`
+InferenceTypesSupported InferenceTypeList `json:"inferenceTypesSupported" xml:"inferenceTypesSupported"`
+InputModalities ModelModalityList `json:"inputModalities" xml:"inputModalities"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelId string `json:"modelId" xml:"modelId"`
+ModelLifecycle *FoundationModelLifecycle `json:"modelLifecycle" xml:"modelLifecycle"`
+ModelName string `json:"modelName" xml:"modelName"`
+OutputModalities ModelModalityList `json:"outputModalities" xml:"outputModalities"`
+ProviderName string `json:"providerName" xml:"providerName"`
+ResponseStreamingSupported bool `json:"responseStreamingSupported" xml:"responseStreamingSupported"`
 }
 
 type FoundationModelLifecycle struct {
-	EndOfLifeTime            time.Time `json:"endOfLifeTime" xml:"endOfLifeTime"`
-	LegacyTime               time.Time `json:"legacyTime" xml:"legacyTime"`
-	PublicExtendedAccessTime time.Time `json:"publicExtendedAccessTime" xml:"publicExtendedAccessTime"`
-	StartOfLifeTime          time.Time `json:"startOfLifeTime" xml:"startOfLifeTime"`
-	Status                   string    `json:"status" xml:"status"`
+EndOfLifeTime time.Time `json:"endOfLifeTime" xml:"endOfLifeTime"`
+LegacyTime time.Time `json:"legacyTime" xml:"legacyTime"`
+PublicExtendedAccessTime time.Time `json:"publicExtendedAccessTime" xml:"publicExtendedAccessTime"`
+StartOfLifeTime time.Time `json:"startOfLifeTime" xml:"startOfLifeTime"`
+Status string `json:"status" xml:"status"`
 }
 
 type FoundationModelSummary struct {
-	CustomizationsSupported    ModelCustomizationList    `json:"customizationsSupported" xml:"customizationsSupported"`
-	InferenceTypesSupported    InferenceTypeList         `json:"inferenceTypesSupported" xml:"inferenceTypesSupported"`
-	InputModalities            ModelModalityList         `json:"inputModalities" xml:"inputModalities"`
-	ModelArn                   string                    `json:"modelArn" xml:"modelArn"`
-	ModelId                    string                    `json:"modelId" xml:"modelId"`
-	ModelLifecycle             *FoundationModelLifecycle `json:"modelLifecycle" xml:"modelLifecycle"`
-	ModelName                  string                    `json:"modelName" xml:"modelName"`
-	OutputModalities           ModelModalityList         `json:"outputModalities" xml:"outputModalities"`
-	ProviderName               string                    `json:"providerName" xml:"providerName"`
-	ResponseStreamingSupported bool                      `json:"responseStreamingSupported" xml:"responseStreamingSupported"`
+CustomizationsSupported ModelCustomizationList `json:"customizationsSupported" xml:"customizationsSupported"`
+InferenceTypesSupported InferenceTypeList `json:"inferenceTypesSupported" xml:"inferenceTypesSupported"`
+InputModalities ModelModalityList `json:"inputModalities" xml:"inputModalities"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelId string `json:"modelId" xml:"modelId"`
+ModelLifecycle *FoundationModelLifecycle `json:"modelLifecycle" xml:"modelLifecycle"`
+ModelName string `json:"modelName" xml:"modelName"`
+OutputModalities ModelModalityList `json:"outputModalities" xml:"outputModalities"`
+ProviderName string `json:"providerName" xml:"providerName"`
+ResponseStreamingSupported bool `json:"responseStreamingSupported" xml:"responseStreamingSupported"`
 }
 
 type GenerationConfiguration struct {
-	AdditionalModelRequestFields AdditionalModelRequestFields `json:"additionalModelRequestFields" xml:"additionalModelRequestFields"`
-	GuardrailConfiguration       *GuardrailConfiguration      `json:"guardrailConfiguration" xml:"guardrailConfiguration"`
-	KbInferenceConfig            *KbInferenceConfig           `json:"kbInferenceConfig" xml:"kbInferenceConfig"`
-	PromptTemplate               *PromptTemplate              `json:"promptTemplate" xml:"promptTemplate"`
+AdditionalModelRequestFields AdditionalModelRequestFields `json:"additionalModelRequestFields" xml:"additionalModelRequestFields"`
+GuardrailConfiguration *GuardrailConfiguration `json:"guardrailConfiguration" xml:"guardrailConfiguration"`
+KbInferenceConfig *KbInferenceConfig `json:"kbInferenceConfig" xml:"kbInferenceConfig"`
+PromptTemplate *PromptTemplate `json:"promptTemplate" xml:"promptTemplate"`
 }
 
 type GetAutomatedReasoningPolicyAnnotationsRequest struct {
-	BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	PolicyArn       string `json:"policyArn" xml:"policyArn"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type GetAutomatedReasoningPolicyAnnotationsResponse struct {
-	AnnotationSetHash string                                 `json:"annotationSetHash" xml:"annotationSetHash"`
-	Annotations       AutomatedReasoningPolicyAnnotationList `json:"annotations" xml:"annotations"`
-	BuildWorkflowId   string                                 `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	Name              string                                 `json:"name" xml:"name"`
-	PolicyArn         string                                 `json:"policyArn" xml:"policyArn"`
-	UpdatedAt         time.Time                              `json:"updatedAt" xml:"updatedAt"`
+AnnotationSetHash string `json:"annotationSetHash" xml:"annotationSetHash"`
+Annotations AutomatedReasoningPolicyAnnotationList `json:"annotations" xml:"annotations"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+Name string `json:"name" xml:"name"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type GetAutomatedReasoningPolicyBuildWorkflowRequest struct {
-	BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	PolicyArn       string `json:"policyArn" xml:"policyArn"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type GetAutomatedReasoningPolicyBuildWorkflowResponse struct {
-	BuildWorkflowId     string    `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	BuildWorkflowType   string    `json:"buildWorkflowType" xml:"buildWorkflowType"`
-	CreatedAt           time.Time `json:"createdAt" xml:"createdAt"`
-	DocumentContentType string    `json:"documentContentType" xml:"documentContentType"`
-	DocumentDescription string    `json:"documentDescription" xml:"documentDescription"`
-	DocumentName        string    `json:"documentName" xml:"documentName"`
-	PolicyArn           string    `json:"policyArn" xml:"policyArn"`
-	Status              string    `json:"status" xml:"status"`
-	UpdatedAt           time.Time `json:"updatedAt" xml:"updatedAt"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+BuildWorkflowType string `json:"buildWorkflowType" xml:"buildWorkflowType"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DocumentContentType string `json:"documentContentType" xml:"documentContentType"`
+DocumentDescription string `json:"documentDescription" xml:"documentDescription"`
+DocumentName string `json:"documentName" xml:"documentName"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+Status string `json:"status" xml:"status"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest struct {
-	AssetId         string `json:"assetId" xml:"assetId"`
-	AssetType       string `json:"assetType" xml:"assetType"`
-	BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	PolicyArn       string `json:"policyArn" xml:"policyArn"`
+AssetId string `json:"assetId" xml:"assetId"`
+AssetType string `json:"assetType" xml:"assetType"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse struct {
-	BuildWorkflowAssets interface{} `json:"buildWorkflowAssets" xml:"buildWorkflowAssets"`
-	BuildWorkflowId     string      `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	PolicyArn           string      `json:"policyArn" xml:"policyArn"`
+BuildWorkflowAssets interface{} `json:"buildWorkflowAssets" xml:"buildWorkflowAssets"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type GetAutomatedReasoningPolicyNextScenarioRequest struct {
-	BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	PolicyArn       string `json:"policyArn" xml:"policyArn"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type GetAutomatedReasoningPolicyNextScenarioResponse struct {
-	PolicyArn string                            `json:"policyArn" xml:"policyArn"`
-	Scenario  *AutomatedReasoningPolicyScenario `json:"scenario" xml:"scenario"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+Scenario *AutomatedReasoningPolicyScenario `json:"scenario" xml:"scenario"`
 }
 
 type GetAutomatedReasoningPolicyRequest struct {
-	PolicyArn string `json:"policyArn" xml:"policyArn"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type GetAutomatedReasoningPolicyResponse struct {
-	CreatedAt      time.Time `json:"createdAt" xml:"createdAt"`
-	DefinitionHash string    `json:"definitionHash" xml:"definitionHash"`
-	Description    string    `json:"description" xml:"description"`
-	KmsKeyArn      string    `json:"kmsKeyArn" xml:"kmsKeyArn"`
-	Name           string    `json:"name" xml:"name"`
-	PolicyArn      string    `json:"policyArn" xml:"policyArn"`
-	PolicyId       string    `json:"policyId" xml:"policyId"`
-	UpdatedAt      time.Time `json:"updatedAt" xml:"updatedAt"`
-	Version        string    `json:"version" xml:"version"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+DefinitionHash string `json:"definitionHash" xml:"definitionHash"`
+Description string `json:"description" xml:"description"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"kmsKeyArn"`
+Name string `json:"name" xml:"name"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+PolicyId string `json:"policyId" xml:"policyId"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
+Version string `json:"version" xml:"version"`
 }
 
 type GetAutomatedReasoningPolicyTestCaseRequest struct {
-	PolicyArn  string `json:"policyArn" xml:"policyArn"`
-	TestCaseId string `json:"testCaseId" xml:"testCaseId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+TestCaseId string `json:"testCaseId" xml:"testCaseId"`
 }
 
 type GetAutomatedReasoningPolicyTestCaseResponse struct {
-	PolicyArn string                            `json:"policyArn" xml:"policyArn"`
-	TestCase  *AutomatedReasoningPolicyTestCase `json:"testCase" xml:"testCase"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+TestCase *AutomatedReasoningPolicyTestCase `json:"testCase" xml:"testCase"`
 }
 
 type GetAutomatedReasoningPolicyTestResultRequest struct {
-	BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	PolicyArn       string `json:"policyArn" xml:"policyArn"`
-	TestCaseId      string `json:"testCaseId" xml:"testCaseId"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+TestCaseId string `json:"testCaseId" xml:"testCaseId"`
 }
 
 type GetAutomatedReasoningPolicyTestResultResponse struct {
-	TestResult *AutomatedReasoningPolicyTestResult `json:"testResult" xml:"testResult"`
+TestResult *AutomatedReasoningPolicyTestResult `json:"testResult" xml:"testResult"`
 }
 
 type GetCustomModelDeploymentRequest struct {
-	CustomModelDeploymentIdentifier string `json:"customModelDeploymentIdentifier" xml:"customModelDeploymentIdentifier"`
+CustomModelDeploymentIdentifier string `json:"customModelDeploymentIdentifier" xml:"customModelDeploymentIdentifier"`
 }
 
 type GetCustomModelDeploymentResponse struct {
-	CreatedAt                time.Time                           `json:"createdAt" xml:"createdAt"`
-	CustomModelDeploymentArn string                              `json:"customModelDeploymentArn" xml:"customModelDeploymentArn"`
-	Description              string                              `json:"description" xml:"description"`
-	FailureMessage           string                              `json:"failureMessage" xml:"failureMessage"`
-	LastUpdatedAt            time.Time                           `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	ModelArn                 string                              `json:"modelArn" xml:"modelArn"`
-	ModelDeploymentName      string                              `json:"modelDeploymentName" xml:"modelDeploymentName"`
-	Status                   string                              `json:"status" xml:"status"`
-	UpdateDetails            *CustomModelDeploymentUpdateDetails `json:"updateDetails" xml:"updateDetails"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+CustomModelDeploymentArn string `json:"customModelDeploymentArn" xml:"customModelDeploymentArn"`
+Description string `json:"description" xml:"description"`
+FailureMessage string `json:"failureMessage" xml:"failureMessage"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelDeploymentName string `json:"modelDeploymentName" xml:"modelDeploymentName"`
+Status string `json:"status" xml:"status"`
+UpdateDetails *CustomModelDeploymentUpdateDetails `json:"updateDetails" xml:"updateDetails"`
 }
 
 type GetCustomModelRequest struct {
-	ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
+ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
 }
 
 type GetCustomModelResponse struct {
-	BaseModelArn         string                            `json:"baseModelArn" xml:"baseModelArn"`
-	CreationTime         time.Time                         `json:"creationTime" xml:"creationTime"`
-	CustomizationConfig  interface{}                       `json:"customizationConfig" xml:"customizationConfig"`
-	CustomizationType    string                            `json:"customizationType" xml:"customizationType"`
-	FailureMessage       string                            `json:"failureMessage" xml:"failureMessage"`
-	HyperParameters      ModelCustomizationHyperParameters `json:"hyperParameters" xml:"hyperParameters"`
-	JobArn               string                            `json:"jobArn" xml:"jobArn"`
-	JobName              string                            `json:"jobName" xml:"jobName"`
-	ModelArn             string                            `json:"modelArn" xml:"modelArn"`
-	ModelKmsKeyArn       string                            `json:"modelKmsKeyArn" xml:"modelKmsKeyArn"`
-	ModelName            string                            `json:"modelName" xml:"modelName"`
-	ModelStatus          string                            `json:"modelStatus" xml:"modelStatus"`
-	OutputDataConfig     *OutputDataConfig                 `json:"outputDataConfig" xml:"outputDataConfig"`
-	TrainingDataConfig   *TrainingDataConfig               `json:"trainingDataConfig" xml:"trainingDataConfig"`
-	TrainingMetrics      *TrainingMetrics                  `json:"trainingMetrics" xml:"trainingMetrics"`
-	ValidationDataConfig *ValidationDataConfig             `json:"validationDataConfig" xml:"validationDataConfig"`
-	ValidationMetrics    ValidationMetrics                 `json:"validationMetrics" xml:"validationMetrics"`
+BaseModelArn string `json:"baseModelArn" xml:"baseModelArn"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+CustomizationConfig interface{} `json:"customizationConfig" xml:"customizationConfig"`
+CustomizationType string `json:"customizationType" xml:"customizationType"`
+FailureMessage string `json:"failureMessage" xml:"failureMessage"`
+HyperParameters ModelCustomizationHyperParameters `json:"hyperParameters" xml:"hyperParameters"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobName string `json:"jobName" xml:"jobName"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelKmsKeyArn string `json:"modelKmsKeyArn" xml:"modelKmsKeyArn"`
+ModelName string `json:"modelName" xml:"modelName"`
+ModelStatus string `json:"modelStatus" xml:"modelStatus"`
+OutputDataConfig *OutputDataConfig `json:"outputDataConfig" xml:"outputDataConfig"`
+TrainingDataConfig *TrainingDataConfig `json:"trainingDataConfig" xml:"trainingDataConfig"`
+TrainingMetrics *TrainingMetrics `json:"trainingMetrics" xml:"trainingMetrics"`
+ValidationDataConfig *ValidationDataConfig `json:"validationDataConfig" xml:"validationDataConfig"`
+ValidationMetrics ValidationMetrics `json:"validationMetrics" xml:"validationMetrics"`
 }
 
 type GetEvaluationJobRequest struct {
-	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
 }
 
 type GetEvaluationJobResponse struct {
-	ApplicationType         string                      `json:"applicationType" xml:"applicationType"`
-	CreationTime            time.Time                   `json:"creationTime" xml:"creationTime"`
-	CustomerEncryptionKeyId string                      `json:"customerEncryptionKeyId" xml:"customerEncryptionKeyId"`
-	EvaluationConfig        interface{}                 `json:"evaluationConfig" xml:"evaluationConfig"`
-	FailureMessages         ErrorMessages               `json:"failureMessages" xml:"failureMessages"`
-	InferenceConfig         interface{}                 `json:"inferenceConfig" xml:"inferenceConfig"`
-	JobArn                  string                      `json:"jobArn" xml:"jobArn"`
-	JobDescription          string                      `json:"jobDescription" xml:"jobDescription"`
-	JobName                 string                      `json:"jobName" xml:"jobName"`
-	JobType                 string                      `json:"jobType" xml:"jobType"`
-	LastModifiedTime        time.Time                   `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	OutputDataConfig        *EvaluationOutputDataConfig `json:"outputDataConfig" xml:"outputDataConfig"`
-	RoleArn                 string                      `json:"roleArn" xml:"roleArn"`
-	Status                  string                      `json:"status" xml:"status"`
+ApplicationType string `json:"applicationType" xml:"applicationType"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+CustomerEncryptionKeyId string `json:"customerEncryptionKeyId" xml:"customerEncryptionKeyId"`
+EvaluationConfig interface{} `json:"evaluationConfig" xml:"evaluationConfig"`
+FailureMessages ErrorMessages `json:"failureMessages" xml:"failureMessages"`
+InferenceConfig interface{} `json:"inferenceConfig" xml:"inferenceConfig"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobDescription string `json:"jobDescription" xml:"jobDescription"`
+JobName string `json:"jobName" xml:"jobName"`
+JobType string `json:"jobType" xml:"jobType"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+OutputDataConfig *EvaluationOutputDataConfig `json:"outputDataConfig" xml:"outputDataConfig"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+Status string `json:"status" xml:"status"`
 }
 
 type GetFoundationModelAvailabilityRequest struct {
-	ModelId string `json:"modelId" xml:"modelId"`
+ModelId string `json:"modelId" xml:"modelId"`
 }
 
 type GetFoundationModelAvailabilityResponse struct {
-	AgreementAvailability   *AgreementAvailability `json:"agreementAvailability" xml:"agreementAvailability"`
-	AuthorizationStatus     string                 `json:"authorizationStatus" xml:"authorizationStatus"`
-	EntitlementAvailability string                 `json:"entitlementAvailability" xml:"entitlementAvailability"`
-	ModelId                 string                 `json:"modelId" xml:"modelId"`
-	RegionAvailability      string                 `json:"regionAvailability" xml:"regionAvailability"`
+AgreementAvailability *AgreementAvailability `json:"agreementAvailability" xml:"agreementAvailability"`
+AuthorizationStatus string `json:"authorizationStatus" xml:"authorizationStatus"`
+EntitlementAvailability string `json:"entitlementAvailability" xml:"entitlementAvailability"`
+ModelId string `json:"modelId" xml:"modelId"`
+RegionAvailability string `json:"regionAvailability" xml:"regionAvailability"`
 }
 
 type GetFoundationModelRequest struct {
-	ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
+ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
 }
 
 type GetFoundationModelResponse struct {
-	ModelDetails *FoundationModelDetails `json:"modelDetails" xml:"modelDetails"`
+ModelDetails *FoundationModelDetails `json:"modelDetails" xml:"modelDetails"`
 }
 
 type GetGuardrailRequest struct {
-	GuardrailIdentifier string `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
-	GuardrailVersion    string `json:"guardrailVersion" xml:"guardrailVersion"`
+GuardrailIdentifier string `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
+GuardrailVersion string `json:"guardrailVersion" xml:"guardrailVersion"`
 }
 
 type GetGuardrailResponse struct {
-	AutomatedReasoningPolicy   *GuardrailAutomatedReasoningPolicy   `json:"automatedReasoningPolicy" xml:"automatedReasoningPolicy"`
-	BlockedInputMessaging      string                               `json:"blockedInputMessaging" xml:"blockedInputMessaging"`
-	BlockedOutputsMessaging    string                               `json:"blockedOutputsMessaging" xml:"blockedOutputsMessaging"`
-	ContentPolicy              *GuardrailContentPolicy              `json:"contentPolicy" xml:"contentPolicy"`
-	ContextualGroundingPolicy  *GuardrailContextualGroundingPolicy  `json:"contextualGroundingPolicy" xml:"contextualGroundingPolicy"`
-	CreatedAt                  time.Time                            `json:"createdAt" xml:"createdAt"`
-	CrossRegionDetails         *GuardrailCrossRegionDetails         `json:"crossRegionDetails" xml:"crossRegionDetails"`
-	Description                string                               `json:"description" xml:"description"`
-	FailureRecommendations     GuardrailFailureRecommendations      `json:"failureRecommendations" xml:"failureRecommendations"`
-	GuardrailArn               string                               `json:"guardrailArn" xml:"guardrailArn"`
-	GuardrailId                string                               `json:"guardrailId" xml:"guardrailId"`
-	KmsKeyArn                  string                               `json:"kmsKeyArn" xml:"kmsKeyArn"`
-	Name                       string                               `json:"name" xml:"name"`
-	SensitiveInformationPolicy *GuardrailSensitiveInformationPolicy `json:"sensitiveInformationPolicy" xml:"sensitiveInformationPolicy"`
-	Status                     string                               `json:"status" xml:"status"`
-	StatusReasons              GuardrailStatusReasons               `json:"statusReasons" xml:"statusReasons"`
-	TopicPolicy                *GuardrailTopicPolicy                `json:"topicPolicy" xml:"topicPolicy"`
-	UpdatedAt                  time.Time                            `json:"updatedAt" xml:"updatedAt"`
-	Version                    string                               `json:"version" xml:"version"`
-	WordPolicy                 *GuardrailWordPolicy                 `json:"wordPolicy" xml:"wordPolicy"`
+AutomatedReasoningPolicy *GuardrailAutomatedReasoningPolicy `json:"automatedReasoningPolicy" xml:"automatedReasoningPolicy"`
+BlockedInputMessaging string `json:"blockedInputMessaging" xml:"blockedInputMessaging"`
+BlockedOutputsMessaging string `json:"blockedOutputsMessaging" xml:"blockedOutputsMessaging"`
+ContentPolicy *GuardrailContentPolicy `json:"contentPolicy" xml:"contentPolicy"`
+ContextualGroundingPolicy *GuardrailContextualGroundingPolicy `json:"contextualGroundingPolicy" xml:"contextualGroundingPolicy"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+CrossRegionDetails *GuardrailCrossRegionDetails `json:"crossRegionDetails" xml:"crossRegionDetails"`
+Description string `json:"description" xml:"description"`
+FailureRecommendations GuardrailFailureRecommendations `json:"failureRecommendations" xml:"failureRecommendations"`
+GuardrailArn string `json:"guardrailArn" xml:"guardrailArn"`
+GuardrailId string `json:"guardrailId" xml:"guardrailId"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"kmsKeyArn"`
+Name string `json:"name" xml:"name"`
+SensitiveInformationPolicy *GuardrailSensitiveInformationPolicy `json:"sensitiveInformationPolicy" xml:"sensitiveInformationPolicy"`
+Status string `json:"status" xml:"status"`
+StatusReasons GuardrailStatusReasons `json:"statusReasons" xml:"statusReasons"`
+TopicPolicy *GuardrailTopicPolicy `json:"topicPolicy" xml:"topicPolicy"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
+Version string `json:"version" xml:"version"`
+WordPolicy *GuardrailWordPolicy `json:"wordPolicy" xml:"wordPolicy"`
 }
 
 type GetImportedModelRequest struct {
-	ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
+ModelIdentifier string `json:"modelIdentifier" xml:"modelIdentifier"`
 }
 
 type GetImportedModelResponse struct {
-	CreationTime      time.Time         `json:"creationTime" xml:"creationTime"`
-	CustomModelUnits  *CustomModelUnits `json:"customModelUnits" xml:"customModelUnits"`
-	InstructSupported bool              `json:"instructSupported" xml:"instructSupported"`
-	JobArn            string            `json:"jobArn" xml:"jobArn"`
-	JobName           string            `json:"jobName" xml:"jobName"`
-	ModelArchitecture string            `json:"modelArchitecture" xml:"modelArchitecture"`
-	ModelArn          string            `json:"modelArn" xml:"modelArn"`
-	ModelDataSource   interface{}       `json:"modelDataSource" xml:"modelDataSource"`
-	ModelKmsKeyArn    string            `json:"modelKmsKeyArn" xml:"modelKmsKeyArn"`
-	ModelName         string            `json:"modelName" xml:"modelName"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+CustomModelUnits *CustomModelUnits `json:"customModelUnits" xml:"customModelUnits"`
+InstructSupported bool `json:"instructSupported" xml:"instructSupported"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobName string `json:"jobName" xml:"jobName"`
+ModelArchitecture string `json:"modelArchitecture" xml:"modelArchitecture"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelDataSource interface{} `json:"modelDataSource" xml:"modelDataSource"`
+ModelKmsKeyArn string `json:"modelKmsKeyArn" xml:"modelKmsKeyArn"`
+ModelName string `json:"modelName" xml:"modelName"`
 }
 
 type GetInferenceProfileRequest struct {
-	InferenceProfileIdentifier string `json:"inferenceProfileIdentifier" xml:"inferenceProfileIdentifier"`
+InferenceProfileIdentifier string `json:"inferenceProfileIdentifier" xml:"inferenceProfileIdentifier"`
 }
 
 type GetInferenceProfileResponse struct {
-	CreatedAt            time.Time              `json:"createdAt" xml:"createdAt"`
-	Description          string                 `json:"description" xml:"description"`
-	InferenceProfileArn  string                 `json:"inferenceProfileArn" xml:"inferenceProfileArn"`
-	InferenceProfileId   string                 `json:"inferenceProfileId" xml:"inferenceProfileId"`
-	InferenceProfileName string                 `json:"inferenceProfileName" xml:"inferenceProfileName"`
-	Models               InferenceProfileModels `json:"models" xml:"models"`
-	Status               string                 `json:"status" xml:"status"`
-	Type                 string                 `json:"type" xml:"type"`
-	UpdatedAt            time.Time              `json:"updatedAt" xml:"updatedAt"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+Description string `json:"description" xml:"description"`
+InferenceProfileArn string `json:"inferenceProfileArn" xml:"inferenceProfileArn"`
+InferenceProfileId string `json:"inferenceProfileId" xml:"inferenceProfileId"`
+InferenceProfileName string `json:"inferenceProfileName" xml:"inferenceProfileName"`
+Models InferenceProfileModels `json:"models" xml:"models"`
+Status string `json:"status" xml:"status"`
+Type string `json:"type" xml:"type"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type GetMarketplaceModelEndpointRequest struct {
-	EndpointArn string `json:"endpointArn" xml:"endpointArn"`
+EndpointArn string `json:"endpointArn" xml:"endpointArn"`
 }
 
 type GetMarketplaceModelEndpointResponse struct {
-	MarketplaceModelEndpoint *MarketplaceModelEndpoint `json:"marketplaceModelEndpoint" xml:"marketplaceModelEndpoint"`
+MarketplaceModelEndpoint *MarketplaceModelEndpoint `json:"marketplaceModelEndpoint" xml:"marketplaceModelEndpoint"`
 }
 
 type GetModelCopyJobRequest struct {
-	JobArn string `json:"jobArn" xml:"jobArn"`
+JobArn string `json:"jobArn" xml:"jobArn"`
 }
 
 type GetModelCopyJobResponse struct {
-	CreationTime         time.Time `json:"creationTime" xml:"creationTime"`
-	FailureMessage       string    `json:"failureMessage" xml:"failureMessage"`
-	JobArn               string    `json:"jobArn" xml:"jobArn"`
-	SourceAccountId      string    `json:"sourceAccountId" xml:"sourceAccountId"`
-	SourceModelArn       string    `json:"sourceModelArn" xml:"sourceModelArn"`
-	SourceModelName      string    `json:"sourceModelName" xml:"sourceModelName"`
-	Status               string    `json:"status" xml:"status"`
-	TargetModelArn       string    `json:"targetModelArn" xml:"targetModelArn"`
-	TargetModelKmsKeyArn string    `json:"targetModelKmsKeyArn" xml:"targetModelKmsKeyArn"`
-	TargetModelName      string    `json:"targetModelName" xml:"targetModelName"`
-	TargetModelTags      TagList   `json:"targetModelTags" xml:"targetModelTags"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+FailureMessage string `json:"failureMessage" xml:"failureMessage"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+SourceAccountId string `json:"sourceAccountId" xml:"sourceAccountId"`
+SourceModelArn string `json:"sourceModelArn" xml:"sourceModelArn"`
+SourceModelName string `json:"sourceModelName" xml:"sourceModelName"`
+Status string `json:"status" xml:"status"`
+TargetModelArn string `json:"targetModelArn" xml:"targetModelArn"`
+TargetModelKmsKeyArn string `json:"targetModelKmsKeyArn" xml:"targetModelKmsKeyArn"`
+TargetModelName string `json:"targetModelName" xml:"targetModelName"`
+TargetModelTags TagList `json:"targetModelTags" xml:"targetModelTags"`
 }
 
 type GetModelCustomizationJobRequest struct {
-	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
 }
 
 type GetModelCustomizationJobResponse struct {
-	BaseModelArn         string                            `json:"baseModelArn" xml:"baseModelArn"`
-	ClientRequestToken   string                            `json:"clientRequestToken" xml:"clientRequestToken"`
-	CreationTime         time.Time                         `json:"creationTime" xml:"creationTime"`
-	CustomizationConfig  interface{}                       `json:"customizationConfig" xml:"customizationConfig"`
-	CustomizationType    string                            `json:"customizationType" xml:"customizationType"`
-	EndTime              time.Time                         `json:"endTime" xml:"endTime"`
-	FailureMessage       string                            `json:"failureMessage" xml:"failureMessage"`
-	HyperParameters      ModelCustomizationHyperParameters `json:"hyperParameters" xml:"hyperParameters"`
-	JobArn               string                            `json:"jobArn" xml:"jobArn"`
-	JobName              string                            `json:"jobName" xml:"jobName"`
-	LastModifiedTime     time.Time                         `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	OutputDataConfig     *OutputDataConfig                 `json:"outputDataConfig" xml:"outputDataConfig"`
-	OutputModelArn       string                            `json:"outputModelArn" xml:"outputModelArn"`
-	OutputModelKmsKeyArn string                            `json:"outputModelKmsKeyArn" xml:"outputModelKmsKeyArn"`
-	OutputModelName      string                            `json:"outputModelName" xml:"outputModelName"`
-	RoleArn              string                            `json:"roleArn" xml:"roleArn"`
-	Status               string                            `json:"status" xml:"status"`
-	StatusDetails        *StatusDetails                    `json:"statusDetails" xml:"statusDetails"`
-	TrainingDataConfig   *TrainingDataConfig               `json:"trainingDataConfig" xml:"trainingDataConfig"`
-	TrainingMetrics      *TrainingMetrics                  `json:"trainingMetrics" xml:"trainingMetrics"`
-	ValidationDataConfig *ValidationDataConfig             `json:"validationDataConfig" xml:"validationDataConfig"`
-	ValidationMetrics    ValidationMetrics                 `json:"validationMetrics" xml:"validationMetrics"`
-	VpcConfig            *VpcConfig                        `json:"vpcConfig" xml:"vpcConfig"`
+BaseModelArn string `json:"baseModelArn" xml:"baseModelArn"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+CustomizationConfig interface{} `json:"customizationConfig" xml:"customizationConfig"`
+CustomizationType string `json:"customizationType" xml:"customizationType"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+FailureMessage string `json:"failureMessage" xml:"failureMessage"`
+HyperParameters ModelCustomizationHyperParameters `json:"hyperParameters" xml:"hyperParameters"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobName string `json:"jobName" xml:"jobName"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+OutputDataConfig *OutputDataConfig `json:"outputDataConfig" xml:"outputDataConfig"`
+OutputModelArn string `json:"outputModelArn" xml:"outputModelArn"`
+OutputModelKmsKeyArn string `json:"outputModelKmsKeyArn" xml:"outputModelKmsKeyArn"`
+OutputModelName string `json:"outputModelName" xml:"outputModelName"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+Status string `json:"status" xml:"status"`
+StatusDetails *StatusDetails `json:"statusDetails" xml:"statusDetails"`
+TrainingDataConfig *TrainingDataConfig `json:"trainingDataConfig" xml:"trainingDataConfig"`
+TrainingMetrics *TrainingMetrics `json:"trainingMetrics" xml:"trainingMetrics"`
+ValidationDataConfig *ValidationDataConfig `json:"validationDataConfig" xml:"validationDataConfig"`
+ValidationMetrics ValidationMetrics `json:"validationMetrics" xml:"validationMetrics"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type GetModelImportJobRequest struct {
-	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
 }
 
 type GetModelImportJobResponse struct {
-	CreationTime           time.Time   `json:"creationTime" xml:"creationTime"`
-	EndTime                time.Time   `json:"endTime" xml:"endTime"`
-	FailureMessage         string      `json:"failureMessage" xml:"failureMessage"`
-	ImportedModelArn       string      `json:"importedModelArn" xml:"importedModelArn"`
-	ImportedModelKmsKeyArn string      `json:"importedModelKmsKeyArn" xml:"importedModelKmsKeyArn"`
-	ImportedModelName      string      `json:"importedModelName" xml:"importedModelName"`
-	JobArn                 string      `json:"jobArn" xml:"jobArn"`
-	JobName                string      `json:"jobName" xml:"jobName"`
-	LastModifiedTime       time.Time   `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	ModelDataSource        interface{} `json:"modelDataSource" xml:"modelDataSource"`
-	RoleArn                string      `json:"roleArn" xml:"roleArn"`
-	Status                 string      `json:"status" xml:"status"`
-	VpcConfig              *VpcConfig  `json:"vpcConfig" xml:"vpcConfig"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+FailureMessage string `json:"failureMessage" xml:"failureMessage"`
+ImportedModelArn string `json:"importedModelArn" xml:"importedModelArn"`
+ImportedModelKmsKeyArn string `json:"importedModelKmsKeyArn" xml:"importedModelKmsKeyArn"`
+ImportedModelName string `json:"importedModelName" xml:"importedModelName"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobName string `json:"jobName" xml:"jobName"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+ModelDataSource interface{} `json:"modelDataSource" xml:"modelDataSource"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+Status string `json:"status" xml:"status"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type GetModelInvocationJobRequest struct {
-	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
 }
 
 type GetModelInvocationJobResponse struct {
-	ClientRequestToken     string      `json:"clientRequestToken" xml:"clientRequestToken"`
-	EndTime                time.Time   `json:"endTime" xml:"endTime"`
-	ErrorRecordCount       int64       `json:"errorRecordCount" xml:"errorRecordCount"`
-	InputDataConfig        interface{} `json:"inputDataConfig" xml:"inputDataConfig"`
-	JobArn                 string      `json:"jobArn" xml:"jobArn"`
-	JobExpirationTime      time.Time   `json:"jobExpirationTime" xml:"jobExpirationTime"`
-	JobName                string      `json:"jobName" xml:"jobName"`
-	LastModifiedTime       time.Time   `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	Message                string      `json:"message" xml:"message"`
-	ModelId                string      `json:"modelId" xml:"modelId"`
-	ModelInvocationType    string      `json:"modelInvocationType" xml:"modelInvocationType"`
-	OutputDataConfig       interface{} `json:"outputDataConfig" xml:"outputDataConfig"`
-	ProcessedRecordCount   int64       `json:"processedRecordCount" xml:"processedRecordCount"`
-	RoleArn                string      `json:"roleArn" xml:"roleArn"`
-	Status                 string      `json:"status" xml:"status"`
-	SubmitTime             time.Time   `json:"submitTime" xml:"submitTime"`
-	SuccessRecordCount     int64       `json:"successRecordCount" xml:"successRecordCount"`
-	TimeoutDurationInHours int32       `json:"timeoutDurationInHours" xml:"timeoutDurationInHours"`
-	TotalRecordCount       int64       `json:"totalRecordCount" xml:"totalRecordCount"`
-	VpcConfig              *VpcConfig  `json:"vpcConfig" xml:"vpcConfig"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+ErrorRecordCount int64 `json:"errorRecordCount" xml:"errorRecordCount"`
+InputDataConfig interface{} `json:"inputDataConfig" xml:"inputDataConfig"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobExpirationTime time.Time `json:"jobExpirationTime" xml:"jobExpirationTime"`
+JobName string `json:"jobName" xml:"jobName"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+Message string `json:"message" xml:"message"`
+ModelId string `json:"modelId" xml:"modelId"`
+ModelInvocationType string `json:"modelInvocationType" xml:"modelInvocationType"`
+OutputDataConfig interface{} `json:"outputDataConfig" xml:"outputDataConfig"`
+ProcessedRecordCount int64 `json:"processedRecordCount" xml:"processedRecordCount"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+Status string `json:"status" xml:"status"`
+SubmitTime time.Time `json:"submitTime" xml:"submitTime"`
+SuccessRecordCount int64 `json:"successRecordCount" xml:"successRecordCount"`
+TimeoutDurationInHours int32 `json:"timeoutDurationInHours" xml:"timeoutDurationInHours"`
+TotalRecordCount int64 `json:"totalRecordCount" xml:"totalRecordCount"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type GetModelInvocationLoggingConfigurationRequest struct {
 }
 
 type GetModelInvocationLoggingConfigurationResponse struct {
-	LoggingConfig *LoggingConfig `json:"loggingConfig" xml:"loggingConfig"`
+LoggingConfig *LoggingConfig `json:"loggingConfig" xml:"loggingConfig"`
 }
 
 type GetPromptRouterRequest struct {
-	PromptRouterArn string `json:"promptRouterArn" xml:"promptRouterArn"`
+PromptRouterArn string `json:"promptRouterArn" xml:"promptRouterArn"`
 }
 
 type GetPromptRouterResponse struct {
-	CreatedAt        time.Time                `json:"createdAt" xml:"createdAt"`
-	Description      string                   `json:"description" xml:"description"`
-	FallbackModel    *PromptRouterTargetModel `json:"fallbackModel" xml:"fallbackModel"`
-	Models           PromptRouterTargetModels `json:"models" xml:"models"`
-	PromptRouterArn  string                   `json:"promptRouterArn" xml:"promptRouterArn"`
-	PromptRouterName string                   `json:"promptRouterName" xml:"promptRouterName"`
-	RoutingCriteria  *RoutingCriteria         `json:"routingCriteria" xml:"routingCriteria"`
-	Status           string                   `json:"status" xml:"status"`
-	Type             string                   `json:"type" xml:"type"`
-	UpdatedAt        time.Time                `json:"updatedAt" xml:"updatedAt"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+Description string `json:"description" xml:"description"`
+FallbackModel *PromptRouterTargetModel `json:"fallbackModel" xml:"fallbackModel"`
+Models PromptRouterTargetModels `json:"models" xml:"models"`
+PromptRouterArn string `json:"promptRouterArn" xml:"promptRouterArn"`
+PromptRouterName string `json:"promptRouterName" xml:"promptRouterName"`
+RoutingCriteria *RoutingCriteria `json:"routingCriteria" xml:"routingCriteria"`
+Status string `json:"status" xml:"status"`
+Type string `json:"type" xml:"type"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type GetProvisionedModelThroughputRequest struct {
-	ProvisionedModelId string `json:"provisionedModelId" xml:"provisionedModelId"`
+ProvisionedModelId string `json:"provisionedModelId" xml:"provisionedModelId"`
 }
 
 type GetProvisionedModelThroughputResponse struct {
-	CommitmentDuration       string    `json:"commitmentDuration" xml:"commitmentDuration"`
-	CommitmentExpirationTime time.Time `json:"commitmentExpirationTime" xml:"commitmentExpirationTime"`
-	CreationTime             time.Time `json:"creationTime" xml:"creationTime"`
-	DesiredModelArn          string    `json:"desiredModelArn" xml:"desiredModelArn"`
-	DesiredModelUnits        int32     `json:"desiredModelUnits" xml:"desiredModelUnits"`
-	FailureMessage           string    `json:"failureMessage" xml:"failureMessage"`
-	FoundationModelArn       string    `json:"foundationModelArn" xml:"foundationModelArn"`
-	LastModifiedTime         time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	ModelArn                 string    `json:"modelArn" xml:"modelArn"`
-	ModelUnits               int32     `json:"modelUnits" xml:"modelUnits"`
-	ProvisionedModelArn      string    `json:"provisionedModelArn" xml:"provisionedModelArn"`
-	ProvisionedModelName     string    `json:"provisionedModelName" xml:"provisionedModelName"`
-	Status                   string    `json:"status" xml:"status"`
+CommitmentDuration string `json:"commitmentDuration" xml:"commitmentDuration"`
+CommitmentExpirationTime time.Time `json:"commitmentExpirationTime" xml:"commitmentExpirationTime"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+DesiredModelArn string `json:"desiredModelArn" xml:"desiredModelArn"`
+DesiredModelUnits int32 `json:"desiredModelUnits" xml:"desiredModelUnits"`
+FailureMessage string `json:"failureMessage" xml:"failureMessage"`
+FoundationModelArn string `json:"foundationModelArn" xml:"foundationModelArn"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelUnits int32 `json:"modelUnits" xml:"modelUnits"`
+ProvisionedModelArn string `json:"provisionedModelArn" xml:"provisionedModelArn"`
+ProvisionedModelName string `json:"provisionedModelName" xml:"provisionedModelName"`
+Status string `json:"status" xml:"status"`
 }
 
 type GetResourcePolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type GetResourcePolicyResponse struct {
-	ResourcePolicy string `json:"resourcePolicy" xml:"resourcePolicy"`
+ResourcePolicy string `json:"resourcePolicy" xml:"resourcePolicy"`
 }
 
 type GetUseCaseForModelAccessRequest struct {
 }
 
 type GetUseCaseForModelAccessResponse struct {
-	FormData []byte `json:"formData" xml:"formData"`
+FormData []byte `json:"formData" xml:"formData"`
 }
 
 type GuardrailAutomatedReasoningPolicy struct {
-	ConfidenceThreshold float64                         `json:"confidenceThreshold" xml:"confidenceThreshold"`
-	Policies            AutomatedReasoningPolicyArnList `json:"policies" xml:"policies"`
+ConfidenceThreshold float64 `json:"confidenceThreshold" xml:"confidenceThreshold"`
+Policies AutomatedReasoningPolicyArnList `json:"policies" xml:"policies"`
 }
 
 type GuardrailAutomatedReasoningPolicyConfig struct {
-	ConfidenceThreshold float64                         `json:"confidenceThreshold" xml:"confidenceThreshold"`
-	Policies            AutomatedReasoningPolicyArnList `json:"policies" xml:"policies"`
+ConfidenceThreshold float64 `json:"confidenceThreshold" xml:"confidenceThreshold"`
+Policies AutomatedReasoningPolicyArnList `json:"policies" xml:"policies"`
 }
 
 type GuardrailConfiguration struct {
-	GuardrailId      string `json:"guardrailId" xml:"guardrailId"`
-	GuardrailVersion string `json:"guardrailVersion" xml:"guardrailVersion"`
+GuardrailId string `json:"guardrailId" xml:"guardrailId"`
+GuardrailVersion string `json:"guardrailVersion" xml:"guardrailVersion"`
 }
 
 type GuardrailContentFilter struct {
-	InputAction      string              `json:"inputAction" xml:"inputAction"`
-	InputEnabled     bool                `json:"inputEnabled" xml:"inputEnabled"`
-	InputModalities  GuardrailModalities `json:"inputModalities" xml:"inputModalities"`
-	InputStrength    string              `json:"inputStrength" xml:"inputStrength"`
-	OutputAction     string              `json:"outputAction" xml:"outputAction"`
-	OutputEnabled    bool                `json:"outputEnabled" xml:"outputEnabled"`
-	OutputModalities GuardrailModalities `json:"outputModalities" xml:"outputModalities"`
-	OutputStrength   string              `json:"outputStrength" xml:"outputStrength"`
-	Type             string              `json:"type" xml:"type"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+InputModalities GuardrailModalities `json:"inputModalities" xml:"inputModalities"`
+InputStrength string `json:"inputStrength" xml:"inputStrength"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+OutputModalities GuardrailModalities `json:"outputModalities" xml:"outputModalities"`
+OutputStrength string `json:"outputStrength" xml:"outputStrength"`
+Type string `json:"type" xml:"type"`
 }
 
 type GuardrailContentFilterConfig struct {
-	InputAction      string              `json:"inputAction" xml:"inputAction"`
-	InputEnabled     bool                `json:"inputEnabled" xml:"inputEnabled"`
-	InputModalities  GuardrailModalities `json:"inputModalities" xml:"inputModalities"`
-	InputStrength    string              `json:"inputStrength" xml:"inputStrength"`
-	OutputAction     string              `json:"outputAction" xml:"outputAction"`
-	OutputEnabled    bool                `json:"outputEnabled" xml:"outputEnabled"`
-	OutputModalities GuardrailModalities `json:"outputModalities" xml:"outputModalities"`
-	OutputStrength   string              `json:"outputStrength" xml:"outputStrength"`
-	Type             string              `json:"type" xml:"type"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+InputModalities GuardrailModalities `json:"inputModalities" xml:"inputModalities"`
+InputStrength string `json:"inputStrength" xml:"inputStrength"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+OutputModalities GuardrailModalities `json:"outputModalities" xml:"outputModalities"`
+OutputStrength string `json:"outputStrength" xml:"outputStrength"`
+Type string `json:"type" xml:"type"`
 }
 
 type GuardrailContentFiltersTier struct {
-	TierName string `json:"tierName" xml:"tierName"`
+TierName string `json:"tierName" xml:"tierName"`
 }
 
 type GuardrailContentFiltersTierConfig struct {
-	TierName string `json:"tierName" xml:"tierName"`
+TierName string `json:"tierName" xml:"tierName"`
 }
 
 type GuardrailContentPolicy struct {
-	Filters GuardrailContentFilters      `json:"filters" xml:"filters"`
-	Tier    *GuardrailContentFiltersTier `json:"tier" xml:"tier"`
+Filters GuardrailContentFilters `json:"filters" xml:"filters"`
+Tier *GuardrailContentFiltersTier `json:"tier" xml:"tier"`
 }
 
 type GuardrailContentPolicyConfig struct {
-	FiltersConfig GuardrailContentFiltersConfig      `json:"filtersConfig" xml:"filtersConfig"`
-	TierConfig    *GuardrailContentFiltersTierConfig `json:"tierConfig" xml:"tierConfig"`
+FiltersConfig GuardrailContentFiltersConfig `json:"filtersConfig" xml:"filtersConfig"`
+TierConfig *GuardrailContentFiltersTierConfig `json:"tierConfig" xml:"tierConfig"`
 }
 
 type GuardrailContextualGroundingFilter struct {
-	Action    string  `json:"action" xml:"action"`
-	Enabled   bool    `json:"enabled" xml:"enabled"`
-	Threshold float64 `json:"threshold" xml:"threshold"`
-	Type      string  `json:"type" xml:"type"`
+Action string `json:"action" xml:"action"`
+Enabled bool `json:"enabled" xml:"enabled"`
+Threshold float64 `json:"threshold" xml:"threshold"`
+Type string `json:"type" xml:"type"`
 }
 
 type GuardrailContextualGroundingFilterConfig struct {
-	Action    string  `json:"action" xml:"action"`
-	Enabled   bool    `json:"enabled" xml:"enabled"`
-	Threshold float64 `json:"threshold" xml:"threshold"`
-	Type      string  `json:"type" xml:"type"`
+Action string `json:"action" xml:"action"`
+Enabled bool `json:"enabled" xml:"enabled"`
+Threshold float64 `json:"threshold" xml:"threshold"`
+Type string `json:"type" xml:"type"`
 }
 
 type GuardrailContextualGroundingPolicy struct {
-	Filters GuardrailContextualGroundingFilters `json:"filters" xml:"filters"`
+Filters GuardrailContextualGroundingFilters `json:"filters" xml:"filters"`
 }
 
 type GuardrailContextualGroundingPolicyConfig struct {
-	FiltersConfig GuardrailContextualGroundingFiltersConfig `json:"filtersConfig" xml:"filtersConfig"`
+FiltersConfig GuardrailContextualGroundingFiltersConfig `json:"filtersConfig" xml:"filtersConfig"`
 }
 
 type GuardrailCrossRegionConfig struct {
-	GuardrailProfileIdentifier string `json:"guardrailProfileIdentifier" xml:"guardrailProfileIdentifier"`
+GuardrailProfileIdentifier string `json:"guardrailProfileIdentifier" xml:"guardrailProfileIdentifier"`
 }
 
 type GuardrailCrossRegionDetails struct {
-	GuardrailProfileArn string `json:"guardrailProfileArn" xml:"guardrailProfileArn"`
-	GuardrailProfileId  string `json:"guardrailProfileId" xml:"guardrailProfileId"`
+GuardrailProfileArn string `json:"guardrailProfileArn" xml:"guardrailProfileArn"`
+GuardrailProfileId string `json:"guardrailProfileId" xml:"guardrailProfileId"`
 }
 
 type GuardrailManagedWords struct {
-	InputAction   string `json:"inputAction" xml:"inputAction"`
-	InputEnabled  bool   `json:"inputEnabled" xml:"inputEnabled"`
-	OutputAction  string `json:"outputAction" xml:"outputAction"`
-	OutputEnabled bool   `json:"outputEnabled" xml:"outputEnabled"`
-	Type          string `json:"type" xml:"type"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+Type string `json:"type" xml:"type"`
 }
 
 type GuardrailManagedWordsConfig struct {
-	InputAction   string `json:"inputAction" xml:"inputAction"`
-	InputEnabled  bool   `json:"inputEnabled" xml:"inputEnabled"`
-	OutputAction  string `json:"outputAction" xml:"outputAction"`
-	OutputEnabled bool   `json:"outputEnabled" xml:"outputEnabled"`
-	Type          string `json:"type" xml:"type"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+Type string `json:"type" xml:"type"`
 }
 
 type GuardrailPiiEntity struct {
-	Action        string `json:"action" xml:"action"`
-	InputAction   string `json:"inputAction" xml:"inputAction"`
-	InputEnabled  bool   `json:"inputEnabled" xml:"inputEnabled"`
-	OutputAction  string `json:"outputAction" xml:"outputAction"`
-	OutputEnabled bool   `json:"outputEnabled" xml:"outputEnabled"`
-	Type          string `json:"type" xml:"type"`
+Action string `json:"action" xml:"action"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+Type string `json:"type" xml:"type"`
 }
 
 type GuardrailPiiEntityConfig struct {
-	Action        string `json:"action" xml:"action"`
-	InputAction   string `json:"inputAction" xml:"inputAction"`
-	InputEnabled  bool   `json:"inputEnabled" xml:"inputEnabled"`
-	OutputAction  string `json:"outputAction" xml:"outputAction"`
-	OutputEnabled bool   `json:"outputEnabled" xml:"outputEnabled"`
-	Type          string `json:"type" xml:"type"`
+Action string `json:"action" xml:"action"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+Type string `json:"type" xml:"type"`
 }
 
 type GuardrailRegex struct {
-	Action        string `json:"action" xml:"action"`
-	Description   string `json:"description" xml:"description"`
-	InputAction   string `json:"inputAction" xml:"inputAction"`
-	InputEnabled  bool   `json:"inputEnabled" xml:"inputEnabled"`
-	Name          string `json:"name" xml:"name"`
-	OutputAction  string `json:"outputAction" xml:"outputAction"`
-	OutputEnabled bool   `json:"outputEnabled" xml:"outputEnabled"`
-	Pattern       string `json:"pattern" xml:"pattern"`
+Action string `json:"action" xml:"action"`
+Description string `json:"description" xml:"description"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+Name string `json:"name" xml:"name"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+Pattern string `json:"pattern" xml:"pattern"`
 }
 
 type GuardrailRegexConfig struct {
-	Action        string `json:"action" xml:"action"`
-	Description   string `json:"description" xml:"description"`
-	InputAction   string `json:"inputAction" xml:"inputAction"`
-	InputEnabled  bool   `json:"inputEnabled" xml:"inputEnabled"`
-	Name          string `json:"name" xml:"name"`
-	OutputAction  string `json:"outputAction" xml:"outputAction"`
-	OutputEnabled bool   `json:"outputEnabled" xml:"outputEnabled"`
-	Pattern       string `json:"pattern" xml:"pattern"`
+Action string `json:"action" xml:"action"`
+Description string `json:"description" xml:"description"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+Name string `json:"name" xml:"name"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+Pattern string `json:"pattern" xml:"pattern"`
 }
 
 type GuardrailSensitiveInformationPolicy struct {
-	PiiEntities GuardrailPiiEntities `json:"piiEntities" xml:"piiEntities"`
-	Regexes     GuardrailRegexes     `json:"regexes" xml:"regexes"`
+PiiEntities GuardrailPiiEntities `json:"piiEntities" xml:"piiEntities"`
+Regexes GuardrailRegexes `json:"regexes" xml:"regexes"`
 }
 
 type GuardrailSensitiveInformationPolicyConfig struct {
-	PiiEntitiesConfig GuardrailPiiEntitiesConfig `json:"piiEntitiesConfig" xml:"piiEntitiesConfig"`
-	RegexesConfig     GuardrailRegexesConfig     `json:"regexesConfig" xml:"regexesConfig"`
+PiiEntitiesConfig GuardrailPiiEntitiesConfig `json:"piiEntitiesConfig" xml:"piiEntitiesConfig"`
+RegexesConfig GuardrailRegexesConfig `json:"regexesConfig" xml:"regexesConfig"`
 }
 
 type GuardrailSummary struct {
-	Arn                string                       `json:"arn" xml:"arn"`
-	CreatedAt          time.Time                    `json:"createdAt" xml:"createdAt"`
-	CrossRegionDetails *GuardrailCrossRegionDetails `json:"crossRegionDetails" xml:"crossRegionDetails"`
-	Description        string                       `json:"description" xml:"description"`
-	Id                 string                       `json:"id" xml:"id"`
-	Name               string                       `json:"name" xml:"name"`
-	Status             string                       `json:"status" xml:"status"`
-	UpdatedAt          time.Time                    `json:"updatedAt" xml:"updatedAt"`
-	Version            string                       `json:"version" xml:"version"`
+Arn string `json:"arn" xml:"arn"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+CrossRegionDetails *GuardrailCrossRegionDetails `json:"crossRegionDetails" xml:"crossRegionDetails"`
+Description string `json:"description" xml:"description"`
+Id string `json:"id" xml:"id"`
+Name string `json:"name" xml:"name"`
+Status string `json:"status" xml:"status"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
+Version string `json:"version" xml:"version"`
 }
 
 type GuardrailTopic struct {
-	Definition    string                 `json:"definition" xml:"definition"`
-	Examples      GuardrailTopicExamples `json:"examples" xml:"examples"`
-	InputAction   string                 `json:"inputAction" xml:"inputAction"`
-	InputEnabled  bool                   `json:"inputEnabled" xml:"inputEnabled"`
-	Name          string                 `json:"name" xml:"name"`
-	OutputAction  string                 `json:"outputAction" xml:"outputAction"`
-	OutputEnabled bool                   `json:"outputEnabled" xml:"outputEnabled"`
-	Type          string                 `json:"type" xml:"type"`
+Definition string `json:"definition" xml:"definition"`
+Examples GuardrailTopicExamples `json:"examples" xml:"examples"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+Name string `json:"name" xml:"name"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+Type string `json:"type" xml:"type"`
 }
 
 type GuardrailTopicConfig struct {
-	Definition    string                 `json:"definition" xml:"definition"`
-	Examples      GuardrailTopicExamples `json:"examples" xml:"examples"`
-	InputAction   string                 `json:"inputAction" xml:"inputAction"`
-	InputEnabled  bool                   `json:"inputEnabled" xml:"inputEnabled"`
-	Name          string                 `json:"name" xml:"name"`
-	OutputAction  string                 `json:"outputAction" xml:"outputAction"`
-	OutputEnabled bool                   `json:"outputEnabled" xml:"outputEnabled"`
-	Type          string                 `json:"type" xml:"type"`
+Definition string `json:"definition" xml:"definition"`
+Examples GuardrailTopicExamples `json:"examples" xml:"examples"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+Name string `json:"name" xml:"name"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+Type string `json:"type" xml:"type"`
 }
 
 type GuardrailTopicPolicy struct {
-	Tier   *GuardrailTopicsTier `json:"tier" xml:"tier"`
-	Topics GuardrailTopics      `json:"topics" xml:"topics"`
+Tier *GuardrailTopicsTier `json:"tier" xml:"tier"`
+Topics GuardrailTopics `json:"topics" xml:"topics"`
 }
 
 type GuardrailTopicPolicyConfig struct {
-	TierConfig   *GuardrailTopicsTierConfig `json:"tierConfig" xml:"tierConfig"`
-	TopicsConfig GuardrailTopicsConfig      `json:"topicsConfig" xml:"topicsConfig"`
+TierConfig *GuardrailTopicsTierConfig `json:"tierConfig" xml:"tierConfig"`
+TopicsConfig GuardrailTopicsConfig `json:"topicsConfig" xml:"topicsConfig"`
 }
 
 type GuardrailTopicsTier struct {
-	TierName string `json:"tierName" xml:"tierName"`
+TierName string `json:"tierName" xml:"tierName"`
 }
 
 type GuardrailTopicsTierConfig struct {
-	TierName string `json:"tierName" xml:"tierName"`
+TierName string `json:"tierName" xml:"tierName"`
 }
 
 type GuardrailWord struct {
-	InputAction   string `json:"inputAction" xml:"inputAction"`
-	InputEnabled  bool   `json:"inputEnabled" xml:"inputEnabled"`
-	OutputAction  string `json:"outputAction" xml:"outputAction"`
-	OutputEnabled bool   `json:"outputEnabled" xml:"outputEnabled"`
-	Text          string `json:"text" xml:"text"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+Text string `json:"text" xml:"text"`
 }
 
 type GuardrailWordConfig struct {
-	InputAction   string `json:"inputAction" xml:"inputAction"`
-	InputEnabled  bool   `json:"inputEnabled" xml:"inputEnabled"`
-	OutputAction  string `json:"outputAction" xml:"outputAction"`
-	OutputEnabled bool   `json:"outputEnabled" xml:"outputEnabled"`
-	Text          string `json:"text" xml:"text"`
+InputAction string `json:"inputAction" xml:"inputAction"`
+InputEnabled bool `json:"inputEnabled" xml:"inputEnabled"`
+OutputAction string `json:"outputAction" xml:"outputAction"`
+OutputEnabled bool `json:"outputEnabled" xml:"outputEnabled"`
+Text string `json:"text" xml:"text"`
 }
 
 type GuardrailWordPolicy struct {
-	ManagedWordLists GuardrailManagedWordLists `json:"managedWordLists" xml:"managedWordLists"`
-	Words            GuardrailWords            `json:"words" xml:"words"`
+ManagedWordLists GuardrailManagedWordLists `json:"managedWordLists" xml:"managedWordLists"`
+Words GuardrailWords `json:"words" xml:"words"`
 }
 
 type GuardrailWordPolicyConfig struct {
-	ManagedWordListsConfig GuardrailManagedWordListsConfig `json:"managedWordListsConfig" xml:"managedWordListsConfig"`
-	WordsConfig            GuardrailWordsConfig            `json:"wordsConfig" xml:"wordsConfig"`
+ManagedWordListsConfig GuardrailManagedWordListsConfig `json:"managedWordListsConfig" xml:"managedWordListsConfig"`
+WordsConfig GuardrailWordsConfig `json:"wordsConfig" xml:"wordsConfig"`
 }
 
 type HumanEvaluationConfig struct {
-	CustomMetrics        HumanEvaluationCustomMetrics   `json:"customMetrics" xml:"customMetrics"`
-	DatasetMetricConfigs EvaluationDatasetMetricConfigs `json:"datasetMetricConfigs" xml:"datasetMetricConfigs"`
-	HumanWorkflowConfig  *HumanWorkflowConfig           `json:"humanWorkflowConfig" xml:"humanWorkflowConfig"`
+CustomMetrics HumanEvaluationCustomMetrics `json:"customMetrics" xml:"customMetrics"`
+DatasetMetricConfigs EvaluationDatasetMetricConfigs `json:"datasetMetricConfigs" xml:"datasetMetricConfigs"`
+HumanWorkflowConfig *HumanWorkflowConfig `json:"humanWorkflowConfig" xml:"humanWorkflowConfig"`
 }
 
 type HumanEvaluationCustomMetric struct {
-	Description  string `json:"description" xml:"description"`
-	Name         string `json:"name" xml:"name"`
-	RatingMethod string `json:"ratingMethod" xml:"ratingMethod"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+RatingMethod string `json:"ratingMethod" xml:"ratingMethod"`
 }
 
 type HumanWorkflowConfig struct {
-	FlowDefinitionArn string `json:"flowDefinitionArn" xml:"flowDefinitionArn"`
-	Instructions      string `json:"instructions" xml:"instructions"`
+FlowDefinitionArn string `json:"flowDefinitionArn" xml:"flowDefinitionArn"`
+Instructions string `json:"instructions" xml:"instructions"`
 }
 
 type ImplicitFilterConfiguration struct {
-	MetadataAttributes MetadataAttributeSchemaList `json:"metadataAttributes" xml:"metadataAttributes"`
-	ModelArn           string                      `json:"modelArn" xml:"modelArn"`
+MetadataAttributes MetadataAttributeSchemaList `json:"metadataAttributes" xml:"metadataAttributes"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
 }
 
 type ImportedModelSummary struct {
-	CreationTime      time.Time `json:"creationTime" xml:"creationTime"`
-	InstructSupported bool      `json:"instructSupported" xml:"instructSupported"`
-	ModelArchitecture string    `json:"modelArchitecture" xml:"modelArchitecture"`
-	ModelArn          string    `json:"modelArn" xml:"modelArn"`
-	ModelName         string    `json:"modelName" xml:"modelName"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+InstructSupported bool `json:"instructSupported" xml:"instructSupported"`
+ModelArchitecture string `json:"modelArchitecture" xml:"modelArchitecture"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelName string `json:"modelName" xml:"modelName"`
 }
 
 type InferenceProfileModel struct {
-	ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
 }
 
 type InferenceProfileSummary struct {
-	CreatedAt            time.Time              `json:"createdAt" xml:"createdAt"`
-	Description          string                 `json:"description" xml:"description"`
-	InferenceProfileArn  string                 `json:"inferenceProfileArn" xml:"inferenceProfileArn"`
-	InferenceProfileId   string                 `json:"inferenceProfileId" xml:"inferenceProfileId"`
-	InferenceProfileName string                 `json:"inferenceProfileName" xml:"inferenceProfileName"`
-	Models               InferenceProfileModels `json:"models" xml:"models"`
-	Status               string                 `json:"status" xml:"status"`
-	Type                 string                 `json:"type" xml:"type"`
-	UpdatedAt            time.Time              `json:"updatedAt" xml:"updatedAt"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+Description string `json:"description" xml:"description"`
+InferenceProfileArn string `json:"inferenceProfileArn" xml:"inferenceProfileArn"`
+InferenceProfileId string `json:"inferenceProfileId" xml:"inferenceProfileId"`
+InferenceProfileName string `json:"inferenceProfileName" xml:"inferenceProfileName"`
+Models InferenceProfileModels `json:"models" xml:"models"`
+Status string `json:"status" xml:"status"`
+Type string `json:"type" xml:"type"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type InvocationLogsConfig struct {
-	InvocationLogSource    interface{} `json:"invocationLogSource" xml:"invocationLogSource"`
-	RequestMetadataFilters interface{} `json:"requestMetadataFilters" xml:"requestMetadataFilters"`
-	UsePromptResponse      bool        `json:"usePromptResponse" xml:"usePromptResponse"`
+InvocationLogSource interface{} `json:"invocationLogSource" xml:"invocationLogSource"`
+RequestMetadataFilters interface{} `json:"requestMetadataFilters" xml:"requestMetadataFilters"`
+UsePromptResponse bool `json:"usePromptResponse" xml:"usePromptResponse"`
 }
 
 type KbInferenceConfig struct {
-	TextInferenceConfig *TextInferenceConfig `json:"textInferenceConfig" xml:"textInferenceConfig"`
+TextInferenceConfig *TextInferenceConfig `json:"textInferenceConfig" xml:"textInferenceConfig"`
 }
 
 type KnowledgeBaseRetrievalConfiguration struct {
-	VectorSearchConfiguration *KnowledgeBaseVectorSearchConfiguration `json:"vectorSearchConfiguration" xml:"vectorSearchConfiguration"`
+VectorSearchConfiguration *KnowledgeBaseVectorSearchConfiguration `json:"vectorSearchConfiguration" xml:"vectorSearchConfiguration"`
 }
 
 type KnowledgeBaseRetrieveAndGenerateConfiguration struct {
-	GenerationConfiguration    *GenerationConfiguration             `json:"generationConfiguration" xml:"generationConfiguration"`
-	KnowledgeBaseId            string                               `json:"knowledgeBaseId" xml:"knowledgeBaseId"`
-	ModelArn                   string                               `json:"modelArn" xml:"modelArn"`
-	OrchestrationConfiguration *OrchestrationConfiguration          `json:"orchestrationConfiguration" xml:"orchestrationConfiguration"`
-	RetrievalConfiguration     *KnowledgeBaseRetrievalConfiguration `json:"retrievalConfiguration" xml:"retrievalConfiguration"`
+GenerationConfiguration *GenerationConfiguration `json:"generationConfiguration" xml:"generationConfiguration"`
+KnowledgeBaseId string `json:"knowledgeBaseId" xml:"knowledgeBaseId"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+OrchestrationConfiguration *OrchestrationConfiguration `json:"orchestrationConfiguration" xml:"orchestrationConfiguration"`
+RetrievalConfiguration *KnowledgeBaseRetrievalConfiguration `json:"retrievalConfiguration" xml:"retrievalConfiguration"`
 }
 
 type KnowledgeBaseVectorSearchConfiguration struct {
-	Filter                      interface{}                         `json:"filter" xml:"filter"`
-	ImplicitFilterConfiguration *ImplicitFilterConfiguration        `json:"implicitFilterConfiguration" xml:"implicitFilterConfiguration"`
-	NumberOfResults             int32                               `json:"numberOfResults" xml:"numberOfResults"`
-	OverrideSearchType          string                              `json:"overrideSearchType" xml:"overrideSearchType"`
-	RerankingConfiguration      *VectorSearchRerankingConfiguration `json:"rerankingConfiguration" xml:"rerankingConfiguration"`
+Filter interface{} `json:"filter" xml:"filter"`
+ImplicitFilterConfiguration *ImplicitFilterConfiguration `json:"implicitFilterConfiguration" xml:"implicitFilterConfiguration"`
+NumberOfResults int32 `json:"numberOfResults" xml:"numberOfResults"`
+OverrideSearchType string `json:"overrideSearchType" xml:"overrideSearchType"`
+RerankingConfiguration *VectorSearchRerankingConfiguration `json:"rerankingConfiguration" xml:"rerankingConfiguration"`
 }
 
 type LambdaGraderConfig struct {
-	LambdaArn string `json:"lambdaArn" xml:"lambdaArn"`
+LambdaArn string `json:"lambdaArn" xml:"lambdaArn"`
 }
 
 type LegalTerm struct {
-	Url string `json:"url" xml:"url"`
+Url string `json:"url" xml:"url"`
 }
 
 type ListAutomatedReasoningPoliciesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	PolicyArn  string `json:"policyArn" xml:"policyArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type ListAutomatedReasoningPoliciesResponse struct {
-	AutomatedReasoningPolicySummaries AutomatedReasoningPolicySummaries `json:"automatedReasoningPolicySummaries" xml:"automatedReasoningPolicySummaries"`
-	NextToken                         string                            `json:"nextToken" xml:"nextToken"`
+AutomatedReasoningPolicySummaries AutomatedReasoningPolicySummaries `json:"automatedReasoningPolicySummaries" xml:"automatedReasoningPolicySummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListAutomatedReasoningPolicyBuildWorkflowsRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	PolicyArn  string `json:"policyArn" xml:"policyArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type ListAutomatedReasoningPolicyBuildWorkflowsResponse struct {
-	AutomatedReasoningPolicyBuildWorkflowSummaries AutomatedReasoningPolicyBuildWorkflowSummaries `json:"automatedReasoningPolicyBuildWorkflowSummaries" xml:"automatedReasoningPolicyBuildWorkflowSummaries"`
-	NextToken                                      string                                         `json:"nextToken" xml:"nextToken"`
+AutomatedReasoningPolicyBuildWorkflowSummaries AutomatedReasoningPolicyBuildWorkflowSummaries `json:"automatedReasoningPolicyBuildWorkflowSummaries" xml:"automatedReasoningPolicyBuildWorkflowSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListAutomatedReasoningPolicyTestCasesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	PolicyArn  string `json:"policyArn" xml:"policyArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type ListAutomatedReasoningPolicyTestCasesResponse struct {
-	NextToken string                               `json:"nextToken" xml:"nextToken"`
-	TestCases AutomatedReasoningPolicyTestCaseList `json:"testCases" xml:"testCases"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+TestCases AutomatedReasoningPolicyTestCaseList `json:"testCases" xml:"testCases"`
 }
 
 type ListAutomatedReasoningPolicyTestResultsRequest struct {
-	BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	MaxResults      int32  `json:"maxResults" xml:"maxResults"`
-	NextToken       string `json:"nextToken" xml:"nextToken"`
-	PolicyArn       string `json:"policyArn" xml:"policyArn"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type ListAutomatedReasoningPolicyTestResultsResponse struct {
-	NextToken   string                           `json:"nextToken" xml:"nextToken"`
-	TestResults AutomatedReasoningPolicyTestList `json:"testResults" xml:"testResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+TestResults AutomatedReasoningPolicyTestList `json:"testResults" xml:"testResults"`
 }
 
 type ListCustomModelDeploymentsRequest struct {
-	CreatedAfter   time.Time `json:"createdAfter" xml:"createdAfter"`
-	CreatedBefore  time.Time `json:"createdBefore" xml:"createdBefore"`
-	MaxResults     int32     `json:"maxResults" xml:"maxResults"`
-	ModelArnEquals string    `json:"modelArnEquals" xml:"modelArnEquals"`
-	NameContains   string    `json:"nameContains" xml:"nameContains"`
-	NextToken      string    `json:"nextToken" xml:"nextToken"`
-	SortBy         string    `json:"sortBy" xml:"sortBy"`
-	SortOrder      string    `json:"sortOrder" xml:"sortOrder"`
-	StatusEquals   string    `json:"statusEquals" xml:"statusEquals"`
+CreatedAfter time.Time `json:"createdAfter" xml:"createdAfter"`
+CreatedBefore time.Time `json:"createdBefore" xml:"createdBefore"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+ModelArnEquals string `json:"modelArnEquals" xml:"modelArnEquals"`
+NameContains string `json:"nameContains" xml:"nameContains"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
+StatusEquals string `json:"statusEquals" xml:"statusEquals"`
 }
 
 type ListCustomModelDeploymentsResponse struct {
-	ModelDeploymentSummaries CustomModelDeploymentSummaryList `json:"modelDeploymentSummaries" xml:"modelDeploymentSummaries"`
-	NextToken                string                           `json:"nextToken" xml:"nextToken"`
+ModelDeploymentSummaries CustomModelDeploymentSummaryList `json:"modelDeploymentSummaries" xml:"modelDeploymentSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListCustomModelsRequest struct {
-	BaseModelArnEquals       string    `json:"baseModelArnEquals" xml:"baseModelArnEquals"`
-	CreationTimeAfter        time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
-	CreationTimeBefore       time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
-	FoundationModelArnEquals string    `json:"foundationModelArnEquals" xml:"foundationModelArnEquals"`
-	IsOwned                  bool      `json:"isOwned" xml:"isOwned"`
-	MaxResults               int32     `json:"maxResults" xml:"maxResults"`
-	ModelStatus              string    `json:"modelStatus" xml:"modelStatus"`
-	NameContains             string    `json:"nameContains" xml:"nameContains"`
-	NextToken                string    `json:"nextToken" xml:"nextToken"`
-	SortBy                   string    `json:"sortBy" xml:"sortBy"`
-	SortOrder                string    `json:"sortOrder" xml:"sortOrder"`
+BaseModelArnEquals string `json:"baseModelArnEquals" xml:"baseModelArnEquals"`
+CreationTimeAfter time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
+CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
+FoundationModelArnEquals string `json:"foundationModelArnEquals" xml:"foundationModelArnEquals"`
+IsOwned bool `json:"isOwned" xml:"isOwned"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+ModelStatus string `json:"modelStatus" xml:"modelStatus"`
+NameContains string `json:"nameContains" xml:"nameContains"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListCustomModelsResponse struct {
-	ModelSummaries CustomModelSummaryList `json:"modelSummaries" xml:"modelSummaries"`
-	NextToken      string                 `json:"nextToken" xml:"nextToken"`
+ModelSummaries CustomModelSummaryList `json:"modelSummaries" xml:"modelSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListEnforcedGuardrailsConfigurationRequest struct {
-	NextToken string `json:"nextToken" xml:"nextToken"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListEnforcedGuardrailsConfigurationResponse struct {
-	GuardrailsConfig AccountEnforcedGuardrailsOutputConfiguration `json:"guardrailsConfig" xml:"guardrailsConfig"`
-	NextToken        string                                       `json:"nextToken" xml:"nextToken"`
+GuardrailsConfig AccountEnforcedGuardrailsOutputConfiguration `json:"guardrailsConfig" xml:"guardrailsConfig"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListEvaluationJobsRequest struct {
-	ApplicationTypeEquals string    `json:"applicationTypeEquals" xml:"applicationTypeEquals"`
-	CreationTimeAfter     time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
-	CreationTimeBefore    time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
-	MaxResults            int32     `json:"maxResults" xml:"maxResults"`
-	NameContains          string    `json:"nameContains" xml:"nameContains"`
-	NextToken             string    `json:"nextToken" xml:"nextToken"`
-	SortBy                string    `json:"sortBy" xml:"sortBy"`
-	SortOrder             string    `json:"sortOrder" xml:"sortOrder"`
-	StatusEquals          string    `json:"statusEquals" xml:"statusEquals"`
+ApplicationTypeEquals string `json:"applicationTypeEquals" xml:"applicationTypeEquals"`
+CreationTimeAfter time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
+CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NameContains string `json:"nameContains" xml:"nameContains"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
+StatusEquals string `json:"statusEquals" xml:"statusEquals"`
 }
 
 type ListEvaluationJobsResponse struct {
-	JobSummaries EvaluationSummaries `json:"jobSummaries" xml:"jobSummaries"`
-	NextToken    string              `json:"nextToken" xml:"nextToken"`
+JobSummaries EvaluationSummaries `json:"jobSummaries" xml:"jobSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListFoundationModelAgreementOffersRequest struct {
-	ModelId   string `json:"modelId" xml:"modelId"`
-	OfferType string `json:"offerType" xml:"offerType"`
+ModelId string `json:"modelId" xml:"modelId"`
+OfferType string `json:"offerType" xml:"offerType"`
 }
 
 type ListFoundationModelAgreementOffersResponse struct {
-	ModelId string `json:"modelId" xml:"modelId"`
-	Offers  Offers `json:"offers" xml:"offers"`
+ModelId string `json:"modelId" xml:"modelId"`
+Offers Offers `json:"offers" xml:"offers"`
 }
 
 type ListFoundationModelsRequest struct {
-	ByCustomizationType string `json:"byCustomizationType" xml:"byCustomizationType"`
-	ByInferenceType     string `json:"byInferenceType" xml:"byInferenceType"`
-	ByOutputModality    string `json:"byOutputModality" xml:"byOutputModality"`
-	ByProvider          string `json:"byProvider" xml:"byProvider"`
+ByCustomizationType string `json:"byCustomizationType" xml:"byCustomizationType"`
+ByInferenceType string `json:"byInferenceType" xml:"byInferenceType"`
+ByOutputModality string `json:"byOutputModality" xml:"byOutputModality"`
+ByProvider string `json:"byProvider" xml:"byProvider"`
 }
 
 type ListFoundationModelsResponse struct {
-	ModelSummaries FoundationModelSummaryList `json:"modelSummaries" xml:"modelSummaries"`
+ModelSummaries FoundationModelSummaryList `json:"modelSummaries" xml:"modelSummaries"`
 }
 
 type ListGuardrailsRequest struct {
-	GuardrailIdentifier string `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
-	MaxResults          int32  `json:"maxResults" xml:"maxResults"`
-	NextToken           string `json:"nextToken" xml:"nextToken"`
+GuardrailIdentifier string `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListGuardrailsResponse struct {
-	Guardrails GuardrailSummaries `json:"guardrails" xml:"guardrails"`
-	NextToken  string             `json:"nextToken" xml:"nextToken"`
+Guardrails GuardrailSummaries `json:"guardrails" xml:"guardrails"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListImportedModelsRequest struct {
-	CreationTimeAfter  time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
-	CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
-	MaxResults         int32     `json:"maxResults" xml:"maxResults"`
-	NameContains       string    `json:"nameContains" xml:"nameContains"`
-	NextToken          string    `json:"nextToken" xml:"nextToken"`
-	SortBy             string    `json:"sortBy" xml:"sortBy"`
-	SortOrder          string    `json:"sortOrder" xml:"sortOrder"`
+CreationTimeAfter time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
+CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NameContains string `json:"nameContains" xml:"nameContains"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
 }
 
 type ListImportedModelsResponse struct {
-	ModelSummaries ImportedModelSummaryList `json:"modelSummaries" xml:"modelSummaries"`
-	NextToken      string                   `json:"nextToken" xml:"nextToken"`
+ModelSummaries ImportedModelSummaryList `json:"modelSummaries" xml:"modelSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListInferenceProfilesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	TypeEquals string `json:"typeEquals" xml:"typeEquals"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+TypeEquals string `json:"typeEquals" xml:"typeEquals"`
 }
 
 type ListInferenceProfilesResponse struct {
-	InferenceProfileSummaries InferenceProfileSummaries `json:"inferenceProfileSummaries" xml:"inferenceProfileSummaries"`
-	NextToken                 string                    `json:"nextToken" xml:"nextToken"`
+InferenceProfileSummaries InferenceProfileSummaries `json:"inferenceProfileSummaries" xml:"inferenceProfileSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListMarketplaceModelEndpointsRequest struct {
-	MaxResults        int32  `json:"maxResults" xml:"maxResults"`
-	ModelSourceEquals string `json:"modelSourceEquals" xml:"modelSourceEquals"`
-	NextToken         string `json:"nextToken" xml:"nextToken"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+ModelSourceEquals string `json:"modelSourceEquals" xml:"modelSourceEquals"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListMarketplaceModelEndpointsResponse struct {
-	MarketplaceModelEndpoints MarketplaceModelEndpointSummaries `json:"marketplaceModelEndpoints" xml:"marketplaceModelEndpoints"`
-	NextToken                 string                            `json:"nextToken" xml:"nextToken"`
+MarketplaceModelEndpoints MarketplaceModelEndpointSummaries `json:"marketplaceModelEndpoints" xml:"marketplaceModelEndpoints"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListModelCopyJobsRequest struct {
-	CreationTimeAfter       time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
-	CreationTimeBefore      time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
-	MaxResults              int32     `json:"maxResults" xml:"maxResults"`
-	NextToken               string    `json:"nextToken" xml:"nextToken"`
-	SortBy                  string    `json:"sortBy" xml:"sortBy"`
-	SortOrder               string    `json:"sortOrder" xml:"sortOrder"`
-	SourceAccountEquals     string    `json:"sourceAccountEquals" xml:"sourceAccountEquals"`
-	SourceModelArnEquals    string    `json:"sourceModelArnEquals" xml:"sourceModelArnEquals"`
-	StatusEquals            string    `json:"statusEquals" xml:"statusEquals"`
-	TargetModelNameContains string    `json:"targetModelNameContains" xml:"targetModelNameContains"`
+CreationTimeAfter time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
+CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
+SourceAccountEquals string `json:"sourceAccountEquals" xml:"sourceAccountEquals"`
+SourceModelArnEquals string `json:"sourceModelArnEquals" xml:"sourceModelArnEquals"`
+StatusEquals string `json:"statusEquals" xml:"statusEquals"`
+TargetModelNameContains string `json:"targetModelNameContains" xml:"targetModelNameContains"`
 }
 
 type ListModelCopyJobsResponse struct {
-	ModelCopyJobSummaries ModelCopyJobSummaries `json:"modelCopyJobSummaries" xml:"modelCopyJobSummaries"`
-	NextToken             string                `json:"nextToken" xml:"nextToken"`
+ModelCopyJobSummaries ModelCopyJobSummaries `json:"modelCopyJobSummaries" xml:"modelCopyJobSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListModelCustomizationJobsRequest struct {
-	CreationTimeAfter  time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
-	CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
-	MaxResults         int32     `json:"maxResults" xml:"maxResults"`
-	NameContains       string    `json:"nameContains" xml:"nameContains"`
-	NextToken          string    `json:"nextToken" xml:"nextToken"`
-	SortBy             string    `json:"sortBy" xml:"sortBy"`
-	SortOrder          string    `json:"sortOrder" xml:"sortOrder"`
-	StatusEquals       string    `json:"statusEquals" xml:"statusEquals"`
+CreationTimeAfter time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
+CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NameContains string `json:"nameContains" xml:"nameContains"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
+StatusEquals string `json:"statusEquals" xml:"statusEquals"`
 }
 
 type ListModelCustomizationJobsResponse struct {
-	ModelCustomizationJobSummaries ModelCustomizationJobSummaries `json:"modelCustomizationJobSummaries" xml:"modelCustomizationJobSummaries"`
-	NextToken                      string                         `json:"nextToken" xml:"nextToken"`
+ModelCustomizationJobSummaries ModelCustomizationJobSummaries `json:"modelCustomizationJobSummaries" xml:"modelCustomizationJobSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListModelImportJobsRequest struct {
-	CreationTimeAfter  time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
-	CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
-	MaxResults         int32     `json:"maxResults" xml:"maxResults"`
-	NameContains       string    `json:"nameContains" xml:"nameContains"`
-	NextToken          string    `json:"nextToken" xml:"nextToken"`
-	SortBy             string    `json:"sortBy" xml:"sortBy"`
-	SortOrder          string    `json:"sortOrder" xml:"sortOrder"`
-	StatusEquals       string    `json:"statusEquals" xml:"statusEquals"`
+CreationTimeAfter time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
+CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NameContains string `json:"nameContains" xml:"nameContains"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
+StatusEquals string `json:"statusEquals" xml:"statusEquals"`
 }
 
 type ListModelImportJobsResponse struct {
-	ModelImportJobSummaries ModelImportJobSummaries `json:"modelImportJobSummaries" xml:"modelImportJobSummaries"`
-	NextToken               string                  `json:"nextToken" xml:"nextToken"`
+ModelImportJobSummaries ModelImportJobSummaries `json:"modelImportJobSummaries" xml:"modelImportJobSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListModelInvocationJobsRequest struct {
-	MaxResults       int32     `json:"maxResults" xml:"maxResults"`
-	NameContains     string    `json:"nameContains" xml:"nameContains"`
-	NextToken        string    `json:"nextToken" xml:"nextToken"`
-	SortBy           string    `json:"sortBy" xml:"sortBy"`
-	SortOrder        string    `json:"sortOrder" xml:"sortOrder"`
-	StatusEquals     string    `json:"statusEquals" xml:"statusEquals"`
-	SubmitTimeAfter  time.Time `json:"submitTimeAfter" xml:"submitTimeAfter"`
-	SubmitTimeBefore time.Time `json:"submitTimeBefore" xml:"submitTimeBefore"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NameContains string `json:"nameContains" xml:"nameContains"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
+StatusEquals string `json:"statusEquals" xml:"statusEquals"`
+SubmitTimeAfter time.Time `json:"submitTimeAfter" xml:"submitTimeAfter"`
+SubmitTimeBefore time.Time `json:"submitTimeBefore" xml:"submitTimeBefore"`
 }
 
 type ListModelInvocationJobsResponse struct {
-	InvocationJobSummaries ModelInvocationJobSummaries `json:"invocationJobSummaries" xml:"invocationJobSummaries"`
-	NextToken              string                      `json:"nextToken" xml:"nextToken"`
+InvocationJobSummaries ModelInvocationJobSummaries `json:"invocationJobSummaries" xml:"invocationJobSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListPromptRoutersRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	Type       string `json:"type" xml:"type"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Type string `json:"type" xml:"type"`
 }
 
 type ListPromptRoutersResponse struct {
-	NextToken             string                `json:"nextToken" xml:"nextToken"`
-	PromptRouterSummaries PromptRouterSummaries `json:"promptRouterSummaries" xml:"promptRouterSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PromptRouterSummaries PromptRouterSummaries `json:"promptRouterSummaries" xml:"promptRouterSummaries"`
 }
 
 type ListProvisionedModelThroughputsRequest struct {
-	CreationTimeAfter  time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
-	CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
-	MaxResults         int32     `json:"maxResults" xml:"maxResults"`
-	ModelArnEquals     string    `json:"modelArnEquals" xml:"modelArnEquals"`
-	NameContains       string    `json:"nameContains" xml:"nameContains"`
-	NextToken          string    `json:"nextToken" xml:"nextToken"`
-	SortBy             string    `json:"sortBy" xml:"sortBy"`
-	SortOrder          string    `json:"sortOrder" xml:"sortOrder"`
-	StatusEquals       string    `json:"statusEquals" xml:"statusEquals"`
+CreationTimeAfter time.Time `json:"creationTimeAfter" xml:"creationTimeAfter"`
+CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"creationTimeBefore"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+ModelArnEquals string `json:"modelArnEquals" xml:"modelArnEquals"`
+NameContains string `json:"nameContains" xml:"nameContains"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SortBy string `json:"sortBy" xml:"sortBy"`
+SortOrder string `json:"sortOrder" xml:"sortOrder"`
+StatusEquals string `json:"statusEquals" xml:"statusEquals"`
 }
 
 type ListProvisionedModelThroughputsResponse struct {
-	NextToken                 string                    `json:"nextToken" xml:"nextToken"`
-	ProvisionedModelSummaries ProvisionedModelSummaries `json:"provisionedModelSummaries" xml:"provisionedModelSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ProvisionedModelSummaries ProvisionedModelSummaries `json:"provisionedModelSummaries" xml:"provisionedModelSummaries"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceARN string `json:"resourceARN" xml:"resourceARN"`
+ResourceARN string `json:"resourceARN" xml:"resourceARN"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags TagList `json:"tags" xml:"tags"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type LoggingConfig struct {
-	AudioDataDeliveryEnabled     bool              `json:"audioDataDeliveryEnabled" xml:"audioDataDeliveryEnabled"`
-	CloudWatchConfig             *CloudWatchConfig `json:"cloudWatchConfig" xml:"cloudWatchConfig"`
-	EmbeddingDataDeliveryEnabled bool              `json:"embeddingDataDeliveryEnabled" xml:"embeddingDataDeliveryEnabled"`
-	ImageDataDeliveryEnabled     bool              `json:"imageDataDeliveryEnabled" xml:"imageDataDeliveryEnabled"`
-	S3Config                     *S3Config         `json:"s3Config" xml:"s3Config"`
-	TextDataDeliveryEnabled      bool              `json:"textDataDeliveryEnabled" xml:"textDataDeliveryEnabled"`
-	VideoDataDeliveryEnabled     bool              `json:"videoDataDeliveryEnabled" xml:"videoDataDeliveryEnabled"`
+AudioDataDeliveryEnabled bool `json:"audioDataDeliveryEnabled" xml:"audioDataDeliveryEnabled"`
+CloudWatchConfig *CloudWatchConfig `json:"cloudWatchConfig" xml:"cloudWatchConfig"`
+EmbeddingDataDeliveryEnabled bool `json:"embeddingDataDeliveryEnabled" xml:"embeddingDataDeliveryEnabled"`
+ImageDataDeliveryEnabled bool `json:"imageDataDeliveryEnabled" xml:"imageDataDeliveryEnabled"`
+S3Config *S3Config `json:"s3Config" xml:"s3Config"`
+TextDataDeliveryEnabled bool `json:"textDataDeliveryEnabled" xml:"textDataDeliveryEnabled"`
+VideoDataDeliveryEnabled bool `json:"videoDataDeliveryEnabled" xml:"videoDataDeliveryEnabled"`
 }
 
 type MarketplaceModelEndpoint struct {
-	CreatedAt             time.Time   `json:"createdAt" xml:"createdAt"`
-	EndpointArn           string      `json:"endpointArn" xml:"endpointArn"`
-	EndpointConfig        interface{} `json:"endpointConfig" xml:"endpointConfig"`
-	EndpointStatus        string      `json:"endpointStatus" xml:"endpointStatus"`
-	EndpointStatusMessage string      `json:"endpointStatusMessage" xml:"endpointStatusMessage"`
-	ModelSourceIdentifier string      `json:"modelSourceIdentifier" xml:"modelSourceIdentifier"`
-	Status                string      `json:"status" xml:"status"`
-	StatusMessage         string      `json:"statusMessage" xml:"statusMessage"`
-	UpdatedAt             time.Time   `json:"updatedAt" xml:"updatedAt"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+EndpointArn string `json:"endpointArn" xml:"endpointArn"`
+EndpointConfig interface{} `json:"endpointConfig" xml:"endpointConfig"`
+EndpointStatus string `json:"endpointStatus" xml:"endpointStatus"`
+EndpointStatusMessage string `json:"endpointStatusMessage" xml:"endpointStatusMessage"`
+ModelSourceIdentifier string `json:"modelSourceIdentifier" xml:"modelSourceIdentifier"`
+Status string `json:"status" xml:"status"`
+StatusMessage string `json:"statusMessage" xml:"statusMessage"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type MarketplaceModelEndpointSummary struct {
-	CreatedAt             time.Time `json:"createdAt" xml:"createdAt"`
-	EndpointArn           string    `json:"endpointArn" xml:"endpointArn"`
-	ModelSourceIdentifier string    `json:"modelSourceIdentifier" xml:"modelSourceIdentifier"`
-	Status                string    `json:"status" xml:"status"`
-	StatusMessage         string    `json:"statusMessage" xml:"statusMessage"`
-	UpdatedAt             time.Time `json:"updatedAt" xml:"updatedAt"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+EndpointArn string `json:"endpointArn" xml:"endpointArn"`
+ModelSourceIdentifier string `json:"modelSourceIdentifier" xml:"modelSourceIdentifier"`
+Status string `json:"status" xml:"status"`
+StatusMessage string `json:"statusMessage" xml:"statusMessage"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type MetadataAttributeSchema struct {
-	Description string `json:"description" xml:"description"`
-	Key         string `json:"key" xml:"key"`
-	Type        string `json:"type" xml:"type"`
+Description string `json:"description" xml:"description"`
+Key string `json:"key" xml:"key"`
+Type string `json:"type" xml:"type"`
 }
 
 type MetadataConfigurationForReranking struct {
-	SelectionMode              string      `json:"selectionMode" xml:"selectionMode"`
-	SelectiveModeConfiguration interface{} `json:"selectiveModeConfiguration" xml:"selectiveModeConfiguration"`
+SelectionMode string `json:"selectionMode" xml:"selectionMode"`
+SelectiveModeConfiguration interface{} `json:"selectiveModeConfiguration" xml:"selectiveModeConfiguration"`
 }
 
 type ModelCopyJobSummary struct {
-	CreationTime         time.Time `json:"creationTime" xml:"creationTime"`
-	FailureMessage       string    `json:"failureMessage" xml:"failureMessage"`
-	JobArn               string    `json:"jobArn" xml:"jobArn"`
-	SourceAccountId      string    `json:"sourceAccountId" xml:"sourceAccountId"`
-	SourceModelArn       string    `json:"sourceModelArn" xml:"sourceModelArn"`
-	SourceModelName      string    `json:"sourceModelName" xml:"sourceModelName"`
-	Status               string    `json:"status" xml:"status"`
-	TargetModelArn       string    `json:"targetModelArn" xml:"targetModelArn"`
-	TargetModelKmsKeyArn string    `json:"targetModelKmsKeyArn" xml:"targetModelKmsKeyArn"`
-	TargetModelName      string    `json:"targetModelName" xml:"targetModelName"`
-	TargetModelTags      TagList   `json:"targetModelTags" xml:"targetModelTags"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+FailureMessage string `json:"failureMessage" xml:"failureMessage"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+SourceAccountId string `json:"sourceAccountId" xml:"sourceAccountId"`
+SourceModelArn string `json:"sourceModelArn" xml:"sourceModelArn"`
+SourceModelName string `json:"sourceModelName" xml:"sourceModelName"`
+Status string `json:"status" xml:"status"`
+TargetModelArn string `json:"targetModelArn" xml:"targetModelArn"`
+TargetModelKmsKeyArn string `json:"targetModelKmsKeyArn" xml:"targetModelKmsKeyArn"`
+TargetModelName string `json:"targetModelName" xml:"targetModelName"`
+TargetModelTags TagList `json:"targetModelTags" xml:"targetModelTags"`
 }
 
 type ModelCustomizationJobSummary struct {
-	BaseModelArn      string         `json:"baseModelArn" xml:"baseModelArn"`
-	CreationTime      time.Time      `json:"creationTime" xml:"creationTime"`
-	CustomModelArn    string         `json:"customModelArn" xml:"customModelArn"`
-	CustomModelName   string         `json:"customModelName" xml:"customModelName"`
-	CustomizationType string         `json:"customizationType" xml:"customizationType"`
-	EndTime           time.Time      `json:"endTime" xml:"endTime"`
-	JobArn            string         `json:"jobArn" xml:"jobArn"`
-	JobName           string         `json:"jobName" xml:"jobName"`
-	LastModifiedTime  time.Time      `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	Status            string         `json:"status" xml:"status"`
-	StatusDetails     *StatusDetails `json:"statusDetails" xml:"statusDetails"`
+BaseModelArn string `json:"baseModelArn" xml:"baseModelArn"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+CustomModelArn string `json:"customModelArn" xml:"customModelArn"`
+CustomModelName string `json:"customModelName" xml:"customModelName"`
+CustomizationType string `json:"customizationType" xml:"customizationType"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobName string `json:"jobName" xml:"jobName"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+Status string `json:"status" xml:"status"`
+StatusDetails *StatusDetails `json:"statusDetails" xml:"statusDetails"`
 }
 
 type ModelEnforcement struct {
-	ExcludedModels ExcludedModelsList `json:"excludedModels" xml:"excludedModels"`
-	IncludedModels IncludedModelsList `json:"includedModels" xml:"includedModels"`
+ExcludedModels ExcludedModelsList `json:"excludedModels" xml:"excludedModels"`
+IncludedModels IncludedModelsList `json:"includedModels" xml:"includedModels"`
 }
 
 type ModelImportJobSummary struct {
-	CreationTime      time.Time `json:"creationTime" xml:"creationTime"`
-	EndTime           time.Time `json:"endTime" xml:"endTime"`
-	ImportedModelArn  string    `json:"importedModelArn" xml:"importedModelArn"`
-	ImportedModelName string    `json:"importedModelName" xml:"importedModelName"`
-	JobArn            string    `json:"jobArn" xml:"jobArn"`
-	JobName           string    `json:"jobName" xml:"jobName"`
-	LastModifiedTime  time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	Status            string    `json:"status" xml:"status"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+ImportedModelArn string `json:"importedModelArn" xml:"importedModelArn"`
+ImportedModelName string `json:"importedModelName" xml:"importedModelName"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobName string `json:"jobName" xml:"jobName"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+Status string `json:"status" xml:"status"`
 }
 
 type ModelInvocationJobS3InputDataConfig struct {
-	S3BucketOwner string `json:"s3BucketOwner" xml:"s3BucketOwner"`
-	S3InputFormat string `json:"s3InputFormat" xml:"s3InputFormat"`
-	S3Uri         string `json:"s3Uri" xml:"s3Uri"`
+S3BucketOwner string `json:"s3BucketOwner" xml:"s3BucketOwner"`
+S3InputFormat string `json:"s3InputFormat" xml:"s3InputFormat"`
+S3Uri string `json:"s3Uri" xml:"s3Uri"`
 }
 
 type ModelInvocationJobS3OutputDataConfig struct {
-	S3BucketOwner     string `json:"s3BucketOwner" xml:"s3BucketOwner"`
-	S3EncryptionKeyId string `json:"s3EncryptionKeyId" xml:"s3EncryptionKeyId"`
-	S3Uri             string `json:"s3Uri" xml:"s3Uri"`
+S3BucketOwner string `json:"s3BucketOwner" xml:"s3BucketOwner"`
+S3EncryptionKeyId string `json:"s3EncryptionKeyId" xml:"s3EncryptionKeyId"`
+S3Uri string `json:"s3Uri" xml:"s3Uri"`
 }
 
 type ModelInvocationJobSummary struct {
-	ClientRequestToken     string      `json:"clientRequestToken" xml:"clientRequestToken"`
-	EndTime                time.Time   `json:"endTime" xml:"endTime"`
-	ErrorRecordCount       int64       `json:"errorRecordCount" xml:"errorRecordCount"`
-	InputDataConfig        interface{} `json:"inputDataConfig" xml:"inputDataConfig"`
-	JobArn                 string      `json:"jobArn" xml:"jobArn"`
-	JobExpirationTime      time.Time   `json:"jobExpirationTime" xml:"jobExpirationTime"`
-	JobName                string      `json:"jobName" xml:"jobName"`
-	LastModifiedTime       time.Time   `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	Message                string      `json:"message" xml:"message"`
-	ModelId                string      `json:"modelId" xml:"modelId"`
-	ModelInvocationType    string      `json:"modelInvocationType" xml:"modelInvocationType"`
-	OutputDataConfig       interface{} `json:"outputDataConfig" xml:"outputDataConfig"`
-	ProcessedRecordCount   int64       `json:"processedRecordCount" xml:"processedRecordCount"`
-	RoleArn                string      `json:"roleArn" xml:"roleArn"`
-	Status                 string      `json:"status" xml:"status"`
-	SubmitTime             time.Time   `json:"submitTime" xml:"submitTime"`
-	SuccessRecordCount     int64       `json:"successRecordCount" xml:"successRecordCount"`
-	TimeoutDurationInHours int32       `json:"timeoutDurationInHours" xml:"timeoutDurationInHours"`
-	TotalRecordCount       int64       `json:"totalRecordCount" xml:"totalRecordCount"`
-	VpcConfig              *VpcConfig  `json:"vpcConfig" xml:"vpcConfig"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+EndTime time.Time `json:"endTime" xml:"endTime"`
+ErrorRecordCount int64 `json:"errorRecordCount" xml:"errorRecordCount"`
+InputDataConfig interface{} `json:"inputDataConfig" xml:"inputDataConfig"`
+JobArn string `json:"jobArn" xml:"jobArn"`
+JobExpirationTime time.Time `json:"jobExpirationTime" xml:"jobExpirationTime"`
+JobName string `json:"jobName" xml:"jobName"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+Message string `json:"message" xml:"message"`
+ModelId string `json:"modelId" xml:"modelId"`
+ModelInvocationType string `json:"modelInvocationType" xml:"modelInvocationType"`
+OutputDataConfig interface{} `json:"outputDataConfig" xml:"outputDataConfig"`
+ProcessedRecordCount int64 `json:"processedRecordCount" xml:"processedRecordCount"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+Status string `json:"status" xml:"status"`
+SubmitTime time.Time `json:"submitTime" xml:"submitTime"`
+SuccessRecordCount int64 `json:"successRecordCount" xml:"successRecordCount"`
+TimeoutDurationInHours int32 `json:"timeoutDurationInHours" xml:"timeoutDurationInHours"`
+TotalRecordCount int64 `json:"totalRecordCount" xml:"totalRecordCount"`
+VpcConfig *VpcConfig `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type Offer struct {
-	OfferId     string       `json:"offerId" xml:"offerId"`
-	OfferToken  string       `json:"offerToken" xml:"offerToken"`
-	TermDetails *TermDetails `json:"termDetails" xml:"termDetails"`
+OfferId string `json:"offerId" xml:"offerId"`
+OfferToken string `json:"offerToken" xml:"offerToken"`
+TermDetails *TermDetails `json:"termDetails" xml:"termDetails"`
 }
 
 type OrchestrationConfiguration struct {
-	QueryTransformationConfiguration *QueryTransformationConfiguration `json:"queryTransformationConfiguration" xml:"queryTransformationConfiguration"`
+QueryTransformationConfiguration *QueryTransformationConfiguration `json:"queryTransformationConfiguration" xml:"queryTransformationConfiguration"`
 }
 
 type OutputDataConfig struct {
-	S3Uri string `json:"s3Uri" xml:"s3Uri"`
+S3Uri string `json:"s3Uri" xml:"s3Uri"`
 }
 
 type PerformanceConfiguration struct {
-	Latency string `json:"latency" xml:"latency"`
+Latency string `json:"latency" xml:"latency"`
 }
 
 type PricingTerm struct {
-	RateCard RateCard `json:"rateCard" xml:"rateCard"`
+RateCard RateCard `json:"rateCard" xml:"rateCard"`
 }
 
 type PromptRouterSummary struct {
-	CreatedAt        time.Time                `json:"createdAt" xml:"createdAt"`
-	Description      string                   `json:"description" xml:"description"`
-	FallbackModel    *PromptRouterTargetModel `json:"fallbackModel" xml:"fallbackModel"`
-	Models           PromptRouterTargetModels `json:"models" xml:"models"`
-	PromptRouterArn  string                   `json:"promptRouterArn" xml:"promptRouterArn"`
-	PromptRouterName string                   `json:"promptRouterName" xml:"promptRouterName"`
-	RoutingCriteria  *RoutingCriteria         `json:"routingCriteria" xml:"routingCriteria"`
-	Status           string                   `json:"status" xml:"status"`
-	Type             string                   `json:"type" xml:"type"`
-	UpdatedAt        time.Time                `json:"updatedAt" xml:"updatedAt"`
+CreatedAt time.Time `json:"createdAt" xml:"createdAt"`
+Description string `json:"description" xml:"description"`
+FallbackModel *PromptRouterTargetModel `json:"fallbackModel" xml:"fallbackModel"`
+Models PromptRouterTargetModels `json:"models" xml:"models"`
+PromptRouterArn string `json:"promptRouterArn" xml:"promptRouterArn"`
+PromptRouterName string `json:"promptRouterName" xml:"promptRouterName"`
+RoutingCriteria *RoutingCriteria `json:"routingCriteria" xml:"routingCriteria"`
+Status string `json:"status" xml:"status"`
+Type string `json:"type" xml:"type"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type PromptRouterTargetModel struct {
-	ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
 }
 
 type PromptTemplate struct {
-	TextPromptTemplate string `json:"textPromptTemplate" xml:"textPromptTemplate"`
+TextPromptTemplate string `json:"textPromptTemplate" xml:"textPromptTemplate"`
 }
 
 type ProvisionedModelSummary struct {
-	CommitmentDuration       string    `json:"commitmentDuration" xml:"commitmentDuration"`
-	CommitmentExpirationTime time.Time `json:"commitmentExpirationTime" xml:"commitmentExpirationTime"`
-	CreationTime             time.Time `json:"creationTime" xml:"creationTime"`
-	DesiredModelArn          string    `json:"desiredModelArn" xml:"desiredModelArn"`
-	DesiredModelUnits        int32     `json:"desiredModelUnits" xml:"desiredModelUnits"`
-	FoundationModelArn       string    `json:"foundationModelArn" xml:"foundationModelArn"`
-	LastModifiedTime         time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	ModelArn                 string    `json:"modelArn" xml:"modelArn"`
-	ModelUnits               int32     `json:"modelUnits" xml:"modelUnits"`
-	ProvisionedModelArn      string    `json:"provisionedModelArn" xml:"provisionedModelArn"`
-	ProvisionedModelName     string    `json:"provisionedModelName" xml:"provisionedModelName"`
-	Status                   string    `json:"status" xml:"status"`
+CommitmentDuration string `json:"commitmentDuration" xml:"commitmentDuration"`
+CommitmentExpirationTime time.Time `json:"commitmentExpirationTime" xml:"commitmentExpirationTime"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+DesiredModelArn string `json:"desiredModelArn" xml:"desiredModelArn"`
+DesiredModelUnits int32 `json:"desiredModelUnits" xml:"desiredModelUnits"`
+FoundationModelArn string `json:"foundationModelArn" xml:"foundationModelArn"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
+ModelUnits int32 `json:"modelUnits" xml:"modelUnits"`
+ProvisionedModelArn string `json:"provisionedModelArn" xml:"provisionedModelArn"`
+ProvisionedModelName string `json:"provisionedModelName" xml:"provisionedModelName"`
+Status string `json:"status" xml:"status"`
 }
 
 type PutEnforcedGuardrailConfigurationRequest struct {
-	ConfigId                 string                                               `json:"configId" xml:"configId"`
-	GuardrailInferenceConfig *AccountEnforcedGuardrailInferenceInputConfiguration `json:"guardrailInferenceConfig" xml:"guardrailInferenceConfig"`
+ConfigId string `json:"configId" xml:"configId"`
+GuardrailInferenceConfig *AccountEnforcedGuardrailInferenceInputConfiguration `json:"guardrailInferenceConfig" xml:"guardrailInferenceConfig"`
 }
 
 type PutEnforcedGuardrailConfigurationResponse struct {
-	ConfigId  string    `json:"configId" xml:"configId"`
-	UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
-	UpdatedBy string    `json:"updatedBy" xml:"updatedBy"`
+ConfigId string `json:"configId" xml:"configId"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
+UpdatedBy string `json:"updatedBy" xml:"updatedBy"`
 }
 
 type PutModelInvocationLoggingConfigurationRequest struct {
-	LoggingConfig *LoggingConfig `json:"loggingConfig" xml:"loggingConfig"`
+LoggingConfig *LoggingConfig `json:"loggingConfig" xml:"loggingConfig"`
 }
 
 type PutModelInvocationLoggingConfigurationResponse struct {
 }
 
 type PutResourcePolicyRequest struct {
-	ResourceArn    string `json:"resourceArn" xml:"resourceArn"`
-	ResourcePolicy string `json:"resourcePolicy" xml:"resourcePolicy"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourcePolicy string `json:"resourcePolicy" xml:"resourcePolicy"`
 }
 
 type PutResourcePolicyResponse struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type PutUseCaseForModelAccessRequest struct {
-	FormData []byte `json:"formData" xml:"formData"`
+FormData []byte `json:"formData" xml:"formData"`
 }
 
 type PutUseCaseForModelAccessResponse struct {
 }
 
 type QueryTransformationConfiguration struct {
-	Type string `json:"type" xml:"type"`
+Type string `json:"type" xml:"type"`
 }
 
 type RFTConfig struct {
-	GraderConfig    interface{}         `json:"graderConfig" xml:"graderConfig"`
-	HyperParameters *RFTHyperParameters `json:"hyperParameters" xml:"hyperParameters"`
+GraderConfig interface{} `json:"graderConfig" xml:"graderConfig"`
+HyperParameters *RFTHyperParameters `json:"hyperParameters" xml:"hyperParameters"`
 }
 
 type RFTHyperParameters struct {
-	BatchSize               int32   `json:"batchSize" xml:"batchSize"`
-	EpochCount              int32   `json:"epochCount" xml:"epochCount"`
-	EvalInterval            int32   `json:"evalInterval" xml:"evalInterval"`
-	InferenceMaxTokens      int32   `json:"inferenceMaxTokens" xml:"inferenceMaxTokens"`
-	LearningRate            float32 `json:"learningRate" xml:"learningRate"`
-	MaxPromptLength         int32   `json:"maxPromptLength" xml:"maxPromptLength"`
-	ReasoningEffort         string  `json:"reasoningEffort" xml:"reasoningEffort"`
-	TrainingSamplePerPrompt int32   `json:"trainingSamplePerPrompt" xml:"trainingSamplePerPrompt"`
+BatchSize int32 `json:"batchSize" xml:"batchSize"`
+EpochCount int32 `json:"epochCount" xml:"epochCount"`
+EvalInterval int32 `json:"evalInterval" xml:"evalInterval"`
+InferenceMaxTokens int32 `json:"inferenceMaxTokens" xml:"inferenceMaxTokens"`
+LearningRate float32 `json:"learningRate" xml:"learningRate"`
+MaxPromptLength int32 `json:"maxPromptLength" xml:"maxPromptLength"`
+ReasoningEffort string `json:"reasoningEffort" xml:"reasoningEffort"`
+TrainingSamplePerPrompt int32 `json:"trainingSamplePerPrompt" xml:"trainingSamplePerPrompt"`
 }
 
 type RatingScaleItem struct {
-	Definition string      `json:"definition" xml:"definition"`
-	Value      interface{} `json:"value" xml:"value"`
+Definition string `json:"definition" xml:"definition"`
+Value interface{} `json:"value" xml:"value"`
 }
 
 type RegisterMarketplaceModelEndpointRequest struct {
-	EndpointIdentifier    string `json:"endpointIdentifier" xml:"endpointIdentifier"`
-	ModelSourceIdentifier string `json:"modelSourceIdentifier" xml:"modelSourceIdentifier"`
+EndpointIdentifier string `json:"endpointIdentifier" xml:"endpointIdentifier"`
+ModelSourceIdentifier string `json:"modelSourceIdentifier" xml:"modelSourceIdentifier"`
 }
 
 type RegisterMarketplaceModelEndpointResponse struct {
-	MarketplaceModelEndpoint *MarketplaceModelEndpoint `json:"marketplaceModelEndpoint" xml:"marketplaceModelEndpoint"`
+MarketplaceModelEndpoint *MarketplaceModelEndpoint `json:"marketplaceModelEndpoint" xml:"marketplaceModelEndpoint"`
 }
 
 type RequestMetadataBaseFilters struct {
-	Equals    RequestMetadataMap `json:"equals" xml:"equals"`
-	NotEquals RequestMetadataMap `json:"notEquals" xml:"notEquals"`
+Equals RequestMetadataMap `json:"equals" xml:"equals"`
+NotEquals RequestMetadataMap `json:"notEquals" xml:"notEquals"`
 }
 
 type RetrieveAndGenerateConfiguration struct {
-	ExternalSourcesConfiguration *ExternalSourcesRetrieveAndGenerateConfiguration `json:"externalSourcesConfiguration" xml:"externalSourcesConfiguration"`
-	KnowledgeBaseConfiguration   *KnowledgeBaseRetrieveAndGenerateConfiguration   `json:"knowledgeBaseConfiguration" xml:"knowledgeBaseConfiguration"`
-	Type                         string                                           `json:"type" xml:"type"`
+ExternalSourcesConfiguration *ExternalSourcesRetrieveAndGenerateConfiguration `json:"externalSourcesConfiguration" xml:"externalSourcesConfiguration"`
+KnowledgeBaseConfiguration *KnowledgeBaseRetrieveAndGenerateConfiguration `json:"knowledgeBaseConfiguration" xml:"knowledgeBaseConfiguration"`
+Type string `json:"type" xml:"type"`
 }
 
 type RetrieveConfig struct {
-	KnowledgeBaseId                     string                               `json:"knowledgeBaseId" xml:"knowledgeBaseId"`
-	KnowledgeBaseRetrievalConfiguration *KnowledgeBaseRetrievalConfiguration `json:"knowledgeBaseRetrievalConfiguration" xml:"knowledgeBaseRetrievalConfiguration"`
+KnowledgeBaseId string `json:"knowledgeBaseId" xml:"knowledgeBaseId"`
+KnowledgeBaseRetrievalConfiguration *KnowledgeBaseRetrievalConfiguration `json:"knowledgeBaseRetrievalConfiguration" xml:"knowledgeBaseRetrievalConfiguration"`
 }
 
 type RoutingCriteria struct {
-	ResponseQualityDifference float64 `json:"responseQualityDifference" xml:"responseQualityDifference"`
+ResponseQualityDifference float64 `json:"responseQualityDifference" xml:"responseQualityDifference"`
 }
 
 type S3Config struct {
-	BucketName string `json:"bucketName" xml:"bucketName"`
-	KeyPrefix  string `json:"keyPrefix" xml:"keyPrefix"`
+BucketName string `json:"bucketName" xml:"bucketName"`
+KeyPrefix string `json:"keyPrefix" xml:"keyPrefix"`
 }
 
 type S3DataSource struct {
-	S3Uri string `json:"s3Uri" xml:"s3Uri"`
+S3Uri string `json:"s3Uri" xml:"s3Uri"`
 }
 
 type S3ObjectDoc struct {
-	Uri string `json:"uri" xml:"uri"`
+Uri string `json:"uri" xml:"uri"`
 }
 
 type SageMakerEndpoint struct {
-	ExecutionRole        string     `json:"executionRole" xml:"executionRole"`
-	InitialInstanceCount int32      `json:"initialInstanceCount" xml:"initialInstanceCount"`
-	InstanceType         string     `json:"instanceType" xml:"instanceType"`
-	KmsEncryptionKey     string     `json:"kmsEncryptionKey" xml:"kmsEncryptionKey"`
-	Vpc                  *VpcConfig `json:"vpc" xml:"vpc"`
+ExecutionRole string `json:"executionRole" xml:"executionRole"`
+InitialInstanceCount int32 `json:"initialInstanceCount" xml:"initialInstanceCount"`
+InstanceType string `json:"instanceType" xml:"instanceType"`
+KmsEncryptionKey string `json:"kmsEncryptionKey" xml:"kmsEncryptionKey"`
+Vpc *VpcConfig `json:"vpc" xml:"vpc"`
 }
 
 type SelectiveContentGuarding struct {
-	Messages string `json:"messages" xml:"messages"`
-	System   string `json:"system" xml:"system"`
+Messages string `json:"messages" xml:"messages"`
+System string `json:"system" xml:"system"`
 }
 
 type StartAutomatedReasoningPolicyBuildWorkflowRequest struct {
-	BuildWorkflowType  string                                       `json:"buildWorkflowType" xml:"buildWorkflowType"`
-	ClientRequestToken string                                       `json:"clientRequestToken" xml:"clientRequestToken"`
-	PolicyArn          string                                       `json:"policyArn" xml:"policyArn"`
-	SourceContent      *AutomatedReasoningPolicyBuildWorkflowSource `json:"sourceContent" xml:"sourceContent"`
+BuildWorkflowType string `json:"buildWorkflowType" xml:"buildWorkflowType"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+SourceContent *AutomatedReasoningPolicyBuildWorkflowSource `json:"sourceContent" xml:"sourceContent"`
 }
 
 type StartAutomatedReasoningPolicyBuildWorkflowResponse struct {
-	BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	PolicyArn       string `json:"policyArn" xml:"policyArn"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type StartAutomatedReasoningPolicyTestWorkflowRequest struct {
-	BuildWorkflowId    string                                 `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	ClientRequestToken string                                 `json:"clientRequestToken" xml:"clientRequestToken"`
-	PolicyArn          string                                 `json:"policyArn" xml:"policyArn"`
-	TestCaseIds        AutomatedReasoningPolicyTestCaseIdList `json:"testCaseIds" xml:"testCaseIds"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+TestCaseIds AutomatedReasoningPolicyTestCaseIdList `json:"testCaseIds" xml:"testCaseIds"`
 }
 
 type StartAutomatedReasoningPolicyTestWorkflowResponse struct {
-	PolicyArn string `json:"policyArn" xml:"policyArn"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type StatusDetails struct {
-	DataProcessingDetails *DataProcessingDetails `json:"dataProcessingDetails" xml:"dataProcessingDetails"`
-	TrainingDetails       *TrainingDetails       `json:"trainingDetails" xml:"trainingDetails"`
-	ValidationDetails     *ValidationDetails     `json:"validationDetails" xml:"validationDetails"`
+DataProcessingDetails *DataProcessingDetails `json:"dataProcessingDetails" xml:"dataProcessingDetails"`
+TrainingDetails *TrainingDetails `json:"trainingDetails" xml:"trainingDetails"`
+ValidationDetails *ValidationDetails `json:"validationDetails" xml:"validationDetails"`
 }
 
 type StopEvaluationJobRequest struct {
-	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
 }
 
 type StopEvaluationJobResponse struct {
 }
 
 type StopModelCustomizationJobRequest struct {
-	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
 }
 
 type StopModelCustomizationJobResponse struct {
 }
 
 type StopModelInvocationJobRequest struct {
-	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
 }
 
 type StopModelInvocationJobResponse struct {
 }
 
 type SupportTerm struct {
-	RefundPolicyDescription string `json:"refundPolicyDescription" xml:"refundPolicyDescription"`
+RefundPolicyDescription string `json:"refundPolicyDescription" xml:"refundPolicyDescription"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"key"`
-	Value string `json:"value" xml:"value"`
+Key string `json:"key" xml:"key"`
+Value string `json:"value" xml:"value"`
 }
 
 type TagResourceRequest struct {
-	ResourceARN string  `json:"resourceARN" xml:"resourceARN"`
-	Tags        TagList `json:"tags" xml:"tags"`
+ResourceARN string `json:"resourceARN" xml:"resourceARN"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type TeacherModelConfig struct {
-	MaxResponseLengthForInference int32  `json:"maxResponseLengthForInference" xml:"maxResponseLengthForInference"`
-	TeacherModelIdentifier        string `json:"teacherModelIdentifier" xml:"teacherModelIdentifier"`
+MaxResponseLengthForInference int32 `json:"maxResponseLengthForInference" xml:"maxResponseLengthForInference"`
+TeacherModelIdentifier string `json:"teacherModelIdentifier" xml:"teacherModelIdentifier"`
 }
 
 type TermDetails struct {
-	LegalTerm             *LegalTerm    `json:"legalTerm" xml:"legalTerm"`
-	SupportTerm           *SupportTerm  `json:"supportTerm" xml:"supportTerm"`
-	UsageBasedPricingTerm *PricingTerm  `json:"usageBasedPricingTerm" xml:"usageBasedPricingTerm"`
-	ValidityTerm          *ValidityTerm `json:"validityTerm" xml:"validityTerm"`
+LegalTerm *LegalTerm `json:"legalTerm" xml:"legalTerm"`
+SupportTerm *SupportTerm `json:"supportTerm" xml:"supportTerm"`
+UsageBasedPricingTerm *PricingTerm `json:"usageBasedPricingTerm" xml:"usageBasedPricingTerm"`
+ValidityTerm *ValidityTerm `json:"validityTerm" xml:"validityTerm"`
 }
 
 type TextInferenceConfig struct {
-	MaxTokens     int32            `json:"maxTokens" xml:"maxTokens"`
-	StopSequences RAGStopSequences `json:"stopSequences" xml:"stopSequences"`
-	Temperature   float32          `json:"temperature" xml:"temperature"`
-	TopP          float32          `json:"topP" xml:"topP"`
+MaxTokens int32 `json:"maxTokens" xml:"maxTokens"`
+StopSequences RAGStopSequences `json:"stopSequences" xml:"stopSequences"`
+Temperature float32 `json:"temperature" xml:"temperature"`
+TopP float32 `json:"topP" xml:"topP"`
 }
 
 type TrainingDataConfig struct {
-	InvocationLogsConfig *InvocationLogsConfig `json:"invocationLogsConfig" xml:"invocationLogsConfig"`
-	S3Uri                string                `json:"s3Uri" xml:"s3Uri"`
+InvocationLogsConfig *InvocationLogsConfig `json:"invocationLogsConfig" xml:"invocationLogsConfig"`
+S3Uri string `json:"s3Uri" xml:"s3Uri"`
 }
 
 type TrainingDetails struct {
-	CreationTime     time.Time `json:"creationTime" xml:"creationTime"`
-	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	Status           string    `json:"status" xml:"status"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+Status string `json:"status" xml:"status"`
 }
 
 type TrainingMetrics struct {
-	TrainingLoss float32 `json:"trainingLoss" xml:"trainingLoss"`
+TrainingLoss float32 `json:"trainingLoss" xml:"trainingLoss"`
 }
 
 type UntagResourceRequest struct {
-	ResourceARN string     `json:"resourceARN" xml:"resourceARN"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"tagKeys"`
+ResourceARN string `json:"resourceARN" xml:"resourceARN"`
+TagKeys TagKeyList `json:"tagKeys" xml:"tagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateAutomatedReasoningPolicyAnnotationsRequest struct {
-	Annotations                  AutomatedReasoningPolicyAnnotationList `json:"annotations" xml:"annotations"`
-	BuildWorkflowId              string                                 `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	LastUpdatedAnnotationSetHash string                                 `json:"lastUpdatedAnnotationSetHash" xml:"lastUpdatedAnnotationSetHash"`
-	PolicyArn                    string                                 `json:"policyArn" xml:"policyArn"`
+Annotations AutomatedReasoningPolicyAnnotationList `json:"annotations" xml:"annotations"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+LastUpdatedAnnotationSetHash string `json:"lastUpdatedAnnotationSetHash" xml:"lastUpdatedAnnotationSetHash"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
 }
 
 type UpdateAutomatedReasoningPolicyAnnotationsResponse struct {
-	AnnotationSetHash string    `json:"annotationSetHash" xml:"annotationSetHash"`
-	BuildWorkflowId   string    `json:"buildWorkflowId" xml:"buildWorkflowId"`
-	PolicyArn         string    `json:"policyArn" xml:"policyArn"`
-	UpdatedAt         time.Time `json:"updatedAt" xml:"updatedAt"`
+AnnotationSetHash string `json:"annotationSetHash" xml:"annotationSetHash"`
+BuildWorkflowId string `json:"buildWorkflowId" xml:"buildWorkflowId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type UpdateAutomatedReasoningPolicyRequest struct {
-	Description      string                              `json:"description" xml:"description"`
-	Name             string                              `json:"name" xml:"name"`
-	PolicyArn        string                              `json:"policyArn" xml:"policyArn"`
-	PolicyDefinition *AutomatedReasoningPolicyDefinition `json:"policyDefinition" xml:"policyDefinition"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+PolicyDefinition *AutomatedReasoningPolicyDefinition `json:"policyDefinition" xml:"policyDefinition"`
 }
 
 type UpdateAutomatedReasoningPolicyResponse struct {
-	DefinitionHash string    `json:"definitionHash" xml:"definitionHash"`
-	Name           string    `json:"name" xml:"name"`
-	PolicyArn      string    `json:"policyArn" xml:"policyArn"`
-	UpdatedAt      time.Time `json:"updatedAt" xml:"updatedAt"`
+DefinitionHash string `json:"definitionHash" xml:"definitionHash"`
+Name string `json:"name" xml:"name"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type UpdateAutomatedReasoningPolicyTestCaseRequest struct {
-	ClientRequestToken               string    `json:"clientRequestToken" xml:"clientRequestToken"`
-	ConfidenceThreshold              float64   `json:"confidenceThreshold" xml:"confidenceThreshold"`
-	ExpectedAggregatedFindingsResult string    `json:"expectedAggregatedFindingsResult" xml:"expectedAggregatedFindingsResult"`
-	GuardContent                     string    `json:"guardContent" xml:"guardContent"`
-	LastUpdatedAt                    time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	PolicyArn                        string    `json:"policyArn" xml:"policyArn"`
-	QueryContent                     string    `json:"queryContent" xml:"queryContent"`
-	TestCaseId                       string    `json:"testCaseId" xml:"testCaseId"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+ConfidenceThreshold float64 `json:"confidenceThreshold" xml:"confidenceThreshold"`
+ExpectedAggregatedFindingsResult string `json:"expectedAggregatedFindingsResult" xml:"expectedAggregatedFindingsResult"`
+GuardContent string `json:"guardContent" xml:"guardContent"`
+LastUpdatedAt time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+QueryContent string `json:"queryContent" xml:"queryContent"`
+TestCaseId string `json:"testCaseId" xml:"testCaseId"`
 }
 
 type UpdateAutomatedReasoningPolicyTestCaseResponse struct {
-	PolicyArn  string `json:"policyArn" xml:"policyArn"`
-	TestCaseId string `json:"testCaseId" xml:"testCaseId"`
+PolicyArn string `json:"policyArn" xml:"policyArn"`
+TestCaseId string `json:"testCaseId" xml:"testCaseId"`
 }
 
 type UpdateCustomModelDeploymentRequest struct {
-	CustomModelDeploymentIdentifier string `json:"customModelDeploymentIdentifier" xml:"customModelDeploymentIdentifier"`
-	ModelArn                        string `json:"modelArn" xml:"modelArn"`
+CustomModelDeploymentIdentifier string `json:"customModelDeploymentIdentifier" xml:"customModelDeploymentIdentifier"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
 }
 
 type UpdateCustomModelDeploymentResponse struct {
-	CustomModelDeploymentArn string `json:"customModelDeploymentArn" xml:"customModelDeploymentArn"`
+CustomModelDeploymentArn string `json:"customModelDeploymentArn" xml:"customModelDeploymentArn"`
 }
 
 type UpdateGuardrailRequest struct {
-	AutomatedReasoningPolicyConfig   *GuardrailAutomatedReasoningPolicyConfig   `json:"automatedReasoningPolicyConfig" xml:"automatedReasoningPolicyConfig"`
-	BlockedInputMessaging            string                                     `json:"blockedInputMessaging" xml:"blockedInputMessaging"`
-	BlockedOutputsMessaging          string                                     `json:"blockedOutputsMessaging" xml:"blockedOutputsMessaging"`
-	ContentPolicyConfig              *GuardrailContentPolicyConfig              `json:"contentPolicyConfig" xml:"contentPolicyConfig"`
-	ContextualGroundingPolicyConfig  *GuardrailContextualGroundingPolicyConfig  `json:"contextualGroundingPolicyConfig" xml:"contextualGroundingPolicyConfig"`
-	CrossRegionConfig                *GuardrailCrossRegionConfig                `json:"crossRegionConfig" xml:"crossRegionConfig"`
-	Description                      string                                     `json:"description" xml:"description"`
-	GuardrailIdentifier              string                                     `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
-	KmsKeyId                         string                                     `json:"kmsKeyId" xml:"kmsKeyId"`
-	Name                             string                                     `json:"name" xml:"name"`
-	SensitiveInformationPolicyConfig *GuardrailSensitiveInformationPolicyConfig `json:"sensitiveInformationPolicyConfig" xml:"sensitiveInformationPolicyConfig"`
-	TopicPolicyConfig                *GuardrailTopicPolicyConfig                `json:"topicPolicyConfig" xml:"topicPolicyConfig"`
-	WordPolicyConfig                 *GuardrailWordPolicyConfig                 `json:"wordPolicyConfig" xml:"wordPolicyConfig"`
+AutomatedReasoningPolicyConfig *GuardrailAutomatedReasoningPolicyConfig `json:"automatedReasoningPolicyConfig" xml:"automatedReasoningPolicyConfig"`
+BlockedInputMessaging string `json:"blockedInputMessaging" xml:"blockedInputMessaging"`
+BlockedOutputsMessaging string `json:"blockedOutputsMessaging" xml:"blockedOutputsMessaging"`
+ContentPolicyConfig *GuardrailContentPolicyConfig `json:"contentPolicyConfig" xml:"contentPolicyConfig"`
+ContextualGroundingPolicyConfig *GuardrailContextualGroundingPolicyConfig `json:"contextualGroundingPolicyConfig" xml:"contextualGroundingPolicyConfig"`
+CrossRegionConfig *GuardrailCrossRegionConfig `json:"crossRegionConfig" xml:"crossRegionConfig"`
+Description string `json:"description" xml:"description"`
+GuardrailIdentifier string `json:"guardrailIdentifier" xml:"guardrailIdentifier"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+Name string `json:"name" xml:"name"`
+SensitiveInformationPolicyConfig *GuardrailSensitiveInformationPolicyConfig `json:"sensitiveInformationPolicyConfig" xml:"sensitiveInformationPolicyConfig"`
+TopicPolicyConfig *GuardrailTopicPolicyConfig `json:"topicPolicyConfig" xml:"topicPolicyConfig"`
+WordPolicyConfig *GuardrailWordPolicyConfig `json:"wordPolicyConfig" xml:"wordPolicyConfig"`
 }
 
 type UpdateGuardrailResponse struct {
-	GuardrailArn string    `json:"guardrailArn" xml:"guardrailArn"`
-	GuardrailId  string    `json:"guardrailId" xml:"guardrailId"`
-	UpdatedAt    time.Time `json:"updatedAt" xml:"updatedAt"`
-	Version      string    `json:"version" xml:"version"`
+GuardrailArn string `json:"guardrailArn" xml:"guardrailArn"`
+GuardrailId string `json:"guardrailId" xml:"guardrailId"`
+UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
+Version string `json:"version" xml:"version"`
 }
 
 type UpdateMarketplaceModelEndpointRequest struct {
-	ClientRequestToken string      `json:"clientRequestToken" xml:"clientRequestToken"`
-	EndpointArn        string      `json:"endpointArn" xml:"endpointArn"`
-	EndpointConfig     interface{} `json:"endpointConfig" xml:"endpointConfig"`
+ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+EndpointArn string `json:"endpointArn" xml:"endpointArn"`
+EndpointConfig interface{} `json:"endpointConfig" xml:"endpointConfig"`
 }
 
 type UpdateMarketplaceModelEndpointResponse struct {
-	MarketplaceModelEndpoint *MarketplaceModelEndpoint `json:"marketplaceModelEndpoint" xml:"marketplaceModelEndpoint"`
+MarketplaceModelEndpoint *MarketplaceModelEndpoint `json:"marketplaceModelEndpoint" xml:"marketplaceModelEndpoint"`
 }
 
 type UpdateProvisionedModelThroughputRequest struct {
-	DesiredModelId              string `json:"desiredModelId" xml:"desiredModelId"`
-	DesiredProvisionedModelName string `json:"desiredProvisionedModelName" xml:"desiredProvisionedModelName"`
-	ProvisionedModelId          string `json:"provisionedModelId" xml:"provisionedModelId"`
+DesiredModelId string `json:"desiredModelId" xml:"desiredModelId"`
+DesiredProvisionedModelName string `json:"desiredProvisionedModelName" xml:"desiredProvisionedModelName"`
+ProvisionedModelId string `json:"provisionedModelId" xml:"provisionedModelId"`
 }
 
 type UpdateProvisionedModelThroughputResponse struct {
 }
 
 type ValidationDataConfig struct {
-	Validators Validators `json:"validators" xml:"validators"`
+Validators Validators `json:"validators" xml:"validators"`
 }
 
 type ValidationDetails struct {
-	CreationTime     time.Time `json:"creationTime" xml:"creationTime"`
-	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	Status           string    `json:"status" xml:"status"`
+CreationTime time.Time `json:"creationTime" xml:"creationTime"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+Status string `json:"status" xml:"status"`
 }
 
 type Validator struct {
-	S3Uri string `json:"s3Uri" xml:"s3Uri"`
+S3Uri string `json:"s3Uri" xml:"s3Uri"`
 }
 
 type ValidatorMetric struct {
-	ValidationLoss float32 `json:"validationLoss" xml:"validationLoss"`
+ValidationLoss float32 `json:"validationLoss" xml:"validationLoss"`
 }
 
 type ValidityTerm struct {
-	AgreementDuration string `json:"agreementDuration" xml:"agreementDuration"`
+AgreementDuration string `json:"agreementDuration" xml:"agreementDuration"`
 }
 
 type VectorSearchBedrockRerankingConfiguration struct {
-	MetadataConfiguration   *MetadataConfigurationForReranking              `json:"metadataConfiguration" xml:"metadataConfiguration"`
-	ModelConfiguration      *VectorSearchBedrockRerankingModelConfiguration `json:"modelConfiguration" xml:"modelConfiguration"`
-	NumberOfRerankedResults int32                                           `json:"numberOfRerankedResults" xml:"numberOfRerankedResults"`
+MetadataConfiguration *MetadataConfigurationForReranking `json:"metadataConfiguration" xml:"metadataConfiguration"`
+ModelConfiguration *VectorSearchBedrockRerankingModelConfiguration `json:"modelConfiguration" xml:"modelConfiguration"`
+NumberOfRerankedResults int32 `json:"numberOfRerankedResults" xml:"numberOfRerankedResults"`
 }
 
 type VectorSearchBedrockRerankingModelConfiguration struct {
-	AdditionalModelRequestFields AdditionalModelRequestFields `json:"additionalModelRequestFields" xml:"additionalModelRequestFields"`
-	ModelArn                     string                       `json:"modelArn" xml:"modelArn"`
+AdditionalModelRequestFields AdditionalModelRequestFields `json:"additionalModelRequestFields" xml:"additionalModelRequestFields"`
+ModelArn string `json:"modelArn" xml:"modelArn"`
 }
 
 type VectorSearchRerankingConfiguration struct {
-	BedrockRerankingConfiguration *VectorSearchBedrockRerankingConfiguration `json:"bedrockRerankingConfiguration" xml:"bedrockRerankingConfiguration"`
-	Type                          string                                     `json:"type" xml:"type"`
+BedrockRerankingConfiguration *VectorSearchBedrockRerankingConfiguration `json:"bedrockRerankingConfiguration" xml:"bedrockRerankingConfiguration"`
+Type string `json:"type" xml:"type"`
 }
 
 type VpcConfig struct {
-	SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"securityGroupIds"`
-	SubnetIds        SubnetIds        `json:"subnetIds" xml:"subnetIds"`
+SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"securityGroupIds"`
+SubnetIds SubnetIds `json:"subnetIds" xml:"subnetIds"`
 }
 
 type AccountEnforcedGuardrailsOutputConfiguration []*AccountEnforcedGuardrailOutputConfiguration
@@ -2908,3 +2908,4 @@ type RequestMetadataFilters interface{}
 type RerankingMetadataSelectiveModeConfiguration interface{}
 
 type RetrievalFilter interface{}
+

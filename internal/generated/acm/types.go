@@ -7,345 +7,345 @@ import (
 )
 
 type AcmCertificateMetadata struct {
-	CreatedAt          time.Time `json:"createdAt" xml:"CreatedAt"`
-	ExportOption       string    `json:"exportOption" xml:"ExportOption"`
-	Exported           bool      `json:"exported" xml:"Exported"`
-	ImportedAt         time.Time `json:"importedAt" xml:"ImportedAt"`
-	InUse              bool      `json:"inUse" xml:"InUse"`
-	IssuedAt           time.Time `json:"issuedAt" xml:"IssuedAt"`
-	ManagedBy          string    `json:"managedBy" xml:"ManagedBy"`
-	RenewalEligibility string    `json:"renewalEligibility" xml:"RenewalEligibility"`
-	RenewalStatus      string    `json:"renewalStatus" xml:"RenewalStatus"`
-	RevokedAt          time.Time `json:"revokedAt" xml:"RevokedAt"`
-	Status             string    `json:"status" xml:"Status"`
-	Type               string    `json:"type" xml:"Type"`
-	ValidationMethod   string    `json:"validationMethod" xml:"ValidationMethod"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+ExportOption string `json:"exportOption" xml:"ExportOption"`
+Exported bool `json:"exported" xml:"Exported"`
+ImportedAt time.Time `json:"importedAt" xml:"ImportedAt"`
+InUse bool `json:"inUse" xml:"InUse"`
+IssuedAt time.Time `json:"issuedAt" xml:"IssuedAt"`
+ManagedBy string `json:"managedBy" xml:"ManagedBy"`
+RenewalEligibility string `json:"renewalEligibility" xml:"RenewalEligibility"`
+RenewalStatus string `json:"renewalStatus" xml:"RenewalStatus"`
+RevokedAt time.Time `json:"revokedAt" xml:"RevokedAt"`
+Status string `json:"status" xml:"Status"`
+Type string `json:"type" xml:"Type"`
+ValidationMethod string `json:"validationMethod" xml:"ValidationMethod"`
 }
 
 type AddTagsToCertificateRequest struct {
-	CertificateArn string  `json:"certificateArn" xml:"CertificateArn"`
-	Tags           TagList `json:"tags" xml:"Tags"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CertificateDetail struct {
-	CertificateArn          string               `json:"certificateArn" xml:"CertificateArn"`
-	CertificateAuthorityArn string               `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	CreatedAt               time.Time            `json:"createdAt" xml:"CreatedAt"`
-	DomainName              string               `json:"domainName" xml:"DomainName"`
-	DomainValidationOptions DomainValidationList `json:"domainValidationOptions" xml:"DomainValidationOptions"`
-	ExtendedKeyUsages       ExtendedKeyUsageList `json:"extendedKeyUsages" xml:"ExtendedKeyUsages"`
-	FailureReason           string               `json:"failureReason" xml:"FailureReason"`
-	ImportedAt              time.Time            `json:"importedAt" xml:"ImportedAt"`
-	InUseBy                 InUseList            `json:"inUseBy" xml:"InUseBy"`
-	IssuedAt                time.Time            `json:"issuedAt" xml:"IssuedAt"`
-	Issuer                  string               `json:"issuer" xml:"Issuer"`
-	KeyAlgorithm            string               `json:"keyAlgorithm" xml:"KeyAlgorithm"`
-	KeyUsages               KeyUsageList         `json:"keyUsages" xml:"KeyUsages"`
-	ManagedBy               string               `json:"managedBy" xml:"ManagedBy"`
-	NotAfter                time.Time            `json:"notAfter" xml:"NotAfter"`
-	NotBefore               time.Time            `json:"notBefore" xml:"NotBefore"`
-	Options                 *CertificateOptions  `json:"options" xml:"Options"`
-	RenewalEligibility      string               `json:"renewalEligibility" xml:"RenewalEligibility"`
-	RenewalSummary          *RenewalSummary      `json:"renewalSummary" xml:"RenewalSummary"`
-	RevocationReason        string               `json:"revocationReason" xml:"RevocationReason"`
-	RevokedAt               time.Time            `json:"revokedAt" xml:"RevokedAt"`
-	Serial                  string               `json:"serial" xml:"Serial"`
-	SignatureAlgorithm      string               `json:"signatureAlgorithm" xml:"SignatureAlgorithm"`
-	Status                  string               `json:"status" xml:"Status"`
-	Subject                 string               `json:"subject" xml:"Subject"`
-	SubjectAlternativeNames DomainList           `json:"subjectAlternativeNames" xml:"SubjectAlternativeNames"`
-	Type                    string               `json:"type" xml:"Type"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainValidationOptions DomainValidationList `json:"domainValidationOptions" xml:"DomainValidationOptions"`
+ExtendedKeyUsages ExtendedKeyUsageList `json:"extendedKeyUsages" xml:"ExtendedKeyUsages"`
+FailureReason string `json:"failureReason" xml:"FailureReason"`
+ImportedAt time.Time `json:"importedAt" xml:"ImportedAt"`
+InUseBy InUseList `json:"inUseBy" xml:"InUseBy"`
+IssuedAt time.Time `json:"issuedAt" xml:"IssuedAt"`
+Issuer string `json:"issuer" xml:"Issuer"`
+KeyAlgorithm string `json:"keyAlgorithm" xml:"KeyAlgorithm"`
+KeyUsages KeyUsageList `json:"keyUsages" xml:"KeyUsages"`
+ManagedBy string `json:"managedBy" xml:"ManagedBy"`
+NotAfter time.Time `json:"notAfter" xml:"NotAfter"`
+NotBefore time.Time `json:"notBefore" xml:"NotBefore"`
+Options *CertificateOptions `json:"options" xml:"Options"`
+RenewalEligibility string `json:"renewalEligibility" xml:"RenewalEligibility"`
+RenewalSummary *RenewalSummary `json:"renewalSummary" xml:"RenewalSummary"`
+RevocationReason string `json:"revocationReason" xml:"RevocationReason"`
+RevokedAt time.Time `json:"revokedAt" xml:"RevokedAt"`
+Serial string `json:"serial" xml:"Serial"`
+SignatureAlgorithm string `json:"signatureAlgorithm" xml:"SignatureAlgorithm"`
+Status string `json:"status" xml:"Status"`
+Subject string `json:"subject" xml:"Subject"`
+SubjectAlternativeNames DomainList `json:"subjectAlternativeNames" xml:"SubjectAlternativeNames"`
+Type string `json:"type" xml:"Type"`
 }
 
 type CertificateOptions struct {
-	CertificateTransparencyLoggingPreference string `json:"certificateTransparencyLoggingPreference" xml:"CertificateTransparencyLoggingPreference"`
-	Export                                   string `json:"export" xml:"Export"`
+CertificateTransparencyLoggingPreference string `json:"certificateTransparencyLoggingPreference" xml:"CertificateTransparencyLoggingPreference"`
+Export string `json:"export" xml:"Export"`
 }
 
 type CertificateSearchResult struct {
-	CertificateArn      string          `json:"certificateArn" xml:"CertificateArn"`
-	CertificateMetadata interface{}     `json:"certificateMetadata" xml:"CertificateMetadata"`
-	X509Attributes      *X509Attributes `json:"x509Attributes" xml:"X509Attributes"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateMetadata interface{} `json:"certificateMetadata" xml:"CertificateMetadata"`
+X509Attributes *X509Attributes `json:"x509Attributes" xml:"X509Attributes"`
 }
 
 type CertificateSummary struct {
-	CertificateArn                       string                `json:"certificateArn" xml:"CertificateArn"`
-	CreatedAt                            time.Time             `json:"createdAt" xml:"CreatedAt"`
-	DomainName                           string                `json:"domainName" xml:"DomainName"`
-	ExportOption                         string                `json:"exportOption" xml:"ExportOption"`
-	Exported                             bool                  `json:"exported" xml:"Exported"`
-	ExtendedKeyUsages                    ExtendedKeyUsageNames `json:"extendedKeyUsages" xml:"ExtendedKeyUsages"`
-	HasAdditionalSubjectAlternativeNames bool                  `json:"hasAdditionalSubjectAlternativeNames" xml:"HasAdditionalSubjectAlternativeNames"`
-	ImportedAt                           time.Time             `json:"importedAt" xml:"ImportedAt"`
-	InUse                                bool                  `json:"inUse" xml:"InUse"`
-	IssuedAt                             time.Time             `json:"issuedAt" xml:"IssuedAt"`
-	KeyAlgorithm                         string                `json:"keyAlgorithm" xml:"KeyAlgorithm"`
-	KeyUsages                            KeyUsageNames         `json:"keyUsages" xml:"KeyUsages"`
-	ManagedBy                            string                `json:"managedBy" xml:"ManagedBy"`
-	NotAfter                             time.Time             `json:"notAfter" xml:"NotAfter"`
-	NotBefore                            time.Time             `json:"notBefore" xml:"NotBefore"`
-	RenewalEligibility                   string                `json:"renewalEligibility" xml:"RenewalEligibility"`
-	RevokedAt                            time.Time             `json:"revokedAt" xml:"RevokedAt"`
-	Status                               string                `json:"status" xml:"Status"`
-	SubjectAlternativeNameSummaries      DomainList            `json:"subjectAlternativeNameSummaries" xml:"SubjectAlternativeNameSummaries"`
-	Type                                 string                `json:"type" xml:"Type"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+DomainName string `json:"domainName" xml:"DomainName"`
+ExportOption string `json:"exportOption" xml:"ExportOption"`
+Exported bool `json:"exported" xml:"Exported"`
+ExtendedKeyUsages ExtendedKeyUsageNames `json:"extendedKeyUsages" xml:"ExtendedKeyUsages"`
+HasAdditionalSubjectAlternativeNames bool `json:"hasAdditionalSubjectAlternativeNames" xml:"HasAdditionalSubjectAlternativeNames"`
+ImportedAt time.Time `json:"importedAt" xml:"ImportedAt"`
+InUse bool `json:"inUse" xml:"InUse"`
+IssuedAt time.Time `json:"issuedAt" xml:"IssuedAt"`
+KeyAlgorithm string `json:"keyAlgorithm" xml:"KeyAlgorithm"`
+KeyUsages KeyUsageNames `json:"keyUsages" xml:"KeyUsages"`
+ManagedBy string `json:"managedBy" xml:"ManagedBy"`
+NotAfter time.Time `json:"notAfter" xml:"NotAfter"`
+NotBefore time.Time `json:"notBefore" xml:"NotBefore"`
+RenewalEligibility string `json:"renewalEligibility" xml:"RenewalEligibility"`
+RevokedAt time.Time `json:"revokedAt" xml:"RevokedAt"`
+Status string `json:"status" xml:"Status"`
+SubjectAlternativeNameSummaries DomainList `json:"subjectAlternativeNameSummaries" xml:"SubjectAlternativeNameSummaries"`
+Type string `json:"type" xml:"Type"`
 }
 
 type CommonNameFilter struct {
-	ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
-	Value              string `json:"value" xml:"Value"`
+ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
+Value string `json:"value" xml:"Value"`
 }
 
 type CustomAttribute struct {
-	ObjectIdentifier string `json:"objectIdentifier" xml:"ObjectIdentifier"`
-	Value            string `json:"value" xml:"Value"`
+ObjectIdentifier string `json:"objectIdentifier" xml:"ObjectIdentifier"`
+Value string `json:"value" xml:"Value"`
 }
 
 type DeleteCertificateRequest struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
 }
 
 type DescribeCertificateRequest struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
 }
 
 type DescribeCertificateResponse struct {
-	Certificate *CertificateDetail `json:"certificate" xml:"Certificate"`
+Certificate *CertificateDetail `json:"certificate" xml:"Certificate"`
 }
 
 type DistinguishedName struct {
-	CommonName                 string              `json:"commonName" xml:"CommonName"`
-	Country                    string              `json:"country" xml:"Country"`
-	CustomAttributes           CustomAttributeList `json:"customAttributes" xml:"CustomAttributes"`
-	DistinguishedNameQualifier string              `json:"distinguishedNameQualifier" xml:"DistinguishedNameQualifier"`
-	DomainComponents           DomainComponentList `json:"domainComponents" xml:"DomainComponents"`
-	GenerationQualifier        string              `json:"generationQualifier" xml:"GenerationQualifier"`
-	GivenName                  string              `json:"givenName" xml:"GivenName"`
-	Initials                   string              `json:"initials" xml:"Initials"`
-	Locality                   string              `json:"locality" xml:"Locality"`
-	Organization               string              `json:"organization" xml:"Organization"`
-	OrganizationalUnit         string              `json:"organizationalUnit" xml:"OrganizationalUnit"`
-	Pseudonym                  string              `json:"pseudonym" xml:"Pseudonym"`
-	SerialNumber               string              `json:"serialNumber" xml:"SerialNumber"`
-	State                      string              `json:"state" xml:"State"`
-	Surname                    string              `json:"surname" xml:"Surname"`
-	Title                      string              `json:"title" xml:"Title"`
+CommonName string `json:"commonName" xml:"CommonName"`
+Country string `json:"country" xml:"Country"`
+CustomAttributes CustomAttributeList `json:"customAttributes" xml:"CustomAttributes"`
+DistinguishedNameQualifier string `json:"distinguishedNameQualifier" xml:"DistinguishedNameQualifier"`
+DomainComponents DomainComponentList `json:"domainComponents" xml:"DomainComponents"`
+GenerationQualifier string `json:"generationQualifier" xml:"GenerationQualifier"`
+GivenName string `json:"givenName" xml:"GivenName"`
+Initials string `json:"initials" xml:"Initials"`
+Locality string `json:"locality" xml:"Locality"`
+Organization string `json:"organization" xml:"Organization"`
+OrganizationalUnit string `json:"organizationalUnit" xml:"OrganizationalUnit"`
+Pseudonym string `json:"pseudonym" xml:"Pseudonym"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+State string `json:"state" xml:"State"`
+Surname string `json:"surname" xml:"Surname"`
+Title string `json:"title" xml:"Title"`
 }
 
 type DnsNameFilter struct {
-	ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
-	Value              string `json:"value" xml:"Value"`
+ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
+Value string `json:"value" xml:"Value"`
 }
 
 type DomainValidation struct {
-	DomainName       string              `json:"domainName" xml:"DomainName"`
-	HttpRedirect     *HttpRedirect       `json:"httpRedirect" xml:"HttpRedirect"`
-	ResourceRecord   *ResourceRecord     `json:"resourceRecord" xml:"ResourceRecord"`
-	ValidationDomain string              `json:"validationDomain" xml:"ValidationDomain"`
-	ValidationEmails ValidationEmailList `json:"validationEmails" xml:"ValidationEmails"`
-	ValidationMethod string              `json:"validationMethod" xml:"ValidationMethod"`
-	ValidationStatus string              `json:"validationStatus" xml:"ValidationStatus"`
+DomainName string `json:"domainName" xml:"DomainName"`
+HttpRedirect *HttpRedirect `json:"httpRedirect" xml:"HttpRedirect"`
+ResourceRecord *ResourceRecord `json:"resourceRecord" xml:"ResourceRecord"`
+ValidationDomain string `json:"validationDomain" xml:"ValidationDomain"`
+ValidationEmails ValidationEmailList `json:"validationEmails" xml:"ValidationEmails"`
+ValidationMethod string `json:"validationMethod" xml:"ValidationMethod"`
+ValidationStatus string `json:"validationStatus" xml:"ValidationStatus"`
 }
 
 type DomainValidationOption struct {
-	DomainName       string `json:"domainName" xml:"DomainName"`
-	ValidationDomain string `json:"validationDomain" xml:"ValidationDomain"`
+DomainName string `json:"domainName" xml:"DomainName"`
+ValidationDomain string `json:"validationDomain" xml:"ValidationDomain"`
 }
 
 type ExpiryEventsConfiguration struct {
-	DaysBeforeExpiry int32 `json:"daysBeforeExpiry" xml:"DaysBeforeExpiry"`
+DaysBeforeExpiry int32 `json:"daysBeforeExpiry" xml:"DaysBeforeExpiry"`
 }
 
 type ExportCertificateRequest struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
-	Passphrase     []byte `json:"passphrase" xml:"Passphrase"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+Passphrase []byte `json:"passphrase" xml:"Passphrase"`
 }
 
 type ExportCertificateResponse struct {
-	Certificate      string `json:"certificate" xml:"Certificate"`
-	CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
-	PrivateKey       string `json:"privateKey" xml:"PrivateKey"`
+Certificate string `json:"certificate" xml:"Certificate"`
+CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
+PrivateKey string `json:"privateKey" xml:"PrivateKey"`
 }
 
 type ExtendedKeyUsage struct {
-	Name string `json:"name" xml:"Name"`
-	OID  string `json:"oID" xml:"OID"`
+Name string `json:"name" xml:"Name"`
+OID string `json:"oID" xml:"OID"`
 }
 
 type Filters struct {
-	ExportOption     string                     `json:"exportOption" xml:"exportOption"`
-	ExtendedKeyUsage ExtendedKeyUsageFilterList `json:"extendedKeyUsage" xml:"extendedKeyUsage"`
-	KeyTypes         KeyAlgorithmList           `json:"keyTypes" xml:"keyTypes"`
-	KeyUsage         KeyUsageFilterList         `json:"keyUsage" xml:"keyUsage"`
-	ManagedBy        string                     `json:"managedBy" xml:"managedBy"`
+ExportOption string `json:"exportOption" xml:"exportOption"`
+ExtendedKeyUsage ExtendedKeyUsageFilterList `json:"extendedKeyUsage" xml:"extendedKeyUsage"`
+KeyTypes KeyAlgorithmList `json:"keyTypes" xml:"keyTypes"`
+KeyUsage KeyUsageFilterList `json:"keyUsage" xml:"keyUsage"`
+ManagedBy string `json:"managedBy" xml:"managedBy"`
 }
 
 type GetAccountConfigurationResponse struct {
-	ExpiryEvents *ExpiryEventsConfiguration `json:"expiryEvents" xml:"ExpiryEvents"`
+ExpiryEvents *ExpiryEventsConfiguration `json:"expiryEvents" xml:"ExpiryEvents"`
 }
 
 type GetCertificateRequest struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
 }
 
 type GetCertificateResponse struct {
-	Certificate      string `json:"certificate" xml:"Certificate"`
-	CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
+Certificate string `json:"certificate" xml:"Certificate"`
+CertificateChain string `json:"certificateChain" xml:"CertificateChain"`
 }
 
 type HttpRedirect struct {
-	RedirectFrom string `json:"redirectFrom" xml:"RedirectFrom"`
-	RedirectTo   string `json:"redirectTo" xml:"RedirectTo"`
+RedirectFrom string `json:"redirectFrom" xml:"RedirectFrom"`
+RedirectTo string `json:"redirectTo" xml:"RedirectTo"`
 }
 
 type ImportCertificateRequest struct {
-	Certificate      []byte  `json:"certificate" xml:"Certificate"`
-	CertificateArn   string  `json:"certificateArn" xml:"CertificateArn"`
-	CertificateChain []byte  `json:"certificateChain" xml:"CertificateChain"`
-	PrivateKey       []byte  `json:"privateKey" xml:"PrivateKey"`
-	Tags             TagList `json:"tags" xml:"Tags"`
+Certificate []byte `json:"certificate" xml:"Certificate"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateChain []byte `json:"certificateChain" xml:"CertificateChain"`
+PrivateKey []byte `json:"privateKey" xml:"PrivateKey"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type ImportCertificateResponse struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
 }
 
 type KeyUsage struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ListCertificatesRequest struct {
-	CertificateStatuses CertificateStatuses `json:"certificateStatuses" xml:"CertificateStatuses"`
-	Includes            *Filters            `json:"includes" xml:"Includes"`
-	MaxItems            int32               `json:"maxItems" xml:"MaxItems"`
-	NextToken           string              `json:"nextToken" xml:"NextToken"`
-	SortBy              string              `json:"sortBy" xml:"SortBy"`
-	SortOrder           string              `json:"sortOrder" xml:"SortOrder"`
+CertificateStatuses CertificateStatuses `json:"certificateStatuses" xml:"CertificateStatuses"`
+Includes *Filters `json:"includes" xml:"Includes"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SortBy string `json:"sortBy" xml:"SortBy"`
+SortOrder string `json:"sortOrder" xml:"SortOrder"`
 }
 
 type ListCertificatesResponse struct {
-	CertificateSummaryList CertificateSummaryList `json:"certificateSummaryList" xml:"CertificateSummaryList"`
-	NextToken              string                 `json:"nextToken" xml:"NextToken"`
+CertificateSummaryList CertificateSummaryList `json:"certificateSummaryList" xml:"CertificateSummaryList"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListTagsForCertificateRequest struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
 }
 
 type ListTagsForCertificateResponse struct {
-	Tags TagList `json:"tags" xml:"Tags"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type OtherName struct {
-	ObjectIdentifier string `json:"objectIdentifier" xml:"ObjectIdentifier"`
-	Value            string `json:"value" xml:"Value"`
+ObjectIdentifier string `json:"objectIdentifier" xml:"ObjectIdentifier"`
+Value string `json:"value" xml:"Value"`
 }
 
 type PutAccountConfigurationRequest struct {
-	ExpiryEvents     *ExpiryEventsConfiguration `json:"expiryEvents" xml:"ExpiryEvents"`
-	IdempotencyToken string                     `json:"idempotencyToken" xml:"IdempotencyToken"`
+ExpiryEvents *ExpiryEventsConfiguration `json:"expiryEvents" xml:"ExpiryEvents"`
+IdempotencyToken string `json:"idempotencyToken" xml:"IdempotencyToken"`
 }
 
 type RemoveTagsFromCertificateRequest struct {
-	CertificateArn string  `json:"certificateArn" xml:"CertificateArn"`
-	Tags           TagList `json:"tags" xml:"Tags"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type RenewCertificateRequest struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
 }
 
 type RenewalSummary struct {
-	DomainValidationOptions DomainValidationList `json:"domainValidationOptions" xml:"DomainValidationOptions"`
-	RenewalStatus           string               `json:"renewalStatus" xml:"RenewalStatus"`
-	RenewalStatusReason     string               `json:"renewalStatusReason" xml:"RenewalStatusReason"`
-	UpdatedAt               time.Time            `json:"updatedAt" xml:"UpdatedAt"`
+DomainValidationOptions DomainValidationList `json:"domainValidationOptions" xml:"DomainValidationOptions"`
+RenewalStatus string `json:"renewalStatus" xml:"RenewalStatus"`
+RenewalStatusReason string `json:"renewalStatusReason" xml:"RenewalStatusReason"`
+UpdatedAt time.Time `json:"updatedAt" xml:"UpdatedAt"`
 }
 
 type RequestCertificateRequest struct {
-	CertificateAuthorityArn string                     `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	DomainName              string                     `json:"domainName" xml:"DomainName"`
-	DomainValidationOptions DomainValidationOptionList `json:"domainValidationOptions" xml:"DomainValidationOptions"`
-	IdempotencyToken        string                     `json:"idempotencyToken" xml:"IdempotencyToken"`
-	KeyAlgorithm            string                     `json:"keyAlgorithm" xml:"KeyAlgorithm"`
-	ManagedBy               string                     `json:"managedBy" xml:"ManagedBy"`
-	Options                 *CertificateOptions        `json:"options" xml:"Options"`
-	SubjectAlternativeNames DomainList                 `json:"subjectAlternativeNames" xml:"SubjectAlternativeNames"`
-	Tags                    TagList                    `json:"tags" xml:"Tags"`
-	ValidationMethod        string                     `json:"validationMethod" xml:"ValidationMethod"`
+CertificateAuthorityArn string `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+DomainName string `json:"domainName" xml:"DomainName"`
+DomainValidationOptions DomainValidationOptionList `json:"domainValidationOptions" xml:"DomainValidationOptions"`
+IdempotencyToken string `json:"idempotencyToken" xml:"IdempotencyToken"`
+KeyAlgorithm string `json:"keyAlgorithm" xml:"KeyAlgorithm"`
+ManagedBy string `json:"managedBy" xml:"ManagedBy"`
+Options *CertificateOptions `json:"options" xml:"Options"`
+SubjectAlternativeNames DomainList `json:"subjectAlternativeNames" xml:"SubjectAlternativeNames"`
+Tags TagList `json:"tags" xml:"Tags"`
+ValidationMethod string `json:"validationMethod" xml:"ValidationMethod"`
 }
 
 type RequestCertificateResponse struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
 }
 
 type ResendValidationEmailRequest struct {
-	CertificateArn   string `json:"certificateArn" xml:"CertificateArn"`
-	Domain           string `json:"domain" xml:"Domain"`
-	ValidationDomain string `json:"validationDomain" xml:"ValidationDomain"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+Domain string `json:"domain" xml:"Domain"`
+ValidationDomain string `json:"validationDomain" xml:"ValidationDomain"`
 }
 
 type ResourceRecord struct {
-	Name  string `json:"name" xml:"Name"`
-	Type  string `json:"type" xml:"Type"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Type string `json:"type" xml:"Type"`
+Value string `json:"value" xml:"Value"`
 }
 
 type RevokeCertificateRequest struct {
-	CertificateArn   string `json:"certificateArn" xml:"CertificateArn"`
-	RevocationReason string `json:"revocationReason" xml:"RevocationReason"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+RevocationReason string `json:"revocationReason" xml:"RevocationReason"`
 }
 
 type RevokeCertificateResponse struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
 }
 
 type SearchCertificatesRequest struct {
-	FilterStatement interface{} `json:"filterStatement" xml:"FilterStatement"`
-	MaxResults      int32       `json:"maxResults" xml:"MaxResults"`
-	NextToken       string      `json:"nextToken" xml:"NextToken"`
-	SortBy          string      `json:"sortBy" xml:"SortBy"`
-	SortOrder       string      `json:"sortOrder" xml:"SortOrder"`
+FilterStatement interface{} `json:"filterStatement" xml:"FilterStatement"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+SortBy string `json:"sortBy" xml:"SortBy"`
+SortOrder string `json:"sortOrder" xml:"SortOrder"`
 }
 
 type SearchCertificatesResponse struct {
-	NextToken string                      `json:"nextToken" xml:"NextToken"`
-	Results   CertificateSearchResultList `json:"results" xml:"Results"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Results CertificateSearchResultList `json:"results" xml:"Results"`
 }
 
 type SmithyUnit struct {
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ThrottlingReason struct {
-	Reason   string `json:"reason" xml:"reason"`
-	Resource string `json:"resource" xml:"resource"`
+Reason string `json:"reason" xml:"reason"`
+Resource string `json:"resource" xml:"resource"`
 }
 
 type TimestampRange struct {
-	End   time.Time `json:"end" xml:"End"`
-	Start time.Time `json:"start" xml:"Start"`
+End time.Time `json:"end" xml:"End"`
+Start time.Time `json:"start" xml:"Start"`
 }
 
 type UpdateCertificateOptionsRequest struct {
-	CertificateArn string              `json:"certificateArn" xml:"CertificateArn"`
-	Options        *CertificateOptions `json:"options" xml:"Options"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+Options *CertificateOptions `json:"options" xml:"Options"`
 }
 
 type X509Attributes struct {
-	ExtendedKeyUsages       ExtendedKeyUsageNames `json:"extendedKeyUsages" xml:"ExtendedKeyUsages"`
-	Issuer                  *DistinguishedName    `json:"issuer" xml:"Issuer"`
-	KeyAlgorithm            string                `json:"keyAlgorithm" xml:"KeyAlgorithm"`
-	KeyUsages               KeyUsageNames         `json:"keyUsages" xml:"KeyUsages"`
-	NotAfter                time.Time             `json:"notAfter" xml:"NotAfter"`
-	NotBefore               time.Time             `json:"notBefore" xml:"NotBefore"`
-	SerialNumber            string                `json:"serialNumber" xml:"SerialNumber"`
-	Subject                 *DistinguishedName    `json:"subject" xml:"Subject"`
-	SubjectAlternativeNames GeneralNameList       `json:"subjectAlternativeNames" xml:"SubjectAlternativeNames"`
+ExtendedKeyUsages ExtendedKeyUsageNames `json:"extendedKeyUsages" xml:"ExtendedKeyUsages"`
+Issuer *DistinguishedName `json:"issuer" xml:"Issuer"`
+KeyAlgorithm string `json:"keyAlgorithm" xml:"KeyAlgorithm"`
+KeyUsages KeyUsageNames `json:"keyUsages" xml:"KeyUsages"`
+NotAfter time.Time `json:"notAfter" xml:"NotAfter"`
+NotBefore time.Time `json:"notBefore" xml:"NotBefore"`
+SerialNumber string `json:"serialNumber" xml:"SerialNumber"`
+Subject *DistinguishedName `json:"subject" xml:"Subject"`
+SubjectAlternativeNames GeneralNameList `json:"subjectAlternativeNames" xml:"SubjectAlternativeNames"`
 }
 
 type CertificateFilterStatementList []interface{}
@@ -405,3 +405,4 @@ type SubjectAlternativeNameFilter interface{}
 type SubjectFilter interface{}
 
 type X509AttributeFilter interface{}
+

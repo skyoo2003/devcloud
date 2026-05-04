@@ -113,3 +113,4 @@ func SerializeUpdateThingShadowResponse(w http.ResponseWriter, output *UpdateThi
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

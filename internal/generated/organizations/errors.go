@@ -853,3 +853,4 @@ func (e *UnsupportedAPIEndpointException) ErrorCode() string {
 func (e *UnsupportedAPIEndpointException) HTTPStatus() int {
 	return 403
 }
+

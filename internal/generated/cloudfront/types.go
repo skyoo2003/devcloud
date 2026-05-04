@@ -7,2980 +7,2980 @@ import (
 )
 
 type ActiveTrustedKeyGroups struct {
-	Enabled  bool             `json:"enabled" xml:"Enabled"`
-	Items    KGKeyPairIdsList `json:"items" xml:"Items"`
-	Quantity int32            `json:"quantity" xml:"Quantity"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Items KGKeyPairIdsList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ActiveTrustedSigners struct {
-	Enabled  bool       `json:"enabled" xml:"Enabled"`
-	Items    SignerList `json:"items" xml:"Items"`
-	Quantity int32      `json:"quantity" xml:"Quantity"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Items SignerList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type AliasICPRecordal struct {
-	CNAME             string `json:"cNAME" xml:"CNAME"`
-	ICPRecordalStatus string `json:"iCPRecordalStatus" xml:"ICPRecordalStatus"`
+CNAME string `json:"cNAME" xml:"CNAME"`
+ICPRecordalStatus string `json:"iCPRecordalStatus" xml:"ICPRecordalStatus"`
 }
 
 type Aliases struct {
-	Items    AliasList `json:"items" xml:"Items"`
-	Quantity int32     `json:"quantity" xml:"Quantity"`
+Items AliasList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type AllowedMethods struct {
-	CachedMethods *CachedMethods `json:"cachedMethods" xml:"CachedMethods"`
-	Items         MethodsList    `json:"items" xml:"Items"`
-	Quantity      int32          `json:"quantity" xml:"Quantity"`
+CachedMethods *CachedMethods `json:"cachedMethods" xml:"CachedMethods"`
+Items MethodsList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type AnycastIpList struct {
-	AnycastIps       AnycastIps  `json:"anycastIps" xml:"AnycastIps"`
-	Arn              string      `json:"arn" xml:"Arn"`
-	Id               string      `json:"id" xml:"Id"`
-	IpAddressType    string      `json:"ipAddressType" xml:"IpAddressType"`
-	IpCount          int32       `json:"ipCount" xml:"IpCount"`
-	IpamConfig       *IpamConfig `json:"ipamConfig" xml:"IpamConfig"`
-	LastModifiedTime time.Time   `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name             string      `json:"name" xml:"Name"`
-	Status           string      `json:"status" xml:"Status"`
+AnycastIps AnycastIps `json:"anycastIps" xml:"AnycastIps"`
+Arn string `json:"arn" xml:"Arn"`
+Id string `json:"id" xml:"Id"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+IpCount int32 `json:"ipCount" xml:"IpCount"`
+IpamConfig *IpamConfig `json:"ipamConfig" xml:"IpamConfig"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type AnycastIpListCollection struct {
-	IsTruncated bool                   `json:"isTruncated" xml:"IsTruncated"`
-	Items       AnycastIpListSummaries `json:"items" xml:"Items"`
-	Marker      string                 `json:"marker" xml:"Marker"`
-	MaxItems    int32                  `json:"maxItems" xml:"MaxItems"`
-	NextMarker  string                 `json:"nextMarker" xml:"NextMarker"`
-	Quantity    int32                  `json:"quantity" xml:"Quantity"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Items AnycastIpListSummaries `json:"items" xml:"Items"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type AnycastIpListSummary struct {
-	Arn              string      `json:"arn" xml:"Arn"`
-	ETag             string      `json:"eTag" xml:"ETag"`
-	Id               string      `json:"id" xml:"Id"`
-	IpAddressType    string      `json:"ipAddressType" xml:"IpAddressType"`
-	IpCount          int32       `json:"ipCount" xml:"IpCount"`
-	IpamConfig       *IpamConfig `json:"ipamConfig" xml:"IpamConfig"`
-	LastModifiedTime time.Time   `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name             string      `json:"name" xml:"Name"`
-	Status           string      `json:"status" xml:"Status"`
+Arn string `json:"arn" xml:"Arn"`
+ETag string `json:"eTag" xml:"ETag"`
+Id string `json:"id" xml:"Id"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+IpCount int32 `json:"ipCount" xml:"IpCount"`
+IpamConfig *IpamConfig `json:"ipamConfig" xml:"IpamConfig"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type AssociateAliasRequest struct {
-	Alias                string `json:"alias" xml:"Alias"`
-	TargetDistributionId string `json:"targetDistributionId" xml:"TargetDistributionId"`
+Alias string `json:"alias" xml:"Alias"`
+TargetDistributionId string `json:"targetDistributionId" xml:"TargetDistributionId"`
 }
 
 type AssociateDistributionTenantWebACLRequest struct {
-	Id        string `json:"id" xml:"Id"`
-	IfMatch   string `json:"ifMatch" xml:"IfMatch"`
-	WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
 }
 
 type AssociateDistributionTenantWebACLResult struct {
-	ETag      string `json:"eTag" xml:"ETag"`
-	Id        string `json:"id" xml:"Id"`
-	WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
+ETag string `json:"eTag" xml:"ETag"`
+Id string `json:"id" xml:"Id"`
+WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
 }
 
 type AssociateDistributionWebACLRequest struct {
-	Id        string `json:"id" xml:"Id"`
-	IfMatch   string `json:"ifMatch" xml:"IfMatch"`
-	WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
 }
 
 type AssociateDistributionWebACLResult struct {
-	ETag      string `json:"eTag" xml:"ETag"`
-	Id        string `json:"id" xml:"Id"`
-	WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
+ETag string `json:"eTag" xml:"ETag"`
+Id string `json:"id" xml:"Id"`
+WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
 }
 
 type CaCertificatesBundleS3Location struct {
-	Bucket  string `json:"bucket" xml:"Bucket"`
-	Key     string `json:"key" xml:"Key"`
-	Region  string `json:"region" xml:"Region"`
-	Version string `json:"version" xml:"Version"`
+Bucket string `json:"bucket" xml:"Bucket"`
+Key string `json:"key" xml:"Key"`
+Region string `json:"region" xml:"Region"`
+Version string `json:"version" xml:"Version"`
 }
 
 type CacheBehavior struct {
-	AllowedMethods             *AllowedMethods             `json:"allowedMethods" xml:"AllowedMethods"`
-	CachePolicyId              string                      `json:"cachePolicyId" xml:"CachePolicyId"`
-	Compress                   bool                        `json:"compress" xml:"Compress"`
-	DefaultTTL                 int64                       `json:"defaultTTL" xml:"DefaultTTL"`
-	FieldLevelEncryptionId     string                      `json:"fieldLevelEncryptionId" xml:"FieldLevelEncryptionId"`
-	ForwardedValues            *ForwardedValues            `json:"forwardedValues" xml:"ForwardedValues"`
-	FunctionAssociations       *FunctionAssociations       `json:"functionAssociations" xml:"FunctionAssociations"`
-	GrpcConfig                 *GrpcConfig                 `json:"grpcConfig" xml:"GrpcConfig"`
-	LambdaFunctionAssociations *LambdaFunctionAssociations `json:"lambdaFunctionAssociations" xml:"LambdaFunctionAssociations"`
-	MaxTTL                     int64                       `json:"maxTTL" xml:"MaxTTL"`
-	MinTTL                     int64                       `json:"minTTL" xml:"MinTTL"`
-	OriginRequestPolicyId      string                      `json:"originRequestPolicyId" xml:"OriginRequestPolicyId"`
-	PathPattern                string                      `json:"pathPattern" xml:"PathPattern"`
-	RealtimeLogConfigArn       string                      `json:"realtimeLogConfigArn" xml:"RealtimeLogConfigArn"`
-	ResponseHeadersPolicyId    string                      `json:"responseHeadersPolicyId" xml:"ResponseHeadersPolicyId"`
-	SmoothStreaming            bool                        `json:"smoothStreaming" xml:"SmoothStreaming"`
-	TargetOriginId             string                      `json:"targetOriginId" xml:"TargetOriginId"`
-	TrustedKeyGroups           *TrustedKeyGroups           `json:"trustedKeyGroups" xml:"TrustedKeyGroups"`
-	TrustedSigners             *TrustedSigners             `json:"trustedSigners" xml:"TrustedSigners"`
-	ViewerProtocolPolicy       string                      `json:"viewerProtocolPolicy" xml:"ViewerProtocolPolicy"`
+AllowedMethods *AllowedMethods `json:"allowedMethods" xml:"AllowedMethods"`
+CachePolicyId string `json:"cachePolicyId" xml:"CachePolicyId"`
+Compress bool `json:"compress" xml:"Compress"`
+DefaultTTL int64 `json:"defaultTTL" xml:"DefaultTTL"`
+FieldLevelEncryptionId string `json:"fieldLevelEncryptionId" xml:"FieldLevelEncryptionId"`
+ForwardedValues *ForwardedValues `json:"forwardedValues" xml:"ForwardedValues"`
+FunctionAssociations *FunctionAssociations `json:"functionAssociations" xml:"FunctionAssociations"`
+GrpcConfig *GrpcConfig `json:"grpcConfig" xml:"GrpcConfig"`
+LambdaFunctionAssociations *LambdaFunctionAssociations `json:"lambdaFunctionAssociations" xml:"LambdaFunctionAssociations"`
+MaxTTL int64 `json:"maxTTL" xml:"MaxTTL"`
+MinTTL int64 `json:"minTTL" xml:"MinTTL"`
+OriginRequestPolicyId string `json:"originRequestPolicyId" xml:"OriginRequestPolicyId"`
+PathPattern string `json:"pathPattern" xml:"PathPattern"`
+RealtimeLogConfigArn string `json:"realtimeLogConfigArn" xml:"RealtimeLogConfigArn"`
+ResponseHeadersPolicyId string `json:"responseHeadersPolicyId" xml:"ResponseHeadersPolicyId"`
+SmoothStreaming bool `json:"smoothStreaming" xml:"SmoothStreaming"`
+TargetOriginId string `json:"targetOriginId" xml:"TargetOriginId"`
+TrustedKeyGroups *TrustedKeyGroups `json:"trustedKeyGroups" xml:"TrustedKeyGroups"`
+TrustedSigners *TrustedSigners `json:"trustedSigners" xml:"TrustedSigners"`
+ViewerProtocolPolicy string `json:"viewerProtocolPolicy" xml:"ViewerProtocolPolicy"`
 }
 
 type CacheBehaviors struct {
-	Items    CacheBehaviorList `json:"items" xml:"Items"`
-	Quantity int32             `json:"quantity" xml:"Quantity"`
+Items CacheBehaviorList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type CachePolicy struct {
-	CachePolicyConfig *CachePolicyConfig `json:"cachePolicyConfig" xml:"CachePolicyConfig"`
-	Id                string             `json:"id" xml:"Id"`
-	LastModifiedTime  time.Time          `json:"lastModifiedTime" xml:"LastModifiedTime"`
+CachePolicyConfig *CachePolicyConfig `json:"cachePolicyConfig" xml:"CachePolicyConfig"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type CachePolicyConfig struct {
-	Comment                                  string                                    `json:"comment" xml:"Comment"`
-	DefaultTTL                               int64                                     `json:"defaultTTL" xml:"DefaultTTL"`
-	MaxTTL                                   int64                                     `json:"maxTTL" xml:"MaxTTL"`
-	MinTTL                                   int64                                     `json:"minTTL" xml:"MinTTL"`
-	Name                                     string                                    `json:"name" xml:"Name"`
-	ParametersInCacheKeyAndForwardedToOrigin *ParametersInCacheKeyAndForwardedToOrigin `json:"parametersInCacheKeyAndForwardedToOrigin" xml:"ParametersInCacheKeyAndForwardedToOrigin"`
+Comment string `json:"comment" xml:"Comment"`
+DefaultTTL int64 `json:"defaultTTL" xml:"DefaultTTL"`
+MaxTTL int64 `json:"maxTTL" xml:"MaxTTL"`
+MinTTL int64 `json:"minTTL" xml:"MinTTL"`
+Name string `json:"name" xml:"Name"`
+ParametersInCacheKeyAndForwardedToOrigin *ParametersInCacheKeyAndForwardedToOrigin `json:"parametersInCacheKeyAndForwardedToOrigin" xml:"ParametersInCacheKeyAndForwardedToOrigin"`
 }
 
 type CachePolicyCookiesConfig struct {
-	CookieBehavior string       `json:"cookieBehavior" xml:"CookieBehavior"`
-	Cookies        *CookieNames `json:"cookies" xml:"Cookies"`
+CookieBehavior string `json:"cookieBehavior" xml:"CookieBehavior"`
+Cookies *CookieNames `json:"cookies" xml:"Cookies"`
 }
 
 type CachePolicyHeadersConfig struct {
-	HeaderBehavior string   `json:"headerBehavior" xml:"HeaderBehavior"`
-	Headers        *Headers `json:"headers" xml:"Headers"`
+HeaderBehavior string `json:"headerBehavior" xml:"HeaderBehavior"`
+Headers *Headers `json:"headers" xml:"Headers"`
 }
 
 type CachePolicyList struct {
-	Items      CachePolicySummaryList `json:"items" xml:"Items"`
-	MaxItems   int32                  `json:"maxItems" xml:"MaxItems"`
-	NextMarker string                 `json:"nextMarker" xml:"NextMarker"`
-	Quantity   int32                  `json:"quantity" xml:"Quantity"`
+Items CachePolicySummaryList `json:"items" xml:"Items"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type CachePolicyQueryStringsConfig struct {
-	QueryStringBehavior string            `json:"queryStringBehavior" xml:"QueryStringBehavior"`
-	QueryStrings        *QueryStringNames `json:"queryStrings" xml:"QueryStrings"`
+QueryStringBehavior string `json:"queryStringBehavior" xml:"QueryStringBehavior"`
+QueryStrings *QueryStringNames `json:"queryStrings" xml:"QueryStrings"`
 }
 
 type CachePolicySummary struct {
-	CachePolicy *CachePolicy `json:"cachePolicy" xml:"CachePolicy"`
-	Type        string       `json:"type" xml:"Type"`
+CachePolicy *CachePolicy `json:"cachePolicy" xml:"CachePolicy"`
+Type string `json:"type" xml:"Type"`
 }
 
 type CachedMethods struct {
-	Items    MethodsList `json:"items" xml:"Items"`
-	Quantity int32       `json:"quantity" xml:"Quantity"`
+Items MethodsList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type Certificate struct {
-	Arn string `json:"arn" xml:"Arn"`
+Arn string `json:"arn" xml:"Arn"`
 }
 
 type CloudFrontOriginAccessIdentity struct {
-	CloudFrontOriginAccessIdentityConfig *CloudFrontOriginAccessIdentityConfig `json:"cloudFrontOriginAccessIdentityConfig" xml:"CloudFrontOriginAccessIdentityConfig"`
-	Id                                   string                                `json:"id" xml:"Id"`
-	S3CanonicalUserId                    string                                `json:"s3CanonicalUserId" xml:"S3CanonicalUserId"`
+CloudFrontOriginAccessIdentityConfig *CloudFrontOriginAccessIdentityConfig `json:"cloudFrontOriginAccessIdentityConfig" xml:"CloudFrontOriginAccessIdentityConfig"`
+Id string `json:"id" xml:"Id"`
+S3CanonicalUserId string `json:"s3CanonicalUserId" xml:"S3CanonicalUserId"`
 }
 
 type CloudFrontOriginAccessIdentityConfig struct {
-	CallerReference string `json:"callerReference" xml:"CallerReference"`
-	Comment         string `json:"comment" xml:"Comment"`
+CallerReference string `json:"callerReference" xml:"CallerReference"`
+Comment string `json:"comment" xml:"Comment"`
 }
 
 type CloudFrontOriginAccessIdentityList struct {
-	IsTruncated bool                                      `json:"isTruncated" xml:"IsTruncated"`
-	Items       CloudFrontOriginAccessIdentitySummaryList `json:"items" xml:"Items"`
-	Marker      string                                    `json:"marker" xml:"Marker"`
-	MaxItems    int32                                     `json:"maxItems" xml:"MaxItems"`
-	NextMarker  string                                    `json:"nextMarker" xml:"NextMarker"`
-	Quantity    int32                                     `json:"quantity" xml:"Quantity"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Items CloudFrontOriginAccessIdentitySummaryList `json:"items" xml:"Items"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type CloudFrontOriginAccessIdentitySummary struct {
-	Comment           string `json:"comment" xml:"Comment"`
-	Id                string `json:"id" xml:"Id"`
-	S3CanonicalUserId string `json:"s3CanonicalUserId" xml:"S3CanonicalUserId"`
+Comment string `json:"comment" xml:"Comment"`
+Id string `json:"id" xml:"Id"`
+S3CanonicalUserId string `json:"s3CanonicalUserId" xml:"S3CanonicalUserId"`
 }
 
 type ConflictingAlias struct {
-	AccountId      string `json:"accountId" xml:"AccountId"`
-	Alias          string `json:"alias" xml:"Alias"`
-	DistributionId string `json:"distributionId" xml:"DistributionId"`
+AccountId string `json:"accountId" xml:"AccountId"`
+Alias string `json:"alias" xml:"Alias"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
 }
 
 type ConflictingAliasesList struct {
-	Items      ConflictingAliases `json:"items" xml:"Items"`
-	MaxItems   int32              `json:"maxItems" xml:"MaxItems"`
-	NextMarker string             `json:"nextMarker" xml:"NextMarker"`
-	Quantity   int32              `json:"quantity" xml:"Quantity"`
+Items ConflictingAliases `json:"items" xml:"Items"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ConnectionFunctionAssociation struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type ConnectionFunctionSummary struct {
-	ConnectionFunctionArn    string          `json:"connectionFunctionArn" xml:"ConnectionFunctionArn"`
-	ConnectionFunctionConfig *FunctionConfig `json:"connectionFunctionConfig" xml:"ConnectionFunctionConfig"`
-	CreatedTime              time.Time       `json:"createdTime" xml:"CreatedTime"`
-	Id                       string          `json:"id" xml:"Id"`
-	LastModifiedTime         time.Time       `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name                     string          `json:"name" xml:"Name"`
-	Stage                    string          `json:"stage" xml:"Stage"`
-	Status                   string          `json:"status" xml:"Status"`
+ConnectionFunctionArn string `json:"connectionFunctionArn" xml:"ConnectionFunctionArn"`
+ConnectionFunctionConfig *FunctionConfig `json:"connectionFunctionConfig" xml:"ConnectionFunctionConfig"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+Stage string `json:"stage" xml:"Stage"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ConnectionFunctionTestResult struct {
-	ComputeUtilization              string                     `json:"computeUtilization" xml:"ComputeUtilization"`
-	ConnectionFunctionErrorMessage  string                     `json:"connectionFunctionErrorMessage" xml:"ConnectionFunctionErrorMessage"`
-	ConnectionFunctionExecutionLogs FunctionExecutionLogList   `json:"connectionFunctionExecutionLogs" xml:"ConnectionFunctionExecutionLogs"`
-	ConnectionFunctionOutput        string                     `json:"connectionFunctionOutput" xml:"ConnectionFunctionOutput"`
-	ConnectionFunctionSummary       *ConnectionFunctionSummary `json:"connectionFunctionSummary" xml:"ConnectionFunctionSummary"`
+ComputeUtilization string `json:"computeUtilization" xml:"ComputeUtilization"`
+ConnectionFunctionErrorMessage string `json:"connectionFunctionErrorMessage" xml:"ConnectionFunctionErrorMessage"`
+ConnectionFunctionExecutionLogs FunctionExecutionLogList `json:"connectionFunctionExecutionLogs" xml:"ConnectionFunctionExecutionLogs"`
+ConnectionFunctionOutput string `json:"connectionFunctionOutput" xml:"ConnectionFunctionOutput"`
+ConnectionFunctionSummary *ConnectionFunctionSummary `json:"connectionFunctionSummary" xml:"ConnectionFunctionSummary"`
 }
 
 type ConnectionGroup struct {
-	AnycastIpListId  string    `json:"anycastIpListId" xml:"AnycastIpListId"`
-	Arn              string    `json:"arn" xml:"Arn"`
-	CreatedTime      time.Time `json:"createdTime" xml:"CreatedTime"`
-	Enabled          bool      `json:"enabled" xml:"Enabled"`
-	Id               string    `json:"id" xml:"Id"`
-	Ipv6Enabled      bool      `json:"ipv6Enabled" xml:"Ipv6Enabled"`
-	IsDefault        bool      `json:"isDefault" xml:"IsDefault"`
-	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name             string    `json:"name" xml:"Name"`
-	RoutingEndpoint  string    `json:"routingEndpoint" xml:"RoutingEndpoint"`
-	Status           string    `json:"status" xml:"Status"`
-	Tags             *Tags     `json:"tags" xml:"Tags"`
+AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
+Arn string `json:"arn" xml:"Arn"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Id string `json:"id" xml:"Id"`
+Ipv6Enabled bool `json:"ipv6Enabled" xml:"Ipv6Enabled"`
+IsDefault bool `json:"isDefault" xml:"IsDefault"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+RoutingEndpoint string `json:"routingEndpoint" xml:"RoutingEndpoint"`
+Status string `json:"status" xml:"Status"`
+Tags *Tags `json:"tags" xml:"Tags"`
 }
 
 type ConnectionGroupAssociationFilter struct {
-	AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
+AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
 }
 
 type ConnectionGroupSummary struct {
-	AnycastIpListId  string    `json:"anycastIpListId" xml:"AnycastIpListId"`
-	Arn              string    `json:"arn" xml:"Arn"`
-	CreatedTime      time.Time `json:"createdTime" xml:"CreatedTime"`
-	ETag             string    `json:"eTag" xml:"ETag"`
-	Enabled          bool      `json:"enabled" xml:"Enabled"`
-	Id               string    `json:"id" xml:"Id"`
-	IsDefault        bool      `json:"isDefault" xml:"IsDefault"`
-	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name             string    `json:"name" xml:"Name"`
-	RoutingEndpoint  string    `json:"routingEndpoint" xml:"RoutingEndpoint"`
-	Status           string    `json:"status" xml:"Status"`
+AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
+Arn string `json:"arn" xml:"Arn"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+ETag string `json:"eTag" xml:"ETag"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Id string `json:"id" xml:"Id"`
+IsDefault bool `json:"isDefault" xml:"IsDefault"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+RoutingEndpoint string `json:"routingEndpoint" xml:"RoutingEndpoint"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ContentTypeProfile struct {
-	ContentType string `json:"contentType" xml:"ContentType"`
-	Format      string `json:"format" xml:"Format"`
-	ProfileId   string `json:"profileId" xml:"ProfileId"`
+ContentType string `json:"contentType" xml:"ContentType"`
+Format string `json:"format" xml:"Format"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
 }
 
 type ContentTypeProfileConfig struct {
-	ContentTypeProfiles             *ContentTypeProfiles `json:"contentTypeProfiles" xml:"ContentTypeProfiles"`
-	ForwardWhenContentTypeIsUnknown bool                 `json:"forwardWhenContentTypeIsUnknown" xml:"ForwardWhenContentTypeIsUnknown"`
+ContentTypeProfiles *ContentTypeProfiles `json:"contentTypeProfiles" xml:"ContentTypeProfiles"`
+ForwardWhenContentTypeIsUnknown bool `json:"forwardWhenContentTypeIsUnknown" xml:"ForwardWhenContentTypeIsUnknown"`
 }
 
 type ContentTypeProfiles struct {
-	Items    ContentTypeProfileList `json:"items" xml:"Items"`
-	Quantity int32                  `json:"quantity" xml:"Quantity"`
+Items ContentTypeProfileList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ContinuousDeploymentPolicy struct {
-	ContinuousDeploymentPolicyConfig *ContinuousDeploymentPolicyConfig `json:"continuousDeploymentPolicyConfig" xml:"ContinuousDeploymentPolicyConfig"`
-	Id                               string                            `json:"id" xml:"Id"`
-	LastModifiedTime                 time.Time                         `json:"lastModifiedTime" xml:"LastModifiedTime"`
+ContinuousDeploymentPolicyConfig *ContinuousDeploymentPolicyConfig `json:"continuousDeploymentPolicyConfig" xml:"ContinuousDeploymentPolicyConfig"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type ContinuousDeploymentPolicyConfig struct {
-	Enabled                     bool                         `json:"enabled" xml:"Enabled"`
-	StagingDistributionDnsNames *StagingDistributionDnsNames `json:"stagingDistributionDnsNames" xml:"StagingDistributionDnsNames"`
-	TrafficConfig               *TrafficConfig               `json:"trafficConfig" xml:"TrafficConfig"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+StagingDistributionDnsNames *StagingDistributionDnsNames `json:"stagingDistributionDnsNames" xml:"StagingDistributionDnsNames"`
+TrafficConfig *TrafficConfig `json:"trafficConfig" xml:"TrafficConfig"`
 }
 
 type ContinuousDeploymentPolicyList struct {
-	Items      ContinuousDeploymentPolicySummaryList `json:"items" xml:"Items"`
-	MaxItems   int32                                 `json:"maxItems" xml:"MaxItems"`
-	NextMarker string                                `json:"nextMarker" xml:"NextMarker"`
-	Quantity   int32                                 `json:"quantity" xml:"Quantity"`
+Items ContinuousDeploymentPolicySummaryList `json:"items" xml:"Items"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ContinuousDeploymentPolicySummary struct {
-	ContinuousDeploymentPolicy *ContinuousDeploymentPolicy `json:"continuousDeploymentPolicy" xml:"ContinuousDeploymentPolicy"`
+ContinuousDeploymentPolicy *ContinuousDeploymentPolicy `json:"continuousDeploymentPolicy" xml:"ContinuousDeploymentPolicy"`
 }
 
 type ContinuousDeploymentSingleHeaderConfig struct {
-	Header string `json:"header" xml:"Header"`
-	Value  string `json:"value" xml:"Value"`
+Header string `json:"header" xml:"Header"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ContinuousDeploymentSingleWeightConfig struct {
-	SessionStickinessConfig *SessionStickinessConfig `json:"sessionStickinessConfig" xml:"SessionStickinessConfig"`
-	Weight                  float32                  `json:"weight" xml:"Weight"`
+SessionStickinessConfig *SessionStickinessConfig `json:"sessionStickinessConfig" xml:"SessionStickinessConfig"`
+Weight float32 `json:"weight" xml:"Weight"`
 }
 
 type CookieNames struct {
-	Items    CookieNameList `json:"items" xml:"Items"`
-	Quantity int32          `json:"quantity" xml:"Quantity"`
+Items CookieNameList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type CookiePreference struct {
-	Forward          string       `json:"forward" xml:"Forward"`
-	WhitelistedNames *CookieNames `json:"whitelistedNames" xml:"WhitelistedNames"`
+Forward string `json:"forward" xml:"Forward"`
+WhitelistedNames *CookieNames `json:"whitelistedNames" xml:"WhitelistedNames"`
 }
 
 type CopyDistributionRequest struct {
-	CallerReference       string `json:"callerReference" xml:"CallerReference"`
-	Enabled               bool   `json:"enabled" xml:"Enabled"`
-	IfMatch               string `json:"ifMatch" xml:"IfMatch"`
-	PrimaryDistributionId string `json:"primaryDistributionId" xml:"PrimaryDistributionId"`
-	Staging               bool   `json:"staging" xml:"Staging"`
+CallerReference string `json:"callerReference" xml:"CallerReference"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+PrimaryDistributionId string `json:"primaryDistributionId" xml:"PrimaryDistributionId"`
+Staging bool `json:"staging" xml:"Staging"`
 }
 
 type CopyDistributionResult struct {
-	Distribution *Distribution `json:"distribution" xml:"Distribution"`
-	ETag         string        `json:"eTag" xml:"ETag"`
-	Location     string        `json:"location" xml:"Location"`
+Distribution *Distribution `json:"distribution" xml:"Distribution"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateAnycastIpListRequest struct {
-	IpAddressType   string             `json:"ipAddressType" xml:"IpAddressType"`
-	IpCount         int32              `json:"ipCount" xml:"IpCount"`
-	IpamCidrConfigs IpamCidrConfigList `json:"ipamCidrConfigs" xml:"IpamCidrConfigs"`
-	Name            string             `json:"name" xml:"Name"`
-	Tags            *Tags              `json:"tags" xml:"Tags"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+IpCount int32 `json:"ipCount" xml:"IpCount"`
+IpamCidrConfigs IpamCidrConfigList `json:"ipamCidrConfigs" xml:"IpamCidrConfigs"`
+Name string `json:"name" xml:"Name"`
+Tags *Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateAnycastIpListResult struct {
-	AnycastIpList *AnycastIpList `json:"anycastIpList" xml:"AnycastIpList"`
-	ETag          string         `json:"eTag" xml:"ETag"`
+AnycastIpList *AnycastIpList `json:"anycastIpList" xml:"AnycastIpList"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type CreateCachePolicyRequest struct {
-	CachePolicyConfig *CachePolicyConfig `json:"cachePolicyConfig" xml:"CachePolicyConfig"`
+CachePolicyConfig *CachePolicyConfig `json:"cachePolicyConfig" xml:"CachePolicyConfig"`
 }
 
 type CreateCachePolicyResult struct {
-	CachePolicy *CachePolicy `json:"cachePolicy" xml:"CachePolicy"`
-	ETag        string       `json:"eTag" xml:"ETag"`
-	Location    string       `json:"location" xml:"Location"`
+CachePolicy *CachePolicy `json:"cachePolicy" xml:"CachePolicy"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateCloudFrontOriginAccessIdentityRequest struct {
-	CloudFrontOriginAccessIdentityConfig *CloudFrontOriginAccessIdentityConfig `json:"cloudFrontOriginAccessIdentityConfig" xml:"CloudFrontOriginAccessIdentityConfig"`
+CloudFrontOriginAccessIdentityConfig *CloudFrontOriginAccessIdentityConfig `json:"cloudFrontOriginAccessIdentityConfig" xml:"CloudFrontOriginAccessIdentityConfig"`
 }
 
 type CreateCloudFrontOriginAccessIdentityResult struct {
-	CloudFrontOriginAccessIdentity *CloudFrontOriginAccessIdentity `json:"cloudFrontOriginAccessIdentity" xml:"CloudFrontOriginAccessIdentity"`
-	ETag                           string                          `json:"eTag" xml:"ETag"`
-	Location                       string                          `json:"location" xml:"Location"`
+CloudFrontOriginAccessIdentity *CloudFrontOriginAccessIdentity `json:"cloudFrontOriginAccessIdentity" xml:"CloudFrontOriginAccessIdentity"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateConnectionFunctionRequest struct {
-	ConnectionFunctionCode   []byte          `json:"connectionFunctionCode" xml:"ConnectionFunctionCode"`
-	ConnectionFunctionConfig *FunctionConfig `json:"connectionFunctionConfig" xml:"ConnectionFunctionConfig"`
-	Name                     string          `json:"name" xml:"Name"`
-	Tags                     *Tags           `json:"tags" xml:"Tags"`
+ConnectionFunctionCode []byte `json:"connectionFunctionCode" xml:"ConnectionFunctionCode"`
+ConnectionFunctionConfig *FunctionConfig `json:"connectionFunctionConfig" xml:"ConnectionFunctionConfig"`
+Name string `json:"name" xml:"Name"`
+Tags *Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateConnectionFunctionResult struct {
-	ConnectionFunctionSummary *ConnectionFunctionSummary `json:"connectionFunctionSummary" xml:"ConnectionFunctionSummary"`
-	ETag                      string                     `json:"eTag" xml:"ETag"`
-	Location                  string                     `json:"location" xml:"Location"`
+ConnectionFunctionSummary *ConnectionFunctionSummary `json:"connectionFunctionSummary" xml:"ConnectionFunctionSummary"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateConnectionGroupRequest struct {
-	AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
-	Enabled         bool   `json:"enabled" xml:"Enabled"`
-	Ipv6Enabled     bool   `json:"ipv6Enabled" xml:"Ipv6Enabled"`
-	Name            string `json:"name" xml:"Name"`
-	Tags            *Tags  `json:"tags" xml:"Tags"`
+AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Ipv6Enabled bool `json:"ipv6Enabled" xml:"Ipv6Enabled"`
+Name string `json:"name" xml:"Name"`
+Tags *Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateConnectionGroupResult struct {
-	ConnectionGroup *ConnectionGroup `json:"connectionGroup" xml:"ConnectionGroup"`
-	ETag            string           `json:"eTag" xml:"ETag"`
+ConnectionGroup *ConnectionGroup `json:"connectionGroup" xml:"ConnectionGroup"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type CreateContinuousDeploymentPolicyRequest struct {
-	ContinuousDeploymentPolicyConfig *ContinuousDeploymentPolicyConfig `json:"continuousDeploymentPolicyConfig" xml:"ContinuousDeploymentPolicyConfig"`
+ContinuousDeploymentPolicyConfig *ContinuousDeploymentPolicyConfig `json:"continuousDeploymentPolicyConfig" xml:"ContinuousDeploymentPolicyConfig"`
 }
 
 type CreateContinuousDeploymentPolicyResult struct {
-	ContinuousDeploymentPolicy *ContinuousDeploymentPolicy `json:"continuousDeploymentPolicy" xml:"ContinuousDeploymentPolicy"`
-	ETag                       string                      `json:"eTag" xml:"ETag"`
-	Location                   string                      `json:"location" xml:"Location"`
+ContinuousDeploymentPolicy *ContinuousDeploymentPolicy `json:"continuousDeploymentPolicy" xml:"ContinuousDeploymentPolicy"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateDistributionRequest struct {
-	DistributionConfig *DistributionConfig `json:"distributionConfig" xml:"DistributionConfig"`
+DistributionConfig *DistributionConfig `json:"distributionConfig" xml:"DistributionConfig"`
 }
 
 type CreateDistributionResult struct {
-	Distribution *Distribution `json:"distribution" xml:"Distribution"`
-	ETag         string        `json:"eTag" xml:"ETag"`
-	Location     string        `json:"location" xml:"Location"`
+Distribution *Distribution `json:"distribution" xml:"Distribution"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateDistributionTenantRequest struct {
-	ConnectionGroupId         string                     `json:"connectionGroupId" xml:"ConnectionGroupId"`
-	Customizations            *Customizations            `json:"customizations" xml:"Customizations"`
-	DistributionId            string                     `json:"distributionId" xml:"DistributionId"`
-	Domains                   DomainList                 `json:"domains" xml:"Domains"`
-	Enabled                   bool                       `json:"enabled" xml:"Enabled"`
-	ManagedCertificateRequest *ManagedCertificateRequest `json:"managedCertificateRequest" xml:"ManagedCertificateRequest"`
-	Name                      string                     `json:"name" xml:"Name"`
-	Parameters                Parameters                 `json:"parameters" xml:"Parameters"`
-	Tags                      *Tags                      `json:"tags" xml:"Tags"`
+ConnectionGroupId string `json:"connectionGroupId" xml:"ConnectionGroupId"`
+Customizations *Customizations `json:"customizations" xml:"Customizations"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
+Domains DomainList `json:"domains" xml:"Domains"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+ManagedCertificateRequest *ManagedCertificateRequest `json:"managedCertificateRequest" xml:"ManagedCertificateRequest"`
+Name string `json:"name" xml:"Name"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
+Tags *Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateDistributionTenantResult struct {
-	DistributionTenant *DistributionTenant `json:"distributionTenant" xml:"DistributionTenant"`
-	ETag               string              `json:"eTag" xml:"ETag"`
+DistributionTenant *DistributionTenant `json:"distributionTenant" xml:"DistributionTenant"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type CreateDistributionWithTagsRequest struct {
-	DistributionConfigWithTags *DistributionConfigWithTags `json:"distributionConfigWithTags" xml:"DistributionConfigWithTags"`
+DistributionConfigWithTags *DistributionConfigWithTags `json:"distributionConfigWithTags" xml:"DistributionConfigWithTags"`
 }
 
 type CreateDistributionWithTagsResult struct {
-	Distribution *Distribution `json:"distribution" xml:"Distribution"`
-	ETag         string        `json:"eTag" xml:"ETag"`
-	Location     string        `json:"location" xml:"Location"`
+Distribution *Distribution `json:"distribution" xml:"Distribution"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateFieldLevelEncryptionConfigRequest struct {
-	FieldLevelEncryptionConfig *FieldLevelEncryptionConfig `json:"fieldLevelEncryptionConfig" xml:"FieldLevelEncryptionConfig"`
+FieldLevelEncryptionConfig *FieldLevelEncryptionConfig `json:"fieldLevelEncryptionConfig" xml:"FieldLevelEncryptionConfig"`
 }
 
 type CreateFieldLevelEncryptionConfigResult struct {
-	ETag                 string                `json:"eTag" xml:"ETag"`
-	FieldLevelEncryption *FieldLevelEncryption `json:"fieldLevelEncryption" xml:"FieldLevelEncryption"`
-	Location             string                `json:"location" xml:"Location"`
+ETag string `json:"eTag" xml:"ETag"`
+FieldLevelEncryption *FieldLevelEncryption `json:"fieldLevelEncryption" xml:"FieldLevelEncryption"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateFieldLevelEncryptionProfileRequest struct {
-	FieldLevelEncryptionProfileConfig *FieldLevelEncryptionProfileConfig `json:"fieldLevelEncryptionProfileConfig" xml:"FieldLevelEncryptionProfileConfig"`
+FieldLevelEncryptionProfileConfig *FieldLevelEncryptionProfileConfig `json:"fieldLevelEncryptionProfileConfig" xml:"FieldLevelEncryptionProfileConfig"`
 }
 
 type CreateFieldLevelEncryptionProfileResult struct {
-	ETag                        string                       `json:"eTag" xml:"ETag"`
-	FieldLevelEncryptionProfile *FieldLevelEncryptionProfile `json:"fieldLevelEncryptionProfile" xml:"FieldLevelEncryptionProfile"`
-	Location                    string                       `json:"location" xml:"Location"`
+ETag string `json:"eTag" xml:"ETag"`
+FieldLevelEncryptionProfile *FieldLevelEncryptionProfile `json:"fieldLevelEncryptionProfile" xml:"FieldLevelEncryptionProfile"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateFunctionRequest struct {
-	FunctionCode   []byte          `json:"functionCode" xml:"FunctionCode"`
-	FunctionConfig *FunctionConfig `json:"functionConfig" xml:"FunctionConfig"`
-	Name           string          `json:"name" xml:"Name"`
+FunctionCode []byte `json:"functionCode" xml:"FunctionCode"`
+FunctionConfig *FunctionConfig `json:"functionConfig" xml:"FunctionConfig"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateFunctionResult struct {
-	ETag            string           `json:"eTag" xml:"ETag"`
-	FunctionSummary *FunctionSummary `json:"functionSummary" xml:"FunctionSummary"`
-	Location        string           `json:"location" xml:"Location"`
+ETag string `json:"eTag" xml:"ETag"`
+FunctionSummary *FunctionSummary `json:"functionSummary" xml:"FunctionSummary"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateInvalidationForDistributionTenantRequest struct {
-	Id                string             `json:"id" xml:"Id"`
-	InvalidationBatch *InvalidationBatch `json:"invalidationBatch" xml:"InvalidationBatch"`
+Id string `json:"id" xml:"Id"`
+InvalidationBatch *InvalidationBatch `json:"invalidationBatch" xml:"InvalidationBatch"`
 }
 
 type CreateInvalidationForDistributionTenantResult struct {
-	Invalidation *Invalidation `json:"invalidation" xml:"Invalidation"`
-	Location     string        `json:"location" xml:"Location"`
+Invalidation *Invalidation `json:"invalidation" xml:"Invalidation"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateInvalidationRequest struct {
-	DistributionId    string             `json:"distributionId" xml:"DistributionId"`
-	InvalidationBatch *InvalidationBatch `json:"invalidationBatch" xml:"InvalidationBatch"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
+InvalidationBatch *InvalidationBatch `json:"invalidationBatch" xml:"InvalidationBatch"`
 }
 
 type CreateInvalidationResult struct {
-	Invalidation *Invalidation `json:"invalidation" xml:"Invalidation"`
-	Location     string        `json:"location" xml:"Location"`
+Invalidation *Invalidation `json:"invalidation" xml:"Invalidation"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateKeyGroupRequest struct {
-	KeyGroupConfig *KeyGroupConfig `json:"keyGroupConfig" xml:"KeyGroupConfig"`
+KeyGroupConfig *KeyGroupConfig `json:"keyGroupConfig" xml:"KeyGroupConfig"`
 }
 
 type CreateKeyGroupResult struct {
-	ETag     string    `json:"eTag" xml:"ETag"`
-	KeyGroup *KeyGroup `json:"keyGroup" xml:"KeyGroup"`
-	Location string    `json:"location" xml:"Location"`
+ETag string `json:"eTag" xml:"ETag"`
+KeyGroup *KeyGroup `json:"keyGroup" xml:"KeyGroup"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateKeyValueStoreRequest struct {
-	Comment      string        `json:"comment" xml:"Comment"`
-	ImportSource *ImportSource `json:"importSource" xml:"ImportSource"`
-	Name         string        `json:"name" xml:"Name"`
+Comment string `json:"comment" xml:"Comment"`
+ImportSource *ImportSource `json:"importSource" xml:"ImportSource"`
+Name string `json:"name" xml:"Name"`
 }
 
 type CreateKeyValueStoreResult struct {
-	ETag          string         `json:"eTag" xml:"ETag"`
-	KeyValueStore *KeyValueStore `json:"keyValueStore" xml:"KeyValueStore"`
-	Location      string         `json:"location" xml:"Location"`
+ETag string `json:"eTag" xml:"ETag"`
+KeyValueStore *KeyValueStore `json:"keyValueStore" xml:"KeyValueStore"`
+Location string `json:"location" xml:"Location"`
 }
 
 type CreateMonitoringSubscriptionRequest struct {
-	DistributionId         string                  `json:"distributionId" xml:"DistributionId"`
-	MonitoringSubscription *MonitoringSubscription `json:"monitoringSubscription" xml:"MonitoringSubscription"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
+MonitoringSubscription *MonitoringSubscription `json:"monitoringSubscription" xml:"MonitoringSubscription"`
 }
 
 type CreateMonitoringSubscriptionResult struct {
-	MonitoringSubscription *MonitoringSubscription `json:"monitoringSubscription" xml:"MonitoringSubscription"`
+MonitoringSubscription *MonitoringSubscription `json:"monitoringSubscription" xml:"MonitoringSubscription"`
 }
 
 type CreateOriginAccessControlRequest struct {
-	OriginAccessControlConfig *OriginAccessControlConfig `json:"originAccessControlConfig" xml:"OriginAccessControlConfig"`
+OriginAccessControlConfig *OriginAccessControlConfig `json:"originAccessControlConfig" xml:"OriginAccessControlConfig"`
 }
 
 type CreateOriginAccessControlResult struct {
-	ETag                string               `json:"eTag" xml:"ETag"`
-	Location            string               `json:"location" xml:"Location"`
-	OriginAccessControl *OriginAccessControl `json:"originAccessControl" xml:"OriginAccessControl"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
+OriginAccessControl *OriginAccessControl `json:"originAccessControl" xml:"OriginAccessControl"`
 }
 
 type CreateOriginRequestPolicyRequest struct {
-	OriginRequestPolicyConfig *OriginRequestPolicyConfig `json:"originRequestPolicyConfig" xml:"OriginRequestPolicyConfig"`
+OriginRequestPolicyConfig *OriginRequestPolicyConfig `json:"originRequestPolicyConfig" xml:"OriginRequestPolicyConfig"`
 }
 
 type CreateOriginRequestPolicyResult struct {
-	ETag                string               `json:"eTag" xml:"ETag"`
-	Location            string               `json:"location" xml:"Location"`
-	OriginRequestPolicy *OriginRequestPolicy `json:"originRequestPolicy" xml:"OriginRequestPolicy"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
+OriginRequestPolicy *OriginRequestPolicy `json:"originRequestPolicy" xml:"OriginRequestPolicy"`
 }
 
 type CreatePublicKeyRequest struct {
-	PublicKeyConfig *PublicKeyConfig `json:"publicKeyConfig" xml:"PublicKeyConfig"`
+PublicKeyConfig *PublicKeyConfig `json:"publicKeyConfig" xml:"PublicKeyConfig"`
 }
 
 type CreatePublicKeyResult struct {
-	ETag      string     `json:"eTag" xml:"ETag"`
-	Location  string     `json:"location" xml:"Location"`
-	PublicKey *PublicKey `json:"publicKey" xml:"PublicKey"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
+PublicKey *PublicKey `json:"publicKey" xml:"PublicKey"`
 }
 
 type CreateRealtimeLogConfigRequest struct {
-	EndPoints    EndPointList `json:"endPoints" xml:"EndPoints"`
-	Fields       FieldList    `json:"fields" xml:"Fields"`
-	Name         string       `json:"name" xml:"Name"`
-	SamplingRate int64        `json:"samplingRate" xml:"SamplingRate"`
+EndPoints EndPointList `json:"endPoints" xml:"EndPoints"`
+Fields FieldList `json:"fields" xml:"Fields"`
+Name string `json:"name" xml:"Name"`
+SamplingRate int64 `json:"samplingRate" xml:"SamplingRate"`
 }
 
 type CreateRealtimeLogConfigResult struct {
-	RealtimeLogConfig *RealtimeLogConfig `json:"realtimeLogConfig" xml:"RealtimeLogConfig"`
+RealtimeLogConfig *RealtimeLogConfig `json:"realtimeLogConfig" xml:"RealtimeLogConfig"`
 }
 
 type CreateResponseHeadersPolicyRequest struct {
-	ResponseHeadersPolicyConfig *ResponseHeadersPolicyConfig `json:"responseHeadersPolicyConfig" xml:"ResponseHeadersPolicyConfig"`
+ResponseHeadersPolicyConfig *ResponseHeadersPolicyConfig `json:"responseHeadersPolicyConfig" xml:"ResponseHeadersPolicyConfig"`
 }
 
 type CreateResponseHeadersPolicyResult struct {
-	ETag                  string                 `json:"eTag" xml:"ETag"`
-	Location              string                 `json:"location" xml:"Location"`
-	ResponseHeadersPolicy *ResponseHeadersPolicy `json:"responseHeadersPolicy" xml:"ResponseHeadersPolicy"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
+ResponseHeadersPolicy *ResponseHeadersPolicy `json:"responseHeadersPolicy" xml:"ResponseHeadersPolicy"`
 }
 
 type CreateStreamingDistributionRequest struct {
-	StreamingDistributionConfig *StreamingDistributionConfig `json:"streamingDistributionConfig" xml:"StreamingDistributionConfig"`
+StreamingDistributionConfig *StreamingDistributionConfig `json:"streamingDistributionConfig" xml:"StreamingDistributionConfig"`
 }
 
 type CreateStreamingDistributionResult struct {
-	ETag                  string                 `json:"eTag" xml:"ETag"`
-	Location              string                 `json:"location" xml:"Location"`
-	StreamingDistribution *StreamingDistribution `json:"streamingDistribution" xml:"StreamingDistribution"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
+StreamingDistribution *StreamingDistribution `json:"streamingDistribution" xml:"StreamingDistribution"`
 }
 
 type CreateStreamingDistributionWithTagsRequest struct {
-	StreamingDistributionConfigWithTags *StreamingDistributionConfigWithTags `json:"streamingDistributionConfigWithTags" xml:"StreamingDistributionConfigWithTags"`
+StreamingDistributionConfigWithTags *StreamingDistributionConfigWithTags `json:"streamingDistributionConfigWithTags" xml:"StreamingDistributionConfigWithTags"`
 }
 
 type CreateStreamingDistributionWithTagsResult struct {
-	ETag                  string                 `json:"eTag" xml:"ETag"`
-	Location              string                 `json:"location" xml:"Location"`
-	StreamingDistribution *StreamingDistribution `json:"streamingDistribution" xml:"StreamingDistribution"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
+StreamingDistribution *StreamingDistribution `json:"streamingDistribution" xml:"StreamingDistribution"`
 }
 
 type CreateTrustStoreRequest struct {
-	CaCertificatesBundleSource interface{} `json:"caCertificatesBundleSource" xml:"CaCertificatesBundleSource"`
-	Name                       string      `json:"name" xml:"Name"`
-	Tags                       *Tags       `json:"tags" xml:"Tags"`
+CaCertificatesBundleSource interface{} `json:"caCertificatesBundleSource" xml:"CaCertificatesBundleSource"`
+Name string `json:"name" xml:"Name"`
+Tags *Tags `json:"tags" xml:"Tags"`
 }
 
 type CreateTrustStoreResult struct {
-	ETag       string      `json:"eTag" xml:"ETag"`
-	TrustStore *TrustStore `json:"trustStore" xml:"TrustStore"`
+ETag string `json:"eTag" xml:"ETag"`
+TrustStore *TrustStore `json:"trustStore" xml:"TrustStore"`
 }
 
 type CreateVpcOriginRequest struct {
-	Tags                    *Tags                    `json:"tags" xml:"Tags"`
-	VpcOriginEndpointConfig *VpcOriginEndpointConfig `json:"vpcOriginEndpointConfig" xml:"VpcOriginEndpointConfig"`
+Tags *Tags `json:"tags" xml:"Tags"`
+VpcOriginEndpointConfig *VpcOriginEndpointConfig `json:"vpcOriginEndpointConfig" xml:"VpcOriginEndpointConfig"`
 }
 
 type CreateVpcOriginResult struct {
-	ETag      string     `json:"eTag" xml:"ETag"`
-	Location  string     `json:"location" xml:"Location"`
-	VpcOrigin *VpcOrigin `json:"vpcOrigin" xml:"VpcOrigin"`
+ETag string `json:"eTag" xml:"ETag"`
+Location string `json:"location" xml:"Location"`
+VpcOrigin *VpcOrigin `json:"vpcOrigin" xml:"VpcOrigin"`
 }
 
 type CustomErrorResponse struct {
-	ErrorCachingMinTTL int64  `json:"errorCachingMinTTL" xml:"ErrorCachingMinTTL"`
-	ErrorCode          int32  `json:"errorCode" xml:"ErrorCode"`
-	ResponseCode       string `json:"responseCode" xml:"ResponseCode"`
-	ResponsePagePath   string `json:"responsePagePath" xml:"ResponsePagePath"`
+ErrorCachingMinTTL int64 `json:"errorCachingMinTTL" xml:"ErrorCachingMinTTL"`
+ErrorCode int32 `json:"errorCode" xml:"ErrorCode"`
+ResponseCode string `json:"responseCode" xml:"ResponseCode"`
+ResponsePagePath string `json:"responsePagePath" xml:"ResponsePagePath"`
 }
 
 type CustomErrorResponses struct {
-	Items    CustomErrorResponseList `json:"items" xml:"Items"`
-	Quantity int32                   `json:"quantity" xml:"Quantity"`
+Items CustomErrorResponseList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type CustomHeaders struct {
-	Items    OriginCustomHeadersList `json:"items" xml:"Items"`
-	Quantity int32                   `json:"quantity" xml:"Quantity"`
+Items OriginCustomHeadersList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type CustomOriginConfig struct {
-	HTTPPort               int32               `json:"hTTPPort" xml:"HTTPPort"`
-	HTTPSPort              int32               `json:"hTTPSPort" xml:"HTTPSPort"`
-	IpAddressType          string              `json:"ipAddressType" xml:"IpAddressType"`
-	OriginKeepaliveTimeout int32               `json:"originKeepaliveTimeout" xml:"OriginKeepaliveTimeout"`
-	OriginMtlsConfig       *OriginMtlsConfig   `json:"originMtlsConfig" xml:"OriginMtlsConfig"`
-	OriginProtocolPolicy   string              `json:"originProtocolPolicy" xml:"OriginProtocolPolicy"`
-	OriginReadTimeout      int32               `json:"originReadTimeout" xml:"OriginReadTimeout"`
-	OriginSslProtocols     *OriginSslProtocols `json:"originSslProtocols" xml:"OriginSslProtocols"`
+HTTPPort int32 `json:"hTTPPort" xml:"HTTPPort"`
+HTTPSPort int32 `json:"hTTPSPort" xml:"HTTPSPort"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+OriginKeepaliveTimeout int32 `json:"originKeepaliveTimeout" xml:"OriginKeepaliveTimeout"`
+OriginMtlsConfig *OriginMtlsConfig `json:"originMtlsConfig" xml:"OriginMtlsConfig"`
+OriginProtocolPolicy string `json:"originProtocolPolicy" xml:"OriginProtocolPolicy"`
+OriginReadTimeout int32 `json:"originReadTimeout" xml:"OriginReadTimeout"`
+OriginSslProtocols *OriginSslProtocols `json:"originSslProtocols" xml:"OriginSslProtocols"`
 }
 
 type Customizations struct {
-	Certificate     *Certificate                 `json:"certificate" xml:"Certificate"`
-	GeoRestrictions *GeoRestrictionCustomization `json:"geoRestrictions" xml:"GeoRestrictions"`
-	WebAcl          *WebAclCustomization         `json:"webAcl" xml:"WebAcl"`
+Certificate *Certificate `json:"certificate" xml:"Certificate"`
+GeoRestrictions *GeoRestrictionCustomization `json:"geoRestrictions" xml:"GeoRestrictions"`
+WebAcl *WebAclCustomization `json:"webAcl" xml:"WebAcl"`
 }
 
 type DefaultCacheBehavior struct {
-	AllowedMethods             *AllowedMethods             `json:"allowedMethods" xml:"AllowedMethods"`
-	CachePolicyId              string                      `json:"cachePolicyId" xml:"CachePolicyId"`
-	Compress                   bool                        `json:"compress" xml:"Compress"`
-	DefaultTTL                 int64                       `json:"defaultTTL" xml:"DefaultTTL"`
-	FieldLevelEncryptionId     string                      `json:"fieldLevelEncryptionId" xml:"FieldLevelEncryptionId"`
-	ForwardedValues            *ForwardedValues            `json:"forwardedValues" xml:"ForwardedValues"`
-	FunctionAssociations       *FunctionAssociations       `json:"functionAssociations" xml:"FunctionAssociations"`
-	GrpcConfig                 *GrpcConfig                 `json:"grpcConfig" xml:"GrpcConfig"`
-	LambdaFunctionAssociations *LambdaFunctionAssociations `json:"lambdaFunctionAssociations" xml:"LambdaFunctionAssociations"`
-	MaxTTL                     int64                       `json:"maxTTL" xml:"MaxTTL"`
-	MinTTL                     int64                       `json:"minTTL" xml:"MinTTL"`
-	OriginRequestPolicyId      string                      `json:"originRequestPolicyId" xml:"OriginRequestPolicyId"`
-	RealtimeLogConfigArn       string                      `json:"realtimeLogConfigArn" xml:"RealtimeLogConfigArn"`
-	ResponseHeadersPolicyId    string                      `json:"responseHeadersPolicyId" xml:"ResponseHeadersPolicyId"`
-	SmoothStreaming            bool                        `json:"smoothStreaming" xml:"SmoothStreaming"`
-	TargetOriginId             string                      `json:"targetOriginId" xml:"TargetOriginId"`
-	TrustedKeyGroups           *TrustedKeyGroups           `json:"trustedKeyGroups" xml:"TrustedKeyGroups"`
-	TrustedSigners             *TrustedSigners             `json:"trustedSigners" xml:"TrustedSigners"`
-	ViewerProtocolPolicy       string                      `json:"viewerProtocolPolicy" xml:"ViewerProtocolPolicy"`
+AllowedMethods *AllowedMethods `json:"allowedMethods" xml:"AllowedMethods"`
+CachePolicyId string `json:"cachePolicyId" xml:"CachePolicyId"`
+Compress bool `json:"compress" xml:"Compress"`
+DefaultTTL int64 `json:"defaultTTL" xml:"DefaultTTL"`
+FieldLevelEncryptionId string `json:"fieldLevelEncryptionId" xml:"FieldLevelEncryptionId"`
+ForwardedValues *ForwardedValues `json:"forwardedValues" xml:"ForwardedValues"`
+FunctionAssociations *FunctionAssociations `json:"functionAssociations" xml:"FunctionAssociations"`
+GrpcConfig *GrpcConfig `json:"grpcConfig" xml:"GrpcConfig"`
+LambdaFunctionAssociations *LambdaFunctionAssociations `json:"lambdaFunctionAssociations" xml:"LambdaFunctionAssociations"`
+MaxTTL int64 `json:"maxTTL" xml:"MaxTTL"`
+MinTTL int64 `json:"minTTL" xml:"MinTTL"`
+OriginRequestPolicyId string `json:"originRequestPolicyId" xml:"OriginRequestPolicyId"`
+RealtimeLogConfigArn string `json:"realtimeLogConfigArn" xml:"RealtimeLogConfigArn"`
+ResponseHeadersPolicyId string `json:"responseHeadersPolicyId" xml:"ResponseHeadersPolicyId"`
+SmoothStreaming bool `json:"smoothStreaming" xml:"SmoothStreaming"`
+TargetOriginId string `json:"targetOriginId" xml:"TargetOriginId"`
+TrustedKeyGroups *TrustedKeyGroups `json:"trustedKeyGroups" xml:"TrustedKeyGroups"`
+TrustedSigners *TrustedSigners `json:"trustedSigners" xml:"TrustedSigners"`
+ViewerProtocolPolicy string `json:"viewerProtocolPolicy" xml:"ViewerProtocolPolicy"`
 }
 
 type DeleteAnycastIpListRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteCachePolicyRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteCloudFrontOriginAccessIdentityRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteConnectionFunctionRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteConnectionGroupRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteContinuousDeploymentPolicyRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteDistributionRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteDistributionTenantRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteFieldLevelEncryptionConfigRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteFieldLevelEncryptionProfileRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteFunctionRequest struct {
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
-	Name    string `json:"name" xml:"Name"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteKeyGroupRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteKeyValueStoreRequest struct {
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
-	Name    string `json:"name" xml:"Name"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteMonitoringSubscriptionRequest struct {
-	DistributionId string `json:"distributionId" xml:"DistributionId"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
 }
 
 type DeleteMonitoringSubscriptionResult struct {
 }
 
 type DeleteOriginAccessControlRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteOriginRequestPolicyRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeletePublicKeyRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteRealtimeLogConfigRequest struct {
-	ARN  string `json:"aRN" xml:"ARN"`
-	Name string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteResourcePolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type DeleteResponseHeadersPolicyRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteStreamingDistributionRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteTrustStoreRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteVpcOriginRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DeleteVpcOriginResult struct {
-	ETag      string     `json:"eTag" xml:"ETag"`
-	VpcOrigin *VpcOrigin `json:"vpcOrigin" xml:"VpcOrigin"`
+ETag string `json:"eTag" xml:"ETag"`
+VpcOrigin *VpcOrigin `json:"vpcOrigin" xml:"VpcOrigin"`
 }
 
 type DescribeConnectionFunctionRequest struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
-	Stage      string `json:"stage" xml:"Stage"`
+Identifier string `json:"identifier" xml:"Identifier"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type DescribeConnectionFunctionResult struct {
-	ConnectionFunctionSummary *ConnectionFunctionSummary `json:"connectionFunctionSummary" xml:"ConnectionFunctionSummary"`
-	ETag                      string                     `json:"eTag" xml:"ETag"`
+ConnectionFunctionSummary *ConnectionFunctionSummary `json:"connectionFunctionSummary" xml:"ConnectionFunctionSummary"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type DescribeFunctionRequest struct {
-	Name  string `json:"name" xml:"Name"`
-	Stage string `json:"stage" xml:"Stage"`
+Name string `json:"name" xml:"Name"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type DescribeFunctionResult struct {
-	ETag            string           `json:"eTag" xml:"ETag"`
-	FunctionSummary *FunctionSummary `json:"functionSummary" xml:"FunctionSummary"`
+ETag string `json:"eTag" xml:"ETag"`
+FunctionSummary *FunctionSummary `json:"functionSummary" xml:"FunctionSummary"`
 }
 
 type DescribeKeyValueStoreRequest struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DescribeKeyValueStoreResult struct {
-	ETag          string         `json:"eTag" xml:"ETag"`
-	KeyValueStore *KeyValueStore `json:"keyValueStore" xml:"KeyValueStore"`
+ETag string `json:"eTag" xml:"ETag"`
+KeyValueStore *KeyValueStore `json:"keyValueStore" xml:"KeyValueStore"`
 }
 
 type DisassociateDistributionTenantWebACLRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DisassociateDistributionTenantWebACLResult struct {
-	ETag string `json:"eTag" xml:"ETag"`
-	Id   string `json:"id" xml:"Id"`
+ETag string `json:"eTag" xml:"ETag"`
+Id string `json:"id" xml:"Id"`
 }
 
 type DisassociateDistributionWebACLRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type DisassociateDistributionWebACLResult struct {
-	ETag string `json:"eTag" xml:"ETag"`
-	Id   string `json:"id" xml:"Id"`
+ETag string `json:"eTag" xml:"ETag"`
+Id string `json:"id" xml:"Id"`
 }
 
 type Distribution struct {
-	ARN                           string                  `json:"aRN" xml:"ARN"`
-	ActiveTrustedKeyGroups        *ActiveTrustedKeyGroups `json:"activeTrustedKeyGroups" xml:"ActiveTrustedKeyGroups"`
-	ActiveTrustedSigners          *ActiveTrustedSigners   `json:"activeTrustedSigners" xml:"ActiveTrustedSigners"`
-	AliasICPRecordals             AliasICPRecordals       `json:"aliasICPRecordals" xml:"AliasICPRecordals"`
-	DistributionConfig            *DistributionConfig     `json:"distributionConfig" xml:"DistributionConfig"`
-	DomainName                    string                  `json:"domainName" xml:"DomainName"`
-	Id                            string                  `json:"id" xml:"Id"`
-	InProgressInvalidationBatches int32                   `json:"inProgressInvalidationBatches" xml:"InProgressInvalidationBatches"`
-	LastModifiedTime              time.Time               `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Status                        string                  `json:"status" xml:"Status"`
+ARN string `json:"aRN" xml:"ARN"`
+ActiveTrustedKeyGroups *ActiveTrustedKeyGroups `json:"activeTrustedKeyGroups" xml:"ActiveTrustedKeyGroups"`
+ActiveTrustedSigners *ActiveTrustedSigners `json:"activeTrustedSigners" xml:"ActiveTrustedSigners"`
+AliasICPRecordals AliasICPRecordals `json:"aliasICPRecordals" xml:"AliasICPRecordals"`
+DistributionConfig *DistributionConfig `json:"distributionConfig" xml:"DistributionConfig"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Id string `json:"id" xml:"Id"`
+InProgressInvalidationBatches int32 `json:"inProgressInvalidationBatches" xml:"InProgressInvalidationBatches"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DistributionConfig struct {
-	Aliases                       *Aliases                       `json:"aliases" xml:"Aliases"`
-	AnycastIpListId               string                         `json:"anycastIpListId" xml:"AnycastIpListId"`
-	CacheBehaviors                *CacheBehaviors                `json:"cacheBehaviors" xml:"CacheBehaviors"`
-	CallerReference               string                         `json:"callerReference" xml:"CallerReference"`
-	Comment                       string                         `json:"comment" xml:"Comment"`
-	ConnectionFunctionAssociation *ConnectionFunctionAssociation `json:"connectionFunctionAssociation" xml:"ConnectionFunctionAssociation"`
-	ConnectionMode                string                         `json:"connectionMode" xml:"ConnectionMode"`
-	ContinuousDeploymentPolicyId  string                         `json:"continuousDeploymentPolicyId" xml:"ContinuousDeploymentPolicyId"`
-	CustomErrorResponses          *CustomErrorResponses          `json:"customErrorResponses" xml:"CustomErrorResponses"`
-	DefaultCacheBehavior          *DefaultCacheBehavior          `json:"defaultCacheBehavior" xml:"DefaultCacheBehavior"`
-	DefaultRootObject             string                         `json:"defaultRootObject" xml:"DefaultRootObject"`
-	Enabled                       bool                           `json:"enabled" xml:"Enabled"`
-	HttpVersion                   string                         `json:"httpVersion" xml:"HttpVersion"`
-	IsIPV6Enabled                 bool                           `json:"isIPV6Enabled" xml:"IsIPV6Enabled"`
-	Logging                       *LoggingConfig                 `json:"logging" xml:"Logging"`
-	OriginGroups                  *OriginGroups                  `json:"originGroups" xml:"OriginGroups"`
-	Origins                       *Origins                       `json:"origins" xml:"Origins"`
-	PriceClass                    string                         `json:"priceClass" xml:"PriceClass"`
-	Restrictions                  *Restrictions                  `json:"restrictions" xml:"Restrictions"`
-	Staging                       bool                           `json:"staging" xml:"Staging"`
-	TenantConfig                  *TenantConfig                  `json:"tenantConfig" xml:"TenantConfig"`
-	ViewerCertificate             *ViewerCertificate             `json:"viewerCertificate" xml:"ViewerCertificate"`
-	ViewerMtlsConfig              *ViewerMtlsConfig              `json:"viewerMtlsConfig" xml:"ViewerMtlsConfig"`
-	WebACLId                      string                         `json:"webACLId" xml:"WebACLId"`
+Aliases *Aliases `json:"aliases" xml:"Aliases"`
+AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
+CacheBehaviors *CacheBehaviors `json:"cacheBehaviors" xml:"CacheBehaviors"`
+CallerReference string `json:"callerReference" xml:"CallerReference"`
+Comment string `json:"comment" xml:"Comment"`
+ConnectionFunctionAssociation *ConnectionFunctionAssociation `json:"connectionFunctionAssociation" xml:"ConnectionFunctionAssociation"`
+ConnectionMode string `json:"connectionMode" xml:"ConnectionMode"`
+ContinuousDeploymentPolicyId string `json:"continuousDeploymentPolicyId" xml:"ContinuousDeploymentPolicyId"`
+CustomErrorResponses *CustomErrorResponses `json:"customErrorResponses" xml:"CustomErrorResponses"`
+DefaultCacheBehavior *DefaultCacheBehavior `json:"defaultCacheBehavior" xml:"DefaultCacheBehavior"`
+DefaultRootObject string `json:"defaultRootObject" xml:"DefaultRootObject"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HttpVersion string `json:"httpVersion" xml:"HttpVersion"`
+IsIPV6Enabled bool `json:"isIPV6Enabled" xml:"IsIPV6Enabled"`
+Logging *LoggingConfig `json:"logging" xml:"Logging"`
+OriginGroups *OriginGroups `json:"originGroups" xml:"OriginGroups"`
+Origins *Origins `json:"origins" xml:"Origins"`
+PriceClass string `json:"priceClass" xml:"PriceClass"`
+Restrictions *Restrictions `json:"restrictions" xml:"Restrictions"`
+Staging bool `json:"staging" xml:"Staging"`
+TenantConfig *TenantConfig `json:"tenantConfig" xml:"TenantConfig"`
+ViewerCertificate *ViewerCertificate `json:"viewerCertificate" xml:"ViewerCertificate"`
+ViewerMtlsConfig *ViewerMtlsConfig `json:"viewerMtlsConfig" xml:"ViewerMtlsConfig"`
+WebACLId string `json:"webACLId" xml:"WebACLId"`
 }
 
 type DistributionConfigWithTags struct {
-	DistributionConfig *DistributionConfig `json:"distributionConfig" xml:"DistributionConfig"`
-	Tags               *Tags               `json:"tags" xml:"Tags"`
+DistributionConfig *DistributionConfig `json:"distributionConfig" xml:"DistributionConfig"`
+Tags *Tags `json:"tags" xml:"Tags"`
 }
 
 type DistributionIdList struct {
-	IsTruncated bool                      `json:"isTruncated" xml:"IsTruncated"`
-	Items       DistributionIdListSummary `json:"items" xml:"Items"`
-	Marker      string                    `json:"marker" xml:"Marker"`
-	MaxItems    int32                     `json:"maxItems" xml:"MaxItems"`
-	NextMarker  string                    `json:"nextMarker" xml:"NextMarker"`
-	Quantity    int32                     `json:"quantity" xml:"Quantity"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Items DistributionIdListSummary `json:"items" xml:"Items"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type DistributionIdOwner struct {
-	DistributionId string `json:"distributionId" xml:"DistributionId"`
-	OwnerAccountId string `json:"ownerAccountId" xml:"OwnerAccountId"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
+OwnerAccountId string `json:"ownerAccountId" xml:"OwnerAccountId"`
 }
 
 type DistributionIdOwnerList struct {
-	IsTruncated bool                        `json:"isTruncated" xml:"IsTruncated"`
-	Items       DistributionIdOwnerItemList `json:"items" xml:"Items"`
-	Marker      string                      `json:"marker" xml:"Marker"`
-	MaxItems    int32                       `json:"maxItems" xml:"MaxItems"`
-	NextMarker  string                      `json:"nextMarker" xml:"NextMarker"`
-	Quantity    int32                       `json:"quantity" xml:"Quantity"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Items DistributionIdOwnerItemList `json:"items" xml:"Items"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type DistributionList struct {
-	IsTruncated bool                    `json:"isTruncated" xml:"IsTruncated"`
-	Items       DistributionSummaryList `json:"items" xml:"Items"`
-	Marker      string                  `json:"marker" xml:"Marker"`
-	MaxItems    int32                   `json:"maxItems" xml:"MaxItems"`
-	NextMarker  string                  `json:"nextMarker" xml:"NextMarker"`
-	Quantity    int32                   `json:"quantity" xml:"Quantity"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Items DistributionSummaryList `json:"items" xml:"Items"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type DistributionResourceId struct {
-	DistributionId       string `json:"distributionId" xml:"DistributionId"`
-	DistributionTenantId string `json:"distributionTenantId" xml:"DistributionTenantId"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
+DistributionTenantId string `json:"distributionTenantId" xml:"DistributionTenantId"`
 }
 
 type DistributionSummary struct {
-	ARN                           string                         `json:"aRN" xml:"ARN"`
-	AliasICPRecordals             AliasICPRecordals              `json:"aliasICPRecordals" xml:"AliasICPRecordals"`
-	Aliases                       *Aliases                       `json:"aliases" xml:"Aliases"`
-	AnycastIpListId               string                         `json:"anycastIpListId" xml:"AnycastIpListId"`
-	CacheBehaviors                *CacheBehaviors                `json:"cacheBehaviors" xml:"CacheBehaviors"`
-	Comment                       string                         `json:"comment" xml:"Comment"`
-	ConnectionFunctionAssociation *ConnectionFunctionAssociation `json:"connectionFunctionAssociation" xml:"ConnectionFunctionAssociation"`
-	ConnectionMode                string                         `json:"connectionMode" xml:"ConnectionMode"`
-	CustomErrorResponses          *CustomErrorResponses          `json:"customErrorResponses" xml:"CustomErrorResponses"`
-	DefaultCacheBehavior          *DefaultCacheBehavior          `json:"defaultCacheBehavior" xml:"DefaultCacheBehavior"`
-	DomainName                    string                         `json:"domainName" xml:"DomainName"`
-	ETag                          string                         `json:"eTag" xml:"ETag"`
-	Enabled                       bool                           `json:"enabled" xml:"Enabled"`
-	HttpVersion                   string                         `json:"httpVersion" xml:"HttpVersion"`
-	Id                            string                         `json:"id" xml:"Id"`
-	IsIPV6Enabled                 bool                           `json:"isIPV6Enabled" xml:"IsIPV6Enabled"`
-	LastModifiedTime              time.Time                      `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	OriginGroups                  *OriginGroups                  `json:"originGroups" xml:"OriginGroups"`
-	Origins                       *Origins                       `json:"origins" xml:"Origins"`
-	PriceClass                    string                         `json:"priceClass" xml:"PriceClass"`
-	Restrictions                  *Restrictions                  `json:"restrictions" xml:"Restrictions"`
-	Staging                       bool                           `json:"staging" xml:"Staging"`
-	Status                        string                         `json:"status" xml:"Status"`
-	ViewerCertificate             *ViewerCertificate             `json:"viewerCertificate" xml:"ViewerCertificate"`
-	ViewerMtlsConfig              *ViewerMtlsConfig              `json:"viewerMtlsConfig" xml:"ViewerMtlsConfig"`
-	WebACLId                      string                         `json:"webACLId" xml:"WebACLId"`
+ARN string `json:"aRN" xml:"ARN"`
+AliasICPRecordals AliasICPRecordals `json:"aliasICPRecordals" xml:"AliasICPRecordals"`
+Aliases *Aliases `json:"aliases" xml:"Aliases"`
+AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
+CacheBehaviors *CacheBehaviors `json:"cacheBehaviors" xml:"CacheBehaviors"`
+Comment string `json:"comment" xml:"Comment"`
+ConnectionFunctionAssociation *ConnectionFunctionAssociation `json:"connectionFunctionAssociation" xml:"ConnectionFunctionAssociation"`
+ConnectionMode string `json:"connectionMode" xml:"ConnectionMode"`
+CustomErrorResponses *CustomErrorResponses `json:"customErrorResponses" xml:"CustomErrorResponses"`
+DefaultCacheBehavior *DefaultCacheBehavior `json:"defaultCacheBehavior" xml:"DefaultCacheBehavior"`
+DomainName string `json:"domainName" xml:"DomainName"`
+ETag string `json:"eTag" xml:"ETag"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+HttpVersion string `json:"httpVersion" xml:"HttpVersion"`
+Id string `json:"id" xml:"Id"`
+IsIPV6Enabled bool `json:"isIPV6Enabled" xml:"IsIPV6Enabled"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+OriginGroups *OriginGroups `json:"originGroups" xml:"OriginGroups"`
+Origins *Origins `json:"origins" xml:"Origins"`
+PriceClass string `json:"priceClass" xml:"PriceClass"`
+Restrictions *Restrictions `json:"restrictions" xml:"Restrictions"`
+Staging bool `json:"staging" xml:"Staging"`
+Status string `json:"status" xml:"Status"`
+ViewerCertificate *ViewerCertificate `json:"viewerCertificate" xml:"ViewerCertificate"`
+ViewerMtlsConfig *ViewerMtlsConfig `json:"viewerMtlsConfig" xml:"ViewerMtlsConfig"`
+WebACLId string `json:"webACLId" xml:"WebACLId"`
 }
 
 type DistributionTenant struct {
-	Arn               string           `json:"arn" xml:"Arn"`
-	ConnectionGroupId string           `json:"connectionGroupId" xml:"ConnectionGroupId"`
-	CreatedTime       time.Time        `json:"createdTime" xml:"CreatedTime"`
-	Customizations    *Customizations  `json:"customizations" xml:"Customizations"`
-	DistributionId    string           `json:"distributionId" xml:"DistributionId"`
-	Domains           DomainResultList `json:"domains" xml:"Domains"`
-	Enabled           bool             `json:"enabled" xml:"Enabled"`
-	Id                string           `json:"id" xml:"Id"`
-	LastModifiedTime  time.Time        `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name              string           `json:"name" xml:"Name"`
-	Parameters        Parameters       `json:"parameters" xml:"Parameters"`
-	Status            string           `json:"status" xml:"Status"`
-	Tags              *Tags            `json:"tags" xml:"Tags"`
+Arn string `json:"arn" xml:"Arn"`
+ConnectionGroupId string `json:"connectionGroupId" xml:"ConnectionGroupId"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+Customizations *Customizations `json:"customizations" xml:"Customizations"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
+Domains DomainResultList `json:"domains" xml:"Domains"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
+Status string `json:"status" xml:"Status"`
+Tags *Tags `json:"tags" xml:"Tags"`
 }
 
 type DistributionTenantAssociationFilter struct {
-	ConnectionGroupId string `json:"connectionGroupId" xml:"ConnectionGroupId"`
-	DistributionId    string `json:"distributionId" xml:"DistributionId"`
+ConnectionGroupId string `json:"connectionGroupId" xml:"ConnectionGroupId"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
 }
 
 type DistributionTenantSummary struct {
-	Arn               string           `json:"arn" xml:"Arn"`
-	ConnectionGroupId string           `json:"connectionGroupId" xml:"ConnectionGroupId"`
-	CreatedTime       time.Time        `json:"createdTime" xml:"CreatedTime"`
-	Customizations    *Customizations  `json:"customizations" xml:"Customizations"`
-	DistributionId    string           `json:"distributionId" xml:"DistributionId"`
-	Domains           DomainResultList `json:"domains" xml:"Domains"`
-	ETag              string           `json:"eTag" xml:"ETag"`
-	Enabled           bool             `json:"enabled" xml:"Enabled"`
-	Id                string           `json:"id" xml:"Id"`
-	LastModifiedTime  time.Time        `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name              string           `json:"name" xml:"Name"`
-	Status            string           `json:"status" xml:"Status"`
+Arn string `json:"arn" xml:"Arn"`
+ConnectionGroupId string `json:"connectionGroupId" xml:"ConnectionGroupId"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+Customizations *Customizations `json:"customizations" xml:"Customizations"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
+Domains DomainResultList `json:"domains" xml:"Domains"`
+ETag string `json:"eTag" xml:"ETag"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DnsConfiguration struct {
-	Domain string `json:"domain" xml:"Domain"`
-	Reason string `json:"reason" xml:"Reason"`
-	Status string `json:"status" xml:"Status"`
+Domain string `json:"domain" xml:"Domain"`
+Reason string `json:"reason" xml:"Reason"`
+Status string `json:"status" xml:"Status"`
 }
 
 type DomainConflict struct {
-	AccountId    string `json:"accountId" xml:"AccountId"`
-	Domain       string `json:"domain" xml:"Domain"`
-	ResourceId   string `json:"resourceId" xml:"ResourceId"`
-	ResourceType string `json:"resourceType" xml:"ResourceType"`
+AccountId string `json:"accountId" xml:"AccountId"`
+Domain string `json:"domain" xml:"Domain"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ResourceType string `json:"resourceType" xml:"ResourceType"`
 }
 
 type DomainItem struct {
-	Domain string `json:"domain" xml:"Domain"`
+Domain string `json:"domain" xml:"Domain"`
 }
 
 type DomainResult struct {
-	Domain string `json:"domain" xml:"Domain"`
-	Status string `json:"status" xml:"Status"`
+Domain string `json:"domain" xml:"Domain"`
+Status string `json:"status" xml:"Status"`
 }
 
 type EncryptionEntities struct {
-	Items    EncryptionEntityList `json:"items" xml:"Items"`
-	Quantity int32                `json:"quantity" xml:"Quantity"`
+Items EncryptionEntityList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type EncryptionEntity struct {
-	FieldPatterns *FieldPatterns `json:"fieldPatterns" xml:"FieldPatterns"`
-	ProviderId    string         `json:"providerId" xml:"ProviderId"`
-	PublicKeyId   string         `json:"publicKeyId" xml:"PublicKeyId"`
+FieldPatterns *FieldPatterns `json:"fieldPatterns" xml:"FieldPatterns"`
+ProviderId string `json:"providerId" xml:"ProviderId"`
+PublicKeyId string `json:"publicKeyId" xml:"PublicKeyId"`
 }
 
 type EndPoint struct {
-	KinesisStreamConfig *KinesisStreamConfig `json:"kinesisStreamConfig" xml:"KinesisStreamConfig"`
-	StreamType          string               `json:"streamType" xml:"StreamType"`
+KinesisStreamConfig *KinesisStreamConfig `json:"kinesisStreamConfig" xml:"KinesisStreamConfig"`
+StreamType string `json:"streamType" xml:"StreamType"`
 }
 
 type FieldLevelEncryption struct {
-	FieldLevelEncryptionConfig *FieldLevelEncryptionConfig `json:"fieldLevelEncryptionConfig" xml:"FieldLevelEncryptionConfig"`
-	Id                         string                      `json:"id" xml:"Id"`
-	LastModifiedTime           time.Time                   `json:"lastModifiedTime" xml:"LastModifiedTime"`
+FieldLevelEncryptionConfig *FieldLevelEncryptionConfig `json:"fieldLevelEncryptionConfig" xml:"FieldLevelEncryptionConfig"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type FieldLevelEncryptionConfig struct {
-	CallerReference          string                    `json:"callerReference" xml:"CallerReference"`
-	Comment                  string                    `json:"comment" xml:"Comment"`
-	ContentTypeProfileConfig *ContentTypeProfileConfig `json:"contentTypeProfileConfig" xml:"ContentTypeProfileConfig"`
-	QueryArgProfileConfig    *QueryArgProfileConfig    `json:"queryArgProfileConfig" xml:"QueryArgProfileConfig"`
+CallerReference string `json:"callerReference" xml:"CallerReference"`
+Comment string `json:"comment" xml:"Comment"`
+ContentTypeProfileConfig *ContentTypeProfileConfig `json:"contentTypeProfileConfig" xml:"ContentTypeProfileConfig"`
+QueryArgProfileConfig *QueryArgProfileConfig `json:"queryArgProfileConfig" xml:"QueryArgProfileConfig"`
 }
 
 type FieldLevelEncryptionList struct {
-	Items      FieldLevelEncryptionSummaryList `json:"items" xml:"Items"`
-	MaxItems   int32                           `json:"maxItems" xml:"MaxItems"`
-	NextMarker string                          `json:"nextMarker" xml:"NextMarker"`
-	Quantity   int32                           `json:"quantity" xml:"Quantity"`
+Items FieldLevelEncryptionSummaryList `json:"items" xml:"Items"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type FieldLevelEncryptionProfile struct {
-	FieldLevelEncryptionProfileConfig *FieldLevelEncryptionProfileConfig `json:"fieldLevelEncryptionProfileConfig" xml:"FieldLevelEncryptionProfileConfig"`
-	Id                                string                             `json:"id" xml:"Id"`
-	LastModifiedTime                  time.Time                          `json:"lastModifiedTime" xml:"LastModifiedTime"`
+FieldLevelEncryptionProfileConfig *FieldLevelEncryptionProfileConfig `json:"fieldLevelEncryptionProfileConfig" xml:"FieldLevelEncryptionProfileConfig"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type FieldLevelEncryptionProfileConfig struct {
-	CallerReference    string              `json:"callerReference" xml:"CallerReference"`
-	Comment            string              `json:"comment" xml:"Comment"`
-	EncryptionEntities *EncryptionEntities `json:"encryptionEntities" xml:"EncryptionEntities"`
-	Name               string              `json:"name" xml:"Name"`
+CallerReference string `json:"callerReference" xml:"CallerReference"`
+Comment string `json:"comment" xml:"Comment"`
+EncryptionEntities *EncryptionEntities `json:"encryptionEntities" xml:"EncryptionEntities"`
+Name string `json:"name" xml:"Name"`
 }
 
 type FieldLevelEncryptionProfileList struct {
-	Items      FieldLevelEncryptionProfileSummaryList `json:"items" xml:"Items"`
-	MaxItems   int32                                  `json:"maxItems" xml:"MaxItems"`
-	NextMarker string                                 `json:"nextMarker" xml:"NextMarker"`
-	Quantity   int32                                  `json:"quantity" xml:"Quantity"`
+Items FieldLevelEncryptionProfileSummaryList `json:"items" xml:"Items"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type FieldLevelEncryptionProfileSummary struct {
-	Comment            string              `json:"comment" xml:"Comment"`
-	EncryptionEntities *EncryptionEntities `json:"encryptionEntities" xml:"EncryptionEntities"`
-	Id                 string              `json:"id" xml:"Id"`
-	LastModifiedTime   time.Time           `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name               string              `json:"name" xml:"Name"`
+Comment string `json:"comment" xml:"Comment"`
+EncryptionEntities *EncryptionEntities `json:"encryptionEntities" xml:"EncryptionEntities"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
 }
 
 type FieldLevelEncryptionSummary struct {
-	Comment                  string                    `json:"comment" xml:"Comment"`
-	ContentTypeProfileConfig *ContentTypeProfileConfig `json:"contentTypeProfileConfig" xml:"ContentTypeProfileConfig"`
-	Id                       string                    `json:"id" xml:"Id"`
-	LastModifiedTime         time.Time                 `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	QueryArgProfileConfig    *QueryArgProfileConfig    `json:"queryArgProfileConfig" xml:"QueryArgProfileConfig"`
+Comment string `json:"comment" xml:"Comment"`
+ContentTypeProfileConfig *ContentTypeProfileConfig `json:"contentTypeProfileConfig" xml:"ContentTypeProfileConfig"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+QueryArgProfileConfig *QueryArgProfileConfig `json:"queryArgProfileConfig" xml:"QueryArgProfileConfig"`
 }
 
 type FieldPatterns struct {
-	Items    FieldPatternList `json:"items" xml:"Items"`
-	Quantity int32            `json:"quantity" xml:"Quantity"`
+Items FieldPatternList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ForwardedValues struct {
-	Cookies              *CookiePreference     `json:"cookies" xml:"Cookies"`
-	Headers              *Headers              `json:"headers" xml:"Headers"`
-	QueryString          bool                  `json:"queryString" xml:"QueryString"`
-	QueryStringCacheKeys *QueryStringCacheKeys `json:"queryStringCacheKeys" xml:"QueryStringCacheKeys"`
+Cookies *CookiePreference `json:"cookies" xml:"Cookies"`
+Headers *Headers `json:"headers" xml:"Headers"`
+QueryString bool `json:"queryString" xml:"QueryString"`
+QueryStringCacheKeys *QueryStringCacheKeys `json:"queryStringCacheKeys" xml:"QueryStringCacheKeys"`
 }
 
 type FunctionAssociation struct {
-	EventType   string `json:"eventType" xml:"EventType"`
-	FunctionARN string `json:"functionARN" xml:"FunctionARN"`
+EventType string `json:"eventType" xml:"EventType"`
+FunctionARN string `json:"functionARN" xml:"FunctionARN"`
 }
 
 type FunctionAssociations struct {
-	Items    FunctionAssociationList `json:"items" xml:"Items"`
-	Quantity int32                   `json:"quantity" xml:"Quantity"`
+Items FunctionAssociationList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type FunctionConfig struct {
-	Comment                   string                     `json:"comment" xml:"Comment"`
-	KeyValueStoreAssociations *KeyValueStoreAssociations `json:"keyValueStoreAssociations" xml:"KeyValueStoreAssociations"`
-	Runtime                   string                     `json:"runtime" xml:"Runtime"`
+Comment string `json:"comment" xml:"Comment"`
+KeyValueStoreAssociations *KeyValueStoreAssociations `json:"keyValueStoreAssociations" xml:"KeyValueStoreAssociations"`
+Runtime string `json:"runtime" xml:"Runtime"`
 }
 
 type FunctionList struct {
-	Items      FunctionSummaryList `json:"items" xml:"Items"`
-	MaxItems   int32               `json:"maxItems" xml:"MaxItems"`
-	NextMarker string              `json:"nextMarker" xml:"NextMarker"`
-	Quantity   int32               `json:"quantity" xml:"Quantity"`
+Items FunctionSummaryList `json:"items" xml:"Items"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type FunctionMetadata struct {
-	CreatedTime      time.Time `json:"createdTime" xml:"CreatedTime"`
-	FunctionARN      string    `json:"functionARN" xml:"FunctionARN"`
-	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Stage            string    `json:"stage" xml:"Stage"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+FunctionARN string `json:"functionARN" xml:"FunctionARN"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type FunctionSummary struct {
-	FunctionConfig   *FunctionConfig   `json:"functionConfig" xml:"FunctionConfig"`
-	FunctionMetadata *FunctionMetadata `json:"functionMetadata" xml:"FunctionMetadata"`
-	Name             string            `json:"name" xml:"Name"`
-	Status           string            `json:"status" xml:"Status"`
+FunctionConfig *FunctionConfig `json:"functionConfig" xml:"FunctionConfig"`
+FunctionMetadata *FunctionMetadata `json:"functionMetadata" xml:"FunctionMetadata"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type GeoRestriction struct {
-	Items           LocationList `json:"items" xml:"Items"`
-	Quantity        int32        `json:"quantity" xml:"Quantity"`
-	RestrictionType string       `json:"restrictionType" xml:"RestrictionType"`
+Items LocationList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
+RestrictionType string `json:"restrictionType" xml:"RestrictionType"`
 }
 
 type GeoRestrictionCustomization struct {
-	Locations       LocationList `json:"locations" xml:"Locations"`
-	RestrictionType string       `json:"restrictionType" xml:"RestrictionType"`
+Locations LocationList `json:"locations" xml:"Locations"`
+RestrictionType string `json:"restrictionType" xml:"RestrictionType"`
 }
 
 type GetAnycastIpListRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetAnycastIpListResult struct {
-	AnycastIpList *AnycastIpList `json:"anycastIpList" xml:"AnycastIpList"`
-	ETag          string         `json:"eTag" xml:"ETag"`
+AnycastIpList *AnycastIpList `json:"anycastIpList" xml:"AnycastIpList"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetCachePolicyConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetCachePolicyConfigResult struct {
-	CachePolicyConfig *CachePolicyConfig `json:"cachePolicyConfig" xml:"CachePolicyConfig"`
-	ETag              string             `json:"eTag" xml:"ETag"`
+CachePolicyConfig *CachePolicyConfig `json:"cachePolicyConfig" xml:"CachePolicyConfig"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetCachePolicyRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetCachePolicyResult struct {
-	CachePolicy *CachePolicy `json:"cachePolicy" xml:"CachePolicy"`
-	ETag        string       `json:"eTag" xml:"ETag"`
+CachePolicy *CachePolicy `json:"cachePolicy" xml:"CachePolicy"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetCloudFrontOriginAccessIdentityConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetCloudFrontOriginAccessIdentityConfigResult struct {
-	CloudFrontOriginAccessIdentityConfig *CloudFrontOriginAccessIdentityConfig `json:"cloudFrontOriginAccessIdentityConfig" xml:"CloudFrontOriginAccessIdentityConfig"`
-	ETag                                 string                                `json:"eTag" xml:"ETag"`
+CloudFrontOriginAccessIdentityConfig *CloudFrontOriginAccessIdentityConfig `json:"cloudFrontOriginAccessIdentityConfig" xml:"CloudFrontOriginAccessIdentityConfig"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetCloudFrontOriginAccessIdentityRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetCloudFrontOriginAccessIdentityResult struct {
-	CloudFrontOriginAccessIdentity *CloudFrontOriginAccessIdentity `json:"cloudFrontOriginAccessIdentity" xml:"CloudFrontOriginAccessIdentity"`
-	ETag                           string                          `json:"eTag" xml:"ETag"`
+CloudFrontOriginAccessIdentity *CloudFrontOriginAccessIdentity `json:"cloudFrontOriginAccessIdentity" xml:"CloudFrontOriginAccessIdentity"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetConnectionFunctionRequest struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
-	Stage      string `json:"stage" xml:"Stage"`
+Identifier string `json:"identifier" xml:"Identifier"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type GetConnectionFunctionResult struct {
-	ConnectionFunctionCode []byte `json:"connectionFunctionCode" xml:"ConnectionFunctionCode"`
-	ContentType            string `json:"contentType" xml:"ContentType"`
-	ETag                   string `json:"eTag" xml:"ETag"`
+ConnectionFunctionCode []byte `json:"connectionFunctionCode" xml:"ConnectionFunctionCode"`
+ContentType string `json:"contentType" xml:"ContentType"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetConnectionGroupByRoutingEndpointRequest struct {
-	RoutingEndpoint string `json:"routingEndpoint" xml:"RoutingEndpoint"`
+RoutingEndpoint string `json:"routingEndpoint" xml:"RoutingEndpoint"`
 }
 
 type GetConnectionGroupByRoutingEndpointResult struct {
-	ConnectionGroup *ConnectionGroup `json:"connectionGroup" xml:"ConnectionGroup"`
-	ETag            string           `json:"eTag" xml:"ETag"`
+ConnectionGroup *ConnectionGroup `json:"connectionGroup" xml:"ConnectionGroup"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetConnectionGroupRequest struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type GetConnectionGroupResult struct {
-	ConnectionGroup *ConnectionGroup `json:"connectionGroup" xml:"ConnectionGroup"`
-	ETag            string           `json:"eTag" xml:"ETag"`
+ConnectionGroup *ConnectionGroup `json:"connectionGroup" xml:"ConnectionGroup"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetContinuousDeploymentPolicyConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetContinuousDeploymentPolicyConfigResult struct {
-	ContinuousDeploymentPolicyConfig *ContinuousDeploymentPolicyConfig `json:"continuousDeploymentPolicyConfig" xml:"ContinuousDeploymentPolicyConfig"`
-	ETag                             string                            `json:"eTag" xml:"ETag"`
+ContinuousDeploymentPolicyConfig *ContinuousDeploymentPolicyConfig `json:"continuousDeploymentPolicyConfig" xml:"ContinuousDeploymentPolicyConfig"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetContinuousDeploymentPolicyRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetContinuousDeploymentPolicyResult struct {
-	ContinuousDeploymentPolicy *ContinuousDeploymentPolicy `json:"continuousDeploymentPolicy" xml:"ContinuousDeploymentPolicy"`
-	ETag                       string                      `json:"eTag" xml:"ETag"`
+ContinuousDeploymentPolicy *ContinuousDeploymentPolicy `json:"continuousDeploymentPolicy" xml:"ContinuousDeploymentPolicy"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetDistributionConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetDistributionConfigResult struct {
-	DistributionConfig *DistributionConfig `json:"distributionConfig" xml:"DistributionConfig"`
-	ETag               string              `json:"eTag" xml:"ETag"`
+DistributionConfig *DistributionConfig `json:"distributionConfig" xml:"DistributionConfig"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetDistributionRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetDistributionResult struct {
-	Distribution *Distribution `json:"distribution" xml:"Distribution"`
-	ETag         string        `json:"eTag" xml:"ETag"`
+Distribution *Distribution `json:"distribution" xml:"Distribution"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetDistributionTenantByDomainRequest struct {
-	Domain string `json:"domain" xml:"Domain"`
+Domain string `json:"domain" xml:"Domain"`
 }
 
 type GetDistributionTenantByDomainResult struct {
-	DistributionTenant *DistributionTenant `json:"distributionTenant" xml:"DistributionTenant"`
-	ETag               string              `json:"eTag" xml:"ETag"`
+DistributionTenant *DistributionTenant `json:"distributionTenant" xml:"DistributionTenant"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetDistributionTenantRequest struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type GetDistributionTenantResult struct {
-	DistributionTenant *DistributionTenant `json:"distributionTenant" xml:"DistributionTenant"`
-	ETag               string              `json:"eTag" xml:"ETag"`
+DistributionTenant *DistributionTenant `json:"distributionTenant" xml:"DistributionTenant"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type GetFieldLevelEncryptionConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetFieldLevelEncryptionConfigResult struct {
-	ETag                       string                      `json:"eTag" xml:"ETag"`
-	FieldLevelEncryptionConfig *FieldLevelEncryptionConfig `json:"fieldLevelEncryptionConfig" xml:"FieldLevelEncryptionConfig"`
+ETag string `json:"eTag" xml:"ETag"`
+FieldLevelEncryptionConfig *FieldLevelEncryptionConfig `json:"fieldLevelEncryptionConfig" xml:"FieldLevelEncryptionConfig"`
 }
 
 type GetFieldLevelEncryptionProfileConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetFieldLevelEncryptionProfileConfigResult struct {
-	ETag                              string                             `json:"eTag" xml:"ETag"`
-	FieldLevelEncryptionProfileConfig *FieldLevelEncryptionProfileConfig `json:"fieldLevelEncryptionProfileConfig" xml:"FieldLevelEncryptionProfileConfig"`
+ETag string `json:"eTag" xml:"ETag"`
+FieldLevelEncryptionProfileConfig *FieldLevelEncryptionProfileConfig `json:"fieldLevelEncryptionProfileConfig" xml:"FieldLevelEncryptionProfileConfig"`
 }
 
 type GetFieldLevelEncryptionProfileRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetFieldLevelEncryptionProfileResult struct {
-	ETag                        string                       `json:"eTag" xml:"ETag"`
-	FieldLevelEncryptionProfile *FieldLevelEncryptionProfile `json:"fieldLevelEncryptionProfile" xml:"FieldLevelEncryptionProfile"`
+ETag string `json:"eTag" xml:"ETag"`
+FieldLevelEncryptionProfile *FieldLevelEncryptionProfile `json:"fieldLevelEncryptionProfile" xml:"FieldLevelEncryptionProfile"`
 }
 
 type GetFieldLevelEncryptionRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetFieldLevelEncryptionResult struct {
-	ETag                 string                `json:"eTag" xml:"ETag"`
-	FieldLevelEncryption *FieldLevelEncryption `json:"fieldLevelEncryption" xml:"FieldLevelEncryption"`
+ETag string `json:"eTag" xml:"ETag"`
+FieldLevelEncryption *FieldLevelEncryption `json:"fieldLevelEncryption" xml:"FieldLevelEncryption"`
 }
 
 type GetFunctionRequest struct {
-	Name  string `json:"name" xml:"Name"`
-	Stage string `json:"stage" xml:"Stage"`
+Name string `json:"name" xml:"Name"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type GetFunctionResult struct {
-	ContentType  string `json:"contentType" xml:"ContentType"`
-	ETag         string `json:"eTag" xml:"ETag"`
-	FunctionCode []byte `json:"functionCode" xml:"FunctionCode"`
+ContentType string `json:"contentType" xml:"ContentType"`
+ETag string `json:"eTag" xml:"ETag"`
+FunctionCode []byte `json:"functionCode" xml:"FunctionCode"`
 }
 
 type GetInvalidationForDistributionTenantRequest struct {
-	DistributionTenantId string `json:"distributionTenantId" xml:"DistributionTenantId"`
-	Id                   string `json:"id" xml:"Id"`
+DistributionTenantId string `json:"distributionTenantId" xml:"DistributionTenantId"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetInvalidationForDistributionTenantResult struct {
-	Invalidation *Invalidation `json:"invalidation" xml:"Invalidation"`
+Invalidation *Invalidation `json:"invalidation" xml:"Invalidation"`
 }
 
 type GetInvalidationRequest struct {
-	DistributionId string `json:"distributionId" xml:"DistributionId"`
-	Id             string `json:"id" xml:"Id"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetInvalidationResult struct {
-	Invalidation *Invalidation `json:"invalidation" xml:"Invalidation"`
+Invalidation *Invalidation `json:"invalidation" xml:"Invalidation"`
 }
 
 type GetKeyGroupConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetKeyGroupConfigResult struct {
-	ETag           string          `json:"eTag" xml:"ETag"`
-	KeyGroupConfig *KeyGroupConfig `json:"keyGroupConfig" xml:"KeyGroupConfig"`
+ETag string `json:"eTag" xml:"ETag"`
+KeyGroupConfig *KeyGroupConfig `json:"keyGroupConfig" xml:"KeyGroupConfig"`
 }
 
 type GetKeyGroupRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetKeyGroupResult struct {
-	ETag     string    `json:"eTag" xml:"ETag"`
-	KeyGroup *KeyGroup `json:"keyGroup" xml:"KeyGroup"`
+ETag string `json:"eTag" xml:"ETag"`
+KeyGroup *KeyGroup `json:"keyGroup" xml:"KeyGroup"`
 }
 
 type GetManagedCertificateDetailsRequest struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type GetManagedCertificateDetailsResult struct {
-	ManagedCertificateDetails *ManagedCertificateDetails `json:"managedCertificateDetails" xml:"ManagedCertificateDetails"`
+ManagedCertificateDetails *ManagedCertificateDetails `json:"managedCertificateDetails" xml:"ManagedCertificateDetails"`
 }
 
 type GetMonitoringSubscriptionRequest struct {
-	DistributionId string `json:"distributionId" xml:"DistributionId"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
 }
 
 type GetMonitoringSubscriptionResult struct {
-	MonitoringSubscription *MonitoringSubscription `json:"monitoringSubscription" xml:"MonitoringSubscription"`
+MonitoringSubscription *MonitoringSubscription `json:"monitoringSubscription" xml:"MonitoringSubscription"`
 }
 
 type GetOriginAccessControlConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetOriginAccessControlConfigResult struct {
-	ETag                      string                     `json:"eTag" xml:"ETag"`
-	OriginAccessControlConfig *OriginAccessControlConfig `json:"originAccessControlConfig" xml:"OriginAccessControlConfig"`
+ETag string `json:"eTag" xml:"ETag"`
+OriginAccessControlConfig *OriginAccessControlConfig `json:"originAccessControlConfig" xml:"OriginAccessControlConfig"`
 }
 
 type GetOriginAccessControlRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetOriginAccessControlResult struct {
-	ETag                string               `json:"eTag" xml:"ETag"`
-	OriginAccessControl *OriginAccessControl `json:"originAccessControl" xml:"OriginAccessControl"`
+ETag string `json:"eTag" xml:"ETag"`
+OriginAccessControl *OriginAccessControl `json:"originAccessControl" xml:"OriginAccessControl"`
 }
 
 type GetOriginRequestPolicyConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetOriginRequestPolicyConfigResult struct {
-	ETag                      string                     `json:"eTag" xml:"ETag"`
-	OriginRequestPolicyConfig *OriginRequestPolicyConfig `json:"originRequestPolicyConfig" xml:"OriginRequestPolicyConfig"`
+ETag string `json:"eTag" xml:"ETag"`
+OriginRequestPolicyConfig *OriginRequestPolicyConfig `json:"originRequestPolicyConfig" xml:"OriginRequestPolicyConfig"`
 }
 
 type GetOriginRequestPolicyRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetOriginRequestPolicyResult struct {
-	ETag                string               `json:"eTag" xml:"ETag"`
-	OriginRequestPolicy *OriginRequestPolicy `json:"originRequestPolicy" xml:"OriginRequestPolicy"`
+ETag string `json:"eTag" xml:"ETag"`
+OriginRequestPolicy *OriginRequestPolicy `json:"originRequestPolicy" xml:"OriginRequestPolicy"`
 }
 
 type GetPublicKeyConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetPublicKeyConfigResult struct {
-	ETag            string           `json:"eTag" xml:"ETag"`
-	PublicKeyConfig *PublicKeyConfig `json:"publicKeyConfig" xml:"PublicKeyConfig"`
+ETag string `json:"eTag" xml:"ETag"`
+PublicKeyConfig *PublicKeyConfig `json:"publicKeyConfig" xml:"PublicKeyConfig"`
 }
 
 type GetPublicKeyRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetPublicKeyResult struct {
-	ETag      string     `json:"eTag" xml:"ETag"`
-	PublicKey *PublicKey `json:"publicKey" xml:"PublicKey"`
+ETag string `json:"eTag" xml:"ETag"`
+PublicKey *PublicKey `json:"publicKey" xml:"PublicKey"`
 }
 
 type GetRealtimeLogConfigRequest struct {
-	ARN  string `json:"aRN" xml:"ARN"`
-	Name string `json:"name" xml:"Name"`
+ARN string `json:"aRN" xml:"ARN"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetRealtimeLogConfigResult struct {
-	RealtimeLogConfig *RealtimeLogConfig `json:"realtimeLogConfig" xml:"RealtimeLogConfig"`
+RealtimeLogConfig *RealtimeLogConfig `json:"realtimeLogConfig" xml:"RealtimeLogConfig"`
 }
 
 type GetResourcePolicyRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetResourcePolicyResult struct {
-	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
-	ResourceArn    string `json:"resourceArn" xml:"ResourceArn"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type GetResponseHeadersPolicyConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetResponseHeadersPolicyConfigResult struct {
-	ETag                        string                       `json:"eTag" xml:"ETag"`
-	ResponseHeadersPolicyConfig *ResponseHeadersPolicyConfig `json:"responseHeadersPolicyConfig" xml:"ResponseHeadersPolicyConfig"`
+ETag string `json:"eTag" xml:"ETag"`
+ResponseHeadersPolicyConfig *ResponseHeadersPolicyConfig `json:"responseHeadersPolicyConfig" xml:"ResponseHeadersPolicyConfig"`
 }
 
 type GetResponseHeadersPolicyRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetResponseHeadersPolicyResult struct {
-	ETag                  string                 `json:"eTag" xml:"ETag"`
-	ResponseHeadersPolicy *ResponseHeadersPolicy `json:"responseHeadersPolicy" xml:"ResponseHeadersPolicy"`
+ETag string `json:"eTag" xml:"ETag"`
+ResponseHeadersPolicy *ResponseHeadersPolicy `json:"responseHeadersPolicy" xml:"ResponseHeadersPolicy"`
 }
 
 type GetStreamingDistributionConfigRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetStreamingDistributionConfigResult struct {
-	ETag                        string                       `json:"eTag" xml:"ETag"`
-	StreamingDistributionConfig *StreamingDistributionConfig `json:"streamingDistributionConfig" xml:"StreamingDistributionConfig"`
+ETag string `json:"eTag" xml:"ETag"`
+StreamingDistributionConfig *StreamingDistributionConfig `json:"streamingDistributionConfig" xml:"StreamingDistributionConfig"`
 }
 
 type GetStreamingDistributionRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetStreamingDistributionResult struct {
-	ETag                  string                 `json:"eTag" xml:"ETag"`
-	StreamingDistribution *StreamingDistribution `json:"streamingDistribution" xml:"StreamingDistribution"`
+ETag string `json:"eTag" xml:"ETag"`
+StreamingDistribution *StreamingDistribution `json:"streamingDistribution" xml:"StreamingDistribution"`
 }
 
 type GetTrustStoreRequest struct {
-	Identifier string `json:"identifier" xml:"Identifier"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type GetTrustStoreResult struct {
-	ETag       string      `json:"eTag" xml:"ETag"`
-	TrustStore *TrustStore `json:"trustStore" xml:"TrustStore"`
+ETag string `json:"eTag" xml:"ETag"`
+TrustStore *TrustStore `json:"trustStore" xml:"TrustStore"`
 }
 
 type GetVpcOriginRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetVpcOriginResult struct {
-	ETag      string     `json:"eTag" xml:"ETag"`
-	VpcOrigin *VpcOrigin `json:"vpcOrigin" xml:"VpcOrigin"`
+ETag string `json:"eTag" xml:"ETag"`
+VpcOrigin *VpcOrigin `json:"vpcOrigin" xml:"VpcOrigin"`
 }
 
 type GrpcConfig struct {
-	Enabled bool `json:"enabled" xml:"Enabled"`
+Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type Headers struct {
-	Items    HeaderList `json:"items" xml:"Items"`
-	Quantity int32      `json:"quantity" xml:"Quantity"`
+Items HeaderList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ImportSource struct {
-	SourceARN  string `json:"sourceARN" xml:"SourceARN"`
-	SourceType string `json:"sourceType" xml:"SourceType"`
+SourceARN string `json:"sourceARN" xml:"SourceARN"`
+SourceType string `json:"sourceType" xml:"SourceType"`
 }
 
 type Invalidation struct {
-	CreateTime        time.Time          `json:"createTime" xml:"CreateTime"`
-	Id                string             `json:"id" xml:"Id"`
-	InvalidationBatch *InvalidationBatch `json:"invalidationBatch" xml:"InvalidationBatch"`
-	Status            string             `json:"status" xml:"Status"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+Id string `json:"id" xml:"Id"`
+InvalidationBatch *InvalidationBatch `json:"invalidationBatch" xml:"InvalidationBatch"`
+Status string `json:"status" xml:"Status"`
 }
 
 type InvalidationBatch struct {
-	CallerReference string `json:"callerReference" xml:"CallerReference"`
-	Paths           *Paths `json:"paths" xml:"Paths"`
+CallerReference string `json:"callerReference" xml:"CallerReference"`
+Paths *Paths `json:"paths" xml:"Paths"`
 }
 
 type InvalidationList struct {
-	IsTruncated bool                    `json:"isTruncated" xml:"IsTruncated"`
-	Items       InvalidationSummaryList `json:"items" xml:"Items"`
-	Marker      string                  `json:"marker" xml:"Marker"`
-	MaxItems    int32                   `json:"maxItems" xml:"MaxItems"`
-	NextMarker  string                  `json:"nextMarker" xml:"NextMarker"`
-	Quantity    int32                   `json:"quantity" xml:"Quantity"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Items InvalidationSummaryList `json:"items" xml:"Items"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type InvalidationSummary struct {
-	CreateTime time.Time `json:"createTime" xml:"CreateTime"`
-	Id         string    `json:"id" xml:"Id"`
-	Status     string    `json:"status" xml:"Status"`
+CreateTime time.Time `json:"createTime" xml:"CreateTime"`
+Id string `json:"id" xml:"Id"`
+Status string `json:"status" xml:"Status"`
 }
 
 type IpamCidrConfig struct {
-	AnycastIp   string `json:"anycastIp" xml:"AnycastIp"`
-	Cidr        string `json:"cidr" xml:"Cidr"`
-	IpamPoolArn string `json:"ipamPoolArn" xml:"IpamPoolArn"`
-	Status      string `json:"status" xml:"Status"`
+AnycastIp string `json:"anycastIp" xml:"AnycastIp"`
+Cidr string `json:"cidr" xml:"Cidr"`
+IpamPoolArn string `json:"ipamPoolArn" xml:"IpamPoolArn"`
+Status string `json:"status" xml:"Status"`
 }
 
 type IpamConfig struct {
-	IpamCidrConfigs IpamCidrConfigList `json:"ipamCidrConfigs" xml:"IpamCidrConfigs"`
-	Quantity        int32              `json:"quantity" xml:"Quantity"`
+IpamCidrConfigs IpamCidrConfigList `json:"ipamCidrConfigs" xml:"IpamCidrConfigs"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type KGKeyPairIds struct {
-	KeyGroupId string      `json:"keyGroupId" xml:"KeyGroupId"`
-	KeyPairIds *KeyPairIds `json:"keyPairIds" xml:"KeyPairIds"`
+KeyGroupId string `json:"keyGroupId" xml:"KeyGroupId"`
+KeyPairIds *KeyPairIds `json:"keyPairIds" xml:"KeyPairIds"`
 }
 
 type KeyGroup struct {
-	Id               string          `json:"id" xml:"Id"`
-	KeyGroupConfig   *KeyGroupConfig `json:"keyGroupConfig" xml:"KeyGroupConfig"`
-	LastModifiedTime time.Time       `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Id string `json:"id" xml:"Id"`
+KeyGroupConfig *KeyGroupConfig `json:"keyGroupConfig" xml:"KeyGroupConfig"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type KeyGroupConfig struct {
-	Comment string          `json:"comment" xml:"Comment"`
-	Items   PublicKeyIdList `json:"items" xml:"Items"`
-	Name    string          `json:"name" xml:"Name"`
+Comment string `json:"comment" xml:"Comment"`
+Items PublicKeyIdList `json:"items" xml:"Items"`
+Name string `json:"name" xml:"Name"`
 }
 
 type KeyGroupList struct {
-	Items      KeyGroupSummaryList `json:"items" xml:"Items"`
-	MaxItems   int32               `json:"maxItems" xml:"MaxItems"`
-	NextMarker string              `json:"nextMarker" xml:"NextMarker"`
-	Quantity   int32               `json:"quantity" xml:"Quantity"`
+Items KeyGroupSummaryList `json:"items" xml:"Items"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type KeyGroupSummary struct {
-	KeyGroup *KeyGroup `json:"keyGroup" xml:"KeyGroup"`
+KeyGroup *KeyGroup `json:"keyGroup" xml:"KeyGroup"`
 }
 
 type KeyPairIds struct {
-	Items    KeyPairIdList `json:"items" xml:"Items"`
-	Quantity int32         `json:"quantity" xml:"Quantity"`
+Items KeyPairIdList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type KeyValueStore struct {
-	ARN              string    `json:"aRN" xml:"ARN"`
-	Comment          string    `json:"comment" xml:"Comment"`
-	Id               string    `json:"id" xml:"Id"`
-	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name             string    `json:"name" xml:"Name"`
-	Status           string    `json:"status" xml:"Status"`
+ARN string `json:"aRN" xml:"ARN"`
+Comment string `json:"comment" xml:"Comment"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+Status string `json:"status" xml:"Status"`
 }
 
 type KeyValueStoreAssociation struct {
-	KeyValueStoreARN string `json:"keyValueStoreARN" xml:"KeyValueStoreARN"`
+KeyValueStoreARN string `json:"keyValueStoreARN" xml:"KeyValueStoreARN"`
 }
 
 type KeyValueStoreAssociations struct {
-	Items    KeyValueStoreAssociationList `json:"items" xml:"Items"`
-	Quantity int32                        `json:"quantity" xml:"Quantity"`
+Items KeyValueStoreAssociationList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type KeyValueStoreList struct {
-	Items      KeyValueStoreSummaryList `json:"items" xml:"Items"`
-	MaxItems   int32                    `json:"maxItems" xml:"MaxItems"`
-	NextMarker string                   `json:"nextMarker" xml:"NextMarker"`
-	Quantity   int32                    `json:"quantity" xml:"Quantity"`
+Items KeyValueStoreSummaryList `json:"items" xml:"Items"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type KinesisStreamConfig struct {
-	RoleARN   string `json:"roleARN" xml:"RoleARN"`
-	StreamARN string `json:"streamARN" xml:"StreamARN"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
+StreamARN string `json:"streamARN" xml:"StreamARN"`
 }
 
 type LambdaFunctionAssociation struct {
-	EventType         string `json:"eventType" xml:"EventType"`
-	IncludeBody       bool   `json:"includeBody" xml:"IncludeBody"`
-	LambdaFunctionARN string `json:"lambdaFunctionARN" xml:"LambdaFunctionARN"`
+EventType string `json:"eventType" xml:"EventType"`
+IncludeBody bool `json:"includeBody" xml:"IncludeBody"`
+LambdaFunctionARN string `json:"lambdaFunctionARN" xml:"LambdaFunctionARN"`
 }
 
 type LambdaFunctionAssociations struct {
-	Items    LambdaFunctionAssociationList `json:"items" xml:"Items"`
-	Quantity int32                         `json:"quantity" xml:"Quantity"`
+Items LambdaFunctionAssociationList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ListAnycastIpListsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListAnycastIpListsResult struct {
-	AnycastIpLists *AnycastIpListCollection `json:"anycastIpLists" xml:"AnycastIpLists"`
+AnycastIpLists *AnycastIpListCollection `json:"anycastIpLists" xml:"AnycastIpLists"`
 }
 
 type ListCachePoliciesRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	Type     string `json:"type" xml:"Type"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ListCachePoliciesResult struct {
-	CachePolicyList *CachePolicyList `json:"cachePolicyList" xml:"CachePolicyList"`
+CachePolicyList *CachePolicyList `json:"cachePolicyList" xml:"CachePolicyList"`
 }
 
 type ListCloudFrontOriginAccessIdentitiesRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListCloudFrontOriginAccessIdentitiesResult struct {
-	CloudFrontOriginAccessIdentityList *CloudFrontOriginAccessIdentityList `json:"cloudFrontOriginAccessIdentityList" xml:"CloudFrontOriginAccessIdentityList"`
+CloudFrontOriginAccessIdentityList *CloudFrontOriginAccessIdentityList `json:"cloudFrontOriginAccessIdentityList" xml:"CloudFrontOriginAccessIdentityList"`
 }
 
 type ListConflictingAliasesRequest struct {
-	Alias          string `json:"alias" xml:"Alias"`
-	DistributionId string `json:"distributionId" xml:"DistributionId"`
-	Marker         string `json:"marker" xml:"Marker"`
-	MaxItems       int32  `json:"maxItems" xml:"MaxItems"`
+Alias string `json:"alias" xml:"Alias"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListConflictingAliasesResult struct {
-	ConflictingAliasesList *ConflictingAliasesList `json:"conflictingAliasesList" xml:"ConflictingAliasesList"`
+ConflictingAliasesList *ConflictingAliasesList `json:"conflictingAliasesList" xml:"ConflictingAliasesList"`
 }
 
 type ListConnectionFunctionsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	Stage    string `json:"stage" xml:"Stage"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type ListConnectionFunctionsResult struct {
-	ConnectionFunctions ConnectionFunctionSummaryList `json:"connectionFunctions" xml:"ConnectionFunctions"`
-	NextMarker          string                        `json:"nextMarker" xml:"NextMarker"`
+ConnectionFunctions ConnectionFunctionSummaryList `json:"connectionFunctions" xml:"ConnectionFunctions"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListConnectionGroupsRequest struct {
-	AssociationFilter *ConnectionGroupAssociationFilter `json:"associationFilter" xml:"AssociationFilter"`
-	Marker            string                            `json:"marker" xml:"Marker"`
-	MaxItems          int32                             `json:"maxItems" xml:"MaxItems"`
+AssociationFilter *ConnectionGroupAssociationFilter `json:"associationFilter" xml:"AssociationFilter"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListConnectionGroupsResult struct {
-	ConnectionGroups ConnectionGroupSummaryList `json:"connectionGroups" xml:"ConnectionGroups"`
-	NextMarker       string                     `json:"nextMarker" xml:"NextMarker"`
+ConnectionGroups ConnectionGroupSummaryList `json:"connectionGroups" xml:"ConnectionGroups"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListContinuousDeploymentPoliciesRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListContinuousDeploymentPoliciesResult struct {
-	ContinuousDeploymentPolicyList *ContinuousDeploymentPolicyList `json:"continuousDeploymentPolicyList" xml:"ContinuousDeploymentPolicyList"`
+ContinuousDeploymentPolicyList *ContinuousDeploymentPolicyList `json:"continuousDeploymentPolicyList" xml:"ContinuousDeploymentPolicyList"`
 }
 
 type ListDistributionTenantsByCustomizationRequest struct {
-	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
-	Marker         string `json:"marker" xml:"Marker"`
-	MaxItems       int32  `json:"maxItems" xml:"MaxItems"`
-	WebACLArn      string `json:"webACLArn" xml:"WebACLArn"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+WebACLArn string `json:"webACLArn" xml:"WebACLArn"`
 }
 
 type ListDistributionTenantsByCustomizationResult struct {
-	DistributionTenantList DistributionTenantList `json:"distributionTenantList" xml:"DistributionTenantList"`
-	NextMarker             string                 `json:"nextMarker" xml:"NextMarker"`
+DistributionTenantList DistributionTenantList `json:"distributionTenantList" xml:"DistributionTenantList"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListDistributionTenantsRequest struct {
-	AssociationFilter *DistributionTenantAssociationFilter `json:"associationFilter" xml:"AssociationFilter"`
-	Marker            string                               `json:"marker" xml:"Marker"`
-	MaxItems          int32                                `json:"maxItems" xml:"MaxItems"`
+AssociationFilter *DistributionTenantAssociationFilter `json:"associationFilter" xml:"AssociationFilter"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListDistributionTenantsResult struct {
-	DistributionTenantList DistributionTenantList `json:"distributionTenantList" xml:"DistributionTenantList"`
-	NextMarker             string                 `json:"nextMarker" xml:"NextMarker"`
+DistributionTenantList DistributionTenantList `json:"distributionTenantList" xml:"DistributionTenantList"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListDistributionsByAnycastIpListIdRequest struct {
-	AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
-	Marker          string `json:"marker" xml:"Marker"`
-	MaxItems        int32  `json:"maxItems" xml:"MaxItems"`
+AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListDistributionsByAnycastIpListIdResult struct {
-	DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
+DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
 }
 
 type ListDistributionsByCachePolicyIdRequest struct {
-	CachePolicyId string `json:"cachePolicyId" xml:"CachePolicyId"`
-	Marker        string `json:"marker" xml:"Marker"`
-	MaxItems      int32  `json:"maxItems" xml:"MaxItems"`
+CachePolicyId string `json:"cachePolicyId" xml:"CachePolicyId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListDistributionsByCachePolicyIdResult struct {
-	DistributionIdList *DistributionIdList `json:"distributionIdList" xml:"DistributionIdList"`
+DistributionIdList *DistributionIdList `json:"distributionIdList" xml:"DistributionIdList"`
 }
 
 type ListDistributionsByConnectionFunctionRequest struct {
-	ConnectionFunctionIdentifier string `json:"connectionFunctionIdentifier" xml:"ConnectionFunctionIdentifier"`
-	Marker                       string `json:"marker" xml:"Marker"`
-	MaxItems                     int32  `json:"maxItems" xml:"MaxItems"`
+ConnectionFunctionIdentifier string `json:"connectionFunctionIdentifier" xml:"ConnectionFunctionIdentifier"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListDistributionsByConnectionFunctionResult struct {
-	DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
+DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
 }
 
 type ListDistributionsByConnectionModeRequest struct {
-	ConnectionMode string `json:"connectionMode" xml:"ConnectionMode"`
-	Marker         string `json:"marker" xml:"Marker"`
-	MaxItems       int32  `json:"maxItems" xml:"MaxItems"`
+ConnectionMode string `json:"connectionMode" xml:"ConnectionMode"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListDistributionsByConnectionModeResult struct {
-	DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
+DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
 }
 
 type ListDistributionsByKeyGroupRequest struct {
-	KeyGroupId string `json:"keyGroupId" xml:"KeyGroupId"`
-	Marker     string `json:"marker" xml:"Marker"`
-	MaxItems   int32  `json:"maxItems" xml:"MaxItems"`
+KeyGroupId string `json:"keyGroupId" xml:"KeyGroupId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListDistributionsByKeyGroupResult struct {
-	DistributionIdList *DistributionIdList `json:"distributionIdList" xml:"DistributionIdList"`
+DistributionIdList *DistributionIdList `json:"distributionIdList" xml:"DistributionIdList"`
 }
 
 type ListDistributionsByOriginRequestPolicyIdRequest struct {
-	Marker                string `json:"marker" xml:"Marker"`
-	MaxItems              int32  `json:"maxItems" xml:"MaxItems"`
-	OriginRequestPolicyId string `json:"originRequestPolicyId" xml:"OriginRequestPolicyId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+OriginRequestPolicyId string `json:"originRequestPolicyId" xml:"OriginRequestPolicyId"`
 }
 
 type ListDistributionsByOriginRequestPolicyIdResult struct {
-	DistributionIdList *DistributionIdList `json:"distributionIdList" xml:"DistributionIdList"`
+DistributionIdList *DistributionIdList `json:"distributionIdList" xml:"DistributionIdList"`
 }
 
 type ListDistributionsByOwnedResourceRequest struct {
-	Marker      string `json:"marker" xml:"Marker"`
-	MaxItems    int32  `json:"maxItems" xml:"MaxItems"`
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type ListDistributionsByOwnedResourceResult struct {
-	DistributionList *DistributionIdOwnerList `json:"distributionList" xml:"DistributionList"`
+DistributionList *DistributionIdOwnerList `json:"distributionList" xml:"DistributionList"`
 }
 
 type ListDistributionsByRealtimeLogConfigRequest struct {
-	Marker                string `json:"marker" xml:"Marker"`
-	MaxItems              int32  `json:"maxItems" xml:"MaxItems"`
-	RealtimeLogConfigArn  string `json:"realtimeLogConfigArn" xml:"RealtimeLogConfigArn"`
-	RealtimeLogConfigName string `json:"realtimeLogConfigName" xml:"RealtimeLogConfigName"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+RealtimeLogConfigArn string `json:"realtimeLogConfigArn" xml:"RealtimeLogConfigArn"`
+RealtimeLogConfigName string `json:"realtimeLogConfigName" xml:"RealtimeLogConfigName"`
 }
 
 type ListDistributionsByRealtimeLogConfigResult struct {
-	DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
+DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
 }
 
 type ListDistributionsByResponseHeadersPolicyIdRequest struct {
-	Marker                  string `json:"marker" xml:"Marker"`
-	MaxItems                int32  `json:"maxItems" xml:"MaxItems"`
-	ResponseHeadersPolicyId string `json:"responseHeadersPolicyId" xml:"ResponseHeadersPolicyId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+ResponseHeadersPolicyId string `json:"responseHeadersPolicyId" xml:"ResponseHeadersPolicyId"`
 }
 
 type ListDistributionsByResponseHeadersPolicyIdResult struct {
-	DistributionIdList *DistributionIdList `json:"distributionIdList" xml:"DistributionIdList"`
+DistributionIdList *DistributionIdList `json:"distributionIdList" xml:"DistributionIdList"`
 }
 
 type ListDistributionsByTrustStoreRequest struct {
-	Marker               string `json:"marker" xml:"Marker"`
-	MaxItems             int32  `json:"maxItems" xml:"MaxItems"`
-	TrustStoreIdentifier string `json:"trustStoreIdentifier" xml:"TrustStoreIdentifier"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+TrustStoreIdentifier string `json:"trustStoreIdentifier" xml:"TrustStoreIdentifier"`
 }
 
 type ListDistributionsByTrustStoreResult struct {
-	DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
+DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
 }
 
 type ListDistributionsByVpcOriginIdRequest struct {
-	Marker      string `json:"marker" xml:"Marker"`
-	MaxItems    int32  `json:"maxItems" xml:"MaxItems"`
-	VpcOriginId string `json:"vpcOriginId" xml:"VpcOriginId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+VpcOriginId string `json:"vpcOriginId" xml:"VpcOriginId"`
 }
 
 type ListDistributionsByVpcOriginIdResult struct {
-	DistributionIdList *DistributionIdList `json:"distributionIdList" xml:"DistributionIdList"`
+DistributionIdList *DistributionIdList `json:"distributionIdList" xml:"DistributionIdList"`
 }
 
 type ListDistributionsByWebACLIdRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	WebACLId string `json:"webACLId" xml:"WebACLId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+WebACLId string `json:"webACLId" xml:"WebACLId"`
 }
 
 type ListDistributionsByWebACLIdResult struct {
-	DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
+DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
 }
 
 type ListDistributionsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListDistributionsResult struct {
-	DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
+DistributionList *DistributionList `json:"distributionList" xml:"DistributionList"`
 }
 
 type ListDomainConflictsRequest struct {
-	Domain                          string                  `json:"domain" xml:"Domain"`
-	DomainControlValidationResource *DistributionResourceId `json:"domainControlValidationResource" xml:"DomainControlValidationResource"`
-	Marker                          string                  `json:"marker" xml:"Marker"`
-	MaxItems                        int32                   `json:"maxItems" xml:"MaxItems"`
+Domain string `json:"domain" xml:"Domain"`
+DomainControlValidationResource *DistributionResourceId `json:"domainControlValidationResource" xml:"DomainControlValidationResource"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListDomainConflictsResult struct {
-	DomainConflicts DomainConflictsList `json:"domainConflicts" xml:"DomainConflicts"`
-	NextMarker      string              `json:"nextMarker" xml:"NextMarker"`
+DomainConflicts DomainConflictsList `json:"domainConflicts" xml:"DomainConflicts"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type ListFieldLevelEncryptionConfigsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListFieldLevelEncryptionConfigsResult struct {
-	FieldLevelEncryptionList *FieldLevelEncryptionList `json:"fieldLevelEncryptionList" xml:"FieldLevelEncryptionList"`
+FieldLevelEncryptionList *FieldLevelEncryptionList `json:"fieldLevelEncryptionList" xml:"FieldLevelEncryptionList"`
 }
 
 type ListFieldLevelEncryptionProfilesRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListFieldLevelEncryptionProfilesResult struct {
-	FieldLevelEncryptionProfileList *FieldLevelEncryptionProfileList `json:"fieldLevelEncryptionProfileList" xml:"FieldLevelEncryptionProfileList"`
+FieldLevelEncryptionProfileList *FieldLevelEncryptionProfileList `json:"fieldLevelEncryptionProfileList" xml:"FieldLevelEncryptionProfileList"`
 }
 
 type ListFunctionsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	Stage    string `json:"stage" xml:"Stage"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type ListFunctionsResult struct {
-	FunctionList *FunctionList `json:"functionList" xml:"FunctionList"`
+FunctionList *FunctionList `json:"functionList" xml:"FunctionList"`
 }
 
 type ListInvalidationsForDistributionTenantRequest struct {
-	Id       string `json:"id" xml:"Id"`
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Id string `json:"id" xml:"Id"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListInvalidationsForDistributionTenantResult struct {
-	InvalidationList *InvalidationList `json:"invalidationList" xml:"InvalidationList"`
+InvalidationList *InvalidationList `json:"invalidationList" xml:"InvalidationList"`
 }
 
 type ListInvalidationsRequest struct {
-	DistributionId string `json:"distributionId" xml:"DistributionId"`
-	Marker         string `json:"marker" xml:"Marker"`
-	MaxItems       int32  `json:"maxItems" xml:"MaxItems"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListInvalidationsResult struct {
-	InvalidationList *InvalidationList `json:"invalidationList" xml:"InvalidationList"`
+InvalidationList *InvalidationList `json:"invalidationList" xml:"InvalidationList"`
 }
 
 type ListKeyGroupsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListKeyGroupsResult struct {
-	KeyGroupList *KeyGroupList `json:"keyGroupList" xml:"KeyGroupList"`
+KeyGroupList *KeyGroupList `json:"keyGroupList" xml:"KeyGroupList"`
 }
 
 type ListKeyValueStoresRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	Status   string `json:"status" xml:"Status"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+Status string `json:"status" xml:"Status"`
 }
 
 type ListKeyValueStoresResult struct {
-	KeyValueStoreList *KeyValueStoreList `json:"keyValueStoreList" xml:"KeyValueStoreList"`
+KeyValueStoreList *KeyValueStoreList `json:"keyValueStoreList" xml:"KeyValueStoreList"`
 }
 
 type ListOriginAccessControlsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListOriginAccessControlsResult struct {
-	OriginAccessControlList *OriginAccessControlList `json:"originAccessControlList" xml:"OriginAccessControlList"`
+OriginAccessControlList *OriginAccessControlList `json:"originAccessControlList" xml:"OriginAccessControlList"`
 }
 
 type ListOriginRequestPoliciesRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	Type     string `json:"type" xml:"Type"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ListOriginRequestPoliciesResult struct {
-	OriginRequestPolicyList *OriginRequestPolicyList `json:"originRequestPolicyList" xml:"OriginRequestPolicyList"`
+OriginRequestPolicyList *OriginRequestPolicyList `json:"originRequestPolicyList" xml:"OriginRequestPolicyList"`
 }
 
 type ListPublicKeysRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListPublicKeysResult struct {
-	PublicKeyList *PublicKeyList `json:"publicKeyList" xml:"PublicKeyList"`
+PublicKeyList *PublicKeyList `json:"publicKeyList" xml:"PublicKeyList"`
 }
 
 type ListRealtimeLogConfigsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListRealtimeLogConfigsResult struct {
-	RealtimeLogConfigs *RealtimeLogConfigs `json:"realtimeLogConfigs" xml:"RealtimeLogConfigs"`
+RealtimeLogConfigs *RealtimeLogConfigs `json:"realtimeLogConfigs" xml:"RealtimeLogConfigs"`
 }
 
 type ListResponseHeadersPoliciesRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
-	Type     string `json:"type" xml:"Type"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ListResponseHeadersPoliciesResult struct {
-	ResponseHeadersPolicyList *ResponseHeadersPolicyList `json:"responseHeadersPolicyList" xml:"ResponseHeadersPolicyList"`
+ResponseHeadersPolicyList *ResponseHeadersPolicyList `json:"responseHeadersPolicyList" xml:"ResponseHeadersPolicyList"`
 }
 
 type ListStreamingDistributionsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListStreamingDistributionsResult struct {
-	StreamingDistributionList *StreamingDistributionList `json:"streamingDistributionList" xml:"StreamingDistributionList"`
+StreamingDistributionList *StreamingDistributionList `json:"streamingDistributionList" xml:"StreamingDistributionList"`
 }
 
 type ListTagsForResourceRequest struct {
-	Resource string `json:"resource" xml:"Resource"`
+Resource string `json:"resource" xml:"Resource"`
 }
 
 type ListTagsForResourceResult struct {
-	Tags *Tags `json:"tags" xml:"Tags"`
+Tags *Tags `json:"tags" xml:"Tags"`
 }
 
 type ListTrustStoresRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListTrustStoresResult struct {
-	NextMarker     string         `json:"nextMarker" xml:"NextMarker"`
-	TrustStoreList TrustStoreList `json:"trustStoreList" xml:"TrustStoreList"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+TrustStoreList TrustStoreList `json:"trustStoreList" xml:"TrustStoreList"`
 }
 
 type ListVpcOriginsRequest struct {
-	Marker   string `json:"marker" xml:"Marker"`
-	MaxItems int32  `json:"maxItems" xml:"MaxItems"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
 }
 
 type ListVpcOriginsResult struct {
-	VpcOriginList *VpcOriginList `json:"vpcOriginList" xml:"VpcOriginList"`
+VpcOriginList *VpcOriginList `json:"vpcOriginList" xml:"VpcOriginList"`
 }
 
 type LoggingConfig struct {
-	Bucket         string `json:"bucket" xml:"Bucket"`
-	Enabled        bool   `json:"enabled" xml:"Enabled"`
-	IncludeCookies bool   `json:"includeCookies" xml:"IncludeCookies"`
-	Prefix         string `json:"prefix" xml:"Prefix"`
+Bucket string `json:"bucket" xml:"Bucket"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+IncludeCookies bool `json:"includeCookies" xml:"IncludeCookies"`
+Prefix string `json:"prefix" xml:"Prefix"`
 }
 
 type ManagedCertificateDetails struct {
-	CertificateArn         string                    `json:"certificateArn" xml:"CertificateArn"`
-	CertificateStatus      string                    `json:"certificateStatus" xml:"CertificateStatus"`
-	ValidationTokenDetails ValidationTokenDetailList `json:"validationTokenDetails" xml:"ValidationTokenDetails"`
-	ValidationTokenHost    string                    `json:"validationTokenHost" xml:"ValidationTokenHost"`
+CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+CertificateStatus string `json:"certificateStatus" xml:"CertificateStatus"`
+ValidationTokenDetails ValidationTokenDetailList `json:"validationTokenDetails" xml:"ValidationTokenDetails"`
+ValidationTokenHost string `json:"validationTokenHost" xml:"ValidationTokenHost"`
 }
 
 type ManagedCertificateRequest struct {
-	CertificateTransparencyLoggingPreference string `json:"certificateTransparencyLoggingPreference" xml:"CertificateTransparencyLoggingPreference"`
-	PrimaryDomainName                        string `json:"primaryDomainName" xml:"PrimaryDomainName"`
-	ValidationTokenHost                      string `json:"validationTokenHost" xml:"ValidationTokenHost"`
+CertificateTransparencyLoggingPreference string `json:"certificateTransparencyLoggingPreference" xml:"CertificateTransparencyLoggingPreference"`
+PrimaryDomainName string `json:"primaryDomainName" xml:"PrimaryDomainName"`
+ValidationTokenHost string `json:"validationTokenHost" xml:"ValidationTokenHost"`
 }
 
 type MonitoringSubscription struct {
-	RealtimeMetricsSubscriptionConfig *RealtimeMetricsSubscriptionConfig `json:"realtimeMetricsSubscriptionConfig" xml:"RealtimeMetricsSubscriptionConfig"`
+RealtimeMetricsSubscriptionConfig *RealtimeMetricsSubscriptionConfig `json:"realtimeMetricsSubscriptionConfig" xml:"RealtimeMetricsSubscriptionConfig"`
 }
 
 type Origin struct {
-	ConnectionAttempts        int32               `json:"connectionAttempts" xml:"ConnectionAttempts"`
-	ConnectionTimeout         int32               `json:"connectionTimeout" xml:"ConnectionTimeout"`
-	CustomHeaders             *CustomHeaders      `json:"customHeaders" xml:"CustomHeaders"`
-	CustomOriginConfig        *CustomOriginConfig `json:"customOriginConfig" xml:"CustomOriginConfig"`
-	DomainName                string              `json:"domainName" xml:"DomainName"`
-	Id                        string              `json:"id" xml:"Id"`
-	OriginAccessControlId     string              `json:"originAccessControlId" xml:"OriginAccessControlId"`
-	OriginPath                string              `json:"originPath" xml:"OriginPath"`
-	OriginShield              *OriginShield       `json:"originShield" xml:"OriginShield"`
-	ResponseCompletionTimeout int32               `json:"responseCompletionTimeout" xml:"ResponseCompletionTimeout"`
-	S3OriginConfig            *S3OriginConfig     `json:"s3OriginConfig" xml:"S3OriginConfig"`
-	VpcOriginConfig           *VpcOriginConfig    `json:"vpcOriginConfig" xml:"VpcOriginConfig"`
+ConnectionAttempts int32 `json:"connectionAttempts" xml:"ConnectionAttempts"`
+ConnectionTimeout int32 `json:"connectionTimeout" xml:"ConnectionTimeout"`
+CustomHeaders *CustomHeaders `json:"customHeaders" xml:"CustomHeaders"`
+CustomOriginConfig *CustomOriginConfig `json:"customOriginConfig" xml:"CustomOriginConfig"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Id string `json:"id" xml:"Id"`
+OriginAccessControlId string `json:"originAccessControlId" xml:"OriginAccessControlId"`
+OriginPath string `json:"originPath" xml:"OriginPath"`
+OriginShield *OriginShield `json:"originShield" xml:"OriginShield"`
+ResponseCompletionTimeout int32 `json:"responseCompletionTimeout" xml:"ResponseCompletionTimeout"`
+S3OriginConfig *S3OriginConfig `json:"s3OriginConfig" xml:"S3OriginConfig"`
+VpcOriginConfig *VpcOriginConfig `json:"vpcOriginConfig" xml:"VpcOriginConfig"`
 }
 
 type OriginAccessControl struct {
-	Id                        string                     `json:"id" xml:"Id"`
-	OriginAccessControlConfig *OriginAccessControlConfig `json:"originAccessControlConfig" xml:"OriginAccessControlConfig"`
+Id string `json:"id" xml:"Id"`
+OriginAccessControlConfig *OriginAccessControlConfig `json:"originAccessControlConfig" xml:"OriginAccessControlConfig"`
 }
 
 type OriginAccessControlConfig struct {
-	Description                   string `json:"description" xml:"Description"`
-	Name                          string `json:"name" xml:"Name"`
-	OriginAccessControlOriginType string `json:"originAccessControlOriginType" xml:"OriginAccessControlOriginType"`
-	SigningBehavior               string `json:"signingBehavior" xml:"SigningBehavior"`
-	SigningProtocol               string `json:"signingProtocol" xml:"SigningProtocol"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+OriginAccessControlOriginType string `json:"originAccessControlOriginType" xml:"OriginAccessControlOriginType"`
+SigningBehavior string `json:"signingBehavior" xml:"SigningBehavior"`
+SigningProtocol string `json:"signingProtocol" xml:"SigningProtocol"`
 }
 
 type OriginAccessControlList struct {
-	IsTruncated bool                           `json:"isTruncated" xml:"IsTruncated"`
-	Items       OriginAccessControlSummaryList `json:"items" xml:"Items"`
-	Marker      string                         `json:"marker" xml:"Marker"`
-	MaxItems    int32                          `json:"maxItems" xml:"MaxItems"`
-	NextMarker  string                         `json:"nextMarker" xml:"NextMarker"`
-	Quantity    int32                          `json:"quantity" xml:"Quantity"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Items OriginAccessControlSummaryList `json:"items" xml:"Items"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type OriginAccessControlSummary struct {
-	Description                   string `json:"description" xml:"Description"`
-	Id                            string `json:"id" xml:"Id"`
-	Name                          string `json:"name" xml:"Name"`
-	OriginAccessControlOriginType string `json:"originAccessControlOriginType" xml:"OriginAccessControlOriginType"`
-	SigningBehavior               string `json:"signingBehavior" xml:"SigningBehavior"`
-	SigningProtocol               string `json:"signingProtocol" xml:"SigningProtocol"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+OriginAccessControlOriginType string `json:"originAccessControlOriginType" xml:"OriginAccessControlOriginType"`
+SigningBehavior string `json:"signingBehavior" xml:"SigningBehavior"`
+SigningProtocol string `json:"signingProtocol" xml:"SigningProtocol"`
 }
 
 type OriginCustomHeader struct {
-	HeaderName  string `json:"headerName" xml:"HeaderName"`
-	HeaderValue string `json:"headerValue" xml:"HeaderValue"`
+HeaderName string `json:"headerName" xml:"HeaderName"`
+HeaderValue string `json:"headerValue" xml:"HeaderValue"`
 }
 
 type OriginGroup struct {
-	FailoverCriteria  *OriginGroupFailoverCriteria `json:"failoverCriteria" xml:"FailoverCriteria"`
-	Id                string                       `json:"id" xml:"Id"`
-	Members           *OriginGroupMembers          `json:"members" xml:"Members"`
-	SelectionCriteria string                       `json:"selectionCriteria" xml:"SelectionCriteria"`
+FailoverCriteria *OriginGroupFailoverCriteria `json:"failoverCriteria" xml:"FailoverCriteria"`
+Id string `json:"id" xml:"Id"`
+Members *OriginGroupMembers `json:"members" xml:"Members"`
+SelectionCriteria string `json:"selectionCriteria" xml:"SelectionCriteria"`
 }
 
 type OriginGroupFailoverCriteria struct {
-	StatusCodes *StatusCodes `json:"statusCodes" xml:"StatusCodes"`
+StatusCodes *StatusCodes `json:"statusCodes" xml:"StatusCodes"`
 }
 
 type OriginGroupMember struct {
-	OriginId string `json:"originId" xml:"OriginId"`
+OriginId string `json:"originId" xml:"OriginId"`
 }
 
 type OriginGroupMembers struct {
-	Items    OriginGroupMemberList `json:"items" xml:"Items"`
-	Quantity int32                 `json:"quantity" xml:"Quantity"`
+Items OriginGroupMemberList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type OriginGroups struct {
-	Items    OriginGroupList `json:"items" xml:"Items"`
-	Quantity int32           `json:"quantity" xml:"Quantity"`
+Items OriginGroupList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type OriginMtlsConfig struct {
-	ClientCertificateArn string `json:"clientCertificateArn" xml:"ClientCertificateArn"`
+ClientCertificateArn string `json:"clientCertificateArn" xml:"ClientCertificateArn"`
 }
 
 type OriginRequestPolicy struct {
-	Id                        string                     `json:"id" xml:"Id"`
-	LastModifiedTime          time.Time                  `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	OriginRequestPolicyConfig *OriginRequestPolicyConfig `json:"originRequestPolicyConfig" xml:"OriginRequestPolicyConfig"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+OriginRequestPolicyConfig *OriginRequestPolicyConfig `json:"originRequestPolicyConfig" xml:"OriginRequestPolicyConfig"`
 }
 
 type OriginRequestPolicyConfig struct {
-	Comment            string                                 `json:"comment" xml:"Comment"`
-	CookiesConfig      *OriginRequestPolicyCookiesConfig      `json:"cookiesConfig" xml:"CookiesConfig"`
-	HeadersConfig      *OriginRequestPolicyHeadersConfig      `json:"headersConfig" xml:"HeadersConfig"`
-	Name               string                                 `json:"name" xml:"Name"`
-	QueryStringsConfig *OriginRequestPolicyQueryStringsConfig `json:"queryStringsConfig" xml:"QueryStringsConfig"`
+Comment string `json:"comment" xml:"Comment"`
+CookiesConfig *OriginRequestPolicyCookiesConfig `json:"cookiesConfig" xml:"CookiesConfig"`
+HeadersConfig *OriginRequestPolicyHeadersConfig `json:"headersConfig" xml:"HeadersConfig"`
+Name string `json:"name" xml:"Name"`
+QueryStringsConfig *OriginRequestPolicyQueryStringsConfig `json:"queryStringsConfig" xml:"QueryStringsConfig"`
 }
 
 type OriginRequestPolicyCookiesConfig struct {
-	CookieBehavior string       `json:"cookieBehavior" xml:"CookieBehavior"`
-	Cookies        *CookieNames `json:"cookies" xml:"Cookies"`
+CookieBehavior string `json:"cookieBehavior" xml:"CookieBehavior"`
+Cookies *CookieNames `json:"cookies" xml:"Cookies"`
 }
 
 type OriginRequestPolicyHeadersConfig struct {
-	HeaderBehavior string   `json:"headerBehavior" xml:"HeaderBehavior"`
-	Headers        *Headers `json:"headers" xml:"Headers"`
+HeaderBehavior string `json:"headerBehavior" xml:"HeaderBehavior"`
+Headers *Headers `json:"headers" xml:"Headers"`
 }
 
 type OriginRequestPolicyList struct {
-	Items      OriginRequestPolicySummaryList `json:"items" xml:"Items"`
-	MaxItems   int32                          `json:"maxItems" xml:"MaxItems"`
-	NextMarker string                         `json:"nextMarker" xml:"NextMarker"`
-	Quantity   int32                          `json:"quantity" xml:"Quantity"`
+Items OriginRequestPolicySummaryList `json:"items" xml:"Items"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type OriginRequestPolicyQueryStringsConfig struct {
-	QueryStringBehavior string            `json:"queryStringBehavior" xml:"QueryStringBehavior"`
-	QueryStrings        *QueryStringNames `json:"queryStrings" xml:"QueryStrings"`
+QueryStringBehavior string `json:"queryStringBehavior" xml:"QueryStringBehavior"`
+QueryStrings *QueryStringNames `json:"queryStrings" xml:"QueryStrings"`
 }
 
 type OriginRequestPolicySummary struct {
-	OriginRequestPolicy *OriginRequestPolicy `json:"originRequestPolicy" xml:"OriginRequestPolicy"`
-	Type                string               `json:"type" xml:"Type"`
+OriginRequestPolicy *OriginRequestPolicy `json:"originRequestPolicy" xml:"OriginRequestPolicy"`
+Type string `json:"type" xml:"Type"`
 }
 
 type OriginShield struct {
-	Enabled            bool   `json:"enabled" xml:"Enabled"`
-	OriginShieldRegion string `json:"originShieldRegion" xml:"OriginShieldRegion"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+OriginShieldRegion string `json:"originShieldRegion" xml:"OriginShieldRegion"`
 }
 
 type OriginSslProtocols struct {
-	Items    SslProtocolsList `json:"items" xml:"Items"`
-	Quantity int32            `json:"quantity" xml:"Quantity"`
+Items SslProtocolsList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type Origins struct {
-	Items    OriginList `json:"items" xml:"Items"`
-	Quantity int32      `json:"quantity" xml:"Quantity"`
+Items OriginList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type Parameter struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ParameterDefinition struct {
-	Definition *ParameterDefinitionSchema `json:"definition" xml:"Definition"`
-	Name       string                     `json:"name" xml:"Name"`
+Definition *ParameterDefinitionSchema `json:"definition" xml:"Definition"`
+Name string `json:"name" xml:"Name"`
 }
 
 type ParameterDefinitionSchema struct {
-	StringSchema *StringSchemaConfig `json:"stringSchema" xml:"StringSchema"`
+StringSchema *StringSchemaConfig `json:"stringSchema" xml:"StringSchema"`
 }
 
 type ParametersInCacheKeyAndForwardedToOrigin struct {
-	CookiesConfig              *CachePolicyCookiesConfig      `json:"cookiesConfig" xml:"CookiesConfig"`
-	EnableAcceptEncodingBrotli bool                           `json:"enableAcceptEncodingBrotli" xml:"EnableAcceptEncodingBrotli"`
-	EnableAcceptEncodingGzip   bool                           `json:"enableAcceptEncodingGzip" xml:"EnableAcceptEncodingGzip"`
-	HeadersConfig              *CachePolicyHeadersConfig      `json:"headersConfig" xml:"HeadersConfig"`
-	QueryStringsConfig         *CachePolicyQueryStringsConfig `json:"queryStringsConfig" xml:"QueryStringsConfig"`
+CookiesConfig *CachePolicyCookiesConfig `json:"cookiesConfig" xml:"CookiesConfig"`
+EnableAcceptEncodingBrotli bool `json:"enableAcceptEncodingBrotli" xml:"EnableAcceptEncodingBrotli"`
+EnableAcceptEncodingGzip bool `json:"enableAcceptEncodingGzip" xml:"EnableAcceptEncodingGzip"`
+HeadersConfig *CachePolicyHeadersConfig `json:"headersConfig" xml:"HeadersConfig"`
+QueryStringsConfig *CachePolicyQueryStringsConfig `json:"queryStringsConfig" xml:"QueryStringsConfig"`
 }
 
 type Paths struct {
-	Items    PathList `json:"items" xml:"Items"`
-	Quantity int32    `json:"quantity" xml:"Quantity"`
+Items PathList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type PublicKey struct {
-	CreatedTime     time.Time        `json:"createdTime" xml:"CreatedTime"`
-	Id              string           `json:"id" xml:"Id"`
-	PublicKeyConfig *PublicKeyConfig `json:"publicKeyConfig" xml:"PublicKeyConfig"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+Id string `json:"id" xml:"Id"`
+PublicKeyConfig *PublicKeyConfig `json:"publicKeyConfig" xml:"PublicKeyConfig"`
 }
 
 type PublicKeyConfig struct {
-	CallerReference string `json:"callerReference" xml:"CallerReference"`
-	Comment         string `json:"comment" xml:"Comment"`
-	EncodedKey      string `json:"encodedKey" xml:"EncodedKey"`
-	Name            string `json:"name" xml:"Name"`
+CallerReference string `json:"callerReference" xml:"CallerReference"`
+Comment string `json:"comment" xml:"Comment"`
+EncodedKey string `json:"encodedKey" xml:"EncodedKey"`
+Name string `json:"name" xml:"Name"`
 }
 
 type PublicKeyList struct {
-	Items      PublicKeySummaryList `json:"items" xml:"Items"`
-	MaxItems   int32                `json:"maxItems" xml:"MaxItems"`
-	NextMarker string               `json:"nextMarker" xml:"NextMarker"`
-	Quantity   int32                `json:"quantity" xml:"Quantity"`
+Items PublicKeySummaryList `json:"items" xml:"Items"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type PublicKeySummary struct {
-	Comment     string    `json:"comment" xml:"Comment"`
-	CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
-	EncodedKey  string    `json:"encodedKey" xml:"EncodedKey"`
-	Id          string    `json:"id" xml:"Id"`
-	Name        string    `json:"name" xml:"Name"`
+Comment string `json:"comment" xml:"Comment"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+EncodedKey string `json:"encodedKey" xml:"EncodedKey"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
 }
 
 type PublishConnectionFunctionRequest struct {
-	Id      string `json:"id" xml:"Id"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type PublishConnectionFunctionResult struct {
-	ConnectionFunctionSummary *ConnectionFunctionSummary `json:"connectionFunctionSummary" xml:"ConnectionFunctionSummary"`
+ConnectionFunctionSummary *ConnectionFunctionSummary `json:"connectionFunctionSummary" xml:"ConnectionFunctionSummary"`
 }
 
 type PublishFunctionRequest struct {
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
-	Name    string `json:"name" xml:"Name"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Name string `json:"name" xml:"Name"`
 }
 
 type PublishFunctionResult struct {
-	FunctionSummary *FunctionSummary `json:"functionSummary" xml:"FunctionSummary"`
+FunctionSummary *FunctionSummary `json:"functionSummary" xml:"FunctionSummary"`
 }
 
 type PutResourcePolicyRequest struct {
-	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
-	ResourceArn    string `json:"resourceArn" xml:"ResourceArn"`
+PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type PutResourcePolicyResult struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 }
 
 type QueryArgProfile struct {
-	ProfileId string `json:"profileId" xml:"ProfileId"`
-	QueryArg  string `json:"queryArg" xml:"QueryArg"`
+ProfileId string `json:"profileId" xml:"ProfileId"`
+QueryArg string `json:"queryArg" xml:"QueryArg"`
 }
 
 type QueryArgProfileConfig struct {
-	ForwardWhenQueryArgProfileIsUnknown bool              `json:"forwardWhenQueryArgProfileIsUnknown" xml:"ForwardWhenQueryArgProfileIsUnknown"`
-	QueryArgProfiles                    *QueryArgProfiles `json:"queryArgProfiles" xml:"QueryArgProfiles"`
+ForwardWhenQueryArgProfileIsUnknown bool `json:"forwardWhenQueryArgProfileIsUnknown" xml:"ForwardWhenQueryArgProfileIsUnknown"`
+QueryArgProfiles *QueryArgProfiles `json:"queryArgProfiles" xml:"QueryArgProfiles"`
 }
 
 type QueryArgProfiles struct {
-	Items    QueryArgProfileList `json:"items" xml:"Items"`
-	Quantity int32               `json:"quantity" xml:"Quantity"`
+Items QueryArgProfileList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type QueryStringCacheKeys struct {
-	Items    QueryStringCacheKeysList `json:"items" xml:"Items"`
-	Quantity int32                    `json:"quantity" xml:"Quantity"`
+Items QueryStringCacheKeysList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type QueryStringNames struct {
-	Items    QueryStringNamesList `json:"items" xml:"Items"`
-	Quantity int32                `json:"quantity" xml:"Quantity"`
+Items QueryStringNamesList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type RealtimeLogConfig struct {
-	ARN          string       `json:"aRN" xml:"ARN"`
-	EndPoints    EndPointList `json:"endPoints" xml:"EndPoints"`
-	Fields       FieldList    `json:"fields" xml:"Fields"`
-	Name         string       `json:"name" xml:"Name"`
-	SamplingRate int64        `json:"samplingRate" xml:"SamplingRate"`
+ARN string `json:"aRN" xml:"ARN"`
+EndPoints EndPointList `json:"endPoints" xml:"EndPoints"`
+Fields FieldList `json:"fields" xml:"Fields"`
+Name string `json:"name" xml:"Name"`
+SamplingRate int64 `json:"samplingRate" xml:"SamplingRate"`
 }
 
 type RealtimeLogConfigs struct {
-	IsTruncated bool                  `json:"isTruncated" xml:"IsTruncated"`
-	Items       RealtimeLogConfigList `json:"items" xml:"Items"`
-	Marker      string                `json:"marker" xml:"Marker"`
-	MaxItems    int32                 `json:"maxItems" xml:"MaxItems"`
-	NextMarker  string                `json:"nextMarker" xml:"NextMarker"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Items RealtimeLogConfigList `json:"items" xml:"Items"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
 }
 
 type RealtimeMetricsSubscriptionConfig struct {
-	RealtimeMetricsSubscriptionStatus string `json:"realtimeMetricsSubscriptionStatus" xml:"RealtimeMetricsSubscriptionStatus"`
+RealtimeMetricsSubscriptionStatus string `json:"realtimeMetricsSubscriptionStatus" xml:"RealtimeMetricsSubscriptionStatus"`
 }
 
 type ResponseHeadersPolicy struct {
-	Id                          string                       `json:"id" xml:"Id"`
-	LastModifiedTime            time.Time                    `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	ResponseHeadersPolicyConfig *ResponseHeadersPolicyConfig `json:"responseHeadersPolicyConfig" xml:"ResponseHeadersPolicyConfig"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+ResponseHeadersPolicyConfig *ResponseHeadersPolicyConfig `json:"responseHeadersPolicyConfig" xml:"ResponseHeadersPolicyConfig"`
 }
 
 type ResponseHeadersPolicyAccessControlAllowHeaders struct {
-	Items    AccessControlAllowHeadersList `json:"items" xml:"Items"`
-	Quantity int32                         `json:"quantity" xml:"Quantity"`
+Items AccessControlAllowHeadersList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ResponseHeadersPolicyAccessControlAllowMethods struct {
-	Items    AccessControlAllowMethodsList `json:"items" xml:"Items"`
-	Quantity int32                         `json:"quantity" xml:"Quantity"`
+Items AccessControlAllowMethodsList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ResponseHeadersPolicyAccessControlAllowOrigins struct {
-	Items    AccessControlAllowOriginsList `json:"items" xml:"Items"`
-	Quantity int32                         `json:"quantity" xml:"Quantity"`
+Items AccessControlAllowOriginsList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ResponseHeadersPolicyAccessControlExposeHeaders struct {
-	Items    AccessControlExposeHeadersList `json:"items" xml:"Items"`
-	Quantity int32                          `json:"quantity" xml:"Quantity"`
+Items AccessControlExposeHeadersList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ResponseHeadersPolicyConfig struct {
-	Comment                   string                                          `json:"comment" xml:"Comment"`
-	CorsConfig                *ResponseHeadersPolicyCorsConfig                `json:"corsConfig" xml:"CorsConfig"`
-	CustomHeadersConfig       *ResponseHeadersPolicyCustomHeadersConfig       `json:"customHeadersConfig" xml:"CustomHeadersConfig"`
-	Name                      string                                          `json:"name" xml:"Name"`
-	RemoveHeadersConfig       *ResponseHeadersPolicyRemoveHeadersConfig       `json:"removeHeadersConfig" xml:"RemoveHeadersConfig"`
-	SecurityHeadersConfig     *ResponseHeadersPolicySecurityHeadersConfig     `json:"securityHeadersConfig" xml:"SecurityHeadersConfig"`
-	ServerTimingHeadersConfig *ResponseHeadersPolicyServerTimingHeadersConfig `json:"serverTimingHeadersConfig" xml:"ServerTimingHeadersConfig"`
+Comment string `json:"comment" xml:"Comment"`
+CorsConfig *ResponseHeadersPolicyCorsConfig `json:"corsConfig" xml:"CorsConfig"`
+CustomHeadersConfig *ResponseHeadersPolicyCustomHeadersConfig `json:"customHeadersConfig" xml:"CustomHeadersConfig"`
+Name string `json:"name" xml:"Name"`
+RemoveHeadersConfig *ResponseHeadersPolicyRemoveHeadersConfig `json:"removeHeadersConfig" xml:"RemoveHeadersConfig"`
+SecurityHeadersConfig *ResponseHeadersPolicySecurityHeadersConfig `json:"securityHeadersConfig" xml:"SecurityHeadersConfig"`
+ServerTimingHeadersConfig *ResponseHeadersPolicyServerTimingHeadersConfig `json:"serverTimingHeadersConfig" xml:"ServerTimingHeadersConfig"`
 }
 
 type ResponseHeadersPolicyContentSecurityPolicy struct {
-	ContentSecurityPolicy string `json:"contentSecurityPolicy" xml:"ContentSecurityPolicy"`
-	Override              bool   `json:"override" xml:"Override"`
+ContentSecurityPolicy string `json:"contentSecurityPolicy" xml:"ContentSecurityPolicy"`
+Override bool `json:"override" xml:"Override"`
 }
 
 type ResponseHeadersPolicyContentTypeOptions struct {
-	Override bool `json:"override" xml:"Override"`
+Override bool `json:"override" xml:"Override"`
 }
 
 type ResponseHeadersPolicyCorsConfig struct {
-	AccessControlAllowCredentials bool                                             `json:"accessControlAllowCredentials" xml:"AccessControlAllowCredentials"`
-	AccessControlAllowHeaders     *ResponseHeadersPolicyAccessControlAllowHeaders  `json:"accessControlAllowHeaders" xml:"AccessControlAllowHeaders"`
-	AccessControlAllowMethods     *ResponseHeadersPolicyAccessControlAllowMethods  `json:"accessControlAllowMethods" xml:"AccessControlAllowMethods"`
-	AccessControlAllowOrigins     *ResponseHeadersPolicyAccessControlAllowOrigins  `json:"accessControlAllowOrigins" xml:"AccessControlAllowOrigins"`
-	AccessControlExposeHeaders    *ResponseHeadersPolicyAccessControlExposeHeaders `json:"accessControlExposeHeaders" xml:"AccessControlExposeHeaders"`
-	AccessControlMaxAgeSec        int32                                            `json:"accessControlMaxAgeSec" xml:"AccessControlMaxAgeSec"`
-	OriginOverride                bool                                             `json:"originOverride" xml:"OriginOverride"`
+AccessControlAllowCredentials bool `json:"accessControlAllowCredentials" xml:"AccessControlAllowCredentials"`
+AccessControlAllowHeaders *ResponseHeadersPolicyAccessControlAllowHeaders `json:"accessControlAllowHeaders" xml:"AccessControlAllowHeaders"`
+AccessControlAllowMethods *ResponseHeadersPolicyAccessControlAllowMethods `json:"accessControlAllowMethods" xml:"AccessControlAllowMethods"`
+AccessControlAllowOrigins *ResponseHeadersPolicyAccessControlAllowOrigins `json:"accessControlAllowOrigins" xml:"AccessControlAllowOrigins"`
+AccessControlExposeHeaders *ResponseHeadersPolicyAccessControlExposeHeaders `json:"accessControlExposeHeaders" xml:"AccessControlExposeHeaders"`
+AccessControlMaxAgeSec int32 `json:"accessControlMaxAgeSec" xml:"AccessControlMaxAgeSec"`
+OriginOverride bool `json:"originOverride" xml:"OriginOverride"`
 }
 
 type ResponseHeadersPolicyCustomHeader struct {
-	Header   string `json:"header" xml:"Header"`
-	Override bool   `json:"override" xml:"Override"`
-	Value    string `json:"value" xml:"Value"`
+Header string `json:"header" xml:"Header"`
+Override bool `json:"override" xml:"Override"`
+Value string `json:"value" xml:"Value"`
 }
 
 type ResponseHeadersPolicyCustomHeadersConfig struct {
-	Items    ResponseHeadersPolicyCustomHeaderList `json:"items" xml:"Items"`
-	Quantity int32                                 `json:"quantity" xml:"Quantity"`
+Items ResponseHeadersPolicyCustomHeaderList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ResponseHeadersPolicyFrameOptions struct {
-	FrameOption string `json:"frameOption" xml:"FrameOption"`
-	Override    bool   `json:"override" xml:"Override"`
+FrameOption string `json:"frameOption" xml:"FrameOption"`
+Override bool `json:"override" xml:"Override"`
 }
 
 type ResponseHeadersPolicyList struct {
-	Items      ResponseHeadersPolicySummaryList `json:"items" xml:"Items"`
-	MaxItems   int32                            `json:"maxItems" xml:"MaxItems"`
-	NextMarker string                           `json:"nextMarker" xml:"NextMarker"`
-	Quantity   int32                            `json:"quantity" xml:"Quantity"`
+Items ResponseHeadersPolicySummaryList `json:"items" xml:"Items"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ResponseHeadersPolicyReferrerPolicy struct {
-	Override       bool   `json:"override" xml:"Override"`
-	ReferrerPolicy string `json:"referrerPolicy" xml:"ReferrerPolicy"`
+Override bool `json:"override" xml:"Override"`
+ReferrerPolicy string `json:"referrerPolicy" xml:"ReferrerPolicy"`
 }
 
 type ResponseHeadersPolicyRemoveHeader struct {
-	Header string `json:"header" xml:"Header"`
+Header string `json:"header" xml:"Header"`
 }
 
 type ResponseHeadersPolicyRemoveHeadersConfig struct {
-	Items    ResponseHeadersPolicyRemoveHeaderList `json:"items" xml:"Items"`
-	Quantity int32                                 `json:"quantity" xml:"Quantity"`
+Items ResponseHeadersPolicyRemoveHeaderList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type ResponseHeadersPolicySecurityHeadersConfig struct {
-	ContentSecurityPolicy   *ResponseHeadersPolicyContentSecurityPolicy   `json:"contentSecurityPolicy" xml:"ContentSecurityPolicy"`
-	ContentTypeOptions      *ResponseHeadersPolicyContentTypeOptions      `json:"contentTypeOptions" xml:"ContentTypeOptions"`
-	FrameOptions            *ResponseHeadersPolicyFrameOptions            `json:"frameOptions" xml:"FrameOptions"`
-	ReferrerPolicy          *ResponseHeadersPolicyReferrerPolicy          `json:"referrerPolicy" xml:"ReferrerPolicy"`
-	StrictTransportSecurity *ResponseHeadersPolicyStrictTransportSecurity `json:"strictTransportSecurity" xml:"StrictTransportSecurity"`
-	XSSProtection           *ResponseHeadersPolicyXSSProtection           `json:"xSSProtection" xml:"XSSProtection"`
+ContentSecurityPolicy *ResponseHeadersPolicyContentSecurityPolicy `json:"contentSecurityPolicy" xml:"ContentSecurityPolicy"`
+ContentTypeOptions *ResponseHeadersPolicyContentTypeOptions `json:"contentTypeOptions" xml:"ContentTypeOptions"`
+FrameOptions *ResponseHeadersPolicyFrameOptions `json:"frameOptions" xml:"FrameOptions"`
+ReferrerPolicy *ResponseHeadersPolicyReferrerPolicy `json:"referrerPolicy" xml:"ReferrerPolicy"`
+StrictTransportSecurity *ResponseHeadersPolicyStrictTransportSecurity `json:"strictTransportSecurity" xml:"StrictTransportSecurity"`
+XSSProtection *ResponseHeadersPolicyXSSProtection `json:"xSSProtection" xml:"XSSProtection"`
 }
 
 type ResponseHeadersPolicyServerTimingHeadersConfig struct {
-	Enabled      bool    `json:"enabled" xml:"Enabled"`
-	SamplingRate float64 `json:"samplingRate" xml:"SamplingRate"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+SamplingRate float64 `json:"samplingRate" xml:"SamplingRate"`
 }
 
 type ResponseHeadersPolicyStrictTransportSecurity struct {
-	AccessControlMaxAgeSec int32 `json:"accessControlMaxAgeSec" xml:"AccessControlMaxAgeSec"`
-	IncludeSubdomains      bool  `json:"includeSubdomains" xml:"IncludeSubdomains"`
-	Override               bool  `json:"override" xml:"Override"`
-	Preload                bool  `json:"preload" xml:"Preload"`
+AccessControlMaxAgeSec int32 `json:"accessControlMaxAgeSec" xml:"AccessControlMaxAgeSec"`
+IncludeSubdomains bool `json:"includeSubdomains" xml:"IncludeSubdomains"`
+Override bool `json:"override" xml:"Override"`
+Preload bool `json:"preload" xml:"Preload"`
 }
 
 type ResponseHeadersPolicySummary struct {
-	ResponseHeadersPolicy *ResponseHeadersPolicy `json:"responseHeadersPolicy" xml:"ResponseHeadersPolicy"`
-	Type                  string                 `json:"type" xml:"Type"`
+ResponseHeadersPolicy *ResponseHeadersPolicy `json:"responseHeadersPolicy" xml:"ResponseHeadersPolicy"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ResponseHeadersPolicyXSSProtection struct {
-	ModeBlock  bool   `json:"modeBlock" xml:"ModeBlock"`
-	Override   bool   `json:"override" xml:"Override"`
-	Protection bool   `json:"protection" xml:"Protection"`
-	ReportUri  string `json:"reportUri" xml:"ReportUri"`
+ModeBlock bool `json:"modeBlock" xml:"ModeBlock"`
+Override bool `json:"override" xml:"Override"`
+Protection bool `json:"protection" xml:"Protection"`
+ReportUri string `json:"reportUri" xml:"ReportUri"`
 }
 
 type Restrictions struct {
-	GeoRestriction *GeoRestriction `json:"geoRestriction" xml:"GeoRestriction"`
+GeoRestriction *GeoRestriction `json:"geoRestriction" xml:"GeoRestriction"`
 }
 
 type S3Origin struct {
-	DomainName           string `json:"domainName" xml:"DomainName"`
-	OriginAccessIdentity string `json:"originAccessIdentity" xml:"OriginAccessIdentity"`
+DomainName string `json:"domainName" xml:"DomainName"`
+OriginAccessIdentity string `json:"originAccessIdentity" xml:"OriginAccessIdentity"`
 }
 
 type S3OriginConfig struct {
-	OriginAccessIdentity string `json:"originAccessIdentity" xml:"OriginAccessIdentity"`
-	OriginReadTimeout    int32  `json:"originReadTimeout" xml:"OriginReadTimeout"`
+OriginAccessIdentity string `json:"originAccessIdentity" xml:"OriginAccessIdentity"`
+OriginReadTimeout int32 `json:"originReadTimeout" xml:"OriginReadTimeout"`
 }
 
 type SessionStickinessConfig struct {
-	IdleTTL    int32 `json:"idleTTL" xml:"IdleTTL"`
-	MaximumTTL int32 `json:"maximumTTL" xml:"MaximumTTL"`
+IdleTTL int32 `json:"idleTTL" xml:"IdleTTL"`
+MaximumTTL int32 `json:"maximumTTL" xml:"MaximumTTL"`
 }
 
 type Signer struct {
-	AwsAccountNumber string      `json:"awsAccountNumber" xml:"AwsAccountNumber"`
-	KeyPairIds       *KeyPairIds `json:"keyPairIds" xml:"KeyPairIds"`
+AwsAccountNumber string `json:"awsAccountNumber" xml:"AwsAccountNumber"`
+KeyPairIds *KeyPairIds `json:"keyPairIds" xml:"KeyPairIds"`
 }
 
 type SmithyUnit struct {
 }
 
 type StagingDistributionDnsNames struct {
-	Items    StagingDistributionDnsNameList `json:"items" xml:"Items"`
-	Quantity int32                          `json:"quantity" xml:"Quantity"`
+Items StagingDistributionDnsNameList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type StatusCodes struct {
-	Items    StatusCodeList `json:"items" xml:"Items"`
-	Quantity int32          `json:"quantity" xml:"Quantity"`
+Items StatusCodeList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type StreamingDistribution struct {
-	ARN                         string                       `json:"aRN" xml:"ARN"`
-	ActiveTrustedSigners        *ActiveTrustedSigners        `json:"activeTrustedSigners" xml:"ActiveTrustedSigners"`
-	DomainName                  string                       `json:"domainName" xml:"DomainName"`
-	Id                          string                       `json:"id" xml:"Id"`
-	LastModifiedTime            time.Time                    `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Status                      string                       `json:"status" xml:"Status"`
-	StreamingDistributionConfig *StreamingDistributionConfig `json:"streamingDistributionConfig" xml:"StreamingDistributionConfig"`
+ARN string `json:"aRN" xml:"ARN"`
+ActiveTrustedSigners *ActiveTrustedSigners `json:"activeTrustedSigners" xml:"ActiveTrustedSigners"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Status string `json:"status" xml:"Status"`
+StreamingDistributionConfig *StreamingDistributionConfig `json:"streamingDistributionConfig" xml:"StreamingDistributionConfig"`
 }
 
 type StreamingDistributionConfig struct {
-	Aliases         *Aliases                `json:"aliases" xml:"Aliases"`
-	CallerReference string                  `json:"callerReference" xml:"CallerReference"`
-	Comment         string                  `json:"comment" xml:"Comment"`
-	Enabled         bool                    `json:"enabled" xml:"Enabled"`
-	Logging         *StreamingLoggingConfig `json:"logging" xml:"Logging"`
-	PriceClass      string                  `json:"priceClass" xml:"PriceClass"`
-	S3Origin        *S3Origin               `json:"s3Origin" xml:"S3Origin"`
-	TrustedSigners  *TrustedSigners         `json:"trustedSigners" xml:"TrustedSigners"`
+Aliases *Aliases `json:"aliases" xml:"Aliases"`
+CallerReference string `json:"callerReference" xml:"CallerReference"`
+Comment string `json:"comment" xml:"Comment"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Logging *StreamingLoggingConfig `json:"logging" xml:"Logging"`
+PriceClass string `json:"priceClass" xml:"PriceClass"`
+S3Origin *S3Origin `json:"s3Origin" xml:"S3Origin"`
+TrustedSigners *TrustedSigners `json:"trustedSigners" xml:"TrustedSigners"`
 }
 
 type StreamingDistributionConfigWithTags struct {
-	StreamingDistributionConfig *StreamingDistributionConfig `json:"streamingDistributionConfig" xml:"StreamingDistributionConfig"`
-	Tags                        *Tags                        `json:"tags" xml:"Tags"`
+StreamingDistributionConfig *StreamingDistributionConfig `json:"streamingDistributionConfig" xml:"StreamingDistributionConfig"`
+Tags *Tags `json:"tags" xml:"Tags"`
 }
 
 type StreamingDistributionList struct {
-	IsTruncated bool                             `json:"isTruncated" xml:"IsTruncated"`
-	Items       StreamingDistributionSummaryList `json:"items" xml:"Items"`
-	Marker      string                           `json:"marker" xml:"Marker"`
-	MaxItems    int32                            `json:"maxItems" xml:"MaxItems"`
-	NextMarker  string                           `json:"nextMarker" xml:"NextMarker"`
-	Quantity    int32                            `json:"quantity" xml:"Quantity"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Items StreamingDistributionSummaryList `json:"items" xml:"Items"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type StreamingDistributionSummary struct {
-	ARN              string          `json:"aRN" xml:"ARN"`
-	Aliases          *Aliases        `json:"aliases" xml:"Aliases"`
-	Comment          string          `json:"comment" xml:"Comment"`
-	DomainName       string          `json:"domainName" xml:"DomainName"`
-	Enabled          bool            `json:"enabled" xml:"Enabled"`
-	Id               string          `json:"id" xml:"Id"`
-	LastModifiedTime time.Time       `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	PriceClass       string          `json:"priceClass" xml:"PriceClass"`
-	S3Origin         *S3Origin       `json:"s3Origin" xml:"S3Origin"`
-	Status           string          `json:"status" xml:"Status"`
-	TrustedSigners   *TrustedSigners `json:"trustedSigners" xml:"TrustedSigners"`
+ARN string `json:"aRN" xml:"ARN"`
+Aliases *Aliases `json:"aliases" xml:"Aliases"`
+Comment string `json:"comment" xml:"Comment"`
+DomainName string `json:"domainName" xml:"DomainName"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+PriceClass string `json:"priceClass" xml:"PriceClass"`
+S3Origin *S3Origin `json:"s3Origin" xml:"S3Origin"`
+Status string `json:"status" xml:"Status"`
+TrustedSigners *TrustedSigners `json:"trustedSigners" xml:"TrustedSigners"`
 }
 
 type StreamingLoggingConfig struct {
-	Bucket  string `json:"bucket" xml:"Bucket"`
-	Enabled bool   `json:"enabled" xml:"Enabled"`
-	Prefix  string `json:"prefix" xml:"Prefix"`
+Bucket string `json:"bucket" xml:"Bucket"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Prefix string `json:"prefix" xml:"Prefix"`
 }
 
 type StringSchemaConfig struct {
-	Comment      string `json:"comment" xml:"Comment"`
-	DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
-	Required     bool   `json:"required" xml:"Required"`
+Comment string `json:"comment" xml:"Comment"`
+DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+Required bool `json:"required" xml:"Required"`
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagKeys struct {
-	Items TagKeyList `json:"items" xml:"Items"`
+Items TagKeyList `json:"items" xml:"Items"`
 }
 
 type TagResourceRequest struct {
-	Resource string `json:"resource" xml:"Resource"`
-	Tags     *Tags  `json:"tags" xml:"Tags"`
+Resource string `json:"resource" xml:"Resource"`
+Tags *Tags `json:"tags" xml:"Tags"`
 }
 
 type Tags struct {
-	Items TagList `json:"items" xml:"Items"`
+Items TagList `json:"items" xml:"Items"`
 }
 
 type TenantConfig struct {
-	ParameterDefinitions ParameterDefinitions `json:"parameterDefinitions" xml:"ParameterDefinitions"`
+ParameterDefinitions ParameterDefinitions `json:"parameterDefinitions" xml:"ParameterDefinitions"`
 }
 
 type TestConnectionFunctionRequest struct {
-	ConnectionObject []byte `json:"connectionObject" xml:"ConnectionObject"`
-	Id               string `json:"id" xml:"Id"`
-	IfMatch          string `json:"ifMatch" xml:"IfMatch"`
-	Stage            string `json:"stage" xml:"Stage"`
+ConnectionObject []byte `json:"connectionObject" xml:"ConnectionObject"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type TestConnectionFunctionResult struct {
-	ConnectionFunctionTestResult *ConnectionFunctionTestResult `json:"connectionFunctionTestResult" xml:"ConnectionFunctionTestResult"`
+ConnectionFunctionTestResult *ConnectionFunctionTestResult `json:"connectionFunctionTestResult" xml:"ConnectionFunctionTestResult"`
 }
 
 type TestFunctionRequest struct {
-	EventObject []byte `json:"eventObject" xml:"EventObject"`
-	IfMatch     string `json:"ifMatch" xml:"IfMatch"`
-	Name        string `json:"name" xml:"Name"`
-	Stage       string `json:"stage" xml:"Stage"`
+EventObject []byte `json:"eventObject" xml:"EventObject"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Name string `json:"name" xml:"Name"`
+Stage string `json:"stage" xml:"Stage"`
 }
 
 type TestFunctionResult struct {
-	TestResult *TestResult `json:"testResult" xml:"TestResult"`
+TestResult *TestResult `json:"testResult" xml:"TestResult"`
 }
 
 type TestResult struct {
-	ComputeUtilization    string                   `json:"computeUtilization" xml:"ComputeUtilization"`
-	FunctionErrorMessage  string                   `json:"functionErrorMessage" xml:"FunctionErrorMessage"`
-	FunctionExecutionLogs FunctionExecutionLogList `json:"functionExecutionLogs" xml:"FunctionExecutionLogs"`
-	FunctionOutput        string                   `json:"functionOutput" xml:"FunctionOutput"`
-	FunctionSummary       *FunctionSummary         `json:"functionSummary" xml:"FunctionSummary"`
+ComputeUtilization string `json:"computeUtilization" xml:"ComputeUtilization"`
+FunctionErrorMessage string `json:"functionErrorMessage" xml:"FunctionErrorMessage"`
+FunctionExecutionLogs FunctionExecutionLogList `json:"functionExecutionLogs" xml:"FunctionExecutionLogs"`
+FunctionOutput string `json:"functionOutput" xml:"FunctionOutput"`
+FunctionSummary *FunctionSummary `json:"functionSummary" xml:"FunctionSummary"`
 }
 
 type TrafficConfig struct {
-	SingleHeaderConfig *ContinuousDeploymentSingleHeaderConfig `json:"singleHeaderConfig" xml:"SingleHeaderConfig"`
-	SingleWeightConfig *ContinuousDeploymentSingleWeightConfig `json:"singleWeightConfig" xml:"SingleWeightConfig"`
-	Type               string                                  `json:"type" xml:"Type"`
+SingleHeaderConfig *ContinuousDeploymentSingleHeaderConfig `json:"singleHeaderConfig" xml:"SingleHeaderConfig"`
+SingleWeightConfig *ContinuousDeploymentSingleWeightConfig `json:"singleWeightConfig" xml:"SingleWeightConfig"`
+Type string `json:"type" xml:"Type"`
 }
 
 type TrustStore struct {
-	Arn                    string    `json:"arn" xml:"Arn"`
-	Id                     string    `json:"id" xml:"Id"`
-	LastModifiedTime       time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name                   string    `json:"name" xml:"Name"`
-	NumberOfCaCertificates int32     `json:"numberOfCaCertificates" xml:"NumberOfCaCertificates"`
-	Reason                 string    `json:"reason" xml:"Reason"`
-	Status                 string    `json:"status" xml:"Status"`
+Arn string `json:"arn" xml:"Arn"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+NumberOfCaCertificates int32 `json:"numberOfCaCertificates" xml:"NumberOfCaCertificates"`
+Reason string `json:"reason" xml:"Reason"`
+Status string `json:"status" xml:"Status"`
 }
 
 type TrustStoreConfig struct {
-	AdvertiseTrustStoreCaNames bool   `json:"advertiseTrustStoreCaNames" xml:"AdvertiseTrustStoreCaNames"`
-	IgnoreCertificateExpiry    bool   `json:"ignoreCertificateExpiry" xml:"IgnoreCertificateExpiry"`
-	TrustStoreId               string `json:"trustStoreId" xml:"TrustStoreId"`
+AdvertiseTrustStoreCaNames bool `json:"advertiseTrustStoreCaNames" xml:"AdvertiseTrustStoreCaNames"`
+IgnoreCertificateExpiry bool `json:"ignoreCertificateExpiry" xml:"IgnoreCertificateExpiry"`
+TrustStoreId string `json:"trustStoreId" xml:"TrustStoreId"`
 }
 
 type TrustStoreSummary struct {
-	Arn                    string    `json:"arn" xml:"Arn"`
-	ETag                   string    `json:"eTag" xml:"ETag"`
-	Id                     string    `json:"id" xml:"Id"`
-	LastModifiedTime       time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name                   string    `json:"name" xml:"Name"`
-	NumberOfCaCertificates int32     `json:"numberOfCaCertificates" xml:"NumberOfCaCertificates"`
-	Reason                 string    `json:"reason" xml:"Reason"`
-	Status                 string    `json:"status" xml:"Status"`
+Arn string `json:"arn" xml:"Arn"`
+ETag string `json:"eTag" xml:"ETag"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+NumberOfCaCertificates int32 `json:"numberOfCaCertificates" xml:"NumberOfCaCertificates"`
+Reason string `json:"reason" xml:"Reason"`
+Status string `json:"status" xml:"Status"`
 }
 
 type TrustedKeyGroups struct {
-	Enabled  bool                  `json:"enabled" xml:"Enabled"`
-	Items    TrustedKeyGroupIdList `json:"items" xml:"Items"`
-	Quantity int32                 `json:"quantity" xml:"Quantity"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Items TrustedKeyGroupIdList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type TrustedSigners struct {
-	Enabled  bool                 `json:"enabled" xml:"Enabled"`
-	Items    AwsAccountNumberList `json:"items" xml:"Items"`
-	Quantity int32                `json:"quantity" xml:"Quantity"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Items AwsAccountNumberList `json:"items" xml:"Items"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type UntagResourceRequest struct {
-	Resource string   `json:"resource" xml:"Resource"`
-	TagKeys  *TagKeys `json:"tagKeys" xml:"TagKeys"`
+Resource string `json:"resource" xml:"Resource"`
+TagKeys *TagKeys `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UpdateAnycastIpListRequest struct {
-	Id              string             `json:"id" xml:"Id"`
-	IfMatch         string             `json:"ifMatch" xml:"IfMatch"`
-	IpAddressType   string             `json:"ipAddressType" xml:"IpAddressType"`
-	IpamCidrConfigs IpamCidrConfigList `json:"ipamCidrConfigs" xml:"IpamCidrConfigs"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+IpAddressType string `json:"ipAddressType" xml:"IpAddressType"`
+IpamCidrConfigs IpamCidrConfigList `json:"ipamCidrConfigs" xml:"IpamCidrConfigs"`
 }
 
 type UpdateAnycastIpListResult struct {
-	AnycastIpList *AnycastIpList `json:"anycastIpList" xml:"AnycastIpList"`
-	ETag          string         `json:"eTag" xml:"ETag"`
+AnycastIpList *AnycastIpList `json:"anycastIpList" xml:"AnycastIpList"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type UpdateCachePolicyRequest struct {
-	CachePolicyConfig *CachePolicyConfig `json:"cachePolicyConfig" xml:"CachePolicyConfig"`
-	Id                string             `json:"id" xml:"Id"`
-	IfMatch           string             `json:"ifMatch" xml:"IfMatch"`
+CachePolicyConfig *CachePolicyConfig `json:"cachePolicyConfig" xml:"CachePolicyConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type UpdateCachePolicyResult struct {
-	CachePolicy *CachePolicy `json:"cachePolicy" xml:"CachePolicy"`
-	ETag        string       `json:"eTag" xml:"ETag"`
+CachePolicy *CachePolicy `json:"cachePolicy" xml:"CachePolicy"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type UpdateCloudFrontOriginAccessIdentityRequest struct {
-	CloudFrontOriginAccessIdentityConfig *CloudFrontOriginAccessIdentityConfig `json:"cloudFrontOriginAccessIdentityConfig" xml:"CloudFrontOriginAccessIdentityConfig"`
-	Id                                   string                                `json:"id" xml:"Id"`
-	IfMatch                              string                                `json:"ifMatch" xml:"IfMatch"`
+CloudFrontOriginAccessIdentityConfig *CloudFrontOriginAccessIdentityConfig `json:"cloudFrontOriginAccessIdentityConfig" xml:"CloudFrontOriginAccessIdentityConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type UpdateCloudFrontOriginAccessIdentityResult struct {
-	CloudFrontOriginAccessIdentity *CloudFrontOriginAccessIdentity `json:"cloudFrontOriginAccessIdentity" xml:"CloudFrontOriginAccessIdentity"`
-	ETag                           string                          `json:"eTag" xml:"ETag"`
+CloudFrontOriginAccessIdentity *CloudFrontOriginAccessIdentity `json:"cloudFrontOriginAccessIdentity" xml:"CloudFrontOriginAccessIdentity"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type UpdateConnectionFunctionRequest struct {
-	ConnectionFunctionCode   []byte          `json:"connectionFunctionCode" xml:"ConnectionFunctionCode"`
-	ConnectionFunctionConfig *FunctionConfig `json:"connectionFunctionConfig" xml:"ConnectionFunctionConfig"`
-	Id                       string          `json:"id" xml:"Id"`
-	IfMatch                  string          `json:"ifMatch" xml:"IfMatch"`
+ConnectionFunctionCode []byte `json:"connectionFunctionCode" xml:"ConnectionFunctionCode"`
+ConnectionFunctionConfig *FunctionConfig `json:"connectionFunctionConfig" xml:"ConnectionFunctionConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type UpdateConnectionFunctionResult struct {
-	ConnectionFunctionSummary *ConnectionFunctionSummary `json:"connectionFunctionSummary" xml:"ConnectionFunctionSummary"`
-	ETag                      string                     `json:"eTag" xml:"ETag"`
+ConnectionFunctionSummary *ConnectionFunctionSummary `json:"connectionFunctionSummary" xml:"ConnectionFunctionSummary"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type UpdateConnectionGroupRequest struct {
-	AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
-	Enabled         bool   `json:"enabled" xml:"Enabled"`
-	Id              string `json:"id" xml:"Id"`
-	IfMatch         string `json:"ifMatch" xml:"IfMatch"`
-	Ipv6Enabled     bool   `json:"ipv6Enabled" xml:"Ipv6Enabled"`
+AnycastIpListId string `json:"anycastIpListId" xml:"AnycastIpListId"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Ipv6Enabled bool `json:"ipv6Enabled" xml:"Ipv6Enabled"`
 }
 
 type UpdateConnectionGroupResult struct {
-	ConnectionGroup *ConnectionGroup `json:"connectionGroup" xml:"ConnectionGroup"`
-	ETag            string           `json:"eTag" xml:"ETag"`
+ConnectionGroup *ConnectionGroup `json:"connectionGroup" xml:"ConnectionGroup"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type UpdateContinuousDeploymentPolicyRequest struct {
-	ContinuousDeploymentPolicyConfig *ContinuousDeploymentPolicyConfig `json:"continuousDeploymentPolicyConfig" xml:"ContinuousDeploymentPolicyConfig"`
-	Id                               string                            `json:"id" xml:"Id"`
-	IfMatch                          string                            `json:"ifMatch" xml:"IfMatch"`
+ContinuousDeploymentPolicyConfig *ContinuousDeploymentPolicyConfig `json:"continuousDeploymentPolicyConfig" xml:"ContinuousDeploymentPolicyConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type UpdateContinuousDeploymentPolicyResult struct {
-	ContinuousDeploymentPolicy *ContinuousDeploymentPolicy `json:"continuousDeploymentPolicy" xml:"ContinuousDeploymentPolicy"`
-	ETag                       string                      `json:"eTag" xml:"ETag"`
+ContinuousDeploymentPolicy *ContinuousDeploymentPolicy `json:"continuousDeploymentPolicy" xml:"ContinuousDeploymentPolicy"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type UpdateDistributionRequest struct {
-	DistributionConfig *DistributionConfig `json:"distributionConfig" xml:"DistributionConfig"`
-	Id                 string              `json:"id" xml:"Id"`
-	IfMatch            string              `json:"ifMatch" xml:"IfMatch"`
+DistributionConfig *DistributionConfig `json:"distributionConfig" xml:"DistributionConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type UpdateDistributionResult struct {
-	Distribution *Distribution `json:"distribution" xml:"Distribution"`
-	ETag         string        `json:"eTag" xml:"ETag"`
+Distribution *Distribution `json:"distribution" xml:"Distribution"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type UpdateDistributionTenantRequest struct {
-	ConnectionGroupId         string                     `json:"connectionGroupId" xml:"ConnectionGroupId"`
-	Customizations            *Customizations            `json:"customizations" xml:"Customizations"`
-	DistributionId            string                     `json:"distributionId" xml:"DistributionId"`
-	Domains                   DomainList                 `json:"domains" xml:"Domains"`
-	Enabled                   bool                       `json:"enabled" xml:"Enabled"`
-	Id                        string                     `json:"id" xml:"Id"`
-	IfMatch                   string                     `json:"ifMatch" xml:"IfMatch"`
-	ManagedCertificateRequest *ManagedCertificateRequest `json:"managedCertificateRequest" xml:"ManagedCertificateRequest"`
-	Parameters                Parameters                 `json:"parameters" xml:"Parameters"`
+ConnectionGroupId string `json:"connectionGroupId" xml:"ConnectionGroupId"`
+Customizations *Customizations `json:"customizations" xml:"Customizations"`
+DistributionId string `json:"distributionId" xml:"DistributionId"`
+Domains DomainList `json:"domains" xml:"Domains"`
+Enabled bool `json:"enabled" xml:"Enabled"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+ManagedCertificateRequest *ManagedCertificateRequest `json:"managedCertificateRequest" xml:"ManagedCertificateRequest"`
+Parameters Parameters `json:"parameters" xml:"Parameters"`
 }
 
 type UpdateDistributionTenantResult struct {
-	DistributionTenant *DistributionTenant `json:"distributionTenant" xml:"DistributionTenant"`
-	ETag               string              `json:"eTag" xml:"ETag"`
+DistributionTenant *DistributionTenant `json:"distributionTenant" xml:"DistributionTenant"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type UpdateDistributionWithStagingConfigRequest struct {
-	Id                    string `json:"id" xml:"Id"`
-	IfMatch               string `json:"ifMatch" xml:"IfMatch"`
-	StagingDistributionId string `json:"stagingDistributionId" xml:"StagingDistributionId"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+StagingDistributionId string `json:"stagingDistributionId" xml:"StagingDistributionId"`
 }
 
 type UpdateDistributionWithStagingConfigResult struct {
-	Distribution *Distribution `json:"distribution" xml:"Distribution"`
-	ETag         string        `json:"eTag" xml:"ETag"`
+Distribution *Distribution `json:"distribution" xml:"Distribution"`
+ETag string `json:"eTag" xml:"ETag"`
 }
 
 type UpdateDomainAssociationRequest struct {
-	Domain         string                  `json:"domain" xml:"Domain"`
-	IfMatch        string                  `json:"ifMatch" xml:"IfMatch"`
-	TargetResource *DistributionResourceId `json:"targetResource" xml:"TargetResource"`
+Domain string `json:"domain" xml:"Domain"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+TargetResource *DistributionResourceId `json:"targetResource" xml:"TargetResource"`
 }
 
 type UpdateDomainAssociationResult struct {
-	Domain     string `json:"domain" xml:"Domain"`
-	ETag       string `json:"eTag" xml:"ETag"`
-	ResourceId string `json:"resourceId" xml:"ResourceId"`
+Domain string `json:"domain" xml:"Domain"`
+ETag string `json:"eTag" xml:"ETag"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
 }
 
 type UpdateFieldLevelEncryptionConfigRequest struct {
-	FieldLevelEncryptionConfig *FieldLevelEncryptionConfig `json:"fieldLevelEncryptionConfig" xml:"FieldLevelEncryptionConfig"`
-	Id                         string                      `json:"id" xml:"Id"`
-	IfMatch                    string                      `json:"ifMatch" xml:"IfMatch"`
+FieldLevelEncryptionConfig *FieldLevelEncryptionConfig `json:"fieldLevelEncryptionConfig" xml:"FieldLevelEncryptionConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type UpdateFieldLevelEncryptionConfigResult struct {
-	ETag                 string                `json:"eTag" xml:"ETag"`
-	FieldLevelEncryption *FieldLevelEncryption `json:"fieldLevelEncryption" xml:"FieldLevelEncryption"`
+ETag string `json:"eTag" xml:"ETag"`
+FieldLevelEncryption *FieldLevelEncryption `json:"fieldLevelEncryption" xml:"FieldLevelEncryption"`
 }
 
 type UpdateFieldLevelEncryptionProfileRequest struct {
-	FieldLevelEncryptionProfileConfig *FieldLevelEncryptionProfileConfig `json:"fieldLevelEncryptionProfileConfig" xml:"FieldLevelEncryptionProfileConfig"`
-	Id                                string                             `json:"id" xml:"Id"`
-	IfMatch                           string                             `json:"ifMatch" xml:"IfMatch"`
+FieldLevelEncryptionProfileConfig *FieldLevelEncryptionProfileConfig `json:"fieldLevelEncryptionProfileConfig" xml:"FieldLevelEncryptionProfileConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type UpdateFieldLevelEncryptionProfileResult struct {
-	ETag                        string                       `json:"eTag" xml:"ETag"`
-	FieldLevelEncryptionProfile *FieldLevelEncryptionProfile `json:"fieldLevelEncryptionProfile" xml:"FieldLevelEncryptionProfile"`
+ETag string `json:"eTag" xml:"ETag"`
+FieldLevelEncryptionProfile *FieldLevelEncryptionProfile `json:"fieldLevelEncryptionProfile" xml:"FieldLevelEncryptionProfile"`
 }
 
 type UpdateFunctionRequest struct {
-	FunctionCode   []byte          `json:"functionCode" xml:"FunctionCode"`
-	FunctionConfig *FunctionConfig `json:"functionConfig" xml:"FunctionConfig"`
-	IfMatch        string          `json:"ifMatch" xml:"IfMatch"`
-	Name           string          `json:"name" xml:"Name"`
+FunctionCode []byte `json:"functionCode" xml:"FunctionCode"`
+FunctionConfig *FunctionConfig `json:"functionConfig" xml:"FunctionConfig"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateFunctionResult struct {
-	ETag            string           `json:"eTag" xml:"ETag"`
-	FunctionSummary *FunctionSummary `json:"functionSummary" xml:"FunctionSummary"`
+ETag string `json:"eTag" xml:"ETag"`
+FunctionSummary *FunctionSummary `json:"functionSummary" xml:"FunctionSummary"`
 }
 
 type UpdateKeyGroupRequest struct {
-	Id             string          `json:"id" xml:"Id"`
-	IfMatch        string          `json:"ifMatch" xml:"IfMatch"`
-	KeyGroupConfig *KeyGroupConfig `json:"keyGroupConfig" xml:"KeyGroupConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+KeyGroupConfig *KeyGroupConfig `json:"keyGroupConfig" xml:"KeyGroupConfig"`
 }
 
 type UpdateKeyGroupResult struct {
-	ETag     string    `json:"eTag" xml:"ETag"`
-	KeyGroup *KeyGroup `json:"keyGroup" xml:"KeyGroup"`
+ETag string `json:"eTag" xml:"ETag"`
+KeyGroup *KeyGroup `json:"keyGroup" xml:"KeyGroup"`
 }
 
 type UpdateKeyValueStoreRequest struct {
-	Comment string `json:"comment" xml:"Comment"`
-	IfMatch string `json:"ifMatch" xml:"IfMatch"`
-	Name    string `json:"name" xml:"Name"`
+Comment string `json:"comment" xml:"Comment"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+Name string `json:"name" xml:"Name"`
 }
 
 type UpdateKeyValueStoreResult struct {
-	ETag          string         `json:"eTag" xml:"ETag"`
-	KeyValueStore *KeyValueStore `json:"keyValueStore" xml:"KeyValueStore"`
+ETag string `json:"eTag" xml:"ETag"`
+KeyValueStore *KeyValueStore `json:"keyValueStore" xml:"KeyValueStore"`
 }
 
 type UpdateOriginAccessControlRequest struct {
-	Id                        string                     `json:"id" xml:"Id"`
-	IfMatch                   string                     `json:"ifMatch" xml:"IfMatch"`
-	OriginAccessControlConfig *OriginAccessControlConfig `json:"originAccessControlConfig" xml:"OriginAccessControlConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+OriginAccessControlConfig *OriginAccessControlConfig `json:"originAccessControlConfig" xml:"OriginAccessControlConfig"`
 }
 
 type UpdateOriginAccessControlResult struct {
-	ETag                string               `json:"eTag" xml:"ETag"`
-	OriginAccessControl *OriginAccessControl `json:"originAccessControl" xml:"OriginAccessControl"`
+ETag string `json:"eTag" xml:"ETag"`
+OriginAccessControl *OriginAccessControl `json:"originAccessControl" xml:"OriginAccessControl"`
 }
 
 type UpdateOriginRequestPolicyRequest struct {
-	Id                        string                     `json:"id" xml:"Id"`
-	IfMatch                   string                     `json:"ifMatch" xml:"IfMatch"`
-	OriginRequestPolicyConfig *OriginRequestPolicyConfig `json:"originRequestPolicyConfig" xml:"OriginRequestPolicyConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+OriginRequestPolicyConfig *OriginRequestPolicyConfig `json:"originRequestPolicyConfig" xml:"OriginRequestPolicyConfig"`
 }
 
 type UpdateOriginRequestPolicyResult struct {
-	ETag                string               `json:"eTag" xml:"ETag"`
-	OriginRequestPolicy *OriginRequestPolicy `json:"originRequestPolicy" xml:"OriginRequestPolicy"`
+ETag string `json:"eTag" xml:"ETag"`
+OriginRequestPolicy *OriginRequestPolicy `json:"originRequestPolicy" xml:"OriginRequestPolicy"`
 }
 
 type UpdatePublicKeyRequest struct {
-	Id              string           `json:"id" xml:"Id"`
-	IfMatch         string           `json:"ifMatch" xml:"IfMatch"`
-	PublicKeyConfig *PublicKeyConfig `json:"publicKeyConfig" xml:"PublicKeyConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+PublicKeyConfig *PublicKeyConfig `json:"publicKeyConfig" xml:"PublicKeyConfig"`
 }
 
 type UpdatePublicKeyResult struct {
-	ETag      string     `json:"eTag" xml:"ETag"`
-	PublicKey *PublicKey `json:"publicKey" xml:"PublicKey"`
+ETag string `json:"eTag" xml:"ETag"`
+PublicKey *PublicKey `json:"publicKey" xml:"PublicKey"`
 }
 
 type UpdateRealtimeLogConfigRequest struct {
-	ARN          string       `json:"aRN" xml:"ARN"`
-	EndPoints    EndPointList `json:"endPoints" xml:"EndPoints"`
-	Fields       FieldList    `json:"fields" xml:"Fields"`
-	Name         string       `json:"name" xml:"Name"`
-	SamplingRate int64        `json:"samplingRate" xml:"SamplingRate"`
+ARN string `json:"aRN" xml:"ARN"`
+EndPoints EndPointList `json:"endPoints" xml:"EndPoints"`
+Fields FieldList `json:"fields" xml:"Fields"`
+Name string `json:"name" xml:"Name"`
+SamplingRate int64 `json:"samplingRate" xml:"SamplingRate"`
 }
 
 type UpdateRealtimeLogConfigResult struct {
-	RealtimeLogConfig *RealtimeLogConfig `json:"realtimeLogConfig" xml:"RealtimeLogConfig"`
+RealtimeLogConfig *RealtimeLogConfig `json:"realtimeLogConfig" xml:"RealtimeLogConfig"`
 }
 
 type UpdateResponseHeadersPolicyRequest struct {
-	Id                          string                       `json:"id" xml:"Id"`
-	IfMatch                     string                       `json:"ifMatch" xml:"IfMatch"`
-	ResponseHeadersPolicyConfig *ResponseHeadersPolicyConfig `json:"responseHeadersPolicyConfig" xml:"ResponseHeadersPolicyConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+ResponseHeadersPolicyConfig *ResponseHeadersPolicyConfig `json:"responseHeadersPolicyConfig" xml:"ResponseHeadersPolicyConfig"`
 }
 
 type UpdateResponseHeadersPolicyResult struct {
-	ETag                  string                 `json:"eTag" xml:"ETag"`
-	ResponseHeadersPolicy *ResponseHeadersPolicy `json:"responseHeadersPolicy" xml:"ResponseHeadersPolicy"`
+ETag string `json:"eTag" xml:"ETag"`
+ResponseHeadersPolicy *ResponseHeadersPolicy `json:"responseHeadersPolicy" xml:"ResponseHeadersPolicy"`
 }
 
 type UpdateStreamingDistributionRequest struct {
-	Id                          string                       `json:"id" xml:"Id"`
-	IfMatch                     string                       `json:"ifMatch" xml:"IfMatch"`
-	StreamingDistributionConfig *StreamingDistributionConfig `json:"streamingDistributionConfig" xml:"StreamingDistributionConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+StreamingDistributionConfig *StreamingDistributionConfig `json:"streamingDistributionConfig" xml:"StreamingDistributionConfig"`
 }
 
 type UpdateStreamingDistributionResult struct {
-	ETag                  string                 `json:"eTag" xml:"ETag"`
-	StreamingDistribution *StreamingDistribution `json:"streamingDistribution" xml:"StreamingDistribution"`
+ETag string `json:"eTag" xml:"ETag"`
+StreamingDistribution *StreamingDistribution `json:"streamingDistribution" xml:"StreamingDistribution"`
 }
 
 type UpdateTrustStoreRequest struct {
-	CaCertificatesBundleSource interface{} `json:"caCertificatesBundleSource" xml:"CaCertificatesBundleSource"`
-	Id                         string      `json:"id" xml:"Id"`
-	IfMatch                    string      `json:"ifMatch" xml:"IfMatch"`
+CaCertificatesBundleSource interface{} `json:"caCertificatesBundleSource" xml:"CaCertificatesBundleSource"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
 }
 
 type UpdateTrustStoreResult struct {
-	ETag       string      `json:"eTag" xml:"ETag"`
-	TrustStore *TrustStore `json:"trustStore" xml:"TrustStore"`
+ETag string `json:"eTag" xml:"ETag"`
+TrustStore *TrustStore `json:"trustStore" xml:"TrustStore"`
 }
 
 type UpdateVpcOriginRequest struct {
-	Id                      string                   `json:"id" xml:"Id"`
-	IfMatch                 string                   `json:"ifMatch" xml:"IfMatch"`
-	VpcOriginEndpointConfig *VpcOriginEndpointConfig `json:"vpcOriginEndpointConfig" xml:"VpcOriginEndpointConfig"`
+Id string `json:"id" xml:"Id"`
+IfMatch string `json:"ifMatch" xml:"IfMatch"`
+VpcOriginEndpointConfig *VpcOriginEndpointConfig `json:"vpcOriginEndpointConfig" xml:"VpcOriginEndpointConfig"`
 }
 
 type UpdateVpcOriginResult struct {
-	ETag      string     `json:"eTag" xml:"ETag"`
-	VpcOrigin *VpcOrigin `json:"vpcOrigin" xml:"VpcOrigin"`
+ETag string `json:"eTag" xml:"ETag"`
+VpcOrigin *VpcOrigin `json:"vpcOrigin" xml:"VpcOrigin"`
 }
 
 type ValidationTokenDetail struct {
-	Domain       string `json:"domain" xml:"Domain"`
-	RedirectFrom string `json:"redirectFrom" xml:"RedirectFrom"`
-	RedirectTo   string `json:"redirectTo" xml:"RedirectTo"`
+Domain string `json:"domain" xml:"Domain"`
+RedirectFrom string `json:"redirectFrom" xml:"RedirectFrom"`
+RedirectTo string `json:"redirectTo" xml:"RedirectTo"`
 }
 
 type VerifyDnsConfigurationRequest struct {
-	Domain     string `json:"domain" xml:"Domain"`
-	Identifier string `json:"identifier" xml:"Identifier"`
+Domain string `json:"domain" xml:"Domain"`
+Identifier string `json:"identifier" xml:"Identifier"`
 }
 
 type VerifyDnsConfigurationResult struct {
-	DnsConfigurationList DnsConfigurationList `json:"dnsConfigurationList" xml:"DnsConfigurationList"`
+DnsConfigurationList DnsConfigurationList `json:"dnsConfigurationList" xml:"DnsConfigurationList"`
 }
 
 type ViewerCertificate struct {
-	ACMCertificateArn            string `json:"aCMCertificateArn" xml:"ACMCertificateArn"`
-	Certificate                  string `json:"certificate" xml:"Certificate"`
-	CertificateSource            string `json:"certificateSource" xml:"CertificateSource"`
-	CloudFrontDefaultCertificate bool   `json:"cloudFrontDefaultCertificate" xml:"CloudFrontDefaultCertificate"`
-	IAMCertificateId             string `json:"iAMCertificateId" xml:"IAMCertificateId"`
-	MinimumProtocolVersion       string `json:"minimumProtocolVersion" xml:"MinimumProtocolVersion"`
-	SSLSupportMethod             string `json:"sSLSupportMethod" xml:"SSLSupportMethod"`
+ACMCertificateArn string `json:"aCMCertificateArn" xml:"ACMCertificateArn"`
+Certificate string `json:"certificate" xml:"Certificate"`
+CertificateSource string `json:"certificateSource" xml:"CertificateSource"`
+CloudFrontDefaultCertificate bool `json:"cloudFrontDefaultCertificate" xml:"CloudFrontDefaultCertificate"`
+IAMCertificateId string `json:"iAMCertificateId" xml:"IAMCertificateId"`
+MinimumProtocolVersion string `json:"minimumProtocolVersion" xml:"MinimumProtocolVersion"`
+SSLSupportMethod string `json:"sSLSupportMethod" xml:"SSLSupportMethod"`
 }
 
 type ViewerMtlsConfig struct {
-	Mode             string            `json:"mode" xml:"Mode"`
-	TrustStoreConfig *TrustStoreConfig `json:"trustStoreConfig" xml:"TrustStoreConfig"`
+Mode string `json:"mode" xml:"Mode"`
+TrustStoreConfig *TrustStoreConfig `json:"trustStoreConfig" xml:"TrustStoreConfig"`
 }
 
 type VpcOrigin struct {
-	AccountId               string                   `json:"accountId" xml:"AccountId"`
-	Arn                     string                   `json:"arn" xml:"Arn"`
-	CreatedTime             time.Time                `json:"createdTime" xml:"CreatedTime"`
-	Id                      string                   `json:"id" xml:"Id"`
-	LastModifiedTime        time.Time                `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Status                  string                   `json:"status" xml:"Status"`
-	VpcOriginEndpointConfig *VpcOriginEndpointConfig `json:"vpcOriginEndpointConfig" xml:"VpcOriginEndpointConfig"`
+AccountId string `json:"accountId" xml:"AccountId"`
+Arn string `json:"arn" xml:"Arn"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Status string `json:"status" xml:"Status"`
+VpcOriginEndpointConfig *VpcOriginEndpointConfig `json:"vpcOriginEndpointConfig" xml:"VpcOriginEndpointConfig"`
 }
 
 type VpcOriginConfig struct {
-	OriginKeepaliveTimeout int32  `json:"originKeepaliveTimeout" xml:"OriginKeepaliveTimeout"`
-	OriginReadTimeout      int32  `json:"originReadTimeout" xml:"OriginReadTimeout"`
-	OwnerAccountId         string `json:"ownerAccountId" xml:"OwnerAccountId"`
-	VpcOriginId            string `json:"vpcOriginId" xml:"VpcOriginId"`
+OriginKeepaliveTimeout int32 `json:"originKeepaliveTimeout" xml:"OriginKeepaliveTimeout"`
+OriginReadTimeout int32 `json:"originReadTimeout" xml:"OriginReadTimeout"`
+OwnerAccountId string `json:"ownerAccountId" xml:"OwnerAccountId"`
+VpcOriginId string `json:"vpcOriginId" xml:"VpcOriginId"`
 }
 
 type VpcOriginEndpointConfig struct {
-	Arn                  string              `json:"arn" xml:"Arn"`
-	HTTPPort             int32               `json:"hTTPPort" xml:"HTTPPort"`
-	HTTPSPort            int32               `json:"hTTPSPort" xml:"HTTPSPort"`
-	Name                 string              `json:"name" xml:"Name"`
-	OriginProtocolPolicy string              `json:"originProtocolPolicy" xml:"OriginProtocolPolicy"`
-	OriginSslProtocols   *OriginSslProtocols `json:"originSslProtocols" xml:"OriginSslProtocols"`
+Arn string `json:"arn" xml:"Arn"`
+HTTPPort int32 `json:"hTTPPort" xml:"HTTPPort"`
+HTTPSPort int32 `json:"hTTPSPort" xml:"HTTPSPort"`
+Name string `json:"name" xml:"Name"`
+OriginProtocolPolicy string `json:"originProtocolPolicy" xml:"OriginProtocolPolicy"`
+OriginSslProtocols *OriginSslProtocols `json:"originSslProtocols" xml:"OriginSslProtocols"`
 }
 
 type VpcOriginList struct {
-	IsTruncated bool                 `json:"isTruncated" xml:"IsTruncated"`
-	Items       VpcOriginSummaryList `json:"items" xml:"Items"`
-	Marker      string               `json:"marker" xml:"Marker"`
-	MaxItems    int32                `json:"maxItems" xml:"MaxItems"`
-	NextMarker  string               `json:"nextMarker" xml:"NextMarker"`
-	Quantity    int32                `json:"quantity" xml:"Quantity"`
+IsTruncated bool `json:"isTruncated" xml:"IsTruncated"`
+Items VpcOriginSummaryList `json:"items" xml:"Items"`
+Marker string `json:"marker" xml:"Marker"`
+MaxItems int32 `json:"maxItems" xml:"MaxItems"`
+NextMarker string `json:"nextMarker" xml:"NextMarker"`
+Quantity int32 `json:"quantity" xml:"Quantity"`
 }
 
 type VpcOriginSummary struct {
-	AccountId         string    `json:"accountId" xml:"AccountId"`
-	Arn               string    `json:"arn" xml:"Arn"`
-	CreatedTime       time.Time `json:"createdTime" xml:"CreatedTime"`
-	Id                string    `json:"id" xml:"Id"`
-	LastModifiedTime  time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name              string    `json:"name" xml:"Name"`
-	OriginEndpointArn string    `json:"originEndpointArn" xml:"OriginEndpointArn"`
-	Status            string    `json:"status" xml:"Status"`
+AccountId string `json:"accountId" xml:"AccountId"`
+Arn string `json:"arn" xml:"Arn"`
+CreatedTime time.Time `json:"createdTime" xml:"CreatedTime"`
+Id string `json:"id" xml:"Id"`
+LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+Name string `json:"name" xml:"Name"`
+OriginEndpointArn string `json:"originEndpointArn" xml:"OriginEndpointArn"`
+Status string `json:"status" xml:"Status"`
 }
 
 type WebAclCustomization struct {
-	Action string `json:"action" xml:"Action"`
-	Arn    string `json:"arn" xml:"Arn"`
+Action string `json:"action" xml:"Action"`
+Arn string `json:"arn" xml:"Arn"`
 }
 
 type AccessControlAllowHeadersList []string
@@ -3136,3 +3136,4 @@ type ValidationTokenDetailList []*ValidationTokenDetail
 type VpcOriginSummaryList []*VpcOriginSummary
 
 type CaCertificatesBundleSource interface{}
+

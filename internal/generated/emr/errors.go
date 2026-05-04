@@ -54,3 +54,4 @@ func (e *InvalidRequestException) ErrorCode() string {
 func (e *InvalidRequestException) HTTPStatus() int {
 	return 0
 }
+

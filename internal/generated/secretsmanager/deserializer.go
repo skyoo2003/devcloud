@@ -353,3 +353,4 @@ func SerializeValidateResourcePolicyResponse(w http.ResponseWriter, output *Vali
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

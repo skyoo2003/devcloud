@@ -7,526 +7,526 @@ import (
 )
 
 type CreateHttpNamespaceRequest struct {
-	CreatorRequestId string  `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Description      string  `json:"description" xml:"Description"`
-	Name             string  `json:"name" xml:"Name"`
-	Tags             TagList `json:"tags" xml:"Tags"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateHttpNamespaceResponse struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type CreatePrivateDnsNamespaceRequest struct {
-	CreatorRequestId string                         `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Description      string                         `json:"description" xml:"Description"`
-	Name             string                         `json:"name" xml:"Name"`
-	Properties       *PrivateDnsNamespaceProperties `json:"properties" xml:"Properties"`
-	Tags             TagList                        `json:"tags" xml:"Tags"`
-	Vpc              string                         `json:"vpc" xml:"Vpc"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Properties *PrivateDnsNamespaceProperties `json:"properties" xml:"Properties"`
+Tags TagList `json:"tags" xml:"Tags"`
+Vpc string `json:"vpc" xml:"Vpc"`
 }
 
 type CreatePrivateDnsNamespaceResponse struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type CreatePublicDnsNamespaceRequest struct {
-	CreatorRequestId string                        `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Description      string                        `json:"description" xml:"Description"`
-	Name             string                        `json:"name" xml:"Name"`
-	Properties       *PublicDnsNamespaceProperties `json:"properties" xml:"Properties"`
-	Tags             TagList                       `json:"tags" xml:"Tags"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Description string `json:"description" xml:"Description"`
+Name string `json:"name" xml:"Name"`
+Properties *PublicDnsNamespaceProperties `json:"properties" xml:"Properties"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type CreatePublicDnsNamespaceResponse struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type CreateServiceRequest struct {
-	CreatorRequestId        string                   `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Description             string                   `json:"description" xml:"Description"`
-	DnsConfig               *DnsConfig               `json:"dnsConfig" xml:"DnsConfig"`
-	HealthCheckConfig       *HealthCheckConfig       `json:"healthCheckConfig" xml:"HealthCheckConfig"`
-	HealthCheckCustomConfig *HealthCheckCustomConfig `json:"healthCheckCustomConfig" xml:"HealthCheckCustomConfig"`
-	Name                    string                   `json:"name" xml:"Name"`
-	NamespaceId             string                   `json:"namespaceId" xml:"NamespaceId"`
-	Tags                    TagList                  `json:"tags" xml:"Tags"`
-	Type                    string                   `json:"type" xml:"Type"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Description string `json:"description" xml:"Description"`
+DnsConfig *DnsConfig `json:"dnsConfig" xml:"DnsConfig"`
+HealthCheckConfig *HealthCheckConfig `json:"healthCheckConfig" xml:"HealthCheckConfig"`
+HealthCheckCustomConfig *HealthCheckCustomConfig `json:"healthCheckCustomConfig" xml:"HealthCheckCustomConfig"`
+Name string `json:"name" xml:"Name"`
+NamespaceId string `json:"namespaceId" xml:"NamespaceId"`
+Tags TagList `json:"tags" xml:"Tags"`
+Type string `json:"type" xml:"Type"`
 }
 
 type CreateServiceResponse struct {
-	Service *Service `json:"service" xml:"Service"`
+Service *Service `json:"service" xml:"Service"`
 }
 
 type DeleteNamespaceRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type DeleteNamespaceResponse struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type DeleteServiceAttributesRequest struct {
-	Attributes ServiceAttributeKeyList `json:"attributes" xml:"Attributes"`
-	ServiceId  string                  `json:"serviceId" xml:"ServiceId"`
+Attributes ServiceAttributeKeyList `json:"attributes" xml:"Attributes"`
+ServiceId string `json:"serviceId" xml:"ServiceId"`
 }
 
 type DeleteServiceAttributesResponse struct {
 }
 
 type DeleteServiceRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type DeleteServiceResponse struct {
 }
 
 type DeregisterInstanceRequest struct {
-	InstanceId string `json:"instanceId" xml:"InstanceId"`
-	ServiceId  string `json:"serviceId" xml:"ServiceId"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+ServiceId string `json:"serviceId" xml:"ServiceId"`
 }
 
 type DeregisterInstanceResponse struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type DiscoverInstancesRequest struct {
-	HealthStatus       string     `json:"healthStatus" xml:"HealthStatus"`
-	MaxResults         int32      `json:"maxResults" xml:"MaxResults"`
-	NamespaceName      string     `json:"namespaceName" xml:"NamespaceName"`
-	OptionalParameters Attributes `json:"optionalParameters" xml:"OptionalParameters"`
-	OwnerAccount       string     `json:"ownerAccount" xml:"OwnerAccount"`
-	QueryParameters    Attributes `json:"queryParameters" xml:"QueryParameters"`
-	ServiceName        string     `json:"serviceName" xml:"ServiceName"`
+HealthStatus string `json:"healthStatus" xml:"HealthStatus"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NamespaceName string `json:"namespaceName" xml:"NamespaceName"`
+OptionalParameters Attributes `json:"optionalParameters" xml:"OptionalParameters"`
+OwnerAccount string `json:"ownerAccount" xml:"OwnerAccount"`
+QueryParameters Attributes `json:"queryParameters" xml:"QueryParameters"`
+ServiceName string `json:"serviceName" xml:"ServiceName"`
 }
 
 type DiscoverInstancesResponse struct {
-	Instances         HttpInstanceSummaryList `json:"instances" xml:"Instances"`
-	InstancesRevision int64                   `json:"instancesRevision" xml:"InstancesRevision"`
+Instances HttpInstanceSummaryList `json:"instances" xml:"Instances"`
+InstancesRevision int64 `json:"instancesRevision" xml:"InstancesRevision"`
 }
 
 type DiscoverInstancesRevisionRequest struct {
-	NamespaceName string `json:"namespaceName" xml:"NamespaceName"`
-	OwnerAccount  string `json:"ownerAccount" xml:"OwnerAccount"`
-	ServiceName   string `json:"serviceName" xml:"ServiceName"`
+NamespaceName string `json:"namespaceName" xml:"NamespaceName"`
+OwnerAccount string `json:"ownerAccount" xml:"OwnerAccount"`
+ServiceName string `json:"serviceName" xml:"ServiceName"`
 }
 
 type DiscoverInstancesRevisionResponse struct {
-	InstancesRevision int64 `json:"instancesRevision" xml:"InstancesRevision"`
+InstancesRevision int64 `json:"instancesRevision" xml:"InstancesRevision"`
 }
 
 type DnsConfig struct {
-	DnsRecords    DnsRecordList `json:"dnsRecords" xml:"DnsRecords"`
-	NamespaceId   string        `json:"namespaceId" xml:"NamespaceId"`
-	RoutingPolicy string        `json:"routingPolicy" xml:"RoutingPolicy"`
+DnsRecords DnsRecordList `json:"dnsRecords" xml:"DnsRecords"`
+NamespaceId string `json:"namespaceId" xml:"NamespaceId"`
+RoutingPolicy string `json:"routingPolicy" xml:"RoutingPolicy"`
 }
 
 type DnsConfigChange struct {
-	DnsRecords DnsRecordList `json:"dnsRecords" xml:"DnsRecords"`
+DnsRecords DnsRecordList `json:"dnsRecords" xml:"DnsRecords"`
 }
 
 type DnsProperties struct {
-	HostedZoneId string `json:"hostedZoneId" xml:"HostedZoneId"`
-	SOA          *SOA   `json:"sOA" xml:"SOA"`
+HostedZoneId string `json:"hostedZoneId" xml:"HostedZoneId"`
+SOA *SOA `json:"sOA" xml:"SOA"`
 }
 
 type DnsRecord struct {
-	TTL  int64  `json:"tTL" xml:"TTL"`
-	Type string `json:"type" xml:"Type"`
+TTL int64 `json:"tTL" xml:"TTL"`
+Type string `json:"type" xml:"Type"`
 }
 
 type GetInstanceRequest struct {
-	InstanceId string `json:"instanceId" xml:"InstanceId"`
-	ServiceId  string `json:"serviceId" xml:"ServiceId"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+ServiceId string `json:"serviceId" xml:"ServiceId"`
 }
 
 type GetInstanceResponse struct {
-	Instance      *Instance `json:"instance" xml:"Instance"`
-	ResourceOwner string    `json:"resourceOwner" xml:"ResourceOwner"`
+Instance *Instance `json:"instance" xml:"Instance"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
 }
 
 type GetInstancesHealthStatusRequest struct {
-	Instances  InstanceIdList `json:"instances" xml:"Instances"`
-	MaxResults int32          `json:"maxResults" xml:"MaxResults"`
-	NextToken  string         `json:"nextToken" xml:"NextToken"`
-	ServiceId  string         `json:"serviceId" xml:"ServiceId"`
+Instances InstanceIdList `json:"instances" xml:"Instances"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ServiceId string `json:"serviceId" xml:"ServiceId"`
 }
 
 type GetInstancesHealthStatusResponse struct {
-	NextToken string                  `json:"nextToken" xml:"NextToken"`
-	Status    InstanceHealthStatusMap `json:"status" xml:"Status"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Status InstanceHealthStatusMap `json:"status" xml:"Status"`
 }
 
 type GetNamespaceRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetNamespaceResponse struct {
-	Namespace *Namespace `json:"namespace" xml:"Namespace"`
+Namespace *Namespace `json:"namespace" xml:"Namespace"`
 }
 
 type GetOperationRequest struct {
-	OperationId  string `json:"operationId" xml:"OperationId"`
-	OwnerAccount string `json:"ownerAccount" xml:"OwnerAccount"`
+OperationId string `json:"operationId" xml:"OperationId"`
+OwnerAccount string `json:"ownerAccount" xml:"OwnerAccount"`
 }
 
 type GetOperationResponse struct {
-	Operation *Operation `json:"operation" xml:"Operation"`
+Operation *Operation `json:"operation" xml:"Operation"`
 }
 
 type GetServiceAttributesRequest struct {
-	ServiceId string `json:"serviceId" xml:"ServiceId"`
+ServiceId string `json:"serviceId" xml:"ServiceId"`
 }
 
 type GetServiceAttributesResponse struct {
-	ServiceAttributes *ServiceAttributes `json:"serviceAttributes" xml:"ServiceAttributes"`
+ServiceAttributes *ServiceAttributes `json:"serviceAttributes" xml:"ServiceAttributes"`
 }
 
 type GetServiceRequest struct {
-	Id string `json:"id" xml:"Id"`
+Id string `json:"id" xml:"Id"`
 }
 
 type GetServiceResponse struct {
-	Service *Service `json:"service" xml:"Service"`
+Service *Service `json:"service" xml:"Service"`
 }
 
 type HealthCheckConfig struct {
-	FailureThreshold int32  `json:"failureThreshold" xml:"FailureThreshold"`
-	ResourcePath     string `json:"resourcePath" xml:"ResourcePath"`
-	Type             string `json:"type" xml:"Type"`
+FailureThreshold int32 `json:"failureThreshold" xml:"FailureThreshold"`
+ResourcePath string `json:"resourcePath" xml:"ResourcePath"`
+Type string `json:"type" xml:"Type"`
 }
 
 type HealthCheckCustomConfig struct {
-	FailureThreshold int32 `json:"failureThreshold" xml:"FailureThreshold"`
+FailureThreshold int32 `json:"failureThreshold" xml:"FailureThreshold"`
 }
 
 type HttpInstanceSummary struct {
-	Attributes    Attributes `json:"attributes" xml:"Attributes"`
-	HealthStatus  string     `json:"healthStatus" xml:"HealthStatus"`
-	InstanceId    string     `json:"instanceId" xml:"InstanceId"`
-	NamespaceName string     `json:"namespaceName" xml:"NamespaceName"`
-	ServiceName   string     `json:"serviceName" xml:"ServiceName"`
+Attributes Attributes `json:"attributes" xml:"Attributes"`
+HealthStatus string `json:"healthStatus" xml:"HealthStatus"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+NamespaceName string `json:"namespaceName" xml:"NamespaceName"`
+ServiceName string `json:"serviceName" xml:"ServiceName"`
 }
 
 type HttpNamespaceChange struct {
-	Description string `json:"description" xml:"Description"`
+Description string `json:"description" xml:"Description"`
 }
 
 type HttpProperties struct {
-	HttpName string `json:"httpName" xml:"HttpName"`
+HttpName string `json:"httpName" xml:"HttpName"`
 }
 
 type Instance struct {
-	Attributes       Attributes `json:"attributes" xml:"Attributes"`
-	CreatedByAccount string     `json:"createdByAccount" xml:"CreatedByAccount"`
-	CreatorRequestId string     `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Id               string     `json:"id" xml:"Id"`
+Attributes Attributes `json:"attributes" xml:"Attributes"`
+CreatedByAccount string `json:"createdByAccount" xml:"CreatedByAccount"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Id string `json:"id" xml:"Id"`
 }
 
 type InstanceSummary struct {
-	Attributes       Attributes `json:"attributes" xml:"Attributes"`
-	CreatedByAccount string     `json:"createdByAccount" xml:"CreatedByAccount"`
-	Id               string     `json:"id" xml:"Id"`
+Attributes Attributes `json:"attributes" xml:"Attributes"`
+CreatedByAccount string `json:"createdByAccount" xml:"CreatedByAccount"`
+Id string `json:"id" xml:"Id"`
 }
 
 type ListInstancesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
-	ServiceId  string `json:"serviceId" xml:"ServiceId"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ServiceId string `json:"serviceId" xml:"ServiceId"`
 }
 
 type ListInstancesResponse struct {
-	Instances     InstanceSummaryList `json:"instances" xml:"Instances"`
-	NextToken     string              `json:"nextToken" xml:"NextToken"`
-	ResourceOwner string              `json:"resourceOwner" xml:"ResourceOwner"`
+Instances InstanceSummaryList `json:"instances" xml:"Instances"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
 }
 
 type ListNamespacesRequest struct {
-	Filters    NamespaceFilters `json:"filters" xml:"Filters"`
-	MaxResults int32            `json:"maxResults" xml:"MaxResults"`
-	NextToken  string           `json:"nextToken" xml:"NextToken"`
+Filters NamespaceFilters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListNamespacesResponse struct {
-	Namespaces NamespaceSummariesList `json:"namespaces" xml:"Namespaces"`
-	NextToken  string                 `json:"nextToken" xml:"NextToken"`
+Namespaces NamespaceSummariesList `json:"namespaces" xml:"Namespaces"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListOperationsRequest struct {
-	Filters    OperationFilters `json:"filters" xml:"Filters"`
-	MaxResults int32            `json:"maxResults" xml:"MaxResults"`
-	NextToken  string           `json:"nextToken" xml:"NextToken"`
+Filters OperationFilters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListOperationsResponse struct {
-	NextToken  string               `json:"nextToken" xml:"NextToken"`
-	Operations OperationSummaryList `json:"operations" xml:"Operations"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Operations OperationSummaryList `json:"operations" xml:"Operations"`
 }
 
 type ListServicesRequest struct {
-	Filters    ServiceFilters `json:"filters" xml:"Filters"`
-	MaxResults int32          `json:"maxResults" xml:"MaxResults"`
-	NextToken  string         `json:"nextToken" xml:"NextToken"`
+Filters ServiceFilters `json:"filters" xml:"Filters"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListServicesResponse struct {
-	NextToken string               `json:"nextToken" xml:"NextToken"`
-	Services  ServiceSummariesList `json:"services" xml:"Services"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Services ServiceSummariesList `json:"services" xml:"Services"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags TagList `json:"tags" xml:"Tags"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type Namespace struct {
-	Arn              string               `json:"arn" xml:"Arn"`
-	CreateDate       time.Time            `json:"createDate" xml:"CreateDate"`
-	CreatorRequestId string               `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Description      string               `json:"description" xml:"Description"`
-	Id               string               `json:"id" xml:"Id"`
-	Name             string               `json:"name" xml:"Name"`
-	Properties       *NamespaceProperties `json:"properties" xml:"Properties"`
-	ResourceOwner    string               `json:"resourceOwner" xml:"ResourceOwner"`
-	ServiceCount     int32                `json:"serviceCount" xml:"ServiceCount"`
-	Type             string               `json:"type" xml:"Type"`
+Arn string `json:"arn" xml:"Arn"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Properties *NamespaceProperties `json:"properties" xml:"Properties"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+ServiceCount int32 `json:"serviceCount" xml:"ServiceCount"`
+Type string `json:"type" xml:"Type"`
 }
 
 type NamespaceFilter struct {
-	Condition string       `json:"condition" xml:"Condition"`
-	Name      string       `json:"name" xml:"Name"`
-	Values    FilterValues `json:"values" xml:"Values"`
+Condition string `json:"condition" xml:"Condition"`
+Name string `json:"name" xml:"Name"`
+Values FilterValues `json:"values" xml:"Values"`
 }
 
 type NamespaceProperties struct {
-	DnsProperties  *DnsProperties  `json:"dnsProperties" xml:"DnsProperties"`
-	HttpProperties *HttpProperties `json:"httpProperties" xml:"HttpProperties"`
+DnsProperties *DnsProperties `json:"dnsProperties" xml:"DnsProperties"`
+HttpProperties *HttpProperties `json:"httpProperties" xml:"HttpProperties"`
 }
 
 type NamespaceSummary struct {
-	Arn           string               `json:"arn" xml:"Arn"`
-	CreateDate    time.Time            `json:"createDate" xml:"CreateDate"`
-	Description   string               `json:"description" xml:"Description"`
-	Id            string               `json:"id" xml:"Id"`
-	Name          string               `json:"name" xml:"Name"`
-	Properties    *NamespaceProperties `json:"properties" xml:"Properties"`
-	ResourceOwner string               `json:"resourceOwner" xml:"ResourceOwner"`
-	ServiceCount  int32                `json:"serviceCount" xml:"ServiceCount"`
-	Type          string               `json:"type" xml:"Type"`
+Arn string `json:"arn" xml:"Arn"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+Description string `json:"description" xml:"Description"`
+Id string `json:"id" xml:"Id"`
+Name string `json:"name" xml:"Name"`
+Properties *NamespaceProperties `json:"properties" xml:"Properties"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+ServiceCount int32 `json:"serviceCount" xml:"ServiceCount"`
+Type string `json:"type" xml:"Type"`
 }
 
 type Operation struct {
-	CreateDate   time.Time           `json:"createDate" xml:"CreateDate"`
-	ErrorCode    string              `json:"errorCode" xml:"ErrorCode"`
-	ErrorMessage string              `json:"errorMessage" xml:"ErrorMessage"`
-	Id           string              `json:"id" xml:"Id"`
-	OwnerAccount string              `json:"ownerAccount" xml:"OwnerAccount"`
-	Status       string              `json:"status" xml:"Status"`
-	Targets      OperationTargetsMap `json:"targets" xml:"Targets"`
-	Type         string              `json:"type" xml:"Type"`
-	UpdateDate   time.Time           `json:"updateDate" xml:"UpdateDate"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+ErrorMessage string `json:"errorMessage" xml:"ErrorMessage"`
+Id string `json:"id" xml:"Id"`
+OwnerAccount string `json:"ownerAccount" xml:"OwnerAccount"`
+Status string `json:"status" xml:"Status"`
+Targets OperationTargetsMap `json:"targets" xml:"Targets"`
+Type string `json:"type" xml:"Type"`
+UpdateDate time.Time `json:"updateDate" xml:"UpdateDate"`
 }
 
 type OperationFilter struct {
-	Condition string       `json:"condition" xml:"Condition"`
-	Name      string       `json:"name" xml:"Name"`
-	Values    FilterValues `json:"values" xml:"Values"`
+Condition string `json:"condition" xml:"Condition"`
+Name string `json:"name" xml:"Name"`
+Values FilterValues `json:"values" xml:"Values"`
 }
 
 type OperationSummary struct {
-	Id     string `json:"id" xml:"Id"`
-	Status string `json:"status" xml:"Status"`
+Id string `json:"id" xml:"Id"`
+Status string `json:"status" xml:"Status"`
 }
 
 type PrivateDnsNamespaceChange struct {
-	Description string                               `json:"description" xml:"Description"`
-	Properties  *PrivateDnsNamespacePropertiesChange `json:"properties" xml:"Properties"`
+Description string `json:"description" xml:"Description"`
+Properties *PrivateDnsNamespacePropertiesChange `json:"properties" xml:"Properties"`
 }
 
 type PrivateDnsNamespaceProperties struct {
-	DnsProperties *PrivateDnsPropertiesMutable `json:"dnsProperties" xml:"DnsProperties"`
+DnsProperties *PrivateDnsPropertiesMutable `json:"dnsProperties" xml:"DnsProperties"`
 }
 
 type PrivateDnsNamespacePropertiesChange struct {
-	DnsProperties *PrivateDnsPropertiesMutableChange `json:"dnsProperties" xml:"DnsProperties"`
+DnsProperties *PrivateDnsPropertiesMutableChange `json:"dnsProperties" xml:"DnsProperties"`
 }
 
 type PrivateDnsPropertiesMutable struct {
-	SOA *SOA `json:"sOA" xml:"SOA"`
+SOA *SOA `json:"sOA" xml:"SOA"`
 }
 
 type PrivateDnsPropertiesMutableChange struct {
-	SOA *SOAChange `json:"sOA" xml:"SOA"`
+SOA *SOAChange `json:"sOA" xml:"SOA"`
 }
 
 type PublicDnsNamespaceChange struct {
-	Description string                              `json:"description" xml:"Description"`
-	Properties  *PublicDnsNamespacePropertiesChange `json:"properties" xml:"Properties"`
+Description string `json:"description" xml:"Description"`
+Properties *PublicDnsNamespacePropertiesChange `json:"properties" xml:"Properties"`
 }
 
 type PublicDnsNamespaceProperties struct {
-	DnsProperties *PublicDnsPropertiesMutable `json:"dnsProperties" xml:"DnsProperties"`
+DnsProperties *PublicDnsPropertiesMutable `json:"dnsProperties" xml:"DnsProperties"`
 }
 
 type PublicDnsNamespacePropertiesChange struct {
-	DnsProperties *PublicDnsPropertiesMutableChange `json:"dnsProperties" xml:"DnsProperties"`
+DnsProperties *PublicDnsPropertiesMutableChange `json:"dnsProperties" xml:"DnsProperties"`
 }
 
 type PublicDnsPropertiesMutable struct {
-	SOA *SOA `json:"sOA" xml:"SOA"`
+SOA *SOA `json:"sOA" xml:"SOA"`
 }
 
 type PublicDnsPropertiesMutableChange struct {
-	SOA *SOAChange `json:"sOA" xml:"SOA"`
+SOA *SOAChange `json:"sOA" xml:"SOA"`
 }
 
 type RegisterInstanceRequest struct {
-	Attributes       Attributes `json:"attributes" xml:"Attributes"`
-	CreatorRequestId string     `json:"creatorRequestId" xml:"CreatorRequestId"`
-	InstanceId       string     `json:"instanceId" xml:"InstanceId"`
-	ServiceId        string     `json:"serviceId" xml:"ServiceId"`
+Attributes Attributes `json:"attributes" xml:"Attributes"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+ServiceId string `json:"serviceId" xml:"ServiceId"`
 }
 
 type RegisterInstanceResponse struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type SOA struct {
-	TTL int64 `json:"tTL" xml:"TTL"`
+TTL int64 `json:"tTL" xml:"TTL"`
 }
 
 type SOAChange struct {
-	TTL int64 `json:"tTL" xml:"TTL"`
+TTL int64 `json:"tTL" xml:"TTL"`
 }
 
 type Service struct {
-	Arn                     string                   `json:"arn" xml:"Arn"`
-	CreateDate              time.Time                `json:"createDate" xml:"CreateDate"`
-	CreatedByAccount        string                   `json:"createdByAccount" xml:"CreatedByAccount"`
-	CreatorRequestId        string                   `json:"creatorRequestId" xml:"CreatorRequestId"`
-	Description             string                   `json:"description" xml:"Description"`
-	DnsConfig               *DnsConfig               `json:"dnsConfig" xml:"DnsConfig"`
-	HealthCheckConfig       *HealthCheckConfig       `json:"healthCheckConfig" xml:"HealthCheckConfig"`
-	HealthCheckCustomConfig *HealthCheckCustomConfig `json:"healthCheckCustomConfig" xml:"HealthCheckCustomConfig"`
-	Id                      string                   `json:"id" xml:"Id"`
-	InstanceCount           int32                    `json:"instanceCount" xml:"InstanceCount"`
-	Name                    string                   `json:"name" xml:"Name"`
-	NamespaceId             string                   `json:"namespaceId" xml:"NamespaceId"`
-	ResourceOwner           string                   `json:"resourceOwner" xml:"ResourceOwner"`
-	Type                    string                   `json:"type" xml:"Type"`
+Arn string `json:"arn" xml:"Arn"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+CreatedByAccount string `json:"createdByAccount" xml:"CreatedByAccount"`
+CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
+Description string `json:"description" xml:"Description"`
+DnsConfig *DnsConfig `json:"dnsConfig" xml:"DnsConfig"`
+HealthCheckConfig *HealthCheckConfig `json:"healthCheckConfig" xml:"HealthCheckConfig"`
+HealthCheckCustomConfig *HealthCheckCustomConfig `json:"healthCheckCustomConfig" xml:"HealthCheckCustomConfig"`
+Id string `json:"id" xml:"Id"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+Name string `json:"name" xml:"Name"`
+NamespaceId string `json:"namespaceId" xml:"NamespaceId"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+Type string `json:"type" xml:"Type"`
 }
 
 type ServiceAttributes struct {
-	Attributes    ServiceAttributesMap `json:"attributes" xml:"Attributes"`
-	ResourceOwner string               `json:"resourceOwner" xml:"ResourceOwner"`
-	ServiceArn    string               `json:"serviceArn" xml:"ServiceArn"`
+Attributes ServiceAttributesMap `json:"attributes" xml:"Attributes"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+ServiceArn string `json:"serviceArn" xml:"ServiceArn"`
 }
 
 type ServiceChange struct {
-	Description       string             `json:"description" xml:"Description"`
-	DnsConfig         *DnsConfigChange   `json:"dnsConfig" xml:"DnsConfig"`
-	HealthCheckConfig *HealthCheckConfig `json:"healthCheckConfig" xml:"HealthCheckConfig"`
+Description string `json:"description" xml:"Description"`
+DnsConfig *DnsConfigChange `json:"dnsConfig" xml:"DnsConfig"`
+HealthCheckConfig *HealthCheckConfig `json:"healthCheckConfig" xml:"HealthCheckConfig"`
 }
 
 type ServiceFilter struct {
-	Condition string       `json:"condition" xml:"Condition"`
-	Name      string       `json:"name" xml:"Name"`
-	Values    FilterValues `json:"values" xml:"Values"`
+Condition string `json:"condition" xml:"Condition"`
+Name string `json:"name" xml:"Name"`
+Values FilterValues `json:"values" xml:"Values"`
 }
 
 type ServiceSummary struct {
-	Arn                     string                   `json:"arn" xml:"Arn"`
-	CreateDate              time.Time                `json:"createDate" xml:"CreateDate"`
-	CreatedByAccount        string                   `json:"createdByAccount" xml:"CreatedByAccount"`
-	Description             string                   `json:"description" xml:"Description"`
-	DnsConfig               *DnsConfig               `json:"dnsConfig" xml:"DnsConfig"`
-	HealthCheckConfig       *HealthCheckConfig       `json:"healthCheckConfig" xml:"HealthCheckConfig"`
-	HealthCheckCustomConfig *HealthCheckCustomConfig `json:"healthCheckCustomConfig" xml:"HealthCheckCustomConfig"`
-	Id                      string                   `json:"id" xml:"Id"`
-	InstanceCount           int32                    `json:"instanceCount" xml:"InstanceCount"`
-	Name                    string                   `json:"name" xml:"Name"`
-	ResourceOwner           string                   `json:"resourceOwner" xml:"ResourceOwner"`
-	Type                    string                   `json:"type" xml:"Type"`
+Arn string `json:"arn" xml:"Arn"`
+CreateDate time.Time `json:"createDate" xml:"CreateDate"`
+CreatedByAccount string `json:"createdByAccount" xml:"CreatedByAccount"`
+Description string `json:"description" xml:"Description"`
+DnsConfig *DnsConfig `json:"dnsConfig" xml:"DnsConfig"`
+HealthCheckConfig *HealthCheckConfig `json:"healthCheckConfig" xml:"HealthCheckConfig"`
+HealthCheckCustomConfig *HealthCheckCustomConfig `json:"healthCheckCustomConfig" xml:"HealthCheckCustomConfig"`
+Id string `json:"id" xml:"Id"`
+InstanceCount int32 `json:"instanceCount" xml:"InstanceCount"`
+Name string `json:"name" xml:"Name"`
+ResourceOwner string `json:"resourceOwner" xml:"ResourceOwner"`
+Type string `json:"type" xml:"Type"`
 }
 
 type SmithyUnit struct {
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceRequest struct {
-	ResourceARN string  `json:"resourceARN" xml:"ResourceARN"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type UntagResourceRequest struct {
-	ResourceARN string     `json:"resourceARN" xml:"ResourceARN"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceResponse struct {
 }
 
 type UpdateHttpNamespaceRequest struct {
-	Id               string               `json:"id" xml:"Id"`
-	Namespace        *HttpNamespaceChange `json:"namespace" xml:"Namespace"`
-	UpdaterRequestId string               `json:"updaterRequestId" xml:"UpdaterRequestId"`
+Id string `json:"id" xml:"Id"`
+Namespace *HttpNamespaceChange `json:"namespace" xml:"Namespace"`
+UpdaterRequestId string `json:"updaterRequestId" xml:"UpdaterRequestId"`
 }
 
 type UpdateHttpNamespaceResponse struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type UpdateInstanceCustomHealthStatusRequest struct {
-	InstanceId string `json:"instanceId" xml:"InstanceId"`
-	ServiceId  string `json:"serviceId" xml:"ServiceId"`
-	Status     string `json:"status" xml:"Status"`
+InstanceId string `json:"instanceId" xml:"InstanceId"`
+ServiceId string `json:"serviceId" xml:"ServiceId"`
+Status string `json:"status" xml:"Status"`
 }
 
 type UpdatePrivateDnsNamespaceRequest struct {
-	Id               string                     `json:"id" xml:"Id"`
-	Namespace        *PrivateDnsNamespaceChange `json:"namespace" xml:"Namespace"`
-	UpdaterRequestId string                     `json:"updaterRequestId" xml:"UpdaterRequestId"`
+Id string `json:"id" xml:"Id"`
+Namespace *PrivateDnsNamespaceChange `json:"namespace" xml:"Namespace"`
+UpdaterRequestId string `json:"updaterRequestId" xml:"UpdaterRequestId"`
 }
 
 type UpdatePrivateDnsNamespaceResponse struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type UpdatePublicDnsNamespaceRequest struct {
-	Id               string                    `json:"id" xml:"Id"`
-	Namespace        *PublicDnsNamespaceChange `json:"namespace" xml:"Namespace"`
-	UpdaterRequestId string                    `json:"updaterRequestId" xml:"UpdaterRequestId"`
+Id string `json:"id" xml:"Id"`
+Namespace *PublicDnsNamespaceChange `json:"namespace" xml:"Namespace"`
+UpdaterRequestId string `json:"updaterRequestId" xml:"UpdaterRequestId"`
 }
 
 type UpdatePublicDnsNamespaceResponse struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type UpdateServiceAttributesRequest struct {
-	Attributes ServiceAttributesMap `json:"attributes" xml:"Attributes"`
-	ServiceId  string               `json:"serviceId" xml:"ServiceId"`
+Attributes ServiceAttributesMap `json:"attributes" xml:"Attributes"`
+ServiceId string `json:"serviceId" xml:"ServiceId"`
 }
 
 type UpdateServiceAttributesResponse struct {
 }
 
 type UpdateServiceRequest struct {
-	Id      string         `json:"id" xml:"Id"`
-	Service *ServiceChange `json:"service" xml:"Service"`
+Id string `json:"id" xml:"Id"`
+Service *ServiceChange `json:"service" xml:"Service"`
 }
 
 type UpdateServiceResponse struct {
-	OperationId string `json:"operationId" xml:"OperationId"`
+OperationId string `json:"operationId" xml:"OperationId"`
 }
 
 type DnsRecordList []*DnsRecord
@@ -564,3 +564,4 @@ type InstanceHealthStatusMap map[string]string
 type OperationTargetsMap map[string]string
 
 type ServiceAttributesMap map[string]string
+

@@ -198,3 +198,4 @@ func (b *BaseProvider) UpdateCostAllocationTagsStatus(ctx context.Context, input
 func (b *BaseProvider) UpdateCostCategoryDefinition(ctx context.Context, input *UpdateCostCategoryDefinitionRequest) (*UpdateCostCategoryDefinitionResponse, error) {
 	return nil, fmt.Errorf("UpdateCostCategoryDefinition: %w", ErrNotImplemented)
 }
+

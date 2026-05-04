@@ -102,3 +102,4 @@ func (b *BaseProvider) TagQueue(ctx context.Context, input *TagQueueRequest) (*S
 func (b *BaseProvider) UntagQueue(ctx context.Context, input *UntagQueueRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("UntagQueue: %w", ErrNotImplemented)
 }
+

@@ -7,779 +7,779 @@ import (
 )
 
 type AlarmContributor struct {
-	ContributorAttributes      ContributorAttributes `json:"contributorAttributes" xml:"ContributorAttributes"`
-	ContributorId              string                `json:"contributorId" xml:"ContributorId"`
-	StateReason                string                `json:"stateReason" xml:"StateReason"`
-	StateTransitionedTimestamp time.Time             `json:"stateTransitionedTimestamp" xml:"StateTransitionedTimestamp"`
+ContributorAttributes ContributorAttributes `json:"contributorAttributes" xml:"ContributorAttributes"`
+ContributorId string `json:"contributorId" xml:"ContributorId"`
+StateReason string `json:"stateReason" xml:"StateReason"`
+StateTransitionedTimestamp time.Time `json:"stateTransitionedTimestamp" xml:"StateTransitionedTimestamp"`
 }
 
 type AlarmHistoryItem struct {
-	AlarmContributorAttributes ContributorAttributes `json:"alarmContributorAttributes" xml:"AlarmContributorAttributes"`
-	AlarmContributorId         string                `json:"alarmContributorId" xml:"AlarmContributorId"`
-	AlarmName                  string                `json:"alarmName" xml:"AlarmName"`
-	AlarmType                  string                `json:"alarmType" xml:"AlarmType"`
-	HistoryData                string                `json:"historyData" xml:"HistoryData"`
-	HistoryItemType            string                `json:"historyItemType" xml:"HistoryItemType"`
-	HistorySummary             string                `json:"historySummary" xml:"HistorySummary"`
-	Timestamp                  time.Time             `json:"timestamp" xml:"Timestamp"`
+AlarmContributorAttributes ContributorAttributes `json:"alarmContributorAttributes" xml:"AlarmContributorAttributes"`
+AlarmContributorId string `json:"alarmContributorId" xml:"AlarmContributorId"`
+AlarmName string `json:"alarmName" xml:"AlarmName"`
+AlarmType string `json:"alarmType" xml:"AlarmType"`
+HistoryData string `json:"historyData" xml:"HistoryData"`
+HistoryItemType string `json:"historyItemType" xml:"HistoryItemType"`
+HistorySummary string `json:"historySummary" xml:"HistorySummary"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type AlarmMuteRuleSummary struct {
-	AlarmMuteRuleArn     string    `json:"alarmMuteRuleArn" xml:"AlarmMuteRuleArn"`
-	ExpireDate           time.Time `json:"expireDate" xml:"ExpireDate"`
-	LastUpdatedTimestamp time.Time `json:"lastUpdatedTimestamp" xml:"LastUpdatedTimestamp"`
-	MuteType             string    `json:"muteType" xml:"MuteType"`
-	Status               string    `json:"status" xml:"Status"`
+AlarmMuteRuleArn string `json:"alarmMuteRuleArn" xml:"AlarmMuteRuleArn"`
+ExpireDate time.Time `json:"expireDate" xml:"ExpireDate"`
+LastUpdatedTimestamp time.Time `json:"lastUpdatedTimestamp" xml:"LastUpdatedTimestamp"`
+MuteType string `json:"muteType" xml:"MuteType"`
+Status string `json:"status" xml:"Status"`
 }
 
 type AlarmPromQLCriteria struct {
-	PendingPeriod  int32  `json:"pendingPeriod" xml:"PendingPeriod"`
-	Query          string `json:"query" xml:"Query"`
-	RecoveryPeriod int32  `json:"recoveryPeriod" xml:"RecoveryPeriod"`
+PendingPeriod int32 `json:"pendingPeriod" xml:"PendingPeriod"`
+Query string `json:"query" xml:"Query"`
+RecoveryPeriod int32 `json:"recoveryPeriod" xml:"RecoveryPeriod"`
 }
 
 type AnomalyDetector struct {
-	Configuration               *AnomalyDetectorConfiguration `json:"configuration" xml:"Configuration"`
-	Dimensions                  Dimensions                    `json:"dimensions" xml:"Dimensions"`
-	MetricCharacteristics       *MetricCharacteristics        `json:"metricCharacteristics" xml:"MetricCharacteristics"`
-	MetricMathAnomalyDetector   *MetricMathAnomalyDetector    `json:"metricMathAnomalyDetector" xml:"MetricMathAnomalyDetector"`
-	MetricName                  string                        `json:"metricName" xml:"MetricName"`
-	Namespace                   string                        `json:"namespace" xml:"Namespace"`
-	SingleMetricAnomalyDetector *SingleMetricAnomalyDetector  `json:"singleMetricAnomalyDetector" xml:"SingleMetricAnomalyDetector"`
-	Stat                        string                        `json:"stat" xml:"Stat"`
-	StateValue                  string                        `json:"stateValue" xml:"StateValue"`
+Configuration *AnomalyDetectorConfiguration `json:"configuration" xml:"Configuration"`
+Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
+MetricCharacteristics *MetricCharacteristics `json:"metricCharacteristics" xml:"MetricCharacteristics"`
+MetricMathAnomalyDetector *MetricMathAnomalyDetector `json:"metricMathAnomalyDetector" xml:"MetricMathAnomalyDetector"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
+SingleMetricAnomalyDetector *SingleMetricAnomalyDetector `json:"singleMetricAnomalyDetector" xml:"SingleMetricAnomalyDetector"`
+Stat string `json:"stat" xml:"Stat"`
+StateValue string `json:"stateValue" xml:"StateValue"`
 }
 
 type AnomalyDetectorConfiguration struct {
-	ExcludedTimeRanges AnomalyDetectorExcludedTimeRanges `json:"excludedTimeRanges" xml:"ExcludedTimeRanges"`
-	MetricTimezone     string                            `json:"metricTimezone" xml:"MetricTimezone"`
+ExcludedTimeRanges AnomalyDetectorExcludedTimeRanges `json:"excludedTimeRanges" xml:"ExcludedTimeRanges"`
+MetricTimezone string `json:"metricTimezone" xml:"MetricTimezone"`
 }
 
 type CompositeAlarm struct {
-	ActionsEnabled                     bool         `json:"actionsEnabled" xml:"ActionsEnabled"`
-	ActionsSuppressedBy                string       `json:"actionsSuppressedBy" xml:"ActionsSuppressedBy"`
-	ActionsSuppressedReason            string       `json:"actionsSuppressedReason" xml:"ActionsSuppressedReason"`
-	ActionsSuppressor                  string       `json:"actionsSuppressor" xml:"ActionsSuppressor"`
-	ActionsSuppressorExtensionPeriod   int32        `json:"actionsSuppressorExtensionPeriod" xml:"ActionsSuppressorExtensionPeriod"`
-	ActionsSuppressorWaitPeriod        int32        `json:"actionsSuppressorWaitPeriod" xml:"ActionsSuppressorWaitPeriod"`
-	AlarmActions                       ResourceList `json:"alarmActions" xml:"AlarmActions"`
-	AlarmArn                           string       `json:"alarmArn" xml:"AlarmArn"`
-	AlarmConfigurationUpdatedTimestamp time.Time    `json:"alarmConfigurationUpdatedTimestamp" xml:"AlarmConfigurationUpdatedTimestamp"`
-	AlarmDescription                   string       `json:"alarmDescription" xml:"AlarmDescription"`
-	AlarmName                          string       `json:"alarmName" xml:"AlarmName"`
-	AlarmRule                          string       `json:"alarmRule" xml:"AlarmRule"`
-	InsufficientDataActions            ResourceList `json:"insufficientDataActions" xml:"InsufficientDataActions"`
-	OKActions                          ResourceList `json:"oKActions" xml:"OKActions"`
-	StateReason                        string       `json:"stateReason" xml:"StateReason"`
-	StateReasonData                    string       `json:"stateReasonData" xml:"StateReasonData"`
-	StateTransitionedTimestamp         time.Time    `json:"stateTransitionedTimestamp" xml:"StateTransitionedTimestamp"`
-	StateUpdatedTimestamp              time.Time    `json:"stateUpdatedTimestamp" xml:"StateUpdatedTimestamp"`
-	StateValue                         string       `json:"stateValue" xml:"StateValue"`
+ActionsEnabled bool `json:"actionsEnabled" xml:"ActionsEnabled"`
+ActionsSuppressedBy string `json:"actionsSuppressedBy" xml:"ActionsSuppressedBy"`
+ActionsSuppressedReason string `json:"actionsSuppressedReason" xml:"ActionsSuppressedReason"`
+ActionsSuppressor string `json:"actionsSuppressor" xml:"ActionsSuppressor"`
+ActionsSuppressorExtensionPeriod int32 `json:"actionsSuppressorExtensionPeriod" xml:"ActionsSuppressorExtensionPeriod"`
+ActionsSuppressorWaitPeriod int32 `json:"actionsSuppressorWaitPeriod" xml:"ActionsSuppressorWaitPeriod"`
+AlarmActions ResourceList `json:"alarmActions" xml:"AlarmActions"`
+AlarmArn string `json:"alarmArn" xml:"AlarmArn"`
+AlarmConfigurationUpdatedTimestamp time.Time `json:"alarmConfigurationUpdatedTimestamp" xml:"AlarmConfigurationUpdatedTimestamp"`
+AlarmDescription string `json:"alarmDescription" xml:"AlarmDescription"`
+AlarmName string `json:"alarmName" xml:"AlarmName"`
+AlarmRule string `json:"alarmRule" xml:"AlarmRule"`
+InsufficientDataActions ResourceList `json:"insufficientDataActions" xml:"InsufficientDataActions"`
+OKActions ResourceList `json:"oKActions" xml:"OKActions"`
+StateReason string `json:"stateReason" xml:"StateReason"`
+StateReasonData string `json:"stateReasonData" xml:"StateReasonData"`
+StateTransitionedTimestamp time.Time `json:"stateTransitionedTimestamp" xml:"StateTransitionedTimestamp"`
+StateUpdatedTimestamp time.Time `json:"stateUpdatedTimestamp" xml:"StateUpdatedTimestamp"`
+StateValue string `json:"stateValue" xml:"StateValue"`
 }
 
 type DashboardEntry struct {
-	DashboardArn  string    `json:"dashboardArn" xml:"DashboardArn"`
-	DashboardName string    `json:"dashboardName" xml:"DashboardName"`
-	LastModified  time.Time `json:"lastModified" xml:"LastModified"`
-	Size          int64     `json:"size" xml:"Size"`
+DashboardArn string `json:"dashboardArn" xml:"DashboardArn"`
+DashboardName string `json:"dashboardName" xml:"DashboardName"`
+LastModified time.Time `json:"lastModified" xml:"LastModified"`
+Size int64 `json:"size" xml:"Size"`
 }
 
 type DashboardValidationMessage struct {
-	DataPath string `json:"dataPath" xml:"DataPath"`
-	Message  string `json:"message" xml:"Message"`
+DataPath string `json:"dataPath" xml:"DataPath"`
+Message string `json:"message" xml:"Message"`
 }
 
 type Datapoint struct {
-	Average            float64           `json:"average" xml:"Average"`
-	ExtendedStatistics DatapointValueMap `json:"extendedStatistics" xml:"ExtendedStatistics"`
-	Maximum            float64           `json:"maximum" xml:"Maximum"`
-	Minimum            float64           `json:"minimum" xml:"Minimum"`
-	SampleCount        float64           `json:"sampleCount" xml:"SampleCount"`
-	Sum                float64           `json:"sum" xml:"Sum"`
-	Timestamp          time.Time         `json:"timestamp" xml:"Timestamp"`
-	Unit               string            `json:"unit" xml:"Unit"`
+Average float64 `json:"average" xml:"Average"`
+ExtendedStatistics DatapointValueMap `json:"extendedStatistics" xml:"ExtendedStatistics"`
+Maximum float64 `json:"maximum" xml:"Maximum"`
+Minimum float64 `json:"minimum" xml:"Minimum"`
+SampleCount float64 `json:"sampleCount" xml:"SampleCount"`
+Sum float64 `json:"sum" xml:"Sum"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type DeleteAlarmMuteRuleInput struct {
-	AlarmMuteRuleName string `json:"alarmMuteRuleName" xml:"AlarmMuteRuleName"`
+AlarmMuteRuleName string `json:"alarmMuteRuleName" xml:"AlarmMuteRuleName"`
 }
 
 type DeleteAlarmsInput struct {
-	AlarmNames AlarmNames `json:"alarmNames" xml:"AlarmNames"`
+AlarmNames AlarmNames `json:"alarmNames" xml:"AlarmNames"`
 }
 
 type DeleteAnomalyDetectorInput struct {
-	Dimensions                  Dimensions                   `json:"dimensions" xml:"Dimensions"`
-	MetricMathAnomalyDetector   *MetricMathAnomalyDetector   `json:"metricMathAnomalyDetector" xml:"MetricMathAnomalyDetector"`
-	MetricName                  string                       `json:"metricName" xml:"MetricName"`
-	Namespace                   string                       `json:"namespace" xml:"Namespace"`
-	SingleMetricAnomalyDetector *SingleMetricAnomalyDetector `json:"singleMetricAnomalyDetector" xml:"SingleMetricAnomalyDetector"`
-	Stat                        string                       `json:"stat" xml:"Stat"`
+Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
+MetricMathAnomalyDetector *MetricMathAnomalyDetector `json:"metricMathAnomalyDetector" xml:"MetricMathAnomalyDetector"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
+SingleMetricAnomalyDetector *SingleMetricAnomalyDetector `json:"singleMetricAnomalyDetector" xml:"SingleMetricAnomalyDetector"`
+Stat string `json:"stat" xml:"Stat"`
 }
 
 type DeleteAnomalyDetectorOutput struct {
 }
 
 type DeleteDashboardsInput struct {
-	DashboardNames DashboardNames `json:"dashboardNames" xml:"DashboardNames"`
+DashboardNames DashboardNames `json:"dashboardNames" xml:"DashboardNames"`
 }
 
 type DeleteDashboardsOutput struct {
 }
 
 type DeleteInsightRulesInput struct {
-	RuleNames InsightRuleNames `json:"ruleNames" xml:"RuleNames"`
+RuleNames InsightRuleNames `json:"ruleNames" xml:"RuleNames"`
 }
 
 type DeleteInsightRulesOutput struct {
-	Failures BatchFailures `json:"failures" xml:"Failures"`
+Failures BatchFailures `json:"failures" xml:"Failures"`
 }
 
 type DeleteMetricStreamInput struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type DeleteMetricStreamOutput struct {
 }
 
 type DescribeAlarmContributorsInput struct {
-	AlarmName string `json:"alarmName" xml:"AlarmName"`
-	NextToken string `json:"nextToken" xml:"NextToken"`
+AlarmName string `json:"alarmName" xml:"AlarmName"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAlarmContributorsOutput struct {
-	AlarmContributors AlarmContributors `json:"alarmContributors" xml:"AlarmContributors"`
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
+AlarmContributors AlarmContributors `json:"alarmContributors" xml:"AlarmContributors"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAlarmHistoryInput struct {
-	AlarmContributorId string     `json:"alarmContributorId" xml:"AlarmContributorId"`
-	AlarmName          string     `json:"alarmName" xml:"AlarmName"`
-	AlarmTypes         AlarmTypes `json:"alarmTypes" xml:"AlarmTypes"`
-	EndDate            time.Time  `json:"endDate" xml:"EndDate"`
-	HistoryItemType    string     `json:"historyItemType" xml:"HistoryItemType"`
-	MaxRecords         int32      `json:"maxRecords" xml:"MaxRecords"`
-	NextToken          string     `json:"nextToken" xml:"NextToken"`
-	ScanBy             string     `json:"scanBy" xml:"ScanBy"`
-	StartDate          time.Time  `json:"startDate" xml:"StartDate"`
+AlarmContributorId string `json:"alarmContributorId" xml:"AlarmContributorId"`
+AlarmName string `json:"alarmName" xml:"AlarmName"`
+AlarmTypes AlarmTypes `json:"alarmTypes" xml:"AlarmTypes"`
+EndDate time.Time `json:"endDate" xml:"EndDate"`
+HistoryItemType string `json:"historyItemType" xml:"HistoryItemType"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ScanBy string `json:"scanBy" xml:"ScanBy"`
+StartDate time.Time `json:"startDate" xml:"StartDate"`
 }
 
 type DescribeAlarmHistoryOutput struct {
-	AlarmHistoryItems AlarmHistoryItems `json:"alarmHistoryItems" xml:"AlarmHistoryItems"`
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
+AlarmHistoryItems AlarmHistoryItems `json:"alarmHistoryItems" xml:"AlarmHistoryItems"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAlarmsForMetricInput struct {
-	Dimensions        Dimensions `json:"dimensions" xml:"Dimensions"`
-	ExtendedStatistic string     `json:"extendedStatistic" xml:"ExtendedStatistic"`
-	MetricName        string     `json:"metricName" xml:"MetricName"`
-	Namespace         string     `json:"namespace" xml:"Namespace"`
-	Period            int32      `json:"period" xml:"Period"`
-	Statistic         string     `json:"statistic" xml:"Statistic"`
-	Unit              string     `json:"unit" xml:"Unit"`
+Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
+ExtendedStatistic string `json:"extendedStatistic" xml:"ExtendedStatistic"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
+Period int32 `json:"period" xml:"Period"`
+Statistic string `json:"statistic" xml:"Statistic"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type DescribeAlarmsForMetricOutput struct {
-	MetricAlarms MetricAlarms `json:"metricAlarms" xml:"MetricAlarms"`
+MetricAlarms MetricAlarms `json:"metricAlarms" xml:"MetricAlarms"`
 }
 
 type DescribeAlarmsInput struct {
-	ActionPrefix        string     `json:"actionPrefix" xml:"ActionPrefix"`
-	AlarmNamePrefix     string     `json:"alarmNamePrefix" xml:"AlarmNamePrefix"`
-	AlarmNames          AlarmNames `json:"alarmNames" xml:"AlarmNames"`
-	AlarmTypes          AlarmTypes `json:"alarmTypes" xml:"AlarmTypes"`
-	ChildrenOfAlarmName string     `json:"childrenOfAlarmName" xml:"ChildrenOfAlarmName"`
-	MaxRecords          int32      `json:"maxRecords" xml:"MaxRecords"`
-	NextToken           string     `json:"nextToken" xml:"NextToken"`
-	ParentsOfAlarmName  string     `json:"parentsOfAlarmName" xml:"ParentsOfAlarmName"`
-	StateValue          string     `json:"stateValue" xml:"StateValue"`
+ActionPrefix string `json:"actionPrefix" xml:"ActionPrefix"`
+AlarmNamePrefix string `json:"alarmNamePrefix" xml:"AlarmNamePrefix"`
+AlarmNames AlarmNames `json:"alarmNames" xml:"AlarmNames"`
+AlarmTypes AlarmTypes `json:"alarmTypes" xml:"AlarmTypes"`
+ChildrenOfAlarmName string `json:"childrenOfAlarmName" xml:"ChildrenOfAlarmName"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ParentsOfAlarmName string `json:"parentsOfAlarmName" xml:"ParentsOfAlarmName"`
+StateValue string `json:"stateValue" xml:"StateValue"`
 }
 
 type DescribeAlarmsOutput struct {
-	CompositeAlarms CompositeAlarms `json:"compositeAlarms" xml:"CompositeAlarms"`
-	MetricAlarms    MetricAlarms    `json:"metricAlarms" xml:"MetricAlarms"`
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
+CompositeAlarms CompositeAlarms `json:"compositeAlarms" xml:"CompositeAlarms"`
+MetricAlarms MetricAlarms `json:"metricAlarms" xml:"MetricAlarms"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAnomalyDetectorsInput struct {
-	AnomalyDetectorTypes AnomalyDetectorTypes `json:"anomalyDetectorTypes" xml:"AnomalyDetectorTypes"`
-	Dimensions           Dimensions           `json:"dimensions" xml:"Dimensions"`
-	MaxResults           int32                `json:"maxResults" xml:"MaxResults"`
-	MetricName           string               `json:"metricName" xml:"MetricName"`
-	Namespace            string               `json:"namespace" xml:"Namespace"`
-	NextToken            string               `json:"nextToken" xml:"NextToken"`
+AnomalyDetectorTypes AnomalyDetectorTypes `json:"anomalyDetectorTypes" xml:"AnomalyDetectorTypes"`
+Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAnomalyDetectorsOutput struct {
-	AnomalyDetectors AnomalyDetectors `json:"anomalyDetectors" xml:"AnomalyDetectors"`
-	NextToken        string           `json:"nextToken" xml:"NextToken"`
+AnomalyDetectors AnomalyDetectors `json:"anomalyDetectors" xml:"AnomalyDetectors"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeInsightRulesInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeInsightRulesOutput struct {
-	InsightRules InsightRules `json:"insightRules" xml:"InsightRules"`
-	NextToken    string       `json:"nextToken" xml:"NextToken"`
+InsightRules InsightRules `json:"insightRules" xml:"InsightRules"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type Dimension struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type DimensionFilter struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type DisableAlarmActionsInput struct {
-	AlarmNames AlarmNames `json:"alarmNames" xml:"AlarmNames"`
+AlarmNames AlarmNames `json:"alarmNames" xml:"AlarmNames"`
 }
 
 type DisableInsightRulesInput struct {
-	RuleNames InsightRuleNames `json:"ruleNames" xml:"RuleNames"`
+RuleNames InsightRuleNames `json:"ruleNames" xml:"RuleNames"`
 }
 
 type DisableInsightRulesOutput struct {
-	Failures BatchFailures `json:"failures" xml:"Failures"`
+Failures BatchFailures `json:"failures" xml:"Failures"`
 }
 
 type EnableAlarmActionsInput struct {
-	AlarmNames AlarmNames `json:"alarmNames" xml:"AlarmNames"`
+AlarmNames AlarmNames `json:"alarmNames" xml:"AlarmNames"`
 }
 
 type EnableInsightRulesInput struct {
-	RuleNames InsightRuleNames `json:"ruleNames" xml:"RuleNames"`
+RuleNames InsightRuleNames `json:"ruleNames" xml:"RuleNames"`
 }
 
 type EnableInsightRulesOutput struct {
-	Failures BatchFailures `json:"failures" xml:"Failures"`
+Failures BatchFailures `json:"failures" xml:"Failures"`
 }
 
 type Entity struct {
-	Attributes    EntityAttributesMap    `json:"attributes" xml:"Attributes"`
-	KeyAttributes EntityKeyAttributesMap `json:"keyAttributes" xml:"KeyAttributes"`
+Attributes EntityAttributesMap `json:"attributes" xml:"Attributes"`
+KeyAttributes EntityKeyAttributesMap `json:"keyAttributes" xml:"KeyAttributes"`
 }
 
 type EntityMetricData struct {
-	Entity     *Entity    `json:"entity" xml:"Entity"`
-	MetricData MetricData `json:"metricData" xml:"MetricData"`
+Entity *Entity `json:"entity" xml:"Entity"`
+MetricData MetricData `json:"metricData" xml:"MetricData"`
 }
 
 type GetAlarmMuteRuleInput struct {
-	AlarmMuteRuleName string `json:"alarmMuteRuleName" xml:"AlarmMuteRuleName"`
+AlarmMuteRuleName string `json:"alarmMuteRuleName" xml:"AlarmMuteRuleName"`
 }
 
 type GetAlarmMuteRuleOutput struct {
-	AlarmMuteRuleArn     string       `json:"alarmMuteRuleArn" xml:"AlarmMuteRuleArn"`
-	Description          string       `json:"description" xml:"Description"`
-	ExpireDate           time.Time    `json:"expireDate" xml:"ExpireDate"`
-	LastUpdatedTimestamp time.Time    `json:"lastUpdatedTimestamp" xml:"LastUpdatedTimestamp"`
-	MuteTargets          *MuteTargets `json:"muteTargets" xml:"MuteTargets"`
-	MuteType             string       `json:"muteType" xml:"MuteType"`
-	Name                 string       `json:"name" xml:"Name"`
-	Rule                 *Rule        `json:"rule" xml:"Rule"`
-	StartDate            time.Time    `json:"startDate" xml:"StartDate"`
-	Status               string       `json:"status" xml:"Status"`
+AlarmMuteRuleArn string `json:"alarmMuteRuleArn" xml:"AlarmMuteRuleArn"`
+Description string `json:"description" xml:"Description"`
+ExpireDate time.Time `json:"expireDate" xml:"ExpireDate"`
+LastUpdatedTimestamp time.Time `json:"lastUpdatedTimestamp" xml:"LastUpdatedTimestamp"`
+MuteTargets *MuteTargets `json:"muteTargets" xml:"MuteTargets"`
+MuteType string `json:"muteType" xml:"MuteType"`
+Name string `json:"name" xml:"Name"`
+Rule *Rule `json:"rule" xml:"Rule"`
+StartDate time.Time `json:"startDate" xml:"StartDate"`
+Status string `json:"status" xml:"Status"`
 }
 
 type GetDashboardInput struct {
-	DashboardName string `json:"dashboardName" xml:"DashboardName"`
+DashboardName string `json:"dashboardName" xml:"DashboardName"`
 }
 
 type GetDashboardOutput struct {
-	DashboardArn  string `json:"dashboardArn" xml:"DashboardArn"`
-	DashboardBody string `json:"dashboardBody" xml:"DashboardBody"`
-	DashboardName string `json:"dashboardName" xml:"DashboardName"`
+DashboardArn string `json:"dashboardArn" xml:"DashboardArn"`
+DashboardBody string `json:"dashboardBody" xml:"DashboardBody"`
+DashboardName string `json:"dashboardName" xml:"DashboardName"`
 }
 
 type GetInsightRuleReportInput struct {
-	EndTime             time.Time             `json:"endTime" xml:"EndTime"`
-	MaxContributorCount int32                 `json:"maxContributorCount" xml:"MaxContributorCount"`
-	Metrics             InsightRuleMetricList `json:"metrics" xml:"Metrics"`
-	OrderBy             string                `json:"orderBy" xml:"OrderBy"`
-	Period              int32                 `json:"period" xml:"Period"`
-	RuleName            string                `json:"ruleName" xml:"RuleName"`
-	StartTime           time.Time             `json:"startTime" xml:"StartTime"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+MaxContributorCount int32 `json:"maxContributorCount" xml:"MaxContributorCount"`
+Metrics InsightRuleMetricList `json:"metrics" xml:"Metrics"`
+OrderBy string `json:"orderBy" xml:"OrderBy"`
+Period int32 `json:"period" xml:"Period"`
+RuleName string `json:"ruleName" xml:"RuleName"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type GetInsightRuleReportOutput struct {
-	AggregateValue         float64                         `json:"aggregateValue" xml:"AggregateValue"`
-	AggregationStatistic   string                          `json:"aggregationStatistic" xml:"AggregationStatistic"`
-	ApproximateUniqueCount int64                           `json:"approximateUniqueCount" xml:"ApproximateUniqueCount"`
-	Contributors           InsightRuleContributors         `json:"contributors" xml:"Contributors"`
-	KeyLabels              InsightRuleContributorKeyLabels `json:"keyLabels" xml:"KeyLabels"`
-	MetricDatapoints       InsightRuleMetricDatapoints     `json:"metricDatapoints" xml:"MetricDatapoints"`
+AggregateValue float64 `json:"aggregateValue" xml:"AggregateValue"`
+AggregationStatistic string `json:"aggregationStatistic" xml:"AggregationStatistic"`
+ApproximateUniqueCount int64 `json:"approximateUniqueCount" xml:"ApproximateUniqueCount"`
+Contributors InsightRuleContributors `json:"contributors" xml:"Contributors"`
+KeyLabels InsightRuleContributorKeyLabels `json:"keyLabels" xml:"KeyLabels"`
+MetricDatapoints InsightRuleMetricDatapoints `json:"metricDatapoints" xml:"MetricDatapoints"`
 }
 
 type GetMetricDataInput struct {
-	EndTime           time.Time         `json:"endTime" xml:"EndTime"`
-	LabelOptions      *LabelOptions     `json:"labelOptions" xml:"LabelOptions"`
-	MaxDatapoints     int32             `json:"maxDatapoints" xml:"MaxDatapoints"`
-	MetricDataQueries MetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
-	ScanBy            string            `json:"scanBy" xml:"ScanBy"`
-	StartTime         time.Time         `json:"startTime" xml:"StartTime"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+LabelOptions *LabelOptions `json:"labelOptions" xml:"LabelOptions"`
+MaxDatapoints int32 `json:"maxDatapoints" xml:"MaxDatapoints"`
+MetricDataQueries MetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ScanBy string `json:"scanBy" xml:"ScanBy"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type GetMetricDataOutput struct {
-	Messages          MetricDataResultMessages `json:"messages" xml:"Messages"`
-	MetricDataResults MetricDataResults        `json:"metricDataResults" xml:"MetricDataResults"`
-	NextToken         string                   `json:"nextToken" xml:"NextToken"`
+Messages MetricDataResultMessages `json:"messages" xml:"Messages"`
+MetricDataResults MetricDataResults `json:"metricDataResults" xml:"MetricDataResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type GetMetricStatisticsInput struct {
-	Dimensions         Dimensions         `json:"dimensions" xml:"Dimensions"`
-	EndTime            time.Time          `json:"endTime" xml:"EndTime"`
-	ExtendedStatistics ExtendedStatistics `json:"extendedStatistics" xml:"ExtendedStatistics"`
-	MetricName         string             `json:"metricName" xml:"MetricName"`
-	Namespace          string             `json:"namespace" xml:"Namespace"`
-	Period             int32              `json:"period" xml:"Period"`
-	StartTime          time.Time          `json:"startTime" xml:"StartTime"`
-	Statistics         Statistics         `json:"statistics" xml:"Statistics"`
-	Unit               string             `json:"unit" xml:"Unit"`
+Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+ExtendedStatistics ExtendedStatistics `json:"extendedStatistics" xml:"ExtendedStatistics"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
+Period int32 `json:"period" xml:"Period"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Statistics Statistics `json:"statistics" xml:"Statistics"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type GetMetricStatisticsOutput struct {
-	Datapoints Datapoints `json:"datapoints" xml:"Datapoints"`
-	Label      string     `json:"label" xml:"Label"`
+Datapoints Datapoints `json:"datapoints" xml:"Datapoints"`
+Label string `json:"label" xml:"Label"`
 }
 
 type GetMetricStreamInput struct {
-	Name string `json:"name" xml:"Name"`
+Name string `json:"name" xml:"Name"`
 }
 
 type GetMetricStreamOutput struct {
-	Arn                          string                               `json:"arn" xml:"Arn"`
-	CreationDate                 time.Time                            `json:"creationDate" xml:"CreationDate"`
-	ExcludeFilters               MetricStreamFilters                  `json:"excludeFilters" xml:"ExcludeFilters"`
-	FirehoseArn                  string                               `json:"firehoseArn" xml:"FirehoseArn"`
-	IncludeFilters               MetricStreamFilters                  `json:"includeFilters" xml:"IncludeFilters"`
-	IncludeLinkedAccountsMetrics bool                                 `json:"includeLinkedAccountsMetrics" xml:"IncludeLinkedAccountsMetrics"`
-	LastUpdateDate               time.Time                            `json:"lastUpdateDate" xml:"LastUpdateDate"`
-	Name                         string                               `json:"name" xml:"Name"`
-	OutputFormat                 string                               `json:"outputFormat" xml:"OutputFormat"`
-	RoleArn                      string                               `json:"roleArn" xml:"RoleArn"`
-	State                        string                               `json:"state" xml:"State"`
-	StatisticsConfigurations     MetricStreamStatisticsConfigurations `json:"statisticsConfigurations" xml:"StatisticsConfigurations"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+ExcludeFilters MetricStreamFilters `json:"excludeFilters" xml:"ExcludeFilters"`
+FirehoseArn string `json:"firehoseArn" xml:"FirehoseArn"`
+IncludeFilters MetricStreamFilters `json:"includeFilters" xml:"IncludeFilters"`
+IncludeLinkedAccountsMetrics bool `json:"includeLinkedAccountsMetrics" xml:"IncludeLinkedAccountsMetrics"`
+LastUpdateDate time.Time `json:"lastUpdateDate" xml:"LastUpdateDate"`
+Name string `json:"name" xml:"Name"`
+OutputFormat string `json:"outputFormat" xml:"OutputFormat"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+State string `json:"state" xml:"State"`
+StatisticsConfigurations MetricStreamStatisticsConfigurations `json:"statisticsConfigurations" xml:"StatisticsConfigurations"`
 }
 
 type GetMetricWidgetImageInput struct {
-	MetricWidget string `json:"metricWidget" xml:"MetricWidget"`
-	OutputFormat string `json:"outputFormat" xml:"OutputFormat"`
+MetricWidget string `json:"metricWidget" xml:"MetricWidget"`
+OutputFormat string `json:"outputFormat" xml:"OutputFormat"`
 }
 
 type GetMetricWidgetImageOutput struct {
-	MetricWidgetImage []byte `json:"metricWidgetImage" xml:"MetricWidgetImage"`
+MetricWidgetImage []byte `json:"metricWidgetImage" xml:"MetricWidgetImage"`
 }
 
 type GetOTelEnrichmentInput struct {
 }
 
 type GetOTelEnrichmentOutput struct {
-	Status string `json:"status" xml:"Status"`
+Status string `json:"status" xml:"Status"`
 }
 
 type InsightRule struct {
-	ApplyOnTransformedLogs bool   `json:"applyOnTransformedLogs" xml:"ApplyOnTransformedLogs"`
-	Definition             string `json:"definition" xml:"Definition"`
-	ManagedRule            bool   `json:"managedRule" xml:"ManagedRule"`
-	Name                   string `json:"name" xml:"Name"`
-	Schema                 string `json:"schema" xml:"Schema"`
-	State                  string `json:"state" xml:"State"`
+ApplyOnTransformedLogs bool `json:"applyOnTransformedLogs" xml:"ApplyOnTransformedLogs"`
+Definition string `json:"definition" xml:"Definition"`
+ManagedRule bool `json:"managedRule" xml:"ManagedRule"`
+Name string `json:"name" xml:"Name"`
+Schema string `json:"schema" xml:"Schema"`
+State string `json:"state" xml:"State"`
 }
 
 type InsightRuleContributor struct {
-	ApproximateAggregateValue float64                          `json:"approximateAggregateValue" xml:"ApproximateAggregateValue"`
-	Datapoints                InsightRuleContributorDatapoints `json:"datapoints" xml:"Datapoints"`
-	Keys                      InsightRuleContributorKeys       `json:"keys" xml:"Keys"`
+ApproximateAggregateValue float64 `json:"approximateAggregateValue" xml:"ApproximateAggregateValue"`
+Datapoints InsightRuleContributorDatapoints `json:"datapoints" xml:"Datapoints"`
+Keys InsightRuleContributorKeys `json:"keys" xml:"Keys"`
 }
 
 type InsightRuleContributorDatapoint struct {
-	ApproximateValue float64   `json:"approximateValue" xml:"ApproximateValue"`
-	Timestamp        time.Time `json:"timestamp" xml:"Timestamp"`
+ApproximateValue float64 `json:"approximateValue" xml:"ApproximateValue"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type InsightRuleMetricDatapoint struct {
-	Average             float64   `json:"average" xml:"Average"`
-	MaxContributorValue float64   `json:"maxContributorValue" xml:"MaxContributorValue"`
-	Maximum             float64   `json:"maximum" xml:"Maximum"`
-	Minimum             float64   `json:"minimum" xml:"Minimum"`
-	SampleCount         float64   `json:"sampleCount" xml:"SampleCount"`
-	Sum                 float64   `json:"sum" xml:"Sum"`
-	Timestamp           time.Time `json:"timestamp" xml:"Timestamp"`
-	UniqueContributors  float64   `json:"uniqueContributors" xml:"UniqueContributors"`
+Average float64 `json:"average" xml:"Average"`
+MaxContributorValue float64 `json:"maxContributorValue" xml:"MaxContributorValue"`
+Maximum float64 `json:"maximum" xml:"Maximum"`
+Minimum float64 `json:"minimum" xml:"Minimum"`
+SampleCount float64 `json:"sampleCount" xml:"SampleCount"`
+Sum float64 `json:"sum" xml:"Sum"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
+UniqueContributors float64 `json:"uniqueContributors" xml:"UniqueContributors"`
 }
 
 type LabelOptions struct {
-	Timezone string `json:"timezone" xml:"Timezone"`
+Timezone string `json:"timezone" xml:"Timezone"`
 }
 
 type ListAlarmMuteRulesInput struct {
-	AlarmName  string                `json:"alarmName" xml:"AlarmName"`
-	MaxRecords int32                 `json:"maxRecords" xml:"MaxRecords"`
-	NextToken  string                `json:"nextToken" xml:"NextToken"`
-	Statuses   AlarmMuteRuleStatuses `json:"statuses" xml:"Statuses"`
+AlarmName string `json:"alarmName" xml:"AlarmName"`
+MaxRecords int32 `json:"maxRecords" xml:"MaxRecords"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+Statuses AlarmMuteRuleStatuses `json:"statuses" xml:"Statuses"`
 }
 
 type ListAlarmMuteRulesOutput struct {
-	AlarmMuteRuleSummaries AlarmMuteRuleSummaries `json:"alarmMuteRuleSummaries" xml:"AlarmMuteRuleSummaries"`
-	NextToken              string                 `json:"nextToken" xml:"NextToken"`
+AlarmMuteRuleSummaries AlarmMuteRuleSummaries `json:"alarmMuteRuleSummaries" xml:"AlarmMuteRuleSummaries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDashboardsInput struct {
-	DashboardNamePrefix string `json:"dashboardNamePrefix" xml:"DashboardNamePrefix"`
-	NextToken           string `json:"nextToken" xml:"NextToken"`
+DashboardNamePrefix string `json:"dashboardNamePrefix" xml:"DashboardNamePrefix"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDashboardsOutput struct {
-	DashboardEntries DashboardEntries `json:"dashboardEntries" xml:"DashboardEntries"`
-	NextToken        string           `json:"nextToken" xml:"NextToken"`
+DashboardEntries DashboardEntries `json:"dashboardEntries" xml:"DashboardEntries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListManagedInsightRulesInput struct {
-	MaxResults  int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken   string `json:"nextToken" xml:"NextToken"`
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
 }
 
 type ListManagedInsightRulesOutput struct {
-	ManagedRules ManagedRuleDescriptions `json:"managedRules" xml:"ManagedRules"`
-	NextToken    string                  `json:"nextToken" xml:"NextToken"`
+ManagedRules ManagedRuleDescriptions `json:"managedRules" xml:"ManagedRules"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListMetricStreamsInput struct {
-	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken  string `json:"nextToken" xml:"NextToken"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListMetricStreamsOutput struct {
-	Entries   MetricStreamEntries `json:"entries" xml:"Entries"`
-	NextToken string              `json:"nextToken" xml:"NextToken"`
+Entries MetricStreamEntries `json:"entries" xml:"Entries"`
+NextToken string `json:"nextToken" xml:"NextToken"`
 }
 
 type ListMetricsInput struct {
-	Dimensions            DimensionFilters `json:"dimensions" xml:"Dimensions"`
-	IncludeLinkedAccounts bool             `json:"includeLinkedAccounts" xml:"IncludeLinkedAccounts"`
-	MetricName            string           `json:"metricName" xml:"MetricName"`
-	Namespace             string           `json:"namespace" xml:"Namespace"`
-	NextToken             string           `json:"nextToken" xml:"NextToken"`
-	OwningAccount         string           `json:"owningAccount" xml:"OwningAccount"`
-	RecentlyActive        string           `json:"recentlyActive" xml:"RecentlyActive"`
+Dimensions DimensionFilters `json:"dimensions" xml:"Dimensions"`
+IncludeLinkedAccounts bool `json:"includeLinkedAccounts" xml:"IncludeLinkedAccounts"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OwningAccount string `json:"owningAccount" xml:"OwningAccount"`
+RecentlyActive string `json:"recentlyActive" xml:"RecentlyActive"`
 }
 
 type ListMetricsOutput struct {
-	Metrics        Metrics        `json:"metrics" xml:"Metrics"`
-	NextToken      string         `json:"nextToken" xml:"NextToken"`
-	OwningAccounts OwningAccounts `json:"owningAccounts" xml:"OwningAccounts"`
+Metrics Metrics `json:"metrics" xml:"Metrics"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+OwningAccounts OwningAccounts `json:"owningAccounts" xml:"OwningAccounts"`
 }
 
 type ListTagsForResourceInput struct {
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
 }
 
 type ListTagsForResourceOutput struct {
-	Tags TagList `json:"tags" xml:"Tags"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type ManagedRule struct {
-	ResourceARN  string  `json:"resourceARN" xml:"ResourceARN"`
-	Tags         TagList `json:"tags" xml:"Tags"`
-	TemplateName string  `json:"templateName" xml:"TemplateName"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+Tags TagList `json:"tags" xml:"Tags"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
 }
 
 type ManagedRuleDescription struct {
-	ResourceARN  string            `json:"resourceARN" xml:"ResourceARN"`
-	RuleState    *ManagedRuleState `json:"ruleState" xml:"RuleState"`
-	TemplateName string            `json:"templateName" xml:"TemplateName"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+RuleState *ManagedRuleState `json:"ruleState" xml:"RuleState"`
+TemplateName string `json:"templateName" xml:"TemplateName"`
 }
 
 type ManagedRuleState struct {
-	RuleName string `json:"ruleName" xml:"RuleName"`
-	State    string `json:"state" xml:"State"`
+RuleName string `json:"ruleName" xml:"RuleName"`
+State string `json:"state" xml:"State"`
 }
 
 type MessageData struct {
-	Code  string `json:"code" xml:"Code"`
-	Value string `json:"value" xml:"Value"`
+Code string `json:"code" xml:"Code"`
+Value string `json:"value" xml:"Value"`
 }
 
 type Metric struct {
-	Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
-	MetricName string     `json:"metricName" xml:"MetricName"`
-	Namespace  string     `json:"namespace" xml:"Namespace"`
+Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
 }
 
 type MetricAlarm struct {
-	ActionsEnabled                     bool              `json:"actionsEnabled" xml:"ActionsEnabled"`
-	AlarmActions                       ResourceList      `json:"alarmActions" xml:"AlarmActions"`
-	AlarmArn                           string            `json:"alarmArn" xml:"AlarmArn"`
-	AlarmConfigurationUpdatedTimestamp time.Time         `json:"alarmConfigurationUpdatedTimestamp" xml:"AlarmConfigurationUpdatedTimestamp"`
-	AlarmDescription                   string            `json:"alarmDescription" xml:"AlarmDescription"`
-	AlarmName                          string            `json:"alarmName" xml:"AlarmName"`
-	ComparisonOperator                 string            `json:"comparisonOperator" xml:"ComparisonOperator"`
-	DatapointsToAlarm                  int32             `json:"datapointsToAlarm" xml:"DatapointsToAlarm"`
-	Dimensions                         Dimensions        `json:"dimensions" xml:"Dimensions"`
-	EvaluateLowSampleCountPercentile   string            `json:"evaluateLowSampleCountPercentile" xml:"EvaluateLowSampleCountPercentile"`
-	EvaluationCriteria                 interface{}       `json:"evaluationCriteria" xml:"EvaluationCriteria"`
-	EvaluationInterval                 int32             `json:"evaluationInterval" xml:"EvaluationInterval"`
-	EvaluationPeriods                  int32             `json:"evaluationPeriods" xml:"EvaluationPeriods"`
-	EvaluationState                    string            `json:"evaluationState" xml:"EvaluationState"`
-	ExtendedStatistic                  string            `json:"extendedStatistic" xml:"ExtendedStatistic"`
-	InsufficientDataActions            ResourceList      `json:"insufficientDataActions" xml:"InsufficientDataActions"`
-	MetricName                         string            `json:"metricName" xml:"MetricName"`
-	Metrics                            MetricDataQueries `json:"metrics" xml:"Metrics"`
-	Namespace                          string            `json:"namespace" xml:"Namespace"`
-	OKActions                          ResourceList      `json:"oKActions" xml:"OKActions"`
-	Period                             int32             `json:"period" xml:"Period"`
-	StateReason                        string            `json:"stateReason" xml:"StateReason"`
-	StateReasonData                    string            `json:"stateReasonData" xml:"StateReasonData"`
-	StateTransitionedTimestamp         time.Time         `json:"stateTransitionedTimestamp" xml:"StateTransitionedTimestamp"`
-	StateUpdatedTimestamp              time.Time         `json:"stateUpdatedTimestamp" xml:"StateUpdatedTimestamp"`
-	StateValue                         string            `json:"stateValue" xml:"StateValue"`
-	Statistic                          string            `json:"statistic" xml:"Statistic"`
-	Threshold                          float64           `json:"threshold" xml:"Threshold"`
-	ThresholdMetricId                  string            `json:"thresholdMetricId" xml:"ThresholdMetricId"`
-	TreatMissingData                   string            `json:"treatMissingData" xml:"TreatMissingData"`
-	Unit                               string            `json:"unit" xml:"Unit"`
+ActionsEnabled bool `json:"actionsEnabled" xml:"ActionsEnabled"`
+AlarmActions ResourceList `json:"alarmActions" xml:"AlarmActions"`
+AlarmArn string `json:"alarmArn" xml:"AlarmArn"`
+AlarmConfigurationUpdatedTimestamp time.Time `json:"alarmConfigurationUpdatedTimestamp" xml:"AlarmConfigurationUpdatedTimestamp"`
+AlarmDescription string `json:"alarmDescription" xml:"AlarmDescription"`
+AlarmName string `json:"alarmName" xml:"AlarmName"`
+ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
+DatapointsToAlarm int32 `json:"datapointsToAlarm" xml:"DatapointsToAlarm"`
+Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
+EvaluateLowSampleCountPercentile string `json:"evaluateLowSampleCountPercentile" xml:"EvaluateLowSampleCountPercentile"`
+EvaluationCriteria interface{} `json:"evaluationCriteria" xml:"EvaluationCriteria"`
+EvaluationInterval int32 `json:"evaluationInterval" xml:"EvaluationInterval"`
+EvaluationPeriods int32 `json:"evaluationPeriods" xml:"EvaluationPeriods"`
+EvaluationState string `json:"evaluationState" xml:"EvaluationState"`
+ExtendedStatistic string `json:"extendedStatistic" xml:"ExtendedStatistic"`
+InsufficientDataActions ResourceList `json:"insufficientDataActions" xml:"InsufficientDataActions"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Metrics MetricDataQueries `json:"metrics" xml:"Metrics"`
+Namespace string `json:"namespace" xml:"Namespace"`
+OKActions ResourceList `json:"oKActions" xml:"OKActions"`
+Period int32 `json:"period" xml:"Period"`
+StateReason string `json:"stateReason" xml:"StateReason"`
+StateReasonData string `json:"stateReasonData" xml:"StateReasonData"`
+StateTransitionedTimestamp time.Time `json:"stateTransitionedTimestamp" xml:"StateTransitionedTimestamp"`
+StateUpdatedTimestamp time.Time `json:"stateUpdatedTimestamp" xml:"StateUpdatedTimestamp"`
+StateValue string `json:"stateValue" xml:"StateValue"`
+Statistic string `json:"statistic" xml:"Statistic"`
+Threshold float64 `json:"threshold" xml:"Threshold"`
+ThresholdMetricId string `json:"thresholdMetricId" xml:"ThresholdMetricId"`
+TreatMissingData string `json:"treatMissingData" xml:"TreatMissingData"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type MetricCharacteristics struct {
-	PeriodicSpikes bool `json:"periodicSpikes" xml:"PeriodicSpikes"`
+PeriodicSpikes bool `json:"periodicSpikes" xml:"PeriodicSpikes"`
 }
 
 type MetricDataQuery struct {
-	AccountId  string      `json:"accountId" xml:"AccountId"`
-	Expression string      `json:"expression" xml:"Expression"`
-	Id         string      `json:"id" xml:"Id"`
-	Label      string      `json:"label" xml:"Label"`
-	MetricStat *MetricStat `json:"metricStat" xml:"MetricStat"`
-	Period     int32       `json:"period" xml:"Period"`
-	ReturnData bool        `json:"returnData" xml:"ReturnData"`
+AccountId string `json:"accountId" xml:"AccountId"`
+Expression string `json:"expression" xml:"Expression"`
+Id string `json:"id" xml:"Id"`
+Label string `json:"label" xml:"Label"`
+MetricStat *MetricStat `json:"metricStat" xml:"MetricStat"`
+Period int32 `json:"period" xml:"Period"`
+ReturnData bool `json:"returnData" xml:"ReturnData"`
 }
 
 type MetricDataResult struct {
-	Id         string                   `json:"id" xml:"Id"`
-	Label      string                   `json:"label" xml:"Label"`
-	Messages   MetricDataResultMessages `json:"messages" xml:"Messages"`
-	StatusCode string                   `json:"statusCode" xml:"StatusCode"`
-	Timestamps Timestamps               `json:"timestamps" xml:"Timestamps"`
-	Values     DatapointValues          `json:"values" xml:"Values"`
+Id string `json:"id" xml:"Id"`
+Label string `json:"label" xml:"Label"`
+Messages MetricDataResultMessages `json:"messages" xml:"Messages"`
+StatusCode string `json:"statusCode" xml:"StatusCode"`
+Timestamps Timestamps `json:"timestamps" xml:"Timestamps"`
+Values DatapointValues `json:"values" xml:"Values"`
 }
 
 type MetricDatum struct {
-	Counts            Counts        `json:"counts" xml:"Counts"`
-	Dimensions        Dimensions    `json:"dimensions" xml:"Dimensions"`
-	MetricName        string        `json:"metricName" xml:"MetricName"`
-	StatisticValues   *StatisticSet `json:"statisticValues" xml:"StatisticValues"`
-	StorageResolution int32         `json:"storageResolution" xml:"StorageResolution"`
-	Timestamp         time.Time     `json:"timestamp" xml:"Timestamp"`
-	Unit              string        `json:"unit" xml:"Unit"`
-	Value             float64       `json:"value" xml:"Value"`
-	Values            Values        `json:"values" xml:"Values"`
+Counts Counts `json:"counts" xml:"Counts"`
+Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
+MetricName string `json:"metricName" xml:"MetricName"`
+StatisticValues *StatisticSet `json:"statisticValues" xml:"StatisticValues"`
+StorageResolution int32 `json:"storageResolution" xml:"StorageResolution"`
+Timestamp time.Time `json:"timestamp" xml:"Timestamp"`
+Unit string `json:"unit" xml:"Unit"`
+Value float64 `json:"value" xml:"Value"`
+Values Values `json:"values" xml:"Values"`
 }
 
 type MetricMathAnomalyDetector struct {
-	MetricDataQueries MetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
+MetricDataQueries MetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
 }
 
 type MetricStat struct {
-	Metric *Metric `json:"metric" xml:"Metric"`
-	Period int32   `json:"period" xml:"Period"`
-	Stat   string  `json:"stat" xml:"Stat"`
-	Unit   string  `json:"unit" xml:"Unit"`
+Metric *Metric `json:"metric" xml:"Metric"`
+Period int32 `json:"period" xml:"Period"`
+Stat string `json:"stat" xml:"Stat"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type MetricStreamEntry struct {
-	Arn            string    `json:"arn" xml:"Arn"`
-	CreationDate   time.Time `json:"creationDate" xml:"CreationDate"`
-	FirehoseArn    string    `json:"firehoseArn" xml:"FirehoseArn"`
-	LastUpdateDate time.Time `json:"lastUpdateDate" xml:"LastUpdateDate"`
-	Name           string    `json:"name" xml:"Name"`
-	OutputFormat   string    `json:"outputFormat" xml:"OutputFormat"`
-	State          string    `json:"state" xml:"State"`
+Arn string `json:"arn" xml:"Arn"`
+CreationDate time.Time `json:"creationDate" xml:"CreationDate"`
+FirehoseArn string `json:"firehoseArn" xml:"FirehoseArn"`
+LastUpdateDate time.Time `json:"lastUpdateDate" xml:"LastUpdateDate"`
+Name string `json:"name" xml:"Name"`
+OutputFormat string `json:"outputFormat" xml:"OutputFormat"`
+State string `json:"state" xml:"State"`
 }
 
 type MetricStreamFilter struct {
-	MetricNames MetricStreamFilterMetricNames `json:"metricNames" xml:"MetricNames"`
-	Namespace   string                        `json:"namespace" xml:"Namespace"`
+MetricNames MetricStreamFilterMetricNames `json:"metricNames" xml:"MetricNames"`
+Namespace string `json:"namespace" xml:"Namespace"`
 }
 
 type MetricStreamStatisticsConfiguration struct {
-	AdditionalStatistics MetricStreamStatisticsAdditionalStatistics `json:"additionalStatistics" xml:"AdditionalStatistics"`
-	IncludeMetrics       MetricStreamStatisticsIncludeMetrics       `json:"includeMetrics" xml:"IncludeMetrics"`
+AdditionalStatistics MetricStreamStatisticsAdditionalStatistics `json:"additionalStatistics" xml:"AdditionalStatistics"`
+IncludeMetrics MetricStreamStatisticsIncludeMetrics `json:"includeMetrics" xml:"IncludeMetrics"`
 }
 
 type MetricStreamStatisticsMetric struct {
-	MetricName string `json:"metricName" xml:"MetricName"`
-	Namespace  string `json:"namespace" xml:"Namespace"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
 }
 
 type MuteTargets struct {
-	AlarmNames MuteTargetAlarmNameList `json:"alarmNames" xml:"AlarmNames"`
+AlarmNames MuteTargetAlarmNameList `json:"alarmNames" xml:"AlarmNames"`
 }
 
 type PartialFailure struct {
-	ExceptionType      string `json:"exceptionType" xml:"ExceptionType"`
-	FailureCode        string `json:"failureCode" xml:"FailureCode"`
-	FailureDescription string `json:"failureDescription" xml:"FailureDescription"`
-	FailureResource    string `json:"failureResource" xml:"FailureResource"`
+ExceptionType string `json:"exceptionType" xml:"ExceptionType"`
+FailureCode string `json:"failureCode" xml:"FailureCode"`
+FailureDescription string `json:"failureDescription" xml:"FailureDescription"`
+FailureResource string `json:"failureResource" xml:"FailureResource"`
 }
 
 type PutAlarmMuteRuleInput struct {
-	Description string       `json:"description" xml:"Description"`
-	ExpireDate  time.Time    `json:"expireDate" xml:"ExpireDate"`
-	MuteTargets *MuteTargets `json:"muteTargets" xml:"MuteTargets"`
-	Name        string       `json:"name" xml:"Name"`
-	Rule        *Rule        `json:"rule" xml:"Rule"`
-	StartDate   time.Time    `json:"startDate" xml:"StartDate"`
-	Tags        TagList      `json:"tags" xml:"Tags"`
+Description string `json:"description" xml:"Description"`
+ExpireDate time.Time `json:"expireDate" xml:"ExpireDate"`
+MuteTargets *MuteTargets `json:"muteTargets" xml:"MuteTargets"`
+Name string `json:"name" xml:"Name"`
+Rule *Rule `json:"rule" xml:"Rule"`
+StartDate time.Time `json:"startDate" xml:"StartDate"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type PutAnomalyDetectorInput struct {
-	Configuration               *AnomalyDetectorConfiguration `json:"configuration" xml:"Configuration"`
-	Dimensions                  Dimensions                    `json:"dimensions" xml:"Dimensions"`
-	MetricCharacteristics       *MetricCharacteristics        `json:"metricCharacteristics" xml:"MetricCharacteristics"`
-	MetricMathAnomalyDetector   *MetricMathAnomalyDetector    `json:"metricMathAnomalyDetector" xml:"MetricMathAnomalyDetector"`
-	MetricName                  string                        `json:"metricName" xml:"MetricName"`
-	Namespace                   string                        `json:"namespace" xml:"Namespace"`
-	SingleMetricAnomalyDetector *SingleMetricAnomalyDetector  `json:"singleMetricAnomalyDetector" xml:"SingleMetricAnomalyDetector"`
-	Stat                        string                        `json:"stat" xml:"Stat"`
+Configuration *AnomalyDetectorConfiguration `json:"configuration" xml:"Configuration"`
+Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
+MetricCharacteristics *MetricCharacteristics `json:"metricCharacteristics" xml:"MetricCharacteristics"`
+MetricMathAnomalyDetector *MetricMathAnomalyDetector `json:"metricMathAnomalyDetector" xml:"MetricMathAnomalyDetector"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
+SingleMetricAnomalyDetector *SingleMetricAnomalyDetector `json:"singleMetricAnomalyDetector" xml:"SingleMetricAnomalyDetector"`
+Stat string `json:"stat" xml:"Stat"`
 }
 
 type PutAnomalyDetectorOutput struct {
 }
 
 type PutCompositeAlarmInput struct {
-	ActionsEnabled                   bool         `json:"actionsEnabled" xml:"ActionsEnabled"`
-	ActionsSuppressor                string       `json:"actionsSuppressor" xml:"ActionsSuppressor"`
-	ActionsSuppressorExtensionPeriod int32        `json:"actionsSuppressorExtensionPeriod" xml:"ActionsSuppressorExtensionPeriod"`
-	ActionsSuppressorWaitPeriod      int32        `json:"actionsSuppressorWaitPeriod" xml:"ActionsSuppressorWaitPeriod"`
-	AlarmActions                     ResourceList `json:"alarmActions" xml:"AlarmActions"`
-	AlarmDescription                 string       `json:"alarmDescription" xml:"AlarmDescription"`
-	AlarmName                        string       `json:"alarmName" xml:"AlarmName"`
-	AlarmRule                        string       `json:"alarmRule" xml:"AlarmRule"`
-	InsufficientDataActions          ResourceList `json:"insufficientDataActions" xml:"InsufficientDataActions"`
-	OKActions                        ResourceList `json:"oKActions" xml:"OKActions"`
-	Tags                             TagList      `json:"tags" xml:"Tags"`
+ActionsEnabled bool `json:"actionsEnabled" xml:"ActionsEnabled"`
+ActionsSuppressor string `json:"actionsSuppressor" xml:"ActionsSuppressor"`
+ActionsSuppressorExtensionPeriod int32 `json:"actionsSuppressorExtensionPeriod" xml:"ActionsSuppressorExtensionPeriod"`
+ActionsSuppressorWaitPeriod int32 `json:"actionsSuppressorWaitPeriod" xml:"ActionsSuppressorWaitPeriod"`
+AlarmActions ResourceList `json:"alarmActions" xml:"AlarmActions"`
+AlarmDescription string `json:"alarmDescription" xml:"AlarmDescription"`
+AlarmName string `json:"alarmName" xml:"AlarmName"`
+AlarmRule string `json:"alarmRule" xml:"AlarmRule"`
+InsufficientDataActions ResourceList `json:"insufficientDataActions" xml:"InsufficientDataActions"`
+OKActions ResourceList `json:"oKActions" xml:"OKActions"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type PutDashboardInput struct {
-	DashboardBody string `json:"dashboardBody" xml:"DashboardBody"`
-	DashboardName string `json:"dashboardName" xml:"DashboardName"`
+DashboardBody string `json:"dashboardBody" xml:"DashboardBody"`
+DashboardName string `json:"dashboardName" xml:"DashboardName"`
 }
 
 type PutDashboardOutput struct {
-	DashboardValidationMessages DashboardValidationMessages `json:"dashboardValidationMessages" xml:"DashboardValidationMessages"`
+DashboardValidationMessages DashboardValidationMessages `json:"dashboardValidationMessages" xml:"DashboardValidationMessages"`
 }
 
 type PutInsightRuleInput struct {
-	ApplyOnTransformedLogs bool    `json:"applyOnTransformedLogs" xml:"ApplyOnTransformedLogs"`
-	RuleDefinition         string  `json:"ruleDefinition" xml:"RuleDefinition"`
-	RuleName               string  `json:"ruleName" xml:"RuleName"`
-	RuleState              string  `json:"ruleState" xml:"RuleState"`
-	Tags                   TagList `json:"tags" xml:"Tags"`
+ApplyOnTransformedLogs bool `json:"applyOnTransformedLogs" xml:"ApplyOnTransformedLogs"`
+RuleDefinition string `json:"ruleDefinition" xml:"RuleDefinition"`
+RuleName string `json:"ruleName" xml:"RuleName"`
+RuleState string `json:"ruleState" xml:"RuleState"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type PutInsightRuleOutput struct {
 }
 
 type PutManagedInsightRulesInput struct {
-	ManagedRules ManagedRules `json:"managedRules" xml:"ManagedRules"`
+ManagedRules ManagedRules `json:"managedRules" xml:"ManagedRules"`
 }
 
 type PutManagedInsightRulesOutput struct {
-	Failures BatchFailures `json:"failures" xml:"Failures"`
+Failures BatchFailures `json:"failures" xml:"Failures"`
 }
 
 type PutMetricAlarmInput struct {
-	ActionsEnabled                   bool              `json:"actionsEnabled" xml:"ActionsEnabled"`
-	AlarmActions                     ResourceList      `json:"alarmActions" xml:"AlarmActions"`
-	AlarmDescription                 string            `json:"alarmDescription" xml:"AlarmDescription"`
-	AlarmName                        string            `json:"alarmName" xml:"AlarmName"`
-	ComparisonOperator               string            `json:"comparisonOperator" xml:"ComparisonOperator"`
-	DatapointsToAlarm                int32             `json:"datapointsToAlarm" xml:"DatapointsToAlarm"`
-	Dimensions                       Dimensions        `json:"dimensions" xml:"Dimensions"`
-	EvaluateLowSampleCountPercentile string            `json:"evaluateLowSampleCountPercentile" xml:"EvaluateLowSampleCountPercentile"`
-	EvaluationCriteria               interface{}       `json:"evaluationCriteria" xml:"EvaluationCriteria"`
-	EvaluationInterval               int32             `json:"evaluationInterval" xml:"EvaluationInterval"`
-	EvaluationPeriods                int32             `json:"evaluationPeriods" xml:"EvaluationPeriods"`
-	ExtendedStatistic                string            `json:"extendedStatistic" xml:"ExtendedStatistic"`
-	InsufficientDataActions          ResourceList      `json:"insufficientDataActions" xml:"InsufficientDataActions"`
-	MetricName                       string            `json:"metricName" xml:"MetricName"`
-	Metrics                          MetricDataQueries `json:"metrics" xml:"Metrics"`
-	Namespace                        string            `json:"namespace" xml:"Namespace"`
-	OKActions                        ResourceList      `json:"oKActions" xml:"OKActions"`
-	Period                           int32             `json:"period" xml:"Period"`
-	Statistic                        string            `json:"statistic" xml:"Statistic"`
-	Tags                             TagList           `json:"tags" xml:"Tags"`
-	Threshold                        float64           `json:"threshold" xml:"Threshold"`
-	ThresholdMetricId                string            `json:"thresholdMetricId" xml:"ThresholdMetricId"`
-	TreatMissingData                 string            `json:"treatMissingData" xml:"TreatMissingData"`
-	Unit                             string            `json:"unit" xml:"Unit"`
+ActionsEnabled bool `json:"actionsEnabled" xml:"ActionsEnabled"`
+AlarmActions ResourceList `json:"alarmActions" xml:"AlarmActions"`
+AlarmDescription string `json:"alarmDescription" xml:"AlarmDescription"`
+AlarmName string `json:"alarmName" xml:"AlarmName"`
+ComparisonOperator string `json:"comparisonOperator" xml:"ComparisonOperator"`
+DatapointsToAlarm int32 `json:"datapointsToAlarm" xml:"DatapointsToAlarm"`
+Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
+EvaluateLowSampleCountPercentile string `json:"evaluateLowSampleCountPercentile" xml:"EvaluateLowSampleCountPercentile"`
+EvaluationCriteria interface{} `json:"evaluationCriteria" xml:"EvaluationCriteria"`
+EvaluationInterval int32 `json:"evaluationInterval" xml:"EvaluationInterval"`
+EvaluationPeriods int32 `json:"evaluationPeriods" xml:"EvaluationPeriods"`
+ExtendedStatistic string `json:"extendedStatistic" xml:"ExtendedStatistic"`
+InsufficientDataActions ResourceList `json:"insufficientDataActions" xml:"InsufficientDataActions"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Metrics MetricDataQueries `json:"metrics" xml:"Metrics"`
+Namespace string `json:"namespace" xml:"Namespace"`
+OKActions ResourceList `json:"oKActions" xml:"OKActions"`
+Period int32 `json:"period" xml:"Period"`
+Statistic string `json:"statistic" xml:"Statistic"`
+Tags TagList `json:"tags" xml:"Tags"`
+Threshold float64 `json:"threshold" xml:"Threshold"`
+ThresholdMetricId string `json:"thresholdMetricId" xml:"ThresholdMetricId"`
+TreatMissingData string `json:"treatMissingData" xml:"TreatMissingData"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type PutMetricDataInput struct {
-	EntityMetricData       EntityMetricDataList `json:"entityMetricData" xml:"EntityMetricData"`
-	MetricData             MetricData           `json:"metricData" xml:"MetricData"`
-	Namespace              string               `json:"namespace" xml:"Namespace"`
-	StrictEntityValidation bool                 `json:"strictEntityValidation" xml:"StrictEntityValidation"`
+EntityMetricData EntityMetricDataList `json:"entityMetricData" xml:"EntityMetricData"`
+MetricData MetricData `json:"metricData" xml:"MetricData"`
+Namespace string `json:"namespace" xml:"Namespace"`
+StrictEntityValidation bool `json:"strictEntityValidation" xml:"StrictEntityValidation"`
 }
 
 type PutMetricStreamInput struct {
-	ExcludeFilters               MetricStreamFilters                  `json:"excludeFilters" xml:"ExcludeFilters"`
-	FirehoseArn                  string                               `json:"firehoseArn" xml:"FirehoseArn"`
-	IncludeFilters               MetricStreamFilters                  `json:"includeFilters" xml:"IncludeFilters"`
-	IncludeLinkedAccountsMetrics bool                                 `json:"includeLinkedAccountsMetrics" xml:"IncludeLinkedAccountsMetrics"`
-	Name                         string                               `json:"name" xml:"Name"`
-	OutputFormat                 string                               `json:"outputFormat" xml:"OutputFormat"`
-	RoleArn                      string                               `json:"roleArn" xml:"RoleArn"`
-	StatisticsConfigurations     MetricStreamStatisticsConfigurations `json:"statisticsConfigurations" xml:"StatisticsConfigurations"`
-	Tags                         TagList                              `json:"tags" xml:"Tags"`
+ExcludeFilters MetricStreamFilters `json:"excludeFilters" xml:"ExcludeFilters"`
+FirehoseArn string `json:"firehoseArn" xml:"FirehoseArn"`
+IncludeFilters MetricStreamFilters `json:"includeFilters" xml:"IncludeFilters"`
+IncludeLinkedAccountsMetrics bool `json:"includeLinkedAccountsMetrics" xml:"IncludeLinkedAccountsMetrics"`
+Name string `json:"name" xml:"Name"`
+OutputFormat string `json:"outputFormat" xml:"OutputFormat"`
+RoleArn string `json:"roleArn" xml:"RoleArn"`
+StatisticsConfigurations MetricStreamStatisticsConfigurations `json:"statisticsConfigurations" xml:"StatisticsConfigurations"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type PutMetricStreamOutput struct {
-	Arn string `json:"arn" xml:"Arn"`
+Arn string `json:"arn" xml:"Arn"`
 }
 
 type Range struct {
-	EndTime   time.Time `json:"endTime" xml:"EndTime"`
-	StartTime time.Time `json:"startTime" xml:"StartTime"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type Rule struct {
-	Schedule *Schedule `json:"schedule" xml:"Schedule"`
+Schedule *Schedule `json:"schedule" xml:"Schedule"`
 }
 
 type Schedule struct {
-	Duration   string `json:"duration" xml:"Duration"`
-	Expression string `json:"expression" xml:"Expression"`
-	Timezone   string `json:"timezone" xml:"Timezone"`
+Duration string `json:"duration" xml:"Duration"`
+Expression string `json:"expression" xml:"Expression"`
+Timezone string `json:"timezone" xml:"Timezone"`
 }
 
 type SetAlarmStateInput struct {
-	AlarmName       string `json:"alarmName" xml:"AlarmName"`
-	StateReason     string `json:"stateReason" xml:"StateReason"`
-	StateReasonData string `json:"stateReasonData" xml:"StateReasonData"`
-	StateValue      string `json:"stateValue" xml:"StateValue"`
+AlarmName string `json:"alarmName" xml:"AlarmName"`
+StateReason string `json:"stateReason" xml:"StateReason"`
+StateReasonData string `json:"stateReasonData" xml:"StateReasonData"`
+StateValue string `json:"stateValue" xml:"StateValue"`
 }
 
 type SingleMetricAnomalyDetector struct {
-	AccountId  string     `json:"accountId" xml:"AccountId"`
-	Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
-	MetricName string     `json:"metricName" xml:"MetricName"`
-	Namespace  string     `json:"namespace" xml:"Namespace"`
-	Stat       string     `json:"stat" xml:"Stat"`
+AccountId string `json:"accountId" xml:"AccountId"`
+Dimensions Dimensions `json:"dimensions" xml:"Dimensions"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
+Stat string `json:"stat" xml:"Stat"`
 }
 
 type SmithyUnit struct {
 }
 
 type StartMetricStreamsInput struct {
-	Names MetricStreamNames `json:"names" xml:"Names"`
+Names MetricStreamNames `json:"names" xml:"Names"`
 }
 
 type StartMetricStreamsOutput struct {
@@ -792,14 +792,14 @@ type StartOTelEnrichmentOutput struct {
 }
 
 type StatisticSet struct {
-	Maximum     float64 `json:"maximum" xml:"Maximum"`
-	Minimum     float64 `json:"minimum" xml:"Minimum"`
-	SampleCount float64 `json:"sampleCount" xml:"SampleCount"`
-	Sum         float64 `json:"sum" xml:"Sum"`
+Maximum float64 `json:"maximum" xml:"Maximum"`
+Minimum float64 `json:"minimum" xml:"Minimum"`
+SampleCount float64 `json:"sampleCount" xml:"SampleCount"`
+Sum float64 `json:"sum" xml:"Sum"`
 }
 
 type StopMetricStreamsInput struct {
-	Names MetricStreamNames `json:"names" xml:"Names"`
+Names MetricStreamNames `json:"names" xml:"Names"`
 }
 
 type StopMetricStreamsOutput struct {
@@ -812,21 +812,21 @@ type StopOTelEnrichmentOutput struct {
 }
 
 type Tag struct {
-	Key   string `json:"key" xml:"Key"`
-	Value string `json:"value" xml:"Value"`
+Key string `json:"key" xml:"Key"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TagResourceInput struct {
-	ResourceARN string  `json:"resourceARN" xml:"ResourceARN"`
-	Tags        TagList `json:"tags" xml:"Tags"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+Tags TagList `json:"tags" xml:"Tags"`
 }
 
 type TagResourceOutput struct {
 }
 
 type UntagResourceInput struct {
-	ResourceARN string     `json:"resourceARN" xml:"ResourceARN"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceOutput struct {
@@ -945,3 +945,4 @@ type EntityAttributesMap map[string]string
 type EntityKeyAttributesMap map[string]string
 
 type EvaluationCriteria interface{}
+

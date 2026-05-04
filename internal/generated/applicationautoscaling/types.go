@@ -7,388 +7,388 @@ import (
 )
 
 type Alarm struct {
-	AlarmARN  string `json:"alarmARN" xml:"AlarmARN"`
-	AlarmName string `json:"alarmName" xml:"AlarmName"`
+AlarmARN string `json:"alarmARN" xml:"AlarmARN"`
+AlarmName string `json:"alarmName" xml:"AlarmName"`
 }
 
 type CapacityForecast struct {
-	Timestamps PredictiveScalingForecastTimestamps `json:"timestamps" xml:"Timestamps"`
-	Values     PredictiveScalingForecastValues     `json:"values" xml:"Values"`
+Timestamps PredictiveScalingForecastTimestamps `json:"timestamps" xml:"Timestamps"`
+Values PredictiveScalingForecastValues `json:"values" xml:"Values"`
 }
 
 type CustomizedMetricSpecification struct {
-	Dimensions MetricDimensions                `json:"dimensions" xml:"Dimensions"`
-	MetricName string                          `json:"metricName" xml:"MetricName"`
-	Metrics    TargetTrackingMetricDataQueries `json:"metrics" xml:"Metrics"`
-	Namespace  string                          `json:"namespace" xml:"Namespace"`
-	Statistic  string                          `json:"statistic" xml:"Statistic"`
-	Unit       string                          `json:"unit" xml:"Unit"`
+Dimensions MetricDimensions `json:"dimensions" xml:"Dimensions"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Metrics TargetTrackingMetricDataQueries `json:"metrics" xml:"Metrics"`
+Namespace string `json:"namespace" xml:"Namespace"`
+Statistic string `json:"statistic" xml:"Statistic"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type DeleteScalingPolicyRequest struct {
-	PolicyName        string `json:"policyName" xml:"PolicyName"`
-	ResourceId        string `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
-	ServiceNamespace  string `json:"serviceNamespace" xml:"ServiceNamespace"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
 }
 
 type DeleteScalingPolicyResponse struct {
 }
 
 type DeleteScheduledActionRequest struct {
-	ResourceId          string `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension   string `json:"scalableDimension" xml:"ScalableDimension"`
-	ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
-	ServiceNamespace    string `json:"serviceNamespace" xml:"ServiceNamespace"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
 }
 
 type DeleteScheduledActionResponse struct {
 }
 
 type DeregisterScalableTargetRequest struct {
-	ResourceId        string `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
-	ServiceNamespace  string `json:"serviceNamespace" xml:"ServiceNamespace"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
 }
 
 type DeregisterScalableTargetResponse struct {
 }
 
 type DescribeScalableTargetsRequest struct {
-	MaxResults        int32                 `json:"maxResults" xml:"MaxResults"`
-	NextToken         string                `json:"nextToken" xml:"NextToken"`
-	ResourceIds       ResourceIdsMaxLen1600 `json:"resourceIds" xml:"ResourceIds"`
-	ScalableDimension string                `json:"scalableDimension" xml:"ScalableDimension"`
-	ServiceNamespace  string                `json:"serviceNamespace" xml:"ServiceNamespace"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceIds ResourceIdsMaxLen1600 `json:"resourceIds" xml:"ResourceIds"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
 }
 
 type DescribeScalableTargetsResponse struct {
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
-	ScalableTargets ScalableTargets `json:"scalableTargets" xml:"ScalableTargets"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ScalableTargets ScalableTargets `json:"scalableTargets" xml:"ScalableTargets"`
 }
 
 type DescribeScalingActivitiesRequest struct {
-	IncludeNotScaledActivities bool   `json:"includeNotScaledActivities" xml:"IncludeNotScaledActivities"`
-	MaxResults                 int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken                  string `json:"nextToken" xml:"NextToken"`
-	ResourceId                 string `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension          string `json:"scalableDimension" xml:"ScalableDimension"`
-	ServiceNamespace           string `json:"serviceNamespace" xml:"ServiceNamespace"`
+IncludeNotScaledActivities bool `json:"includeNotScaledActivities" xml:"IncludeNotScaledActivities"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
 }
 
 type DescribeScalingActivitiesResponse struct {
-	NextToken         string            `json:"nextToken" xml:"NextToken"`
-	ScalingActivities ScalingActivities `json:"scalingActivities" xml:"ScalingActivities"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ScalingActivities ScalingActivities `json:"scalingActivities" xml:"ScalingActivities"`
 }
 
 type DescribeScalingPoliciesRequest struct {
-	MaxResults        int32                 `json:"maxResults" xml:"MaxResults"`
-	NextToken         string                `json:"nextToken" xml:"NextToken"`
-	PolicyNames       ResourceIdsMaxLen1600 `json:"policyNames" xml:"PolicyNames"`
-	ResourceId        string                `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension string                `json:"scalableDimension" xml:"ScalableDimension"`
-	ServiceNamespace  string                `json:"serviceNamespace" xml:"ServiceNamespace"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+PolicyNames ResourceIdsMaxLen1600 `json:"policyNames" xml:"PolicyNames"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
 }
 
 type DescribeScalingPoliciesResponse struct {
-	NextToken       string          `json:"nextToken" xml:"NextToken"`
-	ScalingPolicies ScalingPolicies `json:"scalingPolicies" xml:"ScalingPolicies"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ScalingPolicies ScalingPolicies `json:"scalingPolicies" xml:"ScalingPolicies"`
 }
 
 type DescribeScheduledActionsRequest struct {
-	MaxResults           int32                 `json:"maxResults" xml:"MaxResults"`
-	NextToken            string                `json:"nextToken" xml:"NextToken"`
-	ResourceId           string                `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension    string                `json:"scalableDimension" xml:"ScalableDimension"`
-	ScheduledActionNames ResourceIdsMaxLen1600 `json:"scheduledActionNames" xml:"ScheduledActionNames"`
-	ServiceNamespace     string                `json:"serviceNamespace" xml:"ServiceNamespace"`
+MaxResults int32 `json:"maxResults" xml:"MaxResults"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ScheduledActionNames ResourceIdsMaxLen1600 `json:"scheduledActionNames" xml:"ScheduledActionNames"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
 }
 
 type DescribeScheduledActionsResponse struct {
-	NextToken        string           `json:"nextToken" xml:"NextToken"`
-	ScheduledActions ScheduledActions `json:"scheduledActions" xml:"ScheduledActions"`
+NextToken string `json:"nextToken" xml:"NextToken"`
+ScheduledActions ScheduledActions `json:"scheduledActions" xml:"ScheduledActions"`
 }
 
 type GetPredictiveScalingForecastRequest struct {
-	EndTime           time.Time `json:"endTime" xml:"EndTime"`
-	PolicyName        string    `json:"policyName" xml:"PolicyName"`
-	ResourceId        string    `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension string    `json:"scalableDimension" xml:"ScalableDimension"`
-	ServiceNamespace  string    `json:"serviceNamespace" xml:"ServiceNamespace"`
-	StartTime         time.Time `json:"startTime" xml:"StartTime"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
 }
 
 type GetPredictiveScalingForecastResponse struct {
-	CapacityForecast *CapacityForecast `json:"capacityForecast" xml:"CapacityForecast"`
-	LoadForecast     LoadForecasts     `json:"loadForecast" xml:"LoadForecast"`
-	UpdateTime       time.Time         `json:"updateTime" xml:"UpdateTime"`
+CapacityForecast *CapacityForecast `json:"capacityForecast" xml:"CapacityForecast"`
+LoadForecast LoadForecasts `json:"loadForecast" xml:"LoadForecast"`
+UpdateTime time.Time `json:"updateTime" xml:"UpdateTime"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags TagMap `json:"tags" xml:"Tags"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type LoadForecast struct {
-	MetricSpecification *PredictiveScalingMetricSpecification `json:"metricSpecification" xml:"MetricSpecification"`
-	Timestamps          PredictiveScalingForecastTimestamps   `json:"timestamps" xml:"Timestamps"`
-	Values              PredictiveScalingForecastValues       `json:"values" xml:"Values"`
+MetricSpecification *PredictiveScalingMetricSpecification `json:"metricSpecification" xml:"MetricSpecification"`
+Timestamps PredictiveScalingForecastTimestamps `json:"timestamps" xml:"Timestamps"`
+Values PredictiveScalingForecastValues `json:"values" xml:"Values"`
 }
 
 type MetricDimension struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type NotScaledReason struct {
-	Code            string `json:"code" xml:"Code"`
-	CurrentCapacity int32  `json:"currentCapacity" xml:"CurrentCapacity"`
-	MaxCapacity     int32  `json:"maxCapacity" xml:"MaxCapacity"`
-	MinCapacity     int32  `json:"minCapacity" xml:"MinCapacity"`
+Code string `json:"code" xml:"Code"`
+CurrentCapacity int32 `json:"currentCapacity" xml:"CurrentCapacity"`
+MaxCapacity int32 `json:"maxCapacity" xml:"MaxCapacity"`
+MinCapacity int32 `json:"minCapacity" xml:"MinCapacity"`
 }
 
 type PredefinedMetricSpecification struct {
-	PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
-	ResourceLabel        string `json:"resourceLabel" xml:"ResourceLabel"`
+PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
+ResourceLabel string `json:"resourceLabel" xml:"ResourceLabel"`
 }
 
 type PredictiveScalingCustomizedMetricSpecification struct {
-	MetricDataQueries PredictiveScalingMetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
+MetricDataQueries PredictiveScalingMetricDataQueries `json:"metricDataQueries" xml:"MetricDataQueries"`
 }
 
 type PredictiveScalingMetric struct {
-	Dimensions PredictiveScalingMetricDimensions `json:"dimensions" xml:"Dimensions"`
-	MetricName string                            `json:"metricName" xml:"MetricName"`
-	Namespace  string                            `json:"namespace" xml:"Namespace"`
+Dimensions PredictiveScalingMetricDimensions `json:"dimensions" xml:"Dimensions"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
 }
 
 type PredictiveScalingMetricDataQuery struct {
-	Expression string                       `json:"expression" xml:"Expression"`
-	Id         string                       `json:"id" xml:"Id"`
-	Label      string                       `json:"label" xml:"Label"`
-	MetricStat *PredictiveScalingMetricStat `json:"metricStat" xml:"MetricStat"`
-	ReturnData bool                         `json:"returnData" xml:"ReturnData"`
+Expression string `json:"expression" xml:"Expression"`
+Id string `json:"id" xml:"Id"`
+Label string `json:"label" xml:"Label"`
+MetricStat *PredictiveScalingMetricStat `json:"metricStat" xml:"MetricStat"`
+ReturnData bool `json:"returnData" xml:"ReturnData"`
 }
 
 type PredictiveScalingMetricDimension struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type PredictiveScalingMetricSpecification struct {
-	CustomizedCapacityMetricSpecification *PredictiveScalingCustomizedMetricSpecification        `json:"customizedCapacityMetricSpecification" xml:"CustomizedCapacityMetricSpecification"`
-	CustomizedLoadMetricSpecification     *PredictiveScalingCustomizedMetricSpecification        `json:"customizedLoadMetricSpecification" xml:"CustomizedLoadMetricSpecification"`
-	CustomizedScalingMetricSpecification  *PredictiveScalingCustomizedMetricSpecification        `json:"customizedScalingMetricSpecification" xml:"CustomizedScalingMetricSpecification"`
-	PredefinedLoadMetricSpecification     *PredictiveScalingPredefinedLoadMetricSpecification    `json:"predefinedLoadMetricSpecification" xml:"PredefinedLoadMetricSpecification"`
-	PredefinedMetricPairSpecification     *PredictiveScalingPredefinedMetricPairSpecification    `json:"predefinedMetricPairSpecification" xml:"PredefinedMetricPairSpecification"`
-	PredefinedScalingMetricSpecification  *PredictiveScalingPredefinedScalingMetricSpecification `json:"predefinedScalingMetricSpecification" xml:"PredefinedScalingMetricSpecification"`
-	TargetValue                           float64                                                `json:"targetValue" xml:"TargetValue"`
+CustomizedCapacityMetricSpecification *PredictiveScalingCustomizedMetricSpecification `json:"customizedCapacityMetricSpecification" xml:"CustomizedCapacityMetricSpecification"`
+CustomizedLoadMetricSpecification *PredictiveScalingCustomizedMetricSpecification `json:"customizedLoadMetricSpecification" xml:"CustomizedLoadMetricSpecification"`
+CustomizedScalingMetricSpecification *PredictiveScalingCustomizedMetricSpecification `json:"customizedScalingMetricSpecification" xml:"CustomizedScalingMetricSpecification"`
+PredefinedLoadMetricSpecification *PredictiveScalingPredefinedLoadMetricSpecification `json:"predefinedLoadMetricSpecification" xml:"PredefinedLoadMetricSpecification"`
+PredefinedMetricPairSpecification *PredictiveScalingPredefinedMetricPairSpecification `json:"predefinedMetricPairSpecification" xml:"PredefinedMetricPairSpecification"`
+PredefinedScalingMetricSpecification *PredictiveScalingPredefinedScalingMetricSpecification `json:"predefinedScalingMetricSpecification" xml:"PredefinedScalingMetricSpecification"`
+TargetValue float64 `json:"targetValue" xml:"TargetValue"`
 }
 
 type PredictiveScalingMetricStat struct {
-	Metric *PredictiveScalingMetric `json:"metric" xml:"Metric"`
-	Stat   string                   `json:"stat" xml:"Stat"`
-	Unit   string                   `json:"unit" xml:"Unit"`
+Metric *PredictiveScalingMetric `json:"metric" xml:"Metric"`
+Stat string `json:"stat" xml:"Stat"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type PredictiveScalingPolicyConfiguration struct {
-	MaxCapacityBreachBehavior string                                `json:"maxCapacityBreachBehavior" xml:"MaxCapacityBreachBehavior"`
-	MaxCapacityBuffer         int32                                 `json:"maxCapacityBuffer" xml:"MaxCapacityBuffer"`
-	MetricSpecifications      PredictiveScalingMetricSpecifications `json:"metricSpecifications" xml:"MetricSpecifications"`
-	Mode                      string                                `json:"mode" xml:"Mode"`
-	SchedulingBufferTime      int32                                 `json:"schedulingBufferTime" xml:"SchedulingBufferTime"`
+MaxCapacityBreachBehavior string `json:"maxCapacityBreachBehavior" xml:"MaxCapacityBreachBehavior"`
+MaxCapacityBuffer int32 `json:"maxCapacityBuffer" xml:"MaxCapacityBuffer"`
+MetricSpecifications PredictiveScalingMetricSpecifications `json:"metricSpecifications" xml:"MetricSpecifications"`
+Mode string `json:"mode" xml:"Mode"`
+SchedulingBufferTime int32 `json:"schedulingBufferTime" xml:"SchedulingBufferTime"`
 }
 
 type PredictiveScalingPredefinedLoadMetricSpecification struct {
-	PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
-	ResourceLabel        string `json:"resourceLabel" xml:"ResourceLabel"`
+PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
+ResourceLabel string `json:"resourceLabel" xml:"ResourceLabel"`
 }
 
 type PredictiveScalingPredefinedMetricPairSpecification struct {
-	PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
-	ResourceLabel        string `json:"resourceLabel" xml:"ResourceLabel"`
+PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
+ResourceLabel string `json:"resourceLabel" xml:"ResourceLabel"`
 }
 
 type PredictiveScalingPredefinedScalingMetricSpecification struct {
-	PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
-	ResourceLabel        string `json:"resourceLabel" xml:"ResourceLabel"`
+PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
+ResourceLabel string `json:"resourceLabel" xml:"ResourceLabel"`
 }
 
 type PutScalingPolicyRequest struct {
-	PolicyName                               string                                    `json:"policyName" xml:"PolicyName"`
-	PolicyType                               string                                    `json:"policyType" xml:"PolicyType"`
-	PredictiveScalingPolicyConfiguration     *PredictiveScalingPolicyConfiguration     `json:"predictiveScalingPolicyConfiguration" xml:"PredictiveScalingPolicyConfiguration"`
-	ResourceId                               string                                    `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension                        string                                    `json:"scalableDimension" xml:"ScalableDimension"`
-	ServiceNamespace                         string                                    `json:"serviceNamespace" xml:"ServiceNamespace"`
-	StepScalingPolicyConfiguration           *StepScalingPolicyConfiguration           `json:"stepScalingPolicyConfiguration" xml:"StepScalingPolicyConfiguration"`
-	TargetTrackingScalingPolicyConfiguration *TargetTrackingScalingPolicyConfiguration `json:"targetTrackingScalingPolicyConfiguration" xml:"TargetTrackingScalingPolicyConfiguration"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+PolicyType string `json:"policyType" xml:"PolicyType"`
+PredictiveScalingPolicyConfiguration *PredictiveScalingPolicyConfiguration `json:"predictiveScalingPolicyConfiguration" xml:"PredictiveScalingPolicyConfiguration"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
+StepScalingPolicyConfiguration *StepScalingPolicyConfiguration `json:"stepScalingPolicyConfiguration" xml:"StepScalingPolicyConfiguration"`
+TargetTrackingScalingPolicyConfiguration *TargetTrackingScalingPolicyConfiguration `json:"targetTrackingScalingPolicyConfiguration" xml:"TargetTrackingScalingPolicyConfiguration"`
 }
 
 type PutScalingPolicyResponse struct {
-	Alarms    Alarms `json:"alarms" xml:"Alarms"`
-	PolicyARN string `json:"policyARN" xml:"PolicyARN"`
+Alarms Alarms `json:"alarms" xml:"Alarms"`
+PolicyARN string `json:"policyARN" xml:"PolicyARN"`
 }
 
 type PutScheduledActionRequest struct {
-	EndTime              time.Time             `json:"endTime" xml:"EndTime"`
-	ResourceId           string                `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension    string                `json:"scalableDimension" xml:"ScalableDimension"`
-	ScalableTargetAction *ScalableTargetAction `json:"scalableTargetAction" xml:"ScalableTargetAction"`
-	Schedule             string                `json:"schedule" xml:"Schedule"`
-	ScheduledActionName  string                `json:"scheduledActionName" xml:"ScheduledActionName"`
-	ServiceNamespace     string                `json:"serviceNamespace" xml:"ServiceNamespace"`
-	StartTime            time.Time             `json:"startTime" xml:"StartTime"`
-	Timezone             string                `json:"timezone" xml:"Timezone"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ScalableTargetAction *ScalableTargetAction `json:"scalableTargetAction" xml:"ScalableTargetAction"`
+Schedule string `json:"schedule" xml:"Schedule"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Timezone string `json:"timezone" xml:"Timezone"`
 }
 
 type PutScheduledActionResponse struct {
 }
 
 type RegisterScalableTargetRequest struct {
-	MaxCapacity       int32           `json:"maxCapacity" xml:"MaxCapacity"`
-	MinCapacity       int32           `json:"minCapacity" xml:"MinCapacity"`
-	ResourceId        string          `json:"resourceId" xml:"ResourceId"`
-	RoleARN           string          `json:"roleARN" xml:"RoleARN"`
-	ScalableDimension string          `json:"scalableDimension" xml:"ScalableDimension"`
-	ServiceNamespace  string          `json:"serviceNamespace" xml:"ServiceNamespace"`
-	SuspendedState    *SuspendedState `json:"suspendedState" xml:"SuspendedState"`
-	Tags              TagMap          `json:"tags" xml:"Tags"`
+MaxCapacity int32 `json:"maxCapacity" xml:"MaxCapacity"`
+MinCapacity int32 `json:"minCapacity" xml:"MinCapacity"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
+SuspendedState *SuspendedState `json:"suspendedState" xml:"SuspendedState"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type RegisterScalableTargetResponse struct {
-	ScalableTargetARN string `json:"scalableTargetARN" xml:"ScalableTargetARN"`
+ScalableTargetARN string `json:"scalableTargetARN" xml:"ScalableTargetARN"`
 }
 
 type ScalableTarget struct {
-	CreationTime      time.Time       `json:"creationTime" xml:"CreationTime"`
-	MaxCapacity       int32           `json:"maxCapacity" xml:"MaxCapacity"`
-	MinCapacity       int32           `json:"minCapacity" xml:"MinCapacity"`
-	PredictedCapacity int32           `json:"predictedCapacity" xml:"PredictedCapacity"`
-	ResourceId        string          `json:"resourceId" xml:"ResourceId"`
-	RoleARN           string          `json:"roleARN" xml:"RoleARN"`
-	ScalableDimension string          `json:"scalableDimension" xml:"ScalableDimension"`
-	ScalableTargetARN string          `json:"scalableTargetARN" xml:"ScalableTargetARN"`
-	ServiceNamespace  string          `json:"serviceNamespace" xml:"ServiceNamespace"`
-	SuspendedState    *SuspendedState `json:"suspendedState" xml:"SuspendedState"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+MaxCapacity int32 `json:"maxCapacity" xml:"MaxCapacity"`
+MinCapacity int32 `json:"minCapacity" xml:"MinCapacity"`
+PredictedCapacity int32 `json:"predictedCapacity" xml:"PredictedCapacity"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+RoleARN string `json:"roleARN" xml:"RoleARN"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ScalableTargetARN string `json:"scalableTargetARN" xml:"ScalableTargetARN"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
+SuspendedState *SuspendedState `json:"suspendedState" xml:"SuspendedState"`
 }
 
 type ScalableTargetAction struct {
-	MaxCapacity int32 `json:"maxCapacity" xml:"MaxCapacity"`
-	MinCapacity int32 `json:"minCapacity" xml:"MinCapacity"`
+MaxCapacity int32 `json:"maxCapacity" xml:"MaxCapacity"`
+MinCapacity int32 `json:"minCapacity" xml:"MinCapacity"`
 }
 
 type ScalingActivity struct {
-	ActivityId        string           `json:"activityId" xml:"ActivityId"`
-	Cause             string           `json:"cause" xml:"Cause"`
-	Description       string           `json:"description" xml:"Description"`
-	Details           string           `json:"details" xml:"Details"`
-	EndTime           time.Time        `json:"endTime" xml:"EndTime"`
-	NotScaledReasons  NotScaledReasons `json:"notScaledReasons" xml:"NotScaledReasons"`
-	ResourceId        string           `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension string           `json:"scalableDimension" xml:"ScalableDimension"`
-	ServiceNamespace  string           `json:"serviceNamespace" xml:"ServiceNamespace"`
-	StartTime         time.Time        `json:"startTime" xml:"StartTime"`
-	StatusCode        string           `json:"statusCode" xml:"StatusCode"`
-	StatusMessage     string           `json:"statusMessage" xml:"StatusMessage"`
+ActivityId string `json:"activityId" xml:"ActivityId"`
+Cause string `json:"cause" xml:"Cause"`
+Description string `json:"description" xml:"Description"`
+Details string `json:"details" xml:"Details"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+NotScaledReasons NotScaledReasons `json:"notScaledReasons" xml:"NotScaledReasons"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+StatusCode string `json:"statusCode" xml:"StatusCode"`
+StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type ScalingPolicy struct {
-	Alarms                                   Alarms                                    `json:"alarms" xml:"Alarms"`
-	CreationTime                             time.Time                                 `json:"creationTime" xml:"CreationTime"`
-	PolicyARN                                string                                    `json:"policyARN" xml:"PolicyARN"`
-	PolicyName                               string                                    `json:"policyName" xml:"PolicyName"`
-	PolicyType                               string                                    `json:"policyType" xml:"PolicyType"`
-	PredictiveScalingPolicyConfiguration     *PredictiveScalingPolicyConfiguration     `json:"predictiveScalingPolicyConfiguration" xml:"PredictiveScalingPolicyConfiguration"`
-	ResourceId                               string                                    `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension                        string                                    `json:"scalableDimension" xml:"ScalableDimension"`
-	ServiceNamespace                         string                                    `json:"serviceNamespace" xml:"ServiceNamespace"`
-	StepScalingPolicyConfiguration           *StepScalingPolicyConfiguration           `json:"stepScalingPolicyConfiguration" xml:"StepScalingPolicyConfiguration"`
-	TargetTrackingScalingPolicyConfiguration *TargetTrackingScalingPolicyConfiguration `json:"targetTrackingScalingPolicyConfiguration" xml:"TargetTrackingScalingPolicyConfiguration"`
+Alarms Alarms `json:"alarms" xml:"Alarms"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+PolicyARN string `json:"policyARN" xml:"PolicyARN"`
+PolicyName string `json:"policyName" xml:"PolicyName"`
+PolicyType string `json:"policyType" xml:"PolicyType"`
+PredictiveScalingPolicyConfiguration *PredictiveScalingPolicyConfiguration `json:"predictiveScalingPolicyConfiguration" xml:"PredictiveScalingPolicyConfiguration"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
+StepScalingPolicyConfiguration *StepScalingPolicyConfiguration `json:"stepScalingPolicyConfiguration" xml:"StepScalingPolicyConfiguration"`
+TargetTrackingScalingPolicyConfiguration *TargetTrackingScalingPolicyConfiguration `json:"targetTrackingScalingPolicyConfiguration" xml:"TargetTrackingScalingPolicyConfiguration"`
 }
 
 type ScheduledAction struct {
-	CreationTime         time.Time             `json:"creationTime" xml:"CreationTime"`
-	EndTime              time.Time             `json:"endTime" xml:"EndTime"`
-	ResourceId           string                `json:"resourceId" xml:"ResourceId"`
-	ScalableDimension    string                `json:"scalableDimension" xml:"ScalableDimension"`
-	ScalableTargetAction *ScalableTargetAction `json:"scalableTargetAction" xml:"ScalableTargetAction"`
-	Schedule             string                `json:"schedule" xml:"Schedule"`
-	ScheduledActionARN   string                `json:"scheduledActionARN" xml:"ScheduledActionARN"`
-	ScheduledActionName  string                `json:"scheduledActionName" xml:"ScheduledActionName"`
-	ServiceNamespace     string                `json:"serviceNamespace" xml:"ServiceNamespace"`
-	StartTime            time.Time             `json:"startTime" xml:"StartTime"`
-	Timezone             string                `json:"timezone" xml:"Timezone"`
+CreationTime time.Time `json:"creationTime" xml:"CreationTime"`
+EndTime time.Time `json:"endTime" xml:"EndTime"`
+ResourceId string `json:"resourceId" xml:"ResourceId"`
+ScalableDimension string `json:"scalableDimension" xml:"ScalableDimension"`
+ScalableTargetAction *ScalableTargetAction `json:"scalableTargetAction" xml:"ScalableTargetAction"`
+Schedule string `json:"schedule" xml:"Schedule"`
+ScheduledActionARN string `json:"scheduledActionARN" xml:"ScheduledActionARN"`
+ScheduledActionName string `json:"scheduledActionName" xml:"ScheduledActionName"`
+ServiceNamespace string `json:"serviceNamespace" xml:"ServiceNamespace"`
+StartTime time.Time `json:"startTime" xml:"StartTime"`
+Timezone string `json:"timezone" xml:"Timezone"`
 }
 
 type StepAdjustment struct {
-	MetricIntervalLowerBound float64 `json:"metricIntervalLowerBound" xml:"MetricIntervalLowerBound"`
-	MetricIntervalUpperBound float64 `json:"metricIntervalUpperBound" xml:"MetricIntervalUpperBound"`
-	ScalingAdjustment        int32   `json:"scalingAdjustment" xml:"ScalingAdjustment"`
+MetricIntervalLowerBound float64 `json:"metricIntervalLowerBound" xml:"MetricIntervalLowerBound"`
+MetricIntervalUpperBound float64 `json:"metricIntervalUpperBound" xml:"MetricIntervalUpperBound"`
+ScalingAdjustment int32 `json:"scalingAdjustment" xml:"ScalingAdjustment"`
 }
 
 type StepScalingPolicyConfiguration struct {
-	AdjustmentType         string          `json:"adjustmentType" xml:"AdjustmentType"`
-	Cooldown               int32           `json:"cooldown" xml:"Cooldown"`
-	MetricAggregationType  string          `json:"metricAggregationType" xml:"MetricAggregationType"`
-	MinAdjustmentMagnitude int32           `json:"minAdjustmentMagnitude" xml:"MinAdjustmentMagnitude"`
-	StepAdjustments        StepAdjustments `json:"stepAdjustments" xml:"StepAdjustments"`
+AdjustmentType string `json:"adjustmentType" xml:"AdjustmentType"`
+Cooldown int32 `json:"cooldown" xml:"Cooldown"`
+MetricAggregationType string `json:"metricAggregationType" xml:"MetricAggregationType"`
+MinAdjustmentMagnitude int32 `json:"minAdjustmentMagnitude" xml:"MinAdjustmentMagnitude"`
+StepAdjustments StepAdjustments `json:"stepAdjustments" xml:"StepAdjustments"`
 }
 
 type SuspendedState struct {
-	DynamicScalingInSuspended  bool `json:"dynamicScalingInSuspended" xml:"DynamicScalingInSuspended"`
-	DynamicScalingOutSuspended bool `json:"dynamicScalingOutSuspended" xml:"DynamicScalingOutSuspended"`
-	ScheduledScalingSuspended  bool `json:"scheduledScalingSuspended" xml:"ScheduledScalingSuspended"`
+DynamicScalingInSuspended bool `json:"dynamicScalingInSuspended" xml:"DynamicScalingInSuspended"`
+DynamicScalingOutSuspended bool `json:"dynamicScalingOutSuspended" xml:"DynamicScalingOutSuspended"`
+ScheduledScalingSuspended bool `json:"scheduledScalingSuspended" xml:"ScheduledScalingSuspended"`
 }
 
 type TagResourceRequest struct {
-	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
-	Tags        TagMap `json:"tags" xml:"Tags"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+Tags TagMap `json:"tags" xml:"Tags"`
 }
 
 type TagResourceResponse struct {
 }
 
 type TargetTrackingMetric struct {
-	Dimensions TargetTrackingMetricDimensions `json:"dimensions" xml:"Dimensions"`
-	MetricName string                         `json:"metricName" xml:"MetricName"`
-	Namespace  string                         `json:"namespace" xml:"Namespace"`
+Dimensions TargetTrackingMetricDimensions `json:"dimensions" xml:"Dimensions"`
+MetricName string `json:"metricName" xml:"MetricName"`
+Namespace string `json:"namespace" xml:"Namespace"`
 }
 
 type TargetTrackingMetricDataQuery struct {
-	Expression string                    `json:"expression" xml:"Expression"`
-	Id         string                    `json:"id" xml:"Id"`
-	Label      string                    `json:"label" xml:"Label"`
-	MetricStat *TargetTrackingMetricStat `json:"metricStat" xml:"MetricStat"`
-	ReturnData bool                      `json:"returnData" xml:"ReturnData"`
+Expression string `json:"expression" xml:"Expression"`
+Id string `json:"id" xml:"Id"`
+Label string `json:"label" xml:"Label"`
+MetricStat *TargetTrackingMetricStat `json:"metricStat" xml:"MetricStat"`
+ReturnData bool `json:"returnData" xml:"ReturnData"`
 }
 
 type TargetTrackingMetricDimension struct {
-	Name  string `json:"name" xml:"Name"`
-	Value string `json:"value" xml:"Value"`
+Name string `json:"name" xml:"Name"`
+Value string `json:"value" xml:"Value"`
 }
 
 type TargetTrackingMetricStat struct {
-	Metric *TargetTrackingMetric `json:"metric" xml:"Metric"`
-	Stat   string                `json:"stat" xml:"Stat"`
-	Unit   string                `json:"unit" xml:"Unit"`
+Metric *TargetTrackingMetric `json:"metric" xml:"Metric"`
+Stat string `json:"stat" xml:"Stat"`
+Unit string `json:"unit" xml:"Unit"`
 }
 
 type TargetTrackingScalingPolicyConfiguration struct {
-	CustomizedMetricSpecification *CustomizedMetricSpecification `json:"customizedMetricSpecification" xml:"CustomizedMetricSpecification"`
-	DisableScaleIn                bool                           `json:"disableScaleIn" xml:"DisableScaleIn"`
-	PredefinedMetricSpecification *PredefinedMetricSpecification `json:"predefinedMetricSpecification" xml:"PredefinedMetricSpecification"`
-	ScaleInCooldown               int32                          `json:"scaleInCooldown" xml:"ScaleInCooldown"`
-	ScaleOutCooldown              int32                          `json:"scaleOutCooldown" xml:"ScaleOutCooldown"`
-	TargetValue                   float64                        `json:"targetValue" xml:"TargetValue"`
+CustomizedMetricSpecification *CustomizedMetricSpecification `json:"customizedMetricSpecification" xml:"CustomizedMetricSpecification"`
+DisableScaleIn bool `json:"disableScaleIn" xml:"DisableScaleIn"`
+PredefinedMetricSpecification *PredefinedMetricSpecification `json:"predefinedMetricSpecification" xml:"PredefinedMetricSpecification"`
+ScaleInCooldown int32 `json:"scaleInCooldown" xml:"ScaleInCooldown"`
+ScaleOutCooldown int32 `json:"scaleOutCooldown" xml:"ScaleOutCooldown"`
+TargetValue float64 `json:"targetValue" xml:"TargetValue"`
 }
 
 type UntagResourceRequest struct {
-	ResourceARN string     `json:"resourceARN" xml:"ResourceARN"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
+TagKeys TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type UntagResourceResponse struct {
@@ -431,3 +431,4 @@ type TargetTrackingMetricDataQueries []*TargetTrackingMetricDataQuery
 type TargetTrackingMetricDimensions []*TargetTrackingMetricDimension
 
 type TagMap map[string]string
+

@@ -2,1906 +2,1907 @@
 // SPDX-License-Identifier: Apache-2.0
 package cloudwatchlogs
 
+
 type AccountPolicy struct {
-	AccountId         string `json:"accountId" xml:"accountId"`
-	LastUpdatedTime   int64  `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	PolicyDocument    string `json:"policyDocument" xml:"policyDocument"`
-	PolicyName        string `json:"policyName" xml:"policyName"`
-	PolicyType        string `json:"policyType" xml:"policyType"`
-	Scope             string `json:"scope" xml:"scope"`
-	SelectionCriteria string `json:"selectionCriteria" xml:"selectionCriteria"`
+AccountId string `json:"accountId" xml:"accountId"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
+PolicyName string `json:"policyName" xml:"policyName"`
+PolicyType string `json:"policyType" xml:"policyType"`
+Scope string `json:"scope" xml:"scope"`
+SelectionCriteria string `json:"selectionCriteria" xml:"selectionCriteria"`
 }
 
 type AddKeyEntry struct {
-	Key               string `json:"key" xml:"key"`
-	OverwriteIfExists bool   `json:"overwriteIfExists" xml:"overwriteIfExists"`
-	Value             string `json:"value" xml:"value"`
+Key string `json:"key" xml:"key"`
+OverwriteIfExists bool `json:"overwriteIfExists" xml:"overwriteIfExists"`
+Value string `json:"value" xml:"value"`
 }
 
 type AddKeys struct {
-	Entries AddKeyEntries `json:"entries" xml:"entries"`
+Entries AddKeyEntries `json:"entries" xml:"entries"`
 }
 
 type AggregateLogGroupSummary struct {
-	GroupingIdentifiers GroupingIdentifiers `json:"groupingIdentifiers" xml:"groupingIdentifiers"`
-	LogGroupCount       int32               `json:"logGroupCount" xml:"logGroupCount"`
+GroupingIdentifiers GroupingIdentifiers `json:"groupingIdentifiers" xml:"groupingIdentifiers"`
+LogGroupCount int32 `json:"logGroupCount" xml:"logGroupCount"`
 }
 
 type Anomaly struct {
-	Active                    bool            `json:"active" xml:"active"`
-	AnomalyDetectorArn        string          `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
-	AnomalyId                 string          `json:"anomalyId" xml:"anomalyId"`
-	Description               string          `json:"description" xml:"description"`
-	FirstSeen                 int64           `json:"firstSeen" xml:"firstSeen"`
-	Histogram                 Histogram       `json:"histogram" xml:"histogram"`
-	IsPatternLevelSuppression bool            `json:"isPatternLevelSuppression" xml:"isPatternLevelSuppression"`
-	LastSeen                  int64           `json:"lastSeen" xml:"lastSeen"`
-	LogGroupArnList           LogGroupArnList `json:"logGroupArnList" xml:"logGroupArnList"`
-	LogSamples                LogSamples      `json:"logSamples" xml:"logSamples"`
-	PatternId                 string          `json:"patternId" xml:"patternId"`
-	PatternRegex              string          `json:"patternRegex" xml:"patternRegex"`
-	PatternString             string          `json:"patternString" xml:"patternString"`
-	PatternTokens             PatternTokens   `json:"patternTokens" xml:"patternTokens"`
-	Priority                  string          `json:"priority" xml:"priority"`
-	State                     string          `json:"state" xml:"state"`
-	Suppressed                bool            `json:"suppressed" xml:"suppressed"`
-	SuppressedDate            int64           `json:"suppressedDate" xml:"suppressedDate"`
-	SuppressedUntil           int64           `json:"suppressedUntil" xml:"suppressedUntil"`
+Active bool `json:"active" xml:"active"`
+AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
+AnomalyId string `json:"anomalyId" xml:"anomalyId"`
+Description string `json:"description" xml:"description"`
+FirstSeen int64 `json:"firstSeen" xml:"firstSeen"`
+Histogram Histogram `json:"histogram" xml:"histogram"`
+IsPatternLevelSuppression bool `json:"isPatternLevelSuppression" xml:"isPatternLevelSuppression"`
+LastSeen int64 `json:"lastSeen" xml:"lastSeen"`
+LogGroupArnList LogGroupArnList `json:"logGroupArnList" xml:"logGroupArnList"`
+LogSamples LogSamples `json:"logSamples" xml:"logSamples"`
+PatternId string `json:"patternId" xml:"patternId"`
+PatternRegex string `json:"patternRegex" xml:"patternRegex"`
+PatternString string `json:"patternString" xml:"patternString"`
+PatternTokens PatternTokens `json:"patternTokens" xml:"patternTokens"`
+Priority string `json:"priority" xml:"priority"`
+State string `json:"state" xml:"state"`
+Suppressed bool `json:"suppressed" xml:"suppressed"`
+SuppressedDate int64 `json:"suppressedDate" xml:"suppressedDate"`
+SuppressedUntil int64 `json:"suppressedUntil" xml:"suppressedUntil"`
 }
 
 type AnomalyDetector struct {
-	AnomalyDetectorArn    string          `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
-	AnomalyDetectorStatus string          `json:"anomalyDetectorStatus" xml:"anomalyDetectorStatus"`
-	AnomalyVisibilityTime int64           `json:"anomalyVisibilityTime" xml:"anomalyVisibilityTime"`
-	CreationTimeStamp     int64           `json:"creationTimeStamp" xml:"creationTimeStamp"`
-	DetectorName          string          `json:"detectorName" xml:"detectorName"`
-	EvaluationFrequency   string          `json:"evaluationFrequency" xml:"evaluationFrequency"`
-	FilterPattern         string          `json:"filterPattern" xml:"filterPattern"`
-	KmsKeyId              string          `json:"kmsKeyId" xml:"kmsKeyId"`
-	LastModifiedTimeStamp int64           `json:"lastModifiedTimeStamp" xml:"lastModifiedTimeStamp"`
-	LogGroupArnList       LogGroupArnList `json:"logGroupArnList" xml:"logGroupArnList"`
+AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
+AnomalyDetectorStatus string `json:"anomalyDetectorStatus" xml:"anomalyDetectorStatus"`
+AnomalyVisibilityTime int64 `json:"anomalyVisibilityTime" xml:"anomalyVisibilityTime"`
+CreationTimeStamp int64 `json:"creationTimeStamp" xml:"creationTimeStamp"`
+DetectorName string `json:"detectorName" xml:"detectorName"`
+EvaluationFrequency string `json:"evaluationFrequency" xml:"evaluationFrequency"`
+FilterPattern string `json:"filterPattern" xml:"filterPattern"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LastModifiedTimeStamp int64 `json:"lastModifiedTimeStamp" xml:"lastModifiedTimeStamp"`
+LogGroupArnList LogGroupArnList `json:"logGroupArnList" xml:"logGroupArnList"`
 }
 
 type AssociateKmsKeyRequest struct {
-	KmsKeyId           string `json:"kmsKeyId" xml:"kmsKeyId"`
-	LogGroupName       string `json:"logGroupName" xml:"logGroupName"`
-	ResourceIdentifier string `json:"resourceIdentifier" xml:"resourceIdentifier"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+ResourceIdentifier string `json:"resourceIdentifier" xml:"resourceIdentifier"`
 }
 
 type AssociateSourceToS3TableIntegrationRequest struct {
-	DataSource     *DataSource `json:"dataSource" xml:"dataSource"`
-	IntegrationArn string      `json:"integrationArn" xml:"integrationArn"`
+DataSource *DataSource `json:"dataSource" xml:"dataSource"`
+IntegrationArn string `json:"integrationArn" xml:"integrationArn"`
 }
 
 type AssociateSourceToS3TableIntegrationResponse struct {
-	Identifier string `json:"identifier" xml:"identifier"`
+Identifier string `json:"identifier" xml:"identifier"`
 }
 
 type CSV struct {
-	Columns        Columns `json:"columns" xml:"columns"`
-	Delimiter      string  `json:"delimiter" xml:"delimiter"`
-	Destination    string  `json:"destination" xml:"destination"`
-	QuoteCharacter string  `json:"quoteCharacter" xml:"quoteCharacter"`
-	Source         string  `json:"source" xml:"source"`
+Columns Columns `json:"columns" xml:"columns"`
+Delimiter string `json:"delimiter" xml:"delimiter"`
+Destination string `json:"destination" xml:"destination"`
+QuoteCharacter string `json:"quoteCharacter" xml:"quoteCharacter"`
+Source string `json:"source" xml:"source"`
 }
 
 type CancelExportTaskRequest struct {
-	TaskId string `json:"taskId" xml:"taskId"`
+TaskId string `json:"taskId" xml:"taskId"`
 }
 
 type CancelImportTaskRequest struct {
-	ImportId string `json:"importId" xml:"importId"`
+ImportId string `json:"importId" xml:"importId"`
 }
 
 type CancelImportTaskResponse struct {
-	CreationTime     int64             `json:"creationTime" xml:"creationTime"`
-	ImportId         string            `json:"importId" xml:"importId"`
-	ImportStatistics *ImportStatistics `json:"importStatistics" xml:"importStatistics"`
-	ImportStatus     string            `json:"importStatus" xml:"importStatus"`
-	LastUpdatedTime  int64             `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+ImportId string `json:"importId" xml:"importId"`
+ImportStatistics *ImportStatistics `json:"importStatistics" xml:"importStatistics"`
+ImportStatus string `json:"importStatus" xml:"importStatus"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
 }
 
 type ConfigurationTemplate struct {
-	AllowedActionForAllowVendedLogsDeliveryForResource string                                     `json:"allowedActionForAllowVendedLogsDeliveryForResource" xml:"allowedActionForAllowVendedLogsDeliveryForResource"`
-	AllowedFieldDelimiters                             AllowedFieldDelimiters                     `json:"allowedFieldDelimiters" xml:"allowedFieldDelimiters"`
-	AllowedFields                                      AllowedFields                              `json:"allowedFields" xml:"allowedFields"`
-	AllowedOutputFormats                               OutputFormats                              `json:"allowedOutputFormats" xml:"allowedOutputFormats"`
-	AllowedSuffixPathFields                            RecordFields                               `json:"allowedSuffixPathFields" xml:"allowedSuffixPathFields"`
-	DefaultDeliveryConfigValues                        *ConfigurationTemplateDeliveryConfigValues `json:"defaultDeliveryConfigValues" xml:"defaultDeliveryConfigValues"`
-	DeliveryDestinationType                            string                                     `json:"deliveryDestinationType" xml:"deliveryDestinationType"`
-	LogType                                            string                                     `json:"logType" xml:"logType"`
-	ResourceType                                       string                                     `json:"resourceType" xml:"resourceType"`
-	Service                                            string                                     `json:"service" xml:"service"`
+AllowedActionForAllowVendedLogsDeliveryForResource string `json:"allowedActionForAllowVendedLogsDeliveryForResource" xml:"allowedActionForAllowVendedLogsDeliveryForResource"`
+AllowedFieldDelimiters AllowedFieldDelimiters `json:"allowedFieldDelimiters" xml:"allowedFieldDelimiters"`
+AllowedFields AllowedFields `json:"allowedFields" xml:"allowedFields"`
+AllowedOutputFormats OutputFormats `json:"allowedOutputFormats" xml:"allowedOutputFormats"`
+AllowedSuffixPathFields RecordFields `json:"allowedSuffixPathFields" xml:"allowedSuffixPathFields"`
+DefaultDeliveryConfigValues *ConfigurationTemplateDeliveryConfigValues `json:"defaultDeliveryConfigValues" xml:"defaultDeliveryConfigValues"`
+DeliveryDestinationType string `json:"deliveryDestinationType" xml:"deliveryDestinationType"`
+LogType string `json:"logType" xml:"logType"`
+ResourceType string `json:"resourceType" xml:"resourceType"`
+Service string `json:"service" xml:"service"`
 }
 
 type ConfigurationTemplateDeliveryConfigValues struct {
-	FieldDelimiter          string                   `json:"fieldDelimiter" xml:"fieldDelimiter"`
-	RecordFields            RecordFields             `json:"recordFields" xml:"recordFields"`
-	S3DeliveryConfiguration *S3DeliveryConfiguration `json:"s3DeliveryConfiguration" xml:"s3DeliveryConfiguration"`
+FieldDelimiter string `json:"fieldDelimiter" xml:"fieldDelimiter"`
+RecordFields RecordFields `json:"recordFields" xml:"recordFields"`
+S3DeliveryConfiguration *S3DeliveryConfiguration `json:"s3DeliveryConfiguration" xml:"s3DeliveryConfiguration"`
 }
 
 type CopyValue struct {
-	Entries CopyValueEntries `json:"entries" xml:"entries"`
+Entries CopyValueEntries `json:"entries" xml:"entries"`
 }
 
 type CopyValueEntry struct {
-	OverwriteIfExists bool   `json:"overwriteIfExists" xml:"overwriteIfExists"`
-	Source            string `json:"source" xml:"source"`
-	Target            string `json:"target" xml:"target"`
+OverwriteIfExists bool `json:"overwriteIfExists" xml:"overwriteIfExists"`
+Source string `json:"source" xml:"source"`
+Target string `json:"target" xml:"target"`
 }
 
 type CreateDeliveryRequest struct {
-	DeliveryDestinationArn  string                   `json:"deliveryDestinationArn" xml:"deliveryDestinationArn"`
-	DeliverySourceName      string                   `json:"deliverySourceName" xml:"deliverySourceName"`
-	FieldDelimiter          string                   `json:"fieldDelimiter" xml:"fieldDelimiter"`
-	RecordFields            RecordFields             `json:"recordFields" xml:"recordFields"`
-	S3DeliveryConfiguration *S3DeliveryConfiguration `json:"s3DeliveryConfiguration" xml:"s3DeliveryConfiguration"`
-	Tags                    Tags                     `json:"tags" xml:"tags"`
+DeliveryDestinationArn string `json:"deliveryDestinationArn" xml:"deliveryDestinationArn"`
+DeliverySourceName string `json:"deliverySourceName" xml:"deliverySourceName"`
+FieldDelimiter string `json:"fieldDelimiter" xml:"fieldDelimiter"`
+RecordFields RecordFields `json:"recordFields" xml:"recordFields"`
+S3DeliveryConfiguration *S3DeliveryConfiguration `json:"s3DeliveryConfiguration" xml:"s3DeliveryConfiguration"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type CreateDeliveryResponse struct {
-	Delivery *Delivery `json:"delivery" xml:"delivery"`
+Delivery *Delivery `json:"delivery" xml:"delivery"`
 }
 
 type CreateExportTaskRequest struct {
-	Destination         string `json:"destination" xml:"destination"`
-	DestinationPrefix   string `json:"destinationPrefix" xml:"destinationPrefix"`
-	From                int64  `json:"from" xml:"from"`
-	LogGroupName        string `json:"logGroupName" xml:"logGroupName"`
-	LogStreamNamePrefix string `json:"logStreamNamePrefix" xml:"logStreamNamePrefix"`
-	TaskName            string `json:"taskName" xml:"taskName"`
-	To                  int64  `json:"to" xml:"to"`
+Destination string `json:"destination" xml:"destination"`
+DestinationPrefix string `json:"destinationPrefix" xml:"destinationPrefix"`
+From int64 `json:"from" xml:"from"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+LogStreamNamePrefix string `json:"logStreamNamePrefix" xml:"logStreamNamePrefix"`
+TaskName string `json:"taskName" xml:"taskName"`
+To int64 `json:"to" xml:"to"`
 }
 
 type CreateExportTaskResponse struct {
-	TaskId string `json:"taskId" xml:"taskId"`
+TaskId string `json:"taskId" xml:"taskId"`
 }
 
 type CreateImportTaskRequest struct {
-	ImportFilter    *ImportFilter `json:"importFilter" xml:"importFilter"`
-	ImportRoleArn   string        `json:"importRoleArn" xml:"importRoleArn"`
-	ImportSourceArn string        `json:"importSourceArn" xml:"importSourceArn"`
+ImportFilter *ImportFilter `json:"importFilter" xml:"importFilter"`
+ImportRoleArn string `json:"importRoleArn" xml:"importRoleArn"`
+ImportSourceArn string `json:"importSourceArn" xml:"importSourceArn"`
 }
 
 type CreateImportTaskResponse struct {
-	CreationTime         int64  `json:"creationTime" xml:"creationTime"`
-	ImportDestinationArn string `json:"importDestinationArn" xml:"importDestinationArn"`
-	ImportId             string `json:"importId" xml:"importId"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+ImportDestinationArn string `json:"importDestinationArn" xml:"importDestinationArn"`
+ImportId string `json:"importId" xml:"importId"`
 }
 
 type CreateLogAnomalyDetectorRequest struct {
-	AnomalyVisibilityTime int64           `json:"anomalyVisibilityTime" xml:"anomalyVisibilityTime"`
-	DetectorName          string          `json:"detectorName" xml:"detectorName"`
-	EvaluationFrequency   string          `json:"evaluationFrequency" xml:"evaluationFrequency"`
-	FilterPattern         string          `json:"filterPattern" xml:"filterPattern"`
-	KmsKeyId              string          `json:"kmsKeyId" xml:"kmsKeyId"`
-	LogGroupArnList       LogGroupArnList `json:"logGroupArnList" xml:"logGroupArnList"`
-	Tags                  Tags            `json:"tags" xml:"tags"`
+AnomalyVisibilityTime int64 `json:"anomalyVisibilityTime" xml:"anomalyVisibilityTime"`
+DetectorName string `json:"detectorName" xml:"detectorName"`
+EvaluationFrequency string `json:"evaluationFrequency" xml:"evaluationFrequency"`
+FilterPattern string `json:"filterPattern" xml:"filterPattern"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LogGroupArnList LogGroupArnList `json:"logGroupArnList" xml:"logGroupArnList"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type CreateLogAnomalyDetectorResponse struct {
-	AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
+AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
 }
 
 type CreateLogGroupRequest struct {
-	DeletionProtectionEnabled bool   `json:"deletionProtectionEnabled" xml:"deletionProtectionEnabled"`
-	KmsKeyId                  string `json:"kmsKeyId" xml:"kmsKeyId"`
-	LogGroupClass             string `json:"logGroupClass" xml:"logGroupClass"`
-	LogGroupName              string `json:"logGroupName" xml:"logGroupName"`
-	Tags                      Tags   `json:"tags" xml:"tags"`
+DeletionProtectionEnabled bool `json:"deletionProtectionEnabled" xml:"deletionProtectionEnabled"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LogGroupClass string `json:"logGroupClass" xml:"logGroupClass"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type CreateLogStreamRequest struct {
-	LogGroupName  string `json:"logGroupName" xml:"logGroupName"`
-	LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
 }
 
 type CreateLookupTableRequest struct {
-	Description     string `json:"description" xml:"description"`
-	KmsKeyId        string `json:"kmsKeyId" xml:"kmsKeyId"`
-	LookupTableName string `json:"lookupTableName" xml:"lookupTableName"`
-	TableBody       string `json:"tableBody" xml:"tableBody"`
-	Tags            Tags   `json:"tags" xml:"tags"`
+Description string `json:"description" xml:"description"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LookupTableName string `json:"lookupTableName" xml:"lookupTableName"`
+TableBody string `json:"tableBody" xml:"tableBody"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type CreateLookupTableResponse struct {
-	CreatedAt      int64  `json:"createdAt" xml:"createdAt"`
-	LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
+CreatedAt int64 `json:"createdAt" xml:"createdAt"`
+LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
 }
 
 type CreateScheduledQueryRequest struct {
-	Description              string                            `json:"description" xml:"description"`
-	DestinationConfiguration *DestinationConfiguration         `json:"destinationConfiguration" xml:"destinationConfiguration"`
-	ExecutionRoleArn         string                            `json:"executionRoleArn" xml:"executionRoleArn"`
-	LogGroupIdentifiers      ScheduledQueryLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
-	Name                     string                            `json:"name" xml:"name"`
-	QueryLanguage            string                            `json:"queryLanguage" xml:"queryLanguage"`
-	QueryString              string                            `json:"queryString" xml:"queryString"`
-	ScheduleEndTime          int64                             `json:"scheduleEndTime" xml:"scheduleEndTime"`
-	ScheduleExpression       string                            `json:"scheduleExpression" xml:"scheduleExpression"`
-	ScheduleStartTime        int64                             `json:"scheduleStartTime" xml:"scheduleStartTime"`
-	StartTimeOffset          int64                             `json:"startTimeOffset" xml:"startTimeOffset"`
-	State                    string                            `json:"state" xml:"state"`
-	Tags                     Tags                              `json:"tags" xml:"tags"`
-	Timezone                 string                            `json:"timezone" xml:"timezone"`
+Description string `json:"description" xml:"description"`
+DestinationConfiguration *DestinationConfiguration `json:"destinationConfiguration" xml:"destinationConfiguration"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+LogGroupIdentifiers ScheduledQueryLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
+Name string `json:"name" xml:"name"`
+QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
+QueryString string `json:"queryString" xml:"queryString"`
+ScheduleEndTime int64 `json:"scheduleEndTime" xml:"scheduleEndTime"`
+ScheduleExpression string `json:"scheduleExpression" xml:"scheduleExpression"`
+ScheduleStartTime int64 `json:"scheduleStartTime" xml:"scheduleStartTime"`
+StartTimeOffset int64 `json:"startTimeOffset" xml:"startTimeOffset"`
+State string `json:"state" xml:"state"`
+Tags Tags `json:"tags" xml:"tags"`
+Timezone string `json:"timezone" xml:"timezone"`
 }
 
 type CreateScheduledQueryResponse struct {
-	ScheduledQueryArn string `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
-	State             string `json:"state" xml:"state"`
+ScheduledQueryArn string `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
+State string `json:"state" xml:"state"`
 }
 
 type DataSource struct {
-	Name string `json:"name" xml:"name"`
-	Type string `json:"type" xml:"type"`
+Name string `json:"name" xml:"name"`
+Type string `json:"type" xml:"type"`
 }
 
 type DataSourceFilter struct {
-	Name string `json:"name" xml:"name"`
-	Type string `json:"type" xml:"type"`
+Name string `json:"name" xml:"name"`
+Type string `json:"type" xml:"type"`
 }
 
 type DateTimeConverter struct {
-	Locale         string        `json:"locale" xml:"locale"`
-	MatchPatterns  MatchPatterns `json:"matchPatterns" xml:"matchPatterns"`
-	Source         string        `json:"source" xml:"source"`
-	SourceTimezone string        `json:"sourceTimezone" xml:"sourceTimezone"`
-	Target         string        `json:"target" xml:"target"`
-	TargetFormat   string        `json:"targetFormat" xml:"targetFormat"`
-	TargetTimezone string        `json:"targetTimezone" xml:"targetTimezone"`
+Locale string `json:"locale" xml:"locale"`
+MatchPatterns MatchPatterns `json:"matchPatterns" xml:"matchPatterns"`
+Source string `json:"source" xml:"source"`
+SourceTimezone string `json:"sourceTimezone" xml:"sourceTimezone"`
+Target string `json:"target" xml:"target"`
+TargetFormat string `json:"targetFormat" xml:"targetFormat"`
+TargetTimezone string `json:"targetTimezone" xml:"targetTimezone"`
 }
 
 type DeleteAccountPolicyRequest struct {
-	PolicyName string `json:"policyName" xml:"policyName"`
-	PolicyType string `json:"policyType" xml:"policyType"`
+PolicyName string `json:"policyName" xml:"policyName"`
+PolicyType string `json:"policyType" xml:"policyType"`
 }
 
 type DeleteDataProtectionPolicyRequest struct {
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
 }
 
 type DeleteDeliveryDestinationPolicyRequest struct {
-	DeliveryDestinationName string `json:"deliveryDestinationName" xml:"deliveryDestinationName"`
+DeliveryDestinationName string `json:"deliveryDestinationName" xml:"deliveryDestinationName"`
 }
 
 type DeleteDeliveryDestinationRequest struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type DeleteDeliveryRequest struct {
-	Id string `json:"id" xml:"id"`
+Id string `json:"id" xml:"id"`
 }
 
 type DeleteDeliverySourceRequest struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type DeleteDestinationRequest struct {
-	DestinationName string `json:"destinationName" xml:"destinationName"`
+DestinationName string `json:"destinationName" xml:"destinationName"`
 }
 
 type DeleteIndexPolicyRequest struct {
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
 }
 
 type DeleteIndexPolicyResponse struct {
 }
 
 type DeleteIntegrationRequest struct {
-	Force           bool   `json:"force" xml:"force"`
-	IntegrationName string `json:"integrationName" xml:"integrationName"`
+Force bool `json:"force" xml:"force"`
+IntegrationName string `json:"integrationName" xml:"integrationName"`
 }
 
 type DeleteIntegrationResponse struct {
 }
 
 type DeleteKeys struct {
-	WithKeys DeleteWithKeys `json:"withKeys" xml:"withKeys"`
+WithKeys DeleteWithKeys `json:"withKeys" xml:"withKeys"`
 }
 
 type DeleteLogAnomalyDetectorRequest struct {
-	AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
+AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
 }
 
 type DeleteLogGroupRequest struct {
-	LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
 }
 
 type DeleteLogStreamRequest struct {
-	LogGroupName  string `json:"logGroupName" xml:"logGroupName"`
-	LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
 }
 
 type DeleteLookupTableRequest struct {
-	LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
+LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
 }
 
 type DeleteMetricFilterRequest struct {
-	FilterName   string `json:"filterName" xml:"filterName"`
-	LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+FilterName string `json:"filterName" xml:"filterName"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
 }
 
 type DeleteQueryDefinitionRequest struct {
-	QueryDefinitionId string `json:"queryDefinitionId" xml:"queryDefinitionId"`
+QueryDefinitionId string `json:"queryDefinitionId" xml:"queryDefinitionId"`
 }
 
 type DeleteQueryDefinitionResponse struct {
-	Success bool `json:"success" xml:"success"`
+Success bool `json:"success" xml:"success"`
 }
 
 type DeleteResourcePolicyRequest struct {
-	ExpectedRevisionId string `json:"expectedRevisionId" xml:"expectedRevisionId"`
-	PolicyName         string `json:"policyName" xml:"policyName"`
-	ResourceArn        string `json:"resourceArn" xml:"resourceArn"`
+ExpectedRevisionId string `json:"expectedRevisionId" xml:"expectedRevisionId"`
+PolicyName string `json:"policyName" xml:"policyName"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type DeleteRetentionPolicyRequest struct {
-	LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
 }
 
 type DeleteScheduledQueryRequest struct {
-	Identifier string `json:"identifier" xml:"identifier"`
+Identifier string `json:"identifier" xml:"identifier"`
 }
 
 type DeleteScheduledQueryResponse struct {
 }
 
 type DeleteSubscriptionFilterRequest struct {
-	FilterName   string `json:"filterName" xml:"filterName"`
-	LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+FilterName string `json:"filterName" xml:"filterName"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
 }
 
 type DeleteTransformerRequest struct {
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
 }
 
 type Delivery struct {
-	Arn                     string                   `json:"arn" xml:"arn"`
-	DeliveryDestinationArn  string                   `json:"deliveryDestinationArn" xml:"deliveryDestinationArn"`
-	DeliveryDestinationType string                   `json:"deliveryDestinationType" xml:"deliveryDestinationType"`
-	DeliverySourceName      string                   `json:"deliverySourceName" xml:"deliverySourceName"`
-	FieldDelimiter          string                   `json:"fieldDelimiter" xml:"fieldDelimiter"`
-	Id                      string                   `json:"id" xml:"id"`
-	RecordFields            RecordFields             `json:"recordFields" xml:"recordFields"`
-	S3DeliveryConfiguration *S3DeliveryConfiguration `json:"s3DeliveryConfiguration" xml:"s3DeliveryConfiguration"`
-	Tags                    Tags                     `json:"tags" xml:"tags"`
+Arn string `json:"arn" xml:"arn"`
+DeliveryDestinationArn string `json:"deliveryDestinationArn" xml:"deliveryDestinationArn"`
+DeliveryDestinationType string `json:"deliveryDestinationType" xml:"deliveryDestinationType"`
+DeliverySourceName string `json:"deliverySourceName" xml:"deliverySourceName"`
+FieldDelimiter string `json:"fieldDelimiter" xml:"fieldDelimiter"`
+Id string `json:"id" xml:"id"`
+RecordFields RecordFields `json:"recordFields" xml:"recordFields"`
+S3DeliveryConfiguration *S3DeliveryConfiguration `json:"s3DeliveryConfiguration" xml:"s3DeliveryConfiguration"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type DeliveryDestination struct {
-	Arn                              string                            `json:"arn" xml:"arn"`
-	DeliveryDestinationConfiguration *DeliveryDestinationConfiguration `json:"deliveryDestinationConfiguration" xml:"deliveryDestinationConfiguration"`
-	DeliveryDestinationType          string                            `json:"deliveryDestinationType" xml:"deliveryDestinationType"`
-	Name                             string                            `json:"name" xml:"name"`
-	OutputFormat                     string                            `json:"outputFormat" xml:"outputFormat"`
-	Tags                             Tags                              `json:"tags" xml:"tags"`
+Arn string `json:"arn" xml:"arn"`
+DeliveryDestinationConfiguration *DeliveryDestinationConfiguration `json:"deliveryDestinationConfiguration" xml:"deliveryDestinationConfiguration"`
+DeliveryDestinationType string `json:"deliveryDestinationType" xml:"deliveryDestinationType"`
+Name string `json:"name" xml:"name"`
+OutputFormat string `json:"outputFormat" xml:"outputFormat"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type DeliveryDestinationConfiguration struct {
-	DestinationResourceArn string `json:"destinationResourceArn" xml:"destinationResourceArn"`
+DestinationResourceArn string `json:"destinationResourceArn" xml:"destinationResourceArn"`
 }
 
 type DeliverySource struct {
-	Arn          string       `json:"arn" xml:"arn"`
-	LogType      string       `json:"logType" xml:"logType"`
-	Name         string       `json:"name" xml:"name"`
-	ResourceArns ResourceArns `json:"resourceArns" xml:"resourceArns"`
-	Service      string       `json:"service" xml:"service"`
-	Tags         Tags         `json:"tags" xml:"tags"`
+Arn string `json:"arn" xml:"arn"`
+LogType string `json:"logType" xml:"logType"`
+Name string `json:"name" xml:"name"`
+ResourceArns ResourceArns `json:"resourceArns" xml:"resourceArns"`
+Service string `json:"service" xml:"service"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type DescribeAccountPoliciesRequest struct {
-	AccountIdentifiers AccountIds `json:"accountIdentifiers" xml:"accountIdentifiers"`
-	NextToken          string     `json:"nextToken" xml:"nextToken"`
-	PolicyName         string     `json:"policyName" xml:"policyName"`
-	PolicyType         string     `json:"policyType" xml:"policyType"`
+AccountIdentifiers AccountIds `json:"accountIdentifiers" xml:"accountIdentifiers"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PolicyName string `json:"policyName" xml:"policyName"`
+PolicyType string `json:"policyType" xml:"policyType"`
 }
 
 type DescribeAccountPoliciesResponse struct {
-	AccountPolicies AccountPolicies `json:"accountPolicies" xml:"accountPolicies"`
-	NextToken       string          `json:"nextToken" xml:"nextToken"`
+AccountPolicies AccountPolicies `json:"accountPolicies" xml:"accountPolicies"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeConfigurationTemplatesRequest struct {
-	DeliveryDestinationTypes DeliveryDestinationTypes `json:"deliveryDestinationTypes" xml:"deliveryDestinationTypes"`
-	Limit                    int32                    `json:"limit" xml:"limit"`
-	LogTypes                 LogTypes                 `json:"logTypes" xml:"logTypes"`
-	NextToken                string                   `json:"nextToken" xml:"nextToken"`
-	ResourceTypes            ResourceTypes            `json:"resourceTypes" xml:"resourceTypes"`
-	Service                  string                   `json:"service" xml:"service"`
+DeliveryDestinationTypes DeliveryDestinationTypes `json:"deliveryDestinationTypes" xml:"deliveryDestinationTypes"`
+Limit int32 `json:"limit" xml:"limit"`
+LogTypes LogTypes `json:"logTypes" xml:"logTypes"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourceTypes ResourceTypes `json:"resourceTypes" xml:"resourceTypes"`
+Service string `json:"service" xml:"service"`
 }
 
 type DescribeConfigurationTemplatesResponse struct {
-	ConfigurationTemplates ConfigurationTemplates `json:"configurationTemplates" xml:"configurationTemplates"`
-	NextToken              string                 `json:"nextToken" xml:"nextToken"`
+ConfigurationTemplates ConfigurationTemplates `json:"configurationTemplates" xml:"configurationTemplates"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeDeliveriesRequest struct {
-	Limit     int32  `json:"limit" xml:"limit"`
-	NextToken string `json:"nextToken" xml:"nextToken"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeDeliveriesResponse struct {
-	Deliveries Deliveries `json:"deliveries" xml:"deliveries"`
-	NextToken  string     `json:"nextToken" xml:"nextToken"`
+Deliveries Deliveries `json:"deliveries" xml:"deliveries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeDeliveryDestinationsRequest struct {
-	Limit     int32  `json:"limit" xml:"limit"`
-	NextToken string `json:"nextToken" xml:"nextToken"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeDeliveryDestinationsResponse struct {
-	DeliveryDestinations DeliveryDestinations `json:"deliveryDestinations" xml:"deliveryDestinations"`
-	NextToken            string               `json:"nextToken" xml:"nextToken"`
+DeliveryDestinations DeliveryDestinations `json:"deliveryDestinations" xml:"deliveryDestinations"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeDeliverySourcesRequest struct {
-	Limit     int32  `json:"limit" xml:"limit"`
-	NextToken string `json:"nextToken" xml:"nextToken"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeDeliverySourcesResponse struct {
-	DeliverySources DeliverySources `json:"deliverySources" xml:"deliverySources"`
-	NextToken       string          `json:"nextToken" xml:"nextToken"`
+DeliverySources DeliverySources `json:"deliverySources" xml:"deliverySources"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeDestinationsRequest struct {
-	DestinationNamePrefix string `json:"destinationNamePrefix" xml:"DestinationNamePrefix"`
-	Limit                 int32  `json:"limit" xml:"limit"`
-	NextToken             string `json:"nextToken" xml:"nextToken"`
+DestinationNamePrefix string `json:"destinationNamePrefix" xml:"DestinationNamePrefix"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeDestinationsResponse struct {
-	Destinations Destinations `json:"destinations" xml:"destinations"`
-	NextToken    string       `json:"nextToken" xml:"nextToken"`
+Destinations Destinations `json:"destinations" xml:"destinations"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeExportTasksRequest struct {
-	Limit      int32  `json:"limit" xml:"limit"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	StatusCode string `json:"statusCode" xml:"statusCode"`
-	TaskId     string `json:"taskId" xml:"taskId"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+StatusCode string `json:"statusCode" xml:"statusCode"`
+TaskId string `json:"taskId" xml:"taskId"`
 }
 
 type DescribeExportTasksResponse struct {
-	ExportTasks ExportTasks `json:"exportTasks" xml:"exportTasks"`
-	NextToken   string      `json:"nextToken" xml:"nextToken"`
+ExportTasks ExportTasks `json:"exportTasks" xml:"exportTasks"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeFieldIndexesRequest struct {
-	LogGroupIdentifiers DescribeFieldIndexesLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
-	NextToken           string                                  `json:"nextToken" xml:"nextToken"`
+LogGroupIdentifiers DescribeFieldIndexesLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeFieldIndexesResponse struct {
-	FieldIndexes FieldIndexes `json:"fieldIndexes" xml:"fieldIndexes"`
-	NextToken    string       `json:"nextToken" xml:"nextToken"`
+FieldIndexes FieldIndexes `json:"fieldIndexes" xml:"fieldIndexes"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeImportTaskBatchesRequest struct {
-	BatchImportStatus ImportStatusList `json:"batchImportStatus" xml:"batchImportStatus"`
-	ImportId          string           `json:"importId" xml:"importId"`
-	Limit             int32            `json:"limit" xml:"limit"`
-	NextToken         string           `json:"nextToken" xml:"nextToken"`
+BatchImportStatus ImportStatusList `json:"batchImportStatus" xml:"batchImportStatus"`
+ImportId string `json:"importId" xml:"importId"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeImportTaskBatchesResponse struct {
-	ImportBatches   ImportBatchList `json:"importBatches" xml:"importBatches"`
-	ImportId        string          `json:"importId" xml:"importId"`
-	ImportSourceArn string          `json:"importSourceArn" xml:"importSourceArn"`
-	NextToken       string          `json:"nextToken" xml:"nextToken"`
+ImportBatches ImportBatchList `json:"importBatches" xml:"importBatches"`
+ImportId string `json:"importId" xml:"importId"`
+ImportSourceArn string `json:"importSourceArn" xml:"importSourceArn"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeImportTasksRequest struct {
-	ImportId        string `json:"importId" xml:"importId"`
-	ImportSourceArn string `json:"importSourceArn" xml:"importSourceArn"`
-	ImportStatus    string `json:"importStatus" xml:"importStatus"`
-	Limit           int32  `json:"limit" xml:"limit"`
-	NextToken       string `json:"nextToken" xml:"nextToken"`
+ImportId string `json:"importId" xml:"importId"`
+ImportSourceArn string `json:"importSourceArn" xml:"importSourceArn"`
+ImportStatus string `json:"importStatus" xml:"importStatus"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeImportTasksResponse struct {
-	Imports   ImportList `json:"imports" xml:"imports"`
-	NextToken string     `json:"nextToken" xml:"nextToken"`
+Imports ImportList `json:"imports" xml:"imports"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeIndexPoliciesRequest struct {
-	LogGroupIdentifiers DescribeIndexPoliciesLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
-	NextToken           string                                   `json:"nextToken" xml:"nextToken"`
+LogGroupIdentifiers DescribeIndexPoliciesLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeIndexPoliciesResponse struct {
-	IndexPolicies IndexPolicies `json:"indexPolicies" xml:"indexPolicies"`
-	NextToken     string        `json:"nextToken" xml:"nextToken"`
+IndexPolicies IndexPolicies `json:"indexPolicies" xml:"indexPolicies"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeLogGroupsRequest struct {
-	AccountIdentifiers    AccountIds                           `json:"accountIdentifiers" xml:"accountIdentifiers"`
-	IncludeLinkedAccounts bool                                 `json:"includeLinkedAccounts" xml:"includeLinkedAccounts"`
-	Limit                 int32                                `json:"limit" xml:"limit"`
-	LogGroupClass         string                               `json:"logGroupClass" xml:"logGroupClass"`
-	LogGroupIdentifiers   DescribeLogGroupsLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
-	LogGroupNamePattern   string                               `json:"logGroupNamePattern" xml:"logGroupNamePattern"`
-	LogGroupNamePrefix    string                               `json:"logGroupNamePrefix" xml:"logGroupNamePrefix"`
-	NextToken             string                               `json:"nextToken" xml:"nextToken"`
+AccountIdentifiers AccountIds `json:"accountIdentifiers" xml:"accountIdentifiers"`
+IncludeLinkedAccounts bool `json:"includeLinkedAccounts" xml:"includeLinkedAccounts"`
+Limit int32 `json:"limit" xml:"limit"`
+LogGroupClass string `json:"logGroupClass" xml:"logGroupClass"`
+LogGroupIdentifiers DescribeLogGroupsLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
+LogGroupNamePattern string `json:"logGroupNamePattern" xml:"logGroupNamePattern"`
+LogGroupNamePrefix string `json:"logGroupNamePrefix" xml:"logGroupNamePrefix"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeLogGroupsResponse struct {
-	LogGroups LogGroups `json:"logGroups" xml:"logGroups"`
-	NextToken string    `json:"nextToken" xml:"nextToken"`
+LogGroups LogGroups `json:"logGroups" xml:"logGroups"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeLogStreamsRequest struct {
-	Descending          bool   `json:"descending" xml:"descending"`
-	Limit               int32  `json:"limit" xml:"limit"`
-	LogGroupIdentifier  string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	LogGroupName        string `json:"logGroupName" xml:"logGroupName"`
-	LogStreamNamePrefix string `json:"logStreamNamePrefix" xml:"logStreamNamePrefix"`
-	NextToken           string `json:"nextToken" xml:"nextToken"`
-	OrderBy             string `json:"orderBy" xml:"orderBy"`
+Descending bool `json:"descending" xml:"descending"`
+Limit int32 `json:"limit" xml:"limit"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+LogStreamNamePrefix string `json:"logStreamNamePrefix" xml:"logStreamNamePrefix"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+OrderBy string `json:"orderBy" xml:"orderBy"`
 }
 
 type DescribeLogStreamsResponse struct {
-	LogStreams LogStreams `json:"logStreams" xml:"logStreams"`
-	NextToken  string     `json:"nextToken" xml:"nextToken"`
+LogStreams LogStreams `json:"logStreams" xml:"logStreams"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeLookupTablesRequest struct {
-	LookupTableNamePrefix string `json:"lookupTableNamePrefix" xml:"lookupTableNamePrefix"`
-	MaxResults            int32  `json:"maxResults" xml:"maxResults"`
-	NextToken             string `json:"nextToken" xml:"nextToken"`
+LookupTableNamePrefix string `json:"lookupTableNamePrefix" xml:"lookupTableNamePrefix"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeLookupTablesResponse struct {
-	LookupTables LookupTables `json:"lookupTables" xml:"lookupTables"`
-	NextToken    string       `json:"nextToken" xml:"nextToken"`
+LookupTables LookupTables `json:"lookupTables" xml:"lookupTables"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeMetricFiltersRequest struct {
-	FilterNamePrefix string `json:"filterNamePrefix" xml:"filterNamePrefix"`
-	Limit            int32  `json:"limit" xml:"limit"`
-	LogGroupName     string `json:"logGroupName" xml:"logGroupName"`
-	MetricName       string `json:"metricName" xml:"metricName"`
-	MetricNamespace  string `json:"metricNamespace" xml:"metricNamespace"`
-	NextToken        string `json:"nextToken" xml:"nextToken"`
+FilterNamePrefix string `json:"filterNamePrefix" xml:"filterNamePrefix"`
+Limit int32 `json:"limit" xml:"limit"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+MetricName string `json:"metricName" xml:"metricName"`
+MetricNamespace string `json:"metricNamespace" xml:"metricNamespace"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeMetricFiltersResponse struct {
-	MetricFilters MetricFilters `json:"metricFilters" xml:"metricFilters"`
-	NextToken     string        `json:"nextToken" xml:"nextToken"`
+MetricFilters MetricFilters `json:"metricFilters" xml:"metricFilters"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeQueriesRequest struct {
-	LogGroupName  string `json:"logGroupName" xml:"logGroupName"`
-	MaxResults    int32  `json:"maxResults" xml:"maxResults"`
-	NextToken     string `json:"nextToken" xml:"nextToken"`
-	QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
-	Status        string `json:"status" xml:"status"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
+Status string `json:"status" xml:"status"`
 }
 
 type DescribeQueriesResponse struct {
-	NextToken string        `json:"nextToken" xml:"nextToken"`
-	Queries   QueryInfoList `json:"queries" xml:"queries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Queries QueryInfoList `json:"queries" xml:"queries"`
 }
 
 type DescribeQueryDefinitionsRequest struct {
-	MaxResults                int32  `json:"maxResults" xml:"maxResults"`
-	NextToken                 string `json:"nextToken" xml:"nextToken"`
-	QueryDefinitionNamePrefix string `json:"queryDefinitionNamePrefix" xml:"queryDefinitionNamePrefix"`
-	QueryLanguage             string `json:"queryLanguage" xml:"queryLanguage"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+QueryDefinitionNamePrefix string `json:"queryDefinitionNamePrefix" xml:"queryDefinitionNamePrefix"`
+QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
 }
 
 type DescribeQueryDefinitionsResponse struct {
-	NextToken        string              `json:"nextToken" xml:"nextToken"`
-	QueryDefinitions QueryDefinitionList `json:"queryDefinitions" xml:"queryDefinitions"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+QueryDefinitions QueryDefinitionList `json:"queryDefinitions" xml:"queryDefinitions"`
 }
 
 type DescribeResourcePoliciesRequest struct {
-	Limit       int32  `json:"limit" xml:"limit"`
-	NextToken   string `json:"nextToken" xml:"nextToken"`
-	PolicyScope string `json:"policyScope" xml:"policyScope"`
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+PolicyScope string `json:"policyScope" xml:"policyScope"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type DescribeResourcePoliciesResponse struct {
-	NextToken        string           `json:"nextToken" xml:"nextToken"`
-	ResourcePolicies ResourcePolicies `json:"resourcePolicies" xml:"resourcePolicies"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ResourcePolicies ResourcePolicies `json:"resourcePolicies" xml:"resourcePolicies"`
 }
 
 type DescribeSubscriptionFiltersRequest struct {
-	FilterNamePrefix string `json:"filterNamePrefix" xml:"filterNamePrefix"`
-	Limit            int32  `json:"limit" xml:"limit"`
-	LogGroupName     string `json:"logGroupName" xml:"logGroupName"`
-	NextToken        string `json:"nextToken" xml:"nextToken"`
+FilterNamePrefix string `json:"filterNamePrefix" xml:"filterNamePrefix"`
+Limit int32 `json:"limit" xml:"limit"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type DescribeSubscriptionFiltersResponse struct {
-	NextToken           string              `json:"nextToken" xml:"nextToken"`
-	SubscriptionFilters SubscriptionFilters `json:"subscriptionFilters" xml:"subscriptionFilters"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SubscriptionFilters SubscriptionFilters `json:"subscriptionFilters" xml:"subscriptionFilters"`
 }
 
 type Destination struct {
-	AccessPolicy    string `json:"accessPolicy" xml:"accessPolicy"`
-	Arn             string `json:"arn" xml:"arn"`
-	CreationTime    int64  `json:"creationTime" xml:"creationTime"`
-	DestinationName string `json:"destinationName" xml:"destinationName"`
-	RoleArn         string `json:"roleArn" xml:"roleArn"`
-	TargetArn       string `json:"targetArn" xml:"targetArn"`
+AccessPolicy string `json:"accessPolicy" xml:"accessPolicy"`
+Arn string `json:"arn" xml:"arn"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+DestinationName string `json:"destinationName" xml:"destinationName"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+TargetArn string `json:"targetArn" xml:"targetArn"`
 }
 
 type DestinationConfiguration struct {
-	S3Configuration *S3Configuration `json:"s3Configuration" xml:"s3Configuration"`
+S3Configuration *S3Configuration `json:"s3Configuration" xml:"s3Configuration"`
 }
 
 type DisassociateKmsKeyRequest struct {
-	LogGroupName       string `json:"logGroupName" xml:"logGroupName"`
-	ResourceIdentifier string `json:"resourceIdentifier" xml:"resourceIdentifier"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+ResourceIdentifier string `json:"resourceIdentifier" xml:"resourceIdentifier"`
 }
 
 type DisassociateSourceFromS3TableIntegrationRequest struct {
-	Identifier string `json:"identifier" xml:"identifier"`
+Identifier string `json:"identifier" xml:"identifier"`
 }
 
 type DisassociateSourceFromS3TableIntegrationResponse struct {
-	Identifier string `json:"identifier" xml:"identifier"`
+Identifier string `json:"identifier" xml:"identifier"`
 }
 
 type Entity struct {
-	Attributes    EntityAttributes    `json:"attributes" xml:"attributes"`
-	KeyAttributes EntityKeyAttributes `json:"keyAttributes" xml:"keyAttributes"`
+Attributes EntityAttributes `json:"attributes" xml:"attributes"`
+KeyAttributes EntityKeyAttributes `json:"keyAttributes" xml:"keyAttributes"`
 }
 
 type ExportTask struct {
-	Destination       string                   `json:"destination" xml:"destination"`
-	DestinationPrefix string                   `json:"destinationPrefix" xml:"destinationPrefix"`
-	ExecutionInfo     *ExportTaskExecutionInfo `json:"executionInfo" xml:"executionInfo"`
-	From              int64                    `json:"from" xml:"from"`
-	LogGroupName      string                   `json:"logGroupName" xml:"logGroupName"`
-	Status            *ExportTaskStatus        `json:"status" xml:"status"`
-	TaskId            string                   `json:"taskId" xml:"taskId"`
-	TaskName          string                   `json:"taskName" xml:"taskName"`
-	To                int64                    `json:"to" xml:"to"`
+Destination string `json:"destination" xml:"destination"`
+DestinationPrefix string `json:"destinationPrefix" xml:"destinationPrefix"`
+ExecutionInfo *ExportTaskExecutionInfo `json:"executionInfo" xml:"executionInfo"`
+From int64 `json:"from" xml:"from"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+Status *ExportTaskStatus `json:"status" xml:"status"`
+TaskId string `json:"taskId" xml:"taskId"`
+TaskName string `json:"taskName" xml:"taskName"`
+To int64 `json:"to" xml:"to"`
 }
 
 type ExportTaskExecutionInfo struct {
-	CompletionTime int64 `json:"completionTime" xml:"completionTime"`
-	CreationTime   int64 `json:"creationTime" xml:"creationTime"`
+CompletionTime int64 `json:"completionTime" xml:"completionTime"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
 }
 
 type ExportTaskStatus struct {
-	Code    string `json:"code" xml:"code"`
-	Message string `json:"message" xml:"message"`
+Code string `json:"code" xml:"code"`
+Message string `json:"message" xml:"message"`
 }
 
 type FieldIndex struct {
-	FieldIndexName     string `json:"fieldIndexName" xml:"fieldIndexName"`
-	FirstEventTime     int64  `json:"firstEventTime" xml:"firstEventTime"`
-	LastEventTime      int64  `json:"lastEventTime" xml:"lastEventTime"`
-	LastScanTime       int64  `json:"lastScanTime" xml:"lastScanTime"`
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	Type               string `json:"type" xml:"type"`
+FieldIndexName string `json:"fieldIndexName" xml:"fieldIndexName"`
+FirstEventTime int64 `json:"firstEventTime" xml:"firstEventTime"`
+LastEventTime int64 `json:"lastEventTime" xml:"lastEventTime"`
+LastScanTime int64 `json:"lastScanTime" xml:"lastScanTime"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+Type string `json:"type" xml:"type"`
 }
 
 type FieldsData struct {
-	Data []byte `json:"data" xml:"data"`
+Data []byte `json:"data" xml:"data"`
 }
 
 type FilterLogEventsRequest struct {
-	EndTime             int64               `json:"endTime" xml:"endTime"`
-	FilterPattern       string              `json:"filterPattern" xml:"filterPattern"`
-	Interleaved         bool                `json:"interleaved" xml:"interleaved"`
-	Limit               int32               `json:"limit" xml:"limit"`
-	LogGroupIdentifier  string              `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	LogGroupName        string              `json:"logGroupName" xml:"logGroupName"`
-	LogStreamNamePrefix string              `json:"logStreamNamePrefix" xml:"logStreamNamePrefix"`
-	LogStreamNames      InputLogStreamNames `json:"logStreamNames" xml:"logStreamNames"`
-	NextToken           string              `json:"nextToken" xml:"nextToken"`
-	StartTime           int64               `json:"startTime" xml:"startTime"`
-	Unmask              bool                `json:"unmask" xml:"unmask"`
+EndTime int64 `json:"endTime" xml:"endTime"`
+FilterPattern string `json:"filterPattern" xml:"filterPattern"`
+Interleaved bool `json:"interleaved" xml:"interleaved"`
+Limit int32 `json:"limit" xml:"limit"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+LogStreamNamePrefix string `json:"logStreamNamePrefix" xml:"logStreamNamePrefix"`
+LogStreamNames InputLogStreamNames `json:"logStreamNames" xml:"logStreamNames"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+StartTime int64 `json:"startTime" xml:"startTime"`
+Unmask bool `json:"unmask" xml:"unmask"`
 }
 
 type FilterLogEventsResponse struct {
-	Events             FilteredLogEvents  `json:"events" xml:"events"`
-	NextToken          string             `json:"nextToken" xml:"nextToken"`
-	SearchedLogStreams SearchedLogStreams `json:"searchedLogStreams" xml:"searchedLogStreams"`
+Events FilteredLogEvents `json:"events" xml:"events"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SearchedLogStreams SearchedLogStreams `json:"searchedLogStreams" xml:"searchedLogStreams"`
 }
 
 type FilteredLogEvent struct {
-	EventId       string `json:"eventId" xml:"eventId"`
-	IngestionTime int64  `json:"ingestionTime" xml:"ingestionTime"`
-	LogStreamName string `json:"logStreamName" xml:"logStreamName"`
-	Message       string `json:"message" xml:"message"`
-	Timestamp     int64  `json:"timestamp" xml:"timestamp"`
+EventId string `json:"eventId" xml:"eventId"`
+IngestionTime int64 `json:"ingestionTime" xml:"ingestionTime"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+Message string `json:"message" xml:"message"`
+Timestamp int64 `json:"timestamp" xml:"timestamp"`
 }
 
 type GetDataProtectionPolicyRequest struct {
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
 }
 
 type GetDataProtectionPolicyResponse struct {
-	LastUpdatedTime    int64  `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	PolicyDocument     string `json:"policyDocument" xml:"policyDocument"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
 }
 
 type GetDeliveryDestinationPolicyRequest struct {
-	DeliveryDestinationName string `json:"deliveryDestinationName" xml:"deliveryDestinationName"`
+DeliveryDestinationName string `json:"deliveryDestinationName" xml:"deliveryDestinationName"`
 }
 
 type GetDeliveryDestinationPolicyResponse struct {
-	Policy *Policy `json:"policy" xml:"policy"`
+Policy *Policy `json:"policy" xml:"policy"`
 }
 
 type GetDeliveryDestinationRequest struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type GetDeliveryDestinationResponse struct {
-	DeliveryDestination *DeliveryDestination `json:"deliveryDestination" xml:"deliveryDestination"`
+DeliveryDestination *DeliveryDestination `json:"deliveryDestination" xml:"deliveryDestination"`
 }
 
 type GetDeliveryRequest struct {
-	Id string `json:"id" xml:"id"`
+Id string `json:"id" xml:"id"`
 }
 
 type GetDeliveryResponse struct {
-	Delivery *Delivery `json:"delivery" xml:"delivery"`
+Delivery *Delivery `json:"delivery" xml:"delivery"`
 }
 
 type GetDeliverySourceRequest struct {
-	Name string `json:"name" xml:"name"`
+Name string `json:"name" xml:"name"`
 }
 
 type GetDeliverySourceResponse struct {
-	DeliverySource *DeliverySource `json:"deliverySource" xml:"deliverySource"`
+DeliverySource *DeliverySource `json:"deliverySource" xml:"deliverySource"`
 }
 
 type GetIntegrationRequest struct {
-	IntegrationName string `json:"integrationName" xml:"integrationName"`
+IntegrationName string `json:"integrationName" xml:"integrationName"`
 }
 
 type GetIntegrationResponse struct {
-	IntegrationDetails interface{} `json:"integrationDetails" xml:"integrationDetails"`
-	IntegrationName    string      `json:"integrationName" xml:"integrationName"`
-	IntegrationStatus  string      `json:"integrationStatus" xml:"integrationStatus"`
-	IntegrationType    string      `json:"integrationType" xml:"integrationType"`
+IntegrationDetails interface{} `json:"integrationDetails" xml:"integrationDetails"`
+IntegrationName string `json:"integrationName" xml:"integrationName"`
+IntegrationStatus string `json:"integrationStatus" xml:"integrationStatus"`
+IntegrationType string `json:"integrationType" xml:"integrationType"`
 }
 
 type GetLogAnomalyDetectorRequest struct {
-	AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
+AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
 }
 
 type GetLogAnomalyDetectorResponse struct {
-	AnomalyDetectorStatus string          `json:"anomalyDetectorStatus" xml:"anomalyDetectorStatus"`
-	AnomalyVisibilityTime int64           `json:"anomalyVisibilityTime" xml:"anomalyVisibilityTime"`
-	CreationTimeStamp     int64           `json:"creationTimeStamp" xml:"creationTimeStamp"`
-	DetectorName          string          `json:"detectorName" xml:"detectorName"`
-	EvaluationFrequency   string          `json:"evaluationFrequency" xml:"evaluationFrequency"`
-	FilterPattern         string          `json:"filterPattern" xml:"filterPattern"`
-	KmsKeyId              string          `json:"kmsKeyId" xml:"kmsKeyId"`
-	LastModifiedTimeStamp int64           `json:"lastModifiedTimeStamp" xml:"lastModifiedTimeStamp"`
-	LogGroupArnList       LogGroupArnList `json:"logGroupArnList" xml:"logGroupArnList"`
+AnomalyDetectorStatus string `json:"anomalyDetectorStatus" xml:"anomalyDetectorStatus"`
+AnomalyVisibilityTime int64 `json:"anomalyVisibilityTime" xml:"anomalyVisibilityTime"`
+CreationTimeStamp int64 `json:"creationTimeStamp" xml:"creationTimeStamp"`
+DetectorName string `json:"detectorName" xml:"detectorName"`
+EvaluationFrequency string `json:"evaluationFrequency" xml:"evaluationFrequency"`
+FilterPattern string `json:"filterPattern" xml:"filterPattern"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LastModifiedTimeStamp int64 `json:"lastModifiedTimeStamp" xml:"lastModifiedTimeStamp"`
+LogGroupArnList LogGroupArnList `json:"logGroupArnList" xml:"logGroupArnList"`
 }
 
 type GetLogEventsRequest struct {
-	EndTime            int64  `json:"endTime" xml:"endTime"`
-	Limit              int32  `json:"limit" xml:"limit"`
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	LogGroupName       string `json:"logGroupName" xml:"logGroupName"`
-	LogStreamName      string `json:"logStreamName" xml:"logStreamName"`
-	NextToken          string `json:"nextToken" xml:"nextToken"`
-	StartFromHead      bool   `json:"startFromHead" xml:"startFromHead"`
-	StartTime          int64  `json:"startTime" xml:"startTime"`
-	Unmask             bool   `json:"unmask" xml:"unmask"`
+EndTime int64 `json:"endTime" xml:"endTime"`
+Limit int32 `json:"limit" xml:"limit"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+StartFromHead bool `json:"startFromHead" xml:"startFromHead"`
+StartTime int64 `json:"startTime" xml:"startTime"`
+Unmask bool `json:"unmask" xml:"unmask"`
 }
 
 type GetLogEventsResponse struct {
-	Events            OutputLogEvents `json:"events" xml:"events"`
-	NextBackwardToken string          `json:"nextBackwardToken" xml:"nextBackwardToken"`
-	NextForwardToken  string          `json:"nextForwardToken" xml:"nextForwardToken"`
+Events OutputLogEvents `json:"events" xml:"events"`
+NextBackwardToken string `json:"nextBackwardToken" xml:"nextBackwardToken"`
+NextForwardToken string `json:"nextForwardToken" xml:"nextForwardToken"`
 }
 
 type GetLogFieldsRequest struct {
-	DataSourceName string `json:"dataSourceName" xml:"dataSourceName"`
-	DataSourceType string `json:"dataSourceType" xml:"dataSourceType"`
+DataSourceName string `json:"dataSourceName" xml:"dataSourceName"`
+DataSourceType string `json:"dataSourceType" xml:"dataSourceType"`
 }
 
 type GetLogFieldsResponse struct {
-	LogFields LogFieldsList `json:"logFields" xml:"logFields"`
+LogFields LogFieldsList `json:"logFields" xml:"logFields"`
 }
 
 type GetLogGroupFieldsRequest struct {
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	LogGroupName       string `json:"logGroupName" xml:"logGroupName"`
-	Time               int64  `json:"time" xml:"time"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+Time int64 `json:"time" xml:"time"`
 }
 
 type GetLogGroupFieldsResponse struct {
-	LogGroupFields LogGroupFieldList `json:"logGroupFields" xml:"logGroupFields"`
+LogGroupFields LogGroupFieldList `json:"logGroupFields" xml:"logGroupFields"`
 }
 
 type GetLogObjectRequest struct {
-	LogObjectPointer string `json:"logObjectPointer" xml:"logObjectPointer"`
-	Unmask           bool   `json:"unmask" xml:"unmask"`
+LogObjectPointer string `json:"logObjectPointer" xml:"logObjectPointer"`
+Unmask bool `json:"unmask" xml:"unmask"`
 }
 
 type GetLogObjectResponse struct {
-	FieldStream interface{} `json:"fieldStream" xml:"fieldStream"`
+FieldStream interface{} `json:"fieldStream" xml:"fieldStream"`
 }
 
 type GetLogRecordRequest struct {
-	LogRecordPointer string `json:"logRecordPointer" xml:"logRecordPointer"`
-	Unmask           bool   `json:"unmask" xml:"unmask"`
+LogRecordPointer string `json:"logRecordPointer" xml:"logRecordPointer"`
+Unmask bool `json:"unmask" xml:"unmask"`
 }
 
 type GetLogRecordResponse struct {
-	LogRecord LogRecord `json:"logRecord" xml:"logRecord"`
+LogRecord LogRecord `json:"logRecord" xml:"logRecord"`
 }
 
 type GetLookupTableRequest struct {
-	LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
+LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
 }
 
 type GetLookupTableResponse struct {
-	Description     string `json:"description" xml:"description"`
-	KmsKeyId        string `json:"kmsKeyId" xml:"kmsKeyId"`
-	LastUpdatedTime int64  `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	LookupTableArn  string `json:"lookupTableArn" xml:"lookupTableArn"`
-	LookupTableName string `json:"lookupTableName" xml:"lookupTableName"`
-	SizeBytes       int64  `json:"sizeBytes" xml:"sizeBytes"`
-	TableBody       string `json:"tableBody" xml:"tableBody"`
+Description string `json:"description" xml:"description"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
+LookupTableName string `json:"lookupTableName" xml:"lookupTableName"`
+SizeBytes int64 `json:"sizeBytes" xml:"sizeBytes"`
+TableBody string `json:"tableBody" xml:"tableBody"`
 }
 
 type GetQueryResultsRequest struct {
-	QueryId string `json:"queryId" xml:"queryId"`
+QueryId string `json:"queryId" xml:"queryId"`
 }
 
 type GetQueryResultsResponse struct {
-	EncryptionKey string           `json:"encryptionKey" xml:"encryptionKey"`
-	QueryLanguage string           `json:"queryLanguage" xml:"queryLanguage"`
-	Results       QueryResults     `json:"results" xml:"results"`
-	Statistics    *QueryStatistics `json:"statistics" xml:"statistics"`
-	Status        string           `json:"status" xml:"status"`
+EncryptionKey string `json:"encryptionKey" xml:"encryptionKey"`
+QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
+Results QueryResults `json:"results" xml:"results"`
+Statistics *QueryStatistics `json:"statistics" xml:"statistics"`
+Status string `json:"status" xml:"status"`
 }
 
 type GetScheduledQueryHistoryRequest struct {
-	EndTime           int64               `json:"endTime" xml:"endTime"`
-	ExecutionStatuses ExecutionStatusList `json:"executionStatuses" xml:"executionStatuses"`
-	Identifier        string              `json:"identifier" xml:"identifier"`
-	MaxResults        int32               `json:"maxResults" xml:"maxResults"`
-	NextToken         string              `json:"nextToken" xml:"nextToken"`
-	StartTime         int64               `json:"startTime" xml:"startTime"`
+EndTime int64 `json:"endTime" xml:"endTime"`
+ExecutionStatuses ExecutionStatusList `json:"executionStatuses" xml:"executionStatuses"`
+Identifier string `json:"identifier" xml:"identifier"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+StartTime int64 `json:"startTime" xml:"startTime"`
 }
 
 type GetScheduledQueryHistoryResponse struct {
-	Name              string                   `json:"name" xml:"name"`
-	NextToken         string                   `json:"nextToken" xml:"nextToken"`
-	ScheduledQueryArn string                   `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
-	TriggerHistory    TriggerHistoryRecordList `json:"triggerHistory" xml:"triggerHistory"`
+Name string `json:"name" xml:"name"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ScheduledQueryArn string `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
+TriggerHistory TriggerHistoryRecordList `json:"triggerHistory" xml:"triggerHistory"`
 }
 
 type GetScheduledQueryRequest struct {
-	Identifier string `json:"identifier" xml:"identifier"`
+Identifier string `json:"identifier" xml:"identifier"`
 }
 
 type GetScheduledQueryResponse struct {
-	CreationTime             int64                             `json:"creationTime" xml:"creationTime"`
-	Description              string                            `json:"description" xml:"description"`
-	DestinationConfiguration *DestinationConfiguration         `json:"destinationConfiguration" xml:"destinationConfiguration"`
-	ExecutionRoleArn         string                            `json:"executionRoleArn" xml:"executionRoleArn"`
-	LastExecutionStatus      string                            `json:"lastExecutionStatus" xml:"lastExecutionStatus"`
-	LastTriggeredTime        int64                             `json:"lastTriggeredTime" xml:"lastTriggeredTime"`
-	LastUpdatedTime          int64                             `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	LogGroupIdentifiers      ScheduledQueryLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
-	Name                     string                            `json:"name" xml:"name"`
-	QueryLanguage            string                            `json:"queryLanguage" xml:"queryLanguage"`
-	QueryString              string                            `json:"queryString" xml:"queryString"`
-	ScheduleEndTime          int64                             `json:"scheduleEndTime" xml:"scheduleEndTime"`
-	ScheduleExpression       string                            `json:"scheduleExpression" xml:"scheduleExpression"`
-	ScheduleStartTime        int64                             `json:"scheduleStartTime" xml:"scheduleStartTime"`
-	ScheduledQueryArn        string                            `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
-	StartTimeOffset          int64                             `json:"startTimeOffset" xml:"startTimeOffset"`
-	State                    string                            `json:"state" xml:"state"`
-	Timezone                 string                            `json:"timezone" xml:"timezone"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+Description string `json:"description" xml:"description"`
+DestinationConfiguration *DestinationConfiguration `json:"destinationConfiguration" xml:"destinationConfiguration"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+LastExecutionStatus string `json:"lastExecutionStatus" xml:"lastExecutionStatus"`
+LastTriggeredTime int64 `json:"lastTriggeredTime" xml:"lastTriggeredTime"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+LogGroupIdentifiers ScheduledQueryLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
+Name string `json:"name" xml:"name"`
+QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
+QueryString string `json:"queryString" xml:"queryString"`
+ScheduleEndTime int64 `json:"scheduleEndTime" xml:"scheduleEndTime"`
+ScheduleExpression string `json:"scheduleExpression" xml:"scheduleExpression"`
+ScheduleStartTime int64 `json:"scheduleStartTime" xml:"scheduleStartTime"`
+ScheduledQueryArn string `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
+StartTimeOffset int64 `json:"startTimeOffset" xml:"startTimeOffset"`
+State string `json:"state" xml:"state"`
+Timezone string `json:"timezone" xml:"timezone"`
 }
 
 type GetTransformerRequest struct {
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
 }
 
 type GetTransformerResponse struct {
-	CreationTime       int64      `json:"creationTime" xml:"creationTime"`
-	LastModifiedTime   int64      `json:"lastModifiedTime" xml:"lastModifiedTime"`
-	LogGroupIdentifier string     `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	TransformerConfig  Processors `json:"transformerConfig" xml:"transformerConfig"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+LastModifiedTime int64 `json:"lastModifiedTime" xml:"lastModifiedTime"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+TransformerConfig Processors `json:"transformerConfig" xml:"transformerConfig"`
 }
 
 type Grok struct {
-	Match  string `json:"match" xml:"match"`
-	Source string `json:"source" xml:"source"`
+Match string `json:"match" xml:"match"`
+Source string `json:"source" xml:"source"`
 }
 
 type GroupingIdentifier struct {
-	Key   string `json:"key" xml:"key"`
-	Value string `json:"value" xml:"value"`
+Key string `json:"key" xml:"key"`
+Value string `json:"value" xml:"value"`
 }
 
 type Import struct {
-	CreationTime         int64             `json:"creationTime" xml:"creationTime"`
-	ErrorMessage         string            `json:"errorMessage" xml:"errorMessage"`
-	ImportDestinationArn string            `json:"importDestinationArn" xml:"importDestinationArn"`
-	ImportFilter         *ImportFilter     `json:"importFilter" xml:"importFilter"`
-	ImportId             string            `json:"importId" xml:"importId"`
-	ImportSourceArn      string            `json:"importSourceArn" xml:"importSourceArn"`
-	ImportStatistics     *ImportStatistics `json:"importStatistics" xml:"importStatistics"`
-	ImportStatus         string            `json:"importStatus" xml:"importStatus"`
-	LastUpdatedTime      int64             `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+ImportDestinationArn string `json:"importDestinationArn" xml:"importDestinationArn"`
+ImportFilter *ImportFilter `json:"importFilter" xml:"importFilter"`
+ImportId string `json:"importId" xml:"importId"`
+ImportSourceArn string `json:"importSourceArn" xml:"importSourceArn"`
+ImportStatistics *ImportStatistics `json:"importStatistics" xml:"importStatistics"`
+ImportStatus string `json:"importStatus" xml:"importStatus"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
 }
 
 type ImportBatch struct {
-	BatchId      string `json:"batchId" xml:"batchId"`
-	ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
-	Status       string `json:"status" xml:"status"`
+BatchId string `json:"batchId" xml:"batchId"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+Status string `json:"status" xml:"status"`
 }
 
 type ImportFilter struct {
-	EndEventTime   int64 `json:"endEventTime" xml:"endEventTime"`
-	StartEventTime int64 `json:"startEventTime" xml:"startEventTime"`
+EndEventTime int64 `json:"endEventTime" xml:"endEventTime"`
+StartEventTime int64 `json:"startEventTime" xml:"startEventTime"`
 }
 
 type ImportStatistics struct {
-	BytesImported int64 `json:"bytesImported" xml:"bytesImported"`
+BytesImported int64 `json:"bytesImported" xml:"bytesImported"`
 }
 
 type IndexPolicy struct {
-	LastUpdateTime     int64  `json:"lastUpdateTime" xml:"lastUpdateTime"`
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	PolicyDocument     string `json:"policyDocument" xml:"policyDocument"`
-	PolicyName         string `json:"policyName" xml:"policyName"`
-	Source             string `json:"source" xml:"source"`
+LastUpdateTime int64 `json:"lastUpdateTime" xml:"lastUpdateTime"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
+PolicyName string `json:"policyName" xml:"policyName"`
+Source string `json:"source" xml:"source"`
 }
 
 type InputLogEvent struct {
-	Message   string `json:"message" xml:"message"`
-	Timestamp int64  `json:"timestamp" xml:"timestamp"`
+Message string `json:"message" xml:"message"`
+Timestamp int64 `json:"timestamp" xml:"timestamp"`
 }
 
 type IntegrationSummary struct {
-	IntegrationName   string `json:"integrationName" xml:"integrationName"`
-	IntegrationStatus string `json:"integrationStatus" xml:"integrationStatus"`
-	IntegrationType   string `json:"integrationType" xml:"integrationType"`
+IntegrationName string `json:"integrationName" xml:"integrationName"`
+IntegrationStatus string `json:"integrationStatus" xml:"integrationStatus"`
+IntegrationType string `json:"integrationType" xml:"integrationType"`
 }
 
 type ListAggregateLogGroupSummariesRequest struct {
-	AccountIdentifiers    AccountIds        `json:"accountIdentifiers" xml:"accountIdentifiers"`
-	DataSources           DataSourceFilters `json:"dataSources" xml:"dataSources"`
-	GroupBy               string            `json:"groupBy" xml:"groupBy"`
-	IncludeLinkedAccounts bool              `json:"includeLinkedAccounts" xml:"includeLinkedAccounts"`
-	Limit                 int32             `json:"limit" xml:"limit"`
-	LogGroupClass         string            `json:"logGroupClass" xml:"logGroupClass"`
-	LogGroupNamePattern   string            `json:"logGroupNamePattern" xml:"logGroupNamePattern"`
-	NextToken             string            `json:"nextToken" xml:"nextToken"`
+AccountIdentifiers AccountIds `json:"accountIdentifiers" xml:"accountIdentifiers"`
+DataSources DataSourceFilters `json:"dataSources" xml:"dataSources"`
+GroupBy string `json:"groupBy" xml:"groupBy"`
+IncludeLinkedAccounts bool `json:"includeLinkedAccounts" xml:"includeLinkedAccounts"`
+Limit int32 `json:"limit" xml:"limit"`
+LogGroupClass string `json:"logGroupClass" xml:"logGroupClass"`
+LogGroupNamePattern string `json:"logGroupNamePattern" xml:"logGroupNamePattern"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListAggregateLogGroupSummariesResponse struct {
-	AggregateLogGroupSummaries AggregateLogGroupSummaries `json:"aggregateLogGroupSummaries" xml:"aggregateLogGroupSummaries"`
-	NextToken                  string                     `json:"nextToken" xml:"nextToken"`
+AggregateLogGroupSummaries AggregateLogGroupSummaries `json:"aggregateLogGroupSummaries" xml:"aggregateLogGroupSummaries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListAnomaliesRequest struct {
-	AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
-	Limit              int32  `json:"limit" xml:"limit"`
-	NextToken          string `json:"nextToken" xml:"nextToken"`
-	SuppressionState   string `json:"suppressionState" xml:"suppressionState"`
+AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+SuppressionState string `json:"suppressionState" xml:"suppressionState"`
 }
 
 type ListAnomaliesResponse struct {
-	Anomalies Anomalies `json:"anomalies" xml:"anomalies"`
-	NextToken string    `json:"nextToken" xml:"nextToken"`
+Anomalies Anomalies `json:"anomalies" xml:"anomalies"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListIntegrationsRequest struct {
-	IntegrationNamePrefix string `json:"integrationNamePrefix" xml:"integrationNamePrefix"`
-	IntegrationStatus     string `json:"integrationStatus" xml:"integrationStatus"`
-	IntegrationType       string `json:"integrationType" xml:"integrationType"`
+IntegrationNamePrefix string `json:"integrationNamePrefix" xml:"integrationNamePrefix"`
+IntegrationStatus string `json:"integrationStatus" xml:"integrationStatus"`
+IntegrationType string `json:"integrationType" xml:"integrationType"`
 }
 
 type ListIntegrationsResponse struct {
-	IntegrationSummaries IntegrationSummaries `json:"integrationSummaries" xml:"integrationSummaries"`
+IntegrationSummaries IntegrationSummaries `json:"integrationSummaries" xml:"integrationSummaries"`
 }
 
 type ListLogAnomalyDetectorsRequest struct {
-	FilterLogGroupArn string `json:"filterLogGroupArn" xml:"filterLogGroupArn"`
-	Limit             int32  `json:"limit" xml:"limit"`
-	NextToken         string `json:"nextToken" xml:"nextToken"`
+FilterLogGroupArn string `json:"filterLogGroupArn" xml:"filterLogGroupArn"`
+Limit int32 `json:"limit" xml:"limit"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListLogAnomalyDetectorsResponse struct {
-	AnomalyDetectors AnomalyDetectors `json:"anomalyDetectors" xml:"anomalyDetectors"`
-	NextToken        string           `json:"nextToken" xml:"nextToken"`
+AnomalyDetectors AnomalyDetectors `json:"anomalyDetectors" xml:"anomalyDetectors"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListLogGroupsForQueryRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	QueryId    string `json:"queryId" xml:"queryId"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+QueryId string `json:"queryId" xml:"queryId"`
 }
 
 type ListLogGroupsForQueryResponse struct {
-	LogGroupIdentifiers LogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
-	NextToken           string              `json:"nextToken" xml:"nextToken"`
+LogGroupIdentifiers LogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListLogGroupsRequest struct {
-	AccountIdentifiers    AccountIds        `json:"accountIdentifiers" xml:"accountIdentifiers"`
-	DataSources           DataSourceFilters `json:"dataSources" xml:"dataSources"`
-	FieldIndexNames       FieldIndexNames   `json:"fieldIndexNames" xml:"fieldIndexNames"`
-	IncludeLinkedAccounts bool              `json:"includeLinkedAccounts" xml:"includeLinkedAccounts"`
-	Limit                 int32             `json:"limit" xml:"limit"`
-	LogGroupClass         string            `json:"logGroupClass" xml:"logGroupClass"`
-	LogGroupNamePattern   string            `json:"logGroupNamePattern" xml:"logGroupNamePattern"`
-	NextToken             string            `json:"nextToken" xml:"nextToken"`
+AccountIdentifiers AccountIds `json:"accountIdentifiers" xml:"accountIdentifiers"`
+DataSources DataSourceFilters `json:"dataSources" xml:"dataSources"`
+FieldIndexNames FieldIndexNames `json:"fieldIndexNames" xml:"fieldIndexNames"`
+IncludeLinkedAccounts bool `json:"includeLinkedAccounts" xml:"includeLinkedAccounts"`
+Limit int32 `json:"limit" xml:"limit"`
+LogGroupClass string `json:"logGroupClass" xml:"logGroupClass"`
+LogGroupNamePattern string `json:"logGroupNamePattern" xml:"logGroupNamePattern"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListLogGroupsResponse struct {
-	LogGroups LogGroupSummaries `json:"logGroups" xml:"logGroups"`
-	NextToken string            `json:"nextToken" xml:"nextToken"`
+LogGroups LogGroupSummaries `json:"logGroups" xml:"logGroups"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListScheduledQueriesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	State      string `json:"state" xml:"state"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+State string `json:"state" xml:"state"`
 }
 
 type ListScheduledQueriesResponse struct {
-	NextToken        string                    `json:"nextToken" xml:"nextToken"`
-	ScheduledQueries ScheduledQuerySummaryList `json:"scheduledQueries" xml:"scheduledQueries"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+ScheduledQueries ScheduledQuerySummaryList `json:"scheduledQueries" xml:"scheduledQueries"`
 }
 
 type ListSourcesForS3TableIntegrationRequest struct {
-	IntegrationArn string `json:"integrationArn" xml:"integrationArn"`
-	MaxResults     int32  `json:"maxResults" xml:"maxResults"`
-	NextToken      string `json:"nextToken" xml:"nextToken"`
+IntegrationArn string `json:"integrationArn" xml:"integrationArn"`
+MaxResults int32 `json:"maxResults" xml:"maxResults"`
+NextToken string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListSourcesForS3TableIntegrationResponse struct {
-	NextToken string                    `json:"nextToken" xml:"nextToken"`
-	Sources   S3TableIntegrationSources `json:"sources" xml:"sources"`
+NextToken string `json:"nextToken" xml:"nextToken"`
+Sources S3TableIntegrationSources `json:"sources" xml:"sources"`
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type ListTagsForResourceResponse struct {
-	Tags Tags `json:"tags" xml:"tags"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type ListTagsLogGroupRequest struct {
-	LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
 }
 
 type ListTagsLogGroupResponse struct {
-	Tags Tags `json:"tags" xml:"tags"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type ListToMap struct {
-	Flatten          bool   `json:"flatten" xml:"flatten"`
-	FlattenedElement string `json:"flattenedElement" xml:"flattenedElement"`
-	Key              string `json:"key" xml:"key"`
-	Source           string `json:"source" xml:"source"`
-	Target           string `json:"target" xml:"target"`
-	ValueKey         string `json:"valueKey" xml:"valueKey"`
+Flatten bool `json:"flatten" xml:"flatten"`
+FlattenedElement string `json:"flattenedElement" xml:"flattenedElement"`
+Key string `json:"key" xml:"key"`
+Source string `json:"source" xml:"source"`
+Target string `json:"target" xml:"target"`
+ValueKey string `json:"valueKey" xml:"valueKey"`
 }
 
 type LiveTailSessionLogEvent struct {
-	IngestionTime      int64  `json:"ingestionTime" xml:"ingestionTime"`
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	LogStreamName      string `json:"logStreamName" xml:"logStreamName"`
-	Message            string `json:"message" xml:"message"`
-	Timestamp          int64  `json:"timestamp" xml:"timestamp"`
+IngestionTime int64 `json:"ingestionTime" xml:"ingestionTime"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+Message string `json:"message" xml:"message"`
+Timestamp int64 `json:"timestamp" xml:"timestamp"`
 }
 
 type LiveTailSessionMetadata struct {
-	Sampled bool `json:"sampled" xml:"sampled"`
+Sampled bool `json:"sampled" xml:"sampled"`
 }
 
 type LiveTailSessionStart struct {
-	LogEventFilterPattern string                           `json:"logEventFilterPattern" xml:"logEventFilterPattern"`
-	LogGroupIdentifiers   StartLiveTailLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
-	LogStreamNamePrefixes InputLogStreamNames              `json:"logStreamNamePrefixes" xml:"logStreamNamePrefixes"`
-	LogStreamNames        InputLogStreamNames              `json:"logStreamNames" xml:"logStreamNames"`
-	RequestId             string                           `json:"requestId" xml:"requestId"`
-	SessionId             string                           `json:"sessionId" xml:"sessionId"`
+LogEventFilterPattern string `json:"logEventFilterPattern" xml:"logEventFilterPattern"`
+LogGroupIdentifiers StartLiveTailLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
+LogStreamNamePrefixes InputLogStreamNames `json:"logStreamNamePrefixes" xml:"logStreamNamePrefixes"`
+LogStreamNames InputLogStreamNames `json:"logStreamNames" xml:"logStreamNames"`
+RequestId string `json:"requestId" xml:"requestId"`
+SessionId string `json:"sessionId" xml:"sessionId"`
 }
 
 type LiveTailSessionUpdate struct {
-	SessionMetadata *LiveTailSessionMetadata `json:"sessionMetadata" xml:"sessionMetadata"`
-	SessionResults  LiveTailSessionResults   `json:"sessionResults" xml:"sessionResults"`
+SessionMetadata *LiveTailSessionMetadata `json:"sessionMetadata" xml:"sessionMetadata"`
+SessionResults LiveTailSessionResults `json:"sessionResults" xml:"sessionResults"`
 }
 
 type LogEvent struct {
-	Message   string `json:"message" xml:"message"`
-	Timestamp int64  `json:"timestamp" xml:"timestamp"`
+Message string `json:"message" xml:"message"`
+Timestamp int64 `json:"timestamp" xml:"timestamp"`
 }
 
 type LogFieldType struct {
-	Element *LogFieldType `json:"element" xml:"element"`
-	Fields  LogFieldsList `json:"fields" xml:"fields"`
-	Type    string        `json:"type" xml:"type"`
+Element *LogFieldType `json:"element" xml:"element"`
+Fields LogFieldsList `json:"fields" xml:"fields"`
+Type string `json:"type" xml:"type"`
 }
 
 type LogFieldsListItem struct {
-	LogFieldName string        `json:"logFieldName" xml:"logFieldName"`
-	LogFieldType *LogFieldType `json:"logFieldType" xml:"logFieldType"`
+LogFieldName string `json:"logFieldName" xml:"logFieldName"`
+LogFieldType *LogFieldType `json:"logFieldType" xml:"logFieldType"`
 }
 
 type LogGroup struct {
-	Arn                              string              `json:"arn" xml:"arn"`
-	BearerTokenAuthenticationEnabled bool                `json:"bearerTokenAuthenticationEnabled" xml:"bearerTokenAuthenticationEnabled"`
-	CreationTime                     int64               `json:"creationTime" xml:"creationTime"`
-	DataProtectionStatus             string              `json:"dataProtectionStatus" xml:"dataProtectionStatus"`
-	DeletionProtectionEnabled        bool                `json:"deletionProtectionEnabled" xml:"deletionProtectionEnabled"`
-	InheritedProperties              InheritedProperties `json:"inheritedProperties" xml:"inheritedProperties"`
-	KmsKeyId                         string              `json:"kmsKeyId" xml:"kmsKeyId"`
-	LogGroupArn                      string              `json:"logGroupArn" xml:"logGroupArn"`
-	LogGroupClass                    string              `json:"logGroupClass" xml:"logGroupClass"`
-	LogGroupName                     string              `json:"logGroupName" xml:"logGroupName"`
-	MetricFilterCount                int32               `json:"metricFilterCount" xml:"metricFilterCount"`
-	RetentionInDays                  int32               `json:"retentionInDays" xml:"retentionInDays"`
-	StoredBytes                      int64               `json:"storedBytes" xml:"storedBytes"`
+Arn string `json:"arn" xml:"arn"`
+BearerTokenAuthenticationEnabled bool `json:"bearerTokenAuthenticationEnabled" xml:"bearerTokenAuthenticationEnabled"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+DataProtectionStatus string `json:"dataProtectionStatus" xml:"dataProtectionStatus"`
+DeletionProtectionEnabled bool `json:"deletionProtectionEnabled" xml:"deletionProtectionEnabled"`
+InheritedProperties InheritedProperties `json:"inheritedProperties" xml:"inheritedProperties"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LogGroupArn string `json:"logGroupArn" xml:"logGroupArn"`
+LogGroupClass string `json:"logGroupClass" xml:"logGroupClass"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+MetricFilterCount int32 `json:"metricFilterCount" xml:"metricFilterCount"`
+RetentionInDays int32 `json:"retentionInDays" xml:"retentionInDays"`
+StoredBytes int64 `json:"storedBytes" xml:"storedBytes"`
 }
 
 type LogGroupField struct {
-	Name    string `json:"name" xml:"name"`
-	Percent int32  `json:"percent" xml:"percent"`
+Name string `json:"name" xml:"name"`
+Percent int32 `json:"percent" xml:"percent"`
 }
 
 type LogGroupSummary struct {
-	LogGroupArn   string `json:"logGroupArn" xml:"logGroupArn"`
-	LogGroupClass string `json:"logGroupClass" xml:"logGroupClass"`
-	LogGroupName  string `json:"logGroupName" xml:"logGroupName"`
+LogGroupArn string `json:"logGroupArn" xml:"logGroupArn"`
+LogGroupClass string `json:"logGroupClass" xml:"logGroupClass"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
 }
 
 type LogStream struct {
-	Arn                 string `json:"arn" xml:"arn"`
-	CreationTime        int64  `json:"creationTime" xml:"creationTime"`
-	FirstEventTimestamp int64  `json:"firstEventTimestamp" xml:"firstEventTimestamp"`
-	LastEventTimestamp  int64  `json:"lastEventTimestamp" xml:"lastEventTimestamp"`
-	LastIngestionTime   int64  `json:"lastIngestionTime" xml:"lastIngestionTime"`
-	LogStreamName       string `json:"logStreamName" xml:"logStreamName"`
-	StoredBytes         int64  `json:"storedBytes" xml:"storedBytes"`
-	UploadSequenceToken string `json:"uploadSequenceToken" xml:"uploadSequenceToken"`
+Arn string `json:"arn" xml:"arn"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+FirstEventTimestamp int64 `json:"firstEventTimestamp" xml:"firstEventTimestamp"`
+LastEventTimestamp int64 `json:"lastEventTimestamp" xml:"lastEventTimestamp"`
+LastIngestionTime int64 `json:"lastIngestionTime" xml:"lastIngestionTime"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+StoredBytes int64 `json:"storedBytes" xml:"storedBytes"`
+UploadSequenceToken string `json:"uploadSequenceToken" xml:"uploadSequenceToken"`
 }
 
 type LookupTable struct {
-	Description     string      `json:"description" xml:"description"`
-	KmsKeyId        string      `json:"kmsKeyId" xml:"kmsKeyId"`
-	LastUpdatedTime int64       `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	LookupTableArn  string      `json:"lookupTableArn" xml:"lookupTableArn"`
-	LookupTableName string      `json:"lookupTableName" xml:"lookupTableName"`
-	RecordsCount    int64       `json:"recordsCount" xml:"recordsCount"`
-	SizeBytes       int64       `json:"sizeBytes" xml:"sizeBytes"`
-	TableFields     TableFields `json:"tableFields" xml:"tableFields"`
+Description string `json:"description" xml:"description"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
+LookupTableName string `json:"lookupTableName" xml:"lookupTableName"`
+RecordsCount int64 `json:"recordsCount" xml:"recordsCount"`
+SizeBytes int64 `json:"sizeBytes" xml:"sizeBytes"`
+TableFields TableFields `json:"tableFields" xml:"tableFields"`
 }
 
 type LowerCaseString struct {
-	WithKeys LowerCaseStringWithKeys `json:"withKeys" xml:"withKeys"`
+WithKeys LowerCaseStringWithKeys `json:"withKeys" xml:"withKeys"`
 }
 
 type MetricFilter struct {
-	ApplyOnTransformedLogs    bool                  `json:"applyOnTransformedLogs" xml:"applyOnTransformedLogs"`
-	CreationTime              int64                 `json:"creationTime" xml:"creationTime"`
-	EmitSystemFieldDimensions EmitSystemFields      `json:"emitSystemFieldDimensions" xml:"emitSystemFieldDimensions"`
-	FieldSelectionCriteria    string                `json:"fieldSelectionCriteria" xml:"fieldSelectionCriteria"`
-	FilterName                string                `json:"filterName" xml:"filterName"`
-	FilterPattern             string                `json:"filterPattern" xml:"filterPattern"`
-	LogGroupName              string                `json:"logGroupName" xml:"logGroupName"`
-	MetricTransformations     MetricTransformations `json:"metricTransformations" xml:"metricTransformations"`
+ApplyOnTransformedLogs bool `json:"applyOnTransformedLogs" xml:"applyOnTransformedLogs"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+EmitSystemFieldDimensions EmitSystemFields `json:"emitSystemFieldDimensions" xml:"emitSystemFieldDimensions"`
+FieldSelectionCriteria string `json:"fieldSelectionCriteria" xml:"fieldSelectionCriteria"`
+FilterName string `json:"filterName" xml:"filterName"`
+FilterPattern string `json:"filterPattern" xml:"filterPattern"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+MetricTransformations MetricTransformations `json:"metricTransformations" xml:"metricTransformations"`
 }
 
 type MetricFilterMatchRecord struct {
-	EventMessage    string          `json:"eventMessage" xml:"eventMessage"`
-	EventNumber     int64           `json:"eventNumber" xml:"eventNumber"`
-	ExtractedValues ExtractedValues `json:"extractedValues" xml:"extractedValues"`
+EventMessage string `json:"eventMessage" xml:"eventMessage"`
+EventNumber int64 `json:"eventNumber" xml:"eventNumber"`
+ExtractedValues ExtractedValues `json:"extractedValues" xml:"extractedValues"`
 }
 
 type MetricTransformation struct {
-	DefaultValue    float64    `json:"defaultValue" xml:"defaultValue"`
-	Dimensions      Dimensions `json:"dimensions" xml:"dimensions"`
-	MetricName      string     `json:"metricName" xml:"metricName"`
-	MetricNamespace string     `json:"metricNamespace" xml:"metricNamespace"`
-	MetricValue     string     `json:"metricValue" xml:"metricValue"`
-	Unit            string     `json:"unit" xml:"unit"`
+DefaultValue float64 `json:"defaultValue" xml:"defaultValue"`
+Dimensions Dimensions `json:"dimensions" xml:"dimensions"`
+MetricName string `json:"metricName" xml:"metricName"`
+MetricNamespace string `json:"metricNamespace" xml:"metricNamespace"`
+MetricValue string `json:"metricValue" xml:"metricValue"`
+Unit string `json:"unit" xml:"unit"`
 }
 
 type MoveKeyEntry struct {
-	OverwriteIfExists bool   `json:"overwriteIfExists" xml:"overwriteIfExists"`
-	Source            string `json:"source" xml:"source"`
-	Target            string `json:"target" xml:"target"`
+OverwriteIfExists bool `json:"overwriteIfExists" xml:"overwriteIfExists"`
+Source string `json:"source" xml:"source"`
+Target string `json:"target" xml:"target"`
 }
 
 type MoveKeys struct {
-	Entries MoveKeyEntries `json:"entries" xml:"entries"`
+Entries MoveKeyEntries `json:"entries" xml:"entries"`
 }
 
 type OpenSearchApplication struct {
-	ApplicationArn      string                    `json:"applicationArn" xml:"applicationArn"`
-	ApplicationEndpoint string                    `json:"applicationEndpoint" xml:"applicationEndpoint"`
-	ApplicationId       string                    `json:"applicationId" xml:"applicationId"`
-	Status              *OpenSearchResourceStatus `json:"status" xml:"status"`
+ApplicationArn string `json:"applicationArn" xml:"applicationArn"`
+ApplicationEndpoint string `json:"applicationEndpoint" xml:"applicationEndpoint"`
+ApplicationId string `json:"applicationId" xml:"applicationId"`
+Status *OpenSearchResourceStatus `json:"status" xml:"status"`
 }
 
 type OpenSearchCollection struct {
-	CollectionArn      string                    `json:"collectionArn" xml:"collectionArn"`
-	CollectionEndpoint string                    `json:"collectionEndpoint" xml:"collectionEndpoint"`
-	Status             *OpenSearchResourceStatus `json:"status" xml:"status"`
+CollectionArn string `json:"collectionArn" xml:"collectionArn"`
+CollectionEndpoint string `json:"collectionEndpoint" xml:"collectionEndpoint"`
+Status *OpenSearchResourceStatus `json:"status" xml:"status"`
 }
 
 type OpenSearchDataAccessPolicy struct {
-	PolicyName string                    `json:"policyName" xml:"policyName"`
-	Status     *OpenSearchResourceStatus `json:"status" xml:"status"`
+PolicyName string `json:"policyName" xml:"policyName"`
+Status *OpenSearchResourceStatus `json:"status" xml:"status"`
 }
 
 type OpenSearchDataSource struct {
-	DataSourceName string                    `json:"dataSourceName" xml:"dataSourceName"`
-	Status         *OpenSearchResourceStatus `json:"status" xml:"status"`
+DataSourceName string `json:"dataSourceName" xml:"dataSourceName"`
+Status *OpenSearchResourceStatus `json:"status" xml:"status"`
 }
 
 type OpenSearchEncryptionPolicy struct {
-	PolicyName string                    `json:"policyName" xml:"policyName"`
-	Status     *OpenSearchResourceStatus `json:"status" xml:"status"`
+PolicyName string `json:"policyName" xml:"policyName"`
+Status *OpenSearchResourceStatus `json:"status" xml:"status"`
 }
 
 type OpenSearchIntegrationDetails struct {
-	AccessPolicy     *OpenSearchDataAccessPolicy `json:"accessPolicy" xml:"accessPolicy"`
-	Application      *OpenSearchApplication      `json:"application" xml:"application"`
-	Collection       *OpenSearchCollection       `json:"collection" xml:"collection"`
-	DataSource       *OpenSearchDataSource       `json:"dataSource" xml:"dataSource"`
-	EncryptionPolicy *OpenSearchEncryptionPolicy `json:"encryptionPolicy" xml:"encryptionPolicy"`
-	LifecyclePolicy  *OpenSearchLifecyclePolicy  `json:"lifecyclePolicy" xml:"lifecyclePolicy"`
-	NetworkPolicy    *OpenSearchNetworkPolicy    `json:"networkPolicy" xml:"networkPolicy"`
-	Workspace        *OpenSearchWorkspace        `json:"workspace" xml:"workspace"`
+AccessPolicy *OpenSearchDataAccessPolicy `json:"accessPolicy" xml:"accessPolicy"`
+Application *OpenSearchApplication `json:"application" xml:"application"`
+Collection *OpenSearchCollection `json:"collection" xml:"collection"`
+DataSource *OpenSearchDataSource `json:"dataSource" xml:"dataSource"`
+EncryptionPolicy *OpenSearchEncryptionPolicy `json:"encryptionPolicy" xml:"encryptionPolicy"`
+LifecyclePolicy *OpenSearchLifecyclePolicy `json:"lifecyclePolicy" xml:"lifecyclePolicy"`
+NetworkPolicy *OpenSearchNetworkPolicy `json:"networkPolicy" xml:"networkPolicy"`
+Workspace *OpenSearchWorkspace `json:"workspace" xml:"workspace"`
 }
 
 type OpenSearchLifecyclePolicy struct {
-	PolicyName string                    `json:"policyName" xml:"policyName"`
-	Status     *OpenSearchResourceStatus `json:"status" xml:"status"`
+PolicyName string `json:"policyName" xml:"policyName"`
+Status *OpenSearchResourceStatus `json:"status" xml:"status"`
 }
 
 type OpenSearchNetworkPolicy struct {
-	PolicyName string                    `json:"policyName" xml:"policyName"`
-	Status     *OpenSearchResourceStatus `json:"status" xml:"status"`
+PolicyName string `json:"policyName" xml:"policyName"`
+Status *OpenSearchResourceStatus `json:"status" xml:"status"`
 }
 
 type OpenSearchResourceConfig struct {
-	ApplicationArn            string                    `json:"applicationArn" xml:"applicationArn"`
-	DashboardViewerPrincipals DashboardViewerPrincipals `json:"dashboardViewerPrincipals" xml:"dashboardViewerPrincipals"`
-	DataSourceRoleArn         string                    `json:"dataSourceRoleArn" xml:"dataSourceRoleArn"`
-	KmsKeyArn                 string                    `json:"kmsKeyArn" xml:"kmsKeyArn"`
-	RetentionDays             int32                     `json:"retentionDays" xml:"retentionDays"`
+ApplicationArn string `json:"applicationArn" xml:"applicationArn"`
+DashboardViewerPrincipals DashboardViewerPrincipals `json:"dashboardViewerPrincipals" xml:"dashboardViewerPrincipals"`
+DataSourceRoleArn string `json:"dataSourceRoleArn" xml:"dataSourceRoleArn"`
+KmsKeyArn string `json:"kmsKeyArn" xml:"kmsKeyArn"`
+RetentionDays int32 `json:"retentionDays" xml:"retentionDays"`
 }
 
 type OpenSearchResourceStatus struct {
-	Status        string `json:"status" xml:"status"`
-	StatusMessage string `json:"statusMessage" xml:"statusMessage"`
+Status string `json:"status" xml:"status"`
+StatusMessage string `json:"statusMessage" xml:"statusMessage"`
 }
 
 type OpenSearchWorkspace struct {
-	Status      *OpenSearchResourceStatus `json:"status" xml:"status"`
-	WorkspaceId string                    `json:"workspaceId" xml:"workspaceId"`
+Status *OpenSearchResourceStatus `json:"status" xml:"status"`
+WorkspaceId string `json:"workspaceId" xml:"workspaceId"`
 }
 
 type OutputLogEvent struct {
-	IngestionTime int64  `json:"ingestionTime" xml:"ingestionTime"`
-	Message       string `json:"message" xml:"message"`
-	Timestamp     int64  `json:"timestamp" xml:"timestamp"`
+IngestionTime int64 `json:"ingestionTime" xml:"ingestionTime"`
+Message string `json:"message" xml:"message"`
+Timestamp int64 `json:"timestamp" xml:"timestamp"`
 }
 
 type ParseCloudfront struct {
-	Source string `json:"source" xml:"source"`
+Source string `json:"source" xml:"source"`
 }
 
 type ParseJSON struct {
-	Destination string `json:"destination" xml:"destination"`
-	Source      string `json:"source" xml:"source"`
+Destination string `json:"destination" xml:"destination"`
+Source string `json:"source" xml:"source"`
 }
 
 type ParseKeyValue struct {
-	Destination       string `json:"destination" xml:"destination"`
-	FieldDelimiter    string `json:"fieldDelimiter" xml:"fieldDelimiter"`
-	KeyPrefix         string `json:"keyPrefix" xml:"keyPrefix"`
-	KeyValueDelimiter string `json:"keyValueDelimiter" xml:"keyValueDelimiter"`
-	NonMatchValue     string `json:"nonMatchValue" xml:"nonMatchValue"`
-	OverwriteIfExists bool   `json:"overwriteIfExists" xml:"overwriteIfExists"`
-	Source            string `json:"source" xml:"source"`
+Destination string `json:"destination" xml:"destination"`
+FieldDelimiter string `json:"fieldDelimiter" xml:"fieldDelimiter"`
+KeyPrefix string `json:"keyPrefix" xml:"keyPrefix"`
+KeyValueDelimiter string `json:"keyValueDelimiter" xml:"keyValueDelimiter"`
+NonMatchValue string `json:"nonMatchValue" xml:"nonMatchValue"`
+OverwriteIfExists bool `json:"overwriteIfExists" xml:"overwriteIfExists"`
+Source string `json:"source" xml:"source"`
 }
 
 type ParsePostgres struct {
-	Source string `json:"source" xml:"source"`
+Source string `json:"source" xml:"source"`
 }
 
 type ParseRoute53 struct {
-	Source string `json:"source" xml:"source"`
+Source string `json:"source" xml:"source"`
 }
 
 type ParseToOCSF struct {
-	EventSource    string `json:"eventSource" xml:"eventSource"`
-	MappingVersion string `json:"mappingVersion" xml:"mappingVersion"`
-	OcsfVersion    string `json:"ocsfVersion" xml:"ocsfVersion"`
-	Source         string `json:"source" xml:"source"`
+EventSource string `json:"eventSource" xml:"eventSource"`
+MappingVersion string `json:"mappingVersion" xml:"mappingVersion"`
+OcsfVersion string `json:"ocsfVersion" xml:"ocsfVersion"`
+Source string `json:"source" xml:"source"`
 }
 
 type ParseVPC struct {
-	Source string `json:"source" xml:"source"`
+Source string `json:"source" xml:"source"`
 }
 
 type ParseWAF struct {
-	Source string `json:"source" xml:"source"`
+Source string `json:"source" xml:"source"`
 }
 
 type PatternToken struct {
-	DynamicTokenPosition int32        `json:"dynamicTokenPosition" xml:"dynamicTokenPosition"`
-	Enumerations         Enumerations `json:"enumerations" xml:"enumerations"`
-	InferredTokenName    string       `json:"inferredTokenName" xml:"inferredTokenName"`
-	IsDynamic            bool         `json:"isDynamic" xml:"isDynamic"`
-	TokenString          string       `json:"tokenString" xml:"tokenString"`
+DynamicTokenPosition int32 `json:"dynamicTokenPosition" xml:"dynamicTokenPosition"`
+Enumerations Enumerations `json:"enumerations" xml:"enumerations"`
+InferredTokenName string `json:"inferredTokenName" xml:"inferredTokenName"`
+IsDynamic bool `json:"isDynamic" xml:"isDynamic"`
+TokenString string `json:"tokenString" xml:"tokenString"`
 }
 
 type Policy struct {
-	DeliveryDestinationPolicy string `json:"deliveryDestinationPolicy" xml:"deliveryDestinationPolicy"`
+DeliveryDestinationPolicy string `json:"deliveryDestinationPolicy" xml:"deliveryDestinationPolicy"`
 }
 
 type Processor struct {
-	AddKeys           *AddKeys           `json:"addKeys" xml:"addKeys"`
-	CopyValue         *CopyValue         `json:"copyValue" xml:"copyValue"`
-	Csv               *CSV               `json:"csv" xml:"csv"`
-	DateTimeConverter *DateTimeConverter `json:"dateTimeConverter" xml:"dateTimeConverter"`
-	DeleteKeys        *DeleteKeys        `json:"deleteKeys" xml:"deleteKeys"`
-	Grok              *Grok              `json:"grok" xml:"grok"`
-	ListToMap         *ListToMap         `json:"listToMap" xml:"listToMap"`
-	LowerCaseString   *LowerCaseString   `json:"lowerCaseString" xml:"lowerCaseString"`
-	MoveKeys          *MoveKeys          `json:"moveKeys" xml:"moveKeys"`
-	ParseCloudfront   *ParseCloudfront   `json:"parseCloudfront" xml:"parseCloudfront"`
-	ParseJSON         *ParseJSON         `json:"parseJSON" xml:"parseJSON"`
-	ParseKeyValue     *ParseKeyValue     `json:"parseKeyValue" xml:"parseKeyValue"`
-	ParsePostgres     *ParsePostgres     `json:"parsePostgres" xml:"parsePostgres"`
-	ParseRoute53      *ParseRoute53      `json:"parseRoute53" xml:"parseRoute53"`
-	ParseToOCSF       *ParseToOCSF       `json:"parseToOCSF" xml:"parseToOCSF"`
-	ParseVPC          *ParseVPC          `json:"parseVPC" xml:"parseVPC"`
-	ParseWAF          *ParseWAF          `json:"parseWAF" xml:"parseWAF"`
-	RenameKeys        *RenameKeys        `json:"renameKeys" xml:"renameKeys"`
-	SplitString       *SplitString       `json:"splitString" xml:"splitString"`
-	SubstituteString  *SubstituteString  `json:"substituteString" xml:"substituteString"`
-	TrimString        *TrimString        `json:"trimString" xml:"trimString"`
-	TypeConverter     *TypeConverter     `json:"typeConverter" xml:"typeConverter"`
-	UpperCaseString   *UpperCaseString   `json:"upperCaseString" xml:"upperCaseString"`
+AddKeys *AddKeys `json:"addKeys" xml:"addKeys"`
+CopyValue *CopyValue `json:"copyValue" xml:"copyValue"`
+Csv *CSV `json:"csv" xml:"csv"`
+DateTimeConverter *DateTimeConverter `json:"dateTimeConverter" xml:"dateTimeConverter"`
+DeleteKeys *DeleteKeys `json:"deleteKeys" xml:"deleteKeys"`
+Grok *Grok `json:"grok" xml:"grok"`
+ListToMap *ListToMap `json:"listToMap" xml:"listToMap"`
+LowerCaseString *LowerCaseString `json:"lowerCaseString" xml:"lowerCaseString"`
+MoveKeys *MoveKeys `json:"moveKeys" xml:"moveKeys"`
+ParseCloudfront *ParseCloudfront `json:"parseCloudfront" xml:"parseCloudfront"`
+ParseJSON *ParseJSON `json:"parseJSON" xml:"parseJSON"`
+ParseKeyValue *ParseKeyValue `json:"parseKeyValue" xml:"parseKeyValue"`
+ParsePostgres *ParsePostgres `json:"parsePostgres" xml:"parsePostgres"`
+ParseRoute53 *ParseRoute53 `json:"parseRoute53" xml:"parseRoute53"`
+ParseToOCSF *ParseToOCSF `json:"parseToOCSF" xml:"parseToOCSF"`
+ParseVPC *ParseVPC `json:"parseVPC" xml:"parseVPC"`
+ParseWAF *ParseWAF `json:"parseWAF" xml:"parseWAF"`
+RenameKeys *RenameKeys `json:"renameKeys" xml:"renameKeys"`
+SplitString *SplitString `json:"splitString" xml:"splitString"`
+SubstituteString *SubstituteString `json:"substituteString" xml:"substituteString"`
+TrimString *TrimString `json:"trimString" xml:"trimString"`
+TypeConverter *TypeConverter `json:"typeConverter" xml:"typeConverter"`
+UpperCaseString *UpperCaseString `json:"upperCaseString" xml:"upperCaseString"`
 }
 
 type PutAccountPolicyRequest struct {
-	PolicyDocument    string `json:"policyDocument" xml:"policyDocument"`
-	PolicyName        string `json:"policyName" xml:"policyName"`
-	PolicyType        string `json:"policyType" xml:"policyType"`
-	Scope             string `json:"scope" xml:"scope"`
-	SelectionCriteria string `json:"selectionCriteria" xml:"selectionCriteria"`
+PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
+PolicyName string `json:"policyName" xml:"policyName"`
+PolicyType string `json:"policyType" xml:"policyType"`
+Scope string `json:"scope" xml:"scope"`
+SelectionCriteria string `json:"selectionCriteria" xml:"selectionCriteria"`
 }
 
 type PutAccountPolicyResponse struct {
-	AccountPolicy *AccountPolicy `json:"accountPolicy" xml:"accountPolicy"`
+AccountPolicy *AccountPolicy `json:"accountPolicy" xml:"accountPolicy"`
 }
 
 type PutBearerTokenAuthenticationRequest struct {
-	BearerTokenAuthenticationEnabled bool   `json:"bearerTokenAuthenticationEnabled" xml:"bearerTokenAuthenticationEnabled"`
-	LogGroupIdentifier               string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+BearerTokenAuthenticationEnabled bool `json:"bearerTokenAuthenticationEnabled" xml:"bearerTokenAuthenticationEnabled"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
 }
 
 type PutDataProtectionPolicyRequest struct {
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	PolicyDocument     string `json:"policyDocument" xml:"policyDocument"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
 }
 
 type PutDataProtectionPolicyResponse struct {
-	LastUpdatedTime    int64  `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	PolicyDocument     string `json:"policyDocument" xml:"policyDocument"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
 }
 
 type PutDeliveryDestinationPolicyRequest struct {
-	DeliveryDestinationName   string `json:"deliveryDestinationName" xml:"deliveryDestinationName"`
-	DeliveryDestinationPolicy string `json:"deliveryDestinationPolicy" xml:"deliveryDestinationPolicy"`
+DeliveryDestinationName string `json:"deliveryDestinationName" xml:"deliveryDestinationName"`
+DeliveryDestinationPolicy string `json:"deliveryDestinationPolicy" xml:"deliveryDestinationPolicy"`
 }
 
 type PutDeliveryDestinationPolicyResponse struct {
-	Policy *Policy `json:"policy" xml:"policy"`
+Policy *Policy `json:"policy" xml:"policy"`
 }
 
 type PutDeliveryDestinationRequest struct {
-	DeliveryDestinationConfiguration *DeliveryDestinationConfiguration `json:"deliveryDestinationConfiguration" xml:"deliveryDestinationConfiguration"`
-	DeliveryDestinationType          string                            `json:"deliveryDestinationType" xml:"deliveryDestinationType"`
-	Name                             string                            `json:"name" xml:"name"`
-	OutputFormat                     string                            `json:"outputFormat" xml:"outputFormat"`
-	Tags                             Tags                              `json:"tags" xml:"tags"`
+DeliveryDestinationConfiguration *DeliveryDestinationConfiguration `json:"deliveryDestinationConfiguration" xml:"deliveryDestinationConfiguration"`
+DeliveryDestinationType string `json:"deliveryDestinationType" xml:"deliveryDestinationType"`
+Name string `json:"name" xml:"name"`
+OutputFormat string `json:"outputFormat" xml:"outputFormat"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type PutDeliveryDestinationResponse struct {
-	DeliveryDestination *DeliveryDestination `json:"deliveryDestination" xml:"deliveryDestination"`
+DeliveryDestination *DeliveryDestination `json:"deliveryDestination" xml:"deliveryDestination"`
 }
 
 type PutDeliverySourceRequest struct {
-	LogType     string `json:"logType" xml:"logType"`
-	Name        string `json:"name" xml:"name"`
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
-	Tags        Tags   `json:"tags" xml:"tags"`
+LogType string `json:"logType" xml:"logType"`
+Name string `json:"name" xml:"name"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type PutDeliverySourceResponse struct {
-	DeliverySource *DeliverySource `json:"deliverySource" xml:"deliverySource"`
+DeliverySource *DeliverySource `json:"deliverySource" xml:"deliverySource"`
 }
 
 type PutDestinationPolicyRequest struct {
-	AccessPolicy    string `json:"accessPolicy" xml:"accessPolicy"`
-	DestinationName string `json:"destinationName" xml:"destinationName"`
-	ForceUpdate     bool   `json:"forceUpdate" xml:"forceUpdate"`
+AccessPolicy string `json:"accessPolicy" xml:"accessPolicy"`
+DestinationName string `json:"destinationName" xml:"destinationName"`
+ForceUpdate bool `json:"forceUpdate" xml:"forceUpdate"`
 }
 
 type PutDestinationRequest struct {
-	DestinationName string `json:"destinationName" xml:"destinationName"`
-	RoleArn         string `json:"roleArn" xml:"roleArn"`
-	Tags            Tags   `json:"tags" xml:"tags"`
-	TargetArn       string `json:"targetArn" xml:"targetArn"`
+DestinationName string `json:"destinationName" xml:"destinationName"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
+Tags Tags `json:"tags" xml:"tags"`
+TargetArn string `json:"targetArn" xml:"targetArn"`
 }
 
 type PutDestinationResponse struct {
-	Destination *Destination `json:"destination" xml:"destination"`
+Destination *Destination `json:"destination" xml:"destination"`
 }
 
 type PutIndexPolicyRequest struct {
-	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	PolicyDocument     string `json:"policyDocument" xml:"policyDocument"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
 }
 
 type PutIndexPolicyResponse struct {
-	IndexPolicy *IndexPolicy `json:"indexPolicy" xml:"indexPolicy"`
+IndexPolicy *IndexPolicy `json:"indexPolicy" xml:"indexPolicy"`
 }
 
 type PutIntegrationRequest struct {
-	IntegrationName string      `json:"integrationName" xml:"integrationName"`
-	IntegrationType string      `json:"integrationType" xml:"integrationType"`
-	ResourceConfig  interface{} `json:"resourceConfig" xml:"resourceConfig"`
+IntegrationName string `json:"integrationName" xml:"integrationName"`
+IntegrationType string `json:"integrationType" xml:"integrationType"`
+ResourceConfig interface{} `json:"resourceConfig" xml:"resourceConfig"`
 }
 
 type PutIntegrationResponse struct {
-	IntegrationName   string `json:"integrationName" xml:"integrationName"`
-	IntegrationStatus string `json:"integrationStatus" xml:"integrationStatus"`
+IntegrationName string `json:"integrationName" xml:"integrationName"`
+IntegrationStatus string `json:"integrationStatus" xml:"integrationStatus"`
 }
 
 type PutLogEventsRequest struct {
-	Entity        *Entity        `json:"entity" xml:"entity"`
-	LogEvents     InputLogEvents `json:"logEvents" xml:"logEvents"`
-	LogGroupName  string         `json:"logGroupName" xml:"logGroupName"`
-	LogStreamName string         `json:"logStreamName" xml:"logStreamName"`
-	SequenceToken string         `json:"sequenceToken" xml:"sequenceToken"`
+Entity *Entity `json:"entity" xml:"entity"`
+LogEvents InputLogEvents `json:"logEvents" xml:"logEvents"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+SequenceToken string `json:"sequenceToken" xml:"sequenceToken"`
 }
 
 type PutLogEventsResponse struct {
-	NextSequenceToken     string                 `json:"nextSequenceToken" xml:"nextSequenceToken"`
-	RejectedEntityInfo    *RejectedEntityInfo    `json:"rejectedEntityInfo" xml:"rejectedEntityInfo"`
-	RejectedLogEventsInfo *RejectedLogEventsInfo `json:"rejectedLogEventsInfo" xml:"rejectedLogEventsInfo"`
+NextSequenceToken string `json:"nextSequenceToken" xml:"nextSequenceToken"`
+RejectedEntityInfo *RejectedEntityInfo `json:"rejectedEntityInfo" xml:"rejectedEntityInfo"`
+RejectedLogEventsInfo *RejectedLogEventsInfo `json:"rejectedLogEventsInfo" xml:"rejectedLogEventsInfo"`
 }
 
 type PutLogGroupDeletionProtectionRequest struct {
-	DeletionProtectionEnabled bool   `json:"deletionProtectionEnabled" xml:"deletionProtectionEnabled"`
-	LogGroupIdentifier        string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+DeletionProtectionEnabled bool `json:"deletionProtectionEnabled" xml:"deletionProtectionEnabled"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
 }
 
 type PutMetricFilterRequest struct {
-	ApplyOnTransformedLogs    bool                  `json:"applyOnTransformedLogs" xml:"applyOnTransformedLogs"`
-	EmitSystemFieldDimensions EmitSystemFields      `json:"emitSystemFieldDimensions" xml:"emitSystemFieldDimensions"`
-	FieldSelectionCriteria    string                `json:"fieldSelectionCriteria" xml:"fieldSelectionCriteria"`
-	FilterName                string                `json:"filterName" xml:"filterName"`
-	FilterPattern             string                `json:"filterPattern" xml:"filterPattern"`
-	LogGroupName              string                `json:"logGroupName" xml:"logGroupName"`
-	MetricTransformations     MetricTransformations `json:"metricTransformations" xml:"metricTransformations"`
+ApplyOnTransformedLogs bool `json:"applyOnTransformedLogs" xml:"applyOnTransformedLogs"`
+EmitSystemFieldDimensions EmitSystemFields `json:"emitSystemFieldDimensions" xml:"emitSystemFieldDimensions"`
+FieldSelectionCriteria string `json:"fieldSelectionCriteria" xml:"fieldSelectionCriteria"`
+FilterName string `json:"filterName" xml:"filterName"`
+FilterPattern string `json:"filterPattern" xml:"filterPattern"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+MetricTransformations MetricTransformations `json:"metricTransformations" xml:"metricTransformations"`
 }
 
 type PutQueryDefinitionRequest struct {
-	ClientToken       string             `json:"clientToken" xml:"clientToken"`
-	LogGroupNames     LogGroupNames      `json:"logGroupNames" xml:"logGroupNames"`
-	Name              string             `json:"name" xml:"name"`
-	Parameters        QueryParameterList `json:"parameters" xml:"parameters"`
-	QueryDefinitionId string             `json:"queryDefinitionId" xml:"queryDefinitionId"`
-	QueryLanguage     string             `json:"queryLanguage" xml:"queryLanguage"`
-	QueryString       string             `json:"queryString" xml:"queryString"`
+ClientToken string `json:"clientToken" xml:"clientToken"`
+LogGroupNames LogGroupNames `json:"logGroupNames" xml:"logGroupNames"`
+Name string `json:"name" xml:"name"`
+Parameters QueryParameterList `json:"parameters" xml:"parameters"`
+QueryDefinitionId string `json:"queryDefinitionId" xml:"queryDefinitionId"`
+QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
+QueryString string `json:"queryString" xml:"queryString"`
 }
 
 type PutQueryDefinitionResponse struct {
-	QueryDefinitionId string `json:"queryDefinitionId" xml:"queryDefinitionId"`
+QueryDefinitionId string `json:"queryDefinitionId" xml:"queryDefinitionId"`
 }
 
 type PutResourcePolicyRequest struct {
-	ExpectedRevisionId string `json:"expectedRevisionId" xml:"expectedRevisionId"`
-	PolicyDocument     string `json:"policyDocument" xml:"policyDocument"`
-	PolicyName         string `json:"policyName" xml:"policyName"`
-	ResourceArn        string `json:"resourceArn" xml:"resourceArn"`
+ExpectedRevisionId string `json:"expectedRevisionId" xml:"expectedRevisionId"`
+PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
+PolicyName string `json:"policyName" xml:"policyName"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 }
 
 type PutResourcePolicyResponse struct {
-	ResourcePolicy *ResourcePolicy `json:"resourcePolicy" xml:"resourcePolicy"`
-	RevisionId     string          `json:"revisionId" xml:"revisionId"`
+ResourcePolicy *ResourcePolicy `json:"resourcePolicy" xml:"resourcePolicy"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
 }
 
 type PutRetentionPolicyRequest struct {
-	LogGroupName    string `json:"logGroupName" xml:"logGroupName"`
-	RetentionInDays int32  `json:"retentionInDays" xml:"retentionInDays"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+RetentionInDays int32 `json:"retentionInDays" xml:"retentionInDays"`
 }
 
 type PutSubscriptionFilterRequest struct {
-	ApplyOnTransformedLogs bool             `json:"applyOnTransformedLogs" xml:"applyOnTransformedLogs"`
-	DestinationArn         string           `json:"destinationArn" xml:"destinationArn"`
-	Distribution           string           `json:"distribution" xml:"distribution"`
-	EmitSystemFields       EmitSystemFields `json:"emitSystemFields" xml:"emitSystemFields"`
-	FieldSelectionCriteria string           `json:"fieldSelectionCriteria" xml:"fieldSelectionCriteria"`
-	FilterName             string           `json:"filterName" xml:"filterName"`
-	FilterPattern          string           `json:"filterPattern" xml:"filterPattern"`
-	LogGroupName           string           `json:"logGroupName" xml:"logGroupName"`
-	RoleArn                string           `json:"roleArn" xml:"roleArn"`
+ApplyOnTransformedLogs bool `json:"applyOnTransformedLogs" xml:"applyOnTransformedLogs"`
+DestinationArn string `json:"destinationArn" xml:"destinationArn"`
+Distribution string `json:"distribution" xml:"distribution"`
+EmitSystemFields EmitSystemFields `json:"emitSystemFields" xml:"emitSystemFields"`
+FieldSelectionCriteria string `json:"fieldSelectionCriteria" xml:"fieldSelectionCriteria"`
+FilterName string `json:"filterName" xml:"filterName"`
+FilterPattern string `json:"filterPattern" xml:"filterPattern"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
 }
 
 type PutTransformerRequest struct {
-	LogGroupIdentifier string     `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
-	TransformerConfig  Processors `json:"transformerConfig" xml:"transformerConfig"`
+LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+TransformerConfig Processors `json:"transformerConfig" xml:"transformerConfig"`
 }
 
 type QueryCompileError struct {
-	Location *QueryCompileErrorLocation `json:"location" xml:"location"`
-	Message  string                     `json:"message" xml:"message"`
+Location *QueryCompileErrorLocation `json:"location" xml:"location"`
+Message string `json:"message" xml:"message"`
 }
 
 type QueryCompileErrorLocation struct {
-	EndCharOffset   int32 `json:"endCharOffset" xml:"endCharOffset"`
-	StartCharOffset int32 `json:"startCharOffset" xml:"startCharOffset"`
+EndCharOffset int32 `json:"endCharOffset" xml:"endCharOffset"`
+StartCharOffset int32 `json:"startCharOffset" xml:"startCharOffset"`
 }
 
 type QueryDefinition struct {
-	LastModified      int64              `json:"lastModified" xml:"lastModified"`
-	LogGroupNames     LogGroupNames      `json:"logGroupNames" xml:"logGroupNames"`
-	Name              string             `json:"name" xml:"name"`
-	Parameters        QueryParameterList `json:"parameters" xml:"parameters"`
-	QueryDefinitionId string             `json:"queryDefinitionId" xml:"queryDefinitionId"`
-	QueryLanguage     string             `json:"queryLanguage" xml:"queryLanguage"`
-	QueryString       string             `json:"queryString" xml:"queryString"`
+LastModified int64 `json:"lastModified" xml:"lastModified"`
+LogGroupNames LogGroupNames `json:"logGroupNames" xml:"logGroupNames"`
+Name string `json:"name" xml:"name"`
+Parameters QueryParameterList `json:"parameters" xml:"parameters"`
+QueryDefinitionId string `json:"queryDefinitionId" xml:"queryDefinitionId"`
+QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
+QueryString string `json:"queryString" xml:"queryString"`
 }
 
 type QueryInfo struct {
-	BytesScanned  float64 `json:"bytesScanned" xml:"bytesScanned"`
-	CreateTime    int64   `json:"createTime" xml:"createTime"`
-	LogGroupName  string  `json:"logGroupName" xml:"logGroupName"`
-	QueryDuration int64   `json:"queryDuration" xml:"queryDuration"`
-	QueryId       string  `json:"queryId" xml:"queryId"`
-	QueryLanguage string  `json:"queryLanguage" xml:"queryLanguage"`
-	QueryString   string  `json:"queryString" xml:"queryString"`
-	Status        string  `json:"status" xml:"status"`
-	UserIdentity  string  `json:"userIdentity" xml:"userIdentity"`
+BytesScanned float64 `json:"bytesScanned" xml:"bytesScanned"`
+CreateTime int64 `json:"createTime" xml:"createTime"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+QueryDuration int64 `json:"queryDuration" xml:"queryDuration"`
+QueryId string `json:"queryId" xml:"queryId"`
+QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
+QueryString string `json:"queryString" xml:"queryString"`
+Status string `json:"status" xml:"status"`
+UserIdentity string `json:"userIdentity" xml:"userIdentity"`
 }
 
 type QueryParameter struct {
-	DefaultValue string `json:"defaultValue" xml:"defaultValue"`
-	Description  string `json:"description" xml:"description"`
-	Name         string `json:"name" xml:"name"`
+DefaultValue string `json:"defaultValue" xml:"defaultValue"`
+Description string `json:"description" xml:"description"`
+Name string `json:"name" xml:"name"`
 }
 
 type QueryStatistics struct {
-	BytesScanned            float64 `json:"bytesScanned" xml:"bytesScanned"`
-	EstimatedBytesSkipped   float64 `json:"estimatedBytesSkipped" xml:"estimatedBytesSkipped"`
-	EstimatedRecordsSkipped float64 `json:"estimatedRecordsSkipped" xml:"estimatedRecordsSkipped"`
-	LogGroupsScanned        float64 `json:"logGroupsScanned" xml:"logGroupsScanned"`
-	RecordsMatched          float64 `json:"recordsMatched" xml:"recordsMatched"`
-	RecordsScanned          float64 `json:"recordsScanned" xml:"recordsScanned"`
+BytesScanned float64 `json:"bytesScanned" xml:"bytesScanned"`
+EstimatedBytesSkipped float64 `json:"estimatedBytesSkipped" xml:"estimatedBytesSkipped"`
+EstimatedRecordsSkipped float64 `json:"estimatedRecordsSkipped" xml:"estimatedRecordsSkipped"`
+LogGroupsScanned float64 `json:"logGroupsScanned" xml:"logGroupsScanned"`
+RecordsMatched float64 `json:"recordsMatched" xml:"recordsMatched"`
+RecordsScanned float64 `json:"recordsScanned" xml:"recordsScanned"`
 }
 
 type RecordField struct {
-	Mandatory bool   `json:"mandatory" xml:"mandatory"`
-	Name      string `json:"name" xml:"name"`
+Mandatory bool `json:"mandatory" xml:"mandatory"`
+Name string `json:"name" xml:"name"`
 }
 
 type RejectedEntityInfo struct {
-	ErrorType string `json:"errorType" xml:"errorType"`
+ErrorType string `json:"errorType" xml:"errorType"`
 }
 
 type RejectedLogEventsInfo struct {
-	ExpiredLogEventEndIndex  int32 `json:"expiredLogEventEndIndex" xml:"expiredLogEventEndIndex"`
-	TooNewLogEventStartIndex int32 `json:"tooNewLogEventStartIndex" xml:"tooNewLogEventStartIndex"`
-	TooOldLogEventEndIndex   int32 `json:"tooOldLogEventEndIndex" xml:"tooOldLogEventEndIndex"`
+ExpiredLogEventEndIndex int32 `json:"expiredLogEventEndIndex" xml:"expiredLogEventEndIndex"`
+TooNewLogEventStartIndex int32 `json:"tooNewLogEventStartIndex" xml:"tooNewLogEventStartIndex"`
+TooOldLogEventEndIndex int32 `json:"tooOldLogEventEndIndex" xml:"tooOldLogEventEndIndex"`
 }
 
 type RenameKeyEntry struct {
-	Key               string `json:"key" xml:"key"`
-	OverwriteIfExists bool   `json:"overwriteIfExists" xml:"overwriteIfExists"`
-	RenameTo          string `json:"renameTo" xml:"renameTo"`
+Key string `json:"key" xml:"key"`
+OverwriteIfExists bool `json:"overwriteIfExists" xml:"overwriteIfExists"`
+RenameTo string `json:"renameTo" xml:"renameTo"`
 }
 
 type RenameKeys struct {
-	Entries RenameKeyEntries `json:"entries" xml:"entries"`
+Entries RenameKeyEntries `json:"entries" xml:"entries"`
 }
 
 type ResourcePolicy struct {
-	LastUpdatedTime int64  `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	PolicyDocument  string `json:"policyDocument" xml:"policyDocument"`
-	PolicyName      string `json:"policyName" xml:"policyName"`
-	PolicyScope     string `json:"policyScope" xml:"policyScope"`
-	ResourceArn     string `json:"resourceArn" xml:"resourceArn"`
-	RevisionId      string `json:"revisionId" xml:"revisionId"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+PolicyDocument string `json:"policyDocument" xml:"policyDocument"`
+PolicyName string `json:"policyName" xml:"policyName"`
+PolicyScope string `json:"policyScope" xml:"policyScope"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+RevisionId string `json:"revisionId" xml:"revisionId"`
 }
 
 type ResultField struct {
-	Field string `json:"field" xml:"field"`
-	Value string `json:"value" xml:"value"`
+Field string `json:"field" xml:"field"`
+Value string `json:"value" xml:"value"`
 }
 
 type S3Configuration struct {
-	DestinationIdentifier string `json:"destinationIdentifier" xml:"destinationIdentifier"`
-	KmsKeyId              string `json:"kmsKeyId" xml:"kmsKeyId"`
-	OwnerAccountId        string `json:"ownerAccountId" xml:"ownerAccountId"`
-	RoleArn               string `json:"roleArn" xml:"roleArn"`
+DestinationIdentifier string `json:"destinationIdentifier" xml:"destinationIdentifier"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+OwnerAccountId string `json:"ownerAccountId" xml:"ownerAccountId"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
 }
 
 type S3DeliveryConfiguration struct {
-	EnableHiveCompatiblePath bool   `json:"enableHiveCompatiblePath" xml:"enableHiveCompatiblePath"`
-	SuffixPath               string `json:"suffixPath" xml:"suffixPath"`
+EnableHiveCompatiblePath bool `json:"enableHiveCompatiblePath" xml:"enableHiveCompatiblePath"`
+SuffixPath string `json:"suffixPath" xml:"suffixPath"`
 }
 
 type S3TableIntegrationSource struct {
-	CreatedTimeStamp int64       `json:"createdTimeStamp" xml:"createdTimeStamp"`
-	DataSource       *DataSource `json:"dataSource" xml:"dataSource"`
-	Identifier       string      `json:"identifier" xml:"identifier"`
-	Status           string      `json:"status" xml:"status"`
-	StatusReason     string      `json:"statusReason" xml:"statusReason"`
+CreatedTimeStamp int64 `json:"createdTimeStamp" xml:"createdTimeStamp"`
+DataSource *DataSource `json:"dataSource" xml:"dataSource"`
+Identifier string `json:"identifier" xml:"identifier"`
+Status string `json:"status" xml:"status"`
+StatusReason string `json:"statusReason" xml:"statusReason"`
 }
 
 type ScheduledQueryDestination struct {
-	DestinationIdentifier string `json:"destinationIdentifier" xml:"destinationIdentifier"`
-	DestinationType       string `json:"destinationType" xml:"destinationType"`
-	ErrorMessage          string `json:"errorMessage" xml:"errorMessage"`
-	ProcessedIdentifier   string `json:"processedIdentifier" xml:"processedIdentifier"`
-	Status                string `json:"status" xml:"status"`
+DestinationIdentifier string `json:"destinationIdentifier" xml:"destinationIdentifier"`
+DestinationType string `json:"destinationType" xml:"destinationType"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+ProcessedIdentifier string `json:"processedIdentifier" xml:"processedIdentifier"`
+Status string `json:"status" xml:"status"`
 }
 
 type ScheduledQuerySummary struct {
-	CreationTime             int64                     `json:"creationTime" xml:"creationTime"`
-	DestinationConfiguration *DestinationConfiguration `json:"destinationConfiguration" xml:"destinationConfiguration"`
-	LastExecutionStatus      string                    `json:"lastExecutionStatus" xml:"lastExecutionStatus"`
-	LastTriggeredTime        int64                     `json:"lastTriggeredTime" xml:"lastTriggeredTime"`
-	LastUpdatedTime          int64                     `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	Name                     string                    `json:"name" xml:"name"`
-	ScheduleExpression       string                    `json:"scheduleExpression" xml:"scheduleExpression"`
-	ScheduledQueryArn        string                    `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
-	State                    string                    `json:"state" xml:"state"`
-	Timezone                 string                    `json:"timezone" xml:"timezone"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+DestinationConfiguration *DestinationConfiguration `json:"destinationConfiguration" xml:"destinationConfiguration"`
+LastExecutionStatus string `json:"lastExecutionStatus" xml:"lastExecutionStatus"`
+LastTriggeredTime int64 `json:"lastTriggeredTime" xml:"lastTriggeredTime"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+Name string `json:"name" xml:"name"`
+ScheduleExpression string `json:"scheduleExpression" xml:"scheduleExpression"`
+ScheduledQueryArn string `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
+State string `json:"state" xml:"state"`
+Timezone string `json:"timezone" xml:"timezone"`
 }
 
 type SearchedLogStream struct {
-	LogStreamName      string `json:"logStreamName" xml:"logStreamName"`
-	SearchedCompletely bool   `json:"searchedCompletely" xml:"searchedCompletely"`
+LogStreamName string `json:"logStreamName" xml:"logStreamName"`
+SearchedCompletely bool `json:"searchedCompletely" xml:"searchedCompletely"`
 }
 
 type SmithyUnit struct {
 }
 
 type SplitString struct {
-	Entries SplitStringEntries `json:"entries" xml:"entries"`
+Entries SplitStringEntries `json:"entries" xml:"entries"`
 }
 
 type SplitStringEntry struct {
-	Delimiter string `json:"delimiter" xml:"delimiter"`
-	Source    string `json:"source" xml:"source"`
+Delimiter string `json:"delimiter" xml:"delimiter"`
+Source string `json:"source" xml:"source"`
 }
 
 type StartLiveTailRequest struct {
-	LogEventFilterPattern string                           `json:"logEventFilterPattern" xml:"logEventFilterPattern"`
-	LogGroupIdentifiers   StartLiveTailLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
-	LogStreamNamePrefixes InputLogStreamNames              `json:"logStreamNamePrefixes" xml:"logStreamNamePrefixes"`
-	LogStreamNames        InputLogStreamNames              `json:"logStreamNames" xml:"logStreamNames"`
+LogEventFilterPattern string `json:"logEventFilterPattern" xml:"logEventFilterPattern"`
+LogGroupIdentifiers StartLiveTailLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
+LogStreamNamePrefixes InputLogStreamNames `json:"logStreamNamePrefixes" xml:"logStreamNamePrefixes"`
+LogStreamNames InputLogStreamNames `json:"logStreamNames" xml:"logStreamNames"`
 }
 
 type StartLiveTailResponse struct {
-	ResponseStream interface{} `json:"responseStream" xml:"responseStream"`
+ResponseStream interface{} `json:"responseStream" xml:"responseStream"`
 }
 
 type StartQueryRequest struct {
-	EndTime             int64               `json:"endTime" xml:"endTime"`
-	Limit               int32               `json:"limit" xml:"limit"`
-	LogGroupIdentifiers LogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
-	LogGroupName        string              `json:"logGroupName" xml:"logGroupName"`
-	LogGroupNames       LogGroupNames       `json:"logGroupNames" xml:"logGroupNames"`
-	QueryLanguage       string              `json:"queryLanguage" xml:"queryLanguage"`
-	QueryString         string              `json:"queryString" xml:"queryString"`
-	StartTime           int64               `json:"startTime" xml:"startTime"`
+EndTime int64 `json:"endTime" xml:"endTime"`
+Limit int32 `json:"limit" xml:"limit"`
+LogGroupIdentifiers LogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+LogGroupNames LogGroupNames `json:"logGroupNames" xml:"logGroupNames"`
+QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
+QueryString string `json:"queryString" xml:"queryString"`
+StartTime int64 `json:"startTime" xml:"startTime"`
 }
 
 type StartQueryResponse struct {
-	QueryId string `json:"queryId" xml:"queryId"`
+QueryId string `json:"queryId" xml:"queryId"`
 }
 
 type StopQueryRequest struct {
-	QueryId string `json:"queryId" xml:"queryId"`
+QueryId string `json:"queryId" xml:"queryId"`
 }
 
 type StopQueryResponse struct {
-	Success bool `json:"success" xml:"success"`
+Success bool `json:"success" xml:"success"`
 }
 
 type SubscriptionFilter struct {
-	ApplyOnTransformedLogs bool             `json:"applyOnTransformedLogs" xml:"applyOnTransformedLogs"`
-	CreationTime           int64            `json:"creationTime" xml:"creationTime"`
-	DestinationArn         string           `json:"destinationArn" xml:"destinationArn"`
-	Distribution           string           `json:"distribution" xml:"distribution"`
-	EmitSystemFields       EmitSystemFields `json:"emitSystemFields" xml:"emitSystemFields"`
-	FieldSelectionCriteria string           `json:"fieldSelectionCriteria" xml:"fieldSelectionCriteria"`
-	FilterName             string           `json:"filterName" xml:"filterName"`
-	FilterPattern          string           `json:"filterPattern" xml:"filterPattern"`
-	LogGroupName           string           `json:"logGroupName" xml:"logGroupName"`
-	RoleArn                string           `json:"roleArn" xml:"roleArn"`
+ApplyOnTransformedLogs bool `json:"applyOnTransformedLogs" xml:"applyOnTransformedLogs"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+DestinationArn string `json:"destinationArn" xml:"destinationArn"`
+Distribution string `json:"distribution" xml:"distribution"`
+EmitSystemFields EmitSystemFields `json:"emitSystemFields" xml:"emitSystemFields"`
+FieldSelectionCriteria string `json:"fieldSelectionCriteria" xml:"fieldSelectionCriteria"`
+FilterName string `json:"filterName" xml:"filterName"`
+FilterPattern string `json:"filterPattern" xml:"filterPattern"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+RoleArn string `json:"roleArn" xml:"roleArn"`
 }
 
 type SubstituteString struct {
-	Entries SubstituteStringEntries `json:"entries" xml:"entries"`
+Entries SubstituteStringEntries `json:"entries" xml:"entries"`
 }
 
 type SubstituteStringEntry struct {
-	From   string `json:"from" xml:"from"`
-	Source string `json:"source" xml:"source"`
-	To     string `json:"to" xml:"to"`
+From string `json:"from" xml:"from"`
+Source string `json:"source" xml:"source"`
+To string `json:"to" xml:"to"`
 }
 
 type SuppressionPeriod struct {
-	SuppressionUnit string `json:"suppressionUnit" xml:"suppressionUnit"`
-	Value           int32  `json:"value" xml:"value"`
+SuppressionUnit string `json:"suppressionUnit" xml:"suppressionUnit"`
+Value int32 `json:"value" xml:"value"`
 }
 
 type TagLogGroupRequest struct {
-	LogGroupName string `json:"logGroupName" xml:"logGroupName"`
-	Tags         Tags   `json:"tags" xml:"tags"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type TagResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
-	Tags        Tags   `json:"tags" xml:"tags"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+Tags Tags `json:"tags" xml:"tags"`
 }
 
 type TestMetricFilterRequest struct {
-	FilterPattern    string            `json:"filterPattern" xml:"filterPattern"`
-	LogEventMessages TestEventMessages `json:"logEventMessages" xml:"logEventMessages"`
+FilterPattern string `json:"filterPattern" xml:"filterPattern"`
+LogEventMessages TestEventMessages `json:"logEventMessages" xml:"logEventMessages"`
 }
 
 type TestMetricFilterResponse struct {
-	Matches MetricFilterMatches `json:"matches" xml:"matches"`
+Matches MetricFilterMatches `json:"matches" xml:"matches"`
 }
 
 type TestTransformerRequest struct {
-	LogEventMessages  TestEventMessages `json:"logEventMessages" xml:"logEventMessages"`
-	TransformerConfig Processors        `json:"transformerConfig" xml:"transformerConfig"`
+LogEventMessages TestEventMessages `json:"logEventMessages" xml:"logEventMessages"`
+TransformerConfig Processors `json:"transformerConfig" xml:"transformerConfig"`
 }
 
 type TestTransformerResponse struct {
-	TransformedLogs TransformedLogs `json:"transformedLogs" xml:"transformedLogs"`
+TransformedLogs TransformedLogs `json:"transformedLogs" xml:"transformedLogs"`
 }
 
 type TransformedLogRecord struct {
-	EventMessage            string `json:"eventMessage" xml:"eventMessage"`
-	EventNumber             int64  `json:"eventNumber" xml:"eventNumber"`
-	TransformedEventMessage string `json:"transformedEventMessage" xml:"transformedEventMessage"`
+EventMessage string `json:"eventMessage" xml:"eventMessage"`
+EventNumber int64 `json:"eventNumber" xml:"eventNumber"`
+TransformedEventMessage string `json:"transformedEventMessage" xml:"transformedEventMessage"`
 }
 
 type TriggerHistoryRecord struct {
-	Destinations       ScheduledQueryDestinationList `json:"destinations" xml:"destinations"`
-	ErrorMessage       string                        `json:"errorMessage" xml:"errorMessage"`
-	ExecutionStatus    string                        `json:"executionStatus" xml:"executionStatus"`
-	QueryId            string                        `json:"queryId" xml:"queryId"`
-	TriggeredTimestamp int64                         `json:"triggeredTimestamp" xml:"triggeredTimestamp"`
+Destinations ScheduledQueryDestinationList `json:"destinations" xml:"destinations"`
+ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+ExecutionStatus string `json:"executionStatus" xml:"executionStatus"`
+QueryId string `json:"queryId" xml:"queryId"`
+TriggeredTimestamp int64 `json:"triggeredTimestamp" xml:"triggeredTimestamp"`
 }
 
 type TrimString struct {
-	WithKeys TrimStringWithKeys `json:"withKeys" xml:"withKeys"`
+WithKeys TrimStringWithKeys `json:"withKeys" xml:"withKeys"`
 }
 
 type TypeConverter struct {
-	Entries TypeConverterEntries `json:"entries" xml:"entries"`
+Entries TypeConverterEntries `json:"entries" xml:"entries"`
 }
 
 type TypeConverterEntry struct {
-	Key  string `json:"key" xml:"key"`
-	Type string `json:"type" xml:"type"`
+Key string `json:"key" xml:"key"`
+Type string `json:"type" xml:"type"`
 }
 
 type UntagLogGroupRequest struct {
-	LogGroupName string  `json:"logGroupName" xml:"logGroupName"`
-	Tags         TagList `json:"tags" xml:"tags"`
+LogGroupName string `json:"logGroupName" xml:"logGroupName"`
+Tags TagList `json:"tags" xml:"tags"`
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string     `json:"resourceArn" xml:"resourceArn"`
-	TagKeys     TagKeyList `json:"tagKeys" xml:"tagKeys"`
+ResourceArn string `json:"resourceArn" xml:"resourceArn"`
+TagKeys TagKeyList `json:"tagKeys" xml:"tagKeys"`
 }
 
 type UpdateAnomalyRequest struct {
-	AnomalyDetectorArn string             `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
-	AnomalyId          string             `json:"anomalyId" xml:"anomalyId"`
-	Baseline           bool               `json:"baseline" xml:"baseline"`
-	PatternId          string             `json:"patternId" xml:"patternId"`
-	SuppressionPeriod  *SuppressionPeriod `json:"suppressionPeriod" xml:"suppressionPeriod"`
-	SuppressionType    string             `json:"suppressionType" xml:"suppressionType"`
+AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
+AnomalyId string `json:"anomalyId" xml:"anomalyId"`
+Baseline bool `json:"baseline" xml:"baseline"`
+PatternId string `json:"patternId" xml:"patternId"`
+SuppressionPeriod *SuppressionPeriod `json:"suppressionPeriod" xml:"suppressionPeriod"`
+SuppressionType string `json:"suppressionType" xml:"suppressionType"`
 }
 
 type UpdateDeliveryConfigurationRequest struct {
-	FieldDelimiter          string                   `json:"fieldDelimiter" xml:"fieldDelimiter"`
-	Id                      string                   `json:"id" xml:"id"`
-	RecordFields            RecordFields             `json:"recordFields" xml:"recordFields"`
-	S3DeliveryConfiguration *S3DeliveryConfiguration `json:"s3DeliveryConfiguration" xml:"s3DeliveryConfiguration"`
+FieldDelimiter string `json:"fieldDelimiter" xml:"fieldDelimiter"`
+Id string `json:"id" xml:"id"`
+RecordFields RecordFields `json:"recordFields" xml:"recordFields"`
+S3DeliveryConfiguration *S3DeliveryConfiguration `json:"s3DeliveryConfiguration" xml:"s3DeliveryConfiguration"`
 }
 
 type UpdateDeliveryConfigurationResponse struct {
 }
 
 type UpdateLogAnomalyDetectorRequest struct {
-	AnomalyDetectorArn    string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
-	AnomalyVisibilityTime int64  `json:"anomalyVisibilityTime" xml:"anomalyVisibilityTime"`
-	Enabled               bool   `json:"enabled" xml:"enabled"`
-	EvaluationFrequency   string `json:"evaluationFrequency" xml:"evaluationFrequency"`
-	FilterPattern         string `json:"filterPattern" xml:"filterPattern"`
+AnomalyDetectorArn string `json:"anomalyDetectorArn" xml:"anomalyDetectorArn"`
+AnomalyVisibilityTime int64 `json:"anomalyVisibilityTime" xml:"anomalyVisibilityTime"`
+Enabled bool `json:"enabled" xml:"enabled"`
+EvaluationFrequency string `json:"evaluationFrequency" xml:"evaluationFrequency"`
+FilterPattern string `json:"filterPattern" xml:"filterPattern"`
 }
 
 type UpdateLookupTableRequest struct {
-	Description    string `json:"description" xml:"description"`
-	KmsKeyId       string `json:"kmsKeyId" xml:"kmsKeyId"`
-	LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
-	TableBody      string `json:"tableBody" xml:"tableBody"`
+Description string `json:"description" xml:"description"`
+KmsKeyId string `json:"kmsKeyId" xml:"kmsKeyId"`
+LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
+TableBody string `json:"tableBody" xml:"tableBody"`
 }
 
 type UpdateLookupTableResponse struct {
-	LastUpdatedTime int64  `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	LookupTableArn  string `json:"lookupTableArn" xml:"lookupTableArn"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
 }
 
 type UpdateScheduledQueryRequest struct {
-	Description              string                            `json:"description" xml:"description"`
-	DestinationConfiguration *DestinationConfiguration         `json:"destinationConfiguration" xml:"destinationConfiguration"`
-	ExecutionRoleArn         string                            `json:"executionRoleArn" xml:"executionRoleArn"`
-	Identifier               string                            `json:"identifier" xml:"identifier"`
-	LogGroupIdentifiers      ScheduledQueryLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
-	QueryLanguage            string                            `json:"queryLanguage" xml:"queryLanguage"`
-	QueryString              string                            `json:"queryString" xml:"queryString"`
-	ScheduleEndTime          int64                             `json:"scheduleEndTime" xml:"scheduleEndTime"`
-	ScheduleExpression       string                            `json:"scheduleExpression" xml:"scheduleExpression"`
-	ScheduleStartTime        int64                             `json:"scheduleStartTime" xml:"scheduleStartTime"`
-	StartTimeOffset          int64                             `json:"startTimeOffset" xml:"startTimeOffset"`
-	State                    string                            `json:"state" xml:"state"`
-	Timezone                 string                            `json:"timezone" xml:"timezone"`
+Description string `json:"description" xml:"description"`
+DestinationConfiguration *DestinationConfiguration `json:"destinationConfiguration" xml:"destinationConfiguration"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+Identifier string `json:"identifier" xml:"identifier"`
+LogGroupIdentifiers ScheduledQueryLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
+QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
+QueryString string `json:"queryString" xml:"queryString"`
+ScheduleEndTime int64 `json:"scheduleEndTime" xml:"scheduleEndTime"`
+ScheduleExpression string `json:"scheduleExpression" xml:"scheduleExpression"`
+ScheduleStartTime int64 `json:"scheduleStartTime" xml:"scheduleStartTime"`
+StartTimeOffset int64 `json:"startTimeOffset" xml:"startTimeOffset"`
+State string `json:"state" xml:"state"`
+Timezone string `json:"timezone" xml:"timezone"`
 }
 
 type UpdateScheduledQueryResponse struct {
-	CreationTime             int64                             `json:"creationTime" xml:"creationTime"`
-	Description              string                            `json:"description" xml:"description"`
-	DestinationConfiguration *DestinationConfiguration         `json:"destinationConfiguration" xml:"destinationConfiguration"`
-	ExecutionRoleArn         string                            `json:"executionRoleArn" xml:"executionRoleArn"`
-	LastExecutionStatus      string                            `json:"lastExecutionStatus" xml:"lastExecutionStatus"`
-	LastTriggeredTime        int64                             `json:"lastTriggeredTime" xml:"lastTriggeredTime"`
-	LastUpdatedTime          int64                             `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
-	LogGroupIdentifiers      ScheduledQueryLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
-	Name                     string                            `json:"name" xml:"name"`
-	QueryLanguage            string                            `json:"queryLanguage" xml:"queryLanguage"`
-	QueryString              string                            `json:"queryString" xml:"queryString"`
-	ScheduleEndTime          int64                             `json:"scheduleEndTime" xml:"scheduleEndTime"`
-	ScheduleExpression       string                            `json:"scheduleExpression" xml:"scheduleExpression"`
-	ScheduleStartTime        int64                             `json:"scheduleStartTime" xml:"scheduleStartTime"`
-	ScheduledQueryArn        string                            `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
-	StartTimeOffset          int64                             `json:"startTimeOffset" xml:"startTimeOffset"`
-	State                    string                            `json:"state" xml:"state"`
-	Timezone                 string                            `json:"timezone" xml:"timezone"`
+CreationTime int64 `json:"creationTime" xml:"creationTime"`
+Description string `json:"description" xml:"description"`
+DestinationConfiguration *DestinationConfiguration `json:"destinationConfiguration" xml:"destinationConfiguration"`
+ExecutionRoleArn string `json:"executionRoleArn" xml:"executionRoleArn"`
+LastExecutionStatus string `json:"lastExecutionStatus" xml:"lastExecutionStatus"`
+LastTriggeredTime int64 `json:"lastTriggeredTime" xml:"lastTriggeredTime"`
+LastUpdatedTime int64 `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+LogGroupIdentifiers ScheduledQueryLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
+Name string `json:"name" xml:"name"`
+QueryLanguage string `json:"queryLanguage" xml:"queryLanguage"`
+QueryString string `json:"queryString" xml:"queryString"`
+ScheduleEndTime int64 `json:"scheduleEndTime" xml:"scheduleEndTime"`
+ScheduleExpression string `json:"scheduleExpression" xml:"scheduleExpression"`
+ScheduleStartTime int64 `json:"scheduleStartTime" xml:"scheduleStartTime"`
+ScheduledQueryArn string `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
+StartTimeOffset int64 `json:"startTimeOffset" xml:"startTimeOffset"`
+State string `json:"state" xml:"state"`
+Timezone string `json:"timezone" xml:"timezone"`
 }
 
 type UpperCaseString struct {
-	WithKeys UpperCaseStringWithKeys `json:"withKeys" xml:"withKeys"`
+WithKeys UpperCaseStringWithKeys `json:"withKeys" xml:"withKeys"`
 }
 
 type AccountIds []string
@@ -2101,3 +2102,4 @@ type IntegrationDetails interface{}
 type ResourceConfig interface{}
 
 type StartLiveTailResponseStream interface{}
+

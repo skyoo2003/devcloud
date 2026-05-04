@@ -1483,3 +1483,4 @@ func SerializeUploadPartCopyOutput(w http.ResponseWriter, output *UploadPartCopy
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

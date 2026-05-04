@@ -513,3 +513,4 @@ func (e *UpdateInProgressException) ErrorCode() string {
 func (e *UpdateInProgressException) HTTPStatus() int {
 	return 0
 }
+

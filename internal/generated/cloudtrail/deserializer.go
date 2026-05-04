@@ -889,3 +889,4 @@ func SerializeUpdateTrailResponse(w http.ResponseWriter, output *UpdateTrailResp
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

@@ -250,3 +250,4 @@ func (b *BaseProvider) UpdateEventDataStore(ctx context.Context, input *UpdateEv
 func (b *BaseProvider) UpdateTrail(ctx context.Context, input *UpdateTrailRequest) (*UpdateTrailResponse, error) {
 	return nil, fmt.Errorf("UpdateTrail: %w", ErrNotImplemented)
 }
+

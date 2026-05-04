@@ -363,3 +363,4 @@ func SerializeUpdateHostKeyResponse(w http.ResponseWriter, output *UpdateHostKey
 	w.WriteHeader(http.StatusOK)
 	return xml.NewEncoder(w).Encode(output)
 }
+

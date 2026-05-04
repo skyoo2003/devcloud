@@ -166,3 +166,4 @@ func (b *BaseProvider) UndeprecateWorkflowType(ctx context.Context, input *Undep
 func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
 }
+

@@ -114,3 +114,4 @@ func (b *BaseProvider) UpdateScalingParameters(ctx context.Context, input *Updat
 func (b *BaseProvider) UpdateServiceAccessPolicies(ctx context.Context, input *UpdateServiceAccessPoliciesRequest) (*UpdateServiceAccessPoliciesResponse, error) {
 	return nil, fmt.Errorf("UpdateServiceAccessPolicies: %w", ErrNotImplemented)
 }
+

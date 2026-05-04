@@ -278,3 +278,4 @@ func (b *BaseProvider) UpdatePermissionSet(ctx context.Context, input *UpdatePer
 func (b *BaseProvider) UpdateTrustedTokenIssuer(ctx context.Context, input *UpdateTrustedTokenIssuerRequest) (*UpdateTrustedTokenIssuerResponse, error) {
 	return nil, fmt.Errorf("UpdateTrustedTokenIssuer: %w", ErrNotImplemented)
 }
+

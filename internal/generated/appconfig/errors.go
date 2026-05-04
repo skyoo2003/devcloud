@@ -105,3 +105,4 @@ func (e *ServiceQuotaExceededException) ErrorCode() string {
 func (e *ServiceQuotaExceededException) HTTPStatus() int {
 	return 402
 }
+
