@@ -166,6 +166,15 @@ func (p *SQSProvider) handleJSONRequest(op string, req *http.Request) (*plugin.R
 		return p.untagQueueJSON(params)
 	case "ListQueueTags":
 		return p.listQueueTagsJSON(params)
+	// Dead-letter redrive
+	case "ListDeadLetterSourceQueues":
+		return p.listDeadLetterSourceQueuesJSON(params)
+	case "StartMessageMoveTask":
+		return p.startMessageMoveTaskJSON(params)
+	case "ListMessageMoveTasks":
+		return p.listMessageMoveTasksJSON(params)
+	case "CancelMessageMoveTask":
+		return p.cancelMessageMoveTaskJSON(params)
 	// Permissions (stubs)
 	case "AddPermission":
 		return jsonResp(http.StatusOK, map[string]any{})
@@ -600,6 +609,86 @@ func (p *SQSProvider) purgeQueueJSON(params map[string]any) (*plugin.Response, e
 	}
 
 	return jsonResp(http.StatusOK, map[string]any{})
+}
+
+func (p *SQSProvider) listDeadLetterSourceQueuesJSON(params map[string]any) (*plugin.Response, error) {
+	queueURL := strParam(params, "QueueUrl")
+	if queueURL == "" {
+		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
+	}
+
+	name := queueNameFromURL(queueURL)
+	urls, err := p.store.ListDeadLetterSourceQueues(name, defaultAccountID)
+	if err != nil {
+		return jsonError("AWS.SimpleQueueService.NonExistentQueue", "queue not found", http.StatusBadRequest), nil
+	}
+
+	// Wire member name is lowercase "queueUrls" for this op (per the SQS JSON model),
+	// unlike ListQueues' "QueueUrls".
+	return jsonResp(http.StatusOK, map[string]any{"queueUrls": urls})
+}
+
+func (p *SQSProvider) startMessageMoveTaskJSON(params map[string]any) (*plugin.Response, error) {
+	sourceArn := strParam(params, "SourceArn")
+	if sourceArn == "" {
+		return jsonError("MissingParameter", "SourceArn is required", http.StatusBadRequest), nil
+	}
+	destArn := strParam(params, "DestinationArn")
+	maxRate := intParam(params, "MaxNumberOfMessagesPerSecond", 0)
+
+	handle, err := p.store.StartMessageMoveTask(sourceArn, destArn, maxRate, defaultAccountID)
+	switch {
+	case err == ErrQueueNotFound:
+		return jsonError("ResourceNotFoundException", "queue not found", http.StatusBadRequest), nil
+	case err == ErrSourceNotDLQ:
+		return jsonError("AWS.SimpleQueueService.UnsupportedOperation",
+			"source queue must be configured as a dead-letter queue", http.StatusBadRequest), nil
+	case err != nil:
+		return nil, err
+	}
+
+	return jsonResp(http.StatusOK, map[string]any{"TaskHandle": handle})
+}
+
+func (p *SQSProvider) listMessageMoveTasksJSON(params map[string]any) (*plugin.Response, error) {
+	sourceArn := strParam(params, "SourceArn")
+	if sourceArn == "" {
+		return jsonError("MissingParameter", "SourceArn is required", http.StatusBadRequest), nil
+	}
+	maxResults := intParam(params, "MaxResults", 0)
+
+	tasks := p.store.ListMessageMoveTasks(sourceArn, maxResults)
+	results := make([]map[string]any, 0, len(tasks))
+	for _, t := range tasks {
+		entry := map[string]any{
+			"TaskHandle":                       t.Handle,
+			"Status":                           t.Status,
+			"SourceArn":                        t.SourceArn,
+			"MaxNumberOfMessagesPerSecond":     t.MaxRate,
+			"ApproximateNumberOfMessagesMoved": t.Moved,
+			"StartedTimestamp":                 t.StartedUnix,
+		}
+		if t.DestinationArn != "" {
+			entry["DestinationArn"] = t.DestinationArn
+		}
+		results = append(results, entry)
+	}
+
+	return jsonResp(http.StatusOK, map[string]any{"Results": results})
+}
+
+func (p *SQSProvider) cancelMessageMoveTaskJSON(params map[string]any) (*plugin.Response, error) {
+	handle := strParam(params, "TaskHandle")
+	if handle == "" {
+		return jsonError("MissingParameter", "TaskHandle is required", http.StatusBadRequest), nil
+	}
+
+	moved, err := p.store.CancelMessageMoveTask(handle)
+	if err != nil {
+		return jsonError("ResourceNotFoundException", "task not found", http.StatusBadRequest), nil
+	}
+
+	return jsonResp(http.StatusOK, map[string]any{"ApproximateNumberOfMessagesMoved": moved})
 }
 
 // parseJSONMessageAttributes extracts MessageAttributes from JSON params.

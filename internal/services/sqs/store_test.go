@@ -168,6 +168,85 @@ func TestQueueStore_DLQ(t *testing.T) {
 	assert.Equal(t, "dlq-test", dlqMsgs[0].Body)
 }
 
+func TestQueueStore_ListDeadLetterSourceQueues(t *testing.T) {
+	store := NewQueueStore(0)
+	require.NoError(t, store.CreateQueue("mmt-source", testAccount))
+	require.NoError(t, store.CreateQueue("mmt-dlq", testAccount))
+
+	dlqArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:mmt-dlq", testAccount)
+	require.NoError(t, store.SetQueueAttributes("mmt-source", testAccount, map[string]string{
+		"RedrivePolicy": `{"maxReceiveCount":1,"deadLetterTargetArn":"` + dlqArn + `"}`,
+	}))
+
+	// The DLQ lists its source queue.
+	sources, err := store.ListDeadLetterSourceQueues("mmt-dlq", testAccount)
+	require.NoError(t, err)
+	require.Len(t, sources, 1)
+	assert.Contains(t, sources[0], "mmt-source")
+
+	// A queue that is not used as a DLQ has no source queues.
+	empty, err := store.ListDeadLetterSourceQueues("mmt-source", testAccount)
+	require.NoError(t, err)
+	assert.Len(t, empty, 0)
+
+	// An unknown queue errors.
+	_, err = store.ListDeadLetterSourceQueues("no-such-queue", testAccount)
+	assert.ErrorIs(t, err, ErrQueueNotFound)
+}
+
+func TestQueueStore_MessageMoveTaskLifecycle(t *testing.T) {
+	store := NewQueueStore(0)
+	require.NoError(t, store.CreateQueue("redrive-source", testAccount))
+	require.NoError(t, store.CreateQueue("redrive-dlq", testAccount))
+
+	dlqArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:redrive-dlq", testAccount)
+	require.NoError(t, store.SetQueueAttributes("redrive-source", testAccount, map[string]string{
+		"RedrivePolicy": `{"maxReceiveCount":1,"deadLetterTargetArn":"` + dlqArn + `"}`,
+	}))
+
+	_, err := store.SendMessage("redrive-source", testAccount, "redrive-me")
+	require.NoError(t, err)
+
+	// Exceed maxReceiveCount so the message lands in the DLQ.
+	for i := 0; i < 2; i++ {
+		_, rerr := store.ReceiveMessage("redrive-source", testAccount, 1, 0)
+		require.NoError(t, rerr)
+	}
+	dlqMsgs, err := store.ReceiveMessage("redrive-dlq", testAccount, 1, 0)
+	require.NoError(t, err)
+	require.Len(t, dlqMsgs, 1)
+
+	// Redrive back to the source (no explicit destination).
+	handle, err := store.StartMessageMoveTask(dlqArn, "", 0, testAccount)
+	require.NoError(t, err)
+	require.NotEmpty(t, handle)
+
+	tasks := store.ListMessageMoveTasks(dlqArn, 0)
+	require.Len(t, tasks, 1)
+	assert.Equal(t, "COMPLETED", tasks[0].Status)
+	assert.Equal(t, 1, tasks[0].Moved)
+
+	// The message is back on the source queue.
+	back, err := store.ReceiveMessage("redrive-source", testAccount, 1, 0)
+	require.NoError(t, err)
+	require.Len(t, back, 1)
+	assert.Equal(t, "redrive-me", back[0].Body)
+
+	// Cancel reports the moved count.
+	moved, err := store.CancelMessageMoveTask(handle)
+	require.NoError(t, err)
+	assert.Equal(t, 1, moved)
+
+	// An unknown handle errors.
+	_, err = store.CancelMessageMoveTask("bogus-handle")
+	assert.ErrorIs(t, err, ErrTaskNotFound)
+
+	// A queue that is not a DLQ cannot start a move task.
+	srcArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:redrive-source", testAccount)
+	_, err = store.StartMessageMoveTask(srcArn, "", 0, testAccount)
+	assert.ErrorIs(t, err, ErrSourceNotDLQ)
+}
+
 func TestQueueStore_Tags(t *testing.T) {
 	store := NewQueueStore(0)
 	require.NoError(t, store.CreateQueue("tag-queue", testAccount))

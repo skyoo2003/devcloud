@@ -10,6 +10,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -20,6 +21,8 @@ var (
 	ErrQueueAlreadyExists = errors.New("queue already exists")
 	ErrQueueNotFound      = errors.New("queue not found")
 	ErrReceiptInvalid     = errors.New("receipt handle is invalid")
+	ErrSourceNotDLQ       = errors.New("source queue is not configured as a dead-letter queue")
+	ErrTaskNotFound       = errors.New("message move task not found")
 )
 
 // QueueInfo holds metadata about an SQS queue.
@@ -82,9 +85,10 @@ type queue struct {
 
 // QueueStore is a thread-safe in-memory store for SQS queues.
 type QueueStore struct {
-	mu     sync.RWMutex
-	queues map[string]*queue // key: "accountID/queueName"
-	port   int               // HTTP port for queue-URL construction
+	mu        sync.RWMutex
+	queues    map[string]*queue    // key: "accountID/queueName"
+	moveTasks map[string]*moveTask // key: task handle
+	port      int                  // HTTP port for queue-URL construction
 }
 
 // NewQueueStore creates and returns an empty QueueStore bound to the given
@@ -95,8 +99,9 @@ func NewQueueStore(port int) *QueueStore {
 		port = 4747
 	}
 	return &QueueStore{
-		queues: make(map[string]*queue),
-		port:   port,
+		queues:    make(map[string]*queue),
+		moveTasks: make(map[string]*moveTask),
+		port:      port,
 	}
 }
 
@@ -655,4 +660,158 @@ func (s *QueueStore) ListQueueTags(queueName, accountID string) (map[string]stri
 		result[k] = v
 	}
 	return result, nil
+}
+
+// --- Dead-letter redrive (message move tasks) ---
+
+// moveTask records a dead-letter redrive task. Redrive runs synchronously (in-memory),
+// so a task is created already in a terminal state.
+type moveTask struct {
+	Handle         string
+	SourceArn      string
+	DestinationArn string
+	MaxRate        int    // MaxNumberOfMessagesPerSecond; 0 = unlimited
+	Status         string // "COMPLETED" | "CANCELLED"
+	Moved          int
+	StartedUnix    int64
+}
+
+// sourceQueuesForDLQ returns the queues under accountID that name dlqName as their
+// dead-letter target. The caller must hold s.mu.
+func (s *QueueStore) sourceQueuesForDLQ(dlqName, accountID string) []*queue {
+	var out []*queue
+	for _, q := range s.queues {
+		if q.info.AccountID != accountID {
+			continue
+		}
+		q.mu.Lock()
+		target := arnToQueueName(q.DeadLetterTargetArn)
+		q.mu.Unlock()
+		if target == dlqName {
+			out = append(out, q)
+		}
+	}
+	return out
+}
+
+// ListDeadLetterSourceQueues returns the URLs of queues that use the named queue as
+// their dead-letter target. Returns ErrQueueNotFound if the DLQ does not exist.
+func (s *QueueStore) ListDeadLetterSourceQueues(dlqName, accountID string) ([]string, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	if _, ok := s.queues[queueKey(accountID, dlqName)]; !ok {
+		return nil, ErrQueueNotFound
+	}
+
+	sources := s.sourceQueuesForDLQ(dlqName, accountID)
+	urls := make([]string, 0, len(sources))
+	for _, q := range sources {
+		urls = append(urls, q.info.URL)
+	}
+	return urls, nil
+}
+
+// StartMessageMoveTask redrives messages out of a dead-letter queue (identified by
+// sourceArn) into a destination queue. When destArn is empty, messages go to the first
+// queue that references the DLQ as its dead-letter target. Returns the task handle.
+func (s *QueueStore) StartMessageMoveTask(sourceArn, destArn string, maxRate int, accountID string) (string, error) {
+	srcName := arnToQueueName(sourceArn)
+
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	src, ok := s.queues[queueKey(accountID, srcName)]
+	if !ok {
+		return "", ErrQueueNotFound
+	}
+
+	sources := s.sourceQueuesForDLQ(srcName, accountID)
+	if len(sources) == 0 {
+		return "", ErrSourceNotDLQ
+	}
+
+	dst := sources[0]
+	// ponytail: per-message origin isn't tracked, so multi-source redrive without an
+	// explicit DestinationArn goes to the first referencing source; pass DestinationArn
+	// for exact routing.
+	if destArn != "" {
+		dst, ok = s.queues[queueKey(accountID, arnToQueueName(destArn))]
+		if !ok {
+			return "", ErrQueueNotFound
+		}
+	}
+
+	// ponytail: redrive runs synchronously with no RUNNING state or rate limiting;
+	// upgrade to a goroutine + MaxRate throttle if timing fidelity is ever needed.
+	// Lock only one queue at a time (drain the source, then fill the destination) to stay
+	// deadlock-free with the source→DLQ path in ReceiveMessage.
+	src.mu.Lock()
+	moved := make([]*Message, 0, len(src.messages))
+	for _, m := range src.messages {
+		if !m.deleted {
+			moved = append(moved, m)
+		}
+	}
+	src.messages = make([]*Message, 0)
+	src.mu.Unlock()
+
+	dst.mu.Lock()
+	for _, m := range moved {
+		m.ReceiptHandle = randomID(32)
+		m.invisibleUntil = time.Time{}
+		m.receiveCount = 0
+		m.deleted = false
+		dst.messages = append(dst.messages, m)
+	}
+	dst.mu.Unlock()
+
+	handle := randomID(16)
+	s.moveTasks[handle] = &moveTask{
+		Handle:         handle,
+		SourceArn:      sourceArn,
+		DestinationArn: destArn,
+		MaxRate:        maxRate,
+		Status:         "COMPLETED",
+		Moved:          len(moved),
+		StartedUnix:    time.Now().Unix(),
+	}
+	return handle, nil
+}
+
+// ListMessageMoveTasks returns move tasks for the given source ARN, newest first,
+// capped at maxResults (default 10 when maxResults <= 0).
+func (s *QueueStore) ListMessageMoveTasks(sourceArn string, maxResults int) []*moveTask {
+	if maxResults <= 0 {
+		maxResults = 10
+	}
+
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	var out []*moveTask
+	for _, t := range s.moveTasks {
+		if t.SourceArn == sourceArn {
+			out = append(out, t)
+		}
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].StartedUnix > out[j].StartedUnix })
+	if len(out) > maxResults {
+		out = out[:maxResults]
+	}
+	return out
+}
+
+// CancelMessageMoveTask cancels the task with the given handle and returns the number of
+// messages already moved. Returns ErrTaskNotFound if the handle is unknown.
+func (s *QueueStore) CancelMessageMoveTask(handle string) (int, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	t, ok := s.moveTasks[handle]
+	if !ok {
+		return 0, ErrTaskNotFound
+	}
+	t.Status = "CANCELLED"
+	return t.Moved, nil
 }

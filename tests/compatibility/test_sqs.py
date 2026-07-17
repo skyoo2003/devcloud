@@ -1,3 +1,5 @@
+import json
+
 import pytest
 from botocore.exceptions import ClientError
 
@@ -193,3 +195,47 @@ def test_fifo_dedup(sqs_client):
     )
     msgs = sqs_client.receive_message(QueueUrl=url, MaxNumberOfMessages=10)
     assert len(msgs["Messages"]) == 1
+
+
+def _redrive_pair(sqs_client, src_name, dlq_name):
+    """Create a source queue wired to a DLQ (maxReceiveCount=1); return (src_url, dlq_url, dlq_arn)."""
+    src = sqs_client.create_queue(QueueName=src_name)["QueueUrl"]
+    dlq = sqs_client.create_queue(QueueName=dlq_name)["QueueUrl"]
+    dlq_arn = sqs_client.get_queue_attributes(
+        QueueUrl=dlq, AttributeNames=["QueueArn"]
+    )["Attributes"]["QueueArn"]
+    sqs_client.set_queue_attributes(
+        QueueUrl=src,
+        Attributes={
+            "RedrivePolicy": json.dumps(
+                {"deadLetterTargetArn": dlq_arn, "maxReceiveCount": 1}
+            )
+        },
+    )
+    return src, dlq, dlq_arn
+
+
+def test_list_dead_letter_source_queues(sqs_client):
+    src, dlq, _ = _redrive_pair(sqs_client, "dlq-src", "dlq-target")
+    resp = sqs_client.list_dead_letter_source_queues(QueueUrl=dlq)
+    urls = resp["queueUrls"]
+    assert any("dlq-src" in u for u in urls)
+
+
+def test_message_move_task_flow(sqs_client):
+    src, dlq, dlq_arn = _redrive_pair(sqs_client, "mmt-src", "mmt-dlq")
+
+    sqs_client.send_message(QueueUrl=src, MessageBody="redrive-me")
+    # Exceed maxReceiveCount so the message is moved to the DLQ.
+    sqs_client.receive_message(QueueUrl=src, VisibilityTimeout=0)
+    sqs_client.receive_message(QueueUrl=src, VisibilityTimeout=0)
+
+    handle = sqs_client.start_message_move_task(SourceArn=dlq_arn)["TaskHandle"]
+    assert handle
+
+    tasks = sqs_client.list_message_move_tasks(SourceArn=dlq_arn)["Results"]
+    assert len(tasks) >= 1
+    assert tasks[0]["SourceArn"] == dlq_arn
+
+    cancel = sqs_client.cancel_message_move_task(TaskHandle=handle)
+    assert "ApproximateNumberOfMessagesMoved" in cancel

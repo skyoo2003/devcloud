@@ -8,15 +8,24 @@ SQS supports dual protocol: legacy Query protocol (form-encoded with XML respons
 
 ## Supported APIs
 
+All 23 SQS operations are handled over the JSON 1.0 protocol.
+
 | Operation | Description |
 |-----------|-------------|
-| CreateQueue | Create a new queue (returns existing if name matches) |
+| CreateQueue | Create a new queue (returns existing if name matches); supports FIFO + attributes |
 | ListQueues | List queues with optional name prefix filter |
 | GetQueueUrl | Resolve queue name to its URL |
-| SendMessage | Send a message to a queue (computes MD5 hash) |
-| ReceiveMessage | Receive messages with visibility timeout and MaxNumberOfMessages |
-| DeleteMessage | Delete a message by receipt handle |
 | DeleteQueue | Delete a queue and all its messages |
+| PurgeQueue | Remove all messages from a queue |
+| SendMessage / SendMessageBatch | Send one or many messages (computes MD5 hash) |
+| ReceiveMessage | Receive messages with visibility timeout and MaxNumberOfMessages |
+| DeleteMessage / DeleteMessageBatch | Delete one or many messages by receipt handle |
+| ChangeMessageVisibility / ChangeMessageVisibilityBatch | Adjust message visibility timeout |
+| GetQueueAttributes / SetQueueAttributes | Read/write queue attributes (incl. RedrivePolicy) |
+| TagQueue / UntagQueue / ListQueueTags | Manage queue tags |
+| ListDeadLetterSourceQueues | List queues that use a queue as their dead-letter target |
+| StartMessageMoveTask / ListMessageMoveTasks / CancelMessageMoveTask | Redrive messages out of a dead-letter queue |
+| AddPermission / RemovePermission | Accepted (no-op — permissions are not enforced) |
 
 ## boto3 Examples
 
@@ -74,10 +83,8 @@ aws --endpoint-url http://localhost:4747 sqs receive-message \
 ## Known Limitations
 
 - In-memory only — no persistence across restarts
-- No queue attributes (DelaySeconds, VisibilityTimeout at queue level, etc.)
-- No batch operations (SendMessageBatch, DeleteMessageBatch)
-- No dead-letter queues
-- No FIFO queues
-- No message retention/expiry
-- No message attributes
-- No long polling (WaitTimeSeconds)
+- Dead-letter redrive (message move tasks) runs synchronously: tasks complete immediately,
+  so there is no `RUNNING` status and `MaxNumberOfMessagesPerSecond` is not throttled
+- `AddPermission`/`RemovePermission` are accepted but not enforced (no access-policy checks)
+- No message retention/expiry enforcement
+- No long polling (`WaitTimeSeconds` is not honored — receives return immediately)

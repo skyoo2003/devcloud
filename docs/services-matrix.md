@@ -12,7 +12,7 @@ DevCloud is a Go-based local cloud environment with AWS API compatibility. This 
 
 | Tier | Services | Ops | Description |
 |------|----------|-----|-------------|
-| Tier 1 (Big 6) | S3, SQS, DynamoDB, Lambda, IAM, STS | 124+ | Core services |
+| Tier 1 (Big 6) | S3, SQS, DynamoDB, Lambda, IAM, STS | 128+ | Core services (SQS at full 23/23 op coverage) |
 | Tier 2 (Integration) | EventBridge, SNS, CW Logs, CloudWatch, KMS, Secrets Manager, SSM, ECR | 157+ | Integration services |
 | Tier 3 (Extended) | EFS, EBS, EC2, Route53, ACM, ECS, Bedrock, Account, Pipes, CloudControl, RGTAPI, AppAutoScaling, Firehose, S3Tables, MWAA, Scheduler, Support, IdentityStore, MediaConvert, Textract, ServerlessRepo, DDB Streams, SFN, Kinesis, CloudFormation | 900+ | Extended platform services, networking, and services requiring custom integration logic |
 | Category Expansion | 40+ additional services | 2,000+ | All remaining AWS services scaffolded from Smithy models |
