@@ -195,3 +195,160 @@ func TestDynamoStore_QueryGSI(t *testing.T) {
 	require.NoError(t, err)
 	assert.Empty(t, got)
 }
+
+// TestDynamoStore_QueryGSIVariants covers QueryGSI edge cases: an unknown table,
+// a local secondary index, an index with HASH+RANGE keys, and a binary key.
+func TestDynamoStore_QueryGSIVariants(t *testing.T) {
+	t.Run("missing table returns ErrTableNotFound", func(t *testing.T) {
+		store := newTestStore(t)
+		_, err := store.QueryGSI("Nope", "ByEmail", "x")
+		assert.ErrorIs(t, err, ErrTableNotFound)
+	})
+
+	t.Run("local secondary index is queryable", func(t *testing.T) {
+		store := newTestStore(t)
+		require.NoError(t, store.CreateTable(TableInfo{
+			Name:         "Events",
+			PartitionKey: KeyDef{Name: "UserID", Type: "S"},
+			SortKey:      &KeyDef{Name: "Ts", Type: "S"},
+			LocalSecondaryIndexes: []IndexDef{{
+				IndexName: "ByScore",
+				KeySchema: []KeyDef{
+					{Name: "UserID", Type: "S", KeyType: "HASH"},
+					{Name: "Score", Type: "N", KeyType: "RANGE"},
+				},
+			}},
+		}))
+		require.NoError(t, store.PutItem("Events", Item{"UserID": {S: strPtr("u1")}, "Ts": {S: strPtr("t1")}, "Score": {N: strPtr("10")}}))
+		require.NoError(t, store.PutItem("Events", Item{"UserID": {S: strPtr("u1")}, "Ts": {S: strPtr("t2")}, "Score": {N: strPtr("20")}}))
+		require.NoError(t, store.PutItem("Events", Item{"UserID": {S: strPtr("u2")}, "Ts": {S: strPtr("t3")}, "Score": {N: strPtr("30")}}))
+
+		got, err := store.QueryGSI("Events", "ByScore", "u1")
+		require.NoError(t, err)
+		assert.Len(t, got, 2)
+	})
+
+	t.Run("index with HASH and RANGE keys, items vary by base sort key", func(t *testing.T) {
+		store := newTestStore(t)
+		require.NoError(t, store.CreateTable(TableInfo{
+			Name:         "Messages",
+			PartitionKey: KeyDef{Name: "MsgID", Type: "S"},
+			SortKey:      &KeyDef{Name: "Seq", Type: "S"},
+			GlobalSecondaryIndexes: []IndexDef{{
+				IndexName: "ByConversation",
+				KeySchema: []KeyDef{
+					{Name: "ConvID", Type: "S", KeyType: "HASH"},
+					{Name: "CreatedAt", Type: "N", KeyType: "RANGE"},
+				},
+			}},
+		}))
+		// Two distinct items sharing the GSI hash key but differing in base key.
+		require.NoError(t, store.PutItem("Messages", Item{"MsgID": {S: strPtr("m1")}, "Seq": {S: strPtr("1")}, "ConvID": {S: strPtr("c1")}, "CreatedAt": {N: strPtr("100")}}))
+		require.NoError(t, store.PutItem("Messages", Item{"MsgID": {S: strPtr("m1")}, "Seq": {S: strPtr("2")}, "ConvID": {S: strPtr("c1")}, "CreatedAt": {N: strPtr("200")}}))
+		require.NoError(t, store.PutItem("Messages", Item{"MsgID": {S: strPtr("m2")}, "Seq": {S: strPtr("1")}, "ConvID": {S: strPtr("c2")}, "CreatedAt": {N: strPtr("300")}}))
+
+		got, err := store.QueryGSI("Messages", "ByConversation", "c1")
+		require.NoError(t, err)
+		assert.Len(t, got, 2) // both c1 items projected, no collision on same gsi_pk
+	})
+
+	t.Run("binary hash key", func(t *testing.T) {
+		store := newTestStore(t)
+		require.NoError(t, store.CreateTable(TableInfo{
+			Name:         "Blobs",
+			PartitionKey: KeyDef{Name: "BlobID", Type: "S"},
+			GlobalSecondaryIndexes: []IndexDef{{
+				IndexName: "ByDigest",
+				KeySchema: []KeyDef{{Name: "Digest", Type: "B", KeyType: "HASH"}},
+			}},
+		}))
+		d1 := []byte{0x01, 0x02, 0x03}
+		d2 := []byte{0x04, 0x05, 0x06}
+		require.NoError(t, store.PutItem("Blobs", Item{"BlobID": {S: strPtr("b1")}, "Digest": {B: d1}}))
+		require.NoError(t, store.PutItem("Blobs", Item{"BlobID": {S: strPtr("b2")}, "Digest": {B: d1}}))
+		require.NoError(t, store.PutItem("Blobs", Item{"BlobID": {S: strPtr("b3")}, "Digest": {B: d2}}))
+
+		got, err := store.QueryGSI("Blobs", "ByDigest", string(d1))
+		require.NoError(t, err)
+		assert.Len(t, got, 2)
+	})
+}
+
+// TestDynamoStore_KeyValidationErrors verifies keyValues surfaces missing-key
+// errors on the item write/read/delete paths.
+func TestDynamoStore_KeyValidationErrors(t *testing.T) {
+	store := newTestStore(t)
+	require.NoError(t, store.CreateTable(TableInfo{
+		Name:         "Orders",
+		PartitionKey: KeyDef{Name: "OrderID", Type: "S"},
+		SortKey:      &KeyDef{Name: "LineID", Type: "S"},
+	}))
+
+	t.Run("PutItem missing partition key", func(t *testing.T) {
+		err := store.PutItem("Orders", Item{"LineID": {S: strPtr("L1")}})
+		require.Error(t, err)
+		assert.Contains(t, err.Error(), "missing partition key attribute")
+	})
+	t.Run("PutItem missing sort key", func(t *testing.T) {
+		err := store.PutItem("Orders", Item{"OrderID": {S: strPtr("O1")}})
+		require.Error(t, err)
+		assert.Contains(t, err.Error(), "missing sort key attribute")
+	})
+	t.Run("GetItem missing partition key", func(t *testing.T) {
+		_, err := store.GetItem("Orders", Item{"LineID": {S: strPtr("L1")}})
+		require.Error(t, err)
+		assert.Contains(t, err.Error(), "missing partition key attribute")
+	})
+	t.Run("DeleteItem missing sort key", func(t *testing.T) {
+		err := store.DeleteItem("Orders", Item{"OrderID": {S: strPtr("O1")}})
+		require.Error(t, err)
+		assert.Contains(t, err.Error(), "missing sort key attribute")
+	})
+}
+
+// TestDynamoStore_NumericKey verifies non-string (N) key attributes round-trip.
+func TestDynamoStore_NumericKey(t *testing.T) {
+	store := newTestStore(t)
+	require.NoError(t, store.CreateTable(TableInfo{
+		Name:         "Accounts",
+		PartitionKey: KeyDef{Name: "AccountID", Type: "N"},
+	}))
+	require.NoError(t, store.PutItem("Accounts", Item{"AccountID": {N: strPtr("1001")}, "Name": {S: strPtr("Primary")}}))
+
+	got, err := store.GetItem("Accounts", Item{"AccountID": {N: strPtr("1001")}})
+	require.NoError(t, err)
+	require.NotNil(t, got)
+	assert.Equal(t, strPtr("Primary"), (*got)["Name"].S)
+}
+
+// TestDynamoStore_QuerySortKeyPrefixEscaping verifies escapeLike treats LIKE
+// metacharacters (%, _, \) in a sort-key prefix as literals.
+func TestDynamoStore_QuerySortKeyPrefixEscaping(t *testing.T) {
+	store := newTestStore(t)
+	require.NoError(t, store.CreateTable(TableInfo{
+		Name:         "Files",
+		PartitionKey: KeyDef{Name: "UserID", Type: "S"},
+		SortKey:      &KeyDef{Name: "Path", Type: "S"},
+	}))
+	for _, p := range []string{"a%b", "a_b", "axb", `a\z`} {
+		require.NoError(t, store.PutItem("Files", Item{"UserID": {S: strPtr("u1")}, "Path": {S: strPtr(p)}}))
+	}
+
+	tests := []struct {
+		name   string
+		prefix string
+		want   int
+	}{
+		{"no special chars matches all", "a", 4},
+		{"literal percent", "a%", 1},
+		{"literal underscore", "a_", 1},
+		{"literal backslash", `a\`, 1},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := store.Query("Files", "u1", tt.prefix)
+			require.NoError(t, err)
+			assert.Len(t, got, tt.want)
+		})
+	}
+}
