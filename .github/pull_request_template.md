@@ -26,4 +26,4 @@ Fixes #
 - [ ] Added/updated tests
 - [ ] Lint/format passes (`golangci-lint run`)
 - [ ] Updated documentation (if applicable)
-- [ ] Added an entry to `CHANGELOG.md` under `[Unreleased]` (for user-facing changes)
+- [ ] Added a Changie changelog fragment for user-facing changes (`changie new`, see [docs/release.md](../docs/release.md)) — or N/A (docs/tests/chore only)
