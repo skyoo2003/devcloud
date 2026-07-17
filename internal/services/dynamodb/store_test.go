@@ -3,6 +3,7 @@
 package dynamodb
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -321,8 +322,8 @@ func TestDynamoStore_NumericKey(t *testing.T) {
 	assert.Equal(t, strPtr("Primary"), (*got)["Name"].S)
 }
 
-// TestDynamoStore_QuerySortKeyPrefixEscaping verifies escapeLike treats LIKE
-// metacharacters (%, _, \) in a sort-key prefix as literals.
+// TestDynamoStore_QuerySortKeyPrefixEscaping verifies a sort-key prefix matches
+// LIKE metacharacters (%, _, \) literally (the range scan has no wildcards).
 func TestDynamoStore_QuerySortKeyPrefixEscaping(t *testing.T) {
 	store := newTestStore(t)
 	require.NoError(t, store.CreateTable(TableInfo{
@@ -351,4 +352,141 @@ func TestDynamoStore_QuerySortKeyPrefixEscaping(t *testing.T) {
 			assert.Len(t, got, tt.want)
 		})
 	}
+}
+
+// TestDynamoStore_QueryNumericSortOrder verifies a numeric ('N') sort key sorts
+// numerically, not lexicographically (2, 10, 100 — not 10, 100, 2).
+func TestDynamoStore_QueryNumericSortOrder(t *testing.T) {
+	store := newTestStore(t)
+	require.NoError(t, store.CreateTable(TableInfo{
+		Name:         "Readings",
+		PartitionKey: KeyDef{Name: "Sensor", Type: "S"},
+		SortKey:      &KeyDef{Name: "Seq", Type: "N"},
+	}))
+	for _, seq := range []string{"100", "2", "10", "9"} {
+		require.NoError(t, store.PutItem("Readings", Item{"Sensor": {S: strPtr("s1")}, "Seq": {N: strPtr(seq)}}))
+	}
+
+	got, err := store.Query("Readings", "s1", "")
+	require.NoError(t, err)
+	var order []string
+	for _, it := range got {
+		order = append(order, *it["Seq"].N)
+	}
+	assert.Equal(t, []string{"2", "9", "10", "100"}, order)
+}
+
+// TestDynamoStore_QueryPrefixCaseSensitive verifies a begins_with prefix matches
+// case-sensitively (the old LIKE path over-matched across letter case).
+func TestDynamoStore_QueryPrefixCaseSensitive(t *testing.T) {
+	store := newTestStore(t)
+	require.NoError(t, store.CreateTable(TableInfo{
+		Name:         "Files",
+		PartitionKey: KeyDef{Name: "UserID", Type: "S"},
+		SortKey:      &KeyDef{Name: "Path", Type: "S"},
+	}))
+	for _, p := range []string{"ABC", "aBc", "abc"} {
+		require.NoError(t, store.PutItem("Files", Item{"UserID": {S: strPtr("u1")}, "Path": {S: strPtr(p)}}))
+	}
+	got, err := store.Query("Files", "u1", "AB")
+	require.NoError(t, err)
+	assert.Len(t, got, 1) // only "ABC", not "aBc"/"abc"
+}
+
+// TestDynamoStore_QueryGSISortOrder verifies QueryGSI returns items ordered by
+// the index RANGE key, numerically for an 'N' key.
+func TestDynamoStore_QueryGSISortOrder(t *testing.T) {
+	store := newTestStore(t)
+	require.NoError(t, store.CreateTable(TableInfo{
+		Name:         "Messages",
+		PartitionKey: KeyDef{Name: "MsgID", Type: "S"},
+		GlobalSecondaryIndexes: []IndexDef{{
+			IndexName: "ByConversation",
+			KeySchema: []KeyDef{
+				{Name: "ConvID", Type: "S", KeyType: "HASH"},
+				{Name: "CreatedAt", Type: "N", KeyType: "RANGE"},
+			},
+		}},
+	}))
+	for i, ts := range []string{"300", "100", "200"} {
+		require.NoError(t, store.PutItem("Messages", Item{
+			"MsgID": {S: strPtr(fmt.Sprintf("m%d", i))}, "ConvID": {S: strPtr("c1")}, "CreatedAt": {N: strPtr(ts)},
+		}))
+	}
+	got, err := store.QueryGSI("Messages", "ByConversation", "c1")
+	require.NoError(t, err)
+	var order []string
+	for _, it := range got {
+		order = append(order, *it["CreatedAt"].N)
+	}
+	assert.Equal(t, []string{"100", "200", "300"}, order)
+}
+
+// TestDynamoStore_GSISparseComposite verifies an item missing a composite index's
+// RANGE attribute is not projected (no phantom item in the index).
+func TestDynamoStore_GSISparseComposite(t *testing.T) {
+	store := newTestStore(t)
+	require.NoError(t, store.CreateTable(TableInfo{
+		Name:         "Messages",
+		PartitionKey: KeyDef{Name: "MsgID", Type: "S"},
+		GlobalSecondaryIndexes: []IndexDef{{
+			IndexName: "ByConversation",
+			KeySchema: []KeyDef{
+				{Name: "ConvID", Type: "S", KeyType: "HASH"},
+				{Name: "CreatedAt", Type: "N", KeyType: "RANGE"},
+			},
+		}},
+	}))
+	// Has HASH but no RANGE attribute → excluded from the index.
+	require.NoError(t, store.PutItem("Messages", Item{"MsgID": {S: strPtr("m1")}, "ConvID": {S: strPtr("c1")}}))
+	// Full key → included.
+	require.NoError(t, store.PutItem("Messages", Item{"MsgID": {S: strPtr("m2")}, "ConvID": {S: strPtr("c1")}, "CreatedAt": {N: strPtr("10")}}))
+
+	got, err := store.QueryGSI("Messages", "ByConversation", "c1")
+	require.NoError(t, err)
+	assert.Len(t, got, 1)
+}
+
+// TestDynamoStore_GSIBadKeyType verifies a present-but-non-scalar index key value
+// fails the put rather than silently dropping the item from the index.
+func TestDynamoStore_GSIBadKeyType(t *testing.T) {
+	store := newTestStore(t)
+	require.NoError(t, store.CreateTable(TableInfo{
+		Name:         "Users",
+		PartitionKey: KeyDef{Name: "UserID", Type: "S"},
+		GlobalSecondaryIndexes: []IndexDef{{
+			IndexName: "ByFlag",
+			KeySchema: []KeyDef{{Name: "Flag", Type: "S", KeyType: "HASH"}},
+		}},
+	}))
+	tru := true
+	err := store.PutItem("Users", Item{"UserID": {S: strPtr("u1")}, "Flag": {BOOL: &tru}})
+	require.Error(t, err)
+}
+
+// TestDynamoStore_DeleteTableClearsTTLAndTags verifies DeleteTable removes the
+// table's TTL config and tags, so a recreated same-name table doesn't inherit them.
+func TestDynamoStore_DeleteTableClearsTTLAndTags(t *testing.T) {
+	store := newTestStore(t)
+	info := TableInfo{Name: "T", PartitionKey: KeyDef{Name: "ID", Type: "S"}}
+	require.NoError(t, store.CreateTable(info))
+	require.NoError(t, store.PutTTLConfig("T", TTLConfig{Enabled: true, AttributeName: "exp"}))
+
+	arn, err := store.GetTable("T")
+	require.NoError(t, err)
+	require.NoError(t, store.PutTags(arn.TableArn, map[string]string{"env": "test"}))
+
+	require.NoError(t, store.DeleteTable("T"))
+	require.NoError(t, store.CreateTable(info))
+
+	ttl, err := store.GetTTLConfig("T")
+	require.NoError(t, err)
+	assert.False(t, ttl.Enabled)
+	assert.Empty(t, ttl.AttributeName)
+
+	recreated, err := store.GetTable("T")
+	require.NoError(t, err)
+	tags, err := store.GetTags(recreated.TableArn)
+	require.NoError(t, err)
+	assert.Empty(t, tags)
 }

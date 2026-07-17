@@ -8,7 +8,6 @@ import (
 	"errors"
 	"fmt"
 	"path/filepath"
-	"strings"
 	"sync"
 	"time"
 
@@ -121,6 +120,12 @@ var migrations = []sqlite.Migration{
 		CREATE INDEX IF NOT EXISTS idx_ddb_gsi_lookup
 			ON ddb_gsi (table_name, index_name, gsi_pk);
 	`},
+	{Version: 3, SQL: `
+		-- Index RANGE-key value, so QueryGSI can return items ordered by the
+		-- index sort key (base-table item_pk/item_sk are the row identity, not
+		-- the index order).
+		ALTER TABLE ddb_gsi ADD COLUMN gsi_sk TEXT NOT NULL DEFAULT '';
+	`},
 }
 
 // DynamoStore is a SQLite-backed store for DynamoDB tables and items. Table
@@ -129,6 +134,7 @@ type DynamoStore struct {
 	db     *sqlite.Store
 	tables map[string]*TableInfo
 	mu     sync.RWMutex
+	tagsMu sync.Mutex // serializes the tag read-modify-write in PutTags/RemoveTags
 }
 
 // NewDynamoStore opens (or creates) a SQLite database under dir and loads
@@ -257,12 +263,14 @@ func (s *DynamoStore) DeleteTable(name string) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
-	if _, exists := s.tables[name]; !exists {
+	info, exists := s.tables[name]
+	if !exists {
 		return ErrTableNotFound
 	}
 
-	// Delete items and metadata atomically so a mid-way failure can't leave
-	// orphaned rows.
+	// Delete items, index rows, and metadata atomically so a mid-way failure
+	// can't leave orphaned rows — and so a recreated same-name table doesn't
+	// inherit the deleted table's TTL config or tags.
 	tx, err := s.db.DB().Begin()
 	if err != nil {
 		return err
@@ -274,6 +282,14 @@ func (s *DynamoStore) DeleteTable(name string) error {
 	if _, err := tx.Exec(`DELETE FROM ddb_gsi WHERE table_name = ?`, name); err != nil {
 		_ = tx.Rollback()
 		return fmt.Errorf("delete table index rows: %w", err)
+	}
+	if _, err := tx.Exec(`DELETE FROM ddb_ttl WHERE table_name = ?`, name); err != nil {
+		_ = tx.Rollback()
+		return fmt.Errorf("delete table ttl config: %w", err)
+	}
+	if _, err := tx.Exec(`DELETE FROM ddb_tags WHERE resource_arn = ?`, info.TableArn); err != nil {
+		_ = tx.Rollback()
+		return fmt.Errorf("delete table tags: %w", err)
 	}
 	if _, err := tx.Exec(`DELETE FROM ddb_tables WHERE name = ?`, name); err != nil {
 		_ = tx.Rollback()
@@ -320,21 +336,30 @@ func (s *DynamoStore) UpdateTable(name string, updates func(*TableInfo)) error {
 	if !exists {
 		return ErrTableNotFound
 	}
-	updates(info)
-	data, err := json.Marshal(info)
+	// Apply updates to a copy and persist before mutating the cache, so a failed
+	// write doesn't leave the in-memory metadata ahead of what's on disk.
+	updated := *info
+	updates(&updated)
+	data, err := json.Marshal(&updated)
 	if err != nil {
 		return fmt.Errorf("marshal table info: %w", err)
 	}
-	_, err = s.db.DB().Exec(`UPDATE ddb_tables SET info = ? WHERE name = ?`, string(data), name)
-	return err
+	if _, err := s.db.DB().Exec(`UPDATE ddb_tables SET info = ? WHERE name = ?`, string(data), name); err != nil {
+		return err
+	}
+	*info = updated
+	return nil
 }
 
 // PutItem stores (upserts) an item in the specified table. The item key is
 // derived from the table's partition key (and optional sort key) values.
 func (s *DynamoStore) PutItem(tableName string, item Item) error {
+	// Hold the read lock across the DB write so a concurrent DeleteTable (which
+	// takes the write lock) can't delete the table's rows mid-write and leave
+	// this put's item/index rows orphaned.
 	s.mu.RLock()
+	defer s.mu.RUnlock()
 	table, exists := s.tables[tableName]
-	s.mu.RUnlock()
 	if !exists {
 		return ErrTableNotFound
 	}
@@ -369,30 +394,37 @@ func (s *DynamoStore) PutItem(tableName string, item Item) error {
 
 // syncItemGSI rebuilds the ddb_gsi rows for a single item: it drops the item's
 // existing projections (so an update that changes or removes an index key can't
-// leave stale rows) and re-inserts one row per index whose HASH key attribute
-// is present on the item.
+// leave stale rows) and re-inserts one row per index for which the item carries
+// every index key attribute. An item missing an index HASH or RANGE attribute is
+// omitted from that index (a sparse index), matching DynamoDB; a present-but-non-
+// scalar key value is a hard error, not a silent skip.
 func syncItemGSI(tx *sql.Tx, table *TableInfo, itemPK, itemSK string, item Item, data string) error {
+	if !hasSecondaryIndexes(table) {
+		return nil
+	}
 	if _, err := tx.Exec(
 		`DELETE FROM ddb_gsi WHERE table_name = ? AND item_pk = ? AND item_sk = ?`,
 		table.Name, itemPK, itemSK); err != nil {
 		return err
 	}
-	for _, idx := range append(table.GlobalSecondaryIndexes, table.LocalSecondaryIndexes...) {
-		hashAttr := indexHashKeyName(idx)
-		if hashAttr == "" {
-			continue
-		}
-		av, ok := item[hashAttr]
-		if !ok {
-			continue
-		}
-		gsiPK, err := attributeStringValue(av)
+	for _, idx := range allIndexes(table) {
+		gsiPK, ok, err := indexKeyValue(item, idx, "HASH")
 		if err != nil {
-			continue
+			return err
+		}
+		if !ok {
+			continue // sparse index: item lacks the index HASH attribute
+		}
+		gsiSK, ok, err := indexKeyValue(item, idx, "RANGE")
+		if err != nil {
+			return err
+		}
+		if indexKey(idx, "RANGE") != nil && !ok {
+			continue // composite index: item lacks the index RANGE attribute
 		}
 		if _, err := tx.Exec(
-			`INSERT OR REPLACE INTO ddb_gsi (table_name, index_name, gsi_pk, item_pk, item_sk, data) VALUES (?, ?, ?, ?, ?, ?)`,
-			table.Name, idx.IndexName, gsiPK, itemPK, itemSK, data); err != nil {
+			`INSERT OR REPLACE INTO ddb_gsi (table_name, index_name, gsi_pk, gsi_sk, item_pk, item_sk, data) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+			table.Name, idx.IndexName, gsiPK, gsiSK, itemPK, itemSK, data); err != nil {
 			return err
 		}
 	}
@@ -433,9 +465,11 @@ func (s *DynamoStore) GetItem(tableName string, key Item) (*Item, error) {
 
 // DeleteItem removes an item by its key attributes. Returns ErrItemNotFound if missing.
 func (s *DynamoStore) DeleteItem(tableName string, key Item) error {
+	// Hold the read lock across the DB write for the same reason as PutItem: keep
+	// a concurrent DeleteTable from racing this delete's transaction.
 	s.mu.RLock()
+	defer s.mu.RUnlock()
 	table, exists := s.tables[tableName]
-	s.mu.RUnlock()
 	if !exists {
 		return ErrTableNotFound
 	}
@@ -459,11 +493,13 @@ func (s *DynamoStore) DeleteItem(tableName string, key Item) error {
 		_ = tx.Rollback()
 		return ErrItemNotFound
 	}
-	if _, err := tx.Exec(
-		`DELETE FROM ddb_gsi WHERE table_name = ? AND item_pk = ? AND item_sk = ?`,
-		tableName, pk, sk); err != nil {
-		_ = tx.Rollback()
-		return err
+	if hasSecondaryIndexes(table) {
+		if _, err := tx.Exec(
+			`DELETE FROM ddb_gsi WHERE table_name = ? AND item_pk = ? AND item_sk = ?`,
+			tableName, pk, sk); err != nil {
+			_ = tx.Rollback()
+			return err
+		}
 	}
 	return tx.Commit()
 }
@@ -480,11 +516,22 @@ func (s *DynamoStore) Query(tableName string, partitionKeyValue string, sortKeyP
 
 	query := `SELECT data FROM ddb_items WHERE table_name = ? AND pk = ?`
 	args := []any{tableName, partitionKeyValue}
-	if table.SortKey != nil && sortKeyPrefix != "" {
-		query += ` AND sk LIKE ? ESCAPE '\'`
-		args = append(args, escapeLike(sortKeyPrefix)+"%")
+	sortKeyType := ""
+	if table.SortKey != nil {
+		sortKeyType = table.SortKey.Type
+		if sortKeyPrefix != "" {
+			// Half-open byte range rather than LIKE: SQLite's LIKE is ASCII
+			// case-insensitive, but a begins_with sort-key prefix must match
+			// case-sensitively (and the range uses the primary-key index).
+			query += ` AND sk >= ?`
+			args = append(args, sortKeyPrefix)
+			if upper := prefixUpperBound(sortKeyPrefix); upper != "" {
+				query += ` AND sk < ?`
+				args = append(args, upper)
+			}
+		}
 	}
-	query += ` ORDER BY sk`
+	query += ` ORDER BY ` + orderByColumn("sk", sortKeyType)
 	return s.queryItems(query, args)
 }
 
@@ -506,22 +553,92 @@ func (s *DynamoStore) Scan(tableName string) ([]Item, error) {
 // Query response; a real ValidationException would belong in the provider.
 func (s *DynamoStore) QueryGSI(tableName, indexName, pkValue string) ([]Item, error) {
 	s.mu.RLock()
-	_, exists := s.tables[tableName]
+	table, exists := s.tables[tableName]
 	s.mu.RUnlock()
 	if !exists {
 		return nil, ErrTableNotFound
 	}
+	rangeType := ""
+	for _, idx := range allIndexes(table) {
+		if idx.IndexName == indexName {
+			if rk := indexKey(idx, "RANGE"); rk != nil {
+				rangeType = rk.Type
+			}
+			break
+		}
+	}
 	return s.queryItems(
-		`SELECT data FROM ddb_gsi WHERE table_name = ? AND index_name = ? AND gsi_pk = ?`,
+		`SELECT data FROM ddb_gsi WHERE table_name = ? AND index_name = ? AND gsi_pk = ? ORDER BY `+orderByColumn("gsi_sk", rangeType),
 		[]any{tableName, indexName, pkValue})
 }
 
-// indexHashKeyName returns the HASH key attribute name for an index, or "" if
-// the index has no HASH key.
-func indexHashKeyName(idx IndexDef) string {
-	for _, ks := range idx.KeySchema {
-		if ks.KeyType == "HASH" {
-			return ks.Name
+// hasSecondaryIndexes reports whether the table has any secondary index.
+func hasSecondaryIndexes(table *TableInfo) bool {
+	return len(table.GlobalSecondaryIndexes) > 0 || len(table.LocalSecondaryIndexes) > 0
+}
+
+// allIndexes returns the table's global and local secondary indexes as a fresh
+// slice. It never aliases the cached TableInfo's backing arrays, so callers can
+// range over it concurrently without racing on a shared append.
+func allIndexes(table *TableInfo) []IndexDef {
+	out := make([]IndexDef, 0, len(table.GlobalSecondaryIndexes)+len(table.LocalSecondaryIndexes))
+	out = append(out, table.GlobalSecondaryIndexes...)
+	out = append(out, table.LocalSecondaryIndexes...)
+	return out
+}
+
+// indexKey returns the index's key definition of the given kind ("HASH" or
+// "RANGE"), or nil if the index has no such key.
+func indexKey(idx IndexDef, kind string) *KeyDef {
+	for i := range idx.KeySchema {
+		if idx.KeySchema[i].KeyType == kind {
+			return &idx.KeySchema[i]
+		}
+	}
+	return nil
+}
+
+// indexKeyValue returns the item's string value for the index key of the given
+// kind. ok is false when the index has no such key or the item lacks the
+// attribute (a sparse index); a present-but-non-scalar value is an error.
+func indexKeyValue(item Item, idx IndexDef, kind string) (value string, ok bool, err error) {
+	key := indexKey(idx, kind)
+	if key == nil {
+		return "", false, nil
+	}
+	av, present := item[key.Name]
+	if !present {
+		return "", false, nil
+	}
+	v, err := attributeStringValue(av)
+	if err != nil {
+		return "", false, fmt.Errorf("index %q key %q: %w", idx.IndexName, key.Name, err)
+	}
+	return v, true, nil
+}
+
+// orderByColumn returns the ORDER BY expression for a sort/range key column of
+// the given attribute type. Numeric ('N') keys must sort numerically, not by the
+// lexicographic byte order of their TEXT storage (so 2, 10 sorts before 100).
+// ponytail: CAST AS REAL loses precision past ~2^53 and on high-precision
+// decimals; fine for an emulator, swap for a sortable-number encoding if it bites.
+func orderByColumn(col, keyType string) string {
+	if keyType == "N" {
+		return "CAST(" + col + " AS REAL)"
+	}
+	return col
+}
+
+// prefixUpperBound returns the least string strictly greater than every string
+// beginning with prefix, for a half-open range scan (sk >= prefix AND sk <
+// bound). It returns "" when prefix is empty or all 0xFF bytes, meaning no upper
+// bound is needed.
+func prefixUpperBound(prefix string) string {
+	b := []byte(prefix)
+	for i := len(b) - 1; i >= 0; i-- {
+		if b[i] < 0xFF {
+			b[i]++
+			return string(b[:i+1])
 		}
 	}
 	return ""
@@ -547,11 +664,6 @@ func (s *DynamoStore) queryItems(query string, args []any) ([]Item, error) {
 		items = append(items, item)
 	}
 	return items, rows.Err()
-}
-
-// escapeLike escapes LIKE metacharacters so a prefix matches literally.
-func escapeLike(s string) string {
-	return strings.NewReplacer(`\`, `\\`, `%`, `\%`, `_`, `\_`).Replace(s)
 }
 
 // PutTTLConfig stores TTL config for a table.
@@ -601,6 +713,8 @@ func (s *DynamoStore) GetTags(resourceArn string) (map[string]string, error) {
 
 // PutTags stores tags for a resource ARN (merges with existing).
 func (s *DynamoStore) PutTags(resourceArn string, newTags map[string]string) error {
+	s.tagsMu.Lock()
+	defer s.tagsMu.Unlock()
 	existing, err := s.GetTags(resourceArn)
 	if err != nil {
 		return err
@@ -613,6 +727,8 @@ func (s *DynamoStore) PutTags(resourceArn string, newTags map[string]string) err
 
 // RemoveTags removes specified tag keys for a resource ARN.
 func (s *DynamoStore) RemoveTags(resourceArn string, tagKeys []string) error {
+	s.tagsMu.Lock()
+	defer s.tagsMu.Unlock()
 	existing, err := s.GetTags(resourceArn)
 	if err != nil {
 		return err
