@@ -105,6 +105,22 @@ var migrations = []sqlite.Migration{
 			tags         TEXT NOT NULL
 		);
 	`},
+	{Version: 2, SQL: `
+		-- Denormalized projection of secondary indexes, keyed by the base-table
+		-- item identity so an item's rows can be re-synced on every write. Lets
+		-- QueryGSI do an indexed lookup instead of scanning the whole table.
+		CREATE TABLE IF NOT EXISTS ddb_gsi (
+			table_name TEXT NOT NULL,
+			index_name TEXT NOT NULL,
+			gsi_pk     TEXT NOT NULL,
+			item_pk    TEXT NOT NULL,
+			item_sk    TEXT NOT NULL DEFAULT '',
+			data       TEXT NOT NULL,
+			PRIMARY KEY (table_name, index_name, item_pk, item_sk)
+		);
+		CREATE INDEX IF NOT EXISTS idx_ddb_gsi_lookup
+			ON ddb_gsi (table_name, index_name, gsi_pk);
+	`},
 }
 
 // DynamoStore is a SQLite-backed store for DynamoDB tables and items. Table
@@ -255,6 +271,10 @@ func (s *DynamoStore) DeleteTable(name string) error {
 		_ = tx.Rollback()
 		return fmt.Errorf("delete table items: %w", err)
 	}
+	if _, err := tx.Exec(`DELETE FROM ddb_gsi WHERE table_name = ?`, name); err != nil {
+		_ = tx.Rollback()
+		return fmt.Errorf("delete table index rows: %w", err)
+	}
 	if _, err := tx.Exec(`DELETE FROM ddb_tables WHERE name = ?`, name); err != nil {
 		_ = tx.Rollback()
 		return fmt.Errorf("delete table metadata: %w", err)
@@ -329,10 +349,54 @@ func (s *DynamoStore) PutItem(tableName string, item Item) error {
 		return fmt.Errorf("marshal item: %w", err)
 	}
 
-	_, err = s.db.DB().Exec(
+	// Upsert the item and re-sync its secondary-index projection atomically.
+	tx, err := s.db.DB().Begin()
+	if err != nil {
+		return err
+	}
+	if _, err := tx.Exec(
 		`INSERT OR REPLACE INTO ddb_items (table_name, pk, sk, data) VALUES (?, ?, ?, ?)`,
-		tableName, pk, sk, string(data))
-	return err
+		tableName, pk, sk, string(data)); err != nil {
+		_ = tx.Rollback()
+		return err
+	}
+	if err := syncItemGSI(tx, table, pk, sk, item, string(data)); err != nil {
+		_ = tx.Rollback()
+		return err
+	}
+	return tx.Commit()
+}
+
+// syncItemGSI rebuilds the ddb_gsi rows for a single item: it drops the item's
+// existing projections (so an update that changes or removes an index key can't
+// leave stale rows) and re-inserts one row per index whose HASH key attribute
+// is present on the item.
+func syncItemGSI(tx *sql.Tx, table *TableInfo, itemPK, itemSK string, item Item, data string) error {
+	if _, err := tx.Exec(
+		`DELETE FROM ddb_gsi WHERE table_name = ? AND item_pk = ? AND item_sk = ?`,
+		table.Name, itemPK, itemSK); err != nil {
+		return err
+	}
+	for _, idx := range append(table.GlobalSecondaryIndexes, table.LocalSecondaryIndexes...) {
+		hashAttr := indexHashKeyName(idx)
+		if hashAttr == "" {
+			continue
+		}
+		av, ok := item[hashAttr]
+		if !ok {
+			continue
+		}
+		gsiPK, err := attributeStringValue(av)
+		if err != nil {
+			continue
+		}
+		if _, err := tx.Exec(
+			`INSERT OR REPLACE INTO ddb_gsi (table_name, index_name, gsi_pk, item_pk, item_sk, data) VALUES (?, ?, ?, ?, ?, ?)`,
+			table.Name, idx.IndexName, gsiPK, itemPK, itemSK, data); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // GetItem retrieves an item by its key attributes. Returns ErrItemNotFound if missing.
@@ -381,15 +445,27 @@ func (s *DynamoStore) DeleteItem(tableName string, key Item) error {
 		return err
 	}
 
-	res, err := s.db.DB().Exec(
-		`DELETE FROM ddb_items WHERE table_name = ? AND pk = ? AND sk = ?`, tableName, pk, sk)
+	tx, err := s.db.DB().Begin()
 	if err != nil {
 		return err
 	}
+	res, err := tx.Exec(
+		`DELETE FROM ddb_items WHERE table_name = ? AND pk = ? AND sk = ?`, tableName, pk, sk)
+	if err != nil {
+		_ = tx.Rollback()
+		return err
+	}
 	if n, _ := res.RowsAffected(); n == 0 {
+		_ = tx.Rollback()
 		return ErrItemNotFound
 	}
-	return nil
+	if _, err := tx.Exec(
+		`DELETE FROM ddb_gsi WHERE table_name = ? AND item_pk = ? AND item_sk = ?`,
+		tableName, pk, sk); err != nil {
+		_ = tx.Rollback()
+		return err
+	}
+	return tx.Commit()
 }
 
 // Query returns items with the given partition key value, ordered by sort key.
@@ -424,56 +500,28 @@ func (s *DynamoStore) Scan(tableName string) ([]Item, error) {
 }
 
 // QueryGSI returns items whose value for the index's HASH key attribute equals
-// pkValue. Secondary indexes are projected on the fly from the base table.
-//
-// ponytail: O(n) full-table scan filtered in memory — fine at emulator scale.
-// If a table ever holds enough items to matter, index the GSI hash attribute
-// with a generated column (json_extract) and query it directly.
+// pkValue, via an indexed lookup on the ddb_gsi projection maintained by
+// PutItem/DeleteItem. An unknown index simply has no rows and yields an empty
+// result (not an error) — matching how the provider surfaces it as an empty
+// Query response; a real ValidationException would belong in the provider.
 func (s *DynamoStore) QueryGSI(tableName, indexName, pkValue string) ([]Item, error) {
 	s.mu.RLock()
-	table, exists := s.tables[tableName]
+	_, exists := s.tables[tableName]
 	s.mu.RUnlock()
 	if !exists {
 		return nil, ErrTableNotFound
 	}
-
-	hashAttr := indexHashKey(table, indexName)
-	if hashAttr == "" {
-		// Unknown index → empty result, not an error. This matches the prior
-		// behavior and how the provider surfaces it (an empty Query response).
-		// Returning an error would become an opaque 500; a real
-		// ValidationException belongs in the provider, not the store.
-		return nil, nil
-	}
-
-	all, err := s.queryItems(`SELECT data FROM ddb_items WHERE table_name = ?`, []any{tableName})
-	if err != nil {
-		return nil, err
-	}
-	var items []Item
-	for _, item := range all {
-		av, ok := item[hashAttr]
-		if !ok {
-			continue
-		}
-		if v, err := attributeStringValue(av); err == nil && v == pkValue {
-			items = append(items, item)
-		}
-	}
-	return items, nil
+	return s.queryItems(
+		`SELECT data FROM ddb_gsi WHERE table_name = ? AND index_name = ? AND gsi_pk = ?`,
+		[]any{tableName, indexName, pkValue})
 }
 
-// indexHashKey returns the HASH key attribute name for the named GSI or LSI,
-// or "" if no such index exists.
-func indexHashKey(table *TableInfo, indexName string) string {
-	for _, idx := range append(table.GlobalSecondaryIndexes, table.LocalSecondaryIndexes...) {
-		if idx.IndexName != indexName {
-			continue
-		}
-		for _, ks := range idx.KeySchema {
-			if ks.KeyType == "HASH" {
-				return ks.Name
-			}
+// indexHashKeyName returns the HASH key attribute name for an index, or "" if
+// the index has no HASH key.
+func indexHashKeyName(idx IndexDef) string {
+	for _, ks := range idx.KeySchema {
+		if ks.KeyType == "HASH" {
+			return ks.Name
 		}
 	}
 	return ""

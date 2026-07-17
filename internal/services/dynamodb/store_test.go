@@ -155,3 +155,43 @@ func TestDynamoStore_DeleteTable(t *testing.T) {
 	assert.NotContains(t, tables, "Temp")
 	assert.Empty(t, tables)
 }
+
+// TestDynamoStore_QueryGSI verifies indexed queries against a secondary index,
+// including that updates and deletes keep the projection in sync.
+func TestDynamoStore_QueryGSI(t *testing.T) {
+	store := newTestStore(t)
+
+	require.NoError(t, store.CreateTable(TableInfo{
+		Name:         "Users",
+		PartitionKey: KeyDef{Name: "UserID", Type: "S"},
+		GlobalSecondaryIndexes: []IndexDef{{
+			IndexName: "ByEmail",
+			KeySchema: []KeyDef{{Name: "Email", Type: "S", KeyType: "HASH"}},
+		}},
+	}))
+
+	require.NoError(t, store.PutItem("Users", Item{"UserID": {S: strPtr("u1")}, "Email": {S: strPtr("a@x.com")}}))
+	require.NoError(t, store.PutItem("Users", Item{"UserID": {S: strPtr("u2")}, "Email": {S: strPtr("a@x.com")}}))
+	require.NoError(t, store.PutItem("Users", Item{"UserID": {S: strPtr("u3")}, "Email": {S: strPtr("b@x.com")}}))
+
+	got, err := store.QueryGSI("Users", "ByEmail", "a@x.com")
+	require.NoError(t, err)
+	assert.Len(t, got, 2)
+
+	// Unknown index → empty result, not an error.
+	none, err := store.QueryGSI("Users", "Nope", "a@x.com")
+	require.NoError(t, err)
+	assert.Empty(t, none)
+
+	// Updating an item's index key re-syncs its projection (no stale rows).
+	require.NoError(t, store.PutItem("Users", Item{"UserID": {S: strPtr("u1")}, "Email": {S: strPtr("b@x.com")}}))
+	got, err = store.QueryGSI("Users", "ByEmail", "a@x.com")
+	require.NoError(t, err)
+	assert.Len(t, got, 1) // only u2 remains under a@x.com
+
+	// Deleting an item removes it from the index too.
+	require.NoError(t, store.DeleteItem("Users", Item{"UserID": {S: strPtr("u2")}}))
+	got, err = store.QueryGSI("Users", "ByEmail", "a@x.com")
+	require.NoError(t, err)
+	assert.Empty(t, got)
+}
