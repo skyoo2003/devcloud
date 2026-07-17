@@ -572,9 +572,7 @@ func (s *Store) DeleteMultipartUploadRecord(uploadID string) error {
 
 // --- Scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanVault(sc scanner) (*Vault, error) {
+func scanVault(sc sqlite.Scanner) (*Vault, error) {
 	var v Vault
 	var createdAt int64
 	err := sc.Scan(&v.Name, &v.ARN, &createdAt, &v.ArchiveCount, &v.SizeBytes)
@@ -588,7 +586,7 @@ func scanVault(sc scanner) (*Vault, error) {
 	return &v, nil
 }
 
-func scanArchive(sc scanner) (*Archive, error) {
+func scanArchive(sc sqlite.Scanner) (*Archive, error) {
 	var a Archive
 	var createdAt int64
 	err := sc.Scan(&a.ID, &a.VaultName, &a.Description, &a.SizeBytes, &a.Checksum, &createdAt)
@@ -602,7 +600,7 @@ func scanArchive(sc scanner) (*Archive, error) {
 	return &a, nil
 }
 
-func scanJob(sc scanner) (*Job, error) {
+func scanJob(sc sqlite.Scanner) (*Job, error) {
 	var j Job
 	var createdAt, completedAt int64
 	err := sc.Scan(&j.ID, &j.VaultName, &j.Type, &j.Description, &j.Status, &j.ArchiveID, &createdAt, &completedAt)

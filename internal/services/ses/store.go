@@ -220,11 +220,7 @@ func (s *Store) SetDkimEnabled(identity string, enabled bool) error {
 	return err
 }
 
-type scanner interface {
-	Scan(dest ...any) error
-}
-
-func scanIdentity(row scanner) (*Identity, error) {
+func scanIdentity(row sqlite.Scanner) (*Identity, error) {
 	var id Identity
 	var tokensJSON string
 	var createdAt int64
@@ -470,7 +466,7 @@ func (s *Store) CloneReceiptRuleSet(originalName, newName string) error {
 	return rows.Err()
 }
 
-func scanRuleSet(row scanner) (*ReceiptRuleSet, error) {
+func scanRuleSet(row sqlite.Scanner) (*ReceiptRuleSet, error) {
 	var rs ReceiptRuleSet
 	var active int
 	var createdAt int64
@@ -605,7 +601,7 @@ func (s *Store) ReorderReceiptRuleSet(ruleSetName string, ruleNames []string) er
 	return nil
 }
 
-func scanRule(row scanner) (*ReceiptRule, error) {
+func scanRule(row sqlite.Scanner) (*ReceiptRule, error) {
 	var rr ReceiptRule
 	var enabled, scanEnabled int
 	var recJSON, actJSON string

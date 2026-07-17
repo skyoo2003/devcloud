@@ -603,9 +603,7 @@ func (s *Store) DeleteJob(appID, branchName, id string) (*Job, error) {
 
 // --- Scan helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanApp(sc scanner) (*App, error) {
+func scanApp(sc sqlite.Scanner) (*App, error) {
 	var a App
 	var createdAt, updatedAt int64
 	err := sc.Scan(&a.ID, &a.ARN, &a.Name, &a.Description, &a.Repository, &a.Platform, &a.IAMRole, &a.DefaultDomain, &createdAt, &updatedAt)
@@ -620,7 +618,7 @@ func scanApp(sc scanner) (*App, error) {
 	return &a, nil
 }
 
-func scanBranch(sc scanner) (*Branch, error) {
+func scanBranch(sc sqlite.Scanner) (*Branch, error) {
 	var b Branch
 	var createdAt, updatedAt int64
 	var autoBuild int
@@ -637,7 +635,7 @@ func scanBranch(sc scanner) (*Branch, error) {
 	return &b, nil
 }
 
-func scanDomainAssociation(sc scanner) (*DomainAssociation, error) {
+func scanDomainAssociation(sc sqlite.Scanner) (*DomainAssociation, error) {
 	var d DomainAssociation
 	var createdAt, updatedAt int64
 	err := sc.Scan(&d.AppID, &d.DomainName, &d.ARN, &d.Status, &d.SubDomains, &createdAt, &updatedAt)
@@ -652,7 +650,7 @@ func scanDomainAssociation(sc scanner) (*DomainAssociation, error) {
 	return &d, nil
 }
 
-func scanWebhook(sc scanner) (*Webhook, error) {
+func scanWebhook(sc sqlite.Scanner) (*Webhook, error) {
 	var w Webhook
 	var createdAt int64
 	err := sc.Scan(&w.ID, &w.ARN, &w.AppID, &w.BranchName, &w.URL, &createdAt)
@@ -666,7 +664,7 @@ func scanWebhook(sc scanner) (*Webhook, error) {
 	return &w, nil
 }
 
-func scanBackendEnvironment(sc scanner) (*BackendEnvironment, error) {
+func scanBackendEnvironment(sc sqlite.Scanner) (*BackendEnvironment, error) {
 	var be BackendEnvironment
 	var createdAt int64
 	err := sc.Scan(&be.AppID, &be.Name, &be.ARN, &be.StackName, &createdAt)
@@ -680,7 +678,7 @@ func scanBackendEnvironment(sc scanner) (*BackendEnvironment, error) {
 	return &be, nil
 }
 
-func scanJob(sc scanner) (*Job, error) {
+func scanJob(sc sqlite.Scanner) (*Job, error) {
 	var j Job
 	var createdAt, updatedAt int64
 	err := sc.Scan(&j.ID, &j.AppID, &j.BranchName, &j.ARN, &j.JobType, &j.Status, &j.CommitID, &j.CommitMsg, &createdAt, &updatedAt)

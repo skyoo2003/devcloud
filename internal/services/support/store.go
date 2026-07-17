@@ -247,9 +247,7 @@ func (s *Store) ListCommunications(caseID string) ([]Communication, error) {
 	return comms, rows.Err()
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanCase(s scanner) (*Case, error) {
+func scanCase(s sqlite.Scanner) (*Case, error) {
 	var c Case
 	var createdAt int64
 	err := s.Scan(&c.ID, &c.Subject, &c.Status, &c.ServiceCode, &c.CategoryCode, &c.SeverityCode, &c.Language, &c.SubmittedBy, &createdAt)

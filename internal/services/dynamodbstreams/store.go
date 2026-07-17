@@ -494,9 +494,7 @@ func DefaultShardID() string {
 	return "shardId-00000000000000000000-00000001"
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanStream(sc scanner) (*StreamMeta, error) {
+func scanStream(sc sqlite.Scanner) (*StreamMeta, error) {
 	var st StreamMeta
 	var createdAt int64
 	err := sc.Scan(&st.ARN, &st.TableName, &st.Label, &st.Status, &st.ViewType, &createdAt)

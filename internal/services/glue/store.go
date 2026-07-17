@@ -219,8 +219,6 @@ func NewStore(dataDir string) (*Store, error) {
 
 func (s *Store) Close() error { return s.store.Close() }
 
-type scanner interface{ Scan(dest ...any) error }
-
 // ---- Database ----
 
 func (s *Store) CreateDatabase(catalogID, name, description, locationURI, parameters string) (*Database, error) {
@@ -287,7 +285,7 @@ func (s *Store) DeleteDatabase(catalogID, name string) error {
 	return nil
 }
 
-func scanDatabase(sc scanner) (*Database, error) {
+func scanDatabase(sc sqlite.Scanner) (*Database, error) {
 	var d Database
 	var createdAt int64
 	err := sc.Scan(&d.CatalogID, &d.Name, &d.Description, &d.LocationURI, &d.Parameters, &createdAt)
@@ -375,7 +373,7 @@ func (s *Store) DeleteTable(catalogID, databaseName, name string) error {
 	return nil
 }
 
-func scanTable(sc scanner) (*Table, error) {
+func scanTable(sc sqlite.Scanner) (*Table, error) {
 	var t Table
 	var createdAt, updatedAt int64
 	err := sc.Scan(&t.CatalogID, &t.DatabaseName, &t.Name, &t.Description, &t.TableType, &t.Parameters, &t.StorageDesc, &t.Columns, &t.PartitionKeys, &createdAt, &updatedAt)
@@ -466,7 +464,7 @@ func (s *Store) DeletePartition(catalogID, databaseName, tableName string, value
 	return nil
 }
 
-func scanPartition(sc scanner) (*Partition, error) {
+func scanPartition(sc sqlite.Scanner) (*Partition, error) {
 	var p Partition
 	var createdAt int64
 	err := sc.Scan(&p.CatalogID, &p.DatabaseName, &p.TableName, &p.ValuesKey, &p.Parameters, &p.StorageDesc, &createdAt)
@@ -559,7 +557,7 @@ func (s *Store) DeleteCrawler(name string) error {
 	return nil
 }
 
-func scanCrawler(sc scanner) (*Crawler, error) {
+func scanCrawler(sc sqlite.Scanner) (*Crawler, error) {
 	var c Crawler
 	var createdAt, updatedAt int64
 	err := sc.Scan(&c.Name, &c.Role, &c.DatabaseName, &c.Targets, &c.Status, &c.Schedule, &c.Config, &createdAt, &updatedAt)
@@ -638,7 +636,7 @@ func (s *Store) DeleteJob(name string) error {
 	return nil
 }
 
-func scanJob(sc scanner) (*Job, error) {
+func scanJob(sc sqlite.Scanner) (*Job, error) {
 	var j Job
 	var createdAt int64
 	err := sc.Scan(&j.Name, &j.Role, &j.Command, &j.MaxRetries, &j.Timeout, &j.Config, &createdAt)
@@ -705,7 +703,7 @@ func (s *Store) UpdateJobRunStatus(id, status string) error {
 	return nil
 }
 
-func scanJobRun(sc scanner) (*JobRun, error) {
+func scanJobRun(sc sqlite.Scanner) (*JobRun, error) {
 	var r JobRun
 	var startedAt, completedAt int64
 	err := sc.Scan(&r.ID, &r.JobName, &r.Status, &startedAt, &completedAt)
@@ -787,7 +785,7 @@ func (s *Store) DeleteConnection(catalogID, name string) error {
 	return nil
 }
 
-func scanConnection(sc scanner) (*Connection, error) {
+func scanConnection(sc sqlite.Scanner) (*Connection, error) {
 	var c Connection
 	var createdAt int64
 	err := sc.Scan(&c.CatalogID, &c.Name, &c.Type, &c.Properties, &createdAt)
@@ -876,7 +874,7 @@ func (s *Store) DeleteTrigger(name string) error {
 	return nil
 }
 
-func scanTrigger(sc scanner) (*Trigger, error) {
+func scanTrigger(sc sqlite.Scanner) (*Trigger, error) {
 	var t Trigger
 	err := sc.Scan(&t.Name, &t.Type, &t.State, &t.Actions, &t.Predicate, &t.Schedule)
 	if err != nil {
@@ -938,7 +936,7 @@ func (s *Store) DeleteSecurityConfig(name string) error {
 	return nil
 }
 
-func scanSecurityConfig(sc scanner) (*SecurityConfig, error) {
+func scanSecurityConfig(sc sqlite.Scanner) (*SecurityConfig, error) {
 	var c SecurityConfig
 	var createdAt int64
 	err := sc.Scan(&c.Name, &c.Config, &createdAt)

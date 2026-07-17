@@ -633,9 +633,7 @@ func (s *Store) DeleteType(apiID, name string) (*Type, error) {
 
 // --- Scan helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanGraphqlApi(sc scanner) (*GraphqlApi, error) {
+func scanGraphqlApi(sc sqlite.Scanner) (*GraphqlApi, error) {
 	var a GraphqlApi
 	var createdAt int64
 	err := sc.Scan(&a.ID, &a.ARN, &a.Name, &a.AuthType, &a.LogConfig, &a.Uris, &createdAt)
@@ -649,7 +647,7 @@ func scanGraphqlApi(sc scanner) (*GraphqlApi, error) {
 	return &a, nil
 }
 
-func scanDataSource(sc scanner) (*DataSource, error) {
+func scanDataSource(sc sqlite.Scanner) (*DataSource, error) {
 	var ds DataSource
 	err := sc.Scan(&ds.ApiID, &ds.Name, &ds.ARN, &ds.Type, &ds.Config, &ds.ServiceRole)
 	if err != nil {
@@ -661,7 +659,7 @@ func scanDataSource(sc scanner) (*DataSource, error) {
 	return &ds, nil
 }
 
-func scanResolver(sc scanner) (*Resolver, error) {
+func scanResolver(sc sqlite.Scanner) (*Resolver, error) {
 	var r Resolver
 	err := sc.Scan(&r.ApiID, &r.TypeName, &r.FieldName, &r.ARN, &r.DataSource, &r.RequestTemplate, &r.ResponseTemplate, &r.Kind)
 	if err != nil {
@@ -673,7 +671,7 @@ func scanResolver(sc scanner) (*Resolver, error) {
 	return &r, nil
 }
 
-func scanFunction(sc scanner) (*Function, error) {
+func scanFunction(sc sqlite.Scanner) (*Function, error) {
 	var f Function
 	err := sc.Scan(&f.ApiID, &f.ID, &f.ARN, &f.Name, &f.DataSource, &f.RequestTemplate, &f.ResponseTemplate)
 	if err != nil {
@@ -685,7 +683,7 @@ func scanFunction(sc scanner) (*Function, error) {
 	return &f, nil
 }
 
-func scanApiKey(sc scanner) (*ApiKey, error) {
+func scanApiKey(sc sqlite.Scanner) (*ApiKey, error) {
 	var k ApiKey
 	err := sc.Scan(&k.ApiID, &k.ID, &k.Expires, &k.Description)
 	if err != nil {
@@ -697,7 +695,7 @@ func scanApiKey(sc scanner) (*ApiKey, error) {
 	return &k, nil
 }
 
-func scanType(sc scanner) (*Type, error) {
+func scanType(sc sqlite.Scanner) (*Type, error) {
 	var tp Type
 	err := sc.Scan(&tp.ApiID, &tp.Name, &tp.Definition, &tp.Format)
 	if err != nil {

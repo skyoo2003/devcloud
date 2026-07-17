@@ -335,9 +335,7 @@ func (s *Store) ListEndpointIPs(id string) ([]ipAddrEntry, error) {
 	return ips, nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanEndpoint(sc scanner) (*endpointRow, error) {
+func scanEndpoint(sc sqlite.Scanner) (*endpointRow, error) {
 	var r endpointRow
 	err := sc.Scan(&r.ID, &r.ARN, &r.Name, &r.Direction, &r.SecurityGroups, &r.IPAddresses, &r.Status, &r.CreatedAt)
 	if err != nil {
@@ -416,7 +414,7 @@ func (s *Store) DeleteRule(id string) error {
 	return nil
 }
 
-func scanRule(sc scanner) (*ruleRow, error) {
+func scanRule(sc sqlite.Scanner) (*ruleRow, error) {
 	var r ruleRow
 	err := sc.Scan(&r.ID, &r.ARN, &r.Name, &r.DomainName, &r.RuleType, &r.ResolverEndpointID, &r.TargetIPs, &r.Status, &r.CreatedAt)
 	if err != nil {
@@ -476,7 +474,7 @@ func (s *Store) ListRuleAssociations() ([]ruleAssocRow, error) {
 	return result, rows.Err()
 }
 
-func scanRuleAssoc(sc scanner) (*ruleAssocRow, error) {
+func scanRuleAssoc(sc sqlite.Scanner) (*ruleAssocRow, error) {
 	var r ruleAssocRow
 	err := sc.Scan(&r.ID, &r.ResolverRuleID, &r.VPCID, &r.Status, &r.Name)
 	if err != nil {
@@ -537,7 +535,7 @@ func (s *Store) DeleteQueryLogConfig(id string) error {
 	return nil
 }
 
-func scanQueryLog(sc scanner) (*queryLogRow, error) {
+func scanQueryLog(sc sqlite.Scanner) (*queryLogRow, error) {
 	var r queryLogRow
 	err := sc.Scan(&r.ID, &r.ARN, &r.Name, &r.Destination, &r.Status, &r.CreatedAt)
 	if err != nil {
@@ -597,7 +595,7 @@ func (s *Store) ListQueryLogConfigAssociations() ([]queryLogAssocRow, error) {
 	return result, rows.Err()
 }
 
-func scanQueryLogAssoc(sc scanner) (*queryLogAssocRow, error) {
+func scanQueryLogAssoc(sc sqlite.Scanner) (*queryLogAssocRow, error) {
 	var r queryLogAssocRow
 	err := sc.Scan(&r.ID, &r.ConfigID, &r.ResourceID, &r.Status)
 	if err != nil {
@@ -663,7 +661,7 @@ func (s *Store) incrFwRuleGroupCount(groupID string, delta int) {
 		`UPDATE firewall_rule_groups SET rule_count = rule_count + ? WHERE id=?`, delta, groupID)
 }
 
-func scanFwRuleGroup(sc scanner) (*fwRuleGroupRow, error) {
+func scanFwRuleGroup(sc sqlite.Scanner) (*fwRuleGroupRow, error) {
 	var r fwRuleGroupRow
 	err := sc.Scan(&r.ID, &r.ARN, &r.Name, &r.Status, &r.RuleCount, &r.CreatedAt)
 	if err != nil {
@@ -735,7 +733,7 @@ func (s *Store) DeleteFirewallRule(groupID, domainListID string) error {
 	return nil
 }
 
-func scanFwRule(sc scanner) (*fwRuleRow, error) {
+func scanFwRule(sc sqlite.Scanner) (*fwRuleRow, error) {
 	var r fwRuleRow
 	err := sc.Scan(&r.GroupID, &r.DomainListID, &r.Name, &r.Priority, &r.Action, &r.BlockResponse)
 	if err != nil {
@@ -836,7 +834,7 @@ func (s *Store) ListFirewallDomains(listID string) ([]string, error) {
 	return result, rows.Err()
 }
 
-func scanFwDomainList(sc scanner) (*fwDomainListRow, error) {
+func scanFwDomainList(sc sqlite.Scanner) (*fwDomainListRow, error) {
 	var r fwDomainListRow
 	err := sc.Scan(&r.ID, &r.ARN, &r.Name, &r.Status, &r.DomainCount, &r.CreatedAt)
 	if err != nil {
@@ -914,7 +912,7 @@ func (s *Store) UpdateFirewallRuleGroupAssociation(id, name string, priority int
 	return s.GetFirewallRuleGroupAssociation(id)
 }
 
-func scanFwRuleGroupAssoc(sc scanner) (*fwRuleGroupAssocRow, error) {
+func scanFwRuleGroupAssoc(sc sqlite.Scanner) (*fwRuleGroupAssocRow, error) {
 	var r fwRuleGroupAssocRow
 	err := sc.Scan(&r.ID, &r.GroupID, &r.VPCID, &r.Name, &r.Priority, &r.Status)
 	if err != nil {

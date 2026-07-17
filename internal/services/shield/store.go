@@ -300,9 +300,7 @@ func (s *Store) SetProactiveEngagement(status string) error {
 
 // --- scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanProtection(sc scanner) (*Protection, error) {
+func scanProtection(sc sqlite.Scanner) (*Protection, error) {
 	var p Protection
 	var createdAt int64
 	err := sc.Scan(&p.ID, &p.ARN, &p.Name, &p.ResourceARN, &p.HealthCheckIDs, &createdAt)
@@ -316,7 +314,7 @@ func scanProtection(sc scanner) (*Protection, error) {
 	return &p, nil
 }
 
-func scanProtectionGroup(sc scanner) (*ProtectionGroup, error) {
+func scanProtectionGroup(sc sqlite.Scanner) (*ProtectionGroup, error) {
 	var g ProtectionGroup
 	var createdAt int64
 	err := sc.Scan(&g.ID, &g.ARN, &g.Aggregation, &g.Pattern, &g.ResourceType, &g.Members, &createdAt)

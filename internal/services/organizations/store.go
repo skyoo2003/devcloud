@@ -214,9 +214,7 @@ func (s *Store) UpdateRootPolicyTypes(id, policyTypesJSON string) error {
 	return err
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanRoot(sc scanner) (*Root, error) {
+func scanRoot(sc sqlite.Scanner) (*Root, error) {
 	var r Root
 	err := sc.Scan(&r.ID, &r.ARN, &r.Name, &r.PolicyTypes)
 	if err != nil {
@@ -290,7 +288,7 @@ func (s *Store) DeleteAccount(id string) error {
 	return err
 }
 
-func scanAccount(sc scanner) (*Account, error) {
+func scanAccount(sc sqlite.Scanner) (*Account, error) {
 	var a Account
 	var createdAt int64
 	err := sc.Scan(&a.ID, &a.ARN, &a.Name, &a.Email, &a.Status, &a.JoinedMethod, &a.ParentID, &createdAt)
@@ -384,7 +382,7 @@ func (s *Store) OUHasChildren(id string) (bool, error) {
 	return count > 0, err
 }
 
-func scanOU(sc scanner) (*OU, error) {
+func scanOU(sc sqlite.Scanner) (*OU, error) {
 	var ou OU
 	var createdAt int64
 	err := sc.Scan(&ou.ID, &ou.ARN, &ou.Name, &ou.ParentID, &createdAt)
@@ -472,7 +470,7 @@ func (s *Store) DeletePolicy(id string) error {
 	return nil
 }
 
-func scanPolicy(sc scanner) (*Policy, error) {
+func scanPolicy(sc sqlite.Scanner) (*Policy, error) {
 	var p Policy
 	var createdAt, updatedAt int64
 	err := sc.Scan(&p.ID, &p.ARN, &p.Name, &p.Type, &p.Description, &p.Content, &createdAt, &updatedAt)

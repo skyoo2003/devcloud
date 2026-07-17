@@ -17,6 +17,11 @@ type Migration struct {
 	SQL     string
 }
 
+// Scanner is implemented by *sql.Row and *sql.Rows; it scans one row into dest.
+type Scanner interface {
+	Scan(dest ...any) error
+}
+
 type Store struct {
 	db   *sql.DB
 	path string

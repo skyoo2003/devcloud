@@ -316,9 +316,7 @@ func (s *Store) DeleteAnomalySubscription(arn string) error {
 
 // ----- scanner helpers -----
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanCostCategory(s scanner) (*CostCategory, error) {
+func scanCostCategory(s sqlite.Scanner) (*CostCategory, error) {
 	var c CostCategory
 	var createdAt int64
 	err := s.Scan(&c.ARN, &c.Name, &c.RuleVersion, &c.Rules, &c.EffectiveStart, &createdAt)
@@ -332,7 +330,7 @@ func scanCostCategory(s scanner) (*CostCategory, error) {
 	return &c, nil
 }
 
-func scanAnomalyMonitor(s scanner) (*AnomalyMonitor, error) {
+func scanAnomalyMonitor(s sqlite.Scanner) (*AnomalyMonitor, error) {
 	var m AnomalyMonitor
 	var createdAt int64
 	err := s.Scan(&m.ARN, &m.Name, &m.Type, &m.Dimension, &m.Config, &createdAt)
@@ -346,7 +344,7 @@ func scanAnomalyMonitor(s scanner) (*AnomalyMonitor, error) {
 	return &m, nil
 }
 
-func scanAnomalySubscription(s scanner) (*AnomalySubscription, error) {
+func scanAnomalySubscription(s sqlite.Scanner) (*AnomalySubscription, error) {
 	var sub AnomalySubscription
 	var createdAt int64
 	err := s.Scan(&sub.ARN, &sub.Name, &sub.MonitorARNs, &sub.Threshold, &sub.Frequency, &sub.Subscribers, &createdAt)

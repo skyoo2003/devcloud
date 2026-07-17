@@ -137,9 +137,7 @@ func (s *Store) UpdateDomainConfig(name, config string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanDomain(s scanner) (*Domain, error) {
+func scanDomain(s sqlite.Scanner) (*Domain, error) {
 	var d Domain
 	var createdAt int64
 	err := s.Scan(

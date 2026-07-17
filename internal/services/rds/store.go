@@ -822,9 +822,7 @@ func (s *Store) ListTags(arn string) (map[string]string, error) {
 
 // --- scan helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanInstance(sc scanner) (*DBInstance, error) {
+func scanInstance(sc sqlite.Scanner) (*DBInstance, error) {
 	var inst DBInstance
 	var createdAt int64
 	var maz, enc int
@@ -844,7 +842,7 @@ func scanInstance(sc scanner) (*DBInstance, error) {
 	return &inst, nil
 }
 
-func scanCluster(sc scanner) (*DBCluster, error) {
+func scanCluster(sc sqlite.Scanner) (*DBCluster, error) {
 	var c DBCluster
 	var createdAt int64
 	var enc int
@@ -861,7 +859,7 @@ func scanCluster(sc scanner) (*DBCluster, error) {
 	return &c, nil
 }
 
-func scanSnapshot(sc scanner) (*DBSnapshot, error) {
+func scanSnapshot(sc sqlite.Scanner) (*DBSnapshot, error) {
 	var sn DBSnapshot
 	var createdAt int64
 	err := sc.Scan(&sn.ID, &sn.ARN, &sn.InstanceID, &sn.Status, &sn.Engine, &sn.SnapshotType, &createdAt)
@@ -875,7 +873,7 @@ func scanSnapshot(sc scanner) (*DBSnapshot, error) {
 	return &sn, nil
 }
 
-func scanClusterSnapshot(sc scanner) (*ClusterSnapshot, error) {
+func scanClusterSnapshot(sc sqlite.Scanner) (*ClusterSnapshot, error) {
 	var sn ClusterSnapshot
 	var createdAt int64
 	err := sc.Scan(&sn.ID, &sn.ARN, &sn.ClusterID, &sn.Status, &sn.Engine, &sn.SnapshotType, &createdAt)
@@ -889,7 +887,7 @@ func scanClusterSnapshot(sc scanner) (*ClusterSnapshot, error) {
 	return &sn, nil
 }
 
-func scanParamGroup(sc scanner) (*DBParamGroup, error) {
+func scanParamGroup(sc sqlite.Scanner) (*DBParamGroup, error) {
 	var pg DBParamGroup
 	err := sc.Scan(&pg.Name, &pg.ARN, &pg.Family, &pg.Description)
 	if err != nil {
@@ -901,7 +899,7 @@ func scanParamGroup(sc scanner) (*DBParamGroup, error) {
 	return &pg, nil
 }
 
-func scanClusterParamGroup(sc scanner) (*ClusterParamGroup, error) {
+func scanClusterParamGroup(sc sqlite.Scanner) (*ClusterParamGroup, error) {
 	var pg ClusterParamGroup
 	err := sc.Scan(&pg.Name, &pg.ARN, &pg.Family, &pg.Description)
 	if err != nil {
@@ -913,7 +911,7 @@ func scanClusterParamGroup(sc scanner) (*ClusterParamGroup, error) {
 	return &pg, nil
 }
 
-func scanSubnetGroup(sc scanner) (*SubnetGroup, error) {
+func scanSubnetGroup(sc sqlite.Scanner) (*SubnetGroup, error) {
 	var sg SubnetGroup
 	err := sc.Scan(&sg.Name, &sg.ARN, &sg.Description, &sg.VpcID, &sg.Subnets, &sg.Status)
 	if err != nil {
@@ -925,7 +923,7 @@ func scanSubnetGroup(sc scanner) (*SubnetGroup, error) {
 	return &sg, nil
 }
 
-func scanOptionGroup(sc scanner) (*OptionGroup, error) {
+func scanOptionGroup(sc sqlite.Scanner) (*OptionGroup, error) {
 	var og OptionGroup
 	err := sc.Scan(&og.Name, &og.ARN, &og.Engine, &og.MajorVersion, &og.Description)
 	if err != nil {

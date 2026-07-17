@@ -242,9 +242,7 @@ func (s *Store) GetJob(id string) (*AsyncJob, error) {
 
 // --- scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanAdapter(sc scanner) (*Adapter, error) {
+func scanAdapter(sc sqlite.Scanner) (*Adapter, error) {
 	var a Adapter
 	var createdAt int64
 	err := sc.Scan(&a.ID, &a.ARN, &a.Name, &a.FeatureTypes, &a.AutoUpdate, &createdAt)
@@ -258,7 +256,7 @@ func scanAdapter(sc scanner) (*Adapter, error) {
 	return &a, nil
 }
 
-func scanAdapterVersion(sc scanner) (*AdapterVersion, error) {
+func scanAdapterVersion(sc sqlite.Scanner) (*AdapterVersion, error) {
 	var v AdapterVersion
 	var createdAt int64
 	err := sc.Scan(&v.AdapterID, &v.Version, &v.Status, &v.DatasetConfig, &createdAt)
@@ -272,7 +270,7 @@ func scanAdapterVersion(sc scanner) (*AdapterVersion, error) {
 	return &v, nil
 }
 
-func scanJob(sc scanner) (*AsyncJob, error) {
+func scanJob(sc sqlite.Scanner) (*AsyncJob, error) {
 	var j AsyncJob
 	var createdAt int64
 	err := sc.Scan(&j.ID, &j.Type, &j.Status, &createdAt)

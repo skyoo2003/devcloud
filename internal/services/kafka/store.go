@@ -386,9 +386,7 @@ func (s *Store) DeleteClusterPolicy(clusterARN string) error {
 
 // --- Scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanCluster(s scanner) (*Cluster, error) {
+func scanCluster(s sqlite.Scanner) (*Cluster, error) {
 	var c Cluster
 	var createdAt int64
 	err := s.Scan(&c.ARN, &c.Name, &c.Status, &c.KafkaVersion, &c.BrokerCount, &c.BrokerType, &c.Config, &createdAt)
@@ -402,7 +400,7 @@ func scanCluster(s scanner) (*Cluster, error) {
 	return &c, nil
 }
 
-func scanConfiguration(s scanner) (*Configuration, error) {
+func scanConfiguration(s sqlite.Scanner) (*Configuration, error) {
 	var c Configuration
 	var createdAt int64
 	err := s.Scan(&c.ARN, &c.Name, &c.KafkaVersions, &c.ServerProps, &c.Revision, &createdAt)
@@ -416,7 +414,7 @@ func scanConfiguration(s scanner) (*Configuration, error) {
 	return &c, nil
 }
 
-func scanTopic(s scanner) (*Topic, error) {
+func scanTopic(s sqlite.Scanner) (*Topic, error) {
 	var t Topic
 	err := s.Scan(&t.ARN, &t.Name, &t.ClusterARN, &t.Partitions, &t.Replication, &t.Config)
 	if err != nil {

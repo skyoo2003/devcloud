@@ -646,9 +646,7 @@ func (s *Store) UpdatePodIdentityAssociation(clusterName, associationID, roleARN
 
 // --- Scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanCluster(s scanner) (*Cluster, error) {
+func scanCluster(s sqlite.Scanner) (*Cluster, error) {
 	var c Cluster
 	var createdAt int64
 	err := s.Scan(&c.Name, &c.ARN, &c.Status, &c.Version, &c.RoleARN, &c.Endpoint, &c.Certificate, &c.PlatformVersion, &c.Config, &createdAt)
@@ -662,7 +660,7 @@ func scanCluster(s scanner) (*Cluster, error) {
 	return &c, nil
 }
 
-func scanNodegroup(s scanner) (*Nodegroup, error) {
+func scanNodegroup(s sqlite.Scanner) (*Nodegroup, error) {
 	var ng Nodegroup
 	var createdAt int64
 	err := s.Scan(&ng.Name, &ng.ClusterName, &ng.ARN, &ng.Status, &ng.InstanceTypes, &ng.DesiredSize, &ng.MinSize, &ng.MaxSize, &ng.AMIType, &ng.NodeRole, &ng.Subnets, &createdAt)
@@ -676,7 +674,7 @@ func scanNodegroup(s scanner) (*Nodegroup, error) {
 	return &ng, nil
 }
 
-func scanFargateProfile(s scanner) (*FargateProfile, error) {
+func scanFargateProfile(s sqlite.Scanner) (*FargateProfile, error) {
 	var fp FargateProfile
 	var createdAt int64
 	err := s.Scan(&fp.Name, &fp.ClusterName, &fp.ARN, &fp.Status, &fp.PodExecutionRole, &fp.Selectors, &fp.Subnets, &createdAt)
@@ -690,7 +688,7 @@ func scanFargateProfile(s scanner) (*FargateProfile, error) {
 	return &fp, nil
 }
 
-func scanAddon(s scanner) (*Addon, error) {
+func scanAddon(s sqlite.Scanner) (*Addon, error) {
 	var a Addon
 	var createdAt int64
 	err := s.Scan(&a.Name, &a.ClusterName, &a.ARN, &a.Status, &a.AddonVersion, &a.ServiceRole, &a.Config, &createdAt)
@@ -704,7 +702,7 @@ func scanAddon(s scanner) (*Addon, error) {
 	return &a, nil
 }
 
-func scanAccessEntry(s scanner) (*AccessEntry, error) {
+func scanAccessEntry(s sqlite.Scanner) (*AccessEntry, error) {
 	var ae AccessEntry
 	var createdAt int64
 	err := s.Scan(&ae.PrincipalARN, &ae.ClusterName, &ae.ARN, &ae.EntryType, &ae.KubernetesGroups, &ae.Username, &createdAt)
@@ -718,7 +716,7 @@ func scanAccessEntry(s scanner) (*AccessEntry, error) {
 	return &ae, nil
 }
 
-func scanPodIdentity(s scanner) (*PodIdentityAssociation, error) {
+func scanPodIdentity(s sqlite.Scanner) (*PodIdentityAssociation, error) {
 	var pa PodIdentityAssociation
 	var createdAt int64
 	err := s.Scan(&pa.AssociationID, &pa.ClusterName, &pa.ARN, &pa.Namespace, &pa.ServiceAccount, &pa.RoleARN, &createdAt)

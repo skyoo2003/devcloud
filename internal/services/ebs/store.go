@@ -281,9 +281,7 @@ func (s *Store) CopySnapshot(srcID, newID, newARN string) error {
 	return err
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanSnapshot(sc scanner) (*Snapshot, error) {
+func scanSnapshot(sc sqlite.Scanner) (*Snapshot, error) {
 	var snap Snapshot
 	var createdAt int64
 	err := sc.Scan(&snap.ID, &snap.ARN, &snap.VolumeID, &snap.VolumeSize, &snap.Status, &snap.BlockSize, &createdAt)

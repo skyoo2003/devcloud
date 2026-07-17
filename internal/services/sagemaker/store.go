@@ -279,8 +279,6 @@ func NewStore(dataDir string) (*Store, error) {
 
 func (s *Store) Close() error { return s.store.Close() }
 
-type scanner interface{ Scan(dest ...any) error }
-
 // ---- NotebookInstance ----
 
 func (s *Store) CreateNotebookInstance(name, arn, status, instanceType, roleARN, url string) (*NotebookInstance, error) {
@@ -356,7 +354,7 @@ func (s *Store) DeleteNotebookInstance(name string) error {
 	return nil
 }
 
-func scanNotebookInstance(sc scanner) (*NotebookInstance, error) {
+func scanNotebookInstance(sc sqlite.Scanner) (*NotebookInstance, error) {
 	var nb NotebookInstance
 	var createdAt int64
 	err := sc.Scan(&nb.Name, &nb.ARN, &nb.Status, &nb.InstanceType, &nb.RoleARN, &nb.URL, &createdAt)
@@ -419,7 +417,7 @@ func (s *Store) DeleteModel(name string) error {
 	return nil
 }
 
-func scanModel(sc scanner) (*Model, error) {
+func scanModel(sc sqlite.Scanner) (*Model, error) {
 	var m Model
 	var createdAt int64
 	err := sc.Scan(&m.Name, &m.ARN, &m.ExecutionRole, &m.PrimaryContainer, &createdAt)
@@ -482,7 +480,7 @@ func (s *Store) DeleteEndpointConfig(name string) error {
 	return nil
 }
 
-func scanEndpointConfig(sc scanner) (*EndpointConfig, error) {
+func scanEndpointConfig(sc sqlite.Scanner) (*EndpointConfig, error) {
 	var ec EndpointConfig
 	var createdAt int64
 	err := sc.Scan(&ec.Name, &ec.ARN, &ec.ProductionVariants, &createdAt)
@@ -560,7 +558,7 @@ func (s *Store) DeleteEndpoint(name string) error {
 	return nil
 }
 
-func scanEndpoint(sc scanner) (*Endpoint, error) {
+func scanEndpoint(sc sqlite.Scanner) (*Endpoint, error) {
 	var e Endpoint
 	var createdAt, updatedAt int64
 	err := sc.Scan(&e.Name, &e.ARN, &e.ConfigName, &e.Status, &createdAt, &updatedAt)
@@ -624,7 +622,7 @@ func (s *Store) UpdateTrainingJobStatus(name, status string) error {
 	return nil
 }
 
-func scanTrainingJob(sc scanner) (*TrainingJob, error) {
+func scanTrainingJob(sc sqlite.Scanner) (*TrainingJob, error) {
 	var tj TrainingJob
 	var createdAt int64
 	err := sc.Scan(&tj.Name, &tj.ARN, &tj.Status, &tj.RoleARN, &tj.Algorithm, &tj.InputConfig, &tj.OutputConfig, &tj.ResourceConfig, &createdAt)
@@ -687,7 +685,7 @@ func (s *Store) UpdateProcessingJobStatus(name, status string) error {
 	return nil
 }
 
-func scanProcessingJob(sc scanner) (*ProcessingJob, error) {
+func scanProcessingJob(sc sqlite.Scanner) (*ProcessingJob, error) {
 	var pj ProcessingJob
 	var createdAt int64
 	err := sc.Scan(&pj.Name, &pj.ARN, &pj.Status, &pj.RoleARN, &pj.AppSpec, &pj.Inputs, &pj.Outputs, &pj.Resources, &createdAt)
@@ -750,7 +748,7 @@ func (s *Store) UpdateTransformJobStatus(name, status string) error {
 	return nil
 }
 
-func scanTransformJob(sc scanner) (*TransformJob, error) {
+func scanTransformJob(sc sqlite.Scanner) (*TransformJob, error) {
 	var tj TransformJob
 	var createdAt int64
 	err := sc.Scan(&tj.Name, &tj.ARN, &tj.Status, &tj.ModelName, &tj.Input, &tj.Output, &tj.Resources, &createdAt)
@@ -828,7 +826,7 @@ func (s *Store) DeletePipeline(name string) error {
 	return nil
 }
 
-func scanPipeline(sc scanner) (*Pipeline, error) {
+func scanPipeline(sc sqlite.Scanner) (*Pipeline, error) {
 	var p Pipeline
 	var createdAt, updatedAt int64
 	err := sc.Scan(&p.Name, &p.ARN, &p.RoleARN, &p.Definition, &p.Description, &createdAt, &updatedAt)
@@ -894,7 +892,7 @@ func (s *Store) UpdatePipelineExecutionStatus(arn, status string) error {
 	return nil
 }
 
-func scanPipelineExecution(sc scanner) (*PipelineExecution, error) {
+func scanPipelineExecution(sc sqlite.Scanner) (*PipelineExecution, error) {
 	var pe PipelineExecution
 	var createdAt int64
 	err := sc.Scan(&pe.ARN, &pe.PipelineName, &pe.Status, &createdAt)
@@ -969,7 +967,7 @@ func (s *Store) DeleteExperiment(name string) error {
 	return nil
 }
 
-func scanExperiment(sc scanner) (*Experiment, error) {
+func scanExperiment(sc sqlite.Scanner) (*Experiment, error) {
 	var e Experiment
 	var createdAt int64
 	err := sc.Scan(&e.Name, &e.ARN, &e.Description, &createdAt)
@@ -1052,7 +1050,7 @@ func (s *Store) DeleteTrial(name string) error {
 	return nil
 }
 
-func scanTrial(sc scanner) (*Trial, error) {
+func scanTrial(sc sqlite.Scanner) (*Trial, error) {
 	var tr Trial
 	var createdAt int64
 	err := sc.Scan(&tr.Name, &tr.ARN, &tr.ExperimentName, &createdAt)
@@ -1127,7 +1125,7 @@ func (s *Store) DeleteDomain(id string) error {
 	return nil
 }
 
-func scanDomain(sc scanner) (*Domain, error) {
+func scanDomain(sc sqlite.Scanner) (*Domain, error) {
 	var d Domain
 	var createdAt int64
 	err := sc.Scan(&d.ID, &d.ARN, &d.Name, &d.Status, &d.AuthMode, &d.VpcID, &createdAt)
@@ -1211,7 +1209,7 @@ func (s *Store) DeleteUserProfile(domainID, name string) error {
 	return nil
 }
 
-func scanUserProfile(sc scanner) (*UserProfile, error) {
+func scanUserProfile(sc sqlite.Scanner) (*UserProfile, error) {
 	var up UserProfile
 	var createdAt int64
 	err := sc.Scan(&up.DomainID, &up.Name, &up.ARN, &up.Status, &createdAt)

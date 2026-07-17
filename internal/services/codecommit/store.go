@@ -720,9 +720,7 @@ func (s *Store) GetCommentReactions(commentID string) ([]map[string]string, erro
 
 // ---- scanners ----
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanRepository(s scanner) (*Repository, error) {
+func scanRepository(s sqlite.Scanner) (*Repository, error) {
 	var r Repository
 	var createdAt, updatedAt int64
 	err := s.Scan(&r.Name, &r.ID, &r.ARN, &r.Description, &r.DefaultBranch, &r.CloneURL, &createdAt, &updatedAt)
@@ -737,7 +735,7 @@ func scanRepository(s scanner) (*Repository, error) {
 	return &r, nil
 }
 
-func scanPullRequest(s scanner) (*PullRequest, error) {
+func scanPullRequest(s sqlite.Scanner) (*PullRequest, error) {
 	var pr PullRequest
 	var createdAt, updatedAt int64
 	err := s.Scan(&pr.ID, &pr.Title, &pr.Description, &pr.Status,
@@ -754,7 +752,7 @@ func scanPullRequest(s scanner) (*PullRequest, error) {
 	return &pr, nil
 }
 
-func scanApprovalRuleTemplate(s scanner) (*ApprovalRuleTemplate, error) {
+func scanApprovalRuleTemplate(s sqlite.Scanner) (*ApprovalRuleTemplate, error) {
 	var t ApprovalRuleTemplate
 	var createdAt, updatedAt int64
 	err := s.Scan(&t.Name, &t.ID, &t.Description, &t.Content, &createdAt, &updatedAt)
@@ -769,7 +767,7 @@ func scanApprovalRuleTemplate(s scanner) (*ApprovalRuleTemplate, error) {
 	return &t, nil
 }
 
-func scanComment(s scanner) (*Comment, error) {
+func scanComment(s sqlite.Scanner) (*Comment, error) {
 	var c Comment
 	var deleted int
 	var createdAt int64

@@ -312,11 +312,7 @@ func (s *Route53Store) ListRecords(zoneID, accountID string) ([]RecordSet, error
 	return recs, rows.Err()
 }
 
-type scanner interface {
-	Scan(dest ...any) error
-}
-
-func scanZone(s scanner) (*HostedZone, error) {
+func scanZone(s sqlite.Scanner) (*HostedZone, error) {
 	var z HostedZone
 	var createdAt int64
 	err := s.Scan(&z.ID, &z.Name, &z.AccountID, &z.CallerRef, &z.Comment, &z.RecordCount, &createdAt)
@@ -330,7 +326,7 @@ func scanZone(s scanner) (*HostedZone, error) {
 	return &z, nil
 }
 
-func scanRecord(s scanner) (*RecordSet, error) {
+func scanRecord(s sqlite.Scanner) (*RecordSet, error) {
 	var r RecordSet
 	var recordsJSON string
 	var aliasJSON sql.NullString
@@ -448,7 +444,7 @@ func (s *Route53Store) DeleteHealthCheck(id, accountID string) error {
 	return nil
 }
 
-func scanHealthCheck(s scanner) (*HealthCheck, error) {
+func scanHealthCheck(s sqlite.Scanner) (*HealthCheck, error) {
 	var hc HealthCheck
 	var ip, rp, fqdn, ss sql.NullString
 	var port sql.NullInt64
@@ -562,7 +558,7 @@ func (s *Route53Store) DeleteTrafficPolicy(id string, version int, accountID str
 	return nil
 }
 
-func scanTrafficPolicy(s scanner) (*TrafficPolicy, error) {
+func scanTrafficPolicy(s sqlite.Scanner) (*TrafficPolicy, error) {
 	var tp TrafficPolicy
 	var tpType sql.NullString
 	var comment sql.NullString

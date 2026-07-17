@@ -377,9 +377,7 @@ func (s *Store) DeleteAlias(arn string) error {
 
 // ---- Scanners ----
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanStateMachine(s scanner) (*StateMachine, error) {
+func scanStateMachine(s sqlite.Scanner) (*StateMachine, error) {
 	var sm StateMachine
 	var createdAt, updatedAt int64
 	err := s.Scan(&sm.ARN, &sm.Name, &sm.Definition, &sm.RoleARN, &sm.Type,
@@ -395,7 +393,7 @@ func scanStateMachine(s scanner) (*StateMachine, error) {
 	return &sm, nil
 }
 
-func scanExecution(s scanner) (*Execution, error) {
+func scanExecution(s sqlite.Scanner) (*Execution, error) {
 	var ex Execution
 	var startDate, stopDate int64
 	err := s.Scan(&ex.ARN, &ex.Name, &ex.StateMachine, &ex.Status,
@@ -413,7 +411,7 @@ func scanExecution(s scanner) (*Execution, error) {
 	return &ex, nil
 }
 
-func scanActivity(s scanner) (*Activity, error) {
+func scanActivity(s sqlite.Scanner) (*Activity, error) {
 	var act Activity
 	var createdAt int64
 	err := s.Scan(&act.ARN, &act.Name, &createdAt)
@@ -427,7 +425,7 @@ func scanActivity(s scanner) (*Activity, error) {
 	return &act, nil
 }
 
-func scanAlias(s scanner) (*StateMachineAlias, error) {
+func scanAlias(s sqlite.Scanner) (*StateMachineAlias, error) {
 	var a StateMachineAlias
 	var createdAt, updatedAt int64
 	err := s.Scan(&a.ARN, &a.Name, &a.StateMachine, &a.Description,

@@ -188,9 +188,7 @@ func (s *Store) DeleteTranscriptionJob(name string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanTranscriptionJob(sc scanner) (*TranscriptionJob, error) {
+func scanTranscriptionJob(sc sqlite.Scanner) (*TranscriptionJob, error) {
 	var j TranscriptionJob
 	var createdAt, completedAt int64
 	err := sc.Scan(&j.Name, &j.Status, &j.Language, &j.MediaURI, &j.MediaFormat, &j.OutputURI, &createdAt, &completedAt)
@@ -280,7 +278,7 @@ func (s *Store) DeleteVocabulary(name string) error {
 	return nil
 }
 
-func scanVocabulary(sc scanner) (*Vocabulary, error) {
+func scanVocabulary(sc sqlite.Scanner) (*Vocabulary, error) {
 	var v Vocabulary
 	var createdAt, updatedAt int64
 	err := sc.Scan(&v.Name, &v.Language, &v.Status, &v.Phrases, &createdAt, &updatedAt)
@@ -370,7 +368,7 @@ func (s *Store) DeleteVocabularyFilter(name string) error {
 	return nil
 }
 
-func scanVocabularyFilter(sc scanner) (*VocabularyFilter, error) {
+func scanVocabularyFilter(sc sqlite.Scanner) (*VocabularyFilter, error) {
 	var f VocabularyFilter
 	var createdAt, updatedAt int64
 	err := sc.Scan(&f.Name, &f.Language, &f.Words, &createdAt, &updatedAt)
@@ -444,7 +442,7 @@ func (s *Store) DeleteLanguageModel(name string) error {
 	return nil
 }
 
-func scanLanguageModel(sc scanner) (*LanguageModel, error) {
+func scanLanguageModel(sc sqlite.Scanner) (*LanguageModel, error) {
 	var m LanguageModel
 	var createdAt int64
 	err := sc.Scan(&m.Name, &m.Status, &m.Language, &m.BaseModel, &createdAt)
@@ -527,7 +525,7 @@ func (s *Store) DeleteCallAnalyticsCategory(name string) error {
 	return nil
 }
 
-func scanCallAnalyticsCategory(sc scanner) (*CallAnalyticsCategory, error) {
+func scanCallAnalyticsCategory(sc sqlite.Scanner) (*CallAnalyticsCategory, error) {
 	var c CallAnalyticsCategory
 	var createdAt, updatedAt int64
 	err := sc.Scan(&c.Name, &c.Rules, &c.InputType, &createdAt, &updatedAt)

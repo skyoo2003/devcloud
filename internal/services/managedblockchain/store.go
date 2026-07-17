@@ -455,9 +455,7 @@ func (s *Store) DeleteAccessor(id string) error {
 
 // --- Scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanNetwork(sc scanner) (*Network, error) {
+func scanNetwork(sc sqlite.Scanner) (*Network, error) {
 	var n Network
 	var createdAt int64
 	err := sc.Scan(&n.ID, &n.ARN, &n.Name, &n.Framework, &n.FrameworkVer, &n.Status, &n.Description, &createdAt)
@@ -471,7 +469,7 @@ func scanNetwork(sc scanner) (*Network, error) {
 	return &n, nil
 }
 
-func scanMember(sc scanner) (*Member, error) {
+func scanMember(sc sqlite.Scanner) (*Member, error) {
 	var m Member
 	var createdAt int64
 	err := sc.Scan(&m.ID, &m.ARN, &m.NetworkID, &m.Name, &m.Status, &m.Description, &createdAt)
@@ -485,7 +483,7 @@ func scanMember(sc scanner) (*Member, error) {
 	return &m, nil
 }
 
-func scanNode(sc scanner) (*Node, error) {
+func scanNode(sc sqlite.Scanner) (*Node, error) {
 	var n Node
 	var createdAt int64
 	err := sc.Scan(&n.ID, &n.ARN, &n.NetworkID, &n.MemberID, &n.InstanceType, &n.Status, &n.AvailabilityZone, &createdAt)
@@ -499,7 +497,7 @@ func scanNode(sc scanner) (*Node, error) {
 	return &n, nil
 }
 
-func scanProposal(sc scanner) (*Proposal, error) {
+func scanProposal(sc sqlite.Scanner) (*Proposal, error) {
 	var p Proposal
 	var createdAt, expiresAt int64
 	err := sc.Scan(&p.ID, &p.ARN, &p.NetworkID, &p.MemberID, &p.Status, &p.Description, &p.Actions, &createdAt, &expiresAt)
@@ -514,7 +512,7 @@ func scanProposal(sc scanner) (*Proposal, error) {
 	return &p, nil
 }
 
-func scanAccessor(sc scanner) (*Accessor, error) {
+func scanAccessor(sc sqlite.Scanner) (*Accessor, error) {
 	var a Accessor
 	var createdAt int64
 	err := sc.Scan(&a.ID, &a.ARN, &a.Type, &a.Status, &a.BillingToken, &a.NetworkType, &createdAt)

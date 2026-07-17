@@ -193,9 +193,7 @@ func (s *Store) UpdateWorkGroup(name, description, state, config string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanWorkGroup(sc scanner) (*WorkGroup, error) {
+func scanWorkGroup(sc sqlite.Scanner) (*WorkGroup, error) {
 	var wg WorkGroup
 	var createdAt int64
 	err := sc.Scan(&wg.Name, &wg.ARN, &wg.State, &wg.Description, &wg.Config, &createdAt)
@@ -266,7 +264,7 @@ func (s *Store) DeleteNamedQuery(id string) error {
 	return nil
 }
 
-func scanNamedQuery(sc scanner) (*NamedQuery, error) {
+func scanNamedQuery(sc sqlite.Scanner) (*NamedQuery, error) {
 	var nq NamedQuery
 	err := sc.Scan(&nq.ID, &nq.Name, &nq.WorkGroup, &nq.DatabaseName, &nq.QueryString, &nq.Description)
 	if err != nil {
@@ -336,7 +334,7 @@ func (s *Store) UpdateQueryExecutionStatus(id, status string) error {
 	return nil
 }
 
-func scanQueryExecution(sc scanner) (*QueryExecution, error) {
+func scanQueryExecution(sc sqlite.Scanner) (*QueryExecution, error) {
 	var qe QueryExecution
 	var submittedAt int64
 	err := sc.Scan(&qe.ID, &qe.WorkGroup, &qe.Query, &qe.DatabaseName, &qe.Status, &submittedAt)
@@ -413,7 +411,7 @@ func (s *Store) DeleteDataCatalog(name string) error {
 	return nil
 }
 
-func scanDataCatalog(sc scanner) (*DataCatalog, error) {
+func scanDataCatalog(sc sqlite.Scanner) (*DataCatalog, error) {
 	var dc DataCatalog
 	err := sc.Scan(&dc.Name, &dc.ARN, &dc.Type, &dc.Description, &dc.Parameters)
 	if err != nil {
@@ -493,7 +491,7 @@ func (s *Store) DeletePreparedStatement(name, workgroup string) error {
 	return nil
 }
 
-func scanPreparedStatement(sc scanner) (*PreparedStatement, error) {
+func scanPreparedStatement(sc sqlite.Scanner) (*PreparedStatement, error) {
 	var ps PreparedStatement
 	var updatedAt int64
 	err := sc.Scan(&ps.Name, &ps.WorkGroup, &ps.QueryStatement, &ps.Description, &updatedAt)

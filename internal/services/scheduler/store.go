@@ -351,9 +351,7 @@ func (s *Store) ListRateLimits() ([]RateLimit, error) {
 	return list, rows.Err()
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanGroup(s scanner) (*ScheduleGroup, error) {
+func scanGroup(s sqlite.Scanner) (*ScheduleGroup, error) {
 	var g ScheduleGroup
 	var createdAt int64
 	err := s.Scan(&g.Name, &g.ARN, &g.State, &g.AccountID, &createdAt)
@@ -367,7 +365,7 @@ func scanGroup(s scanner) (*ScheduleGroup, error) {
 	return &g, nil
 }
 
-func scanSchedule(s scanner) (*Schedule, error) {
+func scanSchedule(s sqlite.Scanner) (*Schedule, error) {
 	var sc Schedule
 	var createdAt int64
 	err := s.Scan(&sc.Name, &sc.GroupName, &sc.ARN, &sc.ScheduleExpression, &sc.Target, &sc.State, &sc.FlexibleTimeWindow, &sc.Description, &sc.AccountID, &createdAt)

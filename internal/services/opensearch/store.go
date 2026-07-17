@@ -223,9 +223,7 @@ func (s *Store) UpdateApplication(id, config string) error {
 
 // --- Scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanDomain(s scanner) (*Domain, error) {
+func scanDomain(s sqlite.Scanner) (*Domain, error) {
 	var d Domain
 	var createdAt int64
 	err := s.Scan(
@@ -242,7 +240,7 @@ func scanDomain(s scanner) (*Domain, error) {
 	return &d, nil
 }
 
-func scanApplication(s scanner) (*Application, error) {
+func scanApplication(s sqlite.Scanner) (*Application, error) {
 	var a Application
 	var createdAt int64
 	err := s.Scan(&a.ID, &a.ARN, &a.Name, &a.Status, &a.Config, &createdAt)

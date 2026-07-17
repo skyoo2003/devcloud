@@ -817,9 +817,7 @@ func (s *Store) ListTags(arn string) (map[string]string, error) {
 
 // --- scan helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanCacheCluster(sc scanner) (*CacheCluster, error) {
+func scanCacheCluster(sc sqlite.Scanner) (*CacheCluster, error) {
 	var c CacheCluster
 	var createdAt int64
 	err := sc.Scan(&c.ID, &c.ARN, &c.Status, &c.Engine, &c.EngineVersion,
@@ -834,7 +832,7 @@ func scanCacheCluster(sc scanner) (*CacheCluster, error) {
 	return &c, nil
 }
 
-func scanReplicationGroup(sc scanner) (*ReplicationGroup, error) {
+func scanReplicationGroup(sc sqlite.Scanner) (*ReplicationGroup, error) {
 	var rg ReplicationGroup
 	var createdAt int64
 	err := sc.Scan(&rg.ID, &rg.ARN, &rg.Description, &rg.Status, &rg.Engine, &rg.EngineVersion,
@@ -849,7 +847,7 @@ func scanReplicationGroup(sc scanner) (*ReplicationGroup, error) {
 	return &rg, nil
 }
 
-func scanParamGroup(sc scanner) (*ParamGroup, error) {
+func scanParamGroup(sc sqlite.Scanner) (*ParamGroup, error) {
 	var pg ParamGroup
 	err := sc.Scan(&pg.Name, &pg.ARN, &pg.Family, &pg.Description)
 	if err != nil {
@@ -861,7 +859,7 @@ func scanParamGroup(sc scanner) (*ParamGroup, error) {
 	return &pg, nil
 }
 
-func scanSubnetGroup(sc scanner) (*SubnetGroup, error) {
+func scanSubnetGroup(sc sqlite.Scanner) (*SubnetGroup, error) {
 	var sg SubnetGroup
 	err := sc.Scan(&sg.Name, &sg.ARN, &sg.Description, &sg.VpcID, &sg.Subnets)
 	if err != nil {
@@ -873,7 +871,7 @@ func scanSubnetGroup(sc scanner) (*SubnetGroup, error) {
 	return &sg, nil
 }
 
-func scanUser(sc scanner) (*User, error) {
+func scanUser(sc sqlite.Scanner) (*User, error) {
 	var u User
 	err := sc.Scan(&u.ID, &u.ARN, &u.UserName, &u.Status, &u.Engine, &u.AccessString, &u.Auth)
 	if err != nil {
@@ -885,7 +883,7 @@ func scanUser(sc scanner) (*User, error) {
 	return &u, nil
 }
 
-func scanUserGroup(sc scanner) (*UserGroup, error) {
+func scanUserGroup(sc sqlite.Scanner) (*UserGroup, error) {
 	var ug UserGroup
 	err := sc.Scan(&ug.ID, &ug.ARN, &ug.Status, &ug.Engine, &ug.UserIDs)
 	if err != nil {
@@ -897,7 +895,7 @@ func scanUserGroup(sc scanner) (*UserGroup, error) {
 	return &ug, nil
 }
 
-func scanSnapshot(sc scanner) (*Snapshot, error) {
+func scanSnapshot(sc sqlite.Scanner) (*Snapshot, error) {
 	var sn Snapshot
 	var createdAt int64
 	err := sc.Scan(&sn.Name, &sn.ARN, &sn.ClusterID, &sn.ReplGroupID, &sn.Status, &sn.Source, &createdAt)
@@ -911,7 +909,7 @@ func scanSnapshot(sc scanner) (*Snapshot, error) {
 	return &sn, nil
 }
 
-func scanServerlessCache(sc scanner) (*ServerlessCache, error) {
+func scanServerlessCache(sc sqlite.Scanner) (*ServerlessCache, error) {
 	var sc2 ServerlessCache
 	var createdAt int64
 	err := sc.Scan(&sc2.Name, &sc2.ARN, &sc2.Status, &sc2.Engine, &sc2.Endpoint, &createdAt)

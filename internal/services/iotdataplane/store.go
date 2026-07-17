@@ -172,9 +172,7 @@ func (s *Store) ListRetainedMessages() ([]*RetainedMessage, error) {
 
 // --- scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanThingShadow(sc scanner) (*ThingShadow, error) {
+func scanThingShadow(sc sqlite.Scanner) (*ThingShadow, error) {
 	var ts ThingShadow
 	var updatedAt int64
 	err := sc.Scan(&ts.ThingName, &ts.ShadowName, &ts.Payload, &ts.Version, &updatedAt)
@@ -188,7 +186,7 @@ func scanThingShadow(sc scanner) (*ThingShadow, error) {
 	return &ts, nil
 }
 
-func scanRetainedMessage(sc scanner) (*RetainedMessage, error) {
+func scanRetainedMessage(sc sqlite.Scanner) (*RetainedMessage, error) {
 	var m RetainedMessage
 	var updatedAt int64
 	err := sc.Scan(&m.Topic, &m.Payload, &m.Qos, &updatedAt)

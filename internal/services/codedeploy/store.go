@@ -378,9 +378,7 @@ func (s *Store) DeleteDeploymentConfig(name string) error {
 
 // ---- scanners ----
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanApplication(s scanner) (*Application, error) {
+func scanApplication(s sqlite.Scanner) (*Application, error) {
 	var a Application
 	var createdAt int64
 	err := s.Scan(&a.Name, &a.ID, &a.ComputePlatform, &createdAt)
@@ -394,7 +392,7 @@ func scanApplication(s scanner) (*Application, error) {
 	return &a, nil
 }
 
-func scanDeploymentGroup(s scanner) (*DeploymentGroup, error) {
+func scanDeploymentGroup(s sqlite.Scanner) (*DeploymentGroup, error) {
 	var g DeploymentGroup
 	err := s.Scan(&g.ID, &g.AppName, &g.Name, &g.ServiceRole, &g.DeploymentConfig, &g.AutoRollback, &g.DeploymentStyle)
 	if err != nil {
@@ -406,7 +404,7 @@ func scanDeploymentGroup(s scanner) (*DeploymentGroup, error) {
 	return &g, nil
 }
 
-func scanDeployment(s scanner) (*Deployment, error) {
+func scanDeployment(s sqlite.Scanner) (*Deployment, error) {
 	var d Deployment
 	var createdAt int64
 	err := s.Scan(&d.ID, &d.AppName, &d.GroupName, &d.Status, &d.Revision, &d.Description, &createdAt, &d.CompletedAt)
@@ -420,7 +418,7 @@ func scanDeployment(s scanner) (*Deployment, error) {
 	return &d, nil
 }
 
-func scanDeploymentConfig(s scanner) (*DeploymentConfig, error) {
+func scanDeploymentConfig(s sqlite.Scanner) (*DeploymentConfig, error) {
 	var c DeploymentConfig
 	var createdAt int64
 	err := s.Scan(&c.Name, &c.ComputePlatform, &c.MinHealthy, &createdAt)

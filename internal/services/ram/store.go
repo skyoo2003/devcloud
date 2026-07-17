@@ -377,9 +377,7 @@ func (s *Store) DeletePermission(arn string) error {
 
 // --- scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanShare(sc scanner) (*ResourceShare, error) {
+func scanShare(sc sqlite.Scanner) (*ResourceShare, error) {
 	var rs ResourceShare
 	var ext int
 	var createdAt, updatedAt int64
@@ -396,7 +394,7 @@ func scanShare(sc scanner) (*ResourceShare, error) {
 	return &rs, nil
 }
 
-func scanInvitation(sc scanner) (*ShareInvitation, error) {
+func scanInvitation(sc sqlite.Scanner) (*ShareInvitation, error) {
 	var inv ShareInvitation
 	var createdAt int64
 	err := sc.Scan(&inv.ARN, &inv.ShareARN, &inv.Sender, &inv.Receiver, &inv.Status, &createdAt)
@@ -410,7 +408,7 @@ func scanInvitation(sc scanner) (*ShareInvitation, error) {
 	return &inv, nil
 }
 
-func scanPermission(sc scanner) (*Permission, error) {
+func scanPermission(sc sqlite.Scanner) (*Permission, error) {
 	var p Permission
 	var isDef int
 	var createdAt int64

@@ -586,9 +586,7 @@ func (s *Store) DeleteResourcePolicy(arn string) error {
 
 // ---- Scanners ----
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanTrail(s scanner) (*Trail, error) {
+func scanTrail(s sqlite.Scanner) (*Trail, error) {
 	var t Trail
 	var multiRegion, orgTrail, isLogging int
 	var createdAt int64
@@ -606,7 +604,7 @@ func scanTrail(s scanner) (*Trail, error) {
 	return &t, nil
 }
 
-func scanEDS(s scanner) (*EventDataStore, error) {
+func scanEDS(s sqlite.Scanner) (*EventDataStore, error) {
 	var e EventDataStore
 	var multiRegion, orgEnabled int
 	var createdAt, updatedAt int64
@@ -624,7 +622,7 @@ func scanEDS(s scanner) (*EventDataStore, error) {
 	return &e, nil
 }
 
-func scanChannel(s scanner) (*Channel, error) {
+func scanChannel(s sqlite.Scanner) (*Channel, error) {
 	var c Channel
 	var createdAt int64
 	err := s.Scan(&c.ARN, &c.Name, &c.Source, &c.Destinations, &createdAt)
@@ -638,7 +636,7 @@ func scanChannel(s scanner) (*Channel, error) {
 	return &c, nil
 }
 
-func scanDashboard(s scanner) (*Dashboard, error) {
+func scanDashboard(s sqlite.Scanner) (*Dashboard, error) {
 	var d Dashboard
 	var createdAt, updatedAt int64
 	err := s.Scan(&d.ARN, &d.Name, &d.Type, &d.Status, &d.Widgets, &createdAt, &updatedAt)
