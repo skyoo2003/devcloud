@@ -287,13 +287,15 @@ func TestQueueStore_MessageMoveTaskRegistryBounded(t *testing.T) {
 		"RedrivePolicy": `{"maxReceiveCount":1,"deadLetterTargetArn":"` + dlqArn + `"}`,
 	}))
 
-	// Starting many tasks for the same source keeps only the latest record.
-	for i := 0; i < 5; i++ {
+	// Starting many tasks for the same source retains only the most recent maxTasksPerSource.
+	for i := 0; i < maxTasksPerSource+5; i++ {
 		_, err := store.StartMessageMoveTask(dlqArn, "", 0, testAccount)
 		require.NoError(t, err)
 	}
-	assert.Len(t, store.moveTasks, 1)
-	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 0), 1)
+	assert.Len(t, store.moveTasks, maxTasksPerSource)
+	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 0), maxTasksPerSource)
+	// A positive MaxResults is honored below the cap.
+	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 3), 3)
 }
 
 func TestQueueStore_Tags(t *testing.T) {

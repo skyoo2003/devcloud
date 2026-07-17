@@ -645,7 +645,7 @@ func (p *SQSProvider) startMessageMoveTaskJSON(params map[string]any) (*plugin.R
 			"source queue must be configured as a dead-letter queue", http.StatusBadRequest), nil
 	case err == ErrAmbiguousDest:
 		return jsonError("InvalidParameterValue",
-			"DestinationArn is required when the source queue has multiple dead-letter source queues",
+			"DestinationArn is required because the dead-letter queue has more than one source queue",
 			http.StatusBadRequest), nil
 	case err != nil:
 		return nil, err

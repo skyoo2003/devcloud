@@ -248,6 +248,14 @@ def test_list_dead_letter_source_queues_nonexistent(sqs_client):
     )
 
 
+def test_list_dead_letter_source_queues_missing_queue_url(sqs_client):
+    # QueueUrl is a required member, so omitting it is caught client-side by botocore; an
+    # empty string passes that check and exercises the handler's MissingParameter path.
+    with pytest.raises(ClientError) as exc:
+        sqs_client.list_dead_letter_source_queues(QueueUrl="")
+    assert exc.value.response["Error"]["Code"] == "MissingParameter"
+
+
 def test_message_move_task_flow(sqs_client):
     src, dlq, dlq_arn = _redrive_pair(sqs_client, "mmt-src", "mmt-dlq")
 
@@ -328,3 +336,30 @@ def test_cancel_message_move_task_unknown_handle(sqs_client):
     with pytest.raises(ClientError) as exc:
         sqs_client.cancel_message_move_task(TaskHandle="does-not-exist")
     assert exc.value.response["Error"]["Code"] == "ResourceNotFoundException"
+
+
+def test_list_message_move_tasks_requires_source_arn(sqs_client):
+    # SourceArn is a required member, so botocore rejects the call client-side.
+    with pytest.raises(ParamValidationError):
+        sqs_client.list_message_move_tasks()
+
+
+def test_list_message_move_tasks_max_results_semantics(sqs_client):
+    _, _, dlq_arn = _redrive_pair(sqs_client, "mmt-max-src", "mmt-max-dlq")
+
+    # Start more tasks than the per-source cap (each start succeeds even with an empty DLQ).
+    for _ in range(15):
+        sqs_client.start_message_move_task(SourceArn=dlq_arn)
+
+    def count(**kw):
+        return len(
+            sqs_client.list_message_move_tasks(SourceArn=dlq_arn, **kw)["Results"]
+        )
+
+    # Default and non-positive values fall back to the 10-task cap.
+    assert count() == 10
+    assert count(MaxResults=0) == 10
+    assert count(MaxResults=-5) == 10
+    # A positive value below the cap is honored; above it is clamped.
+    assert count(MaxResults=7) == 7
+    assert count(MaxResults=25) == 10

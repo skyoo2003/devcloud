@@ -23,7 +23,7 @@ var (
 	ErrReceiptInvalid     = errors.New("receipt handle is invalid")
 	ErrSourceNotDLQ       = errors.New("source queue is not configured as a dead-letter queue")
 	ErrTaskNotFound       = errors.New("message move task not found")
-	ErrAmbiguousDest      = errors.New("destinationArn is required when the dead-letter queue has multiple source queues")
+	ErrAmbiguousDest      = errors.New("DestinationArn is required because the dead-letter queue has more than one source queue")
 )
 
 // QueueInfo holds metadata about an SQS queue.
@@ -677,8 +677,13 @@ type moveTask struct {
 	StartedUnix    int64
 }
 
+// maxTasksPerSource caps how many move-task records are retained per source queue,
+// matching the ListMessageMoveTasks result cap so the registry stays bounded.
+const maxTasksPerSource = 10
+
 // sourceQueuesForDLQ returns the queues under accountID that name dlqName as their
-// dead-letter target. The caller must hold s.mu.
+// dead-letter target. The caller must hold s.mu (read or write); each candidate queue's
+// own mutex is taken briefly to read its redrive target.
 func (s *QueueStore) sourceQueuesForDLQ(dlqName, accountID string) []*queue {
 	var out []*queue
 	for _, q := range s.queues {
@@ -772,14 +777,6 @@ func (s *QueueStore) StartMessageMoveTask(sourceArn, destArn string, maxRate int
 	}
 	dst.mu.Unlock()
 
-	// Keep only the latest task per source so the registry stays bounded (a source can have
-	// at most one task record); a new task supersedes any prior one for the same source.
-	for h, t := range s.moveTasks {
-		if t.SourceArn == sourceArn {
-			delete(s.moveTasks, h)
-		}
-	}
-
 	handle := randomID(16)
 	s.moveTasks[handle] = &moveTask{
 		Handle:         handle,
@@ -790,14 +787,36 @@ func (s *QueueStore) StartMessageMoveTask(sourceArn, destArn string, maxRate int
 		Moved:          len(moved),
 		StartedUnix:    time.Now().Unix(),
 	}
+	// Retain only the most recent tasks per source so a long-running process that repeatedly
+	// redrives the same source can't grow the registry without limit.
+	s.pruneMoveTasks(sourceArn)
 	return handle, nil
 }
 
-// ListMessageMoveTasks returns move tasks for the given source ARN, newest first,
-// capped at maxResults (default 10 when maxResults <= 0).
+// pruneMoveTasks drops all but the most recent maxTasksPerSource tasks for sourceArn.
+// The caller must hold s.mu (write).
+func (s *QueueStore) pruneMoveTasks(sourceArn string) {
+	var forSource []*moveTask
+	for _, t := range s.moveTasks {
+		if t.SourceArn == sourceArn {
+			forSource = append(forSource, t)
+		}
+	}
+	if len(forSource) <= maxTasksPerSource {
+		return
+	}
+	sort.Slice(forSource, func(i, j int) bool { return forSource[i].StartedUnix > forSource[j].StartedUnix })
+	for _, t := range forSource[maxTasksPerSource:] {
+		delete(s.moveTasks, t.Handle)
+	}
+}
+
+// ListMessageMoveTasks returns move tasks for the given source ARN, newest first. The
+// result count is clamped to [1, maxTasksPerSource]; a non-positive maxResults uses the cap.
 func (s *QueueStore) ListMessageMoveTasks(sourceArn string, maxResults int) []*moveTask {
-	if maxResults <= 0 {
-		maxResults = 10
+	// AWS caps this at 10; a non-positive value defaults to the cap.
+	if maxResults <= 0 || maxResults > maxTasksPerSource {
+		maxResults = maxTasksPerSource
 	}
 
 	s.mu.RLock()
