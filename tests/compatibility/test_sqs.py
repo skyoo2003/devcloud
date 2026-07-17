@@ -1,7 +1,7 @@
 import json
 
 import pytest
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, ParamValidationError
 
 
 def test_create_queue(sqs_client):
@@ -197,21 +197,30 @@ def test_fifo_dedup(sqs_client):
     assert len(msgs["Messages"]) == 1
 
 
-def _redrive_pair(sqs_client, src_name, dlq_name):
-    """Create a source queue wired to a DLQ (maxReceiveCount=1); return (src_url, dlq_url, dlq_arn)."""
-    src = sqs_client.create_queue(QueueName=src_name)["QueueUrl"]
-    dlq = sqs_client.create_queue(QueueName=dlq_name)["QueueUrl"]
-    dlq_arn = sqs_client.get_queue_attributes(
-        QueueUrl=dlq, AttributeNames=["QueueArn"]
-    )["Attributes"]["QueueArn"]
+def _queue_arn(sqs_client, url):
+    return sqs_client.get_queue_attributes(QueueUrl=url, AttributeNames=["QueueArn"])[
+        "Attributes"
+    ]["QueueArn"]
+
+
+def _wire_to_dlq(sqs_client, src_url, dlq_arn):
+    # RedrivePolicy is only parsed via set_queue_attributes, so wire the source here.
     sqs_client.set_queue_attributes(
-        QueueUrl=src,
+        QueueUrl=src_url,
         Attributes={
             "RedrivePolicy": json.dumps(
                 {"deadLetterTargetArn": dlq_arn, "maxReceiveCount": 1}
             )
         },
     )
+
+
+def _redrive_pair(sqs_client, src_name, dlq_name):
+    """Create a source queue wired to a DLQ (maxReceiveCount=1); return (src_url, dlq_url, dlq_arn)."""
+    src = sqs_client.create_queue(QueueName=src_name)["QueueUrl"]
+    dlq = sqs_client.create_queue(QueueName=dlq_name)["QueueUrl"]
+    dlq_arn = _queue_arn(sqs_client, dlq)
+    _wire_to_dlq(sqs_client, src, dlq_arn)
     return src, dlq, dlq_arn
 
 
@@ -220,6 +229,23 @@ def test_list_dead_letter_source_queues(sqs_client):
     resp = sqs_client.list_dead_letter_source_queues(QueueUrl=dlq)
     urls = resp["queueUrls"]
     assert any("dlq-src" in u for u in urls)
+
+
+def test_list_dead_letter_source_queues_no_sources(sqs_client):
+    # A queue that exists but is not used as a DLQ returns an empty list.
+    url = sqs_client.create_queue(QueueName="dlsq-no-sources")["QueueUrl"]
+    resp = sqs_client.list_dead_letter_source_queues(QueueUrl=url)
+    assert resp["queueUrls"] == []
+
+
+def test_list_dead_letter_source_queues_nonexistent(sqs_client):
+    with pytest.raises(ClientError) as exc:
+        sqs_client.list_dead_letter_source_queues(
+            QueueUrl="http://localhost:4747/000000000000/no-such-dlq"
+        )
+    assert (
+        exc.value.response["Error"]["Code"] == "AWS.SimpleQueueService.NonExistentQueue"
+    )
 
 
 def test_message_move_task_flow(sqs_client):
@@ -239,3 +265,66 @@ def test_message_move_task_flow(sqs_client):
 
     cancel = sqs_client.cancel_message_move_task(TaskHandle=handle)
     assert "ApproximateNumberOfMessagesMoved" in cancel
+
+
+def test_message_move_task_destination_routing(sqs_client):
+    # Two sources share a DLQ; an explicit DestinationArn routes deterministically.
+    src1, dlq, dlq_arn = _redrive_pair(sqs_client, "mmt-route-src1", "mmt-route-dlq")
+    src2 = sqs_client.create_queue(QueueName="mmt-route-src2")["QueueUrl"]
+    _wire_to_dlq(sqs_client, src2, dlq_arn)
+    src2_arn = _queue_arn(sqs_client, src2)
+
+    sqs_client.send_message(QueueUrl=dlq, MessageBody="to-src2")
+
+    resp = sqs_client.start_message_move_task(
+        SourceArn=dlq_arn, DestinationArn=src2_arn
+    )
+    assert "TaskHandle" in resp
+
+    msgs = sqs_client.receive_message(QueueUrl=src2, MaxNumberOfMessages=10)
+    assert len(msgs.get("Messages", [])) == 1
+    assert msgs["Messages"][0]["Body"] == "to-src2"
+
+
+def test_message_move_task_ambiguous_destination(sqs_client):
+    # Two sources share a DLQ and no DestinationArn is given -> ambiguous.
+    src1, dlq, dlq_arn = _redrive_pair(sqs_client, "mmt-amb-src1", "mmt-amb-dlq")
+    src2 = sqs_client.create_queue(QueueName="mmt-amb-src2")["QueueUrl"]
+    _wire_to_dlq(sqs_client, src2, dlq_arn)
+
+    with pytest.raises(ClientError) as exc:
+        sqs_client.start_message_move_task(SourceArn=dlq_arn)
+    assert exc.value.response["Error"]["Code"] == "InvalidParameterValue"
+
+
+def test_start_message_move_task_unsupported_source(sqs_client):
+    # SourceArn must be a DLQ; a plain queue is rejected.
+    url = sqs_client.create_queue(QueueName="mmt-not-a-dlq")["QueueUrl"]
+    arn = _queue_arn(sqs_client, url)
+    with pytest.raises(ClientError) as exc:
+        sqs_client.start_message_move_task(SourceArn=arn)
+    assert (
+        exc.value.response["Error"]["Code"]
+        == "AWS.SimpleQueueService.UnsupportedOperation"
+    )
+
+
+def test_start_message_move_task_requires_source_arn(sqs_client):
+    # SourceArn is a required member, so botocore rejects the call client-side.
+    with pytest.raises(ParamValidationError):
+        sqs_client.start_message_move_task(
+            DestinationArn="arn:aws:sqs:us-east-1:000000000000:x"
+        )
+
+
+def test_cancel_message_move_task_missing_handle(sqs_client):
+    # An empty TaskHandle passes client validation and reaches the server handler.
+    with pytest.raises(ClientError) as exc:
+        sqs_client.cancel_message_move_task(TaskHandle="")
+    assert exc.value.response["Error"]["Code"] == "MissingParameter"
+
+
+def test_cancel_message_move_task_unknown_handle(sqs_client):
+    with pytest.raises(ClientError) as exc:
+        sqs_client.cancel_message_move_task(TaskHandle="does-not-exist")
+    assert exc.value.response["Error"]["Code"] == "ResourceNotFoundException"

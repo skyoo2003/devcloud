@@ -23,6 +23,7 @@ var (
 	ErrReceiptInvalid     = errors.New("receipt handle is invalid")
 	ErrSourceNotDLQ       = errors.New("source queue is not configured as a dead-letter queue")
 	ErrTaskNotFound       = errors.New("message move task not found")
+	ErrAmbiguousDest      = errors.New("destinationArn is required when the dead-letter queue has multiple source queues")
 )
 
 // QueueInfo holds metadata about an SQS queue.
@@ -731,15 +732,20 @@ func (s *QueueStore) StartMessageMoveTask(sourceArn, destArn string, maxRate int
 		return "", ErrSourceNotDLQ
 	}
 
-	dst := sources[0]
-	// ponytail: per-message origin isn't tracked, so multi-source redrive without an
-	// explicit DestinationArn goes to the first referencing source; pass DestinationArn
-	// for exact routing.
+	var dst *queue
 	if destArn != "" {
 		dst, ok = s.queues[queueKey(accountID, arnToQueueName(destArn))]
 		if !ok {
 			return "", ErrQueueNotFound
 		}
+	} else {
+		// Without an explicit destination, messages go back to the source queue. Per-message
+		// origin isn't tracked, so this is only unambiguous when the DLQ has a single source;
+		// with multiple sources the caller must pass DestinationArn.
+		if len(sources) > 1 {
+			return "", ErrAmbiguousDest
+		}
+		dst = sources[0]
 	}
 
 	// ponytail: redrive runs synchronously with no RUNNING state or rate limiting;
@@ -765,6 +771,14 @@ func (s *QueueStore) StartMessageMoveTask(sourceArn, destArn string, maxRate int
 		dst.messages = append(dst.messages, m)
 	}
 	dst.mu.Unlock()
+
+	// Keep only the latest task per source so the registry stays bounded (a source can have
+	// at most one task record); a new task supersedes any prior one for the same source.
+	for h, t := range s.moveTasks {
+		if t.SourceArn == sourceArn {
+			delete(s.moveTasks, h)
+		}
+	}
 
 	handle := randomID(16)
 	s.moveTasks[handle] = &moveTask{

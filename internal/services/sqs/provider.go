@@ -643,6 +643,10 @@ func (p *SQSProvider) startMessageMoveTaskJSON(params map[string]any) (*plugin.R
 	case err == ErrSourceNotDLQ:
 		return jsonError("AWS.SimpleQueueService.UnsupportedOperation",
 			"source queue must be configured as a dead-letter queue", http.StatusBadRequest), nil
+	case err == ErrAmbiguousDest:
+		return jsonError("InvalidParameterValue",
+			"DestinationArn is required when the source queue has multiple dead-letter source queues",
+			http.StatusBadRequest), nil
 	case err != nil:
 		return nil, err
 	}

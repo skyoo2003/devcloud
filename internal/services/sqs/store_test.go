@@ -247,6 +247,55 @@ func TestQueueStore_MessageMoveTaskLifecycle(t *testing.T) {
 	assert.ErrorIs(t, err, ErrSourceNotDLQ)
 }
 
+func TestQueueStore_MessageMoveTaskMultiSource(t *testing.T) {
+	store := NewQueueStore(0)
+	require.NoError(t, store.CreateQueue("multi-src1", testAccount))
+	require.NoError(t, store.CreateQueue("multi-src2", testAccount))
+	require.NoError(t, store.CreateQueue("multi-dlq", testAccount))
+
+	dlqArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:multi-dlq", testAccount)
+	redrive := `{"maxReceiveCount":1,"deadLetterTargetArn":"` + dlqArn + `"}`
+	require.NoError(t, store.SetQueueAttributes("multi-src1", testAccount, map[string]string{"RedrivePolicy": redrive}))
+	require.NoError(t, store.SetQueueAttributes("multi-src2", testAccount, map[string]string{"RedrivePolicy": redrive}))
+
+	_, err := store.SendMessage("multi-dlq", testAccount, "orphan")
+	require.NoError(t, err)
+
+	// Two sources share the DLQ, so redrive without a destination is ambiguous.
+	_, err = store.StartMessageMoveTask(dlqArn, "", 0, testAccount)
+	assert.ErrorIs(t, err, ErrAmbiguousDest)
+
+	// An explicit destination routes deterministically.
+	dstArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:multi-src2", testAccount)
+	handle, err := store.StartMessageMoveTask(dlqArn, dstArn, 0, testAccount)
+	require.NoError(t, err)
+	require.NotEmpty(t, handle)
+
+	msgs, err := store.ReceiveMessage("multi-src2", testAccount, 1, 0)
+	require.NoError(t, err)
+	require.Len(t, msgs, 1)
+	assert.Equal(t, "orphan", msgs[0].Body)
+}
+
+func TestQueueStore_MessageMoveTaskRegistryBounded(t *testing.T) {
+	store := NewQueueStore(0)
+	require.NoError(t, store.CreateQueue("bound-src", testAccount))
+	require.NoError(t, store.CreateQueue("bound-dlq", testAccount))
+
+	dlqArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:bound-dlq", testAccount)
+	require.NoError(t, store.SetQueueAttributes("bound-src", testAccount, map[string]string{
+		"RedrivePolicy": `{"maxReceiveCount":1,"deadLetterTargetArn":"` + dlqArn + `"}`,
+	}))
+
+	// Starting many tasks for the same source keeps only the latest record.
+	for i := 0; i < 5; i++ {
+		_, err := store.StartMessageMoveTask(dlqArn, "", 0, testAccount)
+		require.NoError(t, err)
+	}
+	assert.Len(t, store.moveTasks, 1)
+	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 0), 1)
+}
+
 func TestQueueStore_Tags(t *testing.T) {
 	store := NewQueueStore(0)
 	require.NoError(t, store.CreateQueue("tag-queue", testAccount))
