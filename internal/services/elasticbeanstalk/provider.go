@@ -925,3 +925,9 @@ func (p *Provider) handleStubOK(action string) (*plugin.Response, error) {
 	r := stubResponse{XMLName: xml.Name{Local: action + "Response"}}
 	return ebXMLResponse(http.StatusOK, r)
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("elasticbeanstalk", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

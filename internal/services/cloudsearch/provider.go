@@ -866,3 +866,9 @@ func (p *Provider) handleUpdateServiceAccessPolicies(form url.Values) (*plugin.R
 	}
 	return csXMLResponse(http.StatusOK, updateServiceAccessPoliciesResponse{AccessPolicies: ap})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("cloudsearch", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

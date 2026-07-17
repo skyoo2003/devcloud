@@ -37,7 +37,7 @@ func (s *stubPlugin) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, erro
 func newRegistryWithStub(serviceID string, resp *plugin.Response) *plugin.Registry {
 	reg := plugin.NewRegistry()
 	stub := &stubPlugin{serviceID: serviceID, response: resp}
-	reg.Register(serviceID, func(_ plugin.PluginConfig) plugin.ServicePlugin {
+	reg.Register(serviceID, func() plugin.ServicePlugin {
 		return stub
 	})
 	_, _ = reg.Init(serviceID, plugin.PluginConfig{})

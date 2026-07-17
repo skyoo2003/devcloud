@@ -1355,3 +1355,9 @@ func (p *S3Provider) putBucketNotification(_ context.Context, bucket string, req
 	}
 	return &plugin.Response{StatusCode: http.StatusOK}, nil
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("s3", func() plugin.ServicePlugin {
+		return &S3Provider{}
+	})
+}

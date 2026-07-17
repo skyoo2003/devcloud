@@ -750,3 +750,9 @@ func flattenJSON(prefix string, data any, values url.Values) {
 		values.Set(prefix, strconv.FormatBool(v))
 	}
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("cloudwatch", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

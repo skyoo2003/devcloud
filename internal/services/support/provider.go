@@ -644,3 +644,9 @@ func caseToMap(c *Case) map[string]any {
 		},
 	}
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("support", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

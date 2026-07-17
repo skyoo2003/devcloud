@@ -1552,3 +1552,9 @@ func jsonResponse(status int, v any) (*plugin.Response, error) {
 		Body:        body,
 	}, nil
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("dynamodb", func() plugin.ServicePlugin {
+		return &DynamoDBProvider{}
+	})
+}

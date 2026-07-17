@@ -706,3 +706,9 @@ func (p *Provider) listRecords(params map[string]any) (*plugin.Response, error) 
 		"Records":            []any{},
 	})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("firehose", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

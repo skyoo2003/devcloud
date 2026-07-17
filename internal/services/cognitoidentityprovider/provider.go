@@ -1751,3 +1751,9 @@ func (p *Provider) listTagsForResource(req *http.Request) (*plugin.Response, err
 	}
 	return jsonResp(http.StatusOK, map[string]any{"Tags": tags})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("cognitoidentityprovider", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

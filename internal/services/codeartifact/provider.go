@@ -1325,3 +1325,9 @@ func tagsListToMap(rawTags []any) map[string]string {
 	}
 	return m
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("codeartifact", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

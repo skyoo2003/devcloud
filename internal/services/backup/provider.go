@@ -1843,3 +1843,9 @@ func restoreTestingSelectionToMap(sel *RestoreTestingSelection) map[string]any {
 		"CreationTime":                sel.CreatedAt.Unix(),
 	}
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("backup", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

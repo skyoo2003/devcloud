@@ -1422,3 +1422,9 @@ func (p *Provider) handleSwitchoverGlobalCluster(form url.Values) (*plugin.Respo
 	resp.Result.GlobalClusterIdentifier = id
 	return dbXMLResponse(http.StatusOK, resp)
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("docdb", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

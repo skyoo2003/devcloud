@@ -970,3 +970,9 @@ func (p *Provider) handleGetClusterCredentialsWithIAM(form url.Values) (*plugin.
 		Expiration: time.Now().Add(15 * time.Minute).UTC().Format(time.RFC3339),
 	})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("redshift", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

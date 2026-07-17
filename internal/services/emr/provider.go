@@ -861,3 +861,9 @@ func boolParam(params map[string]any, key string) bool {
 	v, _ := params[key].(bool)
 	return v
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("emr", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

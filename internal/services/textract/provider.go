@@ -616,3 +616,9 @@ func flatMapTags(raw map[string]any) map[string]string {
 	}
 	return tags
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("textract", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

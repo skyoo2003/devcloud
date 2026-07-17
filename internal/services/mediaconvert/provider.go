@@ -768,7 +768,7 @@ func extractSegment(path, key string, offset int) string {
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("mediaconvert", func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("mediaconvert", func() plugin.ServicePlugin {
 		return &MediaConvertProvider{}
 	})
 }

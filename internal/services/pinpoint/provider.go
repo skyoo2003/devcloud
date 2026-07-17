@@ -1043,3 +1043,9 @@ func extractTags(params map[string]any) map[string]string {
 func generateID() string {
 	return fmt.Sprintf("%016x", rand.Uint64())
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("pinpoint", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

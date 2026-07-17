@@ -785,7 +785,7 @@ func groupToMap(g *Group) map[string]any {
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("identitystore", func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("identitystore", func() plugin.ServicePlugin {
 		return &IdentityStoreProvider{}
 	})
 }

@@ -1176,3 +1176,9 @@ func flatTags(raw map[string]any) map[string]string {
 func sqliteIsUnique(err error) bool {
 	return err != nil && strings.Contains(err.Error(), "UNIQUE constraint failed")
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("codecommit", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

@@ -790,3 +790,9 @@ func (p *Provider) getScalingStatus(params map[string]any) (*plugin.Response, er
 		"Status":           "Active",
 	})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("applicationautoscaling", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

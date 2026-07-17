@@ -1555,3 +1555,9 @@ func ec2XMLResponse(status int, v any) (*plugin.Response, error) {
 
 // Ensure unused import is not flagged (strings used in DescribeInstances filter).
 var _ = strings.Contains
+
+func init() {
+	plugin.DefaultRegistry.Register("ec2", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

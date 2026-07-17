@@ -1851,3 +1851,9 @@ func tagsListToMap(list []any) map[string]string {
 	}
 	return m
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("iot", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

@@ -2101,3 +2101,9 @@ func (p *Provider) disassociateVPC(req *http.Request) (*plugin.Response, error) 
 		},
 	})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("route53", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

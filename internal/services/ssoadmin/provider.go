@@ -1084,3 +1084,9 @@ func policyNameFromARN(arn string) string {
 	}
 	return arn
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("ssoadmin", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

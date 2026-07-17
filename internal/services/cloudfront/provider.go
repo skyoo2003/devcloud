@@ -1858,3 +1858,9 @@ func readBody(req *http.Request) ([]byte, error) {
 	}
 	return buf, nil
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("cloudfront", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

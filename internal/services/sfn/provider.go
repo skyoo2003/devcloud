@@ -982,3 +982,9 @@ func (p *Provider) listMapRuns(_ map[string]any) (*plugin.Response, error) {
 func (p *Provider) updateMapRun(_ map[string]any) (*plugin.Response, error) {
 	return json10Resp(http.StatusOK, map[string]any{})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("sfn", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

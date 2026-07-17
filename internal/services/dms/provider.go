@@ -786,7 +786,7 @@ func getString(params map[string]any, key string) string {
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("dms", func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("dms", func() plugin.ServicePlugin {
 		return &DMSProvider{}
 	})
 }

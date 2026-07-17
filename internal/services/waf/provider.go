@@ -1920,3 +1920,9 @@ func parseTagKeyList(v any) []string {
 	}
 	return keys
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("waf", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

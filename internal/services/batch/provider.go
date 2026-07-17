@@ -1049,3 +1049,9 @@ func extractPathParam(path, key string) string {
 func nowUnix() int64 {
 	return time.Now().Unix()
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("batch", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

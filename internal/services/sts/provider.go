@@ -2,6 +2,10 @@
 
 package sts
 
+// NOTE: STS registration is handled by the iam package's STSProvider
+// (internal/services/iam/sts_provider.go) which shares the IAM store.
+// The generated Provider in this package is not registered.
+
 import (
 	"context"
 	"net/http"

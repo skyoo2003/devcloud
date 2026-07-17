@@ -947,3 +947,9 @@ func removeStr(ss []string, s string) []string {
 	}
 	return out
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("memorydb", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

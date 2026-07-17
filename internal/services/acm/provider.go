@@ -637,3 +637,9 @@ func (p *Provider) putAccountConfiguration(req *http.Request) (*plugin.Response,
 	}
 	return &plugin.Response{StatusCode: http.StatusOK, Body: []byte("{}"), ContentType: "application/x-amz-json-1.1"}, nil
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("acm", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

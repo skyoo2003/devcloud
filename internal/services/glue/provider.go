@@ -1484,3 +1484,9 @@ func (p *Provider) getTags(params map[string]any) (*plugin.Response, error) {
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"Tags": tags})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("glue", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

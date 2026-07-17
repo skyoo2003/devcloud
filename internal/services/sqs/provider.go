@@ -1197,3 +1197,9 @@ func (p *SQSProvider) listQueueTagsJSON(params map[string]any) (*plugin.Response
 
 	return jsonResp(http.StatusOK, map[string]any{"Tags": tags})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("sqs", func() plugin.ServicePlugin {
+		return &SQSProvider{}
+	})
+}

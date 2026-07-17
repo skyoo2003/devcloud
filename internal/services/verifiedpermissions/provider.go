@@ -504,7 +504,7 @@ func (p *VerifiedPermissionsProvider) handleListSchemaWriters(_ context.Context)
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("verifiedpermissions", func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("verifiedpermissions", func() plugin.ServicePlugin {
 		return &VerifiedPermissionsProvider{}
 	})
 }

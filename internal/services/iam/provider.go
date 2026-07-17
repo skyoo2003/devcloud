@@ -1717,3 +1717,12 @@ func (p *IAMProvider) handleListRoleTags(_ context.Context, form url.Values) (*p
 		ListRoleTagsResult: listRoleTagsResult{Tags: tags},
 	})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("iam", func() plugin.ServicePlugin {
+		return &IAMProvider{}
+	})
+	plugin.DefaultRegistry.Register("sts", func() plugin.ServicePlugin {
+		return &STSProvider{}
+	})
+}

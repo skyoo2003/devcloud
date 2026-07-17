@@ -966,3 +966,9 @@ func targetTypeFromID(id string) string {
 	}
 	return "ACCOUNT"
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("organizations", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

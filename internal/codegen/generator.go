@@ -43,7 +43,6 @@ func (g *Generator) GenerateAll(model *SmithyModel, outputDir string, scaffoldDi
 
 		scaffolds := map[string]func(string, *SmithyModel) (string, error){
 			"provider.go": g.GenerateScaffold,
-			"register.go": g.GenerateRegister,
 		}
 
 		for fileName, genFunc := range scaffolds {

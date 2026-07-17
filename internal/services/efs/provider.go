@@ -731,3 +731,9 @@ func parseTagList(raw []any) map[string]string {
 	}
 	return tags
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("efs", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

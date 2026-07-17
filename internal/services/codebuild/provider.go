@@ -910,3 +910,9 @@ func parseTags(rawTags []any) map[string]string {
 func isUnique(err error) bool {
 	return err != nil && strings.Contains(err.Error(), "UNIQUE constraint failed")
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("codebuild", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

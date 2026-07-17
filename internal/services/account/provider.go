@@ -452,7 +452,7 @@ func (p *AccountProvider) handleListAccountManagedUsers() (*plugin.Response, err
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("account", func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("account", func() plugin.ServicePlugin {
 		return &AccountProvider{}
 	})
 }

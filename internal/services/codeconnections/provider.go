@@ -723,7 +723,7 @@ func getString(params map[string]any, key string) string {
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("codeconnections", func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("codeconnections", func() plugin.ServicePlugin {
 		return &CodeConnectionsProvider{}
 	})
 }

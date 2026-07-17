@@ -1196,3 +1196,9 @@ func (p *Provider) handleSuccessEmpty(action string) (*plugin.Response, error) {
 	r := resp{XMLName: xml.Name{Local: action + "Response"}}
 	return sesXML(http.StatusOK, r)
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("ses", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

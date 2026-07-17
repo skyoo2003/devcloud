@@ -726,3 +726,9 @@ func jsonResp(status int, v any) (*plugin.Response, error) {
 	}
 	return &plugin.Response{StatusCode: status, ContentType: "application/x-amz-json-1.1", Body: body}, nil
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("cloudwatchlogs", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

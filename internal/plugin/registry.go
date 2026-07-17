@@ -10,7 +10,7 @@ import (
 	"sync"
 )
 
-type PluginFactory func(cfg PluginConfig) ServicePlugin
+type PluginFactory func() ServicePlugin
 
 type Registry struct {
 	mu        sync.RWMutex
@@ -44,7 +44,7 @@ func (r *Registry) Init(serviceID string, cfg PluginConfig) (ServicePlugin, erro
 		return nil, fmt.Errorf("unknown service: %s", serviceID)
 	}
 
-	p := factory(cfg)
+	p := factory()
 	if err := p.Init(cfg); err != nil {
 		return nil, fmt.Errorf("init %s: %w", serviceID, err)
 	}

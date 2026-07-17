@@ -1455,3 +1455,9 @@ func (p *Provider) handleDescribeListenerCertificates(form url.Values) (*plugin.
 	resp.Result.Certificates = xmlCerts
 	return elbXMLResponse(http.StatusOK, resp)
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("elasticloadbalancingv2", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

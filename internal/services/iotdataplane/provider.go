@@ -330,3 +330,9 @@ func extractGreedyPathParam(path, key string) string {
 	}
 	return ""
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("iotdataplane", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

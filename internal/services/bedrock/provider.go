@@ -537,3 +537,9 @@ func extractSegment(path, prefix string) string {
 	}
 	return s
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("bedrock", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}
