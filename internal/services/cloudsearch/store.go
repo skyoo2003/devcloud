@@ -289,9 +289,7 @@ func (s *Store) DeleteDomainConfig(domainName, configType, name string) error {
 
 // --- helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanDomain(s scanner) (*Domain, error) {
+func scanDomain(s sqlite.Scanner) (*Domain, error) {
 	var d Domain
 	var created int64
 	err := s.Scan(&d.Name, &d.ARN, &d.DomainID, &d.Status, &d.SearchEndpoint, &d.DocEndpoint, &created)

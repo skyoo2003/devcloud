@@ -549,9 +549,7 @@ func (s *Store) ListAllTags() (map[string]map[string]string, error) {
 
 // --- helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanASG(sc scanner) (*AutoScalingGroup, error) {
+func scanASG(sc sqlite.Scanner) (*AutoScalingGroup, error) {
 	var a AutoScalingGroup
 	var createdAt int64
 	err := sc.Scan(&a.Name, &a.ARN, &a.LaunchConfig, &a.MinSize, &a.MaxSize, &a.Desired,
@@ -566,7 +564,7 @@ func scanASG(sc scanner) (*AutoScalingGroup, error) {
 	return &a, nil
 }
 
-func scanLC(sc scanner) (*LaunchConfiguration, error) {
+func scanLC(sc sqlite.Scanner) (*LaunchConfiguration, error) {
 	var lc LaunchConfiguration
 	var createdAt int64
 	err := sc.Scan(&lc.Name, &lc.ARN, &lc.ImageID, &lc.InstanceType, &lc.KeyName, &lc.SecurityGroups, &createdAt)

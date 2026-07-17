@@ -686,3 +686,9 @@ func xmlSubscriptionList(respTag, resultTag string, subs []Subscription) (*plugi
 	xmlBytes := []byte(fmt.Sprintf("<%s><%s>%s</%s></%s>", respTag, resultTag, string(innerBytes), resultTag, respTag))
 	return &plugin.Response{StatusCode: http.StatusOK, ContentType: "text/xml", Body: xmlBytes}, nil
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("sns", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

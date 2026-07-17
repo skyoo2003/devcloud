@@ -833,3 +833,9 @@ func imageDetailToMap(img *Image) map[string]any {
 		"imagePushedAt":    img.PushedAt.Format(time.RFC3339),
 	}
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("ecr", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

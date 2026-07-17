@@ -512,11 +512,7 @@ func (s *Store) DeleteAllTags(arn string) error {
 
 // --- Scan helpers ---
 
-type scanner interface {
-	Scan(dest ...any) error
-}
-
-func scanStack(row scanner) (*Stack, error) {
+func scanStack(row sqlite.Scanner) (*Stack, error) {
 	var st Stack
 	var dr int
 	var createdAt, updatedAt int64
@@ -537,7 +533,7 @@ func scanStack(row scanner) (*Stack, error) {
 	return &st, nil
 }
 
-func scanChangeSet(row scanner) (*ChangeSet, error) {
+func scanChangeSet(row sqlite.Scanner) (*ChangeSet, error) {
 	var cs ChangeSet
 	var createdAt int64
 	err := row.Scan(
@@ -554,7 +550,7 @@ func scanChangeSet(row scanner) (*ChangeSet, error) {
 	return &cs, nil
 }
 
-func scanStackSet(row scanner) (*StackSet, error) {
+func scanStackSet(row sqlite.Scanner) (*StackSet, error) {
 	var ss StackSet
 	var createdAt int64
 	err := row.Scan(

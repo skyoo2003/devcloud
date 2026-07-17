@@ -919,3 +919,9 @@ func executionToMap(we *WorkflowExecution) map[string]any {
 	}
 	return m
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("swf", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

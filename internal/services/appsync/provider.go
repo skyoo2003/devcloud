@@ -1065,3 +1065,9 @@ func extractTypeName(definition string) string {
 	}
 	return ""
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("appsync", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

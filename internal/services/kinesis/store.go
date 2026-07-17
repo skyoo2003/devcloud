@@ -555,9 +555,7 @@ func (s *Store) ListConsumers(streamARN string) ([]ConsumerMeta, error) {
 	return consumers, rows.Err()
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanStreamMeta(s scanner) (*StreamMeta, error) {
+func scanStreamMeta(s sqlite.Scanner) (*StreamMeta, error) {
 	var st StreamMeta
 	var createdAt int64
 	err := s.Scan(&st.Name, &st.ARN, &st.Status, &st.ShardCount, &st.RetentionHours,
@@ -572,7 +570,7 @@ func scanStreamMeta(s scanner) (*StreamMeta, error) {
 	return &st, nil
 }
 
-func scanConsumer(s scanner) (*ConsumerMeta, error) {
+func scanConsumer(s sqlite.Scanner) (*ConsumerMeta, error) {
 	var c ConsumerMeta
 	var createdAt int64
 	err := s.Scan(&c.ARN, &c.Name, &c.StreamARN, &c.Status, &createdAt)

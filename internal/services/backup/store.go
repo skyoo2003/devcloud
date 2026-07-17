@@ -301,9 +301,7 @@ func (s *Store) DeleteBackupPlan(id string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanBackupPlan(sc scanner) (*BackupPlan, error) {
+func scanBackupPlan(sc sqlite.Scanner) (*BackupPlan, error) {
 	var p BackupPlan
 	var createdAt int64
 	err := sc.Scan(&p.ID, &p.ARN, &p.Name, &p.VersionID, &p.Rules, &createdAt)
@@ -403,7 +401,7 @@ func (s *Store) UpdateBackupVaultLockConfig(name, lockConfig string) error {
 	return nil
 }
 
-func scanBackupVault(sc scanner) (*BackupVault, error) {
+func scanBackupVault(sc sqlite.Scanner) (*BackupVault, error) {
 	var v BackupVault
 	var createdAt int64
 	err := sc.Scan(&v.Name, &v.ARN, &v.EncryptionKey, &v.Notifications, &v.AccessPolicy, &v.LockConfig, &createdAt)
@@ -467,7 +465,7 @@ func (s *Store) DeleteBackupSelection(id string) error {
 	return nil
 }
 
-func scanBackupSelection(sc scanner) (*BackupSelection, error) {
+func scanBackupSelection(sc sqlite.Scanner) (*BackupSelection, error) {
 	var sel BackupSelection
 	var createdAt int64
 	err := sc.Scan(&sel.ID, &sel.PlanID, &sel.Name, &sel.IAMRole, &sel.Resources, &sel.Conditions, &createdAt)
@@ -531,7 +529,7 @@ func (s *Store) UpdateBackupJobStatus(id, status string) error {
 	return nil
 }
 
-func scanBackupJob(sc scanner) (*BackupJob, error) {
+func scanBackupJob(sc sqlite.Scanner) (*BackupJob, error) {
 	var j BackupJob
 	var createdAt, completedAt int64
 	err := sc.Scan(&j.ID, &j.VaultName, &j.ResourceARN, &j.ResourceType, &j.Status, &j.PlanID, &createdAt, &completedAt)
@@ -615,7 +613,7 @@ func (s *Store) DeleteRecoveryPoint(arn string) error {
 	return nil
 }
 
-func scanRecoveryPoint(sc scanner) (*RecoveryPoint, error) {
+func scanRecoveryPoint(sc sqlite.Scanner) (*RecoveryPoint, error) {
 	var rp RecoveryPoint
 	var createdAt int64
 	err := sc.Scan(&rp.ARN, &rp.VaultName, &rp.ResourceARN, &rp.ResourceType, &rp.Status, &createdAt)
@@ -667,7 +665,7 @@ func (s *Store) ListRestoreJobs() ([]RestoreJob, error) {
 	return jobs, rows.Err()
 }
 
-func scanRestoreJob(sc scanner) (*RestoreJob, error) {
+func scanRestoreJob(sc sqlite.Scanner) (*RestoreJob, error) {
 	var j RestoreJob
 	var createdAt, completedAt int64
 	err := sc.Scan(&j.ID, &j.VaultName, &j.RecoveryPoint, &j.ResourceType, &j.Status, &createdAt, &completedAt)
@@ -747,7 +745,7 @@ func (s *Store) DeleteFramework(name string) error {
 	return nil
 }
 
-func scanFramework(sc scanner) (*Framework, error) {
+func scanFramework(sc sqlite.Scanner) (*Framework, error) {
 	var f Framework
 	var createdAt int64
 	err := sc.Scan(&f.Name, &f.ARN, &f.Description, &f.Controls, &f.Status, &createdAt)
@@ -826,7 +824,7 @@ func (s *Store) DeleteReportPlan(name string) error {
 	return nil
 }
 
-func scanReportPlan(sc scanner) (*ReportPlan, error) {
+func scanReportPlan(sc sqlite.Scanner) (*ReportPlan, error) {
 	var rp ReportPlan
 	var createdAt int64
 	err := sc.Scan(&rp.Name, &rp.ARN, &rp.Description, &rp.DeliveryChannel, &rp.ReportSetting, &createdAt)
@@ -875,7 +873,7 @@ func (s *Store) ListReportJobs() ([]ReportJob, error) {
 	return jobs, rows.Err()
 }
 
-func scanReportJob(sc scanner) (*ReportJob, error) {
+func scanReportJob(sc sqlite.Scanner) (*ReportJob, error) {
 	var j ReportJob
 	var createdAt, completedAt int64
 	err := sc.Scan(&j.ID, &j.PlanName, &j.Status, &createdAt, &completedAt)
@@ -955,7 +953,7 @@ func (s *Store) DeleteRestoreTestingPlan(name string) error {
 	return nil
 }
 
-func scanRestoreTestingPlan(sc scanner) (*RestoreTestingPlan, error) {
+func scanRestoreTestingPlan(sc sqlite.Scanner) (*RestoreTestingPlan, error) {
 	var p RestoreTestingPlan
 	var createdAt int64
 	err := sc.Scan(&p.Name, &p.ARN, &p.Schedule, &p.StartWindow, &p.Config, &createdAt)
@@ -1035,7 +1033,7 @@ func (s *Store) DeleteRestoreTestingSelection(planName, selName string) error {
 	return nil
 }
 
-func scanRestoreTestingSelection(sc scanner) (*RestoreTestingSelection, error) {
+func scanRestoreTestingSelection(sc sqlite.Scanner) (*RestoreTestingSelection, error) {
 	var sel RestoreTestingSelection
 	var createdAt int64
 	err := sc.Scan(&sel.Name, &sel.PlanName, &sel.IAMRole, &sel.ResourceType, &sel.Config, &createdAt)

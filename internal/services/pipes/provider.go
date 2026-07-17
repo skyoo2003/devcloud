@@ -560,7 +560,7 @@ func extractARNFromTagPath(path string) string {
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("pipes", func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("pipes", func() plugin.ServicePlugin {
 		return &PipesProvider{}
 	})
 }

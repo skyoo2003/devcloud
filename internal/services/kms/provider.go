@@ -860,3 +860,9 @@ func kmsError(code, message string, status int) *plugin.Response {
 		ContentType: "application/x-amz-json-1.1",
 	}
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("kms", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

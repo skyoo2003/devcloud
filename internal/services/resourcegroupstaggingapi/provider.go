@@ -328,3 +328,9 @@ func (p *Provider) listRequiredTags(_ map[string]any) (*plugin.Response, error) 
 		"PaginationToken":   "",
 	})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("resourcegroupstaggingapi", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

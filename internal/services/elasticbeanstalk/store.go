@@ -521,9 +521,7 @@ func (s *Store) DeleteConfigTemplate(appName, name string) error {
 
 // --- helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanApplication(s scanner) (*Application, error) {
+func scanApplication(s sqlite.Scanner) (*Application, error) {
 	var a Application
 	var createdAt, updatedAt int64
 	err := s.Scan(&a.Name, &a.ARN, &a.Description, &createdAt, &updatedAt)
@@ -538,7 +536,7 @@ func scanApplication(s scanner) (*Application, error) {
 	return &a, nil
 }
 
-func scanAppVersion(s scanner) (*AppVersion, error) {
+func scanAppVersion(s sqlite.Scanner) (*AppVersion, error) {
 	var v AppVersion
 	var createdAt int64
 	err := s.Scan(&v.AppName, &v.VersionLabel, &v.ARN, &v.Description, &v.SourceBundle, &v.Status, &createdAt)
@@ -552,7 +550,7 @@ func scanAppVersion(s scanner) (*AppVersion, error) {
 	return &v, nil
 }
 
-func scanEnvironment(s scanner) (*Environment, error) {
+func scanEnvironment(s sqlite.Scanner) (*Environment, error) {
 	var e Environment
 	var createdAt, updatedAt int64
 	err := s.Scan(&e.ID, &e.Name, &e.ARN, &e.AppName, &e.VersionLabel, &e.TemplateName,
@@ -569,7 +567,7 @@ func scanEnvironment(s scanner) (*Environment, error) {
 	return &e, nil
 }
 
-func scanConfigTemplate(s scanner) (*ConfigTemplate, error) {
+func scanConfigTemplate(s sqlite.Scanner) (*ConfigTemplate, error) {
 	var t ConfigTemplate
 	err := s.Scan(&t.AppName, &t.Name, &t.Description, &t.SolutionStack, &t.Options)
 	if err != nil {

@@ -953,3 +953,9 @@ func marshalOrEmptyDefault(v any, def string) string {
 	b, _ := json.Marshal(v)
 	return string(b)
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("cloudtrail", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

@@ -312,9 +312,7 @@ func (s *Store) ListDistinctTraceIDs() ([]string, error) {
 
 // --- Scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanGroup(sc scanner) (*Group, error) {
+func scanGroup(sc sqlite.Scanner) (*Group, error) {
 	var g Group
 	err := sc.Scan(&g.Name, &g.ARN, &g.FilterExpr, &g.InsightsConfig)
 	if err != nil {
@@ -326,7 +324,7 @@ func scanGroup(sc scanner) (*Group, error) {
 	return &g, nil
 }
 
-func scanSamplingRule(sc scanner) (*SamplingRule, error) {
+func scanSamplingRule(sc sqlite.Scanner) (*SamplingRule, error) {
 	var r SamplingRule
 	err := sc.Scan(
 		&r.Name, &r.ARN, &r.Priority, &r.FixedRate, &r.ReservoirSize,

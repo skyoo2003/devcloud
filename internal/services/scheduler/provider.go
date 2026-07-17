@@ -990,7 +990,7 @@ func jsonResponse(status int, v any) (*plugin.Response, error) {
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("scheduler", func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("scheduler", func() plugin.ServicePlugin {
 		return &SchedulerProvider{}
 	})
 }

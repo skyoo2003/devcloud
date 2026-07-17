@@ -11,18 +11,6 @@ export interface Resource {
   name: string;
 }
 
-export interface Metrics {
-  totalRequests: number;
-  errorCount: number;
-  services: number;
-}
-
-export interface ServiceMetrics {
-  totalRequests: number;
-  errorCount: number;
-  resourceCount: number;
-}
-
 export interface RequestLog {
   method: string;
   path: string;

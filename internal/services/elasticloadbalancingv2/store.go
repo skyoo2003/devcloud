@@ -637,9 +637,7 @@ func (s *Store) ListTags(arn string) (map[string]string, error) {
 
 // --- scan helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanLoadBalancer(sc scanner) (*LoadBalancer, error) {
+func scanLoadBalancer(sc sqlite.Scanner) (*LoadBalancer, error) {
 	var lb LoadBalancer
 	var createdAt int64
 	var subnetsJSON, sgsJSON string
@@ -656,7 +654,7 @@ func scanLoadBalancer(sc scanner) (*LoadBalancer, error) {
 	return &lb, nil
 }
 
-func scanTargetGroup(sc scanner) (*TargetGroup, error) {
+func scanTargetGroup(sc sqlite.Scanner) (*TargetGroup, error) {
 	var tg TargetGroup
 	var createdAt int64
 	var hcJSON string
@@ -672,7 +670,7 @@ func scanTargetGroup(sc scanner) (*TargetGroup, error) {
 	return &tg, nil
 }
 
-func scanListener(sc scanner) (*Listener, error) {
+func scanListener(sc sqlite.Scanner) (*Listener, error) {
 	var l Listener
 	var createdAt int64
 	var actionsJSON, certsJSON string
@@ -689,7 +687,7 @@ func scanListener(sc scanner) (*Listener, error) {
 	return &l, nil
 }
 
-func scanRule(sc scanner) (*Rule, error) {
+func scanRule(sc sqlite.Scanner) (*Rule, error) {
 	var r Rule
 	var isDefault int
 	var condsJSON, actsJSON string

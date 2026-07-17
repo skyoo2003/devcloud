@@ -1076,7 +1076,7 @@ func jsonResponse(status int, v any) (*plugin.Response, error) {
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("s3tables", func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("s3tables", func() plugin.ServicePlugin {
 		return &S3TablesProvider{}
 	})
 }

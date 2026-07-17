@@ -437,9 +437,7 @@ func (s *Store) ListTags(arn string) (map[string]string, error) {
 
 // --- helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanCluster(sc scanner) (*Cluster, error) {
+func scanCluster(sc sqlite.Scanner) (*Cluster, error) {
 	var c Cluster
 	var createdAt int64
 	var enc int
@@ -456,7 +454,7 @@ func scanCluster(sc scanner) (*Cluster, error) {
 	return &c, nil
 }
 
-func scanSnapshot(sc scanner) (*ClusterSnapshot, error) {
+func scanSnapshot(sc sqlite.Scanner) (*ClusterSnapshot, error) {
 	var sn ClusterSnapshot
 	var createdAt int64
 	err := sc.Scan(&sn.ID, &sn.ClusterID, &sn.ARN, &sn.Status, &sn.SnapshotType, &createdAt)
@@ -470,7 +468,7 @@ func scanSnapshot(sc scanner) (*ClusterSnapshot, error) {
 	return &sn, nil
 }
 
-func scanParameterGroup(sc scanner) (*ParameterGroup, error) {
+func scanParameterGroup(sc sqlite.Scanner) (*ParameterGroup, error) {
 	var pg ParameterGroup
 	err := sc.Scan(&pg.Name, &pg.ARN, &pg.Family, &pg.Description)
 	if err != nil {
@@ -482,7 +480,7 @@ func scanParameterGroup(sc scanner) (*ParameterGroup, error) {
 	return &pg, nil
 }
 
-func scanSubnetGroup(sc scanner) (*SubnetGroup, error) {
+func scanSubnetGroup(sc sqlite.Scanner) (*SubnetGroup, error) {
 	var sg SubnetGroup
 	err := sc.Scan(&sg.Name, &sg.ARN, &sg.Description, &sg.VpcID, &sg.Subnets)
 	if err != nil {

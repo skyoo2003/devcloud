@@ -1503,3 +1503,9 @@ func parseFormTags(form url.Values) map[string]string {
 	}
 	return tags
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("elasticache", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

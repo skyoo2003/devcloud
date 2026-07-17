@@ -1748,3 +1748,9 @@ func (p *Provider) handleApplyPendingMaintenanceAction(form url.Values) (*plugin
 	resp.Result.ResourceIdentifier = resourceID
 	return rdsXMLResponse(http.StatusOK, resp)
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("rds", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

@@ -1308,3 +1308,9 @@ func scalingPolicyToMap(p *ServiceScalingPolicy) map[string]any {
 		"creationTime":      p.CreatedAt.Format("2006-01-02T15:04:05Z"),
 	}
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("ecs", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

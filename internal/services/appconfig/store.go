@@ -734,9 +734,7 @@ func (s *Store) DeleteHostedConfigVersion(appID, profileID string, version int) 
 
 // --- Scan helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanApplication(sc scanner) (*Application, error) {
+func scanApplication(sc sqlite.Scanner) (*Application, error) {
 	var a Application
 	var createdAt int64
 	err := sc.Scan(&a.ID, &a.ARN, &a.Name, &a.Description, &createdAt)
@@ -750,7 +748,7 @@ func scanApplication(sc scanner) (*Application, error) {
 	return &a, nil
 }
 
-func scanEnvironment(sc scanner) (*Environment, error) {
+func scanEnvironment(sc sqlite.Scanner) (*Environment, error) {
 	var e Environment
 	var createdAt int64
 	err := sc.Scan(&e.ID, &e.AppID, &e.ARN, &e.Name, &e.Description, &e.State, &createdAt)
@@ -764,7 +762,7 @@ func scanEnvironment(sc scanner) (*Environment, error) {
 	return &e, nil
 }
 
-func scanConfigProfile(sc scanner) (*ConfigProfile, error) {
+func scanConfigProfile(sc sqlite.Scanner) (*ConfigProfile, error) {
 	var cp ConfigProfile
 	var createdAt int64
 	err := sc.Scan(&cp.ID, &cp.AppID, &cp.ARN, &cp.Name, &cp.LocationURI, &cp.Type, &createdAt)
@@ -778,7 +776,7 @@ func scanConfigProfile(sc scanner) (*ConfigProfile, error) {
 	return &cp, nil
 }
 
-func scanDeploymentStrategy(sc scanner) (*DeploymentStrategy, error) {
+func scanDeploymentStrategy(sc sqlite.Scanner) (*DeploymentStrategy, error) {
 	var ds DeploymentStrategy
 	err := sc.Scan(&ds.ID, &ds.ARN, &ds.Name, &ds.GrowthType, &ds.GrowthFactor, &ds.DeploymentDuration, &ds.FinalBake, &ds.ReplicateTo)
 	if err != nil {
@@ -790,7 +788,7 @@ func scanDeploymentStrategy(sc scanner) (*DeploymentStrategy, error) {
 	return &ds, nil
 }
 
-func scanDeployment(sc scanner) (*Deployment, error) {
+func scanDeployment(sc sqlite.Scanner) (*Deployment, error) {
 	var d Deployment
 	var startedAt, completedAt int64
 	err := sc.Scan(&d.AppID, &d.EnvID, &d.Number, &d.ConfigProfile, &d.ConfigVersion, &d.Strategy, &d.State, &startedAt, &completedAt)
@@ -805,7 +803,7 @@ func scanDeployment(sc scanner) (*Deployment, error) {
 	return &d, nil
 }
 
-func scanExtension(sc scanner) (*Extension, error) {
+func scanExtension(sc sqlite.Scanner) (*Extension, error) {
 	var e Extension
 	err := sc.Scan(&e.ID, &e.ARN, &e.Name, &e.Description, &e.Actions, &e.Parameters, &e.Version)
 	if err != nil {
@@ -817,7 +815,7 @@ func scanExtension(sc scanner) (*Extension, error) {
 	return &e, nil
 }
 
-func scanExtensionAssociation(sc scanner) (*ExtensionAssociation, error) {
+func scanExtensionAssociation(sc sqlite.Scanner) (*ExtensionAssociation, error) {
 	var ea ExtensionAssociation
 	err := sc.Scan(&ea.ID, &ea.ARN, &ea.ExtensionID, &ea.ExtensionARN, &ea.ExtensionVersion, &ea.ResourceARN, &ea.Parameters)
 	if err != nil {
@@ -829,7 +827,7 @@ func scanExtensionAssociation(sc scanner) (*ExtensionAssociation, error) {
 	return &ea, nil
 }
 
-func scanHostedConfigVersion(sc scanner) (*HostedConfigVersion, error) {
+func scanHostedConfigVersion(sc sqlite.Scanner) (*HostedConfigVersion, error) {
 	var hcv HostedConfigVersion
 	err := sc.Scan(&hcv.AppID, &hcv.ProfileID, &hcv.Version, &hcv.Content, &hcv.ContentType, &hcv.Description)
 	if err != nil {

@@ -4,6 +4,9 @@ package wafv2
 
 import "strings"
 
+// PathParams holds the URL path parameters extracted by the router.
+type PathParams map[string]string
+
 // OperationRoute maps an HTTP method and URI pattern to an operation name.
 type OperationRoute struct {
 	Method    string

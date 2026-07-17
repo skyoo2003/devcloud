@@ -1335,3 +1335,9 @@ func toStringMap(m map[string]any) map[string]string {
 	}
 	return out
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("appconfig", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

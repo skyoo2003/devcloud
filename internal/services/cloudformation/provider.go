@@ -1665,3 +1665,9 @@ func parseParamsMap(form url.Values) map[string]string {
 	}
 	return out
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("cloudformation", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

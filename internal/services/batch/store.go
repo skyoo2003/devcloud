@@ -227,9 +227,7 @@ func (s *Store) DeleteComputeEnvironment(nameOrARN string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanComputeEnvironment(sc scanner) (*ComputeEnvironment, error) {
+func scanComputeEnvironment(sc sqlite.Scanner) (*ComputeEnvironment, error) {
 	var ce ComputeEnvironment
 	err := sc.Scan(&ce.ARN, &ce.Name, &ce.Type, &ce.State, &ce.Status, &ce.ServiceRole, &ce.ComputeResources, &ce.CreatedAt, &ce.UpdatedAt)
 	if err != nil {
@@ -309,7 +307,7 @@ func (s *Store) DeleteJobQueue(nameOrARN string) error {
 	return nil
 }
 
-func scanJobQueue(sc scanner) (*JobQueue, error) {
+func scanJobQueue(sc sqlite.Scanner) (*JobQueue, error) {
 	var jq JobQueue
 	err := sc.Scan(&jq.ARN, &jq.Name, &jq.State, &jq.Status, &jq.Priority, &jq.ComputeEnvs, &jq.SchedulingPolicy, &jq.CreatedAt, &jq.UpdatedAt)
 	if err != nil {
@@ -395,7 +393,7 @@ func (s *Store) DeregisterJobDefinition(nameOrARN string) error {
 	return nil
 }
 
-func scanJobDefinition(sc scanner) (*JobDefinition, error) {
+func scanJobDefinition(sc sqlite.Scanner) (*JobDefinition, error) {
 	var jd JobDefinition
 	err := sc.Scan(&jd.ARN, &jd.Name, &jd.Revision, &jd.Type, &jd.Status, &jd.ContainerProps, &jd.Parameters, &jd.Timeout, &jd.CreatedAt)
 	if err != nil {
@@ -470,7 +468,7 @@ func (s *Store) UpdateJobStatus(idOrARN, status, reason string) error {
 	return nil
 }
 
-func scanJob(sc scanner) (*Job, error) {
+func scanJob(sc sqlite.Scanner) (*Job, error) {
 	var j Job
 	err := sc.Scan(&j.ID, &j.ARN, &j.Name, &j.Queue, &j.Definition, &j.Status, &j.StatusReason,
 		&j.Parameters, &j.Container, &j.CreatedAt, &j.StartedAt, &j.StoppedAt)
@@ -549,7 +547,7 @@ func (s *Store) DeleteSchedulingPolicy(nameOrARN string) error {
 	return nil
 }
 
-func scanSchedulingPolicy(sc scanner) (*SchedulingPolicy, error) {
+func scanSchedulingPolicy(sc sqlite.Scanner) (*SchedulingPolicy, error) {
 	var sp SchedulingPolicy
 	err := sc.Scan(&sp.ARN, &sp.Name, &sp.Fairshare, &sp.CreatedAt, &sp.UpdatedAt)
 	if err != nil {

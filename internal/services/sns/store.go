@@ -146,11 +146,7 @@ func (s *SNSStore) ListTopics(accountID string) ([]Topic, error) {
 	return topics, rows.Err()
 }
 
-type scanner interface {
-	Scan(dest ...any) error
-}
-
-func scanTopic(s scanner) (*Topic, error) {
+func scanTopic(s sqlite.Scanner) (*Topic, error) {
 	var t Topic
 	var attrJSON string
 	var createdAt int64

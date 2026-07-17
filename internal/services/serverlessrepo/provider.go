@@ -785,7 +785,7 @@ func applicationToMap(a *Application, latestVersion string) map[string]any {
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("serverlessrepo", func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("serverlessrepo", func() plugin.ServicePlugin {
 		return &ServerlessRepoProvider{}
 	})
 }

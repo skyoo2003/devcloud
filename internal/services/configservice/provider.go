@@ -1091,3 +1091,9 @@ func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response,
 	}
 	return shared.JSONResponse(http.StatusOK, map[string]any{"Tags": tagsToList(tags)})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("configservice", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

@@ -1305,3 +1305,9 @@ func stringsParam(params map[string]any, key string) []string {
 	}
 	return out
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("sagemaker", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

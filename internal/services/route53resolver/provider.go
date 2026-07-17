@@ -1264,3 +1264,9 @@ func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response,
 func sqlite_isUnique(err error) bool {
 	return err != nil && strings.Contains(err.Error(), "UNIQUE constraint failed")
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("route53resolver", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

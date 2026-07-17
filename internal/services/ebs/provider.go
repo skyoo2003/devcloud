@@ -567,3 +567,9 @@ func extractTwoPathSegments(path, key string) (string, string) {
 	}
 	return "", ""
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("ebs", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

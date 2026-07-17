@@ -253,9 +253,7 @@ func (s *Store) StopExperiment(id string) error {
 
 // --- Scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanTemplate(sc scanner) (*ExperimentTemplate, error) {
+func scanTemplate(sc sqlite.Scanner) (*ExperimentTemplate, error) {
 	var t ExperimentTemplate
 	var createdAt, updatedAt int64
 	err := sc.Scan(
@@ -274,7 +272,7 @@ func scanTemplate(sc scanner) (*ExperimentTemplate, error) {
 	return &t, nil
 }
 
-func scanExperiment(sc scanner) (*Experiment, error) {
+func scanExperiment(sc sqlite.Scanner) (*Experiment, error) {
 	var e Experiment
 	var startTime, endTime int64
 	err := sc.Scan(

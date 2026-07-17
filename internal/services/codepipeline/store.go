@@ -292,9 +292,7 @@ func (s *Store) DeleteWebhook(name string) error {
 
 // ---- scanners ----
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanPipeline(s scanner) (*Pipeline, error) {
+func scanPipeline(s sqlite.Scanner) (*Pipeline, error) {
 	var p Pipeline
 	var createdAt, updatedAt int64
 	err := s.Scan(&p.Name, &p.ARN, &p.RoleARN, &p.Stages, &p.Version, &createdAt, &updatedAt)
@@ -309,7 +307,7 @@ func scanPipeline(s scanner) (*Pipeline, error) {
 	return &p, nil
 }
 
-func scanExecution(s scanner) (*PipelineExecution, error) {
+func scanExecution(s sqlite.Scanner) (*PipelineExecution, error) {
 	var e PipelineExecution
 	var startedAt, updatedAt int64
 	err := s.Scan(&e.ID, &e.PipelineName, &e.Status, &startedAt, &updatedAt)
@@ -324,7 +322,7 @@ func scanExecution(s scanner) (*PipelineExecution, error) {
 	return &e, nil
 }
 
-func scanWebhook(s scanner) (*Webhook, error) {
+func scanWebhook(s sqlite.Scanner) (*Webhook, error) {
 	var w Webhook
 	err := s.Scan(&w.Name, &w.ARN, &w.URL, &w.Pipeline, &w.TargetAction, &w.Filters, &w.AuthType, &w.AuthConfig)
 	if err != nil {

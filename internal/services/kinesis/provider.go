@@ -957,3 +957,9 @@ func jsonOK(v any) (*plugin.Response, error) {
 func jsonErr(code, message string, status int) *plugin.Response {
 	return shared.JSONError(code, message, status)
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("kinesis", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

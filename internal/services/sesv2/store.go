@@ -708,9 +708,7 @@ func (s *Store) CreateSentEmail(e *SentEmail) error {
 
 // --- Scan helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanEmailIdentity(sc scanner) (*EmailIdentity, error) {
+func scanEmailIdentity(sc sqlite.Scanner) (*EmailIdentity, error) {
 	var e EmailIdentity
 	var verified int
 	err := sc.Scan(&e.Name, &e.Type, &verified, &e.DkimStatus, &e.ConfigSet, &e.CreatedAt)
@@ -724,7 +722,7 @@ func scanEmailIdentity(sc scanner) (*EmailIdentity, error) {
 	return &e, nil
 }
 
-func scanEmailTemplate(sc scanner) (*EmailTemplate, error) {
+func scanEmailTemplate(sc sqlite.Scanner) (*EmailTemplate, error) {
 	var t EmailTemplate
 	err := sc.Scan(&t.Name, &t.Subject, &t.HTML, &t.TextContent, &t.CreatedAt)
 	if err != nil {
@@ -736,7 +734,7 @@ func scanEmailTemplate(sc scanner) (*EmailTemplate, error) {
 	return &t, nil
 }
 
-func scanConfigSet(sc scanner) (*ConfigSet, error) {
+func scanConfigSet(sc sqlite.Scanner) (*ConfigSet, error) {
 	var c ConfigSet
 	var sending int
 	err := sc.Scan(&c.Name, &sending, &c.Reputation, &c.Suppression, &c.Tracking, &c.Delivery, &c.CreatedAt)
@@ -750,7 +748,7 @@ func scanConfigSet(sc scanner) (*ConfigSet, error) {
 	return &c, nil
 }
 
-func scanContactList(sc scanner) (*ContactList, error) {
+func scanContactList(sc sqlite.Scanner) (*ContactList, error) {
 	var cl ContactList
 	err := sc.Scan(&cl.Name, &cl.Description, &cl.Topics, &cl.CreatedAt, &cl.UpdatedAt)
 	if err != nil {
@@ -762,7 +760,7 @@ func scanContactList(sc scanner) (*ContactList, error) {
 	return &cl, nil
 }
 
-func scanContact(sc scanner) (*Contact, error) {
+func scanContact(sc sqlite.Scanner) (*Contact, error) {
 	var c Contact
 	var unsub int
 	err := sc.Scan(&c.Email, &c.ListName, &c.Topics, &unsub, &c.Attributes, &c.CreatedAt, &c.UpdatedAt)
@@ -776,7 +774,7 @@ func scanContact(sc scanner) (*Contact, error) {
 	return &c, nil
 }
 
-func scanDedicatedIpPool(sc scanner) (*DedicatedIpPool, error) {
+func scanDedicatedIpPool(sc sqlite.Scanner) (*DedicatedIpPool, error) {
 	var p DedicatedIpPool
 	err := sc.Scan(&p.Name, &p.ScalingMode, &p.CreatedAt)
 	if err != nil {
@@ -788,7 +786,7 @@ func scanDedicatedIpPool(sc scanner) (*DedicatedIpPool, error) {
 	return &p, nil
 }
 
-func scanSuppressedDestination(sc scanner) (*SuppressedDestination, error) {
+func scanSuppressedDestination(sc sqlite.Scanner) (*SuppressedDestination, error) {
 	var sd SuppressedDestination
 	err := sc.Scan(&sd.Email, &sd.Reason, &sd.CreatedAt)
 	if err != nil {

@@ -1276,3 +1276,9 @@ func toJSONArray(items []string) string {
 	sb.WriteString("]")
 	return sb.String()
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("autoscaling", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

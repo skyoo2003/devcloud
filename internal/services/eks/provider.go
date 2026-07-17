@@ -1143,3 +1143,9 @@ func toStringMap(raw map[string]any) map[string]string {
 	}
 	return out
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("eks", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

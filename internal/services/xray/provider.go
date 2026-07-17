@@ -720,3 +720,9 @@ func toStringMap(raw map[string]any) map[string]string {
 	}
 	return m
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("xray", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

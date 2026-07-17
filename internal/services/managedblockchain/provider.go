@@ -889,3 +889,9 @@ func toStringMap(m map[string]any) map[string]string {
 func isUniqueErr(err error) bool {
 	return err != nil && strings.Contains(err.Error(), "UNIQUE constraint failed")
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("managedblockchain", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

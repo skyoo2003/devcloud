@@ -26,7 +26,7 @@ func (m *mockPlugin) GetMetrics(ctx context.Context) (*ServiceMetrics, error) { 
 
 func TestRegistryRegisterAndGet(t *testing.T) {
 	reg := NewRegistry()
-	reg.Register("s3", func(cfg PluginConfig) ServicePlugin { return &mockPlugin{} })
+	reg.Register("s3", func() ServicePlugin { return &mockPlugin{} })
 
 	plugin, err := reg.Init("s3", PluginConfig{})
 	require.NoError(t, err)
@@ -41,7 +41,7 @@ func TestRegistryGetUnknown(t *testing.T) {
 
 func TestRegistryList(t *testing.T) {
 	reg := NewRegistry()
-	reg.Register("s3", func(cfg PluginConfig) ServicePlugin { return &mockPlugin{} })
+	reg.Register("s3", func() ServicePlugin { return &mockPlugin{} })
 	_, err := reg.Init("s3", PluginConfig{})
 	require.NoError(t, err)
 	assert.Equal(t, []string{"s3"}, reg.ActiveServices())

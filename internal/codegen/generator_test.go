@@ -21,8 +21,7 @@ func TestGenerateAll(t *testing.T) {
 
 	serviceDir := filepath.Join(outDir, "s3")
 	files := []string{
-		"types.go", "interface.go", "base_provider.go",
-		"serializer.go", "deserializer.go", "router.go", "errors.go",
+		"types.go", "base_provider.go", "router.go", "errors.go",
 	}
 	for _, f := range files {
 		path := filepath.Join(serviceDir, f)

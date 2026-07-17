@@ -213,9 +213,7 @@ func (s *Store) DeregisterTarget(ns, resourceID, dimension string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanTarget(s scanner) (*ScalableTarget, error) {
+func scanTarget(s sqlite.Scanner) (*ScalableTarget, error) {
 	var t ScalableTarget
 	var createdAt int64
 	err := s.Scan(&t.ID, &t.ServiceNamespace, &t.ResourceID, &t.Dimension, &t.MinCapacity, &t.MaxCapacity, &t.RoleARN, &createdAt)

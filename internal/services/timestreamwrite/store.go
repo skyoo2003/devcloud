@@ -356,9 +356,7 @@ func (s *Store) ListTags(arn string) (map[string]string, error) {
 
 // ---- scanners ----
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanDatabase(sc scanner) (*DatabaseRow, error) {
+func scanDatabase(sc sqlite.Scanner) (*DatabaseRow, error) {
 	var r DatabaseRow
 	var createdAt, updatedAt int64
 	err := sc.Scan(&r.Name, &r.ARN, &r.KMSKeyID, &r.TableCount, &createdAt, &updatedAt)
@@ -373,7 +371,7 @@ func scanDatabase(sc scanner) (*DatabaseRow, error) {
 	return &r, nil
 }
 
-func scanTable(sc scanner) (*TableRow, error) {
+func scanTable(sc sqlite.Scanner) (*TableRow, error) {
 	var r TableRow
 	var createdAt, updatedAt int64
 	err := sc.Scan(&r.Name, &r.DatabaseName, &r.ARN, &r.Status,
@@ -389,7 +387,7 @@ func scanTable(sc scanner) (*TableRow, error) {
 	return &r, nil
 }
 
-func scanBatchLoadTask(sc scanner) (*BatchLoadTaskRow, error) {
+func scanBatchLoadTask(sc sqlite.Scanner) (*BatchLoadTaskRow, error) {
 	var r BatchLoadTaskRow
 	var createdAt int64
 	err := sc.Scan(&r.ID, &r.DatabaseName, &r.TableName, &r.Status, &r.DataSource, &createdAt)

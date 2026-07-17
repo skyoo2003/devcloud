@@ -555,3 +555,9 @@ func (p *Provider) appSubConfigOperation(action string, params map[string]any) (
 		"ApplicationVersionId": app.VersionID,
 	})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("kinesisanalyticsv2", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

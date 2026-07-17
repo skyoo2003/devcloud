@@ -1422,3 +1422,9 @@ func resolveOp(method, urlPath string) string {
 
 	return ""
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("sesv2", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

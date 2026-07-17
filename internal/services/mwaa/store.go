@@ -238,9 +238,7 @@ func (s *Store) DeleteEnvironment(name string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanEnvironment(sc scanner) (*Environment, error) {
+func scanEnvironment(sc sqlite.Scanner) (*Environment, error) {
 	var e Environment
 	var createdAt, updatedAt int64
 	err := sc.Scan(
@@ -341,7 +339,7 @@ func (s *Store) PauseDag(env, dagID string, paused bool) error {
 	return nil
 }
 
-func scanDag(sc scanner) (*DAG, error) {
+func scanDag(sc sqlite.Scanner) (*DAG, error) {
 	var d DAG
 	var paused int
 	var createdAt int64
@@ -429,7 +427,7 @@ func (s *Store) DeleteDagRun(env, dagID, runID string) error {
 	return nil
 }
 
-func scanDagRun(sc scanner) (*DagRun, error) {
+func scanDagRun(sc sqlite.Scanner) (*DagRun, error) {
 	var r DagRun
 	var createdAt int64
 	err := sc.Scan(&r.ID, &r.EnvironmentName, &r.DagID, &r.RunID, &r.State, &r.ExecutionDate, &r.Conf, &createdAt)

@@ -1016,3 +1016,9 @@ func toStringMap(m map[string]any) map[string]string {
 	}
 	return result
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("amplify", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

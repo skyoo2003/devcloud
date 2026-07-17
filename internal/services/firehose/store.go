@@ -186,9 +186,7 @@ func (s *Store) UpdateEncryption(name, encryption string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanStream(s scanner) (*DeliveryStream, error) {
+func scanStream(s sqlite.Scanner) (*DeliveryStream, error) {
 	var st DeliveryStream
 	var createdAt int64
 	err := s.Scan(&st.Name, &st.ARN, &st.Status, &st.Type, &st.Dest, &st.Encryption, &createdAt)

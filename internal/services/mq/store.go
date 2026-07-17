@@ -364,9 +364,7 @@ func (s *Store) DeleteUser(brokerID, username string) error {
 
 // ---- Scanners ----
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanBroker(sc scanner) (*Broker, error) {
+func scanBroker(sc sqlite.Scanner) (*Broker, error) {
 	var b Broker
 	var createdAt int64
 	var endpointsJSON string
@@ -392,7 +390,7 @@ func scanBroker(sc scanner) (*Broker, error) {
 	return &b, nil
 }
 
-func scanConfiguration(sc scanner) (*MQConfiguration, error) {
+func scanConfiguration(sc sqlite.Scanner) (*MQConfiguration, error) {
 	var c MQConfiguration
 	var createdAt int64
 	err := sc.Scan(
@@ -409,7 +407,7 @@ func scanConfiguration(sc scanner) (*MQConfiguration, error) {
 	return &c, nil
 }
 
-func scanUser(sc scanner) (*BrokerUser, error) {
+func scanUser(sc sqlite.Scanner) (*BrokerUser, error) {
 	var u BrokerUser
 	var consoleAccess int
 	var groupsJSON string

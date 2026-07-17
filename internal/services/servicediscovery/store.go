@@ -364,9 +364,7 @@ func (s *Store) InstanceCount(serviceID string) (int32, error) {
 	return count, err
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanNamespace(s scanner) (*Namespace, error) {
+func scanNamespace(s sqlite.Scanner) (*Namespace, error) {
 	var ns Namespace
 	var createdAt int64
 	err := s.Scan(&ns.ID, &ns.ARN, &ns.Name, &ns.Type, &ns.Description, &ns.Config, &createdAt)
@@ -380,7 +378,7 @@ func scanNamespace(s scanner) (*Namespace, error) {
 	return &ns, nil
 }
 
-func scanService(s scanner) (*Service, error) {
+func scanService(s sqlite.Scanner) (*Service, error) {
 	var svc Service
 	var createdAt int64
 	err := s.Scan(&svc.ID, &svc.ARN, &svc.Name, &svc.NamespaceID, &svc.Description, &svc.DnsConfig, &svc.HealthConfig, &createdAt)

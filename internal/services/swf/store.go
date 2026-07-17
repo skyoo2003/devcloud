@@ -413,9 +413,7 @@ func (s *Store) CountWorkflowExecutions(domain, statusFilter string) (int, error
 
 // ---- Scanners ----
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanDomain(s scanner) (*Domain, error) {
+func scanDomain(s sqlite.Scanner) (*Domain, error) {
 	var d Domain
 	var createdAt int64
 	err := s.Scan(&d.Name, &d.ARN, &d.Status, &d.Description, &d.Retention, &createdAt)
@@ -429,7 +427,7 @@ func scanDomain(s scanner) (*Domain, error) {
 	return &d, nil
 }
 
-func scanWorkflowType(s scanner) (*WorkflowType, error) {
+func scanWorkflowType(s sqlite.Scanner) (*WorkflowType, error) {
 	var wt WorkflowType
 	var createdAt int64
 	err := s.Scan(&wt.Domain, &wt.Name, &wt.Version, &wt.Status, &wt.Description, &wt.DefaultTimeout, &createdAt)
@@ -443,7 +441,7 @@ func scanWorkflowType(s scanner) (*WorkflowType, error) {
 	return &wt, nil
 }
 
-func scanActivityType(s scanner) (*ActivityType, error) {
+func scanActivityType(s sqlite.Scanner) (*ActivityType, error) {
 	var at ActivityType
 	var createdAt int64
 	err := s.Scan(&at.Domain, &at.Name, &at.Version, &at.Status, &at.Description, &at.DefaultTimeout, &createdAt)
@@ -457,7 +455,7 @@ func scanActivityType(s scanner) (*ActivityType, error) {
 	return &at, nil
 }
 
-func scanWorkflowExecution(s scanner) (*WorkflowExecution, error) {
+func scanWorkflowExecution(s sqlite.Scanner) (*WorkflowExecution, error) {
 	var we WorkflowExecution
 	var startTime, closeTime int64
 	err := s.Scan(&we.Domain, &we.WorkflowID, &we.RunID, &we.WorkflowName, &we.WorkflowVersion,

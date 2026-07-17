@@ -45,7 +45,7 @@ func (m *mockServicePlugin) GetMetrics(ctx context.Context) (*plugin.ServiceMetr
 func newTestRegistry(p *mockServicePlugin) *plugin.Registry {
 	reg := plugin.NewRegistry()
 	captured := p
-	reg.Register(p.id, func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	reg.Register(p.id, func() plugin.ServicePlugin {
 		return captured
 	})
 	_, err := reg.Init(p.id, plugin.PluginConfig{})

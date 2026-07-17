@@ -33,11 +33,8 @@ type ServerConfig struct {
 }
 
 type ServiceConfig struct {
-	Enabled         bool   `yaml:"enabled"`
-	DataDir         string `yaml:"data_dir"`
-	Runtime         string `yaml:"runtime"`
-	WarmContainers  int    `yaml:"warm_containers"`
-	EnforcePolicies bool   `yaml:"enforce_policies"`
+	Enabled bool   `yaml:"enabled"`
+	DataDir string `yaml:"data_dir"`
 }
 
 type AuthConfig struct {
@@ -111,21 +108,10 @@ var serviceTiers = map[string][]string{
 	},
 }
 
-// knownTierTokens returns the set of recognized tier shortcut names.
-func knownTierTokens() map[string]struct{} {
-	out := make(map[string]struct{}, len(serviceTiers)+1)
-	for k := range serviceTiers {
-		out[k] = struct{}{}
-	}
-	out["all"] = struct{}{}
-	return out
-}
-
 func expandTiers(value string) map[string]bool {
 	if value == "all" {
 		return nil
 	}
-	tiers := knownTierTokens()
 	allowed := make(map[string]bool)
 	for _, token := range strings.Split(value, ",") {
 		token = strings.TrimSpace(token)
@@ -141,7 +127,7 @@ func expandTiers(value string) map[string]bool {
 		// Token was not a tier shortcut — treat it as an explicit service
 		// name. If it looks like it was *meant* to be a tier ("tierXXX"),
 		// warn the operator so a typo surfaces in logs.
-		if _, isTier := tiers[token]; !isTier && strings.HasPrefix(token, "tier") {
+		if token != "all" && strings.HasPrefix(token, "tier") {
 			slog.Warn("DEVCLOUD_SERVICES: unknown tier shortcut; treating as literal service name",
 				"token", token)
 		}

@@ -250,9 +250,7 @@ func (s *Store) DeleteCluster(name string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanCluster(sc scanner) (*Cluster, error) {
+func scanCluster(sc sqlite.Scanner) (*Cluster, error) {
 	var c Cluster
 	err := sc.Scan(&c.Name, &c.ARN, &c.Status, &c.NodeType, &c.NumShards, &c.NumReplicas,
 		&c.EngineVersion, &c.SubnetGroup, &c.ACLName, &c.Endpoint, &c.Port, &c.CreatedAt)
@@ -324,7 +322,7 @@ func (s *Store) DeleteParameterGroup(name string) error {
 	return nil
 }
 
-func scanPG(sc scanner) (*ParameterGroup, error) {
+func scanPG(sc sqlite.Scanner) (*ParameterGroup, error) {
 	var pg ParameterGroup
 	err := sc.Scan(&pg.Name, &pg.ARN, &pg.Family, &pg.Description)
 	if err != nil {
@@ -403,7 +401,7 @@ func (s *Store) DeleteSubnetGroup(name string) error {
 	return nil
 }
 
-func scanSG(sc scanner) (*SubnetGroup, error) {
+func scanSG(sc sqlite.Scanner) (*SubnetGroup, error) {
 	var sg SubnetGroup
 	err := sc.Scan(&sg.Name, &sg.ARN, &sg.Description, &sg.VPCID, &sg.Subnets)
 	if err != nil {
@@ -474,7 +472,7 @@ func (s *Store) DeleteACL(name string) error {
 	return nil
 }
 
-func scanACL(sc scanner) (*ACL, error) {
+func scanACL(sc sqlite.Scanner) (*ACL, error) {
 	var a ACL
 	err := sc.Scan(&a.Name, &a.ARN, &a.Status, &a.UserNames, &a.MinEngine)
 	if err != nil {
@@ -549,7 +547,7 @@ func (s *Store) DeleteUser(name string) error {
 	return nil
 }
 
-func scanUser(sc scanner) (*User, error) {
+func scanUser(sc sqlite.Scanner) (*User, error) {
 	var u User
 	err := sc.Scan(&u.Name, &u.ARN, &u.Status, &u.AccessString, &u.Auth)
 	if err != nil {
@@ -614,7 +612,7 @@ func (s *Store) DeleteSnapshot(name string) error {
 	return nil
 }
 
-func scanSnapshot(sc scanner) (*Snapshot, error) {
+func scanSnapshot(sc sqlite.Scanner) (*Snapshot, error) {
 	var snap Snapshot
 	err := sc.Scan(&snap.Name, &snap.ARN, &snap.ClusterName, &snap.Status, &snap.Source, &snap.CreatedAt)
 	if err != nil {

@@ -214,9 +214,7 @@ func (s *Store) DeleteSnapshot(appName, snapName string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanApplication(s scanner) (*Application, error) {
+func scanApplication(s sqlite.Scanner) (*Application, error) {
 	var app Application
 	var createdAt, updatedAt int64
 	err := s.Scan(&app.Name, &app.ARN, &app.Status, &app.Runtime, &app.ServiceRole,
@@ -232,7 +230,7 @@ func scanApplication(s scanner) (*Application, error) {
 	return &app, nil
 }
 
-func scanSnapshot(s scanner) (*ApplicationSnapshot, error) {
+func scanSnapshot(s sqlite.Scanner) (*ApplicationSnapshot, error) {
 	var snap ApplicationSnapshot
 	var createdAt int64
 	err := s.Scan(&snap.Name, &snap.AppName, &snap.Status, &createdAt)

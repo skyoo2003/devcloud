@@ -960,11 +960,7 @@ func (s *Store) DeleteRoleAlias(name string) (*RoleAlias, error) {
 
 // --- scan helpers ---
 
-type scanner interface {
-	Scan(dest ...any) error
-}
-
-func scanThing(s scanner) (*Thing, error) {
+func scanThing(s sqlite.Scanner) (*Thing, error) {
 	var t Thing
 	err := s.Scan(&t.Name, &t.ARN, &t.TypeName, &t.Attributes, &t.Version, &t.CreatedAt)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -973,7 +969,7 @@ func scanThing(s scanner) (*Thing, error) {
 	return &t, err
 }
 
-func scanThingType(s scanner) (*ThingType, error) {
+func scanThingType(s sqlite.Scanner) (*ThingType, error) {
 	var tt ThingType
 	var deprecated int
 	err := s.Scan(&tt.Name, &tt.ARN, &tt.Description, &tt.SearchableAttrs, &deprecated, &tt.CreatedAt)
@@ -984,7 +980,7 @@ func scanThingType(s scanner) (*ThingType, error) {
 	return &tt, err
 }
 
-func scanThingGroup(s scanner) (*ThingGroup, error) {
+func scanThingGroup(s sqlite.Scanner) (*ThingGroup, error) {
 	var tg ThingGroup
 	err := s.Scan(&tg.Name, &tg.ARN, &tg.Parent, &tg.Description, &tg.Attributes, &tg.Version, &tg.CreatedAt)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -993,7 +989,7 @@ func scanThingGroup(s scanner) (*ThingGroup, error) {
 	return &tg, err
 }
 
-func scanPolicy(s scanner) (*Policy, error) {
+func scanPolicy(s sqlite.Scanner) (*Policy, error) {
 	var p Policy
 	err := s.Scan(&p.Name, &p.ARN, &p.Document, &p.Version, &p.CreatedAt)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -1002,7 +998,7 @@ func scanPolicy(s scanner) (*Policy, error) {
 	return &p, err
 }
 
-func scanPolicyVersion(s scanner) (*PolicyVersion, error) {
+func scanPolicyVersion(s sqlite.Scanner) (*PolicyVersion, error) {
 	var pv PolicyVersion
 	var isDefault int
 	err := s.Scan(&pv.PolicyName, &pv.VersionID, &pv.Document, &isDefault, &pv.CreatedAt)
@@ -1013,7 +1009,7 @@ func scanPolicyVersion(s scanner) (*PolicyVersion, error) {
 	return &pv, err
 }
 
-func scanCertificate(s scanner) (*Certificate, error) {
+func scanCertificate(s sqlite.Scanner) (*Certificate, error) {
 	var c Certificate
 	err := s.Scan(&c.ID, &c.ARN, &c.Status, &c.PEM, &c.CAPEM, &c.CreatedAt)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -1022,7 +1018,7 @@ func scanCertificate(s scanner) (*Certificate, error) {
 	return &c, err
 }
 
-func scanTopicRule(s scanner) (*TopicRule, error) {
+func scanTopicRule(s sqlite.Scanner) (*TopicRule, error) {
 	var tr TopicRule
 	var enabled int
 	err := s.Scan(&tr.Name, &tr.ARN, &tr.SQLQuery, &tr.Actions, &enabled, &tr.CreatedAt)
@@ -1033,7 +1029,7 @@ func scanTopicRule(s scanner) (*TopicRule, error) {
 	return &tr, err
 }
 
-func scanJob(s scanner) (*Job, error) {
+func scanJob(s sqlite.Scanner) (*Job, error) {
 	var j Job
 	err := s.Scan(&j.ID, &j.ARN, &j.Status, &j.Targets, &j.Document, &j.Description, &j.CreatedAt)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -1042,7 +1038,7 @@ func scanJob(s scanner) (*Job, error) {
 	return &j, err
 }
 
-func scanRoleAlias(s scanner) (*RoleAlias, error) {
+func scanRoleAlias(s sqlite.Scanner) (*RoleAlias, error) {
 	var ra RoleAlias
 	err := s.Scan(&ra.Name, &ra.ARN, &ra.RoleARN, &ra.CredentialDuration, &ra.CreatedAt)
 	if errors.Is(err, sql.ErrNoRows) {

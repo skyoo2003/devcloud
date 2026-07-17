@@ -965,3 +965,9 @@ func extractPathParam(path, key string) string {
 func isUniqueErr(err error) bool {
 	return err != nil && strings.Contains(err.Error(), "UNIQUE constraint failed")
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("mwaa", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

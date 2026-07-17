@@ -790,3 +790,9 @@ func (p *Provider) listTags(req *http.Request) (*plugin.Response, error) {
 	}
 	return jsonResp(http.StatusOK, map[string]any{"Tags": items})
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("acmpca", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

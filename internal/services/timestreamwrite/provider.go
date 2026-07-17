@@ -513,3 +513,9 @@ func tagsFromList(tags []any) map[string]string {
 	}
 	return m
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("timestreamwrite", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

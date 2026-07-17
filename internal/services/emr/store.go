@@ -367,9 +367,7 @@ func (s *Store) DeleteStudio(id string) error {
 
 // ---- scanners ----
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanCluster(s scanner) (*Cluster, error) {
+func scanCluster(s sqlite.Scanner) (*Cluster, error) {
 	var c Cluster
 	var createdAt int64
 	var autoTerminate int
@@ -386,7 +384,7 @@ func scanCluster(s scanner) (*Cluster, error) {
 	return &c, nil
 }
 
-func scanStep(s scanner) (*Step, error) {
+func scanStep(s sqlite.Scanner) (*Step, error) {
 	var st Step
 	var createdAt int64
 	err := s.Scan(&st.ID, &st.ClusterID, &st.Name, &st.Status, &st.ActionOnFailure, &st.Config, &createdAt)
@@ -400,7 +398,7 @@ func scanStep(s scanner) (*Step, error) {
 	return &st, nil
 }
 
-func scanStudio(s scanner) (*Studio, error) {
+func scanStudio(s sqlite.Scanner) (*Studio, error) {
 	var st Studio
 	var createdAt int64
 	err := s.Scan(&st.ID, &st.ARN, &st.Name, &st.Description, &st.AuthMode, &st.VpcID, &st.URL, &createdAt)

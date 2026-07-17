@@ -1784,3 +1784,9 @@ func (p *Provider) handleSwitchoverGlobalCluster(form url.Values) (*plugin.Respo
 	resp.Result.GlobalClusterIdentifier = id
 	return dbXMLResponse(http.StatusOK, resp)
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("neptune", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

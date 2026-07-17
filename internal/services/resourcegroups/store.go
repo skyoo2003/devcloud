@@ -152,9 +152,7 @@ func (s *Store) UpdateGroupConfig(name, config string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanGroup(sc scanner) (*Group, error) {
+func scanGroup(sc sqlite.Scanner) (*Group, error) {
 	var g Group
 	var createdAt int64
 	err := sc.Scan(&g.Name, &g.ARN, &g.Description, &g.ResourceQuery, &g.Config, &createdAt)

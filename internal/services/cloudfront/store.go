@@ -257,7 +257,7 @@ func (s *CloudFrontStore) DeleteDistribution(id string) error {
 	return nil
 }
 
-func scanDistribution(sc scanner) (*Distribution, error) {
+func scanDistribution(sc sqlite.Scanner) (*Distribution, error) {
 	var d Distribution
 	var enabled int
 	var createdAt, updatedAt int64
@@ -341,7 +341,7 @@ func (s *CloudFrontStore) DeleteCachePolicy(id string) error {
 	return nil
 }
 
-func scanCachePolicy(sc scanner) (*CachePolicy, error) {
+func scanCachePolicy(sc sqlite.Scanner) (*CachePolicy, error) {
 	var cp CachePolicy
 	var createdAt int64
 	err := sc.Scan(&cp.ID, &cp.ETag, &cp.Name, &cp.Comment, &cp.Config, &createdAt)
@@ -422,7 +422,7 @@ func (s *CloudFrontStore) DeleteOriginRequestPolicy(id string) error {
 	return nil
 }
 
-func scanOriginRequestPolicy(sc scanner) (*OriginRequestPolicy, error) {
+func scanOriginRequestPolicy(sc sqlite.Scanner) (*OriginRequestPolicy, error) {
 	var p OriginRequestPolicy
 	var createdAt int64
 	err := sc.Scan(&p.ID, &p.ETag, &p.Name, &p.Comment, &p.Config, &createdAt)
@@ -503,7 +503,7 @@ func (s *CloudFrontStore) DeleteResponseHeadersPolicy(id string) error {
 	return nil
 }
 
-func scanResponseHeadersPolicy(sc scanner) (*ResponseHeadersPolicy, error) {
+func scanResponseHeadersPolicy(sc sqlite.Scanner) (*ResponseHeadersPolicy, error) {
 	var p ResponseHeadersPolicy
 	var createdAt int64
 	err := sc.Scan(&p.ID, &p.ETag, &p.Name, &p.Comment, &p.Config, &createdAt)
@@ -585,7 +585,7 @@ func (s *CloudFrontStore) DeleteOriginAccessControl(id string) error {
 	return nil
 }
 
-func scanOriginAccessControl(sc scanner) (*OriginAccessControl, error) {
+func scanOriginAccessControl(sc sqlite.Scanner) (*OriginAccessControl, error) {
 	var oac OriginAccessControl
 	var createdAt int64
 	err := sc.Scan(&oac.ID, &oac.ETag, &oac.Name, &oac.Description, &oac.SigningProtocol, &oac.SigningBehavior, &oac.OriginType, &createdAt)
@@ -670,7 +670,7 @@ func (s *CloudFrontStore) DeleteFunction(name string) error {
 	return nil
 }
 
-func scanFunction(sc scanner) (*Function, error) {
+func scanFunction(sc sqlite.Scanner) (*Function, error) {
 	var fn Function
 	var createdAt, updatedAt int64
 	err := sc.Scan(&fn.Name, &fn.ETag, &fn.ARN, &fn.Status, &fn.Stage, &fn.Runtime, &fn.Code, &fn.Comment, &createdAt, &updatedAt)
@@ -724,7 +724,7 @@ func (s *CloudFrontStore) ListInvalidations(distributionID string) ([]Invalidati
 	return out, rows.Err()
 }
 
-func scanInvalidation(sc scanner) (*Invalidation, error) {
+func scanInvalidation(sc sqlite.Scanner) (*Invalidation, error) {
 	var inv Invalidation
 	var createdAt int64
 	err := sc.Scan(&inv.ID, &inv.DistributionID, &inv.Status, &inv.Paths, &createdAt)
@@ -784,10 +784,6 @@ func (s *CloudFrontStore) ListTags(arn string) (map[string]string, error) {
 }
 
 // --- helpers ---
-
-type scanner interface {
-	Scan(dest ...any) error
-}
 
 func boolToInt(b bool) int {
 	if b {

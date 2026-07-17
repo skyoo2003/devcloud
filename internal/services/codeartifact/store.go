@@ -414,9 +414,7 @@ func (s *Store) DeletePackageGroup(arn string) error {
 
 // --- Scanners ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanDomain(sc scanner) (*Domain, error) {
+func scanDomain(sc sqlite.Scanner) (*Domain, error) {
 	var d Domain
 	var createdAt int64
 	err := sc.Scan(&d.Name, &d.ARN, &d.Owner, &d.Status, &d.EncryptionKey, &d.RepoCount, &createdAt)
@@ -430,7 +428,7 @@ func scanDomain(sc scanner) (*Domain, error) {
 	return &d, nil
 }
 
-func scanRepository(sc scanner) (*Repository, error) {
+func scanRepository(sc sqlite.Scanner) (*Repository, error) {
 	var r Repository
 	var createdAt int64
 	err := sc.Scan(&r.Name, &r.DomainName, &r.ARN, &r.Description, &r.Upstreams, &r.ExternalConns, &createdAt)
@@ -456,7 +454,7 @@ func scanRepositories(rows *sql.Rows) ([]Repository, error) {
 	return repos, rows.Err()
 }
 
-func scanPackage(sc scanner) (*Package, error) {
+func scanPackage(sc sqlite.Scanner) (*Package, error) {
 	var p Package
 	err := sc.Scan(&p.Name, &p.Namespace, &p.Format, &p.DomainName, &p.RepoName, &p.OriginConfig)
 	if err != nil {
@@ -468,7 +466,7 @@ func scanPackage(sc scanner) (*Package, error) {
 	return &p, nil
 }
 
-func scanPackageGroup(sc scanner) (*PackageGroup, error) {
+func scanPackageGroup(sc sqlite.Scanner) (*PackageGroup, error) {
 	var pg PackageGroup
 	var createdAt int64
 	err := sc.Scan(&pg.ARN, &pg.Pattern, &pg.DomainName, &pg.Description, &pg.OriginConfig, &createdAt)

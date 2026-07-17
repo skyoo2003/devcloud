@@ -1041,3 +1041,9 @@ func tagsMapToList(tags map[string]string) []any {
 	}
 	return list
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("iotwireless", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

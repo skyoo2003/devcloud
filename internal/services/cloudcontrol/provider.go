@@ -420,7 +420,7 @@ func progressEvent(req *CCRequest) map[string]any {
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("cloudcontrol", func(cfg plugin.PluginConfig) plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("cloudcontrol", func() plugin.ServicePlugin {
 		return &CloudControlProvider{}
 	})
 }

@@ -205,11 +205,7 @@ func (s *Store) DeleteApp(id string) error {
 	return nil
 }
 
-type scanner interface {
-	Scan(dest ...any) error
-}
-
-func scanApp(row scanner) (*App, error) {
+func scanApp(row sqlite.Scanner) (*App, error) {
 	var a App
 	var ts int64
 	err := row.Scan(&a.ID, &a.ARN, &a.Name, &ts)
@@ -292,7 +288,7 @@ func (s *Store) DeleteCampaign(appID, id string) error {
 	return nil
 }
 
-func scanCampaign(row scanner) (*Campaign, error) {
+func scanCampaign(row sqlite.Scanner) (*Campaign, error) {
 	var c Campaign
 	var ts int64
 	err := row.Scan(&c.ID, &c.AppID, &c.ARN, &c.Name, &c.State, &c.Description,
@@ -374,7 +370,7 @@ func (s *Store) DeleteSegment(appID, id string) error {
 	return nil
 }
 
-func scanSegment(row scanner) (*Segment, error) {
+func scanSegment(row sqlite.Scanner) (*Segment, error) {
 	var seg Segment
 	var ts int64
 	err := row.Scan(&seg.ID, &seg.AppID, &seg.ARN, &seg.Name, &seg.Type, &seg.Dimensions, &seg.Version, &ts)
@@ -468,7 +464,7 @@ func (s *Store) DeleteJourney(appID, id string) error {
 	return nil
 }
 
-func scanJourney(row scanner) (*Journey, error) {
+func scanJourney(row sqlite.Scanner) (*Journey, error) {
 	var j Journey
 	var createdTs, updatedTs int64
 	err := row.Scan(&j.ID, &j.AppID, &j.ARN, &j.Name, &j.State, &j.Activities, &j.Schedule, &createdTs, &updatedTs)
@@ -553,7 +549,7 @@ func (s *Store) DeleteTemplate(name, tType string) error {
 	return nil
 }
 
-func scanTemplate(row scanner) (*Template, error) {
+func scanTemplate(row sqlite.Scanner) (*Template, error) {
 	var t Template
 	var createdTs, updatedTs int64
 	err := row.Scan(&t.Name, &t.Type, &t.Subject, &t.HTMLBody, &t.TextBody, &t.Body, &t.Version, &createdTs, &updatedTs)

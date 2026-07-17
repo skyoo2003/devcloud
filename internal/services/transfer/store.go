@@ -311,9 +311,7 @@ func (s *Store) DeleteAccess(serverID, externalID string) error {
 	return nil
 }
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanServer(s scanner) (*Server, error) {
+func scanServer(s sqlite.Scanner) (*Server, error) {
 	var srv Server
 	var createdAt int64
 	err := s.Scan(&srv.ID, &srv.ARN, &srv.State, &srv.Protocols, &srv.EndpointType,
@@ -328,7 +326,7 @@ func scanServer(s scanner) (*Server, error) {
 	return &srv, nil
 }
 
-func scanHostKey(s scanner) (*HostKey, error) {
+func scanHostKey(s sqlite.Scanner) (*HostKey, error) {
 	var hk HostKey
 	var createdAt int64
 	err := s.Scan(&hk.ID, &hk.ARN, &hk.ServerID, &hk.Description, &hk.Fingerprint, &hk.Type, &createdAt)
@@ -342,7 +340,7 @@ func scanHostKey(s scanner) (*HostKey, error) {
 	return &hk, nil
 }
 
-func scanAccess(s scanner) (*Access, error) {
+func scanAccess(s sqlite.Scanner) (*Access, error) {
 	var a Access
 	var createdAt int64
 	err := s.Scan(&a.ServerID, &a.ExternalID, &a.Role, &a.HomeDirectory, &a.Policy, &createdAt)

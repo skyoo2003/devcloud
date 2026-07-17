@@ -489,9 +489,7 @@ func (s *Store) DeleteSourceCredential(arn string) error {
 
 // ---- scanners ----
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanProject(s scanner) (*Project, error) {
+func scanProject(s sqlite.Scanner) (*Project, error) {
 	var p Project
 	var createdAt, updatedAt int64
 	err := s.Scan(&p.Name, &p.ARN, &p.Description, &p.Source, &p.Artifacts, &p.Environment, &p.ServiceRole, &p.Timeout, &createdAt, &updatedAt)
@@ -506,7 +504,7 @@ func scanProject(s scanner) (*Project, error) {
 	return &p, nil
 }
 
-func scanBuild(s scanner) (*Build, error) {
+func scanBuild(s sqlite.Scanner) (*Build, error) {
 	var b Build
 	var startTime int64
 	err := s.Scan(&b.ID, &b.ARN, &b.ProjectName, &b.Status, &b.SourceVersion, &startTime, &b.EndTime, &b.Phases, &b.Logs)
@@ -520,7 +518,7 @@ func scanBuild(s scanner) (*Build, error) {
 	return &b, nil
 }
 
-func scanReportGroup(s scanner) (*ReportGroup, error) {
+func scanReportGroup(s sqlite.Scanner) (*ReportGroup, error) {
 	var g ReportGroup
 	var createdAt int64
 	err := s.Scan(&g.ARN, &g.Name, &g.Type, &g.ExportConfig, &createdAt)
@@ -534,7 +532,7 @@ func scanReportGroup(s scanner) (*ReportGroup, error) {
 	return &g, nil
 }
 
-func scanFleet(s scanner) (*Fleet, error) {
+func scanFleet(s sqlite.Scanner) (*Fleet, error) {
 	var f Fleet
 	var createdAt int64
 	err := s.Scan(&f.ARN, &f.Name, &f.BaseCapacity, &f.ComputeType, &f.EnvironmentType, &f.Status, &createdAt)

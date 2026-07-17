@@ -604,3 +604,9 @@ func toStringSlice(v any) []string {
 	}
 	return out
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("resourcegroups", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}

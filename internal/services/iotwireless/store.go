@@ -688,11 +688,7 @@ func (s *Store) DeleteNetworkAnalyzerConfig(name string) (*NetworkAnalyzerConfig
 
 // --- Scanner helpers ---
 
-type scanner interface {
-	Scan(dest ...any) error
-}
-
-func scanDestination(s scanner) (*Destination, error) {
+func scanDestination(s sqlite.Scanner) (*Destination, error) {
 	d := &Destination{}
 	err := s.Scan(&d.Name, &d.ARN, &d.Expression, &d.ExpressionType, &d.RoleARN, &d.Description)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -701,7 +697,7 @@ func scanDestination(s scanner) (*Destination, error) {
 	return d, err
 }
 
-func scanDeviceProfile(s scanner) (*DeviceProfile, error) {
+func scanDeviceProfile(s sqlite.Scanner) (*DeviceProfile, error) {
 	dp := &DeviceProfile{}
 	err := s.Scan(&dp.ID, &dp.ARN, &dp.Name, &dp.Config)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -710,7 +706,7 @@ func scanDeviceProfile(s scanner) (*DeviceProfile, error) {
 	return dp, err
 }
 
-func scanServiceProfile(s scanner) (*ServiceProfile, error) {
+func scanServiceProfile(s sqlite.Scanner) (*ServiceProfile, error) {
 	sp := &ServiceProfile{}
 	err := s.Scan(&sp.ID, &sp.ARN, &sp.Name, &sp.Config)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -719,7 +715,7 @@ func scanServiceProfile(s scanner) (*ServiceProfile, error) {
 	return sp, err
 }
 
-func scanWirelessDevice(s scanner) (*WirelessDevice, error) {
+func scanWirelessDevice(s sqlite.Scanner) (*WirelessDevice, error) {
 	wd := &WirelessDevice{}
 	err := s.Scan(&wd.ID, &wd.ARN, &wd.Name, &wd.Type, &wd.Destination, &wd.ThingARN, &wd.Description, &wd.Config)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -728,7 +724,7 @@ func scanWirelessDevice(s scanner) (*WirelessDevice, error) {
 	return wd, err
 }
 
-func scanWirelessGateway(s scanner) (*WirelessGateway, error) {
+func scanWirelessGateway(s sqlite.Scanner) (*WirelessGateway, error) {
 	wg := &WirelessGateway{}
 	err := s.Scan(&wg.ID, &wg.ARN, &wg.Name, &wg.Description, &wg.Config, &wg.ThingARN)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -737,7 +733,7 @@ func scanWirelessGateway(s scanner) (*WirelessGateway, error) {
 	return wg, err
 }
 
-func scanFuotaTask(s scanner) (*FuotaTask, error) {
+func scanFuotaTask(s sqlite.Scanner) (*FuotaTask, error) {
 	ft := &FuotaTask{}
 	err := s.Scan(&ft.ID, &ft.ARN, &ft.Name, &ft.Status, &ft.Config)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -746,7 +742,7 @@ func scanFuotaTask(s scanner) (*FuotaTask, error) {
 	return ft, err
 }
 
-func scanMulticastGroup(s scanner) (*MulticastGroup, error) {
+func scanMulticastGroup(s sqlite.Scanner) (*MulticastGroup, error) {
 	mg := &MulticastGroup{}
 	err := s.Scan(&mg.ID, &mg.ARN, &mg.Name, &mg.Status, &mg.Config)
 	if errors.Is(err, sql.ErrNoRows) {
@@ -755,7 +751,7 @@ func scanMulticastGroup(s scanner) (*MulticastGroup, error) {
 	return mg, err
 }
 
-func scanNetworkAnalyzerConfig(s scanner) (*NetworkAnalyzerConfig, error) {
+func scanNetworkAnalyzerConfig(s sqlite.Scanner) (*NetworkAnalyzerConfig, error) {
 	nac := &NetworkAnalyzerConfig{}
 	err := s.Scan(&nac.Name, &nac.ARN, &nac.Config)
 	if errors.Is(err, sql.ErrNoRows) {

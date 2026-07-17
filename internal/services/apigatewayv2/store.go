@@ -1136,9 +1136,7 @@ func (s *Store) DeleteRouteResponse(apiID, routeID, responseID string) (*RouteRe
 
 // --- Scan helpers ---
 
-type scanner interface{ Scan(dest ...any) error }
-
-func scanAPI(sc scanner) (*API, error) {
+func scanAPI(sc sqlite.Scanner) (*API, error) {
 	var a API
 	var createdAt int64
 	err := sc.Scan(&a.ID, &a.ARN, &a.Name, &a.ProtocolType, &a.Description, &a.RouteSelection, &a.APIEndpoint, &createdAt)
@@ -1152,7 +1150,7 @@ func scanAPI(sc scanner) (*API, error) {
 	return &a, nil
 }
 
-func scanRoute(sc scanner) (*Route, error) {
+func scanRoute(sc sqlite.Scanner) (*Route, error) {
 	var r Route
 	err := sc.Scan(&r.ID, &r.APIID, &r.RouteKey, &r.Target, &r.AuthorizationType, &r.AuthorizerID)
 	if err != nil {
@@ -1164,7 +1162,7 @@ func scanRoute(sc scanner) (*Route, error) {
 	return &r, nil
 }
 
-func scanIntegration(sc scanner) (*Integration, error) {
+func scanIntegration(sc sqlite.Scanner) (*Integration, error) {
 	var i Integration
 	err := sc.Scan(&i.ID, &i.APIID, &i.Type, &i.IntegrationURI, &i.IntegrationMethod, &i.PayloadFormat)
 	if err != nil {
@@ -1176,7 +1174,7 @@ func scanIntegration(sc scanner) (*Integration, error) {
 	return &i, nil
 }
 
-func scanIntegrationResponse(sc scanner) (*IntegrationResponse, error) {
+func scanIntegrationResponse(sc sqlite.Scanner) (*IntegrationResponse, error) {
 	var ir IntegrationResponse
 	err := sc.Scan(&ir.ID, &ir.APIID, &ir.IntegrationID, &ir.ResponseKey, &ir.TemplateSelection)
 	if err != nil {
@@ -1188,7 +1186,7 @@ func scanIntegrationResponse(sc scanner) (*IntegrationResponse, error) {
 	return &ir, nil
 }
 
-func scanAuthorizer(sc scanner) (*Authorizer, error) {
+func scanAuthorizer(sc sqlite.Scanner) (*Authorizer, error) {
 	var a Authorizer
 	err := sc.Scan(&a.ID, &a.APIID, &a.Name, &a.Type, &a.IdentitySource, &a.JWTConfig)
 	if err != nil {
@@ -1200,7 +1198,7 @@ func scanAuthorizer(sc scanner) (*Authorizer, error) {
 	return &a, nil
 }
 
-func scanDeployment(sc scanner) (*Deployment, error) {
+func scanDeployment(sc sqlite.Scanner) (*Deployment, error) {
 	var d Deployment
 	var createdAt int64
 	var autoDeployed int
@@ -1216,7 +1214,7 @@ func scanDeployment(sc scanner) (*Deployment, error) {
 	return &d, nil
 }
 
-func scanStage(sc scanner) (*Stage, error) {
+func scanStage(sc sqlite.Scanner) (*Stage, error) {
 	var st Stage
 	var createdAt int64
 	var autoDeploy int
@@ -1232,7 +1230,7 @@ func scanStage(sc scanner) (*Stage, error) {
 	return &st, nil
 }
 
-func scanModel(sc scanner) (*Model, error) {
+func scanModel(sc sqlite.Scanner) (*Model, error) {
 	var m Model
 	err := sc.Scan(&m.ID, &m.APIID, &m.Name, &m.ContentType, &m.SchemaDef)
 	if err != nil {
@@ -1244,7 +1242,7 @@ func scanModel(sc scanner) (*Model, error) {
 	return &m, nil
 }
 
-func scanDomainName(sc scanner) (*DomainName, error) {
+func scanDomainName(sc sqlite.Scanner) (*DomainName, error) {
 	var d DomainName
 	var createdAt int64
 	err := sc.Scan(&d.Name, &d.Config, &d.MutualTLS, &createdAt)
@@ -1258,7 +1256,7 @@ func scanDomainName(sc scanner) (*DomainName, error) {
 	return &d, nil
 }
 
-func scanAPIMapping(sc scanner) (*APIMapping, error) {
+func scanAPIMapping(sc sqlite.Scanner) (*APIMapping, error) {
 	var m APIMapping
 	err := sc.Scan(&m.ID, &m.APIID, &m.DomainName, &m.Stage, &m.APIMappingKey)
 	if err != nil {
@@ -1270,7 +1268,7 @@ func scanAPIMapping(sc scanner) (*APIMapping, error) {
 	return &m, nil
 }
 
-func scanVpcLink(sc scanner) (*VpcLink, error) {
+func scanVpcLink(sc sqlite.Scanner) (*VpcLink, error) {
 	var v VpcLink
 	var createdAt int64
 	err := sc.Scan(&v.ID, &v.Name, &v.SecurityGroups, &v.SubnetIDs, &v.Status, &createdAt)
@@ -1284,7 +1282,7 @@ func scanVpcLink(sc scanner) (*VpcLink, error) {
 	return &v, nil
 }
 
-func scanRouteResponse(sc scanner) (*RouteResponse, error) {
+func scanRouteResponse(sc sqlite.Scanner) (*RouteResponse, error) {
 	var rr RouteResponse
 	err := sc.Scan(&rr.ID, &rr.APIID, &rr.RouteID, &rr.RouteResponseKey, &rr.ModelSelectionExpr)
 	if err != nil {

@@ -561,3 +561,9 @@ func json10Err(code, message string, status int) *plugin.Response {
 	b, _ := json.Marshal(map[string]string{"__type": code, "message": message})
 	return &plugin.Response{StatusCode: status, Body: b, ContentType: "application/x-amz-json-1.0"}
 }
+
+func init() {
+	plugin.DefaultRegistry.Register("dynamodbstreams", func() plugin.ServicePlugin {
+		return &Provider{}
+	})
+}
