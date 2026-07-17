@@ -50,17 +50,6 @@ func QueryXMLError(code, message string, status int) *plugin.Response {
 	return &plugin.Response{StatusCode: status, Body: b, ContentType: "text/xml"}
 }
 
-type restXMLErrorResponse struct {
-	XMLName xml.Name `xml:"Error"`
-	Code    string   `xml:"Code"`
-	Message string   `xml:"Message"`
-}
-
-func RESTXMLError(code, message string, status int) *plugin.Response {
-	b, _ := xml.Marshal(restXMLErrorResponse{Code: code, Message: message})
-	return &plugin.Response{StatusCode: status, Body: b, ContentType: "application/xml"}
-}
-
 // ToCamelCase converts a PascalCase string to camelCase.
 // E.g. "ClusterArn" -> "clusterArn", "ARN" -> "arn", "HTTPStatusCode" -> "httpStatusCode".
 func ToCamelCase(s string) string {
@@ -113,12 +102,6 @@ func CamelCaseKeys(v any) any {
 	}
 }
 
-// JSONResponseCamel is like JSONResponse but converts all PascalCase keys to camelCase.
-// Use for REST-JSON services that use camelCase wire format (kafka, mq, mwaa, etc.).
-func JSONResponseCamel(status int, v any) (*plugin.Response, error) {
-	return JSONResponse(status, CamelCaseKeys(v))
-}
-
 // ToPascalCase converts a camelCase string to PascalCase.
 func ToPascalCase(s string) string {
 	if s == "" {
@@ -156,17 +139,4 @@ func PascalCaseKeys(v any) map[string]any {
 		}
 	}
 	return result
-}
-
-// AWSError returns a protocol-appropriate error response.
-// protocol should be one of: "json-1.0", "json-1.1", "rest-json", "query", "rest-xml".
-func AWSError(protocol string, code, message string, status int) *plugin.Response {
-	switch protocol {
-	case "query":
-		return QueryXMLError(code, message, status)
-	case "rest-xml":
-		return RESTXMLError(code, message, status)
-	default:
-		return JSONError(code, message, status)
-	}
 }

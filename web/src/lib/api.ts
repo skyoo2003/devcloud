@@ -1,4 +1,4 @@
-import { ServiceInfo, Resource, Metrics, ServiceMetrics, RequestLog } from "./types";
+import { ServiceInfo, Resource, RequestLog } from "./types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4747";
 
@@ -22,14 +22,6 @@ export function getServices() {
 
 export function getServiceResources(serviceId: string) {
   return fetchAPI<Resource[]>(`/devcloud/api/services/${serviceId}/resources`);
-}
-
-export function getMetrics() {
-  return fetchAPI<Metrics>("/devcloud/api/metrics");
-}
-
-export function getServiceMetrics(serviceId: string) {
-  return fetchAPI<ServiceMetrics>(`/devcloud/api/metrics/${serviceId}`);
 }
 
 export function getLogs(limit?: number) {
