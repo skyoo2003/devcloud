@@ -245,11 +245,22 @@ func (s *DynamoStore) DeleteTable(name string) error {
 		return ErrTableNotFound
 	}
 
-	if _, err := s.db.DB().Exec(`DELETE FROM ddb_items WHERE table_name = ?`, name); err != nil {
+	// Delete items and metadata atomically so a mid-way failure can't leave
+	// orphaned rows.
+	tx, err := s.db.DB().Begin()
+	if err != nil {
+		return err
+	}
+	if _, err := tx.Exec(`DELETE FROM ddb_items WHERE table_name = ?`, name); err != nil {
+		_ = tx.Rollback()
 		return fmt.Errorf("delete table items: %w", err)
 	}
-	if _, err := s.db.DB().Exec(`DELETE FROM ddb_tables WHERE name = ?`, name); err != nil {
+	if _, err := tx.Exec(`DELETE FROM ddb_tables WHERE name = ?`, name); err != nil {
+		_ = tx.Rollback()
 		return fmt.Errorf("delete table metadata: %w", err)
+	}
+	if err := tx.Commit(); err != nil {
+		return fmt.Errorf("commit delete table: %w", err)
 	}
 
 	delete(s.tables, name)
@@ -414,6 +425,10 @@ func (s *DynamoStore) Scan(tableName string) ([]Item, error) {
 
 // QueryGSI returns items whose value for the index's HASH key attribute equals
 // pkValue. Secondary indexes are projected on the fly from the base table.
+//
+// ponytail: O(n) full-table scan filtered in memory — fine at emulator scale.
+// If a table ever holds enough items to matter, index the GSI hash attribute
+// with a generated column (json_extract) and query it directly.
 func (s *DynamoStore) QueryGSI(tableName, indexName, pkValue string) ([]Item, error) {
 	s.mu.RLock()
 	table, exists := s.tables[tableName]
@@ -424,7 +439,11 @@ func (s *DynamoStore) QueryGSI(tableName, indexName, pkValue string) ([]Item, er
 
 	hashAttr := indexHashKey(table, indexName)
 	if hashAttr == "" {
-		return nil, nil // unknown index — no matches
+		// Unknown index → empty result, not an error. This matches the prior
+		// behavior and how the provider surfaces it (an empty Query response).
+		// Returning an error would become an opaque 500; a real
+		// ValidationException belongs in the provider, not the store.
+		return nil, nil
 	}
 
 	all, err := s.queryItems(`SELECT data FROM ddb_items WHERE table_name = ?`, []any{tableName})
