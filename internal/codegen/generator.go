@@ -18,10 +18,7 @@ func (g *Generator) GenerateAll(model *SmithyModel, outputDir string, scaffoldDi
 
 	generators := map[string]func(string, *SmithyModel) (string, error){
 		"types.go":         g.GenerateTypes,
-		"interface.go":     g.GenerateInterface,
 		"base_provider.go": g.GenerateBaseProvider,
-		"serializer.go":    g.GenerateSerializer,
-		"deserializer.go":  g.GenerateDeserializer,
 		"router.go":        g.GenerateRouter,
 		"errors.go":        g.GenerateErrors,
 	}
