@@ -15,7 +15,7 @@ No. DevCloud is a local development tool. It is **not** designed or tested for p
 DevCloud positions itself as an **on-ramp** rather than a replacement. Key differentiators:
 
 - **Go-based single binary** — starts in under a second, no JVM or Python runtime.
-- **Smithy-driven codegen** — 96 AWS services scaffolded from official models, weekly auto-sync.
+- **Smithy-driven codegen** — 101 AWS services scaffolded from official models, weekly auto-sync.
 - **Multi-CSP vision** — AWS today, Azure and GCP planned; see [roadmap.md](roadmap.md).
 - **Apache 2.0 licensed** with explicit patent grant.
 
@@ -29,7 +29,7 @@ Developers should be able to iterate locally without cloud bills and deploy to t
 
 ### Which services are supported?
 
-96 AWS services are scaffolded and routed; coverage depth varies. See [services-matrix.md](services-matrix.md) for the canonical list and per-service operation counts. Core services (S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch, KMS, SecretsManager, EventBridge, CloudFormation) pass 100% of their boto3 compatibility tests.
+101 AWS services are scaffolded and routed; coverage depth varies. See [services-matrix.md](services-matrix.md) for the canonical list and per-service operation counts. Core services (S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch, KMS, SecretsManager, EventBridge, CloudFormation) pass 100% of their boto3 compatibility tests.
 
 ### Does DevCloud work on Windows?
 

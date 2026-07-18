@@ -62,7 +62,7 @@ DevCloud is a Go-based local cloud environment with AWS API compatibility. This 
 ## boto3 compatibility
 
 - Tests: `tests/compatibility/`
-- Pass rate: **671/699 (96%)**
+- Pass rate: **~96%** (run `make test-compat` for the current count)
 - Run: `make test-compat`
 
 Remaining 28 failures are concentrated in edge cases of newly-added services

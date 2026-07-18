@@ -8,7 +8,7 @@ This directory holds DevCloud's technical documentation. Use the map below to ju
 - **[Configuration](configuration.md)** — YAML options, env-var overrides, tier shortcuts
 - **[Architecture](architecture.md)** — system design, plugin model, codegen pipeline, multi-CSP vision
 - **[Roadmap](roadmap.md)** — phased plan toward multi-CSP support
-- **[Services Matrix](services-matrix.md)** — 96 services, coverage status, boto3 pass rate
+- **[Services Matrix](services-matrix.md)** — 101 services, coverage status, boto3 pass rate
 
 ## Per-service references
 

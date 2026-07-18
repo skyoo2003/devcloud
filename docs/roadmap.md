@@ -14,17 +14,19 @@ We pursue this vision through a **phased rollout** to manage scope, architectura
 
 ## Phases
 
-### Phase 1 — AWS Depth (Current, targeting v1.0)
+### Phase 1 — AWS Depth & Stabilization (Current, targeting v1.0)
 
-**Goal**: prove the core thesis on AWS before expanding surface area.
+**Goal**: mature the already-broad AWS surface into a stable, well-tested v1.0.
 
-- [x] Core AWS services: S3, SQS, DynamoDB, Lambda, IAM, STS
-- [x] Smithy-based codegen pipeline (run `make stats` for current counts)
-- [x] Cross-service integration (CFN, DDB Streams → Lambda, EventBridge, S3 → Lambda)
-- [x] boto3 compatibility suite (currently 671/699 passing)
-- [ ] Lift boto3 compatibility to ≥ 95%
-- [ ] Deepen coverage on existing 6 implemented services (fewer `NotImplementedError` returns)
-- [ ] v1.0 release with stable plugin API
+- [x] 100+ AWS services scaffolded from official Smithy models via in-tree codegen (run `make stats` for current counts)
+- [x] Deep hand-written coverage on core + integration + extended services (see [services-matrix.md](services-matrix.md) for the per-tier breakdown)
+- [x] Cross-service integration (CloudFormation, DynamoDB Streams → Lambda, SQS → Lambda, S3 → Lambda, EventBridge, SNS → SQS)
+- [x] boto3 compatibility suite (`make test-compat`); core services — S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation — pass 100%
+- [x] boto3 compatibility ≥ 95% overall (currently ~96%; run `make test-compat`)
+- [ ] Reduce `NotImplementedError` across scaffolded "Category Expansion" services (fewer stub operations)
+- [ ] Close remaining compatibility edge cases (S3Tables ARN path parsing, ServerlessRepo restJson1 `jsonName`, Textract/Support endpoints)
+- [ ] Finalize and document a stable `ServicePlugin` API (`internal/plugin/`)
+- [ ] v1.0 release
 
 ### Phase 2 — Architectural Preparation (v1.x)
 
@@ -72,7 +74,7 @@ We pursue this vision through a **phased rollout** to manage scope, architectura
 
 | Version | Focus |
 |---------|-------|
-| 0.x | AWS services, unstable API |
+| 0.x ← current | AWS services, unstable API |
 | 1.x | AWS depth, stable plugin API |
 | 2.x | Multi-CSP architecture, Azure pilot |
 | 3.x+ | Broad CSP coverage, community-owned providers |

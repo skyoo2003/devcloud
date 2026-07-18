@@ -24,7 +24,7 @@ Today DevCloud targets **AWS**. Our long-term goal is to support the full range 
 ## Features
 
 - **101 AWS services scaffolded** — 4,451 operations across all major categories (run `make stats` to verify; see [services-matrix.md](docs/services-matrix.md))
-- **96% boto3 compatibility** — 671/699 SDK tests pass; works with most boto3 apps
+- **~96% boto3 compatibility** — run `make test-compat` for the current pass rate; works with most boto3 apps
 - **Cross-service integration** — CFN provisioning, DDB Streams → Lambda, EventBridge targets, S3 → Lambda
 - **Smithy-driven codegen** — auto-generate Go interfaces, types, and serializers from Smithy models
 - **Weekly auto-sync** — GitHub Actions keeps generated code up to date with upstream AWS API changes
@@ -60,7 +60,7 @@ Start at the [docs index](docs/) for the full map. Quick links:
 - [Getting Started](docs/getting-started.md) — Installation, first use, boto3 / AWS CLI / Terraform examples
 - [Configuration](docs/configuration.md) — Config options, env-var overrides, tier shortcuts
 - [Architecture](docs/architecture.md) — System design, codegen pipeline, plugin model, multi-CSP vision
-- [Services Matrix](docs/services-matrix.md) — 96 services, coverage status, boto3 pass rate
+- [Services Matrix](docs/services-matrix.md) — 101 services, coverage status, boto3 pass rate
 - [Roadmap](docs/roadmap.md) — Phased plan toward multi-CSP support
 - [FAQ](docs/faq.md) / [Troubleshooting](docs/troubleshooting.md) — Common questions and errors
 - [Contributing](docs/contributing.md) — Development setup, adding new services

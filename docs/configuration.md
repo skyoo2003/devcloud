@@ -1,6 +1,6 @@
 # Configuration
 
-**Configuration is optional.** DevCloud ships with built-in defaults: running `devcloud` with no flags enables all 96 services on port 4747, storing data under `./data/<service>/`. The embedded defaults are compiled into the binary from [`internal/config/default.yaml`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/default.yaml).
+**Configuration is optional.** DevCloud ships with built-in defaults: running `devcloud` with no flags enables all 101 services on port 4747, storing data under `./data/<service>/`. The embedded defaults are compiled into the binary from [`internal/config/default.yaml`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/default.yaml).
 
 To override defaults, provide a YAML file. DevCloud looks for config in this order:
 
