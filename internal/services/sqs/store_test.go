@@ -289,13 +289,40 @@ func TestQueueStore_MessageMoveTaskRegistryBounded(t *testing.T) {
 	}))
 
 	// Starting many tasks for the same source retains only the most recent maxTasksPerSource.
-	for i := 0; i < maxTasksPerSource+5; i++ {
-		_, err := store.StartMessageMoveTask(dlqArn, "", 0, testAccount)
+	// Capture the handles in insertion order so we can assert which ones survive pruning.
+	const extra = 5
+	handles := make([]string, 0, maxTasksPerSource+extra)
+	for i := 0; i < maxTasksPerSource+extra; i++ {
+		h, err := store.StartMessageMoveTask(dlqArn, "", 0, testAccount)
 		require.NoError(t, err)
+		handles = append(handles, h)
 	}
 	assert.Len(t, store.moveTasks, maxTasksPerSource)
+
+	// The oldest `extra` tasks are pruned; the newest maxTasksPerSource are kept.
+	for _, h := range handles[:extra] {
+		assert.NotContains(t, store.moveTasks, h, "oldest tasks should be pruned")
+	}
+	for _, h := range handles[extra:] {
+		assert.Contains(t, store.moveTasks, h, "newest tasks should be retained")
+	}
+
+	// ListMessageMoveTasks returns the kept tasks newest-first (reverse insertion order),
+	// even though they share a StartedMillis — ordering relies on the monotonic seq.
+	got := store.ListMessageMoveTasks(dlqArn, maxTasksPerSource)
+	gotHandles := make([]string, len(got))
+	for i, tk := range got {
+		gotHandles[i] = tk.Handle
+	}
+	want := make([]string, maxTasksPerSource)
+	for i, h := range handles[extra:] {
+		want[len(want)-1-i] = h
+	}
+	assert.Equal(t, want, gotHandles)
+
 	// A non-positive MaxResults defaults to 1 (AWS: the most recent task).
 	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 0), 1)
+	assert.Equal(t, handles[len(handles)-1], store.ListMessageMoveTasks(dlqArn, 0)[0].Handle)
 	// A positive MaxResults is honored below the cap, and clamped to it above.
 	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 3), 3)
 	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 25), maxTasksPerSource)
