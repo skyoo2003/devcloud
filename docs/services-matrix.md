@@ -1,8 +1,8 @@
 # DevCloud Services Matrix
 
-**Total**: 101 services, 4,451 operations, 96% boto3 compatibility
+**Total**: 101 services, 4,460 operations, ~96% boto3 compatibility
 
-> To refresh these numbers, run `make stats` and update the line above.
+> To refresh these numbers, run `make stats` (services/operations) and `make test-compat` (compatibility), then update the line above.
 
 _Last updated with each release. For unreleased changes, see [CHANGELOG.md](../CHANGELOG.md)._
 
@@ -65,7 +65,7 @@ DevCloud is a Go-based local cloud environment with AWS API compatibility. This 
 - Pass rate: **~96%** (run `make test-compat` for the current count)
 - Run: `make test-compat`
 
-Remaining 28 failures are concentrated in edge cases of newly-added services
+Remaining failures are concentrated in edge cases of newly-added services
 (ARN path parsing in S3Tables, restJson1 jsonName in ServerlessRepo, specialized
 Textract/Support endpoints). Core services (S3, SQS, DynamoDB, Lambda, IAM, STS,
 SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation) all pass

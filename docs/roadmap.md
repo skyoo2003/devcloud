@@ -19,11 +19,11 @@ We pursue this vision through a **phased rollout** to manage scope, architectura
 **Goal**: mature the already-broad AWS surface into a stable, well-tested v1.0.
 
 - [x] 100+ AWS services scaffolded from official Smithy models via in-tree codegen (run `make stats` for current counts)
-- [x] Deep hand-written coverage on core + integration + extended services (see [services-matrix.md](services-matrix.md) for the per-tier breakdown)
+- [x] Deep hand-written coverage on core, integration, and major extended services (see [services-matrix.md](services-matrix.md) for per-tier depth)
 - [x] Cross-service integration (CloudFormation, DynamoDB Streams → Lambda, SQS → Lambda, S3 → Lambda, EventBridge, SNS → SQS)
 - [x] boto3 compatibility suite (`make test-compat`); core services — S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation — pass 100%
 - [x] boto3 compatibility ≥ 95% overall (run `make test-compat` for the current rate)
-- [ ] Reduce `NotImplementedError` across scaffolded "Category Expansion" services (fewer stub operations)
+- [ ] Reduce remaining `NotImplementedError` stubs (less-common operations and scaffolded "Category Expansion" services)
 - [ ] Close remaining boto3 compatibility edge cases in newly-added services
 - [ ] Finalize and document a stable `ServicePlugin` API (`internal/plugin/`)
 - [ ] v1.0 release
