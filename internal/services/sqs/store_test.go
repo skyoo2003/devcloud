@@ -232,9 +232,10 @@ func TestQueueStore_MessageMoveTaskLifecycle(t *testing.T) {
 	require.Len(t, back, 1)
 	assert.Equal(t, "redrive-me", back[0].Body)
 
-	// Cancel reports the moved count.
+	// Cancel is rejected: the synchronous redrive already COMPLETED, so there is no RUNNING
+	// task to cancel (matching AWS, which only cancels running tasks). It still reports the count.
 	moved, err := store.CancelMessageMoveTask(handle)
-	require.NoError(t, err)
+	assert.ErrorIs(t, err, ErrTaskNotCancellable)
 	assert.Equal(t, 1, moved)
 
 	// An unknown handle errors.
@@ -293,9 +294,11 @@ func TestQueueStore_MessageMoveTaskRegistryBounded(t *testing.T) {
 		require.NoError(t, err)
 	}
 	assert.Len(t, store.moveTasks, maxTasksPerSource)
-	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 0), maxTasksPerSource)
-	// A positive MaxResults is honored below the cap.
+	// A non-positive MaxResults defaults to 1 (AWS: the most recent task).
+	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 0), 1)
+	// A positive MaxResults is honored below the cap, and clamped to it above.
 	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 3), 3)
+	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 25), maxTasksPerSource)
 }
 
 func TestQueueStore_Tags(t *testing.T) {

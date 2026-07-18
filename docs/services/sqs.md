@@ -86,5 +86,8 @@ aws --endpoint-url http://localhost:4747 sqs receive-message \
 - Dead-letter redrive (message move tasks) runs synchronously: tasks complete immediately,
   so there is no `RUNNING` status and `MaxNumberOfMessagesPerSecond` is not throttled
 - `AddPermission`/`RemovePermission` are accepted but not enforced (no access-policy checks)
+- Queue-level `DelaySeconds` and `VisibilityTimeout` attributes are stored and echoed back by
+  `SetQueueAttributes`/`GetQueueAttributes` but not enforced: `SendMessage` ignores `DelaySeconds`
+  and `ReceiveMessage` honors only its per-request `VisibilityTimeout` (default 30s)
 - No message retention/expiry enforcement
 - No long polling (`WaitTimeSeconds` is not honored — receives return immediately)

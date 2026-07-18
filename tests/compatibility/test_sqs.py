@@ -271,8 +271,11 @@ def test_message_move_task_flow(sqs_client):
     assert len(tasks) >= 1
     assert tasks[0]["SourceArn"] == dlq_arn
 
-    cancel = sqs_client.cancel_message_move_task(TaskHandle=handle)
-    assert "ApproximateNumberOfMessagesMoved" in cancel
+    # The synchronous redrive already completed, so there is no RUNNING task to cancel
+    # (AWS only cancels running tasks).
+    with pytest.raises(ClientError) as exc:
+        sqs_client.cancel_message_move_task(TaskHandle=handle)
+    assert exc.value.response["Error"]["Code"] == "ResourceNotFoundException"
 
 
 def test_message_move_task_destination_routing(sqs_client):
@@ -356,10 +359,10 @@ def test_list_message_move_tasks_max_results_semantics(sqs_client):
             sqs_client.list_message_move_tasks(SourceArn=dlq_arn, **kw)["Results"]
         )
 
-    # Default and non-positive values fall back to the 10-task cap.
-    assert count() == 10
-    assert count(MaxResults=0) == 10
-    assert count(MaxResults=-5) == 10
+    # Default and non-positive values fall back to AWS's documented default of 1.
+    assert count() == 1
+    assert count(MaxResults=0) == 1
+    assert count(MaxResults=-5) == 1
     # A positive value below the cap is honored; above it is clamped.
     assert count(MaxResults=7) == 7
     assert count(MaxResults=25) == 10
