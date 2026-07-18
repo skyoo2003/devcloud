@@ -21,6 +21,7 @@ var (
 	ErrVpcNotFound             = errors.New("vpc not found")
 	ErrSubnetNotFound          = errors.New("subnet not found")
 	ErrSecurityGroupNotFound   = errors.New("security group not found")
+	ErrAddressNotFound         = errors.New("address not found")
 	ErrVolumeNotFound          = errors.New("volume not found")
 	ErrSnapshotNotFound        = errors.New("snapshot not found")
 	ErrKeyPairNotFound         = errors.New("key pair not found")
@@ -178,6 +179,21 @@ var migrations = []sqlite.Migration{
 		ALTER TABLE vpcs ADD COLUMN enable_dns_support    INTEGER NOT NULL DEFAULT 1;
 		ALTER TABLE vpcs ADD COLUMN enable_dns_hostnames  INTEGER NOT NULL DEFAULT 1;
 	`},
+	{Version: 8, SQL: `
+		ALTER TABLE addresses ADD COLUMN association_id TEXT NOT NULL DEFAULT '';
+	`},
+	{Version: 9, SQL: `
+		CREATE TABLE IF NOT EXISTS security_group_rules (
+			rule_id    TEXT PRIMARY KEY,
+			group_id   TEXT NOT NULL,
+			egress     INTEGER NOT NULL DEFAULT 0,
+			protocol   TEXT NOT NULL DEFAULT '-1',
+			from_port  INTEGER NOT NULL DEFAULT 0,
+			to_port    INTEGER NOT NULL DEFAULT 0,
+			cidr       TEXT NOT NULL DEFAULT '',
+			account_id TEXT NOT NULL
+		);
+	`},
 }
 
 type Instance struct {
@@ -222,11 +238,23 @@ type Tag struct {
 }
 
 type Address struct {
-	AllocationID string
-	PublicIP     string
-	Domain       string
-	InstanceID   string
-	AccountID    string
+	AllocationID  string
+	PublicIP      string
+	Domain        string
+	InstanceID    string
+	AssociationID string
+	AccountID     string
+}
+
+type SecurityGroupRule struct {
+	RuleID    string
+	GroupID   string
+	Egress    bool
+	Protocol  string
+	FromPort  int
+	ToPort    int
+	CIDR      string
+	AccountID string
 }
 
 type EC2Store struct {
@@ -331,6 +359,42 @@ func (s *EC2Store) TerminateInstances(accountID string, ids []string) error {
 		n, _ := res.RowsAffected()
 		if n == 0 {
 			return fmt.Errorf("%w: %s", ErrInstanceNotFound, id)
+		}
+	}
+	return nil
+}
+
+// SetInstanceState sets the state of each instance and returns the previous
+// state keyed by instance ID. Returns ErrInstanceNotFound if any id is unknown.
+func (s *EC2Store) SetInstanceState(accountID string, ids []string, state string) (map[string]string, error) {
+	prev := make(map[string]string, len(ids))
+	for _, id := range ids {
+		var cur string
+		err := s.db().QueryRow(`SELECT state FROM instances WHERE instance_id=? AND account_id=?`, id, accountID).Scan(&cur)
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, fmt.Errorf("%w: %s", ErrInstanceNotFound, id)
+		}
+		if err != nil {
+			return nil, err
+		}
+		if _, err := s.db().Exec(`UPDATE instances SET state=? WHERE instance_id=? AND account_id=?`, state, id, accountID); err != nil {
+			return nil, err
+		}
+		prev[id] = cur
+	}
+	return prev, nil
+}
+
+// InstancesExist returns ErrInstanceNotFound if any id is unknown.
+func (s *EC2Store) InstancesExist(accountID string, ids []string) error {
+	for _, id := range ids {
+		var one int
+		err := s.db().QueryRow(`SELECT 1 FROM instances WHERE instance_id=? AND account_id=?`, id, accountID).Scan(&one)
+		if errors.Is(err, sql.ErrNoRows) {
+			return fmt.Errorf("%w: %s", ErrInstanceNotFound, id)
+		}
+		if err != nil {
+			return err
 		}
 	}
 	return nil
@@ -505,6 +569,74 @@ func (s *EC2Store) GetTags(resourceID string) ([]Tag, error) {
 	return out, rows.Err()
 }
 
+// DescribeTags returns every tag for the account.
+func (s *EC2Store) DescribeTags(accountID string) ([]Tag, error) {
+	rows, err := s.db().Query(
+		`SELECT resource_id, tag_key, tag_value FROM tags WHERE account_id=? ORDER BY resource_id, tag_key`, accountID,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = rows.Close() }()
+	var out []Tag
+	for rows.Next() {
+		var t Tag
+		if err := rows.Scan(&t.ResourceID, &t.Key, &t.Value); err != nil {
+			return nil, err
+		}
+		out = append(out, t)
+	}
+	return out, rows.Err()
+}
+
+// DeleteTags removes tags from the given resources. If keys is empty, all tags
+// on each resource are removed.
+func (s *EC2Store) DeleteTags(accountID string, resourceIDs, keys []string) error {
+	for _, resID := range resourceIDs {
+		if len(keys) == 0 {
+			if _, err := s.db().Exec(`DELETE FROM tags WHERE resource_id=? AND account_id=?`, resID, accountID); err != nil {
+				return err
+			}
+			continue
+		}
+		for _, k := range keys {
+			if _, err := s.db().Exec(`DELETE FROM tags WHERE resource_id=? AND tag_key=? AND account_id=?`, resID, k, accountID); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+// DeleteSecurityGroup removes a security group by group ID or group name.
+func (s *EC2Store) DeleteSecurityGroup(accountID, identifier string) error {
+	res, err := s.db().Exec(
+		`DELETE FROM security_groups WHERE account_id=? AND (group_id=? OR group_name=?)`,
+		accountID, identifier, identifier,
+	)
+	if err != nil {
+		return err
+	}
+	n, _ := res.RowsAffected()
+	if n == 0 {
+		return ErrSecurityGroupNotFound
+	}
+	return nil
+}
+
+// DeleteSubnet removes a subnet by ID.
+func (s *EC2Store) DeleteSubnet(accountID, subnetID string) error {
+	res, err := s.db().Exec(`DELETE FROM subnets WHERE subnet_id=? AND account_id=?`, subnetID, accountID)
+	if err != nil {
+		return err
+	}
+	n, _ := res.RowsAffected()
+	if n == 0 {
+		return ErrSubnetNotFound
+	}
+	return nil
+}
+
 // AllocateAddress creates a new Elastic IP address.
 func (s *EC2Store) AllocateAddress(accountID, domain string) (*Address, error) {
 	if domain == "" {
@@ -527,6 +659,138 @@ func (s *EC2Store) AllocateAddress(accountID, domain string) (*Address, error) {
 		return nil, err
 	}
 	return &Address{AllocationID: allocID, PublicIP: ip, Domain: domain, AccountID: accountID}, nil
+}
+
+// DescribeAddresses returns all Elastic IP allocations for the account.
+func (s *EC2Store) DescribeAddresses(accountID string) ([]Address, error) {
+	rows, err := s.db().Query(
+		`SELECT allocation_id, public_ip, domain, instance_id, association_id, account_id
+		 FROM addresses WHERE account_id=? ORDER BY allocation_id`, accountID)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = rows.Close() }()
+	var out []Address
+	for rows.Next() {
+		var a Address
+		if err := rows.Scan(&a.AllocationID, &a.PublicIP, &a.Domain, &a.InstanceID, &a.AssociationID, &a.AccountID); err != nil {
+			return nil, err
+		}
+		out = append(out, a)
+	}
+	return out, rows.Err()
+}
+
+// AssociateAddress binds an allocation to an instance and returns the new
+// association ID.
+func (s *EC2Store) AssociateAddress(accountID, allocationID, instanceID string) (string, error) {
+	id, err := randHex(8)
+	if err != nil {
+		return "", err
+	}
+	assocID := "eipassoc-" + id
+	res, err := s.db().Exec(
+		`UPDATE addresses SET instance_id=?, association_id=? WHERE allocation_id=? AND account_id=?`,
+		instanceID, assocID, allocationID, accountID)
+	if err != nil {
+		return "", err
+	}
+	if n, _ := res.RowsAffected(); n == 0 {
+		return "", ErrAddressNotFound
+	}
+	return assocID, nil
+}
+
+// DisassociateAddress clears the association identified by associationID.
+func (s *EC2Store) DisassociateAddress(accountID, associationID string) error {
+	res, err := s.db().Exec(
+		`UPDATE addresses SET instance_id='', association_id='' WHERE association_id=? AND account_id=?`,
+		associationID, accountID)
+	if err != nil {
+		return err
+	}
+	if n, _ := res.RowsAffected(); n == 0 {
+		return ErrAddressNotFound
+	}
+	return nil
+}
+
+// ReleaseAddress removes an Elastic IP allocation.
+func (s *EC2Store) ReleaseAddress(accountID, allocationID string) error {
+	res, err := s.db().Exec(`DELETE FROM addresses WHERE allocation_id=? AND account_id=?`, allocationID, accountID)
+	if err != nil {
+		return err
+	}
+	if n, _ := res.RowsAffected(); n == 0 {
+		return ErrAddressNotFound
+	}
+	return nil
+}
+
+// AuthorizeSecurityGroupRule adds an ingress/egress rule to a security group
+// and returns the new rule ID. Returns ErrSecurityGroupNotFound if the group
+// does not exist.
+func (s *EC2Store) AuthorizeSecurityGroupRule(accountID, groupID string, egress bool, protocol string, fromPort, toPort int, cidr string) (string, error) {
+	var one int
+	err := s.db().QueryRow(`SELECT 1 FROM security_groups WHERE group_id=? AND account_id=?`, groupID, accountID).Scan(&one)
+	if errors.Is(err, sql.ErrNoRows) {
+		return "", ErrSecurityGroupNotFound
+	}
+	if err != nil {
+		return "", err
+	}
+	id, err := randHex(8)
+	if err != nil {
+		return "", err
+	}
+	ruleID := "sgr-" + id
+	egressInt := 0
+	if egress {
+		egressInt = 1
+	}
+	if _, err := s.db().Exec(
+		`INSERT INTO security_group_rules (rule_id, group_id, egress, protocol, from_port, to_port, cidr, account_id)
+		 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+		ruleID, groupID, egressInt, protocol, fromPort, toPort, cidr, accountID); err != nil {
+		return "", err
+	}
+	return ruleID, nil
+}
+
+// RevokeSecurityGroupRule removes rules from a group matching the given
+// direction and (protocol, fromPort, toPort, cidr) tuple.
+func (s *EC2Store) RevokeSecurityGroupRule(accountID, groupID string, egress bool, protocol string, fromPort, toPort int, cidr string) error {
+	egressInt := 0
+	if egress {
+		egressInt = 1
+	}
+	_, err := s.db().Exec(
+		`DELETE FROM security_group_rules
+		 WHERE group_id=? AND account_id=? AND egress=? AND protocol=? AND from_port=? AND to_port=? AND cidr=?`,
+		groupID, accountID, egressInt, protocol, fromPort, toPort, cidr)
+	return err
+}
+
+// SecurityGroupRules returns the rules for a security group.
+func (s *EC2Store) SecurityGroupRules(accountID, groupID string) ([]SecurityGroupRule, error) {
+	rows, err := s.db().Query(
+		`SELECT rule_id, group_id, egress, protocol, from_port, to_port, cidr, account_id
+		 FROM security_group_rules WHERE group_id=? AND account_id=? ORDER BY rule_id`, groupID, accountID)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = rows.Close() }()
+	var out []SecurityGroupRule
+	for rows.Next() {
+		var r SecurityGroupRule
+		var egressInt int
+		if err := rows.Scan(&r.RuleID, &r.GroupID, &egressInt, &r.Protocol, &r.FromPort, &r.ToPort, &r.CIDR, &r.AccountID); err != nil {
+			return nil, err
+		}
+		r.Egress = egressInt != 0
+		out = append(out, r)
+	}
+	return out, rows.Err()
 }
 
 // ---- Volume operations ----

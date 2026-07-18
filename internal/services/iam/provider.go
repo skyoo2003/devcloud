@@ -179,6 +179,20 @@ func (p *IAMProvider) HandleRequest(ctx context.Context, op string, req *http.Re
 		return p.handleAddUserToGroup(ctx, form)
 	case "RemoveUserFromGroup":
 		return p.handleRemoveUserFromGroup(ctx, form)
+	case "AttachGroupPolicy":
+		return p.handleAttachGroupPolicy(ctx, form)
+	case "DetachGroupPolicy":
+		return p.handleDetachGroupPolicy(ctx, form)
+	case "ListAttachedGroupPolicies":
+		return p.handleListAttachedGroupPolicies(ctx, form)
+	case "PutGroupPolicy":
+		return p.handlePutGroupPolicy(ctx, form)
+	case "GetGroupPolicy":
+		return p.handleGetGroupPolicy(ctx, form)
+	case "DeleteGroupPolicy":
+		return p.handleDeleteGroupPolicy(ctx, form)
+	case "ListGroupPolicies":
+		return p.handleListGroupPolicies(ctx, form)
 	// Instance profiles
 	case "CreateInstanceProfile":
 		return p.handleCreateInstanceProfile(ctx, form)
@@ -1033,6 +1047,51 @@ type listUserPoliciesResult struct {
 	PolicyNames []string `xml:"PolicyNames>member"`
 }
 
+type attachGroupPolicyResponse struct {
+	XMLName xml.Name `xml:"AttachGroupPolicyResponse"`
+}
+
+type detachGroupPolicyResponse struct {
+	XMLName xml.Name `xml:"DetachGroupPolicyResponse"`
+}
+
+type listAttachedGroupPoliciesResponse struct {
+	XMLName                         xml.Name                        `xml:"ListAttachedGroupPoliciesResponse"`
+	ListAttachedGroupPoliciesResult listAttachedGroupPoliciesResult `xml:"ListAttachedGroupPoliciesResult"`
+}
+
+type listAttachedGroupPoliciesResult struct {
+	AttachedPolicies []attachedPolicyXML `xml:"AttachedPolicies>member"`
+}
+
+type putGroupPolicyResponse struct {
+	XMLName xml.Name `xml:"PutGroupPolicyResponse"`
+}
+
+type deleteGroupPolicyResponse struct {
+	XMLName xml.Name `xml:"DeleteGroupPolicyResponse"`
+}
+
+type getGroupPolicyResponse struct {
+	XMLName              xml.Name             `xml:"GetGroupPolicyResponse"`
+	GetGroupPolicyResult getGroupPolicyResult `xml:"GetGroupPolicyResult"`
+}
+
+type getGroupPolicyResult struct {
+	GroupName      string `xml:"GroupName"`
+	PolicyName     string `xml:"PolicyName"`
+	PolicyDocument string `xml:"PolicyDocument"`
+}
+
+type listGroupPoliciesResponse struct {
+	XMLName                 xml.Name                `xml:"ListGroupPoliciesResponse"`
+	ListGroupPoliciesResult listGroupPoliciesResult `xml:"ListGroupPoliciesResult"`
+}
+
+type listGroupPoliciesResult struct {
+	PolicyNames []string `xml:"PolicyNames>member"`
+}
+
 type putRolePolicyResponse struct {
 	XMLName xml.Name `xml:"PutRolePolicyResponse"`
 }
@@ -1127,6 +1186,118 @@ func (p *IAMProvider) handleListUserPolicies(_ context.Context, form url.Values)
 	}
 	return iamXMLResponse(http.StatusOK, listUserPoliciesResponse{
 		ListUserPoliciesResult: listUserPoliciesResult{PolicyNames: names},
+	})
+}
+
+func (p *IAMProvider) handleAttachGroupPolicy(_ context.Context, form url.Values) (*plugin.Response, error) {
+	groupName := form.Get("GroupName")
+	policyArn := form.Get("PolicyArn")
+	if groupName == "" || policyArn == "" {
+		return iamXMLError("MissingParameter", "GroupName and PolicyArn are required", http.StatusBadRequest), nil
+	}
+	if err := p.store.AttachGroupPolicy(defaultAccountID, groupName, policyArn); err != nil {
+		return nil, err
+	}
+	return iamXMLResponse(http.StatusOK, attachGroupPolicyResponse{})
+}
+
+func (p *IAMProvider) handleDetachGroupPolicy(_ context.Context, form url.Values) (*plugin.Response, error) {
+	groupName := form.Get("GroupName")
+	policyArn := form.Get("PolicyArn")
+	if groupName == "" || policyArn == "" {
+		return iamXMLError("MissingParameter", "GroupName and PolicyArn are required", http.StatusBadRequest), nil
+	}
+	if err := p.store.DetachGroupPolicy(defaultAccountID, groupName, policyArn); err != nil {
+		if err == ErrPolicyNotFound {
+			return iamXMLError("NoSuchEntity", fmt.Sprintf("The policy with ARN %s is not attached to group %s.", policyArn, groupName), http.StatusNotFound), nil
+		}
+		return nil, err
+	}
+	return iamXMLResponse(http.StatusOK, detachGroupPolicyResponse{})
+}
+
+func (p *IAMProvider) handleListAttachedGroupPolicies(_ context.Context, form url.Values) (*plugin.Response, error) {
+	groupName := form.Get("GroupName")
+	if groupName == "" {
+		return iamXMLError("MissingParameter", "GroupName is required", http.StatusBadRequest), nil
+	}
+	arns, err := p.store.ListAttachedGroupPolicies(defaultAccountID, groupName)
+	if err != nil {
+		return nil, err
+	}
+	members := make([]attachedPolicyXML, 0, len(arns))
+	for _, arn := range arns {
+		name := arn
+		if i := strings.LastIndex(arn, "policy/"); i >= 0 {
+			name = arn[i+len("policy/"):]
+		}
+		members = append(members, attachedPolicyXML{PolicyArn: arn, PolicyName: name})
+	}
+	return iamXMLResponse(http.StatusOK, listAttachedGroupPoliciesResponse{
+		ListAttachedGroupPoliciesResult: listAttachedGroupPoliciesResult{AttachedPolicies: members},
+	})
+}
+
+func (p *IAMProvider) handlePutGroupPolicy(_ context.Context, form url.Values) (*plugin.Response, error) {
+	groupName := form.Get("GroupName")
+	policyName := form.Get("PolicyName")
+	policyDocument := form.Get("PolicyDocument")
+	if groupName == "" || policyName == "" {
+		return iamXMLError("MissingParameter", "GroupName and PolicyName are required", http.StatusBadRequest), nil
+	}
+	if err := p.store.PutGroupInlinePolicy(defaultAccountID, groupName, policyName, policyDocument); err != nil {
+		return nil, err
+	}
+	return iamXMLResponse(http.StatusOK, putGroupPolicyResponse{})
+}
+
+func (p *IAMProvider) handleGetGroupPolicy(_ context.Context, form url.Values) (*plugin.Response, error) {
+	groupName := form.Get("GroupName")
+	policyName := form.Get("PolicyName")
+	if groupName == "" || policyName == "" {
+		return iamXMLError("MissingParameter", "GroupName and PolicyName are required", http.StatusBadRequest), nil
+	}
+	doc, err := p.store.GetGroupInlinePolicy(defaultAccountID, groupName, policyName)
+	if err != nil {
+		if err == ErrPolicyNotFound {
+			return iamXMLError("NoSuchEntity", fmt.Sprintf("The policy %s cannot be found.", policyName), http.StatusNotFound), nil
+		}
+		return nil, err
+	}
+	return iamXMLResponse(http.StatusOK, getGroupPolicyResponse{
+		GetGroupPolicyResult: getGroupPolicyResult{GroupName: groupName, PolicyName: policyName, PolicyDocument: doc},
+	})
+}
+
+func (p *IAMProvider) handleDeleteGroupPolicy(_ context.Context, form url.Values) (*plugin.Response, error) {
+	groupName := form.Get("GroupName")
+	policyName := form.Get("PolicyName")
+	if groupName == "" || policyName == "" {
+		return iamXMLError("MissingParameter", "GroupName and PolicyName are required", http.StatusBadRequest), nil
+	}
+	if err := p.store.DeleteGroupInlinePolicy(defaultAccountID, groupName, policyName); err != nil {
+		if err == ErrPolicyNotFound {
+			return iamXMLError("NoSuchEntity", fmt.Sprintf("The policy %s cannot be found.", policyName), http.StatusNotFound), nil
+		}
+		return nil, err
+	}
+	return iamXMLResponse(http.StatusOK, deleteGroupPolicyResponse{})
+}
+
+func (p *IAMProvider) handleListGroupPolicies(_ context.Context, form url.Values) (*plugin.Response, error) {
+	groupName := form.Get("GroupName")
+	if groupName == "" {
+		return iamXMLError("MissingParameter", "GroupName is required", http.StatusBadRequest), nil
+	}
+	names, err := p.store.ListGroupInlinePolicies(defaultAccountID, groupName)
+	if err != nil {
+		return nil, err
+	}
+	if names == nil {
+		names = []string{}
+	}
+	return iamXMLResponse(http.StatusOK, listGroupPoliciesResponse{
+		ListGroupPoliciesResult: listGroupPoliciesResult{PolicyNames: names},
 	})
 }
 

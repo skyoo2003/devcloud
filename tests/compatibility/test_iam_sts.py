@@ -282,3 +282,38 @@ def test_role_tags(iam_client):
     iam_client.untag_role(RoleName="tagrole", TagKeys=["purpose"])
     resp2 = iam_client.list_role_tags(RoleName="tagrole")
     assert not any(t["Key"] == "purpose" for t in resp2["Tags"])
+
+
+def test_group_managed_policies(iam_client):
+    iam_client.create_group(GroupName="devs")
+    arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+    iam_client.attach_group_policy(GroupName="devs", PolicyArn=arn)
+    attached = iam_client.list_attached_group_policies(GroupName="devs")[
+        "AttachedPolicies"
+    ]
+    assert any(p["PolicyArn"] == arn for p in attached)
+
+    iam_client.detach_group_policy(GroupName="devs", PolicyArn=arn)
+    attached2 = iam_client.list_attached_group_policies(GroupName="devs")[
+        "AttachedPolicies"
+    ]
+    assert not any(p["PolicyArn"] == arn for p in attached2)
+
+
+def test_group_inline_policies(iam_client):
+    iam_client.create_group(GroupName="ops")
+    doc = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":"s3:*","Resource":"*"}]}'
+    iam_client.put_group_policy(
+        GroupName="ops", PolicyName="inline1", PolicyDocument=doc
+    )
+
+    names = iam_client.list_group_policies(GroupName="ops")["PolicyNames"]
+    assert "inline1" in names
+
+    got = iam_client.get_group_policy(GroupName="ops", PolicyName="inline1")
+    assert got["GroupName"] == "ops"
+    assert got["PolicyName"] == "inline1"
+
+    iam_client.delete_group_policy(GroupName="ops", PolicyName="inline1")
+    names2 = iam_client.list_group_policies(GroupName="ops")["PolicyNames"]
+    assert "inline1" not in names2

@@ -69,6 +69,12 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 		return p.handleDescribeInstances(form)
 	case "TerminateInstances":
 		return p.handleTerminateInstances(form)
+	case "StartInstances":
+		return p.changeInstanceState(form, "StartInstancesResponse", "running")
+	case "StopInstances":
+		return p.changeInstanceState(form, "StopInstancesResponse", "stopped")
+	case "RebootInstances":
+		return p.handleRebootInstances(form)
 	case "CreateVpc":
 		return p.handleCreateVpc(form)
 	case "DescribeVpcs":
@@ -79,14 +85,42 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 		return p.handleCreateSubnet(form)
 	case "DescribeSubnets":
 		return p.handleDescribeSubnets(form)
+	case "DeleteSubnet":
+		return p.handleDeleteSubnet(form)
 	case "CreateSecurityGroup":
 		return p.handleCreateSecurityGroup(form)
 	case "DescribeSecurityGroups":
 		return p.handleDescribeSecurityGroups(form)
+	case "DeleteSecurityGroup":
+		return p.handleDeleteSecurityGroup(form)
+	case "AuthorizeSecurityGroupIngress":
+		return p.handleAuthorizeSecurityGroup(form, false)
+	case "AuthorizeSecurityGroupEgress":
+		return p.handleAuthorizeSecurityGroup(form, true)
+	case "RevokeSecurityGroupIngress":
+		return p.handleRevokeSecurityGroup(form, false)
+	case "RevokeSecurityGroupEgress":
+		return p.handleRevokeSecurityGroup(form, true)
 	case "CreateTags":
 		return p.handleCreateTags(form)
+	case "DescribeTags":
+		return p.handleDescribeTags(form)
+	case "DeleteTags":
+		return p.handleDeleteTags(form)
 	case "AllocateAddress":
 		return p.handleAllocateAddress(form)
+	case "AssociateAddress":
+		return p.handleAssociateAddress(form)
+	case "DisassociateAddress":
+		return p.handleDisassociateAddress(form)
+	case "ReleaseAddress":
+		return p.handleReleaseAddress(form)
+	case "DescribeAddresses":
+		return p.handleDescribeAddresses(form)
+	case "DescribeAvailabilityZones":
+		return p.handleDescribeAvailabilityZones(form)
+	case "DescribeRegions":
+		return p.handleDescribeRegions(form)
 	case "CreateVolume":
 		return p.handleCreateVolume(form)
 	case "DescribeVolumes":
@@ -365,6 +399,76 @@ func (p *Provider) handleTerminateInstances(form url.Values) (*plugin.Response, 
 	return ec2XMLResponse(http.StatusOK, terminateInstancesResponse{InstancesSet: items})
 }
 
+// instanceIDsFromForm collects InstanceId.1, InstanceId.2, … from a Query form.
+func instanceIDsFromForm(form url.Values) []string {
+	var ids []string
+	for i := 1; ; i++ {
+		id := form.Get(fmt.Sprintf("InstanceId.%d", i))
+		if id == "" {
+			break
+		}
+		ids = append(ids, id)
+	}
+	return ids
+}
+
+// changeInstanceState handles StartInstances/StopInstances: it sets the new
+// state and reports the per-instance previous → current transition.
+func (p *Provider) changeInstanceState(form url.Values, respName, newState string) (*plugin.Response, error) {
+	ids := instanceIDsFromForm(form)
+	if len(ids) == 0 {
+		return ec2XMLError("MissingParameter", "at least one InstanceId is required", http.StatusBadRequest), nil
+	}
+	prev, err := p.store.SetInstanceState(defaultAccountID, ids, newState)
+	if err != nil {
+		if errors.Is(err, ErrInstanceNotFound) {
+			return ec2XMLError("InvalidInstanceID.NotFound", err.Error(), http.StatusBadRequest), nil
+		}
+		return nil, err
+	}
+	type stateChangeXML struct {
+		InstanceId   string `xml:"instanceId"`
+		CurrentState struct {
+			Name string `xml:"name"`
+		} `xml:"currentState"`
+		PreviousState struct {
+			Name string `xml:"name"`
+		} `xml:"previousState"`
+	}
+	type changeStateResponse struct {
+		XMLName      xml.Name
+		InstancesSet []stateChangeXML `xml:"instancesSet>item"`
+	}
+	items := make([]stateChangeXML, 0, len(ids))
+	for _, id := range ids {
+		sc := stateChangeXML{InstanceId: id}
+		sc.CurrentState.Name = newState
+		sc.PreviousState.Name = prev[id]
+		items = append(items, sc)
+	}
+	return ec2XMLResponse(http.StatusOK, changeStateResponse{XMLName: xml.Name{Local: respName}, InstancesSet: items})
+}
+
+// handleRebootInstances validates the instances exist; reboot does not change
+// the reported state (mirrors the real EC2 behaviour).
+func (p *Provider) handleRebootInstances(form url.Values) (*plugin.Response, error) {
+	ids := instanceIDsFromForm(form)
+	if len(ids) == 0 {
+		return ec2XMLError("MissingParameter", "at least one InstanceId is required", http.StatusBadRequest), nil
+	}
+	if err := p.store.InstancesExist(defaultAccountID, ids); err != nil {
+		if errors.Is(err, ErrInstanceNotFound) {
+			return ec2XMLError("InvalidInstanceID.NotFound", err.Error(), http.StatusBadRequest), nil
+		}
+		return nil, err
+	}
+	type rebootInstancesResponse struct {
+		XMLName xml.Name `xml:"RebootInstancesResponse"`
+		Return  bool     `xml:"return"`
+	}
+	return ec2XMLResponse(http.StatusOK, rebootInstancesResponse{Return: true})
+}
+
 func (p *Provider) handleCreateVpc(form url.Values) (*plugin.Response, error) {
 	cidr := form.Get("CidrBlock")
 	if cidr == "" {
@@ -495,19 +599,50 @@ func (p *Provider) handleDescribeSecurityGroups(_ url.Values) (*plugin.Response,
 	if err != nil {
 		return nil, err
 	}
+	type ipRangeXML struct {
+		CidrIp string `xml:"cidrIp"`
+	}
+	type ipPermissionXML struct {
+		IpProtocol string       `xml:"ipProtocol"`
+		FromPort   *int         `xml:"fromPort,omitempty"`
+		ToPort     *int         `xml:"toPort,omitempty"`
+		IpRanges   []ipRangeXML `xml:"ipRanges>item,omitempty"`
+	}
 	type sgItemXML struct {
-		GroupId     string `xml:"groupId"`
-		GroupName   string `xml:"groupName"`
-		VpcId       string `xml:"vpcId"`
-		Description string `xml:"groupDescription"`
+		GroupId             string            `xml:"groupId"`
+		GroupName           string            `xml:"groupName"`
+		VpcId               string            `xml:"vpcId"`
+		Description         string            `xml:"groupDescription"`
+		IpPermissions       []ipPermissionXML `xml:"ipPermissions>item,omitempty"`
+		IpPermissionsEgress []ipPermissionXML `xml:"ipPermissionsEgress>item,omitempty"`
 	}
 	type describeSecurityGroupsResponse struct {
 		XMLName           xml.Name    `xml:"DescribeSecurityGroupsResponse"`
 		SecurityGroupInfo []sgItemXML `xml:"securityGroupInfo>item"`
 	}
+	toPerm := func(r SecurityGroupRule) ipPermissionXML {
+		from, to := r.FromPort, r.ToPort
+		perm := ipPermissionXML{IpProtocol: r.Protocol, FromPort: &from, ToPort: &to}
+		if r.CIDR != "" {
+			perm.IpRanges = []ipRangeXML{{CidrIp: r.CIDR}}
+		}
+		return perm
+	}
 	items := make([]sgItemXML, 0, len(sgs))
 	for _, sg := range sgs {
-		items = append(items, sgItemXML{GroupId: sg.GroupID, GroupName: sg.GroupName, VpcId: sg.VpcID, Description: sg.Description})
+		item := sgItemXML{GroupId: sg.GroupID, GroupName: sg.GroupName, VpcId: sg.VpcID, Description: sg.Description}
+		rules, err := p.store.SecurityGroupRules(defaultAccountID, sg.GroupID)
+		if err != nil {
+			return nil, err
+		}
+		for _, r := range rules {
+			if r.Egress {
+				item.IpPermissionsEgress = append(item.IpPermissionsEgress, toPerm(r))
+			} else {
+				item.IpPermissions = append(item.IpPermissions, toPerm(r))
+			}
+		}
+		items = append(items, item)
 	}
 	return ec2XMLResponse(http.StatusOK, describeSecurityGroupsResponse{SecurityGroupInfo: items})
 }
@@ -560,6 +695,319 @@ func (p *Provider) handleAllocateAddress(form url.Values) (*plugin.Response, err
 		AllocationId: addr.AllocationID,
 		Domain:       addr.Domain,
 	})
+}
+
+func (p *Provider) handleAssociateAddress(form url.Values) (*plugin.Response, error) {
+	allocationID := form.Get("AllocationId")
+	instanceID := form.Get("InstanceId")
+	if allocationID == "" || instanceID == "" {
+		return ec2XMLError("MissingParameter", "AllocationId and InstanceId are required", http.StatusBadRequest), nil
+	}
+	assocID, err := p.store.AssociateAddress(defaultAccountID, allocationID, instanceID)
+	if err != nil {
+		if errors.Is(err, ErrAddressNotFound) {
+			return ec2XMLError("InvalidAllocationID.NotFound", err.Error(), http.StatusBadRequest), nil
+		}
+		return nil, err
+	}
+	type associateAddressResponse struct {
+		XMLName       xml.Name `xml:"AssociateAddressResponse"`
+		Return        bool     `xml:"return"`
+		AssociationId string   `xml:"associationId"`
+	}
+	return ec2XMLResponse(http.StatusOK, associateAddressResponse{Return: true, AssociationId: assocID})
+}
+
+func (p *Provider) handleDisassociateAddress(form url.Values) (*plugin.Response, error) {
+	assocID := form.Get("AssociationId")
+	if assocID == "" {
+		return ec2XMLError("MissingParameter", "AssociationId is required", http.StatusBadRequest), nil
+	}
+	if err := p.store.DisassociateAddress(defaultAccountID, assocID); err != nil {
+		if errors.Is(err, ErrAddressNotFound) {
+			return ec2XMLError("InvalidAssociationID.NotFound", err.Error(), http.StatusBadRequest), nil
+		}
+		return nil, err
+	}
+	type disassociateAddressResponse struct {
+		XMLName xml.Name `xml:"DisassociateAddressResponse"`
+		Return  bool     `xml:"return"`
+	}
+	return ec2XMLResponse(http.StatusOK, disassociateAddressResponse{Return: true})
+}
+
+func (p *Provider) handleReleaseAddress(form url.Values) (*plugin.Response, error) {
+	allocationID := form.Get("AllocationId")
+	if allocationID == "" {
+		return ec2XMLError("MissingParameter", "AllocationId is required", http.StatusBadRequest), nil
+	}
+	if err := p.store.ReleaseAddress(defaultAccountID, allocationID); err != nil {
+		if errors.Is(err, ErrAddressNotFound) {
+			return ec2XMLError("InvalidAllocationID.NotFound", err.Error(), http.StatusBadRequest), nil
+		}
+		return nil, err
+	}
+	type releaseAddressResponse struct {
+		XMLName xml.Name `xml:"ReleaseAddressResponse"`
+		Return  bool     `xml:"return"`
+	}
+	return ec2XMLResponse(http.StatusOK, releaseAddressResponse{Return: true})
+}
+
+func (p *Provider) handleDescribeAddresses(_ url.Values) (*plugin.Response, error) {
+	addrs, err := p.store.DescribeAddresses(defaultAccountID)
+	if err != nil {
+		return nil, err
+	}
+	type addrXML struct {
+		PublicIp      string `xml:"publicIp"`
+		AllocationId  string `xml:"allocationId"`
+		Domain        string `xml:"domain"`
+		InstanceId    string `xml:"instanceId,omitempty"`
+		AssociationId string `xml:"associationId,omitempty"`
+	}
+	type describeAddressesResponse struct {
+		XMLName      xml.Name  `xml:"DescribeAddressesResponse"`
+		AddressesSet []addrXML `xml:"addressesSet>item"`
+	}
+	items := make([]addrXML, 0, len(addrs))
+	for _, a := range addrs {
+		items = append(items, addrXML{
+			PublicIp: a.PublicIP, AllocationId: a.AllocationID, Domain: a.Domain,
+			InstanceId: a.InstanceID, AssociationId: a.AssociationID,
+		})
+	}
+	return ec2XMLResponse(http.StatusOK, describeAddressesResponse{AddressesSet: items})
+}
+
+func (p *Provider) handleDescribeAvailabilityZones(_ url.Values) (*plugin.Response, error) {
+	type azXML struct {
+		ZoneName   string `xml:"zoneName"`
+		ZoneId     string `xml:"zoneId"`
+		ZoneState  string `xml:"zoneState"`
+		RegionName string `xml:"regionName"`
+	}
+	type describeAvailabilityZonesResponse struct {
+		XMLName              xml.Name `xml:"DescribeAvailabilityZonesResponse"`
+		AvailabilityZoneInfo []azXML  `xml:"availabilityZoneInfo>item"`
+	}
+	const region = "us-east-1"
+	suffixes := []string{"a", "b", "c", "d", "f"}
+	items := make([]azXML, 0, len(suffixes))
+	for i, sfx := range suffixes {
+		items = append(items, azXML{
+			ZoneName: region + sfx, ZoneId: fmt.Sprintf("use1-az%d", i+1),
+			ZoneState: "available", RegionName: region,
+		})
+	}
+	return ec2XMLResponse(http.StatusOK, describeAvailabilityZonesResponse{AvailabilityZoneInfo: items})
+}
+
+func (p *Provider) handleDescribeRegions(_ url.Values) (*plugin.Response, error) {
+	type regionXML struct {
+		RegionName     string `xml:"regionName"`
+		RegionEndpoint string `xml:"regionEndpoint"`
+	}
+	type describeRegionsResponse struct {
+		XMLName    xml.Name    `xml:"DescribeRegionsResponse"`
+		RegionInfo []regionXML `xml:"regionInfo>item"`
+	}
+	regions := []string{
+		"us-east-1", "us-east-2", "us-west-1", "us-west-2",
+		"eu-west-1", "eu-central-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1",
+	}
+	items := make([]regionXML, 0, len(regions))
+	for _, r := range regions {
+		items = append(items, regionXML{RegionName: r, RegionEndpoint: "ec2." + r + ".amazonaws.com"})
+	}
+	return ec2XMLResponse(http.StatusOK, describeRegionsResponse{RegionInfo: items})
+}
+
+func (p *Provider) handleDeleteSubnet(form url.Values) (*plugin.Response, error) {
+	id := form.Get("SubnetId")
+	if id == "" {
+		return ec2XMLError("MissingParameter", "SubnetId is required", http.StatusBadRequest), nil
+	}
+	if err := p.store.DeleteSubnet(defaultAccountID, id); err != nil {
+		if errors.Is(err, ErrSubnetNotFound) {
+			return ec2XMLError("InvalidSubnetID.NotFound", err.Error(), http.StatusBadRequest), nil
+		}
+		return nil, err
+	}
+	type deleteSubnetResponse struct {
+		XMLName xml.Name `xml:"DeleteSubnetResponse"`
+		Return  bool     `xml:"return"`
+	}
+	return ec2XMLResponse(http.StatusOK, deleteSubnetResponse{Return: true})
+}
+
+func (p *Provider) handleDeleteSecurityGroup(form url.Values) (*plugin.Response, error) {
+	id := form.Get("GroupId")
+	if id == "" {
+		id = form.Get("GroupName")
+	}
+	if id == "" {
+		return ec2XMLError("MissingParameter", "GroupId or GroupName is required", http.StatusBadRequest), nil
+	}
+	if err := p.store.DeleteSecurityGroup(defaultAccountID, id); err != nil {
+		if errors.Is(err, ErrSecurityGroupNotFound) {
+			return ec2XMLError("InvalidGroup.NotFound", err.Error(), http.StatusBadRequest), nil
+		}
+		return nil, err
+	}
+	type deleteSecurityGroupResponse struct {
+		XMLName xml.Name `xml:"DeleteSecurityGroupResponse"`
+		Return  bool     `xml:"return"`
+	}
+	return ec2XMLResponse(http.StatusOK, deleteSecurityGroupResponse{Return: true})
+}
+
+func (p *Provider) handleDescribeTags(_ url.Values) (*plugin.Response, error) {
+	tags, err := p.store.DescribeTags(defaultAccountID)
+	if err != nil {
+		return nil, err
+	}
+	type tagXML struct {
+		ResourceId string `xml:"resourceId"`
+		Key        string `xml:"key"`
+		Value      string `xml:"value"`
+	}
+	type describeTagsResponse struct {
+		XMLName xml.Name `xml:"DescribeTagsResponse"`
+		TagSet  []tagXML `xml:"tagSet>item"`
+	}
+	items := make([]tagXML, 0, len(tags))
+	for _, t := range tags {
+		items = append(items, tagXML{ResourceId: t.ResourceID, Key: t.Key, Value: t.Value})
+	}
+	return ec2XMLResponse(http.StatusOK, describeTagsResponse{TagSet: items})
+}
+
+func (p *Provider) handleDeleteTags(form url.Values) (*plugin.Response, error) {
+	var resourceIDs []string
+	for i := 1; ; i++ {
+		id := form.Get(fmt.Sprintf("ResourceId.%d", i))
+		if id == "" {
+			break
+		}
+		resourceIDs = append(resourceIDs, id)
+	}
+	var keys []string
+	for i := 1; ; i++ {
+		k := form.Get(fmt.Sprintf("Tag.%d.Key", i))
+		if k == "" {
+			break
+		}
+		keys = append(keys, k)
+	}
+	if len(resourceIDs) == 0 {
+		return ec2XMLError("MissingParameter", "at least one ResourceId is required", http.StatusBadRequest), nil
+	}
+	if err := p.store.DeleteTags(defaultAccountID, resourceIDs, keys); err != nil {
+		return nil, err
+	}
+	type deleteTagsResponse struct {
+		XMLName xml.Name `xml:"DeleteTagsResponse"`
+		Return  bool     `xml:"return"`
+	}
+	return ec2XMLResponse(http.StatusOK, deleteTagsResponse{Return: true})
+}
+
+// sgRuleInput is one parsed security-group rule.
+type sgRuleInput struct {
+	protocol string
+	fromPort int
+	toPort   int
+	cidr     string
+}
+
+// parseSGRules extracts rules from either the structured IpPermissions.N.* form
+// (what boto3 sends) or the legacy flat IpProtocol/FromPort/ToPort/CidrIp form.
+func parseSGRules(form url.Values) []sgRuleInput {
+	var rules []sgRuleInput
+	for i := 1; ; i++ {
+		prefix := fmt.Sprintf("IpPermissions.%d.", i)
+		proto := form.Get(prefix + "IpProtocol")
+		if proto == "" {
+			break
+		}
+		from, _ := strconv.Atoi(form.Get(prefix + "FromPort"))
+		to, _ := strconv.Atoi(form.Get(prefix + "ToPort"))
+		matched := false
+		for j := 1; ; j++ {
+			cidr := form.Get(fmt.Sprintf("%sIpRanges.%d.CidrIp", prefix, j))
+			if cidr == "" {
+				break
+			}
+			rules = append(rules, sgRuleInput{proto, from, to, cidr})
+			matched = true
+		}
+		if !matched {
+			rules = append(rules, sgRuleInput{proto, from, to, ""})
+		}
+	}
+	if len(rules) > 0 {
+		return rules
+	}
+	if proto := form.Get("IpProtocol"); proto != "" {
+		from, _ := strconv.Atoi(form.Get("FromPort"))
+		to, _ := strconv.Atoi(form.Get("ToPort"))
+		rules = append(rules, sgRuleInput{proto, from, to, form.Get("CidrIp")})
+	}
+	return rules
+}
+
+func (p *Provider) handleAuthorizeSecurityGroup(form url.Values, egress bool) (*plugin.Response, error) {
+	groupID := form.Get("GroupId")
+	if groupID == "" {
+		return ec2XMLError("MissingParameter", "GroupId is required", http.StatusBadRequest), nil
+	}
+	rules := parseSGRules(form)
+	if len(rules) == 0 {
+		return ec2XMLError("MissingParameter", "at least one rule is required", http.StatusBadRequest), nil
+	}
+	for _, r := range rules {
+		if _, err := p.store.AuthorizeSecurityGroupRule(defaultAccountID, groupID, egress, r.protocol, r.fromPort, r.toPort, r.cidr); err != nil {
+			if errors.Is(err, ErrSecurityGroupNotFound) {
+				return ec2XMLError("InvalidGroup.NotFound", err.Error(), http.StatusBadRequest), nil
+			}
+			return nil, err
+		}
+	}
+	respName := "AuthorizeSecurityGroupIngressResponse"
+	if egress {
+		respName = "AuthorizeSecurityGroupEgressResponse"
+	}
+	type authorizeResponse struct {
+		XMLName xml.Name
+		Return  bool `xml:"return"`
+	}
+	return ec2XMLResponse(http.StatusOK, authorizeResponse{XMLName: xml.Name{Local: respName}, Return: true})
+}
+
+func (p *Provider) handleRevokeSecurityGroup(form url.Values, egress bool) (*plugin.Response, error) {
+	groupID := form.Get("GroupId")
+	if groupID == "" {
+		return ec2XMLError("MissingParameter", "GroupId is required", http.StatusBadRequest), nil
+	}
+	rules := parseSGRules(form)
+	if len(rules) == 0 {
+		return ec2XMLError("MissingParameter", "at least one rule is required", http.StatusBadRequest), nil
+	}
+	for _, r := range rules {
+		if err := p.store.RevokeSecurityGroupRule(defaultAccountID, groupID, egress, r.protocol, r.fromPort, r.toPort, r.cidr); err != nil {
+			return nil, err
+		}
+	}
+	respName := "RevokeSecurityGroupIngressResponse"
+	if egress {
+		respName = "RevokeSecurityGroupEgressResponse"
+	}
+	type revokeResponse struct {
+		XMLName xml.Name
+		Return  bool `xml:"return"`
+	}
+	return ec2XMLResponse(http.StatusOK, revokeResponse{XMLName: xml.Name{Local: respName}, Return: true})
 }
 
 // --- Volume handlers ---
