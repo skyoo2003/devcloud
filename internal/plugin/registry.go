@@ -80,8 +80,8 @@ func (r *Registry) RegisteredServices() []string {
 // usable on the returned value; anything requiring state needs Init first.
 func (r *Registry) Construct(serviceID string) (ServicePlugin, bool) {
 	r.mu.RLock()
-	defer r.mu.RUnlock()
 	f, ok := r.factories[serviceID]
+	r.mu.RUnlock()
 	if !ok {
 		return nil, false
 	}
