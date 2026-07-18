@@ -68,7 +68,7 @@ DevCloud is a Go-based local cloud environment with AWS API compatibility. This 
 Remaining 28 failures are concentrated in edge cases of newly-added services
 (ARN path parsing in S3Tables, restJson1 jsonName in ServerlessRepo, specialized
 Textract/Support endpoints). Core services (S3, SQS, DynamoDB, Lambda, IAM, STS,
-SNS, CloudWatch, KMS, SecretsManager, EventBridge, CloudFormation) all pass
+SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation) all pass
 100% of their tests.
 
 ## Supported protocols

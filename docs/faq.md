@@ -29,7 +29,7 @@ Developers should be able to iterate locally without cloud bills and deploy to t
 
 ### Which services are supported?
 
-101 AWS services are scaffolded and routed; coverage depth varies. See [services-matrix.md](services-matrix.md) for the canonical list and per-service operation counts. Core services (S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch, KMS, SecretsManager, EventBridge, CloudFormation) pass 100% of their boto3 compatibility tests.
+101 AWS services are scaffolded and routed; coverage depth varies. See [services-matrix.md](services-matrix.md) for the canonical list and per-service operation counts. Core services (S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation) pass 100% of their boto3 compatibility tests.
 
 ### Does DevCloud work on Windows?
 
@@ -49,7 +49,7 @@ See [configuration.md](configuration.md) for data directory options.
 
 ### Will my existing boto3 code work?
 
-96% of boto3's official SDK test suite passes against DevCloud. Most apps that use the Big 6 (S3, SQS, DynamoDB, Lambda, IAM, STS) and common integration services (SNS, CloudWatch, KMS, SecretsManager, EventBridge, CloudFormation) will work with only an `endpoint_url` change.
+~96% of boto3's official SDK test suite passes against DevCloud (run `make test-compat` for the current rate). Most apps that use the Big 6 (S3, SQS, DynamoDB, Lambda, IAM, STS) and common integration services (SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation) will work with only an `endpoint_url` change.
 
 ### What about Terraform / CDK?
 
