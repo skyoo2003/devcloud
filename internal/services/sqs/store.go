@@ -10,6 +10,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -20,6 +21,10 @@ var (
 	ErrQueueAlreadyExists = errors.New("queue already exists")
 	ErrQueueNotFound      = errors.New("queue not found")
 	ErrReceiptInvalid     = errors.New("receipt handle is invalid")
+	ErrSourceNotDLQ       = errors.New("source queue is not configured as a dead-letter queue")
+	ErrTaskNotFound       = errors.New("message move task not found")
+	ErrTaskNotCancellable = errors.New("message move task is not running and cannot be cancelled")
+	ErrAmbiguousDest      = errors.New("DestinationArn is required because the dead-letter queue has more than one source queue")
 )
 
 // QueueInfo holds metadata about an SQS queue.
@@ -82,9 +87,11 @@ type queue struct {
 
 // QueueStore is a thread-safe in-memory store for SQS queues.
 type QueueStore struct {
-	mu     sync.RWMutex
-	queues map[string]*queue // key: "accountID/queueName"
-	port   int               // HTTP port for queue-URL construction
+	mu          sync.RWMutex
+	queues      map[string]*queue    // key: "accountID/queueName"
+	moveTasks   map[string]*moveTask // key: task handle
+	moveTaskSeq int64                // monotonic sequence for deterministic move-task ordering
+	port        int                  // HTTP port for queue-URL construction
 }
 
 // NewQueueStore creates and returns an empty QueueStore bound to the given
@@ -95,8 +102,9 @@ func NewQueueStore(port int) *QueueStore {
 		port = 4747
 	}
 	return &QueueStore{
-		queues: make(map[string]*queue),
-		port:   port,
+		queues:    make(map[string]*queue),
+		moveTasks: make(map[string]*moveTask),
+		port:      port,
 	}
 }
 
@@ -655,4 +663,226 @@ func (s *QueueStore) ListQueueTags(queueName, accountID string) (map[string]stri
 		result[k] = v
 	}
 	return result, nil
+}
+
+// --- Dead-letter redrive (message move tasks) ---
+
+// moveTask records a dead-letter redrive task. Redrive runs synchronously (in-memory),
+// so a task is created already in the terminal COMPLETED state (there is no RUNNING phase).
+type moveTask struct {
+	Handle         string
+	SourceArn      string
+	DestinationArn string
+	MaxRate        int    // MaxNumberOfMessagesPerSecond; 0 = unlimited
+	Status         string // always "COMPLETED" (synchronous redrive)
+	Moved          int
+	StartedMillis  int64 // epoch milliseconds, matching AWS's StartedTimestamp (a Long)
+	seq            int64 // monotonic insertion order; sole ordering key (StartedMillis can collide)
+}
+
+// maxTasksPerSource caps how many move-task records are retained per source queue,
+// matching the ListMessageMoveTasks result cap so the registry stays bounded.
+const maxTasksPerSource = 10
+
+// sourceQueuesForDLQ returns the queues under accountID that name dlqName as their
+// dead-letter target. The caller must hold s.mu (read or write); each candidate queue's
+// own mutex is taken briefly to read its redrive target.
+func (s *QueueStore) sourceQueuesForDLQ(dlqName, accountID string) []*queue {
+	var out []*queue
+	for _, q := range s.queues {
+		if q.info.AccountID != accountID {
+			continue
+		}
+		q.mu.Lock()
+		target := arnToQueueName(q.DeadLetterTargetArn)
+		q.mu.Unlock()
+		if target == dlqName {
+			out = append(out, q)
+		}
+	}
+	return out
+}
+
+// ListDeadLetterSourceQueues returns the URLs of queues that use the named queue as
+// their dead-letter target. Returns ErrQueueNotFound if the DLQ does not exist.
+func (s *QueueStore) ListDeadLetterSourceQueues(dlqName, accountID string) ([]string, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	if _, ok := s.queues[queueKey(accountID, dlqName)]; !ok {
+		return nil, ErrQueueNotFound
+	}
+
+	sources := s.sourceQueuesForDLQ(dlqName, accountID)
+	urls := make([]string, 0, len(sources))
+	for _, q := range sources {
+		urls = append(urls, q.info.URL)
+	}
+	return urls, nil
+}
+
+// StartMessageMoveTask redrives messages out of a dead-letter queue (identified by
+// sourceArn) into a destination queue. When destArn is empty, messages go to the first
+// queue that references the DLQ as its dead-letter target. Returns the task handle.
+func (s *QueueStore) StartMessageMoveTask(sourceArn, destArn string, maxRate int, accountID string) (string, error) {
+	srcName := arnToQueueName(sourceArn)
+
+	// Resolve the source and destination queue pointers under s.mu, then release it so the
+	// drain/fill runs under only the per-queue locks — the store-wide lock must not be held
+	// across a potentially large message move (it would block all other queues).
+	s.mu.Lock()
+	src, ok := s.queues[queueKey(accountID, srcName)]
+	if !ok {
+		s.mu.Unlock()
+		return "", ErrQueueNotFound
+	}
+
+	sources := s.sourceQueuesForDLQ(srcName, accountID)
+	if len(sources) == 0 {
+		s.mu.Unlock()
+		return "", ErrSourceNotDLQ
+	}
+
+	var dst *queue
+	if destArn != "" {
+		dst, ok = s.queues[queueKey(accountID, arnToQueueName(destArn))]
+		if !ok {
+			s.mu.Unlock()
+			return "", ErrQueueNotFound
+		}
+	} else {
+		// Without an explicit destination, messages go back to the source queue. Per-message
+		// origin isn't tracked, so this is only unambiguous when the DLQ has a single source;
+		// with multiple sources the caller must pass DestinationArn.
+		if len(sources) > 1 {
+			s.mu.Unlock()
+			return "", ErrAmbiguousDest
+		}
+		dst = sources[0]
+	}
+	s.mu.Unlock()
+
+	// ponytail: redrive runs synchronously with no RUNNING state or rate limiting;
+	// upgrade to a goroutine + MaxRate throttle if timing fidelity is ever needed.
+	// Lock only one queue at a time (drain the source, then fill the destination) to stay
+	// deadlock-free with the source→DLQ path in ReceiveMessage.
+	now := time.Now()
+	src.mu.Lock()
+	moved := make([]*Message, 0, len(src.messages))
+	remaining := make([]*Message, 0)
+	for _, m := range src.messages {
+		if m.deleted {
+			continue // compacted away, as before
+		}
+		if now.Before(m.invisibleUntil) {
+			// In-flight (received but not yet deleted): leave it in the DLQ so the consumer's
+			// receipt handle stays valid. Only available messages are redriven.
+			remaining = append(remaining, m)
+			continue
+		}
+		moved = append(moved, m)
+	}
+	src.messages = remaining
+	src.mu.Unlock()
+
+	dst.mu.Lock()
+	for _, m := range moved {
+		m.ReceiptHandle = randomID(32)
+		m.invisibleUntil = time.Time{}
+		m.receiveCount = 0
+		m.deleted = false
+		dst.messages = append(dst.messages, m)
+	}
+	dst.mu.Unlock()
+
+	handle := randomID(16)
+	s.mu.Lock()
+	s.moveTaskSeq++
+	s.moveTasks[handle] = &moveTask{
+		Handle:         handle,
+		SourceArn:      sourceArn,
+		DestinationArn: destArn,
+		MaxRate:        maxRate,
+		Status:         "COMPLETED",
+		Moved:          len(moved),
+		StartedMillis:  now.UnixMilli(),
+		seq:            s.moveTaskSeq,
+	}
+	// Retain only the most recent tasks per source so a long-running process that repeatedly
+	// redrives the same source can't grow the registry without limit.
+	s.pruneMoveTasks(sourceArn)
+	s.mu.Unlock()
+	return handle, nil
+}
+
+// sortedTasksForSource returns the move tasks for sourceArn, newest first (by insertion
+// sequence, which is unique and monotonic — StartedMillis alone can collide). The caller
+// must hold s.mu (read or write).
+func (s *QueueStore) sortedTasksForSource(sourceArn string) []*moveTask {
+	var out []*moveTask
+	for _, t := range s.moveTasks {
+		if t.SourceArn == sourceArn {
+			out = append(out, t)
+		}
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].seq > out[j].seq })
+	return out
+}
+
+// pruneMoveTasks drops all but the most recent maxTasksPerSource tasks for sourceArn.
+// The caller must hold s.mu (write).
+func (s *QueueStore) pruneMoveTasks(sourceArn string) {
+	forSource := s.sortedTasksForSource(sourceArn)
+	if len(forSource) <= maxTasksPerSource {
+		return
+	}
+	for _, t := range forSource[maxTasksPerSource:] {
+		delete(s.moveTasks, t.Handle)
+	}
+}
+
+// ListMessageMoveTasks returns copies of the move tasks for the given source ARN, newest
+// first. Copies (not shared pointers) are returned so callers can read the fields without
+// holding s.mu while CancelMessageMoveTask may mutate the live records. The result count is
+// clamped to [1, maxTasksPerSource]; a non-positive maxResults defaults to 1 (AWS's default).
+func (s *QueueStore) ListMessageMoveTasks(sourceArn string, maxResults int) []moveTask {
+	if maxResults <= 0 {
+		maxResults = 1
+	}
+	if maxResults > maxTasksPerSource {
+		maxResults = maxTasksPerSource
+	}
+
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	forSource := s.sortedTasksForSource(sourceArn)
+	if len(forSource) > maxResults {
+		forSource = forSource[:maxResults]
+	}
+	out := make([]moveTask, len(forSource))
+	for i, t := range forSource {
+		out[i] = *t
+	}
+	return out
+}
+
+// CancelMessageMoveTask cancels the running task with the given handle and returns the number
+// of messages already moved. Returns ErrTaskNotFound if the handle is unknown, or
+// ErrTaskNotCancellable if the task is not RUNNING. Because redrive here is synchronous, tasks
+// are always already COMPLETED, so — matching AWS, which only cancels RUNNING tasks — a cancel
+// never succeeds.
+func (s *QueueStore) CancelMessageMoveTask(handle string) (int, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	t, ok := s.moveTasks[handle]
+	if !ok {
+		return 0, ErrTaskNotFound
+	}
+	if t.Status != "RUNNING" {
+		return t.Moved, ErrTaskNotCancellable
+	}
+	t.Status = "CANCELLED"
+	return t.Moved, nil
 }

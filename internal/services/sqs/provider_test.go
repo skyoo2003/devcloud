@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
 
@@ -463,4 +464,78 @@ func TestSQSProvider_Init_PortFromOptions(t *testing.T) {
 				"expected response body to contain %q; got %s", wantFragment, body)
 		})
 	}
+}
+
+// TestSQSProvider_Query_Redrive exercises the four dead-letter redrive ops over the legacy
+// Query (form-encoded) protocol, which the JSON dispatcher's siblings must not be the only
+// path for. Regression guard: these ops were once wired only into the JSON dispatcher, so
+// Query clients got HTTP 400.
+func TestSQSProvider_Query_Redrive(t *testing.T) {
+	p := newTestSQSProvider(t)
+
+	const acct = defaultAccountID
+	dlqArn := "arn:aws:sqs:us-east-1:" + acct + ":redrive-dlq"
+	dlqURL := fmt.Sprintf("http://localhost:4747/%s/redrive-dlq", acct)
+	srcURL := fmt.Sprintf("http://localhost:4747/%s/redrive-src", acct)
+
+	handleForm(t, p, "Action=CreateQueue&QueueName=redrive-src")
+	handleForm(t, p, "Action=CreateQueue&QueueName=redrive-dlq")
+
+	// Wire the source to the DLQ so redrive is legal.
+	setAttrs := url.Values{
+		"Action":            {"SetQueueAttributes"},
+		"QueueUrl":          {srcURL},
+		"Attribute.1.Name":  {"RedrivePolicy"},
+		"Attribute.1.Value": {`{"maxReceiveCount":1,"deadLetterTargetArn":"` + dlqArn + `"}`},
+	}
+	require.Equal(t, 200, handleForm(t, p, setAttrs.Encode()).StatusCode)
+
+	// ListDeadLetterSourceQueues returns the source URL.
+	dl := handleForm(t, p, (url.Values{"Action": {"ListDeadLetterSourceQueues"}, "QueueUrl": {dlqURL}}).Encode())
+	assert.Equal(t, 200, dl.StatusCode)
+	assert.Contains(t, string(dl.Body), "ListDeadLetterSourceQueuesResponse")
+	assert.Contains(t, string(dl.Body), "redrive-src")
+
+	// Put a message in the DLQ, then redrive it back to the source.
+	handleForm(t, p, (url.Values{"Action": {"SendMessage"}, "QueueUrl": {dlqURL}, "MessageBody": {"orphan"}}).Encode())
+
+	start := handleForm(t, p, (url.Values{"Action": {"StartMessageMoveTask"}, "SourceArn": {dlqArn}}).Encode())
+	require.Equal(t, 200, start.StatusCode)
+	assert.Contains(t, string(start.Body), "StartMessageMoveTaskResponse")
+	handle := xmlField(t, start.Body, "TaskHandle")
+	require.NotEmpty(t, handle)
+
+	// ListMessageMoveTasks reports the completed task.
+	list := handleForm(t, p, (url.Values{"Action": {"ListMessageMoveTasks"}, "SourceArn": {dlqArn}}).Encode())
+	assert.Equal(t, 200, list.StatusCode)
+	assert.Contains(t, string(list.Body), "COMPLETED")
+	assert.Contains(t, string(list.Body), "ListMessageMoveTasksResultEntry")
+
+	// Cancel is rejected because the synchronous redrive already completed.
+	cancel := handleForm(t, p, (url.Values{"Action": {"CancelMessageMoveTask"}, "TaskHandle": {handle}}).Encode())
+	assert.Equal(t, 400, cancel.StatusCode)
+	assert.Contains(t, string(cancel.Body), "ResourceNotFoundException")
+
+	// A plain queue (not a DLQ) cannot start a move task.
+	srcArn := "arn:aws:sqs:us-east-1:" + acct + ":redrive-src"
+	bad := handleForm(t, p, (url.Values{"Action": {"StartMessageMoveTask"}, "SourceArn": {srcArn}}).Encode())
+	assert.Equal(t, 400, bad.StatusCode)
+	assert.Contains(t, string(bad.Body), "UnsupportedOperation")
+}
+
+// xmlField extracts the text of the first <tag>…</tag> element from an XML body.
+func xmlField(t *testing.T, body []byte, tag string) string {
+	t.Helper()
+	open, close := "<"+tag+">", "</"+tag+">"
+	s := string(body)
+	i := strings.Index(s, open)
+	if i < 0 {
+		return ""
+	}
+	i += len(open)
+	j := strings.Index(s[i:], close)
+	if j < 0 {
+		return ""
+	}
+	return s[i : i+j]
 }

@@ -168,6 +168,166 @@ func TestQueueStore_DLQ(t *testing.T) {
 	assert.Equal(t, "dlq-test", dlqMsgs[0].Body)
 }
 
+func TestQueueStore_ListDeadLetterSourceQueues(t *testing.T) {
+	store := NewQueueStore(0)
+	require.NoError(t, store.CreateQueue("mmt-source", testAccount))
+	require.NoError(t, store.CreateQueue("mmt-dlq", testAccount))
+
+	dlqArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:mmt-dlq", testAccount)
+	require.NoError(t, store.SetQueueAttributes("mmt-source", testAccount, map[string]string{
+		"RedrivePolicy": `{"maxReceiveCount":1,"deadLetterTargetArn":"` + dlqArn + `"}`,
+	}))
+
+	// The DLQ lists its source queue.
+	sources, err := store.ListDeadLetterSourceQueues("mmt-dlq", testAccount)
+	require.NoError(t, err)
+	require.Len(t, sources, 1)
+	assert.Contains(t, sources[0], "mmt-source")
+
+	// A queue that is not used as a DLQ has no source queues.
+	empty, err := store.ListDeadLetterSourceQueues("mmt-source", testAccount)
+	require.NoError(t, err)
+	assert.Len(t, empty, 0)
+
+	// An unknown queue errors.
+	_, err = store.ListDeadLetterSourceQueues("no-such-queue", testAccount)
+	assert.ErrorIs(t, err, ErrQueueNotFound)
+}
+
+func TestQueueStore_MessageMoveTaskLifecycle(t *testing.T) {
+	store := NewQueueStore(0)
+	require.NoError(t, store.CreateQueue("redrive-source", testAccount))
+	require.NoError(t, store.CreateQueue("redrive-dlq", testAccount))
+
+	dlqArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:redrive-dlq", testAccount)
+	require.NoError(t, store.SetQueueAttributes("redrive-source", testAccount, map[string]string{
+		"RedrivePolicy": `{"maxReceiveCount":1,"deadLetterTargetArn":"` + dlqArn + `"}`,
+	}))
+
+	_, err := store.SendMessage("redrive-source", testAccount, "redrive-me")
+	require.NoError(t, err)
+
+	// Exceed maxReceiveCount so the message lands in the DLQ.
+	for i := 0; i < 2; i++ {
+		_, rerr := store.ReceiveMessage("redrive-source", testAccount, 1, 0)
+		require.NoError(t, rerr)
+	}
+	dlqMsgs, err := store.ReceiveMessage("redrive-dlq", testAccount, 1, 0)
+	require.NoError(t, err)
+	require.Len(t, dlqMsgs, 1)
+
+	// Redrive back to the source (no explicit destination).
+	handle, err := store.StartMessageMoveTask(dlqArn, "", 0, testAccount)
+	require.NoError(t, err)
+	require.NotEmpty(t, handle)
+
+	tasks := store.ListMessageMoveTasks(dlqArn, 0)
+	require.Len(t, tasks, 1)
+	assert.Equal(t, "COMPLETED", tasks[0].Status)
+	assert.Equal(t, 1, tasks[0].Moved)
+
+	// The message is back on the source queue.
+	back, err := store.ReceiveMessage("redrive-source", testAccount, 1, 0)
+	require.NoError(t, err)
+	require.Len(t, back, 1)
+	assert.Equal(t, "redrive-me", back[0].Body)
+
+	// Cancel is rejected: the synchronous redrive already COMPLETED, so there is no RUNNING
+	// task to cancel (matching AWS, which only cancels running tasks). It still reports the count.
+	moved, err := store.CancelMessageMoveTask(handle)
+	assert.ErrorIs(t, err, ErrTaskNotCancellable)
+	assert.Equal(t, 1, moved)
+
+	// An unknown handle errors.
+	_, err = store.CancelMessageMoveTask("bogus-handle")
+	assert.ErrorIs(t, err, ErrTaskNotFound)
+
+	// A queue that is not a DLQ cannot start a move task.
+	srcArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:redrive-source", testAccount)
+	_, err = store.StartMessageMoveTask(srcArn, "", 0, testAccount)
+	assert.ErrorIs(t, err, ErrSourceNotDLQ)
+}
+
+func TestQueueStore_MessageMoveTaskMultiSource(t *testing.T) {
+	store := NewQueueStore(0)
+	require.NoError(t, store.CreateQueue("multi-src1", testAccount))
+	require.NoError(t, store.CreateQueue("multi-src2", testAccount))
+	require.NoError(t, store.CreateQueue("multi-dlq", testAccount))
+
+	dlqArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:multi-dlq", testAccount)
+	redrive := `{"maxReceiveCount":1,"deadLetterTargetArn":"` + dlqArn + `"}`
+	require.NoError(t, store.SetQueueAttributes("multi-src1", testAccount, map[string]string{"RedrivePolicy": redrive}))
+	require.NoError(t, store.SetQueueAttributes("multi-src2", testAccount, map[string]string{"RedrivePolicy": redrive}))
+
+	_, err := store.SendMessage("multi-dlq", testAccount, "orphan")
+	require.NoError(t, err)
+
+	// Two sources share the DLQ, so redrive without a destination is ambiguous.
+	_, err = store.StartMessageMoveTask(dlqArn, "", 0, testAccount)
+	assert.ErrorIs(t, err, ErrAmbiguousDest)
+
+	// An explicit destination routes deterministically.
+	dstArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:multi-src2", testAccount)
+	handle, err := store.StartMessageMoveTask(dlqArn, dstArn, 0, testAccount)
+	require.NoError(t, err)
+	require.NotEmpty(t, handle)
+
+	msgs, err := store.ReceiveMessage("multi-src2", testAccount, 1, 0)
+	require.NoError(t, err)
+	require.Len(t, msgs, 1)
+	assert.Equal(t, "orphan", msgs[0].Body)
+}
+
+func TestQueueStore_MessageMoveTaskRegistryBounded(t *testing.T) {
+	store := NewQueueStore(0)
+	require.NoError(t, store.CreateQueue("bound-src", testAccount))
+	require.NoError(t, store.CreateQueue("bound-dlq", testAccount))
+
+	dlqArn := fmt.Sprintf("arn:aws:sqs:us-east-1:%s:bound-dlq", testAccount)
+	require.NoError(t, store.SetQueueAttributes("bound-src", testAccount, map[string]string{
+		"RedrivePolicy": `{"maxReceiveCount":1,"deadLetterTargetArn":"` + dlqArn + `"}`,
+	}))
+
+	// Starting many tasks for the same source retains only the most recent maxTasksPerSource.
+	// Capture the handles in insertion order so we can assert which ones survive pruning.
+	const extra = 5
+	handles := make([]string, 0, maxTasksPerSource+extra)
+	for i := 0; i < maxTasksPerSource+extra; i++ {
+		h, err := store.StartMessageMoveTask(dlqArn, "", 0, testAccount)
+		require.NoError(t, err)
+		handles = append(handles, h)
+	}
+	assert.Len(t, store.moveTasks, maxTasksPerSource)
+
+	// The oldest `extra` tasks are pruned; the newest maxTasksPerSource are kept.
+	for _, h := range handles[:extra] {
+		assert.NotContains(t, store.moveTasks, h, "oldest tasks should be pruned")
+	}
+	for _, h := range handles[extra:] {
+		assert.Contains(t, store.moveTasks, h, "newest tasks should be retained")
+	}
+
+	// ListMessageMoveTasks returns the kept tasks newest-first (reverse insertion order),
+	// even though they share a StartedMillis — ordering relies on the monotonic seq.
+	got := store.ListMessageMoveTasks(dlqArn, maxTasksPerSource)
+	gotHandles := make([]string, len(got))
+	for i, tk := range got {
+		gotHandles[i] = tk.Handle
+	}
+	want := make([]string, maxTasksPerSource)
+	for i, h := range handles[extra:] {
+		want[len(want)-1-i] = h
+	}
+	assert.Equal(t, want, gotHandles)
+
+	// A non-positive MaxResults defaults to 1 (AWS: the most recent task).
+	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 0), 1)
+	assert.Equal(t, handles[len(handles)-1], store.ListMessageMoveTasks(dlqArn, 0)[0].Handle)
+	// A positive MaxResults is honored below the cap, and clamped to it above.
+	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 3), 3)
+	assert.Len(t, store.ListMessageMoveTasks(dlqArn, 25), maxTasksPerSource)
+}
+
 func TestQueueStore_Tags(t *testing.T) {
 	store := NewQueueStore(0)
 	require.NoError(t, store.CreateQueue("tag-queue", testAccount))

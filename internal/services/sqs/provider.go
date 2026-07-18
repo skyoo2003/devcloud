@@ -96,6 +96,15 @@ func (p *SQSProvider) handleQueryRequest(op string, req *http.Request) (*plugin.
 		return p.setQueueAttributes(req)
 	case "PurgeQueue":
 		return p.purgeQueue(req)
+	// Dead-letter redrive
+	case "ListDeadLetterSourceQueues":
+		return p.listDeadLetterSourceQueues(req)
+	case "StartMessageMoveTask":
+		return p.startMessageMoveTask(req)
+	case "ListMessageMoveTasks":
+		return p.listMessageMoveTasks(req)
+	case "CancelMessageMoveTask":
+		return p.cancelMessageMoveTask(req)
 	default:
 		return sqsError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
 	}
@@ -166,6 +175,15 @@ func (p *SQSProvider) handleJSONRequest(op string, req *http.Request) (*plugin.R
 		return p.untagQueueJSON(params)
 	case "ListQueueTags":
 		return p.listQueueTagsJSON(params)
+	// Dead-letter redrive
+	case "ListDeadLetterSourceQueues":
+		return p.listDeadLetterSourceQueuesJSON(params)
+	case "StartMessageMoveTask":
+		return p.startMessageMoveTaskJSON(params)
+	case "ListMessageMoveTasks":
+		return p.listMessageMoveTasksJSON(params)
+	case "CancelMessageMoveTask":
+		return p.cancelMessageMoveTaskJSON(params)
 	// Permissions (stubs)
 	case "AddPermission":
 		return jsonResp(http.StatusOK, map[string]any{})
@@ -303,6 +321,44 @@ type setQueueAttributesResponse struct {
 
 type purgeQueueResponse struct {
 	XMLName xml.Name `xml:"PurgeQueueResponse"`
+}
+
+type listDeadLetterSourceQueuesResponse struct {
+	XMLName xml.Name `xml:"ListDeadLetterSourceQueuesResponse"`
+	Result  struct {
+		QueueUrls []string `xml:"QueueUrl"`
+	} `xml:"ListDeadLetterSourceQueuesResult"`
+}
+
+type startMessageMoveTaskResponse struct {
+	XMLName xml.Name `xml:"StartMessageMoveTaskResponse"`
+	Result  struct {
+		TaskHandle string `xml:"TaskHandle"`
+	} `xml:"StartMessageMoveTaskResult"`
+}
+
+type listMessageMoveTasksResponse struct {
+	XMLName xml.Name `xml:"ListMessageMoveTasksResponse"`
+	Result  struct {
+		Results []moveTaskXML `xml:"ListMessageMoveTasksResultEntry"`
+	} `xml:"ListMessageMoveTasksResult"`
+}
+
+type moveTaskXML struct {
+	TaskHandle                       string `xml:"TaskHandle"`
+	Status                           string `xml:"Status"`
+	SourceArn                        string `xml:"SourceArn"`
+	DestinationArn                   string `xml:"DestinationArn,omitempty"`
+	MaxNumberOfMessagesPerSecond     int    `xml:"MaxNumberOfMessagesPerSecond"`
+	ApproximateNumberOfMessagesMoved int    `xml:"ApproximateNumberOfMessagesMoved"`
+	StartedTimestamp                 int64  `xml:"StartedTimestamp"`
+}
+
+type cancelMessageMoveTaskResponse struct {
+	XMLName xml.Name `xml:"CancelMessageMoveTaskResponse"`
+	Result  struct {
+		ApproximateNumberOfMessagesMoved int `xml:"ApproximateNumberOfMessagesMoved"`
+	} `xml:"CancelMessageMoveTaskResult"`
 }
 
 type messageAttributeXML struct {
@@ -602,6 +658,90 @@ func (p *SQSProvider) purgeQueueJSON(params map[string]any) (*plugin.Response, e
 	return jsonResp(http.StatusOK, map[string]any{})
 }
 
+func (p *SQSProvider) listDeadLetterSourceQueuesJSON(params map[string]any) (*plugin.Response, error) {
+	queueURL := strParam(params, "QueueUrl")
+	if queueURL == "" {
+		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
+	}
+
+	name := queueNameFromURL(queueURL)
+	urls, err := p.store.ListDeadLetterSourceQueues(name, defaultAccountID)
+	if err != nil {
+		return jsonError("AWS.SimpleQueueService.NonExistentQueue", "queue not found", http.StatusBadRequest), nil
+	}
+
+	// Wire member name is lowercase "queueUrls" for this op (per the SQS JSON model),
+	// unlike ListQueues' "QueueUrls".
+	return jsonResp(http.StatusOK, map[string]any{"queueUrls": urls})
+}
+
+func (p *SQSProvider) startMessageMoveTaskJSON(params map[string]any) (*plugin.Response, error) {
+	sourceArn := strParam(params, "SourceArn")
+	if sourceArn == "" {
+		return jsonError("MissingParameter", "SourceArn is required", http.StatusBadRequest), nil
+	}
+	destArn := strParam(params, "DestinationArn")
+	maxRate := intParam(params, "MaxNumberOfMessagesPerSecond", 0)
+
+	handle, err := p.store.StartMessageMoveTask(sourceArn, destArn, maxRate, defaultAccountID)
+	if err != nil {
+		code, msg := startMoveTaskError(err)
+		if code == "" {
+			return nil, err
+		}
+		return jsonError(code, msg, http.StatusBadRequest), nil
+	}
+
+	return jsonResp(http.StatusOK, map[string]any{"TaskHandle": handle})
+}
+
+func (p *SQSProvider) listMessageMoveTasksJSON(params map[string]any) (*plugin.Response, error) {
+	sourceArn := strParam(params, "SourceArn")
+	if sourceArn == "" {
+		return jsonError("MissingParameter", "SourceArn is required", http.StatusBadRequest), nil
+	}
+	maxResults := intParam(params, "MaxResults", 0)
+
+	tasks := p.store.ListMessageMoveTasks(sourceArn, maxResults)
+	results := make([]map[string]any, 0, len(tasks))
+	for _, t := range tasks {
+		entry := map[string]any{
+			"TaskHandle":                       t.Handle,
+			"Status":                           t.Status,
+			"SourceArn":                        t.SourceArn,
+			"MaxNumberOfMessagesPerSecond":     t.MaxRate,
+			"ApproximateNumberOfMessagesMoved": t.Moved,
+			"StartedTimestamp":                 t.StartedMillis,
+		}
+		if t.DestinationArn != "" {
+			entry["DestinationArn"] = t.DestinationArn
+		}
+		results = append(results, entry)
+	}
+
+	return jsonResp(http.StatusOK, map[string]any{"Results": results})
+}
+
+func (p *SQSProvider) cancelMessageMoveTaskJSON(params map[string]any) (*plugin.Response, error) {
+	handle := strParam(params, "TaskHandle")
+	if handle == "" {
+		return jsonError("MissingParameter", "TaskHandle is required", http.StatusBadRequest), nil
+	}
+
+	moved, err := p.store.CancelMessageMoveTask(handle)
+	switch {
+	case err == ErrTaskNotFound:
+		return jsonError("ResourceNotFoundException", "task not found", http.StatusBadRequest), nil
+	case err == ErrTaskNotCancellable:
+		// AWS only cancels RUNNING tasks; a completed task is reported as not found.
+		return jsonError("ResourceNotFoundException", "task is not running and cannot be cancelled", http.StatusBadRequest), nil
+	case err != nil:
+		return nil, err
+	}
+
+	return jsonResp(http.StatusOK, map[string]any{"ApproximateNumberOfMessagesMoved": moved})
+}
+
 // parseJSONMessageAttributes extracts MessageAttributes from JSON params.
 func parseJSONMessageAttributes(params map[string]any) map[string]MessageAttribute {
 	raw, ok := params["MessageAttributes"]
@@ -886,6 +1026,112 @@ func (p *SQSProvider) purgeQueue(req *http.Request) (*plugin.Response, error) {
 	}
 
 	return xmlResp(http.StatusOK, purgeQueueResponse{})
+}
+
+// startMoveTaskError maps a StartMessageMoveTask store error to its AWS error code and
+// message. It returns an empty code for errors that should surface as a 500 (nil err too).
+func startMoveTaskError(err error) (code, message string) {
+	switch err {
+	case ErrQueueNotFound:
+		return "ResourceNotFoundException", "queue not found"
+	case ErrSourceNotDLQ:
+		return "AWS.SimpleQueueService.UnsupportedOperation", "source queue must be configured as a dead-letter queue"
+	case ErrAmbiguousDest:
+		return "InvalidParameterValue", "DestinationArn is required because the dead-letter queue has more than one source queue"
+	default:
+		return "", ""
+	}
+}
+
+// --- Dead-letter redrive (Query protocol) ---
+
+func (p *SQSProvider) listDeadLetterSourceQueues(req *http.Request) (*plugin.Response, error) {
+	queueURL := req.FormValue("QueueUrl")
+	if queueURL == "" {
+		return sqsError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
+	}
+
+	name := queueNameFromURL(queueURL)
+	urls, err := p.store.ListDeadLetterSourceQueues(name, defaultAccountID)
+	if err != nil {
+		return sqsError("AWS.SimpleQueueService.NonExistentQueue", "queue not found", http.StatusBadRequest), nil
+	}
+
+	resp := listDeadLetterSourceQueuesResponse{}
+	resp.Result.QueueUrls = urls
+	return xmlResp(http.StatusOK, resp)
+}
+
+func (p *SQSProvider) startMessageMoveTask(req *http.Request) (*plugin.Response, error) {
+	sourceArn := req.FormValue("SourceArn")
+	if sourceArn == "" {
+		return sqsError("MissingParameter", "SourceArn is required", http.StatusBadRequest), nil
+	}
+	destArn := req.FormValue("DestinationArn")
+	maxRate := 0
+	if s := req.FormValue("MaxNumberOfMessagesPerSecond"); s != "" {
+		maxRate, _ = strconv.Atoi(s)
+	}
+
+	handle, err := p.store.StartMessageMoveTask(sourceArn, destArn, maxRate, defaultAccountID)
+	if err != nil {
+		code, msg := startMoveTaskError(err)
+		if code == "" {
+			return nil, err
+		}
+		return sqsError(code, msg, http.StatusBadRequest), nil
+	}
+
+	resp := startMessageMoveTaskResponse{}
+	resp.Result.TaskHandle = handle
+	return xmlResp(http.StatusOK, resp)
+}
+
+func (p *SQSProvider) listMessageMoveTasks(req *http.Request) (*plugin.Response, error) {
+	sourceArn := req.FormValue("SourceArn")
+	if sourceArn == "" {
+		return sqsError("MissingParameter", "SourceArn is required", http.StatusBadRequest), nil
+	}
+	maxResults := 0
+	if s := req.FormValue("MaxResults"); s != "" {
+		maxResults, _ = strconv.Atoi(s)
+	}
+
+	tasks := p.store.ListMessageMoveTasks(sourceArn, maxResults)
+	resp := listMessageMoveTasksResponse{}
+	for _, t := range tasks {
+		resp.Result.Results = append(resp.Result.Results, moveTaskXML{
+			TaskHandle:                       t.Handle,
+			Status:                           t.Status,
+			SourceArn:                        t.SourceArn,
+			DestinationArn:                   t.DestinationArn,
+			MaxNumberOfMessagesPerSecond:     t.MaxRate,
+			ApproximateNumberOfMessagesMoved: t.Moved,
+			StartedTimestamp:                 t.StartedMillis,
+		})
+	}
+	return xmlResp(http.StatusOK, resp)
+}
+
+func (p *SQSProvider) cancelMessageMoveTask(req *http.Request) (*plugin.Response, error) {
+	handle := req.FormValue("TaskHandle")
+	if handle == "" {
+		return sqsError("MissingParameter", "TaskHandle is required", http.StatusBadRequest), nil
+	}
+
+	moved, err := p.store.CancelMessageMoveTask(handle)
+	switch {
+	case err == ErrTaskNotFound:
+		return sqsError("ResourceNotFoundException", "task not found", http.StatusBadRequest), nil
+	case err == ErrTaskNotCancellable:
+		return sqsError("ResourceNotFoundException", "task is not running and cannot be cancelled", http.StatusBadRequest), nil
+	case err != nil:
+		return nil, err
+	}
+
+	resp := cancelMessageMoveTaskResponse{}
+	resp.Result.ApproximateNumberOfMessagesMoved = moved
+	return xmlResp(http.StatusOK, resp)
 }
 
 // parseFormMessageAttributes extracts MessageAttribute.N.* from form values.
