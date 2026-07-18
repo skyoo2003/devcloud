@@ -26,6 +26,7 @@ We pursue this vision through a **phased rollout** to manage scope, architectura
 - [x] Unimplemented operations return a consistent AWS error (`InvalidAction`, HTTP 400) instead of a false `200` success; dead scaffold code removed
 - [x] boto3 compatibility coverage added for previously-untested services (CodeConnections, DMS, Verified Permissions)
 - [x] Stable `ServicePlugin` API finalized and documented ([plugin-api.md](plugin-api.md)), enforced by a conformance test over every registered service
+- [~] Generic CRUD fallback engine ([crud-engine.md](crud-engine.md)) auto-serves ~2,200 CRUD-shaped operations across 46 JSON services with plausible, store-backed responses. **Wired so far**: glue, sagemaker, ssm, cloudwatchlogs, emr, transcribe. **Rollout backlog**: opt in the remaining registered JSON services (one-line `default:` → `plugin.ErrUnhandledOp`), then promote high-value auto-crud ops to hand-verified.
 - [ ] v1.0 release (pending maintainer tag)
 
 ### Phase 2 — Architectural Preparation (v1.x)

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/skyoo2003/devcloud/internal/codegen"
@@ -35,6 +36,8 @@ func main() {
 
 	gen := codegen.NewGenerator(*templateDir)
 
+	var crudServices []codegen.CRUDServiceData
+
 	for _, entry := range entries {
 		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".json") {
 			continue
@@ -59,6 +62,32 @@ func main() {
 		fmt.Printf("Generating %s (%s)...\n", model.ServiceName, model.ServiceID)
 		if err := gen.GenerateAll(model, *outputDir, *scaffoldDir); err != nil {
 			fmt.Fprintf(os.Stderr, "Error generating %s: %v\n", model.ServiceID, err)
+			os.Exit(1)
+		}
+
+		if data, ok := codegen.ServiceCRUDData(model); ok {
+			crudServices = append(crudServices, data)
+		}
+	}
+
+	// Write the aggregate CRUD registry only when generating the full fleet
+	// (a filtered run would otherwise clobber it with a partial registry).
+	if len(allowedServices) == 0 {
+		sort.Slice(crudServices, func(i, j int) bool {
+			return crudServices[i].ServiceID < crudServices[j].ServiceID
+		})
+		content, err := gen.GenerateCRUDRegistry(crudServices)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error generating CRUD registry: %v\n", err)
+			os.Exit(1)
+		}
+		regDir := filepath.Join(*outputDir, "crudregistry")
+		if err := os.MkdirAll(regDir, 0755); err != nil {
+			fmt.Fprintf(os.Stderr, "Error creating crudregistry dir: %v\n", err)
+			os.Exit(1)
+		}
+		if err := os.WriteFile(filepath.Join(regDir, "registry_gen.go"), []byte(content), 0644); err != nil {
+			fmt.Fprintf(os.Stderr, "Error writing CRUD registry: %v\n", err)
 			os.Exit(1)
 		}
 	}

@@ -1,8 +1,9 @@
-"""Regression tests: unimplemented operations must return an AWS error, not a
-silent 200 empty-body success. Guards the fix in the services that previously
-returned a false 200 for unknown ops (apigatewayv2, backup, codebuild,
-codedeploy, codepipeline, cognito-idp, config, glue, iot, iotwireless,
-sagemaker)."""
+"""Unimplemented operations must never return a fabricated success.
+
+- Services NOT opted into the CRUD engine return an AWS error for any
+  unimplemented op.
+- Engine-wired services serve CRUD-shaped ops (see test_crud_engine.py) but still
+  return an honest error for non-CRUD, unclassifiable ops."""
 
 import pytest
 from botocore.exceptions import ClientError
@@ -25,13 +26,16 @@ UNIMPLEMENTED_OPS = [
     ("sagemaker_client", "list_auto_ml_jobs", {}),
 ]
 
-
-@pytest.mark.parametrize(
-    "fixture,method,kwargs",
-    UNIMPLEMENTED_OPS,
-    ids=[f"{f.removesuffix('_client')}.{m}" for f, m, _ in UNIMPLEMENTED_OPS],
-)
-def test_unimplemented_op_errors(request, fixture, method, kwargs):
-    client = request.getfixturevalue(fixture)
+def test_unwired_service_errors_on_unimplemented(codebuild_client):
+    # codebuild is not opted into the CRUD engine.
     with pytest.raises(ClientError):
-        getattr(client, method)(**kwargs)
+        codebuild_client.list_build_batches()
+
+
+def test_wired_service_errors_on_unclassifiable_op(glue_client):
+    # glue IS engine-wired, but StartBlueprintRun is neither hand-implemented nor
+    # CRUD-classifiable, so the engine declines it and an honest error is returned.
+    with pytest.raises(ClientError):
+        glue_client.start_blueprint_run(
+            BlueprintName="bp", RoleArn="arn:aws:iam::000000000000:role/r"
+        )

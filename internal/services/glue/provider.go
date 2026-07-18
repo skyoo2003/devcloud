@@ -213,7 +213,8 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 
 	// ---- ~200 stub operations ----
 	default:
-		return shared.JSONError("NotImplemented", "operation not implemented: "+action, http.StatusNotImplemented), nil
+		// Fall back to the generic CRUD engine for unimplemented ops.
+		return nil, plugin.ErrUnhandledOp
 	}
 }
 
