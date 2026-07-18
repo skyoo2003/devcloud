@@ -1,6 +1,5 @@
-# TODO(maintainer): set Issue to this change's PR/issue number before `changie batch`.
 kind: Fixed
 body: Correct `X-Amz-Target` service routing for AWS services whose target prefix is dotted (e.g. CodeConnections, DMS); they previously misrouted to CloudTrail via an overbroad `com` prefix match
-time: 2026-07-18T15:01:00.000000+09:00
+time: 2026-07-18T22:26:51.484673+09:00
 custom:
     Issue: "96"

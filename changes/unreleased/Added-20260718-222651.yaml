@@ -1,6 +1,5 @@
-# TODO(maintainer): set Issue to this change's PR/issue number before `changie batch`.
 kind: Added
 body: Document the stable `ServicePlugin` plugin API in docs/plugin-api.md (method contracts, config keys, error convention, and the v1.x stability policy), enforced by a conformance test over every registered service
-time: 2026-07-18T15:03:00.000000+09:00
+time: 2026-07-18T22:26:51.495862+09:00
 custom:
     Issue: "96"
