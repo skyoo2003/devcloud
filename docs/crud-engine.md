@@ -45,10 +45,12 @@ implementation.
   S3, Route53, IAM, RDS, CloudFormation) are hand-written and out of scope.
 - **Engine-registered services**: 46 (all JSON-protocol services with
   classifiable operations), covering ~2,200 operations.
-- **Engine-wired services** (opted into the fallback so far):
-  `glue`, `sagemaker`, `ssm`, `cloudwatchlogs`, `emr`, `transcribe`.
-  Other registered services keep returning `InvalidAction` for unimplemented ops
-  until wired — see the rollout backlog in [roadmap.md](roadmap.md).
+- **Engine-wired services**: all 46 registered JSON services are wired — their
+  dispatch `default:` returns `plugin.ErrUnhandledOp`, so unimplemented CRUD ops
+  are engine-served. This **includes core services** (DynamoDB, SQS, KMS, ECS,
+  …): they hand-implement their common operations, and only their few remaining
+  unimplemented CRUD ops fall through to the engine. Non-CRUD / unclassifiable
+  ops still return an honest `InvalidAction` error.
 
 ## Known limits
 

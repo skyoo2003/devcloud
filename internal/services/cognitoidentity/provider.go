@@ -97,7 +97,8 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListTagsForResource":
 		return p.listTagsForResource(req)
 	default:
-		return ciError("NotImplemented", fmt.Sprintf("operation not implemented: %s", op), http.StatusNotImplemented), nil
+		// Fall back to the generic CRUD engine for unimplemented ops.
+		return nil, plugin.ErrUnhandledOp
 	}
 }
 

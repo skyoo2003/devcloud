@@ -449,7 +449,9 @@ func TestTags(t *testing.T) {
 	platforms, _ := eib["platforms"].([]any)
 	assert.NotEmpty(t, platforms)
 
-	// Unimplemented ops return an AWS error, not a false success.
-	unknownResp := call(t, p, "StartBuildBatch", `{}`)
-	assert.Equal(t, 501, unknownResp.StatusCode)
+	// Unimplemented ops delegate to the CRUD engine via the sentinel.
+	ureq := httptest.NewRequest("POST", "/", strings.NewReader("{}"))
+	ureq.Header.Set("Content-Type", "application/x-amz-json-1.1")
+	_, uerr := p.HandleRequest(context.Background(), "StartBuildBatch", ureq)
+	assert.ErrorIs(t, uerr, plugin.ErrUnhandledOp)
 }

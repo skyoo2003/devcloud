@@ -39,12 +39,11 @@ func cognitoReq(t *testing.T, p *Provider, op string, body any) *plugin.Response
 
 func TestUnimplementedOp(t *testing.T) {
 	p := newTestProvider(t)
-	// Unimplemented ops must return an AWS error, not a false 200 success.
-	resp := cognitoReq(t, p, "SomeUnknownOperation", map[string]any{})
-	assert.Equal(t, http.StatusNotImplemented, resp.StatusCode)
-	var out map[string]any
-	require.NoError(t, json.Unmarshal(resp.Body, &out))
-	assert.Equal(t, "NotImplemented", out["__type"])
+	// Unimplemented ops delegate to the CRUD engine via the sentinel.
+	req := httptest.NewRequest("POST", "/", bytes.NewReader([]byte("{}")))
+	req.Header.Set("Content-Type", "application/x-amz-json-1.1")
+	_, err := p.HandleRequest(context.Background(), "SomeUnknownOperation", req)
+	assert.ErrorIs(t, err, plugin.ErrUnhandledOp)
 }
 
 // --- TestUserPoolCRUD ---

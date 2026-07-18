@@ -379,7 +379,9 @@ func TestTags(t *testing.T) {
 	assert.Equal(t, "Owner", firstTag["key"])
 	assert.Equal(t, "alice", firstTag["value"])
 
-	// Unimplemented ops return an AWS error, not a false success.
-	unknownResp := call(t, p, "AddTagsToOnPremisesInstances", `{}`)
-	assert.Equal(t, 501, unknownResp.StatusCode)
+	// Unimplemented ops delegate to the CRUD engine via the sentinel.
+	ureq := httptest.NewRequest("POST", "/", strings.NewReader("{}"))
+	ureq.Header.Set("Content-Type", "application/x-amz-json-1.1")
+	_, uerr := p.HandleRequest(context.Background(), "AddTagsToOnPremisesInstances", ureq)
+	assert.ErrorIs(t, uerr, plugin.ErrUnhandledOp)
 }

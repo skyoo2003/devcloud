@@ -1,9 +1,6 @@
-"""Unimplemented operations must never return a fabricated success.
-
-- Services NOT opted into the CRUD engine return an AWS error for any
-  unimplemented op.
-- Engine-wired services serve CRUD-shaped ops (see test_crud_engine.py) but still
-  return an honest error for non-CRUD, unclassifiable ops."""
+"""Unimplemented CRUD-shaped operations are now served by the fallback engine on
+all registered JSON services. Operations the engine cannot classify still return
+an honest error, never a fabricated success."""
 
 import pytest
 from botocore.exceptions import ClientError
@@ -26,10 +23,11 @@ UNIMPLEMENTED_OPS = [
     ("sagemaker_client", "list_auto_ml_jobs", {}),
 ]
 
-def test_unwired_service_errors_on_unimplemented(codebuild_client):
-    # codebuild is not opted into the CRUD engine.
-    with pytest.raises(ClientError):
-        codebuild_client.list_build_batches()
+def test_engine_serves_formerly_unimplemented_op(codebuild_client):
+    # codebuild does not hand-implement ListBuildBatches; the engine serves it
+    # (this returned an error before the service was wired to the engine).
+    resp = codebuild_client.list_build_batches()
+    assert resp["ResponseMetadata"]["HTTPStatusCode"] == 200
 
 
 def test_wired_service_errors_on_unclassifiable_op(glue_client):

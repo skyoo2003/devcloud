@@ -190,7 +190,8 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 	case "DiscoverPollEndpoint":
 		return p.handleDiscoverPollEndpoint(params)
 	default:
-		return ecsError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
+		// Fall back to the generic CRUD engine for unimplemented ops.
+		return nil, plugin.ErrUnhandledOp
 	}
 }
 
