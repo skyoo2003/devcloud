@@ -644,6 +644,21 @@ def mediaconvert_client(devcloud_server):
 
 
 @pytest.fixture
+def codeconnections_client(devcloud_server):
+    return _make_client("codeconnections")
+
+
+@pytest.fixture
+def dms_client(devcloud_server):
+    return _make_client("dms")
+
+
+@pytest.fixture
+def verifiedpermissions_client(devcloud_server):
+    return _make_client("verifiedpermissions")
+
+
+@pytest.fixture
 def s3tables_client(devcloud_server):
     return _make_client("s3tables")
 

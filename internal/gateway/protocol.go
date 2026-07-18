@@ -76,12 +76,18 @@ func jsonProtocolFromContentType(contentType string) string {
 // serviceFromTarget extracts the lowercase service name from an X-Amz-Target
 // value of the form "ServiceName_YYYYMMDD.OperationName".
 func serviceFromTarget(target string) string {
-	// Split on '.' to separate "ServiceName_Date" from "OperationName".
-	parts := strings.SplitN(target, ".", 2)
-	if len(parts) == 0 {
-		return ""
+	// X-Amz-Target is "<targetPrefix>.<OperationName>". The prefix itself may
+	// contain dots (e.g. "com.amazonaws.codeconnections.CodeConnections_20231201"),
+	// so drop the operation (everything after the last '.') and take the last
+	// dotted segment of the prefix as the "ServiceName_Date" token.
+	prefix := target
+	if idx := strings.LastIndex(prefix, "."); idx != -1 {
+		prefix = prefix[:idx]
 	}
-	serviceAndDate := parts[0]
+	if idx := strings.LastIndex(prefix, "."); idx != -1 {
+		prefix = prefix[idx+1:]
+	}
+	serviceAndDate := prefix
 	full := strings.ToLower(serviceAndDate)
 
 	// Try full string first (handles services that share a prefix but differ
@@ -240,6 +246,8 @@ func normalizeServiceID(svc string) string {
 		return "kafka"
 	case "lakeformation":
 		return "lakeformation"
+	case "amazondmsv20160101", "amazondms":
+		return "dms"
 	case "configservice", "config", "starlingdoveservice":
 		return "configservice"
 	case "applicationautoscaling", "application-autoscaling", "anyupfront", "anyscalefrontendservice":
@@ -316,7 +324,7 @@ func normalizeServiceID(svc string) string {
 		return "codepipeline"
 	case "codeartifact":
 		return "codeartifact"
-	case "cloudtrail", "cloudtrail_20131101", "com":
+	case "cloudtrail", "cloudtrail_20131101":
 		return "cloudtrail"
 	case "opensearch", "opensearchservice":
 		return "opensearch"

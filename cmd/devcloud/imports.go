@@ -96,7 +96,6 @@ import (
 	_ "github.com/skyoo2003/devcloud/internal/services/sqs"
 	_ "github.com/skyoo2003/devcloud/internal/services/ssm"
 	_ "github.com/skyoo2003/devcloud/internal/services/ssoadmin"
-	_ "github.com/skyoo2003/devcloud/internal/services/sts"
 	_ "github.com/skyoo2003/devcloud/internal/services/support"
 	_ "github.com/skyoo2003/devcloud/internal/services/swf"
 	_ "github.com/skyoo2003/devcloud/internal/services/textract"

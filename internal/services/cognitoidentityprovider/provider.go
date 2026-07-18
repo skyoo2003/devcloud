@@ -181,8 +181,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListTagsForResource":
 		return p.listTagsForResource(req)
 	default:
-		// Return success/empty for unimplemented ops
-		return emptyOK(), nil
+		return cognitoError("InvalidAction", "unknown action: "+op, http.StatusBadRequest), nil
 	}
 }
 

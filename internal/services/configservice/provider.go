@@ -186,7 +186,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 
 	// ---- ~60 remaining ops: compliance, aggregate queries, org rules, resource discovery ----
 	default:
-		return shared.JSONResponse(http.StatusOK, map[string]any{})
+		return shared.JSONError("InvalidAction", "unknown action: "+action, http.StatusBadRequest), nil
 	}
 }
 

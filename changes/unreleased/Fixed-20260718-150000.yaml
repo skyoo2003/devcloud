@@ -1,0 +1,6 @@
+# TODO(maintainer): set Issue to this change's PR/issue number before `changie batch`.
+kind: Fixed
+body: Unimplemented operations now return an `InvalidAction` error (HTTP 400) instead of a misleading empty `200` success, so SDKs no longer see a false success (affects glue, sagemaker, iot, backup, codebuild, codedeploy, codepipeline, cognito-idp, configservice, apigatewayv2, iotwireless)
+time: 2026-07-18T15:00:00.000000+09:00
+custom:
+    Issue: "96"

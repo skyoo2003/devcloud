@@ -476,9 +476,9 @@ func TestTags(t *testing.T) {
 
 func TestDefaultHandler(t *testing.T) {
 	p := newTestProvider(t)
-	// Unknown ops should return 200 with empty JSON
+	// Unimplemented ops must return an AWS error, not a false 200 success.
 	resp := callREST(t, p, "GET", "/some/unknown/path", "SomeUnknownOperation", "")
-	assert.Equal(t, 200, resp.StatusCode)
+	assert.Equal(t, 400, resp.StatusCode)
 	rb := parseBody(t, resp)
-	assert.NotNil(t, rb)
+	assert.Equal(t, "InvalidAction", rb["__type"])
 }

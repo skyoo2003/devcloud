@@ -53,6 +53,13 @@ func assertOK(t *testing.T, resp *plugin.Response) {
 	}
 }
 
+func assertErr(t *testing.T, resp *plugin.Response) {
+	t.Helper()
+	if resp.StatusCode != 400 {
+		t.Fatalf("expected 400, got %d: %s", resp.StatusCode, string(resp.Body))
+	}
+}
+
 func TestDatabaseCRUD(t *testing.T) {
 	p := newTestProvider(t)
 
@@ -602,11 +609,11 @@ func TestTags(t *testing.T) {
 		t.Errorf("expected team=data, got %v", tags["team"])
 	}
 
-	// Stub ops should return 200
+	// Unimplemented ops return an AWS error, not a false success.
 	resp = callOp(t, p, "GetDataflowGraph", `{}`)
-	assertOK(t, resp)
+	assertErr(t, resp)
 	resp = callOp(t, p, "ListWorkflows", `{}`)
-	assertOK(t, resp)
+	assertErr(t, resp)
 	resp = callOp(t, p, "GetMLTransform", `{}`)
-	assertOK(t, resp)
+	assertErr(t, resp)
 }

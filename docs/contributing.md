@@ -91,7 +91,7 @@ make codegen-s3
    - In-memory for ephemeral data
    - Filesystem for binary blobs
 
-6. **Register the plugin** — create `register.go` that registers the service factory in the plugin registry. Follow existing services as examples.
+6. **Register the plugin** — register the service factory in the plugin registry from an `init()` function. Follow existing services as examples. The `ServicePlugin` interface contract, error convention, and config keys are documented in [plugin-api.md](plugin-api.md).
 
 7. **Update main.go** — add the service initialization in `cmd/devcloud/main.go`
 

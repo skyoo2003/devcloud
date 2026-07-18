@@ -315,7 +315,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 
 	// --- Default stubs for remaining ops ---
 	default:
-		return shared.JSONResponse(http.StatusOK, map[string]any{})
+		return shared.JSONError("InvalidAction", "unknown action: "+op, http.StatusBadRequest), nil
 	}
 }
 

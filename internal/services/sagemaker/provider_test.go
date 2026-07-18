@@ -53,6 +53,13 @@ func assertOK(t *testing.T, resp *plugin.Response) {
 	}
 }
 
+func assertErr(t *testing.T, resp *plugin.Response) {
+	t.Helper()
+	if resp.StatusCode != 400 {
+		t.Fatalf("expected 400, got %d: %s", resp.StatusCode, string(resp.Body))
+	}
+}
+
 func TestNotebookInstanceCRUD(t *testing.T) {
 	p := newTestProvider(t)
 
@@ -637,13 +644,14 @@ func TestTags(t *testing.T) {
 func TestDefaultStub(t *testing.T) {
 	p := newTestProvider(t)
 
-	// Verify unknown operations return {}
+	// Unimplemented ops return an AWS error, not a false success.
 	resp := callOp(t, p, "CreateAutoMLJob", `{}`)
-	assertOK(t, resp)
+	assertErr(t, resp)
 
 	resp = callOp(t, p, "DescribeCluster", `{}`)
-	assertOK(t, resp)
+	assertErr(t, resp)
 
+	// Search IS implemented and legitimately returns empty results.
 	resp = callOp(t, p, "Search", `{"Resource":"TrainingJob"}`)
 	assertOK(t, resp)
 	body := parseBody(t, resp)

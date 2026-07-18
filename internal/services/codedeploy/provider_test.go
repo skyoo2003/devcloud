@@ -379,7 +379,7 @@ func TestTags(t *testing.T) {
 	assert.Equal(t, "Owner", firstTag["key"])
 	assert.Equal(t, "alice", firstTag["value"])
 
-	// Unknown action returns empty success
+	// Unimplemented ops return an AWS error, not a false success.
 	unknownResp := call(t, p, "AddTagsToOnPremisesInstances", `{}`)
-	assert.Equal(t, 200, unknownResp.StatusCode)
+	assert.Equal(t, 400, unknownResp.StatusCode)
 }

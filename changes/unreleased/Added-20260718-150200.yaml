@@ -1,0 +1,6 @@
+# TODO(maintainer): set Issue to this change's PR/issue number before `changie batch`.
+kind: Added
+body: Enable and add boto3 compatibility tests for CodeConnections, DMS, and Verified Permissions (previously scaffolded but not enabled)
+time: 2026-07-18T15:02:00.000000+09:00
+custom:
+    Issue: "96"

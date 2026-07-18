@@ -325,7 +325,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 
 	// Stub ops (Portal, PortalProduct, RoutingRule, etc.)
 	default:
-		return shared.JSONResponse(http.StatusOK, map[string]any{})
+		return shared.JSONError("InvalidAction", "unknown action: "+op, http.StatusBadRequest), nil
 	}
 }
 

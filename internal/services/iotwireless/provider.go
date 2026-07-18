@@ -186,9 +186,8 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListTagsForResource":
 		return p.listTagsForResource(req)
 
-	// Stub operations - return success/empty
 	default:
-		return shared.JSONResponse(http.StatusOK, map[string]any{})
+		return shared.JSONError("InvalidAction", "unknown action: "+op, http.StatusBadRequest), nil
 	}
 }
 

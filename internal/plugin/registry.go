@@ -60,6 +60,34 @@ func (r *Registry) Get(serviceID string) (ServicePlugin, bool) {
 	return p, ok
 }
 
+// RegisteredServices returns the sorted IDs of every service factory that has
+// been registered, whether or not it has been initialized. Useful for
+// enumerating the full plugin surface (e.g. conformance checks).
+func (r *Registry) RegisteredServices() []string {
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+	ids := make([]string, 0, len(r.factories))
+	for id := range r.factories {
+		ids = append(ids, id)
+	}
+	sort.Strings(ids)
+	return ids
+}
+
+// Construct builds a fresh plugin instance for serviceID via its factory,
+// without calling Init. Returns nil,false if the service is not registered.
+// Only the metadata methods (ServiceID/ServiceName/Protocol) are guaranteed
+// usable on the returned value; anything requiring state needs Init first.
+func (r *Registry) Construct(serviceID string) (ServicePlugin, bool) {
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+	f, ok := r.factories[serviceID]
+	if !ok {
+		return nil, false
+	}
+	return f(), true
+}
+
 func (r *Registry) ActiveServices() []string {
 	r.mu.RLock()
 	defer r.mu.RUnlock()

@@ -188,8 +188,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 			"pipelineExecutionId": shared.GenerateUUID(),
 		})
 	default:
-		// Remaining ops: return success/empty
-		return shared.JSONResponse(http.StatusOK, map[string]any{})
+		return shared.JSONError("InvalidAction", "unknown action: "+action, http.StatusBadRequest), nil
 	}
 }
 
