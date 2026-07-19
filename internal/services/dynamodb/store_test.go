@@ -119,6 +119,41 @@ func TestDynamoStore_Query(t *testing.T) {
 	assert.Len(t, results, 3)
 }
 
+// TestDynamoStore_QueryNumericSortKeyPrecision verifies numeric ('N') sort keys
+// order by true value even where a float CAST would fail: consecutive integers
+// past 2^53 (which collapse to the same IEEE double) and near-equal decimals.
+func TestDynamoStore_QueryNumericSortKeyPrecision(t *testing.T) {
+	store := newTestStore(t)
+
+	require.NoError(t, store.CreateTable(TableInfo{
+		Name:         "Ledger",
+		PartitionKey: KeyDef{Name: "Acct", Type: "S"},
+		SortKey:      &KeyDef{Name: "Seq", Type: "N"},
+	}))
+
+	seqs := []string{
+		"100", "2", "10",
+		"9007199254740994", "9007199254740992", "9007199254740993", // 2^53+2, 2^53, 2^53+1
+		"1.0000000000000002", "1.0000000000000001",
+	}
+	for _, s := range seqs {
+		require.NoError(t, store.PutItem("Ledger", Item{"Acct": {S: strPtr("a")}, "Seq": {N: strPtr(s)}}))
+	}
+
+	results, err := store.Query("Ledger", "a", "")
+	require.NoError(t, err)
+
+	got := make([]string, len(results))
+	for i, it := range results {
+		got[i] = *it["Seq"].N
+	}
+	assert.Equal(t, []string{
+		"1.0000000000000001", "1.0000000000000002",
+		"2", "10", "100",
+		"9007199254740992", "9007199254740993", "9007199254740994",
+	}, got)
+}
+
 // TestDynamoStore_Scan verifies that Scan returns all items in a table.
 func TestDynamoStore_Scan(t *testing.T) {
 	store := newTestStore(t)

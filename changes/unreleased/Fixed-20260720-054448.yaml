@@ -1,0 +1,5 @@
+kind: Fixed
+body: 'EC2: Describe{SecurityGroups,Tags,Addresses} now honor GroupId/AllocationId/PublicIp selectors and Filters (and raise NotFound for unknown IDs) instead of returning every resource; delete-by-name removes a single security group; batch Start/Stop is atomic; AssociateAddress validates the instance; duplicate/absent security-group rules are rejected; Authorize/Revoke accept GroupName; all-traffic rules omit ports'
+time: 2026-07-20T05:44:48.649862+09:00
+custom:
+    Issue: "97"

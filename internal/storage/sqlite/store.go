@@ -5,12 +5,36 @@ package sqlite
 import (
 	"database/sql"
 	"fmt"
+	"math/big"
 	"os"
 	"path/filepath"
 	"strings"
 
-	_ "github.com/mattn/go-sqlite3"
+	sqlite3 "github.com/mattn/go-sqlite3"
 )
+
+// driverName is a sqlite3 driver variant that registers the NUMTEXT collation
+// on every connection. NUMTEXT orders TEXT columns holding numeric strings by
+// true numeric value (exact across DynamoDB's full 38-digit precision), which
+// a float CAST cannot do past 2^53.
+const driverName = "sqlite3_numtext"
+
+func init() {
+	sql.Register(driverName, &sqlite3.SQLiteDriver{
+		ConnectHook: func(conn *sqlite3.SQLiteConn) error {
+			return conn.RegisterCollation("NUMTEXT", compareNumericText)
+		},
+	})
+}
+
+func compareNumericText(a, b string) int {
+	ra, oka := new(big.Rat).SetString(a)
+	rb, okb := new(big.Rat).SetString(b)
+	if oka && okb {
+		return ra.Cmp(rb)
+	}
+	return strings.Compare(a, b) // non-numeric values fall back to byte order
+}
 
 type Migration struct {
 	Version int
@@ -32,7 +56,7 @@ func Open(dbPath string, migrations []Migration) (*Store, error) {
 		return nil, fmt.Errorf("create data dir: %w", err)
 	}
 
-	db, err := sql.Open("sqlite3", dbPath)
+	db, err := sql.Open(driverName, dbPath)
 	if err != nil {
 		return nil, fmt.Errorf("open sqlite: %w", err)
 	}

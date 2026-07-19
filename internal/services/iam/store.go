@@ -242,6 +242,22 @@ var iamMigrations = []sqlite.Migration{
 			PRIMARY KEY (role_name, tag_key, account_id)
 		);`,
 	},
+	{
+		Version: 16,
+		SQL: `CREATE TABLE IF NOT EXISTS group_policies (
+			group_name TEXT NOT NULL,
+			policy_arn TEXT NOT NULL,
+			account_id TEXT NOT NULL,
+			PRIMARY KEY (group_name, policy_arn, account_id)
+		);
+		CREATE TABLE IF NOT EXISTS group_inline_policies (
+			group_name  TEXT NOT NULL,
+			policy_name TEXT NOT NULL,
+			policy_doc  TEXT NOT NULL,
+			account_id  TEXT NOT NULL,
+			PRIMARY KEY (group_name, policy_name, account_id)
+		);`,
+	},
 }
 
 // IAMStore is a SQLite-backed store for IAM entities.
@@ -1184,6 +1200,109 @@ func (s *IAMStore) ListUserInlinePolicies(accountID, userName string) ([]string,
 	rows, err := s.db().Query(
 		`SELECT policy_name FROM user_inline_policies WHERE user_name = ? AND account_id = ? ORDER BY policy_name;`,
 		userName, accountID,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = rows.Close() }()
+	var names []string
+	for rows.Next() {
+		var n string
+		if err := rows.Scan(&n); err != nil {
+			return nil, err
+		}
+		names = append(names, n)
+	}
+	return names, rows.Err()
+}
+
+// --- Group managed & inline policies (mirror the user/role variants) ---
+
+func (s *IAMStore) AttachGroupPolicy(accountID, groupName, policyArn string) error {
+	_, err := s.db().Exec(
+		`INSERT OR IGNORE INTO group_policies (group_name, policy_arn, account_id) VALUES (?, ?, ?);`,
+		groupName, policyArn, accountID,
+	)
+	return err
+}
+
+func (s *IAMStore) DetachGroupPolicy(accountID, groupName, policyArn string) error {
+	result, err := s.db().Exec(
+		`DELETE FROM group_policies WHERE group_name = ? AND policy_arn = ? AND account_id = ?;`,
+		groupName, policyArn, accountID,
+	)
+	if err != nil {
+		return err
+	}
+	rows, _ := result.RowsAffected()
+	if rows == 0 {
+		return ErrPolicyNotFound
+	}
+	return nil
+}
+
+func (s *IAMStore) ListAttachedGroupPolicies(accountID, groupName string) ([]string, error) {
+	rows, err := s.db().Query(
+		`SELECT policy_arn FROM group_policies WHERE group_name = ? AND account_id = ? ORDER BY policy_arn;`,
+		groupName, accountID,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = rows.Close() }()
+	var arns []string
+	for rows.Next() {
+		var arn string
+		if err := rows.Scan(&arn); err != nil {
+			return nil, err
+		}
+		arns = append(arns, arn)
+	}
+	return arns, rows.Err()
+}
+
+func (s *IAMStore) PutGroupInlinePolicy(accountID, groupName, policyName, policyDoc string) error {
+	_, err := s.db().Exec(
+		`INSERT OR REPLACE INTO group_inline_policies (group_name, policy_name, policy_doc, account_id) VALUES (?, ?, ?, ?);`,
+		groupName, policyName, policyDoc, accountID,
+	)
+	return err
+}
+
+func (s *IAMStore) GetGroupInlinePolicy(accountID, groupName, policyName string) (string, error) {
+	var doc string
+	err := s.db().QueryRow(
+		`SELECT policy_doc FROM group_inline_policies WHERE group_name = ? AND policy_name = ? AND account_id = ?;`,
+		groupName, policyName, accountID,
+	).Scan(&doc)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return "", ErrPolicyNotFound
+		}
+		return "", err
+	}
+	return doc, nil
+}
+
+func (s *IAMStore) DeleteGroupInlinePolicy(accountID, groupName, policyName string) error {
+	result, err := s.db().Exec(
+		`DELETE FROM group_inline_policies WHERE group_name = ? AND policy_name = ? AND account_id = ?;`,
+		groupName, policyName, accountID,
+	)
+	if err != nil {
+		return err
+	}
+	rows, _ := result.RowsAffected()
+	if rows == 0 {
+		return ErrPolicyNotFound
+	}
+	return nil
+}
+
+func (s *IAMStore) ListGroupInlinePolicies(accountID, groupName string) ([]string, error) {
+	rows, err := s.db().Query(
+		`SELECT policy_name FROM group_inline_policies WHERE group_name = ? AND account_id = ? ORDER BY policy_name;`,
+		groupName, accountID,
 	)
 	if err != nil {
 		return nil, err

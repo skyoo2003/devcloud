@@ -620,11 +620,11 @@ func indexKeyValue(item Item, idx IndexDef, kind string) (value string, ok bool,
 // orderByColumn returns the ORDER BY expression for a sort/range key column of
 // the given attribute type. Numeric ('N') keys must sort numerically, not by the
 // lexicographic byte order of their TEXT storage (so 2, 10 sorts before 100).
-// ponytail: CAST AS REAL loses precision past ~2^53 and on high-precision
-// decimals; fine for an emulator, swap for a sortable-number encoding if it bites.
+// The NUMTEXT collation compares by true numeric value, exact across DynamoDB's
+// full 38-digit precision (a float CAST is lossy past 2^53).
 func orderByColumn(col, keyType string) string {
 	if keyType == "N" {
-		return "CAST(" + col + " AS REAL)"
+		return col + " COLLATE NUMTEXT"
 	}
 	return col
 }

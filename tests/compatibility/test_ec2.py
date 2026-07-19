@@ -166,3 +166,316 @@ def test_network_acl(ec2_client):
         Egress=False,
     )
     ec2_client.delete_network_acl(NetworkAclId=aclid)
+
+
+def test_instance_stop_start(ec2_client):
+    iid = ec2_client.run_instances(ImageId="ami-life", MinCount=1, MaxCount=1)[
+        "Instances"
+    ][0]["InstanceId"]
+
+    stopped = ec2_client.stop_instances(InstanceIds=[iid])
+    assert stopped["StoppingInstances"][0]["CurrentState"]["Name"] == "stopped"
+    assert stopped["StoppingInstances"][0]["PreviousState"]["Name"] == "running"
+
+    started = ec2_client.start_instances(InstanceIds=[iid])
+    assert started["StartingInstances"][0]["CurrentState"]["Name"] == "running"
+    assert started["StartingInstances"][0]["PreviousState"]["Name"] == "stopped"
+
+    # Reboot succeeds without changing reported state.
+    ec2_client.reboot_instances(InstanceIds=[iid])
+
+
+def test_reboot_nonexistent_instance(ec2_client):
+    with pytest.raises(ClientError) as exc:
+        ec2_client.reboot_instances(InstanceIds=["i-doesnotexist0"])
+    assert exc.value.response["Error"]["Code"] in (
+        "InvalidInstanceID.NotFound",
+        "InvalidInstanceID.Malformed",
+    )
+
+
+def test_describe_availability_zones(ec2_client):
+    resp = ec2_client.describe_availability_zones()
+    zones = resp["AvailabilityZones"]
+    assert len(zones) >= 3
+    assert any(z["ZoneName"] == "us-east-1a" for z in zones)
+    assert all(z["State"] == "available" for z in zones)
+
+
+def test_describe_regions(ec2_client):
+    resp = ec2_client.describe_regions()
+    names = [r["RegionName"] for r in resp["Regions"]]
+    assert "us-east-1" in names
+
+
+def test_delete_subnet(ec2_client):
+    vpc = ec2_client.create_vpc(CidrBlock="10.9.0.0/16")
+    subnet_id = ec2_client.create_subnet(
+        VpcId=vpc["Vpc"]["VpcId"], CidrBlock="10.9.1.0/24"
+    )["Subnet"]["SubnetId"]
+    ec2_client.delete_subnet(SubnetId=subnet_id)
+    remaining = [s["SubnetId"] for s in ec2_client.describe_subnets()["Subnets"]]
+    assert subnet_id not in remaining
+
+
+def test_delete_security_group(ec2_client):
+    gid = ec2_client.create_security_group(GroupName="del-sg", Description="d")[
+        "GroupId"
+    ]
+    ec2_client.delete_security_group(GroupId=gid)
+    ids = [
+        sg["GroupId"] for sg in ec2_client.describe_security_groups()["SecurityGroups"]
+    ]
+    assert gid not in ids
+
+
+def test_security_group_rules(ec2_client):
+    gid = ec2_client.create_security_group(GroupName="rules-sg", Description="d")[
+        "GroupId"
+    ]
+    ec2_client.authorize_security_group_ingress(
+        GroupId=gid,
+        IpPermissions=[
+            {
+                "IpProtocol": "tcp",
+                "FromPort": 22,
+                "ToPort": 22,
+                "IpRanges": [{"CidrIp": "0.0.0.0/0"}],
+            }
+        ],
+    )
+    sg = [
+        g
+        for g in ec2_client.describe_security_groups(GroupIds=[gid])["SecurityGroups"]
+        if g["GroupId"] == gid
+    ][0]
+    perms = sg["IpPermissions"]
+    assert any(
+        p["FromPort"] == 22 and p["IpRanges"][0]["CidrIp"] == "0.0.0.0/0" for p in perms
+    )
+
+    ec2_client.revoke_security_group_ingress(
+        GroupId=gid,
+        IpPermissions=[
+            {
+                "IpProtocol": "tcp",
+                "FromPort": 22,
+                "ToPort": 22,
+                "IpRanges": [{"CidrIp": "0.0.0.0/0"}],
+            }
+        ],
+    )
+    sg2 = [
+        g
+        for g in ec2_client.describe_security_groups(GroupIds=[gid])["SecurityGroups"]
+        if g["GroupId"] == gid
+    ][0]
+    assert not sg2.get("IpPermissions")
+
+
+def test_elastic_ip_association(ec2_client):
+    iid = ec2_client.run_instances(ImageId="ami-eip", MinCount=1, MaxCount=1)[
+        "Instances"
+    ][0]["InstanceId"]
+    alloc = ec2_client.allocate_address(Domain="vpc")
+    alloc_id = alloc["AllocationId"]
+
+    assoc = ec2_client.associate_address(AllocationId=alloc_id, InstanceId=iid)
+    assoc_id = assoc["AssociationId"]
+    assert assoc_id.startswith("eipassoc-")
+
+    addrs = ec2_client.describe_addresses()["Addresses"]
+    mine = [a for a in addrs if a["AllocationId"] == alloc_id][0]
+    assert mine["InstanceId"] == iid
+
+    ec2_client.disassociate_address(AssociationId=assoc_id)
+    ec2_client.release_address(AllocationId=alloc_id)
+    remaining = [
+        a["AllocationId"] for a in ec2_client.describe_addresses()["Addresses"]
+    ]
+    assert alloc_id not in remaining
+
+
+def test_delete_tags(ec2_client):
+    iid = ec2_client.run_instances(ImageId="ami-tagdel", MinCount=1, MaxCount=1)[
+        "Instances"
+    ][0]["InstanceId"]
+    ec2_client.create_tags(Resources=[iid], Tags=[{"Key": "team", "Value": "x"}])
+    ec2_client.delete_tags(Resources=[iid], Tags=[{"Key": "team"}])
+    desc = ec2_client.describe_instances(InstanceIds=[iid])
+    tags = desc["Reservations"][0]["Instances"][0].get("Tags", [])
+    assert "team" not in {t["Key"] for t in tags}
+
+
+def test_delete_security_group_by_name_removes_one(ec2_client):
+    # group_name is not unique; deleting by name must remove exactly one group.
+    name = "dupdel-sg"
+    ec2_client.create_security_group(GroupName=name, Description="a")
+    ec2_client.create_security_group(GroupName=name, Description="b")
+    before = [
+        g
+        for g in ec2_client.describe_security_groups()["SecurityGroups"]
+        if g["GroupName"] == name
+    ]
+    assert len(before) == 2
+    ec2_client.delete_security_group(GroupName=name)
+    after = [
+        g
+        for g in ec2_client.describe_security_groups()["SecurityGroups"]
+        if g["GroupName"] == name
+    ]
+    assert len(after) == 1
+
+
+def test_describe_security_groups_missing_id_raises(ec2_client):
+    with pytest.raises(ClientError) as exc:
+        ec2_client.describe_security_groups(GroupIds=["sg-00000000"])
+    assert exc.value.response["Error"]["Code"] == "InvalidGroup.NotFound"
+
+
+def test_describe_addresses_missing_allocation_raises(ec2_client):
+    with pytest.raises(ClientError) as exc:
+        ec2_client.describe_addresses(AllocationIds=["eipalloc-00000000"])
+    assert exc.value.response["Error"]["Code"] == "InvalidAllocationID.NotFound"
+
+
+def test_revoke_missing_rule_raises(ec2_client):
+    gid = ec2_client.create_security_group(GroupName="revoke-missing", Description="d")[
+        "GroupId"
+    ]
+    with pytest.raises(ClientError) as exc:
+        ec2_client.revoke_security_group_ingress(
+            GroupId=gid,
+            IpPermissions=[
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": 22,
+                    "ToPort": 22,
+                    "IpRanges": [{"CidrIp": "0.0.0.0/0"}],
+                }
+            ],
+        )
+    assert exc.value.response["Error"]["Code"] == "InvalidPermission.NotFound"
+
+
+def test_revoke_missing_group_raises(ec2_client):
+    with pytest.raises(ClientError) as exc:
+        ec2_client.revoke_security_group_ingress(
+            GroupId="sg-00000000",
+            IpPermissions=[{"IpProtocol": "-1"}],
+        )
+    assert exc.value.response["Error"]["Code"] == "InvalidGroup.NotFound"
+
+
+def test_batch_stop_is_atomic(ec2_client):
+    # A bad id later in the batch must not transition the earlier good instance.
+    good = ec2_client.run_instances(ImageId="ami-atomic", MinCount=1, MaxCount=1)[
+        "Instances"
+    ][0]["InstanceId"]
+    with pytest.raises(ClientError):
+        ec2_client.stop_instances(InstanceIds=[good, "i-000000000000bad0"])
+    desc = ec2_client.describe_instances(InstanceIds=[good])
+    state = desc["Reservations"][0]["Instances"][0]["State"]["Name"]
+    assert state == "running"
+
+
+def test_associate_address_missing_instance_raises(ec2_client):
+    alloc_id = ec2_client.allocate_address(Domain="vpc")["AllocationId"]
+    with pytest.raises(ClientError) as exc:
+        ec2_client.associate_address(
+            AllocationId=alloc_id, InstanceId="i-000000000000bad1"
+        )
+    assert exc.value.response["Error"]["Code"] == "InvalidInstanceID.NotFound"
+
+
+def test_authorize_duplicate_rule_raises(ec2_client):
+    gid = ec2_client.create_security_group(GroupName="dup-rule", Description="d")[
+        "GroupId"
+    ]
+    perm = [
+        {
+            "IpProtocol": "tcp",
+            "FromPort": 80,
+            "ToPort": 80,
+            "IpRanges": [{"CidrIp": "0.0.0.0/0"}],
+        }
+    ]
+    ec2_client.authorize_security_group_ingress(GroupId=gid, IpPermissions=perm)
+    with pytest.raises(ClientError) as exc:
+        ec2_client.authorize_security_group_ingress(GroupId=gid, IpPermissions=perm)
+    assert exc.value.response["Error"]["Code"] == "InvalidPermission.Duplicate"
+
+
+def test_authorize_and_revoke_by_group_name(ec2_client):
+    name = "byname-sg"
+    ec2_client.create_security_group(GroupName=name, Description="d")
+    perm = [
+        {
+            "IpProtocol": "tcp",
+            "FromPort": 443,
+            "ToPort": 443,
+            "IpRanges": [{"CidrIp": "0.0.0.0/0"}],
+        }
+    ]
+    ec2_client.authorize_security_group_ingress(GroupName=name, IpPermissions=perm)
+    sg = [
+        g
+        for g in ec2_client.describe_security_groups(GroupNames=[name])[
+            "SecurityGroups"
+        ]
+        if g["GroupName"] == name
+    ][0]
+    assert any(p["FromPort"] == 443 for p in sg["IpPermissions"])
+    ec2_client.revoke_security_group_ingress(GroupName=name, IpPermissions=perm)
+    sg2 = [
+        g
+        for g in ec2_client.describe_security_groups(GroupNames=[name])[
+            "SecurityGroups"
+        ]
+        if g["GroupName"] == name
+    ][0]
+    assert not sg2.get("IpPermissions")
+
+
+def test_all_traffic_rule_omits_ports(ec2_client):
+    gid = ec2_client.create_security_group(GroupName="alltraffic-sg", Description="d")[
+        "GroupId"
+    ]
+    ec2_client.authorize_security_group_ingress(
+        GroupId=gid,
+        IpPermissions=[{"IpProtocol": "-1", "IpRanges": [{"CidrIp": "0.0.0.0/0"}]}],
+    )
+    sg = ec2_client.describe_security_groups(GroupIds=[gid])["SecurityGroups"][0]
+    perm = sg["IpPermissions"][0]
+    assert perm["IpProtocol"] == "-1"
+    assert "FromPort" not in perm
+    assert "ToPort" not in perm
+
+
+def test_delete_tags_value_qualified(ec2_client):
+    iid = ec2_client.run_instances(ImageId="ami-tagval", MinCount=1, MaxCount=1)[
+        "Instances"
+    ][0]["InstanceId"]
+    ec2_client.create_tags(Resources=[iid], Tags=[{"Key": "team", "Value": "x"}])
+    # Value mismatch: nothing removed.
+    ec2_client.delete_tags(Resources=[iid], Tags=[{"Key": "team", "Value": "y"}])
+    tags = ec2_client.describe_instances(InstanceIds=[iid])["Reservations"][0][
+        "Instances"
+    ][0].get("Tags", [])
+    assert {"Key": "team", "Value": "x"} in tags
+    # Matching value: removed.
+    ec2_client.delete_tags(Resources=[iid], Tags=[{"Key": "team", "Value": "x"}])
+    tags = ec2_client.describe_instances(InstanceIds=[iid])["Reservations"][0][
+        "Instances"
+    ][0].get("Tags", [])
+    assert "team" not in {t["Key"] for t in tags}
+
+
+def test_describe_tags_resource_id_filter(ec2_client):
+    iid = ec2_client.run_instances(ImageId="ami-tagfilter", MinCount=1, MaxCount=1)[
+        "Instances"
+    ][0]["InstanceId"]
+    ec2_client.create_tags(Resources=[iid], Tags=[{"Key": "owner", "Value": "me"}])
+    resp = ec2_client.describe_tags(Filters=[{"Name": "resource-id", "Values": [iid]}])
+    assert resp["Tags"]  # non-empty
+    assert all(t["ResourceId"] == iid for t in resp["Tags"])
