@@ -296,14 +296,7 @@ func (p *Provider) handleRunInstances(form url.Values) (*plugin.Response, error)
 }
 
 func (p *Provider) handleDescribeInstances(form url.Values) (*plugin.Response, error) {
-	var ids []string
-	for i := 1; ; i++ {
-		id := form.Get(fmt.Sprintf("InstanceId.%d", i))
-		if id == "" {
-			break
-		}
-		ids = append(ids, id)
-	}
+	ids := collectIndexed(form, "InstanceId")
 
 	instances, err := p.store.DescribeInstances(defaultAccountID, ids)
 	if err != nil {
@@ -357,14 +350,7 @@ func (p *Provider) handleDescribeInstances(form url.Values) (*plugin.Response, e
 }
 
 func (p *Provider) handleTerminateInstances(form url.Values) (*plugin.Response, error) {
-	var ids []string
-	for i := 1; ; i++ {
-		id := form.Get(fmt.Sprintf("InstanceId.%d", i))
-		if id == "" {
-			break
-		}
-		ids = append(ids, id)
-	}
+	ids := collectIndexed(form, "InstanceId")
 	if len(ids) == 0 {
 		return ec2XMLError("MissingParameter", "at least one InstanceId is required", http.StatusBadRequest), nil
 	}
@@ -399,23 +385,69 @@ func (p *Provider) handleTerminateInstances(form url.Values) (*plugin.Response, 
 	return ec2XMLResponse(http.StatusOK, terminateInstancesResponse{InstancesSet: items})
 }
 
-// instanceIDsFromForm collects InstanceId.1, InstanceId.2, … from a Query form.
-func instanceIDsFromForm(form url.Values) []string {
-	var ids []string
+// collectIndexed collects the EC2 list convention prefix.1, prefix.2, … from a
+// Query form (e.g. InstanceId.1, GroupId.1, Filter.3.Value.2).
+func collectIndexed(form url.Values, prefix string) []string {
+	var out []string
 	for i := 1; ; i++ {
-		id := form.Get(fmt.Sprintf("InstanceId.%d", i))
-		if id == "" {
+		v := form.Get(fmt.Sprintf("%s.%d", prefix, i))
+		if v == "" {
 			break
 		}
-		ids = append(ids, id)
+		out = append(out, v)
 	}
-	return ids
+	return out
+}
+
+func containsStr(s []string, v string) bool {
+	for _, x := range s {
+		if x == v {
+			return true
+		}
+	}
+	return false
+}
+
+// ec2Filter is a parsed Filter.N.Name / Filter.N.Value.M entry.
+type ec2Filter struct {
+	name   string
+	values []string
+}
+
+func parseFilters(form url.Values) []ec2Filter {
+	var out []ec2Filter
+	for i := 1; ; i++ {
+		name := form.Get(fmt.Sprintf("Filter.%d.Name", i))
+		if name == "" {
+			break
+		}
+		out = append(out, ec2Filter{name: name, values: collectIndexed(form, fmt.Sprintf("Filter.%d.Value", i))})
+	}
+	return out
+}
+
+// matchFilters reports whether attrs satisfy every filter (AND across filters,
+// OR within a filter's values).
+// ponytail: accepted — filter names absent from attrs are ignored rather than
+// erroring. Deliberate for a mock: erroring would reject valid unmodeled filters
+// (tag:*, resource-type, instance-state-name, …). Revisit only if a test needs strictness.
+func matchFilters(filters []ec2Filter, attrs map[string]string) bool {
+	for _, f := range filters {
+		v, ok := attrs[f.name]
+		if !ok {
+			continue
+		}
+		if !containsStr(f.values, v) {
+			return false
+		}
+	}
+	return true
 }
 
 // changeInstanceState handles StartInstances/StopInstances: it sets the new
 // state and reports the per-instance previous → current transition.
 func (p *Provider) changeInstanceState(form url.Values, respName, newState string) (*plugin.Response, error) {
-	ids := instanceIDsFromForm(form)
+	ids := collectIndexed(form, "InstanceId")
 	if len(ids) == 0 {
 		return ec2XMLError("MissingParameter", "at least one InstanceId is required", http.StatusBadRequest), nil
 	}
@@ -452,7 +484,7 @@ func (p *Provider) changeInstanceState(form url.Values, respName, newState strin
 // handleRebootInstances validates the instances exist; reboot does not change
 // the reported state (mirrors the real EC2 behaviour).
 func (p *Provider) handleRebootInstances(form url.Values) (*plugin.Response, error) {
-	ids := instanceIDsFromForm(form)
+	ids := collectIndexed(form, "InstanceId")
 	if len(ids) == 0 {
 		return ec2XMLError("MissingParameter", "at least one InstanceId is required", http.StatusBadRequest), nil
 	}
@@ -594,11 +626,36 @@ func (p *Provider) handleCreateSecurityGroup(form url.Values) (*plugin.Response,
 	return ec2XMLResponse(http.StatusOK, createSecurityGroupResponse{GroupId: sg.GroupID})
 }
 
-func (p *Provider) handleDescribeSecurityGroups(_ url.Values) (*plugin.Response, error) {
+func (p *Provider) handleDescribeSecurityGroups(form url.Values) (*plugin.Response, error) {
 	sgs, err := p.store.DescribeSecurityGroups(defaultAccountID)
 	if err != nil {
 		return nil, err
 	}
+	rulesByGroup, err := p.store.AllSecurityGroupRules(defaultAccountID)
+	if err != nil {
+		return nil, err
+	}
+
+	wantIDs := collectIndexed(form, "GroupId")
+	wantNames := collectIndexed(form, "GroupName")
+	filters := parseFilters(form)
+
+	// A requested GroupId/GroupName that matches no existing group is an error.
+	idSet, nameSet := map[string]bool{}, map[string]bool{}
+	for _, sg := range sgs {
+		idSet[sg.GroupID], nameSet[sg.GroupName] = true, true
+	}
+	for _, id := range wantIDs {
+		if !idSet[id] {
+			return ec2XMLError("InvalidGroup.NotFound", fmt.Sprintf("The security group '%s' does not exist", id), http.StatusBadRequest), nil
+		}
+	}
+	for _, n := range wantNames {
+		if !nameSet[n] {
+			return ec2XMLError("InvalidGroup.NotFound", fmt.Sprintf("The security group '%s' does not exist", n), http.StatusBadRequest), nil
+		}
+	}
+
 	type ipRangeXML struct {
 		CidrIp string `xml:"cidrIp"`
 	}
@@ -621,8 +678,7 @@ func (p *Provider) handleDescribeSecurityGroups(_ url.Values) (*plugin.Response,
 		SecurityGroupInfo []sgItemXML `xml:"securityGroupInfo>item"`
 	}
 	toPerm := func(r SecurityGroupRule) ipPermissionXML {
-		from, to := r.FromPort, r.ToPort
-		perm := ipPermissionXML{IpProtocol: r.Protocol, FromPort: &from, ToPort: &to}
+		perm := ipPermissionXML{IpProtocol: r.Protocol, FromPort: r.FromPort, ToPort: r.ToPort}
 		if r.CIDR != "" {
 			perm.IpRanges = []ipRangeXML{{CidrIp: r.CIDR}}
 		}
@@ -630,12 +686,19 @@ func (p *Provider) handleDescribeSecurityGroups(_ url.Values) (*plugin.Response,
 	}
 	items := make([]sgItemXML, 0, len(sgs))
 	for _, sg := range sgs {
-		item := sgItemXML{GroupId: sg.GroupID, GroupName: sg.GroupName, VpcId: sg.VpcID, Description: sg.Description}
-		rules, err := p.store.SecurityGroupRules(defaultAccountID, sg.GroupID)
-		if err != nil {
-			return nil, err
+		if (len(wantIDs) > 0 || len(wantNames) > 0) && !containsStr(wantIDs, sg.GroupID) && !containsStr(wantNames, sg.GroupName) {
+			continue
 		}
-		for _, r := range rules {
+		if !matchFilters(filters, map[string]string{
+			"group-id":    sg.GroupID,
+			"group-name":  sg.GroupName,
+			"vpc-id":      sg.VpcID,
+			"description": sg.Description,
+		}) {
+			continue
+		}
+		item := sgItemXML{GroupId: sg.GroupID, GroupName: sg.GroupName, VpcId: sg.VpcID, Description: sg.Description}
+		for _, r := range rulesByGroup[sg.GroupID] {
 			if r.Egress {
 				item.IpPermissionsEgress = append(item.IpPermissionsEgress, toPerm(r))
 			} else {
@@ -705,6 +768,9 @@ func (p *Provider) handleAssociateAddress(form url.Values) (*plugin.Response, er
 	}
 	assocID, err := p.store.AssociateAddress(defaultAccountID, allocationID, instanceID)
 	if err != nil {
+		if errors.Is(err, ErrInstanceNotFound) {
+			return ec2XMLError("InvalidInstanceID.NotFound", err.Error(), http.StatusBadRequest), nil
+		}
 		if errors.Is(err, ErrAddressNotFound) {
 			return ec2XMLError("InvalidAllocationID.NotFound", err.Error(), http.StatusBadRequest), nil
 		}
@@ -754,11 +820,32 @@ func (p *Provider) handleReleaseAddress(form url.Values) (*plugin.Response, erro
 	return ec2XMLResponse(http.StatusOK, releaseAddressResponse{Return: true})
 }
 
-func (p *Provider) handleDescribeAddresses(_ url.Values) (*plugin.Response, error) {
+func (p *Provider) handleDescribeAddresses(form url.Values) (*plugin.Response, error) {
 	addrs, err := p.store.DescribeAddresses(defaultAccountID)
 	if err != nil {
 		return nil, err
 	}
+
+	wantAllocs := collectIndexed(form, "AllocationId")
+	wantIPs := collectIndexed(form, "PublicIp")
+	filters := parseFilters(form)
+
+	// A requested AllocationId/PublicIp that matches nothing is an error in EC2.
+	allocSet, ipSet := map[string]bool{}, map[string]bool{}
+	for _, a := range addrs {
+		allocSet[a.AllocationID], ipSet[a.PublicIP] = true, true
+	}
+	for _, id := range wantAllocs {
+		if !allocSet[id] {
+			return ec2XMLError("InvalidAllocationID.NotFound", fmt.Sprintf("Address with allocation ID '%s' not found", id), http.StatusBadRequest), nil
+		}
+	}
+	for _, ip := range wantIPs {
+		if !ipSet[ip] {
+			return ec2XMLError("InvalidAddress.NotFound", fmt.Sprintf("Address '%s' not found", ip), http.StatusBadRequest), nil
+		}
+	}
+
 	type addrXML struct {
 		PublicIp      string `xml:"publicIp"`
 		AllocationId  string `xml:"allocationId"`
@@ -772,6 +859,17 @@ func (p *Provider) handleDescribeAddresses(_ url.Values) (*plugin.Response, erro
 	}
 	items := make([]addrXML, 0, len(addrs))
 	for _, a := range addrs {
+		if (len(wantAllocs) > 0 || len(wantIPs) > 0) && !containsStr(wantAllocs, a.AllocationID) && !containsStr(wantIPs, a.PublicIP) {
+			continue
+		}
+		if !matchFilters(filters, map[string]string{
+			"allocation-id": a.AllocationID,
+			"public-ip":     a.PublicIP,
+			"instance-id":   a.InstanceID,
+			"domain":        a.Domain,
+		}) {
+			continue
+		}
 		items = append(items, addrXML{
 			PublicIp: a.PublicIP, AllocationId: a.AllocationID, Domain: a.Domain,
 			InstanceId: a.InstanceID, AssociationId: a.AssociationID,
@@ -862,11 +960,12 @@ func (p *Provider) handleDeleteSecurityGroup(form url.Values) (*plugin.Response,
 	return ec2XMLResponse(http.StatusOK, deleteSecurityGroupResponse{Return: true})
 }
 
-func (p *Provider) handleDescribeTags(_ url.Values) (*plugin.Response, error) {
+func (p *Provider) handleDescribeTags(form url.Values) (*plugin.Response, error) {
 	tags, err := p.store.DescribeTags(defaultAccountID)
 	if err != nil {
 		return nil, err
 	}
+	filters := parseFilters(form)
 	type tagXML struct {
 		ResourceId string `xml:"resourceId"`
 		Key        string `xml:"key"`
@@ -878,32 +977,32 @@ func (p *Provider) handleDescribeTags(_ url.Values) (*plugin.Response, error) {
 	}
 	items := make([]tagXML, 0, len(tags))
 	for _, t := range tags {
+		if !matchFilters(filters, map[string]string{
+			"resource-id": t.ResourceID,
+			"key":         t.Key,
+			"value":       t.Value,
+		}) {
+			continue
+		}
 		items = append(items, tagXML{ResourceId: t.ResourceID, Key: t.Key, Value: t.Value})
 	}
 	return ec2XMLResponse(http.StatusOK, describeTagsResponse{TagSet: items})
 }
 
 func (p *Provider) handleDeleteTags(form url.Values) (*plugin.Response, error) {
-	var resourceIDs []string
-	for i := 1; ; i++ {
-		id := form.Get(fmt.Sprintf("ResourceId.%d", i))
-		if id == "" {
-			break
-		}
-		resourceIDs = append(resourceIDs, id)
-	}
-	var keys []string
+	resourceIDs := collectIndexed(form, "ResourceId")
+	var tags []Tag
 	for i := 1; ; i++ {
 		k := form.Get(fmt.Sprintf("Tag.%d.Key", i))
 		if k == "" {
 			break
 		}
-		keys = append(keys, k)
+		tags = append(tags, Tag{Key: k, Value: form.Get(fmt.Sprintf("Tag.%d.Value", i))})
 	}
 	if len(resourceIDs) == 0 {
 		return ec2XMLError("MissingParameter", "at least one ResourceId is required", http.StatusBadRequest), nil
 	}
-	if err := p.store.DeleteTags(defaultAccountID, resourceIDs, keys); err != nil {
+	if err := p.store.DeleteTags(defaultAccountID, resourceIDs, tags); err != nil {
 		return nil, err
 	}
 	type deleteTagsResponse struct {
@@ -913,12 +1012,25 @@ func (p *Provider) handleDeleteTags(form url.Values) (*plugin.Response, error) {
 	return ec2XMLResponse(http.StatusOK, deleteTagsResponse{Return: true})
 }
 
-// sgRuleInput is one parsed security-group rule.
+// sgRuleInput is one parsed security-group rule. fromPort/toPort are nil for
+// all-port rules (e.g. protocol "-1"), which AWS omits rather than reporting 0.
 type sgRuleInput struct {
 	protocol string
-	fromPort int
-	toPort   int
+	fromPort *int
+	toPort   *int
 	cidr     string
+}
+
+// atoiPtr parses an optional port: absent or unparseable → nil (all ports).
+func atoiPtr(s string) *int {
+	if s == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(s)
+	if err != nil {
+		return nil
+	}
+	return &n
 }
 
 // parseSGRules extracts rules from either the structured IpPermissions.N.* form
@@ -931,8 +1043,8 @@ func parseSGRules(form url.Values) []sgRuleInput {
 		if proto == "" {
 			break
 		}
-		from, _ := strconv.Atoi(form.Get(prefix + "FromPort"))
-		to, _ := strconv.Atoi(form.Get(prefix + "ToPort"))
+		from := atoiPtr(form.Get(prefix + "FromPort"))
+		to := atoiPtr(form.Get(prefix + "ToPort"))
 		matched := false
 		for j := 1; ; j++ {
 			cidr := form.Get(fmt.Sprintf("%sIpRanges.%d.CidrIp", prefix, j))
@@ -950,17 +1062,39 @@ func parseSGRules(form url.Values) []sgRuleInput {
 		return rules
 	}
 	if proto := form.Get("IpProtocol"); proto != "" {
-		from, _ := strconv.Atoi(form.Get("FromPort"))
-		to, _ := strconv.Atoi(form.Get("ToPort"))
-		rules = append(rules, sgRuleInput{proto, from, to, form.Get("CidrIp")})
+		rules = append(rules, sgRuleInput{proto, atoiPtr(form.Get("FromPort")), atoiPtr(form.Get("ToPort")), form.Get("CidrIp")})
 	}
 	return rules
 }
 
+// resolveSGForRuleChange reads GroupId or GroupName from the form and resolves
+// it to a group_id once for the whole request. It returns an error
+// *plugin.Response when the parameter is missing or the group does not exist.
+func (p *Provider) resolveSGForRuleChange(form url.Values) (string, *plugin.Response, error) {
+	id := form.Get("GroupId")
+	if id == "" {
+		id = form.Get("GroupName")
+	}
+	if id == "" {
+		return "", ec2XMLError("MissingParameter", "GroupId or GroupName is required", http.StatusBadRequest), nil
+	}
+	groupID, err := p.store.ResolveSecurityGroupID(defaultAccountID, id)
+	if err != nil {
+		if errors.Is(err, ErrSecurityGroupNotFound) {
+			return "", ec2XMLError("InvalidGroup.NotFound", err.Error(), http.StatusBadRequest), nil
+		}
+		return "", nil, err
+	}
+	return groupID, nil, nil
+}
+
 func (p *Provider) handleAuthorizeSecurityGroup(form url.Values, egress bool) (*plugin.Response, error) {
-	groupID := form.Get("GroupId")
-	if groupID == "" {
-		return ec2XMLError("MissingParameter", "GroupId is required", http.StatusBadRequest), nil
+	groupID, resp, err := p.resolveSGForRuleChange(form)
+	if err != nil {
+		return nil, err
+	}
+	if resp != nil {
+		return resp, nil
 	}
 	rules := parseSGRules(form)
 	if len(rules) == 0 {
@@ -968,8 +1102,8 @@ func (p *Provider) handleAuthorizeSecurityGroup(form url.Values, egress bool) (*
 	}
 	for _, r := range rules {
 		if _, err := p.store.AuthorizeSecurityGroupRule(defaultAccountID, groupID, egress, r.protocol, r.fromPort, r.toPort, r.cidr); err != nil {
-			if errors.Is(err, ErrSecurityGroupNotFound) {
-				return ec2XMLError("InvalidGroup.NotFound", err.Error(), http.StatusBadRequest), nil
+			if errors.Is(err, ErrSecurityGroupRuleExists) {
+				return ec2XMLError("InvalidPermission.Duplicate", err.Error(), http.StatusBadRequest), nil
 			}
 			return nil, err
 		}
@@ -986,9 +1120,12 @@ func (p *Provider) handleAuthorizeSecurityGroup(form url.Values, egress bool) (*
 }
 
 func (p *Provider) handleRevokeSecurityGroup(form url.Values, egress bool) (*plugin.Response, error) {
-	groupID := form.Get("GroupId")
-	if groupID == "" {
-		return ec2XMLError("MissingParameter", "GroupId is required", http.StatusBadRequest), nil
+	groupID, resp, err := p.resolveSGForRuleChange(form)
+	if err != nil {
+		return nil, err
+	}
+	if resp != nil {
+		return resp, nil
 	}
 	rules := parseSGRules(form)
 	if len(rules) == 0 {
@@ -996,6 +1133,9 @@ func (p *Provider) handleRevokeSecurityGroup(form url.Values, egress bool) (*plu
 	}
 	for _, r := range rules {
 		if err := p.store.RevokeSecurityGroupRule(defaultAccountID, groupID, egress, r.protocol, r.fromPort, r.toPort, r.cidr); err != nil {
+			if errors.Is(err, ErrSecurityGroupRuleNotFound) {
+				return ec2XMLError("InvalidPermission.NotFound", err.Error(), http.StatusBadRequest), nil
+			}
 			return nil, err
 		}
 	}
