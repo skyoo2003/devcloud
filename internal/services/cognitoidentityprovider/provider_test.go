@@ -37,6 +37,16 @@ func cognitoReq(t *testing.T, p *Provider, op string, body any) *plugin.Response
 	return resp
 }
 
+func TestUnimplementedOp(t *testing.T) {
+	p := newTestProvider(t)
+	// Unimplemented ops must return an AWS error, not a false 200 success.
+	resp := cognitoReq(t, p, "SomeUnknownOperation", map[string]any{})
+	assert.Equal(t, http.StatusBadRequest, resp.StatusCode)
+	var out map[string]any
+	require.NoError(t, json.Unmarshal(resp.Body, &out))
+	assert.Equal(t, "InvalidAction", out["__type"])
+}
+
 // --- TestUserPoolCRUD ---
 
 func TestUserPoolCRUD(t *testing.T) {
