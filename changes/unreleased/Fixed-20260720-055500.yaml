@@ -1,0 +1,5 @@
+kind: Fixed
+body: 'DynamoDB: numeric (''N'') sort/range keys now order by true numeric value across the full 38-digit precision via a NUMTEXT SQLite collation, instead of a float CAST that lost precision past 2^53'
+time: 2026-07-20T05:55:00.000000+09:00
+custom:
+    Issue: "97"

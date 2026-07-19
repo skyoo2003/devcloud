@@ -762,8 +762,9 @@ func (s *QueueStore) StartMessageMoveTask(sourceArn, destArn string, maxRate int
 	}
 	s.mu.Unlock()
 
-	// ponytail: redrive runs synchronously with no RUNNING state or rate limiting;
-	// upgrade to a goroutine + MaxRate throttle if timing fidelity is ever needed.
+	// ponytail: accepted — redrive runs synchronously with no RUNNING state or rate
+	// limiting. Deliberate for a mock: synchronous is more test-deterministic than
+	// async. Revisit only if timing fidelity is ever needed (goroutine + MaxRate throttle).
 	// Lock only one queue at a time (drain the source, then fill the destination) to stay
 	// deadlock-free with the source→DLQ path in ReceiveMessage.
 	now := time.Now()
