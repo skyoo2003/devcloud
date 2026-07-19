@@ -478,7 +478,7 @@ func TestDefaultHandler(t *testing.T) {
 	p := newTestProvider(t)
 	// Unimplemented ops must return an AWS error, not a false 200 success.
 	resp := callREST(t, p, "GET", "/some/unknown/path", "SomeUnknownOperation", "")
-	assert.Equal(t, 400, resp.StatusCode)
+	assert.Equal(t, 501, resp.StatusCode)
 	rb := parseBody(t, resp)
-	assert.Equal(t, "InvalidAction", rb["__type"])
+	assert.Equal(t, "NotImplemented", rb["__type"])
 }

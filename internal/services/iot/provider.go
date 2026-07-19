@@ -268,7 +268,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return p.listTagsForResource(req)
 
 	default:
-		return shared.JSONError("InvalidAction", "unknown action: "+op, http.StatusBadRequest), nil
+		return shared.JSONError("NotImplemented", "operation not implemented: "+op, http.StatusNotImplemented), nil
 	}
 }
 

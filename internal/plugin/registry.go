@@ -66,12 +66,7 @@ func (r *Registry) Get(serviceID string) (ServicePlugin, bool) {
 func (r *Registry) RegisteredServices() []string {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
-	ids := make([]string, 0, len(r.factories))
-	for id := range r.factories {
-		ids = append(ids, id)
-	}
-	sort.Strings(ids)
-	return ids
+	return sortedKeys(r.factories)
 }
 
 // Construct builds a fresh plugin instance for serviceID via its factory,
@@ -91,8 +86,13 @@ func (r *Registry) Construct(serviceID string) (ServicePlugin, bool) {
 func (r *Registry) ActiveServices() []string {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
-	ids := make([]string, 0, len(r.active))
-	for id := range r.active {
+	return sortedKeys(r.active)
+}
+
+// sortedKeys returns the sorted keys of m. Callers hold the lock.
+func sortedKeys[V any](m map[string]V) []string {
+	ids := make([]string, 0, len(m))
+	for id := range m {
 		ids = append(ids, id)
 	}
 	sort.Strings(ids)

@@ -197,8 +197,8 @@ func TestSQSProvider_UnknownAction(t *testing.T) {
 	p := newTestSQSProvider(t)
 
 	resp := handleForm(t, p, "Action=UnknownAction")
-	assert.Equal(t, 400, resp.StatusCode)
-	assert.Contains(t, string(resp.Body), "InvalidAction")
+	assert.Equal(t, 501, resp.StatusCode)
+	assert.Contains(t, string(resp.Body), "NotImplemented")
 }
 
 func TestSQSProvider_ActionFromOp(t *testing.T) {

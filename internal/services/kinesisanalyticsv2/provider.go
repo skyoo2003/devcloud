@@ -121,7 +121,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		"DeleteApplicationVpcConfiguration":
 		return p.appSubConfigOperation(action, params)
 	default:
-		return shared.JSONError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return shared.JSONError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

@@ -157,7 +157,7 @@ func (p *SchedulerProvider) HandleRequest(_ context.Context, op string, req *htt
 	case "StopScheduleExecution":
 		return jsonResponse(http.StatusOK, map[string]any{})
 	default:
-		return jsonError("ResourceNotFoundException", fmt.Sprintf("unknown action: %s", op), http.StatusBadRequest), nil
+		return jsonError("NotImplemented", fmt.Sprintf("operation not implemented: %s", op), http.StatusNotImplemented), nil
 	}
 }
 

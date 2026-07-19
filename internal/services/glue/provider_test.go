@@ -55,8 +55,8 @@ func assertOK(t *testing.T, resp *plugin.Response) {
 
 func assertErr(t *testing.T, resp *plugin.Response) {
 	t.Helper()
-	if resp.StatusCode != 400 {
-		t.Fatalf("expected 400, got %d: %s", resp.StatusCode, string(resp.Body))
+	if resp.StatusCode != 501 {
+		t.Fatalf("expected 501, got %d: %s", resp.StatusCode, string(resp.Body))
 	}
 	var e struct {
 		Type    string `json:"__type"`
@@ -65,8 +65,8 @@ func assertErr(t *testing.T, resp *plugin.Response) {
 	if err := json.Unmarshal(resp.Body, &e); err != nil {
 		t.Fatalf("expected JSON error body, got %q: %v", string(resp.Body), err)
 	}
-	if e.Type != "InvalidAction" {
-		t.Errorf("expected __type=InvalidAction, got %q (body: %s)", e.Type, string(resp.Body))
+	if e.Type != "NotImplemented" {
+		t.Errorf("expected __type=NotImplemented, got %q (body: %s)", e.Type, string(resp.Body))
 	}
 	if e.Message == "" {
 		t.Errorf("expected non-empty error message (body: %s)", string(resp.Body))

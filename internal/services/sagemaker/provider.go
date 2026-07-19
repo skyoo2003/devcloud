@@ -223,7 +223,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 
 	// ---- ~320 stub operations ----
 	default:
-		return shared.JSONError("InvalidAction", "unknown action: "+action, http.StatusBadRequest), nil
+		return shared.JSONError("NotImplemented", "operation not implemented: "+action, http.StatusNotImplemented), nil
 	}
 }
 

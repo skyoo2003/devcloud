@@ -64,12 +64,12 @@ func TestUnimplementedOp(t *testing.T) {
 	p := newTestProvider(t)
 	// Unimplemented ops return an AWS error, not a false 200 success.
 	resp := callOp(t, p, "SomeUnknownOperation", `{}`)
-	if resp.StatusCode != 400 {
-		t.Fatalf("expected 400, got %d: %s", resp.StatusCode, string(resp.Body))
+	if resp.StatusCode != 501 {
+		t.Fatalf("expected 501, got %d: %s", resp.StatusCode, string(resp.Body))
 	}
 	body := parseBody(t, resp)
-	if body["__type"] != "InvalidAction" {
-		t.Errorf("expected __type=InvalidAction, got %v (body: %s)", body["__type"], string(resp.Body))
+	if body["__type"] != "NotImplemented" {
+		t.Errorf("expected __type=NotImplemented, got %v (body: %s)", body["__type"], string(resp.Body))
 	}
 }
 

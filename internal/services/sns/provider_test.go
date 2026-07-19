@@ -92,8 +92,8 @@ func TestSNS_Publish_TopicNotFound(t *testing.T) {
 func TestSNS_UnknownAction(t *testing.T) {
 	p := newTestProvider(t)
 	resp := handle(t, p, "Action=FooBar")
-	assert.Equal(t, 400, resp.StatusCode)
-	assert.Contains(t, string(resp.Body), "InvalidAction")
+	assert.Equal(t, 501, resp.StatusCode)
+	assert.Contains(t, string(resp.Body), "NotImplemented")
 }
 
 func TestSNS_ListResources(t *testing.T) {

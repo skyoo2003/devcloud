@@ -246,7 +246,7 @@ func normalizeServiceID(svc string) string {
 		return "kafka"
 	case "lakeformation":
 		return "lakeformation"
-	case "amazondmsv20160101", "amazondms":
+	case "amazondmsv20160101":
 		return "dms"
 	case "configservice", "config", "starlingdoveservice":
 		return "configservice"

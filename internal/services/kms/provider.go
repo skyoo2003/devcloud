@@ -127,7 +127,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListKeyPolicies":
 		return p.listKeyPolicies(params)
 	default:
-		return kmsError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return kmsError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

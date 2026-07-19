@@ -196,7 +196,7 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 		return p.handleSuccessEmpty(action)
 
 	default:
-		return sesError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return sesError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

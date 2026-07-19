@@ -112,7 +112,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "TerminateSession":
 		return p.terminateSession(params)
 	default:
-		return ssmError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return ssmError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

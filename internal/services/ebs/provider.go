@@ -79,7 +79,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "RestoreSnapshotTier":
 		return p.restoreSnapshotTier(req)
 	default:
-		return shared.JSONError("InvalidAction", fmt.Sprintf("unknown action: %s", op), http.StatusBadRequest), nil
+		return shared.JSONError("NotImplemented", fmt.Sprintf("operation not implemented: %s", op), http.StatusNotImplemented), nil
 	}
 }
 

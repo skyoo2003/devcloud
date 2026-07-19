@@ -197,7 +197,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "DeleteFirewallManagerRuleGroups":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"NextWebACLLockToken": shared.GenerateID("", 32)})
 	default:
-		return wafError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return wafError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

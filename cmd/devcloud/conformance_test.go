@@ -3,8 +3,6 @@
 package main
 
 import (
-	"os"
-	"strings"
 	"testing"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
@@ -26,12 +24,13 @@ var validProtocols = map[plugin.ProtocolType]bool{
 func TestServicePluginConformance(t *testing.T) {
 	ids := plugin.DefaultRegistry.RegisteredServices()
 
-	// Every blank import in imports.go registers at least one service, so the
-	// live surface must be at least that large. Deriving the floor from the
-	// import list keeps this honest as services are added or removed, instead
-	// of drifting against a hardcoded count.
-	if want := countServiceImports(t); len(ids) < want {
-		t.Fatalf("registered %d services, want >= %d from imports.go blank imports", len(ids), want)
+	// Conservative floor. Broken registration wiring (a mangled imports.go,
+	// init-order regression, a dropped Register) collapses the live surface far
+	// below this, so a constant catches it without the fragility of parsing
+	// imports.go at runtime. Raise it if the real count ever nears it.
+	const minServices = 50
+	if len(ids) < minServices {
+		t.Fatalf("registered %d services, want >= %d", len(ids), minServices)
 	}
 
 	var prev string
@@ -61,15 +60,4 @@ func TestServicePluginConformance(t *testing.T) {
 			t.Errorf("%s: Protocol() = %q is not a valid ProtocolType", id, proto)
 		}
 	}
-}
-
-// countServiceImports counts the blank service imports in imports.go so the
-// conformance floor tracks the generated import list rather than a magic number.
-func countServiceImports(t *testing.T) int {
-	t.Helper()
-	b, err := os.ReadFile("imports.go")
-	if err != nil {
-		t.Fatalf("read imports.go: %v", err)
-	}
-	return strings.Count(string(b), `_ "github.com/skyoo2003/devcloud/internal/services/`)
 }

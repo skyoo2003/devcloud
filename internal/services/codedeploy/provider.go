@@ -125,7 +125,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListTagsForResource":
 		return p.listTagsForResource(params)
 	default:
-		return shared.JSONError("InvalidAction", "unknown action: "+action, http.StatusBadRequest), nil
+		return shared.JSONError("NotImplemented", "operation not implemented: "+action, http.StatusNotImplemented), nil
 	}
 }
 

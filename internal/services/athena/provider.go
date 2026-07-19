@@ -208,7 +208,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "UpdateNamedQuery":
 		return shared.JSONResponse(http.StatusOK, map[string]any{})
 	default:
-		return shared.JSONError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return shared.JSONError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

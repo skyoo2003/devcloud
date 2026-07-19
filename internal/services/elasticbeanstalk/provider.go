@@ -152,7 +152,7 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 		return p.handleStubOK(action)
 
 	default:
-		return ebError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return ebError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

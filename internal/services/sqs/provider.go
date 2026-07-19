@@ -106,7 +106,7 @@ func (p *SQSProvider) handleQueryRequest(op string, req *http.Request) (*plugin.
 	case "CancelMessageMoveTask":
 		return p.cancelMessageMoveTask(req)
 	default:
-		return sqsError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return sqsError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 
@@ -190,7 +190,7 @@ func (p *SQSProvider) handleJSONRequest(op string, req *http.Request) (*plugin.R
 	case "RemovePermission":
 		return jsonResp(http.StatusOK, map[string]any{})
 	default:
-		return jsonError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return jsonError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

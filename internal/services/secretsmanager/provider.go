@@ -150,7 +150,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "GetSecretHistory":
 		return p.listSecretVersionIds(params)
 	default:
-		return smError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return smError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

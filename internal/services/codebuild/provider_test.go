@@ -451,5 +451,5 @@ func TestTags(t *testing.T) {
 
 	// Unimplemented ops return an AWS error, not a false success.
 	unknownResp := call(t, p, "StartBuildBatch", `{}`)
-	assert.Equal(t, 400, unknownResp.StatusCode)
+	assert.Equal(t, 501, unknownResp.StatusCode)
 }

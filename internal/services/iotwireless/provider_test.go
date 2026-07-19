@@ -371,8 +371,8 @@ func TestStubOperations(t *testing.T) {
 
 	// Unimplemented ops must return an AWS error, not a false 200 success.
 	resp := callREST(t, p, "GET", "/service-endpoint", "GetServiceEndpoint", "")
-	assert.Equal(t, 400, resp.StatusCode)
+	assert.Equal(t, 501, resp.StatusCode)
 
 	resp2 := callREST(t, p, "GET", "/log-levels", "GetLogLevelsByResourceTypes", "")
-	assert.Equal(t, 400, resp2.StatusCode)
+	assert.Equal(t, 501, resp2.StatusCode)
 }

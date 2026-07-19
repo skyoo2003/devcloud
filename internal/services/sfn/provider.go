@@ -150,7 +150,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "UpdateMapRun":
 		return p.updateMapRun(params)
 	default:
-		return json10Err("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return json10Err("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

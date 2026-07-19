@@ -140,7 +140,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return p.describeBrokerInstanceOptions()
 
 	default:
-		return shared.JSONError("InvalidAction", fmt.Sprintf("unknown action: %s", op), http.StatusBadRequest), nil
+		return shared.JSONError("NotImplemented", fmt.Sprintf("operation not implemented: %s", op), http.StatusNotImplemented), nil
 	}
 }
 
