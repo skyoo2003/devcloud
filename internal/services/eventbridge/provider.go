@@ -125,7 +125,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "TestEventPattern":
 		return p.testEventPattern(params)
 	default:
-		return ebError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return ebError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

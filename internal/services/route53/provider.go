@@ -163,7 +163,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "DisassociateVPCFromHostedZone":
 		return p.disassociateVPC(req)
 	default:
-		return r53Error("InvalidAction", fmt.Sprintf("operation not implemented: %s", op), http.StatusBadRequest), nil
+		return r53Error("NotImplemented", fmt.Sprintf("operation not implemented: %s", op), http.StatusNotImplemented), nil
 	}
 }
 

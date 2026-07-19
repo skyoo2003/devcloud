@@ -40,6 +40,15 @@ func parseBody(t *testing.T, resp *plugin.Response) map[string]any {
 	return m
 }
 
+func TestUnimplementedOp(t *testing.T) {
+	p := newTestProvider(t)
+	// Unimplemented ops must return an AWS error, not a false 200 success.
+	resp := call(t, p, "POST", "/", "SomeUnknownOperation", "{}")
+	assert.Equal(t, 501, resp.StatusCode)
+	rb := parseBody(t, resp)
+	assert.Equal(t, "NotImplemented", rb["__type"])
+}
+
 // ========== TestBackupPlanCRUD ==========
 
 func TestBackupPlanCRUD(t *testing.T) {

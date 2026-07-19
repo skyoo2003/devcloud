@@ -125,7 +125,7 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 		return p.handleUpdateServiceAccessPolicies(form)
 
 	default:
-		return csError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return csError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

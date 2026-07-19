@@ -190,7 +190,7 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 	case "DiscoverPollEndpoint":
 		return p.handleDiscoverPollEndpoint(params)
 	default:
-		return ecsError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return ecsError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
@@ -181,8 +182,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListTagsForResource":
 		return p.listTagsForResource(req)
 	default:
-		// Return success/empty for unimplemented ops
-		return emptyOK(), nil
+		return shared.JSONError("NotImplemented", "operation not implemented: "+op, http.StatusNotImplemented), nil
 	}
 }
 
@@ -203,15 +203,6 @@ func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error)
 }
 
 // --- helpers ---
-
-func cognitoError(code, msg string, status int) *plugin.Response {
-	body, _ := json.Marshal(map[string]string{"__type": code, "message": msg})
-	return &plugin.Response{
-		StatusCode:  status,
-		Body:        body,
-		ContentType: "application/x-amz-json-1.1",
-	}
-}
 
 func jsonResp(status int, v any) (*plugin.Response, error) {
 	body, err := json.Marshal(v)
@@ -466,10 +457,10 @@ func (p *Provider) createUserPool(req *http.Request) (*plugin.Response, error) {
 		Schema    []any          `json:"Schema"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if in.PoolName == "" {
-		return cognitoError("InvalidParameterException", "PoolName is required", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "PoolName is required", http.StatusBadRequest), nil
 	}
 	id := "us-east-1_" + strings.ReplaceAll(newID()[:8], "-", "")
 	mfa := in.MFAConfig
@@ -498,12 +489,12 @@ func (p *Provider) describeUserPool(req *http.Request) (*plugin.Response, error)
 		UserPoolId string `json:"UserPoolId"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	pool, err := p.store.GetUserPool(in.UserPoolId)
 	if err != nil {
 		if err == ErrPoolNotFound {
-			return cognitoError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -529,12 +520,12 @@ func (p *Provider) updateUserPool(req *http.Request) (*plugin.Response, error) {
 		MFAConfig  string         `json:"MfaConfiguration"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	pool, err := p.store.GetUserPool(in.UserPoolId)
 	if err != nil {
 		if err == ErrPoolNotFound {
-			return cognitoError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -556,11 +547,11 @@ func (p *Provider) deleteUserPool(req *http.Request) (*plugin.Response, error) {
 		UserPoolId string `json:"UserPoolId"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if err := p.store.DeleteUserPool(in.UserPoolId); err != nil {
 		if err == ErrPoolNotFound {
-			return cognitoError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -580,14 +571,14 @@ func (p *Provider) createUserPoolClient(req *http.Request) (*plugin.Response, er
 		LogoutURLs         []string `json:"LogoutURLs"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if in.UserPoolId == "" || in.ClientName == "" {
-		return cognitoError("InvalidParameterException", "UserPoolId and ClientName are required", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "UserPoolId and ClientName are required", http.StatusBadRequest), nil
 	}
 	// Ensure pool exists
 	if _, err := p.store.GetUserPool(in.UserPoolId); err != nil {
-		return cognitoError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
+		return shared.JSONError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
 	}
 	secret := ""
 	if in.GenerateSecret {
@@ -618,12 +609,12 @@ func (p *Provider) describeUserPoolClient(req *http.Request) (*plugin.Response, 
 		ClientId   string `json:"ClientId"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	client, err := p.store.GetUserPoolClient(in.UserPoolId, in.ClientId)
 	if err != nil {
 		if err == ErrClientNotFound {
-			return cognitoError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -635,7 +626,7 @@ func (p *Provider) listUserPoolClients(req *http.Request) (*plugin.Response, err
 		UserPoolId string `json:"UserPoolId"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	clients, err := p.store.ListUserPoolClients(in.UserPoolId)
 	if err != nil {
@@ -663,12 +654,12 @@ func (p *Provider) updateUserPoolClient(req *http.Request) (*plugin.Response, er
 		LogoutURLs         []string `json:"LogoutURLs"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	client, err := p.store.GetUserPoolClient(in.UserPoolId, in.ClientId)
 	if err != nil {
 		if err == ErrClientNotFound {
-			return cognitoError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -699,11 +690,11 @@ func (p *Provider) deleteUserPoolClient(req *http.Request) (*plugin.Response, er
 		ClientId   string `json:"ClientId"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if err := p.store.DeleteUserPoolClient(in.UserPoolId, in.ClientId); err != nil {
 		if err == ErrClientNotFound {
-			return cognitoError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -720,17 +711,17 @@ func (p *Provider) adminCreateUser(req *http.Request) (*plugin.Response, error) 
 		UserAttributes    []map[string]string `json:"UserAttributes"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if in.UserPoolId == "" || in.Username == "" {
-		return cognitoError("InvalidParameterException", "UserPoolId and Username are required", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "UserPoolId and Username are required", http.StatusBadRequest), nil
 	}
 	if _, err := p.store.GetUserPool(in.UserPoolId); err != nil {
-		return cognitoError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
+		return shared.JSONError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
 	}
 	// Check if user already exists
 	if _, err := p.store.GetUser(in.UserPoolId, in.Username); err == nil {
-		return cognitoError("UsernameExistsException", "user already exists", http.StatusBadRequest), nil
+		return shared.JSONError("UsernameExistsException", "user already exists", http.StatusBadRequest), nil
 	}
 	t := now()
 	user := &User{
@@ -756,12 +747,12 @@ func (p *Provider) adminGetUser(req *http.Request) (*plugin.Response, error) {
 		Username   string `json:"Username"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	user, err := p.store.GetUser(in.UserPoolId, in.Username)
 	if err != nil {
 		if err == ErrUserNotFound {
-			return cognitoError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
+			return shared.JSONError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -773,7 +764,7 @@ func (p *Provider) listUsers(req *http.Request) (*plugin.Response, error) {
 		UserPoolId string `json:"UserPoolId"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	users, err := p.store.ListUsers(in.UserPoolId)
 	if err != nil {
@@ -792,11 +783,11 @@ func (p *Provider) adminDeleteUser(req *http.Request) (*plugin.Response, error) 
 		Username   string `json:"Username"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if err := p.store.DeleteUser(in.UserPoolId, in.Username); err != nil {
 		if err == ErrUserNotFound {
-			return cognitoError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
+			return shared.JSONError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -809,12 +800,12 @@ func (p *Provider) adminDisableUser(req *http.Request) (*plugin.Response, error)
 		Username   string `json:"Username"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	user, err := p.store.GetUser(in.UserPoolId, in.Username)
 	if err != nil {
 		if err == ErrUserNotFound {
-			return cognitoError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
+			return shared.JSONError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -832,12 +823,12 @@ func (p *Provider) adminEnableUser(req *http.Request) (*plugin.Response, error) 
 		Username   string `json:"Username"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	user, err := p.store.GetUser(in.UserPoolId, in.Username)
 	if err != nil {
 		if err == ErrUserNotFound {
-			return cognitoError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
+			return shared.JSONError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -856,12 +847,12 @@ func (p *Provider) adminUpdateUserAttributes(req *http.Request) (*plugin.Respons
 		UserAttributes []map[string]string `json:"UserAttributes"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	user, err := p.store.GetUser(in.UserPoolId, in.Username)
 	if err != nil {
 		if err == ErrUserNotFound {
-			return cognitoError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
+			return shared.JSONError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -880,12 +871,12 @@ func (p *Provider) adminDeleteUserAttributes(req *http.Request) (*plugin.Respons
 		UserAttributeNames []string `json:"UserAttributeNames"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	user, err := p.store.GetUser(in.UserPoolId, in.Username)
 	if err != nil {
 		if err == ErrUserNotFound {
-			return cognitoError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
+			return shared.JSONError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -905,12 +896,12 @@ func (p *Provider) adminSetUserPassword(req *http.Request) (*plugin.Response, er
 		Permanent  bool   `json:"Permanent"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	user, err := p.store.GetUser(in.UserPoolId, in.Username)
 	if err != nil {
 		if err == ErrUserNotFound {
-			return cognitoError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
+			return shared.JSONError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -931,12 +922,12 @@ func (p *Provider) adminResetUserPassword(req *http.Request) (*plugin.Response, 
 		Username   string `json:"Username"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	user, err := p.store.GetUser(in.UserPoolId, in.Username)
 	if err != nil {
 		if err == ErrUserNotFound {
-			return cognitoError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
+			return shared.JSONError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -954,12 +945,12 @@ func (p *Provider) adminConfirmSignUp(req *http.Request) (*plugin.Response, erro
 		Username   string `json:"Username"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	user, err := p.store.GetUser(in.UserPoolId, in.Username)
 	if err != nil {
 		if err == ErrUserNotFound {
-			return cognitoError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
+			return shared.JSONError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -982,14 +973,14 @@ func (p *Provider) createGroup(req *http.Request) (*plugin.Response, error) {
 		Precedence  int    `json:"Precedence"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if in.UserPoolId == "" || in.GroupName == "" {
-		return cognitoError("InvalidParameterException", "UserPoolId and GroupName are required", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "UserPoolId and GroupName are required", http.StatusBadRequest), nil
 	}
 	// Check pool exists
 	if _, err := p.store.GetUserPool(in.UserPoolId); err != nil {
-		return cognitoError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
+		return shared.JSONError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
 	}
 	g := &Group{
 		PoolID:      in.UserPoolId,
@@ -1011,12 +1002,12 @@ func (p *Provider) getGroup(req *http.Request) (*plugin.Response, error) {
 		GroupName  string `json:"GroupName"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	g, err := p.store.GetGroup(in.UserPoolId, in.GroupName)
 	if err != nil {
 		if err == ErrGroupNotFound {
-			return cognitoError("ResourceNotFoundException", "group not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "group not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1028,7 +1019,7 @@ func (p *Provider) listGroups(req *http.Request) (*plugin.Response, error) {
 		UserPoolId string `json:"UserPoolId"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	groups, err := p.store.ListGroups(in.UserPoolId)
 	if err != nil {
@@ -1050,12 +1041,12 @@ func (p *Provider) updateGroup(req *http.Request) (*plugin.Response, error) {
 		Precedence  int    `json:"Precedence"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	g, err := p.store.GetGroup(in.UserPoolId, in.GroupName)
 	if err != nil {
 		if err == ErrGroupNotFound {
-			return cognitoError("ResourceNotFoundException", "group not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "group not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1078,11 +1069,11 @@ func (p *Provider) deleteGroup(req *http.Request) (*plugin.Response, error) {
 		GroupName  string `json:"GroupName"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if err := p.store.DeleteGroup(in.UserPoolId, in.GroupName); err != nil {
 		if err == ErrGroupNotFound {
-			return cognitoError("ResourceNotFoundException", "group not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "group not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1098,7 +1089,7 @@ func (p *Provider) adminAddUserToGroup(req *http.Request) (*plugin.Response, err
 		GroupName  string `json:"GroupName"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if err := p.store.AddUserToGroup(in.UserPoolId, in.Username, in.GroupName); err != nil {
 		return nil, err
@@ -1113,7 +1104,7 @@ func (p *Provider) adminRemoveUserFromGroup(req *http.Request) (*plugin.Response
 		GroupName  string `json:"GroupName"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if err := p.store.RemoveUserFromGroup(in.UserPoolId, in.Username, in.GroupName); err != nil {
 		return nil, err
@@ -1127,7 +1118,7 @@ func (p *Provider) adminListGroupsForUser(req *http.Request) (*plugin.Response, 
 		Username   string `json:"Username"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	groups, err := p.store.ListGroupsForUser(in.UserPoolId, in.Username)
 	if err != nil {
@@ -1146,7 +1137,7 @@ func (p *Provider) listUsersInGroup(req *http.Request) (*plugin.Response, error)
 		GroupName  string `json:"GroupName"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	users, err := p.store.ListUsersInGroup(in.UserPoolId, in.GroupName)
 	if err != nil {
@@ -1171,10 +1162,10 @@ func (p *Provider) createIdentityProvider(req *http.Request) (*plugin.Response, 
 		IdpIdentifiers   []string          `json:"IdpIdentifiers"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if in.UserPoolId == "" || in.ProviderName == "" {
-		return cognitoError("InvalidParameterException", "UserPoolId and ProviderName are required", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "UserPoolId and ProviderName are required", http.StatusBadRequest), nil
 	}
 	idp := &IdentityProvider{
 		PoolID:           in.UserPoolId,
@@ -1197,12 +1188,12 @@ func (p *Provider) describeIdentityProvider(req *http.Request) (*plugin.Response
 		ProviderName string `json:"ProviderName"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	idp, err := p.store.GetIdentityProvider(in.UserPoolId, in.ProviderName)
 	if err != nil {
 		if err == ErrIDPNotFound {
-			return cognitoError("ResourceNotFoundException", "identity provider not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "identity provider not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1214,7 +1205,7 @@ func (p *Provider) listIdentityProviders(req *http.Request) (*plugin.Response, e
 		UserPoolId string `json:"UserPoolId"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	idps, err := p.store.ListIdentityProviders(in.UserPoolId)
 	if err != nil {
@@ -1241,12 +1232,12 @@ func (p *Provider) updateIdentityProvider(req *http.Request) (*plugin.Response, 
 		IdpIdentifiers   []string          `json:"IdpIdentifiers"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	idp, err := p.store.GetIdentityProvider(in.UserPoolId, in.ProviderName)
 	if err != nil {
 		if err == ErrIDPNotFound {
-			return cognitoError("ResourceNotFoundException", "identity provider not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "identity provider not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1271,11 +1262,11 @@ func (p *Provider) deleteIdentityProvider(req *http.Request) (*plugin.Response, 
 		ProviderName string `json:"ProviderName"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if err := p.store.DeleteIdentityProvider(in.UserPoolId, in.ProviderName); err != nil {
 		if err == ErrIDPNotFound {
-			return cognitoError("ResourceNotFoundException", "identity provider not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "identity provider not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1288,12 +1279,12 @@ func (p *Provider) getIdentityProviderByIdentifier(req *http.Request) (*plugin.R
 		IdpIdentifier string `json:"IdpIdentifier"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	idp, err := p.store.GetIdentityProviderByIdentifier(in.UserPoolId, in.IdpIdentifier)
 	if err != nil {
 		if err == ErrIDPNotFound {
-			return cognitoError("ResourceNotFoundException", "identity provider not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "identity provider not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1310,10 +1301,10 @@ func (p *Provider) createResourceServer(req *http.Request) (*plugin.Response, er
 		Scopes     []any  `json:"Scopes"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if in.UserPoolId == "" || in.Identifier == "" {
-		return cognitoError("InvalidParameterException", "UserPoolId and Identifier are required", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "UserPoolId and Identifier are required", http.StatusBadRequest), nil
 	}
 	rs := &ResourceServer{
 		PoolID:     in.UserPoolId,
@@ -1333,12 +1324,12 @@ func (p *Provider) describeResourceServer(req *http.Request) (*plugin.Response, 
 		Identifier string `json:"Identifier"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	rs, err := p.store.GetResourceServer(in.UserPoolId, in.Identifier)
 	if err != nil {
 		if err == ErrResourceServerNotFound {
-			return cognitoError("ResourceNotFoundException", "resource server not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "resource server not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1350,7 +1341,7 @@ func (p *Provider) listResourceServers(req *http.Request) (*plugin.Response, err
 		UserPoolId string `json:"UserPoolId"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	servers, err := p.store.ListResourceServers(in.UserPoolId)
 	if err != nil {
@@ -1371,12 +1362,12 @@ func (p *Provider) updateResourceServer(req *http.Request) (*plugin.Response, er
 		Scopes     []any  `json:"Scopes"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	rs, err := p.store.GetResourceServer(in.UserPoolId, in.Identifier)
 	if err != nil {
 		if err == ErrResourceServerNotFound {
-			return cognitoError("ResourceNotFoundException", "resource server not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "resource server not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1398,11 +1389,11 @@ func (p *Provider) deleteResourceServer(req *http.Request) (*plugin.Response, er
 		Identifier string `json:"Identifier"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if err := p.store.DeleteResourceServer(in.UserPoolId, in.Identifier); err != nil {
 		if err == ErrResourceServerNotFound {
-			return cognitoError("ResourceNotFoundException", "resource server not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "resource server not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1419,7 +1410,7 @@ func (p *Provider) signUp(req *http.Request) (*plugin.Response, error) {
 		UserAttributes []map[string]string `json:"UserAttributes"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	// Find pool by client
 	clients, err := p.store.db().Query(`SELECT pool_id FROM user_pool_clients WHERE id=?`, in.ClientId)
@@ -1432,10 +1423,10 @@ func (p *Provider) signUp(req *http.Request) (*plugin.Response, error) {
 	}
 	clients.Close() //nolint:errcheck
 	if poolID == "" {
-		return cognitoError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
+		return shared.JSONError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
 	}
 	if _, err := p.store.GetUser(poolID, in.Username); err == nil {
-		return cognitoError("UsernameExistsException", "user already exists", http.StatusBadRequest), nil
+		return shared.JSONError("UsernameExistsException", "user already exists", http.StatusBadRequest), nil
 	}
 	t := now()
 	user := &User{
@@ -1465,18 +1456,18 @@ func (p *Provider) confirmSignUp(req *http.Request) (*plugin.Response, error) {
 		ConfirmationCode string `json:"ConfirmationCode"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	// Find pool by client
 	row := p.store.db().QueryRow(`SELECT pool_id FROM user_pool_clients WHERE id=?`, in.ClientId)
 	var poolID string
 	if err := row.Scan(&poolID); err != nil {
-		return cognitoError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
+		return shared.JSONError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
 	}
 	user, err := p.store.GetUser(poolID, in.Username)
 	if err != nil {
 		if err == ErrUserNotFound {
-			return cognitoError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
+			return shared.JSONError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1495,13 +1486,13 @@ func (p *Provider) initiateAuth(req *http.Request) (*plugin.Response, error) {
 		AuthParameters map[string]string `json:"AuthParameters"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	// Find pool by client
 	row := p.store.db().QueryRow(`SELECT pool_id FROM user_pool_clients WHERE id=?`, in.ClientId)
 	var poolID string
 	if err := row.Scan(&poolID); err != nil {
-		return cognitoError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
+		return shared.JSONError("ResourceNotFoundException", "client not found", http.StatusBadRequest), nil
 	}
 	username := in.AuthParameters["USERNAME"]
 	if username == "" {
@@ -1522,7 +1513,7 @@ func (p *Provider) adminInitiateAuth(req *http.Request) (*plugin.Response, error
 		AuthParameters map[string]string `json:"AuthParameters"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	username := in.AuthParameters["USERNAME"]
 	if username == "" {
@@ -1542,7 +1533,7 @@ func (p *Provider) respondToAuthChallenge(req *http.Request) (*plugin.Response, 
 		ChallengeResponses map[string]string `json:"ChallengeResponses"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	row := p.store.db().QueryRow(`SELECT pool_id FROM user_pool_clients WHERE id=?`, in.ClientId)
 	var poolID string
@@ -1565,7 +1556,7 @@ func (p *Provider) adminRespondToAuthChallenge(req *http.Request) (*plugin.Respo
 		ChallengeResponses map[string]string `json:"ChallengeResponses"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	username := in.ChallengeResponses["USERNAME"]
 	if username == "" {
@@ -1581,7 +1572,7 @@ func (p *Provider) forgotPassword(req *http.Request) (*plugin.Response, error) {
 		Username string `json:"Username"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	return jsonResp(http.StatusOK, map[string]any{
 		"CodeDeliveryDetails": map[string]string{
@@ -1600,7 +1591,7 @@ func (p *Provider) confirmForgotPassword(req *http.Request) (*plugin.Response, e
 		Password         string `json:"Password"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	// Find pool by client
 	row := p.store.db().QueryRow(`SELECT pool_id FROM user_pool_clients WHERE id=?`, in.ClientId)
@@ -1640,26 +1631,26 @@ func (p *Provider) getUser(req *http.Request) (*plugin.Response, error) {
 		AccessToken string `json:"AccessToken"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	// Decode our dummy token
 	payload, err := base64.StdEncoding.DecodeString(in.AccessToken)
 	if err != nil {
-		return cognitoError("NotAuthorizedException", "invalid token", http.StatusBadRequest), nil
+		return shared.JSONError("NotAuthorizedException", "invalid token", http.StatusBadRequest), nil
 	}
 	var claims map[string]any
 	if err := json.Unmarshal(payload, &claims); err != nil {
-		return cognitoError("NotAuthorizedException", "invalid token", http.StatusBadRequest), nil
+		return shared.JSONError("NotAuthorizedException", "invalid token", http.StatusBadRequest), nil
 	}
 	poolID, _ := claims["pool_id"].(string)
 	username, _ := claims["sub"].(string)
 	if poolID == "" || username == "" {
-		return cognitoError("NotAuthorizedException", "invalid token claims", http.StatusBadRequest), nil
+		return shared.JSONError("NotAuthorizedException", "invalid token claims", http.StatusBadRequest), nil
 	}
 	user, err := p.store.GetUser(poolID, username)
 	if err != nil {
 		if err == ErrUserNotFound {
-			return cognitoError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
+			return shared.JSONError("UserNotFoundException", "user not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1674,12 +1665,12 @@ func (p *Provider) setUserPoolMfaConfig(req *http.Request) (*plugin.Response, er
 		MfaConfiguration string `json:"MfaConfiguration"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	pool, err := p.store.GetUserPool(in.UserPoolId)
 	if err != nil {
 		if err == ErrPoolNotFound {
-			return cognitoError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1696,12 +1687,12 @@ func (p *Provider) getUserPoolMfaConfig(req *http.Request) (*plugin.Response, er
 		UserPoolId string `json:"UserPoolId"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	pool, err := p.store.GetUserPool(in.UserPoolId)
 	if err != nil {
 		if err == ErrPoolNotFound {
-			return cognitoError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
+			return shared.JSONError("ResourceNotFoundException", "user pool not found", http.StatusBadRequest), nil
 		}
 		return nil, err
 	}
@@ -1716,7 +1707,7 @@ func (p *Provider) tagResource(req *http.Request) (*plugin.Response, error) {
 		Tags        map[string]string `json:"Tags"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if err := p.store.TagResource(in.ResourceArn, in.Tags); err != nil {
 		return nil, err
@@ -1730,7 +1721,7 @@ func (p *Provider) untagResource(req *http.Request) (*plugin.Response, error) {
 		TagKeys     []string `json:"TagKeys"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	if err := p.store.UntagResource(in.ResourceArn, in.TagKeys); err != nil {
 		return nil, err
@@ -1743,7 +1734,7 @@ func (p *Provider) listTagsForResource(req *http.Request) (*plugin.Response, err
 		ResourceArn string `json:"ResourceArn"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&in); err != nil {
-		return cognitoError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
+		return shared.JSONError("InvalidParameterException", "failed to parse request", http.StatusBadRequest), nil
 	}
 	tags, err := p.store.ListTagsForResource(in.ResourceArn)
 	if err != nil {

@@ -257,7 +257,7 @@ func (p *Provider) handleRequest(_ context.Context, op string, req *http.Request
 		return shared.JSONResponse(http.StatusOK, map[string]any{"ReplicatorArn": "", "ReplicatorState": "RUNNING"})
 
 	default:
-		return shared.JSONError("InvalidAction", fmt.Sprintf("unknown action: %s", op), http.StatusBadRequest), nil
+		return shared.JSONError("NotImplemented", fmt.Sprintf("operation not implemented: %s", op), http.StatusNotImplemented), nil
 	}
 }
 

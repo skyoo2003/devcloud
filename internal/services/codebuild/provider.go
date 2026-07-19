@@ -136,8 +136,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListTagsForResource":
 		return p.listTagsForResource(params)
 	default:
-		// Remaining ops (BuildBatch, Sandbox, CommandExecution, etc.): return success/empty
-		return shared.JSONResponse(http.StatusOK, map[string]any{})
+		return shared.JSONError("NotImplemented", "operation not implemented: "+action, http.StatusNotImplemented), nil
 	}
 }
 

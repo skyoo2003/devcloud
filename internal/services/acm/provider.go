@@ -133,7 +133,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListRenewalEvents":
 		return jsonResp(http.StatusOK, map[string]any{"Events": []any{}})
 	default:
-		return acmError("InvalidAction", fmt.Sprintf("operation not implemented: %s", op), http.StatusBadRequest), nil
+		return acmError("NotImplemented", fmt.Sprintf("operation not implemented: %s", op), http.StatusNotImplemented), nil
 	}
 }
 

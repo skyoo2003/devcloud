@@ -304,6 +304,15 @@ services:
   serverlessrepo:
     enabled: true
     data_dir: ./data/serverlessrepo
+  codeconnections:
+    enabled: true
+    data_dir: ./data/codeconnections
+  dms:
+    enabled: true
+    data_dir: ./data/dms
+  verifiedpermissions:
+    enabled: true
+    data_dir: ./data/verifiedpermissions
 
 auth:
   enabled: false

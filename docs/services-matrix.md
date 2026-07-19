@@ -1,8 +1,8 @@
 # DevCloud Services Matrix
 
-**Total**: 101 services, 4,460 operations, ~96% boto3 compatibility
+**Total**: 104 services (run `make stats`). The boto3 compatibility suite — 729 tests in `tests/compatibility/` — passes in CI.
 
-> To refresh these numbers, run `make stats` (services/operations) and `make test-compat` (compatibility), then update the line above.
+> To refresh these numbers, run `make stats` (service/handler counts) and `make test-compat` (compatibility suite), then update the line above. Note: `make stats`' "Operations" counts dispatch cases (a service carrying both Query and JSON protocols counts each), not distinct AWS operations.
 
 _Last updated with each release. For unreleased changes, see [CHANGELOG.md](../CHANGELOG.md)._
 
@@ -15,7 +15,7 @@ DevCloud is a Go-based local cloud environment with AWS API compatibility. This 
 | Tier 1 (Big 6) | S3, SQS, DynamoDB, Lambda, IAM, STS | 128+ | Core services (SQS at full 23/23 op coverage) |
 | Tier 2 (Integration) | EventBridge, SNS, CW Logs, CloudWatch, KMS, Secrets Manager, SSM, ECR | 157+ | Integration services |
 | Tier 3 (Extended) | EFS, EBS, EC2, Route53, ACM, ECS, Bedrock, Account, Pipes, CloudControl, RGTAPI, AppAutoScaling, Firehose, S3Tables, MWAA, Scheduler, Support, IdentityStore, MediaConvert, Textract, ServerlessRepo, DDB Streams, SFN, Kinesis, CloudFormation | 900+ | Extended platform services, networking, and services requiring custom integration logic |
-| Category Expansion | 40+ additional services | 2,000+ | All remaining AWS services scaffolded from Smithy models |
+| Category Expansion | remaining services | varies | Smithy-scaffolded services with working dispatch — common operations implemented; less-common ones return a clean `InvalidAction` error rather than a false success |
 
 ## Top 25 services (by ops count)
 
@@ -61,15 +61,16 @@ DevCloud is a Go-based local cloud environment with AWS API compatibility. This 
 
 ## boto3 compatibility
 
-- Tests: `tests/compatibility/`
-- Pass rate: **~96%** (run `make test-compat` for the current count)
+- Tests: `tests/compatibility/` (729 tests)
+- Status: the full suite passes in CI (`.github/workflows/compat.yml`); any failing test fails the build
 - Run: `make test-compat`
 
-Remaining failures are concentrated in edge cases of newly-added services
-(ARN path parsing in S3Tables, restJson1 jsonName in ServerlessRepo, specialized
-Textract/Support endpoints). Core services (S3, SQS, DynamoDB, Lambda, IAM, STS,
-SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation) all pass
-100% of their tests.
+Every service the suite covers passes — including S3Tables (ARN path parsing),
+ServerlessRepo (restJson1 `jsonName`), Textract, and Support, which were once
+rough edges. Core services (S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch,
+KMS, Secrets Manager, EventBridge, CloudFormation) have the deepest coverage.
+Services implement their common operations; less-common operations return a clean
+AWS error rather than a false success, so an SDK always gets a truthful response.
 
 ## Supported protocols
 

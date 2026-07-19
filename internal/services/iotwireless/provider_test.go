@@ -369,10 +369,10 @@ func TestServiceProfileCRUD(t *testing.T) {
 func TestStubOperations(t *testing.T) {
 	p := newTestProvider(t)
 
-	// Stub operations should return 200 with empty body
+	// Unimplemented ops must return an AWS error, not a false 200 success.
 	resp := callREST(t, p, "GET", "/service-endpoint", "GetServiceEndpoint", "")
-	assert.Equal(t, 200, resp.StatusCode)
+	assert.Equal(t, 501, resp.StatusCode)
 
 	resp2 := callREST(t, p, "GET", "/log-levels", "GetLogLevelsByResourceTypes", "")
-	assert.Equal(t, 200, resp2.StatusCode)
+	assert.Equal(t, 501, resp2.StatusCode)
 }

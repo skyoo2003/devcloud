@@ -223,7 +223,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListRegions":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"Regions": []any{}})
 	default:
-		return ssoError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return ssoError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

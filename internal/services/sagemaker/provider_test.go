@@ -53,6 +53,26 @@ func assertOK(t *testing.T, resp *plugin.Response) {
 	}
 }
 
+func assertErr(t *testing.T, resp *plugin.Response) {
+	t.Helper()
+	if resp.StatusCode != 501 {
+		t.Fatalf("expected 501, got %d: %s", resp.StatusCode, string(resp.Body))
+	}
+	var e struct {
+		Type    string `json:"__type"`
+		Message string `json:"message"`
+	}
+	if err := json.Unmarshal(resp.Body, &e); err != nil {
+		t.Fatalf("expected JSON error body, got %q: %v", string(resp.Body), err)
+	}
+	if e.Type != "NotImplemented" {
+		t.Errorf("expected __type=NotImplemented, got %q (body: %s)", e.Type, string(resp.Body))
+	}
+	if e.Message == "" {
+		t.Errorf("expected non-empty error message (body: %s)", string(resp.Body))
+	}
+}
+
 func TestNotebookInstanceCRUD(t *testing.T) {
 	p := newTestProvider(t)
 
@@ -637,13 +657,14 @@ func TestTags(t *testing.T) {
 func TestDefaultStub(t *testing.T) {
 	p := newTestProvider(t)
 
-	// Verify unknown operations return {}
+	// Unimplemented ops return an AWS error, not a false success.
 	resp := callOp(t, p, "CreateAutoMLJob", `{}`)
-	assertOK(t, resp)
+	assertErr(t, resp)
 
 	resp = callOp(t, p, "DescribeCluster", `{}`)
-	assertOK(t, resp)
+	assertErr(t, resp)
 
+	// Search IS implemented and legitimately returns empty results.
 	resp = callOp(t, p, "Search", `{"Resource":"TrainingJob"}`)
 	assertOK(t, resp)
 	body := parseBody(t, resp)

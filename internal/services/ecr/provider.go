@@ -128,7 +128,7 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 	case "PutImageScanningConfiguration":
 		return p.handlePutImageScanningConfiguration(params)
 	default:
-		return ecrError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return ecrError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

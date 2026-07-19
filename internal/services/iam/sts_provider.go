@@ -97,7 +97,7 @@ func (p *STSProvider) HandleRequest(ctx context.Context, op string, req *http.Re
 	case "GetAccessKeyInfo":
 		return p.handleGetAccessKeyInfo(ctx, form)
 	default:
-		return stsXMLError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return stsXMLError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

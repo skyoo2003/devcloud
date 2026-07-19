@@ -212,7 +212,7 @@ func (p *IAMProvider) HandleRequest(ctx context.Context, op string, req *http.Re
 	case "ListRoleTags":
 		return p.handleListRoleTags(ctx, form)
 	default:
-		return iamXMLError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return iamXMLError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

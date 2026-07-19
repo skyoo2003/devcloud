@@ -27,6 +27,24 @@ func TestDetectProtocol_JSON10_DynamoDB(t *testing.T) {
 	assert.Equal(t, "dynamodb", service)
 }
 
+func TestServiceFromTarget(t *testing.T) {
+	cases := []struct {
+		name, target, want string
+	}{
+		{"simple", "DynamoDB_20120810.PutItem", "dynamodb"},
+		// Dotted target prefixes: only the last dotted segment is the
+		// "ServiceName_Date" token; the operation and the com.amazonaws.*
+		// namespace must be stripped.
+		{"codeconnections", "com.amazonaws.codeconnections.CodeConnections_20231201.ListConnections", "codeconnections"},
+		{"cloudtrail", "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.CreateTrail", "cloudtrail"},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			assert.Equal(t, c.want, serviceFromTarget(c.target))
+		})
+	}
+}
+
 func TestDetectProtocol_Query_SQS(t *testing.T) {
 	body := "Action=SendMessage&QueueUrl=http://localhost:4747/123456789/test-queue&MessageBody=hello"
 	req := httptest.NewRequest("POST", "/", strings.NewReader(body))

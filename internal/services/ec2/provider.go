@@ -165,7 +165,7 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 	case "DescribeVpcAttribute":
 		return p.handleDescribeVpcAttribute(form)
 	default:
-		return ec2XMLError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return ec2XMLError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

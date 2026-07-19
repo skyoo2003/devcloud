@@ -120,7 +120,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "DescribeLimits":
 		return p.describeLimits(params)
 	default:
-		return json10Err("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return json10Err("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

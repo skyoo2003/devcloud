@@ -103,7 +103,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListTags":
 		return p.listTags(req)
 	default:
-		return pcaError("InvalidAction", fmt.Sprintf("operation not implemented: %s", op), http.StatusBadRequest), nil
+		return pcaError("NotImplemented", fmt.Sprintf("operation not implemented: %s", op), http.StatusNotImplemented), nil
 	}
 }
 

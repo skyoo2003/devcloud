@@ -267,9 +267,8 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListTagsForResource":
 		return p.listTagsForResource(req)
 
-	// Default: return success/empty JSON for all unimplemented ops
 	default:
-		return shared.JSONResponse(http.StatusOK, map[string]any{})
+		return shared.JSONError("NotImplemented", "operation not implemented: "+op, http.StatusNotImplemented), nil
 	}
 }
 

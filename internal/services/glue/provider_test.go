@@ -53,6 +53,26 @@ func assertOK(t *testing.T, resp *plugin.Response) {
 	}
 }
 
+func assertErr(t *testing.T, resp *plugin.Response) {
+	t.Helper()
+	if resp.StatusCode != 501 {
+		t.Fatalf("expected 501, got %d: %s", resp.StatusCode, string(resp.Body))
+	}
+	var e struct {
+		Type    string `json:"__type"`
+		Message string `json:"message"`
+	}
+	if err := json.Unmarshal(resp.Body, &e); err != nil {
+		t.Fatalf("expected JSON error body, got %q: %v", string(resp.Body), err)
+	}
+	if e.Type != "NotImplemented" {
+		t.Errorf("expected __type=NotImplemented, got %q (body: %s)", e.Type, string(resp.Body))
+	}
+	if e.Message == "" {
+		t.Errorf("expected non-empty error message (body: %s)", string(resp.Body))
+	}
+}
+
 func TestDatabaseCRUD(t *testing.T) {
 	p := newTestProvider(t)
 
@@ -602,11 +622,11 @@ func TestTags(t *testing.T) {
 		t.Errorf("expected team=data, got %v", tags["team"])
 	}
 
-	// Stub ops should return 200
+	// Unimplemented ops return an AWS error, not a false success.
 	resp = callOp(t, p, "GetDataflowGraph", `{}`)
-	assertOK(t, resp)
+	assertErr(t, resp)
 	resp = callOp(t, p, "ListWorkflows", `{}`)
-	assertOK(t, resp)
+	assertErr(t, resp)
 	resp = callOp(t, p, "GetMLTransform", `{}`)
-	assertOK(t, resp)
+	assertErr(t, resp)
 }

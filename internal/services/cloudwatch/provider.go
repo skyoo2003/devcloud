@@ -101,7 +101,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "DescribeAnomalyDetectors":
 		return p.describeAnomalyDetectors(jm, req)
 	default:
-		return cwError(jm, "InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return cwError(jm, "NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

@@ -98,7 +98,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ConfirmSubscription":
 		return p.confirmSubscription(req)
 	default:
-		return snsError("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return snsError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

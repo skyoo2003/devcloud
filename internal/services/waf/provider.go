@@ -257,7 +257,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return jsonResp(http.StatusOK, map[string]any{"SampledRequests": []any{}, "PopulationSize": 0, "TimeWindow": map[string]any{}})
 
 	default:
-		return wafError("WAFInvalidOperationException", fmt.Sprintf("operation not implemented: %s", action), http.StatusBadRequest), nil
+		return wafError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

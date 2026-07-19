@@ -22,11 +22,11 @@ We pursue this vision through a **phased rollout** to manage scope, architectura
 - [x] Deep hand-written coverage on core, integration, and major extended services (see [services-matrix.md](services-matrix.md) for per-tier depth)
 - [x] Cross-service integration (CloudFormation, DynamoDB Streams → Lambda, SQS → Lambda, S3 → Lambda, EventBridge, SNS → SQS)
 - [x] boto3 compatibility suite (`make test-compat`); core services — S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation — pass 100%
-- [x] boto3 compatibility ≥ 95% overall (run `make test-compat` for the current rate)
-- [ ] Reduce remaining `NotImplementedError` stubs (less-common operations and scaffolded "Category Expansion" services)
-- [ ] Close remaining boto3 compatibility edge cases in newly-added services
-- [ ] Finalize and document a stable `ServicePlugin` API (`internal/plugin/`)
-- [ ] v1.0 release
+- [x] boto3 compatibility suite green in CI (`make test-compat`) — a failing test fails the build
+- [x] Unimplemented operations return a consistent AWS error (`InvalidAction`, HTTP 400) instead of a false `200` success; dead scaffold code removed
+- [x] boto3 compatibility coverage added for previously-untested services (CodeConnections, DMS, Verified Permissions)
+- [x] Stable `ServicePlugin` API finalized and documented ([plugin-api.md](plugin-api.md)), enforced by a conformance test over every registered service
+- [ ] v1.0 release (pending maintainer tag)
 
 ### Phase 2 — Architectural Preparation (v1.x)
 

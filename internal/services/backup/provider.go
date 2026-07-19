@@ -315,7 +315,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 
 	// --- Default stubs for remaining ops ---
 	default:
-		return shared.JSONResponse(http.StatusOK, map[string]any{})
+		return shared.JSONError("NotImplemented", "operation not implemented: "+op, http.StatusNotImplemented), nil
 	}
 }
 

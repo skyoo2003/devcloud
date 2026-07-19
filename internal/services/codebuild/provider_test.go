@@ -449,7 +449,7 @@ func TestTags(t *testing.T) {
 	platforms, _ := eib["platforms"].([]any)
 	assert.NotEmpty(t, platforms)
 
-	// Unknown action returns empty success
+	// Unimplemented ops return an AWS error, not a false success.
 	unknownResp := call(t, p, "StartBuildBatch", `{}`)
-	assert.Equal(t, 200, unknownResp.StatusCode)
+	assert.Equal(t, 501, unknownResp.StatusCode)
 }

@@ -171,7 +171,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return jsonOK(map[string]any{"streamARN": "", "streamName": ""})
 
 	default:
-		return jsonErr("InvalidAction", fmt.Sprintf("unknown action: %s", action), http.StatusBadRequest), nil
+		return jsonErr("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
 }
 

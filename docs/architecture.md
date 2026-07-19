@@ -71,6 +71,8 @@ type ServicePlugin interface {
 
 Plugins are registered in the `Registry` at startup. The gateway routes requests to the correct plugin based on protocol detection and service identification.
 
+The full contract for each method, the configuration keys, the error convention, and the v1.x stability guarantee are documented in [plugin-api.md](plugin-api.md).
+
 ### Supported Protocols
 
 | Protocol | Services | Request Format | Response Format |

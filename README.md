@@ -23,8 +23,8 @@ Today DevCloud targets **AWS**. Our long-term goal is to support the full range 
 
 ## Features
 
-- **101 AWS services scaffolded** — 4,400+ operations across all major categories (run `make stats` for current counts; see [services-matrix.md](docs/services-matrix.md))
-- **~96% boto3 compatibility** — run `make test-compat` for the current pass rate; works with most boto3 apps
+- **104 AWS services** across all major categories (run `make stats` for current counts; see [services-matrix.md](docs/services-matrix.md))
+- **boto3-compatible** — a 729-test compatibility suite runs in CI (`make test-compat`); works with most boto3 apps, and unsupported operations return a clean AWS error, never a false success
 - **Cross-service integration** — CFN provisioning, DDB Streams → Lambda, EventBridge targets, S3 → Lambda
 - **Smithy-driven codegen** — auto-generate Go interfaces, types, and serializers from Smithy models
 - **Weekly auto-sync** — GitHub Actions keeps generated code up to date with upstream AWS API changes
@@ -60,7 +60,8 @@ Start at the [docs index](docs/) for the full map. Quick links:
 - [Getting Started](docs/getting-started.md) — Installation, first use, boto3 / AWS CLI / Terraform examples
 - [Configuration](docs/configuration.md) — Config options, env-var overrides, tier shortcuts
 - [Architecture](docs/architecture.md) — System design, codegen pipeline, plugin model, multi-CSP vision
-- [Services Matrix](docs/services-matrix.md) — 101 services, coverage status, boto3 pass rate
+- [Services Matrix](docs/services-matrix.md) — services, coverage status, boto3 compatibility
+- [Plugin API](docs/plugin-api.md) — the stable `ServicePlugin` contract and v1.x stability policy
 - [Roadmap](docs/roadmap.md) — Phased plan toward multi-CSP support
 - [FAQ](docs/faq.md) / [Troubleshooting](docs/troubleshooting.md) — Common questions and errors
 - [Contributing](docs/contributing.md) — Development setup, adding new services

@@ -101,5 +101,5 @@ func TestSTSProvider_UnknownAction(t *testing.T) {
 	req := httptest.NewRequest("POST", "/", strings.NewReader("Action=DeleteEverything"))
 	resp, err := p.HandleRequest(context.Background(), "", req)
 	require.NoError(t, err)
-	assert.Equal(t, 400, resp.StatusCode)
+	assert.Equal(t, 501, resp.StatusCode)
 }

@@ -213,7 +213,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 
 	// ---- ~200 stub operations ----
 	default:
-		return shared.JSONResponse(http.StatusOK, map[string]any{})
+		return shared.JSONError("NotImplemented", "operation not implemented: "+action, http.StatusNotImplemented), nil
 	}
 }
 
