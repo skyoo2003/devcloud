@@ -45,7 +45,11 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// skipped for REST-XML (S3) where bodies may be large binary uploads.
 	var body []byte
 	if crud.JSONProtocol(protocol) {
-		body, _ = io.ReadAll(r.Body)
+		var rerr error
+		if body, rerr = io.ReadAll(r.Body); rerr != nil {
+			writeAWSError(w, protocol, http.StatusBadRequest, "SerializationException", "failed to read request body")
+			return
+		}
 		r.Body = io.NopCloser(bytes.NewReader(body))
 	}
 

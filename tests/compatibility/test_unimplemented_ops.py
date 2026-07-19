@@ -23,6 +23,21 @@ UNIMPLEMENTED_OPS = [
     ("sagemaker_client", "list_auto_ml_jobs", {}),
 ]
 
+
+@pytest.mark.parametrize("fixture,method,kwargs", UNIMPLEMENTED_OPS)
+def test_unimplemented_op_served_or_honest_error(request, fixture, method, kwargs):
+    """Across all wired services, an op the provider does not hand-implement must
+    be either served by the fallback engine (2xx) or rejected with an honest AWS
+    error — never a server-side 500 InternalError or a fabricated/garbled body."""
+    client = request.getfixturevalue(fixture)
+    try:
+        resp = getattr(client, method)(**kwargs)
+    except ClientError as e:
+        assert e.response["ResponseMetadata"]["HTTPStatusCode"] < 500, e
+    else:
+        assert resp["ResponseMetadata"]["HTTPStatusCode"] == 200
+
+
 def test_engine_serves_formerly_unimplemented_op(codebuild_client):
     # codebuild does not hand-implement ListBuildBatches; the engine serves it
     # (this returned an error before the service was wired to the engine).

@@ -86,12 +86,26 @@ func Handle(service, op, protocol string, body []byte) (*Result, error) {
 
 	var params map[string]any
 	if len(body) > 0 {
-		_ = json.Unmarshal(body, &params)
+		if err := json.Unmarshal(body, &params); err != nil {
+			// Malformed body: real services reject with SerializationException
+			// rather than fabricating a success from empty params.
+			return withContentType(serializationError(), protocol), nil
+		}
 	}
 	if params == nil {
 		params = map[string]any{}
 	}
-	return dispatch(service, m, params)
+	res, err := dispatch(service, m, params)
+	return withContentType(res, protocol), err
+}
+
+// withContentType stamps the protocol-appropriate amz-json version so a json-1.0
+// service is not served a 1.1 content type. dispatch/okJSON default to 1.1.
+func withContentType(res *Result, protocol string) *Result {
+	if res != nil && protocol == "json-1.0" {
+		res.ContentType = "application/x-amz-json-1.0"
+	}
+	return res
 }
 
 func dispatch(service string, m OpMeta, params map[string]any) (*Result, error) {
@@ -104,6 +118,12 @@ func dispatch(service string, m OpMeta, params map[string]any) (*Result, error) 
 		return okJSON(wrapItem(m, item))
 
 	case "Get":
+		// A Describe*/Get* whose output is a collection (list key, no single-item
+		// wrapper) returns the stored list, not a single-resource lookup — a fresh
+		// store yields an empty collection (200), not ResourceNotFoundException.
+		if m.OutputItemKey == "" && m.OutputListKey != "" {
+			return okJSON(map[string]any{m.OutputListKey: list(service, m.Resource)})
+		}
 		id := resourceID(m.Resource, params)
 		item, found := get(service, m.Resource, id)
 		if !found {
@@ -194,7 +214,13 @@ func get(service, resource, id string) (map[string]any, bool) {
 	mu.RLock()
 	defer mu.RUnlock()
 	doc, ok := store[storeKey(service, resource)][id]
-	return doc, ok
+	if !ok {
+		return nil, false
+	}
+	// Copy: the caller marshals/mutates this after the lock is released, so it
+	// must not alias the stored map (else a concurrent Get/List marshalling it
+	// while an Update writes to it triggers a fatal concurrent map read/write).
+	return cloneMap(doc), true
 }
 
 func del(service, resource, id string) {
@@ -209,7 +235,7 @@ func list(service, resource string) []map[string]any {
 	items := store[storeKey(service, resource)]
 	out := make([]map[string]any, 0, len(items))
 	for _, doc := range items {
-		out = append(out, doc)
+		out = append(out, cloneMap(doc)) // copy: marshalled unlocked, see get()
 	}
 	return out
 }
@@ -228,6 +254,14 @@ func notFound(resource string) *Result {
 	b, _ := json.Marshal(map[string]string{
 		"__type":  "ResourceNotFoundException",
 		"message": resource + " not found",
+	})
+	return &Result{Status: 400, Body: b, ContentType: jsonContentType}
+}
+
+func serializationError() *Result {
+	b, _ := json.Marshal(map[string]string{
+		"__type":  "SerializationException",
+		"message": "failed to deserialize request body",
 	})
 	return &Result{Status: 400, Body: b, ContentType: jsonContentType}
 }

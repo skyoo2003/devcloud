@@ -4,6 +4,7 @@ package crud
 
 import (
 	"encoding/json"
+	"sync"
 	"testing"
 )
 
@@ -91,6 +92,37 @@ func TestEngineUnclassified(t *testing.T) {
 	if _, err := handleJSON(t, "unregistered", "CreateThing", nil); err != ErrUnclassified {
 		t.Fatalf("unregistered service: want ErrUnclassified, got %v", err)
 	}
+}
+
+// TestEngineConcurrentAccess exercises the store under concurrent Update (which
+// mutates a resource) against Get/List (which marshal it). Before get()/list()
+// returned copies, this tripped `fatal error: concurrent map read and map write`
+// under -race and crashed the gateway.
+func TestEngineConcurrentAccess(t *testing.T) {
+	const svc = "racesvc"
+	Register(svc, map[string]OpMeta{
+		"CreateThing": {Verb: "Create", Resource: "RThing", OutputItemKey: "Thing"},
+		"GetThing":    {Verb: "Get", Resource: "RThing", OutputItemKey: "Thing"},
+		"ListThings":  {Verb: "List", Resource: "RThing", OutputListKey: "Things"},
+		"UpdateThing": {Verb: "Update", Resource: "RThing", OutputItemKey: "Thing"},
+	})
+	handleJSON(t, svc, "CreateThing", map[string]any{"RThingName": "x", "N": float64(0)})
+
+	do := func(op string, params map[string]any) {
+		body, _ := json.Marshal(params)
+		if _, err := Handle(svc, op, "json-1.1", body); err != nil {
+			t.Errorf("%s: %v", op, err)
+		}
+	}
+
+	var wg sync.WaitGroup
+	for i := 0; i < 50; i++ {
+		wg.Add(3)
+		go func(n int) { defer wg.Done(); do("UpdateThing", map[string]any{"RThingName": "x", "N": float64(n)}) }(i)
+		go func() { defer wg.Done(); do("GetThing", map[string]any{"RThingName": "x"}) }()
+		go func() { defer wg.Done(); do("ListThings", map[string]any{}) }()
+	}
+	wg.Wait()
 }
 
 func statusOf(r *Result) int {
