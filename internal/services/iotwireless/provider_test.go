@@ -369,10 +369,11 @@ func TestServiceProfileCRUD(t *testing.T) {
 func TestStubOperations(t *testing.T) {
 	p := newTestProvider(t)
 
-	// Unimplemented ops must return an AWS error, not a false 200 success.
+	// Unimplemented ops must return an honest AWS error (<500), not a false 200
+	// success nor a server-side 501.
 	resp := callREST(t, p, "GET", "/service-endpoint", "GetServiceEndpoint", "")
-	assert.Equal(t, 501, resp.StatusCode)
+	assert.Equal(t, 400, resp.StatusCode)
 
 	resp2 := callREST(t, p, "GET", "/log-levels", "GetLogLevelsByResourceTypes", "")
-	assert.Equal(t, 501, resp2.StatusCode)
+	assert.Equal(t, 400, resp2.StatusCode)
 }
