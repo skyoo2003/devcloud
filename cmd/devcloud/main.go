@@ -104,9 +104,13 @@ func main() {
 	// opted in via admin.enabled. Otherwise expose a 404 handler so the admin
 	// routes don't leak service internals. This binary serves no web UI; the
 	// dashboard frontend lives in a separate repository and talks to this API.
-	logCollector := admin.NewLogCollector(1000)
+	// The log collector is only built when admin is enabled; otherwise no
+	// consumer can ever read it, so a nil collector keeps Add off the request
+	// hot path (see gateway.New).
+	var logCollector *admin.LogCollector
 	adminHandler := http.NotFoundHandler()
 	if cfg.Admin.Enabled {
+		logCollector = admin.NewLogCollector(1000)
 		adminAPI := admin.NewAPI(registry, logCollector)
 		hub := admin.NewHub(eventbus.New())
 		go hub.Start()

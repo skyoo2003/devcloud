@@ -1,0 +1,5 @@
+kind: Changed
+body: Skip request log collection on the AWS request hot path when the admin API is disabled (the default). The log collector is now built only when `admin.enabled` is true, avoiding a per-request mutex lock and ring-buffer write that no consumer could read.
+time: 2026-07-25T00:00:01.000000+09:00
+custom:
+    Issue: "112"

@@ -26,27 +26,33 @@ type Gateway struct {
 //   - Requests starting with /devcloud/api/ → adminAPI handler
 //   - Everything else → service router (AWS API)
 //
-// A logging middleware wraps the service router and records each request to
-// logCollector after the response has been written.
+// When logCollector is non-nil, a logging middleware wraps the service router
+// and records each request after the response has been written. A nil
+// collector (admin API disabled) skips that wrapper entirely, keeping the
+// mutex lock + ring-buffer write off the request hot path.
 func New(port int, registry *plugin.Registry, adminAPI http.Handler, logCollector *admin.LogCollector) *Gateway {
 	router := NewServiceRouter(registry)
 
-	// Logging middleware: records AWS API requests to logCollector.
-	loggedRouter := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		start := time.Now()
-		rec := newStatusRecorder(w)
-		router.ServeHTTP(rec, r)
-		logCollector.Add(admin.RequestLog{
-			Method:    r.Method,
-			Path:      r.URL.Path,
-			Status:    rec.statusCode,
-			Duration:  time.Since(start).String(),
-			Timestamp: start,
-			Service:   detectService(r.URL.Path),
+	// Logging middleware: records AWS API requests to logCollector. Only
+	// installed when there is a collector to read them.
+	var serviceHandler http.Handler = router
+	if logCollector != nil {
+		serviceHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			start := time.Now()
+			rec := newStatusRecorder(w)
+			router.ServeHTTP(rec, r)
+			logCollector.Add(admin.RequestLog{
+				Method:    r.Method,
+				Path:      r.URL.Path,
+				Status:    rec.statusCode,
+				Duration:  time.Since(start).String(),
+				Timestamp: start,
+				Service:   detectService(r.URL.Path),
+			})
 		})
-	})
+	}
 
-	awsHandler := ChainMiddleware(loggedRouter,
+	awsHandler := ChainMiddleware(serviceHandler,
 		ErrorRecoveryMiddleware,
 		BodyLimitMiddleware,
 		CORSMiddleware,
