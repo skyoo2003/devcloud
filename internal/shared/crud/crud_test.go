@@ -106,7 +106,7 @@ func TestEngineConcurrentAccess(t *testing.T) {
 		"ListThings":  {Verb: "List", Resource: "RThing", OutputListKey: "Things"},
 		"UpdateThing": {Verb: "Update", Resource: "RThing", OutputItemKey: "Thing"},
 	})
-	handleJSON(t, svc, "CreateThing", map[string]any{"RThingName": "x", "N": float64(0)})
+	_, _ = handleJSON(t, svc, "CreateThing", map[string]any{"RThingName": "x", "N": float64(0)})
 
 	do := func(op string, params map[string]any) {
 		body, _ := json.Marshal(params)
