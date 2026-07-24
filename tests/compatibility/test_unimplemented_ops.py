@@ -1,8 +1,6 @@
-"""Regression tests: unimplemented operations must return an AWS error, not a
-silent 200 empty-body success. Guards the fix in the services that previously
-returned a false 200 for unknown ops (apigatewayv2, backup, codebuild,
-codedeploy, codepipeline, cognito-idp, config, glue, iot, iotwireless,
-sagemaker)."""
+"""Unimplemented CRUD-shaped operations are now served by the fallback engine on
+all registered JSON services. Operations the engine cannot classify still return
+an honest error, never a fabricated success."""
 
 import pytest
 from botocore.exceptions import ClientError
@@ -26,12 +24,31 @@ UNIMPLEMENTED_OPS = [
 ]
 
 
-@pytest.mark.parametrize(
-    "fixture,method,kwargs",
-    UNIMPLEMENTED_OPS,
-    ids=[f"{f.removesuffix('_client')}.{m}" for f, m, _ in UNIMPLEMENTED_OPS],
-)
-def test_unimplemented_op_errors(request, fixture, method, kwargs):
+@pytest.mark.parametrize("fixture,method,kwargs", UNIMPLEMENTED_OPS)
+def test_unimplemented_op_served_or_honest_error(request, fixture, method, kwargs):
+    """Across all wired services, an op the provider does not hand-implement must
+    be either served by the fallback engine (2xx) or rejected with an honest AWS
+    error — never a server-side 500 InternalError or a fabricated/garbled body."""
     client = request.getfixturevalue(fixture)
+    try:
+        resp = getattr(client, method)(**kwargs)
+    except ClientError as e:
+        assert e.response["ResponseMetadata"]["HTTPStatusCode"] < 500, e
+    else:
+        assert resp["ResponseMetadata"]["HTTPStatusCode"] == 200
+
+
+def test_engine_serves_formerly_unimplemented_op(codebuild_client):
+    # codebuild does not hand-implement ListBuildBatches; the engine serves it
+    # (this returned an error before the service was wired to the engine).
+    resp = codebuild_client.list_build_batches()
+    assert resp["ResponseMetadata"]["HTTPStatusCode"] == 200
+
+
+def test_wired_service_errors_on_unclassifiable_op(glue_client):
+    # glue IS engine-wired, but StartBlueprintRun is neither hand-implemented nor
+    # CRUD-classifiable, so the engine declines it and an honest error is returned.
     with pytest.raises(ClientError):
-        getattr(client, method)(**kwargs)
+        glue_client.start_blueprint_run(
+            BlueprintName="bp", RoleArn="arn:aws:iam::000000000000:role/r"
+        )

@@ -6,6 +6,7 @@ package sagemaker
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"net/http/httptest"
 	"strings"
 	"testing"
@@ -53,23 +54,14 @@ func assertOK(t *testing.T, resp *plugin.Response) {
 	}
 }
 
-func assertErr(t *testing.T, resp *plugin.Response) {
+// assertUnhandled verifies an unimplemented op delegates to the CRUD engine by
+// returning the ErrUnhandledOp sentinel (the router turns that into a response).
+func assertUnhandled(t *testing.T, p *Provider, op string) {
 	t.Helper()
-	if resp.StatusCode != 501 {
-		t.Fatalf("expected 501, got %d: %s", resp.StatusCode, string(resp.Body))
-	}
-	var e struct {
-		Type    string `json:"__type"`
-		Message string `json:"message"`
-	}
-	if err := json.Unmarshal(resp.Body, &e); err != nil {
-		t.Fatalf("expected JSON error body, got %q: %v", string(resp.Body), err)
-	}
-	if e.Type != "NotImplemented" {
-		t.Errorf("expected __type=NotImplemented, got %q (body: %s)", e.Type, string(resp.Body))
-	}
-	if e.Message == "" {
-		t.Errorf("expected non-empty error message (body: %s)", string(resp.Body))
+	req := httptest.NewRequest("POST", "/"+op, strings.NewReader("{}"))
+	req.Header.Set("Content-Type", "application/json")
+	if _, err := p.HandleRequest(context.Background(), op, req); !errors.Is(err, plugin.ErrUnhandledOp) {
+		t.Fatalf("%s: expected ErrUnhandledOp, got %v", op, err)
 	}
 }
 
@@ -657,15 +649,12 @@ func TestTags(t *testing.T) {
 func TestDefaultStub(t *testing.T) {
 	p := newTestProvider(t)
 
-	// Unimplemented ops return an AWS error, not a false success.
-	resp := callOp(t, p, "CreateAutoMLJob", `{}`)
-	assertErr(t, resp)
-
-	resp = callOp(t, p, "DescribeCluster", `{}`)
-	assertErr(t, resp)
+	// Unimplemented ops delegate to the CRUD engine via the sentinel.
+	assertUnhandled(t, p, "CreateAutoMLJob")
+	assertUnhandled(t, p, "DescribeCluster")
 
 	// Search IS implemented and legitimately returns empty results.
-	resp = callOp(t, p, "Search", `{"Resource":"TrainingJob"}`)
+	resp := callOp(t, p, "Search", `{"Resource":"TrainingJob"}`)
 	assertOK(t, resp)
 	body := parseBody(t, resp)
 	results, _ := body["Results"].([]any)

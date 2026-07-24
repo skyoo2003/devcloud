@@ -6,6 +6,7 @@ package configservice
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"net/http/httptest"
 	"strings"
 	"testing"
@@ -62,14 +63,11 @@ func assertError(t *testing.T, resp *plugin.Response) {
 
 func TestUnimplementedOp(t *testing.T) {
 	p := newTestProvider(t)
-	// Unimplemented ops return an AWS error, not a false 200 success.
-	resp := callOp(t, p, "SomeUnknownOperation", `{}`)
-	if resp.StatusCode != 501 {
-		t.Fatalf("expected 501, got %d: %s", resp.StatusCode, string(resp.Body))
-	}
-	body := parseBody(t, resp)
-	if body["__type"] != "NotImplemented" {
-		t.Errorf("expected __type=NotImplemented, got %v (body: %s)", body["__type"], string(resp.Body))
+	// Unimplemented ops delegate to the CRUD engine via the sentinel.
+	req := httptest.NewRequest("POST", "/", strings.NewReader("{}"))
+	req.Header.Set("Content-Type", "application/x-amz-json-1.1")
+	if _, err := p.HandleRequest(context.Background(), "SomeUnknownOperation", req); !errors.Is(err, plugin.ErrUnhandledOp) {
+		t.Fatalf("expected ErrUnhandledOp, got %v", err)
 	}
 }
 

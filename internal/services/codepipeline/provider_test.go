@@ -42,11 +42,11 @@ func parseBody(t *testing.T, resp *plugin.Response) map[string]any {
 
 func TestUnimplementedOp(t *testing.T) {
 	p := newTestProvider(t)
-	// Unimplemented ops must return an AWS error, not a false 200 success.
-	resp := call(t, p, "SomeUnknownOperation", "{}")
-	assert.Equal(t, 501, resp.StatusCode)
-	rb := parseBody(t, resp)
-	assert.Equal(t, "NotImplemented", rb["__type"])
+	// Unimplemented ops delegate to the CRUD engine via the sentinel.
+	req := httptest.NewRequest("POST", "/", strings.NewReader("{}"))
+	req.Header.Set("Content-Type", "application/x-amz-json-1.1")
+	_, err := p.HandleRequest(context.Background(), "SomeUnknownOperation", req)
+	assert.ErrorIs(t, err, plugin.ErrUnhandledOp)
 }
 
 func TestPipelineCRUD(t *testing.T) {

@@ -1,0 +1,5 @@
+kind: Added
+body: 'Add a generic Smithy-driven CRUD fallback engine (internal/shared/crud) that auto-serves ~2,200 standard CRUD-shaped operations across all 46 JSON-protocol services with plausible, store-backed responses; hand-implemented operations always take precedence and unclassifiable operations still return an honest error. Documented in docs/crud-engine.md'
+time: 2026-07-19T00:15:41.279904+09:00
+custom:
+    Issue: "98"

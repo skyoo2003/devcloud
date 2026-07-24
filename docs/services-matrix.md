@@ -72,6 +72,17 @@ KMS, Secrets Manager, EventBridge, CloudFormation) have the deepest coverage.
 Services implement their common operations; less-common operations return a clean
 AWS error rather than a false success, so an SDK always gets a truthful response.
 
+## Operation coverage & the CRUD fallback engine
+
+Hand-written providers implement each service's common operations. For the long
+tail of standard CRUD-shaped operations (~2,200 across 46 JSON-protocol
+services), a generic engine can serve plausible, store-backed responses so SDK
+calls round-trip. This coverage is **plausible, not faithful** — no validation or
+business logic — and is opt-in per service. See
+[crud-engine.md](crud-engine.md) for the fidelity tiers, wired services, and
+limits. Operations that are neither hand-written nor CRUD-classifiable return an
+honest `InvalidAction` error, never a fabricated success.
+
 ## Supported protocols
 
 - **JSON 1.0** (`application/x-amz-json-1.0`): DynamoDB, DynamoDB Streams, Kinesis

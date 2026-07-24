@@ -4,8 +4,15 @@ package plugin
 
 import (
 	"context"
+	"errors"
 	"net/http"
 )
+
+// ErrUnhandledOp signals that a provider's HandleRequest did not implement the
+// requested operation. The gateway treats it as a request to try the generic
+// CRUD fallback engine before returning an "unknown action" error. Providers
+// opt in by returning this from their dispatch default case.
+var ErrUnhandledOp = errors.New("plugin: operation not handled by provider")
 
 type ProtocolType string
 

@@ -190,7 +190,8 @@ func (p *SQSProvider) handleJSONRequest(op string, req *http.Request) (*plugin.R
 	case "RemovePermission":
 		return jsonResp(http.StatusOK, map[string]any{})
 	default:
-		return jsonError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
+		// Fall back to the generic CRUD engine for unimplemented ops.
+		return nil, plugin.ErrUnhandledOp
 	}
 }
 

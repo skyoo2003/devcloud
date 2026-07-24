@@ -3,13 +3,17 @@
 package gateway
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	"io"
 	"mime"
 	"net/http"
 	"strings"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/shared/crud"
 )
 
 // ServiceRouter dispatches incoming HTTP requests to the appropriate
@@ -36,7 +40,33 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	op := extractOperationName(r, protocol)
 
+	// Buffer the body for JSON protocols so the CRUD fallback engine can re-read
+	// it if the provider does not handle the operation. Cheap for JSON payloads;
+	// skipped for REST-XML (S3) where bodies may be large binary uploads.
+	var body []byte
+	if crud.JSONProtocol(protocol) {
+		var rerr error
+		if body, rerr = io.ReadAll(r.Body); rerr != nil {
+			writeAWSError(w, protocol, http.StatusBadRequest, "SerializationException", "failed to read request body")
+			return
+		}
+		r.Body = io.NopCloser(bytes.NewReader(body))
+	}
+
 	resp, err := p.HandleRequest(r.Context(), op, r)
+
+	// A provider that returns ErrUnhandledOp is opting into the generic CRUD
+	// fallback for operations it does not implement. If the engine cannot
+	// classify the operation either, emit the standard "unknown action" error.
+	if errors.Is(err, plugin.ErrUnhandledOp) {
+		res, cerr := crud.Handle(serviceID, op, protocol, body)
+		if cerr != nil {
+			writeAWSError(w, protocol, http.StatusBadRequest, "InvalidAction", "unknown action: "+op)
+			return
+		}
+		resp, err = &plugin.Response{StatusCode: res.Status, Body: res.Body, ContentType: res.ContentType}, nil
+	}
+
 	if err != nil {
 		writeAWSError(w, protocol, http.StatusInternalServerError, "InternalError", err.Error())
 		return

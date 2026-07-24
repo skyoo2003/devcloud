@@ -223,7 +223,8 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ListRegions":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"Regions": []any{}})
 	default:
-		return ssoError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
+		// Fall back to the generic CRUD engine for unimplemented ops.
+		return nil, plugin.ErrUnhandledOp
 	}
 }
 

@@ -325,7 +325,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 
 	// Stub ops (Portal, PortalProduct, RoutingRule, etc.)
 	default:
-		return shared.JSONError("NotImplemented", "operation not implemented: "+op, http.StatusNotImplemented), nil
+		return shared.JSONError("UnsupportedOperation", "operation not implemented: "+op, http.StatusBadRequest), nil
 	}
 }
 

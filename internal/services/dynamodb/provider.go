@@ -100,7 +100,8 @@ func (p *DynamoDBProvider) HandleRequest(_ context.Context, op string, req *http
 	case "ListTagsOfResource":
 		return p.handleListTagsOfResource(body)
 	default:
-		return jsonError("UnknownOperationException", fmt.Sprintf("unknown operation: %s", op), http.StatusBadRequest), nil
+		// Fall back to the generic CRUD engine for unimplemented ops.
+		return nil, plugin.ErrUnhandledOp
 	}
 }
 
