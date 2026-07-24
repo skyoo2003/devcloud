@@ -169,6 +169,12 @@ func TestParse_AdminKeyWinsOverDeprecated(t *testing.T) {
 	cfg, err := parse([]byte("admin:\n  enabled: true\ndashboard:\n  enabled: false\n"))
 	require.NoError(t, err)
 	assert.True(t, cfg.Admin.Enabled, "explicit admin.enabled=true should win")
+
+	// The reverse precedence must also hold: an explicit admin.enabled=false
+	// must not be re-enabled by a leftover deprecated dashboard.enabled=true.
+	cfg, err = parse([]byte("admin:\n  enabled: false\ndashboard:\n  enabled: true\n"))
+	require.NoError(t, err)
+	assert.False(t, cfg.Admin.Enabled, "explicit admin.enabled=false should win over deprecated dashboard.enabled=true")
 }
 
 // TestExpandTiers_UnknownToken_TreatedAsService documents the current

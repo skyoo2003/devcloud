@@ -104,12 +104,11 @@ func main() {
 	// opted in via admin.enabled. Otherwise expose a 404 handler so the admin
 	// routes don't leak service internals. This binary serves no web UI; the
 	// dashboard frontend lives in a separate repository and talks to this API.
-	bus := eventbus.New()
 	logCollector := admin.NewLogCollector(1000)
 	adminHandler := http.NotFoundHandler()
 	if cfg.Admin.Enabled {
 		adminAPI := admin.NewAPI(registry, logCollector)
-		hub := admin.NewHub(bus)
+		hub := admin.NewHub(eventbus.New())
 		go hub.Start()
 
 		adminMux := http.NewServeMux()

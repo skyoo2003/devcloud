@@ -24,11 +24,13 @@ type Config struct {
 	Server   ServerConfig             `yaml:"server"`
 	Services map[string]ServiceConfig `yaml:"services"`
 	Auth     AuthConfig               `yaml:"auth"`
-	Admin    AdminConfig              `yaml:"admin"`
+	Admin    *AdminConfig             `yaml:"admin"`
 	Logging  LoggingConfig            `yaml:"logging"`
 
 	// Dashboard is the deprecated pre-rename name for Admin. It is honoured for
 	// one release (see parse) so existing configs keep working; use Admin.
+	// Both Admin and Dashboard are pointers so parse can tell an explicit
+	// block from an absent one and apply the correct precedence.
 	Dashboard *AdminConfig `yaml:"dashboard"`
 }
 
@@ -88,13 +90,18 @@ func parse(data []byte) (*Config, error) {
 
 	// Back-compat: 'dashboard' was renamed to 'admin'. Honour the old key for
 	// one release so existing configs don't silently lose the admin API. An
-	// explicit 'admin' block wins over the deprecated key.
+	// explicit 'admin' block always wins; the deprecated key is used only when
+	// no 'admin' block is present (so an explicit admin.enabled: false is not
+	// overridden by a leftover dashboard.enabled: true).
 	if cfg.Dashboard != nil {
 		slog.Warn("config: 'dashboard' key is deprecated and will be removed; rename it to 'admin'")
-		if !cfg.Admin.Enabled {
-			cfg.Admin.Enabled = cfg.Dashboard.Enabled
+		if cfg.Admin == nil {
+			cfg.Admin = cfg.Dashboard
 		}
 		cfg.Dashboard = nil
+	}
+	if cfg.Admin == nil {
+		cfg.Admin = &AdminConfig{}
 	}
 
 	if cfg.Server.Port == 0 {
