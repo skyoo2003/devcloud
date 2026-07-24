@@ -317,7 +317,7 @@ services:
 auth:
   enabled: false
 
-dashboard:
+admin:
   enabled: false
 
 logging:

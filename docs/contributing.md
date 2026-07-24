@@ -3,7 +3,6 @@
 ## Prerequisites
 
 - Go 1.26+
-- Node.js 20+ (for dashboard)
 - SQLite3 development libraries (`brew install sqlite3` on macOS)
 - Docker (optional, for Lambda runtime and integration tests)
 - Python 3.10+ with pip (for compatibility tests)
@@ -16,12 +15,6 @@ cd devcloud
 
 # Build Go binaries
 make build
-
-# Build Next.js dashboard
-make build-web
-
-# Build everything
-make build-all
 
 # Run the server
 make run

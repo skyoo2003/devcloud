@@ -57,7 +57,7 @@ services:
     data_dir: ./data/s3
 auth:
   enabled: false
-dashboard:
+admin:
   enabled: false
 logging:
   level: info

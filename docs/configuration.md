@@ -47,11 +47,11 @@ Service-specific options:
 |-----|---------|-------------|
 | `auth.enabled` | `false` | Enable SigV4 signature validation |
 
-### Dashboard
+### Admin API
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `dashboard.enabled` | `false` | Enable the web dashboard |
+| `admin.enabled` | `false` | Enable the admin REST + WebSocket API at `/devcloud/api/*` |
 
 ### Logging
 
@@ -88,7 +88,7 @@ services:
 auth:
   enabled: false
 
-dashboard:
+admin:
   enabled: false
 
 logging:

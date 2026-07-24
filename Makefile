@@ -1,13 +1,8 @@
-.PHONY: build test codegen run clean test-compat build-web build-all docker-build docker-run changelog stats
+.PHONY: build test codegen run clean test-compat docker-build docker-run changelog stats
 
 build:
 	go build -o dist/devcloud ./cmd/devcloud
 	go build -o dist/codegen ./cmd/codegen
-
-build-web:
-	cd web && npm run build
-
-build-all: build-web build
 
 test:
 	CGO_ENABLED=1 go test ./... -v

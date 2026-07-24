@@ -31,7 +31,7 @@ Today DevCloud targets **AWS**. Our long-term goal is to support the full range 
 - **Single binary, zero-config** — one Docker image, one port (4747), no config file required (embedded defaults)
 - **Environment variable overrides** — `DEVCLOUD_SERVICES`, `DEVCLOUD_DATA_DIR`, `DEVCLOUD_PORT` for quick configuration without YAML
 - **SDK/CLI compatible** — works with the AWS SDK, CLI, Terraform, CDK out of the box
-- **Web dashboard** — real-time monitoring and resource browser
+- **Admin API** — opt-in REST + WebSocket at `/devcloud/api/*` for service status, resource listing, and live request logs (`admin.enabled: true`). The web dashboard UI lives in a separate repository.
 
 ## Quick Start
 

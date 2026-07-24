@@ -21,11 +21,11 @@ import (
 var defaultConfigYAML []byte
 
 type Config struct {
-	Server    ServerConfig             `yaml:"server"`
-	Services  map[string]ServiceConfig `yaml:"services"`
-	Auth      AuthConfig               `yaml:"auth"`
-	Dashboard DashboardConfig          `yaml:"dashboard"`
-	Logging   LoggingConfig            `yaml:"logging"`
+	Server   ServerConfig             `yaml:"server"`
+	Services map[string]ServiceConfig `yaml:"services"`
+	Auth     AuthConfig               `yaml:"auth"`
+	Admin    AdminConfig              `yaml:"admin"`
+	Logging  LoggingConfig            `yaml:"logging"`
 }
 
 type ServerConfig struct {
@@ -41,7 +41,7 @@ type AuthConfig struct {
 	Enabled bool `yaml:"enabled"`
 }
 
-type DashboardConfig struct {
+type AdminConfig struct {
 	Enabled bool `yaml:"enabled"`
 }
 

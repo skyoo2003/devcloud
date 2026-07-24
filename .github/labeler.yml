@@ -17,11 +17,6 @@ docker:
           - "docker/**/*"
           - "Dockerfile*"
 
-web:
-  - changed-files:
-      - any-glob-to-any-file:
-          - "web/**/*"
-
 tests:
   - changed-files:
       - any-glob-to-any-file:
@@ -45,5 +40,3 @@ dependencies:
       - any-glob-to-any-file:
           - "go.mod"
           - "go.sum"
-          - "web/package.json"
-          - "web/package-lock.json"

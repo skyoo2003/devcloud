@@ -31,8 +31,8 @@ Quick version:
 ```bash
 git clone https://github.com/skyoo2003/devcloud.git
 cd devcloud
-make build-all   # builds Go binary + Next.js dashboard
-make run         # starts server on port 4747
+make build   # builds the Go binaries (devcloud + codegen)
+make run     # starts server on port 4747
 ```
 
 ## Docker Compose (Development)
@@ -87,14 +87,18 @@ alias awslocal='aws --endpoint-url http://localhost:4747'
 awslocal s3 ls
 ```
 
-## Dashboard
+## Admin API
 
-When the server is running with `dashboard.enabled: true` in config, open http://localhost:4747 in your browser to access the web dashboard:
+When the server runs with `admin.enabled: true` in config, an opt-in admin API
+is exposed under `/devcloud/api/*`:
 
-- Service status overview
-- Resource browser (buckets, queues, tables, functions)
-- Real-time API call logs
-- WebSocket live updates
+- `GET /devcloud/api/services` — service status overview
+- `GET /devcloud/api/services/{id}/resources` — resource browser (buckets, queues, tables, functions)
+- `GET /devcloud/api/metrics` — aggregate request/error counters
+- `GET /devcloud/api/logs` — recent API call logs
+- `GET /devcloud/api/ws` — WebSocket live updates
+
+The web dashboard UI that consumes this API lives in a separate repository.
 
 ## Next Steps
 

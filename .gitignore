@@ -17,11 +17,6 @@ __pycache__/
 *.pyo
 .venv/
 
-# Next.js
-web/.next/
-web/node_modules/
-web/out/
-
 # Worktrees
 .worktrees/
 tests/compatibility/data/

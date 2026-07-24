@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/skyoo2003/devcloud/internal/dashboard"
+	"github.com/skyoo2003/devcloud/internal/admin"
 	"github.com/skyoo2003/devcloud/internal/plugin"
 )
 
@@ -45,14 +45,14 @@ func isAWSRequest(r *http.Request) bool {
 // New creates a Gateway that listens on the given port.
 //
 // Routing:
-//   - Requests starting with /devcloud/api/ → dashAPI handler
+//   - Requests starting with /devcloud/api/ → adminAPI handler
 //   - AWS API requests (SigV4, X-Amz-Target, form-encoded Action, Lambda paths) → service router
-//   - Everything else (when webDir is non-empty) → static files from webDir (dashboard SPA)
+//   - Everything else (when webDir is non-empty) → static files from webDir (SPA)
 //   - Everything else (when webDir is empty) → service router
 //
 // A logging middleware wraps the service router and records each request to
 // logCollector after the response has been written.
-func New(port int, registry *plugin.Registry, dashAPI http.Handler, logCollector *dashboard.LogCollector, webDir string) *Gateway {
+func New(port int, registry *plugin.Registry, adminAPI http.Handler, logCollector *admin.LogCollector, webDir string) *Gateway {
 	router := NewServiceRouter(registry)
 
 	// Logging middleware: records AWS API requests to logCollector.
@@ -60,7 +60,7 @@ func New(port int, registry *plugin.Registry, dashAPI http.Handler, logCollector
 		start := time.Now()
 		rec := newStatusRecorder(w)
 		router.ServeHTTP(rec, r)
-		logCollector.Add(dashboard.RequestLog{
+		logCollector.Add(admin.RequestLog{
 			Method:    r.Method,
 			Path:      r.URL.Path,
 			Status:    rec.statusCode,
@@ -78,9 +78,9 @@ func New(port int, registry *plugin.Registry, dashAPI http.Handler, logCollector
 		RequestLoggerMiddleware,
 	)
 
-	// Top-level mux: dashboard API takes priority.
+	// Top-level mux: admin API takes priority.
 	mux := http.NewServeMux()
-	mux.Handle("/devcloud/api/", dashAPI)
+	mux.Handle("/devcloud/api/", adminAPI)
 
 	if webDir != "" {
 		fs := http.FileServer(http.Dir(webDir))

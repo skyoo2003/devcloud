@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/skyoo2003/devcloud/internal/dashboard"
+	"github.com/skyoo2003/devcloud/internal/admin"
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -48,9 +48,9 @@ func TestGateway_Integration(t *testing.T) {
 
 func TestGateway_StartShutdown(t *testing.T) {
 	reg := plugin.NewRegistry()
-	lc := dashboard.NewLogCollector(100)
-	dashMux := http.NewServeMux()
-	gw := New(0, reg, dashMux, lc, "") // port 0 lets the OS pick a free port
+	lc := admin.NewLogCollector(100)
+	adminMux := http.NewServeMux()
+	gw := New(0, reg, adminMux, lc, "") // port 0 lets the OS pick a free port
 
 	errCh := make(chan error, 1)
 	go func() {

@@ -53,13 +53,3 @@ repos:
         types_or: [python]
       - id: ruff-format
         types_or: [python]
-
-  # Web (Next.js / TypeScript)
-  - repo: local
-    hooks:
-      - id: eslint
-        name: eslint
-        entry: bash -c 'cd web && npx eslint .'
-        language: system
-        pass_filenames: false
-        files: ^web/.*\.(ts|tsx|js|jsx)$

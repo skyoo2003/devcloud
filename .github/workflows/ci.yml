@@ -37,18 +37,3 @@ jobs:
         run: |
           CGO_ENABLED=1 go build -o dist/devcloud ./cmd/devcloud
           CGO_ENABLED=1 go build -o dist/codegen ./cmd/codegen
-
-      - name: Set up Node.js
-        if: matrix.arch == 'amd64'
-        uses: actions/setup-node@v7
-        with:
-          node-version: "20"
-          cache: "npm"
-          cache-dependency-path: web/package-lock.json
-
-      - name: Build Next.js dashboard
-        if: matrix.arch == 'amd64'
-        run: |
-          cd web
-          npm ci
-          npm run build
