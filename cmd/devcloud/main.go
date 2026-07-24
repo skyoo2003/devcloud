@@ -32,6 +32,12 @@ func main() {
 	cfgPath := flag.String("config", "", "Path to config file (optional; uses ./devcloud.yaml if present, else embedded defaults)")
 	flag.Parse()
 
+	// Buffer log records emitted while loading config (parse() deprecation and
+	// unknown-tier warnings, etc.) so they can be replayed through the
+	// operator-configured handler below and honor logging.format / level.
+	buf := &bufferHandler{}
+	slog.SetDefault(slog.New(buf))
+
 	var (
 		cfg *config.Config
 		err error
@@ -44,11 +50,16 @@ func main() {
 		cfg, err = config.LoadOrDefault("devcloud.yaml")
 	}
 	if err != nil {
+		// Load failed, so there is no logging config to honor; fall back to the
+		// default handler, flush any buffered warnings, then surface the error.
+		setupLogging(config.LoggingConfig{})
+		buf.flushTo(slog.Default().Handler())
 		slog.Error("failed to load config", "error", err)
 		os.Exit(1)
 	}
 
 	setupLogging(cfg.Logging)
+	buf.flushTo(slog.Default().Handler())
 
 	registry := plugin.DefaultRegistry
 
