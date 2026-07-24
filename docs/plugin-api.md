@@ -29,13 +29,13 @@ type ServicePlugin interface {
 | Method | Contract |
 |--------|----------|
 | `ServiceID()` | Stable lowercase identifier, e.g. `"s3"`. **Must equal the key the plugin is registered under** (the gateway routes by this key). Constant; safe to call before `Init`. |
-| `ServiceName()` | Human-readable name for logs/dashboard. Must be non-empty. Constant; safe before `Init`. |
+| `ServiceName()` | Human-readable name for logs/admin API. Must be non-empty. Constant; safe before `Init`. |
 | `Protocol()` | One of the [`ProtocolType`](#protocols) constants. Constant; safe before `Init`. |
 | `Init(config)` | Called once at startup before any request. Open stores, read `config.Options`. Return a non-nil error to abort startup (services in the fixed init order) or skip the service (others). |
 | `Shutdown(ctx)` | Called once at graceful shutdown (15s budget). Flush/close resources. Idempotent-friendly. |
 | `HandleRequest(ctx, op, req)` | Handle one API call. `op` is the operation name pre-extracted by the gateway (see [operation names](#operation-names)); it may be `""` for REST protocols, in which case derive it from method+path or `X-Amz-Target`. Return a `*Response`; return an `error` only for unexpected internal failures (the gateway wraps those as a `500 InternalError`). **Model AWS errors as a normal `*Response`** with the right status and error body, not as a Go `error`. |
-| `ListResources(ctx)` | Return the resources this service currently holds (dashboard). May be empty. |
-| `GetMetrics(ctx)` | Return request/error/resource counters (dashboard). May be zero-valued. |
+| `ListResources(ctx)` | Return the resources this service currently holds (admin API). May be empty. |
+| `GetMetrics(ctx)` | Return request/error/resource counters (admin API). May be zero-valued. |
 
 These invariants are enforced for every registered service by
 [`TestServicePluginConformance`](../cmd/devcloud/conformance_test.go).

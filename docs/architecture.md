@@ -27,9 +27,9 @@ API Gateway (port 4747)
   │   ├─ CORS (cross-origin handling)
   │   ├─ RequestID (X-Amz-Request-Id)
   │   ├─ RequestLogger (structured logging)
-  │   └─ LogCollector (dashboard live logs)
+  │   └─ LogCollector (admin API live logs)
   │
-  ├─ Route: /devcloud/api/* → Dashboard API
+  ├─ Route: /devcloud/api/* → Admin API
   │
   ▼
 Protocol Detector
@@ -135,18 +135,21 @@ A GitHub Actions workflow runs weekly to:
 The event bus (`internal/eventbus/`) provides in-memory pub/sub for internal communication:
 
 - Services publish events (resource created, deleted, etc.)
-- Dashboard subscribes to stream real-time updates via WebSocket
-- Loose coupling between services and dashboard
+- The admin API subscribes to stream real-time updates via WebSocket
+- Loose coupling between services and the admin API
 
-## Dashboard
+## Admin API
 
-The dashboard (`internal/dashboard/`) provides:
+The admin API (`internal/admin/`) provides:
 
 - **REST API** at `/devcloud/api/` — service status, resource listing, request logs
 - **WebSocket** at `/devcloud/api/ws` — real-time event streaming
-- **Web UI** — Next.js static export served by the Go server
 
-Log collector maintains a circular buffer of the last 1000 API requests for the dashboard log viewer.
+It is disabled by default (`admin.enabled: false`). The web dashboard UI is a
+separate project (its own repository) that consumes this API; the Go server
+serves no UI itself.
+
+Log collector maintains a circular buffer of the last 1000 API requests for the admin log endpoint.
 
 ## Directory Structure
 
@@ -162,10 +165,9 @@ devcloud/
 │   ├── config/             # YAML config loading, env overrides
 │   ├── generated/          # Auto-generated code (DO NOT EDIT; run `make stats` for count)
 │   ├── services/           # Service implementations (run `make stats` for count)
-│   ├── dashboard/          # Dashboard REST API + WebSocket
+│   ├── admin/              # Admin REST API + WebSocket
 │   ├── eventbus/           # In-memory event pub/sub
 │   └── storage/            # Shared storage abstractions
-├── web/                    # Next.js dashboard (React, TypeScript, Tailwind)
 ├── docker/                 # Dockerfile, docker-compose.yml
 ├── smithy-models/          # AWS Smithy JSON model files
 ├── tests/compatibility/    # Python/boto3 compatibility tests
@@ -183,7 +185,7 @@ devcloud/
 4. Register service factories (run `make stats` for count)
 5. Initialize services in dependency order (IAM before STS, etc.)
 6. IAM store is shared with STS via plugin config options
-7. Set up event bus, log collector, dashboard API
+7. Set up event bus, log collector, admin API
 8. Create gateway with middleware chain and service router
 9. Start HTTP server on configured port
 10. Wait for shutdown signal (SIGINT/SIGTERM), graceful shutdown with 15s timeout

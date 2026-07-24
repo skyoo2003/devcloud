@@ -14,8 +14,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/skyoo2003/devcloud/internal/admin"
 	"github.com/skyoo2003/devcloud/internal/config"
-	"github.com/skyoo2003/devcloud/internal/dashboard"
 	"github.com/skyoo2003/devcloud/internal/eventbus"
 	"github.com/skyoo2003/devcloud/internal/gateway"
 	"github.com/skyoo2003/devcloud/internal/plugin"
@@ -100,31 +100,24 @@ func main() {
 		slog.Warn("auth.enabled=true but SigV4 enforcement is not yet implemented; requests are accepted regardless of signature validity")
 	}
 
-	// Dashboard: build the API handler and wire the UI static files only
-	// when the operator opted in via dashboard.enabled. Otherwise expose a
-	// 404 handler so the dashboard routes don't leak service internals.
-	bus := eventbus.New()
-	logCollector := dashboard.NewLogCollector(1000)
-	dashHandler := http.NotFoundHandler()
-	webDir := ""
-	if cfg.Dashboard.Enabled {
-		dashAPI := dashboard.NewDashboardAPI(registry, logCollector)
-		hub := dashboard.NewHub(bus)
+	// Admin API: build the REST + WebSocket handler only when the operator
+	// opted in via admin.enabled. Otherwise expose a 404 handler so the admin
+	// routes don't leak service internals. This binary serves no web UI; the
+	// dashboard frontend lives in a separate repository and talks to this API.
+	logCollector := admin.NewLogCollector(1000)
+	adminHandler := http.NotFoundHandler()
+	if cfg.Admin.Enabled {
+		adminAPI := admin.NewAPI(registry, logCollector)
+		hub := admin.NewHub(eventbus.New())
 		go hub.Start()
 
-		dashMux := http.NewServeMux()
-		dashMux.Handle("/devcloud/api/", dashAPI.Handler())
-		dashMux.HandleFunc("/devcloud/api/ws", hub.ServeWS)
-		dashHandler = dashMux
-
-		if _, err := os.Stat("web/out"); err == nil {
-			webDir = "web/out"
-			slog.Info("dashboard UI enabled", "dir", webDir)
-		} else {
-			slog.Info("dashboard API enabled (UI disabled: web/out not found)")
-		}
+		adminMux := http.NewServeMux()
+		adminMux.Handle("/devcloud/api/", adminAPI.Handler())
+		adminMux.HandleFunc("/devcloud/api/ws", hub.ServeWS)
+		adminHandler = adminMux
+		slog.Info("admin API enabled")
 	}
-	gw := gateway.New(cfg.Server.Port, registry, dashHandler, logCollector, webDir)
+	gw := gateway.New(cfg.Server.Port, registry, adminHandler, logCollector)
 
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)

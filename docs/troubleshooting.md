@@ -19,20 +19,6 @@ Then rebuild with `CGO_ENABLED=1 make build`.
 
 Upgrade Go to 1.26 or later. Check with `go version`. See [go.dev/dl](https://go.dev/dl/).
 
-### `make build-all` fails at the web step
-
-The dashboard requires Node.js 20+ and a fresh `npm install`.
-
-```bash
-cd web
-rm -rf node_modules
-npm ci
-cd ..
-make build-all
-```
-
-If you only need the Go server (no dashboard), use `make build` instead.
-
 ## Running the Server
 
 ### `bind: address already in use` on port 4747
@@ -109,19 +95,20 @@ DevCloud's Lambda implementation is a stub — it accepts function registration 
 
 Ensure Docker is running if you have configured Lambda to use a Docker-based runtime. Check DevCloud's logs for container startup errors.
 
-## Dashboard
+## Admin API
 
-### `http://localhost:4747` shows a blank page
+### `GET /devcloud/api/*` returns 404
 
-The dashboard is disabled by default. Enable it:
+The admin API is disabled by default. Enable it:
 
 ```yaml
 # devcloud.yaml
-dashboard:
+admin:
   enabled: true
 ```
 
-Then restart the server. If still blank, the Next.js static build may be missing — run `make build-web` from source or use the full Docker image (which includes the dashboard).
+Then restart the server. The web dashboard UI is a separate project (its own
+repository); this server only exposes the admin API, not a bundled UI.
 
 ## When to open an issue
 

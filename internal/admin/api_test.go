@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
-package dashboard
+package admin
 
 import (
 	"context"
@@ -53,9 +53,9 @@ func newTestRegistry(p *mockServicePlugin) *plugin.Registry {
 	return reg
 }
 
-// TestDashboardAPI_Services registers a mock plugin and verifies the
+// TestAPI_Services registers a mock plugin and verifies the
 // /devcloud/api/services endpoint returns it.
-func TestDashboardAPI_Services(t *testing.T) {
+func TestAPI_Services(t *testing.T) {
 	p := &mockServicePlugin{
 		id:   "s3",
 		name: "Amazon S3",
@@ -67,7 +67,7 @@ func TestDashboardAPI_Services(t *testing.T) {
 	}
 	reg := newTestRegistry(p)
 	lc := NewLogCollector(10)
-	api := NewDashboardAPI(reg, lc)
+	api := NewAPI(reg, lc)
 
 	req := httptest.NewRequest(http.MethodGet, "/devcloud/api/services", nil)
 	w := httptest.NewRecorder()
@@ -87,9 +87,9 @@ func TestDashboardAPI_Services(t *testing.T) {
 	assert.Equal(t, 2, svc.ResourceCount)
 }
 
-// TestDashboardAPI_Logs adds log entries to the collector and verifies the
+// TestAPI_Logs adds log entries to the collector and verifies the
 // /devcloud/api/logs endpoint returns them newest-first.
-func TestDashboardAPI_Logs(t *testing.T) {
+func TestAPI_Logs(t *testing.T) {
 	reg := plugin.NewRegistry()
 	lc := NewLogCollector(50)
 
@@ -110,7 +110,7 @@ func TestDashboardAPI_Logs(t *testing.T) {
 		Service:   "s3",
 	})
 
-	api := NewDashboardAPI(reg, lc)
+	api := NewAPI(reg, lc)
 
 	req := httptest.NewRequest(http.MethodGet, "/devcloud/api/logs", nil)
 	w := httptest.NewRecorder()
@@ -128,8 +128,8 @@ func TestDashboardAPI_Logs(t *testing.T) {
 	assert.Equal(t, "/s3/first", logs[1].Path)
 }
 
-// TestDashboardAPI_LogsLimit verifies the ?limit= query parameter.
-func TestDashboardAPI_LogsLimit(t *testing.T) {
+// TestAPI_LogsLimit verifies the ?limit= query parameter.
+func TestAPI_LogsLimit(t *testing.T) {
 	reg := plugin.NewRegistry()
 	lc := NewLogCollector(50)
 
@@ -137,7 +137,7 @@ func TestDashboardAPI_LogsLimit(t *testing.T) {
 		lc.Add(RequestLog{Method: "GET", Path: "/item", Status: 200, Service: "s3"})
 	}
 
-	api := NewDashboardAPI(reg, lc)
+	api := NewAPI(reg, lc)
 
 	req := httptest.NewRequest(http.MethodGet, "/devcloud/api/logs?limit=3", nil)
 	w := httptest.NewRecorder()

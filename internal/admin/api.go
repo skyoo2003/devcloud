@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
-package dashboard
+package admin
 
 import (
 	"context"
@@ -12,22 +12,22 @@ import (
 	"github.com/skyoo2003/devcloud/internal/plugin"
 )
 
-// DashboardAPI exposes REST endpoints for the DevCloud dashboard.
-type DashboardAPI struct {
+// API exposes REST endpoints for the DevCloud admin.
+type API struct {
 	registry     *plugin.Registry
 	logCollector *LogCollector
 }
 
-// NewDashboardAPI creates a new DashboardAPI.
-func NewDashboardAPI(registry *plugin.Registry, logCollector *LogCollector) *DashboardAPI {
-	return &DashboardAPI{
+// NewAPI creates a new API.
+func NewAPI(registry *plugin.Registry, logCollector *LogCollector) *API {
+	return &API{
 		registry:     registry,
 		logCollector: logCollector,
 	}
 }
 
 // Handler returns an http.Handler that serves all /devcloud/api/* routes.
-func (d *DashboardAPI) Handler() http.Handler {
+func (d *API) Handler() http.Handler {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/devcloud/api/services", d.handleServices)
@@ -56,7 +56,7 @@ type serviceInfo struct {
 }
 
 // handleServices handles GET /devcloud/api/services.
-func (d *DashboardAPI) handleServices(w http.ResponseWriter, r *http.Request) {
+func (d *API) handleServices(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
@@ -89,7 +89,7 @@ func (d *DashboardAPI) handleServices(w http.ResponseWriter, r *http.Request) {
 }
 
 // handleServiceResources handles GET /devcloud/api/services/{service}/resources.
-func (d *DashboardAPI) handleServiceResources(w http.ResponseWriter, r *http.Request) {
+func (d *API) handleServiceResources(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
@@ -126,7 +126,7 @@ type aggregateMetrics struct {
 }
 
 // handleMetrics handles GET /devcloud/api/metrics.
-func (d *DashboardAPI) handleMetrics(w http.ResponseWriter, r *http.Request) {
+func (d *API) handleMetrics(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
@@ -157,7 +157,7 @@ func (d *DashboardAPI) handleMetrics(w http.ResponseWriter, r *http.Request) {
 }
 
 // handleServiceMetrics handles GET /devcloud/api/metrics/{service}.
-func (d *DashboardAPI) handleServiceMetrics(w http.ResponseWriter, r *http.Request) {
+func (d *API) handleServiceMetrics(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
@@ -184,7 +184,7 @@ func (d *DashboardAPI) handleServiceMetrics(w http.ResponseWriter, r *http.Reque
 }
 
 // handleLogs handles GET /devcloud/api/logs.
-func (d *DashboardAPI) handleLogs(w http.ResponseWriter, r *http.Request) {
+func (d *API) handleLogs(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return

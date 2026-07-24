@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
-package dashboard
+package admin
 
 import (
 	"encoding/json"
@@ -19,7 +19,7 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-// eventMessage is the JSON format sent to dashboard clients.
+// eventMessage is the JSON format sent to admin clients.
 type eventMessage struct {
 	Source    string         `json:"source"`
 	Type      string         `json:"type"`
@@ -60,7 +60,7 @@ func (h *Hub) Start() {
 		}
 		data, err := json.Marshal(msg)
 		if err != nil {
-			log.Printf("dashboard: failed to marshal event: %v", err)
+			log.Printf("admin: failed to marshal event: %v", err)
 			return
 		}
 		h.broadcast(data)
@@ -72,7 +72,7 @@ func (h *Hub) Start() {
 func (h *Hub) ServeWS(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		log.Printf("dashboard: websocket upgrade failed: %v", err)
+		log.Printf("admin: websocket upgrade failed: %v", err)
 		return
 	}
 
@@ -102,7 +102,7 @@ func (h *Hub) ServeWS(w http.ResponseWriter, r *http.Request) {
 		defer cleanup()
 		for data := range client.send {
 			if err := conn.WriteMessage(websocket.TextMessage, data); err != nil {
-				log.Printf("dashboard: write error: %v", err)
+				log.Printf("admin: write error: %v", err)
 				return
 			}
 		}
@@ -136,7 +136,7 @@ func (h *Hub) broadcast(data []byte) {
 		case c.send <- data:
 		default:
 			// Drop message if the client's send buffer is full.
-			log.Printf("dashboard: client send buffer full, dropping message")
+			log.Printf("admin: client send buffer full, dropping message")
 		}
 	}
 }

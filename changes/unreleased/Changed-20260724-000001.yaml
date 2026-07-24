@@ -1,0 +1,5 @@
+kind: Changed
+body: Rename the `internal/dashboard` package to `internal/admin` and the `dashboard.enabled` config key to `admin.enabled`, reflecting its role as a general-purpose admin/introspection API rather than a UI-bound dashboard. The old `dashboard.enabled` key is still honoured for one release with a deprecation warning.
+time: 2026-07-24T00:00:01.000000+09:00
+custom:
+    Issue: "111"

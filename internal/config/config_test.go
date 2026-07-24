@@ -57,7 +57,7 @@ services:
     data_dir: ./data/s3
 auth:
   enabled: false
-dashboard:
+admin:
   enabled: false
 logging:
   level: info
@@ -151,6 +151,30 @@ func TestParse_EmptyData_FillsDefaults(t *testing.T) {
 	cfg, err := parse([]byte(""))
 	require.NoError(t, err)
 	assert.Equal(t, 4747, cfg.Server.Port, "empty data should still yield default port 4747")
+}
+
+// TestParse_DeprecatedDashboardKey verifies the legacy 'dashboard' config key
+// still enables the admin API after the rename (with a deprecation warning),
+// so existing deployments don't silently lose it.
+func TestParse_DeprecatedDashboardKey(t *testing.T) {
+	cfg, err := parse([]byte("dashboard:\n  enabled: true\n"))
+	require.NoError(t, err)
+	assert.True(t, cfg.Admin.Enabled, "deprecated dashboard.enabled=true should enable admin")
+	assert.Nil(t, cfg.Dashboard, "deprecated key should be cleared after folding into admin")
+}
+
+// TestParse_AdminKeyWinsOverDeprecated verifies an explicit 'admin' block takes
+// precedence over the deprecated 'dashboard' key when both are present.
+func TestParse_AdminKeyWinsOverDeprecated(t *testing.T) {
+	cfg, err := parse([]byte("admin:\n  enabled: true\ndashboard:\n  enabled: false\n"))
+	require.NoError(t, err)
+	assert.True(t, cfg.Admin.Enabled, "explicit admin.enabled=true should win")
+
+	// The reverse precedence must also hold: an explicit admin.enabled=false
+	// must not be re-enabled by a leftover deprecated dashboard.enabled=true.
+	cfg, err = parse([]byte("admin:\n  enabled: false\ndashboard:\n  enabled: true\n"))
+	require.NoError(t, err)
+	assert.False(t, cfg.Admin.Enabled, "explicit admin.enabled=false should win over deprecated dashboard.enabled=true")
 }
 
 // TestExpandTiers_UnknownToken_TreatedAsService documents the current
