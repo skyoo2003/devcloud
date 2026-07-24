@@ -53,6 +53,8 @@ Service-specific options:
 |-----|---------|-------------|
 | `admin.enabled` | `false` | Enable the admin REST + WebSocket API at `/devcloud/api/*` |
 
+> The `dashboard` key was renamed to `admin`. The old `dashboard.enabled` key is still honoured for one release (with a deprecation warning); migrate to `admin.enabled`.
+
 ### Logging
 
 | Key | Default | Description |

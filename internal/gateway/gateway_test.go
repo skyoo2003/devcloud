@@ -50,7 +50,7 @@ func TestGateway_StartShutdown(t *testing.T) {
 	reg := plugin.NewRegistry()
 	lc := admin.NewLogCollector(100)
 	adminMux := http.NewServeMux()
-	gw := New(0, reg, adminMux, lc, "") // port 0 lets the OS pick a free port
+	gw := New(0, reg, adminMux, lc) // port 0 lets the OS pick a free port
 
 	errCh := make(chan error, 1)
 	go func() {

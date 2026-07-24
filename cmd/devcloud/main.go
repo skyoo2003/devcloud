@@ -118,7 +118,7 @@ func main() {
 		adminHandler = adminMux
 		slog.Info("admin API enabled")
 	}
-	gw := gateway.New(cfg.Server.Port, registry, adminHandler, logCollector, "")
+	gw := gateway.New(cfg.Server.Port, registry, adminHandler, logCollector)
 
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)

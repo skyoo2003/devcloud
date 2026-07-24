@@ -6,8 +6,6 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"os"
-	"path/filepath"
 	"strings"
 	"time"
 
@@ -22,37 +20,15 @@ type Gateway struct {
 	registry *plugin.Registry
 }
 
-// isAWSRequest returns true when the request looks like an AWS API call.
-// It checks for SigV4 authorization, X-Amz-Target header, form-encoded
-// Action parameter, or known AWS path prefixes (e.g. Lambda).
-func isAWSRequest(r *http.Request) bool {
-	if strings.HasPrefix(r.Header.Get("Authorization"), "AWS4-HMAC-SHA256") {
-		return true
-	}
-	if r.Header.Get("X-Amz-Target") != "" {
-		return true
-	}
-	if strings.HasPrefix(r.Header.Get("Content-Type"), "application/x-www-form-urlencoded") {
-		return true
-	}
-	// Lambda management API
-	if strings.HasPrefix(r.URL.Path, "/2015-03-31/") {
-		return true
-	}
-	return false
-}
-
 // New creates a Gateway that listens on the given port.
 //
 // Routing:
 //   - Requests starting with /devcloud/api/ → adminAPI handler
-//   - AWS API requests (SigV4, X-Amz-Target, form-encoded Action, Lambda paths) → service router
-//   - Everything else (when webDir is non-empty) → static files from webDir (SPA)
-//   - Everything else (when webDir is empty) → service router
+//   - Everything else → service router (AWS API)
 //
 // A logging middleware wraps the service router and records each request to
 // logCollector after the response has been written.
-func New(port int, registry *plugin.Registry, adminAPI http.Handler, logCollector *admin.LogCollector, webDir string) *Gateway {
+func New(port int, registry *plugin.Registry, adminAPI http.Handler, logCollector *admin.LogCollector) *Gateway {
 	router := NewServiceRouter(registry)
 
 	// Logging middleware: records AWS API requests to logCollector.
@@ -78,29 +54,10 @@ func New(port int, registry *plugin.Registry, adminAPI http.Handler, logCollecto
 		RequestLoggerMiddleware,
 	)
 
-	// Top-level mux: admin API takes priority.
+	// Top-level mux: admin API takes priority; everything else is an AWS API call.
 	mux := http.NewServeMux()
 	mux.Handle("/devcloud/api/", adminAPI)
-
-	if webDir != "" {
-		fs := http.FileServer(http.Dir(webDir))
-		mux.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			// AWS API requests bypass static serving and go to the service router.
-			if isAWSRequest(r) {
-				awsHandler.ServeHTTP(w, r)
-				return
-			}
-			// Try serving the exact static file; fall back to index.html for SPA routing.
-			path := filepath.Join(webDir, filepath.Clean("/"+r.URL.Path))
-			if _, err := os.Stat(path); os.IsNotExist(err) {
-				http.ServeFile(w, r, filepath.Join(webDir, "index.html"))
-				return
-			}
-			fs.ServeHTTP(w, r)
-		}))
-	} else {
-		mux.Handle("/", awsHandler)
-	}
+	mux.Handle("/", awsHandler)
 
 	srv := &http.Server{
 		Addr:              fmt.Sprintf(":%d", port),

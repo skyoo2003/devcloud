@@ -26,6 +26,10 @@ type Config struct {
 	Auth     AuthConfig               `yaml:"auth"`
 	Admin    AdminConfig              `yaml:"admin"`
 	Logging  LoggingConfig            `yaml:"logging"`
+
+	// Dashboard is the deprecated pre-rename name for Admin. It is honoured for
+	// one release (see parse) so existing configs keep working; use Admin.
+	Dashboard *AdminConfig `yaml:"dashboard"`
 }
 
 type ServerConfig struct {
@@ -80,6 +84,17 @@ func parse(data []byte) (*Config, error) {
 	cfg := &Config{}
 	if err := yaml.Unmarshal(data, cfg); err != nil {
 		return nil, err
+	}
+
+	// Back-compat: 'dashboard' was renamed to 'admin'. Honour the old key for
+	// one release so existing configs don't silently lose the admin API. An
+	// explicit 'admin' block wins over the deprecated key.
+	if cfg.Dashboard != nil {
+		slog.Warn("config: 'dashboard' key is deprecated and will be removed; rename it to 'admin'")
+		if !cfg.Admin.Enabled {
+			cfg.Admin.Enabled = cfg.Dashboard.Enabled
+		}
+		cfg.Dashboard = nil
 	}
 
 	if cfg.Server.Port == 0 {
