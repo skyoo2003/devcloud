@@ -16,6 +16,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"maps"
 	"strings"
 	"sync"
 	"time"
@@ -112,7 +113,7 @@ func dispatch(service string, m OpMeta, params map[string]any) (*Result, error) 
 	switch m.Verb {
 	case "Create":
 		id := resourceID(m.Resource, params)
-		item := cloneMap(params)
+		item := maps.Clone(params)
 		stamp(item, service, m.Resource, id)
 		put(service, m.Resource, id, item)
 		return okJSON(wrapItem(m, item))
@@ -147,7 +148,7 @@ func dispatch(service string, m OpMeta, params map[string]any) (*Result, error) 
 		id := resourceID(m.Resource, params)
 		item, found := get(service, m.Resource, id)
 		if !found {
-			item = cloneMap(params)
+			item = maps.Clone(params)
 			stamp(item, service, m.Resource, id)
 		} else {
 			for k, v := range params {
@@ -220,7 +221,7 @@ func get(service, resource, id string) (map[string]any, bool) {
 	// Copy: the caller marshals/mutates this after the lock is released, so it
 	// must not alias the stored map (else a concurrent Get/List marshalling it
 	// while an Update writes to it triggers a fatal concurrent map read/write).
-	return cloneMap(doc), true
+	return maps.Clone(doc), true
 }
 
 func del(service, resource, id string) {
@@ -235,7 +236,7 @@ func list(service, resource string) []map[string]any {
 	items := store[storeKey(service, resource)]
 	out := make([]map[string]any, 0, len(items))
 	for _, doc := range items {
-		out = append(out, cloneMap(doc)) // copy: marshalled unlocked, see get()
+		out = append(out, maps.Clone(doc)) // copy: marshalled unlocked, see get()
 	}
 	return out
 }
@@ -266,14 +267,6 @@ func serializationError() *Result {
 	return &Result{Status: 400, Body: b, ContentType: jsonContentType}
 }
 
-func cloneMap(m map[string]any) map[string]any {
-	out := make(map[string]any, len(m))
-	for k, v := range m {
-		out[k] = v
-	}
-	return out
-}
-
 func setIfAbsent(m map[string]any, k string, v any) {
 	if _, ok := m[k]; !ok {
 		m[k] = v
@@ -282,8 +275,8 @@ func setIfAbsent(m map[string]any, k string, v any) {
 
 func randHex(n int) string {
 	b := make([]byte, n)
-	if _, err := rand.Read(b); err != nil {
-		return "0000000000"
-	}
+	// On the near-impossible rand failure, b stays zeroed: still a valid,
+	// consistent-length hex string rather than a differently-sized literal.
+	_, _ = rand.Read(b)
 	return hex.EncodeToString(b)
 }
