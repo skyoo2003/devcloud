@@ -46,6 +46,26 @@ func TestGateway_Integration(t *testing.T) {
 	assert.Equal(t, "*", res.Header.Get("Access-Control-Allow-Origin"), "CORS middleware must set Access-Control-Allow-Origin")
 }
 
+func TestGateway_NilLogCollector(t *testing.T) {
+	resp := &plugin.Response{
+		StatusCode:  http.StatusOK,
+		Headers:     map[string]string{},
+		Body:        []byte("<ListBucketResult/>"),
+		ContentType: "application/xml",
+	}
+	reg := newRegistryWithStub("s3", resp)
+
+	// admin disabled → nil collector: the request must succeed without the
+	// logging middleware (no panic, no Add).
+	gw := New(0, reg, http.NotFoundHandler(), nil)
+
+	rec := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	gw.server.Handler.ServeHTTP(rec, req)
+
+	assert.Equal(t, http.StatusOK, rec.Code)
+}
+
 func TestGateway_StartShutdown(t *testing.T) {
 	reg := plugin.NewRegistry()
 	lc := admin.NewLogCollector(100)
