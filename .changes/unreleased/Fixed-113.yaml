@@ -1,0 +1,4 @@
+kind: Fixed
+body: Config-time warnings (deprecated `dashboard` key, unknown `DEVCLOUD_SERVICES` tier) now honor `logging.format`/`logging.level` instead of always printing as plain text before the logger is configured
+custom:
+  Issue: "113"
