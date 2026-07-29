@@ -6,7 +6,6 @@ import (
 	"bytes"
 	"io"
 	"net/http"
-	"net/url"
 	"strings"
 )
 
@@ -35,8 +34,7 @@ func DetectProtocol(r *http.Request) (protocol string, serviceID string) {
 			r.Body = io.NopCloser(bytes.NewReader(bodyBytes))
 
 			if strings.Contains(string(bodyBytes), "Action=") {
-				service := serviceFromQueryRequest(r, string(bodyBytes))
-				return "query", service
+				return "query", serviceFromQueryRequest(r)
 			}
 		}
 	}
@@ -134,24 +132,12 @@ func serviceFromSigV4(r *http.Request) string {
 // normalizeServiceID maps SigV4 signing names, X-Amz-Target prefixes, and
 // other AWS identifiers to DevCloud internal service IDs.
 func normalizeServiceID(svc string) string {
-	switch strings.ToLower(svc) {
-	// Core services
-	case "s3":
-		return "s3"
-	case "sqs", "amazonsqs":
+	svc = strings.ToLower(svc)
+	switch svc {
+	case "amazonsqs":
 		return "sqs"
-	case "dynamodb", "dynamodb_20120810":
+	case "dynamodb_20120810":
 		return "dynamodb"
-	case "iam":
-		return "iam"
-	case "sts":
-		return "sts"
-	case "lambda":
-		return "lambda"
-	case "sns":
-		return "sns"
-
-	// JSON-protocol services (matched by X-Amz-Target prefix, lowercased)
 	case "amazonssm":
 		return "ssm"
 	case "trentservice":
@@ -166,8 +152,6 @@ func normalizeServiceID(svc string) string {
 		return "ecs"
 	case "amazonec2containerregistry", "amazonec2containerregistry_v20150921":
 		return "ecr"
-	case "secretsmanager":
-		return "secretsmanager"
 	case "certificatemanager":
 		return "acm"
 	case "awswaf", "awswaf_20150824":
@@ -176,10 +160,6 @@ func normalizeServiceID(svc string) string {
 		return "wafv2"
 	case "awsglue":
 		return "glue"
-	case "sagemaker":
-		return "sagemaker"
-	case "route53resolver":
-		return "route53resolver"
 	case "codepipeline_20150709":
 		return "codepipeline"
 	case "codebuild_20161006":
@@ -192,9 +172,9 @@ func normalizeServiceID(svc string) string {
 		return "codeartifact"
 	case "amazonkinesis":
 		return "kinesis"
-	case "kinesisanalytics", "kinesisanalytics_v2", "kinesisanalyticsv2":
+	case "kinesisanalytics", "kinesisanalytics_v2":
 		return "kinesisanalyticsv2"
-	case "firehose", "firehose_20150804":
+	case "firehose_20150804":
 		return "firehose"
 	case "amazonathena":
 		return "athena"
@@ -206,7 +186,7 @@ func normalizeServiceID(svc string) string {
 		return "mwaa"
 	case "awssfn", "awsstepfunctions":
 		return "sfn"
-	case "swf", "simpleWorkflowService", "simpleworkflowservice":
+	case "simpleWorkflowService", "simpleworkflowservice":
 		return "swf"
 	case "swbexternalservice":
 		return "ssoadmin"
@@ -222,56 +202,34 @@ func normalizeServiceID(svc string) string {
 		return "organizations"
 	case "awsshield", "awsshield_20160616":
 		return "shield"
-	case "ssoadmin", "sso":
+	case "sso":
 		return "ssoadmin"
 	case "awssupport", "awssupport_20130415":
 		return "support"
-	case "awsfaultinjectionservice", "fis":
+	case "awsfaultinjectionservice":
 		return "fis"
-	case "xray", "awsxray":
+	case "awsxray":
 		return "xray"
-	case "timestreamwrite", "timestream_20181101", "timestream":
+	case "timestream_20181101", "timestream":
 		return "timestreamwrite"
-	case "transcribe":
-		return "transcribe"
-	case "textract":
-		return "textract"
-	case "bedrock":
-		return "bedrock"
-	case "costexplorer", "awscostexplorer", "awsinsightsindexservice":
+	case "awscostexplorer", "awsinsightsindexservice":
 		return "costexplorer"
-	case "batch", "awsbatch", "awsbatch_v20160810":
+	case "awsbatch", "awsbatch_v20160810":
 		return "batch"
-	case "kafka", "msk":
+	case "msk":
 		return "kafka"
-	case "lakeformation":
-		return "lakeformation"
 	case "amazondmsv20160101":
 		return "dms"
-	case "configservice", "config", "starlingdoveservice":
+	case "config", "starlingdoveservice":
 		return "configservice"
-	case "applicationautoscaling", "application-autoscaling", "anyupfront", "anyscalefrontendservice":
+	case "application-autoscaling", "anyupfront", "anyscalefrontendservice":
 		return "applicationautoscaling"
-	case "appconfig":
-		return "appconfig"
-	case "awsresourcegroups", "resourcegroups", "resource-groups":
+	case "awsresourcegroups", "resource-groups":
 		return "resourcegroups"
-	case "resourcegroupstaggingapi", "resourcegroupstagging":
+	case "resourcegroupstagging":
 		return "resourcegroupstaggingapi"
-	case "ram":
-		return "ram"
-	case "cloudcontrolapi", "cloudapiservice", "cloudcontrol":
+	case "cloudcontrolapi", "cloudapiservice":
 		return "cloudcontrol"
-	case "pipes":
-		return "pipes"
-	case "account":
-		return "account"
-
-	// SigV4 signing names for REST/Query services
-	case "ec2":
-		return "ec2"
-	case "route53":
-		return "route53"
 	case "elasticloadbalancing":
 		return "elasticloadbalancingv2"
 	case "es":
@@ -282,169 +240,46 @@ func normalizeServiceID(svc string) string {
 		return "apigatewayv2"
 	case "mobiletargeting":
 		return "pinpoint"
-	case "backup":
-		return "backup"
-	case "iot":
-		return "iot"
 	case "data.iot", "iotdata", "iot-data":
 		return "iotdataplane"
-	case "iotwireless":
-		return "iotwireless"
-	case "amplify":
-		return "amplify"
-	case "appsync":
-		return "appsync"
-	case "cloudfront":
-		return "cloudfront"
-	case "acm-pca", "acmpca", "acmprivateca":
+	case "acm-pca", "acmprivateca":
 		return "acmpca"
-	case "servicediscovery", "route53autonaming":
+	case "route53autonaming":
 		return "servicediscovery"
-	case "eks":
-		return "eks"
-	case "efs", "elasticfilesystem":
+	case "elasticfilesystem":
 		return "efs"
-	case "ebs":
-		return "ebs"
-	case "glacier":
-		return "glacier"
-	case "managedblockchain":
-		return "managedblockchain"
-	case "mediaconvert":
-		return "mediaconvert"
-	case "transfer", "transferservice":
+	case "transferservice":
 		return "transfer"
-	case "codecommit":
-		return "codecommit"
-	case "codedeploy":
-		return "codedeploy"
-	case "codebuild":
-		return "codebuild"
-	case "codepipeline":
-		return "codepipeline"
-	case "codeartifact":
-		return "codeartifact"
-	case "cloudtrail", "cloudtrail_20131101":
+	case "cloudtrail_20131101":
 		return "cloudtrail"
-	case "opensearch", "opensearchservice":
+	case "opensearchservice":
 		return "opensearch"
-	case "s3tables":
-		return "s3tables"
-	case "identitystore", "awsidentitystore", "swbexternaluserservice":
+	case "awsidentitystore", "swbexternaluserservice":
 		return "identitystore"
-	case "serverlessrepo", "serverlessapplicationrepository":
+	case "serverlessapplicationrepository":
 		return "serverlessrepo"
-	case "scheduler":
-		return "scheduler"
-
-	// Query-protocol services (signing name = service name)
-	case "rds":
-		return "rds"
-	case "cloudformation":
-		return "cloudformation"
-	case "elasticache":
-		return "elasticache"
-	case "redshift":
-		return "redshift"
-	case "ses":
-		return "ses"
-	case "autoscaling":
-		return "autoscaling"
-	case "elasticbeanstalk":
-		return "elasticbeanstalk"
-	case "cloudsearch":
-		return "cloudsearch"
-	case "ssm":
-		return "ssm"
-	case "kms":
-		return "kms"
-	case "ecs":
-		return "ecs"
-	case "ecr":
-		return "ecr"
 	case "events":
 		return "eventbridge"
-	case "acm":
-		return "acm"
-	case "cloudwatchlogs":
-		return "cloudwatchlogs"
-	case "cloudwatch":
-		return "cloudwatch"
-	case "eventbridge":
-		return "eventbridge"
-	case "glue":
-		return "glue"
-	case "waf":
-		return "waf"
-
 	default:
 		return svc
 	}
 }
 
 // serviceFromQueryRequest determines the service for a Query-protocol request
-// by examining the SigV4 credential scope, Host header prefix, and the Action parameter.
-func serviceFromQueryRequest(r *http.Request, body string) string {
-	// Most reliable: extract service from SigV4 Authorization header
+// from the SigV4 credential scope, falling back to the Host header prefix.
+// Every AWS SDK, CLI, and Terraform request is signed, so the credential scope
+// carries the signing name; sqs is the default for the unsigned, unprefixed
+// case because it is the only Query service SDKs address by bare endpoint.
+func serviceFromQueryRequest(r *http.Request) string {
 	if svc := serviceFromSigV4(r); svc != "" {
 		return svc
 	}
 
-	host := r.Host
-
-	// Check the host prefix.
-	hostPrefix := strings.ToLower(strings.SplitN(host, ".", 2)[0])
-	switch hostPrefix {
+	switch strings.ToLower(strings.SplitN(r.Host, ".", 2)[0]) {
 	case "iam":
 		return "iam"
 	case "sts":
 		return "sts"
-	case "sqs":
-		return "sqs"
 	}
-
-	// Fall back to Action name inspection.
-	values, err := url.ParseQuery(body)
-	if err == nil {
-		action := values.Get("Action")
-		switch {
-		case strings.HasPrefix(action, "CreateUser"),
-			strings.HasPrefix(action, "DeleteUser"),
-			strings.HasPrefix(action, "ListUsers"),
-			strings.HasPrefix(action, "AttachRole"),
-			strings.HasPrefix(action, "CreateRole"),
-			strings.HasPrefix(action, "CreatePolicy"),
-			strings.HasPrefix(action, "ListAttachedRole"),
-			strings.HasPrefix(action, "CreateAccessKey"),
-			action == "CreateGroup",
-			action == "DeleteGroup":
-			return "iam"
-		case action == "GetCallerIdentity",
-			action == "AssumeRole",
-			action == "GetSessionToken":
-			return "sts"
-		case action == "SendMessage",
-			action == "ReceiveMessage",
-			action == "DeleteMessage",
-			action == "CreateQueue",
-			action == "GetQueueUrl",
-			action == "ListQueues",
-			action == "DeleteQueue",
-			action == "GetQueueAttributes",
-			action == "SetQueueAttributes",
-			action == "PurgeQueue",
-			action == "ChangeMessageVisibility",
-			action == "TagQueue",
-			action == "UntagQueue":
-			return "sqs"
-		}
-
-		// Detect SQS by presence of QueueUrl parameter.
-		if values.Get("QueueUrl") != "" {
-			return "sqs"
-		}
-	}
-
-	// Default Query service.
 	return "sqs"
 }
