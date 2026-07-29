@@ -26,12 +26,12 @@ Today DevCloud targets **AWS**. Our long-term goal is to support the full range 
 - **104 AWS services** across all major categories (run `make stats` for current counts; see [services-matrix.md](docs/services-matrix.md))
 - **boto3-compatible** — a 729-test compatibility suite runs in CI (`make test-compat`); works with most boto3 apps, and unsupported operations return a clean AWS error, never a false success
 - **Cross-service integration** — CFN provisioning, DDB Streams → Lambda, EventBridge targets, S3 → Lambda
-- **Smithy-driven codegen** — auto-generate Go interfaces, types, and serializers from Smithy models
+- **Smithy-driven codegen** — auto-generate Go types, routers, and error catalogues from Smithy models
 - **Weekly auto-sync** — GitHub Actions keeps generated code up to date with upstream AWS API changes
 - **Single binary, zero-config** — one Docker image, one port (4747), no config file required (embedded defaults)
 - **Environment variable overrides** — `DEVCLOUD_SERVICES`, `DEVCLOUD_DATA_DIR`, `DEVCLOUD_PORT` for quick configuration without YAML
 - **SDK/CLI compatible** — works with the AWS SDK, CLI, Terraform, CDK out of the box
-- **Admin API** — opt-in REST + WebSocket at `/devcloud/api/*` for service status, resource listing, and live request logs (`admin.enabled: true`). The web dashboard UI lives in a separate repository.
+- **Admin API** — opt-in REST at `/devcloud/api/*` for service status, resource listing, and recent request logs (`admin.enabled: true`). The web dashboard UI lives in a separate repository.
 
 ## Quick Start
 
