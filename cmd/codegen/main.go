@@ -13,6 +13,14 @@ import (
 	"github.com/skyoo2003/devcloud/internal/codegen"
 )
 
+// handWritten services get no generated package: their provider is implemented
+// by hand elsewhere (sts lives in internal/services/iam alongside its store).
+// Their generated stubs were deleted in #91 and #96; without this skip every
+// `make codegen` run resurrects them as untracked files that the sync
+// workflow's diff check cannot see. sts is Query-protocol, so it contributes
+// nothing to the JSON-only CRUD registry either.
+var handWritten = map[string]bool{"sts": true}
+
 func main() {
 	modelsDir := flag.String("models", "./smithy-models", "Directory containing Smithy JSON model files")
 	outputDir := flag.String("output", "./internal/generated", "Output directory for generated code")
@@ -59,6 +67,11 @@ func main() {
 			continue
 		}
 
+		if handWritten[model.ServiceID] {
+			fmt.Printf("Skipping %s (%s): hand-written provider\n", model.ServiceName, model.ServiceID)
+			continue
+		}
+
 		fmt.Printf("Generating %s (%s)...\n", model.ServiceName, model.ServiceID)
 		if err := gen.GenerateAll(model, *outputDir, *scaffoldDir); err != nil {
 			fmt.Fprintf(os.Stderr, "Error generating %s: %v\n", model.ServiceID, err)
@@ -86,7 +99,7 @@ func main() {
 			fmt.Fprintf(os.Stderr, "Error creating crudregistry dir: %v\n", err)
 			os.Exit(1)
 		}
-		if err := os.WriteFile(filepath.Join(regDir, "registry_gen.go"), []byte(content), 0644); err != nil {
+		if err := codegen.WriteGo(filepath.Join(regDir, "registry_gen.go"), content); err != nil {
 			fmt.Fprintf(os.Stderr, "Error writing CRUD registry: %v\n", err)
 			os.Exit(1)
 		}
