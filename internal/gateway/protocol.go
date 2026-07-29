@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -33,8 +34,8 @@ func DetectProtocol(r *http.Request) (protocol string, serviceID string) {
 			// Restore the body so downstream handlers can read it again.
 			r.Body = io.NopCloser(bytes.NewReader(bodyBytes))
 
-			if strings.Contains(string(bodyBytes), "Action=") {
-				return "query", serviceFromQueryRequest(r)
+			if bytes.Contains(bodyBytes, []byte("Action=")) {
+				return "query", serviceFromQueryRequest(r, string(bodyBytes))
 			}
 		}
 	}
@@ -186,7 +187,7 @@ func normalizeServiceID(svc string) string {
 		return "mwaa"
 	case "awssfn", "awsstepfunctions":
 		return "sfn"
-	case "simpleWorkflowService", "simpleworkflowservice":
+	case "simpleworkflowservice":
 		return "swf"
 	case "swbexternalservice":
 		return "ssoadmin"
@@ -266,11 +267,12 @@ func normalizeServiceID(svc string) string {
 }
 
 // serviceFromQueryRequest determines the service for a Query-protocol request
-// from the SigV4 credential scope, falling back to the Host header prefix.
-// Every AWS SDK, CLI, and Terraform request is signed, so the credential scope
-// carries the signing name; sqs is the default for the unsigned, unprefixed
-// case because it is the only Query service SDKs address by bare endpoint.
-func serviceFromQueryRequest(r *http.Request) string {
+// from the SigV4 credential scope, then the Host header prefix, then the Action
+// parameter. SDKs, the CLI, and Terraform all sign, so the credential scope
+// almost always decides it — but an unsigned client posting to a bare endpoint
+// has neither a scope nor a host prefix, and defaulting those to sqs sends
+// every IAM and STS call to the wrong provider. sqs remains the final default.
+func serviceFromQueryRequest(r *http.Request, body string) string {
 	if svc := serviceFromSigV4(r); svc != "" {
 		return svc
 	}
@@ -280,6 +282,29 @@ func serviceFromQueryRequest(r *http.Request) string {
 		return "iam"
 	case "sts":
 		return "sts"
+	}
+
+	values, err := url.ParseQuery(body)
+	if err != nil {
+		return "sqs"
+	}
+	action := values.Get("Action")
+	switch {
+	case action == "GetCallerIdentity", action == "GetSessionToken",
+		action == "GetFederationToken", strings.HasPrefix(action, "AssumeRole"):
+		return "sts"
+	case values.Get("QueueUrl") != "", values.Get("QueueName") != "",
+		action == "ListQueues":
+		return "sqs"
+	case action != "":
+		// Every SQS operation names a queue, so it is fully covered above.
+		// What is left that talks about IAM entities is IAM. "Polic" rather than
+		// "Policy" so the plural in ListPolicies/DeletePolicies still matches.
+		for _, entity := range []string{"User", "Role", "Polic", "Group", "AccessKey"} {
+			if strings.Contains(action, entity) {
+				return "iam"
+			}
+		}
 	}
 	return "sqs"
 }

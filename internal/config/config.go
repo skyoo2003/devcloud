@@ -36,6 +36,13 @@ type Config struct {
 	// block from an absent one and apply the correct precedence.
 	Dashboard *AdminConfig `yaml:"dashboard"`
 
+	// Auth is the removed pre-1.0 auth block. SigV4 enforcement was never
+	// implemented, so the key is gone — but yaml.Unmarshal ignores unknown keys
+	// silently, and an operator who wrote auth.enabled: true to require
+	// signature validation must not be left believing it took effect. Parsed
+	// only to warn (see parse); remove with the dashboard key.
+	Auth *AuthConfig `yaml:"auth"`
+
 	// allowed is the DEVCLOUD_SERVICES filter; nil means no filtering.
 	allowed map[string]bool
 	// baseDir is the DEVCLOUD_DATA_DIR override; "" means honour data_dir.
@@ -52,6 +59,12 @@ type ServiceConfig struct {
 }
 
 type AdminConfig struct {
+	Enabled bool `yaml:"enabled"`
+}
+
+// AuthConfig is the shape of the removed auth block, kept only so parse can
+// warn about it instead of ignoring it. See Config.Auth.
+type AuthConfig struct {
 	Enabled bool `yaml:"enabled"`
 }
 
@@ -135,6 +148,20 @@ func parse(data []byte) (*Config, []string, error) {
 		}
 		cfg.Dashboard = nil
 	}
+
+	// The auth block is gone, and an ignored auth.enabled: true is a security
+	// surprise: the operator thinks signatures are checked when nothing is.
+	if cfg.Auth != nil {
+		if cfg.Auth.Enabled {
+			warnings = append(warnings,
+				"config: 'auth.enabled: true' has no effect — SigV4 enforcement is not implemented and the 'auth' key was removed; any credentials are accepted")
+		} else {
+			warnings = append(warnings,
+				"config: the 'auth' key was removed and is ignored; delete it")
+		}
+		cfg.Auth = nil
+	}
+
 	if cfg.Admin == nil {
 		cfg.Admin = &AdminConfig{}
 	}

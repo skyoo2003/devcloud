@@ -420,7 +420,7 @@ func (p *Provider) createApp(params map[string]any) (*plugin.Response, error) {
 		Name:          name,
 		Description:   shared.StrParam(params, "description"),
 		Repository:    shared.StrParam(params, "repository"),
-		Platform:      strParamDefault(params, "platform", "WEB"),
+		Platform:      shared.StrParamDefault(params, "platform", "WEB"),
 		IAMRole:       shared.StrParam(params, "iamServiceRoleArn"),
 		DefaultDomain: defaultDomain,
 	}
@@ -505,9 +505,9 @@ func (p *Provider) createBranch(appID string, params map[string]any) (*plugin.Re
 		AppID:           appID,
 		Name:            branchName,
 		ARN:             arn,
-		DisplayName:     strParamDefault(params, "displayName", branchName),
+		DisplayName:     shared.StrParamDefault(params, "displayName", branchName),
 		Description:     shared.StrParam(params, "description"),
-		Stage:           strParamDefault(params, "stage", "NONE"),
+		Stage:           shared.StrParamDefault(params, "stage", "NONE"),
 		Framework:       shared.StrParam(params, "framework"),
 		EnableAutoBuild: boolParamDefault(params, "enableAutoBuild", true),
 	}
@@ -781,7 +781,7 @@ func (p *Provider) startJob(appID, branchName string, params map[string]any) (*p
 		AppID:      appID,
 		BranchName: branchName,
 		ARN:        arn,
-		JobType:    strParamDefault(params, "jobType", "RELEASE"),
+		JobType:    shared.StrParamDefault(params, "jobType", "RELEASE"),
 		Status:     "SUCCEED",
 		CommitID:   shared.StrParam(params, "commitId"),
 		CommitMsg:  shared.StrParam(params, "commitMessage"),
@@ -982,13 +982,6 @@ func extractPathParam(path, key string) string {
 		}
 	}
 	return ""
-}
-
-func strParamDefault(params map[string]any, key, def string) string {
-	if v, ok := params[key].(string); ok && v != "" {
-		return v
-	}
-	return def
 }
 
 func boolParamDefault(params map[string]any, key string, def bool) bool {

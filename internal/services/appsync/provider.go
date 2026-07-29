@@ -457,7 +457,7 @@ func (p *Provider) createGraphqlApi(params map[string]any) (*plugin.Response, er
 		ID:        id,
 		ARN:       arn,
 		Name:      name,
-		AuthType:  strParamDefault(params, "authenticationType", "API_KEY"),
+		AuthType:  shared.StrParamDefault(params, "authenticationType", "API_KEY"),
 		LogConfig: "{}",
 		Uris:      string(urisJSON),
 	}
@@ -538,7 +538,7 @@ func (p *Provider) createDataSource(apiID string, params map[string]any) (*plugi
 		ApiID:       apiID,
 		Name:        name,
 		ARN:         arn,
-		Type:        strParamDefault(params, "type", "NONE"),
+		Type:        shared.StrParamDefault(params, "type", "NONE"),
 		Config:      "{}",
 		ServiceRole: shared.StrParam(params, "serviceRoleArn"),
 	}
@@ -615,7 +615,7 @@ func (p *Provider) createResolver(apiID, typeName string, params map[string]any)
 		DataSource:       shared.StrParam(params, "dataSourceName"),
 		RequestTemplate:  shared.StrParam(params, "requestMappingTemplate"),
 		ResponseTemplate: shared.StrParam(params, "responseMappingTemplate"),
-		Kind:             strParamDefault(params, "kind", "UNIT"),
+		Kind:             shared.StrParamDefault(params, "kind", "UNIT"),
 	}
 	if err := p.store.CreateResolver(r); err != nil {
 		if isUniqueErr(err) {
@@ -827,7 +827,7 @@ func (p *Provider) createType(apiID string, params map[string]any) (*plugin.Resp
 	if name == "" {
 		name = shared.GenerateID("Type", 8)
 	}
-	format := strParamDefault(params, "format", "SDL")
+	format := shared.StrParamDefault(params, "format", "SDL")
 	tp := &Type{
 		ApiID:      apiID,
 		Name:       name,
@@ -1020,13 +1020,6 @@ func extractTagARN(path string) string {
 		return ""
 	}
 	return path[idx+len("/tags/"):]
-}
-
-func strParamDefault(params map[string]any, key, def string) string {
-	if v, ok := params[key].(string); ok && v != "" {
-		return v
-	}
-	return def
 }
 
 func toStringMap(m map[string]any) map[string]string {

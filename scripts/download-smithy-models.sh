@@ -71,5 +71,16 @@ for service in "${SERVICES[@]}"; do
   fi
 done
 
-total=$(ls "$MODELS_DIR"/*.json 2>/dev/null | wc -l | tr -d ' ')
+# find, not `ls *.json`: under `set -e` + pipefail a glob that matches nothing
+# makes ls exit 2 and kills the script right before it reports what happened.
+total=$(find "$MODELS_DIR" -maxdepth 1 -name '*.json' | wc -l | tr -d ' ')
 echo "Done. ${updated} updated, ${failed} failed, ${total} models total."
+
+# Exit non-zero on any download failure. Keeping the existing copy is the right
+# recovery, but staying green is not: the caller (the weekly sync workflow) would
+# regenerate from stale models, find no diff, and report success having synced
+# nothing — the exact silent no-op this script was fixed to stop doing.
+if [ "$failed" -gt 0 ]; then
+  echo "ERROR: ${failed} model(s) failed to download; models on disk are unchanged for those." >&2
+  exit 1
+fi

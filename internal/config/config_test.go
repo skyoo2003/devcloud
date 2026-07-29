@@ -47,7 +47,19 @@ func TestExpandTiers_UnknownToken_TreatedAsService(t *testing.T) {
 	assert.Contains(t, warnings[0], "tier9")
 }
 
+// isolateEnv clears the env overrides parse() reads, so a developer or CI runner
+// that exports DEVCLOUD_DATA_DIR / DEVCLOUD_SERVICES / DEVCLOUD_PORT does not
+// fail every assertion about ports, data dirs, and enabled services.
+// t.Setenv restores the previous value when the test ends.
+func isolateEnv(t *testing.T) {
+	t.Helper()
+	for _, k := range []string{"DEVCLOUD_DATA_DIR", "DEVCLOUD_SERVICES", "DEVCLOUD_PORT"} {
+		t.Setenv(k, "")
+	}
+}
+
 func TestService_EnvServiceFilter(t *testing.T) {
+	isolateEnv(t)
 	cfg := &Config{
 		Services: map[string]ServiceConfig{
 			"s3":  {Enabled: true},
@@ -64,6 +76,7 @@ func TestService_EnvServiceFilter(t *testing.T) {
 // contract: with no services block every service is enabled and lands under
 // ./data/<id>.
 func TestService_NoServicesBlock_EnablesEverything(t *testing.T) {
+	isolateEnv(t)
 	cfg, _, err := parse([]byte("server:\n  port: 4747\n"))
 	require.NoError(t, err)
 
@@ -78,6 +91,7 @@ func TestService_NoServicesBlock_EnablesEverything(t *testing.T) {
 // restricts startup to that list — otherwise a minimal config would silently
 // start all 100+ services.
 func TestService_ExplicitBlockIsAuthoritative(t *testing.T) {
+	isolateEnv(t)
 	cfg, _, err := parse([]byte("services:\n  s3:\n    enabled: true\n"))
 	require.NoError(t, err)
 	assert.True(t, cfg.Service("s3").Enabled)
@@ -85,6 +99,7 @@ func TestService_ExplicitBlockIsAuthoritative(t *testing.T) {
 }
 
 func TestService_DataDirOverride(t *testing.T) {
+	isolateEnv(t)
 	yaml := []byte("services:\n  s3:\n    enabled: true\n    data_dir: ./custom/s3\n")
 
 	cfg, _, err := parse(yaml)
@@ -99,6 +114,7 @@ func TestService_DataDirOverride(t *testing.T) {
 }
 
 func TestLoadConfig_DefaultFile(t *testing.T) {
+	isolateEnv(t)
 	dir := t.TempDir()
 	cfgPath := filepath.Join(dir, "devcloud.yaml")
 	err := os.WriteFile(cfgPath, []byte(`
@@ -130,6 +146,7 @@ logging:
 // when the fallback path doesn't exist, LoadOrDefault returns the embedded
 // default configuration (port 4747, every service enabled).
 func TestLoadOrDefault_FileMissing_UsesEmbedded(t *testing.T) {
+	isolateEnv(t)
 	cfg, _, err := LoadOrDefault(filepath.Join(t.TempDir(), "nonexistent.yaml"))
 	require.NoError(t, err)
 	require.NotNil(t, cfg)
@@ -141,6 +158,7 @@ func TestLoadOrDefault_FileMissing_UsesEmbedded(t *testing.T) {
 // TestLoadOrDefault_FileExists_UsesFile verifies that when the fallback path
 // exists, its contents are loaded (not the embedded default).
 func TestLoadOrDefault_FileExists_UsesFile(t *testing.T) {
+	isolateEnv(t)
 	dir := t.TempDir()
 	cfgPath := filepath.Join(dir, "devcloud.yaml")
 	require.NoError(t, os.WriteFile(cfgPath, []byte(`
@@ -161,6 +179,7 @@ services:
 // TestLoadOrDefault_EmptyPath_UsesEmbedded verifies that an empty fallback
 // path skips the file check entirely and uses embedded defaults.
 func TestLoadOrDefault_EmptyPath_UsesEmbedded(t *testing.T) {
+	isolateEnv(t)
 	cfg, _, err := LoadOrDefault("")
 	require.NoError(t, err)
 	assert.Equal(t, 4747, cfg.Server.Port)
@@ -187,6 +206,25 @@ func TestParse_DeprecatedDashboardKey(t *testing.T) {
 	assert.Contains(t, warnings[0], "deprecated")
 }
 
+// TestParse_RemovedAuthKeyWarns verifies the removed 'auth' key is reported
+// rather than silently ignored: yaml.Unmarshal drops unknown keys, so an
+// operator who set auth.enabled: true to require SigV4 would otherwise get no
+// hint that nothing validates signatures.
+func TestParse_RemovedAuthKeyWarns(t *testing.T) {
+	_, warnings, err := parse([]byte("auth:\n  enabled: true\n"))
+	require.NoError(t, err)
+	require.Len(t, warnings, 1)
+	assert.Contains(t, warnings[0], "auth.enabled")
+	assert.Contains(t, warnings[0], "not implemented")
+
+	// An explicit auth.enabled: false is still stale config worth flagging, but
+	// it must not claim credentials are being accepted contrary to intent.
+	_, warnings, err = parse([]byte("auth:\n  enabled: false\n"))
+	require.NoError(t, err)
+	require.Len(t, warnings, 1)
+	assert.Contains(t, warnings[0], "removed")
+}
+
 // TestParse_AdminKeyWinsOverDeprecated verifies an explicit 'admin' block takes
 // precedence over the deprecated 'dashboard' key when both are present.
 func TestParse_AdminKeyWinsOverDeprecated(t *testing.T) {
@@ -205,6 +243,7 @@ func TestParse_AdminKeyWinsOverDeprecated(t *testing.T) {
 // payload yields a Config with at least the default server port populated,
 // so downstream code sees a usable config rather than a zero-value one.
 func TestParse_EmptyData_FillsDefaults(t *testing.T) {
+	isolateEnv(t)
 	cfg, _, err := parse([]byte(""))
 	require.NoError(t, err)
 	assert.Equal(t, 4747, cfg.Server.Port, "empty data should still yield default port 4747")

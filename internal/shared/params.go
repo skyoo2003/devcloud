@@ -9,3 +9,12 @@ func StrParam(params map[string]any, key string) string {
 	s, _ := params[key].(string)
 	return s
 }
+
+// StrParamDefault returns params[key] as a string, or def when the key is
+// absent, holds another type, or holds the empty string.
+func StrParamDefault(params map[string]any, key, def string) string {
+	if s, _ := params[key].(string); s != "" {
+		return s
+	}
+	return def
+}

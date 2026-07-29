@@ -94,6 +94,13 @@ func main() {
 		initService(name, false)
 	}
 
+	// A services block is authoritative and `enabled` defaults to Go's false,
+	// so `services:\n  s3:\n` (or a typo'd DEVCLOUD_SERVICES) silently brings up
+	// nothing. Serving zero services is never what an operator wanted.
+	if len(registry.ActiveServices()) == 0 {
+		slog.Warn("no services enabled; a 'services' block only starts what it lists, and each entry still needs 'enabled: true' — also check DEVCLOUD_SERVICES")
+	}
+
 	// Admin API: build the REST handler only when the operator opted in via
 	// admin.enabled. Otherwise expose a 404 handler so the admin routes don't
 	// leak service internals. This binary serves no web UI; the dashboard

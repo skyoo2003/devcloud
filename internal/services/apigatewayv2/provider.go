@@ -356,9 +356,9 @@ func (p *Provider) createAPI(params map[string]any) (*plugin.Response, error) {
 		ID:             id,
 		ARN:            arn,
 		Name:           name,
-		ProtocolType:   strParamDefault(params, "protocolType", "HTTP"),
+		ProtocolType:   shared.StrParamDefault(params, "protocolType", "HTTP"),
 		Description:    shared.StrParam(params, "description"),
-		RouteSelection: strParamDefault(params, "routeSelectionExpression", "$request.method $request.path"),
+		RouteSelection: shared.StrParamDefault(params, "routeSelectionExpression", "$request.method $request.path"),
 		APIEndpoint:    apiEndpoint,
 	}
 
@@ -476,7 +476,7 @@ func (p *Provider) createRoute(apiID string, params map[string]any) (*plugin.Res
 		APIID:             apiID,
 		RouteKey:          routeKey,
 		Target:            shared.StrParam(params, "target"),
-		AuthorizationType: strParamDefault(params, "authorizationType", "NONE"),
+		AuthorizationType: shared.StrParamDefault(params, "authorizationType", "NONE"),
 		AuthorizerID:      shared.StrParam(params, "authorizerId"),
 	}
 	if err := p.store.CreateRoute(r); err != nil {
@@ -539,7 +539,7 @@ func (p *Provider) createRouteResponse(apiID, routeID string, params map[string]
 		ID:                 shared.GenerateID("", 10),
 		APIID:              apiID,
 		RouteID:            routeID,
-		RouteResponseKey:   strParamDefault(params, "routeResponseKey", "default"),
+		RouteResponseKey:   shared.StrParamDefault(params, "routeResponseKey", "default"),
 		ModelSelectionExpr: shared.StrParam(params, "modelSelectionExpression"),
 	}
 	if err := p.store.CreateRouteResponse(rr); err != nil {
@@ -584,10 +584,10 @@ func (p *Provider) createIntegration(apiID string, params map[string]any) (*plug
 	i := &Integration{
 		ID:                shared.GenerateID("", 10),
 		APIID:             apiID,
-		Type:              strParamDefault(params, "integrationType", "HTTP_PROXY"),
+		Type:              shared.StrParamDefault(params, "integrationType", "HTTP_PROXY"),
 		IntegrationURI:    shared.StrParam(params, "integrationUri"),
 		IntegrationMethod: shared.StrParam(params, "integrationMethod"),
-		PayloadFormat:     strParamDefault(params, "payloadFormatVersion", "2.0"),
+		PayloadFormat:     shared.StrParamDefault(params, "payloadFormatVersion", "2.0"),
 	}
 	if err := p.store.CreateIntegration(i); err != nil {
 		return nil, err
@@ -637,7 +637,7 @@ func (p *Provider) createIntegrationResponse(apiID, integrationID string, params
 		ID:                shared.GenerateID("", 10),
 		APIID:             apiID,
 		IntegrationID:     integrationID,
-		ResponseKey:       strParamDefault(params, "integrationResponseKey", "default"),
+		ResponseKey:       shared.StrParamDefault(params, "integrationResponseKey", "default"),
 		TemplateSelection: shared.StrParam(params, "templateSelectionExpression"),
 	}
 	if err := p.store.CreateIntegrationResponse(ir); err != nil {
@@ -701,7 +701,7 @@ func (p *Provider) createAuthorizer(apiID string, params map[string]any) (*plugi
 		ID:             shared.GenerateID("", 10),
 		APIID:          apiID,
 		Name:           name,
-		Type:           strParamDefault(params, "authorizerType", "JWT"),
+		Type:           shared.StrParamDefault(params, "authorizerType", "JWT"),
 		IdentitySource: shared.StrParam(params, "identitySource"),
 		JWTConfig:      jwtConfig,
 	}
@@ -885,7 +885,7 @@ func (p *Provider) createModel(apiID string, params map[string]any) (*plugin.Res
 		ID:          shared.GenerateID("", 10),
 		APIID:       apiID,
 		Name:        name,
-		ContentType: strParamDefault(params, "contentType", "application/json"),
+		ContentType: shared.StrParamDefault(params, "contentType", "application/json"),
 		SchemaDef:   schemaDef,
 	}
 	if err := p.store.CreateModel(m); err != nil {
@@ -1604,13 +1604,6 @@ func extractPathParam(path, key string) string {
 		}
 	}
 	return ""
-}
-
-func strParamDefault(params map[string]any, key, def string) string {
-	if v, ok := params[key].(string); ok && v != "" {
-		return v
-	}
-	return def
 }
 
 func boolParamDefault(params map[string]any, key string, def bool) bool {

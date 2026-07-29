@@ -32,7 +32,7 @@ default does) and every registered service starts with `data_dir
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `services.<name>.enabled` | `true` | Enable or disable the service |
+| `services.<name>.enabled` | `false` | Enable the service. **Required per entry** — listing a service is not enough, `enabled: true` still has to be set. (With no `services` block at all, every service is enabled.) |
 | `services.<name>.data_dir` | `./data/<name>` | Data directory for persistent storage |
 
 Service-specific options:

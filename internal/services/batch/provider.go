@@ -298,8 +298,8 @@ func (p *Provider) createComputeEnvironment(params map[string]any) (*plugin.Resp
 	if name == "" {
 		return shared.JSONError("ClientException", "computeEnvironmentName is required", http.StatusBadRequest), nil
 	}
-	ceType := strParamDefault(params, "type", "MANAGED")
-	state := strParamDefault(params, "state", "ENABLED")
+	ceType := shared.StrParamDefault(params, "type", "MANAGED")
+	state := shared.StrParamDefault(params, "state", "ENABLED")
 	serviceRole := shared.StrParam(params, "serviceRole")
 
 	computeResources := "{}"
@@ -372,8 +372,8 @@ func (p *Provider) updateComputeEnvironment(params map[string]any) (*plugin.Resp
 	if err != nil {
 		return shared.JSONError("ClientException", "compute environment not found", http.StatusBadRequest), nil
 	}
-	state := strParamDefault(params, "state", ce.State)
-	serviceRole := strParamDefault(params, "serviceRole", ce.ServiceRole)
+	state := shared.StrParamDefault(params, "state", ce.State)
+	serviceRole := shared.StrParamDefault(params, "serviceRole", ce.ServiceRole)
 
 	if err := p.store.UpdateComputeEnvironment(nameOrARN, state, serviceRole); err != nil {
 		return shared.JSONError("ClientException", "compute environment not found", http.StatusBadRequest), nil
@@ -407,7 +407,7 @@ func (p *Provider) createJobQueue(params map[string]any) (*plugin.Response, erro
 	if name == "" {
 		return shared.JSONError("ClientException", "jobQueueName is required", http.StatusBadRequest), nil
 	}
-	state := strParamDefault(params, "state", "ENABLED")
+	state := shared.StrParamDefault(params, "state", "ENABLED")
 	priority := int32(0)
 	if v, ok := params["priority"].(float64); ok {
 		priority = int32(v)
@@ -484,12 +484,12 @@ func (p *Provider) updateJobQueue(params map[string]any) (*plugin.Response, erro
 	if err != nil {
 		return shared.JSONError("ClientException", "job queue not found", http.StatusBadRequest), nil
 	}
-	state := strParamDefault(params, "state", jq.State)
+	state := shared.StrParamDefault(params, "state", jq.State)
 	priority := jq.Priority
 	if v, ok := params["priority"].(float64); ok {
 		priority = int32(v)
 	}
-	schedulingPolicy := strParamDefault(params, "schedulingPolicyArn", jq.SchedulingPolicy)
+	schedulingPolicy := shared.StrParamDefault(params, "schedulingPolicyArn", jq.SchedulingPolicy)
 
 	if err := p.store.UpdateJobQueue(nameOrARN, state, priority, schedulingPolicy); err != nil {
 		return shared.JSONError("ClientException", "job queue not found", http.StatusBadRequest), nil
@@ -523,7 +523,7 @@ func (p *Provider) registerJobDefinition(params map[string]any) (*plugin.Respons
 	if name == "" {
 		return shared.JSONError("ClientException", "jobDefinitionName is required", http.StatusBadRequest), nil
 	}
-	jdType := strParamDefault(params, "type", "container")
+	jdType := shared.StrParamDefault(params, "type", "container")
 
 	containerProps := "{}"
 	if cp, ok := params["containerProperties"]; ok {
@@ -702,7 +702,7 @@ func (p *Provider) listJobs(params map[string]any) (*plugin.Response, error) {
 
 func (p *Provider) cancelJob(params map[string]any) (*plugin.Response, error) {
 	jobID := shared.StrParam(params, "jobId")
-	reason := strParamDefault(params, "reason", "cancelled")
+	reason := shared.StrParamDefault(params, "reason", "cancelled")
 	if jobID == "" {
 		return shared.JSONError("ClientException", "jobId is required", http.StatusBadRequest), nil
 	}
@@ -714,7 +714,7 @@ func (p *Provider) cancelJob(params map[string]any) (*plugin.Response, error) {
 
 func (p *Provider) terminateJob(params map[string]any) (*plugin.Response, error) {
 	jobID := shared.StrParam(params, "jobId")
-	reason := strParamDefault(params, "reason", "terminated")
+	reason := shared.StrParamDefault(params, "reason", "terminated")
 	if jobID == "" {
 		return shared.JSONError("ClientException", "jobId is required", http.StatusBadRequest), nil
 	}
@@ -990,13 +990,6 @@ func spToDetailMap(sp *SchedulingPolicy, tags map[string]string) map[string]any 
 }
 
 // --- Util ---
-
-func strParamDefault(params map[string]any, key, def string) string {
-	if v, ok := params[key].(string); ok && v != "" {
-		return v
-	}
-	return def
-}
 
 func toStringMap(m map[string]any) map[string]string {
 	result := make(map[string]string)

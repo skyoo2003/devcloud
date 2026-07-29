@@ -36,7 +36,7 @@ changelog:
 	@changie batch $(VERSION) && changie merge
 
 stats:
-	@svcs=$$(ls -d internal/services/*/ | wc -l | tr -d ' '); \
+	@svcs=$$(grep -rho 'DefaultRegistry.Register(' internal/services | wc -l | tr -d ' '); \
 	ops=$$(grep -r 'case "' internal/services/*/provider.go 2>/dev/null | wc -l | tr -d ' '); \
 	echo "Services: $$svcs"; \
 	echo "Operations: $$ops"

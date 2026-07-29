@@ -222,7 +222,7 @@ func (p *Provider) createDestination(params map[string]any) (*plugin.Response, e
 		Name:           name,
 		ARN:            arn,
 		Expression:     shared.StrParam(params, "Expression"),
-		ExpressionType: strParamDefault(params, "ExpressionType", "RuleName"),
+		ExpressionType: shared.StrParamDefault(params, "ExpressionType", "RuleName"),
 		RoleARN:        shared.StrParam(params, "RoleArn"),
 		Description:    shared.StrParam(params, "Description"),
 	}
@@ -421,7 +421,7 @@ func (p *Provider) createWirelessDevice(params map[string]any) (*plugin.Response
 		ID:          id,
 		ARN:         arn,
 		Name:        shared.StrParam(params, "Name"),
-		Type:        strParamDefault(params, "Type", "LoRaWAN"),
+		Type:        shared.StrParamDefault(params, "Type", "LoRaWAN"),
 		Destination: shared.StrParam(params, "DestinationName"),
 		Description: shared.StrParam(params, "Description"),
 		Config:      configJSON,
@@ -996,14 +996,6 @@ func extractPathParam(path, segment string) string {
 		}
 	}
 	return ""
-}
-
-func strParamDefault(params map[string]any, key, def string) string {
-	v, _ := params[key].(string)
-	if v == "" {
-		return def
-	}
-	return v
 }
 
 func isUniqueErr(err error) bool {
