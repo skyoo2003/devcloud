@@ -259,11 +259,6 @@ func (p *IAMProvider) ListResources(ctx context.Context) ([]plugin.Resource, err
 	return resources, nil
 }
 
-// GetMetrics returns empty metrics.
-func (p *IAMProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // Store returns the underlying IAMStore, allowing other providers (e.g. STS)
 // to share the same database instance.
 func (p *IAMProvider) Store() *IAMStore {

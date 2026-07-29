@@ -21,7 +21,6 @@ type mockServicePlugin struct {
 	id        string
 	name      string
 	resources []plugin.Resource
-	metrics   *plugin.ServiceMetrics
 }
 
 func (m *mockServicePlugin) ServiceID() string   { return m.id }
@@ -36,9 +35,6 @@ func (m *mockServicePlugin) HandleRequest(ctx context.Context, op string, req *h
 }
 func (m *mockServicePlugin) ListResources(ctx context.Context) ([]plugin.Resource, error) {
 	return m.resources, nil
-}
-func (m *mockServicePlugin) GetMetrics(ctx context.Context) (*plugin.ServiceMetrics, error) {
-	return m.metrics, nil
 }
 
 // newTestRegistry creates a Registry with a single mock plugin already active.
@@ -63,7 +59,6 @@ func TestAPI_Services(t *testing.T) {
 			{Type: "bucket", ID: "my-bucket", Name: "my-bucket"},
 			{Type: "bucket", ID: "other-bucket", Name: "other-bucket"},
 		},
-		metrics: &plugin.ServiceMetrics{TotalRequests: 10, ErrorCount: 1},
 	}
 	reg := newTestRegistry(p)
 	lc := NewLogCollector(10)

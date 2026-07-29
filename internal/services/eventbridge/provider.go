@@ -142,10 +142,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return resources, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 func (p *Provider) createEventBus(params map[string]any) (*plugin.Response, error) {
 	name, _ := params["Name"].(string)
 	if name == "" {

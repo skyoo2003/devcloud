@@ -15,6 +15,8 @@ import (
 	"strings"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const (
@@ -213,10 +215,6 @@ func (p *Provider) ListResources(ctx context.Context) ([]plugin.Resource, error)
 		out = append(out, plugin.Resource{Type: "instance", ID: inst.InstanceID, Name: inst.InstanceID})
 	}
 	return out, nil
-}
-
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
 }
 
 // --- operation handlers ---
@@ -889,7 +887,7 @@ func (p *Provider) handleDescribeAvailabilityZones(_ url.Values) (*plugin.Respon
 		XMLName              xml.Name `xml:"DescribeAvailabilityZonesResponse"`
 		AvailabilityZoneInfo []azXML  `xml:"availabilityZoneInfo>item"`
 	}
-	const region = "us-east-1"
+	const region = shared.DefaultRegion
 	suffixes := []string{"a", "b", "c", "d", "f"}
 	items := make([]azXML, 0, len(suffixes))
 	for i, sfx := range suffixes {

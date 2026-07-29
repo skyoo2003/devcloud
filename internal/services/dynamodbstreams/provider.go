@@ -136,14 +136,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	streams, err := p.store.ListStreams("")
-	if err != nil {
-		return &plugin.ServiceMetrics{}, nil
-	}
-	return &plugin.ServiceMetrics{ResourceCount: len(streams)}, nil
-}
-
 // ---- handlers ----
 
 func (p *Provider) listStreams(params map[string]any) (*plugin.Response, error) {

@@ -27,7 +27,7 @@ var (
 	ErrLayerUploadNotFound     = errors.New("layer upload not found")
 )
 
-const region = "us-east-1"
+const region = shared.DefaultRegion
 
 var migrations = []sqlite.Migration{
 	{Version: 1, SQL: `

@@ -2,11 +2,17 @@
 
 package shared
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/skyoo2003/devcloud/internal/plugin"
+)
 
 const (
-	DefaultRegion    = "us-east-1"
-	DefaultAccountID = "000000000000"
+	DefaultRegion = "us-east-1"
+	// DefaultAccountID mirrors plugin.DefaultAccountID so ARN builders and
+	// providers cannot drift apart.
+	DefaultAccountID = plugin.DefaultAccountID
 )
 
 func BuildARN(service, resourceType, resourceID string) string {

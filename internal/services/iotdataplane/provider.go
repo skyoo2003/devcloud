@@ -119,10 +119,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return []plugin.Resource{}, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- ThingShadow ---
 
 func (p *Provider) getThingShadow(thingName, shadowName string) (*plugin.Response, error) {

@@ -13,6 +13,8 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
+
+	"github.com/skyoo2003/devcloud/internal/plugin"
 )
 
 var (
@@ -112,7 +114,7 @@ func NewEBStore(dataDir string) (*EBStore, error) {
 	}
 	eb := &EBStore{store: s}
 	// Seed the default event bus.
-	_ = eb.CreateEventBus("default", "000000000000")
+	_ = eb.CreateEventBus("default", plugin.DefaultAccountID)
 	return eb, nil
 }
 

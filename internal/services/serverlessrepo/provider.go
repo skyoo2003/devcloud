@@ -184,10 +184,6 @@ func (p *ServerlessRepoProvider) ListResources(_ context.Context) ([]plugin.Reso
 	return res, nil
 }
 
-func (p *ServerlessRepoProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- Application handlers ---
 
 func (p *ServerlessRepoProvider) createApplication(params map[string]any) (*plugin.Response, error) {

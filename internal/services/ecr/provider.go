@@ -15,6 +15,8 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
@@ -145,14 +147,10 @@ func (p *Provider) ListResources(ctx context.Context) ([]plugin.Resource, error)
 	return out, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- operation handlers ---
 
 func (p *Provider) handleCreateRepository(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "repositoryName")
+	name := shared.StrParam(params, "repositoryName")
 	if name == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -167,7 +165,7 @@ func (p *Provider) handleCreateRepository(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) handleDeleteRepository(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "repositoryName")
+	name := shared.StrParam(params, "repositoryName")
 	if name == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -202,9 +200,9 @@ func (p *Provider) handleDescribeRepositories(params map[string]any) (*plugin.Re
 }
 
 func (p *Provider) handlePutImage(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
-	manifest := strParam(params, "imageManifest")
-	tag := strParam(params, "imageTag")
+	repoName := shared.StrParam(params, "repositoryName")
+	manifest := shared.StrParam(params, "imageManifest")
+	tag := shared.StrParam(params, "imageTag")
 	if repoName == "" || manifest == "" {
 		return ecrError("InvalidParameterException", "repositoryName and imageManifest are required", http.StatusBadRequest), nil
 	}
@@ -216,7 +214,7 @@ func (p *Provider) handlePutImage(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) handleBatchGetImage(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	imageIDs := imageIDsParam(params, "imageIds")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
@@ -233,7 +231,7 @@ func (p *Provider) handleBatchGetImage(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleBatchDeleteImage(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	imageIDs := imageIDsParam(params, "imageIds")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
@@ -250,7 +248,7 @@ func (p *Provider) handleBatchDeleteImage(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) handleDescribeImages(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -266,7 +264,7 @@ func (p *Provider) handleDescribeImages(params map[string]any) (*plugin.Response
 }
 
 func (p *Provider) handleListImages(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -300,8 +298,8 @@ func (p *Provider) handleGetAuthorizationToken(_ map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) handleSetRepositoryPolicy(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
-	policyText := strParam(params, "policyText")
+	repoName := shared.StrParam(params, "repositoryName")
+	policyText := shared.StrParam(params, "policyText")
 	if repoName == "" || policyText == "" {
 		return ecrError("InvalidParameterException", "repositoryName and policyText are required", http.StatusBadRequest), nil
 	}
@@ -319,7 +317,7 @@ func (p *Provider) handleSetRepositoryPolicy(params map[string]any) (*plugin.Res
 }
 
 func (p *Provider) handleGetRepositoryPolicy(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -343,7 +341,7 @@ func (p *Provider) handleGetRepositoryPolicy(params map[string]any) (*plugin.Res
 // --- layer operation handlers ---
 
 func (p *Provider) handleInitiateLayerUpload(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -358,8 +356,8 @@ func (p *Provider) handleInitiateLayerUpload(params map[string]any) (*plugin.Res
 }
 
 func (p *Provider) handleUploadLayerPart(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
-	uploadID := strParam(params, "uploadId")
+	repoName := shared.StrParam(params, "repositoryName")
+	uploadID := shared.StrParam(params, "uploadId")
 	if repoName == "" || uploadID == "" {
 		return ecrError("InvalidParameterException", "repositoryName and uploadId are required", http.StatusBadRequest), nil
 	}
@@ -397,8 +395,8 @@ func (p *Provider) handleUploadLayerPart(params map[string]any) (*plugin.Respons
 }
 
 func (p *Provider) handleCompleteLayerUpload(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
-	uploadID := strParam(params, "uploadId")
+	repoName := shared.StrParam(params, "repositoryName")
+	uploadID := shared.StrParam(params, "uploadId")
 	if repoName == "" || uploadID == "" {
 		return ecrError("InvalidParameterException", "repositoryName and uploadId are required", http.StatusBadRequest), nil
 	}
@@ -422,7 +420,7 @@ func (p *Provider) handleCompleteLayerUpload(params map[string]any) (*plugin.Res
 }
 
 func (p *Provider) handleBatchCheckLayerAvailability(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -439,8 +437,8 @@ func (p *Provider) handleBatchCheckLayerAvailability(params map[string]any) (*pl
 }
 
 func (p *Provider) handleGetDownloadUrlForLayer(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
-	digest := strParam(params, "layerDigest")
+	repoName := shared.StrParam(params, "repositoryName")
+	digest := shared.StrParam(params, "layerDigest")
 	if repoName == "" || digest == "" {
 		return ecrError("InvalidParameterException", "repositoryName and layerDigest are required", http.StatusBadRequest), nil
 	}
@@ -462,8 +460,8 @@ func (p *Provider) handleGetDownloadUrlForLayer(params map[string]any) (*plugin.
 // --- lifecycle policy handlers ---
 
 func (p *Provider) handlePutLifecyclePolicy(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
-	policyText := strParam(params, "lifecyclePolicyText")
+	repoName := shared.StrParam(params, "repositoryName")
+	policyText := shared.StrParam(params, "lifecyclePolicyText")
 	if repoName == "" || policyText == "" {
 		return ecrError("InvalidParameterException", "repositoryName and lifecyclePolicyText are required", http.StatusBadRequest), nil
 	}
@@ -481,7 +479,7 @@ func (p *Provider) handlePutLifecyclePolicy(params map[string]any) (*plugin.Resp
 }
 
 func (p *Provider) handleGetLifecyclePolicy(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -503,7 +501,7 @@ func (p *Provider) handleGetLifecyclePolicy(params map[string]any) (*plugin.Resp
 }
 
 func (p *Provider) handleDeleteLifecyclePolicy(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -530,7 +528,7 @@ func (p *Provider) handleDeleteLifecyclePolicy(params map[string]any) (*plugin.R
 // --- tag handlers ---
 
 func (p *Provider) handleTagResource(params map[string]any) (*plugin.Response, error) {
-	resourceARN := strParam(params, "resourceArn")
+	resourceARN := shared.StrParam(params, "resourceArn")
 	if resourceARN == "" {
 		return ecrError("InvalidParameterException", "resourceArn is required", http.StatusBadRequest), nil
 	}
@@ -542,7 +540,7 @@ func (p *Provider) handleTagResource(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) handleUntagResource(params map[string]any) (*plugin.Response, error) {
-	resourceARN := strParam(params, "resourceArn")
+	resourceARN := shared.StrParam(params, "resourceArn")
 	if resourceARN == "" {
 		return ecrError("InvalidParameterException", "resourceArn is required", http.StatusBadRequest), nil
 	}
@@ -554,7 +552,7 @@ func (p *Provider) handleUntagResource(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleListTagsForResource(params map[string]any) (*plugin.Response, error) {
-	resourceARN := strParam(params, "resourceArn")
+	resourceARN := shared.StrParam(params, "resourceArn")
 	if resourceARN == "" {
 		return ecrError("InvalidParameterException", "resourceArn is required", http.StatusBadRequest), nil
 	}
@@ -572,7 +570,7 @@ func (p *Provider) handleListTagsForResource(params map[string]any) (*plugin.Res
 // --- image scan handlers ---
 
 func (p *Provider) handleStartImageScan(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -607,7 +605,7 @@ func (p *Provider) handleStartImageScan(params map[string]any) (*plugin.Response
 }
 
 func (p *Provider) handleDescribeImageScanFindings(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -653,7 +651,7 @@ func (p *Provider) handleDescribeImageScanFindings(params map[string]any) (*plug
 }
 
 func (p *Provider) handlePutImageScanningConfiguration(params map[string]any) (*plugin.Response, error) {
-	repoName := strParam(params, "repositoryName")
+	repoName := shared.StrParam(params, "repositoryName")
 	if repoName == "" {
 		return ecrError("InvalidParameterException", "repositoryName is required", http.StatusBadRequest), nil
 	}
@@ -691,15 +689,6 @@ func ecrJSON(status int, v any) (*plugin.Response, error) {
 		return nil, err
 	}
 	return &plugin.Response{StatusCode: status, ContentType: "application/x-amz-json-1.1", Body: body}, nil
-}
-
-func strParam(params map[string]any, key string) string {
-	if v, ok := params[key]; ok {
-		if s, ok := v.(string); ok {
-			return s
-		}
-	}
-	return ""
 }
 
 func strSliceParam(params map[string]any, key string) []string {

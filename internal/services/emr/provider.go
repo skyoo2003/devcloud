@@ -127,11 +127,11 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	// Stub operations — return success/empty
 	case "AddInstanceFleet":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
-			"ClusterId": strParam(params, "ClusterId"), "ClusterArn": "", "InstanceFleetId": "",
+			"ClusterId": shared.StrParam(params, "ClusterId"), "ClusterArn": "", "InstanceFleetId": "",
 		})
 	case "AddInstanceGroups":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
-			"JobFlowId": strParam(params, "JobFlowId"), "ClusterArn": "", "InstanceGroupIds": []string{},
+			"JobFlowId": shared.StrParam(params, "JobFlowId"), "ClusterArn": "", "InstanceGroupIds": []string{},
 		})
 	case "CreateStudioSessionMapping":
 		return shared.JSONResponse(http.StatusOK, map[string]any{})
@@ -219,10 +219,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 		res = append(res, plugin.Resource{Type: "cluster", ID: c.ID, Name: c.Name})
 	}
 	return res, nil
-}
-
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
 }
 
 // ---- Cluster operations ----
@@ -851,11 +847,6 @@ func parseTags(rawTags []any) map[string]string {
 		}
 	}
 	return tags
-}
-
-func strParam(params map[string]any, key string) string {
-	v, _ := params[key].(string)
-	return v
 }
 
 func boolParam(params map[string]any, key string) bool {

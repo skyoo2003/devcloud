@@ -230,20 +230,7 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // ---- helpers ----
-
-func strParam(params map[string]any, key string) string {
-	if v, ok := params[key]; ok {
-		if s, ok := v.(string); ok {
-			return s
-		}
-	}
-	return ""
-}
 
 func intParam(params map[string]any, key string, def int) int {
 	if v, ok := params[key]; ok {
@@ -274,7 +261,7 @@ func marshalParamArray(params map[string]any, key string) string {
 }
 
 func catalogID(params map[string]any) string {
-	if id := strParam(params, "CatalogId"); id != "" {
+	if id := shared.StrParam(params, "CatalogId"); id != "" {
 		return id
 	}
 	return shared.DefaultAccountID
@@ -309,13 +296,13 @@ func (p *Provider) createDatabase(params map[string]any) (*plugin.Response, erro
 	if input == nil {
 		return shared.JSONError("InvalidInputException", "DatabaseInput is required", http.StatusBadRequest), nil
 	}
-	name := strParam(input, "Name")
+	name := shared.StrParam(input, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
 	catID := catalogID(params)
-	description := strParam(input, "Description")
-	locationURI := strParam(input, "LocationUri")
+	description := shared.StrParam(input, "Description")
+	locationURI := shared.StrParam(input, "LocationUri")
 	parameters := marshalParam(input, "Parameters")
 	_, err := p.store.CreateDatabase(catID, name, description, locationURI, parameters)
 	if err != nil {
@@ -328,7 +315,7 @@ func (p *Provider) createDatabase(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) getDatabase(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -357,7 +344,7 @@ func (p *Provider) getDatabases(params map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) updateDatabase(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -366,8 +353,8 @@ func (p *Provider) updateDatabase(params map[string]any) (*plugin.Response, erro
 	if input == nil {
 		input = map[string]any{}
 	}
-	description := strParam(input, "Description")
-	locationURI := strParam(input, "LocationUri")
+	description := shared.StrParam(input, "Description")
+	locationURI := shared.StrParam(input, "LocationUri")
 	parameters := marshalParam(input, "Parameters")
 	if err := p.store.UpdateDatabase(catID, name, description, locationURI, parameters); err != nil {
 		if err == errDatabaseNotFound {
@@ -379,7 +366,7 @@ func (p *Provider) updateDatabase(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) deleteDatabase(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -409,7 +396,7 @@ func databaseToMap(db *Database) map[string]any {
 // ---- Table handlers ----
 
 func (p *Provider) createTable(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
+	dbName := shared.StrParam(params, "DatabaseName")
 	if dbName == "" {
 		return shared.JSONError("InvalidInputException", "DatabaseName is required", http.StatusBadRequest), nil
 	}
@@ -417,13 +404,13 @@ func (p *Provider) createTable(params map[string]any) (*plugin.Response, error) 
 	if input == nil {
 		return shared.JSONError("InvalidInputException", "TableInput is required", http.StatusBadRequest), nil
 	}
-	name := strParam(input, "Name")
+	name := shared.StrParam(input, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
 	catID := catalogID(params)
-	description := strParam(input, "Description")
-	tableType := strParam(input, "TableType")
+	description := shared.StrParam(input, "Description")
+	tableType := shared.StrParam(input, "TableType")
 	if tableType == "" {
 		tableType = "EXTERNAL_TABLE"
 	}
@@ -445,8 +432,8 @@ func (p *Provider) createTable(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) getTable(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	name := strParam(params, "Name")
+	dbName := shared.StrParam(params, "DatabaseName")
+	name := shared.StrParam(params, "Name")
 	if dbName == "" || name == "" {
 		return shared.JSONError("InvalidInputException", "DatabaseName and Name are required", http.StatusBadRequest), nil
 	}
@@ -462,7 +449,7 @@ func (p *Provider) getTable(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) getTables(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
+	dbName := shared.StrParam(params, "DatabaseName")
 	if dbName == "" {
 		return shared.JSONError("InvalidInputException", "DatabaseName is required", http.StatusBadRequest), nil
 	}
@@ -479,18 +466,18 @@ func (p *Provider) getTables(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateTable(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
+	dbName := shared.StrParam(params, "DatabaseName")
 	input, _ := params["TableInput"].(map[string]any)
 	if dbName == "" || input == nil {
 		return shared.JSONError("InvalidInputException", "DatabaseName and TableInput are required", http.StatusBadRequest), nil
 	}
-	name := strParam(input, "Name")
+	name := shared.StrParam(input, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
 	catID := catalogID(params)
-	description := strParam(input, "Description")
-	tableType := strParam(input, "TableType")
+	description := shared.StrParam(input, "Description")
+	tableType := shared.StrParam(input, "TableType")
 	if tableType == "" {
 		tableType = "EXTERNAL_TABLE"
 	}
@@ -511,8 +498,8 @@ func (p *Provider) updateTable(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) deleteTable(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	name := strParam(params, "Name")
+	dbName := shared.StrParam(params, "DatabaseName")
+	name := shared.StrParam(params, "Name")
 	if dbName == "" || name == "" {
 		return shared.JSONError("InvalidInputException", "DatabaseName and Name are required", http.StatusBadRequest), nil
 	}
@@ -527,7 +514,7 @@ func (p *Provider) deleteTable(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) batchDeleteTable(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
+	dbName := shared.StrParam(params, "DatabaseName")
 	names := stringsParam(params, "TablesToDelete")
 	catID := catalogID(params)
 	var errs []any
@@ -543,8 +530,8 @@ func (p *Provider) batchDeleteTable(params map[string]any) (*plugin.Response, er
 }
 
 func (p *Provider) getTableVersion(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	tableName := strParam(params, "TableName")
+	dbName := shared.StrParam(params, "DatabaseName")
+	tableName := shared.StrParam(params, "TableName")
 	t, err := p.store.GetTable(catalogID(params), dbName, tableName)
 	if err != nil {
 		if err == errTableNotFound {
@@ -561,8 +548,8 @@ func (p *Provider) getTableVersion(params map[string]any) (*plugin.Response, err
 }
 
 func (p *Provider) getTableVersions(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	tableName := strParam(params, "TableName")
+	dbName := shared.StrParam(params, "DatabaseName")
+	tableName := shared.StrParam(params, "TableName")
 	t, err := p.store.GetTable(catalogID(params), dbName, tableName)
 	if err != nil {
 		if err == errTableNotFound {
@@ -600,8 +587,8 @@ func tableToMap(t *Table) map[string]any {
 // ---- Partition handlers ----
 
 func (p *Provider) createPartition(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	tableName := strParam(params, "TableName")
+	dbName := shared.StrParam(params, "DatabaseName")
+	tableName := shared.StrParam(params, "TableName")
 	if dbName == "" || tableName == "" {
 		return shared.JSONError("InvalidInputException", "DatabaseName and TableName are required", http.StatusBadRequest), nil
 	}
@@ -624,8 +611,8 @@ func (p *Provider) createPartition(params map[string]any) (*plugin.Response, err
 }
 
 func (p *Provider) getPartition(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	tableName := strParam(params, "TableName")
+	dbName := shared.StrParam(params, "DatabaseName")
+	tableName := shared.StrParam(params, "TableName")
 	values := stringsParam(params, "PartitionValues")
 	catID := catalogID(params)
 	part, err := p.store.GetPartition(catID, dbName, tableName, values)
@@ -639,8 +626,8 @@ func (p *Provider) getPartition(params map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) getPartitions(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	tableName := strParam(params, "TableName")
+	dbName := shared.StrParam(params, "DatabaseName")
+	tableName := shared.StrParam(params, "TableName")
 	catID := catalogID(params)
 	parts, err := p.store.ListPartitions(catID, dbName, tableName)
 	if err != nil {
@@ -654,8 +641,8 @@ func (p *Provider) getPartitions(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) updatePartition(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	tableName := strParam(params, "TableName")
+	dbName := shared.StrParam(params, "DatabaseName")
+	tableName := shared.StrParam(params, "TableName")
 	values := stringsParam(params, "PartitionValueList")
 	input, _ := params["PartitionInput"].(map[string]any)
 	if input == nil {
@@ -674,8 +661,8 @@ func (p *Provider) updatePartition(params map[string]any) (*plugin.Response, err
 }
 
 func (p *Provider) batchCreatePartition(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	tableName := strParam(params, "TableName")
+	dbName := shared.StrParam(params, "DatabaseName")
+	tableName := shared.StrParam(params, "TableName")
 	catID := catalogID(params)
 	inputs, _ := params["PartitionInputList"].([]any)
 	var errs []any
@@ -701,8 +688,8 @@ func (p *Provider) batchCreatePartition(params map[string]any) (*plugin.Response
 }
 
 func (p *Provider) batchDeletePartition(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	tableName := strParam(params, "TableName")
+	dbName := shared.StrParam(params, "DatabaseName")
+	tableName := shared.StrParam(params, "TableName")
 	catID := catalogID(params)
 	parts, _ := params["PartitionsToDelete"].([]any)
 	var errs []any
@@ -726,8 +713,8 @@ func (p *Provider) batchDeletePartition(params map[string]any) (*plugin.Response
 }
 
 func (p *Provider) batchGetPartition(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	tableName := strParam(params, "TableName")
+	dbName := shared.StrParam(params, "DatabaseName")
+	tableName := shared.StrParam(params, "TableName")
 	catID := catalogID(params)
 	partitionsToGet, _ := params["PartitionsToGet"].([]any)
 	var found []any
@@ -755,8 +742,8 @@ func (p *Provider) batchGetPartition(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) batchUpdatePartition(params map[string]any) (*plugin.Response, error) {
-	dbName := strParam(params, "DatabaseName")
-	tableName := strParam(params, "TableName")
+	dbName := shared.StrParam(params, "DatabaseName")
+	tableName := shared.StrParam(params, "TableName")
 	catID := catalogID(params)
 	entries, _ := params["Entries"].([]any)
 	var errs []any
@@ -807,16 +794,16 @@ func partitionToMap(p *Partition) map[string]any {
 // ---- Crawler handlers ----
 
 func (p *Provider) createCrawler(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
-	role := strParam(params, "Role")
-	dbName := strParam(params, "DatabaseName")
+	role := shared.StrParam(params, "Role")
+	dbName := shared.StrParam(params, "DatabaseName")
 	targets := marshalParam(params, "Targets")
 	schedule := ""
 	if s, ok := params["Schedule"].(map[string]any); ok {
-		schedule = strParam(s, "ScheduleExpression")
+		schedule = shared.StrParam(s, "ScheduleExpression")
 	} else if s, ok := params["Schedule"].(string); ok {
 		schedule = s
 	}
@@ -832,7 +819,7 @@ func (p *Provider) createCrawler(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) getCrawler(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	c, err := p.store.GetCrawler(name)
 	if err != nil {
 		if err == errCrawlerNotFound {
@@ -856,12 +843,12 @@ func (p *Provider) getCrawlers(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) updateCrawler(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
-	role := strParam(params, "Role")
-	dbName := strParam(params, "DatabaseName")
+	role := shared.StrParam(params, "Role")
+	dbName := shared.StrParam(params, "DatabaseName")
 	targets := marshalParam(params, "Targets")
 	schedule := ""
 	if s, ok := params["Schedule"].(string); ok {
@@ -878,7 +865,7 @@ func (p *Provider) updateCrawler(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) deleteCrawler(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if err := p.store.DeleteCrawler(name); err != nil {
 		if err == errCrawlerNotFound {
 			return shared.JSONError("EntityNotFoundException", "Crawler not found", http.StatusBadRequest), nil
@@ -889,7 +876,7 @@ func (p *Provider) deleteCrawler(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) startCrawler(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if err := p.store.UpdateCrawlerStatus(name, "RUNNING"); err != nil {
 		if err == errCrawlerNotFound {
 			return shared.JSONError("EntityNotFoundException", "Crawler not found", http.StatusBadRequest), nil
@@ -900,7 +887,7 @@ func (p *Provider) startCrawler(params map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) stopCrawler(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if err := p.store.UpdateCrawlerStatus(name, "READY"); err != nil {
 		if err == errCrawlerNotFound {
 			return shared.JSONError("EntityNotFoundException", "Crawler not found", http.StatusBadRequest), nil
@@ -951,11 +938,11 @@ func crawlerToMap(c *Crawler) map[string]any {
 // ---- Job handlers ----
 
 func (p *Provider) createJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
-	role := strParam(params, "Role")
+	role := shared.StrParam(params, "Role")
 	command := marshalParam(params, "Command")
 	maxRetries := intParam(params, "MaxRetries", 0)
 	timeout := intParam(params, "Timeout", 2880)
@@ -971,7 +958,7 @@ func (p *Provider) createJob(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) getJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "JobName")
+	name := shared.StrParam(params, "JobName")
 	j, err := p.store.GetJob(name)
 	if err != nil {
 		if err == errJobNotFound {
@@ -995,7 +982,7 @@ func (p *Provider) getJobs(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "JobName")
+	name := shared.StrParam(params, "JobName")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "JobName is required", http.StatusBadRequest), nil
 	}
@@ -1003,7 +990,7 @@ func (p *Provider) updateJob(params map[string]any) (*plugin.Response, error) {
 	if input == nil {
 		input = map[string]any{}
 	}
-	role := strParam(input, "Role")
+	role := shared.StrParam(input, "Role")
 	command := marshalParam(input, "Command")
 	maxRetries := intParam(input, "MaxRetries", 0)
 	timeout := intParam(input, "Timeout", 2880)
@@ -1018,7 +1005,7 @@ func (p *Provider) updateJob(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) deleteJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "JobName")
+	name := shared.StrParam(params, "JobName")
 	if err := p.store.DeleteJob(name); err != nil {
 		if err == errJobNotFound {
 			return shared.JSONError("EntityNotFoundException", "Job not found", http.StatusBadRequest), nil
@@ -1050,7 +1037,7 @@ func (p *Provider) batchGetJobs(params map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) startJobRun(params map[string]any) (*plugin.Response, error) {
-	jobName := strParam(params, "JobName")
+	jobName := shared.StrParam(params, "JobName")
 	if jobName == "" {
 		return shared.JSONError("InvalidInputException", "JobName is required", http.StatusBadRequest), nil
 	}
@@ -1063,7 +1050,7 @@ func (p *Provider) startJobRun(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) getJobRun(params map[string]any) (*plugin.Response, error) {
-	runID := strParam(params, "RunId")
+	runID := shared.StrParam(params, "RunId")
 	r, err := p.store.GetJobRun(runID)
 	if err != nil {
 		if err == errJobRunNotFound {
@@ -1075,7 +1062,7 @@ func (p *Provider) getJobRun(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) getJobRuns(params map[string]any) (*plugin.Response, error) {
-	jobName := strParam(params, "JobName")
+	jobName := shared.StrParam(params, "JobName")
 	runs, err := p.store.ListJobRuns(jobName)
 	if err != nil {
 		return nil, err
@@ -1088,7 +1075,7 @@ func (p *Provider) getJobRuns(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) batchStopJobRun(params map[string]any) (*plugin.Response, error) {
-	jobName := strParam(params, "JobName")
+	jobName := shared.StrParam(params, "JobName")
 	runIDs := stringsParam(params, "JobRunIds")
 	var errs []any
 	for _, id := range runIDs {
@@ -1138,12 +1125,12 @@ func (p *Provider) createConnection(params map[string]any) (*plugin.Response, er
 	if input == nil {
 		return shared.JSONError("InvalidInputException", "ConnectionInput is required", http.StatusBadRequest), nil
 	}
-	name := strParam(input, "Name")
+	name := shared.StrParam(input, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
 	catID := catalogID(params)
-	connType := strParam(input, "ConnectionType")
+	connType := shared.StrParam(input, "ConnectionType")
 	if connType == "" {
 		connType = "JDBC"
 	}
@@ -1159,7 +1146,7 @@ func (p *Provider) createConnection(params map[string]any) (*plugin.Response, er
 }
 
 func (p *Provider) getConnection(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	catID := catalogID(params)
 	c, err := p.store.GetConnection(catID, name)
 	if err != nil {
@@ -1185,13 +1172,13 @@ func (p *Provider) getConnections(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) updateConnection(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	catID := catalogID(params)
 	input, _ := params["ConnectionInput"].(map[string]any)
 	if input == nil {
 		input = map[string]any{}
 	}
-	connType := strParam(input, "ConnectionType")
+	connType := shared.StrParam(input, "ConnectionType")
 	if connType == "" {
 		connType = "JDBC"
 	}
@@ -1206,7 +1193,7 @@ func (p *Provider) updateConnection(params map[string]any) (*plugin.Response, er
 }
 
 func (p *Provider) deleteConnection(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConnectionName")
+	name := shared.StrParam(params, "ConnectionName")
 	catID := catalogID(params)
 	if err := p.store.DeleteConnection(catID, name); err != nil {
 		if err == errConnectionNotFound {
@@ -1250,17 +1237,17 @@ func connectionToMap(c *Connection) map[string]any {
 // ---- Trigger handlers ----
 
 func (p *Provider) createTrigger(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
-	trigType := strParam(params, "Type")
+	trigType := shared.StrParam(params, "Type")
 	if trigType == "" {
 		trigType = "ON_DEMAND"
 	}
 	actions := marshalParamArray(params, "Actions")
 	predicate := marshalParam(params, "Predicate")
-	schedule := strParam(params, "Schedule")
+	schedule := shared.StrParam(params, "Schedule")
 	_, err := p.store.CreateTrigger(name, trigType, actions, predicate, schedule)
 	if err != nil {
 		if sqliteIsUnique(err) {
@@ -1272,7 +1259,7 @@ func (p *Provider) createTrigger(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) getTrigger(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	t, err := p.store.GetTrigger(name)
 	if err != nil {
 		if err == errTriggerNotFound {
@@ -1296,7 +1283,7 @@ func (p *Provider) getTriggers(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) updateTrigger(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -1304,13 +1291,13 @@ func (p *Provider) updateTrigger(params map[string]any) (*plugin.Response, error
 	if input == nil {
 		input = map[string]any{}
 	}
-	trigType := strParam(input, "Type")
+	trigType := shared.StrParam(input, "Type")
 	if trigType == "" {
 		trigType = "ON_DEMAND"
 	}
 	actions := marshalParamArray(input, "Actions")
 	predicate := marshalParam(input, "Predicate")
-	schedule := strParam(input, "Schedule")
+	schedule := shared.StrParam(input, "Schedule")
 	if err := p.store.UpdateTrigger(name, trigType, actions, predicate, schedule); err != nil {
 		if err == errTriggerNotFound {
 			return shared.JSONError("EntityNotFoundException", "Trigger not found", http.StatusBadRequest), nil
@@ -1321,7 +1308,7 @@ func (p *Provider) updateTrigger(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) deleteTrigger(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if err := p.store.DeleteTrigger(name); err != nil {
 		if err == errTriggerNotFound {
 			return shared.JSONError("EntityNotFoundException", "Trigger not found", http.StatusBadRequest), nil
@@ -1332,7 +1319,7 @@ func (p *Provider) deleteTrigger(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) startTrigger(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if err := p.store.UpdateTriggerState(name, "ACTIVATED"); err != nil {
 		if err == errTriggerNotFound {
 			return shared.JSONError("EntityNotFoundException", "Trigger not found", http.StatusBadRequest), nil
@@ -1343,7 +1330,7 @@ func (p *Provider) startTrigger(params map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) stopTrigger(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if err := p.store.UpdateTriggerState(name, "DEACTIVATED"); err != nil {
 		if err == errTriggerNotFound {
 			return shared.JSONError("EntityNotFoundException", "Trigger not found", http.StatusBadRequest), nil
@@ -1391,7 +1378,7 @@ func triggerToMap(t *Trigger) map[string]any {
 // ---- SecurityConfiguration handlers ----
 
 func (p *Provider) createSecurityConfiguration(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidInputException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -1407,7 +1394,7 @@ func (p *Provider) createSecurityConfiguration(params map[string]any) (*plugin.R
 }
 
 func (p *Provider) getSecurityConfiguration(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	c, err := p.store.GetSecurityConfig(name)
 	if err != nil {
 		if err == errSecurityConfigNotFound {
@@ -1431,7 +1418,7 @@ func (p *Provider) getSecurityConfigurations(params map[string]any) (*plugin.Res
 }
 
 func (p *Provider) deleteSecurityConfiguration(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if err := p.store.DeleteSecurityConfig(name); err != nil {
 		if err == errSecurityConfigNotFound {
 			return shared.JSONError("EntityNotFoundException", "SecurityConfiguration not found", http.StatusBadRequest), nil
@@ -1454,7 +1441,7 @@ func securityConfigToMap(c *SecurityConfig) map[string]any {
 // ---- Tags handlers ----
 
 func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	tagsRaw, _ := params["TagsToAdd"].(map[string]any)
 	tags := make(map[string]string)
 	for k, v := range tagsRaw {
@@ -1469,7 +1456,7 @@ func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	keys := stringsParam(params, "TagsToRemove")
 	if err := p.store.tags.RemoveTags(arn, keys); err != nil {
 		return nil, err
@@ -1478,7 +1465,7 @@ func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) getTags(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	tags, err := p.store.tags.ListTags(arn)
 	if err != nil {
 		return nil, err

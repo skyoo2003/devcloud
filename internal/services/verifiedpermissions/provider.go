@@ -123,11 +123,6 @@ func (p *VerifiedPermissionsProvider) ListResources(ctx context.Context) ([]plug
 	return []plugin.Resource{}, nil
 }
 
-// GetMetrics returns empty metrics.
-func (p *VerifiedPermissionsProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- helpers ---
 
 func jsonError(code, message string, status int) *plugin.Response {

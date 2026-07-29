@@ -11,9 +11,11 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
+
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
-const region = "us-east-1"
+const region = shared.DefaultRegion
 
 var (
 	errJobTemplateNotFound = errors.New("job template not found")

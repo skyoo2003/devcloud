@@ -13,6 +13,8 @@ import (
 	"strings"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
@@ -209,14 +211,10 @@ func (p *Provider) ListResources(ctx context.Context) ([]plugin.Resource, error)
 	return out, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- operation handlers ---
 
 func (p *Provider) handleCreateCluster(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "clusterName")
+	name := shared.StrParam(params, "clusterName")
 	if name == "" {
 		name = "default"
 	}
@@ -275,7 +273,7 @@ func (p *Provider) handleDescribeClusters(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) handleDeleteCluster(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "cluster")
+	arn := shared.StrParam(params, "cluster")
 	if arn == "" {
 		return ecsError("MissingParameter", "cluster is required", http.StatusBadRequest), nil
 	}
@@ -286,7 +284,7 @@ func (p *Provider) handleDeleteCluster(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleRegisterTaskDefinition(params map[string]any) (*plugin.Response, error) {
-	family := strParam(params, "family")
+	family := shared.StrParam(params, "family")
 	if family == "" {
 		return ecsError("MissingParameter", "family is required", http.StatusBadRequest), nil
 	}
@@ -304,7 +302,7 @@ func (p *Provider) handleRegisterTaskDefinition(params map[string]any) (*plugin.
 }
 
 func (p *Provider) handleDescribeTaskDefinition(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "taskDefinition")
+	arn := shared.StrParam(params, "taskDefinition")
 	if arn == "" {
 		return ecsError("MissingParameter", "taskDefinition is required", http.StatusBadRequest), nil
 	}
@@ -327,7 +325,7 @@ func (p *Provider) handleListTaskDefinitions(_ map[string]any) (*plugin.Response
 }
 
 func (p *Provider) handleDeregisterTaskDefinition(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "taskDefinition")
+	arn := shared.StrParam(params, "taskDefinition")
 	if arn == "" {
 		return ecsError("MissingParameter", "taskDefinition is required", http.StatusBadRequest), nil
 	}
@@ -339,8 +337,8 @@ func (p *Provider) handleDeregisterTaskDefinition(params map[string]any) (*plugi
 }
 
 func (p *Provider) handleRunTask(params map[string]any) (*plugin.Response, error) {
-	clusterArn := strParam(params, "cluster")
-	taskDefArn := strParam(params, "taskDefinition")
+	clusterArn := shared.StrParam(params, "cluster")
+	taskDefArn := shared.StrParam(params, "taskDefinition")
 	if clusterArn == "" || taskDefArn == "" {
 		return ecsError("MissingParameter", "cluster and taskDefinition are required", http.StatusBadRequest), nil
 	}
@@ -352,7 +350,7 @@ func (p *Provider) handleRunTask(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) handleStopTask(params map[string]any) (*plugin.Response, error) {
-	taskArn := strParam(params, "task")
+	taskArn := shared.StrParam(params, "task")
 	if taskArn == "" {
 		return ecsError("MissingParameter", "task is required", http.StatusBadRequest), nil
 	}
@@ -376,9 +374,9 @@ func (p *Provider) handleDescribeTasks(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleCreateService(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "serviceName")
-	clusterArn := strParam(params, "cluster")
-	taskDefArn := strParam(params, "taskDefinition")
+	name := shared.StrParam(params, "serviceName")
+	clusterArn := shared.StrParam(params, "cluster")
+	taskDefArn := shared.StrParam(params, "taskDefinition")
 	if name == "" || clusterArn == "" || taskDefArn == "" {
 		return ecsError("MissingParameter", "serviceName, cluster, and taskDefinition are required", http.StatusBadRequest), nil
 	}
@@ -394,9 +392,9 @@ func (p *Provider) handleCreateService(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleUpdateService(params map[string]any) (*plugin.Response, error) {
-	serviceRef := strParam(params, "service")
-	clusterArn := strParam(params, "cluster")
-	taskDefArn := strParam(params, "taskDefinition")
+	serviceRef := shared.StrParam(params, "service")
+	clusterArn := shared.StrParam(params, "cluster")
+	taskDefArn := shared.StrParam(params, "taskDefinition")
 	desiredCount := intParam(params, "desiredCount", -1)
 	if serviceRef == "" {
 		return ecsError("MissingParameter", "service is required", http.StatusBadRequest), nil
@@ -418,7 +416,7 @@ func (p *Provider) handleUpdateService(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleDeleteService(params map[string]any) (*plugin.Response, error) {
-	serviceArn := strParam(params, "service")
+	serviceArn := shared.StrParam(params, "service")
 	if serviceArn == "" {
 		return ecsError("MissingParameter", "service is required", http.StatusBadRequest), nil
 	}
@@ -429,7 +427,7 @@ func (p *Provider) handleDeleteService(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleListServices(params map[string]any) (*plugin.Response, error) {
-	clusterArn := strParam(params, "cluster")
+	clusterArn := shared.StrParam(params, "cluster")
 	if clusterArn == "" {
 		return ecsError("MissingParameter", "cluster is required", http.StatusBadRequest), nil
 	}
@@ -446,7 +444,7 @@ func (p *Provider) handleListServices(params map[string]any) (*plugin.Response, 
 // --- Capacity Provider handlers ---
 
 func (p *Provider) handleCreateCapacityProvider(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "name")
+	name := shared.StrParam(params, "name")
 	if name == "" {
 		return ecsError("MissingParameter", "name is required", http.StatusBadRequest), nil
 	}
@@ -475,7 +473,7 @@ func (p *Provider) handleDescribeCapacityProviders(params map[string]any) (*plug
 }
 
 func (p *Provider) handleDeleteCapacityProvider(params map[string]any) (*plugin.Response, error) {
-	nameOrARN := strParam(params, "capacityProvider")
+	nameOrARN := shared.StrParam(params, "capacityProvider")
 	if nameOrARN == "" {
 		return ecsError("MissingParameter", "capacityProvider is required", http.StatusBadRequest), nil
 	}
@@ -486,7 +484,7 @@ func (p *Provider) handleDeleteCapacityProvider(params map[string]any) (*plugin.
 }
 
 func (p *Provider) handlePutClusterCapacityProviders(params map[string]any) (*plugin.Response, error) {
-	clusterRef := strParam(params, "cluster")
+	clusterRef := shared.StrParam(params, "cluster")
 	if clusterRef == "" {
 		return ecsError("MissingParameter", "cluster is required", http.StatusBadRequest), nil
 	}
@@ -505,7 +503,7 @@ func (p *Provider) handlePutClusterCapacityProviders(params map[string]any) (*pl
 // --- Container Instance handlers ---
 
 func (p *Provider) handleListContainerInstances(params map[string]any) (*plugin.Response, error) {
-	clusterRef := strParam(params, "cluster")
+	clusterRef := shared.StrParam(params, "cluster")
 	if clusterRef == "" {
 		return ecsError("MissingParameter", "cluster is required", http.StatusBadRequest), nil
 	}
@@ -513,7 +511,7 @@ func (p *Provider) handleListContainerInstances(params map[string]any) (*plugin.
 	if !strings.Contains(clusterRef, ":") {
 		clusterARN = fmt.Sprintf("arn:aws:ecs:%s:%s:cluster/%s", region, defaultAccountID, clusterRef)
 	}
-	status := strParam(params, "status")
+	status := shared.StrParam(params, "status")
 	arns, err := p.store.ListContainerInstances(defaultAccountID, clusterARN, status)
 	if err != nil {
 		return nil, err
@@ -538,7 +536,7 @@ func (p *Provider) handleDescribeContainerInstances(params map[string]any) (*plu
 }
 
 func (p *Provider) handleDeregisterContainerInstance(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "containerInstance")
+	arn := shared.StrParam(params, "containerInstance")
 	if arn == "" {
 		return ecsError("MissingParameter", "containerInstance is required", http.StatusBadRequest), nil
 	}
@@ -555,7 +553,7 @@ func (p *Provider) handleDeregisterContainerInstance(params map[string]any) (*pl
 // --- Attribute handlers ---
 
 func (p *Provider) handlePutAttributes(params map[string]any) (*plugin.Response, error) {
-	clusterRef := strParam(params, "cluster")
+	clusterRef := shared.StrParam(params, "cluster")
 	clusterARN := clusterRef
 	if clusterRef != "" && !strings.Contains(clusterRef, ":") {
 		clusterARN = fmt.Sprintf("arn:aws:ecs:%s:%s:cluster/%s", region, defaultAccountID, clusterRef)
@@ -573,7 +571,7 @@ func (p *Provider) handlePutAttributes(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleDeleteAttributes(params map[string]any) (*plugin.Response, error) {
-	clusterRef := strParam(params, "cluster")
+	clusterRef := shared.StrParam(params, "cluster")
 	clusterARN := clusterRef
 	if clusterRef != "" && !strings.Contains(clusterRef, ":") {
 		clusterARN = fmt.Sprintf("arn:aws:ecs:%s:%s:cluster/%s", region, defaultAccountID, clusterRef)
@@ -587,14 +585,14 @@ func (p *Provider) handleDeleteAttributes(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) handleListAttributes(params map[string]any) (*plugin.Response, error) {
-	clusterRef := strParam(params, "cluster")
+	clusterRef := shared.StrParam(params, "cluster")
 	clusterARN := clusterRef
 	if clusterRef != "" && !strings.Contains(clusterRef, ":") {
 		clusterARN = fmt.Sprintf("arn:aws:ecs:%s:%s:cluster/%s", region, defaultAccountID, clusterRef)
 	}
-	targetType := strParam(params, "targetType")
-	attrName := strParam(params, "attributeName")
-	attrValue := strParam(params, "attributeValue")
+	targetType := shared.StrParam(params, "targetType")
+	attrName := shared.StrParam(params, "attributeName")
+	attrValue := shared.StrParam(params, "attributeValue")
 	attrs, err := p.store.ListAttributes(defaultAccountID, clusterARN, targetType, attrName, attrValue)
 	if err != nil {
 		return nil, err
@@ -610,7 +608,7 @@ func (p *Provider) handleListAttributes(params map[string]any) (*plugin.Response
 
 func (p *Provider) handleUpdateContainerInstancesState(params map[string]any) (*plugin.Response, error) {
 	arns := strSliceParam(params, "containerInstances")
-	status := strParam(params, "status")
+	status := shared.StrParam(params, "status")
 	if status == "" {
 		return ecsError("MissingParameter", "status is required", http.StatusBadRequest), nil
 	}
@@ -669,15 +667,6 @@ func ecsJSON(status int, v any) (*plugin.Response, error) {
 		return nil, err
 	}
 	return &plugin.Response{StatusCode: status, ContentType: "application/x-amz-json-1.1", Body: body}, nil
-}
-
-func strParam(params map[string]any, key string) string {
-	if v, ok := params[key]; ok {
-		if s, ok := v.(string); ok {
-			return s
-		}
-	}
-	return ""
 }
 
 func intParam(params map[string]any, key string, defaultVal int) int {
@@ -820,7 +809,7 @@ func parseAttributes(raw []any) []ECSAttribute {
 // --- Cluster extras ---
 
 func (p *Provider) handleUpdateCluster(params map[string]any) (*plugin.Response, error) {
-	clusterRef := strParam(params, "cluster")
+	clusterRef := shared.StrParam(params, "cluster")
 	if clusterRef == "" {
 		return ecsError("MissingParameter", "cluster is required", http.StatusBadRequest), nil
 	}
@@ -869,8 +858,8 @@ func (p *Provider) handleListTaskDefinitionFamilies(_ map[string]any) (*plugin.R
 // --- Task extras ---
 
 func (p *Provider) handleStartTask(params map[string]any) (*plugin.Response, error) {
-	clusterArn := strParam(params, "cluster")
-	taskDefArn := strParam(params, "taskDefinition")
+	clusterArn := shared.StrParam(params, "cluster")
+	taskDefArn := shared.StrParam(params, "taskDefinition")
 	if clusterArn == "" || taskDefArn == "" {
 		return ecsError("MissingParameter", "cluster and taskDefinition are required", http.StatusBadRequest), nil
 	}
@@ -882,7 +871,7 @@ func (p *Provider) handleStartTask(params map[string]any) (*plugin.Response, err
 }
 
 func (p *Provider) handleListTasks(params map[string]any) (*plugin.Response, error) {
-	clusterArn := strParam(params, "cluster")
+	clusterArn := shared.StrParam(params, "cluster")
 	// ListTasks for a given cluster just returns all RUNNING tasks in that cluster.
 	tasks, err := p.store.DescribeTasks(defaultAccountID, nil)
 	if err != nil {
@@ -901,7 +890,7 @@ func (p *Provider) handleListTasks(params map[string]any) (*plugin.Response, err
 
 func (p *Provider) handleDescribeServices(params map[string]any) (*plugin.Response, error) {
 	arns := strSliceParam(params, "services")
-	clusterRef := strParam(params, "cluster")
+	clusterRef := shared.StrParam(params, "cluster")
 	// Resolve service names to ARNs within cluster.
 	resolved := make([]string, 0, len(arns))
 	for _, a := range arns {
@@ -931,7 +920,7 @@ func (p *Provider) handleDescribeServices(params map[string]any) (*plugin.Respon
 // --- Capacity Provider extras ---
 
 func (p *Provider) handleUpdateCapacityProvider(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "name")
+	name := shared.StrParam(params, "name")
 	if name == "" {
 		return ecsError("MissingParameter", "name is required", http.StatusBadRequest), nil
 	}
@@ -945,7 +934,7 @@ func (p *Provider) handleUpdateCapacityProvider(params map[string]any) (*plugin.
 // --- Container Instance extras ---
 
 func (p *Provider) handleRegisterContainerInstance(params map[string]any) (*plugin.Response, error) {
-	clusterRef := strParam(params, "cluster")
+	clusterRef := shared.StrParam(params, "cluster")
 	if clusterRef == "" {
 		clusterRef = "default"
 	}
@@ -957,7 +946,7 @@ func (p *Provider) handleRegisterContainerInstance(params map[string]any) (*plug
 	} else {
 		clusterARN = fmt.Sprintf("arn:aws:ecs:%s:%s:cluster/%s", region, defaultAccountID, clusterRef)
 	}
-	ec2ID := strParam(params, "instanceIdentityDocument")
+	ec2ID := shared.StrParam(params, "instanceIdentityDocument")
 	ci, err := p.store.RegisterContainerInstance(defaultAccountID, clusterARN, clusterName, ec2ID)
 	if err != nil {
 		return nil, err
@@ -968,11 +957,11 @@ func (p *Provider) handleRegisterContainerInstance(params map[string]any) (*plug
 // --- Task Sets ---
 
 func (p *Provider) handleCreateTaskSet(params map[string]any) (*plugin.Response, error) {
-	serviceARN := strParam(params, "service")
-	clusterARN := strParam(params, "cluster")
-	taskDefARN := strParam(params, "taskDefinition")
-	externalID := strParam(params, "externalId")
-	launchType := strParam(params, "launchType")
+	serviceARN := shared.StrParam(params, "service")
+	clusterARN := shared.StrParam(params, "cluster")
+	taskDefARN := shared.StrParam(params, "taskDefinition")
+	externalID := shared.StrParam(params, "externalId")
+	launchType := shared.StrParam(params, "launchType")
 	if serviceARN == "" || clusterARN == "" || taskDefARN == "" {
 		return ecsError("MissingParameter", "service, cluster, and taskDefinition are required", http.StatusBadRequest), nil
 	}
@@ -984,7 +973,7 @@ func (p *Provider) handleCreateTaskSet(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleDeleteTaskSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "taskSet")
+	id := shared.StrParam(params, "taskSet")
 	if id == "" {
 		return ecsError("MissingParameter", "taskSet is required", http.StatusBadRequest), nil
 	}
@@ -995,7 +984,7 @@ func (p *Provider) handleDeleteTaskSet(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleUpdateTaskSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "taskSet")
+	id := shared.StrParam(params, "taskSet")
 	if id == "" {
 		return ecsError("MissingParameter", "taskSet is required", http.StatusBadRequest), nil
 	}
@@ -1017,7 +1006,7 @@ func (p *Provider) handleUpdateTaskSet(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleDescribeTaskSets(params map[string]any) (*plugin.Response, error) {
-	serviceARN := strParam(params, "service")
+	serviceARN := shared.StrParam(params, "service")
 	sets, err := p.store.ListTaskSets(defaultAccountID, serviceARN)
 	if err != nil {
 		return nil, err
@@ -1030,7 +1019,7 @@ func (p *Provider) handleDescribeTaskSets(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) handleUpdateServicePrimaryTaskSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "primaryTaskSet")
+	id := shared.StrParam(params, "primaryTaskSet")
 	if id == "" {
 		return ecsError("MissingParameter", "primaryTaskSet is required", http.StatusBadRequest), nil
 	}
@@ -1044,17 +1033,17 @@ func (p *Provider) handleUpdateServicePrimaryTaskSet(params map[string]any) (*pl
 // --- Service Auto-Scaling ---
 
 func (p *Provider) handleRegisterScalableTarget(params map[string]any) (*plugin.Response, error) {
-	serviceARN := strParam(params, "serviceARN")
+	serviceARN := shared.StrParam(params, "serviceARN")
 	if serviceARN == "" {
-		serviceARN = strParam(params, "resourceId")
+		serviceARN = shared.StrParam(params, "resourceId")
 	}
-	dimension := strParam(params, "scalableDimension")
+	dimension := shared.StrParam(params, "scalableDimension")
 	if serviceARN == "" || dimension == "" {
 		return ecsError("InvalidParameterException", "serviceARN and scalableDimension are required", http.StatusBadRequest), nil
 	}
 	minCap := intParam(params, "minCapacity", 0)
 	maxCap := intParam(params, "maxCapacity", 10)
-	roleARN := strParam(params, "roleARN")
+	roleARN := shared.StrParam(params, "roleARN")
 	if _, err := p.store.RegisterScalableTarget(defaultAccountID, serviceARN, dimension, roleARN, minCap, maxCap); err != nil {
 		return nil, err
 	}
@@ -1062,11 +1051,11 @@ func (p *Provider) handleRegisterScalableTarget(params map[string]any) (*plugin.
 }
 
 func (p *Provider) handleDeregisterScalableTarget(params map[string]any) (*plugin.Response, error) {
-	serviceARN := strParam(params, "serviceARN")
+	serviceARN := shared.StrParam(params, "serviceARN")
 	if serviceARN == "" {
-		serviceARN = strParam(params, "resourceId")
+		serviceARN = shared.StrParam(params, "resourceId")
 	}
-	dimension := strParam(params, "scalableDimension")
+	dimension := shared.StrParam(params, "scalableDimension")
 	if err := p.store.DeregisterScalableTarget(defaultAccountID, serviceARN, dimension); err != nil {
 		return ecsError("ObjectNotFoundException", "scalable target not found", http.StatusBadRequest), nil
 	}
@@ -1074,11 +1063,11 @@ func (p *Provider) handleDeregisterScalableTarget(params map[string]any) (*plugi
 }
 
 func (p *Provider) handleDescribeScalableTargets(params map[string]any) (*plugin.Response, error) {
-	serviceARN := strParam(params, "serviceARN")
+	serviceARN := shared.StrParam(params, "serviceARN")
 	if serviceARN == "" {
-		serviceARN = strParam(params, "resourceId")
+		serviceARN = shared.StrParam(params, "resourceId")
 	}
-	dimension := strParam(params, "scalableDimension")
+	dimension := shared.StrParam(params, "scalableDimension")
 	targets, err := p.store.ListScalableTargets(defaultAccountID, serviceARN, dimension)
 	if err != nil {
 		return nil, err
@@ -1091,16 +1080,16 @@ func (p *Provider) handleDescribeScalableTargets(params map[string]any) (*plugin
 }
 
 func (p *Provider) handlePutScalingPolicy(params map[string]any) (*plugin.Response, error) {
-	serviceARN := strParam(params, "serviceARN")
+	serviceARN := shared.StrParam(params, "serviceARN")
 	if serviceARN == "" {
-		serviceARN = strParam(params, "resourceId")
+		serviceARN = shared.StrParam(params, "resourceId")
 	}
-	policyName := strParam(params, "policyName")
-	dimension := strParam(params, "scalableDimension")
+	policyName := shared.StrParam(params, "policyName")
+	dimension := shared.StrParam(params, "scalableDimension")
 	if serviceARN == "" || policyName == "" || dimension == "" {
 		return ecsError("InvalidParameterException", "serviceARN, policyName, and scalableDimension are required", http.StatusBadRequest), nil
 	}
-	policyType := strParam(params, "policyType")
+	policyType := shared.StrParam(params, "policyType")
 	if policyType == "" {
 		policyType = "TargetTrackingScaling"
 	}
@@ -1120,11 +1109,11 @@ func (p *Provider) handlePutScalingPolicy(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) handleDeleteScalingPolicy(params map[string]any) (*plugin.Response, error) {
-	serviceARN := strParam(params, "serviceARN")
+	serviceARN := shared.StrParam(params, "serviceARN")
 	if serviceARN == "" {
-		serviceARN = strParam(params, "resourceId")
+		serviceARN = shared.StrParam(params, "resourceId")
 	}
-	policyName := strParam(params, "policyName")
+	policyName := shared.StrParam(params, "policyName")
 	if err := p.store.DeleteServiceScalingPolicy(defaultAccountID, serviceARN, policyName); err != nil {
 		return ecsError("ObjectNotFoundException", "scaling policy not found", http.StatusBadRequest), nil
 	}
@@ -1132,9 +1121,9 @@ func (p *Provider) handleDeleteScalingPolicy(params map[string]any) (*plugin.Res
 }
 
 func (p *Provider) handleDescribeScalingPolicies(params map[string]any) (*plugin.Response, error) {
-	serviceARN := strParam(params, "serviceARN")
+	serviceARN := shared.StrParam(params, "serviceARN")
 	if serviceARN == "" {
-		serviceARN = strParam(params, "resourceId")
+		serviceARN = shared.StrParam(params, "resourceId")
 	}
 	policies, err := p.store.ListServiceScalingPolicies(defaultAccountID, serviceARN)
 	if err != nil {
@@ -1150,7 +1139,7 @@ func (p *Provider) handleDescribeScalingPolicies(params map[string]any) (*plugin
 // --- Tags ---
 
 func (p *Provider) handleTagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "resourceArn")
+	arn := shared.StrParam(params, "resourceArn")
 	if arn == "" {
 		return ecsError("MissingParameter", "resourceArn is required", http.StatusBadRequest), nil
 	}
@@ -1174,7 +1163,7 @@ func (p *Provider) handleTagResource(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) handleUntagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "resourceArn")
+	arn := shared.StrParam(params, "resourceArn")
 	if arn == "" {
 		return ecsError("MissingParameter", "resourceArn is required", http.StatusBadRequest), nil
 	}
@@ -1186,7 +1175,7 @@ func (p *Provider) handleUntagResource(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) handleListTagsForResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "resourceArn")
+	arn := shared.StrParam(params, "resourceArn")
 	if arn == "" {
 		return ecsError("MissingParameter", "resourceArn is required", http.StatusBadRequest), nil
 	}
@@ -1204,8 +1193,8 @@ func (p *Provider) handleListTagsForResource(params map[string]any) (*plugin.Res
 // --- Account Settings ---
 
 func (p *Provider) handleListAccountSettings(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "name")
-	principal := strParam(params, "principalArn")
+	name := shared.StrParam(params, "name")
+	principal := shared.StrParam(params, "principalArn")
 	settings, err := p.store.ListAccountSettings(defaultAccountID, name, principal)
 	if err != nil {
 		return nil, err
@@ -1222,9 +1211,9 @@ func (p *Provider) handleListAccountSettings(params map[string]any) (*plugin.Res
 }
 
 func (p *Provider) handlePutAccountSetting(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "name")
-	value := strParam(params, "value")
-	principal := strParam(params, "principalArn")
+	name := shared.StrParam(params, "name")
+	value := shared.StrParam(params, "value")
+	principal := shared.StrParam(params, "principalArn")
 	if name == "" || value == "" {
 		return ecsError("MissingParameter", "name and value are required", http.StatusBadRequest), nil
 	}
@@ -1244,8 +1233,8 @@ func (p *Provider) handlePutAccountSettingDefault(params map[string]any) (*plugi
 }
 
 func (p *Provider) handleDeleteAccountSetting(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "name")
-	principal := strParam(params, "principalArn")
+	name := shared.StrParam(params, "name")
+	principal := shared.StrParam(params, "principalArn")
 	if err := p.store.DeleteAccountSetting(defaultAccountID, name, principal); err != nil {
 		return nil, err
 	}

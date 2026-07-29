@@ -13,6 +13,8 @@ import (
 	"strings"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
@@ -74,7 +76,7 @@ func (p *AccountProvider) HandleRequest(_ context.Context, op string, req *http.
 
 	// --- Alternate Contact ---
 	case "getalternatecontact":
-		contactType := strVal(bodyMap, "AlternateContactType")
+		contactType := shared.StrParam(bodyMap, "AlternateContactType")
 		if contactType == "" {
 			contactType = q.Get("AlternateContactType")
 		}
@@ -82,7 +84,7 @@ func (p *AccountProvider) HandleRequest(_ context.Context, op string, req *http.
 	case "putalternatecontact":
 		return p.putAlternateContact(bodyMap)
 	case "deletealternatecontact":
-		contactType := strVal(bodyMap, "AlternateContactType")
+		contactType := shared.StrParam(bodyMap, "AlternateContactType")
 		if contactType == "" {
 			contactType = q.Get("AlternateContactType")
 		}
@@ -92,7 +94,7 @@ func (p *AccountProvider) HandleRequest(_ context.Context, op string, req *http.
 	case "listregions":
 		return p.listRegions()
 	case "getregionoptstatus":
-		regionName := strVal(bodyMap, "RegionName")
+		regionName := shared.StrParam(bodyMap, "RegionName")
 		if regionName == "" {
 			regionName = q.Get("RegionName")
 		}
@@ -123,7 +125,7 @@ func (p *AccountProvider) HandleRequest(_ context.Context, op string, req *http.
 	case "alternatecontact":
 		switch method {
 		case http.MethodGet:
-			contactType := strVal(bodyMap, "AlternateContactType")
+			contactType := shared.StrParam(bodyMap, "AlternateContactType")
 			if contactType == "" {
 				contactType = q.Get("AlternateContactType")
 			}
@@ -131,7 +133,7 @@ func (p *AccountProvider) HandleRequest(_ context.Context, op string, req *http.
 		case http.MethodPut:
 			return p.putAlternateContact(bodyMap)
 		case http.MethodDelete:
-			contactType := strVal(bodyMap, "AlternateContactType")
+			contactType := shared.StrParam(bodyMap, "AlternateContactType")
 			if contactType == "" {
 				contactType = q.Get("AlternateContactType")
 			}
@@ -140,7 +142,7 @@ func (p *AccountProvider) HandleRequest(_ context.Context, op string, req *http.
 	case "regions":
 		return p.listRegions()
 	case "regionoptstatus":
-		regionName := strVal(bodyMap, "RegionName")
+		regionName := shared.StrParam(bodyMap, "RegionName")
 		if regionName == "" {
 			regionName = q.Get("RegionName")
 		}
@@ -162,7 +164,7 @@ func (p *AccountProvider) HandleRequest(_ context.Context, op string, req *http.
 	case "DeleteContactInformation":
 		return p.deleteContactInformation()
 	case "GetAlternateContact":
-		contactType := strVal(bodyMap, "AlternateContactType")
+		contactType := shared.StrParam(bodyMap, "AlternateContactType")
 		if contactType == "" {
 			contactType = q.Get("AlternateContactType")
 		}
@@ -170,7 +172,7 @@ func (p *AccountProvider) HandleRequest(_ context.Context, op string, req *http.
 	case "PutAlternateContact":
 		return p.putAlternateContact(bodyMap)
 	case "DeleteAlternateContact":
-		contactType := strVal(bodyMap, "AlternateContactType")
+		contactType := shared.StrParam(bodyMap, "AlternateContactType")
 		if contactType == "" {
 			contactType = q.Get("AlternateContactType")
 		}
@@ -178,7 +180,7 @@ func (p *AccountProvider) HandleRequest(_ context.Context, op string, req *http.
 	case "ListRegions":
 		return p.listRegions()
 	case "GetRegionOptStatus":
-		regionName := strVal(bodyMap, "RegionName")
+		regionName := shared.StrParam(bodyMap, "RegionName")
 		if regionName == "" {
 			regionName = q.Get("RegionName")
 		}
@@ -208,10 +210,6 @@ func (p *AccountProvider) ListResources(_ context.Context) ([]plugin.Resource, e
 	}, nil
 }
 
-func (p *AccountProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- helpers ---
 
 func jsonError(code, message string, status int) *plugin.Response {
@@ -233,15 +231,6 @@ func jsonResponse(status int, v any) (*plugin.Response, error) {
 		ContentType: "application/json",
 		Body:        body,
 	}, nil
-}
-
-func strVal(m map[string]any, key string) string {
-	if v, ok := m[key]; ok {
-		if s, ok := v.(string); ok {
-			return s
-		}
-	}
-	return ""
 }
 
 // --- Contact Information ---
@@ -271,24 +260,24 @@ func (p *AccountProvider) getContactInformation() (*plugin.Response, error) {
 func (p *AccountProvider) putContactInformation(body map[string]any) (*plugin.Response, error) {
 	ci := &ContactInfo{}
 	if contactRaw, ok := body["ContactInformation"].(map[string]any); ok {
-		ci.FullName = strVal(contactRaw, "FullName")
-		ci.CompanyName = strVal(contactRaw, "CompanyName")
-		ci.PhoneNumber = strVal(contactRaw, "PhoneNumber")
-		ci.AddressLine1 = strVal(contactRaw, "AddressLine1")
-		ci.City = strVal(contactRaw, "City")
-		ci.PostalCode = strVal(contactRaw, "PostalCode")
-		ci.CountryCode = strVal(contactRaw, "CountryCode")
-		ci.WebsiteURL = strVal(contactRaw, "WebsiteUrl")
+		ci.FullName = shared.StrParam(contactRaw, "FullName")
+		ci.CompanyName = shared.StrParam(contactRaw, "CompanyName")
+		ci.PhoneNumber = shared.StrParam(contactRaw, "PhoneNumber")
+		ci.AddressLine1 = shared.StrParam(contactRaw, "AddressLine1")
+		ci.City = shared.StrParam(contactRaw, "City")
+		ci.PostalCode = shared.StrParam(contactRaw, "PostalCode")
+		ci.CountryCode = shared.StrParam(contactRaw, "CountryCode")
+		ci.WebsiteURL = shared.StrParam(contactRaw, "WebsiteUrl")
 	} else {
 		// Flat body
-		ci.FullName = strVal(body, "FullName")
-		ci.CompanyName = strVal(body, "CompanyName")
-		ci.PhoneNumber = strVal(body, "PhoneNumber")
-		ci.AddressLine1 = strVal(body, "AddressLine1")
-		ci.City = strVal(body, "City")
-		ci.PostalCode = strVal(body, "PostalCode")
-		ci.CountryCode = strVal(body, "CountryCode")
-		ci.WebsiteURL = strVal(body, "WebsiteUrl")
+		ci.FullName = shared.StrParam(body, "FullName")
+		ci.CompanyName = shared.StrParam(body, "CompanyName")
+		ci.PhoneNumber = shared.StrParam(body, "PhoneNumber")
+		ci.AddressLine1 = shared.StrParam(body, "AddressLine1")
+		ci.City = shared.StrParam(body, "City")
+		ci.PostalCode = shared.StrParam(body, "PostalCode")
+		ci.CountryCode = shared.StrParam(body, "CountryCode")
+		ci.WebsiteURL = shared.StrParam(body, "WebsiteUrl")
 	}
 	if err := p.store.PutContactInfo(defaultAccountID, ci); err != nil {
 		return jsonError("InternalError", err.Error(), http.StatusInternalServerError), nil
@@ -327,17 +316,17 @@ func (p *AccountProvider) getAlternateContact(contactType string) (*plugin.Respo
 func (p *AccountProvider) putAlternateContact(body map[string]any) (*plugin.Response, error) {
 	c := &AlternateContact{}
 	if acRaw, ok := body["AlternateContact"].(map[string]any); ok {
-		c.ContactType = strVal(acRaw, "AlternateContactType")
-		c.Name = strVal(acRaw, "Name")
-		c.Title = strVal(acRaw, "Title")
-		c.Email = strVal(acRaw, "EmailAddress")
-		c.PhoneNumber = strVal(acRaw, "PhoneNumber")
+		c.ContactType = shared.StrParam(acRaw, "AlternateContactType")
+		c.Name = shared.StrParam(acRaw, "Name")
+		c.Title = shared.StrParam(acRaw, "Title")
+		c.Email = shared.StrParam(acRaw, "EmailAddress")
+		c.PhoneNumber = shared.StrParam(acRaw, "PhoneNumber")
 	} else {
-		c.ContactType = strVal(body, "AlternateContactType")
-		c.Name = strVal(body, "Name")
-		c.Title = strVal(body, "Title")
-		c.Email = strVal(body, "EmailAddress")
-		c.PhoneNumber = strVal(body, "PhoneNumber")
+		c.ContactType = shared.StrParam(body, "AlternateContactType")
+		c.Name = shared.StrParam(body, "Name")
+		c.Title = shared.StrParam(body, "Title")
+		c.Email = shared.StrParam(body, "EmailAddress")
+		c.PhoneNumber = shared.StrParam(body, "PhoneNumber")
 	}
 	if err := p.store.PutAlternateContact(defaultAccountID, c); err != nil {
 		return jsonError("InternalError", err.Error(), http.StatusInternalServerError), nil
@@ -384,7 +373,7 @@ func (p *AccountProvider) getRegionOptStatus(regionName string) (*plugin.Respons
 }
 
 func (p *AccountProvider) enableRegion(body map[string]any) (*plugin.Response, error) {
-	regionName := strVal(body, "RegionName")
+	regionName := shared.StrParam(body, "RegionName")
 	if err := p.store.SetRegionOptStatus(defaultAccountID, regionName, "ENABLED"); err != nil {
 		return jsonError("InternalError", err.Error(), http.StatusInternalServerError), nil
 	}
@@ -392,7 +381,7 @@ func (p *AccountProvider) enableRegion(body map[string]any) (*plugin.Response, e
 }
 
 func (p *AccountProvider) disableRegion(body map[string]any) (*plugin.Response, error) {
-	regionName := strVal(body, "RegionName")
+	regionName := shared.StrParam(body, "RegionName")
 	if err := p.store.SetRegionOptStatus(defaultAccountID, regionName, "DISABLED"); err != nil {
 		return jsonError("InternalError", err.Error(), http.StatusInternalServerError), nil
 	}
@@ -410,7 +399,7 @@ func (p *AccountProvider) getPrimaryEmail() (*plugin.Response, error) {
 }
 
 func (p *AccountProvider) startPrimaryEmailUpdate(body map[string]any) (*plugin.Response, error) {
-	pendingEmail := strVal(body, "PrimaryEmail")
+	pendingEmail := shared.StrParam(body, "PrimaryEmail")
 	if err := p.store.StartPrimaryEmailUpdate(defaultAccountID, pendingEmail); err != nil {
 		return jsonError("InternalError", err.Error(), http.StatusInternalServerError), nil
 	}

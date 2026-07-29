@@ -137,14 +137,14 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return shared.JSONResponse(http.StatusOK, map[string]any{})
 	case "GetCapacityReservation":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
-			"CapacityReservation": map[string]any{"Name": strParam(params, "Name"), "Status": "ACTIVE", "TargetDpus": 24},
+			"CapacityReservation": map[string]any{"Name": shared.StrParam(params, "Name"), "Status": "ACTIVE", "TargetDpus": 24},
 		})
 	case "ListCapacityReservations":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"CapacityReservations": []any{}})
 	case "GetCapacityAssignmentConfiguration":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
 			"CapacityAssignmentConfiguration": map[string]any{
-				"CapacityReservationName": strParam(params, "CapacityReservationName"),
+				"CapacityReservationName": shared.StrParam(params, "CapacityReservationName"),
 				"CapacityAssignments":     []any{},
 			},
 		})
@@ -153,7 +153,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "ExportNotebook":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"NotebookMetadata": map[string]any{}, "Payload": ""})
 	case "GetNotebookMetadata":
-		return shared.JSONResponse(http.StatusOK, map[string]any{"NotebookMetadata": map[string]any{"NotebookId": strParam(params, "NotebookId")}})
+		return shared.JSONResponse(http.StatusOK, map[string]any{"NotebookMetadata": map[string]any{"NotebookId": shared.StrParam(params, "NotebookId")}})
 	case "ListNotebookMetadata":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"NotebookMetadataList": []any{}})
 	case "CreatePresignedNotebookUrl":
@@ -163,9 +163,9 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "StartSession":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"SessionId": shared.GenerateUUID(), "State": "CREATING"})
 	case "GetSession":
-		return shared.JSONResponse(http.StatusOK, map[string]any{"SessionId": strParam(params, "SessionId"), "Status": map[string]any{"State": "IDLE"}})
+		return shared.JSONResponse(http.StatusOK, map[string]any{"SessionId": shared.StrParam(params, "SessionId"), "Status": map[string]any{"State": "IDLE"}})
 	case "GetSessionStatus":
-		return shared.JSONResponse(http.StatusOK, map[string]any{"SessionId": strParam(params, "SessionId"), "Status": map[string]any{"State": "IDLE"}})
+		return shared.JSONResponse(http.StatusOK, map[string]any{"SessionId": shared.StrParam(params, "SessionId"), "Status": map[string]any{"State": "IDLE"}})
 	case "GetSessionEndpoint":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"Endpoint": ""})
 	case "ListSessions":
@@ -177,7 +177,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "StopCalculationExecution":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"State": "CANCELING"})
 	case "GetCalculationExecution":
-		return shared.JSONResponse(http.StatusOK, map[string]any{"CalculationExecutionId": strParam(params, "CalculationExecutionId"), "Status": map[string]any{"State": "COMPLETED"}})
+		return shared.JSONResponse(http.StatusOK, map[string]any{"CalculationExecutionId": shared.StrParam(params, "CalculationExecutionId"), "Status": map[string]any{"State": "COMPLETED"}})
 	case "GetCalculationExecutionCode":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"CodeBlock": ""})
 	case "GetCalculationExecutionStatus":
@@ -188,13 +188,13 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return shared.JSONResponse(http.StatusOK, map[string]any{"Executors": []any{}})
 	case "GetDatabase":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
-			"Database": map[string]any{"Name": strParam(params, "Database"), "Description": ""},
+			"Database": map[string]any{"Name": shared.StrParam(params, "Database"), "Description": ""},
 		})
 	case "ListDatabases":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"DatabaseList": []any{}})
 	case "GetTableMetadata":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
-			"TableMetadata": map[string]any{"Name": strParam(params, "TableName"), "Columns": []any{}},
+			"TableMetadata": map[string]any{"Name": shared.StrParam(params, "TableName"), "Columns": []any{}},
 		})
 	case "ListTableMetadata":
 		return shared.JSONResponse(http.StatusOK, map[string]any{"TableMetadataList": []any{}})
@@ -224,18 +224,14 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // ---- WorkGroup handlers ----
 
 func (p *Provider) createWorkGroup(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidRequestException", "Name is required", http.StatusBadRequest), nil
 	}
-	description := strParam(params, "Description")
+	description := shared.StrParam(params, "Description")
 	configJSON := "{}"
 	if cfg, ok := params["Configuration"]; ok {
 		b, _ := json.Marshal(cfg)
@@ -257,7 +253,7 @@ func (p *Provider) createWorkGroup(params map[string]any) (*plugin.Response, err
 }
 
 func (p *Provider) getWorkGroup(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "WorkGroup")
+	name := shared.StrParam(params, "WorkGroup")
 	if name == "" {
 		return shared.JSONError("InvalidRequestException", "WorkGroup is required", http.StatusBadRequest), nil
 	}
@@ -288,7 +284,7 @@ func (p *Provider) listWorkGroups(_ map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) deleteWorkGroup(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "WorkGroup")
+	name := shared.StrParam(params, "WorkGroup")
 	if name == "" {
 		return shared.JSONError("InvalidRequestException", "WorkGroup is required", http.StatusBadRequest), nil
 	}
@@ -304,7 +300,7 @@ func (p *Provider) deleteWorkGroup(params map[string]any) (*plugin.Response, err
 }
 
 func (p *Provider) updateWorkGroup(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "WorkGroup")
+	name := shared.StrParam(params, "WorkGroup")
 	if name == "" {
 		return shared.JSONError("InvalidRequestException", "WorkGroup is required", http.StatusBadRequest), nil
 	}
@@ -312,11 +308,11 @@ func (p *Provider) updateWorkGroup(params map[string]any) (*plugin.Response, err
 	if err != nil {
 		return shared.JSONError("InvalidRequestException", "WorkGroup not found", http.StatusBadRequest), nil
 	}
-	description := strParam(params, "Description")
+	description := shared.StrParam(params, "Description")
 	if description == "" {
 		description = wg.Description
 	}
-	state := strParam(params, "State")
+	state := shared.StrParam(params, "State")
 	if state == "" {
 		state = wg.State
 	}
@@ -346,17 +342,17 @@ func workGroupToMap(wg *WorkGroup) map[string]any {
 // ---- NamedQuery handlers ----
 
 func (p *Provider) createNamedQuery(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
-	queryString := strParam(params, "QueryString")
+	name := shared.StrParam(params, "Name")
+	queryString := shared.StrParam(params, "QueryString")
 	if name == "" || queryString == "" {
 		return shared.JSONError("InvalidRequestException", "Name and QueryString are required", http.StatusBadRequest), nil
 	}
-	workgroup := strParam(params, "WorkGroup")
+	workgroup := shared.StrParam(params, "WorkGroup")
 	if workgroup == "" {
 		workgroup = "primary"
 	}
-	database := strParam(params, "Database")
-	description := strParam(params, "Description")
+	database := shared.StrParam(params, "Database")
+	description := shared.StrParam(params, "Description")
 	id := shared.GenerateUUID()
 	nq, err := p.store.CreateNamedQuery(id, name, workgroup, database, queryString, description)
 	if err != nil {
@@ -366,7 +362,7 @@ func (p *Provider) createNamedQuery(params map[string]any) (*plugin.Response, er
 }
 
 func (p *Provider) getNamedQuery(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "NamedQueryId")
+	id := shared.StrParam(params, "NamedQueryId")
 	if id == "" {
 		return shared.JSONError("InvalidRequestException", "NamedQueryId is required", http.StatusBadRequest), nil
 	}
@@ -380,7 +376,7 @@ func (p *Provider) getNamedQuery(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) listNamedQueries(params map[string]any) (*plugin.Response, error) {
-	workgroup := strParam(params, "WorkGroup")
+	workgroup := shared.StrParam(params, "WorkGroup")
 	queries, err := p.store.ListNamedQueries(workgroup)
 	if err != nil {
 		return nil, err
@@ -393,7 +389,7 @@ func (p *Provider) listNamedQueries(params map[string]any) (*plugin.Response, er
 }
 
 func (p *Provider) deleteNamedQuery(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "NamedQueryId")
+	id := shared.StrParam(params, "NamedQueryId")
 	if id == "" {
 		return shared.JSONError("InvalidRequestException", "NamedQueryId is required", http.StatusBadRequest), nil
 	}
@@ -436,11 +432,11 @@ func namedQueryToMap(nq *NamedQuery) map[string]any {
 // ---- QueryExecution handlers ----
 
 func (p *Provider) startQueryExecution(params map[string]any) (*plugin.Response, error) {
-	query := strParam(params, "QueryString")
+	query := shared.StrParam(params, "QueryString")
 	if query == "" {
 		return shared.JSONError("InvalidRequestException", "QueryString is required", http.StatusBadRequest), nil
 	}
-	workgroup := strParam(params, "WorkGroup")
+	workgroup := shared.StrParam(params, "WorkGroup")
 	if workgroup == "" {
 		workgroup = "primary"
 	}
@@ -457,7 +453,7 @@ func (p *Provider) startQueryExecution(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) getQueryExecution(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "QueryExecutionId")
+	id := shared.StrParam(params, "QueryExecutionId")
 	if id == "" {
 		return shared.JSONError("InvalidRequestException", "QueryExecutionId is required", http.StatusBadRequest), nil
 	}
@@ -471,7 +467,7 @@ func (p *Provider) getQueryExecution(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) getQueryResults(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "QueryExecutionId")
+	id := shared.StrParam(params, "QueryExecutionId")
 	if id == "" {
 		return shared.JSONError("InvalidRequestException", "QueryExecutionId is required", http.StatusBadRequest), nil
 	}
@@ -492,7 +488,7 @@ func (p *Provider) getQueryResults(params map[string]any) (*plugin.Response, err
 }
 
 func (p *Provider) listQueryExecutions(params map[string]any) (*plugin.Response, error) {
-	workgroup := strParam(params, "WorkGroup")
+	workgroup := shared.StrParam(params, "WorkGroup")
 	execs, err := p.store.ListQueryExecutions(workgroup)
 	if err != nil {
 		return nil, err
@@ -505,7 +501,7 @@ func (p *Provider) listQueryExecutions(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) stopQueryExecution(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "QueryExecutionId")
+	id := shared.StrParam(params, "QueryExecutionId")
 	if id == "" {
 		return shared.JSONError("InvalidRequestException", "QueryExecutionId is required", http.StatusBadRequest), nil
 	}
@@ -535,7 +531,7 @@ func (p *Provider) batchGetQueryExecution(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) getQueryRuntimeStatistics(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "QueryExecutionId")
+	id := shared.StrParam(params, "QueryExecutionId")
 	if id == "" {
 		return shared.JSONError("InvalidRequestException", "QueryExecutionId is required", http.StatusBadRequest), nil
 	}
@@ -577,15 +573,15 @@ func queryExecutionToMap(qe *QueryExecution) map[string]any {
 // ---- DataCatalog handlers ----
 
 func (p *Provider) createDataCatalog(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidRequestException", "Name is required", http.StatusBadRequest), nil
 	}
-	catalogType := strParam(params, "Type")
+	catalogType := shared.StrParam(params, "Type")
 	if catalogType == "" {
 		catalogType = "HIVE"
 	}
-	description := strParam(params, "Description")
+	description := shared.StrParam(params, "Description")
 	parametersJSON := "{}"
 	if p2, ok := params["Parameters"]; ok {
 		b, _ := json.Marshal(p2)
@@ -602,7 +598,7 @@ func (p *Provider) createDataCatalog(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) getDataCatalog(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidRequestException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -631,7 +627,7 @@ func (p *Provider) listDataCatalogs(_ map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) updateDataCatalog(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidRequestException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -639,7 +635,7 @@ func (p *Provider) updateDataCatalog(params map[string]any) (*plugin.Response, e
 	if err != nil {
 		return shared.JSONError("InvalidRequestException", "DataCatalog not found", http.StatusBadRequest), nil
 	}
-	description := strParam(params, "Description")
+	description := shared.StrParam(params, "Description")
 	if description == "" {
 		description = dc.Description
 	}
@@ -655,7 +651,7 @@ func (p *Provider) updateDataCatalog(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) deleteDataCatalog(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("InvalidRequestException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -679,13 +675,13 @@ func dataCatalogToMap(dc *DataCatalog) map[string]any {
 // ---- PreparedStatement handlers ----
 
 func (p *Provider) createPreparedStatement(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "StatementName")
-	workgroup := strParam(params, "WorkGroup")
-	queryStatement := strParam(params, "QueryStatement")
+	name := shared.StrParam(params, "StatementName")
+	workgroup := shared.StrParam(params, "WorkGroup")
+	queryStatement := shared.StrParam(params, "QueryStatement")
 	if name == "" || workgroup == "" || queryStatement == "" {
 		return shared.JSONError("InvalidRequestException", "StatementName, WorkGroup, and QueryStatement are required", http.StatusBadRequest), nil
 	}
-	description := strParam(params, "Description")
+	description := shared.StrParam(params, "Description")
 	if _, err := p.store.CreatePreparedStatement(name, workgroup, queryStatement, description); err != nil {
 		if sqliteIsUnique(err) {
 			return shared.JSONError("InvalidRequestException", "PreparedStatement already exists", http.StatusBadRequest), nil
@@ -696,8 +692,8 @@ func (p *Provider) createPreparedStatement(params map[string]any) (*plugin.Respo
 }
 
 func (p *Provider) getPreparedStatement(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "StatementName")
-	workgroup := strParam(params, "WorkGroup")
+	name := shared.StrParam(params, "StatementName")
+	workgroup := shared.StrParam(params, "WorkGroup")
 	if name == "" || workgroup == "" {
 		return shared.JSONError("InvalidRequestException", "StatementName and WorkGroup are required", http.StatusBadRequest), nil
 	}
@@ -711,7 +707,7 @@ func (p *Provider) getPreparedStatement(params map[string]any) (*plugin.Response
 }
 
 func (p *Provider) listPreparedStatements(params map[string]any) (*plugin.Response, error) {
-	workgroup := strParam(params, "WorkGroup")
+	workgroup := shared.StrParam(params, "WorkGroup")
 	if workgroup == "" {
 		return shared.JSONError("InvalidRequestException", "WorkGroup is required", http.StatusBadRequest), nil
 	}
@@ -730,13 +726,13 @@ func (p *Provider) listPreparedStatements(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) updatePreparedStatement(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "StatementName")
-	workgroup := strParam(params, "WorkGroup")
-	queryStatement := strParam(params, "QueryStatement")
+	name := shared.StrParam(params, "StatementName")
+	workgroup := shared.StrParam(params, "WorkGroup")
+	queryStatement := shared.StrParam(params, "QueryStatement")
 	if name == "" || workgroup == "" || queryStatement == "" {
 		return shared.JSONError("InvalidRequestException", "StatementName, WorkGroup, and QueryStatement are required", http.StatusBadRequest), nil
 	}
-	description := strParam(params, "Description")
+	description := shared.StrParam(params, "Description")
 	if err := p.store.UpdatePreparedStatement(name, workgroup, queryStatement, description); err != nil {
 		return shared.JSONError("InvalidRequestException", "PreparedStatement not found", http.StatusBadRequest), nil
 	}
@@ -744,8 +740,8 @@ func (p *Provider) updatePreparedStatement(params map[string]any) (*plugin.Respo
 }
 
 func (p *Provider) deletePreparedStatement(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "StatementName")
-	workgroup := strParam(params, "WorkGroup")
+	name := shared.StrParam(params, "StatementName")
+	workgroup := shared.StrParam(params, "WorkGroup")
 	if name == "" || workgroup == "" {
 		return shared.JSONError("InvalidRequestException", "StatementName and WorkGroup are required", http.StatusBadRequest), nil
 	}
@@ -756,7 +752,7 @@ func (p *Provider) deletePreparedStatement(params map[string]any) (*plugin.Respo
 }
 
 func (p *Provider) batchGetPreparedStatement(params map[string]any) (*plugin.Response, error) {
-	workgroup := strParam(params, "WorkGroup")
+	workgroup := shared.StrParam(params, "WorkGroup")
 	rawNames, _ := params["PreparedStatementNames"].([]any)
 	var found []map[string]any
 	var unprocessed []map[string]any
@@ -788,7 +784,7 @@ func preparedStatementToMap(ps *PreparedStatement) map[string]any {
 // ---- Tag handlers ----
 
 func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceARN")
+	arn := shared.StrParam(params, "ResourceARN")
 	if arn == "" {
 		return shared.JSONError("InvalidRequestException", "ResourceARN is required", http.StatusBadRequest), nil
 	}
@@ -800,7 +796,7 @@ func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceARN")
+	arn := shared.StrParam(params, "ResourceARN")
 	if arn == "" {
 		return shared.JSONError("InvalidRequestException", "ResourceARN is required", http.StatusBadRequest), nil
 	}
@@ -818,7 +814,7 @@ func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceARN")
+	arn := shared.StrParam(params, "ResourceARN")
 	if arn == "" {
 		return shared.JSONError("InvalidRequestException", "ResourceARN is required", http.StatusBadRequest), nil
 	}
@@ -834,11 +830,6 @@ func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response,
 }
 
 // ---- helpers ----
-
-func strParam(params map[string]any, key string) string {
-	v, _ := params[key].(string)
-	return v
-}
 
 func parseTags(rawTags []any) map[string]string {
 	tags := make(map[string]string)

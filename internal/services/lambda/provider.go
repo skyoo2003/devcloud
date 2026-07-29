@@ -17,11 +17,13 @@ import (
 	"strings"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const (
 	defaultAccountID = plugin.DefaultAccountID
-	defaultRegion    = "us-east-1"
+	defaultRegion    = shared.DefaultRegion
 	lambdaAPIPrefix  = "/2015-03-31/functions"
 	lambdaTagsPrefix = "/2017-03-31/tags/"
 	lambdaESMPrefix  = "/2015-03-31/event-source-mappings"
@@ -243,15 +245,6 @@ func (p *LambdaProvider) ListResources(_ context.Context) ([]plugin.Resource, er
 		})
 	}
 	return resources, nil
-}
-
-// GetMetrics returns basic metrics for the Lambda service.
-func (p *LambdaProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	functions, err := p.store.ListFunctions(defaultAccountID)
-	if err != nil {
-		return nil, err
-	}
-	return &plugin.ServiceMetrics{ResourceCount: len(functions)}, nil
 }
 
 // --- operation implementations ---

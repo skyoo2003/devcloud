@@ -153,10 +153,6 @@ func (p *CloudControlProvider) ListResources(_ context.Context) ([]plugin.Resour
 	return []plugin.Resource{}, nil
 }
 
-func (p *CloudControlProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- Operations ---
 
 func (p *CloudControlProvider) createResource(params map[string]any) (*plugin.Response, error) {

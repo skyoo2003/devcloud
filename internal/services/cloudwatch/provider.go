@@ -119,10 +119,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return resources, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // putMetricData parses MetricData.member.N.* form fields.
 func (p *Provider) putMetricData(jm bool, req *http.Request) (*plugin.Response, error) {
 	namespace := req.FormValue("Namespace")

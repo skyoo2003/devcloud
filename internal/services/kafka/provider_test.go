@@ -300,3 +300,32 @@ func TestGetBootstrapBrokers(t *testing.T) {
 	resp2 := callOP(t, p, "GET", "/v1/clusters/nonexistent/bootstrap-brokers", "GetBootstrapBrokers", "")
 	assert.Equal(t, 404, resp2.StatusCode)
 }
+
+func TestMapKeys_RoundTrip(t *testing.T) {
+	in := map[string]any{
+		"ClusterArn": "arn",
+		"ARN":        "x",
+		"ARNPrefix":  "y",
+		"BrokerNodeGroupInfo": map[string]any{
+			"ClientSubnets": []any{"a", "b"},
+		},
+		"ClusterInfoList": []any{
+			map[string]any{"ClusterName": "c1"},
+		},
+	}
+
+	camel, ok := mapKeys(in, toCamelCase).(map[string]any)
+	require.True(t, ok)
+	assert.Equal(t, "arn", camel["clusterArn"])
+	assert.Equal(t, "x", camel["arn"])
+	assert.Equal(t, "y", camel["arnPrefix"])
+	assert.Contains(t, camel["brokerNodeGroupInfo"], "clientSubnets")
+	assert.Equal(t, "c1", camel["clusterInfoList"].([]any)[0].(map[string]any)["clusterName"])
+
+	// PascalCase only touches the first rune, so it is the inverse for keys that
+	// start with a single uppercase letter.
+	back, ok := mapKeys(camel, toPascalCase).(map[string]any)
+	require.True(t, ok)
+	assert.Equal(t, "arn", back["ClusterArn"])
+	assert.Equal(t, "c1", back["ClusterInfoList"].([]any)[0].(map[string]any)["ClusterName"])
+}

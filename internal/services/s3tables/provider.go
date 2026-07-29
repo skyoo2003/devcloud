@@ -149,10 +149,6 @@ func (p *S3TablesProvider) ListResources(_ context.Context) ([]plugin.Resource, 
 	return res, nil
 }
 
-func (p *S3TablesProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- Bucket operations ---
 
 func (p *S3TablesProvider) createTableBucket(params map[string]any) (*plugin.Response, error) {

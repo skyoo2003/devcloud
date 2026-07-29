@@ -249,11 +249,6 @@ func (p *S3Provider) ListResources(ctx context.Context) ([]plugin.Resource, erro
 	return resources, nil
 }
 
-// GetMetrics returns empty metrics.
-func (p *S3Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- XML response structs ---
 
 type listAllMyBucketsResult struct {

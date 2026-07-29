@@ -19,10 +19,12 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
-const defaultRegion = "us-east-1"
+const defaultRegion = shared.DefaultRegion
 
 // Provider implements the ACMPrivateCA service using JSON 1.1 protocol.
 type Provider struct {
@@ -118,10 +120,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 		out = append(out, plugin.Resource{Type: "certificate-authority", ID: ca.ARN, Name: ca.ARN})
 	}
 	return out, nil
-}
-
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
 }
 
 // --- helpers ---

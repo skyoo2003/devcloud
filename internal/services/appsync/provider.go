@@ -439,10 +439,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- GraphqlApi CRUD ---
 
 func (p *Provider) createGraphqlApi(params map[string]any) (*plugin.Response, error) {
@@ -544,7 +540,7 @@ func (p *Provider) createDataSource(apiID string, params map[string]any) (*plugi
 		ARN:         arn,
 		Type:        strParamDefault(params, "type", "NONE"),
 		Config:      "{}",
-		ServiceRole: strParam(params, "serviceRoleArn"),
+		ServiceRole: shared.StrParam(params, "serviceRoleArn"),
 	}
 	if err := p.store.CreateDataSource(ds); err != nil {
 		if isUniqueErr(err) {
@@ -616,9 +612,9 @@ func (p *Provider) createResolver(apiID, typeName string, params map[string]any)
 		TypeName:         typeName,
 		FieldName:        fieldName,
 		ARN:              arn,
-		DataSource:       strParam(params, "dataSourceName"),
-		RequestTemplate:  strParam(params, "requestMappingTemplate"),
-		ResponseTemplate: strParam(params, "responseMappingTemplate"),
+		DataSource:       shared.StrParam(params, "dataSourceName"),
+		RequestTemplate:  shared.StrParam(params, "requestMappingTemplate"),
+		ResponseTemplate: shared.StrParam(params, "responseMappingTemplate"),
 		Kind:             strParamDefault(params, "kind", "UNIT"),
 	}
 	if err := p.store.CreateResolver(r); err != nil {
@@ -704,9 +700,9 @@ func (p *Provider) createFunction(apiID string, params map[string]any) (*plugin.
 		ID:               id,
 		ARN:              arn,
 		Name:             name,
-		DataSource:       strParam(params, "dataSourceName"),
-		RequestTemplate:  strParam(params, "requestMappingTemplate"),
-		ResponseTemplate: strParam(params, "responseMappingTemplate"),
+		DataSource:       shared.StrParam(params, "dataSourceName"),
+		RequestTemplate:  shared.StrParam(params, "requestMappingTemplate"),
+		ResponseTemplate: shared.StrParam(params, "responseMappingTemplate"),
 	}
 	if err := p.store.CreateFunction(f); err != nil {
 		return nil, err
@@ -774,7 +770,7 @@ func (p *Provider) createApiKey(apiID string, params map[string]any) (*plugin.Re
 		ApiID:       apiID,
 		ID:          id,
 		Expires:     expires,
-		Description: strParam(params, "description"),
+		Description: shared.StrParam(params, "description"),
 	}
 	if err := p.store.CreateApiKey(k); err != nil {
 		return nil, err
@@ -1024,11 +1020,6 @@ func extractTagARN(path string) string {
 		return ""
 	}
 	return path[idx+len("/tags/"):]
-}
-
-func strParam(params map[string]any, key string) string {
-	v, _ := params[key].(string)
-	return v
 }
 
 func strParamDefault(params map[string]any, key, def string) string {

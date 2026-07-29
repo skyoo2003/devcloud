@@ -210,10 +210,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- Destination operations ---
 
 func (p *Provider) createDestination(params map[string]any) (*plugin.Response, error) {
@@ -225,10 +221,10 @@ func (p *Provider) createDestination(params map[string]any) (*plugin.Response, e
 	d := &Destination{
 		Name:           name,
 		ARN:            arn,
-		Expression:     strParam(params, "Expression"),
+		Expression:     shared.StrParam(params, "Expression"),
 		ExpressionType: strParamDefault(params, "ExpressionType", "RuleName"),
-		RoleARN:        strParam(params, "RoleArn"),
-		Description:    strParam(params, "Description"),
+		RoleARN:        shared.StrParam(params, "RoleArn"),
+		Description:    shared.StrParam(params, "Description"),
 	}
 	if err := p.store.CreateDestination(d); err != nil {
 		if isUniqueErr(err) {
@@ -302,7 +298,7 @@ func (p *Provider) createDeviceProfile(params map[string]any) (*plugin.Response,
 	dp := &DeviceProfile{
 		ID:     id,
 		ARN:    arn,
-		Name:   strParam(params, "Name"),
+		Name:   shared.StrParam(params, "Name"),
 		Config: configJSON,
 	}
 	if err := p.store.CreateDeviceProfile(dp); err != nil {
@@ -363,7 +359,7 @@ func (p *Provider) createServiceProfile(params map[string]any) (*plugin.Response
 	sp := &ServiceProfile{
 		ID:     id,
 		ARN:    arn,
-		Name:   strParam(params, "Name"),
+		Name:   shared.StrParam(params, "Name"),
 		Config: configJSON,
 	}
 	if err := p.store.CreateServiceProfile(sp); err != nil {
@@ -424,10 +420,10 @@ func (p *Provider) createWirelessDevice(params map[string]any) (*plugin.Response
 	wd := &WirelessDevice{
 		ID:          id,
 		ARN:         arn,
-		Name:        strParam(params, "Name"),
+		Name:        shared.StrParam(params, "Name"),
 		Type:        strParamDefault(params, "Type", "LoRaWAN"),
-		Destination: strParam(params, "DestinationName"),
-		Description: strParam(params, "Description"),
+		Destination: shared.StrParam(params, "DestinationName"),
+		Description: shared.StrParam(params, "Description"),
 		Config:      configJSON,
 	}
 	if err := p.store.CreateWirelessDevice(wd); err != nil {
@@ -504,8 +500,8 @@ func (p *Provider) createWirelessGateway(params map[string]any) (*plugin.Respons
 	wg := &WirelessGateway{
 		ID:          id,
 		ARN:         arn,
-		Name:        strParam(params, "Name"),
-		Description: strParam(params, "Description"),
+		Name:        shared.StrParam(params, "Name"),
+		Description: shared.StrParam(params, "Description"),
 		Config:      configJSON,
 	}
 	if err := p.store.CreateWirelessGateway(wg); err != nil {
@@ -580,7 +576,7 @@ func (p *Provider) createFuotaTask(params map[string]any) (*plugin.Response, err
 	ft := &FuotaTask{
 		ID:     id,
 		ARN:    arn,
-		Name:   strParam(params, "Name"),
+		Name:   shared.StrParam(params, "Name"),
 		Status: "Pending",
 		Config: configJSON,
 	}
@@ -667,7 +663,7 @@ func (p *Provider) createMulticastGroup(params map[string]any) (*plugin.Response
 	mg := &MulticastGroup{
 		ID:     id,
 		ARN:    arn,
-		Name:   strParam(params, "Name"),
+		Name:   shared.StrParam(params, "Name"),
 		Status: "Active",
 		Config: configJSON,
 	}
@@ -1000,11 +996,6 @@ func extractPathParam(path, segment string) string {
 		}
 	}
 	return ""
-}
-
-func strParam(params map[string]any, key string) string {
-	v, _ := params[key].(string)
-	return v
 }
 
 func strParamDefault(params map[string]any, key, def string) string {
