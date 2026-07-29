@@ -4,7 +4,7 @@ package config
 
 import (
 	_ "embed"
-	"log/slog"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -14,16 +14,19 @@ import (
 )
 
 // defaultConfigYAML is the built-in configuration used when no YAML file is
-// provided. It enables all services with standard data directories so DevCloud
-// runs out of the box with zero setup.
+// provided. It carries no services block, which means "every registered
+// service, enabled, under ./data/<id>" — see Config.Service.
 //
 //go:embed default.yaml
 var defaultConfigYAML []byte
 
+// defaultDataDir is the base directory services store data under when neither
+// the YAML nor DEVCLOUD_DATA_DIR names one.
+const defaultDataDir = "./data"
+
 type Config struct {
 	Server   ServerConfig             `yaml:"server"`
 	Services map[string]ServiceConfig `yaml:"services"`
-	Auth     AuthConfig               `yaml:"auth"`
 	Admin    *AdminConfig             `yaml:"admin"`
 	Logging  LoggingConfig            `yaml:"logging"`
 
@@ -32,6 +35,11 @@ type Config struct {
 	// Both Admin and Dashboard are pointers so parse can tell an explicit
 	// block from an absent one and apply the correct precedence.
 	Dashboard *AdminConfig `yaml:"dashboard"`
+
+	// allowed is the DEVCLOUD_SERVICES filter; nil means no filtering.
+	allowed map[string]bool
+	// baseDir is the DEVCLOUD_DATA_DIR override; "" means honour data_dir.
+	baseDir string
 }
 
 type ServerConfig struct {
@@ -43,10 +51,6 @@ type ServiceConfig struct {
 	DataDir string `yaml:"data_dir"`
 }
 
-type AuthConfig struct {
-	Enabled bool `yaml:"enabled"`
-}
-
 type AdminConfig struct {
 	Enabled bool `yaml:"enabled"`
 }
@@ -56,12 +60,41 @@ type LoggingConfig struct {
 	Format string `yaml:"format"`
 }
 
-// Load reads and parses a YAML config file from the given path.
-// Returns an error if the file cannot be read or parsed.
-func Load(path string) (*Config, error) {
+// Service returns the effective configuration for serviceID.
+//
+// A YAML services block is authoritative: only the services it lists can run.
+// When there is no block (the embedded default), every service is enabled with
+// data_dir <base>/<id>. DEVCLOUD_SERVICES and DEVCLOUD_DATA_DIR are applied
+// here so both paths agree.
+func (c *Config) Service(serviceID string) ServiceConfig {
+	if c.allowed != nil && !c.allowed[serviceID] {
+		return ServiceConfig{}
+	}
+	svc, listed := c.Services[serviceID]
+	if !listed {
+		if len(c.Services) > 0 {
+			return ServiceConfig{}
+		}
+		svc = ServiceConfig{Enabled: true}
+	}
+	if c.baseDir == "" && svc.DataDir != "" {
+		return svc
+	}
+	base := c.baseDir
+	if base == "" {
+		base = defaultDataDir
+	}
+	svc.DataDir = filepath.Join(base, serviceID)
+	return svc
+}
+
+// Load reads and parses a YAML config file from the given path. It returns any
+// configuration warnings alongside the config so the caller can log them
+// through the operator-configured handler (see Logging).
+func Load(path string) (*Config, []string, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	return parse(data)
 }
@@ -70,23 +103,24 @@ func Load(path string) (*Config, error) {
 // missing, it returns the embedded default configuration instead. Any other
 // read or parse error is returned as-is. This is the recommended entry point
 // for CLI usage so the server runs with zero setup.
-func LoadOrDefault(fallbackPath string) (*Config, error) {
+func LoadOrDefault(fallbackPath string) (*Config, []string, error) {
 	if fallbackPath != "" {
 		if _, err := os.Stat(fallbackPath); err == nil {
 			return Load(fallbackPath)
 		} else if !os.IsNotExist(err) {
-			return nil, err
+			return nil, nil, err
 		}
-		slog.Info("config file not found, using embedded defaults", "tried", fallbackPath)
 	}
 	return parse(defaultConfigYAML)
 }
 
-func parse(data []byte) (*Config, error) {
+func parse(data []byte) (*Config, []string, error) {
 	cfg := &Config{}
 	if err := yaml.Unmarshal(data, cfg); err != nil {
-		return nil, err
+		return nil, nil, err
 	}
+
+	var warnings []string
 
 	// Back-compat: 'dashboard' was renamed to 'admin'. Honour the old key for
 	// one release so existing configs don't silently lose the admin API. An
@@ -94,7 +128,8 @@ func parse(data []byte) (*Config, error) {
 	// no 'admin' block is present (so an explicit admin.enabled: false is not
 	// overridden by a leftover dashboard.enabled: true).
 	if cfg.Dashboard != nil {
-		slog.Warn("config: 'dashboard' key is deprecated and will be removed; rename it to 'admin'")
+		warnings = append(warnings,
+			"config: 'dashboard' key is deprecated and will be removed; rename it to 'admin'")
 		if cfg.Admin == nil {
 			cfg.Admin = cfg.Dashboard
 		}
@@ -108,8 +143,7 @@ func parse(data []byte) (*Config, error) {
 		cfg.Server.Port = 4747
 	}
 
-	applyEnvOverrides(cfg)
-	return cfg, nil
+	return cfg, append(warnings, applyEnvOverrides(cfg)...), nil
 }
 
 var serviceTiers = map[string][]string{
@@ -130,10 +164,14 @@ var serviceTiers = map[string][]string{
 	},
 }
 
-func expandTiers(value string) map[string]bool {
+// expandTiers resolves a DEVCLOUD_SERVICES value into the set of allowed
+// service names, returning nil for "all" (no filtering). Tokens that look like
+// a mistyped tier shortcut are reported as warnings.
+func expandTiers(value string) (map[string]bool, []string) {
 	if value == "all" {
-		return nil
+		return nil, nil
 	}
+	var warnings []string
 	allowed := make(map[string]bool)
 	for _, token := range strings.Split(value, ",") {
 		token = strings.TrimSpace(token)
@@ -150,41 +188,25 @@ func expandTiers(value string) map[string]bool {
 		// name. If it looks like it was *meant* to be a tier ("tierXXX"),
 		// warn the operator so a typo surfaces in logs.
 		if token != "all" && strings.HasPrefix(token, "tier") {
-			slog.Warn("DEVCLOUD_SERVICES: unknown tier shortcut; treating as literal service name",
-				"token", token)
+			warnings = append(warnings, fmt.Sprintf(
+				"DEVCLOUD_SERVICES: unknown tier shortcut %q; treating as a literal service name", token))
 		}
 		allowed[token] = true
 	}
-	return allowed
+	return allowed, warnings
 }
 
-func applyEnvOverrides(cfg *Config) {
+func applyEnvOverrides(cfg *Config) []string {
 	if p := os.Getenv("DEVCLOUD_PORT"); p != "" {
 		if v, err := strconv.Atoi(p); err == nil {
 			cfg.Server.Port = v
 		}
 	}
 
+	var warnings []string
 	if envServices := os.Getenv("DEVCLOUD_SERVICES"); envServices != "" {
-		allowed := expandTiers(envServices)
-		if allowed == nil {
-			return
-		}
-		for name, svc := range cfg.Services {
-			if !allowed[name] {
-				svc.Enabled = false
-				cfg.Services[name] = svc
-			}
-		}
+		cfg.allowed, warnings = expandTiers(envServices)
 	}
-
-	// DEVCLOUD_DATA_DIR overrides the base data directory for all services.
-	// Each service's data_dir is rewritten to <base>/<service_name> using
-	// the host's path separator.
-	if baseDir := os.Getenv("DEVCLOUD_DATA_DIR"); baseDir != "" {
-		for name, svc := range cfg.Services {
-			svc.DataDir = filepath.Join(baseDir, name)
-			cfg.Services[name] = svc
-		}
-	}
+	cfg.baseDir = os.Getenv("DEVCLOUD_DATA_DIR")
+	return warnings
 }
