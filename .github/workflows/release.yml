@@ -16,6 +16,12 @@ on:
         type: boolean
         default: true
 
+# Single source of truth for the Homebrew tap location: the token-minting step
+# scopes itself to it, and .goreleaser.yaml reads both from the environment.
+env:
+  HOMEBREW_TAP_OWNER: ${{ github.repository_owner }}
+  HOMEBREW_TAP_REPO: homebrew-tap
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -57,7 +63,7 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    # Short-lived token scoped to skyoo2003/homebrew-tap only, for the brews
+    # Short-lived token scoped to the tap repository only, for the brews
     # section. Skipped on a dry run, where GoReleaser never publishes it.
     - name: Mint a Homebrew tap token
       id: tap_token
@@ -66,8 +72,8 @@ jobs:
       with:
         app-id: ${{ secrets.TAP_APP_ID }}
         private-key: ${{ secrets.TAP_APP_PRIVATE_KEY }}
-        owner: skyoo2003
-        repositories: homebrew-tap
+        owner: ${{ env.HOMEBREW_TAP_OWNER }}
+        repositories: ${{ env.HOMEBREW_TAP_REPO }}
     - name: Execute GoReleaser
       uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94  # goreleaser-action v7
       with:
@@ -76,7 +82,10 @@ jobs:
         args: release --clean ${{ steps.resolve_tag.outputs.extra_flags }} --release-notes changes/${{ steps.resolve_tag.outputs.tag }}.md
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        HOMEBREW_TAP_TOKEN: ${{ steps.tap_token.outputs.token }}
+        # Always defined: {{ .Env.HOMEBREW_TAP_TOKEN }} fails to render if the
+        # variable is missing. On a dry run the minting step is skipped, and the
+        # placeholder is never used because --snapshot publishes nothing.
+        HOMEBREW_TAP_TOKEN: ${{ steps.tap_token.outputs.token || 'dry-run' }}
     - name: Upload assets
       if: ${{ github.event.inputs.dry_run != 'true' }}
       uses: actions/upload-artifact@v7

@@ -40,17 +40,18 @@ checksum:
   algorithm: sha256
   name_template: 'CHECKSUMS'
 
-# Publishes Formula/devcloud.rb to skyoo2003/homebrew-tap. The token comes from
+# Publishes Formula/devcloud.rb to the tap repo named by HOMEBREW_TAP_OWNER and
+# HOMEBREW_TAP_REPO (set in .github/workflows/release.yml). The token comes from
 # a GitHub App installed only on that repository: the job's own GITHUB_TOKEN
 # cannot write to another repo.
 brews:
 - ids:
   - devcloud
   repository:
-    owner: skyoo2003
-    name: homebrew-tap
+    owner: "{{ .Env.HOMEBREW_TAP_OWNER }}"
+    name: "{{ .Env.HOMEBREW_TAP_REPO }}"
     token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
-  homepage: "https://github.com/skyoo2003/devcloud"
+  homepage: "https://github.com/{{ .Env.GITHUB_REPOSITORY_OWNER }}/{{ .ProjectName }}"
   description: "Local development companion for cloud-native apps"
   license: "Apache-2.0"
   install: |
