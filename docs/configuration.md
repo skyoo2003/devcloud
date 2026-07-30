@@ -1,6 +1,6 @@
 # Configuration
 
-**Configuration is optional.** DevCloud ships with built-in defaults: running `devcloud` with no flags enables all 101 services on port 4747, storing data under `./data/<service>/`. The embedded defaults are compiled into the binary from [`internal/config/default.yaml`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/default.yaml).
+**Configuration is optional.** DevCloud ships with built-in defaults: running `devcloud` with no flags enables every registered service on port 4747, storing data under `./data/<service>/` (run `make stats` for the current service count). The embedded defaults are compiled into the binary from [`internal/config/default.yaml`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/default.yaml).
 
 To override defaults, provide a YAML file. DevCloud looks for config in this order:
 
@@ -26,12 +26,14 @@ Environment variables override YAML values for selected keys (see [Environment V
 
 ### Services
 
-Each service has the following options:
+The `services` block is **optional and authoritative**: omit it (as the embedded
+default does) and every registered service starts with `data_dir
+./data/<service>`; list any service and *only* the services you list start.
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `services.<name>.enabled` | `true` | Enable or disable the service |
-| `services.<name>.data_dir` | varies | Data directory for persistent storage |
+| `services.<name>.enabled` | `false` | Enable the service. **Required per entry** — listing a service is not enough, `enabled: true` still has to be set. (With no `services` block at all, every service is enabled.) |
+| `services.<name>.data_dir` | `./data/<name>` | Data directory for persistent storage |
 
 Service-specific options:
 
@@ -41,19 +43,16 @@ Service-specific options:
 | `services.lambda.warm_containers` | `0` | Number of warm containers to keep |
 | `services.iam.enforce_policies` | `false` | Enforce IAM policies (experimental) |
 
-### Auth
-
-| Key | Default | Description |
-|-----|---------|-------------|
-| `auth.enabled` | `false` | Enable SigV4 signature validation |
-
 ### Admin API
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `admin.enabled` | `false` | Enable the admin REST + WebSocket API at `/devcloud/api/*` |
+| `admin.enabled` | `false` | Enable the admin REST API at `/devcloud/api/*` |
 
 > The `dashboard` key was renamed to `admin`. The old `dashboard.enabled` key is still honoured for one release (with a deprecation warning); migrate to `admin.enabled`.
+
+> SigV4 signature validation is not implemented, so there is no `auth` key. Any
+> credentials are accepted.
 
 ### Logging
 
@@ -68,6 +67,8 @@ Service-specific options:
 server:
   port: 4747
 
+# Optional: listing services restricts startup to exactly this set.
+# Omit the whole block to run every registered service.
 services:
   s3:
     enabled: true
@@ -86,9 +87,6 @@ services:
   lambda:
     enabled: true
     data_dir: ./data/lambda
-
-auth:
-  enabled: false
 
 admin:
   enabled: false
@@ -114,7 +112,7 @@ docker run -p 8080:8080 -e DEVCLOUD_PORT=8080 ghcr.io/skyoo2003/devcloud:latest
 
 ### `DEVCLOUD_SERVICES`
 
-Comma-separated list of services to enable. When set, **only** the listed services are enabled — all others are disabled regardless of their `enabled` setting in YAML. When not set, each service uses its YAML `enabled` value (or the embedded default of `true`).
+Comma-separated list of services to enable. When set, **only** the listed services are enabled — all others are disabled regardless of their `enabled` setting in YAML. When not set, each service uses its YAML `enabled` value (or the embedded default of `true`). An unknown `tierN` token is treated as a literal service name and logged as a warning.
 
 **Tier shortcuts** (expand to predefined service groups — see [`internal/config/config.go`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/config.go) for the exact list):
 
@@ -143,7 +141,7 @@ docker run -p 4747:4747 -e DEVCLOUD_SERVICES=tier1 ghcr.io/skyoo2003/devcloud:la
 
 ### `DEVCLOUD_DATA_DIR`
 
-Overrides the base data directory for **all** services. When set, every service uses `<DEVCLOUD_DATA_DIR>/<service_name>` — per-service `data_dir` values in YAML are ignored. When not set, each service falls back to its YAML `data_dir` value (or the embedded default).
+Overrides the base data directory for **all** services. When set, every service uses `<DEVCLOUD_DATA_DIR>/<service_name>` — per-service `data_dir` values in YAML are ignored. When not set, each service falls back to its YAML `data_dir` value, or `./data/<service_name>`.
 
 ```bash
 # Put all service data under /tmp/devcloud-local

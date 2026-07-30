@@ -94,9 +94,7 @@ is exposed under `/devcloud/api/*`:
 
 - `GET /devcloud/api/services` — service status overview
 - `GET /devcloud/api/services/{id}/resources` — resource browser (buckets, queues, tables, functions)
-- `GET /devcloud/api/metrics` — aggregate request/error counters
-- `GET /devcloud/api/logs` — recent API call logs
-- `GET /devcloud/api/ws` — WebSocket live updates
+- `GET /devcloud/api/logs` — recent API call logs (`?limit=`)
 
 The web dashboard UI that consumes this API lives in a separate repository.
 

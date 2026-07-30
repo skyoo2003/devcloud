@@ -65,7 +65,6 @@ type ServicePlugin interface {
     Shutdown(ctx context.Context) error
     HandleRequest(ctx context.Context, op string, req *http.Request) (*Response, error)
     ListResources(ctx context.Context) ([]Resource, error)
-    GetMetrics(ctx context.Context) (*ServiceMetrics, error)
 }
 ```
 
@@ -102,12 +101,16 @@ smithy-models/*.json  (AWS Smithy model files)
   Uses Go templates to produce:
        │
        ├─ types.go          — Request/response structs
-       ├─ interface.go       — Service interface (all operations)
-       ├─ serializer.go      — Request marshaling
-       ├─ deserializer.go    — Response unmarshaling
-       ├─ router.go          — Operation routing
+       ├─ router.go          — Method+URI → operation routing (REST services)
        ├─ errors.go          — Service-specific error types
        └─ base_provider.go   — Stub implementation (NotImplementedError)
+
+  There is no generated serializer: providers receive the raw
+  *http.Request and parse it themselves (map[string]any for JSON
+  protocols), so types.go/base_provider.go have no wire glue and only
+  router.go is consumed today — by the REST services that need
+  MatchOperation. See docs/crud-engine.md for how the long tail of
+  unimplemented operations is actually served.
        │
        ▼
   internal/generated/{service}/  (DO NOT EDIT)
@@ -126,24 +129,20 @@ make codegen-s3
 ### Weekly Auto-Sync
 
 A GitHub Actions workflow runs weekly to:
-1. Fetch the latest Smithy models from AWS
+1. Re-download the Smithy models (`scripts/download-smithy-models.sh --refresh`)
 2. Run codegen
-3. Open a PR if any generated code changed
+3. Open a PR if the models or the generated code changed
 
-## Event Bus
-
-The event bus (`internal/eventbus/`) provides in-memory pub/sub for internal communication:
-
-- Services publish events (resource created, deleted, etc.)
-- The admin API subscribes to stream real-time updates via WebSocket
-- Loose coupling between services and the admin API
+The models under `smithy-models/` are committed on purpose: the download URL
+tracks `aws-sdk-go-v2` *main*, so they are the pin that makes `make codegen`
+reproducible and offline. Only the weekly job passes `--refresh`, which is what
+makes an upstream API change show up as a reviewable model diff next to the
+regenerated code.
 
 ## Admin API
 
-The admin API (`internal/admin/`) provides:
-
-- **REST API** at `/devcloud/api/` — service status, resource listing, request logs
-- **WebSocket** at `/devcloud/api/ws` — real-time event streaming
+The admin API (`internal/admin/`) provides a **REST API** at `/devcloud/api/` —
+service status, resource listing, and recent request logs.
 
 It is disabled by default (`admin.enabled: false`). The web dashboard UI is a
 separate project (its own repository) that consumes this API; the Go server
@@ -165,15 +164,13 @@ devcloud/
 │   ├── config/             # YAML config loading, env overrides
 │   ├── generated/          # Auto-generated code (DO NOT EDIT; run `make stats` for count)
 │   ├── services/           # Service implementations (run `make stats` for count)
-│   ├── admin/              # Admin REST API + WebSocket
-│   ├── eventbus/           # In-memory event pub/sub
+│   ├── admin/              # Admin REST API
 │   └── storage/            # Shared storage abstractions
 ├── docker/                 # Dockerfile, docker-compose.yml
 ├── smithy-models/          # AWS Smithy JSON model files
 ├── tests/compatibility/    # Python/boto3 compatibility tests
 ├── docs/                   # Documentation
 ├── Makefile
-├── devcloud.yaml           # Default configuration
 └── go.mod
 ```
 

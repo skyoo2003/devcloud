@@ -1,0 +1,5 @@
+kind: Removed
+body: 'Remove dead surface found by a repo-wide over-engineering audit: the event bus and admin WebSocket, the `GetMetrics` plugin API and `/devcloud/api/metrics` (resource counts remain on `/devcloud/api/services`), `shared.ResourceStore`, `gateway.ExtractAccountID`, and the `auth.enabled` key — still read for one release so enabling it warns that credentials are accepted regardless. Drops the `gorilla/websocket` dependency.'
+time: 2026-07-30T00:00:00.000000+09:00
+custom:
+    Issue: "120"

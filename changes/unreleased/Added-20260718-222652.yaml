@@ -1,5 +1,5 @@
 kind: Added
-body: Enable and add boto3 compatibility tests for CodeConnections, DMS, and Verified Permissions (previously scaffolded but not enabled)
+body: Enable boto3 compatibility tests for CodeConnections, DMS, and Verified Permissions
 time: 2026-07-18T22:26:52.000000+09:00
 custom:
     Issue: "96"

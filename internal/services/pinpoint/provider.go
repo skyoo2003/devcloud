@@ -47,10 +47,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return []plugin.Resource{}, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request) (*plugin.Response, error) {
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
@@ -361,9 +357,9 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 // ── App handlers ──────────────────────────────────────────────────────────────
 
 func (p *Provider) createApp(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
-		name = strParam(params, "name")
+		name = shared.StrParam(params, "name")
 	}
 	if name == "" {
 		return shared.JSONError("BadRequestException", "Name is required", http.StatusBadRequest), nil
@@ -420,12 +416,12 @@ func appToMap(a *App) map[string]any {
 // ── Campaign handlers ─────────────────────────────────────────────────────────
 
 func (p *Provider) createCampaign(appID string, params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("BadRequestException", "Name is required", http.StatusBadRequest), nil
 	}
-	description := strParam(params, "Description")
-	segmentID := strParam(params, "SegmentId")
+	description := shared.StrParam(params, "Description")
+	segmentID := shared.StrParam(params, "SegmentId")
 	id := generateID()
 	arn := fmt.Sprintf("arn:aws:mobiletargeting:us-east-1:000000000000:apps/%s/campaigns/%s", appID, id)
 	c, err := p.store.CreateCampaign(id, appID, arn, name, description, segmentID)
@@ -456,9 +452,9 @@ func (p *Provider) getCampaigns(appID string) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateCampaign(appID, campaignID string, params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
-	description := strParam(params, "Description")
-	segmentID := strParam(params, "SegmentId")
+	name := shared.StrParam(params, "Name")
+	description := shared.StrParam(params, "Description")
+	segmentID := shared.StrParam(params, "SegmentId")
 	c, err := p.store.UpdateCampaign(appID, campaignID, name, description, segmentID)
 	if err != nil {
 		return shared.JSONError("NotFoundException", "Campaign not found", http.StatusNotFound), nil
@@ -517,11 +513,11 @@ func campaignToMap(c *Campaign) map[string]any {
 // ── Segment handlers ──────────────────────────────────────────────────────────
 
 func (p *Provider) createSegment(appID string, params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("BadRequestException", "Name is required", http.StatusBadRequest), nil
 	}
-	segType := strParam(params, "SegmentType")
+	segType := shared.StrParam(params, "SegmentType")
 	if segType == "" {
 		segType = "DIMENSIONAL"
 	}
@@ -555,7 +551,7 @@ func (p *Provider) getSegments(appID string) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateSegment(appID, segmentID string, params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	seg, err := p.store.UpdateSegment(appID, segmentID, name)
 	if err != nil {
 		return shared.JSONError("NotFoundException", "Segment not found", http.StatusNotFound), nil
@@ -605,7 +601,7 @@ func segmentToMap(seg *Segment) map[string]any {
 // ── Journey handlers ──────────────────────────────────────────────────────────
 
 func (p *Provider) createJourney(appID string, params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("BadRequestException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -639,7 +635,7 @@ func (p *Provider) listJourneys(appID string) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateJourney(appID, journeyID string, params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	j, err := p.store.UpdateJourney(appID, journeyID, name)
 	if err != nil {
 		return shared.JSONError("NotFoundException", "Journey not found", http.StatusNotFound), nil
@@ -648,7 +644,7 @@ func (p *Provider) updateJourney(appID, journeyID string, params map[string]any)
 }
 
 func (p *Provider) updateJourneyState(appID, journeyID string, params map[string]any) (*plugin.Response, error) {
-	state := strParam(params, "State")
+	state := shared.StrParam(params, "State")
 	if state == "" {
 		state = "ACTIVE"
 	}
@@ -685,16 +681,16 @@ func journeyToMap(j *Journey) map[string]any {
 // ── Template handlers ─────────────────────────────────────────────────────────
 
 func (p *Provider) createTemplate(name, tType string, params map[string]any) (*plugin.Response, error) {
-	subject := strParam(params, "Subject")
-	htmlBody := strParam(params, "HtmlPart")
+	subject := shared.StrParam(params, "Subject")
+	htmlBody := shared.StrParam(params, "HtmlPart")
 	if htmlBody == "" {
-		htmlBody = strParam(params, "HtmlBody")
+		htmlBody = shared.StrParam(params, "HtmlBody")
 	}
-	textBody := strParam(params, "TextPart")
+	textBody := shared.StrParam(params, "TextPart")
 	if textBody == "" {
-		textBody = strParam(params, "TextBody")
+		textBody = shared.StrParam(params, "TextBody")
 	}
-	body := strParam(params, "Body")
+	body := shared.StrParam(params, "Body")
 	_, err := p.store.CreateTemplate(name, tType, subject, htmlBody, textBody, body)
 	if err != nil {
 		return shared.JSONError("InternalServerErrorException", err.Error(), http.StatusInternalServerError), nil
@@ -714,16 +710,16 @@ func (p *Provider) getTemplate(name, tType string) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateTemplate(name, tType string, params map[string]any) (*plugin.Response, error) {
-	subject := strParam(params, "Subject")
-	htmlBody := strParam(params, "HtmlPart")
+	subject := shared.StrParam(params, "Subject")
+	htmlBody := shared.StrParam(params, "HtmlPart")
 	if htmlBody == "" {
-		htmlBody = strParam(params, "HtmlBody")
+		htmlBody = shared.StrParam(params, "HtmlBody")
 	}
-	textBody := strParam(params, "TextPart")
+	textBody := shared.StrParam(params, "TextPart")
 	if textBody == "" {
-		textBody = strParam(params, "TextBody")
+		textBody = shared.StrParam(params, "TextBody")
 	}
-	body := strParam(params, "Body")
+	body := shared.StrParam(params, "Body")
 	_, err := p.store.UpdateTemplate(name, tType, subject, htmlBody, textBody, body)
 	if err != nil {
 		return shared.JSONError("NotFoundException", "Template not found", http.StatusNotFound), nil
@@ -1013,15 +1009,6 @@ func tagARN(path string) string {
 }
 
 // ── Misc helpers ──────────────────────────────────────────────────────────────
-
-func strParam(params map[string]any, key string) string {
-	if v, ok := params[key]; ok {
-		if s, ok := v.(string); ok {
-			return s
-		}
-	}
-	return ""
-}
 
 func extractTags(params map[string]any) map[string]string {
 	tags := map[string]string{}

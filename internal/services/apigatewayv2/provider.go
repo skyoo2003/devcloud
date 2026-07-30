@@ -341,10 +341,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- API CRUD ---
 
 func (p *Provider) createAPI(params map[string]any) (*plugin.Response, error) {
@@ -360,9 +356,9 @@ func (p *Provider) createAPI(params map[string]any) (*plugin.Response, error) {
 		ID:             id,
 		ARN:            arn,
 		Name:           name,
-		ProtocolType:   strParamDefault(params, "protocolType", "HTTP"),
-		Description:    strParam(params, "description"),
-		RouteSelection: strParamDefault(params, "routeSelectionExpression", "$request.method $request.path"),
+		ProtocolType:   shared.StrParamDefault(params, "protocolType", "HTTP"),
+		Description:    shared.StrParam(params, "description"),
+		RouteSelection: shared.StrParamDefault(params, "routeSelectionExpression", "$request.method $request.path"),
 		APIEndpoint:    apiEndpoint,
 	}
 
@@ -479,9 +475,9 @@ func (p *Provider) createRoute(apiID string, params map[string]any) (*plugin.Res
 		ID:                shared.GenerateID("", 10),
 		APIID:             apiID,
 		RouteKey:          routeKey,
-		Target:            strParam(params, "target"),
-		AuthorizationType: strParamDefault(params, "authorizationType", "NONE"),
-		AuthorizerID:      strParam(params, "authorizerId"),
+		Target:            shared.StrParam(params, "target"),
+		AuthorizationType: shared.StrParamDefault(params, "authorizationType", "NONE"),
+		AuthorizerID:      shared.StrParam(params, "authorizerId"),
 	}
 	if err := p.store.CreateRoute(r); err != nil {
 		return nil, err
@@ -543,8 +539,8 @@ func (p *Provider) createRouteResponse(apiID, routeID string, params map[string]
 		ID:                 shared.GenerateID("", 10),
 		APIID:              apiID,
 		RouteID:            routeID,
-		RouteResponseKey:   strParamDefault(params, "routeResponseKey", "default"),
-		ModelSelectionExpr: strParam(params, "modelSelectionExpression"),
+		RouteResponseKey:   shared.StrParamDefault(params, "routeResponseKey", "default"),
+		ModelSelectionExpr: shared.StrParam(params, "modelSelectionExpression"),
 	}
 	if err := p.store.CreateRouteResponse(rr); err != nil {
 		return nil, err
@@ -588,10 +584,10 @@ func (p *Provider) createIntegration(apiID string, params map[string]any) (*plug
 	i := &Integration{
 		ID:                shared.GenerateID("", 10),
 		APIID:             apiID,
-		Type:              strParamDefault(params, "integrationType", "HTTP_PROXY"),
-		IntegrationURI:    strParam(params, "integrationUri"),
-		IntegrationMethod: strParam(params, "integrationMethod"),
-		PayloadFormat:     strParamDefault(params, "payloadFormatVersion", "2.0"),
+		Type:              shared.StrParamDefault(params, "integrationType", "HTTP_PROXY"),
+		IntegrationURI:    shared.StrParam(params, "integrationUri"),
+		IntegrationMethod: shared.StrParam(params, "integrationMethod"),
+		PayloadFormat:     shared.StrParamDefault(params, "payloadFormatVersion", "2.0"),
 	}
 	if err := p.store.CreateIntegration(i); err != nil {
 		return nil, err
@@ -641,8 +637,8 @@ func (p *Provider) createIntegrationResponse(apiID, integrationID string, params
 		ID:                shared.GenerateID("", 10),
 		APIID:             apiID,
 		IntegrationID:     integrationID,
-		ResponseKey:       strParamDefault(params, "integrationResponseKey", "default"),
-		TemplateSelection: strParam(params, "templateSelectionExpression"),
+		ResponseKey:       shared.StrParamDefault(params, "integrationResponseKey", "default"),
+		TemplateSelection: shared.StrParam(params, "templateSelectionExpression"),
 	}
 	if err := p.store.CreateIntegrationResponse(ir); err != nil {
 		return nil, err
@@ -705,8 +701,8 @@ func (p *Provider) createAuthorizer(apiID string, params map[string]any) (*plugi
 		ID:             shared.GenerateID("", 10),
 		APIID:          apiID,
 		Name:           name,
-		Type:           strParamDefault(params, "authorizerType", "JWT"),
-		IdentitySource: strParam(params, "identitySource"),
+		Type:           shared.StrParamDefault(params, "authorizerType", "JWT"),
+		IdentitySource: shared.StrParam(params, "identitySource"),
 		JWTConfig:      jwtConfig,
 	}
 	if err := p.store.CreateAuthorizer(a); err != nil {
@@ -759,7 +755,7 @@ func (p *Provider) createDeployment(apiID string, params map[string]any) (*plugi
 	d := &Deployment{
 		ID:          shared.GenerateID("", 10),
 		APIID:       apiID,
-		Description: strParam(params, "description"),
+		Description: shared.StrParam(params, "description"),
 	}
 	if err := p.store.CreateDeployment(d); err != nil {
 		return nil, err
@@ -821,8 +817,8 @@ func (p *Provider) createStage(apiID string, params map[string]any) (*plugin.Res
 	st := &Stage{
 		Name:           stageName,
 		APIID:          apiID,
-		Description:    strParam(params, "description"),
-		DeploymentID:   strParam(params, "deploymentId"),
+		Description:    shared.StrParam(params, "description"),
+		DeploymentID:   shared.StrParam(params, "deploymentId"),
 		AutoDeploy:     boolParamDefault(params, "autoDeploy", false),
 		StageVariables: stageVars,
 		AccessLog:      "{}",
@@ -889,7 +885,7 @@ func (p *Provider) createModel(apiID string, params map[string]any) (*plugin.Res
 		ID:          shared.GenerateID("", 10),
 		APIID:       apiID,
 		Name:        name,
-		ContentType: strParamDefault(params, "contentType", "application/json"),
+		ContentType: shared.StrParamDefault(params, "contentType", "application/json"),
 		SchemaDef:   schemaDef,
 	}
 	if err := p.store.CreateModel(m); err != nil {
@@ -1013,8 +1009,8 @@ func (p *Provider) createAPIMapping(domainName string, params map[string]any) (*
 		ID:            shared.GenerateID("", 10),
 		APIID:         apiID,
 		DomainName:    domainName,
-		Stage:         strParam(params, "stage"),
-		APIMappingKey: strParam(params, "apiMappingKey"),
+		Stage:         shared.StrParam(params, "stage"),
+		APIMappingKey: shared.StrParam(params, "apiMappingKey"),
 	}
 	if err := p.store.CreateAPIMapping(m); err != nil {
 		return nil, err
@@ -1608,18 +1604,6 @@ func extractPathParam(path, key string) string {
 		}
 	}
 	return ""
-}
-
-func strParam(params map[string]any, key string) string {
-	v, _ := params[key].(string)
-	return v
-}
-
-func strParamDefault(params map[string]any, key, def string) string {
-	if v, ok := params[key].(string); ok && v != "" {
-		return v
-	}
-	return def
 }
 
 func boolParamDefault(params map[string]any, key string, def bool) bool {

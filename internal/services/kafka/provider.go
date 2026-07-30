@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"strings"
+	"unicode"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	"github.com/skyoo2003/devcloud/internal/shared"
@@ -52,8 +53,7 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 	if resp != nil && resp.StatusCode < 300 && len(resp.Body) > 0 {
 		var data any
 		if json.Unmarshal(resp.Body, &data) == nil {
-			converted := shared.CamelCaseKeys(data)
-			if b, err := json.Marshal(converted); err == nil {
+			if b, err := json.Marshal(mapKeys(data, toCamelCase)); err == nil {
 				resp.Body = b
 			}
 		}
@@ -76,7 +76,7 @@ func (p *Provider) handleRequest(_ context.Context, op string, req *http.Request
 	}
 
 	// Normalize camelCase input params to PascalCase for internal consistency.
-	params = shared.PascalCaseKeys(params)
+	params, _ = mapKeys(params, toPascalCase).(map[string]any)
 
 	// Extract path parameters from URL path
 	path := req.URL.Path
@@ -441,10 +441,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 		res = append(res, plugin.Resource{Type: "kafka-cluster", ID: c.ARN, Name: c.Name})
 	}
 	return res, nil
-}
-
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
 }
 
 // ── Cluster operations ─────────────────────────────────────────────────────
@@ -1341,6 +1337,63 @@ func extractClusterArnTopLevel(path string) string {
 
 func isUniqueErr(err error) bool {
 	return err != nil && strings.Contains(err.Error(), "UNIQUE constraint failed")
+}
+
+// mapKeys recursively rewrites every map key in v with f. Kafka is the only
+// service with a camelCase wire format, so the casing walk lives here.
+func mapKeys(v any, f func(string) string) any {
+	switch val := v.(type) {
+	case map[string]any:
+		out := make(map[string]any, len(val))
+		for k, item := range val {
+			out[f(k)] = mapKeys(item, f)
+		}
+		return out
+	case []any:
+		out := make([]any, len(val))
+		for i, item := range val {
+			out[i] = mapKeys(item, f)
+		}
+		return out
+	case []map[string]any:
+		out := make([]any, len(val))
+		for i, item := range val {
+			out[i] = mapKeys(item, f)
+		}
+		return out
+	default:
+		return v
+	}
+}
+
+// toCamelCase lowercases the leading uppercase run of a PascalCase name:
+// "ClusterArn" → "clusterArn", "ARN" → "arn", "ARNPrefix" → "arnPrefix".
+func toCamelCase(s string) string {
+	runes := []rune(s)
+	i := 0
+	for i < len(runes) && unicode.IsUpper(runes[i]) {
+		i++
+	}
+	switch {
+	case i == 0: // already camelCase
+		return s
+	case i == len(runes): // all caps
+		return strings.ToLower(s)
+	case i == 1:
+		return strings.ToLower(string(runes[0])) + string(runes[1:])
+	default:
+		// Last uppercase letter starts the next word: "ARNPrefix" → "arnPrefix".
+		return strings.ToLower(string(runes[:i-1])) + string(runes[i-1:])
+	}
+}
+
+func toPascalCase(s string) string {
+	if s == "" {
+		return s
+	}
+	runes := []rune(s)
+	runes[0] = unicode.ToUpper(runes[0])
+	return string(runes)
 }
 
 func init() {

@@ -24,7 +24,9 @@ jobs:
         run: sudo apt-get install -y libsqlite3-dev
 
       - name: Download latest Smithy models
-        run: bash scripts/download-smithy-models.sh
+        # --refresh re-downloads the committed models; without it every model
+        # already in the tree is skipped and this job can never find a change.
+        run: bash scripts/download-smithy-models.sh --refresh
 
       - name: Run code generation
         run: |
@@ -39,8 +41,11 @@ jobs:
 
       - name: Check for changes
         id: changes
+        # --porcelain rather than `git diff --quiet` so a newly generated
+        # package (an untracked directory) counts as a change instead of being
+        # silently dropped on the runner.
         run: |
-          if git diff --quiet; then
+          if [ -z "$(git status --porcelain)" ]; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
@@ -48,7 +53,7 @@ jobs:
 
       - name: Run tests
         if: steps.changes.outputs.changed == 'true'
-        run: CGO_ENABLED=1 go test ./internal/... -v
+        run: CGO_ENABLED=1 go test ./... -v
 
       - name: Create Pull Request
         if: steps.changes.outputs.changed == 'true'

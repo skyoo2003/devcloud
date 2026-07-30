@@ -173,10 +173,6 @@ func (p *SchedulerProvider) ListResources(_ context.Context) ([]plugin.Resource,
 	return res, nil
 }
 
-func (p *SchedulerProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- Schedule handlers ---
 
 func (p *SchedulerProvider) createSchedule(req *http.Request, params map[string]any) (*plugin.Response, error) {

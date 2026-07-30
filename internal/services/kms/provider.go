@@ -15,10 +15,11 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
-const defaultRegion = "us-east-1"
+const defaultRegion = shared.DefaultRegion
 
 type Provider struct {
 	store *KMSStore
@@ -142,10 +143,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 		resources = append(resources, plugin.Resource{Type: "key", ID: k.KeyID, Name: k.Description})
 	}
 	return resources, nil
-}
-
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
 }
 
 func (p *Provider) createKey(params map[string]any) (*plugin.Response, error) {

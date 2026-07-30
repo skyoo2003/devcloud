@@ -170,10 +170,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // ---- Helpers ----
 
 func json10Resp(status int, v any) (*plugin.Response, error) {
@@ -213,11 +209,6 @@ func parseTags(rawTags []any) map[string]string {
 	return tags
 }
 
-func strParam(params map[string]any, key string) string {
-	v, _ := params[key].(string)
-	return v
-}
-
 func typeInfoParam(params map[string]any, key string) (name, version string) {
 	m, _ := params[key].(map[string]any)
 	if m == nil {
@@ -231,12 +222,12 @@ func typeInfoParam(params map[string]any, key string) (name, version string) {
 // ---- Domain handlers ----
 
 func (p *Provider) registerDomain(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "name")
+	name := shared.StrParam(params, "name")
 	if name == "" {
 		return json10Err("ValidationException", "name is required", http.StatusBadRequest), nil
 	}
-	description := strParam(params, "description")
-	retention := strParam(params, "workflowExecutionRetentionPeriodInDays")
+	description := shared.StrParam(params, "description")
+	retention := shared.StrParam(params, "workflowExecutionRetentionPeriodInDays")
 	if retention == "" {
 		retention = "30"
 	}
@@ -262,7 +253,7 @@ func (p *Provider) registerDomain(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) describeDomain(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "name")
+	name := shared.StrParam(params, "name")
 	if name == "" {
 		return json10Err("ValidationException", "name is required", http.StatusBadRequest), nil
 	}
@@ -274,7 +265,7 @@ func (p *Provider) describeDomain(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) listDomains(params map[string]any) (*plugin.Response, error) {
-	statusFilter := strParam(params, "registrationStatus")
+	statusFilter := shared.StrParam(params, "registrationStatus")
 	domains, err := p.store.ListDomains(statusFilter)
 	if err != nil {
 		return nil, err
@@ -291,7 +282,7 @@ func (p *Provider) listDomains(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) deprecateDomain(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "name")
+	name := shared.StrParam(params, "name")
 	if name == "" {
 		return json10Err("ValidationException", "name is required", http.StatusBadRequest), nil
 	}
@@ -309,7 +300,7 @@ func (p *Provider) deprecateDomain(params map[string]any) (*plugin.Response, err
 }
 
 func (p *Provider) undeprecateDomain(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "name")
+	name := shared.StrParam(params, "name")
 	if name == "" {
 		return json10Err("ValidationException", "name is required", http.StatusBadRequest), nil
 	}
@@ -325,9 +316,9 @@ func (p *Provider) undeprecateDomain(params map[string]any) (*plugin.Response, e
 // ---- WorkflowType handlers ----
 
 func (p *Provider) registerWorkflowType(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
-	name := strParam(params, "name")
-	version := strParam(params, "version")
+	domain := shared.StrParam(params, "domain")
+	name := shared.StrParam(params, "name")
+	version := shared.StrParam(params, "version")
 	if domain == "" || name == "" || version == "" {
 		return json10Err("ValidationException", "domain, name, version are required", http.StatusBadRequest), nil
 	}
@@ -337,7 +328,7 @@ func (p *Provider) registerWorkflowType(params map[string]any) (*plugin.Response
 		Name:           name,
 		Version:        version,
 		Status:         "REGISTERED",
-		Description:    strParam(params, "description"),
+		Description:    shared.StrParam(params, "description"),
 		DefaultTimeout: "NONE",
 		CreatedAt:      now,
 	}
@@ -351,7 +342,7 @@ func (p *Provider) registerWorkflowType(params map[string]any) (*plugin.Response
 }
 
 func (p *Provider) describeWorkflowType(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	name, version := typeInfoParam(params, "workflowType")
 	if domain == "" || name == "" || version == "" {
 		return json10Err("ValidationException", "domain and workflowType are required", http.StatusBadRequest), nil
@@ -364,11 +355,11 @@ func (p *Provider) describeWorkflowType(params map[string]any) (*plugin.Response
 }
 
 func (p *Provider) listWorkflowTypes(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	if domain == "" {
 		return json10Err("ValidationException", "domain is required", http.StatusBadRequest), nil
 	}
-	statusFilter := strParam(params, "registrationStatus")
+	statusFilter := shared.StrParam(params, "registrationStatus")
 	wts, err := p.store.ListWorkflowTypes(domain, statusFilter)
 	if err != nil {
 		return nil, err
@@ -383,7 +374,7 @@ func (p *Provider) listWorkflowTypes(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) deprecateWorkflowType(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	name, version := typeInfoParam(params, "workflowType")
 	if domain == "" || name == "" || version == "" {
 		return json10Err("ValidationException", "domain and workflowType are required", http.StatusBadRequest), nil
@@ -402,7 +393,7 @@ func (p *Provider) deprecateWorkflowType(params map[string]any) (*plugin.Respons
 }
 
 func (p *Provider) undeprecateWorkflowType(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	name, version := typeInfoParam(params, "workflowType")
 	if domain == "" || name == "" || version == "" {
 		return json10Err("ValidationException", "domain and workflowType are required", http.StatusBadRequest), nil
@@ -417,7 +408,7 @@ func (p *Provider) undeprecateWorkflowType(params map[string]any) (*plugin.Respo
 }
 
 func (p *Provider) deleteWorkflowType(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	name, version := typeInfoParam(params, "workflowType")
 	if domain == "" || name == "" || version == "" {
 		return json10Err("ValidationException", "domain and workflowType are required", http.StatusBadRequest), nil
@@ -438,9 +429,9 @@ func (p *Provider) deleteWorkflowType(params map[string]any) (*plugin.Response, 
 // ---- ActivityType handlers ----
 
 func (p *Provider) registerActivityType(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
-	name := strParam(params, "name")
-	version := strParam(params, "version")
+	domain := shared.StrParam(params, "domain")
+	name := shared.StrParam(params, "name")
+	version := shared.StrParam(params, "version")
 	if domain == "" || name == "" || version == "" {
 		return json10Err("ValidationException", "domain, name, version are required", http.StatusBadRequest), nil
 	}
@@ -450,7 +441,7 @@ func (p *Provider) registerActivityType(params map[string]any) (*plugin.Response
 		Name:           name,
 		Version:        version,
 		Status:         "REGISTERED",
-		Description:    strParam(params, "description"),
+		Description:    shared.StrParam(params, "description"),
 		DefaultTimeout: "NONE",
 		CreatedAt:      now,
 	}
@@ -464,7 +455,7 @@ func (p *Provider) registerActivityType(params map[string]any) (*plugin.Response
 }
 
 func (p *Provider) describeActivityType(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	name, version := typeInfoParam(params, "activityType")
 	if domain == "" || name == "" || version == "" {
 		return json10Err("ValidationException", "domain and activityType are required", http.StatusBadRequest), nil
@@ -477,11 +468,11 @@ func (p *Provider) describeActivityType(params map[string]any) (*plugin.Response
 }
 
 func (p *Provider) listActivityTypes(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	if domain == "" {
 		return json10Err("ValidationException", "domain is required", http.StatusBadRequest), nil
 	}
-	statusFilter := strParam(params, "registrationStatus")
+	statusFilter := shared.StrParam(params, "registrationStatus")
 	ats, err := p.store.ListActivityTypes(domain, statusFilter)
 	if err != nil {
 		return nil, err
@@ -496,7 +487,7 @@ func (p *Provider) listActivityTypes(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) deprecateActivityType(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	name, version := typeInfoParam(params, "activityType")
 	if domain == "" || name == "" || version == "" {
 		return json10Err("ValidationException", "domain and activityType are required", http.StatusBadRequest), nil
@@ -515,7 +506,7 @@ func (p *Provider) deprecateActivityType(params map[string]any) (*plugin.Respons
 }
 
 func (p *Provider) undeprecateActivityType(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	name, version := typeInfoParam(params, "activityType")
 	if domain == "" || name == "" || version == "" {
 		return json10Err("ValidationException", "domain and activityType are required", http.StatusBadRequest), nil
@@ -530,7 +521,7 @@ func (p *Provider) undeprecateActivityType(params map[string]any) (*plugin.Respo
 }
 
 func (p *Provider) deleteActivityType(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	name, version := typeInfoParam(params, "activityType")
 	if domain == "" || name == "" || version == "" {
 		return json10Err("ValidationException", "domain and activityType are required", http.StatusBadRequest), nil
@@ -551,13 +542,13 @@ func (p *Provider) deleteActivityType(params map[string]any) (*plugin.Response, 
 // ---- WorkflowExecution handlers ----
 
 func (p *Provider) startWorkflowExecution(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
-	workflowID := strParam(params, "workflowId")
+	domain := shared.StrParam(params, "domain")
+	workflowID := shared.StrParam(params, "workflowId")
 	if domain == "" || workflowID == "" {
 		return json10Err("ValidationException", "domain and workflowId are required", http.StatusBadRequest), nil
 	}
 	wfName, wfVersion := typeInfoParam(params, "workflowType")
-	input := strParam(params, "input")
+	input := shared.StrParam(params, "input")
 	runID := shared.GenerateUUID()
 	now := time.Now()
 
@@ -590,7 +581,7 @@ func (p *Provider) startWorkflowExecution(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) describeWorkflowExecution(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	execMap, _ := params["execution"].(map[string]any)
 	if domain == "" || execMap == nil {
 		return json10Err("ValidationException", "domain and execution are required", http.StatusBadRequest), nil
@@ -608,7 +599,7 @@ func (p *Provider) describeWorkflowExecution(params map[string]any) (*plugin.Res
 }
 
 func (p *Provider) listOpenWorkflowExecutions(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	if domain == "" {
 		return json10Err("ValidationException", "domain is required", http.StatusBadRequest), nil
 	}
@@ -626,7 +617,7 @@ func (p *Provider) listOpenWorkflowExecutions(params map[string]any) (*plugin.Re
 }
 
 func (p *Provider) listClosedWorkflowExecutions(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	if domain == "" {
 		return json10Err("ValidationException", "domain is required", http.StatusBadRequest), nil
 	}
@@ -644,12 +635,12 @@ func (p *Provider) listClosedWorkflowExecutions(params map[string]any) (*plugin.
 }
 
 func (p *Provider) terminateWorkflowExecution(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
-	workflowID := strParam(params, "workflowId")
+	domain := shared.StrParam(params, "domain")
+	workflowID := shared.StrParam(params, "workflowId")
 	if domain == "" || workflowID == "" {
 		return json10Err("ValidationException", "domain and workflowId are required", http.StatusBadRequest), nil
 	}
-	runID := strParam(params, "runId")
+	runID := shared.StrParam(params, "runId")
 	var we *WorkflowExecution
 	var err error
 	if runID != "" {
@@ -667,12 +658,12 @@ func (p *Provider) terminateWorkflowExecution(params map[string]any) (*plugin.Re
 }
 
 func (p *Provider) requestCancelWorkflowExecution(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
-	workflowID := strParam(params, "workflowId")
+	domain := shared.StrParam(params, "domain")
+	workflowID := shared.StrParam(params, "workflowId")
 	if domain == "" || workflowID == "" {
 		return json10Err("ValidationException", "domain and workflowId are required", http.StatusBadRequest), nil
 	}
-	runID := strParam(params, "runId")
+	runID := shared.StrParam(params, "runId")
 	var we *WorkflowExecution
 	var err error
 	if runID != "" {
@@ -694,7 +685,7 @@ func (p *Provider) signalWorkflowExecution(_ map[string]any) (*plugin.Response, 
 }
 
 func (p *Provider) getWorkflowExecutionHistory(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	execMap, _ := params["execution"].(map[string]any)
 	if domain == "" || execMap == nil {
 		return json10Err("ValidationException", "domain and execution are required", http.StatusBadRequest), nil
@@ -725,7 +716,7 @@ func (p *Provider) getWorkflowExecutionHistory(params map[string]any) (*plugin.R
 // ---- Count handlers ----
 
 func (p *Provider) countOpenWorkflowExecutions(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	if domain == "" {
 		return json10Err("ValidationException", "domain is required", http.StatusBadRequest), nil
 	}
@@ -737,7 +728,7 @@ func (p *Provider) countOpenWorkflowExecutions(params map[string]any) (*plugin.R
 }
 
 func (p *Provider) countClosedWorkflowExecutions(params map[string]any) (*plugin.Response, error) {
-	domain := strParam(params, "domain")
+	domain := shared.StrParam(params, "domain")
 	if domain == "" {
 		return json10Err("ValidationException", "domain is required", http.StatusBadRequest), nil
 	}
@@ -796,7 +787,7 @@ func (p *Provider) recordActivityTaskHeartbeat(_ map[string]any) (*plugin.Respon
 // ---- Tag handlers ----
 
 func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "resourceArn")
+	arn := shared.StrParam(params, "resourceArn")
 	if arn == "" {
 		return json10Err("ValidationException", "resourceArn is required", http.StatusBadRequest), nil
 	}
@@ -807,7 +798,7 @@ func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "resourceArn")
+	arn := shared.StrParam(params, "resourceArn")
 	if arn == "" {
 		return json10Err("ValidationException", "resourceArn is required", http.StatusBadRequest), nil
 	}
@@ -824,7 +815,7 @@ func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "resourceArn")
+	arn := shared.StrParam(params, "resourceArn")
 	if arn == "" {
 		return json10Err("ValidationException", "resourceArn is required", http.StatusBadRequest), nil
 	}

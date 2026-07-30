@@ -172,10 +172,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 func (p *Provider) createDeliveryStream(params map[string]any) (*plugin.Response, error) {
 	name, _ := params["DeliveryStreamName"].(string)
 	if name == "" {

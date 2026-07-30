@@ -188,11 +188,6 @@ func (p *MediaConvertProvider) ListResources(_ context.Context) ([]plugin.Resour
 	return res, nil
 }
 
-// GetMetrics returns empty metrics.
-func (p *MediaConvertProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- Job handlers ---
 
 func (p *MediaConvertProvider) handleCreateJob(params map[string]any) (*plugin.Response, error) {

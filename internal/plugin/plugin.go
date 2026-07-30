@@ -45,12 +45,6 @@ type Resource struct {
 	Name string `json:"name"`
 }
 
-type ServiceMetrics struct {
-	TotalRequests int64 `json:"total_requests"`
-	ErrorCount    int64 `json:"error_count"`
-	ResourceCount int   `json:"resource_count"`
-}
-
 type ServicePlugin interface {
 	ServiceID() string
 	ServiceName() string
@@ -59,5 +53,4 @@ type ServicePlugin interface {
 	Shutdown(ctx context.Context) error
 	HandleRequest(ctx context.Context, op string, req *http.Request) (*Response, error)
 	ListResources(ctx context.Context) ([]Resource, error)
-	GetMetrics(ctx context.Context) (*ServiceMetrics, error)
 }

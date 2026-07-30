@@ -140,10 +140,6 @@ func (p *PipesProvider) ListResources(_ context.Context) ([]plugin.Resource, err
 	return res, nil
 }
 
-func (p *PipesProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- Operations ---
 
 func (p *PipesProvider) handleCreatePipe(req *http.Request) (*plugin.Response, error) {

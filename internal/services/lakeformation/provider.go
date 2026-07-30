@@ -229,14 +229,10 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- LFTag ---
 
 func (p *Provider) createLFTag(params map[string]any) (*plugin.Response, error) {
-	catalogID := strParam(params, "CatalogId", "000000000000")
+	catalogID := strParam(params, "CatalogId", plugin.DefaultAccountID)
 	key, _ := params["TagKey"].(string)
 	if key == "" {
 		return shared.JSONError("ValidationException", "TagKey is required", http.StatusBadRequest), nil
@@ -254,7 +250,7 @@ func (p *Provider) createLFTag(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) getLFTag(params map[string]any) (*plugin.Response, error) {
-	catalogID := strParam(params, "CatalogId", "000000000000")
+	catalogID := strParam(params, "CatalogId", plugin.DefaultAccountID)
 	key, _ := params["TagKey"].(string)
 	if key == "" {
 		return shared.JSONError("ValidationException", "TagKey is required", http.StatusBadRequest), nil
@@ -273,7 +269,7 @@ func (p *Provider) getLFTag(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateLFTag(params map[string]any) (*plugin.Response, error) {
-	catalogID := strParam(params, "CatalogId", "000000000000")
+	catalogID := strParam(params, "CatalogId", plugin.DefaultAccountID)
 	key, _ := params["TagKey"].(string)
 	if key == "" {
 		return shared.JSONError("ValidationException", "TagKey is required", http.StatusBadRequest), nil
@@ -311,7 +307,7 @@ func (p *Provider) updateLFTag(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) deleteLFTag(params map[string]any) (*plugin.Response, error) {
-	catalogID := strParam(params, "CatalogId", "000000000000")
+	catalogID := strParam(params, "CatalogId", plugin.DefaultAccountID)
 	key, _ := params["TagKey"].(string)
 	if key == "" {
 		return shared.JSONError("ValidationException", "TagKey is required", http.StatusBadRequest), nil
@@ -323,7 +319,7 @@ func (p *Provider) deleteLFTag(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) listLFTags(params map[string]any) (*plugin.Response, error) {
-	catalogID := strParam(params, "CatalogId", "000000000000")
+	catalogID := strParam(params, "CatalogId", plugin.DefaultAccountID)
 	tags, err := p.store.ListLFTags(catalogID)
 	if err != nil {
 		return nil, err
@@ -351,7 +347,7 @@ func (p *Provider) createLFTagExpression(params map[string]any) (*plugin.Respons
 	if name == "" {
 		return shared.JSONError("ValidationException", "Name is required", http.StatusBadRequest), nil
 	}
-	catalogID := strParam(params, "CatalogId", "000000000000")
+	catalogID := strParam(params, "CatalogId", plugin.DefaultAccountID)
 	description, _ := params["Description"].(string)
 	rawExpr, _ := params["Expression"].([]any)
 	exprJSON := marshalJSON(rawExpr)
@@ -414,7 +410,7 @@ func (p *Provider) deleteLFTagExpression(params map[string]any) (*plugin.Respons
 }
 
 func (p *Provider) listLFTagExpressions(params map[string]any) (*plugin.Response, error) {
-	catalogID := strParam(params, "CatalogId", "000000000000")
+	catalogID := strParam(params, "CatalogId", plugin.DefaultAccountID)
 	exprs, err := p.store.ListLFTagExpressions(catalogID)
 	if err != nil {
 		return nil, err
@@ -653,7 +649,7 @@ func (p *Provider) listResources(_ map[string]any) (*plugin.Response, error) {
 // --- DataLakeSettings ---
 
 func (p *Provider) getDataLakeSettings(params map[string]any) (*plugin.Response, error) {
-	catalogID := strParam(params, "CatalogId", "000000000000")
+	catalogID := strParam(params, "CatalogId", plugin.DefaultAccountID)
 	st, err := p.store.GetSettings(catalogID)
 	if err != nil {
 		return nil, err
@@ -677,7 +673,7 @@ func (p *Provider) getDataLakeSettings(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) putDataLakeSettings(params map[string]any) (*plugin.Response, error) {
-	catalogID := strParam(params, "CatalogId", "000000000000")
+	catalogID := strParam(params, "CatalogId", plugin.DefaultAccountID)
 	settingsRaw, _ := params["DataLakeSettings"].(map[string]any)
 	if settingsRaw == nil {
 		settingsRaw = map[string]any{}

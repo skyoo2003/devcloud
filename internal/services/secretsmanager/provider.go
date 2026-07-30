@@ -14,10 +14,11 @@ import (
 	"strings"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
-const defaultRegion = "us-east-1"
+const defaultRegion = shared.DefaultRegion
 
 type Provider struct {
 	store *SecretStore
@@ -165,10 +166,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 		resources = append(resources, plugin.Resource{Type: "secret", ID: s.ARN, Name: s.Name})
 	}
 	return resources, nil
-}
-
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
 }
 
 func (p *Provider) createSecret(params map[string]any) (*plugin.Response, error) {

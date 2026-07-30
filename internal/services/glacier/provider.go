@@ -333,10 +333,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- Vault CRUD ---
 
 func (p *Provider) createVault(name string) (*plugin.Response, error) {

@@ -20,7 +20,7 @@ import (
 
 const (
 	defaultAccountID = plugin.DefaultAccountID
-	defaultRegion    = "us-east-1"
+	defaultRegion    = shared.DefaultRegion
 )
 
 // hardcoded foundation models
@@ -223,10 +223,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return out, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- Foundation Models ---
 
 func (p *Provider) listFoundationModels(_ url.Values) (*plugin.Response, error) {
@@ -256,9 +252,9 @@ func (p *Provider) invokeModel(modelID string, _ bool) (*plugin.Response, error)
 
 func (p *Provider) createModelCustomizationJob(body map[string]any) (*plugin.Response, error) {
 	jobID := shared.GenerateUUID()
-	jobName := strVal(body, "jobName")
-	customModelName := strVal(body, "customModelName")
-	baseModelID := strVal(body, "baseModelIdentifier")
+	jobName := shared.StrParam(body, "jobName")
+	customModelName := shared.StrParam(body, "customModelName")
+	baseModelID := shared.StrParam(body, "baseModelIdentifier")
 
 	j := &CustomizationJob{
 		JobID:           jobID,
@@ -377,8 +373,8 @@ func (p *Provider) deleteCustomModel(modelID string) (*plugin.Response, error) {
 // --- Guardrails ---
 
 func (p *Provider) createGuardrail(body map[string]any) (*plugin.Response, error) {
-	name := strVal(body, "name")
-	description := strVal(body, "description")
+	name := shared.StrParam(body, "name")
+	description := shared.StrParam(body, "description")
 	guardrailID := shared.GenerateID("", 10)
 
 	g := &Guardrail{
@@ -447,11 +443,11 @@ func (p *Provider) updateGuardrail(guardrailID string, body map[string]any) (*pl
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "guardrail not found", http.StatusNotFound), nil
 	}
-	name := strVal(body, "name")
+	name := shared.StrParam(body, "name")
 	if name == "" {
 		name = g.Name
 	}
-	description := strVal(body, "description")
+	description := shared.StrParam(body, "description")
 	if err := p.store.UpdateGuardrail(guardrailID, name, description); err != nil {
 		return shared.JSONError("InternalError", err.Error(), http.StatusInternalServerError), nil
 	}
@@ -519,15 +515,6 @@ func (p *Provider) untagResource(arn string, keys []string) (*plugin.Response, e
 }
 
 // --- helpers ---
-
-func strVal(m map[string]any, key string) string {
-	if v, ok := m[key]; ok {
-		if s, ok := v.(string); ok {
-			return s
-		}
-	}
-	return ""
-}
 
 func extractSegment(path, prefix string) string {
 	s := strings.TrimPrefix(path, prefix)

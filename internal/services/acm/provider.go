@@ -20,10 +20,11 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
-const defaultRegion = "us-east-1"
+const defaultRegion = shared.DefaultRegion
 
 // Provider implements ACM using the JSON 1.1 protocol.
 // Operations are dispatched via X-Amz-Target header (value passed as op).
@@ -148,10 +149,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 		out = append(out, plugin.Resource{Type: "certificate", ID: c.ARN, Name: c.DomainName})
 	}
 	return out, nil
-}
-
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
 }
 
 // --- helpers ---

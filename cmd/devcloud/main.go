@@ -10,18 +10,19 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"sort"
 	"syscall"
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/admin"
 	"github.com/skyoo2003/devcloud/internal/config"
-	"github.com/skyoo2003/devcloud/internal/eventbus"
 	"github.com/skyoo2003/devcloud/internal/gateway"
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	iamsvc "github.com/skyoo2003/devcloud/internal/services/iam"
 )
 
+// initOrder lists the services that must come up for DevCloud to be useful, in
+// dependency order — sts borrows iam's store, so iam precedes it. A failure
+// here is fatal; every other registered service only warns.
 var initOrder = []string{
 	"s3", "sqs", "dynamodb", "iam", "sts", "lambda",
 	"kms", "sns", "secretsmanager", "ssm", "cloudwatchlogs", "cloudwatch",
@@ -32,89 +33,78 @@ func main() {
 	cfgPath := flag.String("config", "", "Path to config file (optional; uses ./devcloud.yaml if present, else embedded defaults)")
 	flag.Parse()
 
-	// Buffer log records emitted while loading config (parse() deprecation and
-	// unknown-tier warnings, etc.) so they can be replayed through the
-	// operator-configured handler below and honor logging.format / level.
-	buf := &bufferHandler{}
-	slog.SetDefault(slog.New(buf))
-
 	var (
-		cfg *config.Config
-		err error
+		cfg      *config.Config
+		warnings []string
+		err      error
 	)
 	if *cfgPath != "" {
 		// Explicit --config flag: the file must exist.
-		cfg, err = config.Load(*cfgPath)
+		cfg, warnings, err = config.Load(*cfgPath)
 	} else {
 		// No flag: prefer ./devcloud.yaml in the working directory; fall back to embedded defaults.
-		cfg, err = config.LoadOrDefault("devcloud.yaml")
+		cfg, warnings, err = config.LoadOrDefault("devcloud.yaml")
 	}
 	if err != nil {
 		// Load failed, so there is no logging config to honor; fall back to the
-		// default handler, flush any buffered warnings, then surface the error.
+		// default handler and surface the error.
 		setupLogging(config.LoggingConfig{})
-		buf.flushTo(slog.Default().Handler())
 		slog.Error("failed to load config", "error", err)
 		os.Exit(1)
 	}
 
+	// Config warnings are returned rather than logged by the config package so
+	// they honor logging.format / logging.level.
 	setupLogging(cfg.Logging)
-	buf.flushTo(slog.Default().Handler())
+	for _, w := range warnings {
+		slog.Warn(w)
+	}
 
 	registry := plugin.DefaultRegistry
 
-	// Initialize services in dependency order.
-	for _, name := range initOrder {
-		svcCfg, exists := cfg.Services[name]
-		if !exists || !svcCfg.Enabled {
-			continue
+	initService := func(name string, fatal bool) {
+		svcCfg := cfg.Service(name)
+		if !svcCfg.Enabled {
+			return
 		}
 		pluginCfg := plugin.PluginConfig{
 			DataDir: svcCfg.DataDir,
 			Options: buildOptions(name, cfg, registry),
 		}
 		if _, err := registry.Init(name, pluginCfg); err != nil {
-			slog.Error("failed to init service", "service", name, "error", err)
-			os.Exit(1)
+			if fatal {
+				slog.Error("failed to init service", "service", name, "error", err)
+				os.Exit(1)
+			}
+			slog.Warn("service init failed", "service", name, "error", err)
+			return
 		}
 		slog.Info("service initialized", "service", name)
 	}
 
-	// Initialize any remaining enabled services not in initOrder, in
-	// deterministic alphabetical order so startup logs and init sequencing
-	// are reproducible across runs.
-	remaining := make([]string, 0, len(cfg.Services))
-	for name := range cfg.Services {
-		remaining = append(remaining, name)
+	for _, name := range initOrder {
+		initService(name, true)
 	}
-	sort.Strings(remaining)
-	for _, name := range remaining {
-		svcCfg := cfg.Services[name]
-		if !svcCfg.Enabled {
-			continue
-		}
+	// RegisteredServices() is sorted, so the long tail starts in a reproducible
+	// order. Services already brought up above are skipped.
+	for _, name := range registry.RegisteredServices() {
 		if _, ok := registry.Get(name); ok {
 			continue
 		}
-		pluginCfg := plugin.PluginConfig{
-			DataDir: svcCfg.DataDir,
-			Options: buildOptions(name, cfg, registry),
-		}
-		if _, err := registry.Init(name, pluginCfg); err != nil {
-			slog.Warn("service init failed", "service", name, "error", err)
-			continue
-		}
-		slog.Info("service initialized", "service", name)
+		initService(name, false)
 	}
 
-	if cfg.Auth.Enabled {
-		slog.Warn("auth.enabled=true but SigV4 enforcement is not yet implemented; requests are accepted regardless of signature validity")
+	// A services block is authoritative and `enabled` defaults to Go's false,
+	// so `services:\n  s3:\n` (or a typo'd DEVCLOUD_SERVICES) silently brings up
+	// nothing. Serving zero services is never what an operator wanted.
+	if len(registry.ActiveServices()) == 0 {
+		slog.Warn("no services enabled; a 'services' block only starts what it lists, and each entry still needs 'enabled: true' — also check DEVCLOUD_SERVICES")
 	}
 
-	// Admin API: build the REST + WebSocket handler only when the operator
-	// opted in via admin.enabled. Otherwise expose a 404 handler so the admin
-	// routes don't leak service internals. This binary serves no web UI; the
-	// dashboard frontend lives in a separate repository and talks to this API.
+	// Admin API: build the REST handler only when the operator opted in via
+	// admin.enabled. Otherwise expose a 404 handler so the admin routes don't
+	// leak service internals. This binary serves no web UI; the dashboard
+	// frontend lives in a separate repository and talks to this API.
 	// The log collector is only built when admin is enabled; otherwise no
 	// consumer can ever read it, so a nil collector keeps Add off the request
 	// hot path (see gateway.New).
@@ -122,14 +112,7 @@ func main() {
 	adminHandler := http.NotFoundHandler()
 	if cfg.Admin.Enabled {
 		logCollector = admin.NewLogCollector(1000)
-		adminAPI := admin.NewAPI(registry, logCollector)
-		hub := admin.NewHub(eventbus.New())
-		go hub.Start()
-
-		adminMux := http.NewServeMux()
-		adminMux.Handle("/devcloud/api/", adminAPI.Handler())
-		adminMux.HandleFunc("/devcloud/api/ws", hub.ServeWS)
-		adminHandler = adminMux
+		adminHandler = admin.NewAPI(registry, logCollector).Handler()
 		slog.Info("admin API enabled")
 	}
 	gw := gateway.New(cfg.Server.Port, registry, adminHandler, logCollector)

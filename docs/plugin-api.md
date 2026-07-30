@@ -20,7 +20,6 @@ type ServicePlugin interface {
     Shutdown(ctx context.Context) error
     HandleRequest(ctx context.Context, op string, req *http.Request) (*Response, error)
     ListResources(ctx context.Context) ([]Resource, error)
-    GetMetrics(ctx context.Context) (*ServiceMetrics, error)
 }
 ```
 
@@ -35,7 +34,6 @@ type ServicePlugin interface {
 | `Shutdown(ctx)` | Called once at graceful shutdown (15s budget). Flush/close resources. Idempotent-friendly. |
 | `HandleRequest(ctx, op, req)` | Handle one API call. `op` is the operation name pre-extracted by the gateway (see [operation names](#operation-names)); it may be `""` for REST protocols, in which case derive it from method+path or `X-Amz-Target`. Return a `*Response`; return an `error` only for unexpected internal failures (the gateway wraps those as a `500 InternalError`). **Model AWS errors as a normal `*Response`** with the right status and error body, not as a Go `error`. |
 | `ListResources(ctx)` | Return the resources this service currently holds (admin API). May be empty. |
-| `GetMetrics(ctx)` | Return request/error/resource counters (admin API). May be zero-valued. |
 
 These invariants are enforced for every registered service by
 [`TestServicePluginConformance`](../cmd/devcloud/conformance_test.go).
@@ -130,8 +128,7 @@ The registry also exposes `RegisteredServices()` (all registered IDs) and
 ## API stability
 
 Starting at **v1.0**, `ServicePlugin`, `PluginConfig`, `Response`, `Resource`,
-`ServiceMetrics`, and the `ProtocolType` constants are stable within the `v1.x`
-series:
+and the `ProtocolType` constants are stable within the `v1.x` series:
 
 - No method will be **removed** from `ServicePlugin` and no existing method
   **signature** will change in a `v1.x` release.

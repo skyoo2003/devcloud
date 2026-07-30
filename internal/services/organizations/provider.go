@@ -168,10 +168,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // ---- Organization ----
 
 func (p *Provider) createOrganization(params map[string]any) (*plugin.Response, error) {

@@ -205,7 +205,7 @@ func (s *Store) PutConfigRule(r *ConfigRule) error {
 	return err
 }
 
-func scanConfigRule(row shared.Scanner) (*ConfigRule, error) {
+func scanConfigRule(row sqlite.Scanner) (*ConfigRule, error) {
 	r := &ConfigRule{}
 	err := row.Scan(&r.Name, &r.ARN, &r.Source, &r.Scope, &r.InputParams, &r.State, &r.CreatedAt)
 	if err == sql.ErrNoRows {
@@ -274,7 +274,7 @@ func (s *Store) PutConfigurationRecorder(r *ConfigurationRecorder) error {
 	return err
 }
 
-func scanRecorder(row shared.Scanner) (*ConfigurationRecorder, error) {
+func scanRecorder(row sqlite.Scanner) (*ConfigurationRecorder, error) {
 	r := &ConfigurationRecorder{}
 	err := row.Scan(&r.Name, &r.RoleARN, &r.RecordingGroup, &r.RecordingMode, &r.Status)
 	if err == sql.ErrNoRows {
@@ -355,7 +355,7 @@ func (s *Store) PutDeliveryChannel(d *DeliveryChannel) error {
 	return err
 }
 
-func scanDeliveryChannel(row shared.Scanner) (*DeliveryChannel, error) {
+func scanDeliveryChannel(row sqlite.Scanner) (*DeliveryChannel, error) {
 	d := &DeliveryChannel{}
 	err := row.Scan(&d.Name, &d.S3Bucket, &d.S3Prefix, &d.SNSTopic, &d.Frequency)
 	if err == sql.ErrNoRows {
@@ -418,7 +418,7 @@ func (s *Store) PutConformancePack(c *ConformancePack) error {
 	return err
 }
 
-func scanConformancePack(row shared.Scanner) (*ConformancePack, error) {
+func scanConformancePack(row sqlite.Scanner) (*ConformancePack, error) {
 	c := &ConformancePack{}
 	err := row.Scan(&c.Name, &c.ARN, &c.TemplateBody, &c.DeliveryBucket, &c.Status, &c.CreatedAt)
 	if err == sql.ErrNoRows {
@@ -480,7 +480,7 @@ func (s *Store) PutAggregator(a *Aggregator) error {
 	return err
 }
 
-func scanAggregator(row shared.Scanner) (*Aggregator, error) {
+func scanAggregator(row sqlite.Scanner) (*Aggregator, error) {
 	a := &Aggregator{}
 	err := row.Scan(&a.Name, &a.ARN, &a.AccountSources, &a.OrgSource, &a.CreatedAt)
 	if err == sql.ErrNoRows {
@@ -548,7 +548,7 @@ func (s *Store) PutStoredQuery(q *StoredQuery) error {
 	return err
 }
 
-func scanStoredQuery(row shared.Scanner) (*StoredQuery, error) {
+func scanStoredQuery(row sqlite.Scanner) (*StoredQuery, error) {
 	q := &StoredQuery{}
 	err := row.Scan(&q.Name, &q.ID, &q.ARN, &q.Expression, &q.Description)
 	if err == sql.ErrNoRows {
@@ -600,7 +600,7 @@ func (s *Store) PutRetentionConfig(r *RetentionConfig) error {
 	return err
 }
 
-func scanRetentionConfig(row shared.Scanner) (*RetentionConfig, error) {
+func scanRetentionConfig(row sqlite.Scanner) (*RetentionConfig, error) {
 	r := &RetentionConfig{}
 	err := row.Scan(&r.Name, &r.RetentionDays)
 	if err == sql.ErrNoRows {
@@ -654,7 +654,7 @@ func (s *Store) PutAggregationAuthorization(a *AggregationAuthorization) error {
 	return err
 }
 
-func scanAggAuth(row shared.Scanner) (*AggregationAuthorization, error) {
+func scanAggAuth(row sqlite.Scanner) (*AggregationAuthorization, error) {
 	a := &AggregationAuthorization{}
 	err := row.Scan(&a.ARN, &a.AuthorizedAccount, &a.AuthorizedRegion, &a.CreatedAt)
 	if err == sql.ErrNoRows {
@@ -705,7 +705,7 @@ func (s *Store) PutRemediationConfig(r *RemediationConfig) error {
 	return err
 }
 
-func scanRemediationConfig(row shared.Scanner) (*RemediationConfig, error) {
+func scanRemediationConfig(row sqlite.Scanner) (*RemediationConfig, error) {
 	r := &RemediationConfig{}
 	err := row.Scan(&r.ConfigRuleName, &r.TargetType, &r.TargetID, &r.Parameters, &r.Automatic)
 	if err == sql.ErrNoRows {

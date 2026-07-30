@@ -552,10 +552,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- Thing operations ---
 
 func (p *Provider) createThing(params map[string]any) (*plugin.Response, error) {
@@ -575,7 +571,7 @@ func (p *Provider) createThing(params map[string]any) (*plugin.Response, error) 
 	t := &Thing{
 		Name:       name,
 		ARN:        arn,
-		TypeName:   strParam(params, "thingTypeName"),
+		TypeName:   shared.StrParam(params, "thingTypeName"),
 		Attributes: attrsJSON,
 		Version:    1,
 		CreatedAt:  time.Now().Unix(),
@@ -1443,7 +1439,7 @@ func (p *Provider) createJob(id string, params map[string]any) (*plugin.Response
 		Status:      "IN_PROGRESS",
 		Targets:     targetsJSON,
 		Document:    docJSON,
-		Description: strParam(params, "description"),
+		Description: shared.StrParam(params, "description"),
 		CreatedAt:   time.Now().Unix(),
 	}
 	if err := p.store.CreateJob(j); err != nil {
@@ -1826,11 +1822,6 @@ func extractPathParam(path, segment string) string {
 		}
 	}
 	return ""
-}
-
-func strParam(params map[string]any, key string) string {
-	v, _ := params[key].(string)
-	return v
 }
 
 func isUniqueErr(err error) bool {

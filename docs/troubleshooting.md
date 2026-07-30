@@ -67,7 +67,6 @@ By default, DevCloud accepts any signature — it checks the SigV4 *format* but 
 
 - Your client is configured with dummy but **non-empty** credentials (`aws_access_key_id="test"`, `aws_secret_access_key="test"`).
 - The `endpoint_url` points to DevCloud, not real AWS.
-- If you enabled `auth.enabled: true`, either disable it or provide the credentials you registered.
 
 ### `NoSuchBucket` / `ResourceNotFoundException` after restart
 

@@ -119,14 +119,6 @@ func (p *DynamoDBProvider) ListResources(_ context.Context) ([]plugin.Resource, 
 	return resources, nil
 }
 
-// GetMetrics returns basic metrics for the DynamoDB provider.
-func (p *DynamoDBProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	names := p.store.ListTables()
-	return &plugin.ServiceMetrics{
-		ResourceCount: len(names),
-	}, nil
-}
-
 // --- request/response structs ---
 
 type keySchemaElement struct {

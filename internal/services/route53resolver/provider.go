@@ -235,16 +235,7 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // ==================== helpers ====================
-
-func str(params map[string]any, key string) string {
-	v, _ := params[key].(string)
-	return v
-}
 
 func intParam(params map[string]any, key string) int {
 	switch v := params[key].(type) {
@@ -399,8 +390,8 @@ func fwRuleGroupAssocToMap(r *fwRuleGroupAssocRow) map[string]any {
 // ==================== ResolverEndpoint ====================
 
 func (p *Provider) createResolverEndpoint(params map[string]any) (*plugin.Response, error) {
-	name := str(params, "Name")
-	direction := str(params, "Direction")
+	name := shared.StrParam(params, "Name")
+	direction := shared.StrParam(params, "Direction")
 	if direction == "" {
 		direction = "INBOUND"
 	}
@@ -449,7 +440,7 @@ func (p *Provider) createResolverEndpoint(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) getResolverEndpoint(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverEndpointId")
+	id := shared.StrParam(params, "ResolverEndpointId")
 	if id == "" {
 		return shared.JSONError("ValidationException", "ResolverEndpointId is required", http.StatusBadRequest), nil
 	}
@@ -476,8 +467,8 @@ func (p *Provider) listResolverEndpoints(_ map[string]any) (*plugin.Response, er
 }
 
 func (p *Provider) updateResolverEndpoint(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverEndpointId")
-	name := str(params, "Name")
+	id := shared.StrParam(params, "ResolverEndpointId")
+	name := shared.StrParam(params, "Name")
 	if err := p.store.UpdateEndpoint(id, name); err != nil {
 		return shared.JSONError("ResourceNotFoundException", "resolver endpoint not found", http.StatusBadRequest), nil
 	}
@@ -486,7 +477,7 @@ func (p *Provider) updateResolverEndpoint(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) deleteResolverEndpoint(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverEndpointId")
+	id := shared.StrParam(params, "ResolverEndpointId")
 	ep, err := p.store.GetEndpoint(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "resolver endpoint not found", http.StatusBadRequest), nil
@@ -499,7 +490,7 @@ func (p *Provider) deleteResolverEndpoint(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) associateResolverEndpointIpAddress(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverEndpointId")
+	id := shared.StrParam(params, "ResolverEndpointId")
 	ipMap, _ := params["IpAddress"].(map[string]any)
 	subnet, _ := ipMap["SubnetId"].(string)
 	ip, _ := ipMap["Ip"].(string)
@@ -517,7 +508,7 @@ func (p *Provider) associateResolverEndpointIpAddress(params map[string]any) (*p
 }
 
 func (p *Provider) disassociateResolverEndpointIpAddress(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverEndpointId")
+	id := shared.StrParam(params, "ResolverEndpointId")
 	ipMap, _ := params["IpAddress"].(map[string]any)
 	ipID, _ := ipMap["IpId"].(string)
 	ep, err := p.store.DisassociateEndpointIP(id, ipID)
@@ -528,7 +519,7 @@ func (p *Provider) disassociateResolverEndpointIpAddress(params map[string]any) 
 }
 
 func (p *Provider) listResolverEndpointIpAddresses(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverEndpointId")
+	id := shared.StrParam(params, "ResolverEndpointId")
 	ips, err := p.store.ListEndpointIPs(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "resolver endpoint not found", http.StatusBadRequest), nil
@@ -551,16 +542,16 @@ func (p *Provider) listResolverEndpointIpAddresses(params map[string]any) (*plug
 // ==================== ResolverRule ====================
 
 func (p *Provider) createResolverRule(params map[string]any) (*plugin.Response, error) {
-	name := str(params, "Name")
-	domainName := str(params, "DomainName")
+	name := shared.StrParam(params, "Name")
+	domainName := shared.StrParam(params, "DomainName")
 	if domainName != "" && !strings.HasSuffix(domainName, ".") {
 		domainName += "."
 	}
-	ruleType := str(params, "RuleType")
+	ruleType := shared.StrParam(params, "RuleType")
 	if ruleType == "" {
 		ruleType = "FORWARD"
 	}
-	endpointID := str(params, "ResolverEndpointId")
+	endpointID := shared.StrParam(params, "ResolverEndpointId")
 
 	var targetIPs []map[string]any
 	if raw, ok := params["TargetIps"].([]any); ok {
@@ -585,7 +576,7 @@ func (p *Provider) createResolverRule(params map[string]any) (*plugin.Response, 
 }
 
 func (p *Provider) getResolverRule(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverRuleId")
+	id := shared.StrParam(params, "ResolverRuleId")
 	rule, err := p.store.GetRule(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "resolver rule not found", http.StatusBadRequest), nil
@@ -609,7 +600,7 @@ func (p *Provider) listResolverRules(_ map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) updateResolverRule(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverRuleId")
+	id := shared.StrParam(params, "ResolverRuleId")
 	cfg, _ := params["Config"].(map[string]any)
 	name, _ := cfg["Name"].(string)
 	endpointID, _ := cfg["ResolverEndpointId"].(string)
@@ -642,7 +633,7 @@ func (p *Provider) updateResolverRule(params map[string]any) (*plugin.Response, 
 }
 
 func (p *Provider) deleteResolverRule(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverRuleId")
+	id := shared.StrParam(params, "ResolverRuleId")
 	rule, err := p.store.GetRule(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "resolver rule not found", http.StatusBadRequest), nil
@@ -655,9 +646,9 @@ func (p *Provider) deleteResolverRule(params map[string]any) (*plugin.Response, 
 }
 
 func (p *Provider) associateResolverRule(params map[string]any) (*plugin.Response, error) {
-	ruleID := str(params, "ResolverRuleId")
-	vpcID := str(params, "VPCId")
-	name := str(params, "Name")
+	ruleID := shared.StrParam(params, "ResolverRuleId")
+	vpcID := shared.StrParam(params, "VPCId")
+	name := shared.StrParam(params, "Name")
 	id := shared.GenerateID("rslvr-ra-", 24)
 	assoc, err := p.store.AssociateRule(id, ruleID, vpcID, name)
 	if err != nil {
@@ -667,8 +658,8 @@ func (p *Provider) associateResolverRule(params map[string]any) (*plugin.Respons
 }
 
 func (p *Provider) disassociateResolverRule(params map[string]any) (*plugin.Response, error) {
-	ruleID := str(params, "ResolverRuleId")
-	vpcID := str(params, "VPCId")
+	ruleID := shared.StrParam(params, "ResolverRuleId")
+	vpcID := shared.StrParam(params, "VPCId")
 	assoc, err := p.store.DisassociateRule(ruleID, vpcID)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "rule association not found", http.StatusBadRequest), nil
@@ -677,7 +668,7 @@ func (p *Provider) disassociateResolverRule(params map[string]any) (*plugin.Resp
 }
 
 func (p *Provider) getResolverRuleAssociation(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverRuleAssociationId")
+	id := shared.StrParam(params, "ResolverRuleAssociationId")
 	assoc, err := p.store.GetRuleAssociation(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "rule association not found", http.StatusBadRequest), nil
@@ -711,8 +702,8 @@ func (p *Provider) putResolverRulePolicy(_ map[string]any) (*plugin.Response, er
 // ==================== QueryLogConfig ====================
 
 func (p *Provider) createResolverQueryLogConfig(params map[string]any) (*plugin.Response, error) {
-	name := str(params, "Name")
-	dest := str(params, "DestinationArn")
+	name := shared.StrParam(params, "Name")
+	dest := shared.StrParam(params, "DestinationArn")
 	if name == "" {
 		return shared.JSONError("ValidationException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -729,7 +720,7 @@ func (p *Provider) createResolverQueryLogConfig(params map[string]any) (*plugin.
 }
 
 func (p *Provider) getResolverQueryLogConfig(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverQueryLogConfigId")
+	id := shared.StrParam(params, "ResolverQueryLogConfigId")
 	cfg, err := p.store.GetQueryLogConfig(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "query log config not found", http.StatusBadRequest), nil
@@ -754,7 +745,7 @@ func (p *Provider) listResolverQueryLogConfigs(_ map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) deleteResolverQueryLogConfig(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverQueryLogConfigId")
+	id := shared.StrParam(params, "ResolverQueryLogConfigId")
 	cfg, err := p.store.GetQueryLogConfig(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "query log config not found", http.StatusBadRequest), nil
@@ -767,8 +758,8 @@ func (p *Provider) deleteResolverQueryLogConfig(params map[string]any) (*plugin.
 }
 
 func (p *Provider) associateResolverQueryLogConfig(params map[string]any) (*plugin.Response, error) {
-	configID := str(params, "ResolverQueryLogConfigId")
-	resourceID := str(params, "ResourceId")
+	configID := shared.StrParam(params, "ResolverQueryLogConfigId")
+	resourceID := shared.StrParam(params, "ResourceId")
 	id := shared.GenerateID("rqlca-", 28)
 	assoc, err := p.store.AssociateQueryLogConfig(id, configID, resourceID)
 	if err != nil {
@@ -778,8 +769,8 @@ func (p *Provider) associateResolverQueryLogConfig(params map[string]any) (*plug
 }
 
 func (p *Provider) disassociateResolverQueryLogConfig(params map[string]any) (*plugin.Response, error) {
-	configID := str(params, "ResolverQueryLogConfigId")
-	resourceID := str(params, "ResourceId")
+	configID := shared.StrParam(params, "ResolverQueryLogConfigId")
+	resourceID := shared.StrParam(params, "ResourceId")
 	assoc, err := p.store.DisassociateQueryLogConfig(configID, resourceID)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "query log association not found", http.StatusBadRequest), nil
@@ -788,7 +779,7 @@ func (p *Provider) disassociateResolverQueryLogConfig(params map[string]any) (*p
 }
 
 func (p *Provider) getResolverQueryLogConfigAssociation(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "ResolverQueryLogConfigAssociationId")
+	id := shared.StrParam(params, "ResolverQueryLogConfigAssociationId")
 	assoc, err := p.store.GetQueryLogConfigAssociation(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "query log association not found", http.StatusBadRequest), nil
@@ -823,7 +814,7 @@ func (p *Provider) putResolverQueryLogConfigPolicy(_ map[string]any) (*plugin.Re
 // ==================== FirewallRuleGroup ====================
 
 func (p *Provider) createFirewallRuleGroup(params map[string]any) (*plugin.Response, error) {
-	name := str(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("ValidationException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -840,7 +831,7 @@ func (p *Provider) createFirewallRuleGroup(params map[string]any) (*plugin.Respo
 }
 
 func (p *Provider) getFirewallRuleGroup(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "FirewallRuleGroupId")
+	id := shared.StrParam(params, "FirewallRuleGroupId")
 	grp, err := p.store.GetFirewallRuleGroup(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall rule group not found", http.StatusBadRequest), nil
@@ -865,7 +856,7 @@ func (p *Provider) listFirewallRuleGroups(_ map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) deleteFirewallRuleGroup(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "FirewallRuleGroupId")
+	id := shared.StrParam(params, "FirewallRuleGroupId")
 	grp, err := p.store.GetFirewallRuleGroup(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall rule group not found", http.StatusBadRequest), nil
@@ -880,15 +871,15 @@ func (p *Provider) deleteFirewallRuleGroup(params map[string]any) (*plugin.Respo
 // ==================== FirewallRule ====================
 
 func (p *Provider) createFirewallRule(params map[string]any) (*plugin.Response, error) {
-	groupID := str(params, "FirewallRuleGroupId")
-	domainListID := str(params, "FirewallDomainListId")
-	name := str(params, "Name")
+	groupID := shared.StrParam(params, "FirewallRuleGroupId")
+	domainListID := shared.StrParam(params, "FirewallDomainListId")
+	name := shared.StrParam(params, "Name")
 	priority := intParam(params, "Priority")
-	action := str(params, "Action")
+	action := shared.StrParam(params, "Action")
 	if action == "" {
 		action = "BLOCK"
 	}
-	blockResponse := str(params, "BlockResponse")
+	blockResponse := shared.StrParam(params, "BlockResponse")
 	if blockResponse == "" {
 		blockResponse = "NODATA"
 	}
@@ -903,7 +894,7 @@ func (p *Provider) createFirewallRule(params map[string]any) (*plugin.Response, 
 }
 
 func (p *Provider) listFirewallRules(params map[string]any) (*plugin.Response, error) {
-	groupID := str(params, "FirewallRuleGroupId")
+	groupID := shared.StrParam(params, "FirewallRuleGroupId")
 	rules, err := p.store.ListFirewallRules(groupID)
 	if err != nil {
 		return nil, err
@@ -916,12 +907,12 @@ func (p *Provider) listFirewallRules(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) updateFirewallRule(params map[string]any) (*plugin.Response, error) {
-	groupID := str(params, "FirewallRuleGroupId")
-	domainListID := str(params, "FirewallDomainListId")
-	name := str(params, "Name")
+	groupID := shared.StrParam(params, "FirewallRuleGroupId")
+	domainListID := shared.StrParam(params, "FirewallDomainListId")
+	name := shared.StrParam(params, "Name")
 	priority := intParam(params, "Priority")
-	action := str(params, "Action")
-	blockResponse := str(params, "BlockResponse")
+	action := shared.StrParam(params, "Action")
+	blockResponse := shared.StrParam(params, "BlockResponse")
 	rule, err := p.store.UpdateFirewallRule(groupID, domainListID, name, priority, action, blockResponse)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall rule not found", http.StatusBadRequest), nil
@@ -930,8 +921,8 @@ func (p *Provider) updateFirewallRule(params map[string]any) (*plugin.Response, 
 }
 
 func (p *Provider) deleteFirewallRule(params map[string]any) (*plugin.Response, error) {
-	groupID := str(params, "FirewallRuleGroupId")
-	domainListID := str(params, "FirewallDomainListId")
+	groupID := shared.StrParam(params, "FirewallRuleGroupId")
+	domainListID := shared.StrParam(params, "FirewallDomainListId")
 	// get before delete for response
 	rules, _ := p.store.ListFirewallRules(groupID)
 	var found *fwRuleRow
@@ -953,7 +944,7 @@ func (p *Provider) deleteFirewallRule(params map[string]any) (*plugin.Response, 
 // ==================== FirewallDomainList ====================
 
 func (p *Provider) createFirewallDomainList(params map[string]any) (*plugin.Response, error) {
-	name := str(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return shared.JSONError("ValidationException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -970,7 +961,7 @@ func (p *Provider) createFirewallDomainList(params map[string]any) (*plugin.Resp
 }
 
 func (p *Provider) getFirewallDomainList(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "FirewallDomainListId")
+	id := shared.StrParam(params, "FirewallDomainListId")
 	dl, err := p.store.GetFirewallDomainList(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall domain list not found", http.StatusBadRequest), nil
@@ -995,7 +986,7 @@ func (p *Provider) listFirewallDomainLists(_ map[string]any) (*plugin.Response, 
 }
 
 func (p *Provider) deleteFirewallDomainList(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "FirewallDomainListId")
+	id := shared.StrParam(params, "FirewallDomainListId")
 	dl, err := p.store.GetFirewallDomainList(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall domain list not found", http.StatusBadRequest), nil
@@ -1008,7 +999,7 @@ func (p *Provider) deleteFirewallDomainList(params map[string]any) (*plugin.Resp
 }
 
 func (p *Provider) importFirewallDomains(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "FirewallDomainListId")
+	id := shared.StrParam(params, "FirewallDomainListId")
 	dl, err := p.store.GetFirewallDomainList(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall domain list not found", http.StatusBadRequest), nil
@@ -1022,7 +1013,7 @@ func (p *Provider) importFirewallDomains(params map[string]any) (*plugin.Respons
 }
 
 func (p *Provider) listFirewallDomains(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "FirewallDomainListId")
+	id := shared.StrParam(params, "FirewallDomainListId")
 	domains, err := p.store.ListFirewallDomains(id)
 	if err != nil {
 		return nil, err
@@ -1034,8 +1025,8 @@ func (p *Provider) listFirewallDomains(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) updateFirewallDomains(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "FirewallDomainListId")
-	op := str(params, "Operation")
+	id := shared.StrParam(params, "FirewallDomainListId")
+	op := shared.StrParam(params, "Operation")
 	if op == "" {
 		op = "ADD"
 	}
@@ -1065,9 +1056,9 @@ func (p *Provider) updateFirewallDomains(params map[string]any) (*plugin.Respons
 // ==================== FirewallRuleGroupAssociation ====================
 
 func (p *Provider) associateFirewallRuleGroup(params map[string]any) (*plugin.Response, error) {
-	groupID := str(params, "FirewallRuleGroupId")
-	vpcID := str(params, "VpcId")
-	name := str(params, "Name")
+	groupID := shared.StrParam(params, "FirewallRuleGroupId")
+	vpcID := shared.StrParam(params, "VpcId")
+	name := shared.StrParam(params, "Name")
 	priority := intParam(params, "Priority")
 	id := shared.GenerateID("rslvr-frgassoc-", 28)
 	assoc, err := p.store.AssociateFirewallRuleGroup(id, groupID, vpcID, name, priority)
@@ -1078,7 +1069,7 @@ func (p *Provider) associateFirewallRuleGroup(params map[string]any) (*plugin.Re
 }
 
 func (p *Provider) getFirewallRuleGroupAssociation(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "FirewallRuleGroupAssociationId")
+	id := shared.StrParam(params, "FirewallRuleGroupAssociationId")
 	assoc, err := p.store.GetFirewallRuleGroupAssociation(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall rule group association not found", http.StatusBadRequest), nil
@@ -1087,7 +1078,7 @@ func (p *Provider) getFirewallRuleGroupAssociation(params map[string]any) (*plug
 }
 
 func (p *Provider) listFirewallRuleGroupAssociations(params map[string]any) (*plugin.Response, error) {
-	vpcID := str(params, "VpcId")
+	vpcID := shared.StrParam(params, "VpcId")
 	assocs, err := p.store.ListFirewallRuleGroupAssociations(vpcID)
 	if err != nil {
 		return nil, err
@@ -1100,7 +1091,7 @@ func (p *Provider) listFirewallRuleGroupAssociations(params map[string]any) (*pl
 }
 
 func (p *Provider) disassociateFirewallRuleGroup(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "FirewallRuleGroupAssociationId")
+	id := shared.StrParam(params, "FirewallRuleGroupAssociationId")
 	assoc, err := p.store.DisassociateFirewallRuleGroup(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFoundException", "firewall rule group association not found", http.StatusBadRequest), nil
@@ -1109,8 +1100,8 @@ func (p *Provider) disassociateFirewallRuleGroup(params map[string]any) (*plugin
 }
 
 func (p *Provider) updateFirewallRuleGroupAssociation(params map[string]any) (*plugin.Response, error) {
-	id := str(params, "FirewallRuleGroupAssociationId")
-	name := str(params, "Name")
+	id := shared.StrParam(params, "FirewallRuleGroupAssociationId")
+	name := shared.StrParam(params, "Name")
 	priority := intParam(params, "Priority")
 	assoc, err := p.store.UpdateFirewallRuleGroupAssociation(id, name, priority)
 	if err != nil {
@@ -1130,7 +1121,7 @@ func (p *Provider) putFirewallRuleGroupPolicy(_ map[string]any) (*plugin.Respons
 // ==================== FirewallConfig (per-VPC, stub) ====================
 
 func (p *Provider) getFirewallConfig(params map[string]any) (*plugin.Response, error) {
-	resourceID := str(params, "ResourceId")
+	resourceID := shared.StrParam(params, "ResourceId")
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"FirewallConfig": map[string]any{
 			"Id":               shared.GenerateID("rslvr-fc-", 24),
@@ -1142,8 +1133,8 @@ func (p *Provider) getFirewallConfig(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) updateFirewallConfig(params map[string]any) (*plugin.Response, error) {
-	resourceID := str(params, "ResourceId")
-	failOpen := str(params, "FirewallFailOpen")
+	resourceID := shared.StrParam(params, "ResourceId")
+	failOpen := shared.StrParam(params, "FirewallFailOpen")
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"FirewallConfig": map[string]any{
 			"Id":               shared.GenerateID("rslvr-fc-", 24),
@@ -1161,7 +1152,7 @@ func (p *Provider) listFirewallConfigs(_ map[string]any) (*plugin.Response, erro
 // ==================== ResolverConfig (stub) ====================
 
 func (p *Provider) getResolverConfig(params map[string]any) (*plugin.Response, error) {
-	resourceID := str(params, "ResourceId")
+	resourceID := shared.StrParam(params, "ResourceId")
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ResolverConfig": map[string]any{
 			"Id":                 shared.GenerateID("rslvr-rc-", 24),
@@ -1173,8 +1164,8 @@ func (p *Provider) getResolverConfig(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) updateResolverConfig(params map[string]any) (*plugin.Response, error) {
-	resourceID := str(params, "ResourceId")
-	flag := str(params, "AutodefinedReverseFlag")
+	resourceID := shared.StrParam(params, "ResourceId")
+	flag := shared.StrParam(params, "AutodefinedReverseFlag")
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ResolverConfig": map[string]any{
 			"Id":                 shared.GenerateID("rslvr-rc-", 24),
@@ -1192,7 +1183,7 @@ func (p *Provider) listResolverConfigs(_ map[string]any) (*plugin.Response, erro
 // ==================== ResolverDnssecConfig (stub) ====================
 
 func (p *Provider) getResolverDnssecConfig(params map[string]any) (*plugin.Response, error) {
-	resourceID := str(params, "ResourceId")
+	resourceID := shared.StrParam(params, "ResourceId")
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ResolverDNSSECConfig": map[string]any{
 			"Id":               shared.GenerateID("rslvr-dnssec-", 24),
@@ -1204,8 +1195,8 @@ func (p *Provider) getResolverDnssecConfig(params map[string]any) (*plugin.Respo
 }
 
 func (p *Provider) updateResolverDnssecConfig(params map[string]any) (*plugin.Response, error) {
-	resourceID := str(params, "ResourceId")
-	validation := str(params, "Validation")
+	resourceID := shared.StrParam(params, "ResourceId")
+	validation := shared.StrParam(params, "Validation")
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ResolverDNSSECConfig": map[string]any{
 			"Id":               shared.GenerateID("rslvr-dnssec-", 24),
@@ -1223,7 +1214,7 @@ func (p *Provider) listResolverDnssecConfigs(_ map[string]any) (*plugin.Response
 // ==================== Tags ====================
 
 func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) {
-	arn := str(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	rawTags, _ := params["Tags"].([]any)
 	if err := p.store.tags.AddTags(arn, parseTags(rawTags)); err != nil {
 		return nil, err
@@ -1232,7 +1223,7 @@ func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error) {
-	arn := str(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	rawKeys, _ := params["TagKeys"].([]any)
 	keys := make([]string, 0, len(rawKeys))
 	for _, k := range rawKeys {
@@ -1247,7 +1238,7 @@ func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response, error) {
-	arn := str(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	tags, err := p.store.tags.ListTags(arn)
 	if err != nil {
 		return nil, err

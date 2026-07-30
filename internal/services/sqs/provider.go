@@ -14,6 +14,7 @@ import (
 	"strings"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
@@ -209,11 +210,6 @@ func (p *SQSProvider) ListResources(_ context.Context) ([]plugin.Resource, error
 	return resources, nil
 }
 
-// GetMetrics returns empty metrics.
-func (p *SQSProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- XML response helpers ---
 
 type sqsErrorResponse struct {
@@ -398,16 +394,6 @@ func jsonResp(status int, v any) (*plugin.Response, error) {
 	}, nil
 }
 
-// strParam extracts a string value from the JSON params map.
-func strParam(params map[string]any, key string) string {
-	if v, ok := params[key]; ok {
-		if s, ok := v.(string); ok {
-			return s
-		}
-	}
-	return ""
-}
-
 // intParam extracts an int value from the JSON params map.
 func intParam(params map[string]any, key string, defaultVal int) int {
 	if v, ok := params[key]; ok {
@@ -424,7 +410,7 @@ func intParam(params map[string]any, key string, defaultVal int) int {
 // --- JSON protocol operation implementations ---
 
 func (p *SQSProvider) createQueueJSON(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "QueueName")
+	name := shared.StrParam(params, "QueueName")
 	if name == "" {
 		return jsonError("MissingParameter", "QueueName is required", http.StatusBadRequest), nil
 	}
@@ -450,7 +436,7 @@ func (p *SQSProvider) createQueueJSON(params map[string]any) (*plugin.Response, 
 }
 
 func (p *SQSProvider) listQueuesJSON(params map[string]any) (*plugin.Response, error) {
-	prefix := strParam(params, "QueueNamePrefix")
+	prefix := shared.StrParam(params, "QueueNamePrefix")
 	queues := p.store.ListQueues(defaultAccountID, prefix)
 
 	urls := make([]string, 0, len(queues))
@@ -461,7 +447,7 @@ func (p *SQSProvider) listQueuesJSON(params map[string]any) (*plugin.Response, e
 }
 
 func (p *SQSProvider) getQueueUrlJSON(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "QueueName")
+	name := shared.StrParam(params, "QueueName")
 	if name == "" {
 		return jsonError("MissingParameter", "QueueName is required", http.StatusBadRequest), nil
 	}
@@ -476,8 +462,8 @@ func (p *SQSProvider) getQueueUrlJSON(params map[string]any) (*plugin.Response, 
 }
 
 func (p *SQSProvider) sendMessageJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
-	body := strParam(params, "MessageBody")
+	queueURL := shared.StrParam(params, "QueueUrl")
+	body := shared.StrParam(params, "MessageBody")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -487,8 +473,8 @@ func (p *SQSProvider) sendMessageJSON(params map[string]any) (*plugin.Response, 
 
 	attrs := parseJSONMessageAttributes(params)
 	fifoOpts := SendMessageFIFOOptions{
-		MessageGroupID:         strParam(params, "MessageGroupId"),
-		MessageDeduplicationID: strParam(params, "MessageDeduplicationId"),
+		MessageGroupID:         shared.StrParam(params, "MessageGroupId"),
+		MessageDeduplicationID: shared.StrParam(params, "MessageDeduplicationId"),
 	}
 
 	name := queueNameFromURL(queueURL)
@@ -504,7 +490,7 @@ func (p *SQSProvider) sendMessageJSON(params map[string]any) (*plugin.Response, 
 }
 
 func (p *SQSProvider) receiveMessageJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -556,8 +542,8 @@ func (p *SQSProvider) receiveMessageJSON(params map[string]any) (*plugin.Respons
 }
 
 func (p *SQSProvider) deleteMessageJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
-	receiptHandle := strParam(params, "ReceiptHandle")
+	queueURL := shared.StrParam(params, "QueueUrl")
+	receiptHandle := shared.StrParam(params, "ReceiptHandle")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -575,7 +561,7 @@ func (p *SQSProvider) deleteMessageJSON(params map[string]any) (*plugin.Response
 }
 
 func (p *SQSProvider) deleteQueueJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -590,7 +576,7 @@ func (p *SQSProvider) deleteQueueJSON(params map[string]any) (*plugin.Response, 
 }
 
 func (p *SQSProvider) getQueueAttributesJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -619,7 +605,7 @@ func (p *SQSProvider) getQueueAttributesJSON(params map[string]any) (*plugin.Res
 }
 
 func (p *SQSProvider) setQueueAttributesJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -645,7 +631,7 @@ func (p *SQSProvider) setQueueAttributesJSON(params map[string]any) (*plugin.Res
 }
 
 func (p *SQSProvider) purgeQueueJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -660,7 +646,7 @@ func (p *SQSProvider) purgeQueueJSON(params map[string]any) (*plugin.Response, e
 }
 
 func (p *SQSProvider) listDeadLetterSourceQueuesJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -677,11 +663,11 @@ func (p *SQSProvider) listDeadLetterSourceQueuesJSON(params map[string]any) (*pl
 }
 
 func (p *SQSProvider) startMessageMoveTaskJSON(params map[string]any) (*plugin.Response, error) {
-	sourceArn := strParam(params, "SourceArn")
+	sourceArn := shared.StrParam(params, "SourceArn")
 	if sourceArn == "" {
 		return jsonError("MissingParameter", "SourceArn is required", http.StatusBadRequest), nil
 	}
-	destArn := strParam(params, "DestinationArn")
+	destArn := shared.StrParam(params, "DestinationArn")
 	maxRate := intParam(params, "MaxNumberOfMessagesPerSecond", 0)
 
 	handle, err := p.store.StartMessageMoveTask(sourceArn, destArn, maxRate, defaultAccountID)
@@ -697,7 +683,7 @@ func (p *SQSProvider) startMessageMoveTaskJSON(params map[string]any) (*plugin.R
 }
 
 func (p *SQSProvider) listMessageMoveTasksJSON(params map[string]any) (*plugin.Response, error) {
-	sourceArn := strParam(params, "SourceArn")
+	sourceArn := shared.StrParam(params, "SourceArn")
 	if sourceArn == "" {
 		return jsonError("MissingParameter", "SourceArn is required", http.StatusBadRequest), nil
 	}
@@ -724,7 +710,7 @@ func (p *SQSProvider) listMessageMoveTasksJSON(params map[string]any) (*plugin.R
 }
 
 func (p *SQSProvider) cancelMessageMoveTaskJSON(params map[string]any) (*plugin.Response, error) {
-	handle := strParam(params, "TaskHandle")
+	handle := shared.StrParam(params, "TaskHandle")
 	if handle == "" {
 		return jsonError("MissingParameter", "TaskHandle is required", http.StatusBadRequest), nil
 	}
@@ -1159,7 +1145,7 @@ func parseFormMessageAttributes(req *http.Request) map[string]MessageAttribute {
 // --- Batch operations ---
 
 func (p *SQSProvider) sendMessageBatchJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -1191,8 +1177,8 @@ func (p *SQSProvider) sendMessageBatchJSON(params map[string]any) (*plugin.Respo
 		if !ok {
 			continue
 		}
-		id := strParam(entry, "Id")
-		body := strParam(entry, "MessageBody")
+		id := shared.StrParam(entry, "Id")
+		body := shared.StrParam(entry, "MessageBody")
 		if body == "" {
 			failed = append(failed, failEntry{
 				Id:          id,
@@ -1204,8 +1190,8 @@ func (p *SQSProvider) sendMessageBatchJSON(params map[string]any) (*plugin.Respo
 		}
 		attrs := parseJSONMessageAttributes(entry)
 		batchFIFOOpts := SendMessageFIFOOptions{
-			MessageGroupID:         strParam(entry, "MessageGroupId"),
-			MessageDeduplicationID: strParam(entry, "MessageDeduplicationId"),
+			MessageGroupID:         shared.StrParam(entry, "MessageGroupId"),
+			MessageDeduplicationID: shared.StrParam(entry, "MessageDeduplicationId"),
 		}
 		msgID, err := p.store.SendMessageFull(name, defaultAccountID, body, attrs, batchFIFOOpts)
 		if err != nil {
@@ -1238,7 +1224,7 @@ func (p *SQSProvider) sendMessageBatchJSON(params map[string]any) (*plugin.Respo
 }
 
 func (p *SQSProvider) deleteMessageBatchJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -1268,8 +1254,8 @@ func (p *SQSProvider) deleteMessageBatchJSON(params map[string]any) (*plugin.Res
 		if !ok {
 			continue
 		}
-		id := strParam(entry, "Id")
-		receiptHandle := strParam(entry, "ReceiptHandle")
+		id := shared.StrParam(entry, "Id")
+		receiptHandle := shared.StrParam(entry, "ReceiptHandle")
 		err := p.store.DeleteMessage(name, defaultAccountID, receiptHandle)
 		if err != nil {
 			failed = append(failed, failEntry{
@@ -1297,7 +1283,7 @@ func (p *SQSProvider) deleteMessageBatchJSON(params map[string]any) (*plugin.Res
 }
 
 func (p *SQSProvider) changeMessageVisibilityBatchJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -1327,8 +1313,8 @@ func (p *SQSProvider) changeMessageVisibilityBatchJSON(params map[string]any) (*
 		if !ok {
 			continue
 		}
-		id := strParam(entry, "Id")
-		receiptHandle := strParam(entry, "ReceiptHandle")
+		id := shared.StrParam(entry, "Id")
+		receiptHandle := shared.StrParam(entry, "ReceiptHandle")
 		vt := intParam(entry, "VisibilityTimeout", 30)
 		err := p.store.ChangeMessageVisibility(defaultAccountID, name, receiptHandle, vt)
 		if err != nil {
@@ -1357,8 +1343,8 @@ func (p *SQSProvider) changeMessageVisibilityBatchJSON(params map[string]any) (*
 }
 
 func (p *SQSProvider) changeMessageVisibilityJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
-	receiptHandle := strParam(params, "ReceiptHandle")
+	queueURL := shared.StrParam(params, "QueueUrl")
+	receiptHandle := shared.StrParam(params, "ReceiptHandle")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -1379,7 +1365,7 @@ func (p *SQSProvider) changeMessageVisibilityJSON(params map[string]any) (*plugi
 // --- Tags ---
 
 func (p *SQSProvider) tagQueueJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -1405,7 +1391,7 @@ func (p *SQSProvider) tagQueueJSON(params map[string]any) (*plugin.Response, err
 }
 
 func (p *SQSProvider) untagQueueJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}
@@ -1431,7 +1417,7 @@ func (p *SQSProvider) untagQueueJSON(params map[string]any) (*plugin.Response, e
 }
 
 func (p *SQSProvider) listQueueTagsJSON(params map[string]any) (*plugin.Response, error) {
-	queueURL := strParam(params, "QueueUrl")
+	queueURL := shared.StrParam(params, "QueueUrl")
 	if queueURL == "" {
 		return jsonError("MissingParameter", "QueueUrl is required", http.StatusBadRequest), nil
 	}

@@ -403,10 +403,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- App CRUD ---
 
 func (p *Provider) createApp(params map[string]any) (*plugin.Response, error) {
@@ -422,10 +418,10 @@ func (p *Provider) createApp(params map[string]any) (*plugin.Response, error) {
 		ID:            id,
 		ARN:           arn,
 		Name:          name,
-		Description:   strParam(params, "description"),
-		Repository:    strParam(params, "repository"),
-		Platform:      strParamDefault(params, "platform", "WEB"),
-		IAMRole:       strParam(params, "iamServiceRoleArn"),
+		Description:   shared.StrParam(params, "description"),
+		Repository:    shared.StrParam(params, "repository"),
+		Platform:      shared.StrParamDefault(params, "platform", "WEB"),
+		IAMRole:       shared.StrParam(params, "iamServiceRoleArn"),
 		DefaultDomain: defaultDomain,
 	}
 
@@ -509,10 +505,10 @@ func (p *Provider) createBranch(appID string, params map[string]any) (*plugin.Re
 		AppID:           appID,
 		Name:            branchName,
 		ARN:             arn,
-		DisplayName:     strParamDefault(params, "displayName", branchName),
-		Description:     strParam(params, "description"),
-		Stage:           strParamDefault(params, "stage", "NONE"),
-		Framework:       strParam(params, "framework"),
+		DisplayName:     shared.StrParamDefault(params, "displayName", branchName),
+		Description:     shared.StrParam(params, "description"),
+		Stage:           shared.StrParamDefault(params, "stage", "NONE"),
+		Framework:       shared.StrParam(params, "framework"),
 		EnableAutoBuild: boolParamDefault(params, "enableAutoBuild", true),
 	}
 	if err := p.store.CreateBranch(b); err != nil {
@@ -658,7 +654,7 @@ func (p *Provider) createWebhook(appID string, params map[string]any) (*plugin.R
 		ID:         id,
 		ARN:        arn,
 		AppID:      appID,
-		BranchName: strParam(params, "branchName"),
+		BranchName: shared.StrParam(params, "branchName"),
 		URL:        fmt.Sprintf("https://webhooks.amplify.us-east-1.io/%s", id),
 	}
 	if err := p.store.CreateWebhook(w); err != nil {
@@ -727,7 +723,7 @@ func (p *Provider) createBackendEnvironment(appID string, params map[string]any)
 		AppID:     appID,
 		Name:      envName,
 		ARN:       arn,
-		StackName: strParam(params, "stackName"),
+		StackName: shared.StrParam(params, "stackName"),
 	}
 	if err := p.store.CreateBackendEnvironment(be); err != nil {
 		if isUniqueErr(err) {
@@ -785,10 +781,10 @@ func (p *Provider) startJob(appID, branchName string, params map[string]any) (*p
 		AppID:      appID,
 		BranchName: branchName,
 		ARN:        arn,
-		JobType:    strParamDefault(params, "jobType", "RELEASE"),
+		JobType:    shared.StrParamDefault(params, "jobType", "RELEASE"),
 		Status:     "SUCCEED",
-		CommitID:   strParam(params, "commitId"),
-		CommitMsg:  strParam(params, "commitMessage"),
+		CommitID:   shared.StrParam(params, "commitId"),
+		CommitMsg:  shared.StrParam(params, "commitMessage"),
 	}
 	if err := p.store.CreateJob(j); err != nil {
 		return nil, err
@@ -986,18 +982,6 @@ func extractPathParam(path, key string) string {
 		}
 	}
 	return ""
-}
-
-func strParam(params map[string]any, key string) string {
-	v, _ := params[key].(string)
-	return v
-}
-
-func strParamDefault(params map[string]any, key, def string) string {
-	if v, ok := params[key].(string); ok && v != "" {
-		return v
-	}
-	return def
 }
 
 func boolParamDefault(params map[string]any, key string, def bool) bool {

@@ -28,9 +28,6 @@ func (s *stubPlugin) HandleRequest(_ context.Context, _ string, _ *http.Request)
 	return s.response, nil
 }
 func (s *stubPlugin) ListResources(_ context.Context) ([]plugin.Resource, error) { return nil, nil }
-func (s *stubPlugin) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
 
 // registerStub injects a stub plugin directly into the registry's active map
 // by going through Init with a pre-registered factory.

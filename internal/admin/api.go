@@ -32,8 +32,6 @@ func (d *API) Handler() http.Handler {
 
 	mux.HandleFunc("/devcloud/api/services", d.handleServices)
 	mux.HandleFunc("/devcloud/api/services/", d.handleServiceResources)
-	mux.HandleFunc("/devcloud/api/metrics", d.handleMetrics)
-	mux.HandleFunc("/devcloud/api/metrics/", d.handleServiceMetrics)
 	mux.HandleFunc("/devcloud/api/logs", d.handleLogs)
 
 	return mux
@@ -73,10 +71,6 @@ func (d *API) handleServices(w http.ResponseWriter, r *http.Request) {
 		}
 
 		resources, _ := p.ListResources(ctx)
-		// GetMetrics is called but we only use the resource count from
-		// ListResources here; stats are available via /devcloud/api/metrics.
-		_, _ = p.GetMetrics(ctx)
-
 		services = append(services, serviceInfo{
 			ID:            p.ServiceID(),
 			Name:          p.ServiceName(),
@@ -116,71 +110,6 @@ func (d *API) handleServiceResources(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeJSON(w, http.StatusOK, resources)
-}
-
-// aggregateMetrics is the payload for GET /devcloud/api/metrics.
-type aggregateMetrics struct {
-	TotalRequests int64 `json:"totalRequests"`
-	ErrorCount    int64 `json:"errorCount"`
-	Services      int   `json:"services"`
-}
-
-// handleMetrics handles GET /devcloud/api/metrics.
-func (d *API) handleMetrics(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	ids := d.registry.ActiveServices()
-	ctx := context.Background()
-
-	var totalRequests, errorCount int64
-	for _, id := range ids {
-		p, ok := d.registry.Get(id)
-		if !ok {
-			continue
-		}
-		m, err := p.GetMetrics(ctx)
-		if err != nil || m == nil {
-			continue
-		}
-		totalRequests += m.TotalRequests
-		errorCount += m.ErrorCount
-	}
-
-	writeJSON(w, http.StatusOK, aggregateMetrics{
-		TotalRequests: totalRequests,
-		ErrorCount:    errorCount,
-		Services:      len(ids),
-	})
-}
-
-// handleServiceMetrics handles GET /devcloud/api/metrics/{service}.
-func (d *API) handleServiceMetrics(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	serviceID := strings.TrimPrefix(r.URL.Path, "/devcloud/api/metrics/")
-
-	p, ok := d.registry.Get(serviceID)
-	if !ok {
-		http.Error(w, "service not found", http.StatusNotFound)
-		return
-	}
-
-	m, err := p.GetMetrics(context.Background())
-	if err != nil {
-		http.Error(w, "failed to get metrics", http.StatusInternalServerError)
-		return
-	}
-	if m == nil {
-		m = &plugin.ServiceMetrics{}
-	}
-
-	writeJSON(w, http.StatusOK, m)
 }
 
 // handleLogs handles GET /devcloud/api/logs.

@@ -134,8 +134,8 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	// Stub operations — ConsumableResource, QuotaShare, ServiceEnvironment, ServiceJob
 	case "CreateConsumableResource":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
-			"consumableResourceArn":  shared.BuildARN("batch", "consumable-resource", strParam(params, "consumableResourceName")),
-			"consumableResourceName": strParam(params, "consumableResourceName"),
+			"consumableResourceArn":  shared.BuildARN("batch", "consumable-resource", shared.StrParam(params, "consumableResourceName")),
+			"consumableResourceName": shared.StrParam(params, "consumableResourceName"),
 		})
 	case "DeleteConsumableResource":
 		return shared.JSONResponse(http.StatusOK, map[string]any{})
@@ -162,8 +162,8 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return shared.JSONResponse(http.StatusOK, map[string]any{"jobs": []any{}, "nextToken": ""})
 	case "CreateQuotaShare":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
-			"quotaShareArn":  shared.BuildARN("batch", "quota-share", strParam(params, "quotaShareName")),
-			"quotaShareName": strParam(params, "quotaShareName"),
+			"quotaShareArn":  shared.BuildARN("batch", "quota-share", shared.StrParam(params, "quotaShareName")),
+			"quotaShareName": shared.StrParam(params, "quotaShareName"),
 		})
 	case "DeleteQuotaShare":
 		return shared.JSONResponse(http.StatusOK, map[string]any{})
@@ -175,8 +175,8 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return shared.JSONResponse(http.StatusOK, map[string]any{"quotaShares": []any{}, "nextToken": ""})
 	case "CreateServiceEnvironment":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
-			"serviceEnvironmentArn":  shared.BuildARN("batch", "service-environment", strParam(params, "serviceEnvironmentName")),
-			"serviceEnvironmentName": strParam(params, "serviceEnvironmentName"),
+			"serviceEnvironmentArn":  shared.BuildARN("batch", "service-environment", shared.StrParam(params, "serviceEnvironmentName")),
+			"serviceEnvironmentName": shared.StrParam(params, "serviceEnvironmentName"),
 		})
 	case "DeleteServiceEnvironment":
 		return shared.JSONResponse(http.StatusOK, map[string]any{})
@@ -189,7 +189,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return shared.JSONResponse(http.StatusOK, map[string]any{
 			"jobArn":  shared.BuildARN("batch", "job", jobID),
 			"jobId":   jobID,
-			"jobName": strParam(params, "jobName"),
+			"jobName": shared.StrParam(params, "jobName"),
 		})
 	case "TerminateServiceJob":
 		return shared.JSONResponse(http.StatusOK, map[string]any{})
@@ -291,20 +291,16 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- ComputeEnvironment CRUD ---
 
 func (p *Provider) createComputeEnvironment(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "computeEnvironmentName")
+	name := shared.StrParam(params, "computeEnvironmentName")
 	if name == "" {
 		return shared.JSONError("ClientException", "computeEnvironmentName is required", http.StatusBadRequest), nil
 	}
-	ceType := strParamDefault(params, "type", "MANAGED")
-	state := strParamDefault(params, "state", "ENABLED")
-	serviceRole := strParam(params, "serviceRole")
+	ceType := shared.StrParamDefault(params, "type", "MANAGED")
+	state := shared.StrParamDefault(params, "state", "ENABLED")
+	serviceRole := shared.StrParam(params, "serviceRole")
 
 	computeResources := "{}"
 	if cr, ok := params["computeResources"]; ok {
@@ -368,7 +364,7 @@ func (p *Provider) describeComputeEnvironments(params map[string]any) (*plugin.R
 }
 
 func (p *Provider) updateComputeEnvironment(params map[string]any) (*plugin.Response, error) {
-	nameOrARN := strParam(params, "computeEnvironment")
+	nameOrARN := shared.StrParam(params, "computeEnvironment")
 	if nameOrARN == "" {
 		return shared.JSONError("ClientException", "computeEnvironment is required", http.StatusBadRequest), nil
 	}
@@ -376,8 +372,8 @@ func (p *Provider) updateComputeEnvironment(params map[string]any) (*plugin.Resp
 	if err != nil {
 		return shared.JSONError("ClientException", "compute environment not found", http.StatusBadRequest), nil
 	}
-	state := strParamDefault(params, "state", ce.State)
-	serviceRole := strParamDefault(params, "serviceRole", ce.ServiceRole)
+	state := shared.StrParamDefault(params, "state", ce.State)
+	serviceRole := shared.StrParamDefault(params, "serviceRole", ce.ServiceRole)
 
 	if err := p.store.UpdateComputeEnvironment(nameOrARN, state, serviceRole); err != nil {
 		return shared.JSONError("ClientException", "compute environment not found", http.StatusBadRequest), nil
@@ -389,7 +385,7 @@ func (p *Provider) updateComputeEnvironment(params map[string]any) (*plugin.Resp
 }
 
 func (p *Provider) deleteComputeEnvironment(params map[string]any) (*plugin.Response, error) {
-	nameOrARN := strParam(params, "computeEnvironment")
+	nameOrARN := shared.StrParam(params, "computeEnvironment")
 	if nameOrARN == "" {
 		return shared.JSONError("ClientException", "computeEnvironment is required", http.StatusBadRequest), nil
 	}
@@ -407,16 +403,16 @@ func (p *Provider) deleteComputeEnvironment(params map[string]any) (*plugin.Resp
 // --- JobQueue CRUD ---
 
 func (p *Provider) createJobQueue(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "jobQueueName")
+	name := shared.StrParam(params, "jobQueueName")
 	if name == "" {
 		return shared.JSONError("ClientException", "jobQueueName is required", http.StatusBadRequest), nil
 	}
-	state := strParamDefault(params, "state", "ENABLED")
+	state := shared.StrParamDefault(params, "state", "ENABLED")
 	priority := int32(0)
 	if v, ok := params["priority"].(float64); ok {
 		priority = int32(v)
 	}
-	schedulingPolicy := strParam(params, "schedulingPolicyArn")
+	schedulingPolicy := shared.StrParam(params, "schedulingPolicyArn")
 
 	computeEnvs := "[]"
 	if ce, ok := params["computeEnvironmentOrder"]; ok {
@@ -480,7 +476,7 @@ func (p *Provider) describeJobQueues(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) updateJobQueue(params map[string]any) (*plugin.Response, error) {
-	nameOrARN := strParam(params, "jobQueue")
+	nameOrARN := shared.StrParam(params, "jobQueue")
 	if nameOrARN == "" {
 		return shared.JSONError("ClientException", "jobQueue is required", http.StatusBadRequest), nil
 	}
@@ -488,12 +484,12 @@ func (p *Provider) updateJobQueue(params map[string]any) (*plugin.Response, erro
 	if err != nil {
 		return shared.JSONError("ClientException", "job queue not found", http.StatusBadRequest), nil
 	}
-	state := strParamDefault(params, "state", jq.State)
+	state := shared.StrParamDefault(params, "state", jq.State)
 	priority := jq.Priority
 	if v, ok := params["priority"].(float64); ok {
 		priority = int32(v)
 	}
-	schedulingPolicy := strParamDefault(params, "schedulingPolicyArn", jq.SchedulingPolicy)
+	schedulingPolicy := shared.StrParamDefault(params, "schedulingPolicyArn", jq.SchedulingPolicy)
 
 	if err := p.store.UpdateJobQueue(nameOrARN, state, priority, schedulingPolicy); err != nil {
 		return shared.JSONError("ClientException", "job queue not found", http.StatusBadRequest), nil
@@ -505,7 +501,7 @@ func (p *Provider) updateJobQueue(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) deleteJobQueue(params map[string]any) (*plugin.Response, error) {
-	nameOrARN := strParam(params, "jobQueue")
+	nameOrARN := shared.StrParam(params, "jobQueue")
 	if nameOrARN == "" {
 		return shared.JSONError("ClientException", "jobQueue is required", http.StatusBadRequest), nil
 	}
@@ -523,11 +519,11 @@ func (p *Provider) deleteJobQueue(params map[string]any) (*plugin.Response, erro
 // --- JobDefinition CRUD ---
 
 func (p *Provider) registerJobDefinition(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "jobDefinitionName")
+	name := shared.StrParam(params, "jobDefinitionName")
 	if name == "" {
 		return shared.JSONError("ClientException", "jobDefinitionName is required", http.StatusBadRequest), nil
 	}
-	jdType := strParamDefault(params, "type", "container")
+	jdType := shared.StrParamDefault(params, "type", "container")
 
 	containerProps := "{}"
 	if cp, ok := params["containerProperties"]; ok {
@@ -575,8 +571,8 @@ func (p *Provider) registerJobDefinition(params map[string]any) (*plugin.Respons
 }
 
 func (p *Provider) describeJobDefinitions(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "jobDefinitionName")
-	status := strParam(params, "status")
+	name := shared.StrParam(params, "jobDefinitionName")
+	status := shared.StrParam(params, "status")
 	arnFilters := toStringSlice(params["jobDefinitions"])
 
 	var jds []*JobDefinition
@@ -609,7 +605,7 @@ func (p *Provider) describeJobDefinitions(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) deregisterJobDefinition(params map[string]any) (*plugin.Response, error) {
-	nameOrARN := strParam(params, "jobDefinition")
+	nameOrARN := shared.StrParam(params, "jobDefinition")
 	if nameOrARN == "" {
 		return shared.JSONError("ClientException", "jobDefinition is required", http.StatusBadRequest), nil
 	}
@@ -622,12 +618,12 @@ func (p *Provider) deregisterJobDefinition(params map[string]any) (*plugin.Respo
 // --- Jobs ---
 
 func (p *Provider) submitJob(params map[string]any) (*plugin.Response, error) {
-	jobName := strParam(params, "jobName")
+	jobName := shared.StrParam(params, "jobName")
 	if jobName == "" {
 		return shared.JSONError("ClientException", "jobName is required", http.StatusBadRequest), nil
 	}
-	jobQueue := strParam(params, "jobQueue")
-	jobDefinition := strParam(params, "jobDefinition")
+	jobQueue := shared.StrParam(params, "jobQueue")
+	jobDefinition := shared.StrParam(params, "jobDefinition")
 
 	parameters := "{}"
 	if p2, ok := params["parameters"]; ok {
@@ -687,8 +683,8 @@ func (p *Provider) describeJobs(params map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) listJobs(params map[string]any) (*plugin.Response, error) {
-	queue := strParam(params, "jobQueue")
-	status := strParam(params, "jobStatus")
+	queue := shared.StrParam(params, "jobQueue")
+	status := shared.StrParam(params, "jobStatus")
 
 	jobs, err := p.store.ListJobs(queue, status)
 	if err != nil {
@@ -705,8 +701,8 @@ func (p *Provider) listJobs(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) cancelJob(params map[string]any) (*plugin.Response, error) {
-	jobID := strParam(params, "jobId")
-	reason := strParamDefault(params, "reason", "cancelled")
+	jobID := shared.StrParam(params, "jobId")
+	reason := shared.StrParamDefault(params, "reason", "cancelled")
 	if jobID == "" {
 		return shared.JSONError("ClientException", "jobId is required", http.StatusBadRequest), nil
 	}
@@ -717,8 +713,8 @@ func (p *Provider) cancelJob(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) terminateJob(params map[string]any) (*plugin.Response, error) {
-	jobID := strParam(params, "jobId")
-	reason := strParamDefault(params, "reason", "terminated")
+	jobID := shared.StrParam(params, "jobId")
+	reason := shared.StrParamDefault(params, "reason", "terminated")
 	if jobID == "" {
 		return shared.JSONError("ClientException", "jobId is required", http.StatusBadRequest), nil
 	}
@@ -731,7 +727,7 @@ func (p *Provider) terminateJob(params map[string]any) (*plugin.Response, error)
 // --- SchedulingPolicy CRUD ---
 
 func (p *Provider) createSchedulingPolicy(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "name")
+	name := shared.StrParam(params, "name")
 	if name == "" {
 		return shared.JSONError("ClientException", "name is required", http.StatusBadRequest), nil
 	}
@@ -803,7 +799,7 @@ func (p *Provider) listSchedulingPolicies() (*plugin.Response, error) {
 }
 
 func (p *Provider) updateSchedulingPolicy(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "arn")
+	arn := shared.StrParam(params, "arn")
 	if arn == "" {
 		return shared.JSONError("ClientException", "arn is required", http.StatusBadRequest), nil
 	}
@@ -818,7 +814,7 @@ func (p *Provider) updateSchedulingPolicy(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) deleteSchedulingPolicy(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "arn")
+	arn := shared.StrParam(params, "arn")
 	if arn == "" {
 		return shared.JSONError("ClientException", "arn is required", http.StatusBadRequest), nil
 	}
@@ -838,7 +834,7 @@ func (p *Provider) deleteSchedulingPolicy(params map[string]any) (*plugin.Respon
 func (p *Provider) tagResource(req *http.Request, params map[string]any) (*plugin.Response, error) {
 	arn := extractPathParam(req.URL.Path, "tags")
 	if arn == "" {
-		arn = strParam(params, "resourceArn")
+		arn = shared.StrParam(params, "resourceArn")
 	}
 	if arn == "" {
 		return shared.JSONError("ClientException", "resourceArn is required", http.StatusBadRequest), nil
@@ -994,20 +990,6 @@ func spToDetailMap(sp *SchedulingPolicy, tags map[string]string) map[string]any 
 }
 
 // --- Util ---
-
-func strParam(params map[string]any, key string) string {
-	if v, ok := params[key].(string); ok {
-		return v
-	}
-	return ""
-}
-
-func strParamDefault(params map[string]any, key, def string) string {
-	if v, ok := params[key].(string); ok && v != "" {
-		return v
-	}
-	return def
-}
 
 func toStringMap(m map[string]any) map[string]string {
 	result := make(map[string]string)

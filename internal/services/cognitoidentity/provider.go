@@ -13,10 +13,11 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/shared"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
-const defaultRegion = "us-east-1"
+const defaultRegion = shared.DefaultRegion
 
 // Provider implements the CognitoIdentityService using JSON 1.1 protocol.
 type Provider struct {
@@ -112,10 +113,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 		out = append(out, plugin.Resource{Type: "identity-pool", ID: pool.ARN, Name: pool.Name})
 	}
 	return out, nil
-}
-
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
 }
 
 // --- helpers ---

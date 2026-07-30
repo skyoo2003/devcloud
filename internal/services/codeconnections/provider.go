@@ -135,7 +135,7 @@ func (p *CodeConnectionsProvider) HandleRequest(_ context.Context, op string, re
 	case "GetSyncBlockerSummary":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
 			"SyncBlockerSummary": map[string]any{
-				"ResourceName":       getString(params, "ResourceName"),
+				"ResourceName":       shared.StrParam(params, "ResourceName"),
 				"ParentResourceName": "",
 				"LatestBlockers":     []any{},
 			},
@@ -149,22 +149,22 @@ func (p *CodeConnectionsProvider) HandleRequest(_ context.Context, op string, re
 		return shared.JSONResponse(http.StatusOK, map[string]any{
 			"SyncBlocker": map[string]any{
 				"Id":     shared.GenerateID("blocker-", 16),
-				"Type":   getString(params, "Type"),
+				"Type":   shared.StrParam(params, "Type"),
 				"Status": "ACTIVE",
 			},
 		})
 	case "UpdateSyncBlocker":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
-			"ResourceName":       getString(params, "ResourceName"),
+			"ResourceName":       shared.StrParam(params, "ResourceName"),
 			"ParentResourceName": "",
 			"SyncBlocker": map[string]any{
-				"Id":     getString(params, "Id"),
+				"Id":     shared.StrParam(params, "Id"),
 				"Status": "RESOLVED",
 			},
 		})
 	case "StartRepositoryLink":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
-			"RepositoryLinkId": getString(params, "RepositoryLinkId"),
+			"RepositoryLinkId": shared.StrParam(params, "RepositoryLinkId"),
 		})
 	case "GetRepositorySyncStatus":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
@@ -219,11 +219,6 @@ func (p *CodeConnectionsProvider) ListResources(_ context.Context) ([]plugin.Res
 		res = append(res, plugin.Resource{Type: "connection", ID: c.ARN, Name: c.Name})
 	}
 	return res, nil
-}
-
-// GetMetrics returns empty metrics.
-func (p *CodeConnectionsProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
 }
 
 // --- Connection handlers ---
@@ -715,11 +710,6 @@ func parseTagList(raw []any) map[string]string {
 		}
 	}
 	return tags
-}
-
-func getString(params map[string]any, key string) string {
-	s, _ := params[key].(string)
-	return s
 }
 
 func init() {

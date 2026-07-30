@@ -1,5 +1,5 @@
 kind: Fixed
-body: Unimplemented operations now return a `NotImplemented` error (HTTP 501) instead of a misleading empty `200` success, so SDKs no longer see a false success and can tell a not-yet-emulated real operation apart from a genuinely invalid action; applied uniformly across all service providers (the ChangeResourceRecordSets record-action validation path keeps `InvalidChangeBatch`)
+body: Unimplemented operations return `NotImplemented` (HTTP 501) instead of an empty `200`, so SDKs can tell a not-yet-emulated operation from an invalid one
 time: 2026-07-18T22:26:52.000000+09:00
 custom:
     Issue: "96"

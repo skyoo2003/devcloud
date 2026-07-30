@@ -29,7 +29,9 @@ jobs:
         run: sudo apt-get install -y libsqlite3-dev
 
       - name: Run Go tests
-        run: CGO_ENABLED=1 go test ./internal/... -v
+        # ./... rather than ./internal/... so cmd/devcloud's ServicePlugin
+        # conformance test runs in CI too.
+        run: CGO_ENABLED=1 go test ./... -v
         env:
           CGO_ENABLED: "1"
 

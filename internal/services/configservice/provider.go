@@ -203,20 +203,7 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // ---- helpers ----
-
-func strParam(params map[string]any, key string) string {
-	if v, ok := params[key]; ok {
-		if s, ok := v.(string); ok {
-			return s
-		}
-	}
-	return ""
-}
 
 func intParam(params map[string]any, key string, def int) int {
 	if v, ok := params[key]; ok {
@@ -296,8 +283,8 @@ func tagsFromParams(params map[string]any, key string) map[string]string {
 	out := make(map[string]string, len(arr))
 	for _, item := range arr {
 		if m, ok := item.(map[string]any); ok {
-			k := strParam(m, "Key")
-			val := strParam(m, "Value")
+			k := shared.StrParam(m, "Key")
+			val := shared.StrParam(m, "Value")
 			if k != "" {
 				out[k] = val
 			}
@@ -341,7 +328,7 @@ func (p *Provider) putConfigRule(params map[string]any) (*plugin.Response, error
 	if input == nil {
 		return shared.JSONError("InvalidParameterValueException", "ConfigRule is required", http.StatusBadRequest), nil
 	}
-	name := strParam(input, "ConfigRuleName")
+	name := shared.StrParam(input, "ConfigRuleName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "ConfigRuleName is required", http.StatusBadRequest), nil
 	}
@@ -350,7 +337,7 @@ func (p *Provider) putConfigRule(params map[string]any) (*plugin.Response, error
 		ARN:         buildConfigRuleARN(name),
 		Source:      marshalParam(input, "Source"),
 		Scope:       marshalParam(input, "Scope"),
-		InputParams: strParam(input, "InputParameters"),
+		InputParams: shared.StrParam(input, "InputParameters"),
 		State:       "ACTIVE",
 		CreatedAt:   now(),
 	}
@@ -374,7 +361,7 @@ func (p *Provider) describeConfigRules(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) deleteConfigRule(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConfigRuleName")
+	name := shared.StrParam(params, "ConfigRuleName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "ConfigRuleName is required", http.StatusBadRequest), nil
 	}
@@ -426,22 +413,22 @@ func (p *Provider) putConfigurationRecorder(params map[string]any) (*plugin.Resp
 	if input == nil {
 		return shared.JSONError("InvalidParameterValueException", "ConfigurationRecorder is required", http.StatusBadRequest), nil
 	}
-	name := strParam(input, "name")
+	name := shared.StrParam(input, "name")
 	if name == "" {
-		name = strParam(input, "Name")
+		name = shared.StrParam(input, "Name")
 	}
 	if name == "" {
 		name = "default"
 	}
 	r := &ConfigurationRecorder{
 		Name:           name,
-		RoleARN:        strParam(input, "roleARN"),
+		RoleARN:        shared.StrParam(input, "roleARN"),
 		RecordingGroup: marshalParam(input, "recordingGroup"),
 		RecordingMode:  marshalParam(input, "recordingMode"),
 		Status:         "STOPPED",
 	}
 	if r.RoleARN == "" {
-		r.RoleARN = strParam(input, "RoleARN")
+		r.RoleARN = shared.StrParam(input, "RoleARN")
 	}
 	if err := p.store.PutConfigurationRecorder(r); err != nil {
 		return nil, err
@@ -479,7 +466,7 @@ func (p *Provider) describeConfigurationRecorderStatus(params map[string]any) (*
 }
 
 func (p *Provider) startConfigurationRecorder(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConfigurationRecorderName")
+	name := shared.StrParam(params, "ConfigurationRecorderName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "ConfigurationRecorderName is required", http.StatusBadRequest), nil
 	}
@@ -493,7 +480,7 @@ func (p *Provider) startConfigurationRecorder(params map[string]any) (*plugin.Re
 }
 
 func (p *Provider) stopConfigurationRecorder(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConfigurationRecorderName")
+	name := shared.StrParam(params, "ConfigurationRecorderName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "ConfigurationRecorderName is required", http.StatusBadRequest), nil
 	}
@@ -507,7 +494,7 @@ func (p *Provider) stopConfigurationRecorder(params map[string]any) (*plugin.Res
 }
 
 func (p *Provider) deleteConfigurationRecorder(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConfigurationRecorderName")
+	name := shared.StrParam(params, "ConfigurationRecorderName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "ConfigurationRecorderName is required", http.StatusBadRequest), nil
 	}
@@ -540,22 +527,22 @@ func (p *Provider) putDeliveryChannel(params map[string]any) (*plugin.Response, 
 	if input == nil {
 		return shared.JSONError("InvalidParameterValueException", "DeliveryChannel is required", http.StatusBadRequest), nil
 	}
-	name := strParam(input, "name")
+	name := shared.StrParam(input, "name")
 	if name == "" {
-		name = strParam(input, "Name")
+		name = shared.StrParam(input, "Name")
 	}
 	if name == "" {
 		name = "default"
 	}
 	d := &DeliveryChannel{
 		Name:      name,
-		S3Bucket:  strParam(input, "s3BucketName"),
-		S3Prefix:  strParam(input, "s3KeyPrefix"),
-		SNSTopic:  strParam(input, "snsTopicARN"),
+		S3Bucket:  shared.StrParam(input, "s3BucketName"),
+		S3Prefix:  shared.StrParam(input, "s3KeyPrefix"),
+		SNSTopic:  shared.StrParam(input, "snsTopicARN"),
 		Frequency: "TwentyFour_Hours",
 	}
 	if freq, ok := input["configSnapshotDeliveryProperties"].(map[string]any); ok {
-		if f := strParam(freq, "deliveryFrequency"); f != "" {
+		if f := shared.StrParam(freq, "deliveryFrequency"); f != "" {
 			d.Frequency = f
 		}
 	}
@@ -600,7 +587,7 @@ func (p *Provider) describeDeliveryChannelStatus(params map[string]any) (*plugin
 }
 
 func (p *Provider) deleteDeliveryChannel(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "DeliveryChannelName")
+	name := shared.StrParam(params, "DeliveryChannelName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "DeliveryChannelName is required", http.StatusBadRequest), nil
 	}
@@ -629,15 +616,15 @@ func deliveryChannelToMap(d *DeliveryChannel) map[string]any {
 // ---- ConformancePack handlers ----
 
 func (p *Provider) putConformancePack(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConformancePackName")
+	name := shared.StrParam(params, "ConformancePackName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "ConformancePackName is required", http.StatusBadRequest), nil
 	}
 	c := &ConformancePack{
 		Name:           name,
 		ARN:            buildConformancePackARN(name),
-		TemplateBody:   strParam(params, "TemplateBody"),
-		DeliveryBucket: strParam(params, "DeliveryS3Bucket"),
+		TemplateBody:   shared.StrParam(params, "TemplateBody"),
+		DeliveryBucket: shared.StrParam(params, "DeliveryS3Bucket"),
 		Status:         "CREATE_COMPLETE",
 		CreatedAt:      now(),
 	}
@@ -679,7 +666,7 @@ func (p *Provider) describeConformancePackStatus(params map[string]any) (*plugin
 }
 
 func (p *Provider) describeConformancePackCompliance(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConformancePackName")
+	name := shared.StrParam(params, "ConformancePackName")
 	_ = name
 	return shared.JSONResponse(http.StatusOK, map[string]any{
 		"ConformancePackName":               name,
@@ -688,7 +675,7 @@ func (p *Provider) describeConformancePackCompliance(params map[string]any) (*pl
 }
 
 func (p *Provider) deleteConformancePack(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConformancePackName")
+	name := shared.StrParam(params, "ConformancePackName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "ConformancePackName is required", http.StatusBadRequest), nil
 	}
@@ -715,7 +702,7 @@ func conformancePackToMap(c *ConformancePack) map[string]any {
 // ---- ConfigurationAggregator handlers ----
 
 func (p *Provider) putConfigurationAggregator(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConfigurationAggregatorName")
+	name := shared.StrParam(params, "ConfigurationAggregatorName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "ConfigurationAggregatorName is required", http.StatusBadRequest), nil
 	}
@@ -748,7 +735,7 @@ func (p *Provider) describeConfigurationAggregators(params map[string]any) (*plu
 }
 
 func (p *Provider) describeConfigurationAggregatorSourcesStatus(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConfigurationAggregatorName")
+	name := shared.StrParam(params, "ConfigurationAggregatorName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "ConfigurationAggregatorName is required", http.StatusBadRequest), nil
 	}
@@ -763,7 +750,7 @@ func (p *Provider) describeConfigurationAggregatorSourcesStatus(params map[strin
 }
 
 func (p *Provider) deleteConfigurationAggregator(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConfigurationAggregatorName")
+	name := shared.StrParam(params, "ConfigurationAggregatorName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "ConfigurationAggregatorName is required", http.StatusBadRequest), nil
 	}
@@ -796,7 +783,7 @@ func (p *Provider) putStoredQuery(params map[string]any) (*plugin.Response, erro
 	if input == nil {
 		return shared.JSONError("InvalidParameterValueException", "StoredQuery is required", http.StatusBadRequest), nil
 	}
-	name := strParam(input, "QueryName")
+	name := shared.StrParam(input, "QueryName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "QueryName is required", http.StatusBadRequest), nil
 	}
@@ -804,8 +791,8 @@ func (p *Provider) putStoredQuery(params map[string]any) (*plugin.Response, erro
 		Name:        name,
 		ID:          shared.GenerateUUID(),
 		ARN:         buildStoredQueryARN(name),
-		Expression:  strParam(input, "Expression"),
-		Description: strParam(input, "Description"),
+		Expression:  shared.StrParam(input, "Expression"),
+		Description: shared.StrParam(input, "Description"),
 	}
 	// Keep existing ID if present
 	existing, _ := p.store.GetStoredQuery(name)
@@ -820,7 +807,7 @@ func (p *Provider) putStoredQuery(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) getStoredQuery(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "QueryName")
+	name := shared.StrParam(params, "QueryName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "QueryName is required", http.StatusBadRequest), nil
 	}
@@ -851,7 +838,7 @@ func (p *Provider) listStoredQueries(_ map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) deleteStoredQuery(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "QueryName")
+	name := shared.StrParam(params, "QueryName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "QueryName is required", http.StatusBadRequest), nil
 	}
@@ -904,7 +891,7 @@ func (p *Provider) describeRetentionConfigurations(_ map[string]any) (*plugin.Re
 }
 
 func (p *Provider) deleteRetentionConfiguration(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "RetentionConfigurationName")
+	name := shared.StrParam(params, "RetentionConfigurationName")
 	if name == "" {
 		name = "default"
 	}
@@ -928,8 +915,8 @@ func retentionConfigToMap(r *RetentionConfig) map[string]any {
 // ---- AggregationAuthorization handlers ----
 
 func (p *Provider) putAggregationAuthorization(params map[string]any) (*plugin.Response, error) {
-	account := strParam(params, "AuthorizedAccountId")
-	region := strParam(params, "AuthorizedAwsRegion")
+	account := shared.StrParam(params, "AuthorizedAccountId")
+	region := shared.StrParam(params, "AuthorizedAwsRegion")
 	if account == "" || region == "" {
 		return shared.JSONError("InvalidParameterValueException", "AuthorizedAccountId and AuthorizedAwsRegion are required", http.StatusBadRequest), nil
 	}
@@ -960,8 +947,8 @@ func (p *Provider) describeAggregationAuthorizations(_ map[string]any) (*plugin.
 }
 
 func (p *Provider) deleteAggregationAuthorization(params map[string]any) (*plugin.Response, error) {
-	account := strParam(params, "AuthorizedAccountId")
-	region := strParam(params, "AuthorizedAwsRegion")
+	account := shared.StrParam(params, "AuthorizedAccountId")
+	region := shared.StrParam(params, "AuthorizedAwsRegion")
 	if account == "" || region == "" {
 		return shared.JSONError("InvalidParameterValueException", "AuthorizedAccountId and AuthorizedAwsRegion are required", http.StatusBadRequest), nil
 	}
@@ -992,14 +979,14 @@ func (p *Provider) putRemediationConfigurations(params map[string]any) (*plugin.
 		if !ok {
 			continue
 		}
-		ruleName := strParam(m, "ConfigRuleName")
+		ruleName := shared.StrParam(m, "ConfigRuleName")
 		if ruleName == "" {
 			continue
 		}
 		r := &RemediationConfig{
 			ConfigRuleName: ruleName,
-			TargetType:     strParam(m, "TargetType"),
-			TargetID:       strParam(m, "TargetId"),
+			TargetType:     shared.StrParam(m, "TargetType"),
+			TargetID:       shared.StrParam(m, "TargetId"),
 			Parameters:     marshalParam(m, "Parameters"),
 		}
 		if r.TargetType == "" {
@@ -1029,7 +1016,7 @@ func (p *Provider) describeRemediationConfigurations(params map[string]any) (*pl
 }
 
 func (p *Provider) deleteRemediationConfiguration(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ConfigRuleName")
+	name := shared.StrParam(params, "ConfigRuleName")
 	if name == "" {
 		return shared.JSONError("InvalidParameterValueException", "ConfigRuleName is required", http.StatusBadRequest), nil
 	}
@@ -1058,7 +1045,7 @@ func remediationConfigToMap(r *RemediationConfig) map[string]any {
 // ---- Tags handlers ----
 
 func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	if arn == "" {
 		return shared.JSONError("InvalidParameterValueException", "ResourceArn is required", http.StatusBadRequest), nil
 	}
@@ -1070,7 +1057,7 @@ func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	if arn == "" {
 		return shared.JSONError("InvalidParameterValueException", "ResourceArn is required", http.StatusBadRequest), nil
 	}
@@ -1082,7 +1069,7 @@ func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	if arn == "" {
 		return shared.JSONError("InvalidParameterValueException", "ResourceArn is required", http.StatusBadRequest), nil
 	}

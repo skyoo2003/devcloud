@@ -21,8 +21,7 @@ func (m *mockPlugin) Shutdown(ctx context.Context) error { return nil }
 func (m *mockPlugin) HandleRequest(ctx context.Context, op string, req *http.Request) (*Response, error) {
 	return &Response{StatusCode: 200, Body: []byte("ok")}, nil
 }
-func (m *mockPlugin) ListResources(ctx context.Context) ([]Resource, error)   { return nil, nil }
-func (m *mockPlugin) GetMetrics(ctx context.Context) (*ServiceMetrics, error) { return nil, nil }
+func (m *mockPlugin) ListResources(ctx context.Context) ([]Resource, error) { return nil, nil }
 
 func TestRegistryRegisterAndGet(t *testing.T) {
 	reg := NewRegistry()

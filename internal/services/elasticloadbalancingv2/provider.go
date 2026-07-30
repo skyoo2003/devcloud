@@ -164,10 +164,6 @@ func (p *Provider) ListResources(ctx context.Context) ([]plugin.Resource, error)
 	return out, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- helpers ---
 
 func elbError(code, msg string, status int) *plugin.Response {

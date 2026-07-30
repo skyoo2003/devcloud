@@ -106,11 +106,6 @@ func (p *STSProvider) ListResources(_ context.Context) ([]plugin.Resource, error
 	return nil, nil
 }
 
-// GetMetrics returns empty metrics.
-func (p *STSProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- XML response structs ---
 
 type getCallerIdentityResponse struct {

@@ -240,22 +240,18 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return res, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // ---- NotebookInstance handlers ----
 
 func (p *Provider) createNotebookInstance(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "NotebookInstanceName")
+	name := shared.StrParam(params, "NotebookInstanceName")
 	if name == "" {
 		return shared.JSONError("ValidationException", "NotebookInstanceName is required", http.StatusBadRequest), nil
 	}
-	instanceType := strParam(params, "InstanceType")
+	instanceType := shared.StrParam(params, "InstanceType")
 	if instanceType == "" {
 		instanceType = "ml.t3.medium"
 	}
-	roleARN := strParam(params, "RoleArn")
+	roleARN := shared.StrParam(params, "RoleArn")
 	arn := shared.BuildARN("sagemaker", "notebook-instance", name)
 	nb, err := p.store.CreateNotebookInstance(name, arn, "Pending", instanceType, roleARN, "")
 	if err != nil {
@@ -268,7 +264,7 @@ func (p *Provider) createNotebookInstance(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) describeNotebookInstance(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "NotebookInstanceName")
+	name := shared.StrParam(params, "NotebookInstanceName")
 	nb, err := p.store.GetNotebookInstance(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "notebook instance not found: "+name, http.StatusBadRequest), nil
@@ -303,7 +299,7 @@ func (p *Provider) listNotebookInstances(_ map[string]any) (*plugin.Response, er
 }
 
 func (p *Provider) deleteNotebookInstance(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "NotebookInstanceName")
+	name := shared.StrParam(params, "NotebookInstanceName")
 	if err := p.store.DeleteNotebookInstance(name); err != nil {
 		return shared.JSONError("ResourceNotFound", "notebook instance not found: "+name, http.StatusBadRequest), nil
 	}
@@ -311,7 +307,7 @@ func (p *Provider) deleteNotebookInstance(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) startNotebookInstance(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "NotebookInstanceName")
+	name := shared.StrParam(params, "NotebookInstanceName")
 	if err := p.store.UpdateNotebookInstanceStatus(name, "InService"); err != nil {
 		return shared.JSONError("ResourceNotFound", "notebook instance not found: "+name, http.StatusBadRequest), nil
 	}
@@ -319,7 +315,7 @@ func (p *Provider) startNotebookInstance(params map[string]any) (*plugin.Respons
 }
 
 func (p *Provider) stopNotebookInstance(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "NotebookInstanceName")
+	name := shared.StrParam(params, "NotebookInstanceName")
 	if err := p.store.UpdateNotebookInstanceStatus(name, "Stopped"); err != nil {
 		return shared.JSONError("ResourceNotFound", "notebook instance not found: "+name, http.StatusBadRequest), nil
 	}
@@ -327,8 +323,8 @@ func (p *Provider) stopNotebookInstance(params map[string]any) (*plugin.Response
 }
 
 func (p *Provider) updateNotebookInstance(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "NotebookInstanceName")
-	instanceType := strParam(params, "InstanceType")
+	name := shared.StrParam(params, "NotebookInstanceName")
+	instanceType := shared.StrParam(params, "InstanceType")
 	if instanceType == "" {
 		nb, err := p.store.GetNotebookInstance(name)
 		if err != nil {
@@ -336,7 +332,7 @@ func (p *Provider) updateNotebookInstance(params map[string]any) (*plugin.Respon
 		}
 		instanceType = nb.InstanceType
 	}
-	roleARN := strParam(params, "RoleArn")
+	roleARN := shared.StrParam(params, "RoleArn")
 	if roleARN == "" {
 		nb, err := p.store.GetNotebookInstance(name)
 		if err != nil {
@@ -353,11 +349,11 @@ func (p *Provider) updateNotebookInstance(params map[string]any) (*plugin.Respon
 // ---- Model handlers ----
 
 func (p *Provider) createModel(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ModelName")
+	name := shared.StrParam(params, "ModelName")
 	if name == "" {
 		return shared.JSONError("ValidationException", "ModelName is required", http.StatusBadRequest), nil
 	}
-	executionRole := strParam(params, "ExecutionRoleArn")
+	executionRole := shared.StrParam(params, "ExecutionRoleArn")
 	primaryContainer := marshalParam(params, "PrimaryContainer")
 	arn := shared.BuildARN("sagemaker", "model", name)
 	m, err := p.store.CreateModel(name, arn, executionRole, primaryContainer)
@@ -371,7 +367,7 @@ func (p *Provider) createModel(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) describeModel(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ModelName")
+	name := shared.StrParam(params, "ModelName")
 	m, err := p.store.GetModel(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "model not found: "+name, http.StatusBadRequest), nil
@@ -404,7 +400,7 @@ func (p *Provider) listModels(_ map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) deleteModel(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ModelName")
+	name := shared.StrParam(params, "ModelName")
 	if err := p.store.DeleteModel(name); err != nil {
 		return shared.JSONError("ResourceNotFound", "model not found: "+name, http.StatusBadRequest), nil
 	}
@@ -414,7 +410,7 @@ func (p *Provider) deleteModel(params map[string]any) (*plugin.Response, error) 
 // ---- EndpointConfig handlers ----
 
 func (p *Provider) createEndpointConfig(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "EndpointConfigName")
+	name := shared.StrParam(params, "EndpointConfigName")
 	if name == "" {
 		return shared.JSONError("ValidationException", "EndpointConfigName is required", http.StatusBadRequest), nil
 	}
@@ -431,7 +427,7 @@ func (p *Provider) createEndpointConfig(params map[string]any) (*plugin.Response
 }
 
 func (p *Provider) describeEndpointConfig(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "EndpointConfigName")
+	name := shared.StrParam(params, "EndpointConfigName")
 	ec, err := p.store.GetEndpointConfig(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "endpoint config not found: "+name, http.StatusBadRequest), nil
@@ -463,7 +459,7 @@ func (p *Provider) listEndpointConfigs(_ map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) deleteEndpointConfig(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "EndpointConfigName")
+	name := shared.StrParam(params, "EndpointConfigName")
 	if err := p.store.DeleteEndpointConfig(name); err != nil {
 		return shared.JSONError("ResourceNotFound", "endpoint config not found: "+name, http.StatusBadRequest), nil
 	}
@@ -473,11 +469,11 @@ func (p *Provider) deleteEndpointConfig(params map[string]any) (*plugin.Response
 // ---- Endpoint handlers ----
 
 func (p *Provider) createEndpoint(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "EndpointName")
+	name := shared.StrParam(params, "EndpointName")
 	if name == "" {
 		return shared.JSONError("ValidationException", "EndpointName is required", http.StatusBadRequest), nil
 	}
-	configName := strParam(params, "EndpointConfigName")
+	configName := shared.StrParam(params, "EndpointConfigName")
 	arn := shared.BuildARN("sagemaker", "endpoint", name)
 	e, err := p.store.CreateEndpoint(name, arn, configName, "Creating")
 	if err != nil {
@@ -492,7 +488,7 @@ func (p *Provider) createEndpoint(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) describeEndpoint(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "EndpointName")
+	name := shared.StrParam(params, "EndpointName")
 	e, err := p.store.GetEndpoint(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "endpoint not found: "+name, http.StatusBadRequest), nil
@@ -525,8 +521,8 @@ func (p *Provider) listEndpoints(_ map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateEndpoint(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "EndpointName")
-	configName := strParam(params, "EndpointConfigName")
+	name := shared.StrParam(params, "EndpointName")
+	configName := shared.StrParam(params, "EndpointConfigName")
 	e, err := p.store.GetEndpoint(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "endpoint not found: "+name, http.StatusBadRequest), nil
@@ -538,7 +534,7 @@ func (p *Provider) updateEndpoint(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) deleteEndpoint(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "EndpointName")
+	name := shared.StrParam(params, "EndpointName")
 	if err := p.store.DeleteEndpoint(name); err != nil {
 		return shared.JSONError("ResourceNotFound", "endpoint not found: "+name, http.StatusBadRequest), nil
 	}
@@ -548,11 +544,11 @@ func (p *Provider) deleteEndpoint(params map[string]any) (*plugin.Response, erro
 // ---- TrainingJob handlers ----
 
 func (p *Provider) createTrainingJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "TrainingJobName")
+	name := shared.StrParam(params, "TrainingJobName")
 	if name == "" {
 		return shared.JSONError("ValidationException", "TrainingJobName is required", http.StatusBadRequest), nil
 	}
-	roleARN := strParam(params, "RoleArn")
+	roleARN := shared.StrParam(params, "RoleArn")
 	algorithm := marshalParam(params, "AlgorithmSpecification")
 	inputConfig := marshalParamArray(params, "InputDataConfig")
 	outputConfig := marshalParam(params, "OutputDataConfig")
@@ -569,7 +565,7 @@ func (p *Provider) createTrainingJob(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) describeTrainingJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "TrainingJobName")
+	name := shared.StrParam(params, "TrainingJobName")
 	tj, err := p.store.GetTrainingJob(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "training job not found: "+name, http.StatusBadRequest), nil
@@ -610,7 +606,7 @@ func (p *Provider) listTrainingJobs(_ map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) stopTrainingJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "TrainingJobName")
+	name := shared.StrParam(params, "TrainingJobName")
 	if err := p.store.UpdateTrainingJobStatus(name, "Stopped"); err != nil {
 		return shared.JSONError("ResourceNotFound", "training job not found: "+name, http.StatusBadRequest), nil
 	}
@@ -620,11 +616,11 @@ func (p *Provider) stopTrainingJob(params map[string]any) (*plugin.Response, err
 // ---- ProcessingJob handlers ----
 
 func (p *Provider) createProcessingJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ProcessingJobName")
+	name := shared.StrParam(params, "ProcessingJobName")
 	if name == "" {
 		return shared.JSONError("ValidationException", "ProcessingJobName is required", http.StatusBadRequest), nil
 	}
-	roleARN := strParam(params, "RoleArn")
+	roleARN := shared.StrParam(params, "RoleArn")
 	appSpec := marshalParam(params, "AppSpecification")
 	inputs := marshalParamArray(params, "ProcessingInputs")
 	outputs := marshalParamArray(params, "ProcessingOutputConfig")
@@ -641,7 +637,7 @@ func (p *Provider) createProcessingJob(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) describeProcessingJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ProcessingJobName")
+	name := shared.StrParam(params, "ProcessingJobName")
 	pj, err := p.store.GetProcessingJob(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "processing job not found: "+name, http.StatusBadRequest), nil
@@ -682,7 +678,7 @@ func (p *Provider) listProcessingJobs(_ map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) stopProcessingJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ProcessingJobName")
+	name := shared.StrParam(params, "ProcessingJobName")
 	if err := p.store.UpdateProcessingJobStatus(name, "Stopped"); err != nil {
 		return shared.JSONError("ResourceNotFound", "processing job not found: "+name, http.StatusBadRequest), nil
 	}
@@ -692,11 +688,11 @@ func (p *Provider) stopProcessingJob(params map[string]any) (*plugin.Response, e
 // ---- TransformJob handlers ----
 
 func (p *Provider) createTransformJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "TransformJobName")
+	name := shared.StrParam(params, "TransformJobName")
 	if name == "" {
 		return shared.JSONError("ValidationException", "TransformJobName is required", http.StatusBadRequest), nil
 	}
-	modelName := strParam(params, "ModelName")
+	modelName := shared.StrParam(params, "ModelName")
 	input := marshalParam(params, "TransformInput")
 	output := marshalParam(params, "TransformOutput")
 	resources := marshalParam(params, "TransformResources")
@@ -712,7 +708,7 @@ func (p *Provider) createTransformJob(params map[string]any) (*plugin.Response, 
 }
 
 func (p *Provider) describeTransformJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "TransformJobName")
+	name := shared.StrParam(params, "TransformJobName")
 	tj, err := p.store.GetTransformJob(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "transform job not found: "+name, http.StatusBadRequest), nil
@@ -751,7 +747,7 @@ func (p *Provider) listTransformJobs(_ map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) stopTransformJob(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "TransformJobName")
+	name := shared.StrParam(params, "TransformJobName")
 	if err := p.store.UpdateTransformJobStatus(name, "Stopped"); err != nil {
 		return shared.JSONError("ResourceNotFound", "transform job not found: "+name, http.StatusBadRequest), nil
 	}
@@ -761,13 +757,13 @@ func (p *Provider) stopTransformJob(params map[string]any) (*plugin.Response, er
 // ---- Pipeline handlers ----
 
 func (p *Provider) createPipeline(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "PipelineName")
+	name := shared.StrParam(params, "PipelineName")
 	if name == "" {
 		return shared.JSONError("ValidationException", "PipelineName is required", http.StatusBadRequest), nil
 	}
-	roleARN := strParam(params, "RoleArn")
-	definition := strParam(params, "PipelineDefinition")
-	description := strParam(params, "PipelineDescription")
+	roleARN := shared.StrParam(params, "RoleArn")
+	definition := shared.StrParam(params, "PipelineDefinition")
+	description := shared.StrParam(params, "PipelineDescription")
 	arn := shared.BuildARN("sagemaker", "pipeline", name)
 	pl, err := p.store.CreatePipeline(name, arn, roleARN, definition, description)
 	if err != nil {
@@ -780,7 +776,7 @@ func (p *Provider) createPipeline(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) describePipeline(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "PipelineName")
+	name := shared.StrParam(params, "PipelineName")
 	pl, err := p.store.GetPipeline(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "pipeline not found: "+name, http.StatusBadRequest), nil
@@ -816,20 +812,20 @@ func (p *Provider) listPipelines(_ map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updatePipeline(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "PipelineName")
+	name := shared.StrParam(params, "PipelineName")
 	pl, err := p.store.GetPipeline(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "pipeline not found: "+name, http.StatusBadRequest), nil
 	}
-	roleARN := strParam(params, "RoleArn")
+	roleARN := shared.StrParam(params, "RoleArn")
 	if roleARN == "" {
 		roleARN = pl.RoleARN
 	}
-	definition := strParam(params, "PipelineDefinition")
+	definition := shared.StrParam(params, "PipelineDefinition")
 	if definition == "" {
 		definition = pl.Definition
 	}
-	description := strParam(params, "PipelineDescription")
+	description := shared.StrParam(params, "PipelineDescription")
 	if description == "" {
 		description = pl.Description
 	}
@@ -840,7 +836,7 @@ func (p *Provider) updatePipeline(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) deletePipeline(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "PipelineName")
+	name := shared.StrParam(params, "PipelineName")
 	pl, err := p.store.GetPipeline(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "pipeline not found: "+name, http.StatusBadRequest), nil
@@ -852,7 +848,7 @@ func (p *Provider) deletePipeline(params map[string]any) (*plugin.Response, erro
 }
 
 func (p *Provider) startPipelineExecution(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "PipelineName")
+	name := shared.StrParam(params, "PipelineName")
 	if _, err := p.store.GetPipeline(name); err != nil {
 		return shared.JSONError("ResourceNotFound", "pipeline not found: "+name, http.StatusBadRequest), nil
 	}
@@ -865,7 +861,7 @@ func (p *Provider) startPipelineExecution(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) describePipelineExecution(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "PipelineExecutionArn")
+	arn := shared.StrParam(params, "PipelineExecutionArn")
 	pe, err := p.store.GetPipelineExecution(arn)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "pipeline execution not found: "+arn, http.StatusBadRequest), nil
@@ -879,7 +875,7 @@ func (p *Provider) describePipelineExecution(params map[string]any) (*plugin.Res
 }
 
 func (p *Provider) listPipelineExecutions(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "PipelineName")
+	name := shared.StrParam(params, "PipelineName")
 	executions, err := p.store.ListPipelineExecutions(name)
 	if err != nil {
 		return nil, err
@@ -896,7 +892,7 @@ func (p *Provider) listPipelineExecutions(params map[string]any) (*plugin.Respon
 }
 
 func (p *Provider) stopPipelineExecution(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "PipelineExecutionArn")
+	arn := shared.StrParam(params, "PipelineExecutionArn")
 	if err := p.store.UpdatePipelineExecutionStatus(arn, "Stopped"); err != nil {
 		return shared.JSONError("ResourceNotFound", "pipeline execution not found: "+arn, http.StatusBadRequest), nil
 	}
@@ -906,11 +902,11 @@ func (p *Provider) stopPipelineExecution(params map[string]any) (*plugin.Respons
 // ---- Experiment handlers ----
 
 func (p *Provider) createExperiment(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ExperimentName")
+	name := shared.StrParam(params, "ExperimentName")
 	if name == "" {
 		return shared.JSONError("ValidationException", "ExperimentName is required", http.StatusBadRequest), nil
 	}
-	description := strParam(params, "Description")
+	description := shared.StrParam(params, "Description")
 	arn := shared.BuildARN("sagemaker", "experiment", name)
 	e, err := p.store.CreateExperiment(name, arn, description)
 	if err != nil {
@@ -923,7 +919,7 @@ func (p *Provider) createExperiment(params map[string]any) (*plugin.Response, er
 }
 
 func (p *Provider) describeExperiment(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ExperimentName")
+	name := shared.StrParam(params, "ExperimentName")
 	e, err := p.store.GetExperiment(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "experiment not found: "+name, http.StatusBadRequest), nil
@@ -953,8 +949,8 @@ func (p *Provider) listExperiments(_ map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateExperiment(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ExperimentName")
-	description := strParam(params, "Description")
+	name := shared.StrParam(params, "ExperimentName")
+	description := shared.StrParam(params, "Description")
 	e, err := p.store.GetExperiment(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "experiment not found: "+name, http.StatusBadRequest), nil
@@ -966,7 +962,7 @@ func (p *Provider) updateExperiment(params map[string]any) (*plugin.Response, er
 }
 
 func (p *Provider) deleteExperiment(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "ExperimentName")
+	name := shared.StrParam(params, "ExperimentName")
 	e, err := p.store.GetExperiment(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "experiment not found: "+name, http.StatusBadRequest), nil
@@ -980,11 +976,11 @@ func (p *Provider) deleteExperiment(params map[string]any) (*plugin.Response, er
 // ---- Trial handlers ----
 
 func (p *Provider) createTrial(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "TrialName")
+	name := shared.StrParam(params, "TrialName")
 	if name == "" {
 		return shared.JSONError("ValidationException", "TrialName is required", http.StatusBadRequest), nil
 	}
-	experimentName := strParam(params, "ExperimentName")
+	experimentName := shared.StrParam(params, "ExperimentName")
 	arn := shared.BuildARN("sagemaker", "experiment-trial", name)
 	tr, err := p.store.CreateTrial(name, arn, experimentName)
 	if err != nil {
@@ -997,7 +993,7 @@ func (p *Provider) createTrial(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) describeTrial(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "TrialName")
+	name := shared.StrParam(params, "TrialName")
 	tr, err := p.store.GetTrial(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "trial not found: "+name, http.StatusBadRequest), nil
@@ -1011,7 +1007,7 @@ func (p *Provider) describeTrial(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) listTrials(params map[string]any) (*plugin.Response, error) {
-	experimentName := strParam(params, "ExperimentName")
+	experimentName := shared.StrParam(params, "ExperimentName")
 	trials, err := p.store.ListTrials(experimentName)
 	if err != nil {
 		return nil, err
@@ -1029,8 +1025,8 @@ func (p *Provider) listTrials(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateTrial(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "TrialName")
-	experimentName := strParam(params, "ExperimentName")
+	name := shared.StrParam(params, "TrialName")
+	experimentName := shared.StrParam(params, "ExperimentName")
 	tr, err := p.store.GetTrial(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "trial not found: "+name, http.StatusBadRequest), nil
@@ -1045,7 +1041,7 @@ func (p *Provider) updateTrial(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) deleteTrial(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "TrialName")
+	name := shared.StrParam(params, "TrialName")
 	tr, err := p.store.GetTrial(name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "trial not found: "+name, http.StatusBadRequest), nil
@@ -1059,15 +1055,15 @@ func (p *Provider) deleteTrial(params map[string]any) (*plugin.Response, error) 
 // ---- Domain handlers ----
 
 func (p *Provider) createDomain(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "DomainName")
+	name := shared.StrParam(params, "DomainName")
 	if name == "" {
 		return shared.JSONError("ValidationException", "DomainName is required", http.StatusBadRequest), nil
 	}
-	authMode := strParam(params, "AuthMode")
+	authMode := shared.StrParam(params, "AuthMode")
 	if authMode == "" {
 		authMode = "IAM"
 	}
-	vpcID := strParam(params, "VpcId")
+	vpcID := shared.StrParam(params, "VpcId")
 	id := shared.GenerateID("d-", 16)
 	arn := shared.BuildARN("sagemaker", "domain", id)
 	d, err := p.store.CreateDomain(id, arn, name, "InService", authMode, vpcID)
@@ -1081,7 +1077,7 @@ func (p *Provider) createDomain(params map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) describeDomain(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "DomainId")
+	id := shared.StrParam(params, "DomainId")
 	d, err := p.store.GetDomain(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "domain not found: "+id, http.StatusBadRequest), nil
@@ -1116,12 +1112,12 @@ func (p *Provider) listDomains(_ map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateDomain(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "DomainId")
+	id := shared.StrParam(params, "DomainId")
 	d, err := p.store.GetDomain(id)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "domain not found: "+id, http.StatusBadRequest), nil
 	}
-	vpcID := strParam(params, "VpcId")
+	vpcID := shared.StrParam(params, "VpcId")
 	if vpcID == "" {
 		vpcID = d.VpcID
 	}
@@ -1132,7 +1128,7 @@ func (p *Provider) updateDomain(params map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) deleteDomain(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "DomainId")
+	id := shared.StrParam(params, "DomainId")
 	if err := p.store.DeleteDomain(id); err != nil {
 		return shared.JSONError("ResourceNotFound", "domain not found: "+id, http.StatusBadRequest), nil
 	}
@@ -1142,8 +1138,8 @@ func (p *Provider) deleteDomain(params map[string]any) (*plugin.Response, error)
 // ---- UserProfile handlers ----
 
 func (p *Provider) createUserProfile(params map[string]any) (*plugin.Response, error) {
-	domainID := strParam(params, "DomainId")
-	name := strParam(params, "UserProfileName")
+	domainID := shared.StrParam(params, "DomainId")
+	name := shared.StrParam(params, "UserProfileName")
 	if domainID == "" || name == "" {
 		return shared.JSONError("ValidationException", "DomainId and UserProfileName are required", http.StatusBadRequest), nil
 	}
@@ -1159,8 +1155,8 @@ func (p *Provider) createUserProfile(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) describeUserProfile(params map[string]any) (*plugin.Response, error) {
-	domainID := strParam(params, "DomainId")
-	name := strParam(params, "UserProfileName")
+	domainID := shared.StrParam(params, "DomainId")
+	name := shared.StrParam(params, "UserProfileName")
 	up, err := p.store.GetUserProfile(domainID, name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "user profile not found: "+name, http.StatusBadRequest), nil
@@ -1175,7 +1171,7 @@ func (p *Provider) describeUserProfile(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) listUserProfiles(params map[string]any) (*plugin.Response, error) {
-	domainID := strParam(params, "DomainIdEquals")
+	domainID := shared.StrParam(params, "DomainIdEquals")
 	profiles, err := p.store.ListUserProfiles(domainID)
 	if err != nil {
 		return nil, err
@@ -1194,8 +1190,8 @@ func (p *Provider) listUserProfiles(params map[string]any) (*plugin.Response, er
 }
 
 func (p *Provider) updateUserProfile(params map[string]any) (*plugin.Response, error) {
-	domainID := strParam(params, "DomainId")
-	name := strParam(params, "UserProfileName")
+	domainID := shared.StrParam(params, "DomainId")
+	name := shared.StrParam(params, "UserProfileName")
 	up, err := p.store.GetUserProfile(domainID, name)
 	if err != nil {
 		return shared.JSONError("ResourceNotFound", "user profile not found: "+name, http.StatusBadRequest), nil
@@ -1207,8 +1203,8 @@ func (p *Provider) updateUserProfile(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) deleteUserProfile(params map[string]any) (*plugin.Response, error) {
-	domainID := strParam(params, "DomainId")
-	name := strParam(params, "UserProfileName")
+	domainID := shared.StrParam(params, "DomainId")
+	name := shared.StrParam(params, "UserProfileName")
 	if err := p.store.DeleteUserProfile(domainID, name); err != nil {
 		return shared.JSONError("ResourceNotFound", "user profile not found: "+name, http.StatusBadRequest), nil
 	}
@@ -1218,7 +1214,7 @@ func (p *Provider) deleteUserProfile(params map[string]any) (*plugin.Response, e
 // ---- Tags handlers ----
 
 func (p *Provider) addTags(params map[string]any) (*plugin.Response, error) {
-	resourceARN := strParam(params, "ResourceArn")
+	resourceARN := shared.StrParam(params, "ResourceArn")
 	tagsRaw, _ := params["Tags"].([]any)
 	tags := make(map[string]string, len(tagsRaw))
 	for _, t := range tagsRaw {
@@ -1237,7 +1233,7 @@ func (p *Provider) addTags(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) deleteTags(params map[string]any) (*plugin.Response, error) {
-	resourceARN := strParam(params, "ResourceArn")
+	resourceARN := shared.StrParam(params, "ResourceArn")
 	keys := stringsParam(params, "TagKeys")
 	if err := p.store.RemoveTags(resourceARN, keys); err != nil {
 		return nil, err
@@ -1246,7 +1242,7 @@ func (p *Provider) deleteTags(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) listTags(params map[string]any) (*plugin.Response, error) {
-	resourceARN := strParam(params, "ResourceArn")
+	resourceARN := shared.StrParam(params, "ResourceArn")
 	tags, err := p.store.ListTagsForResource(resourceARN)
 	if err != nil {
 		return nil, err
@@ -1259,15 +1255,6 @@ func (p *Provider) listTags(params map[string]any) (*plugin.Response, error) {
 }
 
 // ---- helpers ----
-
-func strParam(params map[string]any, key string) string {
-	if v, ok := params[key]; ok {
-		if s, ok := v.(string); ok {
-			return s
-		}
-	}
-	return ""
-}
 
 func marshalParam(params map[string]any, key string) string {
 	if v, ok := params[key]; ok {

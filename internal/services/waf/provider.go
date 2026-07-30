@@ -274,10 +274,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return out, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- helpers ---
 
 func wafError(code, msg string, status int) *plugin.Response {
@@ -290,15 +286,6 @@ func jsonResp(status int, v any) (*plugin.Response, error) {
 
 func wafARN(resourceType, id string) string {
 	return fmt.Sprintf("arn:aws:waf::%s:%s/%s", accountID, resourceType, id)
-}
-
-func strParam(params map[string]any, key string) string {
-	if v, ok := params[key]; ok {
-		if s, ok := v.(string); ok {
-			return s
-		}
-	}
-	return ""
 }
 
 func marshalJSON(v any) string {
@@ -320,11 +307,11 @@ func (p *Provider) getChangeTokenStatus(_ map[string]any) (*plugin.Response, err
 // --- WebACL ---
 
 func (p *Provider) createWebACL(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
-	changeToken := strParam(params, "ChangeToken")
+	changeToken := shared.StrParam(params, "ChangeToken")
 	id := shared.GenerateUUID()
 	arn := wafARN("webacl", id)
 
@@ -363,7 +350,7 @@ func (p *Provider) createWebACL(params map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) getWebACL(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "WebACLId")
+	id := shared.StrParam(params, "WebACLId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "WebACLId is required", http.StatusBadRequest), nil
 	}
@@ -407,7 +394,7 @@ func (p *Provider) listWebACLs(_ map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateWebACL(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "WebACLId")
+	id := shared.StrParam(params, "WebACLId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "WebACLId is required", http.StatusBadRequest), nil
 	}
@@ -441,7 +428,7 @@ func (p *Provider) updateWebACL(params map[string]any) (*plugin.Response, error)
 		}
 		w.Rules = marshalJSON(rules)
 	}
-	w.ChangeToken = strParam(params, "ChangeToken")
+	w.ChangeToken = shared.StrParam(params, "ChangeToken")
 	if err := p.store.UpdateWebACL(w); err != nil {
 		return nil, err
 	}
@@ -449,7 +436,7 @@ func (p *Provider) updateWebACL(params map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) deleteWebACL(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "WebACLId")
+	id := shared.StrParam(params, "WebACLId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "WebACLId is required", http.StatusBadRequest), nil
 	}
@@ -465,7 +452,7 @@ func (p *Provider) deleteWebACL(params map[string]any) (*plugin.Response, error)
 // --- IPSet ---
 
 func (p *Provider) createIPSet(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -476,7 +463,7 @@ func (p *Provider) createIPSet(params map[string]any) (*plugin.Response, error) 
 		Name:        name,
 		ARN:         arn,
 		Descriptors: "[]",
-		ChangeToken: strParam(params, "ChangeToken"),
+		ChangeToken: shared.StrParam(params, "ChangeToken"),
 	}
 	if err := p.store.CreateIPSet(ip); err != nil {
 		return nil, err
@@ -492,7 +479,7 @@ func (p *Provider) createIPSet(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) getIPSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "IPSetId")
+	id := shared.StrParam(params, "IPSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "IPSetId is required", http.StatusBadRequest), nil
 	}
@@ -530,7 +517,7 @@ func (p *Provider) listIPSets(_ map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateIPSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "IPSetId")
+	id := shared.StrParam(params, "IPSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "IPSetId is required", http.StatusBadRequest), nil
 	}
@@ -559,7 +546,7 @@ func (p *Provider) updateIPSet(params map[string]any) (*plugin.Response, error) 
 		}
 		ip.Descriptors = marshalJSON(descs)
 	}
-	ip.ChangeToken = strParam(params, "ChangeToken")
+	ip.ChangeToken = shared.StrParam(params, "ChangeToken")
 	if err := p.store.UpdateIPSet(ip); err != nil {
 		return nil, err
 	}
@@ -567,7 +554,7 @@ func (p *Provider) updateIPSet(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) deleteIPSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "IPSetId")
+	id := shared.StrParam(params, "IPSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "IPSetId is required", http.StatusBadRequest), nil
 	}
@@ -583,11 +570,11 @@ func (p *Provider) deleteIPSet(params map[string]any) (*plugin.Response, error) 
 // --- Rule ---
 
 func (p *Provider) createRule(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
-	metricName := strParam(params, "MetricName")
+	metricName := shared.StrParam(params, "MetricName")
 	if metricName == "" {
 		metricName = name
 	}
@@ -599,7 +586,7 @@ func (p *Provider) createRule(params map[string]any) (*plugin.Response, error) {
 		ARN:         arn,
 		MetricName:  metricName,
 		Predicates:  "[]",
-		ChangeToken: strParam(params, "ChangeToken"),
+		ChangeToken: shared.StrParam(params, "ChangeToken"),
 	}
 	if err := p.store.CreateRule(r); err != nil {
 		return nil, err
@@ -616,7 +603,7 @@ func (p *Provider) createRule(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) getRule(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RuleId")
+	id := shared.StrParam(params, "RuleId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RuleId is required", http.StatusBadRequest), nil
 	}
@@ -655,7 +642,7 @@ func (p *Provider) listRules(_ map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateRule(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RuleId")
+	id := shared.StrParam(params, "RuleId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RuleId is required", http.StatusBadRequest), nil
 	}
@@ -684,7 +671,7 @@ func (p *Provider) updateRule(params map[string]any) (*plugin.Response, error) {
 		}
 		r.Predicates = marshalJSON(preds)
 	}
-	r.ChangeToken = strParam(params, "ChangeToken")
+	r.ChangeToken = shared.StrParam(params, "ChangeToken")
 	if err := p.store.UpdateRule(r); err != nil {
 		return nil, err
 	}
@@ -692,7 +679,7 @@ func (p *Provider) updateRule(params map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) deleteRule(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RuleId")
+	id := shared.StrParam(params, "RuleId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RuleId is required", http.StatusBadRequest), nil
 	}
@@ -708,11 +695,11 @@ func (p *Provider) deleteRule(params map[string]any) (*plugin.Response, error) {
 // --- RuleGroup ---
 
 func (p *Provider) createRuleGroup(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
-	metricName := strParam(params, "MetricName")
+	metricName := shared.StrParam(params, "MetricName")
 	if metricName == "" {
 		metricName = name
 	}
@@ -723,7 +710,7 @@ func (p *Provider) createRuleGroup(params map[string]any) (*plugin.Response, err
 		Name:        name,
 		ARN:         arn,
 		MetricName:  metricName,
-		ChangeToken: strParam(params, "ChangeToken"),
+		ChangeToken: shared.StrParam(params, "ChangeToken"),
 	}
 	if err := p.store.CreateRuleGroup(rg); err != nil {
 		return nil, err
@@ -739,7 +726,7 @@ func (p *Provider) createRuleGroup(params map[string]any) (*plugin.Response, err
 }
 
 func (p *Provider) getRuleGroup(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RuleGroupId")
+	id := shared.StrParam(params, "RuleGroupId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RuleGroupId is required", http.StatusBadRequest), nil
 	}
@@ -772,7 +759,7 @@ func (p *Provider) listRuleGroups(_ map[string]any) (*plugin.Response, error) {
 }
 
 func (p *Provider) updateRuleGroup(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RuleGroupId")
+	id := shared.StrParam(params, "RuleGroupId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RuleGroupId is required", http.StatusBadRequest), nil
 	}
@@ -786,7 +773,7 @@ func (p *Provider) updateRuleGroup(params map[string]any) (*plugin.Response, err
 }
 
 func (p *Provider) deleteRuleGroup(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RuleGroupId")
+	id := shared.StrParam(params, "RuleGroupId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RuleGroupId is required", http.StatusBadRequest), nil
 	}
@@ -802,11 +789,11 @@ func (p *Provider) deleteRuleGroup(params map[string]any) (*plugin.Response, err
 // --- RateBasedRule ---
 
 func (p *Provider) createRateBasedRule(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
-	metricName := strParam(params, "MetricName")
+	metricName := shared.StrParam(params, "MetricName")
 	if metricName == "" {
 		metricName = name
 	}
@@ -823,7 +810,7 @@ func (p *Provider) createRateBasedRule(params map[string]any) (*plugin.Response,
 		MetricName:  metricName,
 		RateLimit:   rateLimit,
 		Predicates:  "[]",
-		ChangeToken: strParam(params, "ChangeToken"),
+		ChangeToken: shared.StrParam(params, "ChangeToken"),
 	}
 	if err := p.store.CreateRateBasedRule(r); err != nil {
 		return nil, err
@@ -842,7 +829,7 @@ func (p *Provider) createRateBasedRule(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) getRateBasedRule(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RuleId")
+	id := shared.StrParam(params, "RuleId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RuleId is required", http.StatusBadRequest), nil
 	}
@@ -883,7 +870,7 @@ func (p *Provider) listRateBasedRules(_ map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) updateRateBasedRule(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RuleId")
+	id := shared.StrParam(params, "RuleId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RuleId is required", http.StatusBadRequest), nil
 	}
@@ -897,7 +884,7 @@ func (p *Provider) updateRateBasedRule(params map[string]any) (*plugin.Response,
 	if rl, ok := params["RateLimit"].(float64); ok {
 		r.RateLimit = int64(rl)
 	}
-	r.ChangeToken = strParam(params, "ChangeToken")
+	r.ChangeToken = shared.StrParam(params, "ChangeToken")
 	if err := p.store.UpdateRateBasedRule(r); err != nil {
 		return nil, err
 	}
@@ -905,7 +892,7 @@ func (p *Provider) updateRateBasedRule(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) deleteRateBasedRule(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RuleId")
+	id := shared.StrParam(params, "RuleId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RuleId is required", http.StatusBadRequest), nil
 	}
@@ -921,7 +908,7 @@ func (p *Provider) deleteRateBasedRule(params map[string]any) (*plugin.Response,
 // --- ByteMatchSet ---
 
 func (p *Provider) createByteMatchSet(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -929,7 +916,7 @@ func (p *Provider) createByteMatchSet(params map[string]any) (*plugin.Response, 
 	b := &ByteMatchSet{
 		ID:          id,
 		Name:        name,
-		ChangeToken: strParam(params, "ChangeToken"),
+		ChangeToken: shared.StrParam(params, "ChangeToken"),
 		Tuples:      "[]",
 	}
 	if err := p.store.CreateByteMatchSet(b); err != nil {
@@ -946,7 +933,7 @@ func (p *Provider) createByteMatchSet(params map[string]any) (*plugin.Response, 
 }
 
 func (p *Provider) getByteMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "ByteMatchSetId")
+	id := shared.StrParam(params, "ByteMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "ByteMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -984,7 +971,7 @@ func (p *Provider) listByteMatchSets(_ map[string]any) (*plugin.Response, error)
 }
 
 func (p *Provider) updateByteMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "ByteMatchSetId")
+	id := shared.StrParam(params, "ByteMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "ByteMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1013,7 +1000,7 @@ func (p *Provider) updateByteMatchSet(params map[string]any) (*plugin.Response, 
 		}
 		b.Tuples = marshalJSON(tuples)
 	}
-	b.ChangeToken = strParam(params, "ChangeToken")
+	b.ChangeToken = shared.StrParam(params, "ChangeToken")
 	if err := p.store.UpdateByteMatchSet(b); err != nil {
 		return nil, err
 	}
@@ -1021,7 +1008,7 @@ func (p *Provider) updateByteMatchSet(params map[string]any) (*plugin.Response, 
 }
 
 func (p *Provider) deleteByteMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "ByteMatchSetId")
+	id := shared.StrParam(params, "ByteMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "ByteMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1037,7 +1024,7 @@ func (p *Provider) deleteByteMatchSet(params map[string]any) (*plugin.Response, 
 // --- RegexPatternSet ---
 
 func (p *Provider) createRegexPatternSet(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -1046,7 +1033,7 @@ func (p *Provider) createRegexPatternSet(params map[string]any) (*plugin.Respons
 		ID:          id,
 		Name:        name,
 		Patterns:    "[]",
-		ChangeToken: strParam(params, "ChangeToken"),
+		ChangeToken: shared.StrParam(params, "ChangeToken"),
 	}
 	if err := p.store.CreateRegexPatternSet(r); err != nil {
 		return nil, err
@@ -1062,7 +1049,7 @@ func (p *Provider) createRegexPatternSet(params map[string]any) (*plugin.Respons
 }
 
 func (p *Provider) getRegexPatternSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RegexPatternSetId")
+	id := shared.StrParam(params, "RegexPatternSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RegexPatternSetId is required", http.StatusBadRequest), nil
 	}
@@ -1100,7 +1087,7 @@ func (p *Provider) listRegexPatternSets(_ map[string]any) (*plugin.Response, err
 }
 
 func (p *Provider) updateRegexPatternSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RegexPatternSetId")
+	id := shared.StrParam(params, "RegexPatternSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RegexPatternSetId is required", http.StatusBadRequest), nil
 	}
@@ -1129,7 +1116,7 @@ func (p *Provider) updateRegexPatternSet(params map[string]any) (*plugin.Respons
 		}
 		r.Patterns = marshalJSON(patterns)
 	}
-	r.ChangeToken = strParam(params, "ChangeToken")
+	r.ChangeToken = shared.StrParam(params, "ChangeToken")
 	if err := p.store.UpdateRegexPatternSet(r); err != nil {
 		return nil, err
 	}
@@ -1137,7 +1124,7 @@ func (p *Provider) updateRegexPatternSet(params map[string]any) (*plugin.Respons
 }
 
 func (p *Provider) deleteRegexPatternSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RegexPatternSetId")
+	id := shared.StrParam(params, "RegexPatternSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RegexPatternSetId is required", http.StatusBadRequest), nil
 	}
@@ -1153,7 +1140,7 @@ func (p *Provider) deleteRegexPatternSet(params map[string]any) (*plugin.Respons
 // --- SizeConstraintSet ---
 
 func (p *Provider) createSizeConstraintSet(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -1162,7 +1149,7 @@ func (p *Provider) createSizeConstraintSet(params map[string]any) (*plugin.Respo
 		ID:          id,
 		Name:        name,
 		Constraints: "[]",
-		ChangeToken: strParam(params, "ChangeToken"),
+		ChangeToken: shared.StrParam(params, "ChangeToken"),
 	}
 	if err := p.store.CreateSizeConstraintSet(sc); err != nil {
 		return nil, err
@@ -1178,7 +1165,7 @@ func (p *Provider) createSizeConstraintSet(params map[string]any) (*plugin.Respo
 }
 
 func (p *Provider) getSizeConstraintSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "SizeConstraintSetId")
+	id := shared.StrParam(params, "SizeConstraintSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "SizeConstraintSetId is required", http.StatusBadRequest), nil
 	}
@@ -1216,7 +1203,7 @@ func (p *Provider) listSizeConstraintSets(_ map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) updateSizeConstraintSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "SizeConstraintSetId")
+	id := shared.StrParam(params, "SizeConstraintSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "SizeConstraintSetId is required", http.StatusBadRequest), nil
 	}
@@ -1245,7 +1232,7 @@ func (p *Provider) updateSizeConstraintSet(params map[string]any) (*plugin.Respo
 		}
 		sc.Constraints = marshalJSON(constraints)
 	}
-	sc.ChangeToken = strParam(params, "ChangeToken")
+	sc.ChangeToken = shared.StrParam(params, "ChangeToken")
 	if err := p.store.UpdateSizeConstraintSet(sc); err != nil {
 		return nil, err
 	}
@@ -1253,7 +1240,7 @@ func (p *Provider) updateSizeConstraintSet(params map[string]any) (*plugin.Respo
 }
 
 func (p *Provider) deleteSizeConstraintSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "SizeConstraintSetId")
+	id := shared.StrParam(params, "SizeConstraintSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "SizeConstraintSetId is required", http.StatusBadRequest), nil
 	}
@@ -1269,7 +1256,7 @@ func (p *Provider) deleteSizeConstraintSet(params map[string]any) (*plugin.Respo
 // --- SqlInjectionMatchSet ---
 
 func (p *Provider) createSqlInjectionMatchSet(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -1278,7 +1265,7 @@ func (p *Provider) createSqlInjectionMatchSet(params map[string]any) (*plugin.Re
 		ID:          id,
 		Name:        name,
 		Tuples:      "[]",
-		ChangeToken: strParam(params, "ChangeToken"),
+		ChangeToken: shared.StrParam(params, "ChangeToken"),
 	}
 	if err := p.store.CreateSqlInjectionMatchSet(si); err != nil {
 		return nil, err
@@ -1294,7 +1281,7 @@ func (p *Provider) createSqlInjectionMatchSet(params map[string]any) (*plugin.Re
 }
 
 func (p *Provider) getSqlInjectionMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "SqlInjectionMatchSetId")
+	id := shared.StrParam(params, "SqlInjectionMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "SqlInjectionMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1332,7 +1319,7 @@ func (p *Provider) listSqlInjectionMatchSets(_ map[string]any) (*plugin.Response
 }
 
 func (p *Provider) updateSqlInjectionMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "SqlInjectionMatchSetId")
+	id := shared.StrParam(params, "SqlInjectionMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "SqlInjectionMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1361,7 +1348,7 @@ func (p *Provider) updateSqlInjectionMatchSet(params map[string]any) (*plugin.Re
 		}
 		si.Tuples = marshalJSON(tuples)
 	}
-	si.ChangeToken = strParam(params, "ChangeToken")
+	si.ChangeToken = shared.StrParam(params, "ChangeToken")
 	if err := p.store.UpdateSqlInjectionMatchSet(si); err != nil {
 		return nil, err
 	}
@@ -1369,7 +1356,7 @@ func (p *Provider) updateSqlInjectionMatchSet(params map[string]any) (*plugin.Re
 }
 
 func (p *Provider) deleteSqlInjectionMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "SqlInjectionMatchSetId")
+	id := shared.StrParam(params, "SqlInjectionMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "SqlInjectionMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1385,7 +1372,7 @@ func (p *Provider) deleteSqlInjectionMatchSet(params map[string]any) (*plugin.Re
 // --- XssMatchSet ---
 
 func (p *Provider) createXssMatchSet(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -1394,7 +1381,7 @@ func (p *Provider) createXssMatchSet(params map[string]any) (*plugin.Response, e
 		ID:          id,
 		Name:        name,
 		Tuples:      "[]",
-		ChangeToken: strParam(params, "ChangeToken"),
+		ChangeToken: shared.StrParam(params, "ChangeToken"),
 	}
 	if err := p.store.CreateXssMatchSet(x); err != nil {
 		return nil, err
@@ -1410,7 +1397,7 @@ func (p *Provider) createXssMatchSet(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) getXssMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "XssMatchSetId")
+	id := shared.StrParam(params, "XssMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "XssMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1448,7 +1435,7 @@ func (p *Provider) listXssMatchSets(_ map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) updateXssMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "XssMatchSetId")
+	id := shared.StrParam(params, "XssMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "XssMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1477,7 +1464,7 @@ func (p *Provider) updateXssMatchSet(params map[string]any) (*plugin.Response, e
 		}
 		x.Tuples = marshalJSON(tuples)
 	}
-	x.ChangeToken = strParam(params, "ChangeToken")
+	x.ChangeToken = shared.StrParam(params, "ChangeToken")
 	if err := p.store.UpdateXssMatchSet(x); err != nil {
 		return nil, err
 	}
@@ -1485,7 +1472,7 @@ func (p *Provider) updateXssMatchSet(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) deleteXssMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "XssMatchSetId")
+	id := shared.StrParam(params, "XssMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "XssMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1501,7 +1488,7 @@ func (p *Provider) deleteXssMatchSet(params map[string]any) (*plugin.Response, e
 // --- GeoMatchSet ---
 
 func (p *Provider) createGeoMatchSet(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -1510,7 +1497,7 @@ func (p *Provider) createGeoMatchSet(params map[string]any) (*plugin.Response, e
 		ID:          id,
 		Name:        name,
 		Constraints: "[]",
-		ChangeToken: strParam(params, "ChangeToken"),
+		ChangeToken: shared.StrParam(params, "ChangeToken"),
 	}
 	if err := p.store.CreateGeoMatchSet(g); err != nil {
 		return nil, err
@@ -1526,7 +1513,7 @@ func (p *Provider) createGeoMatchSet(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) getGeoMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "GeoMatchSetId")
+	id := shared.StrParam(params, "GeoMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "GeoMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1564,7 +1551,7 @@ func (p *Provider) listGeoMatchSets(_ map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) updateGeoMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "GeoMatchSetId")
+	id := shared.StrParam(params, "GeoMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "GeoMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1593,7 +1580,7 @@ func (p *Provider) updateGeoMatchSet(params map[string]any) (*plugin.Response, e
 		}
 		g.Constraints = marshalJSON(constraints)
 	}
-	g.ChangeToken = strParam(params, "ChangeToken")
+	g.ChangeToken = shared.StrParam(params, "ChangeToken")
 	if err := p.store.UpdateGeoMatchSet(g); err != nil {
 		return nil, err
 	}
@@ -1601,7 +1588,7 @@ func (p *Provider) updateGeoMatchSet(params map[string]any) (*plugin.Response, e
 }
 
 func (p *Provider) deleteGeoMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "GeoMatchSetId")
+	id := shared.StrParam(params, "GeoMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "GeoMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1617,7 +1604,7 @@ func (p *Provider) deleteGeoMatchSet(params map[string]any) (*plugin.Response, e
 // --- RegexMatchSet ---
 
 func (p *Provider) createRegexMatchSet(params map[string]any) (*plugin.Response, error) {
-	name := strParam(params, "Name")
+	name := shared.StrParam(params, "Name")
 	if name == "" {
 		return wafError("WAFInvalidParameterException", "Name is required", http.StatusBadRequest), nil
 	}
@@ -1626,7 +1613,7 @@ func (p *Provider) createRegexMatchSet(params map[string]any) (*plugin.Response,
 		ID:          id,
 		Name:        name,
 		Tuples:      "[]",
-		ChangeToken: strParam(params, "ChangeToken"),
+		ChangeToken: shared.StrParam(params, "ChangeToken"),
 	}
 	if err := p.store.CreateRegexMatchSet(r); err != nil {
 		return nil, err
@@ -1642,7 +1629,7 @@ func (p *Provider) createRegexMatchSet(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) getRegexMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RegexMatchSetId")
+	id := shared.StrParam(params, "RegexMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RegexMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1680,7 +1667,7 @@ func (p *Provider) listRegexMatchSets(_ map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) updateRegexMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RegexMatchSetId")
+	id := shared.StrParam(params, "RegexMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RegexMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1709,7 +1696,7 @@ func (p *Provider) updateRegexMatchSet(params map[string]any) (*plugin.Response,
 		}
 		r.Tuples = marshalJSON(tuples)
 	}
-	r.ChangeToken = strParam(params, "ChangeToken")
+	r.ChangeToken = shared.StrParam(params, "ChangeToken")
 	if err := p.store.UpdateRegexMatchSet(r); err != nil {
 		return nil, err
 	}
@@ -1717,7 +1704,7 @@ func (p *Provider) updateRegexMatchSet(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) deleteRegexMatchSet(params map[string]any) (*plugin.Response, error) {
-	id := strParam(params, "RegexMatchSetId")
+	id := shared.StrParam(params, "RegexMatchSetId")
 	if id == "" {
 		return wafError("WAFInvalidParameterException", "RegexMatchSetId is required", http.StatusBadRequest), nil
 	}
@@ -1749,7 +1736,7 @@ func (p *Provider) putLoggingConfiguration(params map[string]any) (*plugin.Respo
 }
 
 func (p *Provider) getLoggingConfiguration(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	if arn == "" {
 		return wafError("WAFInvalidParameterException", "ResourceArn is required", http.StatusBadRequest), nil
 	}
@@ -1766,7 +1753,7 @@ func (p *Provider) getLoggingConfiguration(params map[string]any) (*plugin.Respo
 }
 
 func (p *Provider) deleteLoggingConfiguration(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	if arn == "" {
 		return wafError("WAFInvalidParameterException", "ResourceArn is required", http.StatusBadRequest), nil
 	}
@@ -1796,8 +1783,8 @@ func (p *Provider) listLoggingConfigurations(_ map[string]any) (*plugin.Response
 // --- Permission Policy ---
 
 func (p *Provider) putPermissionPolicy(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceArn")
-	policy := strParam(params, "Policy")
+	arn := shared.StrParam(params, "ResourceArn")
+	policy := shared.StrParam(params, "Policy")
 	if arn == "" {
 		return wafError("WAFInvalidParameterException", "ResourceArn is required", http.StatusBadRequest), nil
 	}
@@ -1808,7 +1795,7 @@ func (p *Provider) putPermissionPolicy(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) getPermissionPolicy(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	if arn == "" {
 		return wafError("WAFInvalidParameterException", "ResourceArn is required", http.StatusBadRequest), nil
 	}
@@ -1823,7 +1810,7 @@ func (p *Provider) getPermissionPolicy(params map[string]any) (*plugin.Response,
 }
 
 func (p *Provider) deletePermissionPolicy(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceArn")
+	arn := shared.StrParam(params, "ResourceArn")
 	if arn == "" {
 		return wafError("WAFInvalidParameterException", "ResourceArn is required", http.StatusBadRequest), nil
 	}
@@ -1839,7 +1826,7 @@ func (p *Provider) deletePermissionPolicy(params map[string]any) (*plugin.Respon
 // --- Tags ---
 
 func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceARN")
+	arn := shared.StrParam(params, "ResourceARN")
 	if arn == "" {
 		return wafError("WAFInvalidParameterException", "ResourceARN is required", http.StatusBadRequest), nil
 	}
@@ -1851,7 +1838,7 @@ func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) 
 }
 
 func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceARN")
+	arn := shared.StrParam(params, "ResourceARN")
 	if arn == "" {
 		return wafError("WAFInvalidParameterException", "ResourceARN is required", http.StatusBadRequest), nil
 	}
@@ -1863,7 +1850,7 @@ func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error
 }
 
 func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response, error) {
-	arn := strParam(params, "ResourceARN")
+	arn := shared.StrParam(params, "ResourceARN")
 	if arn == "" {
 		return wafError("WAFInvalidParameterException", "ResourceARN is required", http.StatusBadRequest), nil
 	}

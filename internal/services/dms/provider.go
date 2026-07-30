@@ -105,7 +105,7 @@ func (p *DMSProvider) HandleRequest(_ context.Context, op string, req *http.Requ
 		return p.reloadTables(params)
 	case "DescribeTableStatistics":
 		return shared.JSONResponse(http.StatusOK, map[string]any{
-			"ReplicationTaskArn": getString(params, "ReplicationTaskArn"),
+			"ReplicationTaskArn": shared.StrParam(params, "ReplicationTaskArn"),
 			"TableStatistics":    []any{},
 		})
 	case "DescribeReplicationTaskAssessmentResults":
@@ -198,11 +198,6 @@ func (p *DMSProvider) ListResources(_ context.Context) ([]plugin.Resource, error
 		out = append(out, plugin.Resource{Type: "replication-instance", ID: r.ARN, Name: r.Identifier})
 	}
 	return out, nil
-}
-
-// GetMetrics returns empty metrics.
-func (p *DMSProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
 }
 
 // --- Replication Instance handlers ---
@@ -778,11 +773,6 @@ func parseDMSTags(raw []any) map[string]string {
 		}
 	}
 	return tags
-}
-
-func getString(params map[string]any, key string) string {
-	s, _ := params[key].(string)
-	return s
 }
 
 func init() {

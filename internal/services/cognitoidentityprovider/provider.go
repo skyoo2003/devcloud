@@ -19,7 +19,7 @@ import (
 )
 
 const defaultAccountID = plugin.DefaultAccountID
-const defaultRegion = "us-east-1"
+const defaultRegion = shared.DefaultRegion
 
 // Provider implements the CognitoIdentityProviderService service.
 type Provider struct {
@@ -197,10 +197,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 		out = append(out, plugin.Resource{Type: "user-pool", ID: pool.ID, Name: pool.Name})
 	}
 	return out, nil
-}
-
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
 }
 
 // --- helpers ---

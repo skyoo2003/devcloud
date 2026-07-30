@@ -19,7 +19,7 @@ import (
 
 const (
 	defaultAccountID = plugin.DefaultAccountID
-	defaultRegion    = "us-east-1"
+	defaultRegion    = shared.DefaultRegion
 )
 
 // Provider implements the MagnolioAPIService_v20150201 service.
@@ -233,10 +233,6 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return out, nil
 }
 
-func (p *Provider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- helpers ---
 
 func efsARN(fsID string) string {
@@ -317,7 +313,7 @@ func apToDesc(ap *accessPointRow, tags map[string]string) map[string]any {
 // --- FileSystem operations ---
 
 func (p *Provider) createFileSystem(body map[string]any) (*plugin.Response, error) {
-	token := strVal(body, "CreationToken")
+	token := shared.StrParam(body, "CreationToken")
 	if token == "" {
 		token = shared.GenerateUUID()
 	}
@@ -328,16 +324,16 @@ func (p *Provider) createFileSystem(body map[string]any) (*plugin.Response, erro
 	}
 
 	fsID := shared.GenerateID("fs-", 11)
-	perfMode := strVal(body, "PerformanceMode")
+	perfMode := shared.StrParam(body, "PerformanceMode")
 	if perfMode == "" {
 		perfMode = "generalPurpose"
 	}
-	tpMode := strVal(body, "ThroughputMode")
+	tpMode := shared.StrParam(body, "ThroughputMode")
 	if tpMode == "" {
 		tpMode = "bursting"
 	}
 	encrypted := boolVal(body, "Encrypted")
-	kmsKey := strVal(body, "KmsKeyId")
+	kmsKey := shared.StrParam(body, "KmsKeyId")
 
 	r := &fileSystemRow{
 		FileSystemID:    fsID,
@@ -393,7 +389,7 @@ func (p *Provider) updateFileSystem(fsID string, body map[string]any) (*plugin.R
 	if err != nil {
 		return shared.JSONError("FileSystemNotFound", "file system not found", http.StatusNotFound), nil
 	}
-	tpMode := strVal(body, "ThroughputMode")
+	tpMode := shared.StrParam(body, "ThroughputMode")
 	if tpMode == "" {
 		tpMode = fs.ThroughputMode
 	}
@@ -416,7 +412,7 @@ func (p *Provider) putFileSystemPolicy(fsID string, body map[string]any) (*plugi
 	if _, err := p.store.GetFileSystem(fsID); err != nil {
 		return shared.JSONError("FileSystemNotFound", "file system not found", http.StatusNotFound), nil
 	}
-	policy := strVal(body, "Policy")
+	policy := shared.StrParam(body, "Policy")
 	if err := p.store.PutFileSystemPolicy(fsID, policy); err != nil {
 		return shared.JSONError("InternalError", err.Error(), http.StatusInternalServerError), nil
 	}
@@ -444,7 +440,7 @@ func (p *Provider) putBackupPolicy(fsID string, body map[string]any) (*plugin.Re
 	}
 	status := "DISABLED"
 	if bp, ok := body["BackupPolicy"].(map[string]any); ok {
-		status = strVal(bp, "Status")
+		status = shared.StrParam(bp, "Status")
 	}
 	if err := p.store.PutBackupPolicy(fsID, status); err != nil {
 		return shared.JSONError("InternalError", err.Error(), http.StatusInternalServerError), nil
@@ -496,12 +492,12 @@ func (p *Provider) describeLifecycleConfiguration(fsID string) (*plugin.Response
 // --- MountTarget operations ---
 
 func (p *Provider) createMountTarget(body map[string]any) (*plugin.Response, error) {
-	fsID := strVal(body, "FileSystemId")
+	fsID := shared.StrParam(body, "FileSystemId")
 	if _, err := p.store.GetFileSystem(fsID); err != nil {
 		return shared.JSONError("FileSystemNotFound", "file system not found", http.StatusNotFound), nil
 	}
-	subnetID := strVal(body, "SubnetId")
-	ipAddr := strVal(body, "IpAddress")
+	subnetID := shared.StrParam(body, "SubnetId")
+	ipAddr := shared.StrParam(body, "IpAddress")
 	if ipAddr == "" {
 		ipAddr = "10.0.1.100"
 	}
@@ -591,12 +587,12 @@ func (p *Provider) modifyMountTargetSecurityGroups(mtID string, body map[string]
 // --- AccessPoint operations ---
 
 func (p *Provider) createAccessPoint(body map[string]any) (*plugin.Response, error) {
-	fsID := strVal(body, "FileSystemId")
+	fsID := shared.StrParam(body, "FileSystemId")
 	if _, err := p.store.GetFileSystem(fsID); err != nil {
 		return shared.JSONError("FileSystemNotFound", "file system not found", http.StatusNotFound), nil
 	}
 	apID := shared.GenerateID("fsap-", 13)
-	clientToken := strVal(body, "ClientToken")
+	clientToken := shared.StrParam(body, "ClientToken")
 	var posixUser, rootDir string
 	if pu, ok := body["PosixUser"]; ok {
 		b, _ := json.Marshal(pu)
@@ -699,15 +695,6 @@ func (p *Provider) untagResource(resourceID string, keys []string) (*plugin.Resp
 }
 
 // --- helpers ---
-
-func strVal(m map[string]any, key string) string {
-	if v, ok := m[key]; ok {
-		if s, ok := v.(string); ok {
-			return s
-		}
-	}
-	return ""
-}
 
 func boolVal(m map[string]any, key string) bool {
 	if v, ok := m[key]; ok {

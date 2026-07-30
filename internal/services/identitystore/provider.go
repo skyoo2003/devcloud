@@ -166,10 +166,6 @@ func (p *IdentityStoreProvider) ListResources(_ context.Context) ([]plugin.Resou
 	return res, nil
 }
 
-func (p *IdentityStoreProvider) GetMetrics(_ context.Context) (*plugin.ServiceMetrics, error) {
-	return &plugin.ServiceMetrics{}, nil
-}
-
 // --- User handlers ---
 
 func (p *IdentityStoreProvider) createUser(params map[string]any) (*plugin.Response, error) {
