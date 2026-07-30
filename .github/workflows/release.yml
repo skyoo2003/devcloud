@@ -57,6 +57,17 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    # Short-lived token scoped to skyoo2003/homebrew-tap only, for the brews
+    # section. Skipped on a dry run, where GoReleaser never publishes it.
+    - name: Mint a Homebrew tap token
+      id: tap_token
+      if: ${{ github.event.inputs.dry_run != 'true' }}
+      uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+      with:
+        app-id: ${{ secrets.TAP_APP_ID }}
+        private-key: ${{ secrets.TAP_APP_PRIVATE_KEY }}
+        owner: skyoo2003
+        repositories: homebrew-tap
     - name: Execute GoReleaser
       uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94  # goreleaser-action v7
       with:
@@ -65,6 +76,7 @@ jobs:
         args: release --clean ${{ steps.resolve_tag.outputs.extra_flags }} --release-notes changes/${{ steps.resolve_tag.outputs.tag }}.md
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        HOMEBREW_TAP_TOKEN: ${{ steps.tap_token.outputs.token }}
     - name: Upload assets
       if: ${{ github.event.inputs.dry_run != 'true' }}
       uses: actions/upload-artifact@v7
