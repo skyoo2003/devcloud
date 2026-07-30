@@ -24,10 +24,10 @@ builds:
 
 archives:
 - id: devcloud
-  format: tar.gz
+  formats: [ tar.gz ]
   format_overrides:
   - goos: windows
-    format: zip
+    formats: [ zip ]
   files:
     - LICENSE
     - README.md
@@ -39,6 +39,27 @@ changelog:
 checksum:
   algorithm: sha256
   name_template: 'CHECKSUMS'
+
+# Publishes Formula/devcloud.rb to the tap repo named by HOMEBREW_TAP_OWNER and
+# HOMEBREW_TAP_REPO (set in .github/workflows/release.yml). The token comes from
+# a GitHub App installed only on that repository: the job's own GITHUB_TOKEN
+# cannot write to another repo.
+brews:
+- ids:
+  - devcloud
+  repository:
+    owner: "{{ .Env.HOMEBREW_TAP_OWNER }}"
+    name: "{{ .Env.HOMEBREW_TAP_REPO }}"
+    token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+  homepage: "https://github.com/{{ .Env.GITHUB_REPOSITORY_OWNER }}/{{ .ProjectName }}"
+  description: "Local development companion for cloud-native apps"
+  license: "Apache-2.0"
+  install: |
+    bin.install "devcloud"
+  # devcloud is a long-running server with no subcommands, so the test only
+  # asserts the flag usage text -- starting it would hang the test.
+  test: |
+    assert_match "-config", shell_output("#{bin}/devcloud -h 2>&1")
 
 dockers_v2:
 - images:

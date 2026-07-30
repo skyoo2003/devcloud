@@ -1,0 +1,5 @@
+kind: Added
+body: Homebrew installation via `brew install skyoo2003/tap/devcloud`, published to the tap on each release
+time: 2026-07-31T00:12:20.839744+09:00
+custom:
+    Issue: "121"
