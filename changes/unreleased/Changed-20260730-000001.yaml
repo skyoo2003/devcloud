@@ -1,5 +1,5 @@
 kind: Changed
-body: The `services` config block is now optional. Omit it — as the embedded default now does — and every registered service starts with `data_dir ./data/<service>`; listing services still restricts startup to exactly that set. This replaces a 325-line default file in which all 103 entries were identical boilerplate.
+body: 'The `services` config block is now optional: omit it and every registered service starts with `data_dir ./data/<service>`; list services and only those start. Replaces 325 lines of identical boilerplate.'
 time: 2026-07-30T00:00:01.000000+09:00
 custom:
     Issue: "120"

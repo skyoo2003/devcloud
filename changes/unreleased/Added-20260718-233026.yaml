@@ -1,5 +1,5 @@
 kind: Added
-body: 'Add 24 operations to core services: EC2 instance lifecycle (Start/Stop/Reboot), DescribeAvailabilityZones/DescribeRegions, security group rules (Authorize/Revoke ingress+egress), Elastic IP association, DeleteSecurityGroup/DeleteSubnet/DescribeTags/DeleteTags, and IAM group policy management (attach/detach/put/get/delete/list)'
+body: 'Add 24 core-service operations: EC2 instance lifecycle, region/AZ and tag queries, security group rules, Elastic IP association, and IAM group policy management'
 time: 2026-07-18T23:30:26.666352+09:00
 custom:
     Issue: "97"

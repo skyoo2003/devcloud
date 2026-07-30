@@ -1,5 +1,5 @@
 kind: Fixed
-body: The weekly Smithy model sync could never report an update. `download-smithy-models.sh` skipped every model already in the tree (all of them), and its hand-maintained service list had drifted so that 14 entries 404'd upstream. The list is now derived from the models present, the workflow passes `--refresh` to re-download them, downloads are written atomically so a failed fetch can no longer delete a committed model, and the workflow's change check uses `git status --porcelain` so a newly generated package is no longer silently dropped as an untracked file.
+body: 'The weekly Smithy model sync could never report an update: it skipped every model already in the tree (all of them), and 14 entries of its hand-maintained service list 404''d upstream. The list is now derived from the tree, the workflow re-downloads with `--refresh`, and downloads are atomic so a failed fetch cannot delete a committed model.'
 time: 2026-07-30T00:00:02.000000+09:00
 custom:
     Issue: "120"
