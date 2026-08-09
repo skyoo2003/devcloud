@@ -32,6 +32,22 @@ archives:
     - LICENSE
     - README.md
     - CHANGELOG.md
+    # Docs are versioned by tag, and the ones stating what a release promises —
+    # the fidelity manifest, the compatibility policy — are only true of the
+    # binary they ship beside.
+    - docs
+    # README.md and the docs tree reach these by relative path, so leaving them
+    # out dangles the archive's own entry point: before docs/ was added here,
+    # 26 of README.md's 28 relative links resolved to nothing. What stays broken
+    # points into source and CI config, which a binary archive has no business
+    # carrying.
+    - CONTRIBUTING.md
+    - CODE_OF_CONDUCT.md
+    - GOVERNANCE.md
+    - SECURITY.md
+    - SUPPORT.md
+    - NOTICE
+    - TRADEMARKS.md
 
 changelog:
   disable: false

@@ -2,4 +2,4 @@ kind: Fixed
 body: EventBridge rule ARNs now name their event bus, as AWS does. A rule name is unique per bus, so same-named rules on two custom buses previously shared one ARN — and with it, one tag set, where tagging one rule changed the other's and deleting one wiped the survivor's
 time: 2026-08-09T17:00:00.000000+09:00
 custom:
-    Issue: ""
+    Issue: "126"

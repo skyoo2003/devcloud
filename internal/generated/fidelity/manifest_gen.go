@@ -6,8 +6,9 @@
 // to "can I trust this call?" — see docs/fidelity-manifest.md.
 //
 // The manifest is derived, never hand-written: the operation universe comes from
-// the in-tree Smithy models, auto-crud from the generated CRUD registry, and
-// hand-verified from the dispatch literals of each provider.
+// the in-tree Smithy models unioned with what providers serve, auto-crud from
+// the generated CRUD registry, and hand-verified from the dispatch literals of
+// each provider's HandleRequest.
 package fidelity
 
 // Tier is how faithfully an operation is served.
@@ -19,7 +20,12 @@ const (
 	// TierAutoCRUD is served by the generic CRUD engine with plausible,
 	// store-backed responses: no validation, no business logic.
 	TierAutoCRUD Tier = "auto-crud"
-	// TierUnimplemented returns an honest InvalidAction error.
+	// TierUnimplemented is not served: the call fails with an error rather than
+	// a made-up success. The error is the provider's own, not one shared code —
+	// JSON and Query services fall through to InvalidAction (HTTP 400), while
+	// the path-routed providers answer in their own vocabulary (s3
+	// MethodNotAllowed, lambda ResourceNotFoundException, bedrock
+	// UnsupportedOperation).
 	TierUnimplemented Tier = "unimplemented"
 )
 

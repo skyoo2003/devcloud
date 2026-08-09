@@ -32,6 +32,37 @@ small YAML file under `changes/unreleased/`. Commit it alongside your code chang
 
 Config lives in [`.changie.yaml`](../.changie.yaml).
 
+Prefer `changie new` over writing the YAML by hand: it enforces the issue number, and a
+fragment without one renders as a dead link in the release notes.
+
+## Pre-flight checklist
+
+Run through this before batching.
+
+The first three are re-run by the Release workflow against the tagged commit, which refuses to
+publish if any fails — tick them to find out on your machine rather than from a failed tag.
+The rest are only caught here.
+
+- [ ] **Generated code is current** —
+      `rm -rf internal/generated && make codegen && git status --porcelain internal/generated`
+      prints nothing. `internal/generated` is committed but derived; a stale fidelity manifest
+      misreports what the release can be trusted to do. Clear the tree first, as CI does: the
+      generator overwrites the outputs it still emits but never removes one it has stopped
+      emitting, so regenerating in place leaves a retired file looking current.
+- [ ] **boto3 compatibility passes** — `make test-compat`.
+- [ ] **Go tests pass** — `CGO_ENABLED=1 go test ./...`.
+- [ ] **`main` is green**, including lint and CodeQL.
+- [ ] **Every unreleased fragment carries an issue number** —
+      `grep -L 'Issue: "[0-9]' changes/unreleased/*.yaml` prints nothing.
+- [ ] **`changes/unreleased/` is not empty.** No fragments means either nothing shipped or
+      someone forgot one.
+- [ ] **Deprecation review.** If this release *removes* anything previously deprecated — a
+      config key, an env var, an admin route — confirm it shipped for at least one release
+      with a warning first. The precedent is the `dashboard` → `admin` rename in
+      [`internal/config/config.go`](../internal/config/config.go): the old key kept working,
+      emitted a warning, and only then became removable. Removing without that overlap is a
+      major-version change.
+
 ## Cutting a release
 
 1. **Make sure `main` is green** and holds all changes you want in the release.
@@ -70,10 +101,18 @@ Config lives in [`.changie.yaml`](../.changie.yaml).
 
 Pushing the tag triggers the Release workflow. It will:
 
-- verify `changes/v0.3.0.md` exists (guard against tagging without release notes),
+- resolve the tag to a commit **once**, up front, and check that same SHA out in every job that
+  follows. Moving the tag mid-run therefore cannot make the guardrails vouch for one commit
+  while GoReleaser publishes another,
+- re-run the guardrails against that commit and stop before publishing anything if any of them
+  fails: the Go test suite on amd64 and arm64, the boto3 compatibility suite, and the codegen
+  drift check. CI is not relied on here — it races the tag, and `compat.yml` does not trigger
+  on tags at all,
+- verify `changes/v0.3.0.md` exists (guard against tagging without release notes), contains
+  only what `changie batch` renders, and that no entry in it is missing its issue number,
 - run GoReleaser, which builds binaries for **darwin/linux/windows × amd64/arm64**, packages
-  them as `tar.gz` (`zip` on Windows) with `LICENSE`/`README.md`/`CHANGELOG.md`, and generates
-  a SHA-256 `CHECKSUMS` file,
+  them as `tar.gz` (`zip` on Windows) with the `docs/` tree and the top-level files it and
+  `README.md` link to, and generates a SHA-256 `CHECKSUMS` file,
 - build and push `*-alpine` container images to `ghcr.io/skyoo2003/devcloud`,
 - publish a **GitHub Release** whose notes come from `changes/v0.3.0.md`
   (`--release-notes`, `mode: replace`).
@@ -91,4 +130,10 @@ GHCR or GitHub Releases.
 
 - The tag (`v0.3.0`) and the fragment file (`changes/v0.3.0.md`) must match exactly.
 - `changie batch` + `changie merge` must be committed **before** the tag is pushed.
+- The tagged commit must pass the Go test suite; the workflow will not publish otherwise.
+- Every entry in the batched notes needs an issue number.
 - No manual GitHub Release editing — release notes are owned by Changie fragments.
+
+Docs ship inside the release archive, so they are versioned by tag: the `docs/` tree in
+`devcloud_v0.3.0_linux_amd64.tar.gz` describes exactly the binary beside it. There is no
+separate docs site to version.

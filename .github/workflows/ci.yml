@@ -39,3 +39,42 @@ jobs:
         run: |
           CGO_ENABLED=1 go build -o dist/devcloud ./cmd/devcloud
           CGO_ENABLED=1 go build -o dist/codegen ./cmd/codegen
+
+  # internal/generated is committed but derived. The Go tests check the fidelity
+  # manifest's shape — floors, registered services, the CRUD registry — none of
+  # which notice an operation a provider gained and the manifest never did.
+  # Regenerating and diffing is the only check that does.
+  codegen-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v7
+        with:
+          go-version: "1.26"
+
+      # Regenerating in place only overwrites the filenames the generator still
+      # emits — it never removes one it has stopped emitting, and
+      # internal/codegen/generator.go has no deletion path at all. Clearing the
+      # tree first turns a retired or renamed output into a visible deletion.
+      # Every tracked file under internal/generated carries a generated marker,
+      # so nothing hand-written is lost.
+      #
+      # No SQLite headers: cmd/codegen builds with CGO_ENABLED=0.
+      - name: Regenerate from a clean tree
+        run: |
+          rm -rf internal/generated
+          make codegen
+
+      - name: Check the committed output is current
+        # --porcelain rather than `git diff --exit-code` so an added or removed
+        # file counts as drift instead of being silently dropped, matching
+        # smithy-sync.yml's check.
+        run: |
+          drift="$(git status --porcelain internal/generated)"
+          if [ -n "$drift" ]; then
+            echo "$drift"
+            echo "::error::internal/generated is stale. Run 'make codegen' and commit the result."
+            exit 1
+          fi

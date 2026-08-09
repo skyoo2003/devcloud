@@ -23,34 +23,209 @@ env:
   HOMEBREW_TAP_REPO: homebrew-tap
 
 jobs:
+  # A tag is a mutable pointer, and every job below would resolve it
+  # independently. Force-update or delete-and-recreate it while the run is in
+  # flight — which is exactly what a maintainer does on spotting that the wrong
+  # commit got tagged — and the gates vouch for one commit while GoReleaser
+  # publishes another. Resolving once here and passing the SHA down is what
+  # makes "the gates passed" a statement about the artefacts.
+  #
+  # The resolution has to happen in a job rather than an expression: github.sha
+  # is immutable but on workflow_dispatch it points at the branch the run was
+  # launched from, not the tag that was typed in.
+  resolve:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.resolve.outputs.tag }}
+      sha: ${{ steps.resolve.outputs.sha }}
+      extra_flags: ${{ steps.resolve.outputs.extra_flags }}
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ github.event.inputs.tag || github.ref }}
+    - name: Pin the tag to a commit
+      id: resolve
+      run: |
+        echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
+        echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+        if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+          echo "extra_flags=--snapshot" >> "$GITHUB_OUTPUT"
+        fi
+
+  # CI triggers on a tag push too, but the two workflows race — nothing stops
+  # GoReleaser from publishing binaries, images and a Homebrew formula off a red
+  # commit. These three jobs are what make the tag wait, and they mirror the
+  # checks in ci.yml rather than trusting that CI got there first.
+  test:
+    needs: resolve
+    strategy:
+      matrix:
+        # GoReleaser publishes arm64 artifacts, so the gate covers arm64 too.
+        runner: [ubuntu-latest, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ needs.resolve.outputs.sha }}
+    - name: Set up Go
+      uses: actions/setup-go@v7
+      with:
+        go-version-file: go.mod
+        cache-dependency-path: go.sum
+    - name: Install SQLite dev headers
+      run: sudo apt-get install -y libsqlite3-dev
+    - name: Run Go tests
+      run: CGO_ENABLED=1 go test ./...
+
+  # The Go tests cannot see a stale fidelity manifest — that is the whole reason
+  # ci.yml has a codegen-drift job — so waiting only on `test` would let a tag
+  # publish generated code that misstates what the release serves.
+  codegen-drift:
+    needs: resolve
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ needs.resolve.outputs.sha }}
+    - name: Set up Go
+      uses: actions/setup-go@v7
+      with:
+        go-version-file: go.mod
+        cache-dependency-path: go.sum
+    # Cleared first so a retired or renamed output shows up as a deletion; the
+    # generator overwrites what it still emits but never removes what it does
+    # not. See the same step in ci.yml.
+    - name: Regenerate from a clean tree
+      run: |
+        rm -rf internal/generated
+        make codegen
+    - name: Check the committed output is current
+      run: |
+        drift="$(git status --porcelain internal/generated)"
+        if [ -n "$drift" ]; then
+          echo "$drift"
+          echo "::error::internal/generated is stale on this tag. Run 'make codegen', commit, and re-tag."
+          exit 1
+        fi
+
+  # compat.yml triggers on branch pushes and pull requests only, so on a tag it
+  # does not race the release — it never runs at all. Without this job the boto3
+  # suite, the guardrail the project leans on hardest, has no bearing on what
+  # gets published.
+  compat:
+    needs: resolve
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ needs.resolve.outputs.sha }}
+    - name: Set up Go
+      uses: actions/setup-go@v7
+      with:
+        go-version-file: go.mod
+        cache-dependency-path: go.sum
+    - name: Install SQLite dev headers
+      run: sudo apt-get install -y libsqlite3-dev
+    - name: Build devcloud binary
+      run: CGO_ENABLED=1 go build -o dist/devcloud ./cmd/devcloud
+    - name: Set up Python
+      uses: actions/setup-python@v7
+      with:
+        python-version: "3.12"
+    - name: Install Python dependencies
+      run: pip install -r tests/compatibility/requirements.txt
+    - name: Run compatibility tests
+      run: pytest tests/compatibility/ -v --tb=short
+      env:
+        DEVCLOUD_BIN: dist/devcloud
+
   release:
+    needs: [resolve, test, codegen-drift, compat]
     runs-on: ubuntu-latest
     permissions:
       contents: write
       packages: write
       attestations: write
     steps:
+    # fetch-tags is not redundant with fetch-depth. actions/checkout always
+    # fetches with --no-tags and brings tags down only via an explicit refspec,
+    # and for a SHA ref that refspec is the bare commit — so pinning the commit
+    # without this leaves a repo with no tags at all, and GoReleaser cannot name
+    # the version it is releasing. With both, a tag that moved after `resolve`
+    # no longer points at HEAD and GoReleaser refuses the run outright.
     - name: Checkout the code
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         fetch-depth: 0
+        fetch-tags: true
+        ref: ${{ needs.resolve.outputs.sha }}
     - name: Set up Go
       uses: actions/setup-go@v7
       with:
         go-version-file: go.mod
         cache-dependency-path: go.sum
-    - name: Resolve tag
-      id: resolve_tag
+    - name: Verify changie release notes
       run: |
-        echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
-        if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
-          echo "extra_flags=--snapshot" >> "$GITHUB_OUTPUT"
+        notes="changes/${{ needs.resolve.outputs.tag }}.md"
+        if [ ! -f "$notes" ]; then
+          echo "::error::Changie fragment $notes not found."
+          echo "::error::Run 'changie batch ${{ needs.resolve.outputs.tag }}' and 'changie merge' before pushing the tag."
+          exit 1
         fi
-    - name: Verify changie release notes exist
-      run: |
-        if [ ! -f "changes/${{ steps.resolve_tag.outputs.tag }}.md" ]; then
-          echo "::error::Changie fragment changes/${{ steps.resolve_tag.outputs.tag }}.md not found."
-          echo "::error::Run 'changie batch ${{ steps.resolve_tag.outputs.tag }}' and 'changie merge' before pushing the tag."
+        # changie renders every entry as '* ...', so a notes file with none of
+        # them was not batched from fragments. Checking that first stops the
+        # entry validation below from passing on an empty match set — a
+        # hand-written file (changes/v0.1.0.md is one) would otherwise sail
+        # through with nothing checked at all.
+        if ! grep -q '^\* ' "$notes"; then
+          echo "::error::$notes contains no changie entries. Release notes come from fragments — run 'changie batch ${{ needs.resolve.outputs.tag }}' and 'changie merge'."
+          exit 1
+        fi
+        # changie renders the heading for the version it batched, so a prefix
+        # match on '## ' accepts a file copied or renamed from an earlier
+        # release: the notes for this tag then open with a link to that other
+        # release, dated to it, and GoReleaser passes it through verbatim as
+        # the release body. Rebuild the heading .changie.yaml would have
+        # produced for this tag and require exactly that, exactly once.
+        tag="${{ needs.resolve.outputs.tag }}"
+        want="^## \[${tag//./\\.}\]\(https://github\.com/${{ github.repository }}/releases/tag/${tag//./\\.}\) - [0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        if [ "$(grep -cE '^## ' "$notes")" != "1" ] || ! grep -qE "$want" "$notes"; then
+          grep -n '^## ' "$notes" || true
+          echo "::error::$notes needs exactly one changie version heading, naming $tag. Run 'changie batch $tag' instead of copying or renaming an earlier release's file."
+          exit 1
+        fi
+        # A batched file holds only what .changie.yaml renders: that heading,
+        # one kind heading per section, and one '* ...' entry per fragment.
+        # Allowing those three shapes and rejecting every other line catches
+        # the hand edits the entry check below cannot vouch for. Enumerating
+        # bullet markers instead misses everything that is not one — '1. text',
+        # an indented '  - text', a pasted paragraph — and each of those
+        # publishes with nothing about it checked.
+        #
+        # The kinds are read out of the config rather than restated here, so
+        # adding one to .changie.yaml does not start failing releases. An
+        # extraction that stops matching yields an empty set, which rejects
+        # every kind heading and fails loudly rather than checking nothing.
+        kinds="$(sed -n 's/^  - label: //p' .changie.yaml | paste -sd'|' -)"
+        foreign="$(grep -nvE "^$|^## |^### ($kinds)$|^\* " "$notes" || true)"
+        if [ -n "$foreign" ]; then
+          echo "$foreign"
+          echo "::error::The lines above are not changie output. Move them into changes/unreleased fragments and re-batch."
+          exit 1
+        fi
+        # 'changie batch' does not validate custom fields on hand-written
+        # fragments, so an Issue that is empty, zero or non-numeric renders a
+        # dead link and batches without complaint. Every entry must end in
+        # .../issues/<positive int>), so check the good form rather than
+        # enumerating the bad ones.
+        bad="$(grep '^\* ' "$notes" | grep -vE 'issues/[1-9][0-9]*\)\)$' || true)"
+        if [ -n "$bad" ]; then
+          echo "$bad"
+          echo "::error::The entries above do not end in a valid issue link. Fix the Issue field in their changes/unreleased fragment, then re-batch."
           exit 1
         fi
     - name: Set up Docker Buildx
@@ -79,7 +254,7 @@ jobs:
       with:
         distribution: goreleaser
         version: "~> v2"
-        args: release --clean ${{ steps.resolve_tag.outputs.extra_flags }} --release-notes changes/${{ steps.resolve_tag.outputs.tag }}.md
+        args: release --clean ${{ needs.resolve.outputs.extra_flags }} --release-notes changes/${{ needs.resolve.outputs.tag }}.md
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # Always defined: {{ .Env.HOMEBREW_TAP_TOKEN }} fails to render if the
