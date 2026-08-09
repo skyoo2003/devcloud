@@ -54,14 +54,23 @@ jobs:
         with:
           go-version: "1.26"
 
+      # Regenerating in place only overwrites the filenames the generator still
+      # emits — it never removes one it has stopped emitting, and
+      # internal/codegen/generator.go has no deletion path at all. Clearing the
+      # tree first turns a retired or renamed output into a visible deletion.
+      # Every tracked file under internal/generated carries a generated marker,
+      # so nothing hand-written is lost.
+      #
       # No SQLite headers: cmd/codegen builds with CGO_ENABLED=0.
-      - name: Regenerate
-        run: make codegen
+      - name: Regenerate from a clean tree
+        run: |
+          rm -rf internal/generated
+          make codegen
 
       - name: Check the committed output is current
-        # --porcelain rather than `git diff --exit-code` so a newly generated
-        # package (an untracked directory) counts as drift instead of being
-        # silently dropped, matching smithy-sync.yml's check.
+        # --porcelain rather than `git diff --exit-code` so an added or removed
+        # file counts as drift instead of being silently dropped, matching
+        # smithy-sync.yml's check.
         run: |
           drift="$(git status --porcelain internal/generated)"
           if [ -n "$drift" ]; then

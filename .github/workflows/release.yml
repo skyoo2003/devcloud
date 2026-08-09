@@ -67,8 +67,13 @@ jobs:
       with:
         go-version-file: go.mod
         cache-dependency-path: go.sum
-    - name: Regenerate
-      run: make codegen
+    # Cleared first so a retired or renamed output shows up as a deletion; the
+    # generator overwrites what it still emits but never removes what it does
+    # not. See the same step in ci.yml.
+    - name: Regenerate from a clean tree
+      run: |
+        rm -rf internal/generated
+        make codegen
     - name: Check the committed output is current
       run: |
         drift="$(git status --porcelain internal/generated)"
