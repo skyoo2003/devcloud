@@ -78,8 +78,39 @@ jobs:
           exit 1
         fi
 
+  # compat.yml triggers on branch pushes and pull requests only, so on a tag it
+  # does not race the release — it never runs at all. Without this job the boto3
+  # suite, the guardrail the project leans on hardest, has no bearing on what
+  # gets published.
+  compat:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ github.event.inputs.tag || github.ref }}
+    - name: Set up Go
+      uses: actions/setup-go@v7
+      with:
+        go-version-file: go.mod
+        cache-dependency-path: go.sum
+    - name: Install SQLite dev headers
+      run: sudo apt-get install -y libsqlite3-dev
+    - name: Build devcloud binary
+      run: CGO_ENABLED=1 go build -o dist/devcloud ./cmd/devcloud
+    - name: Set up Python
+      uses: actions/setup-python@v7
+      with:
+        python-version: "3.12"
+    - name: Install Python dependencies
+      run: pip install -r tests/compatibility/requirements.txt
+    - name: Run compatibility tests
+      run: pytest tests/compatibility/ -v --tb=short
+      env:
+        DEVCLOUD_BIN: dist/devcloud
+
   release:
-    needs: [test, codegen-drift]
+    needs: [test, codegen-drift, compat]
     runs-on: ubuntu-latest
     permissions:
       contents: write

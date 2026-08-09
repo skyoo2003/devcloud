@@ -37,16 +37,18 @@ fragment without one renders as a dead link in the release notes.
 
 ## Pre-flight checklist
 
-Run through this before batching. CI enforces most of it — the list is for catching problems
-before the tag, not instead of CI.
+Run through this before batching.
 
-- [ ] **`main` is green.** CI, lint, CodeQL and compat.
-- [ ] **Generated code is current** — `make codegen && git diff --exit-code internal/generated`.
-      `internal/generated` is committed but derived; a stale fidelity manifest misreports what
-      the release can be trusted to do. Enforced by CI's `codegen-drift` job.
+The first three are re-run by the Release workflow against the tagged commit, which refuses to
+publish if any fails — tick them to find out on your machine rather than from a failed tag.
+The rest are only caught here.
+
+- [ ] **Generated code is current** — `make codegen && git status --porcelain internal/generated`
+      prints nothing. `internal/generated` is committed but derived; a stale fidelity manifest
+      misreports what the release can be trusted to do.
 - [ ] **boto3 compatibility passes** — `make test-compat`.
-- [ ] **Go tests pass** — `CGO_ENABLED=1 go test ./...`. The Release workflow re-runs this and
-      refuses to publish if it fails.
+- [ ] **Go tests pass** — `CGO_ENABLED=1 go test ./...`.
+- [ ] **`main` is green**, including lint and CodeQL.
 - [ ] **Every unreleased fragment carries an issue number** —
       `grep -L 'Issue: "[0-9]' changes/unreleased/*.yaml` prints nothing.
 - [ ] **`changes/unreleased/` is not empty.** No fragments means either nothing shipped or
@@ -96,7 +98,10 @@ before the tag, not instead of CI.
 
 Pushing the tag triggers the Release workflow. It will:
 
-- run the Go test suite and stop before publishing anything if it fails,
+- re-run the guardrails against the tagged commit and stop before publishing anything if any
+  of them fails: the Go test suite on amd64 and arm64, the boto3 compatibility suite, and the
+  codegen drift check. CI is not relied on here — it races the tag, and `compat.yml` does not
+  trigger on tags at all,
 - verify `changes/v0.3.0.md` exists (guard against tagging without release notes) and that no
   entry in it is missing its issue number,
 - run GoReleaser, which builds binaries for **darwin/linux/windows × amd64/arm64**, packages
