@@ -101,12 +101,15 @@ The rest are only caught here.
 
 Pushing the tag triggers the Release workflow. It will:
 
-- re-run the guardrails against the tagged commit and stop before publishing anything if any
-  of them fails: the Go test suite on amd64 and arm64, the boto3 compatibility suite, and the
-  codegen drift check. CI is not relied on here — it races the tag, and `compat.yml` does not
-  trigger on tags at all,
-- verify `changes/v0.3.0.md` exists (guard against tagging without release notes) and that no
-  entry in it is missing its issue number,
+- resolve the tag to a commit **once**, up front, and check that same SHA out in every job that
+  follows. Moving the tag mid-run therefore cannot make the guardrails vouch for one commit
+  while GoReleaser publishes another,
+- re-run the guardrails against that commit and stop before publishing anything if any of them
+  fails: the Go test suite on amd64 and arm64, the boto3 compatibility suite, and the codegen
+  drift check. CI is not relied on here — it races the tag, and `compat.yml` does not trigger
+  on tags at all,
+- verify `changes/v0.3.0.md` exists (guard against tagging without release notes), contains
+  only what `changie batch` renders, and that no entry in it is missing its issue number,
 - run GoReleaser, which builds binaries for **darwin/linux/windows × amd64/arm64**, packages
   them as `tar.gz` (`zip` on Windows) with the `docs/` tree and the top-level files it and
   `README.md` link to, and generates a SHA-256 `CHECKSUMS` file,

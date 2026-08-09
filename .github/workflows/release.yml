@@ -23,15 +23,42 @@ env:
   HOMEBREW_TAP_REPO: homebrew-tap
 
 jobs:
+  # A tag is a mutable pointer, and every job below would resolve it
+  # independently. Force-update or delete-and-recreate it while the run is in
+  # flight — which is exactly what a maintainer does on spotting that the wrong
+  # commit got tagged — and the gates vouch for one commit while GoReleaser
+  # publishes another. Resolving once here and passing the SHA down is what
+  # makes "the gates passed" a statement about the artefacts.
+  #
+  # The resolution has to happen in a job rather than an expression: github.sha
+  # is immutable but on workflow_dispatch it points at the branch the run was
+  # launched from, not the tag that was typed in.
+  resolve:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.resolve.outputs.tag }}
+      sha: ${{ steps.resolve.outputs.sha }}
+      extra_flags: ${{ steps.resolve.outputs.extra_flags }}
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ github.event.inputs.tag || github.ref }}
+    - name: Pin the tag to a commit
+      id: resolve
+      run: |
+        echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
+        echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+        if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+          echo "extra_flags=--snapshot" >> "$GITHUB_OUTPUT"
+        fi
+
   # CI triggers on a tag push too, but the two workflows race — nothing stops
   # GoReleaser from publishing binaries, images and a Homebrew formula off a red
-  # commit. These two jobs are what make the tag wait, and they mirror the
+  # commit. These three jobs are what make the tag wait, and they mirror the
   # checks in ci.yml rather than trusting that CI got there first.
-  #
-  # Both check out the resolved tag explicitly: on workflow_dispatch the default
-  # ref is whatever branch the run was launched from, not the tag input, so the
-  # gate would otherwise vouch for the wrong commit.
   test:
+    needs: resolve
     strategy:
       matrix:
         # GoReleaser publishes arm64 artifacts, so the gate covers arm64 too.
@@ -41,7 +68,7 @@ jobs:
     - name: Checkout the code
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
-        ref: ${{ github.event.inputs.tag || github.ref }}
+        ref: ${{ needs.resolve.outputs.sha }}
     - name: Set up Go
       uses: actions/setup-go@v7
       with:
@@ -56,12 +83,13 @@ jobs:
   # ci.yml has a codegen-drift job — so waiting only on `test` would let a tag
   # publish generated code that misstates what the release serves.
   codegen-drift:
+    needs: resolve
     runs-on: ubuntu-latest
     steps:
     - name: Checkout the code
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
-        ref: ${{ github.event.inputs.tag || github.ref }}
+        ref: ${{ needs.resolve.outputs.sha }}
     - name: Set up Go
       uses: actions/setup-go@v7
       with:
@@ -88,12 +116,13 @@ jobs:
   # suite, the guardrail the project leans on hardest, has no bearing on what
   # gets published.
   compat:
+    needs: resolve
     runs-on: ubuntu-latest
     steps:
     - name: Checkout the code
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
-        ref: ${{ github.event.inputs.tag || github.ref }}
+        ref: ${{ needs.resolve.outputs.sha }}
     - name: Set up Go
       uses: actions/setup-go@v7
       with:
@@ -115,36 +144,36 @@ jobs:
         DEVCLOUD_BIN: dist/devcloud
 
   release:
-    needs: [test, codegen-drift, compat]
+    needs: [resolve, test, codegen-drift, compat]
     runs-on: ubuntu-latest
     permissions:
       contents: write
       packages: write
       attestations: write
     steps:
+    # fetch-tags is not redundant with fetch-depth. actions/checkout always
+    # fetches with --no-tags and brings tags down only via an explicit refspec,
+    # and for a SHA ref that refspec is the bare commit — so pinning the commit
+    # without this leaves a repo with no tags at all, and GoReleaser cannot name
+    # the version it is releasing. With both, a tag that moved after `resolve`
+    # no longer points at HEAD and GoReleaser refuses the run outright.
     - name: Checkout the code
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         fetch-depth: 0
-        ref: ${{ github.event.inputs.tag || github.ref }}
+        fetch-tags: true
+        ref: ${{ needs.resolve.outputs.sha }}
     - name: Set up Go
       uses: actions/setup-go@v7
       with:
         go-version-file: go.mod
         cache-dependency-path: go.sum
-    - name: Resolve tag
-      id: resolve_tag
-      run: |
-        echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
-        if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
-          echo "extra_flags=--snapshot" >> "$GITHUB_OUTPUT"
-        fi
     - name: Verify changie release notes
       run: |
-        notes="changes/${{ steps.resolve_tag.outputs.tag }}.md"
+        notes="changes/${{ needs.resolve.outputs.tag }}.md"
         if [ ! -f "$notes" ]; then
           echo "::error::Changie fragment $notes not found."
-          echo "::error::Run 'changie batch ${{ steps.resolve_tag.outputs.tag }}' and 'changie merge' before pushing the tag."
+          echo "::error::Run 'changie batch ${{ needs.resolve.outputs.tag }}' and 'changie merge' before pushing the tag."
           exit 1
         fi
         # changie renders every entry as '* ...', so a notes file with none of
@@ -153,7 +182,7 @@ jobs:
         # hand-written file (changes/v0.1.0.md is one) would otherwise sail
         # through with nothing checked at all.
         if ! grep -q '^\* ' "$notes"; then
-          echo "::error::$notes contains no changie entries. Release notes come from fragments — run 'changie batch ${{ steps.resolve_tag.outputs.tag }}' and 'changie merge'."
+          echo "::error::$notes contains no changie entries. Release notes come from fragments — run 'changie batch ${{ needs.resolve.outputs.tag }}' and 'changie merge'."
           exit 1
         fi
         # A batched file holds only what .changie.yaml renders: the version
@@ -206,7 +235,7 @@ jobs:
       with:
         distribution: goreleaser
         version: "~> v2"
-        args: release --clean ${{ steps.resolve_tag.outputs.extra_flags }} --release-notes changes/${{ steps.resolve_tag.outputs.tag }}.md
+        args: release --clean ${{ needs.resolve.outputs.extra_flags }} --release-notes changes/${{ needs.resolve.outputs.tag }}.md
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # Always defined: {{ .Env.HOMEBREW_TAP_TOKEN }} fails to render if the
