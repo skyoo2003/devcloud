@@ -20,9 +20,6 @@ jobs:
         with:
           go-version: "1.26"
 
-      - name: Install SQLite dev headers
-        run: sudo apt-get install -y libsqlite3-dev
-
       - name: Download latest Smithy models
         # --refresh re-downloads the committed models; without it every model
         # already in the tree is skipped and this job can never find a change.
@@ -30,7 +27,7 @@ jobs:
 
       - name: Run code generation
         run: |
-          CGO_ENABLED=1 go run ./cmd/codegen \
+          go run ./cmd/codegen \
             -models ./smithy-models \
             -output ./internal/generated \
             -templates ./internal/codegen/templates \
@@ -53,7 +50,7 @@ jobs:
 
       - name: Run tests
         if: steps.changes.outputs.changed == 'true'
-        run: CGO_ENABLED=1 go test ./... -v
+        run: CGO_ENABLED=0 go test ./... -v
 
       - name: Create Pull Request
         if: steps.changes.outputs.changed == 'true'

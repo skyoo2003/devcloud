@@ -5,7 +5,7 @@ build:
 	go build -o dist/codegen ./cmd/codegen
 
 test:
-	CGO_ENABLED=1 go test ./... -v
+	CGO_ENABLED=0 go test ./... -v
 
 test-compat:
 	cd tests/compatibility && pip install -q -r requirements.txt && pytest -v

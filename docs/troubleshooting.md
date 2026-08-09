@@ -4,17 +4,6 @@ Common issues and how to resolve them. If your problem isn't listed here, check 
 
 ## Installation & Build
 
-### `sqlite3.h: No such file or directory` during `make build`
-
-DevCloud requires SQLite development headers because the server uses CGO for SQLite access.
-
-- **macOS**: `brew install sqlite3`
-- **Ubuntu / Debian**: `sudo apt-get install libsqlite3-dev`
-- **Fedora / RHEL**: `sudo dnf install sqlite-devel`
-- **Alpine**: `apk add sqlite-dev build-base`
-
-Then rebuild with `CGO_ENABLED=1 make build`.
-
 ### `go: module github.com/skyoo2003/devcloud: Go 1.26 required`
 
 Upgrade Go to 1.26 or later. Check with `go version`. See [go.dev/dl](https://go.dev/dl/).

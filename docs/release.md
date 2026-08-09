@@ -50,7 +50,7 @@ The rest are only caught here.
       generator overwrites the outputs it still emits but never removes one it has stopped
       emitting, so regenerating in place leaves a retired file looking current.
 - [ ] **boto3 compatibility passes** — `make test-compat`.
-- [ ] **Go tests pass** — `CGO_ENABLED=1 go test ./...`.
+- [ ] **Go tests pass** — `CGO_ENABLED=0 go test ./...`.
 - [ ] **`main` is green**, including lint and CodeQL.
 - [ ] **Every unreleased fragment carries an issue number** —
       `grep -L 'Issue: "[0-9]' changes/unreleased/*.yaml` prints nothing.
