@@ -32,6 +32,10 @@ archives:
     - LICENSE
     - README.md
     - CHANGELOG.md
+    # Docs are versioned by tag, and the ones stating what a release promises —
+    # the fidelity manifest, the compatibility policy — are only true of the
+    # binary they ship beside.
+    - docs
 
 changelog:
   disable: false

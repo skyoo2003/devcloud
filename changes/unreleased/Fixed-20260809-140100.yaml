@@ -2,4 +2,4 @@ kind: Fixed
 body: The fidelity manifest now reads each provider's actual dispatch instead of intersecting with the Smithy model, recovering 226 served operations it had hidden (dynamodbstreams listed 4 of its 22, acm's UpdateCertificate, bedrock's InvokeModelWithResponseStream) and dropping 5 non-operations it had invented (identitystore Description/DisplayName/Emails, pipes DELETE/POST)
 time: 2026-08-09T14:01:00.000000+09:00
 custom:
-    Issue: ""
+    Issue: "126"
