@@ -5,6 +5,7 @@ package sqlite
 import (
 	"path/filepath"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -114,4 +115,41 @@ func TestNumtextCollationOrdering(t *testing.T) {
 
 	assert.Equal(t, []string{"10", "100", "2"}, read("v"))                 // byte order
 	assert.Equal(t, []string{"2", "10", "100"}, read("v COLLATE NUMTEXT")) // numeric order
+}
+
+// TestOpen_SecondWriterWaitsForTheLock pins the busy timeout Open puts in the
+// DSN. The gateway serves requests concurrently and Open sets no connection
+// limit, so two handlers writing the same service database hold two different
+// SQLite connections and contend for one write lock. Without a busy handler the
+// loser fails in under a millisecond and the SDK caller sees a spurious
+// "database is locked".
+func TestOpen_SecondWriterWaitsForTheLock(t *testing.T) {
+	dbPath := filepath.Join(t.TempDir(), "test.db")
+	store, err := Open(dbPath, []Migration{
+		{Version: 1, SQL: `CREATE TABLE items (id TEXT PRIMARY KEY)`},
+	})
+	require.NoError(t, err)
+	defer func() { _ = store.Close() }()
+
+	// One connection takes the write lock and holds it well inside the timeout.
+	tx, err := store.DB().Begin()
+	require.NoError(t, err)
+	_, err = tx.Exec(`INSERT INTO items (id) VALUES ('held')`)
+	require.NoError(t, err)
+
+	// start is read before the goroutine launches. Taken after, the sleep could
+	// already be underway and the rollback land less than hold after start,
+	// failing the assertion on scheduling alone.
+	const hold = 200 * time.Millisecond
+	start := time.Now()
+	go func() {
+		time.Sleep(hold)
+		_ = tx.Rollback()
+	}()
+
+	_, err = store.DB().Exec(`INSERT INTO items (id) VALUES ('waited')`)
+	elapsed := time.Since(start)
+
+	require.NoError(t, err, "second writer got SQLITE_BUSY instead of waiting for the lock")
+	assert.GreaterOrEqual(t, elapsed, hold, "second writer returned before the lock was released")
 }

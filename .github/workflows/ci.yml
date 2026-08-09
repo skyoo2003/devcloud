@@ -25,20 +25,21 @@ jobs:
         with:
           go-version: "1.26"
 
-      - name: Install SQLite dev headers
-        run: sudo apt-get install -y libsqlite3-dev
-
+      # CGO_ENABLED=0 throughout, matching .goreleaser.yaml: the SQLite driver
+      # is pure Go, and testing the mode that ships is the point — a cgo-only
+      # driver once compiled here and then died at startup in every release
+      # archive, because nothing exercised the released build configuration.
       - name: Run Go tests
         # ./... rather than ./internal/... so cmd/devcloud's ServicePlugin
         # conformance test runs in CI too.
-        run: CGO_ENABLED=1 go test ./... -v
+        run: go test ./... -v
         env:
-          CGO_ENABLED: "1"
+          CGO_ENABLED: "0"
 
       - name: Build Go binaries
         run: |
-          CGO_ENABLED=1 go build -o dist/devcloud ./cmd/devcloud
-          CGO_ENABLED=1 go build -o dist/codegen ./cmd/codegen
+          CGO_ENABLED=0 go build -o dist/devcloud ./cmd/devcloud
+          CGO_ENABLED=0 go build -o dist/codegen ./cmd/codegen
 
   # internal/generated is committed but derived. The Go tests check the fidelity
   # manifest's shape — floors, registered services, the CRUD registry — none of
