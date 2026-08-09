@@ -43,9 +43,12 @@ The first three are re-run by the Release workflow against the tagged commit, wh
 publish if any fails — tick them to find out on your machine rather than from a failed tag.
 The rest are only caught here.
 
-- [ ] **Generated code is current** — `make codegen && git status --porcelain internal/generated`
+- [ ] **Generated code is current** —
+      `rm -rf internal/generated && make codegen && git status --porcelain internal/generated`
       prints nothing. `internal/generated` is committed but derived; a stale fidelity manifest
-      misreports what the release can be trusted to do.
+      misreports what the release can be trusted to do. Clear the tree first, as CI does: the
+      generator overwrites the outputs it still emits but never removes one it has stopped
+      emitting, so regenerating in place leaves a retired file looking current.
 - [ ] **boto3 compatibility passes** — `make test-compat`.
 - [ ] **Go tests pass** — `CGO_ENABLED=1 go test ./...`.
 - [ ] **`main` is green**, including lint and CodeQL.
@@ -105,8 +108,8 @@ Pushing the tag triggers the Release workflow. It will:
 - verify `changes/v0.3.0.md` exists (guard against tagging without release notes) and that no
   entry in it is missing its issue number,
 - run GoReleaser, which builds binaries for **darwin/linux/windows × amd64/arm64**, packages
-  them as `tar.gz` (`zip` on Windows) with `LICENSE`/`README.md`/`CHANGELOG.md` and the `docs/`
-  tree, and generates a SHA-256 `CHECKSUMS` file,
+  them as `tar.gz` (`zip` on Windows) with the `docs/` tree and the top-level files it and
+  `README.md` link to, and generates a SHA-256 `CHECKSUMS` file,
 - build and push `*-alpine` container images to `ghcr.io/skyoo2003/devcloud`,
 - publish a **GitHub Release** whose notes come from `changes/v0.3.0.md`
   (`--release-notes`, `mode: replace`).
