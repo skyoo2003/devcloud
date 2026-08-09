@@ -25,12 +25,23 @@ env:
 jobs:
   # CI triggers on a tag push too, but the two workflows race — nothing stops
   # GoReleaser from publishing binaries, images and a Homebrew formula off a red
-  # commit. This job is what makes the tag wait.
+  # commit. These two jobs are what make the tag wait, and they mirror the
+  # checks in ci.yml rather than trusting that CI got there first.
+  #
+  # Both check out the resolved tag explicitly: on workflow_dispatch the default
+  # ref is whatever branch the run was launched from, not the tag input, so the
+  # gate would otherwise vouch for the wrong commit.
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # GoReleaser publishes arm64 artifacts, so the gate covers arm64 too.
+        runner: [ubuntu-latest, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
     steps:
     - name: Checkout the code
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ github.event.inputs.tag || github.ref }}
     - name: Set up Go
       uses: actions/setup-go@v7
       with:
@@ -41,8 +52,34 @@ jobs:
     - name: Run Go tests
       run: CGO_ENABLED=1 go test ./...
 
+  # The Go tests cannot see a stale fidelity manifest — that is the whole reason
+  # ci.yml has a codegen-drift job — so waiting only on `test` would let a tag
+  # publish generated code that misstates what the release serves.
+  codegen-drift:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ github.event.inputs.tag || github.ref }}
+    - name: Set up Go
+      uses: actions/setup-go@v7
+      with:
+        go-version-file: go.mod
+        cache-dependency-path: go.sum
+    - name: Regenerate
+      run: make codegen
+    - name: Check the committed output is current
+      run: |
+        drift="$(git status --porcelain internal/generated)"
+        if [ -n "$drift" ]; then
+          echo "$drift"
+          echo "::error::internal/generated is stale on this tag. Run 'make codegen', commit, and re-tag."
+          exit 1
+        fi
+
   release:
-    needs: test
+    needs: [test, codegen-drift]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -53,6 +90,7 @@ jobs:
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         fetch-depth: 0
+        ref: ${{ github.event.inputs.tag || github.ref }}
     - name: Set up Go
       uses: actions/setup-go@v7
       with:
@@ -74,10 +112,14 @@ jobs:
           exit 1
         fi
         # 'changie batch' does not validate custom fields on hand-written
-        # fragments, so an empty Issue renders as ([#](.../issues/)) and ships
-        # as a dead link in the release notes.
-        if grep -n 'issues/)' "$notes"; then
-          echo "::error::The lines above have no issue number. Fix the Issue field in their changes/unreleased fragment, then re-batch."
+        # fragments, so an Issue that is empty, zero or non-numeric renders a
+        # dead link and batches without complaint. Every entry must end in
+        # .../issues/<positive int>), so check the good form rather than
+        # enumerating the bad ones.
+        bad="$(grep '^\* ' "$notes" | grep -vE 'issues/[1-9][0-9]*\)\)$' || true)"
+        if [ -n "$bad" ]; then
+          echo "$bad"
+          echo "::error::The entries above do not end in a valid issue link. Fix the Issue field in their changes/unreleased fragment, then re-batch."
           exit 1
         fi
     - name: Set up Docker Buildx

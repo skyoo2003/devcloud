@@ -59,8 +59,13 @@ jobs:
         run: make codegen
 
       - name: Check the committed output is current
+        # --porcelain rather than `git diff --exit-code` so a newly generated
+        # package (an untracked directory) counts as drift instead of being
+        # silently dropped, matching smithy-sync.yml's check.
         run: |
-          if ! git diff --exit-code internal/generated; then
+          drift="$(git status --porcelain internal/generated)"
+          if [ -n "$drift" ]; then
+            echo "$drift"
             echo "::error::internal/generated is stale. Run 'make codegen' and commit the result."
             exit 1
           fi

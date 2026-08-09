@@ -47,6 +47,10 @@ func main() {
 
 	var crudServices []codegen.CRUDServiceData
 	modelOps := make(map[string][]string)
+	// A model that cannot be read or parsed is skipped, which used to leave the
+	// exit status at 0 — so a drift check downstream saw no changed files and
+	// called incomplete generation clean.
+	skipped := false
 
 	for _, entry := range entries {
 		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".json") {
@@ -56,12 +60,14 @@ func main() {
 		data, err := os.ReadFile(filepath.Join(*modelsDir, entry.Name()))
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error reading %s: %v\n", entry.Name(), err)
+			skipped = true
 			continue
 		}
 
 		model, err := codegen.ParseSmithyJSON(data)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error parsing %s: %v\n", entry.Name(), err)
+			skipped = true
 			continue
 		}
 
@@ -92,6 +98,15 @@ func main() {
 		if data, ok := codegen.ServiceCRUDData(model); ok {
 			crudServices = append(crudServices, data)
 		}
+	}
+
+	// Bail before the aggregate artefacts: the CRUD registry and the fidelity
+	// manifest describe the whole fleet, and writing them from a set that is
+	// missing a service would state, in generated code, that its operations do
+	// not exist.
+	if skipped {
+		fmt.Fprintln(os.Stderr, "Error: one or more models were skipped; generated output is incomplete")
+		os.Exit(1)
 	}
 
 	// Write the aggregate CRUD registry only when generating the full fleet
