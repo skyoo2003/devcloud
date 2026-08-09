@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/skyoo2003/devcloud/internal/generated/fidelity"
 	"github.com/skyoo2003/devcloud/internal/plugin"
 )
 
@@ -33,8 +34,62 @@ func (d *API) Handler() http.Handler {
 	mux.HandleFunc("/devcloud/api/services", d.handleServices)
 	mux.HandleFunc("/devcloud/api/services/", d.handleServiceResources)
 	mux.HandleFunc("/devcloud/api/logs", d.handleLogs)
+	mux.HandleFunc("/devcloud/api/fidelity", d.handleFidelity)
 
 	return mux
+}
+
+// fidelityService is one service's entry in GET /devcloud/api/fidelity.
+type fidelityService struct {
+	ModelBacked bool              `json:"modelBacked"`
+	Counts      map[string]int    `json:"counts"`
+	Operations  map[string]string `json:"operations,omitempty"`
+}
+
+// handleFidelity handles GET /devcloud/api/fidelity[?service=s3].
+//
+// Without a service filter it returns per-service tier counts only: the full
+// manifest is ~7,000 operations, too much to push at a caller whose usual
+// question is "how much of this service can I trust?". Naming a service adds
+// that service's per-operation tiers.
+func (d *API) handleFidelity(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	if id := r.URL.Query().Get("service"); id != "" {
+		svc, ok := fidelity.Services[id]
+		if !ok {
+			writeJSON(w, http.StatusNotFound, map[string]string{"error": "unknown service: " + id})
+			return
+		}
+		writeJSON(w, http.StatusOK, map[string]fidelityService{id: fidelitySummary(svc, true)})
+		return
+	}
+
+	out := make(map[string]fidelityService, len(fidelity.Services))
+	for id, svc := range fidelity.Services {
+		out[id] = fidelitySummary(svc, false)
+	}
+	writeJSON(w, http.StatusOK, out)
+}
+
+func fidelitySummary(svc fidelity.Service, withOperations bool) fidelityService {
+	entry := fidelityService{
+		ModelBacked: svc.ModelBacked,
+		Counts:      map[string]int{},
+	}
+	if withOperations {
+		entry.Operations = make(map[string]string, len(svc.Operations))
+	}
+	for op, tier := range svc.Operations {
+		entry.Counts[string(tier)]++
+		if withOperations {
+			entry.Operations[op] = string(tier)
+		}
+	}
+	return entry
 }
 
 // writeJSON serialises v as JSON and writes it to w with the appropriate

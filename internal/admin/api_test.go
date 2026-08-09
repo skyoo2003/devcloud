@@ -82,6 +82,45 @@ func TestAPI_Services(t *testing.T) {
 	assert.Equal(t, 2, svc.ResourceCount)
 }
 
+// TestAPI_Fidelity covers both shapes of the endpoint: the unfiltered summary
+// carries counts but no operation list, and naming a service adds its tiers.
+func TestAPI_Fidelity(t *testing.T) {
+	api := NewAPI(newTestRegistry(&mockServicePlugin{id: "s3", name: "Amazon S3"}), NewLogCollector(10))
+
+	req := httptest.NewRequest(http.MethodGet, "/devcloud/api/fidelity", nil)
+	w := httptest.NewRecorder()
+	api.Handler().ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, "application/json", w.Header().Get("Content-Type"))
+
+	var summary map[string]fidelityService
+	require.NoError(t, json.NewDecoder(w.Body).Decode(&summary))
+	require.Contains(t, summary, "s3")
+	assert.True(t, summary["s3"].ModelBacked)
+	assert.Greater(t, summary["s3"].Counts["hand-verified"], 0)
+	assert.Empty(t, summary["s3"].Operations, "the summary must not carry every operation")
+
+	req = httptest.NewRequest(http.MethodGet, "/devcloud/api/fidelity?service=s3", nil)
+	w = httptest.NewRecorder()
+	api.Handler().ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	var detail map[string]fidelityService
+	require.NoError(t, json.NewDecoder(w.Body).Decode(&detail))
+	assert.Equal(t, "hand-verified", detail["s3"].Operations["PutObject"])
+}
+
+func TestAPI_FidelityUnknownService(t *testing.T) {
+	api := NewAPI(newTestRegistry(&mockServicePlugin{id: "s3", name: "Amazon S3"}), NewLogCollector(10))
+
+	req := httptest.NewRequest(http.MethodGet, "/devcloud/api/fidelity?service=nosuchservice", nil)
+	w := httptest.NewRecorder()
+	api.Handler().ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusNotFound, w.Code)
+}
+
 // TestAPI_Logs adds log entries to the collector and verifies the
 // /devcloud/api/logs endpoint returns them newest-first.
 func TestAPI_Logs(t *testing.T) {

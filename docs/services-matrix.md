@@ -1,6 +1,6 @@
 # DevCloud Services Matrix
 
-**Total**: 104 services (run `make stats`). The boto3 compatibility suite — 729 tests in `tests/compatibility/` — passes in CI.
+**Total**: 104 services (run `make stats`). The boto3 compatibility suite — 764 tests in `tests/compatibility/` — passes in CI.
 
 > To refresh these numbers, run `make stats` (service/handler counts) and `make test-compat` (compatibility suite), then update the line above. Note: `make stats`' "Operations" counts dispatch cases (a service carrying both Query and JSON protocols counts each), not distinct AWS operations.
 
@@ -61,7 +61,7 @@ DevCloud is a Go-based local cloud environment with AWS API compatibility. This 
 
 ## boto3 compatibility
 
-- Tests: `tests/compatibility/` (729 tests)
+- Tests: `tests/compatibility/` (764 tests)
 - Status: the full suite passes in CI (`.github/workflows/compat.yml`); any failing test fails the build
 - Run: `make test-compat`
 
@@ -75,13 +75,21 @@ AWS error rather than a false success, so an SDK always gets a truthful response
 ## Operation coverage & the CRUD fallback engine
 
 Hand-written providers implement each service's common operations. For the long
-tail of standard CRUD-shaped operations (~2,200 across 46 JSON-protocol
-services), a generic engine can serve plausible, store-backed responses so SDK
-calls round-trip. This coverage is **plausible, not faithful** — no validation or
-business logic — and is opt-in per service. See
-[crud-engine.md](crud-engine.md) for the fidelity tiers, wired services, and
+tail of standard CRUD-shaped operations across 46 JSON-protocol services, a
+generic engine can serve plausible, store-backed responses so SDK calls
+round-trip. This coverage is **plausible, not faithful** — no validation or
+business logic. See [crud-engine.md](crud-engine.md) for the wired services and
 limits. Operations that are neither hand-written nor CRUD-classifiable return an
 honest `InvalidAction` error, never a fabricated success.
+
+Every operation's tier is declared in the generated
+[fidelity manifest](fidelity-manifest.md) — 4,261 `hand-verified`, 957
+`auto-crud`, 2,031 `unimplemented` across 7,249 operations. Query it per service
+(requires `admin.enabled: true`):
+
+```bash
+curl -s 'localhost:4747/devcloud/api/fidelity?service=s3'
+```
 
 ## Supported protocols
 

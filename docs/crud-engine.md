@@ -61,3 +61,13 @@ implementation.
 
 To promote an operation from `auto-crud` to `hand-verified`, implement it as an
 explicit `case` in the service provider following existing patterns.
+
+## Which tier is *this* operation?
+
+The tiers above are declared per operation by the generated
+[fidelity manifest](fidelity-manifest.md). Ask it directly rather than inferring
+from this page (requires `admin.enabled: true`):
+
+```bash
+curl -s 'localhost:4747/devcloud/api/fidelity?service=dynamodb'
+```
