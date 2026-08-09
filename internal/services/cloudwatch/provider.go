@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"net/url"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -98,6 +99,12 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return p.putAnomalyDetector(jm, req)
 	case "DeleteAnomalyDetector":
 		return p.deleteAnomalyDetector(jm, req)
+	case "TagResource":
+		return p.tagResource(jm, req)
+	case "UntagResource":
+		return p.untagResource(jm, req)
+	case "ListTagsForResource":
+		return p.listTagsForResource(jm, req)
 	case "DescribeAnomalyDetectors":
 		return p.describeAnomalyDetectors(jm, req)
 	default:
@@ -614,6 +621,72 @@ func (p *Provider) describeAnomalyDetectors(jm bool, req *http.Request) (*plugin
 func isJSONMode(req *http.Request) bool {
 	ct := req.Header.Get("Content-Type")
 	return strings.Contains(ct, "json")
+}
+
+// --- Tags ---
+//
+// ponytail: tags are stored against whatever ARN the caller passes; the resource
+// is not checked for existence. Validate against the alarm table if a test ever
+// depends on ResourceNotFoundException.
+
+func (p *Provider) tagResource(jm bool, req *http.Request) (*plugin.Response, error) {
+	arn := req.FormValue("ResourceARN")
+	if arn == "" {
+		return cwError(jm, "MissingParameter", "ResourceARN is required", http.StatusBadRequest), nil
+	}
+	tags := make(map[string]string)
+	for i := 1; ; i++ {
+		prefix := fmt.Sprintf("Tags.member.%d.", i)
+		key := req.FormValue(prefix + "Key")
+		if key == "" {
+			break
+		}
+		tags[key] = req.FormValue(prefix + "Value")
+	}
+	if err := p.store.tags.AddTags(arn, tags); err != nil {
+		return nil, err
+	}
+	return cwResp(jm, http.StatusOK, "TagResourceResponse", nil)
+}
+
+func (p *Provider) untagResource(jm bool, req *http.Request) (*plugin.Response, error) {
+	arn := req.FormValue("ResourceARN")
+	if arn == "" {
+		return cwError(jm, "MissingParameter", "ResourceARN is required", http.StatusBadRequest), nil
+	}
+	var keys []string
+	for i := 1; ; i++ {
+		key := req.FormValue(fmt.Sprintf("TagKeys.member.%d", i))
+		if key == "" {
+			break
+		}
+		keys = append(keys, key)
+	}
+	if err := p.store.tags.RemoveTags(arn, keys); err != nil {
+		return nil, err
+	}
+	return cwResp(jm, http.StatusOK, "UntagResourceResponse", nil)
+}
+
+func (p *Provider) listTagsForResource(jm bool, req *http.Request) (*plugin.Response, error) {
+	arn := req.FormValue("ResourceARN")
+	if arn == "" {
+		return cwError(jm, "MissingParameter", "ResourceARN is required", http.StatusBadRequest), nil
+	}
+	tags, err := p.store.tags.ListTags(arn)
+	if err != nil {
+		return nil, err
+	}
+	names := make([]string, 0, len(tags))
+	for name := range tags {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+	list := make([]map[string]any, 0, len(names))
+	for _, name := range names {
+		list = append(list, map[string]any{"Key": name, "Value": tags[name]})
+	}
+	return cwResp(jm, http.StatusOK, "ListTagsForResourceResponse", map[string]any{"Tags": list})
 }
 
 func cwResp(jsonMode bool, status int, xmlRoot string, data map[string]any) (*plugin.Response, error) {

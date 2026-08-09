@@ -11,6 +11,7 @@ import (
 	"io"
 	"net/http"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -127,6 +128,12 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return p.putKeyPolicy(params)
 	case "ListKeyPolicies":
 		return p.listKeyPolicies(params)
+	case "TagResource":
+		return p.tagResource(params)
+	case "UntagResource":
+		return p.untagResource(params)
+	case "ListResourceTags":
+		return p.listResourceTags(params)
 	default:
 		// Fall back to the generic CRUD engine for unimplemented ops.
 		return nil, plugin.ErrUnhandledOp
@@ -811,6 +818,91 @@ func (p *Provider) listKeyPolicies(params map[string]any) (*plugin.Response, err
 }
 
 // resolveKey accepts a key ID, ARN, or alias name.
+// --- Tags ---
+//
+// Tags are keyed by the key's ARN rather than the caller's KeyId, so tagging by
+// id, ARN or alias and listing by any of the three round-trips.
+
+func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) {
+	key, resp := p.keyForTagging(params)
+	if resp != nil {
+		return resp, nil
+	}
+
+	tags := make(map[string]string)
+	rawTags, _ := params["Tags"].([]any)
+	for _, t := range rawTags {
+		m, ok := t.(map[string]any)
+		if !ok {
+			continue
+		}
+		if k, _ := m["TagKey"].(string); k != "" {
+			v, _ := m["TagValue"].(string)
+			tags[k] = v
+		}
+	}
+	if err := p.store.tags.AddTags(key.ARN, tags); err != nil {
+		return nil, err
+	}
+	return jsonResp(http.StatusOK, map[string]any{})
+}
+
+func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error) {
+	key, resp := p.keyForTagging(params)
+	if resp != nil {
+		return resp, nil
+	}
+
+	rawKeys, _ := params["TagKeys"].([]any)
+	keys := make([]string, 0, len(rawKeys))
+	for _, k := range rawKeys {
+		if s, ok := k.(string); ok && s != "" {
+			keys = append(keys, s)
+		}
+	}
+	if err := p.store.tags.RemoveTags(key.ARN, keys); err != nil {
+		return nil, err
+	}
+	return jsonResp(http.StatusOK, map[string]any{})
+}
+
+func (p *Provider) listResourceTags(params map[string]any) (*plugin.Response, error) {
+	key, resp := p.keyForTagging(params)
+	if resp != nil {
+		return resp, nil
+	}
+
+	tags, err := p.store.tags.ListTags(key.ARN)
+	if err != nil {
+		return nil, err
+	}
+	names := make([]string, 0, len(tags))
+	for name := range tags {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+
+	list := make([]map[string]any, 0, len(names))
+	for _, name := range names {
+		list = append(list, map[string]any{"TagKey": name, "TagValue": tags[name]})
+	}
+	return jsonResp(http.StatusOK, map[string]any{"Tags": list, "Truncated": false})
+}
+
+// keyForTagging resolves the KeyId shared by the three tag operations, returning
+// a ready error response rather than a key when the request cannot be served.
+func (p *Provider) keyForTagging(params map[string]any) (*Key, *plugin.Response) {
+	keyID, _ := params["KeyId"].(string)
+	if keyID == "" {
+		return nil, kmsError("ValidationException", "KeyId is required", http.StatusBadRequest)
+	}
+	key, err := p.resolveKey(keyID)
+	if err != nil {
+		return nil, kmsError("NotFoundException", "key not found", http.StatusBadRequest)
+	}
+	return key, nil
+}
+
 func (p *Provider) resolveKey(keyID string) (*Key, error) {
 	if strings.HasPrefix(keyID, "alias/") {
 		return p.store.GetKeyByAlias(keyID)

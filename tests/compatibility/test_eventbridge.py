@@ -189,3 +189,35 @@ def test_event_pattern(events_client):
         ),
     )
     assert resp2["Result"] is False
+
+
+def test_tag_round_trip(events_client):
+    """Tags must persist: the round-trip the generic CRUD engine cannot do."""
+    bus = events_client.create_event_bus(Name="tag-bus")
+    arn = bus["EventBusArn"]
+
+    events_client.tag_resource(
+        ResourceARN=arn,
+        Tags=[{"Key": "env", "Value": "dev"}, {"Key": "team", "Value": "platform"}],
+    )
+    tags = {
+        t["Key"]: t["Value"]
+        for t in events_client.list_tags_for_resource(ResourceARN=arn)["Tags"]
+    }
+    assert tags == {"env": "dev", "team": "platform"}
+
+    events_client.untag_resource(ResourceARN=arn, TagKeys=["env"])
+    tags = {
+        t["Key"]: t["Value"]
+        for t in events_client.list_tags_for_resource(ResourceARN=arn)["Tags"]
+    }
+    assert tags == {"team": "platform"}
+
+
+def test_tags_are_per_resource(events_client):
+    """Two resources do not share a tag set."""
+    a = events_client.create_event_bus(Name="tag-bus-a")["EventBusArn"]
+    b = events_client.create_event_bus(Name="tag-bus-b")["EventBusArn"]
+
+    events_client.tag_resource(ResourceARN=a, Tags=[{"Key": "only", "Value": "a"}])
+    assert events_client.list_tags_for_resource(ResourceARN=b)["Tags"] == []

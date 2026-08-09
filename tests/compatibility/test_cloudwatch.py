@@ -191,3 +191,32 @@ def test_anomaly_detector(cloudwatch_client):
         MetricName="Req",
         Stat="Average",
     )
+
+
+def test_tag_round_trip(cloudwatch_client):
+    """Tags must persist: the round-trip the generic CRUD engine cannot do."""
+    arn = "arn:aws:cloudwatch:us-east-1:000000000000:alarm:compat-tag-alarm"
+
+    cloudwatch_client.tag_resource(
+        ResourceARN=arn,
+        Tags=[{"Key": "env", "Value": "dev"}, {"Key": "team", "Value": "platform"}],
+    )
+    tags = {
+        t["Key"]: t["Value"]
+        for t in cloudwatch_client.list_tags_for_resource(ResourceARN=arn)["Tags"]
+    }
+    assert tags == {"env": "dev", "team": "platform"}
+
+    cloudwatch_client.untag_resource(ResourceARN=arn, TagKeys=["env"])
+    tags = {
+        t["Key"]: t["Value"]
+        for t in cloudwatch_client.list_tags_for_resource(ResourceARN=arn)["Tags"]
+    }
+    assert tags == {"team": "platform"}
+
+
+def test_tags_are_per_resource(cloudwatch_client):
+    a = "arn:aws:cloudwatch:us-east-1:000000000000:alarm:tag-alarm-a"
+    b = "arn:aws:cloudwatch:us-east-1:000000000000:alarm:tag-alarm-b"
+    cloudwatch_client.tag_resource(ResourceARN=a, Tags=[{"Key": "only", "Value": "a"}])
+    assert cloudwatch_client.list_tags_for_resource(ResourceARN=b)["Tags"] == []

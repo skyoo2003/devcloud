@@ -1,0 +1,5 @@
+kind: Fixed
+body: The fidelity manifest no longer declares auto-crud on providers the CRUD engine cannot serve; CloudWatch's 20 such operations are reported as unimplemented, which is what the runtime already returned
+time: 2026-08-09T14:01:00.000000+09:00
+custom:
+    Issue: ""

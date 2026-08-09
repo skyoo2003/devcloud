@@ -13,6 +13,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
+
+	"github.com/skyoo2003/devcloud/internal/shared"
 	"path/filepath"
 	"time"
 
@@ -90,15 +92,17 @@ type Alias struct {
 
 type KMSStore struct {
 	store *sqlite.Store
+	tags  *shared.TagStore
 }
 
 func NewKMSStore(dataDir string) (*KMSStore, error) {
 	dbPath := filepath.Join(dataDir, "kms.db")
-	s, err := sqlite.Open(dbPath, migrations)
+	allMigrations := append(migrations, shared.TagMigrations...)
+	s, err := sqlite.Open(dbPath, allMigrations)
 	if err != nil {
 		return nil, err
 	}
-	return &KMSStore{store: s}, nil
+	return &KMSStore{store: s, tags: shared.NewTagStore(s)}, nil
 }
 
 func (s *KMSStore) Close() error { return s.store.Close() }

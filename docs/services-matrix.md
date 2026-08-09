@@ -83,8 +83,8 @@ limits. Operations that are neither hand-written nor CRUD-classifiable return an
 honest `InvalidAction` error, never a fabricated success.
 
 Every operation's tier is declared in the generated
-[fidelity manifest](fidelity-manifest.md) — 4,261 `hand-verified`, 957
-`auto-crud`, 2,031 `unimplemented` across 7,249 operations. Query it per service
+[fidelity manifest](fidelity-manifest.md) — 4,270 `hand-verified`, 931
+`auto-crud`, 2,048 `unimplemented` across 7,249 operations. Query it per service
 (requires `admin.enabled: true`):
 
 ```bash

@@ -11,6 +11,7 @@ import (
 	"io"
 	"net/http"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -122,6 +123,12 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "CancelReplay":
 		return p.cancelReplay(params)
 	// Test
+	case "TagResource":
+		return p.tagResource(params)
+	case "UntagResource":
+		return p.untagResource(params)
+	case "ListTagsForResource":
+		return p.listTagsForResource(params)
 	case "TestEventPattern":
 		return p.testEventPattern(params)
 	default:
@@ -782,6 +789,74 @@ func matchesPattern(pattern map[string]any, event map[string]any) bool {
 		}
 	}
 	return true
+}
+
+// --- Tags ---
+//
+// ponytail: tags are stored against whatever ARN the caller passes; the resource
+// is not checked for existence. Validate against the rule/bus tables if a test
+// ever depends on ResourceNotFoundException.
+
+func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) {
+	arn, _ := params["ResourceARN"].(string)
+	if arn == "" {
+		return ebError("ValidationException", "ResourceARN is required", http.StatusBadRequest), nil
+	}
+	tags := make(map[string]string)
+	rawTags, _ := params["Tags"].([]any)
+	for _, t := range rawTags {
+		m, ok := t.(map[string]any)
+		if !ok {
+			continue
+		}
+		if k, _ := m["Key"].(string); k != "" {
+			v, _ := m["Value"].(string)
+			tags[k] = v
+		}
+	}
+	if err := p.store.tags.AddTags(arn, tags); err != nil {
+		return nil, err
+	}
+	return jsonResp(http.StatusOK, map[string]any{})
+}
+
+func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error) {
+	arn, _ := params["ResourceARN"].(string)
+	if arn == "" {
+		return ebError("ValidationException", "ResourceARN is required", http.StatusBadRequest), nil
+	}
+	rawKeys, _ := params["TagKeys"].([]any)
+	keys := make([]string, 0, len(rawKeys))
+	for _, k := range rawKeys {
+		if s, ok := k.(string); ok && s != "" {
+			keys = append(keys, s)
+		}
+	}
+	if err := p.store.tags.RemoveTags(arn, keys); err != nil {
+		return nil, err
+	}
+	return jsonResp(http.StatusOK, map[string]any{})
+}
+
+func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response, error) {
+	arn, _ := params["ResourceARN"].(string)
+	if arn == "" {
+		return ebError("ValidationException", "ResourceARN is required", http.StatusBadRequest), nil
+	}
+	tags, err := p.store.tags.ListTags(arn)
+	if err != nil {
+		return nil, err
+	}
+	names := make([]string, 0, len(tags))
+	for name := range tags {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+	list := make([]map[string]any, 0, len(names))
+	for _, name := range names {
+		list = append(list, map[string]any{"Key": name, "Value": tags[name]})
+	}
+	return jsonResp(http.StatusOK, map[string]any{"Tags": list})
 }
 
 func ebError(code, message string, status int) *plugin.Response {

@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/skyoo2003/devcloud/internal/shared"
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
@@ -104,15 +105,17 @@ type Target struct {
 
 type EBStore struct {
 	store *sqlite.Store
+	tags  *shared.TagStore
 }
 
 func NewEBStore(dataDir string) (*EBStore, error) {
 	dbPath := filepath.Join(dataDir, "eventbridge.db")
-	s, err := sqlite.Open(dbPath, migrations)
+	allMigrations := append(migrations, shared.TagMigrations...)
+	s, err := sqlite.Open(dbPath, allMigrations)
 	if err != nil {
 		return nil, err
 	}
-	eb := &EBStore{store: s}
+	eb := &EBStore{store: s, tags: shared.NewTagStore(s)}
 	// Seed the default event bus.
 	_ = eb.CreateEventBus("default", plugin.DefaultAccountID)
 	return eb, nil

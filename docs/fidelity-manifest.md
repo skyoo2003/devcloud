@@ -23,9 +23,9 @@ dispatch falls through, so a hand-written implementation is never shadowed.
 
 | Tier | Operations |
 |------|-----------:|
-| `hand-verified` | 4,261 |
-| `auto-crud` | 957 |
-| `unimplemented` | 2,031 |
+| `hand-verified` | 4,270 |
+| `auto-crud` | 931 |
+| `unimplemented` | 2,048 |
 | **Total** | **7,249** across 104 services |
 
 Examples:
@@ -37,6 +37,7 @@ Examples:
 | s3 | 37 | 0 | 70 |
 | lambda | 25 | 0 | 60 |
 | dynamodb | 20 | 28 | 9 |
+| cloudwatch | 23 | 0 | 23 |
 | bedrock | 18 | 0 | 84 |
 
 _Regenerate with `make codegen`; these numbers change with the surface._
@@ -99,7 +100,7 @@ unimplemented operation is served an `InvalidAction` error.
 | Input | Source | Contributes |
 |-------|--------|-------------|
 | Operation universe | `smithy-models/*.json`, parsed including resource-attached operations | every known operation |
-| `auto-crud` | the generated [CRUD registry](crud-engine.md) | engine-servable operations |
+| `auto-crud` | the generated [CRUD registry](crud-engine.md), restricted to providers that serve a JSON protocol | engine-servable operations |
 | `hand-verified` | dispatch-case literals scanned from `internal/services/*`, intersected with the model | implemented operations |
 
 Three providers (`s3`, `lambda`, `bedrock`) route on HTTP method and path rather
@@ -110,6 +111,28 @@ The universe is *model ∪ hand-verified*: a provider may serve an operation the
 model does not declare — `bedrock` serves `InvokeModel`, which AWS models under
 bedrock-runtime — and hiding it would understate what DevCloud does.
 
+The CRUD engine answers only JSON protocols, so a service whose **provider** speaks Query or
+REST is never counted as `auto-crud` even if its model says JSON. `cloudwatch` is exactly
+that case: its model declares JSON, its provider answers Query, and the runtime follows the
+provider.
+
+## Getting an operation promoted
+
+Promotion from `auto-crud` (or `unimplemented`) to `hand-verified` happens **on request,
+with a use case** — [open a feature request](https://github.com/skyoo2003/devcloud/issues/new?template=feature_request.yml)
+naming the service, the operation, and what you are trying to run locally. Check the tier
+first with the endpoint above so the request is concrete.
+
+Requests beat guesswork here. Reading what the unpromoted operations *are* shows why: they
+are overwhelmingly operational surface — DynamoDB backups, global tables and Contributor
+Insights; KMS custom key stores and key rotation; CloudWatch Insight Rules and Metric
+Streams; ECR pull-through cache and registry policy. A local inner loop does not call them,
+and the operations it does call — S3, SQS, Lambda, IAM and STS in full — are already
+`hand-verified` with **zero** `auto-crud` operations between them.
+
+So v1.0 ships the long tail **declared rather than implemented**, and lets real use decide
+what gets promoted in 1.x.
+
 ## Guarantees
 
 `TestFidelityManifestCoverage` (`cmd/devcloud/fidelity_test.go`) fails the build
@@ -119,4 +142,6 @@ when:
 - any registered service is missing from the manifest,
 - any CRUD-registered operation is missing or marked `unimplemented`,
 - any service resolves zero `hand-verified` operations — the signal that a new
-  path-routing provider needs a `pathRoutedOps` entry.
+  path-routing provider needs a `pathRoutedOps` entry,
+- any service declares `auto-crud` operations while serving a protocol the engine
+  refuses (`TestAutoCRUDIsReachable`).

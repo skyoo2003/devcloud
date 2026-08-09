@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/skyoo2003/devcloud/internal/shared"
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
 )
 
@@ -140,15 +141,17 @@ type MetricDataPoint struct {
 
 type CWStore struct {
 	store *sqlite.Store
+	tags  *shared.TagStore
 }
 
 func NewCWStore(dataDir string) (*CWStore, error) {
 	dbPath := filepath.Join(dataDir, "cloudwatch.db")
-	s, err := sqlite.Open(dbPath, migrations)
+	allMigrations := append(migrations, shared.TagMigrations...)
+	s, err := sqlite.Open(dbPath, allMigrations)
 	if err != nil {
 		return nil, err
 	}
-	return &CWStore{store: s}, nil
+	return &CWStore{store: s, tags: shared.NewTagStore(s)}, nil
 }
 
 func (s *CWStore) Close() error { return s.store.Close() }
