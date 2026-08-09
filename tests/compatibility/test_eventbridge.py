@@ -235,6 +235,28 @@ def test_rule_tags_do_not_survive_delete(events_client):
     assert events_client.list_tags_for_resource(ResourceARN=arn)["Tags"] == []
 
 
+def test_same_named_rules_on_different_buses_do_not_share_tags(events_client):
+    """A rule name is unique per bus, so the bus must be part of the rule ARN."""
+    events_client.create_event_bus(Name="bus-a")
+    events_client.create_event_bus(Name="bus-b")
+    for bus in ("bus-a", "bus-b"):
+        events_client.put_rule(
+            Name="shared-name", EventBusName=bus, ScheduleExpression="rate(5 minutes)"
+        )
+
+    arn_a = events_client.describe_rule(Name="shared-name", EventBusName="bus-a")["Arn"]
+    arn_b = events_client.describe_rule(Name="shared-name", EventBusName="bus-b")["Arn"]
+    assert arn_a != arn_b
+
+    events_client.tag_resource(ResourceARN=arn_a, Tags=[{"Key": "bus", "Value": "a"}])
+    assert events_client.list_tags_for_resource(ResourceARN=arn_b)["Tags"] == []
+
+    # Deleting one rule must not strip the other's tags.
+    events_client.delete_rule(Name="shared-name", EventBusName="bus-b")
+    tags = events_client.list_tags_for_resource(ResourceARN=arn_a)["Tags"]
+    assert tags == [{"Key": "bus", "Value": "a"}]
+
+
 def test_tags_are_per_resource(events_client):
     """Two resources do not share a tag set."""
     a = events_client.create_event_bus(Name="tag-bus-a")["EventBusArn"]

@@ -215,6 +215,27 @@ def test_tag_round_trip(cloudwatch_client):
     assert tags == {"team": "platform"}
 
 
+def test_alarm_tags_do_not_survive_delete(cloudwatch_client):
+    """An alarm ARN is derived from its name, so a delete must drop its tags."""
+    arn = "arn:aws:cloudwatch:us-east-1:000000000000:alarm:tag-ghost-alarm"
+    cloudwatch_client.put_metric_alarm(
+        AlarmName="tag-ghost-alarm",
+        Namespace="MyApp",
+        MetricName="CPUUtilization",
+        Statistic="Average",
+        Period=60,
+        EvaluationPeriods=1,
+        Threshold=80.0,
+        ComparisonOperator="GreaterThanThreshold",
+    )
+    cloudwatch_client.tag_resource(
+        ResourceARN=arn, Tags=[{"Key": "env", "Value": "dev"}]
+    )
+    cloudwatch_client.delete_alarms(AlarmNames=["tag-ghost-alarm"])
+
+    assert cloudwatch_client.list_tags_for_resource(ResourceARN=arn)["Tags"] == []
+
+
 def test_tags_are_per_resource(cloudwatch_client):
     a = "arn:aws:cloudwatch:us-east-1:000000000000:alarm:tag-alarm-a"
     b = "arn:aws:cloudwatch:us-east-1:000000000000:alarm:tag-alarm-b"

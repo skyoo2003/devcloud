@@ -130,8 +130,15 @@ func busARN(name, accountID string) string {
 	return "arn:aws:events:us-east-1:" + accountID + ":event-bus/" + name
 }
 
-func ruleARN(name, accountID string) string {
-	return "arn:aws:events:us-east-1:" + accountID + ":rule/" + name
+// A rule name is unique per bus, not per account, so the bus has to be in the
+// ARN or two same-named rules on different buses share one — and with it, one
+// tag set. AWS qualifies custom-bus rules the same way and leaves the default
+// bus bare.
+func ruleARN(name, busName, accountID string) string {
+	if busName == "" || busName == "default" {
+		return "arn:aws:events:us-east-1:" + accountID + ":rule/" + name
+	}
+	return "arn:aws:events:us-east-1:" + accountID + ":rule/" + busName + "/" + name
 }
 
 func (s *EBStore) CreateEventBus(name, accountID string) error {
@@ -234,7 +241,7 @@ func (s *EBStore) DeleteRule(name, busName, accountID string) error {
 	if n == 0 {
 		return ErrRuleNotFound
 	}
-	return s.tags.DeleteAllTags(ruleARN(name, accountID))
+	return s.tags.DeleteAllTags(ruleARN(name, busName, accountID))
 }
 
 func (s *EBStore) ListRules(busName, accountID string) ([]Rule, error) {

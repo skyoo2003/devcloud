@@ -1,0 +1,5 @@
+kind: Fixed
+body: CloudWatch now drops an alarm's tags when the alarm is deleted, so recreating an alarm under the same name no longer inherits the old one's tags
+time: 2026-08-09T17:01:00.000000+09:00
+custom:
+    Issue: ""

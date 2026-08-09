@@ -1,6 +1,6 @@
 # DevCloud Services Matrix
 
-**Total**: 104 services (run `make stats`). The boto3 compatibility suite — 773 tests in `tests/compatibility/` — passes in CI.
+**Total**: 104 services (run `make stats`). The boto3 compatibility suite — 775 tests in `tests/compatibility/` — passes in CI.
 
 > To refresh these numbers, run `make stats` (service/handler counts) and `make test-compat` (compatibility suite), then update the line above. Note: `make stats`' "Operations" counts dispatch cases (a service carrying both Query and JSON protocols counts each), not distinct AWS operations.
 
@@ -61,7 +61,7 @@ DevCloud is a Go-based local cloud environment with AWS API compatibility. This 
 
 ## boto3 compatibility
 
-- Tests: `tests/compatibility/` (773 tests)
+- Tests: `tests/compatibility/` (775 tests)
 - Status: the full suite passes in CI (`.github/workflows/compat.yml`); any failing test fails the build
 - Run: `make test-compat`
 

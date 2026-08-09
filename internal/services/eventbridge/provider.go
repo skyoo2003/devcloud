@@ -205,7 +205,7 @@ func (p *Provider) putRule(params map[string]any) (*plugin.Response, error) {
 	if err := p.store.PutRule(name, busName, defaultAccountID, eventPattern, state, scheduleExpression); err != nil {
 		return nil, err
 	}
-	arn := ruleARN(name, defaultAccountID)
+	arn := ruleARN(name, busName, defaultAccountID)
 	return jsonResp(http.StatusOK, map[string]any{"RuleArn": arn})
 }
 
@@ -232,7 +232,7 @@ func (p *Provider) listRules(params map[string]any) (*plugin.Response, error) {
 	}
 	list := make([]map[string]any, 0, len(rules))
 	for _, r := range rules {
-		arn := ruleARN(r.Name, defaultAccountID)
+		arn := ruleARN(r.Name, busName, defaultAccountID)
 		list = append(list, map[string]any{
 			"Name":  r.Name,
 			"Arn":   arn,
@@ -365,7 +365,7 @@ func (p *Provider) describeRule(params map[string]any) (*plugin.Response, error)
 	if err != nil {
 		return ebError("ResourceNotFoundException", "Rule "+name+" does not exist.", http.StatusBadRequest), nil
 	}
-	arn := ruleARN(rule.Name, defaultAccountID)
+	arn := ruleARN(rule.Name, busName, defaultAccountID)
 	result := map[string]any{
 		"Name":         rule.Name,
 		"Arn":          arn,
