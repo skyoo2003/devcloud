@@ -91,30 +91,22 @@ func TestFidelityManifestCoversCRUDRegistry(t *testing.T) {
 	}
 }
 
-// TestAutoCRUDIsReachable guards against the manifest promising a tier the
-// runtime cannot deliver. The CRUD engine refuses any non-JSON protocol
-// (crud.Handle → JSONProtocol), so an operation declared auto-crud on a
-// Query or REST provider would in fact return InvalidAction.
-func TestAutoCRUDIsReachable(t *testing.T) {
+// TestAutoCRUDIsServedOverJSON pins what makes an auto-crud tier true. The
+// gateway derives the protocol from the *request* (gateway.DetectProtocol), not
+// from the provider, so a service whose provider declares Query still reaches
+// the engine when a client speaks JSON. cloudwatch is the case that matters: its
+// provider answers Query for boto3 and falls through to the engine for
+// X-Amz-Target callers. Filtering the registry by the provider's declared
+// protocol once removed that coverage outright.
+func TestAutoCRUDIsServedOverJSON(t *testing.T) {
 	for id, svc := range fidelity.Services {
-		autoCRUD := 0
-		for _, tier := range svc.Operations {
-			if tier == fidelity.TierAutoCRUD {
-				autoCRUD++
+		for op, tier := range svc.Operations {
+			if tier != fidelity.TierAutoCRUD {
+				continue
 			}
-		}
-		if autoCRUD == 0 {
-			continue
-		}
-
-		p, ok := plugin.DefaultRegistry.Construct(id)
-		if !ok {
-			t.Errorf("%s: declares %d auto-crud operations but is not registered", id, autoCRUD)
-			continue
-		}
-		if !crud.JSONProtocol(string(p.Protocol())) {
-			t.Errorf("%s: declares %d auto-crud operations but serves %q; the CRUD engine only answers JSON protocols, so those operations really return InvalidAction",
-				id, autoCRUD, p.Protocol())
+			if _, err := crud.Handle(id, op, "json-1.1", []byte("{}")); err != nil {
+				t.Errorf("%s/%s: declared auto-crud but the engine refused it: %v", id, op, err)
+			}
 		}
 	}
 }

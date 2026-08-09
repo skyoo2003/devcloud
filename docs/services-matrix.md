@@ -1,6 +1,6 @@
 # DevCloud Services Matrix
 
-**Total**: 104 services (run `make stats`). The boto3 compatibility suite — 764 tests in `tests/compatibility/` — passes in CI.
+**Total**: 104 services (run `make stats`). The boto3 compatibility suite — 773 tests in `tests/compatibility/` — passes in CI.
 
 > To refresh these numbers, run `make stats` (service/handler counts) and `make test-compat` (compatibility suite), then update the line above. Note: `make stats`' "Operations" counts dispatch cases (a service carrying both Query and JSON protocols counts each), not distinct AWS operations.
 
@@ -61,7 +61,7 @@ DevCloud is a Go-based local cloud environment with AWS API compatibility. This 
 
 ## boto3 compatibility
 
-- Tests: `tests/compatibility/` (764 tests)
+- Tests: `tests/compatibility/` (773 tests)
 - Status: the full suite passes in CI (`.github/workflows/compat.yml`); any failing test fails the build
 - Run: `make test-compat`
 
@@ -83,8 +83,8 @@ limits. Operations that are neither hand-written nor CRUD-classifiable return an
 honest `InvalidAction` error, never a fabricated success.
 
 Every operation's tier is declared in the generated
-[fidelity manifest](fidelity-manifest.md) — 4,270 `hand-verified`, 931
-`auto-crud`, 2,048 `unimplemented` across 7,249 operations. Query it per service
+[fidelity manifest](fidelity-manifest.md) — 4,496 `hand-verified`, 948
+`auto-crud`, 2,031 `unimplemented` across 7,475 operations. Query it per service
 (requires `admin.enabled: true`):
 
 ```bash

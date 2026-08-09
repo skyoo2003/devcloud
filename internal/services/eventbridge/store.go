@@ -123,8 +123,19 @@ func NewEBStore(dataDir string) (*EBStore, error) {
 
 func (s *EBStore) Close() error { return s.store.Close() }
 
+// busARN and ruleARN are the single source of the ARNs this service hands out.
+// Tags are keyed by ARN, so a delete has to rebuild the same string the create
+// did or the tags outlive the resource.
+func busARN(name, accountID string) string {
+	return "arn:aws:events:us-east-1:" + accountID + ":event-bus/" + name
+}
+
+func ruleARN(name, accountID string) string {
+	return "arn:aws:events:us-east-1:" + accountID + ":rule/" + name
+}
+
 func (s *EBStore) CreateEventBus(name, accountID string) error {
-	arn := "arn:aws:events:us-east-1:" + accountID + ":event-bus/" + name
+	arn := busARN(name, accountID)
 	_, err := s.store.DB().Exec(
 		`INSERT INTO event_buses (name, arn, account_id) VALUES (?, ?, ?) ON CONFLICT DO NOTHING`,
 		name, arn, accountID,
@@ -141,7 +152,9 @@ func (s *EBStore) DeleteEventBus(name, accountID string) error {
 	if n == 0 {
 		return ErrBusNotFound
 	}
-	return nil
+	// ARNs are derived from the name, so recreating a deleted bus reuses its ARN
+	// and would inherit the old tags.
+	return s.tags.DeleteAllTags(busARN(name, accountID))
 }
 
 func (s *EBStore) GetEventBus(name, accountID string) (*EventBus, error) {
@@ -221,7 +234,7 @@ func (s *EBStore) DeleteRule(name, busName, accountID string) error {
 	if n == 0 {
 		return ErrRuleNotFound
 	}
-	return nil
+	return s.tags.DeleteAllTags(ruleARN(name, accountID))
 }
 
 func (s *EBStore) ListRules(busName, accountID string) ([]Rule, error) {

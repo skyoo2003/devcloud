@@ -157,7 +157,7 @@ func (p *Provider) createEventBus(params map[string]any) (*plugin.Response, erro
 	if err := p.store.CreateEventBus(name, defaultAccountID); err != nil {
 		return nil, err
 	}
-	arn := "arn:aws:events:us-east-1:" + defaultAccountID + ":event-bus/" + name
+	arn := busARN(name, defaultAccountID)
 	return jsonResp(http.StatusOK, map[string]any{"EventBusArn": arn})
 }
 
@@ -205,7 +205,7 @@ func (p *Provider) putRule(params map[string]any) (*plugin.Response, error) {
 	if err := p.store.PutRule(name, busName, defaultAccountID, eventPattern, state, scheduleExpression); err != nil {
 		return nil, err
 	}
-	arn := "arn:aws:events:us-east-1:" + defaultAccountID + ":rule/" + name
+	arn := ruleARN(name, defaultAccountID)
 	return jsonResp(http.StatusOK, map[string]any{"RuleArn": arn})
 }
 
@@ -232,7 +232,7 @@ func (p *Provider) listRules(params map[string]any) (*plugin.Response, error) {
 	}
 	list := make([]map[string]any, 0, len(rules))
 	for _, r := range rules {
-		arn := "arn:aws:events:us-east-1:" + defaultAccountID + ":rule/" + r.Name
+		arn := ruleARN(r.Name, defaultAccountID)
 		list = append(list, map[string]any{
 			"Name":  r.Name,
 			"Arn":   arn,
@@ -365,7 +365,7 @@ func (p *Provider) describeRule(params map[string]any) (*plugin.Response, error)
 	if err != nil {
 		return ebError("ResourceNotFoundException", "Rule "+name+" does not exist.", http.StatusBadRequest), nil
 	}
-	arn := "arn:aws:events:us-east-1:" + defaultAccountID + ":rule/" + rule.Name
+	arn := ruleARN(rule.Name, defaultAccountID)
 	result := map[string]any{
 		"Name":         rule.Name,
 		"Arn":          arn,

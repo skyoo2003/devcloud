@@ -32,7 +32,7 @@ operations as scaffolding for local wiring, not as behavioural parity.
 |------|---------|
 | **hand-verified** | Implemented by the service's provider (explicit dispatch `case`). Highest fidelity. |
 | **auto-crud** | Served by the engine with plausible, store-backed responses. Reaches the engine only for engine-wired services (below). |
-| **unimplemented** | Not implemented and not CRUD-classifiable — returns an honest `InvalidAction` error. |
+| **unimplemented** | Not implemented and not CRUD-classifiable — the call is refused, never faked. JSON and Query services return `InvalidAction`; the path-routed providers (`s3`, `lambda`, `bedrock`) use their own error vocabulary. |
 
 Hand-written operations always win: the engine is only reached when a request
 falls through to the provider's `default:` case, so it never shadows a real

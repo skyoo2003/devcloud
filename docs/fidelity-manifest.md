@@ -14,7 +14,7 @@ Smithy models, the CRUD registry, and each provider's dispatch code.
 |------|---------|--------------|
 | `hand-verified` | The service's provider implements the operation explicitly. | Behaviour, not just shape. Covered by the boto3 compatibility suite where tests exist. |
 | `auto-crud` | Served by the [generic CRUD engine](crud-engine.md) with plausible, store-backed responses. No validation, no business logic, no cross-resource integrity. | Wiring your SDK calls and round-tripping create → get → list → delete. Nothing else. |
-| `unimplemented` | Returns an honest `InvalidAction` (HTTP 400). | Knowing early that DevCloud will not serve this call. |
+| `unimplemented` | Not served — the call fails instead of inventing a success. The error is the provider's own: JSON and Query services return `InvalidAction` (HTTP 400), while the path-routed providers answer in their own vocabulary (`s3` `MethodNotAllowed` 405, `lambda` `ResourceNotFoundException` 404, `bedrock` `UnsupportedOperation` 400). | Knowing early that DevCloud will not serve this call. |
 
 `hand-verified` always wins: the CRUD engine is reached only when a provider's
 dispatch falls through, so a hand-written implementation is never shadowed.
@@ -23,22 +23,22 @@ dispatch falls through, so a hand-written implementation is never shadowed.
 
 | Tier | Operations |
 |------|-----------:|
-| `hand-verified` | 4,270 |
-| `auto-crud` | 931 |
-| `unimplemented` | 2,048 |
-| **Total** | **7,249** across 104 services |
+| `hand-verified` | 4,496 |
+| `auto-crud` | 948 |
+| `unimplemented` | 2,031 |
+| **Total** | **7,475** across 104 services |
 
 Examples:
 
 | Service | hand-verified | auto-crud | unimplemented |
 |---------|--------------:|----------:|--------------:|
 | sqs | 23 | 0 | 0 |
-| ecs | 51 | 22 | 3 |
+| ecs | 57 | 22 | 3 |
 | s3 | 37 | 0 | 70 |
 | lambda | 25 | 0 | 60 |
 | dynamodb | 20 | 28 | 9 |
-| cloudwatch | 23 | 0 | 23 |
-| bedrock | 18 | 0 | 84 |
+| cloudwatch | 23 | 17 | 6 |
+| bedrock | 19 | 0 | 84 |
 
 _Regenerate with `make codegen`; these numbers change with the surface._
 
@@ -79,8 +79,8 @@ tier, ok := fidelity.Lookup("s3", "PutObject") // TierHandVerified, true
 ```
 
 `ok` is false for a service or operation DevCloud does not know at all, which is
-not the same as `unimplemented`: an unknown service is not served, whereas an
-unimplemented operation is served an `InvalidAction` error.
+not the same as `unimplemented`: an unknown service is not routed at all,
+whereas an unimplemented operation reaches its provider and is refused.
 
 ## Limits
 
@@ -100,8 +100,8 @@ unimplemented operation is served an `InvalidAction` error.
 | Input | Source | Contributes |
 |-------|--------|-------------|
 | Operation universe | `smithy-models/*.json`, parsed including resource-attached operations | every known operation |
-| `auto-crud` | the generated [CRUD registry](crud-engine.md), restricted to providers that serve a JSON protocol | engine-servable operations |
-| `hand-verified` | dispatch-case literals scanned from `internal/services/*`, intersected with the model | implemented operations |
+| `auto-crud` | the generated [CRUD registry](crud-engine.md) | engine-servable operations |
+| `hand-verified` | the case literals of the dispatch switches inside each provider's `HandleRequest` | implemented operations |
 
 Three providers (`s3`, `lambda`, `bedrock`) route on HTTP method and path rather
 than an operation name, so they declare their operations explicitly in
@@ -109,12 +109,16 @@ than an operation name, so they declare their operations explicitly in
 
 The universe is *model ∪ hand-verified*: a provider may serve an operation the
 model does not declare — `bedrock` serves `InvokeModel`, which AWS models under
-bedrock-runtime — and hiding it would understate what DevCloud does.
+bedrock-runtime, and `dynamodbstreams` dispatches 22 operations against a
+4-operation model — and hiding them would understate what DevCloud does. So a
+`hand-verified` entry is a statement about **DevCloud**, not about AWS: it can
+name an operation your SDK has never heard of.
 
-The CRUD engine answers only JSON protocols, so a service whose **provider** speaks Query or
-REST is never counted as `auto-crud` even if its model says JSON. `cloudwatch` is exactly
-that case: its model declares JSON, its provider answers Query, and the runtime follows the
-provider.
+The scan is scoped to `HandleRequest` (and whatever it delegates dispatch to)
+for a reason. That is the only place an operation name means "operation":
+elsewhere in the same package, `identitystore` switches on `"DisplayName"` to
+apply an attribute patch and `pipes` switches on `"POST"` to resolve a path.
+Reading the whole package would file both as operations.
 
 ## Getting an operation promoted
 
@@ -143,5 +147,10 @@ when:
 - any CRUD-registered operation is missing or marked `unimplemented`,
 - any service resolves zero `hand-verified` operations — the signal that a new
   path-routing provider needs a `pathRoutedOps` entry,
-- any service declares `auto-crud` operations while serving a protocol the engine
-  refuses (`TestAutoCRUDIsReachable`).
+- any `auto-crud` operation is one the engine will not actually serve
+  (`TestAutoCRUDIsServedOverJSON`).
+
+The engine reads the protocol from the **request**, not from the provider, so
+`auto-crud` survives a Query-speaking provider: `cloudwatch` answers boto3 over
+Query and falls through to the engine for `X-Amz-Target` callers. Filtering the
+registry by the provider's declared protocol would delete that coverage.
