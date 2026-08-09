@@ -57,7 +57,14 @@ func Open(dbPath string, migrations []Migration) (*Store, error) {
 		return nil, fmt.Errorf("create data dir: %w", err)
 	}
 
-	db, err := sql.Open(driverName, dbPath)
+	// busy_timeout has to travel in the DSN so every pooled connection gets it.
+	// It is per-connection state, unlike journal_mode below, which the database
+	// file remembers — a single Exec here would configure whichever connection
+	// happened to answer and leave the rest at SQLite's default of no waiting.
+	// mattn/go-sqlite3 applied 5s unconditionally; modernc.org/sqlite installs
+	// no busy handler unless asked, so without this a second concurrent writer
+	// fails instantly with SQLITE_BUSY instead of waiting its turn.
+	db, err := sql.Open(driverName, dbPath+"?_pragma=busy_timeout(5000)")
 	if err != nil {
 		return nil, fmt.Errorf("open sqlite: %w", err)
 	}
