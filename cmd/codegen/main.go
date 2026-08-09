@@ -27,6 +27,7 @@ func main() {
 	services := flag.String("services", "", "Comma-separated list of services to generate (empty = all)")
 	templateDir := flag.String("templates", "./internal/codegen/templates", "Directory containing Go templates")
 	scaffoldDir := flag.String("scaffold-output", "", "Output directory for scaffold files (provider.go, register.go)")
+	servicesDir := flag.String("services-dir", "./internal/services", "Directory containing hand-written providers, scanned for the fidelity manifest")
 	flag.Parse()
 
 	entries, err := os.ReadDir(*modelsDir)
@@ -45,6 +46,7 @@ func main() {
 	gen := codegen.NewGenerator(*templateDir)
 
 	var crudServices []codegen.CRUDServiceData
+	modelOps := make(map[string][]string)
 
 	for _, entry := range entries {
 		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".json") {
@@ -62,6 +64,15 @@ func main() {
 			fmt.Fprintf(os.Stderr, "Error parsing %s: %v\n", entry.Name(), err)
 			continue
 		}
+
+		// Recorded before the filters below: the fidelity manifest needs the
+		// operation universe of every modelled service, including the ones whose
+		// provider is hand-written and generates no package.
+		names := make([]string, 0, len(model.Operations))
+		for _, op := range model.Operations {
+			names = append(names, op.Name)
+		}
+		modelOps[model.ServiceID] = names
 
 		if len(allowedServices) > 0 && !allowedServices[model.ServiceID] {
 			continue
@@ -86,6 +97,12 @@ func main() {
 	// Write the aggregate CRUD registry only when generating the full fleet
 	// (a filtered run would otherwise clobber it with a partial registry).
 	if len(allowedServices) == 0 {
+		providers, err := codegen.ScanProviders(*servicesDir)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error scanning providers: %v\n", err)
+			os.Exit(1)
+		}
+
 		sort.Slice(crudServices, func(i, j int) bool {
 			return crudServices[i].ServiceID < crudServices[j].ServiceID
 		})
@@ -103,7 +120,41 @@ func main() {
 			fmt.Fprintf(os.Stderr, "Error writing CRUD registry: %v\n", err)
 			os.Exit(1)
 		}
+
+		if err := writeFidelityManifest(gen, *outputDir, modelOps, providers, crudServices); err != nil {
+			fmt.Fprintf(os.Stderr, "Error writing fidelity manifest: %v\n", err)
+			os.Exit(1)
+		}
 	}
 
 	fmt.Println("Code generation complete.")
+}
+
+// writeFidelityManifest emits the per-operation fidelity manifest. Like the CRUD
+// registry it is only written on a full-fleet run, since a filtered run would
+// produce a partial manifest.
+func writeFidelityManifest(
+	gen *codegen.Generator,
+	outputDir string,
+	modelOps map[string][]string,
+	providers map[string]codegen.ProviderScan,
+	crudServices []codegen.CRUDServiceData,
+) error {
+	handVerified := make(map[string][]string, len(providers))
+	for id, scan := range providers {
+		handVerified[id] = scan.Operations
+	}
+
+	content, err := gen.GenerateFidelityManifest(
+		codegen.BuildFidelityData(modelOps, handVerified, crudServices),
+	)
+	if err != nil {
+		return err
+	}
+
+	dir := filepath.Join(outputDir, "fidelity")
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return err
+	}
+	return codegen.WriteGo(filepath.Join(dir, "manifest_gen.go"), content)
 }

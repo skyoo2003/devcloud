@@ -15,20 +15,96 @@ func (b *BaseProvider) CreateAccess(ctx context.Context, input *CreateAccessRequ
 	return nil, fmt.Errorf("CreateAccess: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateAgreement(ctx context.Context, input *CreateAgreementRequest) (*CreateAgreementResponse, error) {
+	return nil, fmt.Errorf("CreateAgreement: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateConnector(ctx context.Context, input *CreateConnectorRequest) (*CreateConnectorResponse, error) {
+	return nil, fmt.Errorf("CreateConnector: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateProfile(ctx context.Context, input *CreateProfileRequest) (*CreateProfileResponse, error) {
+	return nil, fmt.Errorf("CreateProfile: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateServer(ctx context.Context, input *CreateServerRequest) (*CreateServerResponse, error) {
+	return nil, fmt.Errorf("CreateServer: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateUser(ctx context.Context, input *CreateUserRequest) (*CreateUserResponse, error) {
+	return nil, fmt.Errorf("CreateUser: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateWebApp(ctx context.Context, input *CreateWebAppRequest) (*CreateWebAppResponse, error) {
+	return nil, fmt.Errorf("CreateWebApp: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateWorkflow(ctx context.Context, input *CreateWorkflowRequest) (*CreateWorkflowResponse, error) {
+	return nil, fmt.Errorf("CreateWorkflow: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteAccess(ctx context.Context, input *DeleteAccessRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeleteAccess: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAgreement(ctx context.Context, input *DeleteAgreementRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteAgreement: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteCertificate(ctx context.Context, input *DeleteCertificateRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteCertificate: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteConnector(ctx context.Context, input *DeleteConnectorRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteConnector: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteHostKey(ctx context.Context, input *DeleteHostKeyRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeleteHostKey: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteProfile(ctx context.Context, input *DeleteProfileRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteProfile: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteServer(ctx context.Context, input *DeleteServerRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteServer: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteSshPublicKey(ctx context.Context, input *DeleteSshPublicKeyRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeleteSshPublicKey: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteUser(ctx context.Context, input *DeleteUserRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteUser: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteWebApp(ctx context.Context, input *DeleteWebAppRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteWebApp: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteWebAppCustomization(ctx context.Context, input *DeleteWebAppCustomizationRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteWebAppCustomization: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteWorkflow(ctx context.Context, input *DeleteWorkflowRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteWorkflow: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DescribeAccess(ctx context.Context, input *DescribeAccessRequest) (*DescribeAccessResponse, error) {
 	return nil, fmt.Errorf("DescribeAccess: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeAgreement(ctx context.Context, input *DescribeAgreementRequest) (*DescribeAgreementResponse, error) {
+	return nil, fmt.Errorf("DescribeAgreement: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeCertificate(ctx context.Context, input *DescribeCertificateRequest) (*DescribeCertificateResponse, error) {
+	return nil, fmt.Errorf("DescribeCertificate: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeConnector(ctx context.Context, input *DescribeConnectorRequest) (*DescribeConnectorResponse, error) {
+	return nil, fmt.Errorf("DescribeConnector: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeExecution(ctx context.Context, input *DescribeExecutionRequest) (*DescribeExecutionResponse, error) {
@@ -39,8 +115,36 @@ func (b *BaseProvider) DescribeHostKey(ctx context.Context, input *DescribeHostK
 	return nil, fmt.Errorf("DescribeHostKey: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DescribeProfile(ctx context.Context, input *DescribeProfileRequest) (*DescribeProfileResponse, error) {
+	return nil, fmt.Errorf("DescribeProfile: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DescribeSecurityPolicy(ctx context.Context, input *DescribeSecurityPolicyRequest) (*DescribeSecurityPolicyResponse, error) {
 	return nil, fmt.Errorf("DescribeSecurityPolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeServer(ctx context.Context, input *DescribeServerRequest) (*DescribeServerResponse, error) {
+	return nil, fmt.Errorf("DescribeServer: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeUser(ctx context.Context, input *DescribeUserRequest) (*DescribeUserResponse, error) {
+	return nil, fmt.Errorf("DescribeUser: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeWebApp(ctx context.Context, input *DescribeWebAppRequest) (*DescribeWebAppResponse, error) {
+	return nil, fmt.Errorf("DescribeWebApp: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeWebAppCustomization(ctx context.Context, input *DescribeWebAppCustomizationRequest) (*DescribeWebAppCustomizationResponse, error) {
+	return nil, fmt.Errorf("DescribeWebAppCustomization: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeWorkflow(ctx context.Context, input *DescribeWorkflowRequest) (*DescribeWorkflowResponse, error) {
+	return nil, fmt.Errorf("DescribeWorkflow: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ImportCertificate(ctx context.Context, input *ImportCertificateRequest) (*ImportCertificateResponse, error) {
+	return nil, fmt.Errorf("ImportCertificate: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ImportHostKey(ctx context.Context, input *ImportHostKeyRequest) (*ImportHostKeyResponse, error) {
@@ -55,6 +159,18 @@ func (b *BaseProvider) ListAccesses(ctx context.Context, input *ListAccessesRequ
 	return nil, fmt.Errorf("ListAccesses: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListAgreements(ctx context.Context, input *ListAgreementsRequest) (*ListAgreementsResponse, error) {
+	return nil, fmt.Errorf("ListAgreements: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListCertificates(ctx context.Context, input *ListCertificatesRequest) (*ListCertificatesResponse, error) {
+	return nil, fmt.Errorf("ListCertificates: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListConnectors(ctx context.Context, input *ListConnectorsRequest) (*ListConnectorsResponse, error) {
+	return nil, fmt.Errorf("ListConnectors: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListExecutions(ctx context.Context, input *ListExecutionsRequest) (*ListExecutionsResponse, error) {
 	return nil, fmt.Errorf("ListExecutions: %w", ErrNotImplemented)
 }
@@ -67,12 +183,32 @@ func (b *BaseProvider) ListHostKeys(ctx context.Context, input *ListHostKeysRequ
 	return nil, fmt.Errorf("ListHostKeys: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListProfiles(ctx context.Context, input *ListProfilesRequest) (*ListProfilesResponse, error) {
+	return nil, fmt.Errorf("ListProfiles: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListSecurityPolicies(ctx context.Context, input *ListSecurityPoliciesRequest) (*ListSecurityPoliciesResponse, error) {
 	return nil, fmt.Errorf("ListSecurityPolicies: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListServers(ctx context.Context, input *ListServersRequest) (*ListServersResponse, error) {
+	return nil, fmt.Errorf("ListServers: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListTagsForResource(ctx context.Context, input *ListTagsForResourceRequest) (*ListTagsForResourceResponse, error) {
 	return nil, fmt.Errorf("ListTagsForResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListUsers(ctx context.Context, input *ListUsersRequest) (*ListUsersResponse, error) {
+	return nil, fmt.Errorf("ListUsers: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListWebApps(ctx context.Context, input *ListWebAppsRequest) (*ListWebAppsResponse, error) {
+	return nil, fmt.Errorf("ListWebApps: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListWorkflows(ctx context.Context, input *ListWorkflowsRequest) (*ListWorkflowsResponse, error) {
+	return nil, fmt.Errorf("ListWorkflows: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) SendWorkflowStepState(ctx context.Context, input *SendWorkflowStepStateRequest) (*SendWorkflowStepStateResponse, error) {
@@ -123,6 +259,38 @@ func (b *BaseProvider) UpdateAccess(ctx context.Context, input *UpdateAccessRequ
 	return nil, fmt.Errorf("UpdateAccess: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) UpdateAgreement(ctx context.Context, input *UpdateAgreementRequest) (*UpdateAgreementResponse, error) {
+	return nil, fmt.Errorf("UpdateAgreement: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateCertificate(ctx context.Context, input *UpdateCertificateRequest) (*UpdateCertificateResponse, error) {
+	return nil, fmt.Errorf("UpdateCertificate: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateConnector(ctx context.Context, input *UpdateConnectorRequest) (*UpdateConnectorResponse, error) {
+	return nil, fmt.Errorf("UpdateConnector: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) UpdateHostKey(ctx context.Context, input *UpdateHostKeyRequest) (*UpdateHostKeyResponse, error) {
 	return nil, fmt.Errorf("UpdateHostKey: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateProfile(ctx context.Context, input *UpdateProfileRequest) (*UpdateProfileResponse, error) {
+	return nil, fmt.Errorf("UpdateProfile: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateServer(ctx context.Context, input *UpdateServerRequest) (*UpdateServerResponse, error) {
+	return nil, fmt.Errorf("UpdateServer: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateUser(ctx context.Context, input *UpdateUserRequest) (*UpdateUserResponse, error) {
+	return nil, fmt.Errorf("UpdateUser: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateWebApp(ctx context.Context, input *UpdateWebAppRequest) (*UpdateWebAppResponse, error) {
+	return nil, fmt.Errorf("UpdateWebApp: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateWebAppCustomization(ctx context.Context, input *UpdateWebAppCustomizationRequest) (*UpdateWebAppCustomizationResponse, error) {
+	return nil, fmt.Errorf("UpdateWebAppCustomization: %w", ErrNotImplemented)
 }

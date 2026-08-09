@@ -11,20 +11,100 @@ var ErrNotImplemented = fmt.Errorf("operation not implemented")
 
 type BaseProvider struct{}
 
+func (b *BaseProvider) AddLayerVersionPermission(ctx context.Context, input *AddLayerVersionPermissionRequest) (*AddLayerVersionPermissionResponse, error) {
+	return nil, fmt.Errorf("AddLayerVersionPermission: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) AddPermission(ctx context.Context, input *AddPermissionRequest) (*AddPermissionResponse, error) {
+	return nil, fmt.Errorf("AddPermission: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CheckpointDurableExecution(ctx context.Context, input *CheckpointDurableExecutionRequest) (*CheckpointDurableExecutionResponse, error) {
 	return nil, fmt.Errorf("CheckpointDurableExecution: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateAlias(ctx context.Context, input *CreateAliasRequest) (*AliasConfiguration, error) {
+	return nil, fmt.Errorf("CreateAlias: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateCapacityProvider(ctx context.Context, input *CreateCapacityProviderRequest) (*CreateCapacityProviderResponse, error) {
+	return nil, fmt.Errorf("CreateCapacityProvider: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateCodeSigningConfig(ctx context.Context, input *CreateCodeSigningConfigRequest) (*CreateCodeSigningConfigResponse, error) {
+	return nil, fmt.Errorf("CreateCodeSigningConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateEventSourceMapping(ctx context.Context, input *CreateEventSourceMappingRequest) (*EventSourceMappingConfiguration, error) {
+	return nil, fmt.Errorf("CreateEventSourceMapping: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateFunction(ctx context.Context, input *CreateFunctionRequest) (*FunctionConfiguration, error) {
+	return nil, fmt.Errorf("CreateFunction: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateFunctionUrlConfig(ctx context.Context, input *CreateFunctionUrlConfigRequest) (*CreateFunctionUrlConfigResponse, error) {
+	return nil, fmt.Errorf("CreateFunctionUrlConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAlias(ctx context.Context, input *DeleteAliasRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteAlias: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteCapacityProvider(ctx context.Context, input *DeleteCapacityProviderRequest) (*DeleteCapacityProviderResponse, error) {
+	return nil, fmt.Errorf("DeleteCapacityProvider: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteCodeSigningConfig(ctx context.Context, input *DeleteCodeSigningConfigRequest) (*DeleteCodeSigningConfigResponse, error) {
+	return nil, fmt.Errorf("DeleteCodeSigningConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteEventSourceMapping(ctx context.Context, input *DeleteEventSourceMappingRequest) (*EventSourceMappingConfiguration, error) {
+	return nil, fmt.Errorf("DeleteEventSourceMapping: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteFunction(ctx context.Context, input *DeleteFunctionRequest) (*DeleteFunctionResponse, error) {
 	return nil, fmt.Errorf("DeleteFunction: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteFunctionCodeSigningConfig(ctx context.Context, input *DeleteFunctionCodeSigningConfigRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteFunctionCodeSigningConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteFunctionConcurrency(ctx context.Context, input *DeleteFunctionConcurrencyRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteFunctionConcurrency: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteFunctionEventInvokeConfig(ctx context.Context, input *DeleteFunctionEventInvokeConfigRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeleteFunctionEventInvokeConfig: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteFunctionUrlConfig(ctx context.Context, input *DeleteFunctionUrlConfigRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteFunctionUrlConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteLayerVersion(ctx context.Context, input *DeleteLayerVersionRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteLayerVersion: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteProvisionedConcurrencyConfig(ctx context.Context, input *DeleteProvisionedConcurrencyConfigRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteProvisionedConcurrencyConfig: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetAccountSettings(ctx context.Context, input *GetAccountSettingsRequest) (*GetAccountSettingsResponse, error) {
 	return nil, fmt.Errorf("GetAccountSettings: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAlias(ctx context.Context, input *GetAliasRequest) (*AliasConfiguration, error) {
+	return nil, fmt.Errorf("GetAlias: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetCapacityProvider(ctx context.Context, input *GetCapacityProviderRequest) (*GetCapacityProviderResponse, error) {
+	return nil, fmt.Errorf("GetCapacityProvider: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetCodeSigningConfig(ctx context.Context, input *GetCodeSigningConfigRequest) (*GetCodeSigningConfigResponse, error) {
+	return nil, fmt.Errorf("GetCodeSigningConfig: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) GetDurableExecution(ctx context.Context, input *GetDurableExecutionRequest) (*GetDurableExecutionResponse, error) {
@@ -39,24 +119,180 @@ func (b *BaseProvider) GetDurableExecutionState(ctx context.Context, input *GetD
 	return nil, fmt.Errorf("GetDurableExecutionState: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetEventSourceMapping(ctx context.Context, input *GetEventSourceMappingRequest) (*EventSourceMappingConfiguration, error) {
+	return nil, fmt.Errorf("GetEventSourceMapping: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetFunction(ctx context.Context, input *GetFunctionRequest) (*GetFunctionResponse, error) {
+	return nil, fmt.Errorf("GetFunction: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetFunctionCodeSigningConfig(ctx context.Context, input *GetFunctionCodeSigningConfigRequest) (*GetFunctionCodeSigningConfigResponse, error) {
+	return nil, fmt.Errorf("GetFunctionCodeSigningConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetFunctionConcurrency(ctx context.Context, input *GetFunctionConcurrencyRequest) (*GetFunctionConcurrencyResponse, error) {
+	return nil, fmt.Errorf("GetFunctionConcurrency: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetFunctionConfiguration(ctx context.Context, input *GetFunctionConfigurationRequest) (*FunctionConfiguration, error) {
+	return nil, fmt.Errorf("GetFunctionConfiguration: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetFunctionEventInvokeConfig(ctx context.Context, input *GetFunctionEventInvokeConfigRequest) (*FunctionEventInvokeConfig, error) {
 	return nil, fmt.Errorf("GetFunctionEventInvokeConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetFunctionRecursionConfig(ctx context.Context, input *GetFunctionRecursionConfigRequest) (*GetFunctionRecursionConfigResponse, error) {
+	return nil, fmt.Errorf("GetFunctionRecursionConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetFunctionScalingConfig(ctx context.Context, input *GetFunctionScalingConfigRequest) (*GetFunctionScalingConfigResponse, error) {
+	return nil, fmt.Errorf("GetFunctionScalingConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetFunctionUrlConfig(ctx context.Context, input *GetFunctionUrlConfigRequest) (*GetFunctionUrlConfigResponse, error) {
+	return nil, fmt.Errorf("GetFunctionUrlConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetLayerVersion(ctx context.Context, input *GetLayerVersionRequest) (*GetLayerVersionResponse, error) {
+	return nil, fmt.Errorf("GetLayerVersion: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetLayerVersionByArn(ctx context.Context, input *GetLayerVersionByArnRequest) (*GetLayerVersionResponse, error) {
+	return nil, fmt.Errorf("GetLayerVersionByArn: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetLayerVersionPolicy(ctx context.Context, input *GetLayerVersionPolicyRequest) (*GetLayerVersionPolicyResponse, error) {
+	return nil, fmt.Errorf("GetLayerVersionPolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetPolicy(ctx context.Context, input *GetPolicyRequest) (*GetPolicyResponse, error) {
+	return nil, fmt.Errorf("GetPolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetProvisionedConcurrencyConfig(ctx context.Context, input *GetProvisionedConcurrencyConfigRequest) (*GetProvisionedConcurrencyConfigResponse, error) {
+	return nil, fmt.Errorf("GetProvisionedConcurrencyConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetRuntimeManagementConfig(ctx context.Context, input *GetRuntimeManagementConfigRequest) (*GetRuntimeManagementConfigResponse, error) {
+	return nil, fmt.Errorf("GetRuntimeManagementConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) Invoke(ctx context.Context, input *InvocationRequest) (*InvocationResponse, error) {
+	return nil, fmt.Errorf("Invoke: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) InvokeAsync(ctx context.Context, input *InvokeAsyncRequest) (*InvokeAsyncResponse, error) {
+	return nil, fmt.Errorf("InvokeAsync: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) InvokeWithResponseStream(ctx context.Context, input *InvokeWithResponseStreamRequest) (*InvokeWithResponseStreamResponse, error) {
+	return nil, fmt.Errorf("InvokeWithResponseStream: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListAliases(ctx context.Context, input *ListAliasesRequest) (*ListAliasesResponse, error) {
+	return nil, fmt.Errorf("ListAliases: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListCapacityProviders(ctx context.Context, input *ListCapacityProvidersRequest) (*ListCapacityProvidersResponse, error) {
+	return nil, fmt.Errorf("ListCapacityProviders: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListCodeSigningConfigs(ctx context.Context, input *ListCodeSigningConfigsRequest) (*ListCodeSigningConfigsResponse, error) {
+	return nil, fmt.Errorf("ListCodeSigningConfigs: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListDurableExecutionsByFunction(ctx context.Context, input *ListDurableExecutionsByFunctionRequest) (*ListDurableExecutionsByFunctionResponse, error) {
 	return nil, fmt.Errorf("ListDurableExecutionsByFunction: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListEventSourceMappings(ctx context.Context, input *ListEventSourceMappingsRequest) (*ListEventSourceMappingsResponse, error) {
+	return nil, fmt.Errorf("ListEventSourceMappings: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListFunctionEventInvokeConfigs(ctx context.Context, input *ListFunctionEventInvokeConfigsRequest) (*ListFunctionEventInvokeConfigsResponse, error) {
 	return nil, fmt.Errorf("ListFunctionEventInvokeConfigs: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListFunctionUrlConfigs(ctx context.Context, input *ListFunctionUrlConfigsRequest) (*ListFunctionUrlConfigsResponse, error) {
+	return nil, fmt.Errorf("ListFunctionUrlConfigs: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListFunctionVersionsByCapacityProvider(ctx context.Context, input *ListFunctionVersionsByCapacityProviderRequest) (*ListFunctionVersionsByCapacityProviderResponse, error) {
+	return nil, fmt.Errorf("ListFunctionVersionsByCapacityProvider: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListFunctions(ctx context.Context, input *ListFunctionsRequest) (*ListFunctionsResponse, error) {
+	return nil, fmt.Errorf("ListFunctions: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListFunctionsByCodeSigningConfig(ctx context.Context, input *ListFunctionsByCodeSigningConfigRequest) (*ListFunctionsByCodeSigningConfigResponse, error) {
+	return nil, fmt.Errorf("ListFunctionsByCodeSigningConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListLayerVersions(ctx context.Context, input *ListLayerVersionsRequest) (*ListLayerVersionsResponse, error) {
+	return nil, fmt.Errorf("ListLayerVersions: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListLayers(ctx context.Context, input *ListLayersRequest) (*ListLayersResponse, error) {
+	return nil, fmt.Errorf("ListLayers: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListProvisionedConcurrencyConfigs(ctx context.Context, input *ListProvisionedConcurrencyConfigsRequest) (*ListProvisionedConcurrencyConfigsResponse, error) {
+	return nil, fmt.Errorf("ListProvisionedConcurrencyConfigs: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListTags(ctx context.Context, input *ListTagsRequest) (*ListTagsResponse, error) {
 	return nil, fmt.Errorf("ListTags: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListVersionsByFunction(ctx context.Context, input *ListVersionsByFunctionRequest) (*ListVersionsByFunctionResponse, error) {
+	return nil, fmt.Errorf("ListVersionsByFunction: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PublishLayerVersion(ctx context.Context, input *PublishLayerVersionRequest) (*PublishLayerVersionResponse, error) {
+	return nil, fmt.Errorf("PublishLayerVersion: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PublishVersion(ctx context.Context, input *PublishVersionRequest) (*FunctionConfiguration, error) {
+	return nil, fmt.Errorf("PublishVersion: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutFunctionCodeSigningConfig(ctx context.Context, input *PutFunctionCodeSigningConfigRequest) (*PutFunctionCodeSigningConfigResponse, error) {
+	return nil, fmt.Errorf("PutFunctionCodeSigningConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutFunctionConcurrency(ctx context.Context, input *PutFunctionConcurrencyRequest) (*Concurrency, error) {
+	return nil, fmt.Errorf("PutFunctionConcurrency: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) PutFunctionEventInvokeConfig(ctx context.Context, input *PutFunctionEventInvokeConfigRequest) (*FunctionEventInvokeConfig, error) {
 	return nil, fmt.Errorf("PutFunctionEventInvokeConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutFunctionRecursionConfig(ctx context.Context, input *PutFunctionRecursionConfigRequest) (*PutFunctionRecursionConfigResponse, error) {
+	return nil, fmt.Errorf("PutFunctionRecursionConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutFunctionScalingConfig(ctx context.Context, input *PutFunctionScalingConfigRequest) (*PutFunctionScalingConfigResponse, error) {
+	return nil, fmt.Errorf("PutFunctionScalingConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutProvisionedConcurrencyConfig(ctx context.Context, input *PutProvisionedConcurrencyConfigRequest) (*PutProvisionedConcurrencyConfigResponse, error) {
+	return nil, fmt.Errorf("PutProvisionedConcurrencyConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutRuntimeManagementConfig(ctx context.Context, input *PutRuntimeManagementConfigRequest) (*PutRuntimeManagementConfigResponse, error) {
+	return nil, fmt.Errorf("PutRuntimeManagementConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) RemoveLayerVersionPermission(ctx context.Context, input *RemoveLayerVersionPermissionRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("RemoveLayerVersionPermission: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) RemovePermission(ctx context.Context, input *RemovePermissionRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("RemovePermission: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) SendDurableExecutionCallbackFailure(ctx context.Context, input *SendDurableExecutionCallbackFailureRequest) (*SendDurableExecutionCallbackFailureResponse, error) {
@@ -83,6 +319,34 @@ func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRe
 	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) UpdateAlias(ctx context.Context, input *UpdateAliasRequest) (*AliasConfiguration, error) {
+	return nil, fmt.Errorf("UpdateAlias: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateCapacityProvider(ctx context.Context, input *UpdateCapacityProviderRequest) (*UpdateCapacityProviderResponse, error) {
+	return nil, fmt.Errorf("UpdateCapacityProvider: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateCodeSigningConfig(ctx context.Context, input *UpdateCodeSigningConfigRequest) (*UpdateCodeSigningConfigResponse, error) {
+	return nil, fmt.Errorf("UpdateCodeSigningConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateEventSourceMapping(ctx context.Context, input *UpdateEventSourceMappingRequest) (*EventSourceMappingConfiguration, error) {
+	return nil, fmt.Errorf("UpdateEventSourceMapping: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateFunctionCode(ctx context.Context, input *UpdateFunctionCodeRequest) (*FunctionConfiguration, error) {
+	return nil, fmt.Errorf("UpdateFunctionCode: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateFunctionConfiguration(ctx context.Context, input *UpdateFunctionConfigurationRequest) (*FunctionConfiguration, error) {
+	return nil, fmt.Errorf("UpdateFunctionConfiguration: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) UpdateFunctionEventInvokeConfig(ctx context.Context, input *UpdateFunctionEventInvokeConfigRequest) (*FunctionEventInvokeConfig, error) {
 	return nil, fmt.Errorf("UpdateFunctionEventInvokeConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateFunctionUrlConfig(ctx context.Context, input *UpdateFunctionUrlConfigRequest) (*UpdateFunctionUrlConfigResponse, error) {
+	return nil, fmt.Errorf("UpdateFunctionUrlConfig: %w", ErrNotImplemented)
 }

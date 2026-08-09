@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/skyoo2003/devcloud/internal/shared"
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
 )
 
@@ -140,15 +141,17 @@ type MetricDataPoint struct {
 
 type CWStore struct {
 	store *sqlite.Store
+	tags  *shared.TagStore
 }
 
 func NewCWStore(dataDir string) (*CWStore, error) {
 	dbPath := filepath.Join(dataDir, "cloudwatch.db")
-	s, err := sqlite.Open(dbPath, migrations)
+	allMigrations := append(migrations, shared.TagMigrations...)
+	s, err := sqlite.Open(dbPath, allMigrations)
 	if err != nil {
 		return nil, err
 	}
-	return &CWStore{store: s}, nil
+	return &CWStore{store: s, tags: shared.NewTagStore(s)}, nil
 }
 
 func (s *CWStore) Close() error { return s.store.Close() }
@@ -278,10 +281,22 @@ func (s *CWStore) DescribeAlarms(accountID string, alarmNames []string) ([]Alarm
 	return scanAlarms(rows)
 }
 
+// alarmARN is the ARN an alarm's tags are filed under. DevCloud does not hand
+// out AlarmArn today, so this mirrors what a caller constructs from the name;
+// tags applied under a different region or account are not reachable from here.
+func alarmARN(name, accountID string) string {
+	return "arn:aws:cloudwatch:us-east-1:" + accountID + ":alarm:" + name
+}
+
 func (s *CWStore) DeleteAlarms(accountID string, alarmNames []string) error {
 	for _, name := range alarmNames {
 		_, err := s.store.DB().Exec(`DELETE FROM alarms WHERE alarm_name = ? AND account_id = ?`, name, accountID)
 		if err != nil {
+			return err
+		}
+		// The ARN is derived from the name, so recreating the alarm would
+		// otherwise inherit the deleted one's tags.
+		if err := s.tags.DeleteAllTags(alarmARN(name, accountID)); err != nil {
 			return err
 		}
 	}

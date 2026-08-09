@@ -189,3 +189,78 @@ def test_event_pattern(events_client):
         ),
     )
     assert resp2["Result"] is False
+
+
+def test_tag_round_trip(events_client):
+    """Tags must persist: the round-trip the generic CRUD engine cannot do."""
+    bus = events_client.create_event_bus(Name="tag-bus")
+    arn = bus["EventBusArn"]
+
+    events_client.tag_resource(
+        ResourceARN=arn,
+        Tags=[{"Key": "env", "Value": "dev"}, {"Key": "team", "Value": "platform"}],
+    )
+    tags = {
+        t["Key"]: t["Value"]
+        for t in events_client.list_tags_for_resource(ResourceARN=arn)["Tags"]
+    }
+    assert tags == {"env": "dev", "team": "platform"}
+
+    events_client.untag_resource(ResourceARN=arn, TagKeys=["env"])
+    tags = {
+        t["Key"]: t["Value"]
+        for t in events_client.list_tags_for_resource(ResourceARN=arn)["Tags"]
+    }
+    assert tags == {"team": "platform"}
+
+
+def test_tags_do_not_survive_delete(events_client):
+    """A recreated bus reuses its ARN, so a delete must drop its tags with it."""
+    arn = events_client.create_event_bus(Name="tag-ghost-bus")["EventBusArn"]
+    events_client.tag_resource(ResourceARN=arn, Tags=[{"Key": "env", "Value": "dev"}])
+    events_client.delete_event_bus(Name="tag-ghost-bus")
+
+    recreated = events_client.create_event_bus(Name="tag-ghost-bus")["EventBusArn"]
+    assert recreated == arn
+    assert events_client.list_tags_for_resource(ResourceARN=arn)["Tags"] == []
+
+
+def test_rule_tags_do_not_survive_delete(events_client):
+    events_client.put_rule(Name="tag-ghost-rule", ScheduleExpression="rate(5 minutes)")
+    arn = events_client.describe_rule(Name="tag-ghost-rule")["Arn"]
+    events_client.tag_resource(ResourceARN=arn, Tags=[{"Key": "env", "Value": "dev"}])
+    events_client.delete_rule(Name="tag-ghost-rule")
+
+    events_client.put_rule(Name="tag-ghost-rule", ScheduleExpression="rate(5 minutes)")
+    assert events_client.list_tags_for_resource(ResourceARN=arn)["Tags"] == []
+
+
+def test_same_named_rules_on_different_buses_do_not_share_tags(events_client):
+    """A rule name is unique per bus, so the bus must be part of the rule ARN."""
+    events_client.create_event_bus(Name="bus-a")
+    events_client.create_event_bus(Name="bus-b")
+    for bus in ("bus-a", "bus-b"):
+        events_client.put_rule(
+            Name="shared-name", EventBusName=bus, ScheduleExpression="rate(5 minutes)"
+        )
+
+    arn_a = events_client.describe_rule(Name="shared-name", EventBusName="bus-a")["Arn"]
+    arn_b = events_client.describe_rule(Name="shared-name", EventBusName="bus-b")["Arn"]
+    assert arn_a != arn_b
+
+    events_client.tag_resource(ResourceARN=arn_a, Tags=[{"Key": "bus", "Value": "a"}])
+    assert events_client.list_tags_for_resource(ResourceARN=arn_b)["Tags"] == []
+
+    # Deleting one rule must not strip the other's tags.
+    events_client.delete_rule(Name="shared-name", EventBusName="bus-b")
+    tags = events_client.list_tags_for_resource(ResourceARN=arn_a)["Tags"]
+    assert tags == [{"Key": "bus", "Value": "a"}]
+
+
+def test_tags_are_per_resource(events_client):
+    """Two resources do not share a tag set."""
+    a = events_client.create_event_bus(Name="tag-bus-a")["EventBusArn"]
+    b = events_client.create_event_bus(Name="tag-bus-b")["EventBusArn"]
+
+    events_client.tag_resource(ResourceARN=a, Tags=[{"Key": "only", "Value": "a"}])
+    assert events_client.list_tags_for_resource(ResourceARN=b)["Tags"] == []

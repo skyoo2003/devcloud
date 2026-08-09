@@ -959,6 +959,9 @@ type SignInOptions struct {
 	Origin         string `json:"origin" xml:"Origin"`
 }
 
+type SmithyUnit struct {
+}
+
 type Tag struct {
 	Key   string `json:"key" xml:"Key"`
 	Value string `json:"value" xml:"Value"`

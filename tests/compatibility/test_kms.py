@@ -152,3 +152,52 @@ def test_update_key_description(kms_client):
     kms_client.update_key_description(KeyId=kid, Description="updated")
     desc = kms_client.describe_key(KeyId=kid)
     assert desc["KeyMetadata"]["Description"] == "updated"
+
+
+def test_tag_round_trip(kms_client):
+    """Tags must persist: the round-trip the generic CRUD engine cannot do."""
+    key = kms_client.create_key(Description="tag test")
+    kid = key["KeyMetadata"]["KeyId"]
+
+    kms_client.tag_resource(
+        KeyId=kid,
+        Tags=[
+            {"TagKey": "env", "TagValue": "dev"},
+            {"TagKey": "team", "TagValue": "platform"},
+        ],
+    )
+    tags = {
+        t["TagKey"]: t["TagValue"]
+        for t in kms_client.list_resource_tags(KeyId=kid)["Tags"]
+    }
+    assert tags == {"env": "dev", "team": "platform"}
+
+    kms_client.untag_resource(KeyId=kid, TagKeys=["env"])
+    tags = {
+        t["TagKey"]: t["TagValue"]
+        for t in kms_client.list_resource_tags(KeyId=kid)["Tags"]
+    }
+    assert tags == {"team": "platform"}
+
+
+def test_tags_are_keyed_by_key_arn(kms_client):
+    """Tagging by id and listing by ARN address the same resource."""
+    key = kms_client.create_key(Description="arn tag test")
+    kid = key["KeyMetadata"]["KeyId"]
+    arn = key["KeyMetadata"]["Arn"]
+
+    kms_client.tag_resource(KeyId=kid, Tags=[{"TagKey": "by", "TagValue": "id"}])
+    tags = {
+        t["TagKey"]: t["TagValue"]
+        for t in kms_client.list_resource_tags(KeyId=arn)["Tags"]
+    }
+    assert tags == {"by": "id"}
+
+
+def test_tag_unknown_key_is_rejected(kms_client):
+    with pytest.raises(ClientError) as err:
+        kms_client.tag_resource(
+            KeyId="00000000-0000-0000-0000-000000000000",
+            Tags=[{"TagKey": "env", "TagValue": "dev"}],
+        )
+    assert err.value.response["Error"]["Code"] == "NotFoundException"

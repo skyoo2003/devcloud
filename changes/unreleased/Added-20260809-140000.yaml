@@ -1,0 +1,5 @@
+kind: Added
+body: Real tag support for KMS, CloudWatch and EventBridge — TagResource, UntagResource and ListTagsForResource/ListResourceTags now persist tags per resource ARN instead of being echoed by the generic CRUD engine
+time: 2026-08-09T14:00:00.000000+09:00
+custom:
+    Issue: ""

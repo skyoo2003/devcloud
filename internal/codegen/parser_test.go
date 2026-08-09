@@ -72,3 +72,96 @@ func TestParseSmithyJSON(t *testing.T) {
 	require.True(t, ok)
 	assert.Equal(t, ShapeList, bucketList.Type)
 }
+
+// resourceModel is a minimal model whose operations hang off resource shapes
+// rather than the service's own operations list — the shape real AWS models like
+// lambda, ecs and bedrock use.
+const resourceModel = `{
+  "smithy": "2.0",
+  "shapes": {
+    "com.amazonaws.demo#Demo": {
+      "type": "service",
+      "version": "2020-01-01",
+      "operations": [{"target": "com.amazonaws.demo#DirectOp"}],
+      "resources": [{"target": "com.amazonaws.demo#Widget"}],
+      "traits": {"aws.protocols#awsJson1_1": {}}
+    },
+    "com.amazonaws.demo#Widget": {
+      "type": "resource",
+      "read": {"target": "com.amazonaws.demo#GetWidget"},
+      "delete": {"target": "com.amazonaws.demo#DeleteWidget"},
+      "list": {"target": "com.amazonaws.demo#ListWidgets"},
+      "operations": [{"target": "com.amazonaws.demo#TagWidget"}],
+      "collectionOperations": [{"target": "com.amazonaws.demo#PurgeWidgets"}],
+      "resources": [{"target": "com.amazonaws.demo#Gadget"}]
+    },
+    "com.amazonaws.demo#Gadget": {
+      "type": "resource",
+      "read": {"target": "com.amazonaws.demo#GetGadget"}
+    },
+    "com.amazonaws.demo#DirectOp": {"type": "operation"},
+    "com.amazonaws.demo#GetWidget": {"type": "operation", "output": {"target": "com.amazonaws.demo#GetWidgetOutput"}},
+    "com.amazonaws.demo#DeleteWidget": {"type": "operation"},
+    "com.amazonaws.demo#ListWidgets": {"type": "operation"},
+    "com.amazonaws.demo#TagWidget": {"type": "operation"},
+    "com.amazonaws.demo#PurgeWidgets": {"type": "operation"},
+    "com.amazonaws.demo#GetGadget": {"type": "operation"},
+    "com.amazonaws.demo#GetWidgetOutput": {"type": "structure", "members": {}}
+  }
+}`
+
+func TestParseSmithyJSON_ResourceAttachedOperations(t *testing.T) {
+	model, err := ParseSmithyJSON([]byte(resourceModel))
+	require.NoError(t, err)
+
+	names := make([]string, 0, len(model.Operations))
+	for _, op := range model.Operations {
+		names = append(names, op.Name)
+	}
+
+	// Lifecycle bindings, operations, collectionOperations and nested resources
+	// all contribute; the service's own list still counts.
+	assert.Equal(t, []string{
+		"DeleteWidget", "DirectOp", "GetGadget", "GetWidget",
+		"ListWidgets", "PurgeWidgets", "TagWidget",
+	}, names, "operations must be collected from resources and sorted")
+
+	// Output wiring survives the resource walk.
+	var getWidget *Operation
+	for i := range model.Operations {
+		if model.Operations[i].Name == "GetWidget" {
+			getWidget = &model.Operations[i]
+		}
+	}
+	require.NotNil(t, getWidget)
+	assert.Equal(t, "GetWidgetOutput", getWidget.OutputName)
+}
+
+func TestParseSmithyJSON_ResourceCycleTerminates(t *testing.T) {
+	const cyclic = `{
+      "smithy": "2.0",
+      "shapes": {
+        "com.amazonaws.demo#Demo": {
+          "type": "service",
+          "version": "2020-01-01",
+          "resources": [{"target": "com.amazonaws.demo#A"}],
+          "traits": {"aws.protocols#awsJson1_1": {}}
+        },
+        "com.amazonaws.demo#A": {
+          "type": "resource",
+          "read": {"target": "com.amazonaws.demo#GetA"},
+          "resources": [{"target": "com.amazonaws.demo#B"}]
+        },
+        "com.amazonaws.demo#B": {
+          "type": "resource",
+          "resources": [{"target": "com.amazonaws.demo#A"}]
+        },
+        "com.amazonaws.demo#GetA": {"type": "operation"}
+      }
+    }`
+
+	model, err := ParseSmithyJSON([]byte(cyclic))
+	require.NoError(t, err)
+	require.Len(t, model.Operations, 1)
+	assert.Equal(t, "GetA", model.Operations[0].Name)
+}

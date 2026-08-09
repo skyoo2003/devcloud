@@ -59,8 +59,20 @@ func (b *BaseProvider) DeleteApplication(ctx context.Context, input *DeleteAppli
 	return nil, fmt.Errorf("DeleteApplication: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteApplicationAccessScope(ctx context.Context, input *DeleteApplicationAccessScopeRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteApplicationAccessScope: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteApplicationAssignment(ctx context.Context, input *DeleteApplicationAssignmentRequest) (*DeleteApplicationAssignmentResponse, error) {
 	return nil, fmt.Errorf("DeleteApplicationAssignment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteApplicationAuthenticationMethod(ctx context.Context, input *DeleteApplicationAuthenticationMethodRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteApplicationAuthenticationMethod: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteApplicationGrant(ctx context.Context, input *DeleteApplicationGrantRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteApplicationGrant: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteInlinePolicyFromPermissionSet(ctx context.Context, input *DeleteInlinePolicyFromPermissionSetRequest) (*DeleteInlinePolicyFromPermissionSetResponse, error) {
@@ -139,8 +151,20 @@ func (b *BaseProvider) DetachManagedPolicyFromPermissionSet(ctx context.Context,
 	return nil, fmt.Errorf("DetachManagedPolicyFromPermissionSet: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetApplicationAccessScope(ctx context.Context, input *GetApplicationAccessScopeRequest) (*GetApplicationAccessScopeResponse, error) {
+	return nil, fmt.Errorf("GetApplicationAccessScope: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetApplicationAssignmentConfiguration(ctx context.Context, input *GetApplicationAssignmentConfigurationRequest) (*GetApplicationAssignmentConfigurationResponse, error) {
 	return nil, fmt.Errorf("GetApplicationAssignmentConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetApplicationAuthenticationMethod(ctx context.Context, input *GetApplicationAuthenticationMethodRequest) (*GetApplicationAuthenticationMethodResponse, error) {
+	return nil, fmt.Errorf("GetApplicationAuthenticationMethod: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetApplicationGrant(ctx context.Context, input *GetApplicationGrantRequest) (*GetApplicationGrantResponse, error) {
+	return nil, fmt.Errorf("GetApplicationGrant: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) GetApplicationSessionConfiguration(ctx context.Context, input *GetApplicationSessionConfigurationRequest) (*GetApplicationSessionConfigurationResponse, error) {
@@ -175,12 +199,24 @@ func (b *BaseProvider) ListAccountsForProvisionedPermissionSet(ctx context.Conte
 	return nil, fmt.Errorf("ListAccountsForProvisionedPermissionSet: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListApplicationAccessScopes(ctx context.Context, input *ListApplicationAccessScopesRequest) (*ListApplicationAccessScopesResponse, error) {
+	return nil, fmt.Errorf("ListApplicationAccessScopes: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListApplicationAssignments(ctx context.Context, input *ListApplicationAssignmentsRequest) (*ListApplicationAssignmentsResponse, error) {
 	return nil, fmt.Errorf("ListApplicationAssignments: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListApplicationAssignmentsForPrincipal(ctx context.Context, input *ListApplicationAssignmentsForPrincipalRequest) (*ListApplicationAssignmentsForPrincipalResponse, error) {
 	return nil, fmt.Errorf("ListApplicationAssignmentsForPrincipal: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListApplicationAuthenticationMethods(ctx context.Context, input *ListApplicationAuthenticationMethodsRequest) (*ListApplicationAuthenticationMethodsResponse, error) {
+	return nil, fmt.Errorf("ListApplicationAuthenticationMethods: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListApplicationGrants(ctx context.Context, input *ListApplicationGrantsRequest) (*ListApplicationGrantsResponse, error) {
+	return nil, fmt.Errorf("ListApplicationGrants: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListApplicationProviders(ctx context.Context, input *ListApplicationProvidersRequest) (*ListApplicationProvidersResponse, error) {
@@ -231,8 +267,20 @@ func (b *BaseProvider) ProvisionPermissionSet(ctx context.Context, input *Provis
 	return nil, fmt.Errorf("ProvisionPermissionSet: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) PutApplicationAccessScope(ctx context.Context, input *PutApplicationAccessScopeRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("PutApplicationAccessScope: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) PutApplicationAssignmentConfiguration(ctx context.Context, input *PutApplicationAssignmentConfigurationRequest) (*PutApplicationAssignmentConfigurationResponse, error) {
 	return nil, fmt.Errorf("PutApplicationAssignmentConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutApplicationAuthenticationMethod(ctx context.Context, input *PutApplicationAuthenticationMethodRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("PutApplicationAuthenticationMethod: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutApplicationGrant(ctx context.Context, input *PutApplicationGrantRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("PutApplicationGrant: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) PutApplicationSessionConfiguration(ctx context.Context, input *PutApplicationSessionConfigurationRequest) (*PutApplicationSessionConfigurationResponse, error) {

@@ -11,6 +11,7 @@ import (
 	"io"
 	"net/http"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -122,6 +123,12 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	case "CancelReplay":
 		return p.cancelReplay(params)
 	// Test
+	case "TagResource":
+		return p.tagResource(params)
+	case "UntagResource":
+		return p.untagResource(params)
+	case "ListTagsForResource":
+		return p.listTagsForResource(params)
 	case "TestEventPattern":
 		return p.testEventPattern(params)
 	default:
@@ -150,7 +157,7 @@ func (p *Provider) createEventBus(params map[string]any) (*plugin.Response, erro
 	if err := p.store.CreateEventBus(name, defaultAccountID); err != nil {
 		return nil, err
 	}
-	arn := "arn:aws:events:us-east-1:" + defaultAccountID + ":event-bus/" + name
+	arn := busARN(name, defaultAccountID)
 	return jsonResp(http.StatusOK, map[string]any{"EventBusArn": arn})
 }
 
@@ -198,7 +205,7 @@ func (p *Provider) putRule(params map[string]any) (*plugin.Response, error) {
 	if err := p.store.PutRule(name, busName, defaultAccountID, eventPattern, state, scheduleExpression); err != nil {
 		return nil, err
 	}
-	arn := "arn:aws:events:us-east-1:" + defaultAccountID + ":rule/" + name
+	arn := ruleARN(name, busName, defaultAccountID)
 	return jsonResp(http.StatusOK, map[string]any{"RuleArn": arn})
 }
 
@@ -225,7 +232,7 @@ func (p *Provider) listRules(params map[string]any) (*plugin.Response, error) {
 	}
 	list := make([]map[string]any, 0, len(rules))
 	for _, r := range rules {
-		arn := "arn:aws:events:us-east-1:" + defaultAccountID + ":rule/" + r.Name
+		arn := ruleARN(r.Name, busName, defaultAccountID)
 		list = append(list, map[string]any{
 			"Name":  r.Name,
 			"Arn":   arn,
@@ -358,7 +365,7 @@ func (p *Provider) describeRule(params map[string]any) (*plugin.Response, error)
 	if err != nil {
 		return ebError("ResourceNotFoundException", "Rule "+name+" does not exist.", http.StatusBadRequest), nil
 	}
-	arn := "arn:aws:events:us-east-1:" + defaultAccountID + ":rule/" + rule.Name
+	arn := ruleARN(rule.Name, busName, defaultAccountID)
 	result := map[string]any{
 		"Name":         rule.Name,
 		"Arn":          arn,
@@ -782,6 +789,74 @@ func matchesPattern(pattern map[string]any, event map[string]any) bool {
 		}
 	}
 	return true
+}
+
+// --- Tags ---
+//
+// ponytail: tags are stored against whatever ARN the caller passes; the resource
+// is not checked for existence. Validate against the rule/bus tables if a test
+// ever depends on ResourceNotFoundException.
+
+func (p *Provider) tagResource(params map[string]any) (*plugin.Response, error) {
+	arn, _ := params["ResourceARN"].(string)
+	if arn == "" {
+		return ebError("ValidationException", "ResourceARN is required", http.StatusBadRequest), nil
+	}
+	tags := make(map[string]string)
+	rawTags, _ := params["Tags"].([]any)
+	for _, t := range rawTags {
+		m, ok := t.(map[string]any)
+		if !ok {
+			continue
+		}
+		if k, _ := m["Key"].(string); k != "" {
+			v, _ := m["Value"].(string)
+			tags[k] = v
+		}
+	}
+	if err := p.store.tags.AddTags(arn, tags); err != nil {
+		return nil, err
+	}
+	return jsonResp(http.StatusOK, map[string]any{})
+}
+
+func (p *Provider) untagResource(params map[string]any) (*plugin.Response, error) {
+	arn, _ := params["ResourceARN"].(string)
+	if arn == "" {
+		return ebError("ValidationException", "ResourceARN is required", http.StatusBadRequest), nil
+	}
+	rawKeys, _ := params["TagKeys"].([]any)
+	keys := make([]string, 0, len(rawKeys))
+	for _, k := range rawKeys {
+		if s, ok := k.(string); ok && s != "" {
+			keys = append(keys, s)
+		}
+	}
+	if err := p.store.tags.RemoveTags(arn, keys); err != nil {
+		return nil, err
+	}
+	return jsonResp(http.StatusOK, map[string]any{})
+}
+
+func (p *Provider) listTagsForResource(params map[string]any) (*plugin.Response, error) {
+	arn, _ := params["ResourceARN"].(string)
+	if arn == "" {
+		return ebError("ValidationException", "ResourceARN is required", http.StatusBadRequest), nil
+	}
+	tags, err := p.store.tags.ListTags(arn)
+	if err != nil {
+		return nil, err
+	}
+	names := make([]string, 0, len(tags))
+	for name := range tags {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+	list := make([]map[string]any, 0, len(names))
+	for _, name := range names {
+		list = append(list, map[string]any{"Key": name, "Value": tags[name]})
+	}
+	return jsonResp(http.StatusOK, map[string]any{"Tags": list})
 }
 
 func ebError(code, message string, status int) *plugin.Response {

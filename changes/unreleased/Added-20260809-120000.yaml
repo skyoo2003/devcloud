@@ -1,0 +1,5 @@
+kind: Added
+body: Per-operation fidelity manifest declaring every operation as hand-verified, auto-crud or unimplemented, exposed at `GET /devcloud/api/fidelity` and enforced by a build-failing coverage test
+time: 2026-08-09T12:00:00.000000+09:00
+custom:
+    Issue: ""

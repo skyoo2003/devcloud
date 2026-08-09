@@ -28,6 +28,18 @@ type rawShape struct {
 	Value      *rawMember                 `json:"value"`
 	Version    string                     `json:"version"`
 	Traits     map[string]json.RawMessage `json:"traits"`
+
+	// Resource bindings. Services and resources both nest resources, and a
+	// resource binds operations through `operations`, `collectionOperations` and
+	// the lifecycle slots below.
+	Resources            []rawTarget `json:"resources"`
+	CollectionOperations []rawTarget `json:"collectionOperations"`
+	Create               *rawTarget  `json:"create"`
+	Put                  *rawTarget  `json:"put"`
+	Read                 *rawTarget  `json:"read"`
+	Update               *rawTarget  `json:"update"`
+	Delete               *rawTarget  `json:"delete"`
+	List                 *rawTarget  `json:"list"`
 }
 
 type rawTarget struct {
@@ -80,12 +92,12 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 	}
 
 	// Parse operations
-	for _, opRef := range serviceShape.Operations {
-		opShape, ok := parsed[opRef.Target]
+	for _, opFQN := range collectOperationTargets(parsed, serviceShape) {
+		opShape, ok := parsed[opFQN]
 		if !ok {
 			continue
 		}
-		op := Operation{Name: shortName(opRef.Target)}
+		op := Operation{Name: shortName(opFQN)}
 		if opShape.Input != nil {
 			if opShape.Input.Target == "smithy.api#Unit" {
 				op.InputName = "SmithyUnit"
@@ -259,6 +271,55 @@ func resolveSimpleType(shapes map[string]*Shape) {
 			shape.ValueMember.GoType = resolve(shape.ValueMember.GoType)
 		}
 	}
+}
+
+// collectOperationTargets returns the FQN of every operation the service binds,
+// walking both the service's own operations list and every resource reachable
+// from it. Smithy lets a resource carry operations through `operations`,
+// `collectionOperations` and the lifecycle slots, so a model built around
+// resources (lambda, ecs, bedrock) exposes only a fraction of its API when the
+// service list is read alone. Resources are visited once, so a cyclic resource
+// graph terminates.
+func collectOperationTargets(shapes map[string]*rawShape, service *rawShape) []string {
+	var targets []string
+	seen := make(map[string]bool)
+	add := func(refs ...*rawTarget) {
+		for _, ref := range refs {
+			if ref == nil || ref.Target == "" || seen[ref.Target] {
+				continue
+			}
+			seen[ref.Target] = true
+			targets = append(targets, ref.Target)
+		}
+	}
+	addAll := func(refs []rawTarget) {
+		for i := range refs {
+			add(&refs[i])
+		}
+	}
+
+	addAll(service.Operations)
+
+	visited := make(map[string]bool)
+	queue := append([]rawTarget(nil), service.Resources...)
+	for len(queue) > 0 {
+		ref := queue[0]
+		queue = queue[1:]
+		if visited[ref.Target] {
+			continue
+		}
+		visited[ref.Target] = true
+
+		res, ok := shapes[ref.Target]
+		if !ok || res.Type != "resource" {
+			continue
+		}
+		addAll(res.Operations)
+		addAll(res.CollectionOperations)
+		add(res.Create, res.Put, res.Read, res.Update, res.Delete, res.List)
+		queue = append(queue, res.Resources...)
+	}
+	return targets
 }
 
 func shortName(fqn string) string {
