@@ -156,12 +156,17 @@ jobs:
           echo "::error::$notes contains no changie entries. Release notes come from fragments — run 'changie batch ${{ steps.resolve_tag.outputs.tag }}' and 'changie merge'."
           exit 1
         fi
-        # Any other bullet form means the file was edited by hand, and hand
-        # edits are exactly what the entry check below cannot vouch for.
-        handwritten="$(grep -nE '^[-+] ' "$notes" || true)"
-        if [ -n "$handwritten" ]; then
-          echo "$handwritten"
-          echo "::error::The lines above are hand-written bullets, not changie entries. Move them into changes/unreleased fragments and re-batch."
+        # A batched file holds only what .changie.yaml renders: the version
+        # heading, one kind heading per section, and one '* ...' entry per
+        # fragment. Allowing those three shapes and rejecting every other
+        # line catches the hand edits the entry check below cannot vouch for.
+        # Enumerating bullet markers instead misses everything that is not one
+        # — '1. text', an indented '  - text', a pasted paragraph — and each of
+        # those publishes with nothing about it checked.
+        foreign="$(grep -nvE '^$|^## |^### |^\* ' "$notes" || true)"
+        if [ -n "$foreign" ]; then
+          echo "$foreign"
+          echo "::error::The lines above are not changie output. Move them into changes/unreleased fragments and re-batch."
           exit 1
         fi
         # 'changie batch' does not validate custom fields on hand-written
