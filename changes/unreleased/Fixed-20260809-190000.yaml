@@ -1,0 +1,5 @@
+kind: Fixed
+body: Downloadable binaries now start. Releases were built with CGO_ENABLED=0 while the SQLite driver required cgo, so every tar.gz/zip binary, the Homebrew formula and the versioned `*-alpine` images exited at startup with "go-sqlite3 requires cgo to work. This is a stub" — only the rolling `latest` image, built separately with cgo, worked. The driver is now pure Go, so no build needs a C toolchain or SQLite headers
+time: 2026-08-09T19:00:00.000000+09:00
+custom:
+    Issue: "128"
