@@ -40,9 +40,13 @@ func modelOperationsForTest(t *testing.T) map[string][]string {
 	return ops
 }
 
-func TestScanHandVerified(t *testing.T) {
-	got, err := ScanHandVerified("../services", modelOperationsForTest(t))
+func TestScanProviders(t *testing.T) {
+	scans, err := ScanProviders("../services", modelOperationsForTest(t))
 	require.NoError(t, err)
+	got := make(map[string][]string, len(scans))
+	for id, scan := range scans {
+		got[id] = scan.Operations
+	}
 
 	// Every registered service resolves; the count tracks internal/services.
 	assert.GreaterOrEqual(t, len(got), 100, "expected the full service fleet")
@@ -68,7 +72,7 @@ func TestScanHandVerified(t *testing.T) {
 	}
 }
 
-func TestScanHandVerifiedIgnoresNonOperationLiterals(t *testing.T) {
+func TestScanProvidersIgnoresNonOperationLiterals(t *testing.T) {
 	dir := t.TempDir()
 	pkg := filepath.Join(dir, "demo")
 	require.NoError(t, os.MkdirAll(pkg, 0o755))
@@ -93,9 +97,9 @@ func (p *Provider) HandleRequest(op string) string {
 `
 	require.NoError(t, os.WriteFile(filepath.Join(pkg, "provider.go"), []byte(src), 0o600))
 
-	got, err := ScanHandVerified(dir, map[string][]string{"demo": {"GetWidget", "ListWidgets"}})
+	got, err := ScanProviders(dir, map[string][]string{"demo": {"GetWidget", "ListWidgets"}})
 	require.NoError(t, err)
-	assert.Equal(t, []string{"GetWidget", "ListWidgets"}, got["demo"],
+	assert.Equal(t, []string{"GetWidget", "ListWidgets"}, got["demo"].Operations,
 		"literals the model does not declare must be dropped")
 }
 
@@ -120,15 +124,38 @@ func TestPathRoutedOverridesAreReal(t *testing.T) {
 	}
 }
 
-// TestScanHandVerifiedIsDeterministic keeps generated output stable across runs.
-func TestScanHandVerifiedIsDeterministic(t *testing.T) {
+// TestScanProvidersIsDeterministic keeps generated output stable across runs.
+func TestScanProvidersIsDeterministic(t *testing.T) {
 	models := modelOperationsForTest(t)
-	first, err := ScanHandVerified("../services", models)
+	first, err := ScanProviders("../services", models)
 	require.NoError(t, err)
-	second, err := ScanHandVerified("../services", models)
+	second, err := ScanProviders("../services", models)
 	require.NoError(t, err)
 
 	a, _ := json.Marshal(first)
 	b, _ := json.Marshal(second)
 	assert.JSONEq(t, string(a), string(b))
+}
+
+// TestScanProvidersReadsProtocol pins the other half of the scan: the manifest
+// must know the protocol a provider actually serves, which can differ from the
+// Smithy model's. cloudwatch is the case that matters — its model declares JSON
+// while the provider answers Query, and the CRUD engine serves only JSON.
+func TestScanProvidersReadsProtocol(t *testing.T) {
+	scans, err := ScanProviders("../services", modelOperationsForTest(t))
+	require.NoError(t, err)
+
+	assert.Equal(t, "Query", scans["cloudwatch"].Protocol)
+	assert.Equal(t, "Query", scans["sqs"].Protocol)
+	assert.Equal(t, "JSON11", scans["kms"].Protocol)
+	assert.Equal(t, "JSON10", scans["dynamodb"].Protocol)
+	assert.Equal(t, "RESTXML", scans["s3"].Protocol)
+
+	assert.False(t, JSONProtocol("Query"))
+	assert.False(t, JSONProtocol("RESTJSON"), "rest-json carries no X-Amz-Target, so the engine cannot serve it")
+	assert.True(t, JSONProtocol("JSON11"))
+
+	for id, scan := range scans {
+		assert.NotEmpty(t, scan.Protocol, "%s: provider declares no protocol", id)
+	}
 }

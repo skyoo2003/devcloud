@@ -97,6 +97,13 @@ func main() {
 	// Write the aggregate CRUD registry only when generating the full fleet
 	// (a filtered run would otherwise clobber it with a partial registry).
 	if len(allowedServices) == 0 {
+		providers, err := codegen.ScanProviders(*servicesDir, modelOps)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error scanning providers: %v\n", err)
+			os.Exit(1)
+		}
+
+		crudServices = servableCRUD(crudServices, providers)
 		sort.Slice(crudServices, func(i, j int) bool {
 			return crudServices[i].ServiceID < crudServices[j].ServiceID
 		})
@@ -115,7 +122,7 @@ func main() {
 			os.Exit(1)
 		}
 
-		if err := writeFidelityManifest(gen, *outputDir, *servicesDir, modelOps, crudServices); err != nil {
+		if err := writeFidelityManifest(gen, *outputDir, modelOps, providers, crudServices); err != nil {
 			fmt.Fprintf(os.Stderr, "Error writing fidelity manifest: %v\n", err)
 			os.Exit(1)
 		}
@@ -124,18 +131,38 @@ func main() {
 	fmt.Println("Code generation complete.")
 }
 
-// writeFidelityManifest scans the hand-written providers and emits the
-// per-operation fidelity manifest. Like the CRUD registry it is only written on
-// a full-fleet run, since a filtered run would produce a partial manifest.
+// servableCRUD drops services whose provider serves a non-JSON protocol. The
+// CRUD engine bails out on anything else (crud.Handle → JSONProtocol), so
+// registering them produces operations the runtime answers with InvalidAction —
+// a registration that reads as coverage while serving none. The Smithy model can
+// declare JSON while the provider still answers Query (cloudwatch does), so the
+// provider is the authority here.
+func servableCRUD(services []codegen.CRUDServiceData, providers map[string]codegen.ProviderScan) []codegen.CRUDServiceData {
+	kept := make([]codegen.CRUDServiceData, 0, len(services))
+	for _, svc := range services {
+		if !codegen.JSONProtocol(providers[svc.ServiceID].Protocol) {
+			fmt.Printf("Skipping CRUD registration for %s: provider serves %q, not JSON\n",
+				svc.ServiceID, providers[svc.ServiceID].Protocol)
+			continue
+		}
+		kept = append(kept, svc)
+	}
+	return kept
+}
+
+// writeFidelityManifest emits the per-operation fidelity manifest. Like the CRUD
+// registry it is only written on a full-fleet run, since a filtered run would
+// produce a partial manifest.
 func writeFidelityManifest(
 	gen *codegen.Generator,
-	outputDir, servicesDir string,
+	outputDir string,
 	modelOps map[string][]string,
+	providers map[string]codegen.ProviderScan,
 	crudServices []codegen.CRUDServiceData,
 ) error {
-	handVerified, err := codegen.ScanHandVerified(servicesDir, modelOps)
-	if err != nil {
-		return err
+	handVerified := make(map[string][]string, len(providers))
+	for id, scan := range providers {
+		handVerified[id] = scan.Operations
 	}
 
 	content, err := gen.GenerateFidelityManifest(

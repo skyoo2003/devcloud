@@ -91,6 +91,34 @@ func TestFidelityManifestCoversCRUDRegistry(t *testing.T) {
 	}
 }
 
+// TestAutoCRUDIsReachable guards against the manifest promising a tier the
+// runtime cannot deliver. The CRUD engine refuses any non-JSON protocol
+// (crud.Handle → JSONProtocol), so an operation declared auto-crud on a
+// Query or REST provider would in fact return InvalidAction.
+func TestAutoCRUDIsReachable(t *testing.T) {
+	for id, svc := range fidelity.Services {
+		autoCRUD := 0
+		for _, tier := range svc.Operations {
+			if tier == fidelity.TierAutoCRUD {
+				autoCRUD++
+			}
+		}
+		if autoCRUD == 0 {
+			continue
+		}
+
+		p, ok := plugin.DefaultRegistry.Construct(id)
+		if !ok {
+			t.Errorf("%s: declares %d auto-crud operations but is not registered", id, autoCRUD)
+			continue
+		}
+		if !crud.JSONProtocol(string(p.Protocol())) {
+			t.Errorf("%s: declares %d auto-crud operations but serves %q; the CRUD engine only answers JSON protocols, so those operations really return InvalidAction",
+				id, autoCRUD, p.Protocol())
+		}
+	}
+}
+
 // TestFidelityLookup pins the accessor's contract: an unknown service and an
 // unknown operation are both misses, not a zero-value tier.
 func TestFidelityLookup(t *testing.T) {

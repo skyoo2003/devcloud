@@ -65,9 +65,20 @@ var pathRoutedOps = map[string][]string{
 	},
 }
 
-// ScanHandVerified returns, per registered service ID, the operation names that
-// service's provider handles by hand. The scan collects the string literals of
-// every case clause in a service package, then keeps only those that name an
+// ProviderScan is what a service's source tells us about how it serves requests.
+type ProviderScan struct {
+	// Operations are the operation names the provider dispatches by hand.
+	Operations []string
+	// Protocol is the wire protocol the provider declares at runtime, as the
+	// suffix of the plugin.ProtocolX constant it returns (e.g. "JSON11",
+	// "Query"). It can differ from the Smithy model's protocol, and the runtime
+	// follows the provider — the CRUD engine, for one, refuses anything but JSON.
+	Protocol string
+}
+
+// ScanProviders returns, per registered service ID, what its provider dispatches
+// by hand and which protocol it declares. The scan collects the string literals
+// of every case clause in a service package, then keeps only those that name an
 // operation in modelOps[serviceID]; a service with no model keeps every literal
 // that looks like an operation name.
 //
@@ -75,27 +86,37 @@ var pathRoutedOps = map[string][]string{
 // switches (protocol constants, expression tokens) contribute strings that no
 // model declares, and a directory registering two services (iam also registers
 // sts) splits correctly because each model claims only its own operations.
-func ScanHandVerified(servicesDir string, modelOps map[string][]string) (map[string][]string, error) {
+func ScanProviders(servicesDir string, modelOps map[string][]string) (map[string]ProviderScan, error) {
 	entries, err := os.ReadDir(servicesDir)
 	if err != nil {
 		return nil, fmt.Errorf("read services dir: %w", err)
 	}
 
-	result := make(map[string][]string)
+	result := make(map[string]ProviderScan)
 	for _, entry := range entries {
 		if !entry.IsDir() {
 			continue
 		}
 		dir := filepath.Join(servicesDir, entry.Name())
-		ids, literals, err := scanServiceDir(dir)
+		ids, literals, protocol, err := scanServiceDir(dir)
 		if err != nil {
 			return nil, err
 		}
 		for _, id := range ids {
-			result[id] = selectOps(id, literals, modelOps[id])
+			result[id] = ProviderScan{
+				Operations: selectOps(id, literals, modelOps[id]),
+				Protocol:   protocol,
+			}
 		}
 	}
 	return result, nil
+}
+
+// JSONProtocol reports whether a scanned provider protocol is one the CRUD
+// engine can serve. Mirrors crud.JSONProtocol, but over the constant name the
+// provider returns rather than the wire string.
+func JSONProtocol(scanned string) bool {
+	return strings.HasPrefix(scanned, "JSON")
 }
 
 // selectOps narrows a package's case literals to the operations of one service.
@@ -120,12 +141,13 @@ func selectOps(serviceID string, literals map[string]bool, modelOperations []str
 	return ops
 }
 
-// scanServiceDir returns the service IDs a package registers and every
-// operation-shaped string literal used as a switch case in it.
-func scanServiceDir(dir string) (ids []string, literals map[string]bool, err error) {
+// scanServiceDir returns the service IDs a package registers, every
+// operation-shaped string literal used as a switch case in it, and the
+// plugin.ProtocolX constant its provider returns.
+func scanServiceDir(dir string) (ids []string, literals map[string]bool, protocol string, err error) {
 	entries, err := os.ReadDir(dir)
 	if err != nil {
-		return nil, nil, fmt.Errorf("read %s: %w", dir, err)
+		return nil, nil, "", fmt.Errorf("read %s: %w", dir, err)
 	}
 
 	fset := token.NewFileSet()
@@ -139,7 +161,7 @@ func scanServiceDir(dir string) (ids []string, literals map[string]bool, err err
 		}
 		file, err := parser.ParseFile(fset, filepath.Join(dir, name), nil, 0)
 		if err != nil {
-			return nil, nil, fmt.Errorf("parse %s: %w", filepath.Join(dir, name), err)
+			return nil, nil, "", fmt.Errorf("parse %s: %w", filepath.Join(dir, name), err)
 		}
 
 		ast.Inspect(file, func(n ast.Node) bool {
@@ -148,6 +170,10 @@ func scanServiceDir(dir string) (ids []string, literals map[string]bool, err err
 				if id, ok := registeredServiceID(node); ok && !seenID[id] {
 					seenID[id] = true
 					ids = append(ids, id)
+				}
+			case *ast.FuncDecl:
+				if p, ok := declaredProtocol(node); ok && protocol == "" {
+					protocol = p
 				}
 			case *ast.CaseClause:
 				for _, expr := range node.List {
@@ -160,7 +186,27 @@ func scanServiceDir(dir string) (ids []string, literals map[string]bool, err err
 		})
 	}
 	sort.Strings(ids)
-	return ids, literals, nil
+	return ids, literals, protocol, nil
+}
+
+// declaredProtocol extracts "JSON11" from a provider's
+// `func (p *Provider) Protocol() plugin.ProtocolType { return plugin.ProtocolJSON11 }`.
+func declaredProtocol(fn *ast.FuncDecl) (string, bool) {
+	if fn.Name.Name != "Protocol" || fn.Recv == nil || fn.Body == nil {
+		return "", false
+	}
+	for _, stmt := range fn.Body.List {
+		ret, ok := stmt.(*ast.ReturnStmt)
+		if !ok || len(ret.Results) != 1 {
+			continue
+		}
+		sel, ok := ret.Results[0].(*ast.SelectorExpr)
+		if !ok || !strings.HasPrefix(sel.Sel.Name, "Protocol") {
+			continue
+		}
+		return strings.TrimPrefix(sel.Sel.Name, "Protocol"), true
+	}
+	return "", false
 }
 
 // registeredServiceID extracts "sqs" from plugin.DefaultRegistry.Register("sqs", …).
