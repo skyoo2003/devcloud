@@ -29,16 +29,19 @@ repos:
         language: system
         types: [go]
         exclude: ^internal/generated/
+      # CGO_ENABLED=0, matching .goreleaser.yaml and the CI workflows: it is the
+      # mode releases are built in, and no dependency needs a C toolchain, so a
+      # contributor without one still gets these hooks.
       - id: go-vet
         name: go vet
-        entry: bash -c 'CGO_ENABLED=1 go vet ./...'
+        entry: bash -c 'CGO_ENABLED=0 go vet ./...'
         language: system
         pass_filenames: false
         types: [go]
         exclude: ^internal/generated/
       - id: go-build
         name: go build
-        entry: bash -c 'CGO_ENABLED=1 go build ./...'
+        entry: bash -c 'CGO_ENABLED=0 go build ./...'
         language: system
         pass_filenames: false
         types: [go]
