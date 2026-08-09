@@ -3,9 +3,414 @@
 package bedrock
 
 import (
+	"context"
 	"fmt"
 )
 
 var ErrNotImplemented = fmt.Errorf("operation not implemented")
 
 type BaseProvider struct{}
+
+func (b *BaseProvider) BatchDeleteEvaluationJob(ctx context.Context, input *BatchDeleteEvaluationJobRequest) (*BatchDeleteEvaluationJobResponse, error) {
+	return nil, fmt.Errorf("BatchDeleteEvaluationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CancelAutomatedReasoningPolicyBuildWorkflow(ctx context.Context, input *CancelAutomatedReasoningPolicyBuildWorkflowRequest) (*CancelAutomatedReasoningPolicyBuildWorkflowResponse, error) {
+	return nil, fmt.Errorf("CancelAutomatedReasoningPolicyBuildWorkflow: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateAutomatedReasoningPolicy(ctx context.Context, input *CreateAutomatedReasoningPolicyRequest) (*CreateAutomatedReasoningPolicyResponse, error) {
+	return nil, fmt.Errorf("CreateAutomatedReasoningPolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateAutomatedReasoningPolicyTestCase(ctx context.Context, input *CreateAutomatedReasoningPolicyTestCaseRequest) (*CreateAutomatedReasoningPolicyTestCaseResponse, error) {
+	return nil, fmt.Errorf("CreateAutomatedReasoningPolicyTestCase: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateAutomatedReasoningPolicyVersion(ctx context.Context, input *CreateAutomatedReasoningPolicyVersionRequest) (*CreateAutomatedReasoningPolicyVersionResponse, error) {
+	return nil, fmt.Errorf("CreateAutomatedReasoningPolicyVersion: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateCustomModel(ctx context.Context, input *CreateCustomModelRequest) (*CreateCustomModelResponse, error) {
+	return nil, fmt.Errorf("CreateCustomModel: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateCustomModelDeployment(ctx context.Context, input *CreateCustomModelDeploymentRequest) (*CreateCustomModelDeploymentResponse, error) {
+	return nil, fmt.Errorf("CreateCustomModelDeployment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateEvaluationJob(ctx context.Context, input *CreateEvaluationJobRequest) (*CreateEvaluationJobResponse, error) {
+	return nil, fmt.Errorf("CreateEvaluationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateFoundationModelAgreement(ctx context.Context, input *CreateFoundationModelAgreementRequest) (*CreateFoundationModelAgreementResponse, error) {
+	return nil, fmt.Errorf("CreateFoundationModelAgreement: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateGuardrail(ctx context.Context, input *CreateGuardrailRequest) (*CreateGuardrailResponse, error) {
+	return nil, fmt.Errorf("CreateGuardrail: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateGuardrailVersion(ctx context.Context, input *CreateGuardrailVersionRequest) (*CreateGuardrailVersionResponse, error) {
+	return nil, fmt.Errorf("CreateGuardrailVersion: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateInferenceProfile(ctx context.Context, input *CreateInferenceProfileRequest) (*CreateInferenceProfileResponse, error) {
+	return nil, fmt.Errorf("CreateInferenceProfile: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateMarketplaceModelEndpoint(ctx context.Context, input *CreateMarketplaceModelEndpointRequest) (*CreateMarketplaceModelEndpointResponse, error) {
+	return nil, fmt.Errorf("CreateMarketplaceModelEndpoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateModelCopyJob(ctx context.Context, input *CreateModelCopyJobRequest) (*CreateModelCopyJobResponse, error) {
+	return nil, fmt.Errorf("CreateModelCopyJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateModelCustomizationJob(ctx context.Context, input *CreateModelCustomizationJobRequest) (*CreateModelCustomizationJobResponse, error) {
+	return nil, fmt.Errorf("CreateModelCustomizationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateModelImportJob(ctx context.Context, input *CreateModelImportJobRequest) (*CreateModelImportJobResponse, error) {
+	return nil, fmt.Errorf("CreateModelImportJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateModelInvocationJob(ctx context.Context, input *CreateModelInvocationJobRequest) (*CreateModelInvocationJobResponse, error) {
+	return nil, fmt.Errorf("CreateModelInvocationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreatePromptRouter(ctx context.Context, input *CreatePromptRouterRequest) (*CreatePromptRouterResponse, error) {
+	return nil, fmt.Errorf("CreatePromptRouter: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateProvisionedModelThroughput(ctx context.Context, input *CreateProvisionedModelThroughputRequest) (*CreateProvisionedModelThroughputResponse, error) {
+	return nil, fmt.Errorf("CreateProvisionedModelThroughput: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAutomatedReasoningPolicy(ctx context.Context, input *DeleteAutomatedReasoningPolicyRequest) (*DeleteAutomatedReasoningPolicyResponse, error) {
+	return nil, fmt.Errorf("DeleteAutomatedReasoningPolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAutomatedReasoningPolicyBuildWorkflow(ctx context.Context, input *DeleteAutomatedReasoningPolicyBuildWorkflowRequest) (*DeleteAutomatedReasoningPolicyBuildWorkflowResponse, error) {
+	return nil, fmt.Errorf("DeleteAutomatedReasoningPolicyBuildWorkflow: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAutomatedReasoningPolicyTestCase(ctx context.Context, input *DeleteAutomatedReasoningPolicyTestCaseRequest) (*DeleteAutomatedReasoningPolicyTestCaseResponse, error) {
+	return nil, fmt.Errorf("DeleteAutomatedReasoningPolicyTestCase: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteCustomModel(ctx context.Context, input *DeleteCustomModelRequest) (*DeleteCustomModelResponse, error) {
+	return nil, fmt.Errorf("DeleteCustomModel: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteCustomModelDeployment(ctx context.Context, input *DeleteCustomModelDeploymentRequest) (*DeleteCustomModelDeploymentResponse, error) {
+	return nil, fmt.Errorf("DeleteCustomModelDeployment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteEnforcedGuardrailConfiguration(ctx context.Context, input *DeleteEnforcedGuardrailConfigurationRequest) (*DeleteEnforcedGuardrailConfigurationResponse, error) {
+	return nil, fmt.Errorf("DeleteEnforcedGuardrailConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteFoundationModelAgreement(ctx context.Context, input *DeleteFoundationModelAgreementRequest) (*DeleteFoundationModelAgreementResponse, error) {
+	return nil, fmt.Errorf("DeleteFoundationModelAgreement: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteGuardrail(ctx context.Context, input *DeleteGuardrailRequest) (*DeleteGuardrailResponse, error) {
+	return nil, fmt.Errorf("DeleteGuardrail: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteImportedModel(ctx context.Context, input *DeleteImportedModelRequest) (*DeleteImportedModelResponse, error) {
+	return nil, fmt.Errorf("DeleteImportedModel: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteInferenceProfile(ctx context.Context, input *DeleteInferenceProfileRequest) (*DeleteInferenceProfileResponse, error) {
+	return nil, fmt.Errorf("DeleteInferenceProfile: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteMarketplaceModelEndpoint(ctx context.Context, input *DeleteMarketplaceModelEndpointRequest) (*DeleteMarketplaceModelEndpointResponse, error) {
+	return nil, fmt.Errorf("DeleteMarketplaceModelEndpoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteModelInvocationLoggingConfiguration(ctx context.Context, input *DeleteModelInvocationLoggingConfigurationRequest) (*DeleteModelInvocationLoggingConfigurationResponse, error) {
+	return nil, fmt.Errorf("DeleteModelInvocationLoggingConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeletePromptRouter(ctx context.Context, input *DeletePromptRouterRequest) (*DeletePromptRouterResponse, error) {
+	return nil, fmt.Errorf("DeletePromptRouter: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteProvisionedModelThroughput(ctx context.Context, input *DeleteProvisionedModelThroughputRequest) (*DeleteProvisionedModelThroughputResponse, error) {
+	return nil, fmt.Errorf("DeleteProvisionedModelThroughput: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteResourcePolicy(ctx context.Context, input *DeleteResourcePolicyRequest) (*DeleteResourcePolicyResponse, error) {
+	return nil, fmt.Errorf("DeleteResourcePolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeregisterMarketplaceModelEndpoint(ctx context.Context, input *DeregisterMarketplaceModelEndpointRequest) (*DeregisterMarketplaceModelEndpointResponse, error) {
+	return nil, fmt.Errorf("DeregisterMarketplaceModelEndpoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ExportAutomatedReasoningPolicyVersion(ctx context.Context, input *ExportAutomatedReasoningPolicyVersionRequest) (*ExportAutomatedReasoningPolicyVersionResponse, error) {
+	return nil, fmt.Errorf("ExportAutomatedReasoningPolicyVersion: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAutomatedReasoningPolicy(ctx context.Context, input *GetAutomatedReasoningPolicyRequest) (*GetAutomatedReasoningPolicyResponse, error) {
+	return nil, fmt.Errorf("GetAutomatedReasoningPolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAutomatedReasoningPolicyAnnotations(ctx context.Context, input *GetAutomatedReasoningPolicyAnnotationsRequest) (*GetAutomatedReasoningPolicyAnnotationsResponse, error) {
+	return nil, fmt.Errorf("GetAutomatedReasoningPolicyAnnotations: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAutomatedReasoningPolicyBuildWorkflow(ctx context.Context, input *GetAutomatedReasoningPolicyBuildWorkflowRequest) (*GetAutomatedReasoningPolicyBuildWorkflowResponse, error) {
+	return nil, fmt.Errorf("GetAutomatedReasoningPolicyBuildWorkflow: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAutomatedReasoningPolicyBuildWorkflowResultAssets(ctx context.Context, input *GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest) (*GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse, error) {
+	return nil, fmt.Errorf("GetAutomatedReasoningPolicyBuildWorkflowResultAssets: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAutomatedReasoningPolicyNextScenario(ctx context.Context, input *GetAutomatedReasoningPolicyNextScenarioRequest) (*GetAutomatedReasoningPolicyNextScenarioResponse, error) {
+	return nil, fmt.Errorf("GetAutomatedReasoningPolicyNextScenario: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAutomatedReasoningPolicyTestCase(ctx context.Context, input *GetAutomatedReasoningPolicyTestCaseRequest) (*GetAutomatedReasoningPolicyTestCaseResponse, error) {
+	return nil, fmt.Errorf("GetAutomatedReasoningPolicyTestCase: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAutomatedReasoningPolicyTestResult(ctx context.Context, input *GetAutomatedReasoningPolicyTestResultRequest) (*GetAutomatedReasoningPolicyTestResultResponse, error) {
+	return nil, fmt.Errorf("GetAutomatedReasoningPolicyTestResult: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetCustomModel(ctx context.Context, input *GetCustomModelRequest) (*GetCustomModelResponse, error) {
+	return nil, fmt.Errorf("GetCustomModel: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetCustomModelDeployment(ctx context.Context, input *GetCustomModelDeploymentRequest) (*GetCustomModelDeploymentResponse, error) {
+	return nil, fmt.Errorf("GetCustomModelDeployment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetEvaluationJob(ctx context.Context, input *GetEvaluationJobRequest) (*GetEvaluationJobResponse, error) {
+	return nil, fmt.Errorf("GetEvaluationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetFoundationModel(ctx context.Context, input *GetFoundationModelRequest) (*GetFoundationModelResponse, error) {
+	return nil, fmt.Errorf("GetFoundationModel: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetFoundationModelAvailability(ctx context.Context, input *GetFoundationModelAvailabilityRequest) (*GetFoundationModelAvailabilityResponse, error) {
+	return nil, fmt.Errorf("GetFoundationModelAvailability: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetGuardrail(ctx context.Context, input *GetGuardrailRequest) (*GetGuardrailResponse, error) {
+	return nil, fmt.Errorf("GetGuardrail: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetImportedModel(ctx context.Context, input *GetImportedModelRequest) (*GetImportedModelResponse, error) {
+	return nil, fmt.Errorf("GetImportedModel: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetInferenceProfile(ctx context.Context, input *GetInferenceProfileRequest) (*GetInferenceProfileResponse, error) {
+	return nil, fmt.Errorf("GetInferenceProfile: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetMarketplaceModelEndpoint(ctx context.Context, input *GetMarketplaceModelEndpointRequest) (*GetMarketplaceModelEndpointResponse, error) {
+	return nil, fmt.Errorf("GetMarketplaceModelEndpoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetModelCopyJob(ctx context.Context, input *GetModelCopyJobRequest) (*GetModelCopyJobResponse, error) {
+	return nil, fmt.Errorf("GetModelCopyJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetModelCustomizationJob(ctx context.Context, input *GetModelCustomizationJobRequest) (*GetModelCustomizationJobResponse, error) {
+	return nil, fmt.Errorf("GetModelCustomizationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetModelImportJob(ctx context.Context, input *GetModelImportJobRequest) (*GetModelImportJobResponse, error) {
+	return nil, fmt.Errorf("GetModelImportJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetModelInvocationJob(ctx context.Context, input *GetModelInvocationJobRequest) (*GetModelInvocationJobResponse, error) {
+	return nil, fmt.Errorf("GetModelInvocationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetModelInvocationLoggingConfiguration(ctx context.Context, input *GetModelInvocationLoggingConfigurationRequest) (*GetModelInvocationLoggingConfigurationResponse, error) {
+	return nil, fmt.Errorf("GetModelInvocationLoggingConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetPromptRouter(ctx context.Context, input *GetPromptRouterRequest) (*GetPromptRouterResponse, error) {
+	return nil, fmt.Errorf("GetPromptRouter: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetProvisionedModelThroughput(ctx context.Context, input *GetProvisionedModelThroughputRequest) (*GetProvisionedModelThroughputResponse, error) {
+	return nil, fmt.Errorf("GetProvisionedModelThroughput: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetResourcePolicy(ctx context.Context, input *GetResourcePolicyRequest) (*GetResourcePolicyResponse, error) {
+	return nil, fmt.Errorf("GetResourcePolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetUseCaseForModelAccess(ctx context.Context, input *GetUseCaseForModelAccessRequest) (*GetUseCaseForModelAccessResponse, error) {
+	return nil, fmt.Errorf("GetUseCaseForModelAccess: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListAutomatedReasoningPolicies(ctx context.Context, input *ListAutomatedReasoningPoliciesRequest) (*ListAutomatedReasoningPoliciesResponse, error) {
+	return nil, fmt.Errorf("ListAutomatedReasoningPolicies: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListAutomatedReasoningPolicyBuildWorkflows(ctx context.Context, input *ListAutomatedReasoningPolicyBuildWorkflowsRequest) (*ListAutomatedReasoningPolicyBuildWorkflowsResponse, error) {
+	return nil, fmt.Errorf("ListAutomatedReasoningPolicyBuildWorkflows: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListAutomatedReasoningPolicyTestCases(ctx context.Context, input *ListAutomatedReasoningPolicyTestCasesRequest) (*ListAutomatedReasoningPolicyTestCasesResponse, error) {
+	return nil, fmt.Errorf("ListAutomatedReasoningPolicyTestCases: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListAutomatedReasoningPolicyTestResults(ctx context.Context, input *ListAutomatedReasoningPolicyTestResultsRequest) (*ListAutomatedReasoningPolicyTestResultsResponse, error) {
+	return nil, fmt.Errorf("ListAutomatedReasoningPolicyTestResults: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListCustomModelDeployments(ctx context.Context, input *ListCustomModelDeploymentsRequest) (*ListCustomModelDeploymentsResponse, error) {
+	return nil, fmt.Errorf("ListCustomModelDeployments: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListCustomModels(ctx context.Context, input *ListCustomModelsRequest) (*ListCustomModelsResponse, error) {
+	return nil, fmt.Errorf("ListCustomModels: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListEnforcedGuardrailsConfiguration(ctx context.Context, input *ListEnforcedGuardrailsConfigurationRequest) (*ListEnforcedGuardrailsConfigurationResponse, error) {
+	return nil, fmt.Errorf("ListEnforcedGuardrailsConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListEvaluationJobs(ctx context.Context, input *ListEvaluationJobsRequest) (*ListEvaluationJobsResponse, error) {
+	return nil, fmt.Errorf("ListEvaluationJobs: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListFoundationModelAgreementOffers(ctx context.Context, input *ListFoundationModelAgreementOffersRequest) (*ListFoundationModelAgreementOffersResponse, error) {
+	return nil, fmt.Errorf("ListFoundationModelAgreementOffers: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListFoundationModels(ctx context.Context, input *ListFoundationModelsRequest) (*ListFoundationModelsResponse, error) {
+	return nil, fmt.Errorf("ListFoundationModels: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListGuardrails(ctx context.Context, input *ListGuardrailsRequest) (*ListGuardrailsResponse, error) {
+	return nil, fmt.Errorf("ListGuardrails: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListImportedModels(ctx context.Context, input *ListImportedModelsRequest) (*ListImportedModelsResponse, error) {
+	return nil, fmt.Errorf("ListImportedModels: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListInferenceProfiles(ctx context.Context, input *ListInferenceProfilesRequest) (*ListInferenceProfilesResponse, error) {
+	return nil, fmt.Errorf("ListInferenceProfiles: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListMarketplaceModelEndpoints(ctx context.Context, input *ListMarketplaceModelEndpointsRequest) (*ListMarketplaceModelEndpointsResponse, error) {
+	return nil, fmt.Errorf("ListMarketplaceModelEndpoints: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListModelCopyJobs(ctx context.Context, input *ListModelCopyJobsRequest) (*ListModelCopyJobsResponse, error) {
+	return nil, fmt.Errorf("ListModelCopyJobs: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListModelCustomizationJobs(ctx context.Context, input *ListModelCustomizationJobsRequest) (*ListModelCustomizationJobsResponse, error) {
+	return nil, fmt.Errorf("ListModelCustomizationJobs: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListModelImportJobs(ctx context.Context, input *ListModelImportJobsRequest) (*ListModelImportJobsResponse, error) {
+	return nil, fmt.Errorf("ListModelImportJobs: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListModelInvocationJobs(ctx context.Context, input *ListModelInvocationJobsRequest) (*ListModelInvocationJobsResponse, error) {
+	return nil, fmt.Errorf("ListModelInvocationJobs: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListPromptRouters(ctx context.Context, input *ListPromptRoutersRequest) (*ListPromptRoutersResponse, error) {
+	return nil, fmt.Errorf("ListPromptRouters: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListProvisionedModelThroughputs(ctx context.Context, input *ListProvisionedModelThroughputsRequest) (*ListProvisionedModelThroughputsResponse, error) {
+	return nil, fmt.Errorf("ListProvisionedModelThroughputs: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListTagsForResource(ctx context.Context, input *ListTagsForResourceRequest) (*ListTagsForResourceResponse, error) {
+	return nil, fmt.Errorf("ListTagsForResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutEnforcedGuardrailConfiguration(ctx context.Context, input *PutEnforcedGuardrailConfigurationRequest) (*PutEnforcedGuardrailConfigurationResponse, error) {
+	return nil, fmt.Errorf("PutEnforcedGuardrailConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutModelInvocationLoggingConfiguration(ctx context.Context, input *PutModelInvocationLoggingConfigurationRequest) (*PutModelInvocationLoggingConfigurationResponse, error) {
+	return nil, fmt.Errorf("PutModelInvocationLoggingConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutResourcePolicy(ctx context.Context, input *PutResourcePolicyRequest) (*PutResourcePolicyResponse, error) {
+	return nil, fmt.Errorf("PutResourcePolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutUseCaseForModelAccess(ctx context.Context, input *PutUseCaseForModelAccessRequest) (*PutUseCaseForModelAccessResponse, error) {
+	return nil, fmt.Errorf("PutUseCaseForModelAccess: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) RegisterMarketplaceModelEndpoint(ctx context.Context, input *RegisterMarketplaceModelEndpointRequest) (*RegisterMarketplaceModelEndpointResponse, error) {
+	return nil, fmt.Errorf("RegisterMarketplaceModelEndpoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StartAutomatedReasoningPolicyBuildWorkflow(ctx context.Context, input *StartAutomatedReasoningPolicyBuildWorkflowRequest) (*StartAutomatedReasoningPolicyBuildWorkflowResponse, error) {
+	return nil, fmt.Errorf("StartAutomatedReasoningPolicyBuildWorkflow: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StartAutomatedReasoningPolicyTestWorkflow(ctx context.Context, input *StartAutomatedReasoningPolicyTestWorkflowRequest) (*StartAutomatedReasoningPolicyTestWorkflowResponse, error) {
+	return nil, fmt.Errorf("StartAutomatedReasoningPolicyTestWorkflow: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StopEvaluationJob(ctx context.Context, input *StopEvaluationJobRequest) (*StopEvaluationJobResponse, error) {
+	return nil, fmt.Errorf("StopEvaluationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StopModelCustomizationJob(ctx context.Context, input *StopModelCustomizationJobRequest) (*StopModelCustomizationJobResponse, error) {
+	return nil, fmt.Errorf("StopModelCustomizationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StopModelInvocationJob(ctx context.Context, input *StopModelInvocationJobRequest) (*StopModelInvocationJobResponse, error) {
+	return nil, fmt.Errorf("StopModelInvocationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) TagResource(ctx context.Context, input *TagResourceRequest) (*TagResourceResponse, error) {
+	return nil, fmt.Errorf("TagResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRequest) (*UntagResourceResponse, error) {
+	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateAutomatedReasoningPolicy(ctx context.Context, input *UpdateAutomatedReasoningPolicyRequest) (*UpdateAutomatedReasoningPolicyResponse, error) {
+	return nil, fmt.Errorf("UpdateAutomatedReasoningPolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateAutomatedReasoningPolicyAnnotations(ctx context.Context, input *UpdateAutomatedReasoningPolicyAnnotationsRequest) (*UpdateAutomatedReasoningPolicyAnnotationsResponse, error) {
+	return nil, fmt.Errorf("UpdateAutomatedReasoningPolicyAnnotations: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateAutomatedReasoningPolicyTestCase(ctx context.Context, input *UpdateAutomatedReasoningPolicyTestCaseRequest) (*UpdateAutomatedReasoningPolicyTestCaseResponse, error) {
+	return nil, fmt.Errorf("UpdateAutomatedReasoningPolicyTestCase: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateCustomModelDeployment(ctx context.Context, input *UpdateCustomModelDeploymentRequest) (*UpdateCustomModelDeploymentResponse, error) {
+	return nil, fmt.Errorf("UpdateCustomModelDeployment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateGuardrail(ctx context.Context, input *UpdateGuardrailRequest) (*UpdateGuardrailResponse, error) {
+	return nil, fmt.Errorf("UpdateGuardrail: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateMarketplaceModelEndpoint(ctx context.Context, input *UpdateMarketplaceModelEndpointRequest) (*UpdateMarketplaceModelEndpointResponse, error) {
+	return nil, fmt.Errorf("UpdateMarketplaceModelEndpoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateProvisionedModelThroughput(ctx context.Context, input *UpdateProvisionedModelThroughputRequest) (*UpdateProvisionedModelThroughputResponse, error) {
+	return nil, fmt.Errorf("UpdateProvisionedModelThroughput: %w", ErrNotImplemented)
+}

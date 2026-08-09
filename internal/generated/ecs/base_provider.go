@@ -11,24 +11,180 @@ var ErrNotImplemented = fmt.Errorf("operation not implemented")
 
 type BaseProvider struct{}
 
+func (b *BaseProvider) CreateCapacityProvider(ctx context.Context, input *CreateCapacityProviderRequest) (*CreateCapacityProviderResponse, error) {
+	return nil, fmt.Errorf("CreateCapacityProvider: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateCluster(ctx context.Context, input *CreateClusterRequest) (*CreateClusterResponse, error) {
+	return nil, fmt.Errorf("CreateCluster: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateDaemon(ctx context.Context, input *CreateDaemonRequest) (*CreateDaemonResponse, error) {
+	return nil, fmt.Errorf("CreateDaemon: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateExpressGatewayService(ctx context.Context, input *CreateExpressGatewayServiceRequest) (*CreateExpressGatewayServiceResponse, error) {
+	return nil, fmt.Errorf("CreateExpressGatewayService: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateService(ctx context.Context, input *CreateServiceRequest) (*CreateServiceResponse, error) {
+	return nil, fmt.Errorf("CreateService: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateTaskSet(ctx context.Context, input *CreateTaskSetRequest) (*CreateTaskSetResponse, error) {
+	return nil, fmt.Errorf("CreateTaskSet: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteAccountSetting(ctx context.Context, input *DeleteAccountSettingRequest) (*DeleteAccountSettingResponse, error) {
 	return nil, fmt.Errorf("DeleteAccountSetting: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAttributes(ctx context.Context, input *DeleteAttributesRequest) (*DeleteAttributesResponse, error) {
+	return nil, fmt.Errorf("DeleteAttributes: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteCapacityProvider(ctx context.Context, input *DeleteCapacityProviderRequest) (*DeleteCapacityProviderResponse, error) {
+	return nil, fmt.Errorf("DeleteCapacityProvider: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteCluster(ctx context.Context, input *DeleteClusterRequest) (*DeleteClusterResponse, error) {
+	return nil, fmt.Errorf("DeleteCluster: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteDaemon(ctx context.Context, input *DeleteDaemonRequest) (*DeleteDaemonResponse, error) {
+	return nil, fmt.Errorf("DeleteDaemon: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteDaemonTaskDefinition(ctx context.Context, input *DeleteDaemonTaskDefinitionRequest) (*DeleteDaemonTaskDefinitionResponse, error) {
+	return nil, fmt.Errorf("DeleteDaemonTaskDefinition: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteExpressGatewayService(ctx context.Context, input *DeleteExpressGatewayServiceRequest) (*DeleteExpressGatewayServiceResponse, error) {
+	return nil, fmt.Errorf("DeleteExpressGatewayService: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteService(ctx context.Context, input *DeleteServiceRequest) (*DeleteServiceResponse, error) {
+	return nil, fmt.Errorf("DeleteService: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteTaskDefinitions(ctx context.Context, input *DeleteTaskDefinitionsRequest) (*DeleteTaskDefinitionsResponse, error) {
+	return nil, fmt.Errorf("DeleteTaskDefinitions: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteTaskSet(ctx context.Context, input *DeleteTaskSetRequest) (*DeleteTaskSetResponse, error) {
+	return nil, fmt.Errorf("DeleteTaskSet: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeregisterContainerInstance(ctx context.Context, input *DeregisterContainerInstanceRequest) (*DeregisterContainerInstanceResponse, error) {
+	return nil, fmt.Errorf("DeregisterContainerInstance: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeregisterTaskDefinition(ctx context.Context, input *DeregisterTaskDefinitionRequest) (*DeregisterTaskDefinitionResponse, error) {
 	return nil, fmt.Errorf("DeregisterTaskDefinition: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DescribeCapacityProviders(ctx context.Context, input *DescribeCapacityProvidersRequest) (*DescribeCapacityProvidersResponse, error) {
+	return nil, fmt.Errorf("DescribeCapacityProviders: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeClusters(ctx context.Context, input *DescribeClustersRequest) (*DescribeClustersResponse, error) {
+	return nil, fmt.Errorf("DescribeClusters: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeContainerInstances(ctx context.Context, input *DescribeContainerInstancesRequest) (*DescribeContainerInstancesResponse, error) {
+	return nil, fmt.Errorf("DescribeContainerInstances: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeDaemon(ctx context.Context, input *DescribeDaemonRequest) (*DescribeDaemonResponse, error) {
+	return nil, fmt.Errorf("DescribeDaemon: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeDaemonDeployments(ctx context.Context, input *DescribeDaemonDeploymentsRequest) (*DescribeDaemonDeploymentsResponse, error) {
+	return nil, fmt.Errorf("DescribeDaemonDeployments: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeDaemonRevisions(ctx context.Context, input *DescribeDaemonRevisionsRequest) (*DescribeDaemonRevisionsResponse, error) {
+	return nil, fmt.Errorf("DescribeDaemonRevisions: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeDaemonTaskDefinition(ctx context.Context, input *DescribeDaemonTaskDefinitionRequest) (*DescribeDaemonTaskDefinitionResponse, error) {
+	return nil, fmt.Errorf("DescribeDaemonTaskDefinition: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeExpressGatewayService(ctx context.Context, input *DescribeExpressGatewayServiceRequest) (*DescribeExpressGatewayServiceResponse, error) {
+	return nil, fmt.Errorf("DescribeExpressGatewayService: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeServiceDeployments(ctx context.Context, input *DescribeServiceDeploymentsRequest) (*DescribeServiceDeploymentsResponse, error) {
+	return nil, fmt.Errorf("DescribeServiceDeployments: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeServiceRevisions(ctx context.Context, input *DescribeServiceRevisionsRequest) (*DescribeServiceRevisionsResponse, error) {
+	return nil, fmt.Errorf("DescribeServiceRevisions: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeServices(ctx context.Context, input *DescribeServicesRequest) (*DescribeServicesResponse, error) {
+	return nil, fmt.Errorf("DescribeServices: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DescribeTaskDefinition(ctx context.Context, input *DescribeTaskDefinitionRequest) (*DescribeTaskDefinitionResponse, error) {
 	return nil, fmt.Errorf("DescribeTaskDefinition: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeTaskSets(ctx context.Context, input *DescribeTaskSetsRequest) (*DescribeTaskSetsResponse, error) {
+	return nil, fmt.Errorf("DescribeTaskSets: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeTasks(ctx context.Context, input *DescribeTasksRequest) (*DescribeTasksResponse, error) {
+	return nil, fmt.Errorf("DescribeTasks: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DiscoverPollEndpoint(ctx context.Context, input *DiscoverPollEndpointRequest) (*DiscoverPollEndpointResponse, error) {
 	return nil, fmt.Errorf("DiscoverPollEndpoint: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ExecuteCommand(ctx context.Context, input *ExecuteCommandRequest) (*ExecuteCommandResponse, error) {
+	return nil, fmt.Errorf("ExecuteCommand: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetTaskProtection(ctx context.Context, input *GetTaskProtectionRequest) (*GetTaskProtectionResponse, error) {
+	return nil, fmt.Errorf("GetTaskProtection: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListAccountSettings(ctx context.Context, input *ListAccountSettingsRequest) (*ListAccountSettingsResponse, error) {
 	return nil, fmt.Errorf("ListAccountSettings: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListAttributes(ctx context.Context, input *ListAttributesRequest) (*ListAttributesResponse, error) {
+	return nil, fmt.Errorf("ListAttributes: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListClusters(ctx context.Context, input *ListClustersRequest) (*ListClustersResponse, error) {
+	return nil, fmt.Errorf("ListClusters: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListContainerInstances(ctx context.Context, input *ListContainerInstancesRequest) (*ListContainerInstancesResponse, error) {
+	return nil, fmt.Errorf("ListContainerInstances: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListDaemonDeployments(ctx context.Context, input *ListDaemonDeploymentsRequest) (*ListDaemonDeploymentsResponse, error) {
+	return nil, fmt.Errorf("ListDaemonDeployments: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListDaemonTaskDefinitions(ctx context.Context, input *ListDaemonTaskDefinitionsRequest) (*ListDaemonTaskDefinitionsResponse, error) {
+	return nil, fmt.Errorf("ListDaemonTaskDefinitions: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListDaemons(ctx context.Context, input *ListDaemonsRequest) (*ListDaemonsResponse, error) {
+	return nil, fmt.Errorf("ListDaemons: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListServiceDeployments(ctx context.Context, input *ListServiceDeploymentsRequest) (*ListServiceDeploymentsResponse, error) {
+	return nil, fmt.Errorf("ListServiceDeployments: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListServices(ctx context.Context, input *ListServicesRequest) (*ListServicesResponse, error) {
+	return nil, fmt.Errorf("ListServices: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListServicesByNamespace(ctx context.Context, input *ListServicesByNamespaceRequest) (*ListServicesByNamespaceResponse, error) {
@@ -43,6 +199,14 @@ func (b *BaseProvider) ListTaskDefinitionFamilies(ctx context.Context, input *Li
 	return nil, fmt.Errorf("ListTaskDefinitionFamilies: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListTaskDefinitions(ctx context.Context, input *ListTaskDefinitionsRequest) (*ListTaskDefinitionsResponse, error) {
+	return nil, fmt.Errorf("ListTaskDefinitions: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListTasks(ctx context.Context, input *ListTasksRequest) (*ListTasksResponse, error) {
+	return nil, fmt.Errorf("ListTasks: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) PutAccountSetting(ctx context.Context, input *PutAccountSettingRequest) (*PutAccountSettingResponse, error) {
 	return nil, fmt.Errorf("PutAccountSetting: %w", ErrNotImplemented)
 }
@@ -51,10 +215,102 @@ func (b *BaseProvider) PutAccountSettingDefault(ctx context.Context, input *PutA
 	return nil, fmt.Errorf("PutAccountSettingDefault: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) PutAttributes(ctx context.Context, input *PutAttributesRequest) (*PutAttributesResponse, error) {
+	return nil, fmt.Errorf("PutAttributes: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutClusterCapacityProviders(ctx context.Context, input *PutClusterCapacityProvidersRequest) (*PutClusterCapacityProvidersResponse, error) {
+	return nil, fmt.Errorf("PutClusterCapacityProviders: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) RegisterContainerInstance(ctx context.Context, input *RegisterContainerInstanceRequest) (*RegisterContainerInstanceResponse, error) {
+	return nil, fmt.Errorf("RegisterContainerInstance: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) RegisterDaemonTaskDefinition(ctx context.Context, input *RegisterDaemonTaskDefinitionRequest) (*RegisterDaemonTaskDefinitionResponse, error) {
+	return nil, fmt.Errorf("RegisterDaemonTaskDefinition: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) RegisterTaskDefinition(ctx context.Context, input *RegisterTaskDefinitionRequest) (*RegisterTaskDefinitionResponse, error) {
+	return nil, fmt.Errorf("RegisterTaskDefinition: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) RunTask(ctx context.Context, input *RunTaskRequest) (*RunTaskResponse, error) {
+	return nil, fmt.Errorf("RunTask: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StartTask(ctx context.Context, input *StartTaskRequest) (*StartTaskResponse, error) {
+	return nil, fmt.Errorf("StartTask: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StopServiceDeployment(ctx context.Context, input *StopServiceDeploymentRequest) (*StopServiceDeploymentResponse, error) {
+	return nil, fmt.Errorf("StopServiceDeployment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StopTask(ctx context.Context, input *StopTaskRequest) (*StopTaskResponse, error) {
+	return nil, fmt.Errorf("StopTask: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) SubmitAttachmentStateChanges(ctx context.Context, input *SubmitAttachmentStateChangesRequest) (*SubmitAttachmentStateChangesResponse, error) {
+	return nil, fmt.Errorf("SubmitAttachmentStateChanges: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) SubmitContainerStateChange(ctx context.Context, input *SubmitContainerStateChangeRequest) (*SubmitContainerStateChangeResponse, error) {
+	return nil, fmt.Errorf("SubmitContainerStateChange: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) SubmitTaskStateChange(ctx context.Context, input *SubmitTaskStateChangeRequest) (*SubmitTaskStateChangeResponse, error) {
+	return nil, fmt.Errorf("SubmitTaskStateChange: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) TagResource(ctx context.Context, input *TagResourceRequest) (*TagResourceResponse, error) {
 	return nil, fmt.Errorf("TagResource: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRequest) (*UntagResourceResponse, error) {
 	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateCapacityProvider(ctx context.Context, input *UpdateCapacityProviderRequest) (*UpdateCapacityProviderResponse, error) {
+	return nil, fmt.Errorf("UpdateCapacityProvider: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateCluster(ctx context.Context, input *UpdateClusterRequest) (*UpdateClusterResponse, error) {
+	return nil, fmt.Errorf("UpdateCluster: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateClusterSettings(ctx context.Context, input *UpdateClusterSettingsRequest) (*UpdateClusterSettingsResponse, error) {
+	return nil, fmt.Errorf("UpdateClusterSettings: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateContainerAgent(ctx context.Context, input *UpdateContainerAgentRequest) (*UpdateContainerAgentResponse, error) {
+	return nil, fmt.Errorf("UpdateContainerAgent: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateContainerInstancesState(ctx context.Context, input *UpdateContainerInstancesStateRequest) (*UpdateContainerInstancesStateResponse, error) {
+	return nil, fmt.Errorf("UpdateContainerInstancesState: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateDaemon(ctx context.Context, input *UpdateDaemonRequest) (*UpdateDaemonResponse, error) {
+	return nil, fmt.Errorf("UpdateDaemon: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateExpressGatewayService(ctx context.Context, input *UpdateExpressGatewayServiceRequest) (*UpdateExpressGatewayServiceResponse, error) {
+	return nil, fmt.Errorf("UpdateExpressGatewayService: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateService(ctx context.Context, input *UpdateServiceRequest) (*UpdateServiceResponse, error) {
+	return nil, fmt.Errorf("UpdateService: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateServicePrimaryTaskSet(ctx context.Context, input *UpdateServicePrimaryTaskSetRequest) (*UpdateServicePrimaryTaskSetResponse, error) {
+	return nil, fmt.Errorf("UpdateServicePrimaryTaskSet: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateTaskProtection(ctx context.Context, input *UpdateTaskProtectionRequest) (*UpdateTaskProtectionResponse, error) {
+	return nil, fmt.Errorf("UpdateTaskProtection: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateTaskSet(ctx context.Context, input *UpdateTaskSetRequest) (*UpdateTaskSetResponse, error) {
+	return nil, fmt.Errorf("UpdateTaskSet: %w", ErrNotImplemented)
 }
