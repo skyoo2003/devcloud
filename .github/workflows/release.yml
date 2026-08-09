@@ -147,6 +147,23 @@ jobs:
           echo "::error::Run 'changie batch ${{ steps.resolve_tag.outputs.tag }}' and 'changie merge' before pushing the tag."
           exit 1
         fi
+        # changie renders every entry as '* ...', so a notes file with none of
+        # them was not batched from fragments. Checking that first stops the
+        # entry validation below from passing on an empty match set — a
+        # hand-written file (changes/v0.1.0.md is one) would otherwise sail
+        # through with nothing checked at all.
+        if ! grep -q '^\* ' "$notes"; then
+          echo "::error::$notes contains no changie entries. Release notes come from fragments — run 'changie batch ${{ steps.resolve_tag.outputs.tag }}' and 'changie merge'."
+          exit 1
+        fi
+        # Any other bullet form means the file was edited by hand, and hand
+        # edits are exactly what the entry check below cannot vouch for.
+        handwritten="$(grep -nE '^[-+] ' "$notes" || true)"
+        if [ -n "$handwritten" ]; then
+          echo "$handwritten"
+          echo "::error::The lines above are hand-written bullets, not changie entries. Move them into changes/unreleased fragments and re-batch."
+          exit 1
+        fi
         # 'changie batch' does not validate custom fields on hand-written
         # fragments, so an Issue that is empty, zero or non-numeric renders a
         # dead link and batches without complaint. Every entry must end in
