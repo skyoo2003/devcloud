@@ -239,6 +239,78 @@ func TestParse_AdminKeyWinsOverDeprecated(t *testing.T) {
 	assert.False(t, cfg.Admin.Enabled, "explicit admin.enabled=false should win over deprecated dashboard.enabled=true")
 }
 
+// TestGuaranteedConfigSurface locks the config keys docs/compatibility-policy.md
+// promises will keep their name and meaning across 1.x. Adding a key is fine;
+// removing or repurposing one of these is a major-version event, and this test
+// is what makes that visible instead of silent. The deprecated 'dashboard' and
+// removed 'auth' keys are covered by TestParse_DeprecatedDashboardKey and
+// TestParse_RemovedAuthKeyWarns.
+func TestGuaranteedConfigSurface(t *testing.T) {
+	isolateEnv(t)
+
+	cfg, warnings, err := parse([]byte(`
+server:
+  port: 5555
+services:
+  s3:
+    enabled: true
+    data_dir: ./custom/s3
+admin:
+  enabled: true
+logging:
+  level: debug
+  format: json
+`))
+	require.NoError(t, err)
+	assert.Empty(t, warnings, "the guaranteed surface must parse without warnings")
+
+	// t.Errorf per key, not require: one removed field should not hide the rest.
+	for _, tc := range []struct {
+		key  string
+		got  any
+		want any
+	}{
+		{"server.port", cfg.Server.Port, 5555},
+		{"services.<id>.enabled", cfg.Service("s3").Enabled, true},
+		{"services.<id>.data_dir", cfg.Service("s3").DataDir, "./custom/s3"},
+		{"services (block is authoritative)", cfg.Service("sqs").Enabled, false},
+		{"admin.enabled", cfg.Admin.Enabled, true},
+		{"logging.level", cfg.Logging.Level, "debug"},
+		{"logging.format", cfg.Logging.Format, "json"},
+	} {
+		if tc.got != tc.want {
+			t.Errorf("%s: got %v, want %v — guaranteed by docs/compatibility-policy.md", tc.key, tc.got, tc.want)
+		}
+	}
+}
+
+// TestGuaranteedEnvSurface locks the three environment overrides the policy
+// guarantees, including their precedence over the config file.
+func TestGuaranteedEnvSurface(t *testing.T) {
+	isolateEnv(t)
+	t.Setenv("DEVCLOUD_PORT", "6060")
+	t.Setenv("DEVCLOUD_SERVICES", "s3")
+	t.Setenv("DEVCLOUD_DATA_DIR", "/tmp/dc")
+
+	cfg, _, err := parse([]byte(`
+server:
+  port: 4747
+services:
+  s3:
+    enabled: true
+    data_dir: ./custom/s3
+  sqs:
+    enabled: true
+`))
+	require.NoError(t, err)
+
+	assert.Equal(t, 6060, cfg.Server.Port, "DEVCLOUD_PORT must override server.port")
+	assert.True(t, cfg.Service("s3").Enabled, "DEVCLOUD_SERVICES must keep the service it names")
+	assert.False(t, cfg.Service("sqs").Enabled, "DEVCLOUD_SERVICES must filter out services it does not name")
+	assert.Equal(t, filepath.Join("/tmp/dc", "s3"), cfg.Service("s3").DataDir,
+		"DEVCLOUD_DATA_DIR must rebase data dirs, overriding data_dir")
+}
+
 // TestParse_EmptyData_FillsDefaults verifies that parsing an empty YAML
 // payload yields a Config with at least the default server port populated,
 // so downstream code sees a usable config rather than a zero-value one.

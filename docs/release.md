@@ -61,7 +61,11 @@ The rest are only caught here.
       with a warning first. The precedent is the `dashboard` → `admin` rename in
       [`internal/config/config.go`](../internal/config/config.go): the old key kept working,
       emitted a warning, and only then became removable. Removing without that overlap is a
-      major-version change.
+      major-version change. The full procedure, and the surfaces it applies to, is
+      [compatibility-policy.md](compatibility-policy.md).
+- [ ] **Compatibility review.** If this release changes anything on the guaranteed list in
+      [compatibility-policy.md](compatibility-policy.md), it is a major bump — or it is a bug.
+      Additive change (a new config key, a new response field, a new service) is a minor bump.
 
 ## Cutting a release
 

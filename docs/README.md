@@ -8,7 +8,14 @@ This directory holds DevCloud's technical documentation. Use the map below to ju
 - **[Configuration](configuration.md)** — YAML options, env-var overrides, tier shortcuts
 - **[Architecture](architecture.md)** — system design, plugin model, codegen pipeline, multi-CSP vision
 - **[Roadmap](roadmap.md)** — phased plan toward multi-CSP support
-- **[Services Matrix](services-matrix.md)** — 101 services, coverage status, boto3 pass rate
+- **[Services Matrix](services-matrix.md)** — 104 services, coverage status, boto3 pass rate
+
+## What you can rely on
+
+- **[Compatibility Policy](compatibility-policy.md)** — what v1.0 guarantees across 1.x, what it explicitly does not, and how deprecation works
+- **[Fidelity Manifest](fidelity-manifest.md)** — per-operation tiers: how much to trust any given call
+- **[CRUD Engine](crud-engine.md)** — how engine-served operations behave, and where they stop
+- **[Plugin API](plugin-api.md)** — the in-tree `ServicePlugin` contract for contributors
 
 ## Per-service references
 

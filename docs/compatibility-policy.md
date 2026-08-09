@@ -1,0 +1,131 @@
+# Compatibility Policy
+
+What DevCloud **v1.0** promises, and what it deliberately does not.
+
+This document covers the surfaces you touch as a *user* of DevCloud — the config file, the
+environment, the CLI, the admin API, and the AWS wire protocol. For the in-tree Go contract
+that service implementations are written against, see
+[plugin-api.md](plugin-api.md#api-stability); that surface lives under `internal/` and is not
+importable from another module.
+
+Versions follow [Semantic Versioning](https://semver.org). "Across 1.x" below means every
+release from v1.0.0 up to but not including v2.0.0.
+
+## Guaranteed across 1.x
+
+### Configuration file
+
+These keys keep their name, type and meaning. New keys may be added; existing ones are not
+removed or repurposed. Defined in [`internal/config/config.go`](../internal/config/config.go).
+
+| Key | Type | Meaning |
+|---|---|---|
+| `server.port` | int | Listen port. Default `4747` when absent or `0`. |
+| `services` | map | Presence of the block is authoritative — only the services it lists run. Absent means every registered service runs. |
+| `services.<id>.enabled` | bool | Whether that service starts. |
+| `services.<id>.data_dir` | string | Where that service stores data. |
+| `admin.enabled` | bool | Whether the admin API is served. Default `false`. |
+| `logging.level` | string | Log level. |
+| `logging.format` | string | Log format. |
+
+### Environment variables
+
+| Variable | Meaning |
+|---|---|
+| `DEVCLOUD_PORT` | Overrides `server.port`. |
+| `DEVCLOUD_SERVICES` | Service filter. `all`, a comma-separated list of service ids, or the `tier1` / `tier2` / `tier3` shortcuts. Unknown tokens are treated as literal service names. |
+| `DEVCLOUD_DATA_DIR` | Base directory; each service stores under `<base>/<id>`. Overrides `data_dir`. |
+
+Environment overrides config file, and that precedence is guaranteed.
+
+### Command line
+
+`-config <path>` keeps its meaning. With no flag, DevCloud uses `./devcloud.yaml` if present
+and the embedded defaults otherwise — zero-config startup keeps working.
+
+### Admin API
+
+Served at `/devcloud/api/` when `admin.enabled: true`. These routes keep responding, and their
+JSON responses **only gain fields** — no documented key is removed or repurposed.
+
+| Route | Guaranteed response keys |
+|---|---|
+| `GET /devcloud/api/services` | array of `id`, `name`, `status`, `resourceCount` |
+| `GET /devcloud/api/services/{id}/resources` | array of `type`, `id`, `name` |
+| `GET /devcloud/api/logs` | array of `method`, `path`, `status`, `duration`, `timestamp`, `service`; newest first; `?limit=` honoured |
+| `GET /devcloud/api/fidelity` | object keyed by service id, each with `modelBacked` and `counts`; `?service=<id>` adds `operations` |
+
+### Fidelity tier names
+
+`hand-verified`, `auto-crud` and `unimplemented` keep the meanings given in
+[fidelity-manifest.md](fidelity-manifest.md). The set does not shrink, and a name is never
+reused for a different meaning. Every reachable operation carries one — enforced by
+`TestFidelityManifestCoverage` in [`cmd/devcloud/fidelity_test.go`](../cmd/devcloud/fidelity_test.go),
+which fails the build if an operation is unclassified.
+
+### Wire behaviour — scoped to the compatibility suite
+
+**A hand-verified operation covered by a test in [`tests/compatibility/`](../tests/compatibility/)
+keeps its response shape across 1.x.**
+
+That suite — 775 tests driving real boto3 clients — *is* the guarantee. It runs in CI on every
+push and again against the tagged commit before a release publishes, so the promise is enforced
+by a failing build rather than by review discipline. If a response shape you depend on is not
+covered there, it is not covered by this policy; adding a test is the way to bring it in scope,
+and such contributions are welcome.
+
+## Not guaranteed
+
+Depending on any of the following will break, and breaking it is **not** a major-version event.
+
+- **`auto-crud` response content.** 948 operations are served by the
+  [generic CRUD engine](crud-engine.md) at fidelity that is deliberately *plausible, not
+  faithful*: store-backed responses echoing your input plus synthesized ids and ARNs, with no
+  validation, no cross-resource integrity, no pagination correctness and no business logic.
+  Their shape and content may change in any release. Use them to wire an SDK up, nothing more.
+- **Hand-verified operations with no compatibility test.** Of 4,496 hand-verified operations,
+  only what the suite covers is promised. The rest are best-effort.
+- **Data durability.** Stores are local development stores. Several are in-memory and
+  per-process; on-disk layouts under `data_dir` may change format between releases without a
+  migration. Do not treat DevCloud as a database.
+- **`unimplemented` → served transitions.** An operation that returns an error today may start
+  returning a response. This is additive, and ships in a minor release.
+- **Service coverage.** New services may be added in a minor release. The 104 services present
+  at v1.0 are a floor, not a ceiling.
+- **Error message wording.** Error *codes* and HTTP status of `unimplemented` operations are
+  documented in [fidelity-manifest.md](fidelity-manifest.md); the human-readable message text
+  is not stable.
+- **Log output.** Format, levels and wording of server logs are operational, not an API.
+- **Everything under `internal/`.** Go forbids importing it from another module, and DevCloud
+  reserves the right to restructure it freely across 1.x — explicitly including the planned
+  intermediate representation and `ModelSource` work on the [roadmap](roadmap.md). Internal
+  churn is not a compatibility event.
+- **Behavioural parity with AWS.** No release of DevCloud promises AWS's validation, business
+  logic, eventual-consistency timing, rate limits, or IAM enforcement. Credentials are accepted
+  without signature verification.
+
+## Deprecation procedure
+
+Removing anything from the guaranteed list is a **major** version bump. Before that can happen:
+
+1. **Deprecate in a minor release.** The old form keeps working and emits a runtime warning
+   naming its replacement. The precedent is the `dashboard` → `admin` config rename: the old key
+   still enables the admin API, warns, and yields to an explicit `admin` block
+   ([`config.go`](../internal/config/config.go)).
+2. **Document it** — in the release notes for that version, and here.
+3. **Remove no earlier than the next major.** At least one released version must have shipped
+   the warning.
+
+Silence is not deprecation. A removed key that YAML would otherwise drop without comment is
+kept in the parser purely to warn — that is why `auth` still produces a message telling you
+SigV4 is not enforced rather than being ignored.
+
+The pre-flight checklist in [release.md](release.md#pre-flight-checklist) makes this a step in
+cutting a release, not a thing to remember.
+
+## Reporting a break
+
+If a 1.x release breaks something on the guaranteed list, that is a bug — please
+[open an issue](https://github.com/skyoo2003/devcloud/issues) with the DevCloud version and a
+reproducing snippet. If it breaks something on the not-guaranteed list, an issue is still
+useful: it is evidence for tightening the policy in a future major.
