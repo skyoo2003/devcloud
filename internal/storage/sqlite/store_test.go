@@ -137,13 +137,16 @@ func TestOpen_SecondWriterWaitsForTheLock(t *testing.T) {
 	_, err = tx.Exec(`INSERT INTO items (id) VALUES ('held')`)
 	require.NoError(t, err)
 
+	// start is read before the goroutine launches. Taken after, the sleep could
+	// already be underway and the rollback land less than hold after start,
+	// failing the assertion on scheduling alone.
 	const hold = 200 * time.Millisecond
+	start := time.Now()
 	go func() {
 		time.Sleep(hold)
 		_ = tx.Rollback()
 	}()
 
-	start := time.Now()
 	_, err = store.DB().Exec(`INSERT INTO items (id) VALUES ('waited')`)
 	elapsed := time.Since(start)
 
