@@ -68,14 +68,19 @@ which fails the build if an operation is unclassified.
 
 ### Wire behaviour — scoped to the compatibility suite
 
-**A hand-verified operation covered by a test in [`tests/compatibility/`](../tests/compatibility/)
-keeps its response shape across 1.x.**
+**The response fields that a test in [`tests/compatibility/`](../tests/compatibility/) asserts
+keep their name, type and meaning across 1.x.**
 
-That suite — 775 tests driving real boto3 clients — *is* the guarantee. It runs in CI on every
-push and again against the tagged commit before a release publishes, so the promise is enforced
-by a failing build rather than by review discipline. If a response shape you depend on is not
-covered there, it is not covered by this policy; adding a test is the way to bring it in scope,
-and such contributions are welcome.
+The promise is exactly as wide as the assertions — not as wide as the operation. `CreateFunction`
+is covered by `test_lambda.py`, but that test asserts `FunctionName` and the presence of
+`FunctionArn`, so those two are promised while `Runtime`, `Handler` and `MemorySize` are not,
+even though today's response carries them.
+
+That narrowness is the point: it is the promise the repo can actually keep. The suite — 775 tests
+driving real boto3 clients — runs in CI on every push and again against the tagged commit before
+a release publishes, so breaking an asserted field fails the build rather than depending on review
+discipline. Anything the suite does not assert rests on nothing but intent. Widening the promise
+means adding assertions, and such contributions are welcome.
 
 ## Not guaranteed
 
@@ -95,14 +100,21 @@ Depending on any of the following will break, and breaking it is **not** a major
   returning a response. This is additive, and ships in a minor release.
 - **Service coverage.** New services may be added in a minor release. The 104 services present
   at v1.0 are a floor, not a ceiling.
-- **Error message wording.** Error *codes* and HTTP status of `unimplemented` operations are
-  documented in [fidelity-manifest.md](fidelity-manifest.md); the human-readable message text
-  is not stable.
+- **Error codes, HTTP status and message wording.** What *is* guaranteed for an `unimplemented`
+  operation is that it **fails** — an AWS-shaped error, never a fabricated success. Which error
+  is not: it comes from whichever provider handles the request, so it is `InvalidAction` (400)
+  for services that fall through to the CRUD engine, `NotImplemented` (501) for the 32 providers
+  with their own dispatch default, and each path-routed provider's own vocabulary otherwise
+  (`s3` `MethodNotAllowed` 405, `bedrock` `UnsupportedOperation` 400). `sqs` even differs by
+  protocol. [fidelity-manifest.md](fidelity-manifest.md) records the current behaviour;
+  normalizing it is a minor release, not a major one.
 - **Log output.** Format, levels and wording of server logs are operational, not an API.
 - **Everything under `internal/`.** Go forbids importing it from another module, and DevCloud
   reserves the right to restructure it freely across 1.x — explicitly including the planned
   intermediate representation and `ModelSource` work on the [roadmap](roadmap.md). Internal
-  churn is not a compatibility event.
+  churn is not a compatibility event. The in-tree `ServicePlugin` contract in
+  [plugin-api.md](plugin-api.md#api-stability) is not an exception to this: it is a convention
+  that keeps in-tree plugins compiling, and it does not gate release versioning.
 - **Behavioural parity with AWS.** No release of DevCloud promises AWS's validation, business
   logic, eventual-consistency timing, rate limits, or IAM enforcement. Credentials are accepted
   without signature verification.

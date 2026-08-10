@@ -21,11 +21,14 @@ const (
 	// store-backed responses: no validation, no business logic.
 	TierAutoCRUD Tier = "auto-crud"
 	// TierUnimplemented is not served: the call fails with an error rather than
-	// a made-up success. The error is the provider's own, not one shared code —
-	// JSON and Query services fall through to InvalidAction (HTTP 400), while
-	// the path-routed providers answer in their own vocabulary (s3
-	// MethodNotAllowed, lambda ResourceNotFoundException, bedrock
-	// UnsupportedOperation).
+	// a made-up success. Only that failure is stable. The error itself is the
+	// declining provider's own and varies — InvalidAction (400) when the
+	// provider returns ErrUnhandledOp and the CRUD engine cannot classify the
+	// operation either, NotImplemented (501) from the providers that answer
+	// from their own dispatch default, and each path-routed provider's own
+	// vocabulary otherwise (s3 MethodNotAllowed 405, bedrock
+	// UnsupportedOperation 400). sqs even differs by protocol. See
+	// docs/fidelity-manifest.md; the codes are not guaranteed across 1.x.
 	TierUnimplemented Tier = "unimplemented"
 )
 
