@@ -14,7 +14,7 @@ We pursue this vision through a **phased rollout** to manage scope, architectura
 
 ## Phases
 
-### Phase 1 — AWS Depth & Stabilization (Current, targeting v1.0)
+### Phase 1 — AWS Depth & Stabilization (Complete, shipped as v1.0)
 
 **Goal**: mature the already-broad AWS surface into a stable, well-tested v1.0.
 
@@ -27,9 +27,9 @@ We pursue this vision through a **phased rollout** to manage scope, architectura
 - [x] boto3 compatibility coverage added for previously-untested services (CodeConnections, DMS, Verified Permissions)
 - [x] Stable `ServicePlugin` API finalized and documented ([plugin-api.md](plugin-api.md)), enforced by a conformance test over every registered service
 - [x] Generic CRUD fallback engine ([crud-engine.md](crud-engine.md)) auto-serves ~2,200 CRUD-shaped operations across all 46 JSON-protocol services with plausible, store-backed responses; every registered JSON service is wired. **Follow-up**: promote high-value auto-crud ops to hand-verified fidelity.
-- [ ] v1.0 release (pending maintainer tag)
+- [x] v1.0 release — see [compatibility-policy.md](compatibility-policy.md) for what 1.x guarantees
 
-### Phase 2 — Architectural Preparation (v1.x)
+### Phase 2 — Architectural Preparation (Current, v1.x)
 
 **Goal**: internal refactor so adding a new CSP doesn't require forking the project.
 
@@ -75,7 +75,7 @@ We pursue this vision through a **phased rollout** to manage scope, architectura
 
 | Version | Focus |
 |---------|-------|
-| 0.x ← current | AWS services, unstable API |
-| 1.x | AWS depth, stable plugin API |
+| 0.x | AWS services, unstable API |
+| 1.x ← current | AWS depth, stable plugin API |
 | 2.x | Multi-CSP architecture, Azure pilot |
 | 3.x+ | Broad CSP coverage, community-owned providers |

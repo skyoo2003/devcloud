@@ -2,13 +2,14 @@
 
 DevCloud is a small, volunteer-driven open-source project. This document describes how decisions are made and how the roles evolve as the project grows.
 
-## Current state (0.x)
+## Current state
 
 - **Benevolent maintainer model.** One maintainer ([@skyoo2003](https://github.com/skyoo2003)) has final say on roadmap, releases, and merge decisions.
 - **Apache License 2.0.** All contributions are accepted under this license; see [CONTRIBUTING.md](CONTRIBUTING.md).
 - **Best-effort response.** No SLA; see [SUPPORT.md](SUPPORT.md) for expectations.
 
-This is appropriate while the project is pre-1.0 and scope is still being proven.
+This is appropriate at the project's current size. It is a statement about who decides, not about
+API stability — what a release promises is [docs/compatibility-policy.md](docs/compatibility-policy.md).
 
 ## How decisions are made
 
