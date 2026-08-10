@@ -128,10 +128,19 @@ jobs:
       with:
         go-version-file: go.mod
         cache-dependency-path: go.sum
-    - name: Build devcloud binary
-      # Same build configuration as .goreleaser.yaml, so the 775 tests below
-      # exercise the artifact this tag is about to publish.
-      run: CGO_ENABLED=0 go build -o dist/devcloud ./cmd/devcloud
+    - name: Build devcloud binary with GoReleaser
+      # GoReleaser, not `go build`. This step used to run `go build ./cmd/devcloud`
+      # and claim it matched .goreleaser.yaml; it matched only CGO_ENABLED. The
+      # config built `cmd/devcloud/main.go` — a single file, which drops
+      # imports.go and with it every service registration — so v1.0.0 published
+      # six archives, a Homebrew formula and four container tags whose binary
+      # exited at startup, while these 775 tests passed against a different
+      # binary that was never shipped. The gate now compiles what ships.
+      uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94  # goreleaser-action v7
+      with:
+        distribution: goreleaser
+        version: "~> v2"
+        args: build --single-target --snapshot --clean --id devcloud --output dist/devcloud
     - name: Set up Python
       uses: actions/setup-python@v7
       with:
