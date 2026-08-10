@@ -76,19 +76,26 @@ type LoggingConfig struct {
 // Service returns the effective configuration for serviceID.
 //
 // A YAML services block is authoritative: only the services it lists can run.
-// When there is no block (the embedded default), every service is enabled with
-// data_dir <base>/<id>. DEVCLOUD_SERVICES and DEVCLOUD_DATA_DIR are applied
-// here so both paths agree.
+// An empty block therefore runs nothing — it is a block, so it decides. Absent
+// entirely (the embedded default), every service is enabled with data_dir
+// <base>/<id>. DEVCLOUD_SERVICES and DEVCLOUD_DATA_DIR are applied here so both
+// paths agree.
 func (c *Config) Service(serviceID string) ServiceConfig {
-	if c.allowed != nil && !c.allowed[serviceID] {
-		return ServiceConfig{}
-	}
 	svc, listed := c.Services[serviceID]
-	if !listed {
-		if len(c.Services) > 0 {
+	switch {
+	case c.allowed != nil:
+		// DEVCLOUD_SERVICES names the running set outright, so it decides
+		// membership on its own: it can enable a service the YAML block omits
+		// as well as one the block lists with enabled: false. The block still
+		// supplies that service's data_dir. Environment beats file.
+		svc.Enabled = c.allowed[serviceID]
+	case !listed:
+		// nil means no block at all; a non-nil empty map means "services: {}",
+		// which lists nothing and therefore runs nothing.
+		if c.Services != nil {
 			return ServiceConfig{}
 		}
-		svc = ServiceConfig{Enabled: true}
+		svc.Enabled = true
 	}
 	if c.baseDir == "" && svc.DataDir != "" {
 		return svc

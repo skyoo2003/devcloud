@@ -1,0 +1,5 @@
+kind: Documentation
+body: Corrected what the fidelity manifest says an `unimplemented` operation returns. It claimed JSON and Query services answer `InvalidAction` (HTTP 400), but only the 46 providers that fall through to the CRUD engine do; 32 answer `NotImplemented` (HTTP 501) from their own dispatch default, several use their own vocabulary, and `sqs` differs by protocol. Only the failure itself is stable — the specific code and status are documented, not guaranteed
+time: 2026-08-10T10:15:00.000000+09:00
+custom:
+    Issue: "129"

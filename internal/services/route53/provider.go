@@ -52,7 +52,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	// If the router passes an empty op, resolve it ourselves.
 	if op == "" {
 		var params generated.PathParams
-		op, params = generated.MatchOperation(req.Method, req.URL.Path)
+		op, params = generated.MatchOperation(req.Method, req.URL.RequestURI())
 		_ = params
 	}
 	switch op {

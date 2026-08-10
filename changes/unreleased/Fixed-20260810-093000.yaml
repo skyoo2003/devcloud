@@ -1,0 +1,5 @@
+kind: Fixed
+body: Service selection now matches what the docs promise. An empty `services` block is still a block, so it starts nothing rather than every registered service; and `DEVCLOUD_SERVICES` names the running set outright rather than intersecting with the `services` block, so it starts a service the block omits and overrides a block entry the file disabled. Previously `DEVCLOUD_SERVICES=sqs` alongside a block listing only `s3` started nothing at all
+time: 2026-08-10T09:30:00.000000+09:00
+custom:
+    Issue: "129"

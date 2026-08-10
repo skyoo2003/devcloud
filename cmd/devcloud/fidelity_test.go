@@ -73,9 +73,13 @@ func TestFidelityManifestCoversRegisteredServices(t *testing.T) {
 	}
 }
 
-// TestFidelityManifestCoversCRUDRegistry checks the other direction: every
-// operation the CRUD engine would serve is declared, and never as unimplemented
-// — that would promise an InvalidAction the runtime does not return.
+// TestFidelityManifestCoversCRUDRegistry checks the other direction, against a
+// source the manifest was not generated from: every operation the CRUD engine
+// would serve at runtime is declared, and never as unimplemented — that would
+// promise a failure the runtime does not deliver. This is also the only guard
+// that can notice an engine-served operation going *missing* from the manifest;
+// TestFidelityManifestCoverage can only inspect what the manifest already
+// lists.
 func TestFidelityManifestCoversCRUDRegistry(t *testing.T) {
 	for _, id := range plugin.DefaultRegistry.RegisteredServices() {
 		for op := range crud.RegisteredOps(id) {

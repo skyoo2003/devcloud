@@ -29,6 +29,8 @@ Environment variables override YAML values for selected keys (see [Environment V
 The `services` block is **optional and authoritative**: omit it (as the embedded
 default does) and every registered service starts with `data_dir
 ./data/<service>`; list any service and *only* the services you list start.
+Writing `services: {}` lists nothing, so nothing starts — a block is a block
+even when it is empty.
 
 | Key | Default | Description |
 |-----|---------|-------------|
@@ -112,7 +114,7 @@ docker run -p 8080:8080 -e DEVCLOUD_PORT=8080 ghcr.io/skyoo2003/devcloud:latest
 
 ### `DEVCLOUD_SERVICES`
 
-Comma-separated list of services to enable. When set, **only** the listed services are enabled — all others are disabled regardless of their `enabled` setting in YAML. When not set, each service uses its YAML `enabled` value (or the embedded default of `true`). An unknown `tierN` token is treated as a literal service name and logged as a warning.
+Comma-separated list of services to enable. When set, it names the running set outright: **only** the listed services are enabled, all others are disabled regardless of their `enabled` setting in YAML, and a service the `services` block omits entirely still starts if you name it here. The block still supplies that service's `data_dir`. When not set, each service uses its YAML `enabled` value (or the embedded default of `true`). An unknown `tierN` token is treated as a literal service name and logged as a warning.
 
 **Tier shortcuts** (expand to predefined service groups — see [`internal/config/config.go`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/config.go) for the exact list):
 

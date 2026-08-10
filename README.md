@@ -61,7 +61,9 @@ Start at the [docs index](docs/) for the full map. Quick links:
 - [Configuration](docs/configuration.md) — Config options, env-var overrides, tier shortcuts
 - [Architecture](docs/architecture.md) — System design, codegen pipeline, plugin model, multi-CSP vision
 - [Services Matrix](docs/services-matrix.md) — services, coverage status, boto3 compatibility
-- [Plugin API](docs/plugin-api.md) — the stable `ServicePlugin` contract and v1.x stability policy
+- [Compatibility Policy](docs/compatibility-policy.md) — what v1.0 guarantees across 1.x, and what it explicitly does not
+- [Fidelity Manifest](docs/fidelity-manifest.md) — per-operation tiers: how much to trust any given call
+- [Plugin API](docs/plugin-api.md) — the in-tree `ServicePlugin` contract for contributors
 - [Roadmap](docs/roadmap.md) — Phased plan toward multi-CSP support
 - [FAQ](docs/faq.md) / [Troubleshooting](docs/troubleshooting.md) — Common questions and errors
 - [Contributing](docs/contributing.md) — Development setup, adding new services

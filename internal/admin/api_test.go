@@ -49,6 +49,89 @@ func newTestRegistry(p *mockServicePlugin) *plugin.Registry {
 	return reg
 }
 
+// getJSON issues GET path against h, asserts the status and Content-Type the
+// compatibility policy guarantees, and decodes the body into v.
+func getJSON(t *testing.T, h http.Handler, path string, v any) {
+	t.Helper()
+	w := httptest.NewRecorder()
+	h.ServeHTTP(w, httptest.NewRequest(http.MethodGet, path, nil))
+	require.Equal(t, http.StatusOK, w.Code, path)
+	require.Equal(t, "application/json", w.Header().Get("Content-Type"), path)
+	require.NoError(t, json.NewDecoder(w.Body).Decode(v), path)
+}
+
+// surfaceAPI builds an API with one service, one resource and one log entry —
+// enough for every guaranteed route to return a non-empty body.
+func surfaceAPI(t *testing.T) http.Handler {
+	t.Helper()
+	p := &mockServicePlugin{
+		id:        "s3",
+		name:      "Amazon S3",
+		resources: []plugin.Resource{{Type: "bucket", ID: "my-bucket", Name: "my-bucket"}},
+	}
+	lc := NewLogCollector(10)
+	lc.Add(RequestLog{
+		Method: "GET", Path: "/s3/my-bucket", Status: 200,
+		Duration: "1.000ms", Timestamp: time.Now(), Service: "s3",
+	})
+	return NewAPI(newTestRegistry(p), lc).Handler()
+}
+
+// TestGuaranteedAdminSurface_Collections locks the wire keys of the three
+// list-returning routes in docs/compatibility-policy.md.
+//
+// It decodes into map[string]any deliberately. The other tests in this file
+// decode into the internal structs (serviceInfo, RequestLog), so renaming a
+// JSON tag renames both sides of the assertion and they stay green while every
+// consumer breaks. Asserting key *presence* rather than the whole payload keeps
+// additive change — which the policy allows — from failing the build.
+func TestGuaranteedAdminSurface_Collections(t *testing.T) {
+	h := surfaceAPI(t)
+
+	for _, tc := range []struct {
+		route string
+		keys  []string
+	}{
+		{"/devcloud/api/services", []string{"id", "name", "status", "resourceCount"}},
+		{"/devcloud/api/services/s3/resources", []string{"type", "id", "name"}},
+		{"/devcloud/api/logs", []string{"method", "path", "status", "duration", "timestamp", "service"}},
+	} {
+		var got []map[string]any
+		getJSON(t, h, tc.route, &got)
+		require.NotEmpty(t, got, "%s returned no entries to check", tc.route)
+
+		for _, key := range tc.keys {
+			if _, ok := got[0][key]; !ok {
+				t.Errorf("%s: entry is missing guaranteed key %q — guaranteed by docs/compatibility-policy.md",
+					tc.route, key)
+			}
+		}
+	}
+}
+
+// TestGuaranteedAdminSurface_Fidelity locks both shapes of the fidelity route:
+// the summary carries counts only, and naming a service adds its operations.
+func TestGuaranteedAdminSurface_Fidelity(t *testing.T) {
+	h := surfaceAPI(t)
+
+	var summary map[string]map[string]any
+	getJSON(t, h, "/devcloud/api/fidelity", &summary)
+	require.Contains(t, summary, "s3")
+	for _, key := range []string{"modelBacked", "counts"} {
+		if _, ok := summary["s3"][key]; !ok {
+			t.Errorf("/devcloud/api/fidelity: missing guaranteed key %q — guaranteed by docs/compatibility-policy.md", key)
+		}
+	}
+	assert.NotContains(t, summary["s3"], "operations",
+		"the unfiltered summary must not carry every operation")
+
+	var detail map[string]map[string]any
+	getJSON(t, h, "/devcloud/api/fidelity?service=s3", &detail)
+	require.Contains(t, detail, "s3")
+	assert.Contains(t, detail["s3"], "operations",
+		"?service= must add the per-operation tiers")
+}
+
 // TestAPI_Services registers a mock plugin and verifies the
 // /devcloud/api/services endpoint returns it.
 func TestAPI_Services(t *testing.T) {

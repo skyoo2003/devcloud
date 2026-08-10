@@ -14,10 +14,29 @@ Smithy models, the CRUD registry, and each provider's dispatch code.
 |------|---------|--------------|
 | `hand-verified` | The service's provider implements the operation explicitly. | Behaviour, not just shape. Covered by the boto3 compatibility suite where tests exist. |
 | `auto-crud` | Served by the [generic CRUD engine](crud-engine.md) with plausible, store-backed responses. No validation, no business logic, no cross-resource integrity. | Wiring your SDK calls and round-tripping create → get → list → delete. Nothing else. |
-| `unimplemented` | Not served — the call fails instead of inventing a success. The error is the provider's own: JSON and Query services return `InvalidAction` (HTTP 400), while the path-routed providers answer in their own vocabulary (`s3` `MethodNotAllowed` 405, `lambda` `ResourceNotFoundException` 404, `bedrock` `UnsupportedOperation` 400). | Knowing early that DevCloud will not serve this call. |
+| `unimplemented` | Not served — the call fails instead of inventing a success. The error is whichever the handling provider emits, and that varies (see below). | Knowing early that DevCloud will not serve this call. |
 
 `hand-verified` always wins: the CRUD engine is reached only when a provider's
 dispatch falls through, so a hand-written implementation is never shadowed.
+
+### What an `unimplemented` call actually returns
+
+There is no single error. Which one you get depends on how the owning provider
+declines the operation:
+
+| How the provider declines | Error | Status | Providers |
+|---|---|---|---|
+| Returns `ErrUnhandledOp`, and the CRUD engine cannot classify the operation either — [`gateway/router.go`](../internal/gateway/router.go) emits the fallback | `InvalidAction` | 400 | 46 |
+| Its dispatch `default:` answers directly | `NotImplemented` | 501 | 33 |
+| Its dispatch `default:` answers in its own vocabulary | `UnsupportedOperation` / `MethodNotAllowed` | 400 / 405 | `iot`, `iotwireless`, `apigatewayv2`, `backup`, `bedrock`, `s3` |
+
+A service can even answer differently per protocol: `sqs` returns
+`NotImplemented` (501) on the Query protocol and `InvalidAction` (400) on JSON.
+
+Only the *failure* is stable, and that is all
+[compatibility-policy.md](compatibility-policy.md) promises — an `unimplemented`
+operation never fabricates a success. The specific code and status are not
+guaranteed across 1.x; normalizing them is a minor release.
 
 ## Current coverage
 

@@ -127,13 +127,23 @@ The registry also exposes `RegisteredServices()` (all registered IDs) and
 
 ## API stability
 
+This section is the **in-tree** contract — it constrains contributors writing
+service plugins inside this repository. `internal/plugin` cannot be imported
+from another Go module, so it is not the promise a *user* of DevCloud depends
+on. That is [compatibility-policy.md](compatibility-policy.md), which covers the
+config file, environment variables, CLI, admin API and wire behaviour.
+
 Starting at **v1.0**, `ServicePlugin`, `PluginConfig`, `Response`, `Resource`,
 and the `ProtocolType` constants are stable within the `v1.x` series:
 
 - No method will be **removed** from `ServicePlugin` and no existing method
   **signature** will change in a `v1.x` release.
 - Struct fields will only be **added**, never removed or repurposed.
-- Any breaking change to this contract requires a **major** version bump.
+- Any breaking change to this contract must be called out in the release notes,
+  and every in-tree plugin updated in the same change. It is not on its own a
+  major-version event: nothing outside this module can import
+  `internal/plugin`, so no user can be depending on it. Release versioning is
+  governed by [compatibility-policy.md](compatibility-policy.md).
 
 New optional capability is introduced additively (new `Options` keys, new
 `ProtocolType` values) so existing plugins keep compiling and behaving.
