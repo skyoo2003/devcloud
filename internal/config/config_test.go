@@ -98,6 +98,44 @@ func TestService_ExplicitBlockIsAuthoritative(t *testing.T) {
 	assert.False(t, cfg.Service("sqs").Enabled, "unlisted service must not start")
 }
 
+// TestService_EmptyServicesBlock_RunsNothing covers "services: {}". YAML makes
+// that a non-nil empty map, so it is a block that lists nothing — and a block
+// is authoritative. Treating it like an absent block would start all 104
+// services, which is the opposite of what the operator wrote.
+func TestService_EmptyServicesBlock_RunsNothing(t *testing.T) {
+	isolateEnv(t)
+	cfg, _, err := parse([]byte("services: {}\n"))
+	require.NoError(t, err)
+	require.NotNil(t, cfg.Services, "an empty block must survive parsing as a non-nil map")
+	assert.False(t, cfg.Service("s3").Enabled, "an empty services block lists nothing, so nothing runs")
+}
+
+// TestService_EnvSelectionOverridesBlock covers the precedence
+// docs/configuration.md states: DEVCLOUD_SERVICES names the running set
+// outright. It must be able to add a service the block omits — not merely
+// intersect with the block, which would leave "env names sqs, YAML lists s3"
+// running nothing at all.
+func TestService_EnvSelectionOverridesBlock(t *testing.T) {
+	isolateEnv(t)
+	t.Setenv("DEVCLOUD_SERVICES", "sqs,dynamodb")
+
+	cfg, _, err := parse([]byte(`
+services:
+  s3:
+    enabled: true
+  dynamodb:
+    enabled: false
+    data_dir: ./custom/ddb
+`))
+	require.NoError(t, err)
+
+	assert.True(t, cfg.Service("sqs").Enabled, "env must enable a service the block omits")
+	assert.True(t, cfg.Service("dynamodb").Enabled, "env must override the block's enabled: false")
+	assert.False(t, cfg.Service("s3").Enabled, "env must disable a service it does not name")
+	assert.Equal(t, "./custom/ddb", cfg.Service("dynamodb").DataDir,
+		"the block still supplies data_dir for a service the env enables")
+}
+
 func TestService_DataDirOverride(t *testing.T) {
 	isolateEnv(t)
 	yaml := []byte("services:\n  s3:\n    enabled: true\n    data_dir: ./custom/s3\n")
@@ -151,7 +189,7 @@ func TestLoadOrDefault_FileMissing_UsesEmbedded(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, cfg)
 	assert.Equal(t, 4747, cfg.Server.Port, "embedded default port should be 4747")
-	assert.Empty(t, cfg.Services, "embedded default carries no services block")
+	assert.Nil(t, cfg.Services, "embedded default carries no services block — nil, not an empty one, which would run nothing")
 	assert.True(t, cfg.Service("s3").Enabled, "s3 should be enabled in embedded default")
 }
 
@@ -289,7 +327,9 @@ logging:
 func TestGuaranteedEnvSurface(t *testing.T) {
 	isolateEnv(t)
 	t.Setenv("DEVCLOUD_PORT", "6060")
-	t.Setenv("DEVCLOUD_SERVICES", "s3")
+	// s3 is listed in the YAML below, lambda deliberately is not: naming only a
+	// listed service would let a merely-intersecting filter pass this test.
+	t.Setenv("DEVCLOUD_SERVICES", "s3,lambda")
 	t.Setenv("DEVCLOUD_DATA_DIR", "/tmp/dc")
 
 	cfg, _, err := parse([]byte(`
@@ -306,6 +346,7 @@ services:
 
 	assert.Equal(t, 6060, cfg.Server.Port, "DEVCLOUD_PORT must override server.port")
 	assert.True(t, cfg.Service("s3").Enabled, "DEVCLOUD_SERVICES must keep the service it names")
+	assert.True(t, cfg.Service("lambda").Enabled, "DEVCLOUD_SERVICES must enable a service the file omits")
 	assert.False(t, cfg.Service("sqs").Enabled, "DEVCLOUD_SERVICES must filter out services it does not name")
 	assert.Equal(t, filepath.Join("/tmp/dc", "s3"), cfg.Service("s3").DataDir,
 		"DEVCLOUD_DATA_DIR must rebase data dirs, overriding data_dir")

@@ -21,7 +21,7 @@ removed or repurposed. Defined in [`internal/config/config.go`](../internal/conf
 | Key | Type | Meaning |
 |---|---|---|
 | `server.port` | int | Listen port. Default `4747` when absent or `0`. |
-| `services` | map | Presence of the block is authoritative — only the services it lists run. Absent means every registered service runs. |
+| `services` | map | Presence of the block is authoritative — only the services it lists run, and an empty block runs nothing. Absent means every registered service runs. |
 | `services.<id>.enabled` | bool | Whether that service starts. |
 | `services.<id>.data_dir` | string | Where that service stores data. |
 | `admin.enabled` | bool | Whether the admin API is served. Default `false`. |
@@ -33,10 +33,13 @@ removed or repurposed. Defined in [`internal/config/config.go`](../internal/conf
 | Variable | Meaning |
 |---|---|
 | `DEVCLOUD_PORT` | Overrides `server.port`. |
-| `DEVCLOUD_SERVICES` | Service filter. `all`, a comma-separated list of service ids, or the `tier1` / `tier2` / `tier3` shortcuts. Unknown tokens are treated as literal service names. |
+| `DEVCLOUD_SERVICES` | Names the running service set. `all`, a comma-separated list of service ids, or the `tier1` / `tier2` / `tier3` shortcuts. Unknown tokens are treated as literal service names. |
 | `DEVCLOUD_DATA_DIR` | Base directory; each service stores under `<base>/<id>`. Overrides `data_dir`. |
 
 Environment overrides config file, and that precedence is guaranteed.
+`DEVCLOUD_SERVICES` decides membership on its own: it starts a service the
+`services` block omits and stops one the block enables. It is a replacement for
+the block's selection, not an intersection with it.
 
 ### Command line
 
