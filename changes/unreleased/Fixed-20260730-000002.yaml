@@ -1,5 +1,0 @@
-kind: Fixed
-body: 'The weekly Smithy model sync could never report an update: it skipped every model already in the tree (all of them), and 14 entries of its hand-maintained service list 404''d upstream. The list is now derived from the tree, the workflow re-downloads with `--refresh`, and downloads are atomic so a failed fetch cannot delete a committed model.'
-time: 2026-07-30T00:00:02.000000+09:00
-custom:
-    Issue: "120"

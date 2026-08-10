@@ -1,5 +1,0 @@
-kind: Changed
-body: Rename `internal/dashboard` to `internal/admin` and the `dashboard.enabled` config key to `admin.enabled`. The old key is honoured for one release with a deprecation warning.
-time: 2026-07-24T00:00:01.000000+09:00
-custom:
-    Issue: "111"

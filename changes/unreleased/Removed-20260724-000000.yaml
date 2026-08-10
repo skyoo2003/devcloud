@@ -1,5 +1,0 @@
-kind: Removed
-body: Extract the web dashboard to a separate repository. The binary builds and serves no UI, only the opt-in admin API at `/devcloud/api/*`.
-time: 2026-07-24T00:00:00.000000+09:00
-custom:
-    Issue: "111"

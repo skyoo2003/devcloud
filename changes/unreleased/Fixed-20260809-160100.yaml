@@ -1,5 +1,0 @@
-kind: Fixed
-body: Restored CloudWatch's 17 CRUD-engine operations. The gateway picks the protocol from the request, not from the provider, so CloudWatch reaches the engine whenever a client speaks JSON — filtering the registry by the provider's declared protocol had removed that coverage outright
-time: 2026-08-09T16:01:00.000000+09:00
-custom:
-    Issue: "126"

@@ -1,5 +1,0 @@
-kind: Fixed
-body: 'EC2: Describe{SecurityGroups,Tags,Addresses} honor their selectors and Filters instead of returning every resource, unknown IDs raise NotFound, batch Start/Stop is atomic, and duplicate or absent security group rules are rejected'
-time: 2026-07-20T05:44:48.649862+09:00
-custom:
-    Issue: "97"

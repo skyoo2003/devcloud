@@ -1,5 +1,0 @@
-kind: Fixed
-body: EventBridge now drops a bus's or rule's tags when it is deleted. ARNs are derived from the name, so recreating a deleted resource reused its ARN and inherited the previous tags
-time: 2026-08-09T16:00:00.000000+09:00
-custom:
-    Issue: "126"

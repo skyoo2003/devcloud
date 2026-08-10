@@ -1,5 +1,0 @@
-kind: Changed
-body: Release archives now carry the `docs/` tree alongside the binary, so the documentation you unpack — including the fidelity manifest and the release's compatibility promises — describes exactly the version you downloaded
-time: 2026-08-09T18:00:00.000000+09:00
-custom:
-    Issue: "127"

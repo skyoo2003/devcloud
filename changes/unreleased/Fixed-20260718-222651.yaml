@@ -1,5 +1,0 @@
-kind: Fixed
-body: Route `X-Amz-Target` prefixes that contain dots (CodeConnections, DMS) to the right service; they misrouted to CloudTrail
-time: 2026-07-18T22:26:51.484673+09:00
-custom:
-    Issue: "96"

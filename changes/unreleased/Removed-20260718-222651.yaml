@@ -1,5 +1,0 @@
-kind: Removed
-body: Remove the dead, unregistered STS provider stub (`internal/services/sts`); STS is served by the IAM package
-time: 2026-07-18T22:26:51.501604+09:00
-custom:
-    Issue: "96"

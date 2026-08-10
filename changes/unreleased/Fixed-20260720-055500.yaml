@@ -1,5 +1,0 @@
-kind: Fixed
-body: 'DynamoDB: numeric sort keys order by true value over the full 38 digits via a NUMTEXT collation, instead of a float CAST that lost precision past 2^53'
-time: 2026-07-20T05:55:00.000000+09:00
-custom:
-    Issue: "97"

@@ -1,5 +1,0 @@
-kind: Added
-body: 'Add 24 core-service operations: EC2 instance lifecycle, region/AZ and tag queries, security group rules, Elastic IP association, and IAM group policy management'
-time: 2026-07-18T23:30:26.666352+09:00
-custom:
-    Issue: "97"

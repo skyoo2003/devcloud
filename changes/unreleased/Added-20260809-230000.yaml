@@ -1,5 +1,0 @@
-kind: Added
-body: A published compatibility policy (docs/compatibility-policy.md) stating what v1.0 guarantees across the 1.x line — config keys, environment variables, the CLI, admin API response keys, fidelity tier names, and the response shape of hand-verified operations covered by the boto3 compatibility suite — what it explicitly does not guarantee, and the deprecation procedure that precedes any removal
-time: 2026-08-09T23:00:00.000000+09:00
-custom:
-    Issue: "129"

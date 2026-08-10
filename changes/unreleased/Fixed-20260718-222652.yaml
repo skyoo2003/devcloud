@@ -1,5 +1,0 @@
-kind: Fixed
-body: Unimplemented operations return `NotImplemented` (HTTP 501) instead of an empty `200`, so SDKs can tell a not-yet-emulated operation from an invalid one
-time: 2026-07-18T22:26:52.000000+09:00
-custom:
-    Issue: "96"

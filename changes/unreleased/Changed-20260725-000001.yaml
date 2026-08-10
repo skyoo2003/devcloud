@@ -1,5 +1,0 @@
-kind: Changed
-body: Build the request log collector only when `admin.enabled` is set, dropping a per-request mutex lock and ring-buffer write from the AWS request hot path
-time: 2026-07-25T00:00:01.000000+09:00
-custom:
-    Issue: "112"

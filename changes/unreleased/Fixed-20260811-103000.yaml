@@ -1,5 +1,0 @@
-kind: Fixed
-body: Generated routers now honour route patterns that constrain the query string, so operations distinguished only by a query parameter are reachable. `matchURI` split the whole pattern into path segments, which made `/2020-05-31/tagging?Operation=Tag` unable to match the path segment `tagging` — CloudFront `TagResource` and `UntagResource` were implemented but unroutable, and answered as unimplemented. A pattern's constraint must now be satisfied by the request query, and query-constrained routes are tried ahead of unconstrained ones so a bare path cannot shadow a more specific route
-time: 2026-08-11T10:30:00.000000+09:00
-custom:
-    Issue: "129"

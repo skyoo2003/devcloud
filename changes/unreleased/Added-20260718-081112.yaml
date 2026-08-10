@@ -1,5 +1,0 @@
-kind: Added
-body: Add the four SQS dead-letter redrive operations (ListDeadLetterSourceQueues, Start/List/CancelMessageMoveTask), completing SQS at 23 operations
-time: 2026-07-18T08:11:12.483907+09:00
-custom:
-    Issue: "94"

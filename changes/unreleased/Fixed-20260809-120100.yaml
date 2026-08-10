@@ -1,5 +1,0 @@
-kind: Fixed
-body: Codegen now parses operations bound to Smithy resource shapes, recovering 285 operations that were invisible to the generator (bedrock 0 of 101, lambda 19 of 85, ecs 12 of 76, transfer 29 of 71, sso-admin 67 of 79)
-time: 2026-08-09T12:01:00.000000+09:00
-custom:
-    Issue: "126"
