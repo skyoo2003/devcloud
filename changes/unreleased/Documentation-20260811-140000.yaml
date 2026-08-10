@@ -1,0 +1,5 @@
+kind: Documentation
+body: The roadmap, architecture and governance docs no longer describe DevCloud as pre-1.0. All three ship inside the release archive, so a v1.0 download would have carried a roadmap listing its own release as pending, an architecture overview naming Phase 1 as current, and a governance doc calling the API unstable — contradicting the compatibility policy packaged beside them
+time: 2026-08-11T14:00:00.000000+09:00
+custom:
+    Issue: "130"
