@@ -6,8 +6,8 @@ DevCloud's long-term direction is to support multiple Cloud Service Providers (A
 
 A phased refactor is planned (see [roadmap.md](roadmap.md)):
 
-- **Phase 1 (current)** — AWS services via Smithy codegen, single-port gateway, AWS SigV4 auth.
-- **Phase 2 (preparation)** — Introduce an Intermediate Representation (IR) between API models and codegen. Abstract `ModelSource` so OpenAPI (Azure) and Protocol Buffers / Discovery Documents (GCP) can feed the same pipeline. Extract a per-provider auth adapter interface.
+- **Phase 1 (complete, shipped as v1.0)** — AWS services via Smithy codegen, single-port gateway, AWS SigV4 auth.
+- **Phase 2 (current)** — Introduce an Intermediate Representation (IR) between API models and codegen. Abstract `ModelSource` so OpenAPI (Azure) and Protocol Buffers / Discovery Documents (GCP) can feed the same pipeline. Extract a per-provider auth adapter interface.
 - **Phase 3 (pilot)** — First non-AWS service (candidate: Azure Blob Storage) validates the multi-CSP architecture.
 - **Phase 4 (breadth)** — Additional services across CSPs; community-owned providers.
 
