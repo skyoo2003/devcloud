@@ -13,7 +13,11 @@ before:
 builds:
 - id: devcloud
   binary: devcloud
-  main: cmd/devcloud/main.go
+  # The package, not main.go. Building the single file drops imports.go — the
+  # only place the 104 services blank-import themselves into the registry — and
+  # main.go references nothing from it, so the build succeeds and the binary
+  # exits at startup with "unknown service: s3".
+  main: ./cmd/devcloud
   goos:
   - darwin
   - linux
