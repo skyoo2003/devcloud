@@ -49,7 +49,9 @@ func (p *Provider) Shutdown(_ context.Context) error {
 func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request) (*plugin.Response, error) {
 	if op == "" {
 		var params generated.PathParams
-		op, params = generated.MatchOperation(req.Method, req.URL.Path)
+		// RequestURI, not Path: TagResource and UntagResource share
+		// POST /2020-05-31/tagging and are told apart only by ?Operation=.
+		op, params = generated.MatchOperation(req.Method, req.URL.RequestURI())
 		_ = params
 	}
 	switch op {

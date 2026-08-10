@@ -82,19 +82,26 @@ providers serve, so the manifest lists no unimplemented tail for them — `model
 
 ### Wire behaviour — scoped to the compatibility suite
 
-**The response fields that a test in [`tests/compatibility/`](../tests/compatibility/) asserts
-keep their name, type and meaning across 1.x.**
+**Whatever a test in [`tests/compatibility/`](../tests/compatibility/) asserts about a response
+keeps holding across 1.x — that property, and nothing wider.**
 
-The promise is exactly as wide as the assertions — not as wide as the operation. `CreateFunction`
-is covered by `test_lambda.py`, but that test asserts `FunctionName` and the presence of
-`FunctionArn`, so those two are promised while `Runtime`, `Handler` and `MemorySize` are not,
-even though today's response carries them.
+The promise is as wide as each individual assertion: not as wide as the field, and not as wide as
+the operation. `CreateFunction` is covered by `test_lambda.py`, and its two assertions are worth
+reading closely:
+
+- `FunctionName` is asserted **equal** to the name that was sent, so its key and its value are
+  both promised.
+- `FunctionArn` is asserted only to be **present**, so its presence is promised and its type,
+  format and meaning are not. If it stopped being ARN-shaped the suite would stay green — so this
+  policy does not promise it stays ARN-shaped.
+- `Runtime`, `Handler` and `MemorySize` are not asserted at all, so they carry no promise even
+  though today's response includes them.
 
 That narrowness is the point: it is the promise the repo can actually keep. The suite — 775 tests
 driving real boto3 clients — runs in CI on every push and again against the tagged commit before
-a release publishes, so breaking an asserted field fails the build rather than depending on review
+a release publishes, so breaking an assertion fails the build rather than depending on review
 discipline. Anything the suite does not assert rests on nothing but intent. Widening the promise
-means adding assertions, and such contributions are welcome.
+means adding or strengthening assertions, and such contributions are welcome.
 
 ## Not guaranteed
 

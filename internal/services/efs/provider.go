@@ -52,7 +52,7 @@ func (p *Provider) Shutdown(_ context.Context) error {
 func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request) (*plugin.Response, error) {
 	if op == "" {
 		var params generated.PathParams
-		op, params = generated.MatchOperation(req.Method, req.URL.Path)
+		op, params = generated.MatchOperation(req.Method, req.URL.RequestURI())
 		_ = params
 	}
 
@@ -66,7 +66,7 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	}
 
 	// Extract path params
-	_, pathParams := generated.MatchOperation(req.Method, req.URL.Path)
+	_, pathParams := generated.MatchOperation(req.Method, req.URL.RequestURI())
 	q := req.URL.Query()
 
 	switch op {

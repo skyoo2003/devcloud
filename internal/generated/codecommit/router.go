@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 package codecommit
 
-import "strings"
+import (
+	"net/url"
+	"strings"
+)
 
 // PathParams holds the URL path parameters extracted by the router.
 type PathParams map[string]string
@@ -98,25 +101,43 @@ var OperationRoutes = []OperationRoute{
 }
 
 // MatchOperation returns the operation name and extracted path parameters for
-// the given HTTP method and URI path. It returns ("", nil) if no route matches.
-func MatchOperation(method, path string) (string, PathParams) {
-	for _, route := range OperationRoutes {
-		if route.Method != method {
-			continue
-		}
-		if params, ok := matchURI(route.Pattern, path); ok {
-			return route.Operation, params
+// the given HTTP method and request URI. It returns ("", nil) if no route
+// matches.
+//
+// Pass req.URL.RequestURI(), not req.URL.Path: some AWS operations are
+// distinguished only by a query string (".../tagging?Operation=Tag"), and a
+// bare path can never satisfy those routes.
+func MatchOperation(method, uri string) (string, PathParams) {
+	// Two passes. A route that constrains the query is more specific than one
+	// that does not, and OperationRoutes is ordered by operation name rather
+	// than specificity — so trying constrained routes first keeps
+	// ".../distribution" from shadowing ".../distribution?WithTags".
+	for _, constrained := range []bool{true, false} {
+		for _, route := range OperationRoutes {
+			if route.Method != method || strings.Contains(route.Pattern, "?") != constrained {
+				continue
+			}
+			if params, ok := matchURI(route.Pattern, uri); ok {
+				return route.Operation, params
+			}
 		}
 	}
 	return "", nil
 }
 
-// matchURI matches a URI path against a pattern that may contain {Label} and
-// {Label+} (greedy) segments. Returns the extracted parameters and true on
-// match, or nil and false otherwise.
-func matchURI(pattern, path string) (PathParams, bool) {
-	patParts := splitPath(pattern)
-	pathParts := splitPath(path)
+// matchURI matches a request URI against a pattern that may contain {Label} and
+// {Label+} (greedy) segments, and may constrain the query string after a "?".
+// Returns the extracted parameters and true on match, or nil and false
+// otherwise.
+func matchURI(pattern, uri string) (PathParams, bool) {
+	patPath, patQuery, _ := strings.Cut(pattern, "?")
+	uriPath, uriQuery, _ := strings.Cut(uri, "?")
+	if !matchQuery(patQuery, uriQuery) {
+		return nil, false
+	}
+
+	patParts := splitPath(patPath)
+	pathParts := splitPath(uriPath)
 
 	params := PathParams{}
 	pi := 0
@@ -153,6 +174,44 @@ func matchURI(pattern, path string) (PathParams, bool) {
 		return nil, false
 	}
 	return params, true
+}
+
+// matchQuery reports whether a request's query string satisfies the constraint
+// a route pattern carries after its "?". Each "&"-separated term is either a
+// bare key that must be present ("?WithTags") or a key=value that must be
+// present with that value ("?Operation=Tag"). An empty constraint matches
+// anything, which is every route that has no "?".
+func matchQuery(constraint, query string) bool {
+	if constraint == "" {
+		return true
+	}
+	// ParseQuery returns what it could parse alongside any error, so a
+	// malformed tail cannot hide a valid term earlier in the string.
+	values, _ := url.ParseQuery(query)
+	for _, term := range strings.Split(constraint, "&") {
+		if term == "" {
+			continue
+		}
+		key, want, hasValue := strings.Cut(term, "=")
+		got, present := values[key]
+		if !present {
+			return false
+		}
+		if !hasValue {
+			continue
+		}
+		matched := false
+		for _, v := range got {
+			if v == want {
+				matched = true
+				break
+			}
+		}
+		if !matched {
+			return false
+		}
+	}
+	return true
 }
 
 // splitPath splits a URI path into non-empty segments.

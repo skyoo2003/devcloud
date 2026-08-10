@@ -36,7 +36,7 @@ func doRequest(t *testing.T, p *Provider, method, path, body string) *plugin.Res
 		bodyReader = bytes.NewBuffer(nil)
 	}
 	req := httptest.NewRequest(method, path, bodyReader)
-	op, _ := generated.MatchOperation(method, req.URL.Path)
+	op, _ := generated.MatchOperation(method, req.URL.RequestURI())
 	resp, err := p.HandleRequest(context.Background(), op, req)
 	require.NoError(t, err)
 	return resp
@@ -381,15 +381,15 @@ func TestTags(t *testing.T) {
     <Tag><Key>team</Key><Value>platform</Value></Tag>
   </Items>
 </Tags>`
-	req = httptest.NewRequest(http.MethodPost, "/2020-05-31/tagging?Operation=Tag&Resource="+arn, strings.NewReader(tagBody))
-	resp, err = p.HandleRequest(context.Background(), "TagResource", req)
-	require.NoError(t, err)
+	// Routed through MatchOperation rather than hand-dispatched. Passing
+	// "TagResource" straight to HandleRequest is what hid the fact that no
+	// route could produce that name, leaving the handler unreachable in
+	// production while this test stayed green.
+	resp = doRequest(t, p, http.MethodPost, "/2020-05-31/tagging?Operation=Tag&Resource="+arn, tagBody)
 	assert.Equal(t, http.StatusNoContent, resp.StatusCode)
 
 	// ListTagsForResource
-	req = httptest.NewRequest(http.MethodGet, "/2020-05-31/tagging?Resource="+arn, nil)
-	resp, err = p.HandleRequest(context.Background(), "ListTagsForResource", req)
-	require.NoError(t, err)
+	resp = doRequest(t, p, http.MethodGet, "/2020-05-31/tagging?Resource="+arn, "")
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
 	body := string(resp.Body)
 	assert.Contains(t, body, "env")
@@ -402,19 +402,37 @@ func TestTags(t *testing.T) {
     <Key>team</Key>
   </Items>
 </TagKeys>`
-	req = httptest.NewRequest(http.MethodPost, "/2020-05-31/tagging?Operation=Untag&Resource="+arn, strings.NewReader(untagBody))
-	resp, err = p.HandleRequest(context.Background(), "UntagResource", req)
-	require.NoError(t, err)
+	resp = doRequest(t, p, http.MethodPost, "/2020-05-31/tagging?Operation=Untag&Resource="+arn, untagBody)
 	assert.Equal(t, http.StatusNoContent, resp.StatusCode)
 
 	// ListTagsForResource again - "team" should be gone
-	req = httptest.NewRequest(http.MethodGet, "/2020-05-31/tagging?Resource="+arn, nil)
-	resp, err = p.HandleRequest(context.Background(), "ListTagsForResource", req)
-	require.NoError(t, err)
+	resp = doRequest(t, p, http.MethodGet, "/2020-05-31/tagging?Resource="+arn, "")
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
 	body = string(resp.Body)
 	assert.Contains(t, body, "env")
 	assert.NotContains(t, body, "team")
+}
+
+// TestMatchOperationHonoursQueryConstraints guards the routing this provider
+// depends on. Four CloudFront routes are told apart only by their query string,
+// and matchURI used to split the whole pattern into path segments — so
+// "tagging?Operation=Tag" could never equal the path segment "tagging" and both
+// tag operations were unreachable no matter what the dispatch switch did.
+func TestMatchOperationHonoursQueryConstraints(t *testing.T) {
+	for _, tc := range []struct{ method, uri, want string }{
+		{http.MethodPost, "/2020-05-31/tagging?Operation=Tag&Resource=arn:aws:cloudfront::0:distribution/X", "TagResource"},
+		{http.MethodPost, "/2020-05-31/tagging?Operation=Untag&Resource=arn:aws:cloudfront::0:distribution/X", "UntagResource"},
+		{http.MethodGet, "/2020-05-31/tagging?Resource=arn:aws:cloudfront::0:distribution/X", "ListTagsForResource"},
+		// A bare key constraint, and the unconstrained route it must not shadow.
+		{http.MethodPost, "/2020-05-31/distribution?WithTags", "CreateDistributionWithTags"},
+		{http.MethodPost, "/2020-05-31/distribution", "CreateDistribution"},
+		// A query the constraint does not accept must not match either tag route.
+		{http.MethodPost, "/2020-05-31/tagging?Operation=Sideways", ""},
+	} {
+		if got, _ := generated.MatchOperation(tc.method, tc.uri); got != tc.want {
+			t.Errorf("%s %s: routed to %q, want %q", tc.method, tc.uri, got, tc.want)
+		}
+	}
 }
 
 // TestDefaultOperations pins the one thing docs/compatibility-policy.md
