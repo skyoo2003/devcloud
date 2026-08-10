@@ -1,0 +1,5 @@
+kind: Fixed
+body: CloudFront no longer fabricates a success for operations it does not implement. Its dispatch fallback answered HTTP 200 with an empty XML document, which boto3 parses as a successful empty result, on all 122 CloudFront operations the fidelity manifest classifies as `unimplemented` — including `GetPublicKey`. It now returns `NotImplemented` (HTTP 501), matching the other 32 providers that decline from their own dispatch default. It was the only provider in the tree that answered an unimplemented call with a success
+time: 2026-08-10T14:00:00.000000+09:00
+custom:
+    Issue: "129"

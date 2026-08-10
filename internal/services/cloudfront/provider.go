@@ -158,11 +158,16 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		return p.listTagsForResource(req)
 
 	default:
-		return &plugin.Response{
-			StatusCode:  200,
-			ContentType: "application/xml",
-			Body:        []byte(`<?xml version="1.0"?>`),
-		}, nil
+		// An operation this provider does not implement has to fail. Answering
+		// 200 with an empty document handed boto3 a parsed, empty success —
+		// exactly the fabricated success docs/compatibility-policy.md promises
+		// an unimplemented operation never returns, and what the fidelity
+		// manifest already classified these 122 operations as not doing.
+		detail := op
+		if detail == "" {
+			detail = req.Method + " " + req.URL.Path
+		}
+		return cfError("NotImplemented", "operation not implemented: "+detail, http.StatusNotImplemented), nil
 	}
 }
 

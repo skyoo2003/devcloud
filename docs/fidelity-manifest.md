@@ -27,7 +27,7 @@ declines the operation:
 | How the provider declines | Error | Status | Providers |
 |---|---|---|---|
 | Returns `ErrUnhandledOp`, and the CRUD engine cannot classify the operation either — [`gateway/router.go`](../internal/gateway/router.go) emits the fallback | `InvalidAction` | 400 | 46 |
-| Its dispatch `default:` answers directly | `NotImplemented` | 501 | 32 |
+| Its dispatch `default:` answers directly | `NotImplemented` | 501 | 33 |
 | Its dispatch `default:` answers in its own vocabulary | `UnsupportedOperation` / `MethodNotAllowed` | 400 / 405 | `iot`, `iotwireless`, `apigatewayv2`, `backup`, `bedrock`, `s3` |
 
 A service can even answer differently per protocol: `sqs` returns

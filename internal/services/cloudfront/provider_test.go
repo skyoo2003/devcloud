@@ -417,11 +417,23 @@ func TestTags(t *testing.T) {
 	assert.NotContains(t, body, "team")
 }
 
+// TestDefaultOperations pins the one thing docs/compatibility-policy.md
+// guarantees about an unimplemented operation: it fails. This provider used to
+// answer 200 with an empty XML document, which boto3 parses as a successful
+// empty result — the fabricated success the policy rules out, on all 122
+// operations the fidelity manifest classifies as unimplemented for cloudfront.
 func TestDefaultOperations(t *testing.T) {
 	p := newTestProvider(t)
 
-	// Unimplemented operations should return 200 with empty XML
-	resp := doRequest(t, p, http.MethodGet, "/2020-05-31/streaming-distribution", "")
-	assert.Equal(t, http.StatusOK, resp.StatusCode)
-	assert.Contains(t, string(resp.Body), "xml")
+	for _, tc := range []struct{ name, method, path string }{
+		{"modelled but unimplemented", http.MethodGet, "/2020-05-31/streaming-distribution"},
+		{"unmatched path", http.MethodGet, "/2020-05-31/no-such-resource/abc"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			resp := doRequest(t, p, tc.method, tc.path, "")
+			assert.GreaterOrEqual(t, resp.StatusCode, 400, "an unimplemented operation must not succeed")
+			assert.Equal(t, http.StatusNotImplemented, resp.StatusCode)
+			assert.Contains(t, string(resp.Body), "NotImplemented")
+		})
+	}
 }

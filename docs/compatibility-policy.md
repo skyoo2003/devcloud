@@ -37,9 +37,13 @@ removed or repurposed. Defined in [`internal/config/config.go`](../internal/conf
 | `DEVCLOUD_DATA_DIR` | Base directory; each service stores under `<base>/<id>`. Overrides `data_dir`. |
 
 Environment overrides config file, and that precedence is guaranteed.
-`DEVCLOUD_SERVICES` decides membership on its own: it starts a service the
-`services` block omits and stops one the block enables. It is a replacement for
-the block's selection, not an intersection with it.
+
+When `DEVCLOUD_SERVICES` names services, it decides membership on its own: it
+starts a service the `services` block omits and stops one the block enables. It
+replaces the block's selection rather than intersecting with it. The literal
+`all` is the exception — it switches the filter off and hands the decision back
+to the `services` block, which is what "all" has always meant here
+([configuration.md](configuration.md#devcloud_services)).
 
 ### Command line
 
@@ -62,9 +66,19 @@ JSON responses **only gain fields** — no documented key is removed or repurpos
 
 `hand-verified`, `auto-crud` and `unimplemented` keep the meanings given in
 [fidelity-manifest.md](fidelity-manifest.md). The set does not shrink, and a name is never
-reused for a different meaning. Every reachable operation carries one — enforced by
-`TestFidelityManifestCoverage` in [`cmd/devcloud/fidelity_test.go`](../cmd/devcloud/fidelity_test.go),
-which fails the build if an operation is unclassified.
+reused for a different meaning.
+
+Every operation the manifest lists carries a tier from that set, every registered service
+appears, and every operation the CRUD engine serves is present and not filed as
+`unimplemented` — all three fail the build, in
+[`cmd/devcloud/fidelity_test.go`](../cmd/devcloud/fidelity_test.go).
+
+What no test can catch is an operation that never reaches the manifest at all, and that is
+bounded rather than eliminated: for the 93 services with an in-tree Smithy model the operation
+universe comes from the model, so an operation losing its implementation reclassifies to
+`unimplemented` instead of disappearing. For the 11 without one, the universe *is* what the
+providers serve, so the manifest lists no unimplemented tail for them — `modelBacked` on
+`GET /devcloud/api/fidelity` reports which is which.
 
 ### Wire behaviour — scoped to the compatibility suite
 
@@ -103,7 +117,7 @@ Depending on any of the following will break, and breaking it is **not** a major
 - **Error codes, HTTP status and message wording.** What *is* guaranteed for an `unimplemented`
   operation is that it **fails** — an AWS-shaped error, never a fabricated success. Which error
   is not: it comes from whichever provider handles the request, so it is `InvalidAction` (400)
-  for services that fall through to the CRUD engine, `NotImplemented` (501) for the 32 providers
+  for services that fall through to the CRUD engine, `NotImplemented` (501) for the 33 providers
   with their own dispatch default, and each path-routed provider's own vocabulary otherwise
   (`s3` `MethodNotAllowed` 405, `bedrock` `UnsupportedOperation` 400). `sqs` even differs by
   protocol. [fidelity-manifest.md](fidelity-manifest.md) records the current behaviour;
