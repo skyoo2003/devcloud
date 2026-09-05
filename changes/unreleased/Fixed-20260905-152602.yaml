@@ -1,0 +1,5 @@
+kind: Fixed
+body: 'The fidelity manifest no longer reports `auto-crud` for operations the binary refuses. A tier was assigned from CRUD-registry membership alone, which says an operation is classifiable rather than reachable; it now requires the owning provider to actually hand unimplemented operations to the engine'
+time: 2026-09-05T15:26:02.000000+09:00
+custom:
+    Issue: "136"
