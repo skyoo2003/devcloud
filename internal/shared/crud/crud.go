@@ -133,19 +133,23 @@ func JSONProtocol(protocol string) bool {
 
 // Servable reports whether the engine can serve requests for a protocol.
 //
-// The JSON protocols carry the operation name in a header. rest-json and
-// rest-xml do not, but their models bind every operation to a method and URI
-// template, which the route table turns back into an operation name. query has
-// neither a target header nor a modelled path — its operation is a form field —
-// so a query request cannot be classified here and is declined rather than
-// guessed at.
+// Each protocol says which operation it means in a different place, and the
+// engine now reads all three: the JSON protocols put it in an X-Amz-Target
+// header; rest-json and rest-xml bind every operation to a method and URI
+// template, which the route table turns back into a name; query puts it in the
+// Action field of a form body.
+//
+// ec2-query is the one left out. It is form-encoded like query but not
+// interchangeable with it, and no registered service speaks it except EC2,
+// whose provider is hand-written and never reaches the engine.
 //
 // This is deliberately the same question codegen's engineServable answers. The
 // two must agree: a protocol admitted there but refused here registers
 // operations nothing can reach, and the fidelity manifest would call them
 // auto-crud.
 func Servable(protocol string) bool {
-	return JSONProtocol(protocol) || protocol == protocolRESTJSON || protocol == protocolRESTXML
+	return JSONProtocol(protocol) || protocol == protocolRESTJSON ||
+		protocol == protocolRESTXML || protocol == protocolQuery
 }
 
 // NeedsBody reports whether the gateway must buffer the request body before
@@ -159,8 +163,8 @@ func Servable(protocol string) bool {
 // CRUD-shaped S3 Control operation addresses its resource with a path label or
 // a query term, so the engine has what it needs without the body.
 //
-// query is the mirror image — not servable yet, but its operation name is a
-// field in the form body, so it cannot be read without buffering.
+// query is the mirror image: servable, and unservable without the body, because
+// the operation name itself is a field in it.
 func NeedsBody(protocol string) bool {
 	return JSONProtocol(protocol) || protocol == protocolRESTJSON || protocol == protocolQuery
 }
@@ -171,11 +175,22 @@ func NeedsBody(protocol string) bool {
 func Handle(c Call) (*Result, error) {
 	op := c.Op
 	var labels httproute.Params
+	var form map[string]any
 	rest := false
 
 	switch {
 	case JSONProtocol(c.Protocol):
 		// The operation name arrived in X-Amz-Target; nothing to resolve.
+	case c.Protocol == protocolQuery:
+		// query names its operation in neither a header nor a path: Action is
+		// a field of the form body, which is why it outlived the two REST
+		// protocols as a gap. An absent or empty Action is not a request this
+		// engine can classify — the other fields describe a resource, not an
+		// operation, and picking one from them would be a guess.
+		op, form = parseQueryForm(c.Body)
+		if op == "" {
+			return nil, ErrUnclassified
+		}
 	case c.Protocol == protocolRESTJSON, c.Protocol == protocolRESTXML:
 		rest = true
 		mu.RLock()
@@ -212,7 +227,14 @@ func Handle(c Call) (*Result, error) {
 	if rest {
 		maps.Copy(params, queryParams(c.URI))
 	}
-	if len(c.Body) > 0 {
+	switch {
+	case c.Protocol == protocolQuery:
+		// Already decoded above. A query body is form-encoded, not JSON, so it
+		// must not reach the branch below — parsing it as JSON fails, and
+		// reporting that as a SerializationException would decline every query
+		// request with an error about a format it never claimed to send.
+		maps.Copy(params, form)
+	case len(c.Body) > 0:
 		var body map[string]any
 		if err := json.Unmarshal(c.Body, &body); err != nil {
 			// Malformed body: real services reject with SerializationException
@@ -227,6 +249,39 @@ func Handle(c Call) (*Result, error) {
 
 	res, err := dispatch(c.Service, c.Protocol, op, m, params)
 	return withContentType(res, c.Protocol), err
+}
+
+// parseQueryForm reads a Query-protocol form body, returning the operation name
+// from Action and the remaining fields as engine parameters.
+//
+// Action and Version are dropped from the parameters. They describe the
+// request, not the resource, and the engine echoes what it stores — leaving
+// them in would put <Action>CreateLoadBalancer</Action> inside a result element
+// where no SDK expects a member by that name, and would make Version part of
+// the stored document forever.
+//
+// Structured members arrive flattened, as "Listeners.member.1.Protocol". They
+// are kept here and dropped at the serializer (see sortedKeys), so that a
+// dotted key can still be a resource identifier if some model ever binds one,
+// without being emitted as a bogus element.
+func parseQueryForm(body []byte) (action string, params map[string]any) {
+	// ParseQuery returns what it could parse alongside any error, so a
+	// malformed tail cannot discard the terms before it.
+	values, _ := url.ParseQuery(string(body))
+	params = make(map[string]any, len(values))
+	for k, vs := range values {
+		if len(vs) == 0 {
+			continue
+		}
+		switch k {
+		case "Action":
+			action = vs[0]
+		case "Version":
+		default:
+			params[k] = vs[0]
+		}
+	}
+	return action, params
 }
 
 // queryParams reads the request URI's query string as engine parameters. A

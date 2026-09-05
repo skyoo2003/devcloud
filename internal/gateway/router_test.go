@@ -219,6 +219,36 @@ func TestServiceRouter_RESTJSONUnmatchedPathDeclinesCleanly(t *testing.T) {
 	assert.Contains(t, w.Body.String(), "InvalidAction")
 }
 
+// TestServiceRouter_QueryReachesEngine is the gateway half of the query change.
+// It is worth its own test because query is the only protocol where the gateway
+// and the engine could disagree about which operation a request is for: the
+// gateway reads Action from the URL, the engine reads it from the form body,
+// and every real SDK puts it in the body.
+func TestServiceRouter_QueryReachesEngine(t *testing.T) {
+	const svc = "gwquerysvc"
+	crud.Register(svc, map[string]crud.OpMeta{
+		"CreateGizmo": {Verb: "Create", Resource: "GwGizmo", OutputItemKey: "Gizmo"},
+	})
+	router := NewServiceRouter(newDecliningRegistry(svc, plugin.ProtocolQuery), nil)
+
+	form := "Action=CreateGizmo&Version=2012-06-01&GwGizmoName=g1"
+	req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(form))
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Authorization",
+		"AWS4-HMAC-SHA256 Credential=AKIA/20130524/us-east-1/"+svc+"/aws4_request, Signature=abc")
+
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	require.Equal(t, http.StatusOK, w.Code, "body: %s", w.Body.String())
+	body := w.Body.String()
+	assert.Contains(t, body, "<CreateGizmoResponse>", "not the query envelope")
+	assert.Contains(t, body, "<CreateGizmoResult>")
+	assert.Contains(t, body, "<GwGizmoName>g1</GwGizmoName>",
+		"the form body did not reach the engine")
+	assert.NotContains(t, body, "<Action>", "protocol field leaked into the resource")
+}
+
 // TestServiceRouter_RESTXMLReachesEngineWithoutBuffering is the gateway half of
 // the rest-xml change, and it asserts two things that have to hold together.
 //

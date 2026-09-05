@@ -115,17 +115,39 @@ func TestServiceCRUDDataAdmitsRESTXML(t *testing.T) {
 	assert.Equal(t, "/v20180820/accesspoint", ops["ListAccessPoints"].URI)
 }
 
-// TestServiceCRUDDataRejectsQuery holds what is left of the boundary Milestone 5
-// owns. query puts the operation neither in a header nor in a modelled path —
-// it is a field in the form body — so until the engine reads that, admitting it
-// would register operations no request can be matched to.
-func TestServiceCRUDDataRejectsQuery(t *testing.T) {
+// TestServiceCRUDDataAdmitsQuery closes the last protocol gap. query has no
+// modelled path at all — its operations carry no http trait — so unlike the
+// REST protocols it registers no route, and the engine matches it by the
+// Action field of the form body instead.
+func TestServiceCRUDDataAdmitsQuery(t *testing.T) {
 	model := crudModel("query",
 		ir.Operation{Name: "DescribeLoadBalancers", OutputName: "DescribeLoadBalancersOutput"},
 	)
 
+	data, ok := ServiceCRUDData(model)
+	require.True(t, ok, "query service must be engine-servable")
+
+	ops := map[string]crudOpData{}
+	for _, op := range data.Ops {
+		ops[op.Op] = op
+	}
+	// No route, and that is correct rather than a gap: a query operation has
+	// no method or URI to register, and Register skips an empty URI so the
+	// service contributes nothing to the route table.
+	assert.Empty(t, ops["DescribeLoadBalancers"].Method)
+	assert.Empty(t, ops["DescribeLoadBalancers"].URI)
+}
+
+// TestServiceCRUDDataRejectsEC2Query holds the remaining boundary. ec2Query is
+// form-encoded like query but not interchangeable with it, and the only service
+// that speaks it has a hand-written provider that never reaches the engine.
+func TestServiceCRUDDataRejectsEC2Query(t *testing.T) {
+	model := crudModel("ec2-query",
+		ir.Operation{Name: "DescribeInstances", OutputName: "DescribeInstancesOutput"},
+	)
+
 	_, ok := ServiceCRUDData(model)
-	assert.False(t, ok, "query must not be engine-servable yet")
+	assert.False(t, ok, "ec2-query must not be engine-servable")
 }
 
 // TestServiceCRUDDataSkipsUnclassifiableService is the rds-data case: a

@@ -139,9 +139,12 @@ func classifyOps(model *ir.Model) []crudOpData {
 // on the assumption that it had no modelled path; it has one, and all 97 of
 // s3-control's operations carry it.
 //
-// query is what is left of PRD Milestone 5. Its operation is a field in the
-// form body rather than a header or a path, so nothing here can match a request
-// to it and admitting it would mean guessing.
+// query has no modelled path at all, so it registers no route; the engine
+// matches it by the Action field of the form body instead. It is admitted here
+// because that is a place the operation name genuinely is, not a guess.
+//
+// ec2-query stays out. It is form-encoded like query but not interchangeable
+// with it, and the only service that speaks it has a hand-written provider.
 //
 // This is deliberately the same question crud.Servable answers at runtime. The
 // two must agree: a protocol classified here but refused there registers
@@ -149,7 +152,7 @@ func classifyOps(model *ir.Model) []crudOpData {
 // auto-crud.
 func engineServable(protocol string) bool {
 	return strings.HasPrefix(protocol, "json") ||
-		protocol == "rest-json" || protocol == "rest-xml"
+		protocol == "rest-json" || protocol == "rest-xml" || protocol == "query"
 }
 
 // ServiceCRUDData classifies an engine-servable model's CRUD operations. It
