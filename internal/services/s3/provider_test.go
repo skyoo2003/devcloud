@@ -484,3 +484,59 @@ func TestS3Provider_BucketNotification(t *testing.T) {
 	assert.Equal(t, 200, resp.StatusCode)
 	assert.Contains(t, string(resp.Body), "MyTopic")
 }
+
+// TestS3Provider_UnhandledBucketSubresourceDeclines covers the fall-through that
+// answered a sub-resource nobody implemented with a bucket listing.
+//
+// GET /{bucket}?analytics misses every sub-resource check and lands on
+// listObjects, which returns 200 and <ListBucketResult>. botocore reads that as
+// a successful ListBucketAnalyticsConfigurations — a fabricated success for an
+// operation this provider does not serve, and the one thing docs/coverage.md
+// calls absolute. The same fall-through served ?inventory, ?metrics,
+// ?replication, ?lifecycle, ?encryption and ?versions.
+//
+// The real listings are asserted alongside, because the guard is only correct if
+// it declines nothing a caller legitimately sends.
+func TestS3Provider_UnhandledBucketSubresourceDeclines(t *testing.T) {
+	p := newTestProvider(t)
+	defer func() { _ = p.Shutdown(context.Background()) }()
+
+	_, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/sub-bucket", nil))
+	require.NoError(t, err)
+
+	unhandled := []string{
+		"analytics", "inventory", "metrics", "replication",
+		"lifecycle", "encryption", "versions", "object-lock",
+	}
+	for _, sub := range unhandled {
+		t.Run(sub, func(t *testing.T) {
+			req := httptest.NewRequest("GET", "/sub-bucket?"+sub, nil)
+			resp, err := p.HandleRequest(context.Background(), "", req)
+			require.NoError(t, err)
+			assert.NotContains(t, string(resp.Body), "ListBucketResult",
+				"an unimplemented sub-resource was answered with a bucket listing")
+			assert.GreaterOrEqual(t, resp.StatusCode, 400,
+				"an unimplemented sub-resource must decline, not succeed")
+		})
+	}
+
+	// Every shape of a real listing still has to work. These are the query
+	// parameters ListObjects and ListObjectsV2 actually carry.
+	listings := []string{
+		"/sub-bucket",
+		"/sub-bucket?prefix=a/",
+		"/sub-bucket?prefix=a/&delimiter=/",
+		"/sub-bucket?list-type=2",
+		"/sub-bucket?list-type=2&max-keys=10&fetch-owner=true",
+		"/sub-bucket?list-type=2&continuation-token=abc&start-after=k",
+		"/sub-bucket?marker=k&max-keys=5&encoding-type=url",
+	}
+	for _, uri := range listings {
+		t.Run("listing "+uri, func(t *testing.T) {
+			resp, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("GET", uri, nil))
+			require.NoError(t, err)
+			assert.Equal(t, 200, resp.StatusCode)
+			assert.Contains(t, string(resp.Body), "ListBucketResult")
+		})
+	}
+}
