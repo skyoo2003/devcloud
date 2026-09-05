@@ -19,11 +19,19 @@ from botocore.exceptions import ClientError
 # name is the point: the test asserts what a user typing it actually gets.
 #
 # Services whose coverage comes from the generic CRUD engine rather than a
-# hand-written provider. The engine only serves the awsJson1_0 / awsJson1_1
-# protocols, which carry the operation name in X-Amz-Target; a rest-json,
-# query, or rest-xml service cannot be listed here and be served.
+# hand-written provider. The engine serves the awsJson1_0 / awsJson1_1
+# protocols, which carry the operation name in X-Amz-Target, and rest-json,
+# whose operation is recovered from the request method and path via the model's
+# route table. A query or rest-xml service cannot be listed here and be served.
 ENGINE_SERVED_SERVICES = [
     "comprehend",
+    # rest-json, and the proof the engine reaches that protocol at all. All
+    # three sat in REGISTERED_ONLY_SERVICES until the engine learned to resolve
+    # an operation from the method and path; nothing about these three services
+    # changed, only what the engine can read.
+    "polly",
+    "qbusiness",
+    "codeguru-reviewer",
     # rekognition could not be onboarded at all before the alias table was
     # derived from the models: its X-Amz-Target prefix is RekognitionService,
     # which no hand-written gateway clause covered, so every call came back
@@ -55,12 +63,19 @@ ENGINE_SERVED_SERVICES = [
 # never a fabricated success, and never an unrouted UnknownService, which would
 # send a caller back to real AWS. They are deliberately NOT counted as covered;
 # see docs/coverage.md.
+# rest-json, so the engine can now read its requests — and still served by
+# nothing, because it has no CRUD-shaped operation to classify. InvokeEndpoint,
+# InvokeEndpointAsync and InvokeEndpointWithResponseStream are not
+# Create/Get/List/Delete/Update, so codegen registers nothing and there is no
+# route to match. Same case as forecastquery; see docs/coverage.md.
+#
+# personalize-runtime left this list when the engine gained rest-json:
+# GetRecommendations classifies as a Get, so it is served now. It is not in
+# ENGINE_SERVED_SERVICES either, because both its operations take required
+# parameters and this harness has no parameterless read to prove it with — the
+# fidelity manifest is its record, as for bedrock-data-automation-runtime.
 REGISTERED_ONLY_SERVICES = [
-    "polly",
-    "qbusiness",
     "sagemaker-runtime",
-    "personalize-runtime",
-    "codeguru-reviewer",
 ]
 
 

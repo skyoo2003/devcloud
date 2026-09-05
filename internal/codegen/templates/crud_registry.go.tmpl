@@ -12,7 +12,7 @@ func init() {
 {{- range .Services }}
 	crud.Register("{{ .ServiceID }}", map[string]crud.OpMeta{
 {{- range .Ops }}
-		"{{ .Op }}": {Verb: "{{ .Verb }}", Resource: "{{ .Resource }}", OutputListKey: "{{ .ListKey }}", OutputItemKey: "{{ .ItemKey }}"},
+		"{{ .Op }}": {Verb: "{{ .Verb }}", Resource: "{{ .Resource }}", OutputListKey: "{{ .ListKey }}", OutputItemKey: "{{ .ItemKey }}"{{ if .URI }}, Method: "{{ .Method }}", URI: "{{ .URI }}"{{ end }}},
 {{- end }}
 	})
 {{- end }}

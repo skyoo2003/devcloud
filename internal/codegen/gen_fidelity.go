@@ -24,6 +24,13 @@ type FidelityServiceData struct {
 	// only this field lets a reader tell them apart.
 	Protocol    string
 	ModelBacked bool
+	// EngineWired mirrors ProviderScan.EngineWired: does this provider hand
+	// unimplemented operations to the CRUD engine? Published because the CRUD
+	// registry is model-derived and so holds operations for providers the
+	// engine is never reached from; without this, "registered in the engine"
+	// reads as "served", which is the overstatement the manifest exists to
+	// prevent.
+	EngineWired bool
 	Ops         []FidelityOpData
 }
 
@@ -109,6 +116,7 @@ func BuildFidelityData(
 			ServiceID:   serviceID,
 			Protocol:    protocols[serviceID],
 			ModelBacked: len(modelOps[serviceID]) > 0,
+			EngineWired: provider.EngineWired,
 			Ops:         ops,
 		})
 	}

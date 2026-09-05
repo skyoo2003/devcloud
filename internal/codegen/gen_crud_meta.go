@@ -28,6 +28,12 @@ type crudOpData struct {
 	Resource string
 	ListKey  string
 	ItemKey  string
+	// Method and URI are the operation's REST binding, empty for a protocol
+	// that has none. rest-json names its operation in the method and path
+	// rather than in a header, so this pair is what lets the engine get back
+	// from a request to an operation name.
+	Method string
+	URI    string
 }
 
 // verbPrefixes maps operation-name prefixes to canonical CRUD verbs, longest and
@@ -117,21 +123,34 @@ func classifyOps(model *ir.Model) []crudOpData {
 			Resource: resource,
 			ListKey:  listKey,
 			ItemKey:  itemKey,
+			Method:   op.HTTPMethod,
+			URI:      op.HTTPUri,
 		})
 	}
 	return ops
 }
 
-// isJSONProtocol reports whether the engine can serve a service's protocol.
-// Only X-Amz-Target JSON protocols carry an operation name at the router.
-func isJSONProtocol(protocol string) bool {
-	return strings.HasPrefix(protocol, "json")
+// engineServable reports whether the engine can serve a service's protocol.
+//
+// The JSON protocols carry the operation name in X-Amz-Target. rest-json does
+// not, but every one of its operations is bound to a method and URI template,
+// and internal/shared/httproute turns that pair back into an operation name —
+// so the engine can classify it too. query and rest-xml have neither, which is
+// what PRD Milestone 5 owns; admitting them here would mean guessing.
+//
+// This is deliberately the same question crud.Servable answers at runtime. The
+// two must agree: a protocol classified here but refused there registers
+// operations nothing can reach, and the fidelity manifest would call them
+// auto-crud.
+func engineServable(protocol string) bool {
+	return strings.HasPrefix(protocol, "json") || protocol == "rest-json"
 }
 
-// ServiceCRUDData classifies a JSON-protocol model's CRUD operations. It returns
-// (data, false) when the service is not engine-servable or has no CRUD ops.
+// ServiceCRUDData classifies an engine-servable model's CRUD operations. It
+// returns (data, false) when the service's protocol cannot be served or the
+// model has no CRUD-shaped operation at all.
 func ServiceCRUDData(model *ir.Model) (CRUDServiceData, bool) {
-	if !isJSONProtocol(model.Protocol) {
+	if !engineServable(model.Protocol) {
 		return CRUDServiceData{}, false
 	}
 	ops := classifyOps(model)
