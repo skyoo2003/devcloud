@@ -20,6 +20,12 @@ from botocore.exceptions import ClientError
 # query, or rest-xml service cannot be listed here and be served.
 ENGINE_SERVED_SERVICES = [
     "comprehend",
+    # rekognition could not be onboarded at all before the alias table was
+    # derived from the models: its X-Amz-Target prefix is RekognitionService,
+    # which no hand-written gateway clause covered, so every call came back
+    # UnknownService. It is here to prove that onboarding now costs zero
+    # hand-written routing lines, not only zero provider lines.
+    "rekognition",
 ]
 
 

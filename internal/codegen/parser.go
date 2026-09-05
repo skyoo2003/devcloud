@@ -90,6 +90,8 @@ func ParseSmithyJSON(data []byte) (*ir.Model, error) {
 		return nil, fmt.Errorf("no service shape found")
 	}
 
+	svcTrait := decodeServiceTrait(serviceShape)
+
 	model := &ir.Model{
 		// Every Smithy model in-tree is an AWS service model: the protocol
 		// traits this parser recognizes are all under aws.protocols#. A Smithy
@@ -100,6 +102,16 @@ func ParseSmithyJSON(data []byte) (*ir.Model, error) {
 		ServiceID:   detectServiceID(serviceFQN),
 		Protocol:    detectProtocol(serviceShape),
 		Shapes:      make(map[string]*ir.Shape),
+
+		// The names this service also answers to. Absent traits leave these
+		// empty rather than erroring: a model that declares no signing name is
+		// still a model, it just contributes fewer aliases.
+		ShapeName:          shortName(serviceFQN),
+		SigningName:        decodeSigningName(serviceShape),
+		EndpointPrefix:     svcTrait.EndpointPrefix,
+		ARNNamespace:       svcTrait.ARNNamespace,
+		CloudFormationName: svcTrait.CloudFormationName,
+		SDKID:              svcTrait.SDKID,
 	}
 
 	// Parse operations
@@ -348,6 +360,47 @@ func detectServiceID(fqn string) string {
 		return nsParts[len(nsParts)-1]
 	}
 	return strings.ToLower(fqn)
+}
+
+// rawServiceTrait is the aws.api#service trait. Every field is one more name
+// the service answers to somewhere in AWS.
+type rawServiceTrait struct {
+	SDKID              string `json:"sdkId"`
+	ARNNamespace       string `json:"arnNamespace"`
+	CloudFormationName string `json:"cloudFormationName"`
+	EndpointPrefix     string `json:"endpointPrefix"`
+}
+
+// decodeServiceTrait returns the aws.api#service trait, or a zero value when the
+// model does not carry one. A malformed trait is treated the same as a missing
+// one: the identifiers it would have supplied are aliases, and a service that
+// contributes no aliases still generates and still routes under its own ID.
+func decodeServiceTrait(s *rawShape) rawServiceTrait {
+	var t rawServiceTrait
+	if s.Traits == nil {
+		return t
+	}
+	if raw, ok := s.Traits["aws.api#service"]; ok {
+		_ = json.Unmarshal(raw, &t) //nolint:errcheck
+	}
+	return t
+}
+
+// decodeSigningName returns the aws.auth#sigv4 signing name, which is what a
+// caller puts in its credential scope.
+func decodeSigningName(s *rawShape) string {
+	if s.Traits == nil {
+		return ""
+	}
+	raw, ok := s.Traits["aws.auth#sigv4"]
+	if !ok {
+		return ""
+	}
+	var t struct {
+		Name string `json:"name"`
+	}
+	_ = json.Unmarshal(raw, &t) //nolint:errcheck
+	return t.Name
 }
 
 func detectProtocol(s *rawShape) string {

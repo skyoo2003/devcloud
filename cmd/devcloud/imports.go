@@ -78,6 +78,7 @@ import (
 	_ "github.com/skyoo2003/devcloud/internal/services/ram"
 	_ "github.com/skyoo2003/devcloud/internal/services/rds"
 	_ "github.com/skyoo2003/devcloud/internal/services/redshift"
+	_ "github.com/skyoo2003/devcloud/internal/services/rekognition"
 	_ "github.com/skyoo2003/devcloud/internal/services/resourcegroups"
 	_ "github.com/skyoo2003/devcloud/internal/services/resourcegroupstaggingapi"
 	_ "github.com/skyoo2003/devcloud/internal/services/route53"

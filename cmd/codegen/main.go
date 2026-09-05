@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/skyoo2003/devcloud/internal/codegen"
+	"github.com/skyoo2003/devcloud/internal/codegen/ir"
 )
 
 // handWritten services get no generated package: their provider is implemented
@@ -46,6 +47,7 @@ func main() {
 	gen := codegen.NewGenerator(*templateDir)
 
 	var crudServices []codegen.CRUDServiceData
+	var allModels []*ir.Model
 	modelOps := make(map[string][]string)
 	// A model that cannot be read or parsed is skipped, which used to leave the
 	// exit status at 0 — so a drift check downstream saw no changed files and
@@ -92,6 +94,11 @@ func main() {
 			names = append(names, op.Name)
 		}
 		modelOps[model.ServiceID] = names
+
+		// Also recorded before the filters: a hand-written provider still has to
+		// be routed to, so its model still contributes routing aliases even
+		// though it generates no package.
+		allModels = append(allModels, model)
 
 		if len(allowedServices) > 0 && !allowedServices[model.ServiceID] {
 			continue
@@ -153,9 +160,39 @@ func main() {
 			fmt.Fprintf(os.Stderr, "Error writing fidelity manifest: %v\n", err)
 			os.Exit(1)
 		}
+
+		if err := writeAliases(gen, *outputDir, allModels); err != nil {
+			fmt.Fprintf(os.Stderr, "Error writing alias table: %v\n", err)
+			os.Exit(1)
+		}
 	}
 
 	fmt.Println("Code generation complete.")
+}
+
+// writeAliases emits the routing alias table. Contested aliases are reported on
+// stderr rather than being resolved here: the generator cannot see a request, so
+// it cannot tell an opensearch call from an elasticsearchservice one. They are
+// named in the generated Collisions list, and a gateway test fails until each has
+// a resolution — loud, but not fatal to generation, because a collision blocks
+// one alias rather than making the whole fleet's generated output wrong.
+func writeAliases(gen *codegen.Generator, outputDir string, models []*ir.Model) error {
+	table, collisions := codegen.BuildAliases(models)
+	for _, alias := range collisions {
+		fmt.Fprintf(os.Stderr, "WARN: alias %q is claimed by more than one service; "+
+			"it is omitted from the table and needs a resolution in the gateway\n", alias)
+	}
+
+	content, err := gen.GenerateAliases(table, collisions)
+	if err != nil {
+		return err
+	}
+
+	dir := filepath.Join(outputDir, "aliases")
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return err
+	}
+	return codegen.WriteGo(filepath.Join(dir, "aliases_gen.go"), content)
 }
 
 // writeFidelityManifest emits the per-operation fidelity manifest. Like the CRUD

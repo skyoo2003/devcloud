@@ -75,6 +75,40 @@ func TestParseSmithyJSON(t *testing.T) {
 	assert.Equal(t, ir.ShapeList, bucketList.Type)
 }
 
+// TestParseSmithyJSON_ServiceIdentifiers covers the names a caller can use to
+// address a service on the wire. They are the input to the derived alias table,
+// and rekognition is the model that proves why the shape name has to be carried
+// separately: its X-Amz-Target prefix is RekognitionService while every other
+// identifier it publishes is plain "rekognition".
+func TestParseSmithyJSON_ServiceIdentifiers(t *testing.T) {
+	data, err := os.ReadFile("../../smithy-models/rekognition.json")
+	require.NoError(t, err)
+
+	model, err := ParseSmithyJSON(data)
+	require.NoError(t, err)
+
+	assert.Equal(t, "rekognition", model.ServiceID)
+	assert.Equal(t, "RekognitionService", model.ShapeName, "the X-Amz-Target prefix")
+	assert.Equal(t, "rekognition", model.SigningName)
+	assert.Equal(t, "rekognition", model.EndpointPrefix)
+	assert.Equal(t, "rekognition", model.ARNNamespace)
+	assert.Equal(t, "Rekognition", model.CloudFormationName)
+	assert.Equal(t, "Rekognition", model.SDKID)
+}
+
+// TestParseSmithyJSON_ServiceIdentifiersAbsent — a model without the AWS service
+// traits must parse, leaving the identifiers empty rather than failing. The IR is
+// provider-neutral; a non-AWS source will not set them at all.
+func TestParseSmithyJSON_ServiceIdentifiersAbsent(t *testing.T) {
+	model, err := ParseSmithyJSON([]byte(resourceModel))
+	require.NoError(t, err)
+
+	assert.Equal(t, "Demo", model.ShapeName)
+	assert.Empty(t, model.SigningName)
+	assert.Empty(t, model.EndpointPrefix)
+	assert.Empty(t, model.SDKID)
+}
+
 // resourceModel is a minimal model whose operations hang off resource shapes
 // rather than the service's own operations list — the shape real AWS models like
 // lambda, ecs and bedrock use.

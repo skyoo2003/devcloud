@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/skyoo2003/devcloud/internal/auth"
+	"github.com/skyoo2003/devcloud/internal/generated/aliases"
 )
 
 // DetectProtocol inspects the incoming HTTP request and returns the AWS protocol
@@ -119,140 +120,106 @@ func serviceFromSigV4(r *http.Request) string {
 	return normalizeServiceID(id.Service)
 }
 
-// normalizeServiceID maps SigV4 signing names, X-Amz-Target prefixes, and
-// other AWS identifiers to DevCloud internal service IDs.
+// serviceIDOverrides is the exception list to the derived alias table. It exists
+// for the three cases generation cannot settle on its own; everything else comes
+// from the models via codegen.BuildAliases, so onboarding a service no longer
+// means hand-writing a routing entry for it.
+//
+// Group 1 — CONTESTED. More than one service publishes the identifier, so the
+// generator omits it (it appears in aliases.Collisions) and the choice is made
+// here. Deleting one of these stops the alias routing anywhere.
+//
+// Group 2 — LEGACY. Identifiers older SDKs and CLIs still send that no current
+// model publishes. Nothing derives them; they go when those callers do.
+//
+// Group 3 — SUBSTITUTION. DevCloud does not register the service the caller
+// asked for, so the request is served by a near neighbour. Each of these is a
+// coverage gap wearing a routing entry: registering the real service is what
+// deletes it.
+var serviceIDOverrides = map[string]string{
+	// --- Group 1: contested ---
+	//
+	// An empty value means "decided, and the decision is not to guess": the
+	// alias routes nowhere, exactly as it did before the table existed. It is
+	// here so the collision is answered rather than merely unlisted — sending
+	// two thirds of docdb and neptune's traffic to rds is worse than an honest
+	// UnknownService.
+	"dynamodb":     "dynamodb",   // also claimed by dynamodbstreams
+	"rds":          "rds",        // also claimed by docdb, neptune
+	"amazonrdsv19": "",           // rds/docdb/neptune share a shape name; no basis to pick
+	"cognito":      "",           // cognitoidentity vs cognitoidentityprovider; no basis to pick
+	"es":           "opensearch", // ES and OpenSearch share "es"; DetectProtocol splits them by URL path
+	"awswaf":       "waf",        // WAF classic; wafv2 arrives as AWSWAF_20190729
+	// SES v1 (Query) and SESv2 (REST-JSON) share every identifier. The protocol
+	// is what tells them apart, and DetectProtocol already does it — so these
+	// resolve to v1 and the REST-JSON branch promotes to v2. Mapping them
+	// straight to sesv2 here routes every SES v1 Query call to the v2 provider.
+	"ses":                "ses",
+	"email":              "ses",
+	"simpleemailservice": "ses",
+
+	// --- Group 2: legacy identifiers no model publishes ---
+	"amazonkinesis":                      "kinesis",
+	"amazondynamodbstreams":              "dynamodbstreams",
+	"amazonemr":                          "emr",
+	"amazoncognitoidentity":              "cognitoidentity",
+	"cognitouseridentityproviderservice": "cognitoidentityprovider",
+	"cognitoidp":                         "cognitoidentityprovider",
+	"amazondmsv20160101":                 "dms",
+	"anyupfront":                         "applicationautoscaling",
+	"awsbatch":                           "batch",
+	"awsbatch_v20160810":                 "batch",
+	"awscostexplorer":                    "costexplorer",
+	"awsfaultinjectionservice":           "fis",
+	"awsidentitystore":                   "identitystore",
+	"swbexternaluserservice":             "identitystore",
+	"awsorganizations":                   "organizations",
+	"awsorganizationsv2":                 "organizations",
+	"awsresourcegroups":                  "resourcegroups",
+	"awssfn":                             "sfn",
+	"awswafv2":                           "wafv2",
+	"cloudcontrolapi":                    "cloudcontrol",
+	"cloudapiservice":                    "cloudcontrol",
+	"codeartifact_20180409":              "codeartifact",
+	"data.iot":                           "iotdataplane",
+	"iot-data":                           "iotdataplane",
+	"kinesisanalytics_v2":                "kinesisanalyticsv2",
+	"opensearchservice":                  "opensearch",
+	"resourcegroupstagging":              "resourcegroupstaggingapi",
+	"serverlessapplicationrepository":    "serverlessrepo",
+
+	// --- Group 3: substitutions for services DevCloud does not register ---
+	//
+	// Only one entry left, and the reason the others went is worth keeping.
+	// "apigateway" resolves to apigatewayv2 and "sso" to ssoadmin without any
+	// help here, because those services publish those names and the service
+	// that would contest them is not modelled. That is a substitution the
+	// models happen to make, not one anybody chose — and it stops being silent
+	// the moment the missing model is added, because the alias becomes a
+	// collision and TestServiceIDOverridesResolveEveryCollision fails until
+	// somebody decides. Deliberately not pinned here: pinning it would make
+	// that decision now, invisibly, for a service that does not exist yet.
+	"aoss": "opensearch", // OpenSearch Serverless publishes no model in-tree
+}
+
+// normalizeServiceID maps SigV4 signing names, X-Amz-Target prefixes, and other
+// AWS identifiers to DevCloud internal service IDs.
+//
+// Overrides win over the derived table: an entry there is a decision generation
+// could not make, and a generated answer must not quietly replace it.
 func normalizeServiceID(svc string) string {
 	svc = strings.ToLower(svc)
-	switch svc {
-	case "amazonsqs":
-		return "sqs"
-	case "dynamodb_20120810":
-		return "dynamodb"
-	case "amazonssm":
-		return "ssm"
-	case "trentservice":
-		return "kms"
-	case "logs", "logs_20140328":
-		return "cloudwatchlogs"
-	case "monitoring", "graniteserviceversion20100801":
-		return "cloudwatch"
-	case "awsevents":
-		return "eventbridge"
-	case "amazonec2containerservicev20141113":
-		return "ecs"
-	case "amazonec2containerregistry", "amazonec2containerregistry_v20150921":
-		return "ecr"
-	case "certificatemanager":
-		return "acm"
-	case "awswaf", "awswaf_20150824":
-		return "waf"
-	case "awswaf_20190729", "awswafv2":
-		return "wafv2"
-	case "awsglue":
-		return "glue"
-	case "codepipeline_20150709":
-		return "codepipeline"
-	case "codebuild_20161006":
-		return "codebuild"
-	case "codedeploy_20141006":
-		return "codedeploy"
-	case "codecommit_20150413":
-		return "codecommit"
-	case "codeartifact_20180409":
-		return "codeartifact"
-	case "amazonkinesis":
-		return "kinesis"
-	case "kinesisanalytics", "kinesisanalytics_v2":
-		return "kinesisanalyticsv2"
-	case "firehose_20150804":
-		return "firehose"
-	case "amazonathena":
-		return "athena"
-	case "amazonemr", "elasticmapreduce":
-		return "emr"
-	case "amazondynamodbstreams", "dynamodbstreams_20120810":
-		return "dynamodbstreams"
-	case "amazonmwaa", "airflow":
-		return "mwaa"
-	case "awssfn", "awsstepfunctions":
-		return "sfn"
-	case "simpleworkflowservice":
-		return "swf"
-	case "swbexternalservice":
-		return "ssoadmin"
-	case "amazoncognitoidentity", "awscognitoidentityservice":
-		return "cognitoidentity"
-	case "cognitouseridentityproviderservice", "cognitoidp", "cognito-idp", "awscognitoidentityproviderservice":
-		return "cognitoidentityprovider"
-	case "amazonmemorydb":
-		return "memorydb"
-	case "amazonmq":
-		return "mq"
-	case "awsorganizations", "awsorganizationsv2", "awsorganizationsv20161128":
-		return "organizations"
-	case "awsshield", "awsshield_20160616":
-		return "shield"
-	case "sso":
-		return "ssoadmin"
-	case "awssupport", "awssupport_20130415":
-		return "support"
-	case "awsfaultinjectionservice":
-		return "fis"
-	case "awsxray":
-		return "xray"
-	case "timestream_20181101", "timestream":
-		return "timestreamwrite"
-	case "awscostexplorer", "awsinsightsindexservice":
-		return "costexplorer"
-	case "awsbatch", "awsbatch_v20160810":
-		return "batch"
-	case "msk":
-		return "kafka"
-	case "amazondmsv20160101":
-		return "dms"
-	case "config", "starlingdoveservice":
-		return "configservice"
-	case "application-autoscaling", "anyupfront", "anyscalefrontendservice":
-		return "applicationautoscaling"
-	case "awsresourcegroups", "resource-groups":
-		return "resourcegroups"
-	case "resourcegroupstagging":
-		return "resourcegroupstaggingapi"
-	case "cloudcontrolapi", "cloudapiservice":
-		return "cloudcontrol"
-	case "elasticloadbalancing":
-		return "elasticloadbalancingv2"
-	case "es":
-		return "opensearch"
-	case "aoss":
-		return "opensearch"
-	case "apigateway":
-		return "apigatewayv2"
-	case "mobiletargeting":
-		return "pinpoint"
-	case "data.iot", "iotdata", "iot-data":
-		return "iotdataplane"
-	case "acm-pca", "acmprivateca":
-		return "acmpca"
-	case "route53autonaming":
-		return "servicediscovery"
-	case "elasticfilesystem":
-		return "efs"
-	case "transferservice":
-		return "transfer"
-	case "cloudtrail_20131101":
-		return "cloudtrail"
-	case "opensearchservice":
-		return "opensearch"
-	case "awsidentitystore", "swbexternaluserservice":
-		return "identitystore"
-	case "serverlessapplicationrepository":
-		return "serverlessrepo"
-	case "events":
-		return "eventbridge"
-	default:
-		return svc
+	if id, ok := serviceIDOverrides[svc]; ok {
+		if id == "" {
+			// Deliberately unrouted; see the Group 1 comment above.
+			return svc
+		}
+		return id
 	}
+	if id, ok := aliases.ServiceIDs[svc]; ok {
+		return id
+	}
+	return svc
 }
 
 // serviceFromQueryRequest determines the service for a Query-protocol request
