@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/admin"
+	"github.com/skyoo2003/devcloud/internal/auth"
 	"github.com/skyoo2003/devcloud/internal/plugin"
 )
 
@@ -41,6 +42,9 @@ func New(port int, registry *plugin.Registry, adminAPI http.Handler, logCollecto
 			start := time.Now()
 			rec := newStatusRecorder(w)
 			router.ServeHTTP(rec, r)
+			// IdentityMiddleware runs before this handler, so the region here is
+			// what the caller signed for — empty for an unsigned client.
+			id, _ := auth.FromContext(r.Context())
 			logCollector.Add(admin.RequestLog{
 				Method:    r.Method,
 				Path:      r.URL.Path,
@@ -48,16 +52,20 @@ func New(port int, registry *plugin.Registry, adminAPI http.Handler, logCollecto
 				Duration:  time.Since(start).String(),
 				Timestamp: start,
 				Service:   detectService(r.URL.Path),
+				Region:    id.Region,
 			})
 		})
 	}
 
+	// IdentityMiddleware is innermost so the identity is on the context before
+	// anything that reads it — the log collector above, and every plugin.
 	awsHandler := ChainMiddleware(serviceHandler,
 		ErrorRecoveryMiddleware,
 		BodyLimitMiddleware,
 		CORSMiddleware,
 		RequestIDMiddleware,
 		RequestLoggerMiddleware,
+		IdentityMiddleware,
 	)
 
 	// Top-level mux: admin API takes priority; everything else is an AWS API call.

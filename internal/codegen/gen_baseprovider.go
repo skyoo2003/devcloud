@@ -3,17 +3,21 @@
 // internal/codegen/gen_baseprovider.go
 package codegen
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/skyoo2003/devcloud/internal/codegen/ir"
+)
 
 // baseProviderTemplateData is the data model for base_provider.go.tmpl.
 type baseProviderTemplateData struct {
 	PackageName string
-	Operations  []Operation
+	Operations  []ir.Operation
 }
 
 // GenerateBaseProvider renders the base provider template for the given package
-// name and Smithy model, returning a Go source string with NotImplemented stubs.
-func (g *Generator) GenerateBaseProvider(pkgName string, model *SmithyModel) (string, error) {
+// name and IR model, returning a Go source string with NotImplemented stubs.
+func (g *Generator) GenerateBaseProvider(pkgName string, model *ir.Model) (string, error) {
 	data := baseProviderTemplateData{
 		PackageName: pkgName,
 		Operations:  model.Operations,

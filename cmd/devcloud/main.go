@@ -62,8 +62,20 @@ func main() {
 
 	registry := plugin.DefaultRegistry
 
+	// A service's provider comes from the plugin itself, so config resolution is
+	// provider-aware without the config package needing to know which services
+	// exist. Construct builds an instance without Init, which is all the
+	// metadata methods need.
+	providerOf := func(name string) string {
+		p, ok := registry.Construct(name)
+		if !ok {
+			return plugin.DefaultProvider
+		}
+		return plugin.ProviderOf(p)
+	}
+
 	initService := func(name string, fatal bool) {
-		svcCfg := cfg.Service(name)
+		svcCfg := cfg.ProviderService(providerOf(name), name)
 		if !svcCfg.Enabled {
 			return
 		}

@@ -8,6 +8,8 @@ import (
 	"go/format"
 	"os"
 	"path/filepath"
+
+	"github.com/skyoo2003/devcloud/internal/codegen/ir"
 )
 
 // WriteGo gofmts content and writes it to path. Templates emit close-enough Go;
@@ -21,7 +23,7 @@ func WriteGo(path, content string) error {
 	return os.WriteFile(path, formatted, 0644)
 }
 
-func (g *Generator) GenerateAll(model *SmithyModel, outputDir string, scaffoldDir string) error {
+func (g *Generator) GenerateAll(model *ir.Model, outputDir string, scaffoldDir string) error {
 	pkgName := model.ServiceID
 	serviceDir := filepath.Join(outputDir, pkgName)
 	if err := os.MkdirAll(serviceDir, 0755); err != nil {
@@ -30,7 +32,7 @@ func (g *Generator) GenerateAll(model *SmithyModel, outputDir string, scaffoldDi
 
 	generators := []struct {
 		fileName string
-		generate func(string, *SmithyModel) (string, error)
+		generate func(string, *ir.Model) (string, error)
 	}{
 		{"types.go", g.GenerateTypes},
 		{"base_provider.go", g.GenerateBaseProvider},

@@ -38,6 +38,60 @@ type ServicePlugin interface {
 These invariants are enforced for every registered service by
 [`TestServicePluginConformance`](../cmd/devcloud/conformance_test.go).
 
+## Providers and CSP neutrality
+
+Phase 2 of the [roadmap](roadmap.md) reviewed this interface for CSP neutrality.
+The conclusion was that **`ServicePlugin` needs no change**: every method is
+about serving an HTTP API, and none of them assumes AWS.
+
+What is AWS-specific is the vocabulary around it, and each piece is open rather
+than closed:
+
+| Surface | Why it is already neutral |
+|---|---|
+| `ProtocolType` | An open `string` type, not an enum. The constants are AWS's wire protocols; another CSP declares its own values. |
+| `ServiceID()` | An opaque registry key. A non-AWS service registers under whatever id it wants. |
+| `DefaultAccountID` | An AWS concept used only by AWS services. Nothing in the interface refers to it. |
+
+The one thing missing was a way to ask *which CSP a plugin serves*. That is the
+optional `ProviderScoped` interface:
+
+```go
+type ProviderScoped interface {
+    Provider() string
+}
+
+func ProviderOf(p ServicePlugin) string // defaults to plugin.DefaultProvider ("aws")
+```
+
+It is **not** a `ServicePlugin` method on purpose. Adding one would force an
+edit to every service in the tree so it could state the value it already
+defaults to, and would break the [v1.x contract](#api-stability) below for no
+gain. Always read the provider through `ProviderOf`, never by type-asserting.
+
+Startup uses it to resolve configuration: `cmd/devcloud` looks up each service
+with `cfg.ProviderService(plugin.ProviderOf(p), id)`, so a plugin lands in its
+own provider's config namespace without the config package needing to know which
+services exist. See [configuration.md](configuration.md#provider-namespacing).
+
+## Caller identity
+
+The gateway parses whatever credentials a request carried and attaches the
+result to the request context. Inside `HandleRequest`:
+
+```go
+if id, ok := auth.FromContext(ctx); ok {
+    region := id.Region // what the SDK signed for; "" if unsigned
+}
+```
+
+`auth.Identity` carries `Provider`, `AccessKeyID`, `Region`, `Service` (the
+signing name as presented) and `SessionToken`. **None of it is verified** —
+DevCloud accepts any credentials, so treat these as a claim, never as an
+authorization decision. Adapters live in [`internal/auth`](../internal/auth/);
+`SigV4` is AWS's, and Azure (AAD/SAS) and GCP (OAuth2) join by implementing
+`auth.Adapter`.
+
 ## Protocols
 
 `Protocol()` returns the wire protocol the gateway uses to detect and serialize
@@ -146,4 +200,5 @@ and the `ProtocolType` constants are stable within the `v1.x` series:
   governed by [compatibility-policy.md](compatibility-policy.md).
 
 New optional capability is introduced additively (new `Options` keys, new
-`ProtocolType` values) so existing plugins keep compiling and behaving.
+`ProtocolType` values, optional side interfaces such as `ProviderScoped`) so
+existing plugins keep compiling and behaving.

@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"go/format"
 	"strings"
+
+	"github.com/skyoo2003/devcloud/internal/codegen/ir"
 )
 
 // CRUDRegistryData drives crud_registry.go.tmpl: one file registering every
@@ -75,7 +77,7 @@ func singularize(s string) string {
 
 // outputKeys finds the output member holding a collection (list key) and the one
 // wrapping a single resource structure (item key).
-func outputKeys(model *SmithyModel, op Operation) (listKey, itemKey string) {
+func outputKeys(model *ir.Model, op ir.Operation) (listKey, itemKey string) {
 	out := model.Shapes[op.OutputName]
 	if out == nil {
 		return "", ""
@@ -86,11 +88,11 @@ func outputKeys(model *SmithyModel, op Operation) (listKey, itemKey string) {
 			continue
 		}
 		switch target.Type {
-		case ShapeList:
+		case ir.ShapeList:
 			if listKey == "" {
 				listKey = mem.Name
 			}
-		case ShapeStructure:
+		case ir.ShapeStructure:
 			if itemKey == "" {
 				itemKey = mem.Name
 			}
@@ -101,7 +103,7 @@ func outputKeys(model *SmithyModel, op Operation) (listKey, itemKey string) {
 
 // classifyOps returns the CRUD metadata for every classifiable operation, in the
 // model's (already sorted) order for reproducible output.
-func classifyOps(model *SmithyModel) []crudOpData {
+func classifyOps(model *ir.Model) []crudOpData {
 	var ops []crudOpData
 	for _, op := range model.Operations {
 		verb, resource := canonicalVerb(op.Name)
@@ -128,7 +130,7 @@ func isJSONProtocol(protocol string) bool {
 
 // ServiceCRUDData classifies a JSON-protocol model's CRUD operations. It returns
 // (data, false) when the service is not engine-servable or has no CRUD ops.
-func ServiceCRUDData(model *SmithyModel) (CRUDServiceData, bool) {
+func ServiceCRUDData(model *ir.Model) (CRUDServiceData, bool) {
 	if !isJSONProtocol(model.Protocol) {
 		return CRUDServiceData{}, false
 	}

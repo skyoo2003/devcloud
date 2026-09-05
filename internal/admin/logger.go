@@ -15,6 +15,10 @@ type RequestLog struct {
 	Duration  string    `json:"duration"` // e.g. "1.234ms"
 	Timestamp time.Time `json:"timestamp"`
 	Service   string    `json:"service"` // detected service ID
+	// Region is the region the caller signed for, read off the request's
+	// credential scope. Empty when the client did not sign — DevCloud is
+	// regionless, so this reports what the SDK believed, not where data lives.
+	Region string `json:"region"`
 }
 
 // LogCollector is a thread-safe ring buffer for recent request logs.

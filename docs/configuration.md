@@ -45,6 +45,40 @@ Service-specific options:
 | `services.lambda.warm_containers` | `0` | Number of warm containers to keep |
 | `services.iam.enforce_policies` | `false` | Enforce IAM policies (experimental) |
 
+### Provider namespacing
+
+DevCloud serves AWS today and is being prepared to serve more (see the
+[roadmap](roadmap.md)). Service configuration can therefore be written under an
+explicit provider:
+
+```yaml
+providers:
+  aws:
+    services:
+      s3:
+        enabled: true
+        data_dir: ./data/s3
+```
+
+`providers.aws.services` and the top-level `services` block are **the same
+block** — one under its forward-compatible name, one under its historical one.
+Rules:
+
+- Write either. The top-level `services` block keeps working exactly as before
+  and is not deprecated.
+- If both are present, `providers.aws.services` wins and a warning names the
+  ignored block. Do not write both.
+- A block for a provider this build does not serve (`providers.azure`) parses
+  without error — a config written for a later DevCloud still loads — and logs
+  a warning saying it is ignored. That warning is also your typo check:
+  `providers.awss` produces it.
+- `DEVCLOUD_SERVICES` and `DEVCLOUD_DATA_DIR` are AWS-scoped. There is no
+  syntax for naming another provider's services, so they cannot silently
+  disable one.
+- AWS data directories stay flat (`<base>/<id>`). Any future provider nests
+  under its own name (`<base>/<provider>/<id>`) so two CSPs offering a
+  same-named service cannot collide.
+
 ### Admin API
 
 | Key | Default | Description |

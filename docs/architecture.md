@@ -6,12 +6,24 @@ DevCloud's long-term direction is to support multiple Cloud Service Providers (A
 
 A phased refactor is planned (see [roadmap.md](roadmap.md)):
 
-- **Phase 1 (complete, shipped as v1.0)** — AWS services via Smithy codegen, single-port gateway, AWS SigV4 auth.
-- **Phase 2 (current)** — Introduce an Intermediate Representation (IR) between API models and codegen. Abstract `ModelSource` so OpenAPI (Azure) and Protocol Buffers / Discovery Documents (GCP) can feed the same pipeline. Extract a per-provider auth adapter interface.
+- **Phase 1 (complete, shipped as v1.0)** — AWS services via Smithy codegen, single-port gateway.
+- **Phase 2 (complete)** — Intermediate Representation (IR) between API models and codegen; `ModelSource` so OpenAPI (Azure) and Protocol Buffers / Discovery Documents (GCP) can feed the same pipeline; provider namespacing in config; per-provider auth adapters.
 - **Phase 3 (pilot)** — First non-AWS service (candidate: Azure Blob Storage) validates the multi-CSP architecture.
 - **Phase 4 (breadth)** — Additional services across CSPs; community-owned providers.
 
-The existing plugin system, protocol detector, and storage abstractions are intentionally CSP-agnostic where possible, to minimize rework when providers are added.
+After Phase 2, the four places a second CSP would have touched are each an
+addition rather than an edit:
+
+| Seam | Package | How a provider joins |
+|---|---|---|
+| Model → code | [`internal/codegen/ir`](../internal/codegen/ir/ir.go), [`source.go`](../internal/codegen/source.go) | Implement `ModelSource`, append it to `DefaultSources` |
+| Configuration | [`internal/config`](../internal/config/config.go) | `providers.<name>.services.*`; add the name to `knownProviders` |
+| Service contract | [`internal/plugin`](../internal/plugin/plugin.go) | Implement the optional `ProviderScoped` on the plugin |
+| Credentials | [`internal/auth`](../internal/auth/auth.go) | Implement `Adapter`, append it to `Adapters` |
+
+The plugin system, protocol detector, and storage abstractions stay CSP-agnostic
+by convention rather than by enforcement — `ProtocolType` is an open string type,
+not an enum, for exactly this reason.
 
 ## Request Flow
 
@@ -27,6 +39,7 @@ API Gateway (port 4747)
   │   ├─ CORS (cross-origin handling)
   │   ├─ RequestID (X-Amz-Request-Id)
   │   ├─ RequestLogger (structured logging)
+  │   ├─ Identity (auth.Adapter → claimed identity on the request context)
   │   └─ LogCollector (admin API live logs)
   │
   ├─ Route: /devcloud/api/* → Admin API
@@ -36,11 +49,8 @@ Protocol Detector
   │
   ├─ X-Amz-Target header present       → JSON protocol (DynamoDB, SQS JSON)
   ├─ Content-Type: x-www-form-urlencoded + Action= → Query protocol (IAM, STS, SQS Query)
-  ├─ SigV4 with Lambda path            → REST-JSON (Lambda)
+  ├─ SigV4 credential scope            → REST-JSON (Lambda, and the signing name decides the service)
   └─ Default                           → REST-XML (S3)
-  │
-  ▼
-Auth Validator (SigV4 format check, account ID extraction)
   │
   ▼
 Service Router → Plugin Registry → ServicePlugin.HandleRequest()
@@ -83,9 +93,26 @@ The full contract for each method, the configuration keys, the error convention,
 
 SQS supports both Query and JSON protocols. The protocol is auto-detected per request based on Content-Type and headers.
 
-## Smithy Code Generation
+## Authentication
 
-DevCloud auto-generates Go code from AWS Smithy JSON models. This enables rapid tracking of AWS API changes with minimal manual work.
+DevCloud reads credentials and never verifies them. `internal/auth` holds one
+`Adapter` per provider — `SigV4` for AWS today — which parses the credential
+scope off the `Authorization` header or a presigned URL's query string and
+reports the access key, region, signing name and session token the caller
+claimed. `IdentityMiddleware` puts the result on the request context, where any
+plugin can read it with `auth.FromContext`, and the protocol detector uses the
+same parse to route by signing name so routing and identity cannot disagree.
+
+Signature validation is deliberately absent: a local server that rejected calls
+whose signature did not match would break every SDK pointed at it with
+placeholder credentials. See
+[compatibility-policy.md](compatibility-policy.md#not-guaranteed).
+
+## Code Generation
+
+DevCloud auto-generates Go code from API models. This enables rapid tracking of
+API changes with minimal manual work. AWS Smithy is the only format read today;
+the pipeline is built so a second one is an added file rather than a rewrite.
 
 ### Pipeline
 
@@ -93,8 +120,15 @@ DevCloud auto-generates Go code from AWS Smithy JSON models. This enables rapid 
 smithy-models/*.json  (AWS Smithy model files)
        │
        ▼
-  Parser (internal/codegen/parser.go)
-  Reads service definitions, operations, input/output shapes
+  ModelSource (internal/codegen/source.go)
+  Each source detects its own format and parses it. SmithySource is
+  the first; OpenAPI and Protobuf join by implementing the interface
+  and appending to DefaultSources. cmd/codegen names no format.
+       │
+       ▼
+  IR — *ir.Model (internal/codegen/ir)
+  Provider-neutral: service id, protocol, operations, shapes.
+  Everything downstream reads only this.
        │
        ▼
   Generator (internal/codegen/generator.go)
@@ -159,9 +193,11 @@ devcloud/
 │   └── codegen/            # Smithy code generator CLI (main.go)
 ├── internal/
 │   ├── gateway/            # HTTP server, middleware, protocol detection, routing
-│   ├── plugin/             # ServicePlugin interface, Registry
-│   ├── codegen/            # Smithy parser, code generators, templates
-│   ├── config/             # YAML config loading, env overrides
+│   ├── plugin/             # ServicePlugin interface, Registry, ProviderScoped
+│   ├── auth/               # Per-provider credential adapters (SigV4 today)
+│   ├── codegen/            # ModelSource implementations, generators, templates
+│   │   └── ir/             # Provider-neutral intermediate representation
+│   ├── config/             # YAML config loading, provider namespacing, env overrides
 │   ├── generated/          # Auto-generated code (DO NOT EDIT; run `make stats` for count)
 │   ├── services/           # Service implementations (run `make stats` for count)
 │   ├── admin/              # Admin REST API

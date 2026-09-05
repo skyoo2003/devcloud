@@ -6,6 +6,8 @@ package codegen
 import (
 	"sort"
 	"strings"
+
+	"github.com/skyoo2003/devcloud/internal/codegen/ir"
 )
 
 // errorData is the template data for a single error shape.
@@ -21,9 +23,9 @@ type errorsTemplateData struct {
 }
 
 // GenerateErrors renders the errors template for the given package name and
-// Smithy model. It collects all shapes that have an ErrorTrait and passes
+// IR model. It collects all shapes that have an ir.ErrorTrait and passes
 // their names and HTTP status codes to the template.
-func (g *Generator) GenerateErrors(pkgName string, model *SmithyModel) (string, error) {
+func (g *Generator) GenerateErrors(pkgName string, model *ir.Model) (string, error) {
 	// Collect shape names in sorted order for deterministic output.
 	names := make([]string, 0, len(model.Shapes))
 	for name := range model.Shapes {

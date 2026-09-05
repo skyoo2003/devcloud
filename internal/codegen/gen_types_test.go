@@ -8,9 +8,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/skyoo2003/devcloud/internal/codegen/ir"
 )
 
-func loadTestModel(t *testing.T) *SmithyModel {
+func loadTestModel(t *testing.T) *ir.Model {
 	t.Helper()
 	data, err := os.ReadFile("../../cmd/codegen/testdata/s3-minimal.json")
 	require.NoError(t, err)

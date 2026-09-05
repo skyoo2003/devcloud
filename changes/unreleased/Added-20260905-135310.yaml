@@ -1,0 +1,5 @@
+kind: Added
+body: 'Per-provider auth adapters (`internal/auth`): SigV4 credentials are parsed once and the caller''s claimed identity — access key, region, signing name, session token — is available to every plugin via `auth.FromContext`, and reported as a new `region` field on `GET /devcloud/api/logs`. Nothing is verified; DevCloud still accepts any credentials'
+time: 2026-09-05T13:53:10.000000+09:00
+custom:
+    Issue: "135"

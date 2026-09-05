@@ -10,6 +10,8 @@ import (
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/skyoo2003/devcloud/internal/auth"
 )
 
 // Middleware is a function that wraps an http.Handler to add behaviour.
@@ -52,6 +54,22 @@ func RequestLoggerMiddleware(next http.Handler) http.Handler {
 			"status", rec.statusCode,
 			"duration", time.Since(start),
 		)
+	})
+}
+
+// IdentityMiddleware attaches the caller's claimed identity to the request
+// context, so any plugin can read the region or access key the SDK signed with
+// via auth.FromContext.
+//
+// It never rejects: an unrecognized or absent credential leaves the context
+// untouched and the request proceeds, which is the documented behaviour of a
+// server that accepts any credentials (docs/compatibility-policy.md).
+func IdentityMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if id, ok := auth.Identify(r); ok {
+			r = r.WithContext(auth.NewContext(r.Context(), id))
+		}
+		next.ServeHTTP(w, r)
 	})
 }
 
