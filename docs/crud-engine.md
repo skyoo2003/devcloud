@@ -35,24 +35,62 @@ it. Where that name lives depends on the protocol:
 |---|---|---|
 | `json-1.0`, `json-1.1` | the `X-Amz-Target` header | yes |
 | `rest-json` | the request method and path, matched against the model's URI templates (`internal/shared/httproute`) | yes |
-| `query` | — | no |
-| `rest-xml` | — | no |
+| `rest-xml` | the same — every `restXml` operation is bound to a method and URI too | yes |
+| `query` | the `Action` field of the form body | yes |
+| `ec2-query` | — | no |
 
-For `rest-json` the engine reads parameters from three places, least
-authoritative first: values the model binds with `httpQuery`, then the JSON
-body, then the path labels. The URI is what addresses the resource, so a path
-label wins. A `restJson1` model never binds one member to two of these, so real
-SDK traffic never exercises the precedence.
+Every protocol DevCloud registers is now readable, so a service that serves
+nothing does so because none of its operations is CRUD-shaped, not because of
+how it talks. `ec2-query` is the one exception and it is not a gap in practice:
+the only service that speaks it is EC2, whose provider is hand-written and never
+reaches the engine.
 
-It does **not** read `httpHeader` members, `httpPayload` blobs, or streaming
-bodies. An operation whose identifier arrives only in a header is therefore
-served with a generated id rather than the caller's — plausible, not faithful,
-which is the engine's stated contract.
+### Where parameters come from
 
-A request whose method and path match no route in the service's table is
-**declined** with `InvalidAction`, never served from the store. That is what
-keeps a registered `rest-json` service from answering for paths it does not
-model.
+For the two REST protocols, three places, least authoritative first: values the
+model binds with `httpQuery`, then the request body, then the path labels. The
+URI is what addresses the resource, so a path label wins. A REST model never
+binds one member to two of these, so real SDK traffic never exercises the
+precedence; it is defined so a hand-rolled request cannot redirect a lookup.
+
+For `query`, the form body, flat keys only. `Action` and `Version` are dropped:
+they describe the request rather than the resource, and storing them would echo
+`<Action>CreateLoadBalancer</Action>` back inside a result element. A structured
+member arrives flattened as `Listeners.member.1.Protocol`; the engine has no
+nested shape to put it in, so it is not emitted in the response.
+
+**`rest-xml` request bodies are never read at all.** The gateway does not buffer
+them — S3 speaks `rest-xml` and its bodies are multi-gigabyte uploads that must
+keep streaming — so a `rest-xml` operation is served from its path and query
+alone. Every CRUD-shaped S3 Control operation addresses its resource that way,
+so nothing is lost; an operation that carried its identifier only in a body
+would get a generated id.
+
+The engine does **not** read `httpHeader` members, `httpPayload` blobs, or
+streaming bodies. An operation whose identifier arrives only in a header is
+therefore served with a generated id rather than the caller's — plausible, not
+faithful, which is the engine's stated contract.
+
+### Responses
+
+The JSON protocols get a JSON body. `query` and `rest-xml` get XML, and they do
+not share an envelope: botocore's query parser looks for `<OperationResult>`
+nested inside `<OperationResponse>` and, given anything else, returns a result
+with nothing in it rather than an error, while its `rest-xml` parser maps the
+root element's children straight onto the output shape. List entries are wrapped
+in `<member>`, which is AWS's default for both dialects; a model that flattens a
+list gets the unflattened form, because the engine has no flattening
+information. No `xmlns` is emitted — botocore strips namespaces before matching
+element names.
+
+### Declining
+
+A request whose method and path match no route in the service's table, or whose
+`Action` names an operation the service did not register, is **declined** with
+`InvalidAction` and never served from the store. That is what keeps a registered
+service from answering for operations it does not model — and it matters most
+for `rest-xml`, because `DetectProtocol` routes anything it cannot classify to
+S3.
 
 ## Fidelity tiers
 

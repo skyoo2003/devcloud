@@ -132,18 +132,27 @@ func classifyOps(model *ir.Model) []crudOpData {
 
 // engineServable reports whether the engine can serve a service's protocol.
 //
-// The JSON protocols carry the operation name in X-Amz-Target. rest-json does
-// not, but every one of its operations is bound to a method and URI template,
-// and internal/shared/httproute turns that pair back into an operation name —
-// so the engine can classify it too. query and rest-xml have neither, which is
-// what PRD Milestone 5 owns; admitting them here would mean guessing.
+// The JSON protocols carry the operation name in X-Amz-Target. rest-json and
+// rest-xml do not, but every one of their operations is bound to a method and
+// URI template, and internal/shared/httproute turns that pair back into an
+// operation name — so the engine can classify them too. rest-xml was excluded
+// on the assumption that it had no modelled path; it has one, and all 97 of
+// s3-control's operations carry it.
+//
+// query has no modelled path at all, so it registers no route; the engine
+// matches it by the Action field of the form body instead. It is admitted here
+// because that is a place the operation name genuinely is, not a guess.
+//
+// ec2-query stays out. It is form-encoded like query but not interchangeable
+// with it, and the only service that speaks it has a hand-written provider.
 //
 // This is deliberately the same question crud.Servable answers at runtime. The
 // two must agree: a protocol classified here but refused there registers
 // operations nothing can reach, and the fidelity manifest would call them
 // auto-crud.
 func engineServable(protocol string) bool {
-	return strings.HasPrefix(protocol, "json") || protocol == "rest-json"
+	return strings.HasPrefix(protocol, "json") ||
+		protocol == "rest-json" || protocol == "rest-xml" || protocol == "query"
 }
 
 // ServiceCRUDData classifies an engine-servable model's CRUD operations. It

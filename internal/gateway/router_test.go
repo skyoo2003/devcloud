@@ -219,9 +219,79 @@ func TestServiceRouter_RESTJSONUnmatchedPathDeclinesCleanly(t *testing.T) {
 	assert.Contains(t, w.Body.String(), "InvalidAction")
 }
 
-// TestServiceRouter_RESTXMLBodyStillUnbuffered pins the exception. S3 bodies are
-// large binary uploads, and reading one into memory to offer it to an engine
-// that refuses rest-xml anyway would be a straight regression.
+// TestServiceRouter_QueryReachesEngine is the gateway half of the query change.
+// It is worth its own test because query is the only protocol where the gateway
+// and the engine could disagree about which operation a request is for: the
+// gateway reads Action from the URL, the engine reads it from the form body,
+// and every real SDK puts it in the body.
+func TestServiceRouter_QueryReachesEngine(t *testing.T) {
+	const svc = "gwquerysvc"
+	crud.Register(svc, map[string]crud.OpMeta{
+		"CreateGizmo": {Verb: "Create", Resource: "GwGizmo", OutputItemKey: "Gizmo"},
+	})
+	router := NewServiceRouter(newDecliningRegistry(svc, plugin.ProtocolQuery), nil)
+
+	form := "Action=CreateGizmo&Version=2012-06-01&GwGizmoName=g1"
+	req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(form))
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Authorization",
+		"AWS4-HMAC-SHA256 Credential=AKIA/20130524/us-east-1/"+svc+"/aws4_request, Signature=abc")
+
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	require.Equal(t, http.StatusOK, w.Code, "body: %s", w.Body.String())
+	body := w.Body.String()
+	assert.Contains(t, body, "<CreateGizmoResponse>", "not the query envelope")
+	assert.Contains(t, body, "<CreateGizmoResult>")
+	assert.Contains(t, body, "<GwGizmoName>g1</GwGizmoName>",
+		"the form body did not reach the engine")
+	assert.NotContains(t, body, "<Action>", "protocol field leaked into the resource")
+}
+
+// TestServiceRouter_RESTXMLReachesEngineWithoutBuffering is the gateway half of
+// the rest-xml change, and it asserts two things that have to hold together.
+//
+// The engine must serve the request — it can, because every rest-xml operation
+// is bound to a method and URI template — and the gateway must not have read
+// the body to let it. Those pull in opposite directions under one predicate,
+// which is why Servable and NeedsBody are now separate: S3 speaks rest-xml, and
+// buffering a multi-gigabyte PutObject to serve a provider that never reaches
+// the engine would be a straight regression.
+func TestServiceRouter_RESTXMLReachesEngineWithoutBuffering(t *testing.T) {
+	const svc = "s3control"
+	crud.Register(svc, map[string]crud.OpMeta{
+		"ListAccessPoints": {Verb: "List", Resource: "GwAccessPoint", OutputListKey: "AccessPointList",
+			Method: "GET", URI: "/v20180820/accesspoint"},
+	})
+	router := NewServiceRouter(newDecliningRegistry(svc, plugin.ProtocolRESTXML), nil)
+
+	req := httptest.NewRequest(http.MethodGet, "/v20180820/accesspoint", &failOnReadBody{t: t})
+	req.Header.Set("Authorization",
+		"AWS4-HMAC-SHA256 Credential=AKIA/20130524/us-east-1/s3/aws4_request, Signature=abc")
+
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	require.Equal(t, http.StatusOK, w.Code, "body: %s", w.Body.String())
+	assert.Contains(t, w.Body.String(), "<ListAccessPointsResult>",
+		"rest-xml response is not the engine's XML")
+	assert.Equal(t, "application/xml", w.Header().Get("Content-Type"))
+}
+
+// failOnReadBody fails the test if anything reads it. It is how "the gateway did
+// not buffer this" is made observable: a length check on a captured body cannot
+// tell "never read" from "read and restored".
+type failOnReadBody struct{ t *testing.T }
+
+func (f *failOnReadBody) Read([]byte) (int, error) {
+	f.t.Error("the gateway read a rest-xml request body; S3 uploads must keep streaming")
+	return 0, io.EOF
+}
+
+// TestServiceRouter_RESTXMLBodyStillUnbuffered pins the exception for the
+// service the exception exists for. S3's provider never returns ErrUnhandledOp,
+// so it never reaches the engine, and its bodies must keep streaming.
 func TestServiceRouter_RESTXMLBodyStillUnbuffered(t *testing.T) {
 	var seen []byte
 	reg := plugin.NewRegistry()

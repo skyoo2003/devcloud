@@ -70,6 +70,53 @@ def test_s3control_answers_as_itself_not_as_s3(s3control_client):
     )
 
 
+def test_s3control_is_engine_served(s3control_client):
+    """s3control's floor, proved here rather than in test_service_smoke.py.
+
+    It cannot go in that harness's ENGINE_SERVED_SERVICES list: the list picks a
+    parameterless List*/Describe* from the model, and all 97 of s3control's
+    operations take a required AccountId. This is the budgets precedent — the
+    service is served, and the proof needs one fixture instead of none.
+
+    rest-xml is why it was the last protocol but one: botocore's RestXMLParser
+    maps the response root's children onto the output shape, so this asserts the
+    engine's generic XML is something a real parser accepts, not merely that Go
+    produced a 200.
+    """
+    got = s3control_client.list_access_points(AccountId=ACCOUNT_ID)
+    assert "AccessPointList" in got, f"no modelled member came back: {got}"
+
+
+def test_s3control_round_trips_a_resource(s3control_client):
+    """Create then read, through botocore both ways.
+
+    The identifier arrives only as a path label — PUT /v20180820/accesspoint/
+    {Name} — with no request body at all, because the gateway deliberately does
+    not buffer rest-xml bodies. If the label were not read, the resource would
+    be stored under a generated id and this read would come back empty.
+    """
+    name = "round-trip-ap"
+    s3control_client.create_access_point(
+        AccountId=ACCOUNT_ID, Name=name, Bucket="some-bucket"
+    )
+
+    listed = s3control_client.list_access_points(AccountId=ACCOUNT_ID)
+    names = [ap.get("Name") for ap in listed.get("AccessPointList", [])]
+    assert name in names, f"created access point is not in the list: {listed}"
+
+
+def test_s3control_unclassifiable_operation_declines(s3control_client):
+    """The floor is a floor. AssociateAccessGrantsIdentityCenter is one of the
+    three s3control operations that is not CRUD-shaped, so codegen registers
+    nothing for it and it must decline rather than answer from the store."""
+    code = _error_code(
+        s3control_client.associate_access_grants_identity_center,
+        AccountId=ACCOUNT_ID,
+        IdentityCenterArn="arn:aws:sso:::instance/ssoins-000000000000",
+    )
+    assert code is not None, "an unclassifiable operation returned a success"
+
+
 def test_s3_is_unaffected_by_the_split(s3_client):
     """The split must cost S3 nothing for any normal bucket or key."""
     s3_client.create_bucket(Bucket="split-guard-bucket")

@@ -10,36 +10,35 @@ things:
 | Number | What it means | Today |
 |---|---|---|
 | **Registered** | The gateway routes the service. A call reaches DevCloud instead of falling through to real AWS. | **205** |
-| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer — hand-written or served by the generic CRUD engine. | **199** |
-| **Registered-only** | Routed, but every operation declines with a clean AWS error. Nothing is served. | **6** |
+| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer — hand-written or served by the generic CRUD engine. | **201** |
+| **Registered-only** | Routed, but every operation declines with a clean AWS error. Nothing is served. | **4** |
 
 Per operation, from the [fidelity manifest](fidelity-manifest.md):
 
 | Tier | Operations |
 |---|---|
 | `hand-verified` | 4,496 |
-| `auto-crud` | 4,858 |
-| `unimplemented` | 3,053 |
+| `auto-crud` | 4,970 |
+| `unimplemented` | 2,941 |
 | **total known** | **12,407** |
 
 ## Why a registered service can serve nothing
 
 The generic CRUD engine has to know which operation a request is for, and it has
-to recognise that operation as CRUD-shaped. Two things can stop it.
+to recognise that operation as CRUD-shaped. Only the second one still stops it.
 
-**The protocol does not say which operation.** The `X-Amz-Target` JSON protocols
-name the operation in a header. `rest-json` does not, but every one of its
-operations is bound to an HTTP method and a URI template in the model, and
-`internal/shared/httproute` matches a request back to the operation from that
-pair — so the engine serves it too. `query` and `rest-xml` have neither a target
-header nor a modelled path the engine can match, so they are unreachable by it
-and serve nothing until somebody writes the provider by hand.
+**The protocol always says which operation.** Each one says it somewhere
+different, and the engine reads all of them: the `X-Amz-Target` JSON protocols
+put it in a header; `rest-json` and `rest-xml` bind every operation to an HTTP
+method and a URI template, which `internal/shared/httproute` matches a request
+back to; `query` puts it in the `Action` field of the form body. This used to be
+the main reason a service served nothing. It no longer is.
 
 **The operation is not CRUD-shaped.** `GetThing`, `ListThings`, `CreateThing`
 and their siblings map onto a generic store. `ExecuteStatement`, `InvokeEndpoint`
 and `QueryForecast` do not, and the engine refuses them rather than inventing an
 answer. A service whose entire API is that shape serves nothing whatever its
-protocol.
+protocol. This is now the *only* reason.
 
 Registered services by protocol:
 
@@ -48,19 +47,21 @@ Registered services by protocol:
 | `json-1.1` | 64 | yes — operation from `X-Amz-Target` |
 | `json-1.0` | 17 | yes — operation from `X-Amz-Target` |
 | `rest-json` | 93 | yes — operation from method + path |
-| `query` | 15 | no |
-| `rest-xml` | 4 | no |
+| `query` | 15 | yes — operation from the `Action` form field |
+| `rest-xml` | 4 | yes — operation from method + path |
 | no in-tree model | 12 | n/a — hand-written providers |
 
-Six services are registered and serve nothing. Four are the second case — no
-CRUD-shaped operation anywhere in their API: `forecastquery` (`QueryForecast`,
+Four services are registered and serve nothing, and all four are the same case —
+no CRUD-shaped operation anywhere in their API: `forecastquery` (`QueryForecast`,
 `QueryWhatIfForecast`), the two SageMaker Runtime variants (`InvokeEndpoint*`),
 and `rds-data` (`ExecuteStatement`, `BeginTransaction`, `CommitTransaction`,
 `RollbackTransaction`). No protocol change reaches them.
 
-The other two are the first case, and they are the whole of what is left:
-`elastic-load-balancing` (`query`) and `s3-control` (`rest-xml`). Both are in
-the demand set, and both are what PRD Milestone 5 now covers.
+Being engine-servable is not the same as being served. Thirteen of the fifteen
+`query` services and three of the four `rest-xml` ones have hand-written
+providers that answer their own unknown operations, so they never enter the
+engine and their manifest did not move when the protocols were admitted — the
+`EngineWired` flag records that per service.
 
 A registered operation is not automatically a reachable one. The engine is
 entered only when a provider returns `plugin.ErrUnhandledOp`, so a hand-written
@@ -103,8 +104,8 @@ stopped on the best surface available.
 | | Count |
 |---|---|
 | Registered | 57 |
-| Serving ≥1 operation | 54 |
-| Registered-only | 3 |
+| Serving ≥1 operation | 56 |
+| Registered-only | 1 |
 
 The 57 split by protocol as 34 `rest-json`, 15 `json-1.1`, 6 `json-1.0`, 1
 `query`, 1 `rest-xml`. Two thirds of the set is `rest-json`, which is why the
@@ -112,12 +113,19 @@ engine gaining that protocol is what made this milestone possible rather than a
 matter of arithmetic: without it, 34 of the 57 would have registered and served
 nothing.
 
-The three that do not meet the floor are named above, each for a different
-reason. `rds-data` is the one worth calling out: it is supported by all three
-projects in the demand survey — the strongest signal in the whole set — and it
-still cannot be served generically, because not one of its six operations is
-CRUD-shaped. Breadth does not reach every service, and saying so is cheaper than
-a fabricated success.
+The one that does not meet the floor is `rds-data`, and it is the one worth
+calling out: it is supported by all three projects in the demand survey — the
+strongest signal in the whole set — and it still cannot be served generically,
+because not one of its six operations is CRUD-shaped. Breadth does not reach
+every service, and saying so is cheaper than a fabricated success.
+
+`elastic-load-balancing` and `s3-control` were the other two. They were the last
+of the demand set because of their protocols, not their APIs, and both are
+served now: 18 of ELB's 29 operations and 94 of S3 Control's 97. The eleven and
+the three that remain are the not-CRUD-shaped case again — `ConfigureHealthCheck`
+and `ApplySecurityGroupsToLoadBalancer` among them, which a Terraform `aws_elb`
+resource does call. Breadth is what this milestone bought; depth is still not
+claimed.
 
 ## What counts as a service
 

@@ -4,6 +4,8 @@ package crud
 
 import (
 	"encoding/json"
+	"net/url"
+	"strings"
 	"sync"
 	"testing"
 )
@@ -86,8 +88,10 @@ func TestEngineUnclassified(t *testing.T) {
 	if _, err := handleJSON(t, svc, "SomeCustomOp", nil); err != ErrUnclassified {
 		t.Fatalf("unknown op: want ErrUnclassified, got %v", err)
 	}
-	if _, err := Handle(Call{Service: svc, Protocol: "query", Op: "CreateWidget", Body: []byte("{}")}); err != ErrUnclassified {
-		t.Fatalf("non-json protocol: want ErrUnclassified, got %v", err)
+	// ec2-query is the protocol still outside the engine: unlike query, it is
+	// not form-encoded with an Action field the engine can read.
+	if _, err := Handle(Call{Service: svc, Protocol: "ec2-query", Op: "CreateWidget", Body: []byte("{}")}); err != ErrUnclassified {
+		t.Fatalf("unservable protocol: want ErrUnclassified, got %v", err)
 	}
 	if _, err := handleJSON(t, "unregistered", "CreateThing", nil); err != ErrUnclassified {
 		t.Fatalf("unregistered service: want ErrUnclassified, got %v", err)
@@ -294,21 +298,306 @@ func TestEngineRESTJSONUnroutedOperationIsUnclassified(t *testing.T) {
 	}
 }
 
-// TestEngineRESTXMLStillDeclines pins the boundary. rest-xml and query carry no
-// route table into the engine, and admitting them would serve S3 traffic from
-// the generic store.
-func TestEngineRESTXMLStillDeclines(t *testing.T) {
-	const svc = "xmlsvc"
+// --- query ---
+
+func handleQuery(t *testing.T, service string, form url.Values) (*Result, error) {
+	t.Helper()
+	// Query is a form POST to "/": no path, no header, everything in the body.
+	return Handle(Call{
+		Service: service, Protocol: "query",
+		Method: "POST", URI: "/", Body: []byte(form.Encode()),
+	})
+}
+
+// TestEngineQueryRoundTrip is the last protocol. query is the one that names
+// its operation neither in a header nor in a path — Action is a field in the
+// form body, which is why it outlived rest-json and rest-xml as a gap.
+func TestEngineQueryRoundTrip(t *testing.T) {
+	const svc = "elbtest"
 	Register(svc, map[string]OpMeta{
-		"ListThings": {Verb: "List", Resource: "XThing", OutputListKey: "Things",
+		"CreateLoadBalancer": {Verb: "Create", Resource: "LoadBalancer", OutputItemKey: "LoadBalancer"},
+		"DescribeLoadBalancers": {Verb: "Get", Resource: "LoadBalancer",
+			OutputListKey: "LoadBalancerDescriptions"},
+		"DeleteLoadBalancer": {Verb: "Delete", Resource: "LoadBalancer"},
+	})
+
+	// A Describe whose output is a collection reads as a list, so an empty
+	// store answers 200 with an empty element rather than NotFound.
+	r, err := handleQuery(t, svc, url.Values{
+		"Action":  {"DescribeLoadBalancers"},
+		"Version": {"2012-06-01"},
+	})
+	if err != nil || r.Status != 200 {
+		t.Fatalf("describe on empty store: status=%d err=%v", statusOf(r), err)
+	}
+	if got := string(r.Body); !strings.Contains(got, "<DescribeLoadBalancersResult>") {
+		t.Fatalf("not a query envelope: %s", got)
+	}
+
+	r, err = handleQuery(t, svc, url.Values{
+		"Action":           {"CreateLoadBalancer"},
+		"Version":          {"2012-06-01"},
+		"LoadBalancerName": {"my-lb"},
+	})
+	if err != nil || r.Status != 200 {
+		t.Fatalf("create: status=%d err=%v", statusOf(r), err)
+	}
+	if got := string(r.Body); !strings.Contains(got, "<LoadBalancerName>my-lb</LoadBalancerName>") {
+		t.Fatalf("create did not echo the form parameter: %s", got)
+	}
+
+	// The round trip that matters: the name the caller sent comes back.
+	r, _ = handleQuery(t, svc, url.Values{"Action": {"DescribeLoadBalancers"}})
+	if got := string(r.Body); !strings.Contains(got, "<LoadBalancerName>my-lb</LoadBalancerName>") {
+		t.Fatalf("describe did not return the created load balancer: %s", got)
+	}
+
+	if _, err := handleQuery(t, svc, url.Values{
+		"Action": {"DeleteLoadBalancer"}, "LoadBalancerName": {"my-lb"},
+	}); err != nil {
+		t.Fatalf("delete: %v", err)
+	}
+	r, _ = handleQuery(t, svc, url.Values{"Action": {"DescribeLoadBalancers"}})
+	if got := string(r.Body); strings.Contains(got, "my-lb") {
+		t.Fatalf("resource survived delete: %s", got)
+	}
+}
+
+// TestEngineQueryDropsProtocolFields keeps Action and Version out of the stored
+// resource. They describe the request, not the thing being created, and echoing
+// them back puts <Action>CreateLoadBalancer</Action> inside a result element
+// where no SDK expects a member by that name.
+func TestEngineQueryDropsProtocolFields(t *testing.T) {
+	const svc = "qfieldsvc"
+	Register(svc, map[string]OpMeta{
+		"CreateThing": {Verb: "Create", Resource: "QFThing", OutputItemKey: "Thing"},
+	})
+
+	r, err := handleQuery(t, svc, url.Values{
+		"Action": {"CreateThing"}, "Version": {"2012-06-01"}, "QFThingName": {"t1"},
+	})
+	if err != nil {
+		t.Fatalf("create: %v", err)
+	}
+	body := string(r.Body)
+	if strings.Contains(body, "<Action>") || strings.Contains(body, "<Version>") {
+		t.Errorf("protocol envelope fields leaked into the resource: %s", body)
+	}
+	if !strings.Contains(body, "<QFThingName>t1</QFThingName>") {
+		t.Errorf("real parameter was dropped: %s", body)
+	}
+}
+
+// TestEngineQueryDeclines covers every way a query request must fail rather
+// than be answered from the generic store.
+func TestEngineQueryDeclines(t *testing.T) {
+	const svc = "qmisssvc"
+	Register(svc, map[string]OpMeta{
+		"CreateThing": {Verb: "Create", Resource: "QMThing"},
+	})
+
+	cases := []struct {
+		name string
+		form url.Values
+	}{
+		// Not CRUD-shaped, so codegen registered nothing for it.
+		{"unknown_action", url.Values{"Action": {"ConfigureHealthCheck"}}},
+		// A form body with no Action at all is not a query request the engine
+		// can classify; guessing an operation from the other fields would be
+		// exactly the fabrication the coverage claim forbids.
+		{"no_action", url.Values{"LoadBalancerName": {"x"}}},
+		{"empty_action", url.Values{"Action": {""}}},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			if _, err := handleQuery(t, svc, c.form); err != ErrUnclassified {
+				t.Errorf("want ErrUnclassified, got %v", err)
+			}
+		})
+	}
+
+	if _, err := handleQuery(t, "unregistered", url.Values{"Action": {"CreateThing"}}); err != ErrUnclassified {
+		t.Errorf("unregistered service: want ErrUnclassified, got %v", err)
+	}
+}
+
+// TestEngineQueryBodyIsNotJSON guards the branch that would otherwise reject
+// every query request. Handle parses the body as JSON for the protocols that
+// send JSON; a form-encoded body is not JSON, and treating a failure to parse
+// it as a SerializationException would decline every query call with the wrong
+// error.
+func TestEngineQueryBodyIsNotJSON(t *testing.T) {
+	const svc = "qjsonsvc"
+	Register(svc, map[string]OpMeta{
+		"ListThings": {Verb: "List", Resource: "QJThing", OutputListKey: "Things"},
+	})
+
+	r, err := handleQuery(t, svc, url.Values{"Action": {"ListThings"}})
+	if err != nil {
+		t.Fatalf("list: %v", err)
+	}
+	if r.Status != 200 {
+		t.Fatalf("form body was rejected as malformed JSON: %d %s", r.Status, r.Body)
+	}
+}
+
+func TestEngineQueryContentType(t *testing.T) {
+	const svc = "qctsvc"
+	Register(svc, map[string]OpMeta{
+		"ListThings": {Verb: "List", Resource: "QCThing", OutputListKey: "Things"},
+	})
+
+	r, err := handleQuery(t, svc, url.Values{"Action": {"ListThings"}})
+	if err != nil {
+		t.Fatalf("list: %v", err)
+	}
+	if r.ContentType != "application/xml" {
+		t.Errorf("ContentType = %q, want application/xml", r.ContentType)
+	}
+}
+
+// TestServableAndNeedsBody separates two questions the engine used to answer
+// with one predicate.
+//
+// "Can the engine serve this protocol" and "must the gateway buffer the body
+// before calling it" are not the same question, and rest-xml is where they come
+// apart: the engine can classify it from the route table, but S3 speaks it and
+// S3 bodies are large binary uploads. Buffering those to serve a service that
+// never reaches the engine would turn a streaming path into a memory one.
+func TestServableAndNeedsBody(t *testing.T) {
+	cases := []struct {
+		protocol            string
+		servable, needsBody bool
+	}{
+		{"json-1.0", true, true},
+		{"json-1.1", true, true},
+		{"json", true, true},
+		{"rest-json", true, true},
+		// The whole reason the predicates are separate.
+		{"rest-xml", true, false},
+		// The mirror image: servable, and its operation name is in the body, so
+		// it must be buffered before it can be read.
+		{"query", true, true},
+		{"ec2-query", false, false},
+		{"nonsense", false, false},
+	}
+	for _, c := range cases {
+		t.Run(c.protocol, func(t *testing.T) {
+			if got := Servable(c.protocol); got != c.servable {
+				t.Errorf("Servable(%q) = %v, want %v", c.protocol, got, c.servable)
+			}
+			if got := NeedsBody(c.protocol); got != c.needsBody {
+				t.Errorf("NeedsBody(%q) = %v, want %v", c.protocol, got, c.needsBody)
+			}
+		})
+	}
+}
+
+// --- rest-xml ---
+
+func handleXML(t *testing.T, service, method, uri string) (*Result, error) {
+	t.Helper()
+	// Deliberately no body: rest-xml is not buffered by the gateway, so the
+	// engine must serve it from the path and query alone.
+	return Handle(Call{Service: service, Protocol: "rest-xml", Method: method, URI: uri})
+}
+
+// TestEngineRESTXMLRoundTrip uses S3 Control's own routes, because it is the
+// service this unlocks and its identifiers all arrive as path labels.
+func TestEngineRESTXMLRoundTrip(t *testing.T) {
+	const svc = "s3controltest"
+	Register(svc, map[string]OpMeta{
+		"CreateAccessPoint": {Verb: "Create", Resource: "AccessPoint", OutputItemKey: "AccessPoint",
+			Method: "PUT", URI: "/v20180820/accesspoint/{Name}"},
+		"GetAccessPoint": {Verb: "Get", Resource: "AccessPoint", OutputItemKey: "AccessPoint",
+			Method: "GET", URI: "/v20180820/accesspoint/{Name}"},
+		"ListAccessPoints": {Verb: "List", Resource: "AccessPoint", OutputListKey: "AccessPointList",
+			Method: "GET", URI: "/v20180820/accesspoint"},
+		"DeleteAccessPoint": {Verb: "Delete", Resource: "AccessPoint",
+			Method: "DELETE", URI: "/v20180820/accesspoint/{Name}"},
+	})
+
+	// The parameterless read on an empty store, which is what the compat smoke
+	// test performs for every engine-served service.
+	r, err := handleXML(t, svc, "GET", "/v20180820/accesspoint")
+	if err != nil || r.Status != 200 {
+		t.Fatalf("list on empty store: status=%d err=%v", statusOf(r), err)
+	}
+	if got := string(r.Body); !strings.Contains(got, "<AccessPointList></AccessPointList>") {
+		t.Fatalf("empty list not rendered as an empty element: %s", got)
+	}
+
+	// Create: the only parameter is the path label, and there is no body at all.
+	r, err = handleXML(t, svc, "PUT", "/v20180820/accesspoint/ap1")
+	if err != nil || r.Status != 200 {
+		t.Fatalf("create: status=%d err=%v", statusOf(r), err)
+	}
+	if got := string(r.Body); !strings.Contains(got, "<Name>ap1</Name>") {
+		t.Fatalf("create did not echo the path label: %s", got)
+	}
+
+	// Get addresses the same resource by the same label.
+	r, err = handleXML(t, svc, "GET", "/v20180820/accesspoint/ap1")
+	if err != nil || r.Status != 200 {
+		t.Fatalf("get: status=%d err=%v", statusOf(r), err)
+	}
+	if got := string(r.Body); !strings.Contains(got, "<Name>ap1</Name>") {
+		t.Fatalf("get returned the wrong resource: %s", got)
+	}
+
+	// It is in the list, wrapped as a member.
+	r, _ = handleXML(t, svc, "GET", "/v20180820/accesspoint")
+	if got := string(r.Body); !strings.Contains(got, "<member>") {
+		t.Fatalf("created resource is not in the list: %s", got)
+	}
+
+	// Delete, then the list is empty again.
+	if _, err := handleXML(t, svc, "DELETE", "/v20180820/accesspoint/ap1"); err != nil {
+		t.Fatalf("delete: %v", err)
+	}
+	r, _ = handleXML(t, svc, "GET", "/v20180820/accesspoint")
+	if got := string(r.Body); strings.Contains(got, "<member>") {
+		t.Fatalf("resource survived delete: %s", got)
+	}
+}
+
+func TestEngineRESTXMLContentType(t *testing.T) {
+	const svc = "xmlctsvc"
+	Register(svc, map[string]OpMeta{
+		"ListThings": {Verb: "List", Resource: "XCThing", OutputListKey: "Things",
 			Method: "GET", URI: "/things"},
 	})
 
-	for _, proto := range []string{"rest-xml", "query"} {
-		_, err := Handle(Call{Service: svc, Protocol: proto, Method: "GET", URI: "/things"})
-		if err != ErrUnclassified {
-			t.Errorf("%s: want ErrUnclassified, got %v", proto, err)
-		}
+	r, err := handleXML(t, svc, "GET", "/things")
+	if err != nil {
+		t.Fatalf("list: %v", err)
+	}
+	if r.ContentType != "application/xml" {
+		t.Errorf("ContentType = %q, want application/xml", r.ContentType)
+	}
+	if !strings.HasPrefix(string(r.Body), xmlHeader) {
+		t.Errorf("body is not XML: %s", r.Body)
+	}
+}
+
+// TestEngineRESTXMLUnmatchedPathIsUnclassified is the guarantee that matters
+// most for this protocol, because S3 speaks it. A path the route table does not
+// know must decline rather than answer from the generic store.
+func TestEngineRESTXMLUnmatchedPathIsUnclassified(t *testing.T) {
+	const svc = "xmlmisssvc"
+	Register(svc, map[string]OpMeta{
+		"ListThings": {Verb: "List", Resource: "XMThing", OutputListKey: "Things",
+			Method: "GET", URI: "/v20180820/things"},
+	})
+
+	if _, err := handleXML(t, svc, "GET", "/my-bucket/my-key"); err != ErrUnclassified {
+		t.Errorf("an S3-shaped path: want ErrUnclassified, got %v", err)
+	}
+	if _, err := handleXML(t, svc, "POST", "/v20180820/things"); err != ErrUnclassified {
+		t.Errorf("known path, wrong method: want ErrUnclassified, got %v", err)
+	}
+	if _, err := handleXML(t, "unregistered", "GET", "/v20180820/things"); err != ErrUnclassified {
+		t.Errorf("unregistered service: want ErrUnclassified, got %v", err)
 	}
 }
 

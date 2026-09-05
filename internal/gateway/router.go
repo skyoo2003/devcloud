@@ -54,12 +54,19 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	op := extractOperationName(r, protocol)
 
-	// Buffer the body for the protocols the CRUD fallback engine can serve, so
-	// it can re-read it if the provider does not handle the operation. Cheap for
-	// JSON and rest-json payloads; skipped for REST-XML (S3), where bodies may
-	// be large binary uploads and the engine would refuse them anyway.
+	// Buffer the body for the protocols whose parameters live in it, so the
+	// engine can re-read it if the provider does not handle the operation. Cheap
+	// for JSON, rest-json and query payloads.
+	//
+	// This asks crud.NeedsBody, not crud.Servable, and the difference is
+	// rest-xml. The engine serves rest-xml — it classifies the operation from
+	// the method and path like rest-json — but it must do so without the body:
+	// S3 speaks rest-xml, its bodies are large binary uploads, and every
+	// CRUD-shaped S3 Control operation addresses its resource with a path label
+	// or a query term anyway. Asking the servable question here would buffer
+	// every PutObject to serve a provider that never reaches the engine.
 	var body []byte
-	if crud.Servable(protocol) {
+	if crud.NeedsBody(protocol) {
 		var rerr error
 		if body, rerr = io.ReadAll(r.Body); rerr != nil {
 			writeAWSError(w, protocol, http.StatusBadRequest, "SerializationException", "failed to read request body")

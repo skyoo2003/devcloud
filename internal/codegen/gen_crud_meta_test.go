@@ -92,22 +92,62 @@ func TestServiceCRUDDataJSONUnchanged(t *testing.T) {
 	}
 }
 
-// TestServiceCRUDDataRejectsUnservableProtocols holds the boundary Milestone 5
-// owns. query and rest-xml put the operation neither in a header nor in a
-// modelled path the engine can match, so admitting them would serve fabricated
-// answers to callers the engine cannot actually understand.
-func TestServiceCRUDDataRejectsUnservableProtocols(t *testing.T) {
-	for _, protocol := range []string{"query", "rest-xml"} {
-		t.Run(protocol, func(t *testing.T) {
-			model := crudModel(protocol,
-				ir.Operation{Name: "ListGraphs", OutputName: "ListGraphsOutput",
-					HTTPMethod: "GET", HTTPUri: "/v1/graphs"},
-			)
+// TestServiceCRUDDataAdmitsRESTXML is the codegen half of the rest-xml change.
+// This gate and crud.Servable answer the same question and must agree: a
+// protocol admitted here but refused there registers operations nothing can
+// reach, and the fidelity manifest would publish them as auto-crud.
+func TestServiceCRUDDataAdmitsRESTXML(t *testing.T) {
+	model := crudModel("rest-xml",
+		ir.Operation{Name: "ListAccessPoints", OutputName: "ListAccessPointsOutput",
+			HTTPMethod: "GET", HTTPUri: "/v20180820/accesspoint"},
+	)
 
-			_, ok := ServiceCRUDData(model)
-			assert.False(t, ok, "%s must not be engine-servable", protocol)
-		})
+	data, ok := ServiceCRUDData(model)
+	require.True(t, ok, "rest-xml service must be engine-servable")
+
+	ops := map[string]crudOpData{}
+	for _, op := range data.Ops {
+		ops[op.Op] = op
 	}
+	// The route is the whole classification story for rest-xml, so it has to
+	// survive into the registry the same way rest-json's does.
+	assert.Equal(t, "GET", ops["ListAccessPoints"].Method)
+	assert.Equal(t, "/v20180820/accesspoint", ops["ListAccessPoints"].URI)
+}
+
+// TestServiceCRUDDataAdmitsQuery closes the last protocol gap. query has no
+// modelled path at all — its operations carry no http trait — so unlike the
+// REST protocols it registers no route, and the engine matches it by the
+// Action field of the form body instead.
+func TestServiceCRUDDataAdmitsQuery(t *testing.T) {
+	model := crudModel("query",
+		ir.Operation{Name: "DescribeLoadBalancers", OutputName: "DescribeLoadBalancersOutput"},
+	)
+
+	data, ok := ServiceCRUDData(model)
+	require.True(t, ok, "query service must be engine-servable")
+
+	ops := map[string]crudOpData{}
+	for _, op := range data.Ops {
+		ops[op.Op] = op
+	}
+	// No route, and that is correct rather than a gap: a query operation has
+	// no method or URI to register, and Register skips an empty URI so the
+	// service contributes nothing to the route table.
+	assert.Empty(t, ops["DescribeLoadBalancers"].Method)
+	assert.Empty(t, ops["DescribeLoadBalancers"].URI)
+}
+
+// TestServiceCRUDDataRejectsEC2Query holds the remaining boundary. ec2Query is
+// form-encoded like query but not interchangeable with it, and the only service
+// that speaks it has a hand-written provider that never reaches the engine.
+func TestServiceCRUDDataRejectsEC2Query(t *testing.T) {
+	model := crudModel("ec2-query",
+		ir.Operation{Name: "DescribeInstances", OutputName: "DescribeInstancesOutput"},
+	)
+
+	_, ok := ServiceCRUDData(model)
+	assert.False(t, ok, "ec2-query must not be engine-servable")
 }
 
 // TestServiceCRUDDataSkipsUnclassifiableService is the rds-data case: a
