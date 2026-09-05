@@ -90,6 +90,8 @@ func ParseSmithyJSON(data []byte) (*ir.Model, error) {
 		return nil, fmt.Errorf("no service shape found")
 	}
 
+	svcTrait := decodeServiceTrait(serviceShape)
+
 	model := &ir.Model{
 		// Every Smithy model in-tree is an AWS service model: the protocol
 		// traits this parser recognizes are all under aws.protocols#. A Smithy
@@ -100,6 +102,16 @@ func ParseSmithyJSON(data []byte) (*ir.Model, error) {
 		ServiceID:   detectServiceID(serviceFQN),
 		Protocol:    detectProtocol(serviceShape),
 		Shapes:      make(map[string]*ir.Shape),
+
+		// The names this service also answers to. Absent traits leave these
+		// empty rather than erroring: a model that declares no signing name is
+		// still a model, it just contributes fewer aliases.
+		ShapeName:          shortName(serviceFQN),
+		SigningName:        decodeSigningName(serviceShape),
+		EndpointPrefix:     svcTrait.EndpointPrefix,
+		ARNNamespace:       svcTrait.ARNNamespace,
+		CloudFormationName: svcTrait.CloudFormationName,
+		SDKID:              svcTrait.SDKID,
 	}
 
 	// Parse operations
@@ -138,13 +150,34 @@ func ParseSmithyJSON(data []byte) (*ir.Model, error) {
 		return model.Operations[i].Name < model.Operations[j].Name
 	})
 
-	// Parse shapes
-	for fqn, rs := range parsed {
+	// Parse shapes.
+	//
+	// Shapes are keyed by short name, and a model can bundle more than one
+	// namespace — healthlake.json carries eight short names that exist in both
+	// its own namespace and a second one. Iterating the map directly meant the
+	// last writer won at random, so `make codegen` emitted a different file on
+	// every run. Sorting fixes the randomness; serviceNamespace fixes the
+	// choice, because sorting alone would prefer whichever namespace happens to
+	// sort first rather than the one the model is about.
+	serviceNamespace := namespaceOf(serviceFQN)
+	shapeFQNs := make([]string, 0, len(parsed))
+	for fqn := range parsed {
+		shapeFQNs = append(shapeFQNs, fqn)
+	}
+	sort.Strings(shapeFQNs)
+
+	for _, fqn := range shapeFQNs {
+		rs := parsed[fqn]
 		name := shortName(fqn)
 		if strings.HasPrefix(fqn, "smithy.api#") {
 			continue
 		}
 		if rs.Type == "service" || rs.Type == "operation" || rs.Type == "resource" {
+			continue
+		}
+		// A shape already claimed by the service's own namespace is never
+		// replaced by a foreign one.
+		if _, taken := model.Shapes[name]; taken && namespaceOf(fqn) != serviceNamespace {
 			continue
 		}
 
@@ -341,6 +374,16 @@ func shortName(fqn string) string {
 	return fqn
 }
 
+// namespaceOf returns the namespace half of a Smithy shape ID, or "" when the
+// id carries none.
+func namespaceOf(fqn string) string {
+	ns, _, found := strings.Cut(fqn, "#")
+	if !found {
+		return ""
+	}
+	return ns
+}
+
 func detectServiceID(fqn string) string {
 	parts := strings.Split(fqn, "#")
 	if len(parts) == 2 {
@@ -348,6 +391,47 @@ func detectServiceID(fqn string) string {
 		return nsParts[len(nsParts)-1]
 	}
 	return strings.ToLower(fqn)
+}
+
+// rawServiceTrait is the aws.api#service trait. Every field is one more name
+// the service answers to somewhere in AWS.
+type rawServiceTrait struct {
+	SDKID              string `json:"sdkId"`
+	ARNNamespace       string `json:"arnNamespace"`
+	CloudFormationName string `json:"cloudFormationName"`
+	EndpointPrefix     string `json:"endpointPrefix"`
+}
+
+// decodeServiceTrait returns the aws.api#service trait, or a zero value when the
+// model does not carry one. A malformed trait is treated the same as a missing
+// one: the identifiers it would have supplied are aliases, and a service that
+// contributes no aliases still generates and still routes under its own ID.
+func decodeServiceTrait(s *rawShape) rawServiceTrait {
+	var t rawServiceTrait
+	if s.Traits == nil {
+		return t
+	}
+	if raw, ok := s.Traits["aws.api#service"]; ok {
+		_ = json.Unmarshal(raw, &t) //nolint:errcheck
+	}
+	return t
+}
+
+// decodeSigningName returns the aws.auth#sigv4 signing name, which is what a
+// caller puts in its credential scope.
+func decodeSigningName(s *rawShape) string {
+	if s.Traits == nil {
+		return ""
+	}
+	raw, ok := s.Traits["aws.auth#sigv4"]
+	if !ok {
+		return ""
+	}
+	var t struct {
+		Name string `json:"name"`
+	}
+	_ = json.Unmarshal(raw, &t) //nolint:errcheck
+	return t.Name
 }
 
 func detectProtocol(s *rawShape) string {
@@ -373,22 +457,30 @@ func detectProtocol(s *rawShape) string {
 }
 
 func smithyToGoType(target string) string {
+	// The Primitive* forms are Smithy's non-boxed scalars. They are prelude
+	// shapes like any other, so nothing defines them locally and an unmapped one
+	// emits a bare identifier that does not compile. Mapping them to the same Go
+	// types as their boxed twins is the whole difference; Go has no null int.
 	switch target {
 	case "smithy.api#String":
 		return "string"
-	case "smithy.api#Integer":
+	case "smithy.api#Integer", "smithy.api#PrimitiveInteger":
 		return "int32"
-	case "smithy.api#Long":
+	case "smithy.api#Long", "smithy.api#PrimitiveLong":
 		return "int64"
-	case "smithy.api#Boolean":
+	case "smithy.api#Short", "smithy.api#PrimitiveShort":
+		return "int16"
+	case "smithy.api#Byte", "smithy.api#PrimitiveByte":
+		return "int8"
+	case "smithy.api#Boolean", "smithy.api#PrimitiveBoolean":
 		return "bool"
 	case "smithy.api#Blob":
 		return "[]byte"
 	case "smithy.api#Timestamp":
 		return "time.Time"
-	case "smithy.api#Double":
+	case "smithy.api#Double", "smithy.api#PrimitiveDouble":
 		return "float64"
-	case "smithy.api#Float":
+	case "smithy.api#Float", "smithy.api#PrimitiveFloat":
 		return "float32"
 	case "smithy.api#Unit":
 		return "struct{}"

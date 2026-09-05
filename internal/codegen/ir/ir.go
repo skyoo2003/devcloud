@@ -33,7 +33,34 @@ type Model struct {
 	ServiceID string
 	// Protocol is the wire protocol identifier, matching the values of
 	// plugin.ProtocolType (e.g. "json-1.0", "rest-xml").
-	Protocol   string
+	Protocol string
+
+	// The identifiers below are the other names this service answers to. A
+	// caller addresses a service by one of them — in an X-Amz-Target prefix, a
+	// SigV4 credential scope, a host prefix — and the gateway has to map all of
+	// them back to ServiceID. Deriving that mapping from the model is what keeps
+	// it from being a hand-maintained switch; see codegen.BuildAliases.
+	//
+	// They are named for what they are, not for the format they came from: a
+	// source with no equivalent leaves them empty, which is a valid model.
+
+	// ShapeName is the service shape's own name, e.g. "DynamoDB_20120810" or
+	// "RekognitionService". For the JSON protocols this is the X-Amz-Target
+	// prefix, which is why it cannot be reconstructed from ServiceID.
+	ShapeName string
+	// SigningName is the name that appears in a SigV4 credential scope, e.g.
+	// "logs" for CloudWatch Logs. Several services share one.
+	SigningName string
+	// EndpointPrefix is the hostname prefix, e.g. "streams.dynamodb".
+	EndpointPrefix string
+	// ARNNamespace is the service part of an ARN, e.g. "dynamodb".
+	ARNNamespace string
+	// CloudFormationName is the name used in CloudFormation resource types.
+	CloudFormationName string
+	// SDKID is the human-readable SDK identifier, e.g. "CloudWatch Logs". It
+	// carries spaces; the wire never does.
+	SDKID string
+
 	Operations []Operation
 	Shapes     map[string]*Shape
 }

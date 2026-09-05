@@ -52,7 +52,7 @@ func TestBuildFidelityDataRequiresEngineWiring(t *testing.T) {
 		{ServiceID: "unwired", Ops: []crudOpData{{Op: "CreateThing", Verb: "Create"}}},
 	}
 
-	data := BuildFidelityData(modelOps, providers, autoCRUD)
+	data := BuildFidelityData(modelOps, map[string]string{"demo": "json-1.1"}, providers, autoCRUD)
 
 	assert.Equal(t, "AutoCRUD", tierOf(t, data, "wired", "CreateThing"),
 		"an engine-wired provider's CRUD-shaped operation is served, so auto-crud is truthful")
@@ -72,7 +72,7 @@ func TestBuildFidelityDataHandVerifiedBeatsWiring(t *testing.T) {
 		{ServiceID: "svc", Ops: []crudOpData{{Op: "CreateThing", Verb: "Create"}}},
 	}
 
-	data := BuildFidelityData(modelOps, providers, autoCRUD)
+	data := BuildFidelityData(modelOps, map[string]string{"demo": "json-1.1"}, providers, autoCRUD)
 
 	assert.Equal(t, "HandVerified", tierOf(t, data, "svc", "CreateThing"),
 		"hand-verified outranks both auto-crud and unimplemented")

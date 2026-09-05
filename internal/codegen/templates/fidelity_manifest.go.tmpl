@@ -34,6 +34,14 @@ const (
 
 // Service is one service's operations and their tiers.
 type Service struct {
+	// Protocol is the service's wire protocol ("json-1.1", "rest-json",
+	// "query", "rest-xml"). Only the X-Amz-Target JSON protocols carry an
+	// operation name, so only they can be served by the generic CRUD engine —
+	// which is why a registered service is not automatically a covered one.
+	//
+	// Empty when no in-tree model describes the service, which is the same
+	// condition as ModelBacked being false.
+	Protocol string
 	// ModelBacked reports whether an in-tree Smithy model enumerates this
 	// service's API. When false the unimplemented tail is not knowable, so the
 	// manifest lists only what DevCloud serves.
@@ -44,7 +52,7 @@ type Service struct {
 // Services maps a registered service ID to its operations.
 var Services = map[string]Service{
 {{- range .Services }}
-	"{{ .ServiceID }}": {ModelBacked: {{ .ModelBacked }}, Operations: map[string]Tier{
+	"{{ .ServiceID }}": {Protocol: "{{ .Protocol }}", ModelBacked: {{ .ModelBacked }}, Operations: map[string]Tier{
 {{- range .Ops }}
 		"{{ .Name }}": Tier{{ .TierConst }},
 {{- end }}

@@ -1,0 +1,5 @@
+kind: Changed
+body: 'The fidelity manifest records each service''s wire protocol, so a registered service that the CRUD engine cannot reach is distinguishable from one whose wiring is broken'
+time: 2026-09-05T17:10:03.000000+09:00
+custom:
+    Issue: "137"

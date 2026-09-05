@@ -1,0 +1,5 @@
+kind: Fixed
+body: 'Smithy''s non-boxed primitives (PrimitiveLong, PrimitiveBoolean and the other five) are mapped to Go types. Models using them previously generated code that did not compile'
+time: 2026-09-05T17:10:04.000000+09:00
+custom:
+    Issue: "137"
