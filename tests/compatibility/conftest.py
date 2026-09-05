@@ -149,6 +149,17 @@ def _make_client(service_name):
     )
 
 
+@pytest.fixture
+def service_client(devcloud_server):
+    """Boto3 client factory for any service, by name.
+
+    Every named fixture below wraps this same call. Writing one more of them per
+    service is the only step of adding a service that scales with the size of
+    the fleet, so a new service gets a test through this factory instead.
+    """
+    return _make_client
+
+
 # --- Existing service fixtures ---
 
 

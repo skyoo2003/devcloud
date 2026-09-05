@@ -66,9 +66,14 @@ func TestScanProviders(t *testing.T) {
 	assert.Contains(t, got["s3"], "PutObject")
 	assert.Contains(t, got["bedrock"], "InvokeModel")
 
-	// No service is silently empty — an empty set means the scan lost a provider.
+	// No service is silently empty — an empty set means the scan lost a
+	// provider, unless the provider hand-implements nothing on purpose and is
+	// served entirely by the CRUD engine, which is what a scaffolded service is.
 	for id, ops := range got {
-		assert.NotEmpty(t, ops, "%s resolved no hand-verified operations", id)
+		if scans[id].EngineWired {
+			continue
+		}
+		assert.NotEmpty(t, ops, "%s resolved no hand-verified operations and is not engine-wired, so it serves nothing", id)
 	}
 }
 
