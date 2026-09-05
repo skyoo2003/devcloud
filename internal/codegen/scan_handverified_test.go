@@ -77,6 +77,27 @@ func TestScanProviders(t *testing.T) {
 	}
 }
 
+// TestScanProvidersCollectsShortLiteralsSeparately covers the names the shape
+// test is too strict for.
+//
+// opNamePattern needs four characters. `Tag` has three, so resourcegroups —
+// which implements Tag and Untag next to each other in one switch — had one of
+// them scanned and the other silently dropped. They are collected here rather
+// than admitted into Operations, because at this length the scan cannot tell an
+// operation from the HTTP verbs a path resolver switches on. BuildFidelityData
+// asks the model, which can.
+func TestScanProvidersCollectsShortLiteralsSeparately(t *testing.T) {
+	scans, err := ScanProviders("../services")
+	require.NoError(t, err)
+
+	assert.Contains(t, scans["resourcegroups"].ShortOperations, "Tag",
+		"Tag is dispatched by the provider and is three characters long")
+	assert.NotContains(t, scans["resourcegroups"].Operations, "Tag",
+		"the strict set keeps its shape test; promotion happens against the model")
+	assert.Contains(t, scans["resourcegroups"].Operations, "Untag",
+		"the four-character sibling was never in doubt")
+}
+
 // TestScanProvidersKeepsOperationsTheModelOmits is the regression that made the
 // scan drop real coverage: it used to intersect with the Smithy model, so every
 // operation a provider serves beyond its in-tree model vanished from the

@@ -10081,7 +10081,7 @@ var Services = map[string]Service{
 		"PutGroupConfiguration": TierHandVerified,
 		"SearchResources":       TierHandVerified,
 		"StartTagSyncTask":      TierHandVerified,
-		"Tag":                   TierUnimplemented,
+		"Tag":                   TierHandVerified,
 		"UngroupResources":      TierHandVerified,
 		"Untag":                 TierHandVerified,
 		"UpdateAccountSettings": TierHandVerified,

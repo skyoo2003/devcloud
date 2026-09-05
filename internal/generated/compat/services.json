@@ -8125,6 +8125,7 @@
       "PutGroupConfiguration",
       "SearchResources",
       "StartTagSyncTask",
+      "Tag",
       "UngroupResources",
       "Untag",
       "UpdateAccountSettings",

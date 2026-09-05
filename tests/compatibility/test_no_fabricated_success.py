@@ -54,33 +54,26 @@ def _unserved_probe(service_id, entry):
     return name, None
 
 
-# Two fabricated successes that this file's fix does not reach, marked strict so
-# they fail the moment they start passing rather than rotting into an accepted
-# state. Only what was observed is recorded — the mechanism behind each is not
-# the provider `default` branch that was fixed here, and has not been identified:
+# Fabricated successes this file's own fix does not reach, marked strict so they
+# fail the moment they start passing rather than rotting into an accepted state.
 #
 #   s3.ListBucketAnalyticsConfigurations
 #       GET /{Bucket}?analytics answers 200 with an empty body. S3's provider
 #       default returns MethodNotAllowed, so this is not that branch.
 #
-#   resourcegroups.Tag
-#       PUT /resources/{Arn}/tags answers 200 echoing the request's Arn and
-#       Tags. The manifest lists the operation as unimplemented and the CRUD
-#       registry does not hold it; it holds GetTags at the same path under GET,
-#       and httproute.Match does compare methods (match.go:42), so the obvious
-#       explanation is ruled out rather than confirmed.
-#
-# Both are real violations of the guarantee and neither is fixed here: they are
-# different defects that deserve their own diagnosis and their own change.
+# resourcegroups.Tag was the second entry, and it was never a fabricated success.
+# The scanner that decides which operations are hand-verified required a name of
+# four characters or more, so `Untag` was scanned and `Tag` — implemented beside
+# it in the same switch — was dropped. The 200 was a real answer from real code:
+# the manifest was wrong about it, this probe believed the manifest, and the
+# report inherited the error. The scanner now promotes a short literal the
+# service's model declares, `Tag` is labelled hand-verified, and the operation is
+# no longer offered here as unserved.
 KNOWN_UNFIXED = {
     (
         "s3",
         "ListBucketAnalyticsConfigurations",
     ): "empty 200 from S3's sub-resource routing",
-    (
-        "resourcegroups",
-        "Tag",
-    ): "engine-shaped echo for an operation the manifest calls unimplemented",
 }
 
 # Every service that is addressable, routable, and has an unserved operation to
