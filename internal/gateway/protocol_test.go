@@ -39,6 +39,18 @@ func TestDetectProtocol_S3Control(t *testing.T) {
 		{"s3_list_buckets", "GET", "/", "s3"},
 		{"s3_bucket_named_like_the_prefix", "PUT", "/v20180820", "s3"},
 		{"s3_key_containing_the_prefix", "PUT", "/my-bucket/v20180820/x", "s3"},
+		// The one case the split gets wrong, asserted rather than left to be
+		// found. A bucket named exactly "v20180820" makes object paths that are
+		// indistinguishable from S3 Control's, and the prefix wins.
+		//
+		// The alternative is worse. x-amz-account-id is bound by 96 of S3
+		// Control's 97 operations and by none of S3's 107, so gating on it would
+		// separate these — but it would send Outposts
+		// `CreateBucket PUT /v20180820/bucket/{Bucket}`, the one operation that
+		// does not bind it, to S3, where it becomes a stored object and a 200.
+		// Shadowing costs a clean error; header-gating costs a fabricated
+		// success, and only one of those is a guarantee this project makes.
+		{"object_in_a_bucket_named_like_the_prefix_is_shadowed", "PUT", "/v20180820/some-key", "s3control"},
 	}
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
