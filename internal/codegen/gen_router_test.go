@@ -15,11 +15,15 @@ func TestGenerateRouter(t *testing.T) {
 	output, err := gen.GenerateRouter("s3", model)
 	require.NoError(t, err)
 	assert.Contains(t, output, "package s3")
-	assert.Contains(t, output, "type OperationRoute struct")
 	assert.Contains(t, output, "OperationRoutes")
 	assert.Contains(t, output, `"CreateBucket"`)
 	assert.Contains(t, output, `"PUT"`)
 	assert.Contains(t, output, `"/{Bucket}"`)
+	// The route table is generated per service; the matching is not. Asserting
+	// the delegation is what stops a future edit from re-inlining the algorithm
+	// into 148 packages, which is the drift internal/shared/httproute exists to
+	// prevent.
+	assert.Contains(t, output, "httproute.Match(OperationRoutes, method, uri)")
 }
 
 func TestGenerateErrors(t *testing.T) {
