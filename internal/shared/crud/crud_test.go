@@ -4,6 +4,7 @@ package crud
 
 import (
 	"encoding/json"
+	"strings"
 	"sync"
 	"testing"
 )
@@ -294,21 +295,168 @@ func TestEngineRESTJSONUnroutedOperationIsUnclassified(t *testing.T) {
 	}
 }
 
-// TestEngineRESTXMLStillDeclines pins the boundary. rest-xml and query carry no
-// route table into the engine, and admitting them would serve S3 traffic from
-// the generic store.
-func TestEngineRESTXMLStillDeclines(t *testing.T) {
-	const svc = "xmlsvc"
+// TestEngineQueryStillDeclines pins what is left of the boundary. query names
+// its operation in the form body rather than in the path, so until the engine
+// learns to read that, a query call must decline.
+//
+// This replaces TestEngineRESTXMLStillDeclines: rest-xml is no longer on the
+// wrong side of the line. Every one of its operations is bound to a method and
+// a URI template, exactly like rest-json, so the same route table classifies it.
+func TestEngineQueryStillDeclines(t *testing.T) {
+	const svc = "querysvc"
 	Register(svc, map[string]OpMeta{
-		"ListThings": {Verb: "List", Resource: "XThing", OutputListKey: "Things",
+		"ListThings": {Verb: "List", Resource: "QYThing", OutputListKey: "Things",
 			Method: "GET", URI: "/things"},
 	})
 
-	for _, proto := range []string{"rest-xml", "query"} {
-		_, err := Handle(Call{Service: svc, Protocol: proto, Method: "GET", URI: "/things"})
-		if err != ErrUnclassified {
-			t.Errorf("%s: want ErrUnclassified, got %v", proto, err)
-		}
+	_, err := Handle(Call{Service: svc, Protocol: "query", Method: "GET", URI: "/things"})
+	if err != ErrUnclassified {
+		t.Errorf("query: want ErrUnclassified, got %v", err)
+	}
+}
+
+// TestServableAndNeedsBody separates two questions the engine used to answer
+// with one predicate.
+//
+// "Can the engine serve this protocol" and "must the gateway buffer the body
+// before calling it" are not the same question, and rest-xml is where they come
+// apart: the engine can classify it from the route table, but S3 speaks it and
+// S3 bodies are large binary uploads. Buffering those to serve a service that
+// never reaches the engine would turn a streaming path into a memory one.
+func TestServableAndNeedsBody(t *testing.T) {
+	cases := []struct {
+		protocol            string
+		servable, needsBody bool
+	}{
+		{"json-1.0", true, true},
+		{"json-1.1", true, true},
+		{"json", true, true},
+		{"rest-json", true, true},
+		// The whole reason the predicates are separate.
+		{"rest-xml", true, false},
+		// Admitted in Task 4; its operation name is in the body, so it must be
+		// buffered before it can be read.
+		{"query", false, true},
+		{"ec2-query", false, false},
+		{"nonsense", false, false},
+	}
+	for _, c := range cases {
+		t.Run(c.protocol, func(t *testing.T) {
+			if got := Servable(c.protocol); got != c.servable {
+				t.Errorf("Servable(%q) = %v, want %v", c.protocol, got, c.servable)
+			}
+			if got := NeedsBody(c.protocol); got != c.needsBody {
+				t.Errorf("NeedsBody(%q) = %v, want %v", c.protocol, got, c.needsBody)
+			}
+		})
+	}
+}
+
+// --- rest-xml ---
+
+func handleXML(t *testing.T, service, method, uri string) (*Result, error) {
+	t.Helper()
+	// Deliberately no body: rest-xml is not buffered by the gateway, so the
+	// engine must serve it from the path and query alone.
+	return Handle(Call{Service: service, Protocol: "rest-xml", Method: method, URI: uri})
+}
+
+// TestEngineRESTXMLRoundTrip uses S3 Control's own routes, because it is the
+// service this unlocks and its identifiers all arrive as path labels.
+func TestEngineRESTXMLRoundTrip(t *testing.T) {
+	const svc = "s3controltest"
+	Register(svc, map[string]OpMeta{
+		"CreateAccessPoint": {Verb: "Create", Resource: "AccessPoint", OutputItemKey: "AccessPoint",
+			Method: "PUT", URI: "/v20180820/accesspoint/{Name}"},
+		"GetAccessPoint": {Verb: "Get", Resource: "AccessPoint", OutputItemKey: "AccessPoint",
+			Method: "GET", URI: "/v20180820/accesspoint/{Name}"},
+		"ListAccessPoints": {Verb: "List", Resource: "AccessPoint", OutputListKey: "AccessPointList",
+			Method: "GET", URI: "/v20180820/accesspoint"},
+		"DeleteAccessPoint": {Verb: "Delete", Resource: "AccessPoint",
+			Method: "DELETE", URI: "/v20180820/accesspoint/{Name}"},
+	})
+
+	// The parameterless read on an empty store, which is what the compat smoke
+	// test performs for every engine-served service.
+	r, err := handleXML(t, svc, "GET", "/v20180820/accesspoint")
+	if err != nil || r.Status != 200 {
+		t.Fatalf("list on empty store: status=%d err=%v", statusOf(r), err)
+	}
+	if got := string(r.Body); !strings.Contains(got, "<AccessPointList></AccessPointList>") {
+		t.Fatalf("empty list not rendered as an empty element: %s", got)
+	}
+
+	// Create: the only parameter is the path label, and there is no body at all.
+	r, err = handleXML(t, svc, "PUT", "/v20180820/accesspoint/ap1")
+	if err != nil || r.Status != 200 {
+		t.Fatalf("create: status=%d err=%v", statusOf(r), err)
+	}
+	if got := string(r.Body); !strings.Contains(got, "<Name>ap1</Name>") {
+		t.Fatalf("create did not echo the path label: %s", got)
+	}
+
+	// Get addresses the same resource by the same label.
+	r, err = handleXML(t, svc, "GET", "/v20180820/accesspoint/ap1")
+	if err != nil || r.Status != 200 {
+		t.Fatalf("get: status=%d err=%v", statusOf(r), err)
+	}
+	if got := string(r.Body); !strings.Contains(got, "<Name>ap1</Name>") {
+		t.Fatalf("get returned the wrong resource: %s", got)
+	}
+
+	// It is in the list, wrapped as a member.
+	r, _ = handleXML(t, svc, "GET", "/v20180820/accesspoint")
+	if got := string(r.Body); !strings.Contains(got, "<member>") {
+		t.Fatalf("created resource is not in the list: %s", got)
+	}
+
+	// Delete, then the list is empty again.
+	if _, err := handleXML(t, svc, "DELETE", "/v20180820/accesspoint/ap1"); err != nil {
+		t.Fatalf("delete: %v", err)
+	}
+	r, _ = handleXML(t, svc, "GET", "/v20180820/accesspoint")
+	if got := string(r.Body); strings.Contains(got, "<member>") {
+		t.Fatalf("resource survived delete: %s", got)
+	}
+}
+
+func TestEngineRESTXMLContentType(t *testing.T) {
+	const svc = "xmlctsvc"
+	Register(svc, map[string]OpMeta{
+		"ListThings": {Verb: "List", Resource: "XCThing", OutputListKey: "Things",
+			Method: "GET", URI: "/things"},
+	})
+
+	r, err := handleXML(t, svc, "GET", "/things")
+	if err != nil {
+		t.Fatalf("list: %v", err)
+	}
+	if r.ContentType != "application/xml" {
+		t.Errorf("ContentType = %q, want application/xml", r.ContentType)
+	}
+	if !strings.HasPrefix(string(r.Body), xmlHeader) {
+		t.Errorf("body is not XML: %s", r.Body)
+	}
+}
+
+// TestEngineRESTXMLUnmatchedPathIsUnclassified is the guarantee that matters
+// most for this protocol, because S3 speaks it. A path the route table does not
+// know must decline rather than answer from the generic store.
+func TestEngineRESTXMLUnmatchedPathIsUnclassified(t *testing.T) {
+	const svc = "xmlmisssvc"
+	Register(svc, map[string]OpMeta{
+		"ListThings": {Verb: "List", Resource: "XMThing", OutputListKey: "Things",
+			Method: "GET", URI: "/v20180820/things"},
+	})
+
+	if _, err := handleXML(t, svc, "GET", "/my-bucket/my-key"); err != ErrUnclassified {
+		t.Errorf("an S3-shaped path: want ErrUnclassified, got %v", err)
+	}
+	if _, err := handleXML(t, svc, "POST", "/v20180820/things"); err != ErrUnclassified {
+		t.Errorf("known path, wrong method: want ErrUnclassified, got %v", err)
+	}
+	if _, err := handleXML(t, "unregistered", "GET", "/v20180820/things"); err != ErrUnclassified {
+		t.Errorf("unregistered service: want ErrUnclassified, got %v", err)
 	}
 }
 

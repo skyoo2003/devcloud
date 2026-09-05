@@ -141,6 +141,17 @@ func Servable(protocol string) bool {
 	return JSONProtocol(protocol) || protocol == protocolRESTJSON
 }
 
+// NeedsBody reports whether the gateway must buffer the request body before
+// calling Handle.
+//
+// Not yet separated from Servable: this is the extraction point for the
+// distinction, and it currently states the gateway's existing behaviour
+// unchanged so the specification in crud_test.go fails against real values
+// rather than as a build error.
+func NeedsBody(protocol string) bool {
+	return Servable(protocol)
+}
+
 // Handle attempts to serve a call from the service's registered operations. It
 // returns ErrUnclassified when the operation is unknown, not CRUD-shaped, or
 // carried by a protocol the engine cannot read — never a fabricated success.
