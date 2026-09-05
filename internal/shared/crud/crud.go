@@ -69,6 +69,7 @@ type Result struct {
 const (
 	jsonContentType = "application/x-amz-json-1.1"
 	restJSONType    = "application/json"
+	xmlContentType  = "application/xml"
 
 	protocolJSON10   = "json-1.0"
 	protocolRESTJSON = "rest-json"
@@ -132,24 +133,36 @@ func JSONProtocol(protocol string) bool {
 
 // Servable reports whether the engine can serve requests for a protocol.
 //
-// The JSON protocols carry the operation name in a header. rest-json does not,
-// but its model binds every operation to a method and URI template, which the
-// route table turns back into an operation name. query and rest-xml have
-// neither, so a request for one of them cannot be classified at all and is
-// declined rather than guessed at.
+// The JSON protocols carry the operation name in a header. rest-json and
+// rest-xml do not, but their models bind every operation to a method and URI
+// template, which the route table turns back into an operation name. query has
+// neither a target header nor a modelled path — its operation is a form field —
+// so a query request cannot be classified here and is declined rather than
+// guessed at.
+//
+// This is deliberately the same question codegen's engineServable answers. The
+// two must agree: a protocol admitted there but refused here registers
+// operations nothing can reach, and the fidelity manifest would call them
+// auto-crud.
 func Servable(protocol string) bool {
-	return JSONProtocol(protocol) || protocol == protocolRESTJSON
+	return JSONProtocol(protocol) || protocol == protocolRESTJSON || protocol == protocolRESTXML
 }
 
 // NeedsBody reports whether the gateway must buffer the request body before
 // calling Handle.
 //
-// Not yet separated from Servable: this is the extraction point for the
-// distinction, and it currently states the gateway's existing behaviour
-// unchanged so the specification in crud_test.go fails against real values
-// rather than as a build error.
+// It is not the same question as Servable, and rest-xml is where the two come
+// apart. The engine can classify a rest-xml request from its route table, but
+// S3 speaks rest-xml and S3 bodies are large binary uploads; buffering those
+// would turn a streaming path into a memory one, to serve a provider that never
+// returns ErrUnhandledOp in the first place. Nothing is lost by it: every
+// CRUD-shaped S3 Control operation addresses its resource with a path label or
+// a query term, so the engine has what it needs without the body.
+//
+// query is the mirror image — not servable yet, but its operation name is a
+// field in the form body, so it cannot be read without buffering.
 func NeedsBody(protocol string) bool {
-	return Servable(protocol)
+	return JSONProtocol(protocol) || protocol == protocolRESTJSON || protocol == protocolQuery
 }
 
 // Handle attempts to serve a call from the service's registered operations. It
@@ -163,7 +176,7 @@ func Handle(c Call) (*Result, error) {
 	switch {
 	case JSONProtocol(c.Protocol):
 		// The operation name arrived in X-Amz-Target; nothing to resolve.
-	case c.Protocol == protocolRESTJSON:
+	case c.Protocol == protocolRESTJSON, c.Protocol == protocolRESTXML:
 		rest = true
 		mu.RLock()
 		rs := routes[c.Service]
@@ -172,6 +185,10 @@ func Handle(c Call) (*Result, error) {
 		// refused to classify, or a path this service does not model. All
 		// three must decline — see docs/coverage.md on why a registered
 		// service must never fabricate a success.
+		//
+		// It matters most for rest-xml, because S3 speaks it: an S3-shaped
+		// path reaching this engine must come back unclassified rather than be
+		// answered out of the generic store.
 		if op, labels = httproute.Match(rs, c.Method, c.URI); op == "" {
 			return nil, ErrUnclassified
 		}
@@ -200,7 +217,7 @@ func Handle(c Call) (*Result, error) {
 		if err := json.Unmarshal(c.Body, &body); err != nil {
 			// Malformed body: real services reject with SerializationException
 			// rather than fabricating a success from empty params.
-			return withContentType(serializationError(), c.Protocol), nil
+			return withContentType(serializationError(c.Protocol), c.Protocol), nil
 		}
 		maps.Copy(params, body)
 	}
@@ -208,7 +225,7 @@ func Handle(c Call) (*Result, error) {
 		params[k] = v
 	}
 
-	res, err := dispatch(c.Service, m, params)
+	res, err := dispatch(c.Service, c.Protocol, op, m, params)
 	return withContentType(res, c.Protocol), err
 }
 
@@ -232,9 +249,16 @@ func queryParams(uri string) map[string]any {
 	return out
 }
 
+// xmlProtocol reports whether a protocol's bodies are XML. It is the
+// serialization question, not the routing one: query and rest-xml resolve their
+// operation in completely different ways but write the same kind of body.
+func xmlProtocol(protocol string) bool {
+	return protocol == protocolRESTXML || protocol == protocolQuery
+}
+
 // withContentType stamps the protocol-appropriate content type so a json-1.0
 // service is not served a 1.1 one, and a rest-json service is not served an
-// X-Amz-Target type it never uses. dispatch/okJSON default to amz-json 1.1.
+// X-Amz-Target type it never uses. dispatch/okBody default to amz-json 1.1.
 func withContentType(res *Result, protocol string) *Result {
 	if res == nil {
 		return res
@@ -248,40 +272,44 @@ func withContentType(res *Result, protocol string) *Result {
 	return res
 }
 
-func dispatch(service string, m OpMeta, params map[string]any) (*Result, error) {
+// dispatch runs the generic CRUD behaviour for one classified operation. It
+// takes the protocol and operation name only to serialize the result: the two
+// XML dialects need the operation to build their envelope, and the behaviour
+// above the serializer is identical for every protocol.
+func dispatch(service, protocol, op string, m OpMeta, params map[string]any) (*Result, error) {
 	switch m.Verb {
 	case "Create":
 		id := resourceID(m.Resource, params)
 		item := maps.Clone(params)
 		stamp(item, service, m.Resource, id)
 		put(service, m.Resource, id, item)
-		return okJSON(wrapItem(m, item))
+		return okBody(protocol, op, wrapItem(m, item))
 
 	case "Get":
 		// A Describe*/Get* whose output is a collection (list key, no single-item
 		// wrapper) returns the stored list, not a single-resource lookup — a fresh
 		// store yields an empty collection (200), not ResourceNotFoundException.
 		if m.OutputItemKey == "" && m.OutputListKey != "" {
-			return okJSON(map[string]any{m.OutputListKey: list(service, m.Resource)})
+			return okBody(protocol, op, map[string]any{m.OutputListKey: list(service, m.Resource)})
 		}
 		id := resourceID(m.Resource, params)
 		item, found := get(service, m.Resource, id)
 		if !found {
-			return notFound(m.Resource), nil
+			return notFound(protocol, m.Resource), nil
 		}
-		return okJSON(wrapItem(m, item))
+		return okBody(protocol, op, wrapItem(m, item))
 
 	case "List":
 		key := m.OutputListKey
 		if key == "" {
 			key = m.Resource + "s"
 		}
-		return okJSON(map[string]any{key: list(service, m.Resource)})
+		return okBody(protocol, op, map[string]any{key: list(service, m.Resource)})
 
 	case "Delete":
 		id := resourceID(m.Resource, params)
 		del(service, m.Resource, id)
-		return okJSON(map[string]any{})
+		return okBody(protocol, op, map[string]any{})
 
 	case "Update":
 		id := resourceID(m.Resource, params)
@@ -295,11 +323,11 @@ func dispatch(service string, m OpMeta, params map[string]any) (*Result, error) 
 			}
 		}
 		put(service, m.Resource, id, item)
-		return okJSON(wrapItem(m, item))
+		return okBody(protocol, op, wrapItem(m, item))
 
 	case "Tag", "Untag", "Relate", "Toggle":
 		// Relationship / tag / status flips: acknowledge without modelling state.
-		return okJSON(map[string]any{})
+		return okBody(protocol, op, map[string]any{})
 
 	default:
 		return nil, ErrUnclassified
@@ -382,7 +410,13 @@ func list(service, resource string) []map[string]any {
 
 // --- helpers ---
 
-func okJSON(v any) (*Result, error) {
+// okBody serializes a successful response in the protocol's own encoding. The
+// JSON protocols marshal the map directly; the XML dialects go through
+// encodeXML, which needs the operation name to build its envelope.
+func okBody(protocol, op string, v map[string]any) (*Result, error) {
+	if xmlProtocol(protocol) {
+		return &Result{Status: 200, Body: encodeXML(protocol, op, v), ContentType: xmlContentType}, nil
+	}
 	b, err := json.Marshal(v)
 	if err != nil {
 		return nil, err
@@ -390,19 +424,32 @@ func okJSON(v any) (*Result, error) {
 	return &Result{Status: 200, Body: b, ContentType: jsonContentType}, nil
 }
 
-func notFound(resource string) *Result {
-	b, _ := json.Marshal(map[string]string{
-		"__type":  "ResourceNotFoundException",
-		"message": resource + " not found",
-	})
-	return &Result{Status: 400, Body: b, ContentType: jsonContentType}
+func notFound(protocol, resource string) *Result {
+	return errorResult(protocol, "ResourceNotFoundException", resource+" not found")
 }
 
-func serializationError() *Result {
-	b, _ := json.Marshal(map[string]string{
-		"__type":  "SerializationException",
-		"message": "failed to deserialize request body",
-	})
+func serializationError(protocol string) *Result {
+	return errorResult(protocol, "SerializationException", "failed to deserialize request body")
+}
+
+// errorResult renders one of the engine's own errors in the protocol's error
+// vocabulary. The XML dialects do not share an envelope: botocore's query
+// parser looks for Error *inside* ErrorResponse and returns a code-less
+// ClientError given a bare Error, while rest-xml expects the bare one. The
+// gateway's writeAWSError makes the same distinction for the errors it writes;
+// these are the ones the engine produces after it has already taken the request.
+func errorResult(protocol, code, message string) *Result {
+	if xmlProtocol(protocol) {
+		body := xmlHeader
+		if protocol == protocolQuery {
+			body += "<ErrorResponse><Error><Type>Sender</Type><Code>" + code +
+				"</Code><Message>" + message + "</Message></Error></ErrorResponse>"
+		} else {
+			body += "<Error><Code>" + code + "</Code><Message>" + message + "</Message></Error>"
+		}
+		return &Result{Status: 400, Body: []byte(body), ContentType: xmlContentType}
+	}
+	b, _ := json.Marshal(map[string]string{"__type": code, "message": message})
 	return &Result{Status: 400, Body: b, ContentType: jsonContentType}
 }
 

@@ -92,22 +92,40 @@ func TestServiceCRUDDataJSONUnchanged(t *testing.T) {
 	}
 }
 
-// TestServiceCRUDDataRejectsUnservableProtocols holds the boundary Milestone 5
-// owns. query and rest-xml put the operation neither in a header nor in a
-// modelled path the engine can match, so admitting them would serve fabricated
-// answers to callers the engine cannot actually understand.
-func TestServiceCRUDDataRejectsUnservableProtocols(t *testing.T) {
-	for _, protocol := range []string{"query", "rest-xml"} {
-		t.Run(protocol, func(t *testing.T) {
-			model := crudModel(protocol,
-				ir.Operation{Name: "ListGraphs", OutputName: "ListGraphsOutput",
-					HTTPMethod: "GET", HTTPUri: "/v1/graphs"},
-			)
+// TestServiceCRUDDataAdmitsRESTXML is the codegen half of the rest-xml change.
+// This gate and crud.Servable answer the same question and must agree: a
+// protocol admitted here but refused there registers operations nothing can
+// reach, and the fidelity manifest would publish them as auto-crud.
+func TestServiceCRUDDataAdmitsRESTXML(t *testing.T) {
+	model := crudModel("rest-xml",
+		ir.Operation{Name: "ListAccessPoints", OutputName: "ListAccessPointsOutput",
+			HTTPMethod: "GET", HTTPUri: "/v20180820/accesspoint"},
+	)
 
-			_, ok := ServiceCRUDData(model)
-			assert.False(t, ok, "%s must not be engine-servable", protocol)
-		})
+	data, ok := ServiceCRUDData(model)
+	require.True(t, ok, "rest-xml service must be engine-servable")
+
+	ops := map[string]crudOpData{}
+	for _, op := range data.Ops {
+		ops[op.Op] = op
 	}
+	// The route is the whole classification story for rest-xml, so it has to
+	// survive into the registry the same way rest-json's does.
+	assert.Equal(t, "GET", ops["ListAccessPoints"].Method)
+	assert.Equal(t, "/v20180820/accesspoint", ops["ListAccessPoints"].URI)
+}
+
+// TestServiceCRUDDataRejectsQuery holds what is left of the boundary Milestone 5
+// owns. query puts the operation neither in a header nor in a modelled path —
+// it is a field in the form body — so until the engine reads that, admitting it
+// would register operations no request can be matched to.
+func TestServiceCRUDDataRejectsQuery(t *testing.T) {
+	model := crudModel("query",
+		ir.Operation{Name: "DescribeLoadBalancers", OutputName: "DescribeLoadBalancersOutput"},
+	)
+
+	_, ok := ServiceCRUDData(model)
+	assert.False(t, ok, "query must not be engine-servable yet")
 }
 
 // TestServiceCRUDDataSkipsUnclassifiableService is the rds-data case: a
