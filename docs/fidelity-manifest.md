@@ -1,6 +1,6 @@
 # Fidelity Manifest
 
-DevCloud serves 104 AWS services, but not every operation is served the same
+DevCloud registers 148 AWS services, but not every operation is served the same
 way. The **fidelity manifest** answers, per operation, *how much you can trust
 this call* — so you never have to guess whether a green response means DevCloud
 implemented the operation or merely made something plausible up.
@@ -43,9 +43,9 @@ guaranteed across 1.x; normalizing them is a minor release.
 | Tier | Operations |
 |------|-----------:|
 | `hand-verified` | 4,496 |
-| `auto-crud` | 948 |
-| `unimplemented` | 2,031 |
-| **Total** | **7,475** across 104 services |
+| `auto-crud` | 1,415 |
+| `unimplemented` | 3,119 |
+| **Total** | **9,030** across 148 services |
 
 Examples:
 

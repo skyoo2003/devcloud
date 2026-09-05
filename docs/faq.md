@@ -29,7 +29,7 @@ Developers should be able to iterate locally without cloud bills and deploy to t
 
 ### Which services are supported?
 
-101 AWS services are scaffolded and routed; coverage depth varies. See [services-matrix.md](services-matrix.md) for the canonical list and per-service operation counts. Core services (S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation) pass 100% of their boto3 compatibility tests.
+148 AWS services are registered and routed, 117 of them serving at least one operation; coverage depth varies. See [services-matrix.md](services-matrix.md) for the canonical list and per-service operation counts. Core services (S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation) pass 100% of their boto3 compatibility tests.
 
 ### Does DevCloud work on Windows?
 

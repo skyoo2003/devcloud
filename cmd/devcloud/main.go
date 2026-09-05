@@ -120,14 +120,22 @@ func main() {
 	// The log collector is only built when admin is enabled; otherwise no
 	// consumer can ever read it, so a nil collector keeps Add off the request
 	// hot path (see gateway.New).
+	// unroutedCollector follows the same rule and answers a different question:
+	// which services was this DevCloud asked for that it does not register. Its
+	// cap has headroom over the upstream model count — a real deployment cannot
+	// name more distinct AWS services than AWS publishes, so reaching it means
+	// something is sending junk, and the report says so rather than truncating
+	// in silence.
 	var logCollector *admin.LogCollector
+	var unroutedCollector *admin.UnroutedCollector
 	adminHandler := http.NotFoundHandler()
 	if cfg.Admin.Enabled {
 		logCollector = admin.NewLogCollector(1000)
-		adminHandler = admin.NewAPI(registry, logCollector).Handler()
+		unroutedCollector = admin.NewUnroutedCollector(1000)
+		adminHandler = admin.NewAPI(registry, logCollector, unroutedCollector).Handler()
 		slog.Info("admin API enabled")
 	}
-	gw := gateway.New(cfg.Server.Port, registry, adminHandler, logCollector)
+	gw := gateway.New(cfg.Server.Port, registry, adminHandler, logCollector, unroutedCollector)
 
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)

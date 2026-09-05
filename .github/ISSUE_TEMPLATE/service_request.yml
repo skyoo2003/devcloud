@@ -1,0 +1,67 @@
+name: Service Not Supported
+description: Ask for an AWS service DevCloud does not register yet
+title: "[Service] "
+labels: ["enhancement", "services"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        DevCloud registers a subset of the AWS services AWS publishes. When a call
+        reaches a service that is not registered it returns `UnknownService`
+        rather than reaching a provider.
+
+        This form is the demand signal that decides which services get added next.
+        See [docs/coverage.md](https://github.com/skyoo2003/devcloud/blob/main/docs/coverage.md)
+        for what is registered today, and what "registered" does and does not promise.
+
+  - type: input
+    id: service
+    attributes:
+      label: Service
+      description: The AWS service name, as your SDK or tool spells it.
+      placeholder: e.g. appflow, amp, secretsmanager
+    validations:
+      required: true
+
+  - type: input
+    id: client
+    attributes:
+      label: SDK or tool that hit the wall
+      description: What was making the call, and which version.
+      placeholder: e.g. boto3 1.35.0 / Terraform aws provider 5.60 / AWS CLI v2
+    validations:
+      required: true
+
+  - type: textarea
+    id: blocked
+    attributes:
+      label: What did it block?
+      description: >
+        What you could not do because the service was missing — a test that had to
+        be skipped, a `terraform apply` that failed, a CI job pointed at real AWS.
+        Which operations you actually call matters more than the service alone.
+      placeholder: |
+        Our integration suite creates an AppFlow flow in setup, so the whole
+        module is skipped locally and only runs in the billed CI account.
+        Operations we use: CreateFlow, DescribeFlow, DeleteFlow.
+    validations:
+      required: true
+
+  - type: textarea
+    id: unrouted
+    attributes:
+      label: Unrouted-service output (optional)
+      description: >
+        With `admin.enabled: true`, DevCloud counts the services it was asked for
+        and does not register. Paste the output of
+        `curl -s localhost:4747/devcloud/api/unrouted` — it turns a request into a
+        measurement.
+
+
+        Two caveats before you read it: a request DevCloud cannot classify at all
+        is routed to S3 rather than counted here, so the list is a floor and not a
+        census; and a non-zero `droppedServiceIds` means the collector hit its cap
+        and the list is incomplete.
+      render: json
+    validations:
+      required: false

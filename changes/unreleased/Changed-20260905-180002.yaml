@@ -1,0 +1,5 @@
+kind: Changed
+body: 'The AWS coverage target is 205 services, not 431. Of the 283 services DevCloud does not register, only 57 have been built by at least two of moto, LocalStack, and terraform-provider-aws, and 115 by none of them; DevCloud has received zero service requests to date. Rather than build a long tail nobody has asked for, the target is now every registered service plus every service with demonstrated demand. The remaining 226 are not refused — any of them can be onboarded on request — but they are no longer promised. Evidence and method in docs/demand.md; the decision rule was fixed in advance and is published in docs/coverage.md'
+time: 2026-09-05T18:00:02.000000+09:00
+custom:
+    Issue: "138"

@@ -4,6 +4,9 @@ DevCloud's service count is not a capability claim on its own, so this page neve
 states it alone. Three numbers describe the surface, and they mean different
 things:
 
+> **The coverage target is not 100% of AWS.** It was, and the evidence did not
+> support it — see [The target, and the rule that set it](#the-target-and-the-rule-that-set-it).
+
 | Number | What it means | Today |
 |---|---|---|
 | **Registered** | The gateway routes the service. A call reaches DevCloud instead of falling through to real AWS. | **148** |
@@ -87,6 +90,103 @@ treated as borrowers — see `codegen.BuildAliases`. Where none does, the alias 
 left unrouted rather than guessed: all four Lex services sign as `lex` and none
 is called `lex`, so `lex` routes nowhere and each Lex service is reached by its
 own unambiguous name.
+
+## The target, and the rule that set it
+
+**Decided 2026-09-05. The target is 205 services, not 431.**
+
+DevCloud's roadmap previously aimed at every AWS service AWS publishes — 431
+model files. That target rested on an assumption nobody had tested: that the
+services DevCloud does not register are services anyone wants. Before committing
+to building ~283 of them, the assumption was tested, and it did not hold.
+
+**The rule was fixed before the numbers were seen.** Four outcomes were written
+down in advance, including one for "the method itself failed", specifically so
+the result could not be argued into whichever answer was most convenient once it
+arrived. The full evidence is in [demand.md](demand.md), re-derivable with
+`python3 scripts/demand_rank.py`.
+
+**What was measured.** For each of the 283 unregistered services, how many of
+three independent projects have already built it: `moto` (163 services),
+LocalStack (119), `terraform-provider-aws` (273). Each serves a population
+DevCloud names as its user, and each only adds a service when someone asks.
+
+| Reading | Value |
+|---|---|
+| Missing services (`M`) | 283 |
+| `M` built by all three projects | 8 |
+| `M` built by at least two | **57 (20.1%)** |
+| `M` built by exactly one | 111 |
+| `M` built by none | 115 |
+| DevCloud's own service requests, all time | **0** |
+
+**The outcome that fired.** The rule kept the 100% target only if ≥60% of `M`
+had support ≥ 2, and narrowed to a demand set if ≥100 did. 57 cleared neither
+bar, so the pre-registered consequence applies: **the 100% claim is dropped from
+the docs before any bulk work, and the published target becomes the demand set.**
+
+Four fifths of the AWS surface DevCloud does not cover is surface that three
+projects — with far more history and staffing than DevCloud — have collectively
+declined to build. That is not an accident of their roadmaps. It is what a long
+tail looks like.
+
+| | Services |
+|---|---|
+| Registered today | 148 |
+| Target: registered + demonstrated demand | **205** |
+| Explicitly not targeted | 226 |
+
+The 226 are not refused. Any of them can be onboarded when someone asks — the
+["Service not supported"](https://github.com/skyoo2003/devcloud/issues/new?template=service_request.yml)
+form is that channel, and one report outranks all three proxies, because it is
+demand rather than a stand-in for it. What changed is that they are no longer
+work DevCloud has promised.
+
+**What this verdict is not.** The three sources measure *emulator and provider
+effort*, not user demand. They are a proxy, chosen because DevCloud had no
+measurement of its own and the alternative was an unbounded wait. The instrument
+below now accrues the real thing.
+
+## Service not supported?
+
+DevCloud counts what it was asked for and could not route. Enable the admin API
+(`admin.enabled: true`) and read:
+
+```bash
+curl -s localhost:4747/devcloud/api/unrouted | jq .
+```
+
+```json
+{
+  "services": [
+    { "serviceId": "appflow", "count": 2,
+      "firstSeen": "2026-09-05T17:54:25+09:00",
+      "lastSeen": "2026-09-05T17:54:40+09:00" }
+  ],
+  "maxServiceIds": 1000,
+  "droppedServiceIds": 0
+}
+```
+
+Then open a [service request](https://github.com/skyoo2003/devcloud/issues/new?template=service_request.yml)
+and paste it. That output is what moves a service from the 226 into the target.
+
+**Two ceilings, so the number is not read as more than it is.**
+
+1. **It is a floor, not a census.** `gateway.DetectProtocol` classifies a request
+   it cannot identify as `("rest-xml", "s3")`, and S3 is registered — so an
+   unrecognisable request is routed to S3 rather than counted as a miss. What
+   this does catch is the case that matters: a real SDK or CLI call to an
+   unregistered service signs with that service's own name and misses the
+   registry. Verified with boto3 — `boto3.client("appflow")` is recorded as
+   `appflow`.
+2. **A non-zero `droppedServiceIds` means the list is incomplete.** Service IDs
+   come from caller-controlled headers, so the collector caps how many distinct
+   ones it holds and reports both the cap and what it dropped, rather than
+   growing without bound or truncating in silence.
+
+The counts live in memory and reset when the process does. This is a local
+development tool; nothing is sent anywhere.
 
 ## Runtime cost
 

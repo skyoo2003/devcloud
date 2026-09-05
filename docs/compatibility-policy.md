@@ -120,8 +120,9 @@ Depending on any of the following will break, and breaking it is **not** a major
   migration. Do not treat DevCloud as a database.
 - **`unimplemented` → served transitions.** An operation that returns an error today may start
   returning a response. This is additive, and ships in a minor release.
-- **Service coverage.** New services may be added in a minor release. The 104 services present
-  at v1.0 are a floor, not a ceiling.
+- **Service coverage.** New services may be added in a minor release. The 148 services registered
+  today are a floor, not a ceiling — and not a promise of depth either: 31 of them serve no
+  operation and only decline cleanly. See [coverage.md](coverage.md).
 - **Error codes, HTTP status and message wording.** What *is* guaranteed for an `unimplemented`
   operation is that it **fails** — an AWS-shaped error, never a fabricated success. Which error
   is not: it comes from whichever provider handles the request, so it is `InvalidAction` (400)

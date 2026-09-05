@@ -1,0 +1,5 @@
+kind: Fixed
+body: 'Stale service counts across the docs. README.md advertised 104 services and docs/faq.md 101, when 148 are registered; docs/fidelity-manifest.md also carried outdated per-tier operation totals. Every count now appears with its depth split (148 registered / 117 serving at least one operation), so the number is never read as a capability claim on its own'
+time: 2026-09-05T18:00:03.000000+09:00
+custom:
+    Issue: "138"

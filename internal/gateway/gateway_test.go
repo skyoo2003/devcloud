@@ -25,7 +25,7 @@ func TestGateway_Integration(t *testing.T) {
 
 	// Build the full middleware-chained handler the same way Gateway does,
 	// but serve it through httptest.NewServer so we exercise the real stack.
-	router := NewServiceRouter(reg)
+	router := NewServiceRouter(reg, nil)
 	handler := ChainMiddleware(router,
 		ErrorRecoveryMiddleware,
 		CORSMiddleware,
@@ -57,7 +57,7 @@ func TestGateway_NilLogCollector(t *testing.T) {
 
 	// admin disabled → nil collector: the request must succeed without the
 	// logging middleware (no panic, no Add).
-	gw := New(0, reg, http.NotFoundHandler(), nil)
+	gw := New(0, reg, http.NotFoundHandler(), nil, nil)
 
 	rec := httptest.NewRecorder()
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
@@ -70,7 +70,7 @@ func TestGateway_StartShutdown(t *testing.T) {
 	reg := plugin.NewRegistry()
 	lc := admin.NewLogCollector(100)
 	adminMux := http.NewServeMux()
-	gw := New(0, reg, adminMux, lc) // port 0 lets the OS pick a free port
+	gw := New(0, reg, adminMux, lc, nil) // port 0 lets the OS pick a free port
 
 	errCh := make(chan error, 1)
 	go func() {
