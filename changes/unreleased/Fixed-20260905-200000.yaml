@@ -2,4 +2,4 @@ kind: Fixed
 body: 'S3 Control requests were served by S3. `s3control` signs with S3''s own signing name, so every call fell through to the REST-XML default and the S3 provider parsed it as a bucket and key — `CreateAccessPoint` returned 200 and left an object in a bucket named `v20180820`. S3 Control is now split off by its `/v20180820/` path prefix, and its unserved operations return a clean AWS error instead of a fabricated success'
 time: 2026-09-05T20:00:00.000000+09:00
 custom:
-    Issue: "141"
+    Issue: "142"
