@@ -1,6 +1,6 @@
 # DevCloud Services Matrix
 
-**Total**: 104 services (run `make stats`). The boto3 compatibility suite — 775 tests in `tests/compatibility/` — passes in CI.
+**Total**: 148 services registered, 117 serving at least one operation (run `make stats`). The boto3 compatibility suite in `tests/compatibility/` passes in CI. A registered service that serves nothing still declines with a clean AWS error rather than letting the call reach real AWS — see [coverage.md](coverage.md).
 
 > To refresh these numbers, run `make stats` (service/handler counts) and `make test-compat` (compatibility suite), then update the line above. Note: `make stats`' "Operations" counts dispatch cases (a service carrying both Query and JSON protocols counts each), not distinct AWS operations.
 

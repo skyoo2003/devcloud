@@ -74,7 +74,9 @@ func surfaceAPI(t *testing.T) http.Handler {
 		Method: "GET", Path: "/s3/my-bucket", Status: 200,
 		Duration: "1.000ms", Timestamp: time.Now(), Service: "s3",
 	})
-	return NewAPI(newTestRegistry(p), lc).Handler()
+	uc := NewUnroutedCollector(10)
+	uc.Add("amp")
+	return NewAPI(newTestRegistry(p), lc, uc).Handler()
 }
 
 // TestGuaranteedAdminSurface_Collections locks the wire keys of the three
@@ -132,6 +134,48 @@ func TestGuaranteedAdminSurface_Fidelity(t *testing.T) {
 		"?service= must add the per-operation tiers")
 }
 
+// TestAPI_Unrouted covers the endpoint the coverage roadmap reads: a request
+// for a service DevCloud does not register must be visible here, with the
+// collector's limits alongside it.
+func TestAPI_Unrouted(t *testing.T) {
+	uc := NewUnroutedCollector(10)
+	uc.Add("amp")
+	uc.Add("amp")
+	uc.Add("appflow")
+	api := NewAPI(plugin.NewRegistry(), NewLogCollector(10), uc)
+
+	var report UnroutedReport
+	getJSON(t, api.Handler(), "/devcloud/api/unrouted", &report)
+
+	require.Len(t, report.Services, 2)
+	assert.Equal(t, "amp", report.Services[0].ServiceID)
+	assert.Equal(t, 2, report.Services[0].Count)
+	assert.Equal(t, 10, report.MaxServiceIDs)
+	assert.Equal(t, 0, report.DroppedServiceIDs)
+}
+
+// TestAPI_UnroutedWithoutCollector is the admin-enabled-but-not-collecting
+// case. An empty list plus maxServiceIds 0 says "not collecting"; a 404 or a
+// panic would say nothing at all.
+func TestAPI_UnroutedWithoutCollector(t *testing.T) {
+	api := NewAPI(plugin.NewRegistry(), NewLogCollector(10), nil)
+
+	var report UnroutedReport
+	getJSON(t, api.Handler(), "/devcloud/api/unrouted", &report)
+
+	assert.Empty(t, report.Services)
+	assert.Equal(t, 0, report.MaxServiceIDs)
+}
+
+func TestAPI_UnroutedRejectsNonGET(t *testing.T) {
+	api := NewAPI(plugin.NewRegistry(), NewLogCollector(10), NewUnroutedCollector(10))
+
+	w := httptest.NewRecorder()
+	api.Handler().ServeHTTP(w, httptest.NewRequest(http.MethodPost, "/devcloud/api/unrouted", nil))
+
+	assert.Equal(t, http.StatusMethodNotAllowed, w.Code)
+}
+
 // TestAPI_Services registers a mock plugin and verifies the
 // /devcloud/api/services endpoint returns it.
 func TestAPI_Services(t *testing.T) {
@@ -145,7 +189,7 @@ func TestAPI_Services(t *testing.T) {
 	}
 	reg := newTestRegistry(p)
 	lc := NewLogCollector(10)
-	api := NewAPI(reg, lc)
+	api := NewAPI(reg, lc, nil)
 
 	req := httptest.NewRequest(http.MethodGet, "/devcloud/api/services", nil)
 	w := httptest.NewRecorder()
@@ -168,7 +212,7 @@ func TestAPI_Services(t *testing.T) {
 // TestAPI_Fidelity covers both shapes of the endpoint: the unfiltered summary
 // carries counts but no operation list, and naming a service adds its tiers.
 func TestAPI_Fidelity(t *testing.T) {
-	api := NewAPI(newTestRegistry(&mockServicePlugin{id: "s3", name: "Amazon S3"}), NewLogCollector(10))
+	api := NewAPI(newTestRegistry(&mockServicePlugin{id: "s3", name: "Amazon S3"}), NewLogCollector(10), nil)
 
 	req := httptest.NewRequest(http.MethodGet, "/devcloud/api/fidelity", nil)
 	w := httptest.NewRecorder()
@@ -195,7 +239,7 @@ func TestAPI_Fidelity(t *testing.T) {
 }
 
 func TestAPI_FidelityUnknownService(t *testing.T) {
-	api := NewAPI(newTestRegistry(&mockServicePlugin{id: "s3", name: "Amazon S3"}), NewLogCollector(10))
+	api := NewAPI(newTestRegistry(&mockServicePlugin{id: "s3", name: "Amazon S3"}), NewLogCollector(10), nil)
 
 	req := httptest.NewRequest(http.MethodGet, "/devcloud/api/fidelity?service=nosuchservice", nil)
 	w := httptest.NewRecorder()
@@ -227,7 +271,7 @@ func TestAPI_Logs(t *testing.T) {
 		Service:   "s3",
 	})
 
-	api := NewAPI(reg, lc)
+	api := NewAPI(reg, lc, nil)
 
 	req := httptest.NewRequest(http.MethodGet, "/devcloud/api/logs", nil)
 	w := httptest.NewRecorder()
@@ -254,7 +298,7 @@ func TestAPI_LogsLimit(t *testing.T) {
 		lc.Add(RequestLog{Method: "GET", Path: "/item", Status: 200, Service: "s3"})
 	}
 
-	api := NewAPI(reg, lc)
+	api := NewAPI(reg, lc, nil)
 
 	req := httptest.NewRequest(http.MethodGet, "/devcloud/api/logs?limit=3", nil)
 	w := httptest.NewRecorder()

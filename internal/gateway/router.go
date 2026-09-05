@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/skyoo2003/devcloud/internal/admin"
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	"github.com/skyoo2003/devcloud/internal/shared/crud"
 )
@@ -20,11 +21,23 @@ import (
 // ServicePlugin based on the detected AWS protocol and service ID.
 type ServiceRouter struct {
 	registry *plugin.Registry
+
+	// unrouted counts the misses below. It is nil when the admin API is off,
+	// and UnroutedCollector.Add tolerates that, so the miss branch stays one
+	// unconditional call.
+	//
+	// It undercounts by construction: DetectProtocol falls through to
+	// ("rest-xml", "s3") for a request it cannot classify, and s3 is
+	// registered, so those never reach the branch that records. A call naming a
+	// real but unregistered AWS service does reach it, which is the case this
+	// exists to measure.
+	unrouted *admin.UnroutedCollector
 }
 
 // NewServiceRouter creates a ServiceRouter backed by the given plugin Registry.
-func NewServiceRouter(registry *plugin.Registry) *ServiceRouter {
-	return &ServiceRouter{registry: registry}
+// unrouted may be nil; see the field comment.
+func NewServiceRouter(registry *plugin.Registry, unrouted *admin.UnroutedCollector) *ServiceRouter {
+	return &ServiceRouter{registry: registry, unrouted: unrouted}
 }
 
 // ServeHTTP implements http.Handler.
@@ -33,6 +46,7 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	p, ok := sr.registry.Get(serviceID)
 	if !ok {
+		sr.unrouted.Add(serviceID)
 		writeAWSError(w, protocol, http.StatusBadRequest, "UnknownService",
 			"The requested service is not available: "+serviceID)
 		return

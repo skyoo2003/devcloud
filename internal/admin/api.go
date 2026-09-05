@@ -17,13 +17,18 @@ import (
 type API struct {
 	registry     *plugin.Registry
 	logCollector *LogCollector
+	unrouted     *UnroutedCollector
 }
 
-// NewAPI creates a new API.
-func NewAPI(registry *plugin.Registry, logCollector *LogCollector) *API {
+// NewAPI creates a new API. A nil unrouted collector is allowed; the unrouted
+// route then reports an empty result rather than 404ing, so a caller reading the
+// endpoint cannot mistake "not collecting" for "nothing was asked for" — the
+// distinction is visible in maxServiceIds.
+func NewAPI(registry *plugin.Registry, logCollector *LogCollector, unrouted *UnroutedCollector) *API {
 	return &API{
 		registry:     registry,
 		logCollector: logCollector,
+		unrouted:     unrouted,
 	}
 }
 
@@ -35,8 +40,30 @@ func (d *API) Handler() http.Handler {
 	mux.HandleFunc("/devcloud/api/services/", d.handleServiceResources)
 	mux.HandleFunc("/devcloud/api/logs", d.handleLogs)
 	mux.HandleFunc("/devcloud/api/fidelity", d.handleFidelity)
+	mux.HandleFunc("/devcloud/api/unrouted", d.handleUnrouted)
 
 	return mux
+}
+
+// handleUnrouted handles GET /devcloud/api/unrouted.
+//
+// It answers "what did callers ask this DevCloud for that it does not
+// register?" — the demand signal the coverage roadmap is gated on.
+//
+// It is not a complete census of unserved traffic, and docs/coverage.md says so
+// where the endpoint is documented. gateway.DetectProtocol classifies anything
+// it cannot identify as ("rest-xml", "s3"), and s3 is registered, so an
+// unrecognisable request is routed to S3 rather than counted here. What this
+// does see is the case that matters: an SDK or CLI call to a real but
+// unregistered AWS service signs with that service's own name and misses the
+// registry.
+func (d *API) handleUnrouted(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	writeJSON(w, http.StatusOK, d.unrouted.Snapshot())
 }
 
 // fidelityService is one service's entry in GET /devcloud/api/fidelity.

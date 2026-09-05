@@ -31,8 +31,13 @@ type Gateway struct {
 // and records each request after the response has been written. A nil
 // collector (admin API disabled) skips that wrapper entirely, keeping the
 // mutex lock + ring-buffer write off the request hot path.
-func New(port int, registry *plugin.Registry, adminAPI http.Handler, logCollector *admin.LogCollector) *Gateway {
-	router := NewServiceRouter(registry)
+//
+// unroutedCollector gets the same nil-when-disabled treatment, but is passed
+// down rather than wrapped: the count belongs on the registry-miss branch
+// inside the router, which is the only place that knows a request found no
+// service.
+func New(port int, registry *plugin.Registry, adminAPI http.Handler, logCollector *admin.LogCollector, unroutedCollector *admin.UnroutedCollector) *Gateway {
+	router := NewServiceRouter(registry, unroutedCollector)
 
 	// Logging middleware: records AWS API requests to logCollector. Only
 	// installed when there is a collector to read them.
