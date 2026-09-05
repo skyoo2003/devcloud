@@ -1,0 +1,5 @@
+kind: Added
+body: 'The generic CRUD engine now serves `rest-json` services. That protocol carries no `X-Amz-Target` header, so the operation is recovered from the request method and path using the route table the model already declares — the same matcher the generated per-service routers use, now shared in `internal/shared/httproute`. 28 already-registered services stopped being registered-only without any change to their providers: services serving at least one operation went 117 to 145, and `auto-crud` operations 1,415 to 2,200. A path the route table does not know still declines with a clean AWS error rather than a fabricated success'
+time: 2026-09-05T18:40:00.000000+09:00
+custom:
+    Issue: "139"

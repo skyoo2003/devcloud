@@ -10,36 +10,57 @@ things:
 | Number | What it means | Today |
 |---|---|---|
 | **Registered** | The gateway routes the service. A call reaches DevCloud instead of falling through to real AWS. | **148** |
-| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer — hand-written or served by the generic CRUD engine. | **117** |
-| **Registered-only** | Routed, but every operation declines with a clean AWS error. Nothing is served. | **31** |
+| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer — hand-written or served by the generic CRUD engine. | **145** |
+| **Registered-only** | Routed, but every operation declines with a clean AWS error. Nothing is served. | **3** |
 
 Per operation, from the [fidelity manifest](fidelity-manifest.md):
 
 | Tier | Operations |
 |---|---|
 | `hand-verified` | 4,496 |
-| `auto-crud` | 1,415 |
-| `unimplemented` | 3,119 |
+| `auto-crud` | 2,200 |
+| `unimplemented` | 2,334 |
 | **total known** | **9,030** |
 
 ## Why a registered service can serve nothing
 
-The generic CRUD engine classifies an operation by its name, and only the
-`X-Amz-Target` JSON protocols put the operation name where the router can see it
-(`internal/shared/crud/crud.go`, `JSONProtocol`). A `rest-json`, `query` or
-`rest-xml` service is therefore unreachable by the engine and serves nothing
-until somebody writes its provider by hand.
+The generic CRUD engine has to know which operation a request is for, and it has
+to recognise that operation as CRUD-shaped. Two things can stop it.
+
+**The protocol does not say which operation.** The `X-Amz-Target` JSON protocols
+name the operation in a header. `rest-json` does not, but every one of its
+operations is bound to an HTTP method and a URI template in the model, and
+`internal/shared/httproute` matches a request back to the operation from that
+pair — so the engine serves it too. `query` and `rest-xml` have neither a target
+header nor a modelled path the engine can match, so they are unreachable by it
+and serve nothing until somebody writes the provider by hand.
+
+**The operation is not CRUD-shaped.** `GetThing`, `ListThings`, `CreateThing`
+and their siblings map onto a generic store. `ExecuteStatement`, `InvokeEndpoint`
+and `QueryForecast` do not, and the engine refuses them rather than inventing an
+answer. A service whose entire API is that shape serves nothing whatever its
+protocol.
 
 Registered services by protocol:
 
 | Protocol | Services | Engine-servable |
 |---|---|---|
-| `json-1.1` | 49 | yes |
-| `json-1.0` | 11 | yes |
-| `rest-json` | 59 | no |
+| `json-1.1` | 49 | yes — operation from `X-Amz-Target` |
+| `json-1.0` | 11 | yes — operation from `X-Amz-Target` |
+| `rest-json` | 59 | yes — operation from method + path |
 | `query` | 14 | no |
 | `rest-xml` | 3 | no |
 | no in-tree model | 12 | n/a — hand-written providers |
+
+The three services that are registered and serve nothing are all the second
+case, not the first: `forecastquery` (`json-1.1`, only `QueryForecast` and
+`QueryWhatIfForecast`) and the two SageMaker Runtime variants (`rest-json`, only
+`InvokeEndpoint*`).
+
+A registered operation is not automatically a reachable one. The engine is
+entered only when a provider returns `plugin.ErrUnhandledOp`, so a hand-written
+provider that refuses unknown operations itself — `apigatewayv2`, `xray` — never
+reaches it, and the manifest records that per service as `EngineWired`.
 
 Registering a service the engine cannot serve is deliberate, not an oversight.
 The alternative is worse: an unregistered service is not routed, so the SDK call
@@ -56,19 +77,17 @@ The first category taken to completion. All 48 upstream models are registered.
 | | Count |
 |---|---|
 | Registered | 48 |
-| Engine-served or hand-written | 17 |
-| Registered-only | 31 |
-| Operations served across the category | 935 |
+| Engine-served or hand-written | 45 |
+| Registered-only | 3 |
 
-Engine-served: `bedrock`, `bedrock-data-automation-runtime`, `comprehend`,
-`comprehendmedical`, `forecast`, `frauddetector`, `healthlake`, `kendra`,
-`kendra-ranking`, `lookoutequipment`, `personalize`, `rekognition`, `sagemaker`,
-`textract`, `transcribe`, `translate`, `voice-id`.
+When this category was completed, only 17 of its 48 members served anything: 30
+of the other 31 were `rest-json`, which the engine could not read at all. Teaching
+it that protocol moved 28 of those 30 into coverage without touching a single one
+of their providers.
 
-Of the 31 registered-only, 30 are `rest-json`. The exception is `forecastquery`,
-which is `json-1.1` but whose entire API is `QueryForecast` and
-`QueryWhatIfForecast` — neither is CRUD-shaped, so there is nothing for the
-engine to serve generically.
+The three that remain are the ones no protocol change can help — `forecastquery`
+and the two SageMaker Runtime variants, none of which has a CRUD-shaped
+operation. See [Why a registered service can serve nothing](#why-a-registered-service-can-serve-nothing).
 
 ## What counts as a service
 

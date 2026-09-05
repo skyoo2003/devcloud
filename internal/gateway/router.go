@@ -54,11 +54,12 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	op := extractOperationName(r, protocol)
 
-	// Buffer the body for JSON protocols so the CRUD fallback engine can re-read
-	// it if the provider does not handle the operation. Cheap for JSON payloads;
-	// skipped for REST-XML (S3) where bodies may be large binary uploads.
+	// Buffer the body for the protocols the CRUD fallback engine can serve, so
+	// it can re-read it if the provider does not handle the operation. Cheap for
+	// JSON and rest-json payloads; skipped for REST-XML (S3), where bodies may
+	// be large binary uploads and the engine would refuse them anyway.
 	var body []byte
-	if crud.JSONProtocol(protocol) {
+	if crud.Servable(protocol) {
 		var rerr error
 		if body, rerr = io.ReadAll(r.Body); rerr != nil {
 			writeAWSError(w, protocol, http.StatusBadRequest, "SerializationException", "failed to read request body")
@@ -73,7 +74,14 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// fallback for operations it does not implement. If the engine cannot
 	// classify the operation either, emit the standard "unknown action" error.
 	if errors.Is(err, plugin.ErrUnhandledOp) {
-		res, cerr := crud.Handle(serviceID, op, protocol, body)
+		res, cerr := crud.Handle(crud.Call{
+			Service:  serviceID,
+			Protocol: protocol,
+			Op:       op,
+			Method:   r.Method,
+			URI:      r.URL.RequestURI(),
+			Body:     body,
+		})
 		if cerr != nil {
 			writeAWSError(w, protocol, http.StatusBadRequest, "InvalidAction", "unknown action: "+op)
 			return

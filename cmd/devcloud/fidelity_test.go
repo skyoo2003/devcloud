@@ -103,6 +103,16 @@ func TestFidelityManifestCoversRegisteredServices(t *testing.T) {
 // lists.
 func TestFidelityManifestCoversCRUDRegistry(t *testing.T) {
 	for _, id := range plugin.DefaultRegistry.RegisteredServices() {
+		// Registry membership is classifiability, not reachability. The CRUD
+		// registry is built from the model, so it also holds operations for
+		// services whose hand-written provider refuses unknown operations
+		// itself (apigatewayv2, xray) — the engine is never routed to for
+		// those, so "unimplemented" is the truth and this check would be
+		// asserting the opposite. TestFidelityManifestCoverage's `served == 0
+		// && RegisteredOps > 0` guard is what catches wiring that goes missing.
+		if !fidelity.Services[id].EngineWired {
+			continue
+		}
 		for op := range crud.RegisteredOps(id) {
 			tier, ok := fidelity.Lookup(id, op)
 			if !ok {
@@ -129,7 +139,13 @@ func TestAutoCRUDIsServedOverJSON(t *testing.T) {
 			if tier != fidelity.TierAutoCRUD {
 				continue
 			}
-			if _, err := crud.Handle(id, op, "json-1.1", []byte("{}")); err != nil {
+			// Asked through the JSON path regardless of the service's real
+			// protocol: what "auto-crud" claims is that the operation is
+			// registered and CRUD-classified, which is exactly what this
+			// exercises. Whether a rest-json request also resolves to it is
+			// route matching, covered in internal/shared/crud and the compat
+			// suite.
+			if _, err := crud.Handle(crud.Call{Service: id, Protocol: "json-1.1", Op: op, Body: []byte("{}")}); err != nil {
 				t.Errorf("%s/%s: declared auto-crud but the engine refused it: %v", id, op, err)
 			}
 		}

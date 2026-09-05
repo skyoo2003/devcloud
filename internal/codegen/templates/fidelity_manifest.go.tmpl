@@ -46,13 +46,23 @@ type Service struct {
 	// service's API. When false the unimplemented tail is not knowable, so the
 	// manifest lists only what DevCloud serves.
 	ModelBacked bool
+	// EngineWired reports whether the provider hands the operations it does not
+	// implement to the generic CRUD engine, by returning plugin.ErrUnhandledOp.
+	//
+	// It is the difference between an operation being *classifiable* and being
+	// *reachable*. The CRUD registry is built from the model, so it holds
+	// entries for services whose hand-written provider refuses unknown
+	// operations itself and never routes to the engine — for those, a
+	// registered operation is genuinely unimplemented, and only this field says
+	// so without guessing.
+	EngineWired bool
 	Operations  map[string]Tier
 }
 
 // Services maps a registered service ID to its operations.
 var Services = map[string]Service{
 {{- range .Services }}
-	"{{ .ServiceID }}": {Protocol: "{{ .Protocol }}", ModelBacked: {{ .ModelBacked }}, Operations: map[string]Tier{
+	"{{ .ServiceID }}": {Protocol: "{{ .Protocol }}", ModelBacked: {{ .ModelBacked }}, EngineWired: {{ .EngineWired }}, Operations: map[string]Tier{
 {{- range .Ops }}
 		"{{ .Name }}": Tier{{ .TierConst }},
 {{- end }}

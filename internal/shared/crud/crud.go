@@ -17,9 +17,13 @@ import (
 	"encoding/json"
 	"errors"
 	"maps"
+	"net/url"
+	"sort"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/skyoo2003/devcloud/internal/shared/httproute"
 )
 
 // ErrUnclassified means the engine has no CRUD handling for this operation; the
@@ -33,6 +37,26 @@ type OpMeta struct {
 	Resource      string // singular resource key, e.g. "Database"
 	OutputListKey string // output member holding the collection (List ops)
 	OutputItemKey string // output member wrapping a single resource ("" = flat echo)
+
+	// Method and URI are the operation's REST binding, empty for a service
+	// whose protocol has none. They are what lets the engine serve rest-json:
+	// that protocol puts the operation in the method and path instead of in an
+	// X-Amz-Target header, so without them there is nothing to classify.
+	Method string // e.g. "GET"
+	URI    string // e.g. "/v1/graphs/{GraphName}"
+}
+
+// Call is one request the engine may be asked to serve, in protocol-neutral
+// terms. The JSON protocols name the operation in a header, so they set Op; the
+// REST protocols put it in the method and path, so they set Method and URI and
+// leave Op empty.
+type Call struct {
+	Service  string
+	Protocol string
+	Op       string
+	Method   string
+	URI      string
+	Body     []byte
 }
 
 // Result is a protocol-agnostic response the caller maps onto its transport.
@@ -42,11 +66,18 @@ type Result struct {
 	ContentType string
 }
 
-const jsonContentType = "application/x-amz-json-1.1"
+const (
+	jsonContentType = "application/x-amz-json-1.1"
+	restJSONType    = "application/json"
+
+	protocolJSON10   = "json-1.0"
+	protocolRESTJSON = "rest-json"
+)
 
 var (
 	mu       sync.RWMutex
 	registry = map[string]map[string]OpMeta{}         // service -> op -> meta
+	routes   = map[string][]httproute.Route{}         // service -> REST routes, sorted by operation
 	store    = map[string]map[string]map[string]any{} // "service|resource" -> id -> doc
 )
 
@@ -56,6 +87,21 @@ func Register(service string, ops map[string]OpMeta) {
 	mu.Lock()
 	defer mu.Unlock()
 	registry[service] = ops
+
+	// Build the REST route table alongside the op map. Sorted by operation
+	// name because Go map iteration is randomised, and httproute.Match takes
+	// the first route that fits within a specificity pass — an unsorted table
+	// would make routing differ between runs of the same binary. The order
+	// mirrors what codegen emits for the generated per-service routers.
+	rs := make([]httproute.Route, 0, len(ops))
+	for op, m := range ops {
+		if m.URI == "" {
+			continue
+		}
+		rs = append(rs, httproute.Route{Method: m.Method, Pattern: m.URI, Operation: op})
+	}
+	sort.Slice(rs, func(i, j int) bool { return rs[i].Operation < rs[j].Operation })
+	routes[service] = rs
 }
 
 // RegisteredOps returns the operation metadata registered for a service.
@@ -65,46 +111,116 @@ func RegisteredOps(service string) map[string]OpMeta {
 	return registry[service]
 }
 
-// JSONProtocol reports whether the engine can serve requests for a protocol.
-// Only the X-Amz-Target JSON protocols carry an operation name at the router,
-// which the engine needs to classify.
+// JSONProtocol reports whether a protocol carries the operation name in an
+// X-Amz-Target header. It says nothing about whether the engine can serve the
+// protocol — use Servable for that.
 func JSONProtocol(protocol string) bool {
 	return strings.HasPrefix(protocol, "json")
 }
 
-// Handle attempts to serve op for service from its request body. It returns
-// ErrUnclassified when the operation is unknown or not CRUD-shaped.
-func Handle(service, op, protocol string, body []byte) (*Result, error) {
-	if !JSONProtocol(protocol) {
+// Servable reports whether the engine can serve requests for a protocol.
+//
+// The JSON protocols carry the operation name in a header. rest-json does not,
+// but its model binds every operation to a method and URI template, which the
+// route table turns back into an operation name. query and rest-xml have
+// neither, so a request for one of them cannot be classified at all and is
+// declined rather than guessed at.
+func Servable(protocol string) bool {
+	return JSONProtocol(protocol) || protocol == protocolRESTJSON
+}
+
+// Handle attempts to serve a call from the service's registered operations. It
+// returns ErrUnclassified when the operation is unknown, not CRUD-shaped, or
+// carried by a protocol the engine cannot read — never a fabricated success.
+func Handle(c Call) (*Result, error) {
+	op := c.Op
+	var labels httproute.Params
+	rest := false
+
+	switch {
+	case JSONProtocol(c.Protocol):
+		// The operation name arrived in X-Amz-Target; nothing to resolve.
+	case c.Protocol == protocolRESTJSON:
+		rest = true
+		mu.RLock()
+		rs := routes[c.Service]
+		mu.RUnlock()
+		// A miss here is any of: unregistered service, an operation codegen
+		// refused to classify, or a path this service does not model. All
+		// three must decline — see docs/coverage.md on why a registered
+		// service must never fabricate a success.
+		if op, labels = httproute.Match(rs, c.Method, c.URI); op == "" {
+			return nil, ErrUnclassified
+		}
+	default:
 		return nil, ErrUnclassified
 	}
+
 	mu.RLock()
-	m, ok := registry[service][op]
+	m, ok := registry[c.Service][op]
 	mu.RUnlock()
 	if !ok || m.Verb == "" {
 		return nil, ErrUnclassified
 	}
 
-	var params map[string]any
-	if len(body) > 0 {
-		if err := json.Unmarshal(body, &params); err != nil {
+	params := map[string]any{}
+	// Three sources, least authoritative first: httpQuery values, then the
+	// JSON body, then the path labels — the URI is what addresses the
+	// resource, so it wins. A restJson1 model never binds one member to two of
+	// these, so real SDK traffic never exercises the precedence; it is here so
+	// a hand-rolled request cannot redirect a lookup from the body.
+	if rest {
+		maps.Copy(params, queryParams(c.URI))
+	}
+	if len(c.Body) > 0 {
+		var body map[string]any
+		if err := json.Unmarshal(c.Body, &body); err != nil {
 			// Malformed body: real services reject with SerializationException
 			// rather than fabricating a success from empty params.
-			return withContentType(serializationError(), protocol), nil
+			return withContentType(serializationError(), c.Protocol), nil
 		}
+		maps.Copy(params, body)
 	}
-	if params == nil {
-		params = map[string]any{}
+	for k, v := range labels {
+		params[k] = v
 	}
-	res, err := dispatch(service, m, params)
-	return withContentType(res, protocol), err
+
+	res, err := dispatch(c.Service, m, params)
+	return withContentType(res, c.Protocol), err
 }
 
-// withContentType stamps the protocol-appropriate amz-json version so a json-1.0
-// service is not served a 1.1 content type. dispatch/okJSON default to 1.1.
+// queryParams reads the request URI's query string as engine parameters. A
+// repeated key keeps its first value: the engine has no list-valued parameter,
+// and dropping the key entirely would lose a resource identifier.
+func queryParams(uri string) map[string]any {
+	_, query, found := strings.Cut(uri, "?")
+	if !found || query == "" {
+		return nil
+	}
+	// ParseQuery returns what it could parse alongside any error, so a
+	// malformed tail cannot discard the terms before it.
+	values, _ := url.ParseQuery(query)
+	out := make(map[string]any, len(values))
+	for k, vs := range values {
+		if len(vs) > 0 {
+			out[k] = vs[0]
+		}
+	}
+	return out
+}
+
+// withContentType stamps the protocol-appropriate content type so a json-1.0
+// service is not served a 1.1 one, and a rest-json service is not served an
+// X-Amz-Target type it never uses. dispatch/okJSON default to amz-json 1.1.
 func withContentType(res *Result, protocol string) *Result {
-	if res != nil && protocol == "json-1.0" {
+	if res == nil {
+		return res
+	}
+	switch protocol {
+	case protocolJSON10:
 		res.ContentType = "application/x-amz-json-1.0"
+	case protocolRESTJSON:
+		res.ContentType = restJSONType
 	}
 	return res
 }

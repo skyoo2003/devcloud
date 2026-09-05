@@ -4,12 +4,16 @@ package gateway
 
 import (
 	"context"
+	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/skyoo2003/devcloud/internal/admin"
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/shared/crud"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -127,4 +131,126 @@ func TestServiceRouter_NilUnroutedCollector(t *testing.T) {
 	w := httptest.NewRecorder()
 	assert.NotPanics(t, func() { router.ServeHTTP(w, unroutedJSONRequest("amp")) })
 	assert.Equal(t, http.StatusBadRequest, w.Code)
+}
+
+// --- rest-json reaching the CRUD engine ---
+
+// decliningPlugin implements nothing and says so, which is what every
+// scaffolded service does and what hands the request to the engine.
+type decliningPlugin struct {
+	serviceID string
+	protocol  plugin.ProtocolType
+}
+
+func (d *decliningPlugin) ServiceID() string                { return d.serviceID }
+func (d *decliningPlugin) ServiceName() string              { return d.serviceID }
+func (d *decliningPlugin) Protocol() plugin.ProtocolType    { return d.protocol }
+func (d *decliningPlugin) Init(_ plugin.PluginConfig) error { return nil }
+func (d *decliningPlugin) Shutdown(_ context.Context) error { return nil }
+func (d *decliningPlugin) HandleRequest(_ context.Context, _ string, _ *http.Request) (*plugin.Response, error) {
+	return nil, plugin.ErrUnhandledOp
+}
+func (d *decliningPlugin) ListResources(_ context.Context) ([]plugin.Resource, error) {
+	return nil, nil
+}
+
+func newDecliningRegistry(serviceID string, protocol plugin.ProtocolType) *plugin.Registry {
+	reg := plugin.NewRegistry()
+	p := &decliningPlugin{serviceID: serviceID, protocol: protocol}
+	reg.Register(serviceID, func() plugin.ServicePlugin { return p })
+	_, _ = reg.Init(serviceID, plugin.PluginConfig{})
+	return reg
+}
+
+// restJSONRequest builds a SigV4-signed REST call, which is how DetectProtocol
+// recognises a rest-json service (step 3, protocol.go).
+func restJSONRequest(service, method, uri, body string) *http.Request {
+	var req *http.Request
+	if body == "" {
+		req = httptest.NewRequest(method, uri, nil)
+	} else {
+		req = httptest.NewRequest(method, uri, strings.NewReader(body))
+	}
+	req.Header.Set("Authorization",
+		"AWS4-HMAC-SHA256 Credential=AKIA/20130524/us-east-1/"+service+"/aws4_request, Signature=abc")
+	return req
+}
+
+// TestServiceRouter_RESTJSONBodyReachesEngine is the gateway half of the
+// rest-json change. The engine can classify the operation from the path, but a
+// Create takes its parameters from the body — and the body was only buffered
+// for the JSON protocols, so it arrived empty and every created resource came
+// back with a generated id instead of the caller's name.
+func TestServiceRouter_RESTJSONBodyReachesEngine(t *testing.T) {
+	const svc = "gwrestsvc"
+	crud.Register(svc, map[string]crud.OpMeta{
+		"CreateGadget": {Verb: "Create", Resource: "Gadget", OutputItemKey: "Gadget",
+			Method: "POST", URI: "/v1/gadgets"},
+	})
+	router := NewServiceRouter(newDecliningRegistry(svc, plugin.ProtocolRESTJSON), nil)
+
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, restJSONRequest(svc, http.MethodPost, "/v1/gadgets", `{"GadgetName":"g1","Colour":"red"}`))
+
+	require.Equal(t, http.StatusOK, w.Code, "body: %s", w.Body.String())
+	var out map[string]any
+	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &out))
+	gadget, ok := out["Gadget"].(map[string]any)
+	require.True(t, ok, "no Gadget in %v", out)
+	assert.Equal(t, "g1", gadget["GadgetName"], "request body did not reach the engine")
+	assert.Equal(t, "red", gadget["Colour"])
+}
+
+// TestServiceRouter_RESTJSONUnmatchedPathDeclinesCleanly is the guarantee the
+// coverage claim rests on: a registered service that cannot serve a request
+// must answer with an AWS error, never a fabricated success.
+func TestServiceRouter_RESTJSONUnmatchedPathDeclinesCleanly(t *testing.T) {
+	const svc = "gwmisssvc"
+	crud.Register(svc, map[string]crud.OpMeta{
+		"ListGadgets": {Verb: "List", Resource: "MGadget", OutputListKey: "Gadgets",
+			Method: "GET", URI: "/v1/gadgets"},
+	})
+	router := NewServiceRouter(newDecliningRegistry(svc, plugin.ProtocolRESTJSON), nil)
+
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, restJSONRequest(svc, http.MethodPost, "/v1/nothing/here", `{}`))
+
+	assert.Equal(t, http.StatusBadRequest, w.Code)
+	assert.Contains(t, w.Body.String(), "InvalidAction")
+}
+
+// TestServiceRouter_RESTXMLBodyStillUnbuffered pins the exception. S3 bodies are
+// large binary uploads, and reading one into memory to offer it to an engine
+// that refuses rest-xml anyway would be a straight regression.
+func TestServiceRouter_RESTXMLBodyStillUnbuffered(t *testing.T) {
+	var seen []byte
+	reg := plugin.NewRegistry()
+	p := &bodyCapturingPlugin{serviceID: "s3", seen: &seen}
+	reg.Register("s3", func() plugin.ServicePlugin { return p })
+	_, _ = reg.Init("s3", plugin.PluginConfig{})
+	router := NewServiceRouter(reg, nil)
+
+	req := httptest.NewRequest(http.MethodPut, "/bucket/key", strings.NewReader("binary-payload"))
+	router.ServeHTTP(httptest.NewRecorder(), req)
+
+	// The provider still reads the stream itself; the gateway did not consume it.
+	assert.Equal(t, "binary-payload", string(seen))
+}
+
+type bodyCapturingPlugin struct {
+	serviceID string
+	seen      *[]byte
+}
+
+func (b *bodyCapturingPlugin) ServiceID() string                { return b.serviceID }
+func (b *bodyCapturingPlugin) ServiceName() string              { return b.serviceID }
+func (b *bodyCapturingPlugin) Protocol() plugin.ProtocolType    { return plugin.ProtocolRESTXML }
+func (b *bodyCapturingPlugin) Init(_ plugin.PluginConfig) error { return nil }
+func (b *bodyCapturingPlugin) Shutdown(_ context.Context) error { return nil }
+func (b *bodyCapturingPlugin) HandleRequest(_ context.Context, _ string, req *http.Request) (*plugin.Response, error) {
+	*b.seen, _ = io.ReadAll(req.Body)
+	return &plugin.Response{StatusCode: http.StatusOK, Body: []byte("<ok/>")}, nil
+}
+func (b *bodyCapturingPlugin) ListResources(_ context.Context) ([]plugin.Resource, error) {
+	return nil, nil
 }
