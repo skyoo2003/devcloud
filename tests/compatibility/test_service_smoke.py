@@ -19,10 +19,10 @@ from botocore.exceptions import ClientError
 # name is the point: the test asserts what a user typing it actually gets.
 #
 # Services whose coverage comes from the generic CRUD engine rather than a
-# hand-written provider. The engine serves the awsJson1_0 / awsJson1_1
-# protocols, which carry the operation name in X-Amz-Target, and rest-json,
-# whose operation is recovered from the request method and path via the model's
-# route table. A query or rest-xml service cannot be listed here and be served.
+# hand-written provider. The engine reads every protocol DevCloud registers,
+# each naming its operation somewhere different: awsJson1_0 / awsJson1_1 in the
+# X-Amz-Target header, rest-json and rest-xml in the request method and path via
+# the model's route table, query in the Action field of the form body.
 ENGINE_SERVED_SERVICES = [
     "comprehend",
     # rest-json, and the proof the engine reaches that protocol at all. All
@@ -111,18 +111,36 @@ ENGINE_SERVED_SERVICES = [
     "vpc-lattice",
     "workspaces",
     "workspaces-web",
+    # --- the non-JSON surface (Milestone 5) ---
+    # The last two of the 57, and the reason they were last. Neither protocol
+    # names its operation the way the engine originally required: elb is query,
+    # so the operation is the Action field of a form body, and s3control is
+    # rest-xml, so it comes from the method and path. Both are read now, and
+    # this entry is what proves it against a real botocore parser rather than
+    # against Go's idea of the wire format.
+    #
+    # s3control is served too — 94 auto-crud operations in the manifest — but
+    # is absent here on purpose: every one of its 97 operations takes a required
+    # AccountId, so this harness has no parameterless read to prove it with. The
+    # budgets precedent, and tests/compatibility/test_s3control.py is where it
+    # is proved instead.
+    "elb",
     # Served, but not provable here: apigateway and apigatewaymanagementapi
     # read with Get* rather than List*/Describe*, and budgets requires an
     # account id on every operation. The fidelity manifest is their record,
     # as for bedrock-data-automation-runtime.
 ]
 
-# Services registered so the gateway routes them, but served by nothing: their
-# protocol carries no operation name for the CRUD engine to classify, and no
-# provider implements them by hand. They must answer with a clean AWS error —
-# never a fabricated success, and never an unrouted UnknownService, which would
+# Services registered so the gateway routes them, but served by nothing: no
+# operation in their whole API is CRUD-shaped, and no provider implements them
+# by hand. They must answer with a clean AWS error — never a fabricated success, and never an unrouted UnknownService, which would
 # send a caller back to real AWS. They are deliberately NOT counted as covered;
 # see docs/coverage.md.
+#
+# The protocol reason for being on this list is gone. The engine reads all five
+# protocols now — X-Amz-Target for the JSON family, method and path for the two
+# REST ones, the Action form field for query — so what is left here is only the
+# services whose operations are not CRUD-shaped at all.
 #
 # personalize-runtime left this list when the engine gained rest-json:
 # GetRecommendations classifies as a Get, so it is served now. It is not in
@@ -137,15 +155,14 @@ REGISTERED_ONLY_SERVICES = [
     # no route to match. Same case as forecastquery.
     "sagemaker-runtime",
     # --- the demand set (Milestone 4) ---
-    # The three of 57 that do not meet the floor, and why each is different:
-    #   elb       query protocol — the engine cannot read it; Milestone 5
-    #   s3control rest-xml protocol — same; Milestone 5
+    # One of the 57 does not meet the floor. elb and s3control were here too,
+    # for the protocol reason Milestone 5 removed: the engine now reads query
+    # from the Action form field and rest-xml from the method and path.
     #   rds-data  rest-json and readable, but its whole API is
     #             ExecuteStatement / BeginTransaction / Commit / Rollback,
-    #             none of which is CRUD-shaped. No protocol change helps it.
-    "elb",
+    #             none of which is CRUD-shaped. No protocol change helps it,
+    #             which is why it is the one that stays.
     "rds-data",
-    "s3control",
 ]
 
 
