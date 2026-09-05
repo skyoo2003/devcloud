@@ -1,258 +1,206 @@
-"""Smoke coverage for services served by the generic CRUD engine.
+"""Every registered service is asked something, and answers as AWS would.
 
-A scaffolded service is registered and routed the moment it is generated, which
-is not the same as being served: it answers an operation only if its provider
-hands the operation to the CRUD engine. This test is the difference between the
-two. It fails for a service that is routed but returns an error for every
-operation — the state every scaffolded service was in before the provider
-template opted into the engine.
+This file used to carry two hand-written lists of service names, and adding a
+service to ``internal/services`` did not require adding it here. So 31 of 205
+registered services were exercised by no boto3 test at all — 29 of them counted
+in the coverage figure ``docs/coverage.md`` publishes. The lists are gone: the
+fleet is now ``internal/generated/compat/services.json``, which codegen derives
+from the same fidelity manifest that figure comes from.
 
-Adding a service means adding its name below, not writing a fixture.
+The floor this proves is the PRD's, and it has two halves:
+
+1. A service the manifest says serves something must serve it — from a real
+   store, in AWS's vocabulary.
+2. A service the manifest says serves nothing must decline with a clean AWS
+   error. Never a fabricated success, which would be worse than not registering
+   the service at all, because the caller would believe it.
+
+Which of the two applies is read from the manifest, not decided here. That is
+what makes this file unable to drift from the published numbers.
 """
 
 import pytest
 from botocore import xform_name
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, ParamValidationError
 
-# Names below are boto3 client names, not DevCloud service IDs — the two differ
-# for split-out services ("kendra-ranking" vs kendraranking). Using the boto3
-# name is the point: the test asserts what a user typing it actually gets.
-#
-# Services whose coverage comes from the generic CRUD engine rather than a
-# hand-written provider. The engine reads every protocol DevCloud registers,
-# each naming its operation somewhere different: awsJson1_0 / awsJson1_1 in the
-# X-Amz-Target header, rest-json and rest-xml in the request method and path via
-# the model's route table, query in the Action field of the form body.
-ENGINE_SERVED_SERVICES = [
-    "comprehend",
-    # rest-json, and the proof the engine reaches that protocol at all. All
-    # three sat in REGISTERED_ONLY_SERVICES until the engine learned to resolve
-    # an operation from the method and path; nothing about these three services
-    # changed, only what the engine can read.
-    "polly",
-    "qbusiness",
-    "codeguru-reviewer",
-    # rekognition could not be onboarded at all before the alias table was
-    # derived from the models: its X-Amz-Target prefix is RekognitionService,
-    # which no hand-written gateway clause covered, so every call came back
-    # UnknownService. It is here to prove that onboarding now costs zero
-    # hand-written routing lines, not only zero provider lines.
-    "rekognition",
-    # The rest of the AI/ML category that the engine can serve. bedrock,
-    # sagemaker, textract and transcribe are engine-served too but already have
-    # their own test files, so they are not repeated here.
-    # bedrock-data-automation-runtime is engine-served (4 operations in the
-    # manifest) but is absent here on purpose: every one of its operations takes
-    # required parameters, so this harness has no parameterless read to prove it
-    # with. The manifest is its record, not this list.
-    "comprehendmedical",
-    "forecast",
-    "frauddetector",
-    "healthlake",
-    "kendra",
-    "kendra-ranking",
-    "lookoutequipment",
-    "personalize",
-    "translate",
-    "voice-id",
-    # --- the demand set (Milestone 4) ---
-    # Every unregistered AWS service that two or more of moto, LocalStack and
-    # terraform-provider-aws had already built (docs/demand.md). 54 of the 57
-    # serve at least one operation; these 51 are the ones this harness can
-    # prove, because they declare a List*/Describe* that needs no input.
-    "amp",
-    "appmesh",
-    "cleanrooms",
-    "cloudhsmv2",
-    "codestar-connections",
-    "connect",
-    "databrew",
-    "datapipeline",
-    "datasync",
-    "dax",
-    "devops-agent",
-    "directconnect",
-    "ds",
-    "dsql",
-    "emr-containers",
-    "emr-serverless",
-    "fsx",
-    "greengrass",
-    "guardduty",
-    "inspector2",
-    "ivs",
-    "kinesisanalytics",
-    "kinesisvideo",
-    "macie2",
-    "mediaconnect",
-    "medialive",
-    "mediapackage",
-    "mediapackagev2",
-    "mediastore",
-    "mediastore-data",
-    "network-firewall",
-    "networkmanager",
-    "opensearchserverless",
-    "osis",
-    "payment-cryptography",
-    "quicksight",
-    "redshift-data",
-    "resiliencehub",
-    "route53domains",
-    "s3vectors",
-    "securityhub",
-    "service-quotas",
-    "servicecatalog",
-    "servicecatalog-appregistry",
-    "signer",
-    "synthetics",
-    "timestream-influxdb",
-    "timestream-query",
-    "vpc-lattice",
-    "workspaces",
-    "workspaces-web",
-    # --- the non-JSON surface (Milestone 5) ---
-    # The last two of the 57, and the reason they were last. Neither protocol
-    # names its operation the way the engine originally required: elb is query,
-    # so the operation is the Action field of a form body, and s3control is
-    # rest-xml, so it comes from the method and path. Both are read now, and
-    # this entry is what proves it against a real botocore parser rather than
-    # against Go's idea of the wire format.
-    #
-    # s3control is served too — 94 auto-crud operations in the manifest — but
-    # is absent here on purpose: every one of its 97 operations takes a required
-    # AccountId, so this harness has no parameterless read to prove it with. The
-    # budgets precedent, and tests/compatibility/test_s3control.py is where it
-    # is proved instead.
-    "elb",
-    # Served, but not provable here: apigateway and apigatewaymanagementapi
-    # read with Get* rather than List*/Describe*, and budgets requires an
-    # account id on every operation. The fidelity manifest is their record,
-    # as for bedrock-data-automation-runtime.
-]
+import _coverage
 
-# Services registered so the gateway routes them, but served by nothing: no
-# operation in their whole API is CRUD-shaped, and no provider implements them
-# by hand. They must answer with a clean AWS error — never a fabricated success, and never an unrouted UnknownService, which would
-# send a caller back to real AWS. They are deliberately NOT counted as covered;
-# see docs/coverage.md.
-#
-# The protocol reason for being on this list is gone. The engine reads all five
-# protocols now — X-Amz-Target for the JSON family, method and path for the two
-# REST ones, the Action form field for query — so what is left here is only the
-# services whose operations are not CRUD-shaped at all.
-#
-# personalize-runtime left this list when the engine gained rest-json:
-# GetRecommendations classifies as a Get, so it is served now. It is not in
-# ENGINE_SERVED_SERVICES either, because both its operations take required
-# parameters and this harness has no parameterless read to prove it with — the
-# fidelity manifest is its record, as for bedrock-data-automation-runtime.
-REGISTERED_ONLY_SERVICES = [
-    # rest-json, so the engine can read its requests — and still served by
-    # nothing, because it has no CRUD-shaped operation. InvokeEndpoint,
-    # InvokeEndpointAsync and InvokeEndpointWithResponseStream are not
-    # Create/Get/List/Delete/Update, so codegen registers nothing and there is
-    # no route to match. Same case as forecastquery.
-    "sagemaker-runtime",
-    # --- the demand set (Milestone 4) ---
-    # One of the 57 does not meet the floor. elb and s3control were here too,
-    # for the protocol reason Milestone 5 removed: the engine now reads query
-    # from the Action form field and rest-xml from the method and path.
-    #   rds-data  rest-json and readable, but its whole API is
-    #             ExecuteStatement / BeginTransaction / Commit / Rollback,
-    #             none of which is CRUD-shaped. No protocol change helps it,
-    #             which is why it is the one that stays.
-    "rds-data",
+MANIFEST = _coverage.load_manifest()
+
+# Sorted so a failure reads the same way on every machine and in every CI run.
+ALL_SERVICES = sorted(MANIFEST)
+ADDRESSABLE_SERVICES = [s for s in ALL_SERVICES if s not in _coverage.NO_BOTO3_CLIENT]
+TESTABLE_SERVICES = [
+    s for s in ADDRESSABLE_SERVICES if s not in _coverage.UNREACHABLE_FROM_BOTO3
 ]
 
 
-def _parameterless_read_op(client):
-    """Return a List*/Describe* operation that needs no input.
+def _call(client, operation, params):
+    return getattr(client, xform_name(operation))(**params)
 
-    Picking the operation from the service model rather than hardcoding one per
-    service is what keeps this test from growing a branch per service.
 
-    List* is tried before Describe* because the two answer differently on an
-    empty store. A List returns an empty collection; a Describe of a single
-    resource correctly returns ResourceNotFoundException, which is the engine
-    working, not the engine missing. Preferring List keeps the common case
-    unambiguous — see _served_or_missing for the Describe-only services.
+def test_every_registered_service_is_addressable():
+    """Every registered service resolves to a boto3 client, or is a named case.
+
+    This is the gate that keeps the parametrization below honest. Without it a
+    service whose name stopped resolving would silently drop out of the suite —
+    the exact failure mode the hand-written lists had, reintroduced by accident.
     """
-    model = client.meta.service_model
-    for prefix in ("List", "Describe"):
-        for name in sorted(model.operation_names):
-            if not name.startswith(prefix):
-                continue
-            shape = model.operation_model(name).input_shape
-            if shape is None or not shape.required_members:
-                return name
-    return None
-
-
-# A resource that does not exist in an empty store is a served answer: the
-# engine looked in the store and reported honestly. A refusal is different —
-# InvalidAction and NotImplemented mean nothing handled the request at all.
-SERVED_ERROR_CODES = {
-    "ResourceNotFoundException",
-    "NotFoundException",
-    "ResourceNotFound",
-    "NoSuchEntity",
-}
-
-
-@pytest.mark.parametrize("service", ENGINE_SERVED_SERVICES)
-def test_service_serves_at_least_one_operation(service_client, service):
-    client = service_client(service)
-
-    op = _parameterless_read_op(client)
-    assert op is not None, (
-        f"{service} declares no parameterless List*/Describe* operation, "
-        "so this test cannot establish that it serves anything"
+    unresolved = [
+        service
+        for service in ADDRESSABLE_SERVICES
+        if _coverage.boto3_name(service) is None
+    ]
+    assert not unresolved, (
+        f"{len(unresolved)} registered services resolve to no boto3 client name: "
+        f"{unresolved}. Either botocore renamed the client — add the resolution to "
+        "_coverage.BOTO3_NAME_OVERRIDES — or no client exists, which belongs in "
+        "_coverage.NO_BOTO3_CLIENT with its reason."
     )
 
-    try:
-        response = getattr(client, xform_name(op))()
-    except ClientError as exc:
-        code = exc.response.get("Error", {}).get("Code")
-        if code in SERVED_ERROR_CODES:
-            # Served: the engine consulted an empty store and said so.
+
+def test_services_without_a_boto3_client_are_exactly_the_known_two():
+    """The compatibility-tested ceiling is a fact about the SDK, not a backlog.
+
+    docs/coverage.md publishes this ceiling. If the set changes, the published
+    number changes with it, so it is pinned here rather than counted at runtime.
+    """
+    missing = {s for s in ALL_SERVICES if _coverage.boto3_name(s) is None}
+    assert missing == set(_coverage.NO_BOTO3_CLIENT), (
+        f"services with no boto3 client changed: {sorted(missing)}. "
+        "docs/coverage.md publishes this set and its size."
+    )
+
+
+@pytest.mark.parametrize("service", sorted(_coverage.UNREACHABLE_FROM_BOTO3))
+def test_lex_services_are_unreachable_from_boto3(service_client, service):
+    """The four Lex services are registered, counted as served, and unroutable.
+
+    All four boto3 Lex clients sign as "lex", no service is named "lex", so the
+    alias stays contested and unrouted rather than guessed. docs/coverage.md
+    said each Lex service is reachable "by its own unambiguous name"; a boto3
+    caller has no such name to use, which is what this pins.
+
+    It asserts UnknownService deliberately. Making Lex routable is routing work,
+    not coverage work, and when it lands this test fails — which is the signal to
+    move these four into the parametrization above and raise the published
+    compatibility-tested figure with them.
+    """
+    entry = MANIFEST[service]
+    name = _coverage.boto3_name(service)
+    client = service_client(name)
+
+    candidates = _coverage.probe_operations(name, entry["servedOps"])
+    assert candidates, f"{service} has no served operation to probe"
+    operation, needs_input = candidates[0]
+    params = _coverage.stub_params(name, operation) if needs_input else {}
+
+    with pytest.raises(ClientError) as excinfo:
+        _call(client, operation, params)
+
+    code = excinfo.value.response.get("Error", {}).get("Code")
+    assert code == "UnknownService", (
+        f"{service} ({name}.{operation}) answered {code}, not UnknownService. "
+        "If Lex routing was fixed, move these services into "
+        "test_registered_service_meets_the_floor and update docs/coverage.md."
+    )
+
+
+@pytest.mark.parametrize("service", TESTABLE_SERVICES)
+def test_registered_service_meets_the_floor(service_client, service):
+    """The floor, for every registered service, in one assertion per service.
+
+    The manifest decides which half applies. A service that serves something is
+    asked for one of the operations it serves; a service that serves nothing is
+    asked for anything at all and must refuse in AWS's vocabulary.
+    """
+    entry = MANIFEST[service]
+    name = _coverage.boto3_name(service)
+    client = service_client(name)
+
+    candidates = _coverage.probe_operations(name, entry["servedOps"])
+
+    if not candidates:
+        _assert_declines_cleanly(client, name, service, entry)
+        return
+
+    # The floor is a property of the service, not of one operation: at least one
+    # operation the manifest calls served has to answer. Trying several is what
+    # keeps a single overstated operation from reading as a dead service — the
+    # manifest labels an operation hand-verified when a provider has a case
+    # clause for it, which is not the same as the gateway being able to route to
+    # it. See docs/coverage.md.
+    refusals = []
+    for operation, needs_input in candidates:
+        params = _coverage.stub_params(name, operation) if needs_input else {}
+
+        try:
+            response = _call(client, operation, params)
+        except ParamValidationError as exc:
+            refusals.append(f"{operation}: request never left botocore ({exc})")
+            continue
+        except ClientError as exc:
+            code = exc.response.get("Error", {}).get("Code")
+            if not code or code in _coverage.UNSERVED_ERROR_CODES:
+                refusals.append(f"{operation}: {code or exc.response.get('Error')}")
+                continue
+            # Either a store that reported an absent resource honestly, or a
+            # validation refusal of the stub values. Both mean the request was
+            # routed and its operation classified, which is what this proves.
             return
-        pytest.fail(
-            f"{service}.{op} is routed but not served: {exc.response.get('Error')}. "
-            "The provider is most likely not returning plugin.ErrUnhandledOp, "
-            "so the request never reaches the CRUD engine."
-        )
+        except Exception as exc:  # noqa: BLE001 - the type is reported, not swallowed
+            # botocore could not parse the answer. That is a real defect, but an
+            # operation-level one: the service can still meet the floor on
+            # another operation, and calling it dead here would report the wrong
+            # thing. The type is kept so an all-candidates failure names it.
+            refusals.append(
+                f"{operation}: unparseable response ({type(exc).__name__}: {exc})"
+            )
+            continue
 
-    assert response["ResponseMetadata"]["HTTPStatusCode"] == 200
+        assert response["ResponseMetadata"]["HTTPStatusCode"] == 200
+        return
+
+    pytest.fail(
+        f"{service} ({name}, {entry['protocol']}) serves nothing that answers. "
+        f"The fidelity manifest lists {len(entry['servedOps'])} served operations "
+        f"for it, and all {len(candidates)} tried were refused:\n  "
+        + "\n  ".join(refusals)
+        + "\nThe provider is most likely not returning plugin.ErrUnhandledOp, so "
+        "the request never reaches the CRUD engine."
+    )
 
 
-@pytest.mark.parametrize("service", REGISTERED_ONLY_SERVICES)
-def test_registered_only_service_declines_cleanly(service_client, service):
+def _assert_declines_cleanly(client, name, service, entry):
     """A service that serves nothing must say so in AWS's own vocabulary.
 
     This is the guarantee that keeps breadth from becoming a lie. Registering a
     service DevCloud cannot serve is worth doing — the call is routed and
     answered locally instead of silently reaching real AWS — but only while the
-    answer is an honest error. A fabricated 200 here would be worse than not
-    registering the service at all, because the caller would believe it.
+    answer is an honest error.
     """
-    client = service_client(service)
-
-    op = _parameterless_read_op(client)
-    if op is None:
-        pytest.skip(f"{service} declares no parameterless List*/Describe* operation")
+    model = _coverage.service_model(name)
+    operation = sorted(model.operation_names)[0]
+    params = _coverage.stub_params(name, operation)
 
     try:
-        response = getattr(client, xform_name(op))()
+        response = _call(client, operation, params)
+    except ParamValidationError as exc:
+        pytest.fail(
+            f"{service} ({name}.{operation}): the request never left botocore: {exc}. "
+            "This is a harness gap, not a service defect."
+        )
     except ClientError as exc:
         error = exc.response["Error"]
         assert error.get("Code"), (
-            f"{service}.{op} failed without an AWS error code: {error}"
+            f"{service} ({name}.{operation}) failed without an AWS error code: {error}"
         )
         return
 
     pytest.fail(
-        f"{service}.{op} returned {response['ResponseMetadata']['HTTPStatusCode']} "
-        f"but nothing serves this service — a success here is fabricated. "
-        f"If it is genuinely served now, move it to ENGINE_SERVED_SERVICES."
+        f"{service} ({name}.{operation}, {entry['protocol']}) returned "
+        f"{response['ResponseMetadata']['HTTPStatusCode']} but the fidelity "
+        "manifest says nothing serves this service — a success here is "
+        "fabricated. If it is genuinely served now, run `make codegen`: the "
+        "manifest is the source, and this test follows it."
     )
