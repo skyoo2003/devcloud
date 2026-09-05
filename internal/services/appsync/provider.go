@@ -15,6 +15,7 @@ import (
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	"github.com/skyoo2003/devcloud/internal/shared"
+	"github.com/skyoo2003/devcloud/internal/shared/crud"
 )
 
 // Provider implements the DeepdishControlPlaneService (AppSync) service.
@@ -61,6 +62,14 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 
 	if op == "" {
 		op = resolveOp(req.Method, path)
+	}
+	// resolveOp is hand-written and knows the paths somebody thought to add. The
+	// model's own route table knows all of them, so a path it does not recognise
+	// is recovered rather than lost: ListApis is GET /v2/apis and resolveOp only
+	// strips /v1, which left the case clause below unreachable while the
+	// fidelity manifest called it hand-verified.
+	if op == "" {
+		op = crud.Route("appsync", req.Method, req.URL.RequestURI())
 	}
 
 	switch op {

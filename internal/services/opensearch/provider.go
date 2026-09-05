@@ -14,6 +14,7 @@ import (
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	"github.com/skyoo2003/devcloud/internal/shared"
+	"github.com/skyoo2003/devcloud/internal/shared/crud"
 )
 
 // Provider implements the OpenSearchService service.
@@ -45,6 +46,15 @@ func (p *Provider) Shutdown(_ context.Context) error {
 func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request) (*plugin.Response, error) {
 	if op == "" {
 		op = resolveOp(req.Method, req.URL.Path)
+	}
+	// resolveOp is hand-written and knows the paths somebody thought to add. The
+	// model's own route table knows all of them, so a path it does not recognise
+	// is recovered rather than lost: ListApplications is
+	// GET /2021-01-01/opensearch/list-applications and resolveOp knows only
+	// GET /application, which left the case clause below unreachable while the
+	// fidelity manifest called it hand-verified.
+	if op == "" {
+		op = crud.Route("opensearch", req.Method, req.URL.RequestURI())
 	}
 
 	body, err := io.ReadAll(req.Body)

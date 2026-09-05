@@ -1,0 +1,5 @@
+kind: Fixed
+body: 'Three operations the fidelity manifest calls `hand-verified` are now reachable. `appsync.ListApis`, `eks.ListAccessPolicies` and `opensearch.ListApplications` were each implemented by a `case` clause in their provider, but the provider''s hand-written path resolver did not know the route boto3 sends — `GET /v2/apis`, `GET /access-policies` and `GET /2021-01-01/opensearch/list-applications` — so the operation arrived empty and the call answered `NotImplemented`. Each provider now falls back to its own model''s route table when its resolver recognises nothing, which recovers the operation instead of losing it. No published figure moves: these operations were already labelled served, and the label is now true'
+time: 2026-09-06T16:00:00.000000+09:00
+custom:
+    Issue: "147"

@@ -105,16 +105,34 @@ func Register(service string, ops map[string]OpMeta) {
 	routes[service] = rs
 }
 
+// Route returns the operation a service models at this method and URI, or "" if
+// it models none.
+//
+// The table is the service's own model, so this is the answer a hand-written
+// path resolver inside a provider is trying to reproduce. A provider whose
+// resolver does not recognise a path can end with this instead of "": the
+// operation is recovered from the model rather than lost, and a `case` clause
+// the provider already has stops being unreachable.
+//
+// It answers "" rather than an error for a service the engine holds no routes
+// for. Registration happens in the generated crudregistry's init, which only
+// runs for an importer — a provider unit test that does not import it sees an
+// empty table and falls back on the provider's own resolver, which is the
+// behaviour it had before.
+func Route(service, method, uri string) string {
+	mu.RLock()
+	rs := routes[service]
+	mu.RUnlock()
+	op, _ := httproute.Match(rs, method, uri)
+	return op
+}
+
 // HasRoute reports whether a service models a REST operation at this method and
 // URI. It answers "is this request one this service could serve?", which is how
 // the gateway tells apart services that share a SigV4 signing name and so cannot
 // be separated by the credential scope alone.
 func HasRoute(service, method, uri string) bool {
-	mu.RLock()
-	rs := routes[service]
-	mu.RUnlock()
-	op, _ := httproute.Match(rs, method, uri)
-	return op != ""
+	return Route(service, method, uri) != ""
 }
 
 // RegisteredOps returns the operation metadata registered for a service.

@@ -14,6 +14,7 @@ import (
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	"github.com/skyoo2003/devcloud/internal/shared"
+	"github.com/skyoo2003/devcloud/internal/shared/crud"
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
 )
 
@@ -61,6 +62,14 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 
 	if op == "" {
 		op = resolveOp(req.Method, path)
+	}
+	// resolveOp is hand-written and knows the paths somebody thought to add. The
+	// model's own route table knows all of them, so a path it does not recognise
+	// is recovered rather than lost: ListAccessPolicies is GET /access-policies
+	// and resolveOp has no case for it, which left the case clause below
+	// unreachable while the fidelity manifest called it hand-verified.
+	if op == "" {
+		op = crud.Route("eks", req.Method, req.URL.RequestURI())
 	}
 
 	switch op {
