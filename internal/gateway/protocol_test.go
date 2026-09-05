@@ -18,6 +18,41 @@ func TestDetectProtocol_RESTXML(t *testing.T) {
 	assert.Equal(t, "s3", service)
 }
 
+// TestDetectProtocol_S3Control covers the one service that shares S3's signing
+// name. S3 Control signs as "s3", so branch 3's `svc != "s3"` guard sends it to
+// the REST-XML default — the only branch that never consults SigningSiblings.
+// Without a split it lands on the S3 provider, which parses
+// /v20180820/accesspoint/ap as bucket "v20180820", key "accesspoint/ap" and
+// stores it: a 200 for a service that served nothing.
+func TestDetectProtocol_S3Control(t *testing.T) {
+	cases := []struct{ name, method, path, want string }{
+		// Every S3 Control operation is under /v20180820/ and no S3 operation is.
+		{"create_access_point", "PUT", "/v20180820/accesspoint/ap", "s3control"},
+		{"list_access_points", "GET", "/v20180820/accesspoint", "s3control"},
+		{"delete_access_point", "DELETE", "/v20180820/accesspoint/ap", "s3control"},
+		{"get_public_access_block", "GET", "/v20180820/configuration/publicAccessBlock", "s3control"},
+		{"create_job", "POST", "/v20180820/jobs", "s3control"},
+		// S3 itself must be untouched, including the shapes most likely to be
+		// caught by a sloppier prefix test.
+		{"s3_create_bucket", "PUT", "/my-bucket", "s3"},
+		{"s3_put_object", "PUT", "/my-bucket/some/key", "s3"},
+		{"s3_list_buckets", "GET", "/", "s3"},
+		{"s3_bucket_named_like_the_prefix", "PUT", "/v20180820", "s3"},
+		{"s3_key_containing_the_prefix", "PUT", "/my-bucket/v20180820/x", "s3"},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			req := httptest.NewRequest(c.method, c.path, nil)
+			// S3 Control signs with S3's own name; that is the whole problem.
+			req.Header.Set("Authorization",
+				"AWS4-HMAC-SHA256 Credential=AKIA/20130524/us-east-1/s3/aws4_request, Signature=abc")
+			proto, service := DetectProtocol(req)
+			assert.Equal(t, "rest-xml", proto)
+			assert.Equal(t, c.want, service)
+		})
+	}
+}
+
 func TestDetectProtocol_JSON10_DynamoDB(t *testing.T) {
 	req := httptest.NewRequest("POST", "/", strings.NewReader(`{}`))
 	req.Header.Set("X-Amz-Target", "DynamoDB_20120810.PutItem")
