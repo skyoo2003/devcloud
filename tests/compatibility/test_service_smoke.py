@@ -19,6 +19,9 @@ Which of the two applies is read from the manifest, not decided here. That is
 what makes this file unable to drift from the published numbers.
 """
 
+import pathlib
+import re
+
 import pytest
 from botocore import xform_name
 from botocore.exceptions import ClientError, ParamValidationError
@@ -56,6 +59,35 @@ def test_every_registered_service_is_addressable():
         f"{unresolved}. Either botocore renamed the client — add the resolution to "
         "_coverage.BOTO3_NAME_OVERRIDES — or no client exists, which belongs in "
         "_coverage.NO_BOTO3_CLIENT with its reason."
+    )
+
+
+def test_published_compatibility_tested_figure_matches_this_suite():
+    """docs/coverage.md's fourth number is this suite's size, and is gated as such.
+
+    The Go gate in cmd/devcloud/coverage_test.go checks the three numbers it can
+    see from the binary. This one is only visible from here, because it is a
+    fact about what botocore can address, so it is asserted here — same rule,
+    same both-directions failure.
+    """
+    doc = (
+        pathlib.Path(__file__).resolve().parents[2] / "docs" / "coverage.md"
+    ).read_text()
+
+    rows = re.findall(
+        r"^\|\s*\*\*Compatibility-tested\*\*\s*\|[^|]*\|\s*\*\*(\d+)\*\*\s*\|",
+        doc,
+        re.M,
+    )
+    assert len(rows) == 1, (
+        f"docs/coverage.md: found {len(rows)} Compatibility-tested rows, want 1. "
+        "The summary table was restructured; this gate reads it."
+    )
+    assert int(rows[0]) == len(TESTABLE_SERVICES), (
+        f"docs/coverage.md publishes {rows[0]} compatibility-tested services, this "
+        f"suite exercises {len(TESTABLE_SERVICES)}. Excluded: "
+        f"{sorted(_coverage.NO_BOTO3_CLIENT)} (no boto3 client) and "
+        f"{sorted(_coverage.UNREACHABLE_FROM_BOTO3)} (unroutable)."
     )
 
 

@@ -12,6 +12,11 @@ things:
 | **Registered** | The gateway routes the service. A call reaches DevCloud instead of falling through to real AWS. | **205** |
 | **Serving ≥1 operation** | At least one operation returns a real, store-backed answer — hand-written or served by the generic CRUD engine. | **201** |
 | **Registered-only** | Routed, but every operation declines with a clean AWS error. Nothing is served. | **4** |
+| **Compatibility-tested** | A boto3 test exercises the service in CI and passes — either serving an operation or declining cleanly. | **199** |
+
+Every number on this page is asserted against the binary by
+`go test ./cmd/devcloud/`. Editing one here without the code moving fails CI, and
+so does the reverse. See [Reproducing these numbers](#reproducing-these-numbers).
 
 Per operation, from the [fidelity manifest](fidelity-manifest.md):
 
@@ -53,9 +58,41 @@ Registered services by protocol:
 
 Four services are registered and serve nothing, and all four are the same case —
 no CRUD-shaped operation anywhere in their API: `forecastquery` (`QueryForecast`,
-`QueryWhatIfForecast`), the two SageMaker Runtime variants (`InvokeEndpoint*`),
-and `rds-data` (`ExecuteStatement`, `BeginTransaction`, `CommitTransaction`,
+`QueryWhatIfForecast`), the two SageMaker Runtime variants `sagemaker-runtime`
+and `sagemakerruntimehttp2` (`InvokeEndpoint*`), and `rds-data`
+(`ExecuteStatement`, `BeginTransaction`, `CommitTransaction`,
 `RollbackTransaction`). No protocol change reaches them.
+
+## Why the compatibility-tested number is 199, not 205
+
+Every registered service is exercised by
+`tests/compatibility/test_service_smoke.py`, which parametrises over the
+generated service list rather than a hand-written one — so a service cannot be
+registered and quietly go untested, which is what 31 of them were until this was
+measured. Six are excluded, in two groups, and neither group is a backlog.
+
+**Two have no boto3 client at all.** botocore publishes 431 clients and neither
+`sagemakerruntimehttp2` nor `transcribestreaming` is among them —
+`sagemaker-runtime` and `transcribe` are different clients with different APIs.
+No boto3 test can exist for a client that does not exist. This is a property of
+the AWS SDK, not of DevCloud, and it is the ceiling on this number.
+
+**Four are registered and unreachable.** All four Lex clients — `lex-models`,
+`lex-runtime`, `lexv2-models`, `lexv2-runtime` — sign as `lex`, and no service
+is named `lex`, so the alias stays contested and routes nowhere rather than
+sending one service's traffic to another. The consequence, which this page did
+not state until it was measured: the "reached by its own unambiguous name"
+escape below does not exist for a boto3 caller, because boto3 signs with the
+contested name and offers nothing else. The four are counted in *serving ≥1
+operation*, because their operations are classified and would be served; they
+are not counted here, because nothing can ask for them.
+
+Splitting them on the URL is what resolved `opensearch` / `elasticsearchservice`
+and API Gateway v1 / v2, and it does not work here: `/bots` is the first path
+segment for three of the four. A correct split needs full path matching across
+all four, which is routing work rather than coverage work.
+`test_lex_services_are_unreachable_from_boto3` pins the current state, so
+fixing the routing fails that test and moves this number up with it.
 
 Being engine-servable is not the same as being served. Thirteen of the fifteen
 `query` services and three of the four `rest-xml` ones have hand-written
@@ -273,10 +310,22 @@ store, not by how many services are registered.
 ```bash
 make codegen        # regenerate the manifest from the models
 make stats          # registered services and hand-written operations
-go test ./cmd/devcloud/    # asserts the manifest against the live registry
+go test ./cmd/devcloud/    # asserts every number on this page against the binary
+make test-compat           # the compatibility-tested number, over all 205 services
 ```
 
-The three service numbers come from `internal/generated/fidelity/manifest_gen.go`
-and nothing else, so they cannot drift from what the binary actually serves —
-`TestFidelityManifestCoverage` and `TestFidelityManifestCoversCRUDRegistry` fail
-if they do.
+The service and operation numbers come from
+`internal/generated/fidelity/manifest_gen.go` and nothing else, so they cannot
+drift from what the binary actually serves — `TestFidelityManifestCoverage` and
+`TestFidelityManifestCoversCRUDRegistry` fail if they do.
+
+They cannot drift from *this page* either.
+`TestPublishedCoverageMatchesTheBinary` and
+`TestPublishedOperationTiersMatchTheManifest` read the tables above and compare
+each figure to the live registry and manifest, in both directions: a service
+removed without editing the page fails, and a figure edited here without the
+code moving fails identically. `TestRegisteredOnlyServicesAreNamedInTheDocs`
+does the same for the depth claim, so a service that starts serving nothing
+cannot join that set without being named. `TestDemandSetIsRegistered` checks the
+target itself — all 57 services in [demand.md](demand.md) are still registered,
+so the count cannot be held steady by swapping one out for something else.

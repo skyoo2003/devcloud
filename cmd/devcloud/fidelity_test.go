@@ -22,16 +22,15 @@ var validTiers = map[fidelity.Tier]bool{
 // package init, so both the plugin registry and the CRUD registry hold their
 // full surface. Regenerate with `make codegen` when it fails.
 func TestFidelityManifestCoverage(t *testing.T) {
-	// Conservative floors, in the spirit of TestServicePluginConformance: a
-	// mangled generator or a dropped scan collapses these far below the real
-	// numbers without the fragility of asserting an exact count.
-	const (
-		minServices   = 100
-		minOperations = 6000
-	)
-
-	if len(fidelity.Services) < minServices {
-		t.Fatalf("manifest covers %d services, want >= %d", len(fidelity.Services), minServices)
+	// The counts are not floored here any more. They are asserted exactly, in
+	// both directions, against the figure docs/coverage.md publishes — see
+	// TestPublishedCoverageMatchesTheBinary and
+	// TestPublishedOperationTiersMatchTheManifest. The conservative floors this
+	// replaces (100 services, 6,000 operations) were right for catching a
+	// mangled generator and could not notice 205 services becoming 150, which is
+	// what the published claim rests on.
+	if len(fidelity.Services) == 0 {
+		t.Fatal("the fidelity manifest is empty; run `make codegen`")
 	}
 
 	operations := 0
@@ -78,9 +77,6 @@ func TestFidelityManifestCoverage(t *testing.T) {
 			t.Errorf("%s: the CRUD engine holds %d operations for it, but the manifest serves none",
 				id, len(crud.RegisteredOps(id)))
 		}
-	}
-	if operations < minOperations {
-		t.Errorf("manifest covers %d operations, want >= %d", operations, minOperations)
 	}
 }
 
