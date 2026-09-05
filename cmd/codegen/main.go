@@ -158,8 +158,18 @@ func main() {
 			os.Exit(1)
 		}
 
-		if err := writeFidelityManifest(gen, *outputDir, modelOps, protocols, providers, crudServices); err != nil {
+		// Built once and shared: the compat manifest is a projection of the
+		// fidelity data, so deriving it from anything else would let the two
+		// disagree about which operations a service serves.
+		fidelityData := codegen.BuildFidelityData(modelOps, protocols, providers, crudServices)
+
+		if err := writeFidelityManifest(gen, *outputDir, fidelityData); err != nil {
 			fmt.Fprintf(os.Stderr, "Error writing fidelity manifest: %v\n", err)
+			os.Exit(1)
+		}
+
+		if err := writeCompatManifest(*outputDir, fidelityData); err != nil {
+			fmt.Fprintf(os.Stderr, "Error writing compat manifest: %v\n", err)
 			os.Exit(1)
 		}
 
@@ -200,17 +210,8 @@ func writeAliases(gen *codegen.Generator, outputDir string, models []*ir.Model) 
 // writeFidelityManifest emits the per-operation fidelity manifest. Like the CRUD
 // registry it is only written on a full-fleet run, since a filtered run would
 // produce a partial manifest.
-func writeFidelityManifest(
-	gen *codegen.Generator,
-	outputDir string,
-	modelOps map[string][]string,
-	protocols map[string]string,
-	providers map[string]codegen.ProviderScan,
-	crudServices []codegen.CRUDServiceData,
-) error {
-	content, err := gen.GenerateFidelityManifest(
-		codegen.BuildFidelityData(modelOps, protocols, providers, crudServices),
-	)
+func writeFidelityManifest(gen *codegen.Generator, outputDir string, data codegen.FidelityData) error {
+	content, err := gen.GenerateFidelityManifest(data)
 	if err != nil {
 		return err
 	}
@@ -220,4 +221,22 @@ func writeFidelityManifest(
 		return err
 	}
 	return codegen.WriteGo(filepath.Join(dir, "manifest_gen.go"), content)
+}
+
+// writeCompatManifest emits the service list the boto3 compatibility suite
+// parametrizes over. It is JSON rather than Go because Python reads it, and it
+// lives under internal/generated so the codegen-drift CI job diffs it alongside
+// everything else derived from the models — a service added without a
+// regeneration then fails CI instead of quietly going untested.
+func writeCompatManifest(outputDir string, data codegen.FidelityData) error {
+	content, err := codegen.RenderCompatManifest(codegen.BuildCompatManifest(data))
+	if err != nil {
+		return err
+	}
+
+	dir := filepath.Join(outputDir, "compat")
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return err
+	}
+	return os.WriteFile(filepath.Join(dir, "services.json"), content, 0644)
 }
