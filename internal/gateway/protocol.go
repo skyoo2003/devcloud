@@ -78,7 +78,24 @@ func DetectProtocol(r *http.Request) (protocol string, serviceID string) {
 		})
 	}
 
-	// 4. Default: REST-XML / S3
+	// 4. Default: REST-XML / S3.
+	//
+	// S3 Control signs with S3's own name ("s3"), so branch 3's `svc != "s3"`
+	// guard sends it here — and this is the one branch that never consults
+	// SigningSiblings, even though aliases.SigningSiblings["s3"] already lists
+	// both. Every S3 Control operation is under /v20180820/ and no S3 operation
+	// is, so the path separates them, exactly as it does for opensearch and
+	// apigateway above.
+	//
+	// A route-table split would be wrong here rather than merely bigger: S3's
+	// own `PutObject PUT /{Bucket}/{Key+}` matches /v20180820/accesspoint/ap,
+	// so asking which service models the path answers "s3". That is also what
+	// the bug was — the S3 provider stored the request as bucket "v20180820",
+	// key "accesspoint/ap" and returned 200, fabricating a success for a
+	// service that served nothing.
+	if strings.HasPrefix(r.URL.Path, "/v20180820/") {
+		return "rest-xml", "s3control"
+	}
 	return "rest-xml", "s3"
 }
 
