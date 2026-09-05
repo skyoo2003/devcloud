@@ -1,0 +1,5 @@
+kind: Fixed
+body: '''make codegen'' is now byte-identical across runs. A model bundling two namespaces with colliding shape names produced different output on every run, because shapes are keyed by short name and the generator iterated a Go map'
+time: 2026-09-05T17:10:05.000000+09:00
+custom:
+    Issue: "137"
