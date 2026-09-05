@@ -4,6 +4,7 @@ package crud
 
 import (
 	"encoding/json"
+	"net/url"
 	"strings"
 	"sync"
 	"testing"
@@ -87,8 +88,10 @@ func TestEngineUnclassified(t *testing.T) {
 	if _, err := handleJSON(t, svc, "SomeCustomOp", nil); err != ErrUnclassified {
 		t.Fatalf("unknown op: want ErrUnclassified, got %v", err)
 	}
-	if _, err := Handle(Call{Service: svc, Protocol: "query", Op: "CreateWidget", Body: []byte("{}")}); err != ErrUnclassified {
-		t.Fatalf("non-json protocol: want ErrUnclassified, got %v", err)
+	// ec2-query is the protocol still outside the engine: unlike query, it is
+	// not form-encoded with an Action field the engine can read.
+	if _, err := Handle(Call{Service: svc, Protocol: "ec2-query", Op: "CreateWidget", Body: []byte("{}")}); err != ErrUnclassified {
+		t.Fatalf("unservable protocol: want ErrUnclassified, got %v", err)
 	}
 	if _, err := handleJSON(t, "unregistered", "CreateThing", nil); err != ErrUnclassified {
 		t.Fatalf("unregistered service: want ErrUnclassified, got %v", err)
@@ -295,23 +298,161 @@ func TestEngineRESTJSONUnroutedOperationIsUnclassified(t *testing.T) {
 	}
 }
 
-// TestEngineQueryStillDeclines pins what is left of the boundary. query names
-// its operation in the form body rather than in the path, so until the engine
-// learns to read that, a query call must decline.
-//
-// This replaces TestEngineRESTXMLStillDeclines: rest-xml is no longer on the
-// wrong side of the line. Every one of its operations is bound to a method and
-// a URI template, exactly like rest-json, so the same route table classifies it.
-func TestEngineQueryStillDeclines(t *testing.T) {
-	const svc = "querysvc"
+// --- query ---
+
+func handleQuery(t *testing.T, service string, form url.Values) (*Result, error) {
+	t.Helper()
+	// Query is a form POST to "/": no path, no header, everything in the body.
+	return Handle(Call{
+		Service: service, Protocol: "query",
+		Method: "POST", URI: "/", Body: []byte(form.Encode()),
+	})
+}
+
+// TestEngineQueryRoundTrip is the last protocol. query is the one that names
+// its operation neither in a header nor in a path — Action is a field in the
+// form body, which is why it outlived rest-json and rest-xml as a gap.
+func TestEngineQueryRoundTrip(t *testing.T) {
+	const svc = "elbtest"
 	Register(svc, map[string]OpMeta{
-		"ListThings": {Verb: "List", Resource: "QYThing", OutputListKey: "Things",
-			Method: "GET", URI: "/things"},
+		"CreateLoadBalancer": {Verb: "Create", Resource: "LoadBalancer", OutputItemKey: "LoadBalancer"},
+		"DescribeLoadBalancers": {Verb: "Get", Resource: "LoadBalancer",
+			OutputListKey: "LoadBalancerDescriptions"},
+		"DeleteLoadBalancer": {Verb: "Delete", Resource: "LoadBalancer"},
 	})
 
-	_, err := Handle(Call{Service: svc, Protocol: "query", Method: "GET", URI: "/things"})
-	if err != ErrUnclassified {
-		t.Errorf("query: want ErrUnclassified, got %v", err)
+	// A Describe whose output is a collection reads as a list, so an empty
+	// store answers 200 with an empty element rather than NotFound.
+	r, err := handleQuery(t, svc, url.Values{
+		"Action":  {"DescribeLoadBalancers"},
+		"Version": {"2012-06-01"},
+	})
+	if err != nil || r.Status != 200 {
+		t.Fatalf("describe on empty store: status=%d err=%v", statusOf(r), err)
+	}
+	if got := string(r.Body); !strings.Contains(got, "<DescribeLoadBalancersResult>") {
+		t.Fatalf("not a query envelope: %s", got)
+	}
+
+	r, err = handleQuery(t, svc, url.Values{
+		"Action":           {"CreateLoadBalancer"},
+		"Version":          {"2012-06-01"},
+		"LoadBalancerName": {"my-lb"},
+	})
+	if err != nil || r.Status != 200 {
+		t.Fatalf("create: status=%d err=%v", statusOf(r), err)
+	}
+	if got := string(r.Body); !strings.Contains(got, "<LoadBalancerName>my-lb</LoadBalancerName>") {
+		t.Fatalf("create did not echo the form parameter: %s", got)
+	}
+
+	// The round trip that matters: the name the caller sent comes back.
+	r, _ = handleQuery(t, svc, url.Values{"Action": {"DescribeLoadBalancers"}})
+	if got := string(r.Body); !strings.Contains(got, "<LoadBalancerName>my-lb</LoadBalancerName>") {
+		t.Fatalf("describe did not return the created load balancer: %s", got)
+	}
+
+	if _, err := handleQuery(t, svc, url.Values{
+		"Action": {"DeleteLoadBalancer"}, "LoadBalancerName": {"my-lb"},
+	}); err != nil {
+		t.Fatalf("delete: %v", err)
+	}
+	r, _ = handleQuery(t, svc, url.Values{"Action": {"DescribeLoadBalancers"}})
+	if got := string(r.Body); strings.Contains(got, "my-lb") {
+		t.Fatalf("resource survived delete: %s", got)
+	}
+}
+
+// TestEngineQueryDropsProtocolFields keeps Action and Version out of the stored
+// resource. They describe the request, not the thing being created, and echoing
+// them back puts <Action>CreateLoadBalancer</Action> inside a result element
+// where no SDK expects a member by that name.
+func TestEngineQueryDropsProtocolFields(t *testing.T) {
+	const svc = "qfieldsvc"
+	Register(svc, map[string]OpMeta{
+		"CreateThing": {Verb: "Create", Resource: "QFThing", OutputItemKey: "Thing"},
+	})
+
+	r, err := handleQuery(t, svc, url.Values{
+		"Action": {"CreateThing"}, "Version": {"2012-06-01"}, "QFThingName": {"t1"},
+	})
+	if err != nil {
+		t.Fatalf("create: %v", err)
+	}
+	body := string(r.Body)
+	if strings.Contains(body, "<Action>") || strings.Contains(body, "<Version>") {
+		t.Errorf("protocol envelope fields leaked into the resource: %s", body)
+	}
+	if !strings.Contains(body, "<QFThingName>t1</QFThingName>") {
+		t.Errorf("real parameter was dropped: %s", body)
+	}
+}
+
+// TestEngineQueryDeclines covers every way a query request must fail rather
+// than be answered from the generic store.
+func TestEngineQueryDeclines(t *testing.T) {
+	const svc = "qmisssvc"
+	Register(svc, map[string]OpMeta{
+		"CreateThing": {Verb: "Create", Resource: "QMThing"},
+	})
+
+	cases := []struct {
+		name string
+		form url.Values
+	}{
+		// Not CRUD-shaped, so codegen registered nothing for it.
+		{"unknown_action", url.Values{"Action": {"ConfigureHealthCheck"}}},
+		// A form body with no Action at all is not a query request the engine
+		// can classify; guessing an operation from the other fields would be
+		// exactly the fabrication the coverage claim forbids.
+		{"no_action", url.Values{"LoadBalancerName": {"x"}}},
+		{"empty_action", url.Values{"Action": {""}}},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			if _, err := handleQuery(t, svc, c.form); err != ErrUnclassified {
+				t.Errorf("want ErrUnclassified, got %v", err)
+			}
+		})
+	}
+
+	if _, err := handleQuery(t, "unregistered", url.Values{"Action": {"CreateThing"}}); err != ErrUnclassified {
+		t.Errorf("unregistered service: want ErrUnclassified, got %v", err)
+	}
+}
+
+// TestEngineQueryBodyIsNotJSON guards the branch that would otherwise reject
+// every query request. Handle parses the body as JSON for the protocols that
+// send JSON; a form-encoded body is not JSON, and treating a failure to parse
+// it as a SerializationException would decline every query call with the wrong
+// error.
+func TestEngineQueryBodyIsNotJSON(t *testing.T) {
+	const svc = "qjsonsvc"
+	Register(svc, map[string]OpMeta{
+		"ListThings": {Verb: "List", Resource: "QJThing", OutputListKey: "Things"},
+	})
+
+	r, err := handleQuery(t, svc, url.Values{"Action": {"ListThings"}})
+	if err != nil {
+		t.Fatalf("list: %v", err)
+	}
+	if r.Status != 200 {
+		t.Fatalf("form body was rejected as malformed JSON: %d %s", r.Status, r.Body)
+	}
+}
+
+func TestEngineQueryContentType(t *testing.T) {
+	const svc = "qctsvc"
+	Register(svc, map[string]OpMeta{
+		"ListThings": {Verb: "List", Resource: "QCThing", OutputListKey: "Things"},
+	})
+
+	r, err := handleQuery(t, svc, url.Values{"Action": {"ListThings"}})
+	if err != nil {
+		t.Fatalf("list: %v", err)
+	}
+	if r.ContentType != "application/xml" {
+		t.Errorf("ContentType = %q, want application/xml", r.ContentType)
 	}
 }
 
@@ -334,9 +475,9 @@ func TestServableAndNeedsBody(t *testing.T) {
 		{"rest-json", true, true},
 		// The whole reason the predicates are separate.
 		{"rest-xml", true, false},
-		// Admitted in Task 4; its operation name is in the body, so it must be
-		// buffered before it can be read.
-		{"query", false, true},
+		// The mirror image: servable, and its operation name is in the body, so
+		// it must be buffered before it can be read.
+		{"query", true, true},
 		{"ec2-query", false, false},
 		{"nonsense", false, false},
 	}
