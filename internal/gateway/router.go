@@ -154,11 +154,24 @@ func extractOperationName(r *http.Request, protocol string) string {
 	}
 }
 
-// awsXMLError is the envelope for an XML-format AWS error response.
+// awsXMLError is the REST-XML error envelope, which S3 returns bare.
 type awsXMLError struct {
 	XMLName xml.Name `xml:"Error"`
 	Code    string   `xml:"Code"`
 	Message string   `xml:"Message"`
+}
+
+// awsQueryError is the Query-protocol error envelope. It is not the same shape
+// as REST-XML's: botocore's query parser looks for Error *inside* ErrorResponse,
+// and given a bare <Error> it returns a ClientError with no error code at all —
+// so the caller sees a failure with nothing to branch on. Only a registered
+// Query service that serves nothing takes this path, which is why it stayed
+// hidden until elb was registered.
+type awsQueryError struct {
+	XMLName xml.Name `xml:"ErrorResponse"`
+	Type    string   `xml:"Error>Type"`
+	Code    string   `xml:"Error>Code"`
+	Message string   `xml:"Error>Message"`
 }
 
 // awsJSONError is the envelope for a JSON-format AWS error response.
@@ -168,9 +181,15 @@ type awsJSONError struct {
 }
 
 // writeAWSError writes an AWS-style error response.
-// JSON protocols receive a JSON body; everything else receives XML.
+// JSON-bodied protocols receive a JSON body; everything else receives XML.
+//
+// "rest-json" does not start with "json", so it took the XML branch and a
+// rest-json client was handed an XML envelope it cannot parse — botocore
+// surfaces that as a ClientError with no error Code at all, which is worse than
+// the failure it is reporting. It went unnoticed while no rest-json service
+// reached the engine.
 func writeAWSError(w http.ResponseWriter, protocol string, status int, code, message string) {
-	if strings.HasPrefix(protocol, "json") {
+	if strings.HasPrefix(protocol, "json") || protocol == "rest-json" {
 		body, _ := json.Marshal(awsJSONError{Code: code, Message: message})
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(status)
@@ -178,7 +197,12 @@ func writeAWSError(w http.ResponseWriter, protocol string, status int, code, mes
 		return
 	}
 
-	body, _ := xml.Marshal(awsXMLError{Code: code, Message: message})
+	var body []byte
+	if protocol == "query" {
+		body, _ = xml.Marshal(awsQueryError{Type: "Sender", Code: code, Message: message})
+	} else {
+		body, _ = xml.Marshal(awsXMLError{Code: code, Message: message})
+	}
 	w.Header().Set("Content-Type", "application/xml")
 	w.WriteHeader(status)
 	_, _ = w.Write([]byte(xml.Header))

@@ -11,6 +11,8 @@ import (
 
 	"github.com/skyoo2003/devcloud/internal/auth"
 	"github.com/skyoo2003/devcloud/internal/generated/aliases"
+	"github.com/skyoo2003/devcloud/internal/generated/fidelity"
+	"github.com/skyoo2003/devcloud/internal/shared/crud"
 )
 
 // DetectProtocol inspects the incoming HTTP request and returns the AWS protocol
@@ -26,7 +28,10 @@ func DetectProtocol(r *http.Request) (protocol string, serviceID string) {
 		contentType := r.Header.Get("Content-Type")
 		proto := jsonProtocolFromContentType(contentType)
 		service := serviceFromTarget(target)
-		return proto, service
+		op := operationFromTarget(target)
+		return proto, resolveSharedSigningName(service, func(c string) bool {
+			return declaresOperation(c, op)
+		})
 	}
 
 	// 2. Query protocol via application/x-www-form-urlencoded
@@ -55,7 +60,22 @@ func DetectProtocol(r *http.Request) (protocol string, serviceID string) {
 		if normalized == "opensearch" && strings.Contains(r.URL.Path, "/2015-01-01/") {
 			normalized = "elasticsearchservice"
 		}
-		return "rest-json", normalized
+		// API Gateway v1 and v2 share the signing name "apigateway". The alias
+		// resolves to v1, which is the service that publishes the name — and
+		// every v2 operation is under /v2/, while no v1 operation is, so the
+		// path separates them cleanly. Same idea as the two splits above.
+		//
+		// This is what keeps v2 callers working now that "apigateway" no longer
+		// substitutes to v2: before api-gateway was registered, DevCloud served
+		// v2 for both, and a v2 client sending /v2/apis would otherwise land on
+		// a v1 provider that models no such path.
+		if normalized == "apigateway" && strings.HasPrefix(r.URL.Path, "/v2/") {
+			normalized = "apigatewayv2"
+		}
+		uri := r.URL.RequestURI()
+		return "rest-json", resolveSharedSigningName(normalized, func(c string) bool {
+			return crud.HasRoute(c, r.Method, uri)
+		})
 	}
 
 	// 4. Default: REST-XML / S3
@@ -207,7 +227,15 @@ var serviceIDOverrides = map[string]string{
 	// collision and TestServiceIDOverridesResolveEveryCollision fails until
 	// somebody decides. Deliberately not pinned here: pinning it would make
 	// that decision now, invisibly, for a service that does not exist yet.
-	"aoss": "opensearch", // OpenSearch Serverless publishes no model in-tree
+	// Timestream Query and Timestream Write share the shape name
+	// Timestream_20181101 and the version 2018-11-01, so neither the alias nor
+	// the protocol separates them. Pinned to write, which is where these
+	// aliases already pointed and the service with the hand-written provider;
+	// resolveSharedSigningName then hands query the operations write does not
+	// declare. Deleting these stops both services routing under the prefix
+	// every Timestream SDK actually sends.
+	"timestream":          "timestreamwrite",
+	"timestream_20181101": "timestreamwrite",
 }
 
 // normalizeServiceID maps SigV4 signing names, X-Amz-Target prefixes, and other
@@ -230,6 +258,81 @@ func normalizeServiceID(svc string) string {
 	return svc
 }
 
+// resolveSharedSigningName picks the service that actually models the request,
+// among those that sign with the same SigV4 name.
+//
+// AWS splits a data plane, runtime, or successor version into its own SDK client
+// while leaving it signing with the parent's name — 18 signing names are shared
+// this way across 50 services. The credential scope therefore cannot separate
+// them, and aliases.ServiceIDs answers with one member, so the others were
+// registered and routed to a provider that models none of their operations. A
+// boto3 mediastore-data client calling ListItems landed on mediastore.
+//
+// The tie is broken by what each candidate models: the REST route table for a
+// path-addressed request, the fidelity manifest for an operation-named one. The
+// resolved service keeps the request whenever it models it, so this only ever
+// redirects a request its current destination could not have served. When no
+// candidate models it, or more than one does, the request stays where it was and
+// gets that service's clean error — a guess would be worse than an honest miss.
+//
+// The grouping is derived (codegen.BuildSigningSiblings), so a new split-out
+// service is handled by regenerating, not by editing a list here.
+func resolveSharedSigningName(service string, match func(candidate string) bool) string {
+	group, shared := aliases.SigningSiblings[signingNameOf(service)]
+	if !shared || match(service) {
+		return service
+	}
+	found := ""
+	for _, candidate := range group {
+		if candidate == service || !match(candidate) {
+			continue
+		}
+		if found != "" {
+			// Ambiguous; two siblings model it. Leave the caller where it is.
+			return service
+		}
+		found = candidate
+	}
+	if found == "" {
+		return service
+	}
+	return found
+}
+
+// signingNameOf finds the signing name whose group contains service. The groups
+// are small and few, and this runs once per request that reaches a shared name.
+func signingNameOf(service string) string {
+	for name, group := range aliases.SigningSiblings {
+		for _, id := range group {
+			if id == service {
+				return name
+			}
+		}
+	}
+	return ""
+}
+
+// operationFromTarget returns the operation name from an X-Amz-Target value of
+// the form "<prefix>.<Operation>", or "" when there is no operation part.
+func operationFromTarget(target string) string {
+	if idx := strings.LastIndex(target, "."); idx != -1 {
+		return target[idx+1:]
+	}
+	return ""
+}
+
+// declaresOperation reports whether a service's model names this operation. Used
+// for the JSON protocols, where the request carries an operation but no path —
+// Timestream Query and Timestream Write publish the same shape name *and* the
+// same version, so the operation is the only thing that separates them.
+func declaresOperation(service, op string) bool {
+	if op == "" {
+		return false
+	}
+	_, ok := fidelity.Lookup(service, op)
+	return ok
+}
+
 // serviceFromQueryRequest determines the service for a Query-protocol request
 // from the SigV4 credential scope, then the Host header prefix, then the Action
 // parameter. SDKs, the CLI, and Terraform all sign, so the credential scope
@@ -238,6 +341,16 @@ func normalizeServiceID(svc string) string {
 // every IAM and STS call to the wrong provider. sqs remains the final default.
 func serviceFromQueryRequest(r *http.Request, body string) string {
 	if svc := serviceFromSigV4(r); svc != "" {
+		// ELB v1 and v2 share the signing name "elasticloadbalancing", and both
+		// speak Query, so neither the scope nor the protocol separates them.
+		// The API version in the request body does, and every SDK sends it.
+		//
+		// This is what keeps v2 callers working now that the alias resolves to
+		// v1: DevCloud served v2 for both before elastic-load-balancing was
+		// registered.
+		if svc == "elasticloadbalancing" && strings.Contains(body, "Version=2015-12-01") {
+			return "elasticloadbalancingv2"
+		}
 		return svc
 	}
 

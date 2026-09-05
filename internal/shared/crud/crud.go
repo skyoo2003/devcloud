@@ -104,6 +104,18 @@ func Register(service string, ops map[string]OpMeta) {
 	routes[service] = rs
 }
 
+// HasRoute reports whether a service models a REST operation at this method and
+// URI. It answers "is this request one this service could serve?", which is how
+// the gateway tells apart services that share a SigV4 signing name and so cannot
+// be separated by the credential scope alone.
+func HasRoute(service, method, uri string) bool {
+	mu.RLock()
+	rs := routes[service]
+	mu.RUnlock()
+	op, _ := httproute.Match(rs, method, uri)
+	return op != ""
+}
+
 // RegisteredOps returns the operation metadata registered for a service.
 func RegisteredOps(service string) map[string]OpMeta {
 	mu.RLock()
