@@ -27,3 +27,19 @@ var Collisions = []string{
 	"{{ . }}",
 {{- end }}
 }
+
+// SigningSiblings groups the services that sign with the same SigV4 name, for
+// the names more than one service shares.
+//
+// AWS splits a data plane, runtime, or successor version into its own SDK client
+// but leaves it signing with the parent's name — mediastore-data signs
+// "mediastore", service-catalog-appregistry signs "servicecatalog". ServiceIDs
+// can only answer with one of them, so every other member of the group would be
+// registered and then routed to the wrong provider for any caller that addresses
+// a service by its credential scope. The gateway uses this to pick the member
+// that actually models the request; see gateway.resolveSigningSibling.
+var SigningSiblings = map[string][]string{
+{{- range .Siblings }}
+	"{{ .SigningName }}": { {{- range $i, $id := .ServiceIDs }}{{ if $i }}, {{ end }}"{{ $id }}"{{ end -}} },
+{{- end }}
+}

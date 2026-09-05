@@ -178,19 +178,24 @@ func TestBuildAliasesOverTheFleet(t *testing.T) {
 
 	table, collisions := BuildAliases(models)
 
-	// Eight, and every one is a name no claimant carries as its own ID. The
-	// cases where a claimant does — dynamodb, rds, ses, sagemaker, bedrock,
-	// forecast, personalize, transcribe — are settled by selfNamedClaimant and
-	// deliberately absent here.
+	// Ten, and every one is a name no claimant carries as its own ID. The cases
+	// where a claimant does — dynamodb, rds, ses, sagemaker, bedrock, forecast,
+	// personalize, transcribe — are settled by selfNamedClaimant and
+	// deliberately absent here. That rule is also why onboarding the demand set
+	// added only two entries: api-gateway, elastic-load-balancing and
+	// kinesis-analytics each publish their contested name as their own service
+	// ID, so the generator settles them without a human.
 	assert.Equal(t, []string{
-		"amazonrdsv19",       // rds, docdb, neptune
-		"awswaf",             // waf, wafv2
-		"cognito",            // cognitoidentity, cognitoidentityprovider
-		"email",              // ses, sesv2
-		"es",                 // elasticsearchservice, opensearch
-		"lex",                // 4 Lex services, none named "lex"
-		"runtime.sagemaker",  // sagemakerruntime, sagemakerruntimehttp2
-		"simpleemailservice", // ses, sesv2
+		"amazonrdsv19",        // rds, docdb, neptune
+		"awswaf",              // waf, wafv2
+		"cognito",             // cognitoidentity, cognitoidentityprovider
+		"email",               // ses, sesv2
+		"es",                  // elasticsearchservice, opensearch
+		"lex",                 // 4 Lex services, none named "lex"
+		"runtime.sagemaker",   // sagemakerruntime, sagemakerruntimehttp2
+		"simpleemailservice",  // ses, sesv2
+		"timestream",          // timestreamquery, timestreamwrite
+		"timestream_20181101", // same pair: identical shape name AND version
 	}, collisions, "a new collision is a routing decision that needs a human")
 
 	// Spot-check aliases the hand-written switch used to carry, now derived.
@@ -210,11 +215,13 @@ func TestGenerateAliasesRendersBothTables(t *testing.T) {
 	output, err := gen.GenerateAliases(
 		map[string]string{"rekognitionservice": "rekognition", "logs": "cloudwatchlogs"},
 		[]string{"es"},
+		map[string][]string{"mediastore": {"mediastore", "mediastoredata"}},
 	)
 	require.NoError(t, err)
 
 	assert.Contains(t, output, "package aliases")
 	assert.Contains(t, output, `"rekognitionservice": "rekognition"`)
+	assert.Contains(t, output, `"mediastore": {"mediastore", "mediastoredata"}`)
 	assert.Contains(t, output, `"logs": "cloudwatchlogs"`)
 	assert.Contains(t, output, "var Collisions = []string{")
 	assert.Contains(t, output, `"es",`)

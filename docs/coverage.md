@@ -9,18 +9,18 @@ things:
 
 | Number | What it means | Today |
 |---|---|---|
-| **Registered** | The gateway routes the service. A call reaches DevCloud instead of falling through to real AWS. | **148** |
-| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer — hand-written or served by the generic CRUD engine. | **145** |
-| **Registered-only** | Routed, but every operation declines with a clean AWS error. Nothing is served. | **3** |
+| **Registered** | The gateway routes the service. A call reaches DevCloud instead of falling through to real AWS. | **205** |
+| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer — hand-written or served by the generic CRUD engine. | **199** |
+| **Registered-only** | Routed, but every operation declines with a clean AWS error. Nothing is served. | **6** |
 
 Per operation, from the [fidelity manifest](fidelity-manifest.md):
 
 | Tier | Operations |
 |---|---|
 | `hand-verified` | 4,496 |
-| `auto-crud` | 2,200 |
-| `unimplemented` | 2,334 |
-| **total known** | **9,030** |
+| `auto-crud` | 4,858 |
+| `unimplemented` | 3,053 |
+| **total known** | **12,407** |
 
 ## Why a registered service can serve nothing
 
@@ -45,17 +45,22 @@ Registered services by protocol:
 
 | Protocol | Services | Engine-servable |
 |---|---|---|
-| `json-1.1` | 49 | yes — operation from `X-Amz-Target` |
-| `json-1.0` | 11 | yes — operation from `X-Amz-Target` |
-| `rest-json` | 59 | yes — operation from method + path |
-| `query` | 14 | no |
-| `rest-xml` | 3 | no |
+| `json-1.1` | 64 | yes — operation from `X-Amz-Target` |
+| `json-1.0` | 17 | yes — operation from `X-Amz-Target` |
+| `rest-json` | 93 | yes — operation from method + path |
+| `query` | 15 | no |
+| `rest-xml` | 4 | no |
 | no in-tree model | 12 | n/a — hand-written providers |
 
-The three services that are registered and serve nothing are all the second
-case, not the first: `forecastquery` (`json-1.1`, only `QueryForecast` and
-`QueryWhatIfForecast`) and the two SageMaker Runtime variants (`rest-json`, only
-`InvokeEndpoint*`).
+Six services are registered and serve nothing. Four are the second case — no
+CRUD-shaped operation anywhere in their API: `forecastquery` (`QueryForecast`,
+`QueryWhatIfForecast`), the two SageMaker Runtime variants (`InvokeEndpoint*`),
+and `rds-data` (`ExecuteStatement`, `BeginTransaction`, `CommitTransaction`,
+`RollbackTransaction`). No protocol change reaches them.
+
+The other two are the first case, and they are the whole of what is left:
+`elastic-load-balancing` (`query`) and `s3-control` (`rest-xml`). Both are in
+the demand set, and both are what PRD Milestone 5 now covers.
 
 A registered operation is not automatically a reachable one. The engine is
 entered only when a provider returns `plugin.ErrUnhandledOp`, so a hand-written
@@ -88,6 +93,31 @@ of their providers.
 The three that remain are the ones no protocol change can help — `forecastquery`
 and the two SageMaker Runtime variants, none of which has a CRUD-shaped
 operation. See [Why a registered service can serve nothing](#why-a-registered-service-can-serve-nothing).
+
+## The demand set
+
+All 57 are registered, and the target of 205 is met. They were worked in the
+support-rank order of [demand.md](demand.md), so a stop at any point would have
+stopped on the best surface available.
+
+| | Count |
+|---|---|
+| Registered | 57 |
+| Serving ≥1 operation | 54 |
+| Registered-only | 3 |
+
+The 57 split by protocol as 34 `rest-json`, 15 `json-1.1`, 6 `json-1.0`, 1
+`query`, 1 `rest-xml`. Two thirds of the set is `rest-json`, which is why the
+engine gaining that protocol is what made this milestone possible rather than a
+matter of arithmetic: without it, 34 of the 57 would have registered and served
+nothing.
+
+The three that do not meet the floor are named above, each for a different
+reason. `rds-data` is the one worth calling out: it is supported by all three
+projects in the demand survey — the strongest signal in the whole set — and it
+still cannot be served generically, because not one of its six operations is
+CRUD-shaped. Breadth does not reach every service, and saying so is cheaper than
+a fabricated success.
 
 ## What counts as a service
 
@@ -151,8 +181,8 @@ tail looks like.
 
 | | Services |
 |---|---|
-| Registered today | 148 |
-| Target: registered + demonstrated demand | **205** |
+| Registered today | **205** |
+| Target: registered + demonstrated demand | **205 — met** |
 | Explicitly not targeted | 226 |
 
 The 226 are not refused. Any of them can be onboarded when someone asks — the
@@ -209,21 +239,26 @@ development tool; nothing is sent anywhere.
 
 ## Runtime cost
 
-Measured on an Apple Silicon machine, `CGO_ENABLED=0`, going from 105 to 147
-registered services (+42):
+Measured on an Apple Silicon machine, `CGO_ENABLED=0`, at each step of the
+roadmap:
 
-| | 105 services | 147 services | Per service |
+| | 105 services | 147 services | 205 services |
 |---|---|---|---|
-| Binary | 30.8 MiB | 31.3 MiB | ~12 KiB |
-| Cold start | ~460 ms | ~460 ms | no measurable change |
-| Idle RSS | 57.3 MiB | 57.7 MiB | ~10 KiB |
+| Binary | 30.8 MiB | 31.3 MiB | **33.1 MiB** |
+| Peak RSS (`/usr/bin/time -l`) | 57.3 MiB | 57.7 MiB | **43.7 MiB** |
+| Service registration | — | — | **49 ms for all 205** |
 
-Extrapolated to all 431 upstream models: roughly **35 MiB binary** and **61 MiB
-idle RSS**, with startup flat. The single-binary, zero-config property survives
-the full target with room to spare. Startup does not scale with service count
-because registration is a map insert per service in `init()`; the generated type
-definitions are mostly dead-code-eliminated by the linker, which is why 322k
-lines of generated Go cost half a megabyte of binary.
+The single-binary, zero-config property holds at the target with room to spare.
+Startup does not scale meaningfully with service count because registration is a
+map insert per service in `init()`, and the generated type definitions are mostly
+dead-code-eliminated by the linker — which is why 58 more services cost 1.8 MiB
+of binary.
+
+Peak RSS did not rise with the service count; it fell. The earlier figures were
+taken on a different day and are not a controlled comparison, so read this as
+"memory is not the constraint at 205" rather than as a saving. What the two
+readings agree on is the shape: memory is dominated by the runtime and the
+store, not by how many services are registered.
 
 ## Reproducing these numbers
 

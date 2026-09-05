@@ -49,8 +49,14 @@ normalisation is dropping matches and the support counts are too low:
 
 ## Ranking
 
-Ordered by support count, then name. This is the order Milestone 4 works
-in, so stopping at any point stops on the best surface available.
+Ordered by support count, then name. This is the order Milestone 4 worked
+in, so stopping at any point would have stopped on the best surface available.
+
+**All 57 services with support ≥ 2 are now registered** — the rows down to and
+including `workspaces-web`. 54 of them serve at least one operation; the three
+that do not (`elastic-load-balancing`, `rds-data`, `s3-control`) are named with
+their reasons in [coverage.md](coverage.md). The rows below them, support 1 and
+support 0, are the 226 services that remain explicitly not targeted.
 
 | Service | moto | LocalStack | terraform-provider-aws | Support |
 |---|---|---|---|---|

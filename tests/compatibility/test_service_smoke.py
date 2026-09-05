@@ -55,6 +55,66 @@ ENGINE_SERVED_SERVICES = [
     "personalize",
     "translate",
     "voice-id",
+    # --- the demand set (Milestone 4) ---
+    # Every unregistered AWS service that two or more of moto, LocalStack and
+    # terraform-provider-aws had already built (docs/demand.md). 54 of the 57
+    # serve at least one operation; these 51 are the ones this harness can
+    # prove, because they declare a List*/Describe* that needs no input.
+    "amp",
+    "appmesh",
+    "cleanrooms",
+    "cloudhsmv2",
+    "codestar-connections",
+    "connect",
+    "databrew",
+    "datapipeline",
+    "datasync",
+    "dax",
+    "devops-agent",
+    "directconnect",
+    "ds",
+    "dsql",
+    "emr-containers",
+    "emr-serverless",
+    "fsx",
+    "greengrass",
+    "guardduty",
+    "inspector2",
+    "ivs",
+    "kinesisanalytics",
+    "kinesisvideo",
+    "macie2",
+    "mediaconnect",
+    "medialive",
+    "mediapackage",
+    "mediapackagev2",
+    "mediastore",
+    "mediastore-data",
+    "network-firewall",
+    "networkmanager",
+    "opensearchserverless",
+    "osis",
+    "payment-cryptography",
+    "quicksight",
+    "redshift-data",
+    "resiliencehub",
+    "route53domains",
+    "s3vectors",
+    "securityhub",
+    "service-quotas",
+    "servicecatalog",
+    "servicecatalog-appregistry",
+    "signer",
+    "synthetics",
+    "timestream-influxdb",
+    "timestream-query",
+    "vpc-lattice",
+    "workspaces",
+    "workspaces-web",
+    # Served, but not provable here: apigateway and apigatewaymanagementapi
+    # read with Get* rather than List*/Describe*, and budgets requires an
+    # account id on every operation. The fidelity manifest is their record,
+    # as for bedrock-data-automation-runtime.
 ]
 
 # Services registered so the gateway routes them, but served by nothing: their
@@ -63,11 +123,6 @@ ENGINE_SERVED_SERVICES = [
 # never a fabricated success, and never an unrouted UnknownService, which would
 # send a caller back to real AWS. They are deliberately NOT counted as covered;
 # see docs/coverage.md.
-# rest-json, so the engine can now read its requests — and still served by
-# nothing, because it has no CRUD-shaped operation to classify. InvokeEndpoint,
-# InvokeEndpointAsync and InvokeEndpointWithResponseStream are not
-# Create/Get/List/Delete/Update, so codegen registers nothing and there is no
-# route to match. Same case as forecastquery; see docs/coverage.md.
 #
 # personalize-runtime left this list when the engine gained rest-json:
 # GetRecommendations classifies as a Get, so it is served now. It is not in
@@ -75,24 +130,57 @@ ENGINE_SERVED_SERVICES = [
 # parameters and this harness has no parameterless read to prove it with — the
 # fidelity manifest is its record, as for bedrock-data-automation-runtime.
 REGISTERED_ONLY_SERVICES = [
+    # rest-json, so the engine can read its requests — and still served by
+    # nothing, because it has no CRUD-shaped operation. InvokeEndpoint,
+    # InvokeEndpointAsync and InvokeEndpointWithResponseStream are not
+    # Create/Get/List/Delete/Update, so codegen registers nothing and there is
+    # no route to match. Same case as forecastquery.
     "sagemaker-runtime",
+    # --- the demand set (Milestone 4) ---
+    # The three of 57 that do not meet the floor, and why each is different:
+    #   elb       query protocol — the engine cannot read it; Milestone 5
+    #   s3control rest-xml protocol — same; Milestone 5
+    #   rds-data  rest-json and readable, but its whole API is
+    #             ExecuteStatement / BeginTransaction / Commit / Rollback,
+    #             none of which is CRUD-shaped. No protocol change helps it.
+    "elb",
+    "rds-data",
+    "s3control",
 ]
 
 
 def _parameterless_read_op(client):
-    """Return the first List*/Describe* operation that needs no input.
+    """Return a List*/Describe* operation that needs no input.
 
     Picking the operation from the service model rather than hardcoding one per
     service is what keeps this test from growing a branch per service.
+
+    List* is tried before Describe* because the two answer differently on an
+    empty store. A List returns an empty collection; a Describe of a single
+    resource correctly returns ResourceNotFoundException, which is the engine
+    working, not the engine missing. Preferring List keeps the common case
+    unambiguous — see _served_or_missing for the Describe-only services.
     """
     model = client.meta.service_model
-    for name in sorted(model.operation_names):
-        if not name.startswith(("List", "Describe")):
-            continue
-        shape = model.operation_model(name).input_shape
-        if shape is None or not shape.required_members:
-            return name
+    for prefix in ("List", "Describe"):
+        for name in sorted(model.operation_names):
+            if not name.startswith(prefix):
+                continue
+            shape = model.operation_model(name).input_shape
+            if shape is None or not shape.required_members:
+                return name
     return None
+
+
+# A resource that does not exist in an empty store is a served answer: the
+# engine looked in the store and reported honestly. A refusal is different —
+# InvalidAction and NotImplemented mean nothing handled the request at all.
+SERVED_ERROR_CODES = {
+    "ResourceNotFoundException",
+    "NotFoundException",
+    "ResourceNotFound",
+    "NoSuchEntity",
+}
 
 
 @pytest.mark.parametrize("service", ENGINE_SERVED_SERVICES)
@@ -108,8 +196,12 @@ def test_service_serves_at_least_one_operation(service_client, service):
     try:
         response = getattr(client, xform_name(op))()
     except ClientError as exc:
+        code = exc.response.get("Error", {}).get("Code")
+        if code in SERVED_ERROR_CODES:
+            # Served: the engine consulted an empty store and said so.
+            return
         pytest.fail(
-            f"{service}.{op} is routed but not served: {exc.response['Error']}. "
+            f"{service}.{op} is routed but not served: {exc.response.get('Error')}. "
             "The provider is most likely not returning plugin.ErrUnhandledOp, "
             "so the request never reaches the CRUD engine."
         )

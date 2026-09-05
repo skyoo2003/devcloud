@@ -2,7 +2,7 @@
 
 DevCloud auto-serves standard CRUD-shaped operations that a service's hand-written
 provider has not implemented, using a generic engine driven by the Smithy models.
-This lets the long tail of ~2,200 CRUD-shaped operations respond to SDK calls
+This lets the long tail of ~4,900 CRUD-shaped operations respond to SDK calls
 without hand-coding each one.
 
 **Fidelity is deliberately "plausible, not faithful."** Responses are store-backed
@@ -25,6 +25,34 @@ operations as scaffolding for local wiring, not as behavioural parity.
   engine; if the engine cannot classify the operation, the standard
   `InvalidAction` error is returned instead. **Never a fabricated success for an
   unclassifiable op.**
+
+## Which protocols it can serve
+
+The engine has to know which operation a request is for before it can classify
+it. Where that name lives depends on the protocol:
+
+| Protocol | Operation comes from | Served |
+|---|---|---|
+| `json-1.0`, `json-1.1` | the `X-Amz-Target` header | yes |
+| `rest-json` | the request method and path, matched against the model's URI templates (`internal/shared/httproute`) | yes |
+| `query` | — | no |
+| `rest-xml` | — | no |
+
+For `rest-json` the engine reads parameters from three places, least
+authoritative first: values the model binds with `httpQuery`, then the JSON
+body, then the path labels. The URI is what addresses the resource, so a path
+label wins. A `restJson1` model never binds one member to two of these, so real
+SDK traffic never exercises the precedence.
+
+It does **not** read `httpHeader` members, `httpPayload` blobs, or streaming
+bodies. An operation whose identifier arrives only in a header is therefore
+served with a generated id rather than the caller's — plausible, not faithful,
+which is the engine's stated contract.
+
+A request whose method and path match no route in the service's table is
+**declined** with `InvalidAction`, never served from the store. That is what
+keeps a registered `rest-json` service from answering for paths it does not
+model.
 
 ## Fidelity tiers
 

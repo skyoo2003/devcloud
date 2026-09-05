@@ -185,7 +185,7 @@ func writeAliases(gen *codegen.Generator, outputDir string, models []*ir.Model) 
 			"it is omitted from the table and needs a resolution in the gateway\n", alias)
 	}
 
-	content, err := gen.GenerateAliases(table, collisions)
+	content, err := gen.GenerateAliases(table, collisions, codegen.BuildSigningSiblings(models))
 	if err != nil {
 		return err
 	}

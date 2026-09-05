@@ -14,6 +14,12 @@ import (
 type aliasesTemplateData struct {
 	Aliases    []aliasEntry
 	Collisions []string
+	Siblings   []siblingEntry
+}
+
+type siblingEntry struct {
+	SigningName string
+	ServiceIDs  []string
 }
 
 type aliasEntry struct {
@@ -111,8 +117,43 @@ func selfNamedClaimant(alias string, claimants map[string]bool) (string, bool) {
 	return owner, true
 }
 
+// BuildSigningSiblings groups services by the SigV4 signing name they sign
+// with, keeping only the names more than one service shares.
+//
+// AWS splits a service's data plane, runtime, or successor version into its own
+// SDK client but leaves it signing with the parent's name: mediastore-data
+// signs "mediastore", service-catalog-appregistry signs "servicecatalog",
+// sagemaker-runtime signs "sagemaker". 18 signing names are shared this way,
+// across 50 services.
+//
+// The alias table can only answer with one service per name, so it answers with
+// the parent and every child becomes registered-but-unreachable for any caller
+// that routes by credential scope. The gateway needs the whole group to pick the
+// member that actually models the request — which is why this is derived here
+// rather than hand-listed there, where it would grow an entry per service and
+// rot exactly like the switch BuildAliases replaced.
+func BuildSigningSiblings(models []*ir.Model) map[string][]string {
+	groups := make(map[string][]string)
+	for _, m := range models {
+		name := strings.ToLower(strings.ReplaceAll(m.SigningName, " ", ""))
+		if name == "" || m.ServiceID == "" {
+			continue
+		}
+		groups[name] = append(groups[name], m.ServiceID)
+	}
+	for name, ids := range groups {
+		if len(ids) < 2 {
+			delete(groups, name)
+			continue
+		}
+		sort.Strings(ids)
+		groups[name] = ids
+	}
+	return groups
+}
+
 // GenerateAliases renders the alias table into Go source.
-func (g *Generator) GenerateAliases(table map[string]string, collisions []string) (string, error) {
+func (g *Generator) GenerateAliases(table map[string]string, collisions []string, siblings map[string][]string) (string, error) {
 	entries := make([]aliasEntry, 0, len(table))
 	for alias, serviceID := range table {
 		entries = append(entries, aliasEntry{Alias: alias, ServiceID: serviceID})
@@ -120,8 +161,15 @@ func (g *Generator) GenerateAliases(table map[string]string, collisions []string
 	// Sorted so a regeneration diff shows model changes and nothing else.
 	sort.Slice(entries, func(i, j int) bool { return entries[i].Alias < entries[j].Alias })
 
+	sibs := make([]siblingEntry, 0, len(siblings))
+	for name, ids := range siblings {
+		sibs = append(sibs, siblingEntry{SigningName: name, ServiceIDs: ids})
+	}
+	sort.Slice(sibs, func(i, j int) bool { return sibs[i].SigningName < sibs[j].SigningName })
+
 	return g.renderTemplate("aliases.go.tmpl", aliasesTemplateData{
 		Aliases:    entries,
 		Collisions: collisions,
+		Siblings:   sibs,
 	})
 }

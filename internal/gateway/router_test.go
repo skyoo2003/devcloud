@@ -237,6 +237,31 @@ func TestServiceRouter_RESTXMLBodyStillUnbuffered(t *testing.T) {
 	assert.Equal(t, "binary-payload", string(seen))
 }
 
+// TestWriteAWSErrorEnvelopePerProtocol pins the three error shapes a client can
+// actually parse. Getting one wrong turns a clean, actionable refusal into a
+// failure with no error code, which is the worst of both outcomes: the call did
+// not work and the caller cannot tell why.
+func TestWriteAWSErrorEnvelopePerProtocol(t *testing.T) {
+	tests := []struct {
+		protocol string
+		contains string
+		why      string
+	}{
+		{"json-1.1", `"__type":"InvalidAction"`, "X-Amz-Target JSON"},
+		{"json-1.0", `"__type":"InvalidAction"`, "X-Amz-Target JSON"},
+		{"rest-json", `"__type":"InvalidAction"`, "rest-json bodies are JSON, and the name does not start with json"},
+		{"query", "<ErrorResponse><Error>", "botocore's query parser looks for Error inside ErrorResponse"},
+		{"rest-xml", "<Error><Code>InvalidAction</Code>", "S3 returns a bare Error element"},
+	}
+	for _, tc := range tests {
+		t.Run(tc.protocol, func(t *testing.T) {
+			w := httptest.NewRecorder()
+			writeAWSError(w, tc.protocol, http.StatusBadRequest, "InvalidAction", "unknown action")
+			assert.Contains(t, w.Body.String(), tc.contains, tc.why)
+		})
+	}
+}
+
 type bodyCapturingPlugin struct {
 	serviceID string
 	seen      *[]byte
