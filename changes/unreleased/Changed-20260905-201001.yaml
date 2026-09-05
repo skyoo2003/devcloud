@@ -1,0 +1,5 @@
+kind: Changed
+body: '`rest-xml` request bodies are still not buffered by the gateway, now by an explicit rule rather than as a side effect of the protocol being unservable. The engine serves `rest-xml` from the path and query alone, so S3''s large binary uploads keep streaming; `crud.NeedsBody` is the predicate and a test fails if the body is read'
+time: 2026-09-05T20:10:01.000000+09:00
+custom:
+    Issue: "142"
