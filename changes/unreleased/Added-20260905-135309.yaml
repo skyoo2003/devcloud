@@ -1,0 +1,5 @@
+kind: Added
+body: 'Provider-namespaced configuration: service blocks can be written as `providers.aws.services.*`, forward-compatible with `providers.azure.*`. The top-level `services` block is the same block under its historical name and keeps working; a block for an unserved provider loads with a warning instead of failing'
+time: 2026-09-05T13:53:09.000000+09:00
+custom:
+    Issue: "135"

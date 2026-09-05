@@ -24,6 +24,7 @@ removed or repurposed. Defined in [`internal/config/config.go`](../internal/conf
 | `services` | map | Presence of the block is authoritative — only the services it lists run, and an empty block runs nothing. Absent means every registered service runs. |
 | `services.<id>.enabled` | bool | Whether that service starts. |
 | `services.<id>.data_dir` | string | Where that service stores data. |
+| `providers.aws.services` | map | The same block as `services`, namespaced by provider. Identical semantics; wins over `services` when both are written, with a warning. |
 | `admin.enabled` | bool | Whether the admin API is served. Default `false`. |
 | `logging.level` | string | Log level. |
 | `logging.format` | string | Log format. |
@@ -131,8 +132,10 @@ Depending on any of the following will break, and breaking it is **not** a major
   normalizing it is a minor release, not a major one.
 - **Log output.** Format, levels and wording of server logs are operational, not an API.
 - **Everything under `internal/`.** Go forbids importing it from another module, and DevCloud
-  reserves the right to restructure it freely across 1.x — explicitly including the planned
-  intermediate representation and `ModelSource` work on the [roadmap](roadmap.md). Internal
+  reserves the right to restructure it freely across 1.x. The Phase 2 refactor on the
+  [roadmap](roadmap.md) is the precedent: the intermediate representation, `ModelSource`,
+  `ProviderScoped` and the `auth` adapters all landed inside a 1.x minor without a
+  compatibility event, because none of them is reachable from outside this module. Internal
   churn is not a compatibility event. The in-tree `ServicePlugin` contract in
   [plugin-api.md](plugin-api.md#api-stability) is not an exception to this: it is a convention
   that keeps in-tree plugins compiling, and it does not gate release versioning.

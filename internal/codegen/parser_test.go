@@ -9,6 +9,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/skyoo2003/devcloud/internal/codegen/ir"
 )
 
 func TestParseSmithyJSON(t *testing.T) {
@@ -24,7 +26,7 @@ func TestParseSmithyJSON(t *testing.T) {
 	assert.Len(t, model.Operations, 3)
 
 	// Check CreateBucket operation
-	var createBucket *Operation
+	var createBucket *ir.Operation
 	for i := range model.Operations {
 		if model.Operations[i].Name == "CreateBucket" {
 			createBucket = &model.Operations[i]
@@ -49,7 +51,7 @@ func TestParseSmithyJSON(t *testing.T) {
 	// Check PutObjectRequest has payload
 	putReq, ok := model.Shapes["PutObjectRequest"]
 	require.True(t, ok)
-	var bodyMember *Member
+	var bodyMember *ir.Member
 	for i := range putReq.Members {
 		if putReq.Members[i].Name == "Body" {
 			bodyMember = &putReq.Members[i]
@@ -70,7 +72,7 @@ func TestParseSmithyJSON(t *testing.T) {
 	// Check list shape
 	bucketList, ok := model.Shapes["BucketList"]
 	require.True(t, ok)
-	assert.Equal(t, ShapeList, bucketList.Type)
+	assert.Equal(t, ir.ShapeList, bucketList.Type)
 }
 
 // resourceModel is a minimal model whose operations hang off resource shapes
@@ -127,7 +129,7 @@ func TestParseSmithyJSON_ResourceAttachedOperations(t *testing.T) {
 	}, names, "operations must be collected from resources and sorted")
 
 	// Output wiring survives the resource walk.
-	var getWidget *Operation
+	var getWidget *ir.Operation
 	for i := range model.Operations {
 		if model.Operations[i].Name == "GetWidget" {
 			getWidget = &model.Operations[i]

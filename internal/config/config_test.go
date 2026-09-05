@@ -72,6 +72,71 @@ func TestService_EnvServiceFilter(t *testing.T) {
 	assert.False(t, cfg.Service("sqs").Enabled)
 }
 
+// TestProviderService_AWSBlockIsTheServicesBlock covers the forward-compatible
+// spelling: providers.aws.services and the top-level services block are the same
+// block, so a config written either way behaves identically.
+func TestProviderService_AWSBlockIsTheServicesBlock(t *testing.T) {
+	isolateEnv(t)
+	cfg, warnings, err := parse([]byte(
+		"providers:\n  aws:\n    services:\n      s3:\n        enabled: true\n"))
+	require.NoError(t, err)
+	assert.Empty(t, warnings)
+
+	assert.True(t, cfg.Service("s3").Enabled)
+	assert.False(t, cfg.Service("sqs").Enabled, "the provider block is authoritative too")
+	assert.Equal(t, filepath.Join("./data", "s3"), cfg.Service("s3").DataDir,
+		"AWS data dirs stay flat — nesting them would break existing installs")
+}
+
+// TestProviderService_ProviderBlockWinsOverLegacy covers the one case where the
+// two spellings disagree. Silently picking either would leave half the config
+// dead, so the loser is named in a warning.
+func TestProviderService_ProviderBlockWinsOverLegacy(t *testing.T) {
+	isolateEnv(t)
+	cfg, warnings, err := parse([]byte(
+		"services:\n  sqs:\n    enabled: true\n" +
+			"providers:\n  aws:\n    services:\n      s3:\n        enabled: true\n"))
+	require.NoError(t, err)
+
+	assert.True(t, cfg.Service("s3").Enabled)
+	assert.False(t, cfg.Service("sqs").Enabled)
+	require.Len(t, warnings, 1)
+	assert.Contains(t, warnings[0], "providers.aws.services")
+}
+
+// TestProviderService_UnknownProviderWarnsButLoads is the forward-compatibility
+// guarantee: a config written for a later DevCloud must still start this one,
+// loudly rather than silently.
+func TestProviderService_UnknownProviderWarnsButLoads(t *testing.T) {
+	isolateEnv(t)
+	cfg, warnings, err := parse([]byte(
+		"providers:\n  azure:\n    services:\n      blob:\n        enabled: true\n"))
+	require.NoError(t, err)
+	require.Len(t, warnings, 1)
+	assert.Contains(t, warnings[0], "providers.azure")
+
+	// No AWS block was written, so AWS still runs everything.
+	assert.True(t, cfg.Service("s3").Enabled)
+	// A non-AWS provider nests its data so a same-named service cannot collide.
+	assert.Equal(t, filepath.Join("./data", "azure", "blob"),
+		cfg.ProviderService("azure", "blob").DataDir)
+}
+
+// TestProviderService_EnvFilterIsAWSScoped: DEVCLOUD_SERVICES has no syntax for
+// naming another provider's services, so it must not decide their membership.
+func TestProviderService_EnvFilterIsAWSScoped(t *testing.T) {
+	isolateEnv(t)
+	cfg, _, err := parse([]byte(
+		"providers:\n  azure:\n    services:\n      blob:\n        enabled: true\n"))
+	require.NoError(t, err)
+	t.Setenv("DEVCLOUD_SERVICES", "s3")
+	applyEnvOverrides(cfg)
+
+	assert.False(t, cfg.Service("sqs").Enabled, "the filter still decides AWS")
+	assert.True(t, cfg.ProviderService("azure", "blob").Enabled,
+		"an AWS-scoped filter must not disable another provider's service")
+}
+
 // TestService_NoServicesBlock_EnablesEverything covers the zero-config
 // contract: with no services block every service is enabled and lands under
 // ./data/<id>.

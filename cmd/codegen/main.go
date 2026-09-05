@@ -52,8 +52,14 @@ func main() {
 	// called incomplete generation clean.
 	skipped := false
 
+	// The driver knows nothing about model formats: it hands every file to
+	// codegen.SourceFor and generates from whatever IR comes back. Adding
+	// OpenAPI or Protobuf support is a new ModelSource, not a change here.
+	// A file no source claims is an error rather than a quiet skip — the
+	// models directory holds models, and a silently ignored one produces
+	// generated output that is wrong without saying so.
 	for _, entry := range entries {
-		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".json") {
+		if entry.IsDir() {
 			continue
 		}
 
@@ -64,9 +70,16 @@ func main() {
 			continue
 		}
 
-		model, err := codegen.ParseSmithyJSON(data)
+		source, err := codegen.SourceFor(entry.Name(), data)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error parsing %s: %v\n", entry.Name(), err)
+			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+			skipped = true
+			continue
+		}
+
+		model, err := source.Parse(data)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error parsing %s as %s: %v\n", entry.Name(), source.Name(), err)
 			skipped = true
 			continue
 		}

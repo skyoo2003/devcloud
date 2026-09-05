@@ -2,7 +2,11 @@
 
 package codegen
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/skyoo2003/devcloud/internal/codegen/ir"
+)
 
 type scaffoldTemplateData struct {
 	PkgName       string
@@ -34,7 +38,7 @@ func cleanServiceName(name string) string {
 	return strings.TrimSpace(name)
 }
 
-func (g *Generator) GenerateScaffold(pkgName string, model *SmithyModel) (string, error) {
+func (g *Generator) GenerateScaffold(pkgName string, model *ir.Model) (string, error) {
 	data := scaffoldTemplateData{
 		PkgName:       pkgName,
 		ServiceID:     model.ServiceID,

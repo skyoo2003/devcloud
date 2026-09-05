@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/skyoo2003/devcloud/internal/auth"
 )
 
 // DetectProtocol inspects the incoming HTTP request and returns the AWS protocol
@@ -103,31 +105,18 @@ func serviceFromTarget(target string) string {
 	return normalized
 }
 
-// serviceFromSigV4 extracts the service name from the SigV4 Authorization
-// header's credential scope: "AWS4-HMAC-SHA256 Credential=.../region/service/aws4_request"
+// serviceFromSigV4 maps the signing name in a request's SigV4 credential scope
+// to a DevCloud service ID, or "" when the request carries no scope.
+//
+// The scope is parsed once, by the auth adapter, which is also what fills the
+// request context — routing and identity cannot disagree about what the caller
+// signed for.
 func serviceFromSigV4(r *http.Request) string {
-	auth := r.Header.Get("Authorization")
-	if !strings.HasPrefix(auth, "AWS4-HMAC-SHA256") {
+	id, ok := auth.SigV4{}.Authenticate(r)
+	if !ok || id.Service == "" {
 		return ""
 	}
-	// Find "Credential=" part
-	credIdx := strings.Index(auth, "Credential=")
-	if credIdx < 0 {
-		return ""
-	}
-	credVal := auth[credIdx+len("Credential="):]
-	// Credential value ends at comma or end of string
-	if commaIdx := strings.IndexByte(credVal, ','); commaIdx >= 0 {
-		credVal = credVal[:commaIdx]
-	}
-	// Format: accessKey/date/region/service/aws4_request
-	parts := strings.Split(credVal, "/")
-	if len(parts) >= 4 {
-		svc := parts[3]
-		// Normalize known service aliases
-		return normalizeServiceID(svc)
-	}
-	return ""
+	return normalizeServiceID(id.Service)
 }
 
 // normalizeServiceID maps SigV4 signing names, X-Amz-Target prefixes, and

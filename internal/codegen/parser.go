@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+
+	"github.com/skyoo2003/devcloud/internal/codegen/ir"
 )
 
 // Raw JSON types for unmarshaling
@@ -56,7 +58,11 @@ type rawHTTPTrait struct {
 	URI    string `json:"uri"`
 }
 
-func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
+// ParseSmithyJSON converts a Smithy 2.0 JSON AST into the provider-neutral IR.
+// It is the Parse half of SmithySource and is exported because it is the one
+// format DevCloud reads today; new formats should be added as a ModelSource
+// rather than as another exported parser (see source.go).
+func ParseSmithyJSON(data []byte) (*ir.Model, error) {
 	var raw rawModel
 	if err := json.Unmarshal(data, &raw); err != nil {
 		return nil, fmt.Errorf("unmarshal smithy json: %w", err)
@@ -84,11 +90,16 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 		return nil, fmt.Errorf("no service shape found")
 	}
 
-	model := &SmithyModel{
+	model := &ir.Model{
+		// Every Smithy model in-tree is an AWS service model: the protocol
+		// traits this parser recognizes are all under aws.protocols#. A Smithy
+		// model for another provider would need its own protocol detection, and
+		// would set Provider itself.
+		Provider:    ir.DefaultProvider,
 		ServiceName: shortName(serviceFQN),
 		ServiceID:   detectServiceID(serviceFQN),
 		Protocol:    detectProtocol(serviceShape),
-		Shapes:      make(map[string]*Shape),
+		Shapes:      make(map[string]*ir.Shape),
 	}
 
 	// Parse operations
@@ -97,7 +108,7 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 		if !ok {
 			continue
 		}
-		op := Operation{Name: shortName(opFQN)}
+		op := ir.Operation{Name: shortName(opFQN)}
 		if opShape.Input != nil {
 			if opShape.Input.Target == "smithy.api#Unit" {
 				op.InputName = "SmithyUnit"
@@ -137,11 +148,11 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 			continue
 		}
 
-		shape := &Shape{Name: name, Type: ShapeType(rs.Type)}
+		shape := &ir.Shape{Name: name, Type: ir.ShapeType(rs.Type)}
 
 		if rs.Type == "structure" {
 			for memberName, member := range rs.Members {
-				m := Member{
+				m := ir.Member{
 					Name:       memberName,
 					TargetName: shortName(member.Target),
 					GoType:     smithyToGoType(member.Target),
@@ -176,7 +187,7 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 			if errType, ok := rs.Traits["smithy.api#error"]; ok {
 				var et string
 				_ = json.Unmarshal(errType, &et) //nolint:errcheck
-				shape.ErrorTrait = &ErrorTrait{Type: et}
+				shape.ErrorTrait = &ir.ErrorTrait{Type: et}
 				if httpErr, ok := rs.Traits["smithy.api#httpError"]; ok {
 					var status int
 					_ = json.Unmarshal(httpErr, &status) //nolint:errcheck
@@ -186,7 +197,7 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 		}
 
 		if rs.Type == "list" && rs.Member != nil {
-			shape.ListMember = &MemberRef{
+			shape.ListMember = &ir.MemberRef{
 				TargetName: shortName(rs.Member.Target),
 				GoType:     smithyToGoType(rs.Member.Target),
 			}
@@ -194,10 +205,10 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 
 		if rs.Type == "map" {
 			if rs.Key != nil {
-				shape.KeyMember = &MemberRef{TargetName: shortName(rs.Key.Target), GoType: smithyToGoType(rs.Key.Target)}
+				shape.KeyMember = &ir.MemberRef{TargetName: shortName(rs.Key.Target), GoType: smithyToGoType(rs.Key.Target)}
 			}
 			if rs.Value != nil {
-				shape.ValueMember = &MemberRef{TargetName: shortName(rs.Value.Target), GoType: smithyToGoType(rs.Value.Target)}
+				shape.ValueMember = &ir.MemberRef{TargetName: shortName(rs.Value.Target), GoType: smithyToGoType(rs.Value.Target)}
 			}
 		}
 
@@ -210,7 +221,7 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 	for _, op := range model.Operations {
 		if op.OutputName == "SmithyUnit" || op.InputName == "SmithyUnit" {
 			if _, exists := model.Shapes["SmithyUnit"]; !exists {
-				model.Shapes["SmithyUnit"] = &Shape{Name: "SmithyUnit", Type: ShapeStructure}
+				model.Shapes["SmithyUnit"] = &ir.Shape{Name: "SmithyUnit", Type: ir.ShapeStructure}
 			}
 			break
 		}
@@ -227,30 +238,30 @@ func ParseSmithyJSON(data []byte) (*SmithyModel, error) {
 // resolveSimpleType walks all structure members and list/map refs, replacing
 // GoType values that reference simple shapes (string, enum, integer, etc.)
 // with their underlying Go primitive type.
-func resolveSimpleType(shapes map[string]*Shape) {
+func resolveSimpleType(shapes map[string]*ir.Shape) {
 	resolve := func(goType string) string {
 		s, ok := shapes[goType]
 		if !ok {
 			return goType
 		}
 		switch s.Type {
-		case ShapeString, ShapeEnum:
+		case ir.ShapeString, ir.ShapeEnum:
 			return "string"
-		case ShapeInteger, ShapeIntEnum:
+		case ir.ShapeInteger, ir.ShapeIntEnum:
 			return "int32"
-		case ShapeLong:
+		case ir.ShapeLong:
 			return "int64"
-		case ShapeBoolean:
+		case ir.ShapeBoolean:
 			return "bool"
-		case ShapeBlob:
+		case ir.ShapeBlob:
 			return "[]byte"
-		case ShapeTimestamp:
+		case ir.ShapeTimestamp:
 			return "time.Time"
-		case ShapeDouble:
+		case ir.ShapeDouble:
 			return "float64"
-		case ShapeFloat:
+		case ir.ShapeFloat:
 			return "float32"
-		case ShapeUnion, ShapeDocument:
+		case ir.ShapeUnion, ir.ShapeDocument:
 			return "interface{}"
 		default:
 			return goType

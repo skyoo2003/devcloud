@@ -29,17 +29,19 @@ We pursue this vision through a **phased rollout** to manage scope, architectura
 - [x] Generic CRUD fallback engine ([crud-engine.md](crud-engine.md)) auto-serves ~2,200 CRUD-shaped operations across all 46 JSON-protocol services with plausible, store-backed responses; every registered JSON service is wired. **Follow-up**: promote high-value auto-crud ops to hand-verified fidelity.
 - [x] v1.0 release — see [compatibility-policy.md](compatibility-policy.md) for what 1.x guarantees
 
-### Phase 2 — Architectural Preparation (Current, v1.x)
+### Phase 2 — Architectural Preparation (Complete, v1.x)
 
 **Goal**: internal refactor so adding a new CSP doesn't require forking the project.
 
-- [ ] Introduce Intermediate Representation (IR) between API models and codegen
-- [ ] Refactor `internal/codegen/parser.go` behind a `ModelSource` interface (Smithy being the first implementation; OpenAPI/Protobuf to follow)
-- [ ] Provider namespacing in config (`providers.aws.*`, forward-compatible with `providers.azure.*`)
-- [ ] Plugin interface review — ensure `ServicePlugin` is CSP-agnostic
-- [ ] Per-provider auth adapter interface (SigV4, AAD/SAS, OAuth2)
+- [x] Intermediate Representation (IR) between API models and codegen — [`internal/codegen/ir`](../internal/codegen/ir/ir.go). The generators read `*ir.Model` and nothing in the IR names Smithy; `ir.Model.Provider` carries the owning CSP.
+- [x] `internal/codegen/parser.go` refactored behind a [`ModelSource`](../internal/codegen/source.go) interface. `SmithySource` is the first implementation and owns its own format detection, so `cmd/codegen` hands every file to `SourceFor` and never names a format. OpenAPI/Protobuf are an added file.
+- [x] Provider namespacing in config — `providers.aws.services.*`, forward-compatible with `providers.azure.*`. The top-level `services` block is the same AWS block under its historical name and keeps working ([configuration.md](configuration.md#provider-namespacing)).
+- [x] Plugin interface review — `ServicePlugin` needs no change; the CSP is carried by the optional [`ProviderScoped`](plugin-api.md#providers-and-csp-neutrality) interface, read through `plugin.ProviderOf`. Adding a method would have broken every in-tree plugin to make it state a value it already defaults to.
+- [x] Per-provider auth adapter interface — [`internal/auth`](../internal/auth/auth.go). `Adapter` reads one provider's credential form; `SigV4` is the AWS implementation, and AAD/SAS and OAuth2 slot in beside it without touching the gateway. The caller's claimed identity reaches plugins via `auth.FromContext`.
 
-### Phase 3 — First Non-AWS Service (v2.0, exploratory)
+What Phase 2 deliberately did **not** do: no non-AWS service, no second `ModelSource`, and no signature verification. Those are Phase 3 and beyond — Phase 2's job was to make each of them an addition rather than a fork.
+
+### Phase 3 — First Non-AWS Service (Next, v2.0, exploratory)
 
 **Goal**: validate the multi-CSP architecture with a single, well-scoped pilot.
 
@@ -76,6 +78,6 @@ We pursue this vision through a **phased rollout** to manage scope, architectura
 | Version | Focus |
 |---------|-------|
 | 0.x | AWS services, unstable API |
-| 1.x ← current | AWS depth, stable plugin API |
+| 1.x ← current | AWS depth, stable plugin API, multi-CSP groundwork (IR, `ModelSource`, provider namespacing, auth adapters) |
 | 2.x | Multi-CSP architecture, Azure pilot |
 | 3.x+ | Broad CSP coverage, community-owned providers |

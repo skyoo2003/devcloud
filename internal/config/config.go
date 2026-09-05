@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -24,11 +25,37 @@ var defaultConfigYAML []byte
 // the YAML nor DEVCLOUD_DATA_DIR names one.
 const defaultDataDir = "./data"
 
+// DefaultProvider is the CSP a service belongs to when nothing says otherwise.
+// It mirrors plugin.DefaultProvider; config does not import plugin, so the
+// constant is repeated rather than shared.
+const DefaultProvider = "aws"
+
+// knownProviders are the providers this build can actually serve. A block for
+// anything else still parses — a config written for a later DevCloud loads here
+// without erroring — but it is reported, because nothing in this binary will
+// read it. Adding a provider means adding its services and this entry in the
+// same change.
+var knownProviders = map[string]bool{DefaultProvider: true}
+
 type Config struct {
 	Server   ServerConfig             `yaml:"server"`
 	Services map[string]ServiceConfig `yaml:"services"`
 	Admin    *AdminConfig             `yaml:"admin"`
 	Logging  LoggingConfig            `yaml:"logging"`
+
+	// Providers namespaces service configuration by CSP:
+	//
+	//   providers:
+	//     aws:
+	//       services:
+	//         s3: {enabled: true}
+	//
+	// The top-level Services block is the AWS provider's block under its
+	// historical name and keeps working unchanged; providers.aws.services is
+	// the same block spelled forward-compatibly, and wins when both are set
+	// (see parse). Blocks for other providers are carried through so a config
+	// can be written before the services it configures exist.
+	Providers map[string]ProviderConfig `yaml:"providers"`
 
 	// Dashboard is the deprecated pre-rename name for Admin. It is honoured for
 	// one release (see parse) so existing configs keep working; use Admin.
@@ -58,6 +85,13 @@ type ServiceConfig struct {
 	DataDir string `yaml:"data_dir"`
 }
 
+// ProviderConfig is one CSP's slice of the config. It holds only a services
+// block today; per-provider settings (endpoints, credentials, regions) belong
+// here when they arrive.
+type ProviderConfig struct {
+	Services map[string]ServiceConfig `yaml:"services"`
+}
+
 type AdminConfig struct {
 	Enabled bool `yaml:"enabled"`
 }
@@ -73,26 +107,41 @@ type LoggingConfig struct {
 	Format string `yaml:"format"`
 }
 
-// Service returns the effective configuration for serviceID.
+// Service returns the effective configuration for an AWS service. It is
+// ProviderService for DefaultProvider — the spelling every caller wanted before
+// there was more than one provider.
+func (c *Config) Service(serviceID string) ServiceConfig {
+	return c.ProviderService(DefaultProvider, serviceID)
+}
+
+// ProviderService returns the effective configuration for serviceID under
+// provider.
 //
 // A YAML services block is authoritative: only the services it lists can run.
 // An empty block therefore runs nothing — it is a block, so it decides. Absent
 // entirely (the embedded default), every service is enabled with data_dir
 // <base>/<id>. DEVCLOUD_SERVICES and DEVCLOUD_DATA_DIR are applied here so both
 // paths agree.
-func (c *Config) Service(serviceID string) ServiceConfig {
-	svc, listed := c.Services[serviceID]
+//
+// Data directories stay flat for AWS (<base>/<id>) because that layout is a 1.x
+// guarantee. Any other provider nests under its own name (<base>/<provider>/<id>)
+// so two CSPs offering a same-named service cannot land on the same directory.
+func (c *Config) ProviderService(provider, serviceID string) ServiceConfig {
+	block, hasBlock := c.serviceBlock(provider)
+	svc, listed := block[serviceID]
 	switch {
-	case c.allowed != nil:
+	case provider == DefaultProvider && c.allowed != nil:
 		// DEVCLOUD_SERVICES names the running set outright, so it decides
 		// membership on its own: it can enable a service the YAML block omits
 		// as well as one the block lists with enabled: false. The block still
-		// supplies that service's data_dir. Environment beats file.
+		// supplies that service's data_dir. Environment beats file. It is
+		// AWS-scoped: there is no syntax for naming another provider's
+		// services, so it does not silently disable them.
 		svc.Enabled = c.allowed[serviceID]
 	case !listed:
-		// nil means no block at all; a non-nil empty map means "services: {}",
-		// which lists nothing and therefore runs nothing.
-		if c.Services != nil {
+		// No block at all means every service runs; a block that exists but
+		// does not list this service means it does not.
+		if hasBlock {
 			return ServiceConfig{}
 		}
 		svc.Enabled = true
@@ -104,8 +153,24 @@ func (c *Config) Service(serviceID string) ServiceConfig {
 	if base == "" {
 		base = defaultDataDir
 	}
+	if provider != DefaultProvider {
+		base = filepath.Join(base, provider)
+	}
 	svc.DataDir = filepath.Join(base, serviceID)
 	return svc
+}
+
+// serviceBlock returns the services block that governs provider, and whether
+// one was written at all. The distinction matters: a block that exists is
+// authoritative even when empty, while no block means "run everything".
+func (c *Config) serviceBlock(provider string) (map[string]ServiceConfig, bool) {
+	if pc, ok := c.Providers[provider]; ok && pc.Services != nil {
+		return pc.Services, true
+	}
+	if provider == DefaultProvider && c.Services != nil {
+		return c.Services, true
+	}
+	return nil, false
 }
 
 // Load reads and parses a YAML config file from the given path. It returns any
@@ -169,6 +234,8 @@ func parse(data []byte) (*Config, []string, error) {
 		cfg.Auth = nil
 	}
 
+	warnings = append(warnings, checkProviders(cfg)...)
+
 	if cfg.Admin == nil {
 		cfg.Admin = &AdminConfig{}
 	}
@@ -178,6 +245,39 @@ func parse(data []byte) (*Config, []string, error) {
 	}
 
 	return cfg, append(warnings, applyEnvOverrides(cfg)...), nil
+}
+
+// checkProviders reports the two ways a providers block can be written and do
+// nothing the operator expected: naming a provider this build cannot serve, and
+// duplicating the AWS services block that already exists at the top level.
+// Neither is an error — both parse and resolve deterministically — but a
+// silently ignored services block is exactly the surprise this config package
+// warns about elsewhere.
+func checkProviders(cfg *Config) []string {
+	var warnings []string
+	for _, name := range sortedProviders(cfg.Providers) {
+		if !knownProviders[name] {
+			warnings = append(warnings, fmt.Sprintf(
+				"config: providers.%s is not served by this build and is ignored; check the spelling, or see docs/roadmap.md for which providers exist", name))
+			continue
+		}
+		if name == DefaultProvider && cfg.Providers[name].Services != nil && cfg.Services != nil {
+			warnings = append(warnings, fmt.Sprintf(
+				"config: both 'services' and 'providers.%s.services' are set; the top-level 'services' block is ignored", name))
+		}
+	}
+	return warnings
+}
+
+// sortedProviders keeps warning order stable across runs — map iteration order
+// would otherwise reshuffle the log on every start.
+func sortedProviders(providers map[string]ProviderConfig) []string {
+	names := make([]string, 0, len(providers))
+	for name := range providers {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+	return names
 }
 
 var serviceTiers = map[string][]string{
