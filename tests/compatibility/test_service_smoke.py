@@ -104,37 +104,24 @@ def test_services_without_a_boto3_client_are_exactly_the_known_two():
     )
 
 
-@pytest.mark.parametrize("service", sorted(_coverage.UNREACHABLE_FROM_BOTO3))
-def test_lex_services_are_unreachable_from_boto3(service_client, service):
-    """The four Lex services are registered, counted as served, and unroutable.
+def test_no_registered_service_is_unreachable_from_boto3():
+    """The exclusion category stays empty, or the published figure moves with it.
 
-    All four boto3 Lex clients sign as "lex", no service is named "lex", so the
-    alias stays contested and unrouted rather than guessed. docs/coverage.md
-    said each Lex service is reachable "by its own unambiguous name"; a boto3
-    caller has no such name to use, which is what this pins.
+    This replaces test_lex_services_are_unreachable_from_boto3, which pinned the
+    four Lex services as unroutable and told whoever fixed the routing to delete
+    it. The routing was fixed — "lex" is now recognised as a signing-name group
+    key, so each Lex request reaches the sibling that models its path — and the
+    four joined the floor parametrization below.
 
-    It asserts UnknownService deliberately. Making Lex routable is routing work,
-    not coverage work, and when it lands this test fails — which is the signal to
-    move these four into the parametrization above and raise the published
-    compatibility-tested figure with them.
+    What survives is the direction of the check rather than the pin: a service
+    that becomes unreachable has to be named in UNREACHABLE_FROM_BOTO3, and
+    naming it lowers the compatibility-tested figure gated above.
     """
-    entry = MANIFEST[service]
-    name = _coverage.boto3_name(service)
-    client = service_client(name)
-
-    candidates = _coverage.probe_operations(name, entry["servedOps"])
-    assert candidates, f"{service} has no served operation to probe"
-    operation, needs_input = candidates[0]
-    params = _coverage.stub_params(name, operation) if needs_input else {}
-
-    with pytest.raises(ClientError) as excinfo:
-        _call(client, operation, params)
-
-    code = excinfo.value.response.get("Error", {}).get("Code")
-    assert code == "UnknownService", (
-        f"{service} ({name}.{operation}) answered {code}, not UnknownService. "
-        "If Lex routing was fixed, move these services into "
-        "test_registered_service_meets_the_floor and update docs/coverage.md."
+    assert _coverage.UNREACHABLE_FROM_BOTO3 == {}, (
+        "a registered service is unreachable from boto3: "
+        f"{sorted(_coverage.UNREACHABLE_FROM_BOTO3)}. It drops out of the "
+        "compatibility-tested figure in docs/coverage.md, which is gated by "
+        "test_published_compatibility_tested_figure_matches_this_suite."
     )
 
 
