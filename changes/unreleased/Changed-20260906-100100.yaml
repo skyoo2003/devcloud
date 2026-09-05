@@ -1,0 +1,5 @@
+kind: Changed
+body: 'The boto3 compatibility suite exercises every registered service. It parametrises over a generated service list (`internal/generated/compat/services.json`) instead of two hand-written name lists, so registering a service and testing it are no longer separate steps. 31 of 205 registered services had no boto3 test at all, 29 of them counted in the published coverage figure; the suite grew from 854 to 993 tests'
+time: 2026-09-06T10:01:00.000000+09:00
+custom:
+    Issue: "144"

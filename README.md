@@ -23,8 +23,8 @@ Today DevCloud targets **AWS**. Our long-term goal is to support the full range 
 
 ## Features
 
-- **148 AWS services registered, 117 serving at least one operation** — the other 31 are routed and decline with a clean AWS error rather than letting the call bill a real AWS account. The split is the honest form of the number; see [coverage.md](docs/coverage.md) for what it does and does not promise, and [services-matrix.md](docs/services-matrix.md) for the list
-- **boto3-compatible** — a 729-test compatibility suite runs in CI (`make test-compat`); works with most boto3 apps, and unsupported operations return a clean AWS error, never a false success
+- **205 AWS services registered, 201 serving at least one operation** — the other 4 are routed and decline with a clean AWS error rather than letting the call bill a real AWS account. The split is the honest form of the number; see [coverage.md](docs/coverage.md) for what it does and does not promise, and [services-matrix.md](docs/services-matrix.md) for the list
+- **boto3-compatible** — a 992-test compatibility suite runs in CI (`make test-compat`) and exercises every registered service; works with most boto3 apps, and unsupported operations return a clean AWS error, never a false success
 - **Cross-service integration** — CFN provisioning, DDB Streams → Lambda, EventBridge targets, S3 → Lambda
 - **Smithy-driven codegen** — auto-generate Go types, routers, and error catalogues from Smithy models
 - **Weekly auto-sync** — GitHub Actions keeps generated code up to date with upstream AWS API changes

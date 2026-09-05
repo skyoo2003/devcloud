@@ -24,13 +24,14 @@ var validProtocols = map[plugin.ProtocolType]bool{
 func TestServicePluginConformance(t *testing.T) {
 	ids := plugin.DefaultRegistry.RegisteredServices()
 
-	// Conservative floor. Broken registration wiring (a mangled imports.go,
-	// init-order regression, a dropped Register) collapses the live surface far
-	// below this, so a constant catches it without the fragility of parsing
-	// imports.go at runtime. Raise it if the real count ever nears it.
-	const minServices = 50
-	if len(ids) < minServices {
-		t.Fatalf("registered %d services, want >= %d", len(ids), minServices)
+	// The count itself is asserted exactly against the published figure in
+	// TestPublishedCoverageMatchesTheBinary, which is what catches broken
+	// registration wiring (a mangled imports.go, an init-order regression, a
+	// dropped Register). This only needs the surface to be non-empty before
+	// iterating it; a conservative floor of 50 here would be a second, weaker
+	// answer to a question that now has an exact one.
+	if len(ids) == 0 {
+		t.Fatal("no services registered; check cmd/devcloud/imports.go")
 	}
 
 	var prev string
