@@ -165,6 +165,26 @@ func TestPathRoutedOverridesAreReal(t *testing.T) {
 	}
 }
 
+// TestScanProvidersDetectsEngineWiring checks the scan reports whether a
+// provider reaches the generic CRUD engine. Only a provider that returns
+// plugin.ErrUnhandledOp does; the rest decline in their own vocabulary and are
+// served by nothing, so the fidelity manifest must not call their CRUD-shaped
+// operations auto-crud.
+func TestScanProvidersDetectsEngineWiring(t *testing.T) {
+	scans, err := ScanProviders("../services")
+	require.NoError(t, err)
+
+	for _, id := range []string{"codebuild", "organizations", "kinesis"} {
+		assert.True(t, scans[id].EngineWired,
+			"%s returns plugin.ErrUnhandledOp, so it must be reported as engine-wired", id)
+	}
+	// Path-routed and Query-protocol providers that answer their own default.
+	for _, id := range []string{"s3", "iam", "route53"} {
+		assert.False(t, scans[id].EngineWired,
+			"%s never returns plugin.ErrUnhandledOp, so it must not be reported as engine-wired", id)
+	}
+}
+
 // TestScanProvidersIsDeterministic keeps generated output stable across runs.
 func TestScanProvidersIsDeterministic(t *testing.T) {
 	first, err := ScanProviders("../services")

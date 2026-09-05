@@ -168,13 +168,8 @@ func writeFidelityManifest(
 	providers map[string]codegen.ProviderScan,
 	crudServices []codegen.CRUDServiceData,
 ) error {
-	handVerified := make(map[string][]string, len(providers))
-	for id, scan := range providers {
-		handVerified[id] = scan.Operations
-	}
-
 	content, err := gen.GenerateFidelityManifest(
-		codegen.BuildFidelityData(modelOps, handVerified, crudServices),
+		codegen.BuildFidelityData(modelOps, providers, crudServices),
 	)
 	if err != nil {
 		return err

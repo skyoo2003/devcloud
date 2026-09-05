@@ -70,6 +70,12 @@ var pathRoutedOps = map[string][]string{
 type ProviderScan struct {
 	// Operations are the operation names the provider dispatches by hand.
 	Operations []string
+	// EngineWired reports whether the provider hands the operations it does not
+	// implement to the generic CRUD engine, by returning plugin.ErrUnhandledOp.
+	// Only a wired provider's CRUD-shaped operations are actually served, so
+	// this is what separates a truthful auto-crud label from a claim: the CRUD
+	// registry says an operation is *classifiable*, never that it is reachable.
+	EngineWired bool
 }
 
 // ScanProviders returns, per registered service ID, the operations its provider
@@ -104,7 +110,10 @@ func ScanProviders(servicesDir string) (map[string]ProviderScan, error) {
 			return nil, err
 		}
 		for id, recvType := range pkg.serviceTypes {
-			result[id] = ProviderScan{Operations: opsFor(id, pkg.dispatchedOps(recvType))}
+			result[id] = ProviderScan{
+				Operations:  opsFor(id, pkg.dispatchedOps(recvType)),
+				EngineWired: pkg.wiresCRUDEngine(recvType),
+			}
 		}
 	}
 	return result, nil
@@ -201,6 +210,42 @@ func (p packageScan) dispatchedOps(recvType string) map[string]bool {
 	}
 	walk("HandleRequest")
 	return ops
+}
+
+// wiresCRUDEngine reports whether a provider type opts into the generic CRUD
+// engine, by returning plugin.ErrUnhandledOp anywhere in its dispatch.
+//
+// It walks the same methods as dispatchedOps, and for the same reason: scoping
+// to one receiver's dispatch is what stops a package registering two services
+// (iam also registers sts) from crediting one with the other's wiring.
+func (p packageScan) wiresCRUDEngine(recvType string) bool {
+	visited := make(map[string]bool)
+	wired := false
+
+	var walk func(name string)
+	walk = func(name string) {
+		fn := p.methods[recvType][name]
+		if fn == nil || fn.Body == nil || visited[name] || wired {
+			return
+		}
+		visited[name] = true
+
+		ast.Inspect(fn.Body, func(n ast.Node) bool {
+			sel, ok := n.(*ast.SelectorExpr)
+			if !ok || sel.Sel.Name != "ErrUnhandledOp" {
+				return true
+			}
+			if ident, isIdent := sel.X.(*ast.Ident); isIdent && ident.Name == "plugin" {
+				wired = true
+			}
+			return true
+		})
+		for _, delegate := range delegateCalls(fn) {
+			walk(delegate)
+		}
+	}
+	walk("HandleRequest")
+	return wired
 }
 
 // collectCaseLiterals reads the case literals of every keyed switch in a body.
