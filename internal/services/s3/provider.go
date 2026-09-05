@@ -121,6 +121,23 @@ func (p *S3Provider) HandleRequest(ctx context.Context, _ string, req *http.Requ
 			if _, ok := q["notification"]; ok {
 				return p.getBucketNotification(ctx, bucket)
 			}
+			// Everything above named a sub-resource this provider serves. What
+			// is left is either a bucket listing or a sub-resource nothing here
+			// implements, and falling through treated both as a listing — so
+			// GET /{bucket}?analytics answered 200 with <ListBucketResult> and
+			// botocore read it as a successful
+			// ListBucketAnalyticsConfigurations. A fabricated success, and the
+			// same fall-through covered ?inventory, ?metrics, ?replication,
+			// ?lifecycle, ?encryption, ?versions and ?object-lock.
+			//
+			// The check is on the parameters a listing actually carries rather
+			// than on a list of sub-resource names, so a sub-resource AWS adds
+			// tomorrow declines on its own instead of being served as a listing
+			// until somebody notices.
+			if sub, unhandled := unhandledSubresource(q); unhandled {
+				return xmlError("NotImplemented",
+					"the "+sub+" sub-resource is not implemented", http.StatusNotImplemented), nil
+			}
 			if q.Get("list-type") == "2" {
 				return p.listObjectsV2(ctx, bucket, q)
 			}
@@ -413,6 +430,49 @@ type locationConstraintXML struct {
 
 // splitBucketKey splits a URL path like /bucket/key/parts into (bucket, key).
 // The leading slash is stripped before splitting.
+// listObjectsParams are the query parameters a bucket listing carries. Two
+// operations share the endpoint — ListObjects and ListObjectsV2 — and between
+// them this is the whole set.
+//
+// An allow-list rather than a deny-list of sub-resource names, because the two
+// fail in opposite directions. A missing entry here declines a legitimate
+// listing parameter, which a test catches immediately; a missing entry in a
+// deny-list serves a sub-resource as a listing, which is silent and is exactly
+// the defect being fixed.
+var listObjectsParams = map[string]bool{
+	"prefix": true, "delimiter": true, "max-keys": true, "encoding-type": true,
+	"marker":      true, // ListObjects
+	"list-type":   true, // ListObjectsV2
+	"start-after": true, "continuation-token": true, "fetch-owner": true,
+	"expected-bucket-owner": true, "optional-object-attributes": true,
+	// Not a parameter of either listing, but every SDK appends it to a
+	// presigned URL, and dropping the request on it would break every
+	// presigned listing.
+	"x-id": true,
+}
+
+// unhandledSubresource reports the first query parameter that is neither a
+// listing parameter nor a sub-resource this provider serves, which makes the
+// request an operation S3 models and DevCloud does not implement.
+//
+// Sub-resources the provider does serve never reach here: their branches return
+// before this is called.
+func unhandledSubresource(q url.Values) (string, bool) {
+	names := make([]string, 0, len(q))
+	for name := range q {
+		if !listObjectsParams[name] {
+			names = append(names, name)
+		}
+	}
+	if len(names) == 0 {
+		return "", false
+	}
+	// Sorted so the same request always names the same sub-resource, whatever
+	// order Go walked the map in.
+	sort.Strings(names)
+	return names[0], true
+}
+
 func splitBucketKey(path string) (bucket, key string) {
 	path = strings.TrimPrefix(path, "/")
 	if path == "" {
