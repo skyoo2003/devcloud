@@ -19,4 +19,7 @@ __pycache__/
 
 # Worktrees
 .worktrees/
+
+# Claude Code local workspace
+.claude/
 tests/compatibility/data/
