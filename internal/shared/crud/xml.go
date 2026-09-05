@@ -85,13 +85,14 @@ func writeValue(b *strings.Builder, value any) {
 		}
 
 	case string:
-		xml.EscapeText(b, []byte(val))
+		// The error is the Writer's, and a strings.Builder never fails a write.
+		_ = xml.EscapeText(b, []byte(val))
 
 	default:
 		// Numbers and bools. fmt renders these the way AWS does, and escaping
 		// is applied anyway because the branch is reachable from a caller's
 		// arbitrary JSON body, not only from the two types named.
-		xml.EscapeText(b, []byte(fmt.Sprint(val)))
+		_ = xml.EscapeText(b, []byte(fmt.Sprint(val)))
 	}
 }
 
