@@ -79,6 +79,58 @@ func TestBuildAliasesDoesNotGuessACollision(t *testing.T) {
 	assert.Equal(t, "elasticsearchservice", table["amazonelasticsearchservice"])
 }
 
+// TestBuildAliasesSelfNamedClaimantWins covers the shape every runtime split-out
+// has: sagemaker-runtime, bedrock-runtime, forecastquery and a dozen others sign
+// with their parent's name, so the parent's own ID looks contested. It is not.
+// When exactly one claimant's service ID *is* the alias, the service is naming
+// itself and the others are borrowing — that is a fact in the models, not a
+// preference, and resolving it in the generator keeps ~7 entries out of the
+// gateway's hand-written exception list.
+func TestBuildAliasesSelfNamedClaimantWins(t *testing.T) {
+	models := []*ir.Model{
+		{ServiceID: "sagemaker", ShapeName: "SageMaker", SigningName: "sagemaker"},
+		{ServiceID: "sagemakerruntime", ShapeName: "AmazonSageMakerRuntime", SigningName: "sagemaker"},
+		{ServiceID: "sagemakeredge", ShapeName: "AmazonSageMakerEdge", SigningName: "sagemaker"},
+	}
+
+	table, collisions := BuildAliases(models)
+
+	assert.NotContains(t, collisions, "sagemaker")
+	assert.Equal(t, "sagemaker", table["sagemaker"])
+	// The borrowers keep their own unambiguous names.
+	assert.Equal(t, "sagemakerruntime", table["amazonsagemakerruntime"])
+}
+
+// TestBuildAliasesSelfNameIgnoresHyphens — service IDs never contain a hyphen,
+// but the identifiers services publish do ("bedrock-agentcore"). The hyphen is
+// punctuation in the wire name, not a difference in identity.
+func TestBuildAliasesSelfNameIgnoresHyphens(t *testing.T) {
+	models := []*ir.Model{
+		{ServiceID: "bedrockagentcore", SigningName: "bedrock-agentcore"},
+		{ServiceID: "bedrockagentcorecontrol", SigningName: "bedrock-agentcore"},
+	}
+
+	table, collisions := BuildAliases(models)
+
+	assert.NotContains(t, collisions, "bedrock-agentcore")
+	assert.Equal(t, "bedrockagentcore", table["bedrock-agentcore"])
+}
+
+// TestBuildAliasesNoSelfNamedClaimantStaysContested — the tiebreak must not
+// become a general licence to pick. Neither opensearch nor elasticsearchservice
+// is called "es", so nothing here can settle it.
+func TestBuildAliasesNoSelfNamedClaimantStaysContested(t *testing.T) {
+	models := []*ir.Model{
+		{ServiceID: "opensearch", SigningName: "es"},
+		{ServiceID: "elasticsearchservice", SigningName: "es"},
+	}
+
+	table, collisions := BuildAliases(models)
+
+	assert.Contains(t, collisions, "es")
+	assert.NotContains(t, table, "es")
+}
+
 // TestBuildAliasesIdenticalClaimIsNotACollision guards the common case: the same
 // service naming itself twice (endpointPrefix == arnNamespace, which holds for
 // most models) must not be reported as contested.
@@ -126,15 +178,18 @@ func TestBuildAliasesOverTheFleet(t *testing.T) {
 
 	table, collisions := BuildAliases(models)
 
+	// Eight, and every one is a name no claimant carries as its own ID. The
+	// cases where a claimant does — dynamodb, rds, ses, sagemaker, bedrock,
+	// forecast, personalize, transcribe — are settled by selfNamedClaimant and
+	// deliberately absent here.
 	assert.Equal(t, []string{
 		"amazonrdsv19",       // rds, docdb, neptune
 		"awswaf",             // waf, wafv2
 		"cognito",            // cognitoidentity, cognitoidentityprovider
-		"dynamodb",           // dynamodb, dynamodbstreams
 		"email",              // ses, sesv2
 		"es",                 // elasticsearchservice, opensearch
-		"rds",                // rds, docdb, neptune
-		"ses",                // ses, sesv2
+		"lex",                // 4 Lex services, none named "lex"
+		"runtime.sagemaker",  // sagemakerruntime, sagemakerruntimehttp2
 		"simpleemailservice", // ses, sesv2
 	}, collisions, "a new collision is a routing decision that needs a human")
 

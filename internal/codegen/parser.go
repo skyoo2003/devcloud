@@ -426,22 +426,30 @@ func detectProtocol(s *rawShape) string {
 }
 
 func smithyToGoType(target string) string {
+	// The Primitive* forms are Smithy's non-boxed scalars. They are prelude
+	// shapes like any other, so nothing defines them locally and an unmapped one
+	// emits a bare identifier that does not compile. Mapping them to the same Go
+	// types as their boxed twins is the whole difference; Go has no null int.
 	switch target {
 	case "smithy.api#String":
 		return "string"
-	case "smithy.api#Integer":
+	case "smithy.api#Integer", "smithy.api#PrimitiveInteger":
 		return "int32"
-	case "smithy.api#Long":
+	case "smithy.api#Long", "smithy.api#PrimitiveLong":
 		return "int64"
-	case "smithy.api#Boolean":
+	case "smithy.api#Short", "smithy.api#PrimitiveShort":
+		return "int16"
+	case "smithy.api#Byte", "smithy.api#PrimitiveByte":
+		return "int8"
+	case "smithy.api#Boolean", "smithy.api#PrimitiveBoolean":
 		return "bool"
 	case "smithy.api#Blob":
 		return "[]byte"
 	case "smithy.api#Timestamp":
 		return "time.Time"
-	case "smithy.api#Double":
+	case "smithy.api#Double", "smithy.api#PrimitiveDouble":
 		return "float64"
-	case "smithy.api#Float":
+	case "smithy.api#Float", "smithy.api#PrimitiveFloat":
 		return "float32"
 	case "smithy.api#Unit":
 		return "struct{}"

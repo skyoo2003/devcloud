@@ -49,6 +49,7 @@ func main() {
 	var crudServices []codegen.CRUDServiceData
 	var allModels []*ir.Model
 	modelOps := make(map[string][]string)
+	protocols := make(map[string]string)
 	// A model that cannot be read or parsed is skipped, which used to leave the
 	// exit status at 0 — so a drift check downstream saw no changed files and
 	// called incomplete generation clean.
@@ -94,6 +95,7 @@ func main() {
 			names = append(names, op.Name)
 		}
 		modelOps[model.ServiceID] = names
+		protocols[model.ServiceID] = model.Protocol
 
 		// Also recorded before the filters: a hand-written provider still has to
 		// be routed to, so its model still contributes routing aliases even
@@ -156,7 +158,7 @@ func main() {
 			os.Exit(1)
 		}
 
-		if err := writeFidelityManifest(gen, *outputDir, modelOps, providers, crudServices); err != nil {
+		if err := writeFidelityManifest(gen, *outputDir, modelOps, protocols, providers, crudServices); err != nil {
 			fmt.Fprintf(os.Stderr, "Error writing fidelity manifest: %v\n", err)
 			os.Exit(1)
 		}
@@ -202,11 +204,12 @@ func writeFidelityManifest(
 	gen *codegen.Generator,
 	outputDir string,
 	modelOps map[string][]string,
+	protocols map[string]string,
 	providers map[string]codegen.ProviderScan,
 	crudServices []codegen.CRUDServiceData,
 ) error {
 	content, err := gen.GenerateFidelityManifest(
-		codegen.BuildFidelityData(modelOps, providers, crudServices),
+		codegen.BuildFidelityData(modelOps, protocols, providers, crudServices),
 	)
 	if err != nil {
 		return err

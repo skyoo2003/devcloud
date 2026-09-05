@@ -75,6 +75,27 @@ func TestParseSmithyJSON(t *testing.T) {
 	assert.Equal(t, ir.ShapeList, bucketList.Type)
 }
 
+// TestSmithyToGoType_Primitives covers Smithy's non-boxed primitives. They are
+// ordinary prelude shapes, so nothing defines them locally, and a member
+// targeting one used to emit a bare "PrimitiveLong" that does not compile —
+// which is how onboarding the AI/ML category broke the build on bedrockagent
+// and omics. Every prelude scalar the parser can meet belongs here, not only
+// the two that happened to appear.
+func TestSmithyToGoType_Primitives(t *testing.T) {
+	cases := map[string]string{
+		"smithy.api#PrimitiveLong":    "int64",
+		"smithy.api#PrimitiveInteger": "int32",
+		"smithy.api#PrimitiveShort":   "int16",
+		"smithy.api#PrimitiveByte":    "int8",
+		"smithy.api#PrimitiveBoolean": "bool",
+		"smithy.api#PrimitiveFloat":   "float32",
+		"smithy.api#PrimitiveDouble":  "float64",
+	}
+	for target, want := range cases {
+		assert.Equal(t, want, smithyToGoType(target), target)
+	}
+}
+
 // TestParseSmithyJSON_ServiceIdentifiers covers the names a caller can use to
 // address a service on the wire. They are the input to the derived alias table,
 // and rekognition is the model that proves why the shape name has to be carried

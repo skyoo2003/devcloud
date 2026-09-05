@@ -144,19 +144,27 @@ var serviceIDOverrides = map[string]string{
 	// here so the collision is answered rather than merely unlisted — sending
 	// two thirds of docdb and neptune's traffic to rds is worse than an honest
 	// UnknownService.
-	"dynamodb":     "dynamodb",   // also claimed by dynamodbstreams
-	"rds":          "rds",        // also claimed by docdb, neptune
 	"amazonrdsv19": "",           // rds/docdb/neptune share a shape name; no basis to pick
 	"cognito":      "",           // cognitoidentity vs cognitoidentityprovider; no basis to pick
 	"es":           "opensearch", // ES and OpenSearch share "es"; DetectProtocol splits them by URL path
 	"awswaf":       "waf",        // WAF classic; wafv2 arrives as AWSWAF_20190729
 	// SES v1 (Query) and SESv2 (REST-JSON) share every identifier. The protocol
-	// is what tells them apart, and DetectProtocol already does it — so these
+	// is what tells them apart, and DetectProtocol already does it, so these
 	// resolve to v1 and the REST-JSON branch promotes to v2. Mapping them
-	// straight to sesv2 here routes every SES v1 Query call to the v2 provider.
-	"ses":                "ses",
+	// straight to sesv2 routes every SES v1 Query call to the v2 provider.
+	// "ses" itself needs no entry: SES names itself, so the generator settles it.
 	"email":              "ses",
 	"simpleemailservice": "ses",
+	// SageMaker Runtime and its HTTP/2 variant share an endpoint prefix and
+	// neither is named "runtime.sagemaker". Same API, different transport.
+	"runtime.sagemaker": "sagemakerruntime",
+	// All four Lex services sign as "lex" and none is named it. They are
+	// restJson1, so none can be engine-served, and picking one would route the
+	// other three's traffic to a service that answers for a different API. Each
+	// still routes under its own unambiguous name. Revisit if one gains a
+	// hand-written provider — then URL-path routing, as DetectProtocol already
+	// does for opensearch, becomes worth the code.
+	"lex": "",
 
 	// --- Group 2: legacy identifiers no model publishes ---
 	"amazonkinesis":                      "kinesis",

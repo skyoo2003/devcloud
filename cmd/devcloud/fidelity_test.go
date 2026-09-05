@@ -51,17 +51,32 @@ func TestFidelityManifestCoverage(t *testing.T) {
 				served++
 			}
 		}
-		// Every routed service must serve something. Hand-verified operations and
-		// engine-served ones both count: a scaffolded service legitimately
-		// implements nothing by hand and is served entirely by the CRUD engine.
+		// Every routed service must serve something — unless its protocol puts
+		// it out of the CRUD engine's reach and nobody has written it by hand.
 		//
-		// Zero of both is the real defect — a service registered and routed that
-		// answers nothing. That happens when the dispatch scan loses a provider
-		// (a new path-routing provider needs a pathRoutedOps entry in
-		// internal/codegen/scan_handverified.go) or when a provider declines
-		// without returning plugin.ErrUnhandledOp, so it never reaches the engine.
-		if served == 0 {
-			t.Errorf("%s: serves no operations — neither hand-verified nor engine-served", id)
+		// The engine classifies from the operation name, which only the
+		// X-Amz-Target JSON protocols carry (crud.JSONProtocol). A restJson1,
+		// query or restXml service therefore serves nothing until it gets a
+		// hand-written provider. Registering it anyway is deliberate: it routes,
+		// and it declines with a clean AWS error instead of the caller falling
+		// through to real AWS. What it must never do is count as covered — see
+		// docs/coverage.md, which publishes the registered / engine-served split
+		// rather than the registered number alone.
+		//
+		// The defect this leaves is the sharp one: the engine holds classified
+		// operations for the service, and the manifest still says none is
+		// served. That is wiring, not protocol — the dispatch scan lost a
+		// provider (a new path-routing provider needs a pathRoutedOps entry in
+		// internal/codegen/scan_handverified.go), or a provider declines without
+		// returning plugin.ErrUnhandledOp and so never reaches the engine.
+		//
+		// An engine-servable service with nothing in the registry is a third,
+		// legitimate case: forecastquery is json-1.1 but its whole API is
+		// QueryForecast / QueryWhatIfForecast, and neither is CRUD-shaped. There
+		// is nothing to serve generically, so zero served is the truth.
+		if served == 0 && len(crud.RegisteredOps(id)) > 0 {
+			t.Errorf("%s: the CRUD engine holds %d operations for it, but the manifest serves none",
+				id, len(crud.RegisteredOps(id)))
 		}
 	}
 	if operations < minOperations {

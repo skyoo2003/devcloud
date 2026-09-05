@@ -65,16 +65,50 @@ func BuildAliases(models []*ir.Model) (map[string]string, []string) {
 	table := make(map[string]string, len(claims))
 	var collisions []string
 	for alias, claimants := range claims {
-		if len(claimants) > 1 {
+		switch {
+		case len(claimants) == 1:
+			for serviceID := range claimants {
+				table[alias] = serviceID
+			}
+		default:
+			// Every runtime split-out signs with its parent's name —
+			// sagemaker-runtime as "sagemaker", forecastquery as "forecast" —
+			// which makes the parent's own identifier look contested. It is not:
+			// when exactly one claimant IS the alias, that service is naming
+			// itself and the rest are borrowing. Resolving that here is reading
+			// the models, not picking a winner.
+			if owner, ok := selfNamedClaimant(alias, claimants); ok {
+				table[alias] = owner
+				continue
+			}
 			collisions = append(collisions, alias)
-			continue
-		}
-		for serviceID := range claimants {
-			table[alias] = serviceID
 		}
 	}
 	sort.Strings(collisions)
 	return table, collisions
+}
+
+// selfNamedClaimant returns the one claimant whose service ID is the alias, if
+// there is exactly one. Hyphens are ignored on the alias side: a service ID
+// never contains one, but the names services publish do ("bedrock-agentcore"),
+// and that punctuation is not a difference in identity.
+//
+// Exactly one, deliberately. Two services that both name themselves the same
+// thing is a genuine conflict and must stay contested.
+func selfNamedClaimant(alias string, claimants map[string]bool) (string, bool) {
+	bare := strings.ReplaceAll(alias, "-", "")
+	var owner string
+	var found int
+	for serviceID := range claimants {
+		if serviceID == alias || serviceID == bare {
+			owner = serviceID
+			found++
+		}
+	}
+	if found != 1 {
+		return "", false
+	}
+	return owner, true
 }
 
 // GenerateAliases renders the alias table into Go source.

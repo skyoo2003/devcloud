@@ -17,7 +17,12 @@ type FidelityData struct {
 
 // FidelityServiceData is one service's classified operations.
 type FidelityServiceData struct {
-	ServiceID   string
+	ServiceID string
+	// Protocol is the service's wire protocol. It is what decides whether the
+	// CRUD engine can serve the service at all, so it is published rather than
+	// inferred: "registered" and "engine-served" are different numbers, and
+	// only this field lets a reader tell them apart.
+	Protocol    string
 	ModelBacked bool
 	Ops         []FidelityOpData
 }
@@ -48,6 +53,7 @@ type FidelityOpData struct {
 // coverage the binary does not serve.
 func BuildFidelityData(
 	modelOps map[string][]string,
+	protocols map[string]string,
 	providers map[string]ProviderScan,
 	autoCRUD []CRUDServiceData,
 ) FidelityData {
@@ -101,6 +107,7 @@ func BuildFidelityData(
 
 		data.Services = append(data.Services, FidelityServiceData{
 			ServiceID:   serviceID,
+			Protocol:    protocols[serviceID],
 			ModelBacked: len(modelOps[serviceID]) > 0,
 			Ops:         ops,
 		})
