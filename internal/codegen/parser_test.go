@@ -75,6 +75,52 @@ func TestParseSmithyJSON(t *testing.T) {
 	assert.Equal(t, ir.ShapeList, bucketList.Type)
 }
 
+// twoNamespaceModel is the shape healthlake.json actually has: the service's own
+// namespace plus a second one bundled into the same file, with short names that
+// collide. Shapes are keyed by short name, so one of the two wins — and which one
+// used to depend on Go's map iteration order, making `make codegen` emit a
+// different file on every run.
+const twoNamespaceModel = `{
+  "smithy": "2.0",
+  "shapes": {
+    "com.amazonaws.demo#Demo": {
+      "type": "service",
+      "version": "2020-01-01",
+      "operations": [{"target": "com.amazonaws.demo#GetWidget"}],
+      "traits": {"aws.protocols#awsJson1_1": {}}
+    },
+    "com.amazonaws.demo#GetWidget": {"type": "operation", "output": {"target": "com.amazonaws.demo#Widget"}},
+    "com.amazonaws.demo#Widget": {
+      "type": "structure",
+      "members": {"Mine": {"target": "smithy.api#String"}}
+    },
+    "com.amazon.demolegacyfrontend#Widget": {
+      "type": "structure",
+      "members": {"Theirs": {"target": "smithy.api#String"}}
+    }
+  }
+}`
+
+// TestParseSmithyJSON_ServiceNamespaceWinsShapeCollision pins both halves: the
+// winner is the service's own shape, and it is the winner every time.
+//
+// Determinism alone would not be enough — sorting the FQNs picks
+// "com.amazon.demolegacyfrontend#Widget", the foreign one, because it sorts
+// first. The model's service defines its own API; a bundled second namespace is
+// a dependency, not the subject.
+func TestParseSmithyJSON_ServiceNamespaceWinsShapeCollision(t *testing.T) {
+	for i := 0; i < 50; i++ {
+		model, err := ParseSmithyJSON([]byte(twoNamespaceModel))
+		require.NoError(t, err)
+
+		widget, ok := model.Shapes["Widget"]
+		require.True(t, ok)
+		require.Len(t, widget.Members, 1)
+		assert.Equal(t, "Mine", widget.Members[0].Name,
+			"the service's own namespace must win, on every run")
+	}
+}
+
 // TestSmithyToGoType_Primitives covers Smithy's non-boxed primitives. They are
 // ordinary prelude shapes, so nothing defines them locally, and a member
 // targeting one used to emit a bare "PrimitiveLong" that does not compile —

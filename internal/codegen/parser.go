@@ -150,13 +150,34 @@ func ParseSmithyJSON(data []byte) (*ir.Model, error) {
 		return model.Operations[i].Name < model.Operations[j].Name
 	})
 
-	// Parse shapes
-	for fqn, rs := range parsed {
+	// Parse shapes.
+	//
+	// Shapes are keyed by short name, and a model can bundle more than one
+	// namespace — healthlake.json carries eight short names that exist in both
+	// its own namespace and a second one. Iterating the map directly meant the
+	// last writer won at random, so `make codegen` emitted a different file on
+	// every run. Sorting fixes the randomness; serviceNamespace fixes the
+	// choice, because sorting alone would prefer whichever namespace happens to
+	// sort first rather than the one the model is about.
+	serviceNamespace := namespaceOf(serviceFQN)
+	shapeFQNs := make([]string, 0, len(parsed))
+	for fqn := range parsed {
+		shapeFQNs = append(shapeFQNs, fqn)
+	}
+	sort.Strings(shapeFQNs)
+
+	for _, fqn := range shapeFQNs {
+		rs := parsed[fqn]
 		name := shortName(fqn)
 		if strings.HasPrefix(fqn, "smithy.api#") {
 			continue
 		}
 		if rs.Type == "service" || rs.Type == "operation" || rs.Type == "resource" {
+			continue
+		}
+		// A shape already claimed by the service's own namespace is never
+		// replaced by a foreign one.
+		if _, taken := model.Shapes[name]; taken && namespaceOf(fqn) != serviceNamespace {
 			continue
 		}
 
@@ -351,6 +372,16 @@ func shortName(fqn string) string {
 		return parts[1]
 	}
 	return fqn
+}
+
+// namespaceOf returns the namespace half of a Smithy shape ID, or "" when the
+// id carries none.
+func namespaceOf(fqn string) string {
+	ns, _, found := strings.Cut(fqn, "#")
+	if !found {
+		return ""
+	}
+	return ns
 }
 
 func detectServiceID(fqn string) string {

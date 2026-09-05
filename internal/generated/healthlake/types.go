@@ -349,7 +349,7 @@ type ListFHIRImportJobsResponse struct {
 }
 
 type ListTagsForResourceRequest struct {
-	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+	ResourceARN string `json:"resourceARN" xml:"ResourceARN"`
 }
 
 type ListTagsForResourceResponse struct {
@@ -555,7 +555,7 @@ type TransformationOutputDataConfig struct {
 }
 
 type UntagResourceRequest struct {
-	ResourceArn string     `json:"resourceArn" xml:"ResourceArn"`
+	ResourceARN string     `json:"resourceARN" xml:"ResourceARN"`
 	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
