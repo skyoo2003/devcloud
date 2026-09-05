@@ -2,4 +2,4 @@ kind: Added
 body: 'The generic CRUD engine now serves every protocol DevCloud registers. `rest-xml` and `query` were the last two: `rest-xml` recovers its operation from the request method and path against the model''s URI templates, like `rest-json`, and `query` reads it from the `Action` field of the form body. 112 operations move from `unimplemented` to `auto-crud` — 94 in `s3-control` and 18 in `elastic-load-balancing` — and protocol is no longer a reason any registered service serves nothing'
 time: 2026-09-05T20:10:00.000000+09:00
 custom:
-    Issue: "142"
+    Issue: "143"
