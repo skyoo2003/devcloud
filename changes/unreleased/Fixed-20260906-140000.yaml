@@ -1,0 +1,5 @@
+kind: Fixed
+body: 'Eight query-protocol providers no longer fabricate a success. `rds`, `neptune`, `docdb`, `redshift`, `elasticache`, `autoscaling`, `cloudformation` and `elasticloadbalancingv2` answered any operation they do not implement with HTTP 200 and an empty `<ActionResponse/>`, so a caller was told an operation succeeded when nothing ran. The body also had no `<ActionResult>` wrapper, so botocore raised `KeyError` rather than returning a value — `neptune.describe_db_cluster_endpoints()` crashed the SDK. They now hand the operation to the generic CRUD engine, which serves the 223 CRUD-shaped ones from the real store and refuses the rest with a clean `InvalidAction`'
+time: 2026-09-06T14:00:00.000000+09:00
+custom:
+    Issue: "145"

@@ -23,8 +23,8 @@ Per operation, from the [fidelity manifest](fidelity-manifest.md):
 | Tier | Operations |
 |---|---|
 | `hand-verified` | 4,496 |
-| `auto-crud` | 4,970 |
-| `unimplemented` | 2,941 |
+| `auto-crud` | 5,193 |
+| `unimplemented` | 2,718 |
 | **total known** | **12,407** |
 
 ## Why a registered service can serve nothing

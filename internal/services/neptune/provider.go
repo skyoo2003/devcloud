@@ -225,10 +225,17 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 		return p.handleSwitchoverGlobalCluster(form)
 
 	default:
-		type genericResult struct {
-			XMLName xml.Name `xml:"GenericResponse"`
-		}
-		return shared.XMLResponse(http.StatusOK, genericResult{XMLName: xml.Name{Local: action + "Response"}})
+		// Hand back to the generic CRUD engine rather than inventing a success.
+		// This branch used to return 200 with an empty <ActionResponse/>, which
+		// is a fabricated success for an operation nothing implements — the one
+		// thing docs/coverage.md says must never happen. It also had no
+		// <ActionResult> wrapper, so botocore's query parser raised KeyError on
+		// the operations that declare one.
+		//
+		// The engine serves the CRUD-shaped actions from the real store and
+		// refuses the rest with InvalidAction. Either way the caller is told the
+		// truth. See internal/shared/crud.
+		return nil, plugin.ErrUnhandledOp
 	}
 }
 
