@@ -1,24 +1,24 @@
 // SPDX-License-Identifier: Apache-2.0
 
-package {{ .PkgName }}
+package comprehend
 
 import (
 	"context"
 	"net/http"
 
+	generated "github.com/skyoo2003/devcloud/internal/generated/comprehend"
 	"github.com/skyoo2003/devcloud/internal/plugin"
-	generated "github.com/skyoo2003/devcloud/internal/generated/{{ .ServiceID }}"
 )
 
-// Provider implements the {{ .ServiceName }} service.
+// Provider implements the Comprehend_20171127 service.
 type Provider struct {
 	generated.BaseProvider
 	dataDir string
 }
 
-func (p *Provider) ServiceID() string      { return "{{ .ServiceID }}" }
-func (p *Provider) ServiceName() string    { return "{{ .ServiceName }}" }
-func (p *Provider) Protocol() plugin.ProtocolType { return plugin.{{ .ProtocolConst }} }
+func (p *Provider) ServiceID() string             { return "comprehend" }
+func (p *Provider) ServiceName() string           { return "Comprehend_20171127" }
+func (p *Provider) Protocol() plugin.ProtocolType { return plugin.ProtocolJSON11 }
 
 func (p *Provider) Init(cfg plugin.PluginConfig) error {
 	p.dataDir = cfg.DataDir
@@ -47,7 +47,7 @@ func (p *Provider) ListResources(ctx context.Context) ([]plugin.Resource, error)
 }
 
 func init() {
-	plugin.DefaultRegistry.Register("{{ .ServiceID }}", func() plugin.ServicePlugin {
+	plugin.DefaultRegistry.Register("comprehend", func() plugin.ServicePlugin {
 		return &Provider{}
 	})
 }

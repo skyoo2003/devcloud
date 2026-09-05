@@ -66,9 +66,14 @@ func TestScanProviders(t *testing.T) {
 	assert.Contains(t, got["s3"], "PutObject")
 	assert.Contains(t, got["bedrock"], "InvokeModel")
 
-	// No service is silently empty — an empty set means the scan lost a provider.
+	// No service is silently empty — an empty set means the scan lost a
+	// provider, unless the provider hand-implements nothing on purpose and is
+	// served entirely by the CRUD engine, which is what a scaffolded service is.
 	for id, ops := range got {
-		assert.NotEmpty(t, ops, "%s resolved no hand-verified operations", id)
+		if scans[id].EngineWired {
+			continue
+		}
+		assert.NotEmpty(t, ops, "%s resolved no hand-verified operations and is not engine-wired, so it serves nothing", id)
 	}
 }
 
@@ -162,6 +167,26 @@ func TestPathRoutedOverridesAreReal(t *testing.T) {
 			}
 			assert.True(t, modelSet[op], "%s: %q is not an operation in the model", id, op)
 		}
+	}
+}
+
+// TestScanProvidersDetectsEngineWiring checks the scan reports whether a
+// provider reaches the generic CRUD engine. Only a provider that returns
+// plugin.ErrUnhandledOp does; the rest decline in their own vocabulary and are
+// served by nothing, so the fidelity manifest must not call their CRUD-shaped
+// operations auto-crud.
+func TestScanProvidersDetectsEngineWiring(t *testing.T) {
+	scans, err := ScanProviders("../services")
+	require.NoError(t, err)
+
+	for _, id := range []string{"codebuild", "organizations", "kinesis"} {
+		assert.True(t, scans[id].EngineWired,
+			"%s returns plugin.ErrUnhandledOp, so it must be reported as engine-wired", id)
+	}
+	// Path-routed and Query-protocol providers that answer their own default.
+	for _, id := range []string{"s3", "iam", "route53"} {
+		assert.False(t, scans[id].EngineWired,
+			"%s never returns plugin.ErrUnhandledOp, so it must not be reported as engine-wired", id)
 	}
 }
 

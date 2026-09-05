@@ -40,9 +40,15 @@ type FidelityOpData struct {
 // Precedence is hand-verified > auto-crud > unimplemented, mirroring the runtime:
 // the CRUD engine is reached only when a provider's dispatch falls through, so a
 // hand-written implementation always wins. See docs/crud-engine.md.
+//
+// Registry membership alone does not earn the auto-crud label. It says an
+// operation is *classifiable*, while the engine is reached at runtime only for
+// providers that return plugin.ErrUnhandledOp — so an unwired provider's
+// CRUD-shaped operations are refused, and calling them auto-crud would publish
+// coverage the binary does not serve.
 func BuildFidelityData(
 	modelOps map[string][]string,
-	handVerified map[string][]string,
+	providers map[string]ProviderScan,
 	autoCRUD []CRUDServiceData,
 ) FidelityData {
 	crudOps := make(map[string]map[string]bool, len(autoCRUD))
@@ -55,10 +61,20 @@ func BuildFidelityData(
 	}
 
 	data := FidelityData{}
-	for _, serviceID := range sortedKeys(handVerified) {
-		hand := make(map[string]bool, len(handVerified[serviceID]))
+	for _, serviceID := range sortedKeys(providers) {
+		provider := providers[serviceID]
+
+		// Reachable, not merely classifiable: an unwired provider serves none of
+		// the registry's operations, so its served set is empty and its
+		// CRUD-shaped operations fall through to unimplemented.
+		var served map[string]bool
+		if provider.EngineWired {
+			served = crudOps[serviceID]
+		}
+
+		hand := make(map[string]bool, len(provider.Operations))
 		universe := make(map[string]bool)
-		for _, op := range handVerified[serviceID] {
+		for _, op := range provider.Operations {
 			hand[op] = true
 			universe[op] = true
 		}
@@ -79,7 +95,7 @@ func BuildFidelityData(
 		for _, name := range names {
 			ops = append(ops, FidelityOpData{
 				Name:      name,
-				TierConst: tierFor(name, hand, crudOps[serviceID]),
+				TierConst: tierFor(name, hand, served),
 			})
 		}
 
@@ -92,18 +108,22 @@ func BuildFidelityData(
 	return data
 }
 
-func tierFor(op string, hand, crud map[string]bool) string {
+// tierFor labels one operation. served holds the engine-servable operations of
+// an engine-wired provider, and is empty for a provider the engine never
+// reaches — so an unwired service can only produce hand-verified or
+// unimplemented, never auto-crud.
+func tierFor(op string, hand, served map[string]bool) string {
 	switch {
 	case hand[op]:
 		return "HandVerified"
-	case crud[op]:
+	case served[op]:
 		return "AutoCRUD"
 	default:
 		return "Unimplemented"
 	}
 }
 
-func sortedKeys(m map[string][]string) []string {
+func sortedKeys[V any](m map[string]V) []string {
 	keys := make([]string, 0, len(m))
 	for k := range m {
 		keys = append(keys, k)

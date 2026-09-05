@@ -1,0 +1,5 @@
+kind: Fixed
+body: 'Service registration is no longer silently dropped: `scripts/generate-imports.sh` gated on a `register.go` file that no service has, so every run wrote an empty import block and the built binary registered nothing. It now gates on the package actually calling `Register`, and refuses to write a gutted file instead of reporting success'
+time: 2026-09-05T15:26:00.000000+09:00
+custom:
+    Issue: "136"

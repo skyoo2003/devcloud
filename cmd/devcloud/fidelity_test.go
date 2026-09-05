@@ -42,20 +42,26 @@ func TestFidelityManifestCoverage(t *testing.T) {
 		}
 		operations += len(svc.Operations)
 
-		handVerified := 0
+		served := 0
 		for op, tier := range svc.Operations {
 			if !validTiers[tier] {
 				t.Errorf("%s/%s: tier %q is not a declared tier", id, op, tier)
 			}
-			if tier == fidelity.TierHandVerified {
-				handVerified++
+			if tier == fidelity.TierHandVerified || tier == fidelity.TierAutoCRUD {
+				served++
 			}
 		}
-		// A service with nothing hand-verified means the scan lost its provider —
-		// most likely a new path-routing provider that needs a pathRoutedOps
-		// entry in internal/codegen/scan_handverified.go.
-		if handVerified == 0 {
-			t.Errorf("%s: no hand-verified operations; the dispatch scan probably missed this provider", id)
+		// Every routed service must serve something. Hand-verified operations and
+		// engine-served ones both count: a scaffolded service legitimately
+		// implements nothing by hand and is served entirely by the CRUD engine.
+		//
+		// Zero of both is the real defect — a service registered and routed that
+		// answers nothing. That happens when the dispatch scan loses a provider
+		// (a new path-routing provider needs a pathRoutedOps entry in
+		// internal/codegen/scan_handverified.go) or when a provider declines
+		// without returning plugin.ErrUnhandledOp, so it never reaches the engine.
+		if served == 0 {
+			t.Errorf("%s: serves no operations — neither hand-verified nor engine-served", id)
 		}
 	}
 	if operations < minOperations {

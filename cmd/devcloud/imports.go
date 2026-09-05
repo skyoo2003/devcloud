@@ -31,6 +31,7 @@ import (
 	_ "github.com/skyoo2003/devcloud/internal/services/codepipeline"
 	_ "github.com/skyoo2003/devcloud/internal/services/cognitoidentity"
 	_ "github.com/skyoo2003/devcloud/internal/services/cognitoidentityprovider"
+	_ "github.com/skyoo2003/devcloud/internal/services/comprehend"
 	_ "github.com/skyoo2003/devcloud/internal/services/configservice"
 	_ "github.com/skyoo2003/devcloud/internal/services/costexplorer"
 	_ "github.com/skyoo2003/devcloud/internal/services/dms"
