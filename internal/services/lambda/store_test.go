@@ -118,6 +118,53 @@ func TestLambdaStore_DeleteFunction(t *testing.T) {
 	assert.ErrorIs(t, err, ErrFunctionNotFound)
 }
 
+func TestLambdaStore_CodePathRejectsTraversal(t *testing.T) {
+	store := newTestLambdaStore(t)
+
+	tests := []struct {
+		name         string
+		accountID    string
+		functionName string
+	}{
+		{"traversing account", "../..", "fn"},
+		{"traversing function", "123456789012", "../other-account"},
+		{"separator in function", "123456789012", "a/b"},
+		{"absolute function", "123456789012", "/etc/passwd"},
+		{"empty account", "", "fn"},
+		{"dot function", "123456789012", "."},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := store.codePath(tt.accountID, tt.functionName)
+			assert.Error(t, err)
+		})
+	}
+}
+
+// DeleteFunction removes a directory, so it must refuse names codePath rejects
+// rather than falling back to its own containment check.
+func TestLambdaStore_DeleteFunctionRejectsTraversal(t *testing.T) {
+	store := newTestLambdaStore(t)
+
+	victim := &FunctionInfo{
+		FunctionName: "victim",
+		FunctionArn:  "arn:aws:lambda:us-east-1:123456789012:function:victim",
+		Runtime:      "python3.12",
+		Handler:      "index.handler",
+		AccountID:    "123456789012",
+	}
+	_, err := store.CreateFunction(victim, []byte("zip"))
+	require.NoError(t, err)
+
+	err = store.DeleteFunction("999999999999", "../123456789012/victim")
+	assert.ErrorIs(t, err, ErrFunctionNotFound)
+
+	code, err := store.GetFunctionCode("123456789012", "victim")
+	require.NoError(t, err, "victim code should survive")
+	assert.Equal(t, []byte("zip"), code)
+}
+
 func TestLambdaStore_UpdateFunctionCode(t *testing.T) {
 	store := newTestLambdaStore(t)
 

@@ -64,6 +64,15 @@ func TestFileStore_PathTraversal(t *testing.T) {
 	require.NoError(t, err, "relative path within bounds should be allowed")
 }
 
+func TestFileStore_BucketDirRejectsTraversal(t *testing.T) {
+	store := NewFileStore(t.TempDir())
+
+	assert.Error(t, store.CreateBucketDir("000000000000", ".."))
+	assert.Error(t, store.CreateBucketDir("000000000000", "../escape"))
+	assert.Error(t, store.CreateBucketDir("000000000000", "/abs"))
+	assert.Error(t, store.DeleteBucketDir("..", "bucket"))
+}
+
 // A key that climbs out of its own bucket but stays under baseDir passes a
 // containment check made against baseDir alone, so it needs its own guard.
 func TestFileStore_KeyCannotEscapeItsBucket(t *testing.T) {
