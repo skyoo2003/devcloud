@@ -149,8 +149,9 @@ func (s *LambdaStore) Close() error {
 // separators or absolute markers. It intentionally does not reject ".." as a
 // substring (e.g. "user..1") since the containment check below handles traversal.
 func isSafePathComponent(v string) bool {
-	return v != "" && v != "." && v != ".." && !filepath.IsAbs(v) &&
-		!strings.ContainsAny(v, "/\\")
+	// IsLocal covers "", "..", "../x" and absolute paths, and is the guard
+	// CodeQL recognises as a path-injection barrier.
+	return filepath.IsLocal(v) && v != "." && !strings.ContainsAny(v, "/\\")
 }
 
 // codePath returns the filesystem path for a function's code zip.
@@ -331,23 +332,15 @@ func (s *LambdaStore) DeleteFunction(accountID, functionName string) error {
 		return ErrFunctionNotFound
 	}
 
-	// Remove the code directory (best-effort; ignore errors), but only if the
-	// resolved path stays within the configured base code directory.
-	codeDirAbs := filepath.Join(s.codeDir, accountID, functionName)
-	cleaned := filepath.Clean(codeDirAbs)
-	baseDirAbs, err := filepath.Abs(s.codeDir)
-	if err == nil {
-		absCleaned, err := filepath.Abs(cleaned)
-		if err == nil {
-			rel, err := filepath.Rel(baseDirAbs, absCleaned)
-			if err == nil && rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) && !filepath.IsAbs(rel) {
-				_ = os.RemoveAll(absCleaned)
-			} else {
-				slog.Debug("skipped code directory removal: path outside base directory",
-					"path", absCleaned, "base", baseDirAbs)
-			}
-		}
+	// Remove the code directory (best-effort; ignore errors). Going through
+	// codePath applies the same component and containment checks CreateFunction
+	// used to write it, so the removal cannot reach another account's directory.
+	codeZip, err := s.codePath(accountID, functionName)
+	if err != nil {
+		slog.Debug("skipped code directory removal", "error", err)
+		return nil
 	}
+	_ = os.RemoveAll(filepath.Dir(codeZip))
 
 	return nil
 }

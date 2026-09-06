@@ -30,7 +30,9 @@ func NewFileStore(baseDir string) *FileStore {
 // validPathComponent checks that a single path segment contains no path
 // separators, dot-only components, or empty values.
 func validPathComponent(part string) error {
-	if part == "" || part == "." || part == ".." {
+	// IsLocal covers "", "..", "../x" and absolute paths, and is the guard
+	// CodeQL recognises as a path-injection barrier.
+	if !filepath.IsLocal(part) || part == "." {
 		return fmt.Errorf("invalid path component: %q", part)
 	}
 	if strings.ContainsAny(part, "/\\") ||
@@ -49,14 +51,10 @@ func (fs *FileStore) safePath(parts ...string) (string, error) {
 		if part == "" {
 			continue
 		}
-		if filepath.IsAbs(part) {
-			return "", fmt.Errorf("absolute path segment not allowed: %s", part)
-		}
-		cleanPart := filepath.Clean(part)
-		if cleanPart == ".." || strings.HasPrefix(cleanPart, ".."+string(filepath.Separator)) {
+		if !filepath.IsLocal(part) {
 			return "", fmt.Errorf("path traversal detected in segment: %s", part)
 		}
-		cleanParts = append(cleanParts, cleanPart)
+		cleanParts = append(cleanParts, filepath.Clean(part))
 	}
 
 	candidate := filepath.Join(append([]string{fs.baseDir}, cleanParts...)...)
@@ -79,7 +77,7 @@ func (fs *FileStore) safePath(parts ...string) (string, error) {
 
 // objectPath returns the absolute filesystem path for the given object.
 // Unlike safePath, the key may contain '/' (e.g. "photos/a.jpg") which is
-// valid for S3 object keys. Containment under baseDir is still enforced.
+// valid for S3 object keys. Containment under the bucket is still enforced.
 func (fs *FileStore) objectPath(accountID, bucket, key string) (string, error) {
 	if err := validPathComponent(accountID); err != nil {
 		return "", err
@@ -87,7 +85,10 @@ func (fs *FileStore) objectPath(accountID, bucket, key string) (string, error) {
 	if err := validPathComponent(bucket); err != nil {
 		return "", err
 	}
-	if key == "" {
+	// The key gets IsLocal rather than validPathComponent because '/' is legal
+	// in it. Checking the joined path against baseDir alone is not enough: a key
+	// like "../victim/secret" leaves its own bucket while staying under baseDir.
+	if !filepath.IsLocal(key) {
 		return "", fmt.Errorf("invalid path component: %q", key)
 	}
 

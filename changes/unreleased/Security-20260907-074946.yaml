@@ -1,0 +1,5 @@
+kind: Security
+body: An S3 object key can no longer leave the bucket that owns it — a key such as `../victim/secret.txt` stayed under the store base directory and so passed the old containment check, letting one tenant read, overwrite and delete another tenant's objects — because every user-controlled path component is now guarded with `filepath.IsLocal`
+time: 2026-09-07T07:49:46.951306+09:00
+custom:
+    Issue: "155"
