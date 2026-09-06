@@ -63,3 +63,28 @@ func TestFileStore_PathTraversal(t *testing.T) {
 	err = store.PutObject("000000000000", "bucket", "a/b/../../c/file.txt", []byte("ok"))
 	require.NoError(t, err, "relative path within bounds should be allowed")
 }
+
+// A key that climbs out of its own bucket but stays under baseDir passes a
+// containment check made against baseDir alone, so it needs its own guard.
+func TestFileStore_KeyCannotEscapeItsBucket(t *testing.T) {
+	store := NewFileStore(t.TempDir())
+	require.NoError(t, store.PutObject("000000000000", "victim", "secret.txt", []byte("secret")))
+
+	err := store.PutObject("000000000000", "attacker", "../victim/secret.txt", []byte("owned"))
+	assert.Error(t, err, "key escaping its own bucket should be rejected")
+
+	data, err := store.GetObject("000000000000", "victim", "secret.txt")
+	require.NoError(t, err)
+	assert.Equal(t, []byte("secret"), data, "victim object should be untouched")
+}
+
+func TestFileStore_KeyCannotEscapeItsAccount(t *testing.T) {
+	store := NewFileStore(t.TempDir())
+	require.NoError(t, store.PutObject("000000000000", "victim", "secret.txt", []byte("secret")))
+
+	err := store.DeleteObject("111111111111", "attacker", "../../000000000000/victim/secret.txt")
+	assert.Error(t, err, "key escaping its own account should be rejected")
+
+	_, err = store.GetObject("000000000000", "victim", "secret.txt")
+	require.NoError(t, err, "victim object should still exist")
+}
