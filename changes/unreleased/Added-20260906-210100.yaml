@@ -1,0 +1,5 @@
+kind: Added
+body: '`scripts/model_churn.py` summarises what a Smithy model sync actually changed — which services gained or lost operations, which models moved only documentation, and how many upstream models are not vendored here. The weekly sync PR is built from it, so a reviewer reads a change rather than a whole-tree regeneration of 194 models. Run it by hand with `python3 scripts/model_churn.py --upstream`'
+time: 2026-09-06T21:01:00.000000+09:00
+custom:
+    Issue: "147"

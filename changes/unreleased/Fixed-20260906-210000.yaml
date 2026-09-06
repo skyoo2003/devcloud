@@ -1,0 +1,5 @@
+kind: Fixed
+body: 'The weekly Smithy model sync discarded the changes worth reviewing. Its test step ended the job before the pull request was opened, and an upstream model that gains an operation is designed to fail that step — it moves the fidelity manifest and trips the published-figure gate. So a cosmetic sync produced a PR and a semantic one produced a red cron job with nothing attached. The test result is now recorded rather than gating, the PR is always opened when models moved, and the failure is re-raised afterwards so the cron does not silently go green'
+time: 2026-09-06T21:00:00.000000+09:00
+custom:
+    Issue: "147"

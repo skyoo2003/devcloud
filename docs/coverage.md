@@ -314,6 +314,41 @@ taken on a different day and are not a controlled comparison, so read this as
 readings agree on is the shape: memory is dominated by the runtime and the
 store, not by how many services are registered.
 
+## Keeping up with upstream
+
+The 205 services are vendored from 194 Smithy models, and AWS keeps changing
+them. A [weekly workflow](../.github/workflows/smithy-sync.yml) refreshes all of
+them and opens a pull request. What that review costs was measured once, on
+**2026-09-06**:
+
+| Reading | Value |
+|---|---|
+| Vendored models refreshed | 194 |
+| Models that changed | 93 |
+| Of those, models that added or removed an operation | 32 |
+| Of those, models that changed only documentation | 0 |
+| Net change in known operations | 12,407 to 12,660 |
+| Generated files that moved | 134 |
+| Wall-clock to download 194 models | 1 min 53 s |
+
+**This is one sample, and it is not one week of churn.** The 93 models that
+changed were all vendored on 2026-04-18 — 141 days earlier. The other 101 were
+vendored on 2026-09-05, and not one of them changed. So the reading above is an
+accumulated backlog, and the only measurement at weekly scale is the second
+cohort's: 101 models, one day, zero changes. The weekly rate is still unknown,
+and a figure derived from a single 141-day sample should not be quoted as one.
+
+What the sample does settle is the *shape* of the work. None of the 93 was
+documentation-only, so no sync can be waved through on the assumption that AWS
+only reworded things. Thirty-two services gained operations — `ec2` alone gained
+46 — which moves the manifest and makes the published-figure gate below fail on
+purpose. That failure *is* the review: the numbers on this page have to be
+re-derived, by a person, before the sync can merge.
+
+The sync PR states which operations moved, so that review reads a change rather
+than a regeneration. Re-derive it with
+`python3 scripts/model_churn.py --upstream`.
+
 ## Reproducing these numbers
 
 ```bash
