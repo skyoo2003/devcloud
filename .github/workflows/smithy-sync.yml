@@ -60,27 +60,44 @@ jobs:
         continue-on-error: true
         run: CGO_ENABLED=0 go test ./... -v
 
+      # The diff is whole-tree whether upstream moved one model or ninety — a
+      # real refresh measured on 2026-09-06 changed 93 models and 134 generated
+      # files. Asking a reviewer to "review" that is asking for nothing. This
+      # reduces it to the question they actually have: which operations moved.
+      - name: Summarise the churn
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          {
+            echo "Automated weekly sync of AWS Smithy models from \`aws-sdk-go-v2\`."
+            echo
+            echo "**In-job test result: \`${{ steps.tests.outcome }}\`.**"
+            echo
+            echo "A \`failure\` is expected when upstream added or removed an"
+            echo "operation: the published-figure gate over \`docs/coverage.md\` fails"
+            echo "on purpose so a human looks at a coverage change. Re-derive the"
+            echo "figures and correct the doc in this PR — do not silence the gate."
+            echo
+            echo "This PR's own \`ci\`, \`compat\` and \`codegen-drift\` runs are the"
+            echo "gate on merging."
+            echo
+            echo "---"
+            echo
+            python3 scripts/model_churn.py --upstream
+            echo
+            echo "<sub>Summary from \`scripts/model_churn.py\`; re-derive with"
+            echo "\`python3 scripts/model_churn.py --upstream\`.</sub>"
+          } > /tmp/sync-pr-body.md
+          cat /tmp/sync-pr-body.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: Create Pull Request
         if: steps.changes.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
           commit-message: "chore: sync Smithy models and regenerate code"
           title: "chore: weekly Smithy model sync"
-          body: |
-            Automated weekly sync of AWS Smithy models from `aws-sdk-go-v2`.
-
-            **In-job test result: `${{ steps.tests.outcome }}`.**
-
-            This PR updates the vendored models in `smithy-models/`, the generated
-            code in `internal/generated/`, and scaffolds in `internal/services/`.
-
-            A `failure` above is expected when upstream added or removed an
-            operation: the published-figure gate over `docs/coverage.md` fails on
-            purpose so a human looks at a coverage change. Re-derive the figures
-            and correct the doc in this PR — do not silence the gate.
-
-            This PR's own `ci`, `compat` and `codegen-drift` runs are the gate on
-            merging.
+          body-path: /tmp/sync-pr-body.md
           branch: smithy-sync/weekly
           delete-branch: true
 
