@@ -26,10 +26,38 @@ changie new
 ```
 
 You are prompted for a **kind** (`Added`, `Changed`, `Deprecated`, `Removed`,
-`Fixed`, `Security`, `Documentation`), a one-line **body**, and the **issue
-number**. It writes a small YAML file under `changes/unreleased/` — commit it
-alongside your code. Prefer `changie new` over hand-writing the YAML: it enforces
-the issue number, and a fragment without one renders as a dead link.
+`Fixed`, `Security`, `Documentation`), a **body**, and the **issue number**. It
+writes a small YAML file under `changes/unreleased/` — commit it alongside your
+code. Prefer `changie new` over hand-writing the YAML: it enforces the issue
+number, and a fragment without one renders as a dead link.
+
+### One sentence. Two at most.
+
+The changelog is a scan surface, not a design document — the reader is deciding
+whether this release affects them. Root cause, mechanism, measurements and
+rejected alternatives belong in the linked issue and PR, which every entry
+already points at.
+
+- **One sentence** — what changed, and what it means for someone using DevCloud.
+- **A second only if a reader must not miss it** — a limit, a behaviour change
+  they have to act on, or the one figure that makes the entry meaningful.
+- **Never a third.** If it needs one, it is either two changes (write two
+  fragments) or a story that belongs in the issue.
+
+```yaml
+# too long — the root cause, the mechanism and the evidence all belong in #142
+body: 'S3 Control requests were served by S3. `s3control` signs with S3''s own
+  signing name, so every call fell through to the REST-XML default and the S3
+  provider parsed it as a bucket and key — `CreateAccessPoint` returned 200 and
+  left an object in a bucket named `v20180820`. S3 Control is now split off by its
+  `/v20180820/` path prefix, and its unserved operations return a clean AWS error
+  instead of a fabricated success'
+
+# right length
+body: 'S3 Control requests were served by S3, which answered `CreateAccessPoint`
+  with a fabricated 200. It is now split off by its `/v20180820/` path prefix, and
+  its unserved operations return a clean AWS error'
+```
 
 Config: [`.changie.yaml`](.changie.yaml).
 
@@ -52,6 +80,9 @@ rather than from a failed tag. The rest are only caught here.
       `grep -L 'Issue: "[0-9]' changes/unreleased/*.yaml` prints nothing.
 - [ ] **`changes/unreleased/` is not empty.** No fragments means either nothing
       shipped or someone forgot one.
+- [ ] **Every fragment body is one sentence, two at most.** A third sentence is
+      either a second change that needs its own fragment or detail that belongs in
+      the issue.
 - [ ] **Deprecation review.** If this release *removes* anything previously
       deprecated — a config key, an env var, an admin route — confirm it shipped
       for at least one release with a warning first. Removing without that overlap
