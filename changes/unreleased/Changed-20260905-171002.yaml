@@ -1,5 +1,0 @@
-kind: Changed
-body: 'Service routing aliases are derived from the Smithy models instead of a hand-maintained switch in the gateway. Onboarding a service no longer needs a hand-written routing entry: all 93 previously-routed aliases resolve unchanged, and an alias claimed by more than one service is reported rather than guessed'
-time: 2026-09-05T17:10:02.000000+09:00
-custom:
-    Issue: "137"

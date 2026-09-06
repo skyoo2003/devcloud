@@ -1,5 +1,0 @@
-kind: Added
-body: '"Service Not Supported" issue form for asking for an AWS service DevCloud does not register yet. It asks which operations you actually call and accepts the `/devcloud/api/unrouted` output, because a service name alone does not say how much of it you need'
-time: 2026-09-05T18:00:01.000000+09:00
-custom:
-    Issue: "138"

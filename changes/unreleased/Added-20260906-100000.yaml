@@ -1,5 +1,0 @@
-kind: Added
-body: 'CI gates the published coverage figure. `docs/coverage.md`, `README.md` and `docs/README.md` are read by `go test ./cmd/devcloud/` and compared to the live registry and fidelity manifest in both directions: removing a service without editing the published number fails, and editing the number without the code moving fails identically. The demand set in `docs/demand.md` is checked to still be registered, so the count cannot be held steady by swapping one service for another'
-time: 2026-09-06T10:00:00.000000+09:00
-custom:
-    Issue: "144"

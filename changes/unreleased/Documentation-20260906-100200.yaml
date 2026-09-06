@@ -1,5 +1,0 @@
-kind: Documentation
-body: 'Coverage docs state what the compatibility figure excludes and why. Two registered services have no boto3 client at all (`sagemakerruntimehttp2`, `transcribestreaming`), and the four Lex services are registered but reachable by no boto3 caller — all four clients sign as the contested alias `lex`, which routes nowhere by design. `README.md` and `docs/README.md` had quoted 148 registered / 117 serving since three milestones earlier'
-time: 2026-09-06T10:02:00.000000+09:00
-custom:
-    Issue: "144"

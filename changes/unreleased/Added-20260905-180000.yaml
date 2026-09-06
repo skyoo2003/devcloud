@@ -1,5 +1,0 @@
-kind: Added
-body: 'Admin API endpoint `GET /devcloud/api/unrouted` reports which AWS services this DevCloud was asked for and does not register, with per-service counts and first/last seen. Requires `admin.enabled: true`. Two documented ceilings: a request DevCloud cannot classify is routed to S3 rather than counted, so the figure is a floor; and a non-zero `droppedServiceIds` means the collector hit its key cap. Paste the output into a service request to turn a missing service into a measurement'
-time: 2026-09-05T18:00:00.000000+09:00
-custom:
-    Issue: "138"

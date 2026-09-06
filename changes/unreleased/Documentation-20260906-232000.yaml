@@ -1,5 +1,0 @@
-kind: Documentation
-body: 'The compatibility policy states current figures. It had gone stale in five places — 775 boto3 tests, 948 `auto-crud` operations, 4,496 hand-verified, 148 registered services of which 31 served nothing, and a 93/11 split of model-backed to hand-written services — and nothing caught it, because nothing reads the file: `cmd/devcloud/coverage_test.go` gates docs/coverage.md, README.md and docs/README.md against the live registry, and docs/compatibility-policy.md is not in that set. It now reads 1,144 tests, 5,193 `auto-crud`, 4,497 hand-verified, 205 registered with 4 serving nothing, and 193/12 — each taken from the gated page or measured, not restated. The document ships inside the release archive, so a stale figure there describes the binary beside it'
-time: 2026-09-06T23:20:00.000000+09:00
-custom:
-    Issue: "150"

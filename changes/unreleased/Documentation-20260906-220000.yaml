@@ -1,5 +1,0 @@
-kind: Documentation
-body: 'The release procedure moved from `docs/release.md` to `RELEASE.md` at the repo root, and three things it never stated are now in it: GoReleaser publishes a Homebrew formula to a separate tap repository through a GitHub App token scoped to that repo alone, a tagged build pushes four `*-alpine` image tags rather than the one the doc implied, and `make changelog VERSION=` is the batch and merge pair. The archive files list carries `RELEASE.md`, so the docs index link to it resolves inside a release tarball and not only on GitHub'
-time: 2026-09-06T22:00:00.000000+09:00
-custom:
-    Issue: "148"

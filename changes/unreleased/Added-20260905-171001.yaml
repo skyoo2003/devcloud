@@ -1,5 +1,0 @@
-kind: Added
-body: 'docs/coverage.md, which publishes the registered, serving and registered-only service counts together. The service count is never stated on its own'
-time: 2026-09-05T17:10:01.000000+09:00
-custom:
-    Issue: "137"

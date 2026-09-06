@@ -1,5 +1,0 @@
-kind: Fixed
-body: 'The four Amazon Lex services are reachable from boto3. `lex-models`, `lex-runtime`, `lexv2-models` and `lexv2-runtime` all sign as `lex`, and no service is called `lex`, so the alias stayed contested and every Lex call died as `UnknownService` — the services were registered, counted as serving operations, and reachable by nobody. The shared-signing-name split that already separates `mediastore-data`, `sagemaker-runtime` and Timestream now recognises a signing name that is a group key rather than a member service ID, so each request is answered by the sibling whose route table models its method and path. `DeleteBot` is claimed by two of them at `DELETE /bots/{id}` and is still refused rather than guessed at. Compatibility-tested services: 199 to 203'
-time: 2026-09-06T15:30:00.000000+09:00
-custom:
-    Issue: "146"

@@ -1,5 +1,0 @@
-kind: Changed
-body: 'Codegen now runs through a provider-neutral intermediate representation (`internal/codegen/ir`) behind a `ModelSource` interface, so a second API description format is an added file rather than a rewrite. Smithy is the first source; generated output is byte-identical'
-time: 2026-09-05T13:53:11.000000+09:00
-custom:
-    Issue: "135"

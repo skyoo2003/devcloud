@@ -1,5 +1,0 @@
-kind: Fixed
-body: 'A release dry run keeps its artifacts. The `Upload assets` step ran when `dry_run` was not set, so it uploaded on a real release — where GoReleaser has already attached the same files to the GitHub Release — and skipped the one path that publishes nothing and therefore has no other output. RELEASE.md documents the dry run as building artifacts and uploading them to the run, so a maintainer validating a build before tagging got a green run with nothing to inspect'
-time: 2026-09-06T23:10:00.000000+09:00
-custom:
-    Issue: "150"

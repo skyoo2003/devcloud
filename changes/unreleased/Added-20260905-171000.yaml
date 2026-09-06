@@ -1,5 +1,0 @@
-kind: Added
-body: 'All 48 upstream AI/Machine Learning service models are registered, taking DevCloud from 105 to 148 services. 17 are served by the generic CRUD engine or a hand-written provider; the remaining 31 are routed and decline with a clean AWS error rather than letting the call fall through to real AWS. See docs/coverage.md for the registered / served split'
-time: 2026-09-05T17:10:00.000000+09:00
-custom:
-    Issue: "137"

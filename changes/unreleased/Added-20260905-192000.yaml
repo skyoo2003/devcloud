@@ -1,5 +1,0 @@
-kind: Added
-body: 'The 57 AWS services with demonstrated demand are registered, taking DevCloud to 205 services — the target set in `docs/coverage.md` after the 100% claim was tested and dropped. 54 of the 57 serve at least one operation; the three that do not are named with their reasons: `elastic-load-balancing` (query) and `s3-control` (rest-xml) use protocols the CRUD engine cannot read, and `rds-data` has no CRUD-shaped operation in its entire API. Fleet totals: 199 of 205 services serve at least one operation, and 4,858 operations are engine-served'
-time: 2026-09-05T19:20:00.000000+09:00
-custom:
-    Issue: "139"

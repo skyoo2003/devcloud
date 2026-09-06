@@ -1,5 +1,0 @@
-kind: Documentation
-body: 'The contributor guide no longer asks for a build toolchain and a server the project does not need. docs/contributing.md listed SQLite3 development headers as a prerequisite and said `make test` runs with CGO enabled — the driver has been pure Go since v1.0.0, and the Makefile, every workflow and every pre-commit hook set `CGO_ENABLED=0`. It also said the compatibility suite needs a running DevCloud instance; the `devcloud_server` fixture starts one itself on a free port against a temporary data dir it removes afterwards, and the three env vars that override that (`DEVCLOUD_EXTERNAL`, `DEVCLOUD_BIN`, `DEVCLOUD_PORT`) are now documented. docs/getting-started.md advertised a Next.js frontend on port 3000 under Docker Compose, where the compose file has one service and that frontend lives in a separate repository. Documented for the first time alongside: the `clean`, `changelog` and `stats` Make targets, the pre-commit and golangci-lint setup, and the `/devcloud/api/fidelity` and `/devcloud/api/unrouted` admin routes'
-time: 2026-09-06T23:00:00.000000+09:00
-custom:
-    Issue: "149"

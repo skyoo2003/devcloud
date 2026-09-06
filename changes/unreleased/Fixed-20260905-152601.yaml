@@ -1,5 +1,0 @@
-kind: Fixed
-body: 'A newly scaffolded service now serves its CRUD-shaped operations instead of failing every call: the generated provider declined with an error the gateway never routes to the CRUD engine, so the service was registered and routed but answered HTTP 500 for everything'
-time: 2026-09-05T15:26:01.000000+09:00
-custom:
-    Issue: "136"
