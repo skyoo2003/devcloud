@@ -1,0 +1,5 @@
+kind: Documentation
+body: 'docs/coverage.md now publishes what keeping up with upstream costs, measured rather than estimated: refreshing all 194 vendored models changed 93 of them, 32 moved an operation, and none was documentation-only. The reading states its own ceiling — the 93 had been vendored 141 days earlier, and the 101 vendored the day before did not move at all, so it is an accumulated backlog and not a weekly rate. docs/contributing.md adds what a reviewer of the weekly sync PR is actually being asked to check'
+time: 2026-09-06T21:02:00.000000+09:00
+custom:
+    Issue: "147"

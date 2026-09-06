@@ -48,9 +48,48 @@ jobs:
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
+      # continue-on-error, not a gate: this suite includes the published-figure
+      # gate in cmd/devcloud/coverage_test.go, which an upstream model that gains
+      # a single operation is *designed* to fail. Ending the job here would skip
+      # Create Pull Request and discard the refreshed models with the runner —
+      # so the only sync worth reviewing would be the only one nobody ever sees.
+      # The failure is not swallowed; it is re-raised below, after the PR exists.
       - name: Run tests
+        id: tests
         if: steps.changes.outputs.changed == 'true'
+        continue-on-error: true
         run: CGO_ENABLED=0 go test ./... -v
+
+      # The diff is whole-tree whether upstream moved one model or ninety — a
+      # real refresh measured on 2026-09-06 changed 93 models and 134 generated
+      # files. Asking a reviewer to "review" that is asking for nothing. This
+      # reduces it to the question they actually have: which operations moved.
+      - name: Summarise the churn
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          {
+            echo "Automated weekly sync of AWS Smithy models from \`aws-sdk-go-v2\`."
+            echo
+            echo "**In-job test result: \`${{ steps.tests.outcome }}\`.**"
+            echo
+            echo "A \`failure\` is expected when upstream added or removed an"
+            echo "operation: the published-figure gate over \`docs/coverage.md\` fails"
+            echo "on purpose so a human looks at a coverage change. Re-derive the"
+            echo "figures and correct the doc in this PR — do not silence the gate."
+            echo
+            echo "This PR's own \`ci\`, \`compat\` and \`codegen-drift\` runs are the"
+            echo "gate on merging."
+            echo
+            echo "---"
+            echo
+            python3 scripts/model_churn.py --upstream
+            echo
+            echo "<sub>Summary from \`scripts/model_churn.py\`; re-derive with"
+            echo "\`python3 scripts/model_churn.py --upstream\`.</sub>"
+          } > /tmp/sync-pr-body.md
+          cat /tmp/sync-pr-body.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Create Pull Request
         if: steps.changes.outputs.changed == 'true'
@@ -58,12 +97,16 @@ jobs:
         with:
           commit-message: "chore: sync Smithy models and regenerate code"
           title: "chore: weekly Smithy model sync"
-          body: |
-            Automated weekly sync of AWS Smithy models from `aws-sdk-go-v2`.
-
-            This PR updates generated code in `internal/generated/` and scaffolds
-            in `internal/services/` based on the latest AWS service models.
-
-            Please review and merge if CI passes.
+          body-path: /tmp/sync-pr-body.md
           branch: smithy-sync/weekly
           delete-branch: true
+
+      # The PR now exists, so the failure can end the job. Without this the cron
+      # would report success every week no matter what upstream did — the same
+      # silent no-op scripts/download-smithy-models.sh was fixed to stop doing,
+      # traded for the one continue-on-error just removed.
+      - name: Fail if the sync's tests failed
+        if: steps.tests.outcome == 'failure'
+        run: |
+          echo "::error::Smithy sync tests failed; see the PR opened by this run."
+          exit 1
