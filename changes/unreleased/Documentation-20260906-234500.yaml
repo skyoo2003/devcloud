@@ -1,5 +1,5 @@
 kind: Documentation
-body: 'The documentation no longer publishes the same figure at five different values: six numbers were restated across pages with no two agreeing, so docs/coverage.md now owns them and every other page links to it. Three statements that did not match the code are corrected — a GET /devcloud/api/health route that is not registered, a failed Lambda invoke blamed on Docker when the runtime is a stub, and codegen output files no template emits — and eighteen files are 1,063 lines shorter'
+body: 'The documentation no longer publishes the same figure at five different values: six numbers restated across pages now live in docs/coverage.md, which every other page links to. Three claims the code does not back are corrected — an unregistered `GET /devcloud/api/health`, a Lambda invoke failure blamed on Docker, and codegen outputs no template emits — and eighteen files are 1,063 lines shorter'
 time: 2026-09-06T23:45:00.000000+09:00
 custom:
     Issue: "151"

@@ -29,7 +29,8 @@ You are prompted for a **kind** (`Added`, `Changed`, `Deprecated`, `Removed`,
 `Fixed`, `Security`, `Documentation`), a **body**, and the **issue number**. It
 writes a small YAML file under `changes/unreleased/` — commit it alongside your
 code. Prefer `changie new` over hand-writing the YAML: it enforces the issue
-number, and a fragment without one renders as a dead link.
+number — a fragment without one renders as a dead link — and refuses a body over
+400 characters.
 
 ### One sentence. Two at most.
 
@@ -43,6 +44,10 @@ already points at.
   they have to act on, or the one figure that makes the entry meaningful.
 - **Never a third.** If it needs one, it is either two changes (write two
   fragments) or a story that belongs in the issue.
+
+`changie new` refuses a body over 400 characters (`body.maxLength` in
+[`.changie.yaml`](.changie.yaml)). That is a ceiling for the two-sentence case,
+not a target, and it does not see a fragment you hand-write.
 
 ```yaml
 # too long — the root cause, the mechanism and the evidence all belong in #142
