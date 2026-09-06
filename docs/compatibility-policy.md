@@ -160,7 +160,7 @@ Silence is not deprecation. A removed key that YAML would otherwise drop without
 kept in the parser purely to warn — that is why `auth` still produces a message telling you
 SigV4 is not enforced rather than being ignored.
 
-The pre-flight checklist in [release.md](release.md#pre-flight-checklist) makes this a step in
+The pre-flight checklist in [RELEASE.md](../RELEASE.md#pre-flight-checklist) makes this a step in
 cutting a release, not a thing to remember.
 
 ## Reporting a break

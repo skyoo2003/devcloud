@@ -28,7 +28,7 @@ Thanks for your interest in contributing! This file is a short pointer — the f
 
 Conventional prefixes are preferred: `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `refactor:`.
 
-Release notes are **not** generated from commits — they come from [Changie](https://changie.dev) fragments. Add one for any user-facing change with `changie new` (see [docs/release.md](docs/release.md)).
+Release notes are **not** generated from commits — they come from [Changie](https://changie.dev) fragments. Add one for any user-facing change with `changie new` (see [RELEASE.md](RELEASE.md)).
 
 ## License of Contributions
 

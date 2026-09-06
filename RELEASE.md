@@ -12,8 +12,8 @@ Versions follow [Semantic Versioning](https://semver.org): `vMAJOR.MINOR.PATCH`.
 
 | Pipeline | Trigger | What it produces | Workflow |
 |----------|---------|------------------|----------|
-| **Release** | pushing a `v*` tag (or manual dispatch) | GitHub Release with binaries, checksums, and versioned `*-alpine` container images | [`.github/workflows/release.yml`](../.github/workflows/release.yml) |
-| **CD** | every successful CI run on a push | rolling multi-arch `latest` / branch container images to GHCR | [`.github/workflows/cd.yml`](../.github/workflows/cd.yml) |
+| **Release** | pushing a `v*` tag (or manual dispatch) | GitHub Release with binaries and checksums, versioned `*-alpine` container images, a Homebrew formula | [`.github/workflows/release.yml`](.github/workflows/release.yml) |
+| **CD** | every successful CI run on a push | rolling multi-arch `latest` / branch container images to GHCR | [`.github/workflows/cd.yml`](.github/workflows/cd.yml) |
 
 CD keeps `ghcr.io/skyoo2003/devcloud:latest` current with `main`. The Release pipeline is
 what produces an actual tagged, downloadable release. This document covers the Release pipeline.
@@ -30,7 +30,7 @@ You'll be prompted for a **kind** (`Added`, `Changed`, `Deprecated`, `Removed`, 
 `Security`, `Documentation`), a one-line **body**, and the **issue number**. This writes a
 small YAML file under `changes/unreleased/`. Commit it alongside your code change.
 
-Config lives in [`.changie.yaml`](../.changie.yaml).
+Config lives in [`.changie.yaml`](.changie.yaml).
 
 Prefer `changie new` over writing the YAML by hand: it enforces the issue number, and a
 fragment without one renders as a dead link in the release notes.
@@ -59,48 +59,45 @@ The rest are only caught here.
 - [ ] **Deprecation review.** If this release *removes* anything previously deprecated — a
       config key, an env var, an admin route — confirm it shipped for at least one release
       with a warning first. The precedent is the `dashboard` → `admin` rename in
-      [`internal/config/config.go`](../internal/config/config.go): the old key kept working,
+      [`internal/config/config.go`](internal/config/config.go): the old key kept working,
       emitted a warning, and only then became removable. Removing without that overlap is a
       major-version change. The full procedure, and the surfaces it applies to, is
-      [compatibility-policy.md](compatibility-policy.md).
+      [docs/compatibility-policy.md](docs/compatibility-policy.md).
 - [ ] **Compatibility review.** If this release changes anything on the guaranteed list in
-      [compatibility-policy.md](compatibility-policy.md), it is a major bump — or it is a bug.
-      Additive change (a new config key, a new response field, a new service) is a minor bump.
+      [docs/compatibility-policy.md](docs/compatibility-policy.md), it is a major bump — or it
+      is a bug. Additive change (a new config key, a new response field, a new service) is a
+      minor bump.
 
 ## Cutting a release
 
 1. **Make sure `main` is green** and holds all changes you want in the release.
 
-2. **Batch the unreleased fragments** into a version file. Pick the next version per SemVer:
+2. **Batch the unreleased fragments** into a version file, then merge them into the changelog.
+   Pick the next version per SemVer:
 
    ```sh
-   changie batch v0.3.0
+   make changelog VERSION=v1.1.0
    ```
 
-   This consumes everything in `changes/unreleased/` and writes `changes/v0.3.0.md`.
+   That is `changie batch v1.1.0 && changie merge`, which consumes everything in
+   `changes/unreleased/`, writes `changes/v1.1.0.md`, and regenerates
+   [`CHANGELOG.md`](CHANGELOG.md) from all version files. Run the two commands directly if you
+   want to inspect the batched file before it reaches the changelog.
 
-3. **Merge into the changelog:**
-
-   ```sh
-   changie merge
-   ```
-
-   This regenerates [`CHANGELOG.md`](../CHANGELOG.md) from all version files.
-
-4. **Commit** the generated files:
+3. **Commit** the generated files:
 
    ```sh
    git add changes/ CHANGELOG.md
-   git commit -m "chore(release): v0.3.0"
+   git commit -m "chore(release): v1.1.0"
    git push origin main
    ```
 
-5. **Tag and push.** The tag name **must** match the batched version — the Release workflow
+4. **Tag and push.** The tag name **must** match the batched version — the Release workflow
    fails if `changes/<tag>.md` does not exist.
 
    ```sh
-   git tag v0.3.0
-   git push origin v0.3.0
+   git tag v1.1.0
+   git push origin v1.1.0
    ```
 
 Pushing the tag triggers the Release workflow. It will:
@@ -109,35 +106,55 @@ Pushing the tag triggers the Release workflow. It will:
   follows. Moving the tag mid-run therefore cannot make the guardrails vouch for one commit
   while GoReleaser publishes another,
 - re-run the guardrails against that commit and stop before publishing anything if any of them
-  fails: the Go test suite on amd64 and arm64, the boto3 compatibility suite, and the codegen
-  drift check. CI is not relied on here — it races the tag, and `compat.yml` does not trigger
-  on tags at all,
-- verify `changes/v0.3.0.md` exists (guard against tagging without release notes), contains
-  only what `changie batch` renders, and that no entry in it is missing its issue number,
+  fails: the Go test suite on amd64 and arm64, the boto3 compatibility suite (run against a
+  binary GoReleaser built, not `go build`), and the codegen drift check. CI is not relied on
+  here — it races the tag, and `compat.yml` does not trigger on tags at all,
+- verify `changes/v1.1.0.md` exists (guard against tagging without release notes), carries
+  exactly one version heading and that it names *this* tag (a file copied from an earlier
+  release is rejected), contains only what `changie batch` renders, and that every entry ends
+  in a valid issue link,
 - run GoReleaser, which builds binaries for **darwin/linux/windows × amd64/arm64**, packages
   them as `tar.gz` (`zip` on Windows) with the `docs/` tree and the top-level files it and
   `README.md` link to, and generates a SHA-256 `CHECKSUMS` file,
-- build and push `*-alpine` container images to `ghcr.io/skyoo2003/devcloud`,
-- publish a **GitHub Release** whose notes come from `changes/v0.3.0.md`
+- build and push container images to `ghcr.io/skyoo2003/devcloud`, tagged
+  `v1.1.0-alpine`, `v1.1-alpine`, `v1-alpine`, and `latest-alpine`,
+- publish `Formula/devcloud.rb` to the Homebrew tap (see below),
+- publish a **GitHub Release** whose notes come from `changes/v1.1.0.md`
   (`--release-notes`, `mode: replace`).
 
-GoReleaser config: [`.goreleaser.yaml`](../.goreleaser.yaml).
+GoReleaser config: [`.goreleaser.yaml`](.goreleaser.yaml).
+
+## Homebrew tap
+
+GoReleaser's `brews` section publishes `Formula/devcloud.rb` to a separate tap repository —
+`homebrew-tap` under the same owner, named by `HOMEBREW_TAP_OWNER` / `HOMEBREW_TAP_REPO` in
+[`.github/workflows/release.yml`](.github/workflows/release.yml).
+
+The job's own `GITHUB_TOKEN` cannot write to another repository, so the workflow mints a
+short-lived token from a GitHub App installed **only** on the tap repo, using the
+`TAP_APP_ID` and `TAP_APP_PRIVATE_KEY` secrets. If a release fails at the formula step, check
+that the App is still installed on the tap and that neither secret has expired.
+
+The formula's `test` block only asserts the `-h` usage text: `devcloud` is a long-running
+server with no subcommands, so actually starting it would hang the test.
+
+Token minting is skipped on a dry run, where GoReleaser publishes nothing.
 
 ## Dry run
 
 To validate the build without publishing, run the workflow manually from the Actions tab
-(**Release → Run workflow**) with a tag and `dry_run: true`. This runs GoReleaser in
-`--snapshot` mode: it builds artifacts and uploads them to the run, but publishes nothing to
-GHCR or GitHub Releases.
+(**Release → Run workflow**) with a tag and `dry_run: true` (the default for manual dispatch).
+This runs GoReleaser in `--snapshot` mode: it builds artifacts and uploads them to the run, but
+publishes nothing to GHCR, the Homebrew tap, or GitHub Releases.
 
 ## Requirements recap
 
-- The tag (`v0.3.0`) and the fragment file (`changes/v0.3.0.md`) must match exactly.
+- The tag (`v1.1.0`) and the fragment file (`changes/v1.1.0.md`) must match exactly.
 - `changie batch` + `changie merge` must be committed **before** the tag is pushed.
 - The tagged commit must pass the Go test suite; the workflow will not publish otherwise.
 - Every entry in the batched notes needs an issue number.
 - No manual GitHub Release editing — release notes are owned by Changie fragments.
 
 Docs ship inside the release archive, so they are versioned by tag: the `docs/` tree in
-`devcloud_v0.3.0_linux_amd64.tar.gz` describes exactly the binary beside it. There is no
+`devcloud_v1.1.0_linux_amd64.tar.gz` describes exactly the binary beside it. There is no
 separate docs site to version.

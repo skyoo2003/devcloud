@@ -37,7 +37,7 @@ Located under [`services/`](services/):
 ## Contributing
 
 - **[Contributing Guide](contributing.md)** — dev setup, testing, codegen, adding new services
-- **[Releasing](release.md)** — Changie + GoReleaser release process, versioning, dry runs
+- **[Releasing](../RELEASE.md)** — Changie + GoReleaser release process, versioning, Homebrew tap, dry runs
 - Root-level pointers: [CONTRIBUTING.md](../CONTRIBUTING.md), [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md), [SECURITY.md](../SECURITY.md), [SUPPORT.md](../SUPPORT.md)
 
 ## Meta
