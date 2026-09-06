@@ -4,7 +4,6 @@ package shared
 
 import (
 	"path/filepath"
-	"strings"
 )
 
 // ValidateUploadID checks that id is a 32-character lowercase hex string,
@@ -40,5 +39,8 @@ func IsWithinDir(child, parent string) bool {
 	if err != nil {
 		return false
 	}
-	return rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) && !filepath.IsAbs(rel)
+	// IsLocal rejects "..", "../x" and absolute results, and accepts "." for
+	// child == parent. It is also the containment check CodeQL recognises as a
+	// path-injection barrier, which filepath.Rel comparisons are not.
+	return filepath.IsLocal(rel)
 }
