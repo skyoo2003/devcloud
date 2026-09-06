@@ -12,7 +12,7 @@ things:
 | **Registered** | The gateway routes the service. A call reaches DevCloud instead of falling through to real AWS. | **205** |
 | **Serving ≥1 operation** | At least one operation returns a real, store-backed answer — hand-written or served by the generic CRUD engine. | **201** |
 | **Registered-only** | Routed, but every operation declines with a clean AWS error. Nothing is served. | **4** |
-| **Compatibility-tested** | A boto3 test exercises the service in CI and passes — either serving an operation or declining cleanly. | **199** |
+| **Compatibility-tested** | A boto3 test exercises the service in CI and passes — either serving an operation or declining cleanly. | **203** |
 
 Every number on this page is asserted against the binary by
 `go test ./cmd/devcloud/`. Editing one here without the code moving fails CI, and
@@ -22,9 +22,9 @@ Per operation, from the [fidelity manifest](fidelity-manifest.md):
 
 | Tier | Operations |
 |---|---|
-| `hand-verified` | 4,496 |
+| `hand-verified` | 4,497 |
 | `auto-crud` | 5,193 |
-| `unimplemented` | 2,718 |
+| `unimplemented` | 2,717 |
 | **total known** | **12,407** |
 
 ## Why a registered service can serve nothing
@@ -63,13 +63,13 @@ and `sagemakerruntimehttp2` (`InvokeEndpoint*`), and `rds-data`
 (`ExecuteStatement`, `BeginTransaction`, `CommitTransaction`,
 `RollbackTransaction`). No protocol change reaches them.
 
-## Why the compatibility-tested number is 199, not 205
+## Why the compatibility-tested number is 203, not 205
 
 Every registered service is exercised by
 `tests/compatibility/test_service_smoke.py`, which parametrises over the
 generated service list rather than a hand-written one — so a service cannot be
 registered and quietly go untested, which is what 31 of them were until this was
-measured. Six are excluded, in two groups, and neither group is a backlog.
+measured. Two are excluded, and they are not a backlog.
 
 **Two have no boto3 client at all.** botocore publishes 431 clients and neither
 `sagemakerruntimehttp2` nor `transcribestreaming` is among them —
@@ -77,22 +77,25 @@ measured. Six are excluded, in two groups, and neither group is a backlog.
 No boto3 test can exist for a client that does not exist. This is a property of
 the AWS SDK, not of DevCloud, and it is the ceiling on this number.
 
-**Four are registered and unreachable.** All four Lex clients — `lex-models`,
-`lex-runtime`, `lexv2-models`, `lexv2-runtime` — sign as `lex`, and no service
-is named `lex`, so the alias stays contested and routes nowhere rather than
-sending one service's traffic to another. The consequence, which this page did
-not state until it was measured: the "reached by its own unambiguous name"
-escape below does not exist for a boto3 caller, because boto3 signs with the
-contested name and offers nothing else. The four are counted in *serving ≥1
-operation*, because their operations are classified and would be served; they
-are not counted here, because nothing can ask for them.
+**The four Lex services used to be a third exclusion, and are not any more.**
+All four Lex clients — `lex-models`, `lex-runtime`, `lexv2-models`,
+`lexv2-runtime` — sign as `lex`, and no service is named `lex`, so the alias is
+contested and still routes nowhere on its own. What this page got wrong was the
+escape it offered: "reached by its own unambiguous name" does not exist for a
+boto3 caller, because boto3 signs with the contested name and offers nothing
+else. Measuring it found four services registered, counted as serving, and
+reachable by nobody.
 
-Splitting them on the URL is what resolved `opensearch` / `elasticsearchservice`
-and API Gateway v1 / v2, and it does not work here: `/bots` is the first path
-segment for three of the four. A correct split needs full path matching across
-all four, which is routing work rather than coverage work.
-`test_lex_services_are_unreachable_from_boto3` pins the current state, so
-fixing the routing fails that test and moves this number up with it.
+The split that resolved `opensearch` / `elasticsearchservice` and API Gateway
+v1 / v2 does work here, and it needed no new routing. Services that share a
+signing name are already separated by asking which one's route table models the
+request; the group was simply never reached, because the lookup only recognised
+a *member* service ID and `lex` is the group's *key*. Each Lex request now
+reaches the sibling that models its method and path — `GET /bots` is
+`lex-models`, `POST /bots` is `lexv2-models`, `/bot/…/session` is `lex-runtime`,
+`/bots/…/botAliases/…/sessions/…` is `lexv2-runtime`. One operation is claimed by
+two of them, `DeleteBot` at `DELETE /bots/{id}`, and it is still refused rather
+than guessed at: deleting the wrong bot is worse than an honest error.
 
 Being engine-servable is not the same as being served. Thirteen of the fifteen
 `query` services and three of the four `rest-xml` ones have hand-written
@@ -182,8 +185,14 @@ so `sagemaker` is claimed by eight services at once. Where exactly one claimant
 carries the name as its own service ID, that service wins and the rest are
 treated as borrowers — see `codegen.BuildAliases`. Where none does, the alias is
 left unrouted rather than guessed: all four Lex services sign as `lex` and none
-is called `lex`, so `lex` routes nowhere and each Lex service is reached by its
-own unambiguous name.
+is called `lex`, so `lex` resolves to nothing on its own.
+
+An unrouted alias is not the same as an unreachable service, and this page once
+conflated them — it claimed each Lex service was "reached by its own unambiguous
+name", which no boto3 caller has, since boto3 sends the contested name and
+nothing else. The name is still not guessed; the request is instead handed to
+the group of services that share it, and answered by the one whose route table
+models its method and path. Two candidates, or none, and it is refused.
 
 ## The target, and the rule that set it
 

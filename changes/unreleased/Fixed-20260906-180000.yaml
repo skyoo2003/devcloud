@@ -1,0 +1,5 @@
+kind: Fixed
+body: 'S3 no longer answers an unimplemented bucket sub-resource with a bucket listing. `GET /{Bucket}?analytics` matched no sub-resource branch and fell through to `ListObjects`, so botocore read the resulting 200 `<ListBucketResult>` as a successful `ListBucketAnalyticsConfigurations`. `?inventory`, `?metrics`, `?replication`, `?lifecycle`, `?encryption`, `?versions` and `?object-lock` all took the same path. A bucket-level GET carrying a query parameter that is neither a sub-resource this provider serves nor a parameter a listing carries now returns a clean `NotImplemented`. The check is an allow-list of listing parameters rather than a deny-list of sub-resource names, so a sub-resource AWS adds later declines instead of being served as a listing'
+time: 2026-09-06T18:00:00.000000+09:00
+custom:
+    Issue: "146"

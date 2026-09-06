@@ -8,6 +8,12 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	// The route tables the shared-signing-name split reads are registered by
+	// this package's init, which only runs for an importer. cmd/devcloud has
+	// its own blank import; without one here the tables are empty and every
+	// route-based routing decision silently answers "no candidate models it".
+	_ "github.com/skyoo2003/devcloud/internal/generated/crudregistry"
 )
 
 func TestDetectProtocol_RESTXML(t *testing.T) {
@@ -60,6 +66,55 @@ func TestDetectProtocol_S3Control(t *testing.T) {
 				"AWS4-HMAC-SHA256 Credential=AKIA/20130524/us-east-1/s3/aws4_request, Signature=abc")
 			proto, service := DetectProtocol(req)
 			assert.Equal(t, "rest-xml", proto)
+			assert.Equal(t, c.want, service)
+		})
+	}
+}
+
+// TestDetectProtocol_Lex covers the four services that share a signing name no
+// service is called. All four boto3 Lex clients sign as "lex", and codegen
+// leaves the alias contested rather than sending three services' traffic to the
+// fourth — so every Lex call died as UnknownService, which docs/coverage.md
+// published as an exclusion.
+//
+// The split needs no new routing: resolveSharedSigningName already picks the
+// sibling whose route table models the request. It was never reached, because
+// signingNameOf only recognised a *member* service ID, and "lex" is the group's
+// key.
+//
+// The route tables are the real ones (crudregistry is blank-imported by this
+// package's tests), so this asserts what a boto3 caller actually gets rather
+// than what a hand-built table would.
+func TestDetectProtocol_Lex(t *testing.T) {
+	cases := []struct{ name, method, path, want string }{
+		// lex-models: GetBots. lexv2-models claims /bots too, but under POST and PUT.
+		{"models_v1_get_bots", "GET", "/bots", "lexmodelbuildingservice"},
+		{"models_v1_get_intents", "GET", "/intents", "lexmodelbuildingservice"},
+		{"models_v1_builtin_intents", "GET", "/builtins/intents", "lexmodelbuildingservice"},
+		// lexv2-models: ListBots is POST /bots, CreateBot is PUT /bots.
+		{"models_v2_list_bots", "POST", "/bots", "lexmodelsv2"},
+		{"models_v2_create_bot", "PUT", "/bots", "lexmodelsv2"},
+		{"models_v2_describe_bot", "GET", "/bots/b1", "lexmodelsv2"},
+		// lex-runtime addresses sessions under /bot/ singular.
+		{"runtime_v1_get_session", "GET", "/bot/b/alias/a/user/u/session", "lexruntimeservice"},
+		{"runtime_v1_put_session", "POST", "/bot/b/alias/a/user/u/session", "lexruntimeservice"},
+		// lexv2-runtime spells it botAliases; lexv2-models spells it botaliases.
+		{"runtime_v2_get_session", "GET", "/bots/b/botAliases/a/botLocales/l/sessions/s", "lexruntimev2"},
+		{"runtime_v2_delete_session", "DELETE", "/bots/b/botAliases/a/botLocales/l/sessions/s", "lexruntimev2"},
+		// The one genuine collision, asserted rather than left to be found:
+		// lex-models' DeleteBot is DELETE /bots/{name} and lexv2-models' is
+		// DELETE /bots/{botId}. Two siblings model it, so the request stays
+		// where it was — an honest UnknownService rather than a coin flip that
+		// deletes the wrong bot.
+		{"delete_bot_is_contested", "DELETE", "/bots/b1", "lex"},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			req := httptest.NewRequest(c.method, c.path, nil)
+			req.Header.Set("Authorization",
+				"AWS4-HMAC-SHA256 Credential=AKIA/20130524/us-east-1/lex/aws4_request, Signature=abc")
+			proto, service := DetectProtocol(req)
+			assert.Equal(t, "rest-json", proto)
 			assert.Equal(t, c.want, service)
 		})
 	}

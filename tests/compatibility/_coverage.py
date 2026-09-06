@@ -63,27 +63,17 @@ NO_BOTO3_CLIENT = {
 
 # Registered, counted as serving operations, and reachable by no boto3 caller.
 #
-# All four Lex clients sign as "lex" and none of the four services is called
-# "lex", so codegen.BuildAliases leaves the name contested and unrouted — by
-# design, because guessing would send one service's traffic to another. The
-# consequence docs/coverage.md did not state until this was measured: the
-# "reached by its own unambiguous name" escape does not exist for a boto3
-# caller, because boto3 signs with the contested name and nothing else.
+# Empty, and kept as the name of a category rather than deleted: a service falls
+# into it again the next time two services share a name nobody is called.
 #
-# Splitting them on the URL is what resolved opensearch/elasticsearchservice and
-# apigateway v1/v2, and it does not work here: /bots is the first segment for
-# lex-model-building-service, lex-models-v2 AND lex-runtime-v2. A correct split
-# needs full path matching across four services, which is routing work rather
-# than coverage work.
-#
-# Pinned by test_lex_services_are_unreachable_from_boto3 so that fixing the
-# routing fails this test and forces the published figure up with it.
-UNREACHABLE_FROM_BOTO3 = {
-    "lexmodelbuildingservice": "signs as the contested alias 'lex'",
-    "lexmodelsv2": "signs as the contested alias 'lex'",
-    "lexruntimeservice": "signs as the contested alias 'lex'",
-    "lexruntimev2": "signs as the contested alias 'lex'",
-}
+# The four Lex services were the whole membership. They still sign as "lex", no
+# service is still called "lex", and the alias is still contested and unrouted —
+# what changed is that the shared-signing-name split now recognises "lex" as a
+# group *key*, not only as a member service ID, so each request is answered by
+# the sibling whose route table models its method and path. The one operation
+# two siblings both model (DELETE /bots/{id}) is still refused rather than
+# guessed at.
+UNREACHABLE_FROM_BOTO3: dict[str, str] = {}
 
 # A resource that does not exist in an empty store is a served answer: the engine
 # looked in the store and reported honestly.

@@ -318,7 +318,18 @@ func resolveSharedSigningName(service string, match func(candidate string) bool)
 
 // signingNameOf finds the signing name whose group contains service. The groups
 // are small and few, and this runs once per request that reaches a shared name.
+//
+// A service may also arrive *as* a signing name. Most shared names are the
+// parent service's own ID, so the group is found by membership — but four Lex
+// services sign as "lex" and none of them is called that, so the alias stays
+// contested and normalizeServiceID hands the unresolved name straight through.
+// Recognising the group key is what lets those requests reach the split at all;
+// the split then answers with the sibling that models the request, or refuses
+// when two do.
 func signingNameOf(service string) string {
+	if _, ok := aliases.SigningSiblings[service]; ok {
+		return service
+	}
 	for name, group := range aliases.SigningSiblings {
 		for _, id := range group {
 			if id == service {

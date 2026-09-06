@@ -60,6 +60,49 @@ func TestBuildFidelityDataRequiresEngineWiring(t *testing.T) {
 		"a provider that never reaches the engine serves nothing, whatever the CRUD registry says")
 }
 
+// TestBuildFidelityDataPromotesShortDeclaredOperations covers the operation name
+// too short for the scanner's shape test.
+//
+// opNamePattern requires four characters, so `Untag` is scanned and `Tag` is
+// not, even though resourcegroups implements both in the same switch. The
+// manifest called Tag unimplemented, a probe asked for it, got the 200 the
+// provider has always returned, and reported a fabricated success that was
+// never fabricated — the manifest was simply wrong about served code.
+//
+// Loosening the pattern alone is not the fix: at two characters it admits the
+// HTTP-verb literals that path-resolver switches are full of. The model is what
+// separates them. `Tag` is an operation because resourcegroups.json says so;
+// `GET` is not an operation in any model AWS publishes.
+func TestBuildFidelityDataPromotesShortDeclaredOperations(t *testing.T) {
+	modelOps := map[string][]string{"svc": {"Tag", "Untag", "ListGroups"}}
+	providers := map[string]ProviderScan{
+		"svc": {
+			Operations: []string{"Untag", "ListGroups"},
+			// Below the strict shape test. Only the model decides which of
+			// these is an operation.
+			ShortOperations: []string{"Tag", "GET", "PUT"},
+			EngineWired:     false,
+		},
+	}
+
+	data := BuildFidelityData(modelOps, map[string]string{"svc": "rest-json"}, providers, nil)
+
+	assert.Equal(t, "HandVerified", tierOf(t, data, "svc", "Tag"),
+		"the model declares Tag and the provider dispatches it, so it is served")
+	assert.Equal(t, "HandVerified", tierOf(t, data, "svc", "Untag"),
+		"the long name was never in doubt and must not regress")
+
+	for _, svc := range data.Services {
+		if svc.ServiceID != "svc" {
+			continue
+		}
+		for _, op := range svc.Ops {
+			assert.NotContains(t, []string{"GET", "PUT"}, op.Name,
+				"a short literal no model declares must not become an operation")
+		}
+	}
+}
+
 // TestBuildFidelityDataHandVerifiedBeatsWiring keeps the documented precedence:
 // a hand-written implementation always wins, and it does not depend on engine
 // wiring because such an operation never falls through to the engine at all.

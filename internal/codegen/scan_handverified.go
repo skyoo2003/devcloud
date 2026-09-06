@@ -21,6 +21,18 @@ import (
 // switch with real operations (HTTP verbs, content types, protocol tokens).
 var opNamePattern = regexp.MustCompile(`^[A-Z][A-Za-z0-9]{3,}$`)
 
+// shortOpNamePattern is the same shape at two or three characters — the length
+// where a real operation name and an HTTP verb stop being distinguishable by
+// shape. `Tag` is an operation of resourcegroups; `GET` and `PUT` are what a
+// path resolver switches on, and every provider that routes by path has them.
+//
+// Literals matching this are collected into ProviderScan.ShortOperations and
+// are not operations yet. BuildFidelityData promotes the ones the service's
+// model declares, which is the only source that can tell the two apart. Without
+// the split, resourcegroups.Tag was dropped while Untag beside it in the same
+// switch was kept, and the manifest reported implemented code as unimplemented.
+var shortOpNamePattern = regexp.MustCompile(`^[A-Z][A-Za-z0-9]{1,2}$`)
+
 // pathRoutedOps lists the operations of providers that route on HTTP method and
 // path instead of an operation name, so no operation-name literal appears in
 // their HandleRequest for the scan to find. Keep in sync by hand when these
@@ -70,6 +82,10 @@ var pathRoutedOps = map[string][]string{
 type ProviderScan struct {
 	// Operations are the operation names the provider dispatches by hand.
 	Operations []string
+	// ShortOperations are dispatch literals too short to be told apart from an
+	// HTTP verb by shape. They become operations only where the service's model
+	// declares them; see shortOpNamePattern.
+	ShortOperations []string
 	// EngineWired reports whether the provider hands the operations it does not
 	// implement to the generic CRUD engine, by returning plugin.ErrUnhandledOp.
 	// Only a wired provider's CRUD-shaped operations are actually served, so
@@ -110,9 +126,11 @@ func ScanProviders(servicesDir string) (map[string]ProviderScan, error) {
 			return nil, err
 		}
 		for id, recvType := range pkg.serviceTypes {
+			ops, short := pkg.dispatchedOps(recvType)
 			result[id] = ProviderScan{
-				Operations:  opsFor(id, pkg.dispatchedOps(recvType)),
-				EngineWired: pkg.wiresCRUDEngine(recvType),
+				Operations:      opsFor(id, ops),
+				ShortOperations: sortedSet(short),
+				EngineWired:     pkg.wiresCRUDEngine(recvType),
 			}
 		}
 	}
@@ -125,12 +143,18 @@ func opsFor(serviceID string, scanned map[string]bool) []string {
 	if declared, ok := pathRoutedOps[serviceID]; ok {
 		return append([]string(nil), declared...)
 	}
-	ops := make([]string, 0, len(scanned))
-	for op := range scanned {
-		ops = append(ops, op)
+	return sortedSet(scanned)
+}
+
+// sortedSet flattens a literal set into a stable slice, so a regeneration diff
+// shows provider changes and nothing else.
+func sortedSet(set map[string]bool) []string {
+	out := make([]string, 0, len(set))
+	for k := range set {
+		out = append(out, k)
 	}
-	sort.Strings(ops)
-	return ops
+	sort.Strings(out)
+	return out
 }
 
 // packageScan is one service package's providers, keyed by receiver type name.
@@ -191,8 +215,11 @@ func scanServiceDir(dir string) (packageScan, error) {
 // provider switches in HandleRequest itself: sqs branches on protocol into
 // handleQueryRequest/handleJSONRequest, and kafka wraps handleRequest to
 // camelCase the response.
-func (p packageScan) dispatchedOps(recvType string) map[string]bool {
-	ops := make(map[string]bool)
+// It returns two sets: the literals that carry an operation's shape on their
+// own, and the short ones only the model can confirm.
+func (p packageScan) dispatchedOps(recvType string) (ops, short map[string]bool) {
+	ops = make(map[string]bool)
+	short = make(map[string]bool)
 	visited := make(map[string]bool)
 
 	var walk func(name string)
@@ -203,13 +230,13 @@ func (p packageScan) dispatchedOps(recvType string) map[string]bool {
 		}
 		visited[name] = true
 
-		collectCaseLiterals(fn.Body, ops)
+		collectCaseLiterals(fn.Body, ops, short)
 		for _, delegate := range delegateCalls(fn) {
 			walk(delegate)
 		}
 	}
 	walk("HandleRequest")
-	return ops
+	return ops, short
 }
 
 // wiresCRUDEngine reports whether a provider type opts into the generic CRUD
@@ -252,7 +279,7 @@ func (p packageScan) wiresCRUDEngine(recvType string) bool {
 // Keyed is the point: `switch op { case "GetItem": }` dispatches, whereas a
 // tagless `switch { case remaining == 0: }` is control flow whose cases are
 // expressions, not operation names.
-func collectCaseLiterals(body *ast.BlockStmt, ops map[string]bool) {
+func collectCaseLiterals(body *ast.BlockStmt, ops, short map[string]bool) {
 	ast.Inspect(body, func(n ast.Node) bool {
 		sw, ok := n.(*ast.SwitchStmt)
 		if !ok || sw.Tag == nil {
@@ -264,8 +291,15 @@ func collectCaseLiterals(body *ast.BlockStmt, ops map[string]bool) {
 				continue
 			}
 			for _, expr := range clause.List {
-				if lit, ok := stringLiteral(expr); ok && opNamePattern.MatchString(lit) {
+				lit, ok := stringLiteral(expr)
+				if !ok {
+					continue
+				}
+				switch {
+				case opNamePattern.MatchString(lit):
 					ops[lit] = true
+				case shortOpNamePattern.MatchString(lit):
+					short[lit] = true
 				}
 			}
 		}

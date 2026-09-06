@@ -91,8 +91,22 @@ func BuildFidelityData(
 			hand[op] = true
 			universe[op] = true
 		}
+		declared := make(map[string]bool, len(modelOps[serviceID]))
 		for _, op := range modelOps[serviceID] {
+			declared[op] = true
 			universe[op] = true
+		}
+		// A dispatch literal too short to be told from an HTTP verb by shape is
+		// an operation when, and only when, the model declares it.
+		// resourcegroups implements Tag and Untag in one switch and only Untag
+		// was long enough to be scanned, so the manifest called implemented code
+		// unimplemented. The model is asked here rather than in the scanner
+		// because this is where the model already is — the scan reads Go source,
+		// not Smithy.
+		for _, op := range provider.ShortOperations {
+			if declared[op] {
+				hand[op] = true
+			}
 		}
 		for op := range crudOps[serviceID] {
 			universe[op] = true

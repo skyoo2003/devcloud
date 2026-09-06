@@ -54,34 +54,28 @@ def _unserved_probe(service_id, entry):
     return name, None
 
 
-# Two fabricated successes that this file's fix does not reach, marked strict so
-# they fail the moment they start passing rather than rotting into an accepted
-# state. Only what was observed is recorded — the mechanism behind each is not
-# the provider `default` branch that was fixed here, and has not been identified:
+# Fabricated successes this file's own fix does not reach, marked strict so they
+# fail the moment they start passing rather than rotting into an accepted state.
 #
-#   s3.ListBucketAnalyticsConfigurations
-#       GET /{Bucket}?analytics answers 200 with an empty body. S3's provider
-#       default returns MethodNotAllowed, so this is not that branch.
+# Empty. Both entries it carried are fixed, and each turned out to be a different
+# defect from the one the entry guessed at:
 #
-#   resourcegroups.Tag
-#       PUT /resources/{Arn}/tags answers 200 echoing the request's Arn and
-#       Tags. The manifest lists the operation as unimplemented and the CRUD
-#       registry does not hold it; it holds GetTags at the same path under GET,
-#       and httproute.Match does compare methods (match.go:42), so the obvious
-#       explanation is ruled out rather than confirmed.
+#   s3.ListBucketAnalyticsConfigurations was the bucket-listing fall-through.
+#   GET /{Bucket}?analytics matched no sub-resource branch and landed on
+#   listObjects, so an unimplemented sub-resource was answered with
+#   <ListBucketResult>. Seven others took the same path. The provider now
+#   declines any bucket-level query parameter that is neither a sub-resource it
+#   serves nor a parameter a listing carries.
 #
-# Both are real violations of the guarantee and neither is fixed here: they are
-# different defects that deserve their own diagnosis and their own change.
-KNOWN_UNFIXED = {
-    (
-        "s3",
-        "ListBucketAnalyticsConfigurations",
-    ): "empty 200 from S3's sub-resource routing",
-    (
-        "resourcegroups",
-        "Tag",
-    ): "engine-shaped echo for an operation the manifest calls unimplemented",
-}
+#   resourcegroups.Tag was never a fabricated success. The scan that decides
+#   which operations are hand-verified required four characters, so `Untag` was
+#   recorded and `Tag` — implemented beside it in the same switch — was dropped.
+#   The 200 was real code answering; the manifest was wrong, this probe believed
+#   the manifest, and the report inherited the error.
+#
+# Both were recorded as observations with the mechanism explicitly unidentified,
+# which is why neither had to be un-guessed before it could be fixed.
+KNOWN_UNFIXED: dict[tuple[str, str], str] = {}
 
 # Every service that is addressable, routable, and has an unserved operation to
 # ask for. Built at collection time so the parametrisation names the operation
