@@ -3,9 +3,12 @@
 ## Prerequisites
 
 - Go 1.26+
-- SQLite3 development libraries (`brew install sqlite3` on macOS)
 - Docker (optional, for Lambda runtime and integration tests)
 - Python 3.10+ with pip (for compatibility tests)
+- `pre-commit` (optional but recommended — see [Code Style](#code-style))
+
+No C toolchain and no SQLite headers are needed. The SQLite driver is pure Go,
+which is why everything here builds with `CGO_ENABLED=0`.
 
 ## Development Setup
 
@@ -20,6 +23,26 @@ make build
 make run
 ```
 
+## Make Targets
+
+<!-- AUTO-GENERATED: from Makefile. Do not edit by hand. -->
+
+| Command | Description |
+|---------|-------------|
+| `make build` | Build both binaries into `dist/` — `devcloud` and `codegen` |
+| `make run` | Run the server from source (`go run ./cmd/devcloud`) |
+| `make test` | Run all Go tests with `CGO_ENABLED=0` and `-v` |
+| `make test-compat` | Install `tests/compatibility/requirements.txt` and run the boto3 suite |
+| `make codegen` | Regenerate `internal/generated/` from every model in `smithy-models/` |
+| `make codegen-s3` | Same, restricted to S3 — fast loop while editing templates |
+| `make docker-build` | Build the image from `docker/Dockerfile` as `devcloud/devcloud` |
+| `make docker-run` | Run that image on port 4747 with `./data` mounted |
+| `make clean` | Delete `dist/` and `data/` |
+| `make changelog VERSION=vX.Y.Z` | Batch and merge Changie fragments; `VERSION` is required |
+| `make stats` | Print registered service and operation counts |
+
+<!-- END AUTO-GENERATED -->
+
 ## Testing
 
 ### Go unit tests
@@ -28,7 +51,8 @@ make run
 make test
 ```
 
-Runs all Go tests with CGO enabled (required for SQLite).
+Runs all Go tests with `CGO_ENABLED=0` — the mode `.goreleaser.yaml` publishes
+in, so the tests exercise the same build the releases ship.
 
 ### Compatibility tests
 
@@ -36,7 +60,20 @@ Runs all Go tests with CGO enabled (required for SQLite).
 make test-compat
 ```
 
-Runs Python/boto3 tests in `tests/compatibility/` that verify DevCloud behaves like real AWS services. Requires a running DevCloud instance and Python dependencies:
+Runs the Python/boto3 tests in `tests/compatibility/` that verify DevCloud behaves like real AWS services.
+
+You do **not** need a server running first. The `devcloud_server` session
+fixture in [`conftest.py`](../tests/compatibility/conftest.py) starts one via
+`go run`, on a free port, against a temporary data directory it removes
+afterwards. Three environment variables change that:
+
+| Variable | Effect |
+|----------|--------|
+| `DEVCLOUD_EXTERNAL=1` | Do not start anything — connect to a server already running (e.g. in Docker) |
+| `DEVCLOUD_BIN=<path>` | Run a pre-built binary instead of `go run` (much faster) |
+| `DEVCLOUD_PORT=<port>` | Use a fixed port instead of an arbitrary free one |
+
+To run the suite directly:
 
 ```bash
 cd tests/compatibility
@@ -152,6 +189,32 @@ make docker-run
 - Keep service implementations focused — one responsibility per file
 - Use existing services as patterns for new ones
 - Error messages should follow AWS error format (Code, Message, StatusCode)
+
+### Pre-commit hooks
+
+Install once, and formatting and the fast checks run on every commit:
+
+```bash
+pre-commit install
+pre-commit run --all-files   # optional: check the whole tree now
+```
+
+[`.pre-commit-config.yaml`](../.pre-commit-config.yaml) runs, on Go files:
+`go-spdx-header` (adds the licence header), `gofmt -l -w`, `go vet`, and
+`go build` — the last two with `CGO_ENABLED=0`, so a contributor without a C
+toolchain still gets them. Python files under `tests/` and `scripts/` are
+linted and formatted by `ruff`. `internal/generated/` and `smithy-models/` are
+excluded throughout.
+
+### Linting
+
+`gofmt` and `go vet` run in pre-commit, but the full linter does not — CI runs
+`golangci-lint` separately ([`lint.yml`](../.github/workflows/lint.yml)). Run
+it yourself before opening a PR:
+
+```bash
+golangci-lint run --timeout=5m
+```
 
 ## License Header
 
