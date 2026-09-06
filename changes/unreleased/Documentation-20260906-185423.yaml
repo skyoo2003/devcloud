@@ -1,0 +1,5 @@
+kind: Documentation
+body: Changelog fragments are capped at one sentence, two at most, with the rule and a worked example in RELEASE.md and a line for it in the pre-flight checklist. Every entry already in the changelog is rewritten to that limit, and the v1.1.0 and v1.0.0 release notes are republished from their fragment files
+time: 2026-09-06T18:54:23.073014+09:00
+custom:
+    Issue: "152"
