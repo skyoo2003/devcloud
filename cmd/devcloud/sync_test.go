@@ -104,6 +104,39 @@ func TestSyncOpensAPullRequestEvenWhenTestsFail(t *testing.T) {
 			"PR step with always(), so a red sync still leaves a reviewable PR.")
 }
 
+// TestSyncStillFailsWhenTestsFail is the other half of the fix, and the reason
+// continue-on-error is not sufficient on its own.
+//
+// Marking the test step continue-on-error makes the PR reachable and makes the
+// job green — a weekly cron that reports success no matter what upstream did.
+// That is the same silent no-op download-smithy-models.sh was fixed to stop
+// doing, traded for the one this milestone removes. So a workflow that swallows
+// the test failure must re-raise it after the PR exists.
+func TestSyncStillFailsWhenTestsFail(t *testing.T) {
+	steps := syncSteps(t)
+
+	testIdx := findStep(steps, runsGoTest)
+	require.NotEqual(t, -1, testIdx)
+
+	if !steps[testIdx].ContinueOnError {
+		t.Skip("the test step is not continue-on-error, so its failure already fails the job")
+	}
+	require.NotEmpty(t, steps[testIdx].ID,
+		"a swallowed failure cannot be re-raised without an id to read it from")
+
+	prIdx := findStep(steps, opensPullRequest)
+	require.NotEqual(t, -1, prIdx, "no step opens a pull request")
+
+	outcome := "steps." + steps[testIdx].ID + ".outcome"
+	reraised := findStep(steps[prIdx+1:], func(s syncStep) bool {
+		return strings.Contains(s.If, outcome) && strings.Contains(s.Run, "exit 1")
+	})
+	assert.NotEqual(t, -1, reraised,
+		"the test failure is swallowed by continue-on-error and never re-raised, so the weekly "+
+			"cron reports success regardless of what upstream changed. Add a step after the PR "+
+			"that reads "+outcome+" and exits non-zero.")
+}
+
 // TestSyncPullRequestBodyReportsTheTestResult keeps the previous guarantee
 // honest. Opening a PR whose tests failed is only an improvement if the body
 // says so; a red PR that reads like a green one invites a merge rather than a
