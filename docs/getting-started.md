@@ -37,15 +37,18 @@ make run     # starts server on port 4747
 
 ## Docker Compose (Development)
 
-For development with hot-reload on the frontend:
-
 ```bash
 docker compose -f docker/docker-compose.yml up
 ```
 
-This starts:
-- **Backend** on port 4747 — Go server with all services
-- **Frontend** on port 3000 — Next.js dev server with hot-reload
+This builds the image from source and starts one service: the Go server on port
+4747, with `./data` mounted for persistence and the host Docker socket mounted
+so the Lambda runtime can start containers.
+
+It runs a subset, not everything —
+[`docker-compose.yml`](../docker/docker-compose.yml) sets
+`DEVCLOUD_SERVICES=s3,sqs,dynamodb,iam,sts,lambda`. Edit that line, or see
+[Configuration](configuration.md#devcloud_services), to run more.
 
 ## Verify Installation
 
@@ -95,6 +98,8 @@ is exposed under `/devcloud/api/*`:
 - `GET /devcloud/api/services` — service status overview
 - `GET /devcloud/api/services/{id}/resources` — resource browser (buckets, queues, tables, functions)
 - `GET /devcloud/api/logs` — recent API call logs (`?limit=`)
+- `GET /devcloud/api/fidelity` — per-operation fidelity tiers (`?service=` to filter); see [fidelity-manifest.md](fidelity-manifest.md)
+- `GET /devcloud/api/unrouted` — calls made to services this build does not register; see [coverage.md](coverage.md)
 
 The web dashboard UI that consumes this API lives in a separate repository.
 
