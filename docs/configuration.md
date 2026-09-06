@@ -1,103 +1,72 @@
 # Configuration
 
-**Configuration is optional.** DevCloud ships with built-in defaults: running `devcloud` with no flags enables every registered service on port 4747, storing data under `./data/<service>/` (run `make stats` for the current service count). The embedded defaults are compiled into the binary from [`internal/config/default.yaml`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/default.yaml).
+**Configuration is optional.** With no flags, `devcloud` enables every registered
+service on port 4747 and stores data under `./data/<service>/`. The defaults are
+compiled into the binary from
+[`internal/config/default.yaml`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/default.yaml).
 
-To override defaults, provide a YAML file. DevCloud looks for config in this order:
+Config is resolved in this order, and **environment beats YAML beats embedded
+default**:
 
-1. `--config <path>` flag (explicit; the file must exist)
-2. `./devcloud.yaml` in the current working directory (auto-detected)
-3. Embedded defaults (used when neither of the above is present)
+1. `--config <path>` — explicit; the file must exist
+2. `./devcloud.yaml` in the working directory — auto-detected
+3. Embedded defaults
 
-Environment variables override YAML values for selected keys (see [Environment Variable Overrides](#environment-variable-overrides)). All three env vars follow the same precedence: **env var wins over YAML, YAML wins over embedded default**.
+## Environment variables
 
 | Variable | Overrides | Description |
 |----------|-----------|-------------|
 | `DEVCLOUD_PORT` | `server.port` | HTTP server port |
-| `DEVCLOUD_SERVICES` | `services.*.enabled` | Comma-separated list of services to enable |
+| `DEVCLOUD_SERVICES` | `services.*.enabled` | Comma-separated service list, or a tier shortcut |
 | `DEVCLOUD_DATA_DIR` | `services.*.data_dir` | Base data directory for all services |
 
-## Configuration File
+### `DEVCLOUD_SERVICES`
 
-### Server
+When set, it names the running set outright: **only** the listed services start,
+regardless of their `enabled` setting, and a service the `services` block omits
+entirely still starts if you name it here (the block still supplies its
+`data_dir`). When unset, each service uses its YAML `enabled` value. An unknown
+`tierN` token is treated as a literal service name and logged as a warning.
 
-| Key | Default | Description |
-|-----|---------|-------------|
-| `server.port` | `4747` | HTTP server port |
+| Token | Expands to |
+|-------|------------|
+| `tier1` | Big 6 + core integration: s3, sqs, dynamodb, iam, sts, lambda, sns, kms, secretsmanager, ssm, cloudwatchlogs, cloudwatch, eventbridge, ec2, ecs, ecr, route53, acm |
+| `tier2` | cognito, elasticloadbalancingv2, ebs, efs, states, apigateway, apigatewayv2, kinesis, firehose, ses, sesv2, rds, cloudformation |
+| `tier3` | elasticache, cloudfront, wafv2, glue, athena, organizations, cloudtrail, eks, autoscaling, appsync, emr, batch |
+| `all` | Disables the env-var filter — the `services` block decides |
 
-### Services
+The exact lists live in [`internal/config/config.go`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/config.go).
 
-The `services` block is **optional and authoritative**: omit it (as the embedded
-default does) and every registered service starts with `data_dir
-./data/<service>`; list any service and *only* the services you list start.
-Writing `services: {}` lists nothing, so nothing starts — a block is a block
-even when it is empty.
-
-| Key | Default | Description |
-|-----|---------|-------------|
-| `services.<name>.enabled` | `false` | Enable the service. **Required per entry** — listing a service is not enough, `enabled: true` still has to be set. (With no `services` block at all, every service is enabled.) |
-| `services.<name>.data_dir` | `./data/<name>` | Data directory for persistent storage |
-
-Service-specific options:
-
-| Key | Default | Description |
-|-----|---------|-------------|
-| `services.lambda.runtime` | `""` | Lambda runtime configuration |
-| `services.lambda.warm_containers` | `0` | Number of warm containers to keep |
-| `services.iam.enforce_policies` | `false` | Enforce IAM policies (experimental) |
-
-### Provider namespacing
-
-DevCloud serves AWS today and is being prepared to serve more (see the
-[roadmap](roadmap.md)). Service configuration can therefore be written under an
-explicit provider:
-
-```yaml
-providers:
-  aws:
-    services:
-      s3:
-        enabled: true
-        data_dir: ./data/s3
+```bash
+DEVCLOUD_SERVICES=s3,sqs ./dist/devcloud              # only S3 and SQS
+DEVCLOUD_SERVICES=tier1 ./dist/devcloud               # all Tier 1
+DEVCLOUD_SERVICES=tier1,kinesis,firehose ./dist/devcloud
+docker run -p 4747:4747 -e DEVCLOUD_SERVICES=tier1 ghcr.io/skyoo2003/devcloud:latest
 ```
 
-`providers.aws.services` and the top-level `services` block are **the same
-block** — one under its forward-compatible name, one under its historical one.
-Rules:
+### `DEVCLOUD_DATA_DIR`
 
-- Write either. The top-level `services` block keeps working exactly as before
-  and is not deprecated.
-- If both are present, `providers.aws.services` wins and a warning names the
-  ignored block. Do not write both.
-- A block for a provider this build does not serve (`providers.azure`) parses
-  without error — a config written for a later DevCloud still loads — and logs
-  a warning saying it is ignored. That warning is also your typo check:
-  `providers.awss` produces it.
-- `DEVCLOUD_SERVICES` and `DEVCLOUD_DATA_DIR` are AWS-scoped. There is no
-  syntax for naming another provider's services, so they cannot silently
-  disable one.
-- AWS data directories stay flat (`<base>/<id>`). Any future provider nests
-  under its own name (`<base>/<provider>/<id>`) so two CSPs offering a
-  same-named service cannot collide.
+Every service uses `<DEVCLOUD_DATA_DIR>/<service>`, and per-service `data_dir`
+values in YAML are ignored. Useful for CI jobs needing ephemeral per-run
+directories, or for relocating state without editing `devcloud.yaml`.
 
-### Admin API
+```bash
+DEVCLOUD_DATA_DIR=/tmp/devcloud-local ./dist/devcloud
 
-| Key | Default | Description |
-|-----|---------|-------------|
-| `admin.enabled` | `false` | Enable the admin REST API at `/devcloud/api/*` |
+docker run -p 4747:4747 \
+  -e DEVCLOUD_DATA_DIR=/app/data \
+  -v $(pwd)/devcloud-data:/app/data \
+  ghcr.io/skyoo2003/devcloud:latest
+```
 
-> The `dashboard` key was renamed to `admin`. The old `dashboard.enabled` key is still honoured for one release (with a deprecation warning); migrate to `admin.enabled`.
+### `DEVCLOUD_PORT`
 
-> SigV4 signature validation is not implemented, so there is no `auth` key. Any
-> credentials are accepted.
+```bash
+DEVCLOUD_PORT=8080 ./dist/devcloud
+docker run -p 8080:8080 -e DEVCLOUD_PORT=8080 ghcr.io/skyoo2003/devcloud:latest
+```
 
-### Logging
-
-| Key | Default | Description |
-|-----|---------|-------------|
-| `logging.level` | `info` | Log level: `debug`, `info`, `warn`, `error` |
-| `logging.format` | `text` | Log format: `text` or `json` |
-
-## Full Example
+## Configuration file
 
 ```yaml
 server:
@@ -113,16 +82,6 @@ services:
     enabled: true
   dynamodb:
     enabled: true
-    data_dir: ./data/dynamodb
-  iam:
-    enabled: true
-    data_dir: ./data/iam
-  sts:
-    enabled: true
-    data_dir: ./data/sts
-  lambda:
-    enabled: true
-    data_dir: ./data/lambda
 
 admin:
   enabled: false
@@ -132,77 +91,65 @@ logging:
   format: text
 ```
 
-## Environment Variable Overrides
+| Key | Default | Description |
+|-----|---------|-------------|
+| `server.port` | `4747` | HTTP server port |
+| `services.<name>.enabled` | `false` | **Required per entry.** Listing a service is not enough — `enabled: true` still has to be set. |
+| `services.<name>.data_dir` | `./data/<name>` | Data directory for persistent storage |
+| `services.lambda.runtime` | `""` | Lambda runtime configuration |
+| `services.lambda.warm_containers` | `0` | Warm containers to keep |
+| `services.iam.enforce_policies` | `false` | Enforce IAM policies (experimental) |
+| `admin.enabled` | `false` | Serve the admin REST API at `/devcloud/api/*` |
+| `logging.level` | `info` | `debug`, `info`, `warn`, `error` |
+| `logging.format` | `text` | `text` or `json` |
 
-### `DEVCLOUD_PORT`
+The `services` block is **optional and authoritative**: omit it and every
+registered service starts; list any service and *only* the services you list
+start. `services: {}` lists nothing, so nothing starts — a block is a block even
+when empty.
 
-Overrides the HTTP server port.
+> The `dashboard` key was renamed to `admin`. `dashboard.enabled` is still
+> honoured for one release with a deprecation warning; migrate to `admin.enabled`.
 
-```bash
-# Run on port 8080 instead of 4747
-DEVCLOUD_PORT=8080 ./dist/devcloud
+> There is no `auth` key: SigV4 signature validation is not implemented and any
+> credentials are accepted.
 
-# With Docker (map the host port accordingly)
-docker run -p 8080:8080 -e DEVCLOUD_PORT=8080 ghcr.io/skyoo2003/devcloud:latest
+## Provider namespacing
+
+DevCloud serves AWS today and is prepared to serve more ([roadmap](roadmap.md)),
+so service configuration can be written under an explicit provider:
+
+```yaml
+providers:
+  aws:
+    services:
+      s3:
+        enabled: true
+        data_dir: ./data/s3
 ```
 
-### `DEVCLOUD_SERVICES`
+`providers.aws.services` and the top-level `services` block are **the same
+block** — one under its forward-compatible name, one under its historical one.
 
-Comma-separated list of services to enable. When set, it names the running set outright: **only** the listed services are enabled, all others are disabled regardless of their `enabled` setting in YAML, and a service the `services` block omits entirely still starts if you name it here. The block still supplies that service's `data_dir`. When not set, each service uses its YAML `enabled` value (or the embedded default of `true`). An unknown `tierN` token is treated as a literal service name and logged as a warning.
+- Write either. The top-level block is not deprecated.
+- If both are present, `providers.aws.services` wins and a warning names the
+  ignored block. Do not write both.
+- A block for a provider this build does not serve (`providers.azure`) parses
+  without error and logs a warning — so a config written for a later DevCloud
+  still loads, and a typo like `providers.awss` announces itself.
+- `DEVCLOUD_SERVICES` and `DEVCLOUD_DATA_DIR` are AWS-scoped. There is no syntax
+  for naming another provider's services, so they cannot silently disable one.
+- AWS data directories stay flat (`<base>/<id>`). A future provider nests under
+  its own name (`<base>/<provider>/<id>`) so two CSPs offering a same-named
+  service cannot collide.
 
-**Tier shortcuts** (expand to predefined service groups — see [`internal/config/config.go`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/config.go) for the exact list):
+## Data directories
 
-| Token | Expands to |
-|-------|------------|
-| `tier1` | Big 6 + core integration: s3, sqs, dynamodb, iam, sts, lambda, sns, kms, secretsmanager, ssm, cloudwatchlogs, cloudwatch, eventbridge, ec2, ecs, ecr, route53, acm |
-| `tier2` | Extended services: cognito, elasticloadbalancingv2, ebs, efs, states, apigateway, apigatewayv2, kinesis, firehose, ses, sesv2, rds, cloudformation |
-| `tier3` | Analytics & platform: elasticache, cloudfront, wafv2, glue, athena, organizations, cloudtrail, eks, autoscaling, appsync, emr, batch |
-| `all` | Disables the env-var filter (all enabled services in the config stay enabled) |
-
-Examples:
-
-```bash
-# Enable only S3 and SQS
-DEVCLOUD_SERVICES=s3,sqs ./dist/devcloud
-
-# Enable all Tier 1 services
-DEVCLOUD_SERVICES=tier1 ./dist/devcloud
-
-# Enable Tier 1 + a few extras
-DEVCLOUD_SERVICES=tier1,kinesis,firehose ./dist/devcloud
-
-# With Docker
-docker run -p 4747:4747 -e DEVCLOUD_SERVICES=tier1 ghcr.io/skyoo2003/devcloud:latest
-```
-
-### `DEVCLOUD_DATA_DIR`
-
-Overrides the base data directory for **all** services. When set, every service uses `<DEVCLOUD_DATA_DIR>/<service_name>` — per-service `data_dir` values in YAML are ignored. When not set, each service falls back to its YAML `data_dir` value, or `./data/<service_name>`.
-
-```bash
-# Put all service data under /tmp/devcloud-local
-DEVCLOUD_DATA_DIR=/tmp/devcloud-local ./dist/devcloud
-
-# With Docker (mount the host directory)
-docker run -p 4747:4747 \
-  -e DEVCLOUD_DATA_DIR=/app/data \
-  -v $(pwd)/devcloud-data:/app/data \
-  ghcr.io/skyoo2003/devcloud:latest
-```
-
-Useful for:
-- CI jobs that need ephemeral per-run data dirs
-- Quickly relocating state without editing `devcloud.yaml`
-
-## Data Directories
-
-Services with persistent storage create data under their configured `data_dir`:
-
-| Service | Default `data_dir` | Storage Backend | Contents |
-|---------|-------------------|-----------------|----------|
+| Service | Default `data_dir` | Backend | Contents |
+|---------|-------------------|---------|----------|
 | S3 | `./data/s3` | Filesystem + SQLite | Object files, `metadata.db` |
 | DynamoDB | `./data/dynamodb` | BadgerDB | BadgerDB data files |
 | IAM | `./data/iam` | SQLite | `iam.db` (users, roles, keys) |
 | STS | `./data/sts` | Shared with IAM | Uses IAM's database |
-| Lambda | `./data/lambda` | SQLite + Filesystem | `lambda.db`, `code/` directory |
+| Lambda | `./data/lambda` | SQLite + Filesystem | `lambda.db`, `code/` |
 | SQS | — | In-memory | No persistence |

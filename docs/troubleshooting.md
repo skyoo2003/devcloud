@@ -1,18 +1,14 @@
 # Troubleshooting
 
-Common issues and how to resolve them. If your problem isn't listed here, check [SUPPORT.md](../SUPPORT.md) for where to ask.
+If your problem isn't here, see [SUPPORT.md](../SUPPORT.md) for where to ask.
 
-## Installation & Build
+## Build and startup
 
-### `go: module github.com/skyoo2003/devcloud: Go 1.26 required`
+**`go: module github.com/skyoo2003/devcloud: Go 1.26 required`**
+Upgrade Go to 1.26+ (`go version`, then [go.dev/dl](https://go.dev/dl/)).
 
-Upgrade Go to 1.26 or later. Check with `go version`. See [go.dev/dl](https://go.dev/dl/).
-
-## Running the Server
-
-### `bind: address already in use` on port 4747
-
-Another process is already on port 4747. Either stop it or change DevCloud's port:
+**`bind: address already in use` on port 4747**
+Something else holds the port. Change DevCloud's:
 
 ```yaml
 # devcloud.yaml
@@ -20,74 +16,75 @@ server:
   port: 4100
 ```
 
-Or for Docker, map to a different host port:
+Or map a different host port: `docker run -p 4100:4747 …`.
+
+**Server starts but clients get `connection refused`**
+Check it is actually listening — any request works, DevCloud has no health
+endpoint:
 
 ```bash
-docker run -p 4100:4747 ghcr.io/skyoo2003/devcloud:latest
-```
-
-### Server starts but clients get `connection refused`
-
-Check that the server is actually listening:
-
-```bash
-curl http://localhost:4747/devcloud/api/health
+curl -i http://localhost:4747/
 ```
 
 If that fails:
-- On Docker for Mac/Windows, make sure you used `-p 4747:4747` (not just `-p 4747`)
-- If you're inside another container, `localhost` refers to *that* container. Use the host bridge (e.g., `host.docker.internal` on Docker Desktop) or a shared Docker network.
+- On Docker Desktop, make sure you used `-p 4747:4747`, not just `-p 4747`.
+- From inside another container, `localhost` means *that* container. Use
+  `host.docker.internal` or a shared Docker network.
 
-### Permission denied on `./data/`
-
-The Docker container may write as root while your host user owns the mount. Either run the container with your UID:
+**Permission denied on `./data/`**
+The container may write as root while your host user owns the mount. Run it as
+your user:
 
 ```bash
 docker run --user $(id -u):$(id -g) -p 4747:4747 -v $(pwd)/data:/app/data ghcr.io/skyoo2003/devcloud:latest
 ```
 
-Or pre-create the data directory with permissive mode (`chmod 777 data`) if you're OK with that for local development.
+## SDK and client errors
 
-## SDK / Client Errors
+**`SignatureDoesNotMatch` or other signature errors**
+DevCloud checks the SigV4 *format* but never verifies the secret. Make sure your
+client has dummy but **non-empty** credentials (`aws_access_key_id="test"`,
+`aws_secret_access_key="test"`) and that `endpoint_url` points at DevCloud.
 
-### `SignatureDoesNotMatch` or signature-related errors
+**`NoSuchBucket` / `ResourceNotFoundException` after restart**
+SQS is in-memory and loses state. S3, DynamoDB, Lambda and IAM persist only if
+`data_dir` points somewhere durable — under Docker, a mounted volume. See
+[configuration.md](configuration.md#data-directories).
 
-By default, DevCloud accepts any signature — it checks the SigV4 *format* but does not verify the secret. If you see signature errors, make sure:
+**`InvalidAction`, `NotImplemented` or `UnsupportedOperation`**
+That operation is not served. Check its tier — enable `admin.enabled: true`, then:
 
-- Your client is configured with dummy but **non-empty** credentials (`aws_access_key_id="test"`, `aws_secret_access_key="test"`).
-- The `endpoint_url` points to DevCloud, not real AWS.
+```bash
+curl -s 'localhost:4747/devcloud/api/fidelity?service=s3'
+```
 
-### `NoSuchBucket` / `ResourceNotFoundException` after restart
+An `unimplemented` operation is a deliberate honest failure, never a fabricated
+success ([fidelity-manifest.md](fidelity-manifest.md)). To ask for it, open a
+[feature request](https://github.com/skyoo2003/devcloud/issues/new?template=feature_request.yml).
 
-Check whether the service has a persistent backend (see [configuration.md](configuration.md#data-directories)). SQS is in-memory and loses state; S3 / DynamoDB / Lambda / IAM persist only if `data_dir` points to a mounted volume (when using Docker).
+**The call reached real AWS instead of DevCloud**
+The service is not registered, so nothing routed it. Confirm with
+`GET /devcloud/api/unrouted` and file a
+[service request](https://github.com/skyoo2003/devcloud/issues/new?template=service_request.yml) —
+see [coverage.md](coverage.md#service-not-supported).
 
-### `Operation X is not implemented` errors
-
-Not every operation of every service is implemented. Check [services-matrix.md](services-matrix.md) for the current coverage, and file a [Feature Request](https://github.com/skyoo2003/devcloud/issues/new?template=feature_request.yml) if the operation you need is missing.
-
-### Terraform apply succeeds but `terraform plan` shows drift next time
-
-Some services return default values that real AWS does not echo back, and vice versa. This is a known compatibility gap. Workarounds:
-
-- Use `ignore_changes` on the specific attributes
-- Pin DevCloud and Terraform AWS-provider versions together
-- File a bug with the exact resource and attributes involved
+**Terraform apply succeeds but the next plan shows drift**
+Some services return defaults real AWS does not echo back, and vice versa. This is
+a known gap. Use `ignore_changes` on the affected attributes, pin DevCloud and the
+AWS provider together, or file a bug with the exact resource and attributes.
 
 ## Lambda
 
-### Lambda function returns `runtime not available`
-
-DevCloud's Lambda implementation is a stub — it accepts function registration but does not execute your handler code locally. Real function execution requires configuring `services.lambda.runtime`. This is an area under active development; see [roadmap.md](roadmap.md).
-
-### Lambda invocations hang
-
-Ensure Docker is running if you have configured Lambda to use a Docker-based runtime. Check DevCloud's logs for container startup errors.
+**Invoking a function returns `Lambda invoke requires Docker runtime`**
+Expected. `internal/services/lambda/runtime.go` is a stub: DevCloud registers
+functions, stores their code, and drives event source mappings (SQS, DynamoDB
+Streams, S3 notifications), but it does not execute your handler. Real local
+execution is not implemented — see [roadmap.md](roadmap.md).
 
 ## Admin API
 
-### `GET /devcloud/api/*` returns 404
-
-The admin API is disabled by default. Enable it:
+**`GET /devcloud/api/*` returns 404**
+It is disabled by default:
 
 ```yaml
 # devcloud.yaml
@@ -95,9 +92,11 @@ admin:
   enabled: true
 ```
 
-Then restart the server. The web dashboard UI is a separate project (its own
-repository); this server only exposes the admin API, not a bundled UI.
+Restart afterwards. The routes are `services`, `services/{id}/resources`, `logs`,
+`fidelity` and `unrouted` — there is no `health` route, and no bundled UI (the web
+dashboard is a separate repository).
 
-## When to open an issue
+## Still stuck?
 
-If your problem isn't listed here **and** you have checked [SUPPORT.md](../SUPPORT.md), open a [bug report](https://github.com/skyoo2003/devcloud/issues/new?template=bug_report.yml) with the reproduction template filled in.
+Open a [bug report](https://github.com/skyoo2003/devcloud/issues/new?template=bug_report.yml)
+with the reproduction template filled in.

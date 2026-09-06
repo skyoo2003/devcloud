@@ -1,35 +1,37 @@
 # Demand for unregistered services
 
-Sampled 2026-09-05. Re-derive with `python3 scripts/demand_rank.py`.
+The evidence behind DevCloud's [coverage target](coverage.md#the-target).
+Sampled 2026-09-05; re-derive with `python3 scripts/demand_rank.py`.
 
-## What this measures, and what it does not
+## What this measures
 
-DevCloud has no usage telemetry, so this page does **not** measure what
-DevCloud's users ask for. It measures *revealed* demand: which of the AWS
-services DevCloud does not register have already been built by three
-independent projects serving the same populations DevCloud names as its
-users.
+DevCloud has no usage telemetry, so this page does **not** measure what its users
+ask for. It measures *revealed* demand: how many of three independent projects
+have already built each AWS service DevCloud does not register. Each serves a
+population DevCloud names as its own, and each only adds a service when somebody
+asks.
 
-| Source | What it is | Services |
-|---|---|---|
-| [moto](https://github.com/getmoto/moto) | Python AWS mocking library; the same population as DevCloud's primary user, boto3 developers running tests | 163 |
-| [LocalStack](https://docs.localstack.cloud/references/coverage/) | Local AWS emulator; community and pro tiers combined | 119 |
-| [terraform-provider-aws](https://github.com/hashicorp/terraform-provider-aws) | One Go package per AWS service; the IaC population | 273 |
+| Source | What it is | Services | Unmatched names |
+|---|---|---|---|
+| [moto](https://github.com/getmoto/moto) | Python AWS mocking library — boto3 developers running tests | 163 | 0 |
+| [LocalStack](https://docs.localstack.cloud/references/coverage/) | Local AWS emulator; community + pro | 119 | 4 |
+| [terraform-provider-aws](https://github.com/hashicorp/terraform-provider-aws) | One Go package per service — the IaC population | 273 | 4 |
 
-Each of those projects adds a service because somebody asked for it. None
-of them measured DevCloud's users. Read a high support count as *this
-service is worth emulating to someone*, not as *our users want this*.
+Read a high support count as *this service is worth emulating to someone*, not as
+*our users want this*. The live measurement of DevCloud's own traffic is
+`GET /devcloud/api/unrouted`, which accrues behind this page; its ceiling is in
+[coverage.md](coverage.md#service-not-supported).
 
-The live measurement of DevCloud's own traffic is
-`GET /devcloud/api/unrouted`, which accrues behind this page. Its ceiling
-is documented in [coverage.md](coverage.md).
+"Unmatched names" is the join diagnostic: a name a source publishes that matches
+neither the missing set nor a registered service. A large number there would mean
+name normalisation is dropping matches and the support counts are too low.
 
 ## Readings
 
 | Reading | Value |
 |---|---|
 | Upstream model files | 431 |
-| Registered by DevCloud | 148 |
+| Registered when sampled | 148 |
 | **R1 — missing set `M`** | **283** |
 | R2 — `M` with support 3 | 8 |
 | R2 — `M` with support 2 | 49 |
@@ -37,28 +39,16 @@ is documented in [coverage.md](coverage.md).
 | R2 — `M` with support 0 | 115 |
 | **R2 — `M` with support ≥ 2** | **57 (20.1% of `M`)** |
 
-Join diagnostics — a name a source publishes that matches neither `M` nor a
-registered DevCloud service. A large number here means the name
-normalisation is dropping matches and the support counts are too low:
+## Full ranking
 
-| Source | Unmatched names |
-|---|---|
-| moto | 0 |
-| LocalStack | 4 |
-| terraform-provider-aws | 4 |
+Ordered by support count, then name — the order the work was done in, so stopping
+at any point would have stopped on the best surface available.
 
-## Ranking
-
-Ordered by support count, then name. This is the order Milestone 4 worked
-in, so stopping at any point would have stopped on the best surface available.
-
-**All 57 services with support ≥ 2 are now registered** — the rows down to and
-including `workspaces-web`, and `TestDemandSetIsRegistered` fails if any of them
-stops being. 56 of them serve at least one operation; the one that does not
-(`rds-data`) is named with its reason in [coverage.md](coverage.md).
-`elastic-load-balancing` and `s3-control` were the other two until Milestone 5
-served both. The rows below them, support 1 and support 0, are the 226 services
-that remain explicitly not targeted.
+**All 57 services with support ≥ 2 are registered**, down to and including
+`workspaces-web`; `TestDemandSetIsRegistered` fails if any of them stops being.
+56 serve at least one operation, and the one that does not (`rds-data`) is named
+with its reason in [coverage.md](coverage.md). Everything below them — support 1
+and support 0 — is the 226 services that remain explicitly not targeted.
 
 | Service | moto | LocalStack | terraform-provider-aws | Support |
 |---|---|---|---|---|

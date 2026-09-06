@@ -1,22 +1,15 @@
 # Coverage
 
-DevCloud's service count is not a capability claim on its own, so this page never
-states it alone. Three numbers describe the surface, and they mean different
-things:
-
-> **The coverage target is not 100% of AWS.** It was, and the evidence did not
-> support it — see [The target, and the rule that set it](#the-target-and-the-rule-that-set-it).
+Three numbers describe DevCloud's AWS surface, and they mean different things.
+The service count alone is not a capability claim, so this page never states it
+alone.
 
 | Number | What it means | Today |
 |---|---|---|
-| **Registered** | The gateway routes the service. A call reaches DevCloud instead of falling through to real AWS. | **205** |
-| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer — hand-written or served by the generic CRUD engine. | **201** |
-| **Registered-only** | Routed, but every operation declines with a clean AWS error. Nothing is served. | **4** |
-| **Compatibility-tested** | A boto3 test exercises the service in CI and passes — either serving an operation or declining cleanly. | **203** |
-
-Every number on this page is asserted against the binary by
-`go test ./cmd/devcloud/`. Editing one here without the code moving fails CI, and
-so does the reverse. See [Reproducing these numbers](#reproducing-these-numbers).
+| **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **205** |
+| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **201** |
+| **Registered-only** | Routed, but every operation declines with a clean AWS error. | **4** |
+| **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **203** |
 
 Per operation, from the [fidelity manifest](fidelity-manifest.md):
 
@@ -27,192 +20,99 @@ Per operation, from the [fidelity manifest](fidelity-manifest.md):
 | `unimplemented` | 2,717 |
 | **total known** | **12,407** |
 
+> **The coverage target is 205 services, not 431.** It was 431, and the evidence
+> did not support it — see [The target](#the-target).
+
+Every figure on this page is asserted against the binary by
+`go test ./cmd/devcloud/`. Editing one here without the code moving fails CI, and
+so does the reverse. See [Reproducing these numbers](#reproducing-these-numbers).
+
 ## Why a registered service can serve nothing
 
-The generic CRUD engine has to know which operation a request is for, and it has
-to recognise that operation as CRUD-shaped. Only the second one still stops it.
+The generic [CRUD engine](crud-engine.md) needs two things: to know which
+operation a request is for, and to recognise that operation as CRUD-shaped. Only
+the second still stops it.
 
-**The protocol always says which operation.** Each one says it somewhere
-different, and the engine reads all of them: the `X-Amz-Target` JSON protocols
-put it in a header; `rest-json` and `rest-xml` bind every operation to an HTTP
-method and a URI template, which `internal/shared/httproute` matches a request
-back to; `query` puts it in the `Action` field of the form body. This used to be
-the main reason a service served nothing. It no longer is.
+**The protocol always says which operation**, and the engine reads every form:
 
-**The operation is not CRUD-shaped.** `GetThing`, `ListThings`, `CreateThing`
-and their siblings map onto a generic store. `ExecuteStatement`, `InvokeEndpoint`
-and `QueryForecast` do not, and the engine refuses them rather than inventing an
-answer. A service whose entire API is that shape serves nothing whatever its
-protocol. This is now the *only* reason.
-
-Registered services by protocol:
-
-| Protocol | Services | Engine-servable |
+| Protocol | Services | Operation name comes from |
 |---|---|---|
-| `json-1.1` | 64 | yes — operation from `X-Amz-Target` |
-| `json-1.0` | 17 | yes — operation from `X-Amz-Target` |
-| `rest-json` | 93 | yes — operation from method + path |
-| `query` | 15 | yes — operation from the `Action` form field |
-| `rest-xml` | 4 | yes — operation from method + path |
+| `rest-json` | 93 | HTTP method + path (`internal/shared/httproute`) |
+| `json-1.1` | 64 | the `X-Amz-Target` header |
+| `json-1.0` | 17 | the `X-Amz-Target` header |
+| `query` | 15 | the `Action` form field |
+| `rest-xml` | 4 | HTTP method + path |
 | no in-tree model | 12 | n/a — hand-written providers |
 
-Four services are registered and serve nothing, and all four are the same case —
-no CRUD-shaped operation anywhere in their API: `forecastquery` (`QueryForecast`,
-`QueryWhatIfForecast`), the two SageMaker Runtime variants `sagemaker-runtime`
-and `sagemakerruntimehttp2` (`InvokeEndpoint*`), and `rds-data`
-(`ExecuteStatement`, `BeginTransaction`, `CommitTransaction`,
-`RollbackTransaction`). No protocol change reaches them.
+**The operation is not CRUD-shaped.** `GetThing`, `ListThings` and `CreateThing`
+map onto a generic store. `ExecuteStatement`, `InvokeEndpoint` and
+`QueryForecast` do not, and the engine refuses them rather than inventing an
+answer. This is now the *only* reason a service serves nothing, and it applies to
+exactly four: `forecastquery`, the two SageMaker Runtime variants
+`sagemaker-runtime` and `sagemakerruntimehttp2`, and `rds-data`. No protocol
+change reaches them.
 
-## Why the compatibility-tested number is 203, not 205
-
-Every registered service is exercised by
-`tests/compatibility/test_service_smoke.py`, which parametrises over the
-generated service list rather than a hand-written one — so a service cannot be
-registered and quietly go untested, which is what 31 of them were until this was
-measured. Two are excluded, and they are not a backlog.
-
-**Two have no boto3 client at all.** botocore publishes 431 clients and neither
-`sagemakerruntimehttp2` nor `transcribestreaming` is among them —
-`sagemaker-runtime` and `transcribe` are different clients with different APIs.
-No boto3 test can exist for a client that does not exist. This is a property of
-the AWS SDK, not of DevCloud, and it is the ceiling on this number.
-
-**The four Lex services used to be a third exclusion, and are not any more.**
-All four Lex clients — `lex-models`, `lex-runtime`, `lexv2-models`,
-`lexv2-runtime` — sign as `lex`, and no service is named `lex`, so the alias is
-contested and still routes nowhere on its own. What this page got wrong was the
-escape it offered: "reached by its own unambiguous name" does not exist for a
-boto3 caller, because boto3 signs with the contested name and offers nothing
-else. Measuring it found four services registered, counted as serving, and
-reachable by nobody.
-
-The split that resolved `opensearch` / `elasticsearchservice` and API Gateway
-v1 / v2 does work here, and it needed no new routing. Services that share a
-signing name are already separated by asking which one's route table models the
-request; the group was simply never reached, because the lookup only recognised
-a *member* service ID and `lex` is the group's *key*. Each Lex request now
-reaches the sibling that models its method and path — `GET /bots` is
-`lex-models`, `POST /bots` is `lexv2-models`, `/bot/…/session` is `lex-runtime`,
-`/bots/…/botAliases/…/sessions/…` is `lexv2-runtime`. One operation is claimed by
-two of them, `DeleteBot` at `DELETE /bots/{id}`, and it is still refused rather
-than guessed at: deleting the wrong bot is worse than an honest error.
-
-Being engine-servable is not the same as being served. Thirteen of the fifteen
-`query` services and three of the four `rest-xml` ones have hand-written
-providers that answer their own unknown operations, so they never enter the
-engine and their manifest did not move when the protocols were admitted — the
-`EngineWired` flag records that per service.
-
-A registered operation is not automatically a reachable one. The engine is
-entered only when a provider returns `plugin.ErrUnhandledOp`, so a hand-written
-provider that refuses unknown operations itself — `apigatewayv2`, `xray` — never
-reaches it, and the manifest records that per service as `EngineWired`.
-
-Registering a service the engine cannot serve is deliberate, not an oversight.
-The alternative is worse: an unregistered service is not routed, so the SDK call
-leaves the machine and bills a real AWS account. A registered-only service
-answers locally, in AWS's own error vocabulary, and the developer finds out
-immediately. What it must never do is fabricate a success —
+Registering a service the engine cannot serve is deliberate. The alternative is
+worse: an *unregistered* service is not routed, so the SDK call leaves the
+machine and bills a real AWS account. A registered-only service answers locally,
+in AWS's own error vocabulary. What it must never do is fabricate a success —
 `tests/compatibility/test_service_smoke.py::test_registered_only_service_declines_cleanly`
 is the check that keeps that true.
 
-## AI / Machine Learning category
+Engine-*servable* is not the same as engine-*served*. The engine is entered only
+when a provider returns `plugin.ErrUnhandledOp`, so a hand-written provider that
+refuses unknown operations itself (`apigatewayv2`, `xray`) never reaches it. The
+manifest records this per service as `EngineWired`.
 
-The first category taken to completion. All 48 upstream models are registered.
+## Why compatibility-tested is 203, not 205
 
-| | Count |
-|---|---|
-| Registered | 48 |
-| Engine-served or hand-written | 45 |
-| Registered-only | 3 |
+`tests/compatibility/test_service_smoke.py` parametrises over the generated
+service list rather than a hand-written one, so a service cannot be registered
+and quietly go untested — which is what 31 of them were until this was measured.
 
-When this category was completed, only 17 of its 48 members served anything: 30
-of the other 31 were `rest-json`, which the engine could not read at all. Teaching
-it that protocol moved 28 of those 30 into coverage without touching a single one
-of their providers.
+Two are excluded, and they are not a backlog: botocore publishes no client for
+`sagemakerruntimehttp2` or `transcribestreaming` (`sagemaker-runtime` and
+`transcribe` are different clients with different APIs). No boto3 test can exist
+for a client that does not exist. That is a property of the AWS SDK, and it is
+the ceiling on this number.
 
-The three that remain are the ones no protocol change can help — `forecastquery`
-and the two SageMaker Runtime variants, none of which has a CRUD-shaped
-operation. See [Why a registered service can serve nothing](#why-a-registered-service-can-serve-nothing).
+## Contested signing names
 
-## The demand set
+A runtime or control-plane split-out signs with its parent's name, so `sagemaker`
+is claimed by eight services at once. Where exactly one claimant carries the name
+as its own service ID, that service wins and the rest are borrowers — see
+`codegen.BuildAliases`. Where none does, the request is handed to the group and
+answered by the sibling whose route table models its method and path.
 
-All 57 are registered, and the target of 205 is met. They were worked in the
-support-rank order of [demand.md](demand.md), so a stop at any point would have
-stopped on the best surface available.
-
-| | Count |
-|---|---|
-| Registered | 57 |
-| Serving ≥1 operation | 56 |
-| Registered-only | 1 |
-
-The 57 split by protocol as 34 `rest-json`, 15 `json-1.1`, 6 `json-1.0`, 1
-`query`, 1 `rest-xml`. Two thirds of the set is `rest-json`, which is why the
-engine gaining that protocol is what made this milestone possible rather than a
-matter of arithmetic: without it, 34 of the 57 would have registered and served
-nothing.
-
-The one that does not meet the floor is `rds-data`, and it is the one worth
-calling out: it is supported by all three projects in the demand survey — the
-strongest signal in the whole set — and it still cannot be served generically,
-because not one of its six operations is CRUD-shaped. Breadth does not reach
-every service, and saying so is cheaper than a fabricated success.
-
-`elastic-load-balancing` and `s3-control` were the other two. They were the last
-of the demand set because of their protocols, not their APIs, and both are
-served now: 18 of ELB's 29 operations and 94 of S3 Control's 97. The eleven and
-the three that remain are the not-CRUD-shaped case again — `ConfigureHealthCheck`
-and `ApplySecurityGroupsToLoadBalancer` among them, which a Terraform `aws_elb`
-resource does call. Breadth is what this milestone bought; depth is still not
-claimed.
+All four Lex clients sign as `lex` and none is named `lex`, so: `GET /bots` is
+`lex-models`, `POST /bots` is `lexv2-models`, `/bot/…/session` is `lex-runtime`,
+`/bots/…/botAliases/…/sessions/…` is `lexv2-runtime`. One route is claimed by two
+siblings — `DeleteBot` at `DELETE /bots/{id}` — and it is refused rather than
+guessed: deleting the wrong bot is worse than an honest error.
 
 ## What counts as a service
 
-Upstream `aws-sdk-go-v2/aws-models` publishes 431 model files. That is not 431
-services from a caller's point of view: 12 of the AI/ML category's 48 files are
-runtime or control-plane split-outs of another service (`sagemaker-runtime`,
-`bedrock-runtime`, `forecastquery`, `personalize-runtime`, the four Lex
-services, `bedrock-agentcore-control`, and the SageMaker `*-runtime` variants).
+Upstream publishes 431 model files, and DevCloud counts **model files**, one
+registered service each — because that is what an SDK client selects.
+`boto3.client("sagemaker-runtime")` is a different client with a different API
+from `boto3.client("sagemaker")`. The split-outs are real choices a caller makes,
+not packaging artefacts.
 
-DevCloud counts **model files**, one registered service each, because that is
-what an SDK client selects: `boto3.client("sagemaker-runtime")` is a different
-client with a different API from `boto3.client("sagemaker")`. The split-outs are
-real choices a caller makes, not packaging artefacts.
+## The target
 
-The consequence is visible in routing. A split-out signs with its parent's name,
-so `sagemaker` is claimed by eight services at once. Where exactly one claimant
-carries the name as its own service ID, that service wins and the rest are
-treated as borrowers — see `codegen.BuildAliases`. Where none does, the alias is
-left unrouted rather than guessed: all four Lex services sign as `lex` and none
-is called `lex`, so `lex` resolves to nothing on its own.
+**Decided 2026-09-05. The target is 205 services, not 431 — and it is met.**
 
-An unrouted alias is not the same as an unreachable service, and this page once
-conflated them — it claimed each Lex service was "reached by its own unambiguous
-name", which no boto3 caller has, since boto3 sends the contested name and
-nothing else. The name is still not guessed; the request is instead handed to
-the group of services that share it, and answered by the one whose route table
-models its method and path. Two candidates, or none, and it is refused.
+The old target was every service AWS publishes. It rested on an assumption nobody
+had tested: that the services DevCloud does not register are services anyone
+wants. Before committing to building ~283 of them, the assumption was tested
+against three independent projects that each only add a service when someone
+asks. It did not hold.
 
-## The target, and the rule that set it
-
-**Decided 2026-09-05. The target is 205 services, not 431.**
-
-DevCloud's roadmap previously aimed at every AWS service AWS publishes — 431
-model files. That target rested on an assumption nobody had tested: that the
-services DevCloud does not register are services anyone wants. Before committing
-to building ~283 of them, the assumption was tested, and it did not hold.
-
-**The rule was fixed before the numbers were seen.** Four outcomes were written
-down in advance, including one for "the method itself failed", specifically so
-the result could not be argued into whichever answer was most convenient once it
-arrived. The full evidence is in [demand.md](demand.md), re-derivable with
+**The rule was fixed before the numbers were seen** — four outcomes written down
+in advance, including one for "the method itself failed", specifically so the
+result could not be argued into whichever answer was most convenient. Full
+evidence in [demand.md](demand.md); re-derive with
 `python3 scripts/demand_rank.py`.
-
-**What was measured.** For each of the 283 unregistered services, how many of
-three independent projects have already built it: `moto` (163 services),
-LocalStack (119), `terraform-provider-aws` (273). Each serves a population
-DevCloud names as its user, and each only adds a service when someone asks.
 
 | Reading | Value |
 |---|---|
@@ -223,15 +123,13 @@ DevCloud names as its user, and each only adds a service when someone asks.
 | `M` built by none | 115 |
 | DevCloud's own service requests, all time | **0** |
 
-**The outcome that fired.** The rule kept the 100% target only if ≥60% of `M`
-had support ≥ 2, and narrowed to a demand set if ≥100 did. 57 cleared neither
-bar, so the pre-registered consequence applies: **the 100% claim is dropped from
-the docs before any bulk work, and the published target becomes the demand set.**
-
-Four fifths of the AWS surface DevCloud does not cover is surface that three
-projects — with far more history and staffing than DevCloud — have collectively
-declined to build. That is not an accident of their roadmaps. It is what a long
-tail looks like.
+The rule kept the 100% target only if ≥60% of `M` had support ≥2, and narrowed to
+a demand set if ≥100 did. 57 cleared neither bar, so the pre-registered
+consequence applied: **the 100% claim is dropped and the published target becomes
+the demand set.** All 57 are registered — 56 serve at least one operation, and
+`rds-data` is the exception named above. It is supported by all three projects,
+the strongest signal in the set, and still cannot be served generically. Breadth
+does not reach every service, and saying so is cheaper than a fabricated success.
 
 | | Services |
 |---|---|
@@ -239,16 +137,16 @@ tail looks like.
 | Target: registered + demonstrated demand | **205 — met** |
 | Explicitly not targeted | 226 |
 
-The 226 are not refused. Any of them can be onboarded when someone asks — the
-["Service not supported"](https://github.com/skyoo2003/devcloud/issues/new?template=service_request.yml)
-form is that channel, and one report outranks all three proxies, because it is
-demand rather than a stand-in for it. What changed is that they are no longer
-work DevCloud has promised.
+Four fifths of the AWS surface DevCloud does not cover is surface that three
+projects with far more history and staffing have collectively declined to build.
+That is what a long tail looks like. The 226 are not refused — any of them can be
+onboarded when someone asks. What changed is that they are no longer work
+DevCloud has promised.
 
 **What this verdict is not.** The three sources measure *emulator and provider
 effort*, not user demand. They are a proxy, chosen because DevCloud had no
 measurement of its own and the alternative was an unbounded wait. The instrument
-below now accrues the real thing.
+below accrues the real thing.
 
 ## Service not supported?
 
@@ -271,30 +169,29 @@ curl -s localhost:4747/devcloud/api/unrouted | jq .
 }
 ```
 
-Then open a [service request](https://github.com/skyoo2003/devcloud/issues/new?template=service_request.yml)
-and paste it. That output is what moves a service from the 226 into the target.
+Paste that into a [service request](https://github.com/skyoo2003/devcloud/issues/new?template=service_request.yml).
+One report outranks all three proxies, because it is demand rather than a
+stand-in for it — and it is what moves a service from the 226 into the target.
 
-**Two ceilings, so the number is not read as more than it is.**
+Two ceilings, so the number is not read as more than it is:
 
 1. **It is a floor, not a census.** `gateway.DetectProtocol` classifies a request
    it cannot identify as `("rest-xml", "s3")`, and S3 is registered — so an
-   unrecognisable request is routed to S3 rather than counted as a miss. What
-   this does catch is the case that matters: a real SDK or CLI call to an
-   unregistered service signs with that service's own name and misses the
-   registry. Verified with boto3 — `boto3.client("appflow")` is recorded as
-   `appflow`.
+   unrecognisable request is routed to S3 rather than counted as a miss. The case
+   that matters is caught: a real SDK or CLI call to an unregistered service
+   signs with that service's own name and misses the registry. Verified with
+   boto3 — `boto3.client("appflow")` is recorded as `appflow`.
 2. **A non-zero `droppedServiceIds` means the list is incomplete.** Service IDs
    come from caller-controlled headers, so the collector caps how many distinct
    ones it holds and reports both the cap and what it dropped, rather than
    growing without bound or truncating in silence.
 
-The counts live in memory and reset when the process does. This is a local
-development tool; nothing is sent anywhere.
+The counts live in memory and reset when the process does. Nothing is sent
+anywhere.
 
 ## Runtime cost
 
-Measured on an Apple Silicon machine, `CGO_ENABLED=0`, at each step of the
-roadmap:
+Apple Silicon, `CGO_ENABLED=0`, measured at each step of the roadmap:
 
 | | 105 services | 147 services | 205 services |
 |---|---|---|---|
@@ -303,16 +200,14 @@ roadmap:
 | Service registration | — | — | **49 ms for all 205** |
 
 The single-binary, zero-config property holds at the target with room to spare.
-Startup does not scale meaningfully with service count because registration is a
-map insert per service in `init()`, and the generated type definitions are mostly
-dead-code-eliminated by the linker — which is why 58 more services cost 1.8 MiB
-of binary.
+Startup does not scale meaningfully with service count: registration is a map
+insert per service in `init()`, and the generated type definitions are mostly
+dead-code-eliminated by the linker, which is why 58 more services cost 1.8 MiB.
 
-Peak RSS did not rise with the service count; it fell. The earlier figures were
-taken on a different day and are not a controlled comparison, so read this as
-"memory is not the constraint at 205" rather than as a saving. What the two
-readings agree on is the shape: memory is dominated by the runtime and the
-store, not by how many services are registered.
+The RSS readings were taken on different days and are not a controlled
+comparison. Read them as "memory is not the constraint at 205" rather than as a
+saving — what they agree on is the shape: memory is dominated by the runtime and
+the store, not by how many services are registered.
 
 ## Keeping up with upstream
 
@@ -332,44 +227,35 @@ them and opens a pull request. What that review costs was measured once, on
 | Wall-clock to download 194 models | 1 min 53 s |
 
 **This is one sample, and it is not one week of churn.** The 93 models that
-changed were all vendored on 2026-04-18 — 141 days earlier. The other 101 were
-vendored on 2026-09-05, and not one of them changed. So the reading above is an
-accumulated backlog, and the only measurement at weekly scale is the second
-cohort's: 101 models, one day, zero changes. The weekly rate is still unknown,
-and a figure derived from a single 141-day sample should not be quoted as one.
+changed were all vendored 141 days earlier; the other 101 were vendored the day
+before, and not one of them changed. So the reading is an accumulated backlog,
+and the weekly rate is still unknown.
 
 What the sample does settle is the *shape* of the work. None of the 93 was
 documentation-only, so no sync can be waved through on the assumption that AWS
 only reworded things. Thirty-two services gained operations — `ec2` alone gained
-46 — which moves the manifest and makes the published-figure gate below fail on
-purpose. That failure *is* the review: the numbers on this page have to be
-re-derived, by a person, before the sync can merge.
-
-The sync PR states which operations moved, so that review reads a change rather
-than a regeneration. Re-derive it with
-`python3 scripts/model_churn.py --upstream`.
+46 — which moves the manifest and makes the published-figure gate fail on
+purpose. That failure *is* the review: the numbers here have to be re-derived, by
+a person, before the sync can merge. The PR body states which operations moved;
+re-derive it with `python3 scripts/model_churn.py --upstream`.
 
 ## Reproducing these numbers
 
 ```bash
-make codegen        # regenerate the manifest from the models
-make stats          # registered services and hand-written operations
-go test ./cmd/devcloud/    # asserts every number on this page against the binary
-make test-compat           # the compatibility-tested number, over all 205 services
+make codegen             # regenerate the manifest from the models
+make stats               # registered services and hand-written operations
+go test ./cmd/devcloud/  # asserts every number on this page against the binary
+make test-compat         # the compatibility-tested number, over all 205 services
 ```
 
-The service and operation numbers come from
-`internal/generated/fidelity/manifest_gen.go` and nothing else, so they cannot
-drift from what the binary actually serves — `TestFidelityManifestCoverage` and
-`TestFidelityManifestCoversCRUDRegistry` fail if they do.
+Every figure comes from `internal/generated/fidelity/manifest_gen.go` and nothing
+else, so it cannot drift from what the binary serves. It cannot drift from *this
+page* either — five tests compare the two, in both directions:
 
-They cannot drift from *this page* either.
-`TestPublishedCoverageMatchesTheBinary` and
-`TestPublishedOperationTiersMatchTheManifest` read the tables above and compare
-each figure to the live registry and manifest, in both directions: a service
-removed without editing the page fails, and a figure edited here without the
-code moving fails identically. `TestRegisteredOnlyServicesAreNamedInTheDocs`
-does the same for the depth claim, so a service that starts serving nothing
-cannot join that set without being named. `TestDemandSetIsRegistered` checks the
-target itself — all 57 services in [demand.md](demand.md) are still registered,
-so the count cannot be held steady by swapping one out for something else.
+| Test | Gates |
+|---|---|
+| `TestPublishedCoverageMatchesTheBinary` | the three service counts |
+| `TestPublishedOperationTiersMatchTheManifest` | the four operation tiers |
+| `TestRegisteredOnlyServicesAreNamedInTheDocs` | that a service serving nothing is named here |
+| `TestOtherDocsQuoteTheSameFigure` | that `README.md` and `docs/README.md` agree |
+| `TestDemandSetIsRegistered` | that all 57 demand-set services are still registered |
