@@ -2,14 +2,12 @@
 
 What DevCloud **v1.0** promises, and what it deliberately does not.
 
-This document covers the surfaces you touch as a *user* of DevCloud — the config file, the
-environment, the CLI, the admin API, and the AWS wire protocol. For the in-tree Go contract
-that service implementations are written against, see
-[plugin-api.md](plugin-api.md#api-stability); that surface lives under `internal/` and is not
-importable from another module.
+This covers the surfaces you touch as a *user*: the config file, the environment, the CLI, the
+admin API, and the AWS wire protocol. For the in-tree Go contract that service implementations
+are written against, see [plugin-api.md](plugin-api.md#api-stability).
 
-Versions follow [Semantic Versioning](https://semver.org). "Across 1.x" below means every
-release from v1.0.0 up to but not including v2.0.0.
+Versions follow [Semantic Versioning](https://semver.org). "Across 1.x" means every release
+from v1.0.0 up to but not including v2.0.0.
 
 ## Guaranteed across 1.x
 
@@ -74,11 +72,11 @@ appears, and every operation the CRUD engine serves is present and not filed as
 `unimplemented` — all three fail the build, in
 [`cmd/devcloud/fidelity_test.go`](../cmd/devcloud/fidelity_test.go).
 
-What no test can catch is an operation that never reaches the manifest at all, and that is
-bounded rather than eliminated: for the 193 services with an in-tree Smithy model the operation
-universe comes from the model, so an operation losing its implementation reclassifies to
-`unimplemented` instead of disappearing. For the 12 without one, the universe *is* what the
-providers serve, so the manifest lists no unimplemented tail for them — `modelBacked` on
+What no test can catch is an operation that never reaches the manifest at all. That is bounded
+rather than eliminated: for the 194 services with an in-tree Smithy model the operation universe
+comes from the model, so an operation losing its implementation reclassifies to `unimplemented`
+instead of disappearing. For the 11 without one, the universe *is* what the providers serve, so
+the manifest lists no unimplemented tail for them. `modelBacked` on
 `GET /devcloud/api/fidelity` reports which is which.
 
 ### Wire behaviour — scoped to the compatibility suite
@@ -87,22 +85,19 @@ providers serve, so the manifest lists no unimplemented tail for them — `model
 keeps holding across 1.x — that property, and nothing wider.**
 
 The promise is as wide as each individual assertion: not as wide as the field, and not as wide as
-the operation. `CreateFunction` is covered by `test_lambda.py`, and its two assertions are worth
-reading closely:
+the operation. `CreateFunction` in `test_lambda.py` shows all three cases at once:
 
-- `FunctionName` is asserted **equal** to the name that was sent, so its key and its value are
-  both promised.
-- `FunctionArn` is asserted only to be **present**, so its presence is promised and its type,
-  format and meaning are not. If it stopped being ARN-shaped the suite would stay green — so this
-  policy does not promise it stays ARN-shaped.
-- `Runtime`, `Handler` and `MemorySize` are not asserted at all, so they carry no promise even
-  though today's response includes them.
+| Field | Asserted as | Promised |
+|---|---|---|
+| `FunctionName` | equal to the name sent | key *and* value |
+| `FunctionArn` | present | presence only — not that it stays ARN-shaped |
+| `Runtime`, `Handler`, `MemorySize` | not asserted | nothing, though today's response includes them |
 
-That narrowness is the point: it is the promise the repo can actually keep. The suite — 1,144 tests
-driving real boto3 clients — runs in CI on every push and again against the tagged commit before
-a release publishes, so breaking an assertion fails the build rather than depending on review
-discipline. Anything the suite does not assert rests on nothing but intent. Widening the promise
-means adding or strengthening assertions, and such contributions are welcome.
+That narrowness is the point: it is the promise the repo can actually keep. The suite — 1,144
+tests driving real boto3 clients — runs in CI on every push and again against the tagged commit
+before a release publishes, so breaking an assertion fails the build rather than depending on
+review discipline. Anything the suite does not assert rests on nothing but intent. Widening the
+promise means adding or strengthening assertions, and such contributions are welcome.
 
 ## Not guaranteed
 
@@ -124,22 +119,17 @@ Depending on any of the following will break, and breaking it is **not** a major
   today are a floor, not a ceiling — and not a promise of depth either: 4 of them serve no
   operation and only decline cleanly. See [coverage.md](coverage.md).
 - **Error codes, HTTP status and message wording.** What *is* guaranteed for an `unimplemented`
-  operation is that it **fails** — an AWS-shaped error, never a fabricated success. Which error
-  is not: it comes from whichever provider handles the request, so it is `InvalidAction` (400)
-  for services that fall through to the CRUD engine, `NotImplemented` (501) for the 33 providers
-  with their own dispatch default, and each path-routed provider's own vocabulary otherwise
-  (`s3` `MethodNotAllowed` 405, `bedrock` `UnsupportedOperation` 400). `sqs` even differs by
-  protocol. [fidelity-manifest.md](fidelity-manifest.md) records the current behaviour;
-  normalizing it is a minor release, not a major one.
+  operation is that it **fails** — an AWS-shaped error, never a fabricated success. *Which* error
+  is not guaranteed: it comes from whichever provider handles the request, and `sqs` even differs
+  by protocol. [fidelity-manifest.md](fidelity-manifest.md#what-an-unimplemented-call-returns)
+  records the current behaviour; normalizing it is a minor release, not a major one.
 - **Log output.** Format, levels and wording of server logs are operational, not an API.
-- **Everything under `internal/`.** Go forbids importing it from another module, and DevCloud
-  reserves the right to restructure it freely across 1.x. The Phase 2 refactor on the
-  [roadmap](roadmap.md) is the precedent: the intermediate representation, `ModelSource`,
-  `ProviderScoped` and the `auth` adapters all landed inside a 1.x minor without a
-  compatibility event, because none of them is reachable from outside this module. Internal
-  churn is not a compatibility event. The in-tree `ServicePlugin` contract in
-  [plugin-api.md](plugin-api.md#api-stability) is not an exception to this: it is a convention
-  that keeps in-tree plugins compiling, and it does not gate release versioning.
+- **Everything under `internal/`.** Go forbids importing it from another module, so DevCloud
+  restructures it freely across 1.x. The Phase 2 refactor is the precedent: the IR,
+  `ModelSource`, `ProviderScoped` and the `auth` adapters all landed inside a 1.x minor without
+  a compatibility event, because nothing outside this module can reach them. The in-tree
+  `ServicePlugin` contract in [plugin-api.md](plugin-api.md#api-stability) is no exception — it
+  is a convention that keeps in-tree plugins compiling, and it does not gate release versioning.
 - **Behavioural parity with AWS.** No release of DevCloud promises AWS's validation, business
   logic, eventual-consistency timing, rate limits, or IAM enforcement. Credentials are accepted
   without signature verification.

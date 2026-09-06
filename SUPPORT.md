@@ -1,6 +1,6 @@
 # Getting Help
 
-Thanks for using DevCloud. Choose the right channel below to get a fast, accurate response.
+Pick the right channel below to get a fast, accurate response.
 
 ## Where to ask
 
@@ -14,29 +14,26 @@ Thanks for using DevCloud. Choose the right channel below to get a fast, accurat
 
 ## Before you ask
 
-Please do a quick check first — most questions already have answers:
+Most questions already have answers:
 
 1. **Search existing issues** — [open](https://github.com/skyoo2003/devcloud/issues) + [closed](https://github.com/skyoo2003/devcloud/issues?q=is%3Aissue+is%3Aclosed)
-2. **Skim the docs** — [Getting Started](docs/getting-started.md), [Configuration](docs/configuration.md), [Architecture](docs/architecture.md)
-3. **Check the [services matrix](docs/services-matrix.md)** — confirm your service and operation are supported
-4. **Check the [roadmap](docs/roadmap.md)** — some requests may already be planned for a future phase
+2. **Check [Troubleshooting](docs/troubleshooting.md)** and the [FAQ](docs/faq.md)
+3. **Confirm the operation is served** — `curl -s 'localhost:4747/devcloud/api/fidelity?service=<id>'` with `admin.enabled: true`; see [fidelity-manifest.md](docs/fidelity-manifest.md)
+4. **Check the [roadmap](docs/roadmap.md)** — the request may already be planned
 
 ## How to write a good question
 
-A well-formed question gets answered faster:
-
-- **What you tried** — the exact command, code snippet, or SDK call
-- **What you expected** — what should have happened
-- **What actually happened** — full error message or unexpected behavior
-- **Environment** — OS, Go/Python/Node version, DevCloud version (git SHA if built from source, or Docker image tag)
-- **Minimal reproduction** — smallest example that shows the issue
+- **What you tried** — the exact command, snippet, or SDK call
+- **What you expected**, and **what actually happened** — full error message
+- **Environment** — OS, language version, DevCloud version (git SHA or image tag)
+- **Minimal reproduction** — the smallest example that shows the issue
 
 ## Response expectations
 
-DevCloud is maintained by volunteers on best-effort basis. We do not offer a commercial SLA.
+DevCloud is maintained by volunteers on a best-effort basis. There is no commercial SLA.
 
-- **Bugs and security reports**: triaged within a few days
-- **Feature requests**: reviewed against the [roadmap](docs/roadmap.md)
-- **Questions**: answered when a maintainer or community member has time
+- **Bugs and security reports** — triaged within a few days
+- **Feature requests** — reviewed against the [roadmap](docs/roadmap.md)
+- **Questions** — answered when a maintainer or community member has time
 
-If you need guaranteed response times, consider sponsoring the project or contributing a fix yourself — see [CONTRIBUTING.md](CONTRIBUTING.md).
+If you need guaranteed response times, consider sponsoring the project or contributing the fix yourself — see [CONTRIBUTING.md](CONTRIBUTING.md).

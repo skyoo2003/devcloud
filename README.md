@@ -6,42 +6,36 @@ A **local development companion for cloud-native apps**. Iterate fast without cl
 ![Go](https://img.shields.io/badge/Go-1.26-00ADD8)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue)
 
-## Why DevCloud?
-
-Modern cloud development is expensive and slow to iterate on: every test hits a billed service, every feature branch needs its own sandbox, and every new joiner waits for cloud credentials. DevCloud runs a **local, API-compatible cloud environment** so you can:
-
-- **Develop offline** — no VPN, no credentials, no internet
-- **Iterate without a bill** — run integration tests at CI speed, not cloud speed
-- **Onboard in minutes** — `docker run` and your team is productive
-- **Ship with confidence** — compatibility tests against real SDKs mean your code that works locally works in production
-
-DevCloud is an **on-ramp to the cloud**, not a replacement for it. The goal is to make the local → CSP transition boring.
-
-## Vision: one local environment for every CSP
-
-Today DevCloud targets **AWS**. Our long-term goal is to support the full range of Cloud Service Providers (Azure, GCP, and beyond) behind the same local runtime and plugin architecture. We are rolling this out in phases — see [docs/roadmap.md](docs/roadmap.md) for the phased plan.
-
-## Features
-
-- **205 AWS services registered, 201 serving at least one operation** — the other 4 are routed and decline with a clean AWS error rather than letting the call bill a real AWS account. The split is the honest form of the number; see [coverage.md](docs/coverage.md) for what it does and does not promise, and [services-matrix.md](docs/services-matrix.md) for the list
-- **boto3-compatible** — a 992-test compatibility suite runs in CI (`make test-compat`) and exercises every registered service; works with most boto3 apps, and unsupported operations return a clean AWS error, never a false success
-- **Cross-service integration** — CFN provisioning, DDB Streams → Lambda, EventBridge targets, S3 → Lambda
-- **Smithy-driven codegen** — auto-generate Go types, routers, and error catalogues from Smithy models
-- **Weekly auto-sync** — GitHub Actions keeps generated code up to date with upstream AWS API changes
-- **Single binary, zero-config** — one Docker image, one port (4747), no config file required (embedded defaults)
-- **Environment variable overrides** — `DEVCLOUD_SERVICES`, `DEVCLOUD_DATA_DIR`, `DEVCLOUD_PORT` for quick configuration without YAML
-- **SDK/CLI compatible** — works with the AWS SDK, CLI, Terraform, CDK out of the box
-- **Admin API** — opt-in REST at `/devcloud/api/*` for service status, resource listing, and recent request logs (`admin.enabled: true`). The web dashboard UI lives in a separate repository.
-
 ## Quick Start
 
 ```bash
 docker run -p 4747:4747 ghcr.io/skyoo2003/devcloud:latest
 ```
 
-Then point any AWS SDK at `http://localhost:4747`. See [Getting Started](docs/getting-started.md) for boto3 / AWS CLI / Terraform examples and installation options.
+Point any AWS SDK at `http://localhost:4747`. See [Getting Started](docs/getting-started.md) for boto3 / AWS CLI / Terraform examples and other install options.
 
-## Supported Services (AWS)
+## Why DevCloud?
+
+Every test against real AWS is billed, every feature branch wants its own sandbox, and every new joiner waits for credentials. DevCloud runs a local, API-compatible cloud environment so you can:
+
+- **Develop offline** — no VPN, no credentials, no internet
+- **Iterate without a bill** — integration tests at CI speed, not cloud speed
+- **Onboard in minutes** — `docker run` and your team is productive
+- **Ship with confidence** — compatibility tests run against real SDKs
+
+DevCloud is an **on-ramp to the cloud**, not a replacement for it. The goal is to make the local → CSP transition boring. It targets AWS today; Azure, GCP and beyond are on the [roadmap](docs/roadmap.md).
+
+## Features
+
+- **205 AWS services registered, 201 serving at least one operation** — the remaining 4 are routed and decline with a clean AWS error rather than letting the call bill a real account. See [coverage.md](docs/coverage.md) for what the numbers do and do not promise.
+- **boto3-compatible** — a 1,144-test suite runs in CI (`make test-compat`) across every registered service. Unsupported operations return a clean AWS error, never a false success.
+- **Cross-service integration** — CloudFormation provisioning, DynamoDB Streams → Lambda, EventBridge targets, S3 → Lambda
+- **Smithy-driven codegen** — Go types, routers and error catalogues generated from AWS models, with a weekly sync workflow that keeps them current
+- **Single binary, zero-config** — one Docker image, one port (4747), no config file required; override with `DEVCLOUD_SERVICES`, `DEVCLOUD_DATA_DIR`, `DEVCLOUD_PORT`
+- **SDK/CLI compatible** — AWS SDK, CLI, Terraform and CDK work out of the box
+- **Admin API** — opt-in REST at `/devcloud/api/*` for service status, resources and request logs (`admin.enabled: true`)
+
+## Core Services (AWS)
 
 | Service | Protocol | Storage | Docs |
 |---------|----------|---------|------|
@@ -51,35 +45,31 @@ Then point any AWS SDK at `http://localhost:4747`. See [Getting Started](docs/ge
 | Lambda | REST-JSON | SQLite + Filesystem | [docs/services/lambda.md](docs/services/lambda.md) |
 | IAM/STS | Query | SQLite | [docs/services/iam-sts.md](docs/services/iam-sts.md) |
 
-Azure and GCP support is on the [roadmap](docs/roadmap.md).
+The rest of the registered surface is described in the [services matrix](docs/services-matrix.md).
 
 ## Documentation
 
-Start at the [docs index](docs/) for the full map. Quick links:
+Start at the [docs index](docs/). Most-read pages:
 
-- [Getting Started](docs/getting-started.md) — Installation, first use, boto3 / AWS CLI / Terraform examples
-- [Configuration](docs/configuration.md) — Config options, env-var overrides, tier shortcuts
-- [Architecture](docs/architecture.md) — System design, codegen pipeline, plugin model, multi-CSP vision
-- [Services Matrix](docs/services-matrix.md) — services, coverage status, boto3 compatibility
-- [Compatibility Policy](docs/compatibility-policy.md) — what v1.0 guarantees across 1.x, and what it explicitly does not
-- [Fidelity Manifest](docs/fidelity-manifest.md) — per-operation tiers: how much to trust any given call
-- [Plugin API](docs/plugin-api.md) — the in-tree `ServicePlugin` contract for contributors
-- [Roadmap](docs/roadmap.md) — Phased plan toward multi-CSP support
-- [FAQ](docs/faq.md) / [Troubleshooting](docs/troubleshooting.md) — Common questions and errors
-- [Contributing](docs/contributing.md) — Development setup, adding new services
-- [Support](SUPPORT.md) / [Governance](GOVERNANCE.md) — Where to ask, how decisions are made
-- [Changelog](CHANGELOG.md) — Release history
+| | |
+|---|---|
+| [Getting Started](docs/getting-started.md) | Install, first run, SDK examples |
+| [Configuration](docs/configuration.md) | Config file, env-var overrides, tier shortcuts |
+| [Coverage](docs/coverage.md) | What the service counts mean, and the target |
+| [Compatibility Policy](docs/compatibility-policy.md) | What v1.0 guarantees across 1.x — and what it does not |
+| [Architecture](docs/architecture.md) | System design, codegen pipeline, plugin model |
+| [Contributing](docs/contributing.md) | Dev setup, adding a service |
+
+Project files: [Support](SUPPORT.md) · [Governance](GOVERNANCE.md) · [Releasing](RELEASE.md) · [Changelog](CHANGELOG.md)
 
 ## Contributing
 
-We welcome contributions — especially service implementations, compatibility fixes, and documentation. See the [Contributing Guide](docs/contributing.md) for development setup and the [Code of Conduct](CODE_OF_CONDUCT.md) for community standards.
+Contributions are welcome — especially service implementations, compatibility fixes, and documentation. See the [Contributing Guide](docs/contributing.md) and the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-For security issues, please follow the [Security Policy](SECURITY.md) and do not file a public issue.
+For security issues, follow the [Security Policy](SECURITY.md) and do not file a public issue.
 
 ## License
 
-Licensed under the [Apache License, Version 2.0](LICENSE). See [NOTICE](NOTICE) for attribution requirements.
+Apache License, Version 2.0 — see [LICENSE](LICENSE) and [NOTICE](NOTICE).
 
-## Trademark Notice
-
-DevCloud is an independent open-source project. References to cloud service providers describe **API compatibility** only. All trademarks (AWS, Azure, Google Cloud, etc.) are the property of their respective owners. See [TRADEMARKS.md](TRADEMARKS.md) for details.
+DevCloud is an independent open-source project. References to cloud service providers describe **API compatibility** only; all trademarks are the property of their respective owners. See [TRADEMARKS.md](TRADEMARKS.md).

@@ -1,121 +1,73 @@
-# DevCloud Services Matrix
+# Services Matrix
 
-**Total**: 148 services registered, 117 serving at least one operation (run `make stats`). The boto3 compatibility suite in `tests/compatibility/` passes in CI. A registered service that serves nothing still declines with a clean AWS error rather than letting the call reach real AWS — see [coverage.md](coverage.md).
+Which AWS services DevCloud serves, and how deeply.
 
-> To refresh these numbers, run `make stats` (service/handler counts) and `make test-compat` (compatibility suite), then update the line above. Note: `make stats`' "Operations" counts dispatch cases (a service carrying both Query and JSON protocols counts each), not distinct AWS operations.
+**Counts live in [coverage.md](coverage.md)** — it is the only page that publishes
+them, and CI fails if its figures and the binary disagree. This page describes the
+*shape* of the surface instead.
 
-_Last updated with each release. For unreleased changes, see [CHANGELOG.md](../CHANGELOG.md)._
+## How to look up one service
 
-DevCloud is a Go-based local cloud environment with AWS API compatibility. This matrix tracks implemented operations per service.
-
-## Summary by tier
-
-| Tier | Services | Ops | Description |
-|------|----------|-----|-------------|
-| Tier 1 (Big 6) | S3, SQS, DynamoDB, Lambda, IAM, STS | 128+ | Core services (SQS at full 23/23 op coverage) |
-| Tier 2 (Integration) | EventBridge, SNS, CW Logs, CloudWatch, KMS, Secrets Manager, SSM, ECR | 157+ | Integration services |
-| Tier 3 (Extended) | EFS, EBS, EC2, Route53, ACM, ECS, Bedrock, Account, Pipes, CloudControl, RGTAPI, AppAutoScaling, Firehose, S3Tables, MWAA, Scheduler, Support, IdentityStore, MediaConvert, Textract, ServerlessRepo, DDB Streams, SFN, Kinesis, CloudFormation | 900+ | Extended platform services, networking, and services requiring custom integration logic |
-| Category Expansion | remaining services | varies | Smithy-scaffolded services with working dispatch — common operations implemented; less-common ones return a clean `InvalidAction` error rather than a false success |
-
-## Top 25 services (by ops count)
-
-| # | Service | Ops | Category |
-|---|---------|-----|----------|
-| 1 | sesv2 | 155 | Business Apps |
-| 2 | appconfig | 97 | Management |
-| 3 | pinpoint | 93 | Business Apps |
-| 4 | opensearch | 87 | Analytics |
-| 5 | iot | 82 | IoT |
-| 6 | backup | 82 | Storage |
-| 7 | apigatewayv2 | 79 | Networking |
-| 8 | waf | 77 | Security |
-| 9 | neptune | 71 | Databases |
-| 10 | elasticsearchservice | 67 | Analytics |
-| 11 | sagemaker | 65 | ML |
-| 12 | glue | 65 | Analytics |
-| 13 | route53resolver | 64 | Networking |
-| 14 | ssoadmin | 62 | Security |
-| 15 | athena | 62 | Analytics |
-| 16 | rds | 61 | Databases |
-| 17 | lakeformation | 61 | Analytics |
-| 18 | cloudformation | 61 | Management |
-| 19 | emr | 60 | Analytics |
-| 20 | kafka | 59 | Analytics |
-| 21 | cognitoidentityprovider | 59 | Security |
-| 22 | ecs | 57 | Containers |
-| 23 | eks | 56 | Containers |
-| 24 | docdb | 55 | Databases |
-| 25 | codecommit | 53 | DevTools |
-
-## Cross-service integrations
-
-| Integration | Status | Implementation |
-|-------------|--------|----------------|
-| CloudFormation → 6 resource types | ✅ | `cloudformation/engine.go` with topological sort, intrinsic functions |
-| DynamoDB Streams → Lambda | ✅ | `lambda/eventsource.go` polls DDB stream shards |
-| SQS → Lambda | ✅ | Event source poller (pre-existing) |
-| S3 → Lambda | ✅ | `s3/notifications.go` on PUT events |
-| EventBridge → SQS/SNS/Lambda | ✅ | Rule matching + `dispatchToTarget` |
-| SNS → SQS subscription | ✅ | Topic publish triggers queue delivery |
-| DynamoDB → DynamoDB Streams | ✅ | Write-path publishes records |
-
-## boto3 compatibility
-
-- Tests: `tests/compatibility/` (775 tests)
-- Status: the full suite passes in CI (`.github/workflows/compat.yml`); any failing test fails the build
-- Run: `make test-compat`
-
-Every service the suite covers passes — including S3Tables (ARN path parsing),
-ServerlessRepo (restJson1 `jsonName`), Textract, and Support, which were once
-rough edges. Core services (S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch,
-KMS, Secrets Manager, EventBridge, CloudFormation) have the deepest coverage.
-Services implement their common operations; less-common operations return a clean
-AWS error rather than a false success, so an SDK always gets a truthful response.
-
-## Operation coverage & the CRUD fallback engine
-
-Hand-written providers implement each service's common operations. For the long
-tail of standard CRUD-shaped operations across 46 JSON-protocol services, a
-generic engine can serve plausible, store-backed responses so SDK calls
-round-trip. This coverage is **plausible, not faithful** — no validation or
-business logic. See [crud-engine.md](crud-engine.md) for the wired services and
-limits. Operations that are neither hand-written nor CRUD-classifiable return an
-honest `InvalidAction` error, never a fabricated success.
-
-Every operation's tier is declared in the generated
-[fidelity manifest](fidelity-manifest.md) — 4,496 `hand-verified`, 948
-`auto-crud`, 2,031 `unimplemented` across 7,475 operations. Query it per service
-(requires `admin.enabled: true`):
+Per-operation depth is declared by the generated
+[fidelity manifest](fidelity-manifest.md), not by a hand-maintained table. Ask it
+directly (requires `admin.enabled: true`):
 
 ```bash
 curl -s 'localhost:4747/devcloud/api/fidelity?service=s3'
 ```
 
-## Supported protocols
+| Tier | What it means |
+|------|---------------|
+| `hand-verified` | The service's provider implements the operation explicitly. |
+| `auto-crud` | Served by the [CRUD engine](crud-engine.md) — store-backed and plausible, not faithful. |
+| `unimplemented` | Refused with an AWS-shaped error. Never a fabricated success. |
 
-- **JSON 1.0** (`application/x-amz-json-1.0`): DynamoDB, DynamoDB Streams, Kinesis
-- **JSON 1.1** (`application/x-amz-json-1.1`): ECS, Lambda, Batch, CloudWatch Logs, SFN, many others
-- **REST-JSON** (`application/json`): ACM, APIGW, Lambda REST, S3Tables, ServerlessRepo, MWAA, IdentityStore
-- **REST-XML** (`application/xml`): S3, Route53, CloudFront
-- **Query** (`application/x-www-form-urlencoded`): IAM, STS, SQS, SNS, RDS, CloudFormation, EC2, AutoScaling
+## Depth by group
 
-## Architecture
+| Group | Services | Depth |
+|-------|----------|-------|
+| Core | S3, SQS, DynamoDB, Lambda, IAM, STS | Hand-written throughout; the deepest boto3 coverage |
+| Integration | SNS, EventBridge, CloudWatch, CW Logs, KMS, Secrets Manager, SSM, ECR, CloudFormation | Hand-written common operations, plus the cross-service wiring below |
+| Extended | EC2, ECS, EKS, Route53, ACM, RDS, Kinesis, Firehose, SFN, Bedrock, and the rest of the registered set | Common operations hand-written; the long tail is engine-served or declines cleanly |
 
-For system design and plugin architecture, see [architecture.md](architecture.md).
-For the phased multi-CSP vision, see [roadmap.md](roadmap.md).
+The `tier1` / `tier2` / `tier3` tokens accepted by `DEVCLOUD_SERVICES` are a
+*startup* grouping, not a depth claim — see
+[configuration.md](configuration.md#devcloud_services) for their exact contents.
 
-## How to verify
+## Cross-service integrations
+
+These are wired end to end, not stubbed:
+
+| Integration | Implementation |
+|-------------|----------------|
+| CloudFormation → 6 resource types | `cloudformation/engine.go` — topological sort, intrinsic functions |
+| DynamoDB → DynamoDB Streams | Write path publishes records |
+| DynamoDB Streams → Lambda | `lambda/eventsource.go` polls stream shards |
+| SQS → Lambda | Event source poller |
+| S3 → Lambda | `s3/notifications.go` on PUT events |
+| EventBridge → SQS / SNS / Lambda | Rule matching + `dispatchToTarget` |
+| SNS → SQS | Topic publish triggers queue delivery |
+
+## Protocols
+
+| Protocol | Content type | Example services |
+|----------|--------------|------------------|
+| JSON 1.0 | `application/x-amz-json-1.0` | DynamoDB, DynamoDB Streams, Kinesis |
+| JSON 1.1 | `application/x-amz-json-1.1` | ECS, Lambda, Batch, CW Logs, SFN |
+| REST-JSON | `application/json` | ACM, API Gateway, S3Tables, MWAA, IdentityStore |
+| REST-XML | `application/xml` | S3, Route53, CloudFront |
+| Query | `application/x-www-form-urlencoded` | IAM, STS, SQS, SNS, RDS, EC2, AutoScaling |
+
+SQS speaks both Query and JSON; the protocol is detected per request.
+
+## Verifying
 
 ```bash
-# Build and run unit tests
-make build
-make test
-
-# Run boto3 compatibility tests
-make test-compat
-
-# Print service and operation counts
-make stats
+make test          # Go unit tests
+make test-compat   # boto3 compatibility suite
+make stats         # registered services and hand-written operations
 ```
 
-See [Getting Started](getting-started.md) for installation and [contributing.md](contributing.md) for development setup.
+The compatibility suite runs in CI on every push — a failing test fails the
+build. What it does and does not promise is
+[compatibility-policy.md](compatibility-policy.md#wire-behaviour--scoped-to-the-compatibility-suite).

@@ -1,83 +1,84 @@
 # Roadmap
 
-DevCloud's long-term vision is to be a **local development companion for cloud-native apps across every major Cloud Service Provider (CSP)** — not a production replacement, but an on-ramp that lets developers iterate fast without cloud bills and deploy to their target CSP with confidence.
+DevCloud aims to be a **local development companion for cloud-native apps across
+every major CSP** — not a production replacement, but an on-ramp that lets you
+iterate without cloud bills and deploy to your target CSP with confidence. It gets
+there in phases, to keep scope, architectural complexity and community
+expectations manageable.
 
-We pursue this vision through a **phased rollout** to manage scope, architectural complexity, and community expectations.
+## Guiding principles
 
-## Guiding Principles
-
-1. **Local-first, cost-free** — developers should not incur cloud charges for inner-loop development.
+1. **Local-first, cost-free** — no cloud charges for inner-loop development.
 2. **On-ramp, not replacement** — DevCloud helps you *land on* a CSP, not avoid it.
-3. **API-compatible, not behavior-perfect** — prioritize SDK compatibility (boto3, azure-sdk, google-cloud-python) over edge-case parity.
-4. **Community-owned** — scope is too large for a single maintainer; plugin architecture and contributor experience are first-class concerns.
+3. **API-compatible, not behaviour-perfect** — SDK compatibility over edge-case parity.
+4. **Community-owned** — the scope is too large for one maintainer, so the plugin architecture and contributor experience are first-class.
 5. **Trademark-respectful** — see [TRADEMARKS.md](../TRADEMARKS.md).
 
-## Phases
+## Phase 1 — AWS depth and stabilization (complete, shipped as v1.0)
 
-### Phase 1 — AWS Depth & Stabilization (Complete, shipped as v1.0)
+Mature the already-broad AWS surface into a stable, well-tested v1.0.
 
-**Goal**: mature the already-broad AWS surface into a stable, well-tested v1.0.
+- [x] AWS services scaffolded from official Smithy models via in-tree codegen — counts in [coverage.md](coverage.md)
+- [x] Deep hand-written coverage on core and integration services
+- [x] Cross-service integration — CloudFormation, DynamoDB Streams → Lambda, SQS → Lambda, S3 → Lambda, EventBridge, SNS → SQS
+- [x] boto3 compatibility suite green in CI; a failing test fails the build
+- [x] Unimplemented operations return an AWS-shaped error instead of a false `200`
+- [x] Stable `ServicePlugin` API ([plugin-api.md](plugin-api.md)), enforced by a conformance test over every registered service
+- [x] Generic [CRUD fallback engine](crud-engine.md) serving the long tail with plausible, store-backed responses. **Follow-up:** promote high-value `auto-crud` operations to hand-verified fidelity.
+- [x] v1.0 release — see [compatibility-policy.md](compatibility-policy.md)
 
-- [x] 100+ AWS services scaffolded from official Smithy models via in-tree codegen (run `make stats` for current counts)
-- [x] Deep hand-written coverage on core, integration, and major extended services (see [services-matrix.md](services-matrix.md) for per-tier depth)
-- [x] Cross-service integration (CloudFormation, DynamoDB Streams → Lambda, SQS → Lambda, S3 → Lambda, EventBridge, SNS → SQS)
-- [x] boto3 compatibility suite (`make test-compat`); core services — S3, SQS, DynamoDB, Lambda, IAM, STS, SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation — pass 100%
-- [x] boto3 compatibility suite green in CI (`make test-compat`) — a failing test fails the build
-- [x] Unimplemented operations return a consistent AWS error (`InvalidAction`, HTTP 400) instead of a false `200` success; dead scaffold code removed
-- [x] boto3 compatibility coverage added for previously-untested services (CodeConnections, DMS, Verified Permissions)
-- [x] Stable `ServicePlugin` API finalized and documented ([plugin-api.md](plugin-api.md)), enforced by a conformance test over every registered service
-- [x] Generic CRUD fallback engine ([crud-engine.md](crud-engine.md)) auto-serves ~2,200 CRUD-shaped operations across all 46 JSON-protocol services with plausible, store-backed responses; every registered JSON service is wired. **Follow-up**: promote high-value auto-crud ops to hand-verified fidelity.
-- [x] v1.0 release — see [compatibility-policy.md](compatibility-policy.md) for what 1.x guarantees
+## Phase 2 — Architectural preparation (complete, v1.x)
 
-### Phase 2 — Architectural Preparation (Complete, v1.x)
+Refactor internally so adding a CSP does not require forking the project. Each
+item made a future provider an *addition* rather than an edit — the seams are
+tabulated in [architecture.md](architecture.md#multi-csp-seams).
 
-**Goal**: internal refactor so adding a new CSP doesn't require forking the project.
+- [x] Intermediate Representation between models and codegen ([`internal/codegen/ir`](../internal/codegen/ir/ir.go)). Generators read `*ir.Model`; nothing in the IR names Smithy.
+- [x] Parser refactored behind [`ModelSource`](../internal/codegen/source.go). `SmithySource` owns its own format detection, so `cmd/codegen` never names a format.
+- [x] Provider namespacing in config — `providers.aws.services.*`, forward-compatible with `providers.azure.*` ([configuration.md](configuration.md#provider-namespacing)).
+- [x] Plugin interface review — `ServicePlugin` needed no change; the CSP is carried by the optional [`ProviderScoped`](plugin-api.md#providers-and-csp-neutrality).
+- [x] Per-provider auth adapters ([`internal/auth`](../internal/auth/auth.go)). `SigV4` is the AWS implementation; AAD/SAS and OAuth2 slot in beside it without touching the gateway.
 
-- [x] Intermediate Representation (IR) between API models and codegen — [`internal/codegen/ir`](../internal/codegen/ir/ir.go). The generators read `*ir.Model` and nothing in the IR names Smithy; `ir.Model.Provider` carries the owning CSP.
-- [x] `internal/codegen/parser.go` refactored behind a [`ModelSource`](../internal/codegen/source.go) interface. `SmithySource` is the first implementation and owns its own format detection, so `cmd/codegen` hands every file to `SourceFor` and never names a format. OpenAPI/Protobuf are an added file.
-- [x] Provider namespacing in config — `providers.aws.services.*`, forward-compatible with `providers.azure.*`. The top-level `services` block is the same AWS block under its historical name and keeps working ([configuration.md](configuration.md#provider-namespacing)).
-- [x] Plugin interface review — `ServicePlugin` needs no change; the CSP is carried by the optional [`ProviderScoped`](plugin-api.md#providers-and-csp-neutrality) interface, read through `plugin.ProviderOf`. Adding a method would have broken every in-tree plugin to make it state a value it already defaults to.
-- [x] Per-provider auth adapter interface — [`internal/auth`](../internal/auth/auth.go). `Adapter` reads one provider's credential form; `SigV4` is the AWS implementation, and AAD/SAS and OAuth2 slot in beside it without touching the gateway. The caller's claimed identity reaches plugins via `auth.FromContext`.
+Phase 2 deliberately shipped **no** non-AWS service, no second `ModelSource`, and
+no signature verification. Those are Phase 3 and beyond; Phase 2's job was to make
+each of them an addition rather than a fork.
 
-What Phase 2 deliberately did **not** do: no non-AWS service, no second `ModelSource`, and no signature verification. Those are Phase 3 and beyond — Phase 2's job was to make each of them an addition rather than a fork.
+## Phase 3 — First non-AWS service (next, v2.0, exploratory)
 
-### Phase 3 — First Non-AWS Service (Next, v2.0, exploratory)
+Validate the multi-CSP architecture with one well-scoped pilot.
 
-**Goal**: validate the multi-CSP architecture with a single, well-scoped pilot.
-
-- [ ] Pick one Azure service as pilot (candidate: **Azure Blob Storage** — closest to S3 semantically)
+- [ ] Pick an Azure pilot service — candidate: **Azure Blob Storage**, closest to S3 semantically
 - [ ] OpenAPI → IR → codegen proof of concept
-- [ ] Azure authentication adapter (Shared Key for starters)
+- [ ] Azure authentication adapter (Shared Key to start)
 - [ ] Compatibility tests against `azure-sdk-for-python`
 - [ ] Documentation pattern for multi-CSP service docs
 
-### Phase 4 — Breadth Expansion (v2.x+)
+## Phase 4 — Breadth expansion (v2.x+)
 
-**Goal**: community-driven growth across CSPs.
+- [ ] More Azure services — Queue Storage, Table Storage, Cosmos DB
+- [ ] Google Cloud pilot — candidate: **Google Cloud Storage**
+- [ ] Other providers as community interest justifies
+- [ ] Federated identity playground (cross-CSP IAM simulation)
 
-- [ ] Additional Azure services (Queue Storage, Table Storage, Cosmos DB)
-- [ ] Google Cloud pilot (candidate: **Google Cloud Storage**)
-- [ ] Other providers as community interest justifies (OCI, Alibaba, Tencent)
-- [ ] Federated identity playground (simulate cross-CSP IAM)
-
-## Out of Scope
+## Out of scope
 
 - Production hosting or high-availability guarantees
-- Billing/quota simulation matching real CSP pricing
-- Exact replication of CSP-internal behavior (eventual consistency timing, rate limits, etc.)
-- Redistribution of CSP-owned branding assets, logos, or documentation
+- Billing and quota simulation matching real CSP pricing
+- Exact replication of CSP-internal behaviour (consistency timing, rate limits)
+- Redistribution of CSP-owned branding assets, logos or documentation
 
-## How to Influence the Roadmap
+## Influencing the roadmap
 
-- Open a [Feature Request](https://github.com/skyoo2003/devcloud/issues/new?template=feature_request.yml) describing the service or capability you need
-- Upvote existing requests with reactions — we look at vote counts when prioritizing
-- Contribute a service implementation following [docs/contributing.md](contributing.md)
+- **Missing service?** File a [service request](https://github.com/skyoo2003/devcloud/issues/new?template=service_request.yml) with `GET /devcloud/api/unrouted` output — that is what moves a service into the target ([coverage.md](coverage.md#service-not-supported)).
+- **Missing operation or capability?** File a [feature request](https://github.com/skyoo2003/devcloud/issues/new?template=feature_request.yml).
+- Upvote existing requests with reactions; vote counts inform prioritization.
+- Or contribute it — see [contributing.md](contributing.md).
 
-## Version Mapping
+## Version mapping
 
 | Version | Focus |
 |---------|-------|
 | 0.x | AWS services, unstable API |
-| 1.x ← current | AWS depth, stable plugin API, multi-CSP groundwork (IR, `ModelSource`, provider namespacing, auth adapters) |
+| 1.x ← current | AWS depth, stable plugin API, multi-CSP groundwork |
 | 2.x | Multi-CSP architecture, Azure pilot |
 | 3.x+ | Broad CSP coverage, community-owned providers |
