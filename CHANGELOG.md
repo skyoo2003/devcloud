@@ -1,3 +1,10 @@
+## [v1.1.1](https://github.com/skyoo2003/devcloud/releases/tag/v1.1.1) - 2026-09-07
+### Security
+* An S3 object key can no longer leave the bucket that owns it — a key such as `../victim/secret.txt` stayed under the store base directory and so passed the old containment check, letting one tenant read, overwrite and delete another tenant's objects — because every user-controlled path component is now guarded with `filepath.IsLocal` ([#155](https://github.com/skyoo2003/devcloud/issues/155))
+### Documentation
+* Changelog fragments are capped at one sentence, two at most — stated with a worked example in RELEASE.md, in the pre-flight checklist, in CONTRIBUTING.md and the PR checklist, and enforced by a 400-character body limit `changie new` refuses to exceed. Every entry already in the changelog is rewritten to that limit, and the v1.1.0 and v1.0.0 release notes are republished from their fragment files ([#152](https://github.com/skyoo2003/devcloud/issues/152))
+* The documentation no longer publishes the same figure at five different values: six numbers restated across pages now live in docs/coverage.md, which every other page links to. Three claims the code does not back are corrected — an unregistered `GET /devcloud/api/health`, a Lambda invoke failure blamed on Docker, and codegen outputs no template emits — and eighteen files are 1,063 lines shorter ([#151](https://github.com/skyoo2003/devcloud/issues/151))
+* The documentation is now published as a searchable site at https://skyoo2003.github.io/devcloud/, built with Hugo from the same `docs/*.md` files GitHub renders — no front matter added and no links rewritten. ([#154](https://github.com/skyoo2003/devcloud/issues/154))
 ## [v1.1.0](https://github.com/skyoo2003/devcloud/releases/tag/v1.1.0) - 2026-09-06
 ### Added
 * Provider-namespaced configuration: service blocks can be written as `providers.aws.services.*`, forward-compatible with `providers.azure.*`. The top-level `services` block is the same block under its historical name and keeps working ([#135](https://github.com/skyoo2003/devcloud/issues/135))

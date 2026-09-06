@@ -1,5 +1,0 @@
-kind: Documentation
-body: The documentation is now published as a searchable site at https://skyoo2003.github.io/devcloud/, built with Hugo from the same `docs/*.md` files GitHub renders — no front matter added and no links rewritten.
-time: 2026-09-07T10:15:00.000000+09:00
-custom:
-    Issue: "154"
