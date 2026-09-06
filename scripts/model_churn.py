@@ -58,7 +58,11 @@ def service_operations(model: dict) -> set[str]:
     wired into the service — a real upstream state, and one a reviewer should
     see coming.
     """
-    raise NotImplementedError
+    return {
+        shape_id.split("#")[-1]
+        for shape_id, shape in model.get("shapes", {}).items()
+        if shape.get("type") == "operation"
+    }
 
 
 def strip_documentation(node: object) -> object:
@@ -67,7 +71,15 @@ def strip_documentation(node: object) -> object:
     Documentation traits appear on shapes, on members, and on nested structures,
     so the removal is recursive rather than a pass over the top-level map.
     """
-    raise NotImplementedError
+    if isinstance(node, dict):
+        return {
+            key: strip_documentation(value)
+            for key, value in node.items()
+            if key != DOC_TRAIT
+        }
+    if isinstance(node, list):
+        return [strip_documentation(item) for item in node]
+    return node
 
 
 def is_documentation_only(old: dict, new: dict) -> bool:
@@ -76,8 +88,12 @@ def is_documentation_only(old: dict, new: dict) -> bool:
     This is the reading that decides whether a sync needs a review or a glance.
     It is deliberately strict: anything that is not a documentation trait — a
     trait value, a member, an enum entry — makes the change non-cosmetic.
+
+    Two models that are byte-identical are not documentation-only; they are
+    unchanged, and the caller only ever passes models git already reported as
+    differing.
     """
-    raise NotImplementedError
+    return strip_documentation(old) == strip_documentation(new)
 
 
 def _self_check() -> None:
