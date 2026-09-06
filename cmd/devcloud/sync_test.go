@@ -71,6 +71,38 @@ func runsGoTest(s syncStep) bool { return strings.Contains(s.Run, "go test") }
 
 func opensPullRequest(s syncStep) bool { return strings.Contains(s.Uses, "create-pull-request") }
 
+// prBodyText returns the text that becomes the pull request body.
+//
+// create-pull-request takes the body either inline as `body` or from a file as
+// `body-path`. Both are legitimate, and which one the workflow uses is not a
+// guarantee worth pinning — what the body *says* is. So a `body-path` resolves
+// to the shell of every step that writes to that path, which is where the
+// content actually comes from.
+func prBodyText(t *testing.T, steps []syncStep) string {
+	t.Helper()
+
+	prIdx := findStep(steps, opensPullRequest)
+	require.NotEqual(t, -1, prIdx, "no step opens a pull request")
+	with := steps[prIdx].With
+
+	if body, ok := with["body"].(string); ok {
+		return body
+	}
+
+	path, ok := with["body-path"].(string)
+	require.True(t, ok, "the create-pull-request step supplies neither body nor body-path")
+
+	var b strings.Builder
+	for _, s := range steps[:prIdx] {
+		if strings.Contains(s.Run, path) {
+			b.WriteString(s.Run)
+		}
+	}
+	require.NotEmpty(t, b.String(),
+		"body-path is %q but no earlier step writes to it, so the PR body is empty", path)
+	return b.String()
+}
+
 // TestSyncOpensAPullRequestEvenWhenTestsFail is the reproducer for the defect
 // that made the sustaining cost unmeasurable.
 //
@@ -144,17 +176,36 @@ func TestSyncStillFailsWhenTestsFail(t *testing.T) {
 func TestSyncPullRequestBodyReportsTheTestResult(t *testing.T) {
 	steps := syncSteps(t)
 
-	prIdx := findStep(steps, opensPullRequest)
-	require.NotEqual(t, -1, prIdx, "no step opens a pull request")
-
-	body, ok := steps[prIdx].With["body"].(string)
-	require.True(t, ok, "the create-pull-request step has no string body")
-
 	testIdx := findStep(steps, runsGoTest)
 	require.NotEqual(t, -1, testIdx)
 	require.NotEmpty(t, steps[testIdx].ID,
 		"the test step needs an id before its result can be quoted in the PR body")
 
-	assert.Contains(t, body, "steps."+steps[testIdx].ID,
+	assert.Contains(t, prBodyText(t, steps), "steps."+steps[testIdx].ID,
 		"the PR body must state the test result, so a reviewer sees a red sync as red")
+}
+
+// TestSyncPullRequestBodySummarisesTheChurn is the guarantee that makes the PR
+// reviewable rather than merely present.
+//
+// The sync regenerates from all 194 models at once, so its diff is whole-tree
+// whether upstream moved one model or ninety — measured on 2026-09-06, a real
+// refresh changed 93 models and 134 generated files. "Please review" over that
+// is not an action anyone performs. scripts/model_churn.py reduces it to the
+// question a reviewer has, which operations moved, and the body must carry that
+// answer or the reviewer is back to reading the regeneration.
+func TestSyncPullRequestBodySummarisesTheChurn(t *testing.T) {
+	steps := syncSteps(t)
+
+	churnIdx := findStep(steps, func(s syncStep) bool {
+		return strings.Contains(s.Run, "model_churn.py")
+	})
+	require.NotEqual(t, -1, churnIdx,
+		"no step runs scripts/model_churn.py, so the PR cannot say which operations moved")
+
+	prIdx := findStep(steps, opensPullRequest)
+	require.Less(t, churnIdx, prIdx, "the churn summary must be produced before the PR is opened")
+
+	assert.Contains(t, prBodyText(t, steps), "model_churn",
+		"the churn summary is produced but never reaches the PR body")
 }
