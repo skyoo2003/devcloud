@@ -46,6 +46,7 @@ archives:
     # points into source and CI config, which a binary archive has no business
     # carrying.
     - CONTRIBUTING.md
+    - RELEASE.md
     - CODE_OF_CONDUCT.md
     - GOVERNANCE.md
     - SECURITY.md
