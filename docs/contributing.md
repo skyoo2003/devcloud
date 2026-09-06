@@ -6,6 +6,7 @@
 - Python 3.10+ with pip (compatibility tests)
 - Docker (optional — Lambda runtime and integration tests)
 - `pre-commit` (optional but recommended)
+- Hugo extended 0.165+ (optional — only to preview this documentation as a site)
 
 No C toolchain and no SQLite headers: the SQLite driver is pure Go, which is why
 everything here builds with `CGO_ENABLED=0`.
@@ -33,7 +34,9 @@ make run     # starts the server on port 4747
 | `make codegen-s3` | Same, restricted to S3 — fast loop while editing templates |
 | `make docker-build` | Build the image from `docker/Dockerfile` as `devcloud/devcloud` |
 | `make docker-run` | Run that image on port 4747 with `./data` mounted |
-| `make clean` | Delete `dist/` and `data/` |
+| `make docs-serve` | Preview this documentation locally with Hugo |
+| `make docs-build` | Build the documentation site and check every internal link |
+| `make clean` | Delete `dist/`, `data/`, and the Hugo output in `public/` and `resources/` |
 | `make changelog VERSION=vX.Y.Z` | Batch and merge Changie fragments; `VERSION` is required |
 | `make stats` | Print registered service and operation counts |
 
@@ -138,6 +141,29 @@ internal/
     ├── store.go            # Storage backend
     └── register.go         # Plugin registration
 ```
+
+## Documentation
+
+Everything under `docs/` is read two ways: as plain markdown on github.com, and
+as the site at <https://skyoo2003.github.io/devcloud/>. Hugo mounts the directory
+rather than copying it, so both come from the same files.
+
+That dual audience sets one rule: **no front matter**. GitHub renders a YAML
+block as a metadata table above the page, so titles come from each document's
+H1 instead, and links stay plain and relative (`[coverage](coverage.md#tiers)`)
+rather than Hugo `ref` shortcodes.
+
+Adding a page takes two steps:
+
+1. Write `docs/<name>.md` starting with an `# H1` — that becomes its title.
+2. Add it to `[menu.before]` in `hugo.toml`. The sidebar is defined there
+   because Hugo would otherwise sort pages alphabetically, and every entry needs
+   its own `identifier` — entries without one collapse into a single link.
+
+Then run `make docs-build`. Links that leave `docs/` — to source files or to
+root files like `CONTRIBUTING.md` — are rewritten to point at GitHub, which also
+means an unresolvable link fails silently; `scripts/check-site-links.py`, which
+`make docs-build` runs, is what catches it.
 
 ## Code Style
 

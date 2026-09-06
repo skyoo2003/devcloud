@@ -17,6 +17,11 @@ __pycache__/
 *.pyo
 .venv/
 
+# Hugo (docs site build output and asset cache)
+/public/
+/resources/
+.hugo_build.lock
+
 # Worktrees
 .worktrees/
 

@@ -1,0 +1,149 @@
+baseURL = 'https://skyoo2003.github.io/devcloud/'
+title = 'DevCloud'
+theme = 'hugo-book'
+enableGitInfo = true
+
+# docs/ is mounted rather than copied: the same files serve github.com readers
+# (README.md links straight into them) and this site, so they must stay free of
+# front matter and stay where the repository links expect them.
+#
+# README.md becomes the home page instead of a separate _index.md — it is
+# already the documentation index, and duplicating it would guarantee the two
+# drift apart.
+[[module.mounts]]
+  source = 'docs'
+  target = 'content'
+  # Without this, README.md is built a second time as /readme/, duplicating the
+  # home page. Hugo deprecated `excludeFiles` in v0.153.0 in favour of `files`,
+  # but as of v0.165.0 `files` does not filter mounts — every pattern tried
+  # ('!README.md', '{**,!README.md}', list forms) was silently ignored and let
+  # README.md through. Reordering the mounts so the file mount claims it first
+  # does not work either. Revisit when `files` actually filters; until then this
+  # is the only key that does the job, at the cost of one deprecation warning.
+  excludeFiles = ['README.md']
+
+[[module.mounts]]
+  source = 'docs/README.md'
+  target = 'content/_index.md'
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+# Sidebar order is defined here rather than by per-page `weight` front matter.
+# Hugo's default page sort is alphabetical, which buries Getting Started at
+# position ten; the alternative — adding front matter to all twenty documents —
+# makes github.com render a metadata table above every page.
+# The file-tree menu is disabled in layouts/_partials/docs/menu-filetree.html.
+#
+# Every entry needs an explicit `identifier`. Entries carrying only `pageRef`
+# all share the empty identifier and collapse into a single surviving link.
+# Names are omitted on purpose: the theme falls back to the page title, which
+# layouts/_partials/docs/title.html reads from each document's H1.
+[menu]
+  [[menu.before]]
+    identifier = 'getting-started'
+    pageRef = '/getting-started'
+    weight = 10
+  [[menu.before]]
+    identifier = 'configuration'
+    pageRef = '/configuration'
+    weight = 20
+  [[menu.before]]
+    identifier = 'architecture'
+    pageRef = '/architecture'
+    weight = 30
+  [[menu.before]]
+    identifier = 'coverage'
+    pageRef = '/coverage'
+    weight = 40
+  [[menu.before]]
+    identifier = 'compatibility-policy'
+    pageRef = '/compatibility-policy'
+    weight = 50
+  [[menu.before]]
+    identifier = 'fidelity-manifest'
+    pageRef = '/fidelity-manifest'
+    weight = 60
+  [[menu.before]]
+    identifier = 'crud-engine'
+    pageRef = '/crud-engine'
+    weight = 70
+
+  [[menu.before]]
+    identifier = 'services-matrix'
+    pageRef = '/services-matrix'
+    weight = 80
+  [[menu.before]]
+    identifier = 's3'
+    parent = 'services-matrix'
+    pageRef = '/services/s3'
+    weight = 81
+  [[menu.before]]
+    identifier = 'sqs'
+    parent = 'services-matrix'
+    pageRef = '/services/sqs'
+    weight = 82
+  [[menu.before]]
+    identifier = 'dynamodb'
+    parent = 'services-matrix'
+    pageRef = '/services/dynamodb'
+    weight = 83
+  [[menu.before]]
+    identifier = 'lambda'
+    parent = 'services-matrix'
+    pageRef = '/services/lambda'
+    weight = 84
+  [[menu.before]]
+    identifier = 'iam-sts'
+    parent = 'services-matrix'
+    pageRef = '/services/iam-sts'
+    weight = 85
+
+  [[menu.before]]
+    identifier = 'demand'
+    pageRef = '/demand'
+    weight = 90
+  [[menu.before]]
+    identifier = 'roadmap'
+    pageRef = '/roadmap'
+    weight = 100
+  [[menu.before]]
+    identifier = 'faq'
+    pageRef = '/faq'
+    weight = 110
+  [[menu.before]]
+    identifier = 'troubleshooting'
+    pageRef = '/troubleshooting'
+    weight = 120
+  [[menu.before]]
+    identifier = 'contributing'
+    pageRef = '/contributing'
+    weight = 130
+  [[menu.before]]
+    identifier = 'plugin-api'
+    pageRef = '/plugin-api'
+    weight = 140
+
+  [[menu.after]]
+    name = 'GitHub'
+    url = 'https://github.com/skyoo2003/devcloud'
+    weight = 10
+  [[menu.after]]
+    name = 'Changelog'
+    url = 'https://github.com/skyoo2003/devcloud/blob/main/CHANGELOG.md'
+    weight = 20
+
+[params]
+  BookTheme = 'auto'
+  BookSearch = true
+  BookComments = false
+  BookSection = '/'
+  BookRepo = 'https://github.com/skyoo2003/devcloud'
+  # .Path already arrives as docs/<file>.md — it is derived from the file's
+  # path relative to the working directory, not to the mount target.
+  BookEditLink = '{{ .Site.Params.BookRepo }}/edit/main/{{ .Path }}'
+  BookLastChangeLink = '{{ .Site.Params.BookRepo }}/commit/{{ .GitInfo.Hash }}'

@@ -1,0 +1,30 @@
+{{- /*
+  Overrides the theme's title partial to read each page's H1 instead of its
+  filename. Without this, titles come from the filename and read wrong —
+  "Crud Engine", "Faq", "Iam Sts" — and the fix the theme expects is a `title`
+  front matter key on all twenty documents, which github.com then renders as a
+  metadata table above every page.
+
+  Accepts Page as context, same as the partial it replaces.
+*/ -}}
+{{ $title := "" }}
+
+{{ with .RawContent }}
+  {{ with (findRESubmatch `(?m)^#[ \t]+(.+?)[ \t]*$` . 1) }}
+    {{ $title = index (index . 0) 1 }}
+  {{ end }}
+{{ end }}
+
+{{ if not $title }}
+  {{ if .LinkTitle }}
+    {{ $title = .LinkTitle }}
+  {{ else if .Title }}
+    {{ $title = .Title }}
+  {{ else if and .IsSection .File }}
+    {{ $title = path.Base .File.Dir | humanize | title }}
+  {{ else if and .IsPage .File }}
+    {{ $title = .File.BaseFileName | humanize | title }}
+  {{ end }}
+{{ end }}
+
+{{ return $title }}

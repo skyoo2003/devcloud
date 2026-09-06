@@ -1,4 +1,4 @@
-.PHONY: build test codegen run clean test-compat docker-build docker-run changelog stats
+.PHONY: build test codegen run clean test-compat docker-build docker-run changelog stats docs-serve docs-build
 
 build:
 	go build -o dist/devcloud ./cmd/devcloud
@@ -25,8 +25,21 @@ docker-build:
 docker-run:
 	docker run -p 4747:4747 -v $(PWD)/data:/app/data devcloud/devcloud
 
+# Serves docs/ as the site published to skyoo2003.github.io/devcloud.
+# Requires the extended edition (the theme compiles SCSS) and the theme
+# submodule: git submodule update --init
+docs-serve:
+	hugo server --buildDrafts
+
+# What .github/workflows/pages.yml runs. The link check is not optional: the
+# render hook resolves unknown links to GitHub URLs instead of failing, so a
+# renamed page breaks quietly without it.
+docs-build:
+	hugo --gc --minify
+	./scripts/check-site-links.py
+
 clean:
-	rm -rf dist/ data/
+	rm -rf dist/ data/ public/ resources/
 
 changelog:
 	@if [ -z "$(VERSION)" ]; then \
