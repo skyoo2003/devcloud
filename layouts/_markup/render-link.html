@@ -1,0 +1,44 @@
+{{- /*
+  Overrides the theme's link hook so docs/*.md can keep the relative links that
+  make them readable on github.com.
+
+  Two kinds arrive here:
+    - 83 links inside docs/, e.g. `](coverage.md#tiers)` — resolved to the built
+      page, so the site is self-contained.
+    - 46 links that escape docs/, e.g. `](../internal/gateway/router.go)` and
+      `](../CONTRIBUTING.md)` — nothing outside the mount is built, so these
+      point at the file on GitHub rather than 404.
+
+  Anything unresolved falls through to the GitHub URL rather than failing the
+  build: a link to a source file is a normal thing for these docs to contain.
+*/ -}}
+{{- $destination := .Destination -}}
+{{- $url := urls.Parse $destination -}}
+
+{{- if and (not $url.IsAbs) (not (strings.HasPrefix $destination "#")) -}}
+  {{- $ref := strings.TrimPrefix "./" $url.Path -}}
+  {{- $ref = strings.TrimSuffix ".md" $ref -}}
+  {{- $ref = strings.TrimSuffix "/_index" $ref -}}
+
+  {{- with .Page.GetPage $ref -}}
+    {{- $destination = .RelPermalink -}}
+  {{- else -}}
+    {{- with $.Page.File -}}
+      {{- /* .Path is relative to the mount target, so re-add the docs/ prefix
+             before resolving the `../` segments against the repository root. */ -}}
+      {{- $repoPath := path.Join "docs" (path.Dir .Path) $url.Path -}}
+      {{- $kind := cond (strings.HasSuffix $url.Path "/") "tree" "blob" -}}
+      {{- $destination = printf "%s/%s/main/%s" $.Page.Site.Params.BookRepo $kind $repoPath -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- with $url.RawQuery -}}
+    {{- $destination = printf "%s?%s" $destination . -}}
+  {{- end -}}
+  {{- with $url.Fragment -}}
+    {{- $destination = printf "%s#%s" $destination . -}}
+  {{- end -}}
+{{- end -}}
+
+<a href="{{ $destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- /**/ -}}
