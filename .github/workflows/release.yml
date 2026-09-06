@@ -270,8 +270,14 @@ jobs:
         # variable is missing. On a dry run the minting step is skipped, and the
         # placeholder is never used because --snapshot publishes nothing.
         HOMEBREW_TAP_TOKEN: ${{ steps.tap_token.outputs.token || 'dry-run' }}
+    # A dry run exists to be looked at: --snapshot publishes nothing, so the run
+    # artifact is the only place its binaries and archives can be inspected. The
+    # condition was inverted — it uploaded on a real release, where GoReleaser
+    # has already attached the same files to the GitHub Release, and uploaded
+    # nothing on the one path that produces no other output. RELEASE.md has
+    # described the intended behaviour since the dry run was documented.
     - name: Upload assets
-      if: ${{ github.event.inputs.dry_run != 'true' }}
+      if: ${{ github.event.inputs.dry_run == 'true' }}
       uses: actions/upload-artifact@v7
       with:
         name: devcloud
