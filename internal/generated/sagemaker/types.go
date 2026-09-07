@@ -6,6 +6,184 @@ import (
 	"time"
 )
 
+type AIAdapterModelPackageEntry struct {
+	AdapterId       string `json:"adapterId" xml:"AdapterId"`
+	ModelPackageArn string `json:"modelPackageArn" xml:"ModelPackageArn"`
+}
+
+type AIAdapterS3Entry struct {
+	AdapterId string `json:"adapterId" xml:"AdapterId"`
+	S3Uri     string `json:"s3Uri" xml:"S3Uri"`
+}
+
+type AIBenchmarkEndpoint struct {
+	Identifier              string                            `json:"identifier" xml:"Identifier"`
+	InferenceComponents     AIBenchmarkInferenceComponentList `json:"inferenceComponents" xml:"InferenceComponents"`
+	TargetContainerHostname string                            `json:"targetContainerHostname" xml:"TargetContainerHostname"`
+}
+
+type AIBenchmarkInferenceComponent struct {
+	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type AIBenchmarkJobSummary struct {
+	AIBenchmarkJobArn    string    `json:"aIBenchmarkJobArn" xml:"AIBenchmarkJobArn"`
+	AIBenchmarkJobName   string    `json:"aIBenchmarkJobName" xml:"AIBenchmarkJobName"`
+	AIBenchmarkJobStatus string    `json:"aIBenchmarkJobStatus" xml:"AIBenchmarkJobStatus"`
+	AIWorkloadConfigName string    `json:"aIWorkloadConfigName" xml:"AIWorkloadConfigName"`
+	CreationTime         time.Time `json:"creationTime" xml:"CreationTime"`
+	EndTime              time.Time `json:"endTime" xml:"EndTime"`
+}
+
+type AIBenchmarkNetworkConfig struct {
+	VpcConfig *VpcConfig `json:"vpcConfig" xml:"VpcConfig"`
+}
+
+type AIBenchmarkOutputConfig struct {
+	MlflowConfig     *AIMlflowConfig `json:"mlflowConfig" xml:"MlflowConfig"`
+	S3OutputLocation string          `json:"s3OutputLocation" xml:"S3OutputLocation"`
+}
+
+type AIBenchmarkOutputResult struct {
+	CloudWatchLogs   AICloudWatchLogsList `json:"cloudWatchLogs" xml:"CloudWatchLogs"`
+	MlflowConfig     *AIMlflowConfig      `json:"mlflowConfig" xml:"MlflowConfig"`
+	S3OutputLocation string               `json:"s3OutputLocation" xml:"S3OutputLocation"`
+}
+
+type AICapacityReservationConfig struct {
+	CapacityReservationPreference string                 `json:"capacityReservationPreference" xml:"CapacityReservationPreference"`
+	MlReservationArns             AIMlReservationArnList `json:"mlReservationArns" xml:"MlReservationArns"`
+}
+
+type AICloudWatchLogs struct {
+	LogGroupArn   string `json:"logGroupArn" xml:"LogGroupArn"`
+	LogStreamName string `json:"logStreamName" xml:"LogStreamName"`
+}
+
+type AIMlflowConfig struct {
+	MlflowExperimentName string `json:"mlflowExperimentName" xml:"MlflowExperimentName"`
+	MlflowResourceArn    string `json:"mlflowResourceArn" xml:"MlflowResourceArn"`
+	MlflowRunName        string `json:"mlflowRunName" xml:"MlflowRunName"`
+}
+
+type AIModelSourceS3 struct {
+	S3Uri string `json:"s3Uri" xml:"S3Uri"`
+}
+
+type AIRecommendation struct {
+	AIBenchmarkJobArn         string                                   `json:"aIBenchmarkJobArn" xml:"AIBenchmarkJobArn"`
+	AdapterDetails            *AIRecommendationAdapterDetails          `json:"adapterDetails" xml:"AdapterDetails"`
+	DeploymentConfiguration   *AIRecommendationDeploymentConfiguration `json:"deploymentConfiguration" xml:"DeploymentConfiguration"`
+	ExpectedPerformance       ExpectedPerformanceList                  `json:"expectedPerformance" xml:"ExpectedPerformance"`
+	ModelDetails              *AIRecommendationModelDetails            `json:"modelDetails" xml:"ModelDetails"`
+	OptimizationDetails       AIRecommendationOptimizationDetailList   `json:"optimizationDetails" xml:"OptimizationDetails"`
+	RecommendationDescription string                                   `json:"recommendationDescription" xml:"RecommendationDescription"`
+}
+
+type AIRecommendationAdapterDetails struct {
+	ModelPackageArns AIAdapterModelPackageEntryList `json:"modelPackageArns" xml:"ModelPackageArns"`
+	S3Uris           AIAdapterS3EntryList           `json:"s3Uris" xml:"S3Uris"`
+}
+
+type AIRecommendationComputeSpec struct {
+	CapacityReservationConfig *AICapacityReservationConfig     `json:"capacityReservationConfig" xml:"CapacityReservationConfig"`
+	InstanceTypes             AIRecommendationInstanceTypeList `json:"instanceTypes" xml:"InstanceTypes"`
+}
+
+type AIRecommendationConstraint struct {
+	Metric string `json:"metric" xml:"Metric"`
+}
+
+type AIRecommendationDeploymentConfiguration struct {
+	CopyCountPerInstance     int32                                   `json:"copyCountPerInstance" xml:"CopyCountPerInstance"`
+	EnvironmentVariables     EnvironmentMap                          `json:"environmentVariables" xml:"EnvironmentVariables"`
+	ImageUri                 string                                  `json:"imageUri" xml:"ImageUri"`
+	InstanceCount            int32                                   `json:"instanceCount" xml:"InstanceCount"`
+	InstanceType             string                                  `json:"instanceType" xml:"InstanceType"`
+	MinCpuMemoryRequiredInMb int32                                   `json:"minCpuMemoryRequiredInMb" xml:"MinCpuMemoryRequiredInMb"`
+	S3                       AIRecommendationDeploymentS3ChannelList `json:"s3" xml:"S3"`
+}
+
+type AIRecommendationDeploymentS3Channel struct {
+	ChannelName string `json:"channelName" xml:"ChannelName"`
+	Uri         string `json:"uri" xml:"Uri"`
+}
+
+type AIRecommendationInferenceSpecification struct {
+	Framework string `json:"framework" xml:"Framework"`
+}
+
+type AIRecommendationInstanceDetail struct {
+	CopyCountPerInstance int32  `json:"copyCountPerInstance" xml:"CopyCountPerInstance"`
+	InstanceCount        int32  `json:"instanceCount" xml:"InstanceCount"`
+	InstanceType         string `json:"instanceType" xml:"InstanceType"`
+}
+
+type AIRecommendationJobSummary struct {
+	AIRecommendationJobArn    string    `json:"aIRecommendationJobArn" xml:"AIRecommendationJobArn"`
+	AIRecommendationJobName   string    `json:"aIRecommendationJobName" xml:"AIRecommendationJobName"`
+	AIRecommendationJobStatus string    `json:"aIRecommendationJobStatus" xml:"AIRecommendationJobStatus"`
+	CreationTime              time.Time `json:"creationTime" xml:"CreationTime"`
+	EndTime                   time.Time `json:"endTime" xml:"EndTime"`
+}
+
+type AIRecommendationModelDetails struct {
+	InferenceSpecificationName string                             `json:"inferenceSpecificationName" xml:"InferenceSpecificationName"`
+	InstanceDetails            AIRecommendationInstanceDetailList `json:"instanceDetails" xml:"InstanceDetails"`
+	ModelPackageArn            string                             `json:"modelPackageArn" xml:"ModelPackageArn"`
+}
+
+type AIRecommendationOptimizationDetail struct {
+	OptimizationConfig AIRecommendationOptimizationConfigMap `json:"optimizationConfig" xml:"OptimizationConfig"`
+	OptimizationType   string                                `json:"optimizationType" xml:"OptimizationType"`
+}
+
+type AIRecommendationOutputConfig struct {
+	MlflowConfig                *AIMlflowConfig `json:"mlflowConfig" xml:"MlflowConfig"`
+	ModelPackageGroupIdentifier string          `json:"modelPackageGroupIdentifier" xml:"ModelPackageGroupIdentifier"`
+	S3OutputLocation            string          `json:"s3OutputLocation" xml:"S3OutputLocation"`
+}
+
+type AIRecommendationOutputResult struct {
+	MlflowConfig                *AIMlflowConfig `json:"mlflowConfig" xml:"MlflowConfig"`
+	ModelPackageGroupIdentifier string          `json:"modelPackageGroupIdentifier" xml:"ModelPackageGroupIdentifier"`
+	S3OutputLocation            string          `json:"s3OutputLocation" xml:"S3OutputLocation"`
+}
+
+type AIRecommendationPerformanceMetric struct {
+	Metric string `json:"metric" xml:"Metric"`
+	Stat   string `json:"stat" xml:"Stat"`
+	Unit   string `json:"unit" xml:"Unit"`
+	Value  string `json:"value" xml:"Value"`
+}
+
+type AIRecommendationPerformanceTarget struct {
+	Constraints AIRecommendationConstraintList `json:"constraints" xml:"Constraints"`
+}
+
+type AIWorkloadConfigSummary struct {
+	AIWorkloadConfigArn  string    `json:"aIWorkloadConfigArn" xml:"AIWorkloadConfigArn"`
+	AIWorkloadConfigName string    `json:"aIWorkloadConfigName" xml:"AIWorkloadConfigName"`
+	CreationTime         time.Time `json:"creationTime" xml:"CreationTime"`
+}
+
+type AIWorkloadConfigs struct {
+	WorkloadSpec interface{} `json:"workloadSpec" xml:"WorkloadSpec"`
+}
+
+type AIWorkloadDataSource struct {
+	S3DataSource *AIWorkloadS3DataSource `json:"s3DataSource" xml:"S3DataSource"`
+}
+
+type AIWorkloadInputDataConfig struct {
+	ChannelName string                `json:"channelName" xml:"ChannelName"`
+	DataSource  *AIWorkloadDataSource `json:"dataSource" xml:"DataSource"`
+}
+
+type AIWorkloadS3DataSource struct {
+	S3Uri string `json:"s3Uri" xml:"S3Uri"`
+}
+
 type AcceleratorPartitionConfig struct {
 	Count int32  `json:"count" xml:"Count"`
 	Type  string `json:"type" xml:"Type"`
@@ -39,8 +217,10 @@ type AddAssociationResponse struct {
 }
 
 type AddClusterNodeSpecification struct {
-	IncrementTargetCountBy int32  `json:"incrementTargetCountBy" xml:"IncrementTargetCountBy"`
-	InstanceGroupName      string `json:"instanceGroupName" xml:"InstanceGroupName"`
+	AvailabilityZones      ClusterAvailabilityZones `json:"availabilityZones" xml:"AvailabilityZones"`
+	IncrementTargetCountBy int32                    `json:"incrementTargetCountBy" xml:"IncrementTargetCountBy"`
+	InstanceGroupName      string                   `json:"instanceGroupName" xml:"InstanceGroupName"`
+	InstanceTypes          ClusterInstanceTypes     `json:"instanceTypes" xml:"InstanceTypes"`
 }
 
 type AddTagsInput struct {
@@ -425,10 +605,12 @@ type BaseModel struct {
 }
 
 type BatchAddClusterNodesError struct {
-	ErrorCode         string `json:"errorCode" xml:"ErrorCode"`
-	FailedCount       int32  `json:"failedCount" xml:"FailedCount"`
-	InstanceGroupName string `json:"instanceGroupName" xml:"InstanceGroupName"`
-	Message           string `json:"message" xml:"Message"`
+	AvailabilityZones ClusterAvailabilityZones `json:"availabilityZones" xml:"AvailabilityZones"`
+	ErrorCode         string                   `json:"errorCode" xml:"ErrorCode"`
+	FailedCount       int32                    `json:"failedCount" xml:"FailedCount"`
+	InstanceGroupName string                   `json:"instanceGroupName" xml:"InstanceGroupName"`
+	InstanceTypes     ClusterInstanceTypes     `json:"instanceTypes" xml:"InstanceTypes"`
+	Message           string                   `json:"message" xml:"Message"`
 }
 
 type BatchAddClusterNodesRequest struct {
@@ -786,6 +968,19 @@ type ClarifyTextConfig struct {
 	Language    string `json:"language" xml:"Language"`
 }
 
+type ClusterAutoPatchConfig struct {
+	DeploymentConfig *DeploymentConfiguration `json:"deploymentConfig" xml:"DeploymentConfig"`
+	PatchSchedule    *ClusterPatchSchedule    `json:"patchSchedule" xml:"PatchSchedule"`
+	PatchingStrategy string                   `json:"patchingStrategy" xml:"PatchingStrategy"`
+}
+
+type ClusterAutoPatchConfigDetails struct {
+	CurrentPatchSchedule *ClusterPatchScheduleDetails `json:"currentPatchSchedule" xml:"CurrentPatchSchedule"`
+	DeploymentConfig     *DeploymentConfiguration     `json:"deploymentConfig" xml:"DeploymentConfig"`
+	DesiredPatchSchedule *ClusterPatchScheduleDetails `json:"desiredPatchSchedule" xml:"DesiredPatchSchedule"`
+	PatchingStrategy     string                       `json:"patchingStrategy" xml:"PatchingStrategy"`
+}
+
 type ClusterAutoScalingConfig struct {
 	AutoScalerType string `json:"autoScalerType" xml:"AutoScalerType"`
 	Mode           string `json:"mode" xml:"Mode"`
@@ -815,6 +1010,7 @@ type ClusterEventDetail struct {
 	Description       string        `json:"description" xml:"Description"`
 	EventDetails      *EventDetails `json:"eventDetails" xml:"EventDetails"`
 	EventId           string        `json:"eventId" xml:"EventId"`
+	EventLevel        string        `json:"eventLevel" xml:"EventLevel"`
 	EventTime         time.Time     `json:"eventTime" xml:"EventTime"`
 	InstanceGroupName string        `json:"instanceGroupName" xml:"InstanceGroupName"`
 	InstanceId        string        `json:"instanceId" xml:"InstanceId"`
@@ -826,6 +1022,7 @@ type ClusterEventSummary struct {
 	ClusterName       string    `json:"clusterName" xml:"ClusterName"`
 	Description       string    `json:"description" xml:"Description"`
 	EventId           string    `json:"eventId" xml:"EventId"`
+	EventLevel        string    `json:"eventLevel" xml:"EventLevel"`
 	EventTime         time.Time `json:"eventTime" xml:"EventTime"`
 	InstanceGroupName string    `json:"instanceGroupName" xml:"InstanceGroupName"`
 	InstanceId        string    `json:"instanceId" xml:"InstanceId"`
@@ -844,43 +1041,54 @@ type ClusterFsxOpenZfsConfig struct {
 }
 
 type ClusterInstanceGroupDetails struct {
-	ActiveOperations           ActiveOperations                `json:"activeOperations" xml:"ActiveOperations"`
-	ActiveSoftwareUpdateConfig *DeploymentConfiguration        `json:"activeSoftwareUpdateConfig" xml:"ActiveSoftwareUpdateConfig"`
-	CapacityRequirements       *ClusterCapacityRequirements    `json:"capacityRequirements" xml:"CapacityRequirements"`
-	CurrentCount               int32                           `json:"currentCount" xml:"CurrentCount"`
-	CurrentImageId             string                          `json:"currentImageId" xml:"CurrentImageId"`
-	DesiredImageId             string                          `json:"desiredImageId" xml:"DesiredImageId"`
-	ExecutionRole              string                          `json:"executionRole" xml:"ExecutionRole"`
-	InstanceGroupName          string                          `json:"instanceGroupName" xml:"InstanceGroupName"`
-	InstanceStorageConfigs     ClusterInstanceStorageConfigs   `json:"instanceStorageConfigs" xml:"InstanceStorageConfigs"`
-	InstanceType               string                          `json:"instanceType" xml:"InstanceType"`
-	KubernetesConfig           *ClusterKubernetesConfigDetails `json:"kubernetesConfig" xml:"KubernetesConfig"`
-	LifeCycleConfig            *ClusterLifeCycleConfig         `json:"lifeCycleConfig" xml:"LifeCycleConfig"`
-	MinCount                   int32                           `json:"minCount" xml:"MinCount"`
-	OnStartDeepHealthChecks    OnStartDeepHealthChecks         `json:"onStartDeepHealthChecks" xml:"OnStartDeepHealthChecks"`
-	OverrideVpcConfig          *VpcConfig                      `json:"overrideVpcConfig" xml:"OverrideVpcConfig"`
-	ScheduledUpdateConfig      *ScheduledUpdateConfig          `json:"scheduledUpdateConfig" xml:"ScheduledUpdateConfig"`
-	SlurmConfig                *ClusterSlurmConfigDetails      `json:"slurmConfig" xml:"SlurmConfig"`
-	SoftwareUpdateStatus       string                          `json:"softwareUpdateStatus" xml:"SoftwareUpdateStatus"`
-	Status                     string                          `json:"status" xml:"Status"`
-	TargetCount                int32                           `json:"targetCount" xml:"TargetCount"`
-	TargetStateCount           int32                           `json:"targetStateCount" xml:"TargetStateCount"`
-	ThreadsPerCore             int32                           `json:"threadsPerCore" xml:"ThreadsPerCore"`
-	TrainingPlanArn            string                          `json:"trainingPlanArn" xml:"TrainingPlanArn"`
-	TrainingPlanStatus         string                          `json:"trainingPlanStatus" xml:"TrainingPlanStatus"`
+	ActiveOperations           ActiveOperations                   `json:"activeOperations" xml:"ActiveOperations"`
+	ActiveSoftwareUpdateConfig *DeploymentConfiguration           `json:"activeSoftwareUpdateConfig" xml:"ActiveSoftwareUpdateConfig"`
+	AutoPatchConfig            *ClusterAutoPatchConfigDetails     `json:"autoPatchConfig" xml:"AutoPatchConfig"`
+	CapacityRequirements       *ClusterCapacityRequirements       `json:"capacityRequirements" xml:"CapacityRequirements"`
+	CurrentCount               int32                              `json:"currentCount" xml:"CurrentCount"`
+	CurrentImageId             string                             `json:"currentImageId" xml:"CurrentImageId"`
+	CurrentImageReleaseVersion string                             `json:"currentImageReleaseVersion" xml:"CurrentImageReleaseVersion"`
+	DesiredImageId             string                             `json:"desiredImageId" xml:"DesiredImageId"`
+	DesiredImageReleaseVersion string                             `json:"desiredImageReleaseVersion" xml:"DesiredImageReleaseVersion"`
+	ExecutionRole              string                             `json:"executionRole" xml:"ExecutionRole"`
+	ImageVersionStatus         string                             `json:"imageVersionStatus" xml:"ImageVersionStatus"`
+	InstanceGroupName          string                             `json:"instanceGroupName" xml:"InstanceGroupName"`
+	InstanceRequirements       *ClusterInstanceRequirementDetails `json:"instanceRequirements" xml:"InstanceRequirements"`
+	InstanceStorageConfigs     ClusterInstanceStorageConfigs      `json:"instanceStorageConfigs" xml:"InstanceStorageConfigs"`
+	InstanceType               string                             `json:"instanceType" xml:"InstanceType"`
+	InstanceTypeDetails        ClusterInstanceTypeDetails         `json:"instanceTypeDetails" xml:"InstanceTypeDetails"`
+	KubernetesConfig           *ClusterKubernetesConfigDetails    `json:"kubernetesConfig" xml:"KubernetesConfig"`
+	LifeCycleConfig            *ClusterLifeCycleConfig            `json:"lifeCycleConfig" xml:"LifeCycleConfig"`
+	MinCount                   int32                              `json:"minCount" xml:"MinCount"`
+	NetworkInterface           *ClusterNetworkInterfaceDetails    `json:"networkInterface" xml:"NetworkInterface"`
+	OnStartDeepHealthChecks    OnStartDeepHealthChecks            `json:"onStartDeepHealthChecks" xml:"OnStartDeepHealthChecks"`
+	OverrideVpcConfig          *VpcConfig                         `json:"overrideVpcConfig" xml:"OverrideVpcConfig"`
+	ScheduledUpdateConfig      *ScheduledUpdateConfig             `json:"scheduledUpdateConfig" xml:"ScheduledUpdateConfig"`
+	SlurmConfig                *ClusterSlurmConfigDetails         `json:"slurmConfig" xml:"SlurmConfig"`
+	SoftwareUpdateStatus       string                             `json:"softwareUpdateStatus" xml:"SoftwareUpdateStatus"`
+	Status                     string                             `json:"status" xml:"Status"`
+	TargetCount                int32                              `json:"targetCount" xml:"TargetCount"`
+	TargetStateCount           int32                              `json:"targetStateCount" xml:"TargetStateCount"`
+	ThreadsPerCore             int32                              `json:"threadsPerCore" xml:"ThreadsPerCore"`
+	TrainingPlanArn            string                             `json:"trainingPlanArn" xml:"TrainingPlanArn"`
+	TrainingPlanStatus         string                             `json:"trainingPlanStatus" xml:"TrainingPlanStatus"`
 }
 
 type ClusterInstanceGroupSpecification struct {
+	AutoPatchConfig         *ClusterAutoPatchConfig       `json:"autoPatchConfig" xml:"AutoPatchConfig"`
 	CapacityRequirements    *ClusterCapacityRequirements  `json:"capacityRequirements" xml:"CapacityRequirements"`
 	ExecutionRole           string                        `json:"executionRole" xml:"ExecutionRole"`
 	ImageId                 string                        `json:"imageId" xml:"ImageId"`
+	ImageReleaseVersion     string                        `json:"imageReleaseVersion" xml:"ImageReleaseVersion"`
 	InstanceCount           int32                         `json:"instanceCount" xml:"InstanceCount"`
 	InstanceGroupName       string                        `json:"instanceGroupName" xml:"InstanceGroupName"`
+	InstanceRequirements    *ClusterInstanceRequirements  `json:"instanceRequirements" xml:"InstanceRequirements"`
 	InstanceStorageConfigs  ClusterInstanceStorageConfigs `json:"instanceStorageConfigs" xml:"InstanceStorageConfigs"`
 	InstanceType            string                        `json:"instanceType" xml:"InstanceType"`
 	KubernetesConfig        *ClusterKubernetesConfig      `json:"kubernetesConfig" xml:"KubernetesConfig"`
 	LifeCycleConfig         *ClusterLifeCycleConfig       `json:"lifeCycleConfig" xml:"LifeCycleConfig"`
 	MinInstanceCount        int32                         `json:"minInstanceCount" xml:"MinInstanceCount"`
+	NetworkInterface        *ClusterNetworkInterface      `json:"networkInterface" xml:"NetworkInterface"`
 	OnStartDeepHealthChecks OnStartDeepHealthChecks       `json:"onStartDeepHealthChecks" xml:"OnStartDeepHealthChecks"`
 	OverrideVpcConfig       *VpcConfig                    `json:"overrideVpcConfig" xml:"OverrideVpcConfig"`
 	ScheduledUpdateConfig   *ScheduledUpdateConfig        `json:"scheduledUpdateConfig" xml:"ScheduledUpdateConfig"`
@@ -894,9 +1102,24 @@ type ClusterInstancePlacement struct {
 	AvailabilityZoneId string `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
 }
 
+type ClusterInstanceRequirementDetails struct {
+	CurrentInstanceTypes ClusterInstanceTypes `json:"currentInstanceTypes" xml:"CurrentInstanceTypes"`
+	DesiredInstanceTypes ClusterInstanceTypes `json:"desiredInstanceTypes" xml:"DesiredInstanceTypes"`
+}
+
+type ClusterInstanceRequirements struct {
+	InstanceTypes ClusterInstanceTypes `json:"instanceTypes" xml:"InstanceTypes"`
+}
+
 type ClusterInstanceStatusDetails struct {
 	Message string `json:"message" xml:"Message"`
 	Status  string `json:"status" xml:"Status"`
+}
+
+type ClusterInstanceTypeDetail struct {
+	CurrentCount   int32  `json:"currentCount" xml:"CurrentCount"`
+	InstanceType   string `json:"instanceType" xml:"InstanceType"`
+	ThreadsPerCore int32  `json:"threadsPerCore" xml:"ThreadsPerCore"`
 }
 
 type ClusterKubernetesConfig struct {
@@ -925,8 +1148,9 @@ type ClusterKubernetesTaint struct {
 }
 
 type ClusterLifeCycleConfig struct {
-	OnCreate    string `json:"onCreate" xml:"OnCreate"`
-	SourceS3Uri string `json:"sourceS3Uri" xml:"SourceS3Uri"`
+	OnCreate       string `json:"onCreate" xml:"OnCreate"`
+	OnInitComplete string `json:"onInitComplete" xml:"OnInitComplete"`
+	SourceS3Uri    string `json:"sourceS3Uri" xml:"SourceS3Uri"`
 }
 
 type ClusterMetadata struct {
@@ -935,39 +1159,53 @@ type ClusterMetadata struct {
 	SlrAccessEntry       string               `json:"slrAccessEntry" xml:"SlrAccessEntry"`
 }
 
+type ClusterNetworkInterface struct {
+	InterfaceType string `json:"interfaceType" xml:"InterfaceType"`
+}
+
+type ClusterNetworkInterfaceDetails struct {
+	InterfaceType string `json:"interfaceType" xml:"InterfaceType"`
+}
+
 type ClusterNodeDetails struct {
-	CapacityType           string                              `json:"capacityType" xml:"CapacityType"`
-	CurrentImageId         string                              `json:"currentImageId" xml:"CurrentImageId"`
-	DesiredImageId         string                              `json:"desiredImageId" xml:"DesiredImageId"`
-	InstanceGroupName      string                              `json:"instanceGroupName" xml:"InstanceGroupName"`
-	InstanceId             string                              `json:"instanceId" xml:"InstanceId"`
-	InstanceStatus         *ClusterInstanceStatusDetails       `json:"instanceStatus" xml:"InstanceStatus"`
-	InstanceStorageConfigs ClusterInstanceStorageConfigs       `json:"instanceStorageConfigs" xml:"InstanceStorageConfigs"`
-	InstanceType           string                              `json:"instanceType" xml:"InstanceType"`
-	KubernetesConfig       *ClusterKubernetesConfigNodeDetails `json:"kubernetesConfig" xml:"KubernetesConfig"`
-	LastSoftwareUpdateTime time.Time                           `json:"lastSoftwareUpdateTime" xml:"LastSoftwareUpdateTime"`
-	LaunchTime             time.Time                           `json:"launchTime" xml:"LaunchTime"`
-	LifeCycleConfig        *ClusterLifeCycleConfig             `json:"lifeCycleConfig" xml:"LifeCycleConfig"`
-	NodeLogicalId          string                              `json:"nodeLogicalId" xml:"NodeLogicalId"`
-	OverrideVpcConfig      *VpcConfig                          `json:"overrideVpcConfig" xml:"OverrideVpcConfig"`
-	Placement              *ClusterInstancePlacement           `json:"placement" xml:"Placement"`
-	PrivateDnsHostname     string                              `json:"privateDnsHostname" xml:"PrivateDnsHostname"`
-	PrivatePrimaryIp       string                              `json:"privatePrimaryIp" xml:"PrivatePrimaryIp"`
-	PrivatePrimaryIpv6     string                              `json:"privatePrimaryIpv6" xml:"PrivatePrimaryIpv6"`
-	ThreadsPerCore         int32                               `json:"threadsPerCore" xml:"ThreadsPerCore"`
-	UltraServerInfo        *UltraServerInfo                    `json:"ultraServerInfo" xml:"UltraServerInfo"`
+	CapacityType               string                              `json:"capacityType" xml:"CapacityType"`
+	CurrentImageId             string                              `json:"currentImageId" xml:"CurrentImageId"`
+	CurrentImageReleaseVersion string                              `json:"currentImageReleaseVersion" xml:"CurrentImageReleaseVersion"`
+	DesiredImageId             string                              `json:"desiredImageId" xml:"DesiredImageId"`
+	DesiredImageReleaseVersion string                              `json:"desiredImageReleaseVersion" xml:"DesiredImageReleaseVersion"`
+	ImageVersionStatus         string                              `json:"imageVersionStatus" xml:"ImageVersionStatus"`
+	InstanceGroupName          string                              `json:"instanceGroupName" xml:"InstanceGroupName"`
+	InstanceId                 string                              `json:"instanceId" xml:"InstanceId"`
+	InstanceStatus             *ClusterInstanceStatusDetails       `json:"instanceStatus" xml:"InstanceStatus"`
+	InstanceStorageConfigs     ClusterInstanceStorageConfigs       `json:"instanceStorageConfigs" xml:"InstanceStorageConfigs"`
+	InstanceType               string                              `json:"instanceType" xml:"InstanceType"`
+	KubernetesConfig           *ClusterKubernetesConfigNodeDetails `json:"kubernetesConfig" xml:"KubernetesConfig"`
+	LastSoftwareUpdateTime     time.Time                           `json:"lastSoftwareUpdateTime" xml:"LastSoftwareUpdateTime"`
+	LaunchTime                 time.Time                           `json:"launchTime" xml:"LaunchTime"`
+	LifeCycleConfig            *ClusterLifeCycleConfig             `json:"lifeCycleConfig" xml:"LifeCycleConfig"`
+	NetworkInterface           *ClusterNetworkInterfaceDetails     `json:"networkInterface" xml:"NetworkInterface"`
+	NodeLogicalId              string                              `json:"nodeLogicalId" xml:"NodeLogicalId"`
+	OverrideVpcConfig          *VpcConfig                          `json:"overrideVpcConfig" xml:"OverrideVpcConfig"`
+	Placement                  *ClusterInstancePlacement           `json:"placement" xml:"Placement"`
+	PrivateDnsHostname         string                              `json:"privateDnsHostname" xml:"PrivateDnsHostname"`
+	PrivatePrimaryIp           string                              `json:"privatePrimaryIp" xml:"PrivatePrimaryIp"`
+	PrivatePrimaryIpv6         string                              `json:"privatePrimaryIpv6" xml:"PrivatePrimaryIpv6"`
+	ThreadsPerCore             int32                               `json:"threadsPerCore" xml:"ThreadsPerCore"`
+	UltraServerInfo            *UltraServerInfo                    `json:"ultraServerInfo" xml:"UltraServerInfo"`
 }
 
 type ClusterNodeSummary struct {
-	InstanceGroupName      string                        `json:"instanceGroupName" xml:"InstanceGroupName"`
-	InstanceId             string                        `json:"instanceId" xml:"InstanceId"`
-	InstanceStatus         *ClusterInstanceStatusDetails `json:"instanceStatus" xml:"InstanceStatus"`
-	InstanceType           string                        `json:"instanceType" xml:"InstanceType"`
-	LastSoftwareUpdateTime time.Time                     `json:"lastSoftwareUpdateTime" xml:"LastSoftwareUpdateTime"`
-	LaunchTime             time.Time                     `json:"launchTime" xml:"LaunchTime"`
-	NodeLogicalId          string                        `json:"nodeLogicalId" xml:"NodeLogicalId"`
-	PrivateDnsHostname     string                        `json:"privateDnsHostname" xml:"PrivateDnsHostname"`
-	UltraServerInfo        *UltraServerInfo              `json:"ultraServerInfo" xml:"UltraServerInfo"`
+	CurrentImageReleaseVersion string                        `json:"currentImageReleaseVersion" xml:"CurrentImageReleaseVersion"`
+	ImageVersionStatus         string                        `json:"imageVersionStatus" xml:"ImageVersionStatus"`
+	InstanceGroupName          string                        `json:"instanceGroupName" xml:"InstanceGroupName"`
+	InstanceId                 string                        `json:"instanceId" xml:"InstanceId"`
+	InstanceStatus             *ClusterInstanceStatusDetails `json:"instanceStatus" xml:"InstanceStatus"`
+	InstanceType               string                        `json:"instanceType" xml:"InstanceType"`
+	LastSoftwareUpdateTime     time.Time                     `json:"lastSoftwareUpdateTime" xml:"LastSoftwareUpdateTime"`
+	LaunchTime                 time.Time                     `json:"launchTime" xml:"LaunchTime"`
+	NodeLogicalId              string                        `json:"nodeLogicalId" xml:"NodeLogicalId"`
+	PrivateDnsHostname         string                        `json:"privateDnsHostname" xml:"PrivateDnsHostname"`
+	UltraServerInfo            *UltraServerInfo              `json:"ultraServerInfo" xml:"UltraServerInfo"`
 }
 
 type ClusterOnDemandOptions struct {
@@ -984,6 +1222,14 @@ type ClusterOrchestratorEksConfig struct {
 
 type ClusterOrchestratorSlurmConfig struct {
 	SlurmConfigStrategy string `json:"slurmConfigStrategy" xml:"SlurmConfigStrategy"`
+}
+
+type ClusterPatchSchedule struct {
+	NextPatchDate time.Time `json:"nextPatchDate" xml:"NextPatchDate"`
+}
+
+type ClusterPatchScheduleDetails struct {
+	NextPatchDate time.Time `json:"nextPatchDate" xml:"NextPatchDate"`
 }
 
 type ClusterRestrictedInstanceGroupDetails struct {
@@ -1017,6 +1263,14 @@ type ClusterRestrictedInstanceGroupSpecification struct {
 	TrainingPlanArn         string                        `json:"trainingPlanArn" xml:"TrainingPlanArn"`
 }
 
+type ClusterRestrictedInstanceGroupsConfig struct {
+	SharedEnvironmentConfig *ClusterSharedEnvironmentConfig `json:"sharedEnvironmentConfig" xml:"SharedEnvironmentConfig"`
+}
+
+type ClusterRestrictedInstanceGroupsConfigOutput struct {
+	SharedEnvironmentConfig *ClusterSharedEnvironmentConfigDetails `json:"sharedEnvironmentConfig" xml:"SharedEnvironmentConfig"`
+}
+
 type ClusterSchedulerConfigSummary struct {
 	ClusterArn                    string    `json:"clusterArn" xml:"ClusterArn"`
 	ClusterSchedulerConfigArn     string    `json:"clusterSchedulerConfigArn" xml:"ClusterSchedulerConfigArn"`
@@ -1026,6 +1280,18 @@ type ClusterSchedulerConfigSummary struct {
 	LastModifiedTime              time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 	Name                          string    `json:"name" xml:"Name"`
 	Status                        string    `json:"status" xml:"Status"`
+}
+
+type ClusterSharedEnvironmentConfig struct {
+	FSxLustreConfig         *FSxLustreConfig `json:"fSxLustreConfig" xml:"FSxLustreConfig"`
+	FSxLustreDeletionPolicy string           `json:"fSxLustreDeletionPolicy" xml:"FSxLustreDeletionPolicy"`
+}
+
+type ClusterSharedEnvironmentConfigDetails struct {
+	CurrentFSxLustreConfig         *FSxLustreConfig `json:"currentFSxLustreConfig" xml:"CurrentFSxLustreConfig"`
+	CurrentFSxLustreDeletionPolicy string           `json:"currentFSxLustreDeletionPolicy" xml:"CurrentFSxLustreDeletionPolicy"`
+	DesiredFSxLustreConfig         *FSxLustreConfig `json:"desiredFSxLustreConfig" xml:"DesiredFSxLustreConfig"`
+	DesiredFSxLustreDeletionPolicy string           `json:"desiredFSxLustreDeletionPolicy" xml:"DesiredFSxLustreDeletionPolicy"`
 }
 
 type ClusterSlurmConfig struct {
@@ -1042,11 +1308,12 @@ type ClusterSpotOptions struct {
 }
 
 type ClusterSummary struct {
-	ClusterArn       string           `json:"clusterArn" xml:"ClusterArn"`
-	ClusterName      string           `json:"clusterName" xml:"ClusterName"`
-	ClusterStatus    string           `json:"clusterStatus" xml:"ClusterStatus"`
-	CreationTime     time.Time        `json:"creationTime" xml:"CreationTime"`
-	TrainingPlanArns TrainingPlanArns `json:"trainingPlanArns" xml:"TrainingPlanArns"`
+	ClusterArn         string           `json:"clusterArn" xml:"ClusterArn"`
+	ClusterName        string           `json:"clusterName" xml:"ClusterName"`
+	ClusterStatus      string           `json:"clusterStatus" xml:"ClusterStatus"`
+	CreationTime       time.Time        `json:"creationTime" xml:"CreationTime"`
+	ImageVersionStatus string           `json:"imageVersionStatus" xml:"ImageVersionStatus"`
+	TrainingPlanArns   TrainingPlanArns `json:"trainingPlanArns" xml:"TrainingPlanArns"`
 }
 
 type ClusterTieredStorageConfig struct {
@@ -1156,6 +1423,7 @@ type ContainerConfig struct {
 type ContainerDefinition struct {
 	AdditionalModelDataSources AdditionalModelDataSources `json:"additionalModelDataSources" xml:"AdditionalModelDataSources"`
 	ContainerHostname          string                     `json:"containerHostname" xml:"ContainerHostname"`
+	ContainerMetricsConfig     *ContainerMetricsConfig    `json:"containerMetricsConfig" xml:"ContainerMetricsConfig"`
 	Environment                EnvironmentMap             `json:"environment" xml:"Environment"`
 	Image                      string                     `json:"image" xml:"Image"`
 	ImageConfig                *ImageConfig               `json:"imageConfig" xml:"ImageConfig"`
@@ -1165,6 +1433,10 @@ type ContainerDefinition struct {
 	ModelDataUrl               string                     `json:"modelDataUrl" xml:"ModelDataUrl"`
 	ModelPackageName           string                     `json:"modelPackageName" xml:"ModelPackageName"`
 	MultiModelConfig           *MultiModelConfig          `json:"multiModelConfig" xml:"MultiModelConfig"`
+}
+
+type ContainerMetricsConfig struct {
+	MetricsEndpoints MetricsEndpointList `json:"metricsEndpoints" xml:"MetricsEndpoints"`
 }
 
 type ContextSource struct {
@@ -1196,6 +1468,49 @@ type ContinuousParameterRangeSpecification struct {
 
 type ConvergenceDetected struct {
 	CompleteOnConvergence string `json:"completeOnConvergence" xml:"CompleteOnConvergence"`
+}
+
+type CreateAIBenchmarkJobRequest struct {
+	AIBenchmarkJobName         string                    `json:"aIBenchmarkJobName" xml:"AIBenchmarkJobName"`
+	AIWorkloadConfigIdentifier string                    `json:"aIWorkloadConfigIdentifier" xml:"AIWorkloadConfigIdentifier"`
+	BenchmarkTarget            interface{}               `json:"benchmarkTarget" xml:"BenchmarkTarget"`
+	NetworkConfig              *AIBenchmarkNetworkConfig `json:"networkConfig" xml:"NetworkConfig"`
+	OutputConfig               *AIBenchmarkOutputConfig  `json:"outputConfig" xml:"OutputConfig"`
+	RoleArn                    string                    `json:"roleArn" xml:"RoleArn"`
+	Tags                       TagList                   `json:"tags" xml:"Tags"`
+}
+
+type CreateAIBenchmarkJobResponse struct {
+	AIBenchmarkJobArn string `json:"aIBenchmarkJobArn" xml:"AIBenchmarkJobArn"`
+}
+
+type CreateAIRecommendationJobRequest struct {
+	AIRecommendationJobName    string                                  `json:"aIRecommendationJobName" xml:"AIRecommendationJobName"`
+	AIWorkloadConfigIdentifier string                                  `json:"aIWorkloadConfigIdentifier" xml:"AIWorkloadConfigIdentifier"`
+	AdapterSource              interface{}                             `json:"adapterSource" xml:"AdapterSource"`
+	ComputeSpec                *AIRecommendationComputeSpec            `json:"computeSpec" xml:"ComputeSpec"`
+	InferenceSpecification     *AIRecommendationInferenceSpecification `json:"inferenceSpecification" xml:"InferenceSpecification"`
+	ModelSource                interface{}                             `json:"modelSource" xml:"ModelSource"`
+	OptimizeModel              bool                                    `json:"optimizeModel" xml:"OptimizeModel"`
+	OutputConfig               *AIRecommendationOutputConfig           `json:"outputConfig" xml:"OutputConfig"`
+	PerformanceTarget          *AIRecommendationPerformanceTarget      `json:"performanceTarget" xml:"PerformanceTarget"`
+	RoleArn                    string                                  `json:"roleArn" xml:"RoleArn"`
+	Tags                       TagList                                 `json:"tags" xml:"Tags"`
+}
+
+type CreateAIRecommendationJobResponse struct {
+	AIRecommendationJobArn string `json:"aIRecommendationJobArn" xml:"AIRecommendationJobArn"`
+}
+
+type CreateAIWorkloadConfigRequest struct {
+	AIWorkloadConfigName string             `json:"aIWorkloadConfigName" xml:"AIWorkloadConfigName"`
+	AIWorkloadConfigs    *AIWorkloadConfigs `json:"aIWorkloadConfigs" xml:"AIWorkloadConfigs"`
+	DatasetConfig        interface{}        `json:"datasetConfig" xml:"DatasetConfig"`
+	Tags                 TagList            `json:"tags" xml:"Tags"`
+}
+
+type CreateAIWorkloadConfigResponse struct {
+	AIWorkloadConfigArn string `json:"aIWorkloadConfigArn" xml:"AIWorkloadConfigArn"`
 }
 
 type CreateActionRequest struct {
@@ -1303,17 +1618,18 @@ type CreateAutoMLJobV2Response struct {
 }
 
 type CreateClusterRequest struct {
-	AutoScaling              *ClusterAutoScalingConfig                    `json:"autoScaling" xml:"AutoScaling"`
-	ClusterName              string                                       `json:"clusterName" xml:"ClusterName"`
-	ClusterRole              string                                       `json:"clusterRole" xml:"ClusterRole"`
-	InstanceGroups           ClusterInstanceGroupSpecifications           `json:"instanceGroups" xml:"InstanceGroups"`
-	NodeProvisioningMode     string                                       `json:"nodeProvisioningMode" xml:"NodeProvisioningMode"`
-	NodeRecovery             string                                       `json:"nodeRecovery" xml:"NodeRecovery"`
-	Orchestrator             *ClusterOrchestrator                         `json:"orchestrator" xml:"Orchestrator"`
-	RestrictedInstanceGroups ClusterRestrictedInstanceGroupSpecifications `json:"restrictedInstanceGroups" xml:"RestrictedInstanceGroups"`
-	Tags                     TagList                                      `json:"tags" xml:"Tags"`
-	TieredStorageConfig      *ClusterTieredStorageConfig                  `json:"tieredStorageConfig" xml:"TieredStorageConfig"`
-	VpcConfig                *VpcConfig                                   `json:"vpcConfig" xml:"VpcConfig"`
+	AutoScaling                    *ClusterAutoScalingConfig                    `json:"autoScaling" xml:"AutoScaling"`
+	ClusterName                    string                                       `json:"clusterName" xml:"ClusterName"`
+	ClusterRole                    string                                       `json:"clusterRole" xml:"ClusterRole"`
+	InstanceGroups                 ClusterInstanceGroupSpecifications           `json:"instanceGroups" xml:"InstanceGroups"`
+	NodeProvisioningMode           string                                       `json:"nodeProvisioningMode" xml:"NodeProvisioningMode"`
+	NodeRecovery                   string                                       `json:"nodeRecovery" xml:"NodeRecovery"`
+	Orchestrator                   *ClusterOrchestrator                         `json:"orchestrator" xml:"Orchestrator"`
+	RestrictedInstanceGroups       ClusterRestrictedInstanceGroupSpecifications `json:"restrictedInstanceGroups" xml:"RestrictedInstanceGroups"`
+	RestrictedInstanceGroupsConfig *ClusterRestrictedInstanceGroupsConfig       `json:"restrictedInstanceGroupsConfig" xml:"RestrictedInstanceGroupsConfig"`
+	Tags                           TagList                                      `json:"tags" xml:"Tags"`
+	TieredStorageConfig            *ClusterTieredStorageConfig                  `json:"tieredStorageConfig" xml:"TieredStorageConfig"`
+	VpcConfig                      *VpcConfig                                   `json:"vpcConfig" xml:"VpcConfig"`
 }
 
 type CreateClusterResponse struct {
@@ -1420,6 +1736,7 @@ type CreateDomainRequest struct {
 	DefaultUserSettings        *UserSettings         `json:"defaultUserSettings" xml:"DefaultUserSettings"`
 	DomainName                 string                `json:"domainName" xml:"DomainName"`
 	DomainSettings             *DomainSettings       `json:"domainSettings" xml:"DomainSettings"`
+	HomeEfsFileSystemCreation  string                `json:"homeEfsFileSystemCreation" xml:"HomeEfsFileSystemCreation"`
 	HomeEfsFileSystemKmsKeyId  string                `json:"homeEfsFileSystemKmsKeyId" xml:"HomeEfsFileSystemKmsKeyId"`
 	KmsKeyId                   string                `json:"kmsKeyId" xml:"KmsKeyId"`
 	SubnetIds                  Subnets               `json:"subnetIds" xml:"SubnetIds"`
@@ -1630,12 +1947,13 @@ type CreateImageVersionResponse struct {
 }
 
 type CreateInferenceComponentInput struct {
-	EndpointName           string                           `json:"endpointName" xml:"EndpointName"`
-	InferenceComponentName string                           `json:"inferenceComponentName" xml:"InferenceComponentName"`
-	RuntimeConfig          *InferenceComponentRuntimeConfig `json:"runtimeConfig" xml:"RuntimeConfig"`
-	Specification          *InferenceComponentSpecification `json:"specification" xml:"Specification"`
-	Tags                   TagList                          `json:"tags" xml:"Tags"`
-	VariantName            string                           `json:"variantName" xml:"VariantName"`
+	EndpointName           string                              `json:"endpointName" xml:"EndpointName"`
+	InferenceComponentName string                              `json:"inferenceComponentName" xml:"InferenceComponentName"`
+	RuntimeConfig          *InferenceComponentRuntimeConfig    `json:"runtimeConfig" xml:"RuntimeConfig"`
+	Specification          *InferenceComponentSpecification    `json:"specification" xml:"Specification"`
+	Specifications         InferenceComponentSpecificationList `json:"specifications" xml:"Specifications"`
+	Tags                   TagList                             `json:"tags" xml:"Tags"`
+	VariantName            string                              `json:"variantName" xml:"VariantName"`
 }
 
 type CreateInferenceComponentOutput struct {
@@ -1675,6 +1993,19 @@ type CreateInferenceRecommendationsJobResponse struct {
 	JobArn string `json:"jobArn" xml:"JobArn"`
 }
 
+type CreateJobRequest struct {
+	JobCategory            string  `json:"jobCategory" xml:"JobCategory"`
+	JobConfigDocument      string  `json:"jobConfigDocument" xml:"JobConfigDocument"`
+	JobConfigSchemaVersion string  `json:"jobConfigSchemaVersion" xml:"JobConfigSchemaVersion"`
+	JobName                string  `json:"jobName" xml:"JobName"`
+	RoleArn                string  `json:"roleArn" xml:"RoleArn"`
+	Tags                   TagList `json:"tags" xml:"Tags"`
+}
+
+type CreateJobResponse struct {
+	JobArn string `json:"jobArn" xml:"JobArn"`
+}
+
 type CreateLabelingJobRequest struct {
 	HumanTaskConfig             *HumanTaskConfig               `json:"humanTaskConfig" xml:"HumanTaskConfig"`
 	InputConfig                 *LabelingJobInputConfig        `json:"inputConfig" xml:"InputConfig"`
@@ -1696,6 +2027,7 @@ type CreateMlflowAppRequest struct {
 	AccountDefaultStatus         string              `json:"accountDefaultStatus" xml:"AccountDefaultStatus"`
 	ArtifactStoreUri             string              `json:"artifactStoreUri" xml:"ArtifactStoreUri"`
 	DefaultDomainIdList          DefaultDomainIdList `json:"defaultDomainIdList" xml:"DefaultDomainIdList"`
+	KmsKeyId                     string              `json:"kmsKeyId" xml:"KmsKeyId"`
 	ModelRegistrationMode        string              `json:"modelRegistrationMode" xml:"ModelRegistrationMode"`
 	Name                         string              `json:"name" xml:"Name"`
 	RoleArn                      string              `json:"roleArn" xml:"RoleArn"`
@@ -1797,9 +2129,10 @@ type CreateModelOutput struct {
 }
 
 type CreateModelPackageGroupInput struct {
-	ModelPackageGroupDescription string  `json:"modelPackageGroupDescription" xml:"ModelPackageGroupDescription"`
-	ModelPackageGroupName        string  `json:"modelPackageGroupName" xml:"ModelPackageGroupName"`
-	Tags                         TagList `json:"tags" xml:"Tags"`
+	ManagedConfiguration         *ManagedConfiguration `json:"managedConfiguration" xml:"ManagedConfiguration"`
+	ModelPackageGroupDescription string                `json:"modelPackageGroupDescription" xml:"ModelPackageGroupDescription"`
+	ModelPackageGroupName        string                `json:"modelPackageGroupName" xml:"ModelPackageGroupName"`
+	Tags                         TagList               `json:"tags" xml:"Tags"`
 }
 
 type CreateModelPackageGroupOutput struct {
@@ -1814,6 +2147,7 @@ type CreateModelPackageInput struct {
 	Domain                            string                               `json:"domain" xml:"Domain"`
 	DriftCheckBaselines               *DriftCheckBaselines                 `json:"driftCheckBaselines" xml:"DriftCheckBaselines"`
 	InferenceSpecification            *InferenceSpecification              `json:"inferenceSpecification" xml:"InferenceSpecification"`
+	ManagedStorageType                string                               `json:"managedStorageType" xml:"ManagedStorageType"`
 	MetadataProperties                *MetadataProperties                  `json:"metadataProperties" xml:"MetadataProperties"`
 	ModelApprovalStatus               string                               `json:"modelApprovalStatus" xml:"ModelApprovalStatus"`
 	ModelCard                         *ModelPackageModelCard               `json:"modelCard" xml:"ModelCard"`
@@ -1910,6 +2244,7 @@ type CreateOptimizationJobRequest struct {
 	RoleArn                 string                              `json:"roleArn" xml:"RoleArn"`
 	StoppingCondition       *StoppingCondition                  `json:"stoppingCondition" xml:"StoppingCondition"`
 	Tags                    TagList                             `json:"tags" xml:"Tags"`
+	TrainingPlanArns        OptimizationJobTrainingPlanArns     `json:"trainingPlanArns" xml:"TrainingPlanArns"`
 	VpcConfig               *OptimizationVpcConfig              `json:"vpcConfig" xml:"VpcConfig"`
 }
 
@@ -1934,6 +2269,7 @@ type CreatePartnerAppRequest struct {
 	EnableAutoMinorVersionUpgrade bool                         `json:"enableAutoMinorVersionUpgrade" xml:"EnableAutoMinorVersionUpgrade"`
 	EnableIamSessionBasedIdentity bool                         `json:"enableIamSessionBasedIdentity" xml:"EnableIamSessionBasedIdentity"`
 	ExecutionRoleArn              string                       `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+	IdcConfig                     *IdcConfigInput              `json:"idcConfig" xml:"IdcConfig"`
 	KmsKeyId                      string                       `json:"kmsKeyId" xml:"KmsKeyId"`
 	MaintenanceConfig             *PartnerAppMaintenanceConfig `json:"maintenanceConfig" xml:"MaintenanceConfig"`
 	Name                          string                       `json:"name" xml:"Name"`
@@ -2330,6 +2666,30 @@ type DefaultSpaceStorageSettings struct {
 	DefaultEbsStorageSettings *DefaultEbsStorageSettings `json:"defaultEbsStorageSettings" xml:"DefaultEbsStorageSettings"`
 }
 
+type DeleteAIBenchmarkJobRequest struct {
+	AIBenchmarkJobName string `json:"aIBenchmarkJobName" xml:"AIBenchmarkJobName"`
+}
+
+type DeleteAIBenchmarkJobResponse struct {
+	AIBenchmarkJobArn string `json:"aIBenchmarkJobArn" xml:"AIBenchmarkJobArn"`
+}
+
+type DeleteAIRecommendationJobRequest struct {
+	AIRecommendationJobName string `json:"aIRecommendationJobName" xml:"AIRecommendationJobName"`
+}
+
+type DeleteAIRecommendationJobResponse struct {
+	AIRecommendationJobArn string `json:"aIRecommendationJobArn" xml:"AIRecommendationJobArn"`
+}
+
+type DeleteAIWorkloadConfigRequest struct {
+	AIWorkloadConfigName string `json:"aIWorkloadConfigName" xml:"AIWorkloadConfigName"`
+}
+
+type DeleteAIWorkloadConfigResponse struct {
+	AIWorkloadConfigArn string `json:"aIWorkloadConfigArn" xml:"AIWorkloadConfigArn"`
+}
+
 type DeleteActionRequest struct {
 	ActionName string `json:"actionName" xml:"ActionName"`
 }
@@ -2508,6 +2868,14 @@ type DeleteInferenceExperimentRequest struct {
 
 type DeleteInferenceExperimentResponse struct {
 	InferenceExperimentArn string `json:"inferenceExperimentArn" xml:"InferenceExperimentArn"`
+}
+
+type DeleteJobRequest struct {
+	JobCategory string `json:"jobCategory" xml:"JobCategory"`
+	JobName     string `json:"jobName" xml:"JobName"`
+}
+
+type DeleteJobResponse struct {
 }
 
 type DeleteMlflowAppRequest struct {
@@ -2702,6 +3070,64 @@ type DerivedInformation struct {
 	DerivedDataInputConfig string `json:"derivedDataInputConfig" xml:"DerivedDataInputConfig"`
 }
 
+type DescribeAIBenchmarkJobRequest struct {
+	AIBenchmarkJobName string `json:"aIBenchmarkJobName" xml:"AIBenchmarkJobName"`
+}
+
+type DescribeAIBenchmarkJobResponse struct {
+	AIBenchmarkJobArn          string                    `json:"aIBenchmarkJobArn" xml:"AIBenchmarkJobArn"`
+	AIBenchmarkJobName         string                    `json:"aIBenchmarkJobName" xml:"AIBenchmarkJobName"`
+	AIBenchmarkJobStatus       string                    `json:"aIBenchmarkJobStatus" xml:"AIBenchmarkJobStatus"`
+	AIWorkloadConfigIdentifier string                    `json:"aIWorkloadConfigIdentifier" xml:"AIWorkloadConfigIdentifier"`
+	BenchmarkTarget            interface{}               `json:"benchmarkTarget" xml:"BenchmarkTarget"`
+	CreationTime               time.Time                 `json:"creationTime" xml:"CreationTime"`
+	EndTime                    time.Time                 `json:"endTime" xml:"EndTime"`
+	FailureReason              string                    `json:"failureReason" xml:"FailureReason"`
+	NetworkConfig              *AIBenchmarkNetworkConfig `json:"networkConfig" xml:"NetworkConfig"`
+	OutputConfig               *AIBenchmarkOutputResult  `json:"outputConfig" xml:"OutputConfig"`
+	RoleArn                    string                    `json:"roleArn" xml:"RoleArn"`
+	StartTime                  time.Time                 `json:"startTime" xml:"StartTime"`
+	Tags                       TagList                   `json:"tags" xml:"Tags"`
+}
+
+type DescribeAIRecommendationJobRequest struct {
+	AIRecommendationJobName string `json:"aIRecommendationJobName" xml:"AIRecommendationJobName"`
+}
+
+type DescribeAIRecommendationJobResponse struct {
+	AIRecommendationJobArn     string                                  `json:"aIRecommendationJobArn" xml:"AIRecommendationJobArn"`
+	AIRecommendationJobName    string                                  `json:"aIRecommendationJobName" xml:"AIRecommendationJobName"`
+	AIRecommendationJobStatus  string                                  `json:"aIRecommendationJobStatus" xml:"AIRecommendationJobStatus"`
+	AIWorkloadConfigIdentifier string                                  `json:"aIWorkloadConfigIdentifier" xml:"AIWorkloadConfigIdentifier"`
+	AdapterSource              interface{}                             `json:"adapterSource" xml:"AdapterSource"`
+	ComputeSpec                *AIRecommendationComputeSpec            `json:"computeSpec" xml:"ComputeSpec"`
+	CreationTime               time.Time                               `json:"creationTime" xml:"CreationTime"`
+	EndTime                    time.Time                               `json:"endTime" xml:"EndTime"`
+	FailureReason              string                                  `json:"failureReason" xml:"FailureReason"`
+	InferenceSpecification     *AIRecommendationInferenceSpecification `json:"inferenceSpecification" xml:"InferenceSpecification"`
+	ModelSource                interface{}                             `json:"modelSource" xml:"ModelSource"`
+	OptimizeModel              bool                                    `json:"optimizeModel" xml:"OptimizeModel"`
+	OutputConfig               *AIRecommendationOutputResult           `json:"outputConfig" xml:"OutputConfig"`
+	PerformanceTarget          *AIRecommendationPerformanceTarget      `json:"performanceTarget" xml:"PerformanceTarget"`
+	Recommendations            AIRecommendationList                    `json:"recommendations" xml:"Recommendations"`
+	RoleArn                    string                                  `json:"roleArn" xml:"RoleArn"`
+	StartTime                  time.Time                               `json:"startTime" xml:"StartTime"`
+	Tags                       TagList                                 `json:"tags" xml:"Tags"`
+}
+
+type DescribeAIWorkloadConfigRequest struct {
+	AIWorkloadConfigName string `json:"aIWorkloadConfigName" xml:"AIWorkloadConfigName"`
+}
+
+type DescribeAIWorkloadConfigResponse struct {
+	AIWorkloadConfigArn  string             `json:"aIWorkloadConfigArn" xml:"AIWorkloadConfigArn"`
+	AIWorkloadConfigName string             `json:"aIWorkloadConfigName" xml:"AIWorkloadConfigName"`
+	AIWorkloadConfigs    *AIWorkloadConfigs `json:"aIWorkloadConfigs" xml:"AIWorkloadConfigs"`
+	CreationTime         time.Time          `json:"creationTime" xml:"CreationTime"`
+	DatasetConfig        interface{}        `json:"datasetConfig" xml:"DatasetConfig"`
+	Tags                 TagList            `json:"tags" xml:"Tags"`
+}
+
 type DescribeActionRequest struct {
 	ActionName string `json:"actionName" xml:"ActionName"`
 }
@@ -2880,20 +3306,21 @@ type DescribeClusterRequest struct {
 }
 
 type DescribeClusterResponse struct {
-	AutoScaling              *ClusterAutoScalingConfigOutput           `json:"autoScaling" xml:"AutoScaling"`
-	ClusterArn               string                                    `json:"clusterArn" xml:"ClusterArn"`
-	ClusterName              string                                    `json:"clusterName" xml:"ClusterName"`
-	ClusterRole              string                                    `json:"clusterRole" xml:"ClusterRole"`
-	ClusterStatus            string                                    `json:"clusterStatus" xml:"ClusterStatus"`
-	CreationTime             time.Time                                 `json:"creationTime" xml:"CreationTime"`
-	FailureMessage           string                                    `json:"failureMessage" xml:"FailureMessage"`
-	InstanceGroups           ClusterInstanceGroupDetailsList           `json:"instanceGroups" xml:"InstanceGroups"`
-	NodeProvisioningMode     string                                    `json:"nodeProvisioningMode" xml:"NodeProvisioningMode"`
-	NodeRecovery             string                                    `json:"nodeRecovery" xml:"NodeRecovery"`
-	Orchestrator             *ClusterOrchestrator                      `json:"orchestrator" xml:"Orchestrator"`
-	RestrictedInstanceGroups ClusterRestrictedInstanceGroupDetailsList `json:"restrictedInstanceGroups" xml:"RestrictedInstanceGroups"`
-	TieredStorageConfig      *ClusterTieredStorageConfig               `json:"tieredStorageConfig" xml:"TieredStorageConfig"`
-	VpcConfig                *VpcConfig                                `json:"vpcConfig" xml:"VpcConfig"`
+	AutoScaling                    *ClusterAutoScalingConfigOutput              `json:"autoScaling" xml:"AutoScaling"`
+	ClusterArn                     string                                       `json:"clusterArn" xml:"ClusterArn"`
+	ClusterName                    string                                       `json:"clusterName" xml:"ClusterName"`
+	ClusterRole                    string                                       `json:"clusterRole" xml:"ClusterRole"`
+	ClusterStatus                  string                                       `json:"clusterStatus" xml:"ClusterStatus"`
+	CreationTime                   time.Time                                    `json:"creationTime" xml:"CreationTime"`
+	FailureMessage                 string                                       `json:"failureMessage" xml:"FailureMessage"`
+	InstanceGroups                 ClusterInstanceGroupDetailsList              `json:"instanceGroups" xml:"InstanceGroups"`
+	NodeProvisioningMode           string                                       `json:"nodeProvisioningMode" xml:"NodeProvisioningMode"`
+	NodeRecovery                   string                                       `json:"nodeRecovery" xml:"NodeRecovery"`
+	Orchestrator                   *ClusterOrchestrator                         `json:"orchestrator" xml:"Orchestrator"`
+	RestrictedInstanceGroups       ClusterRestrictedInstanceGroupDetailsList    `json:"restrictedInstanceGroups" xml:"RestrictedInstanceGroups"`
+	RestrictedInstanceGroupsConfig *ClusterRestrictedInstanceGroupsConfigOutput `json:"restrictedInstanceGroupsConfig" xml:"RestrictedInstanceGroupsConfig"`
+	TieredStorageConfig            *ClusterTieredStorageConfig                  `json:"tieredStorageConfig" xml:"TieredStorageConfig"`
+	VpcConfig                      *VpcConfig                                   `json:"vpcConfig" xml:"VpcConfig"`
 }
 
 type DescribeClusterSchedulerConfigRequest struct {
@@ -3065,6 +3492,7 @@ type DescribeDomainResponse struct {
 	DomainName                               string                `json:"domainName" xml:"DomainName"`
 	DomainSettings                           *DomainSettings       `json:"domainSettings" xml:"DomainSettings"`
 	FailureReason                            string                `json:"failureReason" xml:"FailureReason"`
+	HomeEfsFileSystemCreation                string                `json:"homeEfsFileSystemCreation" xml:"HomeEfsFileSystemCreation"`
 	HomeEfsFileSystemId                      string                `json:"homeEfsFileSystemId" xml:"HomeEfsFileSystemId"`
 	HomeEfsFileSystemKmsKeyId                string                `json:"homeEfsFileSystemKmsKeyId" xml:"HomeEfsFileSystemKmsKeyId"`
 	KmsKeyId                                 string                `json:"kmsKeyId" xml:"KmsKeyId"`
@@ -3368,18 +3796,19 @@ type DescribeInferenceComponentInput struct {
 }
 
 type DescribeInferenceComponentOutput struct {
-	CreationTime             time.Time                               `json:"creationTime" xml:"CreationTime"`
-	EndpointArn              string                                  `json:"endpointArn" xml:"EndpointArn"`
-	EndpointName             string                                  `json:"endpointName" xml:"EndpointName"`
-	FailureReason            string                                  `json:"failureReason" xml:"FailureReason"`
-	InferenceComponentArn    string                                  `json:"inferenceComponentArn" xml:"InferenceComponentArn"`
-	InferenceComponentName   string                                  `json:"inferenceComponentName" xml:"InferenceComponentName"`
-	InferenceComponentStatus string                                  `json:"inferenceComponentStatus" xml:"InferenceComponentStatus"`
-	LastDeploymentConfig     *InferenceComponentDeploymentConfig     `json:"lastDeploymentConfig" xml:"LastDeploymentConfig"`
-	LastModifiedTime         time.Time                               `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	RuntimeConfig            *InferenceComponentRuntimeConfigSummary `json:"runtimeConfig" xml:"RuntimeConfig"`
-	Specification            *InferenceComponentSpecificationSummary `json:"specification" xml:"Specification"`
-	VariantName              string                                  `json:"variantName" xml:"VariantName"`
+	CreationTime             time.Time                                  `json:"creationTime" xml:"CreationTime"`
+	EndpointArn              string                                     `json:"endpointArn" xml:"EndpointArn"`
+	EndpointName             string                                     `json:"endpointName" xml:"EndpointName"`
+	FailureReason            string                                     `json:"failureReason" xml:"FailureReason"`
+	InferenceComponentArn    string                                     `json:"inferenceComponentArn" xml:"InferenceComponentArn"`
+	InferenceComponentName   string                                     `json:"inferenceComponentName" xml:"InferenceComponentName"`
+	InferenceComponentStatus string                                     `json:"inferenceComponentStatus" xml:"InferenceComponentStatus"`
+	LastDeploymentConfig     *InferenceComponentDeploymentConfig        `json:"lastDeploymentConfig" xml:"LastDeploymentConfig"`
+	LastModifiedTime         time.Time                                  `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	RuntimeConfig            *InferenceComponentRuntimeConfigSummary    `json:"runtimeConfig" xml:"RuntimeConfig"`
+	Specification            *InferenceComponentSpecificationSummary    `json:"specification" xml:"Specification"`
+	Specifications           InferenceComponentSpecificationSummaryList `json:"specifications" xml:"Specifications"`
+	VariantName              string                                     `json:"variantName" xml:"VariantName"`
 }
 
 type DescribeInferenceExperimentRequest struct {
@@ -3424,6 +3853,39 @@ type DescribeInferenceRecommendationsJobResponse struct {
 	RoleArn                  string                               `json:"roleArn" xml:"RoleArn"`
 	Status                   string                               `json:"status" xml:"Status"`
 	StoppingConditions       *RecommendationJobStoppingConditions `json:"stoppingConditions" xml:"StoppingConditions"`
+}
+
+type DescribeJobRequest struct {
+	JobCategory string `json:"jobCategory" xml:"JobCategory"`
+	JobName     string `json:"jobName" xml:"JobName"`
+}
+
+type DescribeJobResponse struct {
+	CreationTime               time.Time                     `json:"creationTime" xml:"CreationTime"`
+	EndTime                    time.Time                     `json:"endTime" xml:"EndTime"`
+	FailureReason              string                        `json:"failureReason" xml:"FailureReason"`
+	JobArn                     string                        `json:"jobArn" xml:"JobArn"`
+	JobCategory                string                        `json:"jobCategory" xml:"JobCategory"`
+	JobConfigDocument          string                        `json:"jobConfigDocument" xml:"JobConfigDocument"`
+	JobConfigSchemaVersion     string                        `json:"jobConfigSchemaVersion" xml:"JobConfigSchemaVersion"`
+	JobName                    string                        `json:"jobName" xml:"JobName"`
+	JobStatus                  string                        `json:"jobStatus" xml:"JobStatus"`
+	LastModifiedTime           time.Time                     `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	RoleArn                    string                        `json:"roleArn" xml:"RoleArn"`
+	SecondaryStatus            string                        `json:"secondaryStatus" xml:"SecondaryStatus"`
+	SecondaryStatusTransitions JobSecondaryStatusTransitions `json:"secondaryStatusTransitions" xml:"SecondaryStatusTransitions"`
+	Tags                       TagList                       `json:"tags" xml:"Tags"`
+}
+
+type DescribeJobSchemaVersionRequest struct {
+	JobCategory            string `json:"jobCategory" xml:"JobCategory"`
+	JobConfigSchemaVersion string `json:"jobConfigSchemaVersion" xml:"JobConfigSchemaVersion"`
+}
+
+type DescribeJobSchemaVersionResponse struct {
+	JobCategory            string `json:"jobCategory" xml:"JobCategory"`
+	JobConfigSchema        string `json:"jobConfigSchema" xml:"JobConfigSchema"`
+	JobConfigSchemaVersion string `json:"jobConfigSchemaVersion" xml:"JobConfigSchemaVersion"`
 }
 
 type DescribeLabelingJobRequest struct {
@@ -3477,6 +3939,7 @@ type DescribeMlflowAppResponse struct {
 	CreatedBy                    *UserContext        `json:"createdBy" xml:"CreatedBy"`
 	CreationTime                 time.Time           `json:"creationTime" xml:"CreationTime"`
 	DefaultDomainIdList          DefaultDomainIdList `json:"defaultDomainIdList" xml:"DefaultDomainIdList"`
+	KmsKeyId                     string              `json:"kmsKeyId" xml:"KmsKeyId"`
 	LastModifiedBy               *UserContext        `json:"lastModifiedBy" xml:"LastModifiedBy"`
 	LastModifiedTime             time.Time           `json:"lastModifiedTime" xml:"LastModifiedTime"`
 	MaintenanceStatus            string              `json:"maintenanceStatus" xml:"MaintenanceStatus"`
@@ -3549,6 +4012,7 @@ type DescribeModelCardExportJobResponse struct {
 }
 
 type DescribeModelCardRequest struct {
+	IncludedData     string `json:"includedData" xml:"IncludedData"`
 	ModelCardName    string `json:"modelCardName" xml:"ModelCardName"`
 	ModelCardVersion int32  `json:"modelCardVersion" xml:"ModelCardVersion"`
 }
@@ -3607,15 +4071,17 @@ type DescribeModelPackageGroupInput struct {
 }
 
 type DescribeModelPackageGroupOutput struct {
-	CreatedBy                    *UserContext `json:"createdBy" xml:"CreatedBy"`
-	CreationTime                 time.Time    `json:"creationTime" xml:"CreationTime"`
-	ModelPackageGroupArn         string       `json:"modelPackageGroupArn" xml:"ModelPackageGroupArn"`
-	ModelPackageGroupDescription string       `json:"modelPackageGroupDescription" xml:"ModelPackageGroupDescription"`
-	ModelPackageGroupName        string       `json:"modelPackageGroupName" xml:"ModelPackageGroupName"`
-	ModelPackageGroupStatus      string       `json:"modelPackageGroupStatus" xml:"ModelPackageGroupStatus"`
+	CreatedBy                    *UserContext          `json:"createdBy" xml:"CreatedBy"`
+	CreationTime                 time.Time             `json:"creationTime" xml:"CreationTime"`
+	ManagedConfiguration         *ManagedConfiguration `json:"managedConfiguration" xml:"ManagedConfiguration"`
+	ModelPackageGroupArn         string                `json:"modelPackageGroupArn" xml:"ModelPackageGroupArn"`
+	ModelPackageGroupDescription string                `json:"modelPackageGroupDescription" xml:"ModelPackageGroupDescription"`
+	ModelPackageGroupName        string                `json:"modelPackageGroupName" xml:"ModelPackageGroupName"`
+	ModelPackageGroupStatus      string                `json:"modelPackageGroupStatus" xml:"ModelPackageGroupStatus"`
 }
 
 type DescribeModelPackageInput struct {
+	IncludedData     string `json:"includedData" xml:"IncludedData"`
 	ModelPackageName string `json:"modelPackageName" xml:"ModelPackageName"`
 }
 
@@ -3631,6 +4097,7 @@ type DescribeModelPackageOutput struct {
 	InferenceSpecification            *InferenceSpecification              `json:"inferenceSpecification" xml:"InferenceSpecification"`
 	LastModifiedBy                    *UserContext                         `json:"lastModifiedBy" xml:"LastModifiedBy"`
 	LastModifiedTime                  time.Time                            `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	ManagedStorageType                string                               `json:"managedStorageType" xml:"ManagedStorageType"`
 	MetadataProperties                *MetadataProperties                  `json:"metadataProperties" xml:"MetadataProperties"`
 	ModelApprovalStatus               string                               `json:"modelApprovalStatus" xml:"ModelApprovalStatus"`
 	ModelCard                         *ModelPackageModelCard               `json:"modelCard" xml:"ModelCard"`
@@ -3753,6 +4220,7 @@ type DescribeOptimizationJobResponse struct {
 	OutputConfig            *OptimizationJobOutputConfig        `json:"outputConfig" xml:"OutputConfig"`
 	RoleArn                 string                              `json:"roleArn" xml:"RoleArn"`
 	StoppingCondition       *StoppingCondition                  `json:"stoppingCondition" xml:"StoppingCondition"`
+	TrainingPlanArns        OptimizationJobTrainingPlanArns     `json:"trainingPlanArns" xml:"TrainingPlanArns"`
 	VpcConfig               *OptimizationVpcConfig              `json:"vpcConfig" xml:"VpcConfig"`
 }
 
@@ -3773,6 +4241,7 @@ type DescribePartnerAppResponse struct {
 	EnableIamSessionBasedIdentity bool                         `json:"enableIamSessionBasedIdentity" xml:"EnableIamSessionBasedIdentity"`
 	Error                         *ErrorInfo                   `json:"error" xml:"Error"`
 	ExecutionRoleArn              string                       `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+	IdcConfig                     *IdcConfigOutput             `json:"idcConfig" xml:"IdcConfig"`
 	KmsKeyId                      string                       `json:"kmsKeyId" xml:"KmsKeyId"`
 	LastModifiedTime              time.Time                    `json:"lastModifiedTime" xml:"LastModifiedTime"`
 	MaintenanceConfig             *PartnerAppMaintenanceConfig `json:"maintenanceConfig" xml:"MaintenanceConfig"`
@@ -5044,6 +5513,15 @@ type IamPolicyConstraints struct {
 	VpcSourceIp string `json:"vpcSourceIp" xml:"VpcSourceIp"`
 }
 
+type IdcConfigInput struct {
+	InstanceArn string `json:"instanceArn" xml:"InstanceArn"`
+}
+
+type IdcConfigOutput struct {
+	ApplicationArn string `json:"applicationArn" xml:"ApplicationArn"`
+	InstanceArn    string `json:"instanceArn" xml:"InstanceArn"`
+}
+
 type IdentityProviderOAuthSetting struct {
 	DataSourceName string `json:"dataSourceName" xml:"DataSourceName"`
 	SecretArn      string `json:"secretArn" xml:"SecretArn"`
@@ -5125,15 +5603,17 @@ type InferenceComponentComputeResourceRequirements struct {
 }
 
 type InferenceComponentContainerSpecification struct {
-	ArtifactUrl string         `json:"artifactUrl" xml:"ArtifactUrl"`
-	Environment EnvironmentMap `json:"environment" xml:"Environment"`
-	Image       string         `json:"image" xml:"Image"`
+	ArtifactUrl            string                  `json:"artifactUrl" xml:"ArtifactUrl"`
+	ContainerMetricsConfig *ContainerMetricsConfig `json:"containerMetricsConfig" xml:"ContainerMetricsConfig"`
+	Environment            EnvironmentMap          `json:"environment" xml:"Environment"`
+	Image                  string                  `json:"image" xml:"Image"`
 }
 
 type InferenceComponentContainerSpecificationSummary struct {
-	ArtifactUrl   string         `json:"artifactUrl" xml:"ArtifactUrl"`
-	DeployedImage *DeployedImage `json:"deployedImage" xml:"DeployedImage"`
-	Environment   EnvironmentMap `json:"environment" xml:"Environment"`
+	ArtifactUrl            string                  `json:"artifactUrl" xml:"ArtifactUrl"`
+	ContainerMetricsConfig *ContainerMetricsConfig `json:"containerMetricsConfig" xml:"ContainerMetricsConfig"`
+	DeployedImage          *DeployedImage          `json:"deployedImage" xml:"DeployedImage"`
+	Environment            EnvironmentMap          `json:"environment" xml:"Environment"`
 }
 
 type InferenceComponentDataCacheConfig struct {
@@ -5153,6 +5633,11 @@ type InferenceComponentMetadata struct {
 	Arn string `json:"arn" xml:"Arn"`
 }
 
+type InferenceComponentPlacementStatus struct {
+	CurrentCopyCount int32  `json:"currentCopyCount" xml:"CurrentCopyCount"`
+	InstanceType     string `json:"instanceType" xml:"InstanceType"`
+}
+
 type InferenceComponentRollingUpdatePolicy struct {
 	MaximumBatchSize                 *InferenceComponentCapacitySize `json:"maximumBatchSize" xml:"MaximumBatchSize"`
 	MaximumExecutionTimeoutInSeconds int32                           `json:"maximumExecutionTimeoutInSeconds" xml:"MaximumExecutionTimeoutInSeconds"`
@@ -5165,8 +5650,9 @@ type InferenceComponentRuntimeConfig struct {
 }
 
 type InferenceComponentRuntimeConfigSummary struct {
-	CurrentCopyCount int32 `json:"currentCopyCount" xml:"CurrentCopyCount"`
-	DesiredCopyCount int32 `json:"desiredCopyCount" xml:"DesiredCopyCount"`
+	CurrentCopyCount int32                                 `json:"currentCopyCount" xml:"CurrentCopyCount"`
+	DesiredCopyCount int32                                 `json:"desiredCopyCount" xml:"DesiredCopyCount"`
+	PlacementStatus  InferenceComponentPlacementStatusList `json:"placementStatus" xml:"PlacementStatus"`
 }
 
 type InferenceComponentSchedulingConfig struct {
@@ -5179,6 +5665,7 @@ type InferenceComponentSpecification struct {
 	ComputeResourceRequirements *InferenceComponentComputeResourceRequirements `json:"computeResourceRequirements" xml:"ComputeResourceRequirements"`
 	Container                   *InferenceComponentContainerSpecification      `json:"container" xml:"Container"`
 	DataCacheConfig             *InferenceComponentDataCacheConfig             `json:"dataCacheConfig" xml:"DataCacheConfig"`
+	InstanceType                string                                         `json:"instanceType" xml:"InstanceType"`
 	ModelName                   string                                         `json:"modelName" xml:"ModelName"`
 	SchedulingConfig            *InferenceComponentSchedulingConfig            `json:"schedulingConfig" xml:"SchedulingConfig"`
 	StartupParameters           *InferenceComponentStartupParameters           `json:"startupParameters" xml:"StartupParameters"`
@@ -5189,6 +5676,7 @@ type InferenceComponentSpecificationSummary struct {
 	ComputeResourceRequirements *InferenceComponentComputeResourceRequirements   `json:"computeResourceRequirements" xml:"ComputeResourceRequirements"`
 	Container                   *InferenceComponentContainerSpecificationSummary `json:"container" xml:"Container"`
 	DataCacheConfig             *InferenceComponentDataCacheConfigSummary        `json:"dataCacheConfig" xml:"DataCacheConfig"`
+	InstanceType                string                                           `json:"instanceType" xml:"InstanceType"`
 	ModelName                   string                                           `json:"modelName" xml:"ModelName"`
 	SchedulingConfig            *InferenceComponentSchedulingConfig              `json:"schedulingConfig" xml:"SchedulingConfig"`
 	StartupParameters           *InferenceComponentStartupParameters             `json:"startupParameters" xml:"StartupParameters"`
@@ -5304,6 +5792,12 @@ type InstanceGroup struct {
 	InstanceType      string `json:"instanceType" xml:"InstanceType"`
 }
 
+type InstanceGroupHealthCheckConfiguration struct {
+	DeepHealthChecks  DeepHealthChecks `json:"deepHealthChecks" xml:"DeepHealthChecks"`
+	InstanceGroupName string           `json:"instanceGroupName" xml:"InstanceGroupName"`
+	InstanceIds       InstanceIds      `json:"instanceIds" xml:"InstanceIds"`
+}
+
 type InstanceGroupMetadata struct {
 	AmiOverride         string               `json:"amiOverride" xml:"AmiOverride"`
 	AvailabilityZoneId  string               `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
@@ -5321,12 +5815,13 @@ type InstanceGroupScalingMetadata struct {
 }
 
 type InstanceMetadata struct {
-	AdditionalEnis      *AdditionalEnis      `json:"additionalEnis" xml:"AdditionalEnis"`
-	CapacityReservation *CapacityReservation `json:"capacityReservation" xml:"CapacityReservation"`
-	CustomerEni         string               `json:"customerEni" xml:"CustomerEni"`
-	FailureMessage      string               `json:"failureMessage" xml:"FailureMessage"`
-	LcsExecutionState   string               `json:"lcsExecutionState" xml:"LcsExecutionState"`
-	NodeLogicalId       string               `json:"nodeLogicalId" xml:"NodeLogicalId"`
+	AdditionalEnis                        *AdditionalEnis                       `json:"additionalEnis" xml:"AdditionalEnis"`
+	CapacityReservation                   *CapacityReservation                  `json:"capacityReservation" xml:"CapacityReservation"`
+	CustomerEni                           string                                `json:"customerEni" xml:"CustomerEni"`
+	FailureMessage                        string                                `json:"failureMessage" xml:"FailureMessage"`
+	InstanceRequirementsEniConfigurations InstanceRequirementsEniConfigurations `json:"instanceRequirementsEniConfigurations" xml:"InstanceRequirementsEniConfigurations"`
+	LcsExecutionState                     string                                `json:"lcsExecutionState" xml:"LcsExecutionState"`
+	NodeLogicalId                         string                                `json:"nodeLogicalId" xml:"NodeLogicalId"`
 }
 
 type InstanceMetadataServiceConfiguration struct {
@@ -5336,6 +5831,22 @@ type InstanceMetadataServiceConfiguration struct {
 type InstancePlacementConfig struct {
 	EnableMultipleJobs      bool                    `json:"enableMultipleJobs" xml:"EnableMultipleJobs"`
 	PlacementSpecifications PlacementSpecifications `json:"placementSpecifications" xml:"PlacementSpecifications"`
+}
+
+type InstancePool struct {
+	InstanceType      string `json:"instanceType" xml:"InstanceType"`
+	ModelNameOverride string `json:"modelNameOverride" xml:"ModelNameOverride"`
+	Priority          int32  `json:"priority" xml:"Priority"`
+}
+
+type InstancePoolSummary struct {
+	CurrentInstanceCount int32  `json:"currentInstanceCount" xml:"CurrentInstanceCount"`
+	InstanceType         string `json:"instanceType" xml:"InstanceType"`
+}
+
+type InstanceRequirementsEniConfiguration struct {
+	AdditionalEnis *AdditionalEnis `json:"additionalEnis" xml:"AdditionalEnis"`
+	CustomerEni    string          `json:"customerEni" xml:"CustomerEni"`
 }
 
 type IntegerParameterRange struct {
@@ -5348,6 +5859,49 @@ type IntegerParameterRange struct {
 type IntegerParameterRangeSpecification struct {
 	MaxValue string `json:"maxValue" xml:"MaxValue"`
 	MinValue string `json:"minValue" xml:"MinValue"`
+}
+
+type Job struct {
+	CreationTime               time.Time                     `json:"creationTime" xml:"CreationTime"`
+	EndTime                    time.Time                     `json:"endTime" xml:"EndTime"`
+	FailureReason              string                        `json:"failureReason" xml:"FailureReason"`
+	JobArn                     string                        `json:"jobArn" xml:"JobArn"`
+	JobCategory                string                        `json:"jobCategory" xml:"JobCategory"`
+	JobConfigDocument          string                        `json:"jobConfigDocument" xml:"JobConfigDocument"`
+	JobConfigSchemaVersion     string                        `json:"jobConfigSchemaVersion" xml:"JobConfigSchemaVersion"`
+	JobName                    string                        `json:"jobName" xml:"JobName"`
+	JobStatus                  string                        `json:"jobStatus" xml:"JobStatus"`
+	LastModifiedTime           time.Time                     `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	RoleArn                    string                        `json:"roleArn" xml:"RoleArn"`
+	SecondaryStatus            string                        `json:"secondaryStatus" xml:"SecondaryStatus"`
+	SecondaryStatusTransitions JobSecondaryStatusTransitions `json:"secondaryStatusTransitions" xml:"SecondaryStatusTransitions"`
+	Tags                       TagList                       `json:"tags" xml:"Tags"`
+}
+
+type JobConfigSchemaVersionSummary struct {
+	JobConfigSchemaVersion string `json:"jobConfigSchemaVersion" xml:"JobConfigSchemaVersion"`
+}
+
+type JobSecondaryStatusTransition struct {
+	EndTime       time.Time `json:"endTime" xml:"EndTime"`
+	StartTime     time.Time `json:"startTime" xml:"StartTime"`
+	Status        string    `json:"status" xml:"Status"`
+	StatusMessage string    `json:"statusMessage" xml:"StatusMessage"`
+}
+
+type JobStepMetadata struct {
+	Arn string `json:"arn" xml:"Arn"`
+}
+
+type JobSummary struct {
+	CreationTime       time.Time `json:"creationTime" xml:"CreationTime"`
+	EndTime            time.Time `json:"endTime" xml:"EndTime"`
+	JobArn             string    `json:"jobArn" xml:"JobArn"`
+	JobCategory        string    `json:"jobCategory" xml:"JobCategory"`
+	JobName            string    `json:"jobName" xml:"JobName"`
+	JobSecondaryStatus string    `json:"jobSecondaryStatus" xml:"JobSecondaryStatus"`
+	JobStatus          string    `json:"jobStatus" xml:"JobStatus"`
+	LastModifiedTime   time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
 }
 
 type JupyterLabAppImageConfig struct {
@@ -5501,6 +6055,53 @@ type LineageMetadata struct {
 	ArtifactArns MapString2048       `json:"artifactArns" xml:"ArtifactArns"`
 	Associations AssociationInfoList `json:"associations" xml:"Associations"`
 	ContextArns  MapString2048       `json:"contextArns" xml:"ContextArns"`
+}
+
+type ListAIBenchmarkJobsRequest struct {
+	CreationTimeAfter  time.Time `json:"creationTimeAfter" xml:"CreationTimeAfter"`
+	CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"CreationTimeBefore"`
+	MaxResults         int32     `json:"maxResults" xml:"MaxResults"`
+	NameContains       string    `json:"nameContains" xml:"NameContains"`
+	NextToken          string    `json:"nextToken" xml:"NextToken"`
+	SortBy             string    `json:"sortBy" xml:"SortBy"`
+	SortOrder          string    `json:"sortOrder" xml:"SortOrder"`
+	StatusEquals       string    `json:"statusEquals" xml:"StatusEquals"`
+}
+
+type ListAIBenchmarkJobsResponse struct {
+	AIBenchmarkJobs AIBenchmarkJobSummaryList `json:"aIBenchmarkJobs" xml:"AIBenchmarkJobs"`
+	NextToken       string                    `json:"nextToken" xml:"NextToken"`
+}
+
+type ListAIRecommendationJobsRequest struct {
+	CreationTimeAfter  time.Time `json:"creationTimeAfter" xml:"CreationTimeAfter"`
+	CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"CreationTimeBefore"`
+	MaxResults         int32     `json:"maxResults" xml:"MaxResults"`
+	NameContains       string    `json:"nameContains" xml:"NameContains"`
+	NextToken          string    `json:"nextToken" xml:"NextToken"`
+	SortBy             string    `json:"sortBy" xml:"SortBy"`
+	SortOrder          string    `json:"sortOrder" xml:"SortOrder"`
+	StatusEquals       string    `json:"statusEquals" xml:"StatusEquals"`
+}
+
+type ListAIRecommendationJobsResponse struct {
+	AIRecommendationJobs AIRecommendationJobSummaryList `json:"aIRecommendationJobs" xml:"AIRecommendationJobs"`
+	NextToken            string                         `json:"nextToken" xml:"NextToken"`
+}
+
+type ListAIWorkloadConfigsRequest struct {
+	CreationTimeAfter  time.Time `json:"creationTimeAfter" xml:"CreationTimeAfter"`
+	CreationTimeBefore time.Time `json:"creationTimeBefore" xml:"CreationTimeBefore"`
+	MaxResults         int32     `json:"maxResults" xml:"MaxResults"`
+	NameContains       string    `json:"nameContains" xml:"NameContains"`
+	NextToken          string    `json:"nextToken" xml:"NextToken"`
+	SortBy             string    `json:"sortBy" xml:"SortBy"`
+	SortOrder          string    `json:"sortOrder" xml:"SortOrder"`
+}
+
+type ListAIWorkloadConfigsResponse struct {
+	AIWorkloadConfigs AIWorkloadConfigSummaryList `json:"aIWorkloadConfigs" xml:"AIWorkloadConfigs"`
+	NextToken         string                      `json:"nextToken" xml:"NextToken"`
 }
 
 type ListActionsRequest struct {
@@ -6142,6 +6743,36 @@ type ListInferenceRecommendationsJobsRequest struct {
 type ListInferenceRecommendationsJobsResponse struct {
 	InferenceRecommendationsJobs InferenceRecommendationsJobs `json:"inferenceRecommendationsJobs" xml:"InferenceRecommendationsJobs"`
 	NextToken                    string                       `json:"nextToken" xml:"NextToken"`
+}
+
+type ListJobSchemaVersionsRequest struct {
+	JobCategory string `json:"jobCategory" xml:"JobCategory"`
+	MaxResults  int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken   string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListJobSchemaVersionsResponse struct {
+	JobConfigSchemas JobConfigSchemas `json:"jobConfigSchemas" xml:"JobConfigSchemas"`
+	NextToken        string           `json:"nextToken" xml:"NextToken"`
+}
+
+type ListJobsRequest struct {
+	CreationTimeAfter      time.Time `json:"creationTimeAfter" xml:"CreationTimeAfter"`
+	CreationTimeBefore     time.Time `json:"creationTimeBefore" xml:"CreationTimeBefore"`
+	JobCategory            string    `json:"jobCategory" xml:"JobCategory"`
+	LastModifiedTimeAfter  time.Time `json:"lastModifiedTimeAfter" xml:"LastModifiedTimeAfter"`
+	LastModifiedTimeBefore time.Time `json:"lastModifiedTimeBefore" xml:"LastModifiedTimeBefore"`
+	MaxResults             int32     `json:"maxResults" xml:"MaxResults"`
+	NameContains           string    `json:"nameContains" xml:"NameContains"`
+	NextToken              string    `json:"nextToken" xml:"NextToken"`
+	SortBy                 string    `json:"sortBy" xml:"SortBy"`
+	SortOrder              string    `json:"sortOrder" xml:"SortOrder"`
+	StatusEquals           string    `json:"statusEquals" xml:"StatusEquals"`
+}
+
+type ListJobsResponse struct {
+	JobSummaries JobSummaries `json:"jobSummaries" xml:"JobSummaries"`
+	NextToken    string       `json:"nextToken" xml:"NextToken"`
 }
 
 type ListLabelingJobsForWorkteamRequest struct {
@@ -6861,6 +7492,10 @@ type MLflowConfiguration struct {
 	MlflowResourceArn    string `json:"mlflowResourceArn" xml:"MlflowResourceArn"`
 }
 
+type ManagedConfiguration struct {
+	ManagedStorageType string `json:"managedStorageType" xml:"ManagedStorageType"`
+}
+
 type MemberDefinition struct {
 	CognitoMemberDefinition *CognitoMemberDefinition `json:"cognitoMemberDefinition" xml:"CognitoMemberDefinition"`
 	OidcMemberDefinition    *OidcMemberDefinition    `json:"oidcMemberDefinition" xml:"OidcMemberDefinition"`
@@ -6892,8 +7527,14 @@ type MetricDefinition struct {
 }
 
 type MetricsConfig struct {
+	EnableDetailedObservability     bool  `json:"enableDetailedObservability" xml:"EnableDetailedObservability"`
 	EnableEnhancedMetrics           bool  `json:"enableEnhancedMetrics" xml:"EnableEnhancedMetrics"`
 	MetricPublishFrequencyInSeconds int32 `json:"metricPublishFrequencyInSeconds" xml:"MetricPublishFrequencyInSeconds"`
+}
+
+type MetricsEndpoint struct {
+	MetricPublishFrequencyInSeconds int32  `json:"metricPublishFrequencyInSeconds" xml:"MetricPublishFrequencyInSeconds"`
+	MetricsEndpointPath             string `json:"metricsEndpointPath" xml:"MetricsEndpointPath"`
 }
 
 type MetricsSource struct {
@@ -7206,21 +7847,22 @@ type ModelPackageConfig struct {
 }
 
 type ModelPackageContainerDefinition struct {
-	AdditionalS3DataSource *AdditionalS3DataSource `json:"additionalS3DataSource" xml:"AdditionalS3DataSource"`
-	BaseModel              *BaseModel              `json:"baseModel" xml:"BaseModel"`
-	ContainerHostname      string                  `json:"containerHostname" xml:"ContainerHostname"`
-	Environment            EnvironmentMap          `json:"environment" xml:"Environment"`
-	Framework              string                  `json:"framework" xml:"Framework"`
-	FrameworkVersion       string                  `json:"frameworkVersion" xml:"FrameworkVersion"`
-	Image                  string                  `json:"image" xml:"Image"`
-	ImageDigest            string                  `json:"imageDigest" xml:"ImageDigest"`
-	IsCheckpoint           bool                    `json:"isCheckpoint" xml:"IsCheckpoint"`
-	ModelDataETag          string                  `json:"modelDataETag" xml:"ModelDataETag"`
-	ModelDataSource        *ModelDataSource        `json:"modelDataSource" xml:"ModelDataSource"`
-	ModelDataUrl           string                  `json:"modelDataUrl" xml:"ModelDataUrl"`
-	ModelInput             *ModelInput             `json:"modelInput" xml:"ModelInput"`
-	NearestModelName       string                  `json:"nearestModelName" xml:"NearestModelName"`
-	ProductId              string                  `json:"productId" xml:"ProductId"`
+	AdditionalModelDataSources AdditionalModelDataSources `json:"additionalModelDataSources" xml:"AdditionalModelDataSources"`
+	AdditionalS3DataSource     *AdditionalS3DataSource    `json:"additionalS3DataSource" xml:"AdditionalS3DataSource"`
+	BaseModel                  *BaseModel                 `json:"baseModel" xml:"BaseModel"`
+	ContainerHostname          string                     `json:"containerHostname" xml:"ContainerHostname"`
+	Environment                EnvironmentMap             `json:"environment" xml:"Environment"`
+	Framework                  string                     `json:"framework" xml:"Framework"`
+	FrameworkVersion           string                     `json:"frameworkVersion" xml:"FrameworkVersion"`
+	Image                      string                     `json:"image" xml:"Image"`
+	ImageDigest                string                     `json:"imageDigest" xml:"ImageDigest"`
+	IsCheckpoint               bool                       `json:"isCheckpoint" xml:"IsCheckpoint"`
+	ModelDataETag              string                     `json:"modelDataETag" xml:"ModelDataETag"`
+	ModelDataSource            *ModelDataSource           `json:"modelDataSource" xml:"ModelDataSource"`
+	ModelDataUrl               string                     `json:"modelDataUrl" xml:"ModelDataUrl"`
+	ModelInput                 *ModelInput                `json:"modelInput" xml:"ModelInput"`
+	NearestModelName           string                     `json:"nearestModelName" xml:"NearestModelName"`
+	ProductId                  string                     `json:"productId" xml:"ProductId"`
 }
 
 type ModelPackageGroup struct {
@@ -7234,11 +7876,12 @@ type ModelPackageGroup struct {
 }
 
 type ModelPackageGroupSummary struct {
-	CreationTime                 time.Time `json:"creationTime" xml:"CreationTime"`
-	ModelPackageGroupArn         string    `json:"modelPackageGroupArn" xml:"ModelPackageGroupArn"`
-	ModelPackageGroupDescription string    `json:"modelPackageGroupDescription" xml:"ModelPackageGroupDescription"`
-	ModelPackageGroupName        string    `json:"modelPackageGroupName" xml:"ModelPackageGroupName"`
-	ModelPackageGroupStatus      string    `json:"modelPackageGroupStatus" xml:"ModelPackageGroupStatus"`
+	CreationTime                 time.Time             `json:"creationTime" xml:"CreationTime"`
+	ManagedConfiguration         *ManagedConfiguration `json:"managedConfiguration" xml:"ManagedConfiguration"`
+	ModelPackageGroupArn         string                `json:"modelPackageGroupArn" xml:"ModelPackageGroupArn"`
+	ModelPackageGroupDescription string                `json:"modelPackageGroupDescription" xml:"ModelPackageGroupDescription"`
+	ModelPackageGroupName        string                `json:"modelPackageGroupName" xml:"ModelPackageGroupName"`
+	ModelPackageGroupStatus      string                `json:"modelPackageGroupStatus" xml:"ModelPackageGroupStatus"`
 }
 
 type ModelPackageModelCard struct {
@@ -7548,9 +8191,11 @@ type NetworkConfig struct {
 }
 
 type NodeAdditionResult struct {
-	InstanceGroupName string `json:"instanceGroupName" xml:"InstanceGroupName"`
-	NodeLogicalId     string `json:"nodeLogicalId" xml:"NodeLogicalId"`
-	Status            string `json:"status" xml:"Status"`
+	AvailabilityZones ClusterAvailabilityZones `json:"availabilityZones" xml:"AvailabilityZones"`
+	InstanceGroupName string                   `json:"instanceGroupName" xml:"InstanceGroupName"`
+	InstanceTypes     ClusterInstanceTypes     `json:"instanceTypes" xml:"InstanceTypes"`
+	NodeLogicalId     string                   `json:"nodeLogicalId" xml:"NodeLogicalId"`
+	Status            string                   `json:"status" xml:"Status"`
 }
 
 type NotebookInstanceLifecycleConfigSummary struct {
@@ -7636,6 +8281,7 @@ type OnlineStoreConfig struct {
 }
 
 type OnlineStoreConfigUpdate struct {
+	StorageType string       `json:"storageType" xml:"StorageType"`
 	TtlDuration *TtlDuration `json:"ttlDuration" xml:"TtlDuration"`
 }
 
@@ -7782,6 +8428,7 @@ type PendingProductionVariantSummary struct {
 	DesiredInstanceCount    int32                                    `json:"desiredInstanceCount" xml:"DesiredInstanceCount"`
 	DesiredServerlessConfig *ProductionVariantServerlessConfig       `json:"desiredServerlessConfig" xml:"DesiredServerlessConfig"`
 	DesiredWeight           float32                                  `json:"desiredWeight" xml:"DesiredWeight"`
+	InstancePools           InstancePoolSummaryList                  `json:"instancePools" xml:"InstancePools"`
 	InstanceType            string                                   `json:"instanceType" xml:"InstanceType"`
 	ManagedInstanceScaling  *ProductionVariantManagedInstanceScaling `json:"managedInstanceScaling" xml:"ManagedInstanceScaling"`
 	RoutingConfig           *ProductionVariantRoutingConfig          `json:"routingConfig" xml:"RoutingConfig"`
@@ -7864,6 +8511,7 @@ type PipelineExecutionStepMetadata struct {
 	EndpointConfig                    *EndpointConfigStepMetadata                `json:"endpointConfig" xml:"EndpointConfig"`
 	Fail                              *FailStepMetadata                          `json:"fail" xml:"Fail"`
 	InferenceComponent                *InferenceComponentMetadata                `json:"inferenceComponent" xml:"InferenceComponent"`
+	Job                               *JobStepMetadata                           `json:"job" xml:"Job"`
 	Lambda                            *LambdaStepMetadata                        `json:"lambda" xml:"Lambda"`
 	Lineage                           *LineageMetadata                           `json:"lineage" xml:"Lineage"`
 	Model                             *ModelStepMetadata                         `json:"model" xml:"Model"`
@@ -7930,6 +8578,11 @@ type PlacementSpecification struct {
 
 type PredefinedMetricSpecification struct {
 	PredefinedMetricType string `json:"predefinedMetricType" xml:"PredefinedMetricType"`
+}
+
+type PrefixAwareRoutingConfig struct {
+	ConcurrencyThreshold int32 `json:"concurrencyThreshold" xml:"ConcurrencyThreshold"`
+	PrefixLength         int32 `json:"prefixLength" xml:"PrefixLength"`
 }
 
 type PresignedUrlAccessConfig struct {
@@ -8044,12 +8697,14 @@ type ProductionVariant struct {
 	InferenceAmiVersion                         string                                      `json:"inferenceAmiVersion" xml:"InferenceAmiVersion"`
 	InitialInstanceCount                        int32                                       `json:"initialInstanceCount" xml:"InitialInstanceCount"`
 	InitialVariantWeight                        float32                                     `json:"initialVariantWeight" xml:"InitialVariantWeight"`
+	InstancePools                               InstancePoolList                            `json:"instancePools" xml:"InstancePools"`
 	InstanceType                                string                                      `json:"instanceType" xml:"InstanceType"`
 	ManagedInstanceScaling                      *ProductionVariantManagedInstanceScaling    `json:"managedInstanceScaling" xml:"ManagedInstanceScaling"`
 	ModelDataDownloadTimeoutInSeconds           int32                                       `json:"modelDataDownloadTimeoutInSeconds" xml:"ModelDataDownloadTimeoutInSeconds"`
 	ModelName                                   string                                      `json:"modelName" xml:"ModelName"`
 	RoutingConfig                               *ProductionVariantRoutingConfig             `json:"routingConfig" xml:"RoutingConfig"`
 	ServerlessConfig                            *ProductionVariantServerlessConfig          `json:"serverlessConfig" xml:"ServerlessConfig"`
+	VariantInstanceProvisionTimeoutInSeconds    int32                                       `json:"variantInstanceProvisionTimeoutInSeconds" xml:"VariantInstanceProvisionTimeoutInSeconds"`
 	VariantName                                 string                                      `json:"variantName" xml:"VariantName"`
 	VolumeSizeInGB                              int32                                       `json:"volumeSizeInGB" xml:"VolumeSizeInGB"`
 }
@@ -8087,7 +8742,8 @@ type ProductionVariantManagedInstanceScalingScaleInPolicy struct {
 }
 
 type ProductionVariantRoutingConfig struct {
-	RoutingStrategy string `json:"routingStrategy" xml:"RoutingStrategy"`
+	PrefixAwareRoutingConfig *PrefixAwareRoutingConfig `json:"prefixAwareRoutingConfig" xml:"PrefixAwareRoutingConfig"`
+	RoutingStrategy          string                    `json:"routingStrategy" xml:"RoutingStrategy"`
 }
 
 type ProductionVariantServerlessConfig struct {
@@ -8116,6 +8772,7 @@ type ProductionVariantSummary struct {
 	DesiredInstanceCount      int32                                        `json:"desiredInstanceCount" xml:"DesiredInstanceCount"`
 	DesiredServerlessConfig   *ProductionVariantServerlessConfig           `json:"desiredServerlessConfig" xml:"DesiredServerlessConfig"`
 	DesiredWeight             float32                                      `json:"desiredWeight" xml:"DesiredWeight"`
+	InstancePools             InstancePoolSummaryList                      `json:"instancePools" xml:"InstancePools"`
 	ManagedInstanceScaling    *ProductionVariantManagedInstanceScaling     `json:"managedInstanceScaling" xml:"ManagedInstanceScaling"`
 	RoutingConfig             *ProductionVariantRoutingConfig              `json:"routingConfig" xml:"RoutingConfig"`
 	VariantName               string                                       `json:"variantName" xml:"VariantName"`
@@ -8427,6 +9084,7 @@ type ReservedCapacityOffering struct {
 
 type ReservedCapacitySummary struct {
 	AvailabilityZone     string    `json:"availabilityZone" xml:"AvailabilityZone"`
+	AvailabilityZoneId   string    `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
 	DurationHours        int64     `json:"durationHours" xml:"DurationHours"`
 	DurationMinutes      int64     `json:"durationMinutes" xml:"DurationMinutes"`
 	EndTime              time.Time `json:"endTime" xml:"EndTime"`
@@ -8486,6 +9144,7 @@ type ResourceSpec struct {
 	SageMakerImageArn          string `json:"sageMakerImageArn" xml:"SageMakerImageArn"`
 	SageMakerImageVersionAlias string `json:"sageMakerImageVersionAlias" xml:"SageMakerImageVersionAlias"`
 	SageMakerImageVersionArn   string `json:"sageMakerImageVersionArn" xml:"SageMakerImageVersionArn"`
+	TrainingPlanArn            string `json:"trainingPlanArn" xml:"TrainingPlanArn"`
 }
 
 type RetentionPolicy struct {
@@ -8603,6 +9262,7 @@ type SearchRecord struct {
 	FeatureGroup            *FeatureGroup                        `json:"featureGroup" xml:"FeatureGroup"`
 	FeatureMetadata         *FeatureMetadata                     `json:"featureMetadata" xml:"FeatureMetadata"`
 	HyperParameterTuningJob *HyperParameterTuningJobSearchEntity `json:"hyperParameterTuningJob" xml:"HyperParameterTuningJob"`
+	Job                     *Job                                 `json:"job" xml:"Job"`
 	Model                   *ModelDashboardModel                 `json:"model" xml:"Model"`
 	ModelCard               *ModelCard                           `json:"modelCard" xml:"ModelCard"`
 	ModelPackage            *ModelPackage                        `json:"modelPackage" xml:"ModelPackage"`
@@ -8698,6 +9358,7 @@ type ServerlessJobConfig struct {
 	EvaluatorArn           string `json:"evaluatorArn" xml:"EvaluatorArn"`
 	JobType                string `json:"jobType" xml:"JobType"`
 	Peft                   string `json:"peft" xml:"Peft"`
+	SequenceLength         string `json:"sequenceLength" xml:"SequenceLength"`
 }
 
 type ServiceCatalogProvisionedProductDetails struct {
@@ -8826,6 +9487,15 @@ type Stairs struct {
 	UsersPerStep      int32 `json:"usersPerStep" xml:"UsersPerStep"`
 }
 
+type StartClusterHealthCheckRequest struct {
+	ClusterName                   string                        `json:"clusterName" xml:"ClusterName"`
+	DeepHealthCheckConfigurations DeepHealthCheckConfigurations `json:"deepHealthCheckConfigurations" xml:"DeepHealthCheckConfigurations"`
+}
+
+type StartClusterHealthCheckResponse struct {
+	ClusterArn string `json:"clusterArn" xml:"ClusterArn"`
+}
+
 type StartEdgeDeploymentStageRequest struct {
 	EdgeDeploymentPlanName string `json:"edgeDeploymentPlanName" xml:"EdgeDeploymentPlanName"`
 	StageName              string `json:"stageName" xml:"StageName"`
@@ -8881,6 +9551,22 @@ type StartSessionResponse struct {
 	TokenValue string `json:"tokenValue" xml:"TokenValue"`
 }
 
+type StopAIBenchmarkJobRequest struct {
+	AIBenchmarkJobName string `json:"aIBenchmarkJobName" xml:"AIBenchmarkJobName"`
+}
+
+type StopAIBenchmarkJobResponse struct {
+	AIBenchmarkJobArn string `json:"aIBenchmarkJobArn" xml:"AIBenchmarkJobArn"`
+}
+
+type StopAIRecommendationJobRequest struct {
+	AIRecommendationJobName string `json:"aIRecommendationJobName" xml:"AIRecommendationJobName"`
+}
+
+type StopAIRecommendationJobResponse struct {
+	AIRecommendationJobArn string `json:"aIRecommendationJobArn" xml:"AIRecommendationJobArn"`
+}
+
 type StopAutoMLJobRequest struct {
 	AutoMLJobName string `json:"autoMLJobName" xml:"AutoMLJobName"`
 }
@@ -8916,6 +9602,14 @@ type StopInferenceExperimentResponse struct {
 
 type StopInferenceRecommendationsJobRequest struct {
 	JobName string `json:"jobName" xml:"JobName"`
+}
+
+type StopJobRequest struct {
+	JobCategory string `json:"jobCategory" xml:"JobCategory"`
+	JobName     string `json:"jobName" xml:"JobName"`
+}
+
+type StopJobResponse struct {
 }
 
 type StopLabelingJobRequest struct {
@@ -8978,6 +9672,7 @@ type StudioLifecycleConfigDetails struct {
 }
 
 type StudioWebPortalSettings struct {
+	ExecutionRoleSessionNameMode       string                                 `json:"executionRoleSessionNameMode" xml:"ExecutionRoleSessionNameMode"`
 	HiddenAppTypes                     HiddenAppTypesList                     `json:"hiddenAppTypes" xml:"HiddenAppTypes"`
 	HiddenInstanceTypes                HiddenInstanceTypesList                `json:"hiddenInstanceTypes" xml:"HiddenInstanceTypes"`
 	HiddenMlTools                      HiddenMlToolsList                      `json:"hiddenMlTools" xml:"HiddenMlTools"`
@@ -9178,6 +9873,7 @@ type TrainingJob struct {
 	TrainingTimeInSeconds                 int32                       `json:"trainingTimeInSeconds" xml:"TrainingTimeInSeconds"`
 	TuningJobArn                          string                      `json:"tuningJobArn" xml:"TuningJobArn"`
 	VpcConfig                             *VpcConfig                  `json:"vpcConfig" xml:"VpcConfig"`
+	WarmPoolStatus                        *WarmPoolStatus             `json:"warmPoolStatus" xml:"WarmPoolStatus"`
 }
 
 type TrainingJobDefinition struct {
@@ -9596,16 +10292,17 @@ type UpdateArtifactResponse struct {
 }
 
 type UpdateClusterRequest struct {
-	AutoScaling              *ClusterAutoScalingConfig                    `json:"autoScaling" xml:"AutoScaling"`
-	ClusterName              string                                       `json:"clusterName" xml:"ClusterName"`
-	ClusterRole              string                                       `json:"clusterRole" xml:"ClusterRole"`
-	InstanceGroups           ClusterInstanceGroupSpecifications           `json:"instanceGroups" xml:"InstanceGroups"`
-	InstanceGroupsToDelete   ClusterInstanceGroupsToDelete                `json:"instanceGroupsToDelete" xml:"InstanceGroupsToDelete"`
-	NodeProvisioningMode     string                                       `json:"nodeProvisioningMode" xml:"NodeProvisioningMode"`
-	NodeRecovery             string                                       `json:"nodeRecovery" xml:"NodeRecovery"`
-	Orchestrator             *ClusterOrchestrator                         `json:"orchestrator" xml:"Orchestrator"`
-	RestrictedInstanceGroups ClusterRestrictedInstanceGroupSpecifications `json:"restrictedInstanceGroups" xml:"RestrictedInstanceGroups"`
-	TieredStorageConfig      *ClusterTieredStorageConfig                  `json:"tieredStorageConfig" xml:"TieredStorageConfig"`
+	AutoScaling                    *ClusterAutoScalingConfig                    `json:"autoScaling" xml:"AutoScaling"`
+	ClusterName                    string                                       `json:"clusterName" xml:"ClusterName"`
+	ClusterRole                    string                                       `json:"clusterRole" xml:"ClusterRole"`
+	InstanceGroups                 ClusterInstanceGroupSpecifications           `json:"instanceGroups" xml:"InstanceGroups"`
+	InstanceGroupsToDelete         ClusterInstanceGroupsToDelete                `json:"instanceGroupsToDelete" xml:"InstanceGroupsToDelete"`
+	NodeProvisioningMode           string                                       `json:"nodeProvisioningMode" xml:"NodeProvisioningMode"`
+	NodeRecovery                   string                                       `json:"nodeRecovery" xml:"NodeRecovery"`
+	Orchestrator                   *ClusterOrchestrator                         `json:"orchestrator" xml:"Orchestrator"`
+	RestrictedInstanceGroups       ClusterRestrictedInstanceGroupSpecifications `json:"restrictedInstanceGroups" xml:"RestrictedInstanceGroups"`
+	RestrictedInstanceGroupsConfig *ClusterRestrictedInstanceGroupsConfig       `json:"restrictedInstanceGroupsConfig" xml:"RestrictedInstanceGroupsConfig"`
+	TieredStorageConfig            *ClusterTieredStorageConfig                  `json:"tieredStorageConfig" xml:"TieredStorageConfig"`
 }
 
 type UpdateClusterResponse struct {
@@ -9625,7 +10322,8 @@ type UpdateClusterSchedulerConfigResponse struct {
 }
 
 type UpdateClusterSoftwareInstanceGroupSpecification struct {
-	InstanceGroupName string `json:"instanceGroupName" xml:"InstanceGroupName"`
+	ImageReleaseVersion string `json:"imageReleaseVersion" xml:"ImageReleaseVersion"`
+	InstanceGroupName   string `json:"instanceGroupName" xml:"InstanceGroupName"`
 }
 
 type UpdateClusterSoftwareRequest struct {
@@ -9693,6 +10391,7 @@ type UpdateDomainRequest struct {
 	DefaultUserSettings        *UserSettings            `json:"defaultUserSettings" xml:"DefaultUserSettings"`
 	DomainId                   string                   `json:"domainId" xml:"DomainId"`
 	DomainSettingsForUpdate    *DomainSettingsForUpdate `json:"domainSettingsForUpdate" xml:"DomainSettingsForUpdate"`
+	HomeEfsFileSystemCreation  string                   `json:"homeEfsFileSystemCreation" xml:"HomeEfsFileSystemCreation"`
 	SubnetIds                  Subnets                  `json:"subnetIds" xml:"SubnetIds"`
 	TagPropagation             string                   `json:"tagPropagation" xml:"TagPropagation"`
 	VpcId                      string                   `json:"vpcId" xml:"VpcId"`
@@ -9829,6 +10528,7 @@ type UpdateInferenceComponentInput struct {
 	InferenceComponentName string                              `json:"inferenceComponentName" xml:"InferenceComponentName"`
 	RuntimeConfig          *InferenceComponentRuntimeConfig    `json:"runtimeConfig" xml:"RuntimeConfig"`
 	Specification          *InferenceComponentSpecification    `json:"specification" xml:"Specification"`
+	Specifications         InferenceComponentSpecificationList `json:"specifications" xml:"Specifications"`
 }
 
 type UpdateInferenceComponentOutput struct {
@@ -9970,9 +10670,11 @@ type UpdatePartnerAppRequest struct {
 	AppVersion                    string                       `json:"appVersion" xml:"AppVersion"`
 	ApplicationConfig             *PartnerAppConfig            `json:"applicationConfig" xml:"ApplicationConfig"`
 	Arn                           string                       `json:"arn" xml:"Arn"`
+	AuthType                      string                       `json:"authType" xml:"AuthType"`
 	ClientToken                   string                       `json:"clientToken" xml:"ClientToken"`
 	EnableAutoMinorVersionUpgrade bool                         `json:"enableAutoMinorVersionUpgrade" xml:"EnableAutoMinorVersionUpgrade"`
 	EnableIamSessionBasedIdentity bool                         `json:"enableIamSessionBasedIdentity" xml:"EnableIamSessionBasedIdentity"`
+	IdcConfig                     *IdcConfigInput              `json:"idcConfig" xml:"IdcConfig"`
 	MaintenanceConfig             *PartnerAppMaintenanceConfig `json:"maintenanceConfig" xml:"MaintenanceConfig"`
 	Tags                          TagList                      `json:"tags" xml:"Tags"`
 	Tier                          string                       `json:"tier" xml:"Tier"`
@@ -10237,6 +10939,36 @@ type Workteam struct {
 	WorkteamName              string                     `json:"workteamName" xml:"WorkteamName"`
 }
 
+type AIAdapterModelPackageEntryList []*AIAdapterModelPackageEntry
+
+type AIAdapterS3EntryList []*AIAdapterS3Entry
+
+type AIBenchmarkInferenceComponentList []*AIBenchmarkInferenceComponent
+
+type AIBenchmarkJobSummaryList []*AIBenchmarkJobSummary
+
+type AICloudWatchLogsList []*AICloudWatchLogs
+
+type AIMlReservationArnList []string
+
+type AIRecommendationConstraintList []*AIRecommendationConstraint
+
+type AIRecommendationDeploymentS3ChannelList []*AIRecommendationDeploymentS3Channel
+
+type AIRecommendationInstanceDetailList []*AIRecommendationInstanceDetail
+
+type AIRecommendationInstanceTypeList []string
+
+type AIRecommendationJobSummaryList []*AIRecommendationJobSummary
+
+type AIRecommendationList []*AIRecommendation
+
+type AIRecommendationOptimizationDetailList []*AIRecommendationOptimizationDetail
+
+type AIWorkloadConfigSummaryList []*AIWorkloadConfigSummary
+
+type AIWorkloadInputDataConfigList []*AIWorkloadInputDataConfig
+
 type AbsoluteBorrowLimitResourceList []*ComputeQuotaResourceConfig
 
 type ActionSummaries []*ActionSummary
@@ -10341,6 +11073,8 @@ type ClarifyFeatureTypes []string
 
 type ClarifyLabelHeaders []string
 
+type ClusterAvailabilityZones []string
+
 type ClusterEventSummaries []*ClusterEventSummary
 
 type ClusterInstanceGroupDetailsList []*ClusterInstanceGroupDetails
@@ -10350,6 +11084,10 @@ type ClusterInstanceGroupSpecifications []*ClusterInstanceGroupSpecification
 type ClusterInstanceGroupsToDelete []string
 
 type ClusterInstanceStorageConfigs []interface{}
+
+type ClusterInstanceTypeDetails []*ClusterInstanceTypeDetail
+
+type ClusterInstanceTypes []string
 
 type ClusterKubernetesTaints []*ClusterKubernetesTaint
 
@@ -10417,6 +11155,10 @@ type DebugRuleConfigurations []*DebugRuleConfiguration
 
 type DebugRuleEvaluationStatuses []*DebugRuleEvaluationStatus
 
+type DeepHealthCheckConfigurations []*InstanceGroupHealthCheckConfiguration
+
+type DeepHealthChecks []string
+
 type DefaultDomainIdList []string
 
 type DeployedImages []*DeployedImage
@@ -10474,6 +11216,8 @@ type Endpoints []*EndpointInfo
 type EnvironmentParameters []*EnvironmentParameter
 
 type ExecutionRoleArns []string
+
+type ExpectedPerformanceList []*AIRecommendationPerformanceMetric
 
 type ExperimentSummaries []*ExperimentSummary
 
@@ -10547,6 +11291,12 @@ type ImageVersions []*ImageVersion
 
 type Images []*Image
 
+type InferenceComponentPlacementStatusList []*InferenceComponentPlacementStatus
+
+type InferenceComponentSpecificationList []*InferenceComponentSpecification
+
+type InferenceComponentSpecificationSummaryList []*InferenceComponentSpecificationSummary
+
 type InferenceComponentSummaryList []*InferenceComponentSummary
 
 type InferenceExperimentList []*InferenceExperimentSummary
@@ -10565,7 +11315,21 @@ type InstanceGroupNames []string
 
 type InstanceGroups []*InstanceGroup
 
+type InstanceIds []string
+
+type InstancePoolList []*InstancePool
+
+type InstancePoolSummaryList []*InstancePoolSummary
+
+type InstanceRequirementsEniConfigurations []*InstanceRequirementsEniConfiguration
+
 type IntegerParameterRanges []*IntegerParameterRange
+
+type JobConfigSchemas []*JobConfigSchemaVersionSummary
+
+type JobSecondaryStatusTransitions []*JobSecondaryStatusTransition
+
+type JobSummaries []*JobSummary
 
 type JsonContentTypes []string
 
@@ -10588,6 +11352,8 @@ type MemberDefinitions []*MemberDefinition
 type MetricDataList []*MetricDatum
 
 type MetricDefinitionList []*MetricDefinition
+
+type MetricsEndpointList []*MetricsEndpoint
 
 type MlflowAppSummaries []*MlflowAppSummary
 
@@ -10664,6 +11430,8 @@ type OnStartDeepHealthChecks []string
 type OptimizationConfigs []interface{}
 
 type OptimizationJobSummaries []*OptimizationJobSummary
+
+type OptimizationJobTrainingPlanArns []string
 
 type OptimizationTypes []string
 
@@ -10859,6 +11627,8 @@ type Workforces []*Workforce
 
 type Workteams []*Workteam
 
+type AIRecommendationOptimizationConfigMap map[string]string
+
 type ActiveOperations map[string]int32
 
 type AggregationTransformations map[string]string
@@ -10925,6 +11695,14 @@ type TrialComponentArtifacts map[string]*TrialComponentArtifact
 
 type TrialComponentParameters map[string]interface{}
 
+type AIAdapterSource interface{}
+
+type AIBenchmarkTarget interface{}
+
+type AIDatasetConfig interface{}
+
+type AIModelSource interface{}
+
 type AutoMLProblemTypeConfig interface{}
 
 type AutoMLProblemTypeResolvedAttributes interface{}
@@ -10948,3 +11726,5 @@ type OptimizationConfig interface{}
 type ScalingPolicy interface{}
 
 type TrialComponentParameterValue interface{}
+
+type WorkloadSpec interface{}

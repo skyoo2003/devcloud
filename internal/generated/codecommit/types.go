@@ -412,6 +412,21 @@ type DescribePullRequestEventsOutput struct {
 	PullRequestEvents PullRequestEventList `json:"pullRequestEvents" xml:"pullRequestEvents"`
 }
 
+type DiffChange struct {
+	AfterLineNumber  int32  `json:"afterLineNumber" xml:"afterLineNumber"`
+	BeforeLineNumber int32  `json:"beforeLineNumber" xml:"beforeLineNumber"`
+	Content          string `json:"content" xml:"content"`
+	Type             string `json:"type" xml:"type"`
+}
+
+type DiffHunk struct {
+	AfterLineCount  int32          `json:"afterLineCount" xml:"afterLineCount"`
+	AfterStartLine  int32          `json:"afterStartLine" xml:"afterStartLine"`
+	BeforeLineCount int32          `json:"beforeLineCount" xml:"beforeLineCount"`
+	BeforeStartLine int32          `json:"beforeStartLine" xml:"beforeStartLine"`
+	Changes         DiffChangeList `json:"changes" xml:"changes"`
+}
+
 type Difference struct {
 	AfterBlob  *BlobMetadata `json:"afterBlob" xml:"afterBlob"`
 	BeforeBlob *BlobMetadata `json:"beforeBlob" xml:"beforeBlob"`
@@ -483,6 +498,24 @@ type GetApprovalRuleTemplateInput struct {
 
 type GetApprovalRuleTemplateOutput struct {
 	ApprovalRuleTemplate *ApprovalRuleTemplate `json:"approvalRuleTemplate" xml:"approvalRuleTemplate"`
+}
+
+type GetBlobDifferencesInput struct {
+	MaxResults       int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken        string `json:"nextToken" xml:"NextToken"`
+	AfterBlobId      string `json:"afterBlobId" xml:"afterBlobId"`
+	BeforeBlobId     string `json:"beforeBlobId" xml:"beforeBlobId"`
+	ContextLines     int32  `json:"contextLines" xml:"contextLines"`
+	IgnoreWhitespace bool   `json:"ignoreWhitespace" xml:"ignoreWhitespace"`
+	RepositoryName   string `json:"repositoryName" xml:"repositoryName"`
+}
+
+type GetBlobDifferencesOutput struct {
+	NextToken      string       `json:"nextToken" xml:"NextToken"`
+	AfterBlobSize  int64        `json:"afterBlobSize" xml:"afterBlobSize"`
+	BeforeBlobSize int64        `json:"beforeBlobSize" xml:"beforeBlobSize"`
+	Hunks          DiffHunkList `json:"hunks" xml:"hunks"`
+	IsBinary       bool         `json:"isBinary" xml:"isBinary"`
 }
 
 type GetBlobInput struct {
@@ -1342,6 +1375,10 @@ type ConflictMetadataList []*ConflictMetadata
 type Conflicts []*Conflict
 
 type DeleteFileEntries []*DeleteFileEntry
+
+type DiffChangeList []*DiffChange
+
+type DiffHunkList []*DiffHunk
 
 type DifferenceList []*Difference
 

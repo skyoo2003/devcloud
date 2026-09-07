@@ -38,6 +38,23 @@ func (e *AlreadyExistsFault) HTTPStatus() int {
 	return 400
 }
 
+// IdempotentCallInProgressFault is returned with HTTP status 500.
+type IdempotentCallInProgressFault struct {
+	Message string
+}
+
+func (e *IdempotentCallInProgressFault) Error() string {
+	return fmt.Sprintf("IdempotentCallInProgressFault: %s", e.Message)
+}
+
+func (e *IdempotentCallInProgressFault) ErrorCode() string {
+	return "IdempotentCallInProgressFault"
+}
+
+func (e *IdempotentCallInProgressFault) HTTPStatus() int {
+	return 500
+}
+
 // IdempotentParameterMismatchError is returned with HTTP status 400.
 type IdempotentParameterMismatchError struct {
 	Message string

@@ -39,6 +39,7 @@ type AddJobFlowStepsOutput struct {
 }
 
 type AddTagsInput struct {
+	ClusterId  string  `json:"clusterId" xml:"ClusterId"`
 	ResourceId string  `json:"resourceId" xml:"ResourceId"`
 	Tags       TagList `json:"tags" xml:"Tags"`
 }
@@ -167,6 +168,7 @@ type Cluster struct {
 	ScaleDownBehavior        string                   `json:"scaleDownBehavior" xml:"ScaleDownBehavior"`
 	SecurityConfiguration    string                   `json:"securityConfiguration" xml:"SecurityConfiguration"`
 	ServiceRole              string                   `json:"serviceRole" xml:"ServiceRole"`
+	SessionEnabled           bool                     `json:"sessionEnabled" xml:"SessionEnabled"`
 	Status                   *ClusterStatus           `json:"status" xml:"Status"`
 	StepConcurrencyLevel     int32                    `json:"stepConcurrencyLevel" xml:"StepConcurrencyLevel"`
 	Tags                     TagList                  `json:"tags" xml:"Tags"`
@@ -486,6 +488,27 @@ type GetPersistentAppUIPresignedURLInput struct {
 type GetPersistentAppUIPresignedURLOutput struct {
 	PresignedURL      string `json:"presignedURL" xml:"PresignedURL"`
 	PresignedURLReady bool   `json:"presignedURLReady" xml:"PresignedURLReady"`
+}
+
+type GetSessionEndpointInput struct {
+	ClusterId string `json:"clusterId" xml:"ClusterId"`
+	SessionId string `json:"sessionId" xml:"SessionId"`
+}
+
+type GetSessionEndpointOutput struct {
+	AuthToken               string      `json:"authToken" xml:"AuthToken"`
+	AuthTokenExpirationTime time.Time   `json:"authTokenExpirationTime" xml:"AuthTokenExpirationTime"`
+	Credentials             interface{} `json:"credentials" xml:"Credentials"`
+	Endpoint                string      `json:"endpoint" xml:"Endpoint"`
+}
+
+type GetSessionInput struct {
+	ClusterId string `json:"clusterId" xml:"ClusterId"`
+	SessionId string `json:"sessionId" xml:"SessionId"`
+}
+
+type GetSessionOutput struct {
+	Session *Session `json:"session" xml:"Session"`
 }
 
 type GetStudioSessionMappingInput struct {
@@ -883,6 +906,18 @@ type ListSecurityConfigurationsOutput struct {
 	SecurityConfigurations SecurityConfigurationList `json:"securityConfigurations" xml:"SecurityConfigurations"`
 }
 
+type ListSessionsInput struct {
+	ClusterId     string           `json:"clusterId" xml:"ClusterId"`
+	MaxResults    int32            `json:"maxResults" xml:"MaxResults"`
+	NextToken     string           `json:"nextToken" xml:"NextToken"`
+	SessionStates SessionStateList `json:"sessionStates" xml:"SessionStates"`
+}
+
+type ListSessionsOutput struct {
+	NextToken string      `json:"nextToken" xml:"NextToken"`
+	Sessions  SessionList `json:"sessions" xml:"Sessions"`
+}
+
 type ListStepsInput struct {
 	ClusterId  string        `json:"clusterId" xml:"ClusterId"`
 	Marker     string        `json:"marker" xml:"Marker"`
@@ -1124,6 +1159,7 @@ type RemoveManagedScalingPolicyOutput struct {
 }
 
 type RemoveTagsInput struct {
+	ClusterId  string     `json:"clusterId" xml:"ClusterId"`
 	ResourceId string     `json:"resourceId" xml:"ResourceId"`
 	TagKeys    StringList `json:"tagKeys" xml:"TagKeys"`
 }
@@ -1160,6 +1196,7 @@ type RunJobFlowInput struct {
 	ScaleDownBehavior       string                    `json:"scaleDownBehavior" xml:"ScaleDownBehavior"`
 	SecurityConfiguration   string                    `json:"securityConfiguration" xml:"SecurityConfiguration"`
 	ServiceRole             string                    `json:"serviceRole" xml:"ServiceRole"`
+	SessionEnabled          bool                      `json:"sessionEnabled" xml:"SessionEnabled"`
 	StepConcurrencyLevel    int32                     `json:"stepConcurrencyLevel" xml:"StepConcurrencyLevel"`
 	StepExecutionRoleArn    string                    `json:"stepExecutionRoleArn" xml:"StepExecutionRoleArn"`
 	Steps                   StepConfigList            `json:"steps" xml:"Steps"`
@@ -1213,6 +1250,41 @@ type SecurityConfigurationSummary struct {
 	Name             string    `json:"name" xml:"Name"`
 }
 
+type Session struct {
+	AccountId                   string                          `json:"accountId" xml:"AccountId"`
+	Arn                         string                          `json:"arn" xml:"Arn"`
+	ClusterId                   string                          `json:"clusterId" xml:"ClusterId"`
+	CreatedAt                   time.Time                       `json:"createdAt" xml:"CreatedAt"`
+	EndedAt                     time.Time                       `json:"endedAt" xml:"EndedAt"`
+	EngineConfigurations        ConfigurationList               `json:"engineConfigurations" xml:"EngineConfigurations"`
+	ExecutionRoleArn            string                          `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+	Id                          string                          `json:"id" xml:"Id"`
+	IdleSince                   time.Time                       `json:"idleSince" xml:"IdleSince"`
+	MonitoringConfiguration     *SessionMonitoringConfiguration `json:"monitoringConfiguration" xml:"MonitoringConfiguration"`
+	Name                        string                          `json:"name" xml:"Name"`
+	ReleaseLabel                string                          `json:"releaseLabel" xml:"ReleaseLabel"`
+	ServerUrl                   string                          `json:"serverUrl" xml:"ServerUrl"`
+	SessionIdleTimeoutInMinutes int64                           `json:"sessionIdleTimeoutInMinutes" xml:"SessionIdleTimeoutInMinutes"`
+	StartedAt                   time.Time                       `json:"startedAt" xml:"StartedAt"`
+	State                       string                          `json:"state" xml:"State"`
+	StateChangeReason           string                          `json:"stateChangeReason" xml:"StateChangeReason"`
+	Tags                        TagList                         `json:"tags" xml:"Tags"`
+	UpdatedAt                   time.Time                       `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type SessionCloudWatchLoggingConfiguration struct {
+	Enabled             bool        `json:"enabled" xml:"Enabled"`
+	EncryptionKeyArn    string      `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
+	LogGroup            string      `json:"logGroup" xml:"LogGroup"`
+	LogStreamNamePrefix string      `json:"logStreamNamePrefix" xml:"LogStreamNamePrefix"`
+	LogTypes            LogTypesMap `json:"logTypes" xml:"LogTypes"`
+}
+
+type SessionManagedLoggingConfiguration struct {
+	Enabled          bool   `json:"enabled" xml:"Enabled"`
+	EncryptionKeyArn string `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
+}
+
 type SessionMappingDetail struct {
 	CreationTime     time.Time `json:"creationTime" xml:"CreationTime"`
 	IdentityId       string    `json:"identityId" xml:"IdentityId"`
@@ -1230,6 +1302,19 @@ type SessionMappingSummary struct {
 	IdentityType     string    `json:"identityType" xml:"IdentityType"`
 	SessionPolicyArn string    `json:"sessionPolicyArn" xml:"SessionPolicyArn"`
 	StudioId         string    `json:"studioId" xml:"StudioId"`
+}
+
+type SessionMonitoringConfiguration struct {
+	CloudWatchLoggingConfiguration *SessionCloudWatchLoggingConfiguration `json:"cloudWatchLoggingConfiguration" xml:"CloudWatchLoggingConfiguration"`
+	ManagedLoggingConfiguration    *SessionManagedLoggingConfiguration    `json:"managedLoggingConfiguration" xml:"ManagedLoggingConfiguration"`
+	S3LoggingConfiguration         *SessionS3LoggingConfiguration         `json:"s3LoggingConfiguration" xml:"S3LoggingConfiguration"`
+}
+
+type SessionS3LoggingConfiguration struct {
+	Enabled          bool        `json:"enabled" xml:"Enabled"`
+	EncryptionKeyArn string      `json:"encryptionKeyArn" xml:"EncryptionKeyArn"`
+	LogTypes         LogTypesMap `json:"logTypes" xml:"LogTypes"`
+	LogUri           string      `json:"logUri" xml:"LogUri"`
 }
 
 type SetKeepJobFlowAliveWhenNoStepsInput struct {
@@ -1300,6 +1385,25 @@ type StartNotebookExecutionInput struct {
 
 type StartNotebookExecutionOutput struct {
 	NotebookExecutionId string `json:"notebookExecutionId" xml:"NotebookExecutionId"`
+}
+
+type StartSessionInput struct {
+	ClientRequestToken          string                          `json:"clientRequestToken" xml:"ClientRequestToken"`
+	ClusterId                   string                          `json:"clusterId" xml:"ClusterId"`
+	EngineConfigurations        ConfigurationList               `json:"engineConfigurations" xml:"EngineConfigurations"`
+	ExecutionRoleArn            string                          `json:"executionRoleArn" xml:"ExecutionRoleArn"`
+	MonitoringConfiguration     *SessionMonitoringConfiguration `json:"monitoringConfiguration" xml:"MonitoringConfiguration"`
+	Name                        string                          `json:"name" xml:"Name"`
+	SessionIdleTimeoutInMinutes int64                           `json:"sessionIdleTimeoutInMinutes" xml:"SessionIdleTimeoutInMinutes"`
+	Tags                        TagList                         `json:"tags" xml:"Tags"`
+}
+
+type StartSessionOutput struct {
+	AccountId string `json:"accountId" xml:"AccountId"`
+	Arn       string `json:"arn" xml:"Arn"`
+	ClusterId string `json:"clusterId" xml:"ClusterId"`
+	Id        string `json:"id" xml:"Id"`
+	State     string `json:"state" xml:"State"`
 }
 
 type Step struct {
@@ -1431,6 +1535,17 @@ type TerminateJobFlowsInput struct {
 	JobFlowIds XmlStringList `json:"jobFlowIds" xml:"JobFlowIds"`
 }
 
+type TerminateSessionInput struct {
+	ClusterId string `json:"clusterId" xml:"ClusterId"`
+	SessionId string `json:"sessionId" xml:"SessionId"`
+}
+
+type TerminateSessionOutput struct {
+	ClusterId string `json:"clusterId" xml:"ClusterId"`
+	SessionId string `json:"sessionId" xml:"SessionId"`
+	State     string `json:"state" xml:"State"`
+}
+
 type UpdateStudioInput struct {
 	DefaultS3Location string       `json:"defaultS3Location" xml:"DefaultS3Location"`
 	Description       string       `json:"description" xml:"Description"`
@@ -1540,7 +1655,11 @@ type SecurityConfigurationList []*SecurityConfigurationSummary
 
 type SecurityGroupsList []string
 
+type SessionList []*Session
+
 type SessionMappingSummaryList []*SessionMappingSummary
+
+type SessionStateList []string
 
 type SimplifiedApplicationList []*SimplifiedApplication
 

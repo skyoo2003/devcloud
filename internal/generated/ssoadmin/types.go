@@ -63,6 +63,7 @@ type Application struct {
 	CreatedDate            time.Time      `json:"createdDate" xml:"CreatedDate"`
 	CreatedFrom            string         `json:"createdFrom" xml:"CreatedFrom"`
 	Description            string         `json:"description" xml:"Description"`
+	IdentityStoreArn       string         `json:"identityStoreArn" xml:"IdentityStoreArn"`
 	InstanceArn            string         `json:"instanceArn" xml:"InstanceArn"`
 	Name                   string         `json:"name" xml:"Name"`
 	PortalOptions          *PortalOptions `json:"portalOptions" xml:"PortalOptions"`
@@ -159,7 +160,9 @@ type CreateApplicationRequest struct {
 }
 
 type CreateApplicationResponse struct {
-	ApplicationArn string `json:"applicationArn" xml:"ApplicationArn"`
+	ApplicationArn   string `json:"applicationArn" xml:"ApplicationArn"`
+	IdentityStoreArn string `json:"identityStoreArn" xml:"IdentityStoreArn"`
+	InstanceArn      string `json:"instanceArn" xml:"InstanceArn"`
 }
 
 type CreateInstanceAccessControlAttributeConfigurationRequest struct {
@@ -352,6 +355,7 @@ type DescribeApplicationResponse struct {
 	CreatedDate            time.Time      `json:"createdDate" xml:"CreatedDate"`
 	CreatedFrom            string         `json:"createdFrom" xml:"CreatedFrom"`
 	Description            string         `json:"description" xml:"Description"`
+	IdentityStoreArn       string         `json:"identityStoreArn" xml:"IdentityStoreArn"`
 	InstanceArn            string         `json:"instanceArn" xml:"InstanceArn"`
 	Name                   string         `json:"name" xml:"Name"`
 	PortalOptions          *PortalOptions `json:"portalOptions" xml:"PortalOptions"`
@@ -379,6 +383,7 @@ type DescribeInstanceResponse struct {
 	InstanceArn                    string                          `json:"instanceArn" xml:"InstanceArn"`
 	Name                           string                          `json:"name" xml:"Name"`
 	OwnerAccountId                 string                          `json:"ownerAccountId" xml:"OwnerAccountId"`
+	PermissionSetsEnabled          bool                            `json:"permissionSetsEnabled" xml:"PermissionSetsEnabled"`
 	Status                         string                          `json:"status" xml:"Status"`
 	StatusReason                   string                          `json:"statusReason" xml:"StatusReason"`
 }
@@ -536,13 +541,15 @@ type InstanceAccessControlAttributeConfiguration struct {
 }
 
 type InstanceMetadata struct {
-	CreatedDate     time.Time `json:"createdDate" xml:"CreatedDate"`
-	IdentityStoreId string    `json:"identityStoreId" xml:"IdentityStoreId"`
-	InstanceArn     string    `json:"instanceArn" xml:"InstanceArn"`
-	Name            string    `json:"name" xml:"Name"`
-	OwnerAccountId  string    `json:"ownerAccountId" xml:"OwnerAccountId"`
-	Status          string    `json:"status" xml:"Status"`
-	StatusReason    string    `json:"statusReason" xml:"StatusReason"`
+	CreatedDate     time.Time          `json:"createdDate" xml:"CreatedDate"`
+	IdentityStoreId string             `json:"identityStoreId" xml:"IdentityStoreId"`
+	InstanceArn     string             `json:"instanceArn" xml:"InstanceArn"`
+	Name            string             `json:"name" xml:"Name"`
+	OwnerAccountId  string             `json:"ownerAccountId" xml:"OwnerAccountId"`
+	PrimaryRegion   string             `json:"primaryRegion" xml:"PrimaryRegion"`
+	Regions         RegionMetadataList `json:"regions" xml:"Regions"`
+	Status          string             `json:"status" xml:"Status"`
+	StatusReason    string             `json:"statusReason" xml:"StatusReason"`
 }
 
 type JwtBearerGrant struct {
@@ -1021,6 +1028,7 @@ type UpdateInstanceRequest struct {
 	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
 	InstanceArn             string                   `json:"instanceArn" xml:"InstanceArn"`
 	Name                    string                   `json:"name" xml:"Name"`
+	PermissionSetsEnabled   bool                     `json:"permissionSetsEnabled" xml:"PermissionSetsEnabled"`
 }
 
 type UpdateInstanceResponse struct {

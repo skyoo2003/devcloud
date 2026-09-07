@@ -123,6 +123,18 @@ func (b *BaseProvider) GetRegexPatternSet(ctx context.Context, input *GetRegexPa
 	return nil, fmt.Errorf("GetRegexPatternSet: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetRevenueStatistics(ctx context.Context, input *GetRevenueStatisticsRequest) (*GetRevenueStatisticsResponse, error) {
+	return nil, fmt.Errorf("GetRevenueStatistics: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetRevenueStatisticsSummary(ctx context.Context, input *GetRevenueStatisticsSummaryRequest) (*GetRevenueStatisticsSummaryResponse, error) {
+	return nil, fmt.Errorf("GetRevenueStatisticsSummary: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetRevenueStatisticsTimeSeries(ctx context.Context, input *GetRevenueStatisticsTimeSeriesRequest) (*GetRevenueStatisticsTimeSeriesResponse, error) {
+	return nil, fmt.Errorf("GetRevenueStatisticsTimeSeries: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetRuleGroup(ctx context.Context, input *GetRuleGroupRequest) (*GetRuleGroupResponse, error) {
 	return nil, fmt.Errorf("GetRuleGroup: %w", ErrNotImplemented)
 }
@@ -181,6 +193,10 @@ func (b *BaseProvider) ListResourcesForWebACL(ctx context.Context, input *ListRe
 
 func (b *BaseProvider) ListRuleGroups(ctx context.Context, input *ListRuleGroupsRequest) (*ListRuleGroupsResponse, error) {
 	return nil, fmt.Errorf("ListRuleGroups: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListSettlementRecords(ctx context.Context, input *ListSettlementRecordsRequest) (*ListSettlementRecordsResponse, error) {
+	return nil, fmt.Errorf("ListSettlementRecords: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListTagsForResource(ctx context.Context, input *ListTagsForResourceRequest) (*ListTagsForResourceResponse, error) {

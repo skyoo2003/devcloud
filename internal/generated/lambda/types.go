@@ -111,12 +111,19 @@ type CapacityProvider struct {
 	KmsKeyArn                     string                             `json:"kmsKeyArn" xml:"KmsKeyArn"`
 	LastModified                  string                             `json:"lastModified" xml:"LastModified"`
 	PermissionsConfig             *CapacityProviderPermissionsConfig `json:"permissionsConfig" xml:"PermissionsConfig"`
+	PropagateTags                 *PropagateTags                     `json:"propagateTags" xml:"PropagateTags"`
 	State                         string                             `json:"state" xml:"State"`
+	TelemetryConfig               *CapacityProviderTelemetryConfig   `json:"telemetryConfig" xml:"TelemetryConfig"`
 	VpcConfig                     *CapacityProviderVpcConfig         `json:"vpcConfig" xml:"VpcConfig"`
 }
 
 type CapacityProviderConfig struct {
 	LambdaManagedInstancesCapacityProviderConfig *LambdaManagedInstancesCapacityProviderConfig `json:"lambdaManagedInstancesCapacityProviderConfig" xml:"LambdaManagedInstancesCapacityProviderConfig"`
+}
+
+type CapacityProviderLoggingConfig struct {
+	LogGroup       string `json:"logGroup" xml:"LogGroup"`
+	SystemLogLevel string `json:"systemLogLevel" xml:"SystemLogLevel"`
 }
 
 type CapacityProviderPermissionsConfig struct {
@@ -127,6 +134,10 @@ type CapacityProviderScalingConfig struct {
 	MaxVCpuCount    int32                               `json:"maxVCpuCount" xml:"MaxVCpuCount"`
 	ScalingMode     string                              `json:"scalingMode" xml:"ScalingMode"`
 	ScalingPolicies CapacityProviderScalingPoliciesList `json:"scalingPolicies" xml:"ScalingPolicies"`
+}
+
+type CapacityProviderTelemetryConfig struct {
+	LoggingConfig *CapacityProviderLoggingConfig `json:"loggingConfig" xml:"LoggingConfig"`
 }
 
 type CapacityProviderVpcConfig struct {
@@ -246,7 +257,9 @@ type CreateCapacityProviderRequest struct {
 	InstanceRequirements          *InstanceRequirements              `json:"instanceRequirements" xml:"InstanceRequirements"`
 	KmsKeyArn                     string                             `json:"kmsKeyArn" xml:"KmsKeyArn"`
 	PermissionsConfig             *CapacityProviderPermissionsConfig `json:"permissionsConfig" xml:"PermissionsConfig"`
+	PropagateTags                 *PropagateTags                     `json:"propagateTags" xml:"PropagateTags"`
 	Tags                          Tags                               `json:"tags" xml:"Tags"`
+	TelemetryConfig               *CapacityProviderTelemetryConfig   `json:"telemetryConfig" xml:"TelemetryConfig"`
 	VpcConfig                     *CapacityProviderVpcConfig         `json:"vpcConfig" xml:"VpcConfig"`
 }
 
@@ -409,6 +422,11 @@ type DeleteProvisionedConcurrencyConfigRequest struct {
 	Qualifier    string `json:"qualifier" xml:"Qualifier"`
 }
 
+type DeleteResourcePolicyRequest struct {
+	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+	RevisionId  string `json:"revisionId" xml:"RevisionId"`
+}
+
 type DestinationConfig struct {
 	OnFailure *OnFailure `json:"onFailure" xml:"OnFailure"`
 	OnSuccess *OnSuccess `json:"onSuccess" xml:"OnSuccess"`
@@ -421,8 +439,9 @@ type DocumentDBEventSourceConfig struct {
 }
 
 type DurableConfig struct {
-	ExecutionTimeout      int32 `json:"executionTimeout" xml:"ExecutionTimeout"`
-	RetentionPeriodInDays int32 `json:"retentionPeriodInDays" xml:"RetentionPeriodInDays"`
+	ExecutionTimeout      int32  `json:"executionTimeout" xml:"ExecutionTimeout"`
+	KMSKeyArn             string `json:"kMSKeyArn" xml:"KMSKeyArn"`
+	RetentionPeriodInDays int32  `json:"retentionPeriodInDays" xml:"RetentionPeriodInDays"`
 }
 
 type Environment struct {
@@ -548,6 +567,7 @@ type Execution struct {
 	DurableExecutionName string    `json:"durableExecutionName" xml:"DurableExecutionName"`
 	EndTimestamp         time.Time `json:"endTimestamp" xml:"EndTimestamp"`
 	FunctionArn          string    `json:"functionArn" xml:"FunctionArn"`
+	KMSKeyArn            string    `json:"kMSKeyArn" xml:"KMSKeyArn"`
 	StartTimestamp       time.Time `json:"startTimestamp" xml:"StartTimestamp"`
 	Status               string    `json:"status" xml:"Status"`
 }
@@ -578,8 +598,9 @@ type ExecutionTimedOutDetails struct {
 }
 
 type FileSystemConfig struct {
-	Arn            string `json:"arn" xml:"Arn"`
-	LocalMountPath string `json:"localMountPath" xml:"LocalMountPath"`
+	Arn            string         `json:"arn" xml:"Arn"`
+	LocalMountPath string         `json:"localMountPath" xml:"LocalMountPath"`
+	S3FilesConfig  *S3FilesConfig `json:"s3FilesConfig" xml:"S3FilesConfig"`
 }
 
 type Filter struct {
@@ -596,20 +617,28 @@ type FilterCriteriaError struct {
 }
 
 type FunctionCode struct {
-	ImageUri        string `json:"imageUri" xml:"ImageUri"`
-	S3Bucket        string `json:"s3Bucket" xml:"S3Bucket"`
-	S3Key           string `json:"s3Key" xml:"S3Key"`
-	S3ObjectVersion string `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
-	SourceKMSKeyArn string `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
-	ZipFile         []byte `json:"zipFile" xml:"ZipFile"`
+	ImageUri            string `json:"imageUri" xml:"ImageUri"`
+	S3Bucket            string `json:"s3Bucket" xml:"S3Bucket"`
+	S3Key               string `json:"s3Key" xml:"S3Key"`
+	S3ObjectStorageMode string `json:"s3ObjectStorageMode" xml:"S3ObjectStorageMode"`
+	S3ObjectVersion     string `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
+	SourceKMSKeyArn     string `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
+	ZipFile             []byte `json:"zipFile" xml:"ZipFile"`
 }
 
 type FunctionCodeLocation struct {
-	ImageUri         string `json:"imageUri" xml:"ImageUri"`
-	Location         string `json:"location" xml:"Location"`
-	RepositoryType   string `json:"repositoryType" xml:"RepositoryType"`
-	ResolvedImageUri string `json:"resolvedImageUri" xml:"ResolvedImageUri"`
-	SourceKMSKeyArn  string `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
+	Error            *FunctionCodeLocationError `json:"error" xml:"Error"`
+	ImageUri         string                     `json:"imageUri" xml:"ImageUri"`
+	Location         string                     `json:"location" xml:"Location"`
+	RepositoryType   string                     `json:"repositoryType" xml:"RepositoryType"`
+	ResolvedImageUri string                     `json:"resolvedImageUri" xml:"ResolvedImageUri"`
+	ResolvedS3Object *ResolvedS3Object          `json:"resolvedS3Object" xml:"ResolvedS3Object"`
+	SourceKMSKeyArn  string                     `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
+}
+
+type FunctionCodeLocationError struct {
+	ErrorCode string `json:"errorCode" xml:"ErrorCode"`
+	Message   string `json:"message" xml:"Message"`
 }
 
 type FunctionConfiguration struct {
@@ -726,21 +755,24 @@ type GetDurableExecutionHistoryResponse struct {
 }
 
 type GetDurableExecutionRequest struct {
-	DurableExecutionArn string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+	DurableExecutionArn  string `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+	IncludeExecutionData bool   `json:"includeExecutionData" xml:"IncludeExecutionData"`
 }
 
 type GetDurableExecutionResponse struct {
-	DurableExecutionArn  string       `json:"durableExecutionArn" xml:"DurableExecutionArn"`
-	DurableExecutionName string       `json:"durableExecutionName" xml:"DurableExecutionName"`
-	EndTimestamp         time.Time    `json:"endTimestamp" xml:"EndTimestamp"`
-	Error                *ErrorObject `json:"error" xml:"Error"`
-	FunctionArn          string       `json:"functionArn" xml:"FunctionArn"`
-	InputPayload         string       `json:"inputPayload" xml:"InputPayload"`
-	Result               string       `json:"result" xml:"Result"`
-	StartTimestamp       time.Time    `json:"startTimestamp" xml:"StartTimestamp"`
-	Status               string       `json:"status" xml:"Status"`
-	TraceHeader          *TraceHeader `json:"traceHeader" xml:"TraceHeader"`
-	Version              string       `json:"version" xml:"Version"`
+	DurableConfig         *DurableConfig `json:"durableConfig" xml:"DurableConfig"`
+	DurableExecutionArn   string         `json:"durableExecutionArn" xml:"DurableExecutionArn"`
+	DurableExecutionName  string         `json:"durableExecutionName" xml:"DurableExecutionName"`
+	EndTimestamp          time.Time      `json:"endTimestamp" xml:"EndTimestamp"`
+	Error                 *ErrorObject   `json:"error" xml:"Error"`
+	ExecutionDataIncluded bool           `json:"executionDataIncluded" xml:"ExecutionDataIncluded"`
+	FunctionArn           string         `json:"functionArn" xml:"FunctionArn"`
+	InputPayload          string         `json:"inputPayload" xml:"InputPayload"`
+	Result                string         `json:"result" xml:"Result"`
+	StartTimestamp        time.Time      `json:"startTimestamp" xml:"StartTimestamp"`
+	Status                string         `json:"status" xml:"Status"`
+	TraceHeader           *TraceHeader   `json:"traceHeader" xml:"TraceHeader"`
+	Version               string         `json:"version" xml:"Version"`
 }
 
 type GetDurableExecutionStateRequest struct {
@@ -888,6 +920,15 @@ type GetProvisionedConcurrencyConfigResponse struct {
 	StatusReason                             string `json:"statusReason" xml:"StatusReason"`
 }
 
+type GetResourcePolicyRequest struct {
+	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+}
+
+type GetResourcePolicyResponse struct {
+	Policy     string `json:"policy" xml:"Policy"`
+	RevisionId string `json:"revisionId" xml:"RevisionId"`
+}
+
 type GetRuntimeManagementConfigRequest struct {
 	FunctionName string `json:"functionName" xml:"FunctionName"`
 	Qualifier    string `json:"qualifier" xml:"Qualifier"`
@@ -1014,18 +1055,20 @@ type Layer struct {
 }
 
 type LayerVersionContentInput struct {
-	S3Bucket        string `json:"s3Bucket" xml:"S3Bucket"`
-	S3Key           string `json:"s3Key" xml:"S3Key"`
-	S3ObjectVersion string `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
-	ZipFile         []byte `json:"zipFile" xml:"ZipFile"`
+	S3Bucket            string `json:"s3Bucket" xml:"S3Bucket"`
+	S3Key               string `json:"s3Key" xml:"S3Key"`
+	S3ObjectStorageMode string `json:"s3ObjectStorageMode" xml:"S3ObjectStorageMode"`
+	S3ObjectVersion     string `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
+	ZipFile             []byte `json:"zipFile" xml:"ZipFile"`
 }
 
 type LayerVersionContentOutput struct {
-	CodeSha256               string `json:"codeSha256" xml:"CodeSha256"`
-	CodeSize                 int64  `json:"codeSize" xml:"CodeSize"`
-	Location                 string `json:"location" xml:"Location"`
-	SigningJobArn            string `json:"signingJobArn" xml:"SigningJobArn"`
-	SigningProfileVersionArn string `json:"signingProfileVersionArn" xml:"SigningProfileVersionArn"`
+	CodeSha256               string            `json:"codeSha256" xml:"CodeSha256"`
+	CodeSize                 int64             `json:"codeSize" xml:"CodeSize"`
+	Location                 string            `json:"location" xml:"Location"`
+	ResolvedS3Object         *ResolvedS3Object `json:"resolvedS3Object" xml:"ResolvedS3Object"`
+	SigningJobArn            string            `json:"signingJobArn" xml:"SigningJobArn"`
+	SigningProfileVersionArn string            `json:"signingProfileVersionArn" xml:"SigningProfileVersionArn"`
 }
 
 type LayerVersionsListItem struct {
@@ -1266,6 +1309,11 @@ type OperationUpdate struct {
 	WaitOptions          *WaitOptions          `json:"waitOptions" xml:"WaitOptions"`
 }
 
+type PropagateTags struct {
+	ExplicitTags Tags   `json:"explicitTags" xml:"ExplicitTags"`
+	Mode         string `json:"mode" xml:"Mode"`
+}
+
 type ProvisionedConcurrencyConfigListItem struct {
 	AllocatedProvisionedConcurrentExecutions int32  `json:"allocatedProvisionedConcurrentExecutions" xml:"AllocatedProvisionedConcurrentExecutions"`
 	AvailableProvisionedConcurrentExecutions int32  `json:"availableProvisionedConcurrentExecutions" xml:"AvailableProvisionedConcurrentExecutions"`
@@ -1368,6 +1416,17 @@ type PutProvisionedConcurrencyConfigResponse struct {
 	StatusReason                             string `json:"statusReason" xml:"StatusReason"`
 }
 
+type PutResourcePolicyRequest struct {
+	Policy      string `json:"policy" xml:"Policy"`
+	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+	RevisionId  string `json:"revisionId" xml:"RevisionId"`
+}
+
+type PutResourcePolicyResponse struct {
+	Policy     string `json:"policy" xml:"Policy"`
+	RevisionId string `json:"revisionId" xml:"RevisionId"`
+}
+
 type PutRuntimeManagementConfigRequest struct {
 	FunctionName      string `json:"functionName" xml:"FunctionName"`
 	Qualifier         string `json:"qualifier" xml:"Qualifier"`
@@ -1395,6 +1454,12 @@ type RemovePermissionRequest struct {
 	StatementId  string `json:"statementId" xml:"StatementId"`
 }
 
+type ResolvedS3Object struct {
+	S3Bucket        string `json:"s3Bucket" xml:"S3Bucket"`
+	S3Key           string `json:"s3Key" xml:"S3Key"`
+	S3ObjectVersion string `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
+}
+
 type RetryDetails struct {
 	CurrentAttempt          int32 `json:"currentAttempt" xml:"CurrentAttempt"`
 	NextAttemptDelaySeconds int32 `json:"nextAttemptDelaySeconds" xml:"NextAttemptDelaySeconds"`
@@ -1408,6 +1473,10 @@ type RuntimeVersionConfig struct {
 type RuntimeVersionError struct {
 	ErrorCode string `json:"errorCode" xml:"ErrorCode"`
 	Message   string `json:"message" xml:"Message"`
+}
+
+type S3FilesConfig struct {
+	DirectS3Read string `json:"directS3Read" xml:"DirectS3Read"`
 }
 
 type ScalingConfig struct {
@@ -1542,8 +1611,10 @@ type UpdateAliasRequest struct {
 }
 
 type UpdateCapacityProviderRequest struct {
-	CapacityProviderName          string                         `json:"capacityProviderName" xml:"CapacityProviderName"`
-	CapacityProviderScalingConfig *CapacityProviderScalingConfig `json:"capacityProviderScalingConfig" xml:"CapacityProviderScalingConfig"`
+	CapacityProviderName          string                           `json:"capacityProviderName" xml:"CapacityProviderName"`
+	CapacityProviderScalingConfig *CapacityProviderScalingConfig   `json:"capacityProviderScalingConfig" xml:"CapacityProviderScalingConfig"`
+	PropagateTags                 *PropagateTags                   `json:"propagateTags" xml:"PropagateTags"`
+	TelemetryConfig               *CapacityProviderTelemetryConfig `json:"telemetryConfig" xml:"TelemetryConfig"`
 }
 
 type UpdateCapacityProviderResponse struct {
@@ -1587,18 +1658,19 @@ type UpdateEventSourceMappingRequest struct {
 }
 
 type UpdateFunctionCodeRequest struct {
-	Architectures   ArchitecturesList `json:"architectures" xml:"Architectures"`
-	DryRun          bool              `json:"dryRun" xml:"DryRun"`
-	FunctionName    string            `json:"functionName" xml:"FunctionName"`
-	ImageUri        string            `json:"imageUri" xml:"ImageUri"`
-	Publish         bool              `json:"publish" xml:"Publish"`
-	PublishTo       string            `json:"publishTo" xml:"PublishTo"`
-	RevisionId      string            `json:"revisionId" xml:"RevisionId"`
-	S3Bucket        string            `json:"s3Bucket" xml:"S3Bucket"`
-	S3Key           string            `json:"s3Key" xml:"S3Key"`
-	S3ObjectVersion string            `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
-	SourceKMSKeyArn string            `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
-	ZipFile         []byte            `json:"zipFile" xml:"ZipFile"`
+	Architectures       ArchitecturesList `json:"architectures" xml:"Architectures"`
+	DryRun              bool              `json:"dryRun" xml:"DryRun"`
+	FunctionName        string            `json:"functionName" xml:"FunctionName"`
+	ImageUri            string            `json:"imageUri" xml:"ImageUri"`
+	Publish             bool              `json:"publish" xml:"Publish"`
+	PublishTo           string            `json:"publishTo" xml:"PublishTo"`
+	RevisionId          string            `json:"revisionId" xml:"RevisionId"`
+	S3Bucket            string            `json:"s3Bucket" xml:"S3Bucket"`
+	S3Key               string            `json:"s3Key" xml:"S3Key"`
+	S3ObjectStorageMode string            `json:"s3ObjectStorageMode" xml:"S3ObjectStorageMode"`
+	S3ObjectVersion     string            `json:"s3ObjectVersion" xml:"S3ObjectVersion"`
+	SourceKMSKeyArn     string            `json:"sourceKMSKeyArn" xml:"SourceKMSKeyArn"`
+	ZipFile             []byte            `json:"zipFile" xml:"ZipFile"`
 }
 
 type UpdateFunctionConfigurationRequest struct {

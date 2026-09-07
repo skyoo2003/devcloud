@@ -43,6 +43,10 @@ func (b *BaseProvider) DeleteConformancePack(ctx context.Context, input *DeleteC
 	return nil, fmt.Errorf("DeleteConformancePack: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteConnector(ctx context.Context, input *DeleteConnectorRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteConnector: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteDeliveryChannel(ctx context.Context, input *DeleteDeliveryChannelRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeleteDeliveryChannel: %w", ErrNotImplemented)
 }
@@ -239,6 +243,10 @@ func (b *BaseProvider) GetConformancePackComplianceSummary(ctx context.Context, 
 	return nil, fmt.Errorf("GetConformancePackComplianceSummary: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetConnector(ctx context.Context, input *GetConnectorRequest) (*GetConnectorResponse, error) {
+	return nil, fmt.Errorf("GetConnector: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetCustomRulePolicy(ctx context.Context, input *GetCustomRulePolicyRequest) (*GetCustomRulePolicyResponse, error) {
 	return nil, fmt.Errorf("GetCustomRulePolicy: %w", ErrNotImplemented)
 }
@@ -283,6 +291,10 @@ func (b *BaseProvider) ListConformancePackComplianceScores(ctx context.Context, 
 	return nil, fmt.Errorf("ListConformancePackComplianceScores: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListConnectors(ctx context.Context, input *ListConnectorsRequest) (*ListConnectorsResponse, error) {
+	return nil, fmt.Errorf("ListConnectors: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListDiscoveredResources(ctx context.Context, input *ListDiscoveredResourcesRequest) (*ListDiscoveredResourcesResponse, error) {
 	return nil, fmt.Errorf("ListDiscoveredResources: %w", ErrNotImplemented)
 }
@@ -317,6 +329,10 @@ func (b *BaseProvider) PutConfigurationRecorder(ctx context.Context, input *PutC
 
 func (b *BaseProvider) PutConformancePack(ctx context.Context, input *PutConformancePackRequest) (*PutConformancePackResponse, error) {
 	return nil, fmt.Errorf("PutConformancePack: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutConnector(ctx context.Context, input *PutConnectorRequest) (*PutConnectorResponse, error) {
+	return nil, fmt.Errorf("PutConnector: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) PutDeliveryChannel(ctx context.Context, input *PutDeliveryChannelRequest) (*SmithyUnit, error) {
@@ -361,6 +377,10 @@ func (b *BaseProvider) PutServiceLinkedConfigurationRecorder(ctx context.Context
 
 func (b *BaseProvider) PutStoredQuery(ctx context.Context, input *PutStoredQueryRequest) (*PutStoredQueryResponse, error) {
 	return nil, fmt.Errorf("PutStoredQuery: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutThirdPartyServiceLinkedConfigurationRecorder(ctx context.Context, input *PutThirdPartyServiceLinkedConfigurationRecorderRequest) (*PutThirdPartyServiceLinkedConfigurationRecorderResponse, error) {
+	return nil, fmt.Errorf("PutThirdPartyServiceLinkedConfigurationRecorder: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) SelectAggregateResourceConfig(ctx context.Context, input *SelectAggregateResourceConfigRequest) (*SelectAggregateResourceConfigResponse, error) {

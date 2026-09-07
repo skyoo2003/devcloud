@@ -115,6 +115,14 @@ func (b *BaseProvider) GetPersistentAppUIPresignedURL(ctx context.Context, input
 	return nil, fmt.Errorf("GetPersistentAppUIPresignedURL: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetSession(ctx context.Context, input *GetSessionInput) (*GetSessionOutput, error) {
+	return nil, fmt.Errorf("GetSession: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetSessionEndpoint(ctx context.Context, input *GetSessionEndpointInput) (*GetSessionEndpointOutput, error) {
+	return nil, fmt.Errorf("GetSessionEndpoint: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetStudioSessionMapping(ctx context.Context, input *GetStudioSessionMappingInput) (*GetStudioSessionMappingOutput, error) {
 	return nil, fmt.Errorf("GetStudioSessionMapping: %w", ErrNotImplemented)
 }
@@ -149,6 +157,10 @@ func (b *BaseProvider) ListReleaseLabels(ctx context.Context, input *ListRelease
 
 func (b *BaseProvider) ListSecurityConfigurations(ctx context.Context, input *ListSecurityConfigurationsInput) (*ListSecurityConfigurationsOutput, error) {
 	return nil, fmt.Errorf("ListSecurityConfigurations: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListSessions(ctx context.Context, input *ListSessionsInput) (*ListSessionsOutput, error) {
+	return nil, fmt.Errorf("ListSessions: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListSteps(ctx context.Context, input *ListStepsInput) (*ListStepsOutput, error) {
@@ -235,12 +247,20 @@ func (b *BaseProvider) StartNotebookExecution(ctx context.Context, input *StartN
 	return nil, fmt.Errorf("StartNotebookExecution: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) StartSession(ctx context.Context, input *StartSessionInput) (*StartSessionOutput, error) {
+	return nil, fmt.Errorf("StartSession: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) StopNotebookExecution(ctx context.Context, input *StopNotebookExecutionInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("StopNotebookExecution: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) TerminateJobFlows(ctx context.Context, input *TerminateJobFlowsInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("TerminateJobFlows: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) TerminateSession(ctx context.Context, input *TerminateSessionInput) (*TerminateSessionOutput, error) {
+	return nil, fmt.Errorf("TerminateSession: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateStudio(ctx context.Context, input *UpdateStudioInput) (*SmithyUnit, error) {

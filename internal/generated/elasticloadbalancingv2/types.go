@@ -809,7 +809,8 @@ type SetSubnetsOutput struct {
 }
 
 type SourceIpConditionConfig struct {
-	Values ListOfString `json:"values" xml:"Values"`
+	IpAddressType string       `json:"ipAddressType" xml:"IpAddressType"`
+	Values        ListOfString `json:"values" xml:"Values"`
 }
 
 type SslPolicy struct {

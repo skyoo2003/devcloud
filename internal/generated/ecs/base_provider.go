@@ -11,6 +11,10 @@ var ErrNotImplemented = fmt.Errorf("operation not implemented")
 
 type BaseProvider struct{}
 
+func (b *BaseProvider) ContinueServiceDeployment(ctx context.Context, input *ContinueServiceDeploymentRequest) (*ContinueServiceDeploymentResponse, error) {
+	return nil, fmt.Errorf("ContinueServiceDeployment: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateCapacityProvider(ctx context.Context, input *CreateCapacityProviderRequest) (*CreateCapacityProviderResponse, error) {
 	return nil, fmt.Errorf("CreateCapacityProvider: %w", ErrNotImplemented)
 }

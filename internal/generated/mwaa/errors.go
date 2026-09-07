@@ -89,6 +89,23 @@ func (e *RestApiServerException) HTTPStatus() int {
 	return 400
 }
 
+// ServiceUnavailableException is returned with HTTP status 503.
+type ServiceUnavailableException struct {
+	Message string
+}
+
+func (e *ServiceUnavailableException) Error() string {
+	return fmt.Sprintf("ServiceUnavailableException: %s", e.Message)
+}
+
+func (e *ServiceUnavailableException) ErrorCode() string {
+	return "ServiceUnavailableException"
+}
+
+func (e *ServiceUnavailableException) HTTPStatus() int {
+	return 503
+}
+
 // ValidationException is returned with HTTP status 400.
 type ValidationException struct {
 	Message string

@@ -187,6 +187,10 @@ func (b *BaseProvider) Scan(ctx context.Context, input *ScanInput) (*ScanOutput,
 	return nil, fmt.Errorf("Scan: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) SearchVectors(ctx context.Context, input *SearchVectorsInput) (*SearchVectorsOutput, error) {
+	return nil, fmt.Errorf("SearchVectors: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) TagResource(ctx context.Context, input *TagResourceInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("TagResource: %w", ErrNotImplemented)
 }

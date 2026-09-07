@@ -89,6 +89,35 @@ type ApplyMapping struct {
 	Name    string   `json:"name" xml:"Name"`
 }
 
+type AssetFormEntry struct {
+	Content    string `json:"content" xml:"Content"`
+	FormTypeId string `json:"formTypeId" xml:"FormTypeId"`
+}
+
+type AssetTypeFormReference struct {
+	FormTypeIdentifier string `json:"formTypeIdentifier" xml:"FormTypeIdentifier"`
+}
+
+type AssetTypeItem struct {
+	Id   string `json:"id" xml:"Id"`
+	Name string `json:"name" xml:"Name"`
+}
+
+type AssociateGlossaryTermsRequest struct {
+	AssetIdentifier         string             `json:"assetIdentifier" xml:"AssetIdentifier"`
+	ClientToken             string             `json:"clientToken" xml:"ClientToken"`
+	GlossaryTermIdentifiers GlossaryTermIdList `json:"glossaryTermIdentifiers" xml:"GlossaryTermIdentifiers"`
+	ItemIdentifier          string             `json:"itemIdentifier" xml:"ItemIdentifier"`
+	IterableFormName        string             `json:"iterableFormName" xml:"IterableFormName"`
+}
+
+type AssociateGlossaryTermsResponse struct {
+	AssetIdentifier  string             `json:"assetIdentifier" xml:"AssetIdentifier"`
+	GlossaryTerms    GlossaryTermIdList `json:"glossaryTerms" xml:"GlossaryTerms"`
+	ItemIdentifier   string             `json:"itemIdentifier" xml:"ItemIdentifier"`
+	IterableFormName string             `json:"iterableFormName" xml:"IterableFormName"`
+}
+
 type AthenaConnectorSource struct {
 	ConnectionName  string      `json:"connectionName" xml:"ConnectionName"`
 	ConnectionTable string      `json:"connectionTable" xml:"ConnectionTable"`
@@ -254,6 +283,15 @@ type BatchGetDataQualityResultResponse struct {
 	ResultsNotFound DataQualityResultIds   `json:"resultsNotFound" xml:"ResultsNotFound"`
 }
 
+type BatchGetDataQualityRulesetEvaluationRunRequest struct {
+	RunIds DataQualityRulesetEvaluationRunIdList `json:"runIds" xml:"RunIds"`
+}
+
+type BatchGetDataQualityRulesetEvaluationRunResponse struct {
+	Runs         DataQualityRulesetEvaluationRunsList  `json:"runs" xml:"Runs"`
+	RunsNotFound DataQualityRulesetEvaluationRunIdList `json:"runsNotFound" xml:"RunsNotFound"`
+}
+
 type BatchGetDevEndpointsRequest struct {
 	DevEndpointNames DevEndpointNames `json:"devEndpointNames" xml:"DevEndpointNames"`
 }
@@ -261,6 +299,17 @@ type BatchGetDevEndpointsRequest struct {
 type BatchGetDevEndpointsResponse struct {
 	DevEndpoints         DevEndpointList  `json:"devEndpoints" xml:"DevEndpoints"`
 	DevEndpointsNotFound DevEndpointNames `json:"devEndpointsNotFound" xml:"DevEndpointsNotFound"`
+}
+
+type BatchGetIterableFormsRequest struct {
+	AssetIdentifier  string             `json:"assetIdentifier" xml:"AssetIdentifier"`
+	ItemIdentifiers  ItemIdentifierList `json:"itemIdentifiers" xml:"ItemIdentifiers"`
+	IterableFormName string             `json:"iterableFormName" xml:"IterableFormName"`
+}
+
+type BatchGetIterableFormsResponse struct {
+	Errors ItemErrorList        `json:"errors" xml:"Errors"`
+	Items  IterableFormItemList `json:"items" xml:"Items"`
 }
 
 type BatchGetJobsRequest struct {
@@ -385,6 +434,12 @@ type BatchUpdatePartitionRequestEntry struct {
 
 type BatchUpdatePartitionResponse struct {
 	Errors BatchUpdatePartitionFailureList `json:"errors" xml:"Errors"`
+}
+
+type BetweenConfiguration struct {
+	HighBoundKey string `json:"highBoundKey" xml:"HighBoundKey"`
+	LowBoundKey  string `json:"lowBoundKey" xml:"LowBoundKey"`
+	Template     string `json:"template" xml:"Template"`
 }
 
 type BinaryColumnStatisticsData struct {
@@ -576,6 +631,13 @@ type CatalogSource struct {
 	OutputSchemas      GlueSchemas `json:"outputSchemas" xml:"OutputSchemas"`
 	PartitionPredicate string      `json:"partitionPredicate" xml:"PartitionPredicate"`
 	Table              string      `json:"table" xml:"Table"`
+}
+
+type CatalogTableConfigOptions struct {
+	CatalogId    string `json:"catalogId" xml:"CatalogId"`
+	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
+	S3Location   string `json:"s3Location" xml:"S3Location"`
+	TableName    string `json:"tableName" xml:"TableName"`
 }
 
 type CatalogTarget struct {
@@ -961,6 +1023,7 @@ type ConnectorOAuth2Properties struct {
 type ConnectorProperty struct {
 	AllowedValues    ListOfString `json:"allowedValues" xml:"AllowedValues"`
 	DefaultValue     string       `json:"defaultValue" xml:"DefaultValue"`
+	Format           string       `json:"format" xml:"Format"`
 	KeyOverride      string       `json:"keyOverride" xml:"KeyOverride"`
 	Name             string       `json:"name" xml:"Name"`
 	PropertyLocation string       `json:"propertyLocation" xml:"PropertyLocation"`
@@ -1208,6 +1271,34 @@ type CreateDevEndpointResponse struct {
 	ZeppelinRemoteSparkInterpreterPort int32      `json:"zeppelinRemoteSparkInterpreterPort" xml:"ZeppelinRemoteSparkInterpreterPort"`
 }
 
+type CreateGlossaryRequest struct {
+	ClientToken string `json:"clientToken" xml:"ClientToken"`
+	Description string `json:"description" xml:"Description"`
+	Name        string `json:"name" xml:"Name"`
+}
+
+type CreateGlossaryResponse struct {
+	Description string `json:"description" xml:"Description"`
+	Id          string `json:"id" xml:"Id"`
+	Name        string `json:"name" xml:"Name"`
+}
+
+type CreateGlossaryTermRequest struct {
+	ClientToken        string `json:"clientToken" xml:"ClientToken"`
+	GlossaryIdentifier string `json:"glossaryIdentifier" xml:"GlossaryIdentifier"`
+	LongDescription    string `json:"longDescription" xml:"LongDescription"`
+	Name               string `json:"name" xml:"Name"`
+	ShortDescription   string `json:"shortDescription" xml:"ShortDescription"`
+}
+
+type CreateGlossaryTermResponse struct {
+	GlossaryId       string `json:"glossaryId" xml:"GlossaryId"`
+	Id               string `json:"id" xml:"Id"`
+	LongDescription  string `json:"longDescription" xml:"LongDescription"`
+	Name             string `json:"name" xml:"Name"`
+	ShortDescription string `json:"shortDescription" xml:"ShortDescription"`
+}
+
 type CreateGlueIdentityCenterConfigurationRequest struct {
 	InstanceArn                   string                   `json:"instanceArn" xml:"InstanceArn"`
 	Scopes                        IdentityCenterScopesList `json:"scopes" xml:"Scopes"`
@@ -1436,6 +1527,7 @@ type CreateSessionRequest struct {
 	RequestOrigin         string                    `json:"requestOrigin" xml:"RequestOrigin"`
 	Role                  string                    `json:"role" xml:"Role"`
 	SecurityConfiguration string                    `json:"securityConfiguration" xml:"SecurityConfiguration"`
+	SessionType           string                    `json:"sessionType" xml:"SessionType"`
 	Tags                  TagsMap                   `json:"tags" xml:"Tags"`
 	Timeout               int32                     `json:"timeout" xml:"Timeout"`
 	WorkerType            string                    `json:"workerType" xml:"WorkerType"`
@@ -1626,10 +1718,11 @@ type DataQualityAggregatedMetrics struct {
 }
 
 type DataQualityAnalyzerResult struct {
-	Description       string              `json:"description" xml:"Description"`
-	EvaluatedMetrics  EvaluatedMetricsMap `json:"evaluatedMetrics" xml:"EvaluatedMetrics"`
-	EvaluationMessage string              `json:"evaluationMessage" xml:"EvaluationMessage"`
-	Name              string              `json:"name" xml:"Name"`
+	Description            string                    `json:"description" xml:"Description"`
+	EvaluatedDistributions EvaluatedDistributionsMap `json:"evaluatedDistributions" xml:"EvaluatedDistributions"`
+	EvaluatedMetrics       EvaluatedMetricsMap       `json:"evaluatedMetrics" xml:"EvaluatedMetrics"`
+	EvaluationMessage      string                    `json:"evaluationMessage" xml:"EvaluationMessage"`
+	Name                   string                    `json:"name" xml:"Name"`
 }
 
 type DataQualityEncryption struct {
@@ -1638,9 +1731,16 @@ type DataQualityEncryption struct {
 }
 
 type DataQualityEvaluationRunAdditionalRunOptions struct {
-	CloudWatchMetricsEnabled      bool   `json:"cloudWatchMetricsEnabled" xml:"CloudWatchMetricsEnabled"`
-	CompositeRuleEvaluationMethod string `json:"compositeRuleEvaluationMethod" xml:"CompositeRuleEvaluationMethod"`
-	ResultsS3Prefix               string `json:"resultsS3Prefix" xml:"ResultsS3Prefix"`
+	CloudWatchMetricsEnabled      bool                           `json:"cloudWatchMetricsEnabled" xml:"CloudWatchMetricsEnabled"`
+	CompositeRuleEvaluationMethod string                         `json:"compositeRuleEvaluationMethod" xml:"CompositeRuleEvaluationMethod"`
+	CustomLogGroupPrefix          string                         `json:"customLogGroupPrefix" xml:"CustomLogGroupPrefix"`
+	DataQualityRuleResults        *DataQualityRuleResultsOptions `json:"dataQualityRuleResults" xml:"DataQualityRuleResults"`
+	ObservationMode               string                         `json:"observationMode" xml:"ObservationMode"`
+	ObservationResults            *ObservationResultsOptions     `json:"observationResults" xml:"ObservationResults"`
+	ObservationScope              string                         `json:"observationScope" xml:"ObservationScope"`
+	ProfilingResults              *ProfilingResultsOptions       `json:"profilingResults" xml:"ProfilingResults"`
+	ResultsS3Prefix               string                         `json:"resultsS3Prefix" xml:"ResultsS3Prefix"`
+	RowLevelResults               *RowLevelResultsOptions        `json:"rowLevelResults" xml:"RowLevelResults"`
 }
 
 type DataQualityGlueTable struct {
@@ -1698,11 +1798,16 @@ type DataQualityResultFilterCriteria struct {
 	StartedBefore time.Time   `json:"startedBefore" xml:"StartedBefore"`
 }
 
+type DataQualityRuleRecommendationRunAdditionalRunOptions struct {
+	CustomLogGroupPrefix string `json:"customLogGroupPrefix" xml:"CustomLogGroupPrefix"`
+}
+
 type DataQualityRuleRecommendationRunDescription struct {
-	DataSource *DataSource `json:"dataSource" xml:"DataSource"`
-	RunId      string      `json:"runId" xml:"RunId"`
-	StartedOn  time.Time   `json:"startedOn" xml:"StartedOn"`
-	Status     string      `json:"status" xml:"Status"`
+	CreatedRulesetName string      `json:"createdRulesetName" xml:"CreatedRulesetName"`
+	DataSource         *DataSource `json:"dataSource" xml:"DataSource"`
+	RunId              string      `json:"runId" xml:"RunId"`
+	StartedOn          time.Time   `json:"startedOn" xml:"StartedOn"`
+	Status             string      `json:"status" xml:"Status"`
 }
 
 type DataQualityRuleRecommendationRunFilter struct {
@@ -1722,6 +1827,29 @@ type DataQualityRuleResult struct {
 	RuleMetrics       RuleMetricsMap      `json:"ruleMetrics" xml:"RuleMetrics"`
 }
 
+type DataQualityRuleResultsOptions struct {
+	CatalogTableConfig                 *CatalogTableConfigOptions `json:"catalogTableConfig" xml:"CatalogTableConfig"`
+	WriteDataQualityRuleResultsEnabled bool                       `json:"writeDataQualityRuleResultsEnabled" xml:"WriteDataQualityRuleResultsEnabled"`
+}
+
+type DataQualityRulesetEvaluationRun struct {
+	AdditionalDataSources DataSourceMap                                 `json:"additionalDataSources" xml:"AdditionalDataSources"`
+	AdditionalRunOptions  *DataQualityEvaluationRunAdditionalRunOptions `json:"additionalRunOptions" xml:"AdditionalRunOptions"`
+	CompletedOn           time.Time                                     `json:"completedOn" xml:"CompletedOn"`
+	DataSource            *DataSource                                   `json:"dataSource" xml:"DataSource"`
+	ErrorString           string                                        `json:"errorString" xml:"ErrorString"`
+	ExecutionTime         int32                                         `json:"executionTime" xml:"ExecutionTime"`
+	LastModifiedOn        time.Time                                     `json:"lastModifiedOn" xml:"LastModifiedOn"`
+	NumberOfWorkers       int32                                         `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+	ResultIds             DataQualityResultIdList                       `json:"resultIds" xml:"ResultIds"`
+	Role                  string                                        `json:"role" xml:"Role"`
+	RulesetNames          RulesetNames                                  `json:"rulesetNames" xml:"RulesetNames"`
+	RunId                 string                                        `json:"runId" xml:"RunId"`
+	StartedOn             time.Time                                     `json:"startedOn" xml:"StartedOn"`
+	Status                string                                        `json:"status" xml:"Status"`
+	Timeout               int32                                         `json:"timeout" xml:"Timeout"`
+}
+
 type DataQualityRulesetEvaluationRunDescription struct {
 	DataSource *DataSource `json:"dataSource" xml:"DataSource"`
 	RunId      string      `json:"runId" xml:"RunId"`
@@ -1731,6 +1859,7 @@ type DataQualityRulesetEvaluationRunDescription struct {
 
 type DataQualityRulesetEvaluationRunFilter struct {
 	DataSource    *DataSource `json:"dataSource" xml:"DataSource"`
+	RulesetName   string      `json:"rulesetName" xml:"RulesetName"`
 	StartedAfter  time.Time   `json:"startedAfter" xml:"StartedAfter"`
 	StartedBefore time.Time   `json:"startedBefore" xml:"StartedBefore"`
 }
@@ -1822,6 +1951,33 @@ type DecimalColumnStatisticsData struct {
 type DecimalNumber struct {
 	Scale         int32  `json:"scale" xml:"Scale"`
 	UnscaledValue []byte `json:"unscaledValue" xml:"UnscaledValue"`
+}
+
+type DeleteAssetRequest struct {
+	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type DeleteAssetResponse struct {
+}
+
+type DeleteAssetTypeRequest struct {
+	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type DeleteAssetTypeResponse struct {
+}
+
+type DeleteAttachmentRequest struct {
+	AssetIdentifier  string `json:"assetIdentifier" xml:"AssetIdentifier"`
+	AttachmentName   string `json:"attachmentName" xml:"AttachmentName"`
+	ItemIdentifier   string `json:"itemIdentifier" xml:"ItemIdentifier"`
+	IterableFormName string `json:"iterableFormName" xml:"IterableFormName"`
+}
+
+type DeleteAttachmentResponse struct {
+	AssetIdentifier  string `json:"assetIdentifier" xml:"AssetIdentifier"`
+	ItemIdentifier   string `json:"itemIdentifier" xml:"ItemIdentifier"`
+	IterableFormName string `json:"iterableFormName" xml:"IterableFormName"`
 }
 
 type DeleteBlueprintRequest struct {
@@ -1925,6 +2081,27 @@ type DeleteDevEndpointRequest struct {
 }
 
 type DeleteDevEndpointResponse struct {
+}
+
+type DeleteFormTypeRequest struct {
+	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type DeleteFormTypeResponse struct {
+}
+
+type DeleteGlossaryRequest struct {
+	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type DeleteGlossaryResponse struct {
+}
+
+type DeleteGlossaryTermRequest struct {
+	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type DeleteGlossaryTermResponse struct {
 }
 
 type DeleteGlueIdentityCenterConfigurationRequest struct {
@@ -2247,6 +2424,32 @@ type DirectSchemaChangePolicy struct {
 	UpdateBehavior      string `json:"updateBehavior" xml:"UpdateBehavior"`
 }
 
+type DisassociateGlossaryTermsRequest struct {
+	AssetIdentifier         string             `json:"assetIdentifier" xml:"AssetIdentifier"`
+	ClientToken             string             `json:"clientToken" xml:"ClientToken"`
+	GlossaryTermIdentifiers GlossaryTermIdList `json:"glossaryTermIdentifiers" xml:"GlossaryTermIdentifiers"`
+	ItemIdentifier          string             `json:"itemIdentifier" xml:"ItemIdentifier"`
+	IterableFormName        string             `json:"iterableFormName" xml:"IterableFormName"`
+}
+
+type DisassociateGlossaryTermsResponse struct {
+	AssetIdentifier  string             `json:"assetIdentifier" xml:"AssetIdentifier"`
+	GlossaryTerms    GlossaryTermIdList `json:"glossaryTerms" xml:"GlossaryTerms"`
+	ItemIdentifier   string             `json:"itemIdentifier" xml:"ItemIdentifier"`
+	IterableFormName string             `json:"iterableFormName" xml:"IterableFormName"`
+}
+
+type DistributionData struct {
+	BinEdges BinEdges `json:"binEdges" xml:"BinEdges"`
+	Count    Count    `json:"count" xml:"Count"`
+	DataType string   `json:"dataType" xml:"DataType"`
+}
+
+type DistributionResultsOptions struct {
+	CatalogTableConfig              *CatalogTableConfigOptions `json:"catalogTableConfig" xml:"CatalogTableConfig"`
+	WriteDistributionResultsEnabled bool                       `json:"writeDistributionResultsEnabled" xml:"WriteDistributionResultsEnabled"`
+}
+
 type DoubleColumnStatisticsData struct {
 	MaximumValue           float64 `json:"maximumValue" xml:"MaximumValue"`
 	MinimumValue           float64 `json:"minimumValue" xml:"MinimumValue"`
@@ -2386,6 +2589,11 @@ type ExecutionProperty struct {
 	MaxConcurrentRuns int32 `json:"maxConcurrentRuns" xml:"MaxConcurrentRuns"`
 }
 
+type ExportEncryptionConfiguration struct {
+	KmsKeyArn    string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+	SseAlgorithm string `json:"sseAlgorithm" xml:"SseAlgorithm"`
+}
+
 type ExportLabelsTaskRunProperties struct {
 	OutputS3Path string `json:"outputS3Path" xml:"OutputS3Path"`
 }
@@ -2438,8 +2646,14 @@ type Field struct {
 }
 
 type FieldDefinition struct {
-	FieldDataType string `json:"fieldDataType" xml:"FieldDataType"`
-	Name          string `json:"name" xml:"Name"`
+	FieldDataType      string           `json:"fieldDataType" xml:"FieldDataType"`
+	FilterOverrides    *FilterOverrides `json:"filterOverrides" xml:"FilterOverrides"`
+	IsNullable         bool             `json:"isNullable" xml:"IsNullable"`
+	IsOrderable        bool             `json:"isOrderable" xml:"IsOrderable"`
+	IsPartitionable    bool             `json:"isPartitionable" xml:"IsPartitionable"`
+	IsQueryable        bool             `json:"isQueryable" xml:"IsQueryable"`
+	Name               string           `json:"name" xml:"Name"`
+	ResponseDateFormat string           `json:"responseDateFormat" xml:"ResponseDateFormat"`
 }
 
 type FillMissingValues struct {
@@ -2456,10 +2670,32 @@ type Filter struct {
 	Name            string            `json:"name" xml:"Name"`
 }
 
+type FilterConfiguration struct {
+	BetweenConfiguration      *BetweenConfiguration       `json:"betweenConfiguration" xml:"BetweenConfiguration"`
+	DateTimeFormat            string                      `json:"dateTimeFormat" xml:"DateTimeFormat"`
+	FilterMode                string                      `json:"filterMode" xml:"FilterMode"`
+	FilterStringConfiguration *FilterStringConfiguration  `json:"filterStringConfiguration" xml:"FilterStringConfiguration"`
+	OperatorMappings          ConnectionStringToStringMap `json:"operatorMappings" xml:"OperatorMappings"`
+	StripQuotes               bool                        `json:"stripQuotes" xml:"StripQuotes"`
+}
+
 type FilterExpression struct {
 	Negated   bool         `json:"negated" xml:"Negated"`
 	Operation string       `json:"operation" xml:"Operation"`
 	Values    FilterValues `json:"values" xml:"Values"`
+}
+
+type FilterOverrides struct {
+	BetweenConfiguration *BetweenConfiguration       `json:"betweenConfiguration" xml:"BetweenConfiguration"`
+	DateTimeFormat       string                      `json:"dateTimeFormat" xml:"DateTimeFormat"`
+	FieldName            string                      `json:"fieldName" xml:"FieldName"`
+	OperatorMappings     ConnectionStringToStringMap `json:"operatorMappings" xml:"OperatorMappings"`
+}
+
+type FilterStringConfiguration struct {
+	QueryParameterName string `json:"queryParameterName" xml:"QueryParameterName"`
+	QuoteCharacter     string `json:"quoteCharacter" xml:"QuoteCharacter"`
+	QuoteStringValues  bool   `json:"quoteStringValues" xml:"QuoteStringValues"`
 }
 
 type FilterValue struct {
@@ -2487,6 +2723,38 @@ type FindMatchesTaskRunProperties struct {
 	JobId    string `json:"jobId" xml:"JobId"`
 	JobName  string `json:"jobName" xml:"JobName"`
 	JobRunId string `json:"jobRunId" xml:"JobRunId"`
+}
+
+type FormTypeItem struct {
+	Id   string `json:"id" xml:"Id"`
+	Name string `json:"name" xml:"Name"`
+}
+
+type GetAssetInput struct {
+	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type GetAssetOutput struct {
+	AssetTypeId   string             `json:"assetTypeId" xml:"AssetTypeId"`
+	Attachments   AssetFormMap       `json:"attachments" xml:"Attachments"`
+	CreatedAt     time.Time          `json:"createdAt" xml:"CreatedAt"`
+	Description   string             `json:"description" xml:"Description"`
+	Forms         AssetFormMap       `json:"forms" xml:"Forms"`
+	GlossaryTerms GlossaryTermIdList `json:"glossaryTerms" xml:"GlossaryTerms"`
+	Id            string             `json:"id" xml:"Id"`
+	IterableForms IterableFormMap    `json:"iterableForms" xml:"IterableForms"`
+	Name          string             `json:"name" xml:"Name"`
+	UpdatedAt     time.Time          `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type GetAssetTypeRequest struct {
+	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type GetAssetTypeResponse struct {
+	Forms AssetTypeFormsMap `json:"forms" xml:"Forms"`
+	Id    string            `json:"id" xml:"Id"`
+	Name  string            `json:"name" xml:"Name"`
 }
 
 type GetBlueprintRequest struct {
@@ -2536,6 +2804,7 @@ type GetCatalogResponse struct {
 }
 
 type GetCatalogsRequest struct {
+	HasDatabases    bool   `json:"hasDatabases" xml:"HasDatabases"`
 	IncludeRoot     bool   `json:"includeRoot" xml:"IncludeRoot"`
 	MaxResults      int32  `json:"maxResults" xml:"MaxResults"`
 	NextToken       string `json:"nextToken" xml:"NextToken"`
@@ -2689,12 +2958,34 @@ type GetCustomEntityTypeResponse struct {
 	RegexString  string       `json:"regexString" xml:"RegexString"`
 }
 
+type GetDashboardUrlRequest struct {
+	RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
+	ResourceId    string `json:"resourceId" xml:"ResourceId"`
+	ResourceType  string `json:"resourceType" xml:"ResourceType"`
+}
+
+type GetDashboardUrlResponse struct {
+	Url string `json:"url" xml:"Url"`
+}
+
 type GetDataCatalogEncryptionSettingsRequest struct {
 	CatalogId string `json:"catalogId" xml:"CatalogId"`
 }
 
 type GetDataCatalogEncryptionSettingsResponse struct {
 	DataCatalogEncryptionSettings *DataCatalogEncryptionSettings `json:"dataCatalogEncryptionSettings" xml:"DataCatalogEncryptionSettings"`
+}
+
+type GetDataCatalogExportConfigurationInput struct {
+}
+
+type GetDataCatalogExportConfigurationOutput struct {
+	CreatedAt               time.Time                      `json:"createdAt" xml:"CreatedAt"`
+	EncryptionConfiguration *ExportEncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	ExportSetting           string                         `json:"exportSetting" xml:"ExportSetting"`
+	S3TableBucketArn        string                         `json:"s3TableBucketArn" xml:"S3TableBucketArn"`
+	Status                  string                         `json:"status" xml:"Status"`
+	UpdatedAt               time.Time                      `json:"updatedAt" xml:"UpdatedAt"`
 }
 
 type GetDataQualityModelRequest struct {
@@ -2746,20 +3037,21 @@ type GetDataQualityRuleRecommendationRunRequest struct {
 }
 
 type GetDataQualityRuleRecommendationRunResponse struct {
-	CompletedOn                      time.Time   `json:"completedOn" xml:"CompletedOn"`
-	CreatedRulesetName               string      `json:"createdRulesetName" xml:"CreatedRulesetName"`
-	DataQualitySecurityConfiguration string      `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
-	DataSource                       *DataSource `json:"dataSource" xml:"DataSource"`
-	ErrorString                      string      `json:"errorString" xml:"ErrorString"`
-	ExecutionTime                    int32       `json:"executionTime" xml:"ExecutionTime"`
-	LastModifiedOn                   time.Time   `json:"lastModifiedOn" xml:"LastModifiedOn"`
-	NumberOfWorkers                  int32       `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	RecommendedRuleset               string      `json:"recommendedRuleset" xml:"RecommendedRuleset"`
-	Role                             string      `json:"role" xml:"Role"`
-	RunId                            string      `json:"runId" xml:"RunId"`
-	StartedOn                        time.Time   `json:"startedOn" xml:"StartedOn"`
-	Status                           string      `json:"status" xml:"Status"`
-	Timeout                          int32       `json:"timeout" xml:"Timeout"`
+	AdditionalRunOptions             *DataQualityRuleRecommendationRunAdditionalRunOptions `json:"additionalRunOptions" xml:"AdditionalRunOptions"`
+	CompletedOn                      time.Time                                             `json:"completedOn" xml:"CompletedOn"`
+	CreatedRulesetName               string                                                `json:"createdRulesetName" xml:"CreatedRulesetName"`
+	DataQualitySecurityConfiguration string                                                `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
+	DataSource                       *DataSource                                           `json:"dataSource" xml:"DataSource"`
+	ErrorString                      string                                                `json:"errorString" xml:"ErrorString"`
+	ExecutionTime                    int32                                                 `json:"executionTime" xml:"ExecutionTime"`
+	LastModifiedOn                   time.Time                                             `json:"lastModifiedOn" xml:"LastModifiedOn"`
+	NumberOfWorkers                  int32                                                 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+	RecommendedRuleset               string                                                `json:"recommendedRuleset" xml:"RecommendedRuleset"`
+	Role                             string                                                `json:"role" xml:"Role"`
+	RunId                            string                                                `json:"runId" xml:"RunId"`
+	StartedOn                        time.Time                                             `json:"startedOn" xml:"StartedOn"`
+	Status                           string                                                `json:"status" xml:"Status"`
+	Timeout                          int32                                                 `json:"timeout" xml:"Timeout"`
 }
 
 type GetDataQualityRulesetEvaluationRunRequest struct {
@@ -2864,6 +3156,38 @@ type GetEntityRecordsRequest struct {
 type GetEntityRecordsResponse struct {
 	NextToken string  `json:"nextToken" xml:"NextToken"`
 	Records   Records `json:"records" xml:"Records"`
+}
+
+type GetFormTypeRequest struct {
+	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type GetFormTypeResponse struct {
+	Id     string `json:"id" xml:"Id"`
+	Name   string `json:"name" xml:"Name"`
+	Schema string `json:"schema" xml:"Schema"`
+}
+
+type GetGlossaryRequest struct {
+	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type GetGlossaryResponse struct {
+	Description string `json:"description" xml:"Description"`
+	Id          string `json:"id" xml:"Id"`
+	Name        string `json:"name" xml:"Name"`
+}
+
+type GetGlossaryTermRequest struct {
+	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type GetGlossaryTermResponse struct {
+	GlossaryId       string `json:"glossaryId" xml:"GlossaryId"`
+	Id               string `json:"id" xml:"Id"`
+	LongDescription  string `json:"longDescription" xml:"LongDescription"`
+	Name             string `json:"name" xml:"Name"`
+	ShortDescription string `json:"shortDescription" xml:"ShortDescription"`
 }
 
 type GetGlueIdentityCenterConfigurationRequest struct {
@@ -3048,6 +3372,7 @@ type GetPartitionIndexesResponse struct {
 }
 
 type GetPartitionRequest struct {
+	AuditContext    *AuditContext   `json:"auditContext" xml:"AuditContext"`
 	CatalogId       string          `json:"catalogId" xml:"CatalogId"`
 	DatabaseName    string          `json:"databaseName" xml:"DatabaseName"`
 	PartitionValues ValueStringList `json:"partitionValues" xml:"PartitionValues"`
@@ -3059,16 +3384,17 @@ type GetPartitionResponse struct {
 }
 
 type GetPartitionsRequest struct {
-	CatalogId           string    `json:"catalogId" xml:"CatalogId"`
-	DatabaseName        string    `json:"databaseName" xml:"DatabaseName"`
-	ExcludeColumnSchema bool      `json:"excludeColumnSchema" xml:"ExcludeColumnSchema"`
-	Expression          string    `json:"expression" xml:"Expression"`
-	MaxResults          int32     `json:"maxResults" xml:"MaxResults"`
-	NextToken           string    `json:"nextToken" xml:"NextToken"`
-	QueryAsOfTime       time.Time `json:"queryAsOfTime" xml:"QueryAsOfTime"`
-	Segment             *Segment  `json:"segment" xml:"Segment"`
-	TableName           string    `json:"tableName" xml:"TableName"`
-	TransactionId       string    `json:"transactionId" xml:"TransactionId"`
+	AuditContext        *AuditContext `json:"auditContext" xml:"AuditContext"`
+	CatalogId           string        `json:"catalogId" xml:"CatalogId"`
+	DatabaseName        string        `json:"databaseName" xml:"DatabaseName"`
+	ExcludeColumnSchema bool          `json:"excludeColumnSchema" xml:"ExcludeColumnSchema"`
+	Expression          string        `json:"expression" xml:"Expression"`
+	MaxResults          int32         `json:"maxResults" xml:"MaxResults"`
+	NextToken           string        `json:"nextToken" xml:"NextToken"`
+	QueryAsOfTime       time.Time     `json:"queryAsOfTime" xml:"QueryAsOfTime"`
+	Segment             *Segment      `json:"segment" xml:"Segment"`
+	TableName           string        `json:"tableName" xml:"TableName"`
+	TransactionId       string        `json:"transactionId" xml:"TransactionId"`
 }
 
 type GetPartitionsResponse struct {
@@ -3202,6 +3528,14 @@ type GetSecurityConfigurationsResponse struct {
 	SecurityConfigurations SecurityConfigurationList `json:"securityConfigurations" xml:"SecurityConfigurations"`
 }
 
+type GetSessionEndpointRequest struct {
+	SessionId string `json:"sessionId" xml:"SessionId"`
+}
+
+type GetSessionEndpointResponse struct {
+	SparkConnect *SessionEndpoint `json:"sparkConnect" xml:"SparkConnect"`
+}
+
 type GetSessionRequest struct {
 	Id            string `json:"id" xml:"Id"`
 	RequestOrigin string `json:"requestOrigin" xml:"RequestOrigin"`
@@ -3236,13 +3570,14 @@ type GetTableOptimizerResponse struct {
 }
 
 type GetTableRequest struct {
-	AuditContext         *AuditContext `json:"auditContext" xml:"AuditContext"`
-	CatalogId            string        `json:"catalogId" xml:"CatalogId"`
-	DatabaseName         string        `json:"databaseName" xml:"DatabaseName"`
-	IncludeStatusDetails bool          `json:"includeStatusDetails" xml:"IncludeStatusDetails"`
-	Name                 string        `json:"name" xml:"Name"`
-	QueryAsOfTime        time.Time     `json:"queryAsOfTime" xml:"QueryAsOfTime"`
-	TransactionId        string        `json:"transactionId" xml:"TransactionId"`
+	AttributesToGet      TableAttributesList `json:"attributesToGet" xml:"AttributesToGet"`
+	AuditContext         *AuditContext       `json:"auditContext" xml:"AuditContext"`
+	CatalogId            string              `json:"catalogId" xml:"CatalogId"`
+	DatabaseName         string              `json:"databaseName" xml:"DatabaseName"`
+	IncludeStatusDetails bool                `json:"includeStatusDetails" xml:"IncludeStatusDetails"`
+	Name                 string              `json:"name" xml:"Name"`
+	QueryAsOfTime        time.Time           `json:"queryAsOfTime" xml:"QueryAsOfTime"`
+	TransactionId        string              `json:"transactionId" xml:"TransactionId"`
 }
 
 type GetTableResponse struct {
@@ -3250,10 +3585,11 @@ type GetTableResponse struct {
 }
 
 type GetTableVersionRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	TableName    string `json:"tableName" xml:"TableName"`
-	VersionId    string `json:"versionId" xml:"VersionId"`
+	AuditContext *AuditContext `json:"auditContext" xml:"AuditContext"`
+	CatalogId    string        `json:"catalogId" xml:"CatalogId"`
+	DatabaseName string        `json:"databaseName" xml:"DatabaseName"`
+	TableName    string        `json:"tableName" xml:"TableName"`
+	VersionId    string        `json:"versionId" xml:"VersionId"`
 }
 
 type GetTableVersionResponse struct {
@@ -3261,11 +3597,12 @@ type GetTableVersionResponse struct {
 }
 
 type GetTableVersionsRequest struct {
-	CatalogId    string `json:"catalogId" xml:"CatalogId"`
-	DatabaseName string `json:"databaseName" xml:"DatabaseName"`
-	MaxResults   int32  `json:"maxResults" xml:"MaxResults"`
-	NextToken    string `json:"nextToken" xml:"NextToken"`
-	TableName    string `json:"tableName" xml:"TableName"`
+	AuditContext *AuditContext `json:"auditContext" xml:"AuditContext"`
+	CatalogId    string        `json:"catalogId" xml:"CatalogId"`
+	DatabaseName string        `json:"databaseName" xml:"DatabaseName"`
+	MaxResults   int32         `json:"maxResults" xml:"MaxResults"`
+	NextToken    string        `json:"nextToken" xml:"NextToken"`
+	TableName    string        `json:"tableName" xml:"TableName"`
 }
 
 type GetTableVersionsResponse struct {
@@ -3458,6 +3795,18 @@ type GetWorkflowRunsResponse struct {
 	Runs      WorkflowRuns `json:"runs" xml:"Runs"`
 }
 
+type GlossaryItem struct {
+	Description string `json:"description" xml:"Description"`
+	Id          string `json:"id" xml:"Id"`
+	Name        string `json:"name" xml:"Name"`
+}
+
+type GlossaryTermItem struct {
+	Id               string `json:"id" xml:"Id"`
+	Name             string `json:"name" xml:"Name"`
+	ShortDescription string `json:"shortDescription" xml:"ShortDescription"`
+}
+
 type GluePolicy struct {
 	CreateTime   time.Time `json:"createTime" xml:"CreateTime"`
 	PolicyHash   string    `json:"policyHash" xml:"PolicyHash"`
@@ -3635,6 +3984,21 @@ type IcebergStructField struct {
 	WriteDefault   interface{} `json:"writeDefault" xml:"WriteDefault"`
 }
 
+type IcebergTableMetadata struct {
+	CurrentSchemaId    int32                    `json:"currentSchemaId" xml:"CurrentSchemaId"`
+	DefaultSortOrderId int32                    `json:"defaultSortOrderId" xml:"DefaultSortOrderId"`
+	DefaultSpecId      int32                    `json:"defaultSpecId" xml:"DefaultSpecId"`
+	FormatVersion      string                   `json:"formatVersion" xml:"FormatVersion"`
+	LastColumnId       int32                    `json:"lastColumnId" xml:"LastColumnId"`
+	LastPartitionId    int32                    `json:"lastPartitionId" xml:"LastPartitionId"`
+	Location           string                   `json:"location" xml:"Location"`
+	PartitionSpecs     IcebergPartitionSpecList `json:"partitionSpecs" xml:"PartitionSpecs"`
+	Properties         StringToStringMap        `json:"properties" xml:"Properties"`
+	Schemas            IcebergSchemaList        `json:"schemas" xml:"Schemas"`
+	SortOrders         IcebergSortOrderList     `json:"sortOrders" xml:"SortOrders"`
+	TableUuid          string                   `json:"tableUuid" xml:"TableUuid"`
+}
+
 type IcebergTableUpdate struct {
 	Action        string                `json:"action" xml:"Action"`
 	EncryptionKey *IcebergEncryptedKey  `json:"encryptionKey" xml:"EncryptionKey"`
@@ -3723,6 +4087,31 @@ type IntegrationResourceProperty struct {
 type IntegrationResourcePropertyFilter struct {
 	Name   string                                  `json:"name" xml:"Name"`
 	Values IntegrationResourcePropertyFilterValues `json:"values" xml:"Values"`
+}
+
+type ItemError struct {
+	Code           string `json:"code" xml:"Code"`
+	ItemIdentifier string `json:"itemIdentifier" xml:"ItemIdentifier"`
+	Message        string `json:"message" xml:"Message"`
+}
+
+type IterableFormEntry struct {
+	FormTypeId string `json:"formTypeId" xml:"FormTypeId"`
+}
+
+type IterableFormItem struct {
+	Attachments   AssetFormMap       `json:"attachments" xml:"Attachments"`
+	Forms         AssetFormMap       `json:"forms" xml:"Forms"`
+	GlossaryTerms GlossaryTermIdList `json:"glossaryTerms" xml:"GlossaryTerms"`
+	ItemId        string             `json:"itemId" xml:"ItemId"`
+	ItemName      string             `json:"itemName" xml:"ItemName"`
+}
+
+type IterableFormListItem struct {
+	Description   string             `json:"description" xml:"Description"`
+	GlossaryTerms GlossaryTermIdList `json:"glossaryTerms" xml:"GlossaryTerms"`
+	ItemId        string             `json:"itemId" xml:"ItemId"`
+	ItemName      string             `json:"itemName" xml:"ItemName"`
 }
 
 type JDBCConnectorOptions struct {
@@ -3990,6 +4379,16 @@ type LineageConfiguration struct {
 	CrawlerLineageSettings string `json:"crawlerLineageSettings" xml:"CrawlerLineageSettings"`
 }
 
+type ListAssetTypesRequest struct {
+	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken  string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListAssetTypesResponse struct {
+	Items     AssetTypeItemList `json:"items" xml:"Items"`
+	NextToken string            `json:"nextToken" xml:"NextToken"`
+}
+
 type ListBlueprintsRequest struct {
 	MaxResults int32   `json:"maxResults" xml:"MaxResults"`
 	NextToken  string  `json:"nextToken" xml:"NextToken"`
@@ -4070,6 +4469,7 @@ type ListDataQualityRuleRecommendationRunsRequest struct {
 	Filter     *DataQualityRuleRecommendationRunFilter `json:"filter" xml:"Filter"`
 	MaxResults int32                                   `json:"maxResults" xml:"MaxResults"`
 	NextToken  string                                  `json:"nextToken" xml:"NextToken"`
+	Tags       TagsMap                                 `json:"tags" xml:"Tags"`
 }
 
 type ListDataQualityRuleRecommendationRunsResponse struct {
@@ -4150,6 +4550,37 @@ type ListEntitiesResponse struct {
 	NextToken string     `json:"nextToken" xml:"NextToken"`
 }
 
+type ListFormTypesRequest struct {
+	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken  string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListFormTypesResponse struct {
+	Items     FormTypeItemList `json:"items" xml:"Items"`
+	NextToken string           `json:"nextToken" xml:"NextToken"`
+}
+
+type ListGlossariesRequest struct {
+	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken  string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListGlossariesResponse struct {
+	Items     GlossaryItemList `json:"items" xml:"Items"`
+	NextToken string           `json:"nextToken" xml:"NextToken"`
+}
+
+type ListGlossaryTermsRequest struct {
+	GlossaryIdentifier string `json:"glossaryIdentifier" xml:"GlossaryIdentifier"`
+	MaxResults         int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken          string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListGlossaryTermsResponse struct {
+	Items     GlossaryTermItemList `json:"items" xml:"Items"`
+	NextToken string               `json:"nextToken" xml:"NextToken"`
+}
+
 type ListIntegrationResourcePropertiesRequest struct {
 	Filters    IntegrationResourcePropertyFilterList `json:"filters" xml:"Filters"`
 	Marker     string                                `json:"marker" xml:"Marker"`
@@ -4159,6 +4590,18 @@ type ListIntegrationResourcePropertiesRequest struct {
 type ListIntegrationResourcePropertiesResponse struct {
 	IntegrationResourcePropertyList IntegrationResourcePropertyList `json:"integrationResourcePropertyList" xml:"IntegrationResourcePropertyList"`
 	Marker                          string                          `json:"marker" xml:"Marker"`
+}
+
+type ListIterableFormsRequest struct {
+	AssetIdentifier  string `json:"assetIdentifier" xml:"AssetIdentifier"`
+	IterableFormName string `json:"iterableFormName" xml:"IterableFormName"`
+	MaxResults       int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken        string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListIterableFormsResponse struct {
+	Items     IterableFormListItemList `json:"items" xml:"Items"`
+	NextToken string                   `json:"nextToken" xml:"NextToken"`
 }
 
 type ListJobsRequest struct {
@@ -4512,6 +4955,11 @@ type OAuth2PropertiesInput struct {
 	TokenUrlParametersMap       TokenUrlParametersMap        `json:"tokenUrlParametersMap" xml:"TokenUrlParametersMap"`
 }
 
+type ObservationResultsOptions struct {
+	CatalogTableConfig             *CatalogTableConfigOptions `json:"catalogTableConfig" xml:"CatalogTableConfig"`
+	WriteObservationResultsEnabled bool                       `json:"writeObservationResultsEnabled" xml:"WriteObservationResultsEnabled"`
+}
+
 type OffsetConfiguration struct {
 	LimitParameter  *ExtractedParameter `json:"limitParameter" xml:"LimitParameter"`
 	OffsetParameter *ExtractedParameter `json:"offsetParameter" xml:"OffsetParameter"`
@@ -4661,6 +5109,12 @@ type ProfileConfiguration struct {
 	SessionConfiguration ConfigurationMap `json:"sessionConfiguration" xml:"SessionConfiguration"`
 }
 
+type ProfilingResultsOptions struct {
+	CatalogTableConfig           *CatalogTableConfigOptions  `json:"catalogTableConfig" xml:"CatalogTableConfig"`
+	DistributionResults          *DistributionResultsOptions `json:"distributionResults" xml:"DistributionResults"`
+	WriteProfilingResultsEnabled bool                        `json:"writeProfilingResultsEnabled" xml:"WriteProfilingResultsEnabled"`
+}
+
 type Property struct {
 	AllowedValues       AllowedValues  `json:"allowedValues" xml:"AllowedValues"`
 	DataOperationScopes DataOperations `json:"dataOperationScopes" xml:"DataOperationScopes"`
@@ -4679,6 +5133,53 @@ type PropertyPredicate struct {
 	Value      string `json:"value" xml:"Value"`
 }
 
+type PutAssetRequest struct {
+	AssetTypeId string       `json:"assetTypeId" xml:"AssetTypeId"`
+	ClientToken string       `json:"clientToken" xml:"ClientToken"`
+	Description string       `json:"description" xml:"Description"`
+	Forms       AssetFormMap `json:"forms" xml:"Forms"`
+	Identifier  string       `json:"identifier" xml:"Identifier"`
+	Name        string       `json:"name" xml:"Name"`
+}
+
+type PutAssetResponse struct {
+	CreatedAt   time.Time    `json:"createdAt" xml:"CreatedAt"`
+	Description string       `json:"description" xml:"Description"`
+	Forms       AssetFormMap `json:"forms" xml:"Forms"`
+	Id          string       `json:"id" xml:"Id"`
+	Name        string       `json:"name" xml:"Name"`
+}
+
+type PutAssetTypeRequest struct {
+	ClientToken string            `json:"clientToken" xml:"ClientToken"`
+	Forms       AssetTypeFormsMap `json:"forms" xml:"Forms"`
+	Name        string            `json:"name" xml:"Name"`
+}
+
+type PutAssetTypeResponse struct {
+	Forms AssetTypeFormsMap `json:"forms" xml:"Forms"`
+	Id    string            `json:"id" xml:"Id"`
+	Name  string            `json:"name" xml:"Name"`
+}
+
+type PutAttachmentRequest struct {
+	AssetIdentifier  string `json:"assetIdentifier" xml:"AssetIdentifier"`
+	AttachmentName   string `json:"attachmentName" xml:"AttachmentName"`
+	ClientToken      string `json:"clientToken" xml:"ClientToken"`
+	Content          string `json:"content" xml:"Content"`
+	FormTypeId       string `json:"formTypeId" xml:"FormTypeId"`
+	ItemIdentifier   string `json:"itemIdentifier" xml:"ItemIdentifier"`
+	IterableFormName string `json:"iterableFormName" xml:"IterableFormName"`
+}
+
+type PutAttachmentResponse struct {
+	AssetIdentifier  string `json:"assetIdentifier" xml:"AssetIdentifier"`
+	AttachmentName   string `json:"attachmentName" xml:"AttachmentName"`
+	FormTypeId       string `json:"formTypeId" xml:"FormTypeId"`
+	ItemIdentifier   string `json:"itemIdentifier" xml:"ItemIdentifier"`
+	IterableFormName string `json:"iterableFormName" xml:"IterableFormName"`
+}
+
 type PutDataCatalogEncryptionSettingsRequest struct {
 	CatalogId                     string                         `json:"catalogId" xml:"CatalogId"`
 	DataCatalogEncryptionSettings *DataCatalogEncryptionSettings `json:"dataCatalogEncryptionSettings" xml:"DataCatalogEncryptionSettings"`
@@ -4687,12 +5188,35 @@ type PutDataCatalogEncryptionSettingsRequest struct {
 type PutDataCatalogEncryptionSettingsResponse struct {
 }
 
+type PutDataCatalogExportConfigurationInput struct {
+	ClientToken             string                         `json:"clientToken" xml:"ClientToken"`
+	EncryptionConfiguration *ExportEncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	ExportSetting           string                         `json:"exportSetting" xml:"ExportSetting"`
+}
+
+type PutDataCatalogExportConfigurationOutput struct {
+	EncryptionConfiguration *ExportEncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	ExportSetting           string                         `json:"exportSetting" xml:"ExportSetting"`
+}
+
 type PutDataQualityProfileAnnotationRequest struct {
 	InclusionAnnotation string `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
 	ProfileId           string `json:"profileId" xml:"ProfileId"`
 }
 
 type PutDataQualityProfileAnnotationResponse struct {
+}
+
+type PutFormTypeRequest struct {
+	ClientToken string `json:"clientToken" xml:"ClientToken"`
+	Name        string `json:"name" xml:"Name"`
+	Schema      string `json:"schema" xml:"Schema"`
+}
+
+type PutFormTypeResponse struct {
+	Id     string `json:"id" xml:"Id"`
+	Name   string `json:"name" xml:"Name"`
+	Schema string `json:"schema" xml:"Schema"`
 }
 
 type PutResourcePolicyRequest struct {
@@ -4924,6 +5448,12 @@ type Route struct {
 	GroupFiltersList GroupFiltersList `json:"groupFiltersList" xml:"GroupFiltersList"`
 	Inputs           OneInput         `json:"inputs" xml:"Inputs"`
 	Name             string           `json:"name" xml:"Name"`
+}
+
+type RowLevelResultsOptions struct {
+	CatalogTableConfig *CatalogTableConfigOptions `json:"catalogTableConfig" xml:"CatalogTableConfig"`
+	MaxRowsToWrite     int32                      `json:"maxRowsToWrite" xml:"MaxRowsToWrite"`
+	ResultType         string                     `json:"resultType" xml:"ResultType"`
 }
 
 type RunIdentifier struct {
@@ -5266,6 +5796,44 @@ type SchemaVersionNumber struct {
 	VersionNumber int64 `json:"versionNumber" xml:"VersionNumber"`
 }
 
+type SearchAssetsInput struct {
+	FilterClause interface{} `json:"filterClause" xml:"FilterClause"`
+	MaxResults   int32       `json:"maxResults" xml:"MaxResults"`
+	NextToken    string      `json:"nextToken" xml:"NextToken"`
+	SearchText   string      `json:"searchText" xml:"SearchText"`
+	Sort         *SearchSort `json:"sort" xml:"Sort"`
+}
+
+type SearchAssetsOutput struct {
+	Items     SearchResultItemList `json:"items" xml:"Items"`
+	NextToken string               `json:"nextToken" xml:"NextToken"`
+}
+
+type SearchAttributeFilter struct {
+	Attribute string      `json:"attribute" xml:"Attribute"`
+	Operator  string      `json:"operator" xml:"Operator"`
+	Value     interface{} `json:"value" xml:"Value"`
+}
+
+type SearchMapFilter struct {
+	Attribute string      `json:"attribute" xml:"Attribute"`
+	Key       string      `json:"key" xml:"Key"`
+	Value     interface{} `json:"value" xml:"Value"`
+}
+
+type SearchResultItem struct {
+	AssetDescription string    `json:"assetDescription" xml:"AssetDescription"`
+	AssetName        string    `json:"assetName" xml:"AssetName"`
+	AssetTypeId      string    `json:"assetTypeId" xml:"AssetTypeId"`
+	Id               string    `json:"id" xml:"Id"`
+	UpdatedAt        time.Time `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type SearchSort struct {
+	Attribute string `json:"attribute" xml:"Attribute"`
+	Order     string `json:"order" xml:"Order"`
+}
+
 type SearchTablesRequest struct {
 	CatalogId            string                   `json:"catalogId" xml:"CatalogId"`
 	Filters              SearchPropertyPredicates `json:"filters" xml:"Filters"`
@@ -5330,6 +5898,7 @@ type Session struct {
 	Progress              float64                   `json:"progress" xml:"Progress"`
 	Role                  string                    `json:"role" xml:"Role"`
 	SecurityConfiguration string                    `json:"securityConfiguration" xml:"SecurityConfiguration"`
+	SessionType           string                    `json:"sessionType" xml:"SessionType"`
 	Status                string                    `json:"status" xml:"Status"`
 	WorkerType            string                    `json:"workerType" xml:"WorkerType"`
 }
@@ -5337,6 +5906,12 @@ type Session struct {
 type SessionCommand struct {
 	Name          string `json:"name" xml:"Name"`
 	PythonVersion string `json:"pythonVersion" xml:"PythonVersion"`
+}
+
+type SessionEndpoint struct {
+	AuthToken               string    `json:"authToken" xml:"AuthToken"`
+	AuthTokenExpirationTime time.Time `json:"authTokenExpirationTime" xml:"AuthTokenExpirationTime"`
+	Url                     string    `json:"url" xml:"Url"`
 }
 
 type SkewedInfo struct {
@@ -5387,6 +5962,7 @@ type SortCriterion struct {
 }
 
 type SourceConfiguration struct {
+	FilterConfiguration     *FilterConfiguration     `json:"filterConfiguration" xml:"FilterConfiguration"`
 	PaginationConfiguration *PaginationConfiguration `json:"paginationConfiguration" xml:"PaginationConfiguration"`
 	RequestMethod           string                   `json:"requestMethod" xml:"RequestMethod"`
 	RequestParameters       ConnectorPropertyList    `json:"requestParameters" xml:"RequestParameters"`
@@ -5509,13 +6085,14 @@ type StartCrawlerScheduleResponse struct {
 }
 
 type StartDataQualityRuleRecommendationRunRequest struct {
-	ClientToken                      string      `json:"clientToken" xml:"ClientToken"`
-	CreatedRulesetName               string      `json:"createdRulesetName" xml:"CreatedRulesetName"`
-	DataQualitySecurityConfiguration string      `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
-	DataSource                       *DataSource `json:"dataSource" xml:"DataSource"`
-	NumberOfWorkers                  int32       `json:"numberOfWorkers" xml:"NumberOfWorkers"`
-	Role                             string      `json:"role" xml:"Role"`
-	Timeout                          int32       `json:"timeout" xml:"Timeout"`
+	AdditionalRunOptions             *DataQualityRuleRecommendationRunAdditionalRunOptions `json:"additionalRunOptions" xml:"AdditionalRunOptions"`
+	ClientToken                      string                                                `json:"clientToken" xml:"ClientToken"`
+	CreatedRulesetName               string                                                `json:"createdRulesetName" xml:"CreatedRulesetName"`
+	DataQualitySecurityConfiguration string                                                `json:"dataQualitySecurityConfiguration" xml:"DataQualitySecurityConfiguration"`
+	DataSource                       *DataSource                                           `json:"dataSource" xml:"DataSource"`
+	NumberOfWorkers                  int32                                                 `json:"numberOfWorkers" xml:"NumberOfWorkers"`
+	Role                             string                                                `json:"role" xml:"Role"`
+	Timeout                          int32                                                 `json:"timeout" xml:"Timeout"`
 }
 
 type StartDataQualityRuleRecommendationRunResponse struct {
@@ -5667,6 +6244,7 @@ type StatisticModelResult struct {
 
 type StatisticSummary struct {
 	ColumnsReferenced   ColumnNameList                  `json:"columnsReferenced" xml:"ColumnsReferenced"`
+	DistributionValue   *DistributionData               `json:"distributionValue" xml:"DistributionValue"`
 	DoubleValue         float64                         `json:"doubleValue" xml:"DoubleValue"`
 	EvaluationLevel     string                          `json:"evaluationLevel" xml:"EvaluationLevel"`
 	InclusionAnnotation *TimestampedInclusionAnnotation `json:"inclusionAnnotation" xml:"InclusionAnnotation"`
@@ -5783,31 +6361,32 @@ type SupportedDialect struct {
 }
 
 type Table struct {
-	CatalogId                     string             `json:"catalogId" xml:"CatalogId"`
-	CreateTime                    time.Time          `json:"createTime" xml:"CreateTime"`
-	CreatedBy                     string             `json:"createdBy" xml:"CreatedBy"`
-	DatabaseName                  string             `json:"databaseName" xml:"DatabaseName"`
-	Description                   string             `json:"description" xml:"Description"`
-	FederatedTable                *FederatedTable    `json:"federatedTable" xml:"FederatedTable"`
-	IsMaterializedView            bool               `json:"isMaterializedView" xml:"IsMaterializedView"`
-	IsMultiDialectView            bool               `json:"isMultiDialectView" xml:"IsMultiDialectView"`
-	IsRegisteredWithLakeFormation bool               `json:"isRegisteredWithLakeFormation" xml:"IsRegisteredWithLakeFormation"`
-	LastAccessTime                time.Time          `json:"lastAccessTime" xml:"LastAccessTime"`
-	LastAnalyzedTime              time.Time          `json:"lastAnalyzedTime" xml:"LastAnalyzedTime"`
-	Name                          string             `json:"name" xml:"Name"`
-	Owner                         string             `json:"owner" xml:"Owner"`
-	Parameters                    ParametersMap      `json:"parameters" xml:"Parameters"`
-	PartitionKeys                 ColumnList         `json:"partitionKeys" xml:"PartitionKeys"`
-	Retention                     int32              `json:"retention" xml:"Retention"`
-	Status                        *TableStatus       `json:"status" xml:"Status"`
-	StorageDescriptor             *StorageDescriptor `json:"storageDescriptor" xml:"StorageDescriptor"`
-	TableType                     string             `json:"tableType" xml:"TableType"`
-	TargetTable                   *TableIdentifier   `json:"targetTable" xml:"TargetTable"`
-	UpdateTime                    time.Time          `json:"updateTime" xml:"UpdateTime"`
-	VersionId                     string             `json:"versionId" xml:"VersionId"`
-	ViewDefinition                *ViewDefinition    `json:"viewDefinition" xml:"ViewDefinition"`
-	ViewExpandedText              string             `json:"viewExpandedText" xml:"ViewExpandedText"`
-	ViewOriginalText              string             `json:"viewOriginalText" xml:"ViewOriginalText"`
+	CatalogId                     string                `json:"catalogId" xml:"CatalogId"`
+	CreateTime                    time.Time             `json:"createTime" xml:"CreateTime"`
+	CreatedBy                     string                `json:"createdBy" xml:"CreatedBy"`
+	DatabaseName                  string                `json:"databaseName" xml:"DatabaseName"`
+	Description                   string                `json:"description" xml:"Description"`
+	FederatedTable                *FederatedTable       `json:"federatedTable" xml:"FederatedTable"`
+	IcebergTableMetadata          *IcebergTableMetadata `json:"icebergTableMetadata" xml:"IcebergTableMetadata"`
+	IsMaterializedView            bool                  `json:"isMaterializedView" xml:"IsMaterializedView"`
+	IsMultiDialectView            bool                  `json:"isMultiDialectView" xml:"IsMultiDialectView"`
+	IsRegisteredWithLakeFormation bool                  `json:"isRegisteredWithLakeFormation" xml:"IsRegisteredWithLakeFormation"`
+	LastAccessTime                time.Time             `json:"lastAccessTime" xml:"LastAccessTime"`
+	LastAnalyzedTime              time.Time             `json:"lastAnalyzedTime" xml:"LastAnalyzedTime"`
+	Name                          string                `json:"name" xml:"Name"`
+	Owner                         string                `json:"owner" xml:"Owner"`
+	Parameters                    ParametersMap         `json:"parameters" xml:"Parameters"`
+	PartitionKeys                 ColumnList            `json:"partitionKeys" xml:"PartitionKeys"`
+	Retention                     int32                 `json:"retention" xml:"Retention"`
+	Status                        *TableStatus          `json:"status" xml:"Status"`
+	StorageDescriptor             *StorageDescriptor    `json:"storageDescriptor" xml:"StorageDescriptor"`
+	TableType                     string                `json:"tableType" xml:"TableType"`
+	TargetTable                   *TableIdentifier      `json:"targetTable" xml:"TargetTable"`
+	UpdateTime                    time.Time             `json:"updateTime" xml:"UpdateTime"`
+	VersionId                     string                `json:"versionId" xml:"VersionId"`
+	ViewDefinition                *ViewDefinition       `json:"viewDefinition" xml:"ViewDefinition"`
+	ViewExpandedText              string                `json:"viewExpandedText" xml:"ViewExpandedText"`
+	ViewOriginalText              string                `json:"viewOriginalText" xml:"ViewOriginalText"`
 }
 
 type TableError struct {
@@ -6060,6 +6639,20 @@ type UntagResourceRequest struct {
 type UntagResourceResponse struct {
 }
 
+type UpdateAssetRequest struct {
+	ClientToken string `json:"clientToken" xml:"ClientToken"`
+	Description string `json:"description" xml:"Description"`
+	Identifier  string `json:"identifier" xml:"Identifier"`
+	Name        string `json:"name" xml:"Name"`
+}
+
+type UpdateAssetResponse struct {
+	Description string    `json:"description" xml:"Description"`
+	Id          string    `json:"id" xml:"Id"`
+	Name        string    `json:"name" xml:"Name"`
+	UpdatedAt   time.Time `json:"updatedAt" xml:"UpdatedAt"`
+}
+
 type UpdateBlueprintRequest struct {
 	BlueprintLocation string `json:"blueprintLocation" xml:"BlueprintLocation"`
 	Description       string `json:"description" xml:"Description"`
@@ -6208,6 +6801,35 @@ type UpdateDevEndpointRequest struct {
 }
 
 type UpdateDevEndpointResponse struct {
+}
+
+type UpdateGlossaryRequest struct {
+	ClientToken string `json:"clientToken" xml:"ClientToken"`
+	Description string `json:"description" xml:"Description"`
+	Identifier  string `json:"identifier" xml:"Identifier"`
+	Name        string `json:"name" xml:"Name"`
+}
+
+type UpdateGlossaryResponse struct {
+	Description string `json:"description" xml:"Description"`
+	Id          string `json:"id" xml:"Id"`
+	Name        string `json:"name" xml:"Name"`
+}
+
+type UpdateGlossaryTermRequest struct {
+	ClientToken      string `json:"clientToken" xml:"ClientToken"`
+	Identifier       string `json:"identifier" xml:"Identifier"`
+	LongDescription  string `json:"longDescription" xml:"LongDescription"`
+	Name             string `json:"name" xml:"Name"`
+	ShortDescription string `json:"shortDescription" xml:"ShortDescription"`
+}
+
+type UpdateGlossaryTermResponse struct {
+	GlossaryId       string `json:"glossaryId" xml:"GlossaryId"`
+	Id               string `json:"id" xml:"Id"`
+	LongDescription  string `json:"longDescription" xml:"LongDescription"`
+	Name             string `json:"name" xml:"Name"`
+	ShortDescription string `json:"shortDescription" xml:"ShortDescription"`
 }
 
 type UpdateGlueIdentityCenterConfigurationRequest struct {
@@ -6580,6 +7202,8 @@ type AnnotationErrorList []*AnnotationError
 
 type AnnotationList []*StatisticAnnotation
 
+type AssetTypeItemList []*AssetTypeItem
+
 type AuditColumnNamesList []string
 
 type AuthenticationTypes []string
@@ -6613,6 +7237,8 @@ type BatchTableOptimizers []*BatchTableOptimizer
 type BatchUpdatePartitionFailureList []*BatchUpdatePartitionFailureEntry
 
 type BatchUpdatePartitionRequestEntryList []*BatchUpdatePartitionRequestEntry
+
+type BinEdges []string
 
 type BlueprintNames []string
 
@@ -6676,6 +7302,8 @@ type ConnectorPropertyList []*ConnectorProperty
 
 type ContextWords []string
 
+type Count []int32
+
 type CrawlList []*Crawl
 
 type CrawlerHistoryList []*CrawlerHistory
@@ -6718,7 +7346,11 @@ type DataQualityRuleRecommendationRunList []*DataQualityRuleRecommendationRunDes
 
 type DataQualityRuleResults []*DataQualityRuleResult
 
+type DataQualityRulesetEvaluationRunIdList []string
+
 type DataQualityRulesetEvaluationRunList []*DataQualityRulesetEvaluationRunDescription
+
+type DataQualityRulesetEvaluationRunsList []*DataQualityRulesetEvaluationRun
 
 type DataQualityRulesetList []*DataQualityRulesetListDetails
 
@@ -6756,11 +7388,19 @@ type FilterExpressions []*FilterExpression
 
 type FilterValues []*FilterValue
 
+type FormTypeItemList []*FormTypeItem
+
 type GetColumnNamesList []string
 
 type GetResourcePoliciesResponseList []*GluePolicy
 
 type GetTableVersionsList []*TableVersion
+
+type GlossaryItemList []*GlossaryItem
+
+type GlossaryTermIdList []string
+
+type GlossaryTermItemList []*GlossaryTermItem
 
 type GlueSchemas []*GlueSchema
 
@@ -6776,7 +7416,13 @@ type HudiTargetList []*HudiTarget
 
 type IcebergPartitionSpecFieldList []*IcebergPartitionField
 
+type IcebergPartitionSpecList []*IcebergPartitionSpec
+
+type IcebergSchemaList []*IcebergSchema
+
 type IcebergSortOrderFieldList []*IcebergSortField
+
+type IcebergSortOrderList []*IcebergSortOrder
 
 type IcebergStructFieldList []*IcebergStructField
 
@@ -6809,6 +7455,14 @@ type IntegrationResourcePropertyList []*IntegrationResourceProperty
 type IntegrationTagsList []*Tag
 
 type IntegrationsList []*Integration
+
+type ItemErrorList []*ItemError
+
+type ItemIdentifierList []string
+
+type IterableFormItemList []*IterableFormItem
+
+type IterableFormListItemList []*IterableFormListItem
 
 type JdbcTargetList []*JdbcTarget
 
@@ -6914,7 +7568,11 @@ type SchemaVersionErrorList []*SchemaVersionErrorItem
 
 type SchemaVersionList []*SchemaVersionListItem
 
+type SearchFilterClauseList []interface{}
+
 type SearchPropertyPredicates []*PropertyPredicate
+
+type SearchResultItemList []*SearchResultItem
 
 type SecurityConfigurationList []*SecurityConfiguration
 
@@ -7000,6 +7658,10 @@ type AdditionalOptions map[string]string
 
 type AdditionalPlanOptionsMap map[string]string
 
+type AssetFormMap map[string]*AssetFormEntry
+
+type AssetTypeFormsMap map[string]*AssetTypeFormReference
+
 type CodeGenConfigurationNodes map[string]*CodeGenConfigurationNode
 
 type ComputeEnvironmentConfigurationMap map[string]*ComputeEnvironmentConfiguration
@@ -7009,6 +7671,8 @@ type ConfigurationMap map[string]*ConfigurationObject
 type ConnectionOptions map[string]string
 
 type ConnectionProperties map[string]string
+
+type ConnectionStringToStringMap map[string]string
 
 type ConnectorOptions map[string]string
 
@@ -7026,6 +7690,8 @@ type EntityConfigurationMap map[string]*EntityConfiguration
 
 type ErrorByName map[string]*ErrorDetail
 
+type EvaluatedDistributionsMap map[string]*DistributionData
+
 type EvaluatedMetricsMap map[string]float64
 
 type FieldDefinitionMap map[string]*FieldDefinition
@@ -7037,6 +7703,8 @@ type GlueTableAdditionalOptions map[string]string
 type IntegrationAdditionalEncryptionContextMap map[string]string
 
 type IntegrationSourcePropertiesMap map[string]string
+
+type IterableFormMap map[string]*IterableFormEntry
 
 type JDBCDataTypeMapping map[string]string
 
@@ -7075,5 +7743,11 @@ type WorkflowRunProperties map[string]string
 type IcebergDocument interface{}
 
 type Record interface{}
+
+type SearchFilterClause interface{}
+
+type SearchFilterValue interface{}
+
+type SearchMapFilterValue interface{}
 
 type TableOptimizerVpcConfiguration interface{}

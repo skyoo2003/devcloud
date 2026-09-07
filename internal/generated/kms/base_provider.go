@@ -111,6 +111,10 @@ func (b *BaseProvider) GenerateRandom(ctx context.Context, input *GenerateRandom
 	return nil, fmt.Errorf("GenerateRandom: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetKeyLastUsage(ctx context.Context, input *GetKeyLastUsageRequest) (*GetKeyLastUsageResponse, error) {
+	return nil, fmt.Errorf("GetKeyLastUsage: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetKeyPolicy(ctx context.Context, input *GetKeyPolicyRequest) (*GetKeyPolicyResponse, error) {
 	return nil, fmt.Errorf("GetKeyPolicy: %w", ErrNotImplemented)
 }

@@ -47,6 +47,18 @@ func (b *BaseProvider) BatchReplaceClusterNodes(ctx context.Context, input *Batc
 	return nil, fmt.Errorf("BatchReplaceClusterNodes: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateAIBenchmarkJob(ctx context.Context, input *CreateAIBenchmarkJobRequest) (*CreateAIBenchmarkJobResponse, error) {
+	return nil, fmt.Errorf("CreateAIBenchmarkJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateAIRecommendationJob(ctx context.Context, input *CreateAIRecommendationJobRequest) (*CreateAIRecommendationJobResponse, error) {
+	return nil, fmt.Errorf("CreateAIRecommendationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateAIWorkloadConfig(ctx context.Context, input *CreateAIWorkloadConfigRequest) (*CreateAIWorkloadConfigResponse, error) {
+	return nil, fmt.Errorf("CreateAIWorkloadConfig: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateAction(ctx context.Context, input *CreateActionRequest) (*CreateActionResponse, error) {
 	return nil, fmt.Errorf("CreateAction: %w", ErrNotImplemented)
 }
@@ -181,6 +193,10 @@ func (b *BaseProvider) CreateInferenceExperiment(ctx context.Context, input *Cre
 
 func (b *BaseProvider) CreateInferenceRecommendationsJob(ctx context.Context, input *CreateInferenceRecommendationsJobRequest) (*CreateInferenceRecommendationsJobResponse, error) {
 	return nil, fmt.Errorf("CreateInferenceRecommendationsJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateJob(ctx context.Context, input *CreateJobRequest) (*CreateJobResponse, error) {
+	return nil, fmt.Errorf("CreateJob: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) CreateLabelingJob(ctx context.Context, input *CreateLabelingJobRequest) (*CreateLabelingJobResponse, error) {
@@ -319,6 +335,18 @@ func (b *BaseProvider) CreateWorkteam(ctx context.Context, input *CreateWorkteam
 	return nil, fmt.Errorf("CreateWorkteam: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteAIBenchmarkJob(ctx context.Context, input *DeleteAIBenchmarkJobRequest) (*DeleteAIBenchmarkJobResponse, error) {
+	return nil, fmt.Errorf("DeleteAIBenchmarkJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAIRecommendationJob(ctx context.Context, input *DeleteAIRecommendationJobRequest) (*DeleteAIRecommendationJobResponse, error) {
+	return nil, fmt.Errorf("DeleteAIRecommendationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAIWorkloadConfig(ctx context.Context, input *DeleteAIWorkloadConfigRequest) (*DeleteAIWorkloadConfigResponse, error) {
+	return nil, fmt.Errorf("DeleteAIWorkloadConfig: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteAction(ctx context.Context, input *DeleteActionRequest) (*DeleteActionResponse, error) {
 	return nil, fmt.Errorf("DeleteAction: %w", ErrNotImplemented)
 }
@@ -443,6 +471,10 @@ func (b *BaseProvider) DeleteInferenceExperiment(ctx context.Context, input *Del
 	return nil, fmt.Errorf("DeleteInferenceExperiment: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteJob(ctx context.Context, input *DeleteJobRequest) (*DeleteJobResponse, error) {
+	return nil, fmt.Errorf("DeleteJob: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteMlflowApp(ctx context.Context, input *DeleteMlflowAppRequest) (*DeleteMlflowAppResponse, error) {
 	return nil, fmt.Errorf("DeleteMlflowApp: %w", ErrNotImplemented)
 }
@@ -553,6 +585,18 @@ func (b *BaseProvider) DeleteWorkteam(ctx context.Context, input *DeleteWorkteam
 
 func (b *BaseProvider) DeregisterDevices(ctx context.Context, input *DeregisterDevicesRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeregisterDevices: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeAIBenchmarkJob(ctx context.Context, input *DescribeAIBenchmarkJobRequest) (*DescribeAIBenchmarkJobResponse, error) {
+	return nil, fmt.Errorf("DescribeAIBenchmarkJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeAIRecommendationJob(ctx context.Context, input *DescribeAIRecommendationJobRequest) (*DescribeAIRecommendationJobResponse, error) {
+	return nil, fmt.Errorf("DescribeAIRecommendationJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeAIWorkloadConfig(ctx context.Context, input *DescribeAIWorkloadConfigRequest) (*DescribeAIWorkloadConfigResponse, error) {
+	return nil, fmt.Errorf("DescribeAIWorkloadConfig: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeAction(ctx context.Context, input *DescribeActionRequest) (*DescribeActionResponse, error) {
@@ -697,6 +741,14 @@ func (b *BaseProvider) DescribeInferenceExperiment(ctx context.Context, input *D
 
 func (b *BaseProvider) DescribeInferenceRecommendationsJob(ctx context.Context, input *DescribeInferenceRecommendationsJobRequest) (*DescribeInferenceRecommendationsJobResponse, error) {
 	return nil, fmt.Errorf("DescribeInferenceRecommendationsJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeJob(ctx context.Context, input *DescribeJobRequest) (*DescribeJobResponse, error) {
+	return nil, fmt.Errorf("DescribeJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeJobSchemaVersion(ctx context.Context, input *DescribeJobSchemaVersionRequest) (*DescribeJobSchemaVersionResponse, error) {
+	return nil, fmt.Errorf("DescribeJobSchemaVersion: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeLabelingJob(ctx context.Context, input *DescribeLabelingJobRequest) (*DescribeLabelingJobResponse, error) {
@@ -887,6 +939,18 @@ func (b *BaseProvider) ImportHubContent(ctx context.Context, input *ImportHubCon
 	return nil, fmt.Errorf("ImportHubContent: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListAIBenchmarkJobs(ctx context.Context, input *ListAIBenchmarkJobsRequest) (*ListAIBenchmarkJobsResponse, error) {
+	return nil, fmt.Errorf("ListAIBenchmarkJobs: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListAIRecommendationJobs(ctx context.Context, input *ListAIRecommendationJobsRequest) (*ListAIRecommendationJobsResponse, error) {
+	return nil, fmt.Errorf("ListAIRecommendationJobs: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListAIWorkloadConfigs(ctx context.Context, input *ListAIWorkloadConfigsRequest) (*ListAIWorkloadConfigsResponse, error) {
+	return nil, fmt.Errorf("ListAIWorkloadConfigs: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListActions(ctx context.Context, input *ListActionsRequest) (*ListActionsResponse, error) {
 	return nil, fmt.Errorf("ListActions: %w", ErrNotImplemented)
 }
@@ -1041,6 +1105,14 @@ func (b *BaseProvider) ListInferenceRecommendationsJobSteps(ctx context.Context,
 
 func (b *BaseProvider) ListInferenceRecommendationsJobs(ctx context.Context, input *ListInferenceRecommendationsJobsRequest) (*ListInferenceRecommendationsJobsResponse, error) {
 	return nil, fmt.Errorf("ListInferenceRecommendationsJobs: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListJobSchemaVersions(ctx context.Context, input *ListJobSchemaVersionsRequest) (*ListJobSchemaVersionsResponse, error) {
+	return nil, fmt.Errorf("ListJobSchemaVersions: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListJobs(ctx context.Context, input *ListJobsRequest) (*ListJobsResponse, error) {
+	return nil, fmt.Errorf("ListJobs: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListLabelingJobs(ctx context.Context, input *ListLabelingJobsRequest) (*ListLabelingJobsResponse, error) {
@@ -1263,6 +1335,10 @@ func (b *BaseProvider) SendPipelineExecutionStepSuccess(ctx context.Context, inp
 	return nil, fmt.Errorf("SendPipelineExecutionStepSuccess: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) StartClusterHealthCheck(ctx context.Context, input *StartClusterHealthCheckRequest) (*StartClusterHealthCheckResponse, error) {
+	return nil, fmt.Errorf("StartClusterHealthCheck: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) StartEdgeDeploymentStage(ctx context.Context, input *StartEdgeDeploymentStageRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("StartEdgeDeploymentStage: %w", ErrNotImplemented)
 }
@@ -1291,6 +1367,14 @@ func (b *BaseProvider) StartSession(ctx context.Context, input *StartSessionRequ
 	return nil, fmt.Errorf("StartSession: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) StopAIBenchmarkJob(ctx context.Context, input *StopAIBenchmarkJobRequest) (*StopAIBenchmarkJobResponse, error) {
+	return nil, fmt.Errorf("StopAIBenchmarkJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StopAIRecommendationJob(ctx context.Context, input *StopAIRecommendationJobRequest) (*StopAIRecommendationJobResponse, error) {
+	return nil, fmt.Errorf("StopAIRecommendationJob: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) StopAutoMLJob(ctx context.Context, input *StopAutoMLJobRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("StopAutoMLJob: %w", ErrNotImplemented)
 }
@@ -1317,6 +1401,10 @@ func (b *BaseProvider) StopInferenceExperiment(ctx context.Context, input *StopI
 
 func (b *BaseProvider) StopInferenceRecommendationsJob(ctx context.Context, input *StopInferenceRecommendationsJobRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("StopInferenceRecommendationsJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StopJob(ctx context.Context, input *StopJobRequest) (*StopJobResponse, error) {
+	return nil, fmt.Errorf("StopJob: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) StopLabelingJob(ctx context.Context, input *StopLabelingJobRequest) (*SmithyUnit, error) {

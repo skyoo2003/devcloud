@@ -170,6 +170,7 @@ type Cluster struct {
 	IpAddressType                          string                             `json:"ipAddressType" xml:"IpAddressType"`
 	KmsKeyId                               string                             `json:"kmsKeyId" xml:"KmsKeyId"`
 	LakehouseRegistrationStatus            string                             `json:"lakehouseRegistrationStatus" xml:"LakehouseRegistrationStatus"`
+	LoggingPublishStatus                   *LoggingPublishStatus              `json:"loggingPublishStatus" xml:"LoggingPublishStatus"`
 	MaintenanceTrackName                   string                             `json:"maintenanceTrackName" xml:"MaintenanceTrackName"`
 	ManualSnapshotRetentionPeriod          int32                              `json:"manualSnapshotRetentionPeriod" xml:"ManualSnapshotRetentionPeriod"`
 	MasterPasswordSecretArn                string                             `json:"masterPasswordSecretArn" xml:"MasterPasswordSecretArn"`
@@ -512,6 +513,17 @@ type CreateIntegrationMessage struct {
 	TargetArn                   string               `json:"targetArn" xml:"TargetArn"`
 }
 
+type CreateQev2IdcApplicationMessage struct {
+	IdcDisplayName         string  `json:"idcDisplayName" xml:"IdcDisplayName"`
+	IdcInstanceArn         string  `json:"idcInstanceArn" xml:"IdcInstanceArn"`
+	Qev2IdcApplicationName string  `json:"qev2IdcApplicationName" xml:"Qev2IdcApplicationName"`
+	Tags                   TagList `json:"tags" xml:"Tags"`
+}
+
+type CreateQev2IdcApplicationResult struct {
+	Qev2IdcApplication *Qev2IdcApplication `json:"qev2IdcApplication" xml:"Qev2IdcApplication"`
+}
+
 type CreateRedshiftIdcApplicationMessage struct {
 	ApplicationType            string                    `json:"applicationType" xml:"ApplicationType"`
 	AuthorizedTokenIssuerList  AuthorizedTokenIssuerList `json:"authorizedTokenIssuerList" xml:"AuthorizedTokenIssuerList"`
@@ -692,6 +704,10 @@ type DeleteHsmConfigurationMessage struct {
 
 type DeleteIntegrationMessage struct {
 	IntegrationArn string `json:"integrationArn" xml:"IntegrationArn"`
+}
+
+type DeleteQev2IdcApplicationMessage struct {
+	Qev2IdcApplicationArn string `json:"qev2IdcApplicationArn" xml:"Qev2IdcApplicationArn"`
 }
 
 type DeleteRedshiftIdcApplicationMessage struct {
@@ -977,6 +993,17 @@ type DescribePartnersOutputMessage struct {
 	PartnerIntegrationInfoList PartnerIntegrationInfoList `json:"partnerIntegrationInfoList" xml:"PartnerIntegrationInfoList"`
 }
 
+type DescribeQev2IdcApplicationsMessage struct {
+	Marker                string `json:"marker" xml:"Marker"`
+	MaxRecords            int32  `json:"maxRecords" xml:"MaxRecords"`
+	Qev2IdcApplicationArn string `json:"qev2IdcApplicationArn" xml:"Qev2IdcApplicationArn"`
+}
+
+type DescribeQev2IdcApplicationsResult struct {
+	Marker              string                 `json:"marker" xml:"Marker"`
+	Qev2IdcApplications Qev2IdcApplicationList `json:"qev2IdcApplications" xml:"Qev2IdcApplications"`
+}
+
 type DescribeRedshiftIdcApplicationsMessage struct {
 	Marker                    string `json:"marker" xml:"Marker"`
 	MaxRecords                int32  `json:"maxRecords" xml:"MaxRecords"`
@@ -1076,7 +1103,9 @@ type DescribeUsageLimitsMessage struct {
 }
 
 type DisableLoggingMessage struct {
-	ClusterIdentifier string `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+	ClusterIdentifier  string      `json:"clusterIdentifier" xml:"ClusterIdentifier"`
+	LogDestinationType string      `json:"logDestinationType" xml:"LogDestinationType"`
+	LogExports         LogTypeList `json:"logExports" xml:"LogExports"`
 }
 
 type DisableSnapshotCopyMessage struct {
@@ -1112,6 +1141,8 @@ type EnableLoggingMessage struct {
 	LogDestinationType string      `json:"logDestinationType" xml:"LogDestinationType"`
 	LogExports         LogTypeList `json:"logExports" xml:"LogExports"`
 	S3KeyPrefix        string      `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
+	S3TableGranularity string      `json:"s3TableGranularity" xml:"S3TableGranularity"`
+	S3TableKmsKeyId    string      `json:"s3TableKmsKeyId" xml:"S3TableKmsKeyId"`
 }
 
 type EnableSnapshotCopyMessage struct {
@@ -1380,15 +1411,20 @@ type ListRecommendationsResult struct {
 	Recommendations RecommendationList `json:"recommendations" xml:"Recommendations"`
 }
 
+type LoggingPublishStatus struct {
+	S3Tables *S3TablePublishStatus `json:"s3Tables" xml:"S3Tables"`
+}
+
 type LoggingStatus struct {
-	BucketName                 string      `json:"bucketName" xml:"BucketName"`
-	LastFailureMessage         string      `json:"lastFailureMessage" xml:"LastFailureMessage"`
-	LastFailureTime            time.Time   `json:"lastFailureTime" xml:"LastFailureTime"`
-	LastSuccessfulDeliveryTime time.Time   `json:"lastSuccessfulDeliveryTime" xml:"LastSuccessfulDeliveryTime"`
-	LogDestinationType         string      `json:"logDestinationType" xml:"LogDestinationType"`
-	LogExports                 LogTypeList `json:"logExports" xml:"LogExports"`
-	LoggingEnabled             bool        `json:"loggingEnabled" xml:"LoggingEnabled"`
-	S3KeyPrefix                string      `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
+	BucketName                 string                `json:"bucketName" xml:"BucketName"`
+	LastFailureMessage         string                `json:"lastFailureMessage" xml:"LastFailureMessage"`
+	LastFailureTime            time.Time             `json:"lastFailureTime" xml:"LastFailureTime"`
+	LastSuccessfulDeliveryTime time.Time             `json:"lastSuccessfulDeliveryTime" xml:"LastSuccessfulDeliveryTime"`
+	LogDestinationType         string                `json:"logDestinationType" xml:"LogDestinationType"`
+	LogExports                 LogTypeList           `json:"logExports" xml:"LogExports"`
+	LoggingEnabled             bool                  `json:"loggingEnabled" xml:"LoggingEnabled"`
+	S3KeyPrefix                string                `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
+	S3Tables                   *S3TablePublishStatus `json:"s3Tables" xml:"S3Tables"`
 }
 
 type MaintenanceTrack struct {
@@ -1564,6 +1600,15 @@ type ModifyLakehouseConfigurationMessage struct {
 	LakehouseRegistration      string `json:"lakehouseRegistration" xml:"LakehouseRegistration"`
 }
 
+type ModifyQev2IdcApplicationMessage struct {
+	IdcDisplayName        string `json:"idcDisplayName" xml:"IdcDisplayName"`
+	Qev2IdcApplicationArn string `json:"qev2IdcApplicationArn" xml:"Qev2IdcApplicationArn"`
+}
+
+type ModifyQev2IdcApplicationResult struct {
+	Qev2IdcApplication *Qev2IdcApplication `json:"qev2IdcApplication" xml:"Qev2IdcApplication"`
+}
+
 type ModifyRedshiftIdcApplicationMessage struct {
 	AuthorizedTokenIssuerList AuthorizedTokenIssuerList `json:"authorizedTokenIssuerList" xml:"AuthorizedTokenIssuerList"`
 	IamRoleArn                string                    `json:"iamRoleArn" xml:"IamRoleArn"`
@@ -1722,6 +1767,16 @@ type PutResourcePolicyMessage struct {
 
 type PutResourcePolicyResult struct {
 	ResourcePolicy *ResourcePolicy `json:"resourcePolicy" xml:"ResourcePolicy"`
+}
+
+type Qev2IdcApplication struct {
+	IdcDisplayName           string  `json:"idcDisplayName" xml:"IdcDisplayName"`
+	IdcInstanceArn           string  `json:"idcInstanceArn" xml:"IdcInstanceArn"`
+	IdcManagedApplicationArn string  `json:"idcManagedApplicationArn" xml:"IdcManagedApplicationArn"`
+	IdcOnboardStatus         string  `json:"idcOnboardStatus" xml:"IdcOnboardStatus"`
+	Qev2IdcApplicationArn    string  `json:"qev2IdcApplicationArn" xml:"Qev2IdcApplicationArn"`
+	Qev2IdcApplicationName   string  `json:"qev2IdcApplicationName" xml:"Qev2IdcApplicationName"`
+	Tags                     TagList `json:"tags" xml:"Tags"`
 }
 
 type ReadWriteAccess struct {
@@ -2022,6 +2077,14 @@ type RotateEncryptionKeyMessage struct {
 
 type RotateEncryptionKeyResult struct {
 	Cluster *Cluster `json:"cluster" xml:"Cluster"`
+}
+
+type S3TablePublishStatus struct {
+	EnabledAll         bool                        `json:"enabledAll" xml:"EnabledAll"`
+	LastIngestionTimes S3TableLastIngestionTimeMap `json:"lastIngestionTimes" xml:"LastIngestionTimes"`
+	S3TableGranularity string                      `json:"s3TableGranularity" xml:"S3TableGranularity"`
+	S3TableNamespace   string                      `json:"s3TableNamespace" xml:"S3TableNamespace"`
+	S3Tables           LogTypeList                 `json:"s3Tables" xml:"S3Tables"`
 }
 
 type ScheduledAction struct {
@@ -2366,6 +2429,8 @@ type PartnerIntegrationInfoList []*PartnerIntegrationInfo
 
 type PendingActionsList []string
 
+type Qev2IdcApplicationList []*Qev2IdcApplication
+
 type RecommendationList []*Recommendation
 
 type RecommendedActionList []*RecommendedAction
@@ -2449,6 +2514,8 @@ type VpcSecurityGroupIdList []string
 type VpcSecurityGroupMembershipList []*VpcSecurityGroupMembership
 
 type EncryptionContextMap map[string]string
+
+type S3TableLastIngestionTimeMap map[string]string
 
 type LakeFormationScopeUnion interface{}
 

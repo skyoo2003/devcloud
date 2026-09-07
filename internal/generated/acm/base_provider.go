@@ -15,8 +15,48 @@ func (b *BaseProvider) AddTagsToCertificate(ctx context.Context, input *AddTagsT
 	return nil, fmt.Errorf("AddTagsToCertificate: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateAcmeDomainValidation(ctx context.Context, input *CreateAcmeDomainValidationRequest) (*CreateAcmeDomainValidationResponse, error) {
+	return nil, fmt.Errorf("CreateAcmeDomainValidation: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateAcmeEndpoint(ctx context.Context, input *CreateAcmeEndpointRequest) (*CreateAcmeEndpointResponse, error) {
+	return nil, fmt.Errorf("CreateAcmeEndpoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateAcmeExternalAccountBinding(ctx context.Context, input *CreateAcmeExternalAccountBindingRequest) (*CreateAcmeExternalAccountBindingResponse, error) {
+	return nil, fmt.Errorf("CreateAcmeExternalAccountBinding: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAcmeDomainValidation(ctx context.Context, input *DeleteAcmeDomainValidationRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteAcmeDomainValidation: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAcmeEndpoint(ctx context.Context, input *DeleteAcmeEndpointRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteAcmeEndpoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAcmeExternalAccountBinding(ctx context.Context, input *DeleteAcmeExternalAccountBindingRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteAcmeExternalAccountBinding: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteCertificate(ctx context.Context, input *DeleteCertificateRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeleteCertificate: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeAcmeAccount(ctx context.Context, input *DescribeAcmeAccountRequest) (*DescribeAcmeAccountResponse, error) {
+	return nil, fmt.Errorf("DescribeAcmeAccount: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeAcmeDomainValidation(ctx context.Context, input *DescribeAcmeDomainValidationRequest) (*DescribeAcmeDomainValidationResponse, error) {
+	return nil, fmt.Errorf("DescribeAcmeDomainValidation: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeAcmeEndpoint(ctx context.Context, input *DescribeAcmeEndpointRequest) (*DescribeAcmeEndpointResponse, error) {
+	return nil, fmt.Errorf("DescribeAcmeEndpoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeAcmeExternalAccountBinding(ctx context.Context, input *DescribeAcmeExternalAccountBindingRequest) (*DescribeAcmeExternalAccountBindingResponse, error) {
+	return nil, fmt.Errorf("DescribeAcmeExternalAccountBinding: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeCertificate(ctx context.Context, input *DescribeCertificateRequest) (*DescribeCertificateResponse, error) {
@@ -31,6 +71,10 @@ func (b *BaseProvider) GetAccountConfiguration(ctx context.Context, input *Smith
 	return nil, fmt.Errorf("GetAccountConfiguration: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetAcmeExternalAccountBindingCredentials(ctx context.Context, input *GetAcmeExternalAccountBindingCredentialsRequest) (*GetAcmeExternalAccountBindingCredentialsResponse, error) {
+	return nil, fmt.Errorf("GetAcmeExternalAccountBindingCredentials: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetCertificate(ctx context.Context, input *GetCertificateRequest) (*GetCertificateResponse, error) {
 	return nil, fmt.Errorf("GetCertificate: %w", ErrNotImplemented)
 }
@@ -39,12 +83,36 @@ func (b *BaseProvider) ImportCertificate(ctx context.Context, input *ImportCerti
 	return nil, fmt.Errorf("ImportCertificate: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListAcmeAccounts(ctx context.Context, input *ListAcmeAccountsRequest) (*ListAcmeAccountsResponse, error) {
+	return nil, fmt.Errorf("ListAcmeAccounts: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListAcmeDomainValidations(ctx context.Context, input *ListAcmeDomainValidationsRequest) (*ListAcmeDomainValidationsResponse, error) {
+	return nil, fmt.Errorf("ListAcmeDomainValidations: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListAcmeEndpoints(ctx context.Context, input *ListAcmeEndpointsRequest) (*ListAcmeEndpointsResponse, error) {
+	return nil, fmt.Errorf("ListAcmeEndpoints: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListAcmeExternalAccountBindings(ctx context.Context, input *ListAcmeExternalAccountBindingsRequest) (*ListAcmeExternalAccountBindingsResponse, error) {
+	return nil, fmt.Errorf("ListAcmeExternalAccountBindings: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListCertificateDomainValidations(ctx context.Context, input *ListCertificateDomainValidationsRequest) (*ListCertificateDomainValidationsResponse, error) {
+	return nil, fmt.Errorf("ListCertificateDomainValidations: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListCertificates(ctx context.Context, input *ListCertificatesRequest) (*ListCertificatesResponse, error) {
 	return nil, fmt.Errorf("ListCertificates: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListTagsForCertificate(ctx context.Context, input *ListTagsForCertificateRequest) (*ListTagsForCertificateResponse, error) {
 	return nil, fmt.Errorf("ListTagsForCertificate: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListTagsForResource(ctx context.Context, input *ListTagsForResourceRequest) (*ListTagsForResourceResponse, error) {
+	return nil, fmt.Errorf("ListTagsForResource: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) PutAccountConfiguration(ctx context.Context, input *PutAccountConfigurationRequest) (*SmithyUnit, error) {
@@ -67,12 +135,36 @@ func (b *BaseProvider) ResendValidationEmail(ctx context.Context, input *ResendV
 	return nil, fmt.Errorf("ResendValidationEmail: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) RevokeAcmeAccount(ctx context.Context, input *RevokeAcmeAccountRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("RevokeAcmeAccount: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) RevokeAcmeExternalAccountBinding(ctx context.Context, input *RevokeAcmeExternalAccountBindingRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("RevokeAcmeExternalAccountBinding: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) RevokeCertificate(ctx context.Context, input *RevokeCertificateRequest) (*RevokeCertificateResponse, error) {
 	return nil, fmt.Errorf("RevokeCertificate: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) SearchCertificates(ctx context.Context, input *SearchCertificatesRequest) (*SearchCertificatesResponse, error) {
 	return nil, fmt.Errorf("SearchCertificates: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) TagResource(ctx context.Context, input *TagResourceRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("TagResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateAcmeDomainValidation(ctx context.Context, input *UpdateAcmeDomainValidationRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("UpdateAcmeDomainValidation: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateAcmeEndpoint(ctx context.Context, input *UpdateAcmeEndpointRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("UpdateAcmeEndpoint: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateCertificateOptions(ctx context.Context, input *UpdateCertificateOptionsRequest) (*SmithyUnit, error) {

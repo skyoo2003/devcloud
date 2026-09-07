@@ -836,6 +836,7 @@ type ProjectEnvironment struct {
 	DockerServer             *DockerServer         `json:"dockerServer" xml:"dockerServer"`
 	EnvironmentVariables     EnvironmentVariables  `json:"environmentVariables" xml:"environmentVariables"`
 	Fleet                    *ProjectFleet         `json:"fleet" xml:"fleet"`
+	HostKernel               string                `json:"hostKernel" xml:"hostKernel"`
 	Image                    string                `json:"image" xml:"image"`
 	ImagePullCredentialsType string                `json:"imagePullCredentialsType" xml:"imagePullCredentialsType"`
 	PrivilegedMode           bool                  `json:"privilegedMode" xml:"privilegedMode"`
@@ -1118,6 +1119,7 @@ type StartBuildInput struct {
 	FleetOverride                    *ProjectFleet                  `json:"fleetOverride" xml:"fleetOverride"`
 	GitCloneDepthOverride            int32                          `json:"gitCloneDepthOverride" xml:"gitCloneDepthOverride"`
 	GitSubmodulesConfigOverride      *GitSubmodulesConfig           `json:"gitSubmodulesConfigOverride" xml:"gitSubmodulesConfigOverride"`
+	HostKernelOverride               string                         `json:"hostKernelOverride" xml:"hostKernelOverride"`
 	IdempotencyToken                 string                         `json:"idempotencyToken" xml:"idempotencyToken"`
 	ImageOverride                    string                         `json:"imageOverride" xml:"imageOverride"`
 	ImagePullCredentialsTypeOverride string                         `json:"imagePullCredentialsTypeOverride" xml:"imagePullCredentialsTypeOverride"`

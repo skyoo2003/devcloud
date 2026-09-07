@@ -55,6 +55,15 @@ type AcceptReservedInstancesExchangeQuoteResult struct {
 	ExchangeId string `json:"exchangeId" xml:"ExchangeId"`
 }
 
+type AcceptTransitGatewayClientVpnAttachmentRequest struct {
+	DryRun                     bool   `json:"dryRun" xml:"DryRun"`
+	TransitGatewayAttachmentId string `json:"transitGatewayAttachmentId" xml:"TransitGatewayAttachmentId"`
+}
+
+type AcceptTransitGatewayClientVpnAttachmentResult struct {
+	TransitGatewayClientVpnAttachment *TransitGatewayClientVpnAttachment `json:"transitGatewayClientVpnAttachment" xml:"TransitGatewayClientVpnAttachment"`
+}
+
 type AcceptTransitGatewayMulticastDomainAssociationsRequest struct {
 	DryRun                          bool            `json:"dryRun" xml:"DryRun"`
 	SubnetIds                       ValueStringList `json:"subnetIds" xml:"SubnetIds"`
@@ -129,6 +138,25 @@ type AccountAttribute struct {
 
 type AccountAttributeValue struct {
 	AttributeValue string `json:"attributeValue" xml:"AttributeValue"`
+}
+
+type AccountVpcEncryptionControl struct {
+	Exclusions          *AccountVpcEncryptionControlExclusions `json:"exclusions" xml:"Exclusions"`
+	LastUpdateTimestamp time.Time                              `json:"lastUpdateTimestamp" xml:"LastUpdateTimestamp"`
+	ManagedBy           string                                 `json:"managedBy" xml:"ManagedBy"`
+	Mode                string                                 `json:"mode" xml:"Mode"`
+	State               string                                 `json:"state" xml:"State"`
+}
+
+type AccountVpcEncryptionControlExclusions struct {
+	EgressOnlyInternetGateway string `json:"egressOnlyInternetGateway" xml:"EgressOnlyInternetGateway"`
+	ElasticFileSystem         string `json:"elasticFileSystem" xml:"ElasticFileSystem"`
+	InternetGateway           string `json:"internetGateway" xml:"InternetGateway"`
+	Lambda                    string `json:"lambda" xml:"Lambda"`
+	NatGateway                string `json:"natGateway" xml:"NatGateway"`
+	VirtualPrivateGateway     string `json:"virtualPrivateGateway" xml:"VirtualPrivateGateway"`
+	VpcLattice                string `json:"vpcLattice" xml:"VpcLattice"`
+	VpcPeering                string `json:"vpcPeering" xml:"VpcPeering"`
 }
 
 type ActiveInstance struct {
@@ -250,18 +278,19 @@ type AllocateAddressResult struct {
 }
 
 type AllocateHostsRequest struct {
-	AssetIds           AssetIdList          `json:"assetIds" xml:"AssetIds"`
-	AutoPlacement      string               `json:"autoPlacement" xml:"AutoPlacement"`
-	AvailabilityZone   string               `json:"availabilityZone" xml:"AvailabilityZone"`
-	AvailabilityZoneId string               `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
-	ClientToken        string               `json:"clientToken" xml:"ClientToken"`
-	HostMaintenance    string               `json:"hostMaintenance" xml:"HostMaintenance"`
-	HostRecovery       string               `json:"hostRecovery" xml:"HostRecovery"`
-	InstanceFamily     string               `json:"instanceFamily" xml:"InstanceFamily"`
-	InstanceType       string               `json:"instanceType" xml:"InstanceType"`
-	OutpostArn         string               `json:"outpostArn" xml:"OutpostArn"`
-	Quantity           int32                `json:"quantity" xml:"Quantity"`
-	TagSpecifications  TagSpecificationList `json:"tagSpecifications" xml:"TagSpecifications"`
+	AssetIds           AssetIdList            `json:"assetIds" xml:"AssetIds"`
+	AutoPlacement      string                 `json:"autoPlacement" xml:"AutoPlacement"`
+	AvailabilityZone   string                 `json:"availabilityZone" xml:"AvailabilityZone"`
+	AvailabilityZoneId string                 `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
+	ClientToken        string                 `json:"clientToken" xml:"ClientToken"`
+	CpuOptions         *HostCpuOptionsRequest `json:"cpuOptions" xml:"CpuOptions"`
+	HostMaintenance    string                 `json:"hostMaintenance" xml:"HostMaintenance"`
+	HostRecovery       string                 `json:"hostRecovery" xml:"HostRecovery"`
+	InstanceFamily     string                 `json:"instanceFamily" xml:"InstanceFamily"`
+	InstanceType       string                 `json:"instanceType" xml:"InstanceType"`
+	OutpostArn         string                 `json:"outpostArn" xml:"OutpostArn"`
+	Quantity           int32                  `json:"quantity" xml:"Quantity"`
+	TagSpecifications  TagSpecificationList   `json:"tagSpecifications" xml:"TagSpecifications"`
 }
 
 type AllocateHostsResult struct {
@@ -269,15 +298,16 @@ type AllocateHostsResult struct {
 }
 
 type AllocateIpamPoolCidrRequest struct {
-	AllowedCidrs    IpamPoolAllocationAllowedCidrs    `json:"allowedCidrs" xml:"AllowedCidrs"`
-	Cidr            string                            `json:"cidr" xml:"Cidr"`
-	ClientToken     string                            `json:"clientToken" xml:"ClientToken"`
-	Description     string                            `json:"description" xml:"Description"`
-	DisallowedCidrs IpamPoolAllocationDisallowedCidrs `json:"disallowedCidrs" xml:"DisallowedCidrs"`
-	DryRun          bool                              `json:"dryRun" xml:"DryRun"`
-	IpamPoolId      string                            `json:"ipamPoolId" xml:"IpamPoolId"`
-	NetmaskLength   int32                             `json:"netmaskLength" xml:"NetmaskLength"`
-	PreviewNextCidr bool                              `json:"previewNextCidr" xml:"PreviewNextCidr"`
+	AllowedCidrs      IpamPoolAllocationAllowedCidrs    `json:"allowedCidrs" xml:"AllowedCidrs"`
+	Cidr              string                            `json:"cidr" xml:"Cidr"`
+	ClientToken       string                            `json:"clientToken" xml:"ClientToken"`
+	Description       string                            `json:"description" xml:"Description"`
+	DisallowedCidrs   IpamPoolAllocationDisallowedCidrs `json:"disallowedCidrs" xml:"DisallowedCidrs"`
+	DryRun            bool                              `json:"dryRun" xml:"DryRun"`
+	IpamPoolId        string                            `json:"ipamPoolId" xml:"IpamPoolId"`
+	NetmaskLength     int32                             `json:"netmaskLength" xml:"NetmaskLength"`
+	PreviewNextCidr   bool                              `json:"previewNextCidr" xml:"PreviewNextCidr"`
+	TagSpecifications TagSpecificationList              `json:"tagSpecifications" xml:"TagSpecifications"`
 }
 
 type AllocateIpamPoolCidrResult struct {
@@ -357,6 +387,70 @@ type AnalysisSecurityGroupRule struct {
 	PrefixListId    string     `json:"prefixListId" xml:"PrefixListId"`
 	Protocol        string     `json:"protocol" xml:"Protocol"`
 	SecurityGroupId string     `json:"securityGroupId" xml:"SecurityGroupId"`
+}
+
+type ApplicationStatus struct {
+	Details         ApplicationStatusDetailSet `json:"details" xml:"Details"`
+	ResumeAt        time.Time                  `json:"resumeAt" xml:"ResumeAt"`
+	Status          string                     `json:"status" xml:"Status"`
+	StatusSince     time.Time                  `json:"statusSince" xml:"StatusSince"`
+	StatusTimeStamp time.Time                  `json:"statusTimeStamp" xml:"StatusTimeStamp"`
+}
+
+type ApplicationStatusCheckAssociationObject struct {
+	ApplicationStatusCheckId string `json:"applicationStatusCheckId" xml:"ApplicationStatusCheckId"`
+	AssociationType          string `json:"associationType" xml:"AssociationType"`
+	Key                      string `json:"key" xml:"Key"`
+	Value                    string `json:"value" xml:"Value"`
+}
+
+type ApplicationStatusCheckResponseObject struct {
+	Aggregation                      string                        `json:"aggregation" xml:"Aggregation"`
+	ApplicationStatusCheckId         string                        `json:"applicationStatusCheckId" xml:"ApplicationStatusCheckId"`
+	CreationTime                     time.Time                     `json:"creationTime" xml:"CreationTime"`
+	DeletionTime                     time.Time                     `json:"deletionTime" xml:"DeletionTime"`
+	DeviceIndex                      int32                         `json:"deviceIndex" xml:"DeviceIndex"`
+	FailureThreshold                 int32                         `json:"failureThreshold" xml:"FailureThreshold"`
+	HealthCheckPaths                 HealthCheckPathResponseList   `json:"healthCheckPaths" xml:"HealthCheckPaths"`
+	InitializationGracePeriodSeconds int32                         `json:"initializationGracePeriodSeconds" xml:"InitializationGracePeriodSeconds"`
+	Interval                         int32                         `json:"interval" xml:"Interval"`
+	IpScope                          string                        `json:"ipScope" xml:"IpScope"`
+	IpVersion                        string                        `json:"ipVersion" xml:"IpVersion"`
+	LastUpdatedAt                    time.Time                     `json:"lastUpdatedAt" xml:"LastUpdatedAt"`
+	ModifyTime                       time.Time                     `json:"modifyTime" xml:"ModifyTime"`
+	Path                             string                        `json:"path" xml:"Path"`
+	Port                             int32                         `json:"port" xml:"Port"`
+	Protocol                         string                        `json:"protocol" xml:"Protocol"`
+	StatusCodeMatcher                string                        `json:"statusCodeMatcher" xml:"StatusCodeMatcher"`
+	SuccessThreshold                 int32                         `json:"successThreshold" xml:"SuccessThreshold"`
+	Tags                             TagList                       `json:"tags" xml:"Tags"`
+	TargetTagAssociations            CustomKeyValuePairResponseSet `json:"targetTagAssociations" xml:"TargetTagAssociations"`
+	Timeout                          int32                         `json:"timeout" xml:"Timeout"`
+}
+
+type ApplicationStatusDetail struct {
+	Aggregation              string                   `json:"aggregation" xml:"Aggregation"`
+	ApplicationStatusCheckId string                   `json:"applicationStatusCheckId" xml:"ApplicationStatusCheckId"`
+	CheckUpdateTime          time.Time                `json:"checkUpdateTime" xml:"CheckUpdateTime"`
+	Reason                   *ApplicationStatusReason `json:"reason" xml:"Reason"`
+	Status                   string                   `json:"status" xml:"Status"`
+	StatusSince              time.Time                `json:"statusSince" xml:"StatusSince"`
+	StatusTimeStamp          time.Time                `json:"statusTimeStamp" xml:"StatusTimeStamp"`
+}
+
+type ApplicationStatusReason struct {
+	Code       string `json:"code" xml:"Code"`
+	Protocol   string `json:"protocol" xml:"Protocol"`
+	StatusCode int32  `json:"statusCode" xml:"StatusCode"`
+}
+
+type ApplicationStatusSummary struct {
+	ImpairedSince time.Time `json:"impairedSince" xml:"ImpairedSince"`
+	Status        string    `json:"status" xml:"Status"`
+}
+
+type ApplicationStatusesResponseType struct {
+	Instances InstanceApplicationStatusSet `json:"instances" xml:"Instances"`
 }
 
 type ApplySecurityGroupsToClientVpnTargetNetworkRequest struct {
@@ -441,6 +535,19 @@ type AssociateAddressResult struct {
 	AssociationId string `json:"associationId" xml:"AssociationId"`
 }
 
+type AssociateApplicationStatusCheckRequest struct {
+	ApplicationStatusCheckId string                       `json:"applicationStatusCheckId" xml:"ApplicationStatusCheckId"`
+	ClientToken              string                       `json:"clientToken" xml:"ClientToken"`
+	DryRun                   bool                         `json:"dryRun" xml:"DryRun"`
+	InstanceIds              InstanceIdList               `json:"instanceIds" xml:"InstanceIds"`
+	TargetTagAssociations    CustomKeyValuePairRequestSet `json:"targetTagAssociations" xml:"TargetTagAssociations"`
+}
+
+type AssociateApplicationStatusCheckResult struct {
+	SuccessfulResults   SuccessfulAssociationResponseSet   `json:"successfulResults" xml:"SuccessfulResults"`
+	UnsuccessfulResults UnsuccessfulAssociationResponseSet `json:"unsuccessfulResults" xml:"UnsuccessfulResults"`
+}
+
 type AssociateCapacityReservationBillingOwnerRequest struct {
 	CapacityReservationId           string `json:"capacityReservationId" xml:"CapacityReservationId"`
 	DryRun                          bool   `json:"dryRun" xml:"DryRun"`
@@ -452,6 +559,8 @@ type AssociateCapacityReservationBillingOwnerResult struct {
 }
 
 type AssociateClientVpnTargetNetworkRequest struct {
+	AvailabilityZone    string `json:"availabilityZone" xml:"AvailabilityZone"`
+	AvailabilityZoneId  string `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
 	ClientToken         string `json:"clientToken" xml:"ClientToken"`
 	ClientVpnEndpointId string `json:"clientVpnEndpointId" xml:"ClientVpnEndpointId"`
 	DryRun              bool   `json:"dryRun" xml:"DryRun"`
@@ -680,6 +789,16 @@ type AttachClassicLinkVpcResult struct {
 	Return bool `json:"return" xml:"Return"`
 }
 
+type AttachImageWatermarkRequest struct {
+	DryRun        bool   `json:"dryRun" xml:"DryRun"`
+	ImageId       string `json:"imageId" xml:"ImageId"`
+	WatermarkName string `json:"watermarkName" xml:"WatermarkName"`
+}
+
+type AttachImageWatermarkResult struct {
+	WatermarkKey string `json:"watermarkKey" xml:"WatermarkKey"`
+}
+
 type AttachInternetGatewayRequest struct {
 	DryRun            bool   `json:"dryRun" xml:"DryRun"`
 	InternetGatewayId string `json:"internetGatewayId" xml:"InternetGatewayId"`
@@ -874,8 +993,16 @@ type BaselinePerformanceFactorsRequest struct {
 	Cpu *CpuPerformanceFactorRequest `json:"cpu" xml:"Cpu"`
 }
 
-type BlobAttributeValue struct {
-	Value []byte `json:"value" xml:"Value"`
+type BatchModifyIpamRoutingPolicyRegistrationsRequest struct {
+	ClientToken                       string `json:"clientToken" xml:"ClientToken"`
+	DeltaJson                         string `json:"deltaJson" xml:"DeltaJson"`
+	DryRun                            bool   `json:"dryRun" xml:"DryRun"`
+	Force                             bool   `json:"force" xml:"Force"`
+	IpamInternetRegistryAssociationId string `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+}
+
+type BatchModifyIpamRoutingPolicyRegistrationsResult struct {
+	IpamRoutingPolicyRegistrationDelta *IpamRoutingPolicyRegistrationDelta `json:"ipamRoutingPolicyRegistrationDelta" xml:"IpamRoutingPolicyRegistrationDelta"`
 }
 
 type BlockDeviceMapping struct {
@@ -934,7 +1061,9 @@ type ByoipCidr struct {
 	AsnAssociations    AsnAssociationSet `json:"asnAssociations" xml:"AsnAssociations"`
 	Cidr               string            `json:"cidr" xml:"Cidr"`
 	Description        string            `json:"description" xml:"Description"`
+	IpamPoolId         string            `json:"ipamPoolId" xml:"IpamPoolId"`
 	NetworkBorderGroup string            `json:"networkBorderGroup" xml:"NetworkBorderGroup"`
+	PoolId             string            `json:"poolId" xml:"PoolId"`
 	State              string            `json:"state" xml:"State"`
 	StatusMessage      string            `json:"statusMessage" xml:"StatusMessage"`
 }
@@ -964,8 +1093,10 @@ type CancelCapacityReservationFleetsResult struct {
 }
 
 type CancelCapacityReservationRequest struct {
-	CapacityReservationId string `json:"capacityReservationId" xml:"CapacityReservationId"`
-	DryRun                bool   `json:"dryRun" xml:"DryRun"`
+	ApplyCancellationCharges string `json:"applyCancellationCharges" xml:"ApplyCancellationCharges"`
+	CapacityReservationId    string `json:"capacityReservationId" xml:"CapacityReservationId"`
+	DryRun                   bool   `json:"dryRun" xml:"DryRun"`
+	QuoteId                  string `json:"quoteId" xml:"QuoteId"`
 }
 
 type CancelCapacityReservationResult struct {
@@ -1054,6 +1185,14 @@ type CancelSpotInstanceRequestsRequest struct {
 
 type CancelSpotInstanceRequestsResult struct {
 	CancelledSpotInstanceRequests CancelledSpotInstanceRequestList `json:"cancelledSpotInstanceRequests" xml:"CancelledSpotInstanceRequests"`
+}
+
+type CancellationTerms struct {
+	CancellationType              string    `json:"cancellationType" xml:"CancellationType"`
+	ChargeCommitmentDurationHours int64     `json:"chargeCommitmentDurationHours" xml:"ChargeCommitmentDurationHours"`
+	ChargeEndDate                 time.Time `json:"chargeEndDate" xml:"ChargeEndDate"`
+	CommittedInstanceCount        int32     `json:"committedInstanceCount" xml:"CommittedInstanceCount"`
+	ReservationState              string    `json:"reservationState" xml:"ReservationState"`
 }
 
 type CancelledSpotInstanceRequest struct {
@@ -1163,23 +1302,38 @@ type CapacityManagerDataExportResponse struct {
 }
 
 type CapacityManagerDimension struct {
-	AccountId                        string    `json:"accountId" xml:"AccountId"`
-	AvailabilityZoneId               string    `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
-	InstanceFamily                   string    `json:"instanceFamily" xml:"InstanceFamily"`
-	InstancePlatform                 string    `json:"instancePlatform" xml:"InstancePlatform"`
-	InstanceType                     string    `json:"instanceType" xml:"InstanceType"`
-	ReservationArn                   string    `json:"reservationArn" xml:"ReservationArn"`
-	ReservationCreateTimestamp       time.Time `json:"reservationCreateTimestamp" xml:"ReservationCreateTimestamp"`
-	ReservationEndDateType           string    `json:"reservationEndDateType" xml:"ReservationEndDateType"`
-	ReservationEndTimestamp          time.Time `json:"reservationEndTimestamp" xml:"ReservationEndTimestamp"`
-	ReservationId                    string    `json:"reservationId" xml:"ReservationId"`
-	ReservationInstanceMatchCriteria string    `json:"reservationInstanceMatchCriteria" xml:"ReservationInstanceMatchCriteria"`
-	ReservationStartTimestamp        time.Time `json:"reservationStartTimestamp" xml:"ReservationStartTimestamp"`
-	ReservationState                 string    `json:"reservationState" xml:"ReservationState"`
-	ReservationType                  string    `json:"reservationType" xml:"ReservationType"`
-	ReservationUnusedFinancialOwner  string    `json:"reservationUnusedFinancialOwner" xml:"ReservationUnusedFinancialOwner"`
-	ResourceRegion                   string    `json:"resourceRegion" xml:"ResourceRegion"`
-	Tenancy                          string    `json:"tenancy" xml:"Tenancy"`
+	AccountId                        string                         `json:"accountId" xml:"AccountId"`
+	AccountName                      string                         `json:"accountName" xml:"AccountName"`
+	AvailabilityZoneId               string                         `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
+	InstanceFamily                   string                         `json:"instanceFamily" xml:"InstanceFamily"`
+	InstancePlatform                 string                         `json:"instancePlatform" xml:"InstancePlatform"`
+	InstanceType                     string                         `json:"instanceType" xml:"InstanceType"`
+	ReservationArn                   string                         `json:"reservationArn" xml:"ReservationArn"`
+	ReservationCreateTimestamp       time.Time                      `json:"reservationCreateTimestamp" xml:"ReservationCreateTimestamp"`
+	ReservationEndDateType           string                         `json:"reservationEndDateType" xml:"ReservationEndDateType"`
+	ReservationEndTimestamp          time.Time                      `json:"reservationEndTimestamp" xml:"ReservationEndTimestamp"`
+	ReservationId                    string                         `json:"reservationId" xml:"ReservationId"`
+	ReservationInstanceMatchCriteria string                         `json:"reservationInstanceMatchCriteria" xml:"ReservationInstanceMatchCriteria"`
+	ReservationStartTimestamp        time.Time                      `json:"reservationStartTimestamp" xml:"ReservationStartTimestamp"`
+	ReservationState                 string                         `json:"reservationState" xml:"ReservationState"`
+	ReservationType                  string                         `json:"reservationType" xml:"ReservationType"`
+	ReservationUnusedFinancialOwner  string                         `json:"reservationUnusedFinancialOwner" xml:"ReservationUnusedFinancialOwner"`
+	ResourceRegion                   string                         `json:"resourceRegion" xml:"ResourceRegion"`
+	Tags                             CapacityManagerTagDimensionSet `json:"tags" xml:"Tags"`
+	Tenancy                          string                         `json:"tenancy" xml:"Tenancy"`
+}
+
+type CapacityManagerMonitoredTagKey struct {
+	CapacityManagerProvided    bool      `json:"capacityManagerProvided" xml:"CapacityManagerProvided"`
+	EarliestDatapointTimestamp time.Time `json:"earliestDatapointTimestamp" xml:"EarliestDatapointTimestamp"`
+	Status                     string    `json:"status" xml:"Status"`
+	StatusMessage              string    `json:"statusMessage" xml:"StatusMessage"`
+	TagKey                     string    `json:"tagKey" xml:"TagKey"`
+}
+
+type CapacityManagerTagDimension struct {
+	Key   string `json:"key" xml:"Key"`
+	Value string `json:"value" xml:"Value"`
 }
 
 type CapacityReservation struct {
@@ -1214,6 +1368,7 @@ type CapacityReservation struct {
 	Tenancy                         string                             `json:"tenancy" xml:"Tenancy"`
 	TotalInstanceCount              int32                              `json:"totalInstanceCount" xml:"TotalInstanceCount"`
 	UnusedReservationBillingOwnerId string                             `json:"unusedReservationBillingOwnerId" xml:"UnusedReservationBillingOwnerId"`
+	ZeroSizePreference              string                             `json:"zeroSizePreference" xml:"ZeroSizePreference"`
 }
 
 type CapacityReservationBillingRequest struct {
@@ -1226,9 +1381,25 @@ type CapacityReservationBillingRequest struct {
 	UnusedReservationBillingOwnerId string                   `json:"unusedReservationBillingOwnerId" xml:"UnusedReservationBillingOwnerId"`
 }
 
+type CapacityReservationCancellationQuote struct {
+	CancellationTerms                      CancellationTermsSet              `json:"cancellationTerms" xml:"CancellationTerms"`
+	CapacityReservationCancellationQuoteId string                            `json:"capacityReservationCancellationQuoteId" xml:"CapacityReservationCancellationQuoteId"`
+	CapacityReservationId                  string                            `json:"capacityReservationId" xml:"CapacityReservationId"`
+	CreateTime                             time.Time                         `json:"createTime" xml:"CreateTime"`
+	CurrentConfiguration                   *CapacityReservationConfiguration `json:"currentConfiguration" xml:"CurrentConfiguration"`
+	ExpirationTime                         time.Time                         `json:"expirationTime" xml:"ExpirationTime"`
+	QuoteState                             string                            `json:"quoteState" xml:"QuoteState"`
+	Tags                                   TagList                           `json:"tags" xml:"Tags"`
+}
+
 type CapacityReservationCommitmentInfo struct {
 	CommitmentEndDate      time.Time `json:"commitmentEndDate" xml:"CommitmentEndDate"`
 	CommittedInstanceCount int32     `json:"committedInstanceCount" xml:"CommittedInstanceCount"`
+}
+
+type CapacityReservationConfiguration struct {
+	InstanceCount    int32  `json:"instanceCount" xml:"InstanceCount"`
+	ReservationState string `json:"reservationState" xml:"ReservationState"`
 }
 
 type CapacityReservationFleet struct {
@@ -1439,33 +1610,34 @@ type ClientVpnConnectionStatus struct {
 }
 
 type ClientVpnEndpoint struct {
-	AssociatedTargetNetworks      AssociatedTargetNetworkSet             `json:"associatedTargetNetworks" xml:"AssociatedTargetNetworks"`
-	AuthenticationOptions         ClientVpnAuthenticationList            `json:"authenticationOptions" xml:"AuthenticationOptions"`
-	ClientCidrBlock               string                                 `json:"clientCidrBlock" xml:"ClientCidrBlock"`
-	ClientConnectOptions          *ClientConnectResponseOptions          `json:"clientConnectOptions" xml:"ClientConnectOptions"`
-	ClientLoginBannerOptions      *ClientLoginBannerResponseOptions      `json:"clientLoginBannerOptions" xml:"ClientLoginBannerOptions"`
-	ClientRouteEnforcementOptions *ClientRouteEnforcementResponseOptions `json:"clientRouteEnforcementOptions" xml:"ClientRouteEnforcementOptions"`
-	ClientVpnEndpointId           string                                 `json:"clientVpnEndpointId" xml:"ClientVpnEndpointId"`
-	ConnectionLogOptions          *ConnectionLogResponseOptions          `json:"connectionLogOptions" xml:"ConnectionLogOptions"`
-	CreationTime                  string                                 `json:"creationTime" xml:"CreationTime"`
-	DeletionTime                  string                                 `json:"deletionTime" xml:"DeletionTime"`
-	Description                   string                                 `json:"description" xml:"Description"`
-	DisconnectOnSessionTimeout    bool                                   `json:"disconnectOnSessionTimeout" xml:"DisconnectOnSessionTimeout"`
-	DnsName                       string                                 `json:"dnsName" xml:"DnsName"`
-	DnsServers                    ValueStringList                        `json:"dnsServers" xml:"DnsServers"`
-	EndpointIpAddressType         string                                 `json:"endpointIpAddressType" xml:"EndpointIpAddressType"`
-	SecurityGroupIds              ClientVpnSecurityGroupIdSet            `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SelfServicePortalUrl          string                                 `json:"selfServicePortalUrl" xml:"SelfServicePortalUrl"`
-	ServerCertificateArn          string                                 `json:"serverCertificateArn" xml:"ServerCertificateArn"`
-	SessionTimeoutHours           int32                                  `json:"sessionTimeoutHours" xml:"SessionTimeoutHours"`
-	SplitTunnel                   bool                                   `json:"splitTunnel" xml:"SplitTunnel"`
-	Status                        *ClientVpnEndpointStatus               `json:"status" xml:"Status"`
-	Tags                          TagList                                `json:"tags" xml:"Tags"`
-	TrafficIpAddressType          string                                 `json:"trafficIpAddressType" xml:"TrafficIpAddressType"`
-	TransportProtocol             string                                 `json:"transportProtocol" xml:"TransportProtocol"`
-	VpcId                         string                                 `json:"vpcId" xml:"VpcId"`
-	VpnPort                       int32                                  `json:"vpnPort" xml:"VpnPort"`
-	VpnProtocol                   string                                 `json:"vpnProtocol" xml:"VpnProtocol"`
+	AssociatedTargetNetworks      AssociatedTargetNetworkSet                            `json:"associatedTargetNetworks" xml:"AssociatedTargetNetworks"`
+	AuthenticationOptions         ClientVpnAuthenticationList                           `json:"authenticationOptions" xml:"AuthenticationOptions"`
+	ClientCidrBlock               string                                                `json:"clientCidrBlock" xml:"ClientCidrBlock"`
+	ClientConnectOptions          *ClientConnectResponseOptions                         `json:"clientConnectOptions" xml:"ClientConnectOptions"`
+	ClientLoginBannerOptions      *ClientLoginBannerResponseOptions                     `json:"clientLoginBannerOptions" xml:"ClientLoginBannerOptions"`
+	ClientRouteEnforcementOptions *ClientRouteEnforcementResponseOptions                `json:"clientRouteEnforcementOptions" xml:"ClientRouteEnforcementOptions"`
+	ClientVpnEndpointId           string                                                `json:"clientVpnEndpointId" xml:"ClientVpnEndpointId"`
+	ConnectionLogOptions          *ConnectionLogResponseOptions                         `json:"connectionLogOptions" xml:"ConnectionLogOptions"`
+	CreationTime                  string                                                `json:"creationTime" xml:"CreationTime"`
+	DeletionTime                  string                                                `json:"deletionTime" xml:"DeletionTime"`
+	Description                   string                                                `json:"description" xml:"Description"`
+	DisconnectOnSessionTimeout    bool                                                  `json:"disconnectOnSessionTimeout" xml:"DisconnectOnSessionTimeout"`
+	DnsName                       string                                                `json:"dnsName" xml:"DnsName"`
+	DnsServers                    ValueStringList                                       `json:"dnsServers" xml:"DnsServers"`
+	EndpointIpAddressType         string                                                `json:"endpointIpAddressType" xml:"EndpointIpAddressType"`
+	SecurityGroupIds              ClientVpnSecurityGroupIdSet                           `json:"securityGroupIds" xml:"SecurityGroupIds"`
+	SelfServicePortalUrl          string                                                `json:"selfServicePortalUrl" xml:"SelfServicePortalUrl"`
+	ServerCertificateArn          string                                                `json:"serverCertificateArn" xml:"ServerCertificateArn"`
+	SessionTimeoutHours           int32                                                 `json:"sessionTimeoutHours" xml:"SessionTimeoutHours"`
+	SplitTunnel                   bool                                                  `json:"splitTunnel" xml:"SplitTunnel"`
+	Status                        *ClientVpnEndpointStatus                              `json:"status" xml:"Status"`
+	Tags                          TagList                                               `json:"tags" xml:"Tags"`
+	TrafficIpAddressType          string                                                `json:"trafficIpAddressType" xml:"TrafficIpAddressType"`
+	TransitGatewayConfiguration   *TransitGatewayConfigurationDescribeEndpointStructure `json:"transitGatewayConfiguration" xml:"TransitGatewayConfiguration"`
+	TransportProtocol             string                                                `json:"transportProtocol" xml:"TransportProtocol"`
+	VpcId                         string                                                `json:"vpcId" xml:"VpcId"`
+	VpnPort                       int32                                                 `json:"vpnPort" xml:"VpnPort"`
+	VpnProtocol                   string                                                `json:"vpnProtocol" xml:"VpnProtocol"`
 }
 
 type ClientVpnEndpointAttributeStatus struct {
@@ -1479,13 +1651,14 @@ type ClientVpnEndpointStatus struct {
 }
 
 type ClientVpnRoute struct {
-	ClientVpnEndpointId string                `json:"clientVpnEndpointId" xml:"ClientVpnEndpointId"`
-	Description         string                `json:"description" xml:"Description"`
-	DestinationCidr     string                `json:"destinationCidr" xml:"DestinationCidr"`
-	Origin              string                `json:"origin" xml:"Origin"`
-	Status              *ClientVpnRouteStatus `json:"status" xml:"Status"`
-	TargetSubnet        string                `json:"targetSubnet" xml:"TargetSubnet"`
-	Type                string                `json:"type" xml:"Type"`
+	ClientVpnEndpointId        string                `json:"clientVpnEndpointId" xml:"ClientVpnEndpointId"`
+	Description                string                `json:"description" xml:"Description"`
+	DestinationCidr            string                `json:"destinationCidr" xml:"DestinationCidr"`
+	Origin                     string                `json:"origin" xml:"Origin"`
+	Status                     *ClientVpnRouteStatus `json:"status" xml:"Status"`
+	TargetSubnet               string                `json:"targetSubnet" xml:"TargetSubnet"`
+	TransitGatewayAttachmentId string                `json:"transitGatewayAttachmentId" xml:"TransitGatewayAttachmentId"`
+	Type                       string                `json:"type" xml:"Type"`
 }
 
 type ClientVpnRouteStatus struct {
@@ -1692,6 +1865,30 @@ type CpuPerformanceFactorRequest struct {
 	References PerformanceFactorReferenceSetRequest `json:"references" xml:"References"`
 }
 
+type CreateApplicationStatusCheckRequest struct {
+	Aggregation                      string                     `json:"aggregation" xml:"Aggregation"`
+	ClientToken                      string                     `json:"clientToken" xml:"ClientToken"`
+	DeviceIndex                      int32                      `json:"deviceIndex" xml:"DeviceIndex"`
+	DryRun                           bool                       `json:"dryRun" xml:"DryRun"`
+	FailureThreshold                 int32                      `json:"failureThreshold" xml:"FailureThreshold"`
+	HealthCheckPaths                 HealthCheckPathRequestList `json:"healthCheckPaths" xml:"HealthCheckPaths"`
+	InitializationGracePeriodSeconds int32                      `json:"initializationGracePeriodSeconds" xml:"InitializationGracePeriodSeconds"`
+	Interval                         int32                      `json:"interval" xml:"Interval"`
+	IpScope                          string                     `json:"ipScope" xml:"IpScope"`
+	IpVersion                        string                     `json:"ipVersion" xml:"IpVersion"`
+	Path                             string                     `json:"path" xml:"Path"`
+	Port                             int32                      `json:"port" xml:"Port"`
+	Protocol                         string                     `json:"protocol" xml:"Protocol"`
+	StatusCodeMatcher                string                     `json:"statusCodeMatcher" xml:"StatusCodeMatcher"`
+	SuccessThreshold                 int32                      `json:"successThreshold" xml:"SuccessThreshold"`
+	TagSpecifications                TagSpecificationList       `json:"tagSpecifications" xml:"TagSpecifications"`
+	Timeout                          int32                      `json:"timeout" xml:"Timeout"`
+}
+
+type CreateApplicationStatusCheckResult struct {
+	ApplicationStatusCheck *ApplicationStatusCheckResponseObject `json:"applicationStatusCheck" xml:"ApplicationStatusCheck"`
+}
+
 type CreateCapacityManagerDataExportRequest struct {
 	ClientToken       string               `json:"clientToken" xml:"ClientToken"`
 	DryRun            bool                 `json:"dryRun" xml:"DryRun"`
@@ -1718,6 +1915,17 @@ type CreateCapacityReservationBySplittingResult struct {
 	DestinationCapacityReservation *CapacityReservation `json:"destinationCapacityReservation" xml:"DestinationCapacityReservation"`
 	InstanceCount                  int32                `json:"instanceCount" xml:"InstanceCount"`
 	SourceCapacityReservation      *CapacityReservation `json:"sourceCapacityReservation" xml:"SourceCapacityReservation"`
+}
+
+type CreateCapacityReservationCancellationQuoteRequest struct {
+	CapacityReservationId string               `json:"capacityReservationId" xml:"CapacityReservationId"`
+	ClientToken           string               `json:"clientToken" xml:"ClientToken"`
+	DryRun                bool                 `json:"dryRun" xml:"DryRun"`
+	TagSpecifications     TagSpecificationList `json:"tagSpecifications" xml:"TagSpecifications"`
+}
+
+type CreateCapacityReservationCancellationQuoteResult struct {
+	CapacityReservationCancellationQuote *CapacityReservationCancellationQuote `json:"capacityReservationCancellationQuote" xml:"CapacityReservationCancellationQuote"`
 }
 
 type CreateCapacityReservationFleetRequest struct {
@@ -1784,28 +1992,29 @@ type CreateCarrierGatewayResult struct {
 }
 
 type CreateClientVpnEndpointRequest struct {
-	AuthenticationOptions         ClientVpnAuthenticationRequestList `json:"authenticationOptions" xml:"AuthenticationOptions"`
-	ClientCidrBlock               string                             `json:"clientCidrBlock" xml:"ClientCidrBlock"`
-	ClientConnectOptions          *ClientConnectOptions              `json:"clientConnectOptions" xml:"ClientConnectOptions"`
-	ClientLoginBannerOptions      *ClientLoginBannerOptions          `json:"clientLoginBannerOptions" xml:"ClientLoginBannerOptions"`
-	ClientRouteEnforcementOptions *ClientRouteEnforcementOptions     `json:"clientRouteEnforcementOptions" xml:"ClientRouteEnforcementOptions"`
-	ClientToken                   string                             `json:"clientToken" xml:"ClientToken"`
-	ConnectionLogOptions          *ConnectionLogOptions              `json:"connectionLogOptions" xml:"ConnectionLogOptions"`
-	Description                   string                             `json:"description" xml:"Description"`
-	DisconnectOnSessionTimeout    bool                               `json:"disconnectOnSessionTimeout" xml:"DisconnectOnSessionTimeout"`
-	DnsServers                    ValueStringList                    `json:"dnsServers" xml:"DnsServers"`
-	DryRun                        bool                               `json:"dryRun" xml:"DryRun"`
-	EndpointIpAddressType         string                             `json:"endpointIpAddressType" xml:"EndpointIpAddressType"`
-	SecurityGroupIds              ClientVpnSecurityGroupIdSet        `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SelfServicePortal             string                             `json:"selfServicePortal" xml:"SelfServicePortal"`
-	ServerCertificateArn          string                             `json:"serverCertificateArn" xml:"ServerCertificateArn"`
-	SessionTimeoutHours           int32                              `json:"sessionTimeoutHours" xml:"SessionTimeoutHours"`
-	SplitTunnel                   bool                               `json:"splitTunnel" xml:"SplitTunnel"`
-	TagSpecifications             TagSpecificationList               `json:"tagSpecifications" xml:"TagSpecifications"`
-	TrafficIpAddressType          string                             `json:"trafficIpAddressType" xml:"TrafficIpAddressType"`
-	TransportProtocol             string                             `json:"transportProtocol" xml:"TransportProtocol"`
-	VpcId                         string                             `json:"vpcId" xml:"VpcId"`
-	VpnPort                       int32                              `json:"vpnPort" xml:"VpnPort"`
+	AuthenticationOptions         ClientVpnAuthenticationRequestList         `json:"authenticationOptions" xml:"AuthenticationOptions"`
+	ClientCidrBlock               string                                     `json:"clientCidrBlock" xml:"ClientCidrBlock"`
+	ClientConnectOptions          *ClientConnectOptions                      `json:"clientConnectOptions" xml:"ClientConnectOptions"`
+	ClientLoginBannerOptions      *ClientLoginBannerOptions                  `json:"clientLoginBannerOptions" xml:"ClientLoginBannerOptions"`
+	ClientRouteEnforcementOptions *ClientRouteEnforcementOptions             `json:"clientRouteEnforcementOptions" xml:"ClientRouteEnforcementOptions"`
+	ClientToken                   string                                     `json:"clientToken" xml:"ClientToken"`
+	ConnectionLogOptions          *ConnectionLogOptions                      `json:"connectionLogOptions" xml:"ConnectionLogOptions"`
+	Description                   string                                     `json:"description" xml:"Description"`
+	DisconnectOnSessionTimeout    bool                                       `json:"disconnectOnSessionTimeout" xml:"DisconnectOnSessionTimeout"`
+	DnsServers                    ValueStringList                            `json:"dnsServers" xml:"DnsServers"`
+	DryRun                        bool                                       `json:"dryRun" xml:"DryRun"`
+	EndpointIpAddressType         string                                     `json:"endpointIpAddressType" xml:"EndpointIpAddressType"`
+	SecurityGroupIds              ClientVpnSecurityGroupIdSet                `json:"securityGroupIds" xml:"SecurityGroupIds"`
+	SelfServicePortal             string                                     `json:"selfServicePortal" xml:"SelfServicePortal"`
+	ServerCertificateArn          string                                     `json:"serverCertificateArn" xml:"ServerCertificateArn"`
+	SessionTimeoutHours           int32                                      `json:"sessionTimeoutHours" xml:"SessionTimeoutHours"`
+	SplitTunnel                   bool                                       `json:"splitTunnel" xml:"SplitTunnel"`
+	TagSpecifications             TagSpecificationList                       `json:"tagSpecifications" xml:"TagSpecifications"`
+	TrafficIpAddressType          string                                     `json:"trafficIpAddressType" xml:"TrafficIpAddressType"`
+	TransitGatewayConfiguration   *TransitGatewayConfigurationInputStructure `json:"transitGatewayConfiguration" xml:"TransitGatewayConfiguration"`
+	TransportProtocol             string                                     `json:"transportProtocol" xml:"TransportProtocol"`
+	VpcId                         string                                     `json:"vpcId" xml:"VpcId"`
+	VpnPort                       int32                                      `json:"vpnPort" xml:"VpnPort"`
 }
 
 type CreateClientVpnEndpointResult struct {
@@ -1924,11 +2133,14 @@ type CreateFleetError struct {
 }
 
 type CreateFleetInstance struct {
+	AvailabilityZone           string                              `json:"availabilityZone" xml:"AvailabilityZone"`
+	AvailabilityZoneId         string                              `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
 	InstanceIds                InstanceIdsSet                      `json:"instanceIds" xml:"InstanceIds"`
 	InstanceType               string                              `json:"instanceType" xml:"InstanceType"`
 	LaunchTemplateAndOverrides *LaunchTemplateAndOverridesResponse `json:"launchTemplateAndOverrides" xml:"LaunchTemplateAndOverrides"`
 	Lifecycle                  string                              `json:"lifecycle" xml:"Lifecycle"`
 	Platform                   string                              `json:"platform" xml:"Platform"`
+	SubnetId                   string                              `json:"subnetId" xml:"SubnetId"`
 }
 
 type CreateFleetRequest struct {
@@ -1956,20 +2168,21 @@ type CreateFleetResult struct {
 }
 
 type CreateFlowLogsRequest struct {
-	ClientToken              string                     `json:"clientToken" xml:"ClientToken"`
-	DeliverCrossAccountRole  string                     `json:"deliverCrossAccountRole" xml:"DeliverCrossAccountRole"`
-	DeliverLogsPermissionArn string                     `json:"deliverLogsPermissionArn" xml:"DeliverLogsPermissionArn"`
-	DestinationOptions       *DestinationOptionsRequest `json:"destinationOptions" xml:"DestinationOptions"`
-	DryRun                   bool                       `json:"dryRun" xml:"DryRun"`
-	LogDestination           string                     `json:"logDestination" xml:"LogDestination"`
-	LogDestinationType       string                     `json:"logDestinationType" xml:"LogDestinationType"`
-	LogFormat                string                     `json:"logFormat" xml:"LogFormat"`
-	LogGroupName             string                     `json:"logGroupName" xml:"LogGroupName"`
-	MaxAggregationInterval   int32                      `json:"maxAggregationInterval" xml:"MaxAggregationInterval"`
-	ResourceIds              FlowLogResourceIds         `json:"resourceIds" xml:"ResourceIds"`
-	ResourceType             string                     `json:"resourceType" xml:"ResourceType"`
-	TagSpecifications        TagSpecificationList       `json:"tagSpecifications" xml:"TagSpecifications"`
-	TrafficType              string                     `json:"trafficType" xml:"TrafficType"`
+	ClientToken              string                           `json:"clientToken" xml:"ClientToken"`
+	DeliverCrossAccountRole  string                           `json:"deliverCrossAccountRole" xml:"DeliverCrossAccountRole"`
+	DeliverLogsPermissionArn string                           `json:"deliverLogsPermissionArn" xml:"DeliverLogsPermissionArn"`
+	DestinationOptions       *DestinationOptionsRequest       `json:"destinationOptions" xml:"DestinationOptions"`
+	DryRun                   bool                             `json:"dryRun" xml:"DryRun"`
+	LogDestination           string                           `json:"logDestination" xml:"LogDestination"`
+	LogDestinationType       string                           `json:"logDestinationType" xml:"LogDestinationType"`
+	LogFormat                string                           `json:"logFormat" xml:"LogFormat"`
+	LogGroupName             string                           `json:"logGroupName" xml:"LogGroupName"`
+	MaxAggregationInterval   int32                            `json:"maxAggregationInterval" xml:"MaxAggregationInterval"`
+	ResourceIds              FlowLogResourceIds               `json:"resourceIds" xml:"ResourceIds"`
+	ResourceType             string                           `json:"resourceType" xml:"ResourceType"`
+	TagFieldSpecifications   TagFieldSpecificationListRequest `json:"tagFieldSpecifications" xml:"TagFieldSpecifications"`
+	TagSpecifications        TagSpecificationList             `json:"tagSpecifications" xml:"TagSpecifications"`
+	TrafficType              string                           `json:"trafficType" xml:"TrafficType"`
 }
 
 type CreateFlowLogsResult struct {
@@ -2075,6 +2288,7 @@ type CreateInterruptibleCapacityReservationAllocationRequest struct {
 	DryRun                bool                 `json:"dryRun" xml:"DryRun"`
 	InstanceCount         int32                `json:"instanceCount" xml:"InstanceCount"`
 	TagSpecifications     TagSpecificationList `json:"tagSpecifications" xml:"TagSpecifications"`
+	ZeroSizePreference    string               `json:"zeroSizePreference" xml:"ZeroSizePreference"`
 }
 
 type CreateInterruptibleCapacityReservationAllocationResult struct {
@@ -2093,6 +2307,20 @@ type CreateIpamExternalResourceVerificationTokenRequest struct {
 
 type CreateIpamExternalResourceVerificationTokenResult struct {
 	IpamExternalResourceVerificationToken *IpamExternalResourceVerificationToken `json:"ipamExternalResourceVerificationToken" xml:"IpamExternalResourceVerificationToken"`
+}
+
+type CreateIpamInternetRegistryAssociationRequest struct {
+	ClientToken        string               `json:"clientToken" xml:"ClientToken"`
+	Description        string               `json:"description" xml:"Description"`
+	DryRun             bool                 `json:"dryRun" xml:"DryRun"`
+	IpamId             string               `json:"ipamId" xml:"IpamId"`
+	OrganizationHandle string               `json:"organizationHandle" xml:"OrganizationHandle"`
+	Rir                string               `json:"rir" xml:"Rir"`
+	TagSpecifications  TagSpecificationList `json:"tagSpecifications" xml:"TagSpecifications"`
+}
+
+type CreateIpamInternetRegistryAssociationResult struct {
+	IpamInternetRegistryAssociation *IpamInternetRegistryAssociation `json:"ipamInternetRegistryAssociation" xml:"IpamInternetRegistryAssociation"`
 }
 
 type CreateIpamPolicyRequest struct {
@@ -2184,6 +2412,22 @@ type CreateIpamResourceDiscoveryResult struct {
 
 type CreateIpamResult struct {
 	Ipam *Ipam `json:"ipam" xml:"Ipam"`
+}
+
+type CreateIpamRoutingPolicyRegistrationRequest struct {
+	Asns                              AsnList `json:"asns" xml:"Asns"`
+	Cidr                              string  `json:"cidr" xml:"Cidr"`
+	ClientToken                       string  `json:"clientToken" xml:"ClientToken"`
+	Description                       string  `json:"description" xml:"Description"`
+	DryRun                            bool    `json:"dryRun" xml:"DryRun"`
+	Force                             bool    `json:"force" xml:"Force"`
+	IpamInternetRegistryAssociationId string  `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+	MaxLength                         int32   `json:"maxLength" xml:"MaxLength"`
+	PermitMoreSpecificAnnouncements   bool    `json:"permitMoreSpecificAnnouncements" xml:"PermitMoreSpecificAnnouncements"`
+}
+
+type CreateIpamRoutingPolicyRegistrationResult struct {
+	IpamRoutingPolicyRegistrationDelta *IpamRoutingPolicyRegistrationDelta `json:"ipamRoutingPolicyRegistrationDelta" xml:"IpamRoutingPolicyRegistrationDelta"`
 }
 
 type CreateIpamScopeRequest struct {
@@ -2461,6 +2705,7 @@ type CreatePlacementGroupRequest struct {
 	GroupName         string               `json:"groupName" xml:"GroupName"`
 	LinkedGroupId     string               `json:"linkedGroupId" xml:"LinkedGroupId"`
 	Operator          *OperatorRequest     `json:"operator" xml:"Operator"`
+	ParentGroupId     string               `json:"parentGroupId" xml:"ParentGroupId"`
 	PartitionCount    int32                `json:"partitionCount" xml:"PartitionCount"`
 	SpreadLevel       string               `json:"spreadLevel" xml:"SpreadLevel"`
 	Strategy          string               `json:"strategy" xml:"Strategy"`
@@ -2489,6 +2734,7 @@ type CreateReplaceRootVolumeTaskRequest struct {
 	InstanceId               string               `json:"instanceId" xml:"InstanceId"`
 	SnapshotId               string               `json:"snapshotId" xml:"SnapshotId"`
 	TagSpecifications        TagSpecificationList `json:"tagSpecifications" xml:"TagSpecifications"`
+	VolumeId                 string               `json:"volumeId" xml:"VolumeId"`
 	VolumeInitializationRate int64                `json:"volumeInitializationRate" xml:"VolumeInitializationRate"`
 }
 
@@ -2877,6 +3123,18 @@ type CreateTransitGatewayPeeringAttachmentRequestOptions struct {
 
 type CreateTransitGatewayPeeringAttachmentResult struct {
 	TransitGatewayPeeringAttachment *TransitGatewayPeeringAttachment `json:"transitGatewayPeeringAttachment" xml:"TransitGatewayPeeringAttachment"`
+}
+
+type CreateTransitGatewayPolicyTableEntryRequest struct {
+	DryRun                      bool                             `json:"dryRun" xml:"DryRun"`
+	PolicyRule                  *TransitGatewayRequestPolicyRule `json:"policyRule" xml:"PolicyRule"`
+	PolicyRuleNumber            string                           `json:"policyRuleNumber" xml:"PolicyRuleNumber"`
+	TargetRouteTableId          string                           `json:"targetRouteTableId" xml:"TargetRouteTableId"`
+	TransitGatewayPolicyTableId string                           `json:"transitGatewayPolicyTableId" xml:"TransitGatewayPolicyTableId"`
+}
+
+type CreateTransitGatewayPolicyTableEntryResult struct {
+	TransitGatewayPolicyTableEntry *TransitGatewayPolicyTableEntry `json:"transitGatewayPolicyTableEntry" xml:"TransitGatewayPolicyTableEntry"`
 }
 
 type CreateTransitGatewayPolicyTableRequest struct {
@@ -3298,6 +3556,16 @@ type CreditSpecificationRequest struct {
 	CpuCredits string `json:"cpuCredits" xml:"CpuCredits"`
 }
 
+type CustomTagKeyValueRequestPair struct {
+	Key   string `json:"key" xml:"Key"`
+	Value string `json:"value" xml:"Value"`
+}
+
+type CustomTagKeyValueResponsePair struct {
+	Key   string `json:"key" xml:"Key"`
+	Value string `json:"value" xml:"Value"`
+}
+
 type CustomerGateway struct {
 	BgpAsn            string  `json:"bgpAsn" xml:"BgpAsn"`
 	BgpAsnExtended    string  `json:"bgpAsnExtended" xml:"BgpAsnExtended"`
@@ -3344,6 +3612,16 @@ type DefaultConnectionTrackingConfiguration struct {
 	DefaultTcpEstablishedTimeout int32 `json:"defaultTcpEstablishedTimeout" xml:"DefaultTcpEstablishedTimeout"`
 	DefaultUdpStreamTimeout      int32 `json:"defaultUdpStreamTimeout" xml:"DefaultUdpStreamTimeout"`
 	DefaultUdpTimeout            int32 `json:"defaultUdpTimeout" xml:"DefaultUdpTimeout"`
+}
+
+type DeleteApplicationStatusCheckRequest struct {
+	ApplicationStatusCheckId string `json:"applicationStatusCheckId" xml:"ApplicationStatusCheckId"`
+	ClientToken              string `json:"clientToken" xml:"ClientToken"`
+	DryRun                   bool   `json:"dryRun" xml:"DryRun"`
+}
+
+type DeleteApplicationStatusCheckResult struct {
+	ApplicationStatusCheck *ApplicationStatusCheckResponseObject `json:"applicationStatusCheck" xml:"ApplicationStatusCheck"`
 }
 
 type DeleteCapacityManagerDataExportRequest struct {
@@ -3509,6 +3787,15 @@ type DeleteIpamExternalResourceVerificationTokenResult struct {
 	IpamExternalResourceVerificationToken *IpamExternalResourceVerificationToken `json:"ipamExternalResourceVerificationToken" xml:"IpamExternalResourceVerificationToken"`
 }
 
+type DeleteIpamInternetRegistryAssociationRequest struct {
+	DryRun                            bool   `json:"dryRun" xml:"DryRun"`
+	IpamInternetRegistryAssociationId string `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+}
+
+type DeleteIpamInternetRegistryAssociationResult struct {
+	IpamInternetRegistryAssociation *IpamInternetRegistryAssociation `json:"ipamInternetRegistryAssociation" xml:"IpamInternetRegistryAssociation"`
+}
+
 type DeleteIpamPolicyRequest struct {
 	DryRun       bool   `json:"dryRun" xml:"DryRun"`
 	IpamPolicyId string `json:"ipamPolicyId" xml:"IpamPolicyId"`
@@ -3563,6 +3850,18 @@ type DeleteIpamResourceDiscoveryResult struct {
 
 type DeleteIpamResult struct {
 	Ipam *Ipam `json:"ipam" xml:"Ipam"`
+}
+
+type DeleteIpamRoutingPolicyRegistrationRequest struct {
+	Cidr                              string `json:"cidr" xml:"Cidr"`
+	ClientToken                       string `json:"clientToken" xml:"ClientToken"`
+	DryRun                            bool   `json:"dryRun" xml:"DryRun"`
+	Force                             bool   `json:"force" xml:"Force"`
+	IpamInternetRegistryAssociationId string `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+}
+
+type DeleteIpamRoutingPolicyRegistrationResult struct {
+	IpamRoutingPolicyRegistrationDelta *IpamRoutingPolicyRegistrationDelta `json:"ipamRoutingPolicyRegistrationDelta" xml:"IpamRoutingPolicyRegistrationDelta"`
 }
 
 type DeleteIpamScopeRequest struct {
@@ -3930,6 +4229,15 @@ type DeleteTrafficMirrorTargetResult struct {
 	TrafficMirrorTargetId string `json:"trafficMirrorTargetId" xml:"TrafficMirrorTargetId"`
 }
 
+type DeleteTransitGatewayClientVpnAttachmentRequest struct {
+	DryRun                     bool   `json:"dryRun" xml:"DryRun"`
+	TransitGatewayAttachmentId string `json:"transitGatewayAttachmentId" xml:"TransitGatewayAttachmentId"`
+}
+
+type DeleteTransitGatewayClientVpnAttachmentResult struct {
+	TransitGatewayClientVpnAttachment *TransitGatewayClientVpnAttachment `json:"transitGatewayClientVpnAttachment" xml:"TransitGatewayClientVpnAttachment"`
+}
+
 type DeleteTransitGatewayConnectPeerRequest struct {
 	DryRun                      bool   `json:"dryRun" xml:"DryRun"`
 	TransitGatewayConnectPeerId string `json:"transitGatewayConnectPeerId" xml:"TransitGatewayConnectPeerId"`
@@ -3983,6 +4291,16 @@ type DeleteTransitGatewayPeeringAttachmentRequest struct {
 
 type DeleteTransitGatewayPeeringAttachmentResult struct {
 	TransitGatewayPeeringAttachment *TransitGatewayPeeringAttachment `json:"transitGatewayPeeringAttachment" xml:"TransitGatewayPeeringAttachment"`
+}
+
+type DeleteTransitGatewayPolicyTableEntryRequest struct {
+	DryRun                      bool   `json:"dryRun" xml:"DryRun"`
+	PolicyRuleNumber            string `json:"policyRuleNumber" xml:"PolicyRuleNumber"`
+	TransitGatewayPolicyTableId string `json:"transitGatewayPolicyTableId" xml:"TransitGatewayPolicyTableId"`
+}
+
+type DeleteTransitGatewayPolicyTableEntryResult struct {
+	TransitGatewayPolicyTableEntry *TransitGatewayPolicyTableEntry `json:"transitGatewayPolicyTableEntry" xml:"TransitGatewayPolicyTableEntry"`
 }
 
 type DeleteTransitGatewayPolicyTableRequest struct {
@@ -4282,6 +4600,14 @@ type DescribeAccountAttributesResult struct {
 	AccountAttributes AccountAttributeList `json:"accountAttributes" xml:"AccountAttributes"`
 }
 
+type DescribeAccountVpcEncryptionControlRequest struct {
+	DryRun bool `json:"dryRun" xml:"DryRun"`
+}
+
+type DescribeAccountVpcEncryptionControlResult struct {
+	AccountVpcEncryptionControl *AccountVpcEncryptionControl `json:"accountVpcEncryptionControl" xml:"AccountVpcEncryptionControl"`
+}
+
 type DescribeAddressTransfersRequest struct {
 	AllocationIds AllocationIdList `json:"allocationIds" xml:"AllocationIds"`
 	DryRun        bool             `json:"dryRun" xml:"DryRun"`
@@ -4325,6 +4651,47 @@ type DescribeAggregateIdFormatRequest struct {
 type DescribeAggregateIdFormatResult struct {
 	Statuses             IdFormatList `json:"statuses" xml:"Statuses"`
 	UseLongIdsAggregated bool         `json:"useLongIdsAggregated" xml:"UseLongIdsAggregated"`
+}
+
+type DescribeApplicationStatusCheckAssociationsRequest struct {
+	ApplicationStatusCheckIds ApplicationStatusCheckIdList `json:"applicationStatusCheckIds" xml:"ApplicationStatusCheckIds"`
+	DryRun                    bool                         `json:"dryRun" xml:"DryRun"`
+	Filters                   FilterList                   `json:"filters" xml:"Filters"`
+	MaxResults                int32                        `json:"maxResults" xml:"MaxResults"`
+	NextToken                 string                       `json:"nextToken" xml:"NextToken"`
+}
+
+type DescribeApplicationStatusCheckAssociationsResult struct {
+	Associations ApplicationStatusCheckAssociationSet `json:"associations" xml:"Associations"`
+	NextToken    string                               `json:"nextToken" xml:"NextToken"`
+	Tags         TagList                              `json:"tags" xml:"Tags"`
+}
+
+type DescribeApplicationStatusChecksRequest struct {
+	ApplicationStatusCheckIds ApplicationStatusCheckIdList `json:"applicationStatusCheckIds" xml:"ApplicationStatusCheckIds"`
+	DryRun                    bool                         `json:"dryRun" xml:"DryRun"`
+	Filters                   FilterList                   `json:"filters" xml:"Filters"`
+	IncludeAll                bool                         `json:"includeAll" xml:"IncludeAll"`
+	MaxResults                int32                        `json:"maxResults" xml:"MaxResults"`
+	NextToken                 string                       `json:"nextToken" xml:"NextToken"`
+}
+
+type DescribeApplicationStatusChecksResult struct {
+	ApplicationStatusChecks ApplicationStatusCheckResponseSet `json:"applicationStatusChecks" xml:"ApplicationStatusChecks"`
+	NextToken               string                            `json:"nextToken" xml:"NextToken"`
+}
+
+type DescribeApplicationStatusRequest struct {
+	DryRun      bool           `json:"dryRun" xml:"DryRun"`
+	Filters     FilterList     `json:"filters" xml:"Filters"`
+	InstanceIds InstanceIdList `json:"instanceIds" xml:"InstanceIds"`
+	MaxResults  int32          `json:"maxResults" xml:"MaxResults"`
+	NextToken   string         `json:"nextToken" xml:"NextToken"`
+}
+
+type DescribeApplicationStatusResult struct {
+	ApplicationStatuses *ApplicationStatusesResponseType `json:"applicationStatuses" xml:"ApplicationStatuses"`
+	NextToken           string                           `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAvailabilityZonesRequest struct {
@@ -4468,6 +4835,19 @@ type DescribeCapacityReservationBillingRequestsRequest struct {
 type DescribeCapacityReservationBillingRequestsResult struct {
 	CapacityReservationBillingRequests CapacityReservationBillingRequestSet `json:"capacityReservationBillingRequests" xml:"CapacityReservationBillingRequests"`
 	NextToken                          string                               `json:"nextToken" xml:"NextToken"`
+}
+
+type DescribeCapacityReservationCancellationQuotesRequest struct {
+	CapacityReservationCancellationQuoteIds CapacityReservationCancellationQuoteIdSet `json:"capacityReservationCancellationQuoteIds" xml:"CapacityReservationCancellationQuoteIds"`
+	DryRun                                  bool                                      `json:"dryRun" xml:"DryRun"`
+	Filters                                 FilterList                                `json:"filters" xml:"Filters"`
+	MaxResults                              int32                                     `json:"maxResults" xml:"MaxResults"`
+	NextToken                               string                                    `json:"nextToken" xml:"NextToken"`
+}
+
+type DescribeCapacityReservationCancellationQuotesResult struct {
+	CapacityReservationCancellationQuotes CapacityReservationCancellationQuoteResponseSet `json:"capacityReservationCancellationQuotes" xml:"CapacityReservationCancellationQuotes"`
+	NextToken                             string                                          `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeCapacityReservationFleetsRequest struct {
@@ -5108,12 +5488,13 @@ type DescribeInstanceSqlHaStatesResult struct {
 }
 
 type DescribeInstanceStatusRequest struct {
-	DryRun              bool                 `json:"dryRun" xml:"DryRun"`
-	Filters             FilterList           `json:"filters" xml:"Filters"`
-	IncludeAllInstances bool                 `json:"includeAllInstances" xml:"IncludeAllInstances"`
-	InstanceIds         InstanceIdStringList `json:"instanceIds" xml:"InstanceIds"`
-	MaxResults          int32                `json:"maxResults" xml:"MaxResults"`
-	NextToken           string               `json:"nextToken" xml:"NextToken"`
+	DryRun                  bool                 `json:"dryRun" xml:"DryRun"`
+	Filters                 FilterList           `json:"filters" xml:"Filters"`
+	IncludeAllInstances     bool                 `json:"includeAllInstances" xml:"IncludeAllInstances"`
+	IncludeManagedResources bool                 `json:"includeManagedResources" xml:"IncludeManagedResources"`
+	InstanceIds             InstanceIdStringList `json:"instanceIds" xml:"InstanceIds"`
+	MaxResults              int32                `json:"maxResults" xml:"MaxResults"`
+	NextToken               string               `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeInstanceStatusResult struct {
@@ -5149,11 +5530,12 @@ type DescribeInstanceTypeOfferingsResult struct {
 }
 
 type DescribeInstanceTypesRequest struct {
-	DryRun        bool                    `json:"dryRun" xml:"DryRun"`
-	Filters       FilterList              `json:"filters" xml:"Filters"`
-	InstanceTypes RequestInstanceTypeList `json:"instanceTypes" xml:"InstanceTypes"`
-	MaxResults    int32                   `json:"maxResults" xml:"MaxResults"`
-	NextToken     string                  `json:"nextToken" xml:"NextToken"`
+	DryRun                     bool                    `json:"dryRun" xml:"DryRun"`
+	Filters                    FilterList              `json:"filters" xml:"Filters"`
+	IncludeUnsupportedInRegion bool                    `json:"includeUnsupportedInRegion" xml:"IncludeUnsupportedInRegion"`
+	InstanceTypes              RequestInstanceTypeList `json:"instanceTypes" xml:"InstanceTypes"`
+	MaxResults                 int32                   `json:"maxResults" xml:"MaxResults"`
+	NextToken                  string                  `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeInstanceTypesResult struct {
@@ -5162,11 +5544,12 @@ type DescribeInstanceTypesResult struct {
 }
 
 type DescribeInstancesRequest struct {
-	DryRun      bool                 `json:"dryRun" xml:"DryRun"`
-	Filters     FilterList           `json:"filters" xml:"Filters"`
-	InstanceIds InstanceIdStringList `json:"instanceIds" xml:"InstanceIds"`
-	MaxResults  int32                `json:"maxResults" xml:"MaxResults"`
-	NextToken   string               `json:"nextToken" xml:"NextToken"`
+	DryRun                  bool                 `json:"dryRun" xml:"DryRun"`
+	Filters                 FilterList           `json:"filters" xml:"Filters"`
+	IncludeManagedResources bool                 `json:"includeManagedResources" xml:"IncludeManagedResources"`
+	InstanceIds             InstanceIdStringList `json:"instanceIds" xml:"InstanceIds"`
+	MaxResults              int32                `json:"maxResults" xml:"MaxResults"`
+	NextToken               string               `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeInstancesResult struct {
@@ -5211,6 +5594,19 @@ type DescribeIpamExternalResourceVerificationTokensResult struct {
 	NextToken                              string                                   `json:"nextToken" xml:"NextToken"`
 }
 
+type DescribeIpamInternetRegistryAssociationsRequest struct {
+	DryRun                             bool            `json:"dryRun" xml:"DryRun"`
+	Filters                            FilterList      `json:"filters" xml:"Filters"`
+	IpamInternetRegistryAssociationIds ValueStringList `json:"ipamInternetRegistryAssociationIds" xml:"IpamInternetRegistryAssociationIds"`
+	MaxResults                         int32           `json:"maxResults" xml:"MaxResults"`
+	NextToken                          string          `json:"nextToken" xml:"NextToken"`
+}
+
+type DescribeIpamInternetRegistryAssociationsResult struct {
+	IpamInternetRegistryAssociations IpamInternetRegistryAssociationSet `json:"ipamInternetRegistryAssociations" xml:"IpamInternetRegistryAssociations"`
+	NextToken                        string                             `json:"nextToken" xml:"NextToken"`
+}
+
 type DescribeIpamPoliciesRequest struct {
 	DryRun        bool            `json:"dryRun" xml:"DryRun"`
 	Filters       FilterList      `json:"filters" xml:"Filters"`
@@ -5222,6 +5618,19 @@ type DescribeIpamPoliciesRequest struct {
 type DescribeIpamPoliciesResult struct {
 	IpamPolicies IpamPolicySet `json:"ipamPolicies" xml:"IpamPolicies"`
 	NextToken    string        `json:"nextToken" xml:"NextToken"`
+}
+
+type DescribeIpamPoolAllocationsRequest struct {
+	DryRun                bool            `json:"dryRun" xml:"DryRun"`
+	Filters               FilterList      `json:"filters" xml:"Filters"`
+	IpamPoolAllocationIds ValueStringList `json:"ipamPoolAllocationIds" xml:"IpamPoolAllocationIds"`
+	MaxResults            int32           `json:"maxResults" xml:"MaxResults"`
+	NextToken             string          `json:"nextToken" xml:"NextToken"`
+}
+
+type DescribeIpamPoolAllocationsResult struct {
+	IpamPoolAllocations IpamPoolAllocationSet `json:"ipamPoolAllocations" xml:"IpamPoolAllocations"`
+	NextToken           string                `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeIpamPoolsRequest struct {
@@ -5342,16 +5751,17 @@ type DescribeKeyPairsResult struct {
 }
 
 type DescribeLaunchTemplateVersionsRequest struct {
-	DryRun             bool              `json:"dryRun" xml:"DryRun"`
-	Filters            FilterList        `json:"filters" xml:"Filters"`
-	LaunchTemplateId   string            `json:"launchTemplateId" xml:"LaunchTemplateId"`
-	LaunchTemplateName string            `json:"launchTemplateName" xml:"LaunchTemplateName"`
-	MaxResults         int32             `json:"maxResults" xml:"MaxResults"`
-	MaxVersion         string            `json:"maxVersion" xml:"MaxVersion"`
-	MinVersion         string            `json:"minVersion" xml:"MinVersion"`
-	NextToken          string            `json:"nextToken" xml:"NextToken"`
-	ResolveAlias       bool              `json:"resolveAlias" xml:"ResolveAlias"`
-	Versions           VersionStringList `json:"versions" xml:"Versions"`
+	DryRun                  bool              `json:"dryRun" xml:"DryRun"`
+	Filters                 FilterList        `json:"filters" xml:"Filters"`
+	IncludeManagedResources bool              `json:"includeManagedResources" xml:"IncludeManagedResources"`
+	LaunchTemplateId        string            `json:"launchTemplateId" xml:"LaunchTemplateId"`
+	LaunchTemplateName      string            `json:"launchTemplateName" xml:"LaunchTemplateName"`
+	MaxResults              int32             `json:"maxResults" xml:"MaxResults"`
+	MaxVersion              string            `json:"maxVersion" xml:"MaxVersion"`
+	MinVersion              string            `json:"minVersion" xml:"MinVersion"`
+	NextToken               string            `json:"nextToken" xml:"NextToken"`
+	ResolveAlias            bool              `json:"resolveAlias" xml:"ResolveAlias"`
+	Versions                VersionStringList `json:"versions" xml:"Versions"`
 }
 
 type DescribeLaunchTemplateVersionsResult struct {
@@ -5360,12 +5770,13 @@ type DescribeLaunchTemplateVersionsResult struct {
 }
 
 type DescribeLaunchTemplatesRequest struct {
-	DryRun              bool                         `json:"dryRun" xml:"DryRun"`
-	Filters             FilterList                   `json:"filters" xml:"Filters"`
-	LaunchTemplateIds   LaunchTemplateIdStringList   `json:"launchTemplateIds" xml:"LaunchTemplateIds"`
-	LaunchTemplateNames LaunchTemplateNameStringList `json:"launchTemplateNames" xml:"LaunchTemplateNames"`
-	MaxResults          int32                        `json:"maxResults" xml:"MaxResults"`
-	NextToken           string                       `json:"nextToken" xml:"NextToken"`
+	DryRun                  bool                         `json:"dryRun" xml:"DryRun"`
+	Filters                 FilterList                   `json:"filters" xml:"Filters"`
+	IncludeManagedResources bool                         `json:"includeManagedResources" xml:"IncludeManagedResources"`
+	LaunchTemplateIds       LaunchTemplateIdStringList   `json:"launchTemplateIds" xml:"LaunchTemplateIds"`
+	LaunchTemplateNames     LaunchTemplateNameStringList `json:"launchTemplateNames" xml:"LaunchTemplateNames"`
+	MaxResults              int32                        `json:"maxResults" xml:"MaxResults"`
+	NextToken               string                       `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeLaunchTemplatesResult struct {
@@ -5627,11 +6038,12 @@ type DescribeNetworkInterfacePermissionsResult struct {
 }
 
 type DescribeNetworkInterfacesRequest struct {
-	DryRun              bool                   `json:"dryRun" xml:"DryRun"`
-	Filters             FilterList             `json:"filters" xml:"Filters"`
-	MaxResults          int32                  `json:"maxResults" xml:"MaxResults"`
-	NetworkInterfaceIds NetworkInterfaceIdList `json:"networkInterfaceIds" xml:"NetworkInterfaceIds"`
-	NextToken           string                 `json:"nextToken" xml:"NextToken"`
+	DryRun                  bool                   `json:"dryRun" xml:"DryRun"`
+	Filters                 FilterList             `json:"filters" xml:"Filters"`
+	IncludeManagedResources bool                   `json:"includeManagedResources" xml:"IncludeManagedResources"`
+	MaxResults              int32                  `json:"maxResults" xml:"MaxResults"`
+	NetworkInterfaceIds     NetworkInterfaceIdList `json:"networkInterfaceIds" xml:"NetworkInterfaceIds"`
+	NextToken               string                 `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeNetworkInterfacesResult struct {
@@ -6423,11 +6835,12 @@ type DescribeVolumeAttributeResult struct {
 }
 
 type DescribeVolumeStatusRequest struct {
-	DryRun     bool               `json:"dryRun" xml:"DryRun"`
-	Filters    FilterList         `json:"filters" xml:"Filters"`
-	MaxResults int32              `json:"maxResults" xml:"MaxResults"`
-	NextToken  string             `json:"nextToken" xml:"NextToken"`
-	VolumeIds  VolumeIdStringList `json:"volumeIds" xml:"VolumeIds"`
+	DryRun                  bool               `json:"dryRun" xml:"DryRun"`
+	Filters                 FilterList         `json:"filters" xml:"Filters"`
+	IncludeManagedResources bool               `json:"includeManagedResources" xml:"IncludeManagedResources"`
+	MaxResults              int32              `json:"maxResults" xml:"MaxResults"`
+	NextToken               string             `json:"nextToken" xml:"NextToken"`
+	VolumeIds               VolumeIdStringList `json:"volumeIds" xml:"VolumeIds"`
 }
 
 type DescribeVolumeStatusResult struct {
@@ -6436,11 +6849,12 @@ type DescribeVolumeStatusResult struct {
 }
 
 type DescribeVolumesModificationsRequest struct {
-	DryRun     bool               `json:"dryRun" xml:"DryRun"`
-	Filters    FilterList         `json:"filters" xml:"Filters"`
-	MaxResults int32              `json:"maxResults" xml:"MaxResults"`
-	NextToken  string             `json:"nextToken" xml:"NextToken"`
-	VolumeIds  VolumeIdStringList `json:"volumeIds" xml:"VolumeIds"`
+	DryRun                  bool               `json:"dryRun" xml:"DryRun"`
+	Filters                 FilterList         `json:"filters" xml:"Filters"`
+	IncludeManagedResources bool               `json:"includeManagedResources" xml:"IncludeManagedResources"`
+	MaxResults              int32              `json:"maxResults" xml:"MaxResults"`
+	NextToken               string             `json:"nextToken" xml:"NextToken"`
+	VolumeIds               VolumeIdStringList `json:"volumeIds" xml:"VolumeIds"`
 }
 
 type DescribeVolumesModificationsResult struct {
@@ -6449,11 +6863,12 @@ type DescribeVolumesModificationsResult struct {
 }
 
 type DescribeVolumesRequest struct {
-	DryRun     bool               `json:"dryRun" xml:"DryRun"`
-	Filters    FilterList         `json:"filters" xml:"Filters"`
-	MaxResults int32              `json:"maxResults" xml:"MaxResults"`
-	NextToken  string             `json:"nextToken" xml:"NextToken"`
-	VolumeIds  VolumeIdStringList `json:"volumeIds" xml:"VolumeIds"`
+	DryRun                  bool               `json:"dryRun" xml:"DryRun"`
+	Filters                 FilterList         `json:"filters" xml:"Filters"`
+	IncludeManagedResources bool               `json:"includeManagedResources" xml:"IncludeManagedResources"`
+	MaxResults              int32              `json:"maxResults" xml:"MaxResults"`
+	NextToken               string             `json:"nextToken" xml:"NextToken"`
+	VolumeIds               VolumeIdStringList `json:"volumeIds" xml:"VolumeIds"`
 }
 
 type DescribeVolumesResult struct {
@@ -6703,6 +7118,16 @@ type DetachClassicLinkVpcResult struct {
 	Return bool `json:"return" xml:"Return"`
 }
 
+type DetachImageWatermarkRequest struct {
+	DryRun       bool   `json:"dryRun" xml:"DryRun"`
+	ImageId      string `json:"imageId" xml:"ImageId"`
+	WatermarkKey string `json:"watermarkKey" xml:"WatermarkKey"`
+}
+
+type DetachImageWatermarkResult struct {
+	Return bool `json:"return" xml:"Return"`
+}
+
 type DetachInternetGatewayRequest struct {
 	DryRun            bool   `json:"dryRun" xml:"DryRun"`
 	InternetGatewayId string `json:"internetGatewayId" xml:"InternetGatewayId"`
@@ -6787,6 +7212,17 @@ type DisableAllowedImagesSettingsRequest struct {
 
 type DisableAllowedImagesSettingsResult struct {
 	AllowedImagesSettingsState string `json:"allowedImagesSettingsState" xml:"AllowedImagesSettingsState"`
+}
+
+type DisableApplicationStatusCheckSuppressionRequest struct {
+	ClientToken string         `json:"clientToken" xml:"ClientToken"`
+	DryRun      bool           `json:"dryRun" xml:"DryRun"`
+	InstanceIds InstanceIdList `json:"instanceIds" xml:"InstanceIds"`
+}
+
+type DisableApplicationStatusCheckSuppressionResult struct {
+	SuccessfulResults   SuccessfulSuppressionResponseSet   `json:"successfulResults" xml:"SuccessfulResults"`
+	UnsuccessfulResults UnsuccessfulSuppressionResponseSet `json:"unsuccessfulResults" xml:"UnsuccessfulResults"`
 }
 
 type DisableAwsNetworkPerformanceMetricSubscriptionRequest struct {
@@ -7007,6 +7443,19 @@ type DisassociateAddressRequest struct {
 	AssociationId string `json:"associationId" xml:"AssociationId"`
 	DryRun        bool   `json:"dryRun" xml:"DryRun"`
 	PublicIp      string `json:"publicIp" xml:"PublicIp"`
+}
+
+type DisassociateApplicationStatusCheckRequest struct {
+	ApplicationStatusCheckId string                       `json:"applicationStatusCheckId" xml:"ApplicationStatusCheckId"`
+	ClientToken              string                       `json:"clientToken" xml:"ClientToken"`
+	DryRun                   bool                         `json:"dryRun" xml:"DryRun"`
+	InstanceIds              InstanceIdList               `json:"instanceIds" xml:"InstanceIds"`
+	TargetTagAssociations    CustomKeyValuePairRequestSet `json:"targetTagAssociations" xml:"TargetTagAssociations"`
+}
+
+type DisassociateApplicationStatusCheckResult struct {
+	SuccessfulResults   SuccessfulAssociationResponseSet   `json:"successfulResults" xml:"SuccessfulResults"`
+	UnsuccessfulResults UnsuccessfulAssociationResponseSet `json:"unsuccessfulResults" xml:"UnsuccessfulResults"`
 }
 
 type DisassociateCapacityReservationBillingOwnerRequest struct {
@@ -7422,6 +7871,18 @@ type EnableAllowedImagesSettingsResult struct {
 	AllowedImagesSettingsState string `json:"allowedImagesSettingsState" xml:"AllowedImagesSettingsState"`
 }
 
+type EnableApplicationStatusCheckSuppressionRequest struct {
+	ClientToken     string         `json:"clientToken" xml:"ClientToken"`
+	DryRun          bool           `json:"dryRun" xml:"DryRun"`
+	DurationSeconds int32          `json:"durationSeconds" xml:"DurationSeconds"`
+	InstanceIds     InstanceIdList `json:"instanceIds" xml:"InstanceIds"`
+}
+
+type EnableApplicationStatusCheckSuppressionResult struct {
+	SuccessfulResults   SuccessfulSuppressionResponseSet   `json:"successfulResults" xml:"SuccessfulResults"`
+	UnsuccessfulResults UnsuccessfulSuppressionResponseSet `json:"unsuccessfulResults" xml:"UnsuccessfulResults"`
+}
+
 type EnableAwsNetworkPerformanceMetricSubscriptionRequest struct {
 	Destination string `json:"destination" xml:"Destination"`
 	DryRun      bool   `json:"dryRun" xml:"DryRun"`
@@ -7563,6 +8024,21 @@ type EnableInstanceSqlHaStandbyDetectionsRequest struct {
 
 type EnableInstanceSqlHaStandbyDetectionsResult struct {
 	Instances RegisteredInstanceList `json:"instances" xml:"Instances"`
+}
+
+type EnableIpamInternetRegistryAssociationRequest struct {
+	ChildHandle                       string `json:"childHandle" xml:"ChildHandle"`
+	ClientToken                       string `json:"clientToken" xml:"ClientToken"`
+	DryRun                            bool   `json:"dryRun" xml:"DryRun"`
+	IpamInternetRegistryAssociationId string `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+	ParentBpkiTa                      string `json:"parentBpkiTa" xml:"ParentBpkiTa"`
+	ParentHandle                      string `json:"parentHandle" xml:"ParentHandle"`
+	RpkiVersion                       string `json:"rpkiVersion" xml:"RpkiVersion"`
+	ServiceUri                        string `json:"serviceUri" xml:"ServiceUri"`
+}
+
+type EnableIpamInternetRegistryAssociationResult struct {
+	IpamInternetRegistryAssociation *IpamInternetRegistryAssociation `json:"ipamInternetRegistryAssociation" xml:"IpamInternetRegistryAssociation"`
 }
 
 type EnableIpamOrganizationAdminAccountRequest struct {
@@ -7945,6 +8421,11 @@ type FleetCapacityReservation struct {
 	Weight                float64   `json:"weight" xml:"Weight"`
 }
 
+type FleetCapacityReservationTargetRequest struct {
+	CapacityReservationIds               CapacityReservationIdSet               `json:"capacityReservationIds" xml:"CapacityReservationIds"`
+	CapacityReservationResourceGroupArns CapacityReservationResourceGroupArnSet `json:"capacityReservationResourceGroupArns" xml:"CapacityReservationResourceGroupArns"`
+}
+
 type FleetData struct {
 	ActivityStatus                   string                        `json:"activityStatus" xml:"ActivityStatus"`
 	ClientToken                      string                        `json:"clientToken" xml:"ClientToken"`
@@ -7981,6 +8462,17 @@ type FleetEbsBlockDeviceRequest struct {
 	VolumeType          string `json:"volumeType" xml:"VolumeType"`
 }
 
+type FleetIamInstanceProfileSpecificationRequest struct {
+	Arn  string `json:"arn" xml:"Arn"`
+	Name string `json:"name" xml:"Name"`
+}
+
+type FleetInstanceMetadataOptionsRequest struct {
+	HttpEndpoint            string `json:"httpEndpoint" xml:"HttpEndpoint"`
+	HttpPutResponseHopLimit int32  `json:"httpPutResponseHopLimit" xml:"HttpPutResponseHopLimit"`
+	HttpTokens              string `json:"httpTokens" xml:"HttpTokens"`
+}
+
 type FleetLaunchTemplateConfig struct {
 	LaunchTemplateSpecification *FleetLaunchTemplateSpecification `json:"launchTemplateSpecification" xml:"LaunchTemplateSpecification"`
 	Overrides                   FleetLaunchTemplateOverridesList  `json:"overrides" xml:"Overrides"`
@@ -8006,17 +8498,20 @@ type FleetLaunchTemplateOverrides struct {
 }
 
 type FleetLaunchTemplateOverridesRequest struct {
-	AvailabilityZone     string                             `json:"availabilityZone" xml:"AvailabilityZone"`
-	AvailabilityZoneId   string                             `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
-	BlockDeviceMappings  FleetBlockDeviceMappingRequestList `json:"blockDeviceMappings" xml:"BlockDeviceMappings"`
-	ImageId              string                             `json:"imageId" xml:"ImageId"`
-	InstanceRequirements *InstanceRequirementsRequest       `json:"instanceRequirements" xml:"InstanceRequirements"`
-	InstanceType         string                             `json:"instanceType" xml:"InstanceType"`
-	MaxPrice             string                             `json:"maxPrice" xml:"MaxPrice"`
-	Placement            *Placement                         `json:"placement" xml:"Placement"`
-	Priority             float64                            `json:"priority" xml:"Priority"`
-	SubnetId             string                             `json:"subnetId" xml:"SubnetId"`
-	WeightedCapacity     float64                            `json:"weightedCapacity" xml:"WeightedCapacity"`
+	AvailabilityZone     string                                       `json:"availabilityZone" xml:"AvailabilityZone"`
+	AvailabilityZoneId   string                                       `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
+	BlockDeviceMappings  FleetBlockDeviceMappingRequestList           `json:"blockDeviceMappings" xml:"BlockDeviceMappings"`
+	IamInstanceProfile   *FleetIamInstanceProfileSpecificationRequest `json:"iamInstanceProfile" xml:"IamInstanceProfile"`
+	ImageId              string                                       `json:"imageId" xml:"ImageId"`
+	InstanceRequirements *InstanceRequirementsRequest                 `json:"instanceRequirements" xml:"InstanceRequirements"`
+	InstanceType         string                                       `json:"instanceType" xml:"InstanceType"`
+	KeyName              string                                       `json:"keyName" xml:"KeyName"`
+	MaxPrice             string                                       `json:"maxPrice" xml:"MaxPrice"`
+	MetadataOptions      *FleetInstanceMetadataOptionsRequest         `json:"metadataOptions" xml:"MetadataOptions"`
+	Placement            *Placement                                   `json:"placement" xml:"Placement"`
+	Priority             float64                                      `json:"priority" xml:"Priority"`
+	SubnetId             string                                       `json:"subnetId" xml:"SubnetId"`
+	WeightedCapacity     float64                                      `json:"weightedCapacity" xml:"WeightedCapacity"`
 }
 
 type FleetLaunchTemplateSpecification struct {
@@ -8026,9 +8521,10 @@ type FleetLaunchTemplateSpecification struct {
 }
 
 type FleetLaunchTemplateSpecificationRequest struct {
-	LaunchTemplateId   string `json:"launchTemplateId" xml:"LaunchTemplateId"`
-	LaunchTemplateName string `json:"launchTemplateName" xml:"LaunchTemplateName"`
-	Version            string `json:"version" xml:"Version"`
+	LaunchTemplateId                    string `json:"launchTemplateId" xml:"LaunchTemplateId"`
+	LaunchTemplateName                  string `json:"launchTemplateName" xml:"LaunchTemplateName"`
+	LaunchTemplateSpecificationUserData string `json:"launchTemplateSpecificationUserData" xml:"LaunchTemplateSpecificationUserData"`
+	Version                             string `json:"version" xml:"Version"`
 }
 
 type FleetSpotCapacityRebalance struct {
@@ -8050,22 +8546,23 @@ type FleetSpotMaintenanceStrategiesRequest struct {
 }
 
 type FlowLog struct {
-	CreationTime             time.Time                   `json:"creationTime" xml:"CreationTime"`
-	DeliverCrossAccountRole  string                      `json:"deliverCrossAccountRole" xml:"DeliverCrossAccountRole"`
-	DeliverLogsErrorMessage  string                      `json:"deliverLogsErrorMessage" xml:"DeliverLogsErrorMessage"`
-	DeliverLogsPermissionArn string                      `json:"deliverLogsPermissionArn" xml:"DeliverLogsPermissionArn"`
-	DeliverLogsStatus        string                      `json:"deliverLogsStatus" xml:"DeliverLogsStatus"`
-	DestinationOptions       *DestinationOptionsResponse `json:"destinationOptions" xml:"DestinationOptions"`
-	FlowLogId                string                      `json:"flowLogId" xml:"FlowLogId"`
-	FlowLogStatus            string                      `json:"flowLogStatus" xml:"FlowLogStatus"`
-	LogDestination           string                      `json:"logDestination" xml:"LogDestination"`
-	LogDestinationType       string                      `json:"logDestinationType" xml:"LogDestinationType"`
-	LogFormat                string                      `json:"logFormat" xml:"LogFormat"`
-	LogGroupName             string                      `json:"logGroupName" xml:"LogGroupName"`
-	MaxAggregationInterval   int32                       `json:"maxAggregationInterval" xml:"MaxAggregationInterval"`
-	ResourceId               string                      `json:"resourceId" xml:"ResourceId"`
-	Tags                     TagList                     `json:"tags" xml:"Tags"`
-	TrafficType              string                      `json:"trafficType" xml:"TrafficType"`
+	CreationTime             time.Time                         `json:"creationTime" xml:"CreationTime"`
+	DeliverCrossAccountRole  string                            `json:"deliverCrossAccountRole" xml:"DeliverCrossAccountRole"`
+	DeliverLogsErrorMessage  string                            `json:"deliverLogsErrorMessage" xml:"DeliverLogsErrorMessage"`
+	DeliverLogsPermissionArn string                            `json:"deliverLogsPermissionArn" xml:"DeliverLogsPermissionArn"`
+	DeliverLogsStatus        string                            `json:"deliverLogsStatus" xml:"DeliverLogsStatus"`
+	DestinationOptions       *DestinationOptionsResponse       `json:"destinationOptions" xml:"DestinationOptions"`
+	FlowLogId                string                            `json:"flowLogId" xml:"FlowLogId"`
+	FlowLogStatus            string                            `json:"flowLogStatus" xml:"FlowLogStatus"`
+	LogDestination           string                            `json:"logDestination" xml:"LogDestination"`
+	LogDestinationType       string                            `json:"logDestinationType" xml:"LogDestinationType"`
+	LogFormat                string                            `json:"logFormat" xml:"LogFormat"`
+	LogGroupName             string                            `json:"logGroupName" xml:"LogGroupName"`
+	MaxAggregationInterval   int32                             `json:"maxAggregationInterval" xml:"MaxAggregationInterval"`
+	ResourceId               string                            `json:"resourceId" xml:"ResourceId"`
+	TagFieldSpecifications   TagFieldSpecificationListResponse `json:"tagFieldSpecifications" xml:"TagFieldSpecifications"`
+	Tags                     TagList                           `json:"tags" xml:"Tags"`
+	TrafficType              string                            `json:"trafficType" xml:"TrafficType"`
 }
 
 type FpgaDeviceInfo struct {
@@ -8216,6 +8713,17 @@ type GetCapacityManagerMetricDimensionsRequest struct {
 type GetCapacityManagerMetricDimensionsResult struct {
 	MetricDimensionResults MetricDimensionResultSet `json:"metricDimensionResults" xml:"MetricDimensionResults"`
 	NextToken              string                   `json:"nextToken" xml:"NextToken"`
+}
+
+type GetCapacityManagerMonitoredTagKeysRequest struct {
+	DryRun     bool   `json:"dryRun" xml:"DryRun"`
+	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken  string `json:"nextToken" xml:"NextToken"`
+}
+
+type GetCapacityManagerMonitoredTagKeysResult struct {
+	CapacityManagerTagKeys CapacityManagerMonitoredTagKeyList `json:"capacityManagerTagKeys" xml:"CapacityManagerTagKeys"`
+	NextToken              string                             `json:"nextToken" xml:"NextToken"`
 }
 
 type GetCapacityReservationUsageRequest struct {
@@ -8488,6 +8996,46 @@ type GetIpamDiscoveredResourceCidrsResult struct {
 	NextToken                   string                        `json:"nextToken" xml:"NextToken"`
 }
 
+type GetIpamDiscoveredRoutesRequest struct {
+	DryRun                  bool       `json:"dryRun" xml:"DryRun"`
+	Filters                 FilterList `json:"filters" xml:"Filters"`
+	IpamResourceDiscoveryId string     `json:"ipamResourceDiscoveryId" xml:"IpamResourceDiscoveryId"`
+	MaxResults              int32      `json:"maxResults" xml:"MaxResults"`
+	NextToken               string     `json:"nextToken" xml:"NextToken"`
+	ResourceRegion          string     `json:"resourceRegion" xml:"ResourceRegion"`
+}
+
+type GetIpamDiscoveredRoutesResult struct {
+	IpamDiscoveredRoutes IpamDiscoveredRouteSet `json:"ipamDiscoveredRoutes" xml:"IpamDiscoveredRoutes"`
+	NextToken            string                 `json:"nextToken" xml:"NextToken"`
+}
+
+type GetIpamInternetRegistryAssociationAsnsRequest struct {
+	DryRun                            bool       `json:"dryRun" xml:"DryRun"`
+	Filters                           FilterList `json:"filters" xml:"Filters"`
+	IpamInternetRegistryAssociationId string     `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+	MaxResults                        int32      `json:"maxResults" xml:"MaxResults"`
+	NextToken                         string     `json:"nextToken" xml:"NextToken"`
+}
+
+type GetIpamInternetRegistryAssociationAsnsResult struct {
+	IpamInternetRegistryAssociationAsns IpamInternetRegistryAssociationAsnSet `json:"ipamInternetRegistryAssociationAsns" xml:"IpamInternetRegistryAssociationAsns"`
+	NextToken                           string                                `json:"nextToken" xml:"NextToken"`
+}
+
+type GetIpamInternetRegistryAssociationCidrsRequest struct {
+	DryRun                            bool       `json:"dryRun" xml:"DryRun"`
+	Filters                           FilterList `json:"filters" xml:"Filters"`
+	IpamInternetRegistryAssociationId string     `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+	MaxResults                        int32      `json:"maxResults" xml:"MaxResults"`
+	NextToken                         string     `json:"nextToken" xml:"NextToken"`
+}
+
+type GetIpamInternetRegistryAssociationCidrsResult struct {
+	IpamInternetRegistryAssociationCidrs IpamInternetRegistryAssociationCidrSet `json:"ipamInternetRegistryAssociationCidrs" xml:"IpamInternetRegistryAssociationCidrs"`
+	NextToken                            string                                 `json:"nextToken" xml:"NextToken"`
+}
+
 type GetIpamPolicyAllocationRulesRequest struct {
 	DryRun       bool       `json:"dryRun" xml:"DryRun"`
 	Filters      FilterList `json:"filters" xml:"Filters"`
@@ -8601,6 +9149,62 @@ type GetIpamResourceCidrsResult struct {
 	NextToken         string              `json:"nextToken" xml:"NextToken"`
 }
 
+type GetIpamRouteOriginAuthorizationsRequest struct {
+	Cidr                              string `json:"cidr" xml:"Cidr"`
+	DryRun                            bool   `json:"dryRun" xml:"DryRun"`
+	IpamInternetRegistryAssociationId string `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+	MaxResults                        int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken                         string `json:"nextToken" xml:"NextToken"`
+}
+
+type GetIpamRouteOriginAuthorizationsResult struct {
+	IpamRouteOriginAuthorizations IpamRouteOriginAuthorizationInfoSet `json:"ipamRouteOriginAuthorizations" xml:"IpamRouteOriginAuthorizations"`
+	NextToken                     string                              `json:"nextToken" xml:"NextToken"`
+}
+
+type GetIpamRouteProtectionFindingsRequest struct {
+	DryRun     bool       `json:"dryRun" xml:"DryRun"`
+	Filters    FilterList `json:"filters" xml:"Filters"`
+	IpamId     string     `json:"ipamId" xml:"IpamId"`
+	MaxResults int32      `json:"maxResults" xml:"MaxResults"`
+	NextToken  string     `json:"nextToken" xml:"NextToken"`
+}
+
+type GetIpamRouteProtectionFindingsResult struct {
+	IpamId                  string                        `json:"ipamId" xml:"IpamId"`
+	NextToken               string                        `json:"nextToken" xml:"NextToken"`
+	RouteProtectionFindings IpamRouteProtectionFindingSet `json:"routeProtectionFindings" xml:"RouteProtectionFindings"`
+}
+
+type GetIpamRoutingPolicyRegistrationDeltasRequest struct {
+	ChronologicalOrder                string    `json:"chronologicalOrder" xml:"ChronologicalOrder"`
+	DeltaId                           string    `json:"deltaId" xml:"DeltaId"`
+	DryRun                            bool      `json:"dryRun" xml:"DryRun"`
+	EndTime                           time.Time `json:"endTime" xml:"EndTime"`
+	IpamInternetRegistryAssociationId string    `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+	MaxResults                        int32     `json:"maxResults" xml:"MaxResults"`
+	NextToken                         string    `json:"nextToken" xml:"NextToken"`
+	StartTime                         time.Time `json:"startTime" xml:"StartTime"`
+}
+
+type GetIpamRoutingPolicyRegistrationDeltasResult struct {
+	IpamRoutingPolicyRegistrationDeltas IpamRoutingPolicyRegistrationDeltaSet `json:"ipamRoutingPolicyRegistrationDeltas" xml:"IpamRoutingPolicyRegistrationDeltas"`
+	NextToken                           string                                `json:"nextToken" xml:"NextToken"`
+}
+
+type GetIpamRoutingPolicyRegistrationsRequest struct {
+	Cidr                              string `json:"cidr" xml:"Cidr"`
+	DryRun                            bool   `json:"dryRun" xml:"DryRun"`
+	IpamInternetRegistryAssociationId string `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+	MaxResults                        int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken                         string `json:"nextToken" xml:"NextToken"`
+}
+
+type GetIpamRoutingPolicyRegistrationsResult struct {
+	IpamRoutingPolicyRegistrations IpamRoutingPolicyRegistrationSet `json:"ipamRoutingPolicyRegistrations" xml:"IpamRoutingPolicyRegistrations"`
+	NextToken                      string                           `json:"nextToken" xml:"NextToken"`
+}
+
 type GetLaunchTemplateDataRequest struct {
 	DryRun     bool   `json:"dryRun" xml:"DryRun"`
 	InstanceId string `json:"instanceId" xml:"InstanceId"`
@@ -8633,6 +9237,14 @@ type GetManagedPrefixListEntriesRequest struct {
 type GetManagedPrefixListEntriesResult struct {
 	Entries   PrefixListEntrySet `json:"entries" xml:"Entries"`
 	NextToken string             `json:"nextToken" xml:"NextToken"`
+}
+
+type GetManagedResourceVisibilityRequest struct {
+	DryRun bool `json:"dryRun" xml:"DryRun"`
+}
+
+type GetManagedResourceVisibilityResult struct {
+	Visibility *ManagedResourceVisibilitySettings `json:"visibility" xml:"Visibility"`
 }
 
 type GetNetworkInsightsAccessScopeAnalysisFindingsRequest struct {
@@ -8753,6 +9365,7 @@ type GetSnapshotBlockPublicAccessStateResult struct {
 
 type GetSpotPlacementScoresRequest struct {
 	DryRun                           bool                                     `json:"dryRun" xml:"DryRun"`
+	IncludeLocalZones                bool                                     `json:"includeLocalZones" xml:"IncludeLocalZones"`
 	InstanceRequirementsWithMetadata *InstanceRequirementsWithMetadataRequest `json:"instanceRequirementsWithMetadata" xml:"InstanceRequirementsWithMetadata"`
 	InstanceTypes                    InstanceTypes                            `json:"instanceTypes" xml:"InstanceTypes"`
 	MaxResults                       int32                                    `json:"maxResults" xml:"MaxResults"`
@@ -8843,6 +9456,7 @@ type GetTransitGatewayPolicyTableEntriesRequest struct {
 }
 
 type GetTransitGatewayPolicyTableEntriesResult struct {
+	NextToken                        string                             `json:"nextToken" xml:"NextToken"`
 	TransitGatewayPolicyTableEntries TransitGatewayPolicyTableEntryList `json:"transitGatewayPolicyTableEntries" xml:"TransitGatewayPolicyTableEntries"`
 }
 
@@ -8991,6 +9605,36 @@ type GroupIdentifier struct {
 	GroupName string `json:"groupName" xml:"GroupName"`
 }
 
+type HealthCheckPathDestinationRequestObject struct {
+	SecurityGroupId string `json:"securityGroupId" xml:"SecurityGroupId"`
+	SubnetId        string `json:"subnetId" xml:"SubnetId"`
+}
+
+type HealthCheckPathDestinationResponseObject struct {
+	SecurityGroupId string `json:"securityGroupId" xml:"SecurityGroupId"`
+	SubnetId        string `json:"subnetId" xml:"SubnetId"`
+}
+
+type HealthCheckPathRequestObject struct {
+	Destinations HealthCheckPathDestinationRequestSet `json:"destinations" xml:"Destinations"`
+	Source       *HealthCheckPathSourceRequestObject  `json:"source" xml:"Source"`
+}
+
+type HealthCheckPathResponseObject struct {
+	Destinations HealthCheckPathDestinationResponseList `json:"destinations" xml:"Destinations"`
+	Source       *HealthCheckPathSourceResponseObject   `json:"source" xml:"Source"`
+}
+
+type HealthCheckPathSourceRequestObject struct {
+	SecurityGroupId string `json:"securityGroupId" xml:"SecurityGroupId"`
+	SubnetId        string `json:"subnetId" xml:"SubnetId"`
+}
+
+type HealthCheckPathSourceResponseObject struct {
+	SecurityGroupId string `json:"securityGroupId" xml:"SecurityGroupId"`
+	SubnetId        string `json:"subnetId" xml:"SubnetId"`
+}
+
 type HibernationOptions struct {
 	Configured bool `json:"configured" xml:"Configured"`
 }
@@ -9020,6 +9664,7 @@ type Host struct {
 	AvailabilityZoneId                 string             `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
 	AvailableCapacity                  *AvailableCapacity `json:"availableCapacity" xml:"AvailableCapacity"`
 	ClientToken                        string             `json:"clientToken" xml:"ClientToken"`
+	CpuOptions                         *HostCpuOptions    `json:"cpuOptions" xml:"CpuOptions"`
 	HostId                             string             `json:"hostId" xml:"HostId"`
 	HostMaintenance                    string             `json:"hostMaintenance" xml:"HostMaintenance"`
 	HostProperties                     *HostProperties    `json:"hostProperties" xml:"HostProperties"`
@@ -9032,6 +9677,14 @@ type Host struct {
 	ReleaseTime                        time.Time          `json:"releaseTime" xml:"ReleaseTime"`
 	State                              string             `json:"state" xml:"State"`
 	Tags                               TagList            `json:"tags" xml:"Tags"`
+}
+
+type HostCpuOptions struct {
+	AmdSevSnp string `json:"amdSevSnp" xml:"AmdSevSnp"`
+}
+
+type HostCpuOptionsRequest struct {
+	AmdSevSnp string `json:"amdSevSnp" xml:"AmdSevSnp"`
 }
 
 type HostInstance struct {
@@ -9113,43 +9766,46 @@ type IdFormat struct {
 }
 
 type Image struct {
-	Architecture             string                 `json:"architecture" xml:"Architecture"`
-	BlockDeviceMappings      BlockDeviceMappingList `json:"blockDeviceMappings" xml:"BlockDeviceMappings"`
-	BootMode                 string                 `json:"bootMode" xml:"BootMode"`
-	CreationDate             string                 `json:"creationDate" xml:"CreationDate"`
-	DeprecationTime          string                 `json:"deprecationTime" xml:"DeprecationTime"`
-	DeregistrationProtection string                 `json:"deregistrationProtection" xml:"DeregistrationProtection"`
-	Description              string                 `json:"description" xml:"Description"`
-	EnaSupport               bool                   `json:"enaSupport" xml:"EnaSupport"`
-	FreeTierEligible         bool                   `json:"freeTierEligible" xml:"FreeTierEligible"`
-	Hypervisor               string                 `json:"hypervisor" xml:"Hypervisor"`
-	ImageAllowed             bool                   `json:"imageAllowed" xml:"ImageAllowed"`
-	ImageId                  string                 `json:"imageId" xml:"ImageId"`
-	ImageLocation            string                 `json:"imageLocation" xml:"ImageLocation"`
-	ImageOwnerAlias          string                 `json:"imageOwnerAlias" xml:"ImageOwnerAlias"`
-	ImageType                string                 `json:"imageType" xml:"ImageType"`
-	ImdsSupport              string                 `json:"imdsSupport" xml:"ImdsSupport"`
-	KernelId                 string                 `json:"kernelId" xml:"KernelId"`
-	LastLaunchedTime         string                 `json:"lastLaunchedTime" xml:"LastLaunchedTime"`
-	Name                     string                 `json:"name" xml:"Name"`
-	OwnerId                  string                 `json:"ownerId" xml:"OwnerId"`
-	Platform                 string                 `json:"platform" xml:"Platform"`
-	PlatformDetails          string                 `json:"platformDetails" xml:"PlatformDetails"`
-	ProductCodes             ProductCodeList        `json:"productCodes" xml:"ProductCodes"`
-	Public                   bool                   `json:"public" xml:"Public"`
-	RamdiskId                string                 `json:"ramdiskId" xml:"RamdiskId"`
-	RootDeviceName           string                 `json:"rootDeviceName" xml:"RootDeviceName"`
-	RootDeviceType           string                 `json:"rootDeviceType" xml:"RootDeviceType"`
-	SourceImageId            string                 `json:"sourceImageId" xml:"SourceImageId"`
-	SourceImageRegion        string                 `json:"sourceImageRegion" xml:"SourceImageRegion"`
-	SourceInstanceId         string                 `json:"sourceInstanceId" xml:"SourceInstanceId"`
-	SriovNetSupport          string                 `json:"sriovNetSupport" xml:"SriovNetSupport"`
-	State                    string                 `json:"state" xml:"State"`
-	StateReason              *StateReason           `json:"stateReason" xml:"StateReason"`
-	Tags                     TagList                `json:"tags" xml:"Tags"`
-	TpmSupport               string                 `json:"tpmSupport" xml:"TpmSupport"`
-	UsageOperation           string                 `json:"usageOperation" xml:"UsageOperation"`
-	VirtualizationType       string                 `json:"virtualizationType" xml:"VirtualizationType"`
+	Architecture              string                     `json:"architecture" xml:"Architecture"`
+	BlockDeviceMappings       BlockDeviceMappingList     `json:"blockDeviceMappings" xml:"BlockDeviceMappings"`
+	BootMode                  string                     `json:"bootMode" xml:"BootMode"`
+	CreationDate              string                     `json:"creationDate" xml:"CreationDate"`
+	DeprecationTime           string                     `json:"deprecationTime" xml:"DeprecationTime"`
+	DeregistrationProtection  string                     `json:"deregistrationProtection" xml:"DeregistrationProtection"`
+	Description               string                     `json:"description" xml:"Description"`
+	EnaSupport                bool                       `json:"enaSupport" xml:"EnaSupport"`
+	FreeTierEligible          bool                       `json:"freeTierEligible" xml:"FreeTierEligible"`
+	Hypervisor                string                     `json:"hypervisor" xml:"Hypervisor"`
+	ImageAllowed              bool                       `json:"imageAllowed" xml:"ImageAllowed"`
+	ImageId                   string                     `json:"imageId" xml:"ImageId"`
+	ImageLocation             string                     `json:"imageLocation" xml:"ImageLocation"`
+	ImageOwnerAlias           string                     `json:"imageOwnerAlias" xml:"ImageOwnerAlias"`
+	ImageType                 string                     `json:"imageType" xml:"ImageType"`
+	ImageWatermarks           ImageWatermarkList         `json:"imageWatermarks" xml:"ImageWatermarks"`
+	ImdsSupport               string                     `json:"imdsSupport" xml:"ImdsSupport"`
+	InstanceTypeSpecification *InstanceTypeSpecification `json:"instanceTypeSpecification" xml:"InstanceTypeSpecification"`
+	KernelId                  string                     `json:"kernelId" xml:"KernelId"`
+	LastLaunchedTime          string                     `json:"lastLaunchedTime" xml:"LastLaunchedTime"`
+	Name                      string                     `json:"name" xml:"Name"`
+	OwnerId                   string                     `json:"ownerId" xml:"OwnerId"`
+	Platform                  string                     `json:"platform" xml:"Platform"`
+	PlatformDetails           string                     `json:"platformDetails" xml:"PlatformDetails"`
+	ProductCodes              ProductCodeList            `json:"productCodes" xml:"ProductCodes"`
+	Public                    bool                       `json:"public" xml:"Public"`
+	PublicSsmParameterName    string                     `json:"publicSsmParameterName" xml:"PublicSsmParameterName"`
+	RamdiskId                 string                     `json:"ramdiskId" xml:"RamdiskId"`
+	RootDeviceName            string                     `json:"rootDeviceName" xml:"RootDeviceName"`
+	RootDeviceType            string                     `json:"rootDeviceType" xml:"RootDeviceType"`
+	SourceImageId             string                     `json:"sourceImageId" xml:"SourceImageId"`
+	SourceImageRegion         string                     `json:"sourceImageRegion" xml:"SourceImageRegion"`
+	SourceInstanceId          string                     `json:"sourceInstanceId" xml:"SourceInstanceId"`
+	SriovNetSupport           string                     `json:"sriovNetSupport" xml:"SriovNetSupport"`
+	State                     string                     `json:"state" xml:"State"`
+	StateReason               *StateReason               `json:"stateReason" xml:"StateReason"`
+	Tags                      TagList                    `json:"tags" xml:"Tags"`
+	TpmSupport                string                     `json:"tpmSupport" xml:"TpmSupport"`
+	UsageOperation            string                     `json:"usageOperation" xml:"UsageOperation"`
+	VirtualizationType        string                     `json:"virtualizationType" xml:"VirtualizationType"`
 }
 
 type ImageAncestryEntry struct {
@@ -9178,18 +9834,20 @@ type ImageAttribute struct {
 }
 
 type ImageCriterion struct {
-	CreationDateCondition    *CreationDateCondition     `json:"creationDateCondition" xml:"CreationDateCondition"`
-	DeprecationTimeCondition *DeprecationTimeCondition  `json:"deprecationTimeCondition" xml:"DeprecationTimeCondition"`
-	ImageNames               ImageNameList              `json:"imageNames" xml:"ImageNames"`
-	ImageProviders           ImageProviderList          `json:"imageProviders" xml:"ImageProviders"`
-	MarketplaceProductCodes  MarketplaceProductCodeList `json:"marketplaceProductCodes" xml:"MarketplaceProductCodes"`
+	CreationDateCondition    *CreationDateCondition           `json:"creationDateCondition" xml:"CreationDateCondition"`
+	DeprecationTimeCondition *DeprecationTimeCondition        `json:"deprecationTimeCondition" xml:"DeprecationTimeCondition"`
+	ImageNames               ImageNameList                    `json:"imageNames" xml:"ImageNames"`
+	ImageProviders           ImageProviderList                `json:"imageProviders" xml:"ImageProviders"`
+	ImageWatermarks          ImageWatermarkFilterResponseList `json:"imageWatermarks" xml:"ImageWatermarks"`
+	MarketplaceProductCodes  MarketplaceProductCodeList       `json:"marketplaceProductCodes" xml:"MarketplaceProductCodes"`
 }
 
 type ImageCriterionRequest struct {
 	CreationDateCondition    *CreationDateConditionRequest     `json:"creationDateCondition" xml:"CreationDateCondition"`
 	DeprecationTimeCondition *DeprecationTimeConditionRequest  `json:"deprecationTimeCondition" xml:"DeprecationTimeCondition"`
-	ImageNames               ImageNameRequestList              `json:"imageNames" xml:"ImageNames"`
+	ImageNames               ImageNameCriteriaRequestList      `json:"imageNames" xml:"ImageNames"`
 	ImageProviders           ImageProviderRequestList          `json:"imageProviders" xml:"ImageProviders"`
+	ImageWatermarks          ImageWatermarkFilterRequestList   `json:"imageWatermarks" xml:"ImageWatermarks"`
 	MarketplaceProductCodes  MarketplaceProductCodeRequestList `json:"marketplaceProductCodes" xml:"MarketplaceProductCodes"`
 }
 
@@ -9203,15 +9861,16 @@ type ImageDiskContainer struct {
 }
 
 type ImageMetadata struct {
-	CreationDate    string `json:"creationDate" xml:"CreationDate"`
-	DeprecationTime string `json:"deprecationTime" xml:"DeprecationTime"`
-	ImageAllowed    bool   `json:"imageAllowed" xml:"ImageAllowed"`
-	ImageId         string `json:"imageId" xml:"ImageId"`
-	ImageOwnerAlias string `json:"imageOwnerAlias" xml:"ImageOwnerAlias"`
-	IsPublic        bool   `json:"isPublic" xml:"IsPublic"`
-	Name            string `json:"name" xml:"Name"`
-	OwnerId         string `json:"ownerId" xml:"OwnerId"`
-	State           string `json:"state" xml:"State"`
+	CreationDate    string             `json:"creationDate" xml:"CreationDate"`
+	DeprecationTime string             `json:"deprecationTime" xml:"DeprecationTime"`
+	ImageAllowed    bool               `json:"imageAllowed" xml:"ImageAllowed"`
+	ImageId         string             `json:"imageId" xml:"ImageId"`
+	ImageOwnerAlias string             `json:"imageOwnerAlias" xml:"ImageOwnerAlias"`
+	ImageWatermarks ImageWatermarkList `json:"imageWatermarks" xml:"ImageWatermarks"`
+	IsPublic        bool               `json:"isPublic" xml:"IsPublic"`
+	Name            string             `json:"name" xml:"Name"`
+	OwnerId         string             `json:"ownerId" xml:"OwnerId"`
+	State           string             `json:"state" xml:"State"`
 }
 
 type ImageRecycleBinInfo struct {
@@ -9267,6 +9926,28 @@ type ImageUsageResourceTypeOptionRequest struct {
 type ImageUsageResourceTypeRequest struct {
 	ResourceType        string                                  `json:"resourceType" xml:"ResourceType"`
 	ResourceTypeOptions ImageUsageResourceTypeOptionRequestList `json:"resourceTypeOptions" xml:"ResourceTypeOptions"`
+}
+
+type ImageWatermark struct {
+	SourceImageCreationTime time.Time `json:"sourceImageCreationTime" xml:"SourceImageCreationTime"`
+	SourceImageId           string    `json:"sourceImageId" xml:"SourceImageId"`
+	SourceImageRegion       string    `json:"sourceImageRegion" xml:"SourceImageRegion"`
+	WatermarkCreationTime   time.Time `json:"watermarkCreationTime" xml:"WatermarkCreationTime"`
+	WatermarkKey            string    `json:"watermarkKey" xml:"WatermarkKey"`
+}
+
+type ImageWatermarkFilterRequest struct {
+	MaximumDaysSinceSourceImageCreated int32  `json:"maximumDaysSinceSourceImageCreated" xml:"MaximumDaysSinceSourceImageCreated"`
+	MaximumDaysSinceWatermarkCreated   int32  `json:"maximumDaysSinceWatermarkCreated" xml:"MaximumDaysSinceWatermarkCreated"`
+	SourceImageRegion                  string `json:"sourceImageRegion" xml:"SourceImageRegion"`
+	WatermarkKey                       string `json:"watermarkKey" xml:"WatermarkKey"`
+}
+
+type ImageWatermarkFilterResponse struct {
+	MaximumDaysSinceSourceImageCreated int32  `json:"maximumDaysSinceSourceImageCreated" xml:"MaximumDaysSinceSourceImageCreated"`
+	MaximumDaysSinceWatermarkCreated   int32  `json:"maximumDaysSinceWatermarkCreated" xml:"MaximumDaysSinceWatermarkCreated"`
+	SourceImageRegion                  string `json:"sourceImageRegion" xml:"SourceImageRegion"`
+	WatermarkKey                       string `json:"watermarkKey" xml:"WatermarkKey"`
 }
 
 type ImportClientVpnClientCertificateRevocationListRequest struct {
@@ -9535,6 +10216,14 @@ type Instance struct {
 	UsageOperationUpdateTime                time.Time                                  `json:"usageOperationUpdateTime" xml:"UsageOperationUpdateTime"`
 	VirtualizationType                      string                                     `json:"virtualizationType" xml:"VirtualizationType"`
 	VpcId                                   string                                     `json:"vpcId" xml:"VpcId"`
+}
+
+type InstanceApplicationStatus struct {
+	ApplicationStatus  *ApplicationStatus `json:"applicationStatus" xml:"ApplicationStatus"`
+	AvailabilityZone   string             `json:"availabilityZone" xml:"AvailabilityZone"`
+	AvailabilityZoneId string             `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
+	InstanceId         string             `json:"instanceId" xml:"InstanceId"`
+	Tags               TagList            `json:"tags" xml:"Tags"`
 }
 
 type InstanceAttachmentEnaSrdSpecification struct {
@@ -9947,16 +10636,17 @@ type InstanceStateChange struct {
 }
 
 type InstanceStatus struct {
-	AttachedEbsStatus  *EbsStatusSummary       `json:"attachedEbsStatus" xml:"AttachedEbsStatus"`
-	AvailabilityZone   string                  `json:"availabilityZone" xml:"AvailabilityZone"`
-	AvailabilityZoneId string                  `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
-	Events             InstanceStatusEventList `json:"events" xml:"Events"`
-	InstanceId         string                  `json:"instanceId" xml:"InstanceId"`
-	InstanceState      *InstanceState          `json:"instanceState" xml:"InstanceState"`
-	InstanceStatus     *InstanceStatusSummary  `json:"instanceStatus" xml:"InstanceStatus"`
-	Operator           *OperatorResponse       `json:"operator" xml:"Operator"`
-	OutpostArn         string                  `json:"outpostArn" xml:"OutpostArn"`
-	SystemStatus       *InstanceStatusSummary  `json:"systemStatus" xml:"SystemStatus"`
+	ApplicationStatus  *ApplicationStatusSummary `json:"applicationStatus" xml:"ApplicationStatus"`
+	AttachedEbsStatus  *EbsStatusSummary         `json:"attachedEbsStatus" xml:"AttachedEbsStatus"`
+	AvailabilityZone   string                    `json:"availabilityZone" xml:"AvailabilityZone"`
+	AvailabilityZoneId string                    `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
+	Events             InstanceStatusEventList   `json:"events" xml:"Events"`
+	InstanceId         string                    `json:"instanceId" xml:"InstanceId"`
+	InstanceState      *InstanceState            `json:"instanceState" xml:"InstanceState"`
+	InstanceStatus     *InstanceStatusSummary    `json:"instanceStatus" xml:"InstanceStatus"`
+	Operator           *OperatorResponse         `json:"operator" xml:"Operator"`
+	OutpostArn         string                    `json:"outpostArn" xml:"OutpostArn"`
+	SystemStatus       *InstanceStatusSummary    `json:"systemStatus" xml:"SystemStatus"`
 }
 
 type InstanceStatusDetails struct {
@@ -10029,6 +10719,7 @@ type InstanceTypeInfo struct {
 	ProcessorInfo                 *ProcessorInfo            `json:"processorInfo" xml:"ProcessorInfo"`
 	RebootMigrationSupport        string                    `json:"rebootMigrationSupport" xml:"RebootMigrationSupport"`
 	SupportedBootModes            BootModeTypeList          `json:"supportedBootModes" xml:"SupportedBootModes"`
+	SupportedInRegion             bool                      `json:"supportedInRegion" xml:"SupportedInRegion"`
 	SupportedRootDeviceTypes      RootDeviceTypeList        `json:"supportedRootDeviceTypes" xml:"SupportedRootDeviceTypes"`
 	SupportedUsageClasses         UsageClassTypeList        `json:"supportedUsageClasses" xml:"SupportedUsageClasses"`
 	SupportedVirtualizationTypes  VirtualizationTypeList    `json:"supportedVirtualizationTypes" xml:"SupportedVirtualizationTypes"`
@@ -10039,10 +10730,24 @@ type InstanceTypeInfoFromInstanceRequirements struct {
 	InstanceType string `json:"instanceType" xml:"InstanceType"`
 }
 
+type InstanceTypeItem struct {
+	InstanceType string `json:"instanceType" xml:"InstanceType"`
+}
+
 type InstanceTypeOffering struct {
 	InstanceType string `json:"instanceType" xml:"InstanceType"`
 	Location     string `json:"location" xml:"Location"`
 	LocationType string `json:"locationType" xml:"LocationType"`
+}
+
+type InstanceTypeSpecification struct {
+	SupportedInstanceTypes   SupportedInstanceTypeSet   `json:"supportedInstanceTypes" xml:"SupportedInstanceTypes"`
+	UnsupportedInstanceTypes UnsupportedInstanceTypeSet `json:"unsupportedInstanceTypes" xml:"UnsupportedInstanceTypes"`
+}
+
+type InstanceTypeSpecificationRequest struct {
+	SupportedInstanceTypes   SupportedInstanceTypeRequestSet   `json:"supportedInstanceTypes" xml:"SupportedInstanceTypes"`
+	UnsupportedInstanceTypes UnsupportedInstanceTypeRequestSet `json:"unsupportedInstanceTypes" xml:"UnsupportedInstanceTypes"`
 }
 
 type InstanceUsage struct {
@@ -10072,6 +10777,7 @@ type InterruptibleCapacityAllocation struct {
 	InterruptionType                   string `json:"interruptionType" xml:"InterruptionType"`
 	Status                             string `json:"status" xml:"Status"`
 	TargetInstanceCount                int32  `json:"targetInstanceCount" xml:"TargetInstanceCount"`
+	ZeroSizePreference                 string `json:"zeroSizePreference" xml:"ZeroSizePreference"`
 }
 
 type InterruptionInfo struct {
@@ -10182,6 +10888,20 @@ type IpamDiscoveredResourceCidr struct {
 	VpcId                            string              `json:"vpcId" xml:"VpcId"`
 }
 
+type IpamDiscoveredRoute struct {
+	AdvertisementType       string    `json:"advertisementType" xml:"AdvertisementType"`
+	Asn                     string    `json:"asn" xml:"Asn"`
+	Cidr                    string    `json:"cidr" xml:"Cidr"`
+	IpamPoolId              string    `json:"ipamPoolId" xml:"IpamPoolId"`
+	IpamResourceDiscoveryId string    `json:"ipamResourceDiscoveryId" xml:"IpamResourceDiscoveryId"`
+	NetworkBorderGroup      string    `json:"networkBorderGroup" xml:"NetworkBorderGroup"`
+	PoolId                  string    `json:"poolId" xml:"PoolId"`
+	ResourceOwnerId         string    `json:"resourceOwnerId" xml:"ResourceOwnerId"`
+	ResourceRegion          string    `json:"resourceRegion" xml:"ResourceRegion"`
+	SampleTime              time.Time `json:"sampleTime" xml:"SampleTime"`
+	State                   string    `json:"state" xml:"State"`
+}
+
 type IpamDiscoveryFailureReason struct {
 	Code    string `json:"code" xml:"Code"`
 	Message string `json:"message" xml:"Message"`
@@ -10199,6 +10919,31 @@ type IpamExternalResourceVerificationToken struct {
 	Tags                                     TagList   `json:"tags" xml:"Tags"`
 	TokenName                                string    `json:"tokenName" xml:"TokenName"`
 	TokenValue                               string    `json:"tokenValue" xml:"TokenValue"`
+}
+
+type IpamInternetRegistryAssociation struct {
+	ChildRequestXml                    string  `json:"childRequestXml" xml:"ChildRequestXml"`
+	Description                        string  `json:"description" xml:"Description"`
+	IpamId                             string  `json:"ipamId" xml:"IpamId"`
+	IpamInternetRegistryAssociationArn string  `json:"ipamInternetRegistryAssociationArn" xml:"IpamInternetRegistryAssociationArn"`
+	IpamInternetRegistryAssociationId  string  `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+	IpamRegion                         string  `json:"ipamRegion" xml:"IpamRegion"`
+	OrganizationHandle                 string  `json:"organizationHandle" xml:"OrganizationHandle"`
+	OwnerId                            string  `json:"ownerId" xml:"OwnerId"`
+	Rir                                string  `json:"rir" xml:"Rir"`
+	State                              string  `json:"state" xml:"State"`
+	StateMessage                       string  `json:"stateMessage" xml:"StateMessage"`
+	Tags                               TagList `json:"tags" xml:"Tags"`
+}
+
+type IpamInternetRegistryAssociationAsn struct {
+	Asn            string    `json:"asn" xml:"Asn"`
+	LastObservedAt time.Time `json:"lastObservedAt" xml:"LastObservedAt"`
+}
+
+type IpamInternetRegistryAssociationCidr struct {
+	Cidr           string    `json:"cidr" xml:"Cidr"`
+	LastObservedAt time.Time `json:"lastObservedAt" xml:"LastObservedAt"`
 }
 
 type IpamOperatingRegion struct {
@@ -10267,13 +11012,14 @@ type IpamPool struct {
 }
 
 type IpamPoolAllocation struct {
-	Cidr                 string `json:"cidr" xml:"Cidr"`
-	Description          string `json:"description" xml:"Description"`
-	IpamPoolAllocationId string `json:"ipamPoolAllocationId" xml:"IpamPoolAllocationId"`
-	ResourceId           string `json:"resourceId" xml:"ResourceId"`
-	ResourceOwner        string `json:"resourceOwner" xml:"ResourceOwner"`
-	ResourceRegion       string `json:"resourceRegion" xml:"ResourceRegion"`
-	ResourceType         string `json:"resourceType" xml:"ResourceType"`
+	Cidr                 string  `json:"cidr" xml:"Cidr"`
+	Description          string  `json:"description" xml:"Description"`
+	IpamPoolAllocationId string  `json:"ipamPoolAllocationId" xml:"IpamPoolAllocationId"`
+	ResourceId           string  `json:"resourceId" xml:"ResourceId"`
+	ResourceOwner        string  `json:"resourceOwner" xml:"ResourceOwner"`
+	ResourceRegion       string  `json:"resourceRegion" xml:"ResourceRegion"`
+	ResourceType         string  `json:"resourceType" xml:"ResourceType"`
+	Tags                 TagList `json:"tags" xml:"Tags"`
 }
 
 type IpamPoolCidr struct {
@@ -10439,6 +11185,61 @@ type IpamResourceDiscoveryAssociation struct {
 type IpamResourceTag struct {
 	Key   string `json:"key" xml:"Key"`
 	Value string `json:"value" xml:"Value"`
+}
+
+type IpamRouteOriginAuthorization struct {
+	Asn        string    `json:"asn" xml:"Asn"`
+	Expiration time.Time `json:"expiration" xml:"Expiration"`
+	Match      bool      `json:"match" xml:"Match"`
+	MaxLength  int32     `json:"maxLength" xml:"MaxLength"`
+	Prefix     string    `json:"prefix" xml:"Prefix"`
+}
+
+type IpamRouteOriginAuthorizationInfo struct {
+	Asn       string `json:"asn" xml:"Asn"`
+	Cidr      string `json:"cidr" xml:"Cidr"`
+	MaxLength int32  `json:"maxLength" xml:"MaxLength"`
+}
+
+type IpamRouteOverlap struct {
+	Asn        string    `json:"asn" xml:"Asn"`
+	DetectedAt time.Time `json:"detectedAt" xml:"DetectedAt"`
+	Prefix     string    `json:"prefix" xml:"Prefix"`
+}
+
+type IpamRouteProtectionFinding struct {
+	AdvertisementType  string                          `json:"advertisementType" xml:"AdvertisementType"`
+	Asn                string                          `json:"asn" xml:"Asn"`
+	Cidr               string                          `json:"cidr" xml:"Cidr"`
+	IpamPoolId         string                          `json:"ipamPoolId" xml:"IpamPoolId"`
+	NetworkBorderGroup string                          `json:"networkBorderGroup" xml:"NetworkBorderGroup"`
+	PoolId             string                          `json:"poolId" xml:"PoolId"`
+	ResourceOwnerId    string                          `json:"resourceOwnerId" xml:"ResourceOwnerId"`
+	ResourceRegion     string                          `json:"resourceRegion" xml:"ResourceRegion"`
+	RoaSampleTime      time.Time                       `json:"roaSampleTime" xml:"RoaSampleTime"`
+	Roas               IpamRouteOriginAuthorizationSet `json:"roas" xml:"Roas"`
+	RouteOverlaps      IpamRouteOverlapSet             `json:"routeOverlaps" xml:"RouteOverlaps"`
+	RpkiStatus         string                          `json:"rpkiStatus" xml:"RpkiStatus"`
+	RpkiStrength       string                          `json:"rpkiStrength" xml:"RpkiStrength"`
+	SampleTime         time.Time                       `json:"sampleTime" xml:"SampleTime"`
+	State              string                          `json:"state" xml:"State"`
+}
+
+type IpamRoutingPolicyRegistration struct {
+	Asns                            AsnList `json:"asns" xml:"Asns"`
+	Cidr                            string  `json:"cidr" xml:"Cidr"`
+	Description                     string  `json:"description" xml:"Description"`
+	LatestDeltaId                   string  `json:"latestDeltaId" xml:"LatestDeltaId"`
+	MaxLength                       int32   `json:"maxLength" xml:"MaxLength"`
+	PermitMoreSpecificAnnouncements bool    `json:"permitMoreSpecificAnnouncements" xml:"PermitMoreSpecificAnnouncements"`
+	State                           string  `json:"state" xml:"State"`
+}
+
+type IpamRoutingPolicyRegistrationDelta struct {
+	DeltaId      string `json:"deltaId" xml:"DeltaId"`
+	DeltaJson    string `json:"deltaJson" xml:"DeltaJson"`
+	State        string `json:"state" xml:"State"`
+	StateMessage string `json:"stateMessage" xml:"StateMessage"`
 }
 
 type IpamScope struct {
@@ -11151,6 +11952,10 @@ type ManagedPrefixList struct {
 	Version                           int64   `json:"version" xml:"Version"`
 }
 
+type ManagedResourceVisibilitySettings struct {
+	DefaultVisibility string `json:"defaultVisibility" xml:"DefaultVisibility"`
+}
+
 type MediaAcceleratorInfo struct {
 	Accelerators          MediaDeviceInfoList `json:"accelerators" xml:"Accelerators"`
 	TotalMediaMemoryInMiB int32               `json:"totalMediaMemoryInMiB" xml:"TotalMediaMemoryInMiB"`
@@ -11209,6 +12014,23 @@ type MetricValue struct {
 	Value  float64 `json:"value" xml:"Value"`
 }
 
+type ModifyAccountVpcEncryptionControlRequest struct {
+	DryRun                    bool   `json:"dryRun" xml:"DryRun"`
+	EgressOnlyInternetGateway string `json:"egressOnlyInternetGateway" xml:"EgressOnlyInternetGateway"`
+	ElasticFileSystem         string `json:"elasticFileSystem" xml:"ElasticFileSystem"`
+	InternetGateway           string `json:"internetGateway" xml:"InternetGateway"`
+	Lambda                    string `json:"lambda" xml:"Lambda"`
+	Mode                      string `json:"mode" xml:"Mode"`
+	NatGateway                string `json:"natGateway" xml:"NatGateway"`
+	VirtualPrivateGateway     string `json:"virtualPrivateGateway" xml:"VirtualPrivateGateway"`
+	VpcLattice                string `json:"vpcLattice" xml:"VpcLattice"`
+	VpcPeering                string `json:"vpcPeering" xml:"VpcPeering"`
+}
+
+type ModifyAccountVpcEncryptionControlResult struct {
+	AccountVpcEncryptionControl *AccountVpcEncryptionControl `json:"accountVpcEncryptionControl" xml:"AccountVpcEncryptionControl"`
+}
+
 type ModifyAddressAttributeRequest struct {
 	AllocationId string `json:"allocationId" xml:"AllocationId"`
 	DomainName   string `json:"domainName" xml:"DomainName"`
@@ -11217,6 +12039,30 @@ type ModifyAddressAttributeRequest struct {
 
 type ModifyAddressAttributeResult struct {
 	Address *AddressAttribute `json:"address" xml:"Address"`
+}
+
+type ModifyApplicationStatusCheckRequest struct {
+	Aggregation                      string                     `json:"aggregation" xml:"Aggregation"`
+	ApplicationStatusCheckId         string                     `json:"applicationStatusCheckId" xml:"ApplicationStatusCheckId"`
+	ClientToken                      string                     `json:"clientToken" xml:"ClientToken"`
+	DeviceIndex                      int32                      `json:"deviceIndex" xml:"DeviceIndex"`
+	DryRun                           bool                       `json:"dryRun" xml:"DryRun"`
+	FailureThreshold                 int32                      `json:"failureThreshold" xml:"FailureThreshold"`
+	HealthCheckPaths                 HealthCheckPathRequestList `json:"healthCheckPaths" xml:"HealthCheckPaths"`
+	InitializationGracePeriodSeconds int32                      `json:"initializationGracePeriodSeconds" xml:"InitializationGracePeriodSeconds"`
+	Interval                         int32                      `json:"interval" xml:"Interval"`
+	IpScope                          string                     `json:"ipScope" xml:"IpScope"`
+	IpVersion                        string                     `json:"ipVersion" xml:"IpVersion"`
+	Path                             string                     `json:"path" xml:"Path"`
+	Port                             int32                      `json:"port" xml:"Port"`
+	Protocol                         string                     `json:"protocol" xml:"Protocol"`
+	StatusCodeMatcher                string                     `json:"statusCodeMatcher" xml:"StatusCodeMatcher"`
+	SuccessThreshold                 int32                      `json:"successThreshold" xml:"SuccessThreshold"`
+	Timeout                          int32                      `json:"timeout" xml:"Timeout"`
+}
+
+type ModifyApplicationStatusCheckResult struct {
+	ApplicationStatusCheck *ApplicationStatusCheckResponseObject `json:"applicationStatusCheck" xml:"ApplicationStatusCheck"`
 }
 
 type ModifyAvailabilityZoneGroupRequest struct {
@@ -11257,22 +12103,23 @@ type ModifyCapacityReservationResult struct {
 }
 
 type ModifyClientVpnEndpointRequest struct {
-	ClientConnectOptions          *ClientConnectOptions             `json:"clientConnectOptions" xml:"ClientConnectOptions"`
-	ClientLoginBannerOptions      *ClientLoginBannerOptions         `json:"clientLoginBannerOptions" xml:"ClientLoginBannerOptions"`
-	ClientRouteEnforcementOptions *ClientRouteEnforcementOptions    `json:"clientRouteEnforcementOptions" xml:"ClientRouteEnforcementOptions"`
-	ClientVpnEndpointId           string                            `json:"clientVpnEndpointId" xml:"ClientVpnEndpointId"`
-	ConnectionLogOptions          *ConnectionLogOptions             `json:"connectionLogOptions" xml:"ConnectionLogOptions"`
-	Description                   string                            `json:"description" xml:"Description"`
-	DisconnectOnSessionTimeout    bool                              `json:"disconnectOnSessionTimeout" xml:"DisconnectOnSessionTimeout"`
-	DnsServers                    *DnsServersOptionsModifyStructure `json:"dnsServers" xml:"DnsServers"`
-	DryRun                        bool                              `json:"dryRun" xml:"DryRun"`
-	SecurityGroupIds              ClientVpnSecurityGroupIdSet       `json:"securityGroupIds" xml:"SecurityGroupIds"`
-	SelfServicePortal             string                            `json:"selfServicePortal" xml:"SelfServicePortal"`
-	ServerCertificateArn          string                            `json:"serverCertificateArn" xml:"ServerCertificateArn"`
-	SessionTimeoutHours           int32                             `json:"sessionTimeoutHours" xml:"SessionTimeoutHours"`
-	SplitTunnel                   bool                              `json:"splitTunnel" xml:"SplitTunnel"`
-	VpcId                         string                            `json:"vpcId" xml:"VpcId"`
-	VpnPort                       int32                             `json:"vpnPort" xml:"VpnPort"`
+	ClientConnectOptions          *ClientConnectOptions                      `json:"clientConnectOptions" xml:"ClientConnectOptions"`
+	ClientLoginBannerOptions      *ClientLoginBannerOptions                  `json:"clientLoginBannerOptions" xml:"ClientLoginBannerOptions"`
+	ClientRouteEnforcementOptions *ClientRouteEnforcementOptions             `json:"clientRouteEnforcementOptions" xml:"ClientRouteEnforcementOptions"`
+	ClientVpnEndpointId           string                                     `json:"clientVpnEndpointId" xml:"ClientVpnEndpointId"`
+	ConnectionLogOptions          *ConnectionLogOptions                      `json:"connectionLogOptions" xml:"ConnectionLogOptions"`
+	Description                   string                                     `json:"description" xml:"Description"`
+	DisconnectOnSessionTimeout    bool                                       `json:"disconnectOnSessionTimeout" xml:"DisconnectOnSessionTimeout"`
+	DnsServers                    *DnsServersOptionsModifyStructure          `json:"dnsServers" xml:"DnsServers"`
+	DryRun                        bool                                       `json:"dryRun" xml:"DryRun"`
+	SecurityGroupIds              ClientVpnSecurityGroupIdSet                `json:"securityGroupIds" xml:"SecurityGroupIds"`
+	SelfServicePortal             string                                     `json:"selfServicePortal" xml:"SelfServicePortal"`
+	ServerCertificateArn          string                                     `json:"serverCertificateArn" xml:"ServerCertificateArn"`
+	SessionTimeoutHours           int32                                      `json:"sessionTimeoutHours" xml:"SessionTimeoutHours"`
+	SplitTunnel                   bool                                       `json:"splitTunnel" xml:"SplitTunnel"`
+	TransitGatewayConfiguration   *TransitGatewayConfigurationInputStructure `json:"transitGatewayConfiguration" xml:"TransitGatewayConfiguration"`
+	VpcId                         string                                     `json:"vpcId" xml:"VpcId"`
+	VpnPort                       int32                                      `json:"vpnPort" xml:"VpnPort"`
 }
 
 type ModifyClientVpnEndpointResult struct {
@@ -11377,6 +12224,7 @@ type ModifyInstanceAttributeRequest struct {
 	DryRun                            bool                                        `json:"dryRun" xml:"DryRun"`
 	EbsOptimized                      *AttributeBooleanValue                      `json:"ebsOptimized" xml:"EbsOptimized"`
 	EnaSupport                        *AttributeBooleanValue                      `json:"enaSupport" xml:"EnaSupport"`
+	EnclaveOptions                    *EnclaveOptionsRequest                      `json:"enclaveOptions" xml:"EnclaveOptions"`
 	Groups                            GroupIdStringList                           `json:"groups" xml:"Groups"`
 	InstanceId                        string                                      `json:"instanceId" xml:"InstanceId"`
 	InstanceInitiatedShutdownBehavior *AttributeValue                             `json:"instanceInitiatedShutdownBehavior" xml:"InstanceInitiatedShutdownBehavior"`
@@ -11385,7 +12233,7 @@ type ModifyInstanceAttributeRequest struct {
 	Ramdisk                           *AttributeValue                             `json:"ramdisk" xml:"Ramdisk"`
 	SourceDestCheck                   *AttributeBooleanValue                      `json:"sourceDestCheck" xml:"SourceDestCheck"`
 	SriovNetSupport                   *AttributeValue                             `json:"sriovNetSupport" xml:"SriovNetSupport"`
-	UserData                          *BlobAttributeValue                         `json:"userData" xml:"UserData"`
+	UserData                          *SecureBlobAttributeValue                   `json:"userData" xml:"UserData"`
 	Value                             string                                      `json:"value" xml:"Value"`
 }
 
@@ -11539,6 +12387,16 @@ type ModifyIpamPolicyAllocationRulesResult struct {
 	IpamPolicyDocument *IpamPolicyDocument `json:"ipamPolicyDocument" xml:"IpamPolicyDocument"`
 }
 
+type ModifyIpamPoolAllocationRequest struct {
+	Description          string `json:"description" xml:"Description"`
+	DryRun               bool   `json:"dryRun" xml:"DryRun"`
+	IpamPoolAllocationId string `json:"ipamPoolAllocationId" xml:"IpamPoolAllocationId"`
+}
+
+type ModifyIpamPoolAllocationResult struct {
+	IpamPoolAllocation *IpamPoolAllocation `json:"ipamPoolAllocation" xml:"IpamPoolAllocation"`
+}
+
 type ModifyIpamPoolRequest struct {
 	AddAllocationResourceTags           RequestIpamResourceTagList `json:"addAllocationResourceTags" xml:"AddAllocationResourceTags"`
 	AllocationDefaultNetmaskLength      int32                      `json:"allocationDefaultNetmaskLength" xml:"AllocationDefaultNetmaskLength"`
@@ -11622,6 +12480,22 @@ type ModifyIpamResult struct {
 	Ipam *Ipam `json:"ipam" xml:"Ipam"`
 }
 
+type ModifyIpamRoutingPolicyRegistrationRequest struct {
+	Asns                              AsnList `json:"asns" xml:"Asns"`
+	Cidr                              string  `json:"cidr" xml:"Cidr"`
+	ClientToken                       string  `json:"clientToken" xml:"ClientToken"`
+	Description                       string  `json:"description" xml:"Description"`
+	DryRun                            bool    `json:"dryRun" xml:"DryRun"`
+	Force                             bool    `json:"force" xml:"Force"`
+	IpamInternetRegistryAssociationId string  `json:"ipamInternetRegistryAssociationId" xml:"IpamInternetRegistryAssociationId"`
+	MaxLength                         int32   `json:"maxLength" xml:"MaxLength"`
+	PermitMoreSpecificAnnouncements   bool    `json:"permitMoreSpecificAnnouncements" xml:"PermitMoreSpecificAnnouncements"`
+}
+
+type ModifyIpamRoutingPolicyRegistrationResult struct {
+	IpamRoutingPolicyRegistrationDelta *IpamRoutingPolicyRegistrationDelta `json:"ipamRoutingPolicyRegistrationDelta" xml:"IpamRoutingPolicyRegistrationDelta"`
+}
+
 type ModifyIpamScopeRequest struct {
 	Description                          string                          `json:"description" xml:"Description"`
 	DryRun                               bool                            `json:"dryRun" xml:"DryRun"`
@@ -11672,6 +12546,15 @@ type ModifyManagedPrefixListRequest struct {
 
 type ModifyManagedPrefixListResult struct {
 	PrefixList *ManagedPrefixList `json:"prefixList" xml:"PrefixList"`
+}
+
+type ModifyManagedResourceVisibilityRequest struct {
+	DefaultVisibility string `json:"defaultVisibility" xml:"DefaultVisibility"`
+	DryRun            bool   `json:"dryRun" xml:"DryRun"`
+}
+
+type ModifyManagedResourceVisibilityResult struct {
+	Visibility *ManagedResourceVisibilitySettings `json:"visibility" xml:"Visibility"`
 }
 
 type ModifyNetworkInterfaceAttributeRequest struct {
@@ -11860,6 +12743,18 @@ type ModifyTransitGatewayOptions struct {
 	RemoveTransitGatewayCidrBlocks  TransitGatewayCidrBlockStringList `json:"removeTransitGatewayCidrBlocks" xml:"RemoveTransitGatewayCidrBlocks"`
 	SecurityGroupReferencingSupport string                            `json:"securityGroupReferencingSupport" xml:"SecurityGroupReferencingSupport"`
 	VpnEcmpSupport                  string                            `json:"vpnEcmpSupport" xml:"VpnEcmpSupport"`
+}
+
+type ModifyTransitGatewayPolicyTableEntryRequest struct {
+	DryRun                      bool                             `json:"dryRun" xml:"DryRun"`
+	PolicyRule                  *TransitGatewayRequestPolicyRule `json:"policyRule" xml:"PolicyRule"`
+	PolicyRuleNumber            string                           `json:"policyRuleNumber" xml:"PolicyRuleNumber"`
+	TargetRouteTableId          string                           `json:"targetRouteTableId" xml:"TargetRouteTableId"`
+	TransitGatewayPolicyTableId string                           `json:"transitGatewayPolicyTableId" xml:"TransitGatewayPolicyTableId"`
+}
+
+type ModifyTransitGatewayPolicyTableEntryResult struct {
+	TransitGatewayPolicyTableEntry *TransitGatewayPolicyTableEntry `json:"transitGatewayPolicyTableEntry" xml:"TransitGatewayPolicyTableEntry"`
 }
 
 type ModifyTransitGatewayPrefixListReferenceRequest struct {
@@ -12128,6 +13023,19 @@ type ModifyVpcEndpointConnectionNotificationResult struct {
 	ReturnValue bool `json:"returnValue" xml:"ReturnValue"`
 }
 
+type ModifyVpcEndpointPayerResponsibilityRequest struct {
+	DryRun              bool   `json:"dryRun" xml:"DryRun"`
+	PayerResponsibility string `json:"payerResponsibility" xml:"PayerResponsibility"`
+	Scope               string `json:"scope" xml:"Scope"`
+	ServiceId           string `json:"serviceId" xml:"ServiceId"`
+	VpcEndpointId       string `json:"vpcEndpointId" xml:"VpcEndpointId"`
+}
+
+type ModifyVpcEndpointPayerResponsibilityResult struct {
+	PayerResponsibilities PayerResponsibilitySet `json:"payerResponsibilities" xml:"PayerResponsibilities"`
+	VpcEndpointId         string                 `json:"vpcEndpointId" xml:"VpcEndpointId"`
+}
+
 type ModifyVpcEndpointRequest struct {
 	AddRouteTableIds       VpcEndpointRouteTableIdList    `json:"addRouteTableIds" xml:"AddRouteTableIds"`
 	AddSecurityGroupIds    VpcEndpointSecurityGroupIdList `json:"addSecurityGroupIds" xml:"AddSecurityGroupIds"`
@@ -12219,6 +13127,7 @@ type ModifyVpnConnectionOptionsRequest struct {
 	LocalIpv6NetworkCidr  string `json:"localIpv6NetworkCidr" xml:"LocalIpv6NetworkCidr"`
 	RemoteIpv4NetworkCidr string `json:"remoteIpv4NetworkCidr" xml:"RemoteIpv4NetworkCidr"`
 	RemoteIpv6NetworkCidr string `json:"remoteIpv6NetworkCidr" xml:"RemoteIpv6NetworkCidr"`
+	TunnelBandwidth       string `json:"tunnelBandwidth" xml:"TunnelBandwidth"`
 	VpnConnectionId       string `json:"vpnConnectionId" xml:"VpnConnectionId"`
 }
 
@@ -12691,8 +13600,9 @@ type OperatorRequest struct {
 }
 
 type OperatorResponse struct {
-	Managed   bool   `json:"managed" xml:"Managed"`
-	Principal string `json:"principal" xml:"Principal"`
+	HiddenByDefault bool   `json:"hiddenByDefault" xml:"HiddenByDefault"`
+	Managed         bool   `json:"managed" xml:"Managed"`
+	Principal       string `json:"principal" xml:"Principal"`
 }
 
 type OutpostLag struct {
@@ -12770,6 +13680,11 @@ type PathStatement struct {
 type PathStatementRequest struct {
 	PacketHeaderStatement *PacketHeaderStatementRequest `json:"packetHeaderStatement" xml:"PacketHeaderStatement"`
 	ResourceStatement     *ResourceStatementRequest     `json:"resourceStatement" xml:"ResourceStatement"`
+}
+
+type PayerResponsibilityEntry struct {
+	PayerResponsibilityType string `json:"payerResponsibilityType" xml:"PayerResponsibilityType"`
+	Scope                   string `json:"scope" xml:"Scope"`
 }
 
 type PciId struct {
@@ -12878,6 +13793,7 @@ type PlacementGroup struct {
 	GroupName      string            `json:"groupName" xml:"GroupName"`
 	LinkedGroupId  string            `json:"linkedGroupId" xml:"LinkedGroupId"`
 	Operator       *OperatorResponse `json:"operator" xml:"Operator"`
+	ParentGroupId  string            `json:"parentGroupId" xml:"ParentGroupId"`
 	PartitionCount int32             `json:"partitionCount" xml:"PartitionCount"`
 	SpreadLevel    string            `json:"spreadLevel" xml:"SpreadLevel"`
 	State          string            `json:"state" xml:"State"`
@@ -13280,6 +14196,15 @@ type RejectCapacityReservationBillingOwnershipResult struct {
 	Return bool `json:"return" xml:"Return"`
 }
 
+type RejectTransitGatewayClientVpnAttachmentRequest struct {
+	DryRun                     bool   `json:"dryRun" xml:"DryRun"`
+	TransitGatewayAttachmentId string `json:"transitGatewayAttachmentId" xml:"TransitGatewayAttachmentId"`
+}
+
+type RejectTransitGatewayClientVpnAttachmentResult struct {
+	TransitGatewayClientVpnAttachment *TransitGatewayClientVpnAttachment `json:"transitGatewayClientVpnAttachment" xml:"TransitGatewayClientVpnAttachment"`
+}
+
 type RejectTransitGatewayMulticastDomainAssociationsRequest struct {
 	DryRun                          bool            `json:"dryRun" xml:"DryRun"`
 	SubnetIds                       ValueStringList `json:"subnetIds" xml:"SubnetIds"`
@@ -13382,6 +14307,16 @@ type ReplaceImageCriteriaInAllowedImagesSettingsRequest struct {
 }
 
 type ReplaceImageCriteriaInAllowedImagesSettingsResult struct {
+	ReturnValue bool `json:"returnValue" xml:"ReturnValue"`
+}
+
+type ReplaceImageInstanceTypeSpecificationRequest struct {
+	DryRun                    bool                              `json:"dryRun" xml:"DryRun"`
+	ImageId                   string                            `json:"imageId" xml:"ImageId"`
+	InstanceTypeSpecification *InstanceTypeSpecificationRequest `json:"instanceTypeSpecification" xml:"InstanceTypeSpecification"`
+}
+
+type ReplaceImageInstanceTypeSpecificationResult struct {
 	ReturnValue bool `json:"returnValue" xml:"ReturnValue"`
 }
 
@@ -13604,12 +14539,25 @@ type ReservationValue struct {
 	RemainingUpfrontValue string `json:"remainingUpfrontValue" xml:"RemainingUpfrontValue"`
 }
 
+type ReservedCapacityFallbackOptions struct {
+	MarketTypes ReservedCapacityFallbackMarketTypeList `json:"marketTypes" xml:"MarketTypes"`
+}
+
+type ReservedCapacityFallbackOptionsRequest struct {
+	MarketTypes ReservedCapacityFallbackMarketTypeList `json:"marketTypes" xml:"MarketTypes"`
+}
+
 type ReservedCapacityOptions struct {
-	ReservationTypes ReservationTypeList `json:"reservationTypes" xml:"ReservationTypes"`
+	AllocationStrategy              string                           `json:"allocationStrategy" xml:"AllocationStrategy"`
+	ReservationTypes                ReservationTypeList              `json:"reservationTypes" xml:"ReservationTypes"`
+	ReservedCapacityFallbackOptions *ReservedCapacityFallbackOptions `json:"reservedCapacityFallbackOptions" xml:"ReservedCapacityFallbackOptions"`
 }
 
 type ReservedCapacityOptionsRequest struct {
-	ReservationTypes ReservationTypeListRequest `json:"reservationTypes" xml:"ReservationTypes"`
+	AllocationStrategy              string                                  `json:"allocationStrategy" xml:"AllocationStrategy"`
+	CapacityReservationTarget       *FleetCapacityReservationTargetRequest  `json:"capacityReservationTarget" xml:"CapacityReservationTarget"`
+	ReservationTypes                ReservationTypeListRequest              `json:"reservationTypes" xml:"ReservationTypes"`
+	ReservedCapacityFallbackOptions *ReservedCapacityFallbackOptionsRequest `json:"reservedCapacityFallbackOptions" xml:"ReservedCapacityFallbackOptions"`
 }
 
 type ReservedInstanceLimitPrice struct {
@@ -14422,6 +15370,10 @@ type SecondarySubnetIpv4CidrBlockAssociation struct {
 	StateReason   string `json:"stateReason" xml:"StateReason"`
 }
 
+type SecureBlobAttributeValue struct {
+	Value []byte `json:"value" xml:"Value"`
+}
+
 type SecurityGroup struct {
 	Description         string           `json:"description" xml:"Description"`
 	GroupId             string           `json:"groupId" xml:"GroupId"`
@@ -15034,12 +15986,24 @@ type Subscription struct {
 	Statistic   string `json:"statistic" xml:"Statistic"`
 }
 
+type SuccessfulAssociationResponseObject struct {
+	ApplicationStatusCheckId string `json:"applicationStatusCheckId" xml:"ApplicationStatusCheckId"`
+	AssociationType          string `json:"associationType" xml:"AssociationType"`
+	AssociationValue         string `json:"associationValue" xml:"AssociationValue"`
+}
+
 type SuccessfulInstanceCreditSpecificationItem struct {
 	InstanceId string `json:"instanceId" xml:"InstanceId"`
 }
 
 type SuccessfulQueuedPurchaseDeletion struct {
 	ReservedInstancesId string `json:"reservedInstancesId" xml:"ReservedInstancesId"`
+}
+
+type SuccessfulSuppressionResponseObject struct {
+	InstanceId string    `json:"instanceId" xml:"InstanceId"`
+	ResumeAt   time.Time `json:"resumeAt" xml:"ResumeAt"`
+	SuppressAt time.Time `json:"suppressAt" xml:"SuppressAt"`
 }
 
 type SupportedRegionDetail struct {
@@ -15057,6 +16021,16 @@ type TagDescription struct {
 	ResourceId   string `json:"resourceId" xml:"ResourceId"`
 	ResourceType string `json:"resourceType" xml:"ResourceType"`
 	Value        string `json:"value" xml:"Value"`
+}
+
+type TagFieldSpecificationRequest struct {
+	ResourceType string     `json:"resourceType" xml:"ResourceType"`
+	TagKeys      TagKeyList `json:"tagKeys" xml:"TagKeys"`
+}
+
+type TagFieldSpecificationResponse struct {
+	ResourceType string     `json:"resourceType" xml:"ResourceType"`
+	TagKeys      TagKeyList `json:"tagKeys" xml:"TagKeys"`
 }
 
 type TagSpecification struct {
@@ -15099,12 +16073,14 @@ type TargetGroupsConfig struct {
 }
 
 type TargetNetwork struct {
-	AssociationId       string             `json:"associationId" xml:"AssociationId"`
-	ClientVpnEndpointId string             `json:"clientVpnEndpointId" xml:"ClientVpnEndpointId"`
-	SecurityGroups      ValueStringList    `json:"securityGroups" xml:"SecurityGroups"`
-	Status              *AssociationStatus `json:"status" xml:"Status"`
-	TargetNetworkId     string             `json:"targetNetworkId" xml:"TargetNetworkId"`
-	VpcId               string             `json:"vpcId" xml:"VpcId"`
+	AssociationId       string                         `json:"associationId" xml:"AssociationId"`
+	AvailabilityZoneIds ClientVpnAvailabilityZoneIdSet `json:"availabilityZoneIds" xml:"AvailabilityZoneIds"`
+	AvailabilityZones   ClientVpnAvailabilityZoneSet   `json:"availabilityZones" xml:"AvailabilityZones"`
+	ClientVpnEndpointId string                         `json:"clientVpnEndpointId" xml:"ClientVpnEndpointId"`
+	SecurityGroups      ValueStringList                `json:"securityGroups" xml:"SecurityGroups"`
+	Status              *AssociationStatus             `json:"status" xml:"Status"`
+	TargetNetworkId     string                         `json:"targetNetworkId" xml:"TargetNetworkId"`
+	VpcId               string                         `json:"vpcId" xml:"VpcId"`
 }
 
 type TargetReservationValue struct {
@@ -15251,8 +16227,9 @@ type TransitGatewayAttachment struct {
 }
 
 type TransitGatewayAttachmentAssociation struct {
-	State                      string `json:"state" xml:"State"`
-	TransitGatewayRouteTableId string `json:"transitGatewayRouteTableId" xml:"TransitGatewayRouteTableId"`
+	State                       string `json:"state" xml:"State"`
+	TransitGatewayPolicyTableId string `json:"transitGatewayPolicyTableId" xml:"TransitGatewayPolicyTableId"`
+	TransitGatewayRouteTableId  string `json:"transitGatewayRouteTableId" xml:"TransitGatewayRouteTableId"`
 }
 
 type TransitGatewayAttachmentBgpConfiguration struct {
@@ -15266,6 +16243,28 @@ type TransitGatewayAttachmentBgpConfiguration struct {
 type TransitGatewayAttachmentPropagation struct {
 	State                      string `json:"state" xml:"State"`
 	TransitGatewayRouteTableId string `json:"transitGatewayRouteTableId" xml:"TransitGatewayRouteTableId"`
+}
+
+type TransitGatewayClientVpnAttachment struct {
+	ClientVpnEndpointId        string `json:"clientVpnEndpointId" xml:"ClientVpnEndpointId"`
+	ClientVpnOwnerId           string `json:"clientVpnOwnerId" xml:"ClientVpnOwnerId"`
+	CreationTime               string `json:"creationTime" xml:"CreationTime"`
+	State                      string `json:"state" xml:"State"`
+	TransitGatewayAttachmentId string `json:"transitGatewayAttachmentId" xml:"TransitGatewayAttachmentId"`
+	TransitGatewayId           string `json:"transitGatewayId" xml:"TransitGatewayId"`
+}
+
+type TransitGatewayConfigurationDescribeEndpointStructure struct {
+	AvailabilityZoneIds        ClientVpnAvailabilityZoneIdSet `json:"availabilityZoneIds" xml:"AvailabilityZoneIds"`
+	AvailabilityZones          ClientVpnAvailabilityZoneSet   `json:"availabilityZones" xml:"AvailabilityZones"`
+	TransitGatewayAttachmentId string                         `json:"transitGatewayAttachmentId" xml:"TransitGatewayAttachmentId"`
+	TransitGatewayId           string                         `json:"transitGatewayId" xml:"TransitGatewayId"`
+}
+
+type TransitGatewayConfigurationInputStructure struct {
+	AvailabilityZoneIds ClientVpnAvailabilityZoneIdSet `json:"availabilityZoneIds" xml:"AvailabilityZoneIds"`
+	AvailabilityZones   ClientVpnAvailabilityZoneSet   `json:"availabilityZones" xml:"AvailabilityZones"`
+	TransitGatewayId    string                         `json:"transitGatewayId" xml:"TransitGatewayId"`
 }
 
 type TransitGatewayConnect struct {
@@ -15469,6 +16468,7 @@ type TransitGatewayPolicyTableAssociation struct {
 type TransitGatewayPolicyTableEntry struct {
 	PolicyRule         *TransitGatewayPolicyRule `json:"policyRule" xml:"PolicyRule"`
 	PolicyRuleNumber   string                    `json:"policyRuleNumber" xml:"PolicyRuleNumber"`
+	State              string                    `json:"state" xml:"State"`
 	TargetRouteTableId string                    `json:"targetRouteTableId" xml:"TargetRouteTableId"`
 }
 
@@ -15506,6 +16506,20 @@ type TransitGatewayRequestOptions struct {
 	SecurityGroupReferencingSupport string                            `json:"securityGroupReferencingSupport" xml:"SecurityGroupReferencingSupport"`
 	TransitGatewayCidrBlocks        TransitGatewayCidrBlockStringList `json:"transitGatewayCidrBlocks" xml:"TransitGatewayCidrBlocks"`
 	VpnEcmpSupport                  string                            `json:"vpnEcmpSupport" xml:"VpnEcmpSupport"`
+}
+
+type TransitGatewayRequestPolicyRule struct {
+	DestinationCidrBlock string                                   `json:"destinationCidrBlock" xml:"DestinationCidrBlock"`
+	DestinationPortRange string                                   `json:"destinationPortRange" xml:"DestinationPortRange"`
+	MetaData             *TransitGatewayRequestPolicyRuleMetaData `json:"metaData" xml:"MetaData"`
+	Protocol             string                                   `json:"protocol" xml:"Protocol"`
+	SourceCidrBlock      string                                   `json:"sourceCidrBlock" xml:"SourceCidrBlock"`
+	SourcePortRange      string                                   `json:"sourcePortRange" xml:"SourcePortRange"`
+}
+
+type TransitGatewayRequestPolicyRuleMetaData struct {
+	MetaDataKey   string `json:"metaDataKey" xml:"MetaDataKey"`
+	MetaDataValue string `json:"metaDataValue" xml:"MetaDataValue"`
 }
 
 type TransitGatewayRoute struct {
@@ -15673,6 +16687,13 @@ type UnmonitorInstancesResult struct {
 	InstanceMonitorings InstanceMonitoringList `json:"instanceMonitorings" xml:"InstanceMonitorings"`
 }
 
+type UnsuccessfulAssociationResponseObject struct {
+	ApplicationStatusCheckId string `json:"applicationStatusCheckId" xml:"ApplicationStatusCheckId"`
+	AssociationType          string `json:"associationType" xml:"AssociationType"`
+	AssociationValue         string `json:"associationValue" xml:"AssociationValue"`
+	Reason                   string `json:"reason" xml:"Reason"`
+}
+
 type UnsuccessfulInstanceCreditSpecificationItem struct {
 	Error      *UnsuccessfulInstanceCreditSpecificationItemError `json:"error" xml:"Error"`
 	InstanceId string                                            `json:"instanceId" xml:"InstanceId"`
@@ -15693,6 +16714,24 @@ type UnsuccessfulItemError struct {
 	Message string `json:"message" xml:"Message"`
 }
 
+type UnsuccessfulSuppressionResponseObject struct {
+	InstanceId string    `json:"instanceId" xml:"InstanceId"`
+	Reason     string    `json:"reason" xml:"Reason"`
+	ResumeAt   time.Time `json:"resumeAt" xml:"ResumeAt"`
+	SuppressAt time.Time `json:"suppressAt" xml:"SuppressAt"`
+}
+
+type UpdateCapacityManagerMonitoredTagKeysRequest struct {
+	ActivateTagKeys   ValueStringList `json:"activateTagKeys" xml:"ActivateTagKeys"`
+	ClientToken       string          `json:"clientToken" xml:"ClientToken"`
+	DeactivateTagKeys ValueStringList `json:"deactivateTagKeys" xml:"DeactivateTagKeys"`
+	DryRun            bool            `json:"dryRun" xml:"DryRun"`
+}
+
+type UpdateCapacityManagerMonitoredTagKeysResult struct {
+	CapacityManagerTagKeys CapacityManagerMonitoredTagKeyList `json:"capacityManagerTagKeys" xml:"CapacityManagerTagKeys"`
+}
+
 type UpdateCapacityManagerOrganizationsAccessRequest struct {
 	ClientToken         string `json:"clientToken" xml:"ClientToken"`
 	DryRun              bool   `json:"dryRun" xml:"DryRun"`
@@ -15708,6 +16747,7 @@ type UpdateInterruptibleCapacityReservationAllocationRequest struct {
 	CapacityReservationId string `json:"capacityReservationId" xml:"CapacityReservationId"`
 	DryRun                bool   `json:"dryRun" xml:"DryRun"`
 	TargetInstanceCount   int32  `json:"targetInstanceCount" xml:"TargetInstanceCount"`
+	ZeroSizePreference    string `json:"zeroSizePreference" xml:"ZeroSizePreference"`
 }
 
 type UpdateInterruptibleCapacityReservationAllocationResult struct {
@@ -15783,6 +16823,15 @@ type VCpuInfo struct {
 	DefaultVCpus          int32              `json:"defaultVCpus" xml:"DefaultVCpus"`
 	ValidCores            CoreCountList      `json:"validCores" xml:"ValidCores"`
 	ValidThreadsPerCore   ThreadsPerCoreList `json:"validThreadsPerCore" xml:"ValidThreadsPerCore"`
+}
+
+type ValidateSecurityGroupQuotasForInterfaceRequest struct {
+	DryRun           bool                `json:"dryRun" xml:"DryRun"`
+	SecurityGroupIds SecurityGroupIdList `json:"securityGroupIds" xml:"SecurityGroupIds"`
+}
+
+type ValidateSecurityGroupQuotasForInterfaceResult struct {
+	Valid bool `json:"valid" xml:"Valid"`
 }
 
 type ValidationError struct {
@@ -16064,22 +17113,23 @@ type VolumeDetail struct {
 }
 
 type VolumeModification struct {
-	EndTime                    time.Time `json:"endTime" xml:"EndTime"`
-	ModificationState          string    `json:"modificationState" xml:"ModificationState"`
-	OriginalIops               int32     `json:"originalIops" xml:"OriginalIops"`
-	OriginalMultiAttachEnabled bool      `json:"originalMultiAttachEnabled" xml:"OriginalMultiAttachEnabled"`
-	OriginalSize               int32     `json:"originalSize" xml:"OriginalSize"`
-	OriginalThroughput         int32     `json:"originalThroughput" xml:"OriginalThroughput"`
-	OriginalVolumeType         string    `json:"originalVolumeType" xml:"OriginalVolumeType"`
-	Progress                   int64     `json:"progress" xml:"Progress"`
-	StartTime                  time.Time `json:"startTime" xml:"StartTime"`
-	StatusMessage              string    `json:"statusMessage" xml:"StatusMessage"`
-	TargetIops                 int32     `json:"targetIops" xml:"TargetIops"`
-	TargetMultiAttachEnabled   bool      `json:"targetMultiAttachEnabled" xml:"TargetMultiAttachEnabled"`
-	TargetSize                 int32     `json:"targetSize" xml:"TargetSize"`
-	TargetThroughput           int32     `json:"targetThroughput" xml:"TargetThroughput"`
-	TargetVolumeType           string    `json:"targetVolumeType" xml:"TargetVolumeType"`
-	VolumeId                   string    `json:"volumeId" xml:"VolumeId"`
+	EndTime                    time.Time         `json:"endTime" xml:"EndTime"`
+	ModificationState          string            `json:"modificationState" xml:"ModificationState"`
+	Operator                   *OperatorResponse `json:"operator" xml:"Operator"`
+	OriginalIops               int32             `json:"originalIops" xml:"OriginalIops"`
+	OriginalMultiAttachEnabled bool              `json:"originalMultiAttachEnabled" xml:"OriginalMultiAttachEnabled"`
+	OriginalSize               int32             `json:"originalSize" xml:"OriginalSize"`
+	OriginalThroughput         int32             `json:"originalThroughput" xml:"OriginalThroughput"`
+	OriginalVolumeType         string            `json:"originalVolumeType" xml:"OriginalVolumeType"`
+	Progress                   int64             `json:"progress" xml:"Progress"`
+	StartTime                  time.Time         `json:"startTime" xml:"StartTime"`
+	StatusMessage              string            `json:"statusMessage" xml:"StatusMessage"`
+	TargetIops                 int32             `json:"targetIops" xml:"TargetIops"`
+	TargetMultiAttachEnabled   bool              `json:"targetMultiAttachEnabled" xml:"TargetMultiAttachEnabled"`
+	TargetSize                 int32             `json:"targetSize" xml:"TargetSize"`
+	TargetThroughput           int32             `json:"targetThroughput" xml:"TargetThroughput"`
+	TargetVolumeType           string            `json:"targetVolumeType" xml:"TargetVolumeType"`
+	VolumeId                   string            `json:"volumeId" xml:"VolumeId"`
 }
 
 type VolumeRecycleBinInfo struct {
@@ -16138,6 +17188,7 @@ type VolumeStatusItem struct {
 	AvailabilityZoneId          string                           `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
 	Events                      VolumeStatusEventsList           `json:"events" xml:"Events"`
 	InitializationStatusDetails *InitializationStatusDetails     `json:"initializationStatusDetails" xml:"InitializationStatusDetails"`
+	Operator                    *OperatorResponse                `json:"operator" xml:"Operator"`
 	OutpostArn                  string                           `json:"outpostArn" xml:"OutpostArn"`
 	VolumeId                    string                           `json:"volumeId" xml:"VolumeId"`
 	VolumeStatus                *VolumeStatusInfo                `json:"volumeStatus" xml:"VolumeStatus"`
@@ -16249,31 +17300,32 @@ type VpcEncryptionNonCompliantResource struct {
 }
 
 type VpcEndpoint struct {
-	CreationTimestamp        time.Time            `json:"creationTimestamp" xml:"CreationTimestamp"`
-	DnsEntries               DnsEntrySet          `json:"dnsEntries" xml:"DnsEntries"`
-	DnsOptions               *DnsOptions          `json:"dnsOptions" xml:"DnsOptions"`
-	FailureReason            string               `json:"failureReason" xml:"FailureReason"`
-	Groups                   GroupIdentifierSet   `json:"groups" xml:"Groups"`
-	IpAddressType            string               `json:"ipAddressType" xml:"IpAddressType"`
-	Ipv4Prefixes             SubnetIpPrefixesList `json:"ipv4Prefixes" xml:"Ipv4Prefixes"`
-	Ipv6Prefixes             SubnetIpPrefixesList `json:"ipv6Prefixes" xml:"Ipv6Prefixes"`
-	LastError                *LastError           `json:"lastError" xml:"LastError"`
-	NetworkInterfaceIds      ValueStringList      `json:"networkInterfaceIds" xml:"NetworkInterfaceIds"`
-	OwnerId                  string               `json:"ownerId" xml:"OwnerId"`
-	PolicyDocument           string               `json:"policyDocument" xml:"PolicyDocument"`
-	PrivateDnsEnabled        bool                 `json:"privateDnsEnabled" xml:"PrivateDnsEnabled"`
-	RequesterManaged         bool                 `json:"requesterManaged" xml:"RequesterManaged"`
-	ResourceConfigurationArn string               `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
-	RouteTableIds            ValueStringList      `json:"routeTableIds" xml:"RouteTableIds"`
-	ServiceName              string               `json:"serviceName" xml:"ServiceName"`
-	ServiceNetworkArn        string               `json:"serviceNetworkArn" xml:"ServiceNetworkArn"`
-	ServiceRegion            string               `json:"serviceRegion" xml:"ServiceRegion"`
-	State                    string               `json:"state" xml:"State"`
-	SubnetIds                ValueStringList      `json:"subnetIds" xml:"SubnetIds"`
-	Tags                     TagList              `json:"tags" xml:"Tags"`
-	VpcEndpointId            string               `json:"vpcEndpointId" xml:"VpcEndpointId"`
-	VpcEndpointType          string               `json:"vpcEndpointType" xml:"VpcEndpointType"`
-	VpcId                    string               `json:"vpcId" xml:"VpcId"`
+	CreationTimestamp        time.Time              `json:"creationTimestamp" xml:"CreationTimestamp"`
+	DnsEntries               DnsEntrySet            `json:"dnsEntries" xml:"DnsEntries"`
+	DnsOptions               *DnsOptions            `json:"dnsOptions" xml:"DnsOptions"`
+	FailureReason            string                 `json:"failureReason" xml:"FailureReason"`
+	Groups                   GroupIdentifierSet     `json:"groups" xml:"Groups"`
+	IpAddressType            string                 `json:"ipAddressType" xml:"IpAddressType"`
+	Ipv4Prefixes             SubnetIpPrefixesList   `json:"ipv4Prefixes" xml:"Ipv4Prefixes"`
+	Ipv6Prefixes             SubnetIpPrefixesList   `json:"ipv6Prefixes" xml:"Ipv6Prefixes"`
+	LastError                *LastError             `json:"lastError" xml:"LastError"`
+	NetworkInterfaceIds      ValueStringList        `json:"networkInterfaceIds" xml:"NetworkInterfaceIds"`
+	OwnerId                  string                 `json:"ownerId" xml:"OwnerId"`
+	PayerResponsibilities    PayerResponsibilitySet `json:"payerResponsibilities" xml:"PayerResponsibilities"`
+	PolicyDocument           string                 `json:"policyDocument" xml:"PolicyDocument"`
+	PrivateDnsEnabled        bool                   `json:"privateDnsEnabled" xml:"PrivateDnsEnabled"`
+	RequesterManaged         bool                   `json:"requesterManaged" xml:"RequesterManaged"`
+	ResourceConfigurationArn string                 `json:"resourceConfigurationArn" xml:"ResourceConfigurationArn"`
+	RouteTableIds            ValueStringList        `json:"routeTableIds" xml:"RouteTableIds"`
+	ServiceName              string                 `json:"serviceName" xml:"ServiceName"`
+	ServiceNetworkArn        string                 `json:"serviceNetworkArn" xml:"ServiceNetworkArn"`
+	ServiceRegion            string                 `json:"serviceRegion" xml:"ServiceRegion"`
+	State                    string                 `json:"state" xml:"State"`
+	SubnetIds                ValueStringList        `json:"subnetIds" xml:"SubnetIds"`
+	Tags                     TagList                `json:"tags" xml:"Tags"`
+	VpcEndpointId            string                 `json:"vpcEndpointId" xml:"VpcEndpointId"`
+	VpcEndpointType          string                 `json:"vpcEndpointType" xml:"VpcEndpointType"`
+	VpcId                    string                 `json:"vpcId" xml:"VpcId"`
 }
 
 type VpcEndpointAssociation struct {
@@ -16292,18 +17344,19 @@ type VpcEndpointAssociation struct {
 }
 
 type VpcEndpointConnection struct {
-	CreationTimestamp       time.Time       `json:"creationTimestamp" xml:"CreationTimestamp"`
-	DnsEntries              DnsEntrySet     `json:"dnsEntries" xml:"DnsEntries"`
-	GatewayLoadBalancerArns ValueStringList `json:"gatewayLoadBalancerArns" xml:"GatewayLoadBalancerArns"`
-	IpAddressType           string          `json:"ipAddressType" xml:"IpAddressType"`
-	NetworkLoadBalancerArns ValueStringList `json:"networkLoadBalancerArns" xml:"NetworkLoadBalancerArns"`
-	ServiceId               string          `json:"serviceId" xml:"ServiceId"`
-	Tags                    TagList         `json:"tags" xml:"Tags"`
-	VpcEndpointConnectionId string          `json:"vpcEndpointConnectionId" xml:"VpcEndpointConnectionId"`
-	VpcEndpointId           string          `json:"vpcEndpointId" xml:"VpcEndpointId"`
-	VpcEndpointOwner        string          `json:"vpcEndpointOwner" xml:"VpcEndpointOwner"`
-	VpcEndpointRegion       string          `json:"vpcEndpointRegion" xml:"VpcEndpointRegion"`
-	VpcEndpointState        string          `json:"vpcEndpointState" xml:"VpcEndpointState"`
+	CreationTimestamp       time.Time              `json:"creationTimestamp" xml:"CreationTimestamp"`
+	DnsEntries              DnsEntrySet            `json:"dnsEntries" xml:"DnsEntries"`
+	GatewayLoadBalancerArns ValueStringList        `json:"gatewayLoadBalancerArns" xml:"GatewayLoadBalancerArns"`
+	IpAddressType           string                 `json:"ipAddressType" xml:"IpAddressType"`
+	NetworkLoadBalancerArns ValueStringList        `json:"networkLoadBalancerArns" xml:"NetworkLoadBalancerArns"`
+	PayerResponsibilities   PayerResponsibilitySet `json:"payerResponsibilities" xml:"PayerResponsibilities"`
+	ServiceId               string                 `json:"serviceId" xml:"ServiceId"`
+	Tags                    TagList                `json:"tags" xml:"Tags"`
+	VpcEndpointConnectionId string                 `json:"vpcEndpointConnectionId" xml:"VpcEndpointConnectionId"`
+	VpcEndpointId           string                 `json:"vpcEndpointId" xml:"VpcEndpointId"`
+	VpcEndpointOwner        string                 `json:"vpcEndpointOwner" xml:"VpcEndpointOwner"`
+	VpcEndpointRegion       string                 `json:"vpcEndpointRegion" xml:"VpcEndpointRegion"`
+	VpcEndpointState        string                 `json:"vpcEndpointState" xml:"VpcEndpointState"`
 }
 
 type VpcIpv6CidrBlockAssociation struct {
@@ -16514,6 +17567,14 @@ type AlternatePathHintList []*AlternatePathHint
 
 type AnalysisComponentList []*AnalysisComponent
 
+type ApplicationStatusCheckAssociationSet []*ApplicationStatusCheckAssociationObject
+
+type ApplicationStatusCheckIdList []string
+
+type ApplicationStatusCheckResponseSet []*ApplicationStatusCheckResponseObject
+
+type ApplicationStatusDetailSet []*ApplicationStatusDetail
+
 type ArchitectureTypeList []string
 
 type ArchitectureTypeSet []string
@@ -16523,6 +17584,8 @@ type ArnList []string
 type AsPath []string
 
 type AsnAssociationSet []*AsnAssociation
+
+type AsnList []string
 
 type AssetIdList []string
 
@@ -16582,6 +17645,8 @@ type CancelSpotFleetRequestsErrorSet []*CancelSpotFleetRequestsErrorItem
 
 type CancelSpotFleetRequestsSuccessSet []*CancelSpotFleetRequestsSuccessItem
 
+type CancellationTermsSet []*CancellationTerms
+
 type CancelledSpotInstanceRequestList []*CancelledSpotInstanceRequest
 
 type CapacityAllocationMetadataList []*CapacityAllocationMetadataEntry
@@ -16606,7 +17671,15 @@ type CapacityManagerDataExportIdSet []string
 
 type CapacityManagerDataExportResponseSet []*CapacityManagerDataExportResponse
 
+type CapacityManagerMonitoredTagKeyList []*CapacityManagerMonitoredTagKey
+
+type CapacityManagerTagDimensionSet []*CapacityManagerTagDimension
+
 type CapacityReservationBillingRequestSet []*CapacityReservationBillingRequest
+
+type CapacityReservationCancellationQuoteIdSet []string
+
+type CapacityReservationCancellationQuoteResponseSet []*CapacityReservationCancellationQuote
 
 type CapacityReservationFleetCancellationStateSet []*CapacityReservationFleetCancellationState
 
@@ -16617,6 +17690,8 @@ type CapacityReservationFleetSet []*CapacityReservationFleet
 type CapacityReservationGroupSet []*CapacityReservationGroup
 
 type CapacityReservationIdSet []string
+
+type CapacityReservationResourceGroupArnSet []string
 
 type CapacityReservationSet []*CapacityReservation
 
@@ -16639,6 +17714,10 @@ type ClassicLoadBalancers []*ClassicLoadBalancer
 type ClientVpnAuthenticationList []*ClientVpnAuthentication
 
 type ClientVpnAuthenticationRequestList []*ClientVpnAuthenticationRequest
+
+type ClientVpnAvailabilityZoneIdSet []string
+
+type ClientVpnAvailabilityZoneSet []string
 
 type ClientVpnConnectionSet []*ClientVpnConnection
 
@@ -16675,6 +17754,10 @@ type CreateVerifiedAccessEndpointPortRangeList []*CreateVerifiedAccessEndpointPo
 type CreateVerifiedAccessEndpointSubnetIdList []string
 
 type CreateVolumePermissionList []*CreateVolumePermission
+
+type CustomKeyValuePairRequestSet []*CustomTagKeyValueRequestPair
+
+type CustomKeyValuePairResponseSet []*CustomTagKeyValueResponsePair
 
 type CustomerGatewayIdStringList []string
 
@@ -16842,6 +17925,14 @@ type GroupIds []string
 
 type GroupNameStringList []string
 
+type HealthCheckPathDestinationRequestSet []*HealthCheckPathDestinationRequestObject
+
+type HealthCheckPathDestinationResponseList []*HealthCheckPathDestinationResponseObject
+
+type HealthCheckPathRequestList []*HealthCheckPathRequestObject
+
+type HealthCheckPathResponseList []*HealthCheckPathResponseObject
+
 type HistoryRecordSet []*HistoryRecordEntry
 
 type HistoryRecords []*HistoryRecord
@@ -16878,9 +17969,9 @@ type ImageIdStringList []string
 
 type ImageList []*Image
 
-type ImageNameList []string
+type ImageNameCriteriaRequestList []string
 
-type ImageNameRequestList []string
+type ImageNameList []string
 
 type ImageProviderList []string
 
@@ -16908,6 +17999,12 @@ type ImageUsageResourceTypeOptionValuesList []string
 
 type ImageUsageResourceTypeRequestList []*ImageUsageResourceTypeRequest
 
+type ImageWatermarkFilterRequestList []*ImageWatermarkFilterRequest
+
+type ImageWatermarkFilterResponseList []*ImageWatermarkFilterResponse
+
+type ImageWatermarkList []*ImageWatermark
+
 type ImportImageLicenseSpecificationListRequest []*ImportImageLicenseConfigurationRequest
 
 type ImportImageLicenseSpecificationListResponse []*ImportImageLicenseConfigurationResponse
@@ -16925,6 +18022,8 @@ type ImportTaskIdList []string
 type InferenceDeviceInfoList []*InferenceDeviceInfo
 
 type InsideCidrBlocksStringList []string
+
+type InstanceApplicationStatusSet []*InstanceApplicationStatus
 
 type InstanceBlockDeviceMappingList []*InstanceBlockDeviceMapping
 
@@ -17038,7 +18137,15 @@ type IpamDiscoveredPublicAddressSet []*IpamDiscoveredPublicAddress
 
 type IpamDiscoveredResourceCidrSet []*IpamDiscoveredResourceCidr
 
+type IpamDiscoveredRouteSet []*IpamDiscoveredRoute
+
 type IpamExternalResourceVerificationTokenSet []*IpamExternalResourceVerificationToken
+
+type IpamInternetRegistryAssociationAsnSet []*IpamInternetRegistryAssociationAsn
+
+type IpamInternetRegistryAssociationCidrSet []*IpamInternetRegistryAssociationCidr
+
+type IpamInternetRegistryAssociationSet []*IpamInternetRegistryAssociation
 
 type IpamOperatingRegionSet []*IpamOperatingRegion
 
@@ -17093,6 +18200,18 @@ type IpamResourceDiscoveryAssociationSet []*IpamResourceDiscoveryAssociation
 type IpamResourceDiscoverySet []*IpamResourceDiscovery
 
 type IpamResourceTagList []*IpamResourceTag
+
+type IpamRouteOriginAuthorizationInfoSet []*IpamRouteOriginAuthorizationInfo
+
+type IpamRouteOriginAuthorizationSet []*IpamRouteOriginAuthorization
+
+type IpamRouteOverlapSet []*IpamRouteOverlap
+
+type IpamRouteProtectionFindingSet []*IpamRouteProtectionFinding
+
+type IpamRoutingPolicyRegistrationDeltaSet []*IpamRoutingPolicyRegistrationDelta
+
+type IpamRoutingPolicyRegistrationSet []*IpamRoutingPolicyRegistration
 
 type IpamScopeSet []*IpamScope
 
@@ -17312,6 +18431,8 @@ type OwnerStringList []string
 
 type PathComponentList []*PathComponent
 
+type PayerResponsibilitySet []*PayerResponsibilityEntry
+
 type PerformanceFactorReferenceSet []*PerformanceFactorReference
 
 type PerformanceFactorReferenceSetRequest []*PerformanceFactorReferenceRequest
@@ -17453,6 +18574,8 @@ type ReservationList []*Reservation
 type ReservationTypeList []string
 
 type ReservationTypeListRequest []string
+
+type ReservedCapacityFallbackMarketTypeList []string
 
 type ReservedInstanceIdSet []string
 
@@ -17656,17 +18779,31 @@ type SubnetList []*Subnet
 
 type SubscriptionList []*Subscription
 
+type SuccessfulAssociationResponseSet []*SuccessfulAssociationResponseObject
+
 type SuccessfulInstanceCreditSpecificationSet []*SuccessfulInstanceCreditSpecificationItem
 
 type SuccessfulQueuedPurchaseDeletionSet []*SuccessfulQueuedPurchaseDeletion
 
+type SuccessfulSuppressionResponseSet []*SuccessfulSuppressionResponseObject
+
 type SupportedAdditionalProcessorFeatureList []string
+
+type SupportedInstanceTypeRequestSet []string
+
+type SupportedInstanceTypeSet []*InstanceTypeItem
 
 type SupportedIpAddressTypes []string
 
 type SupportedRegionSet []*SupportedRegionDetail
 
 type TagDescriptionList []*TagDescription
+
+type TagFieldSpecificationListRequest []*TagFieldSpecificationRequest
+
+type TagFieldSpecificationListResponse []*TagFieldSpecificationResponse
+
+type TagKeyList []string
 
 type TagList []*Tag
 
@@ -17786,11 +18923,19 @@ type TrunkInterfaceAssociationList []*TrunkInterfaceAssociation
 
 type TunnelOptionsList []*TunnelOption
 
+type UnsuccessfulAssociationResponseSet []*UnsuccessfulAssociationResponseObject
+
 type UnsuccessfulInstanceCreditSpecificationSet []*UnsuccessfulInstanceCreditSpecificationItem
 
 type UnsuccessfulItemList []*UnsuccessfulItem
 
 type UnsuccessfulItemSet []*UnsuccessfulItem
+
+type UnsuccessfulSuppressionResponseSet []*UnsuccessfulSuppressionResponseObject
+
+type UnsupportedInstanceTypeRequestSet []string
+
+type UnsupportedInstanceTypeSet []*InstanceTypeItem
 
 type UsageClassTypeList []string
 

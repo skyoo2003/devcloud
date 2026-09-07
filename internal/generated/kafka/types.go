@@ -10,6 +10,17 @@ type AmazonMskCluster struct {
 	MskClusterArn string `json:"mskClusterArn" xml:"MskClusterArn"`
 }
 
+type ApacheKafkaCluster struct {
+	ApacheKafkaClusterId  string `json:"apacheKafkaClusterId" xml:"ApacheKafkaClusterId"`
+	BootstrapBrokerString string `json:"bootstrapBrokerString" xml:"BootstrapBrokerString"`
+}
+
+type AuthorizerLogs struct {
+	CloudWatchLogs *CloudWatchLogs `json:"cloudWatchLogs" xml:"CloudWatchLogs"`
+	Firehose       *Firehose       `json:"firehose" xml:"Firehose"`
+	S3             *S3             `json:"s3" xml:"S3"`
+}
+
 type BatchAssociateScramSecretRequest struct {
 	ClusterArn    string           `json:"clusterArn" xml:"ClusterArn"`
 	SecretArnList __listOf__string `json:"secretArnList" xml:"SecretArnList"`
@@ -70,6 +81,31 @@ type BrokerSoftwareInfo struct {
 	ConfigurationArn      string `json:"configurationArn" xml:"ConfigurationArn"`
 	ConfigurationRevision int64  `json:"configurationRevision" xml:"ConfigurationRevision"`
 	KafkaVersion          string `json:"kafkaVersion" xml:"KafkaVersion"`
+}
+
+type Catalog struct {
+	CatalogArn        string `json:"catalogArn" xml:"CatalogArn"`
+	WarehouseLocation string `json:"warehouseLocation" xml:"WarehouseLocation"`
+}
+
+type ChannelInfo struct {
+	ChannelArn          string    `json:"channelArn" xml:"ChannelArn"`
+	ChannelName         string    `json:"channelName" xml:"ChannelName"`
+	ClusterOperationArn string    `json:"clusterOperationArn" xml:"ClusterOperationArn"`
+	CreationTime        time.Time `json:"creationTime" xml:"CreationTime"`
+	DestinationType     string    `json:"destinationType" xml:"DestinationType"`
+	Status              string    `json:"status" xml:"Status"`
+}
+
+type ChannelLoggingInfo struct {
+	CloudWatchLogs *CloudWatchLogs `json:"cloudWatchLogs" xml:"CloudWatchLogs"`
+	Firehose       *Firehose       `json:"firehose" xml:"Firehose"`
+	S3             *S3             `json:"s3" xml:"S3"`
+}
+
+type ChannelStateInfo struct {
+	Code    string `json:"code" xml:"Code"`
+	Message string `json:"message" xml:"Message"`
 }
 
 type ClientAuthentication struct {
@@ -222,6 +258,7 @@ type ConnectivityInfo struct {
 }
 
 type ConsumerGroupReplication struct {
+	ConsumerGroupOffsetSyncMode     string                 `json:"consumerGroupOffsetSyncMode" xml:"ConsumerGroupOffsetSyncMode"`
 	ConsumerGroupsToExclude         __listOf__stringMax256 `json:"consumerGroupsToExclude" xml:"ConsumerGroupsToExclude"`
 	ConsumerGroupsToReplicate       __listOf__stringMax256 `json:"consumerGroupsToReplicate" xml:"ConsumerGroupsToReplicate"`
 	DetectAndCopyNewConsumerGroups  bool                   `json:"detectAndCopyNewConsumerGroups" xml:"DetectAndCopyNewConsumerGroups"`
@@ -237,6 +274,22 @@ type ConsumerGroupReplicationUpdate struct {
 
 type ControllerNodeInfo struct {
 	Endpoints __listOf__string `json:"endpoints" xml:"Endpoints"`
+}
+
+type CreateChannelRequest struct {
+	ChannelName                     string                           `json:"channelName" xml:"ChannelName"`
+	ClusterArn                      string                           `json:"clusterArn" xml:"ClusterArn"`
+	EncryptionConfiguration         *EncryptionConfiguration         `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	IcebergDestinationConfiguration *IcebergDestinationConfiguration `json:"icebergDestinationConfiguration" xml:"IcebergDestinationConfiguration"`
+	LoggingInfo                     *ChannelLoggingInfo              `json:"loggingInfo" xml:"LoggingInfo"`
+	S3DestinationConfiguration      *S3DestinationConfiguration      `json:"s3DestinationConfiguration" xml:"S3DestinationConfiguration"`
+	Tags                            __mapOf__string                  `json:"tags" xml:"Tags"`
+	TopicConfigurationList          __listOfTopicConfiguration       `json:"topicConfigurationList" xml:"TopicConfigurationList"`
+}
+
+type CreateChannelResponse struct {
+	ChannelArn          string `json:"channelArn" xml:"ChannelArn"`
+	ClusterOperationArn string `json:"clusterOperationArn" xml:"ClusterOperationArn"`
 }
 
 type CreateClusterRequest struct {
@@ -293,6 +346,7 @@ type CreateConfigurationResponse struct {
 type CreateReplicatorRequest struct {
 	Description             string                  `json:"description" xml:"Description"`
 	KafkaClusters           __listOfKafkaCluster    `json:"kafkaClusters" xml:"KafkaClusters"`
+	LogDelivery             *LogDelivery            `json:"logDelivery" xml:"LogDelivery"`
 	ReplicationInfoList     __listOfReplicationInfo `json:"replicationInfoList" xml:"ReplicationInfoList"`
 	ReplicatorName          string                  `json:"replicatorName" xml:"ReplicatorName"`
 	ServiceExecutionRoleArn string                  `json:"serviceExecutionRoleArn" xml:"ServiceExecutionRoleArn"`
@@ -337,6 +391,22 @@ type CreateVpcConnectionResponse struct {
 	Tags             __mapOf__string  `json:"tags" xml:"Tags"`
 	VpcConnectionArn string           `json:"vpcConnectionArn" xml:"VpcConnectionArn"`
 	VpcId            string           `json:"vpcId" xml:"VpcId"`
+}
+
+type DeadLetterQueueS3 struct {
+	BucketArn           string `json:"bucketArn" xml:"BucketArn"`
+	ErrorOutputPrefix   string `json:"errorOutputPrefix" xml:"ErrorOutputPrefix"`
+	ExpectedBucketOwner string `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+}
+
+type DeleteChannelRequest struct {
+	ChannelArn string `json:"channelArn" xml:"ChannelArn"`
+	ClusterArn string `json:"clusterArn" xml:"ClusterArn"`
+}
+
+type DeleteChannelResponse struct {
+	ChannelArn          string `json:"channelArn" xml:"ChannelArn"`
+	ClusterOperationArn string `json:"clusterOperationArn" xml:"ClusterOperationArn"`
 }
 
 type DeleteClusterPolicyRequest struct {
@@ -393,6 +463,27 @@ type DeleteVpcConnectionRequest struct {
 type DeleteVpcConnectionResponse struct {
 	State            string `json:"state" xml:"State"`
 	VpcConnectionArn string `json:"vpcConnectionArn" xml:"VpcConnectionArn"`
+}
+
+type DescribeChannelRequest struct {
+	ChannelArn string `json:"channelArn" xml:"ChannelArn"`
+	ClusterArn string `json:"clusterArn" xml:"ClusterArn"`
+}
+
+type DescribeChannelResponse struct {
+	ChannelArn                      string                           `json:"channelArn" xml:"ChannelArn"`
+	ChannelName                     string                           `json:"channelName" xml:"ChannelName"`
+	ClusterOperationArn             string                           `json:"clusterOperationArn" xml:"ClusterOperationArn"`
+	CreationTime                    time.Time                        `json:"creationTime" xml:"CreationTime"`
+	DestinationType                 string                           `json:"destinationType" xml:"DestinationType"`
+	EncryptionConfiguration         *EncryptionConfiguration         `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	IcebergDestinationConfiguration *IcebergDestinationConfiguration `json:"icebergDestinationConfiguration" xml:"IcebergDestinationConfiguration"`
+	LoggingInfo                     *ChannelLoggingInfo              `json:"loggingInfo" xml:"LoggingInfo"`
+	S3DestinationConfiguration      *S3DestinationConfiguration      `json:"s3DestinationConfiguration" xml:"S3DestinationConfiguration"`
+	StateInfo                       *ChannelStateInfo                `json:"stateInfo" xml:"StateInfo"`
+	Status                          string                           `json:"status" xml:"Status"`
+	Tags                            __mapOf__string                  `json:"tags" xml:"Tags"`
+	TopicConfigurationList          __listOfTopicConfiguration       `json:"topicConfigurationList" xml:"TopicConfigurationList"`
 }
 
 type DescribeClusterOperationRequest struct {
@@ -463,6 +554,7 @@ type DescribeReplicatorResponse struct {
 	CurrentVersion          string                             `json:"currentVersion" xml:"CurrentVersion"`
 	IsReplicatorReference   bool                               `json:"isReplicatorReference" xml:"IsReplicatorReference"`
 	KafkaClusters           __listOfKafkaClusterDescription    `json:"kafkaClusters" xml:"KafkaClusters"`
+	LogDelivery             *LogDelivery                       `json:"logDelivery" xml:"LogDelivery"`
 	ReplicationInfoList     __listOfReplicationInfoDescription `json:"replicationInfoList" xml:"ReplicationInfoList"`
 	ReplicatorArn           string                             `json:"replicatorArn" xml:"ReplicatorArn"`
 	ReplicatorDescription   string                             `json:"replicatorDescription" xml:"ReplicatorDescription"`
@@ -516,6 +608,12 @@ type DescribeVpcConnectionResponse struct {
 	VpcId            string           `json:"vpcId" xml:"VpcId"`
 }
 
+type DestinationTable struct {
+	DestinationDatabaseName string         `json:"destinationDatabaseName" xml:"DestinationDatabaseName"`
+	DestinationTableName    string         `json:"destinationTableName" xml:"DestinationTableName"`
+	PartitionSpec           *PartitionSpec `json:"partitionSpec" xml:"PartitionSpec"`
+}
+
 type EBSStorageInfo struct {
 	ProvisionedThroughput *ProvisionedThroughput `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
 	VolumeSize            int32                  `json:"volumeSize" xml:"VolumeSize"`
@@ -523,6 +621,10 @@ type EBSStorageInfo struct {
 
 type EncryptionAtRest struct {
 	DataVolumeKMSKeyId string `json:"dataVolumeKMSKeyId" xml:"DataVolumeKMSKeyId"`
+}
+
+type EncryptionConfiguration struct {
+	KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
 }
 
 type EncryptionInTransit struct {
@@ -587,6 +689,22 @@ type Iam struct {
 	Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
+type IcebergDestinationConfiguration struct {
+	AppendOnly              bool                     `json:"appendOnly" xml:"AppendOnly"`
+	Catalog                 *Catalog                 `json:"catalog" xml:"Catalog"`
+	CompressionType         string                   `json:"compressionType" xml:"CompressionType"`
+	DataFreshnessInSeconds  int32                    `json:"dataFreshnessInSeconds" xml:"DataFreshnessInSeconds"`
+	DeadLetterQueueS3       *DeadLetterQueueS3       `json:"deadLetterQueueS3" xml:"DeadLetterQueueS3"`
+	DestinationTableList    __listOfDestinationTable `json:"destinationTableList" xml:"DestinationTableList"`
+	SchemaEvolution         *SchemaEvolution         `json:"schemaEvolution" xml:"SchemaEvolution"`
+	ServiceExecutionRoleArn string                   `json:"serviceExecutionRoleArn" xml:"ServiceExecutionRoleArn"`
+	TableCreation           *TableCreation           `json:"tableCreation" xml:"TableCreation"`
+}
+
+type IcebergDestinationUpdate struct {
+	DataFreshnessInSeconds int32 `json:"dataFreshnessInSeconds" xml:"DataFreshnessInSeconds"`
+}
+
 type JmxExporter struct {
 	EnabledInBroker bool `json:"enabledInBroker" xml:"EnabledInBroker"`
 }
@@ -596,8 +714,17 @@ type JmxExporterInfo struct {
 }
 
 type KafkaCluster struct {
-	AmazonMskCluster *AmazonMskCluster            `json:"amazonMskCluster" xml:"AmazonMskCluster"`
-	VpcConfig        *KafkaClusterClientVpcConfig `json:"vpcConfig" xml:"VpcConfig"`
+	AmazonMskCluster     *AmazonMskCluster                 `json:"amazonMskCluster" xml:"AmazonMskCluster"`
+	ApacheKafkaCluster   *ApacheKafkaCluster               `json:"apacheKafkaCluster" xml:"ApacheKafkaCluster"`
+	ClientAuthentication *KafkaClusterClientAuthentication `json:"clientAuthentication" xml:"ClientAuthentication"`
+	EncryptionInTransit  *KafkaClusterEncryptionInTransit  `json:"encryptionInTransit" xml:"EncryptionInTransit"`
+	VpcConfig            *KafkaClusterClientVpcConfig      `json:"vpcConfig" xml:"VpcConfig"`
+}
+
+type KafkaClusterClientAuthentication struct {
+	MTLS            *KafkaClusterMTLSAuthentication            `json:"mTLS" xml:"MTLS"`
+	SaslOAuthBearer *KafkaClusterSaslOAuthBearerAuthentication `json:"saslOAuthBearer" xml:"SaslOAuthBearer"`
+	SaslScram       *KafkaClusterSaslScramAuthentication       `json:"saslScram" xml:"SaslScram"`
 }
 
 type KafkaClusterClientVpcConfig struct {
@@ -606,19 +733,75 @@ type KafkaClusterClientVpcConfig struct {
 }
 
 type KafkaClusterDescription struct {
-	AmazonMskCluster  *AmazonMskCluster            `json:"amazonMskCluster" xml:"AmazonMskCluster"`
-	KafkaClusterAlias string                       `json:"kafkaClusterAlias" xml:"KafkaClusterAlias"`
-	VpcConfig         *KafkaClusterClientVpcConfig `json:"vpcConfig" xml:"VpcConfig"`
+	AmazonMskCluster     *AmazonMskCluster                 `json:"amazonMskCluster" xml:"AmazonMskCluster"`
+	ApacheKafkaCluster   *ApacheKafkaCluster               `json:"apacheKafkaCluster" xml:"ApacheKafkaCluster"`
+	ClientAuthentication *KafkaClusterClientAuthentication `json:"clientAuthentication" xml:"ClientAuthentication"`
+	EncryptionInTransit  *KafkaClusterEncryptionInTransit  `json:"encryptionInTransit" xml:"EncryptionInTransit"`
+	KafkaClusterAlias    string                            `json:"kafkaClusterAlias" xml:"KafkaClusterAlias"`
+	VpcConfig            *KafkaClusterClientVpcConfig      `json:"vpcConfig" xml:"VpcConfig"`
+}
+
+type KafkaClusterEncryptionInTransit struct {
+	EncryptionType    string `json:"encryptionType" xml:"EncryptionType"`
+	RootCaCertificate string `json:"rootCaCertificate" xml:"RootCaCertificate"`
+}
+
+type KafkaClusterMTLSAuthentication struct {
+	SecretArn string `json:"secretArn" xml:"SecretArn"`
+}
+
+type KafkaClusterOAuthClientCredentials struct {
+	TokenRequestSecretArn string `json:"tokenRequestSecretArn" xml:"TokenRequestSecretArn"`
+}
+
+type KafkaClusterOAuthClientCredentialsAssertion struct {
+	Audience              string `json:"audience" xml:"Audience"`
+	SigningAlgorithm      string `json:"signingAlgorithm" xml:"SigningAlgorithm"`
+	TokenRequestSecretArn string `json:"tokenRequestSecretArn" xml:"TokenRequestSecretArn"`
+}
+
+type KafkaClusterOAuthIamJwtBearer struct {
+	Audience              string `json:"audience" xml:"Audience"`
+	SigningAlgorithm      string `json:"signingAlgorithm" xml:"SigningAlgorithm"`
+	TokenRequestSecretArn string `json:"tokenRequestSecretArn" xml:"TokenRequestSecretArn"`
+}
+
+type KafkaClusterSaslOAuthBearerAuthentication struct {
+	ClientCredentials                 *KafkaClusterOAuthClientCredentials          `json:"clientCredentials" xml:"ClientCredentials"`
+	ClientCredentialsAssertion        *KafkaClusterOAuthClientCredentialsAssertion `json:"clientCredentialsAssertion" xml:"ClientCredentialsAssertion"`
+	IamJwtBearer                      *KafkaClusterOAuthIamJwtBearer               `json:"iamJwtBearer" xml:"IamJwtBearer"`
+	Scope                             string                                       `json:"scope" xml:"Scope"`
+	TokenEndpointAuthenticationMethod string                                       `json:"tokenEndpointAuthenticationMethod" xml:"TokenEndpointAuthenticationMethod"`
+	TokenEndpointTlsCertificateArn    string                                       `json:"tokenEndpointTlsCertificateArn" xml:"TokenEndpointTlsCertificateArn"`
+	TokenEndpointUrl                  string                                       `json:"tokenEndpointUrl" xml:"TokenEndpointUrl"`
+}
+
+type KafkaClusterSaslScramAuthentication struct {
+	Mechanism string `json:"mechanism" xml:"Mechanism"`
+	SecretArn string `json:"secretArn" xml:"SecretArn"`
 }
 
 type KafkaClusterSummary struct {
-	AmazonMskCluster  *AmazonMskCluster `json:"amazonMskCluster" xml:"AmazonMskCluster"`
-	KafkaClusterAlias string            `json:"kafkaClusterAlias" xml:"KafkaClusterAlias"`
+	AmazonMskCluster   *AmazonMskCluster   `json:"amazonMskCluster" xml:"AmazonMskCluster"`
+	ApacheKafkaCluster *ApacheKafkaCluster `json:"apacheKafkaCluster" xml:"ApacheKafkaCluster"`
+	KafkaClusterAlias  string              `json:"kafkaClusterAlias" xml:"KafkaClusterAlias"`
 }
 
 type KafkaVersion struct {
 	Status  string `json:"status" xml:"Status"`
 	Version string `json:"version" xml:"Version"`
+}
+
+type ListChannelsRequest struct {
+	ClusterArn      string `json:"clusterArn" xml:"ClusterArn"`
+	MaxResults      int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken       string `json:"nextToken" xml:"NextToken"`
+	TopicNameFilter string `json:"topicNameFilter" xml:"TopicNameFilter"`
+}
+
+type ListChannelsResponse struct {
+	Channels  __listOfChannelInfo `json:"channels" xml:"Channels"`
+	NextToken string              `json:"nextToken" xml:"NextToken"`
 }
 
 type ListClientVpcConnectionsRequest struct {
@@ -771,8 +954,13 @@ type ListVpcConnectionsResponse struct {
 	VpcConnections __listOfVpcConnection `json:"vpcConnections" xml:"VpcConnections"`
 }
 
+type LogDelivery struct {
+	ReplicatorLogDelivery *ReplicatorLogDelivery `json:"replicatorLogDelivery" xml:"ReplicatorLogDelivery"`
+}
+
 type LoggingInfo struct {
-	BrokerLogs *BrokerLogs `json:"brokerLogs" xml:"BrokerLogs"`
+	AuthorizerLogs *AuthorizerLogs `json:"authorizerLogs" xml:"AuthorizerLogs"`
+	BrokerLogs     *BrokerLogs     `json:"brokerLogs" xml:"BrokerLogs"`
 }
 
 type MutableClusterInfo struct {
@@ -790,6 +978,7 @@ type MutableClusterInfo struct {
 	OpenMonitoring        *OpenMonitoring             `json:"openMonitoring" xml:"OpenMonitoring"`
 	Rebalancing           *Rebalancing                `json:"rebalancing" xml:"Rebalancing"`
 	StorageMode           string                      `json:"storageMode" xml:"StorageMode"`
+	ZookeeperAccess       *ZookeeperAccess            `json:"zookeeperAccess" xml:"ZookeeperAccess"`
 }
 
 type NodeExporter struct {
@@ -816,6 +1005,15 @@ type OpenMonitoring struct {
 
 type OpenMonitoringInfo struct {
 	Prometheus *PrometheusInfo `json:"prometheus" xml:"Prometheus"`
+}
+
+type PartitionSource struct {
+	SourceName string `json:"sourceName" xml:"SourceName"`
+}
+
+type PartitionSpec struct {
+	PartitionStrategy string                  `json:"partitionStrategy" xml:"PartitionStrategy"`
+	SourceList        __listOfPartitionSource `json:"sourceList" xml:"SourceList"`
 }
 
 type Prometheus struct {
@@ -891,6 +1089,14 @@ type RebootBrokerResponse struct {
 	ClusterOperationArn string `json:"clusterOperationArn" xml:"ClusterOperationArn"`
 }
 
+type RecordConverter struct {
+	ValueConverter string `json:"valueConverter" xml:"ValueConverter"`
+}
+
+type RecordSchema struct {
+	GsrArn string `json:"gsrArn" xml:"GsrArn"`
+}
+
 type RejectClientVpcConnectionRequest struct {
 	ClusterArn       string `json:"clusterArn" xml:"ClusterArn"`
 	VpcConnectionArn string `json:"vpcConnectionArn" xml:"VpcConnectionArn"`
@@ -902,8 +1108,10 @@ type RejectClientVpcConnectionResponse struct {
 type ReplicationInfo struct {
 	ConsumerGroupReplication *ConsumerGroupReplication `json:"consumerGroupReplication" xml:"ConsumerGroupReplication"`
 	SourceKafkaClusterArn    string                    `json:"sourceKafkaClusterArn" xml:"SourceKafkaClusterArn"`
+	SourceKafkaClusterId     string                    `json:"sourceKafkaClusterId" xml:"SourceKafkaClusterId"`
 	TargetCompressionType    string                    `json:"targetCompressionType" xml:"TargetCompressionType"`
 	TargetKafkaClusterArn    string                    `json:"targetKafkaClusterArn" xml:"TargetKafkaClusterArn"`
+	TargetKafkaClusterId     string                    `json:"targetKafkaClusterId" xml:"TargetKafkaClusterId"`
 	TopicReplication         *TopicReplication         `json:"topicReplication" xml:"TopicReplication"`
 }
 
@@ -933,6 +1141,28 @@ type ReplicationTopicNameConfiguration struct {
 	Type string `json:"type" xml:"Type"`
 }
 
+type ReplicatorCloudWatchLogs struct {
+	Enabled  bool   `json:"enabled" xml:"Enabled"`
+	LogGroup string `json:"logGroup" xml:"LogGroup"`
+}
+
+type ReplicatorFirehose struct {
+	DeliveryStream string `json:"deliveryStream" xml:"DeliveryStream"`
+	Enabled        bool   `json:"enabled" xml:"Enabled"`
+}
+
+type ReplicatorLogDelivery struct {
+	CloudWatchLogs *ReplicatorCloudWatchLogs `json:"cloudWatchLogs" xml:"CloudWatchLogs"`
+	Firehose       *ReplicatorFirehose       `json:"firehose" xml:"Firehose"`
+	S3             *ReplicatorS3             `json:"s3" xml:"S3"`
+}
+
+type ReplicatorS3 struct {
+	Bucket  string `json:"bucket" xml:"Bucket"`
+	Enabled bool   `json:"enabled" xml:"Enabled"`
+	Prefix  string `json:"prefix" xml:"Prefix"`
+}
+
 type ReplicatorSummary struct {
 	CreationTime               time.Time                      `json:"creationTime" xml:"CreationTime"`
 	CurrentVersion             string                         `json:"currentVersion" xml:"CurrentVersion"`
@@ -951,9 +1181,33 @@ type S3 struct {
 	Prefix  string `json:"prefix" xml:"Prefix"`
 }
 
+type S3DestinationConfiguration struct {
+	DataFreshnessInSeconds  int32              `json:"dataFreshnessInSeconds" xml:"DataFreshnessInSeconds"`
+	DeadLetterQueueS3       *DeadLetterQueueS3 `json:"deadLetterQueueS3" xml:"DeadLetterQueueS3"`
+	ServiceExecutionRoleArn string             `json:"serviceExecutionRoleArn" xml:"ServiceExecutionRoleArn"`
+	Storage                 *S3Storage         `json:"storage" xml:"Storage"`
+}
+
+type S3DestinationUpdate struct {
+	DataFreshnessInSeconds int32 `json:"dataFreshnessInSeconds" xml:"DataFreshnessInSeconds"`
+}
+
+type S3Storage struct {
+	BucketArn           string `json:"bucketArn" xml:"BucketArn"`
+	CompressionType     string `json:"compressionType" xml:"CompressionType"`
+	ExpectedBucketOwner string `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+	OutputKeyTemplate   string `json:"outputKeyTemplate" xml:"OutputKeyTemplate"`
+	OutputPrefix        string `json:"outputPrefix" xml:"OutputPrefix"`
+	StorageClass        string `json:"storageClass" xml:"StorageClass"`
+}
+
 type Sasl struct {
 	Iam   *Iam   `json:"iam" xml:"Iam"`
 	Scram *Scram `json:"scram" xml:"Scram"`
+}
+
+type SchemaEvolution struct {
+	EnableSchemaEvolution bool `json:"enableSchemaEvolution" xml:"EnableSchemaEvolution"`
 }
 
 type Scram struct {
@@ -995,6 +1249,10 @@ type StorageInfo struct {
 	EbsStorageInfo *EBSStorageInfo `json:"ebsStorageInfo" xml:"EbsStorageInfo"`
 }
 
+type TableCreation struct {
+	EnableTableCreation bool `json:"enableTableCreation" xml:"EnableTableCreation"`
+}
+
 type TagResourceRequest struct {
 	ResourceArn string          `json:"resourceArn" xml:"ResourceArn"`
 	Tags        __mapOf__string `json:"tags" xml:"Tags"`
@@ -1003,6 +1261,12 @@ type TagResourceRequest struct {
 type Tls struct {
 	CertificateAuthorityArnList __listOf__string `json:"certificateAuthorityArnList" xml:"CertificateAuthorityArnList"`
 	Enabled                     bool             `json:"enabled" xml:"Enabled"`
+}
+
+type TopicConfiguration struct {
+	RecordConverter *RecordConverter `json:"recordConverter" xml:"RecordConverter"`
+	RecordSchema    *RecordSchema    `json:"recordSchema" xml:"RecordSchema"`
+	TopicArn        string           `json:"topicArn" xml:"TopicArn"`
 }
 
 type TopicInfo struct {
@@ -1086,6 +1350,18 @@ type UpdateBrokerTypeResponse struct {
 	ClusterOperationArn string `json:"clusterOperationArn" xml:"ClusterOperationArn"`
 }
 
+type UpdateChannelRequest struct {
+	ChannelArn               string                    `json:"channelArn" xml:"ChannelArn"`
+	ClusterArn               string                    `json:"clusterArn" xml:"ClusterArn"`
+	IcebergDestinationUpdate *IcebergDestinationUpdate `json:"icebergDestinationUpdate" xml:"IcebergDestinationUpdate"`
+	S3DestinationUpdate      *S3DestinationUpdate      `json:"s3DestinationUpdate" xml:"S3DestinationUpdate"`
+}
+
+type UpdateChannelResponse struct {
+	ChannelArn          string `json:"channelArn" xml:"ChannelArn"`
+	ClusterOperationArn string `json:"clusterOperationArn" xml:"ClusterOperationArn"`
+}
+
 type UpdateClusterConfigurationRequest struct {
 	ClusterArn        string             `json:"clusterArn" xml:"ClusterArn"`
 	ConfigurationInfo *ConfigurationInfo `json:"configurationInfo" xml:"ConfigurationInfo"`
@@ -1124,6 +1400,7 @@ type UpdateConnectivityRequest struct {
 	ClusterArn       string            `json:"clusterArn" xml:"ClusterArn"`
 	ConnectivityInfo *ConnectivityInfo `json:"connectivityInfo" xml:"ConnectivityInfo"`
 	CurrentVersion   string            `json:"currentVersion" xml:"CurrentVersion"`
+	ZookeeperAccess  *ZookeeperAccess  `json:"zookeeperAccess" xml:"ZookeeperAccess"`
 }
 
 type UpdateConnectivityResponse struct {
@@ -1158,9 +1435,12 @@ type UpdateRebalancingResponse struct {
 type UpdateReplicationInfoRequest struct {
 	ConsumerGroupReplication *ConsumerGroupReplicationUpdate `json:"consumerGroupReplication" xml:"ConsumerGroupReplication"`
 	CurrentVersion           string                          `json:"currentVersion" xml:"CurrentVersion"`
+	LogDelivery              *LogDelivery                    `json:"logDelivery" xml:"LogDelivery"`
 	ReplicatorArn            string                          `json:"replicatorArn" xml:"ReplicatorArn"`
 	SourceKafkaClusterArn    string                          `json:"sourceKafkaClusterArn" xml:"SourceKafkaClusterArn"`
+	SourceKafkaClusterId     string                          `json:"sourceKafkaClusterId" xml:"SourceKafkaClusterId"`
 	TargetKafkaClusterArn    string                          `json:"targetKafkaClusterArn" xml:"TargetKafkaClusterArn"`
+	TargetKafkaClusterId     string                          `json:"targetKafkaClusterId" xml:"TargetKafkaClusterId"`
 	TopicReplication         *TopicReplicationUpdate         `json:"topicReplication" xml:"TopicReplication"`
 }
 
@@ -1266,6 +1546,10 @@ type VpcConnectivityTls struct {
 	Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
+type ZookeeperAccess struct {
+	Enabled bool `json:"enabled" xml:"Enabled"`
+}
+
 type ZookeeperNodeInfo struct {
 	AttachedENIId      string           `json:"attachedENIId" xml:"AttachedENIId"`
 	ClientVpcIpAddress string           `json:"clientVpcIpAddress" xml:"ClientVpcIpAddress"`
@@ -1275,6 +1559,8 @@ type ZookeeperNodeInfo struct {
 }
 
 type __listOfBrokerEBSVolumeInfo []*BrokerEBSVolumeInfo
+
+type __listOfChannelInfo []*ChannelInfo
 
 type __listOfClientVpcConnection []*ClientVpcConnection
 
@@ -1294,6 +1580,8 @@ type __listOfConfiguration []*Configuration
 
 type __listOfConfigurationRevision []*ConfigurationRevision
 
+type __listOfDestinationTable []*DestinationTable
+
 type __listOfKafkaCluster []*KafkaCluster
 
 type __listOfKafkaClusterDescription []*KafkaClusterDescription
@@ -1304,6 +1592,8 @@ type __listOfKafkaVersion []*KafkaVersion
 
 type __listOfNodeInfo []*NodeInfo
 
+type __listOfPartitionSource []*PartitionSource
+
 type __listOfReplicationInfo []*ReplicationInfo
 
 type __listOfReplicationInfoDescription []*ReplicationInfoDescription
@@ -1311,6 +1601,8 @@ type __listOfReplicationInfoDescription []*ReplicationInfoDescription
 type __listOfReplicationInfoSummary []*ReplicationInfoSummary
 
 type __listOfReplicatorSummary []*ReplicatorSummary
+
+type __listOfTopicConfiguration []*TopicConfiguration
 
 type __listOfTopicInfo []*TopicInfo
 

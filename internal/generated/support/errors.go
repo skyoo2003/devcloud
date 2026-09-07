@@ -140,6 +140,23 @@ func (e *DescribeAttachmentLimitExceeded) HTTPStatus() int {
 	return 0
 }
 
+// DryRunOperationException is returned with HTTP status 0.
+type DryRunOperationException struct {
+	Message string
+}
+
+func (e *DryRunOperationException) Error() string {
+	return fmt.Sprintf("DryRunOperationException: %s", e.Message)
+}
+
+func (e *DryRunOperationException) ErrorCode() string {
+	return "DryRunOperationException"
+}
+
+func (e *DryRunOperationException) HTTPStatus() int {
+	return 0
+}
+
 // InternalServerError is returned with HTTP status 0.
 type InternalServerError struct {
 	Message string
@@ -172,4 +189,21 @@ func (e *ThrottlingException) ErrorCode() string {
 
 func (e *ThrottlingException) HTTPStatus() int {
 	return 400
+}
+
+// UploadIdNotFound is returned with HTTP status 0.
+type UploadIdNotFound struct {
+	Message string
+}
+
+func (e *UploadIdNotFound) Error() string {
+	return fmt.Sprintf("UploadIdNotFound: %s", e.Message)
+}
+
+func (e *UploadIdNotFound) ErrorCode() string {
+	return "UploadIdNotFound"
+}
+
+func (e *UploadIdNotFound) HTTPStatus() int {
+	return 0
 }

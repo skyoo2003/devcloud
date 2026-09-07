@@ -64,6 +64,11 @@ type CapacityLimit struct {
 	MaxCapacity  int32  `json:"maxCapacity" xml:"maxCapacity"`
 }
 
+type CapacityReservationRequest struct {
+	ReservationGroupArn   string `json:"reservationGroupArn" xml:"reservationGroupArn"`
+	ReservationPreference string `json:"reservationPreference" xml:"reservationPreference"`
+}
+
 type ComputeEnvironmentDetail struct {
 	ComputeEnvironmentArn      string            `json:"computeEnvironmentArn" xml:"computeEnvironmentArn"`
 	ComputeEnvironmentName     string            `json:"computeEnvironmentName" xml:"computeEnvironmentName"`
@@ -71,6 +76,7 @@ type ComputeEnvironmentDetail struct {
 	ContainerOrchestrationType string            `json:"containerOrchestrationType" xml:"containerOrchestrationType"`
 	Context                    string            `json:"context" xml:"context"`
 	EcsClusterArn              string            `json:"ecsClusterArn" xml:"ecsClusterArn"`
+	EcsSettings                *EcsSettings      `json:"ecsSettings" xml:"ecsSettings"`
 	EksConfiguration           *EksConfiguration `json:"eksConfiguration" xml:"eksConfiguration"`
 	ServiceRole                string            `json:"serviceRole" xml:"serviceRole"`
 	State                      string            `json:"state" xml:"state"`
@@ -89,45 +95,49 @@ type ComputeEnvironmentOrder struct {
 }
 
 type ComputeResource struct {
-	AllocationStrategy string                       `json:"allocationStrategy" xml:"allocationStrategy"`
-	BidPercentage      int32                        `json:"bidPercentage" xml:"bidPercentage"`
-	DesiredvCpus       int32                        `json:"desiredvCpus" xml:"desiredvCpus"`
-	Ec2Configuration   Ec2ConfigurationList         `json:"ec2Configuration" xml:"ec2Configuration"`
-	Ec2KeyPair         string                       `json:"ec2KeyPair" xml:"ec2KeyPair"`
-	ImageId            string                       `json:"imageId" xml:"imageId"`
-	InstanceRole       string                       `json:"instanceRole" xml:"instanceRole"`
-	InstanceTypes      StringList                   `json:"instanceTypes" xml:"instanceTypes"`
-	LaunchTemplate     *LaunchTemplateSpecification `json:"launchTemplate" xml:"launchTemplate"`
-	MaxvCpus           int32                        `json:"maxvCpus" xml:"maxvCpus"`
-	MinvCpus           int32                        `json:"minvCpus" xml:"minvCpus"`
-	PlacementGroup     string                       `json:"placementGroup" xml:"placementGroup"`
-	ScalingPolicy      *ComputeScalingPolicy        `json:"scalingPolicy" xml:"scalingPolicy"`
-	SecurityGroupIds   StringList                   `json:"securityGroupIds" xml:"securityGroupIds"`
-	SpotIamFleetRole   string                       `json:"spotIamFleetRole" xml:"spotIamFleetRole"`
-	Subnets            StringList                   `json:"subnets" xml:"subnets"`
-	Tags               TagsMap                      `json:"tags" xml:"tags"`
-	Type               string                       `json:"type" xml:"type"`
+	AllocationStrategy       string                       `json:"allocationStrategy" xml:"allocationStrategy"`
+	BidPercentage            int32                        `json:"bidPercentage" xml:"bidPercentage"`
+	CapacityTags             TagrisTagsMap                `json:"capacityTags" xml:"capacityTags"`
+	DesiredvCpus             int32                        `json:"desiredvCpus" xml:"desiredvCpus"`
+	Ec2Configuration         Ec2ConfigurationList         `json:"ec2Configuration" xml:"ec2Configuration"`
+	Ec2KeyPair               string                       `json:"ec2KeyPair" xml:"ec2KeyPair"`
+	ImageId                  string                       `json:"imageId" xml:"imageId"`
+	InstanceRole             string                       `json:"instanceRole" xml:"instanceRole"`
+	InstanceTypes            StringList                   `json:"instanceTypes" xml:"instanceTypes"`
+	LaunchTemplate           *LaunchTemplateSpecification `json:"launchTemplate" xml:"launchTemplate"`
+	ManagedInstancesProvider *ManagedInstancesProvider    `json:"managedInstancesProvider" xml:"managedInstancesProvider"`
+	MaxvCpus                 int32                        `json:"maxvCpus" xml:"maxvCpus"`
+	MinvCpus                 int32                        `json:"minvCpus" xml:"minvCpus"`
+	PlacementGroup           string                       `json:"placementGroup" xml:"placementGroup"`
+	ScalingPolicy            *ComputeScalingPolicy        `json:"scalingPolicy" xml:"scalingPolicy"`
+	SecurityGroupIds         StringList                   `json:"securityGroupIds" xml:"securityGroupIds"`
+	SpotIamFleetRole         string                       `json:"spotIamFleetRole" xml:"spotIamFleetRole"`
+	Subnets                  StringList                   `json:"subnets" xml:"subnets"`
+	Tags                     TagsMap                      `json:"tags" xml:"tags"`
+	Type                     string                       `json:"type" xml:"type"`
 }
 
 type ComputeResourceUpdate struct {
-	AllocationStrategy         string                       `json:"allocationStrategy" xml:"allocationStrategy"`
-	BidPercentage              int32                        `json:"bidPercentage" xml:"bidPercentage"`
-	DesiredvCpus               int32                        `json:"desiredvCpus" xml:"desiredvCpus"`
-	Ec2Configuration           Ec2ConfigurationList         `json:"ec2Configuration" xml:"ec2Configuration"`
-	Ec2KeyPair                 string                       `json:"ec2KeyPair" xml:"ec2KeyPair"`
-	ImageId                    string                       `json:"imageId" xml:"imageId"`
-	InstanceRole               string                       `json:"instanceRole" xml:"instanceRole"`
-	InstanceTypes              StringList                   `json:"instanceTypes" xml:"instanceTypes"`
-	LaunchTemplate             *LaunchTemplateSpecification `json:"launchTemplate" xml:"launchTemplate"`
-	MaxvCpus                   int32                        `json:"maxvCpus" xml:"maxvCpus"`
-	MinvCpus                   int32                        `json:"minvCpus" xml:"minvCpus"`
-	PlacementGroup             string                       `json:"placementGroup" xml:"placementGroup"`
-	ScalingPolicy              *ComputeScalingPolicy        `json:"scalingPolicy" xml:"scalingPolicy"`
-	SecurityGroupIds           StringList                   `json:"securityGroupIds" xml:"securityGroupIds"`
-	Subnets                    StringList                   `json:"subnets" xml:"subnets"`
-	Tags                       TagsMap                      `json:"tags" xml:"tags"`
-	Type                       string                       `json:"type" xml:"type"`
-	UpdateToLatestImageVersion bool                         `json:"updateToLatestImageVersion" xml:"updateToLatestImageVersion"`
+	AllocationStrategy         string                                       `json:"allocationStrategy" xml:"allocationStrategy"`
+	BidPercentage              int32                                        `json:"bidPercentage" xml:"bidPercentage"`
+	CapacityTags               TagrisTagsMap                                `json:"capacityTags" xml:"capacityTags"`
+	DesiredvCpus               int32                                        `json:"desiredvCpus" xml:"desiredvCpus"`
+	Ec2Configuration           Ec2ConfigurationList                         `json:"ec2Configuration" xml:"ec2Configuration"`
+	Ec2KeyPair                 string                                       `json:"ec2KeyPair" xml:"ec2KeyPair"`
+	ImageId                    string                                       `json:"imageId" xml:"imageId"`
+	InstanceRole               string                                       `json:"instanceRole" xml:"instanceRole"`
+	InstanceTypes              StringList                                   `json:"instanceTypes" xml:"instanceTypes"`
+	LaunchTemplate             *LaunchTemplateSpecification                 `json:"launchTemplate" xml:"launchTemplate"`
+	ManagedInstancesProvider   *UpdateManagedInstancesProviderConfiguration `json:"managedInstancesProvider" xml:"managedInstancesProvider"`
+	MaxvCpus                   int32                                        `json:"maxvCpus" xml:"maxvCpus"`
+	MinvCpus                   int32                                        `json:"minvCpus" xml:"minvCpus"`
+	PlacementGroup             string                                       `json:"placementGroup" xml:"placementGroup"`
+	ScalingPolicy              *ComputeScalingPolicy                        `json:"scalingPolicy" xml:"scalingPolicy"`
+	SecurityGroupIds           StringList                                   `json:"securityGroupIds" xml:"securityGroupIds"`
+	Subnets                    StringList                                   `json:"subnets" xml:"subnets"`
+	Tags                       TagsMap                                      `json:"tags" xml:"tags"`
+	Type                       string                                       `json:"type" xml:"type"`
+	UpdateToLatestImageVersion bool                                         `json:"updateToLatestImageVersion" xml:"updateToLatestImageVersion"`
 }
 
 type ComputeScalingPolicy struct {
@@ -229,6 +239,7 @@ type CreateComputeEnvironmentRequest struct {
 	ComputeEnvironmentName string            `json:"computeEnvironmentName" xml:"computeEnvironmentName"`
 	ComputeResources       *ComputeResource  `json:"computeResources" xml:"computeResources"`
 	Context                string            `json:"context" xml:"context"`
+	EcsSettings            *EcsSettings      `json:"ecsSettings" xml:"ecsSettings"`
 	EksConfiguration       *EksConfiguration `json:"eksConfiguration" xml:"eksConfiguration"`
 	ServiceRole            string            `json:"serviceRole" xml:"serviceRole"`
 	State                  string            `json:"state" xml:"state"`
@@ -522,6 +533,10 @@ type EcsPropertiesOverride struct {
 	TaskProperties ListTaskPropertiesOverride `json:"taskProperties" xml:"taskProperties"`
 }
 
+type EcsSettings struct {
+	ContainerInsights string `json:"containerInsights" xml:"containerInsights"`
+}
+
 type EcsTaskDetails struct {
 	ContainerInstanceArn string                   `json:"containerInstanceArn" xml:"containerInstanceArn"`
 	Containers           ListTaskContainerDetails `json:"containers" xml:"containers"`
@@ -530,6 +545,7 @@ type EcsTaskDetails struct {
 	ExecutionRoleArn     string                   `json:"executionRoleArn" xml:"executionRoleArn"`
 	IpcMode              string                   `json:"ipcMode" xml:"ipcMode"`
 	NetworkConfiguration *NetworkConfiguration    `json:"networkConfiguration" xml:"networkConfiguration"`
+	NetworkMode          string                   `json:"networkMode" xml:"networkMode"`
 	PidMode              string                   `json:"pidMode" xml:"pidMode"`
 	PlatformVersion      string                   `json:"platformVersion" xml:"platformVersion"`
 	RuntimePlatform      *RuntimePlatform         `json:"runtimePlatform" xml:"runtimePlatform"`
@@ -545,6 +561,7 @@ type EcsTaskProperties struct {
 	ExecutionRoleArn     string                      `json:"executionRoleArn" xml:"executionRoleArn"`
 	IpcMode              string                      `json:"ipcMode" xml:"ipcMode"`
 	NetworkConfiguration *NetworkConfiguration       `json:"networkConfiguration" xml:"networkConfiguration"`
+	NetworkMode          string                      `json:"networkMode" xml:"networkMode"`
 	PidMode              string                      `json:"pidMode" xml:"pidMode"`
 	PlatformVersion      string                      `json:"platformVersion" xml:"platformVersion"`
 	RuntimePlatform      *RuntimePlatform            `json:"runtimePlatform" xml:"runtimePlatform"`
@@ -791,6 +808,38 @@ type Host struct {
 
 type ImagePullSecret struct {
 	Name string `json:"name" xml:"name"`
+}
+
+type InfrastructureOptimization struct {
+	ScaleInAfter int32 `json:"scaleInAfter" xml:"scaleInAfter"`
+}
+
+type InstanceLaunchTemplate struct {
+	CapacityOptionType              string                                     `json:"capacityOptionType" xml:"capacityOptionType"`
+	CapacityReservations            *CapacityReservationRequest                `json:"capacityReservations" xml:"capacityReservations"`
+	Ec2InstanceProfileArn           string                                     `json:"ec2InstanceProfileArn" xml:"ec2InstanceProfileArn"`
+	FipsEnabled                     bool                                       `json:"fipsEnabled" xml:"fipsEnabled"`
+	InstanceMetadataTagsPropagation bool                                       `json:"instanceMetadataTagsPropagation" xml:"instanceMetadataTagsPropagation"`
+	InstanceRequirements            *InstanceRequirementsRequest               `json:"instanceRequirements" xml:"instanceRequirements"`
+	LocalStorageConfiguration       *ManagedInstancesLocalStorageConfiguration `json:"localStorageConfiguration" xml:"localStorageConfiguration"`
+	Monitoring                      string                                     `json:"monitoring" xml:"monitoring"`
+	NetworkConfiguration            *ManagedInstancesNetworkConfiguration      `json:"networkConfiguration" xml:"networkConfiguration"`
+	StorageConfiguration            *ManagedInstancesStorageConfiguration      `json:"storageConfiguration" xml:"storageConfiguration"`
+}
+
+type InstanceLaunchTemplateUpdate struct {
+	CapacityReservations            *CapacityReservationRequest                `json:"capacityReservations" xml:"capacityReservations"`
+	Ec2InstanceProfileArn           string                                     `json:"ec2InstanceProfileArn" xml:"ec2InstanceProfileArn"`
+	InstanceMetadataTagsPropagation bool                                       `json:"instanceMetadataTagsPropagation" xml:"instanceMetadataTagsPropagation"`
+	InstanceRequirements            *InstanceRequirementsRequest               `json:"instanceRequirements" xml:"instanceRequirements"`
+	LocalStorageConfiguration       *ManagedInstancesLocalStorageConfiguration `json:"localStorageConfiguration" xml:"localStorageConfiguration"`
+	Monitoring                      string                                     `json:"monitoring" xml:"monitoring"`
+	NetworkConfiguration            *ManagedInstancesNetworkConfiguration      `json:"networkConfiguration" xml:"networkConfiguration"`
+	StorageConfiguration            *ManagedInstancesStorageConfiguration      `json:"storageConfiguration" xml:"storageConfiguration"`
+}
+
+type InstanceRequirementsRequest struct {
+	AllowedInstanceTypes StringList `json:"allowedInstanceTypes" xml:"allowedInstanceTypes"`
 }
 
 type JobCapacityUsageSummary struct {
@@ -1040,6 +1089,26 @@ type LogConfiguration struct {
 	SecretOptions SecretList                 `json:"secretOptions" xml:"secretOptions"`
 }
 
+type ManagedInstancesLocalStorageConfiguration struct {
+	UseLocalStorage bool `json:"useLocalStorage" xml:"useLocalStorage"`
+}
+
+type ManagedInstancesNetworkConfiguration struct {
+	SecurityGroups StringList `json:"securityGroups" xml:"securityGroups"`
+	Subnets        StringList `json:"subnets" xml:"subnets"`
+}
+
+type ManagedInstancesProvider struct {
+	InfrastructureOptimization *InfrastructureOptimization `json:"infrastructureOptimization" xml:"infrastructureOptimization"`
+	InfrastructureRoleArn      string                      `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
+	InstanceLaunchTemplate     *InstanceLaunchTemplate     `json:"instanceLaunchTemplate" xml:"instanceLaunchTemplate"`
+	PropagateTags              string                      `json:"propagateTags" xml:"propagateTags"`
+}
+
+type ManagedInstancesStorageConfiguration struct {
+	StorageSizeGiB int32 `json:"storageSizeGiB" xml:"storageSizeGiB"`
+}
+
 type MountPoint struct {
 	ContainerPath string `json:"containerPath" xml:"containerPath"`
 	ReadOnly      bool   `json:"readOnly" xml:"readOnly"`
@@ -1191,6 +1260,13 @@ type RetryStrategy struct {
 type RuntimePlatform struct {
 	CpuArchitecture       string `json:"cpuArchitecture" xml:"cpuArchitecture"`
 	OperatingSystemFamily string `json:"operatingSystemFamily" xml:"operatingSystemFamily"`
+}
+
+type S3FilesVolumeConfiguration struct {
+	AccessPointArn        string `json:"accessPointArn" xml:"accessPointArn"`
+	FileSystemArn         string `json:"fileSystemArn" xml:"fileSystemArn"`
+	RootDirectory         string `json:"rootDirectory" xml:"rootDirectory"`
+	TransitEncryptionPort int32  `json:"transitEncryptionPort" xml:"transitEncryptionPort"`
 }
 
 type SchedulingPolicyDetail struct {
@@ -1379,6 +1455,8 @@ type TaskContainerDetails struct {
 	RepositoryCredentials  *RepositoryCredentials      `json:"repositoryCredentials" xml:"repositoryCredentials"`
 	ResourceRequirements   ResourceRequirements        `json:"resourceRequirements" xml:"resourceRequirements"`
 	Secrets                SecretList                  `json:"secrets" xml:"secrets"`
+	StartTimeout           int32                       `json:"startTimeout" xml:"startTimeout"`
+	StopTimeout            int32                       `json:"stopTimeout" xml:"stopTimeout"`
 	Ulimits                Ulimits                     `json:"ulimits" xml:"ulimits"`
 	User                   string                      `json:"user" xml:"user"`
 }
@@ -1406,6 +1484,8 @@ type TaskContainerProperties struct {
 	RepositoryCredentials  *RepositoryCredentials      `json:"repositoryCredentials" xml:"repositoryCredentials"`
 	ResourceRequirements   ResourceRequirements        `json:"resourceRequirements" xml:"resourceRequirements"`
 	Secrets                SecretList                  `json:"secrets" xml:"secrets"`
+	StartTimeout           int32                       `json:"startTimeout" xml:"startTimeout"`
+	StopTimeout            int32                       `json:"stopTimeout" xml:"stopTimeout"`
 	Ulimits                Ulimits                     `json:"ulimits" xml:"ulimits"`
 	User                   string                      `json:"user" xml:"user"`
 }
@@ -1454,6 +1534,7 @@ type UpdateComputeEnvironmentRequest struct {
 	ComputeEnvironment string                 `json:"computeEnvironment" xml:"computeEnvironment"`
 	ComputeResources   *ComputeResourceUpdate `json:"computeResources" xml:"computeResources"`
 	Context            string                 `json:"context" xml:"context"`
+	EcsSettings        *EcsSettings           `json:"ecsSettings" xml:"ecsSettings"`
 	ServiceRole        string                 `json:"serviceRole" xml:"serviceRole"`
 	State              string                 `json:"state" xml:"state"`
 	UnmanagedvCpus     int32                  `json:"unmanagedvCpus" xml:"unmanagedvCpus"`
@@ -1491,6 +1572,13 @@ type UpdateJobQueueRequest struct {
 type UpdateJobQueueResponse struct {
 	JobQueueArn  string `json:"jobQueueArn" xml:"jobQueueArn"`
 	JobQueueName string `json:"jobQueueName" xml:"jobQueueName"`
+}
+
+type UpdateManagedInstancesProviderConfiguration struct {
+	InfrastructureOptimization *InfrastructureOptimization   `json:"infrastructureOptimization" xml:"infrastructureOptimization"`
+	InfrastructureRoleArn      string                        `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
+	InstanceLaunchTemplate     *InstanceLaunchTemplateUpdate `json:"instanceLaunchTemplate" xml:"instanceLaunchTemplate"`
+	PropagateTags              string                        `json:"propagateTags" xml:"propagateTags"`
 }
 
 type UpdatePolicy struct {
@@ -1543,9 +1631,10 @@ type UpdateServiceJobResponse struct {
 }
 
 type Volume struct {
-	EfsVolumeConfiguration *EFSVolumeConfiguration `json:"efsVolumeConfiguration" xml:"efsVolumeConfiguration"`
-	Host                   *Host                   `json:"host" xml:"host"`
-	Name                   string                  `json:"name" xml:"name"`
+	EfsVolumeConfiguration     *EFSVolumeConfiguration     `json:"efsVolumeConfiguration" xml:"efsVolumeConfiguration"`
+	Host                       *Host                       `json:"host" xml:"host"`
+	Name                       string                      `json:"name" xml:"name"`
+	S3filesVolumeConfiguration *S3FilesVolumeConfiguration `json:"s3filesVolumeConfiguration" xml:"s3filesVolumeConfiguration"`
 }
 
 type AttemptDetails []*AttemptDetail

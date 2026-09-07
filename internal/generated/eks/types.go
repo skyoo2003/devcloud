@@ -33,6 +33,22 @@ type AccessScope struct {
 	Type       string     `json:"type" xml:"type"`
 }
 
+type ActivateCertificateAuthorityRequest struct {
+	CertificateAuthorityId string `json:"certificateAuthorityId" xml:"certificateAuthorityId"`
+	ClientRequestToken     string `json:"clientRequestToken" xml:"clientRequestToken"`
+	ClusterName            string `json:"clusterName" xml:"clusterName"`
+}
+
+type ActivateCertificateAuthorityResponse struct {
+	CertificateAuthority *CertificateAuthoritySummary `json:"certificateAuthority" xml:"certificateAuthority"`
+	Update               *Update                      `json:"update" xml:"update"`
+}
+
+type ActiveCertificateAuthority struct {
+	ActivatedBy string `json:"activatedBy" xml:"activatedBy"`
+	Id          string `json:"id" xml:"id"`
+}
+
 type Addon struct {
 	AddonArn                string                        `json:"addonArn" xml:"addonArn"`
 	AddonName               string                        `json:"addonName" xml:"addonName"`
@@ -102,6 +118,10 @@ type AddonVersionInfo struct {
 	ComputeTypes           StringList      `json:"computeTypes" xml:"computeTypes"`
 	RequiresConfiguration  bool            `json:"requiresConfiguration" xml:"requiresConfiguration"`
 	RequiresIamPermissions bool            `json:"requiresIamPermissions" xml:"requiresIamPermissions"`
+}
+
+type AllowedValuesConstraint struct {
+	AllowedValues AllowedValuesList `json:"allowedValues" xml:"allowedValues"`
 }
 
 type ArgoCdAwsIdcConfigRequest struct {
@@ -193,6 +213,21 @@ type BlockStorage struct {
 	Enabled bool `json:"enabled" xml:"enabled"`
 }
 
+type CancelUpdateRequest struct {
+	ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+	Name               string `json:"name" xml:"name"`
+	UpdateId           string `json:"updateId" xml:"updateId"`
+}
+
+type CancelUpdateResponse struct {
+	Update *Update `json:"update" xml:"update"`
+}
+
+type Cancellation struct {
+	Reason string `json:"reason" xml:"reason"`
+	Status string `json:"status" xml:"status"`
+}
+
 type Capability struct {
 	Arn                     string                           `json:"arn" xml:"arn"`
 	CapabilityName          string                           `json:"capabilityName" xml:"capabilityName"`
@@ -237,7 +272,42 @@ type CapabilitySummary struct {
 }
 
 type Certificate struct {
-	Data string `json:"data" xml:"data"`
+	Active *ActiveCertificateAuthority `json:"active" xml:"active"`
+	Data   string                      `json:"data" xml:"data"`
+}
+
+type CertificateAuthority struct {
+	ActivatedAt        time.Time                            `json:"activatedAt" xml:"activatedAt"`
+	ActivatedBy        string                               `json:"activatedBy" xml:"activatedBy"`
+	CreatedAt          time.Time                            `json:"createdAt" xml:"createdAt"`
+	CreatedBy          string                               `json:"createdBy" xml:"createdBy"`
+	Data               string                               `json:"data" xml:"data"`
+	DistributionStatus string                               `json:"distributionStatus" xml:"distributionStatus"`
+	Id                 string                               `json:"id" xml:"id"`
+	RollbackAvailable  bool                                 `json:"rollbackAvailable" xml:"rollbackAvailable"`
+	ScheduledEvents    *CertificateAuthorityScheduledEvents `json:"scheduledEvents" xml:"scheduledEvents"`
+	SigningStatus      string                               `json:"signingStatus" xml:"signingStatus"`
+	Validity           *CertificateAuthorityValidity        `json:"validity" xml:"validity"`
+}
+
+type CertificateAuthorityScheduledEvents struct {
+	FinalAutoActivation time.Time `json:"finalAutoActivation" xml:"finalAutoActivation"`
+	FirstAutoActivation time.Time `json:"firstAutoActivation" xml:"firstAutoActivation"`
+}
+
+type CertificateAuthoritySummary struct {
+	ActivatedAt        time.Time `json:"activatedAt" xml:"activatedAt"`
+	ActivatedBy        string    `json:"activatedBy" xml:"activatedBy"`
+	CreatedAt          time.Time `json:"createdAt" xml:"createdAt"`
+	CreatedBy          string    `json:"createdBy" xml:"createdBy"`
+	DistributionStatus string    `json:"distributionStatus" xml:"distributionStatus"`
+	Id                 string    `json:"id" xml:"id"`
+	SigningStatus      string    `json:"signingStatus" xml:"signingStatus"`
+}
+
+type CertificateAuthorityValidity struct {
+	NotAfter  time.Time `json:"notAfter" xml:"notAfter"`
+	NotBefore time.Time `json:"notBefore" xml:"notBefore"`
 }
 
 type ClientStat struct {
@@ -247,34 +317,37 @@ type ClientStat struct {
 }
 
 type Cluster struct {
-	AccessConfig              *AccessConfigResponse            `json:"accessConfig" xml:"accessConfig"`
-	Arn                       string                           `json:"arn" xml:"arn"`
-	CertificateAuthority      *Certificate                     `json:"certificateAuthority" xml:"certificateAuthority"`
-	ClientRequestToken        string                           `json:"clientRequestToken" xml:"clientRequestToken"`
-	ComputeConfig             *ComputeConfigResponse           `json:"computeConfig" xml:"computeConfig"`
-	ConnectorConfig           *ConnectorConfigResponse         `json:"connectorConfig" xml:"connectorConfig"`
-	ControlPlaneScalingConfig *ControlPlaneScalingConfig       `json:"controlPlaneScalingConfig" xml:"controlPlaneScalingConfig"`
-	CreatedAt                 time.Time                        `json:"createdAt" xml:"createdAt"`
-	DeletionProtection        bool                             `json:"deletionProtection" xml:"deletionProtection"`
-	EncryptionConfig          EncryptionConfigList             `json:"encryptionConfig" xml:"encryptionConfig"`
-	Endpoint                  string                           `json:"endpoint" xml:"endpoint"`
-	Health                    *ClusterHealth                   `json:"health" xml:"health"`
-	Id                        string                           `json:"id" xml:"id"`
-	Identity                  *Identity                        `json:"identity" xml:"identity"`
-	KubernetesNetworkConfig   *KubernetesNetworkConfigResponse `json:"kubernetesNetworkConfig" xml:"kubernetesNetworkConfig"`
-	Logging                   *Logging                         `json:"logging" xml:"logging"`
-	Name                      string                           `json:"name" xml:"name"`
-	OutpostConfig             *OutpostConfigResponse           `json:"outpostConfig" xml:"outpostConfig"`
-	PlatformVersion           string                           `json:"platformVersion" xml:"platformVersion"`
-	RemoteNetworkConfig       *RemoteNetworkConfigResponse     `json:"remoteNetworkConfig" xml:"remoteNetworkConfig"`
-	ResourcesVpcConfig        *VpcConfigResponse               `json:"resourcesVpcConfig" xml:"resourcesVpcConfig"`
-	RoleArn                   string                           `json:"roleArn" xml:"roleArn"`
-	Status                    string                           `json:"status" xml:"status"`
-	StorageConfig             *StorageConfigResponse           `json:"storageConfig" xml:"storageConfig"`
-	Tags                      TagMap                           `json:"tags" xml:"tags"`
-	UpgradePolicy             *UpgradePolicyResponse           `json:"upgradePolicy" xml:"upgradePolicy"`
-	Version                   string                           `json:"version" xml:"version"`
-	ZonalShiftConfig          *ZonalShiftConfigResponse        `json:"zonalShiftConfig" xml:"zonalShiftConfig"`
+	AccessConfig                *AccessConfigResponse                `json:"accessConfig" xml:"accessConfig"`
+	Arn                         string                               `json:"arn" xml:"arn"`
+	CertificateAuthority        *Certificate                         `json:"certificateAuthority" xml:"certificateAuthority"`
+	ClientRequestToken          string                               `json:"clientRequestToken" xml:"clientRequestToken"`
+	ComputeConfig               *ComputeConfigResponse               `json:"computeConfig" xml:"computeConfig"`
+	ConnectorConfig             *ConnectorConfigResponse             `json:"connectorConfig" xml:"connectorConfig"`
+	ControlPlaneScalingConfig   *ControlPlaneScalingConfig           `json:"controlPlaneScalingConfig" xml:"controlPlaneScalingConfig"`
+	CreatedAt                   time.Time                            `json:"createdAt" xml:"createdAt"`
+	DeletionProtection          bool                                 `json:"deletionProtection" xml:"deletionProtection"`
+	EncryptionConfig            EncryptionConfigList                 `json:"encryptionConfig" xml:"encryptionConfig"`
+	Endpoint                    string                               `json:"endpoint" xml:"endpoint"`
+	Health                      *ClusterHealth                       `json:"health" xml:"health"`
+	Id                          string                               `json:"id" xml:"id"`
+	Identity                    *Identity                            `json:"identity" xml:"identity"`
+	KubeApiServerConfig         *KubeApiServerConfigResponse         `json:"kubeApiServerConfig" xml:"kubeApiServerConfig"`
+	KubeControllerManagerConfig *KubeControllerManagerConfigResponse `json:"kubeControllerManagerConfig" xml:"kubeControllerManagerConfig"`
+	KubeSchedulerConfig         *KubeSchedulerConfigResponse         `json:"kubeSchedulerConfig" xml:"kubeSchedulerConfig"`
+	KubernetesNetworkConfig     *KubernetesNetworkConfigResponse     `json:"kubernetesNetworkConfig" xml:"kubernetesNetworkConfig"`
+	Logging                     *Logging                             `json:"logging" xml:"logging"`
+	Name                        string                               `json:"name" xml:"name"`
+	OutpostConfig               *OutpostConfigResponse               `json:"outpostConfig" xml:"outpostConfig"`
+	PlatformVersion             string                               `json:"platformVersion" xml:"platformVersion"`
+	RemoteNetworkConfig         *RemoteNetworkConfigResponse         `json:"remoteNetworkConfig" xml:"remoteNetworkConfig"`
+	ResourcesVpcConfig          *VpcConfigResponse                   `json:"resourcesVpcConfig" xml:"resourcesVpcConfig"`
+	RoleArn                     string                               `json:"roleArn" xml:"roleArn"`
+	Status                      string                               `json:"status" xml:"status"`
+	StorageConfig               *StorageConfigResponse               `json:"storageConfig" xml:"storageConfig"`
+	Tags                        TagMap                               `json:"tags" xml:"tags"`
+	UpgradePolicy               *UpgradePolicyResponse               `json:"upgradePolicy" xml:"upgradePolicy"`
+	Version                     string                               `json:"version" xml:"version"`
+	ZonalShiftConfig            *ZonalShiftConfigResponse            `json:"zonalShiftConfig" xml:"zonalShiftConfig"`
 }
 
 type ClusterHealth struct {
@@ -288,16 +361,18 @@ type ClusterIssue struct {
 }
 
 type ClusterVersionInformation struct {
-	ClusterType              string    `json:"clusterType" xml:"clusterType"`
-	ClusterVersion           string    `json:"clusterVersion" xml:"clusterVersion"`
-	DefaultPlatformVersion   string    `json:"defaultPlatformVersion" xml:"defaultPlatformVersion"`
-	DefaultVersion           bool      `json:"defaultVersion" xml:"defaultVersion"`
-	EndOfExtendedSupportDate time.Time `json:"endOfExtendedSupportDate" xml:"endOfExtendedSupportDate"`
-	EndOfStandardSupportDate time.Time `json:"endOfStandardSupportDate" xml:"endOfStandardSupportDate"`
-	KubernetesPatchVersion   string    `json:"kubernetesPatchVersion" xml:"kubernetesPatchVersion"`
-	ReleaseDate              time.Time `json:"releaseDate" xml:"releaseDate"`
-	Status                   string    `json:"status" xml:"status"`
-	VersionStatus            string    `json:"versionStatus" xml:"versionStatus"`
+	ClusterType                 string                      `json:"clusterType" xml:"clusterType"`
+	ClusterVersion              string                      `json:"clusterVersion" xml:"clusterVersion"`
+	ControlPlaneComponentConfig *ControlPlaneConfigInfo     `json:"controlPlaneComponentConfig" xml:"controlPlaneComponentConfig"`
+	ControlPlaneScalingTiers    ControlPlaneScalingTierList `json:"controlPlaneScalingTiers" xml:"controlPlaneScalingTiers"`
+	DefaultPlatformVersion      string                      `json:"defaultPlatformVersion" xml:"defaultPlatformVersion"`
+	DefaultVersion              bool                        `json:"defaultVersion" xml:"defaultVersion"`
+	EndOfExtendedSupportDate    time.Time                   `json:"endOfExtendedSupportDate" xml:"endOfExtendedSupportDate"`
+	EndOfStandardSupportDate    time.Time                   `json:"endOfStandardSupportDate" xml:"endOfStandardSupportDate"`
+	KubernetesPatchVersion      string                      `json:"kubernetesPatchVersion" xml:"kubernetesPatchVersion"`
+	ReleaseDate                 time.Time                   `json:"releaseDate" xml:"releaseDate"`
+	Status                      string                      `json:"status" xml:"status"`
+	VersionStatus               string                      `json:"versionStatus" xml:"versionStatus"`
 }
 
 type Compatibility struct {
@@ -331,16 +406,32 @@ type ConnectorConfigResponse struct {
 	RoleArn          string    `json:"roleArn" xml:"roleArn"`
 }
 
+type ControlPlaneConfigInfo struct {
+	KubeApiServerConfig         *KubeApiServerVersionConfig         `json:"kubeApiServerConfig" xml:"kubeApiServerConfig"`
+	KubeControllerManagerConfig *KubeControllerManagerVersionConfig `json:"kubeControllerManagerConfig" xml:"kubeControllerManagerConfig"`
+	KubeSchedulerConfig         *KubeSchedulerVersionConfig         `json:"kubeSchedulerConfig" xml:"kubeSchedulerConfig"`
+}
+
 type ControlPlanePlacementRequest struct {
-	GroupName string `json:"groupName" xml:"groupName"`
+	GroupName   string `json:"groupName" xml:"groupName"`
+	SpreadLevel string `json:"spreadLevel" xml:"spreadLevel"`
 }
 
 type ControlPlanePlacementResponse struct {
-	GroupName string `json:"groupName" xml:"groupName"`
+	GroupName   string `json:"groupName" xml:"groupName"`
+	SpreadLevel string `json:"spreadLevel" xml:"spreadLevel"`
 }
 
 type ControlPlaneScalingConfig struct {
 	Tier string `json:"tier" xml:"tier"`
+}
+
+type ControlPlaneScalingTierInfo struct {
+	ApiRequestConcurrency                int32                   `json:"apiRequestConcurrency" xml:"apiRequestConcurrency"`
+	ClusterDatabaseSizeGb                int32                   `json:"clusterDatabaseSizeGb" xml:"clusterDatabaseSizeGb"`
+	ControlPlaneComponentConfigOverrides *ControlPlaneConfigInfo `json:"controlPlaneComponentConfigOverrides" xml:"controlPlaneComponentConfigOverrides"`
+	PodSchedulingRatePerSecond           int32                   `json:"podSchedulingRatePerSecond" xml:"podSchedulingRatePerSecond"`
+	TierName                             string                  `json:"tierName" xml:"tierName"`
 }
 
 type CreateAccessConfigRequest struct {
@@ -394,26 +485,39 @@ type CreateCapabilityResponse struct {
 	Capability *Capability `json:"capability" xml:"capability"`
 }
 
+type CreateCertificateAuthorityRequest struct {
+	ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
+	ClusterName        string `json:"clusterName" xml:"clusterName"`
+}
+
+type CreateCertificateAuthorityResponse struct {
+	CertificateAuthority *CertificateAuthoritySummary `json:"certificateAuthority" xml:"certificateAuthority"`
+	Update               *Update                      `json:"update" xml:"update"`
+}
+
 type CreateClusterRequest struct {
-	AccessConfig               *CreateAccessConfigRequest      `json:"accessConfig" xml:"accessConfig"`
-	BootstrapSelfManagedAddons bool                            `json:"bootstrapSelfManagedAddons" xml:"bootstrapSelfManagedAddons"`
-	ClientRequestToken         string                          `json:"clientRequestToken" xml:"clientRequestToken"`
-	ComputeConfig              *ComputeConfigRequest           `json:"computeConfig" xml:"computeConfig"`
-	ControlPlaneScalingConfig  *ControlPlaneScalingConfig      `json:"controlPlaneScalingConfig" xml:"controlPlaneScalingConfig"`
-	DeletionProtection         bool                            `json:"deletionProtection" xml:"deletionProtection"`
-	EncryptionConfig           EncryptionConfigList            `json:"encryptionConfig" xml:"encryptionConfig"`
-	KubernetesNetworkConfig    *KubernetesNetworkConfigRequest `json:"kubernetesNetworkConfig" xml:"kubernetesNetworkConfig"`
-	Logging                    *Logging                        `json:"logging" xml:"logging"`
-	Name                       string                          `json:"name" xml:"name"`
-	OutpostConfig              *OutpostConfigRequest           `json:"outpostConfig" xml:"outpostConfig"`
-	RemoteNetworkConfig        *RemoteNetworkConfigRequest     `json:"remoteNetworkConfig" xml:"remoteNetworkConfig"`
-	ResourcesVpcConfig         *VpcConfigRequest               `json:"resourcesVpcConfig" xml:"resourcesVpcConfig"`
-	RoleArn                    string                          `json:"roleArn" xml:"roleArn"`
-	StorageConfig              *StorageConfigRequest           `json:"storageConfig" xml:"storageConfig"`
-	Tags                       TagMap                          `json:"tags" xml:"tags"`
-	UpgradePolicy              *UpgradePolicyRequest           `json:"upgradePolicy" xml:"upgradePolicy"`
-	Version                    string                          `json:"version" xml:"version"`
-	ZonalShiftConfig           *ZonalShiftConfigRequest        `json:"zonalShiftConfig" xml:"zonalShiftConfig"`
+	AccessConfig                *CreateAccessConfigRequest          `json:"accessConfig" xml:"accessConfig"`
+	BootstrapSelfManagedAddons  bool                                `json:"bootstrapSelfManagedAddons" xml:"bootstrapSelfManagedAddons"`
+	ClientRequestToken          string                              `json:"clientRequestToken" xml:"clientRequestToken"`
+	ComputeConfig               *ComputeConfigRequest               `json:"computeConfig" xml:"computeConfig"`
+	ControlPlaneScalingConfig   *ControlPlaneScalingConfig          `json:"controlPlaneScalingConfig" xml:"controlPlaneScalingConfig"`
+	DeletionProtection          bool                                `json:"deletionProtection" xml:"deletionProtection"`
+	EncryptionConfig            EncryptionConfigList                `json:"encryptionConfig" xml:"encryptionConfig"`
+	KubeApiServerConfig         *KubeApiServerConfigRequest         `json:"kubeApiServerConfig" xml:"kubeApiServerConfig"`
+	KubeControllerManagerConfig *KubeControllerManagerConfigRequest `json:"kubeControllerManagerConfig" xml:"kubeControllerManagerConfig"`
+	KubeSchedulerConfig         *KubeSchedulerConfigRequest         `json:"kubeSchedulerConfig" xml:"kubeSchedulerConfig"`
+	KubernetesNetworkConfig     *KubernetesNetworkConfigRequest     `json:"kubernetesNetworkConfig" xml:"kubernetesNetworkConfig"`
+	Logging                     *Logging                            `json:"logging" xml:"logging"`
+	Name                        string                              `json:"name" xml:"name"`
+	OutpostConfig               *OutpostConfigRequest               `json:"outpostConfig" xml:"outpostConfig"`
+	RemoteNetworkConfig         *RemoteNetworkConfigRequest         `json:"remoteNetworkConfig" xml:"remoteNetworkConfig"`
+	ResourcesVpcConfig          *VpcConfigRequest                   `json:"resourcesVpcConfig" xml:"resourcesVpcConfig"`
+	RoleArn                     string                              `json:"roleArn" xml:"roleArn"`
+	StorageConfig               *StorageConfigRequest               `json:"storageConfig" xml:"storageConfig"`
+	Tags                        TagMap                              `json:"tags" xml:"tags"`
+	UpgradePolicy               *UpgradePolicyRequest               `json:"upgradePolicy" xml:"upgradePolicy"`
+	Version                     string                              `json:"version" xml:"version"`
+	ZonalShiftConfig            *ZonalShiftConfigRequest            `json:"zonalShiftConfig" xml:"zonalShiftConfig"`
 }
 
 type CreateClusterResponse struct {
@@ -468,6 +572,7 @@ type CreateNodegroupRequest struct {
 	Taints             taintsList                   `json:"taints" xml:"taints"`
 	UpdateConfig       *NodegroupUpdateConfig       `json:"updateConfig" xml:"updateConfig"`
 	Version            string                       `json:"version" xml:"version"`
+	WarmPoolConfig     *WarmPoolConfig              `json:"warmPoolConfig" xml:"warmPoolConfig"`
 }
 
 type CreateNodegroupResponse struct {
@@ -515,6 +620,17 @@ type DeleteCapabilityRequest struct {
 
 type DeleteCapabilityResponse struct {
 	Capability *Capability `json:"capability" xml:"capability"`
+}
+
+type DeleteCertificateAuthorityRequest struct {
+	CertificateAuthorityId string `json:"certificateAuthorityId" xml:"certificateAuthorityId"`
+	ClientRequestToken     string `json:"clientRequestToken" xml:"clientRequestToken"`
+	ClusterName            string `json:"clusterName" xml:"clusterName"`
+}
+
+type DeleteCertificateAuthorityResponse struct {
+	CertificateAuthority *CertificateAuthoritySummary `json:"certificateAuthority" xml:"certificateAuthority"`
+	Update               *Update                      `json:"update" xml:"update"`
 }
 
 type DeleteClusterRequest struct {
@@ -628,6 +744,15 @@ type DescribeCapabilityRequest struct {
 
 type DescribeCapabilityResponse struct {
 	Capability *Capability `json:"capability" xml:"capability"`
+}
+
+type DescribeCertificateAuthorityRequest struct {
+	CertificateAuthorityId string `json:"certificateAuthorityId" xml:"certificateAuthorityId"`
+	ClusterName            string `json:"clusterName" xml:"clusterName"`
+}
+
+type DescribeCertificateAuthorityResponse struct {
+	CertificateAuthority *CertificateAuthority `json:"certificateAuthority" xml:"certificateAuthority"`
 }
 
 type DescribeClusterRequest struct {
@@ -749,6 +874,16 @@ type DisassociateIdentityProviderConfigResponse struct {
 	Update *Update `json:"update" xml:"update"`
 }
 
+type DurationConstraints struct {
+	Max string `json:"max" xml:"max"`
+	Min string `json:"min" xml:"min"`
+}
+
+type DurationParameterConfig struct {
+	Constraints  *DurationConstraints `json:"constraints" xml:"constraints"`
+	DefaultValue string               `json:"defaultValue" xml:"defaultValue"`
+}
+
 type EksAnywhereSubscription struct {
 	Arn             string                       `json:"arn" xml:"arn"`
 	AutoRenew       bool                         `json:"autoRenew" xml:"autoRenew"`
@@ -785,6 +920,14 @@ type ErrorDetail struct {
 	ResourceIds  StringList `json:"resourceIds" xml:"resourceIds"`
 }
 
+type EtcdPlacementRequest struct {
+	SpreadLevel string `json:"spreadLevel" xml:"spreadLevel"`
+}
+
+type EtcdPlacementResponse struct {
+	SpreadLevel string `json:"spreadLevel" xml:"spreadLevel"`
+}
+
 type FargateProfile struct {
 	ClusterName         string                  `json:"clusterName" xml:"clusterName"`
 	CreatedAt           time.Time               `json:"createdAt" xml:"createdAt"`
@@ -811,6 +954,18 @@ type FargateProfileIssue struct {
 type FargateProfileSelector struct {
 	Labels    FargateProfileLabel `json:"labels" xml:"labels"`
 	Namespace string              `json:"namespace" xml:"namespace"`
+}
+
+type HorizontalPodAutoscalerControllerConfigRequest struct {
+	HorizontalPodAutoscalerSyncPeriod string `json:"horizontalPodAutoscalerSyncPeriod" xml:"horizontalPodAutoscalerSyncPeriod"`
+}
+
+type HorizontalPodAutoscalerControllerConfigResponse struct {
+	HorizontalPodAutoscalerSyncPeriod string `json:"horizontalPodAutoscalerSyncPeriod" xml:"horizontalPodAutoscalerSyncPeriod"`
+}
+
+type HorizontalPodAutoscalerControllerVersionConfig struct {
+	HorizontalPodAutoscalerSyncPeriod *DurationParameterConfig `json:"horizontalPodAutoscalerSyncPeriod" xml:"horizontalPodAutoscalerSyncPeriod"`
 }
 
 type Identity struct {
@@ -874,10 +1029,67 @@ type InsightsFilter struct {
 	Statuses           InsightStatusValueList `json:"statuses" xml:"statuses"`
 }
 
+type IntegerConstraints struct {
+	Max int32 `json:"max" xml:"max"`
+	Min int32 `json:"min" xml:"min"`
+}
+
+type IntegerParameterConfig struct {
+	Constraints  *IntegerConstraints `json:"constraints" xml:"constraints"`
+	DefaultValue int32               `json:"defaultValue" xml:"defaultValue"`
+}
+
+type IntegerRangeConstraint struct {
+	Max int32 `json:"max" xml:"max"`
+	Min int32 `json:"min" xml:"min"`
+}
+
 type Issue struct {
 	Code        string     `json:"code" xml:"code"`
 	Message     string     `json:"message" xml:"message"`
 	ResourceIds StringList `json:"resourceIds" xml:"resourceIds"`
+}
+
+type KubeApiServerConfigRequest struct {
+	EventTtl             string                `json:"eventTtl" xml:"eventTtl"`
+	ServiceNodePortRange *ServiceNodePortRange `json:"serviceNodePortRange" xml:"serviceNodePortRange"`
+}
+
+type KubeApiServerConfigResponse struct {
+	EventTtl             string                `json:"eventTtl" xml:"eventTtl"`
+	ServiceNodePortRange *ServiceNodePortRange `json:"serviceNodePortRange" xml:"serviceNodePortRange"`
+}
+
+type KubeApiServerVersionConfig struct {
+	EventTtl             *DurationParameterConfig  `json:"eventTtl" xml:"eventTtl"`
+	ServiceNodePortRange *PortRangeParameterConfig `json:"serviceNodePortRange" xml:"serviceNodePortRange"`
+}
+
+type KubeControllerManagerConfigRequest struct {
+	HorizontalPodAutoscalerControllerConfig *HorizontalPodAutoscalerControllerConfigRequest `json:"horizontalPodAutoscalerControllerConfig" xml:"horizontalPodAutoscalerControllerConfig"`
+	PodGcControllerConfig                   *PodGcControllerConfigRequest                   `json:"podGcControllerConfig" xml:"podGcControllerConfig"`
+}
+
+type KubeControllerManagerConfigResponse struct {
+	HorizontalPodAutoscalerControllerConfig *HorizontalPodAutoscalerControllerConfigResponse `json:"horizontalPodAutoscalerControllerConfig" xml:"horizontalPodAutoscalerControllerConfig"`
+	PodGcControllerConfig                   *PodGcControllerConfigResponse                   `json:"podGcControllerConfig" xml:"podGcControllerConfig"`
+}
+
+type KubeControllerManagerVersionConfig struct {
+	HorizontalPodAutoscalerControllerConfig *HorizontalPodAutoscalerControllerVersionConfig `json:"horizontalPodAutoscalerControllerConfig" xml:"horizontalPodAutoscalerControllerConfig"`
+	PodGcControllerConfig                   *PodGcControllerVersionConfig                   `json:"podGcControllerConfig" xml:"podGcControllerConfig"`
+}
+
+type KubeSchedulerConfigRequest struct {
+	NodeResourcesFit *NodeResourcesFitConfig `json:"nodeResourcesFit" xml:"nodeResourcesFit"`
+}
+
+type KubeSchedulerConfigResponse struct {
+	NodeResourcesFit *NodeResourcesFitConfig `json:"nodeResourcesFit" xml:"nodeResourcesFit"`
+}
+
+type KubeSchedulerVersionConfig struct {
+	NodeResourcesFit *NodeResourcesFitVersionConfig `json:"nodeResourcesFit" xml:"nodeResourcesFit"`
 }
 
 type KubernetesNetworkConfigRequest struct {
@@ -960,6 +1172,17 @@ type ListCapabilitiesRequest struct {
 type ListCapabilitiesResponse struct {
 	Capabilities CapabilitySummaryList `json:"capabilities" xml:"capabilities"`
 	NextToken    string                `json:"nextToken" xml:"nextToken"`
+}
+
+type ListCertificateAuthoritiesRequest struct {
+	ClusterName string `json:"clusterName" xml:"clusterName"`
+	MaxResults  int32  `json:"maxResults" xml:"maxResults"`
+	NextToken   string `json:"nextToken" xml:"nextToken"`
+}
+
+type ListCertificateAuthoritiesResponse struct {
+	CertificateAuthorities CertificateAuthoritySummaryList `json:"certificateAuthorities" xml:"certificateAuthorities"`
+	NextToken              string                          `json:"nextToken" xml:"nextToken"`
 }
 
 type ListClustersRequest struct {
@@ -1094,6 +1317,14 @@ type NodeRepairConfigOverrides struct {
 	RepairAction            string `json:"repairAction" xml:"repairAction"`
 }
 
+type NodeResourcesFitConfig struct {
+	ScoringStrategy *ScoringStrategy `json:"scoringStrategy" xml:"scoringStrategy"`
+}
+
+type NodeResourcesFitVersionConfig struct {
+	ScoringStrategy *ScoringStrategyConfig `json:"scoringStrategy" xml:"scoringStrategy"`
+}
+
 type Nodegroup struct {
 	AmiType          string                       `json:"amiType" xml:"amiType"`
 	CapacityType     string                       `json:"capacityType" xml:"capacityType"`
@@ -1119,6 +1350,7 @@ type Nodegroup struct {
 	Taints           taintsList                   `json:"taints" xml:"taints"`
 	UpdateConfig     *NodegroupUpdateConfig       `json:"updateConfig" xml:"updateConfig"`
 	Version          string                       `json:"version" xml:"version"`
+	WarmPoolConfig   *WarmPoolConfig              `json:"warmPoolConfig" xml:"warmPoolConfig"`
 }
 
 type NodegroupHealth struct {
@@ -1175,13 +1407,29 @@ type OidcIdentityProviderConfigRequest struct {
 type OutpostConfigRequest struct {
 	ControlPlaneInstanceType string                        `json:"controlPlaneInstanceType" xml:"controlPlaneInstanceType"`
 	ControlPlanePlacement    *ControlPlanePlacementRequest `json:"controlPlanePlacement" xml:"controlPlanePlacement"`
+	EtcdInstanceType         string                        `json:"etcdInstanceType" xml:"etcdInstanceType"`
+	EtcdPlacement            *EtcdPlacementRequest         `json:"etcdPlacement" xml:"etcdPlacement"`
 	OutpostArns              StringList                    `json:"outpostArns" xml:"outpostArns"`
 }
 
 type OutpostConfigResponse struct {
 	ControlPlaneInstanceType string                         `json:"controlPlaneInstanceType" xml:"controlPlaneInstanceType"`
 	ControlPlanePlacement    *ControlPlanePlacementResponse `json:"controlPlanePlacement" xml:"controlPlanePlacement"`
+	EtcdInstanceType         string                         `json:"etcdInstanceType" xml:"etcdInstanceType"`
+	EtcdPlacement            *EtcdPlacementResponse         `json:"etcdPlacement" xml:"etcdPlacement"`
 	OutpostArns              StringList                     `json:"outpostArns" xml:"outpostArns"`
+}
+
+type PodGcControllerConfigRequest struct {
+	TerminatedPodGcThreshold int32 `json:"terminatedPodGcThreshold" xml:"terminatedPodGcThreshold"`
+}
+
+type PodGcControllerConfigResponse struct {
+	TerminatedPodGcThreshold int32 `json:"terminatedPodGcThreshold" xml:"terminatedPodGcThreshold"`
+}
+
+type PodGcControllerVersionConfig struct {
+	TerminatedPodGcThreshold *IntegerParameterConfig `json:"terminatedPodGcThreshold" xml:"terminatedPodGcThreshold"`
 }
 
 type PodIdentityAssociation struct {
@@ -1208,6 +1456,16 @@ type PodIdentityAssociationSummary struct {
 	Namespace      string `json:"namespace" xml:"namespace"`
 	OwnerArn       string `json:"ownerArn" xml:"ownerArn"`
 	ServiceAccount string `json:"serviceAccount" xml:"serviceAccount"`
+}
+
+type PortRangeConstraints struct {
+	MaxPort *IntegerRangeConstraint `json:"maxPort" xml:"maxPort"`
+	MinPort *IntegerRangeConstraint `json:"minPort" xml:"minPort"`
+}
+
+type PortRangeParameterConfig struct {
+	Constraints  *PortRangeConstraints `json:"constraints" xml:"constraints"`
+	DefaultValue *ServiceNodePortRange `json:"defaultValue" xml:"defaultValue"`
 }
 
 type Provider struct {
@@ -1246,6 +1504,40 @@ type RemoteNodeNetwork struct {
 
 type RemotePodNetwork struct {
 	Cidrs StringList `json:"cidrs" xml:"cidrs"`
+}
+
+type ResourceConstraints struct {
+	Name   *AllowedValuesConstraint `json:"name" xml:"name"`
+	Weight *IntegerRangeConstraint  `json:"weight" xml:"weight"`
+}
+
+type ResourceWeight struct {
+	Name   string `json:"name" xml:"name"`
+	Weight int32  `json:"weight" xml:"weight"`
+}
+
+type RollbackConfig struct {
+	TimeoutMinutes int32 `json:"timeoutMinutes" xml:"timeoutMinutes"`
+}
+
+type ScoringStrategy struct {
+	Resources ResourceWeightList `json:"resources" xml:"resources"`
+	Type      string             `json:"type" xml:"type"`
+}
+
+type ScoringStrategyConfig struct {
+	Constraints  *ScoringStrategyConstraints `json:"constraints" xml:"constraints"`
+	DefaultValue *ScoringStrategy            `json:"defaultValue" xml:"defaultValue"`
+}
+
+type ScoringStrategyConstraints struct {
+	Resources       *ResourceConstraints     `json:"resources" xml:"resources"`
+	ScoringStrategy *AllowedValuesConstraint `json:"scoringStrategy" xml:"scoringStrategy"`
+}
+
+type ServiceNodePortRange struct {
+	MaxPort int32 `json:"maxPort" xml:"maxPort"`
+	MinPort int32 `json:"minPort" xml:"minPort"`
 }
 
 type SsoIdentity struct {
@@ -1293,12 +1585,13 @@ type UntagResourceResponse struct {
 }
 
 type Update struct {
-	CreatedAt time.Time    `json:"createdAt" xml:"createdAt"`
-	Errors    ErrorDetails `json:"errors" xml:"errors"`
-	Id        string       `json:"id" xml:"id"`
-	Params    UpdateParams `json:"params" xml:"params"`
-	Status    string       `json:"status" xml:"status"`
-	Type      string       `json:"type" xml:"type"`
+	Cancellation *Cancellation `json:"cancellation" xml:"cancellation"`
+	CreatedAt    time.Time     `json:"createdAt" xml:"createdAt"`
+	Errors       ErrorDetails  `json:"errors" xml:"errors"`
+	Id           string        `json:"id" xml:"id"`
+	Params       UpdateParams  `json:"params" xml:"params"`
+	Status       string        `json:"status" xml:"status"`
+	Type         string        `json:"type" xml:"type"`
 }
 
 type UpdateAccessConfigRequest struct {
@@ -1355,19 +1648,22 @@ type UpdateCapabilityResponse struct {
 }
 
 type UpdateClusterConfigRequest struct {
-	AccessConfig              *UpdateAccessConfigRequest      `json:"accessConfig" xml:"accessConfig"`
-	ClientRequestToken        string                          `json:"clientRequestToken" xml:"clientRequestToken"`
-	ComputeConfig             *ComputeConfigRequest           `json:"computeConfig" xml:"computeConfig"`
-	ControlPlaneScalingConfig *ControlPlaneScalingConfig      `json:"controlPlaneScalingConfig" xml:"controlPlaneScalingConfig"`
-	DeletionProtection        bool                            `json:"deletionProtection" xml:"deletionProtection"`
-	KubernetesNetworkConfig   *KubernetesNetworkConfigRequest `json:"kubernetesNetworkConfig" xml:"kubernetesNetworkConfig"`
-	Logging                   *Logging                        `json:"logging" xml:"logging"`
-	Name                      string                          `json:"name" xml:"name"`
-	RemoteNetworkConfig       *RemoteNetworkConfigRequest     `json:"remoteNetworkConfig" xml:"remoteNetworkConfig"`
-	ResourcesVpcConfig        *VpcConfigRequest               `json:"resourcesVpcConfig" xml:"resourcesVpcConfig"`
-	StorageConfig             *StorageConfigRequest           `json:"storageConfig" xml:"storageConfig"`
-	UpgradePolicy             *UpgradePolicyRequest           `json:"upgradePolicy" xml:"upgradePolicy"`
-	ZonalShiftConfig          *ZonalShiftConfigRequest        `json:"zonalShiftConfig" xml:"zonalShiftConfig"`
+	AccessConfig                *UpdateAccessConfigRequest          `json:"accessConfig" xml:"accessConfig"`
+	ClientRequestToken          string                              `json:"clientRequestToken" xml:"clientRequestToken"`
+	ComputeConfig               *ComputeConfigRequest               `json:"computeConfig" xml:"computeConfig"`
+	ControlPlaneScalingConfig   *ControlPlaneScalingConfig          `json:"controlPlaneScalingConfig" xml:"controlPlaneScalingConfig"`
+	DeletionProtection          bool                                `json:"deletionProtection" xml:"deletionProtection"`
+	KubeApiServerConfig         *KubeApiServerConfigRequest         `json:"kubeApiServerConfig" xml:"kubeApiServerConfig"`
+	KubeControllerManagerConfig *KubeControllerManagerConfigRequest `json:"kubeControllerManagerConfig" xml:"kubeControllerManagerConfig"`
+	KubeSchedulerConfig         *KubeSchedulerConfigRequest         `json:"kubeSchedulerConfig" xml:"kubeSchedulerConfig"`
+	KubernetesNetworkConfig     *KubernetesNetworkConfigRequest     `json:"kubernetesNetworkConfig" xml:"kubernetesNetworkConfig"`
+	Logging                     *Logging                            `json:"logging" xml:"logging"`
+	Name                        string                              `json:"name" xml:"name"`
+	RemoteNetworkConfig         *RemoteNetworkConfigRequest         `json:"remoteNetworkConfig" xml:"remoteNetworkConfig"`
+	ResourcesVpcConfig          *VpcConfigRequest                   `json:"resourcesVpcConfig" xml:"resourcesVpcConfig"`
+	StorageConfig               *StorageConfigRequest               `json:"storageConfig" xml:"storageConfig"`
+	UpgradePolicy               *UpgradePolicyRequest               `json:"upgradePolicy" xml:"upgradePolicy"`
+	ZonalShiftConfig            *ZonalShiftConfigRequest            `json:"zonalShiftConfig" xml:"zonalShiftConfig"`
 }
 
 type UpdateClusterConfigResponse struct {
@@ -1375,10 +1671,11 @@ type UpdateClusterConfigResponse struct {
 }
 
 type UpdateClusterVersionRequest struct {
-	ClientRequestToken string `json:"clientRequestToken" xml:"clientRequestToken"`
-	Force              bool   `json:"force" xml:"force"`
-	Name               string `json:"name" xml:"name"`
-	Version            string `json:"version" xml:"version"`
+	ClientRequestToken string          `json:"clientRequestToken" xml:"clientRequestToken"`
+	Force              bool            `json:"force" xml:"force"`
+	Name               string          `json:"name" xml:"name"`
+	RollbackConfig     *RollbackConfig `json:"rollbackConfig" xml:"rollbackConfig"`
+	Version            string          `json:"version" xml:"version"`
 }
 
 type UpdateClusterVersionResponse struct {
@@ -1409,6 +1706,7 @@ type UpdateNodegroupConfigRequest struct {
 	ScalingConfig      *NodegroupScalingConfig `json:"scalingConfig" xml:"scalingConfig"`
 	Taints             *UpdateTaintsPayload    `json:"taints" xml:"taints"`
 	UpdateConfig       *NodegroupUpdateConfig  `json:"updateConfig" xml:"updateConfig"`
+	WarmPoolConfig     *WarmPoolConfig         `json:"warmPoolConfig" xml:"warmPoolConfig"`
 }
 
 type UpdateNodegroupConfigResponse struct {
@@ -1467,21 +1765,31 @@ type UpgradePolicyResponse struct {
 }
 
 type VpcConfigRequest struct {
-	EndpointPrivateAccess bool       `json:"endpointPrivateAccess" xml:"endpointPrivateAccess"`
-	EndpointPublicAccess  bool       `json:"endpointPublicAccess" xml:"endpointPublicAccess"`
-	PublicAccessCidrs     StringList `json:"publicAccessCidrs" xml:"publicAccessCidrs"`
-	SecurityGroupIds      StringList `json:"securityGroupIds" xml:"securityGroupIds"`
-	SubnetIds             StringList `json:"subnetIds" xml:"subnetIds"`
+	ControlPlaneEgressMode string     `json:"controlPlaneEgressMode" xml:"controlPlaneEgressMode"`
+	EndpointPrivateAccess  bool       `json:"endpointPrivateAccess" xml:"endpointPrivateAccess"`
+	EndpointPublicAccess   bool       `json:"endpointPublicAccess" xml:"endpointPublicAccess"`
+	PublicAccessCidrs      StringList `json:"publicAccessCidrs" xml:"publicAccessCidrs"`
+	SecurityGroupIds       StringList `json:"securityGroupIds" xml:"securityGroupIds"`
+	SubnetIds              StringList `json:"subnetIds" xml:"subnetIds"`
 }
 
 type VpcConfigResponse struct {
 	ClusterSecurityGroupId string     `json:"clusterSecurityGroupId" xml:"clusterSecurityGroupId"`
+	ControlPlaneEgressMode string     `json:"controlPlaneEgressMode" xml:"controlPlaneEgressMode"`
 	EndpointPrivateAccess  bool       `json:"endpointPrivateAccess" xml:"endpointPrivateAccess"`
 	EndpointPublicAccess   bool       `json:"endpointPublicAccess" xml:"endpointPublicAccess"`
 	PublicAccessCidrs      StringList `json:"publicAccessCidrs" xml:"publicAccessCidrs"`
 	SecurityGroupIds       StringList `json:"securityGroupIds" xml:"securityGroupIds"`
 	SubnetIds              StringList `json:"subnetIds" xml:"subnetIds"`
 	VpcId                  string     `json:"vpcId" xml:"vpcId"`
+}
+
+type WarmPoolConfig struct {
+	Enabled                  bool   `json:"enabled" xml:"enabled"`
+	MaxGroupPreparedCapacity int32  `json:"maxGroupPreparedCapacity" xml:"maxGroupPreparedCapacity"`
+	MinSize                  int32  `json:"minSize" xml:"minSize"`
+	PoolState                string `json:"poolState" xml:"poolState"`
+	ReuseOnScaleIn           bool   `json:"reuseOnScaleIn" xml:"reuseOnScaleIn"`
 }
 
 type ZonalShiftConfigRequest struct {
@@ -1506,6 +1814,8 @@ type AddonVersionInfoList []*AddonVersionInfo
 
 type Addons []*AddonInfo
 
+type AllowedValuesList []string
+
 type ArgoCdRoleMappingList []*ArgoCdRoleMapping
 
 type AssociatedAccessPoliciesList []*AssociatedAccessPolicy
@@ -1518,6 +1828,8 @@ type CapabilitySummaryList []*CapabilitySummary
 
 type CategoryList []string
 
+type CertificateAuthoritySummaryList []*CertificateAuthoritySummary
+
 type ClientStats []*ClientStat
 
 type ClusterIssueList []*ClusterIssue
@@ -1525,6 +1837,8 @@ type ClusterIssueList []*ClusterIssue
 type ClusterVersionList []*ClusterVersionInformation
 
 type Compatibilities []*Compatibility
+
+type ControlPlaneScalingTierList []*ControlPlaneScalingTierInfo
 
 type DeprecationDetails []*DeprecationDetail
 
@@ -1565,6 +1879,8 @@ type PodIdentityAssociationSummaries []*PodIdentityAssociationSummary
 type RemoteNodeNetworkList []*RemoteNodeNetwork
 
 type RemotePodNetworkList []*RemotePodNetwork
+
+type ResourceWeightList []*ResourceWeight
 
 type SsoIdentityList []*SsoIdentity
 

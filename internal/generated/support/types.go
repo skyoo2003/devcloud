@@ -5,6 +5,7 @@ package support
 type AddAttachmentsToSetRequest struct {
 	AttachmentSetId string      `json:"attachmentSetId" xml:"attachmentSetId"`
 	Attachments     Attachments `json:"attachments" xml:"attachments"`
+	DryRun          bool        `json:"dryRun" xml:"dryRun"`
 }
 
 type AddAttachmentsToSetResponse struct {
@@ -17,6 +18,8 @@ type AddCommunicationToCaseRequest struct {
 	CaseId            string             `json:"caseId" xml:"caseId"`
 	CcEmailAddresses  CcEmailAddressList `json:"ccEmailAddresses" xml:"ccEmailAddresses"`
 	CommunicationBody string             `json:"communicationBody" xml:"communicationBody"`
+	DryRun            bool               `json:"dryRun" xml:"dryRun"`
+	UploadIds         UploadIds          `json:"uploadIds" xml:"uploadIds"`
 }
 
 type AddCommunicationToCaseResponse struct {
@@ -55,6 +58,7 @@ type Category struct {
 
 type Communication struct {
 	AttachmentSet AttachmentSet `json:"attachmentSet" xml:"attachmentSet"`
+	Attachments   AttachmentSet `json:"attachments" xml:"attachments"`
 	Body          string        `json:"body" xml:"body"`
 	CaseId        string        `json:"caseId" xml:"caseId"`
 	SubmittedBy   string        `json:"submittedBy" xml:"submittedBy"`
@@ -67,16 +71,33 @@ type CommunicationTypeOptions struct {
 	Type                string                  `json:"type" xml:"type"`
 }
 
+type CompleteAttachmentUploadRequest struct {
+	CompletedUploads CompletedUploadList `json:"completedUploads" xml:"completedUploads"`
+	DryRun           bool                `json:"dryRun" xml:"dryRun"`
+	UploadId         string              `json:"uploadId" xml:"uploadId"`
+}
+
+type CompleteAttachmentUploadResponse struct {
+	UploadStatus string `json:"uploadStatus" xml:"uploadStatus"`
+}
+
+type CompletedUpload struct {
+	ETag      string `json:"eTag" xml:"eTag"`
+	PartIndex int32  `json:"partIndex" xml:"partIndex"`
+}
+
 type CreateCaseRequest struct {
 	AttachmentSetId   string             `json:"attachmentSetId" xml:"attachmentSetId"`
 	CategoryCode      string             `json:"categoryCode" xml:"categoryCode"`
 	CcEmailAddresses  CcEmailAddressList `json:"ccEmailAddresses" xml:"ccEmailAddresses"`
 	CommunicationBody string             `json:"communicationBody" xml:"communicationBody"`
+	DryRun            bool               `json:"dryRun" xml:"dryRun"`
 	IssueType         string             `json:"issueType" xml:"issueType"`
 	Language          string             `json:"language" xml:"language"`
 	ServiceCode       string             `json:"serviceCode" xml:"serviceCode"`
 	SeverityCode      string             `json:"severityCode" xml:"severityCode"`
 	Subject           string             `json:"subject" xml:"subject"`
+	UploadIds         UploadIds          `json:"uploadIds" xml:"uploadIds"`
 }
 
 type CreateCaseResponse struct {
@@ -90,10 +111,22 @@ type DateInterval struct {
 
 type DescribeAttachmentRequest struct {
 	AttachmentId string `json:"attachmentId" xml:"attachmentId"`
+	DryRun       bool   `json:"dryRun" xml:"dryRun"`
 }
 
 type DescribeAttachmentResponse struct {
 	Attachment *Attachment `json:"attachment" xml:"attachment"`
+}
+
+type DescribeAttachmentUploadStatusRequest struct {
+	DryRun   bool   `json:"dryRun" xml:"dryRun"`
+	UploadId string `json:"uploadId" xml:"uploadId"`
+}
+
+type DescribeAttachmentUploadStatusResponse struct {
+	FileName       string          `json:"fileName" xml:"fileName"`
+	UploadProgress *UploadProgress `json:"uploadProgress" xml:"uploadProgress"`
+	UploadStatus   string          `json:"uploadStatus" xml:"uploadStatus"`
 }
 
 type DescribeCasesRequest struct {
@@ -101,6 +134,7 @@ type DescribeCasesRequest struct {
 	BeforeTime            string     `json:"beforeTime" xml:"beforeTime"`
 	CaseIdList            CaseIdList `json:"caseIdList" xml:"caseIdList"`
 	DisplayId             string     `json:"displayId" xml:"displayId"`
+	DryRun                bool       `json:"dryRun" xml:"dryRun"`
 	IncludeCommunications bool       `json:"includeCommunications" xml:"includeCommunications"`
 	IncludeResolvedCases  bool       `json:"includeResolvedCases" xml:"includeResolvedCases"`
 	Language              string     `json:"language" xml:"language"`
@@ -117,6 +151,7 @@ type DescribeCommunicationsRequest struct {
 	AfterTime  string `json:"afterTime" xml:"afterTime"`
 	BeforeTime string `json:"beforeTime" xml:"beforeTime"`
 	CaseId     string `json:"caseId" xml:"caseId"`
+	DryRun     bool   `json:"dryRun" xml:"dryRun"`
 	MaxResults int32  `json:"maxResults" xml:"maxResults"`
 	NextToken  string `json:"nextToken" xml:"nextToken"`
 }
@@ -128,6 +163,7 @@ type DescribeCommunicationsResponse struct {
 
 type DescribeCreateCaseOptionsRequest struct {
 	CategoryCode string `json:"categoryCode" xml:"categoryCode"`
+	DryRun       bool   `json:"dryRun" xml:"dryRun"`
 	IssueType    string `json:"issueType" xml:"issueType"`
 	Language     string `json:"language" xml:"language"`
 	ServiceCode  string `json:"serviceCode" xml:"serviceCode"`
@@ -139,6 +175,7 @@ type DescribeCreateCaseOptionsResponse struct {
 }
 
 type DescribeServicesRequest struct {
+	DryRun          bool            `json:"dryRun" xml:"dryRun"`
 	Language        string          `json:"language" xml:"language"`
 	ServiceCodeList ServiceCodeList `json:"serviceCodeList" xml:"serviceCodeList"`
 }
@@ -148,6 +185,7 @@ type DescribeServicesResponse struct {
 }
 
 type DescribeSeverityLevelsRequest struct {
+	DryRun   bool   `json:"dryRun" xml:"dryRun"`
 	Language string `json:"language" xml:"language"`
 }
 
@@ -157,6 +195,7 @@ type DescribeSeverityLevelsResponse struct {
 
 type DescribeSupportedLanguagesRequest struct {
 	CategoryCode string `json:"categoryCode" xml:"categoryCode"`
+	DryRun       bool   `json:"dryRun" xml:"dryRun"`
 	IssueType    string `json:"issueType" xml:"issueType"`
 	ServiceCode  string `json:"serviceCode" xml:"serviceCode"`
 }
@@ -198,6 +237,37 @@ type DescribeTrustedAdvisorChecksResponse struct {
 	Checks TrustedAdvisorCheckList `json:"checks" xml:"checks"`
 }
 
+type DownloadUrl struct {
+	ExpiryDate string `json:"expiryDate" xml:"expiryDate"`
+	Url        string `json:"url" xml:"url"`
+}
+
+type GetAttachmentDownloadLinkRequest struct {
+	AttachmentId string `json:"attachmentId" xml:"attachmentId"`
+	DryRun       bool   `json:"dryRun" xml:"dryRun"`
+}
+
+type GetAttachmentDownloadLinkResponse struct {
+	DownloadUrl *DownloadUrl `json:"downloadUrl" xml:"downloadUrl"`
+	FileName    string       `json:"fileName" xml:"fileName"`
+}
+
+type GetAttachmentUploadLinksRequest struct {
+	DryRun        bool         `json:"dryRun" xml:"dryRun"`
+	FileName      string       `json:"fileName" xml:"fileName"`
+	FileSizeBytes int64        `json:"fileSizeBytes" xml:"fileSizeBytes"`
+	UploadId      string       `json:"uploadId" xml:"uploadId"`
+	UploadRange   *UploadRange `json:"uploadRange" xml:"uploadRange"`
+}
+
+type GetAttachmentUploadLinksResponse struct {
+	NextIndex     int32         `json:"nextIndex" xml:"nextIndex"`
+	PartSizeBytes int64         `json:"partSizeBytes" xml:"partSizeBytes"`
+	TotalParts    int32         `json:"totalParts" xml:"totalParts"`
+	UploadId      string        `json:"uploadId" xml:"uploadId"`
+	UploadUrls    UploadUrlList `json:"uploadUrls" xml:"uploadUrls"`
+}
+
 type RecentCaseCommunications struct {
 	Communications CommunicationList `json:"communications" xml:"communications"`
 	NextToken      string            `json:"nextToken" xml:"nextToken"`
@@ -213,6 +283,7 @@ type RefreshTrustedAdvisorCheckResponse struct {
 
 type ResolveCaseRequest struct {
 	CaseId string `json:"caseId" xml:"caseId"`
+	DryRun bool   `json:"dryRun" xml:"dryRun"`
 }
 
 type ResolveCaseResponse struct {
@@ -240,6 +311,11 @@ type SupportedLanguage struct {
 	Code     string `json:"code" xml:"code"`
 	Display  string `json:"display" xml:"display"`
 	Language string `json:"language" xml:"language"`
+}
+
+type ThrottlingReason struct {
+	Reason   string `json:"reason" xml:"reason"`
+	Resource string `json:"resource" xml:"resource"`
 }
 
 type TrustedAdvisorCategorySpecificSummary struct {
@@ -298,6 +374,22 @@ type TrustedAdvisorResourcesSummary struct {
 	ResourcesSuppressed int64 `json:"resourcesSuppressed" xml:"resourcesSuppressed"`
 }
 
+type UploadProgress struct {
+	CompletedPartsCount int32 `json:"completedPartsCount" xml:"completedPartsCount"`
+	TotalParts          int32 `json:"totalParts" xml:"totalParts"`
+}
+
+type UploadRange struct {
+	EndIndex   int32 `json:"endIndex" xml:"endIndex"`
+	StartIndex int32 `json:"startIndex" xml:"startIndex"`
+}
+
+type UploadUrl struct {
+	ExpiryDate string `json:"expiryDate" xml:"expiryDate"`
+	PartIndex  int32  `json:"partIndex" xml:"partIndex"`
+	Url        string `json:"url" xml:"url"`
+}
+
 type AttachmentSet []*AttachmentDetails
 
 type Attachments []*Attachment
@@ -314,6 +406,8 @@ type CommunicationList []*Communication
 
 type CommunicationTypeOptionsList []*CommunicationTypeOptions
 
+type CompletedUploadList []*CompletedUpload
+
 type DatesWithoutSupportList []*DateInterval
 
 type ServiceCodeList []string
@@ -328,6 +422,8 @@ type SupportedHoursList []*SupportedHour
 
 type SupportedLanguagesList []*SupportedLanguage
 
+type ThrottlingReasonList []*ThrottlingReason
+
 type TrustedAdvisorCheckList []*TrustedAdvisorCheckDescription
 
 type TrustedAdvisorCheckRefreshStatusList []*TrustedAdvisorCheckRefreshStatus
@@ -335,3 +431,7 @@ type TrustedAdvisorCheckRefreshStatusList []*TrustedAdvisorCheckRefreshStatus
 type TrustedAdvisorCheckSummaryList []*TrustedAdvisorCheckSummary
 
 type TrustedAdvisorResourceDetailList []*TrustedAdvisorResourceDetail
+
+type UploadIds []string
+
+type UploadUrlList []*UploadUrl

@@ -19,6 +19,15 @@ type ArchivingOptions struct {
 	ArchiveArn string `json:"archiveArn" xml:"ArchiveArn"`
 }
 
+type AssociateEmailIdentityCertificateRequest struct {
+	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+	EmailIdentity  string `json:"emailIdentity" xml:"EmailIdentity"`
+	FromAddress    string `json:"fromAddress" xml:"FromAddress"`
+}
+
+type AssociateEmailIdentityCertificateResponse struct {
+}
+
 type Attachment struct {
 	ContentDescription      string `json:"contentDescription" xml:"ContentDescription"`
 	ContentDisposition      string `json:"contentDisposition" xml:"ContentDisposition"`
@@ -103,6 +112,10 @@ type Complaint struct {
 	ComplaintSubType      string `json:"complaintSubType" xml:"ComplaintSubType"`
 }
 
+type ConfigurationOverrides struct {
+	Tracking *TrackingConfigurationOverrides `json:"tracking" xml:"Tracking"`
+}
+
 type Contact struct {
 	EmailAddress            string              `json:"emailAddress" xml:"EmailAddress"`
 	LastUpdatedTimestamp    time.Time           `json:"lastUpdatedTimestamp" xml:"LastUpdatedTimestamp"`
@@ -136,15 +149,16 @@ type CreateConfigurationSetEventDestinationResponse struct {
 }
 
 type CreateConfigurationSetRequest struct {
-	ArchivingOptions     *ArchivingOptions   `json:"archivingOptions" xml:"ArchivingOptions"`
-	ConfigurationSetName string              `json:"configurationSetName" xml:"ConfigurationSetName"`
-	DeliveryOptions      *DeliveryOptions    `json:"deliveryOptions" xml:"DeliveryOptions"`
-	ReputationOptions    *ReputationOptions  `json:"reputationOptions" xml:"ReputationOptions"`
-	SendingOptions       *SendingOptions     `json:"sendingOptions" xml:"SendingOptions"`
-	SuppressionOptions   *SuppressionOptions `json:"suppressionOptions" xml:"SuppressionOptions"`
-	Tags                 TagList             `json:"tags" xml:"Tags"`
-	TrackingOptions      *TrackingOptions    `json:"trackingOptions" xml:"TrackingOptions"`
-	VdmOptions           *VdmOptions         `json:"vdmOptions" xml:"VdmOptions"`
+	ArchivingOptions       *ArchivingOptions       `json:"archivingOptions" xml:"ArchivingOptions"`
+	ConfigurationSetName   string                  `json:"configurationSetName" xml:"ConfigurationSetName"`
+	DeliveryOptions        *DeliveryOptions        `json:"deliveryOptions" xml:"DeliveryOptions"`
+	MessageSecurityOptions *MessageSecurityOptions `json:"messageSecurityOptions" xml:"MessageSecurityOptions"`
+	ReputationOptions      *ReputationOptions      `json:"reputationOptions" xml:"ReputationOptions"`
+	SendingOptions         *SendingOptions         `json:"sendingOptions" xml:"SendingOptions"`
+	SuppressionOptions     *SuppressionOptions     `json:"suppressionOptions" xml:"SuppressionOptions"`
+	Tags                   TagList                 `json:"tags" xml:"Tags"`
+	TrackingOptions        *TrackingOptions        `json:"trackingOptions" xml:"TrackingOptions"`
+	VdmOptions             *VdmOptions             `json:"vdmOptions" xml:"VdmOptions"`
 }
 
 type CreateConfigurationSetResponse struct {
@@ -266,8 +280,9 @@ type CreateMultiRegionEndpointResponse struct {
 }
 
 type CreateTenantRequest struct {
-	Tags       TagList `json:"tags" xml:"Tags"`
-	TenantName string  `json:"tenantName" xml:"TenantName"`
+	SuppressionAttributes *TenantSuppressionAttributes `json:"suppressionAttributes" xml:"SuppressionAttributes"`
+	Tags                  TagList                      `json:"tags" xml:"Tags"`
+	TenantName            string                       `json:"tenantName" xml:"TenantName"`
 }
 
 type CreateTenantResourceAssociationRequest struct {
@@ -279,12 +294,13 @@ type CreateTenantResourceAssociationResponse struct {
 }
 
 type CreateTenantResponse struct {
-	CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	SendingStatus    string    `json:"sendingStatus" xml:"SendingStatus"`
-	Tags             TagList   `json:"tags" xml:"Tags"`
-	TenantArn        string    `json:"tenantArn" xml:"TenantArn"`
-	TenantId         string    `json:"tenantId" xml:"TenantId"`
-	TenantName       string    `json:"tenantName" xml:"TenantName"`
+	CreatedTimestamp      time.Time                    `json:"createdTimestamp" xml:"CreatedTimestamp"`
+	SendingStatus         string                       `json:"sendingStatus" xml:"SendingStatus"`
+	SuppressionAttributes *TenantSuppressionAttributes `json:"suppressionAttributes" xml:"SuppressionAttributes"`
+	Tags                  TagList                      `json:"tags" xml:"Tags"`
+	TenantArn             string                       `json:"tenantArn" xml:"TenantArn"`
+	TenantId              string                       `json:"tenantId" xml:"TenantId"`
+	TenantName            string                       `json:"tenantName" xml:"TenantName"`
 }
 
 type CustomVerificationEmailTemplateMetadata struct {
@@ -319,6 +335,9 @@ type DedicatedIp struct {
 type DedicatedIpPool struct {
 	PoolName    string `json:"poolName" xml:"PoolName"`
 	ScalingMode string `json:"scalingMode" xml:"ScalingMode"`
+}
+
+type DefaultSigningScheme struct {
 }
 
 type DeleteConfigurationSetEventDestinationRequest struct {
@@ -397,6 +416,7 @@ type DeleteMultiRegionEndpointResponse struct {
 
 type DeleteSuppressedDestinationRequest struct {
 	EmailAddress string `json:"emailAddress" xml:"EmailAddress"`
+	TenantName   string `json:"tenantName" xml:"TenantName"`
 }
 
 type DeleteSuppressedDestinationResponse struct {
@@ -440,6 +460,14 @@ type Destination struct {
 
 type Details struct {
 	RoutesDetails RoutesDetails `json:"routesDetails" xml:"RoutesDetails"`
+}
+
+type DisassociateEmailIdentityCertificateRequest struct {
+	EmailIdentity string `json:"emailIdentity" xml:"EmailIdentity"`
+	FromAddress   string `json:"fromAddress" xml:"FromAddress"`
+}
+
+type DisassociateEmailIdentityCertificateResponse struct {
 }
 
 type DkimAttributes struct {
@@ -597,6 +625,7 @@ type GetAccountResponse struct {
 	DedicatedIpAutoWarmupEnabled bool                   `json:"dedicatedIpAutoWarmupEnabled" xml:"DedicatedIpAutoWarmupEnabled"`
 	Details                      *AccountDetails        `json:"details" xml:"Details"`
 	EnforcementStatus            string                 `json:"enforcementStatus" xml:"EnforcementStatus"`
+	PricingAttributes            *PricingAttributes     `json:"pricingAttributes" xml:"PricingAttributes"`
 	ProductionAccessEnabled      bool                   `json:"productionAccessEnabled" xml:"ProductionAccessEnabled"`
 	SendQuota                    *SendQuota             `json:"sendQuota" xml:"SendQuota"`
 	SendingEnabled               bool                   `json:"sendingEnabled" xml:"SendingEnabled"`
@@ -625,15 +654,16 @@ type GetConfigurationSetRequest struct {
 }
 
 type GetConfigurationSetResponse struct {
-	ArchivingOptions     *ArchivingOptions   `json:"archivingOptions" xml:"ArchivingOptions"`
-	ConfigurationSetName string              `json:"configurationSetName" xml:"ConfigurationSetName"`
-	DeliveryOptions      *DeliveryOptions    `json:"deliveryOptions" xml:"DeliveryOptions"`
-	ReputationOptions    *ReputationOptions  `json:"reputationOptions" xml:"ReputationOptions"`
-	SendingOptions       *SendingOptions     `json:"sendingOptions" xml:"SendingOptions"`
-	SuppressionOptions   *SuppressionOptions `json:"suppressionOptions" xml:"SuppressionOptions"`
-	Tags                 TagList             `json:"tags" xml:"Tags"`
-	TrackingOptions      *TrackingOptions    `json:"trackingOptions" xml:"TrackingOptions"`
-	VdmOptions           *VdmOptions         `json:"vdmOptions" xml:"VdmOptions"`
+	ArchivingOptions       *ArchivingOptions       `json:"archivingOptions" xml:"ArchivingOptions"`
+	ConfigurationSetName   string                  `json:"configurationSetName" xml:"ConfigurationSetName"`
+	DeliveryOptions        *DeliveryOptions        `json:"deliveryOptions" xml:"DeliveryOptions"`
+	MessageSecurityOptions *MessageSecurityOptions `json:"messageSecurityOptions" xml:"MessageSecurityOptions"`
+	ReputationOptions      *ReputationOptions      `json:"reputationOptions" xml:"ReputationOptions"`
+	SendingOptions         *SendingOptions         `json:"sendingOptions" xml:"SendingOptions"`
+	SuppressionOptions     *SuppressionOptions     `json:"suppressionOptions" xml:"SuppressionOptions"`
+	Tags                   TagList                 `json:"tags" xml:"Tags"`
+	TrackingOptions        *TrackingOptions        `json:"trackingOptions" xml:"TrackingOptions"`
+	VdmOptions             *VdmOptions             `json:"vdmOptions" xml:"VdmOptions"`
 }
 
 type GetContactListRequest struct {
@@ -859,6 +889,7 @@ type GetReputationEntityResponse struct {
 
 type GetSuppressedDestinationRequest struct {
 	EmailAddress string `json:"emailAddress" xml:"EmailAddress"`
+	TenantName   string `json:"tenantName" xml:"TenantName"`
 }
 
 type GetSuppressedDestinationResponse struct {
@@ -879,6 +910,13 @@ type GuardianAttributes struct {
 
 type GuardianOptions struct {
 	OptimizedSharedDelivery string `json:"optimizedSharedDelivery" xml:"OptimizedSharedDelivery"`
+}
+
+type IdentityCertificate struct {
+	CertificateArn        string    `json:"certificateArn" xml:"CertificateArn"`
+	CertificateExpiryTime time.Time `json:"certificateExpiryTime" xml:"CertificateExpiryTime"`
+	FromAddress           string    `json:"fromAddress" xml:"FromAddress"`
+	Status                string    `json:"status" xml:"Status"`
 }
 
 type IdentityInfo struct {
@@ -1018,6 +1056,17 @@ type ListEmailIdentitiesResponse struct {
 	NextToken       string           `json:"nextToken" xml:"NextToken"`
 }
 
+type ListEmailIdentityCertificatesRequest struct {
+	EmailIdentity string `json:"emailIdentity" xml:"EmailIdentity"`
+	NextToken     string `json:"nextToken" xml:"NextToken"`
+	PageSize      int32  `json:"pageSize" xml:"PageSize"`
+}
+
+type ListEmailIdentityCertificatesResponse struct {
+	Certificates IdentityCertificateList `json:"certificates" xml:"Certificates"`
+	NextToken    string                  `json:"nextToken" xml:"NextToken"`
+}
+
 type ListEmailTemplatesRequest struct {
 	NextToken string `json:"nextToken" xml:"NextToken"`
 	PageSize  int32  `json:"pageSize" xml:"PageSize"`
@@ -1100,11 +1149,12 @@ type ListResourceTenantsResponse struct {
 }
 
 type ListSuppressedDestinationsRequest struct {
-	EndDate   time.Time              `json:"endDate" xml:"EndDate"`
-	NextToken string                 `json:"nextToken" xml:"NextToken"`
-	PageSize  int32                  `json:"pageSize" xml:"PageSize"`
-	Reasons   SuppressionListReasons `json:"reasons" xml:"Reasons"`
-	StartDate time.Time              `json:"startDate" xml:"StartDate"`
+	EndDate    time.Time              `json:"endDate" xml:"EndDate"`
+	NextToken  string                 `json:"nextToken" xml:"NextToken"`
+	PageSize   int32                  `json:"pageSize" xml:"PageSize"`
+	Reasons    SuppressionListReasons `json:"reasons" xml:"Reasons"`
+	StartDate  time.Time              `json:"startDate" xml:"StartDate"`
+	TenantName string                 `json:"tenantName" xml:"TenantName"`
 }
 
 type ListSuppressedDestinationsResponse struct {
@@ -1182,6 +1232,10 @@ type MessageInsightsFilters struct {
 	Subject             EmailSubjectFilterList  `json:"subject" xml:"Subject"`
 }
 
+type MessageSecurityOptions struct {
+	SigningScheme interface{} `json:"signingScheme" xml:"SigningScheme"`
+}
+
 type MessageTag struct {
 	Name  string `json:"name" xml:"Name"`
 	Value string `json:"value" xml:"Value"`
@@ -1234,6 +1288,11 @@ type PlacementStatistics struct {
 	SpfPercentage     float64 `json:"spfPercentage" xml:"SpfPercentage"`
 }
 
+type PricingAttributes struct {
+	CurrentPlan string `json:"currentPlan" xml:"CurrentPlan"`
+	NextPlan    string `json:"nextPlan" xml:"NextPlan"`
+}
+
 type PutAccountDedicatedIpWarmupAttributesRequest struct {
 	AutoWarmupEnabled bool `json:"autoWarmupEnabled" xml:"AutoWarmupEnabled"`
 }
@@ -1251,6 +1310,13 @@ type PutAccountDetailsRequest struct {
 }
 
 type PutAccountDetailsResponse struct {
+}
+
+type PutAccountPricingAttributesRequest struct {
+	Plan string `json:"plan" xml:"Plan"`
+}
+
+type PutAccountPricingAttributesResponse struct {
 }
 
 type PutAccountSendingAttributesRequest struct {
@@ -1312,6 +1378,7 @@ type PutConfigurationSetSendingOptionsResponse struct {
 type PutConfigurationSetSuppressionOptionsRequest struct {
 	ConfigurationSetName string                        `json:"configurationSetName" xml:"ConfigurationSetName"`
 	SuppressedReasons    SuppressionListReasons        `json:"suppressedReasons" xml:"SuppressedReasons"`
+	SuppressionScope     string                        `json:"suppressionScope" xml:"SuppressionScope"`
 	ValidationOptions    *SuppressionValidationOptions `json:"validationOptions" xml:"ValidationOptions"`
 }
 
@@ -1415,9 +1482,19 @@ type PutEmailIdentityMailFromAttributesResponse struct {
 type PutSuppressedDestinationRequest struct {
 	EmailAddress string `json:"emailAddress" xml:"EmailAddress"`
 	Reason       string `json:"reason" xml:"Reason"`
+	TenantName   string `json:"tenantName" xml:"TenantName"`
 }
 
 type PutSuppressedDestinationResponse struct {
+}
+
+type PutTenantSuppressionAttributesRequest struct {
+	SuppressedReasons SuppressionListReasons `json:"suppressedReasons" xml:"SuppressedReasons"`
+	SuppressionScope  string                 `json:"suppressionScope" xml:"SuppressionScope"`
+	TenantName        string                 `json:"tenantName" xml:"TenantName"`
+}
+
+type PutTenantSuppressionAttributesResponse struct {
 }
 
 type RawMessage struct {
@@ -1484,17 +1561,18 @@ type SOARecord struct {
 }
 
 type SendBulkEmailRequest struct {
-	BulkEmailEntries                          BulkEmailEntryList `json:"bulkEmailEntries" xml:"BulkEmailEntries"`
-	ConfigurationSetName                      string             `json:"configurationSetName" xml:"ConfigurationSetName"`
-	DefaultContent                            *BulkEmailContent  `json:"defaultContent" xml:"DefaultContent"`
-	DefaultEmailTags                          MessageTagList     `json:"defaultEmailTags" xml:"DefaultEmailTags"`
-	EndpointId                                string             `json:"endpointId" xml:"EndpointId"`
-	FeedbackForwardingEmailAddress            string             `json:"feedbackForwardingEmailAddress" xml:"FeedbackForwardingEmailAddress"`
-	FeedbackForwardingEmailAddressIdentityArn string             `json:"feedbackForwardingEmailAddressIdentityArn" xml:"FeedbackForwardingEmailAddressIdentityArn"`
-	FromEmailAddress                          string             `json:"fromEmailAddress" xml:"FromEmailAddress"`
-	FromEmailAddressIdentityArn               string             `json:"fromEmailAddressIdentityArn" xml:"FromEmailAddressIdentityArn"`
-	ReplyToAddresses                          EmailAddressList   `json:"replyToAddresses" xml:"ReplyToAddresses"`
-	TenantName                                string             `json:"tenantName" xml:"TenantName"`
+	BulkEmailEntries                          BulkEmailEntryList      `json:"bulkEmailEntries" xml:"BulkEmailEntries"`
+	ConfigurationOverrides                    *ConfigurationOverrides `json:"configurationOverrides" xml:"ConfigurationOverrides"`
+	ConfigurationSetName                      string                  `json:"configurationSetName" xml:"ConfigurationSetName"`
+	DefaultContent                            *BulkEmailContent       `json:"defaultContent" xml:"DefaultContent"`
+	DefaultEmailTags                          MessageTagList          `json:"defaultEmailTags" xml:"DefaultEmailTags"`
+	EndpointId                                string                  `json:"endpointId" xml:"EndpointId"`
+	FeedbackForwardingEmailAddress            string                  `json:"feedbackForwardingEmailAddress" xml:"FeedbackForwardingEmailAddress"`
+	FeedbackForwardingEmailAddressIdentityArn string                  `json:"feedbackForwardingEmailAddressIdentityArn" xml:"FeedbackForwardingEmailAddressIdentityArn"`
+	FromEmailAddress                          string                  `json:"fromEmailAddress" xml:"FromEmailAddress"`
+	FromEmailAddressIdentityArn               string                  `json:"fromEmailAddressIdentityArn" xml:"FromEmailAddressIdentityArn"`
+	ReplyToAddresses                          EmailAddressList        `json:"replyToAddresses" xml:"ReplyToAddresses"`
+	TenantName                                string                  `json:"tenantName" xml:"TenantName"`
 }
 
 type SendBulkEmailResponse struct {
@@ -1512,18 +1590,19 @@ type SendCustomVerificationEmailResponse struct {
 }
 
 type SendEmailRequest struct {
-	ConfigurationSetName                      string                 `json:"configurationSetName" xml:"ConfigurationSetName"`
-	Content                                   *EmailContent          `json:"content" xml:"Content"`
-	Destination                               *Destination           `json:"destination" xml:"Destination"`
-	EmailTags                                 MessageTagList         `json:"emailTags" xml:"EmailTags"`
-	EndpointId                                string                 `json:"endpointId" xml:"EndpointId"`
-	FeedbackForwardingEmailAddress            string                 `json:"feedbackForwardingEmailAddress" xml:"FeedbackForwardingEmailAddress"`
-	FeedbackForwardingEmailAddressIdentityArn string                 `json:"feedbackForwardingEmailAddressIdentityArn" xml:"FeedbackForwardingEmailAddressIdentityArn"`
-	FromEmailAddress                          string                 `json:"fromEmailAddress" xml:"FromEmailAddress"`
-	FromEmailAddressIdentityArn               string                 `json:"fromEmailAddressIdentityArn" xml:"FromEmailAddressIdentityArn"`
-	ListManagementOptions                     *ListManagementOptions `json:"listManagementOptions" xml:"ListManagementOptions"`
-	ReplyToAddresses                          EmailAddressList       `json:"replyToAddresses" xml:"ReplyToAddresses"`
-	TenantName                                string                 `json:"tenantName" xml:"TenantName"`
+	ConfigurationOverrides                    *ConfigurationOverrides `json:"configurationOverrides" xml:"ConfigurationOverrides"`
+	ConfigurationSetName                      string                  `json:"configurationSetName" xml:"ConfigurationSetName"`
+	Content                                   *EmailContent           `json:"content" xml:"Content"`
+	Destination                               *Destination            `json:"destination" xml:"Destination"`
+	EmailTags                                 MessageTagList          `json:"emailTags" xml:"EmailTags"`
+	EndpointId                                string                  `json:"endpointId" xml:"EndpointId"`
+	FeedbackForwardingEmailAddress            string                  `json:"feedbackForwardingEmailAddress" xml:"FeedbackForwardingEmailAddress"`
+	FeedbackForwardingEmailAddressIdentityArn string                  `json:"feedbackForwardingEmailAddressIdentityArn" xml:"FeedbackForwardingEmailAddressIdentityArn"`
+	FromEmailAddress                          string                  `json:"fromEmailAddress" xml:"FromEmailAddress"`
+	FromEmailAddressIdentityArn               string                  `json:"fromEmailAddressIdentityArn" xml:"FromEmailAddressIdentityArn"`
+	ListManagementOptions                     *ListManagementOptions  `json:"listManagementOptions" xml:"ListManagementOptions"`
+	ReplyToAddresses                          EmailAddressList        `json:"replyToAddresses" xml:"ReplyToAddresses"`
+	TenantName                                string                  `json:"tenantName" xml:"TenantName"`
 }
 
 type SendEmailResponse struct {
@@ -1538,6 +1617,10 @@ type SendQuota struct {
 
 type SendingOptions struct {
 	SendingEnabled bool `json:"sendingEnabled" xml:"SendingEnabled"`
+}
+
+type SmimeSigningScheme struct {
+	SignatureFormat string `json:"signatureFormat" xml:"SignatureFormat"`
 }
 
 type SnsDestination struct {
@@ -1555,6 +1638,7 @@ type SuppressedDestination struct {
 	EmailAddress   string                           `json:"emailAddress" xml:"EmailAddress"`
 	LastUpdateTime time.Time                        `json:"lastUpdateTime" xml:"LastUpdateTime"`
 	Reason         string                           `json:"reason" xml:"Reason"`
+	TenantName     string                           `json:"tenantName" xml:"TenantName"`
 }
 
 type SuppressedDestinationAttributes struct {
@@ -1588,6 +1672,7 @@ type SuppressionListDestination struct {
 
 type SuppressionOptions struct {
 	SuppressedReasons SuppressionListReasons        `json:"suppressedReasons" xml:"SuppressedReasons"`
+	SuppressionScope  string                        `json:"suppressionScope" xml:"SuppressionScope"`
 	ValidationOptions *SuppressionValidationOptions `json:"validationOptions" xml:"ValidationOptions"`
 }
 
@@ -1622,12 +1707,13 @@ type Template struct {
 }
 
 type Tenant struct {
-	CreatedTimestamp time.Time `json:"createdTimestamp" xml:"CreatedTimestamp"`
-	SendingStatus    string    `json:"sendingStatus" xml:"SendingStatus"`
-	Tags             TagList   `json:"tags" xml:"Tags"`
-	TenantArn        string    `json:"tenantArn" xml:"TenantArn"`
-	TenantId         string    `json:"tenantId" xml:"TenantId"`
-	TenantName       string    `json:"tenantName" xml:"TenantName"`
+	CreatedTimestamp      time.Time                    `json:"createdTimestamp" xml:"CreatedTimestamp"`
+	SendingStatus         string                       `json:"sendingStatus" xml:"SendingStatus"`
+	SuppressionAttributes *TenantSuppressionAttributes `json:"suppressionAttributes" xml:"SuppressionAttributes"`
+	Tags                  TagList                      `json:"tags" xml:"Tags"`
+	TenantArn             string                       `json:"tenantArn" xml:"TenantArn"`
+	TenantId              string                       `json:"tenantId" xml:"TenantId"`
+	TenantName            string                       `json:"tenantName" xml:"TenantName"`
 }
 
 type TenantInfo struct {
@@ -1640,6 +1726,11 @@ type TenantInfo struct {
 type TenantResource struct {
 	ResourceArn  string `json:"resourceArn" xml:"ResourceArn"`
 	ResourceType string `json:"resourceType" xml:"ResourceType"`
+}
+
+type TenantSuppressionAttributes struct {
+	SuppressedReasons SuppressionListReasons `json:"suppressedReasons" xml:"SuppressedReasons"`
+	SuppressionScope  string                 `json:"suppressionScope" xml:"SuppressionScope"`
 }
 
 type TestRenderEmailTemplateRequest struct {
@@ -1668,6 +1759,11 @@ type TopicPreference struct {
 	TopicName          string `json:"topicName" xml:"TopicName"`
 }
 
+type TrackingConfigurationOverrides struct {
+	ClickTrackingEnabled string `json:"clickTrackingEnabled" xml:"ClickTrackingEnabled"`
+	OpenTrackingEnabled  string `json:"openTrackingEnabled" xml:"OpenTrackingEnabled"`
+}
+
 type TrackingOptions struct {
 	CustomRedirectDomain string `json:"customRedirectDomain" xml:"CustomRedirectDomain"`
 	HttpsPolicy          string `json:"httpsPolicy" xml:"HttpsPolicy"`
@@ -1688,6 +1784,14 @@ type UpdateConfigurationSetEventDestinationRequest struct {
 }
 
 type UpdateConfigurationSetEventDestinationResponse struct {
+}
+
+type UpdateConfigurationSetRequest struct {
+	ConfigurationSetName   string                  `json:"configurationSetName" xml:"ConfigurationSetName"`
+	MessageSecurityOptions *MessageSecurityOptions `json:"messageSecurityOptions" xml:"MessageSecurityOptions"`
+}
+
+type UpdateConfigurationSetResponse struct {
 }
 
 type UpdateContactListRequest struct {
@@ -1838,6 +1942,8 @@ type ExportJobSummaryList []*ExportJobSummary
 
 type ExportMetrics []*ExportMetric
 
+type IdentityCertificateList []*IdentityCertificate
+
 type IdentityInfoList []*IdentityInfo
 
 type ImportJobSummaryList []*ImportJobSummary
@@ -1917,3 +2023,5 @@ type ListTenantResourcesFilter map[string]string
 type PolicyMap map[string]string
 
 type ReputationEntityFilter map[string]string
+
+type SigningScheme interface{}

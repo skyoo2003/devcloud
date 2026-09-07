@@ -57,6 +57,7 @@ type ClusterPendingModifiedValues struct {
 	EngineVersion                    string                        `json:"engineVersion" xml:"EngineVersion"`
 	IAMDatabaseAuthenticationEnabled bool                          `json:"iAMDatabaseAuthenticationEnabled" xml:"IAMDatabaseAuthenticationEnabled"`
 	Iops                             int32                         `json:"iops" xml:"Iops"`
+	NetworkType                      string                        `json:"networkType" xml:"NetworkType"`
 	PendingCloudwatchLogsExports     *PendingCloudwatchLogsExports `json:"pendingCloudwatchLogsExports" xml:"PendingCloudwatchLogsExports"`
 	StorageType                      string                        `json:"storageType" xml:"StorageType"`
 }
@@ -136,6 +137,7 @@ type CreateDBClusterMessage struct {
 	KmsKeyId                         string                            `json:"kmsKeyId" xml:"KmsKeyId"`
 	MasterUserPassword               string                            `json:"masterUserPassword" xml:"MasterUserPassword"`
 	MasterUsername                   string                            `json:"masterUsername" xml:"MasterUsername"`
+	NetworkType                      string                            `json:"networkType" xml:"NetworkType"`
 	OptionGroupName                  string                            `json:"optionGroupName" xml:"OptionGroupName"`
 	Port                             int32                             `json:"port" xml:"Port"`
 	PreSignedUrl                     string                            `json:"preSignedUrl" xml:"PreSignedUrl"`
@@ -308,6 +310,7 @@ type DBCluster struct {
 	LatestRestorableTime                   time.Time                             `json:"latestRestorableTime" xml:"LatestRestorableTime"`
 	MasterUsername                         string                                `json:"masterUsername" xml:"MasterUsername"`
 	MultiAZ                                bool                                  `json:"multiAZ" xml:"MultiAZ"`
+	NetworkType                            string                                `json:"networkType" xml:"NetworkType"`
 	PendingModifiedValues                  *ClusterPendingModifiedValues         `json:"pendingModifiedValues" xml:"PendingModifiedValues"`
 	PercentProgress                        string                                `json:"percentProgress" xml:"PercentProgress"`
 	Port                                   int32                                 `json:"port" xml:"Port"`
@@ -481,6 +484,7 @@ type DBInstance struct {
 	MonitoringInterval                    int32                               `json:"monitoringInterval" xml:"MonitoringInterval"`
 	MonitoringRoleArn                     string                              `json:"monitoringRoleArn" xml:"MonitoringRoleArn"`
 	MultiAZ                               bool                                `json:"multiAZ" xml:"MultiAZ"`
+	NetworkType                           string                              `json:"networkType" xml:"NetworkType"`
 	OptionGroupMemberships                OptionGroupMembershipList           `json:"optionGroupMemberships" xml:"OptionGroupMemberships"`
 	PendingModifiedValues                 *PendingModifiedValues              `json:"pendingModifiedValues" xml:"PendingModifiedValues"`
 	PerformanceInsightsEnabled            bool                                `json:"performanceInsightsEnabled" xml:"PerformanceInsightsEnabled"`
@@ -550,6 +554,7 @@ type DBSubnetGroup struct {
 	DBSubnetGroupName        string     `json:"dBSubnetGroupName" xml:"DBSubnetGroupName"`
 	SubnetGroupStatus        string     `json:"subnetGroupStatus" xml:"SubnetGroupStatus"`
 	Subnets                  SubnetList `json:"subnets" xml:"Subnets"`
+	SupportedNetworkTypes    StringList `json:"supportedNetworkTypes" xml:"SupportedNetworkTypes"`
 	VpcId                    string     `json:"vpcId" xml:"VpcId"`
 }
 
@@ -960,6 +965,7 @@ type ModifyDBClusterMessage struct {
 	EnableIAMDatabaseAuthentication   bool                               `json:"enableIAMDatabaseAuthentication" xml:"EnableIAMDatabaseAuthentication"`
 	EngineVersion                     string                             `json:"engineVersion" xml:"EngineVersion"`
 	MasterUserPassword                string                             `json:"masterUserPassword" xml:"MasterUserPassword"`
+	NetworkType                       string                             `json:"networkType" xml:"NetworkType"`
 	NewDBClusterIdentifier            string                             `json:"newDBClusterIdentifier" xml:"NewDBClusterIdentifier"`
 	OptionGroupName                   string                             `json:"optionGroupName" xml:"OptionGroupName"`
 	Port                              int32                              `json:"port" xml:"Port"`
@@ -1093,6 +1099,7 @@ type OrderableDBInstanceOption struct {
 	MultiAZCapable                    bool                 `json:"multiAZCapable" xml:"MultiAZCapable"`
 	ReadReplicaCapable                bool                 `json:"readReplicaCapable" xml:"ReadReplicaCapable"`
 	StorageType                       string               `json:"storageType" xml:"StorageType"`
+	SupportedNetworkTypes             StringList           `json:"supportedNetworkTypes" xml:"SupportedNetworkTypes"`
 	SupportsEnhancedMonitoring        bool                 `json:"supportsEnhancedMonitoring" xml:"SupportsEnhancedMonitoring"`
 	SupportsGlobalDatabases           bool                 `json:"supportsGlobalDatabases" xml:"SupportsGlobalDatabases"`
 	SupportsIAMDatabaseAuthentication bool                 `json:"supportsIAMDatabaseAuthentication" xml:"SupportsIAMDatabaseAuthentication"`
@@ -1238,6 +1245,7 @@ type RestoreDBClusterFromSnapshotMessage struct {
 	Engine                           string                            `json:"engine" xml:"Engine"`
 	EngineVersion                    string                            `json:"engineVersion" xml:"EngineVersion"`
 	KmsKeyId                         string                            `json:"kmsKeyId" xml:"KmsKeyId"`
+	NetworkType                      string                            `json:"networkType" xml:"NetworkType"`
 	OptionGroupName                  string                            `json:"optionGroupName" xml:"OptionGroupName"`
 	Port                             int32                             `json:"port" xml:"Port"`
 	ServerlessV2ScalingConfiguration *ServerlessV2ScalingConfiguration `json:"serverlessV2ScalingConfiguration" xml:"ServerlessV2ScalingConfiguration"`
@@ -1259,6 +1267,7 @@ type RestoreDBClusterToPointInTimeMessage struct {
 	EnableCloudwatchLogsExports      LogTypeList                       `json:"enableCloudwatchLogsExports" xml:"EnableCloudwatchLogsExports"`
 	EnableIAMDatabaseAuthentication  bool                              `json:"enableIAMDatabaseAuthentication" xml:"EnableIAMDatabaseAuthentication"`
 	KmsKeyId                         string                            `json:"kmsKeyId" xml:"KmsKeyId"`
+	NetworkType                      string                            `json:"networkType" xml:"NetworkType"`
 	OptionGroupName                  string                            `json:"optionGroupName" xml:"OptionGroupName"`
 	Port                             int32                             `json:"port" xml:"Port"`
 	RestoreToTime                    time.Time                         `json:"restoreToTime" xml:"RestoreToTime"`

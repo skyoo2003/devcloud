@@ -37,7 +37,8 @@ type Activity struct {
 }
 
 type ActivityType struct {
-	Activity *Activity `json:"activity" xml:"Activity"`
+	Activities Activities `json:"activities" xml:"Activities"`
+	Activity   *Activity  `json:"activity" xml:"Activity"`
 }
 
 type AdjustmentType struct {
@@ -87,6 +88,7 @@ type AutoScalingGroup struct {
 	AutoScalingGroupARN              string                            `json:"autoScalingGroupARN" xml:"AutoScalingGroupARN"`
 	AutoScalingGroupName             string                            `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
 	AvailabilityZoneDistribution     *AvailabilityZoneDistribution     `json:"availabilityZoneDistribution" xml:"AvailabilityZoneDistribution"`
+	AvailabilityZoneIds              AvailabilityZoneIds               `json:"availabilityZoneIds" xml:"AvailabilityZoneIds"`
 	AvailabilityZoneImpairmentPolicy *AvailabilityZoneImpairmentPolicy `json:"availabilityZoneImpairmentPolicy" xml:"AvailabilityZoneImpairmentPolicy"`
 	AvailabilityZones                AvailabilityZones                 `json:"availabilityZones" xml:"AvailabilityZones"`
 	CapacityRebalance                bool                              `json:"capacityRebalance" xml:"CapacityRebalance"`
@@ -112,6 +114,7 @@ type AutoScalingGroup struct {
 	MinSize                          int32                             `json:"minSize" xml:"MinSize"`
 	MixedInstancesPolicy             *MixedInstancesPolicy             `json:"mixedInstancesPolicy" xml:"MixedInstancesPolicy"`
 	NewInstancesProtectedFromScaleIn bool                              `json:"newInstancesProtectedFromScaleIn" xml:"NewInstancesProtectedFromScaleIn"`
+	Operator                         *Operator                         `json:"operator" xml:"Operator"`
 	PlacementGroup                   string                            `json:"placementGroup" xml:"PlacementGroup"`
 	PredictedCapacity                int32                             `json:"predictedCapacity" xml:"PredictedCapacity"`
 	ServiceLinkedRoleARN             string                            `json:"serviceLinkedRoleARN" xml:"ServiceLinkedRoleARN"`
@@ -142,6 +145,7 @@ type AutoScalingGroupsType struct {
 type AutoScalingInstanceDetails struct {
 	AutoScalingGroupName    string                       `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
 	AvailabilityZone        string                       `json:"availabilityZone" xml:"AvailabilityZone"`
+	AvailabilityZoneId      string                       `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
 	HealthStatus            string                       `json:"healthStatus" xml:"HealthStatus"`
 	ImageId                 string                       `json:"imageId" xml:"ImageId"`
 	InstanceId              string                       `json:"instanceId" xml:"InstanceId"`
@@ -243,6 +247,7 @@ type CpuPerformanceFactorRequest struct {
 type CreateAutoScalingGroupType struct {
 	AutoScalingGroupName             string                            `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
 	AvailabilityZoneDistribution     *AvailabilityZoneDistribution     `json:"availabilityZoneDistribution" xml:"AvailabilityZoneDistribution"`
+	AvailabilityZoneIds              AvailabilityZoneIds               `json:"availabilityZoneIds" xml:"AvailabilityZoneIds"`
 	AvailabilityZoneImpairmentPolicy *AvailabilityZoneImpairmentPolicy `json:"availabilityZoneImpairmentPolicy" xml:"AvailabilityZoneImpairmentPolicy"`
 	AvailabilityZones                AvailabilityZones                 `json:"availabilityZones" xml:"AvailabilityZones"`
 	CapacityRebalance                bool                              `json:"capacityRebalance" xml:"CapacityRebalance"`
@@ -267,6 +272,7 @@ type CreateAutoScalingGroupType struct {
 	MinSize                          int32                             `json:"minSize" xml:"MinSize"`
 	MixedInstancesPolicy             *MixedInstancesPolicy             `json:"mixedInstancesPolicy" xml:"MixedInstancesPolicy"`
 	NewInstancesProtectedFromScaleIn bool                              `json:"newInstancesProtectedFromScaleIn" xml:"NewInstancesProtectedFromScaleIn"`
+	Operator                         *Operator                         `json:"operator" xml:"Operator"`
 	PlacementGroup                   string                            `json:"placementGroup" xml:"PlacementGroup"`
 	ServiceLinkedRoleARN             string                            `json:"serviceLinkedRoleARN" xml:"ServiceLinkedRoleARN"`
 	SkipZonalShiftValidation         bool                              `json:"skipZonalShiftValidation" xml:"SkipZonalShiftValidation"`
@@ -541,6 +547,10 @@ type DisableMetricsCollectionQuery struct {
 	Metrics              Metrics `json:"metrics" xml:"Metrics"`
 }
 
+type DistributionSegment struct {
+	TargetCapacityTypes TargetCapacityTypes `json:"targetCapacityTypes" xml:"TargetCapacityTypes"`
+}
+
 type Ebs struct {
 	DeleteOnTermination bool   `json:"deleteOnTermination" xml:"DeleteOnTermination"`
 	Encrypted           bool   `json:"encrypted" xml:"Encrypted"`
@@ -615,6 +625,7 @@ type GetPredictiveScalingForecastType struct {
 
 type Instance struct {
 	AvailabilityZone        string                       `json:"availabilityZone" xml:"AvailabilityZone"`
+	AvailabilityZoneId      string                       `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
 	HealthStatus            string                       `json:"healthStatus" xml:"HealthStatus"`
 	ImageId                 string                       `json:"imageId" xml:"ImageId"`
 	InstanceId              string                       `json:"instanceId" xml:"InstanceId"`
@@ -718,12 +729,13 @@ type InstanceReusePolicy struct {
 }
 
 type InstancesDistribution struct {
-	OnDemandAllocationStrategy          string `json:"onDemandAllocationStrategy" xml:"OnDemandAllocationStrategy"`
-	OnDemandBaseCapacity                int32  `json:"onDemandBaseCapacity" xml:"OnDemandBaseCapacity"`
-	OnDemandPercentageAboveBaseCapacity int32  `json:"onDemandPercentageAboveBaseCapacity" xml:"OnDemandPercentageAboveBaseCapacity"`
-	SpotAllocationStrategy              string `json:"spotAllocationStrategy" xml:"SpotAllocationStrategy"`
-	SpotInstancePools                   int32  `json:"spotInstancePools" xml:"SpotInstancePools"`
-	SpotMaxPrice                        string `json:"spotMaxPrice" xml:"SpotMaxPrice"`
+	DistributionSegments                DistributionSegments `json:"distributionSegments" xml:"DistributionSegments"`
+	OnDemandAllocationStrategy          string               `json:"onDemandAllocationStrategy" xml:"OnDemandAllocationStrategy"`
+	OnDemandBaseCapacity                int32                `json:"onDemandBaseCapacity" xml:"OnDemandBaseCapacity"`
+	OnDemandPercentageAboveBaseCapacity int32                `json:"onDemandPercentageAboveBaseCapacity" xml:"OnDemandPercentageAboveBaseCapacity"`
+	SpotAllocationStrategy              string               `json:"spotAllocationStrategy" xml:"SpotAllocationStrategy"`
+	SpotInstancePools                   int32                `json:"spotInstancePools" xml:"SpotInstancePools"`
+	SpotMaxPrice                        string               `json:"spotMaxPrice" xml:"SpotMaxPrice"`
 }
 
 type LaunchConfiguration struct {
@@ -910,6 +922,10 @@ type NotificationConfiguration struct {
 	AutoScalingGroupName string `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
 	NotificationType     string `json:"notificationType" xml:"NotificationType"`
 	TopicARN             string `json:"topicARN" xml:"TopicARN"`
+}
+
+type Operator struct {
+	Principal string `json:"principal" xml:"Principal"`
 }
 
 type PerformanceFactorReferenceRequest struct {
@@ -1234,8 +1250,10 @@ type TargetTrackingMetricStat struct {
 }
 
 type TerminateInstanceInAutoScalingGroupType struct {
-	InstanceId                     string `json:"instanceId" xml:"InstanceId"`
-	ShouldDecrementDesiredCapacity bool   `json:"shouldDecrementDesiredCapacity" xml:"ShouldDecrementDesiredCapacity"`
+	AutoScalingGroupName           string                 `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
+	InstanceId                     string                 `json:"instanceId" xml:"InstanceId"`
+	InstanceIds                    TerminationInstanceIds `json:"instanceIds" xml:"InstanceIds"`
+	ShouldDecrementDesiredCapacity bool                   `json:"shouldDecrementDesiredCapacity" xml:"ShouldDecrementDesiredCapacity"`
 }
 
 type TotalLocalStorageGBRequest struct {
@@ -1258,6 +1276,7 @@ type TrafficSourceState struct {
 type UpdateAutoScalingGroupType struct {
 	AutoScalingGroupName             string                            `json:"autoScalingGroupName" xml:"AutoScalingGroupName"`
 	AvailabilityZoneDistribution     *AvailabilityZoneDistribution     `json:"availabilityZoneDistribution" xml:"AvailabilityZoneDistribution"`
+	AvailabilityZoneIds              AvailabilityZoneIds               `json:"availabilityZoneIds" xml:"AvailabilityZoneIds"`
 	AvailabilityZoneImpairmentPolicy *AvailabilityZoneImpairmentPolicy `json:"availabilityZoneImpairmentPolicy" xml:"AvailabilityZoneImpairmentPolicy"`
 	AvailabilityZones                AvailabilityZones                 `json:"availabilityZones" xml:"AvailabilityZones"`
 	CapacityRebalance                bool                              `json:"capacityRebalance" xml:"CapacityRebalance"`
@@ -1325,6 +1344,8 @@ type AutoScalingInstances []*AutoScalingInstanceDetails
 
 type AutoScalingNotificationTypes []string
 
+type AvailabilityZoneIds []string
+
 type AvailabilityZoneIdsLimit1 []string
 
 type AvailabilityZones []string
@@ -1342,6 +1363,8 @@ type CheckpointPercentages []int32
 type ClassicLinkVPCSecurityGroups []string
 
 type CpuManufacturers []string
+
+type DistributionSegments []*DistributionSegment
 
 type EnabledMetrics []*EnabledMetric
 
@@ -1435,9 +1458,13 @@ type TagDescriptionList []*TagDescription
 
 type Tags []*Tag
 
+type TargetCapacityTypes []string
+
 type TargetGroupARNs []string
 
 type TargetTrackingMetricDataQueries []*TargetTrackingMetricDataQuery
+
+type TerminationInstanceIds []string
 
 type TerminationPolicies []string
 

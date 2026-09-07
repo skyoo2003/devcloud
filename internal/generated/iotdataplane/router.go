@@ -14,11 +14,14 @@ type OperationRoute = httproute.Route
 var OperationRoutes = []OperationRoute{
 	{Method: "DELETE", Pattern: "/connections/{clientId}", Operation: "DeleteConnection"},
 	{Method: "DELETE", Pattern: "/things/{thingName}/shadow", Operation: "DeleteThingShadow"},
+	{Method: "GET", Pattern: "/connections/{clientId}", Operation: "GetConnection"},
 	{Method: "GET", Pattern: "/retainedMessage/{topic}", Operation: "GetRetainedMessage"},
 	{Method: "GET", Pattern: "/things/{thingName}/shadow", Operation: "GetThingShadow"},
 	{Method: "GET", Pattern: "/api/things/shadow/ListNamedShadowsForThing/{thingName}", Operation: "ListNamedShadowsForThing"},
 	{Method: "GET", Pattern: "/retainedMessage", Operation: "ListRetainedMessages"},
+	{Method: "GET", Pattern: "/connections/{clientId}/subscriptions", Operation: "ListSubscriptions"},
 	{Method: "POST", Pattern: "/topics/{topic}", Operation: "Publish"},
+	{Method: "POST", Pattern: "/connections/{clientId}/messages", Operation: "SendDirectMessage"},
 	{Method: "POST", Pattern: "/things/{thingName}/shadow", Operation: "UpdateThingShadow"},
 }
 

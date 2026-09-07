@@ -110,6 +110,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "DescribePendingMaintenanceActions"},
 	{Method: "", Pattern: "", Operation: "DescribeReservedDBInstances"},
 	{Method: "", Pattern: "", Operation: "DescribeReservedDBInstancesOfferings"},
+	{Method: "", Pattern: "", Operation: "DescribeServerlessV2PlatformVersions"},
 	{Method: "", Pattern: "", Operation: "DescribeSourceRegions"},
 	{Method: "", Pattern: "", Operation: "DescribeTenantDatabases"},
 	{Method: "", Pattern: "", Operation: "DescribeValidDBInstanceModifications"},

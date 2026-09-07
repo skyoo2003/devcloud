@@ -17,6 +17,28 @@ type DeleteThingShadowResponse struct {
 	Payload []byte `json:"payload" xml:"payload"`
 }
 
+type GetConnectionRequest struct {
+	ClientId                 string `json:"clientId" xml:"clientId"`
+	IncludeSocketInformation bool   `json:"includeSocketInformation" xml:"includeSocketInformation"`
+}
+
+type GetConnectionResponse struct {
+	CleanSession      bool   `json:"cleanSession" xml:"cleanSession"`
+	ClientId          string `json:"clientId" xml:"clientId"`
+	Connected         bool   `json:"connected" xml:"connected"`
+	ConnectedSince    int64  `json:"connectedSince" xml:"connectedSince"`
+	DisconnectReason  string `json:"disconnectReason" xml:"disconnectReason"`
+	DisconnectedSince int64  `json:"disconnectedSince" xml:"disconnectedSince"`
+	KeepAliveDuration int32  `json:"keepAliveDuration" xml:"keepAliveDuration"`
+	SessionExpiry     int64  `json:"sessionExpiry" xml:"sessionExpiry"`
+	SourceIp          string `json:"sourceIp" xml:"sourceIp"`
+	SourcePort        int32  `json:"sourcePort" xml:"sourcePort"`
+	TargetIp          string `json:"targetIp" xml:"targetIp"`
+	TargetPort        int32  `json:"targetPort" xml:"targetPort"`
+	ThingName         string `json:"thingName" xml:"thingName"`
+	VpcEndpointId     string `json:"vpcEndpointId" xml:"vpcEndpointId"`
+}
+
 type GetRetainedMessageRequest struct {
 	Topic string `json:"topic" xml:"topic"`
 }
@@ -60,6 +82,17 @@ type ListRetainedMessagesResponse struct {
 	RetainedTopics RetainedMessageList `json:"retainedTopics" xml:"retainedTopics"`
 }
 
+type ListSubscriptionsRequest struct {
+	ClientId   string `json:"clientId" xml:"clientId"`
+	MaxResults int32  `json:"maxResults" xml:"maxResults"`
+	NextToken  string `json:"nextToken" xml:"nextToken"`
+}
+
+type ListSubscriptionsResponse struct {
+	NextToken     string           `json:"nextToken" xml:"nextToken"`
+	Subscriptions SubscriptionList `json:"subscriptions" xml:"subscriptions"`
+}
+
 type PublishRequest struct {
 	ContentType            string `json:"contentType" xml:"contentType"`
 	CorrelationData        string `json:"correlationData" xml:"correlationData"`
@@ -80,7 +113,30 @@ type RetainedMessageSummary struct {
 	Topic            string `json:"topic" xml:"topic"`
 }
 
+type SendDirectMessageRequest struct {
+	ClientId               string `json:"clientId" xml:"clientId"`
+	Confirmation           bool   `json:"confirmation" xml:"confirmation"`
+	ContentType            string `json:"contentType" xml:"contentType"`
+	CorrelationData        string `json:"correlationData" xml:"correlationData"`
+	Payload                []byte `json:"payload" xml:"payload"`
+	PayloadFormatIndicator string `json:"payloadFormatIndicator" xml:"payloadFormatIndicator"`
+	ResponseTopic          string `json:"responseTopic" xml:"responseTopic"`
+	Timeout                int32  `json:"timeout" xml:"timeout"`
+	Topic                  string `json:"topic" xml:"topic"`
+	UserProperties         string `json:"userProperties" xml:"userProperties"`
+}
+
+type SendDirectMessageResponse struct {
+	Message string `json:"message" xml:"message"`
+	TraceId string `json:"traceId" xml:"traceId"`
+}
+
 type SmithyUnit struct {
+}
+
+type SubscriptionSummary struct {
+	Qos         int32  `json:"qos" xml:"qos"`
+	TopicFilter string `json:"topicFilter" xml:"topicFilter"`
 }
 
 type UpdateThingShadowRequest struct {
@@ -96,3 +152,5 @@ type UpdateThingShadowResponse struct {
 type NamedShadowList []string
 
 type RetainedMessageList []*RetainedMessageSummary
+
+type SubscriptionList []*SubscriptionSummary

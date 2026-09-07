@@ -11,6 +11,10 @@ var ErrNotImplemented = fmt.Errorf("operation not implemented")
 
 type BaseProvider struct{}
 
+func (b *BaseProvider) ActivateCertificateAuthority(ctx context.Context, input *ActivateCertificateAuthorityRequest) (*ActivateCertificateAuthorityResponse, error) {
+	return nil, fmt.Errorf("ActivateCertificateAuthority: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) AssociateAccessPolicy(ctx context.Context, input *AssociateAccessPolicyRequest) (*AssociateAccessPolicyResponse, error) {
 	return nil, fmt.Errorf("AssociateAccessPolicy: %w", ErrNotImplemented)
 }
@@ -23,6 +27,10 @@ func (b *BaseProvider) AssociateIdentityProviderConfig(ctx context.Context, inpu
 	return nil, fmt.Errorf("AssociateIdentityProviderConfig: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CancelUpdate(ctx context.Context, input *CancelUpdateRequest) (*CancelUpdateResponse, error) {
+	return nil, fmt.Errorf("CancelUpdate: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateAccessEntry(ctx context.Context, input *CreateAccessEntryRequest) (*CreateAccessEntryResponse, error) {
 	return nil, fmt.Errorf("CreateAccessEntry: %w", ErrNotImplemented)
 }
@@ -33,6 +41,10 @@ func (b *BaseProvider) CreateAddon(ctx context.Context, input *CreateAddonReques
 
 func (b *BaseProvider) CreateCapability(ctx context.Context, input *CreateCapabilityRequest) (*CreateCapabilityResponse, error) {
 	return nil, fmt.Errorf("CreateCapability: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateCertificateAuthority(ctx context.Context, input *CreateCertificateAuthorityRequest) (*CreateCertificateAuthorityResponse, error) {
+	return nil, fmt.Errorf("CreateCertificateAuthority: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) CreateCluster(ctx context.Context, input *CreateClusterRequest) (*CreateClusterResponse, error) {
@@ -65,6 +77,10 @@ func (b *BaseProvider) DeleteAddon(ctx context.Context, input *DeleteAddonReques
 
 func (b *BaseProvider) DeleteCapability(ctx context.Context, input *DeleteCapabilityRequest) (*DeleteCapabilityResponse, error) {
 	return nil, fmt.Errorf("DeleteCapability: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteCertificateAuthority(ctx context.Context, input *DeleteCertificateAuthorityRequest) (*DeleteCertificateAuthorityResponse, error) {
+	return nil, fmt.Errorf("DeleteCertificateAuthority: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteCluster(ctx context.Context, input *DeleteClusterRequest) (*DeleteClusterResponse, error) {
@@ -109,6 +125,10 @@ func (b *BaseProvider) DescribeAddonVersions(ctx context.Context, input *Describ
 
 func (b *BaseProvider) DescribeCapability(ctx context.Context, input *DescribeCapabilityRequest) (*DescribeCapabilityResponse, error) {
 	return nil, fmt.Errorf("DescribeCapability: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeCertificateAuthority(ctx context.Context, input *DescribeCertificateAuthorityRequest) (*DescribeCertificateAuthorityResponse, error) {
+	return nil, fmt.Errorf("DescribeCertificateAuthority: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeCluster(ctx context.Context, input *DescribeClusterRequest) (*DescribeClusterResponse, error) {
@@ -177,6 +197,10 @@ func (b *BaseProvider) ListAssociatedAccessPolicies(ctx context.Context, input *
 
 func (b *BaseProvider) ListCapabilities(ctx context.Context, input *ListCapabilitiesRequest) (*ListCapabilitiesResponse, error) {
 	return nil, fmt.Errorf("ListCapabilities: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListCertificateAuthorities(ctx context.Context, input *ListCertificateAuthoritiesRequest) (*ListCertificateAuthoritiesResponse, error) {
+	return nil, fmt.Errorf("ListCertificateAuthorities: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListClusters(ctx context.Context, input *ListClustersRequest) (*ListClustersResponse, error) {

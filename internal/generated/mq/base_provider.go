@@ -63,6 +63,10 @@ func (b *BaseProvider) DescribeConfigurationRevision(ctx context.Context, input 
 	return nil, fmt.Errorf("DescribeConfigurationRevision: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DescribeSharedResources(ctx context.Context, input *DescribeSharedResourcesRequest) (*DescribeSharedResourcesResponse, error) {
+	return nil, fmt.Errorf("DescribeSharedResources: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DescribeUser(ctx context.Context, input *DescribeUserRequest) (*DescribeUserResponse, error) {
 	return nil, fmt.Errorf("DescribeUser: %w", ErrNotImplemented)
 }

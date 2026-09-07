@@ -132,8 +132,10 @@ type CreateChangeSetInput struct {
 	ChangeSetName           string                 `json:"changeSetName" xml:"ChangeSetName"`
 	ChangeSetType           string                 `json:"changeSetType" xml:"ChangeSetType"`
 	ClientToken             string                 `json:"clientToken" xml:"ClientToken"`
+	DeploymentConfig        *DeploymentConfig      `json:"deploymentConfig" xml:"DeploymentConfig"`
 	DeploymentMode          string                 `json:"deploymentMode" xml:"DeploymentMode"`
 	Description             string                 `json:"description" xml:"Description"`
+	DisableValidation       bool                   `json:"disableValidation" xml:"DisableValidation"`
 	ImportExistingResources bool                   `json:"importExistingResources" xml:"ImportExistingResources"`
 	IncludeNestedStacks     bool                   `json:"includeNestedStacks" xml:"IncludeNestedStacks"`
 	NotificationARNs        NotificationARNs       `json:"notificationARNs" xml:"NotificationARNs"`
@@ -169,7 +171,9 @@ type CreateGeneratedTemplateOutput struct {
 type CreateStackInput struct {
 	Capabilities                Capabilities           `json:"capabilities" xml:"Capabilities"`
 	ClientRequestToken          string                 `json:"clientRequestToken" xml:"ClientRequestToken"`
+	DeploymentConfig            *DeploymentConfig      `json:"deploymentConfig" xml:"DeploymentConfig"`
 	DisableRollback             bool                   `json:"disableRollback" xml:"DisableRollback"`
+	DisableValidation           bool                   `json:"disableValidation" xml:"DisableValidation"`
 	EnableTerminationProtection bool                   `json:"enableTerminationProtection" xml:"EnableTerminationProtection"`
 	NotificationARNs            NotificationARNs       `json:"notificationARNs" xml:"NotificationARNs"`
 	OnFailure                   string                 `json:"onFailure" xml:"OnFailure"`
@@ -268,11 +272,12 @@ type DeleteGeneratedTemplateInput struct {
 }
 
 type DeleteStackInput struct {
-	ClientRequestToken string          `json:"clientRequestToken" xml:"ClientRequestToken"`
-	DeletionMode       string          `json:"deletionMode" xml:"DeletionMode"`
-	RetainResources    RetainResources `json:"retainResources" xml:"RetainResources"`
-	RoleARN            string          `json:"roleARN" xml:"RoleARN"`
-	StackName          string          `json:"stackName" xml:"StackName"`
+	ClientRequestToken string            `json:"clientRequestToken" xml:"ClientRequestToken"`
+	DeletionMode       string            `json:"deletionMode" xml:"DeletionMode"`
+	DeploymentConfig   *DeploymentConfig `json:"deploymentConfig" xml:"DeploymentConfig"`
+	RetainResources    RetainResources   `json:"retainResources" xml:"RetainResources"`
+	RoleARN            string            `json:"roleARN" xml:"RoleARN"`
+	StackName          string            `json:"stackName" xml:"StackName"`
 }
 
 type DeleteStackInstancesInput struct {
@@ -296,6 +301,11 @@ type DeleteStackSetInput struct {
 }
 
 type DeleteStackSetOutput struct {
+}
+
+type DeploymentConfig struct {
+	DisableRollback bool   `json:"disableRollback" xml:"DisableRollback"`
+	Mode            string `json:"mode" xml:"Mode"`
 }
 
 type DeploymentTargets struct {
@@ -354,6 +364,7 @@ type DescribeChangeSetOutput struct {
 	ChangeSetName           string                 `json:"changeSetName" xml:"ChangeSetName"`
 	Changes                 Changes                `json:"changes" xml:"Changes"`
 	CreationTime            time.Time              `json:"creationTime" xml:"CreationTime"`
+	DeploymentConfig        *DeploymentConfig      `json:"deploymentConfig" xml:"DeploymentConfig"`
 	DeploymentMode          string                 `json:"deploymentMode" xml:"DeploymentMode"`
 	Description             string                 `json:"description" xml:"Description"`
 	ExecutionStatus         string                 `json:"executionStatus" xml:"ExecutionStatus"`
@@ -1279,10 +1290,11 @@ type RollbackConfiguration struct {
 }
 
 type RollbackStackInput struct {
-	ClientRequestToken   string `json:"clientRequestToken" xml:"ClientRequestToken"`
-	RetainExceptOnCreate bool   `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
-	RoleARN              string `json:"roleARN" xml:"RoleARN"`
-	StackName            string `json:"stackName" xml:"StackName"`
+	ClientRequestToken   string            `json:"clientRequestToken" xml:"ClientRequestToken"`
+	DeploymentConfig     *DeploymentConfig `json:"deploymentConfig" xml:"DeploymentConfig"`
+	RetainExceptOnCreate bool              `json:"retainExceptOnCreate" xml:"RetainExceptOnCreate"`
+	RoleARN              string            `json:"roleARN" xml:"RoleARN"`
+	StackName            string            `json:"stackName" xml:"StackName"`
 }
 
 type RollbackStackOutput struct {
@@ -1354,6 +1366,7 @@ type Stack struct {
 	CreationTime                time.Time              `json:"creationTime" xml:"CreationTime"`
 	DeletionMode                string                 `json:"deletionMode" xml:"DeletionMode"`
 	DeletionTime                time.Time              `json:"deletionTime" xml:"DeletionTime"`
+	DeploymentConfig            *DeploymentConfig      `json:"deploymentConfig" xml:"DeploymentConfig"`
 	Description                 string                 `json:"description" xml:"Description"`
 	DetailedStatus              string                 `json:"detailedStatus" xml:"DetailedStatus"`
 	DisableRollback             bool                   `json:"disableRollback" xml:"DisableRollback"`
@@ -1800,7 +1813,9 @@ type UpdateGeneratedTemplateOutput struct {
 type UpdateStackInput struct {
 	Capabilities                Capabilities           `json:"capabilities" xml:"Capabilities"`
 	ClientRequestToken          string                 `json:"clientRequestToken" xml:"ClientRequestToken"`
+	DeploymentConfig            *DeploymentConfig      `json:"deploymentConfig" xml:"DeploymentConfig"`
 	DisableRollback             bool                   `json:"disableRollback" xml:"DisableRollback"`
+	DisableValidation           bool                   `json:"disableValidation" xml:"DisableValidation"`
 	NotificationARNs            NotificationARNs       `json:"notificationARNs" xml:"NotificationARNs"`
 	Parameters                  Parameters             `json:"parameters" xml:"Parameters"`
 	ResourceTypes               ResourceTypes          `json:"resourceTypes" xml:"ResourceTypes"`

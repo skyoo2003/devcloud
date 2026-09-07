@@ -42,6 +42,10 @@ type Attribute struct {
 	Value      string `json:"value" xml:"value"`
 }
 
+type AutoRepairConfiguration struct {
+	ActionsStatus string `json:"actionsStatus" xml:"actionsStatus"`
+}
+
 type AutoScalingGroupProvider struct {
 	AutoScalingGroupArn          string          `json:"autoScalingGroupArn" xml:"autoScalingGroupArn"`
 	ManagedDraining              string          `json:"managedDraining" xml:"managedDraining"`
@@ -147,6 +151,7 @@ type Container struct {
 	Name              string            `json:"name" xml:"name"`
 	NetworkBindings   NetworkBindings   `json:"networkBindings" xml:"networkBindings"`
 	NetworkInterfaces NetworkInterfaces `json:"networkInterfaces" xml:"networkInterfaces"`
+	NeuronDeviceIds   NeuronDeviceIds   `json:"neuronDeviceIds" xml:"neuronDeviceIds"`
 	Reason            string            `json:"reason" xml:"reason"`
 	RuntimeId         string            `json:"runtimeId" xml:"runtimeId"`
 	TaskArn           string            `json:"taskArn" xml:"taskArn"`
@@ -261,6 +266,16 @@ type ContainerStateChange struct {
 	Status          string          `json:"status" xml:"status"`
 }
 
+type ContinueServiceDeploymentRequest struct {
+	Action               string `json:"action" xml:"action"`
+	HookId               string `json:"hookId" xml:"hookId"`
+	ServiceDeploymentArn string `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
+}
+
+type ContinueServiceDeploymentResponse struct {
+	ServiceDeploymentArn string `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
+}
+
 type CreateCapacityProviderRequest struct {
 	AutoScalingGroupProvider *AutoScalingGroupProvider                    `json:"autoScalingGroupProvider" xml:"autoScalingGroupProvider"`
 	Cluster                  string                                       `json:"cluster" xml:"cluster"`
@@ -291,6 +306,7 @@ type CreateDaemonRequest struct {
 	CapacityProviderArns    StringList                     `json:"capacityProviderArns" xml:"capacityProviderArns"`
 	ClientToken             string                         `json:"clientToken" xml:"clientToken"`
 	ClusterArn              string                         `json:"clusterArn" xml:"clusterArn"`
+	Critical                bool                           `json:"critical" xml:"critical"`
 	DaemonName              string                         `json:"daemonName" xml:"daemonName"`
 	DaemonTaskDefinitionArn string                         `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
 	DeploymentConfiguration *DaemonDeploymentConfiguration `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
@@ -319,6 +335,7 @@ type CreateExpressGatewayServiceRequest struct {
 	ScalingTarget         *ExpressGatewayScalingTarget               `json:"scalingTarget" xml:"scalingTarget"`
 	ServiceName           string                                     `json:"serviceName" xml:"serviceName"`
 	Tags                  Tags                                       `json:"tags" xml:"tags"`
+	TaskDefinitionArn     string                                     `json:"taskDefinitionArn" xml:"taskDefinitionArn"`
 	TaskRoleArn           string                                     `json:"taskRoleArn" xml:"taskRoleArn"`
 }
 
@@ -327,6 +344,7 @@ type CreateExpressGatewayServiceResponse struct {
 }
 
 type CreateManagedInstancesProviderConfiguration struct {
+	AutoRepairConfiguration    *AutoRepairConfiguration    `json:"autoRepairConfiguration" xml:"autoRepairConfiguration"`
 	InfrastructureOptimization *InfrastructureOptimization `json:"infrastructureOptimization" xml:"infrastructureOptimization"`
 	InfrastructureRoleArn      string                      `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
 	InstanceLaunchTemplate     *InstanceLaunchTemplate     `json:"instanceLaunchTemplate" xml:"instanceLaunchTemplate"`
@@ -346,6 +364,7 @@ type CreateServiceRequest struct {
 	HealthCheckGracePeriodSeconds int32                        `json:"healthCheckGracePeriodSeconds" xml:"healthCheckGracePeriodSeconds"`
 	LaunchType                    string                       `json:"launchType" xml:"launchType"`
 	LoadBalancers                 LoadBalancers                `json:"loadBalancers" xml:"loadBalancers"`
+	Monitoring                    *MonitoringConfiguration     `json:"monitoring" xml:"monitoring"`
 	NetworkConfiguration          *NetworkConfiguration        `json:"networkConfiguration" xml:"networkConfiguration"`
 	PlacementConstraints          PlacementConstraints         `json:"placementConstraints" xml:"placementConstraints"`
 	PlacementStrategy             PlacementStrategies          `json:"placementStrategy" xml:"placementStrategy"`
@@ -397,8 +416,9 @@ type DaemonAlarmConfiguration struct {
 }
 
 type DaemonCapacityProvider struct {
-	Arn          string `json:"arn" xml:"arn"`
-	RunningCount int32  `json:"runningCount" xml:"runningCount"`
+	Arn                string `json:"arn" xml:"arn"`
+	RunningCount       int32  `json:"runningCount" xml:"runningCount"`
+	WithoutDaemonCount int32  `json:"withoutDaemonCount" xml:"withoutDaemonCount"`
 }
 
 type DaemonCircuitBreaker struct {
@@ -469,9 +489,10 @@ type DaemonDeploymentAlarms struct {
 }
 
 type DaemonDeploymentCapacityProvider struct {
-	Arn                   string `json:"arn" xml:"arn"`
-	DrainingInstanceCount int32  `json:"drainingInstanceCount" xml:"drainingInstanceCount"`
-	RunningInstanceCount  int32  `json:"runningInstanceCount" xml:"runningInstanceCount"`
+	Arn                        string `json:"arn" xml:"arn"`
+	DrainingInstanceCount      int32  `json:"drainingInstanceCount" xml:"drainingInstanceCount"`
+	RunningInstanceCount       int32  `json:"runningInstanceCount" xml:"runningInstanceCount"`
+	WithoutDaemonInstanceCount int32  `json:"withoutDaemonInstanceCount" xml:"withoutDaemonInstanceCount"`
 }
 
 type DaemonDeploymentConfiguration struct {
@@ -481,10 +502,11 @@ type DaemonDeploymentConfiguration struct {
 }
 
 type DaemonDeploymentRevisionDetail struct {
-	Arn                        string                               `json:"arn" xml:"arn"`
-	CapacityProviders          DaemonDeploymentCapacityProviderList `json:"capacityProviders" xml:"capacityProviders"`
-	TotalDrainingInstanceCount int32                                `json:"totalDrainingInstanceCount" xml:"totalDrainingInstanceCount"`
-	TotalRunningInstanceCount  int32                                `json:"totalRunningInstanceCount" xml:"totalRunningInstanceCount"`
+	Arn                             string                               `json:"arn" xml:"arn"`
+	CapacityProviders               DaemonDeploymentCapacityProviderList `json:"capacityProviders" xml:"capacityProviders"`
+	TotalDrainingInstanceCount      int32                                `json:"totalDrainingInstanceCount" xml:"totalDrainingInstanceCount"`
+	TotalRunningInstanceCount       int32                                `json:"totalRunningInstanceCount" xml:"totalRunningInstanceCount"`
+	TotalWithoutDaemonInstanceCount int32                                `json:"totalWithoutDaemonInstanceCount" xml:"totalWithoutDaemonInstanceCount"`
 }
 
 type DaemonDeploymentSummary struct {
@@ -521,6 +543,7 @@ type DaemonRevision struct {
 	ClusterArn              string                `json:"clusterArn" xml:"clusterArn"`
 	ContainerImages         DaemonContainerImages `json:"containerImages" xml:"containerImages"`
 	CreatedAt               time.Time             `json:"createdAt" xml:"createdAt"`
+	Critical                bool                  `json:"critical" xml:"critical"`
 	DaemonArn               string                `json:"daemonArn" xml:"daemonArn"`
 	DaemonRevisionArn       string                `json:"daemonRevisionArn" xml:"daemonRevisionArn"`
 	DaemonTaskDefinitionArn string                `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
@@ -530,9 +553,10 @@ type DaemonRevision struct {
 }
 
 type DaemonRevisionDetail struct {
-	Arn               string                     `json:"arn" xml:"arn"`
-	CapacityProviders DaemonCapacityProviderList `json:"capacityProviders" xml:"capacityProviders"`
-	TotalRunningCount int32                      `json:"totalRunningCount" xml:"totalRunningCount"`
+	Arn                     string                     `json:"arn" xml:"arn"`
+	CapacityProviders       DaemonCapacityProviderList `json:"capacityProviders" xml:"capacityProviders"`
+	TotalRunningCount       int32                      `json:"totalRunningCount" xml:"totalRunningCount"`
+	TotalWithoutDaemonCount int32                      `json:"totalWithoutDaemonCount" xml:"totalWithoutDaemonCount"`
 }
 
 type DaemonRollback struct {
@@ -556,7 +580,9 @@ type DaemonTaskDefinition struct {
 	DeleteRequestedAt       time.Time                     `json:"deleteRequestedAt" xml:"deleteRequestedAt"`
 	ExecutionRoleArn        string                        `json:"executionRoleArn" xml:"executionRoleArn"`
 	Family                  string                        `json:"family" xml:"family"`
+	IpcMode                 string                        `json:"ipcMode" xml:"ipcMode"`
 	Memory                  string                        `json:"memory" xml:"memory"`
+	PidMode                 string                        `json:"pidMode" xml:"pidMode"`
 	RegisteredAt            time.Time                     `json:"registeredAt" xml:"registeredAt"`
 	RegisteredBy            string                        `json:"registeredBy" xml:"registeredBy"`
 	Revision                int32                         `json:"revision" xml:"revision"`
@@ -702,24 +728,33 @@ type DeploymentAlarms struct {
 }
 
 type DeploymentCircuitBreaker struct {
-	Enable   bool `json:"enable" xml:"enable"`
-	Rollback bool `json:"rollback" xml:"rollback"`
+	Enable                 bool                    `json:"enable" xml:"enable"`
+	ResetOnHealthyTask     bool                    `json:"resetOnHealthyTask" xml:"resetOnHealthyTask"`
+	Rollback               bool                    `json:"rollback" xml:"rollback"`
+	ThresholdConfiguration *ThresholdConfiguration `json:"thresholdConfiguration" xml:"thresholdConfiguration"`
 }
 
 type DeploymentConfiguration struct {
-	Alarms                   *DeploymentAlarms           `json:"alarms" xml:"alarms"`
-	BakeTimeInMinutes        int32                       `json:"bakeTimeInMinutes" xml:"bakeTimeInMinutes"`
-	CanaryConfiguration      *CanaryConfiguration        `json:"canaryConfiguration" xml:"canaryConfiguration"`
-	DeploymentCircuitBreaker *DeploymentCircuitBreaker   `json:"deploymentCircuitBreaker" xml:"deploymentCircuitBreaker"`
-	LifecycleHooks           DeploymentLifecycleHookList `json:"lifecycleHooks" xml:"lifecycleHooks"`
-	LinearConfiguration      *LinearConfiguration        `json:"linearConfiguration" xml:"linearConfiguration"`
-	MaximumPercent           int32                       `json:"maximumPercent" xml:"maximumPercent"`
-	MinimumHealthyPercent    int32                       `json:"minimumHealthyPercent" xml:"minimumHealthyPercent"`
-	Strategy                 string                      `json:"strategy" xml:"strategy"`
+	Alarms                   *DeploymentAlarms               `json:"alarms" xml:"alarms"`
+	BakeTimeInMinutes        int32                           `json:"bakeTimeInMinutes" xml:"bakeTimeInMinutes"`
+	CanaryConfiguration      *CanaryConfiguration            `json:"canaryConfiguration" xml:"canaryConfiguration"`
+	DeploymentCircuitBreaker *DeploymentCircuitBreaker       `json:"deploymentCircuitBreaker" xml:"deploymentCircuitBreaker"`
+	EarlySuccessCriteria     *DeploymentEarlySuccessCriteria `json:"earlySuccessCriteria" xml:"earlySuccessCriteria"`
+	LifecycleHooks           DeploymentLifecycleHookList     `json:"lifecycleHooks" xml:"lifecycleHooks"`
+	LinearConfiguration      *LinearConfiguration            `json:"linearConfiguration" xml:"linearConfiguration"`
+	MaximumPercent           int32                           `json:"maximumPercent" xml:"maximumPercent"`
+	MinimumHealthyPercent    int32                           `json:"minimumHealthyPercent" xml:"minimumHealthyPercent"`
+	Strategy                 string                          `json:"strategy" xml:"strategy"`
 }
 
 type DeploymentController struct {
 	Type string `json:"type" xml:"type"`
+}
+
+type DeploymentEarlySuccessCriteria struct {
+	Enable                       bool   `json:"enable" xml:"enable"`
+	HealthyPercent               int32  `json:"healthyPercent" xml:"healthyPercent"`
+	SourceServiceRevisionCleanup string `json:"sourceServiceRevisionCleanup" xml:"sourceServiceRevisionCleanup"`
 }
 
 type DeploymentEphemeralStorage struct {
@@ -727,10 +762,26 @@ type DeploymentEphemeralStorage struct {
 }
 
 type DeploymentLifecycleHook struct {
-	HookDetails     interface{}                      `json:"hookDetails" xml:"hookDetails"`
-	HookTargetArn   string                           `json:"hookTargetArn" xml:"hookTargetArn"`
-	LifecycleStages DeploymentLifecycleHookStageList `json:"lifecycleStages" xml:"lifecycleStages"`
-	RoleArn         string                           `json:"roleArn" xml:"roleArn"`
+	HookDetails          interface{}                                  `json:"hookDetails" xml:"hookDetails"`
+	HookTargetArn        string                                       `json:"hookTargetArn" xml:"hookTargetArn"`
+	LifecycleStages      DeploymentLifecycleHookStageList             `json:"lifecycleStages" xml:"lifecycleStages"`
+	RoleArn              string                                       `json:"roleArn" xml:"roleArn"`
+	TargetType           string                                       `json:"targetType" xml:"targetType"`
+	TimeoutConfiguration *DeploymentLifecycleHookTimeoutConfiguration `json:"timeoutConfiguration" xml:"timeoutConfiguration"`
+}
+
+type DeploymentLifecycleHookDetail struct {
+	ExpiresAt     time.Time `json:"expiresAt" xml:"expiresAt"`
+	HookId        string    `json:"hookId" xml:"hookId"`
+	Status        string    `json:"status" xml:"status"`
+	TargetArn     string    `json:"targetArn" xml:"targetArn"`
+	TargetType    string    `json:"targetType" xml:"targetType"`
+	TimeoutAction string    `json:"timeoutAction" xml:"timeoutAction"`
+}
+
+type DeploymentLifecycleHookTimeoutConfiguration struct {
+	Action           string `json:"action" xml:"action"`
+	TimeoutInMinutes int32  `json:"timeoutInMinutes" xml:"timeoutInMinutes"`
 }
 
 type DeregisterContainerInstanceRequest struct {
@@ -1033,6 +1084,7 @@ type ExpressGatewayServiceConfiguration struct {
 	PrimaryContainer     *ExpressGatewayContainer                   `json:"primaryContainer" xml:"primaryContainer"`
 	ScalingTarget        *ExpressGatewayScalingTarget               `json:"scalingTarget" xml:"scalingTarget"`
 	ServiceRevisionArn   string                                     `json:"serviceRevisionArn" xml:"serviceRevisionArn"`
+	TaskDefinitionArn    string                                     `json:"taskDefinitionArn" xml:"taskDefinitionArn"`
 	TaskRoleArn          string                                     `json:"taskRoleArn" xml:"taskRoleArn"`
 }
 
@@ -1118,6 +1170,7 @@ type InstanceHealthCheckResult struct {
 	LastStatusChange time.Time `json:"lastStatusChange" xml:"lastStatusChange"`
 	LastUpdated      time.Time `json:"lastUpdated" xml:"lastUpdated"`
 	Status           string    `json:"status" xml:"status"`
+	StatusReason     string    `json:"statusReason" xml:"statusReason"`
 	Type             string    `json:"type" xml:"type"`
 }
 
@@ -1450,6 +1503,7 @@ type ManagedInstancesNetworkConfiguration struct {
 }
 
 type ManagedInstancesProvider struct {
+	AutoRepairConfiguration    *AutoRepairConfiguration    `json:"autoRepairConfiguration" xml:"autoRepairConfiguration"`
 	InfrastructureOptimization *InfrastructureOptimization `json:"infrastructureOptimization" xml:"infrastructureOptimization"`
 	InfrastructureRoleArn      string                      `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
 	InstanceLaunchTemplate     *InstanceLaunchTemplate     `json:"instanceLaunchTemplate" xml:"instanceLaunchTemplate"`
@@ -1546,6 +1600,15 @@ type MemoryGiBPerVCpuRequest struct {
 type MemoryMiBRequest struct {
 	Max int32 `json:"max" xml:"max"`
 	Min int32 `json:"min" xml:"min"`
+}
+
+type MetricConfiguration struct {
+	MetricNames       MetricNamesList `json:"metricNames" xml:"metricNames"`
+	ResolutionSeconds int32           `json:"resolutionSeconds" xml:"resolutionSeconds"`
+}
+
+type MonitoringConfiguration struct {
+	MetricConfigurations MetricConfigurationList `json:"metricConfigurations" xml:"metricConfigurations"`
 }
 
 type MountPoint struct {
@@ -1678,7 +1741,9 @@ type RegisterDaemonTaskDefinitionRequest struct {
 	Cpu                  string                        `json:"cpu" xml:"cpu"`
 	ExecutionRoleArn     string                        `json:"executionRoleArn" xml:"executionRoleArn"`
 	Family               string                        `json:"family" xml:"family"`
+	IpcMode              string                        `json:"ipcMode" xml:"ipcMode"`
 	Memory               string                        `json:"memory" xml:"memory"`
+	PidMode              string                        `json:"pidMode" xml:"pidMode"`
 	Tags                 Tags                          `json:"tags" xml:"tags"`
 	TaskRoleArn          string                        `json:"taskRoleArn" xml:"taskRoleArn"`
 	Volumes              DaemonVolumeList              `json:"volumes" xml:"volumes"`
@@ -1772,6 +1837,17 @@ type RunTaskResponse struct {
 type RuntimePlatform struct {
 	CpuArchitecture       string `json:"cpuArchitecture" xml:"cpuArchitecture"`
 	OperatingSystemFamily string `json:"operatingSystemFamily" xml:"operatingSystemFamily"`
+}
+
+type RuntimePlatformOverride struct {
+	CpuArchitecture string `json:"cpuArchitecture" xml:"cpuArchitecture"`
+}
+
+type S3FilesVolumeConfiguration struct {
+	AccessPointArn        string `json:"accessPointArn" xml:"accessPointArn"`
+	FileSystemArn         string `json:"fileSystemArn" xml:"fileSystemArn"`
+	RootDirectory         string `json:"rootDirectory" xml:"rootDirectory"`
+	TransitEncryptionPort int32  `json:"transitEncryptionPort" xml:"transitEncryptionPort"`
 }
 
 type Scale struct {
@@ -1886,23 +1962,24 @@ type ServiceCurrentRevisionSummary struct {
 }
 
 type ServiceDeployment struct {
-	Alarms                   *ServiceDeploymentAlarms         `json:"alarms" xml:"alarms"`
-	ClusterArn               string                           `json:"clusterArn" xml:"clusterArn"`
-	CreatedAt                time.Time                        `json:"createdAt" xml:"createdAt"`
-	DeploymentCircuitBreaker *ServiceDeploymentCircuitBreaker `json:"deploymentCircuitBreaker" xml:"deploymentCircuitBreaker"`
-	DeploymentConfiguration  *DeploymentConfiguration         `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
-	FinishedAt               time.Time                        `json:"finishedAt" xml:"finishedAt"`
-	LifecycleStage           string                           `json:"lifecycleStage" xml:"lifecycleStage"`
-	Rollback                 *Rollback                        `json:"rollback" xml:"rollback"`
-	ServiceArn               string                           `json:"serviceArn" xml:"serviceArn"`
-	ServiceDeploymentArn     string                           `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
-	SourceServiceRevisions   ServiceRevisionsSummaryList      `json:"sourceServiceRevisions" xml:"sourceServiceRevisions"`
-	StartedAt                time.Time                        `json:"startedAt" xml:"startedAt"`
-	Status                   string                           `json:"status" xml:"status"`
-	StatusReason             string                           `json:"statusReason" xml:"statusReason"`
-	StoppedAt                time.Time                        `json:"stoppedAt" xml:"stoppedAt"`
-	TargetServiceRevision    *ServiceRevisionSummary          `json:"targetServiceRevision" xml:"targetServiceRevision"`
-	UpdatedAt                time.Time                        `json:"updatedAt" xml:"updatedAt"`
+	Alarms                   *ServiceDeploymentAlarms          `json:"alarms" xml:"alarms"`
+	ClusterArn               string                            `json:"clusterArn" xml:"clusterArn"`
+	CreatedAt                time.Time                         `json:"createdAt" xml:"createdAt"`
+	DeploymentCircuitBreaker *ServiceDeploymentCircuitBreaker  `json:"deploymentCircuitBreaker" xml:"deploymentCircuitBreaker"`
+	DeploymentConfiguration  *DeploymentConfiguration          `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
+	FinishedAt               time.Time                         `json:"finishedAt" xml:"finishedAt"`
+	LifecycleHookDetails     DeploymentLifecycleHookDetailList `json:"lifecycleHookDetails" xml:"lifecycleHookDetails"`
+	LifecycleStage           string                            `json:"lifecycleStage" xml:"lifecycleStage"`
+	Rollback                 *Rollback                         `json:"rollback" xml:"rollback"`
+	ServiceArn               string                            `json:"serviceArn" xml:"serviceArn"`
+	ServiceDeploymentArn     string                            `json:"serviceDeploymentArn" xml:"serviceDeploymentArn"`
+	SourceServiceRevisions   ServiceRevisionsSummaryList       `json:"sourceServiceRevisions" xml:"sourceServiceRevisions"`
+	StartedAt                time.Time                         `json:"startedAt" xml:"startedAt"`
+	Status                   string                            `json:"status" xml:"status"`
+	StatusReason             string                            `json:"statusReason" xml:"statusReason"`
+	StoppedAt                time.Time                         `json:"stoppedAt" xml:"stoppedAt"`
+	TargetServiceRevision    *ServiceRevisionSummary           `json:"targetServiceRevision" xml:"targetServiceRevision"`
+	UpdatedAt                time.Time                         `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ServiceDeploymentAlarms struct {
@@ -1966,7 +2043,9 @@ type ServiceRevision struct {
 	GuardDutyEnabled            bool                         `json:"guardDutyEnabled" xml:"guardDutyEnabled"`
 	LaunchType                  string                       `json:"launchType" xml:"launchType"`
 	LoadBalancers               LoadBalancers                `json:"loadBalancers" xml:"loadBalancers"`
+	Monitoring                  *MonitoringConfiguration     `json:"monitoring" xml:"monitoring"`
 	NetworkConfiguration        *NetworkConfiguration        `json:"networkConfiguration" xml:"networkConfiguration"`
+	Overrides                   *ServiceRevisionOverrides    `json:"overrides" xml:"overrides"`
 	PlatformFamily              string                       `json:"platformFamily" xml:"platformFamily"`
 	PlatformVersion             string                       `json:"platformVersion" xml:"platformVersion"`
 	ResolvedConfiguration       *ResolvedConfiguration       `json:"resolvedConfiguration" xml:"resolvedConfiguration"`
@@ -1982,6 +2061,10 @@ type ServiceRevision struct {
 type ServiceRevisionLoadBalancer struct {
 	ProductionListenerRule string `json:"productionListenerRule" xml:"productionListenerRule"`
 	TargetGroupArn         string `json:"targetGroupArn" xml:"targetGroupArn"`
+}
+
+type ServiceRevisionOverrides struct {
+	RuntimePlatform *RuntimePlatformOverride `json:"runtimePlatform" xml:"runtimePlatform"`
 }
 
 type ServiceRevisionSummary struct {
@@ -2251,6 +2334,11 @@ type TaskVolumeConfiguration struct {
 	Name             string                             `json:"name" xml:"name"`
 }
 
+type ThresholdConfiguration struct {
+	Type  string `json:"type" xml:"type"`
+	Value int32  `json:"value" xml:"value"`
+}
+
 type TimeoutConfiguration struct {
 	IdleTimeoutSeconds       int32 `json:"idleTimeoutSeconds" xml:"idleTimeoutSeconds"`
 	PerRequestTimeoutSeconds int32 `json:"perRequestTimeoutSeconds" xml:"perRequestTimeoutSeconds"`
@@ -2334,6 +2422,7 @@ type UpdateContainerInstancesStateResponse struct {
 
 type UpdateDaemonRequest struct {
 	CapacityProviderArns    StringList                     `json:"capacityProviderArns" xml:"capacityProviderArns"`
+	Critical                bool                           `json:"critical" xml:"critical"`
 	DaemonArn               string                         `json:"daemonArn" xml:"daemonArn"`
 	DaemonTaskDefinitionArn string                         `json:"daemonTaskDefinitionArn" xml:"daemonTaskDefinitionArn"`
 	DeploymentConfiguration *DaemonDeploymentConfiguration `json:"deploymentConfiguration" xml:"deploymentConfiguration"`
@@ -2359,6 +2448,7 @@ type UpdateExpressGatewayServiceRequest struct {
 	PrimaryContainer     *ExpressGatewayContainer                   `json:"primaryContainer" xml:"primaryContainer"`
 	ScalingTarget        *ExpressGatewayScalingTarget               `json:"scalingTarget" xml:"scalingTarget"`
 	ServiceArn           string                                     `json:"serviceArn" xml:"serviceArn"`
+	TaskDefinitionArn    string                                     `json:"taskDefinitionArn" xml:"taskDefinitionArn"`
 	TaskRoleArn          string                                     `json:"taskRoleArn" xml:"taskRoleArn"`
 }
 
@@ -2367,6 +2457,7 @@ type UpdateExpressGatewayServiceResponse struct {
 }
 
 type UpdateManagedInstancesProviderConfiguration struct {
+	AutoRepairConfiguration    *AutoRepairConfiguration      `json:"autoRepairConfiguration" xml:"autoRepairConfiguration"`
 	InfrastructureOptimization *InfrastructureOptimization   `json:"infrastructureOptimization" xml:"infrastructureOptimization"`
 	InfrastructureRoleArn      string                        `json:"infrastructureRoleArn" xml:"infrastructureRoleArn"`
 	InstanceLaunchTemplate     *InstanceLaunchTemplateUpdate `json:"instanceLaunchTemplate" xml:"instanceLaunchTemplate"`
@@ -2395,6 +2486,7 @@ type UpdateServiceRequest struct {
 	ForceNewDeployment            bool                         `json:"forceNewDeployment" xml:"forceNewDeployment"`
 	HealthCheckGracePeriodSeconds int32                        `json:"healthCheckGracePeriodSeconds" xml:"healthCheckGracePeriodSeconds"`
 	LoadBalancers                 LoadBalancers                `json:"loadBalancers" xml:"loadBalancers"`
+	Monitoring                    *MonitoringConfiguration     `json:"monitoring" xml:"monitoring"`
 	NetworkConfiguration          *NetworkConfiguration        `json:"networkConfiguration" xml:"networkConfiguration"`
 	PlacementConstraints          PlacementConstraints         `json:"placementConstraints" xml:"placementConstraints"`
 	PlacementStrategy             PlacementStrategies          `json:"placementStrategy" xml:"placementStrategy"`
@@ -2463,6 +2555,7 @@ type Volume struct {
 	FsxWindowsFileServerVolumeConfiguration *FSxWindowsFileServerVolumeConfiguration `json:"fsxWindowsFileServerVolumeConfiguration" xml:"fsxWindowsFileServerVolumeConfiguration"`
 	Host                                    *HostVolumeProperties                    `json:"host" xml:"host"`
 	Name                                    string                                   `json:"name" xml:"name"`
+	S3filesVolumeConfiguration              *S3FilesVolumeConfiguration              `json:"s3filesVolumeConfiguration" xml:"s3filesVolumeConfiguration"`
 }
 
 type VolumeFrom struct {
@@ -2550,6 +2643,8 @@ type DaemonTaskDefinitionSummaries []*DaemonTaskDefinitionSummary
 
 type DaemonVolumeList []*DaemonVolume
 
+type DeploymentLifecycleHookDetailList []*DeploymentLifecycleHookDetail
+
 type DeploymentLifecycleHookList []*DeploymentLifecycleHook
 
 type DeploymentLifecycleHookStageList []string
@@ -2610,11 +2705,17 @@ type ManagedSecurityGroups []*ManagedSecurityGroup
 
 type ManagedTargetGroups []*ManagedTargetGroup
 
+type MetricConfigurationList []*MetricConfiguration
+
+type MetricNamesList []string
+
 type MountPointList []*MountPoint
 
 type NetworkBindings []*NetworkBinding
 
 type NetworkInterfaces []*NetworkInterface
+
+type NeuronDeviceIds []string
 
 type PlacementConstraints []*PlacementConstraint
 

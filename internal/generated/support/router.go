@@ -14,8 +14,10 @@ type OperationRoute = httproute.Route
 var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "AddAttachmentsToSet"},
 	{Method: "", Pattern: "", Operation: "AddCommunicationToCase"},
+	{Method: "", Pattern: "", Operation: "CompleteAttachmentUpload"},
 	{Method: "", Pattern: "", Operation: "CreateCase"},
 	{Method: "", Pattern: "", Operation: "DescribeAttachment"},
+	{Method: "", Pattern: "", Operation: "DescribeAttachmentUploadStatus"},
 	{Method: "", Pattern: "", Operation: "DescribeCases"},
 	{Method: "", Pattern: "", Operation: "DescribeCommunications"},
 	{Method: "", Pattern: "", Operation: "DescribeCreateCaseOptions"},
@@ -26,6 +28,8 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "DescribeTrustedAdvisorCheckResult"},
 	{Method: "", Pattern: "", Operation: "DescribeTrustedAdvisorCheckSummaries"},
 	{Method: "", Pattern: "", Operation: "DescribeTrustedAdvisorChecks"},
+	{Method: "", Pattern: "", Operation: "GetAttachmentDownloadLink"},
+	{Method: "", Pattern: "", Operation: "GetAttachmentUploadLinks"},
 	{Method: "", Pattern: "", Operation: "RefreshTrustedAdvisorCheck"},
 	{Method: "", Pattern: "", Operation: "ResolveCase"},
 }

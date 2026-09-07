@@ -239,6 +239,7 @@ type AutomationExecution struct {
 	Targets                     Targets                   `json:"targets" xml:"Targets"`
 	TriggeredAlarms             AlarmStateInformationList `json:"triggeredAlarms" xml:"TriggeredAlarms"`
 	Variables                   AutomationParameterMap    `json:"variables" xml:"Variables"`
+	WarningMessage              string                    `json:"warningMessage" xml:"WarningMessage"`
 }
 
 type AutomationExecutionFilter struct {
@@ -252,7 +253,7 @@ type AutomationExecutionInputs struct {
 	TargetLocationsURL  string                 `json:"targetLocationsURL" xml:"TargetLocationsURL"`
 	TargetMaps          TargetMaps             `json:"targetMaps" xml:"TargetMaps"`
 	TargetParameterName string                 `json:"targetParameterName" xml:"TargetParameterName"`
-	Targets             Targets                `json:"targets" xml:"Targets"`
+	Targets             AutomationTargets      `json:"targets" xml:"Targets"`
 }
 
 type AutomationExecutionMetadata struct {
@@ -287,6 +288,7 @@ type AutomationExecutionMetadata struct {
 	TargetParameterName         string                    `json:"targetParameterName" xml:"TargetParameterName"`
 	Targets                     Targets                   `json:"targets" xml:"Targets"`
 	TriggeredAlarms             AlarmStateInformationList `json:"triggeredAlarms" xml:"TriggeredAlarms"`
+	WarningMessage              string                    `json:"warningMessage" xml:"WarningMessage"`
 }
 
 type AutomationExecutionPreview struct {
@@ -294,6 +296,19 @@ type AutomationExecutionPreview struct {
 	StepPreviews   StepPreviewMap    `json:"stepPreviews" xml:"StepPreviews"`
 	TargetPreviews TargetPreviewList `json:"targetPreviews" xml:"TargetPreviews"`
 	TotalAccounts  int32             `json:"totalAccounts" xml:"TotalAccounts"`
+}
+
+type AzureConfiguration struct {
+	ApplicationDisplayName string      `json:"applicationDisplayName" xml:"ApplicationDisplayName"`
+	ApplicationId          string      `json:"applicationId" xml:"ApplicationId"`
+	Targets                interface{} `json:"targets" xml:"Targets"`
+	TenantDisplayName      string      `json:"tenantDisplayName" xml:"TenantDisplayName"`
+	TenantId               string      `json:"tenantId" xml:"TenantId"`
+}
+
+type AzureSubscription struct {
+	DisplayName string `json:"displayName" xml:"DisplayName"`
+	Id          string `json:"id" xml:"Id"`
 }
 
 type BaselineOverride struct {
@@ -323,6 +338,20 @@ type CancelMaintenanceWindowExecutionRequest struct {
 
 type CancelMaintenanceWindowExecutionResult struct {
 	WindowExecutionId string `json:"windowExecutionId" xml:"WindowExecutionId"`
+}
+
+type CloudConnectorFilter struct {
+	FilterKey    string                     `json:"filterKey" xml:"FilterKey"`
+	FilterValues CloudConnectorFilterValues `json:"filterValues" xml:"FilterValues"`
+}
+
+type CloudConnectorSummary struct {
+	CloudConnectorId string    `json:"cloudConnectorId" xml:"CloudConnectorId"`
+	CreatedAt        time.Time `json:"createdAt" xml:"CreatedAt"`
+	Description      string    `json:"description" xml:"Description"`
+	DisplayName      string    `json:"displayName" xml:"DisplayName"`
+	RoleArn          string    `json:"roleArn" xml:"RoleArn"`
+	UpdatedAt        time.Time `json:"updatedAt" xml:"UpdatedAt"`
 }
 
 type CloudWatchOutputConfig struct {
@@ -518,6 +547,19 @@ type CreateAssociationResult struct {
 	AssociationDescription *AssociationDescription `json:"associationDescription" xml:"AssociationDescription"`
 }
 
+type CreateCloudConnectorRequest struct {
+	ConfigConnectorArn string      `json:"configConnectorArn" xml:"ConfigConnectorArn"`
+	Configuration      interface{} `json:"configuration" xml:"Configuration"`
+	Description        string      `json:"description" xml:"Description"`
+	DisplayName        string      `json:"displayName" xml:"DisplayName"`
+	RoleArn            string      `json:"roleArn" xml:"RoleArn"`
+	Tags               TagList     `json:"tags" xml:"Tags"`
+}
+
+type CreateCloudConnectorResult struct {
+	CloudConnectorId string `json:"cloudConnectorId" xml:"CloudConnectorId"`
+}
+
 type CreateDocumentRequest struct {
 	Attachments    AttachmentsSourceList `json:"attachments" xml:"Attachments"`
 	Content        string                `json:"content" xml:"Content"`
@@ -640,6 +682,14 @@ type DeleteAssociationRequest struct {
 }
 
 type DeleteAssociationResult struct {
+}
+
+type DeleteCloudConnectorRequest struct {
+	CloudConnectorId string `json:"cloudConnectorId" xml:"CloudConnectorId"`
+}
+
+type DeleteCloudConnectorResult struct {
+	CloudConnectorId string `json:"cloudConnectorId" xml:"CloudConnectorId"`
 }
 
 type DeleteDocumentRequest struct {
@@ -1337,6 +1387,21 @@ type GetCalendarStateResponse struct {
 	State              string `json:"state" xml:"State"`
 }
 
+type GetCloudConnectorRequest struct {
+	CloudConnectorId string `json:"cloudConnectorId" xml:"CloudConnectorId"`
+}
+
+type GetCloudConnectorResult struct {
+	CloudConnectorArn  string      `json:"cloudConnectorArn" xml:"CloudConnectorArn"`
+	ConfigConnectorArn string      `json:"configConnectorArn" xml:"ConfigConnectorArn"`
+	Configuration      interface{} `json:"configuration" xml:"Configuration"`
+	CreatedAt          time.Time   `json:"createdAt" xml:"CreatedAt"`
+	Description        string      `json:"description" xml:"Description"`
+	DisplayName        string      `json:"displayName" xml:"DisplayName"`
+	RoleArn            string      `json:"roleArn" xml:"RoleArn"`
+	UpdatedAt          time.Time   `json:"updatedAt" xml:"UpdatedAt"`
+}
+
 type GetCommandInvocationRequest struct {
 	CommandId  string `json:"commandId" xml:"CommandId"`
 	InstanceId string `json:"instanceId" xml:"InstanceId"`
@@ -1734,16 +1799,22 @@ type InstanceAssociationStatusInfo struct {
 }
 
 type InstanceInfo struct {
-	AgentType       string `json:"agentType" xml:"AgentType"`
-	AgentVersion    string `json:"agentVersion" xml:"AgentVersion"`
-	ComputerName    string `json:"computerName" xml:"ComputerName"`
-	InstanceStatus  string `json:"instanceStatus" xml:"InstanceStatus"`
-	IpAddress       string `json:"ipAddress" xml:"IpAddress"`
-	ManagedStatus   string `json:"managedStatus" xml:"ManagedStatus"`
-	PlatformName    string `json:"platformName" xml:"PlatformName"`
-	PlatformType    string `json:"platformType" xml:"PlatformType"`
-	PlatformVersion string `json:"platformVersion" xml:"PlatformVersion"`
-	ResourceType    string `json:"resourceType" xml:"ResourceType"`
+	AgentType          string `json:"agentType" xml:"AgentType"`
+	AgentVersion       string `json:"agentVersion" xml:"AgentVersion"`
+	AvailabilityZone   string `json:"availabilityZone" xml:"AvailabilityZone"`
+	AvailabilityZoneId string `json:"availabilityZoneId" xml:"AvailabilityZoneId"`
+	ComputerName       string `json:"computerName" xml:"ComputerName"`
+	InstanceStatus     string `json:"instanceStatus" xml:"InstanceStatus"`
+	IpAddress          string `json:"ipAddress" xml:"IpAddress"`
+	ManagedStatus      string `json:"managedStatus" xml:"ManagedStatus"`
+	Name               string `json:"name" xml:"Name"`
+	PlatformName       string `json:"platformName" xml:"PlatformName"`
+	PlatformType       string `json:"platformType" xml:"PlatformType"`
+	PlatformVersion    string `json:"platformVersion" xml:"PlatformVersion"`
+	ResourceType       string `json:"resourceType" xml:"ResourceType"`
+	SourceId           string `json:"sourceId" xml:"SourceId"`
+	SourceLocation     string `json:"sourceLocation" xml:"SourceLocation"`
+	SourceType         string `json:"sourceType" xml:"SourceType"`
 }
 
 type InstanceInformation struct {
@@ -1767,6 +1838,7 @@ type InstanceInformation struct {
 	RegistrationDate                       time.Time                              `json:"registrationDate" xml:"RegistrationDate"`
 	ResourceType                           string                                 `json:"resourceType" xml:"ResourceType"`
 	SourceId                               string                                 `json:"sourceId" xml:"SourceId"`
+	SourceLocation                         string                                 `json:"sourceLocation" xml:"SourceLocation"`
 	SourceType                             string                                 `json:"sourceType" xml:"SourceType"`
 }
 
@@ -1818,6 +1890,7 @@ type InstanceProperty struct {
 	Architecture                           string                                 `json:"architecture" xml:"Architecture"`
 	AssociationOverview                    *InstanceAggregatedAssociationOverview `json:"associationOverview" xml:"AssociationOverview"`
 	AssociationStatus                      string                                 `json:"associationStatus" xml:"AssociationStatus"`
+	AvailabilityZone                       string                                 `json:"availabilityZone" xml:"AvailabilityZone"`
 	ComputerName                           string                                 `json:"computerName" xml:"ComputerName"`
 	IPAddress                              string                                 `json:"iPAddress" xml:"IPAddress"`
 	IamRole                                string                                 `json:"iamRole" xml:"IamRole"`
@@ -1838,6 +1911,7 @@ type InstanceProperty struct {
 	RegistrationDate                       time.Time                              `json:"registrationDate" xml:"RegistrationDate"`
 	ResourceType                           string                                 `json:"resourceType" xml:"ResourceType"`
 	SourceId                               string                                 `json:"sourceId" xml:"SourceId"`
+	SourceLocation                         string                                 `json:"sourceLocation" xml:"SourceLocation"`
 	SourceType                             string                                 `json:"sourceType" xml:"SourceType"`
 }
 
@@ -1956,6 +2030,17 @@ type ListAssociationsRequest struct {
 type ListAssociationsResult struct {
 	Associations AssociationList `json:"associations" xml:"Associations"`
 	NextToken    string          `json:"nextToken" xml:"NextToken"`
+}
+
+type ListCloudConnectorsRequest struct {
+	Filters    CloudConnectorFilterList `json:"filters" xml:"Filters"`
+	MaxResults int32                    `json:"maxResults" xml:"MaxResults"`
+	NextToken  string                   `json:"nextToken" xml:"NextToken"`
+}
+
+type ListCloudConnectorsResult struct {
+	CloudConnectors CloudConnectorSummaryList `json:"cloudConnectors" xml:"CloudConnectors"`
+	NextToken       string                    `json:"nextToken" xml:"NextToken"`
 }
 
 type ListCommandInvocationsRequest struct {
@@ -3011,7 +3096,7 @@ type StartAutomationExecutionRequest struct {
 	TargetLocationsURL  string                 `json:"targetLocationsURL" xml:"TargetLocationsURL"`
 	TargetMaps          TargetMaps             `json:"targetMaps" xml:"TargetMaps"`
 	TargetParameterName string                 `json:"targetParameterName" xml:"TargetParameterName"`
-	Targets             Targets                `json:"targets" xml:"Targets"`
+	Targets             AutomationTargets      `json:"targets" xml:"Targets"`
 }
 
 type StartAutomationExecutionResult struct {
@@ -3084,6 +3169,7 @@ type StepExecution struct {
 	TimeoutSeconds       int64                     `json:"timeoutSeconds" xml:"TimeoutSeconds"`
 	TriggeredAlarms      AlarmStateInformationList `json:"triggeredAlarms" xml:"TriggeredAlarms"`
 	ValidNextSteps       ValidNextStepList         `json:"validNextSteps" xml:"ValidNextSteps"`
+	WarningMessage       string                    `json:"warningMessage" xml:"WarningMessage"`
 }
 
 type StepExecutionFilter struct {
@@ -3118,7 +3204,7 @@ type TargetLocation struct {
 	TargetLocationAlarmConfiguration *AlarmConfiguration `json:"targetLocationAlarmConfiguration" xml:"TargetLocationAlarmConfiguration"`
 	TargetLocationMaxConcurrency     string              `json:"targetLocationMaxConcurrency" xml:"TargetLocationMaxConcurrency"`
 	TargetLocationMaxErrors          string              `json:"targetLocationMaxErrors" xml:"TargetLocationMaxErrors"`
-	Targets                          Targets             `json:"targets" xml:"Targets"`
+	Targets                          AutomationTargets   `json:"targets" xml:"Targets"`
 	TargetsMaxConcurrency            string              `json:"targetsMaxConcurrency" xml:"TargetsMaxConcurrency"`
 	TargetsMaxErrors                 string              `json:"targetsMaxErrors" xml:"TargetsMaxErrors"`
 }
@@ -3184,6 +3270,17 @@ type UpdateAssociationStatusRequest struct {
 
 type UpdateAssociationStatusResult struct {
 	AssociationDescription *AssociationDescription `json:"associationDescription" xml:"AssociationDescription"`
+}
+
+type UpdateCloudConnectorRequest struct {
+	CloudConnectorId string      `json:"cloudConnectorId" xml:"CloudConnectorId"`
+	Configuration    interface{} `json:"configuration" xml:"Configuration"`
+	Description      string      `json:"description" xml:"Description"`
+	DisplayName      string      `json:"displayName" xml:"DisplayName"`
+}
+
+type UpdateCloudConnectorResult struct {
+	CloudConnectorId string `json:"cloudConnectorId" xml:"CloudConnectorId"`
 }
 
 type UpdateDocumentDefaultVersionRequest struct {
@@ -3397,6 +3494,30 @@ type UpdateServiceSettingRequest struct {
 type UpdateServiceSettingResult struct {
 }
 
+type ValidateCloudConnectorRequest struct {
+	CloudConnectorId string `json:"cloudConnectorId" xml:"CloudConnectorId"`
+	MaxResults       int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken        string `json:"nextToken" xml:"NextToken"`
+}
+
+type ValidateCloudConnectorResult struct {
+	NextToken          string                `json:"nextToken" xml:"NextToken"`
+	ValidationFindings ValidationFindingList `json:"validationFindings" xml:"ValidationFindings"`
+}
+
+type ValidationFinding struct {
+	Code            string                  `json:"code" xml:"Code"`
+	Message         string                  `json:"message" xml:"Message"`
+	ProviderMessage string                  `json:"providerMessage" xml:"ProviderMessage"`
+	Scope           *ValidationFindingScope `json:"scope" xml:"Scope"`
+	Type            string                  `json:"type" xml:"Type"`
+}
+
+type ValidationFindingScope struct {
+	Id   string `json:"id" xml:"Id"`
+	Type string `json:"type" xml:"Type"`
+}
+
 type AccountIdList []string
 
 type AccountSharingInfoList []*AccountSharingInfo
@@ -3443,11 +3564,21 @@ type AutomationExecutionMetadataList []*AutomationExecutionMetadata
 
 type AutomationParameterValueList []string
 
+type AutomationTargets []*Target
+
+type AzureSubscriptionList []*AzureSubscription
+
 type CalendarNameOrARNList []string
 
 type CategoryEnumList []string
 
 type CategoryList []string
+
+type CloudConnectorFilterList []*CloudConnectorFilter
+
+type CloudConnectorFilterValues []string
+
+type CloudConnectorSummaryList []*CloudConnectorSummary
 
 type CommandFilterList []*CommandFilter
 
@@ -3751,6 +3882,8 @@ type Targets []*Target
 
 type ValidNextStepList []string
 
+type ValidationFindingList []*ValidationFinding
+
 type AssociationStatusAggregatedCount map[string]int32
 
 type AutomationParameterMap map[string]AutomationParameterValueList
@@ -3790,6 +3923,10 @@ type SessionManagerParameters map[string]SessionManagerParameterValueList
 type StepPreviewMap map[string]int32
 
 type TargetMap map[string]TargetMapValueList
+
+type CloudConnectorConfiguration interface{}
+
+type ConfigurationTargets interface{}
 
 type ExecutionInputs interface{}
 

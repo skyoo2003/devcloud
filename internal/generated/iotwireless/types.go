@@ -23,6 +23,10 @@ type Accuracy struct {
 	VerticalAccuracy   float32 `json:"verticalAccuracy" xml:"VerticalAccuracy"`
 }
 
+type AdvancedConfiguration struct {
+	WiFiCellular *WiFiCellular `json:"wiFiCellular" xml:"WiFiCellular"`
+}
+
 type ApplicationConfig struct {
 	DestinationName string `json:"destinationName" xml:"DestinationName"`
 	FPort           int32  `json:"fPort" xml:"FPort"`
@@ -294,6 +298,11 @@ type DakCertificateMetadata struct {
 	DeviceTypeId        string `json:"deviceTypeId" xml:"DeviceTypeId"`
 	FactorySupport      bool   `json:"factorySupport" xml:"FactorySupport"`
 	MaxAllowedSignature int32  `json:"maxAllowedSignature" xml:"MaxAllowedSignature"`
+}
+
+type DefaultSessionParametersMulticast struct {
+	DlDr   int32 `json:"dlDr" xml:"DlDr"`
+	DlFreq int32 `json:"dlFreq" xml:"DlFreq"`
 }
 
 type DeleteDestinationRequest struct {
@@ -662,11 +671,12 @@ type GetPositionConfigurationResponse struct {
 }
 
 type GetPositionEstimateRequest struct {
-	CellTowers       *CellTowers      `json:"cellTowers" xml:"CellTowers"`
-	Gnss             *Gnss            `json:"gnss" xml:"Gnss"`
-	Ip               *Ip              `json:"ip" xml:"Ip"`
-	Timestamp        time.Time        `json:"timestamp" xml:"Timestamp"`
-	WiFiAccessPoints WiFiAccessPoints `json:"wiFiAccessPoints" xml:"WiFiAccessPoints"`
+	AdvancedConfiguration *AdvancedConfiguration `json:"advancedConfiguration" xml:"AdvancedConfiguration"`
+	CellTowers            *CellTowers            `json:"cellTowers" xml:"CellTowers"`
+	Gnss                  *Gnss                  `json:"gnss" xml:"Gnss"`
+	Ip                    *Ip                    `json:"ip" xml:"Ip"`
+	Timestamp             time.Time              `json:"timestamp" xml:"Timestamp"`
+	WiFiAccessPoints      WiFiAccessPoints       `json:"wiFiAccessPoints" xml:"WiFiAccessPoints"`
 }
 
 type GetPositionEstimateResponse struct {
@@ -1226,17 +1236,19 @@ type LoRaWANListDevice struct {
 }
 
 type LoRaWANMulticast struct {
-	DlClass               string                          `json:"dlClass" xml:"DlClass"`
-	ParticipatingGateways *ParticipatingGatewaysMulticast `json:"participatingGateways" xml:"ParticipatingGateways"`
-	RfRegion              string                          `json:"rfRegion" xml:"RfRegion"`
+	DefaultSessionParameters *DefaultSessionParametersMulticast `json:"defaultSessionParameters" xml:"DefaultSessionParameters"`
+	DlClass                  string                             `json:"dlClass" xml:"DlClass"`
+	ParticipatingGateways    *ParticipatingGatewaysMulticast    `json:"participatingGateways" xml:"ParticipatingGateways"`
+	RfRegion                 string                             `json:"rfRegion" xml:"RfRegion"`
 }
 
 type LoRaWANMulticastGet struct {
-	DlClass                  string                          `json:"dlClass" xml:"DlClass"`
-	NumberOfDevicesInGroup   int32                           `json:"numberOfDevicesInGroup" xml:"NumberOfDevicesInGroup"`
-	NumberOfDevicesRequested int32                           `json:"numberOfDevicesRequested" xml:"NumberOfDevicesRequested"`
-	ParticipatingGateways    *ParticipatingGatewaysMulticast `json:"participatingGateways" xml:"ParticipatingGateways"`
-	RfRegion                 string                          `json:"rfRegion" xml:"RfRegion"`
+	DefaultSessionParameters *DefaultSessionParametersMulticast `json:"defaultSessionParameters" xml:"DefaultSessionParameters"`
+	DlClass                  string                             `json:"dlClass" xml:"DlClass"`
+	NumberOfDevicesInGroup   int32                              `json:"numberOfDevicesInGroup" xml:"NumberOfDevicesInGroup"`
+	NumberOfDevicesRequested int32                              `json:"numberOfDevicesRequested" xml:"NumberOfDevicesRequested"`
+	ParticipatingGateways    *ParticipatingGatewaysMulticast    `json:"participatingGateways" xml:"ParticipatingGateways"`
+	RfRegion                 string                             `json:"rfRegion" xml:"RfRegion"`
 }
 
 type LoRaWANMulticastMetadata struct {
@@ -1962,6 +1974,10 @@ type WcdmaObj struct {
 type WiFiAccessPoint struct {
 	MacAddress string `json:"macAddress" xml:"MacAddress"`
 	Rss        int32  `json:"rss" xml:"Rss"`
+}
+
+type WiFiCellular struct {
+	ConfidencePercent int32 `json:"confidencePercent" xml:"ConfidencePercent"`
 }
 
 type WirelessDeviceEventLogOption struct {
