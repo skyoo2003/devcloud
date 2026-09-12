@@ -114,6 +114,26 @@ func classifyOps(model *ir.Model) []crudOpData {
 	for _, op := range model.Operations {
 		verb, resource := canonicalVerb(op.Name)
 		if verb == "" || resource == "" {
+			// A REST-bound operation the verb prefixes cannot classify is
+			// still recorded, with an empty Verb and no resource. It is not
+			// servable, and crud.Handle declines it on the Verb check it
+			// already makes — but its route has to be in the table, because
+			// httproute.Match answers with the most specific route it holds
+			// and an absent route cannot outrank a broader sibling. Without
+			// this, chime's AssociatePhoneNumberWithUser
+			// (POST /accounts/{}/users/{}?operation=associate-phone-number)
+			// is answered by UpdateUser at the same path without the query
+			// constraint, and workspaces-web's Associate* paths are swallowed
+			// by UpdatePortal's greedy {portalArn+}. Both are fabricated
+			// successes, the one thing docs/coverage.md calls absolute.
+			if op.HTTPUri == "" {
+				continue
+			}
+			ops = append(ops, crudOpData{
+				Op:     op.Name,
+				Method: op.HTTPMethod,
+				URI:    op.HTTPUri,
+			})
 			continue
 		}
 		listKey, itemKey := outputKeys(model, op)
@@ -163,7 +183,20 @@ func ServiceCRUDData(model *ir.Model) (CRUDServiceData, bool) {
 		return CRUDServiceData{}, false
 	}
 	ops := classifyOps(model)
-	if len(ops) == 0 {
+	// At least one *classified* operation, not merely one entry: classifyOps
+	// also returns route-only entries with an empty Verb, and those exist to
+	// stop a classified route from answering for a path it does not model. A
+	// service that classifies nothing has no such route to outrank, so
+	// registering its paths would claim routes the engine cannot serve —
+	// which is rds-data, and is what crud.RegisterRoutes is for instead.
+	classified := false
+	for _, op := range ops {
+		if op.Verb != "" {
+			classified = true
+			break
+		}
+	}
+	if !classified {
 		return CRUDServiceData{}, false
 	}
 	return CRUDServiceData{ServiceID: model.ServiceID, Ops: ops}, true

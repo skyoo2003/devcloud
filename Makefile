@@ -11,7 +11,7 @@ test-compat:
 	cd tests/compatibility && pip install -q -r requirements.txt && pytest -v
 
 codegen:
-	go run ./cmd/codegen -models ./smithy-models -output ./internal/generated -templates ./internal/codegen/templates
+	go run ./cmd/codegen -models ./smithy-models -output ./internal/generated -templates ./internal/codegen/templates -scaffold-output ./internal/services
 
 codegen-s3:
 	go run ./cmd/codegen -models ./smithy-models -output ./internal/generated -services s3 -templates ./internal/codegen/templates

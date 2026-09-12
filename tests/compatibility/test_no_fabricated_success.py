@@ -80,19 +80,29 @@ KNOWN_UNFIXED: dict[tuple[str, str], str] = {
     # now pads a string to the minimum length botocore insists on, so this probe
     # leaves the process for the first time; the defect it lands on predates it.
     #
-    # The mechanism is identified: the CRUD registry holds only operations the
-    # engine can classify, so workspaces-web's Associate*/Disassociate* routes
-    # are absent from it. UpdatePortal is present at PUT /portals/{portalArn+},
-    # and that greedy label swallows /portals/<arn>/browserSettings — the path
-    # AssociateBrowserSettings models. The engine resolves UpdatePortal and
-    # answers 200 for an operation nothing implements.
+    # Half of the mechanism is now fixed and this entry survives the other half.
     #
-    # The fix belongs where the route table is built, not here: the registry
-    # would have to carry every REST-bound operation, the unclassifiable ones
-    # with an empty Verb, so a more specific route wins and Handle declines on
-    # the Verb check it already makes. Measured, that moves 569 operations
-    # between fidelity tiers and takes registered-only from 4 to 1 — a coverage
-    # re-derivation of its own, which is Phase 3's to make.
+    # The registry used to hold only operations the engine can classify, so the
+    # more specific route could not outrank a broader sibling's. Phase 3 changed
+    # that: codegen.classifyOps now records every REST-bound operation, the
+    # unclassifiable ones with an empty Verb, and crud.Handle declines them on
+    # the Verb check it already makes. That fixed the query-discriminated cases
+    # — chime's AssociatePhoneNumberWithUser, apigateway's ImportRestApi — where
+    # the specific route differs only by a "?operation=" constraint.
+    #
+    # It does not reach workspaces-web, because that route cannot match at all.
+    # AssociateBrowserSettings models PUT /portals/{portalArn+}/browserSettings,
+    # and httproute.MatchURI requires a greedy label to be the last pattern
+    # segment (match.go: "Greedy must be the last pattern segment"), so it
+    # rejects the pattern outright and UpdatePortal at PUT /portals/{portalArn+}
+    # still swallows the path.
+    #
+    # The remaining fix is in MatchURI, not in the registry: a greedy label may
+    # carry segments after it, so the prefix matches from the front, the suffix
+    # from the back, and the label takes the middle. Ordering has to move with
+    # it — Match takes the first route that fits within a pass, and routes are
+    # sorted by operation name, so DeletePortal would still outrank
+    # DisassociateBrowserSettings on the alphabet alone.
     ("workspacesweb", "AssociateBrowserSettings"): (
         "greedy {portalArn+} in UpdatePortal swallows the more specific "
         "AssociateBrowserSettings path; the CRUD registry models no "
@@ -115,6 +125,37 @@ for _service in sorted(MANIFEST):
         _PROBES.append((_service, _name, _op))
 
 
+def _skip_if_pinned_unsendable(service, client_name, operation, exc, sent):
+    """Skip a probe botocore refused to send, but only if it is pinned.
+
+    Never returns: it either skips or fails.
+
+    A probe that stops inside botocore says nothing about what DevCloud would
+    answer, so failing it would report a defect that is not there. Skipping it
+    unconditionally is the opposite mistake — the probe silently stops
+    existing, and the suite shrinks without any assertion moving.
+    test_service_smoke.py already resolves this tension by pinning
+    (UNREACHABLE_FROM_BOTO3); this is the same resolution per operation.
+    """
+    reason = _coverage.UNSENDABLE_PROBES.get((service, operation))
+    if reason is None:
+        pytest.fail(
+            f"{service} ({client_name}.{operation}, {MANIFEST[service]['protocol']}) "
+            f"put no request on the wire: botocore raised {type(exc).__name__} "
+            f"before sending ({exc}). DevCloud was never asked, so this is not a "
+            "fidelity gap — but it is one probe fewer than the suite claims to "
+            f'run. Pin it in _coverage.UNSENDABLE_PROBES as ("{service}", '
+            f'"{operation}") with the reason, or fix the stub builder so the '
+            "request can be built."
+        )
+    assert sent == 0, (
+        f"{service} ({client_name}.{operation}) is pinned in UNSENDABLE_PROBES "
+        f"as unsendable, but it put {sent} request(s) on the wire. The pin is "
+        "stale — remove it so the probe is asserted again."
+    )
+    pytest.skip(f"{client_name}.{operation}: {reason}")
+
+
 def _case(service, client_name, operation):
     reason = KNOWN_UNFIXED.get((service, operation))
     marks = [pytest.mark.xfail(strict=True, reason=reason)] if reason else []
@@ -128,15 +169,13 @@ def _case(service, client_name, operation):
 )
 def test_unserved_operation_declines(service_client, service, client_name, operation):
     client = service_client(client_name)
+    sends = _coverage.count_sends(client)
     params = _coverage.stub_params(client_name, operation)
 
     try:
         response = getattr(client, xform_name(operation))(**params)
-    except ParamValidationError:
-        pytest.skip(
-            f"{client_name}.{operation}: the stub builder cannot satisfy this input "
-            "shape, so the request never reaches DevCloud"
-        )
+    except ParamValidationError as exc:
+        _skip_if_pinned_unsendable(service, client_name, operation, exc, sends())
     except ClientError as exc:
         assert exc.response.get("Error", {}).get("Code"), (
             f"{service} ({client_name}.{operation}) failed without an AWS error "
@@ -144,6 +183,8 @@ def test_unserved_operation_declines(service_client, service, client_name, opera
         )
         return
     except Exception as exc:  # noqa: BLE001 - reported, not swallowed
+        if sends() == 0:
+            _skip_if_pinned_unsendable(service, client_name, operation, exc, 0)
         pytest.fail(
             f"{service} ({client_name}.{operation}, {MANIFEST[service]['protocol']}) "
             f"answered something botocore could not parse ({type(exc).__name__}: "

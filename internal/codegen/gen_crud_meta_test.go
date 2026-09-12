@@ -165,3 +165,46 @@ func TestServiceCRUDDataSkipsUnclassifiableService(t *testing.T) {
 	_, ok := ServiceCRUDData(model)
 	assert.False(t, ok, "a service with no CRUD-shaped operation must register nothing")
 }
+
+// TestClassifyOpsRecordsUnclassifiableRESTRoutes pins the codegen half of the
+// fabricated-success fix, and it is the half no other test reaches:
+// crud_test.go can hand Handle a Verb-less OpMeta directly, so it proves the
+// engine declines one — not that codegen ever emits one.
+//
+// chime binds AssociatePhoneNumberWithUser to the same method and path as
+// UpdateUser, separated only by a "?operation=" constraint. Dropping it from
+// the registry leaves no route specific enough to outrank UpdateUser's, and
+// httproute.Match answers with the most specific route it *holds* — so the
+// engine returns UpdateUser's 200 for an operation nothing implements. That is
+// a fabricated success, the one thing docs/coverage.md calls absolute.
+func TestClassifyOpsRecordsUnclassifiableRESTRoutes(t *testing.T) {
+	const associatePath = "/accounts/{AccountId}/users/{UserId}?operation=associate-phone-number"
+	model := crudModel("rest-json",
+		ir.Operation{Name: "UpdateUser", OutputName: "GetGraphOutput",
+			HTTPMethod: "POST", HTTPUri: "/accounts/{AccountId}/users/{UserId}"},
+		// No verb prefix matches "Associate", so canonicalVerb refuses it.
+		ir.Operation{Name: "AssociatePhoneNumberWithUser",
+			HTTPMethod: "POST", HTTPUri: associatePath},
+		// Same refusal, but json-shaped: no REST binding, so no route to hold
+		// and nothing to record. Registering it would put an entry in the
+		// registry that no path can reach and no verb can serve.
+		ir.Operation{Name: "AssociateSigninDelegateGroups"},
+	)
+
+	data, ok := ServiceCRUDData(model)
+	require.True(t, ok, "a service with one classified operation is still servable")
+
+	ops := opsOf(data)
+	require.Contains(t, ops, "AssociatePhoneNumberWithUser",
+		"an unclassifiable REST operation must still carry its route, or a "+
+			"broader sibling's route answers for its path")
+	assert.Empty(t, ops["AssociatePhoneNumberWithUser"].Verb,
+		"a route-only entry must stay unservable — Handle declines on the Verb check")
+	assert.Equal(t, "POST", ops["AssociatePhoneNumberWithUser"].Method)
+	assert.Equal(t, associatePath, ops["AssociatePhoneNumberWithUser"].URI)
+
+	assert.NotContains(t, ops, "AssociateSigninDelegateGroups",
+		"an unclassifiable operation with no REST binding has no route to hold")
+	assert.Equal(t, "Update", ops["UpdateUser"].Verb,
+		"recording the unclassifiable ones must not disturb the classified ones")
+}
