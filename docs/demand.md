@@ -48,7 +48,10 @@ at any point would have stopped on the best surface available.
 `workspaces-web`; `TestDemandSetIsRegistered` fails if any of them stops being.
 56 serve at least one operation, and the one that does not (`rds-data`) is named
 with its reason in [coverage.md](coverage.md). Everything below them — support 1
-and support 0 — is the 226 services that remain explicitly not targeted.
+and support 0 — is the 226 services that carry no depth commitment. They are
+registered and engine-served, so a call to one is answered locally rather than
+billed; what this study declined to promise is that it is answered *faithfully*.
+See [the two axes](coverage.md#the-target).
 
 | Service | moto | LocalStack | terraform-provider-aws | Support |
 |---|---|---|---|---|

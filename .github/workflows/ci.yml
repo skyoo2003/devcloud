@@ -41,6 +41,29 @@ jobs:
           CGO_ENABLED=0 go build -o dist/devcloud ./cmd/devcloud
           CGO_ENABLED=0 go build -o dist/codegen ./cmd/codegen
 
+      # docs/coverage.md publishes the binary size, and the single-binary,
+      # zero-config property is what that figure is evidence for. Nothing
+      # checked it, so a regression would have been found by a reader rather
+      # than by CI. The startup half of the same claim is gated in
+      # cmd/devcloud/budget_test.go.
+      #
+      # 45 MiB is a regression ceiling, not the published figure: coverage.md
+      # measures 36.8 MiB on Apple Silicon and this builds for linux, so the two
+      # are not the same number and a tight budget would fail on the difference.
+      # The ceiling is named in coverage.md's runtime section, so a reader who
+      # hits this failure finds it where the 36.8 MiB is.
+      #
+      # stat -c%s is GNU stat: this job runs only on the ubuntu runners above.
+      - name: Check the binary stays within its regression ceiling
+        run: |
+          size=$(stat -c%s dist/devcloud)
+          limit=$((45 * 1024 * 1024))
+          echo "dist/devcloud: $((size / 1024 / 1024)) MiB (ceiling $((limit / 1024 / 1024)) MiB)"
+          if [ "$size" -gt "$limit" ]; then
+            echo "::error::dist/devcloud exceeds the 45 MiB ceiling docs/coverage.md names, against a published 36.8 MiB. Raising the ceiling is a decision; first find what grew."
+            exit 1
+          fi
+
   # internal/generated is committed but derived. The Go tests check the fidelity
   # manifest's shape — floors, registered services, the CRUD registry — none of
   # which notice an operation a provider gained and the manifest never did.

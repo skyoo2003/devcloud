@@ -1,0 +1,5 @@
+kind: Added
+body: 'Three published figures are now gated against the binary that were not: the
+  routing and depth targets on the coverage page, the size of the shipped binary
+  (45 MiB ceiling, checked in CI), and the cost of bringing all 431 providers up'
+Issue: "163"

@@ -188,9 +188,10 @@ func TestSyncPullRequestBodyReportsTheTestResult(t *testing.T) {
 // TestSyncPullRequestBodySummarisesTheChurn is the guarantee that makes the PR
 // reviewable rather than merely present.
 //
-// The sync regenerates from all 194 models at once, so its diff is whole-tree
-// whether upstream moved one model or ninety — measured on 2026-09-06, a real
-// refresh changed 93 models and 134 generated files. "Please review" over that
+// The sync regenerates from all 420 models at once, so its diff is whole-tree
+// whether upstream moved one model or ninety — measured on 2026-09-06, when 194
+// were vendored, a real refresh changed 93 models and 134 generated files, and
+// the vendored set has more than doubled since. "Please review" over that
 // is not an action anyone performs. scripts/model_churn.py reduces it to the
 // question a reviewer has, which operations moved, and the body must carry that
 // answer or the reviewer is back to reading the regeneration.

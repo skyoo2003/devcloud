@@ -13,7 +13,7 @@
 
 | Page | What it covers |
 |---|---|
-| [Coverage](coverage.md) | 431 registered / 426 serving — what the counts promise, and the target |
+| [Coverage](coverage.md) | 431 registered / 426 serving — the routing and depth targets, and what each promises |
 | [Compatibility Policy](compatibility-policy.md) | What v1.0 guarantees across 1.x, what it does not, and how deprecation works |
 | [Fidelity Manifest](fidelity-manifest.md) | Per-operation tiers: how much to trust any given call |
 | [CRUD Engine](crud-engine.md) | How engine-served operations behave, and where they stop |
