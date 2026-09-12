@@ -1,0 +1,7 @@
+kind: Added
+body: 'Eight AWS services whose operations the generic CRUD engine cannot classify
+  — payment-cryptography-data, geo-routes, cloudsearch-domain, ec2-instance-connect,
+  kinesis-video-webrtc-storage, marketplace-commerce-analytics, eks-auth and
+  inspector-scan — now have hand-written providers, bringing coverage to 213
+  registered and 209 serving'
+Issue: "161"

@@ -228,6 +228,14 @@ def stub_params(boto3_client_name, operation):
 
 
 def _stub_structure(shape, depth):
+    # A tagged union has no required members, and botocore refuses a request
+    # that sets none of them. Setting exactly one is the only shape that leaves
+    # the process, so the refusal reads as a service answer rather than a
+    # harness one — same reasoning as the collection minimums below.
+    if getattr(shape, "is_tagged_union", False):
+        for name in shape.members:
+            return {name: _stub_value(shape.members[name], depth + 1)}
+        return {}
     return {
         name: _stub_value(shape.members[name], depth + 1)
         for name in shape.required_members
@@ -271,4 +279,10 @@ def _stub_value(shape, depth):
         return datetime.datetime(2020, 1, 1)
     # Strings, including enums: botocore does not validate enum members
     # client-side, so an arbitrary value reaches the gateway, which is the point.
-    return "devcloud-test"
+    # It does validate minimum length, though — an SSH public key is 80
+    # characters at the least — so pad to whatever the shape insists on.
+    value = "devcloud-test"
+    minimum = shape.metadata.get("min", 0)
+    if minimum > len(value):
+        value = value.ljust(minimum, "x")
+    return value

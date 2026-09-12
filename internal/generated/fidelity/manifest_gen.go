@@ -1950,6 +1950,11 @@ var Services = map[string]Service{
 		"UpdateScalingParameters":       TierHandVerified,
 		"UpdateServiceAccessPolicies":   TierHandVerified,
 	}},
+	"cloudsearchdomain": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
+		"Search":          TierHandVerified,
+		"Suggest":         TierHandVerified,
+		"UploadDocuments": TierHandVerified,
+	}},
 	"cloudtrail": {Protocol: "json-1.1", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"AddTags":                              TierHandVerified,
 		"CancelQuery":                          TierHandVerified,
@@ -4755,6 +4760,10 @@ var Services = map[string]Service{
 		"UpdateSecurityGroupRuleDescriptionsIngress":                      TierUnimplemented,
 		"WithdrawByoipCidr":                                               TierUnimplemented,
 	}},
+	"ec2instanceconnect": {Protocol: "json-1.1", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
+		"SendSSHPublicKey":              TierHandVerified,
+		"SendSerialConsoleSSHPublicKey": TierHandVerified,
+	}},
 	"ecr": {Protocol: "json-1.1", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"BatchCheckLayerAvailability":             TierHandVerified,
 		"BatchDeleteImage":                        TierHandVerified,
@@ -4997,6 +5006,9 @@ var Services = map[string]Service{
 		"UpdateNodegroupConfig":              TierHandVerified,
 		"UpdateNodegroupVersion":             TierHandVerified,
 		"UpdatePodIdentityAssociation":       TierHandVerified,
+	}},
+	"eksauth": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
+		"AssumeRoleForPodIdentity": TierHandVerified,
 	}},
 	"elasticache": {Protocol: "query", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"AddTagsToResource":                          TierHandVerified,
@@ -5743,6 +5755,13 @@ var Services = map[string]Service{
 		"UpdateSnapshot":                     TierAutoCRUD,
 		"UpdateStorageVirtualMachine":        TierAutoCRUD,
 		"UpdateVolume":                       TierAutoCRUD,
+	}},
+	"georoutes": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
+		"CalculateIsolines":    TierHandVerified,
+		"CalculateRouteMatrix": TierHandVerified,
+		"CalculateRoutes":      TierHandVerified,
+		"OptimizeWaypoints":    TierHandVerified,
+		"SnapToRoads":          TierHandVerified,
 	}},
 	"glacier": {Protocol: "rest-json", ModelBacked: true, EngineWired: false, Operations: map[string]Tier{
 		"AbortMultipartUpload":        TierHandVerified,
@@ -6572,6 +6591,9 @@ var Services = map[string]Service{
 		"UpdateOrgEc2DeepInspectionConfiguration":        TierAutoCRUD,
 		"UpdateOrganizationConfiguration":                TierAutoCRUD,
 	}},
+	"inspectorscan": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
+		"ScanSbom": TierHandVerified,
+	}},
 	"iot": {Protocol: "rest-json", ModelBacked: true, EngineWired: false, Operations: map[string]Tier{
 		"AcceptCertificateTransfer":             TierUnimplemented,
 		"AddThingToBillingGroup":                TierUnimplemented,
@@ -7285,6 +7307,10 @@ var Services = map[string]Service{
 		"UpdateStream":                         TierAutoCRUD,
 		"UpdateStreamStorageConfiguration":     TierAutoCRUD,
 	}},
+	"kinesisvideowebrtcstorage": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
+		"JoinStorageSession":         TierHandVerified,
+		"JoinStorageSessionAsViewer": TierHandVerified,
+	}},
 	"kms": {Protocol: "json-1.1", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"CancelKeyDeletion":                   TierHandVerified,
 		"ConnectCustomKeyStore":               TierUnimplemented,
@@ -7821,6 +7847,10 @@ var Services = map[string]Service{
 		"UpdateMember":        TierHandVerified,
 		"UpdateNode":          TierHandVerified,
 		"VoteOnProposal":      TierHandVerified,
+	}},
+	"marketplacecommerceanalytics": {Protocol: "json-1.1", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
+		"GenerateDataSet":        TierHandVerified,
+		"StartSupportDataExport": TierHandVerified,
 	}},
 	"mediaconnect": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"AddBridgeOutputs":               TierUnimplemented,
@@ -8884,6 +8914,23 @@ var Services = map[string]Service{
 		"TagResource":                         TierAutoCRUD,
 		"UntagResource":                       TierAutoCRUD,
 		"UpdateAlias":                         TierAutoCRUD,
+	}},
+	"paymentcryptographydata": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
+		"DecryptData":                   TierHandVerified,
+		"EncryptData":                   TierHandVerified,
+		"GenerateAs2805KekValidation":   TierHandVerified,
+		"GenerateAuthRequestCryptogram": TierHandVerified,
+		"GenerateCardValidationData":    TierHandVerified,
+		"GenerateMac":                   TierHandVerified,
+		"GenerateMacEmvPinChange":       TierHandVerified,
+		"GeneratePinData":               TierHandVerified,
+		"ReEncryptData":                 TierHandVerified,
+		"TranslateKeyMaterial":          TierHandVerified,
+		"TranslatePinData":              TierHandVerified,
+		"VerifyAuthRequestCryptogram":   TierHandVerified,
+		"VerifyCardValidationData":      TierHandVerified,
+		"VerifyMac":                     TierHandVerified,
+		"VerifyPinData":                 TierHandVerified,
 	}},
 	"personalize": {Protocol: "json-1.1", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"CreateBatchInferenceJob":       TierAutoCRUD,

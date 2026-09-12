@@ -27,8 +27,8 @@ DevCloud is an **on-ramp to the cloud**, not a replacement for it. The goal is t
 
 ## Features
 
-- **205 AWS services registered, 201 serving at least one operation** — the remaining 4 are routed and decline with a clean AWS error rather than letting the call bill a real account. See [coverage.md](docs/coverage.md) for what the numbers do and do not promise.
-- **boto3-compatible** — a 1,144-test suite runs in CI (`make test-compat`) across every registered service. Unsupported operations return a clean AWS error, never a false success.
+- **213 AWS services registered, 209 serving at least one operation** — the remaining 4 are routed and decline with a clean AWS error rather than letting the call bill a real account. See [coverage.md](docs/coverage.md) for what the numbers do and do not promise.
+- **boto3-compatible** — a 1,156-test suite runs in CI (`make test-compat`) across every registered service. Unsupported operations return a clean AWS error, never a false success.
 - **Cross-service integration** — CloudFormation provisioning, DynamoDB Streams → Lambda, EventBridge targets, S3 → Lambda
 - **Smithy-driven codegen** — Go types, routers and error catalogues generated from AWS models, with a weekly sync workflow that keeps them current
 - **Single binary, zero-config** — one Docker image, one port (4747), no config file required; override with `DEVCLOUD_SERVICES`, `DEVCLOUD_DATA_DIR`, `DEVCLOUD_PORT`

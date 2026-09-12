@@ -6,19 +6,19 @@ alone.
 
 | Number | What it means | Today |
 |---|---|---|
-| **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **205** |
-| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **201** |
+| **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **213** |
+| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **209** |
 | **Registered-only** | Routed, but every operation declines with a clean AWS error. | **4** |
-| **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **203** |
+| **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **211** |
 
 Per operation, from the [fidelity manifest](fidelity-manifest.md):
 
 | Tier | Operations |
 |---|---|
-| `hand-verified` | 4,497 |
+| `hand-verified` | 4,528 |
 | `auto-crud` | 5,193 |
 | `unimplemented` | 2,717 |
-| **total known** | **12,407** |
+| **total known** | **12,438** |
 
 > **The coverage target is 205 services, not 431.** It was 431, and the evidence
 > did not support it — see [The target](#the-target).
@@ -37,8 +37,8 @@ the second still stops it.
 
 | Protocol | Services | Operation name comes from |
 |---|---|---|
-| `rest-json` | 93 | HTTP method + path (`internal/shared/httproute`) |
-| `json-1.1` | 64 | the `X-Amz-Target` header |
+| `rest-json` | 99 | HTTP method + path (`internal/shared/httproute`) |
+| `json-1.1` | 66 | the `X-Amz-Target` header |
 | `json-1.0` | 17 | the `X-Amz-Target` header |
 | `query` | 15 | the `Action` form field |
 | `rest-xml` | 4 | HTTP method + path |
@@ -64,7 +64,7 @@ when a provider returns `plugin.ErrUnhandledOp`, so a hand-written provider that
 refuses unknown operations itself (`apigatewayv2`, `xray`) never reaches it. The
 manifest records this per service as `EngineWired`.
 
-## Why compatibility-tested is 203, not 205
+## Why compatibility-tested is 211, not 213
 
 `tests/compatibility/test_service_smoke.py` parametrises over the generated
 service list rather than a hand-written one, so a service cannot be registered
@@ -89,6 +89,12 @@ All four Lex clients sign as `lex` and none is named `lex`, so: `GET /bots` is
 `/bots/…/botAliases/…/sessions/…` is `lexv2-runtime`. One route is claimed by two
 siblings — `DeleteBot` at `DELETE /bots/{id}` — and it is refused rather than
 guessed: deleting the wrong bot is worse than an honest error.
+
+Three data planes are separated the same way without holding a single
+CRUD-classifiable operation: `payment-cryptography-data`, `cloudsearch-domain`
+and `kinesis-video-webrtc-storage` declare their own route tables through
+`crud.RegisterRoutes`, so route matching tells them apart from the neighbour
+whose signing name they borrow. No override names a winner — the model does.
 
 ## What counts as a service
 
@@ -245,7 +251,7 @@ re-derive it with `python3 scripts/model_churn.py --upstream`.
 make codegen             # regenerate the manifest from the models
 make stats               # registered services and hand-written operations
 go test ./cmd/devcloud/  # asserts every number on this page against the binary
-make test-compat         # the compatibility-tested number, over all 205 services
+make test-compat         # the compatibility-tested number, over all 213 services
 ```
 
 Every figure comes from `internal/generated/fidelity/manifest_gen.go` and nothing

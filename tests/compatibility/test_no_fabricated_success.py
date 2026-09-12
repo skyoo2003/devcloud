@@ -75,7 +75,30 @@ def _unserved_probe(service_id, entry):
 #
 # Both were recorded as observations with the mechanism explicitly unidentified,
 # which is why neither had to be un-guessed before it could be fixed.
-KNOWN_UNFIXED: dict[tuple[str, str], str] = {}
+KNOWN_UNFIXED: dict[tuple[str, str], str] = {
+    # Surfaced in Phase 2, and not by Phase 2's own services. The stub builder
+    # now pads a string to the minimum length botocore insists on, so this probe
+    # leaves the process for the first time; the defect it lands on predates it.
+    #
+    # The mechanism is identified: the CRUD registry holds only operations the
+    # engine can classify, so workspaces-web's Associate*/Disassociate* routes
+    # are absent from it. UpdatePortal is present at PUT /portals/{portalArn+},
+    # and that greedy label swallows /portals/<arn>/browserSettings — the path
+    # AssociateBrowserSettings models. The engine resolves UpdatePortal and
+    # answers 200 for an operation nothing implements.
+    #
+    # The fix belongs where the route table is built, not here: the registry
+    # would have to carry every REST-bound operation, the unclassifiable ones
+    # with an empty Verb, so a more specific route wins and Handle declines on
+    # the Verb check it already makes. Measured, that moves 569 operations
+    # between fidelity tiers and takes registered-only from 4 to 1 — a coverage
+    # re-derivation of its own, which is Phase 3's to make.
+    ("workspacesweb", "AssociateBrowserSettings"): (
+        "greedy {portalArn+} in UpdatePortal swallows the more specific "
+        "AssociateBrowserSettings path; the CRUD registry models no "
+        "unclassifiable route to outrank it (Phase 3)"
+    ),
+}
 
 # Every service that is addressable, routable, and has an unserved operation to
 # ask for. Built at collection time so the parametrisation names the operation

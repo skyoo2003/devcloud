@@ -93,7 +93,7 @@ the operation. `CreateFunction` in `test_lambda.py` shows all three cases at onc
 | `FunctionArn` | present | presence only — not that it stays ARN-shaped |
 | `Runtime`, `Handler`, `MemorySize` | not asserted | nothing, though today's response includes them |
 
-That narrowness is the point: it is the promise the repo can actually keep. The suite — 1,144
+That narrowness is the point: it is the promise the repo can actually keep. The suite — 1,156
 tests driving real boto3 clients — runs in CI on every push and again against the tagged commit
 before a release publishes, so breaking an assertion fails the build rather than depending on
 review discipline. Anything the suite does not assert rests on nothing but intent. Widening the

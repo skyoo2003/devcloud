@@ -37,6 +37,39 @@ CASES = [
         "ListApplications",
         "GET /2021-01-01/opensearch/list-applications",
     ),
+    # The Phase 2 hand-written services. Their unit tests assert Go-side response
+    # maps, which is a layer above the wire — three defects lived below it until a
+    # real client was pointed at them, and these rows are where that now fails.
+    #
+    # Search is the sharpest case: botocore converts it from the modelled GET to
+    # a POST with a form body, so the route the model declares is not the request
+    # anything sends.
+    (
+        "cloudsearchdomain",
+        "cloudsearchdomain",
+        "Search",
+        "POST /2013-01-01/search (botocore converts the modelled GET to a form POST)",
+    ),
+    # GeneratePinData's PinData is a tagged union; botocore raises rather than
+    # returning when no member is set, so this row catches an unparseable 200.
+    (
+        "paymentcryptographydata",
+        "payment-cryptography-data",
+        "GeneratePinData",
+        "POST /pindata/generate",
+    ),
+    (
+        "georoutes",
+        "geo-routes",
+        "CalculateRoutes",
+        "POST /v2/routes",
+    ),
+    (
+        "kinesisvideowebrtcstorage",
+        "kinesis-video-webrtc-storage",
+        "JoinStorageSession",
+        "POST /joinStorageSession",
+    ),
 ]
 
 

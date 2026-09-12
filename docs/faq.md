@@ -38,7 +38,7 @@ For services with a persistent backend (S3, DynamoDB, Lambda, IAM/STS), yes — 
 ## Compatibility
 
 **Will my existing boto3 code work?**
-Most apps using the core services (S3, SQS, DynamoDB, Lambda, IAM, STS) and common integration services (SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation) work with only an `endpoint_url` change. The 1,144-test boto3 suite runs green in CI on every push; what that does and does not promise is spelled out in [compatibility-policy.md](compatibility-policy.md#wire-behaviour--scoped-to-the-compatibility-suite).
+Most apps using the core services (S3, SQS, DynamoDB, Lambda, IAM, STS) and common integration services (SNS, CloudWatch, KMS, Secrets Manager, EventBridge, CloudFormation) work with only an `endpoint_url` change. The 1,156-test boto3 suite runs green in CI on every push; what that does and does not promise is spelled out in [compatibility-policy.md](compatibility-policy.md#wire-behaviour--scoped-to-the-compatibility-suite).
 
 **What about Terraform / CDK?**
 Point the AWS provider or CDK at `http://localhost:4747` with dummy credentials. Common resources (`aws_s3_bucket`, `aws_dynamodb_table`, `aws_lambda_function`) work out of the box. Complex IAM policies and deeply CSP-coupled resources are out of scope.

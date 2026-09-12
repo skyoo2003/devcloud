@@ -1617,6 +1617,14 @@
       "UpdateServiceAccessPolicies"
     ]
   },
+  "cloudsearchdomain": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "Search",
+      "Suggest",
+      "UploadDocuments"
+    ]
+  },
   "cloudtrail": {
     "protocol": "json-1.1",
     "servedOps": [
@@ -3509,6 +3517,13 @@
       "TerminateInstances"
     ]
   },
+  "ec2instanceconnect": {
+    "protocol": "json-1.1",
+    "servedOps": [
+      "SendSSHPublicKey",
+      "SendSerialConsoleSSHPublicKey"
+    ]
+  },
   "ecr": {
     "protocol": "json-1.1",
     "servedOps": [
@@ -3750,6 +3765,12 @@
       "UpdateNodegroupConfig",
       "UpdateNodegroupVersion",
       "UpdatePodIdentityAssociation"
+    ]
+  },
+  "eksauth": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "AssumeRoleForPodIdentity"
     ]
   },
   "elasticache": {
@@ -4485,6 +4506,16 @@
       "UpdateVolume"
     ]
   },
+  "georoutes": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "CalculateIsolines",
+      "CalculateRouteMatrix",
+      "CalculateRoutes",
+      "OptimizeWaypoints",
+      "SnapToRoads"
+    ]
+  },
   "glacier": {
     "protocol": "rest-json",
     "servedOps": [
@@ -5144,6 +5175,12 @@
       "UpdateOrganizationConfiguration"
     ]
   },
+  "inspectorscan": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "ScanSbom"
+    ]
+  },
   "iot": {
     "protocol": "rest-json",
     "servedOps": [
@@ -5583,6 +5620,13 @@
       "UpdateSignalingChannel",
       "UpdateStream",
       "UpdateStreamStorageConfiguration"
+    ]
+  },
+  "kinesisvideowebrtcstorage": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "JoinStorageSession",
+      "JoinStorageSessionAsViewer"
     ]
   },
   "kms": {
@@ -6038,6 +6082,13 @@
       "UpdateMember",
       "UpdateNode",
       "VoteOnProposal"
+    ]
+  },
+  "marketplacecommerceanalytics": {
+    "protocol": "json-1.1",
+    "servedOps": [
+      "GenerateDataSet",
+      "StartSupportDataExport"
     ]
   },
   "mediaconnect": {
@@ -7043,6 +7094,26 @@
       "TagResource",
       "UntagResource",
       "UpdateAlias"
+    ]
+  },
+  "paymentcryptographydata": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "DecryptData",
+      "EncryptData",
+      "GenerateAs2805KekValidation",
+      "GenerateAuthRequestCryptogram",
+      "GenerateCardValidationData",
+      "GenerateMac",
+      "GenerateMacEmvPinChange",
+      "GeneratePinData",
+      "ReEncryptData",
+      "TranslateKeyMaterial",
+      "TranslatePinData",
+      "VerifyAuthRequestCryptogram",
+      "VerifyCardValidationData",
+      "VerifyMac",
+      "VerifyPinData"
     ]
   },
   "personalize": {
