@@ -68,6 +68,13 @@ func BuildFidelityData(
 	for _, svc := range autoCRUD {
 		ops := make(map[string]bool, len(svc.Ops))
 		for _, op := range svc.Ops {
+			// The registry also carries REST-bound operations the verb
+			// prefixes cannot classify, so their routes can outrank a broader
+			// sibling's (see classifyOps). They hold an empty Verb, the engine
+			// declines them, and the manifest must not count them as served.
+			if op.Verb == "" {
+				continue
+			}
 			ops[op.Op] = true
 		}
 		crudOps[svc.ServiceID] = ops

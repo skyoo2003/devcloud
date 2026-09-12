@@ -1,0 +1,6 @@
+kind: Added
+body: 'The 218 AWS services that had generated routers but no provider package are
+  now registered from the codegen scaffold template, so their SDK calls are answered
+  locally instead of reaching a real AWS account — coverage moves to 431 registered
+  and 426 serving at least one operation'
+Issue: "162"

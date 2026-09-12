@@ -1,0 +1,6 @@
+kind: Fixed
+body: 'The CRUD engine no longer answers an operation it cannot classify with a
+  broader sibling''s route — chime''s AssociatePhoneNumberWithUser was returning
+  UpdateUser''s 200 — because the registry now carries every REST-bound operation
+  and declines the unclassifiable ones instead of letting their paths fall through'
+Issue: "162"

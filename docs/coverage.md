@@ -6,22 +6,24 @@ alone.
 
 | Number | What it means | Today |
 |---|---|---|
-| **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **213** |
-| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **209** |
-| **Registered-only** | Routed, but every operation declines with a clean AWS error. | **4** |
-| **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **211** |
+| **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **431** |
+| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **426** |
+| **Registered-only** | Routed, but every operation declines with a clean AWS error. | **5** |
+| **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **426** |
 
 Per operation, from the [fidelity manifest](fidelity-manifest.md):
 
 | Tier | Operations |
 |---|---|
 | `hand-verified` | 4,528 |
-| `auto-crud` | 5,193 |
-| `unimplemented` | 2,717 |
-| **total known** | **12,438** |
+| `auto-crud` | 10,871 |
+| `unimplemented` | 3,802 |
+| **total known** | **19,201** |
 
-> **The coverage target is 205 services, not 431.** It was 431, and the evidence
-> did not support it — see [The target](#the-target).
+> **The target is depth for 205 services, not breadth for 431.** All 431 are
+> registered — the codegen scaffold made breadth nearly free — but registration is
+> not the promise. What the evidence refused was a promise of *depth* across 431,
+> and it still refuses it. See [The target](#the-target).
 
 Every figure on this page is asserted against the binary by
 `go test ./cmd/devcloud/`. Editing one here without the code moving fails CI, and
@@ -37,20 +39,28 @@ the second still stops it.
 
 | Protocol | Services | Operation name comes from |
 |---|---|---|
-| `rest-json` | 99 | HTTP method + path (`internal/shared/httproute`) |
-| `json-1.1` | 66 | the `X-Amz-Target` header |
-| `json-1.0` | 17 | the `X-Amz-Target` header |
+| `rest-json` | 251 | HTTP method + path (`internal/shared/httproute`) |
+| `json-1.1` | 100 | the `X-Amz-Target` header |
+| `json-1.0` | 48 | the `X-Amz-Target` header |
 | `query` | 15 | the `Action` form field |
 | `rest-xml` | 4 | HTTP method + path |
 | no in-tree model | 12 | n/a — hand-written providers |
+| unrecognised protocol | 1 | n/a — `partnercentralrevenuemeasurement` is `rpcv2Cbor` |
 
 **The operation is not CRUD-shaped.** `GetThing`, `ListThings` and `CreateThing`
 map onto a generic store. `ExecuteStatement`, `InvokeEndpoint` and
 `QueryForecast` do not, and the engine refuses them rather than inventing an
-answer. This is now the *only* reason a service serves nothing, and it applies to
-exactly four: `forecastquery`, the two SageMaker Runtime variants
-`sagemaker-runtime` and `sagemakerruntimehttp2`, and `rds-data`. No protocol
-change reaches them.
+answer. This applies to four services: `forecastquery`, the two SageMaker Runtime
+variants `sagemaker-runtime` and `sagemakerruntimehttp2`, and `rds-data`. No
+protocol change reaches them.
+
+**The protocol is one the parser does not read.** This applies to exactly one
+service, and it is a different failure from the four above.
+`partnercentralrevenuemeasurement` speaks `smithy.protocols#rpcv2Cbor`, which
+`internal/codegen/parser.go` does not recognise, so *none* of its operations is
+classified — not because their names are unshaped, but because the model never
+reached the classifier. Teaching the parser a sixth protocol would reach it; no
+amount of CRUD-shaping would.
 
 Registering a service the engine cannot serve is deliberate. The alternative is
 worse: an *unregistered* service is not routed, so the SDK call leaves the
@@ -64,17 +74,31 @@ when a provider returns `plugin.ErrUnhandledOp`, so a hand-written provider that
 refuses unknown operations itself (`apigatewayv2`, `xray`) never reaches it. The
 manifest records this per service as `EngineWired`.
 
-## Why compatibility-tested is 211, not 213
+## Why compatibility-tested is 426, not 431
 
 `tests/compatibility/test_service_smoke.py` parametrises over the generated
 service list rather than a hand-written one, so a service cannot be registered
 and quietly go untested — which is what 31 of them were until this was measured.
 
-Two are excluded, and they are not a backlog: botocore publishes no client for
-`sagemakerruntimehttp2` or `transcribestreaming` (`sagemaker-runtime` and
-`transcribe` are different clients with different APIs). No boto3 test can exist
-for a client that does not exist. That is a property of the AWS SDK, and it is
-the ceiling on this number.
+Five are excluded, and they are not a backlog. In every one it is botocore, not
+DevCloud, that stops the request, so no answer DevCloud could give would change
+the outcome. Each stays registered: the call is still answered locally instead
+of reaching a billed AWS account.
+
+**No client exists** (2). botocore publishes none for `sagemakerruntimehttp2` or
+`transcribestreaming` (`sagemaker-runtime` and `transcribe` are different clients
+with different APIs). No boto3 test can exist for a client that does not exist.
+
+**The client exists but cannot be pointed at localhost** (3). `codecatalyst`
+authenticates with a bearer token rather than SigV4, so botocore raises
+`NoAuthTokenError` before the request is built. `cloudfront-keyvaluestore`
+resolves its endpoint from a KVS ARN and so never honours `endpoint_url`.
+`partnercentralrevenuemeasurement` decodes every reply with botocore's CBOR
+parser, and DevCloud has no CBOR encoder, so even a clean decline reads as a
+corrupt frame — see the protocol table above.
+
+Both sets are pinned in `tests/compatibility/_coverage.py` and asserted, so
+adding a sixth is a deliberate edit that moves this figure with it.
 
 ## Contested signing names
 
@@ -114,6 +138,17 @@ wants. Before committing to building ~283 of them, the assumption was tested
 against three independent projects that each only add a service when someone
 asks. It did not hold.
 
+**All 431 are now registered, and the decision above still stands.** What it
+refused was the *cost* — hand-building 283 services on the assumption someone
+wanted them. The codegen scaffold removed that cost: registering the remaining
+226 became a flag on `make codegen`, not a programme of work, and the services it
+reached are served by the generic [CRUD engine](crud-engine.md) at engine
+fidelity. So breadth was taken because it turned out to be nearly free, and the
+target stayed where the evidence put it, because the target was never a count of
+registrations — it is where DevCloud promises to be worth trusting. Read the
+table below as two different claims, not one: 431 services answer locally instead
+of billing a real account, and 205 are the ones whose depth is a commitment.
+
 **The rule was fixed before the numbers were seen** — four outcomes written down
 in advance, including one for "the method itself failed", specifically so the
 result could not be argued into whichever answer was most convenient. Full
@@ -139,15 +174,17 @@ does not reach every service, and saying so is cheaper than a fabricated success
 
 | | Services |
 |---|---|
-| Registered today | **205** |
+| Registered today | **431** |
 | Target: registered + demonstrated demand | **205 — met** |
-| Explicitly not targeted | 226 |
+| Registered, scaffold-served, outside the target | 226 |
 
-Four fifths of the AWS surface DevCloud does not cover is surface that three
-projects with far more history and staffing have collectively declined to build.
-That is what a long tail looks like. The 226 are not refused — any of them can be
-onboarded when someone asks. What changed is that they are no longer work
-DevCloud has promised.
+Four fifths of the AWS surface is surface that three projects with far more
+history and staffing have collectively declined to build. That is what a long
+tail looks like, and it is why the 226 carry no promise of depth: each is
+registered and engine-served, so a call to one is answered locally in AWS's error
+vocabulary instead of reaching a billed account, but nothing here commits to
+making any of them faithful. That commitment follows demand, and the instrument
+below is what measures it.
 
 **What this verdict is not.** The three sources measure *emulator and provider
 effort*, not user demand. They are a proxy, chosen because DevCloud had no
@@ -251,7 +288,7 @@ re-derive it with `python3 scripts/model_churn.py --upstream`.
 make codegen             # regenerate the manifest from the models
 make stats               # registered services and hand-written operations
 go test ./cmd/devcloud/  # asserts every number on this page against the binary
-make test-compat         # the compatibility-tested number, over all 213 services
+make test-compat         # the compatibility-tested number, over all 431 services
 ```
 
 Every figure comes from `internal/generated/fidelity/manifest_gen.go` and nothing

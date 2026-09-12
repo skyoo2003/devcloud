@@ -182,11 +182,26 @@ func HasRoute(service, method, uri string) bool {
 	return Route(service, method, uri) != ""
 }
 
-// RegisteredOps returns the operation metadata registered for a service.
+// RegisteredOps returns the metadata of the operations the engine can serve for
+// a service.
+//
+// The registry also holds REST-bound operations the verb prefixes could not
+// classify, carried with an empty Verb so their routes can outrank a broader
+// sibling's (see codegen.classifyOps). Handle declines those, so they are not
+// registered capability and are not reported here — a caller asking what the
+// engine holds for a service is asking what it will answer.
 func RegisteredOps(service string) map[string]OpMeta {
 	mu.RLock()
 	defer mu.RUnlock()
-	return registry[service]
+	ops := registry[service]
+	served := make(map[string]OpMeta, len(ops))
+	for name, m := range ops {
+		if m.Verb == "" {
+			continue
+		}
+		served[name] = m
+	}
+	return served
 }
 
 // JSONProtocol reports whether a protocol carries the operation name in an

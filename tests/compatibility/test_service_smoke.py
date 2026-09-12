@@ -105,7 +105,7 @@ def test_services_without_a_boto3_client_are_exactly_the_known_two():
 
 
 def test_no_registered_service_is_unreachable_from_boto3():
-    """The exclusion category stays empty, or the published figure moves with it.
+    """The exclusion category is pinned, and the published figure moves with it.
 
     This replaces test_lex_services_are_unreachable_from_boto3, which pinned the
     four Lex services as unroutable and told whoever fixed the routing to delete
@@ -116,10 +116,21 @@ def test_no_registered_service_is_unreachable_from_boto3():
     What survives is the direction of the check rather than the pin: a service
     that becomes unreachable has to be named in UNREACHABLE_FROM_BOTO3, and
     naming it lowers the compatibility-tested figure gated above.
+
+    Three services joined it when the fleet grew to 431, and in each the thing
+    that stops the request is botocore rather than DevCloud: codecatalyst signs
+    with a bearer token, cloudfront-keyvaluestore resolves its endpoint from a
+    KVS ARN, and partnercentral-revenue-measurement decodes every answer as
+    CBOR. The set is pinned rather than counted, so a fourth is a deliberate
+    edit that moves the published figure with it.
     """
-    assert _coverage.UNREACHABLE_FROM_BOTO3 == {}, (
-        "a registered service is unreachable from boto3: "
-        f"{sorted(_coverage.UNREACHABLE_FROM_BOTO3)}. It drops out of the "
+    assert set(_coverage.UNREACHABLE_FROM_BOTO3) == {
+        "codecatalyst",
+        "cloudfrontkeyvaluestore",
+        "partnercentralrevenuemeasurement",
+    }, (
+        "the set of registered services unreachable from boto3 changed: "
+        f"{sorted(_coverage.UNREACHABLE_FROM_BOTO3)}. Each one drops out of the "
         "compatibility-tested figure in docs/coverage.md, which is gated by "
         "test_published_compatibility_tested_figure_matches_this_suite."
     )
@@ -150,6 +161,7 @@ def test_registered_service_meets_the_floor(service_client, service):
     # clause for it, which is not the same as the gateway being able to route to
     # it. See docs/coverage.md.
     refusals = []
+    sends = _coverage.count_sends(client)
     for operation, needs_input in candidates:
         params = _coverage.stub_params(name, operation) if needs_input else {}
 
@@ -179,6 +191,22 @@ def test_registered_service_meets_the_floor(service_client, service):
 
         assert response["ResponseMetadata"]["HTTPStatusCode"] == 200
         return
+
+    if sends() == 0:
+        # Nothing reached DevCloud, so this says nothing about what it serves.
+        # A service where *every* candidate stops inside botocore belongs in
+        # UNREACHABLE_FROM_BOTO3, which subtracts it from the published
+        # compatibility-tested figure; skipping here without that entry would
+        # let it drop out of the suite while still being counted.
+        pytest.fail(
+            f"{service} ({name}, {entry['protocol']}) put no request on the "
+            f"wire: botocore refused all {len(candidates)} candidates before "
+            "sending:\n  "
+            + "\n  ".join(refusals)
+            + "\nDevCloud was never asked, so this is not a fidelity gap. Name "
+            "the service in _coverage.UNREACHABLE_FROM_BOTO3 with the reason "
+            "and lower the compatibility-tested figure in docs/coverage.md."
+        )
 
     pytest.fail(
         f"{service} ({name}, {entry['protocol']}) serves nothing that answers. "

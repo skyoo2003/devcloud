@@ -8,7 +8,9 @@ import (
 	"testing"
 
 	"github.com/skyoo2003/devcloud/internal/gateway"
+	"github.com/skyoo2003/devcloud/internal/shared/crud"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 // TestContestedDataPlanesResolveToThemselves covers the three Phase 2 services
@@ -46,4 +48,52 @@ func TestContestedDataPlanesResolveToThemselves(t *testing.T) {
 			assert.Equal(t, c.want, service)
 		})
 	}
+}
+
+// TestUnclassifiableRouteDeclinesInsteadOfAnsweringAsASibling is the
+// end-to-end half of the fabricated-success fix, against the registry the
+// binary actually ships rather than a synthetic one.
+//
+// Both operations below bind to a path a classified sibling also claims,
+// separated only by a query constraint: chime's AssociatePhoneNumberWithUser
+// against UpdateUser, apigateway's ImportRestApi against CreateRestApi. While
+// the registry held only classified operations, httproute.Match had no route
+// specific enough to prefer, so the sibling answered 200 for an operation
+// nothing implements.
+//
+// It lives here for the same reason the test above does: this package
+// blank-imports every service and the generated crudregistry, so the route
+// table under test is the real one. The compatibility suite cannot reach
+// either case — _unserved_probe picks one operation per service and prefers
+// Describe/List/Get, and "Import" is excluded as mutating outright.
+func TestUnclassifiableRouteDeclinesInsteadOfAnsweringAsASibling(t *testing.T) {
+	cases := []struct{ name, service, method, uri string }{
+		{"chime_associate_phone_number", "chime", "POST",
+			"/accounts/a1/users/u1?operation=associate-phone-number"},
+		{"apigateway_import_rest_api", "apigateway", "POST", "/restapis?mode=import"},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			res, err := crud.Handle(crud.Call{
+				Service: c.service, Protocol: "rest-json",
+				Method: c.method, URI: c.uri, Body: []byte("{}"),
+			})
+			require.ErrorIs(t, err, crud.ErrUnclassified,
+				"an operation the engine cannot classify must decline, not borrow a sibling's answer")
+			assert.Nil(t, res)
+		})
+	}
+
+	// The other direction, so declining never becomes the easy way to pass:
+	// the classified sibling still answers at its own path.
+	t.Run("sibling_still_serves_its_own_path", func(t *testing.T) {
+		res, err := crud.Handle(crud.Call{
+			Service: "chime", Protocol: "rest-json",
+			Method: "POST", URI: "/accounts/a1/users/u1",
+			Body: []byte(`{"LicenseType":"Pro"}`),
+		})
+		require.NoError(t, err)
+		require.NotNil(t, res)
+		assert.Equal(t, 200, res.Status, "chime UpdateUser must still be served")
+	})
 }

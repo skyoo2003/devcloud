@@ -45,6 +45,11 @@ MANIFEST_PATH = (
 # splits them into two clients, so the prefix names both. v1 is "elb".
 BOTO3_NAME_OVERRIDES = {
     "elasticloadbalancing": "elb",
+    # botocore's CloudWatch Events client is named "events", and its model
+    # publishes serviceId "EventBridge" — so nothing it claims normalises to
+    # "cloudwatchevents" and the derivation rule below returns None. The
+    # client exists; only the name does not derive.
+    "cloudwatchevents": "events",
 }
 
 # Registered services no boto3 caller can reach, so no boto3 test can exist for
@@ -73,7 +78,83 @@ NO_BOTO3_CLIENT = {
 # the sibling whose route table models its method and path. The one operation
 # two siblings both model (DELETE /bots/{id}) is still refused rather than
 # guessed at.
-UNREACHABLE_FROM_BOTO3: dict[str, str] = {}
+UNREACHABLE_FROM_BOTO3: dict[str, str] = {
+    # botocore refuses to build or sign the request, so DevCloud is never asked.
+    # These are not fidelity gaps — no answer DevCloud could give would change
+    # the outcome — but they are honest subtractions from the published
+    # compatibility-tested figure, because nothing here exercises the service.
+    "codecatalyst": (
+        "codecatalyst authenticates with a bearer token rather than SigV4, and "
+        "botocore raises NoAuthTokenError before the request is built"
+    ),
+    "cloudfrontkeyvaluestore": (
+        "the client resolves its endpoint from a KVS ARN, so botocore raises "
+        "EndpointResolutionError instead of honouring endpoint_url"
+    ),
+    # Reachable in the sense that the request is sent and answered, and
+    # unreachable in the sense that matters: botocore decodes the reply with
+    # RpcV2CBORParser, and DevCloud has no CBOR encoder, so even a clean
+    # decline is read as a corrupt CBOR frame. See docs/coverage.md.
+    "partnercentralrevenuemeasurement": (
+        "smithy.protocols#rpcv2Cbor — botocore parses every answer as CBOR and "
+        "DevCloud speaks none, so no reply it can send is intelligible"
+    ),
+}
+
+
+# Probes botocore will not put on the wire, pinned rather than counted.
+#
+# test_service_smoke.py treats "nothing reached DevCloud" as a failure that
+# demands an UNREACHABLE_FROM_BOTO3 entry, because a service that quietly stops
+# being exercised would still be counted in the published figure. The
+# per-operation probes in test_no_fabricated_success.py need the same treatment
+# for the same reason: skipping on the condition alone is unbounded, so a change
+# that broke request building for fifty services would shrink the suite with no
+# assertion moving.
+#
+# Membership is not a DevCloud defect — in every entry botocore refuses before
+# the request exists, so no answer DevCloud could give would change the outcome.
+# It is an admission that the probe proves nothing, and adding one is a
+# deliberate edit rather than a silent skip.
+UNSENDABLE_PROBES: dict[tuple[str, str], str] = {
+    # Both entries are this suite's own stub builder, not a botocore policy —
+    # which is exactly what pinning them is for. Neither is unfixable: filling
+    # the member in stub_params would put the probe back on the wire and the
+    # entry would have to go. Left unpinned they read as "botocore refused",
+    # and nobody would look again.
+    ("machinelearning", "Predict"): (
+        "the stub builder supplies no PredictEndpoint, and botocore resolves "
+        "the request endpoint from that member before signing — it calls "
+        ".split() on the None and raises AttributeError"
+    ),
+    ("rbin", "LockRule"): (
+        "the stub builder pads top-level strings to their minimum length but "
+        "does not descend into nested members: LockConfiguration.UnlockDelay."
+        "UnlockDelayValue has a minimum of 7 and the stub sends 1"
+    ),
+}
+
+
+def count_sends(client):
+    """Return a callable giving how many requests this client has put on the wire.
+
+    A boto3 call can fail inside botocore, before anything reaches DevCloud —
+    an unsatisfiable input shape, an endpoint that resolves from an ARN, an
+    auth scheme with no credentials to build. Those say nothing about what
+    DevCloud answers, while an answer DevCloud really did send and botocore
+    could not parse is a genuine defect. Both surface as the same exception
+    type, so the difference is measured here rather than guessed from the type.
+    """
+    sent = [0]
+
+    def _record(**_kwargs):
+        sent[0] += 1
+        # Returning anything but None would short-circuit the send.
+        return None
+
+    client.meta.events.register("before-send.*", _record)
+    return lambda: sent[0]
+
 
 # A resource that does not exist in an empty store is a served answer: the engine
 # looked in the store and reported honestly.

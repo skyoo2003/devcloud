@@ -73,7 +73,7 @@ appears, and every operation the CRUD engine serves is present and not filed as
 [`cmd/devcloud/fidelity_test.go`](../cmd/devcloud/fidelity_test.go).
 
 What no test can catch is an operation that never reaches the manifest at all. That is bounded
-rather than eliminated: for the 194 services with an in-tree Smithy model the operation universe
+rather than eliminated: for the 420 services with an in-tree Smithy model the operation universe
 comes from the model, so an operation losing its implementation reclassifies to `unimplemented`
 instead of disappearing. For the 11 without one, the universe *is* what the providers serve, so
 the manifest lists no unimplemented tail for them. `modelBacked` on
@@ -93,7 +93,7 @@ the operation. `CreateFunction` in `test_lambda.py` shows all three cases at onc
 | `FunctionArn` | present | presence only — not that it stays ARN-shaped |
 | `Runtime`, `Handler`, `MemorySize` | not asserted | nothing, though today's response includes them |
 
-That narrowness is the point: it is the promise the repo can actually keep. The suite — 1,156
+That narrowness is the point: it is the promise the repo can actually keep. The suite — 1,530
 tests driving real boto3 clients — runs in CI on every push and again against the tagged commit
 before a release publishes, so breaking an assertion fails the build rather than depending on
 review discipline. Anything the suite does not assert rests on nothing but intent. Widening the
@@ -103,20 +103,20 @@ promise means adding or strengthening assertions, and such contributions are wel
 
 Depending on any of the following will break, and breaking it is **not** a major-version event.
 
-- **`auto-crud` response content.** 5,193 operations are served by the
+- **`auto-crud` response content.** 10,871 operations are served by the
   [generic CRUD engine](crud-engine.md) at fidelity that is deliberately *plausible, not
   faithful*: store-backed responses echoing your input plus synthesized ids and ARNs, with no
   validation, no cross-resource integrity, no pagination correctness and no business logic.
   Their shape and content may change in any release. Use them to wire an SDK up, nothing more.
-- **Hand-verified operations with no compatibility test.** Of 4,497 hand-verified operations,
+- **Hand-verified operations with no compatibility test.** Of 4,528 hand-verified operations,
   only what the suite covers is promised. The rest are best-effort.
 - **Data durability.** Stores are local development stores. Several are in-memory and
   per-process; on-disk layouts under `data_dir` may change format between releases without a
   migration. Do not treat DevCloud as a database.
 - **`unimplemented` → served transitions.** An operation that returns an error today may start
   returning a response. This is additive, and ships in a minor release.
-- **Service coverage.** New services may be added in a minor release. The 205 services registered
-  today are a floor, not a ceiling — and not a promise of depth either: 4 of them serve no
+- **Service coverage.** New services may be added in a minor release. The 431 services registered
+  today are a floor, not a ceiling — and not a promise of depth either: 5 of them serve no
   operation and only decline cleanly. See [coverage.md](coverage.md).
 - **Error codes, HTTP status and message wording.** What *is* guaranteed for an `unimplemented`
   operation is that it **fails** — an AWS-shaped error, never a fabricated success. *Which* error
