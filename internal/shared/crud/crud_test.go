@@ -8,6 +8,8 @@ import (
 	"strings"
 	"sync"
 	"testing"
+
+	"github.com/skyoo2003/devcloud/internal/shared/httproute"
 )
 
 func handleJSON(t *testing.T, service, op string, params map[string]any) (*Result, error) {
@@ -598,6 +600,77 @@ func TestEngineRESTXMLUnmatchedPathIsUnclassified(t *testing.T) {
 	}
 	if _, err := handleXML(t, "unregistered", "GET", "/v20180820/things"); err != ErrUnclassified {
 		t.Errorf("unregistered service: want ErrUnclassified, got %v", err)
+	}
+}
+
+// --- provider-declared routes ---
+
+// TestRegisterRoutes covers the table a hand-written provider declares for
+// itself. Nothing here is servable by the engine: the point is that the gateway
+// can tell such a service apart from a sibling sharing its SigV4 signing name,
+// which it does by asking HasRoute.
+func TestRegisterRoutes(t *testing.T) {
+	const svc = "handwrittensvc"
+	RegisterRoutes(svc, []httproute.Route{
+		{Method: "POST", Pattern: "/keys/{KeyIdentifier}/encrypt", Operation: "EncryptData"},
+		{Method: "GET", Pattern: "/2013-01-01/search?format=sdk", Operation: "Search"},
+	})
+
+	if !HasRoute(svc, "POST", "/keys/k1/encrypt") {
+		t.Error("declared route: want HasRoute true")
+	}
+	if got := Route(svc, "POST", "/keys/k1/encrypt"); got != "EncryptData" {
+		t.Errorf("Route = %q, want EncryptData", got)
+	}
+	if !HasRoute(svc, "GET", "/2013-01-01/search?format=sdk&q=x") {
+		t.Error("query-string route: want HasRoute true")
+	}
+	if HasRoute(svc, "POST", "/nope") {
+		t.Error("unmodelled path: want HasRoute false")
+	}
+	if HasRoute(svc, "GET", "/keys/k1/encrypt") {
+		t.Error("known path, wrong method: want HasRoute false")
+	}
+
+	// Idempotent: a second registration replaces rather than accumulates.
+	RegisterRoutes(svc, []httproute.Route{
+		{Method: "POST", Pattern: "/keys/{KeyIdentifier}/encrypt", Operation: "EncryptData"},
+	})
+	if !HasRoute(svc, "POST", "/keys/k1/encrypt") {
+		t.Error("after re-registration: want HasRoute true")
+	}
+}
+
+// TestRegisterRoutesSkipsEmptyPatterns guards the json-1.x case: those models
+// bind no path, so their generated table is all empty patterns. Registering one
+// would make the service claim every request that reached the matcher.
+func TestRegisterRoutesSkipsEmptyPatterns(t *testing.T) {
+	const svc = "json11svc"
+	RegisterRoutes(svc, []httproute.Route{
+		{Method: "", Pattern: "", Operation: "SendSSHPublicKey"},
+		{Method: "", Pattern: "", Operation: "SendSerialConsoleSSHPublicKey"},
+	})
+
+	if HasRoute(svc, "POST", "/anything") {
+		t.Error("empty-pattern table: want HasRoute false")
+	}
+	if HasRoute(svc, "POST", "/") {
+		t.Error("empty-pattern table on root: want HasRoute false")
+	}
+}
+
+// TestRegisterRoutesIsNotServing is the distinction the whole mechanism rests
+// on: a declared route names an operation, it does not serve one. The engine
+// must still decline, or these services would be answered generically — which
+// is exactly what hand-writing them was meant to avoid.
+func TestRegisterRoutesIsNotServing(t *testing.T) {
+	const svc = "declaredonlysvc"
+	RegisterRoutes(svc, []httproute.Route{
+		{Method: "POST", Pattern: "/keys/{KeyIdentifier}/encrypt", Operation: "EncryptData"},
+	})
+
+	if _, err := handleREST(t, svc, "POST", "/keys/k1/encrypt", nil); err != ErrUnclassified {
+		t.Errorf("declared but unregistered op: want ErrUnclassified, got %v", err)
 	}
 }
 

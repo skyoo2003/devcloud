@@ -80,6 +80,13 @@ var (
 	registry = map[string]map[string]OpMeta{}         // service -> op -> meta
 	routes   = map[string][]httproute.Route{}         // service -> REST routes, sorted by operation
 	store    = map[string]map[string]map[string]any{} // "service|resource" -> id -> doc
+
+	// providerRoutes holds the REST routes of services whose provider serves
+	// them by hand. It is kept apart from routes rather than merged into it
+	// because Register overwrites its entry wholesale, and init order between
+	// the generated crudregistry and a service package is not something either
+	// side controls.
+	providerRoutes = map[string][]httproute.Route{}
 )
 
 // Register records a service's operation metadata. The generated crudregistry
@@ -105,6 +112,40 @@ func Register(service string, ops map[string]OpMeta) {
 	routes[service] = rs
 }
 
+// RegisterRoutes records the REST route table of a service the engine cannot
+// serve, so the gateway can still tell it apart from a sibling that shares its
+// SigV4 signing name.
+//
+// Registration here claims nothing about fidelity: the operation resolves to a
+// name, Handle then finds no OpMeta for it and returns ErrUnclassified, which is
+// the truth. What it changes is which service is asked — without it,
+// payment-cryptography-data's traffic is kept by the control plane, because
+// neither sibling's route table models the data plane's paths and
+// resolveSharedSigningName leaves an unclaimed request where it found it.
+//
+// Not one of that service's 15 operations carries a CRUD verb prefix, so it
+// holds no crudregistry entry and Register is never called for it. This is the
+// only way its routes reach HasRoute.
+func RegisterRoutes(service string, rs []httproute.Route) {
+	filtered := make([]httproute.Route, 0, len(rs))
+	for _, r := range rs {
+		// A json-1.x service binds no path; its generated table is all empty
+		// patterns and matching against them would answer for any request.
+		if r.Pattern == "" {
+			continue
+		}
+		filtered = append(filtered, r)
+	}
+	// Sorted by operation for the same reason Register sorts: httproute.Match
+	// takes the first route that fits within a specificity pass, and Go map
+	// iteration order must not decide which one that is.
+	sort.Slice(filtered, func(i, j int) bool { return filtered[i].Operation < filtered[j].Operation })
+
+	mu.Lock()
+	defer mu.Unlock()
+	providerRoutes[service] = filtered
+}
+
 // Route returns the operation a service models at this method and URI, or "" if
 // it models none.
 //
@@ -119,11 +160,17 @@ func Register(service string, ops map[string]OpMeta) {
 // runs for an importer — a provider unit test that does not import it sees an
 // empty table and falls back on the provider's own resolver, which is the
 // behaviour it had before.
+// The engine's own table is consulted first: a service that models the path as
+// a CRUD operation can actually be served there, while a providerRoutes entry
+// only names the operation.
 func Route(service, method, uri string) string {
 	mu.RLock()
-	rs := routes[service]
+	rs, pr := routes[service], providerRoutes[service]
 	mu.RUnlock()
-	op, _ := httproute.Match(rs, method, uri)
+	if op, _ := httproute.Match(rs, method, uri); op != "" {
+		return op
+	}
+	op, _ := httproute.Match(pr, method, uri)
 	return op
 }
 
