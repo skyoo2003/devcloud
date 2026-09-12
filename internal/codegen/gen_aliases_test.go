@@ -178,24 +178,34 @@ func TestBuildAliasesOverTheFleet(t *testing.T) {
 
 	table, collisions := BuildAliases(models)
 
-	// Ten, and every one is a name no claimant carries as its own ID. The cases
-	// where a claimant does — dynamodb, rds, ses, sagemaker, bedrock, forecast,
-	// personalize, transcribe — are settled by selfNamedClaimant and
-	// deliberately absent here. That rule is also why onboarding the demand set
-	// added only two entries: api-gateway, elastic-load-balancing and
-	// kinesis-analytics each publish their contested name as their own service
-	// ID, so the generator settles them without a human.
+	// Twenty, and every one is a name no claimant carries as its own ID. The
+	// cases where a claimant does — dynamodb, rds, ses, sagemaker, bedrock,
+	// forecast, personalize, transcribe — are settled by selfNamedClaimant and
+	// deliberately absent here. That rule is also why vendoring the remaining 226
+	// models added only ten entries: a newly vendored model that publishes its
+	// contested name as its own service ID takes the alias with no collision at
+	// all, which is why sso and cloudhsm are pinned in the gateway instead.
 	assert.Equal(t, []string{
 		"amazonrdsv19",        // rds, docdb, neptune
+		"aws-marketplace",     // 7 marketplace* clients, 6 by ARN namespace
+		"awsevents",           // cloudwatchevents, eventbridge
 		"awswaf",              // waf, wafv2
+		"cassandra",           // keyspaces, keyspacesstreams
 		"cognito",             // cognitoidentity, cognitoidentityprovider
+		"ds",                  // directoryservice, directoryservicedata
 		"email",               // ses, sesv2
 		"es",                  // elasticsearchservice, opensearch
+		"events",              // cloudwatchevents, eventbridge
+		"execute-api",         // apigatewaymanagementapi, connectparticipant
 		"lex",                 // 4 Lex services, none named "lex"
+		"mgh",                 // migrationhub, migrationhubconfig
+		"partnercentral",      // 5 partnercentral* clients share the signing name
 		"runtime.sagemaker",   // sagemakerruntime, sagemakerruntimehttp2
 		"simpleemailservice",  // ses, sesv2
+		"sms-voice",           // pinpointsmsvoice, pinpointsmsvoicev2
 		"timestream",          // timestreamquery, timestreamwrite
 		"timestream_20181101", // same pair: identical shape name AND version
+		"wisdomservice",       // qconnect, wisdom
 	}, collisions, "a new collision is a routing decision that needs a human")
 
 	// Spot-check aliases the hand-written switch used to carry, now derived.

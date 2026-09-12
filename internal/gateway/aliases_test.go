@@ -120,6 +120,14 @@ var goldenAliases = []struct{ alias, service string }{
 	{"email", "ses"},
 	{"s3", "s3"},
 	{"lambda", "lambda"},
+
+	// Below: neither of the above. The old switch never named cloudhsm, and it
+	// did not fall through either — the derived table answered cloudhsmv2 for it
+	// while no cloudhsm model existed. Vendoring that model made the alias
+	// self-named, so selfNamedClaimant handed it to a service with no provider,
+	// with no collision for TestServiceIDOverridesResolveEveryCollision to
+	// catch. Pinned to the answer it gave before, by the Group 3 override.
+	{"cloudhsm", "cloudhsmv2"},
 }
 
 // TestNormalizeServiceIDPreservesEveryKnownAlias is the regression lock for

@@ -202,6 +202,31 @@ var serviceIDOverrides = map[string]string{
 	// hand-written provider — then URL-path routing, as DetectProtocol already
 	// does for opensearch, becomes worth the code.
 	"lex": "",
+	// EventBridge is CloudWatch Events renamed, and the retired name has its own
+	// model now. Both aliases keep meaning the service DevCloud registers.
+	"events":    "eventbridge",
+	"awsevents": "eventbridge",
+	// Directory Service's data plane signs with the control plane's name.
+	"ds": "directoryservice",
+	// apigatewaymanagementapi publishes execute-api as its endpoint prefix and is
+	// the registered claimant; connectparticipant only signs with it. A REST API
+	// invoke signs as execute-api too and lands here, which is where it already
+	// landed: DevCloud registers no invoke data plane for it to reach instead.
+	"execute-api": "apigatewaymanagementapi",
+	// Keyspaces Streams is the split-out; the control plane owns "cassandra".
+	"cassandra": "keyspaces",
+	// migrationhub-config is the split-out.
+	"mgh": "migrationhub",
+	// Wisdom was renamed Q Connect and both still publish "WisdomService".
+	"wisdomservice": "qconnect",
+	// Pinpoint SMS Voice v1 and v2 share every identifier and, unlike SES, no
+	// protocol difference separates them. No basis to pick.
+	"sms-voice": "",
+	// Seven Marketplace clients publish "aws-marketplace": six as their ARN
+	// namespace, marketplace-agreement as its signing name.
+	"aws-marketplace": "",
+	// Five Partner Central clients share the signing name.
+	"partnercentral": "",
 
 	// --- Group 2: legacy identifiers no model publishes ---
 	"amazonkinesis":                      "kinesis",
@@ -235,15 +260,14 @@ var serviceIDOverrides = map[string]string{
 
 	// --- Group 3: substitutions for services DevCloud does not register ---
 	//
-	// Only one entry left, and the reason the others went is worth keeping.
-	// "apigateway" resolves to apigatewayv2 and "sso" to ssoadmin without any
-	// help here, because those services publish those names and the service
-	// that would contest them is not modelled. That is a substitution the
-	// models happen to make, not one anybody chose — and it stops being silent
-	// the moment the missing model is added, because the alias becomes a
-	// collision and TestServiceIDOverridesResolveEveryCollision fails until
-	// somebody decides. Deliberately not pinned here: pinning it would make
-	// that decision now, invisibly, for a service that does not exist yet.
+	// sso and cloudhsm have in-tree models now, and each names itself — so
+	// selfNamedClaimant awards the alias to a service no provider is registered
+	// for, with no collision reported and nothing but goldenAliases to notice.
+	// Pinned to the answer they gave before the models arrived. Delete both when
+	// internal/services/{sso,cloudhsm} exist; leaving them would then send those
+	// services' traffic to the neighbour that used to stand in for them.
+	"sso":      "ssoadmin",
+	"cloudhsm": "cloudhsmv2",
 	// Timestream Query and Timestream Write share the shape name
 	// Timestream_20181101 and the version 2018-11-01, so neither the alias nor
 	// the protocol separates them. Pinned to write, which is where these
