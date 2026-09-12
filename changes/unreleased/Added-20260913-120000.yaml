@@ -1,0 +1,5 @@
+kind: Added
+body: 'The 226 AWS services DevCloud does not register now have their Smithy models
+  vendored, so codegen covers all 420 models. No service is registered yet and every
+  published coverage figure is unchanged'
+Issue: "160"
