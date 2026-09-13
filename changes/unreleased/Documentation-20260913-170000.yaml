@@ -1,7 +1,6 @@
 kind: Documentation
-body: 'The coverage page now states its two targets separately — routing, which is
-  431 of 431 and is a leak-zero safety property, and depth, which stays at the 205
-  services the 2026-09-05 demand study settled — so a service count can no longer
-  be read as a promise of fidelity'
+body: 'The coverage page states routing and depth as two targets — 431 of 431
+  registered, depth still the 205 services the demand study settled — so a service
+  count no longer reads as a fidelity promise'
 custom:
     Issue: "163"

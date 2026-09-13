@@ -18,9 +18,9 @@ kinds:
   - label: Documentation
 body:
   # A ceiling, not a target: one sentence is the rule (see RELEASE.md), and a
-  # body this long is a paragraph that belongs in the linked issue. Enforced by
-  # `changie new` only — a hand-written fragment is not checked.
-  maxLength: 400
+  # body this long is already two. Enforced by `changie new` only — a
+  # hand-written fragment is not checked.
+  maxLength: 200
 custom:
   - key: Issue
     label: Issue Number

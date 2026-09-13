@@ -30,7 +30,7 @@ You are prompted for a **kind** (`Added`, `Changed`, `Deprecated`, `Removed`,
 writes a small YAML file under `changes/unreleased/` — commit it alongside your
 code. Prefer `changie new` over hand-writing the YAML: it enforces the issue
 number — a fragment without one renders as a dead link — and refuses a body over
-400 characters.
+200 characters.
 
 ### One sentence. Two at most.
 
@@ -45,12 +45,14 @@ already points at.
 - **Never a third.** If it needs one, it is either two changes (write two
   fragments) or a story that belongs in the issue.
 
-`changie new` refuses a body over 400 characters (`body.maxLength` in
-[`.changie.yaml`](.changie.yaml)). That is a ceiling for the two-sentence case,
-not a target, and it does not see a fragment you hand-write.
+`changie new` refuses a body over 200 characters (`body.maxLength` in
+[`.changie.yaml`](.changie.yaml)). That is roughly one sentence: at 200 the
+second sentence is already crowding the first, so the ceiling and the rule push
+the same way. It does not see a fragment you hand-write.
 
 ```yaml
-# too long — the root cause, the mechanism and the evidence all belong in #142
+# too long — 417 characters; the root cause, the mechanism and the evidence all
+# belong in #142
 body: 'S3 Control requests were served by S3. `s3control` signs with S3''s own
   signing name, so every call fell through to the REST-XML default and the S3
   provider parsed it as a bucket and key — `CreateAccessPoint` returned 200 and
@@ -58,10 +60,10 @@ body: 'S3 Control requests were served by S3. `s3control` signs with S3''s own
   `/v20180820/` path prefix, and its unserved operations return a clean AWS error
   instead of a fabricated success'
 
-# right length
+# right length — 193 characters
 body: 'S3 Control requests were served by S3, which answered `CreateAccessPoint`
-  with a fabricated 200. It is now split off by its `/v20180820/` path prefix, and
-  its unserved operations return a clean AWS error'
+  with a fabricated 200. It is now split off by its `/v20180820/` path prefix and
+  its unserved operations decline cleanly'
 ```
 
 Config: [`.changie.yaml`](.changie.yaml).
