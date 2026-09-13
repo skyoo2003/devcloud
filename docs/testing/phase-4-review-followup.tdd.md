@@ -89,13 +89,22 @@ budget_test.go:80: bringing 431 services up took 2.048s, over the 2s budget
 --- FAIL: TestRegisteredFleetComesUpWithinItsBudget (2.07s)
 ```
 
-Raising the number does not rescue the design. The regression worth catching is a
-provider that starts opening a file or a database per service, which costs 1.2x
-to 2x — 431 extra file opens. A ceiling loose enough to clear a 14x machine
-difference plus run-to-run variance cannot also fail at 2x. Even the 8 ms
-injection above, which is far larger than a realistic regression, only reaches
-5.5 s on a runner whose baseline is 2.05 s, so it would pass under any ceiling
-that does not flake.
+Raising the number does not rescue the design, and the next CI run showed why.
+With the ceiling removed, the same runner type measured **1.414 s** on arm64 and
+**1.375 s** on amd64 — a 45% swing against the 2.048 s reading on identical code
+one commit earlier:
+
+| Run | arm64 | amd64 |
+|---|---|---|
+| `8e95b52` | 2.048 s (failed the 2 s ceiling) | canceled by fail-fast |
+| `17d2415` | 1.414 s | 1.375 s |
+| local | 0.141–0.168 s | — |
+
+The regression worth catching is a provider that starts opening a file or a
+database per service, which costs 1.2x to 2x — 431 extra file opens. That is
+smaller than the runner's own variance. A ceiling that survives 45% noise cannot
+fail on a 2x regression. Even the 8 ms injection above, far larger than anything
+realistic, only reaches 5.5 s against a ~2 s baseline.
 
 `docs/coverage.md` made this objection before the gate was written. The gate
 overrode it and CI settled the question.
@@ -152,7 +161,7 @@ evidence.
 | 2 | Startup time is reported on every run, and assertable on a known machine | same | measurement | PASS | 168 ms logged; `DEVCLOUD_STARTUP_BUDGET=50ms` fails, `=300ms` passes |
 | 3 | The routing target on the coverage page equals the count the binary registers | `cmd/devcloud/coverage_test.go:TestPublishedTargetTableMatchesTheBinary` | unit | PASS | `go test ./cmd/devcloud/` |
 | 4 | The three numbers in the two-axis table are arithmetically consistent | same | unit | PASS | registered − serving target = outside-target row |
-| 5 | The shipped linux binary stays under 45 MiB | `.github/workflows/ci.yml` "Check the binary stays within its regression ceiling" | CI check | not run locally | darwin host cannot produce the linux figure; runs on both ubuntu matrix arches |
+| 5 | The shipped linux binary stays under 45 MiB | `.github/workflows/ci.yml` "Check the binary stays within its regression ceiling" | CI check | PASS | 35 MiB arm64, 37 MiB amd64, against a published 36.8 MiB on Apple Silicon |
 
 ## Coverage and known gaps
 
@@ -173,8 +182,10 @@ codegen packages, which `go test ./...` covers.
 
 Known gaps, deliberate:
 
-- **The 45 MiB check is unverified locally.** It needs a linux build; the host is
-  darwin. It runs first on this branch's CI.
+- **The 45 MiB ceiling has ~8 MiB of slack.** CI measures 35–37 MiB, so the
+  ceiling catches a large regression and nothing smaller. It was set before the
+  linux figures were known; now that they are, the platform difference it was
+  partly meant to absorb turns out to be under 2 MiB.
 - **Startup is not gated in CI at all**, by decision rather than oversight. See
   the CI disproof above. A regression that slows startup 2x will not be caught by
   anything automated; it will be caught when the published figure is re-taken.

@@ -272,13 +272,14 @@ Two ceilings on the startup reading:
    watch, and it is the one `cmd/devcloud/budget_test.go` reproduces.
 
 **Startup is measured, not gated, and that is a deliberate retreat.** The gate
-was written as a wall-clock ceiling and CI disproved it: the same path that takes
-141 ms locally took 2.048 s on a GitHub arm64 runner. The regression worth
-catching — a provider that starts opening a file or a database per service at
-startup — costs 1.2x to 2x, because that is what 431 extra file opens are worth.
-No absolute ceiling clears a 14x difference between machines and still fails on a
-2x regression, so a ceiling in CI would have been decoration that flakes. Saying
-the figure is measured is cheaper than claiming a gate that cannot fire.
+was written as a wall-clock ceiling and CI disproved it. The same path that takes
+141 ms here took 2.048 s on a GitHub arm64 runner, and 1.414 s on the same runner
+type one commit later — so the shared runner is roughly ten times slower *and*
+swings 45% between runs on identical code. The regression worth catching is
+smaller than that swing: a provider that starts opening a file or a database per
+service at startup costs 1.2x to 2x, because that is what 431 extra file opens
+are worth. A ceiling that survives the variance cannot fail on the regression.
+Saying the figure is measured is cheaper than claiming a gate that cannot fire.
 
 What `budget_test.go` *does* assert on every run is that all 431 services come
 up at all. `main.go` initializes the long tail non-fatally, so a service that is
@@ -292,10 +293,11 @@ DEVCLOUD_STARTUP_BUDGET=300ms go test ./cmd/devcloud/
 
 That is how the figures above are re-taken per release.
 
-The binary size *is* gated, because size does not vary with how busy a runner is:
-CI fails the build past **45 MiB**, against the 36.8 MiB above. The gap is the
-platform difference — that figure is Apple Silicon, CI builds for linux — not
-slack. It is a decision; if it starts failing, find what grew before raising it.
+The binary size *is* gated, because size does not vary with how busy a runner is.
+CI fails the build past **45 MiB** and measures 35 MiB on arm64, 37 MiB on amd64
+— close enough to the 36.8 MiB above that the platform barely registers, so the
+remaining 8 MiB is genuine slack rather than a correction for anything. It is a
+decision; if it starts failing, find what grew before raising it.
 
 The RSS readings were taken on different days and are not a controlled
 comparison. Read them as "memory is not the constraint" rather than as a saving —
