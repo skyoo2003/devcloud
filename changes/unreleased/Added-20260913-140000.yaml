@@ -1,5 +1,0 @@
-kind: Added
-body: 'Eight AWS services the generic CRUD engine cannot classify now have
-  hand-written providers, taking coverage to 213 registered and 209 serving'
-custom:
-    Issue: "161"

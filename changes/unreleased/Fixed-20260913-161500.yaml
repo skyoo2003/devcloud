@@ -1,6 +1,0 @@
-kind: Fixed
-body: 'The CRUD engine no longer answers an operation it cannot classify with a
-  broader sibling''s route — chime''s AssociatePhoneNumberWithUser was returning
-  UpdateUser''s 200 — and now declines it cleanly'
-custom:
-    Issue: "162"
