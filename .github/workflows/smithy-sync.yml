@@ -60,6 +60,39 @@ jobs:
         continue-on-error: true
         run: CGO_ENABLED=0 go test ./... -v
 
+      # The gate above fails on purpose when upstream moves an operation, and
+      # until now the fix was a person transcribing nine numbers out of four
+      # failure messages into three files. This does that arithmetic and leaves
+      # it in the PR, so the review is "should ec2 have gained 46 operations?"
+      # rather than "is 19,247 the right total?".
+      #
+      # It does not relax the gate: this runs before the PR's own ci, which
+      # still asserts docs/coverage.md against the binary in both directions. A
+      # change that needs a sentence rather than a number — a service that has
+      # newly stopped serving anything, which the page must name — makes this
+      # step exit non-zero, and the body says so.
+      #
+      # It must stay *after* Run tests. cmd/devcloud/sync_test.go finds the test
+      # step by the first `run` containing "go test", and this step's does too,
+      # so moving it earlier would silently repoint three existing sync gates.
+      - name: Re-derive the published figures
+        id: figures
+        if: steps.changes.outputs.changed == 'true'
+        continue-on-error: true
+        env:
+          DEVCLOUD_UPDATE_DOCS: "1"
+        run: |
+          # pipefail, or sed's exit code is the step's: the updater refusing to
+          # invent a sentence would then report success and the PR would read as
+          # a clean sync. The runner's default shell is `bash -e`, not `bash -eo
+          # pipefail`, so this has to be said.
+          set -o pipefail
+          CGO_ENABLED=0 go test ./cmd/devcloud/ \
+            -run 'TestUpdatePublishedFigures' -v \
+            | sed -n '/^\*\*[0-9]* of /,/^$/p;/^| Figure/,/^$/p;/^PROSE REQUIRED/,$p' \
+            > /tmp/figures.md
+          cat /tmp/figures.md
+
       # The diff is whole-tree whether upstream moved one model or ninety — a
       # real refresh measured on 2026-09-06 changed 93 models and 134 generated
       # files. Asking a reviewer to "review" that is asking for nothing. This
@@ -74,11 +107,21 @@ jobs:
             echo
             echo "A \`failure\` is expected when upstream added or removed an"
             echo "operation: the published-figure gate over \`docs/coverage.md\` fails"
-            echo "on purpose so a human looks at a coverage change. Re-derive the"
-            echo "figures and correct the doc in this PR — do not silence the gate."
+            echo "on purpose so a human looks at a coverage change. The figures"
+            echo "below are already re-derived and committed to this PR."
             echo
             echo "This PR's own \`ci\`, \`compat\` and \`codegen-drift\` runs are the"
             echo "gate on merging."
+            echo
+            echo "---"
+            echo
+            echo "**Published figures: \`${{ steps.figures.outcome }}\`.**"
+            echo
+            echo "A \`failure\` means a change needs a sentence rather than a"
+            echo "number — read the PROSE REQUIRED block below and write it"
+            echo "before merging."
+            echo
+            cat /tmp/figures.md
             echo
             echo "---"
             echo
@@ -105,8 +148,13 @@ jobs:
       # would report success every week no matter what upstream did — the same
       # silent no-op scripts/download-smithy-models.sh was fixed to stop doing,
       # traded for the one continue-on-error just removed.
+      #
+      # Both continue-on-error steps are read, not just the tests. A PROSE
+      # REQUIRED result means docs/coverage.md is wrong until someone writes a
+      # sentence, and reading only the test outcome would end the job green on
+      # the one failure mode this automation cannot fix for itself.
       - name: Fail if the sync's tests failed
-        if: steps.tests.outcome == 'failure'
+        if: steps.tests.outcome == 'failure' || steps.figures.outcome == 'failure'
         run: |
-          echo "::error::Smithy sync tests failed; see the PR opened by this run."
+          echo "::error::Smithy sync needs a look (tests=${{ steps.tests.outcome }}, figures=${{ steps.figures.outcome }}); see the PR opened by this run."
           exit 1

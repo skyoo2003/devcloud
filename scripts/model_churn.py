@@ -264,7 +264,8 @@ def render(
         lines.append(
             "An operation added or removed moves the fidelity manifest, so the "
             "published-figure gate over `docs/coverage.md` is expected to fail. "
-            "Re-derive the figures in this PR rather than silencing the gate."
+            "The sync re-derives them into this PR; confirm they moved for the "
+            "reason the operations did, and never silence the gate."
         )
     else:
         lines.append("No operation was added or removed by any changed model.")

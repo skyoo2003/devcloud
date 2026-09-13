@@ -3,8 +3,10 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 	"regexp"
 	"sort"
 	"strconv"
@@ -20,18 +22,25 @@ import (
 // doc would still be free to drift from it.
 const coveragePath = "../../docs/coverage.md"
 
-// coverageRow matches one row of the summary table at the top of
+// coverageRowPattern matches one row of the summary table at the top of
 // docs/coverage.md:
 //
 //	| **Registered** | The gateway routes the service. … | **205** |
 //
 // The label is anchored to the row start so a number quoted in prose elsewhere
-// on the page cannot be mistaken for the published figure.
+// on the page cannot be mistaken for the published figure. Capture group 1 is
+// the published figure, and is the only span figures_update_test.go rewrites —
+// the gate that reads a row and the tool that writes it share one pattern, so a
+// restructured page cannot leave one of them silently reading the wrong cell.
+func coverageRowPattern(label string) *regexp.Regexp {
+	return regexp.MustCompile(`(?m)^\|\s*\*\*` + regexp.QuoteMeta(label) + `\*\*\s*\|[^|]*\|\s*\*\*(\d+)\*\*\s*\|`)
+}
+
+// coverageRow returns the figure the summary table publishes for label.
 func coverageRow(t *testing.T, doc, label string) int {
 	t.Helper()
 
-	pattern := regexp.MustCompile(`(?m)^\|\s*\*\*` + regexp.QuoteMeta(label) + `\*\*\s*\|[^|]*\|\s*\*\*(\d+)\*\*\s*\|`)
-	matches := pattern.FindAllStringSubmatch(doc, -1)
+	matches := coverageRowPattern(label).FindAllStringSubmatch(doc, -1)
 	if len(matches) != 1 {
 		t.Fatalf("docs/coverage.md: found %d rows for %q, want exactly 1. "+
 			"The summary table was restructured; this gate reads it, so update the "+
@@ -46,17 +55,25 @@ func coverageRow(t *testing.T, doc, label string) int {
 	return n
 }
 
-// tierRow matches one row of the per-operation table in docs/coverage.md:
+// tierRowPattern matches one row of the per-operation table in docs/coverage.md:
 //
 //	| `hand-verified` | 4,496 |
 //
-// Thousands separators are stripped: the doc is written for a reader, and the
-// gate reads what the reader sees rather than asking the doc to be machine-shaped.
+// Thousands separators are inside capture group 1: the doc is written for a
+// reader, and the gate reads what the reader sees rather than asking the doc to
+// be machine-shaped. tierRow strips them, and the updater writes them back.
+func tierRowPattern(label string) *regexp.Regexp {
+	return regexp.MustCompile("(?m)^\\|\\s*`" + regexp.QuoteMeta(label) + "`\\s*\\|\\s*([\\d,]+)\\s*\\|")
+}
+
+// totalKnownPattern matches the summed row of that same table.
+var totalKnownPattern = regexp.MustCompile(`(?m)^\|\s*\*\*total known\*\*\s*\|\s*\*\*([\d,]+)\*\*\s*\|`)
+
+// tierRow returns the operation count the manifest table publishes for a tier.
 func tierRow(t *testing.T, doc, label string) int {
 	t.Helper()
 
-	pattern := regexp.MustCompile("(?m)^\\|\\s*`" + regexp.QuoteMeta(label) + "`\\s*\\|\\s*([\\d,]+)\\s*\\|")
-	matches := pattern.FindAllStringSubmatch(doc, -1)
+	matches := tierRowPattern(label).FindAllStringSubmatch(doc, -1)
 	if len(matches) != 1 {
 		t.Fatalf("docs/coverage.md: found %d rows for tier %q, want exactly 1", len(matches), label)
 	}
@@ -87,6 +104,83 @@ func servedCounts() (serving int, registeredOnly []string) {
 	return serving, registeredOnly
 }
 
+// figures is every published number that is derived rather than decided.
+//
+// The gates below and the updater in figures_update_test.go both read this, so
+// a figure has exactly one derivation. A number that lives in two places is the
+// defect docs/coverage.md exists to prevent, and a second copy inside the tool
+// that maintains it would be the worst place to keep one.
+type figures struct {
+	registered     int      // gateway-routed services
+	serving        int      // services with >= 1 non-unimplemented operation
+	registeredOnly []string // the rest, sorted
+	compatTested   int      // registered minus the pinned boto3 exclusions
+	tiers          map[fidelity.Tier]int
+	totalKnown     int
+}
+
+// derivedFigures reads every derivable published number out of the binary.
+//
+// It reads the registry and the fidelity manifest rather than docs/coverage.md
+// because the page is the claim under test: deriving from it would make every
+// gate below agree with whatever the page happened to say.
+func derivedFigures(t *testing.T) figures {
+	t.Helper()
+
+	serving, registeredOnly := servedCounts()
+	f := figures{
+		registered:     len(plugin.DefaultRegistry.RegisteredServices()),
+		serving:        serving,
+		registeredOnly: registeredOnly,
+		tiers:          map[fidelity.Tier]int{},
+	}
+	for _, svc := range fidelity.Services {
+		for _, tier := range svc.Operations {
+			f.tiers[tier]++
+			f.totalKnown++
+		}
+	}
+	f.compatTested = f.registered - len(loadCompatExclusions(t))
+	return f
+}
+
+// loadCompatExclusions returns the registered services no boto3 test can reach.
+//
+// docs/coverage.md's fourth number is the fleet minus these. The set is a fact
+// about botocore, so tests/compatibility owns it — this reads that file rather
+// than keeping a Go copy, because a Go copy would drift the week botocore
+// publishes a client and only the Python side noticed.
+func loadCompatExclusions(t *testing.T) []string {
+	t.Helper()
+
+	path := filepath.Join(repoRoot(t), "tests", "compatibility", "exclusions.json")
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatalf("read the compatibility exclusions: %v", err)
+	}
+
+	var doc struct {
+		NoBoto3Client        map[string]string `json:"noBoto3Client"`
+		UnreachableFromBoto3 map[string]string `json:"unreachableFromBoto3"`
+	}
+	if err := json.Unmarshal(raw, &doc); err != nil {
+		t.Fatalf("tests/compatibility/exclusions.json is not valid JSON: %v. "+
+			"Both the compatibility suite and the published Compatibility-tested "+
+			"figure are derived from it, so an unreadable file stops both rather "+
+			"than quietly excluding nothing.", err)
+	}
+
+	var ids []string
+	for id := range doc.NoBoto3Client {
+		ids = append(ids, id)
+	}
+	for id := range doc.UnreachableFromBoto3 {
+		ids = append(ids, id)
+	}
+	sort.Strings(ids)
+	return ids
+}
+
 // TestPublishedCoverageMatchesTheBinary is Milestone 6's gate: CI fails if a
 // registered service drops below the floor or the count regresses.
 //
@@ -106,15 +200,18 @@ func TestPublishedCoverageMatchesTheBinary(t *testing.T) {
 	}
 	doc := string(raw)
 
-	registered := plugin.DefaultRegistry.RegisteredServices()
-	serving, registeredOnly := servedCounts()
+	f := derivedFigures(t)
+	serving, registeredOnly := f.serving, f.registeredOnly
 
-	if got, want := len(registered), len(fidelity.Services); got != want {
+	// Deliberately asserted here and not inside derivedFigures: this is a
+	// guarantee about codegen being current, and a helper that checked it would
+	// make the updater depend on it silently rather than fail on it.
+	if got, want := f.registered, len(fidelity.Services); got != want {
 		t.Errorf("the registry holds %d services and the fidelity manifest %d; "+
 			"run `make codegen`", got, want)
 	}
 
-	if got, want := coverageRow(t, doc, "Registered"), len(registered); got != want {
+	if got, want := coverageRow(t, doc, "Registered"), f.registered; got != want {
 		t.Errorf("docs/coverage.md publishes %d registered services, the binary registers %d. "+
 			"If a service was added or removed on purpose, the published figure moves in the "+
 			"same commit — that is what this gate is for.", got, want)
@@ -128,6 +225,18 @@ func TestPublishedCoverageMatchesTheBinary(t *testing.T) {
 	if got, want := coverageRow(t, doc, "Registered-only"), len(registeredOnly); got != want {
 		t.Errorf("docs/coverage.md publishes %d registered-only services, the manifest reports "+
 			"%d: %v", got, want, registeredOnly)
+	}
+
+	// The fourth number was the one figures_update_test.go wrote and nothing read
+	// back. A figure the updater maintains and no gate asserts is maintained only
+	// on the weeks the sync happens to run: an exclusion added on the Python side
+	// would move the fleet, leave this page stating the old number, and every
+	// check would stay green. It is asserted here so the round trip closes.
+	if got, want := coverageRow(t, doc, "Compatibility-tested"), f.compatTested; got != want {
+		t.Errorf("docs/coverage.md publishes %d compatibility-tested services; %d registered "+
+			"minus the %d pinned in tests/compatibility/exclusions.json is %d. Adding an "+
+			"exclusion lowers the published figure in the same commit — that is what this "+
+			"gate is for.", got, f.registered, f.registered-f.compatTested, want)
 	}
 }
 
@@ -144,14 +253,8 @@ func TestPublishedOperationTiersMatchTheManifest(t *testing.T) {
 	}
 	doc := string(raw)
 
-	counts := map[fidelity.Tier]int{}
-	total := 0
-	for _, svc := range fidelity.Services {
-		for _, tier := range svc.Operations {
-			counts[tier]++
-			total++
-		}
-	}
+	f := derivedFigures(t)
+	counts, total := f.tiers, f.totalKnown
 
 	for _, tier := range []fidelity.Tier{
 		fidelity.TierHandVerified,
@@ -164,8 +267,7 @@ func TestPublishedOperationTiersMatchTheManifest(t *testing.T) {
 		}
 	}
 
-	published := regexp.MustCompile(`(?m)^\|\s*\*\*total known\*\*\s*\|\s*\*\*([\d,]+)\*\*\s*\|`).
-		FindStringSubmatch(doc)
+	published := totalKnownPattern.FindStringSubmatch(doc)
 	if published == nil {
 		t.Fatal("docs/coverage.md: the 'total known' row did not parse")
 	}
@@ -186,8 +288,7 @@ func TestRegisteredOnlyServicesAreNamedInTheDocs(t *testing.T) {
 	}
 	doc := string(raw)
 
-	_, registeredOnly := servedCounts()
-	for _, id := range registeredOnly {
+	for _, id := range derivedFigures(t).registeredOnly {
 		if !strings.Contains(doc, id) && !strings.Contains(doc, hyphenate(id)) {
 			t.Errorf("%s serves nothing but docs/coverage.md never names it. "+
 				"The page states which services serve nothing and why; a service that "+
@@ -195,6 +296,23 @@ func TestRegisteredOnlyServicesAreNamedInTheDocs(t *testing.T) {
 		}
 	}
 }
+
+// quotedFigurePattern matches the registered/serving pair where the front pages
+// state it in prose. Loose enough for both phrasings in use — "205 AWS services
+// registered, 201 serving at least one operation" and "205 registered / 201
+// serving" — because these are sentences, and pinning their wording would make
+// every edit a test failure. Capture groups 1 and 2 are the two figures, and
+// they are the only spans the updater moves.
+//
+// Every gap excludes digits and is bounded, which is the difference between a
+// loose reader and a loose writer. A gate that mismatches fails a test; the
+// updater writes through this same pattern unattended every Monday, and an
+// unbounded gap let "3 of the 431 registered services need 2 serving tiers"
+// match with the 3 and the 2 as its figures. Bounding the gaps costs nothing
+// real — both live phrasings separate the two numbers by ", " or " / " — and a
+// rewording that stops matching fails loudly, because
+// TestOtherDocsQuoteTheSameFigure treats zero matches as a failure.
+var quotedFigurePattern = regexp.MustCompile(`(?m)(\d+)[^.\n\d]{0,24}?registered\b[^.\n\d]{0,4}?(\d+)[^.\n\d]{0,4}?serving`)
 
 // TestOtherDocsQuoteTheSameFigure catches the drift that actually happened.
 //
@@ -207,12 +325,8 @@ func TestRegisteredOnlyServicesAreNamedInTheDocs(t *testing.T) {
 // numbers: these are prose, and pinning their phrasing would make every edit a
 // test failure.
 func TestOtherDocsQuoteTheSameFigure(t *testing.T) {
-	registered := len(plugin.DefaultRegistry.RegisteredServices())
-	serving, _ := servedCounts()
-
-	// Loose enough for both phrasings in use — "205 AWS services registered, 201
-	// serving at least one operation" and "205 registered / 201 serving".
-	quoted := regexp.MustCompile(`(?m)(\d+)[^.\n]{0,24}?registered\b[^.\n]*?(\d+)[^.\n]{0,4}?serving`)
+	f := derivedFigures(t)
+	registered, serving := f.registered, f.serving
 
 	for _, path := range []string{"../../README.md", "../../docs/README.md"} {
 		raw, err := os.ReadFile(path)
@@ -221,7 +335,7 @@ func TestOtherDocsQuoteTheSameFigure(t *testing.T) {
 			continue
 		}
 
-		matches := quoted.FindAllStringSubmatch(string(raw), -1)
+		matches := quotedFigurePattern.FindAllStringSubmatch(string(raw), -1)
 		if len(matches) == 0 {
 			// Zero matches is a failure, not a pass. A rewording that stops
 			// matching would otherwise disable this check in silence, which is
@@ -241,7 +355,7 @@ func TestOtherDocsQuoteTheSameFigure(t *testing.T) {
 	}
 }
 
-// targetTableRow matches one row of the two-axis table in
+// targetRowPattern matches one row of the two-axis table in
 // docs/coverage.md#the-target:
 //
 //	| **Routing target** | **431 / 431 — met** | leak-zero; … |
@@ -249,13 +363,18 @@ func TestOtherDocsQuoteTheSameFigure(t *testing.T) {
 // Only the first number in the value cell is captured. "431 / 431 — met" and
 // "205 — met" are written for a reader; the gate reads the figure the reader
 // sees rather than asking the table to be machine-shaped, which is the same
-// trade tierRow makes.
+// trade tierRow makes. The rest of the cell is prose, so the updater rewrites
+// group 1 and reports the remainder as a sentence a person owes.
+func targetRowPattern(label string) *regexp.Regexp {
+	return regexp.MustCompile(`(?m)^\|\s*\*?\*?` + regexp.QuoteMeta(label) +
+		`\*?\*?\s*\|\s*\*?\*?([\d,]+)`)
+}
+
+// targetTableRow returns the figure the two-axis table publishes for label.
 func targetTableRow(t *testing.T, doc, label string) int {
 	t.Helper()
 
-	pattern := regexp.MustCompile(`(?m)^\|\s*\*?\*?` + regexp.QuoteMeta(label) +
-		`\*?\*?\s*\|\s*\*?\*?([\d,]+)`)
-	matches := pattern.FindAllStringSubmatch(doc, -1)
+	matches := targetRowPattern(label).FindAllStringSubmatch(doc, -1)
 	if len(matches) != 1 {
 		t.Fatalf("docs/coverage.md: found %d target rows for %q, want exactly 1. "+
 			"The two-axis table is what this gate reads; if it was restructured, "+
@@ -290,7 +409,7 @@ func TestPublishedTargetTableMatchesTheBinary(t *testing.T) {
 	}
 	doc := string(raw)
 
-	registered := len(plugin.DefaultRegistry.RegisteredServices())
+	registered := derivedFigures(t).registered
 
 	if got := targetTableRow(t, doc, "Routing target"); got != registered {
 		t.Errorf("docs/coverage.md publishes a routing target of %d services, the binary "+

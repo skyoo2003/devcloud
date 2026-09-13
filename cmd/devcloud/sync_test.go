@@ -210,3 +210,69 @@ func TestSyncPullRequestBodySummarisesTheChurn(t *testing.T) {
 	assert.Contains(t, prBodyText(t, steps), "model_churn",
 		"the churn summary is produced but never reaches the PR body")
 }
+
+// TestSyncPullRequestBodyCarriesTheRederivedFigures is what keeps the cost
+// reduction from evaporating in silence.
+//
+// The published-figure gate fails by design on any sync that moves an operation,
+// and the fix used to be a person transcribing numbers. A step now does it — but
+// a step whose output never reaches the PR body is a step nobody knows ran, and
+// the reviewer is back to re-deriving by hand without being told they need not.
+func TestSyncPullRequestBodyCarriesTheRederivedFigures(t *testing.T) {
+	steps := syncSteps(t)
+
+	figuresIdx := findStep(steps, func(s syncStep) bool {
+		return strings.Contains(s.Run, "TestUpdatePublishedFigures")
+	})
+	require.NotEqual(t, -1, figuresIdx,
+		"no step re-derives the published figures, so every sync that moves an "+
+			"operation is a hand-transcription again")
+
+	testIdx := findStep(steps, runsGoTest)
+	require.Less(t, testIdx, figuresIdx,
+		"the updater's own `run` contains 'go test', so placing it before the test "+
+			"step silently repoints runsGoTest — and with it every other gate in this file")
+
+	prIdx := findStep(steps, opensPullRequest)
+	require.Less(t, figuresIdx, prIdx,
+		"the figures must be re-derived before the PR is opened, or the PR carries "+
+			"the stale ones")
+
+	require.NotEmpty(t, steps[figuresIdx].ID,
+		"the updater step needs an id before its result can be quoted in the PR body")
+	assert.Contains(t, prBodyText(t, steps), "steps."+steps[figuresIdx].ID,
+		"the PR body must state whether re-derivation succeeded, so a PROSE REQUIRED "+
+			"result reads as work outstanding rather than as a green sync")
+}
+
+// TestSyncFailsTheJobWhenTheFiguresNeedProse is the other half of that signal.
+//
+// The updater runs under continue-on-error so the PR still gets opened, which
+// means its failure is invisible to the workflow unless something reads the
+// outcome back. Writing it into the PR body tells whoever opens the PR; ending
+// the job non-zero is what tells the people who never open it, which on a Monday
+// cron is everyone.
+func TestSyncFailsTheJobWhenTheFiguresNeedProse(t *testing.T) {
+	steps := syncSteps(t)
+
+	figuresIdx := findStep(steps, func(s syncStep) bool {
+		return strings.Contains(s.Run, "TestUpdatePublishedFigures")
+	})
+	require.NotEqual(t, -1, figuresIdx, "no step re-derives the published figures")
+	require.True(t, steps[figuresIdx].ContinueOnError,
+		"this test exists because the step is continue-on-error; if it no longer is, "+
+			"the job fails on its own and this gate should be reconsidered rather than kept")
+
+	failIdx := findStep(steps, func(s syncStep) bool {
+		return strings.Contains(s.Run, "::error::")
+	})
+	require.NotEqual(t, -1, failIdx,
+		"no step re-raises a swallowed failure, so the cron reports success every week "+
+			"no matter what upstream did")
+	require.Greater(t, failIdx, figuresIdx,
+		"the re-raise must come after the step whose outcome it reads")
+
+	assert.Contains(t, steps[failIdx].If, "steps."+steps[figuresIdx].ID+".outcome",
+		"a PROSE REQUIRED result means docs/coverage.md is wrong until someone writes "+
+			"a sentence; if only the test step's outcome is read, that ends the job green")
+}

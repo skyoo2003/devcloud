@@ -337,9 +337,13 @@ What the sample does settle is the *shape* of the work. None of the 93 was
 documentation-only, so no sync can be waved through on the assumption that AWS
 only reworded things. Thirty-two services gained operations — `ec2` alone gained
 46 — which moves the manifest and makes the published-figure gate fail on
-purpose. That failure *is* the review: the numbers here have to be re-derived, by
-a person, before the sync can merge. The PR body states which operations moved;
-re-derive it with `python3 scripts/model_churn.py --upstream`.
+purpose. That failure is still what triggers the review; what it no longer costs
+is the arithmetic. The sync re-derives every figure on this page and commits the
+result into its own pull request, and the body states which ones moved. What a
+person still owes is the judgement — whether those operations should have moved —
+and any sentence a number cannot carry. Re-derive by hand with
+`DEVCLOUD_UPDATE_DOCS=1 go test ./cmd/devcloud/ -run TestUpdatePublishedFigures`,
+and read which operations moved with `python3 scripts/model_churn.py --upstream`.
 
 ## Reproducing these numbers
 
