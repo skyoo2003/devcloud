@@ -77,14 +77,46 @@ with 0 of 431 services declining to initialize. The 141 ms path reproduces the
 cold-path figure `docs/coverage.md` publishes (118–148 ms) rather than
 approximating it.
 
-**Why the budget is 2 s and not 150 ms.** The published number is a measurement
-on a quiet machine; the gate runs on a shared CI runner where a 2x reading is
-indistinguishable from a noisy neighbour. A budget tight enough to catch 2x would
-fail for reasons unrelated to DevCloud — the objection `docs/coverage.md` itself
-raises. 2 s is ~14x the local reading and catches the regression that is real: a
-provider doing per-call work at startup, which the injection above shows arrives
-as 10x, not 2x. The looseness is stated in the test comment so it is not mistaken
-for a tight gate.
+**The 2 s budget was then disproved by CI, and removed.** It was chosen as ~14x
+the 141 ms local reading, on the reasoning that 14x was room enough for a shared
+runner. CI on PR #163 measured the same path at **2.048 s on arm64** — the runner
+is itself 14x slower, so the entire margin was the machine and none of it was
+headroom:
+
+```
+budget_test.go:78: brought 431 services up in 2.048s
+budget_test.go:80: bringing 431 services up took 2.048s, over the 2s budget
+--- FAIL: TestRegisteredFleetComesUpWithinItsBudget (2.07s)
+```
+
+Raising the number does not rescue the design. The regression worth catching is a
+provider that starts opening a file or a database per service, which costs 1.2x
+to 2x — 431 extra file opens. A ceiling loose enough to clear a 14x machine
+difference plus run-to-run variance cannot also fail at 2x. Even the 8 ms
+injection above, which is far larger than a realistic regression, only reaches
+5.5 s on a runner whose baseline is 2.05 s, so it would pass under any ceiling
+that does not flake.
+
+`docs/coverage.md` made this objection before the gate was written. The gate
+overrode it and CI settled the question.
+
+**Resolution.** The correctness half is asserted on every run: all 431 services
+must initialize, which `main.go` only warns about. The timing half is logged, and
+becomes an assertion only when `DEVCLOUD_STARTUP_BUDGET` names a budget — used on
+a machine whose speed is known, which is how the published figure is re-taken.
+
+```
+$ go test ./cmd/devcloud/ -run TestRegisteredFleetComesUpWithinItsBudget -v
+    budget_test.go:78: brought 431 services up in 168ms
+--- PASS                                              # timing logged, not asserted
+
+$ DEVCLOUD_STARTUP_BUDGET=50ms go test ./cmd/devcloud/ -run ...
+    budget_test.go:89: bringing 431 services up took 168ms, over the 50ms asked for
+--- FAIL                                              # the assertion still works
+
+$ DEVCLOUD_STARTUP_BUDGET=300ms go test ./cmd/devcloud/ -run ...
+ok                                                    # and passes when it should
+```
 
 ### Finding (MEDIUM) — the CI size error named a figure the docs did not carry
 
@@ -117,7 +149,7 @@ evidence.
 | # | What is guaranteed | Test file or command | Test type | Result | Evidence |
 |---|---|---|---|---|---|
 | 1 | Every registered service initializes; none is registered-but-broken | `cmd/devcloud/budget_test.go:TestRegisteredFleetComesUpWithinItsBudget` | integration | PASS | `go test ./cmd/devcloud/ -run TestRegisteredFleetComesUpWithinItsBudget` — 431 up, 0 declined |
-| 2 | Bringing the whole fleet up stays within an order of magnitude of the published figure | same | integration | PASS | 141 ms against a 2 s ceiling; fails at 4.0 s under an 8 ms/service injection |
+| 2 | Startup time is reported on every run, and assertable on a known machine | same | measurement | PASS | 168 ms logged; `DEVCLOUD_STARTUP_BUDGET=50ms` fails, `=300ms` passes |
 | 3 | The routing target on the coverage page equals the count the binary registers | `cmd/devcloud/coverage_test.go:TestPublishedTargetTableMatchesTheBinary` | unit | PASS | `go test ./cmd/devcloud/` |
 | 4 | The three numbers in the two-axis table are arithmetically consistent | same | unit | PASS | registered − serving target = outside-target row |
 | 5 | The shipped linux binary stays under 45 MiB | `.github/workflows/ci.yml` "Check the binary stays within its regression ceiling" | CI check | not run locally | darwin host cannot produce the linux figure; runs on both ubuntu matrix arches |
@@ -142,17 +174,31 @@ codegen packages, which `go test ./...` covers.
 Known gaps, deliberate:
 
 - **The 45 MiB check is unverified locally.** It needs a linux build; the host is
-  darwin. It will first run on this branch's CI.
-- **The gate cannot catch a 2x startup regression**, only ~10x. See the reasoning
-  above; a tighter budget would be flaky rather than strict.
+  darwin. It runs first on this branch's CI.
+- **Startup is not gated in CI at all**, by decision rather than oversight. See
+  the CI disproof above. A regression that slows startup 2x will not be caught by
+  anything automated; it will be caught when the published figure is re-taken.
 - **`Init` is exercised with default options** (no `db_path`, no `server_port`),
   which is the first-run configuration. A service whose cost only appears under a
   non-default option is not covered.
 
 ## Merge evidence
 
-If these commits are squashed, the RED/GREEN summary is: the startup gate timed
-factory calls (84 µs / 150 ms budget) and was proven blind by an 8 ms-per-service
-injection it did not notice; it now times `Init` the way `main.go` does (141 ms /
-2 s ceiling) and fails at 4.0 s under the same injection. The reasoning is also
-carried in the doc comment on `TestRegisteredFleetComesUpWithinItsBudget`.
+If these commits are squashed, the summary is:
+
+1. The startup gate timed `Construct`, which only calls the factory — 84 µs
+   against a 150 ms budget. Proven blind by an 8 ms-per-service injection into
+   `Registry.Init` that left it at 79 µs and passing.
+2. Rewritten to time `Init` the way `main.go` does, with a 2 s ceiling. Locally
+   141 ms; the injection failed it at 4.0 s.
+3. CI disproved the ceiling: 2.048 s on arm64, because the runner is 14x slower
+   than the machine the budget came from. No absolute ceiling can clear a 14x
+   machine difference and still fail on the 1.2–2x regression that is realistic.
+4. The ceiling was removed. What is asserted on every run is that all 431
+   services initialize — which `main.go` only warns about. The timing is logged,
+   and assertable via `DEVCLOUD_STARTUP_BUDGET` on a machine whose speed is
+   known.
+
+The reasoning is also carried in the doc comment on
+`TestRegisteredFleetComesUpWithinItsBudget`, and in `docs/coverage.md`'s runtime
+section.

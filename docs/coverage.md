@@ -269,22 +269,33 @@ Two ceilings on the startup reading:
 2. **A first run costs about three times as much** — 118 to 148 ms across four
    measurements, against 42 ms once the data directories exist, because each of
    the 431 services creates its own on the way up. The cold path is the one to
-   watch, and it is the one the gate below reproduces.
+   watch, and it is the one `cmd/devcloud/budget_test.go` reproduces.
 
-Neither figure above is asserted at its measured value — a wall-clock reading
-taken on a shared CI runner would fail for reasons that have nothing to do with
-DevCloud. What is asserted is an order of magnitude.
-`cmd/devcloud/budget_test.go` brings every registered service up the way
-`main.go` does — factory, then `Init` against a per-service data directory — and
-fails past 2 s, roughly fourteen times the 141 ms that same path measures
-locally. The gap is the room a shared runner needs; what survives it is the
-regression that matters, a provider that starts doing per-call work at startup.
-That shows up as 10x, not 2x.
+**Startup is measured, not gated, and that is a deliberate retreat.** The gate
+was written as a wall-clock ceiling and CI disproved it: the same path that takes
+141 ms locally took 2.048 s on a GitHub arm64 runner. The regression worth
+catching — a provider that starts opening a file or a database per service at
+startup — costs 1.2x to 2x, because that is what 431 extra file opens are worth.
+No absolute ceiling clears a 14x difference between machines and still fails on a
+2x regression, so a ceiling in CI would have been decoration that flakes. Saying
+the figure is measured is cheaper than claiming a gate that cannot fire.
 
-The binary is gated the same way: CI fails the build past **45 MiB**, against the
-36.8 MiB above. Both budgets are loose on purpose and both are decisions — if one
-starts failing, find what grew before raising it. The measured numbers stay
-measurements, re-taken per release.
+What `budget_test.go` *does* assert on every run is that all 431 services come
+up at all. `main.go` initializes the long tail non-fatally, so a service that is
+registered but can no longer initialize would otherwise degrade to a warning in a
+log nobody reads. The timing is logged beside it, and becomes an assertion when
+you name a budget on a machine whose speed you know:
+
+```
+DEVCLOUD_STARTUP_BUDGET=300ms go test ./cmd/devcloud/
+```
+
+That is how the figures above are re-taken per release.
+
+The binary size *is* gated, because size does not vary with how busy a runner is:
+CI fails the build past **45 MiB**, against the 36.8 MiB above. The gap is the
+platform difference — that figure is Apple Silicon, CI builds for linux — not
+slack. It is a decision; if it starts failing, find what grew before raising it.
 
 The RSS readings were taken on different days and are not a controlled
 comparison. Read them as "memory is not the constraint" rather than as a saving —
