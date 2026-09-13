@@ -1,0 +1,5 @@
+kind: Documentation
+body: 'The five per-service pages now list the operations DevCloud actually serves, derived from the fidelity manifest rather than from memory: S3 documented 8 of 37, DynamoDB 8 of 20, Lambda 6 of 25 and IAM 6 of 58, and each page''s limitations denied features that had since been implemented'
+time: 2026-09-13T21:22:51.981235+09:00
+custom:
+    Issue: "167"

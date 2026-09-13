@@ -130,8 +130,10 @@ DEVCLOUD_UPDATE_DOCS=1 go test ./cmd/devcloud/ -run TestUpdatePublishedFigures
 3. **Implement the provider** in `internal/services/<service>/provider.go`. Start
    with the most commonly used operations; the generated base provider makes
    everything else return `NotImplementedError`.
-4. **Implement the store** in `store.go` — SQLite for relational metadata,
-   BadgerDB for key-value, in-memory for ephemeral, filesystem for blobs.
+4. **Implement the store** in `store.go` — SQLite
+   ([`internal/storage/sqlite`](../internal/storage/sqlite)) for anything
+   persistent, in-memory for ephemeral, filesystem for blobs. SQLite is the only
+   embedded database in the tree; adding a second one needs a reason in the PR.
 5. **Register the plugin** from an `init()` in `register.go`, and blank-import the
    package in [`cmd/devcloud/imports.go`](../cmd/devcloud/imports.go). The
    interface contract, error convention and config keys are in

@@ -8,14 +8,21 @@ Both services use the Query protocol (form-encoded requests, XML responses).
 
 ## Supported IAM APIs
 
-| Operation | Description |
-|-----------|-------------|
-| CreateUser | Create an IAM user |
-| ListUsers | List all IAM users |
-| CreateRole | Create an IAM role with assume role policy document |
-| ListRoles | List all IAM roles |
-| AttachRolePolicy | Attach a managed policy ARN to a role |
-| CreateAccessKey | Generate an access key pair for a user |
+These 58 operations are `hand-verified` — implemented by the provider, not by
+the [CRUD engine](../crud-engine.md). Grouped by the resource they act on;
+[fidelity-manifest.md](../fidelity-manifest.md) is the per-operation answer.
+
+| Resource | Operations |
+|----------|------------|
+| Users | CreateUser, GetUser, UpdateUser, DeleteUser, ListUsers |
+| Groups | CreateGroup, GetGroup, DeleteGroup, ListGroups, AddUserToGroup, RemoveUserFromGroup |
+| Roles | CreateRole, GetRole, DeleteRole, ListRoles, UpdateAssumeRolePolicy |
+| Instance profiles | CreateInstanceProfile, GetInstanceProfile, DeleteInstanceProfile, ListInstanceProfiles, AddRoleToInstanceProfile, RemoveRoleFromInstanceProfile |
+| Managed policies | CreatePolicy, GetPolicy, DeletePolicy, CreatePolicyVersion, GetPolicyVersion, ListPolicyVersions |
+| Policy attachment | Attach/Detach {User,Group,Role}Policy, ListAttached{User,Group,Role}Policies |
+| Inline policies | Put/Get/Delete {User,Group,Role}Policy, List{User,Group,Role}Policies |
+| Access keys | CreateAccessKey, UpdateAccessKey, DeleteAccessKey, ListAccessKeys |
+| Tags | TagUser, UntagUser, ListUserTags, TagRole, UntagRole, ListRoleTags |
 
 ## Supported STS APIs
 
@@ -23,7 +30,8 @@ Both services use the Query protocol (form-encoded requests, XML responses).
 |-----------|-------------|
 | GetCallerIdentity | Return account ID, ARN, and user ID |
 | AssumeRole | Generate temporary credentials (ASIA-prefixed keys, 1-hour expiry) |
-| GetSessionToken | Generate MFA-backed session credentials |
+| GetSessionToken | Generate session credentials |
+| GetAccessKeyInfo | Return the account an access key ID belongs to |
 
 ## boto3 Examples
 
@@ -110,18 +118,20 @@ aws --endpoint-url http://localhost:4747 sts assume-role \
 ## Known Limitations
 
 **IAM:**
-- No GetUser, DeleteUser, UpdateUser
-- No DeleteRole, UpdateRole
-- No inline policies (PutRolePolicy, PutUserPolicy)
-- No groups
+- **No policy evaluation.** Managed and inline policy documents are stored and
+  returned verbatim; nothing parses or enforces them, so attaching a `Deny` to a
+  user changes nothing about what that user can call.
 - No MFA device management
 - No login profiles / password management
-- No tagging
-- No policy enforcement — policies are stored but not evaluated
+- No service-linked roles, SAML or OIDC identity providers
+- No access advisor, credential reports, or policy simulation
 
 **STS:**
-- Temporary credentials are generated but not tracked or validated
-- Fixed 1-hour expiration (no custom duration)
-- No external ID validation
-- No policy enforcement on assumed roles
+- Temporary credentials are generated but not tracked or validated — they are
+  never checked on a later request, and neither are long-lived ones
+- Fixed 1-hour expiration; `DurationSeconds` is ignored
+- `AssumeRole` does not evaluate the target role's trust policy, and no
+  `ExternalId` is required or checked
+- `GetSessionToken` ignores `SerialNumber` / `TokenCode` — there is no MFA
+- No `AssumeRoleWithWebIdentity` or `AssumeRoleWithSAML`
 - Single account model (account ID: `000000000000`)

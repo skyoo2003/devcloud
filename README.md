@@ -41,7 +41,7 @@ DevCloud is an **on-ramp to the cloud**, not a replacement for it. The goal is t
 |---------|----------|---------|------|
 | S3 | REST-XML | Filesystem + SQLite | [docs/services/s3.md](docs/services/s3.md) |
 | SQS | Query + JSON | In-memory | [docs/services/sqs.md](docs/services/sqs.md) |
-| DynamoDB | JSON 1.0 | BadgerDB | [docs/services/dynamodb.md](docs/services/dynamodb.md) |
+| DynamoDB | JSON 1.0 | SQLite | [docs/services/dynamodb.md](docs/services/dynamodb.md) |
 | Lambda | REST-JSON | SQLite + Filesystem | [docs/services/lambda.md](docs/services/lambda.md) |
 | IAM/STS | Query | SQLite | [docs/services/iam-sts.md](docs/services/iam-sts.md) |
 

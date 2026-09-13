@@ -2,22 +2,38 @@
 
 ## Overview
 
-DevCloud DynamoDB uses BadgerDB as its embedded key-value storage backend. Table metadata is kept in an in-memory index (protected by RWMutex), while items are persisted in BadgerDB with composite keys (`_item/{table}#{partitionKey}#{sortKey}`).
+DevCloud DynamoDB persists tables and items in SQLite (`dynamodb.db` under the
+service's `data_dir`), with table metadata also held in an in-memory index
+guarded by an RWMutex.
 
-Supported attribute types: S (String), N (Number), B (Binary), BOOL, NULL, L (List), M (Map).
+All ten AttributeValue types are supported: S, N, B, BOOL, NULL, L (List),
+M (Map), and the SS / NS / BS sets.
 
 ## Supported APIs
 
+These 20 operations are `hand-verified` — implemented by the provider, not by
+the [CRUD engine](../crud-engine.md). Everything else DynamoDB models is served
+at a lower tier or not at all; [fidelity-manifest.md](../fidelity-manifest.md)
+is the per-operation answer.
+
 | Operation | Description |
 |-----------|-------------|
-| CreateTable | Create table with partition key (HASH) and optional sort key (RANGE) |
-| DeleteTable | Delete table and all its items |
-| ListTables | List all table names |
-| PutItem | Insert or overwrite an item |
-| GetItem | Retrieve an item by primary key |
-| DeleteItem | Delete an item by primary key |
-| Query | Query items by partition key |
-| Scan | Full table scan |
+| CreateTable | Create table with partition key (HASH), optional sort key (RANGE), GSIs, LSIs and a StreamSpecification |
+| UpdateTable / DescribeTable / DeleteTable / ListTables | Manage and inspect tables |
+| PutItem | Insert or overwrite an item; honours `ConditionExpression` |
+| GetItem | Retrieve an item by primary key; honours `ProjectionExpression` |
+| UpdateItem | Apply an `UpdateExpression` to one item |
+| DeleteItem | Delete an item by primary key; honours `ConditionExpression` |
+| Query | Query by partition key, against the table or a named `IndexName`; honours `FilterExpression` |
+| Scan | Full table scan; honours `FilterExpression` |
+| BatchGetItem / BatchWriteItem | Multi-item reads and writes |
+| TransactGetItems / TransactWriteItems | Transactional reads and writes |
+| UpdateTimeToLive / DescribeTimeToLive | Store and read back a table's TTL configuration |
+| TagResource / UntagResource / ListTagsOfResource | Manage table tags |
+
+Writes to a table created with `StreamEnabled` are published to the
+`dynamodbstreams` service, which is what makes DynamoDB Streams → Lambda event
+source mappings fire.
 
 ## boto3 Examples
 
@@ -108,12 +124,21 @@ aws --endpoint-url http://localhost:4747 dynamodb get-item \
 
 ## Known Limitations
 
-- No UpdateItem (use PutItem to overwrite entire item)
-- No batch operations (BatchGetItem, BatchWriteItem)
-- No transactions (TransactGetItems, TransactWriteItems)
-- No secondary indexes (GSI/LSI)
-- No DynamoDB Streams
-- No advanced filter expressions on Query/Scan
-- No projection expressions
-- No conditional writes (ConditionExpression)
-- No TTL
+- **TTL is configuration only.** `UpdateTimeToLive` stores the attribute name
+  and echoes it back; nothing sweeps expired items, so a row past its TTL is
+  still returned.
+- **No pagination or capacity reporting.** Responses carry no
+  `LastEvaluatedKey` and no `ConsumedCapacity`, so `Query`/`Scan` return the
+  whole matching set in one page and code that loops on the cursor sees one
+  iteration.
+- **No PartiQL** — `ExecuteStatement`, `ExecuteTransaction` and
+  `BatchExecuteStatement` are unimplemented and fail rather than answering.
+- **Backups, global tables and exports answer from the CRUD engine.**
+  `CreateBackup`, `CreateGlobalTable`, `DescribeContinuousBackups` and their
+  neighbours return stored, plausible shapes with no behaviour behind them —
+  see [crud-engine.md](../crud-engine.md).
+- No Kinesis streaming destination (`EnableKinesisStreamingDestination` is
+  unimplemented)
+- No provisioned-throughput accounting or throttling; `BillingMode` is recorded,
+  never enforced
+- Single account model (account ID: `000000000000`)
