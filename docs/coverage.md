@@ -49,8 +49,9 @@ so does the reverse. See [Reproducing these numbers](#reproducing-these-numbers)
 ## Why a registered service can serve nothing
 
 The generic [CRUD engine](crud-engine.md) needs two things: to know which
-operation a request is for, and to recognise that operation as CRUD-shaped. Only
-the second still stops it.
+operation a request is for, and to recognise that operation as CRUD-shaped. The
+second is the usual blocker; the first still stops two services whose protocol
+the parser does not read.
 
 **The protocol always says which operation**, and the engine reads every form:
 
@@ -61,8 +62,8 @@ the second still stops it.
 | `json-1.0` | 48 | the `X-Amz-Target` header |
 | `query` | 15 | the `Action` form field |
 | `rest-xml` | 4 | HTTP method + path |
-| no in-tree model | 12 | n/a — hand-written providers |
-| unrecognised protocol | 1 | n/a — `partnercentralrevenuemeasurement` is `rpcv2Cbor` |
+| no in-tree model | 11 | n/a — hand-written providers |
+| unrecognised protocol | 2 | n/a — `ec2` is `ec2Query`, `partnercentralrevenuemeasurement` is `rpcv2Cbor` |
 
 **The operation is not CRUD-shaped.** `GetThing`, `ListThings` and `CreateThing`
 map onto a generic store. `ExecuteStatement`, `InvokeEndpoint` and
@@ -71,13 +72,19 @@ answer. This applies to four services: `forecastquery`, the two SageMaker Runtim
 variants `sagemaker-runtime` and `sagemakerruntimehttp2`, and `rds-data`. No
 protocol change reaches them.
 
-**The protocol is one the parser does not read.** This applies to exactly one
-service, and it is a different failure from the four above.
-`partnercentralrevenuemeasurement` speaks `smithy.protocols#rpcv2Cbor`, which
-`internal/codegen/parser.go` does not recognise, so *none* of its operations is
-classified — not because their names are unshaped, but because the model never
-reached the classifier. Teaching the parser a sixth protocol would reach it; no
-amount of CRUD-shaping would.
+**The protocol is one the parser does not read.** This applies to two services,
+and it is a different failure from the four above. `ec2` speaks
+`aws.protocols#ec2Query` and `partnercentralrevenuemeasurement` speaks
+`smithy.protocols#rpcv2Cbor`; `internal/codegen/parser.go` recognises neither, so
+*none* of their operations is classified — not because their names are unshaped,
+but because the model never reached the classifier. Teaching the parser those two
+protocols would reach them; no amount of CRUD-shaping would.
+
+EC2 is the one case where this costs depth rather than service: it is registered
+and served by a hand-written provider, so it is not in the registered-only five.
+What it loses is the engine — its model-declared long tail stays `unimplemented`
+instead of falling back to `auto-crud`, which is what `EngineWired: false` on its
+[fidelity manifest](fidelity-manifest.md) entry records.
 
 Registering a service the engine cannot serve is deliberate. The alternative is
 worse: an *unregistered* service is not routed, so the SDK call leaves the

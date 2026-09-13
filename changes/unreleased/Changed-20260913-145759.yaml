@@ -1,5 +1,5 @@
 kind: Changed
-body: The weekly Smithy sync re-derives the published coverage figures itself and commits them into its own pull request, so reviewing it is confirming which operations moved rather than transcribing the figures out of failing tests by hand
+body: The weekly Smithy sync now re-derives the published coverage figures and commits them into its own pull request, so reviewing it means confirming what moved rather than transcribing failing tests
 time: 2026-09-13T14:57:59.733064+09:00
 custom:
     Issue: "165"
