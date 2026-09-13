@@ -1,4 +1,17 @@
-## [v1.1.1](https://github.com/skyoo2003/devcloud/releases/tag/v1.1.1) - 2026-09-07
+## [v1.2.0](https://github.com/skyoo2003/devcloud/releases/tag/v1.2.0) - 2026-09-13
+### Added
+* The 226 AWS services DevCloud does not register now have their Smithy models vendored, so codegen covers all 420 models. No service is registered yet and every published coverage figure is unchanged ([#160](https://github.com/skyoo2003/devcloud/issues/160))
+* Eight AWS services the generic CRUD engine cannot classify now have hand-written providers, taking coverage to 213 registered and 209 serving ([#161](https://github.com/skyoo2003/devcloud/issues/161))
+* The 218 AWS services with generated routers but no provider package are now registered from the codegen scaffold, taking coverage to 431 registered and 426 serving at least one operation ([#162](https://github.com/skyoo2003/devcloud/issues/162))
+* Three figures are now gated against the binary: the coverage page's routing and depth targets, the 45 MiB binary-size ceiling, and that all 431 registered services initialize ([#163](https://github.com/skyoo2003/devcloud/issues/163))
+### Changed
+* The weekly Smithy sync now re-derives the published coverage figures and commits them into its own pull request, so reviewing it means confirming what moved rather than transcribing failing tests ([#165](https://github.com/skyoo2003/devcloud/issues/165))
+* The published fidelity tiers are stated against two denominators — the services DevCloud promises depth on, and every service it registers — so the routed long tail no longer reads as a fidelity drop ([#166](https://github.com/skyoo2003/devcloud/issues/166))
+### Fixed
+* The CRUD engine no longer answers an operation it cannot classify with a broader sibling's route — chime's AssociatePhoneNumberWithUser was returning UpdateUser's 200 — and now declines it cleanly ([#162](https://github.com/skyoo2003/devcloud/issues/162))
+### Documentation
+* The coverage page states routing and depth as two targets — 431 of 431 registered, depth still the 205 services the demand study settled — so a service count no longer reads as a fidelity promise ([#163](https://github.com/skyoo2003/devcloud/issues/163))
+* The five per-service pages now list the operations DevCloud actually serves, derived from the fidelity manifest rather than from memory — S3 had documented 8 of 37, IAM 6 of 58 ([#167](https://github.com/skyoo2003/devcloud/issues/167))## [v1.1.1](https://github.com/skyoo2003/devcloud/releases/tag/v1.1.1) - 2026-09-07
 ### Security
 * An S3 object key can no longer leave the bucket that owns it — a key such as `../victim/secret.txt` stayed under the store base directory and so passed the old containment check, letting one tenant read, overwrite and delete another tenant's objects — because every user-controlled path component is now guarded with `filepath.IsLocal` ([#155](https://github.com/skyoo2003/devcloud/issues/155))
 ### Documentation
