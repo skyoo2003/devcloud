@@ -6,14 +6,27 @@ DevCloud Lambda stores function metadata in SQLite and function code (ZIP files)
 
 ## Supported APIs
 
+These 25 operations are `hand-verified` — implemented by the provider, not by
+the [CRUD engine](../crud-engine.md). Read the first row with the limitations
+below: the control plane is real, the data plane is not.
+
 | Operation | Description |
 |-----------|-------------|
+| Invoke | Accepts the call and returns a placeholder — **your code never runs** |
 | CreateFunction | Create function with base64-encoded ZIP code |
-| ListFunctions | List all functions in the account |
-| GetFunction | Get function metadata and code location |
-| DeleteFunction | Delete a function |
-| UpdateFunctionCode | Update function code ZIP |
-| Invoke | Invoke function (stub — returns placeholder response) |
+| ListFunctions / GetFunction / DeleteFunction | Manage functions |
+| UpdateFunctionCode / UpdateFunctionConfiguration | Update code ZIP or configuration |
+| PublishVersion / ListVersionsByFunction | Immutable published versions |
+| CreateAlias / GetAlias / UpdateAlias / DeleteAlias / ListAliases | Aliases onto versions |
+| CreateEventSourceMapping / GetEventSourceMapping / UpdateEventSourceMapping | Wire an SQS queue or DynamoDB stream to a function |
+| DeleteEventSourceMapping / ListEventSourceMappings | Manage those mappings |
+| AddPermission / GetPolicy / RemovePermission | Resource-based policy (stored, not evaluated) |
+| TagResource / UntagResource / ListTags | Function tags |
+
+Event source mappings are polled for real: the poller reads from the SQS queue
+or DynamoDB stream, builds the AWS-shaped event, and POSTs it to the function's
+invoke endpoint. That endpoint is the stub, so the wiring is observable end to
+end while the handler body is not.
 
 ## boto3 Examples
 
@@ -89,11 +102,20 @@ aws --endpoint-url http://localhost:4747 lambda invoke \
 
 ## Known Limitations
 
-- **No code execution** — Invoke returns a placeholder response. Docker runtime integration is planned but not yet implemented.
+- **No code execution.** `Invoke` returns
+  `{"statusCode": 200, "body": "Lambda invoke requires Docker runtime"}` whatever
+  the function or payload. Nothing in the response distinguishes it from a real
+  result, so a test asserting only on the status code passes against a handler
+  that never ran. Docker runtime integration is planned, not implemented.
+- **Event source mappings deliver to that stub.** Messages are read from the
+  source and the invoke is issued, so the plumbing is testable — but no handler
+  logic runs, and a delivery failure is logged rather than retried or sent to a
+  DLQ.
+- **Resource-based policies are stored, never evaluated.** `AddPermission`
+  succeeds and `GetPolicy` reads it back; no invoke is ever denied by one.
 - No layers
-- No aliases or versions
-- No event source mappings
-- No concurrency controls
+- No concurrency controls (reserved or provisioned)
 - No function URLs
-- No resource-based policies
-- No environment variables support
+- No environment variables — `Environment` is not part of the parsed
+  `CreateFunction` request, so it is dropped without a warning and `GetFunction`
+  will not return it

@@ -96,9 +96,6 @@ logging:
 | `server.port` | `4747` | HTTP server port |
 | `services.<name>.enabled` | `false` | **Required per entry.** Listing a service is not enough — `enabled: true` still has to be set. |
 | `services.<name>.data_dir` | `./data/<name>` | Data directory for persistent storage |
-| `services.lambda.runtime` | `""` | Lambda runtime configuration |
-| `services.lambda.warm_containers` | `0` | Warm containers to keep |
-| `services.iam.enforce_policies` | `false` | Enforce IAM policies (experimental) |
 | `admin.enabled` | `false` | Serve the admin REST API at `/devcloud/api/*` |
 | `logging.level` | `info` | `debug`, `info`, `warn`, `error` |
 | `logging.format` | `text` | `text` or `json` |
@@ -113,6 +110,13 @@ when empty.
 
 > There is no `auth` key: SigV4 signature validation is not implemented and any
 > credentials are accepted.
+
+> A service entry takes **only** `enabled` and `data_dir` — that is the whole of
+> [`config.ServiceConfig`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/config.go).
+> Per-service tuning keys do not exist, and because parsing is non-strict an
+> invented one (`services.lambda.warm_containers`) is dropped without a word
+> rather than rejected. If a knob is not in the table above, writing it does
+> nothing.
 
 ## Provider namespacing
 
@@ -148,7 +152,7 @@ block** — one under its forward-compatible name, one under its historical one.
 | Service | Default `data_dir` | Backend | Contents |
 |---------|-------------------|---------|----------|
 | S3 | `./data/s3` | Filesystem + SQLite | Object files, `metadata.db` |
-| DynamoDB | `./data/dynamodb` | BadgerDB | BadgerDB data files |
+| DynamoDB | `./data/dynamodb` | SQLite | `dynamodb.db` (tables, items, TTL config, tags) |
 | IAM | `./data/iam` | SQLite | `iam.db` (users, roles, keys) |
 | STS | `./data/sts` | Shared with IAM | Uses IAM's database |
 | Lambda | `./data/lambda` | SQLite + Filesystem | `lambda.db`, `code/` |
