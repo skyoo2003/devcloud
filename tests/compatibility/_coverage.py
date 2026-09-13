@@ -61,10 +61,20 @@ BOTO3_NAME_OVERRIDES = {
 # registered: a registered service answers locally in AWS's error vocabulary,
 # which is the whole reason registering something DevCloud cannot serve beats
 # leaving the call to reach a billed AWS account.
-NO_BOTO3_CLIENT = {
-    "sagemakerruntimehttp2": "botocore has no HTTP/2 SageMaker Runtime client",
-    "transcribestreaming": "botocore has no streaming Transcribe client",
-}
+#
+# The membership below lives in exclusions.json rather than here, because
+# cmd/devcloud/coverage_test.go derives the published Compatibility-tested figure
+# from the same subtraction and cannot import botocore to find it out. One file,
+# two readers, no second list that someone remembers to update.
+EXCLUSIONS_PATH = pathlib.Path(__file__).resolve().parent / "exclusions.json"
+
+
+def _load_exclusions():
+    """Return the two exclusion maps, shared with the Go published-figure gate."""
+    with EXCLUSIONS_PATH.open() as fh:
+        data = json.load(fh)
+    return data["noBoto3Client"], data["unreachableFromBoto3"]
+
 
 # Registered, counted as serving operations, and reachable by no boto3 caller.
 #
@@ -78,28 +88,19 @@ NO_BOTO3_CLIENT = {
 # the sibling whose route table models its method and path. The one operation
 # two siblings both model (DELETE /bots/{id}) is still refused rather than
 # guessed at.
-UNREACHABLE_FROM_BOTO3: dict[str, str] = {
-    # botocore refuses to build or sign the request, so DevCloud is never asked.
-    # These are not fidelity gaps — no answer DevCloud could give would change
-    # the outcome — but they are honest subtractions from the published
-    # compatibility-tested figure, because nothing here exercises the service.
-    "codecatalyst": (
-        "codecatalyst authenticates with a bearer token rather than SigV4, and "
-        "botocore raises NoAuthTokenError before the request is built"
-    ),
-    "cloudfrontkeyvaluestore": (
-        "the client resolves its endpoint from a KVS ARN, so botocore raises "
-        "EndpointResolutionError instead of honouring endpoint_url"
-    ),
-    # Reachable in the sense that the request is sent and answered, and
-    # unreachable in the sense that matters: botocore decodes the reply with
-    # RpcV2CBORParser, and DevCloud has no CBOR encoder, so even a clean
-    # decline is read as a corrupt CBOR frame. See docs/coverage.md.
-    "partnercentralrevenuemeasurement": (
-        "smithy.protocols#rpcv2Cbor — botocore parses every answer as CBOR and "
-        "DevCloud speaks none, so no reply it can send is intelligible"
-    ),
-}
+# In codecatalyst and cloudfront-keyvaluestore botocore refuses to build or sign
+# the request, so DevCloud is never asked. These are not fidelity gaps — no
+# answer DevCloud could give would change the outcome — but they are honest
+# subtractions from the published compatibility-tested figure, because nothing
+# here exercises the service.
+#
+# partnercentral-revenue-measurement is reachable in the sense that the request
+# is sent and answered, and unreachable in the sense that matters: botocore
+# decodes the reply with RpcV2CBORParser, and DevCloud has no CBOR encoder, so
+# even a clean decline is read as a corrupt CBOR frame. See docs/coverage.md.
+#
+# An empty map stays legal: the category outlived its last member once already.
+NO_BOTO3_CLIENT, UNREACHABLE_FROM_BOTO3 = _load_exclusions()
 
 
 # Probes botocore will not put on the wire, pinned rather than counted.

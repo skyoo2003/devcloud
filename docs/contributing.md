@@ -100,16 +100,28 @@ Three things to check, in order:
 
 1. **Operations added or removed.** These are the only changes that alter what
    DevCloud serves. Everything else is upstream reshaping traits or docs.
-2. **A red `ci` run on the published-figure gate.** Expected, not a defect: new
-   operations move the fidelity manifest, and `cmd/devcloud/coverage_test.go`
-   fails until [`docs/coverage.md`](coverage.md) is re-derived. Correct the
-   figures in the sync PR — never relax the gate to make it pass.
+2. **The published figures, already re-derived.** New operations move the
+   fidelity manifest, so [`docs/coverage.md`](coverage.md) must move with them —
+   the sync does that arithmetic itself and commits it. Check the before→after
+   table at the top of the PR body against item 1: the figures should move for
+   the same reason the operations did. A `Published figures: failure` means the
+   change needs a sentence the tool will not invent — write it before merging,
+   and never relax the gate to make it pass.
 3. **`codegen-drift` and `compat`.** These must be green on their own. A red
    `codegen-drift` means the committed output does not match the models; a red
    `compat` means a real behavioural regression.
 
-The in-job test result is printed at the top of the PR body. A `failure` there
-with a clean `codegen-drift` almost always means item 2.
+The in-job test result is printed at the top of the PR body, and a `failure`
+there with a clean `codegen-drift` almost always means the published-figure gate
+fired on an operation that moved — which is the signal to look, not work to do.
+The PR's own `ci` runs that gate again against the corrected figures, so it is
+green unless something is genuinely wrong.
+
+Re-derive by hand, for a coverage change that did not come from a sync:
+
+```bash
+DEVCLOUD_UPDATE_DOCS=1 go test ./cmd/devcloud/ -run TestUpdatePublishedFigures
+```
 
 ## Adding a New AWS Service
 
