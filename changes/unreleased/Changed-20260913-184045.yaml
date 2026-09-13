@@ -1,0 +1,5 @@
+kind: Changed
+body: The published fidelity tiers are stated against two denominators — the services DevCloud promises depth on, and every service it registers — so the long tail it routes to stop SDK calls escaping to a billable account no longer reads as a drop in hand-written coverage
+time: 2026-09-13T18:40:45.000000+09:00
+custom:
+    Issue: "166"

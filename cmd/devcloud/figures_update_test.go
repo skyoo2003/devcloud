@@ -46,10 +46,11 @@ type figureEdit struct {
 	pattern *regexp.Regexp
 	figures []figureValue
 
-	// separated writes thousands separators, as docs/coverage.md does for
-	// operation counts and not for service counts. Which of the two applies is
-	// decided by the gate's own pattern: one accepts commas, the other does not.
-	separated bool
+	// render writes the figure the way the target cell shows it. docs/coverage.md
+	// thousands-separates operation counts, leaves service counts plain, and
+	// shows the fidelity share to one decimal place — three renderings, and the
+	// cell decides which, so the edit that owns the cell carries it.
+	render func(int) string
 
 	// everyMatch rewrites all matches rather than insisting on exactly one. The
 	// front pages state the figure in a sentence, and a page is free to state it
@@ -91,6 +92,7 @@ func servingTarget(t *testing.T, root string) int {
 func publishedFigureEdits(f figures, servingTarget int) []figureEdit {
 	const (
 		coverage  = "docs/coverage.md"
+		manifest  = "docs/fidelity-manifest.md"
 		readme    = "README.md"
 		docsIndex = "docs/README.md"
 	)
@@ -105,32 +107,69 @@ func publishedFigureEdits(f figures, servingTarget int) []figureEdit {
 		}
 	}
 
+	// The share is stated on two pages now, so its rows carry the file name for
+	// the same reason pair() does: two rows both labelled "hand-verified share"
+	// read as a table that repeated itself rather than as two pages that have to
+	// agree. The values are tenths of a percent — see shareTenths.
+	shares := func(path string) []figureValue {
+		return []figureValue{
+			{fmt.Sprintf("hand-verified share, serving target (%s)", path),
+				shareTenths(f.targetTiers[fidelity.TierHandVerified], f.targetTotalKnown)},
+			{fmt.Sprintf("hand-verified share, all registered (%s)", path),
+				shareTenths(f.tiers[fidelity.TierHandVerified], f.totalKnown)},
+		}
+	}
+
+	tierEdit := func(tier fidelity.Tier) figureEdit {
+		return figureEdit{path: coverage, pattern: tierRowPattern(string(tier)), render: separatedFigure,
+			figures: []figureValue{
+				{fmt.Sprintf("`%s` operations (serving target)", tier), f.targetTiers[tier]},
+				{fmt.Sprintf("`%s` operations (all registered)", tier), f.tiers[tier]},
+			}}
+	}
+
 	return []figureEdit{
-		{path: coverage, pattern: coverageRowPattern("Registered"),
+		{path: coverage, pattern: coverageRowPattern("Registered"), render: plainFigure,
 			figures: []figureValue{{"Registered", f.registered}}},
-		{path: coverage, pattern: coverageRowPattern("Serving ≥1 operation"),
+		{path: coverage, pattern: coverageRowPattern("Serving ≥1 operation"), render: plainFigure,
 			figures: []figureValue{{"Serving ≥1 operation", f.serving}}},
-		{path: coverage, pattern: coverageRowPattern("Registered-only"),
+		{path: coverage, pattern: coverageRowPattern("Registered-only"), render: plainFigure,
 			figures: []figureValue{{"Registered-only", len(f.registeredOnly)}}},
-		{path: coverage, pattern: coverageRowPattern("Compatibility-tested"),
+		{path: coverage, pattern: coverageRowPattern("Compatibility-tested"), render: plainFigure,
 			figures: []figureValue{{"Compatibility-tested", f.compatTested}}},
 
-		{path: coverage, pattern: tierRowPattern(string(fidelity.TierHandVerified)), separated: true,
-			figures: []figureValue{{"`hand-verified` operations", f.tiers[fidelity.TierHandVerified]}}},
-		{path: coverage, pattern: tierRowPattern(string(fidelity.TierAutoCRUD)), separated: true,
-			figures: []figureValue{{"`auto-crud` operations", f.tiers[fidelity.TierAutoCRUD]}}},
-		{path: coverage, pattern: tierRowPattern(string(fidelity.TierUnimplemented)), separated: true,
-			figures: []figureValue{{"`unimplemented` operations", f.tiers[fidelity.TierUnimplemented]}}},
-		{path: coverage, pattern: totalKnownPattern, separated: true,
-			figures: []figureValue{{"total known operations", f.totalKnown}}},
+		tierEdit(fidelity.TierHandVerified),
+		tierEdit(fidelity.TierAutoCRUD),
+		tierEdit(fidelity.TierUnimplemented),
+		{path: coverage, pattern: totalKnownPattern, render: separatedFigure,
+			figures: []figureValue{
+				{"total known operations (serving target)", f.targetTotalKnown},
+				{"total known operations (all registered)", f.totalKnown},
+			}},
+		{path: coverage, pattern: handVerifiedSharePattern, render: formatTenths,
+			figures: shares(coverage)},
 
-		{path: coverage, pattern: targetRowPattern("Routing target"), separated: true,
+		// The two figures the paragraph under that table states in words. They are
+		// the difference between its columns, so they move with it — and prose the
+		// sync leaves behind is the drift this whole tool exists to stop.
+		{path: coverage, pattern: longTailPattern, render: separatedFigure,
+			figures: []figureValue{
+				{"operations outside the serving target", f.totalKnown - f.targetTotalKnown}}},
+		{path: coverage, pattern: longTailHandVerifiedPattern, render: separatedFigure,
+			figures: []figureValue{
+				{"`hand-verified` operations outside the serving target",
+					f.tiers[fidelity.TierHandVerified] - f.targetTiers[fidelity.TierHandVerified]}}},
+
+		{path: coverage, pattern: targetRowPattern("Routing target"), render: separatedFigure,
 			figures: []figureValue{{"Routing target", f.registered}}},
-		{path: coverage, pattern: targetRowPattern("Registered and engine-served, outside the serving target"), separated: true,
+		{path: coverage, pattern: targetRowPattern("Registered and engine-served, outside the serving target"), render: separatedFigure,
 			figures: []figureValue{{"Outside the serving target", f.registered - servingTarget}}},
 
-		{path: readme, pattern: quotedFigurePattern, everyMatch: true, figures: pair(readme)},
-		{path: docsIndex, pattern: quotedFigurePattern, everyMatch: true, figures: pair(docsIndex)},
+		{path: manifest, pattern: manifestSharePattern, render: formatTenths,
+			figures: shares(manifest)},
+
+		{path: readme, pattern: quotedFigurePattern, everyMatch: true, render: plainFigure, figures: pair(readme)},
+		{path: docsIndex, pattern: quotedFigurePattern, everyMatch: true, render: plainFigure, figures: pair(docsIndex)},
 	}
 }
 
@@ -169,7 +208,7 @@ func applyFigureEdits(doc string, edits []figureEdit) (string, []figureChange, e
 				changes = append(changes, figureChange{
 					label:  fv.label,
 					before: doc[m[2*(i+1)]:m[2*(i+1)+1]],
-					after:  formatFigure(fv.want, e.separated),
+					after:  e.render(fv.want),
 				})
 			}
 		}
@@ -180,7 +219,7 @@ func applyFigureEdits(doc string, edits []figureEdit) (string, []figureChange, e
 			m := locs[i]
 			for g := len(e.figures) - 1; g >= 0; g-- {
 				start, end := m[2*(g+1)], m[2*(g+1)+1]
-				doc = doc[:start] + formatFigure(e.figures[g].want, e.separated) + doc[end:]
+				doc = doc[:start] + e.render(e.figures[g].want) + doc[end:]
 			}
 		}
 	}
@@ -210,6 +249,25 @@ func formatFigure(n int, separated bool) string {
 		s = s[:i] + "," + s[i:]
 	}
 	return sign + s
+}
+
+// plainFigure and separatedFigure name the two renderings docs/coverage.md
+// already used, so publishedFigureEdits reads as a list of cells rather than a
+// list of booleans.
+func plainFigure(n int) string     { return formatFigure(n, false) }
+func separatedFigure(n int) string { return formatFigure(n, true) }
+
+// formatTenths renders tenths of a percent as the page shows them: 362 -> "36.2".
+//
+// The share is carried as an integer so the gate and this tool compare the
+// rendered digits rather than two floats that agree to a precision the page
+// never displays. See shareTenths in coverage_test.go.
+func formatTenths(n int) string {
+	sign := ""
+	if n < 0 {
+		sign, n = "-", -n
+	}
+	return fmt.Sprintf("%s%d.%d", sign, n/10, n%10)
 }
 
 // renderFigureTable is what a reviewer reads instead of re-deriving.
@@ -422,10 +480,11 @@ func TestUpdaterRestoresAMangledFigure(t *testing.T) {
 		t.Error("a mangled **Registered** row was not restored to the committed page")
 	}
 
-	// 2. A tier row: the thousands-separated shape. Restoring "7" to "10,871"
-	//    proves the separator survives the round trip rather than being dropped.
+	// 2. A tier row: the thousands-separated shape, both columns. Restoring
+	//    "7"/"8" to "5,193"/"10,871" proves the separator survives the round trip
+	//    and that the two denominators are not written into each other's cells.
 	if got := restore("docs/coverage.md",
-		mangleFigure(t, coverage, tierRowPattern(string(fidelity.TierAutoCRUD)), "7")); got != coverage {
+		mangleFigure(t, coverage, tierRowPattern(string(fidelity.TierAutoCRUD)), "7", "8")); got != coverage {
 		t.Error("a mangled `auto-crud` tier row was not restored, so the thousands " +
 			"separator does not survive the rewrite")
 	}
@@ -466,6 +525,43 @@ func TestUpdaterRestoresAMangledFigure(t *testing.T) {
 			t.Errorf("%s: a mangled figure pair was not restored, or the wording around "+
 				"it moved with the numbers", rel)
 		}
+	}
+
+	// 6. The share row: one decimal place, and a percent sign the updater must
+	//    leave where it is. Only the digits are captured, so "36.2%" coming back
+	//    as "36.2" would mean the rewrite swallowed the unit.
+	if got := restore("docs/coverage.md",
+		mangleFigure(t, coverage, handVerifiedSharePattern, "9.9", "8.8")); got != coverage {
+		t.Error("a mangled hand-verified share row was not restored, or the rewrite " +
+			"consumed the percent sign")
+	}
+
+	// 7. The total row, both columns: the same shape as case 2 but bold, which is
+	//    a different pattern and so a different splice.
+	if got := restore("docs/coverage.md",
+		mangleFigure(t, coverage, totalKnownPattern, "1", "2")); got != coverage {
+		t.Error("a mangled **total known** row was not restored in both denominators")
+	}
+
+	// 8 and 9. The two figures the paragraph under the tier table states in a
+	//    sentence. Splicing into prose is where a rewrite is most likely to eat a
+	//    neighbouring word, and the whole-file comparison is what catches it.
+	for _, p := range []*regexp.Regexp{longTailPattern, longTailHandVerifiedPattern} {
+		if got := restore("docs/coverage.md", mangleFigure(t, coverage, p, "3")); got != coverage {
+			t.Error("a mangled long-tail figure was not restored, so the sentence around " +
+				"it does not survive the rewrite")
+		}
+	}
+
+	// 10. The other page. docs/fidelity-manifest.md restates the share in prose,
+	//     across a line break and a Markdown link — the loosest span this tool
+	//     writes into, and the one where an over-wide match would be invisible to
+	//     a cell-level assertion.
+	manifest := restore("docs/fidelity-manifest.md", read("docs/fidelity-manifest.md"))
+	if got := restore("docs/fidelity-manifest.md",
+		mangleFigure(t, manifest, manifestSharePattern, "9.9", "8.8")); got != manifest {
+		t.Error("a mangled share in docs/fidelity-manifest.md was not restored, or the " +
+			"rewrite reached past the two figures it owns")
 	}
 }
 
@@ -538,6 +634,7 @@ func TestUpdaterLeavesUnrelatedSentencesAlone(t *testing.T) {
 		path:       "README.md",
 		pattern:    quotedFigurePattern,
 		everyMatch: true,
+		render:     plainFigure,
 		figures:    []figureValue{{"Registered", 431}, {"Serving ≥1 operation", 426}},
 	}})
 	if err != nil {
@@ -569,6 +666,33 @@ func TestFormatFigureWritesTheFigureTheDocsShow(t *testing.T) {
 		if got := formatFigure(tc.n, tc.separated); got != tc.want {
 			t.Errorf("formatFigure(%d, %v) = %q, want %q", tc.n, tc.separated, got, tc.want)
 		}
+	}
+}
+
+// TestShareRendersTheFigureThePageShows pins the arithmetic behind the one
+// figure on the page that is a ratio rather than a count.
+//
+// The two live cases are asserted by name: they are the numbers the PRD called a
+// regression and a target, and truncating instead of rounding turns 23.6% into
+// 23.5% — a digit the reader sees and no float tolerance would catch.
+func TestShareRendersTheFigureThePageShows(t *testing.T) {
+	for _, tc := range []struct {
+		name        string
+		hand, total int
+		want        string
+	}{
+		{"the serving target, as published", 4497, 12407, "36.2"},
+		{"all registered services, as published", 4528, 19201, "23.6"},
+		{"rounds half up rather than truncating", 1, 8, "12.5"},
+		{"a surface with nothing hand-verified", 0, 100, "0.0"},
+		{"a fully hand-verified surface", 100, 100, "100.0"},
+		{"an empty surface does not divide by zero", 0, 0, "0.0"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			if got := formatTenths(shareTenths(tc.hand, tc.total)); got != tc.want {
+				t.Errorf("share of %d/%d = %q, want %q", tc.hand, tc.total, got, tc.want)
+			}
+		})
 	}
 }
 

@@ -111,6 +111,11 @@ whole package would file both as operations.
 - **`hand-verified` means "the provider dispatches this operation"**, not "this
   matches AWS byte for byte". Depth varies; `make test-compat` is the stronger
   signal for the services it covers.
+- **A tier share needs its denominator named.** `hand-verified` is 36.2% of the
+  operations inside the [serving target](coverage.md#the-target) and 23.6% of
+  every operation DevCloud knows about, because the second figure includes the
+  long tail that is registered for routing alone. Both are published in
+  [coverage.md](coverage.md), and neither is the share "of DevCloud".
 - The manifest describes the **whole registered surface**, not the services
   enabled in your config.
 

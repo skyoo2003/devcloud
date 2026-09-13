@@ -11,14 +11,30 @@ alone.
 | **Registered-only** | Routed, but every operation declines with a clean AWS error. | **5** |
 | **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **426** |
 
-Per operation, from the [fidelity manifest](fidelity-manifest.md):
+Per operation, from the [fidelity manifest](fidelity-manifest.md). Two
+denominators, because [routing and depth are two targets](#the-target):
 
-| Tier | Operations |
-|---|---|
-| `hand-verified` | 4,528 |
-| `auto-crud` | 10,871 |
-| `unimplemented` | 3,802 |
-| **total known** | **19,201** |
+| Tier | Serving target | All registered |
+|---|---|---|
+| `hand-verified` | 4,497 | 4,528 |
+| `auto-crud` | 5,193 | 10,871 |
+| `unimplemented` | 2,717 | 3,802 |
+| **total known** | **12,407** | **19,201** |
+| **hand-verified share** | **36.2%** | **23.6%** |
+
+The **serving target** column is the depth promise: every registered service
+except the 226 the [demand study](demand.md) found nobody building. The **all
+registered** column adds those 226 back, and with them 6,794 operations that
+exist so an SDK call cannot leave for a billable account — not because DevCloud
+promises to serve them well.
+
+So the two shares answer different questions, and reading the right-hand one as
+a fidelity regression is the mistake this split exists to prevent. Registering
+226 more services did not make any operation less faithful; it enlarged a
+denominator. Of those operations, 31 are `hand-verified` — the eight
+hand-written providers for the services the engine cannot classify — and that is
+the whole intended depth of the long tail. Promotion out of it happens
+[on request, with a use case](fidelity-manifest.md#getting-an-operation-promoted).
 
 > **Two targets, not one: routing is 431 of 431, depth is 205.** Every service
 > AWS publishes is registered, so no call can leave for a billable account — that
@@ -356,12 +372,16 @@ make test-compat         # the compatibility-tested number, over all 431 service
 
 Every figure comes from `internal/generated/fidelity/manifest_gen.go` and nothing
 else, so it cannot drift from what the binary serves. It cannot drift from *this
-page* either — five tests compare the two, in both directions:
+page* either — nine tests compare the two, in both directions:
 
 | Test | Gates |
 |---|---|
-| `TestPublishedCoverageMatchesTheBinary` | the three service counts |
-| `TestPublishedOperationTiersMatchTheManifest` | the four operation tiers |
+| `TestPublishedCoverageMatchesTheBinary` | the four service counts |
+| `TestPublishedOperationTiersMatchTheManifest` | the operation tiers, in both denominators |
+| `TestPublishedFidelityShareMatchesTheManifest` | the `hand-verified` share of each |
+| `TestPublishedLongTailProseMatchesTheManifest` | the long-tail figures the prose states in words |
+| `TestFidelityManifestQuotesTheSameShare` | that [the manifest page](fidelity-manifest.md) states the same share |
+| `TestPublishedTargetTableMatchesTheBinary` | the target table's arithmetic, and that its 205 is the denominator the tier table divides by |
 | `TestRegisteredOnlyServicesAreNamedInTheDocs` | that a service serving nothing is named here |
 | `TestOtherDocsQuoteTheSameFigure` | that `README.md` and `docs/README.md` agree |
 | `TestDemandSetIsRegistered` | that all 57 demand-set services are still registered |
