@@ -241,6 +241,72 @@ func TestOtherDocsQuoteTheSameFigure(t *testing.T) {
 	}
 }
 
+// targetTableRow matches one row of the two-axis table in
+// docs/coverage.md#the-target:
+//
+//	| **Routing target** | **431 / 431 — met** | leak-zero; … |
+//
+// Only the first number in the value cell is captured. "431 / 431 — met" and
+// "205 — met" are written for a reader; the gate reads the figure the reader
+// sees rather than asking the table to be machine-shaped, which is the same
+// trade tierRow makes.
+func targetTableRow(t *testing.T, doc, label string) int {
+	t.Helper()
+
+	pattern := regexp.MustCompile(`(?m)^\|\s*\*?\*?` + regexp.QuoteMeta(label) +
+		`\*?\*?\s*\|\s*\*?\*?([\d,]+)`)
+	matches := pattern.FindAllStringSubmatch(doc, -1)
+	if len(matches) != 1 {
+		t.Fatalf("docs/coverage.md: found %d target rows for %q, want exactly 1. "+
+			"The two-axis table is what this gate reads; if it was restructured, "+
+			"move the pattern deliberately rather than letting the target stop "+
+			"being checked.", len(matches), label)
+	}
+
+	n, err := strconv.Atoi(strings.ReplaceAll(matches[0][1], ",", ""))
+	if err != nil {
+		t.Fatalf("docs/coverage.md: target row %q has an unreadable number %q", label, matches[0][1])
+	}
+	return n
+}
+
+// TestPublishedTargetTableMatchesTheBinary gates the target itself, which is the
+// half of this page nothing read until now.
+//
+// The summary table at the top has been gated since Milestone 6, and the target
+// table under #the-target has not — so the page once reached a state where it
+// published 431 registered and, further down, called the target "205 services,
+// not 431" and described those 431 as not targeted. Every number there was wrong
+// and every gate was green.
+//
+// Two of the three numbers are derivable from the binary and are checked against
+// it. The serving target is a decision, not a measurement — it is read from the
+// page and used as the arithmetic the third number must satisfy, so the table
+// cannot be internally inconsistent either.
+func TestPublishedTargetTableMatchesTheBinary(t *testing.T) {
+	raw, err := os.ReadFile(coveragePath)
+	if err != nil {
+		t.Fatalf("read the published coverage claim: %v", err)
+	}
+	doc := string(raw)
+
+	registered := len(plugin.DefaultRegistry.RegisteredServices())
+
+	if got := targetTableRow(t, doc, "Routing target"); got != registered {
+		t.Errorf("docs/coverage.md publishes a routing target of %d services, the binary "+
+			"registers %d. The routing target is every service AWS publishes, so these "+
+			"move together or the leak-zero claim is no longer true.", got, registered)
+	}
+
+	serving := targetTableRow(t, doc, "Serving target")
+	outside := targetTableRow(t, doc, "Registered and engine-served, outside the serving target")
+	if got, want := outside, registered-serving; got != want {
+		t.Errorf("docs/coverage.md publishes %d services outside the serving target; "+
+			"%d registered minus a serving target of %d is %d. One of the three "+
+			"numbers moved without the others.", got, registered, serving, want)
+	}
+}
+
 // demandPath is the evidence behind the published target. See docs/demand.md.
 const demandPath = "../../docs/demand.md"
 

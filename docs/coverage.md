@@ -20,10 +20,11 @@ Per operation, from the [fidelity manifest](fidelity-manifest.md):
 | `unimplemented` | 3,802 |
 | **total known** | **19,201** |
 
-> **The target is depth for 205 services, not breadth for 431.** All 431 are
-> registered — the codegen scaffold made breadth nearly free — but registration is
-> not the promise. What the evidence refused was a promise of *depth* across 431,
-> and it still refuses it. See [The target](#the-target).
+> **Two targets, not one: routing is 431 of 431, depth is 205.** Every service
+> AWS publishes is registered, so no call can leave for a billable account — that
+> is a safety property and it admits no smaller number. Depth is the separate,
+> smaller promise, and the evidence still puts it at 205. See
+> [The target](#the-target).
 
 Every figure on this page is asserted against the binary by
 `go test ./cmd/devcloud/`. Editing one here without the code moving fails CI, and
@@ -130,7 +131,25 @@ not packaging artefacts.
 
 ## The target
 
-**Decided 2026-09-05. The target is 205 services, not 431 — and it is met.**
+DevCloud publishes **two** targets. They answer different questions, and reading
+one as the other is the mistake this page exists to prevent.
+
+- **Routing — every service AWS publishes, and it is met.** A registered service
+  is answered at `localhost:4747`; an unregistered one is not routed, so the SDK
+  call leaves the machine and bills a real AWS account. That is a safety
+  property, not a capability claim, and the only number that satisfies it is all
+  of them.
+- **Serving depth — 205 services, decided 2026-09-05, and it is met.** Depth is
+  what costs, so it follows evidence of demand rather than the shape of AWS's
+  catalogue. The study below is that evidence, and it is unchanged.
+
+| Axis | Services | Governed by |
+|---|---|---|
+| **Routing target** | **431 / 431 — met** | leak-zero; every published model is registered |
+| **Serving target** | **205 — met** | the demand study below, sampled 2026-09-05 |
+| Registered and engine-served, outside the serving target | 226 | no depth promise — see the [CRUD engine](crud-engine.md) |
+
+### How the depth target was set
 
 The old target was every service AWS publishes. It rested on an assumption nobody
 had tested: that the services DevCloud does not register are services anyone
@@ -138,16 +157,14 @@ wants. Before committing to building ~283 of them, the assumption was tested
 against three independent projects that each only add a service when someone
 asks. It did not hold.
 
-**All 431 are now registered, and the decision above still stands.** What it
+**Registering all 431 later did not overturn that decision.** What the study
 refused was the *cost* — hand-building 283 services on the assumption someone
 wanted them. The codegen scaffold removed that cost: registering the remaining
 226 became a flag on `make codegen`, not a programme of work, and the services it
 reached are served by the generic [CRUD engine](crud-engine.md) at engine
-fidelity. So breadth was taken because it turned out to be nearly free, and the
-target stayed where the evidence put it, because the target was never a count of
-registrations — it is where DevCloud promises to be worth trusting. Read the
-table below as two different claims, not one: 431 services answer locally instead
-of billing a real account, and 205 are the ones whose depth is a commitment.
+fidelity. So routing was taken because it turned out to be nearly free, and the
+depth target stayed where the evidence put it, because it was never a count of
+registrations — it is where DevCloud promises to be worth trusting.
 
 **The rule was fixed before the numbers were seen** — four outcomes written down
 in advance, including one for "the method itself failed", specifically so the
@@ -164,19 +181,14 @@ evidence in [demand.md](demand.md); re-derive with
 | `M` built by none | 115 |
 | DevCloud's own service requests, all time | **0** |
 
-The rule kept the 100% target only if ≥60% of `M` had support ≥2, and narrowed to
-a demand set if ≥100 did. 57 cleared neither bar, so the pre-registered
-consequence applied: **the 100% claim is dropped and the published target becomes
-the demand set.** All 57 are registered — 56 serve at least one operation, and
-`rds-data` is the exception named above. It is supported by all three projects,
-the strongest signal in the set, and still cannot be served generically. Breadth
-does not reach every service, and saying so is cheaper than a fabricated success.
-
-| | Services |
-|---|---|
-| Registered today | **431** |
-| Target: registered + demonstrated demand | **205 — met** |
-| Registered, scaffold-served, outside the target | 226 |
+The rule kept the 100% depth target only if ≥60% of `M` had support ≥2, and
+narrowed to a demand set if ≥100 did. 57 cleared neither bar, so the
+pre-registered consequence applied: **the 100% depth claim is dropped and the
+published depth target becomes the demand set.** All 57 are registered — 56 serve
+at least one operation, and `rds-data` is the exception named above. It is
+supported by all three projects, the strongest signal in the set, and still
+cannot be served generically. The engine does not reach every service it routes,
+and saying so is cheaper than a fabricated success.
 
 Four fifths of the AWS surface is surface that three projects with far more
 history and staffing have collectively declined to build. That is what a long
@@ -236,32 +248,72 @@ anywhere.
 
 Apple Silicon, `CGO_ENABLED=0`, measured at each step of the roadmap:
 
-| | 105 services | 147 services | 205 services |
-|---|---|---|---|
-| Binary | 30.8 MiB | 31.3 MiB | **33.1 MiB** |
-| Peak RSS (`/usr/bin/time -l`) | 57.3 MiB | 57.7 MiB | **43.7 MiB** |
-| Service registration | — | — | **49 ms for all 205** |
+| | 105 services | 147 services | 205 services | 431 services |
+|---|---|---|---|---|
+| Binary | 30.8 MiB | 31.3 MiB | 33.1 MiB | **36.8 MiB** |
+| Peak RSS (`/usr/bin/time -l`) | 57.3 MiB | 57.7 MiB | 43.7 MiB | **51.2 MiB** |
+| Service startup | — | — | 49 ms for all 205 | **42 ms for all 431** |
 
-The single-binary, zero-config property holds at the target with room to spare.
-Startup does not scale meaningfully with service count: registration is a map
-insert per service in `init()`, and the generated type definitions are mostly
-dead-code-eliminated by the linker, which is why 58 more services cost 1.8 MiB.
+The single-binary, zero-config property holds at 431 with room to spare. Startup
+does not scale meaningfully with service count: registration is a map insert per
+service in `init()`, and the generated type definitions are mostly
+dead-code-eliminated by the linker, which is why 58 more services cost 1.8 MiB —
+and why 226 more, nearly quadrupling the fleet, cost 3.7 MiB rather than the
+7 MiB a linear reading of that figure predicts.
+
+Two ceilings on the startup reading:
+
+1. **It is timed from the first `service initialized` line to `DevCloud ready`**,
+   so it covers bringing every service up, not the `init()` registration alone.
+   That is the number an operator waits for.
+2. **A first run costs about three times as much** — 118 to 148 ms across four
+   measurements, against 42 ms once the data directories exist, because each of
+   the 431 services creates its own on the way up. The cold path is the one to
+   watch, and it is the one `cmd/devcloud/budget_test.go` reproduces.
+
+**Startup is measured, not gated, and that is a deliberate retreat.** The gate
+was written as a wall-clock ceiling and CI disproved it. The same path that takes
+141 ms here took 2.048 s on a GitHub arm64 runner, and 1.414 s on the same runner
+type one commit later — so the shared runner is roughly ten times slower *and*
+swings 45% between runs on identical code. The regression worth catching is
+smaller than that swing: a provider that starts opening a file or a database per
+service at startup costs 1.2x to 2x, because that is what 431 extra file opens
+are worth. A ceiling that survives the variance cannot fail on the regression.
+Saying the figure is measured is cheaper than claiming a gate that cannot fire.
+
+What `budget_test.go` *does* assert on every run is that all 431 services come
+up at all. `main.go` initializes the long tail non-fatally, so a service that is
+registered but can no longer initialize would otherwise degrade to a warning in a
+log nobody reads. The timing is logged beside it, and becomes an assertion when
+you name a budget on a machine whose speed you know:
+
+```
+DEVCLOUD_STARTUP_BUDGET=300ms go test ./cmd/devcloud/
+```
+
+That is how the figures above are re-taken per release.
+
+The binary size *is* gated, because size does not vary with how busy a runner is.
+CI fails the build past **45 MiB** and measures 35 MiB on arm64, 37 MiB on amd64
+— close enough to the 36.8 MiB above that the platform barely registers, so the
+remaining 8 MiB is genuine slack rather than a correction for anything. It is a
+decision; if it starts failing, find what grew before raising it.
 
 The RSS readings were taken on different days and are not a controlled
-comparison. Read them as "memory is not the constraint at 205" rather than as a
-saving — what they agree on is the shape: memory is dominated by the runtime and
-the store, not by how many services are registered.
+comparison. Read them as "memory is not the constraint" rather than as a saving —
+what they agree on is the shape: memory is dominated by the runtime and the
+store, not by how many services are registered.
 
 ## Keeping up with upstream
 
-The 205 services are vendored from 194 Smithy models, and AWS keeps changing
+The 431 services are vendored from 420 Smithy models, and AWS keeps changing
 them. A [weekly workflow](../.github/workflows/smithy-sync.yml) refreshes all of
 them and opens a pull request. What that review costs was measured once, on
 **2026-09-06**:
 
 | Reading | Value |
 |---|---|
-| Vendored models refreshed | 194 |
+| Vendored models refreshed | 194 (of 420 vendored today) |
 | Models that changed | 93 |
 | Of those, models that added or removed an operation | 32 |
 | Of those, models that changed only documentation | 0 |
@@ -273,6 +325,13 @@ them and opens a pull request. What that review costs was measured once, on
 changed were all vendored 141 days earlier; the other 101 were vendored the day
 before, and not one of them changed. So the reading is an accumulated backlog,
 and the weekly rate is still unknown.
+
+**And it was taken at 194 models, not 420.** The vendored set has since more than
+doubled, so the diff a reviewer faces is larger than anything measured here by
+roughly the same factor, and the operation counts in the table predate the 6,763
+operations the long tail brought with it. What does not change is the shape of
+the review: it is driven by which operations moved, not by how many files did.
+Reducing that cost rather than restating it is tracked separately.
 
 What the sample does settle is the *shape* of the work. None of the 93 was
 documentation-only, so no sync can be waved through on the assumption that AWS

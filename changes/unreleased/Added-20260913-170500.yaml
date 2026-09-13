@@ -1,0 +1,9 @@
+kind: Added
+body: 'Two published figures are now gated against the binary that were not: the
+  routing and depth targets on the coverage page, and the size of the shipped
+  binary (45 MiB ceiling, checked in CI). A third gate is new but narrower than
+  intended — every one of the 431 registered services is now asserted to
+  initialize, which main.go only warned about, while its startup time is logged
+  rather than gated because a shared CI runner is 14x slower than the machine the
+  published figure comes from'
+Issue: "163"
