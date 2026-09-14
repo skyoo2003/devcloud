@@ -254,6 +254,19 @@ type CopyJobSummary struct {
 	State           string    `json:"state" xml:"State"`
 }
 
+type CreateBackupAccessPointRequest struct {
+	AccessPointMetadata AccessPointMetadataMap `json:"accessPointMetadata" xml:"AccessPointMetadata"`
+	AccessPointPolicy   string                 `json:"accessPointPolicy" xml:"AccessPointPolicy"`
+	Name                string                 `json:"name" xml:"Name"`
+	RecoveryPointArn    string                 `json:"recoveryPointArn" xml:"RecoveryPointArn"`
+	Tags                TagMap                 `json:"tags" xml:"Tags"`
+}
+
+type CreateBackupAccessPointResponse struct {
+	AccessPointArn string `json:"accessPointArn" xml:"AccessPointArn"`
+	Status         string `json:"status" xml:"Status"`
+}
+
 type CreateBackupPlanInput struct {
 	BackupPlan       *BackupPlanInput `json:"backupPlan" xml:"BackupPlan"`
 	BackupPlanTags   Tags             `json:"backupPlanTags" xml:"BackupPlanTags"`
@@ -412,6 +425,10 @@ type DateRange struct {
 	ToDate   time.Time `json:"toDate" xml:"ToDate"`
 }
 
+type DeleteBackupAccessPointInput struct {
+	AccessPointArn string `json:"accessPointArn" xml:"AccessPointArn"`
+}
+
 type DeleteBackupPlanInput struct {
 	BackupPlanId string `json:"backupPlanId" xml:"BackupPlanId"`
 }
@@ -471,6 +488,24 @@ type DeleteTieringConfigurationInput struct {
 }
 
 type DeleteTieringConfigurationOutput struct {
+}
+
+type DescribeBackupAccessPointInput struct {
+	AccessPointArn string `json:"accessPointArn" xml:"AccessPointArn"`
+}
+
+type DescribeBackupAccessPointResponse struct {
+	AccessPointArn      string                 `json:"accessPointArn" xml:"AccessPointArn"`
+	AccessPointMetadata AccessPointMetadataMap `json:"accessPointMetadata" xml:"AccessPointMetadata"`
+	BackupVaultArn      string                 `json:"backupVaultArn" xml:"BackupVaultArn"`
+	BackupVaultName     string                 `json:"backupVaultName" xml:"BackupVaultName"`
+	CreationTime        time.Time              `json:"creationTime" xml:"CreationTime"`
+	Name                string                 `json:"name" xml:"Name"`
+	RecoveryPointArn    string                 `json:"recoveryPointArn" xml:"RecoveryPointArn"`
+	ResourceArn         string                 `json:"resourceArn" xml:"ResourceArn"`
+	ResourceType        string                 `json:"resourceType" xml:"ResourceType"`
+	Status              string                 `json:"status" xml:"Status"`
+	StatusMessage       string                 `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type DescribeBackupJobInput struct {
@@ -685,6 +720,8 @@ type DescribeScanJobOutput struct {
 	BackupVaultArn           string          `json:"backupVaultArn" xml:"BackupVaultArn"`
 	BackupVaultName          string          `json:"backupVaultName" xml:"BackupVaultName"`
 	CompletionDate           time.Time       `json:"completionDate" xml:"CompletionDate"`
+	ContinuousScanEndTime    time.Time       `json:"continuousScanEndTime" xml:"ContinuousScanEndTime"`
+	ContinuousScanStartTime  time.Time       `json:"continuousScanStartTime" xml:"ContinuousScanStartTime"`
 	CreatedBy                *ScanJobCreator `json:"createdBy" xml:"CreatedBy"`
 	CreationDate             time.Time       `json:"creationDate" xml:"CreationDate"`
 	IamRoleArn               string          `json:"iamRoleArn" xml:"IamRoleArn"`
@@ -827,6 +864,21 @@ type GetLegalHoldOutput struct {
 	Title                  string                  `json:"title" xml:"Title"`
 }
 
+type GetPITRMalwareScanResultsInput struct {
+	BackupVaultName  string    `json:"backupVaultName" xml:"BackupVaultName"`
+	MalwareScanner   string    `json:"malwareScanner" xml:"MalwareScanner"`
+	RecoveryPointArn string    `json:"recoveryPointArn" xml:"RecoveryPointArn"`
+	ScanEndTime      time.Time `json:"scanEndTime" xml:"ScanEndTime"`
+}
+
+type GetPITRMalwareScanResultsOutput struct {
+	LastScanJobTime time.Time       `json:"lastScanJobTime" xml:"LastScanJobTime"`
+	ScanEndTime     time.Time       `json:"scanEndTime" xml:"ScanEndTime"`
+	ScanId          string          `json:"scanId" xml:"ScanId"`
+	ScanMode        string          `json:"scanMode" xml:"ScanMode"`
+	ScanResult      *ScanResultInfo `json:"scanResult" xml:"ScanResult"`
+}
+
 type GetRecoveryPointIndexDetailsInput struct {
 	BackupVaultName  string `json:"backupVaultName" xml:"BackupVaultName"`
 	RecoveryPointArn string `json:"recoveryPointArn" xml:"RecoveryPointArn"`
@@ -957,6 +1009,52 @@ type Lifecycle struct {
 	DeleteAfterEvent                    string `json:"deleteAfterEvent" xml:"DeleteAfterEvent"`
 	MoveToColdStorageAfterDays          int64  `json:"moveToColdStorageAfterDays" xml:"MoveToColdStorageAfterDays"`
 	OptInToArchiveForSupportedResources bool   `json:"optInToArchiveForSupportedResources" xml:"OptInToArchiveForSupportedResources"`
+}
+
+type ListAccessPointsMember struct {
+	AccessPointArn      string                 `json:"accessPointArn" xml:"AccessPointArn"`
+	AccessPointMetadata AccessPointMetadataMap `json:"accessPointMetadata" xml:"AccessPointMetadata"`
+	BackupVaultArn      string                 `json:"backupVaultArn" xml:"BackupVaultArn"`
+	BackupVaultName     string                 `json:"backupVaultName" xml:"BackupVaultName"`
+	CreationTime        time.Time              `json:"creationTime" xml:"CreationTime"`
+	Name                string                 `json:"name" xml:"Name"`
+	RecoveryPointArn    string                 `json:"recoveryPointArn" xml:"RecoveryPointArn"`
+	ResourceArn         string                 `json:"resourceArn" xml:"ResourceArn"`
+	ResourceType        string                 `json:"resourceType" xml:"ResourceType"`
+	Status              string                 `json:"status" xml:"Status"`
+	StatusMessage       string                 `json:"statusMessage" xml:"StatusMessage"`
+}
+
+type ListBackupAccessPointsByRecoveryPointRequest struct {
+	MaxResults       int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken        string `json:"nextToken" xml:"NextToken"`
+	RecoveryPointArn string `json:"recoveryPointArn" xml:"RecoveryPointArn"`
+}
+
+type ListBackupAccessPointsByRecoveryPointResponse struct {
+	BackupAccessPoints BackupAccessPoints `json:"backupAccessPoints" xml:"BackupAccessPoints"`
+	NextToken          string             `json:"nextToken" xml:"NextToken"`
+}
+
+type ListBackupAccessPointsByResourceRequest struct {
+	MaxResults  int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken   string `json:"nextToken" xml:"NextToken"`
+	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+}
+
+type ListBackupAccessPointsByResourceResponse struct {
+	BackupAccessPoints BackupAccessPoints `json:"backupAccessPoints" xml:"BackupAccessPoints"`
+	NextToken          string             `json:"nextToken" xml:"NextToken"`
+}
+
+type ListBackupAccessPointsRequest struct {
+	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken  string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListBackupAccessPointsResponse struct {
+	BackupAccessPoints BackupAccessPoints `json:"backupAccessPoints" xml:"BackupAccessPoints"`
+	NextToken          string             `json:"nextToken" xml:"NextToken"`
 }
 
 type ListBackupJobSummariesInput struct {
@@ -1660,6 +1758,8 @@ type ScanJob struct {
 	BackupVaultArn           string          `json:"backupVaultArn" xml:"BackupVaultArn"`
 	BackupVaultName          string          `json:"backupVaultName" xml:"BackupVaultName"`
 	CompletionDate           time.Time       `json:"completionDate" xml:"CompletionDate"`
+	ContinuousScanEndTime    time.Time       `json:"continuousScanEndTime" xml:"ContinuousScanEndTime"`
+	ContinuousScanStartTime  time.Time       `json:"continuousScanStartTime" xml:"ContinuousScanStartTime"`
 	CreatedBy                *ScanJobCreator `json:"createdBy" xml:"CreatedBy"`
 	CreationDate             time.Time       `json:"creationDate" xml:"CreationDate"`
 	IamRoleArn               string          `json:"iamRoleArn" xml:"IamRoleArn"`
@@ -1782,14 +1882,15 @@ type StartRestoreJobOutput struct {
 }
 
 type StartScanJobInput struct {
-	BackupVaultName          string `json:"backupVaultName" xml:"BackupVaultName"`
-	IamRoleArn               string `json:"iamRoleArn" xml:"IamRoleArn"`
-	IdempotencyToken         string `json:"idempotencyToken" xml:"IdempotencyToken"`
-	MalwareScanner           string `json:"malwareScanner" xml:"MalwareScanner"`
-	RecoveryPointArn         string `json:"recoveryPointArn" xml:"RecoveryPointArn"`
-	ScanBaseRecoveryPointArn string `json:"scanBaseRecoveryPointArn" xml:"ScanBaseRecoveryPointArn"`
-	ScanMode                 string `json:"scanMode" xml:"ScanMode"`
-	ScannerRoleArn           string `json:"scannerRoleArn" xml:"ScannerRoleArn"`
+	BackupVaultName          string    `json:"backupVaultName" xml:"BackupVaultName"`
+	ContinuousScanEndTime    time.Time `json:"continuousScanEndTime" xml:"ContinuousScanEndTime"`
+	IamRoleArn               string    `json:"iamRoleArn" xml:"IamRoleArn"`
+	IdempotencyToken         string    `json:"idempotencyToken" xml:"IdempotencyToken"`
+	MalwareScanner           string    `json:"malwareScanner" xml:"MalwareScanner"`
+	RecoveryPointArn         string    `json:"recoveryPointArn" xml:"RecoveryPointArn"`
+	ScanBaseRecoveryPointArn string    `json:"scanBaseRecoveryPointArn" xml:"ScanBaseRecoveryPointArn"`
+	ScanMode                 string    `json:"scanMode" xml:"ScanMode"`
+	ScannerRoleArn           string    `json:"scannerRoleArn" xml:"ScannerRoleArn"`
 }
 
 type StartScanJobOutput struct {
@@ -1957,6 +2058,8 @@ type UpdateTieringConfigurationOutput struct {
 
 type AdvancedBackupSettings []*AdvancedBackupSetting
 
+type BackupAccessPoints []*ListAccessPointsMember
+
 type BackupJobSummaryList []*BackupJobSummary
 
 type BackupJobsList []*BackupJob
@@ -2061,6 +2164,8 @@ type VaultNames []string
 
 type stringList []string
 
+type AccessPointMetadataMap map[string]string
+
 type BackupJobChildJobsInState map[string]int64
 
 type BackupOptions map[string]string
@@ -2076,6 +2181,8 @@ type ResourceTypeManagementPreference map[string]bool
 type ResourceTypeOptInPreference map[string]bool
 
 type SensitiveStringMap map[string]string
+
+type TagMap map[string]string
 
 type Tags map[string]string
 

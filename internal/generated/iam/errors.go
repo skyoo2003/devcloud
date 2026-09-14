@@ -378,6 +378,23 @@ func (e *MalformedPolicyDocumentException) HTTPStatus() int {
 	return 400
 }
 
+// NameConflictException is returned with HTTP status 409.
+type NameConflictException struct {
+	Message string
+}
+
+func (e *NameConflictException) Error() string {
+	return fmt.Sprintf("NameConflictException: %s", e.Message)
+}
+
+func (e *NameConflictException) ErrorCode() string {
+	return "NameConflictException"
+}
+
+func (e *NameConflictException) HTTPStatus() int {
+	return 409
+}
+
 // NoSuchEntityException is returned with HTTP status 404.
 type NoSuchEntityException struct {
 	Message string
@@ -512,6 +529,40 @@ func (e *ReportGenerationLimitExceededException) ErrorCode() string {
 
 func (e *ReportGenerationLimitExceededException) HTTPStatus() int {
 	return 409
+}
+
+// RoleModifiedException is returned with HTTP status 409.
+type RoleModifiedException struct {
+	Message string
+}
+
+func (e *RoleModifiedException) Error() string {
+	return fmt.Sprintf("RoleModifiedException: %s", e.Message)
+}
+
+func (e *RoleModifiedException) ErrorCode() string {
+	return "RoleModifiedException"
+}
+
+func (e *RoleModifiedException) HTTPStatus() int {
+	return 409
+}
+
+// RoleTemplateDisabledException is returned with HTTP status 400.
+type RoleTemplateDisabledException struct {
+	Message string
+}
+
+func (e *RoleTemplateDisabledException) Error() string {
+	return fmt.Sprintf("RoleTemplateDisabledException: %s", e.Message)
+}
+
+func (e *RoleTemplateDisabledException) ErrorCode() string {
+	return "RoleTemplateDisabledException"
+}
+
+func (e *RoleTemplateDisabledException) HTTPStatus() int {
+	return 400
 }
 
 // ServiceAccessNotEnabledException is returned with HTTP status 400.

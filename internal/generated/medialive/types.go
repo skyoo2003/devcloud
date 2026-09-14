@@ -1261,8 +1261,9 @@ type DescribeFollowerChannelSettings struct {
 }
 
 type DescribeInferenceSettings struct {
-	AudioFeedInputs __listOfAudioFeedInput `json:"audioFeedInputs" xml:"AudioFeedInputs"`
-	FeedArn         string                 `json:"feedArn" xml:"FeedArn"`
+	AudioFeedInputs   __listOfAudioFeedInput   `json:"audioFeedInputs" xml:"AudioFeedInputs"`
+	EnrichmentMethods __listOfEnrichmentMethod `json:"enrichmentMethods" xml:"EnrichmentMethods"`
+	FeedArn           string                   `json:"feedArn" xml:"FeedArn"`
 }
 
 type DescribeInputDeviceRequest struct {
@@ -1607,7 +1608,13 @@ type EbuTtDDestinationSettings struct {
 	StyleControl      string `json:"styleControl" xml:"StyleControl"`
 }
 
+type EmbeddedCaptionPositionSettings struct {
+	YPositionLine int32 `json:"yPositionLine" xml:"YPositionLine"`
+}
+
 type EmbeddedDestinationSettings struct {
+	Position     *EmbeddedCaptionPositionSettings `json:"position" xml:"Position"`
+	StyleControl string                           `json:"styleControl" xml:"StyleControl"`
 }
 
 type EmbeddedPlusScte20DestinationSettings struct {
@@ -2109,8 +2116,9 @@ type ImmediateModeScheduleActionStartSettings struct {
 }
 
 type InferenceSettings struct {
-	AudioFeedInputs __listOfAudioFeedInput `json:"audioFeedInputs" xml:"AudioFeedInputs"`
-	FeedArn         string                 `json:"feedArn" xml:"FeedArn"`
+	AudioFeedInputs   __listOfAudioFeedInput   `json:"audioFeedInputs" xml:"AudioFeedInputs"`
+	EnrichmentMethods __listOfEnrichmentMethod `json:"enrichmentMethods" xml:"EnrichmentMethods"`
+	FeedArn           string                   `json:"feedArn" xml:"FeedArn"`
 }
 
 type Input struct {
@@ -2844,10 +2852,11 @@ type MediaPackageV2AbWatermarkerIrdetoSettings struct {
 }
 
 type MediaPackageV2DestinationSettings struct {
-	AudioGroupId       string `json:"audioGroupId" xml:"AudioGroupId"`
-	AudioRenditionSets string `json:"audioRenditionSets" xml:"AudioRenditionSets"`
-	HlsAutoSelect      string `json:"hlsAutoSelect" xml:"HlsAutoSelect"`
-	HlsDefault         string `json:"hlsDefault" xml:"HlsDefault"`
+	AudioGroupId       string              `json:"audioGroupId" xml:"AudioGroupId"`
+	AudioRenditionSets string              `json:"audioRenditionSets" xml:"AudioRenditionSets"`
+	HlsAutoSelect      string              `json:"hlsAutoSelect" xml:"HlsAutoSelect"`
+	HlsDefault         string              `json:"hlsDefault" xml:"HlsDefault"`
+	OutputUsage        __listOfOutputUsage `json:"outputUsage" xml:"OutputUsage"`
 }
 
 type MediaPackageV2GroupSettings struct {
@@ -4006,6 +4015,10 @@ type TemporalFilterSettings struct {
 	Strength             string `json:"strength" xml:"Strength"`
 }
 
+type TextCaptionPositionSettings struct {
+	YPositionPercentage int32 `json:"yPositionPercentage" xml:"YPositionPercentage"`
+}
+
 type Thumbnail struct {
 	Body          string    `json:"body" xml:"Body"`
 	ContentType   string    `json:"contentType" xml:"ContentType"`
@@ -4055,7 +4068,8 @@ type TransferringInputDeviceSummary struct {
 }
 
 type TtmlDestinationSettings struct {
-	StyleControl string `json:"styleControl" xml:"StyleControl"`
+	Position     *TextCaptionPositionSettings `json:"position" xml:"Position"`
+	StyleControl string                       `json:"styleControl" xml:"StyleControl"`
 }
 
 type UdpContainerSettings struct {
@@ -4415,6 +4429,7 @@ type VideoCodecSettings struct {
 }
 
 type VideoDescription struct {
+	Border                  int32                   `json:"border" xml:"Border"`
 	CodecSettings           *VideoCodecSettings     `json:"codecSettings" xml:"CodecSettings"`
 	CropRectangle           *VideoPositionRectangle `json:"cropRectangle" xml:"CropRectangle"`
 	Height                  int32                   `json:"height" xml:"Height"`
@@ -4477,7 +4492,8 @@ type WavSettings struct {
 }
 
 type WebvttDestinationSettings struct {
-	StyleControl string `json:"styleControl" xml:"StyleControl"`
+	Position     *TextCaptionPositionSettings `json:"position" xml:"Position"`
+	StyleControl string                       `json:"styleControl" xml:"StyleControl"`
 }
 
 type InputSdiSources []string
@@ -4541,6 +4557,8 @@ type __listOfDescribeClusterSummary []*DescribeClusterSummary
 type __listOfDescribeNetworkSummary []*DescribeNetworkSummary
 
 type __listOfDescribeNodeSummary []*DescribeNodeSummary
+
+type __listOfEnrichmentMethod []string
 
 type __listOfEventBridgeRuleTemplateGroupSummary []*EventBridgeRuleTemplateGroupSummary
 
@@ -4643,6 +4661,8 @@ type __listOfOutputDestinationSettings []*OutputDestinationSettings
 type __listOfOutputGroup []*OutputGroup
 
 type __listOfOutputLocationRef []*OutputLocationRef
+
+type __listOfOutputUsage []string
 
 type __listOfPipelineDetail []*PipelineDetail
 

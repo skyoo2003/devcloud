@@ -189,6 +189,7 @@ type CreateDeploymentInput struct {
 	AutoRollbackConfiguration     *AutoRollbackConfiguration `json:"autoRollbackConfiguration" xml:"autoRollbackConfiguration"`
 	DeploymentConfigName          string                     `json:"deploymentConfigName" xml:"deploymentConfigName"`
 	DeploymentGroupName           string                     `json:"deploymentGroupName" xml:"deploymentGroupName"`
+	DeploymentMode                string                     `json:"deploymentMode" xml:"deploymentMode"`
 	Description                   string                     `json:"description" xml:"description"`
 	FileExistsBehavior            string                     `json:"fileExistsBehavior" xml:"fileExistsBehavior"`
 	IgnoreApplicationStopFailures bool                       `json:"ignoreApplicationStopFailures" xml:"ignoreApplicationStopFailures"`

@@ -851,6 +851,10 @@ func (b *BaseProvider) ListEntitySecurityProfiles(ctx context.Context, input *Li
 	return nil, fmt.Errorf("ListEntitySecurityProfiles: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListEvaluationFormAIVersions(ctx context.Context, input *ListEvaluationFormAIVersionsRequest) (*ListEvaluationFormAIVersionsResponse, error) {
+	return nil, fmt.Errorf("ListEvaluationFormAIVersions: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListEvaluationFormVersions(ctx context.Context, input *ListEvaluationFormVersionsRequest) (*ListEvaluationFormVersionsResponse, error) {
 	return nil, fmt.Errorf("ListEvaluationFormVersions: %w", ErrNotImplemented)
 }

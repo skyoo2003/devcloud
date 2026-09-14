@@ -12,6 +12,7 @@ type OperationRoute = httproute.Route
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
+	{Method: "", Pattern: "", Operation: "ContinueServiceDeployment"},
 	{Method: "", Pattern: "", Operation: "CreateCapacityProvider"},
 	{Method: "", Pattern: "", Operation: "CreateCluster"},
 	{Method: "", Pattern: "", Operation: "CreateDaemon"},

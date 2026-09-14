@@ -31,14 +31,16 @@ type ChannelGroupListConfiguration struct {
 }
 
 type ChannelListConfiguration struct {
-	Arn               string    `json:"arn" xml:"Arn"`
-	ChannelGroupName  string    `json:"channelGroupName" xml:"ChannelGroupName"`
-	ChannelName       string    `json:"channelName" xml:"ChannelName"`
-	CreatedAt         time.Time `json:"createdAt" xml:"CreatedAt"`
-	Description       string    `json:"description" xml:"Description"`
-	InputType         string    `json:"inputType" xml:"InputType"`
-	ModifiedAt        time.Time `json:"modifiedAt" xml:"ModifiedAt"`
-	OutputLockingMode string    `json:"outputLockingMode" xml:"OutputLockingMode"`
+	Arn                       string                       `json:"arn" xml:"Arn"`
+	AttachedMultiviewChannels AttachedMultiviewChannelList `json:"attachedMultiviewChannels" xml:"AttachedMultiviewChannels"`
+	ChannelGroupName          string                       `json:"channelGroupName" xml:"ChannelGroupName"`
+	ChannelName               string                       `json:"channelName" xml:"ChannelName"`
+	CreatedAt                 time.Time                    `json:"createdAt" xml:"CreatedAt"`
+	Description               string                       `json:"description" xml:"Description"`
+	InputType                 string                       `json:"inputType" xml:"InputType"`
+	ModifiedAt                time.Time                    `json:"modifiedAt" xml:"ModifiedAt"`
+	MultiviewConfiguration    *MultiviewConfiguration      `json:"multiviewConfiguration" xml:"MultiviewConfiguration"`
+	OutputLockingMode         string                       `json:"outputLockingMode" xml:"OutputLockingMode"`
 }
 
 type CreateChannelGroupRequest struct {
@@ -66,25 +68,28 @@ type CreateChannelRequest struct {
 	Description               string                     `json:"description" xml:"Description"`
 	InputSwitchConfiguration  *InputSwitchConfiguration  `json:"inputSwitchConfiguration" xml:"InputSwitchConfiguration"`
 	InputType                 string                     `json:"inputType" xml:"InputType"`
+	MultiviewConfiguration    *MultiviewConfiguration    `json:"multiviewConfiguration" xml:"MultiviewConfiguration"`
 	OutputHeaderConfiguration *OutputHeaderConfiguration `json:"outputHeaderConfiguration" xml:"OutputHeaderConfiguration"`
 	OutputLockingMode         string                     `json:"outputLockingMode" xml:"OutputLockingMode"`
 	Tags                      TagMap                     `json:"tags" xml:"Tags"`
 }
 
 type CreateChannelResponse struct {
-	Arn                       string                     `json:"arn" xml:"Arn"`
-	ChannelGroupName          string                     `json:"channelGroupName" xml:"ChannelGroupName"`
-	ChannelName               string                     `json:"channelName" xml:"ChannelName"`
-	CreatedAt                 time.Time                  `json:"createdAt" xml:"CreatedAt"`
-	Description               string                     `json:"description" xml:"Description"`
-	ETag                      string                     `json:"eTag" xml:"ETag"`
-	IngestEndpoints           IngestEndpointList         `json:"ingestEndpoints" xml:"IngestEndpoints"`
-	InputSwitchConfiguration  *InputSwitchConfiguration  `json:"inputSwitchConfiguration" xml:"InputSwitchConfiguration"`
-	InputType                 string                     `json:"inputType" xml:"InputType"`
-	ModifiedAt                time.Time                  `json:"modifiedAt" xml:"ModifiedAt"`
-	OutputHeaderConfiguration *OutputHeaderConfiguration `json:"outputHeaderConfiguration" xml:"OutputHeaderConfiguration"`
-	OutputLockingMode         string                     `json:"outputLockingMode" xml:"OutputLockingMode"`
-	Tags                      TagMap                     `json:"tags" xml:"Tags"`
+	Arn                       string                       `json:"arn" xml:"Arn"`
+	AttachedMultiviewChannels AttachedMultiviewChannelList `json:"attachedMultiviewChannels" xml:"AttachedMultiviewChannels"`
+	ChannelGroupName          string                       `json:"channelGroupName" xml:"ChannelGroupName"`
+	ChannelName               string                       `json:"channelName" xml:"ChannelName"`
+	CreatedAt                 time.Time                    `json:"createdAt" xml:"CreatedAt"`
+	Description               string                       `json:"description" xml:"Description"`
+	ETag                      string                       `json:"eTag" xml:"ETag"`
+	IngestEndpoints           IngestEndpointList           `json:"ingestEndpoints" xml:"IngestEndpoints"`
+	InputSwitchConfiguration  *InputSwitchConfiguration    `json:"inputSwitchConfiguration" xml:"InputSwitchConfiguration"`
+	InputType                 string                       `json:"inputType" xml:"InputType"`
+	ModifiedAt                time.Time                    `json:"modifiedAt" xml:"ModifiedAt"`
+	MultiviewConfiguration    *MultiviewConfiguration      `json:"multiviewConfiguration" xml:"MultiviewConfiguration"`
+	OutputHeaderConfiguration *OutputHeaderConfiguration   `json:"outputHeaderConfiguration" xml:"OutputHeaderConfiguration"`
+	OutputLockingMode         string                       `json:"outputLockingMode" xml:"OutputLockingMode"`
+	Tags                      TagMap                       `json:"tags" xml:"Tags"`
 }
 
 type CreateDashManifestConfiguration struct {
@@ -366,20 +371,22 @@ type GetChannelRequest struct {
 }
 
 type GetChannelResponse struct {
-	Arn                       string                     `json:"arn" xml:"Arn"`
-	ChannelGroupName          string                     `json:"channelGroupName" xml:"ChannelGroupName"`
-	ChannelName               string                     `json:"channelName" xml:"ChannelName"`
-	CreatedAt                 time.Time                  `json:"createdAt" xml:"CreatedAt"`
-	Description               string                     `json:"description" xml:"Description"`
-	ETag                      string                     `json:"eTag" xml:"ETag"`
-	IngestEndpoints           IngestEndpointList         `json:"ingestEndpoints" xml:"IngestEndpoints"`
-	InputSwitchConfiguration  *InputSwitchConfiguration  `json:"inputSwitchConfiguration" xml:"InputSwitchConfiguration"`
-	InputType                 string                     `json:"inputType" xml:"InputType"`
-	ModifiedAt                time.Time                  `json:"modifiedAt" xml:"ModifiedAt"`
-	OutputHeaderConfiguration *OutputHeaderConfiguration `json:"outputHeaderConfiguration" xml:"OutputHeaderConfiguration"`
-	OutputLockingMode         string                     `json:"outputLockingMode" xml:"OutputLockingMode"`
-	ResetAt                   time.Time                  `json:"resetAt" xml:"ResetAt"`
-	Tags                      TagMap                     `json:"tags" xml:"Tags"`
+	Arn                       string                       `json:"arn" xml:"Arn"`
+	AttachedMultiviewChannels AttachedMultiviewChannelList `json:"attachedMultiviewChannels" xml:"AttachedMultiviewChannels"`
+	ChannelGroupName          string                       `json:"channelGroupName" xml:"ChannelGroupName"`
+	ChannelName               string                       `json:"channelName" xml:"ChannelName"`
+	CreatedAt                 time.Time                    `json:"createdAt" xml:"CreatedAt"`
+	Description               string                       `json:"description" xml:"Description"`
+	ETag                      string                       `json:"eTag" xml:"ETag"`
+	IngestEndpoints           IngestEndpointList           `json:"ingestEndpoints" xml:"IngestEndpoints"`
+	InputSwitchConfiguration  *InputSwitchConfiguration    `json:"inputSwitchConfiguration" xml:"InputSwitchConfiguration"`
+	InputType                 string                       `json:"inputType" xml:"InputType"`
+	ModifiedAt                time.Time                    `json:"modifiedAt" xml:"ModifiedAt"`
+	MultiviewConfiguration    *MultiviewConfiguration      `json:"multiviewConfiguration" xml:"MultiviewConfiguration"`
+	OutputHeaderConfiguration *OutputHeaderConfiguration   `json:"outputHeaderConfiguration" xml:"OutputHeaderConfiguration"`
+	OutputLockingMode         string                       `json:"outputLockingMode" xml:"OutputLockingMode"`
+	ResetAt                   time.Time                    `json:"resetAt" xml:"ResetAt"`
+	Tags                      TagMap                       `json:"tags" xml:"Tags"`
 }
 
 type GetDashManifestConfiguration struct {
@@ -635,6 +642,11 @@ type ListTagsForResourceResponse struct {
 	Tags TagMap `json:"tags" xml:"Tags"`
 }
 
+type MultiviewConfiguration struct {
+	AvailableLayouts MultiviewLayoutList `json:"availableLayouts" xml:"AvailableLayouts"`
+	AvailableSources MultiviewSourceList `json:"availableSources" xml:"AvailableSources"`
+}
+
 type OriginEndpointListConfiguration struct {
 	Arn                             string                           `json:"arn" xml:"Arn"`
 	ChannelGroupName                string                           `json:"channelGroupName" xml:"ChannelGroupName"`
@@ -785,23 +797,26 @@ type UpdateChannelRequest struct {
 	Description               string                     `json:"description" xml:"Description"`
 	ETag                      string                     `json:"eTag" xml:"ETag"`
 	InputSwitchConfiguration  *InputSwitchConfiguration  `json:"inputSwitchConfiguration" xml:"InputSwitchConfiguration"`
+	MultiviewConfiguration    *MultiviewConfiguration    `json:"multiviewConfiguration" xml:"MultiviewConfiguration"`
 	OutputHeaderConfiguration *OutputHeaderConfiguration `json:"outputHeaderConfiguration" xml:"OutputHeaderConfiguration"`
 }
 
 type UpdateChannelResponse struct {
-	Arn                       string                     `json:"arn" xml:"Arn"`
-	ChannelGroupName          string                     `json:"channelGroupName" xml:"ChannelGroupName"`
-	ChannelName               string                     `json:"channelName" xml:"ChannelName"`
-	CreatedAt                 time.Time                  `json:"createdAt" xml:"CreatedAt"`
-	Description               string                     `json:"description" xml:"Description"`
-	ETag                      string                     `json:"eTag" xml:"ETag"`
-	IngestEndpoints           IngestEndpointList         `json:"ingestEndpoints" xml:"IngestEndpoints"`
-	InputSwitchConfiguration  *InputSwitchConfiguration  `json:"inputSwitchConfiguration" xml:"InputSwitchConfiguration"`
-	InputType                 string                     `json:"inputType" xml:"InputType"`
-	ModifiedAt                time.Time                  `json:"modifiedAt" xml:"ModifiedAt"`
-	OutputHeaderConfiguration *OutputHeaderConfiguration `json:"outputHeaderConfiguration" xml:"OutputHeaderConfiguration"`
-	OutputLockingMode         string                     `json:"outputLockingMode" xml:"OutputLockingMode"`
-	Tags                      TagMap                     `json:"tags" xml:"Tags"`
+	Arn                       string                       `json:"arn" xml:"Arn"`
+	AttachedMultiviewChannels AttachedMultiviewChannelList `json:"attachedMultiviewChannels" xml:"AttachedMultiviewChannels"`
+	ChannelGroupName          string                       `json:"channelGroupName" xml:"ChannelGroupName"`
+	ChannelName               string                       `json:"channelName" xml:"ChannelName"`
+	CreatedAt                 time.Time                    `json:"createdAt" xml:"CreatedAt"`
+	Description               string                       `json:"description" xml:"Description"`
+	ETag                      string                       `json:"eTag" xml:"ETag"`
+	IngestEndpoints           IngestEndpointList           `json:"ingestEndpoints" xml:"IngestEndpoints"`
+	InputSwitchConfiguration  *InputSwitchConfiguration    `json:"inputSwitchConfiguration" xml:"InputSwitchConfiguration"`
+	InputType                 string                       `json:"inputType" xml:"InputType"`
+	ModifiedAt                time.Time                    `json:"modifiedAt" xml:"ModifiedAt"`
+	MultiviewConfiguration    *MultiviewConfiguration      `json:"multiviewConfiguration" xml:"MultiviewConfiguration"`
+	OutputHeaderConfiguration *OutputHeaderConfiguration   `json:"outputHeaderConfiguration" xml:"OutputHeaderConfiguration"`
+	OutputLockingMode         string                       `json:"outputLockingMode" xml:"OutputLockingMode"`
+	Tags                      TagMap                       `json:"tags" xml:"Tags"`
 }
 
 type UpdateOriginEndpointRequest struct {
@@ -843,6 +858,8 @@ type UpdateOriginEndpointResponse struct {
 	Tags                            TagMap                           `json:"tags" xml:"Tags"`
 	UriSeparator                    string                           `json:"uriSeparator" xml:"UriSeparator"`
 }
+
+type AttachedMultiviewChannelList []string
 
 type CdnIdentifierSecretArns []string
 
@@ -897,6 +914,10 @@ type ListHlsManifests []*ListHlsManifestConfiguration
 type ListLowLatencyHlsManifests []*ListLowLatencyHlsManifestConfiguration
 
 type ListMssManifests []*ListMssManifestConfiguration
+
+type MultiviewLayoutList []string
+
+type MultiviewSourceList []string
 
 type OriginEndpointsList []*OriginEndpointListConfiguration
 

@@ -11,6 +11,10 @@ var ErrNotImplemented = fmt.Errorf("operation not implemented")
 
 type BaseProvider struct{}
 
+func (b *BaseProvider) AssociateGlossaryTerms(ctx context.Context, input *AssociateGlossaryTermsRequest) (*AssociateGlossaryTermsResponse, error) {
+	return nil, fmt.Errorf("AssociateGlossaryTerms: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) BatchCreatePartition(ctx context.Context, input *BatchCreatePartitionRequest) (*BatchCreatePartitionResponse, error) {
 	return nil, fmt.Errorf("BatchCreatePartition: %w", ErrNotImplemented)
 }
@@ -47,8 +51,16 @@ func (b *BaseProvider) BatchGetDataQualityResult(ctx context.Context, input *Bat
 	return nil, fmt.Errorf("BatchGetDataQualityResult: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) BatchGetDataQualityRulesetEvaluationRun(ctx context.Context, input *BatchGetDataQualityRulesetEvaluationRunRequest) (*BatchGetDataQualityRulesetEvaluationRunResponse, error) {
+	return nil, fmt.Errorf("BatchGetDataQualityRulesetEvaluationRun: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) BatchGetDevEndpoints(ctx context.Context, input *BatchGetDevEndpointsRequest) (*BatchGetDevEndpointsResponse, error) {
 	return nil, fmt.Errorf("BatchGetDevEndpoints: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) BatchGetIterableForms(ctx context.Context, input *BatchGetIterableFormsRequest) (*BatchGetIterableFormsResponse, error) {
+	return nil, fmt.Errorf("BatchGetIterableForms: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) BatchGetJobs(ctx context.Context, input *BatchGetJobsRequest) (*BatchGetJobsResponse, error) {
@@ -143,6 +155,14 @@ func (b *BaseProvider) CreateDevEndpoint(ctx context.Context, input *CreateDevEn
 	return nil, fmt.Errorf("CreateDevEndpoint: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateGlossary(ctx context.Context, input *CreateGlossaryRequest) (*CreateGlossaryResponse, error) {
+	return nil, fmt.Errorf("CreateGlossary: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateGlossaryTerm(ctx context.Context, input *CreateGlossaryTermRequest) (*CreateGlossaryTermResponse, error) {
+	return nil, fmt.Errorf("CreateGlossaryTerm: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateGlueIdentityCenterConfiguration(ctx context.Context, input *CreateGlueIdentityCenterConfigurationRequest) (*CreateGlueIdentityCenterConfigurationResponse, error) {
 	return nil, fmt.Errorf("CreateGlueIdentityCenterConfiguration: %w", ErrNotImplemented)
 }
@@ -219,6 +239,18 @@ func (b *BaseProvider) CreateWorkflow(ctx context.Context, input *CreateWorkflow
 	return nil, fmt.Errorf("CreateWorkflow: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteAsset(ctx context.Context, input *DeleteAssetRequest) (*DeleteAssetResponse, error) {
+	return nil, fmt.Errorf("DeleteAsset: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAssetType(ctx context.Context, input *DeleteAssetTypeRequest) (*DeleteAssetTypeResponse, error) {
+	return nil, fmt.Errorf("DeleteAssetType: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteAttachment(ctx context.Context, input *DeleteAttachmentRequest) (*DeleteAttachmentResponse, error) {
+	return nil, fmt.Errorf("DeleteAttachment: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteBlueprint(ctx context.Context, input *DeleteBlueprintRequest) (*DeleteBlueprintResponse, error) {
 	return nil, fmt.Errorf("DeleteBlueprint: %w", ErrNotImplemented)
 }
@@ -269,6 +301,18 @@ func (b *BaseProvider) DeleteDatabase(ctx context.Context, input *DeleteDatabase
 
 func (b *BaseProvider) DeleteDevEndpoint(ctx context.Context, input *DeleteDevEndpointRequest) (*DeleteDevEndpointResponse, error) {
 	return nil, fmt.Errorf("DeleteDevEndpoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteFormType(ctx context.Context, input *DeleteFormTypeRequest) (*DeleteFormTypeResponse, error) {
+	return nil, fmt.Errorf("DeleteFormType: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteGlossary(ctx context.Context, input *DeleteGlossaryRequest) (*DeleteGlossaryResponse, error) {
+	return nil, fmt.Errorf("DeleteGlossary: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteGlossaryTerm(ctx context.Context, input *DeleteGlossaryTermRequest) (*DeleteGlossaryTermResponse, error) {
+	return nil, fmt.Errorf("DeleteGlossaryTerm: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteGlueIdentityCenterConfiguration(ctx context.Context, input *DeleteGlueIdentityCenterConfigurationRequest) (*DeleteGlueIdentityCenterConfigurationResponse, error) {
@@ -371,6 +415,18 @@ func (b *BaseProvider) DescribeIntegrations(ctx context.Context, input *Describe
 	return nil, fmt.Errorf("DescribeIntegrations: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DisassociateGlossaryTerms(ctx context.Context, input *DisassociateGlossaryTermsRequest) (*DisassociateGlossaryTermsResponse, error) {
+	return nil, fmt.Errorf("DisassociateGlossaryTerms: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAsset(ctx context.Context, input *GetAssetInput) (*GetAssetOutput, error) {
+	return nil, fmt.Errorf("GetAsset: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAssetType(ctx context.Context, input *GetAssetTypeRequest) (*GetAssetTypeResponse, error) {
+	return nil, fmt.Errorf("GetAssetType: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetBlueprint(ctx context.Context, input *GetBlueprintRequest) (*GetBlueprintResponse, error) {
 	return nil, fmt.Errorf("GetBlueprint: %w", ErrNotImplemented)
 }
@@ -447,8 +503,16 @@ func (b *BaseProvider) GetCustomEntityType(ctx context.Context, input *GetCustom
 	return nil, fmt.Errorf("GetCustomEntityType: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetDashboardUrl(ctx context.Context, input *GetDashboardUrlRequest) (*GetDashboardUrlResponse, error) {
+	return nil, fmt.Errorf("GetDashboardUrl: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetDataCatalogEncryptionSettings(ctx context.Context, input *GetDataCatalogEncryptionSettingsRequest) (*GetDataCatalogEncryptionSettingsResponse, error) {
 	return nil, fmt.Errorf("GetDataCatalogEncryptionSettings: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetDataCatalogExportConfiguration(ctx context.Context, input *GetDataCatalogExportConfigurationInput) (*GetDataCatalogExportConfigurationOutput, error) {
+	return nil, fmt.Errorf("GetDataCatalogExportConfiguration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) GetDataQualityModel(ctx context.Context, input *GetDataQualityModelRequest) (*GetDataQualityModelResponse, error) {
@@ -497,6 +561,18 @@ func (b *BaseProvider) GetDevEndpoints(ctx context.Context, input *GetDevEndpoin
 
 func (b *BaseProvider) GetEntityRecords(ctx context.Context, input *GetEntityRecordsRequest) (*GetEntityRecordsResponse, error) {
 	return nil, fmt.Errorf("GetEntityRecords: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetFormType(ctx context.Context, input *GetFormTypeRequest) (*GetFormTypeResponse, error) {
+	return nil, fmt.Errorf("GetFormType: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetGlossary(ctx context.Context, input *GetGlossaryRequest) (*GetGlossaryResponse, error) {
+	return nil, fmt.Errorf("GetGlossary: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetGlossaryTerm(ctx context.Context, input *GetGlossaryTermRequest) (*GetGlossaryTermResponse, error) {
+	return nil, fmt.Errorf("GetGlossaryTerm: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) GetGlueIdentityCenterConfiguration(ctx context.Context, input *GetGlueIdentityCenterConfigurationRequest) (*GetGlueIdentityCenterConfigurationResponse, error) {
@@ -611,6 +687,10 @@ func (b *BaseProvider) GetSession(ctx context.Context, input *GetSessionRequest)
 	return nil, fmt.Errorf("GetSession: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetSessionEndpoint(ctx context.Context, input *GetSessionEndpointRequest) (*GetSessionEndpointResponse, error) {
+	return nil, fmt.Errorf("GetSessionEndpoint: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetStatement(ctx context.Context, input *GetStatementRequest) (*GetStatementResponse, error) {
 	return nil, fmt.Errorf("GetStatement: %w", ErrNotImplemented)
 }
@@ -691,6 +771,10 @@ func (b *BaseProvider) ImportCatalogToGlue(ctx context.Context, input *ImportCat
 	return nil, fmt.Errorf("ImportCatalogToGlue: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListAssetTypes(ctx context.Context, input *ListAssetTypesRequest) (*ListAssetTypesResponse, error) {
+	return nil, fmt.Errorf("ListAssetTypes: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListBlueprints(ctx context.Context, input *ListBlueprintsRequest) (*ListBlueprintsResponse, error) {
 	return nil, fmt.Errorf("ListBlueprints: %w", ErrNotImplemented)
 }
@@ -747,8 +831,24 @@ func (b *BaseProvider) ListEntities(ctx context.Context, input *ListEntitiesRequ
 	return nil, fmt.Errorf("ListEntities: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListFormTypes(ctx context.Context, input *ListFormTypesRequest) (*ListFormTypesResponse, error) {
+	return nil, fmt.Errorf("ListFormTypes: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListGlossaries(ctx context.Context, input *ListGlossariesRequest) (*ListGlossariesResponse, error) {
+	return nil, fmt.Errorf("ListGlossaries: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListGlossaryTerms(ctx context.Context, input *ListGlossaryTermsRequest) (*ListGlossaryTermsResponse, error) {
+	return nil, fmt.Errorf("ListGlossaryTerms: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListIntegrationResourceProperties(ctx context.Context, input *ListIntegrationResourcePropertiesRequest) (*ListIntegrationResourcePropertiesResponse, error) {
 	return nil, fmt.Errorf("ListIntegrationResourceProperties: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListIterableForms(ctx context.Context, input *ListIterableFormsRequest) (*ListIterableFormsResponse, error) {
+	return nil, fmt.Errorf("ListIterableForms: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListJobs(ctx context.Context, input *ListJobsRequest) (*ListJobsResponse, error) {
@@ -803,12 +903,32 @@ func (b *BaseProvider) ModifyIntegration(ctx context.Context, input *ModifyInteg
 	return nil, fmt.Errorf("ModifyIntegration: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) PutAsset(ctx context.Context, input *PutAssetRequest) (*PutAssetResponse, error) {
+	return nil, fmt.Errorf("PutAsset: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutAssetType(ctx context.Context, input *PutAssetTypeRequest) (*PutAssetTypeResponse, error) {
+	return nil, fmt.Errorf("PutAssetType: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutAttachment(ctx context.Context, input *PutAttachmentRequest) (*PutAttachmentResponse, error) {
+	return nil, fmt.Errorf("PutAttachment: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) PutDataCatalogEncryptionSettings(ctx context.Context, input *PutDataCatalogEncryptionSettingsRequest) (*PutDataCatalogEncryptionSettingsResponse, error) {
 	return nil, fmt.Errorf("PutDataCatalogEncryptionSettings: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) PutDataCatalogExportConfiguration(ctx context.Context, input *PutDataCatalogExportConfigurationInput) (*PutDataCatalogExportConfigurationOutput, error) {
+	return nil, fmt.Errorf("PutDataCatalogExportConfiguration: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) PutDataQualityProfileAnnotation(ctx context.Context, input *PutDataQualityProfileAnnotationRequest) (*PutDataQualityProfileAnnotationResponse, error) {
 	return nil, fmt.Errorf("PutDataQualityProfileAnnotation: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutFormType(ctx context.Context, input *PutFormTypeRequest) (*PutFormTypeResponse, error) {
+	return nil, fmt.Errorf("PutFormType: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) PutResourcePolicy(ctx context.Context, input *PutResourcePolicyRequest) (*PutResourcePolicyResponse, error) {
@@ -849,6 +969,10 @@ func (b *BaseProvider) ResumeWorkflowRun(ctx context.Context, input *ResumeWorkf
 
 func (b *BaseProvider) RunStatement(ctx context.Context, input *RunStatementRequest) (*RunStatementResponse, error) {
 	return nil, fmt.Errorf("RunStatement: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) SearchAssets(ctx context.Context, input *SearchAssetsInput) (*SearchAssetsOutput, error) {
+	return nil, fmt.Errorf("SearchAssets: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) SearchTables(ctx context.Context, input *SearchTablesRequest) (*SearchTablesResponse, error) {
@@ -959,6 +1083,10 @@ func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRe
 	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) UpdateAsset(ctx context.Context, input *UpdateAssetRequest) (*UpdateAssetResponse, error) {
+	return nil, fmt.Errorf("UpdateAsset: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) UpdateBlueprint(ctx context.Context, input *UpdateBlueprintRequest) (*UpdateBlueprintResponse, error) {
 	return nil, fmt.Errorf("UpdateBlueprint: %w", ErrNotImplemented)
 }
@@ -1005,6 +1133,14 @@ func (b *BaseProvider) UpdateDatabase(ctx context.Context, input *UpdateDatabase
 
 func (b *BaseProvider) UpdateDevEndpoint(ctx context.Context, input *UpdateDevEndpointRequest) (*UpdateDevEndpointResponse, error) {
 	return nil, fmt.Errorf("UpdateDevEndpoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateGlossary(ctx context.Context, input *UpdateGlossaryRequest) (*UpdateGlossaryResponse, error) {
+	return nil, fmt.Errorf("UpdateGlossary: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateGlossaryTerm(ctx context.Context, input *UpdateGlossaryTermRequest) (*UpdateGlossaryTermResponse, error) {
+	return nil, fmt.Errorf("UpdateGlossaryTerm: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateGlueIdentityCenterConfiguration(ctx context.Context, input *UpdateGlueIdentityCenterConfigurationRequest) (*UpdateGlueIdentityCenterConfigurationResponse, error) {

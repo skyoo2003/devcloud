@@ -222,6 +222,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "GET", Pattern: "/data-tables/{InstanceId}", Operation: "ListDataTables"},
 	{Method: "POST", Pattern: "/default-vocabulary-summary/{InstanceId}", Operation: "ListDefaultVocabularies"},
 	{Method: "POST", Pattern: "/entity-security-profiles-summary/{InstanceId}", Operation: "ListEntitySecurityProfiles"},
+	{Method: "GET", Pattern: "/instances/{InstanceId}/evaluation-form-ai-versions", Operation: "ListEvaluationFormAIVersions"},
 	{Method: "GET", Pattern: "/evaluation-forms/{InstanceId}/{EvaluationFormId}/versions", Operation: "ListEvaluationFormVersions"},
 	{Method: "GET", Pattern: "/evaluation-forms/{InstanceId}", Operation: "ListEvaluationForms"},
 	{Method: "GET", Pattern: "/extraction-definitions/{InstanceId}", Operation: "ListExtractionDefinitions"},

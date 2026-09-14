@@ -1130,12 +1130,13 @@ type SavingsPlansDetails struct {
 }
 
 type SavingsPlansPurchaseAnalysisConfiguration struct {
-	AccountId             string                `json:"accountId" xml:"AccountId"`
-	AccountScope          string                `json:"accountScope" xml:"AccountScope"`
-	AnalysisType          string                `json:"analysisType" xml:"AnalysisType"`
-	LookBackTimePeriod    *DateInterval         `json:"lookBackTimePeriod" xml:"LookBackTimePeriod"`
-	SavingsPlansToAdd     SavingsPlansToAdd     `json:"savingsPlansToAdd" xml:"SavingsPlansToAdd"`
-	SavingsPlansToExclude SavingsPlansToExclude `json:"savingsPlansToExclude" xml:"SavingsPlansToExclude"`
+	AccountId                  string                `json:"accountId" xml:"AccountId"`
+	AccountScope               string                `json:"accountScope" xml:"AccountScope"`
+	AnalysisType               string                `json:"analysisType" xml:"AnalysisType"`
+	LookBackTimePeriod         *DateInterval         `json:"lookBackTimePeriod" xml:"LookBackTimePeriod"`
+	SavingsPlansTargetCoverage int32                 `json:"savingsPlansTargetCoverage" xml:"SavingsPlansTargetCoverage"`
+	SavingsPlansToAdd          SavingsPlansToAdd     `json:"savingsPlansToAdd" xml:"SavingsPlansToAdd"`
+	SavingsPlansToExclude      SavingsPlansToExclude `json:"savingsPlansToExclude" xml:"SavingsPlansToExclude"`
 }
 
 type SavingsPlansPurchaseAnalysisDetails struct {

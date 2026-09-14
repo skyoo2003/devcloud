@@ -12,8 +12,10 @@ type OperationRoute = httproute.Route
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
+	{Method: "POST", Pattern: "/advanced-prompt-optimization-job/batch-delete", Operation: "BatchDeleteAdvancedPromptOptimizationJob"},
 	{Method: "POST", Pattern: "/evaluation-jobs/batch-delete", Operation: "BatchDeleteEvaluationJob"},
 	{Method: "POST", Pattern: "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}/cancel", Operation: "CancelAutomatedReasoningPolicyBuildWorkflow"},
+	{Method: "POST", Pattern: "/advanced-prompt-optimization-jobs", Operation: "CreateAdvancedPromptOptimizationJob"},
 	{Method: "POST", Pattern: "/automated-reasoning-policies", Operation: "CreateAutomatedReasoningPolicy"},
 	{Method: "POST", Pattern: "/automated-reasoning-policies/{policyArn}/test-cases", Operation: "CreateAutomatedReasoningPolicyTestCase"},
 	{Method: "POST", Pattern: "/automated-reasoning-policies/{policyArn}/versions", Operation: "CreateAutomatedReasoningPolicyVersion"},
@@ -48,6 +50,8 @@ var OperationRoutes = []OperationRoute{
 	{Method: "DELETE", Pattern: "/resource-policy/{resourceArn}", Operation: "DeleteResourcePolicy"},
 	{Method: "DELETE", Pattern: "/marketplace-model/endpoints/{endpointArn}/registration", Operation: "DeregisterMarketplaceModelEndpoint"},
 	{Method: "GET", Pattern: "/automated-reasoning-policies/{policyArn}/export", Operation: "ExportAutomatedReasoningPolicyVersion"},
+	{Method: "GET", Pattern: "/data-retention", Operation: "GetAccountDataRetention"},
+	{Method: "GET", Pattern: "/advanced-prompt-optimization-jobs/{jobIdentifier}", Operation: "GetAdvancedPromptOptimizationJob"},
 	{Method: "GET", Pattern: "/automated-reasoning-policies/{policyArn}", Operation: "GetAutomatedReasoningPolicy"},
 	{Method: "GET", Pattern: "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}/annotations", Operation: "GetAutomatedReasoningPolicyAnnotations"},
 	{Method: "GET", Pattern: "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}", Operation: "GetAutomatedReasoningPolicyBuildWorkflow"},
@@ -73,6 +77,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "GET", Pattern: "/provisioned-model-throughput/{provisionedModelId}", Operation: "GetProvisionedModelThroughput"},
 	{Method: "GET", Pattern: "/resource-policy/{resourceArn}", Operation: "GetResourcePolicy"},
 	{Method: "GET", Pattern: "/use-case-for-model-access", Operation: "GetUseCaseForModelAccess"},
+	{Method: "GET", Pattern: "/advanced-prompt-optimization-jobs", Operation: "ListAdvancedPromptOptimizationJobs"},
 	{Method: "GET", Pattern: "/automated-reasoning-policies", Operation: "ListAutomatedReasoningPolicies"},
 	{Method: "GET", Pattern: "/automated-reasoning-policies/{policyArn}/build-workflows", Operation: "ListAutomatedReasoningPolicyBuildWorkflows"},
 	{Method: "GET", Pattern: "/automated-reasoning-policies/{policyArn}/test-cases", Operation: "ListAutomatedReasoningPolicyTestCases"},
@@ -94,6 +99,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "GET", Pattern: "/prompt-routers", Operation: "ListPromptRouters"},
 	{Method: "GET", Pattern: "/provisioned-model-throughputs", Operation: "ListProvisionedModelThroughputs"},
 	{Method: "POST", Pattern: "/listTagsForResource", Operation: "ListTagsForResource"},
+	{Method: "PUT", Pattern: "/data-retention", Operation: "PutAccountDataRetention"},
 	{Method: "PUT", Pattern: "/enforcedGuardrailsConfiguration", Operation: "PutEnforcedGuardrailConfiguration"},
 	{Method: "PUT", Pattern: "/logging/modelinvocations", Operation: "PutModelInvocationLoggingConfiguration"},
 	{Method: "POST", Pattern: "/resource-policy", Operation: "PutResourcePolicy"},
@@ -101,6 +107,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "POST", Pattern: "/marketplace-model/endpoints/{endpointIdentifier}/registration", Operation: "RegisterMarketplaceModelEndpoint"},
 	{Method: "POST", Pattern: "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowType}/start", Operation: "StartAutomatedReasoningPolicyBuildWorkflow"},
 	{Method: "POST", Pattern: "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}/test-workflows", Operation: "StartAutomatedReasoningPolicyTestWorkflow"},
+	{Method: "POST", Pattern: "/advanced-prompt-optimization-jobs/{jobIdentifier}/stop", Operation: "StopAdvancedPromptOptimizationJob"},
 	{Method: "POST", Pattern: "/evaluation-job/{jobIdentifier}/stop", Operation: "StopEvaluationJob"},
 	{Method: "POST", Pattern: "/model-customization-jobs/{jobIdentifier}/stop", Operation: "StopModelCustomizationJob"},
 	{Method: "POST", Pattern: "/model-invocation-job/{jobIdentifier}/stop", Operation: "StopModelInvocationJob"},

@@ -888,6 +888,23 @@ func (e *KMSKeyNotAccessibleFault) HTTPStatus() int {
 	return 400
 }
 
+// NetworkTypeNotSupportedFault is returned with HTTP status 400.
+type NetworkTypeNotSupportedFault struct {
+	Message string
+}
+
+func (e *NetworkTypeNotSupportedFault) Error() string {
+	return fmt.Sprintf("NetworkTypeNotSupportedFault: %s", e.Message)
+}
+
+func (e *NetworkTypeNotSupportedFault) ErrorCode() string {
+	return "NetworkTypeNotSupportedFault"
+}
+
+func (e *NetworkTypeNotSupportedFault) HTTPStatus() int {
+	return 400
+}
+
 // OptionGroupNotFoundFault is returned with HTTP status 404.
 type OptionGroupNotFoundFault struct {
 	Message string

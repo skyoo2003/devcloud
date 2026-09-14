@@ -1286,6 +1286,7 @@ type CreateEmailAddressResponse struct {
 }
 
 type CreateEvaluationFormRequest struct {
+	AIVersion                   string                                     `json:"aIVersion" xml:"AIVersion"`
 	AsDraft                     bool                                       `json:"asDraft" xml:"AsDraft"`
 	AutoEvaluationConfiguration *EvaluationFormAutoEvaluationConfiguration `json:"autoEvaluationConfiguration" xml:"AutoEvaluationConfiguration"`
 	ClientToken                 string                                     `json:"clientToken" xml:"ClientToken"`
@@ -1728,6 +1729,10 @@ type Credentials struct {
 
 type CrossChannelBehavior struct {
 	BehaviorType string `json:"behaviorType" xml:"BehaviorType"`
+}
+
+type CrossChannelWorkloadBehavior struct {
+	ChannelWorkloadBehaviorType string `json:"channelWorkloadBehaviorType" xml:"ChannelWorkloadBehaviorType"`
 }
 
 type CurrentMetric struct {
@@ -2869,6 +2874,7 @@ type EvaluationContactParticipant struct {
 }
 
 type EvaluationForm struct {
+	AIVersion                   string                                     `json:"aIVersion" xml:"AIVersion"`
 	AutoEvaluationConfiguration *EvaluationFormAutoEvaluationConfiguration `json:"autoEvaluationConfiguration" xml:"AutoEvaluationConfiguration"`
 	CreatedBy                   string                                     `json:"createdBy" xml:"CreatedBy"`
 	CreatedTime                 time.Time                                  `json:"createdTime" xml:"CreatedTime"`
@@ -2891,11 +2897,23 @@ type EvaluationForm struct {
 	Title                       string                                     `json:"title" xml:"Title"`
 }
 
+type EvaluationFormAIVersionLifecycle struct {
+	EndOfLifeTime   time.Time `json:"endOfLifeTime" xml:"EndOfLifeTime"`
+	StartOfLifeTime time.Time `json:"startOfLifeTime" xml:"StartOfLifeTime"`
+	Status          string    `json:"status" xml:"Status"`
+}
+
+type EvaluationFormAIVersionSummary struct {
+	AIVersionLifecycle *EvaluationFormAIVersionLifecycle `json:"aIVersionLifecycle" xml:"AIVersionLifecycle"`
+	AIVersionName      string                            `json:"aIVersionName" xml:"AIVersionName"`
+}
+
 type EvaluationFormAutoEvaluationConfiguration struct {
 	Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type EvaluationFormContent struct {
+	AIVersion                   string                                     `json:"aIVersion" xml:"AIVersion"`
 	AutoEvaluationConfiguration *EvaluationFormAutoEvaluationConfiguration `json:"autoEvaluationConfiguration" xml:"AutoEvaluationConfiguration"`
 	Description                 string                                     `json:"description" xml:"Description"`
 	EvaluationFormArn           string                                     `json:"evaluationFormArn" xml:"EvaluationFormArn"`
@@ -2940,6 +2958,11 @@ type EvaluationFormLanguageConfiguration struct {
 	FormLanguage string `json:"formLanguage" xml:"FormLanguage"`
 }
 
+type EvaluationFormMetricConfiguration struct {
+	MetricName string `json:"metricName" xml:"MetricName"`
+	MetricType string `json:"metricType" xml:"MetricType"`
+}
+
 type EvaluationFormMultiSelectQuestionAutomation struct {
 	AnswerSource        *EvaluationFormQuestionAutomationAnswerSource         `json:"answerSource" xml:"AnswerSource"`
 	DefaultOptionRefIds ReferenceIdList                                       `json:"defaultOptionRefIds" xml:"DefaultOptionRefIds"`
@@ -2980,6 +3003,7 @@ type EvaluationFormNumericQuestionProperties struct {
 type EvaluationFormQuestion struct {
 	Enablement             *EvaluationFormItemEnablementConfiguration  `json:"enablement" xml:"Enablement"`
 	Instructions           string                                      `json:"instructions" xml:"Instructions"`
+	MetricConfiguration    *EvaluationFormMetricConfiguration          `json:"metricConfiguration" xml:"MetricConfiguration"`
 	NotApplicableEnabled   bool                                        `json:"notApplicableEnabled" xml:"NotApplicableEnabled"`
 	QuestionType           string                                      `json:"questionType" xml:"QuestionType"`
 	QuestionTypeProperties interface{}                                 `json:"questionTypeProperties" xml:"QuestionTypeProperties"`
@@ -3025,6 +3049,7 @@ type EvaluationFormSearchFilter struct {
 }
 
 type EvaluationFormSearchSummary struct {
+	AIVersion              string    `json:"aIVersion" xml:"AIVersion"`
 	ActiveVersion          int32     `json:"activeVersion" xml:"ActiveVersion"`
 	AutoEvaluationEnabled  bool      `json:"autoEvaluationEnabled" xml:"AutoEvaluationEnabled"`
 	ContactInteractionType string    `json:"contactInteractionType" xml:"ContactInteractionType"`
@@ -4228,6 +4253,18 @@ type ListEntitySecurityProfilesResponse struct {
 	SecurityProfiles SecurityProfiles100 `json:"securityProfiles" xml:"SecurityProfiles"`
 }
 
+type ListEvaluationFormAIVersionsRequest struct {
+	ContactInteractionType string `json:"contactInteractionType" xml:"ContactInteractionType"`
+	InstanceId             string `json:"instanceId" xml:"InstanceId"`
+	MaxResults             int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken              string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListEvaluationFormAIVersionsResponse struct {
+	AIVersionSummaries EvaluationFormAIVersionSummaryList `json:"aIVersionSummaries" xml:"AIVersionSummaries"`
+	NextToken          string                             `json:"nextToken" xml:"NextToken"`
+}
+
 type ListEvaluationFormVersionsRequest struct {
 	EvaluationFormId string `json:"evaluationFormId" xml:"EvaluationFormId"`
 	InstanceId       string `json:"instanceId" xml:"InstanceId"`
@@ -4841,9 +4878,10 @@ type MatchCriteria struct {
 }
 
 type MediaConcurrency struct {
-	Channel              string                `json:"channel" xml:"Channel"`
-	Concurrency          int32                 `json:"concurrency" xml:"Concurrency"`
-	CrossChannelBehavior *CrossChannelBehavior `json:"crossChannelBehavior" xml:"CrossChannelBehavior"`
+	Channel                   string                    `json:"channel" xml:"Channel"`
+	Concurrency               int32                     `json:"concurrency" xml:"Concurrency"`
+	CrossChannelBehavior      *CrossChannelBehavior     `json:"crossChannelBehavior" xml:"CrossChannelBehavior"`
+	WorkloadTypeConcurrencies WorkloadTypeConcurrencies `json:"workloadTypeConcurrencies" xml:"WorkloadTypeConcurrencies"`
 }
 
 type MediaItem struct {
@@ -7331,6 +7369,7 @@ type UpdateEmailAddressMetadataResponse struct {
 }
 
 type UpdateEvaluationFormRequest struct {
+	AIVersion                   string                                     `json:"aIVersion" xml:"AIVersion"`
 	AsDraft                     bool                                       `json:"asDraft" xml:"AsDraft"`
 	AutoEvaluationConfiguration *EvaluationFormAutoEvaluationConfiguration `json:"autoEvaluationConfiguration" xml:"AutoEvaluationConfiguration"`
 	ClientToken                 string                                     `json:"clientToken" xml:"ClientToken"`
@@ -8082,6 +8121,12 @@ type WisdomInfo struct {
 	SessionArn string   `json:"sessionArn" xml:"SessionArn"`
 }
 
+type WorkloadTypeConcurrency struct {
+	Concurrency                  int32                         `json:"concurrency" xml:"Concurrency"`
+	CrossChannelWorkloadBehavior *CrossChannelWorkloadBehavior `json:"crossChannelWorkloadBehavior" xml:"CrossChannelWorkloadBehavior"`
+	WorkloadType                 string                        `json:"workloadType" xml:"WorkloadType"`
+}
+
 type Workspace struct {
 	Arn                string          `json:"arn" xml:"Arn"`
 	Description        string          `json:"description" xml:"Description"`
@@ -8383,6 +8428,8 @@ type ErrorResults []*ErrorResult
 type EvaluationAnswerDataStringValueList []string
 
 type EvaluationAutomationRuleCategoryList []*EvaluationAutomationRuleCategory
+
+type EvaluationFormAIVersionSummaryList []*EvaluationFormAIVersionSummary
 
 type EvaluationFormItemEnablementConditionOperandList []interface{}
 
@@ -8829,6 +8876,8 @@ type VocabularySummaryList []*VocabularySummary
 type VoiceEnhancementConfigs []*VoiceEnhancementConfig
 
 type WeekdayOccurrenceList []int32
+
+type WorkloadTypeConcurrencies []*WorkloadTypeConcurrency
 
 type WorkspaceAssociationSearchConditionList []*WorkspaceAssociationSearchCriteria
 

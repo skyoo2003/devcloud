@@ -236,10 +236,11 @@ type BedrockDataAutomationConfiguration struct {
 }
 
 type BedrockEmbeddingModelConfiguration struct {
-	Audio             AudioConfigurations `json:"audio" xml:"audio"`
-	Dimensions        int32               `json:"dimensions" xml:"dimensions"`
-	EmbeddingDataType string              `json:"embeddingDataType" xml:"embeddingDataType"`
-	Video             VideoConfigurations `json:"video" xml:"video"`
+	Audio              AudioConfigurations `json:"audio" xml:"audio"`
+	Dimensions         int32               `json:"dimensions" xml:"dimensions"`
+	EmbeddingDataType  string              `json:"embeddingDataType" xml:"embeddingDataType"`
+	ModelConfiguration interface{}         `json:"modelConfiguration" xml:"modelConfiguration"`
+	Video              VideoConfigurations `json:"video" xml:"video"`
 }
 
 type BedrockFoundationModelConfiguration struct {
@@ -1440,10 +1441,11 @@ type MalformedNodeInputExpressionFlowValidationDetails struct {
 }
 
 type ManagedKnowledgeBaseConfiguration struct {
-	EmbeddingModelArn                 string                             `json:"embeddingModelArn" xml:"embeddingModelArn"`
-	EmbeddingModelConfiguration       *EmbeddingModelConfiguration       `json:"embeddingModelConfiguration" xml:"embeddingModelConfiguration"`
-	EmbeddingModelType                string                             `json:"embeddingModelType" xml:"embeddingModelType"`
-	ServerSideEncryptionConfiguration *ServerSideEncryptionConfiguration `json:"serverSideEncryptionConfiguration" xml:"serverSideEncryptionConfiguration"`
+	EmbeddingModelArn                    string                                `json:"embeddingModelArn" xml:"embeddingModelArn"`
+	EmbeddingModelConfiguration          *EmbeddingModelConfiguration          `json:"embeddingModelConfiguration" xml:"embeddingModelConfiguration"`
+	EmbeddingModelType                   string                                `json:"embeddingModelType" xml:"embeddingModelType"`
+	ServerSideEncryptionConfiguration    *ServerSideEncryptionConfiguration    `json:"serverSideEncryptionConfiguration" xml:"serverSideEncryptionConfiguration"`
+	SupplementalDataStorageConfiguration *SupplementalDataStorageConfiguration `json:"supplementalDataStorageConfiguration" xml:"supplementalDataStorageConfiguration"`
 }
 
 type ManagedKnowledgeBaseConnectorConfiguration struct {

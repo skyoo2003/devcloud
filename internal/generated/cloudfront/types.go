@@ -173,6 +173,10 @@ type CachePolicySummary struct {
 	Type        string       `json:"type" xml:"Type"`
 }
 
+type CacheTagConfig struct {
+	HeaderName string `json:"headerName" xml:"HeaderName"`
+}
+
 type CachedMethods struct {
 	Items    MethodsList `json:"items" xml:"Items"`
 	Quantity int32       `json:"quantity" xml:"Quantity"`
@@ -480,6 +484,7 @@ type CreateFunctionRequest struct {
 	FunctionCode   []byte          `json:"functionCode" xml:"FunctionCode"`
 	FunctionConfig *FunctionConfig `json:"functionConfig" xml:"FunctionConfig"`
 	Name           string          `json:"name" xml:"Name"`
+	Tags           *Tags           `json:"tags" xml:"Tags"`
 }
 
 type CreateFunctionResult struct {
@@ -522,6 +527,7 @@ type CreateKeyValueStoreRequest struct {
 	Comment      string        `json:"comment" xml:"Comment"`
 	ImportSource *ImportSource `json:"importSource" xml:"ImportSource"`
 	Name         string        `json:"name" xml:"Name"`
+	Tags         *Tags         `json:"tags" xml:"Tags"`
 }
 
 type CreateKeyValueStoreResult struct {
@@ -611,9 +617,10 @@ type CreateStreamingDistributionWithTagsResult struct {
 }
 
 type CreateTrustStoreRequest struct {
-	CaCertificatesBundleSource interface{} `json:"caCertificatesBundleSource" xml:"CaCertificatesBundleSource"`
-	Name                       string      `json:"name" xml:"Name"`
-	Tags                       *Tags       `json:"tags" xml:"Tags"`
+	CaCertificatesBundleSource       interface{} `json:"caCertificatesBundleSource" xml:"CaCertificatesBundleSource"`
+	Name                             string      `json:"name" xml:"Name"`
+	Tags                             *Tags       `json:"tags" xml:"Tags"`
+	UseClientCertificateOCSPEndpoint bool        `json:"useClientCertificateOCSPEndpoint" xml:"UseClientCertificateOCSPEndpoint"`
 }
 
 type CreateTrustStoreResult struct {
@@ -875,6 +882,7 @@ type DistributionConfig struct {
 	Aliases                       *Aliases                       `json:"aliases" xml:"Aliases"`
 	AnycastIpListId               string                         `json:"anycastIpListId" xml:"AnycastIpListId"`
 	CacheBehaviors                *CacheBehaviors                `json:"cacheBehaviors" xml:"CacheBehaviors"`
+	CacheTagConfig                *CacheTagConfig                `json:"cacheTagConfig" xml:"CacheTagConfig"`
 	CallerReference               string                         `json:"callerReference" xml:"CallerReference"`
 	Comment                       string                         `json:"comment" xml:"Comment"`
 	ConnectionFunctionAssociation *ConnectionFunctionAssociation `json:"connectionFunctionAssociation" xml:"ConnectionFunctionAssociation"`
@@ -2593,13 +2601,14 @@ type TrafficConfig struct {
 }
 
 type TrustStore struct {
-	Arn                    string    `json:"arn" xml:"Arn"`
-	Id                     string    `json:"id" xml:"Id"`
-	LastModifiedTime       time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	Name                   string    `json:"name" xml:"Name"`
-	NumberOfCaCertificates int32     `json:"numberOfCaCertificates" xml:"NumberOfCaCertificates"`
-	Reason                 string    `json:"reason" xml:"Reason"`
-	Status                 string    `json:"status" xml:"Status"`
+	Arn                              string    `json:"arn" xml:"Arn"`
+	Id                               string    `json:"id" xml:"Id"`
+	LastModifiedTime                 time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	Name                             string    `json:"name" xml:"Name"`
+	NumberOfCaCertificates           int32     `json:"numberOfCaCertificates" xml:"NumberOfCaCertificates"`
+	Reason                           string    `json:"reason" xml:"Reason"`
+	Status                           string    `json:"status" xml:"Status"`
+	UseClientCertificateOCSPEndpoint bool      `json:"useClientCertificateOCSPEndpoint" xml:"UseClientCertificateOCSPEndpoint"`
 }
 
 type TrustStoreConfig struct {
@@ -2881,9 +2890,10 @@ type UpdateStreamingDistributionResult struct {
 }
 
 type UpdateTrustStoreRequest struct {
-	CaCertificatesBundleSource interface{} `json:"caCertificatesBundleSource" xml:"CaCertificatesBundleSource"`
-	Id                         string      `json:"id" xml:"Id"`
-	IfMatch                    string      `json:"ifMatch" xml:"IfMatch"`
+	CaCertificatesBundleSource       interface{} `json:"caCertificatesBundleSource" xml:"CaCertificatesBundleSource"`
+	Id                               string      `json:"id" xml:"Id"`
+	IfMatch                          string      `json:"ifMatch" xml:"IfMatch"`
+	UseClientCertificateOCSPEndpoint bool        `json:"useClientCertificateOCSPEndpoint" xml:"UseClientCertificateOCSPEndpoint"`
 }
 
 type UpdateTrustStoreResult struct {

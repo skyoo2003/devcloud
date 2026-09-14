@@ -31,6 +31,10 @@ func (b *BaseProvider) AdminCreateUser(ctx context.Context, input *AdminCreateUs
 	return nil, fmt.Errorf("AdminCreateUser: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) AdminDeleteSoftwareToken(ctx context.Context, input *AdminDeleteSoftwareTokenRequest) (*AdminDeleteSoftwareTokenResponse, error) {
+	return nil, fmt.Errorf("AdminDeleteSoftwareToken: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) AdminDeleteUser(ctx context.Context, input *AdminDeleteUserRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("AdminDeleteUser: %w", ErrNotImplemented)
 }
@@ -61,6 +65,10 @@ func (b *BaseProvider) AdminGetDevice(ctx context.Context, input *AdminGetDevice
 
 func (b *BaseProvider) AdminGetUser(ctx context.Context, input *AdminGetUserRequest) (*AdminGetUserResponse, error) {
 	return nil, fmt.Errorf("AdminGetUser: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) AdminGetUserAuthFactors(ctx context.Context, input *AdminGetUserAuthFactorsRequest) (*AdminGetUserAuthFactorsResponse, error) {
+	return nil, fmt.Errorf("AdminGetUserAuthFactors: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) AdminInitiateAuth(ctx context.Context, input *AdminInitiateAuthRequest) (*AdminInitiateAuthResponse, error) {
@@ -183,6 +191,10 @@ func (b *BaseProvider) CreateUserPoolDomain(ctx context.Context, input *CreateUs
 	return nil, fmt.Errorf("CreateUserPoolDomain: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateUserPoolReplica(ctx context.Context, input *CreateUserPoolReplicaRequest) (*CreateUserPoolReplicaResponse, error) {
+	return nil, fmt.Errorf("CreateUserPoolReplica: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteGroup(ctx context.Context, input *DeleteGroupRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeleteGroup: %w", ErrNotImplemented)
 }
@@ -227,6 +239,10 @@ func (b *BaseProvider) DeleteUserPoolDomain(ctx context.Context, input *DeleteUs
 	return nil, fmt.Errorf("DeleteUserPoolDomain: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteUserPoolReplica(ctx context.Context, input *DeleteUserPoolReplicaRequest) (*DeleteUserPoolReplicaResponse, error) {
+	return nil, fmt.Errorf("DeleteUserPoolReplica: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteWebAuthnCredential(ctx context.Context, input *DeleteWebAuthnCredentialRequest) (*DeleteWebAuthnCredentialResponse, error) {
 	return nil, fmt.Errorf("DeleteWebAuthnCredential: %w", ErrNotImplemented)
 }
@@ -253,6 +269,10 @@ func (b *BaseProvider) DescribeRiskConfiguration(ctx context.Context, input *Des
 
 func (b *BaseProvider) DescribeTerms(ctx context.Context, input *DescribeTermsRequest) (*DescribeTermsResponse, error) {
 	return nil, fmt.Errorf("DescribeTerms: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeTermsByClient(ctx context.Context, input *DescribeTermsByClientRequest) (*DescribeTermsByClientResponse, error) {
+	return nil, fmt.Errorf("DescribeTermsByClient: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeUserImportJob(ctx context.Context, input *DescribeUserImportJobRequest) (*DescribeUserImportJobResponse, error) {
@@ -283,6 +303,10 @@ func (b *BaseProvider) GetCSVHeader(ctx context.Context, input *GetCSVHeaderRequ
 	return nil, fmt.Errorf("GetCSVHeader: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetClientToken(ctx context.Context, input *GetClientTokenRequest) (*GetClientTokenResponse, error) {
+	return nil, fmt.Errorf("GetClientToken: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetDevice(ctx context.Context, input *GetDeviceRequest) (*GetDeviceResponse, error) {
 	return nil, fmt.Errorf("GetDevice: %w", ErrNotImplemented)
 }
@@ -297,6 +321,10 @@ func (b *BaseProvider) GetIdentityProviderByIdentifier(ctx context.Context, inpu
 
 func (b *BaseProvider) GetLogDeliveryConfiguration(ctx context.Context, input *GetLogDeliveryConfigurationRequest) (*GetLogDeliveryConfigurationResponse, error) {
 	return nil, fmt.Errorf("GetLogDeliveryConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetProvisionedLimit(ctx context.Context, input *GetProvisionedLimitRequest) (*GetProvisionedLimitResponse, error) {
+	return nil, fmt.Errorf("GetProvisionedLimit: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) GetSigningCertificate(ctx context.Context, input *GetSigningCertificateRequest) (*GetSigningCertificateResponse, error) {
@@ -369,6 +397,10 @@ func (b *BaseProvider) ListUserPoolClientSecrets(ctx context.Context, input *Lis
 
 func (b *BaseProvider) ListUserPoolClients(ctx context.Context, input *ListUserPoolClientsRequest) (*ListUserPoolClientsResponse, error) {
 	return nil, fmt.Errorf("ListUserPoolClients: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListUserPoolReplicas(ctx context.Context, input *ListUserPoolReplicasRequest) (*ListUserPoolReplicasResponse, error) {
+	return nil, fmt.Errorf("ListUserPoolReplicas: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListUserPools(ctx context.Context, input *ListUserPoolsRequest) (*ListUserPoolsResponse, error) {
@@ -467,6 +499,10 @@ func (b *BaseProvider) UpdateManagedLoginBranding(ctx context.Context, input *Up
 	return nil, fmt.Errorf("UpdateManagedLoginBranding: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) UpdateProvisionedLimit(ctx context.Context, input *UpdateProvisionedLimitRequest) (*UpdateProvisionedLimitResponse, error) {
+	return nil, fmt.Errorf("UpdateProvisionedLimit: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) UpdateResourceServer(ctx context.Context, input *UpdateResourceServerRequest) (*UpdateResourceServerResponse, error) {
 	return nil, fmt.Errorf("UpdateResourceServer: %w", ErrNotImplemented)
 }
@@ -489,6 +525,10 @@ func (b *BaseProvider) UpdateUserPoolClient(ctx context.Context, input *UpdateUs
 
 func (b *BaseProvider) UpdateUserPoolDomain(ctx context.Context, input *UpdateUserPoolDomainRequest) (*UpdateUserPoolDomainResponse, error) {
 	return nil, fmt.Errorf("UpdateUserPoolDomain: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateUserPoolReplica(ctx context.Context, input *UpdateUserPoolReplicaRequest) (*UpdateUserPoolReplicaResponse, error) {
+	return nil, fmt.Errorf("UpdateUserPoolReplica: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) VerifySoftwareToken(ctx context.Context, input *VerifySoftwareTokenRequest) (*VerifySoftwareTokenResponse, error) {

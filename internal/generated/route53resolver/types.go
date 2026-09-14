@@ -44,6 +44,51 @@ type AssociateResolverRuleResponse struct {
 	ResolverRuleAssociation *ResolverRuleAssociation `json:"resolverRuleAssociation" xml:"ResolverRuleAssociation"`
 }
 
+type BatchCreateFirewallRuleError struct {
+	Code         string                   `json:"code" xml:"Code"`
+	FirewallRule *CreateFirewallRuleEntry `json:"firewallRule" xml:"FirewallRule"`
+	Message      string                   `json:"message" xml:"Message"`
+}
+
+type BatchCreateFirewallRuleRequest struct {
+	CreateFirewallRuleEntries CreateFirewallRuleEntries `json:"createFirewallRuleEntries" xml:"CreateFirewallRuleEntries"`
+}
+
+type BatchCreateFirewallRuleResponse struct {
+	CreateErrors         BatchCreateFirewallRuleErrors `json:"createErrors" xml:"CreateErrors"`
+	CreatedFirewallRules FirewallRules                 `json:"createdFirewallRules" xml:"CreatedFirewallRules"`
+}
+
+type BatchDeleteFirewallRuleError struct {
+	Code         string                   `json:"code" xml:"Code"`
+	FirewallRule *DeleteFirewallRuleEntry `json:"firewallRule" xml:"FirewallRule"`
+	Message      string                   `json:"message" xml:"Message"`
+}
+
+type BatchDeleteFirewallRuleRequest struct {
+	DeleteFirewallRuleEntries DeleteFirewallRuleEntries `json:"deleteFirewallRuleEntries" xml:"DeleteFirewallRuleEntries"`
+}
+
+type BatchDeleteFirewallRuleResponse struct {
+	DeleteErrors         BatchDeleteFirewallRuleErrors `json:"deleteErrors" xml:"DeleteErrors"`
+	DeletedFirewallRules FirewallRules                 `json:"deletedFirewallRules" xml:"DeletedFirewallRules"`
+}
+
+type BatchUpdateFirewallRuleError struct {
+	Code         string                   `json:"code" xml:"Code"`
+	FirewallRule *UpdateFirewallRuleEntry `json:"firewallRule" xml:"FirewallRule"`
+	Message      string                   `json:"message" xml:"Message"`
+}
+
+type BatchUpdateFirewallRuleRequest struct {
+	UpdateFirewallRuleEntries UpdateFirewallRuleEntries `json:"updateFirewallRuleEntries" xml:"UpdateFirewallRuleEntries"`
+}
+
+type BatchUpdateFirewallRuleResponse struct {
+	UpdateErrors         BatchUpdateFirewallRuleErrors `json:"updateErrors" xml:"UpdateErrors"`
+	UpdatedFirewallRules FirewallRules                 `json:"updatedFirewallRules" xml:"UpdatedFirewallRules"`
+}
+
 type CreateFirewallDomainListRequest struct {
 	CreatorRequestId string  `json:"creatorRequestId" xml:"CreatorRequestId"`
 	Name             string  `json:"name" xml:"Name"`
@@ -52,6 +97,24 @@ type CreateFirewallDomainListRequest struct {
 
 type CreateFirewallDomainListResponse struct {
 	FirewallDomainList *FirewallDomainList `json:"firewallDomainList" xml:"FirewallDomainList"`
+}
+
+type CreateFirewallRuleEntry struct {
+	Action                          string            `json:"action" xml:"Action"`
+	BlockOverrideDnsType            string            `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
+	BlockOverrideDomain             string            `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
+	BlockOverrideTtl                int32             `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
+	BlockResponse                   string            `json:"blockResponse" xml:"BlockResponse"`
+	ConfidenceThreshold             string            `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
+	CreatorRequestId                string            `json:"creatorRequestId" xml:"CreatorRequestId"`
+	DnsThreatProtection             string            `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
+	FirewallDomainListId            string            `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+	FirewallDomainRedirectionAction string            `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
+	FirewallRuleGroupId             string            `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+	FirewallRuleType                *FirewallRuleType `json:"firewallRuleType" xml:"FirewallRuleType"`
+	Name                            string            `json:"name" xml:"Name"`
+	Priority                        int32             `json:"priority" xml:"Priority"`
+	Qtype                           string            `json:"qtype" xml:"Qtype"`
 }
 
 type CreateFirewallRuleGroupRequest struct {
@@ -65,20 +128,21 @@ type CreateFirewallRuleGroupResponse struct {
 }
 
 type CreateFirewallRuleRequest struct {
-	Action                          string `json:"action" xml:"Action"`
-	BlockOverrideDnsType            string `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
-	BlockOverrideDomain             string `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
-	BlockOverrideTtl                int32  `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
-	BlockResponse                   string `json:"blockResponse" xml:"BlockResponse"`
-	ConfidenceThreshold             string `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
-	CreatorRequestId                string `json:"creatorRequestId" xml:"CreatorRequestId"`
-	DnsThreatProtection             string `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
-	FirewallDomainListId            string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
-	FirewallDomainRedirectionAction string `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
-	FirewallRuleGroupId             string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
-	Name                            string `json:"name" xml:"Name"`
-	Priority                        int32  `json:"priority" xml:"Priority"`
-	Qtype                           string `json:"qtype" xml:"Qtype"`
+	Action                          string            `json:"action" xml:"Action"`
+	BlockOverrideDnsType            string            `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
+	BlockOverrideDomain             string            `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
+	BlockOverrideTtl                int32             `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
+	BlockResponse                   string            `json:"blockResponse" xml:"BlockResponse"`
+	ConfidenceThreshold             string            `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
+	CreatorRequestId                string            `json:"creatorRequestId" xml:"CreatorRequestId"`
+	DnsThreatProtection             string            `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
+	FirewallDomainListId            string            `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+	FirewallDomainRedirectionAction string            `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
+	FirewallRuleGroupId             string            `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+	FirewallRuleType                *FirewallRuleType `json:"firewallRuleType" xml:"FirewallRuleType"`
+	Name                            string            `json:"name" xml:"Name"`
+	Priority                        int32             `json:"priority" xml:"Priority"`
+	Qtype                           string            `json:"qtype" xml:"Qtype"`
 }
 
 type CreateFirewallRuleResponse struct {
@@ -101,7 +165,9 @@ type CreateOutpostResolverResponse struct {
 type CreateResolverEndpointRequest struct {
 	CreatorRequestId               string             `json:"creatorRequestId" xml:"CreatorRequestId"`
 	Direction                      string             `json:"direction" xml:"Direction"`
+	Dns64Enabled                   bool               `json:"dns64Enabled" xml:"Dns64Enabled"`
 	IpAddresses                    IpAddressesRequest `json:"ipAddresses" xml:"IpAddresses"`
+	Ipv6InternetAccessEnabled      bool               `json:"ipv6InternetAccessEnabled" xml:"Ipv6InternetAccessEnabled"`
 	Name                           string             `json:"name" xml:"Name"`
 	OutpostArn                     string             `json:"outpostArn" xml:"OutpostArn"`
 	PreferredInstanceType          string             `json:"preferredInstanceType" xml:"PreferredInstanceType"`
@@ -149,6 +215,13 @@ type DeleteFirewallDomainListRequest struct {
 
 type DeleteFirewallDomainListResponse struct {
 	FirewallDomainList *FirewallDomainList `json:"firewallDomainList" xml:"FirewallDomainList"`
+}
+
+type DeleteFirewallRuleEntry struct {
+	FirewallDomainListId       string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+	FirewallRuleGroupId        string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+	FirewallThreatProtectionId string `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
+	Qtype                      string `json:"qtype" xml:"Qtype"`
 }
 
 type DeleteFirewallRuleGroupRequest struct {
@@ -237,9 +310,22 @@ type DisassociateResolverRuleResponse struct {
 	ResolverRuleAssociation *ResolverRuleAssociation `json:"resolverRuleAssociation" xml:"ResolverRuleAssociation"`
 }
 
+type DnsThreatProtectionRuleTypeConfig struct {
+	ConfidenceThreshold string `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
+	Value               string `json:"value" xml:"Value"`
+}
+
 type Filter struct {
 	Name   string       `json:"name" xml:"Name"`
 	Values FilterValues `json:"values" xml:"Values"`
+}
+
+type FirewallAdvancedContentCategoryConfig struct {
+	Category string `json:"category" xml:"Category"`
+}
+
+type FirewallAdvancedThreatCategoryConfig struct {
+	Category string `json:"category" xml:"Category"`
 }
 
 type FirewallConfig struct {
@@ -251,10 +337,12 @@ type FirewallConfig struct {
 
 type FirewallDomainList struct {
 	Arn              string `json:"arn" xml:"Arn"`
+	Category         string `json:"category" xml:"Category"`
 	CreationTime     string `json:"creationTime" xml:"CreationTime"`
 	CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
 	DomainCount      int32  `json:"domainCount" xml:"DomainCount"`
 	Id               string `json:"id" xml:"Id"`
+	ManagedListType  string `json:"managedListType" xml:"ManagedListType"`
 	ManagedOwnerName string `json:"managedOwnerName" xml:"ManagedOwnerName"`
 	ModificationTime string `json:"modificationTime" xml:"ModificationTime"`
 	Name             string `json:"name" xml:"Name"`
@@ -264,30 +352,35 @@ type FirewallDomainList struct {
 
 type FirewallDomainListMetadata struct {
 	Arn              string `json:"arn" xml:"Arn"`
+	Category         string `json:"category" xml:"Category"`
 	CreatorRequestId string `json:"creatorRequestId" xml:"CreatorRequestId"`
 	Id               string `json:"id" xml:"Id"`
+	ManagedListType  string `json:"managedListType" xml:"ManagedListType"`
 	ManagedOwnerName string `json:"managedOwnerName" xml:"ManagedOwnerName"`
 	Name             string `json:"name" xml:"Name"`
 }
 
 type FirewallRule struct {
-	Action                          string `json:"action" xml:"Action"`
-	BlockOverrideDnsType            string `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
-	BlockOverrideDomain             string `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
-	BlockOverrideTtl                int32  `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
-	BlockResponse                   string `json:"blockResponse" xml:"BlockResponse"`
-	ConfidenceThreshold             string `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
-	CreationTime                    string `json:"creationTime" xml:"CreationTime"`
-	CreatorRequestId                string `json:"creatorRequestId" xml:"CreatorRequestId"`
-	DnsThreatProtection             string `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
-	FirewallDomainListId            string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
-	FirewallDomainRedirectionAction string `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
-	FirewallRuleGroupId             string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
-	FirewallThreatProtectionId      string `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
-	ModificationTime                string `json:"modificationTime" xml:"ModificationTime"`
-	Name                            string `json:"name" xml:"Name"`
-	Priority                        int32  `json:"priority" xml:"Priority"`
-	Qtype                           string `json:"qtype" xml:"Qtype"`
+	Action                          string            `json:"action" xml:"Action"`
+	BlockOverrideDnsType            string            `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
+	BlockOverrideDomain             string            `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
+	BlockOverrideTtl                int32             `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
+	BlockResponse                   string            `json:"blockResponse" xml:"BlockResponse"`
+	ConfidenceThreshold             string            `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
+	CreationTime                    string            `json:"creationTime" xml:"CreationTime"`
+	CreatorRequestId                string            `json:"creatorRequestId" xml:"CreatorRequestId"`
+	DnsThreatProtection             string            `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
+	FirewallDomainListId            string            `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+	FirewallDomainRedirectionAction string            `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
+	FirewallRuleGroupId             string            `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+	FirewallRuleType                *FirewallRuleType `json:"firewallRuleType" xml:"FirewallRuleType"`
+	FirewallThreatProtectionId      string            `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
+	ModificationTime                string            `json:"modificationTime" xml:"ModificationTime"`
+	Name                            string            `json:"name" xml:"Name"`
+	Priority                        int32             `json:"priority" xml:"Priority"`
+	Qtype                           string            `json:"qtype" xml:"Qtype"`
+	Status                          string            `json:"status" xml:"Status"`
+	StatusMessage                   string            `json:"statusMessage" xml:"StatusMessage"`
 }
 
 type FirewallRuleGroup struct {
@@ -327,6 +420,21 @@ type FirewallRuleGroupMetadata struct {
 	Name             string `json:"name" xml:"Name"`
 	OwnerId          string `json:"ownerId" xml:"OwnerId"`
 	ShareStatus      string `json:"shareStatus" xml:"ShareStatus"`
+}
+
+type FirewallRuleType struct {
+	DnsThreatProtection             *DnsThreatProtectionRuleTypeConfig     `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
+	FirewallAdvancedContentCategory *FirewallAdvancedContentCategoryConfig `json:"firewallAdvancedContentCategory" xml:"FirewallAdvancedContentCategory"`
+	FirewallAdvancedThreatCategory  *FirewallAdvancedThreatCategoryConfig  `json:"firewallAdvancedThreatCategory" xml:"FirewallAdvancedThreatCategory"`
+	PartnerThreatProtection         *PartnerThreatProtectionConfig         `json:"partnerThreatProtection" xml:"PartnerThreatProtection"`
+}
+
+type FirewallRuleTypeDefinition struct {
+	Description      string            `json:"description" xml:"Description"`
+	DisplayName      string            `json:"displayName" xml:"DisplayName"`
+	RuleType         string            `json:"ruleType" xml:"RuleType"`
+	SubscriptionInfo *SubscriptionInfo `json:"subscriptionInfo" xml:"SubscriptionInfo"`
+	Value            string            `json:"value" xml:"Value"`
 }
 
 type GetFirewallConfigRequest struct {
@@ -541,6 +649,17 @@ type ListFirewallRuleGroupsResponse struct {
 	NextToken          string                        `json:"nextToken" xml:"NextToken"`
 }
 
+type ListFirewallRuleTypesRequest struct {
+	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken  string `json:"nextToken" xml:"NextToken"`
+	RuleType   string `json:"ruleType" xml:"RuleType"`
+}
+
+type ListFirewallRuleTypesResponse struct {
+	FirewallRuleTypes FirewallRuleTypeDefinitions `json:"firewallRuleTypes" xml:"FirewallRuleTypes"`
+	NextToken         string                      `json:"nextToken" xml:"NextToken"`
+}
+
 type ListFirewallRulesRequest struct {
 	Action              string `json:"action" xml:"Action"`
 	FirewallRuleGroupId string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
@@ -689,6 +808,10 @@ type OutpostResolver struct {
 	StatusMessage         string `json:"statusMessage" xml:"StatusMessage"`
 }
 
+type PartnerThreatProtectionConfig struct {
+	Partner string `json:"partner" xml:"Partner"`
+}
+
 type PutFirewallRuleGroupPolicyRequest struct {
 	Arn                     string `json:"arn" xml:"Arn"`
 	FirewallRuleGroupPolicy string `json:"firewallRuleGroupPolicy" xml:"FirewallRuleGroupPolicy"`
@@ -735,9 +858,11 @@ type ResolverEndpoint struct {
 	CreationTime                   string           `json:"creationTime" xml:"CreationTime"`
 	CreatorRequestId               string           `json:"creatorRequestId" xml:"CreatorRequestId"`
 	Direction                      string           `json:"direction" xml:"Direction"`
+	Dns64Enabled                   bool             `json:"dns64Enabled" xml:"Dns64Enabled"`
 	HostVPCId                      string           `json:"hostVPCId" xml:"HostVPCId"`
 	Id                             string           `json:"id" xml:"Id"`
 	IpAddressCount                 int32            `json:"ipAddressCount" xml:"IpAddressCount"`
+	Ipv6InternetAccessEnabled      bool             `json:"ipv6InternetAccessEnabled" xml:"Ipv6InternetAccessEnabled"`
 	ModificationTime               string           `json:"modificationTime" xml:"ModificationTime"`
 	Name                           string           `json:"name" xml:"Name"`
 	OutpostArn                     string           `json:"outpostArn" xml:"OutpostArn"`
@@ -807,6 +932,11 @@ type ResolverRuleConfig struct {
 	TargetIps          TargetList `json:"targetIps" xml:"TargetIps"`
 }
 
+type SubscriptionInfo struct {
+	ProductId  string `json:"productId" xml:"ProductId"`
+	VendorName string `json:"vendorName" xml:"VendorName"`
+}
+
 type Tag struct {
 	Key   string `json:"key" xml:"Key"`
 	Value string `json:"value" xml:"Value"`
@@ -858,6 +988,24 @@ type UpdateFirewallDomainsResponse struct {
 	StatusMessage string `json:"statusMessage" xml:"StatusMessage"`
 }
 
+type UpdateFirewallRuleEntry struct {
+	Action                          string            `json:"action" xml:"Action"`
+	BlockOverrideDnsType            string            `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
+	BlockOverrideDomain             string            `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
+	BlockOverrideTtl                int32             `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
+	BlockResponse                   string            `json:"blockResponse" xml:"BlockResponse"`
+	ConfidenceThreshold             string            `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
+	DnsThreatProtection             string            `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
+	FirewallDomainListId            string            `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+	FirewallDomainRedirectionAction string            `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
+	FirewallRuleGroupId             string            `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+	FirewallRuleType                *FirewallRuleType `json:"firewallRuleType" xml:"FirewallRuleType"`
+	FirewallThreatProtectionId      string            `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
+	Name                            string            `json:"name" xml:"Name"`
+	Priority                        int32             `json:"priority" xml:"Priority"`
+	Qtype                           string            `json:"qtype" xml:"Qtype"`
+}
+
 type UpdateFirewallRuleGroupAssociationRequest struct {
 	FirewallRuleGroupAssociationId string `json:"firewallRuleGroupAssociationId" xml:"FirewallRuleGroupAssociationId"`
 	MutationProtection             string `json:"mutationProtection" xml:"MutationProtection"`
@@ -870,20 +1018,21 @@ type UpdateFirewallRuleGroupAssociationResponse struct {
 }
 
 type UpdateFirewallRuleRequest struct {
-	Action                          string `json:"action" xml:"Action"`
-	BlockOverrideDnsType            string `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
-	BlockOverrideDomain             string `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
-	BlockOverrideTtl                int32  `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
-	BlockResponse                   string `json:"blockResponse" xml:"BlockResponse"`
-	ConfidenceThreshold             string `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
-	DnsThreatProtection             string `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
-	FirewallDomainListId            string `json:"firewallDomainListId" xml:"FirewallDomainListId"`
-	FirewallDomainRedirectionAction string `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
-	FirewallRuleGroupId             string `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
-	FirewallThreatProtectionId      string `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
-	Name                            string `json:"name" xml:"Name"`
-	Priority                        int32  `json:"priority" xml:"Priority"`
-	Qtype                           string `json:"qtype" xml:"Qtype"`
+	Action                          string            `json:"action" xml:"Action"`
+	BlockOverrideDnsType            string            `json:"blockOverrideDnsType" xml:"BlockOverrideDnsType"`
+	BlockOverrideDomain             string            `json:"blockOverrideDomain" xml:"BlockOverrideDomain"`
+	BlockOverrideTtl                int32             `json:"blockOverrideTtl" xml:"BlockOverrideTtl"`
+	BlockResponse                   string            `json:"blockResponse" xml:"BlockResponse"`
+	ConfidenceThreshold             string            `json:"confidenceThreshold" xml:"ConfidenceThreshold"`
+	DnsThreatProtection             string            `json:"dnsThreatProtection" xml:"DnsThreatProtection"`
+	FirewallDomainListId            string            `json:"firewallDomainListId" xml:"FirewallDomainListId"`
+	FirewallDomainRedirectionAction string            `json:"firewallDomainRedirectionAction" xml:"FirewallDomainRedirectionAction"`
+	FirewallRuleGroupId             string            `json:"firewallRuleGroupId" xml:"FirewallRuleGroupId"`
+	FirewallRuleType                *FirewallRuleType `json:"firewallRuleType" xml:"FirewallRuleType"`
+	FirewallThreatProtectionId      string            `json:"firewallThreatProtectionId" xml:"FirewallThreatProtectionId"`
+	Name                            string            `json:"name" xml:"Name"`
+	Priority                        int32             `json:"priority" xml:"Priority"`
+	Qtype                           string            `json:"qtype" xml:"Qtype"`
 }
 
 type UpdateFirewallRuleResponse struct {
@@ -925,6 +1074,8 @@ type UpdateResolverDnssecConfigResponse struct {
 }
 
 type UpdateResolverEndpointRequest struct {
+	Dns64Enabled                   bool              `json:"dns64Enabled" xml:"Dns64Enabled"`
+	Ipv6InternetAccessEnabled      bool              `json:"ipv6InternetAccessEnabled" xml:"Ipv6InternetAccessEnabled"`
 	Name                           string            `json:"name" xml:"Name"`
 	Protocols                      ProtocolList      `json:"protocols" xml:"Protocols"`
 	ResolverEndpointId             string            `json:"resolverEndpointId" xml:"ResolverEndpointId"`
@@ -947,6 +1098,16 @@ type UpdateResolverRuleResponse struct {
 	ResolverRule *ResolverRule `json:"resolverRule" xml:"ResolverRule"`
 }
 
+type BatchCreateFirewallRuleErrors []*BatchCreateFirewallRuleError
+
+type BatchDeleteFirewallRuleErrors []*BatchDeleteFirewallRuleError
+
+type BatchUpdateFirewallRuleErrors []*BatchUpdateFirewallRuleError
+
+type CreateFirewallRuleEntries []*CreateFirewallRuleEntry
+
+type DeleteFirewallRuleEntries []*DeleteFirewallRuleEntry
+
 type FilterValues []string
 
 type Filters []*Filter
@@ -960,6 +1121,8 @@ type FirewallDomains []string
 type FirewallRuleGroupAssociations []*FirewallRuleGroupAssociation
 
 type FirewallRuleGroupMetadataList []*FirewallRuleGroupMetadata
+
+type FirewallRuleTypeDefinitions []*FirewallRuleTypeDefinition
 
 type FirewallRules []*FirewallRule
 
@@ -992,5 +1155,7 @@ type TagKeyList []string
 type TagList []*Tag
 
 type TargetList []*TargetAddress
+
+type UpdateFirewallRuleEntries []*UpdateFirewallRuleEntry
 
 type UpdateIpAddresses []*UpdateIpAddress

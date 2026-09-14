@@ -446,6 +446,23 @@ func (e *NotAuthorizedException) HTTPStatus() int {
 	return 403
 }
 
+// OperationNotEnabledException is returned with HTTP status 400.
+type OperationNotEnabledException struct {
+	Message string
+}
+
+func (e *OperationNotEnabledException) Error() string {
+	return fmt.Sprintf("OperationNotEnabledException: %s", e.Message)
+}
+
+func (e *OperationNotEnabledException) ErrorCode() string {
+	return "OperationNotEnabledException"
+}
+
+func (e *OperationNotEnabledException) HTTPStatus() int {
+	return 400
+}
+
 // PasswordHistoryPolicyViolationException is returned with HTTP status 400.
 type PasswordHistoryPolicyViolationException struct {
 	Message string
@@ -545,6 +562,23 @@ func (e *ScopeDoesNotExistException) ErrorCode() string {
 }
 
 func (e *ScopeDoesNotExistException) HTTPStatus() int {
+	return 400
+}
+
+// ServiceQuotaExceededException is returned with HTTP status 400.
+type ServiceQuotaExceededException struct {
+	Message string
+}
+
+func (e *ServiceQuotaExceededException) Error() string {
+	return fmt.Sprintf("ServiceQuotaExceededException: %s", e.Message)
+}
+
+func (e *ServiceQuotaExceededException) ErrorCode() string {
+	return "ServiceQuotaExceededException"
+}
+
+func (e *ServiceQuotaExceededException) HTTPStatus() int {
 	return 400
 }
 

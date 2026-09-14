@@ -101,10 +101,11 @@ type BotStatistics struct {
 }
 
 type ByteMatchStatement struct {
-	FieldToMatch         *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	PositionalConstraint string              `json:"positionalConstraint" xml:"PositionalConstraint"`
-	SearchString         []byte              `json:"searchString" xml:"SearchString"`
-	TextTransformations  TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+	FieldToMatch                *FieldToMatch               `json:"fieldToMatch" xml:"FieldToMatch"`
+	PositionalConstraint        string                      `json:"positionalConstraint" xml:"PositionalConstraint"`
+	PreParseTextTransformations PreParseTextTransformations `json:"preParseTextTransformations" xml:"PreParseTextTransformations"`
+	SearchString                []byte                      `json:"searchString" xml:"SearchString"`
+	TextTransformations         TextTransformations         `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type CaptchaAction struct {
@@ -213,6 +214,7 @@ type CreateRuleGroupRequest struct {
 	Capacity             int64                `json:"capacity" xml:"Capacity"`
 	CustomResponseBodies CustomResponseBodies `json:"customResponseBodies" xml:"CustomResponseBodies"`
 	Description          string               `json:"description" xml:"Description"`
+	MonetizationConfig   *MonetizationConfig  `json:"monetizationConfig" xml:"MonetizationConfig"`
 	Name                 string               `json:"name" xml:"Name"`
 	Rules                Rules                `json:"rules" xml:"Rules"`
 	Scope                string               `json:"scope" xml:"Scope"`
@@ -233,6 +235,7 @@ type CreateWebACLRequest struct {
 	DataProtectionConfig         *DataProtectionConfig         `json:"dataProtectionConfig" xml:"DataProtectionConfig"`
 	DefaultAction                *DefaultAction                `json:"defaultAction" xml:"DefaultAction"`
 	Description                  string                        `json:"description" xml:"Description"`
+	MonetizationConfig           *MonetizationConfig           `json:"monetizationConfig" xml:"MonetizationConfig"`
 	Name                         string                        `json:"name" xml:"Name"`
 	OnSourceDDoSProtectionConfig *OnSourceDDoSProtectionConfig `json:"onSourceDDoSProtectionConfig" xml:"OnSourceDDoSProtectionConfig"`
 	Rules                        Rules                         `json:"rules" xml:"Rules"`
@@ -244,6 +247,10 @@ type CreateWebACLRequest struct {
 
 type CreateWebACLResponse struct {
 	Summary *WebACLSummary `json:"summary" xml:"Summary"`
+}
+
+type CryptoConfig struct {
+	PaymentNetworks PaymentNetworks `json:"paymentNetworks" xml:"PaymentNetworks"`
 }
 
 type CustomHTTPHeader struct {
@@ -264,6 +271,16 @@ type CustomResponse struct {
 type CustomResponseBody struct {
 	Content     string `json:"content" xml:"Content"`
 	ContentType string `json:"contentType" xml:"ContentType"`
+}
+
+type DataPointEntry struct {
+	Category            string    `json:"category" xml:"Category"`
+	Date                time.Time `json:"date" xml:"Date"`
+	GroupByValue        string    `json:"groupByValue" xml:"GroupByValue"`
+	Intent              string    `json:"intent" xml:"Intent"`
+	MonetizeServedCount int64     `json:"monetizeServedCount" xml:"MonetizeServedCount"`
+	SettledCount        int64     `json:"settledCount" xml:"SettledCount"`
+	TotalAmount         string    `json:"totalAmount" xml:"TotalAmount"`
 }
 
 type DataProtection struct {
@@ -558,6 +575,53 @@ type GetRegexPatternSetResponse struct {
 	RegexPatternSet *RegexPatternSet `json:"regexPatternSet" xml:"RegexPatternSet"`
 }
 
+type GetRevenueStatisticsRequest struct {
+	Currency      string                 `json:"currency" xml:"Currency"`
+	Filters       MonetizationFilterList `json:"filters" xml:"Filters"`
+	GroupBy       string                 `json:"groupBy" xml:"GroupBy"`
+	Limit         int32                  `json:"limit" xml:"Limit"`
+	NextMarker    string                 `json:"nextMarker" xml:"NextMarker"`
+	Scope         string                 `json:"scope" xml:"Scope"`
+	SortBy        string                 `json:"sortBy" xml:"SortBy"`
+	SortOrder     string                 `json:"sortOrder" xml:"SortOrder"`
+	StatisticType string                 `json:"statisticType" xml:"StatisticType"`
+	TimeWindow    *TimeWindow            `json:"timeWindow" xml:"TimeWindow"`
+}
+
+type GetRevenueStatisticsResponse struct {
+	NextMarker            string                    `json:"nextMarker" xml:"NextMarker"`
+	RevenuePathStatistics RevenuePathStatisticsList `json:"revenuePathStatistics" xml:"RevenuePathStatistics"`
+	SourceStatistics      SourceStatisticsList      `json:"sourceStatistics" xml:"SourceStatistics"`
+}
+
+type GetRevenueStatisticsSummaryRequest struct {
+	Currency   string                 `json:"currency" xml:"Currency"`
+	Filters    MonetizationFilterList `json:"filters" xml:"Filters"`
+	Scope      string                 `json:"scope" xml:"Scope"`
+	TimeWindow *TimeWindow            `json:"timeWindow" xml:"TimeWindow"`
+}
+
+type GetRevenueStatisticsSummaryResponse struct {
+	RevenueBreakdown *RevenueBreakdown `json:"revenueBreakdown" xml:"RevenueBreakdown"`
+}
+
+type GetRevenueStatisticsTimeSeriesRequest struct {
+	Currency      string                 `json:"currency" xml:"Currency"`
+	Filters       MonetizationFilterList `json:"filters" xml:"Filters"`
+	GroupBy       string                 `json:"groupBy" xml:"GroupBy"`
+	Interval      string                 `json:"interval" xml:"Interval"`
+	Limit         int32                  `json:"limit" xml:"Limit"`
+	NextMarker    string                 `json:"nextMarker" xml:"NextMarker"`
+	Scope         string                 `json:"scope" xml:"Scope"`
+	StatisticType string                 `json:"statisticType" xml:"StatisticType"`
+	TimeWindow    *TimeWindow            `json:"timeWindow" xml:"TimeWindow"`
+}
+
+type GetRevenueStatisticsTimeSeriesResponse struct {
+	DataPoints DataPointsList `json:"dataPoints" xml:"DataPoints"`
+	NextMarker string         `json:"nextMarker" xml:"NextMarker"`
+}
+
 type GetRuleGroupRequest struct {
 	ARN   string `json:"aRN" xml:"ARN"`
 	Id    string `json:"id" xml:"Id"`
@@ -837,6 +901,22 @@ type ListRuleGroupsResponse struct {
 	RuleGroups RuleGroupSummaries `json:"ruleGroups" xml:"RuleGroups"`
 }
 
+type ListSettlementRecordsRequest struct {
+	Currency   string                 `json:"currency" xml:"Currency"`
+	Filters    MonetizationFilterList `json:"filters" xml:"Filters"`
+	Limit      int32                  `json:"limit" xml:"Limit"`
+	NextMarker string                 `json:"nextMarker" xml:"NextMarker"`
+	Scope      string                 `json:"scope" xml:"Scope"`
+	SortBy     string                 `json:"sortBy" xml:"SortBy"`
+	SortOrder  string                 `json:"sortOrder" xml:"SortOrder"`
+	TimeWindow *TimeWindow            `json:"timeWindow" xml:"TimeWindow"`
+}
+
+type ListSettlementRecordsResponse struct {
+	NextMarker  string               `json:"nextMarker" xml:"NextMarker"`
+	Settlements SettlementRecordList `json:"settlements" xml:"Settlements"`
+}
+
 type ListTagsForResourceRequest struct {
 	Limit       int32  `json:"limit" xml:"Limit"`
 	NextMarker  string `json:"nextMarker" xml:"NextMarker"`
@@ -957,6 +1037,20 @@ type MobileSdkRelease struct {
 	Timestamp      time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
+type MonetizationConfig struct {
+	CryptoConfig *CryptoConfig `json:"cryptoConfig" xml:"CryptoConfig"`
+	CurrencyMode string        `json:"currencyMode" xml:"CurrencyMode"`
+}
+
+type MonetizationFilter struct {
+	Name   string                      `json:"name" xml:"Name"`
+	Values MonetizationFilterValueList `json:"values" xml:"Values"`
+}
+
+type MonetizeAction struct {
+	PriceMultiplier string `json:"priceMultiplier" xml:"PriceMultiplier"`
+}
+
 type NoneAction struct {
 }
 
@@ -989,8 +1083,24 @@ type PathStatistics struct {
 	TopBots      BotStatisticsList `json:"topBots" xml:"TopBots"`
 }
 
+type PaymentNetwork struct {
+	Chain         string `json:"chain" xml:"Chain"`
+	Prices        Prices `json:"prices" xml:"Prices"`
+	WalletAddress string `json:"walletAddress" xml:"WalletAddress"`
+}
+
 type PhoneNumberField struct {
 	Identifier string `json:"identifier" xml:"Identifier"`
+}
+
+type PreParseTextTransformation struct {
+	Priority int32  `json:"priority" xml:"Priority"`
+	Type     string `json:"type" xml:"Type"`
+}
+
+type Price struct {
+	Amount   string `json:"amount" xml:"Amount"`
+	Currency string `json:"currency" xml:"Currency"`
 }
 
 type PutLoggingConfigurationRequest struct {
@@ -1106,9 +1216,10 @@ type Regex struct {
 }
 
 type RegexMatchStatement struct {
-	FieldToMatch        *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	RegexString         string              `json:"regexString" xml:"RegexString"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+	FieldToMatch                *FieldToMatch               `json:"fieldToMatch" xml:"FieldToMatch"`
+	PreParseTextTransformations PreParseTextTransformations `json:"preParseTextTransformations" xml:"PreParseTextTransformations"`
+	RegexString                 string                      `json:"regexString" xml:"RegexString"`
+	TextTransformations         TextTransformations         `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type RegexPatternSet struct {
@@ -1120,9 +1231,10 @@ type RegexPatternSet struct {
 }
 
 type RegexPatternSetReferenceStatement struct {
-	ARN                 string              `json:"aRN" xml:"ARN"`
-	FieldToMatch        *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+	ARN                         string                      `json:"aRN" xml:"ARN"`
+	FieldToMatch                *FieldToMatch               `json:"fieldToMatch" xml:"FieldToMatch"`
+	PreParseTextTransformations PreParseTextTransformations `json:"preParseTextTransformations" xml:"PreParseTextTransformations"`
+	TextTransformations         TextTransformations         `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type RegexPatternSetSummary struct {
@@ -1186,6 +1298,22 @@ type ResponseInspectionStatusCode struct {
 	SuccessCodes ResponseInspectionStatusCodeSuccessCodes `json:"successCodes" xml:"SuccessCodes"`
 }
 
+type RevenueBreakdown struct {
+	Currency            string `json:"currency" xml:"Currency"`
+	TotalAmount         string `json:"totalAmount" xml:"TotalAmount"`
+	TotalMonetizeServed int64  `json:"totalMonetizeServed" xml:"TotalMonetizeServed"`
+	TotalSettled        int64  `json:"totalSettled" xml:"TotalSettled"`
+	UnverifiedAmount    string `json:"unverifiedAmount" xml:"UnverifiedAmount"`
+	VerifiedAmount      string `json:"verifiedAmount" xml:"VerifiedAmount"`
+}
+
+type RevenuePathStatistics struct {
+	Amount       string  `json:"amount" xml:"Amount"`
+	Path         string  `json:"path" xml:"Path"`
+	Percentage   float64 `json:"percentage" xml:"Percentage"`
+	RequestCount int64   `json:"requestCount" xml:"RequestCount"`
+}
+
 type Rule struct {
 	Action           *RuleAction       `json:"action" xml:"Action"`
 	CaptchaConfig    *CaptchaConfig    `json:"captchaConfig" xml:"CaptchaConfig"`
@@ -1204,6 +1332,7 @@ type RuleAction struct {
 	Captcha   *CaptchaAction   `json:"captcha" xml:"Captcha"`
 	Challenge *ChallengeAction `json:"challenge" xml:"Challenge"`
 	Count     *CountAction     `json:"count" xml:"Count"`
+	Monetize  *MonetizeAction  `json:"monetize" xml:"Monetize"`
 }
 
 type RuleActionOverride struct {
@@ -1220,6 +1349,7 @@ type RuleGroup struct {
 	Description          string               `json:"description" xml:"Description"`
 	Id                   string               `json:"id" xml:"Id"`
 	LabelNamespace       string               `json:"labelNamespace" xml:"LabelNamespace"`
+	MonetizationConfig   *MonetizationConfig  `json:"monetizationConfig" xml:"MonetizationConfig"`
 	Name                 string               `json:"name" xml:"Name"`
 	Rules                Rules                `json:"rules" xml:"Rules"`
 	VisibilityConfig     *VisibilityConfig    `json:"visibilityConfig" xml:"VisibilityConfig"`
@@ -1258,6 +1388,26 @@ type SampledHTTPRequest struct {
 	Weight                  int64              `json:"weight" xml:"Weight"`
 }
 
+type SettlementRecord struct {
+	Amount           string    `json:"amount" xml:"Amount"`
+	ContentPath      string    `json:"contentPath" xml:"ContentPath"`
+	Currency         string    `json:"currency" xml:"Currency"`
+	Intent           string    `json:"intent" xml:"Intent"`
+	Network          string    `json:"network" xml:"Network"`
+	Organization     string    `json:"organization" xml:"Organization"`
+	PayerAddress     string    `json:"payerAddress" xml:"PayerAddress"`
+	RequestId        string    `json:"requestId" xml:"RequestId"`
+	RequestTimestamp time.Time `json:"requestTimestamp" xml:"RequestTimestamp"`
+	SourceCategory   string    `json:"sourceCategory" xml:"SourceCategory"`
+	SourceName       string    `json:"sourceName" xml:"SourceName"`
+	Status           string    `json:"status" xml:"Status"`
+	Timestamp        time.Time `json:"timestamp" xml:"Timestamp"`
+	TransactionId    string    `json:"transactionId" xml:"TransactionId"`
+	Verified         bool      `json:"verified" xml:"Verified"`
+	WalletAddress    string    `json:"walletAddress" xml:"WalletAddress"`
+	WebAclArn        string    `json:"webAclArn" xml:"WebAclArn"`
+}
+
 type SingleHeader struct {
 	Name string `json:"name" xml:"Name"`
 }
@@ -1267,16 +1417,30 @@ type SingleQueryArgument struct {
 }
 
 type SizeConstraintStatement struct {
-	ComparisonOperator  string              `json:"comparisonOperator" xml:"ComparisonOperator"`
-	FieldToMatch        *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	Size                int64               `json:"size" xml:"Size"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+	ComparisonOperator          string                      `json:"comparisonOperator" xml:"ComparisonOperator"`
+	FieldToMatch                *FieldToMatch               `json:"fieldToMatch" xml:"FieldToMatch"`
+	PreParseTextTransformations PreParseTextTransformations `json:"preParseTextTransformations" xml:"PreParseTextTransformations"`
+	Size                        int64                       `json:"size" xml:"Size"`
+	TextTransformations         TextTransformations         `json:"textTransformations" xml:"TextTransformations"`
+}
+
+type SourceStatistics struct {
+	Amount         string  `json:"amount" xml:"Amount"`
+	GroupByValue   string  `json:"groupByValue" xml:"GroupByValue"`
+	Intent         string  `json:"intent" xml:"Intent"`
+	Organization   string  `json:"organization" xml:"Organization"`
+	Percentage     float64 `json:"percentage" xml:"Percentage"`
+	RequestCount   int64   `json:"requestCount" xml:"RequestCount"`
+	SourceCategory string  `json:"sourceCategory" xml:"SourceCategory"`
+	SourceName     string  `json:"sourceName" xml:"SourceName"`
+	Verified       bool    `json:"verified" xml:"Verified"`
 }
 
 type SqliMatchStatement struct {
-	FieldToMatch        *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	SensitivityLevel    string              `json:"sensitivityLevel" xml:"SensitivityLevel"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+	FieldToMatch                *FieldToMatch               `json:"fieldToMatch" xml:"FieldToMatch"`
+	PreParseTextTransformations PreParseTextTransformations `json:"preParseTextTransformations" xml:"PreParseTextTransformations"`
+	SensitivityLevel            string                      `json:"sensitivityLevel" xml:"SensitivityLevel"`
+	TextTransformations         TextTransformations         `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type Statement struct {
@@ -1380,6 +1544,7 @@ type UpdateRuleGroupRequest struct {
 	Description          string               `json:"description" xml:"Description"`
 	Id                   string               `json:"id" xml:"Id"`
 	LockToken            string               `json:"lockToken" xml:"LockToken"`
+	MonetizationConfig   *MonetizationConfig  `json:"monetizationConfig" xml:"MonetizationConfig"`
 	Name                 string               `json:"name" xml:"Name"`
 	Rules                Rules                `json:"rules" xml:"Rules"`
 	Scope                string               `json:"scope" xml:"Scope"`
@@ -1401,6 +1566,7 @@ type UpdateWebACLRequest struct {
 	Description                  string                        `json:"description" xml:"Description"`
 	Id                           string                        `json:"id" xml:"Id"`
 	LockToken                    string                        `json:"lockToken" xml:"LockToken"`
+	MonetizationConfig           *MonetizationConfig           `json:"monetizationConfig" xml:"MonetizationConfig"`
 	Name                         string                        `json:"name" xml:"Name"`
 	OnSourceDDoSProtectionConfig *OnSourceDDoSProtectionConfig `json:"onSourceDDoSProtectionConfig" xml:"OnSourceDDoSProtectionConfig"`
 	Rules                        Rules                         `json:"rules" xml:"Rules"`
@@ -1449,6 +1615,7 @@ type WebACL struct {
 	Id                                   string                        `json:"id" xml:"Id"`
 	LabelNamespace                       string                        `json:"labelNamespace" xml:"LabelNamespace"`
 	ManagedByFirewallManager             bool                          `json:"managedByFirewallManager" xml:"ManagedByFirewallManager"`
+	MonetizationConfig                   *MonetizationConfig           `json:"monetizationConfig" xml:"MonetizationConfig"`
 	Name                                 string                        `json:"name" xml:"Name"`
 	OnSourceDDoSProtectionConfig         *OnSourceDDoSProtectionConfig `json:"onSourceDDoSProtectionConfig" xml:"OnSourceDDoSProtectionConfig"`
 	PostProcessFirewallManagerRuleGroups FirewallManagerRuleGroups     `json:"postProcessFirewallManagerRuleGroups" xml:"PostProcessFirewallManagerRuleGroups"`
@@ -1468,8 +1635,9 @@ type WebACLSummary struct {
 }
 
 type XssMatchStatement struct {
-	FieldToMatch        *FieldToMatch       `json:"fieldToMatch" xml:"FieldToMatch"`
-	TextTransformations TextTransformations `json:"textTransformations" xml:"TextTransformations"`
+	FieldToMatch                *FieldToMatch               `json:"fieldToMatch" xml:"FieldToMatch"`
+	PreParseTextTransformations PreParseTextTransformations `json:"preParseTextTransformations" xml:"PreParseTextTransformations"`
+	TextTransformations         TextTransformations         `json:"textTransformations" xml:"TextTransformations"`
 }
 
 type APIKeySummaries []*APIKeySummary
@@ -1493,6 +1661,8 @@ type CookieNames []string
 type CountryCodes []string
 
 type CustomHTTPHeaders []*CustomHTTPHeader
+
+type DataPointsList []*DataPointEntry
 
 type DataProtections []*DataProtection
 
@@ -1534,9 +1704,19 @@ type ManagedRuleGroupVersions []*ManagedRuleGroupVersion
 
 type ManagedRuleSetSummaries []*ManagedRuleSetSummary
 
+type MonetizationFilterList []*MonetizationFilter
+
+type MonetizationFilterValueList []string
+
 type PathStatisticsList []*PathStatistics
 
+type PaymentNetworks []*PaymentNetwork
+
 type PhoneNumberFields []*PhoneNumberField
+
+type PreParseTextTransformations []*PreParseTextTransformation
+
+type Prices []*Price
 
 type RateBasedStatementCustomKeys []*RateBasedStatementCustomKey
 
@@ -1566,6 +1746,8 @@ type ResponseInspectionStatusCodeFailureCodes []int32
 
 type ResponseInspectionStatusCodeSuccessCodes []int32
 
+type RevenuePathStatisticsList []*RevenuePathStatistics
+
 type RuleActionOverrides []*RuleActionOverride
 
 type RuleGroupSummaries []*RuleGroupSummary
@@ -1575,6 +1757,10 @@ type RuleSummaries []*RuleSummary
 type Rules []*Rule
 
 type SampledHTTPRequests []*SampledHTTPRequest
+
+type SettlementRecordList []*SettlementRecord
+
+type SourceStatisticsList []*SourceStatistics
 
 type Statements []*Statement
 

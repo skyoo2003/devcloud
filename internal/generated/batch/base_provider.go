@@ -15,6 +15,10 @@ func (b *BaseProvider) CancelJob(ctx context.Context, input *CancelJobRequest) (
 	return nil, fmt.Errorf("CancelJob: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CancelJobs(ctx context.Context, input *CancelJobsRequest) (*CancelJobsResponse, error) {
+	return nil, fmt.Errorf("CancelJobs: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateComputeEnvironment(ctx context.Context, input *CreateComputeEnvironmentRequest) (*CreateComputeEnvironmentResponse, error) {
 	return nil, fmt.Errorf("CreateComputeEnvironment: %w", ErrNotImplemented)
 }
@@ -155,8 +159,16 @@ func (b *BaseProvider) TerminateJob(ctx context.Context, input *TerminateJobRequ
 	return nil, fmt.Errorf("TerminateJob: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) TerminateJobs(ctx context.Context, input *TerminateJobsRequest) (*TerminateJobsResponse, error) {
+	return nil, fmt.Errorf("TerminateJobs: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) TerminateServiceJob(ctx context.Context, input *TerminateServiceJobRequest) (*TerminateServiceJobResponse, error) {
 	return nil, fmt.Errorf("TerminateServiceJob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) TerminateServiceJobs(ctx context.Context, input *TerminateServiceJobsRequest) (*TerminateServiceJobsResponse, error) {
+	return nil, fmt.Errorf("TerminateServiceJobs: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRequest) (*UntagResourceResponse, error) {

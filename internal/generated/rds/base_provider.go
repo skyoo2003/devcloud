@@ -403,6 +403,10 @@ func (b *BaseProvider) DescribeReservedDBInstancesOfferings(ctx context.Context,
 	return nil, fmt.Errorf("DescribeReservedDBInstancesOfferings: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DescribeServerlessV2PlatformVersions(ctx context.Context, input *DescribeServerlessV2PlatformVersionsMessage) (*ServerlessV2PlatformVersionsMessage, error) {
+	return nil, fmt.Errorf("DescribeServerlessV2PlatformVersions: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DescribeSourceRegions(ctx context.Context, input *DescribeSourceRegionsMessage) (*SourceRegionMessage, error) {
 	return nil, fmt.Errorf("DescribeSourceRegions: %w", ErrNotImplemented)
 }

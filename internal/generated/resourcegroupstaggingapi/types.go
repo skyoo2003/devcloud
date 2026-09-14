@@ -5,6 +5,7 @@ package resourcegroupstaggingapi
 type ComplianceDetails struct {
 	ComplianceStatus           bool       `json:"complianceStatus" xml:"ComplianceStatus"`
 	KeysWithNoncompliantValues TagKeyList `json:"keysWithNoncompliantValues" xml:"KeysWithNoncompliantValues"`
+	MissingTagKeys             TagKeyList `json:"missingTagKeys" xml:"MissingTagKeys"`
 	NoncompliantKeys           TagKeyList `json:"noncompliantKeys" xml:"NoncompliantKeys"`
 }
 

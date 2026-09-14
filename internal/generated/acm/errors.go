@@ -38,6 +38,23 @@ func (e *ConflictException) HTTPStatus() int {
 	return 0
 }
 
+// InternalServerException is returned with HTTP status 0.
+type InternalServerException struct {
+	Message string
+}
+
+func (e *InternalServerException) Error() string {
+	return fmt.Sprintf("InternalServerException: %s", e.Message)
+}
+
+func (e *InternalServerException) ErrorCode() string {
+	return "InternalServerException"
+}
+
+func (e *InternalServerException) HTTPStatus() int {
+	return 0
+}
+
 // InvalidArgsException is returned with HTTP status 0.
 type InvalidArgsException struct {
 	Message string
@@ -205,6 +222,23 @@ func (e *ResourceNotFoundException) ErrorCode() string {
 }
 
 func (e *ResourceNotFoundException) HTTPStatus() int {
+	return 0
+}
+
+// ServiceQuotaExceededException is returned with HTTP status 0.
+type ServiceQuotaExceededException struct {
+	Message string
+}
+
+func (e *ServiceQuotaExceededException) Error() string {
+	return fmt.Sprintf("ServiceQuotaExceededException: %s", e.Message)
+}
+
+func (e *ServiceQuotaExceededException) ErrorCode() string {
+	return "ServiceQuotaExceededException"
+}
+
+func (e *ServiceQuotaExceededException) HTTPStatus() int {
 	return 0
 }
 

@@ -13,10 +13,77 @@ type AddTagsToStreamInput struct {
 	Tags       TagMap `json:"tags" xml:"Tags"`
 }
 
+type ChannelDescription struct {
+	ChannelARN                       string                          `json:"channelARN" xml:"ChannelARN"`
+	ChannelCreationTimestamp         time.Time                       `json:"channelCreationTimestamp" xml:"ChannelCreationTimestamp"`
+	ChannelId                        string                          `json:"channelId" xml:"ChannelId"`
+	ChannelName                      string                          `json:"channelName" xml:"ChannelName"`
+	ChannelStatus                    string                          `json:"channelStatus" xml:"ChannelStatus"`
+	ChannelStatusReason              string                          `json:"channelStatusReason" xml:"ChannelStatusReason"`
+	EncryptionConfiguration          *ChannelEncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	LoggingConfiguration             *ChannelLoggingConfiguration    `json:"loggingConfiguration" xml:"LoggingConfiguration"`
+	S3DestinationConfiguration       *S3DestinationDescription       `json:"s3DestinationConfiguration" xml:"S3DestinationConfiguration"`
+	S3TablesDestinationConfiguration *S3TablesDestinationDescription `json:"s3TablesDestinationConfiguration" xml:"S3TablesDestinationConfiguration"`
+	ServiceExecutionRoleARN          string                          `json:"serviceExecutionRoleARN" xml:"ServiceExecutionRoleARN"`
+	StreamConfigurationList          ChannelStreamDescriptionList    `json:"streamConfigurationList" xml:"StreamConfigurationList"`
+}
+
+type ChannelEncryptionConfiguration struct {
+	EncryptionType string `json:"encryptionType" xml:"EncryptionType"`
+	KeyId          string `json:"keyId" xml:"KeyId"`
+}
+
+type ChannelLoggingConfiguration struct {
+	CloudWatchLogs *CloudWatchLogs `json:"cloudWatchLogs" xml:"CloudWatchLogs"`
+}
+
+type ChannelLoggingUpdateInput struct {
+	CloudWatchLogs *CloudWatchLogsUpdateInput `json:"cloudWatchLogs" xml:"CloudWatchLogs"`
+}
+
+type ChannelStreamConfiguration struct {
+	RecordConfiguration *RecordConfiguration `json:"recordConfiguration" xml:"RecordConfiguration"`
+	StreamARN           string               `json:"streamARN" xml:"StreamARN"`
+}
+
+type ChannelStreamDescription struct {
+	RecordConfiguration     *RecordConfiguration `json:"recordConfiguration" xml:"RecordConfiguration"`
+	StreamARN               string               `json:"streamARN" xml:"StreamARN"`
+	StreamCreationTimestamp time.Time            `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
+}
+
+type ChannelStreamIdentifier struct {
+	StreamARN               string    `json:"streamARN" xml:"StreamARN"`
+	StreamCreationTimestamp time.Time `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
+}
+
+type ChannelSummary struct {
+	ChannelARN               string                      `json:"channelARN" xml:"ChannelARN"`
+	ChannelCreationTimestamp time.Time                   `json:"channelCreationTimestamp" xml:"ChannelCreationTimestamp"`
+	ChannelDestinationType   string                      `json:"channelDestinationType" xml:"ChannelDestinationType"`
+	ChannelId                string                      `json:"channelId" xml:"ChannelId"`
+	ChannelName              string                      `json:"channelName" xml:"ChannelName"`
+	ChannelStatus            string                      `json:"channelStatus" xml:"ChannelStatus"`
+	ChannelStatusReason      string                      `json:"channelStatusReason" xml:"ChannelStatusReason"`
+	Streams                  ChannelStreamIdentifierList `json:"streams" xml:"Streams"`
+}
+
 type ChildShard struct {
 	HashKeyRange *HashKeyRange `json:"hashKeyRange" xml:"HashKeyRange"`
 	ParentShards ShardIdList   `json:"parentShards" xml:"ParentShards"`
 	ShardId      string        `json:"shardId" xml:"ShardId"`
+}
+
+type CloudWatchLogs struct {
+	Enabled       bool   `json:"enabled" xml:"Enabled"`
+	LogGroupName  string `json:"logGroupName" xml:"LogGroupName"`
+	LogStreamName string `json:"logStreamName" xml:"LogStreamName"`
+}
+
+type CloudWatchLogsUpdateInput struct {
+	Enabled       bool   `json:"enabled" xml:"Enabled"`
+	LogGroupName  string `json:"logGroupName" xml:"LogGroupName"`
+	LogStreamName string `json:"logStreamName" xml:"LogStreamName"`
 }
 
 type Consumer struct {
@@ -34,6 +101,21 @@ type ConsumerDescription struct {
 	StreamARN                 string    `json:"streamARN" xml:"StreamARN"`
 }
 
+type CreateChannelInput struct {
+	ChannelName                      string                            `json:"channelName" xml:"ChannelName"`
+	EncryptionConfiguration          *ChannelEncryptionConfiguration   `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	LoggingConfiguration             *ChannelLoggingConfiguration      `json:"loggingConfiguration" xml:"LoggingConfiguration"`
+	S3DestinationConfiguration       *S3DestinationConfiguration       `json:"s3DestinationConfiguration" xml:"S3DestinationConfiguration"`
+	S3TablesDestinationConfiguration *S3TablesDestinationConfiguration `json:"s3TablesDestinationConfiguration" xml:"S3TablesDestinationConfiguration"`
+	ServiceExecutionRoleARN          string                            `json:"serviceExecutionRoleARN" xml:"ServiceExecutionRoleARN"`
+	StreamConfigurationList          ChannelStreamConfigurationList    `json:"streamConfigurationList" xml:"StreamConfigurationList"`
+	Tags                             TagMap                            `json:"tags" xml:"Tags"`
+}
+
+type CreateChannelOutput struct {
+	ChannelDescription *ChannelDescription `json:"channelDescription" xml:"ChannelDescription"`
+}
+
 type CreateStreamInput struct {
 	MaxRecordSizeInKiB  int32              `json:"maxRecordSizeInKiB" xml:"MaxRecordSizeInKiB"`
 	ShardCount          int32              `json:"shardCount" xml:"ShardCount"`
@@ -43,11 +125,21 @@ type CreateStreamInput struct {
 	WarmThroughputMiBps int32              `json:"warmThroughputMiBps" xml:"WarmThroughputMiBps"`
 }
 
+type DeadLetterQueueS3Configuration struct {
+	BucketARN           string `json:"bucketARN" xml:"BucketARN"`
+	ErrorOutputPrefix   string `json:"errorOutputPrefix" xml:"ErrorOutputPrefix"`
+	ExpectedBucketOwner string `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+}
+
 type DecreaseStreamRetentionPeriodInput struct {
 	RetentionPeriodHours int32  `json:"retentionPeriodHours" xml:"RetentionPeriodHours"`
 	StreamARN            string `json:"streamARN" xml:"StreamARN"`
 	StreamId             string `json:"streamId" xml:"StreamId"`
 	StreamName           string `json:"streamName" xml:"StreamName"`
+}
+
+type DeleteChannelInput struct {
+	ChannelARN string `json:"channelARN" xml:"ChannelARN"`
 }
 
 type DeleteResourcePolicyInput struct {
@@ -76,10 +168,20 @@ type DescribeAccountSettingsOutput struct {
 	MinimumThroughputBillingCommitment *MinimumThroughputBillingCommitmentOutput `json:"minimumThroughputBillingCommitment" xml:"MinimumThroughputBillingCommitment"`
 }
 
+type DescribeChannelInput struct {
+	ChannelARN string `json:"channelARN" xml:"ChannelARN"`
+}
+
+type DescribeChannelOutput struct {
+	ChannelDescription *ChannelDescription `json:"channelDescription" xml:"ChannelDescription"`
+}
+
 type DescribeLimitsInput struct {
 }
 
 type DescribeLimitsOutput struct {
+	ChannelCount             int32 `json:"channelCount" xml:"ChannelCount"`
+	ChannelCountLimit        int32 `json:"channelCountLimit" xml:"ChannelCountLimit"`
 	OnDemandStreamCount      int32 `json:"onDemandStreamCount" xml:"OnDemandStreamCount"`
 	OnDemandStreamCountLimit int32 `json:"onDemandStreamCountLimit" xml:"OnDemandStreamCountLimit"`
 	OpenShardCount           int32 `json:"openShardCount" xml:"OpenShardCount"`
@@ -145,6 +247,7 @@ type EnhancedMonitoringOutput struct {
 }
 
 type GetRecordsInput struct {
+	DryRun        bool   `json:"dryRun" xml:"DryRun"`
 	Limit         int32  `json:"limit" xml:"Limit"`
 	ShardIterator string `json:"shardIterator" xml:"ShardIterator"`
 	StreamARN     string `json:"streamARN" xml:"StreamARN"`
@@ -168,6 +271,7 @@ type GetResourcePolicyOutput struct {
 }
 
 type GetShardIteratorInput struct {
+	DryRun                 bool      `json:"dryRun" xml:"DryRun"`
 	ShardId                string    `json:"shardId" xml:"ShardId"`
 	ShardIteratorType      string    `json:"shardIteratorType" xml:"ShardIteratorType"`
 	StartingSequenceNumber string    `json:"startingSequenceNumber" xml:"StartingSequenceNumber"`
@@ -191,6 +295,17 @@ type IncreaseStreamRetentionPeriodInput struct {
 	StreamARN            string `json:"streamARN" xml:"StreamARN"`
 	StreamId             string `json:"streamId" xml:"StreamId"`
 	StreamName           string `json:"streamName" xml:"StreamName"`
+}
+
+type ListChannelsInput struct {
+	MaxResults   int32            `json:"maxResults" xml:"MaxResults"`
+	NextToken    string           `json:"nextToken" xml:"NextToken"`
+	StreamFilter StreamFilterList `json:"streamFilter" xml:"StreamFilter"`
+}
+
+type ListChannelsOutput struct {
+	ChannelSummaries ChannelSummaryList `json:"channelSummaries" xml:"ChannelSummaries"`
+	NextToken        string             `json:"nextToken" xml:"NextToken"`
 }
 
 type ListShardsInput struct {
@@ -276,8 +391,18 @@ type MinimumThroughputBillingCommitmentOutput struct {
 	Status               string    `json:"status" xml:"Status"`
 }
 
+type PartitionField struct {
+	SourceName string `json:"sourceName" xml:"SourceName"`
+	Transform  string `json:"transform" xml:"Transform"`
+}
+
+type PartitionSpec struct {
+	PartitionFields PartitionFieldList `json:"partitionFields" xml:"PartitionFields"`
+}
+
 type PutRecordInput struct {
 	Data                      []byte `json:"data" xml:"Data"`
+	DryRun                    bool   `json:"dryRun" xml:"DryRun"`
 	ExplicitHashKey           string `json:"explicitHashKey" xml:"ExplicitHashKey"`
 	PartitionKey              string `json:"partitionKey" xml:"PartitionKey"`
 	SequenceNumberForOrdering string `json:"sequenceNumberForOrdering" xml:"SequenceNumberForOrdering"`
@@ -293,6 +418,7 @@ type PutRecordOutput struct {
 }
 
 type PutRecordsInput struct {
+	DryRun     bool                       `json:"dryRun" xml:"DryRun"`
 	Records    PutRecordsRequestEntryList `json:"records" xml:"Records"`
 	StreamARN  string                     `json:"streamARN" xml:"StreamARN"`
 	StreamId   string                     `json:"streamId" xml:"StreamId"`
@@ -332,6 +458,11 @@ type Record struct {
 	SequenceNumber              string    `json:"sequenceNumber" xml:"SequenceNumber"`
 }
 
+type RecordConfiguration struct {
+	GSRSchemaARN     string `json:"gSRSchemaARN" xml:"GSRSchemaARN"`
+	RecordFormatType string `json:"recordFormatType" xml:"RecordFormatType"`
+}
+
 type RegisterStreamConsumerInput struct {
 	ConsumerName string `json:"consumerName" xml:"ConsumerName"`
 	StreamARN    string `json:"streamARN" xml:"StreamARN"`
@@ -348,6 +479,54 @@ type RemoveTagsFromStreamInput struct {
 	StreamId   string     `json:"streamId" xml:"StreamId"`
 	StreamName string     `json:"streamName" xml:"StreamName"`
 	TagKeys    TagKeyList `json:"tagKeys" xml:"TagKeys"`
+}
+
+type S3DestinationConfiguration struct {
+	DataFreshnessInSeconds         int32                           `json:"dataFreshnessInSeconds" xml:"DataFreshnessInSeconds"`
+	DeadLetterQueueS3Configuration *DeadLetterQueueS3Configuration `json:"deadLetterQueueS3Configuration" xml:"DeadLetterQueueS3Configuration"`
+	StorageConfiguration           *S3StorageConfiguration         `json:"storageConfiguration" xml:"StorageConfiguration"`
+}
+
+type S3DestinationDescription struct {
+	DataFreshnessInSeconds         int32                           `json:"dataFreshnessInSeconds" xml:"DataFreshnessInSeconds"`
+	DeadLetterQueueS3Configuration *DeadLetterQueueS3Configuration `json:"deadLetterQueueS3Configuration" xml:"DeadLetterQueueS3Configuration"`
+	StorageConfiguration           *S3StorageConfiguration         `json:"storageConfiguration" xml:"StorageConfiguration"`
+}
+
+type S3DestinationUpdateInput struct {
+	DataFreshnessInSeconds int32 `json:"dataFreshnessInSeconds" xml:"DataFreshnessInSeconds"`
+}
+
+type S3StorageConfiguration struct {
+	BucketARN           string `json:"bucketARN" xml:"BucketARN"`
+	CompressionType     string `json:"compressionType" xml:"CompressionType"`
+	ExpectedBucketOwner string `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+	OutputKeyTemplate   string `json:"outputKeyTemplate" xml:"OutputKeyTemplate"`
+	StorageClass        string `json:"storageClass" xml:"StorageClass"`
+}
+
+type S3TablesConfiguration struct {
+	CompressionType string         `json:"compressionType" xml:"CompressionType"`
+	Namespace       string         `json:"namespace" xml:"Namespace"`
+	PartitionSpec   *PartitionSpec `json:"partitionSpec" xml:"PartitionSpec"`
+	TableBucketARN  string         `json:"tableBucketARN" xml:"TableBucketARN"`
+	TableName       string         `json:"tableName" xml:"TableName"`
+}
+
+type S3TablesDestinationConfiguration struct {
+	DataFreshnessInSeconds         int32                           `json:"dataFreshnessInSeconds" xml:"DataFreshnessInSeconds"`
+	DeadLetterQueueS3Configuration *DeadLetterQueueS3Configuration `json:"deadLetterQueueS3Configuration" xml:"DeadLetterQueueS3Configuration"`
+	S3TablesConfigurationList      S3TablesConfigurationList       `json:"s3TablesConfigurationList" xml:"S3TablesConfigurationList"`
+}
+
+type S3TablesDestinationDescription struct {
+	DataFreshnessInSeconds         int32                           `json:"dataFreshnessInSeconds" xml:"DataFreshnessInSeconds"`
+	DeadLetterQueueS3Configuration *DeadLetterQueueS3Configuration `json:"deadLetterQueueS3Configuration" xml:"DeadLetterQueueS3Configuration"`
+	S3TablesConfigurationList      S3TablesConfigurationList       `json:"s3TablesConfigurationList" xml:"S3TablesConfigurationList"`
+}
+
+type S3TablesDestinationUpdateInput struct {
+	DataFreshnessInSeconds int32 `json:"dataFreshnessInSeconds" xml:"DataFreshnessInSeconds"`
 }
 
 type SequenceNumberRange struct {
@@ -417,6 +596,7 @@ type StreamDescription struct {
 }
 
 type StreamDescriptionSummary struct {
+	ChannelCount            int32                  `json:"channelCount" xml:"ChannelCount"`
 	ConsumerCount           int32                  `json:"consumerCount" xml:"ConsumerCount"`
 	EncryptionType          string                 `json:"encryptionType" xml:"EncryptionType"`
 	EnhancedMonitoring      EnhancedMonitoringList `json:"enhancedMonitoring" xml:"EnhancedMonitoring"`
@@ -431,6 +611,11 @@ type StreamDescriptionSummary struct {
 	StreamName              string                 `json:"streamName" xml:"StreamName"`
 	StreamStatus            string                 `json:"streamStatus" xml:"StreamStatus"`
 	WarmThroughput          *WarmThroughputObject  `json:"warmThroughput" xml:"WarmThroughput"`
+}
+
+type StreamFilter struct {
+	StreamARN               string    `json:"streamARN" xml:"StreamARN"`
+	StreamCreationTimestamp time.Time `json:"streamCreationTimestamp" xml:"StreamCreationTimestamp"`
 }
 
 type StreamModeDetails struct {
@@ -454,6 +639,7 @@ type SubscribeToShardEvent struct {
 
 type SubscribeToShardInput struct {
 	ConsumerARN      string            `json:"consumerARN" xml:"ConsumerARN"`
+	DryRun           bool              `json:"dryRun" xml:"DryRun"`
 	ShardId          string            `json:"shardId" xml:"ShardId"`
 	StartingPosition *StartingPosition `json:"startingPosition" xml:"StartingPosition"`
 	StreamId         string            `json:"streamId" xml:"StreamId"`
@@ -486,6 +672,17 @@ type UpdateAccountSettingsInput struct {
 
 type UpdateAccountSettingsOutput struct {
 	MinimumThroughputBillingCommitment *MinimumThroughputBillingCommitmentOutput `json:"minimumThroughputBillingCommitment" xml:"MinimumThroughputBillingCommitment"`
+}
+
+type UpdateChannelInput struct {
+	ChannelARN                       string                          `json:"channelARN" xml:"ChannelARN"`
+	LoggingConfiguration             *ChannelLoggingUpdateInput      `json:"loggingConfiguration" xml:"LoggingConfiguration"`
+	S3DestinationConfiguration       *S3DestinationUpdateInput       `json:"s3DestinationConfiguration" xml:"S3DestinationConfiguration"`
+	S3TablesDestinationConfiguration *S3TablesDestinationUpdateInput `json:"s3TablesDestinationConfiguration" xml:"S3TablesDestinationConfiguration"`
+}
+
+type UpdateChannelOutput struct {
+	ChannelDescription *ChannelDescription `json:"channelDescription" xml:"ChannelDescription"`
 }
 
 type UpdateMaxRecordSizeInput struct {
@@ -534,6 +731,14 @@ type WarmThroughputObject struct {
 	TargetMiBps  int32 `json:"targetMiBps" xml:"TargetMiBps"`
 }
 
+type ChannelStreamConfigurationList []*ChannelStreamConfiguration
+
+type ChannelStreamDescriptionList []*ChannelStreamDescription
+
+type ChannelStreamIdentifierList []*ChannelStreamIdentifier
+
+type ChannelSummaryList []*ChannelSummary
+
 type ChildShardList []*ChildShard
 
 type ConsumerList []*Consumer
@@ -542,15 +747,21 @@ type EnhancedMonitoringList []*EnhancedMetrics
 
 type MetricsNameList []string
 
+type PartitionFieldList []*PartitionField
+
 type PutRecordsRequestEntryList []*PutRecordsRequestEntry
 
 type PutRecordsResultEntryList []*PutRecordsResultEntry
 
 type RecordList []*Record
 
+type S3TablesConfigurationList []*S3TablesConfiguration
+
 type ShardIdList []string
 
 type ShardList []*Shard
+
+type StreamFilterList []*StreamFilter
 
 type StreamNameList []string
 

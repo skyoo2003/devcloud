@@ -19,6 +19,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "CreateActivation"},
 	{Method: "", Pattern: "", Operation: "CreateAssociation"},
 	{Method: "", Pattern: "", Operation: "CreateAssociationBatch"},
+	{Method: "", Pattern: "", Operation: "CreateCloudConnector"},
 	{Method: "", Pattern: "", Operation: "CreateDocument"},
 	{Method: "", Pattern: "", Operation: "CreateMaintenanceWindow"},
 	{Method: "", Pattern: "", Operation: "CreateOpsItem"},
@@ -27,6 +28,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "CreateResourceDataSync"},
 	{Method: "", Pattern: "", Operation: "DeleteActivation"},
 	{Method: "", Pattern: "", Operation: "DeleteAssociation"},
+	{Method: "", Pattern: "", Operation: "DeleteCloudConnector"},
 	{Method: "", Pattern: "", Operation: "DeleteDocument"},
 	{Method: "", Pattern: "", Operation: "DeleteInventory"},
 	{Method: "", Pattern: "", Operation: "DeleteMaintenanceWindow"},
@@ -78,6 +80,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "GetAccessToken"},
 	{Method: "", Pattern: "", Operation: "GetAutomationExecution"},
 	{Method: "", Pattern: "", Operation: "GetCalendarState"},
+	{Method: "", Pattern: "", Operation: "GetCloudConnector"},
 	{Method: "", Pattern: "", Operation: "GetCommandInvocation"},
 	{Method: "", Pattern: "", Operation: "GetConnectionStatus"},
 	{Method: "", Pattern: "", Operation: "GetDefaultPatchBaseline"},
@@ -105,6 +108,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "LabelParameterVersion"},
 	{Method: "", Pattern: "", Operation: "ListAssociationVersions"},
 	{Method: "", Pattern: "", Operation: "ListAssociations"},
+	{Method: "", Pattern: "", Operation: "ListCloudConnectors"},
 	{Method: "", Pattern: "", Operation: "ListCommandInvocations"},
 	{Method: "", Pattern: "", Operation: "ListCommands"},
 	{Method: "", Pattern: "", Operation: "ListComplianceItems"},
@@ -146,6 +150,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "UnlabelParameterVersion"},
 	{Method: "", Pattern: "", Operation: "UpdateAssociation"},
 	{Method: "", Pattern: "", Operation: "UpdateAssociationStatus"},
+	{Method: "", Pattern: "", Operation: "UpdateCloudConnector"},
 	{Method: "", Pattern: "", Operation: "UpdateDocument"},
 	{Method: "", Pattern: "", Operation: "UpdateDocumentDefaultVersion"},
 	{Method: "", Pattern: "", Operation: "UpdateDocumentMetadata"},
@@ -158,6 +163,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "UpdatePatchBaseline"},
 	{Method: "", Pattern: "", Operation: "UpdateResourceDataSync"},
 	{Method: "", Pattern: "", Operation: "UpdateServiceSetting"},
+	{Method: "", Pattern: "", Operation: "ValidateCloudConnector"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

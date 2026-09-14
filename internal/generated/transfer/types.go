@@ -86,6 +86,7 @@ type CreateConnectorRequest struct {
 	AccessRole         string               `json:"accessRole" xml:"AccessRole"`
 	As2Config          *As2ConnectorConfig  `json:"as2Config" xml:"As2Config"`
 	EgressConfig       interface{}          `json:"egressConfig" xml:"EgressConfig"`
+	IpAddressType      string               `json:"ipAddressType" xml:"IpAddressType"`
 	LoggingRole        string               `json:"loggingRole" xml:"LoggingRole"`
 	SecurityPolicyName string               `json:"securityPolicyName" xml:"SecurityPolicyName"`
 	SftpConfig         *SftpConnectorConfig `json:"sftpConfig" xml:"SftpConfig"`
@@ -425,6 +426,7 @@ type DescribedConnector struct {
 	EgressConfig                    interface{}                     `json:"egressConfig" xml:"EgressConfig"`
 	EgressType                      string                          `json:"egressType" xml:"EgressType"`
 	ErrorMessage                    string                          `json:"errorMessage" xml:"ErrorMessage"`
+	IpAddressType                   string                          `json:"ipAddressType" xml:"IpAddressType"`
 	LoggingRole                     string                          `json:"loggingRole" xml:"LoggingRole"`
 	SecurityPolicyName              string                          `json:"securityPolicyName" xml:"SecurityPolicyName"`
 	ServiceManagedEgressIpAddresses ServiceManagedEgressIpAddresses `json:"serviceManagedEgressIpAddresses" xml:"ServiceManagedEgressIpAddresses"`
@@ -958,9 +960,10 @@ type ServiceMetadata struct {
 }
 
 type SftpConnectorConfig struct {
-	MaxConcurrentConnections int32                           `json:"maxConcurrentConnections" xml:"MaxConcurrentConnections"`
-	TrustedHostKeys          SftpConnectorTrustedHostKeyList `json:"trustedHostKeys" xml:"TrustedHostKeys"`
-	UserSecretId             string                          `json:"userSecretId" xml:"UserSecretId"`
+	MaxConcurrentConnections       int32                           `json:"maxConcurrentConnections" xml:"MaxConcurrentConnections"`
+	OrderedUserSecretVersionStages SecretVersionStageList          `json:"orderedUserSecretVersionStages" xml:"OrderedUserSecretVersionStages"`
+	TrustedHostKeys                SftpConnectorTrustedHostKeyList `json:"trustedHostKeys" xml:"TrustedHostKeys"`
+	UserSecretId                   string                          `json:"userSecretId" xml:"UserSecretId"`
 }
 
 type SftpConnectorConnectionDetails struct {
@@ -1125,6 +1128,7 @@ type UpdateConnectorRequest struct {
 	As2Config          *As2ConnectorConfig  `json:"as2Config" xml:"As2Config"`
 	ConnectorId        string               `json:"connectorId" xml:"ConnectorId"`
 	EgressConfig       interface{}          `json:"egressConfig" xml:"EgressConfig"`
+	IpAddressType      string               `json:"ipAddressType" xml:"IpAddressType"`
 	LoggingRole        string               `json:"loggingRole" xml:"LoggingRole"`
 	SecurityPolicyName string               `json:"securityPolicyName" xml:"SecurityPolicyName"`
 	SftpConfig         *SftpConnectorConfig `json:"sftpConfig" xml:"SftpConfig"`
@@ -1228,7 +1232,8 @@ type UpdateWebAppResponse struct {
 }
 
 type UpdateWebAppVpcConfig struct {
-	SubnetIds SubnetIds `json:"subnetIds" xml:"SubnetIds"`
+	IpAddressType string    `json:"ipAddressType" xml:"IpAddressType"`
+	SubnetIds     SubnetIds `json:"subnetIds" xml:"SubnetIds"`
 }
 
 type UserDetails struct {
@@ -1238,6 +1243,7 @@ type UserDetails struct {
 }
 
 type WebAppVpcConfig struct {
+	IpAddressType    string           `json:"ipAddressType" xml:"IpAddressType"`
 	SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
 	SubnetIds        SubnetIds        `json:"subnetIds" xml:"SubnetIds"`
 	VpcId            string           `json:"vpcId" xml:"VpcId"`
@@ -1313,6 +1319,8 @@ type Protocols []string
 type S3Tags []*S3Tag
 
 type SecondaryGids []int64
+
+type SecretVersionStageList []string
 
 type SecurityGroupIds []string
 

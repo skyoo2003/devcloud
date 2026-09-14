@@ -37,6 +37,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "EvaluatePullRequestApprovalRules"},
 	{Method: "", Pattern: "", Operation: "GetApprovalRuleTemplate"},
 	{Method: "", Pattern: "", Operation: "GetBlob"},
+	{Method: "", Pattern: "", Operation: "GetBlobDifferences"},
 	{Method: "", Pattern: "", Operation: "GetBranch"},
 	{Method: "", Pattern: "", Operation: "GetComment"},
 	{Method: "", Pattern: "", Operation: "GetCommentReactions"},

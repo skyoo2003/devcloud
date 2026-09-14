@@ -103,6 +103,10 @@ func (b *BaseProvider) CreateIntegration(ctx context.Context, input *CreateInteg
 	return nil, fmt.Errorf("CreateIntegration: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateQev2IdcApplication(ctx context.Context, input *CreateQev2IdcApplicationMessage) (*CreateQev2IdcApplicationResult, error) {
+	return nil, fmt.Errorf("CreateQev2IdcApplication: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateRedshiftIdcApplication(ctx context.Context, input *CreateRedshiftIdcApplicationMessage) (*CreateRedshiftIdcApplicationResult, error) {
 	return nil, fmt.Errorf("CreateRedshiftIdcApplication: %w", ErrNotImplemented)
 }
@@ -181,6 +185,10 @@ func (b *BaseProvider) DeleteIntegration(ctx context.Context, input *DeleteInteg
 
 func (b *BaseProvider) DeletePartner(ctx context.Context, input *PartnerIntegrationInputMessage) (*PartnerIntegrationOutputMessage, error) {
 	return nil, fmt.Errorf("DeletePartner: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteQev2IdcApplication(ctx context.Context, input *DeleteQev2IdcApplicationMessage) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteQev2IdcApplication: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteRedshiftIdcApplication(ctx context.Context, input *DeleteRedshiftIdcApplicationMessage) (*SmithyUnit, error) {
@@ -329,6 +337,10 @@ func (b *BaseProvider) DescribeOrderableClusterOptions(ctx context.Context, inpu
 
 func (b *BaseProvider) DescribePartners(ctx context.Context, input *DescribePartnersInputMessage) (*DescribePartnersOutputMessage, error) {
 	return nil, fmt.Errorf("DescribePartners: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeQev2IdcApplications(ctx context.Context, input *DescribeQev2IdcApplicationsMessage) (*DescribeQev2IdcApplicationsResult, error) {
+	return nil, fmt.Errorf("DescribeQev2IdcApplications: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeRedshiftIdcApplications(ctx context.Context, input *DescribeRedshiftIdcApplicationsMessage) (*DescribeRedshiftIdcApplicationsResult, error) {
@@ -489,6 +501,10 @@ func (b *BaseProvider) ModifyIntegration(ctx context.Context, input *ModifyInteg
 
 func (b *BaseProvider) ModifyLakehouseConfiguration(ctx context.Context, input *ModifyLakehouseConfigurationMessage) (*LakehouseConfiguration, error) {
 	return nil, fmt.Errorf("ModifyLakehouseConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ModifyQev2IdcApplication(ctx context.Context, input *ModifyQev2IdcApplicationMessage) (*ModifyQev2IdcApplicationResult, error) {
+	return nil, fmt.Errorf("ModifyQev2IdcApplication: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ModifyRedshiftIdcApplication(ctx context.Context, input *ModifyRedshiftIdcApplicationMessage) (*ModifyRedshiftIdcApplicationResult, error) {

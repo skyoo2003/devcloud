@@ -39,6 +39,7 @@ type AlarmPromQLCriteria struct {
 }
 
 type AnomalyDetector struct {
+	AnomalyDetectorId           string                        `json:"anomalyDetectorId" xml:"AnomalyDetectorId"`
 	Configuration               *AnomalyDetectorConfiguration `json:"configuration" xml:"Configuration"`
 	Dimensions                  Dimensions                    `json:"dimensions" xml:"Dimensions"`
 	MetricCharacteristics       *MetricCharacteristics        `json:"metricCharacteristics" xml:"MetricCharacteristics"`
@@ -53,6 +54,14 @@ type AnomalyDetector struct {
 type AnomalyDetectorConfiguration struct {
 	ExcludedTimeRanges AnomalyDetectorExcludedTimeRanges `json:"excludedTimeRanges" xml:"ExcludedTimeRanges"`
 	MetricTimezone     string                            `json:"metricTimezone" xml:"MetricTimezone"`
+}
+
+type AssociateDatasetKmsKeyInput struct {
+	DatasetIdentifier string `json:"datasetIdentifier" xml:"DatasetIdentifier"`
+	KmsKeyArn         string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+}
+
+type AssociateDatasetKmsKeyOutput struct {
 }
 
 type CompositeAlarm struct {
@@ -109,6 +118,7 @@ type DeleteAlarmsInput struct {
 }
 
 type DeleteAnomalyDetectorInput struct {
+	AnomalyDetectorId           string                       `json:"anomalyDetectorId" xml:"AnomalyDetectorId"`
 	Dimensions                  Dimensions                   `json:"dimensions" xml:"Dimensions"`
 	MetricMathAnomalyDetector   *MetricMathAnomalyDetector   `json:"metricMathAnomalyDetector" xml:"MetricMathAnomalyDetector"`
 	MetricName                  string                       `json:"metricName" xml:"MetricName"`
@@ -197,11 +207,13 @@ type DescribeAlarmsInput struct {
 
 type DescribeAlarmsOutput struct {
 	CompositeAlarms CompositeAlarms `json:"compositeAlarms" xml:"CompositeAlarms"`
+	LogAlarms       LogAlarms       `json:"logAlarms" xml:"LogAlarms"`
 	MetricAlarms    MetricAlarms    `json:"metricAlarms" xml:"MetricAlarms"`
 	NextToken       string          `json:"nextToken" xml:"NextToken"`
 }
 
 type DescribeAnomalyDetectorsInput struct {
+	AnomalyDetectorIds   AnomalyDetectorIds   `json:"anomalyDetectorIds" xml:"AnomalyDetectorIds"`
 	AnomalyDetectorTypes AnomalyDetectorTypes `json:"anomalyDetectorTypes" xml:"AnomalyDetectorTypes"`
 	Dimensions           Dimensions           `json:"dimensions" xml:"Dimensions"`
 	MaxResults           int32                `json:"maxResults" xml:"MaxResults"`
@@ -245,6 +257,13 @@ type DisableInsightRulesInput struct {
 
 type DisableInsightRulesOutput struct {
 	Failures BatchFailures `json:"failures" xml:"Failures"`
+}
+
+type DisassociateDatasetKmsKeyInput struct {
+	DatasetIdentifier string `json:"datasetIdentifier" xml:"DatasetIdentifier"`
+}
+
+type DisassociateDatasetKmsKeyOutput struct {
 }
 
 type EnableAlarmActionsInput struct {
@@ -294,6 +313,16 @@ type GetDashboardOutput struct {
 	DashboardArn  string `json:"dashboardArn" xml:"DashboardArn"`
 	DashboardBody string `json:"dashboardBody" xml:"DashboardBody"`
 	DashboardName string `json:"dashboardName" xml:"DashboardName"`
+}
+
+type GetDatasetInput struct {
+	DatasetIdentifier string `json:"datasetIdentifier" xml:"DatasetIdentifier"`
+}
+
+type GetDatasetOutput struct {
+	Arn       string `json:"arn" xml:"Arn"`
+	DatasetId string `json:"datasetId" xml:"DatasetId"`
+	KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
 }
 
 type GetInsightRuleReportInput struct {
@@ -485,6 +514,32 @@ type ListTagsForResourceOutput struct {
 	Tags TagList `json:"tags" xml:"Tags"`
 }
 
+type LogAlarm struct {
+	ActionLogLineCount                 int32                        `json:"actionLogLineCount" xml:"ActionLogLineCount"`
+	ActionLogLineRoleArn               string                       `json:"actionLogLineRoleArn" xml:"ActionLogLineRoleArn"`
+	ActionsEnabled                     bool                         `json:"actionsEnabled" xml:"ActionsEnabled"`
+	AlarmActions                       ResourceList                 `json:"alarmActions" xml:"AlarmActions"`
+	AlarmArn                           string                       `json:"alarmArn" xml:"AlarmArn"`
+	AlarmConfigurationUpdatedTimestamp time.Time                    `json:"alarmConfigurationUpdatedTimestamp" xml:"AlarmConfigurationUpdatedTimestamp"`
+	AlarmDescription                   string                       `json:"alarmDescription" xml:"AlarmDescription"`
+	AlarmName                          string                       `json:"alarmName" xml:"AlarmName"`
+	ComparisonOperator                 string                       `json:"comparisonOperator" xml:"ComparisonOperator"`
+	EvaluationState                    string                       `json:"evaluationState" xml:"EvaluationState"`
+	InsufficientDataActions            ResourceList                 `json:"insufficientDataActions" xml:"InsufficientDataActions"`
+	OKActions                          ResourceList                 `json:"oKActions" xml:"OKActions"`
+	QueryResultsToAlarm                int32                        `json:"queryResultsToAlarm" xml:"QueryResultsToAlarm"`
+	QueryResultsToEvaluate             int32                        `json:"queryResultsToEvaluate" xml:"QueryResultsToEvaluate"`
+	ScheduledQueryConfiguration        *ScheduledQueryConfiguration `json:"scheduledQueryConfiguration" xml:"ScheduledQueryConfiguration"`
+	StateReason                        string                       `json:"stateReason" xml:"StateReason"`
+	StateReasonData                    string                       `json:"stateReasonData" xml:"StateReasonData"`
+	StateTransitionedTimestamp         time.Time                    `json:"stateTransitionedTimestamp" xml:"StateTransitionedTimestamp"`
+	StateUpdatedTimestamp              time.Time                    `json:"stateUpdatedTimestamp" xml:"StateUpdatedTimestamp"`
+	StateValue                         string                       `json:"stateValue" xml:"StateValue"`
+	Threshold                          float64                      `json:"threshold" xml:"Threshold"`
+	TreatMissingData                   string                       `json:"treatMissingData" xml:"TreatMissingData"`
+	WarmUpConfiguration                *WarmUpConfiguration         `json:"warmUpConfiguration" xml:"WarmUpConfiguration"`
+}
+
 type ManagedRule struct {
 	ResourceARN  string  `json:"resourceARN" xml:"ResourceARN"`
 	Tags         TagList `json:"tags" xml:"Tags"`
@@ -514,37 +569,39 @@ type Metric struct {
 }
 
 type MetricAlarm struct {
-	ActionsEnabled                     bool              `json:"actionsEnabled" xml:"ActionsEnabled"`
-	AlarmActions                       ResourceList      `json:"alarmActions" xml:"AlarmActions"`
-	AlarmArn                           string            `json:"alarmArn" xml:"AlarmArn"`
-	AlarmConfigurationUpdatedTimestamp time.Time         `json:"alarmConfigurationUpdatedTimestamp" xml:"AlarmConfigurationUpdatedTimestamp"`
-	AlarmDescription                   string            `json:"alarmDescription" xml:"AlarmDescription"`
-	AlarmName                          string            `json:"alarmName" xml:"AlarmName"`
-	ComparisonOperator                 string            `json:"comparisonOperator" xml:"ComparisonOperator"`
-	DatapointsToAlarm                  int32             `json:"datapointsToAlarm" xml:"DatapointsToAlarm"`
-	Dimensions                         Dimensions        `json:"dimensions" xml:"Dimensions"`
-	EvaluateLowSampleCountPercentile   string            `json:"evaluateLowSampleCountPercentile" xml:"EvaluateLowSampleCountPercentile"`
-	EvaluationCriteria                 interface{}       `json:"evaluationCriteria" xml:"EvaluationCriteria"`
-	EvaluationInterval                 int32             `json:"evaluationInterval" xml:"EvaluationInterval"`
-	EvaluationPeriods                  int32             `json:"evaluationPeriods" xml:"EvaluationPeriods"`
-	EvaluationState                    string            `json:"evaluationState" xml:"EvaluationState"`
-	ExtendedStatistic                  string            `json:"extendedStatistic" xml:"ExtendedStatistic"`
-	InsufficientDataActions            ResourceList      `json:"insufficientDataActions" xml:"InsufficientDataActions"`
-	MetricName                         string            `json:"metricName" xml:"MetricName"`
-	Metrics                            MetricDataQueries `json:"metrics" xml:"Metrics"`
-	Namespace                          string            `json:"namespace" xml:"Namespace"`
-	OKActions                          ResourceList      `json:"oKActions" xml:"OKActions"`
-	Period                             int32             `json:"period" xml:"Period"`
-	StateReason                        string            `json:"stateReason" xml:"StateReason"`
-	StateReasonData                    string            `json:"stateReasonData" xml:"StateReasonData"`
-	StateTransitionedTimestamp         time.Time         `json:"stateTransitionedTimestamp" xml:"StateTransitionedTimestamp"`
-	StateUpdatedTimestamp              time.Time         `json:"stateUpdatedTimestamp" xml:"StateUpdatedTimestamp"`
-	StateValue                         string            `json:"stateValue" xml:"StateValue"`
-	Statistic                          string            `json:"statistic" xml:"Statistic"`
-	Threshold                          float64           `json:"threshold" xml:"Threshold"`
-	ThresholdMetricId                  string            `json:"thresholdMetricId" xml:"ThresholdMetricId"`
-	TreatMissingData                   string            `json:"treatMissingData" xml:"TreatMissingData"`
-	Unit                               string            `json:"unit" xml:"Unit"`
+	ActionsEnabled                     bool                 `json:"actionsEnabled" xml:"ActionsEnabled"`
+	AlarmActions                       ResourceList         `json:"alarmActions" xml:"AlarmActions"`
+	AlarmArn                           string               `json:"alarmArn" xml:"AlarmArn"`
+	AlarmConfigurationUpdatedTimestamp time.Time            `json:"alarmConfigurationUpdatedTimestamp" xml:"AlarmConfigurationUpdatedTimestamp"`
+	AlarmDescription                   string               `json:"alarmDescription" xml:"AlarmDescription"`
+	AlarmName                          string               `json:"alarmName" xml:"AlarmName"`
+	ComparisonOperator                 string               `json:"comparisonOperator" xml:"ComparisonOperator"`
+	DatapointsToAlarm                  int32                `json:"datapointsToAlarm" xml:"DatapointsToAlarm"`
+	Dimensions                         Dimensions           `json:"dimensions" xml:"Dimensions"`
+	EvaluateLowSampleCountPercentile   string               `json:"evaluateLowSampleCountPercentile" xml:"EvaluateLowSampleCountPercentile"`
+	EvaluationCriteria                 interface{}          `json:"evaluationCriteria" xml:"EvaluationCriteria"`
+	EvaluationInterval                 int32                `json:"evaluationInterval" xml:"EvaluationInterval"`
+	EvaluationPeriods                  int32                `json:"evaluationPeriods" xml:"EvaluationPeriods"`
+	EvaluationState                    string               `json:"evaluationState" xml:"EvaluationState"`
+	EvaluationWindow                   interface{}          `json:"evaluationWindow" xml:"EvaluationWindow"`
+	ExtendedStatistic                  string               `json:"extendedStatistic" xml:"ExtendedStatistic"`
+	InsufficientDataActions            ResourceList         `json:"insufficientDataActions" xml:"InsufficientDataActions"`
+	MetricName                         string               `json:"metricName" xml:"MetricName"`
+	Metrics                            MetricDataQueries    `json:"metrics" xml:"Metrics"`
+	Namespace                          string               `json:"namespace" xml:"Namespace"`
+	OKActions                          ResourceList         `json:"oKActions" xml:"OKActions"`
+	Period                             int32                `json:"period" xml:"Period"`
+	StateReason                        string               `json:"stateReason" xml:"StateReason"`
+	StateReasonData                    string               `json:"stateReasonData" xml:"StateReasonData"`
+	StateTransitionedTimestamp         time.Time            `json:"stateTransitionedTimestamp" xml:"StateTransitionedTimestamp"`
+	StateUpdatedTimestamp              time.Time            `json:"stateUpdatedTimestamp" xml:"StateUpdatedTimestamp"`
+	StateValue                         string               `json:"stateValue" xml:"StateValue"`
+	Statistic                          string               `json:"statistic" xml:"Statistic"`
+	Threshold                          float64              `json:"threshold" xml:"Threshold"`
+	ThresholdMetricId                  string               `json:"thresholdMetricId" xml:"ThresholdMetricId"`
+	TreatMissingData                   string               `json:"treatMissingData" xml:"TreatMissingData"`
+	Unit                               string               `json:"unit" xml:"Unit"`
+	WarmUpConfiguration                *WarmUpConfiguration `json:"warmUpConfiguration" xml:"WarmUpConfiguration"`
 }
 
 type MetricCharacteristics struct {
@@ -651,6 +708,7 @@ type PutAnomalyDetectorInput struct {
 }
 
 type PutAnomalyDetectorOutput struct {
+	AnomalyDetectorId string `json:"anomalyDetectorId" xml:"AnomalyDetectorId"`
 }
 
 type PutCompositeAlarmInput struct {
@@ -668,8 +726,9 @@ type PutCompositeAlarmInput struct {
 }
 
 type PutDashboardInput struct {
-	DashboardBody string `json:"dashboardBody" xml:"DashboardBody"`
-	DashboardName string `json:"dashboardName" xml:"DashboardName"`
+	DashboardBody string  `json:"dashboardBody" xml:"DashboardBody"`
+	DashboardName string  `json:"dashboardName" xml:"DashboardName"`
+	Tags          TagList `json:"tags" xml:"Tags"`
 }
 
 type PutDashboardOutput struct {
@@ -687,6 +746,25 @@ type PutInsightRuleInput struct {
 type PutInsightRuleOutput struct {
 }
 
+type PutLogAlarmInput struct {
+	ActionLogLineCount          int32                        `json:"actionLogLineCount" xml:"ActionLogLineCount"`
+	ActionLogLineRoleArn        string                       `json:"actionLogLineRoleArn" xml:"ActionLogLineRoleArn"`
+	ActionsEnabled              bool                         `json:"actionsEnabled" xml:"ActionsEnabled"`
+	AlarmActions                ResourceList                 `json:"alarmActions" xml:"AlarmActions"`
+	AlarmDescription            string                       `json:"alarmDescription" xml:"AlarmDescription"`
+	AlarmName                   string                       `json:"alarmName" xml:"AlarmName"`
+	ComparisonOperator          string                       `json:"comparisonOperator" xml:"ComparisonOperator"`
+	InsufficientDataActions     ResourceList                 `json:"insufficientDataActions" xml:"InsufficientDataActions"`
+	OKActions                   ResourceList                 `json:"oKActions" xml:"OKActions"`
+	QueryResultsToAlarm         int32                        `json:"queryResultsToAlarm" xml:"QueryResultsToAlarm"`
+	QueryResultsToEvaluate      int32                        `json:"queryResultsToEvaluate" xml:"QueryResultsToEvaluate"`
+	ScheduledQueryConfiguration *ScheduledQueryConfiguration `json:"scheduledQueryConfiguration" xml:"ScheduledQueryConfiguration"`
+	Tags                        TagList                      `json:"tags" xml:"Tags"`
+	Threshold                   float64                      `json:"threshold" xml:"Threshold"`
+	TreatMissingData            string                       `json:"treatMissingData" xml:"TreatMissingData"`
+	WarmUpConfiguration         *WarmUpConfiguration         `json:"warmUpConfiguration" xml:"WarmUpConfiguration"`
+}
+
 type PutManagedInsightRulesInput struct {
 	ManagedRules ManagedRules `json:"managedRules" xml:"ManagedRules"`
 }
@@ -696,30 +774,32 @@ type PutManagedInsightRulesOutput struct {
 }
 
 type PutMetricAlarmInput struct {
-	ActionsEnabled                   bool              `json:"actionsEnabled" xml:"ActionsEnabled"`
-	AlarmActions                     ResourceList      `json:"alarmActions" xml:"AlarmActions"`
-	AlarmDescription                 string            `json:"alarmDescription" xml:"AlarmDescription"`
-	AlarmName                        string            `json:"alarmName" xml:"AlarmName"`
-	ComparisonOperator               string            `json:"comparisonOperator" xml:"ComparisonOperator"`
-	DatapointsToAlarm                int32             `json:"datapointsToAlarm" xml:"DatapointsToAlarm"`
-	Dimensions                       Dimensions        `json:"dimensions" xml:"Dimensions"`
-	EvaluateLowSampleCountPercentile string            `json:"evaluateLowSampleCountPercentile" xml:"EvaluateLowSampleCountPercentile"`
-	EvaluationCriteria               interface{}       `json:"evaluationCriteria" xml:"EvaluationCriteria"`
-	EvaluationInterval               int32             `json:"evaluationInterval" xml:"EvaluationInterval"`
-	EvaluationPeriods                int32             `json:"evaluationPeriods" xml:"EvaluationPeriods"`
-	ExtendedStatistic                string            `json:"extendedStatistic" xml:"ExtendedStatistic"`
-	InsufficientDataActions          ResourceList      `json:"insufficientDataActions" xml:"InsufficientDataActions"`
-	MetricName                       string            `json:"metricName" xml:"MetricName"`
-	Metrics                          MetricDataQueries `json:"metrics" xml:"Metrics"`
-	Namespace                        string            `json:"namespace" xml:"Namespace"`
-	OKActions                        ResourceList      `json:"oKActions" xml:"OKActions"`
-	Period                           int32             `json:"period" xml:"Period"`
-	Statistic                        string            `json:"statistic" xml:"Statistic"`
-	Tags                             TagList           `json:"tags" xml:"Tags"`
-	Threshold                        float64           `json:"threshold" xml:"Threshold"`
-	ThresholdMetricId                string            `json:"thresholdMetricId" xml:"ThresholdMetricId"`
-	TreatMissingData                 string            `json:"treatMissingData" xml:"TreatMissingData"`
-	Unit                             string            `json:"unit" xml:"Unit"`
+	ActionsEnabled                   bool                 `json:"actionsEnabled" xml:"ActionsEnabled"`
+	AlarmActions                     ResourceList         `json:"alarmActions" xml:"AlarmActions"`
+	AlarmDescription                 string               `json:"alarmDescription" xml:"AlarmDescription"`
+	AlarmName                        string               `json:"alarmName" xml:"AlarmName"`
+	ComparisonOperator               string               `json:"comparisonOperator" xml:"ComparisonOperator"`
+	DatapointsToAlarm                int32                `json:"datapointsToAlarm" xml:"DatapointsToAlarm"`
+	Dimensions                       Dimensions           `json:"dimensions" xml:"Dimensions"`
+	EvaluateLowSampleCountPercentile string               `json:"evaluateLowSampleCountPercentile" xml:"EvaluateLowSampleCountPercentile"`
+	EvaluationCriteria               interface{}          `json:"evaluationCriteria" xml:"EvaluationCriteria"`
+	EvaluationInterval               int32                `json:"evaluationInterval" xml:"EvaluationInterval"`
+	EvaluationPeriods                int32                `json:"evaluationPeriods" xml:"EvaluationPeriods"`
+	EvaluationWindow                 interface{}          `json:"evaluationWindow" xml:"EvaluationWindow"`
+	ExtendedStatistic                string               `json:"extendedStatistic" xml:"ExtendedStatistic"`
+	InsufficientDataActions          ResourceList         `json:"insufficientDataActions" xml:"InsufficientDataActions"`
+	MetricName                       string               `json:"metricName" xml:"MetricName"`
+	Metrics                          MetricDataQueries    `json:"metrics" xml:"Metrics"`
+	Namespace                        string               `json:"namespace" xml:"Namespace"`
+	OKActions                        ResourceList         `json:"oKActions" xml:"OKActions"`
+	Period                           int32                `json:"period" xml:"Period"`
+	Statistic                        string               `json:"statistic" xml:"Statistic"`
+	Tags                             TagList              `json:"tags" xml:"Tags"`
+	Threshold                        float64              `json:"threshold" xml:"Threshold"`
+	ThresholdMetricId                string               `json:"thresholdMetricId" xml:"ThresholdMetricId"`
+	TreatMissingData                 string               `json:"treatMissingData" xml:"TreatMissingData"`
+	Unit                             string               `json:"unit" xml:"Unit"`
+	WarmUpConfiguration              *WarmUpConfiguration `json:"warmUpConfiguration" xml:"WarmUpConfiguration"`
 }
 
 type PutMetricDataInput struct {
@@ -760,6 +840,22 @@ type Schedule struct {
 	Timezone   string `json:"timezone" xml:"Timezone"`
 }
 
+type ScheduleConfiguration struct {
+	EndTimeOffset      int64  `json:"endTimeOffset" xml:"EndTimeOffset"`
+	ScheduleExpression string `json:"scheduleExpression" xml:"ScheduleExpression"`
+	StartTimeOffset    int64  `json:"startTimeOffset" xml:"StartTimeOffset"`
+}
+
+type ScheduledQueryConfiguration struct {
+	AggregationExpression string                 `json:"aggregationExpression" xml:"AggregationExpression"`
+	LogGroupIdentifiers   LogGroupIdentifiers    `json:"logGroupIdentifiers" xml:"LogGroupIdentifiers"`
+	QueryARN              string                 `json:"queryARN" xml:"QueryARN"`
+	QueryString           string                 `json:"queryString" xml:"QueryString"`
+	ScheduleConfiguration *ScheduleConfiguration `json:"scheduleConfiguration" xml:"ScheduleConfiguration"`
+	ScheduledQueryRoleARN string                 `json:"scheduledQueryRoleARN" xml:"ScheduledQueryRoleARN"`
+	Tags                  TagList                `json:"tags" xml:"Tags"`
+}
+
 type SetAlarmStateInput struct {
 	AlarmName       string `json:"alarmName" xml:"AlarmName"`
 	StateReason     string `json:"stateReason" xml:"StateReason"`
@@ -773,6 +869,9 @@ type SingleMetricAnomalyDetector struct {
 	MetricName string     `json:"metricName" xml:"MetricName"`
 	Namespace  string     `json:"namespace" xml:"Namespace"`
 	Stat       string     `json:"stat" xml:"Stat"`
+}
+
+type SlidingWindow struct {
 }
 
 type SmithyUnit struct {
@@ -832,6 +931,15 @@ type UntagResourceInput struct {
 type UntagResourceOutput struct {
 }
 
+type WallClockWindow struct {
+	Timezone string `json:"timezone" xml:"Timezone"`
+}
+
+type WarmUpConfiguration struct {
+	OnlyStartEvaluatingAfterWarmUpPeriodEnds bool  `json:"onlyStartEvaluatingAfterWarmUpPeriodEnds" xml:"OnlyStartEvaluatingAfterWarmUpPeriodEnds"`
+	WarmUpPeriodDurationInMinutes            int32 `json:"warmUpPeriodDurationInMinutes" xml:"WarmUpPeriodDurationInMinutes"`
+}
+
 type AlarmContributors []*AlarmContributor
 
 type AlarmHistoryItems []*AlarmHistoryItem
@@ -845,6 +953,8 @@ type AlarmNames []string
 type AlarmTypes []string
 
 type AnomalyDetectorExcludedTimeRanges []*Range
+
+type AnomalyDetectorIds []string
 
 type AnomalyDetectorTypes []string
 
@@ -889,6 +999,10 @@ type InsightRuleMetricList []string
 type InsightRuleNames []string
 
 type InsightRules []*InsightRule
+
+type LogAlarms []*LogAlarm
+
+type LogGroupIdentifiers []string
 
 type ManagedRuleDescriptions []*ManagedRuleDescription
 
@@ -945,3 +1059,5 @@ type EntityAttributesMap map[string]string
 type EntityKeyAttributesMap map[string]string
 
 type EvaluationCriteria interface{}
+
+type EvaluationWindow interface{}

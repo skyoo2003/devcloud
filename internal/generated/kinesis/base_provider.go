@@ -15,12 +15,20 @@ func (b *BaseProvider) AddTagsToStream(ctx context.Context, input *AddTagsToStre
 	return nil, fmt.Errorf("AddTagsToStream: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateChannel(ctx context.Context, input *CreateChannelInput) (*CreateChannelOutput, error) {
+	return nil, fmt.Errorf("CreateChannel: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateStream(ctx context.Context, input *CreateStreamInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("CreateStream: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DecreaseStreamRetentionPeriod(ctx context.Context, input *DecreaseStreamRetentionPeriodInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DecreaseStreamRetentionPeriod: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteChannel(ctx context.Context, input *DeleteChannelInput) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteChannel: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteResourcePolicy(ctx context.Context, input *DeleteResourcePolicyInput) (*SmithyUnit, error) {
@@ -37,6 +45,10 @@ func (b *BaseProvider) DeregisterStreamConsumer(ctx context.Context, input *Dere
 
 func (b *BaseProvider) DescribeAccountSettings(ctx context.Context, input *DescribeAccountSettingsInput) (*DescribeAccountSettingsOutput, error) {
 	return nil, fmt.Errorf("DescribeAccountSettings: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeChannel(ctx context.Context, input *DescribeChannelInput) (*DescribeChannelOutput, error) {
+	return nil, fmt.Errorf("DescribeChannel: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeLimits(ctx context.Context, input *DescribeLimitsInput) (*DescribeLimitsOutput, error) {
@@ -77,6 +89,10 @@ func (b *BaseProvider) GetShardIterator(ctx context.Context, input *GetShardIter
 
 func (b *BaseProvider) IncreaseStreamRetentionPeriod(ctx context.Context, input *IncreaseStreamRetentionPeriodInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("IncreaseStreamRetentionPeriod: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListChannels(ctx context.Context, input *ListChannelsInput) (*ListChannelsOutput, error) {
+	return nil, fmt.Errorf("ListChannels: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListShards(ctx context.Context, input *ListShardsInput) (*ListShardsOutput, error) {
@@ -149,6 +165,10 @@ func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceIn
 
 func (b *BaseProvider) UpdateAccountSettings(ctx context.Context, input *UpdateAccountSettingsInput) (*UpdateAccountSettingsOutput, error) {
 	return nil, fmt.Errorf("UpdateAccountSettings: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateChannel(ctx context.Context, input *UpdateChannelInput) (*UpdateChannelOutput, error) {
+	return nil, fmt.Errorf("UpdateChannel: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateMaxRecordSize(ctx context.Context, input *UpdateMaxRecordSizeInput) (*SmithyUnit, error) {
