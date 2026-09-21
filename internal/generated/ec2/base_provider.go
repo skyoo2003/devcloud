@@ -23,6 +23,10 @@ func (b *BaseProvider) AcceptReservedInstancesExchangeQuote(ctx context.Context,
 	return nil, fmt.Errorf("AcceptReservedInstancesExchangeQuote: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) AcceptTransitGatewayClientVpnAttachment(ctx context.Context, input *AcceptTransitGatewayClientVpnAttachmentRequest) (*AcceptTransitGatewayClientVpnAttachmentResult, error) {
+	return nil, fmt.Errorf("AcceptTransitGatewayClientVpnAttachment: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) AcceptTransitGatewayMulticastDomainAssociations(ctx context.Context, input *AcceptTransitGatewayMulticastDomainAssociationsRequest) (*AcceptTransitGatewayMulticastDomainAssociationsResult, error) {
 	return nil, fmt.Errorf("AcceptTransitGatewayMulticastDomainAssociations: %w", ErrNotImplemented)
 }
@@ -77,6 +81,10 @@ func (b *BaseProvider) AssignPrivateNatGatewayAddress(ctx context.Context, input
 
 func (b *BaseProvider) AssociateAddress(ctx context.Context, input *AssociateAddressRequest) (*AssociateAddressResult, error) {
 	return nil, fmt.Errorf("AssociateAddress: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) AssociateApplicationStatusCheck(ctx context.Context, input *AssociateApplicationStatusCheckRequest) (*AssociateApplicationStatusCheckResult, error) {
+	return nil, fmt.Errorf("AssociateApplicationStatusCheck: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) AssociateCapacityReservationBillingOwner(ctx context.Context, input *AssociateCapacityReservationBillingOwnerRequest) (*AssociateCapacityReservationBillingOwnerResult, error) {
@@ -155,6 +163,10 @@ func (b *BaseProvider) AttachClassicLinkVpc(ctx context.Context, input *AttachCl
 	return nil, fmt.Errorf("AttachClassicLinkVpc: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) AttachImageWatermark(ctx context.Context, input *AttachImageWatermarkRequest) (*AttachImageWatermarkResult, error) {
+	return nil, fmt.Errorf("AttachImageWatermark: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) AttachInternetGateway(ctx context.Context, input *AttachInternetGatewayRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("AttachInternetGateway: %w", ErrNotImplemented)
 }
@@ -185,6 +197,10 @@ func (b *BaseProvider) AuthorizeSecurityGroupEgress(ctx context.Context, input *
 
 func (b *BaseProvider) AuthorizeSecurityGroupIngress(ctx context.Context, input *AuthorizeSecurityGroupIngressRequest) (*AuthorizeSecurityGroupIngressResult, error) {
 	return nil, fmt.Errorf("AuthorizeSecurityGroupIngress: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) BatchModifyIpamRoutingPolicyRegistrations(ctx context.Context, input *BatchModifyIpamRoutingPolicyRegistrationsRequest) (*BatchModifyIpamRoutingPolicyRegistrationsResult, error) {
+	return nil, fmt.Errorf("BatchModifyIpamRoutingPolicyRegistrations: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) BundleInstance(ctx context.Context, input *BundleInstanceRequest) (*BundleInstanceResult, error) {
@@ -255,6 +271,10 @@ func (b *BaseProvider) CopyVolumes(ctx context.Context, input *CopyVolumesReques
 	return nil, fmt.Errorf("CopyVolumes: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateApplicationStatusCheck(ctx context.Context, input *CreateApplicationStatusCheckRequest) (*CreateApplicationStatusCheckResult, error) {
+	return nil, fmt.Errorf("CreateApplicationStatusCheck: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateCapacityManagerDataExport(ctx context.Context, input *CreateCapacityManagerDataExportRequest) (*CreateCapacityManagerDataExportResult, error) {
 	return nil, fmt.Errorf("CreateCapacityManagerDataExport: %w", ErrNotImplemented)
 }
@@ -265,6 +285,10 @@ func (b *BaseProvider) CreateCapacityReservation(ctx context.Context, input *Cre
 
 func (b *BaseProvider) CreateCapacityReservationBySplitting(ctx context.Context, input *CreateCapacityReservationBySplittingRequest) (*CreateCapacityReservationBySplittingResult, error) {
 	return nil, fmt.Errorf("CreateCapacityReservationBySplitting: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateCapacityReservationCancellationQuote(ctx context.Context, input *CreateCapacityReservationCancellationQuoteRequest) (*CreateCapacityReservationCancellationQuoteResult, error) {
+	return nil, fmt.Errorf("CreateCapacityReservationCancellationQuote: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) CreateCapacityReservationFleet(ctx context.Context, input *CreateCapacityReservationFleetRequest) (*CreateCapacityReservationFleetResult, error) {
@@ -363,6 +387,10 @@ func (b *BaseProvider) CreateIpamExternalResourceVerificationToken(ctx context.C
 	return nil, fmt.Errorf("CreateIpamExternalResourceVerificationToken: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateIpamInternetRegistryAssociation(ctx context.Context, input *CreateIpamInternetRegistryAssociationRequest) (*CreateIpamInternetRegistryAssociationResult, error) {
+	return nil, fmt.Errorf("CreateIpamInternetRegistryAssociation: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateIpamPolicy(ctx context.Context, input *CreateIpamPolicyRequest) (*CreateIpamPolicyResult, error) {
 	return nil, fmt.Errorf("CreateIpamPolicy: %w", ErrNotImplemented)
 }
@@ -381,6 +409,10 @@ func (b *BaseProvider) CreateIpamPrefixListResolverTarget(ctx context.Context, i
 
 func (b *BaseProvider) CreateIpamResourceDiscovery(ctx context.Context, input *CreateIpamResourceDiscoveryRequest) (*CreateIpamResourceDiscoveryResult, error) {
 	return nil, fmt.Errorf("CreateIpamResourceDiscovery: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateIpamRoutingPolicyRegistration(ctx context.Context, input *CreateIpamRoutingPolicyRegistrationRequest) (*CreateIpamRoutingPolicyRegistrationResult, error) {
+	return nil, fmt.Errorf("CreateIpamRoutingPolicyRegistration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) CreateIpamScope(ctx context.Context, input *CreateIpamScopeRequest) (*CreateIpamScopeResult, error) {
@@ -587,6 +619,10 @@ func (b *BaseProvider) CreateTransitGatewayPolicyTable(ctx context.Context, inpu
 	return nil, fmt.Errorf("CreateTransitGatewayPolicyTable: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateTransitGatewayPolicyTableEntry(ctx context.Context, input *CreateTransitGatewayPolicyTableEntryRequest) (*CreateTransitGatewayPolicyTableEntryResult, error) {
+	return nil, fmt.Errorf("CreateTransitGatewayPolicyTableEntry: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateTransitGatewayPrefixListReference(ctx context.Context, input *CreateTransitGatewayPrefixListReferenceRequest) (*CreateTransitGatewayPrefixListReferenceResult, error) {
 	return nil, fmt.Errorf("CreateTransitGatewayPrefixListReference: %w", ErrNotImplemented)
 }
@@ -671,6 +707,10 @@ func (b *BaseProvider) CreateVpnGateway(ctx context.Context, input *CreateVpnGat
 	return nil, fmt.Errorf("CreateVpnGateway: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteApplicationStatusCheck(ctx context.Context, input *DeleteApplicationStatusCheckRequest) (*DeleteApplicationStatusCheckResult, error) {
+	return nil, fmt.Errorf("DeleteApplicationStatusCheck: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteCapacityManagerDataExport(ctx context.Context, input *DeleteCapacityManagerDataExportRequest) (*DeleteCapacityManagerDataExportResult, error) {
 	return nil, fmt.Errorf("DeleteCapacityManagerDataExport: %w", ErrNotImplemented)
 }
@@ -743,6 +783,10 @@ func (b *BaseProvider) DeleteIpamExternalResourceVerificationToken(ctx context.C
 	return nil, fmt.Errorf("DeleteIpamExternalResourceVerificationToken: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteIpamInternetRegistryAssociation(ctx context.Context, input *DeleteIpamInternetRegistryAssociationRequest) (*DeleteIpamInternetRegistryAssociationResult, error) {
+	return nil, fmt.Errorf("DeleteIpamInternetRegistryAssociation: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteIpamPolicy(ctx context.Context, input *DeleteIpamPolicyRequest) (*DeleteIpamPolicyResult, error) {
 	return nil, fmt.Errorf("DeleteIpamPolicy: %w", ErrNotImplemented)
 }
@@ -761,6 +805,10 @@ func (b *BaseProvider) DeleteIpamPrefixListResolverTarget(ctx context.Context, i
 
 func (b *BaseProvider) DeleteIpamResourceDiscovery(ctx context.Context, input *DeleteIpamResourceDiscoveryRequest) (*DeleteIpamResourceDiscoveryResult, error) {
 	return nil, fmt.Errorf("DeleteIpamResourceDiscovery: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteIpamRoutingPolicyRegistration(ctx context.Context, input *DeleteIpamRoutingPolicyRegistrationRequest) (*DeleteIpamRoutingPolicyRegistrationResult, error) {
+	return nil, fmt.Errorf("DeleteIpamRoutingPolicyRegistration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteIpamScope(ctx context.Context, input *DeleteIpamScopeRequest) (*DeleteIpamScopeResult, error) {
@@ -927,6 +975,10 @@ func (b *BaseProvider) DeleteTransitGateway(ctx context.Context, input *DeleteTr
 	return nil, fmt.Errorf("DeleteTransitGateway: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteTransitGatewayClientVpnAttachment(ctx context.Context, input *DeleteTransitGatewayClientVpnAttachmentRequest) (*DeleteTransitGatewayClientVpnAttachmentResult, error) {
+	return nil, fmt.Errorf("DeleteTransitGatewayClientVpnAttachment: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteTransitGatewayConnect(ctx context.Context, input *DeleteTransitGatewayConnectRequest) (*DeleteTransitGatewayConnectResult, error) {
 	return nil, fmt.Errorf("DeleteTransitGatewayConnect: %w", ErrNotImplemented)
 }
@@ -953,6 +1005,10 @@ func (b *BaseProvider) DeleteTransitGatewayPeeringAttachment(ctx context.Context
 
 func (b *BaseProvider) DeleteTransitGatewayPolicyTable(ctx context.Context, input *DeleteTransitGatewayPolicyTableRequest) (*DeleteTransitGatewayPolicyTableResult, error) {
 	return nil, fmt.Errorf("DeleteTransitGatewayPolicyTable: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteTransitGatewayPolicyTableEntry(ctx context.Context, input *DeleteTransitGatewayPolicyTableEntryRequest) (*DeleteTransitGatewayPolicyTableEntryResult, error) {
+	return nil, fmt.Errorf("DeleteTransitGatewayPolicyTableEntry: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteTransitGatewayPrefixListReference(ctx context.Context, input *DeleteTransitGatewayPrefixListReferenceRequest) (*DeleteTransitGatewayPrefixListReferenceResult, error) {
@@ -1075,6 +1131,10 @@ func (b *BaseProvider) DescribeAccountAttributes(ctx context.Context, input *Des
 	return nil, fmt.Errorf("DescribeAccountAttributes: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DescribeAccountVpcEncryptionControl(ctx context.Context, input *DescribeAccountVpcEncryptionControlRequest) (*DescribeAccountVpcEncryptionControlResult, error) {
+	return nil, fmt.Errorf("DescribeAccountVpcEncryptionControl: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DescribeAddressTransfers(ctx context.Context, input *DescribeAddressTransfersRequest) (*DescribeAddressTransfersResult, error) {
 	return nil, fmt.Errorf("DescribeAddressTransfers: %w", ErrNotImplemented)
 }
@@ -1089,6 +1149,18 @@ func (b *BaseProvider) DescribeAddressesAttribute(ctx context.Context, input *De
 
 func (b *BaseProvider) DescribeAggregateIdFormat(ctx context.Context, input *DescribeAggregateIdFormatRequest) (*DescribeAggregateIdFormatResult, error) {
 	return nil, fmt.Errorf("DescribeAggregateIdFormat: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeApplicationStatus(ctx context.Context, input *DescribeApplicationStatusRequest) (*DescribeApplicationStatusResult, error) {
+	return nil, fmt.Errorf("DescribeApplicationStatus: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeApplicationStatusCheckAssociations(ctx context.Context, input *DescribeApplicationStatusCheckAssociationsRequest) (*DescribeApplicationStatusCheckAssociationsResult, error) {
+	return nil, fmt.Errorf("DescribeApplicationStatusCheckAssociations: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeApplicationStatusChecks(ctx context.Context, input *DescribeApplicationStatusChecksRequest) (*DescribeApplicationStatusChecksResult, error) {
+	return nil, fmt.Errorf("DescribeApplicationStatusChecks: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeAvailabilityZones(ctx context.Context, input *DescribeAvailabilityZonesRequest) (*DescribeAvailabilityZonesResult, error) {
@@ -1133,6 +1205,10 @@ func (b *BaseProvider) DescribeCapacityManagerDataExports(ctx context.Context, i
 
 func (b *BaseProvider) DescribeCapacityReservationBillingRequests(ctx context.Context, input *DescribeCapacityReservationBillingRequestsRequest) (*DescribeCapacityReservationBillingRequestsResult, error) {
 	return nil, fmt.Errorf("DescribeCapacityReservationBillingRequests: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeCapacityReservationCancellationQuotes(ctx context.Context, input *DescribeCapacityReservationCancellationQuotesRequest) (*DescribeCapacityReservationCancellationQuotesResult, error) {
+	return nil, fmt.Errorf("DescribeCapacityReservationCancellationQuotes: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeCapacityReservationFleets(ctx context.Context, input *DescribeCapacityReservationFleetsRequest) (*DescribeCapacityReservationFleetsResult, error) {
@@ -1359,8 +1435,16 @@ func (b *BaseProvider) DescribeIpamExternalResourceVerificationTokens(ctx contex
 	return nil, fmt.Errorf("DescribeIpamExternalResourceVerificationTokens: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DescribeIpamInternetRegistryAssociations(ctx context.Context, input *DescribeIpamInternetRegistryAssociationsRequest) (*DescribeIpamInternetRegistryAssociationsResult, error) {
+	return nil, fmt.Errorf("DescribeIpamInternetRegistryAssociations: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DescribeIpamPolicies(ctx context.Context, input *DescribeIpamPoliciesRequest) (*DescribeIpamPoliciesResult, error) {
 	return nil, fmt.Errorf("DescribeIpamPolicies: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeIpamPoolAllocations(ctx context.Context, input *DescribeIpamPoolAllocationsRequest) (*DescribeIpamPoolAllocationsResult, error) {
+	return nil, fmt.Errorf("DescribeIpamPoolAllocations: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeIpamPools(ctx context.Context, input *DescribeIpamPoolsRequest) (*DescribeIpamPoolsResult, error) {
@@ -1815,6 +1899,10 @@ func (b *BaseProvider) DetachClassicLinkVpc(ctx context.Context, input *DetachCl
 	return nil, fmt.Errorf("DetachClassicLinkVpc: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DetachImageWatermark(ctx context.Context, input *DetachImageWatermarkRequest) (*DetachImageWatermarkResult, error) {
+	return nil, fmt.Errorf("DetachImageWatermark: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DetachInternetGateway(ctx context.Context, input *DetachInternetGatewayRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DetachInternetGateway: %w", ErrNotImplemented)
 }
@@ -1841,6 +1929,10 @@ func (b *BaseProvider) DisableAddressTransfer(ctx context.Context, input *Disabl
 
 func (b *BaseProvider) DisableAllowedImagesSettings(ctx context.Context, input *DisableAllowedImagesSettingsRequest) (*DisableAllowedImagesSettingsResult, error) {
 	return nil, fmt.Errorf("DisableAllowedImagesSettings: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DisableApplicationStatusCheckSuppression(ctx context.Context, input *DisableApplicationStatusCheckSuppressionRequest) (*DisableApplicationStatusCheckSuppressionResult, error) {
+	return nil, fmt.Errorf("DisableApplicationStatusCheckSuppression: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DisableAwsNetworkPerformanceMetricSubscription(ctx context.Context, input *DisableAwsNetworkPerformanceMetricSubscriptionRequest) (*DisableAwsNetworkPerformanceMetricSubscriptionResult, error) {
@@ -1923,6 +2015,10 @@ func (b *BaseProvider) DisassociateAddress(ctx context.Context, input *Disassoci
 	return nil, fmt.Errorf("DisassociateAddress: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DisassociateApplicationStatusCheck(ctx context.Context, input *DisassociateApplicationStatusCheckRequest) (*DisassociateApplicationStatusCheckResult, error) {
+	return nil, fmt.Errorf("DisassociateApplicationStatusCheck: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DisassociateCapacityReservationBillingOwner(ctx context.Context, input *DisassociateCapacityReservationBillingOwnerRequest) (*DisassociateCapacityReservationBillingOwnerResult, error) {
 	return nil, fmt.Errorf("DisassociateCapacityReservationBillingOwner: %w", ErrNotImplemented)
 }
@@ -1999,6 +2095,10 @@ func (b *BaseProvider) EnableAllowedImagesSettings(ctx context.Context, input *E
 	return nil, fmt.Errorf("EnableAllowedImagesSettings: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) EnableApplicationStatusCheckSuppression(ctx context.Context, input *EnableApplicationStatusCheckSuppressionRequest) (*EnableApplicationStatusCheckSuppressionResult, error) {
+	return nil, fmt.Errorf("EnableApplicationStatusCheckSuppression: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) EnableAwsNetworkPerformanceMetricSubscription(ctx context.Context, input *EnableAwsNetworkPerformanceMetricSubscriptionRequest) (*EnableAwsNetworkPerformanceMetricSubscriptionResult, error) {
 	return nil, fmt.Errorf("EnableAwsNetworkPerformanceMetricSubscription: %w", ErrNotImplemented)
 }
@@ -2037,6 +2137,10 @@ func (b *BaseProvider) EnableImageDeregistrationProtection(ctx context.Context, 
 
 func (b *BaseProvider) EnableInstanceSqlHaStandbyDetections(ctx context.Context, input *EnableInstanceSqlHaStandbyDetectionsRequest) (*EnableInstanceSqlHaStandbyDetectionsResult, error) {
 	return nil, fmt.Errorf("EnableInstanceSqlHaStandbyDetections: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) EnableIpamInternetRegistryAssociation(ctx context.Context, input *EnableIpamInternetRegistryAssociationRequest) (*EnableIpamInternetRegistryAssociationResult, error) {
+	return nil, fmt.Errorf("EnableIpamInternetRegistryAssociation: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) EnableIpamOrganizationAdminAccount(ctx context.Context, input *EnableIpamOrganizationAdminAccountRequest) (*EnableIpamOrganizationAdminAccountResult, error) {
@@ -2135,6 +2239,10 @@ func (b *BaseProvider) GetCapacityManagerMetricDimensions(ctx context.Context, i
 	return nil, fmt.Errorf("GetCapacityManagerMetricDimensions: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetCapacityManagerMonitoredTagKeys(ctx context.Context, input *GetCapacityManagerMonitoredTagKeysRequest) (*GetCapacityManagerMonitoredTagKeysResult, error) {
+	return nil, fmt.Errorf("GetCapacityManagerMonitoredTagKeys: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetCapacityReservationUsage(ctx context.Context, input *GetCapacityReservationUsageRequest) (*GetCapacityReservationUsageResult, error) {
 	return nil, fmt.Errorf("GetCapacityReservationUsage: %w", ErrNotImplemented)
 }
@@ -2223,6 +2331,18 @@ func (b *BaseProvider) GetIpamDiscoveredResourceCidrs(ctx context.Context, input
 	return nil, fmt.Errorf("GetIpamDiscoveredResourceCidrs: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetIpamDiscoveredRoutes(ctx context.Context, input *GetIpamDiscoveredRoutesRequest) (*GetIpamDiscoveredRoutesResult, error) {
+	return nil, fmt.Errorf("GetIpamDiscoveredRoutes: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetIpamInternetRegistryAssociationAsns(ctx context.Context, input *GetIpamInternetRegistryAssociationAsnsRequest) (*GetIpamInternetRegistryAssociationAsnsResult, error) {
+	return nil, fmt.Errorf("GetIpamInternetRegistryAssociationAsns: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetIpamInternetRegistryAssociationCidrs(ctx context.Context, input *GetIpamInternetRegistryAssociationCidrsRequest) (*GetIpamInternetRegistryAssociationCidrsResult, error) {
+	return nil, fmt.Errorf("GetIpamInternetRegistryAssociationCidrs: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetIpamPolicyAllocationRules(ctx context.Context, input *GetIpamPolicyAllocationRulesRequest) (*GetIpamPolicyAllocationRulesResult, error) {
 	return nil, fmt.Errorf("GetIpamPolicyAllocationRules: %w", ErrNotImplemented)
 }
@@ -2255,6 +2375,22 @@ func (b *BaseProvider) GetIpamResourceCidrs(ctx context.Context, input *GetIpamR
 	return nil, fmt.Errorf("GetIpamResourceCidrs: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetIpamRouteOriginAuthorizations(ctx context.Context, input *GetIpamRouteOriginAuthorizationsRequest) (*GetIpamRouteOriginAuthorizationsResult, error) {
+	return nil, fmt.Errorf("GetIpamRouteOriginAuthorizations: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetIpamRouteProtectionFindings(ctx context.Context, input *GetIpamRouteProtectionFindingsRequest) (*GetIpamRouteProtectionFindingsResult, error) {
+	return nil, fmt.Errorf("GetIpamRouteProtectionFindings: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetIpamRoutingPolicyRegistrationDeltas(ctx context.Context, input *GetIpamRoutingPolicyRegistrationDeltasRequest) (*GetIpamRoutingPolicyRegistrationDeltasResult, error) {
+	return nil, fmt.Errorf("GetIpamRoutingPolicyRegistrationDeltas: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetIpamRoutingPolicyRegistrations(ctx context.Context, input *GetIpamRoutingPolicyRegistrationsRequest) (*GetIpamRoutingPolicyRegistrationsResult, error) {
+	return nil, fmt.Errorf("GetIpamRoutingPolicyRegistrations: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetLaunchTemplateData(ctx context.Context, input *GetLaunchTemplateDataRequest) (*GetLaunchTemplateDataResult, error) {
 	return nil, fmt.Errorf("GetLaunchTemplateData: %w", ErrNotImplemented)
 }
@@ -2265,6 +2401,10 @@ func (b *BaseProvider) GetManagedPrefixListAssociations(ctx context.Context, inp
 
 func (b *BaseProvider) GetManagedPrefixListEntries(ctx context.Context, input *GetManagedPrefixListEntriesRequest) (*GetManagedPrefixListEntriesResult, error) {
 	return nil, fmt.Errorf("GetManagedPrefixListEntries: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetManagedResourceVisibility(ctx context.Context, input *GetManagedResourceVisibilityRequest) (*GetManagedResourceVisibilityResult, error) {
+	return nil, fmt.Errorf("GetManagedResourceVisibility: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) GetNetworkInsightsAccessScopeAnalysisFindings(ctx context.Context, input *GetNetworkInsightsAccessScopeAnalysisFindingsRequest) (*GetNetworkInsightsAccessScopeAnalysisFindingsResult, error) {
@@ -2415,8 +2555,16 @@ func (b *BaseProvider) LockSnapshot(ctx context.Context, input *LockSnapshotRequ
 	return nil, fmt.Errorf("LockSnapshot: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ModifyAccountVpcEncryptionControl(ctx context.Context, input *ModifyAccountVpcEncryptionControlRequest) (*ModifyAccountVpcEncryptionControlResult, error) {
+	return nil, fmt.Errorf("ModifyAccountVpcEncryptionControl: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ModifyAddressAttribute(ctx context.Context, input *ModifyAddressAttributeRequest) (*ModifyAddressAttributeResult, error) {
 	return nil, fmt.Errorf("ModifyAddressAttribute: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ModifyApplicationStatusCheck(ctx context.Context, input *ModifyApplicationStatusCheckRequest) (*ModifyApplicationStatusCheckResult, error) {
+	return nil, fmt.Errorf("ModifyApplicationStatusCheck: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ModifyAvailabilityZoneGroup(ctx context.Context, input *ModifyAvailabilityZoneGroupRequest) (*ModifyAvailabilityZoneGroupResult, error) {
@@ -2527,6 +2675,10 @@ func (b *BaseProvider) ModifyIpamPool(ctx context.Context, input *ModifyIpamPool
 	return nil, fmt.Errorf("ModifyIpamPool: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ModifyIpamPoolAllocation(ctx context.Context, input *ModifyIpamPoolAllocationRequest) (*ModifyIpamPoolAllocationResult, error) {
+	return nil, fmt.Errorf("ModifyIpamPoolAllocation: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ModifyIpamPrefixListResolver(ctx context.Context, input *ModifyIpamPrefixListResolverRequest) (*ModifyIpamPrefixListResolverResult, error) {
 	return nil, fmt.Errorf("ModifyIpamPrefixListResolver: %w", ErrNotImplemented)
 }
@@ -2543,6 +2695,10 @@ func (b *BaseProvider) ModifyIpamResourceDiscovery(ctx context.Context, input *M
 	return nil, fmt.Errorf("ModifyIpamResourceDiscovery: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ModifyIpamRoutingPolicyRegistration(ctx context.Context, input *ModifyIpamRoutingPolicyRegistrationRequest) (*ModifyIpamRoutingPolicyRegistrationResult, error) {
+	return nil, fmt.Errorf("ModifyIpamRoutingPolicyRegistration: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ModifyIpamScope(ctx context.Context, input *ModifyIpamScopeRequest) (*ModifyIpamScopeResult, error) {
 	return nil, fmt.Errorf("ModifyIpamScope: %w", ErrNotImplemented)
 }
@@ -2557,6 +2713,10 @@ func (b *BaseProvider) ModifyLocalGatewayRoute(ctx context.Context, input *Modif
 
 func (b *BaseProvider) ModifyManagedPrefixList(ctx context.Context, input *ModifyManagedPrefixListRequest) (*ModifyManagedPrefixListResult, error) {
 	return nil, fmt.Errorf("ModifyManagedPrefixList: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ModifyManagedResourceVisibility(ctx context.Context, input *ModifyManagedResourceVisibilityRequest) (*ModifyManagedResourceVisibilityResult, error) {
+	return nil, fmt.Errorf("ModifyManagedResourceVisibility: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ModifyNetworkInterfaceAttribute(ctx context.Context, input *ModifyNetworkInterfaceAttributeRequest) (*SmithyUnit, error) {
@@ -2617,6 +2777,10 @@ func (b *BaseProvider) ModifyTransitGateway(ctx context.Context, input *ModifyTr
 
 func (b *BaseProvider) ModifyTransitGatewayMeteringPolicy(ctx context.Context, input *ModifyTransitGatewayMeteringPolicyRequest) (*ModifyTransitGatewayMeteringPolicyResult, error) {
 	return nil, fmt.Errorf("ModifyTransitGatewayMeteringPolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ModifyTransitGatewayPolicyTableEntry(ctx context.Context, input *ModifyTransitGatewayPolicyTableEntryRequest) (*ModifyTransitGatewayPolicyTableEntryResult, error) {
+	return nil, fmt.Errorf("ModifyTransitGatewayPolicyTableEntry: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ModifyTransitGatewayPrefixListReference(ctx context.Context, input *ModifyTransitGatewayPrefixListReferenceRequest) (*ModifyTransitGatewayPrefixListReferenceResult, error) {
@@ -2685,6 +2849,10 @@ func (b *BaseProvider) ModifyVpcEndpoint(ctx context.Context, input *ModifyVpcEn
 
 func (b *BaseProvider) ModifyVpcEndpointConnectionNotification(ctx context.Context, input *ModifyVpcEndpointConnectionNotificationRequest) (*ModifyVpcEndpointConnectionNotificationResult, error) {
 	return nil, fmt.Errorf("ModifyVpcEndpointConnectionNotification: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ModifyVpcEndpointPayerResponsibility(ctx context.Context, input *ModifyVpcEndpointPayerResponsibilityRequest) (*ModifyVpcEndpointPayerResponsibilityResult, error) {
+	return nil, fmt.Errorf("ModifyVpcEndpointPayerResponsibility: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ModifyVpcEndpointServiceConfiguration(ctx context.Context, input *ModifyVpcEndpointServiceConfigurationRequest) (*ModifyVpcEndpointServiceConfigurationResult, error) {
@@ -2799,6 +2967,10 @@ func (b *BaseProvider) RejectCapacityReservationBillingOwnership(ctx context.Con
 	return nil, fmt.Errorf("RejectCapacityReservationBillingOwnership: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) RejectTransitGatewayClientVpnAttachment(ctx context.Context, input *RejectTransitGatewayClientVpnAttachmentRequest) (*RejectTransitGatewayClientVpnAttachmentResult, error) {
+	return nil, fmt.Errorf("RejectTransitGatewayClientVpnAttachment: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) RejectTransitGatewayMulticastDomainAssociations(ctx context.Context, input *RejectTransitGatewayMulticastDomainAssociationsRequest) (*RejectTransitGatewayMulticastDomainAssociationsResult, error) {
 	return nil, fmt.Errorf("RejectTransitGatewayMulticastDomainAssociations: %w", ErrNotImplemented)
 }
@@ -2837,6 +3009,10 @@ func (b *BaseProvider) ReplaceIamInstanceProfileAssociation(ctx context.Context,
 
 func (b *BaseProvider) ReplaceImageCriteriaInAllowedImagesSettings(ctx context.Context, input *ReplaceImageCriteriaInAllowedImagesSettingsRequest) (*ReplaceImageCriteriaInAllowedImagesSettingsResult, error) {
 	return nil, fmt.Errorf("ReplaceImageCriteriaInAllowedImagesSettings: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ReplaceImageInstanceTypeSpecification(ctx context.Context, input *ReplaceImageInstanceTypeSpecificationRequest) (*ReplaceImageInstanceTypeSpecificationResult, error) {
+	return nil, fmt.Errorf("ReplaceImageInstanceTypeSpecification: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ReplaceNetworkAclAssociation(ctx context.Context, input *ReplaceNetworkAclAssociationRequest) (*ReplaceNetworkAclAssociationResult, error) {
@@ -3015,6 +3191,10 @@ func (b *BaseProvider) UnmonitorInstances(ctx context.Context, input *UnmonitorI
 	return nil, fmt.Errorf("UnmonitorInstances: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) UpdateCapacityManagerMonitoredTagKeys(ctx context.Context, input *UpdateCapacityManagerMonitoredTagKeysRequest) (*UpdateCapacityManagerMonitoredTagKeysResult, error) {
+	return nil, fmt.Errorf("UpdateCapacityManagerMonitoredTagKeys: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) UpdateCapacityManagerOrganizationsAccess(ctx context.Context, input *UpdateCapacityManagerOrganizationsAccessRequest) (*UpdateCapacityManagerOrganizationsAccessResult, error) {
 	return nil, fmt.Errorf("UpdateCapacityManagerOrganizationsAccess: %w", ErrNotImplemented)
 }
@@ -3029,6 +3209,10 @@ func (b *BaseProvider) UpdateSecurityGroupRuleDescriptionsEgress(ctx context.Con
 
 func (b *BaseProvider) UpdateSecurityGroupRuleDescriptionsIngress(ctx context.Context, input *UpdateSecurityGroupRuleDescriptionsIngressRequest) (*UpdateSecurityGroupRuleDescriptionsIngressResult, error) {
 	return nil, fmt.Errorf("UpdateSecurityGroupRuleDescriptionsIngress: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ValidateSecurityGroupQuotasForInterface(ctx context.Context, input *ValidateSecurityGroupQuotasForInterfaceRequest) (*ValidateSecurityGroupQuotasForInterfaceResult, error) {
+	return nil, fmt.Errorf("ValidateSecurityGroupQuotasForInterface: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) WithdrawByoipCidr(ctx context.Context, input *WithdrawByoipCidrRequest) (*WithdrawByoipCidrResult, error) {

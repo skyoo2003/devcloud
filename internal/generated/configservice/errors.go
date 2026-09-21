@@ -412,6 +412,23 @@ func (e *MaxNumberOfConformancePacksExceededException) HTTPStatus() int {
 	return 0
 }
 
+// MaxNumberOfConnectorsExceededException is returned with HTTP status 0.
+type MaxNumberOfConnectorsExceededException struct {
+	Message string
+}
+
+func (e *MaxNumberOfConnectorsExceededException) Error() string {
+	return fmt.Sprintf("MaxNumberOfConnectorsExceededException: %s", e.Message)
+}
+
+func (e *MaxNumberOfConnectorsExceededException) ErrorCode() string {
+	return "MaxNumberOfConnectorsExceededException"
+}
+
+func (e *MaxNumberOfConnectorsExceededException) HTTPStatus() int {
+	return 0
+}
+
 // MaxNumberOfDeliveryChannelsExceededException is returned with HTTP status 0.
 type MaxNumberOfDeliveryChannelsExceededException struct {
 	Message string

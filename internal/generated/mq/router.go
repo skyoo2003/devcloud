@@ -25,6 +25,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "GET", Pattern: "/v1/broker-instance-options", Operation: "DescribeBrokerInstanceOptions"},
 	{Method: "GET", Pattern: "/v1/configurations/{ConfigurationId}", Operation: "DescribeConfiguration"},
 	{Method: "GET", Pattern: "/v1/configurations/{ConfigurationId}/revisions/{ConfigurationRevision}", Operation: "DescribeConfigurationRevision"},
+	{Method: "GET", Pattern: "/v1/brokers/{BrokerId}/shared-resources", Operation: "DescribeSharedResources"},
 	{Method: "GET", Pattern: "/v1/brokers/{BrokerId}/users/{Username}", Operation: "DescribeUser"},
 	{Method: "GET", Pattern: "/v1/brokers", Operation: "ListBrokers"},
 	{Method: "GET", Pattern: "/v1/configurations/{ConfigurationId}/revisions", Operation: "ListConfigurationRevisions"},

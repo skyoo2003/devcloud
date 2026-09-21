@@ -211,6 +211,12 @@ type BedrockGuardrailDetails struct {
 	Guardrails           BedrockGuardrails    `json:"guardrails" xml:"Guardrails"`
 }
 
+type BedrockGuardrailResource struct {
+	GuardrailAction string `json:"guardrailAction" xml:"GuardrailAction"`
+	GuardrailSource string `json:"guardrailSource" xml:"GuardrailSource"`
+	Version         string `json:"version" xml:"Version"`
+}
+
 type BlockPublicAccess struct {
 	BlockPublicAcls       bool `json:"blockPublicAcls" xml:"BlockPublicAcls"`
 	BlockPublicPolicy     bool `json:"blockPublicPolicy" xml:"BlockPublicPolicy"`
@@ -2211,6 +2217,7 @@ type Resource struct {
 type ResourceData struct {
 	AccessKey                   *AccessKey                   `json:"accessKey" xml:"AccessKey"`
 	AutoscalingAutoScalingGroup *AutoscalingAutoScalingGroup `json:"autoscalingAutoScalingGroup" xml:"AutoscalingAutoScalingGroup"`
+	BedrockGuardrail            *BedrockGuardrailResource    `json:"bedrockGuardrail" xml:"BedrockGuardrail"`
 	CloudformationStack         *CloudformationStack         `json:"cloudformationStack" xml:"CloudformationStack"`
 	Container                   *ContainerFindingResource    `json:"container" xml:"Container"`
 	Ec2Image                    *Ec2Image                    `json:"ec2Image" xml:"Ec2Image"`

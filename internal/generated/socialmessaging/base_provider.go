@@ -67,6 +67,10 @@ func (b *BaseProvider) GetWhatsAppBusinessPublicKey(ctx context.Context, input *
 	return nil, fmt.Errorf("GetWhatsAppBusinessPublicKey: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetWhatsAppCallPermission(ctx context.Context, input *GetWhatsAppCallPermissionInput) (*GetWhatsAppCallPermissionOutput, error) {
+	return nil, fmt.Errorf("GetWhatsAppCallPermission: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetWhatsAppFlow(ctx context.Context, input *GetWhatsAppFlowInput) (*GetWhatsAppFlowOutput, error) {
 	return nil, fmt.Errorf("GetWhatsAppFlow: %w", ErrNotImplemented)
 }
@@ -123,6 +127,10 @@ func (b *BaseProvider) PutWhatsAppBusinessPublicKey(ctx context.Context, input *
 	return nil, fmt.Errorf("PutWhatsAppBusinessPublicKey: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) SendWhatsAppCallEvent(ctx context.Context, input *SendWhatsAppCallEventInput) (*SendWhatsAppCallEventOutput, error) {
+	return nil, fmt.Errorf("SendWhatsAppCallEvent: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) SendWhatsAppConversionEvent(ctx context.Context, input *SendWhatsAppConversionEventInput) (*SendWhatsAppConversionEventOutput, error) {
 	return nil, fmt.Errorf("SendWhatsAppConversionEvent: %w", ErrNotImplemented)
 }
@@ -137,6 +145,10 @@ func (b *BaseProvider) TagResource(ctx context.Context, input *TagResourceInput)
 
 func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceInput) (*UntagResourceOutput, error) {
 	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateLinkedWhatsAppBusinessAccountPhoneNumber(ctx context.Context, input *UpdateLinkedWhatsAppBusinessAccountPhoneNumberInput) (*UpdateLinkedWhatsAppBusinessAccountPhoneNumberOutput, error) {
+	return nil, fmt.Errorf("UpdateLinkedWhatsAppBusinessAccountPhoneNumber: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateWhatsAppFlow(ctx context.Context, input *UpdateWhatsAppFlowInput) (*UpdateWhatsAppFlowOutput, error) {

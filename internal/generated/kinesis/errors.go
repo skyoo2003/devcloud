@@ -21,6 +21,23 @@ func (e *AccessDeniedException) HTTPStatus() int {
 	return 0
 }
 
+// DryRunOperationException is returned with HTTP status 0.
+type DryRunOperationException struct {
+	Message string
+}
+
+func (e *DryRunOperationException) Error() string {
+	return fmt.Sprintf("DryRunOperationException: %s", e.Message)
+}
+
+func (e *DryRunOperationException) ErrorCode() string {
+	return "DryRunOperationException"
+}
+
+func (e *DryRunOperationException) HTTPStatus() int {
+	return 0
+}
+
 // ExpiredIteratorException is returned with HTTP status 0.
 type ExpiredIteratorException struct {
 	Message string

@@ -19,6 +19,10 @@ func (b *BaseProvider) CancelLegalHold(ctx context.Context, input *CancelLegalHo
 	return nil, fmt.Errorf("CancelLegalHold: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateBackupAccessPoint(ctx context.Context, input *CreateBackupAccessPointRequest) (*CreateBackupAccessPointResponse, error) {
+	return nil, fmt.Errorf("CreateBackupAccessPoint: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateBackupPlan(ctx context.Context, input *CreateBackupPlanInput) (*CreateBackupPlanOutput, error) {
 	return nil, fmt.Errorf("CreateBackupPlan: %w", ErrNotImplemented)
 }
@@ -61,6 +65,10 @@ func (b *BaseProvider) CreateRestoreTestingSelection(ctx context.Context, input 
 
 func (b *BaseProvider) CreateTieringConfiguration(ctx context.Context, input *CreateTieringConfigurationInput) (*CreateTieringConfigurationOutput, error) {
 	return nil, fmt.Errorf("CreateTieringConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteBackupAccessPoint(ctx context.Context, input *DeleteBackupAccessPointInput) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteBackupAccessPoint: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteBackupPlan(ctx context.Context, input *DeleteBackupPlanInput) (*DeleteBackupPlanOutput, error) {
@@ -109,6 +117,10 @@ func (b *BaseProvider) DeleteRestoreTestingSelection(ctx context.Context, input 
 
 func (b *BaseProvider) DeleteTieringConfiguration(ctx context.Context, input *DeleteTieringConfigurationInput) (*DeleteTieringConfigurationOutput, error) {
 	return nil, fmt.Errorf("DeleteTieringConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeBackupAccessPoint(ctx context.Context, input *DescribeBackupAccessPointInput) (*DescribeBackupAccessPointResponse, error) {
+	return nil, fmt.Errorf("DescribeBackupAccessPoint: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeBackupJob(ctx context.Context, input *DescribeBackupJobInput) (*DescribeBackupJobOutput, error) {
@@ -203,6 +215,10 @@ func (b *BaseProvider) GetLegalHold(ctx context.Context, input *GetLegalHoldInpu
 	return nil, fmt.Errorf("GetLegalHold: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetPITRMalwareScanResults(ctx context.Context, input *GetPITRMalwareScanResultsInput) (*GetPITRMalwareScanResultsOutput, error) {
+	return nil, fmt.Errorf("GetPITRMalwareScanResults: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetRecoveryPointIndexDetails(ctx context.Context, input *GetRecoveryPointIndexDetailsInput) (*GetRecoveryPointIndexDetailsOutput, error) {
 	return nil, fmt.Errorf("GetRecoveryPointIndexDetails: %w", ErrNotImplemented)
 }
@@ -233,6 +249,18 @@ func (b *BaseProvider) GetSupportedResourceTypes(ctx context.Context, input *Smi
 
 func (b *BaseProvider) GetTieringConfiguration(ctx context.Context, input *GetTieringConfigurationInput) (*GetTieringConfigurationOutput, error) {
 	return nil, fmt.Errorf("GetTieringConfiguration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListBackupAccessPoints(ctx context.Context, input *ListBackupAccessPointsRequest) (*ListBackupAccessPointsResponse, error) {
+	return nil, fmt.Errorf("ListBackupAccessPoints: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListBackupAccessPointsByRecoveryPoint(ctx context.Context, input *ListBackupAccessPointsByRecoveryPointRequest) (*ListBackupAccessPointsByRecoveryPointResponse, error) {
+	return nil, fmt.Errorf("ListBackupAccessPointsByRecoveryPoint: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListBackupAccessPointsByResource(ctx context.Context, input *ListBackupAccessPointsByResourceRequest) (*ListBackupAccessPointsByResourceResponse, error) {
+	return nil, fmt.Errorf("ListBackupAccessPointsByResource: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListBackupJobSummaries(ctx context.Context, input *ListBackupJobSummariesInput) (*ListBackupJobSummariesOutput, error) {

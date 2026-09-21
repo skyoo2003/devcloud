@@ -1043,6 +1043,7 @@ type CreateNotebookInput struct {
 	Name                    string     `json:"name" xml:"name"`
 	OwningProjectIdentifier string     `json:"owningProjectIdentifier" xml:"owningProjectIdentifier"`
 	Parameters              Parameters `json:"parameters" xml:"parameters"`
+	Type                    string     `json:"type" xml:"type"`
 }
 
 type CreateNotebookOutput struct {
@@ -1064,6 +1065,7 @@ type CreateNotebookOutput struct {
 	OwningProjectId          string             `json:"owningProjectId" xml:"owningProjectId"`
 	Parameters               Parameters         `json:"parameters" xml:"parameters"`
 	Status                   string             `json:"status" xml:"status"`
+	Type                     string             `json:"type" xml:"type"`
 	UpdatedAt                time.Time          `json:"updatedAt" xml:"updatedAt"`
 	UpdatedBy                string             `json:"updatedBy" xml:"updatedBy"`
 }
@@ -2540,6 +2542,7 @@ type GetNotebookOutput struct {
 	OwningProjectId          string             `json:"owningProjectId" xml:"owningProjectId"`
 	Parameters               Parameters         `json:"parameters" xml:"parameters"`
 	Status                   string             `json:"status" xml:"status"`
+	Type                     string             `json:"type" xml:"type"`
 	UpdatedAt                time.Time          `json:"updatedAt" xml:"updatedAt"`
 	UpdatedBy                string             `json:"updatedBy" xml:"updatedBy"`
 }
@@ -3449,6 +3452,7 @@ type ListNotebooksInput struct {
 	SortBy                  string `json:"sortBy" xml:"sortBy"`
 	SortOrder               string `json:"sortOrder" xml:"sortOrder"`
 	Status                  string `json:"status" xml:"status"`
+	Type                    string `json:"type" xml:"type"`
 }
 
 type ListNotebooksOutput struct {
@@ -3795,6 +3799,7 @@ type NotebookSummary struct {
 	Name            string    `json:"name" xml:"name"`
 	OwningProjectId string    `json:"owningProjectId" xml:"owningProjectId"`
 	Status          string    `json:"status" xml:"status"`
+	Type            string    `json:"type" xml:"type"`
 	UpdatedAt       time.Time `json:"updatedAt" xml:"updatedAt"`
 	UpdatedBy       string    `json:"updatedBy" xml:"updatedBy"`
 }
@@ -5222,6 +5227,7 @@ type UpdateNotebookInput struct {
 	Name                     string             `json:"name" xml:"name"`
 	Parameters               Parameters         `json:"parameters" xml:"parameters"`
 	Status                   string             `json:"status" xml:"status"`
+	Type                     string             `json:"type" xml:"type"`
 }
 
 type UpdateNotebookOutput struct {
@@ -5243,6 +5249,7 @@ type UpdateNotebookOutput struct {
 	OwningProjectId          string             `json:"owningProjectId" xml:"owningProjectId"`
 	Parameters               Parameters         `json:"parameters" xml:"parameters"`
 	Status                   string             `json:"status" xml:"status"`
+	Type                     string             `json:"type" xml:"type"`
 	UpdatedAt                time.Time          `json:"updatedAt" xml:"updatedAt"`
 	UpdatedBy                string             `json:"updatedBy" xml:"updatedBy"`
 }

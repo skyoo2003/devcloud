@@ -13,6 +13,7 @@ type OperationRoute = httproute.Route
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
 	{Method: "POST", Pattern: "/v1/canceljob", Operation: "CancelJob"},
+	{Method: "POST", Pattern: "/v1/canceljobs", Operation: "CancelJobs"},
 	{Method: "POST", Pattern: "/v1/createcomputeenvironment", Operation: "CreateComputeEnvironment"},
 	{Method: "POST", Pattern: "/v1/createconsumableresource", Operation: "CreateConsumableResource"},
 	{Method: "POST", Pattern: "/v1/createjobqueue", Operation: "CreateJobQueue"},
@@ -48,7 +49,9 @@ var OperationRoutes = []OperationRoute{
 	{Method: "POST", Pattern: "/v1/submitservicejob", Operation: "SubmitServiceJob"},
 	{Method: "POST", Pattern: "/v1/tags/{resourceArn}", Operation: "TagResource"},
 	{Method: "POST", Pattern: "/v1/terminatejob", Operation: "TerminateJob"},
+	{Method: "POST", Pattern: "/v1/terminatejobs", Operation: "TerminateJobs"},
 	{Method: "POST", Pattern: "/v1/terminateservicejob", Operation: "TerminateServiceJob"},
+	{Method: "POST", Pattern: "/v1/terminateservicejobs", Operation: "TerminateServiceJobs"},
 	{Method: "DELETE", Pattern: "/v1/tags/{resourceArn}", Operation: "UntagResource"},
 	{Method: "POST", Pattern: "/v1/updatecomputeenvironment", Operation: "UpdateComputeEnvironment"},
 	{Method: "POST", Pattern: "/v1/updateconsumableresource", Operation: "UpdateConsumableResource"},

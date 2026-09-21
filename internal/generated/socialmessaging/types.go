@@ -126,6 +126,7 @@ type GetLinkedWhatsAppBusinessAccountPhoneNumberInput struct {
 }
 
 type GetLinkedWhatsAppBusinessAccountPhoneNumberOutput struct {
+	CallSettings                    *WhatsAppCallSettings      `json:"callSettings" xml:"callSettings"`
 	LinkedWhatsAppBusinessAccountId string                     `json:"linkedWhatsAppBusinessAccountId" xml:"linkedWhatsAppBusinessAccountId"`
 	PhoneNumber                     *WhatsAppPhoneNumberDetail `json:"phoneNumber" xml:"phoneNumber"`
 }
@@ -137,6 +138,17 @@ type GetWhatsAppBusinessPublicKeyInput struct {
 type GetWhatsAppBusinessPublicKeyOutput struct {
 	BusinessPublicKey                string `json:"businessPublicKey" xml:"businessPublicKey"`
 	BusinessPublicKeySignatureStatus string `json:"businessPublicKeySignatureStatus" xml:"businessPublicKeySignatureStatus"`
+}
+
+type GetWhatsAppCallPermissionInput struct {
+	DestinationPhoneNumber   string `json:"destinationPhoneNumber" xml:"destinationPhoneNumber"`
+	EndUserBsuid             string `json:"endUserBsuid" xml:"endUserBsuid"`
+	OriginationPhoneNumberId string `json:"originationPhoneNumberId" xml:"originationPhoneNumberId"`
+}
+
+type GetWhatsAppCallPermissionOutput struct {
+	Actions    WhatsAppCallPermissionActionList `json:"actions" xml:"actions"`
+	Permission *WhatsAppCallPermission          `json:"permission" xml:"permission"`
 }
 
 type GetWhatsAppFlowInput struct {
@@ -430,6 +442,16 @@ type S3PresignedUrl struct {
 	Url     string  `json:"url" xml:"url"`
 }
 
+type SendWhatsAppCallEventInput struct {
+	CallEvent                []byte `json:"callEvent" xml:"callEvent"`
+	MetaApiVersion           string `json:"metaApiVersion" xml:"metaApiVersion"`
+	OriginationPhoneNumberId string `json:"originationPhoneNumberId" xml:"originationPhoneNumberId"`
+}
+
+type SendWhatsAppCallEventOutput struct {
+	CallId string `json:"callId" xml:"callId"`
+}
+
 type SendWhatsAppConversionEventInput struct {
 	DatasetId string `json:"datasetId" xml:"datasetId"`
 	EventData []byte `json:"eventData" xml:"eventData"`
@@ -480,6 +502,15 @@ type UntagResourceInput struct {
 
 type UntagResourceOutput struct {
 	StatusCode int32 `json:"statusCode" xml:"statusCode"`
+}
+
+type UpdateLinkedWhatsAppBusinessAccountPhoneNumberInput struct {
+	CallSettings *WhatsAppCallSettings `json:"callSettings" xml:"callSettings"`
+	Id           string                `json:"id" xml:"id"`
+}
+
+type UpdateLinkedWhatsAppBusinessAccountPhoneNumberOutput struct {
+	PhoneNumberId string `json:"phoneNumberId" xml:"phoneNumberId"`
 }
 
 type UpdateWhatsAppFlowAssetsInput struct {
@@ -536,6 +567,44 @@ type WhatsAppBusinessAccountEventDestination struct {
 	RoleArn             string `json:"roleArn" xml:"roleArn"`
 }
 
+type WhatsAppCallHours struct {
+	Enabled              bool                             `json:"enabled" xml:"enabled"`
+	HolidaySchedule      WhatsAppHolidayScheduleList      `json:"holidaySchedule" xml:"holidaySchedule"`
+	Timezone             string                           `json:"timezone" xml:"timezone"`
+	WeeklyOperatingHours WhatsAppWeeklyOperatingHoursList `json:"weeklyOperatingHours" xml:"weeklyOperatingHours"`
+}
+
+type WhatsAppCallPermission struct {
+	ExpirationTime time.Time `json:"expirationTime" xml:"expirationTime"`
+	Status         string    `json:"status" xml:"status"`
+}
+
+type WhatsAppCallPermissionAction struct {
+	ActionName       string                          `json:"actionName" xml:"actionName"`
+	CanPerformAction bool                            `json:"canPerformAction" xml:"canPerformAction"`
+	Limits           WhatsAppCallPermissionLimitList `json:"limits" xml:"limits"`
+}
+
+type WhatsAppCallPermissionLimit struct {
+	CurrentUsage        int32     `json:"currentUsage" xml:"currentUsage"`
+	LimitExpirationTime time.Time `json:"limitExpirationTime" xml:"limitExpirationTime"`
+	MaxAllowed          int32     `json:"maxAllowed" xml:"maxAllowed"`
+	TimePeriod          string    `json:"timePeriod" xml:"timePeriod"`
+}
+
+type WhatsAppCallSettings struct {
+	CallEnabled              bool               `json:"callEnabled" xml:"callEnabled"`
+	CallHours                *WhatsAppCallHours `json:"callHours" xml:"callHours"`
+	CallIconVisibility       string             `json:"callIconVisibility" xml:"callIconVisibility"`
+	CallbackPermissionStatus string             `json:"callbackPermissionStatus" xml:"callbackPermissionStatus"`
+}
+
+type WhatsAppHolidayScheduleEntry struct {
+	Date      string             `json:"date" xml:"date"`
+	EndTime   *WhatsAppTimeOfDay `json:"endTime" xml:"endTime"`
+	StartTime *WhatsAppTimeOfDay `json:"startTime" xml:"startTime"`
+}
+
 type WhatsAppPhoneNumberDetail struct {
 	Arn                    string `json:"arn" xml:"arn"`
 	DataLocalizationRegion string `json:"dataLocalizationRegion" xml:"dataLocalizationRegion"`
@@ -575,6 +644,17 @@ type WhatsAppSignupCallbackResult struct {
 	LinkedAccountsWithIncompleteSetup LinkedAccountWithIncompleteSetup `json:"linkedAccountsWithIncompleteSetup" xml:"linkedAccountsWithIncompleteSetup"`
 }
 
+type WhatsAppTimeOfDay struct {
+	Hours   int32 `json:"hours" xml:"hours"`
+	Minutes int32 `json:"minutes" xml:"minutes"`
+}
+
+type WhatsAppWeeklyOperatingHoursEntry struct {
+	CloseTime *WhatsAppTimeOfDay `json:"closeTime" xml:"closeTime"`
+	DayOfWeek string             `json:"dayOfWeek" xml:"dayOfWeek"`
+	OpenTime  *WhatsAppTimeOfDay `json:"openTime" xml:"openTime"`
+}
+
 type LinkedWhatsAppBusinessAccountSummaryList []*LinkedWhatsAppBusinessAccountSummary
 
 type MetaFlowAssetList []*MetaFlowAsset
@@ -609,9 +689,17 @@ type WabaPhoneNumberSetupFinalizationList []*WabaPhoneNumberSetupFinalization
 
 type WhatsAppBusinessAccountEventDestinations []*WhatsAppBusinessAccountEventDestination
 
+type WhatsAppCallPermissionActionList []*WhatsAppCallPermissionAction
+
+type WhatsAppCallPermissionLimitList []*WhatsAppCallPermissionLimit
+
+type WhatsAppHolidayScheduleList []*WhatsAppHolidayScheduleEntry
+
 type WhatsAppPhoneNumberDetailList []*WhatsAppPhoneNumberDetail
 
 type WhatsAppPhoneNumberSummaryList []*WhatsAppPhoneNumberSummary
+
+type WhatsAppWeeklyOperatingHoursList []*WhatsAppWeeklyOperatingHoursEntry
 
 type Filter map[string]string
 

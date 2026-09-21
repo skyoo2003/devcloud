@@ -81,6 +81,14 @@ type AdminCreateUserResponse struct {
 	User *UserType `json:"user" xml:"User"`
 }
 
+type AdminDeleteSoftwareTokenRequest struct {
+	UserPoolId string `json:"userPoolId" xml:"UserPoolId"`
+	Username   string `json:"username" xml:"Username"`
+}
+
+type AdminDeleteSoftwareTokenResponse struct {
+}
+
 type AdminDeleteUserAttributesRequest struct {
 	UserAttributeNames AttributeNameListType `json:"userAttributeNames" xml:"UserAttributeNames"`
 	UserPoolId         string                `json:"userPoolId" xml:"UserPoolId"`
@@ -133,6 +141,18 @@ type AdminGetDeviceRequest struct {
 
 type AdminGetDeviceResponse struct {
 	Device *DeviceType `json:"device" xml:"Device"`
+}
+
+type AdminGetUserAuthFactorsRequest struct {
+	UserPoolId string `json:"userPoolId" xml:"UserPoolId"`
+	Username   string `json:"username" xml:"Username"`
+}
+
+type AdminGetUserAuthFactorsResponse struct {
+	ConfiguredUserAuthFactors ConfiguredUserAuthFactorsListType `json:"configuredUserAuthFactors" xml:"ConfiguredUserAuthFactors"`
+	PreferredMfaSetting       string                            `json:"preferredMfaSetting" xml:"PreferredMfaSetting"`
+	UserMFASettingList        UserMFASettingListType            `json:"userMFASettingList" xml:"UserMFASettingList"`
+	Username                  string                            `json:"username" xml:"Username"`
 }
 
 type AdminGetUserRequest struct {
@@ -255,6 +275,7 @@ type AdminSetUserMFAPreferenceRequest struct {
 	SoftwareTokenMfaSettings *SoftwareTokenMfaSettingsType `json:"softwareTokenMfaSettings" xml:"SoftwareTokenMfaSettings"`
 	UserPoolId               string                        `json:"userPoolId" xml:"UserPoolId"`
 	Username                 string                        `json:"username" xml:"Username"`
+	WebAuthnMfaSettings      *WebAuthnMfaSettingsType      `json:"webAuthnMfaSettings" xml:"WebAuthnMfaSettings"`
 }
 
 type AdminSetUserMFAPreferenceResponse struct {
@@ -388,6 +409,12 @@ type ChangePasswordRequest struct {
 }
 
 type ChangePasswordResponse struct {
+}
+
+type ClientAuthenticationResultType struct {
+	AccessToken string `json:"accessToken" xml:"AccessToken"`
+	ExpiresIn   int32  `json:"expiresIn" xml:"ExpiresIn"`
+	TokenType   string `json:"tokenType" xml:"TokenType"`
 }
 
 type ClientSecretDescriptorType struct {
@@ -534,9 +561,10 @@ type CreateTermsResponse struct {
 }
 
 type CreateUserImportJobRequest struct {
-	CloudWatchLogsRoleArn string `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
-	JobName               string `json:"jobName" xml:"JobName"`
-	UserPoolId            string `json:"userPoolId" xml:"UserPoolId"`
+	CloudWatchLogsRoleArn    string `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
+	JobName                  string `json:"jobName" xml:"JobName"`
+	PasswordHashingAlgorithm string `json:"passwordHashingAlgorithm" xml:"PasswordHashingAlgorithm"`
+	UserPoolId               string `json:"userPoolId" xml:"UserPoolId"`
 }
 
 type CreateUserImportJobResponse struct {
@@ -578,12 +606,24 @@ type CreateUserPoolDomainRequest struct {
 	CustomDomainConfig  *CustomDomainConfigType `json:"customDomainConfig" xml:"CustomDomainConfig"`
 	Domain              string                  `json:"domain" xml:"Domain"`
 	ManagedLoginVersion int32                   `json:"managedLoginVersion" xml:"ManagedLoginVersion"`
+	Routing             *RoutingType            `json:"routing" xml:"Routing"`
 	UserPoolId          string                  `json:"userPoolId" xml:"UserPoolId"`
 }
 
 type CreateUserPoolDomainResponse struct {
-	CloudFrontDomain    string `json:"cloudFrontDomain" xml:"CloudFrontDomain"`
-	ManagedLoginVersion int32  `json:"managedLoginVersion" xml:"ManagedLoginVersion"`
+	CloudFrontDomain    string       `json:"cloudFrontDomain" xml:"CloudFrontDomain"`
+	ManagedLoginVersion int32        `json:"managedLoginVersion" xml:"ManagedLoginVersion"`
+	Routing             *RoutingType `json:"routing" xml:"Routing"`
+}
+
+type CreateUserPoolReplicaRequest struct {
+	RegionName   string           `json:"regionName" xml:"RegionName"`
+	UserPoolId   string           `json:"userPoolId" xml:"UserPoolId"`
+	UserPoolTags UserPoolTagsType `json:"userPoolTags" xml:"UserPoolTags"`
+}
+
+type CreateUserPoolReplicaResponse struct {
+	UserPoolReplica *UserPoolReplicaType `json:"userPoolReplica" xml:"UserPoolReplica"`
 }
 
 type CreateUserPoolRequest struct {
@@ -596,6 +636,8 @@ type CreateUserPoolRequest struct {
 	EmailConfiguration          *EmailConfigurationType          `json:"emailConfiguration" xml:"EmailConfiguration"`
 	EmailVerificationMessage    string                           `json:"emailVerificationMessage" xml:"EmailVerificationMessage"`
 	EmailVerificationSubject    string                           `json:"emailVerificationSubject" xml:"EmailVerificationSubject"`
+	IssuerConfiguration         *IssuerConfigurationType         `json:"issuerConfiguration" xml:"IssuerConfiguration"`
+	KeyConfiguration            *KeyConfigurationType            `json:"keyConfiguration" xml:"KeyConfiguration"`
 	LambdaConfig                *LambdaConfigType                `json:"lambdaConfig" xml:"LambdaConfig"`
 	MfaConfiguration            string                           `json:"mfaConfiguration" xml:"MfaConfiguration"`
 	Policies                    *UserPoolPolicyType              `json:"policies" xml:"Policies"`
@@ -619,6 +661,7 @@ type CreateUserPoolResponse struct {
 
 type CustomDomainConfigType struct {
 	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+	SecurityPolicy string `json:"securityPolicy" xml:"SecurityPolicy"`
 }
 
 type CustomEmailLambdaVersionConfigType struct {
@@ -686,6 +729,15 @@ type DeleteUserPoolDomainRequest struct {
 type DeleteUserPoolDomainResponse struct {
 }
 
+type DeleteUserPoolReplicaRequest struct {
+	RegionName string `json:"regionName" xml:"RegionName"`
+	UserPoolId string `json:"userPoolId" xml:"UserPoolId"`
+}
+
+type DeleteUserPoolReplicaResponse struct {
+	UserPoolReplica *UserPoolReplicaType `json:"userPoolReplica" xml:"UserPoolReplica"`
+}
+
 type DeleteUserPoolRequest struct {
 	UserPoolId string `json:"userPoolId" xml:"UserPoolId"`
 }
@@ -747,6 +799,16 @@ type DescribeRiskConfigurationRequest struct {
 
 type DescribeRiskConfigurationResponse struct {
 	RiskConfiguration *RiskConfigurationType `json:"riskConfiguration" xml:"RiskConfiguration"`
+}
+
+type DescribeTermsByClientRequest struct {
+	ClientId   string `json:"clientId" xml:"ClientId"`
+	TermsName  string `json:"termsName" xml:"TermsName"`
+	UserPoolId string `json:"userPoolId" xml:"UserPoolId"`
+}
+
+type DescribeTermsByClientResponse struct {
+	Terms *TermsType `json:"terms" xml:"Terms"`
 }
 
 type DescribeTermsRequest struct {
@@ -816,6 +878,7 @@ type DomainDescriptionType struct {
 	CustomDomainConfig     *CustomDomainConfigType `json:"customDomainConfig" xml:"CustomDomainConfig"`
 	Domain                 string                  `json:"domain" xml:"Domain"`
 	ManagedLoginVersion    int32                   `json:"managedLoginVersion" xml:"ManagedLoginVersion"`
+	Routing                *RoutingType            `json:"routing" xml:"Routing"`
 	S3Bucket               string                  `json:"s3Bucket" xml:"S3Bucket"`
 	Status                 string                  `json:"status" xml:"Status"`
 	UserPoolId             string                  `json:"userPoolId" xml:"UserPoolId"`
@@ -840,6 +903,16 @@ type EmailMfaSettingsType struct {
 	PreferredMfa bool `json:"preferredMfa" xml:"PreferredMfa"`
 }
 
+type EumsSmsConfigurationType struct {
+	CallerArn            string `json:"callerArn" xml:"CallerArn"`
+	ConfigurationSetName string `json:"configurationSetName" xml:"ConfigurationSetName"`
+	ExternalId           string `json:"externalId" xml:"ExternalId"`
+	InEntityId           string `json:"inEntityId" xml:"InEntityId"`
+	InTemplateId         string `json:"inTemplateId" xml:"InTemplateId"`
+	OriginationIdentity  string `json:"originationIdentity" xml:"OriginationIdentity"`
+	Region               string `json:"region" xml:"Region"`
+}
+
 type EventContextDataType struct {
 	City       string `json:"city" xml:"City"`
 	Country    string `json:"country" xml:"Country"`
@@ -858,6 +931,11 @@ type EventRiskType struct {
 	CompromisedCredentialsDetected bool   `json:"compromisedCredentialsDetected" xml:"CompromisedCredentialsDetected"`
 	RiskDecision                   string `json:"riskDecision" xml:"RiskDecision"`
 	RiskLevel                      string `json:"riskLevel" xml:"RiskLevel"`
+}
+
+type FailoverType struct {
+	PrimaryRoute53HealthCheckId string `json:"primaryRoute53HealthCheckId" xml:"PrimaryRoute53HealthCheckId"`
+	SecondaryRegion             string `json:"secondaryRegion" xml:"SecondaryRegion"`
 }
 
 type FirehoseConfigurationType struct {
@@ -889,6 +967,17 @@ type GetCSVHeaderRequest struct {
 type GetCSVHeaderResponse struct {
 	CSVHeader  ListOfStringTypes `json:"cSVHeader" xml:"CSVHeader"`
 	UserPoolId string            `json:"userPoolId" xml:"UserPoolId"`
+}
+
+type GetClientTokenRequest struct {
+	ClientId       string             `json:"clientId" xml:"ClientId"`
+	ClientMetadata ClientMetadataType `json:"clientMetadata" xml:"ClientMetadata"`
+	Scopes         ScopeListType      `json:"scopes" xml:"Scopes"`
+	Secret         string             `json:"secret" xml:"Secret"`
+}
+
+type GetClientTokenResponse struct {
+	ClientAuthenticationResult *ClientAuthenticationResultType `json:"clientAuthenticationResult" xml:"ClientAuthenticationResult"`
 }
 
 type GetDeviceRequest struct {
@@ -924,6 +1013,14 @@ type GetLogDeliveryConfigurationRequest struct {
 
 type GetLogDeliveryConfigurationResponse struct {
 	LogDeliveryConfiguration *LogDeliveryConfigurationType `json:"logDeliveryConfiguration" xml:"LogDeliveryConfiguration"`
+}
+
+type GetProvisionedLimitRequest struct {
+	LimitDefinition *LimitDefinitionType `json:"limitDefinition" xml:"LimitDefinition"`
+}
+
+type GetProvisionedLimitResponse struct {
+	Limit *LimitType `json:"limit" xml:"Limit"`
 }
 
 type GetSigningCertificateRequest struct {
@@ -1056,6 +1153,15 @@ type InitiateAuthResponse struct {
 	Session              string                     `json:"session" xml:"Session"`
 }
 
+type IssuerConfigurationType struct {
+	Type string `json:"type" xml:"Type"`
+}
+
+type KeyConfigurationType struct {
+	KeyType   string `json:"keyType" xml:"KeyType"`
+	KmsKeyArn string `json:"kmsKeyArn" xml:"KmsKeyArn"`
+}
+
 type LambdaConfigType struct {
 	CreateAuthChallenge         string                               `json:"createAuthChallenge" xml:"CreateAuthChallenge"`
 	CustomEmailSender           *CustomEmailLambdaVersionConfigType  `json:"customEmailSender" xml:"CustomEmailSender"`
@@ -1072,6 +1178,17 @@ type LambdaConfigType struct {
 	PreTokenGenerationConfig    *PreTokenGenerationVersionConfigType `json:"preTokenGenerationConfig" xml:"PreTokenGenerationConfig"`
 	UserMigration               string                               `json:"userMigration" xml:"UserMigration"`
 	VerifyAuthChallengeResponse string                               `json:"verifyAuthChallengeResponse" xml:"VerifyAuthChallengeResponse"`
+}
+
+type LimitDefinitionType struct {
+	Attributes StringToStringMapType `json:"attributes" xml:"Attributes"`
+	LimitClass string                `json:"limitClass" xml:"LimitClass"`
+}
+
+type LimitType struct {
+	FreeLimitValue        int32                `json:"freeLimitValue" xml:"FreeLimitValue"`
+	LimitDefinition       *LimitDefinitionType `json:"limitDefinition" xml:"LimitDefinition"`
+	ProvisionedLimitValue int32                `json:"provisionedLimitValue" xml:"ProvisionedLimitValue"`
 }
 
 type ListDevicesRequest struct {
@@ -1168,6 +1285,16 @@ type ListUserPoolClientsRequest struct {
 type ListUserPoolClientsResponse struct {
 	NextToken       string                 `json:"nextToken" xml:"NextToken"`
 	UserPoolClients UserPoolClientListType `json:"userPoolClients" xml:"UserPoolClients"`
+}
+
+type ListUserPoolReplicasRequest struct {
+	NextToken  string `json:"nextToken" xml:"NextToken"`
+	UserPoolId string `json:"userPoolId" xml:"UserPoolId"`
+}
+
+type ListUserPoolReplicasResponse struct {
+	NextToken        string                  `json:"nextToken" xml:"NextToken"`
+	UserPoolReplicas UserPoolReplicaListType `json:"userPoolReplicas" xml:"UserPoolReplicas"`
 }
 
 type ListUserPoolsRequest struct {
@@ -1378,6 +1505,10 @@ type RiskExceptionConfigurationType struct {
 	SkippedIPRangeList SkippedIPRangeListType `json:"skippedIPRangeList" xml:"SkippedIPRangeList"`
 }
 
+type RoutingType struct {
+	Failover *FailoverType `json:"failover" xml:"Failover"`
+}
+
 type S3ConfigurationType struct {
 	BucketArn string `json:"bucketArn" xml:"BucketArn"`
 }
@@ -1434,6 +1565,7 @@ type SetUserMFAPreferenceRequest struct {
 	EmailMfaSettings         *EmailMfaSettingsType         `json:"emailMfaSettings" xml:"EmailMfaSettings"`
 	SMSMfaSettings           *SMSMfaSettingsType           `json:"sMSMfaSettings" xml:"SMSMfaSettings"`
 	SoftwareTokenMfaSettings *SoftwareTokenMfaSettingsType `json:"softwareTokenMfaSettings" xml:"SoftwareTokenMfaSettings"`
+	WebAuthnMfaSettings      *WebAuthnMfaSettingsType      `json:"webAuthnMfaSettings" xml:"WebAuthnMfaSettings"`
 }
 
 type SetUserMFAPreferenceResponse struct {
@@ -1491,9 +1623,10 @@ type SmithyUnit struct {
 }
 
 type SmsConfigurationType struct {
-	ExternalId   string `json:"externalId" xml:"ExternalId"`
-	SnsCallerArn string `json:"snsCallerArn" xml:"SnsCallerArn"`
-	SnsRegion    string `json:"snsRegion" xml:"SnsRegion"`
+	EumsSms      *EumsSmsConfigurationType `json:"eumsSms" xml:"EumsSms"`
+	ExternalId   string                    `json:"externalId" xml:"ExternalId"`
+	SnsCallerArn string                    `json:"snsCallerArn" xml:"SnsCallerArn"`
+	SnsRegion    string                    `json:"snsRegion" xml:"SnsRegion"`
 }
 
 type SmsMfaConfigType struct {
@@ -1649,6 +1782,15 @@ type UpdateManagedLoginBrandingResponse struct {
 	ManagedLoginBranding *ManagedLoginBrandingType `json:"managedLoginBranding" xml:"ManagedLoginBranding"`
 }
 
+type UpdateProvisionedLimitRequest struct {
+	LimitDefinition     *LimitDefinitionType `json:"limitDefinition" xml:"LimitDefinition"`
+	RequestedLimitValue int32                `json:"requestedLimitValue" xml:"RequestedLimitValue"`
+}
+
+type UpdateProvisionedLimitResponse struct {
+	Limit *LimitType `json:"limit" xml:"Limit"`
+}
+
 type UpdateResourceServerRequest struct {
 	Identifier string                      `json:"identifier" xml:"Identifier"`
 	Name       string                      `json:"name" xml:"Name"`
@@ -1717,12 +1859,24 @@ type UpdateUserPoolDomainRequest struct {
 	CustomDomainConfig  *CustomDomainConfigType `json:"customDomainConfig" xml:"CustomDomainConfig"`
 	Domain              string                  `json:"domain" xml:"Domain"`
 	ManagedLoginVersion int32                   `json:"managedLoginVersion" xml:"ManagedLoginVersion"`
+	Routing             *RoutingType            `json:"routing" xml:"Routing"`
 	UserPoolId          string                  `json:"userPoolId" xml:"UserPoolId"`
 }
 
 type UpdateUserPoolDomainResponse struct {
-	CloudFrontDomain    string `json:"cloudFrontDomain" xml:"CloudFrontDomain"`
-	ManagedLoginVersion int32  `json:"managedLoginVersion" xml:"ManagedLoginVersion"`
+	CloudFrontDomain    string       `json:"cloudFrontDomain" xml:"CloudFrontDomain"`
+	ManagedLoginVersion int32        `json:"managedLoginVersion" xml:"ManagedLoginVersion"`
+	Routing             *RoutingType `json:"routing" xml:"Routing"`
+}
+
+type UpdateUserPoolReplicaRequest struct {
+	RegionName string `json:"regionName" xml:"RegionName"`
+	Status     string `json:"status" xml:"Status"`
+	UserPoolId string `json:"userPoolId" xml:"UserPoolId"`
+}
+
+type UpdateUserPoolReplicaResponse struct {
+	UserPoolReplica *UserPoolReplicaType `json:"userPoolReplica" xml:"UserPoolReplica"`
 }
 
 type UpdateUserPoolRequest struct {
@@ -1734,6 +1888,8 @@ type UpdateUserPoolRequest struct {
 	EmailConfiguration          *EmailConfigurationType          `json:"emailConfiguration" xml:"EmailConfiguration"`
 	EmailVerificationMessage    string                           `json:"emailVerificationMessage" xml:"EmailVerificationMessage"`
 	EmailVerificationSubject    string                           `json:"emailVerificationSubject" xml:"EmailVerificationSubject"`
+	IssuerConfiguration         *IssuerConfigurationType         `json:"issuerConfiguration" xml:"IssuerConfiguration"`
+	KeyConfiguration            *KeyConfigurationType            `json:"keyConfiguration" xml:"KeyConfiguration"`
 	LambdaConfig                *LambdaConfigType                `json:"lambdaConfig" xml:"LambdaConfig"`
 	MfaConfiguration            string                           `json:"mfaConfiguration" xml:"MfaConfiguration"`
 	Policies                    *UserPoolPolicyType              `json:"policies" xml:"Policies"`
@@ -1762,19 +1918,20 @@ type UserContextDataType struct {
 }
 
 type UserImportJobType struct {
-	CloudWatchLogsRoleArn string    `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
-	CompletionDate        time.Time `json:"completionDate" xml:"CompletionDate"`
-	CompletionMessage     string    `json:"completionMessage" xml:"CompletionMessage"`
-	CreationDate          time.Time `json:"creationDate" xml:"CreationDate"`
-	FailedUsers           int64     `json:"failedUsers" xml:"FailedUsers"`
-	ImportedUsers         int64     `json:"importedUsers" xml:"ImportedUsers"`
-	JobId                 string    `json:"jobId" xml:"JobId"`
-	JobName               string    `json:"jobName" xml:"JobName"`
-	PreSignedUrl          string    `json:"preSignedUrl" xml:"PreSignedUrl"`
-	SkippedUsers          int64     `json:"skippedUsers" xml:"SkippedUsers"`
-	StartDate             time.Time `json:"startDate" xml:"StartDate"`
-	Status                string    `json:"status" xml:"Status"`
-	UserPoolId            string    `json:"userPoolId" xml:"UserPoolId"`
+	CloudWatchLogsRoleArn    string    `json:"cloudWatchLogsRoleArn" xml:"CloudWatchLogsRoleArn"`
+	CompletionDate           time.Time `json:"completionDate" xml:"CompletionDate"`
+	CompletionMessage        string    `json:"completionMessage" xml:"CompletionMessage"`
+	CreationDate             time.Time `json:"creationDate" xml:"CreationDate"`
+	FailedUsers              int64     `json:"failedUsers" xml:"FailedUsers"`
+	ImportedUsers            int64     `json:"importedUsers" xml:"ImportedUsers"`
+	JobId                    string    `json:"jobId" xml:"JobId"`
+	JobName                  string    `json:"jobName" xml:"JobName"`
+	PasswordHashingAlgorithm string    `json:"passwordHashingAlgorithm" xml:"PasswordHashingAlgorithm"`
+	PreSignedUrl             string    `json:"preSignedUrl" xml:"PreSignedUrl"`
+	SkippedUsers             int64     `json:"skippedUsers" xml:"SkippedUsers"`
+	StartDate                time.Time `json:"startDate" xml:"StartDate"`
+	Status                   string    `json:"status" xml:"Status"`
+	UserPoolId               string    `json:"userPoolId" xml:"UserPoolId"`
 }
 
 type UserPoolAddOnsType struct {
@@ -1818,17 +1975,25 @@ type UserPoolClientType struct {
 }
 
 type UserPoolDescriptionType struct {
-	CreationDate     time.Time         `json:"creationDate" xml:"CreationDate"`
-	Id               string            `json:"id" xml:"Id"`
-	LambdaConfig     *LambdaConfigType `json:"lambdaConfig" xml:"LambdaConfig"`
-	LastModifiedDate time.Time         `json:"lastModifiedDate" xml:"LastModifiedDate"`
-	Name             string            `json:"name" xml:"Name"`
-	Status           string            `json:"status" xml:"Status"`
+	CreationDate     time.Time          `json:"creationDate" xml:"CreationDate"`
+	Id               string             `json:"id" xml:"Id"`
+	LambdaConfig     *LambdaConfigType  `json:"lambdaConfig" xml:"LambdaConfig"`
+	LastModifiedDate time.Time          `json:"lastModifiedDate" xml:"LastModifiedDate"`
+	Name             string             `json:"name" xml:"Name"`
+	ReplicaRegions   ReplicaRegionsType `json:"replicaRegions" xml:"ReplicaRegions"`
+	Status           string             `json:"status" xml:"Status"`
 }
 
 type UserPoolPolicyType struct {
 	PasswordPolicy *PasswordPolicyType `json:"passwordPolicy" xml:"PasswordPolicy"`
 	SignInPolicy   *SignInPolicyType   `json:"signInPolicy" xml:"SignInPolicy"`
+}
+
+type UserPoolReplicaType struct {
+	RegionName  string `json:"regionName" xml:"RegionName"`
+	Role        string `json:"role" xml:"Role"`
+	Status      string `json:"status" xml:"Status"`
+	UserPoolArn string `json:"userPoolArn" xml:"UserPoolArn"`
 }
 
 type UserPoolType struct {
@@ -1848,6 +2013,8 @@ type UserPoolType struct {
 	EmailVerificationSubject    string                           `json:"emailVerificationSubject" xml:"EmailVerificationSubject"`
 	EstimatedNumberOfUsers      int32                            `json:"estimatedNumberOfUsers" xml:"EstimatedNumberOfUsers"`
 	Id                          string                           `json:"id" xml:"Id"`
+	IssuerConfiguration         *IssuerConfigurationType         `json:"issuerConfiguration" xml:"IssuerConfiguration"`
+	KeyConfiguration            *KeyConfigurationType            `json:"keyConfiguration" xml:"KeyConfiguration"`
 	LambdaConfig                *LambdaConfigType                `json:"lambdaConfig" xml:"LambdaConfig"`
 	LastModifiedDate            time.Time                        `json:"lastModifiedDate" xml:"LastModifiedDate"`
 	MfaConfiguration            string                           `json:"mfaConfiguration" xml:"MfaConfiguration"`
@@ -1913,8 +2080,9 @@ type VerifyUserAttributeResponse struct {
 }
 
 type WebAuthnConfigurationType struct {
-	RelyingPartyId   string `json:"relyingPartyId" xml:"RelyingPartyId"`
-	UserVerification string `json:"userVerification" xml:"UserVerification"`
+	FactorConfiguration string `json:"factorConfiguration" xml:"FactorConfiguration"`
+	RelyingPartyId      string `json:"relyingPartyId" xml:"RelyingPartyId"`
+	UserVerification    string `json:"userVerification" xml:"UserVerification"`
 }
 
 type WebAuthnCredentialDescription struct {
@@ -1924,6 +2092,10 @@ type WebAuthnCredentialDescription struct {
 	CredentialId            string                              `json:"credentialId" xml:"CredentialId"`
 	FriendlyCredentialName  string                              `json:"friendlyCredentialName" xml:"FriendlyCredentialName"`
 	RelyingPartyId          string                              `json:"relyingPartyId" xml:"RelyingPartyId"`
+}
+
+type WebAuthnMfaSettingsType struct {
+	Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type AliasAttributesListType []string
@@ -1986,6 +2158,8 @@ type ProvidersListType []*ProviderDescription
 
 type RecoveryMechanismsType []*RecoveryOptionType
 
+type ReplicaRegionsType []string
+
 type ResourceServerScopeListType []*ResourceServerScopeType
 
 type ResourceServersListType []*ResourceServerType
@@ -2009,6 +2183,8 @@ type UserMFASettingListType []string
 type UserPoolClientListType []*UserPoolClientDescription
 
 type UserPoolListType []*UserPoolDescriptionType
+
+type UserPoolReplicaListType []*UserPoolReplicaType
 
 type UserPoolTagsListType []string
 
@@ -2035,6 +2211,8 @@ type ClientMetadataType map[string]string
 type LinksType map[string]string
 
 type ProviderDetailsType map[string]string
+
+type StringToStringMapType map[string]string
 
 type UserPoolTagsType map[string]string
 

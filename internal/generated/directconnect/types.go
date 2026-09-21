@@ -66,6 +66,16 @@ type AssociateConnectionWithLagRequest struct {
 	LagId        string `json:"lagId" xml:"lagId"`
 }
 
+type AssociateConnectionsToResiliencyGroupRequest struct {
+	ClientToken           string                   `json:"clientToken" xml:"clientToken"`
+	ConnectionIdentifiers ConnectionIdentifierList `json:"connectionIdentifiers" xml:"connectionIdentifiers"`
+	ResiliencyGroupId     string                   `json:"resiliencyGroupId" xml:"resiliencyGroupId"`
+}
+
+type AssociateConnectionsToResiliencyGroupResult struct {
+	ResiliencyGroupAssociations ResiliencyGroupAssociationList `json:"resiliencyGroupAssociations" xml:"resiliencyGroupAssociations"`
+}
+
 type AssociateHostedConnectionRequest struct {
 	ConnectionId       string `json:"connectionId" xml:"connectionId"`
 	ParentConnectionId string `json:"parentConnectionId" xml:"parentConnectionId"`
@@ -99,6 +109,12 @@ type AssociatedGateway struct {
 	OwnerAccount string `json:"ownerAccount" xml:"ownerAccount"`
 	Region       string `json:"region" xml:"region"`
 	Type         string `json:"type" xml:"type"`
+}
+
+type AvailableBillingMode struct {
+	AvailablePortSpeeds AvailablePortSpeeds `json:"availablePortSpeeds" xml:"availablePortSpeeds"`
+	BillingMode         string              `json:"billingMode" xml:"billingMode"`
+	IncludedRegions     IncludedRegionList  `json:"includedRegions" xml:"includedRegions"`
 }
 
 type BGPPeer struct {
@@ -163,6 +179,7 @@ type Connection struct {
 	AwsDeviceV2                      string             `json:"awsDeviceV2" xml:"awsDeviceV2"`
 	AwsLogicalDeviceId               string             `json:"awsLogicalDeviceId" xml:"awsLogicalDeviceId"`
 	Bandwidth                        string             `json:"bandwidth" xml:"bandwidth"`
+	BillingMode                      string             `json:"billingMode" xml:"billingMode"`
 	ConnectionId                     string             `json:"connectionId" xml:"connectionId"`
 	ConnectionName                   string             `json:"connectionName" xml:"connectionName"`
 	ConnectionState                  string             `json:"connectionState" xml:"connectionState"`
@@ -205,6 +222,7 @@ type CreateBGPPeerResponse struct {
 
 type CreateConnectionRequest struct {
 	Bandwidth      string  `json:"bandwidth" xml:"bandwidth"`
+	BillingMode    string  `json:"billingMode" xml:"billingMode"`
 	ConnectionName string  `json:"connectionName" xml:"connectionName"`
 	LagId          string  `json:"lagId" xml:"lagId"`
 	Location       string  `json:"location" xml:"location"`
@@ -257,6 +275,7 @@ type CreateInterconnectRequest struct {
 }
 
 type CreateLagRequest struct {
+	BillingMode          string  `json:"billingMode" xml:"billingMode"`
 	ChildConnectionTags  TagList `json:"childConnectionTags" xml:"childConnectionTags"`
 	ConnectionId         string  `json:"connectionId" xml:"connectionId"`
 	ConnectionsBandwidth string  `json:"connectionsBandwidth" xml:"connectionsBandwidth"`
@@ -276,6 +295,17 @@ type CreatePrivateVirtualInterfaceRequest struct {
 type CreatePublicVirtualInterfaceRequest struct {
 	ConnectionId              string                     `json:"connectionId" xml:"connectionId"`
 	NewPublicVirtualInterface *NewPublicVirtualInterface `json:"newPublicVirtualInterface" xml:"newPublicVirtualInterface"`
+}
+
+type CreateResiliencyGroupRequest struct {
+	ClientToken             string  `json:"clientToken" xml:"clientToken"`
+	IntendedResiliencyModel string  `json:"intendedResiliencyModel" xml:"intendedResiliencyModel"`
+	ResiliencyGroupName     string  `json:"resiliencyGroupName" xml:"resiliencyGroupName"`
+	Tags                    TagList `json:"tags" xml:"tags"`
+}
+
+type CreateResiliencyGroupResult struct {
+	ResiliencyGroup *ResiliencyGroup `json:"resiliencyGroup" xml:"resiliencyGroup"`
 }
 
 type CreateTransitVirtualInterfaceRequest struct {
@@ -344,6 +374,14 @@ type DeleteInterconnectResponse struct {
 
 type DeleteLagRequest struct {
 	LagId string `json:"lagId" xml:"lagId"`
+}
+
+type DeleteResiliencyGroupRequest struct {
+	ResiliencyGroupId string `json:"resiliencyGroupId" xml:"resiliencyGroupId"`
+}
+
+type DeleteResiliencyGroupResult struct {
+	ResiliencyGroup *ResiliencyGroup `json:"resiliencyGroup" xml:"resiliencyGroup"`
 }
 
 type DeleteVirtualInterfaceRequest struct {
@@ -540,6 +578,16 @@ type DisassociateConnectionFromLagRequest struct {
 	LagId        string `json:"lagId" xml:"lagId"`
 }
 
+type DisassociateConnectionsFromResiliencyGroupRequest struct {
+	ClientToken           string                   `json:"clientToken" xml:"clientToken"`
+	ConnectionIdentifiers ConnectionIdentifierList `json:"connectionIdentifiers" xml:"connectionIdentifiers"`
+	ResiliencyGroupId     string                   `json:"resiliencyGroupId" xml:"resiliencyGroupId"`
+}
+
+type DisassociateConnectionsFromResiliencyGroupResult struct {
+	ResiliencyGroupAssociations ResiliencyGroupAssociationList `json:"resiliencyGroupAssociations" xml:"resiliencyGroupAssociations"`
+}
+
 type DisassociateMacSecKeyRequest struct {
 	ConnectionId string `json:"connectionId" xml:"connectionId"`
 	SecretARN    string `json:"secretARN" xml:"secretARN"`
@@ -548,6 +596,14 @@ type DisassociateMacSecKeyRequest struct {
 type DisassociateMacSecKeyResponse struct {
 	ConnectionId string        `json:"connectionId" xml:"connectionId"`
 	MacSecKeys   MacSecKeyList `json:"macSecKeys" xml:"macSecKeys"`
+}
+
+type GetResiliencyGroupRequest struct {
+	ResiliencyGroupId string `json:"resiliencyGroupId" xml:"resiliencyGroupId"`
+}
+
+type GetResiliencyGroupResult struct {
+	ResiliencyGroup *ResiliencyGroup `json:"resiliencyGroup" xml:"resiliencyGroup"`
 }
 
 type Interconnect struct {
@@ -582,6 +638,7 @@ type Lag struct {
 	AwsDevice                      string             `json:"awsDevice" xml:"awsDevice"`
 	AwsDeviceV2                    string             `json:"awsDeviceV2" xml:"awsDeviceV2"`
 	AwsLogicalDeviceId             string             `json:"awsLogicalDeviceId" xml:"awsLogicalDeviceId"`
+	BillingMode                    string             `json:"billingMode" xml:"billingMode"`
 	Connections                    ConnectionList     `json:"connections" xml:"connections"`
 	ConnectionsBandwidth           string             `json:"connectionsBandwidth" xml:"connectionsBandwidth"`
 	EncryptionMode                 string             `json:"encryptionMode" xml:"encryptionMode"`
@@ -609,6 +666,27 @@ type Lag struct {
 type Lags struct {
 	Lags      LagList `json:"lags" xml:"lags"`
 	NextToken string  `json:"nextToken" xml:"nextToken"`
+}
+
+type ListResiliencyGroupAssociationsRequest struct {
+	MaxResults        int32  `json:"maxResults" xml:"maxResults"`
+	NextToken         string `json:"nextToken" xml:"nextToken"`
+	ResiliencyGroupId string `json:"resiliencyGroupId" xml:"resiliencyGroupId"`
+}
+
+type ListResiliencyGroupAssociationsResult struct {
+	Items     ResiliencyGroupAssociationList `json:"items" xml:"items"`
+	NextToken string                         `json:"nextToken" xml:"nextToken"`
+}
+
+type ListResiliencyGroupsRequest struct {
+	MaxResults int32  `json:"maxResults" xml:"maxResults"`
+	NextToken  string `json:"nextToken" xml:"nextToken"`
+}
+
+type ListResiliencyGroupsResult struct {
+	Items     ResiliencyGroupSummaryList `json:"items" xml:"items"`
+	NextToken string                     `json:"nextToken" xml:"nextToken"`
 }
 
 type ListVirtualInterfaceRoutesRequest struct {
@@ -644,6 +722,7 @@ type Loa struct {
 }
 
 type Location struct {
+	AvailableBillingModes     AvailableBillingModeList  `json:"availableBillingModes" xml:"availableBillingModes"`
 	AvailableMacSecPortSpeeds AvailableMacSecPortSpeeds `json:"availableMacSecPortSpeeds" xml:"availableMacSecPortSpeeds"`
 	AvailablePortSpeeds       AvailablePortSpeeds       `json:"availablePortSpeeds" xml:"availablePortSpeeds"`
 	AvailableProviders        ProviderList              `json:"availableProviders" xml:"availableProviders"`
@@ -772,6 +851,31 @@ type RateLimiterStatus struct {
 	TotalBandwidth string `json:"totalBandwidth" xml:"totalBandwidth"`
 }
 
+type ResiliencyGroup struct {
+	OwnerAccount        string  `json:"ownerAccount" xml:"ownerAccount"`
+	ResiliencyGroupArn  string  `json:"resiliencyGroupArn" xml:"resiliencyGroupArn"`
+	ResiliencyGroupId   string  `json:"resiliencyGroupId" xml:"resiliencyGroupId"`
+	ResiliencyGroupName string  `json:"resiliencyGroupName" xml:"resiliencyGroupName"`
+	ResiliencyGroupType string  `json:"resiliencyGroupType" xml:"resiliencyGroupType"`
+	State               string  `json:"state" xml:"state"`
+	Tags                TagList `json:"tags" xml:"tags"`
+}
+
+type ResiliencyGroupAssociation struct {
+	ConnectionArn     string `json:"connectionArn" xml:"connectionArn"`
+	ResiliencyGroupId string `json:"resiliencyGroupId" xml:"resiliencyGroupId"`
+	State             string `json:"state" xml:"state"`
+}
+
+type ResiliencyGroupSummary struct {
+	OwnerAccount        string `json:"ownerAccount" xml:"ownerAccount"`
+	ResiliencyGroupArn  string `json:"resiliencyGroupArn" xml:"resiliencyGroupArn"`
+	ResiliencyGroupId   string `json:"resiliencyGroupId" xml:"resiliencyGroupId"`
+	ResiliencyGroupName string `json:"resiliencyGroupName" xml:"resiliencyGroupName"`
+	ResiliencyGroupType string `json:"resiliencyGroupType" xml:"resiliencyGroupType"`
+	State               string `json:"state" xml:"state"`
+}
+
 type ResourceTag struct {
 	ResourceArn string  `json:"resourceArn" xml:"resourceArn"`
 	Tags        TagList `json:"tags" xml:"tags"`
@@ -856,6 +960,16 @@ type UpdateConnectionRequest struct {
 	EncryptionMode string `json:"encryptionMode" xml:"encryptionMode"`
 }
 
+type UpdateConnectionsBillingModeRequest struct {
+	BillingMode   string           `json:"billingMode" xml:"billingMode"`
+	ConnectionIds ConnectionIdList `json:"connectionIds" xml:"connectionIds"`
+}
+
+type UpdateConnectionsBillingModeResponse struct {
+	BillingMode string         `json:"billingMode" xml:"billingMode"`
+	Connections ConnectionList `json:"connections" xml:"connections"`
+}
+
 type UpdateDirectConnectGatewayAssociationRequest struct {
 	AddAllowedPrefixesToDirectConnectGateway    RouteFilterPrefixList `json:"addAllowedPrefixesToDirectConnectGateway" xml:"addAllowedPrefixesToDirectConnectGateway"`
 	AssociationId                               string                `json:"associationId" xml:"associationId"`
@@ -880,6 +994,16 @@ type UpdateLagRequest struct {
 	LagId          string `json:"lagId" xml:"lagId"`
 	LagName        string `json:"lagName" xml:"lagName"`
 	MinimumLinks   int32  `json:"minimumLinks" xml:"minimumLinks"`
+}
+
+type UpdateResiliencyGroupRequest struct {
+	ClientToken         string `json:"clientToken" xml:"clientToken"`
+	ResiliencyGroupId   string `json:"resiliencyGroupId" xml:"resiliencyGroupId"`
+	ResiliencyGroupName string `json:"resiliencyGroupName" xml:"resiliencyGroupName"`
+}
+
+type UpdateResiliencyGroupResult struct {
+	ResiliencyGroup *ResiliencyGroup `json:"resiliencyGroup" xml:"resiliencyGroup"`
 }
 
 type UpdateVirtualInterfaceAttributesRequest struct {
@@ -956,6 +1080,8 @@ type AsPathList []int64
 
 type AsPathSegmentList []*AsPathSegment
 
+type AvailableBillingModeList []*AvailableBillingMode
+
 type AvailableMacSecPortSpeeds []string
 
 type AvailablePortSpeeds []string
@@ -965,6 +1091,10 @@ type BGPPeerIdList []string
 type BGPPeerList []*BGPPeer
 
 type CommunityList []string
+
+type ConnectionIdList []string
+
+type ConnectionIdentifierList []string
 
 type ConnectionList []*Connection
 
@@ -976,6 +1106,8 @@ type DirectConnectGatewayAttachmentList []*DirectConnectGatewayAttachment
 
 type DirectConnectGatewayList []*DirectConnectGateway
 
+type IncludedRegionList []string
+
 type InterconnectList []*Interconnect
 
 type LagList []*Lag
@@ -985,6 +1117,10 @@ type LocationList []*Location
 type MacSecKeyList []*MacSecKey
 
 type ProviderList []string
+
+type ResiliencyGroupAssociationList []*ResiliencyGroupAssociation
+
+type ResiliencyGroupSummaryList []*ResiliencyGroupSummary
 
 type ResourceArnList []string
 

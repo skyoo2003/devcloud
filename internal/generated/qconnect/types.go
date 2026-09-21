@@ -703,6 +703,11 @@ type DeactivateMessageTemplateResponse struct {
 	VersionNumber      int64  `json:"versionNumber" xml:"versionNumber"`
 }
 
+type DelegateAgentConfiguration struct {
+	AgentTarget interface{}            `json:"agentTarget" xml:"agentTarget"`
+	Instruction *MultiAgentInstruction `json:"instruction" xml:"instruction"`
+}
+
 type DeleteAIAgentRequest struct {
 	AiAgentId   string `json:"aiAgentId" xml:"aiAgentId"`
 	AssistantId string `json:"assistantId" xml:"assistantId"`
@@ -1156,6 +1161,13 @@ type GuardrailTopicConfig struct {
 
 type GuardrailWordConfig struct {
 	Text string `json:"text" xml:"text"`
+}
+
+type HandoffAgentConfiguration struct {
+	AgentTarget           interface{}            `json:"agentTarget" xml:"agentTarget"`
+	AudioStreamingEnabled bool                   `json:"audioStreamingEnabled" xml:"audioStreamingEnabled"`
+	ImmediateHandoff      bool                   `json:"immediateHandoff" xml:"immediateHandoff"`
+	Instruction           *MultiAgentInstruction `json:"instruction" xml:"instruction"`
 }
 
 type HierarchicalChunkingConfiguration struct {
@@ -1618,6 +1630,11 @@ type ModelSummary struct {
 	SupportsPromptCaching  bool             `json:"supportsPromptCaching" xml:"supportsPromptCaching"`
 }
 
+type MultiAgentInstruction struct {
+	Examples    MultiAgentExampleList `json:"examples" xml:"examples"`
+	Instruction string                `json:"instruction" xml:"instruction"`
+}
+
 type NoteTakingAIAgentConfiguration struct {
 	Locale                  string `json:"locale" xml:"locale"`
 	NoteTakingAIGuardrailId string `json:"noteTakingAIGuardrailId" xml:"noteTakingAIGuardrailId"`
@@ -1650,11 +1667,14 @@ type NotifyRecommendationsReceivedResponse struct {
 }
 
 type OrchestrationAIAgentConfiguration struct {
-	ConnectInstanceArn         string                `json:"connectInstanceArn" xml:"connectInstanceArn"`
-	Locale                     string                `json:"locale" xml:"locale"`
-	OrchestrationAIGuardrailId string                `json:"orchestrationAIGuardrailId" xml:"orchestrationAIGuardrailId"`
-	OrchestrationAIPromptId    string                `json:"orchestrationAIPromptId" xml:"orchestrationAIPromptId"`
-	ToolConfigurations         ToolConfigurationList `json:"toolConfigurations" xml:"toolConfigurations"`
+	ConnectInstanceArn         string                      `json:"connectInstanceArn" xml:"connectInstanceArn"`
+	InputSchemas               JSONDocumentList            `json:"inputSchemas" xml:"inputSchemas"`
+	Locale                     string                      `json:"locale" xml:"locale"`
+	MultiAgentConfigurations   MultiAgentConfigurationList `json:"multiAgentConfigurations" xml:"multiAgentConfigurations"`
+	OrchestrationAIGuardrailId string                      `json:"orchestrationAIGuardrailId" xml:"orchestrationAIGuardrailId"`
+	OrchestrationAIPromptId    string                      `json:"orchestrationAIPromptId" xml:"orchestrationAIPromptId"`
+	OutputSchemas              JSONDocumentList            `json:"outputSchemas" xml:"outputSchemas"`
+	ToolConfigurations         ToolConfigurationList       `json:"toolConfigurations" xml:"toolConfigurations"`
 }
 
 type OrchestratorConfigurationEntry struct {
@@ -2127,6 +2147,7 @@ type SpanAttributes struct {
 	InitialContactId           string                      `json:"initialContactId" xml:"initialContactId"`
 	InputMessages              SpanMessageList             `json:"inputMessages" xml:"inputMessages"`
 	InstanceArn                string                      `json:"instanceArn" xml:"instanceArn"`
+	InteractionMode            string                      `json:"interactionMode" xml:"interactionMode"`
 	OperationName              string                      `json:"operationName" xml:"operationName"`
 	OutputMessages             SpanMessageList             `json:"outputMessages" xml:"outputMessages"`
 	PromptArn                  string                      `json:"promptArn" xml:"promptArn"`
@@ -2139,8 +2160,10 @@ type SpanAttributes struct {
 	RequestModel               string                      `json:"requestModel" xml:"requestModel"`
 	ResponseFinishReasons      SpanFinishReasonList        `json:"responseFinishReasons" xml:"responseFinishReasons"`
 	ResponseModel              string                      `json:"responseModel" xml:"responseModel"`
+	ReturnReason               string                      `json:"returnReason" xml:"returnReason"`
 	SessionName                string                      `json:"sessionName" xml:"sessionName"`
 	SystemInstructions         SpanMessageValueList        `json:"systemInstructions" xml:"systemInstructions"`
+	TargetAgentId              string                      `json:"targetAgentId" xml:"targetAgentId"`
 	Temperature                float32                     `json:"temperature" xml:"temperature"`
 	TimeToFirstTokenMs         int32                       `json:"timeToFirstTokenMs" xml:"timeToFirstTokenMs"`
 	TopP                       float32                     `json:"topP" xml:"topP"`
@@ -2590,6 +2613,8 @@ type Highlights []*Highlight
 
 type ImportJobList []*ImportJobSummary
 
+type JSONDocumentList []interface{}
+
 type KnowledgeBaseList []*KnowledgeBaseSummary
 
 type MessageList []*MessageOutput
@@ -2615,6 +2640,10 @@ type MessageTemplateSummaryList []*MessageTemplateSummary
 type MessageTemplateVersionSummaryList []*MessageTemplateVersionSummary
 
 type ModelSummaryList []*ModelSummary
+
+type MultiAgentConfigurationList []interface{}
+
+type MultiAgentExampleList []string
 
 type NotifyRecommendationsReceivedErrorList []*NotifyRecommendationsReceivedError
 
@@ -2704,6 +2733,8 @@ type AIAgentConfiguration interface{}
 
 type AIPromptTemplateConfiguration interface{}
 
+type AgentTarget interface{}
+
 type AssistantAssociationInputData interface{}
 
 type AssistantAssociationOutputData interface{}
@@ -2735,6 +2766,8 @@ type MessageTemplateContentProvider interface{}
 type MessageTemplateSourceConfiguration interface{}
 
 type MessageTemplateSourceConfigurationSummary interface{}
+
+type MultiAgentConfiguration interface{}
 
 type OrCondition interface{}
 

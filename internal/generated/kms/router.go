@@ -37,6 +37,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "GenerateDataKeyWithoutPlaintext"},
 	{Method: "", Pattern: "", Operation: "GenerateMac"},
 	{Method: "", Pattern: "", Operation: "GenerateRandom"},
+	{Method: "", Pattern: "", Operation: "GetKeyLastUsage"},
 	{Method: "", Pattern: "", Operation: "GetKeyPolicy"},
 	{Method: "", Pattern: "", Operation: "GetKeyRotationStatus"},
 	{Method: "", Pattern: "", Operation: "GetParametersForImport"},

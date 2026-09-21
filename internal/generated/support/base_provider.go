@@ -19,12 +19,20 @@ func (b *BaseProvider) AddCommunicationToCase(ctx context.Context, input *AddCom
 	return nil, fmt.Errorf("AddCommunicationToCase: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CompleteAttachmentUpload(ctx context.Context, input *CompleteAttachmentUploadRequest) (*CompleteAttachmentUploadResponse, error) {
+	return nil, fmt.Errorf("CompleteAttachmentUpload: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateCase(ctx context.Context, input *CreateCaseRequest) (*CreateCaseResponse, error) {
 	return nil, fmt.Errorf("CreateCase: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeAttachment(ctx context.Context, input *DescribeAttachmentRequest) (*DescribeAttachmentResponse, error) {
 	return nil, fmt.Errorf("DescribeAttachment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeAttachmentUploadStatus(ctx context.Context, input *DescribeAttachmentUploadStatusRequest) (*DescribeAttachmentUploadStatusResponse, error) {
+	return nil, fmt.Errorf("DescribeAttachmentUploadStatus: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeCases(ctx context.Context, input *DescribeCasesRequest) (*DescribeCasesResponse, error) {
@@ -65,6 +73,14 @@ func (b *BaseProvider) DescribeTrustedAdvisorCheckSummaries(ctx context.Context,
 
 func (b *BaseProvider) DescribeTrustedAdvisorChecks(ctx context.Context, input *DescribeTrustedAdvisorChecksRequest) (*DescribeTrustedAdvisorChecksResponse, error) {
 	return nil, fmt.Errorf("DescribeTrustedAdvisorChecks: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAttachmentDownloadLink(ctx context.Context, input *GetAttachmentDownloadLinkRequest) (*GetAttachmentDownloadLinkResponse, error) {
+	return nil, fmt.Errorf("GetAttachmentDownloadLink: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAttachmentUploadLinks(ctx context.Context, input *GetAttachmentUploadLinksRequest) (*GetAttachmentUploadLinksResponse, error) {
+	return nil, fmt.Errorf("GetAttachmentUploadLinks: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) RefreshTrustedAdvisorCheck(ctx context.Context, input *RefreshTrustedAdvisorCheckRequest) (*RefreshTrustedAdvisorCheckResponse, error) {

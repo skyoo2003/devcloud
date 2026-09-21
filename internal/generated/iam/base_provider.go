@@ -15,6 +15,10 @@ func (b *BaseProvider) AcceptDelegationRequest(ctx context.Context, input *Accep
 	return nil, fmt.Errorf("AcceptDelegationRequest: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) AcquireRole(ctx context.Context, input *AcquireRoleRequest) (*AcquireRoleResponse, error) {
+	return nil, fmt.Errorf("AcquireRole: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) AddClientIDToOpenIDConnectProvider(ctx context.Context, input *AddClientIDToOpenIDConnectProviderRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("AddClientIDToOpenIDConnectProvider: %w", ErrNotImplemented)
 }
@@ -267,6 +271,10 @@ func (b *BaseProvider) GetAccountPasswordPolicy(ctx context.Context, input *Smit
 	return nil, fmt.Errorf("GetAccountPasswordPolicy: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetAccountProperties(ctx context.Context, input *GetAccountPropertiesRequest) (*GetAccountPropertiesResponse, error) {
+	return nil, fmt.Errorf("GetAccountProperties: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetAccountSummary(ctx context.Context, input *SmithyUnit) (*GetAccountSummaryResponse, error) {
 	return nil, fmt.Errorf("GetAccountSummary: %w", ErrNotImplemented)
 }
@@ -337,6 +345,10 @@ func (b *BaseProvider) GetRole(ctx context.Context, input *GetRoleRequest) (*Get
 
 func (b *BaseProvider) GetRolePolicy(ctx context.Context, input *GetRolePolicyRequest) (*GetRolePolicyResponse, error) {
 	return nil, fmt.Errorf("GetRolePolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetRoleTemplateVersion(ctx context.Context, input *GetRoleTemplateVersionRequest) (*GetRoleTemplateVersionResponse, error) {
+	return nil, fmt.Errorf("GetRoleTemplateVersion: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) GetSAMLProvider(ctx context.Context, input *GetSAMLProviderRequest) (*GetSAMLProviderResponse, error) {
@@ -513,6 +525,10 @@ func (b *BaseProvider) ListUsers(ctx context.Context, input *ListUsersRequest) (
 
 func (b *BaseProvider) ListVirtualMFADevices(ctx context.Context, input *ListVirtualMFADevicesRequest) (*ListVirtualMFADevicesResponse, error) {
 	return nil, fmt.Errorf("ListVirtualMFADevices: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutAccountProperties(ctx context.Context, input *PutAccountPropertiesRequest) (*PutAccountPropertiesResponse, error) {
+	return nil, fmt.Errorf("PutAccountProperties: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) PutGroupPolicy(ctx context.Context, input *PutGroupPolicyRequest) (*SmithyUnit, error) {

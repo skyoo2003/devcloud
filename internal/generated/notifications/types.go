@@ -34,6 +34,7 @@ type AssociateChannelResponse struct {
 
 type AssociateManagedNotificationAccountContactRequest struct {
 	ContactIdentifier                   string `json:"contactIdentifier" xml:"contactIdentifier"`
+	IsSensitiveEventsSubscribed         bool   `json:"isSensitiveEventsSubscribed" xml:"isSensitiveEventsSubscribed"`
 	ManagedNotificationConfigurationArn string `json:"managedNotificationConfigurationArn" xml:"managedNotificationConfigurationArn"`
 }
 
@@ -42,6 +43,7 @@ type AssociateManagedNotificationAccountContactResponse struct {
 
 type AssociateManagedNotificationAdditionalChannelRequest struct {
 	ChannelArn                          string `json:"channelArn" xml:"channelArn"`
+	IsSensitiveEventsSubscribed         bool   `json:"isSensitiveEventsSubscribed" xml:"isSensitiveEventsSubscribed"`
 	ManagedNotificationConfigurationArn string `json:"managedNotificationConfigurationArn" xml:"managedNotificationConfigurationArn"`
 }
 
@@ -317,14 +319,15 @@ type ListManagedNotificationConfigurationsResponse struct {
 }
 
 type ListManagedNotificationEventsRequest struct {
-	EndTime              time.Time `json:"endTime" xml:"endTime"`
-	Locale               string    `json:"locale" xml:"locale"`
-	MaxResults           int32     `json:"maxResults" xml:"maxResults"`
-	NextToken            string    `json:"nextToken" xml:"nextToken"`
-	OrganizationalUnitId string    `json:"organizationalUnitId" xml:"organizationalUnitId"`
-	RelatedAccount       string    `json:"relatedAccount" xml:"relatedAccount"`
-	Source               string    `json:"source" xml:"source"`
-	StartTime            time.Time `json:"startTime" xml:"startTime"`
+	EndTime                time.Time `json:"endTime" xml:"endTime"`
+	IncludeSensitiveEvents bool      `json:"includeSensitiveEvents" xml:"includeSensitiveEvents"`
+	Locale                 string    `json:"locale" xml:"locale"`
+	MaxResults             int32     `json:"maxResults" xml:"maxResults"`
+	NextToken              string    `json:"nextToken" xml:"nextToken"`
+	OrganizationalUnitId   string    `json:"organizationalUnitId" xml:"organizationalUnitId"`
+	RelatedAccount         string    `json:"relatedAccount" xml:"relatedAccount"`
+	Source                 string    `json:"source" xml:"source"`
+	StartTime              time.Time `json:"startTime" xml:"startTime"`
 }
 
 type ListManagedNotificationEventsResponse struct {
@@ -407,9 +410,10 @@ type ListTagsForResourceResponse struct {
 }
 
 type ManagedNotificationChannelAssociationSummary struct {
-	ChannelIdentifier string `json:"channelIdentifier" xml:"channelIdentifier"`
-	ChannelType       string `json:"channelType" xml:"channelType"`
-	OverrideOption    string `json:"overrideOption" xml:"overrideOption"`
+	ChannelIdentifier           string `json:"channelIdentifier" xml:"channelIdentifier"`
+	ChannelType                 string `json:"channelType" xml:"channelType"`
+	IsSensitiveEventsSubscribed bool   `json:"isSensitiveEventsSubscribed" xml:"isSensitiveEventsSubscribed"`
+	OverrideOption              string `json:"overrideOption" xml:"overrideOption"`
 }
 
 type ManagedNotificationChildEvent struct {
@@ -454,19 +458,20 @@ type ManagedNotificationConfigurationStructure struct {
 }
 
 type ManagedNotificationEvent struct {
-	AggregationEventType            string              `json:"aggregationEventType" xml:"aggregationEventType"`
-	AggregationSummary              *AggregationSummary `json:"aggregationSummary" xml:"aggregationSummary"`
-	EndTime                         time.Time           `json:"endTime" xml:"endTime"`
-	EventStatus                     string              `json:"eventStatus" xml:"eventStatus"`
-	Id                              string              `json:"id" xml:"id"`
-	MessageComponents               *MessageComponents  `json:"messageComponents" xml:"messageComponents"`
-	NotificationType                string              `json:"notificationType" xml:"notificationType"`
-	OrganizationalUnitId            string              `json:"organizationalUnitId" xml:"organizationalUnitId"`
-	SchemaVersion                   string              `json:"schemaVersion" xml:"schemaVersion"`
-	SourceEventDetailUrl            string              `json:"sourceEventDetailUrl" xml:"sourceEventDetailUrl"`
-	SourceEventDetailUrlDisplayText string              `json:"sourceEventDetailUrlDisplayText" xml:"sourceEventDetailUrlDisplayText"`
-	StartTime                       time.Time           `json:"startTime" xml:"startTime"`
-	TextParts                       TextParts           `json:"textParts" xml:"textParts"`
+	AggregationEventType            string                          `json:"aggregationEventType" xml:"aggregationEventType"`
+	AggregationSummary              *AggregationSummary             `json:"aggregationSummary" xml:"aggregationSummary"`
+	Attachments                     NotificationEventAttachmentList `json:"attachments" xml:"attachments"`
+	EndTime                         time.Time                       `json:"endTime" xml:"endTime"`
+	EventStatus                     string                          `json:"eventStatus" xml:"eventStatus"`
+	Id                              string                          `json:"id" xml:"id"`
+	MessageComponents               *MessageComponents              `json:"messageComponents" xml:"messageComponents"`
+	NotificationType                string                          `json:"notificationType" xml:"notificationType"`
+	OrganizationalUnitId            string                          `json:"organizationalUnitId" xml:"organizationalUnitId"`
+	SchemaVersion                   string                          `json:"schemaVersion" xml:"schemaVersion"`
+	SourceEventDetailUrl            string                          `json:"sourceEventDetailUrl" xml:"sourceEventDetailUrl"`
+	SourceEventDetailUrlDisplayText string                          `json:"sourceEventDetailUrlDisplayText" xml:"sourceEventDetailUrlDisplayText"`
+	StartTime                       time.Time                       `json:"startTime" xml:"startTime"`
+	TextParts                       TextParts                       `json:"textParts" xml:"textParts"`
 }
 
 type ManagedNotificationEventOverview struct {
@@ -514,6 +519,7 @@ type MessageComponents struct {
 	CompleteDescription string     `json:"completeDescription" xml:"completeDescription"`
 	Dimensions          Dimensions `json:"dimensions" xml:"dimensions"`
 	Headline            string     `json:"headline" xml:"headline"`
+	MarkupDescription   string     `json:"markupDescription" xml:"markupDescription"`
 	ParagraphSummary    string     `json:"paragraphSummary" xml:"paragraphSummary"`
 }
 
@@ -529,6 +535,12 @@ type NotificationConfigurationStructure struct {
 	Name                string    `json:"name" xml:"name"`
 	Status              string    `json:"status" xml:"status"`
 	Subtype             string    `json:"subtype" xml:"subtype"`
+}
+
+type NotificationEventAttachment struct {
+	AttachmentDownloadUrl string `json:"attachmentDownloadUrl" xml:"attachmentDownloadUrl"`
+	ContentType           string `json:"contentType" xml:"contentType"`
+	DisplayName           string `json:"displayName" xml:"displayName"`
 }
 
 type NotificationEventOverview struct {
@@ -667,6 +679,15 @@ type UpdateEventRuleResponse struct {
 	StatusSummaryByRegion        StatusSummaryByRegion `json:"statusSummaryByRegion" xml:"statusSummaryByRegion"`
 }
 
+type UpdateManagedNotificationChannelAssociationRequest struct {
+	ChannelIdentifier                   string `json:"channelIdentifier" xml:"channelIdentifier"`
+	IsSensitiveEventsSubscribed         bool   `json:"isSensitiveEventsSubscribed" xml:"isSensitiveEventsSubscribed"`
+	ManagedNotificationConfigurationArn string `json:"managedNotificationConfigurationArn" xml:"managedNotificationConfigurationArn"`
+}
+
+type UpdateManagedNotificationChannelAssociationResponse struct {
+}
+
 type UpdateNotificationConfigurationRequest struct {
 	AggregationDuration string `json:"aggregationDuration" xml:"aggregationDuration"`
 	Arn                 string `json:"arn" xml:"arn"`
@@ -708,6 +729,8 @@ type Media []*MediaElement
 type MemberAccounts []*MemberAccount
 
 type NotificationConfigurations []*NotificationConfigurationStructure
+
+type NotificationEventAttachmentList []*NotificationEventAttachment
 
 type NotificationEvents []*NotificationEventOverview
 

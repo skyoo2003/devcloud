@@ -1402,24 +1402,27 @@ type S3ComputeObjectChecksumOperation struct {
 }
 
 type S3CopyObjectOperation struct {
-	AccessControlGrants       S3GrantList       `json:"accessControlGrants" xml:"AccessControlGrants"`
-	BucketKeyEnabled          bool              `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
-	CannedAccessControlList   string            `json:"cannedAccessControlList" xml:"CannedAccessControlList"`
-	ChecksumAlgorithm         string            `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
-	MetadataDirective         string            `json:"metadataDirective" xml:"MetadataDirective"`
-	ModifiedSinceConstraint   time.Time         `json:"modifiedSinceConstraint" xml:"ModifiedSinceConstraint"`
-	NewObjectMetadata         *S3ObjectMetadata `json:"newObjectMetadata" xml:"NewObjectMetadata"`
-	NewObjectTagging          S3TagSet          `json:"newObjectTagging" xml:"NewObjectTagging"`
-	ObjectLockLegalHoldStatus string            `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
-	ObjectLockMode            string            `json:"objectLockMode" xml:"ObjectLockMode"`
-	ObjectLockRetainUntilDate time.Time         `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
-	RedirectLocation          string            `json:"redirectLocation" xml:"RedirectLocation"`
-	RequesterPays             bool              `json:"requesterPays" xml:"RequesterPays"`
-	SSEAwsKmsKeyId            string            `json:"sSEAwsKmsKeyId" xml:"SSEAwsKmsKeyId"`
-	StorageClass              string            `json:"storageClass" xml:"StorageClass"`
-	TargetKeyPrefix           string            `json:"targetKeyPrefix" xml:"TargetKeyPrefix"`
-	TargetResource            string            `json:"targetResource" xml:"TargetResource"`
-	UnModifiedSinceConstraint time.Time         `json:"unModifiedSinceConstraint" xml:"UnModifiedSinceConstraint"`
+	AccessControlGrants         S3GrantList                    `json:"accessControlGrants" xml:"AccessControlGrants"`
+	AnnotationDirective         string                         `json:"annotationDirective" xml:"AnnotationDirective"`
+	BucketKeyEnabled            bool                           `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
+	CannedAccessControlList     string                         `json:"cannedAccessControlList" xml:"CannedAccessControlList"`
+	ChecksumAlgorithm           string                         `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
+	MetadataDirective           string                         `json:"metadataDirective" xml:"MetadataDirective"`
+	ModifiedSinceConstraint     time.Time                      `json:"modifiedSinceConstraint" xml:"ModifiedSinceConstraint"`
+	NewObjectMetadata           *S3ObjectMetadata              `json:"newObjectMetadata" xml:"NewObjectMetadata"`
+	NewObjectTagging            S3TagSet                       `json:"newObjectTagging" xml:"NewObjectTagging"`
+	ObjectLockEventHold         string                         `json:"objectLockEventHold" xml:"ObjectLockEventHold"`
+	ObjectLockEventHoldDuration *S3ObjectLockEventHoldDuration `json:"objectLockEventHoldDuration" xml:"ObjectLockEventHoldDuration"`
+	ObjectLockLegalHoldStatus   string                         `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
+	ObjectLockMode              string                         `json:"objectLockMode" xml:"ObjectLockMode"`
+	ObjectLockRetainUntilDate   time.Time                      `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
+	RedirectLocation            string                         `json:"redirectLocation" xml:"RedirectLocation"`
+	RequesterPays               bool                           `json:"requesterPays" xml:"RequesterPays"`
+	SSEAwsKmsKeyId              string                         `json:"sSEAwsKmsKeyId" xml:"SSEAwsKmsKeyId"`
+	StorageClass                string                         `json:"storageClass" xml:"StorageClass"`
+	TargetKeyPrefix             string                         `json:"targetKeyPrefix" xml:"TargetKeyPrefix"`
+	TargetResource              string                         `json:"targetResource" xml:"TargetResource"`
+	UnModifiedSinceConstraint   time.Time                      `json:"unModifiedSinceConstraint" xml:"UnModifiedSinceConstraint"`
 }
 
 type S3DeleteObjectTaggingOperation struct {
@@ -1462,8 +1465,18 @@ type S3ManifestOutputLocation struct {
 	ManifestPrefix              string                       `json:"manifestPrefix" xml:"ManifestPrefix"`
 }
 
+type S3ObjectLockEventHoldDuration struct {
+	Days  int32 `json:"days" xml:"Days"`
+	Years int32 `json:"years" xml:"Years"`
+}
+
 type S3ObjectLockLegalHold struct {
 	Status string `json:"status" xml:"Status"`
+}
+
+type S3ObjectLockRetentionEventHoldDuration struct {
+	Days  int32 `json:"days" xml:"Days"`
+	Years int32 `json:"years" xml:"Years"`
 }
 
 type S3ObjectMetadata struct {
@@ -1489,8 +1502,10 @@ type S3ReplicateObjectOperation struct {
 }
 
 type S3Retention struct {
-	Mode            string    `json:"mode" xml:"Mode"`
-	RetainUntilDate time.Time `json:"retainUntilDate" xml:"RetainUntilDate"`
+	EventHold         string                                  `json:"eventHold" xml:"EventHold"`
+	EventHoldDuration *S3ObjectLockRetentionEventHoldDuration `json:"eventHoldDuration" xml:"EventHoldDuration"`
+	Mode              string                                  `json:"mode" xml:"Mode"`
+	RetainUntilDate   time.Time                               `json:"retainUntilDate" xml:"RetainUntilDate"`
 }
 
 type S3SetObjectAclOperation struct {

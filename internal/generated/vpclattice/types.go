@@ -32,6 +32,10 @@ type BatchUpdateRuleResponse struct {
 	Unsuccessful RuleUpdateFailureList `json:"unsuccessful" xml:"unsuccessful"`
 }
 
+type CidrResource struct {
+	CidrRanges CidrRangeList `json:"cidrRanges" xml:"cidrRanges"`
+}
+
 type CreateAccessLogSubscriptionRequest struct {
 	ClientToken           string `json:"clientToken" xml:"clientToken"`
 	DestinationArn        string `json:"destinationArn" xml:"destinationArn"`
@@ -917,6 +921,11 @@ type PathMatch struct {
 	Match         interface{} `json:"match" xml:"match"`
 }
 
+type PayerResponsibilityEntry struct {
+	PayerResponsibilityType string `json:"payerResponsibilityType" xml:"payerResponsibilityType"`
+	Scope                   string `json:"scope" xml:"scope"`
+}
+
 type PutAuthPolicyRequest struct {
 	Policy             string `json:"policy" xml:"policy"`
 	ResourceIdentifier string `json:"resourceIdentifier" xml:"resourceIdentifier"`
@@ -962,15 +971,16 @@ type ResourceConfigurationSummary struct {
 }
 
 type ResourceEndpointAssociationSummary struct {
-	Arn                       string    `json:"arn" xml:"arn"`
-	CreatedAt                 time.Time `json:"createdAt" xml:"createdAt"`
-	CreatedBy                 string    `json:"createdBy" xml:"createdBy"`
-	Id                        string    `json:"id" xml:"id"`
-	ResourceConfigurationArn  string    `json:"resourceConfigurationArn" xml:"resourceConfigurationArn"`
-	ResourceConfigurationId   string    `json:"resourceConfigurationId" xml:"resourceConfigurationId"`
-	ResourceConfigurationName string    `json:"resourceConfigurationName" xml:"resourceConfigurationName"`
-	VpcEndpointId             string    `json:"vpcEndpointId" xml:"vpcEndpointId"`
-	VpcEndpointOwner          string    `json:"vpcEndpointOwner" xml:"vpcEndpointOwner"`
+	Arn                       string                  `json:"arn" xml:"arn"`
+	CreatedAt                 time.Time               `json:"createdAt" xml:"createdAt"`
+	CreatedBy                 string                  `json:"createdBy" xml:"createdBy"`
+	Id                        string                  `json:"id" xml:"id"`
+	PayerResponsibility       PayerResponsibilityList `json:"payerResponsibility" xml:"payerResponsibility"`
+	ResourceConfigurationArn  string                  `json:"resourceConfigurationArn" xml:"resourceConfigurationArn"`
+	ResourceConfigurationId   string                  `json:"resourceConfigurationId" xml:"resourceConfigurationId"`
+	ResourceConfigurationName string                  `json:"resourceConfigurationName" xml:"resourceConfigurationName"`
+	VpcEndpointId             string                  `json:"vpcEndpointId" xml:"vpcEndpointId"`
+	VpcEndpointOwner          string                  `json:"vpcEndpointOwner" xml:"vpcEndpointOwner"`
 }
 
 type ResourceGatewaySummary struct {
@@ -1345,11 +1355,15 @@ type WeightedTargetGroup struct {
 
 type AccessLogSubscriptionList []*AccessLogSubscriptionSummary
 
+type CidrRangeList []string
+
 type DomainVerificationList []*DomainVerificationSummary
 
 type HeaderMatchList []*HeaderMatch
 
 type ListenerSummaryList []*ListenerSummary
+
+type PayerResponsibilityList []*PayerResponsibilityEntry
 
 type PortRangeList []string
 

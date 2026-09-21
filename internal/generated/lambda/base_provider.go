@@ -91,6 +91,10 @@ func (b *BaseProvider) DeleteProvisionedConcurrencyConfig(ctx context.Context, i
 	return nil, fmt.Errorf("DeleteProvisionedConcurrencyConfig: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteResourcePolicy(ctx context.Context, input *DeleteResourcePolicyRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteResourcePolicy: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetAccountSettings(ctx context.Context, input *GetAccountSettingsRequest) (*GetAccountSettingsResponse, error) {
 	return nil, fmt.Errorf("GetAccountSettings: %w", ErrNotImplemented)
 }
@@ -173,6 +177,10 @@ func (b *BaseProvider) GetPolicy(ctx context.Context, input *GetPolicyRequest) (
 
 func (b *BaseProvider) GetProvisionedConcurrencyConfig(ctx context.Context, input *GetProvisionedConcurrencyConfigRequest) (*GetProvisionedConcurrencyConfigResponse, error) {
 	return nil, fmt.Errorf("GetProvisionedConcurrencyConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetResourcePolicy(ctx context.Context, input *GetResourcePolicyRequest) (*GetResourcePolicyResponse, error) {
+	return nil, fmt.Errorf("GetResourcePolicy: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) GetRuntimeManagementConfig(ctx context.Context, input *GetRuntimeManagementConfigRequest) (*GetRuntimeManagementConfigResponse, error) {
@@ -281,6 +289,10 @@ func (b *BaseProvider) PutFunctionScalingConfig(ctx context.Context, input *PutF
 
 func (b *BaseProvider) PutProvisionedConcurrencyConfig(ctx context.Context, input *PutProvisionedConcurrencyConfigRequest) (*PutProvisionedConcurrencyConfigResponse, error) {
 	return nil, fmt.Errorf("PutProvisionedConcurrencyConfig: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutResourcePolicy(ctx context.Context, input *PutResourcePolicyRequest) (*PutResourcePolicyResponse, error) {
+	return nil, fmt.Errorf("PutResourcePolicy: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) PutRuntimeManagementConfig(ctx context.Context, input *PutRuntimeManagementConfigRequest) (*PutRuntimeManagementConfigResponse, error) {

@@ -8,6 +8,7 @@ import (
 
 type AccountSettings struct {
 	DeletionProtection *DeletionProtectionSettings `json:"deletionProtection" xml:"DeletionProtection"`
+	VendedMetrics      *VendedMetricsSettings      `json:"vendedMetrics" xml:"VendedMetrics"`
 }
 
 type Action struct {
@@ -115,6 +116,21 @@ type CreateEnvironmentRequest struct {
 	Tags          TagMap      `json:"tags" xml:"Tags"`
 }
 
+type CreateExperimentDefinitionRequest struct {
+	ApplicationIdentifier          string             `json:"applicationIdentifier" xml:"ApplicationIdentifier"`
+	AudienceDescription            string             `json:"audienceDescription" xml:"AudienceDescription"`
+	AudienceRule                   string             `json:"audienceRule" xml:"AudienceRule"`
+	ConfigurationProfileIdentifier string             `json:"configurationProfileIdentifier" xml:"ConfigurationProfileIdentifier"`
+	Control                        *TreatmentInput    `json:"control" xml:"Control"`
+	EnvironmentIdentifier          string             `json:"environmentIdentifier" xml:"EnvironmentIdentifier"`
+	FlagKey                        string             `json:"flagKey" xml:"FlagKey"`
+	Hypothesis                     string             `json:"hypothesis" xml:"Hypothesis"`
+	LaunchCriteria                 string             `json:"launchCriteria" xml:"LaunchCriteria"`
+	Name                           string             `json:"name" xml:"Name"`
+	Tags                           TagMap             `json:"tags" xml:"Tags"`
+	Treatments                     TreatmentInputList `json:"treatments" xml:"Treatments"`
+}
+
 type CreateExtensionAssociationRequest struct {
 	ExtensionIdentifier    string            `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
 	ExtensionVersionNumber int32             `json:"extensionVersionNumber" xml:"ExtensionVersionNumber"`
@@ -160,6 +176,12 @@ type DeleteEnvironmentRequest struct {
 	ApplicationId           string `json:"applicationId" xml:"ApplicationId"`
 	DeletionProtectionCheck string `json:"deletionProtectionCheck" xml:"DeletionProtectionCheck"`
 	EnvironmentId           string `json:"environmentId" xml:"EnvironmentId"`
+}
+
+type DeleteExperimentDefinitionRequest struct {
+	ApplicationIdentifier          string `json:"applicationIdentifier" xml:"ApplicationIdentifier"`
+	DeleteType                     string `json:"deleteType" xml:"DeleteType"`
+	ExperimentDefinitionIdentifier string `json:"experimentDefinitionIdentifier" xml:"ExperimentDefinitionIdentifier"`
 }
 
 type DeleteExtensionAssociationRequest struct {
@@ -215,6 +237,11 @@ type DeploymentEvent struct {
 	TriggeredBy       string            `json:"triggeredBy" xml:"TriggeredBy"`
 }
 
+type DeploymentParameters struct {
+	DynamicExtensionParameters DynamicParameterMap `json:"dynamicExtensionParameters" xml:"DynamicExtensionParameters"`
+	Tags                       TagMap              `json:"tags" xml:"Tags"`
+}
+
 type DeploymentStrategies struct {
 	Items     DeploymentStrategyList `json:"items" xml:"Items"`
 	NextToken string                 `json:"nextToken" xml:"NextToken"`
@@ -234,6 +261,7 @@ type DeploymentStrategy struct {
 type DeploymentSummary struct {
 	CompletedAt                 time.Time `json:"completedAt" xml:"CompletedAt"`
 	ConfigurationName           string    `json:"configurationName" xml:"ConfigurationName"`
+	ConfigurationProfileId      string    `json:"configurationProfileId" xml:"ConfigurationProfileId"`
 	ConfigurationVersion        string    `json:"configurationVersion" xml:"ConfigurationVersion"`
 	DeploymentDurationInMinutes int32     `json:"deploymentDurationInMinutes" xml:"DeploymentDurationInMinutes"`
 	DeploymentNumber            int32     `json:"deploymentNumber" xml:"DeploymentNumber"`
@@ -243,6 +271,7 @@ type DeploymentSummary struct {
 	PercentageComplete          float32   `json:"percentageComplete" xml:"PercentageComplete"`
 	StartedAt                   time.Time `json:"startedAt" xml:"StartedAt"`
 	State                       string    `json:"state" xml:"State"`
+	Type                        string    `json:"type" xml:"Type"`
 	VersionLabel                string    `json:"versionLabel" xml:"VersionLabel"`
 }
 
@@ -263,6 +292,109 @@ type Environment struct {
 type Environments struct {
 	Items     EnvironmentList `json:"items" xml:"Items"`
 	NextToken string          `json:"nextToken" xml:"NextToken"`
+}
+
+type ExperimentDefinition struct {
+	ApplicationId          string        `json:"applicationId" xml:"ApplicationId"`
+	AudienceDescription    string        `json:"audienceDescription" xml:"AudienceDescription"`
+	AudienceRule           string        `json:"audienceRule" xml:"AudienceRule"`
+	ConfigurationProfileId string        `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+	Control                *Treatment    `json:"control" xml:"Control"`
+	CreatedAt              time.Time     `json:"createdAt" xml:"CreatedAt"`
+	EnvironmentId          string        `json:"environmentId" xml:"EnvironmentId"`
+	FlagKey                string        `json:"flagKey" xml:"FlagKey"`
+	Hypothesis             string        `json:"hypothesis" xml:"Hypothesis"`
+	Id                     string        `json:"id" xml:"Id"`
+	KmsKeyIdentifier       string        `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+	LaunchCriteria         string        `json:"launchCriteria" xml:"LaunchCriteria"`
+	Name                   string        `json:"name" xml:"Name"`
+	Status                 string        `json:"status" xml:"Status"`
+	Treatments             TreatmentList `json:"treatments" xml:"Treatments"`
+	UpdatedAt              time.Time     `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type ExperimentDefinitionSnapshot struct {
+	ApplicationId          string        `json:"applicationId" xml:"ApplicationId"`
+	AudienceDescription    string        `json:"audienceDescription" xml:"AudienceDescription"`
+	AudienceRule           string        `json:"audienceRule" xml:"AudienceRule"`
+	ConfigurationProfileId string        `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+	Control                *Treatment    `json:"control" xml:"Control"`
+	EnvironmentId          string        `json:"environmentId" xml:"EnvironmentId"`
+	FlagKey                string        `json:"flagKey" xml:"FlagKey"`
+	Hypothesis             string        `json:"hypothesis" xml:"Hypothesis"`
+	Id                     string        `json:"id" xml:"Id"`
+	LaunchCriteria         string        `json:"launchCriteria" xml:"LaunchCriteria"`
+	Name                   string        `json:"name" xml:"Name"`
+	Treatments             TreatmentList `json:"treatments" xml:"Treatments"`
+}
+
+type ExperimentDefinitionSummary struct {
+	ApplicationId          string    `json:"applicationId" xml:"ApplicationId"`
+	ConfigurationProfileId string    `json:"configurationProfileId" xml:"ConfigurationProfileId"`
+	CreatedAt              time.Time `json:"createdAt" xml:"CreatedAt"`
+	EnvironmentId          string    `json:"environmentId" xml:"EnvironmentId"`
+	FlagKey                string    `json:"flagKey" xml:"FlagKey"`
+	Hypothesis             string    `json:"hypothesis" xml:"Hypothesis"`
+	Id                     string    `json:"id" xml:"Id"`
+	Name                   string    `json:"name" xml:"Name"`
+	Status                 string    `json:"status" xml:"Status"`
+	UpdatedAt              time.Time `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type ExperimentDefinitions struct {
+	Items     ExperimentDefinitionList `json:"items" xml:"Items"`
+	NextToken string                   `json:"nextToken" xml:"NextToken"`
+}
+
+type ExperimentRun struct {
+	ApplicationId                string                        `json:"applicationId" xml:"ApplicationId"`
+	Description                  string                        `json:"description" xml:"Description"`
+	EndedAt                      time.Time                     `json:"endedAt" xml:"EndedAt"`
+	ExperimentDefinitionId       string                        `json:"experimentDefinitionId" xml:"ExperimentDefinitionId"`
+	ExperimentDefinitionSnapshot *ExperimentDefinitionSnapshot `json:"experimentDefinitionSnapshot" xml:"ExperimentDefinitionSnapshot"`
+	ExposurePercentage           float32                       `json:"exposurePercentage" xml:"ExposurePercentage"`
+	Result                       *ExperimentRunResult          `json:"result" xml:"Result"`
+	Run                          int32                         `json:"run" xml:"Run"`
+	StartedAt                    time.Time                     `json:"startedAt" xml:"StartedAt"`
+	Status                       string                        `json:"status" xml:"Status"`
+	TreatmentOverrides           interface{}                   `json:"treatmentOverrides" xml:"TreatmentOverrides"`
+	UpdatedAt                    time.Time                     `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type ExperimentRunEvent struct {
+	AssociatedDeployment string      `json:"associatedDeployment" xml:"AssociatedDeployment"`
+	Description          string      `json:"description" xml:"Description"`
+	EventType            string      `json:"eventType" xml:"EventType"`
+	ExposurePercentage   float32     `json:"exposurePercentage" xml:"ExposurePercentage"`
+	OccurredAt           time.Time   `json:"occurredAt" xml:"OccurredAt"`
+	TreatmentOverrides   interface{} `json:"treatmentOverrides" xml:"TreatmentOverrides"`
+	TriggeredBy          string      `json:"triggeredBy" xml:"TriggeredBy"`
+}
+
+type ExperimentRunEvents struct {
+	Items     ExperimentRunEventList `json:"items" xml:"Items"`
+	NextToken string                 `json:"nextToken" xml:"NextToken"`
+}
+
+type ExperimentRunResult struct {
+	ExecutiveSummary   string `json:"executiveSummary" xml:"ExecutiveSummary"`
+	ReasonsNotToLaunch string `json:"reasonsNotToLaunch" xml:"ReasonsNotToLaunch"`
+	ReasonsToLaunch    string `json:"reasonsToLaunch" xml:"ReasonsToLaunch"`
+}
+
+type ExperimentRunSummary struct {
+	Description            string    `json:"description" xml:"Description"`
+	EndedAt                time.Time `json:"endedAt" xml:"EndedAt"`
+	ExperimentDefinitionId string    `json:"experimentDefinitionId" xml:"ExperimentDefinitionId"`
+	Run                    int32     `json:"run" xml:"Run"`
+	StartedAt              time.Time `json:"startedAt" xml:"StartedAt"`
+	Status                 string    `json:"status" xml:"Status"`
+	UpdatedAt              time.Time `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type ExperimentRuns struct {
+	Items     ExperimentRunSummaryList `json:"items" xml:"Items"`
+	NextToken string                   `json:"nextToken" xml:"NextToken"`
 }
 
 type Extension struct {
@@ -308,6 +440,11 @@ type Extensions struct {
 	NextToken string             `json:"nextToken" xml:"NextToken"`
 }
 
+type FlagValue struct {
+	AttributeValues AttributeValueMap `json:"attributeValues" xml:"AttributeValues"`
+	Enabled         bool              `json:"enabled" xml:"Enabled"`
+}
+
 type GetApplicationRequest struct {
 	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 }
@@ -338,6 +475,17 @@ type GetDeploymentStrategyRequest struct {
 type GetEnvironmentRequest struct {
 	ApplicationId string `json:"applicationId" xml:"ApplicationId"`
 	EnvironmentId string `json:"environmentId" xml:"EnvironmentId"`
+}
+
+type GetExperimentDefinitionRequest struct {
+	ApplicationIdentifier          string `json:"applicationIdentifier" xml:"ApplicationIdentifier"`
+	ExperimentDefinitionIdentifier string `json:"experimentDefinitionIdentifier" xml:"ExperimentDefinitionIdentifier"`
+}
+
+type GetExperimentRunRequest struct {
+	ApplicationIdentifier          string `json:"applicationIdentifier" xml:"ApplicationIdentifier"`
+	ExperimentDefinitionIdentifier string `json:"experimentDefinitionIdentifier" xml:"ExperimentDefinitionIdentifier"`
+	Run                            int32  `json:"run" xml:"Run"`
 }
 
 type GetExtensionAssociationRequest struct {
@@ -419,6 +567,31 @@ type ListEnvironmentsRequest struct {
 	NextToken     string `json:"nextToken" xml:"NextToken"`
 }
 
+type ListExperimentDefinitionsRequest struct {
+	ApplicationIdentifier          string `json:"applicationIdentifier" xml:"ApplicationIdentifier"`
+	ConfigurationProfileIdentifier string `json:"configurationProfileIdentifier" xml:"ConfigurationProfileIdentifier"`
+	EnvironmentIdentifier          string `json:"environmentIdentifier" xml:"EnvironmentIdentifier"`
+	MaxResults                     int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken                      string `json:"nextToken" xml:"NextToken"`
+	Status                         string `json:"status" xml:"Status"`
+}
+
+type ListExperimentRunEventsRequest struct {
+	ApplicationIdentifier          string `json:"applicationIdentifier" xml:"ApplicationIdentifier"`
+	ExperimentDefinitionIdentifier string `json:"experimentDefinitionIdentifier" xml:"ExperimentDefinitionIdentifier"`
+	MaxResults                     int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken                      string `json:"nextToken" xml:"NextToken"`
+	Run                            int32  `json:"run" xml:"Run"`
+}
+
+type ListExperimentRunsRequest struct {
+	ApplicationIdentifier          string `json:"applicationIdentifier" xml:"ApplicationIdentifier"`
+	ExperimentDefinitionIdentifier string `json:"experimentDefinitionIdentifier" xml:"ExperimentDefinitionIdentifier"`
+	MaxResults                     int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken                      string `json:"nextToken" xml:"NextToken"`
+	Status                         string `json:"status" xml:"Status"`
+}
+
 type ListExtensionAssociationsRequest struct {
 	ExtensionIdentifier    string `json:"extensionIdentifier" xml:"ExtensionIdentifier"`
 	ExtensionVersionNumber int32  `json:"extensionVersionNumber" xml:"ExtensionVersionNumber"`
@@ -472,7 +645,18 @@ type StartDeploymentRequest struct {
 	DynamicExtensionParameters DynamicParameterMap `json:"dynamicExtensionParameters" xml:"DynamicExtensionParameters"`
 	EnvironmentId              string              `json:"environmentId" xml:"EnvironmentId"`
 	KmsKeyIdentifier           string              `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
+	LatestDeploymentNumber     int32               `json:"latestDeploymentNumber" xml:"LatestDeploymentNumber"`
 	Tags                       TagMap              `json:"tags" xml:"Tags"`
+}
+
+type StartExperimentRunRequest struct {
+	ApplicationIdentifier          string                `json:"applicationIdentifier" xml:"ApplicationIdentifier"`
+	DeploymentParameters           *DeploymentParameters `json:"deploymentParameters" xml:"DeploymentParameters"`
+	Description                    string                `json:"description" xml:"Description"`
+	ExperimentDefinitionIdentifier string                `json:"experimentDefinitionIdentifier" xml:"ExperimentDefinitionIdentifier"`
+	ExposurePercentage             float32               `json:"exposurePercentage" xml:"ExposurePercentage"`
+	Tags                           TagMap                `json:"tags" xml:"Tags"`
+	TreatmentOverrides             interface{}           `json:"treatmentOverrides" xml:"TreatmentOverrides"`
 }
 
 type StopDeploymentRequest struct {
@@ -482,9 +666,30 @@ type StopDeploymentRequest struct {
 	EnvironmentId    string `json:"environmentId" xml:"EnvironmentId"`
 }
 
+type StopExperimentRunRequest struct {
+	ApplicationIdentifier          string                `json:"applicationIdentifier" xml:"ApplicationIdentifier"`
+	DeploymentParameters           *DeploymentParameters `json:"deploymentParameters" xml:"DeploymentParameters"`
+	ExperimentDefinitionIdentifier string                `json:"experimentDefinitionIdentifier" xml:"ExperimentDefinitionIdentifier"`
+	Result                         *ExperimentRunResult  `json:"result" xml:"Result"`
+	Run                            int32                 `json:"run" xml:"Run"`
+}
+
 type TagResourceRequest struct {
 	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
 	Tags        TagMap `json:"tags" xml:"Tags"`
+}
+
+type Treatment struct {
+	Description string     `json:"description" xml:"Description"`
+	FlagValue   *FlagValue `json:"flagValue" xml:"FlagValue"`
+	Key         string     `json:"key" xml:"Key"`
+	Weight      float32    `json:"weight" xml:"Weight"`
+}
+
+type TreatmentInput struct {
+	Description string     `json:"description" xml:"Description"`
+	FlagValue   *FlagValue `json:"flagValue" xml:"FlagValue"`
+	Weight      float32    `json:"weight" xml:"Weight"`
 }
 
 type UntagResourceRequest struct {
@@ -494,6 +699,7 @@ type UntagResourceRequest struct {
 
 type UpdateAccountSettingsRequest struct {
 	DeletionProtection *DeletionProtectionSettings `json:"deletionProtection" xml:"DeletionProtection"`
+	VendedMetrics      *VendedMetricsSettings      `json:"vendedMetrics" xml:"VendedMetrics"`
 }
 
 type UpdateApplicationRequest struct {
@@ -529,6 +735,27 @@ type UpdateEnvironmentRequest struct {
 	Name          string      `json:"name" xml:"Name"`
 }
 
+type UpdateExperimentDefinitionRequest struct {
+	ApplicationIdentifier          string             `json:"applicationIdentifier" xml:"ApplicationIdentifier"`
+	AudienceDescription            string             `json:"audienceDescription" xml:"AudienceDescription"`
+	AudienceRule                   string             `json:"audienceRule" xml:"AudienceRule"`
+	Control                        *TreatmentInput    `json:"control" xml:"Control"`
+	ExperimentDefinitionIdentifier string             `json:"experimentDefinitionIdentifier" xml:"ExperimentDefinitionIdentifier"`
+	Hypothesis                     string             `json:"hypothesis" xml:"Hypothesis"`
+	LaunchCriteria                 string             `json:"launchCriteria" xml:"LaunchCriteria"`
+	Treatments                     TreatmentInputList `json:"treatments" xml:"Treatments"`
+}
+
+type UpdateExperimentRunRequest struct {
+	ApplicationIdentifier          string                `json:"applicationIdentifier" xml:"ApplicationIdentifier"`
+	DeploymentParameters           *DeploymentParameters `json:"deploymentParameters" xml:"DeploymentParameters"`
+	Description                    string                `json:"description" xml:"Description"`
+	ExperimentDefinitionIdentifier string                `json:"experimentDefinitionIdentifier" xml:"ExperimentDefinitionIdentifier"`
+	ExposurePercentage             float32               `json:"exposurePercentage" xml:"ExposurePercentage"`
+	Run                            int32                 `json:"run" xml:"Run"`
+	TreatmentOverrides             interface{}           `json:"treatmentOverrides" xml:"TreatmentOverrides"`
+}
+
 type UpdateExtensionAssociationRequest struct {
 	ExtensionAssociationId string            `json:"extensionAssociationId" xml:"ExtensionAssociationId"`
 	Parameters             ParameterValueMap `json:"parameters" xml:"Parameters"`
@@ -553,6 +780,10 @@ type Validator struct {
 	Type    string `json:"type" xml:"Type"`
 }
 
+type VendedMetricsSettings struct {
+	Enabled bool `json:"enabled" xml:"Enabled"`
+}
+
 type ActionInvocations []*ActionInvocation
 
 type ActionList []*Action
@@ -571,6 +802,12 @@ type DeploymentStrategyList []*DeploymentStrategy
 
 type EnvironmentList []*Environment
 
+type ExperimentDefinitionList []*ExperimentDefinitionSummary
+
+type ExperimentRunEventList []*ExperimentRunEvent
+
+type ExperimentRunSummaryList []*ExperimentRunSummary
+
 type ExtensionAssociationSummaries []*ExtensionAssociationSummary
 
 type ExtensionSummaries []*ExtensionSummary
@@ -581,13 +818,23 @@ type InvalidConfigurationDetailList []*InvalidConfigurationDetail
 
 type MonitorList []*Monitor
 
+type NumberList []float64
+
+type StringList []string
+
 type TagKeyList []string
+
+type TreatmentInputList []*TreatmentInput
+
+type TreatmentList []*Treatment
 
 type ValidatorList []*Validator
 
 type ValidatorTypeList []string
 
 type ActionsMap map[string]ActionList
+
+type AttributeValueMap map[string]interface{}
 
 type DynamicParameterMap map[string]string
 
@@ -597,4 +844,10 @@ type ParameterValueMap map[string]string
 
 type TagMap map[string]string
 
+type TreatmentOverrideMap map[string]string
+
+type AttributeValue interface{}
+
 type BadRequestDetails interface{}
+
+type TreatmentOverrides interface{}

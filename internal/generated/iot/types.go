@@ -31,6 +31,7 @@ type Action struct {
 	Elasticsearch    *ElasticsearchAction    `json:"elasticsearch" xml:"elasticsearch"`
 	Firehose         *FirehoseAction         `json:"firehose" xml:"firehose"`
 	Http             *HttpAction             `json:"http" xml:"http"`
+	InfluxDB         *InfluxDBAction         `json:"influxDB" xml:"influxDB"`
 	IotAnalytics     *IotAnalyticsAction     `json:"iotAnalytics" xml:"iotAnalytics"`
 	IotEvents        *IotEventsAction        `json:"iotEvents" xml:"iotEvents"`
 	IotSiteWise      *IotSiteWiseAction      `json:"iotSiteWise" xml:"iotSiteWise"`
@@ -320,6 +321,7 @@ type AwsJsonSubstitutionCommandPreprocessorConfig struct {
 }
 
 type BatchConfig struct {
+	BatchAcrossTopics bool  `json:"batchAcrossTopics" xml:"batchAcrossTopics"`
 	MaxBatchOpenMs    int32 `json:"maxBatchOpenMs" xml:"maxBatchOpenMs"`
 	MaxBatchSize      int32 `json:"maxBatchSize" xml:"maxBatchSize"`
 	MaxBatchSizeBytes int32 `json:"maxBatchSizeBytes" xml:"maxBatchSizeBytes"`
@@ -607,6 +609,10 @@ type ConfirmTopicRuleDestinationRequest struct {
 }
 
 type ConfirmTopicRuleDestinationResponse struct {
+}
+
+type ConnectivityFilter struct {
+	IncludeSocketInformation FleetIndexingApiList `json:"includeSocketInformation" xml:"includeSocketInformation"`
 }
 
 type CreateAuditSuppressionRequest struct {
@@ -2182,14 +2188,24 @@ type GetStatisticsResponse struct {
 }
 
 type GetThingConnectivityDataRequest struct {
-	ThingName string `json:"thingName" xml:"thingName"`
+	IncludeSocketInformation bool   `json:"includeSocketInformation" xml:"includeSocketInformation"`
+	ThingName                string `json:"thingName" xml:"thingName"`
 }
 
 type GetThingConnectivityDataResponse struct {
-	Connected        bool      `json:"connected" xml:"connected"`
-	DisconnectReason string    `json:"disconnectReason" xml:"disconnectReason"`
-	ThingName        string    `json:"thingName" xml:"thingName"`
-	Timestamp        time.Time `json:"timestamp" xml:"timestamp"`
+	CleanSession      bool      `json:"cleanSession" xml:"cleanSession"`
+	ClientId          string    `json:"clientId" xml:"clientId"`
+	Connected         bool      `json:"connected" xml:"connected"`
+	DisconnectReason  string    `json:"disconnectReason" xml:"disconnectReason"`
+	KeepAliveDuration int32     `json:"keepAliveDuration" xml:"keepAliveDuration"`
+	SessionExpiry     int64     `json:"sessionExpiry" xml:"sessionExpiry"`
+	SourceIp          string    `json:"sourceIp" xml:"sourceIp"`
+	SourcePort        int32     `json:"sourcePort" xml:"sourcePort"`
+	TargetIp          string    `json:"targetIp" xml:"targetIp"`
+	TargetPort        int32     `json:"targetPort" xml:"targetPort"`
+	ThingName         string    `json:"thingName" xml:"thingName"`
+	Timestamp         time.Time `json:"timestamp" xml:"timestamp"`
+	VpcEndpointId     string    `json:"vpcEndpointId" xml:"vpcEndpointId"`
 }
 
 type GetTopicRuleDestinationRequest struct {
@@ -2265,8 +2281,51 @@ type ImplicitDeny struct {
 }
 
 type IndexingFilter struct {
+	Connectivity     *ConnectivityFilter    `json:"connectivity" xml:"connectivity"`
 	GeoLocations     GeoLocationsFilter     `json:"geoLocations" xml:"geoLocations"`
 	NamedShadowNames NamedShadowNamesFilter `json:"namedShadowNames" xml:"namedShadowNames"`
+}
+
+type InfluxDBAction struct {
+	BatchConfig    *InfluxDBBatchConfig `json:"batchConfig" xml:"batchConfig"`
+	DatabaseName   string               `json:"databaseName" xml:"databaseName"`
+	DestinationArn string               `json:"destinationArn" xml:"destinationArn"`
+	Organization   string               `json:"organization" xml:"organization"`
+	RoleArn        string               `json:"roleArn" xml:"roleArn"`
+	TableName      string               `json:"tableName" xml:"tableName"`
+	Tags           InfluxDBTagMap       `json:"tags" xml:"tags"`
+	TimestampUnit  string               `json:"timestampUnit" xml:"timestampUnit"`
+}
+
+type InfluxDBBatchConfig struct {
+	BatchAcrossTopics bool  `json:"batchAcrossTopics" xml:"batchAcrossTopics"`
+	MaxBatchOpenMs    int32 `json:"maxBatchOpenMs" xml:"maxBatchOpenMs"`
+	MaxBatchSize      int32 `json:"maxBatchSize" xml:"maxBatchSize"`
+	MaxBatchSizeBytes int32 `json:"maxBatchSizeBytes" xml:"maxBatchSizeBytes"`
+}
+
+type InfluxDBDestinationConfiguration struct {
+	Endpoint        string `json:"endpoint" xml:"endpoint"`
+	InfluxDBVersion string `json:"influxDBVersion" xml:"influxDBVersion"`
+	SecretId        string `json:"secretId" xml:"secretId"`
+	SecretKey       string `json:"secretKey" xml:"secretKey"`
+	SecretType      string `json:"secretType" xml:"secretType"`
+}
+
+type InfluxDBDestinationProperties struct {
+	Endpoint        string `json:"endpoint" xml:"endpoint"`
+	InfluxDBVersion string `json:"influxDBVersion" xml:"influxDBVersion"`
+	SecretId        string `json:"secretId" xml:"secretId"`
+	SecretKey       string `json:"secretKey" xml:"secretKey"`
+	SecretType      string `json:"secretType" xml:"secretType"`
+}
+
+type InfluxDBDestinationSummary struct {
+	Endpoint        string `json:"endpoint" xml:"endpoint"`
+	InfluxDBVersion string `json:"influxDBVersion" xml:"influxDBVersion"`
+	SecretId        string `json:"secretId" xml:"secretId"`
+	SecretKey       string `json:"secretKey" xml:"secretKey"`
+	SecretType      string `json:"secretType" xml:"secretType"`
 }
 
 type IotAnalyticsAction struct {
@@ -3953,9 +4012,13 @@ type ThingAttribute struct {
 }
 
 type ThingConnectivity struct {
-	Connected        bool   `json:"connected" xml:"connected"`
-	DisconnectReason string `json:"disconnectReason" xml:"disconnectReason"`
-	Timestamp        int64  `json:"timestamp" xml:"timestamp"`
+	CleanSession      bool   `json:"cleanSession" xml:"cleanSession"`
+	ClientId          string `json:"clientId" xml:"clientId"`
+	Connected         bool   `json:"connected" xml:"connected"`
+	DisconnectReason  string `json:"disconnectReason" xml:"disconnectReason"`
+	KeepAliveDuration int32  `json:"keepAliveDuration" xml:"keepAliveDuration"`
+	SessionExpiry     int64  `json:"sessionExpiry" xml:"sessionExpiry"`
+	Timestamp         int64  `json:"timestamp" xml:"timestamp"`
 }
 
 type ThingDocument struct {
@@ -4075,28 +4138,31 @@ type TopicRule struct {
 }
 
 type TopicRuleDestination struct {
-	Arn               string                        `json:"arn" xml:"arn"`
-	CreatedAt         time.Time                     `json:"createdAt" xml:"createdAt"`
-	HttpUrlProperties *HttpUrlDestinationProperties `json:"httpUrlProperties" xml:"httpUrlProperties"`
-	LastUpdatedAt     time.Time                     `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	Status            string                        `json:"status" xml:"status"`
-	StatusReason      string                        `json:"statusReason" xml:"statusReason"`
-	VpcProperties     *VpcDestinationProperties     `json:"vpcProperties" xml:"vpcProperties"`
+	Arn                string                         `json:"arn" xml:"arn"`
+	CreatedAt          time.Time                      `json:"createdAt" xml:"createdAt"`
+	HttpUrlProperties  *HttpUrlDestinationProperties  `json:"httpUrlProperties" xml:"httpUrlProperties"`
+	InfluxDBProperties *InfluxDBDestinationProperties `json:"influxDBProperties" xml:"influxDBProperties"`
+	LastUpdatedAt      time.Time                      `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+	Status             string                         `json:"status" xml:"status"`
+	StatusReason       string                         `json:"statusReason" xml:"statusReason"`
+	VpcProperties      *VpcDestinationProperties      `json:"vpcProperties" xml:"vpcProperties"`
 }
 
 type TopicRuleDestinationConfiguration struct {
-	HttpUrlConfiguration *HttpUrlDestinationConfiguration `json:"httpUrlConfiguration" xml:"httpUrlConfiguration"`
-	VpcConfiguration     *VpcDestinationConfiguration     `json:"vpcConfiguration" xml:"vpcConfiguration"`
+	HttpUrlConfiguration  *HttpUrlDestinationConfiguration  `json:"httpUrlConfiguration" xml:"httpUrlConfiguration"`
+	InfluxDBConfiguration *InfluxDBDestinationConfiguration `json:"influxDBConfiguration" xml:"influxDBConfiguration"`
+	VpcConfiguration      *VpcDestinationConfiguration      `json:"vpcConfiguration" xml:"vpcConfiguration"`
 }
 
 type TopicRuleDestinationSummary struct {
-	Arn                   string                     `json:"arn" xml:"arn"`
-	CreatedAt             time.Time                  `json:"createdAt" xml:"createdAt"`
-	HttpUrlSummary        *HttpUrlDestinationSummary `json:"httpUrlSummary" xml:"httpUrlSummary"`
-	LastUpdatedAt         time.Time                  `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
-	Status                string                     `json:"status" xml:"status"`
-	StatusReason          string                     `json:"statusReason" xml:"statusReason"`
-	VpcDestinationSummary *VpcDestinationSummary     `json:"vpcDestinationSummary" xml:"vpcDestinationSummary"`
+	Arn                   string                      `json:"arn" xml:"arn"`
+	CreatedAt             time.Time                   `json:"createdAt" xml:"createdAt"`
+	HttpUrlSummary        *HttpUrlDestinationSummary  `json:"httpUrlSummary" xml:"httpUrlSummary"`
+	InfluxDBSummary       *InfluxDBDestinationSummary `json:"influxDBSummary" xml:"influxDBSummary"`
+	LastUpdatedAt         time.Time                   `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+	Status                string                      `json:"status" xml:"status"`
+	StatusReason          string                      `json:"statusReason" xml:"statusReason"`
+	VpcDestinationSummary *VpcDestinationSummary      `json:"vpcDestinationSummary" xml:"vpcDestinationSummary"`
 }
 
 type TopicRuleListItem struct {
@@ -4659,6 +4725,8 @@ type Fields []*Field
 
 type FindingIds []string
 
+type FleetIndexingApiList []string
+
 type FleetMetricNameAndArnList []*FleetMetricNameAndArn
 
 type GeoLocationsFilter []*GeoLocationTarget
@@ -4862,6 +4930,8 @@ type DetailsMap map[string]string
 type EventConfigurations map[string]*Configuration
 
 type HttpHeaders map[string]string
+
+type InfluxDBTagMap map[string]string
 
 type ParameterMap map[string]string
 

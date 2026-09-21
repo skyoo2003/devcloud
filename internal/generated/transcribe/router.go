@@ -52,6 +52,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "PUT", Pattern: "/tags/{ResourceArn}", Operation: "TagResource"},
 	{Method: "DELETE", Pattern: "/tags/{ResourceArn}", Operation: "UntagResource"},
 	{Method: "PATCH", Pattern: "/callanalyticscategories/{CategoryName}", Operation: "UpdateCallAnalyticsCategory"},
+	{Method: "PATCH", Pattern: "/languagemodels/{ModelName}", Operation: "UpdateLanguageModel"},
 	{Method: "PATCH", Pattern: "/medicalvocabularies/{VocabularyName}", Operation: "UpdateMedicalVocabulary"},
 	{Method: "PATCH", Pattern: "/vocabularies/{VocabularyName}", Operation: "UpdateVocabulary"},
 	{Method: "PUT", Pattern: "/vocabularyFilters/{VocabularyFilterName}", Operation: "UpdateVocabularyFilter"},

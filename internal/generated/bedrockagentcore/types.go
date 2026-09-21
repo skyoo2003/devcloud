@@ -164,8 +164,9 @@ type Certificate struct {
 }
 
 type CloudWatchFilterConfig struct {
-	SessionIds EvaluationStringList `json:"sessionIds" xml:"sessionIds"`
-	TimeRange  *SessionFilterConfig `json:"timeRange" xml:"timeRange"`
+	SessionIds      EvaluationStringList `json:"sessionIds" xml:"sessionIds"`
+	SessionTraceIds SessionTraceIdsList  `json:"sessionTraceIds" xml:"sessionTraceIds"`
+	TimeRange       *SessionFilterConfig `json:"timeRange" xml:"timeRange"`
 }
 
 type CloudWatchLogsFilter struct {
@@ -1807,6 +1808,11 @@ type SessionSummary struct {
 	SessionId string    `json:"sessionId" xml:"sessionId"`
 }
 
+type SessionTraceIds struct {
+	SessionId string      `json:"sessionId" xml:"sessionId"`
+	TraceIds  TraceIdList `json:"traceIds" xml:"traceIds"`
+}
+
 type SkillDefinition struct {
 	InlineContent string `json:"inlineContent" xml:"inlineContent"`
 	SchemaVersion string `json:"schemaVersion" xml:"schemaVersion"`
@@ -2317,6 +2323,8 @@ type SessionMetadataList []*SessionMetadataShape
 
 type SessionSummaryList []*SessionSummary
 
+type SessionTraceIdsList []*SessionTraceIds
+
 type SpanIds []string
 
 type Spans []interface{}
@@ -2332,6 +2340,8 @@ type ToolDescriptionList []*ToolDescriptionInput
 type ToolDescriptionResultList []*ToolDescriptionOutput
 
 type ToolsFileSystemConfigurations []interface{}
+
+type TraceIdList []string
 
 type TraceIds []string
 

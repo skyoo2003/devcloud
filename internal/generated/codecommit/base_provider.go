@@ -111,6 +111,10 @@ func (b *BaseProvider) GetBlob(ctx context.Context, input *GetBlobInput) (*GetBl
 	return nil, fmt.Errorf("GetBlob: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetBlobDifferences(ctx context.Context, input *GetBlobDifferencesInput) (*GetBlobDifferencesOutput, error) {
+	return nil, fmt.Errorf("GetBlobDifferences: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetBranch(ctx context.Context, input *GetBranchInput) (*GetBranchOutput, error) {
 	return nil, fmt.Errorf("GetBranch: %w", ErrNotImplemented)
 }

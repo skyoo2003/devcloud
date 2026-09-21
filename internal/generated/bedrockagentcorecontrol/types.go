@@ -392,6 +392,7 @@ type CreateAgentRuntimeRequest struct {
 	FilesystemConfigurations      FilesystemConfigurations       `json:"filesystemConfigurations" xml:"filesystemConfigurations"`
 	LifecycleConfiguration        *LifecycleConfiguration        `json:"lifecycleConfiguration" xml:"lifecycleConfiguration"`
 	NetworkConfiguration          *NetworkConfiguration          `json:"networkConfiguration" xml:"networkConfiguration"`
+	PlatformVersion               string                         `json:"platformVersion" xml:"platformVersion"`
 	ProtocolConfiguration         *ProtocolConfiguration         `json:"protocolConfiguration" xml:"protocolConfiguration"`
 	RequestHeaderConfiguration    interface{}                    `json:"requestHeaderConfiguration" xml:"requestHeaderConfiguration"`
 	RoleArn                       string                         `json:"roleArn" xml:"roleArn"`
@@ -1603,6 +1604,7 @@ type GetAgentRuntimeResponse struct {
 	LifecycleConfiguration        *LifecycleConfiguration        `json:"lifecycleConfiguration" xml:"lifecycleConfiguration"`
 	MetadataConfiguration         *RuntimeMetadataConfiguration  `json:"metadataConfiguration" xml:"metadataConfiguration"`
 	NetworkConfiguration          *NetworkConfiguration          `json:"networkConfiguration" xml:"networkConfiguration"`
+	PlatformVersion               string                         `json:"platformVersion" xml:"platformVersion"`
 	ProtocolConfiguration         *ProtocolConfiguration         `json:"protocolConfiguration" xml:"protocolConfiguration"`
 	RequestHeaderConfiguration    interface{}                    `json:"requestHeaderConfiguration" xml:"requestHeaderConfiguration"`
 	RoleArn                       string                         `json:"roleArn" xml:"roleArn"`
@@ -3925,6 +3927,7 @@ type UpdateAgentRuntimeRequest struct {
 	LifecycleConfiguration        *LifecycleConfiguration        `json:"lifecycleConfiguration" xml:"lifecycleConfiguration"`
 	MetadataConfiguration         *RuntimeMetadataConfiguration  `json:"metadataConfiguration" xml:"metadataConfiguration"`
 	NetworkConfiguration          *NetworkConfiguration          `json:"networkConfiguration" xml:"networkConfiguration"`
+	PlatformVersion               string                         `json:"platformVersion" xml:"platformVersion"`
 	ProtocolConfiguration         *ProtocolConfiguration         `json:"protocolConfiguration" xml:"protocolConfiguration"`
 	RequestHeaderConfiguration    interface{}                    `json:"requestHeaderConfiguration" xml:"requestHeaderConfiguration"`
 	RoleArn                       string                         `json:"roleArn" xml:"roleArn"`

@@ -31,6 +31,11 @@ type ApplicationSummary struct {
 	Namespace        string    `json:"namespace" xml:"Namespace"`
 }
 
+type AuthConfig struct {
+	AuthType                     string `json:"authType" xml:"AuthType"`
+	CredentialProviderIdentifier string `json:"credentialProviderIdentifier" xml:"CredentialProviderIdentifier"`
+}
+
 type ContactHandling struct {
 	Scope string `json:"scope" xml:"Scope"`
 }
@@ -39,6 +44,7 @@ type CreateApplicationRequest struct {
 	ApplicationConfig       *ApplicationConfig       `json:"applicationConfig" xml:"ApplicationConfig"`
 	ApplicationSourceConfig *ApplicationSourceConfig `json:"applicationSourceConfig" xml:"ApplicationSourceConfig"`
 	ApplicationType         string                   `json:"applicationType" xml:"ApplicationType"`
+	AuthConfig              *AuthConfig              `json:"authConfig" xml:"AuthConfig"`
 	ClientToken             string                   `json:"clientToken" xml:"ClientToken"`
 	Description             string                   `json:"description" xml:"Description"`
 	IframeConfig            *IframeConfig            `json:"iframeConfig" xml:"IframeConfig"`
@@ -195,6 +201,7 @@ type GetApplicationResponse struct {
 	ApplicationSourceConfig *ApplicationSourceConfig `json:"applicationSourceConfig" xml:"ApplicationSourceConfig"`
 	ApplicationType         string                   `json:"applicationType" xml:"ApplicationType"`
 	Arn                     string                   `json:"arn" xml:"Arn"`
+	AuthConfig              *AuthConfig              `json:"authConfig" xml:"AuthConfig"`
 	CreatedTime             time.Time                `json:"createdTime" xml:"CreatedTime"`
 	Description             string                   `json:"description" xml:"Description"`
 	Id                      string                   `json:"id" xml:"Id"`
@@ -365,6 +372,7 @@ type UpdateApplicationRequest struct {
 	ApplicationSourceConfig *ApplicationSourceConfig `json:"applicationSourceConfig" xml:"ApplicationSourceConfig"`
 	ApplicationType         string                   `json:"applicationType" xml:"ApplicationType"`
 	Arn                     string                   `json:"arn" xml:"Arn"`
+	AuthConfig              *AuthConfig              `json:"authConfig" xml:"AuthConfig"`
 	Description             string                   `json:"description" xml:"Description"`
 	IframeConfig            *IframeConfig            `json:"iframeConfig" xml:"IframeConfig"`
 	InitializationTimeout   int32                    `json:"initializationTimeout" xml:"InitializationTimeout"`

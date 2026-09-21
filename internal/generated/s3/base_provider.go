@@ -107,6 +107,10 @@ func (b *BaseProvider) DeleteObject(ctx context.Context, input *DeleteObjectRequ
 	return nil, fmt.Errorf("DeleteObject: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteObjectAnnotation(ctx context.Context, input *DeleteObjectAnnotationRequest) (*DeleteObjectAnnotationOutput, error) {
+	return nil, fmt.Errorf("DeleteObjectAnnotation: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteObjectTagging(ctx context.Context, input *DeleteObjectTaggingRequest) (*DeleteObjectTaggingOutput, error) {
 	return nil, fmt.Errorf("DeleteObjectTagging: %w", ErrNotImplemented)
 }
@@ -219,6 +223,10 @@ func (b *BaseProvider) GetObjectAcl(ctx context.Context, input *GetObjectAclRequ
 	return nil, fmt.Errorf("GetObjectAcl: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetObjectAnnotation(ctx context.Context, input *GetObjectAnnotationRequest) (*GetObjectAnnotationOutput, error) {
+	return nil, fmt.Errorf("GetObjectAnnotation: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetObjectAttributes(ctx context.Context, input *GetObjectAttributesRequest) (*GetObjectAttributesOutput, error) {
 	return nil, fmt.Errorf("GetObjectAttributes: %w", ErrNotImplemented)
 }
@@ -281,6 +289,10 @@ func (b *BaseProvider) ListDirectoryBuckets(ctx context.Context, input *ListDire
 
 func (b *BaseProvider) ListMultipartUploads(ctx context.Context, input *ListMultipartUploadsRequest) (*ListMultipartUploadsOutput, error) {
 	return nil, fmt.Errorf("ListMultipartUploads: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListObjectAnnotations(ctx context.Context, input *ListObjectAnnotationsRequest) (*ListObjectAnnotationsOutput, error) {
+	return nil, fmt.Errorf("ListObjectAnnotations: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListObjectVersions(ctx context.Context, input *ListObjectVersionsRequest) (*ListObjectVersionsOutput, error) {
@@ -383,6 +395,10 @@ func (b *BaseProvider) PutObjectAcl(ctx context.Context, input *PutObjectAclRequ
 	return nil, fmt.Errorf("PutObjectAcl: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) PutObjectAnnotation(ctx context.Context, input *PutObjectAnnotationRequest) (*PutObjectAnnotationOutput, error) {
+	return nil, fmt.Errorf("PutObjectAnnotation: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) PutObjectLegalHold(ctx context.Context, input *PutObjectLegalHoldRequest) (*PutObjectLegalHoldOutput, error) {
 	return nil, fmt.Errorf("PutObjectLegalHold: %w", ErrNotImplemented)
 }
@@ -413,6 +429,10 @@ func (b *BaseProvider) RestoreObject(ctx context.Context, input *RestoreObjectRe
 
 func (b *BaseProvider) SelectObjectContent(ctx context.Context, input *SelectObjectContentRequest) (*SelectObjectContentOutput, error) {
 	return nil, fmt.Errorf("SelectObjectContent: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateBucketMetadataAnnotationTableConfiguration(ctx context.Context, input *UpdateBucketMetadataAnnotationTableConfigurationRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("UpdateBucketMetadataAnnotationTableConfiguration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateBucketMetadataInventoryTableConfiguration(ctx context.Context, input *UpdateBucketMetadataInventoryTableConfigurationRequest) (*SmithyUnit, error) {

@@ -180,7 +180,8 @@ type CreatePricingRuleOutput struct {
 }
 
 type CreateTieringInput struct {
-	FreeTier *CreateFreeTierConfig `json:"freeTier" xml:"FreeTier"`
+	CustomTiers CustomTiersList       `json:"customTiers" xml:"CustomTiers"`
+	FreeTier    *CreateFreeTierConfig `json:"freeTier" xml:"FreeTier"`
 }
 
 type CustomLineItemBillingPeriodRange struct {
@@ -237,6 +238,12 @@ type CustomLineItemVersionListElement struct {
 	ProductCode         string                           `json:"productCode" xml:"ProductCode"`
 	StartBillingPeriod  string                           `json:"startBillingPeriod" xml:"StartBillingPeriod"`
 	StartTime           int64                            `json:"startTime" xml:"StartTime"`
+}
+
+type CustomTier struct {
+	BeginRangeInclusive float64 `json:"beginRangeInclusive" xml:"BeginRangeInclusive"`
+	EndRangeExclusive   float64 `json:"endRangeExclusive" xml:"EndRangeExclusive"`
+	RateValue           float64 `json:"rateValue" xml:"RateValue"`
 }
 
 type DeleteBillingGroupInput struct {
@@ -573,7 +580,8 @@ type TagResourceResponse struct {
 }
 
 type Tiering struct {
-	FreeTier *FreeTierConfig `json:"freeTier" xml:"FreeTier"`
+	CustomTiers CustomTiersList `json:"customTiers" xml:"CustomTiers"`
+	FreeTier    *FreeTierConfig `json:"freeTier" xml:"FreeTier"`
 }
 
 type UntagResourceRequest struct {
@@ -687,7 +695,8 @@ type UpdatePricingRuleOutput struct {
 }
 
 type UpdateTieringInput struct {
-	FreeTier *UpdateFreeTierConfig `json:"freeTier" xml:"FreeTier"`
+	CustomTiers CustomTiersList       `json:"customTiers" xml:"CustomTiers"`
+	FreeTier    *UpdateFreeTierConfig `json:"freeTier" xml:"FreeTier"`
 }
 
 type ValidationExceptionField struct {
@@ -732,6 +741,8 @@ type CustomLineItemList []*CustomLineItemListElement
 type CustomLineItemNameList []string
 
 type CustomLineItemVersionList []*CustomLineItemVersionListElement
+
+type CustomTiersList []*CustomTier
 
 type DisassociateResourcesResponseList []*DisassociateResourceResponseElement
 

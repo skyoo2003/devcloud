@@ -851,6 +851,10 @@ func (b *BaseProvider) ListEntitySecurityProfiles(ctx context.Context, input *Li
 	return nil, fmt.Errorf("ListEntitySecurityProfiles: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListEvaluationFormAIVersions(ctx context.Context, input *ListEvaluationFormAIVersionsRequest) (*ListEvaluationFormAIVersionsResponse, error) {
+	return nil, fmt.Errorf("ListEvaluationFormAIVersions: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListEvaluationFormVersions(ctx context.Context, input *ListEvaluationFormVersionsRequest) (*ListEvaluationFormVersionsResponse, error) {
 	return nil, fmt.Errorf("ListEvaluationFormVersions: %w", ErrNotImplemented)
 }
@@ -961,6 +965,10 @@ func (b *BaseProvider) ListRules(ctx context.Context, input *ListRulesRequest) (
 
 func (b *BaseProvider) ListSecurityKeys(ctx context.Context, input *ListSecurityKeysRequest) (*ListSecurityKeysResponse, error) {
 	return nil, fmt.Errorf("ListSecurityKeys: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListSecurityProfileAIAgents(ctx context.Context, input *ListSecurityProfileAIAgentsRequest) (*ListSecurityProfileAIAgentsResponse, error) {
+	return nil, fmt.Errorf("ListSecurityProfileAIAgents: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListSecurityProfileApplications(ctx context.Context, input *ListSecurityProfileApplicationsRequest) (*ListSecurityProfileApplicationsResponse, error) {

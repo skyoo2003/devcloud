@@ -39,6 +39,10 @@ func (b *BaseProvider) AssociateConnectionWithLag(ctx context.Context, input *As
 	return nil, fmt.Errorf("AssociateConnectionWithLag: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) AssociateConnectionsToResiliencyGroup(ctx context.Context, input *AssociateConnectionsToResiliencyGroupRequest) (*AssociateConnectionsToResiliencyGroupResult, error) {
+	return nil, fmt.Errorf("AssociateConnectionsToResiliencyGroup: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) AssociateHostedConnection(ctx context.Context, input *AssociateHostedConnectionRequest) (*Connection, error) {
 	return nil, fmt.Errorf("AssociateHostedConnection: %w", ErrNotImplemented)
 }
@@ -107,6 +111,10 @@ func (b *BaseProvider) CreatePublicVirtualInterface(ctx context.Context, input *
 	return nil, fmt.Errorf("CreatePublicVirtualInterface: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateResiliencyGroup(ctx context.Context, input *CreateResiliencyGroupRequest) (*CreateResiliencyGroupResult, error) {
+	return nil, fmt.Errorf("CreateResiliencyGroup: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateTransitVirtualInterface(ctx context.Context, input *CreateTransitVirtualInterfaceRequest) (*CreateTransitVirtualInterfaceResult, error) {
 	return nil, fmt.Errorf("CreateTransitVirtualInterface: %w", ErrNotImplemented)
 }
@@ -137,6 +145,10 @@ func (b *BaseProvider) DeleteInterconnect(ctx context.Context, input *DeleteInte
 
 func (b *BaseProvider) DeleteLag(ctx context.Context, input *DeleteLagRequest) (*Lag, error) {
 	return nil, fmt.Errorf("DeleteLag: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteResiliencyGroup(ctx context.Context, input *DeleteResiliencyGroupRequest) (*DeleteResiliencyGroupResult, error) {
+	return nil, fmt.Errorf("DeleteResiliencyGroup: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteVirtualInterface(ctx context.Context, input *DeleteVirtualInterfaceRequest) (*DeleteVirtualInterfaceResponse, error) {
@@ -219,8 +231,24 @@ func (b *BaseProvider) DisassociateConnectionFromLag(ctx context.Context, input 
 	return nil, fmt.Errorf("DisassociateConnectionFromLag: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DisassociateConnectionsFromResiliencyGroup(ctx context.Context, input *DisassociateConnectionsFromResiliencyGroupRequest) (*DisassociateConnectionsFromResiliencyGroupResult, error) {
+	return nil, fmt.Errorf("DisassociateConnectionsFromResiliencyGroup: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DisassociateMacSecKey(ctx context.Context, input *DisassociateMacSecKeyRequest) (*DisassociateMacSecKeyResponse, error) {
 	return nil, fmt.Errorf("DisassociateMacSecKey: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetResiliencyGroup(ctx context.Context, input *GetResiliencyGroupRequest) (*GetResiliencyGroupResult, error) {
+	return nil, fmt.Errorf("GetResiliencyGroup: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListResiliencyGroupAssociations(ctx context.Context, input *ListResiliencyGroupAssociationsRequest) (*ListResiliencyGroupAssociationsResult, error) {
+	return nil, fmt.Errorf("ListResiliencyGroupAssociations: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListResiliencyGroups(ctx context.Context, input *ListResiliencyGroupsRequest) (*ListResiliencyGroupsResult, error) {
+	return nil, fmt.Errorf("ListResiliencyGroups: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListVirtualInterfaceRoutes(ctx context.Context, input *ListVirtualInterfaceRoutesRequest) (*ListVirtualInterfaceRoutesResponse, error) {
@@ -251,6 +279,10 @@ func (b *BaseProvider) UpdateConnection(ctx context.Context, input *UpdateConnec
 	return nil, fmt.Errorf("UpdateConnection: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) UpdateConnectionsBillingMode(ctx context.Context, input *UpdateConnectionsBillingModeRequest) (*UpdateConnectionsBillingModeResponse, error) {
+	return nil, fmt.Errorf("UpdateConnectionsBillingMode: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) UpdateDirectConnectGateway(ctx context.Context, input *UpdateDirectConnectGatewayRequest) (*UpdateDirectConnectGatewayResponse, error) {
 	return nil, fmt.Errorf("UpdateDirectConnectGateway: %w", ErrNotImplemented)
 }
@@ -261,6 +293,10 @@ func (b *BaseProvider) UpdateDirectConnectGatewayAssociation(ctx context.Context
 
 func (b *BaseProvider) UpdateLag(ctx context.Context, input *UpdateLagRequest) (*Lag, error) {
 	return nil, fmt.Errorf("UpdateLag: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateResiliencyGroup(ctx context.Context, input *UpdateResiliencyGroupRequest) (*UpdateResiliencyGroupResult, error) {
+	return nil, fmt.Errorf("UpdateResiliencyGroup: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateVirtualInterfaceAttributes(ctx context.Context, input *UpdateVirtualInterfaceAttributesRequest) (*VirtualInterface, error) {

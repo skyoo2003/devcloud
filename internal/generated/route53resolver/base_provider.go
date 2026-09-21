@@ -27,6 +27,18 @@ func (b *BaseProvider) AssociateResolverRule(ctx context.Context, input *Associa
 	return nil, fmt.Errorf("AssociateResolverRule: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) BatchCreateFirewallRule(ctx context.Context, input *BatchCreateFirewallRuleRequest) (*BatchCreateFirewallRuleResponse, error) {
+	return nil, fmt.Errorf("BatchCreateFirewallRule: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) BatchDeleteFirewallRule(ctx context.Context, input *BatchDeleteFirewallRuleRequest) (*BatchDeleteFirewallRuleResponse, error) {
+	return nil, fmt.Errorf("BatchDeleteFirewallRule: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) BatchUpdateFirewallRule(ctx context.Context, input *BatchUpdateFirewallRuleRequest) (*BatchUpdateFirewallRuleResponse, error) {
+	return nil, fmt.Errorf("BatchUpdateFirewallRule: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateFirewallDomainList(ctx context.Context, input *CreateFirewallDomainListRequest) (*CreateFirewallDomainListResponse, error) {
 	return nil, fmt.Errorf("CreateFirewallDomainList: %w", ErrNotImplemented)
 }
@@ -181,6 +193,10 @@ func (b *BaseProvider) ListFirewallRuleGroupAssociations(ctx context.Context, in
 
 func (b *BaseProvider) ListFirewallRuleGroups(ctx context.Context, input *ListFirewallRuleGroupsRequest) (*ListFirewallRuleGroupsResponse, error) {
 	return nil, fmt.Errorf("ListFirewallRuleGroups: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListFirewallRuleTypes(ctx context.Context, input *ListFirewallRuleTypesRequest) (*ListFirewallRuleTypesResponse, error) {
+	return nil, fmt.Errorf("ListFirewallRuleTypes: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListFirewallRules(ctx context.Context, input *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error) {

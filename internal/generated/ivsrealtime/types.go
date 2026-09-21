@@ -72,7 +72,14 @@ type CreateIngestConfigurationRequest struct {
 }
 
 type CreateIngestConfigurationResponse struct {
-	IngestConfiguration *IngestConfiguration `json:"ingestConfiguration" xml:"ingestConfiguration"`
+	AccessControlAllowOrigin   string               `json:"accessControlAllowOrigin" xml:"accessControlAllowOrigin"`
+	AccessControlExposeHeaders string               `json:"accessControlExposeHeaders" xml:"accessControlExposeHeaders"`
+	CacheControl               string               `json:"cacheControl" xml:"cacheControl"`
+	ContentSecurityPolicy      string               `json:"contentSecurityPolicy" xml:"contentSecurityPolicy"`
+	IngestConfiguration        *IngestConfiguration `json:"ingestConfiguration" xml:"ingestConfiguration"`
+	StrictTransportSecurity    string               `json:"strictTransportSecurity" xml:"strictTransportSecurity"`
+	XContentTypeOptions        string               `json:"xContentTypeOptions" xml:"xContentTypeOptions"`
+	XFrameOptions              string               `json:"xFrameOptions" xml:"xFrameOptions"`
 }
 
 type CreateParticipantTokenRequest struct {
@@ -708,7 +715,14 @@ type UpdateIngestConfigurationRequest struct {
 }
 
 type UpdateIngestConfigurationResponse struct {
-	IngestConfiguration *IngestConfiguration `json:"ingestConfiguration" xml:"ingestConfiguration"`
+	AccessControlAllowOrigin   string               `json:"accessControlAllowOrigin" xml:"accessControlAllowOrigin"`
+	AccessControlExposeHeaders string               `json:"accessControlExposeHeaders" xml:"accessControlExposeHeaders"`
+	CacheControl               string               `json:"cacheControl" xml:"cacheControl"`
+	ContentSecurityPolicy      string               `json:"contentSecurityPolicy" xml:"contentSecurityPolicy"`
+	IngestConfiguration        *IngestConfiguration `json:"ingestConfiguration" xml:"ingestConfiguration"`
+	StrictTransportSecurity    string               `json:"strictTransportSecurity" xml:"strictTransportSecurity"`
+	XContentTypeOptions        string               `json:"xContentTypeOptions" xml:"xContentTypeOptions"`
+	XFrameOptions              string               `json:"xFrameOptions" xml:"xFrameOptions"`
 }
 
 type UpdateStageRequest struct {

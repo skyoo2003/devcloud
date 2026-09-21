@@ -12,6 +12,7 @@ type OperationRoute = httproute.Route
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
+	{Method: "", Pattern: "", Operation: "AssociateDatasetKmsKey"},
 	{Method: "", Pattern: "", Operation: "DeleteAlarmMuteRule"},
 	{Method: "", Pattern: "", Operation: "DeleteAlarms"},
 	{Method: "", Pattern: "", Operation: "DeleteAnomalyDetector"},
@@ -26,10 +27,12 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "DescribeInsightRules"},
 	{Method: "", Pattern: "", Operation: "DisableAlarmActions"},
 	{Method: "", Pattern: "", Operation: "DisableInsightRules"},
+	{Method: "", Pattern: "", Operation: "DisassociateDatasetKmsKey"},
 	{Method: "", Pattern: "", Operation: "EnableAlarmActions"},
 	{Method: "", Pattern: "", Operation: "EnableInsightRules"},
 	{Method: "", Pattern: "", Operation: "GetAlarmMuteRule"},
 	{Method: "", Pattern: "", Operation: "GetDashboard"},
+	{Method: "", Pattern: "", Operation: "GetDataset"},
 	{Method: "", Pattern: "", Operation: "GetInsightRuleReport"},
 	{Method: "", Pattern: "", Operation: "GetMetricData"},
 	{Method: "", Pattern: "", Operation: "GetMetricStatistics"},
@@ -47,6 +50,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "PutCompositeAlarm"},
 	{Method: "", Pattern: "", Operation: "PutDashboard"},
 	{Method: "", Pattern: "", Operation: "PutInsightRule"},
+	{Method: "", Pattern: "", Operation: "PutLogAlarm"},
 	{Method: "", Pattern: "", Operation: "PutManagedInsightRules"},
 	{Method: "", Pattern: "", Operation: "PutMetricAlarm"},
 	{Method: "", Pattern: "", Operation: "PutMetricData"},
