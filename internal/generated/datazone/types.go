@@ -842,6 +842,7 @@ type CreateEnvironmentActionOutput struct {
 }
 
 type CreateEnvironmentBlueprintInput struct {
+	BlueprintCategory      string              `json:"blueprintCategory" xml:"blueprintCategory"`
 	Description            string              `json:"description" xml:"description"`
 	DomainIdentifier       string              `json:"domainIdentifier" xml:"domainIdentifier"`
 	Name                   string              `json:"name" xml:"name"`
@@ -850,6 +851,7 @@ type CreateEnvironmentBlueprintInput struct {
 }
 
 type CreateEnvironmentBlueprintOutput struct {
+	BlueprintCategory      string                `json:"blueprintCategory" xml:"blueprintCategory"`
 	CreatedAt              time.Time             `json:"createdAt" xml:"createdAt"`
 	DeploymentProperties   *DeploymentProperties `json:"deploymentProperties" xml:"deploymentProperties"`
 	Description            string                `json:"description" xml:"description"`
@@ -1043,6 +1045,7 @@ type CreateNotebookInput struct {
 	Name                    string     `json:"name" xml:"name"`
 	OwningProjectIdentifier string     `json:"owningProjectIdentifier" xml:"owningProjectIdentifier"`
 	Parameters              Parameters `json:"parameters" xml:"parameters"`
+	Type                    string     `json:"type" xml:"type"`
 }
 
 type CreateNotebookOutput struct {
@@ -1064,6 +1067,7 @@ type CreateNotebookOutput struct {
 	OwningProjectId          string             `json:"owningProjectId" xml:"owningProjectId"`
 	Parameters               Parameters         `json:"parameters" xml:"parameters"`
 	Status                   string             `json:"status" xml:"status"`
+	Type                     string             `json:"type" xml:"type"`
 	UpdatedAt                time.Time          `json:"updatedAt" xml:"updatedAt"`
 	UpdatedBy                string             `json:"updatedBy" xml:"updatedBy"`
 }
@@ -1791,6 +1795,7 @@ type EnvironmentBlueprintConfigurationItem struct {
 }
 
 type EnvironmentBlueprintSummary struct {
+	BlueprintCategory      string      `json:"blueprintCategory" xml:"blueprintCategory"`
 	CreatedAt              time.Time   `json:"createdAt" xml:"createdAt"`
 	Description            string      `json:"description" xml:"description"`
 	Id                     string      `json:"id" xml:"id"`
@@ -2240,6 +2245,7 @@ type GetEnvironmentBlueprintInput struct {
 }
 
 type GetEnvironmentBlueprintOutput struct {
+	BlueprintCategory      string                `json:"blueprintCategory" xml:"blueprintCategory"`
 	CreatedAt              time.Time             `json:"createdAt" xml:"createdAt"`
 	DeploymentProperties   *DeploymentProperties `json:"deploymentProperties" xml:"deploymentProperties"`
 	Description            string                `json:"description" xml:"description"`
@@ -2540,6 +2546,7 @@ type GetNotebookOutput struct {
 	OwningProjectId          string             `json:"owningProjectId" xml:"owningProjectId"`
 	Parameters               Parameters         `json:"parameters" xml:"parameters"`
 	Status                   string             `json:"status" xml:"status"`
+	Type                     string             `json:"type" xml:"type"`
 	UpdatedAt                time.Time          `json:"updatedAt" xml:"updatedAt"`
 	UpdatedBy                string             `json:"updatedBy" xml:"updatedBy"`
 }
@@ -2948,7 +2955,8 @@ type HyperPodPropertiesOutput struct {
 }
 
 type IamPropertiesInput struct {
-	GlueLineageSyncEnabled bool `json:"glueLineageSyncEnabled" xml:"glueLineageSyncEnabled"`
+	GlueLineageSyncEnabled bool   `json:"glueLineageSyncEnabled" xml:"glueLineageSyncEnabled"`
+	RoleArn                string `json:"roleArn" xml:"roleArn"`
 }
 
 type IamPropertiesOutput struct {
@@ -3449,6 +3457,7 @@ type ListNotebooksInput struct {
 	SortBy                  string `json:"sortBy" xml:"sortBy"`
 	SortOrder               string `json:"sortOrder" xml:"sortOrder"`
 	Status                  string `json:"status" xml:"status"`
+	Type                    string `json:"type" xml:"type"`
 }
 
 type ListNotebooksOutput struct {
@@ -3795,6 +3804,7 @@ type NotebookSummary struct {
 	Name            string    `json:"name" xml:"name"`
 	OwningProjectId string    `json:"owningProjectId" xml:"owningProjectId"`
 	Status          string    `json:"status" xml:"status"`
+	Type            string    `json:"type" xml:"type"`
 	UpdatedAt       time.Time `json:"updatedAt" xml:"updatedAt"`
 	UpdatedBy       string    `json:"updatedBy" xml:"updatedBy"`
 }
@@ -5072,6 +5082,7 @@ type UpdateEnvironmentActionOutput struct {
 }
 
 type UpdateEnvironmentBlueprintInput struct {
+	BlueprintCategory      string              `json:"blueprintCategory" xml:"blueprintCategory"`
 	Description            string              `json:"description" xml:"description"`
 	DomainIdentifier       string              `json:"domainIdentifier" xml:"domainIdentifier"`
 	Identifier             string              `json:"identifier" xml:"identifier"`
@@ -5080,6 +5091,7 @@ type UpdateEnvironmentBlueprintInput struct {
 }
 
 type UpdateEnvironmentBlueprintOutput struct {
+	BlueprintCategory      string                `json:"blueprintCategory" xml:"blueprintCategory"`
 	CreatedAt              time.Time             `json:"createdAt" xml:"createdAt"`
 	DeploymentProperties   *DeploymentProperties `json:"deploymentProperties" xml:"deploymentProperties"`
 	Description            string                `json:"description" xml:"description"`
@@ -5222,6 +5234,7 @@ type UpdateNotebookInput struct {
 	Name                     string             `json:"name" xml:"name"`
 	Parameters               Parameters         `json:"parameters" xml:"parameters"`
 	Status                   string             `json:"status" xml:"status"`
+	Type                     string             `json:"type" xml:"type"`
 }
 
 type UpdateNotebookOutput struct {
@@ -5243,6 +5256,7 @@ type UpdateNotebookOutput struct {
 	OwningProjectId          string             `json:"owningProjectId" xml:"owningProjectId"`
 	Parameters               Parameters         `json:"parameters" xml:"parameters"`
 	Status                   string             `json:"status" xml:"status"`
+	Type                     string             `json:"type" xml:"type"`
 	UpdatedAt                time.Time          `json:"updatedAt" xml:"updatedAt"`
 	UpdatedBy                string             `json:"updatedBy" xml:"updatedBy"`
 }

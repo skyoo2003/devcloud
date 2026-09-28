@@ -410,15 +410,16 @@ type BotLocaleHistoryEvent struct {
 }
 
 type BotLocaleImportSpecification struct {
-	AudioFillerSettings          *AudioFillerSettings       `json:"audioFillerSettings" xml:"audioFillerSettings"`
-	BotId                        string                     `json:"botId" xml:"botId"`
-	BotVersion                   string                     `json:"botVersion" xml:"botVersion"`
-	LocaleId                     string                     `json:"localeId" xml:"localeId"`
-	NluIntentConfidenceThreshold float64                    `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
-	SpeechDetectionSensitivity   string                     `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
-	SpeechRecognitionSettings    *SpeechRecognitionSettings `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
-	UnifiedSpeechSettings        *UnifiedSpeechSettings     `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
-	VoiceSettings                *VoiceSettings             `json:"voiceSettings" xml:"voiceSettings"`
+	AudioFillerSettings          *AudioFillerSettings        `json:"audioFillerSettings" xml:"audioFillerSettings"`
+	BotId                        string                      `json:"botId" xml:"botId"`
+	BotVersion                   string                      `json:"botVersion" xml:"botVersion"`
+	LocaleId                     string                      `json:"localeId" xml:"localeId"`
+	NluIntentConfidenceThreshold float64                     `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
+	SpeakerDiarizationSettings   *SpeakerDiarizationSettings `json:"speakerDiarizationSettings" xml:"speakerDiarizationSettings"`
+	SpeechDetectionSensitivity   string                      `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
+	SpeechRecognitionSettings    *SpeechRecognitionSettings  `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
+	UnifiedSpeechSettings        *UnifiedSpeechSettings      `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
+	VoiceSettings                *VoiceSettings              `json:"voiceSettings" xml:"voiceSettings"`
 }
 
 type BotLocaleSortBy struct {
@@ -662,34 +663,36 @@ type CreateBotAliasResponse struct {
 }
 
 type CreateBotLocaleRequest struct {
-	AudioFillerSettings          *AudioFillerSettings       `json:"audioFillerSettings" xml:"audioFillerSettings"`
-	BotId                        string                     `json:"botId" xml:"botId"`
-	BotVersion                   string                     `json:"botVersion" xml:"botVersion"`
-	Description                  string                     `json:"description" xml:"description"`
-	GenerativeAISettings         *GenerativeAISettings      `json:"generativeAISettings" xml:"generativeAISettings"`
-	LocaleId                     string                     `json:"localeId" xml:"localeId"`
-	NluIntentConfidenceThreshold float64                    `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
-	SpeechDetectionSensitivity   string                     `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
-	SpeechRecognitionSettings    *SpeechRecognitionSettings `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
-	UnifiedSpeechSettings        *UnifiedSpeechSettings     `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
-	VoiceSettings                *VoiceSettings             `json:"voiceSettings" xml:"voiceSettings"`
+	AudioFillerSettings          *AudioFillerSettings        `json:"audioFillerSettings" xml:"audioFillerSettings"`
+	BotId                        string                      `json:"botId" xml:"botId"`
+	BotVersion                   string                      `json:"botVersion" xml:"botVersion"`
+	Description                  string                      `json:"description" xml:"description"`
+	GenerativeAISettings         *GenerativeAISettings       `json:"generativeAISettings" xml:"generativeAISettings"`
+	LocaleId                     string                      `json:"localeId" xml:"localeId"`
+	NluIntentConfidenceThreshold float64                     `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
+	SpeakerDiarizationSettings   *SpeakerDiarizationSettings `json:"speakerDiarizationSettings" xml:"speakerDiarizationSettings"`
+	SpeechDetectionSensitivity   string                      `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
+	SpeechRecognitionSettings    *SpeechRecognitionSettings  `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
+	UnifiedSpeechSettings        *UnifiedSpeechSettings      `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
+	VoiceSettings                *VoiceSettings              `json:"voiceSettings" xml:"voiceSettings"`
 }
 
 type CreateBotLocaleResponse struct {
-	AudioFillerSettings          *AudioFillerSettings       `json:"audioFillerSettings" xml:"audioFillerSettings"`
-	BotId                        string                     `json:"botId" xml:"botId"`
-	BotLocaleStatus              string                     `json:"botLocaleStatus" xml:"botLocaleStatus"`
-	BotVersion                   string                     `json:"botVersion" xml:"botVersion"`
-	CreationDateTime             time.Time                  `json:"creationDateTime" xml:"creationDateTime"`
-	Description                  string                     `json:"description" xml:"description"`
-	GenerativeAISettings         *GenerativeAISettings      `json:"generativeAISettings" xml:"generativeAISettings"`
-	LocaleId                     string                     `json:"localeId" xml:"localeId"`
-	LocaleName                   string                     `json:"localeName" xml:"localeName"`
-	NluIntentConfidenceThreshold float64                    `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
-	SpeechDetectionSensitivity   string                     `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
-	SpeechRecognitionSettings    *SpeechRecognitionSettings `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
-	UnifiedSpeechSettings        *UnifiedSpeechSettings     `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
-	VoiceSettings                *VoiceSettings             `json:"voiceSettings" xml:"voiceSettings"`
+	AudioFillerSettings          *AudioFillerSettings        `json:"audioFillerSettings" xml:"audioFillerSettings"`
+	BotId                        string                      `json:"botId" xml:"botId"`
+	BotLocaleStatus              string                      `json:"botLocaleStatus" xml:"botLocaleStatus"`
+	BotVersion                   string                      `json:"botVersion" xml:"botVersion"`
+	CreationDateTime             time.Time                   `json:"creationDateTime" xml:"creationDateTime"`
+	Description                  string                      `json:"description" xml:"description"`
+	GenerativeAISettings         *GenerativeAISettings       `json:"generativeAISettings" xml:"generativeAISettings"`
+	LocaleId                     string                      `json:"localeId" xml:"localeId"`
+	LocaleName                   string                      `json:"localeName" xml:"localeName"`
+	NluIntentConfidenceThreshold float64                     `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
+	SpeakerDiarizationSettings   *SpeakerDiarizationSettings `json:"speakerDiarizationSettings" xml:"speakerDiarizationSettings"`
+	SpeechDetectionSensitivity   string                      `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
+	SpeechRecognitionSettings    *SpeechRecognitionSettings  `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
+	UnifiedSpeechSettings        *UnifiedSpeechSettings      `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
+	VoiceSettings                *VoiceSettings              `json:"voiceSettings" xml:"voiceSettings"`
 }
 
 type CreateBotReplicaRequest struct {
@@ -1168,27 +1171,28 @@ type DescribeBotLocaleRequest struct {
 }
 
 type DescribeBotLocaleResponse struct {
-	AudioFillerSettings          *AudioFillerSettings       `json:"audioFillerSettings" xml:"audioFillerSettings"`
-	BotId                        string                     `json:"botId" xml:"botId"`
-	BotLocaleHistoryEvents       BotLocaleHistoryEventsList `json:"botLocaleHistoryEvents" xml:"botLocaleHistoryEvents"`
-	BotLocaleStatus              string                     `json:"botLocaleStatus" xml:"botLocaleStatus"`
-	BotVersion                   string                     `json:"botVersion" xml:"botVersion"`
-	CreationDateTime             time.Time                  `json:"creationDateTime" xml:"creationDateTime"`
-	Description                  string                     `json:"description" xml:"description"`
-	FailureReasons               FailureReasons             `json:"failureReasons" xml:"failureReasons"`
-	GenerativeAISettings         *GenerativeAISettings      `json:"generativeAISettings" xml:"generativeAISettings"`
-	IntentsCount                 int32                      `json:"intentsCount" xml:"intentsCount"`
-	LastBuildSubmittedDateTime   time.Time                  `json:"lastBuildSubmittedDateTime" xml:"lastBuildSubmittedDateTime"`
-	LastUpdatedDateTime          time.Time                  `json:"lastUpdatedDateTime" xml:"lastUpdatedDateTime"`
-	LocaleId                     string                     `json:"localeId" xml:"localeId"`
-	LocaleName                   string                     `json:"localeName" xml:"localeName"`
-	NluIntentConfidenceThreshold float64                    `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
-	RecommendedActions           RecommendedActions         `json:"recommendedActions" xml:"recommendedActions"`
-	SlotTypesCount               int32                      `json:"slotTypesCount" xml:"slotTypesCount"`
-	SpeechDetectionSensitivity   string                     `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
-	SpeechRecognitionSettings    *SpeechRecognitionSettings `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
-	UnifiedSpeechSettings        *UnifiedSpeechSettings     `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
-	VoiceSettings                *VoiceSettings             `json:"voiceSettings" xml:"voiceSettings"`
+	AudioFillerSettings          *AudioFillerSettings        `json:"audioFillerSettings" xml:"audioFillerSettings"`
+	BotId                        string                      `json:"botId" xml:"botId"`
+	BotLocaleHistoryEvents       BotLocaleHistoryEventsList  `json:"botLocaleHistoryEvents" xml:"botLocaleHistoryEvents"`
+	BotLocaleStatus              string                      `json:"botLocaleStatus" xml:"botLocaleStatus"`
+	BotVersion                   string                      `json:"botVersion" xml:"botVersion"`
+	CreationDateTime             time.Time                   `json:"creationDateTime" xml:"creationDateTime"`
+	Description                  string                      `json:"description" xml:"description"`
+	FailureReasons               FailureReasons              `json:"failureReasons" xml:"failureReasons"`
+	GenerativeAISettings         *GenerativeAISettings       `json:"generativeAISettings" xml:"generativeAISettings"`
+	IntentsCount                 int32                       `json:"intentsCount" xml:"intentsCount"`
+	LastBuildSubmittedDateTime   time.Time                   `json:"lastBuildSubmittedDateTime" xml:"lastBuildSubmittedDateTime"`
+	LastUpdatedDateTime          time.Time                   `json:"lastUpdatedDateTime" xml:"lastUpdatedDateTime"`
+	LocaleId                     string                      `json:"localeId" xml:"localeId"`
+	LocaleName                   string                      `json:"localeName" xml:"localeName"`
+	NluIntentConfidenceThreshold float64                     `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
+	RecommendedActions           RecommendedActions          `json:"recommendedActions" xml:"recommendedActions"`
+	SlotTypesCount               int32                       `json:"slotTypesCount" xml:"slotTypesCount"`
+	SpeakerDiarizationSettings   *SpeakerDiarizationSettings `json:"speakerDiarizationSettings" xml:"speakerDiarizationSettings"`
+	SpeechDetectionSensitivity   string                      `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
+	SpeechRecognitionSettings    *SpeechRecognitionSettings  `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
+	UnifiedSpeechSettings        *UnifiedSpeechSettings      `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
+	VoiceSettings                *VoiceSettings              `json:"voiceSettings" xml:"voiceSettings"`
 }
 
 type DescribeBotRecommendationRequest struct {
@@ -2685,6 +2689,10 @@ type SlotValueSelectionSetting struct {
 type SmithyUnit struct {
 }
 
+type SpeakerDiarizationSettings struct {
+	Enabled bool `json:"enabled" xml:"enabled"`
+}
+
 type Specifications struct {
 	SlotTypeId              string                          `json:"slotTypeId" xml:"slotTypeId"`
 	ValueElicitationSetting *SubSlotValueElicitationSetting `json:"valueElicitationSetting" xml:"valueElicitationSetting"`
@@ -3052,37 +3060,39 @@ type UpdateBotAliasResponse struct {
 }
 
 type UpdateBotLocaleRequest struct {
-	AudioFillerSettings          *AudioFillerSettings       `json:"audioFillerSettings" xml:"audioFillerSettings"`
-	BotId                        string                     `json:"botId" xml:"botId"`
-	BotVersion                   string                     `json:"botVersion" xml:"botVersion"`
-	Description                  string                     `json:"description" xml:"description"`
-	GenerativeAISettings         *GenerativeAISettings      `json:"generativeAISettings" xml:"generativeAISettings"`
-	LocaleId                     string                     `json:"localeId" xml:"localeId"`
-	NluIntentConfidenceThreshold float64                    `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
-	SpeechDetectionSensitivity   string                     `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
-	SpeechRecognitionSettings    *SpeechRecognitionSettings `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
-	UnifiedSpeechSettings        *UnifiedSpeechSettings     `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
-	VoiceSettings                *VoiceSettings             `json:"voiceSettings" xml:"voiceSettings"`
+	AudioFillerSettings          *AudioFillerSettings        `json:"audioFillerSettings" xml:"audioFillerSettings"`
+	BotId                        string                      `json:"botId" xml:"botId"`
+	BotVersion                   string                      `json:"botVersion" xml:"botVersion"`
+	Description                  string                      `json:"description" xml:"description"`
+	GenerativeAISettings         *GenerativeAISettings       `json:"generativeAISettings" xml:"generativeAISettings"`
+	LocaleId                     string                      `json:"localeId" xml:"localeId"`
+	NluIntentConfidenceThreshold float64                     `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
+	SpeakerDiarizationSettings   *SpeakerDiarizationSettings `json:"speakerDiarizationSettings" xml:"speakerDiarizationSettings"`
+	SpeechDetectionSensitivity   string                      `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
+	SpeechRecognitionSettings    *SpeechRecognitionSettings  `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
+	UnifiedSpeechSettings        *UnifiedSpeechSettings      `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
+	VoiceSettings                *VoiceSettings              `json:"voiceSettings" xml:"voiceSettings"`
 }
 
 type UpdateBotLocaleResponse struct {
-	AudioFillerSettings          *AudioFillerSettings       `json:"audioFillerSettings" xml:"audioFillerSettings"`
-	BotId                        string                     `json:"botId" xml:"botId"`
-	BotLocaleStatus              string                     `json:"botLocaleStatus" xml:"botLocaleStatus"`
-	BotVersion                   string                     `json:"botVersion" xml:"botVersion"`
-	CreationDateTime             time.Time                  `json:"creationDateTime" xml:"creationDateTime"`
-	Description                  string                     `json:"description" xml:"description"`
-	FailureReasons               FailureReasons             `json:"failureReasons" xml:"failureReasons"`
-	GenerativeAISettings         *GenerativeAISettings      `json:"generativeAISettings" xml:"generativeAISettings"`
-	LastUpdatedDateTime          time.Time                  `json:"lastUpdatedDateTime" xml:"lastUpdatedDateTime"`
-	LocaleId                     string                     `json:"localeId" xml:"localeId"`
-	LocaleName                   string                     `json:"localeName" xml:"localeName"`
-	NluIntentConfidenceThreshold float64                    `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
-	RecommendedActions           RecommendedActions         `json:"recommendedActions" xml:"recommendedActions"`
-	SpeechDetectionSensitivity   string                     `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
-	SpeechRecognitionSettings    *SpeechRecognitionSettings `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
-	UnifiedSpeechSettings        *UnifiedSpeechSettings     `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
-	VoiceSettings                *VoiceSettings             `json:"voiceSettings" xml:"voiceSettings"`
+	AudioFillerSettings          *AudioFillerSettings        `json:"audioFillerSettings" xml:"audioFillerSettings"`
+	BotId                        string                      `json:"botId" xml:"botId"`
+	BotLocaleStatus              string                      `json:"botLocaleStatus" xml:"botLocaleStatus"`
+	BotVersion                   string                      `json:"botVersion" xml:"botVersion"`
+	CreationDateTime             time.Time                   `json:"creationDateTime" xml:"creationDateTime"`
+	Description                  string                      `json:"description" xml:"description"`
+	FailureReasons               FailureReasons              `json:"failureReasons" xml:"failureReasons"`
+	GenerativeAISettings         *GenerativeAISettings       `json:"generativeAISettings" xml:"generativeAISettings"`
+	LastUpdatedDateTime          time.Time                   `json:"lastUpdatedDateTime" xml:"lastUpdatedDateTime"`
+	LocaleId                     string                      `json:"localeId" xml:"localeId"`
+	LocaleName                   string                      `json:"localeName" xml:"localeName"`
+	NluIntentConfidenceThreshold float64                     `json:"nluIntentConfidenceThreshold" xml:"nluIntentConfidenceThreshold"`
+	RecommendedActions           RecommendedActions          `json:"recommendedActions" xml:"recommendedActions"`
+	SpeakerDiarizationSettings   *SpeakerDiarizationSettings `json:"speakerDiarizationSettings" xml:"speakerDiarizationSettings"`
+	SpeechDetectionSensitivity   string                      `json:"speechDetectionSensitivity" xml:"speechDetectionSensitivity"`
+	SpeechRecognitionSettings    *SpeechRecognitionSettings  `json:"speechRecognitionSettings" xml:"speechRecognitionSettings"`
+	UnifiedSpeechSettings        *UnifiedSpeechSettings      `json:"unifiedSpeechSettings" xml:"unifiedSpeechSettings"`
+	VoiceSettings                *VoiceSettings              `json:"voiceSettings" xml:"voiceSettings"`
 }
 
 type UpdateBotRecommendationRequest struct {

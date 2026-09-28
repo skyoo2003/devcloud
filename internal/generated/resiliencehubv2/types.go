@@ -103,6 +103,7 @@ type CreatePolicyRequest struct {
 	MultiAz         *MultiAzTargets      `json:"multiAz" xml:"multiAz"`
 	MultiRegion     *MultiRegionTargets  `json:"multiRegion" xml:"multiRegion"`
 	Name            string               `json:"name" xml:"name"`
+	SharingEnabled  bool                 `json:"sharingEnabled" xml:"sharingEnabled"`
 	Tags            TagMap               `json:"tags" xml:"tags"`
 }
 
@@ -307,6 +308,11 @@ type DependencyDiscoveryConfig struct {
 	UpdatedAt             time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
+type DependencyInsight struct {
+	Category    string `json:"category" xml:"category"`
+	Description string `json:"description" xml:"description"`
+}
+
 type DependencySummary struct {
 	Comment          string      `json:"comment" xml:"comment"`
 	Criticality      string      `json:"criticality" xml:"criticality"`
@@ -404,6 +410,19 @@ type FindingSummary struct {
 	Severity        string    `json:"severity" xml:"severity"`
 	Status          string    `json:"status" xml:"status"`
 	UpdatedAt       time.Time `json:"updatedAt" xml:"updatedAt"`
+}
+
+type GetDependencyInsightsRequest struct {
+	ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+}
+
+type GetDependencyInsightsResponse struct {
+	CreatedAt    time.Time              `json:"createdAt" xml:"createdAt"`
+	ErrorCode    string                 `json:"errorCode" xml:"errorCode"`
+	ErrorMessage string                 `json:"errorMessage" xml:"errorMessage"`
+	Insights     DependencyInsightsList `json:"insights" xml:"insights"`
+	Overview     string                 `json:"overview" xml:"overview"`
+	Status       string                 `json:"status" xml:"status"`
 }
 
 type GetFailureModeFindingRequest struct {
@@ -591,6 +610,7 @@ type ListInputSourcesResponse struct {
 }
 
 type ListPoliciesRequest struct {
+	AccountId  string `json:"accountId" xml:"accountId"`
 	MaxResults int32  `json:"maxResults" xml:"maxResults"`
 	NextToken  string `json:"nextToken" xml:"nextToken"`
 }
@@ -598,6 +618,20 @@ type ListPoliciesRequest struct {
 type ListPoliciesResponse struct {
 	NextToken       string            `json:"nextToken" xml:"nextToken"`
 	PolicySummaries PolicySummaryList `json:"policySummaries" xml:"policySummaries"`
+}
+
+type ListPolicyEventsRequest struct {
+	EndTime    time.Time           `json:"endTime" xml:"endTime"`
+	EventTypes PolicyEventTypeList `json:"eventTypes" xml:"eventTypes"`
+	MaxResults int32               `json:"maxResults" xml:"maxResults"`
+	NextToken  string              `json:"nextToken" xml:"nextToken"`
+	PolicyArn  string              `json:"policyArn" xml:"policyArn"`
+	StartTime  time.Time           `json:"startTime" xml:"startTime"`
+}
+
+type ListPolicyEventsResponse struct {
+	Events    PolicyEventList `json:"events" xml:"events"`
+	NextToken string          `json:"nextToken" xml:"nextToken"`
 }
 
 type ListReportsRequest struct {
@@ -881,9 +915,44 @@ type Policy struct {
 	MultiAz                *MultiAzTargets      `json:"multiAz" xml:"multiAz"`
 	MultiRegion            *MultiRegionTargets  `json:"multiRegion" xml:"multiRegion"`
 	Name                   string               `json:"name" xml:"name"`
+	OrganizationId         string               `json:"organizationId" xml:"organizationId"`
 	PolicyArn              string               `json:"policyArn" xml:"policyArn"`
+	SharingEnabled         bool                 `json:"sharingEnabled" xml:"sharingEnabled"`
 	Tags                   TagMap               `json:"tags" xml:"tags"`
 	UpdatedAt              time.Time            `json:"updatedAt" xml:"updatedAt"`
+}
+
+type PolicyAttachedToServiceMetadata struct {
+	AccountId  string `json:"accountId" xml:"accountId"`
+	ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+}
+
+type PolicyDeletedMetadata struct {
+	AffectedServiceCount int32 `json:"affectedServiceCount" xml:"affectedServiceCount"`
+}
+
+type PolicyDetachedFromServiceMetadata struct {
+	AccountId  string `json:"accountId" xml:"accountId"`
+	ServiceArn string `json:"serviceArn" xml:"serviceArn"`
+}
+
+type PolicyEvent struct {
+	Actor        *EventActor         `json:"actor" xml:"actor"`
+	EventDetails *PolicyEventDetails `json:"eventDetails" xml:"eventDetails"`
+	EventId      string              `json:"eventId" xml:"eventId"`
+	EventType    string              `json:"eventType" xml:"eventType"`
+	PolicyArn    string              `json:"policyArn" xml:"policyArn"`
+	Timestamp    time.Time           `json:"timestamp" xml:"timestamp"`
+}
+
+type PolicyEventDetails struct {
+	Description   string      `json:"description" xml:"description"`
+	EventMetadata interface{} `json:"eventMetadata" xml:"eventMetadata"`
+	Title         string      `json:"title" xml:"title"`
+}
+
+type PolicySharingRevokedMetadata struct {
+	AffectedServiceCount int32 `json:"affectedServiceCount" xml:"affectedServiceCount"`
 }
 
 type PolicySummary struct {
@@ -894,7 +963,9 @@ type PolicySummary struct {
 	MultiAz                *MultiAzTargets      `json:"multiAz" xml:"multiAz"`
 	MultiRegion            *MultiRegionTargets  `json:"multiRegion" xml:"multiRegion"`
 	Name                   string               `json:"name" xml:"name"`
+	OrganizationId         string               `json:"organizationId" xml:"organizationId"`
 	PolicyArn              string               `json:"policyArn" xml:"policyArn"`
+	SharingEnabled         bool                 `json:"sharingEnabled" xml:"sharingEnabled"`
 	UpdatedAt              time.Time            `json:"updatedAt" xml:"updatedAt"`
 }
 
@@ -1064,13 +1135,18 @@ type ServiceInputSourcesUpdatedMetadata struct {
 }
 
 type ServicePolicyAssociatedMetadata struct {
-	PolicyArn  string `json:"policyArn" xml:"policyArn"`
-	PolicyName string `json:"policyName" xml:"policyName"`
+	PolicyArn            string `json:"policyArn" xml:"policyArn"`
+	PolicyName           string `json:"policyName" xml:"policyName"`
+	PolicyOwnerAccountId string `json:"policyOwnerAccountId" xml:"policyOwnerAccountId"`
+	PolicySource         string `json:"policySource" xml:"policySource"`
 }
 
 type ServicePolicyDisassociatedMetadata struct {
-	PolicyArn  string `json:"policyArn" xml:"policyArn"`
-	PolicyName string `json:"policyName" xml:"policyName"`
+	PolicyArn            string `json:"policyArn" xml:"policyArn"`
+	PolicyName           string `json:"policyName" xml:"policyName"`
+	PolicyOwnerAccountId string `json:"policyOwnerAccountId" xml:"policyOwnerAccountId"`
+	PolicySource         string `json:"policySource" xml:"policySource"`
+	Reason               string `json:"reason" xml:"reason"`
 }
 
 type ServiceReference struct {
@@ -1151,6 +1227,15 @@ type SloSource struct {
 	PolicyName string  `json:"policyName" xml:"policyName"`
 	Source     string  `json:"source" xml:"source"`
 	Value      float64 `json:"value" xml:"value"`
+}
+
+type StartDependencyInsightsRequest struct {
+	ClientToken string `json:"clientToken" xml:"clientToken"`
+	ServiceArn  string `json:"serviceArn" xml:"serviceArn"`
+}
+
+type StartDependencyInsightsResponse struct {
+	Status string `json:"status" xml:"status"`
 }
 
 type StartFailureModeAssessmentRequest struct {
@@ -1513,6 +1598,7 @@ type UpdatePolicyRequest struct {
 	MultiAz         *MultiAzTargets      `json:"multiAz" xml:"multiAz"`
 	MultiRegion     *MultiRegionTargets  `json:"multiRegion" xml:"multiRegion"`
 	PolicyArn       string               `json:"policyArn" xml:"policyArn"`
+	SharingEnabled  bool                 `json:"sharingEnabled" xml:"sharingEnabled"`
 }
 
 type UpdatePolicyResponse struct {
@@ -1619,6 +1705,8 @@ type AssociatedSystemList []*AssociatedSystem
 
 type CrossAccountRoleList []*CrossAccountRole
 
+type DependencyInsightsList []*DependencyInsight
+
 type DependencySummaryList []*DependencySummary
 
 type EdgePropertyList []*EdgePropertySummary
@@ -1642,6 +1730,10 @@ type InfrastructureAndCodeRecommendationsList []*InfrastructureAndCodeRecommenda
 type InputSourceSummaryList []*InputSourceSummary
 
 type ObservabilityRecommendationsList []*ObservabilityRecommendation
+
+type PolicyEventList []*PolicyEvent
+
+type PolicyEventTypeList []string
 
 type PolicySummaryList []*PolicySummary
 
@@ -1734,6 +1826,8 @@ type TagMap map[string]string
 type TestParameters map[string]StringList
 
 type TestRunEventAttributes map[string]string
+
+type PolicyEventMetadata interface{}
 
 type ReportOutput interface{}
 

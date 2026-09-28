@@ -56,6 +56,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "RestoreTableFromBackup"},
 	{Method: "", Pattern: "", Operation: "RestoreTableToPointInTime"},
 	{Method: "", Pattern: "", Operation: "Scan"},
+	{Method: "", Pattern: "", Operation: "SearchVectors"},
 	{Method: "", Pattern: "", Operation: "TagResource"},
 	{Method: "", Pattern: "", Operation: "TransactGetItems"},
 	{Method: "", Pattern: "", Operation: "TransactWriteItems"},

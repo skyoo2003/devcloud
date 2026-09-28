@@ -135,6 +135,10 @@ func (b *BaseProvider) DeleteSubscriptionFilter(ctx context.Context, input *Dele
 	return nil, fmt.Errorf("DeleteSubscriptionFilter: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteSyslogConfiguration(ctx context.Context, input *DeleteSyslogConfigurationRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteSyslogConfiguration: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteTransformer(ctx context.Context, input *DeleteTransformerRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeleteTransformer: %w", ErrNotImplemented)
 }
@@ -291,6 +295,10 @@ func (b *BaseProvider) GetScheduledQueryHistory(ctx context.Context, input *GetS
 	return nil, fmt.Errorf("GetScheduledQueryHistory: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetStorageTierPolicy(ctx context.Context, input *GetStorageTierPolicyRequest) (*GetStorageTierPolicyResponse, error) {
+	return nil, fmt.Errorf("GetStorageTierPolicy: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetTransformer(ctx context.Context, input *GetTransformerRequest) (*GetTransformerResponse, error) {
 	return nil, fmt.Errorf("GetTransformer: %w", ErrNotImplemented)
 }
@@ -325,6 +333,10 @@ func (b *BaseProvider) ListScheduledQueries(ctx context.Context, input *ListSche
 
 func (b *BaseProvider) ListSourcesForS3TableIntegration(ctx context.Context, input *ListSourcesForS3TableIntegrationRequest) (*ListSourcesForS3TableIntegrationResponse, error) {
 	return nil, fmt.Errorf("ListSourcesForS3TableIntegration: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListSyslogConfigurations(ctx context.Context, input *ListSyslogConfigurationsRequest) (*ListSyslogConfigurationsResponse, error) {
+	return nil, fmt.Errorf("ListSyslogConfigurations: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListTagsForResource(ctx context.Context, input *ListTagsForResourceRequest) (*ListTagsForResourceResponse, error) {
@@ -399,8 +411,16 @@ func (b *BaseProvider) PutRetentionPolicy(ctx context.Context, input *PutRetenti
 	return nil, fmt.Errorf("PutRetentionPolicy: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) PutStorageTierPolicy(ctx context.Context, input *PutStorageTierPolicyRequest) (*PutStorageTierPolicyResponse, error) {
+	return nil, fmt.Errorf("PutStorageTierPolicy: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) PutSubscriptionFilter(ctx context.Context, input *PutSubscriptionFilterRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("PutSubscriptionFilter: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutSyslogConfiguration(ctx context.Context, input *PutSyslogConfigurationRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("PutSyslogConfiguration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) PutTransformer(ctx context.Context, input *PutTransformerRequest) (*SmithyUnit, error) {

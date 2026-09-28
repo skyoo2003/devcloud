@@ -89,6 +89,7 @@ type AgentRecommendationSummary struct {
 	CreatedBy         string     `json:"createdBy" xml:"createdBy"`
 	Description       string     `json:"description" xml:"description"`
 	Effort            string     `json:"effort" xml:"effort"`
+	GenerationId      string     `json:"generationId" xml:"generationId"`
 	Impact            string     `json:"impact" xml:"impact"`
 	LastModifiedAt    time.Time  `json:"lastModifiedAt" xml:"lastModifiedAt"`
 	LastModifiedBy    string     `json:"lastModifiedBy" xml:"lastModifiedBy"`
@@ -627,6 +628,7 @@ type GetAgentRecommendationResponse struct {
 	CrossPillarBenefits CrossPillarBenefits             `json:"crossPillarBenefits" xml:"crossPillarBenefits"`
 	Description         string                          `json:"description" xml:"description"`
 	Effort              string                          `json:"effort" xml:"effort"`
+	GenerationId        string                          `json:"generationId" xml:"generationId"`
 	Goals               RecommendationGoals             `json:"goals" xml:"goals"`
 	Highlights          Highlights                      `json:"highlights" xml:"highlights"`
 	Impact              string                          `json:"impact" xml:"impact"`

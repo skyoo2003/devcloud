@@ -60,6 +60,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "POST", Pattern: "/GetSecurityRequirementPack", Operation: "GetSecurityRequirementPack"},
 	{Method: "POST", Pattern: "/ImportSecurityRequirements", Operation: "ImportSecurityRequirements"},
 	{Method: "POST", Pattern: "/oauth2/provider/register", Operation: "InitiateProviderRegistration"},
+	{Method: "POST", Pattern: "/ListActorMessages", Operation: "ListActorMessages"},
 	{Method: "POST", Pattern: "/ListAgentSpaces", Operation: "ListAgentSpaces"},
 	{Method: "POST", Pattern: "/ListApplications", Operation: "ListApplications"},
 	{Method: "POST", Pattern: "/ListArtifacts", Operation: "ListArtifacts"},

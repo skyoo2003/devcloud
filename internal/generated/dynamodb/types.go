@@ -181,6 +181,7 @@ type ConsumedCapacity struct {
 	ReadCapacityUnits      float64                     `json:"readCapacityUnits" xml:"ReadCapacityUnits"`
 	Table                  *Capacity                   `json:"table" xml:"Table"`
 	TableName              string                      `json:"tableName" xml:"TableName"`
+	VectorIndexes          VectorIndexesCapacityMap    `json:"vectorIndexes" xml:"VectorIndexes"`
 	WriteCapacityUnits     float64                     `json:"writeCapacityUnits" xml:"WriteCapacityUnits"`
 }
 
@@ -257,11 +258,21 @@ type CreateTableInput struct {
 	TableClass                         string                   `json:"tableClass" xml:"TableClass"`
 	TableName                          string                   `json:"tableName" xml:"TableName"`
 	Tags                               TagList                  `json:"tags" xml:"Tags"`
+	VectorIndexes                      VectorIndexList          `json:"vectorIndexes" xml:"VectorIndexes"`
 	WarmThroughput                     *WarmThroughput          `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
 type CreateTableOutput struct {
 	TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
+}
+
+type CreateVectorIndexAction struct {
+	Dimensions       int64                      `json:"dimensions" xml:"Dimensions"`
+	DistanceFunction string                     `json:"distanceFunction" xml:"DistanceFunction"`
+	IndexName        string                     `json:"indexName" xml:"IndexName"`
+	Projection       *Projection                `json:"projection" xml:"Projection"`
+	SearchSchema     SearchSchema               `json:"searchSchema" xml:"SearchSchema"`
+	VectorAttribute  *VectorAttributeDefinition `json:"vectorAttribute" xml:"VectorAttribute"`
 }
 
 type CsvOptions struct {
@@ -341,6 +352,10 @@ type DeleteTableInput struct {
 
 type DeleteTableOutput struct {
 	TableDescription *TableDescription `json:"tableDescription" xml:"TableDescription"`
+}
+
+type DeleteVectorIndexAction struct {
+	IndexName string `json:"indexName" xml:"IndexName"`
 }
 
 type DescribeBackupInput struct {
@@ -1101,6 +1116,7 @@ type RestoreTableFromBackupInput struct {
 	ProvisionedThroughputOverride *ProvisionedThroughput   `json:"provisionedThroughputOverride" xml:"ProvisionedThroughputOverride"`
 	SSESpecificationOverride      *SSESpecification        `json:"sSESpecificationOverride" xml:"SSESpecificationOverride"`
 	TargetTableName               string                   `json:"targetTableName" xml:"TargetTableName"`
+	VectorIndexOverride           VectorIndexList          `json:"vectorIndexOverride" xml:"VectorIndexOverride"`
 }
 
 type RestoreTableFromBackupOutput struct {
@@ -1119,6 +1135,7 @@ type RestoreTableToPointInTimeInput struct {
 	SourceTableName               string                   `json:"sourceTableName" xml:"SourceTableName"`
 	TargetTableName               string                   `json:"targetTableName" xml:"TargetTableName"`
 	UseLatestRestorableTime       bool                     `json:"useLatestRestorableTime" xml:"UseLatestRestorableTime"`
+	VectorIndexOverride           VectorIndexList          `json:"vectorIndexOverride" xml:"VectorIndexOverride"`
 }
 
 type RestoreTableToPointInTimeOutput struct {
@@ -1171,6 +1188,33 @@ type ScanOutput struct {
 	ScannedCount     int32             `json:"scannedCount" xml:"ScannedCount"`
 }
 
+type SearchResultItem struct {
+	Item  AttributeMap `json:"item" xml:"Item"`
+	Score float64      `json:"score" xml:"Score"`
+}
+
+type SearchSchemaElement struct {
+	AttributeName           string `json:"attributeName" xml:"AttributeName"`
+	SearchSchemaElementType string `json:"searchSchemaElementType" xml:"SearchSchemaElementType"`
+}
+
+type SearchVectorsInput struct {
+	ExpressionAttributeNames  ExpressionAttributeNameMap  `json:"expressionAttributeNames" xml:"ExpressionAttributeNames"`
+	ExpressionAttributeValues ExpressionAttributeValueMap `json:"expressionAttributeValues" xml:"ExpressionAttributeValues"`
+	IndexName                 string                      `json:"indexName" xml:"IndexName"`
+	ProjectionExpression      string                      `json:"projectionExpression" xml:"ProjectionExpression"`
+	ReturnConsumedCapacity    string                      `json:"returnConsumedCapacity" xml:"ReturnConsumedCapacity"`
+	SearchConditionExpression string                      `json:"searchConditionExpression" xml:"SearchConditionExpression"`
+	SearchVector              SearchVectorList            `json:"searchVector" xml:"SearchVector"`
+	TableName                 string                      `json:"tableName" xml:"TableName"`
+	TopK                      int32                       `json:"topK" xml:"TopK"`
+}
+
+type SearchVectorsOutput struct {
+	ConsumedCapacity *VectorCapacity  `json:"consumedCapacity" xml:"ConsumedCapacity"`
+	SearchResults    SearchResultList `json:"searchResults" xml:"SearchResults"`
+}
+
 type SmithyUnit struct {
 }
 
@@ -1193,6 +1237,7 @@ type SourceTableFeatureDetails struct {
 	SSEDescription         *SSEDescription        `json:"sSEDescription" xml:"SSEDescription"`
 	StreamDescription      *StreamSpecification   `json:"streamDescription" xml:"StreamDescription"`
 	TimeToLiveDescription  *TimeToLiveDescription `json:"timeToLiveDescription" xml:"TimeToLiveDescription"`
+	VectorIndexes          VectorIndexes          `json:"vectorIndexes" xml:"VectorIndexes"`
 }
 
 type StreamSpecification struct {
@@ -1220,6 +1265,7 @@ type TableCreationParameters struct {
 	ProvisionedThroughput  *ProvisionedThroughput   `json:"provisionedThroughput" xml:"ProvisionedThroughput"`
 	SSESpecification       *SSESpecification        `json:"sSESpecification" xml:"SSESpecification"`
 	TableName              string                   `json:"tableName" xml:"TableName"`
+	VectorIndexes          VectorIndexList          `json:"vectorIndexes" xml:"VectorIndexes"`
 }
 
 type TableDescription struct {
@@ -1250,6 +1296,7 @@ type TableDescription struct {
 	TableName                          string                              `json:"tableName" xml:"TableName"`
 	TableSizeBytes                     int64                               `json:"tableSizeBytes" xml:"TableSizeBytes"`
 	TableStatus                        string                              `json:"tableStatus" xml:"TableStatus"`
+	VectorIndexes                      VectorIndexDescriptionList          `json:"vectorIndexes" xml:"VectorIndexes"`
 	WarmThroughput                     *TableWarmThroughputDescription     `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
@@ -1448,6 +1495,7 @@ type UpdateTableInput struct {
 	StreamSpecification                *StreamSpecification              `json:"streamSpecification" xml:"StreamSpecification"`
 	TableClass                         string                            `json:"tableClass" xml:"TableClass"`
 	TableName                          string                            `json:"tableName" xml:"TableName"`
+	VectorIndexUpdates                 VectorIndexUpdateList             `json:"vectorIndexUpdates" xml:"VectorIndexUpdates"`
 	WarmThroughput                     *WarmThroughput                   `json:"warmThroughput" xml:"WarmThroughput"`
 }
 
@@ -1473,6 +1521,52 @@ type UpdateTimeToLiveInput struct {
 
 type UpdateTimeToLiveOutput struct {
 	TimeToLiveSpecification *TimeToLiveSpecification `json:"timeToLiveSpecification" xml:"TimeToLiveSpecification"`
+}
+
+type VectorAttributeDefinition struct {
+	AttributeName string `json:"attributeName" xml:"AttributeName"`
+}
+
+type VectorCapacity struct {
+	VectorSearchRequestBytes float64 `json:"vectorSearchRequestBytes" xml:"VectorSearchRequestBytes"`
+	VectorWriteRequestBytes  float64 `json:"vectorWriteRequestBytes" xml:"VectorWriteRequestBytes"`
+}
+
+type VectorIndex struct {
+	Dimensions       int64                      `json:"dimensions" xml:"Dimensions"`
+	DistanceFunction string                     `json:"distanceFunction" xml:"DistanceFunction"`
+	IndexName        string                     `json:"indexName" xml:"IndexName"`
+	Projection       *Projection                `json:"projection" xml:"Projection"`
+	SearchSchema     SearchSchema               `json:"searchSchema" xml:"SearchSchema"`
+	VectorAttribute  *VectorAttributeDefinition `json:"vectorAttribute" xml:"VectorAttribute"`
+}
+
+type VectorIndexDescription struct {
+	Backfilling      bool                       `json:"backfilling" xml:"Backfilling"`
+	Dimensions       int64                      `json:"dimensions" xml:"Dimensions"`
+	DistanceFunction string                     `json:"distanceFunction" xml:"DistanceFunction"`
+	IndexArn         string                     `json:"indexArn" xml:"IndexArn"`
+	IndexName        string                     `json:"indexName" xml:"IndexName"`
+	IndexSizeBytes   int64                      `json:"indexSizeBytes" xml:"IndexSizeBytes"`
+	IndexStatus      string                     `json:"indexStatus" xml:"IndexStatus"`
+	ItemCount        int64                      `json:"itemCount" xml:"ItemCount"`
+	Projection       *Projection                `json:"projection" xml:"Projection"`
+	SearchSchema     SearchSchema               `json:"searchSchema" xml:"SearchSchema"`
+	VectorAttribute  *VectorAttributeDefinition `json:"vectorAttribute" xml:"VectorAttribute"`
+}
+
+type VectorIndexInfo struct {
+	Dimensions       int64                      `json:"dimensions" xml:"Dimensions"`
+	DistanceFunction string                     `json:"distanceFunction" xml:"DistanceFunction"`
+	IndexName        string                     `json:"indexName" xml:"IndexName"`
+	Projection       *Projection                `json:"projection" xml:"Projection"`
+	SearchSchema     SearchSchema               `json:"searchSchema" xml:"SearchSchema"`
+	VectorAttribute  *VectorAttributeDefinition `json:"vectorAttribute" xml:"VectorAttribute"`
+}
+
+type VectorIndexUpdate struct {
+	Create *CreateVectorIndexAction `json:"create" xml:"Create"`
+	Delete *DeleteVectorIndexAction `json:"delete" xml:"Delete"`
 }
 
 type WarmThroughput struct {
@@ -1593,6 +1687,12 @@ type ReplicaUpdateList []*ReplicaUpdate
 
 type ReplicationGroupUpdateList []*ReplicationGroupUpdate
 
+type SearchResultList []*SearchResultItem
+
+type SearchSchema []*SearchSchemaElement
+
+type SearchVectorList []interface{}
+
 type StringSetAttributeValue []string
 
 type TableNameList []string
@@ -1606,6 +1706,14 @@ type ThrottlingReasonList []*ThrottlingReason
 type TransactGetItemList []*TransactGetItem
 
 type TransactWriteItemList []*TransactWriteItem
+
+type VectorIndexDescriptionList []*VectorIndexDescription
+
+type VectorIndexList []*VectorIndex
+
+type VectorIndexUpdateList []*VectorIndexUpdate
+
+type VectorIndexes []*VectorIndexInfo
 
 type WriteRequests []*WriteRequest
 
@@ -1640,5 +1748,7 @@ type MapAttributeValue map[string]interface{}
 type PutItemInputAttributeMap map[string]interface{}
 
 type SecondaryIndexesCapacityMap map[string]*Capacity
+
+type VectorIndexesCapacityMap map[string]*VectorCapacity
 
 type AttributeValue interface{}

@@ -24,6 +24,13 @@ type Actor struct {
 	Uris                 UriList         `json:"uris" xml:"uris"`
 }
 
+type ActorMessage struct {
+	Body       string    `json:"body" xml:"body"`
+	ReceivedAt time.Time `json:"receivedAt" xml:"receivedAt"`
+	Sender     string    `json:"sender" xml:"sender"`
+	Subject    string    `json:"subject" xml:"subject"`
+}
+
 type AddArtifactInput struct {
 	AgentSpaceId    string `json:"agentSpaceId" xml:"agentSpaceId"`
 	ArtifactContent []byte `json:"artifactContent" xml:"artifactContent"`
@@ -382,17 +389,19 @@ type CodeRemediationTaskDetails struct {
 }
 
 type CodeReview struct {
-	AgentSpaceId            string         `json:"agentSpaceId" xml:"agentSpaceId"`
-	Assets                  *Assets        `json:"assets" xml:"assets"`
-	CodeRemediationStrategy string         `json:"codeRemediationStrategy" xml:"codeRemediationStrategy"`
-	CodeReviewId            string         `json:"codeReviewId" xml:"codeReviewId"`
-	CreatedAt               time.Time      `json:"createdAt" xml:"createdAt"`
-	LogConfig               *CloudWatchLog `json:"logConfig" xml:"logConfig"`
-	MaxTaskHours            float64        `json:"maxTaskHours" xml:"maxTaskHours"`
-	ServiceRole             string         `json:"serviceRole" xml:"serviceRole"`
-	Title                   string         `json:"title" xml:"title"`
-	UpdatedAt               time.Time      `json:"updatedAt" xml:"updatedAt"`
-	ValidationMode          string         `json:"validationMode" xml:"validationMode"`
+	AgentSpaceId            string             `json:"agentSpaceId" xml:"agentSpaceId"`
+	Assets                  *Assets            `json:"assets" xml:"assets"`
+	CodeRemediationStrategy string             `json:"codeRemediationStrategy" xml:"codeRemediationStrategy"`
+	CodeReviewId            string             `json:"codeReviewId" xml:"codeReviewId"`
+	CreatedAt               time.Time          `json:"createdAt" xml:"createdAt"`
+	LogConfig               *CloudWatchLog     `json:"logConfig" xml:"logConfig"`
+	MaxTaskHours            float64            `json:"maxTaskHours" xml:"maxTaskHours"`
+	ReportDestination       *ReportDestination `json:"reportDestination" xml:"reportDestination"`
+	ReportFilters           *ReportFilters     `json:"reportFilters" xml:"reportFilters"`
+	ServiceRole             string             `json:"serviceRole" xml:"serviceRole"`
+	Title                   string             `json:"title" xml:"title"`
+	UpdatedAt               time.Time          `json:"updatedAt" xml:"updatedAt"`
+	ValidationMode          string             `json:"validationMode" xml:"validationMode"`
 }
 
 type CodeReviewJob struct {
@@ -407,6 +416,7 @@ type CodeReviewJob struct {
 	LogConfig               *CloudWatchLog           `json:"logConfig" xml:"logConfig"`
 	MaxTaskHours            float64                  `json:"maxTaskHours" xml:"maxTaskHours"`
 	Overview                string                   `json:"overview" xml:"overview"`
+	ReportDestination       *ReportDestination       `json:"reportDestination" xml:"reportDestination"`
 	ServiceRole             string                   `json:"serviceRole" xml:"serviceRole"`
 	SourceCode              SourceCodeRepositoryList `json:"sourceCode" xml:"sourceCode"`
 	Status                  string                   `json:"status" xml:"status"`
@@ -528,28 +538,32 @@ type CreateApplicationResponse struct {
 }
 
 type CreateCodeReviewInput struct {
-	AgentSpaceId            string         `json:"agentSpaceId" xml:"agentSpaceId"`
-	Assets                  *Assets        `json:"assets" xml:"assets"`
-	CodeRemediationStrategy string         `json:"codeRemediationStrategy" xml:"codeRemediationStrategy"`
-	LogConfig               *CloudWatchLog `json:"logConfig" xml:"logConfig"`
-	MaxTaskHours            float64        `json:"maxTaskHours" xml:"maxTaskHours"`
-	ServiceRole             string         `json:"serviceRole" xml:"serviceRole"`
-	Title                   string         `json:"title" xml:"title"`
-	ValidationMode          string         `json:"validationMode" xml:"validationMode"`
+	AgentSpaceId            string             `json:"agentSpaceId" xml:"agentSpaceId"`
+	Assets                  *Assets            `json:"assets" xml:"assets"`
+	CodeRemediationStrategy string             `json:"codeRemediationStrategy" xml:"codeRemediationStrategy"`
+	LogConfig               *CloudWatchLog     `json:"logConfig" xml:"logConfig"`
+	MaxTaskHours            float64            `json:"maxTaskHours" xml:"maxTaskHours"`
+	ReportDestination       *ReportDestination `json:"reportDestination" xml:"reportDestination"`
+	ReportFilters           *ReportFilters     `json:"reportFilters" xml:"reportFilters"`
+	ServiceRole             string             `json:"serviceRole" xml:"serviceRole"`
+	Title                   string             `json:"title" xml:"title"`
+	ValidationMode          string             `json:"validationMode" xml:"validationMode"`
 }
 
 type CreateCodeReviewOutput struct {
-	AgentSpaceId            string         `json:"agentSpaceId" xml:"agentSpaceId"`
-	Assets                  *Assets        `json:"assets" xml:"assets"`
-	CodeRemediationStrategy string         `json:"codeRemediationStrategy" xml:"codeRemediationStrategy"`
-	CodeReviewId            string         `json:"codeReviewId" xml:"codeReviewId"`
-	CreatedAt               time.Time      `json:"createdAt" xml:"createdAt"`
-	LogConfig               *CloudWatchLog `json:"logConfig" xml:"logConfig"`
-	MaxTaskHours            float64        `json:"maxTaskHours" xml:"maxTaskHours"`
-	ServiceRole             string         `json:"serviceRole" xml:"serviceRole"`
-	Title                   string         `json:"title" xml:"title"`
-	UpdatedAt               time.Time      `json:"updatedAt" xml:"updatedAt"`
-	ValidationMode          string         `json:"validationMode" xml:"validationMode"`
+	AgentSpaceId            string             `json:"agentSpaceId" xml:"agentSpaceId"`
+	Assets                  *Assets            `json:"assets" xml:"assets"`
+	CodeRemediationStrategy string             `json:"codeRemediationStrategy" xml:"codeRemediationStrategy"`
+	CodeReviewId            string             `json:"codeReviewId" xml:"codeReviewId"`
+	CreatedAt               time.Time          `json:"createdAt" xml:"createdAt"`
+	LogConfig               *CloudWatchLog     `json:"logConfig" xml:"logConfig"`
+	MaxTaskHours            float64            `json:"maxTaskHours" xml:"maxTaskHours"`
+	ReportDestination       *ReportDestination `json:"reportDestination" xml:"reportDestination"`
+	ReportFilters           *ReportFilters     `json:"reportFilters" xml:"reportFilters"`
+	ServiceRole             string             `json:"serviceRole" xml:"serviceRole"`
+	Title                   string             `json:"title" xml:"title"`
+	UpdatedAt               time.Time          `json:"updatedAt" xml:"updatedAt"`
+	ValidationMode          string             `json:"validationMode" xml:"validationMode"`
 }
 
 type CreateIntegrationInput struct {
@@ -585,21 +599,25 @@ type CreatePentestInput struct {
 	LogConfig               *CloudWatchLog        `json:"logConfig" xml:"logConfig"`
 	MaxTaskHours            float64               `json:"maxTaskHours" xml:"maxTaskHours"`
 	NetworkTrafficConfig    *NetworkTrafficConfig `json:"networkTrafficConfig" xml:"networkTrafficConfig"`
+	ReportDestination       *ReportDestination    `json:"reportDestination" xml:"reportDestination"`
+	ReportFilters           *ReportFilters        `json:"reportFilters" xml:"reportFilters"`
 	ServiceRole             string                `json:"serviceRole" xml:"serviceRole"`
 	Title                   string                `json:"title" xml:"title"`
 	VpcConfig               *VpcConfig            `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type CreatePentestOutput struct {
-	AgentSpaceId     string         `json:"agentSpaceId" xml:"agentSpaceId"`
-	Assets           *Assets        `json:"assets" xml:"assets"`
-	CreatedAt        time.Time      `json:"createdAt" xml:"createdAt"`
-	ExcludeRiskTypes RiskTypeList   `json:"excludeRiskTypes" xml:"excludeRiskTypes"`
-	LogConfig        *CloudWatchLog `json:"logConfig" xml:"logConfig"`
-	PentestId        string         `json:"pentestId" xml:"pentestId"`
-	ServiceRole      string         `json:"serviceRole" xml:"serviceRole"`
-	Title            string         `json:"title" xml:"title"`
-	UpdatedAt        time.Time      `json:"updatedAt" xml:"updatedAt"`
+	AgentSpaceId      string             `json:"agentSpaceId" xml:"agentSpaceId"`
+	Assets            *Assets            `json:"assets" xml:"assets"`
+	CreatedAt         time.Time          `json:"createdAt" xml:"createdAt"`
+	ExcludeRiskTypes  RiskTypeList       `json:"excludeRiskTypes" xml:"excludeRiskTypes"`
+	LogConfig         *CloudWatchLog     `json:"logConfig" xml:"logConfig"`
+	PentestId         string             `json:"pentestId" xml:"pentestId"`
+	ReportDestination *ReportDestination `json:"reportDestination" xml:"reportDestination"`
+	ReportFilters     *ReportFilters     `json:"reportFilters" xml:"reportFilters"`
+	ServiceRole       string             `json:"serviceRole" xml:"serviceRole"`
+	Title             string             `json:"title" xml:"title"`
+	UpdatedAt         time.Time          `json:"updatedAt" xml:"updatedAt"`
 }
 
 type CreatePrivateConnectionInput struct {
@@ -691,16 +709,17 @@ type CreateThreatModelInput struct {
 }
 
 type CreateThreatModelOutput struct {
-	AgentSpaceId  string         `json:"agentSpaceId" xml:"agentSpaceId"`
-	Assets        *Assets        `json:"assets" xml:"assets"`
-	CreatedAt     time.Time      `json:"createdAt" xml:"createdAt"`
-	Description   string         `json:"description" xml:"description"`
-	LogConfig     *CloudWatchLog `json:"logConfig" xml:"logConfig"`
-	ScopeDocs     DocumentList   `json:"scopeDocs" xml:"scopeDocs"`
-	ServiceRole   string         `json:"serviceRole" xml:"serviceRole"`
-	ThreatModelId string         `json:"threatModelId" xml:"threatModelId"`
-	Title         string         `json:"title" xml:"title"`
-	UpdatedAt     time.Time      `json:"updatedAt" xml:"updatedAt"`
+	AgentSpaceId      string             `json:"agentSpaceId" xml:"agentSpaceId"`
+	Assets            *Assets            `json:"assets" xml:"assets"`
+	CreatedAt         time.Time          `json:"createdAt" xml:"createdAt"`
+	Description       string             `json:"description" xml:"description"`
+	LogConfig         *CloudWatchLog     `json:"logConfig" xml:"logConfig"`
+	ReportDestination *ReportDestination `json:"reportDestination" xml:"reportDestination"`
+	ScopeDocs         DocumentList       `json:"scopeDocs" xml:"scopeDocs"`
+	ServiceRole       string             `json:"serviceRole" xml:"serviceRole"`
+	ThreatModelId     string             `json:"threatModelId" xml:"threatModelId"`
+	Title             string             `json:"title" xml:"title"`
+	UpdatedAt         time.Time          `json:"updatedAt" xml:"updatedAt"`
 }
 
 type CreateThreatOutput struct {
@@ -1087,6 +1106,19 @@ type IntegrationSummary struct {
 	TargetUrl             string `json:"targetUrl" xml:"targetUrl"`
 }
 
+type ListActorMessagesInput struct {
+	ActorIdentifier string `json:"actorIdentifier" xml:"actorIdentifier"`
+	AgentSpaceId    string `json:"agentSpaceId" xml:"agentSpaceId"`
+	MaxResults      int32  `json:"maxResults" xml:"maxResults"`
+	NextToken       string `json:"nextToken" xml:"nextToken"`
+	PentestId       string `json:"pentestId" xml:"pentestId"`
+}
+
+type ListActorMessagesOutput struct {
+	Messages  ActorMessageList `json:"messages" xml:"messages"`
+	NextToken string           `json:"nextToken" xml:"nextToken"`
+}
+
 type ListAgentSpacesInput struct {
 	MaxResults int32  `json:"maxResults" xml:"maxResults"`
 	NextToken  string `json:"nextToken" xml:"nextToken"`
@@ -1403,6 +1435,8 @@ type Pentest struct {
 	MaxTaskHours            float64               `json:"maxTaskHours" xml:"maxTaskHours"`
 	NetworkTrafficConfig    *NetworkTrafficConfig `json:"networkTrafficConfig" xml:"networkTrafficConfig"`
 	PentestId               string                `json:"pentestId" xml:"pentestId"`
+	ReportDestination       *ReportDestination    `json:"reportDestination" xml:"reportDestination"`
+	ReportFilters           *ReportFilters        `json:"reportFilters" xml:"reportFilters"`
 	ServiceRole             string                `json:"serviceRole" xml:"serviceRole"`
 	Title                   string                `json:"title" xml:"title"`
 	UpdatedAt               time.Time             `json:"updatedAt" xml:"updatedAt"`
@@ -1430,6 +1464,7 @@ type PentestJob struct {
 	Overview                string                   `json:"overview" xml:"overview"`
 	PentestId               string                   `json:"pentestId" xml:"pentestId"`
 	PentestJobId            string                   `json:"pentestJobId" xml:"pentestJobId"`
+	ReportDestination       *ReportDestination       `json:"reportDestination" xml:"reportDestination"`
 	SelectedFindingIds      StringList               `json:"selectedFindingIds" xml:"selectedFindingIds"`
 	ServiceRole             string                   `json:"serviceRole" xml:"serviceRole"`
 	SourceCode              SourceCodeRepositoryList `json:"sourceCode" xml:"sourceCode"`
@@ -1477,6 +1512,17 @@ type ReportDestination struct {
 	DocumentId    string `json:"documentId" xml:"documentId"`
 	IntegrationId string `json:"integrationId" xml:"integrationId"`
 	ParentId      string `json:"parentId" xml:"parentId"`
+}
+
+type ReportFilters struct {
+	AnnotationNotes  bool                          `json:"annotationNotes" xml:"annotationNotes"`
+	ComplianceReport bool                          `json:"complianceReport" xml:"complianceReport"`
+	ConfidenceLevels ConfidenceLevelFilterList     `json:"confidenceLevels" xml:"confidenceLevels"`
+	FindingTypes     ReportFilterList              `json:"findingTypes" xml:"findingTypes"`
+	RiskLevels       RiskLevelFilterList           `json:"riskLevels" xml:"riskLevels"`
+	RiskTypes        RiskTypeFilterList            `json:"riskTypes" xml:"riskTypes"`
+	Statuses         FindingStatusFilterList       `json:"statuses" xml:"statuses"`
+	TaskStatuses     TaskExecutionStatusFilterList `json:"taskStatuses" xml:"taskStatuses"`
 }
 
 type SecurityRequirementArtifact struct {
@@ -1707,16 +1753,17 @@ type ThreatEvidenceShape struct {
 }
 
 type ThreatModel struct {
-	AgentSpaceId  string         `json:"agentSpaceId" xml:"agentSpaceId"`
-	Assets        *Assets        `json:"assets" xml:"assets"`
-	CreatedAt     time.Time      `json:"createdAt" xml:"createdAt"`
-	Description   string         `json:"description" xml:"description"`
-	LogConfig     *CloudWatchLog `json:"logConfig" xml:"logConfig"`
-	ScopeDocs     DocumentList   `json:"scopeDocs" xml:"scopeDocs"`
-	ServiceRole   string         `json:"serviceRole" xml:"serviceRole"`
-	ThreatModelId string         `json:"threatModelId" xml:"threatModelId"`
-	Title         string         `json:"title" xml:"title"`
-	UpdatedAt     time.Time      `json:"updatedAt" xml:"updatedAt"`
+	AgentSpaceId      string             `json:"agentSpaceId" xml:"agentSpaceId"`
+	Assets            *Assets            `json:"assets" xml:"assets"`
+	CreatedAt         time.Time          `json:"createdAt" xml:"createdAt"`
+	Description       string             `json:"description" xml:"description"`
+	LogConfig         *CloudWatchLog     `json:"logConfig" xml:"logConfig"`
+	ReportDestination *ReportDestination `json:"reportDestination" xml:"reportDestination"`
+	ScopeDocs         DocumentList       `json:"scopeDocs" xml:"scopeDocs"`
+	ServiceRole       string             `json:"serviceRole" xml:"serviceRole"`
+	ThreatModelId     string             `json:"threatModelId" xml:"threatModelId"`
+	Title             string             `json:"title" xml:"title"`
+	UpdatedAt         time.Time          `json:"updatedAt" xml:"updatedAt"`
 }
 
 type ThreatModelJob struct {
@@ -1727,6 +1774,7 @@ type ThreatModelJob struct {
 	ExecutionEndTime       time.Time                `json:"executionEndTime" xml:"executionEndTime"`
 	ExecutionStartTime     time.Time                `json:"executionStartTime" xml:"executionStartTime"`
 	IntegratedRepositories IntegratedRepositoryList `json:"integratedRepositories" xml:"integratedRepositories"`
+	ReportDestination      *ReportDestination       `json:"reportDestination" xml:"reportDestination"`
 	ScopeDocs              DocumentList             `json:"scopeDocs" xml:"scopeDocs"`
 	SourceCode             SourceCodeRepositoryList `json:"sourceCode" xml:"sourceCode"`
 	Status                 string                   `json:"status" xml:"status"`
@@ -1836,29 +1884,33 @@ type UpdateApplicationResponse struct {
 }
 
 type UpdateCodeReviewInput struct {
-	AgentSpaceId            string         `json:"agentSpaceId" xml:"agentSpaceId"`
-	Assets                  *Assets        `json:"assets" xml:"assets"`
-	CodeRemediationStrategy string         `json:"codeRemediationStrategy" xml:"codeRemediationStrategy"`
-	CodeReviewId            string         `json:"codeReviewId" xml:"codeReviewId"`
-	LogConfig               *CloudWatchLog `json:"logConfig" xml:"logConfig"`
-	MaxTaskHours            float64        `json:"maxTaskHours" xml:"maxTaskHours"`
-	ServiceRole             string         `json:"serviceRole" xml:"serviceRole"`
-	Title                   string         `json:"title" xml:"title"`
-	ValidationMode          string         `json:"validationMode" xml:"validationMode"`
+	AgentSpaceId            string             `json:"agentSpaceId" xml:"agentSpaceId"`
+	Assets                  *Assets            `json:"assets" xml:"assets"`
+	CodeRemediationStrategy string             `json:"codeRemediationStrategy" xml:"codeRemediationStrategy"`
+	CodeReviewId            string             `json:"codeReviewId" xml:"codeReviewId"`
+	LogConfig               *CloudWatchLog     `json:"logConfig" xml:"logConfig"`
+	MaxTaskHours            float64            `json:"maxTaskHours" xml:"maxTaskHours"`
+	ReportDestination       *ReportDestination `json:"reportDestination" xml:"reportDestination"`
+	ReportFilters           *ReportFilters     `json:"reportFilters" xml:"reportFilters"`
+	ServiceRole             string             `json:"serviceRole" xml:"serviceRole"`
+	Title                   string             `json:"title" xml:"title"`
+	ValidationMode          string             `json:"validationMode" xml:"validationMode"`
 }
 
 type UpdateCodeReviewOutput struct {
-	AgentSpaceId            string         `json:"agentSpaceId" xml:"agentSpaceId"`
-	Assets                  *Assets        `json:"assets" xml:"assets"`
-	CodeRemediationStrategy string         `json:"codeRemediationStrategy" xml:"codeRemediationStrategy"`
-	CodeReviewId            string         `json:"codeReviewId" xml:"codeReviewId"`
-	CreatedAt               time.Time      `json:"createdAt" xml:"createdAt"`
-	LogConfig               *CloudWatchLog `json:"logConfig" xml:"logConfig"`
-	MaxTaskHours            float64        `json:"maxTaskHours" xml:"maxTaskHours"`
-	ServiceRole             string         `json:"serviceRole" xml:"serviceRole"`
-	Title                   string         `json:"title" xml:"title"`
-	UpdatedAt               time.Time      `json:"updatedAt" xml:"updatedAt"`
-	ValidationMode          string         `json:"validationMode" xml:"validationMode"`
+	AgentSpaceId            string             `json:"agentSpaceId" xml:"agentSpaceId"`
+	Assets                  *Assets            `json:"assets" xml:"assets"`
+	CodeRemediationStrategy string             `json:"codeRemediationStrategy" xml:"codeRemediationStrategy"`
+	CodeReviewId            string             `json:"codeReviewId" xml:"codeReviewId"`
+	CreatedAt               time.Time          `json:"createdAt" xml:"createdAt"`
+	LogConfig               *CloudWatchLog     `json:"logConfig" xml:"logConfig"`
+	MaxTaskHours            float64            `json:"maxTaskHours" xml:"maxTaskHours"`
+	ReportDestination       *ReportDestination `json:"reportDestination" xml:"reportDestination"`
+	ReportFilters           *ReportFilters     `json:"reportFilters" xml:"reportFilters"`
+	ServiceRole             string             `json:"serviceRole" xml:"serviceRole"`
+	Title                   string             `json:"title" xml:"title"`
+	UpdatedAt               time.Time          `json:"updatedAt" xml:"updatedAt"`
+	ValidationMode          string             `json:"validationMode" xml:"validationMode"`
 }
 
 type UpdateFindingInput struct {
@@ -1897,21 +1949,25 @@ type UpdatePentestInput struct {
 	MaxTaskHours            float64               `json:"maxTaskHours" xml:"maxTaskHours"`
 	NetworkTrafficConfig    *NetworkTrafficConfig `json:"networkTrafficConfig" xml:"networkTrafficConfig"`
 	PentestId               string                `json:"pentestId" xml:"pentestId"`
+	ReportDestination       *ReportDestination    `json:"reportDestination" xml:"reportDestination"`
+	ReportFilters           *ReportFilters        `json:"reportFilters" xml:"reportFilters"`
 	ServiceRole             string                `json:"serviceRole" xml:"serviceRole"`
 	Title                   string                `json:"title" xml:"title"`
 	VpcConfig               *VpcConfig            `json:"vpcConfig" xml:"vpcConfig"`
 }
 
 type UpdatePentestOutput struct {
-	AgentSpaceId     string         `json:"agentSpaceId" xml:"agentSpaceId"`
-	Assets           *Assets        `json:"assets" xml:"assets"`
-	CreatedAt        time.Time      `json:"createdAt" xml:"createdAt"`
-	ExcludeRiskTypes RiskTypeList   `json:"excludeRiskTypes" xml:"excludeRiskTypes"`
-	LogConfig        *CloudWatchLog `json:"logConfig" xml:"logConfig"`
-	PentestId        string         `json:"pentestId" xml:"pentestId"`
-	ServiceRole      string         `json:"serviceRole" xml:"serviceRole"`
-	Title            string         `json:"title" xml:"title"`
-	UpdatedAt        time.Time      `json:"updatedAt" xml:"updatedAt"`
+	AgentSpaceId      string             `json:"agentSpaceId" xml:"agentSpaceId"`
+	Assets            *Assets            `json:"assets" xml:"assets"`
+	CreatedAt         time.Time          `json:"createdAt" xml:"createdAt"`
+	ExcludeRiskTypes  RiskTypeList       `json:"excludeRiskTypes" xml:"excludeRiskTypes"`
+	LogConfig         *CloudWatchLog     `json:"logConfig" xml:"logConfig"`
+	PentestId         string             `json:"pentestId" xml:"pentestId"`
+	ReportDestination *ReportDestination `json:"reportDestination" xml:"reportDestination"`
+	ReportFilters     *ReportFilters     `json:"reportFilters" xml:"reportFilters"`
+	ServiceRole       string             `json:"serviceRole" xml:"serviceRole"`
+	Title             string             `json:"title" xml:"title"`
+	UpdatedAt         time.Time          `json:"updatedAt" xml:"updatedAt"`
 }
 
 type UpdatePrivateConnectionCertificateInput struct {
@@ -1990,27 +2046,29 @@ type UpdateThreatInput struct {
 }
 
 type UpdateThreatModelInput struct {
-	AgentSpaceId  string         `json:"agentSpaceId" xml:"agentSpaceId"`
-	Assets        *Assets        `json:"assets" xml:"assets"`
-	Description   string         `json:"description" xml:"description"`
-	LogConfig     *CloudWatchLog `json:"logConfig" xml:"logConfig"`
-	ScopeDocs     DocumentList   `json:"scopeDocs" xml:"scopeDocs"`
-	ServiceRole   string         `json:"serviceRole" xml:"serviceRole"`
-	ThreatModelId string         `json:"threatModelId" xml:"threatModelId"`
-	Title         string         `json:"title" xml:"title"`
+	AgentSpaceId      string             `json:"agentSpaceId" xml:"agentSpaceId"`
+	Assets            *Assets            `json:"assets" xml:"assets"`
+	Description       string             `json:"description" xml:"description"`
+	LogConfig         *CloudWatchLog     `json:"logConfig" xml:"logConfig"`
+	ReportDestination *ReportDestination `json:"reportDestination" xml:"reportDestination"`
+	ScopeDocs         DocumentList       `json:"scopeDocs" xml:"scopeDocs"`
+	ServiceRole       string             `json:"serviceRole" xml:"serviceRole"`
+	ThreatModelId     string             `json:"threatModelId" xml:"threatModelId"`
+	Title             string             `json:"title" xml:"title"`
 }
 
 type UpdateThreatModelOutput struct {
-	AgentSpaceId  string         `json:"agentSpaceId" xml:"agentSpaceId"`
-	Assets        *Assets        `json:"assets" xml:"assets"`
-	CreatedAt     time.Time      `json:"createdAt" xml:"createdAt"`
-	Description   string         `json:"description" xml:"description"`
-	LogConfig     *CloudWatchLog `json:"logConfig" xml:"logConfig"`
-	ScopeDocs     DocumentList   `json:"scopeDocs" xml:"scopeDocs"`
-	ServiceRole   string         `json:"serviceRole" xml:"serviceRole"`
-	ThreatModelId string         `json:"threatModelId" xml:"threatModelId"`
-	Title         string         `json:"title" xml:"title"`
-	UpdatedAt     time.Time      `json:"updatedAt" xml:"updatedAt"`
+	AgentSpaceId      string             `json:"agentSpaceId" xml:"agentSpaceId"`
+	Assets            *Assets            `json:"assets" xml:"assets"`
+	CreatedAt         time.Time          `json:"createdAt" xml:"createdAt"`
+	Description       string             `json:"description" xml:"description"`
+	LogConfig         *CloudWatchLog     `json:"logConfig" xml:"logConfig"`
+	ReportDestination *ReportDestination `json:"reportDestination" xml:"reportDestination"`
+	ScopeDocs         DocumentList       `json:"scopeDocs" xml:"scopeDocs"`
+	ServiceRole       string             `json:"serviceRole" xml:"serviceRole"`
+	ThreatModelId     string             `json:"threatModelId" xml:"threatModelId"`
+	Title             string             `json:"title" xml:"title"`
+	UpdatedAt         time.Time          `json:"updatedAt" xml:"updatedAt"`
 }
 
 type UpdateThreatOutput struct {
@@ -2091,6 +2149,8 @@ type VpcConfig struct {
 
 type ActorList []*Actor
 
+type ActorMessageList []*ActorMessage
+
 type AgentSpaceIdList []string
 
 type AgentSpaceList []*AgentSpace
@@ -2133,6 +2193,8 @@ type CodeReviewList []*CodeReview
 
 type CodeReviewSummaryList []*CodeReviewSummary
 
+type ConfidenceLevelFilterList []string
+
 type CreateSecurityRequirementEntryList []*CreateSecurityRequirementEntry
 
 type CustomHeaderList []*CustomHeader
@@ -2154,6 +2216,8 @@ type ExecutionContextList []*ExecutionContext
 type FindingIdList []string
 
 type FindingList []*Finding
+
+type FindingStatusFilterList []string
 
 type FindingSummaryList []*FindingSummary
 
@@ -2195,6 +2259,12 @@ type PrivateConnectionSecurityGroupIds []string
 
 type PrivateConnectionSubnetIds []string
 
+type ReportFilterList []string
+
+type RiskLevelFilterList []string
+
+type RiskTypeFilterList []string
+
 type RiskTypeList []string
 
 type S3BucketArns []string
@@ -2230,6 +2300,8 @@ type TargetDomainIdList []string
 type TargetDomainList []*TargetDomain
 
 type TargetDomainSummaryList []*TargetDomainSummary
+
+type TaskExecutionStatusFilterList []string
 
 type TaskIdList []string
 

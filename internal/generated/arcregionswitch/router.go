@@ -26,6 +26,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "ListPlansInRegion"},
 	{Method: "", Pattern: "", Operation: "ListRoute53HealthChecks"},
 	{Method: "", Pattern: "", Operation: "ListRoute53HealthChecksInRegion"},
+	{Method: "", Pattern: "", Operation: "ListServiceQuotaWarnings"},
 	{Method: "", Pattern: "", Operation: "ListTagsForResource"},
 	{Method: "", Pattern: "", Operation: "StartPlanExecution"},
 	{Method: "", Pattern: "", Operation: "TagResource"},

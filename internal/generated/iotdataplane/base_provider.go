@@ -19,6 +19,10 @@ func (b *BaseProvider) DeleteThingShadow(ctx context.Context, input *DeleteThing
 	return nil, fmt.Errorf("DeleteThingShadow: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetConnection(ctx context.Context, input *GetConnectionRequest) (*GetConnectionResponse, error) {
+	return nil, fmt.Errorf("GetConnection: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetRetainedMessage(ctx context.Context, input *GetRetainedMessageRequest) (*GetRetainedMessageResponse, error) {
 	return nil, fmt.Errorf("GetRetainedMessage: %w", ErrNotImplemented)
 }
@@ -35,8 +39,16 @@ func (b *BaseProvider) ListRetainedMessages(ctx context.Context, input *ListReta
 	return nil, fmt.Errorf("ListRetainedMessages: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListSubscriptions(ctx context.Context, input *ListSubscriptionsRequest) (*ListSubscriptionsResponse, error) {
+	return nil, fmt.Errorf("ListSubscriptions: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) Publish(ctx context.Context, input *PublishRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("Publish: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) SendDirectMessage(ctx context.Context, input *SendDirectMessageRequest) (*SendDirectMessageResponse, error) {
+	return nil, fmt.Errorf("SendDirectMessage: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateThingShadow(ctx context.Context, input *UpdateThingShadowRequest) (*UpdateThingShadowResponse, error) {

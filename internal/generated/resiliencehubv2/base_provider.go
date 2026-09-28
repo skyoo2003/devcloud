@@ -91,6 +91,10 @@ func (b *BaseProvider) DeleteUserJourney(ctx context.Context, input *DeleteUserJ
 	return nil, fmt.Errorf("DeleteUserJourney: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetDependencyInsights(ctx context.Context, input *GetDependencyInsightsRequest) (*GetDependencyInsightsResponse, error) {
+	return nil, fmt.Errorf("GetDependencyInsights: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetFailureModeFinding(ctx context.Context, input *GetFailureModeFindingRequest) (*GetFailureModeFindingResponse, error) {
 	return nil, fmt.Errorf("GetFailureModeFinding: %w", ErrNotImplemented)
 }
@@ -153,6 +157,10 @@ func (b *BaseProvider) ListInputSources(ctx context.Context, input *ListInputSou
 
 func (b *BaseProvider) ListPolicies(ctx context.Context, input *ListPoliciesRequest) (*ListPoliciesResponse, error) {
 	return nil, fmt.Errorf("ListPolicies: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListPolicyEvents(ctx context.Context, input *ListPolicyEventsRequest) (*ListPolicyEventsResponse, error) {
+	return nil, fmt.Errorf("ListPolicyEvents: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListReports(ctx context.Context, input *ListReportsRequest) (*ListReportsResponse, error) {
@@ -233,6 +241,10 @@ func (b *BaseProvider) ListUserJourneys(ctx context.Context, input *ListUserJour
 
 func (b *BaseProvider) PutTestSources(ctx context.Context, input *PutTestSourcesRequest) (*PutTestSourcesResponse, error) {
 	return nil, fmt.Errorf("PutTestSources: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StartDependencyInsights(ctx context.Context, input *StartDependencyInsightsRequest) (*StartDependencyInsightsResponse, error) {
+	return nil, fmt.Errorf("StartDependencyInsights: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) StartFailureModeAssessment(ctx context.Context, input *StartFailureModeAssessmentRequest) (*StartFailureModeAssessmentResponse, error) {

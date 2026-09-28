@@ -94,6 +94,7 @@ type CreateBrokerRequest struct {
 	MaintenanceWindowStartTime      *WeeklyStartTime         `json:"maintenanceWindowStartTime" xml:"MaintenanceWindowStartTime"`
 	PubliclyAccessible              bool                     `json:"publiclyAccessible" xml:"PubliclyAccessible"`
 	SecurityGroups                  __listOf__string         `json:"securityGroups" xml:"SecurityGroups"`
+	StorageSize                     int32                    `json:"storageSize" xml:"StorageSize"`
 	StorageType                     string                   `json:"storageType" xml:"StorageType"`
 	SubnetIds                       __listOf__string         `json:"subnetIds" xml:"SubnetIds"`
 	Tags                            __mapOf__string          `json:"tags" xml:"Tags"`
@@ -236,8 +237,10 @@ type DescribeBrokerResponse struct {
 	PendingHostInstanceType        string                         `json:"pendingHostInstanceType" xml:"PendingHostInstanceType"`
 	PendingLdapServerMetadata      *LdapServerMetadataOutput      `json:"pendingLdapServerMetadata" xml:"PendingLdapServerMetadata"`
 	PendingSecurityGroups          __listOf__string               `json:"pendingSecurityGroups" xml:"PendingSecurityGroups"`
+	PendingStorageSize             int32                          `json:"pendingStorageSize" xml:"PendingStorageSize"`
 	PubliclyAccessible             bool                           `json:"publiclyAccessible" xml:"PubliclyAccessible"`
 	SecurityGroups                 __listOf__string               `json:"securityGroups" xml:"SecurityGroups"`
+	StorageSize                    int32                          `json:"storageSize" xml:"StorageSize"`
 	StorageType                    string                         `json:"storageType" xml:"StorageType"`
 	SubnetIds                      __listOf__string               `json:"subnetIds" xml:"SubnetIds"`
 	Tags                           __mapOf__string                `json:"tags" xml:"Tags"`
@@ -271,6 +274,17 @@ type DescribeConfigurationRevisionResponse struct {
 	Created         time.Time `json:"created" xml:"Created"`
 	Data            string    `json:"data" xml:"Data"`
 	Description     string    `json:"description" xml:"Description"`
+}
+
+type DescribeSharedResourcesRequest struct {
+	BrokerId   string `json:"brokerId" xml:"BrokerId"`
+	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken  string `json:"nextToken" xml:"NextToken"`
+}
+
+type DescribeSharedResourcesResponse struct {
+	NextToken       string                 `json:"nextToken" xml:"NextToken"`
+	SharedResources __listOfSharedResource `json:"sharedResources" xml:"SharedResources"`
 }
 
 type DescribeUserRequest struct {
@@ -412,10 +426,30 @@ type RebootBrokerRequest struct {
 type RebootBrokerResponse struct {
 }
 
+type ResourceShareError struct {
+	ErrorCode        string `json:"errorCode" xml:"ErrorCode"`
+	ResourceShareArn string `json:"resourceShareArn" xml:"ResourceShareArn"`
+	Status           string `json:"status" xml:"Status"`
+}
+
 type SanitizationWarning struct {
 	AttributeName string `json:"attributeName" xml:"AttributeName"`
 	ElementName   string `json:"elementName" xml:"ElementName"`
 	Reason        string `json:"reason" xml:"Reason"`
+}
+
+type SharedResource struct {
+	DnsNames          __listOf__string     `json:"dnsNames" xml:"DnsNames"`
+	Error             *SharedResourceError `json:"error" xml:"Error"`
+	ResourceArn       string               `json:"resourceArn" xml:"ResourceArn"`
+	ResourceShareArns __listOf__string     `json:"resourceShareArns" xml:"ResourceShareArns"`
+	Status            string               `json:"status" xml:"Status"`
+	Type              string               `json:"type" xml:"Type"`
+}
+
+type SharedResourceError struct {
+	Code    string `json:"code" xml:"Code"`
+	Message string `json:"message" xml:"Message"`
 }
 
 type SmithyUnit struct {
@@ -432,7 +466,9 @@ type UpdateBrokerRequest struct {
 	LdapServerMetadata         *LdapServerMetadataInput `json:"ldapServerMetadata" xml:"LdapServerMetadata"`
 	Logs                       *Logs                    `json:"logs" xml:"Logs"`
 	MaintenanceWindowStartTime *WeeklyStartTime         `json:"maintenanceWindowStartTime" xml:"MaintenanceWindowStartTime"`
+	ResourceShareArns          __listOf__string         `json:"resourceShareArns" xml:"ResourceShareArns"`
 	SecurityGroups             __listOf__string         `json:"securityGroups" xml:"SecurityGroups"`
+	StorageSize                int32                    `json:"storageSize" xml:"StorageSize"`
 }
 
 type UpdateBrokerResponse struct {
@@ -449,7 +485,9 @@ type UpdateBrokerResponse struct {
 	MaintenanceWindowStartTime     *WeeklyStartTime               `json:"maintenanceWindowStartTime" xml:"MaintenanceWindowStartTime"`
 	PendingDataReplicationMetadata *DataReplicationMetadataOutput `json:"pendingDataReplicationMetadata" xml:"PendingDataReplicationMetadata"`
 	PendingDataReplicationMode     string                         `json:"pendingDataReplicationMode" xml:"PendingDataReplicationMode"`
+	ResourceShareArns              __listOf__string               `json:"resourceShareArns" xml:"ResourceShareArns"`
 	SecurityGroups                 __listOf__string               `json:"securityGroups" xml:"SecurityGroups"`
+	StorageSize                    int32                          `json:"storageSize" xml:"StorageSize"`
 }
 
 type UpdateConfigurationRequest struct {
@@ -526,7 +564,11 @@ type __listOfDeploymentMode []string
 
 type __listOfEngineVersion []*EngineVersion
 
+type __listOfResourceShareError []*ResourceShareError
+
 type __listOfSanitizationWarning []*SanitizationWarning
+
+type __listOfSharedResource []*SharedResource
 
 type __listOfUser []*User
 

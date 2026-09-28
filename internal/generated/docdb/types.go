@@ -91,6 +91,7 @@ type CopyDBClusterSnapshotResult struct {
 type CreateDBClusterMessage struct {
 	AvailabilityZones                AvailabilityZones                 `json:"availabilityZones" xml:"AvailabilityZones"`
 	BackupRetentionPeriod            int32                             `json:"backupRetentionPeriod" xml:"BackupRetentionPeriod"`
+	CopyTagsToSnapshot               bool                              `json:"copyTagsToSnapshot" xml:"CopyTagsToSnapshot"`
 	DBClusterIdentifier              string                            `json:"dBClusterIdentifier" xml:"DBClusterIdentifier"`
 	DBClusterParameterGroupName      string                            `json:"dBClusterParameterGroupName" xml:"DBClusterParameterGroupName"`
 	DBSubnetGroupName                string                            `json:"dBSubnetGroupName" xml:"DBSubnetGroupName"`
@@ -206,6 +207,7 @@ type DBCluster struct {
 	BackupRetentionPeriod                  int32                                 `json:"backupRetentionPeriod" xml:"BackupRetentionPeriod"`
 	CloneGroupId                           string                                `json:"cloneGroupId" xml:"CloneGroupId"`
 	ClusterCreateTime                      time.Time                             `json:"clusterCreateTime" xml:"ClusterCreateTime"`
+	CopyTagsToSnapshot                     bool                                  `json:"copyTagsToSnapshot" xml:"CopyTagsToSnapshot"`
 	DBClusterArn                           string                                `json:"dBClusterArn" xml:"DBClusterArn"`
 	DBClusterIdentifier                    string                                `json:"dBClusterIdentifier" xml:"DBClusterIdentifier"`
 	DBClusterMembers                       DBClusterMemberList                   `json:"dBClusterMembers" xml:"DBClusterMembers"`
@@ -699,6 +701,7 @@ type ModifyDBClusterMessage struct {
 	ApplyImmediately                  bool                               `json:"applyImmediately" xml:"ApplyImmediately"`
 	BackupRetentionPeriod             int32                              `json:"backupRetentionPeriod" xml:"BackupRetentionPeriod"`
 	CloudwatchLogsExportConfiguration *CloudwatchLogsExportConfiguration `json:"cloudwatchLogsExportConfiguration" xml:"CloudwatchLogsExportConfiguration"`
+	CopyTagsToSnapshot                bool                               `json:"copyTagsToSnapshot" xml:"CopyTagsToSnapshot"`
 	DBClusterIdentifier               string                             `json:"dBClusterIdentifier" xml:"DBClusterIdentifier"`
 	DBClusterParameterGroupName       string                             `json:"dBClusterParameterGroupName" xml:"DBClusterParameterGroupName"`
 	DeletionProtection                bool                               `json:"deletionProtection" xml:"DeletionProtection"`
@@ -897,6 +900,7 @@ type ResourcePendingMaintenanceActions struct {
 
 type RestoreDBClusterFromSnapshotMessage struct {
 	AvailabilityZones                AvailabilityZones                 `json:"availabilityZones" xml:"AvailabilityZones"`
+	CopyTagsToSnapshot               bool                              `json:"copyTagsToSnapshot" xml:"CopyTagsToSnapshot"`
 	DBClusterIdentifier              string                            `json:"dBClusterIdentifier" xml:"DBClusterIdentifier"`
 	DBClusterParameterGroupName      string                            `json:"dBClusterParameterGroupName" xml:"DBClusterParameterGroupName"`
 	DBSubnetGroupName                string                            `json:"dBSubnetGroupName" xml:"DBSubnetGroupName"`
@@ -919,6 +923,7 @@ type RestoreDBClusterFromSnapshotResult struct {
 }
 
 type RestoreDBClusterToPointInTimeMessage struct {
+	CopyTagsToSnapshot               bool                              `json:"copyTagsToSnapshot" xml:"CopyTagsToSnapshot"`
 	DBClusterIdentifier              string                            `json:"dBClusterIdentifier" xml:"DBClusterIdentifier"`
 	DBSubnetGroupName                string                            `json:"dBSubnetGroupName" xml:"DBSubnetGroupName"`
 	DeletionProtection               bool                              `json:"deletionProtection" xml:"DeletionProtection"`

@@ -86,6 +86,19 @@ type BillingViewListElement struct {
 	SourceAccountId string                   `json:"sourceAccountId" xml:"sourceAccountId"`
 }
 
+type BillingViewSegmentTimeRange struct {
+	BeginDateInclusive time.Time `json:"beginDateInclusive" xml:"beginDateInclusive"`
+	EndDateExclusive   time.Time `json:"endDateExclusive" xml:"endDateExclusive"`
+}
+
+type BillingViewSegmentsListElement struct {
+	BillingGroupPrimaryAccountId string                       `json:"billingGroupPrimaryAccountId" xml:"billingGroupPrimaryAccountId"`
+	BillingTransferAccountId     string                       `json:"billingTransferAccountId" xml:"billingTransferAccountId"`
+	Domain                       string                       `json:"domain" xml:"domain"`
+	ManagementAccountId          string                       `json:"managementAccountId" xml:"managementAccountId"`
+	TimeRange                    *BillingViewSegmentTimeRange `json:"timeRange" xml:"timeRange"`
+}
+
 type ChargeAccount struct {
 	AccountId        string `json:"accountId" xml:"accountId"`
 	ChargePercentage string `json:"chargePercentage" xml:"chargePercentage"`
@@ -295,6 +308,18 @@ type LinkedAccountCharge struct {
 	TotalSupportEligibleSpend                 string                       `json:"totalSupportEligibleSpend" xml:"totalSupportEligibleSpend"`
 }
 
+type ListBillingViewSegmentsRequest struct {
+	Arn        string                       `json:"arn" xml:"arn"`
+	MaxResults int32                        `json:"maxResults" xml:"maxResults"`
+	NextToken  string                       `json:"nextToken" xml:"nextToken"`
+	TimeRange  *BillingViewSegmentTimeRange `json:"timeRange" xml:"timeRange"`
+}
+
+type ListBillingViewSegmentsResponse struct {
+	Items     BillingViewSegmentsList `json:"items" xml:"items"`
+	NextToken string                  `json:"nextToken" xml:"nextToken"`
+}
+
 type ListBillingViewsRequest struct {
 	ActiveTimeRange  *ActiveTimeRange    `json:"activeTimeRange" xml:"activeTimeRange"`
 	Arns             BillingViewArnList  `json:"arns" xml:"arns"`
@@ -454,6 +479,8 @@ type BillingPreferencesPerKey []*BillingPreferenceForKey
 type BillingViewArnList []string
 
 type BillingViewList []*BillingViewListElement
+
+type BillingViewSegmentsList []*BillingViewSegmentsListElement
 
 type BillingViewSourceViewsList []string
 

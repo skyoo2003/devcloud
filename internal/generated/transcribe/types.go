@@ -101,11 +101,12 @@ type CreateCallAnalyticsCategoryResponse struct {
 }
 
 type CreateLanguageModelRequest struct {
-	BaseModelName   string           `json:"baseModelName" xml:"BaseModelName"`
-	InputDataConfig *InputDataConfig `json:"inputDataConfig" xml:"InputDataConfig"`
-	LanguageCode    string           `json:"languageCode" xml:"LanguageCode"`
-	ModelName       string           `json:"modelName" xml:"ModelName"`
-	Tags            TagList          `json:"tags" xml:"Tags"`
+	BaseModelName           string                   `json:"baseModelName" xml:"BaseModelName"`
+	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	InputDataConfig         *InputDataConfig         `json:"inputDataConfig" xml:"InputDataConfig"`
+	LanguageCode            string                   `json:"languageCode" xml:"LanguageCode"`
+	ModelName               string                   `json:"modelName" xml:"ModelName"`
+	Tags                    TagList                  `json:"tags" xml:"Tags"`
 }
 
 type CreateLanguageModelResponse struct {
@@ -132,12 +133,13 @@ type CreateMedicalVocabularyResponse struct {
 }
 
 type CreateVocabularyFilterRequest struct {
-	DataAccessRoleArn       string  `json:"dataAccessRoleArn" xml:"DataAccessRoleArn"`
-	LanguageCode            string  `json:"languageCode" xml:"LanguageCode"`
-	Tags                    TagList `json:"tags" xml:"Tags"`
-	VocabularyFilterFileUri string  `json:"vocabularyFilterFileUri" xml:"VocabularyFilterFileUri"`
-	VocabularyFilterName    string  `json:"vocabularyFilterName" xml:"VocabularyFilterName"`
-	Words                   Words   `json:"words" xml:"Words"`
+	DataAccessRoleArn       string                   `json:"dataAccessRoleArn" xml:"DataAccessRoleArn"`
+	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	LanguageCode            string                   `json:"languageCode" xml:"LanguageCode"`
+	Tags                    TagList                  `json:"tags" xml:"Tags"`
+	VocabularyFilterFileUri string                   `json:"vocabularyFilterFileUri" xml:"VocabularyFilterFileUri"`
+	VocabularyFilterName    string                   `json:"vocabularyFilterName" xml:"VocabularyFilterName"`
+	Words                   Words                    `json:"words" xml:"Words"`
 }
 
 type CreateVocabularyFilterResponse struct {
@@ -147,12 +149,13 @@ type CreateVocabularyFilterResponse struct {
 }
 
 type CreateVocabularyRequest struct {
-	DataAccessRoleArn string  `json:"dataAccessRoleArn" xml:"DataAccessRoleArn"`
-	LanguageCode      string  `json:"languageCode" xml:"LanguageCode"`
-	Phrases           Phrases `json:"phrases" xml:"Phrases"`
-	Tags              TagList `json:"tags" xml:"Tags"`
-	VocabularyFileUri string  `json:"vocabularyFileUri" xml:"VocabularyFileUri"`
-	VocabularyName    string  `json:"vocabularyName" xml:"VocabularyName"`
+	DataAccessRoleArn       string                   `json:"dataAccessRoleArn" xml:"DataAccessRoleArn"`
+	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	LanguageCode            string                   `json:"languageCode" xml:"LanguageCode"`
+	Phrases                 Phrases                  `json:"phrases" xml:"Phrases"`
+	Tags                    TagList                  `json:"tags" xml:"Tags"`
+	VocabularyFileUri       string                   `json:"vocabularyFileUri" xml:"VocabularyFileUri"`
+	VocabularyName          string                   `json:"vocabularyName" xml:"VocabularyName"`
 }
 
 type CreateVocabularyResponse struct {
@@ -213,6 +216,11 @@ type DescribeLanguageModelResponse struct {
 	LanguageModel *LanguageModel `json:"languageModel" xml:"LanguageModel"`
 }
 
+type EncryptionConfiguration struct {
+	KMSEncryptionContext KMSEncryptionContextMap `json:"kMSEncryptionContext" xml:"KMSEncryptionContext"`
+	KMSKey               string                  `json:"kMSKey" xml:"KMSKey"`
+}
+
 type GetCallAnalyticsCategoryRequest struct {
 	CategoryName string `json:"categoryName" xml:"CategoryName"`
 }
@@ -271,10 +279,12 @@ type GetVocabularyFilterRequest struct {
 }
 
 type GetVocabularyFilterResponse struct {
-	DownloadUri          string    `json:"downloadUri" xml:"DownloadUri"`
-	LanguageCode         string    `json:"languageCode" xml:"LanguageCode"`
-	LastModifiedTime     time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	VocabularyFilterName string    `json:"vocabularyFilterName" xml:"VocabularyFilterName"`
+	DataAccessRoleArn       string                   `json:"dataAccessRoleArn" xml:"DataAccessRoleArn"`
+	DownloadUri             string                   `json:"downloadUri" xml:"DownloadUri"`
+	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	LanguageCode            string                   `json:"languageCode" xml:"LanguageCode"`
+	LastModifiedTime        time.Time                `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	VocabularyFilterName    string                   `json:"vocabularyFilterName" xml:"VocabularyFilterName"`
 }
 
 type GetVocabularyRequest struct {
@@ -282,12 +292,14 @@ type GetVocabularyRequest struct {
 }
 
 type GetVocabularyResponse struct {
-	DownloadUri      string    `json:"downloadUri" xml:"DownloadUri"`
-	FailureReason    string    `json:"failureReason" xml:"FailureReason"`
-	LanguageCode     string    `json:"languageCode" xml:"LanguageCode"`
-	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	VocabularyName   string    `json:"vocabularyName" xml:"VocabularyName"`
-	VocabularyState  string    `json:"vocabularyState" xml:"VocabularyState"`
+	DataAccessRoleArn       string                   `json:"dataAccessRoleArn" xml:"DataAccessRoleArn"`
+	DownloadUri             string                   `json:"downloadUri" xml:"DownloadUri"`
+	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	FailureReason           string                   `json:"failureReason" xml:"FailureReason"`
+	LanguageCode            string                   `json:"languageCode" xml:"LanguageCode"`
+	LastModifiedTime        time.Time                `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	VocabularyName          string                   `json:"vocabularyName" xml:"VocabularyName"`
+	VocabularyState         string                   `json:"vocabularyState" xml:"VocabularyState"`
 }
 
 type InputDataConfig struct {
@@ -321,15 +333,16 @@ type LanguageIdSettings struct {
 }
 
 type LanguageModel struct {
-	BaseModelName       string           `json:"baseModelName" xml:"BaseModelName"`
-	CreateTime          time.Time        `json:"createTime" xml:"CreateTime"`
-	FailureReason       string           `json:"failureReason" xml:"FailureReason"`
-	InputDataConfig     *InputDataConfig `json:"inputDataConfig" xml:"InputDataConfig"`
-	LanguageCode        string           `json:"languageCode" xml:"LanguageCode"`
-	LastModifiedTime    time.Time        `json:"lastModifiedTime" xml:"LastModifiedTime"`
-	ModelName           string           `json:"modelName" xml:"ModelName"`
-	ModelStatus         string           `json:"modelStatus" xml:"ModelStatus"`
-	UpgradeAvailability bool             `json:"upgradeAvailability" xml:"UpgradeAvailability"`
+	BaseModelName           string                   `json:"baseModelName" xml:"BaseModelName"`
+	CreateTime              time.Time                `json:"createTime" xml:"CreateTime"`
+	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	FailureReason           string                   `json:"failureReason" xml:"FailureReason"`
+	InputDataConfig         *InputDataConfig         `json:"inputDataConfig" xml:"InputDataConfig"`
+	LanguageCode            string                   `json:"languageCode" xml:"LanguageCode"`
+	LastModifiedTime        time.Time                `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	ModelName               string                   `json:"modelName" xml:"ModelName"`
+	ModelStatus             string                   `json:"modelStatus" xml:"ModelStatus"`
+	UpgradeAvailability     bool                     `json:"upgradeAvailability" xml:"UpgradeAvailability"`
 }
 
 type ListCallAnalyticsCategoriesRequest struct {
@@ -787,6 +800,18 @@ type UpdateCallAnalyticsCategoryResponse struct {
 	CategoryProperties *CategoryProperties `json:"categoryProperties" xml:"CategoryProperties"`
 }
 
+type UpdateLanguageModelRequest struct {
+	DataAccessRoleArn       string                   `json:"dataAccessRoleArn" xml:"DataAccessRoleArn"`
+	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	ModelName               string                   `json:"modelName" xml:"ModelName"`
+}
+
+type UpdateLanguageModelResponse struct {
+	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	ModelName        string    `json:"modelName" xml:"ModelName"`
+	ModelStatus      string    `json:"modelStatus" xml:"ModelStatus"`
+}
+
 type UpdateMedicalVocabularyRequest struct {
 	LanguageCode      string `json:"languageCode" xml:"LanguageCode"`
 	VocabularyFileUri string `json:"vocabularyFileUri" xml:"VocabularyFileUri"`
@@ -801,10 +826,11 @@ type UpdateMedicalVocabularyResponse struct {
 }
 
 type UpdateVocabularyFilterRequest struct {
-	DataAccessRoleArn       string `json:"dataAccessRoleArn" xml:"DataAccessRoleArn"`
-	VocabularyFilterFileUri string `json:"vocabularyFilterFileUri" xml:"VocabularyFilterFileUri"`
-	VocabularyFilterName    string `json:"vocabularyFilterName" xml:"VocabularyFilterName"`
-	Words                   Words  `json:"words" xml:"Words"`
+	DataAccessRoleArn       string                   `json:"dataAccessRoleArn" xml:"DataAccessRoleArn"`
+	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	VocabularyFilterFileUri string                   `json:"vocabularyFilterFileUri" xml:"VocabularyFilterFileUri"`
+	VocabularyFilterName    string                   `json:"vocabularyFilterName" xml:"VocabularyFilterName"`
+	Words                   Words                    `json:"words" xml:"Words"`
 }
 
 type UpdateVocabularyFilterResponse struct {
@@ -814,11 +840,12 @@ type UpdateVocabularyFilterResponse struct {
 }
 
 type UpdateVocabularyRequest struct {
-	DataAccessRoleArn string  `json:"dataAccessRoleArn" xml:"DataAccessRoleArn"`
-	LanguageCode      string  `json:"languageCode" xml:"LanguageCode"`
-	Phrases           Phrases `json:"phrases" xml:"Phrases"`
-	VocabularyFileUri string  `json:"vocabularyFileUri" xml:"VocabularyFileUri"`
-	VocabularyName    string  `json:"vocabularyName" xml:"VocabularyName"`
+	DataAccessRoleArn       string                   `json:"dataAccessRoleArn" xml:"DataAccessRoleArn"`
+	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	LanguageCode            string                   `json:"languageCode" xml:"LanguageCode"`
+	Phrases                 Phrases                  `json:"phrases" xml:"Phrases"`
+	VocabularyFileUri       string                   `json:"vocabularyFileUri" xml:"VocabularyFileUri"`
+	VocabularyName          string                   `json:"vocabularyName" xml:"VocabularyName"`
 }
 
 type UpdateVocabularyResponse struct {

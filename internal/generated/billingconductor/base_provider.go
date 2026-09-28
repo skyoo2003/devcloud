@@ -71,6 +71,10 @@ func (b *BaseProvider) GetBillingGroupCostReport(ctx context.Context, input *Get
 	return nil, fmt.Errorf("GetBillingGroupCostReport: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetBillingTransferPreference(ctx context.Context, input *GetBillingTransferPreferenceInput) (*GetBillingTransferPreferenceOutput, error) {
+	return nil, fmt.Errorf("GetBillingTransferPreference: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListAccountAssociations(ctx context.Context, input *ListAccountAssociationsInput) (*ListAccountAssociationsOutput, error) {
 	return nil, fmt.Errorf("ListAccountAssociations: %w", ErrNotImplemented)
 }
@@ -125,6 +129,10 @@ func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRe
 
 func (b *BaseProvider) UpdateBillingGroup(ctx context.Context, input *UpdateBillingGroupInput) (*UpdateBillingGroupOutput, error) {
 	return nil, fmt.Errorf("UpdateBillingGroup: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateBillingTransferPreference(ctx context.Context, input *UpdateBillingTransferPreferenceInput) (*UpdateBillingTransferPreferenceOutput, error) {
+	return nil, fmt.Errorf("UpdateBillingTransferPreference: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateCustomLineItem(ctx context.Context, input *UpdateCustomLineItemInput) (*UpdateCustomLineItemOutput, error) {

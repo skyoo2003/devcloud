@@ -109,8 +109,10 @@ type ConfigurationTemplate struct {
 	AllowedSuffixPathFields                            RecordFields                               `json:"allowedSuffixPathFields" xml:"allowedSuffixPathFields"`
 	DefaultDeliveryConfigValues                        *ConfigurationTemplateDeliveryConfigValues `json:"defaultDeliveryConfigValues" xml:"defaultDeliveryConfigValues"`
 	DeliveryDestinationType                            string                                     `json:"deliveryDestinationType" xml:"deliveryDestinationType"`
+	DeliverySourceConfiguration                        DeliverySourceConfigurationSchemas         `json:"deliverySourceConfiguration" xml:"deliverySourceConfiguration"`
 	LogType                                            string                                     `json:"logType" xml:"logType"`
 	ResourceType                                       string                                     `json:"resourceType" xml:"resourceType"`
+	S3TablesIntegration                                *S3TablesIntegration                       `json:"s3TablesIntegration" xml:"s3TablesIntegration"`
 	Service                                            string                                     `json:"service" xml:"service"`
 }
 
@@ -200,6 +202,7 @@ type CreateLookupTableRequest struct {
 	Description     string `json:"description" xml:"description"`
 	KmsKeyId        string `json:"kmsKeyId" xml:"kmsKeyId"`
 	LookupTableName string `json:"lookupTableName" xml:"lookupTableName"`
+	QueryId         string `json:"queryId" xml:"queryId"`
 	TableBody       string `json:"tableBody" xml:"tableBody"`
 	Tags            Tags   `json:"tags" xml:"tags"`
 }
@@ -212,6 +215,7 @@ type CreateLookupTableResponse struct {
 type CreateScheduledQueryRequest struct {
 	Description              string                            `json:"description" xml:"description"`
 	DestinationConfiguration *DestinationConfiguration         `json:"destinationConfiguration" xml:"destinationConfiguration"`
+	EndTimeOffset            int64                             `json:"endTimeOffset" xml:"endTimeOffset"`
 	ExecutionRoleArn         string                            `json:"executionRoleArn" xml:"executionRoleArn"`
 	LogGroupIdentifiers      ScheduledQueryLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
 	Name                     string                            `json:"name" xml:"name"`
@@ -351,6 +355,11 @@ type DeleteSubscriptionFilterRequest struct {
 	LogGroupName string `json:"logGroupName" xml:"logGroupName"`
 }
 
+type DeleteSyslogConfigurationRequest struct {
+	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+	VpcEndpointId      string `json:"vpcEndpointId" xml:"vpcEndpointId"`
+}
+
 type DeleteTransformerRequest struct {
 	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
 }
@@ -381,12 +390,24 @@ type DeliveryDestinationConfiguration struct {
 }
 
 type DeliverySource struct {
-	Arn          string       `json:"arn" xml:"arn"`
-	LogType      string       `json:"logType" xml:"logType"`
-	Name         string       `json:"name" xml:"name"`
-	ResourceArns ResourceArns `json:"resourceArns" xml:"resourceArns"`
-	Service      string       `json:"service" xml:"service"`
-	Tags         Tags         `json:"tags" xml:"tags"`
+	Arn                         string                      `json:"arn" xml:"arn"`
+	DeliverySourceConfiguration DeliverySourceConfiguration `json:"deliverySourceConfiguration" xml:"deliverySourceConfiguration"`
+	LogType                     string                      `json:"logType" xml:"logType"`
+	Name                        string                      `json:"name" xml:"name"`
+	ResourceArns                ResourceArns                `json:"resourceArns" xml:"resourceArns"`
+	Service                     string                      `json:"service" xml:"service"`
+	Status                      string                      `json:"status" xml:"status"`
+	StatusReason                string                      `json:"statusReason" xml:"statusReason"`
+	Tags                        Tags                        `json:"tags" xml:"tags"`
+}
+
+type DeliverySourceConfigurationSchema struct {
+	DefaultValue    string                                     `json:"defaultValue" xml:"defaultValue"`
+	KeyName         string                                     `json:"keyName" xml:"keyName"`
+	MaxValue        float64                                    `json:"maxValue" xml:"maxValue"`
+	MinValue        float64                                    `json:"minValue" xml:"minValue"`
+	SupportedValues DeliverySourceConfigurationSupportedValues `json:"supportedValues" xml:"supportedValues"`
+	ValueType       string                                     `json:"valueType" xml:"valueType"`
 }
 
 type DescribeAccountPoliciesRequest struct {
@@ -469,6 +490,7 @@ type DescribeExportTasksResponse struct {
 }
 
 type DescribeFieldIndexesRequest struct {
+	IndexCategories     IndexCategories                         `json:"indexCategories" xml:"indexCategories"`
 	LogGroupIdentifiers DescribeFieldIndexesLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
 	NextToken           string                                  `json:"nextToken" xml:"nextToken"`
 }
@@ -630,7 +652,8 @@ type Destination struct {
 }
 
 type DestinationConfiguration struct {
-	S3Configuration *S3Configuration `json:"s3Configuration" xml:"s3Configuration"`
+	LookupTableConfiguration *LookupTableConfiguration `json:"lookupTableConfiguration" xml:"lookupTableConfiguration"`
+	S3Configuration          *S3Configuration          `json:"s3Configuration" xml:"s3Configuration"`
 }
 
 type DisassociateKmsKeyRequest struct {
@@ -676,6 +699,7 @@ type ExportTaskStatus struct {
 type FieldIndex struct {
 	FieldIndexName     string `json:"fieldIndexName" xml:"fieldIndexName"`
 	FirstEventTime     int64  `json:"firstEventTime" xml:"firstEventTime"`
+	IndexCategory      string `json:"indexCategory" xml:"indexCategory"`
 	LastEventTime      int64  `json:"lastEventTime" xml:"lastEventTime"`
 	LastScanTime       int64  `json:"lastScanTime" xml:"lastScanTime"`
 	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
@@ -696,6 +720,7 @@ type FilterLogEventsRequest struct {
 	LogStreamNamePrefix string              `json:"logStreamNamePrefix" xml:"logStreamNamePrefix"`
 	LogStreamNames      InputLogStreamNames `json:"logStreamNames" xml:"logStreamNames"`
 	NextToken           string              `json:"nextToken" xml:"nextToken"`
+	StartFromHead       bool                `json:"startFromHead" xml:"startFromHead"`
 	StartTime           int64               `json:"startTime" xml:"startTime"`
 	Unmask              bool                `json:"unmask" xml:"unmask"`
 }
@@ -853,11 +878,14 @@ type GetLookupTableResponse struct {
 }
 
 type GetQueryResultsRequest struct {
-	QueryId string `json:"queryId" xml:"queryId"`
+	MaxItems  int32  `json:"maxItems" xml:"maxItems"`
+	NextToken string `json:"nextToken" xml:"nextToken"`
+	QueryId   string `json:"queryId" xml:"queryId"`
 }
 
 type GetQueryResultsResponse struct {
 	EncryptionKey string           `json:"encryptionKey" xml:"encryptionKey"`
+	NextToken     string           `json:"nextToken" xml:"nextToken"`
 	QueryLanguage string           `json:"queryLanguage" xml:"queryLanguage"`
 	Results       QueryResults     `json:"results" xml:"results"`
 	Statistics    *QueryStatistics `json:"statistics" xml:"statistics"`
@@ -888,6 +916,7 @@ type GetScheduledQueryResponse struct {
 	CreationTime             int64                             `json:"creationTime" xml:"creationTime"`
 	Description              string                            `json:"description" xml:"description"`
 	DestinationConfiguration *DestinationConfiguration         `json:"destinationConfiguration" xml:"destinationConfiguration"`
+	EndTimeOffset            int64                             `json:"endTimeOffset" xml:"endTimeOffset"`
 	ExecutionRoleArn         string                            `json:"executionRoleArn" xml:"executionRoleArn"`
 	LastExecutionStatus      string                            `json:"lastExecutionStatus" xml:"lastExecutionStatus"`
 	LastTriggeredTime        int64                             `json:"lastTriggeredTime" xml:"lastTriggeredTime"`
@@ -899,10 +928,19 @@ type GetScheduledQueryResponse struct {
 	ScheduleEndTime          int64                             `json:"scheduleEndTime" xml:"scheduleEndTime"`
 	ScheduleExpression       string                            `json:"scheduleExpression" xml:"scheduleExpression"`
 	ScheduleStartTime        int64                             `json:"scheduleStartTime" xml:"scheduleStartTime"`
+	ScheduleType             string                            `json:"scheduleType" xml:"scheduleType"`
 	ScheduledQueryArn        string                            `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
 	StartTimeOffset          int64                             `json:"startTimeOffset" xml:"startTimeOffset"`
 	State                    string                            `json:"state" xml:"state"`
 	Timezone                 string                            `json:"timezone" xml:"timezone"`
+}
+
+type GetStorageTierPolicyRequest struct {
+}
+
+type GetStorageTierPolicyResponse struct {
+	LastUpdatedTime int64  `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+	StorageTier     string `json:"storageTier" xml:"storageTier"`
 }
 
 type GetTransformerRequest struct {
@@ -1040,6 +1078,7 @@ type ListLogGroupsRequest struct {
 	Limit                 int32             `json:"limit" xml:"limit"`
 	LogGroupClass         string            `json:"logGroupClass" xml:"logGroupClass"`
 	LogGroupNamePattern   string            `json:"logGroupNamePattern" xml:"logGroupNamePattern"`
+	LogGroupTags          TagFilters        `json:"logGroupTags" xml:"logGroupTags"`
 	NextToken             string            `json:"nextToken" xml:"nextToken"`
 }
 
@@ -1049,9 +1088,10 @@ type ListLogGroupsResponse struct {
 }
 
 type ListScheduledQueriesRequest struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
-	State      string `json:"state" xml:"state"`
+	MaxResults   int32  `json:"maxResults" xml:"maxResults"`
+	NextToken    string `json:"nextToken" xml:"nextToken"`
+	ScheduleType string `json:"scheduleType" xml:"scheduleType"`
+	State        string `json:"state" xml:"state"`
 }
 
 type ListScheduledQueriesResponse struct {
@@ -1068,6 +1108,18 @@ type ListSourcesForS3TableIntegrationRequest struct {
 type ListSourcesForS3TableIntegrationResponse struct {
 	NextToken string                    `json:"nextToken" xml:"nextToken"`
 	Sources   S3TableIntegrationSources `json:"sources" xml:"sources"`
+}
+
+type ListSyslogConfigurationsRequest struct {
+	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+	MaxResults         int32  `json:"maxResults" xml:"maxResults"`
+	NextToken          string `json:"nextToken" xml:"nextToken"`
+	VpcEndpointId      string `json:"vpcEndpointId" xml:"vpcEndpointId"`
+}
+
+type ListSyslogConfigurationsResponse struct {
+	NextToken            string               `json:"nextToken" xml:"nextToken"`
+	SyslogConfigurations SyslogConfigurations `json:"syslogConfigurations" xml:"syslogConfigurations"`
 }
 
 type ListTagsForResourceRequest struct {
@@ -1184,6 +1236,14 @@ type LookupTable struct {
 	RecordsCount    int64       `json:"recordsCount" xml:"recordsCount"`
 	SizeBytes       int64       `json:"sizeBytes" xml:"sizeBytes"`
 	TableFields     TableFields `json:"tableFields" xml:"tableFields"`
+}
+
+type LookupTableConfiguration struct {
+	Description string `json:"description" xml:"description"`
+	KmsKeyId    string `json:"kmsKeyId" xml:"kmsKeyId"`
+	RoleArn     string `json:"roleArn" xml:"roleArn"`
+	TableName   string `json:"tableName" xml:"tableName"`
+	Tags        Tags   `json:"tags" xml:"tags"`
 }
 
 type LowerCaseString struct {
@@ -1429,10 +1489,11 @@ type PutDeliveryDestinationResponse struct {
 }
 
 type PutDeliverySourceRequest struct {
-	LogType     string `json:"logType" xml:"logType"`
-	Name        string `json:"name" xml:"name"`
-	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
-	Tags        Tags   `json:"tags" xml:"tags"`
+	DeliverySourceConfiguration DeliverySourceConfiguration `json:"deliverySourceConfiguration" xml:"deliverySourceConfiguration"`
+	LogType                     string                      `json:"logType" xml:"logType"`
+	Name                        string                      `json:"name" xml:"name"`
+	ResourceArn                 string                      `json:"resourceArn" xml:"resourceArn"`
+	Tags                        Tags                        `json:"tags" xml:"tags"`
 }
 
 type PutDeliverySourceResponse struct {
@@ -1536,6 +1597,15 @@ type PutRetentionPolicyRequest struct {
 	RetentionInDays int32  `json:"retentionInDays" xml:"retentionInDays"`
 }
 
+type PutStorageTierPolicyRequest struct {
+	StorageTier string `json:"storageTier" xml:"storageTier"`
+}
+
+type PutStorageTierPolicyResponse struct {
+	LastUpdatedTime int64  `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
+	StorageTier     string `json:"storageTier" xml:"storageTier"`
+}
+
 type PutSubscriptionFilterRequest struct {
 	ApplyOnTransformedLogs bool             `json:"applyOnTransformedLogs" xml:"applyOnTransformedLogs"`
 	DestinationArn         string           `json:"destinationArn" xml:"destinationArn"`
@@ -1546,6 +1616,11 @@ type PutSubscriptionFilterRequest struct {
 	FilterPattern          string           `json:"filterPattern" xml:"filterPattern"`
 	LogGroupName           string           `json:"logGroupName" xml:"logGroupName"`
 	RoleArn                string           `json:"roleArn" xml:"roleArn"`
+}
+
+type PutSyslogConfigurationRequest struct {
+	LogGroupIdentifier string `json:"logGroupIdentifier" xml:"logGroupIdentifier"`
+	VpcEndpointId      string `json:"vpcEndpointId" xml:"vpcEndpointId"`
 }
 
 type PutTransformerRequest struct {
@@ -1598,6 +1673,7 @@ type QueryStatistics struct {
 	LogGroupsScanned        float64 `json:"logGroupsScanned" xml:"logGroupsScanned"`
 	RecordsMatched          float64 `json:"recordsMatched" xml:"recordsMatched"`
 	RecordsScanned          float64 `json:"recordsScanned" xml:"recordsScanned"`
+	ResultCount             float64 `json:"resultCount" xml:"resultCount"`
 }
 
 type RecordField struct {
@@ -1652,11 +1728,17 @@ type S3DeliveryConfiguration struct {
 }
 
 type S3TableIntegrationSource struct {
-	CreatedTimeStamp int64       `json:"createdTimeStamp" xml:"createdTimeStamp"`
-	DataSource       *DataSource `json:"dataSource" xml:"dataSource"`
-	Identifier       string      `json:"identifier" xml:"identifier"`
-	Status           string      `json:"status" xml:"status"`
-	StatusReason     string      `json:"statusReason" xml:"statusReason"`
+	CreatedTimeStamp       int64       `json:"createdTimeStamp" xml:"createdTimeStamp"`
+	DataSource             *DataSource `json:"dataSource" xml:"dataSource"`
+	Identifier             string      `json:"identifier" xml:"identifier"`
+	ParentSourceIdentifier string      `json:"parentSourceIdentifier" xml:"parentSourceIdentifier"`
+	Status                 string      `json:"status" xml:"status"`
+	StatusReason           string      `json:"statusReason" xml:"statusReason"`
+}
+
+type S3TablesIntegration struct {
+	DatasourceName string `json:"datasourceName" xml:"datasourceName"`
+	DatasourceType string `json:"datasourceType" xml:"datasourceType"`
 }
 
 type ScheduledQueryDestination struct {
@@ -1675,6 +1757,7 @@ type ScheduledQuerySummary struct {
 	LastUpdatedTime          int64                     `json:"lastUpdatedTime" xml:"lastUpdatedTime"`
 	Name                     string                    `json:"name" xml:"name"`
 	ScheduleExpression       string                    `json:"scheduleExpression" xml:"scheduleExpression"`
+	ScheduleType             string                    `json:"scheduleType" xml:"scheduleType"`
 	ScheduledQueryArn        string                    `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
 	State                    string                    `json:"state" xml:"state"`
 	Timezone                 string                    `json:"timezone" xml:"timezone"`
@@ -1757,6 +1840,18 @@ type SubstituteStringEntry struct {
 type SuppressionPeriod struct {
 	SuppressionUnit string `json:"suppressionUnit" xml:"suppressionUnit"`
 	Value           int32  `json:"value" xml:"value"`
+}
+
+type SyslogConfiguration struct {
+	CreatedAt     int64  `json:"createdAt" xml:"createdAt"`
+	LogGroupArn   string `json:"logGroupArn" xml:"logGroupArn"`
+	SourceType    string `json:"sourceType" xml:"sourceType"`
+	VpcEndpointId string `json:"vpcEndpointId" xml:"vpcEndpointId"`
+}
+
+type TagFilter struct {
+	Key    string          `json:"key" xml:"key"`
+	Values TagFilterValues `json:"values" xml:"values"`
 }
 
 type TagLogGroupRequest struct {
@@ -1855,6 +1950,7 @@ type UpdateLookupTableRequest struct {
 	Description    string `json:"description" xml:"description"`
 	KmsKeyId       string `json:"kmsKeyId" xml:"kmsKeyId"`
 	LookupTableArn string `json:"lookupTableArn" xml:"lookupTableArn"`
+	QueryId        string `json:"queryId" xml:"queryId"`
 	TableBody      string `json:"tableBody" xml:"tableBody"`
 }
 
@@ -1866,6 +1962,7 @@ type UpdateLookupTableResponse struct {
 type UpdateScheduledQueryRequest struct {
 	Description              string                            `json:"description" xml:"description"`
 	DestinationConfiguration *DestinationConfiguration         `json:"destinationConfiguration" xml:"destinationConfiguration"`
+	EndTimeOffset            int64                             `json:"endTimeOffset" xml:"endTimeOffset"`
 	ExecutionRoleArn         string                            `json:"executionRoleArn" xml:"executionRoleArn"`
 	Identifier               string                            `json:"identifier" xml:"identifier"`
 	LogGroupIdentifiers      ScheduledQueryLogGroupIdentifiers `json:"logGroupIdentifiers" xml:"logGroupIdentifiers"`
@@ -1883,6 +1980,7 @@ type UpdateScheduledQueryResponse struct {
 	CreationTime             int64                             `json:"creationTime" xml:"creationTime"`
 	Description              string                            `json:"description" xml:"description"`
 	DestinationConfiguration *DestinationConfiguration         `json:"destinationConfiguration" xml:"destinationConfiguration"`
+	EndTimeOffset            int64                             `json:"endTimeOffset" xml:"endTimeOffset"`
 	ExecutionRoleArn         string                            `json:"executionRoleArn" xml:"executionRoleArn"`
 	LastExecutionStatus      string                            `json:"lastExecutionStatus" xml:"lastExecutionStatus"`
 	LastTriggeredTime        int64                             `json:"lastTriggeredTime" xml:"lastTriggeredTime"`
@@ -1894,6 +1992,7 @@ type UpdateScheduledQueryResponse struct {
 	ScheduleEndTime          int64                             `json:"scheduleEndTime" xml:"scheduleEndTime"`
 	ScheduleExpression       string                            `json:"scheduleExpression" xml:"scheduleExpression"`
 	ScheduleStartTime        int64                             `json:"scheduleStartTime" xml:"scheduleStartTime"`
+	ScheduleType             string                            `json:"scheduleType" xml:"scheduleType"`
 	ScheduledQueryArn        string                            `json:"scheduledQueryArn" xml:"scheduledQueryArn"`
 	StartTimeOffset          int64                             `json:"startTimeOffset" xml:"startTimeOffset"`
 	State                    string                            `json:"state" xml:"state"`
@@ -1938,6 +2037,10 @@ type DeliveryDestinationTypes []string
 
 type DeliveryDestinations []*DeliveryDestination
 
+type DeliverySourceConfigurationSchemas []*DeliverySourceConfigurationSchema
+
+type DeliverySourceConfigurationSupportedValues []string
+
 type DeliverySources []*DeliverySource
 
 type DescribeFieldIndexesLogGroupIdentifiers []string
@@ -1967,6 +2070,8 @@ type ImportBatchList []*ImportBatch
 type ImportList []*Import
 
 type ImportStatusList []string
+
+type IndexCategories []string
 
 type IndexPolicies []*IndexPolicy
 
@@ -2060,7 +2165,13 @@ type SubscriptionFilters []*SubscriptionFilter
 
 type SubstituteStringEntries []*SubstituteStringEntry
 
+type SyslogConfigurations []*SyslogConfiguration
+
 type TableFields []string
+
+type TagFilterValues []string
+
+type TagFilters []*TagFilter
 
 type TagKeyList []string
 
@@ -2077,6 +2188,8 @@ type TrimStringWithKeys []string
 type TypeConverterEntries []*TypeConverterEntry
 
 type UpperCaseStringWithKeys []string
+
+type DeliverySourceConfiguration map[string]string
 
 type Dimensions map[string]string
 

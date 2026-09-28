@@ -3216,3 +3216,20 @@ func (e *TooManyTagsException) ErrorCode() string {
 func (e *TooManyTagsException) HTTPStatus() int {
 	return 0
 }
+
+// ValidationException is returned with HTTP status 0.
+type ValidationException struct {
+	Message string
+}
+
+func (e *ValidationException) Error() string {
+	return fmt.Sprintf("ValidationException: %s", e.Message)
+}
+
+func (e *ValidationException) ErrorCode() string {
+	return "ValidationException"
+}
+
+func (e *ValidationException) HTTPStatus() int {
+	return 0
+}

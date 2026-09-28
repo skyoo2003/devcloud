@@ -11,12 +11,20 @@ var ErrNotImplemented = fmt.Errorf("operation not implemented")
 
 type BaseProvider struct{}
 
+func (b *BaseProvider) BatchDeleteAdvancedPromptOptimizationJob(ctx context.Context, input *BatchDeleteAdvancedPromptOptimizationJobRequest) (*BatchDeleteAdvancedPromptOptimizationJobResponse, error) {
+	return nil, fmt.Errorf("BatchDeleteAdvancedPromptOptimizationJob: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) BatchDeleteEvaluationJob(ctx context.Context, input *BatchDeleteEvaluationJobRequest) (*BatchDeleteEvaluationJobResponse, error) {
 	return nil, fmt.Errorf("BatchDeleteEvaluationJob: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) CancelAutomatedReasoningPolicyBuildWorkflow(ctx context.Context, input *CancelAutomatedReasoningPolicyBuildWorkflowRequest) (*CancelAutomatedReasoningPolicyBuildWorkflowResponse, error) {
 	return nil, fmt.Errorf("CancelAutomatedReasoningPolicyBuildWorkflow: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateAdvancedPromptOptimizationJob(ctx context.Context, input *CreateAdvancedPromptOptimizationJobRequest) (*CreateAdvancedPromptOptimizationJobResponse, error) {
+	return nil, fmt.Errorf("CreateAdvancedPromptOptimizationJob: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) CreateAutomatedReasoningPolicy(ctx context.Context, input *CreateAutomatedReasoningPolicyRequest) (*CreateAutomatedReasoningPolicyResponse, error) {
@@ -155,6 +163,14 @@ func (b *BaseProvider) ExportAutomatedReasoningPolicyVersion(ctx context.Context
 	return nil, fmt.Errorf("ExportAutomatedReasoningPolicyVersion: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetAccountDataRetention(ctx context.Context, input *GetAccountDataRetentionRequest) (*GetAccountDataRetentionResponse, error) {
+	return nil, fmt.Errorf("GetAccountDataRetention: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetAdvancedPromptOptimizationJob(ctx context.Context, input *GetAdvancedPromptOptimizationJobRequest) (*GetAdvancedPromptOptimizationJobResponse, error) {
+	return nil, fmt.Errorf("GetAdvancedPromptOptimizationJob: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetAutomatedReasoningPolicy(ctx context.Context, input *GetAutomatedReasoningPolicyRequest) (*GetAutomatedReasoningPolicyResponse, error) {
 	return nil, fmt.Errorf("GetAutomatedReasoningPolicy: %w", ErrNotImplemented)
 }
@@ -255,6 +271,10 @@ func (b *BaseProvider) GetUseCaseForModelAccess(ctx context.Context, input *GetU
 	return nil, fmt.Errorf("GetUseCaseForModelAccess: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListAdvancedPromptOptimizationJobs(ctx context.Context, input *ListAdvancedPromptOptimizationJobsRequest) (*ListAdvancedPromptOptimizationJobsResponse, error) {
+	return nil, fmt.Errorf("ListAdvancedPromptOptimizationJobs: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListAutomatedReasoningPolicies(ctx context.Context, input *ListAutomatedReasoningPoliciesRequest) (*ListAutomatedReasoningPoliciesResponse, error) {
 	return nil, fmt.Errorf("ListAutomatedReasoningPolicies: %w", ErrNotImplemented)
 }
@@ -339,6 +359,10 @@ func (b *BaseProvider) ListTagsForResource(ctx context.Context, input *ListTagsF
 	return nil, fmt.Errorf("ListTagsForResource: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) PutAccountDataRetention(ctx context.Context, input *PutAccountDataRetentionRequest) (*PutAccountDataRetentionResponse, error) {
+	return nil, fmt.Errorf("PutAccountDataRetention: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) PutEnforcedGuardrailConfiguration(ctx context.Context, input *PutEnforcedGuardrailConfigurationRequest) (*PutEnforcedGuardrailConfigurationResponse, error) {
 	return nil, fmt.Errorf("PutEnforcedGuardrailConfiguration: %w", ErrNotImplemented)
 }
@@ -365,6 +389,10 @@ func (b *BaseProvider) StartAutomatedReasoningPolicyBuildWorkflow(ctx context.Co
 
 func (b *BaseProvider) StartAutomatedReasoningPolicyTestWorkflow(ctx context.Context, input *StartAutomatedReasoningPolicyTestWorkflowRequest) (*StartAutomatedReasoningPolicyTestWorkflowResponse, error) {
 	return nil, fmt.Errorf("StartAutomatedReasoningPolicyTestWorkflow: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StopAdvancedPromptOptimizationJob(ctx context.Context, input *StopAdvancedPromptOptimizationJobRequest) (*StopAdvancedPromptOptimizationJobResponse, error) {
+	return nil, fmt.Errorf("StopAdvancedPromptOptimizationJob: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) StopEvaluationJob(ctx context.Context, input *StopEvaluationJobRequest) (*StopEvaluationJobResponse, error) {

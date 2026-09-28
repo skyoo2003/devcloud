@@ -6,7 +6,17 @@ import (
 	"time"
 )
 
+type AmazonMachineImageEbsVolume struct {
+	Iops        int32                               `json:"iops" xml:"iops"`
+	VolumeTypes AmazonMachineImageEbsVolumeTypeList `json:"volumeTypes" xml:"volumeTypes"`
+}
+
 type AmazonMachineImageFulfillmentOption struct {
+	AccessUrlTemplate            string                                `json:"accessUrlTemplate" xml:"accessUrlTemplate"`
+	AmiAlias                     string                                `json:"amiAlias" xml:"amiAlias"`
+	Architecture                 string                                `json:"architecture" xml:"architecture"`
+	AvailableFromTime            time.Time                             `json:"availableFromTime" xml:"availableFromTime"`
+	EbsVolume                    *AmazonMachineImageEbsVolume          `json:"ebsVolume" xml:"ebsVolume"`
 	FulfillmentOptionDisplayName string                                `json:"fulfillmentOptionDisplayName" xml:"fulfillmentOptionDisplayName"`
 	FulfillmentOptionId          string                                `json:"fulfillmentOptionId" xml:"fulfillmentOptionId"`
 	FulfillmentOptionName        string                                `json:"fulfillmentOptionName" xml:"fulfillmentOptionName"`
@@ -15,6 +25,7 @@ type AmazonMachineImageFulfillmentOption struct {
 	OperatingSystems             AmazonMachineImageOperatingSystemList `json:"operatingSystems" xml:"operatingSystems"`
 	Recommendation               *AmazonMachineImageRecommendation     `json:"recommendation" xml:"recommendation"`
 	ReleaseNotes                 string                                `json:"releaseNotes" xml:"releaseNotes"`
+	ShortDescription             string                                `json:"shortDescription" xml:"shortDescription"`
 	UsageInstructions            string                                `json:"usageInstructions" xml:"usageInstructions"`
 }
 
@@ -25,7 +36,15 @@ type AmazonMachineImageOperatingSystem struct {
 }
 
 type AmazonMachineImageRecommendation struct {
-	InstanceType string `json:"instanceType" xml:"instanceType"`
+	InstanceType   string                              `json:"instanceType" xml:"instanceType"`
+	SecurityGroups AmazonMachineImageSecurityGroupList `json:"securityGroups" xml:"securityGroups"`
+}
+
+type AmazonMachineImageSecurityGroup struct {
+	CidrIpAddresses AmazonMachineImageCidrIpAddressList `json:"cidrIpAddresses" xml:"cidrIpAddresses"`
+	FromPort        int32                               `json:"fromPort" xml:"fromPort"`
+	Protocol        string                              `json:"protocol" xml:"protocol"`
+	ToPort          int32                               `json:"toPort" xml:"toPort"`
 }
 
 type ApiFulfillmentOption struct {
@@ -53,13 +72,16 @@ type Category struct {
 }
 
 type CloudFormationFulfillmentOption struct {
-	FulfillmentOptionDisplayName string `json:"fulfillmentOptionDisplayName" xml:"fulfillmentOptionDisplayName"`
-	FulfillmentOptionId          string `json:"fulfillmentOptionId" xml:"fulfillmentOptionId"`
-	FulfillmentOptionName        string `json:"fulfillmentOptionName" xml:"fulfillmentOptionName"`
-	FulfillmentOptionType        string `json:"fulfillmentOptionType" xml:"fulfillmentOptionType"`
-	FulfillmentOptionVersion     string `json:"fulfillmentOptionVersion" xml:"fulfillmentOptionVersion"`
-	ReleaseNotes                 string `json:"releaseNotes" xml:"releaseNotes"`
-	UsageInstructions            string `json:"usageInstructions" xml:"usageInstructions"`
+	AvailableFromTime            time.Time `json:"availableFromTime" xml:"availableFromTime"`
+	FulfillmentOptionDisplayName string    `json:"fulfillmentOptionDisplayName" xml:"fulfillmentOptionDisplayName"`
+	FulfillmentOptionId          string    `json:"fulfillmentOptionId" xml:"fulfillmentOptionId"`
+	FulfillmentOptionName        string    `json:"fulfillmentOptionName" xml:"fulfillmentOptionName"`
+	FulfillmentOptionType        string    `json:"fulfillmentOptionType" xml:"fulfillmentOptionType"`
+	FulfillmentOptionVersion     string    `json:"fulfillmentOptionVersion" xml:"fulfillmentOptionVersion"`
+	LongDescription              string    `json:"longDescription" xml:"longDescription"`
+	ReleaseNotes                 string    `json:"releaseNotes" xml:"releaseNotes"`
+	ShortDescription             string    `json:"shortDescription" xml:"shortDescription"`
+	UsageInstructions            string    `json:"usageInstructions" xml:"usageInstructions"`
 }
 
 type ConfigurableUpfrontPricingTerm struct {
@@ -179,6 +201,7 @@ type FulfillmentOptionSummary struct {
 
 type GetListingInput struct {
 	ListingId string `json:"listingId" xml:"listingId"`
+	Locale    string `json:"locale" xml:"locale"`
 }
 
 type GetListingOutput struct {
@@ -191,6 +214,7 @@ type GetListingOutput struct {
 	IntegrationGuide           string                       `json:"integrationGuide" xml:"integrationGuide"`
 	ListingId                  string                       `json:"listingId" xml:"listingId"`
 	ListingName                string                       `json:"listingName" xml:"listingName"`
+	Locale                     string                       `json:"locale" xml:"locale"`
 	LogoThumbnailUrl           string                       `json:"logoThumbnailUrl" xml:"logoThumbnailUrl"`
 	LongDescription            string                       `json:"longDescription" xml:"longDescription"`
 	PricingModels              PricingModelList             `json:"pricingModels" xml:"pricingModels"`
@@ -205,6 +229,7 @@ type GetListingOutput struct {
 }
 
 type GetOfferInput struct {
+	Locale  string `json:"locale" xml:"locale"`
 	OfferId string `json:"offerId" xml:"offerId"`
 }
 
@@ -215,6 +240,7 @@ type GetOfferOutput struct {
 	Badges                 PurchaseOptionBadgeList   `json:"badges" xml:"badges"`
 	Catalog                string                    `json:"catalog" xml:"catalog"`
 	ExpirationTime         time.Time                 `json:"expirationTime" xml:"expirationTime"`
+	Locale                 string                    `json:"locale" xml:"locale"`
 	OfferId                string                    `json:"offerId" xml:"offerId"`
 	OfferName              string                    `json:"offerName" xml:"offerName"`
 	PricingModel           *PricingModel             `json:"pricingModel" xml:"pricingModel"`
@@ -223,6 +249,7 @@ type GetOfferOutput struct {
 }
 
 type GetOfferSetInput struct {
+	Locale     string `json:"locale" xml:"locale"`
 	OfferSetId string `json:"offerSetId" xml:"offerSetId"`
 }
 
@@ -233,23 +260,27 @@ type GetOfferSetOutput struct {
 	BuyerNotes         string                       `json:"buyerNotes" xml:"buyerNotes"`
 	Catalog            string                       `json:"catalog" xml:"catalog"`
 	ExpirationTime     time.Time                    `json:"expirationTime" xml:"expirationTime"`
+	Locale             string                       `json:"locale" xml:"locale"`
 	OfferSetId         string                       `json:"offerSetId" xml:"offerSetId"`
 	OfferSetName       string                       `json:"offerSetName" xml:"offerSetName"`
 	SellerOfRecord     *SellerInformation           `json:"sellerOfRecord" xml:"sellerOfRecord"`
 }
 
 type GetOfferTermsInput struct {
+	Locale     string `json:"locale" xml:"locale"`
 	MaxResults int32  `json:"maxResults" xml:"maxResults"`
 	NextToken  string `json:"nextToken" xml:"nextToken"`
 	OfferId    string `json:"offerId" xml:"offerId"`
 }
 
 type GetOfferTermsOutput struct {
+	Locale     string         `json:"locale" xml:"locale"`
 	NextToken  string         `json:"nextToken" xml:"nextToken"`
 	OfferTerms OfferTermsList `json:"offerTerms" xml:"offerTerms"`
 }
 
 type GetProductInput struct {
+	Locale    string `json:"locale" xml:"locale"`
 	ProductId string `json:"productId" xml:"productId"`
 }
 
@@ -259,6 +290,8 @@ type GetProductOutput struct {
 	DeployedOnAws              string                       `json:"deployedOnAws" xml:"deployedOnAws"`
 	FulfillmentOptionSummaries FulfillmentOptionSummaryList `json:"fulfillmentOptionSummaries" xml:"fulfillmentOptionSummaries"`
 	Highlights                 HighlightList                `json:"highlights" xml:"highlights"`
+	ListingId                  string                       `json:"listingId" xml:"listingId"`
+	Locale                     string                       `json:"locale" xml:"locale"`
 	LogoThumbnailUrl           string                       `json:"logoThumbnailUrl" xml:"logoThumbnailUrl"`
 	LongDescription            string                       `json:"longDescription" xml:"longDescription"`
 	Manufacturer               *SellerInformation           `json:"manufacturer" xml:"manufacturer"`
@@ -303,6 +336,7 @@ type LegalTerm struct {
 }
 
 type ListFulfillmentOptionsInput struct {
+	Locale     string `json:"locale" xml:"locale"`
 	MaxResults int32  `json:"maxResults" xml:"maxResults"`
 	NextToken  string `json:"nextToken" xml:"nextToken"`
 	ProductId  string `json:"productId" xml:"productId"`
@@ -310,11 +344,13 @@ type ListFulfillmentOptionsInput struct {
 
 type ListFulfillmentOptionsOutput struct {
 	FulfillmentOptions FulfillmentOptionsList `json:"fulfillmentOptions" xml:"fulfillmentOptions"`
+	Locale             string                 `json:"locale" xml:"locale"`
 	NextToken          string                 `json:"nextToken" xml:"nextToken"`
 }
 
 type ListPurchaseOptionsInput struct {
 	Filters    PurchaseOptionFilterList `json:"filters" xml:"filters"`
+	Locale     string                   `json:"locale" xml:"locale"`
 	MaxResults int32                    `json:"maxResults" xml:"maxResults"`
 	NextToken  string                   `json:"nextToken" xml:"nextToken"`
 }
@@ -522,11 +558,14 @@ type ReviewSummary struct {
 }
 
 type SaasFulfillmentOption struct {
-	FulfillmentOptionDisplayName string `json:"fulfillmentOptionDisplayName" xml:"fulfillmentOptionDisplayName"`
-	FulfillmentOptionId          string `json:"fulfillmentOptionId" xml:"fulfillmentOptionId"`
-	FulfillmentOptionType        string `json:"fulfillmentOptionType" xml:"fulfillmentOptionType"`
-	FulfillmentUrl               string `json:"fulfillmentUrl" xml:"fulfillmentUrl"`
-	UsageInstructions            string `json:"usageInstructions" xml:"usageInstructions"`
+	AvailableFromTime            time.Time `json:"availableFromTime" xml:"availableFromTime"`
+	FulfillmentOptionDisplayName string    `json:"fulfillmentOptionDisplayName" xml:"fulfillmentOptionDisplayName"`
+	FulfillmentOptionId          string    `json:"fulfillmentOptionId" xml:"fulfillmentOptionId"`
+	FulfillmentOptionType        string    `json:"fulfillmentOptionType" xml:"fulfillmentOptionType"`
+	FulfillmentUrl               string    `json:"fulfillmentUrl" xml:"fulfillmentUrl"`
+	LaunchUrl                    string    `json:"launchUrl" xml:"launchUrl"`
+	QuickLaunch                  string    `json:"quickLaunch" xml:"quickLaunch"`
+	UsageInstructions            string    `json:"usageInstructions" xml:"usageInstructions"`
 }
 
 type SageMakerAlgorithmFulfillmentOption struct {
@@ -546,13 +585,15 @@ type SageMakerAlgorithmRecommendation struct {
 }
 
 type SageMakerModelFulfillmentOption struct {
-	FulfillmentOptionDisplayName string                        `json:"fulfillmentOptionDisplayName" xml:"fulfillmentOptionDisplayName"`
-	FulfillmentOptionId          string                        `json:"fulfillmentOptionId" xml:"fulfillmentOptionId"`
-	FulfillmentOptionType        string                        `json:"fulfillmentOptionType" xml:"fulfillmentOptionType"`
-	FulfillmentOptionVersion     string                        `json:"fulfillmentOptionVersion" xml:"fulfillmentOptionVersion"`
-	Recommendation               *SageMakerModelRecommendation `json:"recommendation" xml:"recommendation"`
-	ReleaseNotes                 string                        `json:"releaseNotes" xml:"releaseNotes"`
-	UsageInstructions            string                        `json:"usageInstructions" xml:"usageInstructions"`
+	FulfillmentOptionDisplayName string                             `json:"fulfillmentOptionDisplayName" xml:"fulfillmentOptionDisplayName"`
+	FulfillmentOptionId          string                             `json:"fulfillmentOptionId" xml:"fulfillmentOptionId"`
+	FulfillmentOptionType        string                             `json:"fulfillmentOptionType" xml:"fulfillmentOptionType"`
+	FulfillmentOptionVersion     string                             `json:"fulfillmentOptionVersion" xml:"fulfillmentOptionVersion"`
+	Recommendation               *SageMakerModelRecommendation      `json:"recommendation" xml:"recommendation"`
+	ReleaseNotes                 string                             `json:"releaseNotes" xml:"releaseNotes"`
+	SupportedContentTypes        SageMakerModelContentTypeList      `json:"supportedContentTypes" xml:"supportedContentTypes"`
+	SupportedResponseMimeTypes   SageMakerModelResponseMimeTypeList `json:"supportedResponseMimeTypes" xml:"supportedResponseMimeTypes"`
+	UsageInstructions            string                             `json:"usageInstructions" xml:"usageInstructions"`
 }
 
 type SageMakerModelRecommendation struct {
@@ -568,6 +609,7 @@ type ScheduleItem struct {
 type SearchFacetsInput struct {
 	FacetTypes FacetTypeList    `json:"facetTypes" xml:"facetTypes"`
 	Filters    SearchFilterList `json:"filters" xml:"filters"`
+	Locale     string           `json:"locale" xml:"locale"`
 	NextToken  string           `json:"nextToken" xml:"nextToken"`
 	SearchText string           `json:"searchText" xml:"searchText"`
 }
@@ -585,6 +627,7 @@ type SearchFilter struct {
 
 type SearchListingsInput struct {
 	Filters    SearchFilterList `json:"filters" xml:"filters"`
+	Locale     string           `json:"locale" xml:"locale"`
 	MaxResults int32            `json:"maxResults" xml:"maxResults"`
 	NextToken  string           `json:"nextToken" xml:"nextToken"`
 	SearchText string           `json:"searchText" xml:"searchText"`
@@ -656,7 +699,13 @@ type VariablePaymentTerm struct {
 	Type                 string `json:"type" xml:"type"`
 }
 
+type AmazonMachineImageCidrIpAddressList []string
+
+type AmazonMachineImageEbsVolumeTypeList []string
+
 type AmazonMachineImageOperatingSystemList []*AmazonMachineImageOperatingSystem
+
+type AmazonMachineImageSecurityGroupList []*AmazonMachineImageSecurityGroup
 
 type AwsSupportedServiceList []*AwsSupportedService
 
@@ -725,6 +774,10 @@ type RateCardList []*RateCardItem
 type ResourceList []*Resource
 
 type ReviewSourceSummaryList []*ReviewSourceSummary
+
+type SageMakerModelContentTypeList []string
+
+type SageMakerModelResponseMimeTypeList []string
 
 type ScheduleList []*ScheduleItem
 

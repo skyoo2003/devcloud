@@ -48,6 +48,11 @@ type Attribute struct {
 	Value string `json:"value" xml:"Value"`
 }
 
+type AutoTransferBillingGroupCreationPreference struct {
+	Enabled        bool   `json:"enabled" xml:"Enabled"`
+	PricingPlanArn string `json:"pricingPlanArn" xml:"PricingPlanArn"`
+}
+
 type BatchAssociateResourcesToCustomLineItemInput struct {
 	BillingPeriodRange *CustomLineItemBillingPeriodRange   `json:"billingPeriodRange" xml:"BillingPeriodRange"`
 	ResourceArns       CustomLineItemBatchAssociationsList `json:"resourceArns" xml:"ResourceArns"`
@@ -180,7 +185,8 @@ type CreatePricingRuleOutput struct {
 }
 
 type CreateTieringInput struct {
-	FreeTier *CreateFreeTierConfig `json:"freeTier" xml:"FreeTier"`
+	CustomTiers CustomTiersList       `json:"customTiers" xml:"CustomTiers"`
+	FreeTier    *CreateFreeTierConfig `json:"freeTier" xml:"FreeTier"`
 }
 
 type CustomLineItemBillingPeriodRange struct {
@@ -237,6 +243,12 @@ type CustomLineItemVersionListElement struct {
 	ProductCode         string                           `json:"productCode" xml:"ProductCode"`
 	StartBillingPeriod  string                           `json:"startBillingPeriod" xml:"StartBillingPeriod"`
 	StartTime           int64                            `json:"startTime" xml:"StartTime"`
+}
+
+type CustomTier struct {
+	BeginRangeInclusive float64 `json:"beginRangeInclusive" xml:"BeginRangeInclusive"`
+	EndRangeExclusive   float64 `json:"endRangeExclusive" xml:"EndRangeExclusive"`
+	RateValue           float64 `json:"rateValue" xml:"RateValue"`
 }
 
 type DeleteBillingGroupInput struct {
@@ -310,6 +322,16 @@ type GetBillingGroupCostReportInput struct {
 type GetBillingGroupCostReportOutput struct {
 	BillingGroupCostReportResults BillingGroupCostReportResultsList `json:"billingGroupCostReportResults" xml:"BillingGroupCostReportResults"`
 	NextToken                     string                            `json:"nextToken" xml:"NextToken"`
+}
+
+type GetBillingTransferPreferenceInput struct {
+	ResponsibilityTransferArn string `json:"responsibilityTransferArn" xml:"ResponsibilityTransferArn"`
+}
+
+type GetBillingTransferPreferenceOutput struct {
+	AutoBillingTransferBillingGroupCreation *AutoTransferBillingGroupCreationPreference `json:"autoBillingTransferBillingGroupCreation" xml:"AutoBillingTransferBillingGroupCreation"`
+	LastModifiedTime                        int64                                       `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	ResponsibilityTransferArn               string                                      `json:"responsibilityTransferArn" xml:"ResponsibilityTransferArn"`
 }
 
 type LineItemFilter struct {
@@ -573,7 +595,8 @@ type TagResourceResponse struct {
 }
 
 type Tiering struct {
-	FreeTier *FreeTierConfig `json:"freeTier" xml:"FreeTier"`
+	CustomTiers CustomTiersList `json:"customTiers" xml:"CustomTiers"`
+	FreeTier    *FreeTierConfig `json:"freeTier" xml:"FreeTier"`
 }
 
 type UntagResourceRequest struct {
@@ -609,6 +632,18 @@ type UpdateBillingGroupOutput struct {
 	Size             int64                              `json:"size" xml:"Size"`
 	Status           string                             `json:"status" xml:"Status"`
 	StatusReason     string                             `json:"statusReason" xml:"StatusReason"`
+}
+
+type UpdateBillingTransferPreferenceInput struct {
+	AutoBillingTransferBillingGroupCreation *AutoTransferBillingGroupCreationPreference `json:"autoBillingTransferBillingGroupCreation" xml:"AutoBillingTransferBillingGroupCreation"`
+	ClientToken                             string                                      `json:"clientToken" xml:"ClientToken"`
+	ResponsibilityTransferArn               string                                      `json:"responsibilityTransferArn" xml:"ResponsibilityTransferArn"`
+}
+
+type UpdateBillingTransferPreferenceOutput struct {
+	AutoBillingTransferBillingGroupCreation *AutoTransferBillingGroupCreationPreference `json:"autoBillingTransferBillingGroupCreation" xml:"AutoBillingTransferBillingGroupCreation"`
+	LastModifiedTime                        int64                                       `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	ResponsibilityTransferArn               string                                      `json:"responsibilityTransferArn" xml:"ResponsibilityTransferArn"`
 }
 
 type UpdateCustomLineItemChargeDetails struct {
@@ -687,7 +722,8 @@ type UpdatePricingRuleOutput struct {
 }
 
 type UpdateTieringInput struct {
-	FreeTier *UpdateFreeTierConfig `json:"freeTier" xml:"FreeTier"`
+	CustomTiers CustomTiersList       `json:"customTiers" xml:"CustomTiers"`
+	FreeTier    *UpdateFreeTierConfig `json:"freeTier" xml:"FreeTier"`
 }
 
 type ValidationExceptionField struct {
@@ -732,6 +768,8 @@ type CustomLineItemList []*CustomLineItemListElement
 type CustomLineItemNameList []string
 
 type CustomLineItemVersionList []*CustomLineItemVersionListElement
+
+type CustomTiersList []*CustomTier
 
 type DisassociateResourcesResponseList []*DisassociateResourceResponseElement
 

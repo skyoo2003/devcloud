@@ -1636,6 +1636,40 @@ func (e *PartnerNotFoundFault) HTTPStatus() int {
 	return 404
 }
 
+// Qev2IdcApplicationAlreadyExistsFault is returned with HTTP status 400.
+type Qev2IdcApplicationAlreadyExistsFault struct {
+	Message string
+}
+
+func (e *Qev2IdcApplicationAlreadyExistsFault) Error() string {
+	return fmt.Sprintf("Qev2IdcApplicationAlreadyExistsFault: %s", e.Message)
+}
+
+func (e *Qev2IdcApplicationAlreadyExistsFault) ErrorCode() string {
+	return "Qev2IdcApplicationAlreadyExistsFault"
+}
+
+func (e *Qev2IdcApplicationAlreadyExistsFault) HTTPStatus() int {
+	return 400
+}
+
+// Qev2IdcApplicationNotExistsFault is returned with HTTP status 404.
+type Qev2IdcApplicationNotExistsFault struct {
+	Message string
+}
+
+func (e *Qev2IdcApplicationNotExistsFault) Error() string {
+	return fmt.Sprintf("Qev2IdcApplicationNotExistsFault: %s", e.Message)
+}
+
+func (e *Qev2IdcApplicationNotExistsFault) ErrorCode() string {
+	return "Qev2IdcApplicationNotExistsFault"
+}
+
+func (e *Qev2IdcApplicationNotExistsFault) HTTPStatus() int {
+	return 404
+}
+
 // RedshiftIdcApplicationAlreadyExistsFault is returned with HTTP status 400.
 type RedshiftIdcApplicationAlreadyExistsFault struct {
 	Message string

@@ -55,6 +55,10 @@ func (b *BaseProvider) GetResourcePolicy(ctx context.Context, input *GetResource
 	return nil, fmt.Errorf("GetResourcePolicy: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListBillingViewSegments(ctx context.Context, input *ListBillingViewSegmentsRequest) (*ListBillingViewSegmentsResponse, error) {
+	return nil, fmt.Errorf("ListBillingViewSegments: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListBillingViews(ctx context.Context, input *ListBillingViewsRequest) (*ListBillingViewsResponse, error) {
 	return nil, fmt.Errorf("ListBillingViews: %w", ErrNotImplemented)
 }

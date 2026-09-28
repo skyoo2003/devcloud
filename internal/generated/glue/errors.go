@@ -752,6 +752,23 @@ func (e *SchedulerTransitioningException) HTTPStatus() int {
 	return 0
 }
 
+// SessionBusyException is returned with HTTP status 0.
+type SessionBusyException struct {
+	Message string
+}
+
+func (e *SessionBusyException) Error() string {
+	return fmt.Sprintf("SessionBusyException: %s", e.Message)
+}
+
+func (e *SessionBusyException) ErrorCode() string {
+	return "SessionBusyException"
+}
+
+func (e *SessionBusyException) HTTPStatus() int {
+	return 0
+}
+
 // TargetResourceNotFound is returned with HTTP status 404.
 type TargetResourceNotFound struct {
 	Message string

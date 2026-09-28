@@ -440,6 +440,7 @@ type DescribeEventBusResponse struct {
 	KmsKeyIdentifier string            `json:"kmsKeyIdentifier" xml:"KmsKeyIdentifier"`
 	LastModifiedTime time.Time         `json:"lastModifiedTime" xml:"LastModifiedTime"`
 	LogConfig        *LogConfig        `json:"logConfig" xml:"LogConfig"`
+	ManagedBy        string            `json:"managedBy" xml:"ManagedBy"`
 	Name             string            `json:"name" xml:"Name"`
 	Policy           string            `json:"policy" xml:"Policy"`
 }
@@ -555,6 +556,7 @@ type EventBus struct {
 	CreationTime     time.Time `json:"creationTime" xml:"CreationTime"`
 	Description      string    `json:"description" xml:"Description"`
 	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	ManagedBy        string    `json:"managedBy" xml:"ManagedBy"`
 	Name             string    `json:"name" xml:"Name"`
 	Policy           string    `json:"policy" xml:"Policy"`
 }

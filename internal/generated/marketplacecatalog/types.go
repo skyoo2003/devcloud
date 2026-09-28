@@ -636,6 +636,7 @@ type ResaleAuthorizationFilters struct {
 	AvailabilityEndDate   *ResaleAuthorizationAvailabilityEndDateFilter   `json:"availabilityEndDate" xml:"AvailabilityEndDate"`
 	CreatedDate           *ResaleAuthorizationCreatedDateFilter           `json:"createdDate" xml:"CreatedDate"`
 	EntityId              *ResaleAuthorizationEntityIdFilter              `json:"entityId" xml:"EntityId"`
+	IssuerAccountId       *ResaleAuthorizationIssuerAccountIdFilter       `json:"issuerAccountId" xml:"IssuerAccountId"`
 	LastModifiedDate      *ResaleAuthorizationLastModifiedDateFilter      `json:"lastModifiedDate" xml:"LastModifiedDate"`
 	ManufacturerAccountId *ResaleAuthorizationManufacturerAccountIdFilter `json:"manufacturerAccountId" xml:"ManufacturerAccountId"`
 	ManufacturerLegalName *ResaleAuthorizationManufacturerLegalNameFilter `json:"manufacturerLegalName" xml:"ManufacturerLegalName"`
@@ -646,7 +647,12 @@ type ResaleAuthorizationFilters struct {
 	ResellerAccountID     *ResaleAuthorizationResellerAccountIDFilter     `json:"resellerAccountID" xml:"ResellerAccountID"`
 	ResellerLegalName     *ResaleAuthorizationResellerLegalNameFilter     `json:"resellerLegalName" xml:"ResellerLegalName"`
 	ResellerRole          *ResaleAuthorizationResellerRoleFilter          `json:"resellerRole" xml:"ResellerRole"`
+	SourceAuthorization   *ResaleAuthorizationSourceAuthorizationFilter   `json:"sourceAuthorization" xml:"SourceAuthorization"`
 	Status                *ResaleAuthorizationStatusFilter                `json:"status" xml:"Status"`
+}
+
+type ResaleAuthorizationIssuerAccountIdFilter struct {
+	ValueList ResaleAuthorizationIssuerAccountIdFilterValueList `json:"valueList" xml:"ValueList"`
 }
 
 type ResaleAuthorizationLastModifiedDateFilter struct {
@@ -706,6 +712,10 @@ type ResaleAuthorizationSort struct {
 	SortOrder string `json:"sortOrder" xml:"SortOrder"`
 }
 
+type ResaleAuthorizationSourceAuthorizationFilter struct {
+	ValueList ResaleAuthorizationSourceAuthorizationFilterValueList `json:"valueList" xml:"ValueList"`
+}
+
 type ResaleAuthorizationStatusFilter struct {
 	ValueList ResaleAuthorizationStatusFilterValueList `json:"valueList" xml:"ValueList"`
 }
@@ -713,6 +723,7 @@ type ResaleAuthorizationStatusFilter struct {
 type ResaleAuthorizationSummary struct {
 	AvailabilityEndDate   string `json:"availabilityEndDate" xml:"AvailabilityEndDate"`
 	CreatedDate           string `json:"createdDate" xml:"CreatedDate"`
+	IssuerAccountId       string `json:"issuerAccountId" xml:"IssuerAccountId"`
 	ManufacturerAccountId string `json:"manufacturerAccountId" xml:"ManufacturerAccountId"`
 	ManufacturerLegalName string `json:"manufacturerLegalName" xml:"ManufacturerLegalName"`
 	Name                  string `json:"name" xml:"Name"`
@@ -722,6 +733,7 @@ type ResaleAuthorizationSummary struct {
 	ResellerAccountID     string `json:"resellerAccountID" xml:"ResellerAccountID"`
 	ResellerLegalName     string `json:"resellerLegalName" xml:"ResellerLegalName"`
 	ResellerRole          string `json:"resellerRole" xml:"ResellerRole"`
+	SourceAuthorization   string `json:"sourceAuthorization" xml:"SourceAuthorization"`
 	Status                string `json:"status" xml:"Status"`
 }
 
@@ -901,6 +913,8 @@ type ResaleAuthorizationCreatedDateFilterValueList []string
 
 type ResaleAuthorizationEntityIdFilterValueList []string
 
+type ResaleAuthorizationIssuerAccountIdFilterValueList []string
+
 type ResaleAuthorizationManufacturerAccountIdFilterValueList []string
 
 type ResaleAuthorizationManufacturerLegalNameFilterValueList []string
@@ -918,6 +932,8 @@ type ResaleAuthorizationResellerAccountIDFilterValueList []string
 type ResaleAuthorizationResellerLegalNameFilterValueList []string
 
 type ResaleAuthorizationResellerRoleFilterValueList []string
+
+type ResaleAuthorizationSourceAuthorizationFilterValueList []string
 
 type ResaleAuthorizationStatusFilterValueList []string
 

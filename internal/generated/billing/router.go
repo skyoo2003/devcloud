@@ -23,6 +23,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "GetEnterpriseSupportChargeSummary"},
 	{Method: "", Pattern: "", Operation: "GetEnterpriseSupportContractDetails"},
 	{Method: "", Pattern: "", Operation: "GetResourcePolicy"},
+	{Method: "", Pattern: "", Operation: "ListBillingViewSegments"},
 	{Method: "POST", Pattern: "/", Operation: "ListBillingViews"},
 	{Method: "", Pattern: "", Operation: "ListEnterpriseSupportLinkedAccountCharges"},
 	{Method: "", Pattern: "", Operation: "ListSourceViewsForBillingView"},

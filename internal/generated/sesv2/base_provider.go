@@ -11,6 +11,10 @@ var ErrNotImplemented = fmt.Errorf("operation not implemented")
 
 type BaseProvider struct{}
 
+func (b *BaseProvider) AssociateEmailIdentityCertificate(ctx context.Context, input *AssociateEmailIdentityCertificateRequest) (*AssociateEmailIdentityCertificateResponse, error) {
+	return nil, fmt.Errorf("AssociateEmailIdentityCertificate: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) BatchGetMetricData(ctx context.Context, input *BatchGetMetricDataRequest) (*BatchGetMetricDataResponse, error) {
 	return nil, fmt.Errorf("BatchGetMetricData: %w", ErrNotImplemented)
 }
@@ -129,6 +133,10 @@ func (b *BaseProvider) DeleteTenant(ctx context.Context, input *DeleteTenantRequ
 
 func (b *BaseProvider) DeleteTenantResourceAssociation(ctx context.Context, input *DeleteTenantResourceAssociationRequest) (*DeleteTenantResourceAssociationResponse, error) {
 	return nil, fmt.Errorf("DeleteTenantResourceAssociation: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DisassociateEmailIdentityCertificate(ctx context.Context, input *DisassociateEmailIdentityCertificateRequest) (*DisassociateEmailIdentityCertificateResponse, error) {
+	return nil, fmt.Errorf("DisassociateEmailIdentityCertificate: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) GetAccount(ctx context.Context, input *GetAccountRequest) (*GetAccountResponse, error) {
@@ -263,6 +271,10 @@ func (b *BaseProvider) ListEmailIdentities(ctx context.Context, input *ListEmail
 	return nil, fmt.Errorf("ListEmailIdentities: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListEmailIdentityCertificates(ctx context.Context, input *ListEmailIdentityCertificatesRequest) (*ListEmailIdentityCertificatesResponse, error) {
+	return nil, fmt.Errorf("ListEmailIdentityCertificates: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListEmailTemplates(ctx context.Context, input *ListEmailTemplatesRequest) (*ListEmailTemplatesResponse, error) {
 	return nil, fmt.Errorf("ListEmailTemplates: %w", ErrNotImplemented)
 }
@@ -313,6 +325,10 @@ func (b *BaseProvider) PutAccountDedicatedIpWarmupAttributes(ctx context.Context
 
 func (b *BaseProvider) PutAccountDetails(ctx context.Context, input *PutAccountDetailsRequest) (*PutAccountDetailsResponse, error) {
 	return nil, fmt.Errorf("PutAccountDetails: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutAccountPricingAttributes(ctx context.Context, input *PutAccountPricingAttributesRequest) (*PutAccountPricingAttributesResponse, error) {
+	return nil, fmt.Errorf("PutAccountPricingAttributes: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) PutAccountSendingAttributes(ctx context.Context, input *PutAccountSendingAttributesRequest) (*PutAccountSendingAttributesResponse, error) {
@@ -395,6 +411,10 @@ func (b *BaseProvider) PutSuppressedDestination(ctx context.Context, input *PutS
 	return nil, fmt.Errorf("PutSuppressedDestination: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) PutTenantSuppressionAttributes(ctx context.Context, input *PutTenantSuppressionAttributesRequest) (*PutTenantSuppressionAttributesResponse, error) {
+	return nil, fmt.Errorf("PutTenantSuppressionAttributes: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) SendBulkEmail(ctx context.Context, input *SendBulkEmailRequest) (*SendBulkEmailResponse, error) {
 	return nil, fmt.Errorf("SendBulkEmail: %w", ErrNotImplemented)
 }
@@ -417,6 +437,10 @@ func (b *BaseProvider) TestRenderEmailTemplate(ctx context.Context, input *TestR
 
 func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceRequest) (*UntagResourceResponse, error) {
 	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateConfigurationSet(ctx context.Context, input *UpdateConfigurationSetRequest) (*UpdateConfigurationSetResponse, error) {
+	return nil, fmt.Errorf("UpdateConfigurationSet: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateConfigurationSetEventDestination(ctx context.Context, input *UpdateConfigurationSetEventDestinationRequest) (*UpdateConfigurationSetEventDestinationResponse, error) {

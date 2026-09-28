@@ -85,6 +85,14 @@ type ComponentConfiguration struct {
 	Parameters   ComponentParameterList `json:"parameters" xml:"parameters"`
 }
 
+type ComponentFailureContext struct {
+	Action       string `json:"action" xml:"action"`
+	ComponentArn string `json:"componentArn" xml:"componentArn"`
+	ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
+	PhaseName    string `json:"phaseName" xml:"phaseName"`
+	StepName     string `json:"stepName" xml:"stepName"`
+}
+
 type ComponentParameter struct {
 	Name  string                      `json:"name" xml:"name"`
 	Value ComponentParameterValueList `json:"value" xml:"value"`
@@ -205,6 +213,7 @@ type CreateContainerRecipeRequest struct {
 	Description            string                     `json:"description" xml:"description"`
 	DockerfileTemplateData string                     `json:"dockerfileTemplateData" xml:"dockerfileTemplateData"`
 	DockerfileTemplateUri  string                     `json:"dockerfileTemplateUri" xml:"dockerfileTemplateUri"`
+	DryRun                 bool                       `json:"dryRun" xml:"dryRun"`
 	ImageOsVersionOverride string                     `json:"imageOsVersionOverride" xml:"imageOsVersionOverride"`
 	InstanceConfiguration  *InstanceConfiguration     `json:"instanceConfiguration" xml:"instanceConfiguration"`
 	KmsKeyId               string                     `json:"kmsKeyId" xml:"kmsKeyId"`
@@ -228,6 +237,7 @@ type CreateDistributionConfigurationRequest struct {
 	ClientToken   string           `json:"clientToken" xml:"clientToken"`
 	Description   string           `json:"description" xml:"description"`
 	Distributions DistributionList `json:"distributions" xml:"distributions"`
+	DryRun        bool             `json:"dryRun" xml:"dryRun"`
 	Name          string           `json:"name" xml:"name"`
 	Tags          TagMap           `json:"tags" xml:"tags"`
 }
@@ -243,6 +253,7 @@ type CreateImagePipelineRequest struct {
 	ContainerRecipeArn             string                        `json:"containerRecipeArn" xml:"containerRecipeArn"`
 	Description                    string                        `json:"description" xml:"description"`
 	DistributionConfigurationArn   string                        `json:"distributionConfigurationArn" xml:"distributionConfigurationArn"`
+	DryRun                         bool                          `json:"dryRun" xml:"dryRun"`
 	EnhancedImageMetadataEnabled   bool                          `json:"enhancedImageMetadataEnabled" xml:"enhancedImageMetadataEnabled"`
 	ExecutionRole                  string                        `json:"executionRole" xml:"executionRole"`
 	ImageRecipeArn                 string                        `json:"imageRecipeArn" xml:"imageRecipeArn"`
@@ -272,6 +283,7 @@ type CreateImageRecipeRequest struct {
 	ClientToken                     string                           `json:"clientToken" xml:"clientToken"`
 	Components                      ComponentConfigurationList       `json:"components" xml:"components"`
 	Description                     string                           `json:"description" xml:"description"`
+	DryRun                          bool                             `json:"dryRun" xml:"dryRun"`
 	Name                            string                           `json:"name" xml:"name"`
 	ParentImage                     string                           `json:"parentImage" xml:"parentImage"`
 	SemanticVersion                 string                           `json:"semanticVersion" xml:"semanticVersion"`
@@ -311,6 +323,7 @@ type CreateImageResponse struct {
 type CreateInfrastructureConfigurationRequest struct {
 	ClientToken                string                   `json:"clientToken" xml:"clientToken"`
 	Description                string                   `json:"description" xml:"description"`
+	DryRun                     bool                     `json:"dryRun" xml:"dryRun"`
 	InstanceMetadataOptions    *InstanceMetadataOptions `json:"instanceMetadataOptions" xml:"instanceMetadataOptions"`
 	InstanceProfileName        string                   `json:"instanceProfileName" xml:"instanceProfileName"`
 	InstanceTypes              InstanceTypeList         `json:"instanceTypes" xml:"instanceTypes"`
@@ -335,6 +348,7 @@ type CreateInfrastructureConfigurationResponse struct {
 type CreateLifecyclePolicyRequest struct {
 	ClientToken       string                            `json:"clientToken" xml:"clientToken"`
 	Description       string                            `json:"description" xml:"description"`
+	DryRun            bool                              `json:"dryRun" xml:"dryRun"`
 	ExecutionRole     string                            `json:"executionRole" xml:"executionRole"`
 	Name              string                            `json:"name" xml:"name"`
 	PolicyDetails     LifecyclePolicyDetails            `json:"policyDetails" xml:"policyDetails"`
@@ -513,6 +527,11 @@ type DistributionConfigurationSummary struct {
 	Name        string     `json:"name" xml:"name"`
 	Regions     RegionList `json:"regions" xml:"regions"`
 	Tags        TagMap     `json:"tags" xml:"tags"`
+}
+
+type DistributionFailureContext struct {
+	ErrorMessage   string            `json:"errorMessage" xml:"errorMessage"`
+	RegionFailures RegionFailureList `json:"regionFailures" xml:"regionFailures"`
 }
 
 type EbsInstanceBlockDeviceSpecification struct {
@@ -721,10 +740,12 @@ type GetWorkflowStepExecutionRequest struct {
 
 type GetWorkflowStepExecutionResponse struct {
 	Action                  string `json:"action" xml:"action"`
+	AttemptNumber           int32  `json:"attemptNumber" xml:"attemptNumber"`
 	Description             string `json:"description" xml:"description"`
 	EndTime                 string `json:"endTime" xml:"endTime"`
 	ImageBuildVersionArn    string `json:"imageBuildVersionArn" xml:"imageBuildVersionArn"`
 	Inputs                  string `json:"inputs" xml:"inputs"`
+	MaxAttempts             int32  `json:"maxAttempts" xml:"maxAttempts"`
 	Message                 string `json:"message" xml:"message"`
 	Name                    string `json:"name" xml:"name"`
 	OnFailure               string `json:"onFailure" xml:"onFailure"`
@@ -772,6 +793,16 @@ type Image struct {
 type ImageAggregation struct {
 	ImageBuildVersionArn string          `json:"imageBuildVersionArn" xml:"imageBuildVersionArn"`
 	SeverityCounts       *SeverityCounts `json:"severityCounts" xml:"severityCounts"`
+}
+
+type ImageFailureContext struct {
+	ComponentFailure    *ComponentFailureContext    `json:"componentFailure" xml:"componentFailure"`
+	DistributionFailure *DistributionFailureContext `json:"distributionFailure" xml:"distributionFailure"`
+	FailedStep          string                      `json:"failedStep" xml:"failedStep"`
+	ImageStatus         string                      `json:"imageStatus" xml:"imageStatus"`
+	StepExecutionId     string                      `json:"stepExecutionId" xml:"stepExecutionId"`
+	WorkflowArn         string                      `json:"workflowArn" xml:"workflowArn"`
+	WorkflowExecutionId string                      `json:"workflowExecutionId" xml:"workflowExecutionId"`
 }
 
 type ImageLoggingConfiguration struct {
@@ -884,8 +915,9 @@ type ImageScanningConfiguration struct {
 }
 
 type ImageState struct {
-	Reason string `json:"reason" xml:"reason"`
-	Status string `json:"status" xml:"status"`
+	FailureContext *ImageFailureContext `json:"failureContext" xml:"failureContext"`
+	Reason         string               `json:"reason" xml:"reason"`
+	Status         string               `json:"status" xml:"status"`
 }
 
 type ImageSummary struct {
@@ -1536,6 +1568,14 @@ type PutImageRecipePolicyResponse struct {
 	RequestId      string `json:"requestId" xml:"requestId"`
 }
 
+type RegionFailure struct {
+	ErrorMessage           string `json:"errorMessage" xml:"errorMessage"`
+	ImageConfigurationStep string `json:"imageConfigurationStep" xml:"imageConfigurationStep"`
+	Region                 string `json:"region" xml:"region"`
+	Status                 string `json:"status" xml:"status"`
+	TargetAccountId        string `json:"targetAccountId" xml:"targetAccountId"`
+}
+
 type RegisterImageOptions struct {
 	SecureBootEnabled bool   `json:"secureBootEnabled" xml:"secureBootEnabled"`
 	UefiData          string `json:"uefiData" xml:"uefiData"`
@@ -1838,9 +1878,11 @@ type WorkflowStepExecution struct {
 
 type WorkflowStepMetadata struct {
 	Action          string `json:"action" xml:"action"`
+	AttemptNumber   int32  `json:"attemptNumber" xml:"attemptNumber"`
 	Description     string `json:"description" xml:"description"`
 	EndTime         string `json:"endTime" xml:"endTime"`
 	Inputs          string `json:"inputs" xml:"inputs"`
+	MaxAttempts     int32  `json:"maxAttempts" xml:"maxAttempts"`
 	Message         string `json:"message" xml:"message"`
 	Name            string `json:"name" xml:"name"`
 	Outputs         string `json:"outputs" xml:"outputs"`
@@ -1958,6 +2000,8 @@ type OrganizationalUnitArnList []string
 type OsVersionList []string
 
 type ProductCodeList []*ProductCodeListItem
+
+type RegionFailureList []*RegionFailure
 
 type RegionList []string
 

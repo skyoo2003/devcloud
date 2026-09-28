@@ -236,10 +236,11 @@ type BedrockDataAutomationConfiguration struct {
 }
 
 type BedrockEmbeddingModelConfiguration struct {
-	Audio             AudioConfigurations `json:"audio" xml:"audio"`
-	Dimensions        int32               `json:"dimensions" xml:"dimensions"`
-	EmbeddingDataType string              `json:"embeddingDataType" xml:"embeddingDataType"`
-	Video             VideoConfigurations `json:"video" xml:"video"`
+	Audio              AudioConfigurations `json:"audio" xml:"audio"`
+	Dimensions         int32               `json:"dimensions" xml:"dimensions"`
+	EmbeddingDataType  string              `json:"embeddingDataType" xml:"embeddingDataType"`
+	ModelConfiguration interface{}         `json:"modelConfiguration" xml:"modelConfiguration"`
+	Video              VideoConfigurations `json:"video" xml:"video"`
 }
 
 type BedrockFoundationModelConfiguration struct {
@@ -499,6 +500,26 @@ type CreatePromptVersionResponse struct {
 	Version                  string            `json:"version" xml:"version"`
 }
 
+type CreateVpcConfigurationRequest struct {
+	ClientToken     string       `json:"clientToken" xml:"clientToken"`
+	Description     string       `json:"description" xml:"description"`
+	HostHeader      string       `json:"hostHeader" xml:"hostHeader"`
+	KnowledgeBaseId string       `json:"knowledgeBaseId" xml:"knowledgeBaseId"`
+	Name            string       `json:"name" xml:"name"`
+	Port            int32        `json:"port" xml:"port"`
+	Protocol        string       `json:"protocol" xml:"protocol"`
+	ResolutionMode  string       `json:"resolutionMode" xml:"resolutionMode"`
+	ResourceTarget  string       `json:"resourceTarget" xml:"resourceTarget"`
+	SubnetIds       SubnetIdList `json:"subnetIds" xml:"subnetIds"`
+	TlsServerName   string       `json:"tlsServerName" xml:"tlsServerName"`
+	VpcId           string       `json:"vpcId" xml:"vpcId"`
+}
+
+type CreateVpcConfigurationResponse struct {
+	Status             string `json:"status" xml:"status"`
+	VpcConfigurationId string `json:"vpcConfigurationId" xml:"vpcConfigurationId"`
+}
+
 type CuratedQuery struct {
 	NaturalLanguage string `json:"naturalLanguage" xml:"naturalLanguage"`
 	Sql             string `json:"sql" xml:"sql"`
@@ -692,6 +713,16 @@ type DeleteResourcePolicyRequest struct {
 type DeleteResourcePolicyResponse struct {
 	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 	RevisionId  string `json:"revisionId" xml:"revisionId"`
+}
+
+type DeleteVpcConfigurationRequest struct {
+	KnowledgeBaseId    string `json:"knowledgeBaseId" xml:"knowledgeBaseId"`
+	VpcConfigurationId string `json:"vpcConfigurationId" xml:"vpcConfigurationId"`
+}
+
+type DeleteVpcConfigurationResponse struct {
+	Status             string `json:"status" xml:"status"`
+	VpcConfigurationId string `json:"vpcConfigurationId" xml:"vpcConfigurationId"`
 }
 
 type DeletionProtectionConfiguration struct {
@@ -1046,6 +1077,15 @@ type GetResourcePolicyResponse struct {
 	Policy      string `json:"policy" xml:"policy"`
 	ResourceArn string `json:"resourceArn" xml:"resourceArn"`
 	RevisionId  string `json:"revisionId" xml:"revisionId"`
+}
+
+type GetVpcConfigurationRequest struct {
+	KnowledgeBaseId    string `json:"knowledgeBaseId" xml:"knowledgeBaseId"`
+	VpcConfigurationId string `json:"vpcConfigurationId" xml:"vpcConfigurationId"`
+}
+
+type GetVpcConfigurationResponse struct {
+	VpcConfiguration *VpcConfiguration `json:"vpcConfiguration" xml:"vpcConfiguration"`
 }
 
 type GuardrailConfiguration struct {
@@ -1409,6 +1449,18 @@ type ListTagsForResourceResponse struct {
 	Tags TagsMap `json:"tags" xml:"tags"`
 }
 
+type ListVpcConfigurationsRequest struct {
+	KnowledgeBaseId string `json:"knowledgeBaseId" xml:"knowledgeBaseId"`
+	MaxResults      int32  `json:"maxResults" xml:"maxResults"`
+	NextToken       string `json:"nextToken" xml:"nextToken"`
+	StatusFilter    string `json:"statusFilter" xml:"statusFilter"`
+}
+
+type ListVpcConfigurationsResponse struct {
+	Items     VpcConfigurationSummaryList `json:"items" xml:"items"`
+	NextToken string                      `json:"nextToken" xml:"nextToken"`
+}
+
 type LoopControllerFlowNodeConfiguration struct {
 	ContinueCondition *FlowCondition `json:"continueCondition" xml:"continueCondition"`
 	MaxIterations     int32          `json:"maxIterations" xml:"maxIterations"`
@@ -1440,10 +1492,11 @@ type MalformedNodeInputExpressionFlowValidationDetails struct {
 }
 
 type ManagedKnowledgeBaseConfiguration struct {
-	EmbeddingModelArn                 string                             `json:"embeddingModelArn" xml:"embeddingModelArn"`
-	EmbeddingModelConfiguration       *EmbeddingModelConfiguration       `json:"embeddingModelConfiguration" xml:"embeddingModelConfiguration"`
-	EmbeddingModelType                string                             `json:"embeddingModelType" xml:"embeddingModelType"`
-	ServerSideEncryptionConfiguration *ServerSideEncryptionConfiguration `json:"serverSideEncryptionConfiguration" xml:"serverSideEncryptionConfiguration"`
+	EmbeddingModelArn                    string                                `json:"embeddingModelArn" xml:"embeddingModelArn"`
+	EmbeddingModelConfiguration          *EmbeddingModelConfiguration          `json:"embeddingModelConfiguration" xml:"embeddingModelConfiguration"`
+	EmbeddingModelType                   string                                `json:"embeddingModelType" xml:"embeddingModelType"`
+	ServerSideEncryptionConfiguration    *ServerSideEncryptionConfiguration    `json:"serverSideEncryptionConfiguration" xml:"serverSideEncryptionConfiguration"`
+	SupplementalDataStorageConfiguration *SupplementalDataStorageConfiguration `json:"supplementalDataStorageConfiguration" xml:"supplementalDataStorageConfiguration"`
 }
 
 type ManagedKnowledgeBaseConnectorConfiguration struct {
@@ -2324,6 +2377,40 @@ type VideoSegmentationConfiguration struct {
 	FixedLengthDuration int32 `json:"fixedLengthDuration" xml:"fixedLengthDuration"`
 }
 
+type VpcConfiguration struct {
+	CreatedAt          time.Time    `json:"createdAt" xml:"createdAt"`
+	Description        string       `json:"description" xml:"description"`
+	HostHeader         string       `json:"hostHeader" xml:"hostHeader"`
+	Name               string       `json:"name" xml:"name"`
+	Port               int32        `json:"port" xml:"port"`
+	Protocol           string       `json:"protocol" xml:"protocol"`
+	ResolutionMode     string       `json:"resolutionMode" xml:"resolutionMode"`
+	ResourceTarget     string       `json:"resourceTarget" xml:"resourceTarget"`
+	Status             string       `json:"status" xml:"status"`
+	StatusMessage      string       `json:"statusMessage" xml:"statusMessage"`
+	SubnetIds          SubnetIdList `json:"subnetIds" xml:"subnetIds"`
+	TlsServerName      string       `json:"tlsServerName" xml:"tlsServerName"`
+	UpdatedAt          time.Time    `json:"updatedAt" xml:"updatedAt"`
+	VpcConfigurationId string       `json:"vpcConfigurationId" xml:"vpcConfigurationId"`
+	VpcId              string       `json:"vpcId" xml:"vpcId"`
+}
+
+type VpcConfigurationSummary struct {
+	CreatedAt          time.Time `json:"createdAt" xml:"createdAt"`
+	Description        string    `json:"description" xml:"description"`
+	HostHeader         string    `json:"hostHeader" xml:"hostHeader"`
+	Name               string    `json:"name" xml:"name"`
+	Port               int32     `json:"port" xml:"port"`
+	Protocol           string    `json:"protocol" xml:"protocol"`
+	ResolutionMode     string    `json:"resolutionMode" xml:"resolutionMode"`
+	ResourceTarget     string    `json:"resourceTarget" xml:"resourceTarget"`
+	Status             string    `json:"status" xml:"status"`
+	StatusMessage      string    `json:"statusMessage" xml:"statusMessage"`
+	TlsServerName      string    `json:"tlsServerName" xml:"tlsServerName"`
+	VpcConfigurationId string    `json:"vpcConfigurationId" xml:"vpcConfigurationId"`
+	VpcId              string    `json:"vpcId" xml:"vpcId"`
+}
+
 type WebCrawlerConfiguration struct {
 	CrawlerLimits    *WebCrawlerLimits `json:"crawlerLimits" xml:"crawlerLimits"`
 	ExclusionFilters FilterList        `json:"exclusionFilters" xml:"exclusionFilters"`
@@ -2459,6 +2546,8 @@ type StopSequences []string
 
 type StringListValue []string
 
+type SubnetIdList []string
+
 type SupplementalDataStorageLocations []*SupplementalDataStorageLocation
 
 type SystemContentBlocks []interface{}
@@ -2472,6 +2561,8 @@ type Transformations []*Transformation
 type ValidationExceptionFieldList []*ValidationExceptionField
 
 type VideoConfigurations []*VideoConfiguration
+
+type VpcConfigurationSummaryList []*VpcConfigurationSummary
 
 type ActionGroupSignatureParams map[string]string
 

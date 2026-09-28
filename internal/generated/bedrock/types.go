@@ -28,6 +28,22 @@ type AccountEnforcedGuardrailOutputConfiguration struct {
 	UpdatedBy                string                    `json:"updatedBy" xml:"updatedBy"`
 }
 
+type AdvancedPromptOptimizationInputConfig struct {
+	S3Uri string `json:"s3Uri" xml:"s3Uri"`
+}
+
+type AdvancedPromptOptimizationJobSummary struct {
+	CreationTime     time.Time `json:"creationTime" xml:"creationTime"`
+	JobArn           string    `json:"jobArn" xml:"jobArn"`
+	JobName          string    `json:"jobName" xml:"jobName"`
+	JobStatus        string    `json:"jobStatus" xml:"jobStatus"`
+	LastModifiedTime time.Time `json:"lastModifiedTime" xml:"lastModifiedTime"`
+}
+
+type AdvancedPromptOptimizationOutputConfig struct {
+	S3Uri string `json:"s3Uri" xml:"s3Uri"`
+}
+
 type AgreementAvailability struct {
 	ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
 	Status       string `json:"status" xml:"status"`
@@ -327,6 +343,11 @@ type AutomatedReasoningPolicyIngestContentAnnotation struct {
 	Content string `json:"content" xml:"content"`
 }
 
+type AutomatedReasoningPolicyIterativeRefinementContent struct {
+	Documents AutomatedReasoningPolicyIterativeRefinementDocumentList `json:"documents" xml:"documents"`
+	Feedback  string                                                  `json:"feedback" xml:"feedback"`
+}
+
 type AutomatedReasoningPolicyPlanning struct {
 }
 
@@ -459,6 +480,26 @@ type AutomatedReasoningPolicyVariableReport struct {
 	PolicyVariable          string                                         `json:"policyVariable" xml:"policyVariable"`
 }
 
+type BatchDeleteAdvancedPromptOptimizationJobError struct {
+	Code          string `json:"code" xml:"code"`
+	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+	Message       string `json:"message" xml:"message"`
+}
+
+type BatchDeleteAdvancedPromptOptimizationJobItem struct {
+	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+	JobStatus     string `json:"jobStatus" xml:"jobStatus"`
+}
+
+type BatchDeleteAdvancedPromptOptimizationJobRequest struct {
+	JobIdentifiers AdvancedPromptOptimizationJobIdentifiers `json:"jobIdentifiers" xml:"jobIdentifiers"`
+}
+
+type BatchDeleteAdvancedPromptOptimizationJobResponse struct {
+	AdvancedPromptOptimizationJobs BatchDeleteAdvancedPromptOptimizationJobItems  `json:"advancedPromptOptimizationJobs" xml:"advancedPromptOptimizationJobs"`
+	Errors                         BatchDeleteAdvancedPromptOptimizationJobErrors `json:"errors" xml:"errors"`
+}
+
 type BatchDeleteEvaluationJobError struct {
 	Code          string `json:"code" xml:"code"`
 	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
@@ -501,6 +542,21 @@ type CloudWatchConfig struct {
 	LargeDataDeliveryS3Config *S3Config `json:"largeDataDeliveryS3Config" xml:"largeDataDeliveryS3Config"`
 	LogGroupName              string    `json:"logGroupName" xml:"logGroupName"`
 	RoleArn                   string    `json:"roleArn" xml:"roleArn"`
+}
+
+type CreateAdvancedPromptOptimizationJobRequest struct {
+	ClientToken         string                                  `json:"clientToken" xml:"clientToken"`
+	EncryptionKeyArn    string                                  `json:"encryptionKeyArn" xml:"encryptionKeyArn"`
+	InputConfig         *AdvancedPromptOptimizationInputConfig  `json:"inputConfig" xml:"inputConfig"`
+	JobDescription      string                                  `json:"jobDescription" xml:"jobDescription"`
+	JobName             string                                  `json:"jobName" xml:"jobName"`
+	ModelConfigurations ModelConfigurations                     `json:"modelConfigurations" xml:"modelConfigurations"`
+	OutputConfig        *AdvancedPromptOptimizationOutputConfig `json:"outputConfig" xml:"outputConfig"`
+	Tags                TagList                                 `json:"tags" xml:"tags"`
+}
+
+type CreateAdvancedPromptOptimizationJobResponse struct {
+	JobArn string `json:"jobArn" xml:"jobArn"`
 }
 
 type CreateAutomatedReasoningPolicyRequest struct {
@@ -565,12 +621,13 @@ type CreateCustomModelDeploymentResponse struct {
 }
 
 type CreateCustomModelRequest struct {
-	ClientRequestToken string      `json:"clientRequestToken" xml:"clientRequestToken"`
-	ModelKmsKeyArn     string      `json:"modelKmsKeyArn" xml:"modelKmsKeyArn"`
-	ModelName          string      `json:"modelName" xml:"modelName"`
-	ModelSourceConfig  interface{} `json:"modelSourceConfig" xml:"modelSourceConfig"`
-	ModelTags          TagList     `json:"modelTags" xml:"modelTags"`
-	RoleArn            string      `json:"roleArn" xml:"roleArn"`
+	ClientRequestToken    string      `json:"clientRequestToken" xml:"clientRequestToken"`
+	CustomModelDataSource interface{} `json:"customModelDataSource" xml:"customModelDataSource"`
+	ModelKmsKeyArn        string      `json:"modelKmsKeyArn" xml:"modelKmsKeyArn"`
+	ModelName             string      `json:"modelName" xml:"modelName"`
+	ModelSourceConfig     interface{} `json:"modelSourceConfig" xml:"modelSourceConfig"`
+	ModelTags             TagList     `json:"modelTags" xml:"modelTags"`
+	RoleArn               string      `json:"roleArn" xml:"roleArn"`
 }
 
 type CreateCustomModelResponse struct {
@@ -1075,6 +1132,32 @@ type GenerationConfiguration struct {
 	GuardrailConfiguration       *GuardrailConfiguration      `json:"guardrailConfiguration" xml:"guardrailConfiguration"`
 	KbInferenceConfig            *KbInferenceConfig           `json:"kbInferenceConfig" xml:"kbInferenceConfig"`
 	PromptTemplate               *PromptTemplate              `json:"promptTemplate" xml:"promptTemplate"`
+}
+
+type GetAccountDataRetentionRequest struct {
+}
+
+type GetAccountDataRetentionResponse struct {
+	Mode      string    `json:"mode" xml:"mode"`
+	UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
+}
+
+type GetAdvancedPromptOptimizationJobRequest struct {
+	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+}
+
+type GetAdvancedPromptOptimizationJobResponse struct {
+	CreationTime        time.Time                               `json:"creationTime" xml:"creationTime"`
+	EncryptionKeyArn    string                                  `json:"encryptionKeyArn" xml:"encryptionKeyArn"`
+	FailureMessage      string                                  `json:"failureMessage" xml:"failureMessage"`
+	InputConfig         *AdvancedPromptOptimizationInputConfig  `json:"inputConfig" xml:"inputConfig"`
+	JobArn              string                                  `json:"jobArn" xml:"jobArn"`
+	JobDescription      string                                  `json:"jobDescription" xml:"jobDescription"`
+	JobName             string                                  `json:"jobName" xml:"jobName"`
+	JobStatus           string                                  `json:"jobStatus" xml:"jobStatus"`
+	LastModifiedTime    time.Time                               `json:"lastModifiedTime" xml:"lastModifiedTime"`
+	ModelConfigurations ModelConfigurations                     `json:"modelConfigurations" xml:"modelConfigurations"`
+	OutputConfig        *AdvancedPromptOptimizationOutputConfig `json:"outputConfig" xml:"outputConfig"`
 }
 
 type GetAutomatedReasoningPolicyAnnotationsRequest struct {
@@ -1733,6 +1816,13 @@ type ImportedModelSummary struct {
 	ModelName         string    `json:"modelName" xml:"modelName"`
 }
 
+type InferenceConfiguration struct {
+	MaxTokens     int32              `json:"maxTokens" xml:"maxTokens"`
+	StopSequences NonEmptyStringList `json:"stopSequences" xml:"stopSequences"`
+	Temperature   float32            `json:"temperature" xml:"temperature"`
+	TopP          float32            `json:"topP" xml:"topP"`
+}
+
 type InferenceProfileModel struct {
 	ModelArn string `json:"modelArn" xml:"modelArn"`
 }
@@ -1785,6 +1875,18 @@ type LambdaGraderConfig struct {
 
 type LegalTerm struct {
 	Url string `json:"url" xml:"url"`
+}
+
+type ListAdvancedPromptOptimizationJobsRequest struct {
+	MaxResults int32  `json:"maxResults" xml:"maxResults"`
+	NextToken  string `json:"nextToken" xml:"nextToken"`
+	SortBy     string `json:"sortBy" xml:"sortBy"`
+	SortOrder  string `json:"sortOrder" xml:"sortOrder"`
+}
+
+type ListAdvancedPromptOptimizationJobsResponse struct {
+	JobSummaries AdvancedPromptOptimizationJobSummaries `json:"jobSummaries" xml:"jobSummaries"`
+	NextToken    string                                 `json:"nextToken" xml:"nextToken"`
 }
 
 type ListAutomatedReasoningPoliciesRequest struct {
@@ -2107,6 +2209,12 @@ type MetadataConfigurationForReranking struct {
 	SelectiveModeConfiguration interface{} `json:"selectiveModeConfiguration" xml:"selectiveModeConfiguration"`
 }
 
+type ModelConfiguration struct {
+	AdditionalModelRequestFields AdditionalModelRequestFields `json:"additionalModelRequestFields" xml:"additionalModelRequestFields"`
+	InferenceConfig              *InferenceConfiguration      `json:"inferenceConfig" xml:"inferenceConfig"`
+	ModelId                      string                       `json:"modelId" xml:"modelId"`
+}
+
 type ModelCopyJobSummary struct {
 	CreationTime         time.Time `json:"creationTime" xml:"creationTime"`
 	FailureMessage       string    `json:"failureMessage" xml:"failureMessage"`
@@ -2186,6 +2294,10 @@ type ModelInvocationJobSummary struct {
 	VpcConfig              *VpcConfig  `json:"vpcConfig" xml:"vpcConfig"`
 }
 
+type ModelPackageArnDataSource struct {
+	ModelPackageArn string `json:"modelPackageArn" xml:"modelPackageArn"`
+}
+
 type Offer struct {
 	OfferId     string       `json:"offerId" xml:"offerId"`
 	OfferToken  string       `json:"offerToken" xml:"offerToken"`
@@ -2242,6 +2354,15 @@ type ProvisionedModelSummary struct {
 	ProvisionedModelArn      string    `json:"provisionedModelArn" xml:"provisionedModelArn"`
 	ProvisionedModelName     string    `json:"provisionedModelName" xml:"provisionedModelName"`
 	Status                   string    `json:"status" xml:"status"`
+}
+
+type PutAccountDataRetentionRequest struct {
+	Mode string `json:"mode" xml:"mode"`
+}
+
+type PutAccountDataRetentionResponse struct {
+	Mode      string    `json:"mode" xml:"mode"`
+	UpdatedAt time.Time `json:"updatedAt" xml:"updatedAt"`
 }
 
 type PutEnforcedGuardrailConfigurationRequest struct {
@@ -2385,6 +2506,13 @@ type StatusDetails struct {
 	DataProcessingDetails *DataProcessingDetails `json:"dataProcessingDetails" xml:"dataProcessingDetails"`
 	TrainingDetails       *TrainingDetails       `json:"trainingDetails" xml:"trainingDetails"`
 	ValidationDetails     *ValidationDetails     `json:"validationDetails" xml:"validationDetails"`
+}
+
+type StopAdvancedPromptOptimizationJobRequest struct {
+	JobIdentifier string `json:"jobIdentifier" xml:"jobIdentifier"`
+}
+
+type StopAdvancedPromptOptimizationJobResponse struct {
 }
 
 type StopEvaluationJobRequest struct {
@@ -2607,6 +2735,10 @@ type VpcConfig struct {
 
 type AccountEnforcedGuardrailsOutputConfiguration []*AccountEnforcedGuardrailOutputConfiguration
 
+type AdvancedPromptOptimizationJobIdentifiers []string
+
+type AdvancedPromptOptimizationJobSummaries []*AdvancedPromptOptimizationJobSummary
+
 type AutomatedEvaluationCustomMetrics []interface{}
 
 type AutomatedReasoningCheckDifferenceScenarioList []*AutomatedReasoningCheckScenario
@@ -2671,6 +2803,8 @@ type AutomatedReasoningPolicyGenerateFidelityReportDocumentList []*AutomatedReas
 
 type AutomatedReasoningPolicyGeneratedTestCaseList []*AutomatedReasoningPolicyGeneratedTestCase
 
+type AutomatedReasoningPolicyIterativeRefinementDocumentList []*AutomatedReasoningPolicyBuildWorkflowDocument
+
 type AutomatedReasoningPolicyJustificationList []string
 
 type AutomatedReasoningPolicyLineNumberList []int32
@@ -2690,6 +2824,10 @@ type AutomatedReasoningPolicyTestCaseList []*AutomatedReasoningPolicyTestCase
 type AutomatedReasoningPolicyTestList []*AutomatedReasoningPolicyTestResult
 
 type AutomatedReasoningPolicyTypeValueAnnotationList []interface{}
+
+type BatchDeleteAdvancedPromptOptimizationJobErrors []*BatchDeleteAdvancedPromptOptimizationJobError
+
+type BatchDeleteAdvancedPromptOptimizationJobItems []*BatchDeleteAdvancedPromptOptimizationJobItem
 
 type BatchDeleteEvaluationJobErrors []*BatchDeleteEvaluationJobError
 
@@ -2789,6 +2927,8 @@ type MarketplaceModelEndpointSummaries []*MarketplaceModelEndpointSummary
 
 type MetadataAttributeSchemaList []*MetadataAttributeSchema
 
+type ModelConfigurations []*ModelConfiguration
+
 type ModelCopyJobSummaries []*ModelCopyJobSummary
 
 type ModelCustomizationJobSummaries []*ModelCustomizationJobSummary
@@ -2800,6 +2940,8 @@ type ModelImportJobSummaries []*ModelImportJobSummary
 type ModelInvocationJobSummaries []*ModelInvocationJobSummary
 
 type ModelModalityList []string
+
+type NonEmptyStringList []string
 
 type Offers []*Offer
 
@@ -2866,6 +3008,8 @@ type AutomatedReasoningPolicyMutation interface{}
 type AutomatedReasoningPolicyTypeValueAnnotation interface{}
 
 type AutomatedReasoningPolicyWorkflowTypeContent interface{}
+
+type CustomModelDataSource interface{}
 
 type CustomizationConfig interface{}
 

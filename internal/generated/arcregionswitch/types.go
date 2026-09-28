@@ -110,6 +110,7 @@ type CreatePlanRequest struct {
 	RecoveryTimeObjectiveMinutes int32                `json:"recoveryTimeObjectiveMinutes" xml:"recoveryTimeObjectiveMinutes"`
 	Regions                      RegionList           `json:"regions" xml:"regions"`
 	ReportConfiguration          *ReportConfiguration `json:"reportConfiguration" xml:"reportConfiguration"`
+	ServiceQuotaChecksEnabled    bool                 `json:"serviceQuotaChecksEnabled" xml:"serviceQuotaChecksEnabled"`
 	Tags                         Tags                 `json:"tags" xml:"tags"`
 	Triggers                     TriggerList          `json:"triggers" xml:"triggers"`
 	Workflows                    WorkflowList         `json:"workflows" xml:"workflows"`
@@ -154,6 +155,7 @@ type Ec2AsgCapacityIncreaseConfiguration struct {
 	TargetPercent              int32          `json:"targetPercent" xml:"targetPercent"`
 	TimeoutMinutes             int32          `json:"timeoutMinutes" xml:"timeoutMinutes"`
 	Ungraceful                 *Ec2Ungraceful `json:"ungraceful" xml:"ungraceful"`
+	WaitELBTargetGroupHealthy  string         `json:"waitELBTargetGroupHealthy" xml:"waitELBTargetGroupHealthy"`
 }
 
 type Ec2Ungraceful struct {
@@ -166,6 +168,7 @@ type EcsCapacityIncreaseConfiguration struct {
 	TargetPercent              int32          `json:"targetPercent" xml:"targetPercent"`
 	TimeoutMinutes             int32          `json:"timeoutMinutes" xml:"timeoutMinutes"`
 	Ungraceful                 *EcsUngraceful `json:"ungraceful" xml:"ungraceful"`
+	WaitELBTargetGroupHealthy  string         `json:"waitELBTargetGroupHealthy" xml:"waitELBTargetGroupHealthy"`
 }
 
 type EcsUngraceful struct {
@@ -401,6 +404,17 @@ type ListRoute53HealthChecksResponse struct {
 	NextToken    string                 `json:"nextToken" xml:"nextToken"`
 }
 
+type ListServiceQuotaWarningsRequest struct {
+	MaxResults int32       `json:"maxResults" xml:"maxResults"`
+	NextToken  string      `json:"nextToken" xml:"nextToken"`
+	PlanArns   PlanArnList `json:"planArns" xml:"planArns"`
+}
+
+type ListServiceQuotaWarningsResponse struct {
+	NextToken                    string                         `json:"nextToken" xml:"nextToken"`
+	ServiceQuotaWarningSummaries ServiceQuotaWarningSummaryList `json:"serviceQuotaWarningSummaries" xml:"serviceQuotaWarningSummaries"`
+}
+
 type ListTagsForResourceRequest struct {
 	Arn string `json:"arn" xml:"arn"`
 }
@@ -444,6 +458,7 @@ type Plan struct {
 	RecoveryTimeObjectiveMinutes int32                `json:"recoveryTimeObjectiveMinutes" xml:"recoveryTimeObjectiveMinutes"`
 	Regions                      RegionList           `json:"regions" xml:"regions"`
 	ReportConfiguration          *ReportConfiguration `json:"reportConfiguration" xml:"reportConfiguration"`
+	ServiceQuotaChecksEnabled    bool                 `json:"serviceQuotaChecksEnabled" xml:"serviceQuotaChecksEnabled"`
 	Triggers                     TriggerList          `json:"triggers" xml:"triggers"`
 	UpdatedAt                    time.Time            `json:"updatedAt" xml:"updatedAt"`
 	Version                      string               `json:"version" xml:"version"`
@@ -532,6 +547,21 @@ type Service struct {
 	CrossAccountRole string `json:"crossAccountRole" xml:"crossAccountRole"`
 	ExternalId       string `json:"externalId" xml:"externalId"`
 	ServiceArn       string `json:"serviceArn" xml:"serviceArn"`
+}
+
+type ServiceQuotaWarningSummary struct {
+	AccountId        string    `json:"accountId" xml:"accountId"`
+	CaseId           string    `json:"caseId" xml:"caseId"`
+	LastCheckedAt    time.Time `json:"lastCheckedAt" xml:"lastCheckedAt"`
+	PlanArn          string    `json:"planArn" xml:"planArn"`
+	QuotaCode        string    `json:"quotaCode" xml:"quotaCode"`
+	QuotaName        string    `json:"quotaName" xml:"quotaName"`
+	QuotaRegion      string    `json:"quotaRegion" xml:"quotaRegion"`
+	RequestId        string    `json:"requestId" xml:"requestId"`
+	ServiceCode      string    `json:"serviceCode" xml:"serviceCode"`
+	Status           string    `json:"status" xml:"status"`
+	WarningCreatedAt time.Time `json:"warningCreatedAt" xml:"warningCreatedAt"`
+	WarningMessage   string    `json:"warningMessage" xml:"warningMessage"`
 }
 
 type StartPlanExecutionRequest struct {
@@ -625,6 +655,7 @@ type UpdatePlanRequest struct {
 	ExecutionRole                string               `json:"executionRole" xml:"executionRole"`
 	RecoveryTimeObjectiveMinutes int32                `json:"recoveryTimeObjectiveMinutes" xml:"recoveryTimeObjectiveMinutes"`
 	ReportConfiguration          *ReportConfiguration `json:"reportConfiguration" xml:"reportConfiguration"`
+	ServiceQuotaChecksEnabled    bool                 `json:"serviceQuotaChecksEnabled" xml:"serviceQuotaChecksEnabled"`
 	Triggers                     TriggerList          `json:"triggers" xml:"triggers"`
 	Workflows                    WorkflowList         `json:"workflows" xml:"workflows"`
 }
@@ -660,6 +691,8 @@ type KubernetesScalingApps []KubernetesScalingApplication
 
 type LambdaList []*Lambdas
 
+type PlanArnList []string
+
 type PlanList []*AbbreviatedPlan
 
 type PlanWarnings []*ResourceWarning
@@ -675,6 +708,8 @@ type Route53HealthCheckList []*Route53HealthCheck
 type Route53ResourceRecordSetList []*Route53ResourceRecordSet
 
 type ServiceList []*Service
+
+type ServiceQuotaWarningSummaryList []*ServiceQuotaWarningSummary
 
 type StepStates []*StepState
 

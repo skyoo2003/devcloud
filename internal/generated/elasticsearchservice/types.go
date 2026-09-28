@@ -123,6 +123,24 @@ type AutoTuneStatus struct {
 	UpdateVersion   int32     `json:"updateVersion" xml:"UpdateVersion"`
 }
 
+type AutomatedSnapshotPauseOptions struct {
+	Enabled   bool      `json:"enabled" xml:"Enabled"`
+	EndTime   time.Time `json:"endTime" xml:"EndTime"`
+	StartTime time.Time `json:"startTime" xml:"StartTime"`
+	State     string    `json:"state" xml:"State"`
+}
+
+type AutomatedSnapshotPauseOptionsStatus struct {
+	Options *AutomatedSnapshotPauseOptions `json:"options" xml:"Options"`
+	Status  *OptionStatus                  `json:"status" xml:"Status"`
+}
+
+type AutomatedSnapshotPauseRequestOptions struct {
+	Enabled   bool      `json:"enabled" xml:"Enabled"`
+	EndTime   time.Time `json:"endTime" xml:"EndTime"`
+	StartTime time.Time `json:"startTime" xml:"StartTime"`
+}
+
 type CancelDomainConfigChangeRequest struct {
 	DomainName string `json:"domainName" xml:"DomainName"`
 	DryRun     bool   `json:"dryRun" xml:"DryRun"`
@@ -199,23 +217,26 @@ type CompatibleVersionsMap struct {
 }
 
 type CreateElasticsearchDomainRequest struct {
-	AccessPolicies              string                        `json:"accessPolicies" xml:"AccessPolicies"`
-	AdvancedOptions             AdvancedOptions               `json:"advancedOptions" xml:"AdvancedOptions"`
-	AdvancedSecurityOptions     *AdvancedSecurityOptionsInput `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
-	AutoTuneOptions             *AutoTuneOptionsInput         `json:"autoTuneOptions" xml:"AutoTuneOptions"`
-	CognitoOptions              *CognitoOptions               `json:"cognitoOptions" xml:"CognitoOptions"`
-	DeploymentStrategyOptions   *DeploymentStrategyOptions    `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
-	DomainEndpointOptions       *DomainEndpointOptions        `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
-	DomainName                  string                        `json:"domainName" xml:"DomainName"`
-	EBSOptions                  *EBSOptions                   `json:"eBSOptions" xml:"EBSOptions"`
-	ElasticsearchClusterConfig  *ElasticsearchClusterConfig   `json:"elasticsearchClusterConfig" xml:"ElasticsearchClusterConfig"`
-	ElasticsearchVersion        string                        `json:"elasticsearchVersion" xml:"ElasticsearchVersion"`
-	EncryptionAtRestOptions     *EncryptionAtRestOptions      `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
-	LogPublishingOptions        LogPublishingOptions          `json:"logPublishingOptions" xml:"LogPublishingOptions"`
-	NodeToNodeEncryptionOptions *NodeToNodeEncryptionOptions  `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
-	SnapshotOptions             *SnapshotOptions              `json:"snapshotOptions" xml:"SnapshotOptions"`
-	TagList                     TagList                       `json:"tagList" xml:"TagList"`
-	VPCOptions                  *VPCOptions                   `json:"vPCOptions" xml:"VPCOptions"`
+	AccessPolicies                string                                `json:"accessPolicies" xml:"AccessPolicies"`
+	AdvancedOptions               AdvancedOptions                       `json:"advancedOptions" xml:"AdvancedOptions"`
+	AdvancedSecurityOptions       *AdvancedSecurityOptionsInput         `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
+	AutoTuneOptions               *AutoTuneOptionsInput                 `json:"autoTuneOptions" xml:"AutoTuneOptions"`
+	AutomatedSnapshotPauseOptions *AutomatedSnapshotPauseRequestOptions `json:"automatedSnapshotPauseOptions" xml:"AutomatedSnapshotPauseOptions"`
+	CognitoOptions                *CognitoOptions                       `json:"cognitoOptions" xml:"CognitoOptions"`
+	DeploymentStrategyOptions     *DeploymentStrategyOptions            `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
+	DomainEndpointOptions         *DomainEndpointOptions                `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
+	DomainName                    string                                `json:"domainName" xml:"DomainName"`
+	EBSOptions                    *EBSOptions                           `json:"eBSOptions" xml:"EBSOptions"`
+	ElasticsearchClusterConfig    *ElasticsearchClusterConfig           `json:"elasticsearchClusterConfig" xml:"ElasticsearchClusterConfig"`
+	ElasticsearchVersion          string                                `json:"elasticsearchVersion" xml:"ElasticsearchVersion"`
+	EncryptionAtRestOptions       *EncryptionAtRestOptions              `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
+	EngineMode                    string                                `json:"engineMode" xml:"EngineMode"`
+	LogPublishingOptions          LogPublishingOptions                  `json:"logPublishingOptions" xml:"LogPublishingOptions"`
+	NodeToNodeEncryptionOptions   *NodeToNodeEncryptionOptions          `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
+	SnapshotOptions               *SnapshotOptions                      `json:"snapshotOptions" xml:"SnapshotOptions"`
+	TagList                       TagList                               `json:"tagList" xml:"TagList"`
+	UseCase                       string                                `json:"useCase" xml:"UseCase"`
+	VPCOptions                    *VPCOptions                           `json:"vPCOptions" xml:"VPCOptions"`
 }
 
 type CreateElasticsearchDomainResponse struct {
@@ -517,54 +538,60 @@ type ElasticsearchClusterConfigStatus struct {
 }
 
 type ElasticsearchDomainConfig struct {
-	AccessPolicies              *AccessPoliciesStatus              `json:"accessPolicies" xml:"AccessPolicies"`
-	AdvancedOptions             *AdvancedOptionsStatus             `json:"advancedOptions" xml:"AdvancedOptions"`
-	AdvancedSecurityOptions     *AdvancedSecurityOptionsStatus     `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
-	AutoTuneOptions             *AutoTuneOptionsStatus             `json:"autoTuneOptions" xml:"AutoTuneOptions"`
-	ChangeProgressDetails       *ChangeProgressDetails             `json:"changeProgressDetails" xml:"ChangeProgressDetails"`
-	CognitoOptions              *CognitoOptionsStatus              `json:"cognitoOptions" xml:"CognitoOptions"`
-	DeploymentStrategyOptions   *DeploymentStrategyOptionsStatus   `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
-	DomainEndpointOptions       *DomainEndpointOptionsStatus       `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
-	EBSOptions                  *EBSOptionsStatus                  `json:"eBSOptions" xml:"EBSOptions"`
-	ElasticsearchClusterConfig  *ElasticsearchClusterConfigStatus  `json:"elasticsearchClusterConfig" xml:"ElasticsearchClusterConfig"`
-	ElasticsearchVersion        *ElasticsearchVersionStatus        `json:"elasticsearchVersion" xml:"ElasticsearchVersion"`
-	EncryptionAtRestOptions     *EncryptionAtRestOptionsStatus     `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
-	LogPublishingOptions        *LogPublishingOptionsStatus        `json:"logPublishingOptions" xml:"LogPublishingOptions"`
-	ModifyingProperties         ModifyingPropertiesList            `json:"modifyingProperties" xml:"ModifyingProperties"`
-	NodeToNodeEncryptionOptions *NodeToNodeEncryptionOptionsStatus `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
-	SnapshotOptions             *SnapshotOptionsStatus             `json:"snapshotOptions" xml:"SnapshotOptions"`
-	VPCOptions                  *VPCDerivedInfoStatus              `json:"vPCOptions" xml:"VPCOptions"`
+	AccessPolicies                *AccessPoliciesStatus                `json:"accessPolicies" xml:"AccessPolicies"`
+	AdvancedOptions               *AdvancedOptionsStatus               `json:"advancedOptions" xml:"AdvancedOptions"`
+	AdvancedSecurityOptions       *AdvancedSecurityOptionsStatus       `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
+	AutoTuneOptions               *AutoTuneOptionsStatus               `json:"autoTuneOptions" xml:"AutoTuneOptions"`
+	AutomatedSnapshotPauseOptions *AutomatedSnapshotPauseOptionsStatus `json:"automatedSnapshotPauseOptions" xml:"AutomatedSnapshotPauseOptions"`
+	ChangeProgressDetails         *ChangeProgressDetails               `json:"changeProgressDetails" xml:"ChangeProgressDetails"`
+	CognitoOptions                *CognitoOptionsStatus                `json:"cognitoOptions" xml:"CognitoOptions"`
+	DeploymentStrategyOptions     *DeploymentStrategyOptionsStatus     `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
+	DomainEndpointOptions         *DomainEndpointOptionsStatus         `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
+	EBSOptions                    *EBSOptionsStatus                    `json:"eBSOptions" xml:"EBSOptions"`
+	ElasticsearchClusterConfig    *ElasticsearchClusterConfigStatus    `json:"elasticsearchClusterConfig" xml:"ElasticsearchClusterConfig"`
+	ElasticsearchVersion          *ElasticsearchVersionStatus          `json:"elasticsearchVersion" xml:"ElasticsearchVersion"`
+	EncryptionAtRestOptions       *EncryptionAtRestOptionsStatus       `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
+	EngineMode                    *EngineModeStatus                    `json:"engineMode" xml:"EngineMode"`
+	LogPublishingOptions          *LogPublishingOptionsStatus          `json:"logPublishingOptions" xml:"LogPublishingOptions"`
+	ModifyingProperties           ModifyingPropertiesList              `json:"modifyingProperties" xml:"ModifyingProperties"`
+	NodeToNodeEncryptionOptions   *NodeToNodeEncryptionOptionsStatus   `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
+	SnapshotOptions               *SnapshotOptionsStatus               `json:"snapshotOptions" xml:"SnapshotOptions"`
+	UseCase                       *UseCaseStatus                       `json:"useCase" xml:"UseCase"`
+	VPCOptions                    *VPCDerivedInfoStatus                `json:"vPCOptions" xml:"VPCOptions"`
 }
 
 type ElasticsearchDomainStatus struct {
-	ARN                         string                       `json:"aRN" xml:"ARN"`
-	AccessPolicies              string                       `json:"accessPolicies" xml:"AccessPolicies"`
-	AdvancedOptions             AdvancedOptions              `json:"advancedOptions" xml:"AdvancedOptions"`
-	AdvancedSecurityOptions     *AdvancedSecurityOptions     `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
-	AutoTuneOptions             *AutoTuneOptionsOutput       `json:"autoTuneOptions" xml:"AutoTuneOptions"`
-	ChangeProgressDetails       *ChangeProgressDetails       `json:"changeProgressDetails" xml:"ChangeProgressDetails"`
-	CognitoOptions              *CognitoOptions              `json:"cognitoOptions" xml:"CognitoOptions"`
-	Created                     bool                         `json:"created" xml:"Created"`
-	Deleted                     bool                         `json:"deleted" xml:"Deleted"`
-	DeploymentStrategyOptions   *DeploymentStrategyOptions   `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
-	DomainEndpointOptions       *DomainEndpointOptions       `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
-	DomainId                    string                       `json:"domainId" xml:"DomainId"`
-	DomainName                  string                       `json:"domainName" xml:"DomainName"`
-	DomainProcessingStatus      string                       `json:"domainProcessingStatus" xml:"DomainProcessingStatus"`
-	EBSOptions                  *EBSOptions                  `json:"eBSOptions" xml:"EBSOptions"`
-	ElasticsearchClusterConfig  *ElasticsearchClusterConfig  `json:"elasticsearchClusterConfig" xml:"ElasticsearchClusterConfig"`
-	ElasticsearchVersion        string                       `json:"elasticsearchVersion" xml:"ElasticsearchVersion"`
-	EncryptionAtRestOptions     *EncryptionAtRestOptions     `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
-	Endpoint                    string                       `json:"endpoint" xml:"Endpoint"`
-	Endpoints                   EndpointsMap                 `json:"endpoints" xml:"Endpoints"`
-	LogPublishingOptions        LogPublishingOptions         `json:"logPublishingOptions" xml:"LogPublishingOptions"`
-	ModifyingProperties         ModifyingPropertiesList      `json:"modifyingProperties" xml:"ModifyingProperties"`
-	NodeToNodeEncryptionOptions *NodeToNodeEncryptionOptions `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
-	Processing                  bool                         `json:"processing" xml:"Processing"`
-	ServiceSoftwareOptions      *ServiceSoftwareOptions      `json:"serviceSoftwareOptions" xml:"ServiceSoftwareOptions"`
-	SnapshotOptions             *SnapshotOptions             `json:"snapshotOptions" xml:"SnapshotOptions"`
-	UpgradeProcessing           bool                         `json:"upgradeProcessing" xml:"UpgradeProcessing"`
-	VPCOptions                  *VPCDerivedInfo              `json:"vPCOptions" xml:"VPCOptions"`
+	ARN                           string                         `json:"aRN" xml:"ARN"`
+	AccessPolicies                string                         `json:"accessPolicies" xml:"AccessPolicies"`
+	AdvancedOptions               AdvancedOptions                `json:"advancedOptions" xml:"AdvancedOptions"`
+	AdvancedSecurityOptions       *AdvancedSecurityOptions       `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
+	AutoTuneOptions               *AutoTuneOptionsOutput         `json:"autoTuneOptions" xml:"AutoTuneOptions"`
+	AutomatedSnapshotPauseOptions *AutomatedSnapshotPauseOptions `json:"automatedSnapshotPauseOptions" xml:"AutomatedSnapshotPauseOptions"`
+	ChangeProgressDetails         *ChangeProgressDetails         `json:"changeProgressDetails" xml:"ChangeProgressDetails"`
+	CognitoOptions                *CognitoOptions                `json:"cognitoOptions" xml:"CognitoOptions"`
+	Created                       bool                           `json:"created" xml:"Created"`
+	Deleted                       bool                           `json:"deleted" xml:"Deleted"`
+	DeploymentStrategyOptions     *DeploymentStrategyOptions     `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
+	DomainEndpointOptions         *DomainEndpointOptions         `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
+	DomainId                      string                         `json:"domainId" xml:"DomainId"`
+	DomainName                    string                         `json:"domainName" xml:"DomainName"`
+	DomainProcessingStatus        string                         `json:"domainProcessingStatus" xml:"DomainProcessingStatus"`
+	EBSOptions                    *EBSOptions                    `json:"eBSOptions" xml:"EBSOptions"`
+	ElasticsearchClusterConfig    *ElasticsearchClusterConfig    `json:"elasticsearchClusterConfig" xml:"ElasticsearchClusterConfig"`
+	ElasticsearchVersion          string                         `json:"elasticsearchVersion" xml:"ElasticsearchVersion"`
+	EncryptionAtRestOptions       *EncryptionAtRestOptions       `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
+	Endpoint                      string                         `json:"endpoint" xml:"Endpoint"`
+	Endpoints                     EndpointsMap                   `json:"endpoints" xml:"Endpoints"`
+	EngineMode                    string                         `json:"engineMode" xml:"EngineMode"`
+	LogPublishingOptions          LogPublishingOptions           `json:"logPublishingOptions" xml:"LogPublishingOptions"`
+	ModifyingProperties           ModifyingPropertiesList        `json:"modifyingProperties" xml:"ModifyingProperties"`
+	NodeToNodeEncryptionOptions   *NodeToNodeEncryptionOptions   `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
+	Processing                    bool                           `json:"processing" xml:"Processing"`
+	ServiceSoftwareOptions        *ServiceSoftwareOptions        `json:"serviceSoftwareOptions" xml:"ServiceSoftwareOptions"`
+	SnapshotOptions               *SnapshotOptions               `json:"snapshotOptions" xml:"SnapshotOptions"`
+	UpgradeProcessing             bool                           `json:"upgradeProcessing" xml:"UpgradeProcessing"`
+	UseCase                       string                         `json:"useCase" xml:"UseCase"`
+	VPCOptions                    *VPCDerivedInfo                `json:"vPCOptions" xml:"VPCOptions"`
 }
 
 type ElasticsearchVersionStatus struct {
@@ -580,6 +607,11 @@ type EncryptionAtRestOptions struct {
 type EncryptionAtRestOptionsStatus struct {
 	Options *EncryptionAtRestOptions `json:"options" xml:"Options"`
 	Status  *OptionStatus            `json:"status" xml:"Status"`
+}
+
+type EngineModeStatus struct {
+	Options string        `json:"options" xml:"Options"`
+	Status  *OptionStatus `json:"status" xml:"Status"`
 }
 
 type ErrorDetails struct {
@@ -967,22 +999,25 @@ type Tag struct {
 }
 
 type UpdateElasticsearchDomainConfigRequest struct {
-	AccessPolicies              string                        `json:"accessPolicies" xml:"AccessPolicies"`
-	AdvancedOptions             AdvancedOptions               `json:"advancedOptions" xml:"AdvancedOptions"`
-	AdvancedSecurityOptions     *AdvancedSecurityOptionsInput `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
-	AutoTuneOptions             *AutoTuneOptions              `json:"autoTuneOptions" xml:"AutoTuneOptions"`
-	CognitoOptions              *CognitoOptions               `json:"cognitoOptions" xml:"CognitoOptions"`
-	DeploymentStrategyOptions   *DeploymentStrategyOptions    `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
-	DomainEndpointOptions       *DomainEndpointOptions        `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
-	DomainName                  string                        `json:"domainName" xml:"DomainName"`
-	DryRun                      bool                          `json:"dryRun" xml:"DryRun"`
-	EBSOptions                  *EBSOptions                   `json:"eBSOptions" xml:"EBSOptions"`
-	ElasticsearchClusterConfig  *ElasticsearchClusterConfig   `json:"elasticsearchClusterConfig" xml:"ElasticsearchClusterConfig"`
-	EncryptionAtRestOptions     *EncryptionAtRestOptions      `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
-	LogPublishingOptions        LogPublishingOptions          `json:"logPublishingOptions" xml:"LogPublishingOptions"`
-	NodeToNodeEncryptionOptions *NodeToNodeEncryptionOptions  `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
-	SnapshotOptions             *SnapshotOptions              `json:"snapshotOptions" xml:"SnapshotOptions"`
-	VPCOptions                  *VPCOptions                   `json:"vPCOptions" xml:"VPCOptions"`
+	AccessPolicies                string                                `json:"accessPolicies" xml:"AccessPolicies"`
+	AdvancedOptions               AdvancedOptions                       `json:"advancedOptions" xml:"AdvancedOptions"`
+	AdvancedSecurityOptions       *AdvancedSecurityOptionsInput         `json:"advancedSecurityOptions" xml:"AdvancedSecurityOptions"`
+	AutoTuneOptions               *AutoTuneOptions                      `json:"autoTuneOptions" xml:"AutoTuneOptions"`
+	AutomatedSnapshotPauseOptions *AutomatedSnapshotPauseRequestOptions `json:"automatedSnapshotPauseOptions" xml:"AutomatedSnapshotPauseOptions"`
+	CognitoOptions                *CognitoOptions                       `json:"cognitoOptions" xml:"CognitoOptions"`
+	DeploymentStrategyOptions     *DeploymentStrategyOptions            `json:"deploymentStrategyOptions" xml:"DeploymentStrategyOptions"`
+	DomainEndpointOptions         *DomainEndpointOptions                `json:"domainEndpointOptions" xml:"DomainEndpointOptions"`
+	DomainName                    string                                `json:"domainName" xml:"DomainName"`
+	DryRun                        bool                                  `json:"dryRun" xml:"DryRun"`
+	EBSOptions                    *EBSOptions                           `json:"eBSOptions" xml:"EBSOptions"`
+	ElasticsearchClusterConfig    *ElasticsearchClusterConfig           `json:"elasticsearchClusterConfig" xml:"ElasticsearchClusterConfig"`
+	EncryptionAtRestOptions       *EncryptionAtRestOptions              `json:"encryptionAtRestOptions" xml:"EncryptionAtRestOptions"`
+	EngineMode                    string                                `json:"engineMode" xml:"EngineMode"`
+	LogPublishingOptions          LogPublishingOptions                  `json:"logPublishingOptions" xml:"LogPublishingOptions"`
+	NodeToNodeEncryptionOptions   *NodeToNodeEncryptionOptions          `json:"nodeToNodeEncryptionOptions" xml:"NodeToNodeEncryptionOptions"`
+	SnapshotOptions               *SnapshotOptions                      `json:"snapshotOptions" xml:"SnapshotOptions"`
+	UseCase                       string                                `json:"useCase" xml:"UseCase"`
+	VPCOptions                    *VPCOptions                           `json:"vPCOptions" xml:"VPCOptions"`
 }
 
 type UpdateElasticsearchDomainConfigResponse struct {
@@ -1035,6 +1070,11 @@ type UpgradeStepItem struct {
 	ProgressPercent   float64 `json:"progressPercent" xml:"ProgressPercent"`
 	UpgradeStep       string  `json:"upgradeStep" xml:"UpgradeStep"`
 	UpgradeStepStatus string  `json:"upgradeStepStatus" xml:"UpgradeStepStatus"`
+}
+
+type UseCaseStatus struct {
+	Options string        `json:"options" xml:"Options"`
+	Status  *OptionStatus `json:"status" xml:"Status"`
 }
 
 type VPCDerivedInfo struct {

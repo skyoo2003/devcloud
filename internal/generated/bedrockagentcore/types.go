@@ -164,8 +164,9 @@ type Certificate struct {
 }
 
 type CloudWatchFilterConfig struct {
-	SessionIds EvaluationStringList `json:"sessionIds" xml:"sessionIds"`
-	TimeRange  *SessionFilterConfig `json:"timeRange" xml:"timeRange"`
+	SessionIds      EvaluationStringList `json:"sessionIds" xml:"sessionIds"`
+	SessionTraceIds SessionTraceIdsList  `json:"sessionTraceIds" xml:"sessionTraceIds"`
+	TimeRange       *SessionFilterConfig `json:"timeRange" xml:"timeRange"`
 }
 
 type CloudWatchLogsFilter struct {
@@ -934,6 +935,14 @@ type HarnessGeminiModelConfig struct {
 	TopP             float32     `json:"topP" xml:"topP"`
 }
 
+type HarnessHookEvent struct {
+	Decision    string `json:"decision" xml:"decision"`
+	HookEventId string `json:"hookEventId" xml:"hookEventId"`
+	Name        string `json:"name" xml:"name"`
+	Reason      string `json:"reason" xml:"reason"`
+	Type        string `json:"type" xml:"type"`
+}
+
 type HarnessInlineFunctionConfig struct {
 	Description string      `json:"description" xml:"description"`
 	InputSchema interface{} `json:"inputSchema" xml:"inputSchema"`
@@ -969,6 +978,7 @@ type HarnessMetadataEvent struct {
 
 type HarnessOpenAiModelConfig struct {
 	AdditionalParams interface{} `json:"additionalParams" xml:"additionalParams"`
+	ApiBase          string      `json:"apiBase" xml:"apiBase"`
 	ApiFormat        string      `json:"apiFormat" xml:"apiFormat"`
 	ApiKeyArn        string      `json:"apiKeyArn" xml:"apiKeyArn"`
 	MaxTokens        int32       `json:"maxTokens" xml:"maxTokens"`
@@ -1807,6 +1817,11 @@ type SessionSummary struct {
 	SessionId string    `json:"sessionId" xml:"sessionId"`
 }
 
+type SessionTraceIds struct {
+	SessionId string      `json:"sessionId" xml:"sessionId"`
+	TraceIds  TraceIdList `json:"traceIds" xml:"traceIds"`
+}
+
 type SkillDefinition struct {
 	InlineContent string `json:"inlineContent" xml:"inlineContent"`
 	SchemaVersion string `json:"schemaVersion" xml:"schemaVersion"`
@@ -2317,6 +2332,8 @@ type SessionMetadataList []*SessionMetadataShape
 
 type SessionSummaryList []*SessionSummary
 
+type SessionTraceIdsList []*SessionTraceIds
+
 type SpanIds []string
 
 type Spans []interface{}
@@ -2332,6 +2349,8 @@ type ToolDescriptionList []*ToolDescriptionInput
 type ToolDescriptionResultList []*ToolDescriptionOutput
 
 type ToolsFileSystemConfigurations []interface{}
+
+type TraceIdList []string
 
 type TraceIds []string
 

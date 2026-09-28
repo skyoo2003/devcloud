@@ -15,6 +15,10 @@ func (b *BaseProvider) CreateCentralizationRuleForOrganization(ctx context.Conte
 	return nil, fmt.Errorf("CreateCentralizationRuleForOrganization: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateDatasetIntegration(ctx context.Context, input *CreateDatasetIntegrationInput) (*CreateDatasetIntegrationOutput, error) {
+	return nil, fmt.Errorf("CreateDatasetIntegration: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateS3TableIntegration(ctx context.Context, input *CreateS3TableIntegrationInput) (*CreateS3TableIntegrationOutput, error) {
 	return nil, fmt.Errorf("CreateS3TableIntegration: %w", ErrNotImplemented)
 }
@@ -35,6 +39,10 @@ func (b *BaseProvider) DeleteCentralizationRuleForOrganization(ctx context.Conte
 	return nil, fmt.Errorf("DeleteCentralizationRuleForOrganization: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteDatasetIntegration(ctx context.Context, input *DeleteDatasetIntegrationInput) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteDatasetIntegration: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteS3TableIntegration(ctx context.Context, input *DeleteS3TableIntegrationInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeleteS3TableIntegration: %w", ErrNotImplemented)
 }
@@ -53,6 +61,10 @@ func (b *BaseProvider) DeleteTelemetryRuleForOrganization(ctx context.Context, i
 
 func (b *BaseProvider) GetCentralizationRuleForOrganization(ctx context.Context, input *GetCentralizationRuleForOrganizationInput) (*GetCentralizationRuleForOrganizationOutput, error) {
 	return nil, fmt.Errorf("GetCentralizationRuleForOrganization: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetDatasetIntegration(ctx context.Context, input *GetDatasetIntegrationInput) (*GetDatasetIntegrationOutput, error) {
+	return nil, fmt.Errorf("GetDatasetIntegration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) GetS3TableIntegration(ctx context.Context, input *GetS3TableIntegrationInput) (*GetS3TableIntegrationOutput, error) {
@@ -85,6 +97,10 @@ func (b *BaseProvider) GetTelemetryRuleForOrganization(ctx context.Context, inpu
 
 func (b *BaseProvider) ListCentralizationRulesForOrganization(ctx context.Context, input *ListCentralizationRulesForOrganizationInput) (*ListCentralizationRulesForOrganizationOutput, error) {
 	return nil, fmt.Errorf("ListCentralizationRulesForOrganization: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListDatasetIntegrations(ctx context.Context, input *ListDatasetIntegrationsInput) (*ListDatasetIntegrationsOutput, error) {
+	return nil, fmt.Errorf("ListDatasetIntegrations: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListResourceTelemetry(ctx context.Context, input *ListResourceTelemetryInput) (*ListResourceTelemetryOutput, error) {
@@ -153,6 +169,10 @@ func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceIn
 
 func (b *BaseProvider) UpdateCentralizationRuleForOrganization(ctx context.Context, input *UpdateCentralizationRuleForOrganizationInput) (*UpdateCentralizationRuleForOrganizationOutput, error) {
 	return nil, fmt.Errorf("UpdateCentralizationRuleForOrganization: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateDatasetIntegration(ctx context.Context, input *UpdateDatasetIntegrationInput) (*UpdateDatasetIntegrationOutput, error) {
+	return nil, fmt.Errorf("UpdateDatasetIntegration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateTelemetryPipeline(ctx context.Context, input *UpdateTelemetryPipelineInput) (*UpdateTelemetryPipelineOutput, error) {

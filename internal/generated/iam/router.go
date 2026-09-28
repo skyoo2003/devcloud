@@ -13,6 +13,7 @@ type OperationRoute = httproute.Route
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "AcceptDelegationRequest"},
+	{Method: "", Pattern: "", Operation: "AcquireRole"},
 	{Method: "", Pattern: "", Operation: "AddClientIDToOpenIDConnectProvider"},
 	{Method: "", Pattern: "", Operation: "AddRoleToInstanceProfile"},
 	{Method: "", Pattern: "", Operation: "AddUserToGroup"},
@@ -76,6 +77,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "GetAccessKeyLastUsed"},
 	{Method: "", Pattern: "", Operation: "GetAccountAuthorizationDetails"},
 	{Method: "", Pattern: "", Operation: "GetAccountPasswordPolicy"},
+	{Method: "", Pattern: "", Operation: "GetAccountProperties"},
 	{Method: "", Pattern: "", Operation: "GetAccountSummary"},
 	{Method: "", Pattern: "", Operation: "GetContextKeysForCustomPolicy"},
 	{Method: "", Pattern: "", Operation: "GetContextKeysForPrincipalPolicy"},
@@ -94,6 +96,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "GetPolicyVersion"},
 	{Method: "", Pattern: "", Operation: "GetRole"},
 	{Method: "", Pattern: "", Operation: "GetRolePolicy"},
+	{Method: "", Pattern: "", Operation: "GetRoleTemplateVersion"},
 	{Method: "", Pattern: "", Operation: "GetSAMLProvider"},
 	{Method: "", Pattern: "", Operation: "GetSSHPublicKey"},
 	{Method: "", Pattern: "", Operation: "GetServerCertificate"},
@@ -138,6 +141,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "ListUserTags"},
 	{Method: "", Pattern: "", Operation: "ListUsers"},
 	{Method: "", Pattern: "", Operation: "ListVirtualMFADevices"},
+	{Method: "", Pattern: "", Operation: "PutAccountProperties"},
 	{Method: "", Pattern: "", Operation: "PutGroupPolicy"},
 	{Method: "", Pattern: "", Operation: "PutRolePermissionsBoundary"},
 	{Method: "", Pattern: "", Operation: "PutRolePolicy"},

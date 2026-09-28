@@ -157,6 +157,57 @@ func (e *InvalidParameterValueException) HTTPStatus() int {
 	return 400
 }
 
+// KmsAccessDeniedException is returned with HTTP status 0.
+type KmsAccessDeniedException struct {
+	Message string
+}
+
+func (e *KmsAccessDeniedException) Error() string {
+	return fmt.Sprintf("KmsAccessDeniedException: %s", e.Message)
+}
+
+func (e *KmsAccessDeniedException) ErrorCode() string {
+	return "KmsAccessDeniedException"
+}
+
+func (e *KmsAccessDeniedException) HTTPStatus() int {
+	return 0
+}
+
+// KmsKeyDisabledException is returned with HTTP status 0.
+type KmsKeyDisabledException struct {
+	Message string
+}
+
+func (e *KmsKeyDisabledException) Error() string {
+	return fmt.Sprintf("KmsKeyDisabledException: %s", e.Message)
+}
+
+func (e *KmsKeyDisabledException) ErrorCode() string {
+	return "KmsKeyDisabledException"
+}
+
+func (e *KmsKeyDisabledException) HTTPStatus() int {
+	return 0
+}
+
+// KmsKeyNotFoundException is returned with HTTP status 0.
+type KmsKeyNotFoundException struct {
+	Message string
+}
+
+func (e *KmsKeyNotFoundException) Error() string {
+	return fmt.Sprintf("KmsKeyNotFoundException: %s", e.Message)
+}
+
+func (e *KmsKeyNotFoundException) ErrorCode() string {
+	return "KmsKeyNotFoundException"
+}
+
+func (e *KmsKeyNotFoundException) HTTPStatus() int {
+	return 0
+}
+
 // LimitExceededException is returned with HTTP status 400.
 type LimitExceededException struct {
 	Message string
@@ -208,6 +259,23 @@ func (e *MissingRequiredParameterException) HTTPStatus() int {
 	return 400
 }
 
+// ResourceConflict is returned with HTTP status 409.
+type ResourceConflict struct {
+	Message string
+}
+
+func (e *ResourceConflict) Error() string {
+	return fmt.Sprintf("ResourceConflict: %s", e.Message)
+}
+
+func (e *ResourceConflict) ErrorCode() string {
+	return "ResourceConflict"
+}
+
+func (e *ResourceConflict) HTTPStatus() int {
+	return 409
+}
+
 // ResourceNotFound is returned with HTTP status 404.
 type ResourceNotFound struct {
 	Message string
@@ -240,4 +308,21 @@ func (e *ResourceNotFoundException) ErrorCode() string {
 
 func (e *ResourceNotFoundException) HTTPStatus() int {
 	return 404
+}
+
+// ValidationException is returned with HTTP status 400.
+type ValidationException struct {
+	Message string
+}
+
+func (e *ValidationException) Error() string {
+	return fmt.Sprintf("ValidationException: %s", e.Message)
+}
+
+func (e *ValidationException) ErrorCode() string {
+	return "ValidationException"
+}
+
+func (e *ValidationException) HTTPStatus() int {
+	return 400
 }

@@ -38,6 +38,23 @@ func (e *AccessDeniedException) HTTPStatus() int {
 	return 403
 }
 
+// ConflictException is returned with HTTP status 409.
+type ConflictException struct {
+	Message string
+}
+
+func (e *ConflictException) Error() string {
+	return fmt.Sprintf("ConflictException: %s", e.Message)
+}
+
+func (e *ConflictException) ErrorCode() string {
+	return "ConflictException"
+}
+
+func (e *ConflictException) HTTPStatus() int {
+	return 409
+}
+
 // DependencyException is returned with HTTP status 502.
 type DependencyException struct {
 	Message string

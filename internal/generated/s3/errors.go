@@ -21,6 +21,40 @@ func (e *AccessDenied) HTTPStatus() int {
 	return 403
 }
 
+// AnnotationLimitExceeded is returned with HTTP status 400.
+type AnnotationLimitExceeded struct {
+	Message string
+}
+
+func (e *AnnotationLimitExceeded) Error() string {
+	return fmt.Sprintf("AnnotationLimitExceeded: %s", e.Message)
+}
+
+func (e *AnnotationLimitExceeded) ErrorCode() string {
+	return "AnnotationLimitExceeded"
+}
+
+func (e *AnnotationLimitExceeded) HTTPStatus() int {
+	return 400
+}
+
+// AnnotationNameTooLong is returned with HTTP status 400.
+type AnnotationNameTooLong struct {
+	Message string
+}
+
+func (e *AnnotationNameTooLong) Error() string {
+	return fmt.Sprintf("AnnotationNameTooLong: %s", e.Message)
+}
+
+func (e *AnnotationNameTooLong) ErrorCode() string {
+	return "AnnotationNameTooLong"
+}
+
+func (e *AnnotationNameTooLong) HTTPStatus() int {
+	return 400
+}
+
 // BucketAlreadyExists is returned with HTTP status 409.
 type BucketAlreadyExists struct {
 	Message string
@@ -89,6 +123,23 @@ func (e *IdempotencyParameterMismatch) HTTPStatus() int {
 	return 400
 }
 
+// InvalidAnnotationName is returned with HTTP status 400.
+type InvalidAnnotationName struct {
+	Message string
+}
+
+func (e *InvalidAnnotationName) Error() string {
+	return fmt.Sprintf("InvalidAnnotationName: %s", e.Message)
+}
+
+func (e *InvalidAnnotationName) ErrorCode() string {
+	return "InvalidAnnotationName"
+}
+
+func (e *InvalidAnnotationName) HTTPStatus() int {
+	return 400
+}
+
 // InvalidObjectState is returned with HTTP status 403.
 type InvalidObjectState struct {
 	Message string
@@ -104,6 +155,23 @@ func (e *InvalidObjectState) ErrorCode() string {
 
 func (e *InvalidObjectState) HTTPStatus() int {
 	return 403
+}
+
+// InvalidPrefix is returned with HTTP status 400.
+type InvalidPrefix struct {
+	Message string
+}
+
+func (e *InvalidPrefix) Error() string {
+	return fmt.Sprintf("InvalidPrefix: %s", e.Message)
+}
+
+func (e *InvalidPrefix) ErrorCode() string {
+	return "InvalidPrefix"
+}
+
+func (e *InvalidPrefix) HTTPStatus() int {
+	return 400
 }
 
 // InvalidRequest is returned with HTTP status 400.
@@ -138,6 +206,23 @@ func (e *InvalidWriteOffset) ErrorCode() string {
 
 func (e *InvalidWriteOffset) HTTPStatus() int {
 	return 400
+}
+
+// NoSuchAnnotation is returned with HTTP status 404.
+type NoSuchAnnotation struct {
+	Message string
+}
+
+func (e *NoSuchAnnotation) Error() string {
+	return fmt.Sprintf("NoSuchAnnotation: %s", e.Message)
+}
+
+func (e *NoSuchAnnotation) ErrorCode() string {
+	return "NoSuchAnnotation"
+}
+
+func (e *NoSuchAnnotation) HTTPStatus() int {
+	return 404
 }
 
 // NoSuchBucket is returned with HTTP status 404.
@@ -257,4 +342,21 @@ func (e *TooManyParts) ErrorCode() string {
 
 func (e *TooManyParts) HTTPStatus() int {
 	return 400
+}
+
+// UnsupportedMediaType is returned with HTTP status 415.
+type UnsupportedMediaType struct {
+	Message string
+}
+
+func (e *UnsupportedMediaType) Error() string {
+	return fmt.Sprintf("UnsupportedMediaType: %s", e.Message)
+}
+
+func (e *UnsupportedMediaType) ErrorCode() string {
+	return "UnsupportedMediaType"
+}
+
+func (e *UnsupportedMediaType) HTTPStatus() int {
+	return 415
 }
