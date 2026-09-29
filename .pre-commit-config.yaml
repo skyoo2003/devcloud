@@ -4,16 +4,16 @@ repos:
     rev: v5.0.0
     hooks:
       - id: trailing-whitespace
-        exclude: ^(smithy-models/|internal/generated/)
+        exclude: ^(api/smithy/|internal/generated/)
       - id: end-of-file-fixer
-        exclude: ^(smithy-models/|internal/generated/)
+        exclude: ^(api/smithy/|internal/generated/)
       - id: check-yaml
         args: [--allow-multiple-documents]
       - id: check-json
       - id: check-merge-conflict
       - id: check-added-large-files
         args: [--maxkb=500]
-        exclude: ^(smithy-models/|internal/generated/)
+        exclude: ^(api/smithy/|internal/generated/)
 
   # Go
   - repo: local

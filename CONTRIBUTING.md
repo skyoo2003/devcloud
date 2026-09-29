@@ -9,6 +9,24 @@ Thanks for your interest in contributing! This file is a short pointer — the f
 - **Code of Conduct**: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 - **Security policy**: [SECURITY.md](SECURITY.md)
 
+## Project layout
+
+DevCloud follows the community [Standard Go Project Layout](https://github.com/golang-standards/project-layout). Treat the directory's purpose as part of the contribution contract: place new files in the matching location rather than creating a parallel top-level directory.
+
+| Location | Use it for |
+| --- | --- |
+| `cmd/devcloud` | The production server executable; keep `main` packages thin. |
+| `internal` | Private application code, including services and generated Go output. Do not expose it as a public API. |
+| `tools/codegen` | Repository support tools, including the Smithy code generator. |
+| `api/smithy` | Versioned Smithy API model inputs for code generation. |
+| `test/compatibility` | External boto3/Python compatibility tests and their fixtures. |
+| `build/package` | Container build and release packaging files. |
+| `deployments` | Deployment definitions such as Docker Compose. |
+| `scripts` | Build, generation, validation, and maintenance scripts. |
+| `docs` | Contributor, architecture, and user documentation. |
+
+Do not add a `src/` directory. Add code to `pkg/` only when it is intentionally supported for import by external Go modules; application-private code belongs in `internal/`. Keep runtime data in the ignored root `data/` directory and build output in `dist/`.
+
 ## Reporting issues
 
 - **Bug**: use the [Bug Report](https://github.com/skyoo2003/devcloud/issues/new?template=bug_report.yml) template

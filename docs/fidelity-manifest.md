@@ -80,7 +80,7 @@ unimplemented operation reaches its provider and is refused.
 
 | Input | Source | Contributes |
 |-------|--------|-------------|
-| Operation universe | `smithy-models/*.json`, including resource-attached operations | every known operation |
+| Operation universe | `api/smithy/*.json`, including resource-attached operations | every known operation |
 | `auto-crud` | the generated [CRUD registry](crud-engine.md) | engine-servable operations |
 | `hand-verified` | the case literals of each provider's `HandleRequest` dispatch | implemented operations |
 

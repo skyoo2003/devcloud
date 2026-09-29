@@ -1,6 +1,6 @@
 import io
 
-from tests.compatibility.conftest import _build_devcloud_cmd, _start_server_error
+from conftest import _build_devcloud_cmd, _start_server_error
 
 
 class TestBuildDevcloudCmd:
@@ -8,7 +8,7 @@ class TestBuildDevcloudCmd:
         def fake_isfile(path):
             return path.endswith("devcloud.yaml")
 
-        monkeypatch.setattr("tests.compatibility.conftest.os.path.isfile", fake_isfile)
+        monkeypatch.setattr("conftest.os.path.isfile", fake_isfile)
 
         cmd = _build_devcloud_cmd(str(tmp_path), None)
 
@@ -17,9 +17,7 @@ class TestBuildDevcloudCmd:
         assert "devcloud.yaml" in cmd
 
     def test_omits_config_when_file_missing(self, monkeypatch, tmp_path):
-        monkeypatch.setattr(
-            "tests.compatibility.conftest.os.path.isfile", lambda p: False
-        )
+        monkeypatch.setattr("conftest.os.path.isfile", lambda p: False)
 
         cmd = _build_devcloud_cmd(str(tmp_path), None)
 
@@ -28,9 +26,7 @@ class TestBuildDevcloudCmd:
         assert "devcloud.yaml" not in cmd
 
     def test_uses_bin_path_when_provided(self, monkeypatch, tmp_path):
-        monkeypatch.setattr(
-            "tests.compatibility.conftest.os.path.isfile", lambda p: False
-        )
+        monkeypatch.setattr("conftest.os.path.isfile", lambda p: False)
 
         cmd = _build_devcloud_cmd(str(tmp_path), "/usr/local/bin/devcloud")
 
@@ -40,7 +36,7 @@ class TestBuildDevcloudCmd:
         def fake_isfile(path):
             return path.endswith("devcloud.yaml")
 
-        monkeypatch.setattr("tests.compatibility.conftest.os.path.isfile", fake_isfile)
+        monkeypatch.setattr("conftest.os.path.isfile", fake_isfile)
 
         cmd = _build_devcloud_cmd(str(tmp_path), "/usr/local/bin/devcloud")
 
@@ -61,11 +57,9 @@ class TestDevcloudServerErrorHandling:
 
             stderr = fake_stderr
 
+        monkeypatch.setattr("conftest.subprocess.Popen", lambda *a, **kw: FakeProc())
         monkeypatch.setattr(
-            "tests.compatibility.conftest.subprocess.Popen", lambda *a, **kw: FakeProc()
-        )
-        monkeypatch.setattr(
-            "tests.compatibility.conftest._wait_for_server",
+            "conftest._wait_for_server",
             lambda *a, **kw: (_ for _ in ()).throw(RuntimeError("timeout")),
         )
 

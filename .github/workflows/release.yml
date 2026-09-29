@@ -146,9 +146,9 @@ jobs:
       with:
         python-version: "3.12"
     - name: Install Python dependencies
-      run: pip install -r tests/compatibility/requirements.txt
+      run: pip install -r test/compatibility/requirements.txt
     - name: Run compatibility tests
-      run: pytest tests/compatibility/ -v --tb=short
+      run: pytest test/compatibility/ -v --tb=short
       env:
         DEVCLOUD_BIN: dist/devcloud
 

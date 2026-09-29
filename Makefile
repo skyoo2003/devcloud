@@ -2,25 +2,25 @@
 
 build:
 	go build -o dist/devcloud ./cmd/devcloud
-	go build -o dist/codegen ./cmd/codegen
+	go build -o dist/codegen ./tools/codegen
 
 test:
 	CGO_ENABLED=0 go test ./... -v
 
 test-compat:
-	cd tests/compatibility && pip install -q -r requirements.txt && pytest -v
+	cd test/compatibility && pip install -q -r requirements.txt && pytest -v
 
 codegen:
-	go run ./cmd/codegen -models ./smithy-models -output ./internal/generated -templates ./internal/codegen/templates -scaffold-output ./internal/services
+	go run ./tools/codegen -models ./api/smithy -output ./internal/generated -templates ./internal/codegen/templates -scaffold-output ./internal/services
 
 codegen-s3:
-	go run ./cmd/codegen -models ./smithy-models -output ./internal/generated -services s3 -templates ./internal/codegen/templates
+	go run ./tools/codegen -models ./api/smithy -output ./internal/generated -services s3 -templates ./internal/codegen/templates
 
 run:
 	go run ./cmd/devcloud
 
 docker-build:
-	docker build -f docker/Dockerfile -t devcloud/devcloud .
+	docker build -f build/package/Dockerfile -t devcloud/devcloud .
 
 docker-run:
 	docker run -p 4747:4747 -v $(PWD)/data:/app/data devcloud/devcloud

@@ -85,7 +85,7 @@ brews:
 dockers_v2:
 - images:
   - ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/{{ .ProjectName }}
-  dockerfile: Dockerfile.goreleaser
+  dockerfile: build/package/Dockerfile.goreleaser
   ids:
   - devcloud
   sbom: false

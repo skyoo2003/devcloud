@@ -94,13 +94,13 @@ little manual work. AWS Smithy is the only format read today; a second one is an
 added file, not a rewrite.
 
 ```
-smithy-models/*.json  (AWS Smithy model files)
+api/smithy/*.json  (AWS Smithy model files)
        │
        ▼
   ModelSource (internal/codegen/source.go)
   Each source detects and parses its own format. SmithySource is the
   first; OpenAPI and Protobuf join by implementing the interface and
-  appending to DefaultSources. cmd/codegen names no format.
+  appending to DefaultSources. tools/codegen names no format.
        │
        ▼
   IR — *ir.Model (internal/codegen/ir)
@@ -127,7 +127,7 @@ make codegen      # all services
 make codegen-s3   # one service — fast loop while editing templates
 ```
 
-The models under `smithy-models/` are committed on purpose. The download URL
+The models under `api/smithy/` are committed on purpose. The download URL
 tracks `aws-sdk-go-v2` *main*, so the vendored copies are the pin that makes
 `make codegen` reproducible and offline. A [weekly workflow](../.github/workflows/smithy-sync.yml)
 passes `--refresh`, regenerates, and opens a PR — which is what makes an upstream
@@ -155,7 +155,8 @@ dashboard UI that consumes it is a separate repository; this server serves no UI
 ```
 devcloud/
 ├── cmd/
-│   ├── devcloud/           # Server entry point
+│   └── devcloud/           # Server entry point
+├── tools/
 │   └── codegen/            # Smithy code generator CLI
 ├── internal/
 │   ├── gateway/            # HTTP server, middleware, protocol detection, routing
@@ -169,9 +170,10 @@ devcloud/
 │   ├── shared/             # CRUD engine, HTTP routing, response helpers
 │   ├── admin/              # Admin REST API
 │   └── storage/            # Shared storage abstractions
-├── docker/                 # Dockerfile, docker-compose.yml
-├── smithy-models/          # AWS Smithy JSON model files
-├── tests/compatibility/    # Python/boto3 compatibility tests
+├── api/smithy/             # AWS Smithy JSON model files
+├── build/package/          # Container build and release packaging files
+├── deployments/            # Docker Compose deployment configuration
+├── test/compatibility/     # Python/boto3 compatibility tests
 └── docs/
 ```
 

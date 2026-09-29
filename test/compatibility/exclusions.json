@@ -1,5 +1,5 @@
 {
-  "_comment": "The registered services no boto3 test can exercise, and why. Read by tests/compatibility/_coverage.py and by cmd/devcloud/coverage_test.go, which derives the Compatibility-tested figure docs/coverage.md publishes. Adding an entry lowers that figure; it is a deliberate edit, and two gates fail until the doc moves with it.",
+  "_comment": "The registered services no boto3 test can exercise, and why. Read by test/compatibility/_coverage.py and by cmd/devcloud/coverage_test.go, which derives the Compatibility-tested figure docs/coverage.md publishes. Adding an entry lowers that figure; it is a deliberate edit, and two gates fail until the doc moves with it.",
   "noBoto3Client": {
     "sagemakerruntimehttp2": "botocore has no HTTP/2 SageMaker Runtime client",
     "transcribestreaming": "botocore has no streaming Transcribe client"

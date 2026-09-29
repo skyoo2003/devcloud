@@ -15,12 +15,12 @@ docker run -p 4747:4747 -v $(pwd)/data:/app/data ghcr.io/skyoo2003/devcloud:late
 ## Docker Compose (development)
 
 ```bash
-docker compose -f docker/docker-compose.yml up
+docker compose -f deployments/docker-compose.yml up
 ```
 
 Builds the image from source and starts the Go server on port 4747 with `./data`
 mounted. It runs a subset, not everything —
-[`docker-compose.yml`](../docker/docker-compose.yml) sets
+[`docker-compose.yml`](../deployments/docker-compose.yml) sets
 `DEVCLOUD_SERVICES=s3,sqs,dynamodb,iam,sts,lambda`. Edit that line, or see
 [Configuration](configuration.md#devcloud_services), to run more.
 
