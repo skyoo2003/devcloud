@@ -18,18 +18,27 @@ type API struct {
 	registry     *plugin.Registry
 	logCollector *LogCollector
 	unrouted     *UnroutedCollector
+	resetData    DataResetter
 }
+
+// DataResetter clears all local DevCloud state and returns the number of
+// reinitialized services. It is injected by the application lifecycle layer.
+type DataResetter func(context.Context) (int, error)
 
 // NewAPI creates a new API. A nil unrouted collector is allowed; the unrouted
 // route then reports an empty result rather than 404ing, so a caller reading the
 // endpoint cannot mistake "not collecting" for "nothing was asked for" — the
 // distinction is visible in maxServiceIds.
-func NewAPI(registry *plugin.Registry, logCollector *LogCollector, unrouted *UnroutedCollector) *API {
-	return &API{
+func NewAPI(registry *plugin.Registry, logCollector *LogCollector, unrouted *UnroutedCollector, resetters ...DataResetter) *API {
+	api := &API{
 		registry:     registry,
 		logCollector: logCollector,
 		unrouted:     unrouted,
 	}
+	if len(resetters) > 0 {
+		api.resetData = resetters[0]
+	}
+	return api
 }
 
 // Handler returns an http.Handler that serves all /devcloud/api/* routes.
@@ -41,8 +50,28 @@ func (d *API) Handler() http.Handler {
 	mux.HandleFunc("/devcloud/api/logs", d.handleLogs)
 	mux.HandleFunc("/devcloud/api/fidelity", d.handleFidelity)
 	mux.HandleFunc("/devcloud/api/unrouted", d.handleUnrouted)
+	mux.HandleFunc("/devcloud/api/data", d.handleData)
 
 	return mux
+}
+
+// handleData deletes all DevCloud-owned local state. It is deliberately an
+// admin-only endpoint and exposes no persistence implementation details.
+func (d *API) handleData(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodDelete {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	if d.resetData == nil {
+		http.Error(w, "data reset is unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	active, err := d.resetData(r.Context())
+	if err != nil {
+		http.Error(w, "failed to reset local data", http.StatusInternalServerError)
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{"reset": true, "activeServices": active})
 }
 
 // handleUnrouted handles GET /devcloud/api/unrouted.

@@ -8,6 +8,10 @@ docker run -p 4747:4747 ghcr.io/skyoo2003/devcloud:latest
 
 To persist data across restarts, mount a volume:
 
+Generic CRUD resources are persisted by default alongside service data. To
+start from a clean local environment, run `devcloud --reset-data`; with the
+admin API enabled, `DELETE /devcloud/api/data` performs the same full reset.
+
 ```bash
 docker run -p 4747:4747 -v $(pwd)/data:/app/data ghcr.io/skyoo2003/devcloud:latest
 ```

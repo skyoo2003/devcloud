@@ -176,6 +176,27 @@ func TestAPI_UnroutedRejectsNonGET(t *testing.T) {
 	assert.Equal(t, http.StatusMethodNotAllowed, w.Code)
 }
 
+func TestAPI_DataReset(t *testing.T) {
+	called := false
+	api := NewAPI(plugin.NewRegistry(), NewLogCollector(10), nil,
+		func(context.Context) (int, error) {
+			called = true
+			return 3, nil
+		})
+	w := httptest.NewRecorder()
+	api.Handler().ServeHTTP(w, httptest.NewRequest(http.MethodDelete, "/devcloud/api/data", nil))
+	require.Equal(t, http.StatusOK, w.Code)
+	assert.True(t, called)
+	var body map[string]any
+	require.NoError(t, json.NewDecoder(w.Body).Decode(&body))
+	assert.Equal(t, true, body["reset"])
+	assert.Equal(t, float64(3), body["activeServices"])
+
+	w = httptest.NewRecorder()
+	api.Handler().ServeHTTP(w, httptest.NewRequest(http.MethodGet, "/devcloud/api/data", nil))
+	assert.Equal(t, http.StatusMethodNotAllowed, w.Code)
+}
+
 // TestAPI_Services registers a mock plugin and verifies the
 // /devcloud/api/services endpoint returns it.
 func TestAPI_Services(t *testing.T) {

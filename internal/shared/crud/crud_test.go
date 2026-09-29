@@ -5,6 +5,7 @@ package crud
 import (
 	"encoding/json"
 	"net/url"
+	"path/filepath"
 	"strings"
 	"sync"
 	"testing"
@@ -25,6 +26,38 @@ func decode(t *testing.T, r *Result) map[string]any {
 		t.Fatalf("bad response body: %v", err)
 	}
 	return m
+}
+
+func TestEnginePersistsAcrossReopen(t *testing.T) {
+	defer func() { requireNoError(t, Close()) }()
+	path := filepath.Join(t.TempDir(), "devcloud.db")
+	const service = "persisted-service"
+	Register(service, map[string]OpMeta{
+		"CreateThing": {Verb: "Create", Resource: "Thing", OutputItemKey: "Thing"},
+		"GetThing":    {Verb: "Get", Resource: "Thing", OutputItemKey: "Thing"},
+	})
+
+	requireNoError(t, Open(path))
+	if _, err := handleJSON(t, service, "CreateThing", map[string]any{"ThingName": "survives"}); err != nil {
+		t.Fatal(err)
+	}
+	requireNoError(t, Close())
+	requireNoError(t, Open(path))
+
+	result, err := handleJSON(t, service, "GetThing", map[string]any{"ThingName": "survives"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := decode(t, result)["Thing"].(map[string]any)["ThingName"]; got != "survives" {
+		t.Fatalf("persisted ThingName = %v, want survives", got)
+	}
+}
+
+func requireNoError(t *testing.T, err error) {
+	t.Helper()
+	if err != nil {
+		t.Fatal(err)
+	}
 }
 
 func TestEngineCRUDRoundTrip(t *testing.T) {

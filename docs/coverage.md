@@ -17,8 +17,8 @@ denominators, because [routing and depth are two targets](#the-target):
 | Tier | Serving target | All registered |
 |---|---|---|
 | `hand-verified` | 4,497 | 4,528 |
-| `auto-crud` | 5,193 | 10,871 |
-| `unimplemented` | 2,717 | 3,802 |
+| `auto-crud` | 5,910 | 11,588 |
+| `unimplemented` | 2,000 | 3,085 |
 | **total known** | **12,407** | **19,201** |
 | **hand-verified share** | **36.2%** | **23.6%** |
 

@@ -99,16 +99,9 @@ func TestFidelityManifestCoversRegisteredServices(t *testing.T) {
 // lists.
 func TestFidelityManifestCoversCRUDRegistry(t *testing.T) {
 	for _, id := range plugin.DefaultRegistry.RegisteredServices() {
-		// Registry membership is classifiability, not reachability. The CRUD
-		// registry is built from the model, so it also holds operations for
-		// services whose hand-written provider refuses unknown operations
-		// itself (apigatewayv2, xray) — the engine is never routed to for
-		// those, so "unimplemented" is the truth and this check would be
-		// asserting the opposite. TestFidelityManifestCoverage's `served == 0
-		// && RegisteredOps > 0` guard is what catches wiring that goes missing.
-		if !fidelity.Services[id].EngineWired {
-			continue
-		}
+		// The gateway retries explicit AWS-shaped unimplemented responses through
+		// the CRUD engine, so every registry operation is reachable regardless of
+		// whether a legacy provider returns ErrUnhandledOp itself.
 		for op := range crud.RegisteredOps(id) {
 			tier, ok := fidelity.Lookup(id, op)
 			if !ok {

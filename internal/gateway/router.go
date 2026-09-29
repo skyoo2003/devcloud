@@ -80,7 +80,7 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// A provider that returns ErrUnhandledOp is opting into the generic CRUD
 	// fallback for operations it does not implement. If the engine cannot
 	// classify the operation either, emit the standard "unknown action" error.
-	if errors.Is(err, plugin.ErrUnhandledOp) {
+	if errors.Is(err, plugin.ErrUnhandledOp) || isUnimplementedResponse(resp) {
 		res, cerr := crud.Handle(crud.Call{
 			Service:  serviceID,
 			Protocol: protocol,
@@ -89,11 +89,13 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			URI:      r.URL.RequestURI(),
 			Body:     body,
 		})
-		if cerr != nil {
+		if cerr != nil && errors.Is(err, plugin.ErrUnhandledOp) {
 			writeAWSError(w, protocol, http.StatusBadRequest, "InvalidAction", "unknown action: "+op)
 			return
 		}
-		resp, err = &plugin.Response{StatusCode: res.Status, Body: res.Body, ContentType: res.ContentType}, nil
+		if cerr == nil {
+			resp, err = &plugin.Response{StatusCode: res.Status, Body: res.Body, ContentType: res.ContentType}, nil
+		}
 	}
 
 	if err != nil {
@@ -137,6 +139,20 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", ct)
 	w.WriteHeader(resp.StatusCode)
 	_, _ = w.Write(resp.Body)
+}
+
+// isUnimplementedResponse recognises the explicit AWS-shaped errors returned
+// by older hand-written providers. The fallback engine is still asked only for
+// operations it classifies, so a non-CRUD operation keeps the provider's
+// honest error rather than becoming a fabricated success.
+func isUnimplementedResponse(resp *plugin.Response) bool {
+	if resp == nil {
+		return false
+	}
+	body := string(resp.Body)
+	return strings.Contains(body, "NotImplemented") ||
+		strings.Contains(body, "UnsupportedOperation") ||
+		strings.Contains(body, "MethodNotAllowed")
 }
 
 // extractOperationName derives the AWS operation name from the request.
