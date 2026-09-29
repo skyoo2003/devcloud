@@ -106,6 +106,14 @@ func TestEmailIdentityCRUD(t *testing.T) {
 		t.Errorf("expected 1 identity, got %v", listResp["EmailIdentities"])
 	}
 
+	// Newer botocore models use POST /v2/email/list-identities instead of
+	// GET /v2/email/identities for the same operation.
+	listResp = callOp(t, p, "", "/v2/email/list-identities", http.MethodPost, nil)
+	ids, ok = listResp["EmailIdentities"].([]any)
+	if !ok || len(ids) != 1 {
+		t.Errorf("expected 1 identity from alternate list route, got %v", listResp["EmailIdentities"])
+	}
+
 	// Duplicate -> 400
 	callOpStatus(t, p, "CreateEmailIdentity", "/v2/email/identities", http.MethodPost, map[string]any{
 		"EmailIdentity": "test@example.com",

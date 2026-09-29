@@ -1198,6 +1198,14 @@ func resolveOp(method, urlPath string) string {
 	resource := segs[0]
 
 	switch resource {
+	case "list-identities":
+		// Newer SESv2 SDK models bind ListEmailIdentities to
+		// POST /v2/email/list-identities, while older models use
+		// GET /v2/email/identities. Accept both published bindings.
+		if n == 1 && method == http.MethodPost {
+			return "ListEmailIdentities"
+		}
+
 	case "identities":
 		if n == 1 {
 			if method == "POST" {
