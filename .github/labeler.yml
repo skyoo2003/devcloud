@@ -14,21 +14,21 @@ ci:
 docker:
   - changed-files:
       - any-glob-to-any-file:
-          - "docker/**/*"
-          - "Dockerfile*"
+          - "build/package/**/*"
+          - "deployments/**/*"
 
 tests:
   - changed-files:
       - any-glob-to-any-file:
-          - "tests/**/*"
+          - "test/**/*"
           - "**/*_test.go"
 
 codegen:
   - changed-files:
       - any-glob-to-any-file:
           - "internal/codegen/**/*"
-          - "smithy-models/**/*"
-          - "cmd/codegen/**/*"
+          - "api/smithy/**/*"
+          - "tools/codegen/**/*"
 
 services:
   - changed-files:

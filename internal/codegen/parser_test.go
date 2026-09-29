@@ -14,7 +14,7 @@ import (
 )
 
 func TestParseSmithyJSON(t *testing.T) {
-	data, err := os.ReadFile("../../cmd/codegen/testdata/s3-minimal.json")
+	data, err := os.ReadFile("../../tools/codegen/testdata/s3-minimal.json")
 	require.NoError(t, err)
 
 	model, err := ParseSmithyJSON(data)
@@ -148,7 +148,7 @@ func TestSmithyToGoType_Primitives(t *testing.T) {
 // separately: its X-Amz-Target prefix is RekognitionService while every other
 // identifier it publishes is plain "rekognition".
 func TestParseSmithyJSON_ServiceIdentifiers(t *testing.T) {
-	data, err := os.ReadFile("../../smithy-models/rekognition.json")
+	data, err := os.ReadFile("../../api/smithy/rekognition.json")
 	require.NoError(t, err)
 
 	model, err := ParseSmithyJSON(data)

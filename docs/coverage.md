@@ -90,7 +90,7 @@ Registering a service the engine cannot serve is deliberate. The alternative is
 worse: an *unregistered* service is not routed, so the SDK call leaves the
 machine and bills a real AWS account. A registered-only service answers locally,
 in AWS's own error vocabulary. What it must never do is fabricate a success —
-`tests/compatibility/test_service_smoke.py::test_registered_only_service_declines_cleanly`
+`test/compatibility/test_service_smoke.py::test_registered_only_service_declines_cleanly`
 is the check that keeps that true.
 
 Engine-*servable* is not the same as engine-*served*. The engine is entered only
@@ -100,7 +100,7 @@ manifest records this per service as `EngineWired`.
 
 ## Why compatibility-tested is 426, not 431
 
-`tests/compatibility/test_service_smoke.py` parametrises over the generated
+`test/compatibility/test_service_smoke.py` parametrises over the generated
 service list rather than a hand-written one, so a service cannot be registered
 and quietly go untested — which is what 31 of them were until this was measured.
 
@@ -121,7 +121,7 @@ resolves its endpoint from a KVS ARN and so never honours `endpoint_url`.
 parser, and DevCloud has no CBOR encoder, so even a clean decline reads as a
 corrupt frame — see the protocol table above.
 
-Both sets are pinned in `tests/compatibility/_coverage.py` and asserted, so
+Both sets are pinned in `test/compatibility/_coverage.py` and asserted, so
 adding a sixth is a deliberate edit that moves this figure with it.
 
 ## Contested signing names

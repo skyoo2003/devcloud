@@ -27,4 +27,4 @@ __pycache__/
 
 # Claude Code local workspace
 .claude/
-tests/compatibility/data/
+test/compatibility/data/

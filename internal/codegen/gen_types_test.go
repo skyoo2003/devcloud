@@ -14,7 +14,7 @@ import (
 
 func loadTestModel(t *testing.T) *ir.Model {
 	t.Helper()
-	data, err := os.ReadFile("../../cmd/codegen/testdata/s3-minimal.json")
+	data, err := os.ReadFile("../../tools/codegen/testdata/s3-minimal.json")
 	require.NoError(t, err)
 	model, err := ParseSmithyJSON(data)
 	require.NoError(t, err)

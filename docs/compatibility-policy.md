@@ -81,7 +81,7 @@ the manifest lists no unimplemented tail for them. `modelBacked` on
 
 ### Wire behaviour — scoped to the compatibility suite
 
-**Whatever a test in [`tests/compatibility/`](../tests/compatibility/) asserts about a response
+**Whatever a test in [`test/compatibility/`](../test/compatibility/) asserts about a response
 keeps holding across 1.x — that property, and nothing wider.**
 
 The promise is as wide as each individual assertion: not as wide as the field, and not as wide as

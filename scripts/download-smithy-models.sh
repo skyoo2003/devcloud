@@ -2,7 +2,7 @@
 # scripts/download-smithy-models.sh
 # Downloads AWS Smithy JSON models from the aws-sdk-go-v2 repository.
 #
-# The models committed under smithy-models/ are the pin for `make codegen`:
+# The models committed under api/smithy/ are the pin for `make codegen`:
 # BASE_URL tracks aws-sdk-go-v2 *main*, so without them codegen output would
 # depend on whatever upstream published that day. By default this script only
 # fills in missing files, which keeps a local codegen run reproducible and
@@ -21,7 +21,7 @@ if [ "${1:-}" = "--refresh" ]; then
   shift
 fi
 
-MODELS_DIR="${1:-./smithy-models}"
+MODELS_DIR="${1:-./api/smithy}"
 shift || true
 BASE_URL="https://raw.githubusercontent.com/aws/aws-sdk-go-v2/main/codegen/sdk-codegen/aws-models"
 

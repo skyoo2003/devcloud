@@ -18,7 +18,7 @@ Run from the workflow after `download-smithy-models.sh --refresh`, or by hand.
 Like demand_rank.py, a source that reads wrong exits non-zero rather than
 emitting a summary that under-reports.
 
-usage: model_churn.py [--models-dir smithy-models] [--base-ref HEAD]
+usage: model_churn.py [--models-dir api/smithy] [--base-ref HEAD]
                       [--upstream] [--self-check] [--out -]
 """
 
@@ -307,7 +307,7 @@ def render(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--models-dir", default="smithy-models")
+    parser.add_argument("--models-dir", default="api/smithy")
     parser.add_argument(
         "--base-ref",
         default="HEAD",

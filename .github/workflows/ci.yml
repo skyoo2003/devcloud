@@ -39,7 +39,7 @@ jobs:
       - name: Build Go binaries
         run: |
           CGO_ENABLED=0 go build -o dist/devcloud ./cmd/devcloud
-          CGO_ENABLED=0 go build -o dist/codegen ./cmd/codegen
+          CGO_ENABLED=0 go build -o dist/codegen ./tools/codegen
 
       # docs/coverage.md publishes the binary size, and the single-binary,
       # zero-config property is what that figure is evidence for. Nothing
@@ -85,7 +85,7 @@ jobs:
       # Every tracked file under internal/generated carries a generated marker,
       # so nothing hand-written is lost.
       #
-      # No SQLite headers: cmd/codegen builds with CGO_ENABLED=0.
+      # No SQLite headers: tools/codegen builds with CGO_ENABLED=0.
       - name: Regenerate from a clean tree
         run: |
           rm -rf internal/generated

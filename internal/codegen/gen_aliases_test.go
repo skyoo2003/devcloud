@@ -45,7 +45,7 @@ func TestBuildAliasesDerivesEveryServiceIdentifier(t *testing.T) {
 // a unit test. rekognition could not be onboarded at all because its target
 // prefix is RekognitionService and no hand-written case clause covered it.
 func TestBuildAliasesResolvesRekognitionServicePrefix(t *testing.T) {
-	data, err := os.ReadFile("../../smithy-models/rekognition.json")
+	data, err := os.ReadFile("../../api/smithy/rekognition.json")
 	require.NoError(t, err)
 
 	model, err := ParseSmithyJSON(data)
@@ -243,7 +243,7 @@ func TestGenerateAliasesRendersBothTables(t *testing.T) {
 func loadCommittedModels(t *testing.T) []*ir.Model {
 	t.Helper()
 
-	entries, err := os.ReadDir("../../smithy-models")
+	entries, err := os.ReadDir("../../api/smithy")
 	require.NoError(t, err)
 
 	var models []*ir.Model
@@ -251,7 +251,7 @@ func loadCommittedModels(t *testing.T) []*ir.Model {
 		if entry.IsDir() {
 			continue
 		}
-		data, err := os.ReadFile("../../smithy-models/" + entry.Name())
+		data, err := os.ReadFile("../../api/smithy/" + entry.Name())
 		require.NoError(t, err)
 		model, err := ParseSmithyJSON(data)
 		require.NoError(t, err, entry.Name())

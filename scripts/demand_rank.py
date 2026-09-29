@@ -164,7 +164,7 @@ def intree_model_service_ids() -> dict[str, str]:
     the filename (`acm-pca`) nor anything derivable from it.
     """
     out: dict[str, str] = {}
-    models_dir = REPO_ROOT / "smithy-models"
+    models_dir = REPO_ROOT / "api/smithy"
     for path in sorted(models_dir.glob("*.json")):
         model = json.loads(path.read_text(encoding="utf-8"))
         for shape_id, shape in model.get("shapes", {}).items():

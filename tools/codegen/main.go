@@ -23,7 +23,7 @@ import (
 var handWritten = map[string]bool{"sts": true}
 
 func main() {
-	modelsDir := flag.String("models", "./smithy-models", "Directory containing Smithy JSON model files")
+	modelsDir := flag.String("models", "./api/smithy", "Directory containing Smithy JSON model files")
 	outputDir := flag.String("output", "./internal/generated", "Output directory for generated code")
 	services := flag.String("services", "", "Comma-separated list of services to generate (empty = all)")
 	templateDir := flag.String("templates", "./internal/codegen/templates", "Directory containing Go templates")

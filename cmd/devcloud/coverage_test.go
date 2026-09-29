@@ -198,13 +198,13 @@ func derivedFigures(t *testing.T) figures {
 // loadCompatExclusions returns the registered services no boto3 test can reach.
 //
 // docs/coverage.md's fourth number is the fleet minus these. The set is a fact
-// about botocore, so tests/compatibility owns it — this reads that file rather
+// about botocore, so test/compatibility owns it — this reads that file rather
 // than keeping a Go copy, because a Go copy would drift the week botocore
 // publishes a client and only the Python side noticed.
 func loadCompatExclusions(t *testing.T) []string {
 	t.Helper()
 
-	path := filepath.Join(repoRoot(t), "tests", "compatibility", "exclusions.json")
+	path := filepath.Join(repoRoot(t), "test", "compatibility", "exclusions.json")
 	raw, err := os.ReadFile(path)
 	if err != nil {
 		t.Fatalf("read the compatibility exclusions: %v", err)
@@ -215,7 +215,7 @@ func loadCompatExclusions(t *testing.T) []string {
 		UnreachableFromBoto3 map[string]string `json:"unreachableFromBoto3"`
 	}
 	if err := json.Unmarshal(raw, &doc); err != nil {
-		t.Fatalf("tests/compatibility/exclusions.json is not valid JSON: %v. "+
+		t.Fatalf("test/compatibility/exclusions.json is not valid JSON: %v. "+
 			"Both the compatibility suite and the published Compatibility-tested "+
 			"figure are derived from it, so an unreadable file stops both rather "+
 			"than quietly excluding nothing.", err)
@@ -285,7 +285,7 @@ func TestPublishedCoverageMatchesTheBinary(t *testing.T) {
 	// check would stay green. It is asserted here so the round trip closes.
 	if got, want := coverageRow(t, doc, "Compatibility-tested"), f.compatTested; got != want {
 		t.Errorf("docs/coverage.md publishes %d compatibility-tested services; %d registered "+
-			"minus the %d pinned in tests/compatibility/exclusions.json is %d. Adding an "+
+			"minus the %d pinned in test/compatibility/exclusions.json is %d. Adding an "+
 			"exclusion lowers the published figure in the same commit — that is what this "+
 			"gate is for.", got, f.registered, f.registered-f.compatTested, want)
 	}

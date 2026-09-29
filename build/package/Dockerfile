@@ -8,7 +8,7 @@ COPY . .
 # property that lets the released binaries build without one.
 ENV CGO_ENABLED=0
 RUN go build -o /devcloud ./cmd/devcloud
-RUN go build -o /codegen ./cmd/codegen
+RUN go build -o /codegen ./tools/codegen
 
 # Stage 2: Runtime
 FROM alpine:3.20
@@ -17,9 +17,9 @@ RUN adduser -D -H -h /app appuser
 WORKDIR /app
 COPY --from=go-builder /devcloud /app/devcloud
 COPY --from=go-builder /codegen /app/codegen
-COPY smithy-models/ /app/smithy-models/
+COPY api/smithy/ /app/api/smithy/
 COPY internal/codegen/templates/ /app/templates/
-COPY docker/entrypoint.sh /app/entrypoint.sh
+COPY build/package/entrypoint.sh /app/entrypoint.sh
 RUN chown -R appuser:appuser /app
 
 EXPOSE 4747

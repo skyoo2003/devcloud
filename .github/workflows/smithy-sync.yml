@@ -27,8 +27,8 @@ jobs:
 
       - name: Run code generation
         run: |
-          go run ./cmd/codegen \
-            -models ./smithy-models \
+          go run ./tools/codegen \
+            -models ./api/smithy \
             -output ./internal/generated \
             -templates ./internal/codegen/templates \
             -scaffold-output ./internal/services

@@ -34,7 +34,7 @@ item made a future provider an *addition* rather than an edit — the seams are
 tabulated in [architecture.md](architecture.md#multi-csp-seams).
 
 - [x] Intermediate Representation between models and codegen ([`internal/codegen/ir`](../internal/codegen/ir/ir.go)). Generators read `*ir.Model`; nothing in the IR names Smithy.
-- [x] Parser refactored behind [`ModelSource`](../internal/codegen/source.go). `SmithySource` owns its own format detection, so `cmd/codegen` never names a format.
+- [x] Parser refactored behind [`ModelSource`](../internal/codegen/source.go). `SmithySource` owns its own format detection, so `tools/codegen` never names a format.
 - [x] Provider namespacing in config — `providers.aws.services.*`, forward-compatible with `providers.azure.*` ([configuration.md](configuration.md#provider-namespacing)).
 - [x] Plugin interface review — `ServicePlugin` needed no change; the CSP is carried by the optional [`ProviderScoped`](plugin-api.md#providers-and-csp-neutrality).
 - [x] Per-provider auth adapters ([`internal/auth`](../internal/auth/auth.go)). `SigV4` is the AWS implementation; AAD/SAS and OAuth2 slot in beside it without touching the gateway.

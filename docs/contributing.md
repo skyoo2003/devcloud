@@ -29,10 +29,10 @@ make run     # starts the server on port 4747
 | `make build` | Build both binaries into `dist/` — `devcloud` and `codegen` |
 | `make run` | Run the server from source (`go run ./cmd/devcloud`) |
 | `make test` | Run all Go tests with `CGO_ENABLED=0` and `-v` |
-| `make test-compat` | Install `tests/compatibility/requirements.txt` and run the boto3 suite |
-| `make codegen` | Regenerate `internal/generated/` from every model in `smithy-models/` |
+| `make test-compat` | Install `test/compatibility/requirements.txt` and run the boto3 suite |
+| `make codegen` | Regenerate `internal/generated/` from every model in `api/smithy/` |
 | `make codegen-s3` | Same, restricted to S3 — fast loop while editing templates |
-| `make docker-build` | Build the image from `docker/Dockerfile` as `devcloud/devcloud` |
+| `make docker-build` | Build the image from `build/package/Dockerfile` as `devcloud/devcloud` |
 | `make docker-run` | Run that image on port 4747 with `./data` mounted |
 | `make docs-serve` | Preview this documentation locally with Hugo |
 | `make docs-build` | Build the documentation site and check every internal link |
@@ -46,11 +46,11 @@ make run     # starts the server on port 4747
 
 ```bash
 make test          # Go tests, CGO_ENABLED=0 — the same mode releases ship
-make test-compat   # Python/boto3 suite in tests/compatibility/
+make test-compat   # Python/boto3 suite in test/compatibility/
 ```
 
 You do **not** need a server running first. The `devcloud_server` session fixture
-in [`conftest.py`](../tests/compatibility/conftest.py) starts one via `go run`, on
+in [`conftest.py`](../test/compatibility/conftest.py) starts one via `go run`, on
 a free port, against a temporary data directory it removes afterwards. Three
 environment variables change that:
 
@@ -63,7 +63,7 @@ environment variables change that:
 To run the suite directly:
 
 ```bash
-cd tests/compatibility
+cd test/compatibility
 pip install -r requirements.txt
 pytest -v
 ```
@@ -79,7 +79,7 @@ make codegen-s3   # one service
 
 | Piece | Where |
 |---|---|
-| Models | `smithy-models/*.json` |
+| Models | `api/smithy/*.json` |
 | Sources | `internal/codegen/source.go` — `ModelSource` per format; `SmithySource` today |
 | Generator | `internal/codegen/generator.go` + `internal/codegen/templates/` |
 | Output | `internal/generated/{service}/` — `types.go`, `router.go`, `errors.go`, `base_provider.go` |
@@ -125,7 +125,7 @@ DEVCLOUD_UPDATE_DOCS=1 go test ./cmd/devcloud/ -run TestUpdatePublishedFigures
 
 ## Adding a New AWS Service
 
-1. **Add the Smithy model** to `smithy-models/`.
+1. **Add the Smithy model** to `api/smithy/`.
 2. **Run `make codegen`** — generates types, router, errors and stubs.
 3. **Implement the provider** in `internal/services/<service>/provider.go`. Start
    with the most commonly used operations; the generated base provider makes
@@ -140,7 +140,7 @@ DEVCLOUD_UPDATE_DOCS=1 go test ./cmd/devcloud/ -run TestUpdatePublishedFigures
    [plugin-api.md](plugin-api.md).
 6. **Wire startup and config** — `cmd/devcloud/main.go` and
    `internal/config/default.yaml`.
-7. **Write tests** — Go unit tests plus boto3 tests in `tests/compatibility/`.
+7. **Write tests** — Go unit tests plus boto3 tests in `test/compatibility/`.
 8. **Document it** — a page under `docs/services/` for a core service.
 
 ```
@@ -200,8 +200,8 @@ pre-commit run --all-files   # optional: check the whole tree now
 [`.pre-commit-config.yaml`](../.pre-commit-config.yaml) runs `go-spdx-header`,
 `gofmt -l -w`, `go vet` and `go build` on Go files — the last two with
 `CGO_ENABLED=0`, so a contributor without a C toolchain still gets them. Python
-under `tests/` and `scripts/` is handled by `ruff`. `internal/generated/` and
-`smithy-models/` are excluded throughout.
+under `test/` and `scripts/` is handled by `ruff`. `internal/generated/` and
+`api/smithy/` are excluded throughout.
 
 ### Linting
 
