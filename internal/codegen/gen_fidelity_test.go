@@ -28,21 +28,16 @@ func tierOf(t *testing.T, data FidelityData, serviceID, op string) string {
 	return ""
 }
 
-// TestBuildFidelityDataRequiresEngineWiring is the guard against the manifest
-// overstating coverage.
-//
-// Being in the CRUD registry only means an operation is *classifiable* — the
-// engine is reached at runtime only for providers that return
-// plugin.ErrUnhandledOp. Labelling an operation auto-crud on registry
-// membership alone publishes "this is served" for a provider that refuses it,
-// which is exactly what a freshly scaffolded service would look like.
-func TestBuildFidelityDataRequiresEngineWiring(t *testing.T) {
+// TestBuildFidelityDataUsesGatewayFallback proves that legacy providers which
+// return an AWS-shaped unimplemented response still expose classified CRUD
+// operations through the gateway fallback.
+func TestBuildFidelityDataUsesGatewayFallback(t *testing.T) {
 	modelOps := map[string][]string{
 		"wired":   {"CreateThing"},
 		"unwired": {"CreateThing"},
 	}
-	// Neither service hand-implements anything; the only difference is whether
-	// its dispatch reaches the engine.
+	// Neither service hand-implements anything. The gateway handles both the
+	// sentinel and legacy explicit unimplemented responses.
 	providers := map[string]ProviderScan{
 		"wired":   {EngineWired: true},
 		"unwired": {EngineWired: false},
@@ -54,10 +49,9 @@ func TestBuildFidelityDataRequiresEngineWiring(t *testing.T) {
 
 	data := BuildFidelityData(modelOps, map[string]string{"demo": "json-1.1"}, providers, autoCRUD)
 
-	assert.Equal(t, "AutoCRUD", tierOf(t, data, "wired", "CreateThing"),
-		"an engine-wired provider's CRUD-shaped operation is served, so auto-crud is truthful")
-	assert.Equal(t, "Unimplemented", tierOf(t, data, "unwired", "CreateThing"),
-		"a provider that never reaches the engine serves nothing, whatever the CRUD registry says")
+	assert.Equal(t, "AutoCRUD", tierOf(t, data, "wired", "CreateThing"))
+	assert.Equal(t, "AutoCRUD", tierOf(t, data, "unwired", "CreateThing"),
+		"gateway fallback makes a classified operation reachable without provider boilerplate")
 }
 
 // TestBuildFidelityDataPromotesShortDeclaredOperations covers the operation name

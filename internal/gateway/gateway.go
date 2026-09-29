@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/admin"
@@ -17,8 +19,10 @@ import (
 // Gateway wraps an HTTP server and ties together the plugin registry with
 // the full middleware chain.
 type Gateway struct {
-	server   *http.Server
-	registry *plugin.Registry
+	server      *http.Server
+	registry    *plugin.Registry
+	maintenance sync.RWMutex
+	resetting   atomic.Bool
 }
 
 // New creates a Gateway that listens on the given port.
@@ -38,15 +42,41 @@ type Gateway struct {
 // service.
 func New(port int, registry *plugin.Registry, adminAPI http.Handler, logCollector *admin.LogCollector, unroutedCollector *admin.UnroutedCollector) *Gateway {
 	router := NewServiceRouter(registry, unroutedCollector)
+	g := &Gateway{registry: registry}
 
 	// Logging middleware: records AWS API requests to logCollector. Only
 	// installed when there is a collector to read them.
-	var serviceHandler http.Handler = router
+	var serviceHandler http.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if g.resetting.Load() {
+			http.Error(w, "DevCloud data reset in progress", http.StatusServiceUnavailable)
+			return
+		}
+		g.maintenance.RLock()
+		defer g.maintenance.RUnlock()
+		if g.resetting.Load() {
+			http.Error(w, "DevCloud data reset in progress", http.StatusServiceUnavailable)
+			return
+		}
+		router.ServeHTTP(w, r)
+	})
 	if logCollector != nil {
 		serviceHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			start := time.Now()
 			rec := newStatusRecorder(w)
-			router.ServeHTTP(rec, r)
+			serviceHandlerBase := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				if g.resetting.Load() {
+					http.Error(w, "DevCloud data reset in progress", http.StatusServiceUnavailable)
+					return
+				}
+				g.maintenance.RLock()
+				defer g.maintenance.RUnlock()
+				if g.resetting.Load() {
+					http.Error(w, "DevCloud data reset in progress", http.StatusServiceUnavailable)
+					return
+				}
+				router.ServeHTTP(w, r)
+			})
+			serviceHandlerBase.ServeHTTP(rec, r)
 			// IdentityMiddleware runs before this handler, so the region here is
 			// what the caller signed for — empty for an unsigned client.
 			id, _ := auth.FromContext(r.Context())
@@ -86,10 +116,18 @@ func New(port int, registry *plugin.Registry, adminAPI http.Handler, logCollecto
 		IdleTimeout:       120 * time.Second,
 	}
 
-	return &Gateway{
-		server:   srv,
-		registry: registry,
-	}
+	g.server = srv
+	return g
+}
+
+// WithMaintenance blocks new AWS API requests while fn runs. Admin routes are
+// intentionally left available so DELETE /devcloud/api/data can complete.
+func (g *Gateway) WithMaintenance(fn func() error) error {
+	g.resetting.Store(true)
+	defer g.resetting.Store(false)
+	g.maintenance.Lock()
+	defer g.maintenance.Unlock()
+	return fn()
 }
 
 // detectService attempts to identify the AWS service from a request path.

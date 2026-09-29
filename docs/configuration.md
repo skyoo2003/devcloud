@@ -96,6 +96,7 @@ logging:
 | `server.port` | `4747` | HTTP server port |
 | `services.<name>.enabled` | `false` | **Required per entry.** Listing a service is not enough — `enabled: true` still has to be set. |
 | `services.<name>.data_dir` | `./data/<name>` | Data directory for persistent storage |
+| `storage.data_dir` | `./data` | Directory holding DevCloud-wide local state, including generic AWS resources |
 | `admin.enabled` | `false` | Serve the admin REST API at `/devcloud/api/*` |
 | `logging.level` | `info` | `debug`, `info`, `warn`, `error` |
 | `logging.format` | `text` | `text` or `json` |
@@ -148,6 +149,12 @@ block** — one under its forward-compatible name, one under its historical one.
   service cannot collide.
 
 ## Data directories
+
+DevCloud's generic resource fallback persists in SQLite at
+`<storage.data_dir>/devcloud.db`. By default this is `./data/devcloud.db`; an
+explicit `DEVCLOUD_DATA_DIR` overrides it together with all service directories.
+Use `devcloud --reset-data` before startup, or (with `admin.enabled: true`)
+`DELETE /devcloud/api/data`, to remove **all** local DevCloud data.
 
 | Service | Default `data_dir` | Backend | Contents |
 |---------|-------------------|---------|----------|

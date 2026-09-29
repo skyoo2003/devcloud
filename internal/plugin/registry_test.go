@@ -45,3 +45,15 @@ func TestRegistryList(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, []string{"s3"}, reg.ActiveServices())
 }
+
+func TestRegistryShutdownAllClearsActiveServices(t *testing.T) {
+	reg := NewRegistry()
+	reg.Register("s3", func() ServicePlugin { return &mockPlugin{} })
+	_, err := reg.Init("s3", PluginConfig{})
+	require.NoError(t, err)
+
+	require.NoError(t, reg.ShutdownAll(context.Background()))
+	assert.Empty(t, reg.ActiveServices())
+	_, ok := reg.Get("s3")
+	assert.False(t, ok)
+}

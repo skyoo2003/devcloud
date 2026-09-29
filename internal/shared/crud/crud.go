@@ -13,6 +13,7 @@ package crud
 
 import (
 	"crypto/rand"
+	"database/sql"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
@@ -24,6 +25,7 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/shared/httproute"
+	storesqlite "github.com/skyoo2003/devcloud/internal/storage/sqlite"
 )
 
 // ErrUnclassified means the engine has no CRUD handling for this operation; the
@@ -80,6 +82,7 @@ var (
 	registry = map[string]map[string]OpMeta{}         // service -> op -> meta
 	routes   = map[string][]httproute.Route{}         // service -> REST routes, sorted by operation
 	store    = map[string]map[string]map[string]any{} // "service|resource" -> id -> doc
+	db       *storesqlite.Store
 
 	// providerRoutes holds the REST routes of services whose provider serves
 	// them by hand. It is kept apart from routes rather than merged into it
@@ -88,6 +91,60 @@ var (
 	// side controls.
 	providerRoutes = map[string][]httproute.Route{}
 )
+
+var migrations = []storesqlite.Migration{{
+	Version: 1,
+	SQL: `CREATE TABLE IF NOT EXISTS crud_resources (
+		service TEXT NOT NULL,
+		resource TEXT NOT NULL,
+		resource_id TEXT NOT NULL,
+		document_json BLOB NOT NULL,
+		PRIMARY KEY (service, resource, resource_id)
+	);`,
+}}
+
+// Open configures the durable store used by the fallback engine. It is called
+// once during DevCloud startup; unit tests that exercise the engine in
+// isolation retain an in-memory fallback until Open is called.
+func Open(path string) error {
+	s, err := storesqlite.Open(path, migrations)
+	if err != nil {
+		return err
+	}
+	mu.Lock()
+	old := db
+	db = s
+	mu.Unlock()
+	if old != nil {
+		return old.Close()
+	}
+	return nil
+}
+
+// Close releases the durable fallback store. It is safe to call when the
+// engine has not been initialized.
+func Close() error {
+	mu.Lock()
+	s := db
+	db = nil
+	mu.Unlock()
+	if s == nil {
+		return nil
+	}
+	return s.Close()
+}
+
+// Reset deletes every fallback-engine resource while preserving the schema.
+func Reset() error {
+	mu.Lock()
+	defer mu.Unlock()
+	store = map[string]map[string]map[string]any{}
+	if db == nil {
+		return nil
+	}
+	_, err := db.DB().Exec(`DELETE FROM crud_resources`)
+	return err
+}
 
 // Register records a service's operation metadata. The generated crudregistry
 // package calls this from a single init().
@@ -417,7 +474,9 @@ func dispatch(service, protocol, op string, m OpMeta, params map[string]any) (*R
 		id := resourceID(m.Resource, params)
 		item := maps.Clone(params)
 		stamp(item, service, m.Resource, id)
-		put(service, m.Resource, id, item)
+		if err := put(service, m.Resource, id, item); err != nil {
+			return nil, err
+		}
 		return okBody(protocol, op, wrapItem(m, item))
 
 	case "Get":
@@ -425,10 +484,17 @@ func dispatch(service, protocol, op string, m OpMeta, params map[string]any) (*R
 		// wrapper) returns the stored list, not a single-resource lookup — a fresh
 		// store yields an empty collection (200), not ResourceNotFoundException.
 		if m.OutputItemKey == "" && m.OutputListKey != "" {
-			return okBody(protocol, op, map[string]any{m.OutputListKey: list(service, m.Resource)})
+			items, err := list(service, m.Resource)
+			if err != nil {
+				return nil, err
+			}
+			return okBody(protocol, op, map[string]any{m.OutputListKey: items})
 		}
 		id := resourceID(m.Resource, params)
-		item, found := get(service, m.Resource, id)
+		item, found, err := get(service, m.Resource, id)
+		if err != nil {
+			return nil, err
+		}
 		if !found {
 			return notFound(protocol, m.Resource), nil
 		}
@@ -439,16 +505,25 @@ func dispatch(service, protocol, op string, m OpMeta, params map[string]any) (*R
 		if key == "" {
 			key = m.Resource + "s"
 		}
-		return okBody(protocol, op, map[string]any{key: list(service, m.Resource)})
+		items, err := list(service, m.Resource)
+		if err != nil {
+			return nil, err
+		}
+		return okBody(protocol, op, map[string]any{key: items})
 
 	case "Delete":
 		id := resourceID(m.Resource, params)
-		del(service, m.Resource, id)
+		if err := del(service, m.Resource, id); err != nil {
+			return nil, err
+		}
 		return okBody(protocol, op, map[string]any{})
 
 	case "Update":
 		id := resourceID(m.Resource, params)
-		item, found := get(service, m.Resource, id)
+		item, found, err := get(service, m.Resource, id)
+		if err != nil {
+			return nil, err
+		}
 		if !found {
 			item = maps.Clone(params)
 			stamp(item, service, m.Resource, id)
@@ -457,7 +532,9 @@ func dispatch(service, protocol, op string, m OpMeta, params map[string]any) (*R
 				item[k] = v
 			}
 		}
-		put(service, m.Resource, id, item)
+		if err := put(service, m.Resource, id, item); err != nil {
+			return nil, err
+		}
 		return okBody(protocol, op, wrapItem(m, item))
 
 	case "Tag", "Untag", "Relate", "Toggle":
@@ -499,48 +576,100 @@ func wrapItem(m OpMeta, item map[string]any) map[string]any {
 	return item
 }
 
-// --- in-memory store ---
+// --- durable store ---
 
 func storeKey(service, resource string) string { return service + "|" + resource }
 
-func put(service, resource, id string, doc map[string]any) {
+func put(service, resource, id string, doc map[string]any) error {
+	encoded, err := json.Marshal(doc)
+	if err != nil {
+		return err
+	}
 	mu.Lock()
 	defer mu.Unlock()
+	if db != nil {
+		_, err := db.DB().Exec(`INSERT INTO crud_resources(service, resource, resource_id, document_json)
+			VALUES (?, ?, ?, ?)
+			ON CONFLICT(service, resource, resource_id) DO UPDATE SET document_json=excluded.document_json`,
+			service, resource, id, encoded)
+		return err
+	}
 	k := storeKey(service, resource)
 	if store[k] == nil {
 		store[k] = map[string]map[string]any{}
 	}
 	store[k][id] = doc
+	return nil
 }
 
-func get(service, resource, id string) (map[string]any, bool) {
+func get(service, resource, id string) (map[string]any, bool, error) {
 	mu.RLock()
 	defer mu.RUnlock()
+	if db != nil {
+		var encoded []byte
+		err := db.DB().QueryRow(`SELECT document_json FROM crud_resources WHERE service=? AND resource=? AND resource_id=?`, service, resource, id).Scan(&encoded)
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, false, nil
+		}
+		if err != nil {
+			return nil, false, err
+		}
+		var doc map[string]any
+		if err := json.Unmarshal(encoded, &doc); err != nil {
+			return nil, false, err
+		}
+		return doc, true, nil
+	}
 	doc, ok := store[storeKey(service, resource)][id]
 	if !ok {
-		return nil, false
+		return nil, false, nil
 	}
 	// Copy: the caller marshals/mutates this after the lock is released, so it
 	// must not alias the stored map (else a concurrent Get/List marshalling it
 	// while an Update writes to it triggers a fatal concurrent map read/write).
-	return maps.Clone(doc), true
+	return maps.Clone(doc), true, nil
 }
 
-func del(service, resource, id string) {
+func del(service, resource, id string) error {
 	mu.Lock()
 	defer mu.Unlock()
+	if db != nil {
+		_, err := db.DB().Exec(`DELETE FROM crud_resources WHERE service=? AND resource=? AND resource_id=?`, service, resource, id)
+		return err
+	}
 	delete(store[storeKey(service, resource)], id)
+	return nil
 }
 
-func list(service, resource string) []map[string]any {
+func list(service, resource string) ([]map[string]any, error) {
 	mu.RLock()
 	defer mu.RUnlock()
+	if db != nil {
+		rows, err := db.DB().Query(`SELECT document_json FROM crud_resources WHERE service=? AND resource=? ORDER BY resource_id`, service, resource)
+		if err != nil {
+			return nil, err
+		}
+		defer func() { _ = rows.Close() }()
+		out := []map[string]any{}
+		for rows.Next() {
+			var encoded []byte
+			if err := rows.Scan(&encoded); err != nil {
+				return nil, err
+			}
+			var doc map[string]any
+			if err := json.Unmarshal(encoded, &doc); err != nil {
+				return nil, err
+			}
+			out = append(out, doc)
+		}
+		return out, rows.Err()
+	}
 	items := store[storeKey(service, resource)]
 	out := make([]map[string]any, 0, len(items))
 	for _, doc := range items {
 		out = append(out, maps.Clone(doc)) // copy: marshalled unlocked, see get()
 	}
-	return out
+	return out, nil
 }
 
 // --- helpers ---

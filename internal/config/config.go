@@ -40,6 +40,7 @@ var knownProviders = map[string]bool{DefaultProvider: true}
 type Config struct {
 	Server   ServerConfig             `yaml:"server"`
 	Services map[string]ServiceConfig `yaml:"services"`
+	Storage  StorageConfig            `yaml:"storage"`
 	Admin    *AdminConfig             `yaml:"admin"`
 	Logging  LoggingConfig            `yaml:"logging"`
 
@@ -74,6 +75,12 @@ type Config struct {
 	allowed map[string]bool
 	// baseDir is the DEVCLOUD_DATA_DIR override; "" means honour data_dir.
 	baseDir string
+}
+
+// StorageConfig configures data owned by DevCloud itself rather than by one
+// AWS service. Service data_dir values remain backward compatible.
+type StorageConfig struct {
+	DataDir string `yaml:"data_dir"`
 }
 
 type ServerConfig struct {
@@ -158,6 +165,18 @@ func (c *Config) ProviderService(provider, serviceID string) ServiceConfig {
 	}
 	svc.DataDir = filepath.Join(base, serviceID)
 	return svc
+}
+
+// DataDir is the root for DevCloud-owned state. DEVCLOUD_DATA_DIR remains the
+// highest-precedence override for both this state and service data directories.
+func (c *Config) DataDir() string {
+	if c.baseDir != "" {
+		return c.baseDir
+	}
+	if c.Storage.DataDir != "" {
+		return c.Storage.DataDir
+	}
+	return defaultDataDir
 }
 
 // serviceBlock returns the services block that governs provider, and whether

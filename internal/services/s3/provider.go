@@ -178,6 +178,13 @@ func (p *S3Provider) HandleRequest(ctx context.Context, _ string, req *http.Requ
 			if _, ok := q["notification"]; ok {
 				return p.putBucketNotification(ctx, bucket, req)
 			}
+			// A query parameter on a bucket PUT identifies a bucket
+			// sub-resource. Do not mistake an unimplemented one for CreateBucket:
+			// the gateway can then offer its generic CRUD implementation when one
+			// is registered for the operation.
+			if _, unhandled := unhandledSubresource(q); unhandled {
+				return nil, plugin.ErrUnhandledOp
+			}
 			return p.createBucket(ctx, bucket)
 		}
 		// Object-level subresource checks

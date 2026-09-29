@@ -93,7 +93,9 @@ service from answering for operations it does not model — and it matters most 
 - `List*` responses return stored objects; when the real AWS output member is a
   list of *names* rather than structures, an SDK may not populate it.
 - No required-parameter validation, so calls succeed with minimal input.
-- The store is in-memory and per-process — not persisted across restarts.
+- Resources are persisted in the local SQLite database under the configured
+  DevCloud data directory and survive restarts. `--reset-data` or
+  `DELETE /devcloud/api/data` clears all local DevCloud state.
 
 To promote an operation from `auto-crud` to `hand-verified`, implement it as an
 explicit `case` in the service provider, following existing patterns. See

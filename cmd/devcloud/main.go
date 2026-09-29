@@ -6,10 +6,12 @@ import (
 	"context"
 	"errors"
 	"flag"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"syscall"
 	"time"
 
@@ -18,6 +20,7 @@ import (
 	"github.com/skyoo2003/devcloud/internal/gateway"
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	iamsvc "github.com/skyoo2003/devcloud/internal/services/iam"
+	"github.com/skyoo2003/devcloud/internal/shared/crud"
 )
 
 // initOrder lists the services that must come up for DevCloud to be useful, in
@@ -31,6 +34,7 @@ var initOrder = []string{
 
 func main() {
 	cfgPath := flag.String("config", "", "Path to config file (optional; uses ./devcloud.yaml if present, else embedded defaults)")
+	resetData := flag.Bool("reset-data", false, "Delete all local DevCloud data and exit")
 	flag.Parse()
 
 	var (
@@ -61,6 +65,23 @@ func main() {
 	}
 
 	registry := plugin.DefaultRegistry
+	if *resetData {
+		if err := resetAllData(cfg, registry); err != nil {
+			slog.Error("failed to reset local data", "error", err)
+			os.Exit(1)
+		}
+		slog.Info("local DevCloud data reset")
+		return
+	}
+	if err := crud.Open(filepath.Join(cfg.DataDir(), "devcloud.db")); err != nil {
+		slog.Error("failed to open DevCloud data store", "error", err)
+		os.Exit(1)
+	}
+	defer func() {
+		if err := crud.Close(); err != nil {
+			slog.Error("failed to close DevCloud data store", "error", err)
+		}
+	}()
 
 	// A service's provider comes from the plugin itself, so config resolution is
 	// provider-aware without the config package needing to know which services
@@ -74,10 +95,10 @@ func main() {
 		return plugin.ProviderOf(p)
 	}
 
-	initService := func(name string, fatal bool) {
+	initService := func(name string, fatal bool) error {
 		svcCfg := cfg.ProviderService(providerOf(name), name)
 		if !svcCfg.Enabled {
-			return
+			return nil
 		}
 		pluginCfg := plugin.PluginConfig{
 			DataDir: svcCfg.DataDir,
@@ -89,13 +110,14 @@ func main() {
 				os.Exit(1)
 			}
 			slog.Warn("service init failed", "service", name, "error", err)
-			return
+			return err
 		}
 		slog.Info("service initialized", "service", name)
+		return nil
 	}
 
 	for _, name := range initOrder {
-		initService(name, true)
+		_ = initService(name, true)
 	}
 	// RegisteredServices() is sorted, so the long tail starts in a reproducible
 	// order. Services already brought up above are skipped.
@@ -103,7 +125,7 @@ func main() {
 		if _, ok := registry.Get(name); ok {
 			continue
 		}
-		initService(name, false)
+		_ = initService(name, false)
 	}
 
 	// A services block is authoritative and `enabled` defaults to Go's false,
@@ -129,13 +151,44 @@ func main() {
 	var logCollector *admin.LogCollector
 	var unroutedCollector *admin.UnroutedCollector
 	adminHandler := http.NotFoundHandler()
+	var gw *gateway.Gateway
 	if cfg.Admin.Enabled {
 		logCollector = admin.NewLogCollector(1000)
 		unroutedCollector = admin.NewUnroutedCollector(1000)
-		adminHandler = admin.NewAPI(registry, logCollector, unroutedCollector).Handler()
+		resetter := func(ctx context.Context) (int, error) {
+			if gw == nil {
+				return 0, errors.New("gateway is not initialized")
+			}
+			active := registry.ActiveServices()
+			resetErr := gw.WithMaintenance(func() error {
+				if err := registry.ShutdownAll(ctx); err != nil {
+					return err
+				}
+				if err := crud.Close(); err != nil {
+					return err
+				}
+				if err := resetAllData(cfg, registry); err != nil {
+					return err
+				}
+				if err := crud.Open(filepath.Join(cfg.DataDir(), "devcloud.db")); err != nil {
+					return err
+				}
+				for _, name := range active {
+					if err := initService(name, false); err != nil {
+						return fmt.Errorf("reinitialize %s: %w", name, err)
+					}
+				}
+				return nil
+			})
+			if resetErr != nil {
+				return 0, resetErr
+			}
+			return len(registry.ActiveServices()), nil
+		}
+		adminHandler = admin.NewAPI(registry, logCollector, unroutedCollector, resetter).Handler()
 		slog.Info("admin API enabled")
 	}
-	gw := gateway.New(cfg.Server.Port, registry, adminHandler, logCollector, unroutedCollector)
+	gw = gateway.New(cfg.Server.Port, registry, adminHandler, logCollector, unroutedCollector)
 
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
@@ -164,6 +217,28 @@ func main() {
 		slog.Error("server error", "error", err)
 		os.Exit(1)
 	}
+}
+
+// resetAllData removes DevCloud-owned state and every configured AWS service
+// data directory. It is called only by the explicit --reset-data command.
+func resetAllData(cfg *config.Config, registry *plugin.Registry) error {
+	paths := map[string]bool{filepath.Clean(cfg.DataDir()): true}
+	for _, id := range registry.RegisteredServices() {
+		p, ok := registry.Construct(id)
+		if !ok {
+			continue
+		}
+		paths[filepath.Clean(cfg.ProviderService(plugin.ProviderOf(p), id).DataDir)] = true
+	}
+	for path := range paths {
+		if path == "." || path == string(filepath.Separator) {
+			return fmt.Errorf("refusing to reset unsafe data path %q", path)
+		}
+		if err := os.RemoveAll(path); err != nil {
+			return fmt.Errorf("remove %s: %w", path, err)
+		}
+	}
+	return nil
 }
 
 func buildOptions(serviceID string, cfg *config.Config, registry *plugin.Registry) map[string]any {

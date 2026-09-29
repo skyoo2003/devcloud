@@ -84,13 +84,13 @@ func BuildFidelityData(
 	for _, serviceID := range sortedKeys(providers) {
 		provider := providers[serviceID]
 
-		// Reachable, not merely classifiable: an unwired provider serves none of
-		// the registry's operations, so its served set is empty and its
-		// CRUD-shaped operations fall through to unimplemented.
-		var served map[string]bool
-		if provider.EngineWired {
-			served = crudOps[serviceID]
-		}
+		// Every classified operation is reachable through the gateway. Providers
+		// that return ErrUnhandledOp take the original path; legacy providers
+		// that return an AWS-shaped NotImplemented/UnsupportedOperation response
+		// are retried by the gateway only when this registry classifies the
+		// operation. This preserves honest failures for non-CRUD operations while
+		// making the generic CRUD contract independent of provider boilerplate.
+		served := crudOps[serviceID]
 
 		hand := make(map[string]bool, len(provider.Operations))
 		universe := make(map[string]bool)
