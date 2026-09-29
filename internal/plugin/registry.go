@@ -108,5 +108,9 @@ func (r *Registry) ShutdownAll(ctx context.Context) error {
 			errs = append(errs, fmt.Errorf("shutdown %s: %w", id, err))
 		}
 	}
+	// A shutdown provider cannot safely serve another request. Clear the active
+	// set even if one shutdown failed, so callers never retain a stale instance
+	// while deciding how to recover.
+	r.active = make(map[string]ServicePlugin)
 	return errors.Join(errs...)
 }

@@ -95,10 +95,10 @@ func main() {
 		return plugin.ProviderOf(p)
 	}
 
-	initService := func(name string, fatal bool) {
+	initService := func(name string, fatal bool) error {
 		svcCfg := cfg.ProviderService(providerOf(name), name)
 		if !svcCfg.Enabled {
-			return
+			return nil
 		}
 		pluginCfg := plugin.PluginConfig{
 			DataDir: svcCfg.DataDir,
@@ -110,13 +110,14 @@ func main() {
 				os.Exit(1)
 			}
 			slog.Warn("service init failed", "service", name, "error", err)
-			return
+			return err
 		}
 		slog.Info("service initialized", "service", name)
+		return nil
 	}
 
 	for _, name := range initOrder {
-		initService(name, true)
+		_ = initService(name, true)
 	}
 	// RegisteredServices() is sorted, so the long tail starts in a reproducible
 	// order. Services already brought up above are skipped.
@@ -124,7 +125,7 @@ func main() {
 		if _, ok := registry.Get(name); ok {
 			continue
 		}
-		initService(name, false)
+		_ = initService(name, false)
 	}
 
 	// A services block is authoritative and `enabled` defaults to Go's false,
@@ -174,7 +175,9 @@ func main() {
 					return err
 				}
 				for _, name := range active {
-					initService(name, false)
+					if err := initService(name, false); err != nil {
+						return fmt.Errorf("reinitialize %s: %w", name, err)
+					}
 				}
 				return nil
 			})

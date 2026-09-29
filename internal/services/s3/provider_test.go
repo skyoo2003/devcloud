@@ -540,3 +540,12 @@ func TestS3Provider_UnhandledBucketSubresourceDeclines(t *testing.T) {
 		})
 	}
 }
+
+func TestS3Provider_UnhandledPutBucketSubresourceDeclines(t *testing.T) {
+	p := newTestProvider(t)
+	defer func() { _ = p.Shutdown(context.Background()) }()
+
+	resp, err := p.HandleRequest(context.Background(), "", httptest.NewRequest("PUT", "/sub-bucket?accelerate", nil))
+	assert.Nil(t, resp)
+	assert.ErrorIs(t, err, plugin.ErrUnhandledOp)
+}
