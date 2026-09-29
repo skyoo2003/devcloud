@@ -160,8 +160,7 @@ func main() {
 				return 0, errors.New("gateway is not initialized")
 			}
 			active := registry.ActiveServices()
-			var resetErr error
-			resetErr = gw.WithMaintenance(func() error {
+			resetErr := gw.WithMaintenance(func() error {
 				if err := registry.ShutdownAll(ctx); err != nil {
 					return err
 				}

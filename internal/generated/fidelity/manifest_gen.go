@@ -16393,7 +16393,7 @@ var Services = map[string]Service{
 		"UpdateAppMonitor":                TierAutoCRUD,
 		"UpdateRumMetricDefinition":       TierAutoCRUD,
 	}},
-	"s3": {Protocol: "rest-xml", ModelBacked: true, EngineWired: false, Operations: map[string]Tier{
+	"s3": {Protocol: "rest-xml", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"AbortMultipartUpload":                            TierHandVerified,
 		"CompleteMultipartUpload":                         TierHandVerified,
 		"CopyObject":                                      TierHandVerified,

@@ -204,8 +204,11 @@ func TestScanProvidersDetectsEngineWiring(t *testing.T) {
 		assert.True(t, scans[id].EngineWired,
 			"%s returns plugin.ErrUnhandledOp, so it must be reported as engine-wired", id)
 	}
-	// Path-routed and Query-protocol providers that answer their own default.
-	for _, id := range []string{"s3", "iam", "route53"} {
+	// IAM and Route53 answer their own defaults. S3 delegates unimplemented
+	// subresources to the CRUD engine.
+	assert.True(t, scans["s3"].EngineWired,
+		"s3 returns plugin.ErrUnhandledOp for unimplemented subresources")
+	for _, id := range []string{"iam", "route53"} {
 		assert.False(t, scans[id].EngineWired,
 			"%s never returns plugin.ErrUnhandledOp, so it must not be reported as engine-wired", id)
 	}
