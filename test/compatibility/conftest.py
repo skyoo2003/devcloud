@@ -8,6 +8,11 @@ import pytest
 import boto3
 import os
 import signal
+import json
+from pathlib import Path
+import shlex
+
+from client_tools import resolve_tools, run_command
 
 
 def _find_free_port():
@@ -158,6 +163,79 @@ def service_client(devcloud_server):
     the fleet, so a new service gets a test through this factory instead.
     """
     return _make_client
+
+
+def _client_env():
+    env = os.environ.copy()
+    env.update(
+        {
+            "AWS_ACCESS_KEY_ID": "test",
+            "AWS_SECRET_ACCESS_KEY": "test",
+            "AWS_EC2_METADATA_DISABLED": "true",
+            "AWS_PAGER": "",
+        }
+    )
+    return env
+
+
+@pytest.fixture(scope="session")
+def compat_tools():
+    root = os.environ.get("DEVCLOUD_COMPAT_TOOLS")
+    if not root:
+        raise RuntimeError("DEVCLOUD_COMPAT_TOOLS must point to pinned client binaries")
+    return resolve_tools(Path(root))
+
+
+@pytest.fixture
+def aws_cli(devcloud_server, compat_tools):
+    def invoke(command):
+        return run_command(
+            [
+                str(compat_tools.aws),
+                "--endpoint-url",
+                DEVCLOUD_URL,
+                "--region",
+                "us-east-1",
+                "--output",
+                "json",
+                *shlex.split(command),
+            ],
+            env=_client_env(),
+        )
+
+    return invoke
+
+
+@pytest.fixture
+def terraform_workspace(devcloud_server, tmp_path):
+    template = Path(__file__).with_name("terraform")
+
+    def create(module):
+        if module not in {"s3", "sqs", "dynamodb", "iam_lambda"}:
+            raise ValueError(f"unknown Terraform contract module: {module}")
+        workspace = tmp_path / "terraform"
+        shutil.copytree(template, workspace)
+        (workspace / "main.tf").write_text(
+            f'module "contract" {{ source = "./modules/{module}" }}\n'
+        )
+        (workspace / "devcloud.auto.tfvars.json").write_text(
+            json.dumps({"devcloud_endpoint": DEVCLOUD_URL})
+        )
+        return workspace
+
+    return create
+
+
+@pytest.fixture
+def terraform_cmd(compat_tools):
+    def invoke(workspace, *args):
+        return run_command(
+            [str(compat_tools.terraform), "-no-color", *args],
+            cwd=workspace,
+            env=_client_env(),
+        )
+
+    return invoke
 
 
 # --- Existing service fixtures ---
