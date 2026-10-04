@@ -4,7 +4,7 @@ set -euo pipefail
 AWS_CLI_VERSION="2.37.6"
 TERRAFORM_VERSION="1.16.4"
 AWS_CLI_FINGERPRINT="FB5DB77FD5C118B80511ADA8A6310ACC4672475C"
-HASHICORP_FINGERPRINT="798AEC654E5C15428C8E42EEAA16FCBCA621E701"
+HASHICORP_FINGERPRINT="C874011F0AB405110D02105534365D9472D7468F"
 
 if [[ $# -ne 1 ]]; then
   echo "usage: $0 <tool-root>" >&2
@@ -32,7 +32,7 @@ verify_key() {
   [[ "$actual" == "$expected" ]] || { echo "unexpected signing key fingerprint: $actual" >&2; exit 1; }
 }
 
-gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$AWS_CLI_FINGERPRINT"
+gpg --batch --keyserver hkps://keyserver.ubuntu.com --recv-keys "$AWS_CLI_FINGERPRINT"
 verify_key "$AWS_CLI_FINGERPRINT"
 curl --fail --silent --show-error --location \
   "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWS_CLI_VERSION}.zip" \
@@ -44,12 +44,12 @@ gpg --batch --verify "$TEMP_DIR/awscliv2.zip.sig" "$TEMP_DIR/awscliv2.zip"
 unzip -q "$TEMP_DIR/awscliv2.zip" -d "$TEMP_DIR/aws"
 "$TEMP_DIR/aws/aws/install" --install-dir "$TOOL_ROOT/aws-cli" --bin-dir "$TOOL_ROOT/aws"
 
-gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$HASHICORP_FINGERPRINT"
+gpg --batch --keyserver hkps://keyserver.ubuntu.com --recv-keys "$HASHICORP_FINGERPRINT"
 verify_key "$HASHICORP_FINGERPRINT"
 TERRAFORM_BASE="https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}"
 curl --fail --silent --show-error --location \
   "$TERRAFORM_BASE/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" \
-  --output "$TEMP_DIR/terraform.zip"
+  --output "$TEMP_DIR/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 curl --fail --silent --show-error --location \
   "$TERRAFORM_BASE/terraform_${TERRAFORM_VERSION}_SHA256SUMS" \
   --output "$TEMP_DIR/terraform_SHA256SUMS"
@@ -59,7 +59,7 @@ curl --fail --silent --show-error --location \
 gpg --batch --verify "$TEMP_DIR/terraform_SHA256SUMS.sig" "$TEMP_DIR/terraform_SHA256SUMS"
 (cd "$TEMP_DIR" && grep ' terraform_.*_linux_amd64.zip$' terraform_SHA256SUMS | sha256sum --check --status -)
 mkdir -p "$TOOL_ROOT/terraform"
-unzip -qo "$TEMP_DIR/terraform.zip" -d "$TOOL_ROOT/terraform"
+unzip -qo "$TEMP_DIR/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -d "$TOOL_ROOT/terraform"
 
 "$TOOL_ROOT/aws/aws" --version
 "$TOOL_ROOT/terraform/terraform" --version
