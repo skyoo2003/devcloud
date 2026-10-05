@@ -148,3 +148,23 @@ def test_get_subscription_attributes(sns_client, sqs_client):
         SubscriptionArn=sub["SubscriptionArn"]
     )
     assert "Protocol" in resp["Attributes"]
+
+
+@pytest.mark.parametrize("use_arn", [True, False])
+def test_sns_sqs_arn_delivery_preserves_message(sns_client, sqs_client, use_arn):
+    queue = sqs_client.create_queue(QueueName="phase1-sns-delivery")["QueueUrl"]
+    topic = sns_client.create_topic(Name="phase1-sns-delivery")["TopicArn"]
+    try:
+        endpoint = queue
+        if use_arn:
+            endpoint = sqs_client.get_queue_attributes(
+                QueueUrl=queue, AttributeNames=["QueueArn"]
+            )["Attributes"]["QueueArn"]
+        sns_client.subscribe(TopicArn=topic, Protocol="sqs", Endpoint=endpoint)
+        message = "한글 + payload & key=value %20\nsecond line"
+        sns_client.publish(TopicArn=topic, Message=message)
+        received = sqs_client.receive_message(QueueUrl=queue)
+        assert [m["Body"] for m in received.get("Messages", [])] == [message]
+    finally:
+        sns_client.delete_topic(TopicArn=topic)
+        sqs_client.delete_queue(QueueUrl=queue)

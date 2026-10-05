@@ -9,7 +9,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
+	"net/url"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -422,64 +424,57 @@ func (p *Provider) putEvents(params map[string]any) (*plugin.Response, error) {
 
 // dispatchToTarget sends an event to the given target ARN via internal HTTP.
 func (p *Provider) dispatchToTarget(targetARN string, eventJSON []byte) {
-	base := fmt.Sprintf("http://localhost:%d/", p.serverPort)
-
-	if strings.HasPrefix(targetARN, "arn:aws:sqs:") {
-		// Extract queue name from ARN: arn:aws:sqs:region:account:QUEUE_NAME
-		parts := strings.Split(targetARN, ":")
-		if len(parts) < 6 {
-			return
-		}
-		queueName := parts[len(parts)-1]
-		accountID := parts[4]
-		region := parts[3]
-		queueURL := fmt.Sprintf("http://localhost:%d/%s/%s", p.serverPort, accountID, queueName)
-		_ = region
-		body, _ := json.Marshal(map[string]any{
-			"QueueUrl":    queueURL,
-			"MessageBody": string(eventJSON),
-		})
-		req, err := http.NewRequest("POST", base, bytes.NewReader(body))
-		if err != nil {
-			return
-		}
-		req.Header.Set("Content-Type", "application/x-amz-json-1.0")
-		req.Header.Set("X-Amz-Target", "AmazonSQS.SendMessage")
-		http.DefaultClient.Do(req) //nolint:errcheck
-		return
+	if err := p.deliverTarget(targetARN, eventJSON); err != nil {
+		slog.Warn("EventBridge target delivery failed", "target", targetARN, "error", err)
 	}
-
-	if strings.HasPrefix(targetARN, "arn:aws:sns:") {
-		body, _ := json.Marshal(map[string]any{
-			"TopicArn": targetARN,
-			"Message":  string(eventJSON),
-		})
-		req, err := http.NewRequest("POST", base, bytes.NewReader(body))
-		if err != nil {
-			return
-		}
-		req.Header.Set("Content-Type", "application/x-amz-json-1.0")
-		req.Header.Set("X-Amz-Target", "AmazonSNS.Publish")
-		http.DefaultClient.Do(req) //nolint:errcheck
-		return
+}
+func (p *Provider) deliverTarget(targetARN string, eventJSON []byte) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	endpoint := fmt.Sprintf("http://localhost:%d/", p.serverPort)
+	contentType := "application/x-amz-json-1.0"
+	target := ""
+	var body []byte
+	parts := strings.Split(targetARN, ":")
+	if len(parts) < 6 || parts[4] != defaultAccountID {
+		return fmt.Errorf("invalid or unsupported target ARN")
 	}
-
-	if strings.HasPrefix(targetARN, "arn:aws:lambda:") {
-		// Extract function name: arn:aws:lambda:region:account:function:FUNCTION_NAME
-		parts := strings.Split(targetARN, ":")
-		if len(parts) < 7 {
-			return
+	switch parts[2] {
+	case "sqs":
+		body, _ = json.Marshal(map[string]any{"QueueUrl": fmt.Sprintf("http://localhost:%d/%s/%s", p.serverPort, parts[4], parts[5]), "MessageBody": string(eventJSON)})
+		target = "AmazonSQS.SendMessage"
+	case "sns":
+		body = []byte(url.Values{"Action": {"Publish"}, "TopicArn": {targetARN}, "Message": {string(eventJSON)}}.Encode())
+		contentType = "application/x-www-form-urlencoded"
+	case "lambda":
+		if len(parts) < 7 || parts[5] != "function" {
+			return fmt.Errorf("invalid Lambda ARN")
 		}
-		funcName := parts[len(parts)-1]
-		url := fmt.Sprintf("http://localhost:%d/2015-03-31/functions/%s/invocations", p.serverPort, funcName)
-		req, err := http.NewRequest("POST", url, bytes.NewReader(eventJSON))
-		if err != nil {
-			return
-		}
-		req.Header.Set("Content-Type", "application/json")
-		http.DefaultClient.Do(req) //nolint:errcheck
-		return
+		reference := strings.Join(parts[6:], ":")
+		endpoint = fmt.Sprintf("http://localhost:%d/2015-03-31/functions/%s/invocations", p.serverPort, url.PathEscape(reference))
+		contentType = "application/json"
+		target = "Lambda.Invoke"
+		body = eventJSON
+	default:
+		return fmt.Errorf("unsupported EventBridge target")
 	}
+	req, err := http.NewRequestWithContext(ctx, "POST", endpoint, bytes.NewReader(body))
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", contentType)
+	if target != "" {
+		req.Header.Set("X-Amz-Target", target)
+	}
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+	defer func() { _ = resp.Body.Close() }()
+	if resp.StatusCode != 200 || resp.Header.Get("X-Amz-Function-Error") != "" {
+		return fmt.Errorf("target returned HTTP %d, FunctionError=%s", resp.StatusCode, resp.Header.Get("X-Amz-Function-Error"))
+	}
+	return nil
 }
 
 // ──────────────────────────────────────────────

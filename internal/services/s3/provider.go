@@ -21,6 +21,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
@@ -30,9 +31,14 @@ const defaultAccountID = plugin.DefaultAccountID
 
 // S3Provider implements plugin.ServicePlugin using FileStore and MetadataStore.
 type S3Provider struct {
-	fileStore  *FileStore
-	metaStore  *MetadataStore
-	serverPort int // used to emit event notifications; 0 means disabled
+	fileStore          *FileStore
+	metaStore          *MetadataStore
+	notificationCtx    context.Context
+	notificationCancel context.CancelFunc
+	notificationMu     sync.Mutex
+	notificationWG     sync.WaitGroup
+	closing            bool
+	serverPort         int // used to emit event notifications; 0 means disabled
 }
 
 // ServiceID returns the unique identifier for this plugin.
@@ -50,6 +56,7 @@ func (p *S3Provider) Init(cfg plugin.PluginConfig) error {
 		return fmt.Errorf("init s3: %w", err)
 	}
 
+	p.notificationCtx, p.notificationCancel = context.WithCancel(context.Background())
 	p.fileStore = NewFileStore(cfg.DataDir)
 
 	dbPath := filepath.Join(cfg.DataDir, "meta.db")
@@ -79,6 +86,13 @@ func (p *S3Provider) Init(cfg plugin.PluginConfig) error {
 
 // Shutdown closes the MetadataStore.
 func (p *S3Provider) Shutdown(_ context.Context) error {
+	p.notificationMu.Lock()
+	p.closing = true
+	if p.notificationCancel != nil {
+		p.notificationCancel()
+	}
+	p.notificationMu.Unlock()
+	p.notificationWG.Wait()
 	if p.metaStore != nil {
 		return p.metaStore.Close()
 	}

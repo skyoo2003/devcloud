@@ -4,6 +4,7 @@
 package dynamodbstreams
 
 import (
+	"crypto/rand"
 	"database/sql"
 	"encoding/json"
 	"errors"
@@ -83,17 +84,19 @@ type Iterator struct {
 
 // StreamBuffer holds in-memory shard and iterator state.
 type StreamBuffer struct {
-	mu        sync.RWMutex
-	shards    map[string]*ShardBuffer // shardID -> ShardBuffer
-	iterators map[string]*Iterator    // iteratorID -> Iterator
-	iterSeq   int64
-	seqCtr    uint64
+	generation string
+	mu         sync.RWMutex
+	shards     map[string]*ShardBuffer // shardID -> ShardBuffer
+	iterators  map[string]*Iterator    // iteratorID -> Iterator
+	iterSeq    int64
+	seqCtr     uint64
 }
 
 func newStreamBuffer() *StreamBuffer {
 	return &StreamBuffer{
-		shards:    make(map[string]*ShardBuffer),
-		iterators: make(map[string]*Iterator),
+		generation: rand.Text(),
+		shards:     make(map[string]*ShardBuffer),
+		iterators:  make(map[string]*Iterator),
 	}
 }
 
@@ -518,4 +521,22 @@ func findSeqPosition(records []StreamRecord, seqNum string, after bool) int {
 		}
 	}
 	return len(records)
+}
+
+// ShardBoundary snapshots source identity and sequence under the record lock.
+func (s *Store) ShardBoundary(streamARN, shardID string) (generation, latestSequence string, err error) {
+	if _, err = s.GetStreamByARN(streamARN); err != nil {
+		return "", "", err
+	}
+	s.buf.mu.RLock()
+	defer s.buf.mu.RUnlock()
+	shard, ok := s.buf.shards[shardID]
+	if !ok {
+		return "", "", fmt.Errorf("shard not found: %s", shardID)
+	}
+	latestSequence = "0"
+	if len(shard.Records) > 0 {
+		latestSequence = shard.Records[len(shard.Records)-1].SequenceNum
+	}
+	return s.buf.generation, latestSequence, nil
 }

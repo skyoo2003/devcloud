@@ -164,3 +164,11 @@ Use `devcloud --reset-data` before startup, or (with `admin.enabled: true`)
 | STS | `./data/sts` | Shared with IAM | Uses IAM's database |
 | Lambda | `./data/lambda` | SQLite + Filesystem | `lambda.db`, `code/` |
 | SQS | — | In-memory | No persistence |
+
+## Lambda Docker networking
+
+`DEVCLOUD_LAMBDA_NETWORK` selects the Docker network for function containers.
+It is an optional process environment variable, not a YAML service option.
+Pass the DevCloud endpoint to handlers using `Environment.Variables`; see
+[Lambda execution setup](services/lambda.md#execution-setup) for native and
+container networking and socket access. Docker is required only for execution.

@@ -12,7 +12,7 @@ RUN go build -o /codegen ./tools/codegen
 
 # Stage 2: Runtime
 FROM alpine:3.20
-RUN apk add --no-cache ca-certificates su-exec
+RUN apk add --no-cache ca-certificates su-exec docker-cli
 RUN adduser -D -H -h /app appuser
 WORKDIR /app
 COPY --from=go-builder /devcloud /app/devcloud

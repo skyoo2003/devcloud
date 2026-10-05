@@ -162,6 +162,10 @@ func (s *QueueStore) CreateQueueWithAttributes(name, accountID string, attrs map
 		dedupCache:        make(map[string]time.Time),
 	}
 
+	// Preserve queue settings, including the visibility window consumers use.
+	for key, value := range attrs {
+		q.attributes[key] = value
+	}
 	// Store FIFO attributes so GetQueueAttributes returns them
 	if isFIFO {
 		q.attributes["FifoQueue"] = "true"

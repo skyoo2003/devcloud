@@ -1,4 +1,5 @@
 FROM --platform=$BUILDPLATFORM alpine:3.21
+RUN apk add --no-cache ca-certificates docker-cli
 
 RUN adduser --system --home /devcloud appuser
 VOLUME /devcloud

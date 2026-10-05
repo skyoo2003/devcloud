@@ -7,18 +7,24 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/skyoo2003/devcloud/internal/plugin"
 	"log/slog"
 	"net/http"
+	"net/url"
+	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
 // EventSourcePoller polls SQS queues (and DynamoDB streams) that are registered
 // as event source mappings, and invokes the configured Lambda functions.
 type EventSourcePoller struct {
-	store  *LambdaStore
-	port   int
-	stopCh chan struct{}
+	store    *LambdaStore
+	port     int
+	stopCh   chan struct{}
+	stopOnce sync.Once
+	states   map[string]*streamPollState
 }
 
 // NewEventSourcePoller creates a new EventSourcePoller backed by the given store.
@@ -27,6 +33,7 @@ func NewEventSourcePoller(store *LambdaStore, port int) *EventSourcePoller {
 		store:  store,
 		port:   port,
 		stopCh: make(chan struct{}),
+		states: make(map[string]*streamPollState),
 	}
 }
 
@@ -47,22 +54,25 @@ func (p *EventSourcePoller) Start(ctx context.Context) {
 }
 
 // Stop signals the poller to stop. Safe to call multiple times.
-func (p *EventSourcePoller) Stop() {
-	select {
-	case <-p.stopCh:
-		// already closed
-	default:
-		close(p.stopCh)
-	}
-}
+func (p *EventSourcePoller) Stop() { p.stopOnce.Do(func() { close(p.stopCh) }) }
 
 func (p *EventSourcePoller) poll(ctx context.Context) {
 	mappings, err := p.store.ListEventSourceMappings(defaultAccountID, "")
-	if err != nil || len(mappings) == 0 {
+	if err != nil {
 		return
 	}
+	active := make(map[string]bool, len(mappings))
 	for _, m := range mappings {
-		if m.State != "Enabled" {
+		active[m.UUID] = true
+	}
+	for key := range p.states {
+		id, _, _ := strings.Cut(key, "/")
+		if !active[id] {
+			delete(p.states, key)
+		}
+	}
+	for _, m := range mappings {
+		if !m.Enabled || m.State != "Enabled" {
 			continue
 		}
 		if isSQSArn(m.EventSourceARN) {
@@ -83,19 +93,38 @@ func isDynamoDBStreamArn(arn string) bool {
 
 func (p *EventSourcePoller) pollSQS(ctx context.Context, m EventSourceMapping) {
 	baseURL := fmt.Sprintf("http://localhost:%d", p.port)
-	queueName := extractQueueNameFromArn(m.EventSourceARN)
-	queueURL := fmt.Sprintf("%s/000000000000/%s", baseURL, queueName)
+	parts := strings.Split(m.EventSourceARN, ":")
+	if len(parts) != 6 || parts[4] != defaultAccountID {
+		return
+	}
+	var queueOut struct {
+		QueueURL string `json:"QueueUrl"`
+	}
+	if err := p.sourceJSON(ctx, "AmazonSQS.GetQueueUrl", map[string]any{"QueueName": parts[5], "QueueOwnerAWSAccountId": parts[4]}, &queueOut); err != nil || queueOut.QueueURL == "" {
+		return
+	}
+	queueURL := queueOut.QueueURL
 
 	batchSize := m.BatchSize
 	if batchSize <= 0 {
 		batchSize = 10
 	}
 
+	visibility := 30
+	var attrOut struct {
+		Attributes map[string]string `json:"Attributes"`
+	}
+	if err := p.sourceJSON(ctx, "AmazonSQS.GetQueueAttributes", map[string]any{"QueueUrl": queueURL, "AttributeNames": []string{"VisibilityTimeout"}}, &attrOut); err == nil {
+		if value, err := strconv.Atoi(attrOut.Attributes["VisibilityTimeout"]); err == nil && value >= 0 {
+			visibility = value
+		}
+	}
 	// Receive messages from SQS.
 	receiveBody, _ := json.Marshal(map[string]any{
 		"QueueUrl":            queueURL,
 		"MaxNumberOfMessages": batchSize,
 		"WaitTimeSeconds":     0,
+		"VisibilityTimeout":   visibility,
 	})
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, baseURL, bytes.NewReader(receiveBody))
 	if err != nil {
@@ -141,14 +170,15 @@ func (p *EventSourcePoller) pollSQS(ctx context.Context, m EventSourceMapping) {
 	event, _ := json.Marshal(map[string]any{"Records": records})
 
 	// Invoke Lambda.
-	invokeURL := fmt.Sprintf("%s/2015-03-31/functions/%s/invocations", baseURL, m.FunctionName)
+	invokeURL := fmt.Sprintf("%s/2015-03-31/functions/%s/invocations", baseURL, url.PathEscape(m.FunctionName))
 	invokeReq, err := http.NewRequestWithContext(ctx, http.MethodPost, invokeURL, bytes.NewReader(event))
 	if err != nil {
 		return
 	}
 	invokeReq.Header.Set("Content-Type", "application/json")
+	invokeReq.Header.Set("X-Amz-Target", "Lambda.Invoke")
 	invokeResp, err := http.DefaultClient.Do(invokeReq)
-	if err != nil || invokeResp.StatusCode != http.StatusOK {
+	if err != nil || invokeResp.StatusCode != http.StatusOK || invokeResp.Header.Get("X-Amz-Function-Error") != "" {
 		if invokeResp != nil {
 			_ = invokeResp.Body.Close()
 		}
@@ -178,129 +208,179 @@ func (p *EventSourcePoller) pollSQS(ctx context.Context, m EventSourceMapping) {
 	slog.Debug("processed SQS messages for lambda", "function", m.FunctionName, "count", len(result.Messages))
 }
 
-// pollDynamoDBStream polls a DynamoDB stream and invokes the mapped Lambda
-// function with the records. Uses the JSON 1.0 protocol via the local gateway.
-func (p *EventSourcePoller) pollDynamoDBStream(ctx context.Context, m EventSourceMapping) {
-	baseURL := fmt.Sprintf("http://localhost:%d", p.port)
-	streamARN := m.EventSourceARN
-
-	// Obtain a shard iterator. Cache the latest iterator per mapping on the store
-	// via the EventSourceMapping's UUID key; simple approach: use DescribeStream
-	// then GetShardIterator(TRIM_HORIZON) for the first shard each poll cycle.
-	descBody, _ := json.Marshal(map[string]any{"StreamArn": streamARN})
-	descReq, err := http.NewRequestWithContext(ctx, http.MethodPost, baseURL, bytes.NewReader(descBody))
-	if err != nil {
-		return
-	}
-	descReq.Header.Set("Content-Type", "application/x-amz-json-1.0")
-	descReq.Header.Set("X-Amz-Target", "DynamoDBStreams_20120810.DescribeStream")
-	descResp, err := http.DefaultClient.Do(descReq)
-	if err != nil || descResp.StatusCode != http.StatusOK {
-		if descResp != nil {
-			_ = descResp.Body.Close()
-		}
-		return
-	}
-	var descOut struct {
-		StreamDescription struct {
-			Shards []struct {
-				ShardId string `json:"ShardId"`
-			} `json:"Shards"`
-		} `json:"StreamDescription"`
-	}
-	_ = json.NewDecoder(descResp.Body).Decode(&descOut)
-	_ = descResp.Body.Close()
-	if len(descOut.StreamDescription.Shards) == 0 {
-		return
-	}
-	shardID := descOut.StreamDescription.Shards[0].ShardId
-
-	iterBody, _ := json.Marshal(map[string]any{
-		"StreamArn":         streamARN,
-		"ShardId":           shardID,
-		"ShardIteratorType": "TRIM_HORIZON",
-	})
-	iterReq, err := http.NewRequestWithContext(ctx, http.MethodPost, baseURL, bytes.NewReader(iterBody))
-	if err != nil {
-		return
-	}
-	iterReq.Header.Set("Content-Type", "application/x-amz-json-1.0")
-	iterReq.Header.Set("X-Amz-Target", "DynamoDBStreams_20120810.GetShardIterator")
-	iterResp, err := http.DefaultClient.Do(iterReq)
-	if err != nil || iterResp.StatusCode != http.StatusOK {
-		if iterResp != nil {
-			_ = iterResp.Body.Close()
-		}
-		return
-	}
-	var iterOut struct {
-		ShardIterator string `json:"ShardIterator"`
-	}
-	_ = json.NewDecoder(iterResp.Body).Decode(&iterOut)
-	_ = iterResp.Body.Close()
-	if iterOut.ShardIterator == "" {
-		return
-	}
-
-	batchSize := m.BatchSize
-	if batchSize <= 0 {
-		batchSize = 100
-	}
-
-	recBody, _ := json.Marshal(map[string]any{
-		"ShardIterator": iterOut.ShardIterator,
-		"Limit":         batchSize,
-	})
-	recReq, err := http.NewRequestWithContext(ctx, http.MethodPost, baseURL, bytes.NewReader(recBody))
-	if err != nil {
-		return
-	}
-	recReq.Header.Set("Content-Type", "application/x-amz-json-1.0")
-	recReq.Header.Set("X-Amz-Target", "DynamoDBStreams_20120810.GetRecords")
-	recResp, err := http.DefaultClient.Do(recReq)
-	if err != nil || recResp.StatusCode != http.StatusOK {
-		if recResp != nil {
-			_ = recResp.Body.Close()
-		}
-		return
-	}
-	var recOut struct {
-		Records []map[string]any `json:"Records"`
-	}
-	_ = json.NewDecoder(recResp.Body).Decode(&recOut)
-	_ = recResp.Body.Close()
-	if len(recOut.Records) == 0 {
-		return
-	}
-
-	// Build Lambda event payload with eventSourceARN on each record.
-	for i := range recOut.Records {
-		recOut.Records[i]["eventSourceARN"] = streamARN
-	}
-	event, _ := json.Marshal(map[string]any{"Records": recOut.Records})
-
-	invokeURL := fmt.Sprintf("%s/2015-03-31/functions/%s/invocations", baseURL, m.FunctionName)
-	invokeReq, err := http.NewRequestWithContext(ctx, http.MethodPost, invokeURL, bytes.NewReader(event))
-	if err != nil {
-		return
-	}
-	invokeReq.Header.Set("Content-Type", "application/json")
-	invokeResp, err := http.DefaultClient.Do(invokeReq)
-	if err != nil || invokeResp.StatusCode != http.StatusOK {
-		if invokeResp != nil {
-			_ = invokeResp.Body.Close()
-		}
-		slog.Warn("lambda invoke failed for DynamoDB stream", "function", m.FunctionName, "err", err)
-		return
-	}
-	_ = invokeResp.Body.Close()
-	slog.Debug("processed DynamoDB stream records for lambda", "function", m.FunctionName, "count", len(recOut.Records))
+type streamPollState struct {
+	generation, iterator, next, sequence string
+	pending                              []byte
+}
+type shardDescription struct {
+	StreamDescription struct {
+		Shards []struct {
+			ShardID string `json:"ShardId"`
+		} `json:"Shards"`
+	} `json:"StreamDescription"`
+}
+type shardBoundary interface {
+	ShardBoundary(string, string) (string, string, error)
 }
 
+func (p *EventSourcePoller) sourceJSON(ctx context.Context, target string, input, output any) error {
+	body, err := json.Marshal(input)
+	if err != nil {
+		return err
+	}
+	req, err := http.NewRequestWithContext(ctx, "POST", fmt.Sprintf("http://localhost:%d", p.port), bytes.NewReader(body))
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", "application/x-amz-json-1.0")
+	req.Header.Set("X-Amz-Target", target)
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+	defer func() { _ = resp.Body.Close() }()
+	if resp.StatusCode != 200 {
+		return fmt.Errorf("%s returned %d", target, resp.StatusCode)
+	}
+	return json.NewDecoder(resp.Body).Decode(output)
+}
+func sourceBoundary(arn, shard string) (string, string, error) {
+	svc, ok := plugin.DefaultRegistry.Get("dynamodbstreams")
+	if !ok {
+		return "", "0", nil
+	}
+	source, ok := svc.(shardBoundary)
+	if !ok {
+		return "", "0", nil
+	}
+	return source.ShardBoundary(arn, shard)
+}
+func (p *EventSourcePoller) initializeLatestCheckpoints(ctx context.Context, m EventSourceMapping) error {
+	svc, ok := plugin.DefaultRegistry.Get("dynamodbstreams")
+	if !ok {
+		return fmt.Errorf("streams provider unavailable")
+	}
+	source, ok := svc.(shardBoundary)
+	if !ok {
+		return fmt.Errorf("streams boundary unavailable")
+	}
+	var desc shardDescription
+	if err := p.sourceJSON(ctx, "DynamoDBStreams_20120810.DescribeStream", map[string]any{"StreamArn": m.EventSourceARN}, &desc); err != nil {
+		return err
+	}
+	for _, shard := range desc.StreamDescription.Shards {
+		g, seq, err := source.ShardBoundary(m.EventSourceARN, shard.ShardID)
+		if err != nil {
+			return err
+		}
+		if err := p.store.SaveStreamCheckpoint(m.UUID, shard.ShardID, StreamCheckpoint{g, seq}); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (p *EventSourcePoller) pollDynamoDBStream(ctx context.Context, m EventSourceMapping) {
+	var desc shardDescription
+	if err := p.sourceJSON(ctx, "DynamoDBStreams_20120810.DescribeStream", map[string]any{"StreamArn": m.EventSourceARN}, &desc); err != nil {
+		return
+	}
+	for _, shard := range desc.StreamDescription.Shards {
+		p.pollStreamShard(ctx, m, shard.ShardID)
+	}
+}
+func (p *EventSourcePoller) pollStreamShard(ctx context.Context, m EventSourceMapping, shard string) {
+	generation, _, err := sourceBoundary(m.EventSourceARN, shard)
+	if err != nil {
+		return
+	}
+	key := m.UUID + "/" + shard
+	state := p.states[key]
+	if state == nil || state.generation != generation {
+		state = &streamPollState{generation: generation}
+		p.states[key] = state
+	}
+	if len(state.pending) == 0 {
+		if state.iterator == "" {
+			checkpoint, err := p.store.GetStreamCheckpoint(m.UUID, shard)
+			if err != nil {
+				return
+			}
+			kind := m.StartingPosition
+			if kind == "" {
+				kind = "TRIM_HORIZON"
+			}
+			input := map[string]any{"StreamArn": m.EventSourceARN, "ShardId": shard}
+			if checkpoint != nil {
+				if checkpoint.Generation == generation && checkpoint.SequenceNumber != "0" {
+					kind = "AFTER_SEQUENCE_NUMBER"
+					input["SequenceNumber"] = checkpoint.SequenceNumber
+				} else {
+					kind = "TRIM_HORIZON"
+				}
+			}
+			input["ShardIteratorType"] = kind
+			var out struct {
+				Iterator string `json:"ShardIterator"`
+			}
+			if err := p.sourceJSON(ctx, "DynamoDBStreams_20120810.GetShardIterator", input, &out); err != nil {
+				return
+			}
+			state.iterator = out.Iterator
+		}
+		limit := m.BatchSize
+		if limit <= 0 {
+			limit = 100
+		}
+		var out struct {
+			Records []map[string]any `json:"Records"`
+			Next    string           `json:"NextShardIterator"`
+		}
+		if err := p.sourceJSON(ctx, "DynamoDBStreams_20120810.GetRecords", map[string]any{"ShardIterator": state.iterator, "Limit": limit}, &out); err != nil {
+			state.iterator = ""
+			return
+		}
+		state.next = out.Next
+		if len(out.Records) == 0 {
+			state.iterator = out.Next
+			return
+		}
+		for _, record := range out.Records {
+			record["eventSourceARN"] = m.EventSourceARN
+		}
+		dynamo, ok := out.Records[len(out.Records)-1]["dynamodb"].(map[string]any)
+		if !ok {
+			return
+		}
+		sequence, ok := dynamo["SequenceNumber"].(string)
+		if !ok || sequence == "" {
+			return
+		}
+		state.sequence = sequence
+		state.pending, _ = json.Marshal(map[string]any{"Records": out.Records})
+	}
+	invokeURL := fmt.Sprintf("http://localhost:%d/2015-03-31/functions/%s/invocations", p.port, url.PathEscape(m.FunctionName))
+	req, err := http.NewRequestWithContext(ctx, "POST", invokeURL, bytes.NewReader(state.pending))
+	if err != nil {
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-Amz-Target", "Lambda.Invoke")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return
+	}
+	_ = resp.Body.Close()
+	if resp.StatusCode != 200 || resp.Header.Get("X-Amz-Function-Error") != "" {
+		slog.Warn("Lambda stream batch failed", "function", m.FunctionName)
+		return
+	}
+	if err := p.store.SaveStreamCheckpoint(m.UUID, shard, StreamCheckpoint{generation, state.sequence}); err != nil {
+		return
+	}
+	state.pending = nil
+	state.iterator = state.next
+}
 func extractQueueNameFromArn(arn string) string {
 	parts := strings.Split(arn, ":")
-	if len(parts) >= 6 {
-		return parts[len(parts)-1]
-	}
-	return arn
+	return parts[len(parts)-1]
 }

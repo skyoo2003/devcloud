@@ -9,6 +9,7 @@ import (
 	"encoding/hex"
 	"encoding/xml"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"path/filepath"
 	"strings"
@@ -246,7 +247,9 @@ func (p *Provider) publish(req *http.Request) (*plugin.Response, error) {
 	subs, _ := p.store.ListSubscriptionsByTopic(topicARN)
 	for _, sub := range subs {
 		if sub.Protocol == "sqs" {
-			p.fanoutToSQS(sub.Endpoint, message)
+			if err := p.fanoutToSQS(req.Context(), sub.Endpoint, message); err != nil {
+				slog.Warn("SNS SQS delivery failed", "endpoint", sub.Endpoint, "error", err)
+			}
 		}
 	}
 	msgID := randomID(16)
@@ -258,20 +261,6 @@ func (p *Provider) publish(req *http.Request) (*plugin.Response, error) {
 		Result  result   `xml:"PublishResult"`
 	}
 	return xmlResp(http.StatusOK, response{Result: result{MessageId: msgID}})
-}
-
-func (p *Provider) fanoutToSQS(queueURL, message string) {
-	svc, ok := plugin.DefaultRegistry.Get("sqs")
-	if !ok {
-		return
-	}
-	body := fmt.Sprintf("Action=SendMessage&QueueUrl=%s&MessageBody=%s", queueURL, message)
-	req, err := http.NewRequest("POST", "/", strings.NewReader(body))
-	if err != nil {
-		return
-	}
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	svc.HandleRequest(context.Background(), "SendMessage", req) //nolint:errcheck
 }
 
 func (p *Provider) getTopicAttributes(req *http.Request) (*plugin.Response, error) {
