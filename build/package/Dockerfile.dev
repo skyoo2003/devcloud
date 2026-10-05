@@ -1,4 +1,5 @@
 FROM golang:1.26-alpine
+RUN apk add --no-cache docker-cli
 RUN adduser -D -H -h /app appuser
 WORKDIR /app
 COPY go.mod go.sum ./

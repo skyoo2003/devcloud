@@ -1,6 +1,5 @@
 import base64
 import io
-import json
 import zipfile
 
 import pytest
@@ -89,22 +88,10 @@ def test_delete_function(lambda_client):
         assert "ResourceNotFoundException" in str(e) or "404" in str(e)
 
 
-def test_invoke(lambda_client):
-    code_zip = base64.b64decode("UEsFBgAAAAAAAAAAAAAAAAAAAAAAAA==")
-    lambda_client.create_function(
-        FunctionName="invoke-func",
-        Runtime="python3.12",
-        Handler="index.handler",
-        Role="arn:aws:iam::000000000000:role/role",
-        Code={"ZipFile": code_zip},
-    )
-    response = lambda_client.invoke(
-        FunctionName="invoke-func",
-        Payload=json.dumps({"key": "value"}),
-    )
-    assert response["StatusCode"] == 200
-    payload = json.loads(response["Payload"].read())
-    assert payload is not None
+def test_invoke_dry_run(lambda_client):
+    _create_test_function(lambda_client, "invoke-func")
+    response = lambda_client.invoke(FunctionName="invoke-func", InvocationType="DryRun")
+    assert response["StatusCode"] == 204
 
 
 def test_invoke_nonexistent_function(lambda_client):
@@ -222,3 +209,51 @@ def test_event_source_mapping(lambda_client):
     mappings = lambda_client.list_event_source_mappings(FunctionName="esm-func")
     assert any(m["UUID"] == uuid for m in mappings["EventSourceMappings"])
     lambda_client.delete_event_source_mapping(UUID=uuid)
+
+
+def test_invoke_without_docker_returns_service_error(tmp_path):
+    import os
+    import subprocess
+    from pathlib import Path
+    import boto3
+    from botocore.config import Config
+    from conftest import _find_free_port, _wait_for_server
+
+    binary = os.environ.get("DEVCLOUD_BIN")
+    if not binary:
+        binary = str(tmp_path / "devcloud")
+        subprocess.run(
+            ["go", "build", "-o", binary, "./cmd/devcloud"],
+            check=True,
+            env={**os.environ, "CGO_ENABLED": "0"},
+        )
+    binary = str(Path(binary).resolve())
+    port = _find_free_port()
+    endpoint = f"http://localhost:{port}"
+    env = {
+        **os.environ,
+        "PATH": str(tmp_path / "empty-path"),
+        "DEVCLOUD_PORT": str(port),
+        "DEVCLOUD_DATA_DIR": str(tmp_path / "data"),
+    }
+    proc = subprocess.Popen(
+        [binary], env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+    )
+    try:
+        _wait_for_server(endpoint)
+        client = boto3.client(
+            "lambda",
+            endpoint_url=endpoint,
+            region_name="us-east-1",
+            aws_access_key_id="test",
+            aws_secret_access_key="test",
+            config=Config(retries={"max_attempts": 0}),
+        )
+        _create_test_function(client, "no-docker")
+        with pytest.raises(ClientError) as exc:
+            client.invoke(FunctionName="no-docker", Payload=b"{}")
+        assert exc.value.response["ResponseMetadata"]["HTTPStatusCode"] == 503
+        assert exc.value.response["Error"]["Code"] == "ServiceException"
+    finally:
+        proc.terminate()
+        proc.wait(timeout=10)

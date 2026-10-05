@@ -75,11 +75,15 @@ AWS provider together, or file a bug with the exact resource and attributes.
 
 ## Lambda
 
-**Invoking a function returns `Lambda invoke requires Docker runtime`**
-Expected. `internal/services/lambda/runtime.go` is a stub: DevCloud registers
-functions, stores their code, and drives event source mappings (SQS, DynamoDB
-Streams, S3 notifications), but it does not execute your handler. Real local
-execution is not implemented — see [roadmap.md](roadmap.md).
+**Invoke returns `ServiceException` (503)**
+Check that Docker CLI can reach its daemon and that the Python 3.12 or Node 22
+image is available. See [Lambda setup](services/lambda.md#execution-setup).
+
+**Invoke returns HTTP 200 but my handler failed**
+Inspect `FunctionError` and the error payload. Handler exceptions and timeouts
+use HTTP 200 with `FunctionError: Unhandled`. For callbacks to a native Colima
+host, use `host.lima.internal`; for containers, configure the shared Docker
+network and pass the DevCloud endpoint through the function environment.
 
 ## Admin API
 

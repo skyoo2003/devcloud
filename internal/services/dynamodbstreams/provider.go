@@ -559,3 +559,7 @@ func init() {
 		return &Provider{}
 	})
 }
+
+func (p *Provider) ShardBoundary(streamARN, shardID string) (string, string, error) {
+	return p.store.ShardBoundary(streamARN, shardID)
+}

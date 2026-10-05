@@ -93,8 +93,7 @@ the operation. `CreateFunction` in `test_lambda.py` shows all three cases at onc
 | `FunctionArn` | present | presence only — not that it stays ARN-shaped |
 | `Runtime`, `Handler`, `MemorySize` | not asserted | nothing, though today's response includes them |
 
-That narrowness is the point: it is the promise the repo can actually keep. The suite — 1,530
-tests driving real boto3 clients — runs in CI on every push and again against the tagged commit
+That narrowness is the point: it is the promise the repo can actually keep. The suite driving real boto3 clients runs in CI on every push and again against the tagged commit
 before a release publishes, so breaking an assertion fails the build rather than depending on
 review discipline. Anything the suite does not assert rests on nothing but intent. Widening the
 promise means adding or strengthening assertions, and such contributions are welcome.
@@ -159,3 +158,14 @@ If a 1.x release breaks something on the guaranteed list, that is a bug — plea
 [open an issue](https://github.com/skyoo2003/devcloud/issues) with the DevCloud version and a
 reproducing snippet. If it breaks something on the not-guaranteed list, an issue is still
 useful: it is evidence for tightening the policy in a future major.
+
+## Lambda execution scope
+
+Wire compatibility and code execution have separate gates. Python 3.12 and Node
+22 execute in Docker with actual payload, environment, exception, timeout,
+version and event delivery assertions in `test_lambda_runtime.py`. The required
+`lambda-runtime` CI job enables them with `DEVCLOUD_LAMBDA_RUNTIME_TESTS=1`; its
+missing Docker/image failures cannot be skipped. The ordinary suite checks
+management and explicit Docker-unavailable errors. This does not promise AWS
+parity for warm containers, IAM policy evaluation, async retry/DLQ, partial
+batches or durable stream records. See [Lambda limits](services/lambda.md).

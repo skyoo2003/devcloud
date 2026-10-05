@@ -11,6 +11,8 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"net/url"
+	"strings"
 	"time"
 )
 
@@ -64,8 +66,10 @@ type s3ObjectRef struct {
 // emitS3Event sends notifications to all configured SQS queues and Lambda
 // functions that have subscribed to the given eventName pattern on bucket.
 // The call is fire-and-forget: failures are only logged, never returned.
-func (p *S3Provider) emitS3Event(ctx context.Context, bucket, key string, size int64, eventName string) {
-	if p.serverPort == 0 {
+func (p *S3Provider) emitS3Event(_ context.Context, bucket, key string, size int64, eventName string) {
+	p.notificationMu.Lock()
+	defer p.notificationMu.Unlock()
+	if p.closing || p.serverPort == 0 {
 		return
 	}
 
@@ -105,7 +109,11 @@ func (p *S3Provider) emitS3Event(ctx context.Context, bucket, key string, size i
 			continue
 		}
 		queueName := extractNameFromARN(qc.Queue)
+		p.notificationWG.Add(1)
 		go func(queueName string, payload []byte) {
+			defer p.notificationWG.Done()
+			ctx, cancel := context.WithTimeout(p.notificationCtx, 30*time.Second)
+			defer cancel()
 			if err := sendToSQS(ctx, baseURL, queueName, payload); err != nil {
 				slog.Debug("s3 notification: sqs send failed", "queue", queueName, "err", err)
 			}
@@ -117,7 +125,11 @@ func (p *S3Provider) emitS3Event(ctx context.Context, bucket, key string, size i
 			continue
 		}
 		fnName := extractNameFromARN(lc.CloudFunction)
+		p.notificationWG.Add(1)
 		go func(fnName string, payload []byte) {
+			defer p.notificationWG.Done()
+			ctx, cancel := context.WithTimeout(p.notificationCtx, 30*time.Second)
+			defer cancel()
 			if err := invokeLambda(ctx, baseURL, fnName, payload); err != nil {
 				slog.Debug("s3 notification: lambda invoke failed", "function", fnName, "err", err)
 			}
@@ -154,6 +166,11 @@ func matchesEvent(patterns []string, eventName string) bool {
 
 // extractNameFromARN extracts the last segment of an ARN (queue name or function name).
 func extractNameFromARN(arn string) string {
+	if strings.Contains(arn, ":lambda:") {
+		if _, reference, ok := strings.Cut(arn, ":function:"); ok {
+			return reference
+		}
+	}
 	for i := len(arn) - 1; i >= 0; i-- {
 		if arn[i] == ':' || arn[i] == '/' {
 			return arn[i+1:]
@@ -187,18 +204,19 @@ func sendToSQS(ctx context.Context, baseURL, queueName string, payload []byte) e
 
 // invokeLambda invokes a Lambda function with the given JSON payload.
 func invokeLambda(ctx context.Context, baseURL, fnName string, payload []byte) error {
-	url := fmt.Sprintf("%s/2015-03-31/functions/%s/invocations", baseURL, fnName)
+	url := fmt.Sprintf("%s/2015-03-31/functions/%s/invocations", baseURL, url.PathEscape(fnName))
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(payload))
 	if err != nil {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-Amz-Target", "Lambda.Invoke")
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return err
 	}
 	_ = resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode != http.StatusOK || resp.Header.Get("X-Amz-Function-Error") != "" {
 		return fmt.Errorf("lambda invoke: unexpected status %d", resp.StatusCode)
 	}
 	return nil

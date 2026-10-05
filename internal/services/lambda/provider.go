@@ -15,6 +15,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	"github.com/skyoo2003/devcloud/internal/shared"
@@ -30,10 +31,18 @@ const (
 
 // LambdaProvider implements plugin.ServicePlugin for the Lambda REST-JSON protocol.
 type LambdaProvider struct {
-	store   *LambdaStore
-	runtime *Runtime
-	poller  *EventSourcePoller
-	cancel  context.CancelFunc
+	store        *LambdaStore
+	runtime      FunctionInvoker
+	poller       *EventSourcePoller
+	cancel       context.CancelFunc
+	ctx          context.Context
+	asyncMu      sync.Mutex
+	asyncQueue   chan asyncInvocation
+	asyncWG      sync.WaitGroup
+	closing      bool
+	pollWG       sync.WaitGroup
+	shutdownOnce sync.Once
+	shutdownErr  error
 }
 
 // ServiceID returns the unique identifier for this plugin.
@@ -62,6 +71,8 @@ func (p *LambdaProvider) Init(cfg plugin.PluginConfig) error {
 
 	p.store = store
 	p.runtime = NewRuntime()
+	p.ctx, p.cancel = context.WithCancel(context.Background())
+	p.startAsyncInvocations(p.ctx)
 
 	// Start event source poller if a server port is configured.
 	serverPort := 0
@@ -75,26 +86,35 @@ func (p *LambdaProvider) Init(cfg plugin.PluginConfig) error {
 	}
 	if serverPort > 0 {
 		p.poller = NewEventSourcePoller(store, serverPort)
-		ctx, cancel := context.WithCancel(context.Background())
-		p.cancel = cancel
-		go p.poller.Start(ctx)
+		p.pollWG.Add(1)
+		go func() { defer p.pollWG.Done(); p.poller.Start(p.ctx) }()
 	}
 
 	return nil
 }
 
 // Shutdown stops the event source poller and closes the underlying store.
-func (p *LambdaProvider) Shutdown(_ context.Context) error {
-	if p.cancel != nil {
-		p.cancel()
-	}
-	if p.poller != nil {
-		p.poller.Stop()
-	}
-	if p.store != nil {
-		return p.store.Close()
-	}
-	return nil
+func (p *LambdaProvider) Shutdown(ctx context.Context) error {
+	p.shutdownOnce.Do(func() {
+		p.asyncMu.Lock()
+		p.closing = true
+		if p.cancel != nil {
+			p.cancel()
+		}
+		p.asyncMu.Unlock()
+		if p.poller != nil {
+			p.poller.Stop()
+		}
+		if p.runtime != nil {
+			p.shutdownErr = p.runtime.Close(ctx)
+		}
+		p.asyncWG.Wait()
+		p.pollWG.Wait()
+		if p.store != nil {
+			p.shutdownErr = errors.Join(p.shutdownErr, p.store.Close())
+		}
+	})
+	return p.shutdownErr
 }
 
 // HandleRequest routes the incoming Lambda REST request to the appropriate handler.
@@ -203,7 +223,7 @@ func (p *LambdaProvider) HandleRequest(_ context.Context, _ string, req *http.Re
 
 	// GET /2015-03-31/functions/{name}  →  GetFunction
 	case req.Method == http.MethodGet && !strings.Contains(sub, "/"):
-		return p.getFunction(sub)
+		return p.getFunctionQualified(sub, req.URL.Query().Get("Qualifier"))
 
 	// DELETE /2015-03-31/functions/{name}  →  DeleteFunction
 	case req.Method == http.MethodDelete && !strings.Contains(sub, "/"):
@@ -257,9 +277,10 @@ type createFunctionRequest struct {
 	Code         struct {
 		ZipFile string `json:"ZipFile"` // base64-encoded
 	} `json:"Code"`
-	Description string `json:"Description"`
-	Timeout     int    `json:"Timeout"`
-	MemorySize  int    `json:"MemorySize"`
+	Description string               `json:"Description"`
+	Timeout     int                  `json:"Timeout"`
+	MemorySize  int                  `json:"MemorySize"`
+	Environment *functionEnvironment `json:"Environment"`
 }
 
 func (p *LambdaProvider) createFunction(req *http.Request) (*plugin.Response, error) {
@@ -272,6 +293,11 @@ func (p *LambdaProvider) createFunction(req *http.Request) (*plugin.Response, er
 		return lambdaError("InvalidParameterValueException", "FunctionName is required", http.StatusBadRequest), nil
 	}
 
+	if body.Environment != nil {
+		if err := validateEnvironment(body.Environment.Variables); err != nil {
+			return lambdaError("InvalidParameterValueException", err.Error(), 400), nil
+		}
+	}
 	// Decode the zip bytes from base64.
 	var codeZip []byte
 	if body.Code.ZipFile != "" {
@@ -304,6 +330,9 @@ func (p *LambdaProvider) createFunction(req *http.Request) (*plugin.Response, er
 		AccountID:    defaultAccountID,
 	}
 
+	if body.Environment != nil {
+		info.Environment = body.Environment.Variables
+	}
 	created, err := p.store.CreateFunction(info, codeZip)
 	if err != nil {
 		if errors.Is(err, ErrFunctionAlreadyExists) {
@@ -331,13 +360,10 @@ func (p *LambdaProvider) listFunctions() (*plugin.Response, error) {
 	return jsonResp(http.StatusOK, map[string]any{"Functions": configs})
 }
 
-func (p *LambdaProvider) getFunction(name string) (*plugin.Response, error) {
-	f, err := p.store.GetFunction(defaultAccountID, name)
+func (p *LambdaProvider) getFunctionQualified(name, qualifier string) (*plugin.Response, error) {
+	f, err := p.store.ResolveFunction(defaultAccountID, name, qualifier)
 	if err != nil {
-		if errors.Is(err, ErrFunctionNotFound) {
-			return notFoundError(name), nil
-		}
-		return nil, err
+		return invocationError(err, name), nil
 	}
 
 	return jsonResp(http.StatusOK, map[string]any{
@@ -359,17 +385,23 @@ func (p *LambdaProvider) deleteFunction(name string) (*plugin.Response, error) {
 
 func (p *LambdaProvider) updateFunctionConfiguration(name string, req *http.Request) (*plugin.Response, error) {
 	var body struct {
-		Handler     string `json:"Handler"`
-		Runtime     string `json:"Runtime"`
-		Role        string `json:"Role"`
-		Description string `json:"Description"`
-		Timeout     int    `json:"Timeout"`
-		MemorySize  int    `json:"MemorySize"`
+		Handler     string               `json:"Handler"`
+		Runtime     string               `json:"Runtime"`
+		Role        string               `json:"Role"`
+		Description string               `json:"Description"`
+		Timeout     int                  `json:"Timeout"`
+		MemorySize  int                  `json:"MemorySize"`
+		Environment *functionEnvironment `json:"Environment"`
 	}
 	if err := decodeJSON(req, &body); err != nil {
 		return lambdaError("InvalidParameterValueException", "invalid request body", http.StatusBadRequest), nil
 	}
 
+	if body.Environment != nil {
+		if err := validateEnvironment(body.Environment.Variables); err != nil {
+			return lambdaError("InvalidParameterValueException", err.Error(), 400), nil
+		}
+	}
 	updated, err := p.store.UpdateFunctionConfiguration(defaultAccountID, name, body.Handler, body.Runtime, body.Role, body.Description, body.Timeout, body.MemorySize)
 	if err != nil {
 		if errors.Is(err, ErrFunctionNotFound) {
@@ -378,6 +410,12 @@ func (p *LambdaProvider) updateFunctionConfiguration(name string, req *http.Requ
 		return nil, err
 	}
 
+	if body.Environment != nil {
+		updated, err = p.store.UpdateFunctionEnvironment(defaultAccountID, name, body.Environment.Variables)
+		if err != nil {
+			return nil, err
+		}
+	}
 	return jsonResp(http.StatusOK, functionConfig(updated))
 }
 
@@ -404,42 +442,6 @@ func (p *LambdaProvider) updateFunctionCode(name string, req *http.Request) (*pl
 
 	return jsonResp(http.StatusOK, functionConfig(updated))
 }
-
-func (p *LambdaProvider) invoke(name string, req *http.Request) (*plugin.Response, error) {
-	f, err := p.store.GetFunction(defaultAccountID, name)
-	if err != nil {
-		if errors.Is(err, ErrFunctionNotFound) {
-			return notFoundError(name), nil
-		}
-		return nil, err
-	}
-
-	payload, err := io.ReadAll(req.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	result, err := p.runtime.Invoke(f, payload)
-	if err != nil {
-		return nil, err
-	}
-
-	resp := &plugin.Response{
-		StatusCode:  result.StatusCode,
-		ContentType: "application/json",
-		Body:        result.Payload,
-	}
-
-	if result.Error != nil {
-		resp.Headers = map[string]string{
-			"X-Amz-Function-Error": result.Error.ErrorType,
-		}
-	}
-
-	return resp, nil
-}
-
-// --- Task 24: Versions and Aliases ---
 
 func (p *LambdaProvider) publishVersion(name string) (*plugin.Response, error) {
 	v, err := p.store.PublishVersion(defaultAccountID, name)
@@ -556,10 +558,11 @@ func aliasResponse(a *FunctionAlias, functionName string) map[string]any {
 
 func (p *LambdaProvider) createEventSourceMapping(req *http.Request) (*plugin.Response, error) {
 	var body struct {
-		FunctionName   string `json:"FunctionName"`
-		EventSourceArn string `json:"EventSourceArn"`
-		BatchSize      int    `json:"BatchSize"`
-		Enabled        *bool  `json:"Enabled"`
+		FunctionName     string `json:"FunctionName"`
+		EventSourceArn   string `json:"EventSourceArn"`
+		BatchSize        int    `json:"BatchSize"`
+		Enabled          *bool  `json:"Enabled"`
+		StartingPosition string `json:"StartingPosition"`
 	}
 	if err := decodeJSON(req, &body); err != nil {
 		return lambdaError("InvalidParameterValueException", "invalid request body", http.StatusBadRequest), nil
@@ -572,18 +575,39 @@ func (p *LambdaProvider) createEventSourceMapping(req *http.Request) (*plugin.Re
 	if batchSize <= 0 {
 		batchSize = 10
 	}
+	if body.StartingPosition == "" {
+		body.StartingPosition = "TRIM_HORIZON"
+	}
+	if body.StartingPosition != "TRIM_HORIZON" && body.StartingPosition != "LATEST" {
+		return lambdaError("InvalidParameterValueException", "invalid StartingPosition", 400), nil
+	}
 	id := newUUID()
 	m := &EventSourceMapping{
-		UUID:           id,
-		FunctionName:   body.FunctionName,
-		EventSourceARN: body.EventSourceArn,
-		BatchSize:      batchSize,
-		Enabled:        enabled,
-		AccountID:      defaultAccountID,
-		State:          "Enabled",
+		UUID:             id,
+		FunctionName:     body.FunctionName,
+		EventSourceARN:   body.EventSourceArn,
+		BatchSize:        batchSize,
+		Enabled:          enabled && (!isDynamoDBStreamArn(body.EventSourceArn) || body.StartingPosition != "LATEST"),
+		AccountID:        defaultAccountID,
+		StartingPosition: body.StartingPosition,
 	}
 	if err := p.store.CreateEventSourceMapping(m); err != nil {
 		return nil, err
+	}
+	if isDynamoDBStreamArn(m.EventSourceARN) && m.StartingPosition == "LATEST" {
+		if p.poller == nil {
+			_ = p.store.DeleteEventSourceMapping(m.UUID)
+			return lambdaError("ServiceException", "stream poller unavailable", 503), nil
+		}
+		if err := p.poller.initializeLatestCheckpoints(req.Context(), *m); err != nil {
+			_ = p.store.DeleteEventSourceMapping(m.UUID)
+			return lambdaError("ServiceException", err.Error(), 503), nil
+		}
+		restored, err := p.store.UpdateEventSourceMapping(m.UUID, 0, &enabled)
+		if err != nil {
+			return nil, err
+		}
+		m = restored
 	}
 	return jsonResp(http.StatusCreated, esmResponse(m))
 }
@@ -777,6 +801,7 @@ func functionConfig(f *FunctionInfo) map[string]any {
 		"Description":  f.Description,
 		"Timeout":      f.Timeout,
 		"MemorySize":   f.MemorySize,
+		"Environment":  map[string]any{"Variables": environmentVariables(f.Environment)},
 		"LastModified": f.LastModified.UTC().Format("2006-01-02T15:04:05.000+0000"),
 	}
 }

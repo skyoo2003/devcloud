@@ -38,3 +38,26 @@ jobs:
         env:
           DEVCLOUD_BIN: dist/devcloud
           DEVCLOUD_COMPAT_TOOLS: ${{ runner.temp }}/devcloud-compat-tools
+
+  lambda-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "1.26"
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Prepare actual Lambda runtimes
+        run: |
+          docker pull public.ecr.aws/lambda/python:3.12
+          docker pull public.ecr.aws/lambda/nodejs:22
+          pip install -r test/compatibility/requirements.txt
+          CGO_ENABLED=0 go build -o dist/devcloud ./cmd/devcloud
+      - name: Execute handlers and cross-service integrations
+        run: pytest test/compatibility/ -m lambda_runtime -v --tb=short
+        env:
+          DEVCLOUD_BIN: dist/devcloud
+          DEVCLOUD_LAMBDA_RUNTIME_TESTS: "1"

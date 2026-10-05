@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
@@ -42,6 +43,7 @@ type FunctionInfo struct {
 	AccountID    string
 	CodePath     string // filesystem path to code zip
 	LastModified time.Time
+	Environment  map[string]string
 }
 
 var lambdaMigrations = []sqlite.Migration{
@@ -120,6 +122,10 @@ var lambdaMigrations = []sqlite.Migration{
 			created_at       DATETIME NOT NULL
 		);`,
 	},
+	{Version: 7, SQL: `ALTER TABLE functions ADD COLUMN environment_json TEXT NOT NULL DEFAULT '{}';`},
+	{Version: 8, SQL: `ALTER TABLE event_source_mappings ADD COLUMN starting_position TEXT NOT NULL DEFAULT 'TRIM_HORIZON';
+ CREATE TABLE event_source_checkpoints(mapping_uuid TEXT NOT NULL,shard_id TEXT NOT NULL,generation TEXT NOT NULL,sequence_number TEXT NOT NULL,PRIMARY KEY(mapping_uuid,shard_id));
+ UPDATE event_source_mappings SET state=CASE WHEN enabled=1 THEN 'Enabled' ELSE 'Disabled' END;`},
 }
 
 // LambdaStore is a SQLite-backed store for Lambda function metadata,
@@ -127,6 +133,7 @@ var lambdaMigrations = []sqlite.Migration{
 type LambdaStore struct {
 	store   *sqlite.Store
 	codeDir string
+	codeMu  sync.Mutex
 }
 
 // NewLambdaStore opens (or creates) a SQLite database at dbPath and
@@ -137,7 +144,12 @@ func NewLambdaStore(dbPath, codeDir string) (*LambdaStore, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &LambdaStore{store: store, codeDir: codeDir}, nil
+	s := &LambdaStore{store: store, codeDir: codeDir}
+	if err := s.migrateVersionPaths(); err != nil {
+		_ = store.Close()
+		return nil, err
+	}
+	return s, nil
 }
 
 // Close closes the underlying database connection.
@@ -192,6 +204,13 @@ func (s *LambdaStore) codePath(accountID, functionName string) (string, error) {
 // to the filesystem. It returns ErrFunctionAlreadyExists if the function
 // already exists for the given account.
 func (s *LambdaStore) CreateFunction(info *FunctionInfo, codeZip []byte) (*FunctionInfo, error) {
+	s.codeMu.Lock()
+	defer s.codeMu.Unlock()
+	if _, err := s.GetFunction(info.AccountID, info.FunctionName); err == nil {
+		return nil, ErrFunctionAlreadyExists
+	} else if !errors.Is(err, ErrFunctionNotFound) {
+		return nil, err
+	}
 	path, err := s.codePath(info.AccountID, info.FunctionName)
 	if err != nil {
 		return nil, err
@@ -200,7 +219,7 @@ func (s *LambdaStore) CreateFunction(info *FunctionInfo, codeZip []byte) (*Funct
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return nil, fmt.Errorf("create code directory: %w", err)
 	}
-	if err := os.WriteFile(path, codeZip, 0o644); err != nil {
+	if err := writeCodeAtomic(path, codeZip); err != nil {
 		return nil, fmt.Errorf("write code zip: %w", err)
 	}
 
@@ -210,8 +229,8 @@ func (s *LambdaStore) CreateFunction(info *FunctionInfo, codeZip []byte) (*Funct
 	_, err = s.store.DB().Exec(
 		`INSERT INTO functions
 			(function_name, function_arn, runtime, handler, role, code_size,
-			 description, timeout, memory_size, account_id, code_path, last_modified)
-		 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+			 description, timeout, memory_size, account_id, code_path, last_modified, environment_json)
+		 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
 		info.FunctionName,
 		info.FunctionArn,
 		info.Runtime,
@@ -224,6 +243,7 @@ func (s *LambdaStore) CreateFunction(info *FunctionInfo, codeZip []byte) (*Funct
 		info.AccountID,
 		path,
 		now,
+		environmentJSON(info.Environment),
 	)
 	if err != nil {
 		if sqlite.IsUniqueConstraintError(err) {
@@ -244,13 +264,14 @@ func (s *LambdaStore) CreateFunction(info *FunctionInfo, codeZip []byte) (*Funct
 func (s *LambdaStore) GetFunction(accountID, functionName string) (*FunctionInfo, error) {
 	row := s.store.DB().QueryRow(
 		`SELECT function_name, function_arn, runtime, handler, role, code_size,
-		        description, timeout, memory_size, account_id, code_path, last_modified
+		        description, timeout, memory_size, account_id, code_path, last_modified, environment_json
 		 FROM functions
 		 WHERE account_id = ? AND function_name = ?;`,
 		accountID, functionName,
 	)
 
 	var f FunctionInfo
+	var envJSON string
 	err := row.Scan(
 		&f.FunctionName,
 		&f.FunctionArn,
@@ -264,11 +285,15 @@ func (s *LambdaStore) GetFunction(accountID, functionName string) (*FunctionInfo
 		&f.AccountID,
 		&f.CodePath,
 		&f.LastModified,
+		&envJSON,
 	)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, ErrFunctionNotFound
 		}
+		return nil, err
+	}
+	if err := json.Unmarshal([]byte(envJSON), &f.Environment); err != nil {
 		return nil, err
 	}
 	return &f, nil
@@ -278,7 +303,7 @@ func (s *LambdaStore) GetFunction(accountID, functionName string) (*FunctionInfo
 func (s *LambdaStore) ListFunctions(accountID string) ([]FunctionInfo, error) {
 	rows, err := s.store.DB().Query(
 		`SELECT function_name, function_arn, runtime, handler, role, code_size,
-		        description, timeout, memory_size, account_id, code_path, last_modified
+		        description, timeout, memory_size, account_id, code_path, last_modified, environment_json
 		 FROM functions
 		 WHERE account_id = ?
 		 ORDER BY function_name;`,
@@ -292,6 +317,7 @@ func (s *LambdaStore) ListFunctions(accountID string) ([]FunctionInfo, error) {
 	var functions []FunctionInfo
 	for rows.Next() {
 		var f FunctionInfo
+		var envJSON string
 		if err := rows.Scan(
 			&f.FunctionName,
 			&f.FunctionArn,
@@ -305,7 +331,11 @@ func (s *LambdaStore) ListFunctions(accountID string) ([]FunctionInfo, error) {
 			&f.AccountID,
 			&f.CodePath,
 			&f.LastModified,
+			&envJSON,
 		); err != nil {
+			return nil, err
+		}
+		if err := json.Unmarshal([]byte(envJSON), &f.Environment); err != nil {
 			return nil, err
 		}
 		functions = append(functions, f)
@@ -317,6 +347,8 @@ func (s *LambdaStore) ListFunctions(accountID string) ([]FunctionInfo, error) {
 // directory from the filesystem. Returns ErrFunctionNotFound if the
 // function does not exist.
 func (s *LambdaStore) DeleteFunction(accountID, functionName string) error {
+	s.codeMu.Lock()
+	defer s.codeMu.Unlock()
 	result, err := s.store.DB().Exec(
 		`DELETE FROM functions WHERE account_id = ? AND function_name = ?;`,
 		accountID, functionName,
@@ -332,6 +364,11 @@ func (s *LambdaStore) DeleteFunction(accountID, functionName string) error {
 		return ErrFunctionNotFound
 	}
 
+	for _, table := range []string{"function_versions", "function_aliases", "function_permissions"} {
+		if _, err := s.store.DB().Exec("DELETE FROM "+table+" WHERE account_id = ? AND function_name = ?", accountID, functionName); err != nil {
+			return err
+		}
+	}
 	// Remove the code directory (best-effort; ignore errors). Going through
 	// codePath applies the same component and containment checks CreateFunction
 	// used to write it, so the removal cannot reach another account's directory.
@@ -348,6 +385,8 @@ func (s *LambdaStore) DeleteFunction(accountID, functionName string) error {
 // UpdateFunctionConfiguration updates the configuration fields of an existing function.
 // Only non-zero values are applied. Returns ErrFunctionNotFound if the function does not exist.
 func (s *LambdaStore) UpdateFunctionConfiguration(accountID, functionName, handler, runtime, role, description string, timeout, memorySize int) (*FunctionInfo, error) {
+	s.codeMu.Lock()
+	defer s.codeMu.Unlock()
 	existing, err := s.GetFunction(accountID, functionName)
 	if err != nil {
 		return nil, err
@@ -393,6 +432,8 @@ func (s *LambdaStore) UpdateFunctionConfiguration(accountID, functionName, handl
 // updating CodeSize and LastModified in SQLite. Returns ErrFunctionNotFound
 // if the function does not exist.
 func (s *LambdaStore) UpdateFunctionCode(accountID, functionName string, codeZip []byte) (*FunctionInfo, error) {
+	s.codeMu.Lock()
+	defer s.codeMu.Unlock()
 	// Ensure the function exists first.
 	existing, err := s.GetFunction(accountID, functionName)
 	if err != nil {
@@ -407,7 +448,7 @@ func (s *LambdaStore) UpdateFunctionCode(accountID, functionName string, codeZip
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return nil, fmt.Errorf("create code directory: %w", err)
 	}
-	if err := os.WriteFile(path, codeZip, 0o644); err != nil {
+	if err := writeCodeAtomic(path, codeZip); err != nil {
 		return nil, fmt.Errorf("write code zip: %w", err)
 	}
 
@@ -453,6 +494,8 @@ type FunctionVersion struct {
 
 // PublishVersion snapshots the current function config+code as the next numbered version.
 func (s *LambdaStore) PublishVersion(accountID, functionName string) (*FunctionVersion, error) {
+	s.codeMu.Lock()
+	defer s.codeMu.Unlock()
 	f, err := s.GetFunction(accountID, functionName)
 	if err != nil {
 		return nil, err
@@ -468,6 +511,14 @@ func (s *LambdaStore) PublishVersion(accountID, functionName string) (*FunctionV
 		return nil, err
 	}
 	nextVer := strconv.Itoa(maxVer + 1)
+	path := filepath.Join(filepath.Dir(f.CodePath), "versions", nextVer, "code.zip")
+	code, err := os.ReadFile(f.CodePath)
+	if err != nil {
+		return nil, err
+	}
+	if err := writeCodeAtomic(path, code); err != nil {
+		return nil, err
+	}
 
 	configMap := map[string]any{
 		"FunctionName": f.FunctionName,
@@ -479,6 +530,7 @@ func (s *LambdaStore) PublishVersion(accountID, functionName string) (*FunctionV
 		"Description":  f.Description,
 		"Timeout":      f.Timeout,
 		"MemorySize":   f.MemorySize,
+		"Environment":  map[string]any{"Variables": f.Environment},
 	}
 	configJSON, err := json.Marshal(configMap)
 	if err != nil {
@@ -488,7 +540,7 @@ func (s *LambdaStore) PublishVersion(accountID, functionName string) (*FunctionV
 	now := time.Now().UTC()
 	_, err = s.store.DB().Exec(
 		`INSERT INTO function_versions (function_name, version, account_id, code_path, config_json, created_at) VALUES (?, ?, ?, ?, ?, ?)`,
-		functionName, nextVer, accountID, f.CodePath, string(configJSON), now,
+		functionName, nextVer, accountID, path, string(configJSON), now,
 	)
 	if err != nil {
 		return nil, err
@@ -498,7 +550,7 @@ func (s *LambdaStore) PublishVersion(accountID, functionName string) (*FunctionV
 		FunctionName: functionName,
 		Version:      nextVer,
 		AccountID:    accountID,
-		CodePath:     f.CodePath,
+		CodePath:     path,
 		Config:       configMap,
 		CreatedAt:    now,
 	}, nil
@@ -779,14 +831,15 @@ func (s *LambdaStore) ListTags(functionARN string) (map[string]string, error) {
 
 // EventSourceMapping holds a mapping between an event source and a Lambda function.
 type EventSourceMapping struct {
-	UUID           string
-	FunctionName   string
-	EventSourceARN string
-	BatchSize      int
-	Enabled        bool
-	AccountID      string
-	State          string
-	CreatedAt      time.Time
+	StartingPosition string
+	UUID             string
+	FunctionName     string
+	EventSourceARN   string
+	BatchSize        int
+	Enabled          bool
+	AccountID        string
+	State            string
+	CreatedAt        time.Time
 }
 
 // CreateEventSourceMapping creates a new event source mapping.
@@ -795,9 +848,13 @@ func (s *LambdaStore) CreateEventSourceMapping(m *EventSourceMapping) error {
 	if !m.Enabled {
 		enabled = 0
 	}
-	state := m.State
-	if state == "" {
+	state := "Disabled"
+	if m.Enabled {
 		state = "Enabled"
+	}
+	m.State = state
+	if m.StartingPosition == "" {
+		m.StartingPosition = "TRIM_HORIZON"
 	}
 	batchSize := m.BatchSize
 	if batchSize <= 0 {
@@ -806,8 +863,8 @@ func (s *LambdaStore) CreateEventSourceMapping(m *EventSourceMapping) error {
 	now := time.Now().UTC()
 	m.CreatedAt = now
 	_, err := s.store.DB().Exec(
-		`INSERT INTO event_source_mappings (uuid, function_name, event_source_arn, batch_size, enabled, account_id, state, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-		m.UUID, m.FunctionName, m.EventSourceARN, batchSize, enabled, m.AccountID, state, now,
+		`INSERT INTO event_source_mappings (uuid, function_name, event_source_arn, batch_size, enabled, account_id, state, created_at, starting_position) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+		m.UUID, m.FunctionName, m.EventSourceARN, batchSize, enabled, m.AccountID, state, now, m.StartingPosition,
 	)
 	return err
 }
@@ -815,12 +872,12 @@ func (s *LambdaStore) CreateEventSourceMapping(m *EventSourceMapping) error {
 // GetEventSourceMapping retrieves a mapping by UUID.
 func (s *LambdaStore) GetEventSourceMapping(uuid string) (*EventSourceMapping, error) {
 	row := s.store.DB().QueryRow(
-		`SELECT uuid, function_name, event_source_arn, batch_size, enabled, account_id, state, created_at FROM event_source_mappings WHERE uuid = ?`,
+		`SELECT uuid, function_name, event_source_arn, batch_size, enabled, account_id, state, created_at, starting_position FROM event_source_mappings WHERE uuid = ?`,
 		uuid,
 	)
 	var m EventSourceMapping
 	var enabled int
-	err := row.Scan(&m.UUID, &m.FunctionName, &m.EventSourceARN, &m.BatchSize, &enabled, &m.AccountID, &m.State, &m.CreatedAt)
+	err := row.Scan(&m.UUID, &m.FunctionName, &m.EventSourceARN, &m.BatchSize, &enabled, &m.AccountID, &m.State, &m.CreatedAt, &m.StartingPosition)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, ErrMappingNotFound
@@ -843,13 +900,17 @@ func (s *LambdaStore) UpdateEventSourceMapping(uuid string, batchSize int, enabl
 	if enabled != nil {
 		m.Enabled = *enabled
 	}
+	m.State = "Disabled"
+	if m.Enabled {
+		m.State = "Enabled"
+	}
 	enabledInt := 0
 	if m.Enabled {
 		enabledInt = 1
 	}
 	_, err = s.store.DB().Exec(
-		`UPDATE event_source_mappings SET batch_size = ?, enabled = ? WHERE uuid = ?`,
-		m.BatchSize, enabledInt, uuid,
+		`UPDATE event_source_mappings SET batch_size = ?, enabled = ?, state = ? WHERE uuid = ?`,
+		m.BatchSize, enabledInt, m.State, uuid,
 	)
 	if err != nil {
 		return nil, err
@@ -859,10 +920,12 @@ func (s *LambdaStore) UpdateEventSourceMapping(uuid string, batchSize int, enabl
 
 // DeleteEventSourceMapping removes a mapping by UUID.
 func (s *LambdaStore) DeleteEventSourceMapping(uuid string) error {
-	result, err := s.store.DB().Exec(
-		`DELETE FROM event_source_mappings WHERE uuid = ?`,
-		uuid,
-	)
+	tx, err := s.store.DB().Begin()
+	if err != nil {
+		return err
+	}
+	defer func() { _ = tx.Rollback() }()
+	result, err := tx.Exec(`DELETE FROM event_source_mappings WHERE uuid=?`, uuid)
 	if err != nil {
 		return err
 	}
@@ -873,7 +936,10 @@ func (s *LambdaStore) DeleteEventSourceMapping(uuid string) error {
 	if n == 0 {
 		return ErrMappingNotFound
 	}
-	return nil
+	if _, err := tx.Exec(`DELETE FROM event_source_checkpoints WHERE mapping_uuid=?`, uuid); err != nil {
+		return err
+	}
+	return tx.Commit()
 }
 
 // ListEventSourceMappings returns mappings, optionally filtered by functionName.
@@ -882,12 +948,12 @@ func (s *LambdaStore) ListEventSourceMappings(accountID, functionName string) ([
 	var err error
 	if functionName != "" {
 		rows, err = s.store.DB().Query(
-			`SELECT uuid, function_name, event_source_arn, batch_size, enabled, account_id, state, created_at FROM event_source_mappings WHERE account_id = ? AND function_name = ? ORDER BY created_at`,
+			`SELECT uuid, function_name, event_source_arn, batch_size, enabled, account_id, state, created_at, starting_position FROM event_source_mappings WHERE account_id = ? AND function_name = ? ORDER BY created_at`,
 			accountID, functionName,
 		)
 	} else {
 		rows, err = s.store.DB().Query(
-			`SELECT uuid, function_name, event_source_arn, batch_size, enabled, account_id, state, created_at FROM event_source_mappings WHERE account_id = ? ORDER BY created_at`,
+			`SELECT uuid, function_name, event_source_arn, batch_size, enabled, account_id, state, created_at, starting_position FROM event_source_mappings WHERE account_id = ? ORDER BY created_at`,
 			accountID,
 		)
 	}
@@ -900,7 +966,7 @@ func (s *LambdaStore) ListEventSourceMappings(accountID, functionName string) ([
 	for rows.Next() {
 		var m EventSourceMapping
 		var enabled int
-		if err := rows.Scan(&m.UUID, &m.FunctionName, &m.EventSourceARN, &m.BatchSize, &enabled, &m.AccountID, &m.State, &m.CreatedAt); err != nil {
+		if err := rows.Scan(&m.UUID, &m.FunctionName, &m.EventSourceARN, &m.BatchSize, &enabled, &m.AccountID, &m.State, &m.CreatedAt, &m.StartingPosition); err != nil {
 			return nil, err
 		}
 		m.Enabled = enabled == 1

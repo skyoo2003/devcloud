@@ -765,3 +765,40 @@ def identitystore_client(devcloud_server):
 @pytest.fixture
 def serverlessrepo_client(devcloud_server):
     return _make_client("serverlessrepo")
+
+
+def pytest_collection_modifyitems(items):
+    if os.environ.get("DEVCLOUD_LAMBDA_RUNTIME_TESTS") != "1":
+        marker = pytest.mark.skip(
+            reason="Set DEVCLOUD_LAMBDA_RUNTIME_TESTS=1 for actual Docker execution"
+        )
+        for item in items:
+            if "lambda_runtime" in item.keywords:
+                item.add_marker(marker)
+
+
+@pytest.fixture(scope="session")
+def lambda_runtime_enabled():
+    for cmd in (
+        ["docker", "info"],
+        ["docker", "image", "inspect", "public.ecr.aws/lambda/python:3.12"],
+        ["docker", "image", "inspect", "public.ecr.aws/lambda/nodejs:22"],
+    ):
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        assert result.returncode == 0, (
+            f"Required Lambda runtime unavailable: {cmd}: {result.stderr}"
+        )
+
+
+@pytest.fixture
+def runtime_lambda_client(devcloud_server, lambda_runtime_enabled):
+    from botocore.config import Config
+
+    return boto3.client(
+        "lambda",
+        endpoint_url=DEVCLOUD_URL,
+        region_name="us-east-1",
+        aws_access_key_id="test",
+        aws_secret_access_key="test",
+        config=Config(read_timeout=60, retries={"max_attempts": 0}),
+    )

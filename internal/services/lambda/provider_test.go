@@ -22,6 +22,7 @@ func newTestLambdaProvider(t *testing.T) *LambdaProvider {
 	p := &LambdaProvider{}
 	err := p.Init(plugin.PluginConfig{DataDir: dir})
 	require.NoError(t, err)
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
 	return p
 }
 
@@ -141,6 +142,9 @@ func TestLambdaProvider_DeleteFunction(t *testing.T) {
 
 func TestLambdaProvider_Invoke(t *testing.T) {
 	p := newTestLambdaProvider(t)
+	p.runtime = testInvoker{func(_ context.Context, _ *FunctionInfo, payload []byte) (*InvokeResult, error) {
+		return &InvokeResult{StatusCode: 200, Payload: payload}, nil
+	}}
 
 	zipData := base64.StdEncoding.EncodeToString([]byte("fake zip"))
 	handleLambda(t, p, http.MethodPost, "/2015-03-31/functions", map[string]any{
@@ -153,6 +157,7 @@ func TestLambdaProvider_Invoke(t *testing.T) {
 
 	resp := handleLambda(t, p, http.MethodPost, "/2015-03-31/functions/my-func/invocations",
 		map[string]string{"key": "value"})
+	require.JSONEq(t, `{"key":"value"}`, string(resp.Body))
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
 }
 

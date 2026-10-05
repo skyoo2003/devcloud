@@ -27,6 +27,13 @@ Mature the already-broad AWS surface into a stable, well-tested v1.0.
 - [x] Generic [CRUD fallback engine](crud-engine.md) serving the long tail with plausible, store-backed responses. **Follow-up:** promote high-value `auto-crud` operations to hand-verified fidelity.
 - [x] v1.0 release — see [compatibility-policy.md](compatibility-policy.md)
 
+Phase 1 execution follow-up: Lambda Python 3.12/Node 22 handlers execute in
+Docker, published code is immutable, failed SQS/Streams batches preserve source
+state, and SNS ARN subscriptions preserve message contents. A required
+`lambda-runtime` job verifies actual handler results and S3/SQS/Streams/EventBridge
+delivery; the ordinary suite verifies Docker-free contracts. See
+[Lambda](services/lambda.md) for runtime requirements and local limits.
+
 ## Phase 2 — Architectural preparation (complete, v1.x)
 
 Refactor internally so adding a CSP does not require forking the project. Each
