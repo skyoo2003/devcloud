@@ -1,0 +1,5 @@
+kind: Added
+body: Execute Python and Node.js Lambda handlers in Docker and deliver SNS, S3, SQS, Streams and EventBridge events with preserved payloads and failure handling.
+time: 2026-10-05T21:32:46.467201+09:00
+custom:
+    Issue: "178"
