@@ -147,10 +147,13 @@ jobs:
         python-version: "3.12"
     - name: Install Python dependencies
       run: pip install -r test/compatibility/requirements.txt
+    - name: Install pinned compatibility clients
+      run: ./scripts/install-compat-tools.sh "$RUNNER_TEMP/devcloud-compat-tools"
     - name: Run compatibility tests
       run: pytest test/compatibility/ -v --tb=short
       env:
         DEVCLOUD_BIN: dist/devcloud
+        DEVCLOUD_COMPAT_TOOLS: ${{ runner.temp }}/devcloud-compat-tools
 
   release:
     needs: [resolve, test, codegen-drift, compat]
