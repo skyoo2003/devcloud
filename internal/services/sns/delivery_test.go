@@ -4,6 +4,7 @@ package sns
 import (
 	"context"
 	"encoding/xml"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -115,4 +116,34 @@ func TestSNSFanoutMissingQueue(t *testing.T) {
 	require.Error(t, p.fanoutToSQS(context.Background(), "arn:aws:sqs:us-east-1:000000000000:missing", "hello"))
 	plugin.DefaultRegistry = plugin.NewRegistry()
 	require.Error(t, p.fanoutToSQS(context.Background(), "http://localhost:4747/000000000000/missing", "hello"))
+}
+
+type deliveryResponseService struct {
+	plugin.ServicePlugin
+	response *plugin.Response
+}
+
+func (s deliveryResponseService) HandleRequest(context.Context, string, *http.Request) (*plugin.Response, error) {
+	return s.response, nil
+}
+
+func TestSQSDeliveryErrorOmitsResponseData(t *testing.T) {
+	response := &plugin.Response{
+		StatusCode: http.StatusBadRequest,
+		Body:       []byte("private-response-body"),
+		Headers:    map[string]string{"Authorization": "Bearer private-response-header"},
+	}
+	got, err := sqsDeliveryRequest(context.Background(), deliveryResponseService{response: response}, url.Values{"Action": {"SendMessage"}})
+	require.Nil(t, got)
+	require.ErrorContains(t, err, "SendMessage")
+	require.ErrorContains(t, err, "400")
+	require.NotContains(t, err.Error(), "private-response-header")
+	require.NotContains(t, err.Error(), "private-response-body")
+	require.NotContains(t, err.Error(), fmt.Sprintf("%v", response.Body))
+}
+
+func TestSQSDeliveryMissingResponse(t *testing.T) {
+	got, err := sqsDeliveryRequest(context.Background(), deliveryResponseService{}, url.Values{"Action": {"SendMessage"}})
+	require.Nil(t, got)
+	require.Error(t, err)
 }

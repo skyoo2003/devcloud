@@ -63,8 +63,11 @@ func sqsDeliveryRequest(ctx context.Context, svc plugin.ServicePlugin, values ur
 	if err != nil {
 		return nil, err
 	}
-	if resp == nil || resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("SQS %s failed: %v", values.Get("Action"), resp)
+	if resp == nil {
+		return nil, fmt.Errorf("SQS %s failed: no response", values.Get("Action"))
+	}
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("SQS %s failed: status=%d", values.Get("Action"), resp.StatusCode)
 	}
 	return resp, nil
 }

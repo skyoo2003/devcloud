@@ -22,8 +22,11 @@ func extractFunctionArchive(zipPath, destination string) error {
 	remaining := int64(250 * 1024 * 1024)
 	for _, f := range z.File {
 		name := f.Name
+		if !filepath.IsLocal(name) {
+			return fmt.Errorf("%w: unsafe ZIP entry %s", ErrInvalidFunctionCode, name)
+		}
 		clean := filepath.Clean(name)
-		if !filepath.IsLocal(name) || strings.ContainsAny(name, "\\:") || clean == "." || strings.HasPrefix(clean, "../") || strings.HasPrefix(clean, "__devcloud_") || (!f.Mode().IsRegular() && !f.Mode().IsDir()) {
+		if strings.ContainsAny(name, "\\:") || clean == "." || strings.HasPrefix(clean, "../") || strings.HasPrefix(clean, "__devcloud_") || (!f.Mode().IsRegular() && !f.Mode().IsDir()) {
 			return fmt.Errorf("%w: unsafe ZIP entry %s", ErrInvalidFunctionCode, name)
 		}
 		path := filepath.Join(destination, clean)

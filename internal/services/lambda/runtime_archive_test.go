@@ -11,7 +11,7 @@ import (
 )
 
 func TestArchiveRejectsTraversal(t *testing.T) {
-	for _, name := range []string{"../escape", "/absolute", "a\\b", "__devcloud_handler__.py", "C:/absolute"} {
+	for _, name := range []string{"../escape", "nested/../../escape", "/absolute", "a\\b", "__devcloud_handler__.py", "nested/../__devcloud_handler__.py", "C:/absolute", ".", "nested/.."} {
 		var b bytes.Buffer
 		w := zip.NewWriter(&b)
 		f, err := w.Create(name)
@@ -68,4 +68,25 @@ func TestArchiveKeepsExecutableHelper(t *testing.T) {
 	extracted, err := os.Stat(filepath.Join(destination, "bin/helper"))
 	require.NoError(t, err)
 	require.NotZero(t, extracted.Mode().Perm()&0111, "Python/Node subprocess helpers must remain executable")
+}
+
+func TestArchiveKeepsSafeNormalizedPaths(t *testing.T) {
+	for _, name := range []string{"nested/index.py", "nested/../index.py", "module..py"} {
+		t.Run(name, func(t *testing.T) {
+			var buffer bytes.Buffer
+			writer := zip.NewWriter(&buffer)
+			entry, err := writer.Create(name)
+			require.NoError(t, err)
+			_, err = entry.Write([]byte("handler contents"))
+			require.NoError(t, err)
+			require.NoError(t, writer.Close())
+			archive := filepath.Join(t.TempDir(), "code.zip")
+			require.NoError(t, os.WriteFile(archive, buffer.Bytes(), 0600))
+			destination := t.TempDir()
+			require.NoError(t, extractFunctionArchive(archive, destination))
+			contents, err := os.ReadFile(filepath.Join(destination, filepath.Clean(name)))
+			require.NoError(t, err)
+			require.Equal(t, "handler contents", string(contents))
+		})
+	}
 }
