@@ -419,6 +419,10 @@ func (b *BaseProvider) SearchProfiles(ctx context.Context, input *SearchProfiles
 	return nil, fmt.Errorf("SearchProfiles: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) SearchRecommendations(ctx context.Context, input *SearchRecommendationsRequest) (*SearchRecommendationsResponse, error) {
+	return nil, fmt.Errorf("SearchRecommendations: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) StartRecommender(ctx context.Context, input *StartRecommenderRequest) (*StartRecommenderResponse, error) {
 	return nil, fmt.Errorf("StartRecommender: %w", ErrNotImplemented)
 }

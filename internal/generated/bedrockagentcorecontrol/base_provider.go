@@ -559,6 +559,10 @@ func (b *BaseProvider) PutResourcePolicy(ctx context.Context, input *PutResource
 	return nil, fmt.Errorf("PutResourcePolicy: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) RotatePaymentConnectorCredentials(ctx context.Context, input *RotatePaymentConnectorCredentialsRequest) (*RotatePaymentConnectorCredentialsResponse, error) {
+	return nil, fmt.Errorf("RotatePaymentConnectorCredentials: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) SetTokenVaultCMK(ctx context.Context, input *SetTokenVaultCMKRequest) (*SetTokenVaultCMKResponse, error) {
 	return nil, fmt.Errorf("SetTokenVaultCMK: %w", ErrNotImplemented)
 }

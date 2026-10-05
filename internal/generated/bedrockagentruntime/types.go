@@ -678,6 +678,7 @@ type FlowTraceNodeOutputNext struct {
 
 type FoundationModelConfiguration struct {
 	BedrockFoundationModelConfiguration *BedrockFoundationModelConfiguration `json:"bedrockFoundationModelConfiguration" xml:"bedrockFoundationModelConfiguration"`
+	MantleFoundationModelConfiguration  *MantleFoundationModelConfiguration  `json:"mantleFoundationModelConfiguration" xml:"mantleFoundationModelConfiguration"`
 	Type                                string                               `json:"type" xml:"type"`
 }
 
@@ -1234,6 +1235,15 @@ type ManagedSearchConfiguration struct {
 type ManagedSearchRerankingConfiguration struct {
 	BedrockRerankingConfiguration *ManagedSearchBedrockRerankingConfiguration `json:"bedrockRerankingConfiguration" xml:"bedrockRerankingConfiguration"`
 	Type                          string                                      `json:"type" xml:"type"`
+}
+
+type MantleFoundationModelConfiguration struct {
+	ModelConfiguration *MantleFoundationModelModelConfiguration `json:"modelConfiguration" xml:"modelConfiguration"`
+}
+
+type MantleFoundationModelModelConfiguration struct {
+	ModelArn  string `json:"modelArn" xml:"modelArn"`
+	ProjectId string `json:"projectId" xml:"projectId"`
 }
 
 type MemorySessionSummary struct {

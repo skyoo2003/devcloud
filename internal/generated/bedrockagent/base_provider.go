@@ -59,6 +59,10 @@ func (b *BaseProvider) CreatePromptVersion(ctx context.Context, input *CreatePro
 	return nil, fmt.Errorf("CreatePromptVersion: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateVpcConfiguration(ctx context.Context, input *CreateVpcConfigurationRequest) (*CreateVpcConfigurationResponse, error) {
+	return nil, fmt.Errorf("CreateVpcConfiguration: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteAgent(ctx context.Context, input *DeleteAgentRequest) (*DeleteAgentResponse, error) {
 	return nil, fmt.Errorf("DeleteAgent: %w", ErrNotImplemented)
 }
@@ -105,6 +109,10 @@ func (b *BaseProvider) DeletePrompt(ctx context.Context, input *DeletePromptRequ
 
 func (b *BaseProvider) DeleteResourcePolicy(ctx context.Context, input *DeleteResourcePolicyRequest) (*DeleteResourcePolicyResponse, error) {
 	return nil, fmt.Errorf("DeleteResourcePolicy: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteVpcConfiguration(ctx context.Context, input *DeleteVpcConfigurationRequest) (*DeleteVpcConfigurationResponse, error) {
+	return nil, fmt.Errorf("DeleteVpcConfiguration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DisassociateAgentCollaborator(ctx context.Context, input *DisassociateAgentCollaboratorRequest) (*DisassociateAgentCollaboratorResponse, error) {
@@ -175,6 +183,10 @@ func (b *BaseProvider) GetResourcePolicy(ctx context.Context, input *GetResource
 	return nil, fmt.Errorf("GetResourcePolicy: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetVpcConfiguration(ctx context.Context, input *GetVpcConfigurationRequest) (*GetVpcConfigurationResponse, error) {
+	return nil, fmt.Errorf("GetVpcConfiguration: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) IngestKnowledgeBaseDocuments(ctx context.Context, input *IngestKnowledgeBaseDocumentsRequest) (*IngestKnowledgeBaseDocumentsResponse, error) {
 	return nil, fmt.Errorf("IngestKnowledgeBaseDocuments: %w", ErrNotImplemented)
 }
@@ -237,6 +249,10 @@ func (b *BaseProvider) ListPrompts(ctx context.Context, input *ListPromptsReques
 
 func (b *BaseProvider) ListTagsForResource(ctx context.Context, input *ListTagsForResourceRequest) (*ListTagsForResourceResponse, error) {
 	return nil, fmt.Errorf("ListTagsForResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListVpcConfigurations(ctx context.Context, input *ListVpcConfigurationsRequest) (*ListVpcConfigurationsResponse, error) {
+	return nil, fmt.Errorf("ListVpcConfigurations: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) PrepareAgent(ctx context.Context, input *PrepareAgentRequest) (*PrepareAgentResponse, error) {

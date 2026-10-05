@@ -40,6 +40,16 @@ type AccessKeyMetadata struct {
 	UserName    string    `json:"userName" xml:"UserName"`
 }
 
+type AcquireRoleRequest struct {
+	ReplacementValues    mapStringReplacementValueEntry `json:"replacementValues" xml:"ReplacementValues"`
+	TemplateArn          string                         `json:"templateArn" xml:"TemplateArn"`
+	TemplateMinorVersion int32                          `json:"templateMinorVersion" xml:"TemplateMinorVersion"`
+}
+
+type AcquireRoleResponse struct {
+	Role *Role `json:"role" xml:"Role"`
+}
+
 type AddClientIDToOpenIDConnectProviderRequest struct {
 	ClientID                 string `json:"clientID" xml:"ClientID"`
 	OpenIDConnectProviderArn string `json:"openIDConnectProviderArn" xml:"OpenIDConnectProviderArn"`
@@ -532,6 +542,13 @@ type GetAccountPasswordPolicyResponse struct {
 	PasswordPolicy *PasswordPolicy `json:"passwordPolicy" xml:"PasswordPolicy"`
 }
 
+type GetAccountPropertiesRequest struct {
+}
+
+type GetAccountPropertiesResponse struct {
+	Properties accountPropertiesMapType `json:"properties" xml:"Properties"`
+}
+
 type GetAccountSummaryResponse struct {
 	SummaryMap summaryMapType `json:"summaryMap" xml:"SummaryMap"`
 }
@@ -701,6 +718,15 @@ type GetRoleResponse struct {
 	Role *Role `json:"role" xml:"Role"`
 }
 
+type GetRoleTemplateVersionRequest struct {
+	MinorVersion int32  `json:"minorVersion" xml:"MinorVersion"`
+	TemplateArn  string `json:"templateArn" xml:"TemplateArn"`
+}
+
+type GetRoleTemplateVersionResponse struct {
+	RoleTemplateVersion *RoleTemplateVersion `json:"roleTemplateVersion" xml:"RoleTemplateVersion"`
+}
+
 type GetSAMLProviderRequest struct {
 	SAMLProviderArn string `json:"sAMLProviderArn" xml:"SAMLProviderArn"`
 }
@@ -811,6 +837,17 @@ type GroupDetail struct {
 	GroupName               string                   `json:"groupName" xml:"GroupName"`
 	GroupPolicyList         policyDetailListType     `json:"groupPolicyList" xml:"GroupPolicyList"`
 	Path                    string                   `json:"path" xml:"Path"`
+}
+
+type InlinePolicy struct {
+	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
+	PolicyName     string `json:"policyName" xml:"PolicyName"`
+}
+
+type InlinePolicyIdentifierType struct {
+	AttachmentName string `json:"attachmentName" xml:"AttachmentName"`
+	AttachmentType string `json:"attachmentType" xml:"AttachmentType"`
+	PolicyName     string `json:"policyName" xml:"PolicyName"`
 }
 
 type InstanceProfile struct {
@@ -1289,8 +1326,22 @@ type OpenIDConnectProviderListEntry struct {
 	Arn string `json:"arn" xml:"Arn"`
 }
 
+type OrderedOrganizationPolicyType struct {
+	ServiceControlPolicyInputList SimulationPolicyListType `json:"serviceControlPolicyInputList" xml:"ServiceControlPolicyInputList"`
+}
+
 type OrganizationsDecisionDetail struct {
 	AllowedByOrganizations bool `json:"allowedByOrganizations" xml:"AllowedByOrganizations"`
+}
+
+type ParameterDefinition struct {
+	DefaultValue string `json:"defaultValue" xml:"DefaultValue"`
+	Description  string `json:"description" xml:"Description"`
+	Immutable    bool   `json:"immutable" xml:"Immutable"`
+	IsRequired   bool   `json:"isRequired" xml:"IsRequired"`
+	Name         string `json:"name" xml:"Name"`
+	SubType      string `json:"subType" xml:"SubType"`
+	Type         string `json:"type" xml:"Type"`
 }
 
 type PasswordPolicy struct {
@@ -1371,6 +1422,13 @@ type Position struct {
 	Line   int32 `json:"line" xml:"Line"`
 }
 
+type PutAccountPropertiesRequest struct {
+	Properties accountPropertiesMapType `json:"properties" xml:"Properties"`
+}
+
+type PutAccountPropertiesResponse struct {
+}
+
 type PutGroupPolicyRequest struct {
 	GroupName      string `json:"groupName" xml:"GroupName"`
 	PolicyDocument string `json:"policyDocument" xml:"PolicyDocument"`
@@ -1419,6 +1477,10 @@ type RemoveUserFromGroupRequest struct {
 	UserName  string `json:"userName" xml:"UserName"`
 }
 
+type ReplacementValueEntry struct {
+	Values replacementValueListType `json:"values" xml:"Values"`
+}
+
 type ResetServiceSpecificCredentialRequest struct {
 	ServiceSpecificCredentialId string `json:"serviceSpecificCredentialId" xml:"ServiceSpecificCredentialId"`
 	UserName                    string `json:"userName" xml:"UserName"`
@@ -1455,6 +1517,7 @@ type Role struct {
 	RoleId                   string                       `json:"roleId" xml:"RoleId"`
 	RoleLastUsed             *RoleLastUsed                `json:"roleLastUsed" xml:"RoleLastUsed"`
 	RoleName                 string                       `json:"roleName" xml:"RoleName"`
+	SourceRoleTemplate       *SourceRoleTemplate          `json:"sourceRoleTemplate" xml:"SourceRoleTemplate"`
 	Tags                     tagListType                  `json:"tags" xml:"Tags"`
 }
 
@@ -1476,6 +1539,32 @@ type RoleDetail struct {
 type RoleLastUsed struct {
 	LastUsedDate time.Time `json:"lastUsedDate" xml:"LastUsedDate"`
 	Region       string    `json:"region" xml:"Region"`
+}
+
+type RoleTemplateVersion struct {
+	AssumeRolePolicyDocumentTemplate string                       `json:"assumeRolePolicyDocumentTemplate" xml:"AssumeRolePolicyDocumentTemplate"`
+	CreateTimestamp                  time.Time                    `json:"createTimestamp" xml:"CreateTimestamp"`
+	DefaultMinorVersion              int32                        `json:"defaultMinorVersion" xml:"DefaultMinorVersion"`
+	Description                      string                       `json:"description" xml:"Description"`
+	Enabled                          bool                         `json:"enabled" xml:"Enabled"`
+	InlinePolicyTemplates            inlinePolicyTemplateListType `json:"inlinePolicyTemplates" xml:"InlinePolicyTemplates"`
+	MajorVersion                     int32                        `json:"majorVersion" xml:"MajorVersion"`
+	ManagedByType                    string                       `json:"managedByType" xml:"ManagedByType"`
+	ManagedByValue                   string                       `json:"managedByValue" xml:"ManagedByValue"`
+	ManagedPolicyArns                managedPolicyArnListType     `json:"managedPolicyArns" xml:"ManagedPolicyArns"`
+	MaxSessionDuration               int32                        `json:"maxSessionDuration" xml:"MaxSessionDuration"`
+	MinorVersion                     int32                        `json:"minorVersion" xml:"MinorVersion"`
+	ParametersDefinition             parametersDefinitionListType `json:"parametersDefinition" xml:"ParametersDefinition"`
+	PermissionBoundaryArn            string                       `json:"permissionBoundaryArn" xml:"PermissionBoundaryArn"`
+	RoleDescriptionPattern           string                       `json:"roleDescriptionPattern" xml:"RoleDescriptionPattern"`
+	RoleNamePattern                  string                       `json:"roleNamePattern" xml:"RoleNamePattern"`
+	RolePathPattern                  string                       `json:"rolePathPattern" xml:"RolePathPattern"`
+	RoleTagsTemplate                 tagTemplateListType          `json:"roleTagsTemplate" xml:"RoleTagsTemplate"`
+	TemplateArn                      string                       `json:"templateArn" xml:"TemplateArn"`
+	TemplateName                     string                       `json:"templateName" xml:"TemplateName"`
+	TemplateVersionId                string                       `json:"templateVersionId" xml:"TemplateVersionId"`
+	UpdateTimestamp                  time.Time                    `json:"updateTimestamp" xml:"UpdateTimestamp"`
+	VersionEnabled                   bool                         `json:"versionEnabled" xml:"VersionEnabled"`
 }
 
 type RoleUsageType struct {
@@ -1582,17 +1671,18 @@ type SigningCertificate struct {
 }
 
 type SimulateCustomPolicyRequest struct {
-	ActionNames                        ActionNameListType       `json:"actionNames" xml:"ActionNames"`
-	CallerArn                          string                   `json:"callerArn" xml:"CallerArn"`
-	ContextEntries                     ContextEntryListType     `json:"contextEntries" xml:"ContextEntries"`
-	Marker                             string                   `json:"marker" xml:"Marker"`
-	MaxItems                           int32                    `json:"maxItems" xml:"MaxItems"`
-	PermissionsBoundaryPolicyInputList SimulationPolicyListType `json:"permissionsBoundaryPolicyInputList" xml:"PermissionsBoundaryPolicyInputList"`
-	PolicyInputList                    SimulationPolicyListType `json:"policyInputList" xml:"PolicyInputList"`
-	ResourceArns                       ResourceNameListType     `json:"resourceArns" xml:"ResourceArns"`
-	ResourceHandlingOption             string                   `json:"resourceHandlingOption" xml:"ResourceHandlingOption"`
-	ResourceOwner                      string                   `json:"resourceOwner" xml:"ResourceOwner"`
-	ResourcePolicy                     string                   `json:"resourcePolicy" xml:"ResourcePolicy"`
+	ActionNames                        ActionNameListType         `json:"actionNames" xml:"ActionNames"`
+	CallerArn                          string                     `json:"callerArn" xml:"CallerArn"`
+	ContextEntries                     ContextEntryListType       `json:"contextEntries" xml:"ContextEntries"`
+	Marker                             string                     `json:"marker" xml:"Marker"`
+	MaxItems                           int32                      `json:"maxItems" xml:"MaxItems"`
+	OrderedOrganizationPolicyInputList OrganizationPolicyListType `json:"orderedOrganizationPolicyInputList" xml:"OrderedOrganizationPolicyInputList"`
+	PermissionsBoundaryPolicyInputList SimulationPolicyListType   `json:"permissionsBoundaryPolicyInputList" xml:"PermissionsBoundaryPolicyInputList"`
+	PolicyInputList                    SimulationPolicyListType   `json:"policyInputList" xml:"PolicyInputList"`
+	ResourceArns                       ResourceNameListType       `json:"resourceArns" xml:"ResourceArns"`
+	ResourceHandlingOption             string                     `json:"resourceHandlingOption" xml:"ResourceHandlingOption"`
+	ResourceOwner                      string                     `json:"resourceOwner" xml:"ResourceOwner"`
+	ResourcePolicy                     string                     `json:"resourcePolicy" xml:"ResourcePolicy"`
 }
 
 type SimulatePolicyResponse struct {
@@ -1608,6 +1698,7 @@ type SimulatePrincipalPolicyRequest struct {
 	Marker                             string                   `json:"marker" xml:"Marker"`
 	MaxItems                           int32                    `json:"maxItems" xml:"MaxItems"`
 	PermissionsBoundaryPolicyInputList SimulationPolicyListType `json:"permissionsBoundaryPolicyInputList" xml:"PermissionsBoundaryPolicyInputList"`
+	PolicyExclusionList                PolicyExclusionsListType `json:"policyExclusionList" xml:"PolicyExclusionList"`
 	PolicyInputList                    SimulationPolicyListType `json:"policyInputList" xml:"PolicyInputList"`
 	PolicySourceArn                    string                   `json:"policySourceArn" xml:"PolicySourceArn"`
 	ResourceArns                       ResourceNameListType     `json:"resourceArns" xml:"ResourceArns"`
@@ -1617,6 +1708,11 @@ type SimulatePrincipalPolicyRequest struct {
 }
 
 type SmithyUnit struct {
+}
+
+type SourceRoleTemplate struct {
+	TemplateArn          string `json:"templateArn" xml:"TemplateArn"`
+	TemplateMinorVersion int32  `json:"templateMinorVersion" xml:"TemplateMinorVersion"`
 }
 
 type Statement struct {
@@ -1664,6 +1760,11 @@ type TagSAMLProviderRequest struct {
 type TagServerCertificateRequest struct {
 	ServerCertificateName string      `json:"serverCertificateName" xml:"ServerCertificateName"`
 	Tags                  tagListType `json:"tags" xml:"Tags"`
+}
+
+type TagTemplate struct {
+	Key   string `json:"key" xml:"Key"`
+	Value string `json:"value" xml:"Value"`
 }
 
 type TagUserRequest struct {
@@ -1908,6 +2009,10 @@ type ManagedPolicyDetailListType []*ManagedPolicyDetail
 
 type OpenIDConnectProviderListType []*OpenIDConnectProviderListEntry
 
+type OrganizationPolicyListType []*OrderedOrganizationPolicyType
+
+type PolicyExclusionsListType []interface{}
+
 type PolicyGroupListType []*PolicyGroup
 
 type PolicyRoleListType []*PolicyRole
@@ -1956,11 +2061,17 @@ type groupListType []*Group
 
 type groupNameListType []string
 
+type inlinePolicyTemplateListType []*InlinePolicy
+
 type instanceProfileListType []*InstanceProfile
 
 type listPolicyGrantingServiceAccessResponseListType []*ListPoliciesGrantingServiceAccessEntry
 
+type managedPolicyArnListType []string
+
 type mfaDeviceListType []*MFADevice
+
+type parametersDefinitionListType []*ParameterDefinition
 
 type policyDetailListType []*PolicyDetail
 
@@ -1978,6 +2089,8 @@ type policyParameterValuesListType []string
 
 type privateKeyList []*SAMLPrivateKey
 
+type replacementValueListType []string
+
 type roleDetailListType []*RoleDetail
 
 type roleListType []*Role
@@ -1992,6 +2105,8 @@ type tagKeyListType []string
 
 type tagListType []*Tag
 
+type tagTemplateListType []*TagTemplate
+
 type thumbprintListType []string
 
 type userDetailListType []*UserDetail
@@ -2004,4 +2119,10 @@ type CertificationMapType map[string]string
 
 type EvalDecisionDetailsType map[string]string
 
+type accountPropertiesMapType map[string]string
+
+type mapStringReplacementValueEntry map[string]*ReplacementValueEntry
+
 type summaryMapType map[string]int32
+
+type PolicyIdentifier interface{}

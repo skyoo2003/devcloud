@@ -114,6 +114,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "PUT", Pattern: "/domains/{DomainName}/object-types/{ObjectTypeName}", Operation: "PutProfileObjectType"},
 	{Method: "PUT", Pattern: "/domains/{DomainName}/segment-definitions/{SegmentDefinitionName}/subscriptions", Operation: "PutSegmentSubscription"},
 	{Method: "POST", Pattern: "/domains/{DomainName}/profiles/search", Operation: "SearchProfiles"},
+	{Method: "POST", Pattern: "/domains/{DomainName}/recommendations", Operation: "SearchRecommendations"},
 	{Method: "PUT", Pattern: "/domains/{DomainName}/recommenders/{RecommenderName}/start", Operation: "StartRecommender"},
 	{Method: "PUT", Pattern: "/domains/{DomainName}/upload-jobs/{JobId}", Operation: "StartUploadJob"},
 	{Method: "PUT", Pattern: "/domains/{DomainName}/recommenders/{RecommenderName}/stop", Operation: "StopRecommender"},

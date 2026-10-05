@@ -122,18 +122,19 @@ type RegistryRecordFilter struct {
 }
 
 type RegistryRecordSummary struct {
-	CreatedAt     time.Time    `json:"createdAt" xml:"createdAt"`
-	Description   string       `json:"description" xml:"description"`
-	Descriptors   *Descriptors `json:"descriptors" xml:"descriptors"`
-	DisplayName   string       `json:"displayName" xml:"displayName"`
-	Name          string       `json:"name" xml:"name"`
-	RecordArn     string       `json:"recordArn" xml:"recordArn"`
-	RecordId      string       `json:"recordId" xml:"recordId"`
-	RecordType    string       `json:"recordType" xml:"recordType"`
-	RecordVersion string       `json:"recordVersion" xml:"recordVersion"`
-	RegistryArn   string       `json:"registryArn" xml:"registryArn"`
-	Status        string       `json:"status" xml:"status"`
-	UpdatedAt     time.Time    `json:"updatedAt" xml:"updatedAt"`
+	CreatedAt      time.Time    `json:"createdAt" xml:"createdAt"`
+	CustomMetadata interface{}  `json:"customMetadata" xml:"customMetadata"`
+	Description    string       `json:"description" xml:"description"`
+	Descriptors    *Descriptors `json:"descriptors" xml:"descriptors"`
+	DisplayName    string       `json:"displayName" xml:"displayName"`
+	Name           string       `json:"name" xml:"name"`
+	RecordArn      string       `json:"recordArn" xml:"recordArn"`
+	RecordId       string       `json:"recordId" xml:"recordId"`
+	RecordType     string       `json:"recordType" xml:"recordType"`
+	RecordVersion  string       `json:"recordVersion" xml:"recordVersion"`
+	RegistryArn    string       `json:"registryArn" xml:"registryArn"`
+	Status         string       `json:"status" xml:"status"`
+	UpdatedAt      time.Time    `json:"updatedAt" xml:"updatedAt"`
 }
 
 type RegistryRecordsEntry struct {
@@ -176,5 +177,7 @@ type RegistryRecordSummaryList []*RegistryRecordSummary
 type RegistryRecordsEntryList []*RegistryRecordsEntry
 
 type ValidationExceptionFieldList []*ValidationExceptionField
+
+type CustomMetadataDocument interface{}
 
 type MetadataFilterExpression interface{}

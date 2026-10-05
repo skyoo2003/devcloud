@@ -435,8 +435,9 @@ type ListGraphsOutput struct {
 }
 
 type ListImportTasksInput struct {
-	MaxResults int32  `json:"maxResults" xml:"maxResults"`
-	NextToken  string `json:"nextToken" xml:"nextToken"`
+	GraphIdentifier string `json:"graphIdentifier" xml:"graphIdentifier"`
+	MaxResults      int32  `json:"maxResults" xml:"maxResults"`
+	NextToken       string `json:"nextToken" xml:"nextToken"`
 }
 
 type ListImportTasksOutput struct {

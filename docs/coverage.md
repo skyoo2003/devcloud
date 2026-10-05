@@ -17,14 +17,14 @@ denominators, because [routing and depth are two targets](#the-target):
 | Tier | Serving target | All registered |
 |---|---|---|
 | `hand-verified` | 4,497 | 4,528 |
-| `auto-crud` | 5,910 | 11,588 |
-| `unimplemented` | 2,000 | 3,085 |
-| **total known** | **12,407** | **19,201** |
-| **hand-verified share** | **36.2%** | **23.6%** |
+| `auto-crud` | 6,105 | 11,802 |
+| `unimplemented` | 2,095 | 3,183 |
+| **total known** | **12,697** | **19,513** |
+| **hand-verified share** | **35.4%** | **23.2%** |
 
 The **serving target** column is the depth promise: every registered service
 except the 226 the [demand study](demand.md) found nobody building. The **all
-registered** column adds those 226 back, and with them 6,794 operations that
+registered** column adds those 226 back, and with them 6,816 operations that
 exist so an SDK call cannot leave for a billable account — not because DevCloud
 promises to serve them well.
 

@@ -70,16 +70,17 @@ type AutoDetectionConfiguration struct {
 }
 
 type CreateRegistryRecordRequest struct {
-	ClientToken   string         `json:"clientToken" xml:"clientToken"`
-	Description   string         `json:"description" xml:"description"`
-	Descriptors   *Descriptors   `json:"descriptors" xml:"descriptors"`
-	DisplayName   string         `json:"displayName" xml:"displayName"`
-	Name          string         `json:"name" xml:"name"`
-	Provenance    ProvenanceList `json:"provenance" xml:"provenance"`
-	RecordType    string         `json:"recordType" xml:"recordType"`
-	RecordVersion string         `json:"recordVersion" xml:"recordVersion"`
-	RegistryId    string         `json:"registryId" xml:"registryId"`
-	Tags          TagsMap        `json:"tags" xml:"tags"`
+	ClientToken    string         `json:"clientToken" xml:"clientToken"`
+	CustomMetadata interface{}    `json:"customMetadata" xml:"customMetadata"`
+	Description    string         `json:"description" xml:"description"`
+	Descriptors    *Descriptors   `json:"descriptors" xml:"descriptors"`
+	DisplayName    string         `json:"displayName" xml:"displayName"`
+	Name           string         `json:"name" xml:"name"`
+	Provenance     ProvenanceList `json:"provenance" xml:"provenance"`
+	RecordType     string         `json:"recordType" xml:"recordType"`
+	RecordVersion  string         `json:"recordVersion" xml:"recordVersion"`
+	RegistryId     string         `json:"registryId" xml:"registryId"`
+	Tags           TagsMap        `json:"tags" xml:"tags"`
 }
 
 type CreateRegistryRecordResponse struct {
@@ -88,14 +89,15 @@ type CreateRegistryRecordResponse struct {
 }
 
 type CreateRegistryRequest struct {
-	ApprovalConfiguration      *ApprovalConfiguration      `json:"approvalConfiguration" xml:"approvalConfiguration"`
-	AutoDetectionConfiguration *AutoDetectionConfiguration `json:"autoDetectionConfiguration" xml:"autoDetectionConfiguration"`
-	ClientToken                string                      `json:"clientToken" xml:"clientToken"`
-	Description                string                      `json:"description" xml:"description"`
-	DiscoveryConfiguration     *DiscoveryConfiguration     `json:"discoveryConfiguration" xml:"discoveryConfiguration"`
-	EncryptionConfiguration    *EncryptionConfiguration    `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
-	Name                       string                      `json:"name" xml:"name"`
-	Tags                       TagsMap                     `json:"tags" xml:"tags"`
+	ApprovalConfiguration             *ApprovalConfiguration             `json:"approvalConfiguration" xml:"approvalConfiguration"`
+	AutoDetectionConfiguration        *AutoDetectionConfiguration        `json:"autoDetectionConfiguration" xml:"autoDetectionConfiguration"`
+	ClientToken                       string                             `json:"clientToken" xml:"clientToken"`
+	CustomMetadataSchemaConfiguration *CustomMetadataSchemaConfiguration `json:"customMetadataSchemaConfiguration" xml:"customMetadataSchemaConfiguration"`
+	Description                       string                             `json:"description" xml:"description"`
+	DiscoveryConfiguration            *DiscoveryConfiguration            `json:"discoveryConfiguration" xml:"discoveryConfiguration"`
+	EncryptionConfiguration           *EncryptionConfiguration           `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
+	Name                              string                             `json:"name" xml:"name"`
+	Tags                              TagsMap                            `json:"tags" xml:"tags"`
 }
 
 type CreateRegistryResponse struct {
@@ -120,6 +122,11 @@ type CustomJWTAuthorizerConfiguration struct {
 	DiscoveryUrl             string                     `json:"discoveryUrl" xml:"discoveryUrl"`
 	PrivateEndpoint          interface{}                `json:"privateEndpoint" xml:"privateEndpoint"`
 	PrivateEndpointOverrides PrivateEndpointOverrides   `json:"privateEndpointOverrides" xml:"privateEndpointOverrides"`
+}
+
+type CustomMetadataSchemaConfiguration struct {
+	DefaultSchema             string                       `json:"defaultSchema" xml:"defaultSchema"`
+	RecordTypeSchemaOverrides RecordTypeSchemaOverrideList `json:"recordTypeSchemaOverrides" xml:"recordTypeSchemaOverrides"`
 }
 
 type DeleteRegistryRecordRequest struct {
@@ -171,22 +178,24 @@ type GetRegistryRecordRequest struct {
 }
 
 type GetRegistryRecordResponse struct {
-	CreatedAt              time.Time      `json:"createdAt" xml:"createdAt"`
-	CreatedBy              string         `json:"createdBy" xml:"createdBy"`
-	CreatedByAutoDetection bool           `json:"createdByAutoDetection" xml:"createdByAutoDetection"`
-	Description            string         `json:"description" xml:"description"`
-	Descriptors            *Descriptors   `json:"descriptors" xml:"descriptors"`
-	DisplayName            string         `json:"displayName" xml:"displayName"`
-	Name                   string         `json:"name" xml:"name"`
-	Provenance             ProvenanceList `json:"provenance" xml:"provenance"`
-	RecordArn              string         `json:"recordArn" xml:"recordArn"`
-	RecordId               string         `json:"recordId" xml:"recordId"`
-	RecordType             string         `json:"recordType" xml:"recordType"`
-	RecordVersion          string         `json:"recordVersion" xml:"recordVersion"`
-	RegistryArn            string         `json:"registryArn" xml:"registryArn"`
-	Status                 string         `json:"status" xml:"status"`
-	StatusReason           string         `json:"statusReason" xml:"statusReason"`
-	UpdatedAt              time.Time      `json:"updatedAt" xml:"updatedAt"`
+	CreatedAt                            time.Time      `json:"createdAt" xml:"createdAt"`
+	CreatedBy                            string         `json:"createdBy" xml:"createdBy"`
+	CreatedByAutoDetection               bool           `json:"createdByAutoDetection" xml:"createdByAutoDetection"`
+	CustomMetadata                       interface{}    `json:"customMetadata" xml:"customMetadata"`
+	CustomMetadataSchemaComplianceStatus string         `json:"customMetadataSchemaComplianceStatus" xml:"customMetadataSchemaComplianceStatus"`
+	Description                          string         `json:"description" xml:"description"`
+	Descriptors                          *Descriptors   `json:"descriptors" xml:"descriptors"`
+	DisplayName                          string         `json:"displayName" xml:"displayName"`
+	Name                                 string         `json:"name" xml:"name"`
+	Provenance                           ProvenanceList `json:"provenance" xml:"provenance"`
+	RecordArn                            string         `json:"recordArn" xml:"recordArn"`
+	RecordId                             string         `json:"recordId" xml:"recordId"`
+	RecordType                           string         `json:"recordType" xml:"recordType"`
+	RecordVersion                        string         `json:"recordVersion" xml:"recordVersion"`
+	RegistryArn                          string         `json:"registryArn" xml:"registryArn"`
+	Status                               string         `json:"status" xml:"status"`
+	StatusReason                         string         `json:"statusReason" xml:"statusReason"`
+	UpdatedAt                            time.Time      `json:"updatedAt" xml:"updatedAt"`
 }
 
 type GetRegistryRequest struct {
@@ -194,18 +203,19 @@ type GetRegistryRequest struct {
 }
 
 type GetRegistryResponse struct {
-	ApprovalConfiguration   *ApprovalConfiguration   `json:"approvalConfiguration" xml:"approvalConfiguration"`
-	AutoDetection           *AutoDetection           `json:"autoDetection" xml:"autoDetection"`
-	CreatedAt               time.Time                `json:"createdAt" xml:"createdAt"`
-	Description             string                   `json:"description" xml:"description"`
-	DiscoveryConfiguration  *DiscoveryConfiguration  `json:"discoveryConfiguration" xml:"discoveryConfiguration"`
-	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
-	Name                    string                   `json:"name" xml:"name"`
-	RegistryArn             string                   `json:"registryArn" xml:"registryArn"`
-	RegistryId              string                   `json:"registryId" xml:"registryId"`
-	Status                  string                   `json:"status" xml:"status"`
-	StatusReason            string                   `json:"statusReason" xml:"statusReason"`
-	UpdatedAt               time.Time                `json:"updatedAt" xml:"updatedAt"`
+	ApprovalConfiguration             *ApprovalConfiguration             `json:"approvalConfiguration" xml:"approvalConfiguration"`
+	AutoDetection                     *AutoDetection                     `json:"autoDetection" xml:"autoDetection"`
+	CreatedAt                         time.Time                          `json:"createdAt" xml:"createdAt"`
+	CustomMetadataSchemaConfiguration *CustomMetadataSchemaConfiguration `json:"customMetadataSchemaConfiguration" xml:"customMetadataSchemaConfiguration"`
+	Description                       string                             `json:"description" xml:"description"`
+	DiscoveryConfiguration            *DiscoveryConfiguration            `json:"discoveryConfiguration" xml:"discoveryConfiguration"`
+	EncryptionConfiguration           *EncryptionConfiguration           `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
+	Name                              string                             `json:"name" xml:"name"`
+	RegistryArn                       string                             `json:"registryArn" xml:"registryArn"`
+	RegistryId                        string                             `json:"registryId" xml:"registryId"`
+	Status                            string                             `json:"status" xml:"status"`
+	StatusReason                      string                             `json:"statusReason" xml:"statusReason"`
+	UpdatedAt                         time.Time                          `json:"updatedAt" xml:"updatedAt"`
 }
 
 type HttpDescriptor struct {
@@ -286,6 +296,11 @@ type ProvenanceSummary struct {
 	SourceType string `json:"sourceType" xml:"sourceType"`
 }
 
+type RecordTypeSchemaOverride struct {
+	RecordType string `json:"recordType" xml:"recordType"`
+	Schema     string `json:"schema" xml:"schema"`
+}
+
 type RegistryFilter struct {
 	Name   string       `json:"name" xml:"name"`
 	Values FilterValues `json:"values" xml:"values"`
@@ -315,20 +330,21 @@ type RegistryRecordOAuthCredentialProvider struct {
 }
 
 type RegistryRecordSummary struct {
-	CreatedAt              time.Time             `json:"createdAt" xml:"createdAt"`
-	CreatedBy              string                `json:"createdBy" xml:"createdBy"`
-	CreatedByAutoDetection bool                  `json:"createdByAutoDetection" xml:"createdByAutoDetection"`
-	Description            string                `json:"description" xml:"description"`
-	DisplayName            string                `json:"displayName" xml:"displayName"`
-	Name                   string                `json:"name" xml:"name"`
-	ProvenanceSummaryList  ProvenanceSummaryList `json:"provenanceSummaryList" xml:"provenanceSummaryList"`
-	RecordArn              string                `json:"recordArn" xml:"recordArn"`
-	RecordId               string                `json:"recordId" xml:"recordId"`
-	RecordType             string                `json:"recordType" xml:"recordType"`
-	RecordVersion          string                `json:"recordVersion" xml:"recordVersion"`
-	RegistryArn            string                `json:"registryArn" xml:"registryArn"`
-	Status                 string                `json:"status" xml:"status"`
-	UpdatedAt              time.Time             `json:"updatedAt" xml:"updatedAt"`
+	CreatedAt                            time.Time             `json:"createdAt" xml:"createdAt"`
+	CreatedBy                            string                `json:"createdBy" xml:"createdBy"`
+	CreatedByAutoDetection               bool                  `json:"createdByAutoDetection" xml:"createdByAutoDetection"`
+	CustomMetadataSchemaComplianceStatus string                `json:"customMetadataSchemaComplianceStatus" xml:"customMetadataSchemaComplianceStatus"`
+	Description                          string                `json:"description" xml:"description"`
+	DisplayName                          string                `json:"displayName" xml:"displayName"`
+	Name                                 string                `json:"name" xml:"name"`
+	ProvenanceSummaryList                ProvenanceSummaryList `json:"provenanceSummaryList" xml:"provenanceSummaryList"`
+	RecordArn                            string                `json:"recordArn" xml:"recordArn"`
+	RecordId                             string                `json:"recordId" xml:"recordId"`
+	RecordType                           string                `json:"recordType" xml:"recordType"`
+	RecordVersion                        string                `json:"recordVersion" xml:"recordVersion"`
+	RegistryArn                          string                `json:"registryArn" xml:"registryArn"`
+	Status                               string                `json:"status" xml:"status"`
+	UpdatedAt                            time.Time             `json:"updatedAt" xml:"updatedAt"`
 }
 
 type RegistrySummary struct {
@@ -374,35 +390,38 @@ type UntagResourceResponse struct {
 }
 
 type UpdateRegistryRecordRequest struct {
-	Description            *UpdatedDescription `json:"description" xml:"description"`
-	Descriptors            *UpdatedDescriptors `json:"descriptors" xml:"descriptors"`
-	DisplayName            *UpdatedDisplayName `json:"displayName" xml:"displayName"`
-	Name                   string              `json:"name" xml:"name"`
-	Provenance             ProvenanceList      `json:"provenance" xml:"provenance"`
-	RecordId               string              `json:"recordId" xml:"recordId"`
-	RecordType             string              `json:"recordType" xml:"recordType"`
-	RecordVersion          string              `json:"recordVersion" xml:"recordVersion"`
-	RegistryId             string              `json:"registryId" xml:"registryId"`
-	TriggerSynchronization bool                `json:"triggerSynchronization" xml:"triggerSynchronization"`
+	CustomMetadata         *UpdatedCustomMetadataMap `json:"customMetadata" xml:"customMetadata"`
+	Description            *UpdatedDescription       `json:"description" xml:"description"`
+	Descriptors            *UpdatedDescriptors       `json:"descriptors" xml:"descriptors"`
+	DisplayName            *UpdatedDisplayName       `json:"displayName" xml:"displayName"`
+	Name                   string                    `json:"name" xml:"name"`
+	Provenance             ProvenanceList            `json:"provenance" xml:"provenance"`
+	RecordId               string                    `json:"recordId" xml:"recordId"`
+	RecordType             string                    `json:"recordType" xml:"recordType"`
+	RecordVersion          string                    `json:"recordVersion" xml:"recordVersion"`
+	RegistryId             string                    `json:"registryId" xml:"registryId"`
+	TriggerSynchronization bool                      `json:"triggerSynchronization" xml:"triggerSynchronization"`
 }
 
 type UpdateRegistryRecordResponse struct {
-	CreatedAt              time.Time      `json:"createdAt" xml:"createdAt"`
-	CreatedBy              string         `json:"createdBy" xml:"createdBy"`
-	CreatedByAutoDetection bool           `json:"createdByAutoDetection" xml:"createdByAutoDetection"`
-	Description            string         `json:"description" xml:"description"`
-	Descriptors            *Descriptors   `json:"descriptors" xml:"descriptors"`
-	DisplayName            string         `json:"displayName" xml:"displayName"`
-	Name                   string         `json:"name" xml:"name"`
-	Provenance             ProvenanceList `json:"provenance" xml:"provenance"`
-	RecordArn              string         `json:"recordArn" xml:"recordArn"`
-	RecordId               string         `json:"recordId" xml:"recordId"`
-	RecordType             string         `json:"recordType" xml:"recordType"`
-	RecordVersion          string         `json:"recordVersion" xml:"recordVersion"`
-	RegistryArn            string         `json:"registryArn" xml:"registryArn"`
-	Status                 string         `json:"status" xml:"status"`
-	StatusReason           string         `json:"statusReason" xml:"statusReason"`
-	UpdatedAt              time.Time      `json:"updatedAt" xml:"updatedAt"`
+	CreatedAt                            time.Time      `json:"createdAt" xml:"createdAt"`
+	CreatedBy                            string         `json:"createdBy" xml:"createdBy"`
+	CreatedByAutoDetection               bool           `json:"createdByAutoDetection" xml:"createdByAutoDetection"`
+	CustomMetadata                       interface{}    `json:"customMetadata" xml:"customMetadata"`
+	CustomMetadataSchemaComplianceStatus string         `json:"customMetadataSchemaComplianceStatus" xml:"customMetadataSchemaComplianceStatus"`
+	Description                          string         `json:"description" xml:"description"`
+	Descriptors                          *Descriptors   `json:"descriptors" xml:"descriptors"`
+	DisplayName                          string         `json:"displayName" xml:"displayName"`
+	Name                                 string         `json:"name" xml:"name"`
+	Provenance                           ProvenanceList `json:"provenance" xml:"provenance"`
+	RecordArn                            string         `json:"recordArn" xml:"recordArn"`
+	RecordId                             string         `json:"recordId" xml:"recordId"`
+	RecordType                           string         `json:"recordType" xml:"recordType"`
+	RecordVersion                        string         `json:"recordVersion" xml:"recordVersion"`
+	RegistryArn                          string         `json:"registryArn" xml:"registryArn"`
+	Status                               string         `json:"status" xml:"status"`
+	StatusReason                         string         `json:"statusReason" xml:"statusReason"`
+	UpdatedAt                            time.Time      `json:"updatedAt" xml:"updatedAt"`
 }
 
 type UpdateRegistryRecordStatusRequest struct {
@@ -422,27 +441,29 @@ type UpdateRegistryRecordStatusResponse struct {
 }
 
 type UpdateRegistryRequest struct {
-	ApprovalConfiguration      *UpdatedApprovalConfiguration      `json:"approvalConfiguration" xml:"approvalConfiguration"`
-	AutoDetectionConfiguration *UpdatedAutoDetectionConfiguration `json:"autoDetectionConfiguration" xml:"autoDetectionConfiguration"`
-	Description                *UpdatedDescription                `json:"description" xml:"description"`
-	DiscoveryConfiguration     *UpdatedDiscoveryConfiguration     `json:"discoveryConfiguration" xml:"discoveryConfiguration"`
-	Name                       string                             `json:"name" xml:"name"`
-	RegistryId                 string                             `json:"registryId" xml:"registryId"`
+	ApprovalConfiguration             *UpdatedApprovalConfiguration             `json:"approvalConfiguration" xml:"approvalConfiguration"`
+	AutoDetectionConfiguration        *UpdatedAutoDetectionConfiguration        `json:"autoDetectionConfiguration" xml:"autoDetectionConfiguration"`
+	CustomMetadataSchemaConfiguration *UpdatedCustomMetadataSchemaConfiguration `json:"customMetadataSchemaConfiguration" xml:"customMetadataSchemaConfiguration"`
+	Description                       *UpdatedDescription                       `json:"description" xml:"description"`
+	DiscoveryConfiguration            *UpdatedDiscoveryConfiguration            `json:"discoveryConfiguration" xml:"discoveryConfiguration"`
+	Name                              string                                    `json:"name" xml:"name"`
+	RegistryId                        string                                    `json:"registryId" xml:"registryId"`
 }
 
 type UpdateRegistryResponse struct {
-	ApprovalConfiguration   *ApprovalConfiguration   `json:"approvalConfiguration" xml:"approvalConfiguration"`
-	AutoDetection           *AutoDetection           `json:"autoDetection" xml:"autoDetection"`
-	CreatedAt               time.Time                `json:"createdAt" xml:"createdAt"`
-	Description             string                   `json:"description" xml:"description"`
-	DiscoveryConfiguration  *DiscoveryConfiguration  `json:"discoveryConfiguration" xml:"discoveryConfiguration"`
-	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
-	Name                    string                   `json:"name" xml:"name"`
-	RegistryArn             string                   `json:"registryArn" xml:"registryArn"`
-	RegistryId              string                   `json:"registryId" xml:"registryId"`
-	Status                  string                   `json:"status" xml:"status"`
-	StatusReason            string                   `json:"statusReason" xml:"statusReason"`
-	UpdatedAt               time.Time                `json:"updatedAt" xml:"updatedAt"`
+	ApprovalConfiguration             *ApprovalConfiguration             `json:"approvalConfiguration" xml:"approvalConfiguration"`
+	AutoDetection                     *AutoDetection                     `json:"autoDetection" xml:"autoDetection"`
+	CreatedAt                         time.Time                          `json:"createdAt" xml:"createdAt"`
+	CustomMetadataSchemaConfiguration *CustomMetadataSchemaConfiguration `json:"customMetadataSchemaConfiguration" xml:"customMetadataSchemaConfiguration"`
+	Description                       string                             `json:"description" xml:"description"`
+	DiscoveryConfiguration            *DiscoveryConfiguration            `json:"discoveryConfiguration" xml:"discoveryConfiguration"`
+	EncryptionConfiguration           *EncryptionConfiguration           `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
+	Name                              string                             `json:"name" xml:"name"`
+	RegistryArn                       string                             `json:"registryArn" xml:"registryArn"`
+	RegistryId                        string                             `json:"registryId" xml:"registryId"`
+	Status                            string                             `json:"status" xml:"status"`
+	StatusReason                      string                             `json:"statusReason" xml:"statusReason"`
+	UpdatedAt                         time.Time                          `json:"updatedAt" xml:"updatedAt"`
 }
 
 type UpdatedA2aAgentCardDescriptor struct {
@@ -509,6 +530,14 @@ type UpdatedCustomDescriptor struct {
 
 type UpdatedCustomDescriptorFields struct {
 	Data *UpdatedDescriptorData `json:"data" xml:"data"`
+}
+
+type UpdatedCustomMetadataMap struct {
+	OptionalValue interface{} `json:"optionalValue" xml:"optionalValue"`
+}
+
+type UpdatedCustomMetadataSchemaConfiguration struct {
+	OptionalValue *CustomMetadataSchemaConfiguration `json:"optionalValue" xml:"optionalValue"`
 }
 
 type UpdatedDataSchemaVersion struct {
@@ -613,6 +642,8 @@ type ProvenanceList []*Provenance
 
 type ProvenanceSummaryList []*ProvenanceSummary
 
+type RecordTypeSchemaOverrideList []*RecordTypeSchemaOverride
+
 type RegistryFilterList []*RegistryFilter
 
 type RegistryRecordCredentialProviderConfigurationList []*RegistryRecordCredentialProviderConfiguration
@@ -642,6 +673,8 @@ type TagsMap map[string]string
 type AuthorizerConfiguration interface{}
 
 type ClaimMatchValueType interface{}
+
+type CustomMetadataDocument interface{}
 
 type PrivateEndpoint interface{}
 

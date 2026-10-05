@@ -34,6 +34,7 @@ type Competitor struct {
 }
 
 type ContextualMetadataConfig struct {
+	ExtendedAnalysis  string `json:"extendedAnalysis" xml:"extendedAnalysis"`
 	SummaryGeneration string `json:"summaryGeneration" xml:"summaryGeneration"`
 }
 

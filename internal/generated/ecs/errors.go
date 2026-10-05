@@ -4,7 +4,7 @@ package ecs
 
 import "fmt"
 
-// AccessDeniedException is returned with HTTP status 0.
+// AccessDeniedException is returned with HTTP status 403.
 type AccessDeniedException struct {
 	Message string
 }
@@ -18,7 +18,7 @@ func (e *AccessDeniedException) ErrorCode() string {
 }
 
 func (e *AccessDeniedException) HTTPStatus() int {
-	return 0
+	return 403
 }
 
 // AttributeLimitExceededException is returned with HTTP status 0.

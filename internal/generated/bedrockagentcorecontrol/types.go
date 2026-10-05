@@ -281,6 +281,10 @@ type CoinbaseCdpConfigurationOutput struct {
 	WalletSecretSource  string  `json:"walletSecretSource" xml:"walletSecretSource"`
 }
 
+type CoinbaseCdpRotationTargets struct {
+	Secrets CoinbaseCdpSecrets `json:"secrets" xml:"secrets"`
+}
+
 type ComponentConfiguration struct {
 	Configuration interface{} `json:"configuration" xml:"configuration"`
 }
@@ -392,6 +396,7 @@ type CreateAgentRuntimeRequest struct {
 	FilesystemConfigurations      FilesystemConfigurations       `json:"filesystemConfigurations" xml:"filesystemConfigurations"`
 	LifecycleConfiguration        *LifecycleConfiguration        `json:"lifecycleConfiguration" xml:"lifecycleConfiguration"`
 	NetworkConfiguration          *NetworkConfiguration          `json:"networkConfiguration" xml:"networkConfiguration"`
+	PlatformVersion               string                         `json:"platformVersion" xml:"platformVersion"`
 	ProtocolConfiguration         *ProtocolConfiguration         `json:"protocolConfiguration" xml:"protocolConfiguration"`
 	RequestHeaderConfiguration    interface{}                    `json:"requestHeaderConfiguration" xml:"requestHeaderConfiguration"`
 	RoleArn                       string                         `json:"roleArn" xml:"roleArn"`
@@ -665,6 +670,7 @@ type CreateGatewayRuleResponse struct {
 }
 
 type CreateGatewayTargetRequest struct {
+	CertificateConfigurations        CertificateConfigurationList     `json:"certificateConfigurations" xml:"certificateConfigurations"`
 	ClientToken                      string                           `json:"clientToken" xml:"clientToken"`
 	CredentialProviderConfigurations CredentialProviderConfigurations `json:"credentialProviderConfigurations" xml:"credentialProviderConfigurations"`
 	Description                      string                           `json:"description" xml:"description"`
@@ -677,6 +683,7 @@ type CreateGatewayTargetRequest struct {
 
 type CreateGatewayTargetResponse struct {
 	AuthorizationData                interface{}                      `json:"authorizationData" xml:"authorizationData"`
+	CertificateConfigurations        CertificateConfigurationList     `json:"certificateConfigurations" xml:"certificateConfigurations"`
 	CreatedAt                        time.Time                        `json:"createdAt" xml:"createdAt"`
 	CredentialProviderConfigurations CredentialProviderConfigurations `json:"credentialProviderConfigurations" xml:"credentialProviderConfigurations"`
 	Description                      string                           `json:"description" xml:"description"`
@@ -716,6 +723,7 @@ type CreateHarnessRequest struct {
 	EnvironmentVariables    EnvironmentVariablesMap         `json:"environmentVariables" xml:"environmentVariables"`
 	ExecutionRoleArn        string                          `json:"executionRoleArn" xml:"executionRoleArn"`
 	HarnessName             string                          `json:"harnessName" xml:"harnessName"`
+	Hooks                   HarnessHooks                    `json:"hooks" xml:"hooks"`
 	MaxIterations           int32                           `json:"maxIterations" xml:"maxIterations"`
 	MaxTokens               int32                           `json:"maxTokens" xml:"maxTokens"`
 	Memory                  interface{}                     `json:"memory" xml:"memory"`
@@ -1102,8 +1110,9 @@ type DeleteConfigurationBundleRequest struct {
 }
 
 type DeleteConfigurationBundleResponse struct {
-	BundleId string `json:"bundleId" xml:"bundleId"`
-	Status   string `json:"status" xml:"status"`
+	BundleArn string `json:"bundleArn" xml:"bundleArn"`
+	BundleId  string `json:"bundleId" xml:"bundleId"`
+	Status    string `json:"status" xml:"status"`
 }
 
 type DeleteConsentPortalRequest struct {
@@ -1545,6 +1554,7 @@ type GatewaySummary struct {
 
 type GatewayTarget struct {
 	AuthorizationData                interface{}                      `json:"authorizationData" xml:"authorizationData"`
+	CertificateConfigurations        CertificateConfigurationList     `json:"certificateConfigurations" xml:"certificateConfigurations"`
 	CreatedAt                        time.Time                        `json:"createdAt" xml:"createdAt"`
 	CredentialProviderConfigurations CredentialProviderConfigurations `json:"credentialProviderConfigurations" xml:"credentialProviderConfigurations"`
 	Description                      string                           `json:"description" xml:"description"`
@@ -1603,6 +1613,7 @@ type GetAgentRuntimeResponse struct {
 	LifecycleConfiguration        *LifecycleConfiguration        `json:"lifecycleConfiguration" xml:"lifecycleConfiguration"`
 	MetadataConfiguration         *RuntimeMetadataConfiguration  `json:"metadataConfiguration" xml:"metadataConfiguration"`
 	NetworkConfiguration          *NetworkConfiguration          `json:"networkConfiguration" xml:"networkConfiguration"`
+	PlatformVersion               string                         `json:"platformVersion" xml:"platformVersion"`
 	ProtocolConfiguration         *ProtocolConfiguration         `json:"protocolConfiguration" xml:"protocolConfiguration"`
 	RequestHeaderConfiguration    interface{}                    `json:"requestHeaderConfiguration" xml:"requestHeaderConfiguration"`
 	RoleArn                       string                         `json:"roleArn" xml:"roleArn"`
@@ -1870,6 +1881,7 @@ type GetGatewayTargetRequest struct {
 
 type GetGatewayTargetResponse struct {
 	AuthorizationData                interface{}                      `json:"authorizationData" xml:"authorizationData"`
+	CertificateConfigurations        CertificateConfigurationList     `json:"certificateConfigurations" xml:"certificateConfigurations"`
 	CreatedAt                        time.Time                        `json:"createdAt" xml:"createdAt"`
 	CredentialProviderConfigurations CredentialProviderConfigurations `json:"credentialProviderConfigurations" xml:"credentialProviderConfigurations"`
 	Description                      string                           `json:"description" xml:"description"`
@@ -1965,10 +1977,12 @@ type GetPaymentConnectorResponse struct {
 	AuthorizationUrl                 string                            `json:"authorizationUrl" xml:"authorizationUrl"`
 	CreatedAt                        time.Time                         `json:"createdAt" xml:"createdAt"`
 	CredentialProviderConfigurations CredentialsProviderConfigurations `json:"credentialProviderConfigurations" xml:"credentialProviderConfigurations"`
+	CredentialsUpdatedAt             time.Time                         `json:"credentialsUpdatedAt" xml:"credentialsUpdatedAt"`
 	Description                      string                            `json:"description" xml:"description"`
 	LastUpdatedAt                    time.Time                         `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
 	Name                             string                            `json:"name" xml:"name"`
 	PaymentConnectorId               string                            `json:"paymentConnectorId" xml:"paymentConnectorId"`
+	ProvisionMode                    string                            `json:"provisionMode" xml:"provisionMode"`
 	Status                           string                            `json:"status" xml:"status"`
 	Type                             string                            `json:"type" xml:"type"`
 }
@@ -2214,6 +2228,7 @@ type Harness struct {
 	HarnessId               string                          `json:"harnessId" xml:"harnessId"`
 	HarnessName             string                          `json:"harnessName" xml:"harnessName"`
 	HarnessVersion          string                          `json:"harnessVersion" xml:"harnessVersion"`
+	Hooks                   HarnessHooks                    `json:"hooks" xml:"hooks"`
 	MaxIterations           int32                           `json:"maxIterations" xml:"maxIterations"`
 	MaxTokens               int32                           `json:"maxTokens" xml:"maxTokens"`
 	Memory                  interface{}                     `json:"memory" xml:"memory"`
@@ -2225,6 +2240,16 @@ type Harness struct {
 	Tools                   HarnessTools                    `json:"tools" xml:"tools"`
 	Truncation              *HarnessTruncationConfiguration `json:"truncation" xml:"truncation"`
 	UpdatedAt               time.Time                       `json:"updatedAt" xml:"updatedAt"`
+}
+
+type HarnessAfterInvocationHook struct {
+	Name   string      `json:"name" xml:"name"`
+	Target interface{} `json:"target" xml:"target"`
+}
+
+type HarnessAfterToolCallHook struct {
+	Name   string      `json:"name" xml:"name"`
+	Target interface{} `json:"target" xml:"target"`
 }
 
 type HarnessAgentCoreBrowserConfig struct {
@@ -2277,6 +2302,16 @@ type HarnessBedrockModelConfig struct {
 	TopP             float32     `json:"topP" xml:"topP"`
 }
 
+type HarnessBeforeInvocationHook struct {
+	Name   string      `json:"name" xml:"name"`
+	Target interface{} `json:"target" xml:"target"`
+}
+
+type HarnessBeforeToolCallHook struct {
+	Name   string      `json:"name" xml:"name"`
+	Target interface{} `json:"target" xml:"target"`
+}
+
 type HarnessDisabledMemoryConfiguration struct {
 }
 
@@ -2304,6 +2339,20 @@ type HarnessGeminiModelConfig struct {
 	TopP             float32     `json:"topP" xml:"topP"`
 }
 
+type HarnessHookEventBridgeTarget struct {
+	Arn string `json:"arn" xml:"arn"`
+}
+
+type HarnessHookLambdaTarget struct {
+	Arn            string `json:"arn" xml:"arn"`
+	FailureMode    string `json:"failureMode" xml:"failureMode"`
+	TimeoutSeconds int32  `json:"timeoutSeconds" xml:"timeoutSeconds"`
+}
+
+type HarnessHookSnsTarget struct {
+	Arn string `json:"arn" xml:"arn"`
+}
+
 type HarnessInlineFunctionConfig struct {
 	Description string      `json:"description" xml:"description"`
 	InputSchema interface{} `json:"inputSchema" xml:"inputSchema"`
@@ -2328,6 +2377,7 @@ type HarnessManagedMemoryConfiguration struct {
 
 type HarnessOpenAiModelConfig struct {
 	AdditionalParams interface{} `json:"additionalParams" xml:"additionalParams"`
+	ApiBase          string      `json:"apiBase" xml:"apiBase"`
 	ApiFormat        string      `json:"apiFormat" xml:"apiFormat"`
 	ApiKeyArn        string      `json:"apiKeyArn" xml:"apiKeyArn"`
 	MaxTokens        int32       `json:"maxTokens" xml:"maxTokens"`
@@ -3024,11 +3074,12 @@ type LlmExtractionConfig struct {
 }
 
 type MCPGatewayConfiguration struct {
-	Instructions           string                  `json:"instructions" xml:"instructions"`
-	SearchType             string                  `json:"searchType" xml:"searchType"`
-	SessionConfiguration   *SessionConfiguration   `json:"sessionConfiguration" xml:"sessionConfiguration"`
-	StreamingConfiguration *StreamingConfiguration `json:"streamingConfiguration" xml:"streamingConfiguration"`
-	SupportedVersions      McpSupportedVersions    `json:"supportedVersions" xml:"supportedVersions"`
+	DisableMcpListToolsPagination bool                    `json:"disableMcpListToolsPagination" xml:"disableMcpListToolsPagination"`
+	Instructions                  string                  `json:"instructions" xml:"instructions"`
+	SearchType                    string                  `json:"searchType" xml:"searchType"`
+	SessionConfiguration          *SessionConfiguration   `json:"sessionConfiguration" xml:"sessionConfiguration"`
+	StreamingConfiguration        *StreamingConfiguration `json:"streamingConfiguration" xml:"streamingConfiguration"`
+	SupportedVersions             McpSupportedVersions    `json:"supportedVersions" xml:"supportedVersions"`
 }
 
 type ManagedResourceDetails struct {
@@ -3291,6 +3342,7 @@ type PaymentConnectorSummary struct {
 	LastUpdatedAt      time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
 	Name               string    `json:"name" xml:"name"`
 	PaymentConnectorId string    `json:"paymentConnectorId" xml:"paymentConnectorId"`
+	ProvisionMode      string    `json:"provisionMode" xml:"provisionMode"`
 	Status             string    `json:"status" xml:"status"`
 	Type               string    `json:"type" xml:"type"`
 }
@@ -3508,6 +3560,20 @@ type RootVolumeConfiguration struct {
 	VolumeType   string `json:"volumeType" xml:"volumeType"`
 }
 
+type RotatePaymentConnectorCredentialsRequest struct {
+	ClientToken         string      `json:"clientToken" xml:"clientToken"`
+	CredentialsToRotate interface{} `json:"credentialsToRotate" xml:"credentialsToRotate"`
+	PaymentConnectorId  string      `json:"paymentConnectorId" xml:"paymentConnectorId"`
+	PaymentManagerId    string      `json:"paymentManagerId" xml:"paymentManagerId"`
+}
+
+type RotatePaymentConnectorCredentialsResponse struct {
+	LastUpdatedAt      time.Time `json:"lastUpdatedAt" xml:"lastUpdatedAt"`
+	PaymentConnectorId string    `json:"paymentConnectorId" xml:"paymentConnectorId"`
+	PaymentManagerId   string    `json:"paymentManagerId" xml:"paymentManagerId"`
+	Status             string    `json:"status" xml:"status"`
+}
+
 type Rule struct {
 	Filters        FilterList      `json:"filters" xml:"filters"`
 	SamplingConfig *SamplingConfig `json:"samplingConfig" xml:"samplingConfig"`
@@ -3522,6 +3588,11 @@ type RuntimeTargetConfiguration struct {
 	Arn       string                      `json:"arn" xml:"arn"`
 	Qualifier string                      `json:"qualifier" xml:"qualifier"`
 	Schema    *HttpApiSchemaConfiguration `json:"schema" xml:"schema"`
+}
+
+type S3CertificateConfiguration struct {
+	BucketOwnerAccountId string `json:"bucketOwnerAccountId" xml:"bucketOwnerAccountId"`
+	Uri                  string `json:"uri" xml:"uri"`
 }
 
 type S3Configuration struct {
@@ -3581,6 +3652,10 @@ type Secret struct {
 type SecretReference struct {
 	JsonKey  string `json:"jsonKey" xml:"jsonKey"`
 	SecretId string `json:"secretId" xml:"secretId"`
+}
+
+type SecretsManagerCertificateConfiguration struct {
+	SecretArn string `json:"secretArn" xml:"secretArn"`
 }
 
 type SecretsManagerLocation struct {
@@ -3925,6 +4000,7 @@ type UpdateAgentRuntimeRequest struct {
 	LifecycleConfiguration        *LifecycleConfiguration        `json:"lifecycleConfiguration" xml:"lifecycleConfiguration"`
 	MetadataConfiguration         *RuntimeMetadataConfiguration  `json:"metadataConfiguration" xml:"metadataConfiguration"`
 	NetworkConfiguration          *NetworkConfiguration          `json:"networkConfiguration" xml:"networkConfiguration"`
+	PlatformVersion               string                         `json:"platformVersion" xml:"platformVersion"`
 	ProtocolConfiguration         *ProtocolConfiguration         `json:"protocolConfiguration" xml:"protocolConfiguration"`
 	RequestHeaderConfiguration    interface{}                    `json:"requestHeaderConfiguration" xml:"requestHeaderConfiguration"`
 	RoleArn                       string                         `json:"roleArn" xml:"roleArn"`
@@ -4139,6 +4215,7 @@ type UpdateGatewayRuleResponse struct {
 }
 
 type UpdateGatewayTargetRequest struct {
+	CertificateConfigurations        CertificateConfigurationList     `json:"certificateConfigurations" xml:"certificateConfigurations"`
 	CredentialProviderConfigurations CredentialProviderConfigurations `json:"credentialProviderConfigurations" xml:"credentialProviderConfigurations"`
 	Description                      string                           `json:"description" xml:"description"`
 	GatewayIdentifier                string                           `json:"gatewayIdentifier" xml:"gatewayIdentifier"`
@@ -4151,6 +4228,7 @@ type UpdateGatewayTargetRequest struct {
 
 type UpdateGatewayTargetResponse struct {
 	AuthorizationData                interface{}                      `json:"authorizationData" xml:"authorizationData"`
+	CertificateConfigurations        CertificateConfigurationList     `json:"certificateConfigurations" xml:"certificateConfigurations"`
 	CreatedAt                        time.Time                        `json:"createdAt" xml:"createdAt"`
 	CredentialProviderConfigurations CredentialProviderConfigurations `json:"credentialProviderConfigurations" xml:"credentialProviderConfigurations"`
 	Description                      string                           `json:"description" xml:"description"`
@@ -4189,6 +4267,7 @@ type UpdateHarnessRequest struct {
 	EnvironmentVariables    EnvironmentVariablesMap            `json:"environmentVariables" xml:"environmentVariables"`
 	ExecutionRoleArn        string                             `json:"executionRoleArn" xml:"executionRoleArn"`
 	HarnessId               string                             `json:"harnessId" xml:"harnessId"`
+	Hooks                   HarnessHooks                       `json:"hooks" xml:"hooks"`
 	MaxIterations           int32                              `json:"maxIterations" xml:"maxIterations"`
 	MaxTokens               int32                              `json:"maxTokens" xml:"maxTokens"`
 	Memory                  *UpdatedHarnessMemoryConfiguration `json:"memory" xml:"memory"`
@@ -4652,11 +4731,15 @@ type CapacityProviderList []*CapacityProviderSummary
 
 type CategoricalScaleDefinitions []*CategoricalScaleDefinition
 
+type CertificateConfigurationList []interface{}
+
 type Certificates []*Certificate
 
 type ClusteringFrequencyList []string
 
 type CodeInterpreterSummaries []*CodeInterpreterSummary
+
+type CoinbaseCdpSecrets []string
 
 type CompositeIdentifierList []string
 
@@ -4729,6 +4812,8 @@ type HarnessAllowedTools []string
 type HarnessAwsSkillPaths []string
 
 type HarnessEndpoints []*HarnessEndpoint
+
+type HarnessHooks []interface{}
 
 type HarnessManagedMemoryStrategyList []string
 
@@ -4932,6 +5017,8 @@ type AuthorizationData interface{}
 
 type AuthorizerConfiguration interface{}
 
+type CertificateConfiguration interface{}
+
 type CertificateLocation interface{}
 
 type ClaimMatchValueType interface{}
@@ -4951,6 +5038,8 @@ type ConsolidationConfiguration interface{}
 type Content interface{}
 
 type CredentialProvider interface{}
+
+type CredentialRotationConfig interface{}
 
 type CredentialsProviderConfiguration interface{}
 
@@ -4995,6 +5084,10 @@ type HarnessEnvironmentProvider interface{}
 type HarnessEnvironmentProviderRequest interface{}
 
 type HarnessGatewayOutboundAuth interface{}
+
+type HarnessHook interface{}
+
+type HarnessHookTarget interface{}
 
 type HarnessMemoryConfiguration interface{}
 

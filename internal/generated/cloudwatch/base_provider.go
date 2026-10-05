@@ -11,6 +11,14 @@ var ErrNotImplemented = fmt.Errorf("operation not implemented")
 
 type BaseProvider struct{}
 
+func (b *BaseProvider) AssociateDatasetKmsKey(ctx context.Context, input *AssociateDatasetKmsKeyInput) (*AssociateDatasetKmsKeyOutput, error) {
+	return nil, fmt.Errorf("AssociateDatasetKmsKey: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) CreateResourceMetricsConfiguration(ctx context.Context, input *CreateResourceMetricsConfigurationInput) (*CreateResourceMetricsConfigurationOutput, error) {
+	return nil, fmt.Errorf("CreateResourceMetricsConfiguration: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteAlarmMuteRule(ctx context.Context, input *DeleteAlarmMuteRuleInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeleteAlarmMuteRule: %w", ErrNotImplemented)
 }
@@ -33,6 +41,10 @@ func (b *BaseProvider) DeleteInsightRules(ctx context.Context, input *DeleteInsi
 
 func (b *BaseProvider) DeleteMetricStream(ctx context.Context, input *DeleteMetricStreamInput) (*DeleteMetricStreamOutput, error) {
 	return nil, fmt.Errorf("DeleteMetricStream: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteResourceMetricsConfiguration(ctx context.Context, input *DeleteResourceMetricsConfigurationInput) (*DeleteResourceMetricsConfigurationOutput, error) {
+	return nil, fmt.Errorf("DeleteResourceMetricsConfiguration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeAlarmContributors(ctx context.Context, input *DescribeAlarmContributorsInput) (*DescribeAlarmContributorsOutput, error) {
@@ -67,6 +79,10 @@ func (b *BaseProvider) DisableInsightRules(ctx context.Context, input *DisableIn
 	return nil, fmt.Errorf("DisableInsightRules: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DisassociateDatasetKmsKey(ctx context.Context, input *DisassociateDatasetKmsKeyInput) (*DisassociateDatasetKmsKeyOutput, error) {
+	return nil, fmt.Errorf("DisassociateDatasetKmsKey: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) EnableAlarmActions(ctx context.Context, input *EnableAlarmActionsInput) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("EnableAlarmActions: %w", ErrNotImplemented)
 }
@@ -81,6 +97,10 @@ func (b *BaseProvider) GetAlarmMuteRule(ctx context.Context, input *GetAlarmMute
 
 func (b *BaseProvider) GetDashboard(ctx context.Context, input *GetDashboardInput) (*GetDashboardOutput, error) {
 	return nil, fmt.Errorf("GetDashboard: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetDataset(ctx context.Context, input *GetDatasetInput) (*GetDatasetOutput, error) {
+	return nil, fmt.Errorf("GetDataset: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) GetInsightRuleReport(ctx context.Context, input *GetInsightRuleReportInput) (*GetInsightRuleReportOutput, error) {
@@ -105,6 +125,10 @@ func (b *BaseProvider) GetMetricWidgetImage(ctx context.Context, input *GetMetri
 
 func (b *BaseProvider) GetOTelEnrichment(ctx context.Context, input *GetOTelEnrichmentInput) (*GetOTelEnrichmentOutput, error) {
 	return nil, fmt.Errorf("GetOTelEnrichment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetResourceMetricsConfiguration(ctx context.Context, input *GetResourceMetricsConfigurationInput) (*GetResourceMetricsConfigurationOutput, error) {
+	return nil, fmt.Errorf("GetResourceMetricsConfiguration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListAlarmMuteRules(ctx context.Context, input *ListAlarmMuteRulesInput) (*ListAlarmMuteRulesOutput, error) {
@@ -151,6 +175,10 @@ func (b *BaseProvider) PutInsightRule(ctx context.Context, input *PutInsightRule
 	return nil, fmt.Errorf("PutInsightRule: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) PutLogAlarm(ctx context.Context, input *PutLogAlarmInput) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("PutLogAlarm: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) PutManagedInsightRules(ctx context.Context, input *PutManagedInsightRulesInput) (*PutManagedInsightRulesOutput, error) {
 	return nil, fmt.Errorf("PutManagedInsightRules: %w", ErrNotImplemented)
 }
@@ -193,4 +221,12 @@ func (b *BaseProvider) TagResource(ctx context.Context, input *TagResourceInput)
 
 func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceInput) (*UntagResourceOutput, error) {
 	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateOTelEnrichment(ctx context.Context, input *UpdateOTelEnrichmentInput) (*UpdateOTelEnrichmentOutput, error) {
+	return nil, fmt.Errorf("UpdateOTelEnrichment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateResourceMetricsConfiguration(ctx context.Context, input *UpdateResourceMetricsConfigurationInput) (*UpdateResourceMetricsConfigurationOutput, error) {
+	return nil, fmt.Errorf("UpdateResourceMetricsConfiguration: %w", ErrNotImplemented)
 }

@@ -4964,6 +4964,14 @@ type EnumListConfigurationOptions struct {
 	MaxItems      int32      `json:"maxItems" xml:"MaxItems"`
 }
 
+type ExposureFinding struct {
+	Impact            string `json:"impact" xml:"Impact"`
+	MetadataUid       string `json:"metadataUid" xml:"MetadataUid"`
+	PreviousSeverity  string `json:"previousSeverity" xml:"PreviousSeverity"`
+	ProjectedSeverity string `json:"projectedSeverity" xml:"ProjectedSeverity"`
+	Title             string `json:"title" xml:"Title"`
+}
+
 type ExternalIntegrationConfiguration struct {
 	ConnectorArn string `json:"connectorArn" xml:"ConnectorArn"`
 }
@@ -5325,6 +5333,21 @@ type GetRecommendedPolicyV2Response struct {
 	Status              string               `json:"status" xml:"Status"`
 }
 
+type GetRemediationsV2Request struct {
+	Filters        *RemediationFilters `json:"filters" xml:"Filters"`
+	GuidanceFormat string              `json:"guidanceFormat" xml:"GuidanceFormat"`
+	MaxResults     int32               `json:"maxResults" xml:"MaxResults"`
+	MetadataUid    string              `json:"metadataUid" xml:"MetadataUid"`
+	NextToken      string              `json:"nextToken" xml:"NextToken"`
+	ShowGuidance   bool                `json:"showGuidance" xml:"ShowGuidance"`
+	TargetUid      string              `json:"targetUid" xml:"TargetUid"`
+}
+
+type GetRemediationsV2Response struct {
+	Items     RemediationV2ItemList `json:"items" xml:"Items"`
+	NextToken string                `json:"nextToken" xml:"NextToken"`
+}
+
 type GetResourcesStatisticsV2Request struct {
 	GroupByRules        ResourceGroupByRules `json:"groupByRules" xml:"GroupByRules"`
 	MaxStatisticResults int32                `json:"maxStatisticResults" xml:"MaxStatisticResults"`
@@ -5495,6 +5518,11 @@ type JiraCloudUpdateConfiguration struct {
 	ProjectKey string `json:"projectKey" xml:"ProjectKey"`
 }
 
+type KbArticle struct {
+	Title string `json:"title" xml:"Title"`
+	Url   string `json:"url" xml:"Url"`
+}
+
 type KeywordFilter struct {
 	Value string `json:"value" xml:"Value"`
 }
@@ -5584,6 +5612,21 @@ type ListEnabledProductsForImportRequest struct {
 type ListEnabledProductsForImportResponse struct {
 	NextToken            string                     `json:"nextToken" xml:"NextToken"`
 	ProductSubscriptions ProductSubscriptionArnList `json:"productSubscriptions" xml:"ProductSubscriptions"`
+}
+
+type ListExposuresByRemediationV2Request struct {
+	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken  string `json:"nextToken" xml:"NextToken"`
+	TargetUid  string `json:"targetUid" xml:"TargetUid"`
+}
+
+type ListExposuresByRemediationV2Response struct {
+	Items      ExposureFindingItemsList `json:"items" xml:"Items"`
+	NextToken  string                   `json:"nextToken" xml:"NextToken"`
+	Resource   *RemediationResource     `json:"resource" xml:"Resource"`
+	TargetUid  string                   `json:"targetUid" xml:"TargetUid"`
+	TotalCount int32                    `json:"totalCount" xml:"TotalCount"`
+	Trait      *RemediationTrait        `json:"trait" xml:"Trait"`
 }
 
 type ListFindingAggregatorsRequest struct {
@@ -5973,6 +6016,132 @@ type RelatedFinding struct {
 
 type Remediation struct {
 	Recommendation *Recommendation `json:"recommendation" xml:"Recommendation"`
+}
+
+type RemediationCompositeFilter struct {
+	StringFilters RemediationStringFilterList `json:"stringFilters" xml:"StringFilters"`
+}
+
+type RemediationFilters struct {
+	CompositeFilters RemediationCompositeFilterList `json:"compositeFilters" xml:"CompositeFilters"`
+}
+
+type RemediationGuidance struct {
+	Context        *RemediationGuidanceContext       `json:"context" xml:"Context"`
+	Examples       *RemediationGuidanceExamples      `json:"examples" xml:"Examples"`
+	Metadata       *RemediationGuidanceMetadata      `json:"metadata" xml:"Metadata"`
+	Pattern        string                            `json:"pattern" xml:"Pattern"`
+	Specification  *RemediationGuidanceSpecification `json:"specification" xml:"Specification"`
+	TargetTypeName string                            `json:"targetTypeName" xml:"TargetTypeName"`
+	Version        string                            `json:"version" xml:"Version"`
+}
+
+type RemediationGuidanceContext struct {
+	AffectedScope    string                `json:"affectedScope" xml:"AffectedScope"`
+	Prerequisites    RemediationStringList `json:"prerequisites" xml:"Prerequisites"`
+	ProblemStatement string                `json:"problemStatement" xml:"ProblemStatement"`
+	RiskAssessment   string                `json:"riskAssessment" xml:"RiskAssessment"`
+}
+
+type RemediationGuidanceExamples struct {
+	AwsCli         string `json:"awsCli" xml:"AwsCli"`
+	Cdk            string `json:"cdk" xml:"Cdk"`
+	Cli            string `json:"cli" xml:"Cli"`
+	CloudFormation string `json:"cloudFormation" xml:"CloudFormation"`
+	IaC            string `json:"iaC" xml:"IaC"`
+	Python         string `json:"python" xml:"Python"`
+	Template       string `json:"template" xml:"Template"`
+	Terraform      string `json:"terraform" xml:"Terraform"`
+}
+
+type RemediationGuidanceMetadata struct {
+	AutomationLevel     string                `json:"automationLevel" xml:"AutomationLevel"`
+	ExposureType        string                `json:"exposureType" xml:"ExposureType"`
+	FixEffect           string                `json:"fixEffect" xml:"FixEffect"`
+	GeneratedAt         time.Time             `json:"generatedAt" xml:"GeneratedAt"`
+	HumanReviewRequired bool                  `json:"humanReviewRequired" xml:"HumanReviewRequired"`
+	ResourceType        string                `json:"resourceType" xml:"ResourceType"`
+	Reversibility       string                `json:"reversibility" xml:"Reversibility"`
+	RiskLevel           string                `json:"riskLevel" xml:"RiskLevel"`
+	TraitTitles         RemediationStringList `json:"traitTitles" xml:"TraitTitles"`
+	VerificationStatus  string                `json:"verificationStatus" xml:"VerificationStatus"`
+}
+
+type RemediationGuidanceSpecification struct {
+	ExpectedEndState    string                   `json:"expectedEndState" xml:"ExpectedEndState"`
+	Parameters          RemediationParameterList `json:"parameters" xml:"Parameters"`
+	RequiredPermissions RemediationStringList    `json:"requiredPermissions" xml:"RequiredPermissions"`
+	Steps               RemediationStepList      `json:"steps" xml:"Steps"`
+}
+
+type RemediationOutcome struct {
+	ResolvedFindingsCount          int32 `json:"resolvedFindingsCount" xml:"ResolvedFindingsCount"`
+	SeverityReductionFindingsCount int32 `json:"severityReductionFindingsCount" xml:"SeverityReductionFindingsCount"`
+	SeverityUnchangedCount         int32 `json:"severityUnchangedCount" xml:"SeverityUnchangedCount"`
+}
+
+type RemediationParameter struct {
+	Description string `json:"description" xml:"Description"`
+	Name        string `json:"name" xml:"Name"`
+	Required    bool   `json:"required" xml:"Required"`
+	Type        string `json:"type" xml:"Type"`
+}
+
+type RemediationResource struct {
+	AccountId              string `json:"accountId" xml:"AccountId"`
+	CloudProvider          string `json:"cloudProvider" xml:"CloudProvider"`
+	Id                     string `json:"id" xml:"Id"`
+	Name                   string `json:"name" xml:"Name"`
+	Region                 string `json:"region" xml:"Region"`
+	ResourceGuid           string `json:"resourceGuid" xml:"ResourceGuid"`
+	ResourceOwnerAccountId string `json:"resourceOwnerAccountId" xml:"ResourceOwnerAccountId"`
+	ResourceOwnerOrgId     string `json:"resourceOwnerOrgId" xml:"ResourceOwnerOrgId"`
+	ResourceRegion         string `json:"resourceRegion" xml:"ResourceRegion"`
+	Type                   string `json:"type" xml:"Type"`
+}
+
+type RemediationStep struct {
+	Action      string `json:"action" xml:"Action"`
+	Description string `json:"description" xml:"Description"`
+	Inverse     string `json:"inverse" xml:"Inverse"`
+	Logic       string `json:"logic" xml:"Logic"`
+	Phase       string `json:"phase" xml:"Phase"`
+	Service     string `json:"service" xml:"Service"`
+	VerifyAfter string `json:"verifyAfter" xml:"VerifyAfter"`
+}
+
+type RemediationStringFilter struct {
+	FieldName string                            `json:"fieldName" xml:"FieldName"`
+	Filter    *RemediationStringFilterCondition `json:"filter" xml:"Filter"`
+}
+
+type RemediationStringFilterCondition struct {
+	Value string `json:"value" xml:"Value"`
+}
+
+type RemediationSummaryDetail struct {
+	Action               string                `json:"action" xml:"Action"`
+	Description          string                `json:"description" xml:"Description"`
+	IsImmediate          bool                  `json:"isImmediate" xml:"IsImmediate"`
+	KbArticles           KbArticleList         `json:"kbArticles" xml:"KbArticles"`
+	PostRemediationSteps RemediationStringList `json:"postRemediationSteps" xml:"PostRemediationSteps"`
+}
+
+type RemediationTrait struct {
+	Title string `json:"title" xml:"Title"`
+	Type  string `json:"type" xml:"Type"`
+}
+
+type RemediationV2Item struct {
+	Guidance           *RemediationGuidance      `json:"guidance" xml:"Guidance"`
+	Outcome            *RemediationOutcome       `json:"outcome" xml:"Outcome"`
+	Priority           string                    `json:"priority" xml:"Priority"`
+	RemediationSummary *RemediationSummaryDetail `json:"remediationSummary" xml:"RemediationSummary"`
+	Resource           *RemediationResource      `json:"resource" xml:"Resource"`
+	Status             string                    `json:"status" xml:"Status"`
+	TargetUid          string                    `json:"targetUid" xml:"TargetUid"`
+	Trait              *RemediationTrait         `json:"trait" xml:"Trait"`
+	UpdatedAt          time.Time                 `json:"updatedAt" xml:"UpdatedAt"`
 }
 
 type Resource struct {
@@ -7330,6 +7499,8 @@ type EnabledSecurityControlIdentifierList []string
 
 type EnabledStandardIdentifierList []string
 
+type ExposureFindingItemsList []*ExposureFinding
+
 type FilePathList []*FilePaths
 
 type FindingAggregatorList []*FindingAggregator
@@ -7381,6 +7552,8 @@ type InvitationList []*Invitation
 type IpFilterList []*IpFilter
 
 type Ipv6CidrBlockAssociationList []*Ipv6CidrBlockAssociation
+
+type KbArticleList []*KbArticle
 
 type KeywordFilterList []*KeywordFilter
 
@@ -7439,6 +7612,18 @@ type Records []*Record
 type RelatedFindingList []*RelatedFinding
 
 type RelatedRequirementsList []string
+
+type RemediationCompositeFilterList []*RemediationCompositeFilter
+
+type RemediationParameterList []*RemediationParameter
+
+type RemediationStepList []*RemediationStep
+
+type RemediationStringFilterList []*RemediationStringFilter
+
+type RemediationStringList []string
+
+type RemediationV2ItemList []*RemediationV2Item
 
 type ResourceFindingsSummaryList []*ResourceFindingsSummary
 

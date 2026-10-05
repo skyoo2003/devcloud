@@ -42,6 +42,7 @@ type AssignedEnvironmentExitSessionActionDefinition struct {
 type AssignedSession struct {
 	JobId            string                 `json:"jobId" xml:"jobId"`
 	LogConfiguration *LogConfiguration      `json:"logConfiguration" xml:"logConfiguration"`
+	Metadata         SessionMetadata        `json:"metadata" xml:"metadata"`
 	QueueId          string                 `json:"queueId" xml:"queueId"`
 	SessionActions   AssignedSessionActions `json:"sessionActions" xml:"sessionActions"`
 }
@@ -933,10 +934,12 @@ type Ec2EbsVolume struct {
 }
 
 type EnvironmentDetailsEntity struct {
-	EnvironmentId string      `json:"environmentId" xml:"environmentId"`
-	JobId         string      `json:"jobId" xml:"jobId"`
-	SchemaVersion string      `json:"schemaVersion" xml:"schemaVersion"`
-	Template      interface{} `json:"template" xml:"template"`
+	EnvironmentId       string                  `json:"environmentId" xml:"environmentId"`
+	Extensions          OpenjdExtensionNameList `json:"extensions" xml:"extensions"`
+	JobId               string                  `json:"jobId" xml:"jobId"`
+	ResolvedSymbolTable string                  `json:"resolvedSymbolTable" xml:"resolvedSymbolTable"`
+	SchemaVersion       string                  `json:"schemaVersion" xml:"schemaVersion"`
+	Template            interface{}             `json:"template" xml:"template"`
 }
 
 type EnvironmentDetailsError struct {
@@ -1024,6 +1027,10 @@ type FleetMember struct {
 	MembershipLevel string `json:"membershipLevel" xml:"membershipLevel"`
 	PrincipalId     string `json:"principalId" xml:"principalId"`
 	PrincipalType   string `json:"principalType" xml:"principalType"`
+}
+
+type FleetSoftwareAddOn struct {
+	Name string `json:"name" xml:"name"`
 }
 
 type FleetSummary struct {
@@ -1499,6 +1506,7 @@ type JobAttachmentSettings struct {
 }
 
 type JobDetailsEntity struct {
+	Extensions            OpenjdExtensionNameList          `json:"extensions" xml:"extensions"`
 	JobAttachmentSettings *JobDetailsJobAttachmentSettings `json:"jobAttachmentSettings" xml:"jobAttachmentSettings"`
 	JobId                 string                           `json:"jobId" xml:"jobId"`
 	JobRunAsUser          *JobRunAsUser                    `json:"jobRunAsUser" xml:"jobRunAsUser"`
@@ -2226,6 +2234,7 @@ type ServiceManagedEc2InstanceCapabilities struct {
 	MemoryMiB               *MemoryMiBRange                  `json:"memoryMiB" xml:"memoryMiB"`
 	OsFamily                string                           `json:"osFamily" xml:"osFamily"`
 	RootEbsVolume           *Ec2EbsVolume                    `json:"rootEbsVolume" xml:"rootEbsVolume"`
+	SoftwareAddOns          FleetSoftwareAddOns              `json:"softwareAddOns" xml:"softwareAddOns"`
 	VCpuCount               *VCpuCountRange                  `json:"vCpuCount" xml:"vCpuCount"`
 }
 
@@ -2318,11 +2327,13 @@ type StepDependency struct {
 }
 
 type StepDetailsEntity struct {
-	Dependencies  DependenciesList `json:"dependencies" xml:"dependencies"`
-	JobId         string           `json:"jobId" xml:"jobId"`
-	SchemaVersion string           `json:"schemaVersion" xml:"schemaVersion"`
-	StepId        string           `json:"stepId" xml:"stepId"`
-	Template      interface{}      `json:"template" xml:"template"`
+	Dependencies        DependenciesList        `json:"dependencies" xml:"dependencies"`
+	Extensions          OpenjdExtensionNameList `json:"extensions" xml:"extensions"`
+	JobId               string                  `json:"jobId" xml:"jobId"`
+	ResolvedSymbolTable string                  `json:"resolvedSymbolTable" xml:"resolvedSymbolTable"`
+	SchemaVersion       string                  `json:"schemaVersion" xml:"schemaVersion"`
+	StepId              string                  `json:"stepId" xml:"stepId"`
+	Template            interface{}             `json:"template" xml:"template"`
 }
 
 type StepDetailsError struct {
@@ -2870,6 +2881,8 @@ type BatchUpdateTaskErrors []*BatchUpdateTaskError
 
 type BatchUpdateTaskItems []*BatchUpdateTaskItem
 
+type BooleanStringList []string
+
 type BudgetActionsToAdd []*BudgetActionToAdd
 
 type BudgetActionsToRemove []*BudgetActionToRemove
@@ -2896,9 +2909,17 @@ type FleetIds []string
 
 type FleetMembers []*FleetMember
 
+type FleetSoftwareAddOns []*FleetSoftwareAddOn
+
 type FleetSummaries []*FleetSummary
 
+type FloatStringList []string
+
 type InstanceTypes []string
+
+type IntStringList []string
+
+type IntStringListList []NestedIntStringList
 
 type IpV4Addresses []string
 
@@ -2928,9 +2949,17 @@ type MeteredProductSummaryList []*MeteredProductSummary
 
 type MonitorSummaries []*MonitorSummary
 
+type NestedIntStringList []string
+
+type OpenjdExtensionNameList []string
+
 type OutputRelativeDirectoriesList []string
 
+type ParameterStringList []string
+
 type PathMappingRules []*PathMappingRule
+
+type PathStringList []string
 
 type QueueEnvironmentSummaries []*QueueEnvironmentSummary
 
@@ -3023,6 +3052,8 @@ type JobParameters map[string]interface{}
 type LogOptions map[string]string
 
 type LogParameters map[string]string
+
+type SessionMetadata map[string]string
 
 type SettingsMap map[string]string
 

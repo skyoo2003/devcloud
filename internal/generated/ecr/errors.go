@@ -718,6 +718,23 @@ func (e *UnableToGetUpstreamLayerException) HTTPStatus() int {
 	return 0
 }
 
+// UnableToListUpstreamImageReferrersException is returned with HTTP status 0.
+type UnableToListUpstreamImageReferrersException struct {
+	Message string
+}
+
+func (e *UnableToListUpstreamImageReferrersException) Error() string {
+	return fmt.Sprintf("UnableToListUpstreamImageReferrersException: %s", e.Message)
+}
+
+func (e *UnableToListUpstreamImageReferrersException) ErrorCode() string {
+	return "UnableToListUpstreamImageReferrersException"
+}
+
+func (e *UnableToListUpstreamImageReferrersException) HTTPStatus() int {
+	return 0
+}
+
 // UnsupportedImageTypeException is returned with HTTP status 0.
 type UnsupportedImageTypeException struct {
 	Message string

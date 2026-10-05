@@ -149,6 +149,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "GET", Pattern: "/tags/{resourceArn}", Operation: "ListTagsForResource"},
 	{Method: "POST", Pattern: "/identities/ListWorkloadIdentities", Operation: "ListWorkloadIdentities"},
 	{Method: "PUT", Pattern: "/resourcepolicy/{resourceArn}", Operation: "PutResourcePolicy"},
+	{Method: "POST", Pattern: "/payments/managers/{paymentManagerId}/connectors/{paymentConnectorId}/rotate-credentials", Operation: "RotatePaymentConnectorCredentials"},
 	{Method: "POST", Pattern: "/identities/set-token-vault-cmk", Operation: "SetTokenVaultCMK"},
 	{Method: "POST", Pattern: "/policy-engines/{policyEngineId}/policy-generations", Operation: "StartPolicyGeneration"},
 	{Method: "POST", Pattern: "/registries/{registryId}/records/{recordId}/submit-for-approval", Operation: "SubmitRegistryRecordForApproval"},

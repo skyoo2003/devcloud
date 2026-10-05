@@ -19,6 +19,10 @@ func (b *BaseProvider) BatchDisassociateScramSecret(ctx context.Context, input *
 	return nil, fmt.Errorf("BatchDisassociateScramSecret: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateChannel(ctx context.Context, input *CreateChannelRequest) (*CreateChannelResponse, error) {
+	return nil, fmt.Errorf("CreateChannel: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateCluster(ctx context.Context, input *CreateClusterRequest) (*CreateClusterResponse, error) {
 	return nil, fmt.Errorf("CreateCluster: %w", ErrNotImplemented)
 }
@@ -43,6 +47,10 @@ func (b *BaseProvider) CreateVpcConnection(ctx context.Context, input *CreateVpc
 	return nil, fmt.Errorf("CreateVpcConnection: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DeleteChannel(ctx context.Context, input *DeleteChannelRequest) (*DeleteChannelResponse, error) {
+	return nil, fmt.Errorf("DeleteChannel: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteCluster(ctx context.Context, input *DeleteClusterRequest) (*DeleteClusterResponse, error) {
 	return nil, fmt.Errorf("DeleteCluster: %w", ErrNotImplemented)
 }
@@ -65,6 +73,10 @@ func (b *BaseProvider) DeleteTopic(ctx context.Context, input *DeleteTopicReques
 
 func (b *BaseProvider) DeleteVpcConnection(ctx context.Context, input *DeleteVpcConnectionRequest) (*DeleteVpcConnectionResponse, error) {
 	return nil, fmt.Errorf("DeleteVpcConnection: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DescribeChannel(ctx context.Context, input *DescribeChannelRequest) (*DescribeChannelResponse, error) {
+	return nil, fmt.Errorf("DescribeChannel: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DescribeCluster(ctx context.Context, input *DescribeClusterRequest) (*DescribeClusterResponse, error) {
@@ -117,6 +129,10 @@ func (b *BaseProvider) GetClusterPolicy(ctx context.Context, input *GetClusterPo
 
 func (b *BaseProvider) GetCompatibleKafkaVersions(ctx context.Context, input *GetCompatibleKafkaVersionsRequest) (*GetCompatibleKafkaVersionsResponse, error) {
 	return nil, fmt.Errorf("GetCompatibleKafkaVersions: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListChannels(ctx context.Context, input *ListChannelsRequest) (*ListChannelsResponse, error) {
+	return nil, fmt.Errorf("ListChannels: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListClientVpcConnections(ctx context.Context, input *ListClientVpcConnectionsRequest) (*ListClientVpcConnectionsResponse, error) {
@@ -205,6 +221,10 @@ func (b *BaseProvider) UpdateBrokerStorage(ctx context.Context, input *UpdateBro
 
 func (b *BaseProvider) UpdateBrokerType(ctx context.Context, input *UpdateBrokerTypeRequest) (*UpdateBrokerTypeResponse, error) {
 	return nil, fmt.Errorf("UpdateBrokerType: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateChannel(ctx context.Context, input *UpdateChannelRequest) (*UpdateChannelResponse, error) {
+	return nil, fmt.Errorf("UpdateChannel: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateClusterConfiguration(ctx context.Context, input *UpdateClusterConfigurationRequest) (*UpdateClusterConfigurationResponse, error) {

@@ -119,6 +119,11 @@ type AssociateResourceTypesResponse struct {
 	ConfigurationRecorder *ConfigurationRecorder `json:"configurationRecorder" xml:"ConfigurationRecorder"`
 }
 
+type AzureConnectorConfiguration struct {
+	ClientIdentifier string `json:"clientIdentifier" xml:"clientIdentifier"`
+	TenantIdentifier string `json:"tenantIdentifier" xml:"tenantIdentifier"`
+}
+
 type BaseConfigurationItem struct {
 	AccountId                     string                     `json:"accountId" xml:"accountId"`
 	Arn                           string                     `json:"arn" xml:"arn"`
@@ -208,6 +213,7 @@ type ConfigRule struct {
 	EvaluationModes           EvaluationModes `json:"evaluationModes" xml:"EvaluationModes"`
 	InputParameters           string          `json:"inputParameters" xml:"InputParameters"`
 	MaximumExecutionFrequency string          `json:"maximumExecutionFrequency" xml:"MaximumExecutionFrequency"`
+	RuleEvaluationVisibility  string          `json:"ruleEvaluationVisibility" xml:"RuleEvaluationVisibility"`
 	Scope                     *Scope          `json:"scope" xml:"Scope"`
 	Source                    *Source         `json:"source" xml:"Source"`
 }
@@ -288,13 +294,15 @@ type ConfigurationItem struct {
 }
 
 type ConfigurationRecorder struct {
-	Arn              string          `json:"arn" xml:"arn"`
-	Name             string          `json:"name" xml:"name"`
-	RecordingGroup   *RecordingGroup `json:"recordingGroup" xml:"recordingGroup"`
-	RecordingMode    *RecordingMode  `json:"recordingMode" xml:"recordingMode"`
-	RecordingScope   string          `json:"recordingScope" xml:"recordingScope"`
-	RoleARN          string          `json:"roleARN" xml:"roleARN"`
-	ServicePrincipal string          `json:"servicePrincipal" xml:"servicePrincipal"`
+	Arn                string              `json:"arn" xml:"arn"`
+	ConnectorArn       string              `json:"connectorArn" xml:"connectorArn"`
+	Name               string              `json:"name" xml:"name"`
+	RecordingGroup     *RecordingGroup     `json:"recordingGroup" xml:"recordingGroup"`
+	RecordingMode      *RecordingMode      `json:"recordingMode" xml:"recordingMode"`
+	RecordingScope     string              `json:"recordingScope" xml:"recordingScope"`
+	RoleARN            string              `json:"roleARN" xml:"roleARN"`
+	ScopeConfiguration *ScopeConfiguration `json:"scopeConfiguration" xml:"scopeConfiguration"`
+	ServicePrincipal   string              `json:"servicePrincipal" xml:"servicePrincipal"`
 }
 
 type ConfigurationRecorderFilter struct {
@@ -318,6 +326,7 @@ type ConfigurationRecorderStatus struct {
 type ConfigurationRecorderSummary struct {
 	Arn              string `json:"arn" xml:"arn"`
 	Name             string `json:"name" xml:"name"`
+	Provider         string `json:"provider" xml:"provider"`
 	RecordingScope   string `json:"recordingScope" xml:"recordingScope"`
 	ServicePrincipal string `json:"servicePrincipal" xml:"servicePrincipal"`
 }
@@ -391,6 +400,30 @@ type ConformancePackStatusDetail struct {
 	StackArn                    string    `json:"stackArn" xml:"StackArn"`
 }
 
+type Connector struct {
+	Arn                    string                  `json:"arn" xml:"arn"`
+	ConnectorConfiguration *ConnectorConfiguration `json:"connectorConfiguration" xml:"connectorConfiguration"`
+	CreatedTime            time.Time               `json:"createdTime" xml:"createdTime"`
+	Name                   string                  `json:"name" xml:"name"`
+}
+
+type ConnectorConfiguration struct {
+	Azure *AzureConnectorConfiguration `json:"azure" xml:"azure"`
+}
+
+type ConnectorFilter struct {
+	FilterName   string          `json:"filterName" xml:"filterName"`
+	FilterValues FilterValueList `json:"filterValues" xml:"filterValues"`
+}
+
+type ConnectorSummary struct {
+	Arn              string    `json:"arn" xml:"arn"`
+	CreatedTime      time.Time `json:"createdTime" xml:"createdTime"`
+	Name             string    `json:"name" xml:"name"`
+	Provider         string    `json:"provider" xml:"provider"`
+	TenantIdentifier string    `json:"tenantIdentifier" xml:"tenantIdentifier"`
+}
+
 type CustomPolicyDetails struct {
 	EnableDebugLogDelivery bool   `json:"enableDebugLogDelivery" xml:"EnableDebugLogDelivery"`
 	PolicyRuntime          string `json:"policyRuntime" xml:"PolicyRuntime"`
@@ -416,6 +449,10 @@ type DeleteConfigurationRecorderRequest struct {
 
 type DeleteConformancePackRequest struct {
 	ConformancePackName string `json:"conformancePackName" xml:"ConformancePackName"`
+}
+
+type DeleteConnectorRequest struct {
+	Arn string `json:"arn" xml:"Arn"`
 }
 
 type DeleteDeliveryChannelRequest struct {
@@ -469,6 +506,7 @@ type DeleteRetentionConfigurationRequest struct {
 }
 
 type DeleteServiceLinkedConfigurationRecorderRequest struct {
+	Arn              string `json:"arn" xml:"Arn"`
 	ServicePrincipal string `json:"servicePrincipal" xml:"ServicePrincipal"`
 }
 
@@ -578,7 +616,8 @@ type DescribeConfigRuleEvaluationStatusResponse struct {
 }
 
 type DescribeConfigRulesFilters struct {
-	EvaluationMode string `json:"evaluationMode" xml:"EvaluationMode"`
+	EvaluationMode           string `json:"evaluationMode" xml:"EvaluationMode"`
+	RuleEvaluationVisibility string `json:"ruleEvaluationVisibility" xml:"RuleEvaluationVisibility"`
 }
 
 type DescribeConfigRulesRequest struct {
@@ -997,6 +1036,14 @@ type GetConformancePackComplianceSummaryResponse struct {
 	NextToken                            string                               `json:"nextToken" xml:"NextToken"`
 }
 
+type GetConnectorRequest struct {
+	Arn string `json:"arn" xml:"Arn"`
+}
+
+type GetConnectorResponse struct {
+	Connector *Connector `json:"connector" xml:"Connector"`
+}
+
 type GetCustomRulePolicyRequest struct {
 	ConfigRuleName string `json:"configRuleName" xml:"ConfigRuleName"`
 }
@@ -1126,6 +1173,17 @@ type ListConformancePackComplianceScoresRequest struct {
 type ListConformancePackComplianceScoresResponse struct {
 	ConformancePackComplianceScores ConformancePackComplianceScores `json:"conformancePackComplianceScores" xml:"ConformancePackComplianceScores"`
 	NextToken                       string                          `json:"nextToken" xml:"NextToken"`
+}
+
+type ListConnectorsRequest struct {
+	Filters    ConnectorFilterList `json:"filters" xml:"Filters"`
+	MaxResults int32               `json:"maxResults" xml:"MaxResults"`
+	NextToken  string              `json:"nextToken" xml:"NextToken"`
+}
+
+type ListConnectorsResponse struct {
+	ConnectorSummaries ConnectorSummaries `json:"connectorSummaries" xml:"ConnectorSummaries"`
+	NextToken          string             `json:"nextToken" xml:"NextToken"`
 }
 
 type ListDiscoveredResourcesRequest struct {
@@ -1341,6 +1399,15 @@ type PutConformancePackResponse struct {
 	ConformancePackArn string `json:"conformancePackArn" xml:"ConformancePackArn"`
 }
 
+type PutConnectorRequest struct {
+	ConnectorConfiguration *ConnectorConfiguration `json:"connectorConfiguration" xml:"ConnectorConfiguration"`
+	Tags                   TagsList                `json:"tags" xml:"Tags"`
+}
+
+type PutConnectorResponse struct {
+	Arn string `json:"arn" xml:"Arn"`
+}
+
 type PutDeliveryChannelRequest struct {
 	DeliveryChannel *DeliveryChannel `json:"deliveryChannel" xml:"DeliveryChannel"`
 }
@@ -1369,6 +1436,7 @@ type PutOrganizationConfigRuleRequest struct {
 	OrganizationCustomPolicyRuleMetadata *OrganizationCustomPolicyRuleMetadata `json:"organizationCustomPolicyRuleMetadata" xml:"OrganizationCustomPolicyRuleMetadata"`
 	OrganizationCustomRuleMetadata       *OrganizationCustomRuleMetadata       `json:"organizationCustomRuleMetadata" xml:"OrganizationCustomRuleMetadata"`
 	OrganizationManagedRuleMetadata      *OrganizationManagedRuleMetadata      `json:"organizationManagedRuleMetadata" xml:"OrganizationManagedRuleMetadata"`
+	Tags                                 TagsList                              `json:"tags" xml:"Tags"`
 }
 
 type PutOrganizationConfigRuleResponse struct {
@@ -1381,6 +1449,7 @@ type PutOrganizationConformancePackRequest struct {
 	DeliveryS3KeyPrefix             string                         `json:"deliveryS3KeyPrefix" xml:"DeliveryS3KeyPrefix"`
 	ExcludedAccounts                ExcludedAccounts               `json:"excludedAccounts" xml:"ExcludedAccounts"`
 	OrganizationConformancePackName string                         `json:"organizationConformancePackName" xml:"OrganizationConformancePackName"`
+	Tags                            TagsList                       `json:"tags" xml:"Tags"`
 	TemplateBody                    string                         `json:"templateBody" xml:"TemplateBody"`
 	TemplateS3Uri                   string                         `json:"templateS3Uri" xml:"TemplateS3Uri"`
 }
@@ -1442,6 +1511,18 @@ type PutStoredQueryRequest struct {
 
 type PutStoredQueryResponse struct {
 	QueryArn string `json:"queryArn" xml:"QueryArn"`
+}
+
+type PutThirdPartyServiceLinkedConfigurationRecorderRequest struct {
+	ConnectorArn       string              `json:"connectorArn" xml:"ConnectorArn"`
+	ScopeConfiguration *ScopeConfiguration `json:"scopeConfiguration" xml:"ScopeConfiguration"`
+	ServicePrincipal   string              `json:"servicePrincipal" xml:"ServicePrincipal"`
+	Tags               TagsList            `json:"tags" xml:"Tags"`
+}
+
+type PutThirdPartyServiceLinkedConfigurationRecorderResponse struct {
+	Arn  string `json:"arn" xml:"Arn"`
+	Name string `json:"name" xml:"Name"`
 }
 
 type QueryInfo struct {
@@ -1588,8 +1669,16 @@ type RetentionConfiguration struct {
 type Scope struct {
 	ComplianceResourceId    string                  `json:"complianceResourceId" xml:"ComplianceResourceId"`
 	ComplianceResourceTypes ComplianceResourceTypes `json:"complianceResourceTypes" xml:"ComplianceResourceTypes"`
+	ServicePrincipals       ServicePrincipals       `json:"servicePrincipals" xml:"ServicePrincipals"`
 	TagKey                  string                  `json:"tagKey" xml:"TagKey"`
 	TagValue                string                  `json:"tagValue" xml:"TagValue"`
+}
+
+type ScopeConfiguration struct {
+	AllRegions      bool            `json:"allRegions" xml:"allRegions"`
+	IncludedRegions IncludedRegions `json:"includedRegions" xml:"includedRegions"`
+	ScopeType       string          `json:"scopeType" xml:"scopeType"`
+	ScopeValues     ScopeValues     `json:"scopeValues" xml:"scopeValues"`
 }
 
 type SelectAggregateResourceConfigRequest struct {
@@ -1807,6 +1896,10 @@ type ConformancePackRuleEvaluationResultsList []*ConformancePackEvaluationResult
 
 type ConformancePackStatusDetailsList []*ConformancePackStatusDetail
 
+type ConnectorFilterList []*ConnectorFilter
+
+type ConnectorSummaries []*ConnectorSummary
+
 type ControlsList []string
 
 type DebugLogDeliveryAccounts []string
@@ -1835,7 +1928,11 @@ type FailedRemediationExceptionBatches []*FailedRemediationExceptionBatch
 
 type FieldInfoList []*FieldInfo
 
+type FilterValueList []string
+
 type GroupedResourceCountList []*GroupedResourceCount
+
+type IncludedRegions []string
 
 type OrganizationConfigRuleDetailedStatus []*MemberAccountStatus
 
@@ -1905,7 +2002,11 @@ type RetentionConfigurationList []*RetentionConfiguration
 
 type RetentionConfigurationNameList []string
 
+type ScopeValues []string
+
 type ServicePrincipalValueList []string
+
+type ServicePrincipals []string
 
 type SourceDetails []*SourceDetail
 

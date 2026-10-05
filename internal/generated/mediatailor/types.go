@@ -102,6 +102,10 @@ type AwsServiceRequestConfiguration struct {
 	Url                        string          `json:"url" xml:"Url"`
 }
 
+type BeaconingConfiguration struct {
+	ClientSide *ClientSideBeaconingConfiguration `json:"clientSide" xml:"ClientSide"`
+}
+
 type Bumper struct {
 	EndUrl   string `json:"endUrl" xml:"EndUrl"`
 	StartUrl string `json:"startUrl" xml:"StartUrl"`
@@ -125,6 +129,11 @@ type Channel struct {
 	PlaybackMode     string                      `json:"playbackMode" xml:"PlaybackMode"`
 	Tags             __mapOf__string             `json:"tags" xml:"Tags"`
 	Tier             string                      `json:"tier" xml:"Tier"`
+}
+
+type ClientSideBeaconingConfiguration struct {
+	AdditionalEventTypes BeaconEventTypeList `json:"additionalEventTypes" xml:"AdditionalEventTypes"`
+	ReportingMode        string              `json:"reportingMode" xml:"ReportingMode"`
 }
 
 type ClipRange struct {
@@ -551,6 +560,7 @@ type GetPlaybackConfigurationResponse struct {
 	AdsPersonalizationConcurrency                *AdsPersonalizationConcurrency  `json:"adsPersonalizationConcurrency" xml:"AdsPersonalizationConcurrency"`
 	AdsPersonalizationTimeouts                   *AdsPersonalizationTimeouts     `json:"adsPersonalizationTimeouts" xml:"AdsPersonalizationTimeouts"`
 	AvailSuppression                             *AvailSuppression               `json:"availSuppression" xml:"AvailSuppression"`
+	BeaconingConfiguration                       *BeaconingConfiguration         `json:"beaconingConfiguration" xml:"BeaconingConfiguration"`
 	Bumper                                       *Bumper                         `json:"bumper" xml:"Bumper"`
 	CdnConfiguration                             *CdnConfiguration               `json:"cdnConfiguration" xml:"CdnConfiguration"`
 	ConfigurationAliases                         ConfigurationAliasesResponse    `json:"configurationAliases" xml:"ConfigurationAliases"`
@@ -771,6 +781,7 @@ type PlaybackConfiguration struct {
 	AdsPersonalizationConcurrency                *AdsPersonalizationConcurrency  `json:"adsPersonalizationConcurrency" xml:"AdsPersonalizationConcurrency"`
 	AdsPersonalizationTimeouts                   *AdsPersonalizationTimeouts     `json:"adsPersonalizationTimeouts" xml:"AdsPersonalizationTimeouts"`
 	AvailSuppression                             *AvailSuppression               `json:"availSuppression" xml:"AvailSuppression"`
+	BeaconingConfiguration                       *BeaconingConfiguration         `json:"beaconingConfiguration" xml:"BeaconingConfiguration"`
 	Bumper                                       *Bumper                         `json:"bumper" xml:"Bumper"`
 	CdnConfiguration                             *CdnConfiguration               `json:"cdnConfiguration" xml:"CdnConfiguration"`
 	ConfigurationAliases                         ConfigurationAliasesResponse    `json:"configurationAliases" xml:"ConfigurationAliases"`
@@ -872,6 +883,7 @@ type PutPlaybackConfigurationRequest struct {
 	AdsPersonalizationConcurrency   *AdsPersonalizationConcurrency  `json:"adsPersonalizationConcurrency" xml:"AdsPersonalizationConcurrency"`
 	AdsPersonalizationTimeouts      *AdsPersonalizationTimeouts     `json:"adsPersonalizationTimeouts" xml:"AdsPersonalizationTimeouts"`
 	AvailSuppression                *AvailSuppression               `json:"availSuppression" xml:"AvailSuppression"`
+	BeaconingConfiguration          *BeaconingConfiguration         `json:"beaconingConfiguration" xml:"BeaconingConfiguration"`
 	Bumper                          *Bumper                         `json:"bumper" xml:"Bumper"`
 	CdnConfiguration                *CdnConfiguration               `json:"cdnConfiguration" xml:"CdnConfiguration"`
 	ConfigurationAliases            ConfigurationAliasesRequest     `json:"configurationAliases" xml:"ConfigurationAliases"`
@@ -896,6 +908,7 @@ type PutPlaybackConfigurationResponse struct {
 	AdsPersonalizationConcurrency                *AdsPersonalizationConcurrency  `json:"adsPersonalizationConcurrency" xml:"AdsPersonalizationConcurrency"`
 	AdsPersonalizationTimeouts                   *AdsPersonalizationTimeouts     `json:"adsPersonalizationTimeouts" xml:"AdsPersonalizationTimeouts"`
 	AvailSuppression                             *AvailSuppression               `json:"availSuppression" xml:"AvailSuppression"`
+	BeaconingConfiguration                       *BeaconingConfiguration         `json:"beaconingConfiguration" xml:"BeaconingConfiguration"`
 	Bumper                                       *Bumper                         `json:"bumper" xml:"Bumper"`
 	CdnConfiguration                             *CdnConfiguration               `json:"cdnConfiguration" xml:"CdnConfiguration"`
 	ConfigurationAliases                         ConfigurationAliasesResponse    `json:"configurationAliases" xml:"ConfigurationAliases"`
@@ -1232,6 +1245,8 @@ type AdBreakMetadataList []*KeyValuePair
 type AdBreakOpportunities []*AdBreakOpportunity
 
 type Audiences []string
+
+type BeaconEventTypeList []string
 
 type HttpPackageConfigurations []*HttpPackageConfiguration
 

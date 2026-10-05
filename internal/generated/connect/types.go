@@ -6,6 +6,11 @@ import (
 	"time"
 )
 
+type AIAgent struct {
+	Arn  string `json:"arn" xml:"Arn"`
+	Type string `json:"type" xml:"Type"`
+}
+
 type ActionSummary struct {
 	ActionType string `json:"actionType" xml:"ActionType"`
 }
@@ -783,6 +788,11 @@ type Condition struct {
 	StringCondition *StringCondition `json:"stringCondition" xml:"StringCondition"`
 }
 
+type ConnectionCredentials struct {
+	ConnectionToken string `json:"connectionToken" xml:"ConnectionToken"`
+	Expiry          string `json:"expiry" xml:"Expiry"`
+}
+
 type ConnectionData struct {
 	Attendee *Attendee `json:"attendee" xml:"Attendee"`
 	Meeting  *Meeting  `json:"meeting" xml:"Meeting"`
@@ -841,6 +851,15 @@ type Contact struct {
 
 type ContactAnalysis struct {
 	Transcript *Transcript `json:"transcript" xml:"Transcript"`
+}
+
+type ContactAnalysisReference struct {
+	AnalyticsMode string `json:"analyticsMode" xml:"AnalyticsMode"`
+	Arn           string `json:"arn" xml:"Arn"`
+	IsRedacted    bool   `json:"isRedacted" xml:"IsRedacted"`
+	Name          string `json:"name" xml:"Name"`
+	Status        string `json:"status" xml:"Status"`
+	Value         string `json:"value" xml:"Value"`
 }
 
 type ContactConfiguration struct {
@@ -1286,6 +1305,7 @@ type CreateEmailAddressResponse struct {
 }
 
 type CreateEvaluationFormRequest struct {
+	AIVersion                   string                                     `json:"aIVersion" xml:"AIVersion"`
 	AsDraft                     bool                                       `json:"asDraft" xml:"AsDraft"`
 	AutoEvaluationConfiguration *EvaluationFormAutoEvaluationConfiguration `json:"autoEvaluationConfiguration" xml:"AutoEvaluationConfiguration"`
 	ClientToken                 string                                     `json:"clientToken" xml:"ClientToken"`
@@ -1537,6 +1557,7 @@ type CreateRuleResponse struct {
 }
 
 type CreateSecurityProfileRequest struct {
+	AllowedAIAgents                      AllowedAIAgents                     `json:"allowedAIAgents" xml:"AllowedAIAgents"`
 	AllowedAccessControlHierarchyGroupId string                              `json:"allowedAccessControlHierarchyGroupId" xml:"AllowedAccessControlHierarchyGroupId"`
 	AllowedAccessControlTags             AllowedAccessControlTags            `json:"allowedAccessControlTags" xml:"AllowedAccessControlTags"`
 	AllowedFlowModules                   AllowedFlowModules                  `json:"allowedFlowModules" xml:"AllowedFlowModules"`
@@ -1728,6 +1749,10 @@ type Credentials struct {
 
 type CrossChannelBehavior struct {
 	BehaviorType string `json:"behaviorType" xml:"BehaviorType"`
+}
+
+type CrossChannelWorkloadBehavior struct {
+	ChannelWorkloadBehaviorType string `json:"channelWorkloadBehaviorType" xml:"ChannelWorkloadBehaviorType"`
 }
 
 type CurrentMetric struct {
@@ -2869,6 +2894,7 @@ type EvaluationContactParticipant struct {
 }
 
 type EvaluationForm struct {
+	AIVersion                   string                                     `json:"aIVersion" xml:"AIVersion"`
 	AutoEvaluationConfiguration *EvaluationFormAutoEvaluationConfiguration `json:"autoEvaluationConfiguration" xml:"AutoEvaluationConfiguration"`
 	CreatedBy                   string                                     `json:"createdBy" xml:"CreatedBy"`
 	CreatedTime                 time.Time                                  `json:"createdTime" xml:"CreatedTime"`
@@ -2891,11 +2917,23 @@ type EvaluationForm struct {
 	Title                       string                                     `json:"title" xml:"Title"`
 }
 
+type EvaluationFormAIVersionLifecycle struct {
+	EndOfLifeTime   time.Time `json:"endOfLifeTime" xml:"EndOfLifeTime"`
+	StartOfLifeTime time.Time `json:"startOfLifeTime" xml:"StartOfLifeTime"`
+	Status          string    `json:"status" xml:"Status"`
+}
+
+type EvaluationFormAIVersionSummary struct {
+	AIVersionLifecycle *EvaluationFormAIVersionLifecycle `json:"aIVersionLifecycle" xml:"AIVersionLifecycle"`
+	AIVersionName      string                            `json:"aIVersionName" xml:"AIVersionName"`
+}
+
 type EvaluationFormAutoEvaluationConfiguration struct {
 	Enabled bool `json:"enabled" xml:"Enabled"`
 }
 
 type EvaluationFormContent struct {
+	AIVersion                   string                                     `json:"aIVersion" xml:"AIVersion"`
 	AutoEvaluationConfiguration *EvaluationFormAutoEvaluationConfiguration `json:"autoEvaluationConfiguration" xml:"AutoEvaluationConfiguration"`
 	Description                 string                                     `json:"description" xml:"Description"`
 	EvaluationFormArn           string                                     `json:"evaluationFormArn" xml:"EvaluationFormArn"`
@@ -2940,6 +2978,11 @@ type EvaluationFormLanguageConfiguration struct {
 	FormLanguage string `json:"formLanguage" xml:"FormLanguage"`
 }
 
+type EvaluationFormMetricConfiguration struct {
+	MetricName string `json:"metricName" xml:"MetricName"`
+	MetricType string `json:"metricType" xml:"MetricType"`
+}
+
 type EvaluationFormMultiSelectQuestionAutomation struct {
 	AnswerSource        *EvaluationFormQuestionAutomationAnswerSource         `json:"answerSource" xml:"AnswerSource"`
 	DefaultOptionRefIds ReferenceIdList                                       `json:"defaultOptionRefIds" xml:"DefaultOptionRefIds"`
@@ -2980,6 +3023,7 @@ type EvaluationFormNumericQuestionProperties struct {
 type EvaluationFormQuestion struct {
 	Enablement             *EvaluationFormItemEnablementConfiguration  `json:"enablement" xml:"Enablement"`
 	Instructions           string                                      `json:"instructions" xml:"Instructions"`
+	MetricConfiguration    *EvaluationFormMetricConfiguration          `json:"metricConfiguration" xml:"MetricConfiguration"`
 	NotApplicableEnabled   bool                                        `json:"notApplicableEnabled" xml:"NotApplicableEnabled"`
 	QuestionType           string                                      `json:"questionType" xml:"QuestionType"`
 	QuestionTypeProperties interface{}                                 `json:"questionTypeProperties" xml:"QuestionTypeProperties"`
@@ -3025,6 +3069,7 @@ type EvaluationFormSearchFilter struct {
 }
 
 type EvaluationFormSearchSummary struct {
+	AIVersion              string    `json:"aIVersion" xml:"AIVersion"`
 	ActiveVersion          int32     `json:"activeVersion" xml:"ActiveVersion"`
 	AutoEvaluationEnabled  bool      `json:"autoEvaluationEnabled" xml:"AutoEvaluationEnabled"`
 	ContactInteractionType string    `json:"contactInteractionType" xml:"ContactInteractionType"`
@@ -4228,6 +4273,18 @@ type ListEntitySecurityProfilesResponse struct {
 	SecurityProfiles SecurityProfiles100 `json:"securityProfiles" xml:"SecurityProfiles"`
 }
 
+type ListEvaluationFormAIVersionsRequest struct {
+	ContactInteractionType string `json:"contactInteractionType" xml:"ContactInteractionType"`
+	InstanceId             string `json:"instanceId" xml:"InstanceId"`
+	MaxResults             int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken              string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListEvaluationFormAIVersionsResponse struct {
+	AIVersionSummaries EvaluationFormAIVersionSummaryList `json:"aIVersionSummaries" xml:"AIVersionSummaries"`
+	NextToken          string                             `json:"nextToken" xml:"NextToken"`
+}
+
 type ListEvaluationFormVersionsRequest struct {
 	EvaluationFormId string `json:"evaluationFormId" xml:"EvaluationFormId"`
 	InstanceId       string `json:"instanceId" xml:"InstanceId"`
@@ -4583,6 +4640,20 @@ type ListSecurityKeysResponse struct {
 	SecurityKeys SecurityKeysList `json:"securityKeys" xml:"SecurityKeys"`
 }
 
+type ListSecurityProfileAIAgentsRequest struct {
+	InstanceId        string `json:"instanceId" xml:"InstanceId"`
+	MaxResults        int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken         string `json:"nextToken" xml:"NextToken"`
+	SecurityProfileId string `json:"securityProfileId" xml:"SecurityProfileId"`
+}
+
+type ListSecurityProfileAIAgentsResponse struct {
+	AllowedAIAgents    AllowedAIAgents `json:"allowedAIAgents" xml:"AllowedAIAgents"`
+	LastModifiedRegion string          `json:"lastModifiedRegion" xml:"LastModifiedRegion"`
+	LastModifiedTime   time.Time       `json:"lastModifiedTime" xml:"LastModifiedTime"`
+	NextToken          string          `json:"nextToken" xml:"NextToken"`
+}
+
 type ListSecurityProfileApplicationsRequest struct {
 	InstanceId        string `json:"instanceId" xml:"InstanceId"`
 	MaxResults        int32  `json:"maxResults" xml:"MaxResults"`
@@ -4841,9 +4912,10 @@ type MatchCriteria struct {
 }
 
 type MediaConcurrency struct {
-	Channel              string                `json:"channel" xml:"Channel"`
-	Concurrency          int32                 `json:"concurrency" xml:"Concurrency"`
-	CrossChannelBehavior *CrossChannelBehavior `json:"crossChannelBehavior" xml:"CrossChannelBehavior"`
+	Channel                   string                    `json:"channel" xml:"Channel"`
+	Concurrency               int32                     `json:"concurrency" xml:"Concurrency"`
+	CrossChannelBehavior      *CrossChannelBehavior     `json:"crossChannelBehavior" xml:"CrossChannelBehavior"`
+	WorkloadTypeConcurrencies WorkloadTypeConcurrencies `json:"workloadTypeConcurrencies" xml:"WorkloadTypeConcurrencies"`
 }
 
 type MediaItem struct {
@@ -5815,6 +5887,7 @@ type RuleAction struct {
 	EndAssociatedTasksAction    *EndAssociatedTasksActionDefinition    `json:"endAssociatedTasksAction" xml:"EndAssociatedTasksAction"`
 	EventBridgeAction           *EventBridgeActionDefinition           `json:"eventBridgeAction" xml:"EventBridgeAction"`
 	ExtractInformationAction    *ExtractInformationActionDefinition    `json:"extractInformationAction" xml:"ExtractInformationAction"`
+	SendInAppNotificationAction *SendInAppNotificationActionDefinition `json:"sendInAppNotificationAction" xml:"SendInAppNotificationAction"`
 	SendNotificationAction      *SendNotificationActionDefinition      `json:"sendNotificationAction" xml:"SendNotificationAction"`
 	SubmitAutoEvaluationAction  *SubmitAutoEvaluationActionDefinition  `json:"submitAutoEvaluationAction" xml:"SubmitAutoEvaluationAction"`
 	TaskAction                  *TaskActionDefinition                  `json:"taskAction" xml:"TaskAction"`
@@ -6424,6 +6497,13 @@ type SendChatIntegrationEventResponse struct {
 	NewChatCreated   bool   `json:"newChatCreated" xml:"NewChatCreated"`
 }
 
+type SendInAppNotificationActionDefinition struct {
+	Content   NotificationContent        `json:"content" xml:"Content"`
+	Exclusion *NotificationRecipientType `json:"exclusion" xml:"Exclusion"`
+	Priority  string                     `json:"priority" xml:"Priority"`
+	Recipient *NotificationRecipientType `json:"recipient" xml:"Recipient"`
+}
+
 type SendNotificationActionDefinition struct {
 	Content        string                     `json:"content" xml:"Content"`
 	ContentType    string                     `json:"contentType" xml:"ContentType"`
@@ -6535,7 +6615,9 @@ type StartAttachedFileUploadResponse struct {
 type StartChatContactRequest struct {
 	Attributes                     Attributes                     `json:"attributes" xml:"Attributes"`
 	ChatDurationInMinutes          int32                          `json:"chatDurationInMinutes" xml:"ChatDurationInMinutes"`
+	ChatStreamingConfiguration     *ChatStreamingConfiguration    `json:"chatStreamingConfiguration" xml:"ChatStreamingConfiguration"`
 	ClientToken                    string                         `json:"clientToken" xml:"ClientToken"`
+	ConnectionTypes                ConnectionTypeList             `json:"connectionTypes" xml:"ConnectionTypes"`
 	ContactFlowId                  string                         `json:"contactFlowId" xml:"ContactFlowId"`
 	CustomerId                     string                         `json:"customerId" xml:"CustomerId"`
 	DisconnectOnCustomerExit       DisconnectOnCustomerExit       `json:"disconnectOnCustomerExit" xml:"DisconnectOnCustomerExit"`
@@ -6550,10 +6632,13 @@ type StartChatContactRequest struct {
 }
 
 type StartChatContactResponse struct {
-	ContactId              string `json:"contactId" xml:"ContactId"`
-	ContinuedFromContactId string `json:"continuedFromContactId" xml:"ContinuedFromContactId"`
-	ParticipantId          string `json:"participantId" xml:"ParticipantId"`
-	ParticipantToken       string `json:"participantToken" xml:"ParticipantToken"`
+	ConnectionCredentials  *ConnectionCredentials `json:"connectionCredentials" xml:"ConnectionCredentials"`
+	ContactId              string                 `json:"contactId" xml:"ContactId"`
+	ContinuedFromContactId string                 `json:"continuedFromContactId" xml:"ContinuedFromContactId"`
+	ParticipantId          string                 `json:"participantId" xml:"ParticipantId"`
+	ParticipantToken       string                 `json:"participantToken" xml:"ParticipantToken"`
+	StreamingId            string                 `json:"streamingId" xml:"StreamingId"`
+	Websocket              *Websocket             `json:"websocket" xml:"Websocket"`
 }
 
 type StartContactConversationalAnalyticsJobRequest struct {
@@ -7331,6 +7416,7 @@ type UpdateEmailAddressMetadataResponse struct {
 }
 
 type UpdateEvaluationFormRequest struct {
+	AIVersion                   string                                     `json:"aIVersion" xml:"AIVersion"`
 	AsDraft                     bool                                       `json:"asDraft" xml:"AsDraft"`
 	AutoEvaluationConfiguration *EvaluationFormAutoEvaluationConfiguration `json:"autoEvaluationConfiguration" xml:"AutoEvaluationConfiguration"`
 	ClientToken                 string                                     `json:"clientToken" xml:"ClientToken"`
@@ -7583,6 +7669,7 @@ type UpdateRuleRequest struct {
 }
 
 type UpdateSecurityProfileRequest struct {
+	AllowedAIAgents                      AllowedAIAgents                     `json:"allowedAIAgents" xml:"AllowedAIAgents"`
 	AllowedAccessControlHierarchyGroupId string                              `json:"allowedAccessControlHierarchyGroupId" xml:"AllowedAccessControlHierarchyGroupId"`
 	AllowedAccessControlTags             AllowedAccessControlTags            `json:"allowedAccessControlTags" xml:"AllowedAccessControlTags"`
 	AllowedFlowModules                   AllowedFlowModules                  `json:"allowedFlowModules" xml:"AllowedFlowModules"`
@@ -8072,6 +8159,11 @@ type WebNotificationSource struct {
 	SourceCampaign *SourceCampaign `json:"sourceCampaign" xml:"SourceCampaign"`
 }
 
+type Websocket struct {
+	ConnectionExpiry string `json:"connectionExpiry" xml:"ConnectionExpiry"`
+	Url              string `json:"url" xml:"Url"`
+}
+
 type WidgetDestination struct {
 	ProfileId string `json:"profileId" xml:"ProfileId"`
 	WidgetId  string `json:"widgetId" xml:"WidgetId"`
@@ -8080,6 +8172,12 @@ type WidgetDestination struct {
 type WisdomInfo struct {
 	AiAgents   AiAgents `json:"aiAgents" xml:"AiAgents"`
 	SessionArn string   `json:"sessionArn" xml:"SessionArn"`
+}
+
+type WorkloadTypeConcurrency struct {
+	Concurrency                  int32                         `json:"concurrency" xml:"Concurrency"`
+	CrossChannelWorkloadBehavior *CrossChannelWorkloadBehavior `json:"crossChannelWorkloadBehavior" xml:"CrossChannelWorkloadBehavior"`
+	WorkloadType                 string                        `json:"workloadType" xml:"WorkloadType"`
 }
 
 type Workspace struct {
@@ -8206,6 +8304,8 @@ type AiAgents []*AiAgentInfo
 
 type AliasConfigurationList []*AliasConfiguration
 
+type AllowedAIAgents []*AIAgent
+
 type AllowedExtensionsList []*AllowedExtension
 
 type AllowedFlowModules []*FlowModule
@@ -8279,6 +8379,8 @@ type ChildHoursOfOperationsList []*HoursOfOperationsIdentifier
 type CommonAttributeOrConditionList []*CommonAttributeAndCondition
 
 type Conditions []*Condition
+
+type ConnectionTypeList []string
 
 type ContactDataRequestList []*ContactDataRequest
 
@@ -8383,6 +8485,8 @@ type ErrorResults []*ErrorResult
 type EvaluationAnswerDataStringValueList []string
 
 type EvaluationAutomationRuleCategoryList []*EvaluationAutomationRuleCategory
+
+type EvaluationFormAIVersionSummaryList []*EvaluationFormAIVersionSummary
 
 type EvaluationFormItemEnablementConditionOperandList []interface{}
 
@@ -8829,6 +8933,8 @@ type VocabularySummaryList []*VocabularySummary
 type VoiceEnhancementConfigs []*VoiceEnhancementConfig
 
 type WeekdayOccurrenceList []int32
+
+type WorkloadTypeConcurrencies []*WorkloadTypeConcurrency
 
 type WorkspaceAssociationSearchConditionList []*WorkspaceAssociationSearchCriteria
 

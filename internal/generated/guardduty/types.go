@@ -211,6 +211,12 @@ type BedrockGuardrailDetails struct {
 	Guardrails           BedrockGuardrails    `json:"guardrails" xml:"Guardrails"`
 }
 
+type BedrockGuardrailResource struct {
+	GuardrailAction string `json:"guardrailAction" xml:"GuardrailAction"`
+	GuardrailSource string `json:"guardrailSource" xml:"GuardrailSource"`
+	Version         string `json:"version" xml:"Version"`
+}
+
 type BlockPublicAccess struct {
 	BlockPublicAcls       bool `json:"blockPublicAcls" xml:"BlockPublicAcls"`
 	BlockPublicPolicy     bool `json:"blockPublicPolicy" xml:"BlockPublicPolicy"`
@@ -770,6 +776,7 @@ type DetectorAdditionalConfiguration struct {
 }
 
 type DetectorAdditionalConfigurationResult struct {
+	ManagedBy string    `json:"managedBy" xml:"ManagedBy"`
 	Name      string    `json:"name" xml:"Name"`
 	Status    string    `json:"status" xml:"Status"`
 	UpdatedAt time.Time `json:"updatedAt" xml:"UpdatedAt"`
@@ -783,6 +790,7 @@ type DetectorFeatureConfiguration struct {
 
 type DetectorFeatureConfigurationResult struct {
 	AdditionalConfiguration DetectorAdditionalConfigurationResults `json:"additionalConfiguration" xml:"AdditionalConfiguration"`
+	ManagedBy               string                                 `json:"managedBy" xml:"ManagedBy"`
 	Name                    string                                 `json:"name" xml:"Name"`
 	Status                  string                                 `json:"status" xml:"Status"`
 	UpdatedAt               time.Time                              `json:"updatedAt" xml:"UpdatedAt"`
@@ -1870,6 +1878,7 @@ type MemberAdditionalConfiguration struct {
 }
 
 type MemberAdditionalConfigurationResult struct {
+	ManagedBy string    `json:"managedBy" xml:"ManagedBy"`
 	Name      string    `json:"name" xml:"Name"`
 	Status    string    `json:"status" xml:"Status"`
 	UpdatedAt time.Time `json:"updatedAt" xml:"UpdatedAt"`
@@ -1889,6 +1898,7 @@ type MemberFeaturesConfiguration struct {
 
 type MemberFeaturesConfigurationResult struct {
 	AdditionalConfiguration MemberAdditionalConfigurationResults `json:"additionalConfiguration" xml:"AdditionalConfiguration"`
+	ManagedBy               string                               `json:"managedBy" xml:"ManagedBy"`
 	Name                    string                               `json:"name" xml:"Name"`
 	Status                  string                               `json:"status" xml:"Status"`
 	UpdatedAt               time.Time                            `json:"updatedAt" xml:"UpdatedAt"`
@@ -2169,8 +2179,9 @@ type RecoveryPointDetails struct {
 }
 
 type RemoteAccountDetails struct {
-	AccountId  string `json:"accountId" xml:"AccountId"`
-	Affiliated bool   `json:"affiliated" xml:"Affiliated"`
+	AccountId      string `json:"accountId" xml:"AccountId"`
+	Affiliated     bool   `json:"affiliated" xml:"Affiliated"`
+	AwsServiceName string `json:"awsServiceName" xml:"AwsServiceName"`
 }
 
 type RemoteIpDetails struct {
@@ -2211,6 +2222,7 @@ type Resource struct {
 type ResourceData struct {
 	AccessKey                   *AccessKey                   `json:"accessKey" xml:"AccessKey"`
 	AutoscalingAutoScalingGroup *AutoscalingAutoScalingGroup `json:"autoscalingAutoScalingGroup" xml:"AutoscalingAutoScalingGroup"`
+	BedrockGuardrail            *BedrockGuardrailResource    `json:"bedrockGuardrail" xml:"BedrockGuardrail"`
 	CloudformationStack         *CloudformationStack         `json:"cloudformationStack" xml:"CloudformationStack"`
 	Container                   *ContainerFindingResource    `json:"container" xml:"Container"`
 	Ec2Image                    *Ec2Image                    `json:"ec2Image" xml:"Ec2Image"`

@@ -323,6 +323,10 @@ func (b *BaseProvider) GetRecommendedPolicyV2(ctx context.Context, input *GetRec
 	return nil, fmt.Errorf("GetRecommendedPolicyV2: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetRemediationsV2(ctx context.Context, input *GetRemediationsV2Request) (*GetRemediationsV2Response, error) {
+	return nil, fmt.Errorf("GetRemediationsV2: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetResourcesStatisticsV2(ctx context.Context, input *GetResourcesStatisticsV2Request) (*GetResourcesStatisticsV2Response, error) {
 	return nil, fmt.Errorf("GetResourcesStatisticsV2: %w", ErrNotImplemented)
 }
@@ -373,6 +377,10 @@ func (b *BaseProvider) ListConnectorsV2(ctx context.Context, input *ListConnecto
 
 func (b *BaseProvider) ListEnabledProductsForImport(ctx context.Context, input *ListEnabledProductsForImportRequest) (*ListEnabledProductsForImportResponse, error) {
 	return nil, fmt.Errorf("ListEnabledProductsForImport: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListExposuresByRemediationV2(ctx context.Context, input *ListExposuresByRemediationV2Request) (*ListExposuresByRemediationV2Response, error) {
+	return nil, fmt.Errorf("ListExposuresByRemediationV2: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListFindingAggregators(ctx context.Context, input *ListFindingAggregatorsRequest) (*ListFindingAggregatorsResponse, error) {

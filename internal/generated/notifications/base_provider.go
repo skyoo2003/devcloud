@@ -163,6 +163,10 @@ func (b *BaseProvider) UpdateEventRule(ctx context.Context, input *UpdateEventRu
 	return nil, fmt.Errorf("UpdateEventRule: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) UpdateManagedNotificationChannelAssociation(ctx context.Context, input *UpdateManagedNotificationChannelAssociationRequest) (*UpdateManagedNotificationChannelAssociationResponse, error) {
+	return nil, fmt.Errorf("UpdateManagedNotificationChannelAssociation: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) UpdateNotificationConfiguration(ctx context.Context, input *UpdateNotificationConfigurationRequest) (*UpdateNotificationConfigurationResponse, error) {
 	return nil, fmt.Errorf("UpdateNotificationConfiguration: %w", ErrNotImplemented)
 }

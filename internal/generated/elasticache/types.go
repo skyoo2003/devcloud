@@ -324,9 +324,10 @@ type CreateCacheSubnetGroupResult struct {
 }
 
 type CreateGlobalReplicationGroupMessage struct {
-	GlobalReplicationGroupDescription string `json:"globalReplicationGroupDescription" xml:"GlobalReplicationGroupDescription"`
-	GlobalReplicationGroupIdSuffix    string `json:"globalReplicationGroupIdSuffix" xml:"GlobalReplicationGroupIdSuffix"`
-	PrimaryReplicationGroupId         string `json:"primaryReplicationGroupId" xml:"PrimaryReplicationGroupId"`
+	GlobalReplicationGroupDescription string  `json:"globalReplicationGroupDescription" xml:"GlobalReplicationGroupDescription"`
+	GlobalReplicationGroupIdSuffix    string  `json:"globalReplicationGroupIdSuffix" xml:"GlobalReplicationGroupIdSuffix"`
+	PrimaryReplicationGroupId         string  `json:"primaryReplicationGroupId" xml:"PrimaryReplicationGroupId"`
+	Tags                              TagList `json:"tags" xml:"Tags"`
 }
 
 type CreateGlobalReplicationGroupResult struct {
@@ -344,6 +345,7 @@ type CreateReplicationGroupMessage struct {
 	CacheSubnetGroupName        string                              `json:"cacheSubnetGroupName" xml:"CacheSubnetGroupName"`
 	ClusterMode                 string                              `json:"clusterMode" xml:"ClusterMode"`
 	DataTieringEnabled          bool                                `json:"dataTieringEnabled" xml:"DataTieringEnabled"`
+	Durability                  string                              `json:"durability" xml:"Durability"`
 	Engine                      string                              `json:"engine" xml:"Engine"`
 	EngineVersion               string                              `json:"engineVersion" xml:"EngineVersion"`
 	GlobalReplicationGroupId    string                              `json:"globalReplicationGroupId" xml:"GlobalReplicationGroupId"`
@@ -381,6 +383,7 @@ type CreateReplicationGroupResult struct {
 
 type CreateServerlessCacheRequest struct {
 	CacheUsageLimits       *CacheUsageLimits    `json:"cacheUsageLimits" xml:"CacheUsageLimits"`
+	ConnectionType         string               `json:"connectionType" xml:"ConnectionType"`
 	DailySnapshotTime      string               `json:"dailySnapshotTime" xml:"DailySnapshotTime"`
 	Description            string               `json:"description" xml:"Description"`
 	Engine                 string               `json:"engine" xml:"Engine"`
@@ -963,6 +966,7 @@ type ModifyReplicationGroupMessage struct {
 	CacheParameterGroupName     string                              `json:"cacheParameterGroupName" xml:"CacheParameterGroupName"`
 	CacheSecurityGroupNames     CacheSecurityGroupNameList          `json:"cacheSecurityGroupNames" xml:"CacheSecurityGroupNames"`
 	ClusterMode                 string                              `json:"clusterMode" xml:"ClusterMode"`
+	Durability                  string                              `json:"durability" xml:"Durability"`
 	Engine                      string                              `json:"engine" xml:"Engine"`
 	EngineVersion               string                              `json:"engineVersion" xml:"EngineVersion"`
 	IpDiscovery                 string                              `json:"ipDiscovery" xml:"IpDiscovery"`
@@ -1198,6 +1202,8 @@ type ReplicationGroup struct {
 	ConfigurationEndpoint      *Endpoint                              `json:"configurationEndpoint" xml:"ConfigurationEndpoint"`
 	DataTiering                string                                 `json:"dataTiering" xml:"DataTiering"`
 	Description                string                                 `json:"description" xml:"Description"`
+	Durability                 string                                 `json:"durability" xml:"Durability"`
+	EffectiveDurability        string                                 `json:"effectiveDurability" xml:"EffectiveDurability"`
 	Engine                     string                                 `json:"engine" xml:"Engine"`
 	GlobalReplicationGroupInfo *GlobalReplicationGroupInfo            `json:"globalReplicationGroupInfo" xml:"GlobalReplicationGroupInfo"`
 	IpDiscovery                string                                 `json:"ipDiscovery" xml:"IpDiscovery"`
@@ -1215,6 +1221,7 @@ type ReplicationGroup struct {
 	SnapshotWindow             string                                 `json:"snapshotWindow" xml:"SnapshotWindow"`
 	SnapshottingClusterId      string                                 `json:"snapshottingClusterId" xml:"SnapshottingClusterId"`
 	Status                     string                                 `json:"status" xml:"Status"`
+	StorageEncryptionType      string                                 `json:"storageEncryptionType" xml:"StorageEncryptionType"`
 	TransitEncryptionEnabled   bool                                   `json:"transitEncryptionEnabled" xml:"TransitEncryptionEnabled"`
 	TransitEncryptionMode      string                                 `json:"transitEncryptionMode" xml:"TransitEncryptionMode"`
 	UserGroupIds               UserGroupIdList                        `json:"userGroupIds" xml:"UserGroupIds"`
@@ -1312,6 +1319,7 @@ type SecurityGroupMembership struct {
 type ServerlessCache struct {
 	ARN                    string               `json:"aRN" xml:"ARN"`
 	CacheUsageLimits       *CacheUsageLimits    `json:"cacheUsageLimits" xml:"CacheUsageLimits"`
+	ConnectionType         string               `json:"connectionType" xml:"ConnectionType"`
 	CreateTime             time.Time            `json:"createTime" xml:"CreateTime"`
 	DailySnapshotTime      string               `json:"dailySnapshotTime" xml:"DailySnapshotTime"`
 	Description            string               `json:"description" xml:"Description"`
@@ -1326,6 +1334,7 @@ type ServerlessCache struct {
 	ServerlessCacheName    string               `json:"serverlessCacheName" xml:"ServerlessCacheName"`
 	SnapshotRetentionLimit int32                `json:"snapshotRetentionLimit" xml:"SnapshotRetentionLimit"`
 	Status                 string               `json:"status" xml:"Status"`
+	StorageEncryptionType  string               `json:"storageEncryptionType" xml:"StorageEncryptionType"`
 	SubnetIds              SubnetIdsList        `json:"subnetIds" xml:"SubnetIds"`
 	UserGroupId            string               `json:"userGroupId" xml:"UserGroupId"`
 }
@@ -1385,6 +1394,7 @@ type Snapshot struct {
 	CacheParameterGroupName     string           `json:"cacheParameterGroupName" xml:"CacheParameterGroupName"`
 	CacheSubnetGroupName        string           `json:"cacheSubnetGroupName" xml:"CacheSubnetGroupName"`
 	DataTiering                 string           `json:"dataTiering" xml:"DataTiering"`
+	Durability                  string           `json:"durability" xml:"Durability"`
 	Engine                      string           `json:"engine" xml:"Engine"`
 	EngineVersion               string           `json:"engineVersion" xml:"EngineVersion"`
 	KmsKeyId                    string           `json:"kmsKeyId" xml:"KmsKeyId"`

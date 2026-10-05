@@ -1198,6 +1198,9 @@ type PublicRouterNetworkInterfaceRule struct {
 	Cidr string `json:"cidr" xml:"Cidr"`
 }
 
+type PublicTlsEncryptionConfiguration struct {
+}
+
 type PurchaseOfferingRequest struct {
 	OfferingArn     string `json:"offeringArn" xml:"OfferingArn"`
 	ReservationName string `json:"reservationName" xml:"ReservationName"`
@@ -1427,6 +1430,14 @@ type RouterOutput struct {
 type RouterOutputMessage struct {
 	Code    string `json:"code" xml:"Code"`
 	Message string `json:"message" xml:"Message"`
+}
+
+type RtmpPushRouterOutputConfiguration struct {
+	ApplicationName    string         `json:"applicationName" xml:"ApplicationName"`
+	DestinationAddress string         `json:"destinationAddress" xml:"DestinationAddress"`
+	DestinationPort    int32          `json:"destinationPort" xml:"DestinationPort"`
+	StreamName         string         `json:"streamName" xml:"StreamName"`
+	TlsEncryption      *TlsEncryption `json:"tlsEncryption" xml:"TlsEncryption"`
 }
 
 type RtpRouterInputConfiguration struct {
@@ -1662,6 +1673,11 @@ type ThumbnailDetails struct {
 	ThumbnailMessages __listOfMessageDetail `json:"thumbnailMessages" xml:"ThumbnailMessages"`
 	Timecode          string                `json:"timecode" xml:"Timecode"`
 	Timestamp         time.Time             `json:"timestamp" xml:"Timestamp"`
+}
+
+type TlsEncryption struct {
+	EncryptionConfiguration interface{} `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	EncryptionType          string      `json:"encryptionType" xml:"EncryptionType"`
 }
 
 type Transport struct {
@@ -2186,3 +2202,5 @@ type RouterOutputFilter interface{}
 type RouterOutputProtocolConfiguration interface{}
 
 type RouterOutputStreamDetails interface{}
+
+type TlsEncryptionConfiguration interface{}

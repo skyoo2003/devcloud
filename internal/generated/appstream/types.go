@@ -982,6 +982,7 @@ type Image struct {
 	ImageErrors                 ResourceErrors          `json:"imageErrors" xml:"ImageErrors"`
 	ImagePermissions            *ImagePermissions       `json:"imagePermissions" xml:"ImagePermissions"`
 	ImageSharedWithOthers       string                  `json:"imageSharedWithOthers" xml:"ImageSharedWithOthers"`
+	ImageSoftwareMetadata       *ImageSoftwareMetadata  `json:"imageSoftwareMetadata" xml:"ImageSoftwareMetadata"`
 	ImageType                   string                  `json:"imageType" xml:"ImageType"`
 	LatestAppstreamAgentVersion string                  `json:"latestAppstreamAgentVersion" xml:"LatestAppstreamAgentVersion"`
 	ManagedSoftwareIncluded     bool                    `json:"managedSoftwareIncluded" xml:"ManagedSoftwareIncluded"`
@@ -1026,6 +1027,10 @@ type ImageBuilderStateChangeReason struct {
 type ImagePermissions struct {
 	AllowFleet        bool `json:"allowFleet" xml:"allowFleet"`
 	AllowImageBuilder bool `json:"allowImageBuilder" xml:"allowImageBuilder"`
+}
+
+type ImageSoftwareMetadata struct {
+	NvidiaGridDriverVersion string `json:"nvidiaGridDriverVersion" xml:"nvidiaGridDriverVersion"`
 }
 
 type ImageStateChangeReason struct {

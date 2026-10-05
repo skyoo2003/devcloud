@@ -52,13 +52,15 @@ type AdditionalStorageVolume struct {
 }
 
 type AdditionalStorageVolumeOutput struct {
-	AllocatedStorage    int32  `json:"allocatedStorage" xml:"AllocatedStorage"`
-	IOPS                int32  `json:"iOPS" xml:"IOPS"`
-	MaxAllocatedStorage int32  `json:"maxAllocatedStorage" xml:"MaxAllocatedStorage"`
-	StorageThroughput   int32  `json:"storageThroughput" xml:"StorageThroughput"`
-	StorageType         string `json:"storageType" xml:"StorageType"`
-	StorageVolumeStatus string `json:"storageVolumeStatus" xml:"StorageVolumeStatus"`
-	VolumeName          string `json:"volumeName" xml:"VolumeName"`
+	AllocatedStorage                int32  `json:"allocatedStorage" xml:"AllocatedStorage"`
+	IOPS                            int32  `json:"iOPS" xml:"IOPS"`
+	MaxAllocatedStorage             int32  `json:"maxAllocatedStorage" xml:"MaxAllocatedStorage"`
+	StorageOperationPercentProgress int32  `json:"storageOperationPercentProgress" xml:"StorageOperationPercentProgress"`
+	StorageOperationStatus          string `json:"storageOperationStatus" xml:"StorageOperationStatus"`
+	StorageThroughput               int32  `json:"storageThroughput" xml:"StorageThroughput"`
+	StorageType                     string `json:"storageType" xml:"StorageType"`
+	StorageVolumeStatus             string `json:"storageVolumeStatus" xml:"StorageVolumeStatus"`
+	VolumeName                      string `json:"volumeName" xml:"VolumeName"`
 }
 
 type ApplyPendingMaintenanceActionMessage struct {
@@ -270,18 +272,19 @@ type CopyOptionGroupResult struct {
 }
 
 type CreateBlueGreenDeploymentRequest struct {
-	BlueGreenDeploymentName           string  `json:"blueGreenDeploymentName" xml:"BlueGreenDeploymentName"`
-	Source                            string  `json:"source" xml:"Source"`
-	Tags                              TagList `json:"tags" xml:"Tags"`
-	TargetAllocatedStorage            int32   `json:"targetAllocatedStorage" xml:"TargetAllocatedStorage"`
-	TargetDBClusterParameterGroupName string  `json:"targetDBClusterParameterGroupName" xml:"TargetDBClusterParameterGroupName"`
-	TargetDBInstanceClass             string  `json:"targetDBInstanceClass" xml:"TargetDBInstanceClass"`
-	TargetDBParameterGroupName        string  `json:"targetDBParameterGroupName" xml:"TargetDBParameterGroupName"`
-	TargetEngineVersion               string  `json:"targetEngineVersion" xml:"TargetEngineVersion"`
-	TargetIops                        int32   `json:"targetIops" xml:"TargetIops"`
-	TargetStorageThroughput           int32   `json:"targetStorageThroughput" xml:"TargetStorageThroughput"`
-	TargetStorageType                 string  `json:"targetStorageType" xml:"TargetStorageType"`
-	UpgradeTargetStorageConfig        bool    `json:"upgradeTargetStorageConfig" xml:"UpgradeTargetStorageConfig"`
+	BlueGreenDeploymentName           string                          `json:"blueGreenDeploymentName" xml:"BlueGreenDeploymentName"`
+	Source                            string                          `json:"source" xml:"Source"`
+	Tags                              TagList                         `json:"tags" xml:"Tags"`
+	TargetAllocatedStorage            int32                           `json:"targetAllocatedStorage" xml:"TargetAllocatedStorage"`
+	TargetDBClusterParameterGroupName string                          `json:"targetDBClusterParameterGroupName" xml:"TargetDBClusterParameterGroupName"`
+	TargetDBInstanceClass             string                          `json:"targetDBInstanceClass" xml:"TargetDBInstanceClass"`
+	TargetDBParameterGroupName        string                          `json:"targetDBParameterGroupName" xml:"TargetDBParameterGroupName"`
+	TargetEngineVersion               string                          `json:"targetEngineVersion" xml:"TargetEngineVersion"`
+	TargetIops                        int32                           `json:"targetIops" xml:"TargetIops"`
+	TargetResourceConfigurations      TargetResourceConfigurationList `json:"targetResourceConfigurations" xml:"TargetResourceConfigurations"`
+	TargetStorageThroughput           int32                           `json:"targetStorageThroughput" xml:"TargetStorageThroughput"`
+	TargetStorageType                 string                          `json:"targetStorageType" xml:"TargetStorageType"`
+	UpgradeTargetStorageConfig        bool                            `json:"upgradeTargetStorageConfig" xml:"UpgradeTargetStorageConfig"`
 }
 
 type CreateBlueGreenDeploymentResponse struct {
@@ -314,6 +317,7 @@ type CreateDBClusterEndpointMessage struct {
 
 type CreateDBClusterMessage struct {
 	AllocatedStorage                   int32                             `json:"allocatedStorage" xml:"AllocatedStorage"`
+	AssociatedRoles                    DBClusterAssociatedRoles          `json:"associatedRoles" xml:"AssociatedRoles"`
 	AutoMinorVersionUpgrade            bool                              `json:"autoMinorVersionUpgrade" xml:"AutoMinorVersionUpgrade"`
 	AvailabilityZones                  AvailabilityZones                 `json:"availabilityZones" xml:"AvailabilityZones"`
 	BacktrackWindow                    int64                             `json:"backtrackWindow" xml:"BacktrackWindow"`
@@ -780,6 +784,11 @@ type DBCluster struct {
 	VpcSecurityGroups                      VpcSecurityGroupMembershipList        `json:"vpcSecurityGroups" xml:"VpcSecurityGroups"`
 }
 
+type DBClusterAssociatedRole struct {
+	FeatureName string `json:"featureName" xml:"FeatureName"`
+	RoleArn     string `json:"roleArn" xml:"RoleArn"`
+}
+
 type DBClusterAutomatedBackup struct {
 	AllocatedStorage                 int32             `json:"allocatedStorage" xml:"AllocatedStorage"`
 	AvailabilityZones                AvailabilityZones `json:"availabilityZones" xml:"AvailabilityZones"`
@@ -1083,6 +1092,8 @@ type DBInstance struct {
 	StatusInfos                                   DBInstanceStatusInfoList                  `json:"statusInfos" xml:"StatusInfos"`
 	StorageEncrypted                              bool                                      `json:"storageEncrypted" xml:"StorageEncrypted"`
 	StorageEncryptionType                         string                                    `json:"storageEncryptionType" xml:"StorageEncryptionType"`
+	StorageOperationPercentProgress               int32                                     `json:"storageOperationPercentProgress" xml:"StorageOperationPercentProgress"`
+	StorageOperationStatus                        string                                    `json:"storageOperationStatus" xml:"StorageOperationStatus"`
 	StorageThroughput                             int32                                     `json:"storageThroughput" xml:"StorageThroughput"`
 	StorageType                                   string                                    `json:"storageType" xml:"StorageType"`
 	StorageVolumeStatus                           string                                    `json:"storageVolumeStatus" xml:"StorageVolumeStatus"`
@@ -1328,6 +1339,7 @@ type DBSnapshot struct {
 	Encrypted                        bool                         `json:"encrypted" xml:"Encrypted"`
 	Engine                           string                       `json:"engine" xml:"Engine"`
 	EngineVersion                    string                       `json:"engineVersion" xml:"EngineVersion"`
+	FullSnapshotSizeInBytes          int64                        `json:"fullSnapshotSizeInBytes" xml:"FullSnapshotSizeInBytes"`
 	IAMDatabaseAuthenticationEnabled bool                         `json:"iAMDatabaseAuthenticationEnabled" xml:"IAMDatabaseAuthenticationEnabled"`
 	InstanceCreateTime               time.Time                    `json:"instanceCreateTime" xml:"InstanceCreateTime"`
 	Iops                             int32                        `json:"iops" xml:"Iops"`
@@ -1981,6 +1993,16 @@ type DescribeReservedDBInstancesOfferingsMessage struct {
 	ReservedDBInstancesOfferingId string     `json:"reservedDBInstancesOfferingId" xml:"ReservedDBInstancesOfferingId"`
 }
 
+type DescribeServerlessV2PlatformVersionsMessage struct {
+	DefaultOnly                 bool       `json:"defaultOnly" xml:"DefaultOnly"`
+	Engine                      string     `json:"engine" xml:"Engine"`
+	Filters                     FilterList `json:"filters" xml:"Filters"`
+	IncludeAll                  bool       `json:"includeAll" xml:"IncludeAll"`
+	Marker                      string     `json:"marker" xml:"Marker"`
+	MaxRecords                  int32      `json:"maxRecords" xml:"MaxRecords"`
+	ServerlessV2PlatformVersion string     `json:"serverlessV2PlatformVersion" xml:"ServerlessV2PlatformVersion"`
+}
+
 type DescribeSourceRegionsMessage struct {
 	Filters    FilterList `json:"filters" xml:"Filters"`
 	Marker     string     `json:"marker" xml:"Marker"`
@@ -2348,6 +2370,7 @@ type ModifyDBClusterMessage struct {
 	EnableLimitlessDatabase            bool                               `json:"enableLimitlessDatabase" xml:"EnableLimitlessDatabase"`
 	EnableLocalWriteForwarding         bool                               `json:"enableLocalWriteForwarding" xml:"EnableLocalWriteForwarding"`
 	EnablePerformanceInsights          bool                               `json:"enablePerformanceInsights" xml:"EnablePerformanceInsights"`
+	EngineLifecycleSupport             string                             `json:"engineLifecycleSupport" xml:"EngineLifecycleSupport"`
 	EngineMode                         string                             `json:"engineMode" xml:"EngineMode"`
 	EngineVersion                      string                             `json:"engineVersion" xml:"EngineVersion"`
 	Iops                               int32                              `json:"iops" xml:"Iops"`
@@ -2425,6 +2448,7 @@ type ModifyDBInstanceMessage struct {
 	EnableIAMDatabaseAuthentication    bool                               `json:"enableIAMDatabaseAuthentication" xml:"EnableIAMDatabaseAuthentication"`
 	EnablePerformanceInsights          bool                               `json:"enablePerformanceInsights" xml:"EnablePerformanceInsights"`
 	Engine                             string                             `json:"engine" xml:"Engine"`
+	EngineLifecycleSupport             string                             `json:"engineLifecycleSupport" xml:"EngineLifecycleSupport"`
 	EngineVersion                      string                             `json:"engineVersion" xml:"EngineVersion"`
 	Iops                               int32                              `json:"iops" xml:"Iops"`
 	LicenseModel                       string                             `json:"licenseModel" xml:"LicenseModel"`
@@ -3037,6 +3061,7 @@ type ResourcePendingMaintenanceActions struct {
 }
 
 type RestoreDBClusterFromS3Message struct {
+	AssociatedRoles                  DBClusterAssociatedRoles          `json:"associatedRoles" xml:"AssociatedRoles"`
 	AvailabilityZones                AvailabilityZones                 `json:"availabilityZones" xml:"AvailabilityZones"`
 	BacktrackWindow                  int64                             `json:"backtrackWindow" xml:"BacktrackWindow"`
 	BackupRetentionPeriod            int32                             `json:"backupRetentionPeriod" xml:"BackupRetentionPeriod"`
@@ -3082,6 +3107,7 @@ type RestoreDBClusterFromS3Result struct {
 }
 
 type RestoreDBClusterFromSnapshotMessage struct {
+	AssociatedRoles                    DBClusterAssociatedRoles          `json:"associatedRoles" xml:"AssociatedRoles"`
 	AvailabilityZones                  AvailabilityZones                 `json:"availabilityZones" xml:"AvailabilityZones"`
 	BacktrackWindow                    int64                             `json:"backtrackWindow" xml:"BacktrackWindow"`
 	BackupRetentionPeriod              int32                             `json:"backupRetentionPeriod" xml:"BackupRetentionPeriod"`
@@ -3129,6 +3155,7 @@ type RestoreDBClusterFromSnapshotResult struct {
 }
 
 type RestoreDBClusterToPointInTimeMessage struct {
+	AssociatedRoles                    DBClusterAssociatedRoles          `json:"associatedRoles" xml:"AssociatedRoles"`
 	BacktrackWindow                    int64                             `json:"backtrackWindow" xml:"BacktrackWindow"`
 	BackupRetentionPeriod              int32                             `json:"backupRetentionPeriod" xml:"BackupRetentionPeriod"`
 	CopyTagsToSnapshot                 bool                              `json:"copyTagsToSnapshot" xml:"CopyTagsToSnapshot"`
@@ -3394,6 +3421,20 @@ type ServerlessV2FeaturesSupport struct {
 	MinCapacity float64 `json:"minCapacity" xml:"MinCapacity"`
 }
 
+type ServerlessV2PlatformVersionInfo struct {
+	Engine                                 string                       `json:"engine" xml:"Engine"`
+	IsDefault                              bool                         `json:"isDefault" xml:"IsDefault"`
+	ServerlessV2FeaturesSupport            *ServerlessV2FeaturesSupport `json:"serverlessV2FeaturesSupport" xml:"ServerlessV2FeaturesSupport"`
+	ServerlessV2PlatformVersion            string                       `json:"serverlessV2PlatformVersion" xml:"ServerlessV2PlatformVersion"`
+	ServerlessV2PlatformVersionDescription string                       `json:"serverlessV2PlatformVersionDescription" xml:"ServerlessV2PlatformVersionDescription"`
+	Status                                 string                       `json:"status" xml:"Status"`
+}
+
+type ServerlessV2PlatformVersionsMessage struct {
+	Marker                       string                          `json:"marker" xml:"Marker"`
+	ServerlessV2PlatformVersions ServerlessV2PlatformVersionList `json:"serverlessV2PlatformVersions" xml:"ServerlessV2PlatformVersions"`
+}
+
 type ServerlessV2ScalingConfiguration struct {
 	MaxCapacity           float64 `json:"maxCapacity" xml:"MaxCapacity"`
 	MinCapacity           float64 `json:"minCapacity" xml:"MinCapacity"`
@@ -3577,6 +3618,11 @@ type TargetHealth struct {
 	State       string `json:"state" xml:"State"`
 }
 
+type TargetResourceConfiguration struct {
+	SourceArn      string `json:"sourceArn" xml:"SourceArn"`
+	TargetKmsKeyId string `json:"targetKmsKeyId" xml:"TargetKmsKeyId"`
+}
+
 type TenantDatabase struct {
 	CharacterSetName         string                               `json:"characterSetName" xml:"CharacterSetName"`
 	DBInstanceIdentifier     string                               `json:"dBInstanceIdentifier" xml:"DBInstanceIdentifier"`
@@ -3700,6 +3746,8 @@ type CACertificateIdentifiersList []string
 type CertificateList []*Certificate
 
 type ContextAttributeList []*ContextAttribute
+
+type DBClusterAssociatedRoles []*DBClusterAssociatedRole
 
 type DBClusterAutomatedBackupList []*DBClusterAutomatedBackup
 
@@ -3869,6 +3917,8 @@ type ReservedDBInstanceList []*ReservedDBInstance
 
 type ReservedDBInstancesOfferingList []*ReservedDBInstancesOffering
 
+type ServerlessV2PlatformVersionList []*ServerlessV2PlatformVersionInfo
+
 type SourceIdsList []string
 
 type SourceRegionList []*SourceRegion
@@ -3894,6 +3944,8 @@ type TagSpecificationList []*TagSpecification
 type TargetGroupList []*DBProxyTargetGroup
 
 type TargetList []*DBProxyTarget
+
+type TargetResourceConfigurationList []*TargetResourceConfiguration
 
 type TenantDatabasesList []*TenantDatabase
 

@@ -1133,6 +1133,8 @@ type Capabilities struct {
 	AccessAppsNativeDataStore                  string `json:"accessAppsNativeDataStore" xml:"AccessAppsNativeDataStore"`
 	Action                                     string `json:"action" xml:"Action"`
 	AddOrRunAnomalyDetectionForAnalyses        string `json:"addOrRunAnomalyDetectionForAnalyses" xml:"AddOrRunAnomalyDetectionForAnalyses"`
+	AdobeAction                                string `json:"adobeAction" xml:"AdobeAction"`
+	AirtableAction                             string `json:"airtableAction" xml:"AirtableAction"`
 	AmazonBedrockARSAction                     string `json:"amazonBedrockARSAction" xml:"AmazonBedrockARSAction"`
 	AmazonBedrockFSAction                      string `json:"amazonBedrockFSAction" xml:"AmazonBedrockFSAction"`
 	AmazonBedrockKRSAction                     string `json:"amazonBedrockKRSAction" xml:"AmazonBedrockKRSAction"`
@@ -1144,15 +1146,20 @@ type Capabilities struct {
 	Automate                                   string `json:"automate" xml:"Automate"`
 	BambooHRAction                             string `json:"bambooHRAction" xml:"BambooHRAction"`
 	BedrockManagedKnowledgeBase                string `json:"bedrockManagedKnowledgeBase" xml:"BedrockManagedKnowledgeBase"`
+	BeeAction                                  string `json:"beeAction" xml:"BeeAction"`
 	BoxAgentAction                             string `json:"boxAgentAction" xml:"BoxAgentAction"`
 	BoxKnowledgeBase                           string `json:"boxKnowledgeBase" xml:"BoxKnowledgeBase"`
 	BuildCalculatedFieldWithQ                  string `json:"buildCalculatedFieldWithQ" xml:"BuildCalculatedFieldWithQ"`
 	CanvaAgentAction                           string `json:"canvaAgentAction" xml:"CanvaAgentAction"`
 	ChatAgent                                  string `json:"chatAgent" xml:"ChatAgent"`
+	CiscoWebexMeetingsAction                   string `json:"ciscoWebexMeetingsAction" xml:"CiscoWebexMeetingsAction"`
+	CiscoWebexVidcastAction                    string `json:"ciscoWebexVidcastAction" xml:"CiscoWebexVidcastAction"`
 	ComprehendAction                           string `json:"comprehendAction" xml:"ComprehendAction"`
 	ComprehendMedicalAction                    string `json:"comprehendMedicalAction" xml:"ComprehendMedicalAction"`
 	ConfluenceAction                           string `json:"confluenceAction" xml:"ConfluenceAction"`
 	ConfluenceKnowledgeBase                    string `json:"confluenceKnowledgeBase" xml:"ConfluenceKnowledgeBase"`
+	CreateAndUpdateAdobeAction                 string `json:"createAndUpdateAdobeAction" xml:"CreateAndUpdateAdobeAction"`
+	CreateAndUpdateAirtableAction              string `json:"createAndUpdateAirtableAction" xml:"CreateAndUpdateAirtableAction"`
 	CreateAndUpdateAmazonBedrockARSAction      string `json:"createAndUpdateAmazonBedrockARSAction" xml:"CreateAndUpdateAmazonBedrockARSAction"`
 	CreateAndUpdateAmazonBedrockFSAction       string `json:"createAndUpdateAmazonBedrockFSAction" xml:"CreateAndUpdateAmazonBedrockFSAction"`
 	CreateAndUpdateAmazonBedrockKRSAction      string `json:"createAndUpdateAmazonBedrockKRSAction" xml:"CreateAndUpdateAmazonBedrockKRSAction"`
@@ -1161,9 +1168,12 @@ type Capabilities struct {
 	CreateAndUpdateAsanaAction                 string `json:"createAndUpdateAsanaAction" xml:"CreateAndUpdateAsanaAction"`
 	CreateAndUpdateBambooHRAction              string `json:"createAndUpdateBambooHRAction" xml:"CreateAndUpdateBambooHRAction"`
 	CreateAndUpdateBedrockManagedKnowledgeBase string `json:"createAndUpdateBedrockManagedKnowledgeBase" xml:"CreateAndUpdateBedrockManagedKnowledgeBase"`
+	CreateAndUpdateBeeAction                   string `json:"createAndUpdateBeeAction" xml:"CreateAndUpdateBeeAction"`
 	CreateAndUpdateBoxAgentAction              string `json:"createAndUpdateBoxAgentAction" xml:"CreateAndUpdateBoxAgentAction"`
 	CreateAndUpdateBoxKnowledgeBase            string `json:"createAndUpdateBoxKnowledgeBase" xml:"CreateAndUpdateBoxKnowledgeBase"`
 	CreateAndUpdateCanvaAgentAction            string `json:"createAndUpdateCanvaAgentAction" xml:"CreateAndUpdateCanvaAgentAction"`
+	CreateAndUpdateCiscoWebexMeetingsAction    string `json:"createAndUpdateCiscoWebexMeetingsAction" xml:"CreateAndUpdateCiscoWebexMeetingsAction"`
+	CreateAndUpdateCiscoWebexVidcastAction     string `json:"createAndUpdateCiscoWebexVidcastAction" xml:"CreateAndUpdateCiscoWebexVidcastAction"`
 	CreateAndUpdateComprehendAction            string `json:"createAndUpdateComprehendAction" xml:"CreateAndUpdateComprehendAction"`
 	CreateAndUpdateComprehendMedicalAction     string `json:"createAndUpdateComprehendMedicalAction" xml:"CreateAndUpdateComprehendMedicalAction"`
 	CreateAndUpdateConfluenceAction            string `json:"createAndUpdateConfluenceAction" xml:"CreateAndUpdateConfluenceAction"`
@@ -1171,11 +1181,23 @@ type Capabilities struct {
 	CreateAndUpdateDashboardEmailReports       string `json:"createAndUpdateDashboardEmailReports" xml:"CreateAndUpdateDashboardEmailReports"`
 	CreateAndUpdateDataSources                 string `json:"createAndUpdateDataSources" xml:"CreateAndUpdateDataSources"`
 	CreateAndUpdateDatasets                    string `json:"createAndUpdateDatasets" xml:"CreateAndUpdateDatasets"`
+	CreateAndUpdateDropboxAction               string `json:"createAndUpdateDropboxAction" xml:"CreateAndUpdateDropboxAction"`
+	CreateAndUpdateDunAndBradstreetAction      string `json:"createAndUpdateDunAndBradstreetAction" xml:"CreateAndUpdateDunAndBradstreetAction"`
 	CreateAndUpdateFactSetAction               string `json:"createAndUpdateFactSetAction" xml:"CreateAndUpdateFactSetAction"`
+	CreateAndUpdateFigmaAction                 string `json:"createAndUpdateFigmaAction" xml:"CreateAndUpdateFigmaAction"`
 	CreateAndUpdateGenericHTTPAction           string `json:"createAndUpdateGenericHTTPAction" xml:"CreateAndUpdateGenericHTTPAction"`
 	CreateAndUpdateGithubAction                string `json:"createAndUpdateGithubAction" xml:"CreateAndUpdateGithubAction"`
+	CreateAndUpdateGmailAction                 string `json:"createAndUpdateGmailAction" xml:"CreateAndUpdateGmailAction"`
+	CreateAndUpdateGoogleAnalyticsAction       string `json:"createAndUpdateGoogleAnalyticsAction" xml:"CreateAndUpdateGoogleAnalyticsAction"`
 	CreateAndUpdateGoogleCalendarAction        string `json:"createAndUpdateGoogleCalendarAction" xml:"CreateAndUpdateGoogleCalendarAction"`
+	CreateAndUpdateGoogleChatAction            string `json:"createAndUpdateGoogleChatAction" xml:"CreateAndUpdateGoogleChatAction"`
+	CreateAndUpdateGoogleDocsAction            string `json:"createAndUpdateGoogleDocsAction" xml:"CreateAndUpdateGoogleDocsAction"`
+	CreateAndUpdateGoogleDriveAction           string `json:"createAndUpdateGoogleDriveAction" xml:"CreateAndUpdateGoogleDriveAction"`
 	CreateAndUpdateGoogleDriveKnowledgeBase    string `json:"createAndUpdateGoogleDriveKnowledgeBase" xml:"CreateAndUpdateGoogleDriveKnowledgeBase"`
+	CreateAndUpdateGoogleMeetAction            string `json:"createAndUpdateGoogleMeetAction" xml:"CreateAndUpdateGoogleMeetAction"`
+	CreateAndUpdateGoogleSheetsAction          string `json:"createAndUpdateGoogleSheetsAction" xml:"CreateAndUpdateGoogleSheetsAction"`
+	CreateAndUpdateGoogleSlidesAction          string `json:"createAndUpdateGoogleSlidesAction" xml:"CreateAndUpdateGoogleSlidesAction"`
+	CreateAndUpdateHGInsightsAction            string `json:"createAndUpdateHGInsightsAction" xml:"CreateAndUpdateHGInsightsAction"`
 	CreateAndUpdateHubspotAction               string `json:"createAndUpdateHubspotAction" xml:"CreateAndUpdateHubspotAction"`
 	CreateAndUpdateHuggingFaceAction           string `json:"createAndUpdateHuggingFaceAction" xml:"CreateAndUpdateHuggingFaceAction"`
 	CreateAndUpdateIDCKnowledgeBase            string `json:"createAndUpdateIDCKnowledgeBase" xml:"CreateAndUpdateIDCKnowledgeBase"`
@@ -1187,13 +1209,17 @@ type Capabilities struct {
 	CreateAndUpdateMSExchangeAction            string `json:"createAndUpdateMSExchangeAction" xml:"CreateAndUpdateMSExchangeAction"`
 	CreateAndUpdateMSTeamsAction               string `json:"createAndUpdateMSTeamsAction" xml:"CreateAndUpdateMSTeamsAction"`
 	CreateAndUpdateMondayAction                string `json:"createAndUpdateMondayAction" xml:"CreateAndUpdateMondayAction"`
+	CreateAndUpdateMoodysAction                string `json:"createAndUpdateMoodysAction" xml:"CreateAndUpdateMoodysAction"`
 	CreateAndUpdateNewRelicAction              string `json:"createAndUpdateNewRelicAction" xml:"CreateAndUpdateNewRelicAction"`
 	CreateAndUpdateNotionAction                string `json:"createAndUpdateNotionAction" xml:"CreateAndUpdateNotionAction"`
 	CreateAndUpdateOneDriveAction              string `json:"createAndUpdateOneDriveAction" xml:"CreateAndUpdateOneDriveAction"`
 	CreateAndUpdateOneDriveKnowledgeBase       string `json:"createAndUpdateOneDriveKnowledgeBase" xml:"CreateAndUpdateOneDriveKnowledgeBase"`
+	CreateAndUpdateOneNoteAction               string `json:"createAndUpdateOneNoteAction" xml:"CreateAndUpdateOneNoteAction"`
 	CreateAndUpdateOpenAPIAction               string `json:"createAndUpdateOpenAPIAction" xml:"CreateAndUpdateOpenAPIAction"`
 	CreateAndUpdatePagerDutyAction             string `json:"createAndUpdatePagerDutyAction" xml:"CreateAndUpdatePagerDutyAction"`
+	CreateAndUpdatePagerDutyAgentAction        string `json:"createAndUpdatePagerDutyAgentAction" xml:"CreateAndUpdatePagerDutyAgentAction"`
 	CreateAndUpdateQBusinessKnowledgeBase      string `json:"createAndUpdateQBusinessKnowledgeBase" xml:"CreateAndUpdateQBusinessKnowledgeBase"`
+	CreateAndUpdateQuickBooksAction            string `json:"createAndUpdateQuickBooksAction" xml:"CreateAndUpdateQuickBooksAction"`
 	CreateAndUpdateS3KnowledgeBase             string `json:"createAndUpdateS3KnowledgeBase" xml:"CreateAndUpdateS3KnowledgeBase"`
 	CreateAndUpdateSAPBillOfMaterialAction     string `json:"createAndUpdateSAPBillOfMaterialAction" xml:"CreateAndUpdateSAPBillOfMaterialAction"`
 	CreateAndUpdateSAPBusinessPartnerAction    string `json:"createAndUpdateSAPBusinessPartnerAction" xml:"CreateAndUpdateSAPBusinessPartnerAction"`
@@ -1206,19 +1232,28 @@ type Capabilities struct {
 	CreateAndUpdateServiceNowAction            string `json:"createAndUpdateServiceNowAction" xml:"CreateAndUpdateServiceNowAction"`
 	CreateAndUpdateSharePointAction            string `json:"createAndUpdateSharePointAction" xml:"CreateAndUpdateSharePointAction"`
 	CreateAndUpdateSharePointKnowledgeBase     string `json:"createAndUpdateSharePointKnowledgeBase" xml:"CreateAndUpdateSharePointKnowledgeBase"`
+	CreateAndUpdateShopifyAction               string `json:"createAndUpdateShopifyAction" xml:"CreateAndUpdateShopifyAction"`
 	CreateAndUpdateSlackAction                 string `json:"createAndUpdateSlackAction" xml:"CreateAndUpdateSlackAction"`
 	CreateAndUpdateSmartsheetAction            string `json:"createAndUpdateSmartsheetAction" xml:"CreateAndUpdateSmartsheetAction"`
+	CreateAndUpdateSnowFlakeAction             string `json:"createAndUpdateSnowFlakeAction" xml:"CreateAndUpdateSnowFlakeAction"`
 	CreateAndUpdateTextractAction              string `json:"createAndUpdateTextractAction" xml:"CreateAndUpdateTextractAction"`
 	CreateAndUpdateThemes                      string `json:"createAndUpdateThemes" xml:"CreateAndUpdateThemes"`
 	CreateAndUpdateThresholdAlerts             string `json:"createAndUpdateThresholdAlerts" xml:"CreateAndUpdateThresholdAlerts"`
+	CreateAndUpdateVisierAgentAction           string `json:"createAndUpdateVisierAgentAction" xml:"CreateAndUpdateVisierAgentAction"`
 	CreateAndUpdateWebCrawlerKnowledgeBase     string `json:"createAndUpdateWebCrawlerKnowledgeBase" xml:"CreateAndUpdateWebCrawlerKnowledgeBase"`
+	CreateAndUpdateWhatsAppAction              string `json:"createAndUpdateWhatsAppAction" xml:"CreateAndUpdateWhatsAppAction"`
+	CreateAndUpdateZapierAction                string `json:"createAndUpdateZapierAction" xml:"CreateAndUpdateZapierAction"`
 	CreateAndUpdateZendeskAction               string `json:"createAndUpdateZendeskAction" xml:"CreateAndUpdateZendeskAction"`
+	CreateAndUpdateZoomAction                  string `json:"createAndUpdateZoomAction" xml:"CreateAndUpdateZoomAction"`
+	CreateAndUpdateZoomInfoAction              string `json:"createAndUpdateZoomInfoAction" xml:"CreateAndUpdateZoomInfoAction"`
 	CreateChatAgents                           string `json:"createChatAgents" xml:"CreateChatAgents"`
 	CreateDashboardExecutiveSummaryWithQ       string `json:"createDashboardExecutiveSummaryWithQ" xml:"CreateDashboardExecutiveSummaryWithQ"`
 	CreateSPICEDataset                         string `json:"createSPICEDataset" xml:"CreateSPICEDataset"`
 	CreateSharedFolders                        string `json:"createSharedFolders" xml:"CreateSharedFolders"`
 	CreateSpaces                               string `json:"createSpaces" xml:"CreateSpaces"`
 	Dashboard                                  string `json:"dashboard" xml:"Dashboard"`
+	DropboxAction                              string `json:"dropboxAction" xml:"DropboxAction"`
+	DunAndBradstreetAction                     string `json:"dunAndBradstreetAction" xml:"DunAndBradstreetAction"`
 	EditVisualWithQ                            string `json:"editVisualWithQ" xml:"EditVisualWithQ"`
 	ExportToCsv                                string `json:"exportToCsv" xml:"ExportToCsv"`
 	ExportToCsvInScheduledReports              string `json:"exportToCsvInScheduledReports" xml:"ExportToCsvInScheduledReports"`
@@ -1228,12 +1263,22 @@ type Capabilities struct {
 	ExportToPdfInScheduledReports              string `json:"exportToPdfInScheduledReports" xml:"ExportToPdfInScheduledReports"`
 	Extension                                  string `json:"extension" xml:"Extension"`
 	FactSetAction                              string `json:"factSetAction" xml:"FactSetAction"`
+	FigmaAction                                string `json:"figmaAction" xml:"FigmaAction"`
 	Flow                                       string `json:"flow" xml:"Flow"`
 	GenerateAnalyses                           string `json:"generateAnalyses" xml:"GenerateAnalyses"`
 	GenericHTTPAction                          string `json:"genericHTTPAction" xml:"GenericHTTPAction"`
 	GithubAction                               string `json:"githubAction" xml:"GithubAction"`
+	GmailAction                                string `json:"gmailAction" xml:"GmailAction"`
+	GoogleAnalyticsAction                      string `json:"googleAnalyticsAction" xml:"GoogleAnalyticsAction"`
 	GoogleCalendarAction                       string `json:"googleCalendarAction" xml:"GoogleCalendarAction"`
+	GoogleChatAction                           string `json:"googleChatAction" xml:"GoogleChatAction"`
+	GoogleDocsAction                           string `json:"googleDocsAction" xml:"GoogleDocsAction"`
+	GoogleDriveAction                          string `json:"googleDriveAction" xml:"GoogleDriveAction"`
 	GoogleDriveKnowledgeBase                   string `json:"googleDriveKnowledgeBase" xml:"GoogleDriveKnowledgeBase"`
+	GoogleMeetAction                           string `json:"googleMeetAction" xml:"GoogleMeetAction"`
+	GoogleSheetsAction                         string `json:"googleSheetsAction" xml:"GoogleSheetsAction"`
+	GoogleSlidesAction                         string `json:"googleSlidesAction" xml:"GoogleSlidesAction"`
+	HGInsightsAction                           string `json:"hGInsightsAction" xml:"HGInsightsAction"`
 	HubspotAction                              string `json:"hubspotAction" xml:"HubspotAction"`
 	HuggingFaceAction                          string `json:"huggingFaceAction" xml:"HuggingFaceAction"`
 	IDCKnowledgeBase                           string `json:"iDCKnowledgeBase" xml:"IDCKnowledgeBase"`
@@ -1249,16 +1294,20 @@ type Capabilities struct {
 	MSTeamsAction                              string `json:"mSTeamsAction" xml:"MSTeamsAction"`
 	ManageSharedFolders                        string `json:"manageSharedFolders" xml:"ManageSharedFolders"`
 	MondayAction                               string `json:"mondayAction" xml:"MondayAction"`
+	MoodysAction                               string `json:"moodysAction" xml:"MoodysAction"`
 	NewRelicAction                             string `json:"newRelicAction" xml:"NewRelicAction"`
 	NotionAction                               string `json:"notionAction" xml:"NotionAction"`
 	OneDriveAction                             string `json:"oneDriveAction" xml:"OneDriveAction"`
 	OneDriveKnowledgeBase                      string `json:"oneDriveKnowledgeBase" xml:"OneDriveKnowledgeBase"`
+	OneNoteAction                              string `json:"oneNoteAction" xml:"OneNoteAction"`
 	OpenAPIAction                              string `json:"openAPIAction" xml:"OpenAPIAction"`
 	PagerDutyAction                            string `json:"pagerDutyAction" xml:"PagerDutyAction"`
+	PagerDutyAgentAction                       string `json:"pagerDutyAgentAction" xml:"PagerDutyAgentAction"`
 	PerformFlowUiTask                          string `json:"performFlowUiTask" xml:"PerformFlowUiTask"`
 	PrintReports                               string `json:"printReports" xml:"PrintReports"`
 	PublishWithoutApproval                     string `json:"publishWithoutApproval" xml:"PublishWithoutApproval"`
 	QBusinessKnowledgeBase                     string `json:"qBusinessKnowledgeBase" xml:"QBusinessKnowledgeBase"`
+	QuickBooksAction                           string `json:"quickBooksAction" xml:"QuickBooksAction"`
 	QuickEventTrigger                          string `json:"quickEventTrigger" xml:"QuickEventTrigger"`
 	RenameSharedFolders                        string `json:"renameSharedFolders" xml:"RenameSharedFolders"`
 	Research                                   string `json:"research" xml:"Research"`
@@ -1275,6 +1324,8 @@ type Capabilities struct {
 	ScheduleTrigger                            string `json:"scheduleTrigger" xml:"ScheduleTrigger"`
 	SelfUpgradeUserRole                        string `json:"selfUpgradeUserRole" xml:"SelfUpgradeUserRole"`
 	ServiceNowAction                           string `json:"serviceNowAction" xml:"ServiceNowAction"`
+	ShareAdobeAction                           string `json:"shareAdobeAction" xml:"ShareAdobeAction"`
+	ShareAirtableAction                        string `json:"shareAirtableAction" xml:"ShareAirtableAction"`
 	ShareAmazonBedrockARSAction                string `json:"shareAmazonBedrockARSAction" xml:"ShareAmazonBedrockARSAction"`
 	ShareAmazonBedrockFSAction                 string `json:"shareAmazonBedrockFSAction" xml:"ShareAmazonBedrockFSAction"`
 	ShareAmazonBedrockKRSAction                string `json:"shareAmazonBedrockKRSAction" xml:"ShareAmazonBedrockKRSAction"`
@@ -1284,10 +1335,13 @@ type Capabilities struct {
 	ShareAsanaAction                           string `json:"shareAsanaAction" xml:"ShareAsanaAction"`
 	ShareBambooHRAction                        string `json:"shareBambooHRAction" xml:"ShareBambooHRAction"`
 	ShareBedrockManagedKnowledgeBase           string `json:"shareBedrockManagedKnowledgeBase" xml:"ShareBedrockManagedKnowledgeBase"`
+	ShareBeeAction                             string `json:"shareBeeAction" xml:"ShareBeeAction"`
 	ShareBoxAgentAction                        string `json:"shareBoxAgentAction" xml:"ShareBoxAgentAction"`
 	ShareBoxKnowledgeBase                      string `json:"shareBoxKnowledgeBase" xml:"ShareBoxKnowledgeBase"`
 	ShareCanvaAgentAction                      string `json:"shareCanvaAgentAction" xml:"ShareCanvaAgentAction"`
 	ShareChatAgents                            string `json:"shareChatAgents" xml:"ShareChatAgents"`
+	ShareCiscoWebexMeetingsAction              string `json:"shareCiscoWebexMeetingsAction" xml:"ShareCiscoWebexMeetingsAction"`
+	ShareCiscoWebexVidcastAction               string `json:"shareCiscoWebexVidcastAction" xml:"ShareCiscoWebexVidcastAction"`
 	ShareComprehendAction                      string `json:"shareComprehendAction" xml:"ShareComprehendAction"`
 	ShareComprehendMedicalAction               string `json:"shareComprehendMedicalAction" xml:"ShareComprehendMedicalAction"`
 	ShareConfluenceAction                      string `json:"shareConfluenceAction" xml:"ShareConfluenceAction"`
@@ -1295,11 +1349,23 @@ type Capabilities struct {
 	ShareDashboards                            string `json:"shareDashboards" xml:"ShareDashboards"`
 	ShareDataSources                           string `json:"shareDataSources" xml:"ShareDataSources"`
 	ShareDatasets                              string `json:"shareDatasets" xml:"ShareDatasets"`
+	ShareDropboxAction                         string `json:"shareDropboxAction" xml:"ShareDropboxAction"`
+	ShareDunAndBradstreetAction                string `json:"shareDunAndBradstreetAction" xml:"ShareDunAndBradstreetAction"`
 	ShareFactSetAction                         string `json:"shareFactSetAction" xml:"ShareFactSetAction"`
+	ShareFigmaAction                           string `json:"shareFigmaAction" xml:"ShareFigmaAction"`
 	ShareGenericHTTPAction                     string `json:"shareGenericHTTPAction" xml:"ShareGenericHTTPAction"`
 	ShareGithubAction                          string `json:"shareGithubAction" xml:"ShareGithubAction"`
+	ShareGmailAction                           string `json:"shareGmailAction" xml:"ShareGmailAction"`
+	ShareGoogleAnalyticsAction                 string `json:"shareGoogleAnalyticsAction" xml:"ShareGoogleAnalyticsAction"`
 	ShareGoogleCalendarAction                  string `json:"shareGoogleCalendarAction" xml:"ShareGoogleCalendarAction"`
+	ShareGoogleChatAction                      string `json:"shareGoogleChatAction" xml:"ShareGoogleChatAction"`
+	ShareGoogleDocsAction                      string `json:"shareGoogleDocsAction" xml:"ShareGoogleDocsAction"`
+	ShareGoogleDriveAction                     string `json:"shareGoogleDriveAction" xml:"ShareGoogleDriveAction"`
 	ShareGoogleDriveKnowledgeBase              string `json:"shareGoogleDriveKnowledgeBase" xml:"ShareGoogleDriveKnowledgeBase"`
+	ShareGoogleMeetAction                      string `json:"shareGoogleMeetAction" xml:"ShareGoogleMeetAction"`
+	ShareGoogleSheetsAction                    string `json:"shareGoogleSheetsAction" xml:"ShareGoogleSheetsAction"`
+	ShareGoogleSlidesAction                    string `json:"shareGoogleSlidesAction" xml:"ShareGoogleSlidesAction"`
+	ShareHGInsightsAction                      string `json:"shareHGInsightsAction" xml:"ShareHGInsightsAction"`
 	ShareHubspotAction                         string `json:"shareHubspotAction" xml:"ShareHubspotAction"`
 	ShareHuggingFaceAction                     string `json:"shareHuggingFaceAction" xml:"ShareHuggingFaceAction"`
 	ShareIDCKnowledgeBase                      string `json:"shareIDCKnowledgeBase" xml:"ShareIDCKnowledgeBase"`
@@ -1311,15 +1377,19 @@ type Capabilities struct {
 	ShareMSExchangeAction                      string `json:"shareMSExchangeAction" xml:"ShareMSExchangeAction"`
 	ShareMSTeamsAction                         string `json:"shareMSTeamsAction" xml:"ShareMSTeamsAction"`
 	ShareMondayAction                          string `json:"shareMondayAction" xml:"ShareMondayAction"`
+	ShareMoodysAction                          string `json:"shareMoodysAction" xml:"ShareMoodysAction"`
 	ShareNewRelicAction                        string `json:"shareNewRelicAction" xml:"ShareNewRelicAction"`
 	ShareNotionAction                          string `json:"shareNotionAction" xml:"ShareNotionAction"`
 	ShareOneDriveAction                        string `json:"shareOneDriveAction" xml:"ShareOneDriveAction"`
 	ShareOneDriveKnowledgeBase                 string `json:"shareOneDriveKnowledgeBase" xml:"ShareOneDriveKnowledgeBase"`
+	ShareOneNoteAction                         string `json:"shareOneNoteAction" xml:"ShareOneNoteAction"`
 	ShareOpenAPIAction                         string `json:"shareOpenAPIAction" xml:"ShareOpenAPIAction"`
 	SharePagerDutyAction                       string `json:"sharePagerDutyAction" xml:"SharePagerDutyAction"`
+	SharePagerDutyAgentAction                  string `json:"sharePagerDutyAgentAction" xml:"SharePagerDutyAgentAction"`
 	SharePointAction                           string `json:"sharePointAction" xml:"SharePointAction"`
 	SharePointKnowledgeBase                    string `json:"sharePointKnowledgeBase" xml:"SharePointKnowledgeBase"`
 	ShareQBusinessKnowledgeBase                string `json:"shareQBusinessKnowledgeBase" xml:"ShareQBusinessKnowledgeBase"`
+	ShareQuickBooksAction                      string `json:"shareQuickBooksAction" xml:"ShareQuickBooksAction"`
 	ShareS3KnowledgeBase                       string `json:"shareS3KnowledgeBase" xml:"ShareS3KnowledgeBase"`
 	ShareSAPBillOfMaterialAction               string `json:"shareSAPBillOfMaterialAction" xml:"ShareSAPBillOfMaterialAction"`
 	ShareSAPBusinessPartnerAction              string `json:"shareSAPBusinessPartnerAction" xml:"ShareSAPBusinessPartnerAction"`
@@ -1332,21 +1402,32 @@ type Capabilities struct {
 	ShareServiceNowAction                      string `json:"shareServiceNowAction" xml:"ShareServiceNowAction"`
 	ShareSharePointAction                      string `json:"shareSharePointAction" xml:"ShareSharePointAction"`
 	ShareSharePointKnowledgeBase               string `json:"shareSharePointKnowledgeBase" xml:"ShareSharePointKnowledgeBase"`
+	ShareShopifyAction                         string `json:"shareShopifyAction" xml:"ShareShopifyAction"`
 	ShareSlackAction                           string `json:"shareSlackAction" xml:"ShareSlackAction"`
 	ShareSmartsheetAction                      string `json:"shareSmartsheetAction" xml:"ShareSmartsheetAction"`
+	ShareSnowFlakeAction                       string `json:"shareSnowFlakeAction" xml:"ShareSnowFlakeAction"`
 	ShareSpaces                                string `json:"shareSpaces" xml:"ShareSpaces"`
 	ShareTextractAction                        string `json:"shareTextractAction" xml:"ShareTextractAction"`
+	ShareVisierAgentAction                     string `json:"shareVisierAgentAction" xml:"ShareVisierAgentAction"`
 	ShareWebCrawlerKnowledgeBase               string `json:"shareWebCrawlerKnowledgeBase" xml:"ShareWebCrawlerKnowledgeBase"`
+	ShareWhatsAppAction                        string `json:"shareWhatsAppAction" xml:"ShareWhatsAppAction"`
+	ShareZapierAction                          string `json:"shareZapierAction" xml:"ShareZapierAction"`
 	ShareZendeskAction                         string `json:"shareZendeskAction" xml:"ShareZendeskAction"`
+	ShareZoomAction                            string `json:"shareZoomAction" xml:"ShareZoomAction"`
+	ShareZoomInfoAction                        string `json:"shareZoomInfoAction" xml:"ShareZoomInfoAction"`
+	ShopifyAction                              string `json:"shopifyAction" xml:"ShopifyAction"`
 	SlackAction                                string `json:"slackAction" xml:"SlackAction"`
 	SmartsheetAction                           string `json:"smartsheetAction" xml:"SmartsheetAction"`
+	SnowFlakeAction                            string `json:"snowFlakeAction" xml:"SnowFlakeAction"`
 	Space                                      string `json:"space" xml:"Space"`
 	Story                                      string `json:"story" xml:"Story"`
 	SubscribeDashboardEmailReports             string `json:"subscribeDashboardEmailReports" xml:"SubscribeDashboardEmailReports"`
 	TextractAction                             string `json:"textractAction" xml:"TextractAction"`
 	Topic                                      string `json:"topic" xml:"Topic"`
 	Trigger                                    string `json:"trigger" xml:"Trigger"`
+	UseAdobeAction                             string `json:"useAdobeAction" xml:"UseAdobeAction"`
 	UseAgentWebSearch                          string `json:"useAgentWebSearch" xml:"UseAgentWebSearch"`
+	UseAirtableAction                          string `json:"useAirtableAction" xml:"UseAirtableAction"`
 	UseAmazonBedrockARSAction                  string `json:"useAmazonBedrockARSAction" xml:"UseAmazonBedrockARSAction"`
 	UseAmazonBedrockFSAction                   string `json:"useAmazonBedrockFSAction" xml:"UseAmazonBedrockFSAction"`
 	UseAmazonBedrockKRSAction                  string `json:"useAmazonBedrockKRSAction" xml:"UseAmazonBedrockKRSAction"`
@@ -1355,20 +1436,35 @@ type Capabilities struct {
 	UseBambooHRAction                          string `json:"useBambooHRAction" xml:"UseBambooHRAction"`
 	UseBedrockManagedKnowledgeBase             string `json:"useBedrockManagedKnowledgeBase" xml:"UseBedrockManagedKnowledgeBase"`
 	UseBedrockModels                           string `json:"useBedrockModels" xml:"UseBedrockModels"`
+	UseBeeAction                               string `json:"useBeeAction" xml:"UseBeeAction"`
 	UseBoxAgentAction                          string `json:"useBoxAgentAction" xml:"UseBoxAgentAction"`
 	UseBoxKnowledgeBase                        string `json:"useBoxKnowledgeBase" xml:"UseBoxKnowledgeBase"`
 	UseBrowserExtension                        string `json:"useBrowserExtension" xml:"UseBrowserExtension"`
 	UseCanvaAgentAction                        string `json:"useCanvaAgentAction" xml:"UseCanvaAgentAction"`
+	UseCiscoWebexMeetingsAction                string `json:"useCiscoWebexMeetingsAction" xml:"UseCiscoWebexMeetingsAction"`
+	UseCiscoWebexVidcastAction                 string `json:"useCiscoWebexVidcastAction" xml:"UseCiscoWebexVidcastAction"`
 	UseComprehendAction                        string `json:"useComprehendAction" xml:"UseComprehendAction"`
 	UseComprehendMedicalAction                 string `json:"useComprehendMedicalAction" xml:"UseComprehendMedicalAction"`
 	UseConfluenceAction                        string `json:"useConfluenceAction" xml:"UseConfluenceAction"`
 	UseConfluenceKnowledgeBase                 string `json:"useConfluenceKnowledgeBase" xml:"UseConfluenceKnowledgeBase"`
+	UseDropboxAction                           string `json:"useDropboxAction" xml:"UseDropboxAction"`
+	UseDunAndBradstreetAction                  string `json:"useDunAndBradstreetAction" xml:"UseDunAndBradstreetAction"`
 	UseExcelAddInExtension                     string `json:"useExcelAddInExtension" xml:"UseExcelAddInExtension"`
 	UseFactSetAction                           string `json:"useFactSetAction" xml:"UseFactSetAction"`
+	UseFigmaAction                             string `json:"useFigmaAction" xml:"UseFigmaAction"`
 	UseGenericHTTPAction                       string `json:"useGenericHTTPAction" xml:"UseGenericHTTPAction"`
 	UseGithubAction                            string `json:"useGithubAction" xml:"UseGithubAction"`
+	UseGmailAction                             string `json:"useGmailAction" xml:"UseGmailAction"`
+	UseGoogleAnalyticsAction                   string `json:"useGoogleAnalyticsAction" xml:"UseGoogleAnalyticsAction"`
 	UseGoogleCalendarAction                    string `json:"useGoogleCalendarAction" xml:"UseGoogleCalendarAction"`
+	UseGoogleChatAction                        string `json:"useGoogleChatAction" xml:"UseGoogleChatAction"`
+	UseGoogleDocsAction                        string `json:"useGoogleDocsAction" xml:"UseGoogleDocsAction"`
+	UseGoogleDriveAction                       string `json:"useGoogleDriveAction" xml:"UseGoogleDriveAction"`
 	UseGoogleDriveKnowledgeBase                string `json:"useGoogleDriveKnowledgeBase" xml:"UseGoogleDriveKnowledgeBase"`
+	UseGoogleMeetAction                        string `json:"useGoogleMeetAction" xml:"UseGoogleMeetAction"`
+	UseGoogleSheetsAction                      string `json:"useGoogleSheetsAction" xml:"UseGoogleSheetsAction"`
+	UseGoogleSlidesAction                      string `json:"useGoogleSlidesAction" xml:"UseGoogleSlidesAction"`
+	UseHGInsightsAction                        string `json:"useHGInsightsAction" xml:"UseHGInsightsAction"`
 	UseHubspotAction                           string `json:"useHubspotAction" xml:"UseHubspotAction"`
 	UseHuggingFaceAction                       string `json:"useHuggingFaceAction" xml:"UseHuggingFaceAction"`
 	UseIDCKnowledgeBase                        string `json:"useIDCKnowledgeBase" xml:"UseIDCKnowledgeBase"`
@@ -1379,15 +1475,19 @@ type Capabilities struct {
 	UseMSExchangeAction                        string `json:"useMSExchangeAction" xml:"UseMSExchangeAction"`
 	UseMSTeamsAction                           string `json:"useMSTeamsAction" xml:"UseMSTeamsAction"`
 	UseMondayAction                            string `json:"useMondayAction" xml:"UseMondayAction"`
+	UseMoodysAction                            string `json:"useMoodysAction" xml:"UseMoodysAction"`
 	UseNewRelicAction                          string `json:"useNewRelicAction" xml:"UseNewRelicAction"`
 	UseNotionAction                            string `json:"useNotionAction" xml:"UseNotionAction"`
 	UseOneDriveAction                          string `json:"useOneDriveAction" xml:"UseOneDriveAction"`
 	UseOneDriveKnowledgeBase                   string `json:"useOneDriveKnowledgeBase" xml:"UseOneDriveKnowledgeBase"`
+	UseOneNoteAction                           string `json:"useOneNoteAction" xml:"UseOneNoteAction"`
 	UseOpenAPIAction                           string `json:"useOpenAPIAction" xml:"UseOpenAPIAction"`
 	UseOutlookAddInExtension                   string `json:"useOutlookAddInExtension" xml:"UseOutlookAddInExtension"`
 	UsePagerDutyAction                         string `json:"usePagerDutyAction" xml:"UsePagerDutyAction"`
+	UsePagerDutyAgentAction                    string `json:"usePagerDutyAgentAction" xml:"UsePagerDutyAgentAction"`
 	UsePowerpointAddInExtension                string `json:"usePowerpointAddInExtension" xml:"UsePowerpointAddInExtension"`
 	UseQBusinessKnowledgeBase                  string `json:"useQBusinessKnowledgeBase" xml:"UseQBusinessKnowledgeBase"`
+	UseQuickBooksAction                        string `json:"useQuickBooksAction" xml:"UseQuickBooksAction"`
 	UseS3KnowledgeBase                         string `json:"useS3KnowledgeBase" xml:"UseS3KnowledgeBase"`
 	UseSAPBillOfMaterialAction                 string `json:"useSAPBillOfMaterialAction" xml:"UseSAPBillOfMaterialAction"`
 	UseSAPBusinessPartnerAction                string `json:"useSAPBusinessPartnerAction" xml:"UseSAPBusinessPartnerAction"`
@@ -1400,15 +1500,27 @@ type Capabilities struct {
 	UseServiceNowAction                        string `json:"useServiceNowAction" xml:"UseServiceNowAction"`
 	UseSharePointAction                        string `json:"useSharePointAction" xml:"UseSharePointAction"`
 	UseSharePointKnowledgeBase                 string `json:"useSharePointKnowledgeBase" xml:"UseSharePointKnowledgeBase"`
+	UseShopifyAction                           string `json:"useShopifyAction" xml:"UseShopifyAction"`
 	UseSlackAction                             string `json:"useSlackAction" xml:"UseSlackAction"`
 	UseSmartsheetAction                        string `json:"useSmartsheetAction" xml:"UseSmartsheetAction"`
+	UseSnowFlakeAction                         string `json:"useSnowFlakeAction" xml:"UseSnowFlakeAction"`
 	UseTextractAction                          string `json:"useTextractAction" xml:"UseTextractAction"`
+	UseVisierAgentAction                       string `json:"useVisierAgentAction" xml:"UseVisierAgentAction"`
 	UseWebCrawlerKnowledgeBase                 string `json:"useWebCrawlerKnowledgeBase" xml:"UseWebCrawlerKnowledgeBase"`
+	UseWhatsAppAction                          string `json:"useWhatsAppAction" xml:"UseWhatsAppAction"`
 	UseWordAddInExtension                      string `json:"useWordAddInExtension" xml:"UseWordAddInExtension"`
+	UseZapierAction                            string `json:"useZapierAction" xml:"UseZapierAction"`
 	UseZendeskAction                           string `json:"useZendeskAction" xml:"UseZendeskAction"`
+	UseZoomAction                              string `json:"useZoomAction" xml:"UseZoomAction"`
+	UseZoomInfoAction                          string `json:"useZoomInfoAction" xml:"UseZoomInfoAction"`
 	ViewAccountSPICECapacity                   string `json:"viewAccountSPICECapacity" xml:"ViewAccountSPICECapacity"`
+	VisierAgentAction                          string `json:"visierAgentAction" xml:"VisierAgentAction"`
 	WebCrawlerKnowledgeBase                    string `json:"webCrawlerKnowledgeBase" xml:"WebCrawlerKnowledgeBase"`
+	WhatsAppAction                             string `json:"whatsAppAction" xml:"WhatsAppAction"`
+	ZapierAction                               string `json:"zapierAction" xml:"ZapierAction"`
 	ZendeskAction                              string `json:"zendeskAction" xml:"ZendeskAction"`
+	ZoomAction                                 string `json:"zoomAction" xml:"ZoomAction"`
+	ZoomInfoAction                             string `json:"zoomInfoAction" xml:"ZoomInfoAction"`
 }
 
 type CapacityBytesRangeFilter struct {
@@ -3027,9 +3139,11 @@ type DataStoriesSharingOption struct {
 }
 
 type DatabricksParameters struct {
-	Host            string `json:"host" xml:"Host"`
-	Port            int32  `json:"port" xml:"Port"`
-	SqlEndpointPath string `json:"sqlEndpointPath" xml:"SqlEndpointPath"`
+	AuthenticationType string           `json:"authenticationType" xml:"AuthenticationType"`
+	Host               string           `json:"host" xml:"Host"`
+	OAuthParameters    *OAuthParameters `json:"oAuthParameters" xml:"OAuthParameters"`
+	Port               int32            `json:"port" xml:"Port"`
+	SqlEndpointPath    string           `json:"sqlEndpointPath" xml:"SqlEndpointPath"`
 }
 
 type DatasetMetadata struct {
@@ -3187,13 +3301,15 @@ type DefaultFilterControlConfiguration struct {
 }
 
 type DefaultFilterControlOptions struct {
-	DefaultDateTimePickerOptions   *DefaultDateTimePickerControlOptions   `json:"defaultDateTimePickerOptions" xml:"DefaultDateTimePickerOptions"`
-	DefaultDropdownOptions         *DefaultFilterDropDownControlOptions   `json:"defaultDropdownOptions" xml:"DefaultDropdownOptions"`
-	DefaultListOptions             *DefaultFilterListControlOptions       `json:"defaultListOptions" xml:"DefaultListOptions"`
-	DefaultRelativeDateTimeOptions *DefaultRelativeDateTimeControlOptions `json:"defaultRelativeDateTimeOptions" xml:"DefaultRelativeDateTimeOptions"`
-	DefaultSliderOptions           *DefaultSliderControlOptions           `json:"defaultSliderOptions" xml:"DefaultSliderOptions"`
-	DefaultTextAreaOptions         *DefaultTextAreaControlOptions         `json:"defaultTextAreaOptions" xml:"DefaultTextAreaOptions"`
-	DefaultTextFieldOptions        *DefaultTextFieldControlOptions        `json:"defaultTextFieldOptions" xml:"DefaultTextFieldOptions"`
+	DefaultDateTimePickerOptions   *DefaultDateTimePickerControlOptions          `json:"defaultDateTimePickerOptions" xml:"DefaultDateTimePickerOptions"`
+	DefaultDropdownOptions         *DefaultFilterDropDownControlOptions          `json:"defaultDropdownOptions" xml:"DefaultDropdownOptions"`
+	DefaultHierarchyDropdown       *DefaultHierarchyFilterDropDownControlOptions `json:"defaultHierarchyDropdown" xml:"DefaultHierarchyDropdown"`
+	DefaultHierarchyList           *DefaultHierarchyFilterListControlOptions     `json:"defaultHierarchyList" xml:"DefaultHierarchyList"`
+	DefaultListOptions             *DefaultFilterListControlOptions              `json:"defaultListOptions" xml:"DefaultListOptions"`
+	DefaultRelativeDateTimeOptions *DefaultRelativeDateTimeControlOptions        `json:"defaultRelativeDateTimeOptions" xml:"DefaultRelativeDateTimeOptions"`
+	DefaultSliderOptions           *DefaultSliderControlOptions                  `json:"defaultSliderOptions" xml:"DefaultSliderOptions"`
+	DefaultTextAreaOptions         *DefaultTextAreaControlOptions                `json:"defaultTextAreaOptions" xml:"DefaultTextAreaOptions"`
+	DefaultTextFieldOptions        *DefaultTextFieldControlOptions               `json:"defaultTextFieldOptions" xml:"DefaultTextFieldOptions"`
 }
 
 type DefaultFilterDropDownControlOptions struct {
@@ -3222,6 +3338,22 @@ type DefaultFreeFormLayoutConfiguration struct {
 
 type DefaultGridLayoutConfiguration struct {
 	CanvasSizeOptions *GridLayoutCanvasSizeOptions `json:"canvasSizeOptions" xml:"CanvasSizeOptions"`
+}
+
+type DefaultHierarchyFilterDropDownControlOptions struct {
+	CommitMode                string                                        `json:"commitMode" xml:"CommitMode"`
+	ControlSortConfigurations ControlSortConfigurationList                  `json:"controlSortConfigurations" xml:"ControlSortConfigurations"`
+	ControlTitleFormatText    *ControlTitleFormatText                       `json:"controlTitleFormatText" xml:"ControlTitleFormatText"`
+	DisplayOptions            *HierarchyFilterDropDownControlDisplayOptions `json:"displayOptions" xml:"DisplayOptions"`
+	Type                      string                                        `json:"type" xml:"Type"`
+}
+
+type DefaultHierarchyFilterListControlOptions struct {
+	CommitMode                string                                    `json:"commitMode" xml:"CommitMode"`
+	ControlSortConfigurations ControlSortConfigurationList              `json:"controlSortConfigurations" xml:"ControlSortConfigurations"`
+	ControlTitleFormatText    *ControlTitleFormatText                   `json:"controlTitleFormatText" xml:"ControlTitleFormatText"`
+	DisplayOptions            *HierarchyFilterListControlDisplayOptions `json:"displayOptions" xml:"DisplayOptions"`
+	Type                      string                                    `json:"type" xml:"Type"`
 }
 
 type DefaultInteractiveLayoutConfiguration struct {
@@ -4943,6 +5075,7 @@ type FilledMapVisual struct {
 
 type Filter struct {
 	CategoryFilter        *CategoryFilter        `json:"categoryFilter" xml:"CategoryFilter"`
+	HierarchyFilter       *HierarchyFilter       `json:"hierarchyFilter" xml:"HierarchyFilter"`
 	NestedFilter          *NestedFilter          `json:"nestedFilter" xml:"NestedFilter"`
 	NumericEqualityFilter *NumericEqualityFilter `json:"numericEqualityFilter" xml:"NumericEqualityFilter"`
 	NumericRangeFilter    *NumericRangeFilter    `json:"numericRangeFilter" xml:"NumericRangeFilter"`
@@ -4959,14 +5092,16 @@ type FilterAggMetrics struct {
 }
 
 type FilterControl struct {
-	CrossSheet       *FilterCrossSheetControl       `json:"crossSheet" xml:"CrossSheet"`
-	DateTimePicker   *FilterDateTimePickerControl   `json:"dateTimePicker" xml:"DateTimePicker"`
-	Dropdown         *FilterDropDownControl         `json:"dropdown" xml:"Dropdown"`
-	List             *FilterListControl             `json:"list" xml:"List"`
-	RelativeDateTime *FilterRelativeDateTimeControl `json:"relativeDateTime" xml:"RelativeDateTime"`
-	Slider           *FilterSliderControl           `json:"slider" xml:"Slider"`
-	TextArea         *FilterTextAreaControl         `json:"textArea" xml:"TextArea"`
-	TextField        *FilterTextFieldControl        `json:"textField" xml:"TextField"`
+	CrossSheet        *FilterCrossSheetControl        `json:"crossSheet" xml:"CrossSheet"`
+	DateTimePicker    *FilterDateTimePickerControl    `json:"dateTimePicker" xml:"DateTimePicker"`
+	Dropdown          *FilterDropDownControl          `json:"dropdown" xml:"Dropdown"`
+	HierarchyDropdown *HierarchyFilterDropDownControl `json:"hierarchyDropdown" xml:"HierarchyDropdown"`
+	HierarchyList     *HierarchyFilterListControl     `json:"hierarchyList" xml:"HierarchyList"`
+	List              *FilterListControl              `json:"list" xml:"List"`
+	RelativeDateTime  *FilterRelativeDateTimeControl  `json:"relativeDateTime" xml:"RelativeDateTime"`
+	Slider            *FilterSliderControl            `json:"slider" xml:"Slider"`
+	TextArea          *FilterTextAreaControl          `json:"textArea" xml:"TextArea"`
+	TextField         *FilterTextFieldControl         `json:"textField" xml:"TextField"`
 }
 
 type FilterCrossSheetControl struct {
@@ -5867,6 +6002,64 @@ type HeatMapVisual struct {
 	Title                *VisualTitleLabelOptions    `json:"title" xml:"Title"`
 	VisualContentAltText string                      `json:"visualContentAltText" xml:"VisualContentAltText"`
 	VisualId             string                      `json:"visualId" xml:"VisualId"`
+}
+
+type HierarchyFilter struct {
+	Column                            *ColumnIdentifier                  `json:"column" xml:"Column"`
+	DefaultFilterControlConfiguration *DefaultFilterControlConfiguration `json:"defaultFilterControlConfiguration" xml:"DefaultFilterControlConfiguration"`
+	FilterId                          string                             `json:"filterId" xml:"FilterId"`
+	HierarchyLevels                   HierarchyFilterLevelList           `json:"hierarchyLevels" xml:"HierarchyLevels"`
+	HierarchyTree                     *HierarchyFilterNode               `json:"hierarchyTree" xml:"HierarchyTree"`
+	MatchOperator                     string                             `json:"matchOperator" xml:"MatchOperator"`
+	NullOption                        string                             `json:"nullOption" xml:"NullOption"`
+}
+
+type HierarchyFilterDropDownControl struct {
+	CommitMode                string                                        `json:"commitMode" xml:"CommitMode"`
+	ControlSortConfigurations ControlSortConfigurationList                  `json:"controlSortConfigurations" xml:"ControlSortConfigurations"`
+	ControlTitleFormatText    *ControlTitleFormatText                       `json:"controlTitleFormatText" xml:"ControlTitleFormatText"`
+	DisplayOptions            *HierarchyFilterDropDownControlDisplayOptions `json:"displayOptions" xml:"DisplayOptions"`
+	FilterControlId           string                                        `json:"filterControlId" xml:"FilterControlId"`
+	SourceFilterId            string                                        `json:"sourceFilterId" xml:"SourceFilterId"`
+	Title                     string                                        `json:"title" xml:"Title"`
+	Type                      string                                        `json:"type" xml:"Type"`
+}
+
+type HierarchyFilterDropDownControlDisplayOptions struct {
+	InfoIconLabelOptions *SheetControlInfoIconLabelOptions `json:"infoIconLabelOptions" xml:"InfoIconLabelOptions"`
+	TitleOptions         *LabelOptions                     `json:"titleOptions" xml:"TitleOptions"`
+}
+
+type HierarchyFilterLevel struct {
+	Column *ColumnIdentifier `json:"column" xml:"Column"`
+}
+
+type HierarchyFilterListControl struct {
+	CommitMode                string                                    `json:"commitMode" xml:"CommitMode"`
+	ControlSortConfigurations ControlSortConfigurationList              `json:"controlSortConfigurations" xml:"ControlSortConfigurations"`
+	ControlTitleFormatText    *ControlTitleFormatText                   `json:"controlTitleFormatText" xml:"ControlTitleFormatText"`
+	DisplayOptions            *HierarchyFilterListControlDisplayOptions `json:"displayOptions" xml:"DisplayOptions"`
+	FilterControlId           string                                    `json:"filterControlId" xml:"FilterControlId"`
+	SourceFilterId            string                                    `json:"sourceFilterId" xml:"SourceFilterId"`
+	Title                     string                                    `json:"title" xml:"Title"`
+	Type                      string                                    `json:"type" xml:"Type"`
+}
+
+type HierarchyFilterListControlDisplayOptions struct {
+	InfoIconLabelOptions *SheetControlInfoIconLabelOptions        `json:"infoIconLabelOptions" xml:"InfoIconLabelOptions"`
+	SearchOptions        *HierarchyFilterListControlSearchOptions `json:"searchOptions" xml:"SearchOptions"`
+	TitleOptions         *LabelOptions                            `json:"titleOptions" xml:"TitleOptions"`
+}
+
+type HierarchyFilterListControlSearchOptions struct {
+	Visibility string `json:"visibility" xml:"Visibility"`
+}
+
+type HierarchyFilterNode struct {
+	Children        HierarchyFilterNodeList `json:"children" xml:"Children"`
+	Column          *ColumnIdentifier       `json:"column" xml:"Column"`
+	HierarchyValues HierarchyValuesList     `json:"hierarchyValues" xml:"HierarchyValues"`
+	ParentValue     string                  `json:"parentValue" xml:"ParentValue"`
 }
 
 type HistogramAggregatedFieldWells struct {
@@ -12038,6 +12231,12 @@ type HeaderFooterSectionConfigurationList []*HeaderFooterSectionConfiguration
 type HeatMapDimensionFieldList []*DimensionField
 
 type HeatMapMeasureFieldList []*MeasureField
+
+type HierarchyFilterLevelList []*HierarchyFilterLevel
+
+type HierarchyFilterNodeList []*HierarchyFilterNode
+
+type HierarchyValuesList []string
 
 type HistogramMeasureFieldList []*MeasureField
 

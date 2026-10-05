@@ -443,6 +443,7 @@ type DefaultRunSetting struct {
 	RunGroupId          string      `json:"runGroupId" xml:"runGroupId"`
 	RunTags             TagMap      `json:"runTags" xml:"runTags"`
 	ScratchStorageMode  string      `json:"scratchStorageMode" xml:"scratchStorageMode"`
+	SessionPolicy       string      `json:"sessionPolicy" xml:"sessionPolicy"`
 	StorageCapacity     int32       `json:"storageCapacity" xml:"storageCapacity"`
 	StorageType         string      `json:"storageType" xml:"storageType"`
 	WorkflowId          string      `json:"workflowId" xml:"workflowId"`
@@ -921,6 +922,7 @@ type GetRunResponse struct {
 	RunId               string                `json:"runId" xml:"runId"`
 	RunOutputUri        string                `json:"runOutputUri" xml:"runOutputUri"`
 	ScratchStorageMode  string                `json:"scratchStorageMode" xml:"scratchStorageMode"`
+	SessionPolicy       string                `json:"sessionPolicy" xml:"sessionPolicy"`
 	StartTime           time.Time             `json:"startTime" xml:"startTime"`
 	StartedBy           string                `json:"startedBy" xml:"startedBy"`
 	Status              string                `json:"status" xml:"status"`
@@ -1934,6 +1936,7 @@ type StartRunRequest struct {
 	RunGroupId          string      `json:"runGroupId" xml:"runGroupId"`
 	RunId               string      `json:"runId" xml:"runId"`
 	ScratchStorageMode  string      `json:"scratchStorageMode" xml:"scratchStorageMode"`
+	SessionPolicy       string      `json:"sessionPolicy" xml:"sessionPolicy"`
 	StorageCapacity     int32       `json:"storageCapacity" xml:"storageCapacity"`
 	StorageType         string      `json:"storageType" xml:"storageType"`
 	Tags                TagMap      `json:"tags" xml:"tags"`

@@ -2,6 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 package observabilityadmin
 
+import (
+	"time"
+)
+
 type ActionCondition struct {
 	Action string `json:"action" xml:"Action"`
 }
@@ -34,13 +38,15 @@ type CentralizationRuleDestination struct {
 }
 
 type CentralizationRuleSource struct {
-	Regions                    Regions                     `json:"regions" xml:"Regions"`
-	Scope                      string                      `json:"scope" xml:"Scope"`
-	SourceLogsConfiguration    *SourceLogsConfiguration    `json:"sourceLogsConfiguration" xml:"SourceLogsConfiguration"`
-	SourceMetricsConfiguration *SourceMetricsConfiguration `json:"sourceMetricsConfiguration" xml:"SourceMetricsConfiguration"`
+	Regions                         Regions                          `json:"regions" xml:"Regions"`
+	Scope                           string                           `json:"scope" xml:"Scope"`
+	SourceContextGraphConfiguration *SourceContextGraphConfiguration `json:"sourceContextGraphConfiguration" xml:"SourceContextGraphConfiguration"`
+	SourceLogsConfiguration         *SourceLogsConfiguration         `json:"sourceLogsConfiguration" xml:"SourceLogsConfiguration"`
+	SourceMetricsConfiguration      *SourceMetricsConfiguration      `json:"sourceMetricsConfiguration" xml:"SourceMetricsConfiguration"`
 }
 
 type CentralizationRuleSummary struct {
+	ContextGraphStatus          string `json:"contextGraphStatus" xml:"ContextGraphStatus"`
 	CreatedRegion               string `json:"createdRegion" xml:"CreatedRegion"`
 	CreatedTimeStamp            int64  `json:"createdTimeStamp" xml:"CreatedTimeStamp"`
 	CreatorAccountId            string `json:"creatorAccountId" xml:"CreatorAccountId"`
@@ -80,6 +86,18 @@ type CreateCentralizationRuleForOrganizationInput struct {
 
 type CreateCentralizationRuleForOrganizationOutput struct {
 	RuleArn string `json:"ruleArn" xml:"RuleArn"`
+}
+
+type CreateDatasetIntegrationInput struct {
+	RoleArn string      `json:"roleArn" xml:"RoleArn"`
+	Tags    TagMapInput `json:"tags" xml:"Tags"`
+}
+
+type CreateDatasetIntegrationOutput struct {
+	Arn       string    `json:"arn" xml:"Arn"`
+	CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+	RoleArn   string    `json:"roleArn" xml:"RoleArn"`
+	UpdatedAt time.Time `json:"updatedAt" xml:"UpdatedAt"`
 }
 
 type CreateS3TableIntegrationInput struct {
@@ -127,8 +145,19 @@ type DataSource struct {
 	Type string `json:"type" xml:"Type"`
 }
 
+type DatasetIntegrationSummary struct {
+	Arn       string    `json:"arn" xml:"Arn"`
+	CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+	RoleArn   string    `json:"roleArn" xml:"RoleArn"`
+	UpdatedAt time.Time `json:"updatedAt" xml:"UpdatedAt"`
+}
+
 type DeleteCentralizationRuleForOrganizationInput struct {
 	RuleIdentifier string `json:"ruleIdentifier" xml:"RuleIdentifier"`
+}
+
+type DeleteDatasetIntegrationInput struct {
+	Arn string `json:"arn" xml:"Arn"`
 }
 
 type DeleteS3TableIntegrationInput struct {
@@ -190,6 +219,7 @@ type GetCentralizationRuleForOrganizationInput struct {
 
 type GetCentralizationRuleForOrganizationOutput struct {
 	CentralizationRule          *CentralizationRule `json:"centralizationRule" xml:"CentralizationRule"`
+	ContextGraphStatus          string              `json:"contextGraphStatus" xml:"ContextGraphStatus"`
 	CreatedRegion               string              `json:"createdRegion" xml:"CreatedRegion"`
 	CreatedTimeStamp            int64               `json:"createdTimeStamp" xml:"CreatedTimeStamp"`
 	CreatorAccountId            string              `json:"creatorAccountId" xml:"CreatorAccountId"`
@@ -200,6 +230,17 @@ type GetCentralizationRuleForOrganizationOutput struct {
 	RuleName                    string              `json:"ruleName" xml:"RuleName"`
 	TagPropagationFailureReason string              `json:"tagPropagationFailureReason" xml:"TagPropagationFailureReason"`
 	TagPropagationStatus        string              `json:"tagPropagationStatus" xml:"TagPropagationStatus"`
+}
+
+type GetDatasetIntegrationInput struct {
+	Arn string `json:"arn" xml:"Arn"`
+}
+
+type GetDatasetIntegrationOutput struct {
+	Arn       string    `json:"arn" xml:"Arn"`
+	CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+	RoleArn   string    `json:"roleArn" xml:"RoleArn"`
+	UpdatedAt time.Time `json:"updatedAt" xml:"UpdatedAt"`
 }
 
 type GetS3TableIntegrationInput struct {
@@ -290,6 +331,16 @@ type ListCentralizationRulesForOrganizationInput struct {
 
 type ListCentralizationRulesForOrganizationOutput struct {
 	CentralizationRuleSummaries CentralizationRuleSummaries `json:"centralizationRuleSummaries" xml:"CentralizationRuleSummaries"`
+	NextToken                   string                      `json:"nextToken" xml:"NextToken"`
+}
+
+type ListDatasetIntegrationsInput struct {
+	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken  string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListDatasetIntegrationsOutput struct {
+	DatasetIntegrationSummaries DatasetIntegrationSummaries `json:"datasetIntegrationSummaries" xml:"DatasetIntegrationSummaries"`
 	NextToken                   string                      `json:"nextToken" xml:"NextToken"`
 }
 
@@ -439,6 +490,9 @@ type Source struct {
 	Type string `json:"type" xml:"Type"`
 }
 
+type SourceContextGraphConfiguration struct {
+}
+
 type SourceLogsConfiguration struct {
 	DataSourceSelectionCriteria string `json:"dataSourceSelectionCriteria" xml:"DataSourceSelectionCriteria"`
 	EncryptedLogGroupStrategy   string `json:"encryptedLogGroupStrategy" xml:"EncryptedLogGroupStrategy"`
@@ -576,6 +630,18 @@ type UpdateCentralizationRuleForOrganizationOutput struct {
 	RuleArn string `json:"ruleArn" xml:"RuleArn"`
 }
 
+type UpdateDatasetIntegrationInput struct {
+	Arn     string `json:"arn" xml:"Arn"`
+	RoleArn string `json:"roleArn" xml:"RoleArn"`
+}
+
+type UpdateDatasetIntegrationOutput struct {
+	Arn       string    `json:"arn" xml:"Arn"`
+	CreatedAt time.Time `json:"createdAt" xml:"CreatedAt"`
+	RoleArn   string    `json:"roleArn" xml:"RoleArn"`
+	UpdatedAt time.Time `json:"updatedAt" xml:"UpdatedAt"`
+}
+
 type UpdateTelemetryPipelineInput struct {
 	Configuration      *TelemetryPipelineConfiguration `json:"configuration" xml:"Configuration"`
 	PipelineIdentifier string                          `json:"pipelineIdentifier" xml:"PipelineIdentifier"`
@@ -637,6 +703,8 @@ type CentralizationRuleSummaries []*CentralizationRuleSummary
 type Conditions []*Condition
 
 type DataSources []*DataSource
+
+type DatasetIntegrationSummaries []*DatasetIntegrationSummary
 
 type FieldSelectors []*AdvancedFieldSelector
 

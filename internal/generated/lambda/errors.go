@@ -4,6 +4,23 @@ package lambda
 
 import "fmt"
 
+// AliasLimitExceededException is returned with HTTP status 400.
+type AliasLimitExceededException struct {
+	Message string
+}
+
+func (e *AliasLimitExceededException) Error() string {
+	return fmt.Sprintf("AliasLimitExceededException: %s", e.Message)
+}
+
+func (e *AliasLimitExceededException) ErrorCode() string {
+	return "AliasLimitExceededException"
+}
+
+func (e *AliasLimitExceededException) HTTPStatus() int {
+	return 400
+}
+
 // CallbackTimeoutException is returned with HTTP status 400.
 type CallbackTimeoutException struct {
 	Message string
@@ -36,6 +53,57 @@ func (e *CapacityProviderLimitExceededException) ErrorCode() string {
 
 func (e *CapacityProviderLimitExceededException) HTTPStatus() int {
 	return 400
+}
+
+// CodeArtifactUserDeletedException is returned with HTTP status 409.
+type CodeArtifactUserDeletedException struct {
+	Message string
+}
+
+func (e *CodeArtifactUserDeletedException) Error() string {
+	return fmt.Sprintf("CodeArtifactUserDeletedException: %s", e.Message)
+}
+
+func (e *CodeArtifactUserDeletedException) ErrorCode() string {
+	return "CodeArtifactUserDeletedException"
+}
+
+func (e *CodeArtifactUserDeletedException) HTTPStatus() int {
+	return 409
+}
+
+// CodeArtifactUserFailedException is returned with HTTP status 409.
+type CodeArtifactUserFailedException struct {
+	Message string
+}
+
+func (e *CodeArtifactUserFailedException) Error() string {
+	return fmt.Sprintf("CodeArtifactUserFailedException: %s", e.Message)
+}
+
+func (e *CodeArtifactUserFailedException) ErrorCode() string {
+	return "CodeArtifactUserFailedException"
+}
+
+func (e *CodeArtifactUserFailedException) HTTPStatus() int {
+	return 409
+}
+
+// CodeArtifactUserPendingException is returned with HTTP status 409.
+type CodeArtifactUserPendingException struct {
+	Message string
+}
+
+func (e *CodeArtifactUserPendingException) Error() string {
+	return fmt.Sprintf("CodeArtifactUserPendingException: %s", e.Message)
+}
+
+func (e *CodeArtifactUserPendingException) ErrorCode() string {
+	return "CodeArtifactUserPendingException"
+}
+
+func (e *CodeArtifactUserPendingException) HTTPStatus() int {
+	return 409
 }
 
 // CodeSigningConfigNotFoundException is returned with HTTP status 404.
@@ -239,6 +307,23 @@ func (e *ENILimitReachedException) ErrorCode() string {
 }
 
 func (e *ENILimitReachedException) HTTPStatus() int {
+	return 502
+}
+
+// ENINotReadyException is returned with HTTP status 502.
+type ENINotReadyException struct {
+	Message string
+}
+
+func (e *ENINotReadyException) Error() string {
+	return fmt.Sprintf("ENINotReadyException: %s", e.Message)
+}
+
+func (e *ENINotReadyException) ErrorCode() string {
+	return "ENINotReadyException"
+}
+
+func (e *ENINotReadyException) HTTPStatus() int {
 	return 502
 }
 
@@ -446,6 +531,23 @@ func (e *KMSNotFoundException) HTTPStatus() int {
 	return 502
 }
 
+// ModeNotSupportedException is returned with HTTP status 400.
+type ModeNotSupportedException struct {
+	Message string
+}
+
+func (e *ModeNotSupportedException) Error() string {
+	return fmt.Sprintf("ModeNotSupportedException: %s", e.Message)
+}
+
+func (e *ModeNotSupportedException) ErrorCode() string {
+	return "ModeNotSupportedException"
+}
+
+func (e *ModeNotSupportedException) HTTPStatus() int {
+	return 400
+}
+
 // NoPublishedVersionException is returned with HTTP status 400.
 type NoPublishedVersionException struct {
 	Message string
@@ -512,6 +614,23 @@ func (e *ProvisionedConcurrencyConfigNotFoundException) ErrorCode() string {
 
 func (e *ProvisionedConcurrencyConfigNotFoundException) HTTPStatus() int {
 	return 404
+}
+
+// PublicPolicyException is returned with HTTP status 400.
+type PublicPolicyException struct {
+	Message string
+}
+
+func (e *PublicPolicyException) Error() string {
+	return fmt.Sprintf("PublicPolicyException: %s", e.Message)
+}
+
+func (e *PublicPolicyException) ErrorCode() string {
+	return "PublicPolicyException"
+}
+
+func (e *PublicPolicyException) HTTPStatus() int {
+	return 400
 }
 
 // RecursiveInvocationException is returned with HTTP status 400.
@@ -616,6 +735,57 @@ func (e *ResourceNotReadyException) HTTPStatus() int {
 	return 502
 }
 
+// S3FilesMountConnectivityException is returned with HTTP status 408.
+type S3FilesMountConnectivityException struct {
+	Message string
+}
+
+func (e *S3FilesMountConnectivityException) Error() string {
+	return fmt.Sprintf("S3FilesMountConnectivityException: %s", e.Message)
+}
+
+func (e *S3FilesMountConnectivityException) ErrorCode() string {
+	return "S3FilesMountConnectivityException"
+}
+
+func (e *S3FilesMountConnectivityException) HTTPStatus() int {
+	return 408
+}
+
+// S3FilesMountFailureException is returned with HTTP status 403.
+type S3FilesMountFailureException struct {
+	Message string
+}
+
+func (e *S3FilesMountFailureException) Error() string {
+	return fmt.Sprintf("S3FilesMountFailureException: %s", e.Message)
+}
+
+func (e *S3FilesMountFailureException) ErrorCode() string {
+	return "S3FilesMountFailureException"
+}
+
+func (e *S3FilesMountFailureException) HTTPStatus() int {
+	return 403
+}
+
+// S3FilesMountTimeoutException is returned with HTTP status 408.
+type S3FilesMountTimeoutException struct {
+	Message string
+}
+
+func (e *S3FilesMountTimeoutException) Error() string {
+	return fmt.Sprintf("S3FilesMountTimeoutException: %s", e.Message)
+}
+
+func (e *S3FilesMountTimeoutException) ErrorCode() string {
+	return "S3FilesMountTimeoutException"
+}
+
+func (e *S3FilesMountTimeoutException) HTTPStatus() int {
+	return 408
+}
+
 // SerializedRequestEntityTooLargeException is returned with HTTP status 413.
 type SerializedRequestEntityTooLargeException struct {
 	Message string
@@ -650,6 +820,23 @@ func (e *ServiceException) HTTPStatus() int {
 	return 500
 }
 
+// ServiceQuotaExceededException is returned with HTTP status 402.
+type ServiceQuotaExceededException struct {
+	Message string
+}
+
+func (e *ServiceQuotaExceededException) Error() string {
+	return fmt.Sprintf("ServiceQuotaExceededException: %s", e.Message)
+}
+
+func (e *ServiceQuotaExceededException) ErrorCode() string {
+	return "ServiceQuotaExceededException"
+}
+
+func (e *ServiceQuotaExceededException) HTTPStatus() int {
+	return 402
+}
+
 // SnapStartException is returned with HTTP status 400.
 type SnapStartException struct {
 	Message string
@@ -681,6 +868,23 @@ func (e *SnapStartNotReadyException) ErrorCode() string {
 }
 
 func (e *SnapStartNotReadyException) HTTPStatus() int {
+	return 409
+}
+
+// SnapStartRegenerationFailureException is returned with HTTP status 409.
+type SnapStartRegenerationFailureException struct {
+	Message string
+}
+
+func (e *SnapStartRegenerationFailureException) Error() string {
+	return fmt.Sprintf("SnapStartRegenerationFailureException: %s", e.Message)
+}
+
+func (e *SnapStartRegenerationFailureException) ErrorCode() string {
+	return "SnapStartRegenerationFailureException"
+}
+
+func (e *SnapStartRegenerationFailureException) HTTPStatus() int {
 	return 409
 }
 

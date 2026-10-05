@@ -45,18 +45,20 @@ type AssociateProtectConfigurationResult struct {
 }
 
 type CarrierLookupRequest struct {
-	PhoneNumber string `json:"phoneNumber" xml:"PhoneNumber"`
+	EnableCleansing bool   `json:"enableCleansing" xml:"EnableCleansing"`
+	PhoneNumber     string `json:"phoneNumber" xml:"PhoneNumber"`
 }
 
 type CarrierLookupResult struct {
-	Carrier            string `json:"carrier" xml:"Carrier"`
-	Country            string `json:"country" xml:"Country"`
-	DialingCountryCode string `json:"dialingCountryCode" xml:"DialingCountryCode"`
-	E164PhoneNumber    string `json:"e164PhoneNumber" xml:"E164PhoneNumber"`
-	IsoCountryCode     string `json:"isoCountryCode" xml:"IsoCountryCode"`
-	MCC                string `json:"mCC" xml:"MCC"`
-	MNC                string `json:"mNC" xml:"MNC"`
-	PhoneNumberType    string `json:"phoneNumberType" xml:"PhoneNumberType"`
+	Carrier             string `json:"carrier" xml:"Carrier"`
+	Country             string `json:"country" xml:"Country"`
+	DialingCountryCode  string `json:"dialingCountryCode" xml:"DialingCountryCode"`
+	E164PhoneNumber     string `json:"e164PhoneNumber" xml:"E164PhoneNumber"`
+	IsoCountryCode      string `json:"isoCountryCode" xml:"IsoCountryCode"`
+	MCC                 string `json:"mCC" xml:"MCC"`
+	MNC                 string `json:"mNC" xml:"MNC"`
+	OriginalPhoneNumber string `json:"originalPhoneNumber" xml:"OriginalPhoneNumber"`
+	PhoneNumberType     string `json:"phoneNumberType" xml:"PhoneNumberType"`
 }
 
 type CarrierStatusInformation struct {

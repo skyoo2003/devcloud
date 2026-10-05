@@ -27,6 +27,10 @@ func (b *BaseProvider) CreateEnvironment(ctx context.Context, input *CreateEnvir
 	return nil, fmt.Errorf("CreateEnvironment: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateExperimentDefinition(ctx context.Context, input *CreateExperimentDefinitionRequest) (*ExperimentDefinition, error) {
+	return nil, fmt.Errorf("CreateExperimentDefinition: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateExtension(ctx context.Context, input *CreateExtensionRequest) (*Extension, error) {
 	return nil, fmt.Errorf("CreateExtension: %w", ErrNotImplemented)
 }
@@ -53,6 +57,10 @@ func (b *BaseProvider) DeleteDeploymentStrategy(ctx context.Context, input *Dele
 
 func (b *BaseProvider) DeleteEnvironment(ctx context.Context, input *DeleteEnvironmentRequest) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DeleteEnvironment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteExperimentDefinition(ctx context.Context, input *DeleteExperimentDefinitionRequest) (*SmithyUnit, error) {
+	return nil, fmt.Errorf("DeleteExperimentDefinition: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteExtension(ctx context.Context, input *DeleteExtensionRequest) (*SmithyUnit, error) {
@@ -95,6 +103,14 @@ func (b *BaseProvider) GetEnvironment(ctx context.Context, input *GetEnvironment
 	return nil, fmt.Errorf("GetEnvironment: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetExperimentDefinition(ctx context.Context, input *GetExperimentDefinitionRequest) (*ExperimentDefinition, error) {
+	return nil, fmt.Errorf("GetExperimentDefinition: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetExperimentRun(ctx context.Context, input *GetExperimentRunRequest) (*ExperimentRun, error) {
+	return nil, fmt.Errorf("GetExperimentRun: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetExtension(ctx context.Context, input *GetExtensionRequest) (*Extension, error) {
 	return nil, fmt.Errorf("GetExtension: %w", ErrNotImplemented)
 }
@@ -127,6 +143,18 @@ func (b *BaseProvider) ListEnvironments(ctx context.Context, input *ListEnvironm
 	return nil, fmt.Errorf("ListEnvironments: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListExperimentDefinitions(ctx context.Context, input *ListExperimentDefinitionsRequest) (*ExperimentDefinitions, error) {
+	return nil, fmt.Errorf("ListExperimentDefinitions: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListExperimentRunEvents(ctx context.Context, input *ListExperimentRunEventsRequest) (*ExperimentRunEvents, error) {
+	return nil, fmt.Errorf("ListExperimentRunEvents: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListExperimentRuns(ctx context.Context, input *ListExperimentRunsRequest) (*ExperimentRuns, error) {
+	return nil, fmt.Errorf("ListExperimentRuns: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListExtensionAssociations(ctx context.Context, input *ListExtensionAssociationsRequest) (*ExtensionAssociations, error) {
 	return nil, fmt.Errorf("ListExtensionAssociations: %w", ErrNotImplemented)
 }
@@ -147,8 +175,16 @@ func (b *BaseProvider) StartDeployment(ctx context.Context, input *StartDeployme
 	return nil, fmt.Errorf("StartDeployment: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) StartExperimentRun(ctx context.Context, input *StartExperimentRunRequest) (*ExperimentRun, error) {
+	return nil, fmt.Errorf("StartExperimentRun: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) StopDeployment(ctx context.Context, input *StopDeploymentRequest) (*Deployment, error) {
 	return nil, fmt.Errorf("StopDeployment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StopExperimentRun(ctx context.Context, input *StopExperimentRunRequest) (*ExperimentRun, error) {
+	return nil, fmt.Errorf("StopExperimentRun: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) TagResource(ctx context.Context, input *TagResourceRequest) (*SmithyUnit, error) {
@@ -177,6 +213,14 @@ func (b *BaseProvider) UpdateDeploymentStrategy(ctx context.Context, input *Upda
 
 func (b *BaseProvider) UpdateEnvironment(ctx context.Context, input *UpdateEnvironmentRequest) (*Environment, error) {
 	return nil, fmt.Errorf("UpdateEnvironment: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateExperimentDefinition(ctx context.Context, input *UpdateExperimentDefinitionRequest) (*ExperimentDefinition, error) {
+	return nil, fmt.Errorf("UpdateExperimentDefinition: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateExperimentRun(ctx context.Context, input *UpdateExperimentRunRequest) (*ExperimentRun, error) {
+	return nil, fmt.Errorf("UpdateExperimentRun: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdateExtension(ctx context.Context, input *UpdateExtensionRequest) (*Extension, error) {

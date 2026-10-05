@@ -39,6 +39,10 @@ func (b *BaseProvider) CreateAssociationBatch(ctx context.Context, input *Create
 	return nil, fmt.Errorf("CreateAssociationBatch: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) CreateCloudConnector(ctx context.Context, input *CreateCloudConnectorRequest) (*CreateCloudConnectorResult, error) {
+	return nil, fmt.Errorf("CreateCloudConnector: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateDocument(ctx context.Context, input *CreateDocumentRequest) (*CreateDocumentResult, error) {
 	return nil, fmt.Errorf("CreateDocument: %w", ErrNotImplemented)
 }
@@ -69,6 +73,10 @@ func (b *BaseProvider) DeleteActivation(ctx context.Context, input *DeleteActiva
 
 func (b *BaseProvider) DeleteAssociation(ctx context.Context, input *DeleteAssociationRequest) (*DeleteAssociationResult, error) {
 	return nil, fmt.Errorf("DeleteAssociation: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteCloudConnector(ctx context.Context, input *DeleteCloudConnectorRequest) (*DeleteCloudConnectorResult, error) {
+	return nil, fmt.Errorf("DeleteCloudConnector: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) DeleteDocument(ctx context.Context, input *DeleteDocumentRequest) (*DeleteDocumentResult, error) {
@@ -275,6 +283,10 @@ func (b *BaseProvider) GetCalendarState(ctx context.Context, input *GetCalendarS
 	return nil, fmt.Errorf("GetCalendarState: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetCloudConnector(ctx context.Context, input *GetCloudConnectorRequest) (*GetCloudConnectorResult, error) {
+	return nil, fmt.Errorf("GetCloudConnector: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetCommandInvocation(ctx context.Context, input *GetCommandInvocationRequest) (*GetCommandInvocationResult, error) {
 	return nil, fmt.Errorf("GetCommandInvocation: %w", ErrNotImplemented)
 }
@@ -381,6 +393,10 @@ func (b *BaseProvider) ListAssociationVersions(ctx context.Context, input *ListA
 
 func (b *BaseProvider) ListAssociations(ctx context.Context, input *ListAssociationsRequest) (*ListAssociationsResult, error) {
 	return nil, fmt.Errorf("ListAssociations: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListCloudConnectors(ctx context.Context, input *ListCloudConnectorsRequest) (*ListCloudConnectorsResult, error) {
+	return nil, fmt.Errorf("ListCloudConnectors: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListCommandInvocations(ctx context.Context, input *ListCommandInvocationsRequest) (*ListCommandInvocationsResult, error) {
@@ -547,6 +563,10 @@ func (b *BaseProvider) UpdateAssociationStatus(ctx context.Context, input *Updat
 	return nil, fmt.Errorf("UpdateAssociationStatus: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) UpdateCloudConnector(ctx context.Context, input *UpdateCloudConnectorRequest) (*UpdateCloudConnectorResult, error) {
+	return nil, fmt.Errorf("UpdateCloudConnector: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) UpdateDocument(ctx context.Context, input *UpdateDocumentRequest) (*UpdateDocumentResult, error) {
 	return nil, fmt.Errorf("UpdateDocument: %w", ErrNotImplemented)
 }
@@ -593,4 +613,8 @@ func (b *BaseProvider) UpdateResourceDataSync(ctx context.Context, input *Update
 
 func (b *BaseProvider) UpdateServiceSetting(ctx context.Context, input *UpdateServiceSettingRequest) (*UpdateServiceSettingResult, error) {
 	return nil, fmt.Errorf("UpdateServiceSetting: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ValidateCloudConnector(ctx context.Context, input *ValidateCloudConnectorRequest) (*ValidateCloudConnectorResult, error) {
+	return nil, fmt.Errorf("ValidateCloudConnector: %w", ErrNotImplemented)
 }

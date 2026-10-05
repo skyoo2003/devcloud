@@ -48,16 +48,19 @@ type ApplicationResourceLifecycleDescriptionMessage struct {
 }
 
 type ApplicationVersionDescription struct {
-	ApplicationName        string                  `json:"applicationName" xml:"ApplicationName"`
-	ApplicationVersionArn  string                  `json:"applicationVersionArn" xml:"ApplicationVersionArn"`
-	BuildArn               string                  `json:"buildArn" xml:"BuildArn"`
-	DateCreated            time.Time               `json:"dateCreated" xml:"DateCreated"`
-	DateUpdated            time.Time               `json:"dateUpdated" xml:"DateUpdated"`
-	Description            string                  `json:"description" xml:"Description"`
-	SourceBuildInformation *SourceBuildInformation `json:"sourceBuildInformation" xml:"SourceBuildInformation"`
-	SourceBundle           *S3Location             `json:"sourceBundle" xml:"SourceBundle"`
-	Status                 string                  `json:"status" xml:"Status"`
-	VersionLabel           string                  `json:"versionLabel" xml:"VersionLabel"`
+	ApplicationName         string                   `json:"applicationName" xml:"ApplicationName"`
+	ApplicationVersionArn   string                   `json:"applicationVersionArn" xml:"ApplicationVersionArn"`
+	BuildArn                string                   `json:"buildArn" xml:"BuildArn"`
+	DateCreated             time.Time                `json:"dateCreated" xml:"DateCreated"`
+	DateUpdated             time.Time                `json:"dateUpdated" xml:"DateUpdated"`
+	Description             string                   `json:"description" xml:"Description"`
+	ImageBuildConfiguration *ImageBuildConfiguration `json:"imageBuildConfiguration" xml:"ImageBuildConfiguration"`
+	ImageSource             *ImageSource             `json:"imageSource" xml:"ImageSource"`
+	Process                 bool                     `json:"process" xml:"Process"`
+	SourceBuildInformation  *SourceBuildInformation  `json:"sourceBuildInformation" xml:"SourceBuildInformation"`
+	SourceBundle            *S3Location              `json:"sourceBundle" xml:"SourceBundle"`
+	Status                  string                   `json:"status" xml:"Status"`
+	VersionLabel            string                   `json:"versionLabel" xml:"VersionLabel"`
 }
 
 type ApplicationVersionDescriptionMessage struct {
@@ -128,6 +131,10 @@ type CheckDNSAvailabilityResultMessage struct {
 	FullyQualifiedCNAME string `json:"fullyQualifiedCNAME" xml:"FullyQualifiedCNAME"`
 }
 
+type Cluster struct {
+	ClusterArn string `json:"clusterArn" xml:"ClusterArn"`
+}
+
 type ComposeEnvironmentsMessage struct {
 	ApplicationName string        `json:"applicationName" xml:"ApplicationName"`
 	GroupName       string        `json:"groupName" xml:"GroupName"`
@@ -194,6 +201,7 @@ type CreateApplicationVersionMessage struct {
 	AutoCreateApplication  bool                    `json:"autoCreateApplication" xml:"AutoCreateApplication"`
 	BuildConfiguration     *BuildConfiguration     `json:"buildConfiguration" xml:"BuildConfiguration"`
 	Description            string                  `json:"description" xml:"Description"`
+	ImageConfiguration     *ImageConfiguration     `json:"imageConfiguration" xml:"ImageConfiguration"`
 	Process                bool                    `json:"process" xml:"Process"`
 	SourceBuildInformation *SourceBuildInformation `json:"sourceBuildInformation" xml:"SourceBuildInformation"`
 	SourceBundle           *S3Location             `json:"sourceBundle" xml:"SourceBundle"`
@@ -457,6 +465,7 @@ type EnvironmentLink struct {
 
 type EnvironmentResourceDescription struct {
 	AutoScalingGroups    AutoScalingGroupList    `json:"autoScalingGroups" xml:"AutoScalingGroups"`
+	Cluster              *Cluster                `json:"cluster" xml:"Cluster"`
 	EnvironmentName      string                  `json:"environmentName" xml:"EnvironmentName"`
 	Instances            InstanceList            `json:"instances" xml:"Instances"`
 	LaunchConfigurations LaunchConfigurationList `json:"launchConfigurations" xml:"LaunchConfigurations"`
@@ -495,6 +504,25 @@ type EventDescription struct {
 type EventDescriptionsMessage struct {
 	Events    EventDescriptionList `json:"events" xml:"Events"`
 	NextToken string               `json:"nextToken" xml:"NextToken"`
+}
+
+type ImageBuildConfiguration struct {
+	Architecture         string `json:"architecture" xml:"Architecture"`
+	Buildpack            string `json:"buildpack" xml:"Buildpack"`
+	CodeBuildServiceRole string `json:"codeBuildServiceRole" xml:"CodeBuildServiceRole"`
+	ComputeType          string `json:"computeType" xml:"ComputeType"`
+	DockerfileLocation   string `json:"dockerfileLocation" xml:"DockerfileLocation"`
+	TimeoutInMinutes     int32  `json:"timeoutInMinutes" xml:"TimeoutInMinutes"`
+	Type                 string `json:"type" xml:"Type"`
+}
+
+type ImageConfiguration struct {
+	Build  *ImageBuildConfiguration `json:"build" xml:"Build"`
+	Source *ImageSource             `json:"source" xml:"Source"`
+}
+
+type ImageSource struct {
+	Uri string `json:"uri" xml:"Uri"`
 }
 
 type Instance struct {

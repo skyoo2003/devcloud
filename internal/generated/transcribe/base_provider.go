@@ -171,6 +171,10 @@ func (b *BaseProvider) UpdateCallAnalyticsCategory(ctx context.Context, input *U
 	return nil, fmt.Errorf("UpdateCallAnalyticsCategory: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) UpdateLanguageModel(ctx context.Context, input *UpdateLanguageModelRequest) (*UpdateLanguageModelResponse, error) {
+	return nil, fmt.Errorf("UpdateLanguageModel: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) UpdateMedicalVocabulary(ctx context.Context, input *UpdateMedicalVocabularyRequest) (*UpdateMedicalVocabularyResponse, error) {
 	return nil, fmt.Errorf("UpdateMedicalVocabulary: %w", ErrNotImplemented)
 }

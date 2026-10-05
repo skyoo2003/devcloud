@@ -26,11 +26,13 @@ var OperationRoutes = []OperationRoute{
 	{Method: "GET", Pattern: "/tags/{resourceArn}", Operation: "ListTagsForResource"},
 	{Method: "POST", Pattern: "/ListVectorBuckets", Operation: "ListVectorBuckets"},
 	{Method: "POST", Pattern: "/ListVectors", Operation: "ListVectors"},
+	{Method: "POST", Pattern: "/PutVectorBucketDefaultIndexMode", Operation: "PutVectorBucketDefaultIndexMode"},
 	{Method: "POST", Pattern: "/PutVectorBucketPolicy", Operation: "PutVectorBucketPolicy"},
 	{Method: "POST", Pattern: "/PutVectors", Operation: "PutVectors"},
 	{Method: "POST", Pattern: "/QueryVectors", Operation: "QueryVectors"},
 	{Method: "POST", Pattern: "/tags/{resourceArn}", Operation: "TagResource"},
 	{Method: "DELETE", Pattern: "/tags/{resourceArn}", Operation: "UntagResource"},
+	{Method: "POST", Pattern: "/UpdateIndexMode", Operation: "UpdateIndexMode"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

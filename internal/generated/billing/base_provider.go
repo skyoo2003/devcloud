@@ -55,8 +55,20 @@ func (b *BaseProvider) GetResourcePolicy(ctx context.Context, input *GetResource
 	return nil, fmt.Errorf("GetResourcePolicy: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListBillingViewSegments(ctx context.Context, input *ListBillingViewSegmentsRequest) (*ListBillingViewSegmentsResponse, error) {
+	return nil, fmt.Errorf("ListBillingViewSegments: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListBillingViews(ctx context.Context, input *ListBillingViewsRequest) (*ListBillingViewsResponse, error) {
 	return nil, fmt.Errorf("ListBillingViews: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListBusinessSupportAccountCharges(ctx context.Context, input *ListBusinessSupportAccountChargesRequest) (*ListBusinessSupportAccountChargesResponse, error) {
+	return nil, fmt.Errorf("ListBusinessSupportAccountCharges: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListBusinessSupportSubscriptionHistory(ctx context.Context, input *ListBusinessSupportSubscriptionHistoryRequest) (*ListBusinessSupportSubscriptionHistoryResponse, error) {
+	return nil, fmt.Errorf("ListBusinessSupportSubscriptionHistory: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListEnterpriseSupportLinkedAccountCharges(ctx context.Context, input *ListEnterpriseSupportLinkedAccountChargesRequest) (*ListEnterpriseSupportLinkedAccountChargesResponse, error) {

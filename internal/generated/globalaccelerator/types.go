@@ -398,10 +398,16 @@ type EndpointIdentifier struct {
 	EndpointId                  string `json:"endpointId" xml:"EndpointId"`
 }
 
+type IpAddressDetail struct {
+	IpAddress   string `json:"ipAddress" xml:"IpAddress"`
+	NetworkZone string `json:"networkZone" xml:"NetworkZone"`
+}
+
 type IpSet struct {
-	IpAddressFamily string      `json:"ipAddressFamily" xml:"IpAddressFamily"`
-	IpAddresses     IpAddresses `json:"ipAddresses" xml:"IpAddresses"`
-	IpFamily        string      `json:"ipFamily" xml:"IpFamily"`
+	IpAddressDetails IpAddressDetails `json:"ipAddressDetails" xml:"IpAddressDetails"`
+	IpAddressFamily  string           `json:"ipAddressFamily" xml:"IpAddressFamily"`
+	IpAddresses      IpAddresses      `json:"ipAddresses" xml:"IpAddresses"`
+	IpFamily         string           `json:"ipFamily" xml:"IpFamily"`
 }
 
 type ListAcceleratorsRequest struct {
@@ -767,6 +773,8 @@ type EndpointGroups []*EndpointGroup
 type EndpointIdentifiers []*EndpointIdentifier
 
 type EndpointIds []string
+
+type IpAddressDetails []*IpAddressDetail
 
 type IpAddresses []string
 

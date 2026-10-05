@@ -52,6 +52,8 @@ type CreateProcurementPortalPreferenceRequest struct {
 	Contacts                          Contacts                             `json:"contacts" xml:"Contacts"`
 	EinvoiceDeliveryEnabled           bool                                 `json:"einvoiceDeliveryEnabled" xml:"EinvoiceDeliveryEnabled"`
 	EinvoiceDeliveryPreference        *EinvoiceDeliveryPreference          `json:"einvoiceDeliveryPreference" xml:"EinvoiceDeliveryPreference"`
+	MarketplacePunchOutEnabled        bool                                 `json:"marketplacePunchOutEnabled" xml:"MarketplacePunchOutEnabled"`
+	MarketplacePunchOutPreference     *MarketplacePunchOutPreference       `json:"marketplacePunchOutPreference" xml:"MarketplacePunchOutPreference"`
 	ProcurementPortalInstanceEndpoint string                               `json:"procurementPortalInstanceEndpoint" xml:"ProcurementPortalInstanceEndpoint"`
 	ProcurementPortalName             string                               `json:"procurementPortalName" xml:"ProcurementPortalName"`
 	ProcurementPortalSharedSecret     string                               `json:"procurementPortalSharedSecret" xml:"ProcurementPortalSharedSecret"`
@@ -316,6 +318,10 @@ type ListTagsForResourceResponse struct {
 	ResourceTags ResourceTagList `json:"resourceTags" xml:"ResourceTags"`
 }
 
+type MarketplacePunchOutPreference struct {
+	ApprovalRequestRedirectUrl string `json:"approvalRequestRedirectUrl" xml:"ApprovalRequestRedirectUrl"`
+}
+
 type ProcurementPortal struct {
 	DefaultFeatureConfigurations *FeatureConfigurations `json:"defaultFeatureConfigurations" xml:"DefaultFeatureConfigurations"`
 	PortalDisplayName            string                 `json:"portalDisplayName" xml:"PortalDisplayName"`
@@ -334,6 +340,8 @@ type ProcurementPortalPreference struct {
 	EinvoiceDeliveryPreferenceStatus             string                               `json:"einvoiceDeliveryPreferenceStatus" xml:"EinvoiceDeliveryPreferenceStatus"`
 	EinvoiceDeliveryPreferenceStatusReason       string                               `json:"einvoiceDeliveryPreferenceStatusReason" xml:"EinvoiceDeliveryPreferenceStatusReason"`
 	LastUpdateDate                               time.Time                            `json:"lastUpdateDate" xml:"LastUpdateDate"`
+	MarketplacePunchOutEnabled                   bool                                 `json:"marketplacePunchOutEnabled" xml:"MarketplacePunchOutEnabled"`
+	MarketplacePunchOutPreference                *MarketplacePunchOutPreference       `json:"marketplacePunchOutPreference" xml:"MarketplacePunchOutPreference"`
 	ProcurementPortalInstanceEndpoint            string                               `json:"procurementPortalInstanceEndpoint" xml:"ProcurementPortalInstanceEndpoint"`
 	ProcurementPortalName                        string                               `json:"procurementPortalName" xml:"ProcurementPortalName"`
 	ProcurementPortalPreferenceArn               string                               `json:"procurementPortalPreferenceArn" xml:"ProcurementPortalPreferenceArn"`
@@ -363,6 +371,7 @@ type ProcurementPortalPreferenceSummary struct {
 	EinvoiceDeliveryPreferenceStatus             string                               `json:"einvoiceDeliveryPreferenceStatus" xml:"EinvoiceDeliveryPreferenceStatus"`
 	EinvoiceDeliveryPreferenceStatusReason       string                               `json:"einvoiceDeliveryPreferenceStatusReason" xml:"EinvoiceDeliveryPreferenceStatusReason"`
 	LastUpdateDate                               time.Time                            `json:"lastUpdateDate" xml:"LastUpdateDate"`
+	MarketplacePunchOutEnabled                   bool                                 `json:"marketplacePunchOutEnabled" xml:"MarketplacePunchOutEnabled"`
 	ProcurementPortalName                        string                               `json:"procurementPortalName" xml:"ProcurementPortalName"`
 	ProcurementPortalPreferenceArn               string                               `json:"procurementPortalPreferenceArn" xml:"ProcurementPortalPreferenceArn"`
 	PurchaseOrderRetrievalEnabled                bool                                 `json:"purchaseOrderRetrievalEnabled" xml:"PurchaseOrderRetrievalEnabled"`
@@ -391,6 +400,8 @@ type PutProcurementPortalPreferenceRequest struct {
 	Contacts                          Contacts                             `json:"contacts" xml:"Contacts"`
 	EinvoiceDeliveryEnabled           bool                                 `json:"einvoiceDeliveryEnabled" xml:"EinvoiceDeliveryEnabled"`
 	EinvoiceDeliveryPreference        *EinvoiceDeliveryPreference          `json:"einvoiceDeliveryPreference" xml:"EinvoiceDeliveryPreference"`
+	MarketplacePunchOutEnabled        bool                                 `json:"marketplacePunchOutEnabled" xml:"MarketplacePunchOutEnabled"`
+	MarketplacePunchOutPreference     *MarketplacePunchOutPreference       `json:"marketplacePunchOutPreference" xml:"MarketplacePunchOutPreference"`
 	ProcurementPortalInstanceEndpoint string                               `json:"procurementPortalInstanceEndpoint" xml:"ProcurementPortalInstanceEndpoint"`
 	ProcurementPortalPreferenceArn    string                               `json:"procurementPortalPreferenceArn" xml:"ProcurementPortalPreferenceArn"`
 	ProcurementPortalSharedSecret     string                               `json:"procurementPortalSharedSecret" xml:"ProcurementPortalSharedSecret"`

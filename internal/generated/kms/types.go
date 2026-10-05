@@ -53,14 +53,16 @@ type CreateCustomKeyStoreResponse struct {
 }
 
 type CreateGrantRequest struct {
-	Constraints       *GrantConstraints  `json:"constraints" xml:"Constraints"`
-	DryRun            bool               `json:"dryRun" xml:"DryRun"`
-	GrantTokens       GrantTokenList     `json:"grantTokens" xml:"GrantTokens"`
-	GranteePrincipal  string             `json:"granteePrincipal" xml:"GranteePrincipal"`
-	KeyId             string             `json:"keyId" xml:"KeyId"`
-	Name              string             `json:"name" xml:"Name"`
-	Operations        GrantOperationList `json:"operations" xml:"Operations"`
-	RetiringPrincipal string             `json:"retiringPrincipal" xml:"RetiringPrincipal"`
+	Constraints              *GrantConstraints  `json:"constraints" xml:"Constraints"`
+	DryRun                   bool               `json:"dryRun" xml:"DryRun"`
+	GrantTokens              GrantTokenList     `json:"grantTokens" xml:"GrantTokens"`
+	GranteePrincipal         string             `json:"granteePrincipal" xml:"GranteePrincipal"`
+	GranteeServicePrincipal  string             `json:"granteeServicePrincipal" xml:"GranteeServicePrincipal"`
+	KeyId                    string             `json:"keyId" xml:"KeyId"`
+	Name                     string             `json:"name" xml:"Name"`
+	Operations               GrantOperationList `json:"operations" xml:"Operations"`
+	RetiringPrincipal        string             `json:"retiringPrincipal" xml:"RetiringPrincipal"`
+	RetiringServicePrincipal string             `json:"retiringServicePrincipal" xml:"RetiringServicePrincipal"`
 }
 
 type CreateGrantResponse struct {
@@ -309,6 +311,17 @@ type GenerateRandomResponse struct {
 	Plaintext              []byte `json:"plaintext" xml:"Plaintext"`
 }
 
+type GetKeyLastUsageRequest struct {
+	KeyId string `json:"keyId" xml:"KeyId"`
+}
+
+type GetKeyLastUsageResponse struct {
+	KeyCreationDate   time.Time         `json:"keyCreationDate" xml:"KeyCreationDate"`
+	KeyId             string            `json:"keyId" xml:"KeyId"`
+	KeyLastUsage      *KeyLastUsageData `json:"keyLastUsage" xml:"KeyLastUsage"`
+	TrackingStartDate time.Time         `json:"trackingStartDate" xml:"TrackingStartDate"`
+}
+
 type GetKeyPolicyRequest struct {
 	KeyId      string `json:"keyId" xml:"KeyId"`
 	PolicyName string `json:"policyName" xml:"PolicyName"`
@@ -363,18 +376,21 @@ type GetPublicKeyResponse struct {
 type GrantConstraints struct {
 	EncryptionContextEquals EncryptionContextType `json:"encryptionContextEquals" xml:"EncryptionContextEquals"`
 	EncryptionContextSubset EncryptionContextType `json:"encryptionContextSubset" xml:"EncryptionContextSubset"`
+	SourceArn               string                `json:"sourceArn" xml:"SourceArn"`
 }
 
 type GrantListEntry struct {
-	Constraints       *GrantConstraints  `json:"constraints" xml:"Constraints"`
-	CreationDate      time.Time          `json:"creationDate" xml:"CreationDate"`
-	GrantId           string             `json:"grantId" xml:"GrantId"`
-	GranteePrincipal  string             `json:"granteePrincipal" xml:"GranteePrincipal"`
-	IssuingAccount    string             `json:"issuingAccount" xml:"IssuingAccount"`
-	KeyId             string             `json:"keyId" xml:"KeyId"`
-	Name              string             `json:"name" xml:"Name"`
-	Operations        GrantOperationList `json:"operations" xml:"Operations"`
-	RetiringPrincipal string             `json:"retiringPrincipal" xml:"RetiringPrincipal"`
+	Constraints              *GrantConstraints  `json:"constraints" xml:"Constraints"`
+	CreationDate             time.Time          `json:"creationDate" xml:"CreationDate"`
+	GrantId                  string             `json:"grantId" xml:"GrantId"`
+	GranteePrincipal         string             `json:"granteePrincipal" xml:"GranteePrincipal"`
+	GranteeServicePrincipal  string             `json:"granteeServicePrincipal" xml:"GranteeServicePrincipal"`
+	IssuingAccount           string             `json:"issuingAccount" xml:"IssuingAccount"`
+	KeyId                    string             `json:"keyId" xml:"KeyId"`
+	Name                     string             `json:"name" xml:"Name"`
+	Operations               GrantOperationList `json:"operations" xml:"Operations"`
+	RetiringPrincipal        string             `json:"retiringPrincipal" xml:"RetiringPrincipal"`
+	RetiringServicePrincipal string             `json:"retiringServicePrincipal" xml:"RetiringServicePrincipal"`
 }
 
 type ImportKeyMaterialRequest struct {
@@ -391,6 +407,13 @@ type ImportKeyMaterialRequest struct {
 type ImportKeyMaterialResponse struct {
 	KeyId         string `json:"keyId" xml:"KeyId"`
 	KeyMaterialId string `json:"keyMaterialId" xml:"KeyMaterialId"`
+}
+
+type KeyLastUsageData struct {
+	CloudTrailEventId string    `json:"cloudTrailEventId" xml:"CloudTrailEventId"`
+	KmsRequestId      string    `json:"kmsRequestId" xml:"KmsRequestId"`
+	Operation         string    `json:"operation" xml:"Operation"`
+	Timestamp         time.Time `json:"timestamp" xml:"Timestamp"`
 }
 
 type KeyListEntry struct {
@@ -440,11 +463,12 @@ type ListAliasesResponse struct {
 }
 
 type ListGrantsRequest struct {
-	GrantId          string `json:"grantId" xml:"GrantId"`
-	GranteePrincipal string `json:"granteePrincipal" xml:"GranteePrincipal"`
-	KeyId            string `json:"keyId" xml:"KeyId"`
-	Limit            int32  `json:"limit" xml:"Limit"`
-	Marker           string `json:"marker" xml:"Marker"`
+	GrantId                 string `json:"grantId" xml:"GrantId"`
+	GranteePrincipal        string `json:"granteePrincipal" xml:"GranteePrincipal"`
+	GranteeServicePrincipal string `json:"granteeServicePrincipal" xml:"GranteeServicePrincipal"`
+	KeyId                   string `json:"keyId" xml:"KeyId"`
+	Limit                   int32  `json:"limit" xml:"Limit"`
+	Marker                  string `json:"marker" xml:"Marker"`
 }
 
 type ListGrantsResponse struct {
@@ -502,9 +526,10 @@ type ListResourceTagsResponse struct {
 }
 
 type ListRetirableGrantsRequest struct {
-	Limit             int32  `json:"limit" xml:"Limit"`
-	Marker            string `json:"marker" xml:"Marker"`
-	RetiringPrincipal string `json:"retiringPrincipal" xml:"RetiringPrincipal"`
+	Limit                    int32  `json:"limit" xml:"Limit"`
+	Marker                   string `json:"marker" xml:"Marker"`
+	RetiringPrincipal        string `json:"retiringPrincipal" xml:"RetiringPrincipal"`
+	RetiringServicePrincipal string `json:"retiringServicePrincipal" xml:"RetiringServicePrincipal"`
 }
 
 type MultiRegionConfiguration struct {

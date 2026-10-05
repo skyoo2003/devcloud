@@ -59,6 +59,10 @@ func (b *BaseProvider) DescribeHealthServiceStatusForOrganization(ctx context.Co
 	return nil, fmt.Errorf("DescribeHealthServiceStatusForOrganization: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DescribeServiceLifecycle(ctx context.Context, input *DescribeServiceLifecycleRequest) (*DescribeServiceLifecycleResponse, error) {
+	return nil, fmt.Errorf("DescribeServiceLifecycle: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DisableHealthServiceAccessForOrganization(ctx context.Context, input *SmithyUnit) (*SmithyUnit, error) {
 	return nil, fmt.Errorf("DisableHealthServiceAccessForOrganization: %w", ErrNotImplemented)
 }

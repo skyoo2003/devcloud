@@ -35,6 +35,10 @@ func (b *BaseProvider) AssociatePackages(ctx context.Context, input *AssociatePa
 	return nil, fmt.Errorf("AssociatePackages: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) AttachDataSource(ctx context.Context, input *AttachDataSourceRequest) (*AttachDataSourceResponse, error) {
+	return nil, fmt.Errorf("AttachDataSource: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) AuthorizeVpcEndpointAccess(ctx context.Context, input *AuthorizeVpcEndpointAccessRequest) (*AuthorizeVpcEndpointAccessResponse, error) {
 	return nil, fmt.Errorf("AuthorizeVpcEndpointAccess: %w", ErrNotImplemented)
 }
@@ -111,6 +115,10 @@ func (b *BaseProvider) DeregisterCapability(ctx context.Context, input *Deregist
 	return nil, fmt.Errorf("DeregisterCapability: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DescribeDataSourceAttachment(ctx context.Context, input *DescribeDataSourceAttachmentRequest) (*DescribeDataSourceAttachmentResponse, error) {
+	return nil, fmt.Errorf("DescribeDataSourceAttachment: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DescribeDomain(ctx context.Context, input *DescribeDomainRequest) (*DescribeDomainResponse, error) {
 	return nil, fmt.Errorf("DescribeDomain: %w", ErrNotImplemented)
 }
@@ -175,6 +183,10 @@ func (b *BaseProvider) DescribeVpcEndpoints(ctx context.Context, input *Describe
 	return nil, fmt.Errorf("DescribeVpcEndpoints: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) DetachDataSource(ctx context.Context, input *DetachDataSourceRequest) (*DetachDataSourceResponse, error) {
+	return nil, fmt.Errorf("DetachDataSource: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DissociatePackage(ctx context.Context, input *DissociatePackageRequest) (*DissociatePackageResponse, error) {
 	return nil, fmt.Errorf("DissociatePackage: %w", ErrNotImplemented)
 }
@@ -215,6 +227,10 @@ func (b *BaseProvider) GetIndex(ctx context.Context, input *GetIndexRequest) (*G
 	return nil, fmt.Errorf("GetIndex: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) GetMigration(ctx context.Context, input *GetMigrationRequest) (*GetMigrationResponse, error) {
+	return nil, fmt.Errorf("GetMigration: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) GetPackageVersionHistory(ctx context.Context, input *GetPackageVersionHistoryRequest) (*GetPackageVersionHistoryResponse, error) {
 	return nil, fmt.Errorf("GetPackageVersionHistory: %w", ErrNotImplemented)
 }
@@ -227,8 +243,16 @@ func (b *BaseProvider) GetUpgradeStatus(ctx context.Context, input *GetUpgradeSt
 	return nil, fmt.Errorf("GetUpgradeStatus: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) InsightFeedback(ctx context.Context, input *InsightFeedbackRequest) (*InsightFeedbackResponse, error) {
+	return nil, fmt.Errorf("InsightFeedback: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListApplications(ctx context.Context, input *ListApplicationsRequest) (*ListApplicationsResponse, error) {
 	return nil, fmt.Errorf("ListApplications: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListDataSourceAttachments(ctx context.Context, input *ListDataSourceAttachmentsRequest) (*ListDataSourceAttachmentsResponse, error) {
+	return nil, fmt.Errorf("ListDataSourceAttachments: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListDataSources(ctx context.Context, input *ListDataSourcesRequest) (*ListDataSourcesResponse, error) {
@@ -257,6 +281,10 @@ func (b *BaseProvider) ListInsights(ctx context.Context, input *ListInsightsRequ
 
 func (b *BaseProvider) ListInstanceTypeDetails(ctx context.Context, input *ListInstanceTypeDetailsRequest) (*ListInstanceTypeDetailsResponse, error) {
 	return nil, fmt.Errorf("ListInstanceTypeDetails: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListMigrations(ctx context.Context, input *ListMigrationsRequest) (*ListMigrationsResponse, error) {
+	return nil, fmt.Errorf("ListMigrations: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) ListPackagesForDomain(ctx context.Context, input *ListPackagesForDomainRequest) (*ListPackagesForDomainResponse, error) {
@@ -311,8 +339,16 @@ func (b *BaseProvider) RevokeVpcEndpointAccess(ctx context.Context, input *Revok
 	return nil, fmt.Errorf("RevokeVpcEndpointAccess: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) RollbackServiceSoftwareUpdate(ctx context.Context, input *RollbackServiceSoftwareUpdateRequest) (*RollbackServiceSoftwareUpdateResponse, error) {
+	return nil, fmt.Errorf("RollbackServiceSoftwareUpdate: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) StartDomainMaintenance(ctx context.Context, input *StartDomainMaintenanceRequest) (*StartDomainMaintenanceResponse, error) {
 	return nil, fmt.Errorf("StartDomainMaintenance: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) StartMigration(ctx context.Context, input *StartMigrationRequest) (*StartMigrationResponse, error) {
+	return nil, fmt.Errorf("StartMigration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) StartServiceSoftwareUpdate(ctx context.Context, input *StartServiceSoftwareUpdateRequest) (*StartServiceSoftwareUpdateResponse, error) {

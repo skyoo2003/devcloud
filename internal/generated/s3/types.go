@@ -62,6 +62,36 @@ type AnalyticsS3BucketDestination struct {
 	Prefix          string `json:"prefix" xml:"Prefix"`
 }
 
+type AnnotationEntry struct {
+	AnnotationName    string                `json:"annotationName" xml:"AnnotationName"`
+	ChecksumAlgorithm ChecksumAlgorithmList `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
+	ETag              string                `json:"eTag" xml:"ETag"`
+	LastModified      time.Time             `json:"lastModified" xml:"LastModified"`
+	ReplicationStatus string                `json:"replicationStatus" xml:"ReplicationStatus"`
+	Size              int64                 `json:"size" xml:"Size"`
+}
+
+type AnnotationTableConfiguration struct {
+	ConfigurationState      string                                `json:"configurationState" xml:"ConfigurationState"`
+	EncryptionConfiguration *MetadataTableEncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	Role                    string                                `json:"role" xml:"Role"`
+}
+
+type AnnotationTableConfigurationResult struct {
+	ConfigurationState string        `json:"configurationState" xml:"ConfigurationState"`
+	Error              *ErrorDetails `json:"error" xml:"Error"`
+	Role               string        `json:"role" xml:"Role"`
+	TableArn           string        `json:"tableArn" xml:"TableArn"`
+	TableName          string        `json:"tableName" xml:"TableName"`
+	TableStatus        string        `json:"tableStatus" xml:"TableStatus"`
+}
+
+type AnnotationTableConfigurationUpdates struct {
+	ConfigurationState      string                                `json:"configurationState" xml:"ConfigurationState"`
+	EncryptionConfiguration *MetadataTableEncryptionConfiguration `json:"encryptionConfiguration" xml:"EncryptionConfiguration"`
+	Role                    string                                `json:"role" xml:"Role"`
+}
+
 type BlockedEncryptionTypes struct {
 	EncryptionType EncryptionTypeList `json:"encryptionType" xml:"EncryptionType"`
 }
@@ -121,9 +151,14 @@ type Checksum struct {
 	ChecksumCRC32     string `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C    string `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME string `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5       string `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1      string `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256    string `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512    string `json:"checksumSHA512" xml:"ChecksumSHA512"`
 	ChecksumType      string `json:"checksumType" xml:"ChecksumType"`
+	ChecksumXXHASH128 string `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3   string `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64  string `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 }
 
 type CommonPrefix struct {
@@ -136,9 +171,14 @@ type CompleteMultipartUploadOutput struct {
 	ChecksumCRC32        string `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C       string `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME    string `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5          string `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1         string `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256       string `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512       string `json:"checksumSHA512" xml:"ChecksumSHA512"`
 	ChecksumType         string `json:"checksumType" xml:"ChecksumType"`
+	ChecksumXXHASH128    string `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3      string `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64     string `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 	ETag                 string `json:"eTag" xml:"ETag"`
 	Expiration           string `json:"expiration" xml:"Expiration"`
 	Key                  string `json:"key" xml:"Key"`
@@ -154,9 +194,14 @@ type CompleteMultipartUploadRequest struct {
 	ChecksumCRC32        string                    `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C       string                    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME    string                    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5          string                    `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1         string                    `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256       string                    `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512       string                    `json:"checksumSHA512" xml:"ChecksumSHA512"`
 	ChecksumType         string                    `json:"checksumType" xml:"ChecksumType"`
+	ChecksumXXHASH128    string                    `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3      string                    `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64     string                    `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 	ExpectedBucketOwner  string                    `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
 	IfMatch              string                    `json:"ifMatch" xml:"IfMatch"`
 	IfNoneMatch          string                    `json:"ifNoneMatch" xml:"IfNoneMatch"`
@@ -178,8 +223,13 @@ type CompletedPart struct {
 	ChecksumCRC32     string `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C    string `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME string `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5       string `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1      string `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256    string `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512    string `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumXXHASH128 string `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3   string `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64  string `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 	ETag              string `json:"eTag" xml:"ETag"`
 	PartNumber        int32  `json:"partNumber" xml:"PartNumber"`
 }
@@ -207,58 +257,67 @@ type CopyObjectOutput struct {
 }
 
 type CopyObjectRequest struct {
-	ACL                            string    `json:"aCL" xml:"ACL"`
-	Bucket                         string    `json:"bucket" xml:"Bucket"`
-	BucketKeyEnabled               bool      `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
-	CacheControl                   string    `json:"cacheControl" xml:"CacheControl"`
-	ChecksumAlgorithm              string    `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
-	ContentDisposition             string    `json:"contentDisposition" xml:"ContentDisposition"`
-	ContentEncoding                string    `json:"contentEncoding" xml:"ContentEncoding"`
-	ContentLanguage                string    `json:"contentLanguage" xml:"ContentLanguage"`
-	ContentType                    string    `json:"contentType" xml:"ContentType"`
-	CopySource                     string    `json:"copySource" xml:"CopySource"`
-	CopySourceIfMatch              string    `json:"copySourceIfMatch" xml:"CopySourceIfMatch"`
-	CopySourceIfModifiedSince      time.Time `json:"copySourceIfModifiedSince" xml:"CopySourceIfModifiedSince"`
-	CopySourceIfNoneMatch          string    `json:"copySourceIfNoneMatch" xml:"CopySourceIfNoneMatch"`
-	CopySourceIfUnmodifiedSince    time.Time `json:"copySourceIfUnmodifiedSince" xml:"CopySourceIfUnmodifiedSince"`
-	CopySourceSSECustomerAlgorithm string    `json:"copySourceSSECustomerAlgorithm" xml:"CopySourceSSECustomerAlgorithm"`
-	CopySourceSSECustomerKey       string    `json:"copySourceSSECustomerKey" xml:"CopySourceSSECustomerKey"`
-	CopySourceSSECustomerKeyMD5    string    `json:"copySourceSSECustomerKeyMD5" xml:"CopySourceSSECustomerKeyMD5"`
-	ExpectedBucketOwner            string    `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
-	ExpectedSourceBucketOwner      string    `json:"expectedSourceBucketOwner" xml:"ExpectedSourceBucketOwner"`
-	Expires                        string    `json:"expires" xml:"Expires"`
-	GrantFullControl               string    `json:"grantFullControl" xml:"GrantFullControl"`
-	GrantRead                      string    `json:"grantRead" xml:"GrantRead"`
-	GrantReadACP                   string    `json:"grantReadACP" xml:"GrantReadACP"`
-	GrantWriteACP                  string    `json:"grantWriteACP" xml:"GrantWriteACP"`
-	IfMatch                        string    `json:"ifMatch" xml:"IfMatch"`
-	IfNoneMatch                    string    `json:"ifNoneMatch" xml:"IfNoneMatch"`
-	Key                            string    `json:"key" xml:"Key"`
-	Metadata                       Metadata  `json:"metadata" xml:"Metadata"`
-	MetadataDirective              string    `json:"metadataDirective" xml:"MetadataDirective"`
-	ObjectLockLegalHoldStatus      string    `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
-	ObjectLockMode                 string    `json:"objectLockMode" xml:"ObjectLockMode"`
-	ObjectLockRetainUntilDate      time.Time `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
-	RequestPayer                   string    `json:"requestPayer" xml:"RequestPayer"`
-	SSECustomerAlgorithm           string    `json:"sSECustomerAlgorithm" xml:"SSECustomerAlgorithm"`
-	SSECustomerKey                 string    `json:"sSECustomerKey" xml:"SSECustomerKey"`
-	SSECustomerKeyMD5              string    `json:"sSECustomerKeyMD5" xml:"SSECustomerKeyMD5"`
-	SSEKMSEncryptionContext        string    `json:"sSEKMSEncryptionContext" xml:"SSEKMSEncryptionContext"`
-	SSEKMSKeyId                    string    `json:"sSEKMSKeyId" xml:"SSEKMSKeyId"`
-	ServerSideEncryption           string    `json:"serverSideEncryption" xml:"ServerSideEncryption"`
-	StorageClass                   string    `json:"storageClass" xml:"StorageClass"`
-	Tagging                        string    `json:"tagging" xml:"Tagging"`
-	TaggingDirective               string    `json:"taggingDirective" xml:"TaggingDirective"`
-	WebsiteRedirectLocation        string    `json:"websiteRedirectLocation" xml:"WebsiteRedirectLocation"`
+	ACL                              string    `json:"aCL" xml:"ACL"`
+	AnnotationDirective              string    `json:"annotationDirective" xml:"AnnotationDirective"`
+	Bucket                           string    `json:"bucket" xml:"Bucket"`
+	BucketKeyEnabled                 bool      `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
+	CacheControl                     string    `json:"cacheControl" xml:"CacheControl"`
+	ChecksumAlgorithm                string    `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
+	ContentDisposition               string    `json:"contentDisposition" xml:"ContentDisposition"`
+	ContentEncoding                  string    `json:"contentEncoding" xml:"ContentEncoding"`
+	ContentLanguage                  string    `json:"contentLanguage" xml:"ContentLanguage"`
+	ContentType                      string    `json:"contentType" xml:"ContentType"`
+	CopySource                       string    `json:"copySource" xml:"CopySource"`
+	CopySourceIfMatch                string    `json:"copySourceIfMatch" xml:"CopySourceIfMatch"`
+	CopySourceIfModifiedSince        time.Time `json:"copySourceIfModifiedSince" xml:"CopySourceIfModifiedSince"`
+	CopySourceIfNoneMatch            string    `json:"copySourceIfNoneMatch" xml:"CopySourceIfNoneMatch"`
+	CopySourceIfUnmodifiedSince      time.Time `json:"copySourceIfUnmodifiedSince" xml:"CopySourceIfUnmodifiedSince"`
+	CopySourceSSECustomerAlgorithm   string    `json:"copySourceSSECustomerAlgorithm" xml:"CopySourceSSECustomerAlgorithm"`
+	CopySourceSSECustomerKey         string    `json:"copySourceSSECustomerKey" xml:"CopySourceSSECustomerKey"`
+	CopySourceSSECustomerKeyMD5      string    `json:"copySourceSSECustomerKeyMD5" xml:"CopySourceSSECustomerKeyMD5"`
+	ExpectedBucketOwner              string    `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+	ExpectedSourceBucketOwner        string    `json:"expectedSourceBucketOwner" xml:"ExpectedSourceBucketOwner"`
+	Expires                          string    `json:"expires" xml:"Expires"`
+	GrantFullControl                 string    `json:"grantFullControl" xml:"GrantFullControl"`
+	GrantRead                        string    `json:"grantRead" xml:"GrantRead"`
+	GrantReadACP                     string    `json:"grantReadACP" xml:"GrantReadACP"`
+	GrantWriteACP                    string    `json:"grantWriteACP" xml:"GrantWriteACP"`
+	IfMatch                          string    `json:"ifMatch" xml:"IfMatch"`
+	IfNoneMatch                      string    `json:"ifNoneMatch" xml:"IfNoneMatch"`
+	Key                              string    `json:"key" xml:"Key"`
+	Metadata                         Metadata  `json:"metadata" xml:"Metadata"`
+	MetadataDirective                string    `json:"metadataDirective" xml:"MetadataDirective"`
+	ObjectLockEventHold              string    `json:"objectLockEventHold" xml:"ObjectLockEventHold"`
+	ObjectLockEventHoldDurationDays  int32     `json:"objectLockEventHoldDurationDays" xml:"ObjectLockEventHoldDurationDays"`
+	ObjectLockEventHoldDurationYears int32     `json:"objectLockEventHoldDurationYears" xml:"ObjectLockEventHoldDurationYears"`
+	ObjectLockLegalHoldStatus        string    `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
+	ObjectLockMode                   string    `json:"objectLockMode" xml:"ObjectLockMode"`
+	ObjectLockRetainUntilDate        time.Time `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
+	RequestPayer                     string    `json:"requestPayer" xml:"RequestPayer"`
+	SSECustomerAlgorithm             string    `json:"sSECustomerAlgorithm" xml:"SSECustomerAlgorithm"`
+	SSECustomerKey                   string    `json:"sSECustomerKey" xml:"SSECustomerKey"`
+	SSECustomerKeyMD5                string    `json:"sSECustomerKeyMD5" xml:"SSECustomerKeyMD5"`
+	SSEKMSEncryptionContext          string    `json:"sSEKMSEncryptionContext" xml:"SSEKMSEncryptionContext"`
+	SSEKMSKeyId                      string    `json:"sSEKMSKeyId" xml:"SSEKMSKeyId"`
+	ServerSideEncryption             string    `json:"serverSideEncryption" xml:"ServerSideEncryption"`
+	StorageClass                     string    `json:"storageClass" xml:"StorageClass"`
+	Tagging                          string    `json:"tagging" xml:"Tagging"`
+	TaggingDirective                 string    `json:"taggingDirective" xml:"TaggingDirective"`
+	WebsiteRedirectLocation          string    `json:"websiteRedirectLocation" xml:"WebsiteRedirectLocation"`
 }
 
 type CopyObjectResult struct {
 	ChecksumCRC32     string    `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C    string    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME string    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5       string    `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1      string    `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256    string    `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512    string    `json:"checksumSHA512" xml:"ChecksumSHA512"`
 	ChecksumType      string    `json:"checksumType" xml:"ChecksumType"`
+	ChecksumXXHASH128 string    `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3   string    `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64  string    `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 	ETag              string    `json:"eTag" xml:"ETag"`
 	LastModified      time.Time `json:"lastModified" xml:"LastModified"`
 }
@@ -267,8 +326,13 @@ type CopyPartResult struct {
 	ChecksumCRC32     string    `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C    string    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME string    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5       string    `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1      string    `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256    string    `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512    string    `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumXXHASH128 string    `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3   string    `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64  string    `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 	ETag              string    `json:"eTag" xml:"ETag"`
 	LastModified      time.Time `json:"lastModified" xml:"LastModified"`
 }
@@ -333,37 +397,40 @@ type CreateMultipartUploadOutput struct {
 }
 
 type CreateMultipartUploadRequest struct {
-	ACL                       string    `json:"aCL" xml:"ACL"`
-	Bucket                    string    `json:"bucket" xml:"Bucket"`
-	BucketKeyEnabled          bool      `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
-	CacheControl              string    `json:"cacheControl" xml:"CacheControl"`
-	ChecksumAlgorithm         string    `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
-	ChecksumType              string    `json:"checksumType" xml:"ChecksumType"`
-	ContentDisposition        string    `json:"contentDisposition" xml:"ContentDisposition"`
-	ContentEncoding           string    `json:"contentEncoding" xml:"ContentEncoding"`
-	ContentLanguage           string    `json:"contentLanguage" xml:"ContentLanguage"`
-	ContentType               string    `json:"contentType" xml:"ContentType"`
-	ExpectedBucketOwner       string    `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
-	Expires                   string    `json:"expires" xml:"Expires"`
-	GrantFullControl          string    `json:"grantFullControl" xml:"GrantFullControl"`
-	GrantRead                 string    `json:"grantRead" xml:"GrantRead"`
-	GrantReadACP              string    `json:"grantReadACP" xml:"GrantReadACP"`
-	GrantWriteACP             string    `json:"grantWriteACP" xml:"GrantWriteACP"`
-	Key                       string    `json:"key" xml:"Key"`
-	Metadata                  Metadata  `json:"metadata" xml:"Metadata"`
-	ObjectLockLegalHoldStatus string    `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
-	ObjectLockMode            string    `json:"objectLockMode" xml:"ObjectLockMode"`
-	ObjectLockRetainUntilDate time.Time `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
-	RequestPayer              string    `json:"requestPayer" xml:"RequestPayer"`
-	SSECustomerAlgorithm      string    `json:"sSECustomerAlgorithm" xml:"SSECustomerAlgorithm"`
-	SSECustomerKey            string    `json:"sSECustomerKey" xml:"SSECustomerKey"`
-	SSECustomerKeyMD5         string    `json:"sSECustomerKeyMD5" xml:"SSECustomerKeyMD5"`
-	SSEKMSEncryptionContext   string    `json:"sSEKMSEncryptionContext" xml:"SSEKMSEncryptionContext"`
-	SSEKMSKeyId               string    `json:"sSEKMSKeyId" xml:"SSEKMSKeyId"`
-	ServerSideEncryption      string    `json:"serverSideEncryption" xml:"ServerSideEncryption"`
-	StorageClass              string    `json:"storageClass" xml:"StorageClass"`
-	Tagging                   string    `json:"tagging" xml:"Tagging"`
-	WebsiteRedirectLocation   string    `json:"websiteRedirectLocation" xml:"WebsiteRedirectLocation"`
+	ACL                              string    `json:"aCL" xml:"ACL"`
+	Bucket                           string    `json:"bucket" xml:"Bucket"`
+	BucketKeyEnabled                 bool      `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
+	CacheControl                     string    `json:"cacheControl" xml:"CacheControl"`
+	ChecksumAlgorithm                string    `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
+	ChecksumType                     string    `json:"checksumType" xml:"ChecksumType"`
+	ContentDisposition               string    `json:"contentDisposition" xml:"ContentDisposition"`
+	ContentEncoding                  string    `json:"contentEncoding" xml:"ContentEncoding"`
+	ContentLanguage                  string    `json:"contentLanguage" xml:"ContentLanguage"`
+	ContentType                      string    `json:"contentType" xml:"ContentType"`
+	ExpectedBucketOwner              string    `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+	Expires                          string    `json:"expires" xml:"Expires"`
+	GrantFullControl                 string    `json:"grantFullControl" xml:"GrantFullControl"`
+	GrantRead                        string    `json:"grantRead" xml:"GrantRead"`
+	GrantReadACP                     string    `json:"grantReadACP" xml:"GrantReadACP"`
+	GrantWriteACP                    string    `json:"grantWriteACP" xml:"GrantWriteACP"`
+	Key                              string    `json:"key" xml:"Key"`
+	Metadata                         Metadata  `json:"metadata" xml:"Metadata"`
+	ObjectLockEventHold              string    `json:"objectLockEventHold" xml:"ObjectLockEventHold"`
+	ObjectLockEventHoldDurationDays  int32     `json:"objectLockEventHoldDurationDays" xml:"ObjectLockEventHoldDurationDays"`
+	ObjectLockEventHoldDurationYears int32     `json:"objectLockEventHoldDurationYears" xml:"ObjectLockEventHoldDurationYears"`
+	ObjectLockLegalHoldStatus        string    `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
+	ObjectLockMode                   string    `json:"objectLockMode" xml:"ObjectLockMode"`
+	ObjectLockRetainUntilDate        time.Time `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
+	RequestPayer                     string    `json:"requestPayer" xml:"RequestPayer"`
+	SSECustomerAlgorithm             string    `json:"sSECustomerAlgorithm" xml:"SSECustomerAlgorithm"`
+	SSECustomerKey                   string    `json:"sSECustomerKey" xml:"SSECustomerKey"`
+	SSECustomerKeyMD5                string    `json:"sSECustomerKeyMD5" xml:"SSECustomerKeyMD5"`
+	SSEKMSEncryptionContext          string    `json:"sSEKMSEncryptionContext" xml:"SSEKMSEncryptionContext"`
+	SSEKMSKeyId                      string    `json:"sSEKMSKeyId" xml:"SSEKMSKeyId"`
+	ServerSideEncryption             string    `json:"serverSideEncryption" xml:"ServerSideEncryption"`
+	StorageClass                     string    `json:"storageClass" xml:"StorageClass"`
+	Tagging                          string    `json:"tagging" xml:"Tagging"`
+	WebsiteRedirectLocation          string    `json:"websiteRedirectLocation" xml:"WebsiteRedirectLocation"`
 }
 
 type CreateSessionOutput struct {
@@ -384,9 +451,10 @@ type CreateSessionRequest struct {
 }
 
 type DefaultRetention struct {
-	Days  int32  `json:"days" xml:"Days"`
-	Mode  string `json:"mode" xml:"Mode"`
-	Years int32  `json:"years" xml:"Years"`
+	Days             int32              `json:"days" xml:"Days"`
+	DefaultEventHold *EventHoldDuration `json:"defaultEventHold" xml:"DefaultEventHold"`
+	Mode             string             `json:"mode" xml:"Mode"`
+	Years            int32              `json:"years" xml:"Years"`
 }
 
 type Delete struct {
@@ -483,6 +551,21 @@ type DeleteMarkerEntry struct {
 
 type DeleteMarkerReplication struct {
 	Status string `json:"status" xml:"Status"`
+}
+
+type DeleteObjectAnnotationOutput struct {
+	ObjectVersionId string `json:"objectVersionId" xml:"ObjectVersionId"`
+	RequestCharged  string `json:"requestCharged" xml:"RequestCharged"`
+}
+
+type DeleteObjectAnnotationRequest struct {
+	AnnotationName      string `json:"annotationName" xml:"AnnotationName"`
+	Bucket              string `json:"bucket" xml:"Bucket"`
+	ExpectedBucketOwner string `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+	Key                 string `json:"key" xml:"Key"`
+	ObjectIfMatch       string `json:"objectIfMatch" xml:"ObjectIfMatch"`
+	RequestPayer        string `json:"requestPayer" xml:"RequestPayer"`
+	VersionId           string `json:"versionId" xml:"VersionId"`
 }
 
 type DeleteObjectOutput struct {
@@ -589,6 +672,11 @@ type ErrorDocument struct {
 }
 
 type EventBridgeConfiguration struct {
+}
+
+type EventHoldDuration struct {
+	Days  int32 `json:"days" xml:"Days"`
+	Years int32 `json:"years" xml:"Years"`
 }
 
 type ExistingObjectReplication struct {
@@ -839,6 +927,38 @@ type GetObjectAclRequest struct {
 	VersionId           string `json:"versionId" xml:"VersionId"`
 }
 
+type GetObjectAnnotationOutput struct {
+	AnnotationPayload    []byte    `json:"annotationPayload" xml:"AnnotationPayload"`
+	ChecksumCRC32        string    `json:"checksumCRC32" xml:"ChecksumCRC32"`
+	ChecksumCRC32C       string    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
+	ChecksumCRC64NVME    string    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5          string    `json:"checksumMD5" xml:"ChecksumMD5"`
+	ChecksumSHA1         string    `json:"checksumSHA1" xml:"ChecksumSHA1"`
+	ChecksumSHA256       string    `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512       string    `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumType         string    `json:"checksumType" xml:"ChecksumType"`
+	ChecksumXXHASH128    string    `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3      string    `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64     string    `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
+	ContentLength        int64     `json:"contentLength" xml:"ContentLength"`
+	ETag                 string    `json:"eTag" xml:"ETag"`
+	LastModified         time.Time `json:"lastModified" xml:"LastModified"`
+	ObjectVersionId      string    `json:"objectVersionId" xml:"ObjectVersionId"`
+	ReplicationStatus    string    `json:"replicationStatus" xml:"ReplicationStatus"`
+	RequestCharged       string    `json:"requestCharged" xml:"RequestCharged"`
+	ServerSideEncryption string    `json:"serverSideEncryption" xml:"ServerSideEncryption"`
+}
+
+type GetObjectAnnotationRequest struct {
+	AnnotationName      string `json:"annotationName" xml:"AnnotationName"`
+	Bucket              string `json:"bucket" xml:"Bucket"`
+	ChecksumMode        string `json:"checksumMode" xml:"ChecksumMode"`
+	ExpectedBucketOwner string `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+	Key                 string `json:"key" xml:"Key"`
+	RequestPayer        string `json:"requestPayer" xml:"RequestPayer"`
+	VersionId           string `json:"versionId" xml:"VersionId"`
+}
+
 type GetObjectAttributesOutput struct {
 	Checksum       *Checksum                 `json:"checksum" xml:"Checksum"`
 	DeleteMarker   bool                      `json:"deleteMarker" xml:"DeleteMarker"`
@@ -896,44 +1016,52 @@ type GetObjectLockConfigurationRequest struct {
 }
 
 type GetObjectOutput struct {
-	AcceptRanges              string    `json:"acceptRanges" xml:"AcceptRanges"`
-	Body                      []byte    `json:"body" xml:"Body"`
-	BucketKeyEnabled          bool      `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
-	CacheControl              string    `json:"cacheControl" xml:"CacheControl"`
-	ChecksumCRC32             string    `json:"checksumCRC32" xml:"ChecksumCRC32"`
-	ChecksumCRC32C            string    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
-	ChecksumCRC64NVME         string    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
-	ChecksumSHA1              string    `json:"checksumSHA1" xml:"ChecksumSHA1"`
-	ChecksumSHA256            string    `json:"checksumSHA256" xml:"ChecksumSHA256"`
-	ChecksumType              string    `json:"checksumType" xml:"ChecksumType"`
-	ContentDisposition        string    `json:"contentDisposition" xml:"ContentDisposition"`
-	ContentEncoding           string    `json:"contentEncoding" xml:"ContentEncoding"`
-	ContentLanguage           string    `json:"contentLanguage" xml:"ContentLanguage"`
-	ContentLength             int64     `json:"contentLength" xml:"ContentLength"`
-	ContentRange              string    `json:"contentRange" xml:"ContentRange"`
-	ContentType               string    `json:"contentType" xml:"ContentType"`
-	DeleteMarker              bool      `json:"deleteMarker" xml:"DeleteMarker"`
-	ETag                      string    `json:"eTag" xml:"ETag"`
-	Expiration                string    `json:"expiration" xml:"Expiration"`
-	Expires                   string    `json:"expires" xml:"Expires"`
-	LastModified              time.Time `json:"lastModified" xml:"LastModified"`
-	Metadata                  Metadata  `json:"metadata" xml:"Metadata"`
-	MissingMeta               int32     `json:"missingMeta" xml:"MissingMeta"`
-	ObjectLockLegalHoldStatus string    `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
-	ObjectLockMode            string    `json:"objectLockMode" xml:"ObjectLockMode"`
-	ObjectLockRetainUntilDate time.Time `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
-	PartsCount                int32     `json:"partsCount" xml:"PartsCount"`
-	ReplicationStatus         string    `json:"replicationStatus" xml:"ReplicationStatus"`
-	RequestCharged            string    `json:"requestCharged" xml:"RequestCharged"`
-	Restore                   string    `json:"restore" xml:"Restore"`
-	SSECustomerAlgorithm      string    `json:"sSECustomerAlgorithm" xml:"SSECustomerAlgorithm"`
-	SSECustomerKeyMD5         string    `json:"sSECustomerKeyMD5" xml:"SSECustomerKeyMD5"`
-	SSEKMSKeyId               string    `json:"sSEKMSKeyId" xml:"SSEKMSKeyId"`
-	ServerSideEncryption      string    `json:"serverSideEncryption" xml:"ServerSideEncryption"`
-	StorageClass              string    `json:"storageClass" xml:"StorageClass"`
-	TagCount                  int32     `json:"tagCount" xml:"TagCount"`
-	VersionId                 string    `json:"versionId" xml:"VersionId"`
-	WebsiteRedirectLocation   string    `json:"websiteRedirectLocation" xml:"WebsiteRedirectLocation"`
+	AcceptRanges                     string    `json:"acceptRanges" xml:"AcceptRanges"`
+	Body                             []byte    `json:"body" xml:"Body"`
+	BucketKeyEnabled                 bool      `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
+	CacheControl                     string    `json:"cacheControl" xml:"CacheControl"`
+	ChecksumCRC32                    string    `json:"checksumCRC32" xml:"ChecksumCRC32"`
+	ChecksumCRC32C                   string    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
+	ChecksumCRC64NVME                string    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5                      string    `json:"checksumMD5" xml:"ChecksumMD5"`
+	ChecksumSHA1                     string    `json:"checksumSHA1" xml:"ChecksumSHA1"`
+	ChecksumSHA256                   string    `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512                   string    `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumType                     string    `json:"checksumType" xml:"ChecksumType"`
+	ChecksumXXHASH128                string    `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3                  string    `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64                 string    `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
+	ContentDisposition               string    `json:"contentDisposition" xml:"ContentDisposition"`
+	ContentEncoding                  string    `json:"contentEncoding" xml:"ContentEncoding"`
+	ContentLanguage                  string    `json:"contentLanguage" xml:"ContentLanguage"`
+	ContentLength                    int64     `json:"contentLength" xml:"ContentLength"`
+	ContentRange                     string    `json:"contentRange" xml:"ContentRange"`
+	ContentType                      string    `json:"contentType" xml:"ContentType"`
+	DeleteMarker                     bool      `json:"deleteMarker" xml:"DeleteMarker"`
+	ETag                             string    `json:"eTag" xml:"ETag"`
+	Expiration                       string    `json:"expiration" xml:"Expiration"`
+	Expires                          string    `json:"expires" xml:"Expires"`
+	LastModified                     time.Time `json:"lastModified" xml:"LastModified"`
+	Metadata                         Metadata  `json:"metadata" xml:"Metadata"`
+	MissingMeta                      int32     `json:"missingMeta" xml:"MissingMeta"`
+	ObjectLockEventHold              string    `json:"objectLockEventHold" xml:"ObjectLockEventHold"`
+	ObjectLockEventHoldDurationDays  int32     `json:"objectLockEventHoldDurationDays" xml:"ObjectLockEventHoldDurationDays"`
+	ObjectLockEventHoldDurationYears int32     `json:"objectLockEventHoldDurationYears" xml:"ObjectLockEventHoldDurationYears"`
+	ObjectLockLegalHoldStatus        string    `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
+	ObjectLockMode                   string    `json:"objectLockMode" xml:"ObjectLockMode"`
+	ObjectLockRetainUntilDate        time.Time `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
+	PartsCount                       int32     `json:"partsCount" xml:"PartsCount"`
+	ReplicationStatus                string    `json:"replicationStatus" xml:"ReplicationStatus"`
+	RequestCharged                   string    `json:"requestCharged" xml:"RequestCharged"`
+	Restore                          string    `json:"restore" xml:"Restore"`
+	SSECustomerAlgorithm             string    `json:"sSECustomerAlgorithm" xml:"SSECustomerAlgorithm"`
+	SSECustomerKeyMD5                string    `json:"sSECustomerKeyMD5" xml:"SSECustomerKeyMD5"`
+	SSEKMSKeyId                      string    `json:"sSEKMSKeyId" xml:"SSEKMSKeyId"`
+	ServerSideEncryption             string    `json:"serverSideEncryption" xml:"ServerSideEncryption"`
+	StorageClass                     string    `json:"storageClass" xml:"StorageClass"`
+	TagCount                         int32     `json:"tagCount" xml:"TagCount"`
+	VersionId                        string    `json:"versionId" xml:"VersionId"`
+	WebsiteRedirectLocation          string    `json:"websiteRedirectLocation" xml:"WebsiteRedirectLocation"`
 }
 
 type GetObjectRequest struct {
@@ -1037,44 +1165,52 @@ type HeadBucketRequest struct {
 }
 
 type HeadObjectOutput struct {
-	AcceptRanges              string    `json:"acceptRanges" xml:"AcceptRanges"`
-	ArchiveStatus             string    `json:"archiveStatus" xml:"ArchiveStatus"`
-	BucketKeyEnabled          bool      `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
-	CacheControl              string    `json:"cacheControl" xml:"CacheControl"`
-	ChecksumCRC32             string    `json:"checksumCRC32" xml:"ChecksumCRC32"`
-	ChecksumCRC32C            string    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
-	ChecksumCRC64NVME         string    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
-	ChecksumSHA1              string    `json:"checksumSHA1" xml:"ChecksumSHA1"`
-	ChecksumSHA256            string    `json:"checksumSHA256" xml:"ChecksumSHA256"`
-	ChecksumType              string    `json:"checksumType" xml:"ChecksumType"`
-	ContentDisposition        string    `json:"contentDisposition" xml:"ContentDisposition"`
-	ContentEncoding           string    `json:"contentEncoding" xml:"ContentEncoding"`
-	ContentLanguage           string    `json:"contentLanguage" xml:"ContentLanguage"`
-	ContentLength             int64     `json:"contentLength" xml:"ContentLength"`
-	ContentRange              string    `json:"contentRange" xml:"ContentRange"`
-	ContentType               string    `json:"contentType" xml:"ContentType"`
-	DeleteMarker              bool      `json:"deleteMarker" xml:"DeleteMarker"`
-	ETag                      string    `json:"eTag" xml:"ETag"`
-	Expiration                string    `json:"expiration" xml:"Expiration"`
-	Expires                   string    `json:"expires" xml:"Expires"`
-	LastModified              time.Time `json:"lastModified" xml:"LastModified"`
-	Metadata                  Metadata  `json:"metadata" xml:"Metadata"`
-	MissingMeta               int32     `json:"missingMeta" xml:"MissingMeta"`
-	ObjectLockLegalHoldStatus string    `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
-	ObjectLockMode            string    `json:"objectLockMode" xml:"ObjectLockMode"`
-	ObjectLockRetainUntilDate time.Time `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
-	PartsCount                int32     `json:"partsCount" xml:"PartsCount"`
-	ReplicationStatus         string    `json:"replicationStatus" xml:"ReplicationStatus"`
-	RequestCharged            string    `json:"requestCharged" xml:"RequestCharged"`
-	Restore                   string    `json:"restore" xml:"Restore"`
-	SSECustomerAlgorithm      string    `json:"sSECustomerAlgorithm" xml:"SSECustomerAlgorithm"`
-	SSECustomerKeyMD5         string    `json:"sSECustomerKeyMD5" xml:"SSECustomerKeyMD5"`
-	SSEKMSKeyId               string    `json:"sSEKMSKeyId" xml:"SSEKMSKeyId"`
-	ServerSideEncryption      string    `json:"serverSideEncryption" xml:"ServerSideEncryption"`
-	StorageClass              string    `json:"storageClass" xml:"StorageClass"`
-	TagCount                  int32     `json:"tagCount" xml:"TagCount"`
-	VersionId                 string    `json:"versionId" xml:"VersionId"`
-	WebsiteRedirectLocation   string    `json:"websiteRedirectLocation" xml:"WebsiteRedirectLocation"`
+	AcceptRanges                     string    `json:"acceptRanges" xml:"AcceptRanges"`
+	ArchiveStatus                    string    `json:"archiveStatus" xml:"ArchiveStatus"`
+	BucketKeyEnabled                 bool      `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
+	CacheControl                     string    `json:"cacheControl" xml:"CacheControl"`
+	ChecksumCRC32                    string    `json:"checksumCRC32" xml:"ChecksumCRC32"`
+	ChecksumCRC32C                   string    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
+	ChecksumCRC64NVME                string    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5                      string    `json:"checksumMD5" xml:"ChecksumMD5"`
+	ChecksumSHA1                     string    `json:"checksumSHA1" xml:"ChecksumSHA1"`
+	ChecksumSHA256                   string    `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512                   string    `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumType                     string    `json:"checksumType" xml:"ChecksumType"`
+	ChecksumXXHASH128                string    `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3                  string    `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64                 string    `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
+	ContentDisposition               string    `json:"contentDisposition" xml:"ContentDisposition"`
+	ContentEncoding                  string    `json:"contentEncoding" xml:"ContentEncoding"`
+	ContentLanguage                  string    `json:"contentLanguage" xml:"ContentLanguage"`
+	ContentLength                    int64     `json:"contentLength" xml:"ContentLength"`
+	ContentRange                     string    `json:"contentRange" xml:"ContentRange"`
+	ContentType                      string    `json:"contentType" xml:"ContentType"`
+	DeleteMarker                     bool      `json:"deleteMarker" xml:"DeleteMarker"`
+	ETag                             string    `json:"eTag" xml:"ETag"`
+	Expiration                       string    `json:"expiration" xml:"Expiration"`
+	Expires                          string    `json:"expires" xml:"Expires"`
+	LastModified                     time.Time `json:"lastModified" xml:"LastModified"`
+	Metadata                         Metadata  `json:"metadata" xml:"Metadata"`
+	MissingMeta                      int32     `json:"missingMeta" xml:"MissingMeta"`
+	ObjectLockEventHold              string    `json:"objectLockEventHold" xml:"ObjectLockEventHold"`
+	ObjectLockEventHoldDurationDays  int32     `json:"objectLockEventHoldDurationDays" xml:"ObjectLockEventHoldDurationDays"`
+	ObjectLockEventHoldDurationYears int32     `json:"objectLockEventHoldDurationYears" xml:"ObjectLockEventHoldDurationYears"`
+	ObjectLockLegalHoldStatus        string    `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
+	ObjectLockMode                   string    `json:"objectLockMode" xml:"ObjectLockMode"`
+	ObjectLockRetainUntilDate        time.Time `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
+	PartsCount                       int32     `json:"partsCount" xml:"PartsCount"`
+	ReplicationStatus                string    `json:"replicationStatus" xml:"ReplicationStatus"`
+	RequestCharged                   string    `json:"requestCharged" xml:"RequestCharged"`
+	Restore                          string    `json:"restore" xml:"Restore"`
+	SSECustomerAlgorithm             string    `json:"sSECustomerAlgorithm" xml:"SSECustomerAlgorithm"`
+	SSECustomerKeyMD5                string    `json:"sSECustomerKeyMD5" xml:"SSECustomerKeyMD5"`
+	SSEKMSKeyId                      string    `json:"sSEKMSKeyId" xml:"SSEKMSKeyId"`
+	ServerSideEncryption             string    `json:"serverSideEncryption" xml:"ServerSideEncryption"`
+	StorageClass                     string    `json:"storageClass" xml:"StorageClass"`
+	TagCount                         int32     `json:"tagCount" xml:"TagCount"`
+	VersionId                        string    `json:"versionId" xml:"VersionId"`
+	WebsiteRedirectLocation          string    `json:"websiteRedirectLocation" xml:"WebsiteRedirectLocation"`
 }
 
 type HeadObjectRequest struct {
@@ -1357,6 +1493,30 @@ type ListMultipartUploadsRequest struct {
 	UploadIdMarker      string `json:"uploadIdMarker" xml:"UploadIdMarker"`
 }
 
+type ListObjectAnnotationsOutput struct {
+	AnnotationCount       int32          `json:"annotationCount" xml:"AnnotationCount"`
+	AnnotationPrefix      string         `json:"annotationPrefix" xml:"AnnotationPrefix"`
+	Annotations           AnnotationList `json:"annotations" xml:"Annotations"`
+	Bucket                string         `json:"bucket" xml:"Bucket"`
+	ContinuationToken     string         `json:"continuationToken" xml:"ContinuationToken"`
+	Key                   string         `json:"key" xml:"Key"`
+	MaxAnnotationResults  int32          `json:"maxAnnotationResults" xml:"MaxAnnotationResults"`
+	NextContinuationToken string         `json:"nextContinuationToken" xml:"NextContinuationToken"`
+	ObjectVersionId       string         `json:"objectVersionId" xml:"ObjectVersionId"`
+	RequestCharged        string         `json:"requestCharged" xml:"RequestCharged"`
+}
+
+type ListObjectAnnotationsRequest struct {
+	AnnotationPrefix     string `json:"annotationPrefix" xml:"AnnotationPrefix"`
+	Bucket               string `json:"bucket" xml:"Bucket"`
+	ContinuationToken    string `json:"continuationToken" xml:"ContinuationToken"`
+	ExpectedBucketOwner  string `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+	Key                  string `json:"key" xml:"Key"`
+	MaxAnnotationResults int32  `json:"maxAnnotationResults" xml:"MaxAnnotationResults"`
+	RequestPayer         string `json:"requestPayer" xml:"RequestPayer"`
+	VersionId            string `json:"versionId" xml:"VersionId"`
+}
+
 type ListObjectVersionsOutput struct {
 	CommonPrefixes      CommonPrefixList  `json:"commonPrefixes" xml:"CommonPrefixes"`
 	DeleteMarkers       DeleteMarkers     `json:"deleteMarkers" xml:"DeleteMarkers"`
@@ -1488,14 +1648,16 @@ type LoggingEnabled struct {
 }
 
 type MetadataConfiguration struct {
-	InventoryTableConfiguration *InventoryTableConfiguration `json:"inventoryTableConfiguration" xml:"InventoryTableConfiguration"`
-	JournalTableConfiguration   *JournalTableConfiguration   `json:"journalTableConfiguration" xml:"JournalTableConfiguration"`
+	AnnotationTableConfiguration *AnnotationTableConfiguration `json:"annotationTableConfiguration" xml:"AnnotationTableConfiguration"`
+	InventoryTableConfiguration  *InventoryTableConfiguration  `json:"inventoryTableConfiguration" xml:"InventoryTableConfiguration"`
+	JournalTableConfiguration    *JournalTableConfiguration    `json:"journalTableConfiguration" xml:"JournalTableConfiguration"`
 }
 
 type MetadataConfigurationResult struct {
-	DestinationResult                 *DestinationResult                 `json:"destinationResult" xml:"DestinationResult"`
-	InventoryTableConfigurationResult *InventoryTableConfigurationResult `json:"inventoryTableConfigurationResult" xml:"InventoryTableConfigurationResult"`
-	JournalTableConfigurationResult   *JournalTableConfigurationResult   `json:"journalTableConfigurationResult" xml:"JournalTableConfigurationResult"`
+	AnnotationTableConfigurationResult *AnnotationTableConfigurationResult `json:"annotationTableConfigurationResult" xml:"AnnotationTableConfigurationResult"`
+	DestinationResult                  *DestinationResult                  `json:"destinationResult" xml:"DestinationResult"`
+	InventoryTableConfigurationResult  *InventoryTableConfigurationResult  `json:"inventoryTableConfigurationResult" xml:"InventoryTableConfigurationResult"`
+	JournalTableConfigurationResult    *JournalTableConfigurationResult    `json:"journalTableConfigurationResult" xml:"JournalTableConfigurationResult"`
 }
 
 type MetadataEntry struct {
@@ -1595,8 +1757,10 @@ type ObjectLockLegalHold struct {
 }
 
 type ObjectLockRetention struct {
-	Mode            string    `json:"mode" xml:"Mode"`
-	RetainUntilDate time.Time `json:"retainUntilDate" xml:"RetainUntilDate"`
+	EventHold         string             `json:"eventHold" xml:"EventHold"`
+	EventHoldDuration *EventHoldDuration `json:"eventHoldDuration" xml:"EventHoldDuration"`
+	Mode              string             `json:"mode" xml:"Mode"`
+	RetainUntilDate   time.Time          `json:"retainUntilDate" xml:"RetainUntilDate"`
 }
 
 type ObjectLockRule struct {
@@ -1607,8 +1771,13 @@ type ObjectPart struct {
 	ChecksumCRC32     string `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C    string `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME string `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5       string `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1      string `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256    string `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512    string `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumXXHASH128 string `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3   string `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64  string `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 	PartNumber        int32  `json:"partNumber" xml:"PartNumber"`
 	Size              int64  `json:"size" xml:"Size"`
 }
@@ -1656,8 +1825,13 @@ type Part struct {
 	ChecksumCRC32     string    `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C    string    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME string    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5       string    `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1      string    `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256    string    `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512    string    `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumXXHASH128 string    `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3   string    `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64  string    `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 	ETag              string    `json:"eTag" xml:"ETag"`
 	LastModified      time.Time `json:"lastModified" xml:"LastModified"`
 	PartNumber        int32     `json:"partNumber" xml:"PartNumber"`
@@ -1869,6 +2043,49 @@ type PutObjectAclRequest struct {
 	VersionId           string               `json:"versionId" xml:"VersionId"`
 }
 
+type PutObjectAnnotationOutput struct {
+	AnnotationName       string `json:"annotationName" xml:"AnnotationName"`
+	ChecksumCRC32        string `json:"checksumCRC32" xml:"ChecksumCRC32"`
+	ChecksumCRC32C       string `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
+	ChecksumCRC64NVME    string `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5          string `json:"checksumMD5" xml:"ChecksumMD5"`
+	ChecksumSHA1         string `json:"checksumSHA1" xml:"ChecksumSHA1"`
+	ChecksumSHA256       string `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512       string `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumType         string `json:"checksumType" xml:"ChecksumType"`
+	ChecksumXXHASH128    string `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3      string `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64     string `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
+	ETag                 string `json:"eTag" xml:"ETag"`
+	Key                  string `json:"key" xml:"Key"`
+	ObjectVersionId      string `json:"objectVersionId" xml:"ObjectVersionId"`
+	RequestCharged       string `json:"requestCharged" xml:"RequestCharged"`
+	ServerSideEncryption string `json:"serverSideEncryption" xml:"ServerSideEncryption"`
+}
+
+type PutObjectAnnotationRequest struct {
+	AnnotationName      string `json:"annotationName" xml:"AnnotationName"`
+	AnnotationPayload   []byte `json:"annotationPayload" xml:"AnnotationPayload"`
+	Bucket              string `json:"bucket" xml:"Bucket"`
+	ChecksumAlgorithm   string `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
+	ChecksumCRC32       string `json:"checksumCRC32" xml:"ChecksumCRC32"`
+	ChecksumCRC32C      string `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
+	ChecksumCRC64NVME   string `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5         string `json:"checksumMD5" xml:"ChecksumMD5"`
+	ChecksumSHA1        string `json:"checksumSHA1" xml:"ChecksumSHA1"`
+	ChecksumSHA256      string `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512      string `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumXXHASH128   string `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3     string `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64    string `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
+	ContentMD5          string `json:"contentMD5" xml:"ContentMD5"`
+	ExpectedBucketOwner string `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+	Key                 string `json:"key" xml:"Key"`
+	ObjectIfMatch       string `json:"objectIfMatch" xml:"ObjectIfMatch"`
+	RequestPayer        string `json:"requestPayer" xml:"RequestPayer"`
+	VersionId           string `json:"versionId" xml:"VersionId"`
+}
+
 type PutObjectLegalHoldOutput struct {
 	RequestCharged string `json:"requestCharged" xml:"RequestCharged"`
 }
@@ -1903,9 +2120,14 @@ type PutObjectOutput struct {
 	ChecksumCRC32           string `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C          string `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME       string `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5             string `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1            string `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256          string `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512          string `json:"checksumSHA512" xml:"ChecksumSHA512"`
 	ChecksumType            string `json:"checksumType" xml:"ChecksumType"`
+	ChecksumXXHASH128       string `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3         string `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64        string `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 	ETag                    string `json:"eTag" xml:"ETag"`
 	Expiration              string `json:"expiration" xml:"Expiration"`
 	RequestCharged          string `json:"requestCharged" xml:"RequestCharged"`
@@ -1919,47 +2141,55 @@ type PutObjectOutput struct {
 }
 
 type PutObjectRequest struct {
-	ACL                       string    `json:"aCL" xml:"ACL"`
-	Body                      []byte    `json:"body" xml:"Body"`
-	Bucket                    string    `json:"bucket" xml:"Bucket"`
-	BucketKeyEnabled          bool      `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
-	CacheControl              string    `json:"cacheControl" xml:"CacheControl"`
-	ChecksumAlgorithm         string    `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
-	ChecksumCRC32             string    `json:"checksumCRC32" xml:"ChecksumCRC32"`
-	ChecksumCRC32C            string    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
-	ChecksumCRC64NVME         string    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
-	ChecksumSHA1              string    `json:"checksumSHA1" xml:"ChecksumSHA1"`
-	ChecksumSHA256            string    `json:"checksumSHA256" xml:"ChecksumSHA256"`
-	ContentDisposition        string    `json:"contentDisposition" xml:"ContentDisposition"`
-	ContentEncoding           string    `json:"contentEncoding" xml:"ContentEncoding"`
-	ContentLanguage           string    `json:"contentLanguage" xml:"ContentLanguage"`
-	ContentLength             int64     `json:"contentLength" xml:"ContentLength"`
-	ContentMD5                string    `json:"contentMD5" xml:"ContentMD5"`
-	ContentType               string    `json:"contentType" xml:"ContentType"`
-	ExpectedBucketOwner       string    `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
-	Expires                   string    `json:"expires" xml:"Expires"`
-	GrantFullControl          string    `json:"grantFullControl" xml:"GrantFullControl"`
-	GrantRead                 string    `json:"grantRead" xml:"GrantRead"`
-	GrantReadACP              string    `json:"grantReadACP" xml:"GrantReadACP"`
-	GrantWriteACP             string    `json:"grantWriteACP" xml:"GrantWriteACP"`
-	IfMatch                   string    `json:"ifMatch" xml:"IfMatch"`
-	IfNoneMatch               string    `json:"ifNoneMatch" xml:"IfNoneMatch"`
-	Key                       string    `json:"key" xml:"Key"`
-	Metadata                  Metadata  `json:"metadata" xml:"Metadata"`
-	ObjectLockLegalHoldStatus string    `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
-	ObjectLockMode            string    `json:"objectLockMode" xml:"ObjectLockMode"`
-	ObjectLockRetainUntilDate time.Time `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
-	RequestPayer              string    `json:"requestPayer" xml:"RequestPayer"`
-	SSECustomerAlgorithm      string    `json:"sSECustomerAlgorithm" xml:"SSECustomerAlgorithm"`
-	SSECustomerKey            string    `json:"sSECustomerKey" xml:"SSECustomerKey"`
-	SSECustomerKeyMD5         string    `json:"sSECustomerKeyMD5" xml:"SSECustomerKeyMD5"`
-	SSEKMSEncryptionContext   string    `json:"sSEKMSEncryptionContext" xml:"SSEKMSEncryptionContext"`
-	SSEKMSKeyId               string    `json:"sSEKMSKeyId" xml:"SSEKMSKeyId"`
-	ServerSideEncryption      string    `json:"serverSideEncryption" xml:"ServerSideEncryption"`
-	StorageClass              string    `json:"storageClass" xml:"StorageClass"`
-	Tagging                   string    `json:"tagging" xml:"Tagging"`
-	WebsiteRedirectLocation   string    `json:"websiteRedirectLocation" xml:"WebsiteRedirectLocation"`
-	WriteOffsetBytes          int64     `json:"writeOffsetBytes" xml:"WriteOffsetBytes"`
+	ACL                              string    `json:"aCL" xml:"ACL"`
+	Body                             []byte    `json:"body" xml:"Body"`
+	Bucket                           string    `json:"bucket" xml:"Bucket"`
+	BucketKeyEnabled                 bool      `json:"bucketKeyEnabled" xml:"BucketKeyEnabled"`
+	CacheControl                     string    `json:"cacheControl" xml:"CacheControl"`
+	ChecksumAlgorithm                string    `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
+	ChecksumCRC32                    string    `json:"checksumCRC32" xml:"ChecksumCRC32"`
+	ChecksumCRC32C                   string    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
+	ChecksumCRC64NVME                string    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5                      string    `json:"checksumMD5" xml:"ChecksumMD5"`
+	ChecksumSHA1                     string    `json:"checksumSHA1" xml:"ChecksumSHA1"`
+	ChecksumSHA256                   string    `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512                   string    `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumXXHASH128                string    `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3                  string    `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64                 string    `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
+	ContentDisposition               string    `json:"contentDisposition" xml:"ContentDisposition"`
+	ContentEncoding                  string    `json:"contentEncoding" xml:"ContentEncoding"`
+	ContentLanguage                  string    `json:"contentLanguage" xml:"ContentLanguage"`
+	ContentLength                    int64     `json:"contentLength" xml:"ContentLength"`
+	ContentMD5                       string    `json:"contentMD5" xml:"ContentMD5"`
+	ContentType                      string    `json:"contentType" xml:"ContentType"`
+	ExpectedBucketOwner              string    `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+	Expires                          string    `json:"expires" xml:"Expires"`
+	GrantFullControl                 string    `json:"grantFullControl" xml:"GrantFullControl"`
+	GrantRead                        string    `json:"grantRead" xml:"GrantRead"`
+	GrantReadACP                     string    `json:"grantReadACP" xml:"GrantReadACP"`
+	GrantWriteACP                    string    `json:"grantWriteACP" xml:"GrantWriteACP"`
+	IfMatch                          string    `json:"ifMatch" xml:"IfMatch"`
+	IfNoneMatch                      string    `json:"ifNoneMatch" xml:"IfNoneMatch"`
+	Key                              string    `json:"key" xml:"Key"`
+	Metadata                         Metadata  `json:"metadata" xml:"Metadata"`
+	ObjectLockEventHold              string    `json:"objectLockEventHold" xml:"ObjectLockEventHold"`
+	ObjectLockEventHoldDurationDays  int32     `json:"objectLockEventHoldDurationDays" xml:"ObjectLockEventHoldDurationDays"`
+	ObjectLockEventHoldDurationYears int32     `json:"objectLockEventHoldDurationYears" xml:"ObjectLockEventHoldDurationYears"`
+	ObjectLockLegalHoldStatus        string    `json:"objectLockLegalHoldStatus" xml:"ObjectLockLegalHoldStatus"`
+	ObjectLockMode                   string    `json:"objectLockMode" xml:"ObjectLockMode"`
+	ObjectLockRetainUntilDate        time.Time `json:"objectLockRetainUntilDate" xml:"ObjectLockRetainUntilDate"`
+	RequestPayer                     string    `json:"requestPayer" xml:"RequestPayer"`
+	SSECustomerAlgorithm             string    `json:"sSECustomerAlgorithm" xml:"SSECustomerAlgorithm"`
+	SSECustomerKey                   string    `json:"sSECustomerKey" xml:"SSECustomerKey"`
+	SSECustomerKeyMD5                string    `json:"sSECustomerKeyMD5" xml:"SSECustomerKeyMD5"`
+	SSEKMSEncryptionContext          string    `json:"sSEKMSEncryptionContext" xml:"SSEKMSEncryptionContext"`
+	SSEKMSKeyId                      string    `json:"sSEKMSKeyId" xml:"SSEKMSKeyId"`
+	ServerSideEncryption             string    `json:"serverSideEncryption" xml:"ServerSideEncryption"`
+	StorageClass                     string    `json:"storageClass" xml:"StorageClass"`
+	Tagging                          string    `json:"tagging" xml:"Tagging"`
+	WebsiteRedirectLocation          string    `json:"websiteRedirectLocation" xml:"WebsiteRedirectLocation"`
+	WriteOffsetBytes                 int64     `json:"writeOffsetBytes" xml:"WriteOffsetBytes"`
 }
 
 type PutObjectRetentionOutput struct {
@@ -2295,6 +2525,14 @@ type Transition struct {
 	StorageClass string    `json:"storageClass" xml:"StorageClass"`
 }
 
+type UpdateBucketMetadataAnnotationTableConfigurationRequest struct {
+	AnnotationTableConfiguration *AnnotationTableConfigurationUpdates `json:"annotationTableConfiguration" xml:"AnnotationTableConfiguration"`
+	Bucket                       string                               `json:"bucket" xml:"Bucket"`
+	ChecksumAlgorithm            string                               `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
+	ContentMD5                   string                               `json:"contentMD5" xml:"ContentMD5"`
+	ExpectedBucketOwner          string                               `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
+}
+
 type UpdateBucketMetadataInventoryTableConfigurationRequest struct {
 	Bucket                      string                              `json:"bucket" xml:"Bucket"`
 	ChecksumAlgorithm           string                              `json:"checksumAlgorithm" xml:"ChecksumAlgorithm"`
@@ -2364,8 +2602,13 @@ type UploadPartOutput struct {
 	ChecksumCRC32        string `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C       string `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME    string `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5          string `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1         string `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256       string `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512       string `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumXXHASH128    string `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3      string `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64     string `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 	ETag                 string `json:"eTag" xml:"ETag"`
 	RequestCharged       string `json:"requestCharged" xml:"RequestCharged"`
 	SSECustomerAlgorithm string `json:"sSECustomerAlgorithm" xml:"SSECustomerAlgorithm"`
@@ -2381,8 +2624,13 @@ type UploadPartRequest struct {
 	ChecksumCRC32        string `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C       string `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME    string `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5          string `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1         string `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256       string `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512       string `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumXXHASH128    string `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3      string `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64     string `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 	ContentLength        int64  `json:"contentLength" xml:"ContentLength"`
 	ContentMD5           string `json:"contentMD5" xml:"ContentMD5"`
 	ExpectedBucketOwner  string `json:"expectedBucketOwner" xml:"ExpectedBucketOwner"`
@@ -2415,8 +2663,13 @@ type WriteGetObjectResponseRequest struct {
 	ChecksumCRC32             string    `json:"checksumCRC32" xml:"ChecksumCRC32"`
 	ChecksumCRC32C            string    `json:"checksumCRC32C" xml:"ChecksumCRC32C"`
 	ChecksumCRC64NVME         string    `json:"checksumCRC64NVME" xml:"ChecksumCRC64NVME"`
+	ChecksumMD5               string    `json:"checksumMD5" xml:"ChecksumMD5"`
 	ChecksumSHA1              string    `json:"checksumSHA1" xml:"ChecksumSHA1"`
 	ChecksumSHA256            string    `json:"checksumSHA256" xml:"ChecksumSHA256"`
+	ChecksumSHA512            string    `json:"checksumSHA512" xml:"ChecksumSHA512"`
+	ChecksumXXHASH128         string    `json:"checksumXXHASH128" xml:"ChecksumXXHASH128"`
+	ChecksumXXHASH3           string    `json:"checksumXXHASH3" xml:"ChecksumXXHASH3"`
+	ChecksumXXHASH64          string    `json:"checksumXXHASH64" xml:"ChecksumXXHASH64"`
 	ContentDisposition        string    `json:"contentDisposition" xml:"ContentDisposition"`
 	ContentEncoding           string    `json:"contentEncoding" xml:"ContentEncoding"`
 	ContentLanguage           string    `json:"contentLanguage" xml:"ContentLanguage"`
@@ -2458,6 +2711,8 @@ type AllowedMethods []string
 type AllowedOrigins []string
 
 type AnalyticsConfigurationList []*AnalyticsConfiguration
+
+type AnnotationList []*AnnotationEntry
 
 type Buckets []*Bucket
 

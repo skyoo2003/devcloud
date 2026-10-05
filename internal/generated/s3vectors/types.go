@@ -126,6 +126,7 @@ type Index struct {
 	DistanceMetric          string                   `json:"distanceMetric" xml:"distanceMetric"`
 	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
 	IndexArn                string                   `json:"indexArn" xml:"indexArn"`
+	IndexMode               string                   `json:"indexMode" xml:"indexMode"`
 	IndexName               string                   `json:"indexName" xml:"indexName"`
 	MetadataConfiguration   *MetadataConfiguration   `json:"metadataConfiguration" xml:"metadataConfiguration"`
 	VectorBucketName        string                   `json:"vectorBucketName" xml:"vectorBucketName"`
@@ -203,6 +204,15 @@ type PutInputVector struct {
 	Metadata interface{} `json:"metadata" xml:"metadata"`
 }
 
+type PutVectorBucketDefaultIndexModeInput struct {
+	DefaultIndexMode string `json:"defaultIndexMode" xml:"defaultIndexMode"`
+	VectorBucketArn  string `json:"vectorBucketArn" xml:"vectorBucketArn"`
+	VectorBucketName string `json:"vectorBucketName" xml:"vectorBucketName"`
+}
+
+type PutVectorBucketDefaultIndexModeOutput struct {
+}
+
 type PutVectorBucketPolicyInput struct {
 	Policy           string `json:"policy" xml:"policy"`
 	VectorBucketArn  string `json:"vectorBucketArn" xml:"vectorBucketArn"`
@@ -233,6 +243,7 @@ type QueryVectorsInput struct {
 	IndexArn         string      `json:"indexArn" xml:"indexArn"`
 	IndexName        string      `json:"indexName" xml:"indexName"`
 	NextToken        string      `json:"nextToken" xml:"nextToken"`
+	QueryMode        string      `json:"queryMode" xml:"queryMode"`
 	QueryVector      interface{} `json:"queryVector" xml:"queryVector"`
 	ReturnDistance   bool        `json:"returnDistance" xml:"returnDistance"`
 	ReturnMetadata   bool        `json:"returnMetadata" xml:"returnMetadata"`
@@ -262,6 +273,16 @@ type UntagResourceInput struct {
 type UntagResourceOutput struct {
 }
 
+type UpdateIndexModeInput struct {
+	IndexArn         string `json:"indexArn" xml:"indexArn"`
+	IndexMode        string `json:"indexMode" xml:"indexMode"`
+	IndexName        string `json:"indexName" xml:"indexName"`
+	VectorBucketName string `json:"vectorBucketName" xml:"vectorBucketName"`
+}
+
+type UpdateIndexModeOutput struct {
+}
+
 type ValidationExceptionField struct {
 	Message string `json:"message" xml:"message"`
 	Path    string `json:"path" xml:"path"`
@@ -269,6 +290,7 @@ type ValidationExceptionField struct {
 
 type VectorBucket struct {
 	CreationTime            time.Time                `json:"creationTime" xml:"creationTime"`
+	DefaultIndexMode        string                   `json:"defaultIndexMode" xml:"defaultIndexMode"`
 	EncryptionConfiguration *EncryptionConfiguration `json:"encryptionConfiguration" xml:"encryptionConfiguration"`
 	VectorBucketArn         string                   `json:"vectorBucketArn" xml:"vectorBucketArn"`
 	VectorBucketName        string                   `json:"vectorBucketName" xml:"vectorBucketName"`

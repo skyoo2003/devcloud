@@ -67,6 +67,10 @@ func (b *BaseProvider) ListVectors(ctx context.Context, input *ListVectorsInput)
 	return nil, fmt.Errorf("ListVectors: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) PutVectorBucketDefaultIndexMode(ctx context.Context, input *PutVectorBucketDefaultIndexModeInput) (*PutVectorBucketDefaultIndexModeOutput, error) {
+	return nil, fmt.Errorf("PutVectorBucketDefaultIndexMode: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) PutVectorBucketPolicy(ctx context.Context, input *PutVectorBucketPolicyInput) (*PutVectorBucketPolicyOutput, error) {
 	return nil, fmt.Errorf("PutVectorBucketPolicy: %w", ErrNotImplemented)
 }
@@ -85,4 +89,8 @@ func (b *BaseProvider) TagResource(ctx context.Context, input *TagResourceInput)
 
 func (b *BaseProvider) UntagResource(ctx context.Context, input *UntagResourceInput) (*UntagResourceOutput, error) {
 	return nil, fmt.Errorf("UntagResource: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateIndexMode(ctx context.Context, input *UpdateIndexModeInput) (*UpdateIndexModeOutput, error) {
+	return nil, fmt.Errorf("UpdateIndexMode: %w", ErrNotImplemented)
 }

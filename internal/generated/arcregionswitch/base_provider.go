@@ -67,6 +67,10 @@ func (b *BaseProvider) ListRoute53HealthChecksInRegion(ctx context.Context, inpu
 	return nil, fmt.Errorf("ListRoute53HealthChecksInRegion: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListServiceQuotaWarnings(ctx context.Context, input *ListServiceQuotaWarningsRequest) (*ListServiceQuotaWarningsResponse, error) {
+	return nil, fmt.Errorf("ListServiceQuotaWarnings: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListTagsForResource(ctx context.Context, input *ListTagsForResourceRequest) (*ListTagsForResourceResponse, error) {
 	return nil, fmt.Errorf("ListTagsForResource: %w", ErrNotImplemented)
 }

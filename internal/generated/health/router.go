@@ -24,6 +24,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "", Pattern: "", Operation: "DescribeEvents"},
 	{Method: "", Pattern: "", Operation: "DescribeEventsForOrganization"},
 	{Method: "", Pattern: "", Operation: "DescribeHealthServiceStatusForOrganization"},
+	{Method: "", Pattern: "", Operation: "DescribeServiceLifecycle"},
 	{Method: "", Pattern: "", Operation: "DisableHealthServiceAccessForOrganization"},
 	{Method: "", Pattern: "", Operation: "EnableHealthServiceAccessForOrganization"},
 }

@@ -127,6 +127,7 @@ type CreateTrailRequest struct {
 	IsOrganizationTrail        bool     `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
 	KmsKeyId                   string   `json:"kmsKeyId" xml:"KmsKeyId"`
 	Name                       string   `json:"name" xml:"Name"`
+	RecursiveLogging           bool     `json:"recursiveLogging" xml:"RecursiveLogging"`
 	S3BucketName               string   `json:"s3BucketName" xml:"S3BucketName"`
 	S3KeyPrefix                string   `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
 	SnsTopicName               string   `json:"snsTopicName" xml:"SnsTopicName"`
@@ -142,6 +143,7 @@ type CreateTrailResponse struct {
 	KmsKeyId                   string `json:"kmsKeyId" xml:"KmsKeyId"`
 	LogFileValidationEnabled   bool   `json:"logFileValidationEnabled" xml:"LogFileValidationEnabled"`
 	Name                       string `json:"name" xml:"Name"`
+	RecursiveLogging           bool   `json:"recursiveLogging" xml:"RecursiveLogging"`
 	S3BucketName               string `json:"s3BucketName" xml:"S3BucketName"`
 	S3KeyPrefix                string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
 	SnsTopicARN                string `json:"snsTopicARN" xml:"SnsTopicARN"`
@@ -935,6 +937,7 @@ type Trail struct {
 	KmsKeyId                   string `json:"kmsKeyId" xml:"KmsKeyId"`
 	LogFileValidationEnabled   bool   `json:"logFileValidationEnabled" xml:"LogFileValidationEnabled"`
 	Name                       string `json:"name" xml:"Name"`
+	RecursiveLogging           bool   `json:"recursiveLogging" xml:"RecursiveLogging"`
 	S3BucketName               string `json:"s3BucketName" xml:"S3BucketName"`
 	S3KeyPrefix                string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
 	SnsTopicARN                string `json:"snsTopicARN" xml:"SnsTopicARN"`
@@ -1017,6 +1020,7 @@ type UpdateTrailRequest struct {
 	IsOrganizationTrail        bool   `json:"isOrganizationTrail" xml:"IsOrganizationTrail"`
 	KmsKeyId                   string `json:"kmsKeyId" xml:"KmsKeyId"`
 	Name                       string `json:"name" xml:"Name"`
+	RecursiveLogging           bool   `json:"recursiveLogging" xml:"RecursiveLogging"`
 	S3BucketName               string `json:"s3BucketName" xml:"S3BucketName"`
 	S3KeyPrefix                string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
 	SnsTopicName               string `json:"snsTopicName" xml:"SnsTopicName"`
@@ -1031,6 +1035,7 @@ type UpdateTrailResponse struct {
 	KmsKeyId                   string `json:"kmsKeyId" xml:"KmsKeyId"`
 	LogFileValidationEnabled   bool   `json:"logFileValidationEnabled" xml:"LogFileValidationEnabled"`
 	Name                       string `json:"name" xml:"Name"`
+	RecursiveLogging           bool   `json:"recursiveLogging" xml:"RecursiveLogging"`
 	S3BucketName               string `json:"s3BucketName" xml:"S3BucketName"`
 	S3KeyPrefix                string `json:"s3KeyPrefix" xml:"S3KeyPrefix"`
 	SnsTopicARN                string `json:"snsTopicARN" xml:"SnsTopicARN"`

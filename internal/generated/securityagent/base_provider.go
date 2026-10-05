@@ -203,6 +203,10 @@ func (b *BaseProvider) InitiateProviderRegistration(ctx context.Context, input *
 	return nil, fmt.Errorf("InitiateProviderRegistration: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) ListActorMessages(ctx context.Context, input *ListActorMessagesInput) (*ListActorMessagesOutput, error) {
+	return nil, fmt.Errorf("ListActorMessages: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) ListAgentSpaces(ctx context.Context, input *ListAgentSpacesInput) (*ListAgentSpacesOutput, error) {
 	return nil, fmt.Errorf("ListAgentSpaces: %w", ErrNotImplemented)
 }
@@ -349,6 +353,10 @@ func (b *BaseProvider) UpdateFinding(ctx context.Context, input *UpdateFindingIn
 
 func (b *BaseProvider) UpdateIntegratedResources(ctx context.Context, input *UpdateIntegratedResourcesInput) (*UpdateIntegratedResourcesOutput, error) {
 	return nil, fmt.Errorf("UpdateIntegratedResources: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) UpdateIntegration(ctx context.Context, input *UpdateIntegrationInput) (*UpdateIntegrationOutput, error) {
+	return nil, fmt.Errorf("UpdateIntegration: %w", ErrNotImplemented)
 }
 
 func (b *BaseProvider) UpdatePentest(ctx context.Context, input *UpdatePentestInput) (*UpdatePentestOutput, error) {

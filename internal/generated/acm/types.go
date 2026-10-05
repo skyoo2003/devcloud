@@ -7,19 +7,112 @@ import (
 )
 
 type AcmCertificateMetadata struct {
-	CreatedAt          time.Time `json:"createdAt" xml:"CreatedAt"`
-	ExportOption       string    `json:"exportOption" xml:"ExportOption"`
-	Exported           bool      `json:"exported" xml:"Exported"`
-	ImportedAt         time.Time `json:"importedAt" xml:"ImportedAt"`
-	InUse              bool      `json:"inUse" xml:"InUse"`
-	IssuedAt           time.Time `json:"issuedAt" xml:"IssuedAt"`
-	ManagedBy          string    `json:"managedBy" xml:"ManagedBy"`
-	RenewalEligibility string    `json:"renewalEligibility" xml:"RenewalEligibility"`
-	RenewalStatus      string    `json:"renewalStatus" xml:"RenewalStatus"`
-	RevokedAt          time.Time `json:"revokedAt" xml:"RevokedAt"`
-	Status             string    `json:"status" xml:"Status"`
-	Type               string    `json:"type" xml:"Type"`
-	ValidationMethod   string    `json:"validationMethod" xml:"ValidationMethod"`
+	AcmeAccountId            string    `json:"acmeAccountId" xml:"AcmeAccountId"`
+	AcmeEndpointArn          string    `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	CertificateKeyPairOrigin string    `json:"certificateKeyPairOrigin" xml:"CertificateKeyPairOrigin"`
+	CreatedAt                time.Time `json:"createdAt" xml:"CreatedAt"`
+	ExportOption             string    `json:"exportOption" xml:"ExportOption"`
+	Exported                 bool      `json:"exported" xml:"Exported"`
+	ImportedAt               time.Time `json:"importedAt" xml:"ImportedAt"`
+	InUse                    bool      `json:"inUse" xml:"InUse"`
+	IssuedAt                 time.Time `json:"issuedAt" xml:"IssuedAt"`
+	ManagedBy                string    `json:"managedBy" xml:"ManagedBy"`
+	RenewalEligibility       string    `json:"renewalEligibility" xml:"RenewalEligibility"`
+	RenewalStatus            string    `json:"renewalStatus" xml:"RenewalStatus"`
+	RevokedAt                time.Time `json:"revokedAt" xml:"RevokedAt"`
+	Status                   string    `json:"status" xml:"Status"`
+	Type                     string    `json:"type" xml:"Type"`
+	ValidationMethod         string    `json:"validationMethod" xml:"ValidationMethod"`
+}
+
+type AcmeAccount struct {
+	AccountUrl                    string      `json:"accountUrl" xml:"AccountUrl"`
+	AcmeExternalAccountBindingArn string      `json:"acmeExternalAccountBindingArn" xml:"AcmeExternalAccountBindingArn"`
+	Contacts                      ContactList `json:"contacts" xml:"Contacts"`
+	CreatedAt                     time.Time   `json:"createdAt" xml:"CreatedAt"`
+	PublicKeyThumbprint           string      `json:"publicKeyThumbprint" xml:"PublicKeyThumbprint"`
+	Status                        string      `json:"status" xml:"Status"`
+}
+
+type AcmeAccountSummary struct {
+	AccountUrl                    string      `json:"accountUrl" xml:"AccountUrl"`
+	AcmeExternalAccountBindingArn string      `json:"acmeExternalAccountBindingArn" xml:"AcmeExternalAccountBindingArn"`
+	Contacts                      ContactList `json:"contacts" xml:"Contacts"`
+	CreatedAt                     time.Time   `json:"createdAt" xml:"CreatedAt"`
+	PublicKeyThumbprint           string      `json:"publicKeyThumbprint" xml:"PublicKeyThumbprint"`
+	Status                        string      `json:"status" xml:"Status"`
+}
+
+type AcmeDomainValidation struct {
+	AcmeDomainValidationArn string          `json:"acmeDomainValidationArn" xml:"AcmeDomainValidationArn"`
+	AcmeEndpointArn         string          `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	CreatedAt               time.Time       `json:"createdAt" xml:"CreatedAt"`
+	DomainName              string          `json:"domainName" xml:"DomainName"`
+	FailureDetails          *FailureDetails `json:"failureDetails" xml:"FailureDetails"`
+	PrevalidationDetails    interface{}     `json:"prevalidationDetails" xml:"PrevalidationDetails"`
+	PrevalidationType       string          `json:"prevalidationType" xml:"PrevalidationType"`
+	Status                  string          `json:"status" xml:"Status"`
+	UpdatedAt               time.Time       `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type AcmeDomainValidationSummary struct {
+	AcmeDomainValidationArn string          `json:"acmeDomainValidationArn" xml:"AcmeDomainValidationArn"`
+	AcmeEndpointArn         string          `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	CreatedAt               time.Time       `json:"createdAt" xml:"CreatedAt"`
+	DomainName              string          `json:"domainName" xml:"DomainName"`
+	FailureDetails          *FailureDetails `json:"failureDetails" xml:"FailureDetails"`
+	PrevalidationDetails    interface{}     `json:"prevalidationDetails" xml:"PrevalidationDetails"`
+	PrevalidationType       string          `json:"prevalidationType" xml:"PrevalidationType"`
+	Status                  string          `json:"status" xml:"Status"`
+	UpdatedAt               time.Time       `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type AcmeEndpoint struct {
+	AcmeEndpointArn       string      `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	AuthorizationBehavior string      `json:"authorizationBehavior" xml:"AuthorizationBehavior"`
+	CertificateAuthority  interface{} `json:"certificateAuthority" xml:"CertificateAuthority"`
+	CertificateTags       TagList     `json:"certificateTags" xml:"CertificateTags"`
+	Contact               string      `json:"contact" xml:"Contact"`
+	CreatedAt             time.Time   `json:"createdAt" xml:"CreatedAt"`
+	EndpointUrl           string      `json:"endpointUrl" xml:"EndpointUrl"`
+	FailureReason         string      `json:"failureReason" xml:"FailureReason"`
+	Status                string      `json:"status" xml:"Status"`
+	UpdatedAt             time.Time   `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type AcmeEndpointSummary struct {
+	AcmeEndpointArn       string      `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	AuthorizationBehavior string      `json:"authorizationBehavior" xml:"AuthorizationBehavior"`
+	CertificateAuthority  interface{} `json:"certificateAuthority" xml:"CertificateAuthority"`
+	CertificateTags       TagList     `json:"certificateTags" xml:"CertificateTags"`
+	Contact               string      `json:"contact" xml:"Contact"`
+	CreatedAt             time.Time   `json:"createdAt" xml:"CreatedAt"`
+	EndpointUrl           string      `json:"endpointUrl" xml:"EndpointUrl"`
+	FailureReason         string      `json:"failureReason" xml:"FailureReason"`
+	Status                string      `json:"status" xml:"Status"`
+	UpdatedAt             time.Time   `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type AcmeExternalAccountBinding struct {
+	AcmeEndpointArn               string    `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	AcmeExternalAccountBindingArn string    `json:"acmeExternalAccountBindingArn" xml:"AcmeExternalAccountBindingArn"`
+	CreatedAt                     time.Time `json:"createdAt" xml:"CreatedAt"`
+	ExpiresAt                     time.Time `json:"expiresAt" xml:"ExpiresAt"`
+	LastUsedAt                    time.Time `json:"lastUsedAt" xml:"LastUsedAt"`
+	RevokedAt                     time.Time `json:"revokedAt" xml:"RevokedAt"`
+	RoleArn                       string    `json:"roleArn" xml:"RoleArn"`
+	UpdatedAt                     time.Time `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type AcmeExternalAccountBindingSummary struct {
+	AcmeEndpointArn               string    `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	AcmeExternalAccountBindingArn string    `json:"acmeExternalAccountBindingArn" xml:"AcmeExternalAccountBindingArn"`
+	CreatedAt                     time.Time `json:"createdAt" xml:"CreatedAt"`
+	ExpiresAt                     time.Time `json:"expiresAt" xml:"ExpiresAt"`
+	LastUsedAt                    time.Time `json:"lastUsedAt" xml:"LastUsedAt"`
+	RevokedAt                     time.Time `json:"revokedAt" xml:"RevokedAt"`
+	RoleArn                       string    `json:"roleArn" xml:"RoleArn"`
+	UpdatedAt                     time.Time `json:"updatedAt" xml:"UpdatedAt"`
 }
 
 type AddTagsToCertificateRequest struct {
@@ -28,38 +121,43 @@ type AddTagsToCertificateRequest struct {
 }
 
 type CertificateDetail struct {
-	CertificateArn          string               `json:"certificateArn" xml:"CertificateArn"`
-	CertificateAuthorityArn string               `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
-	CreatedAt               time.Time            `json:"createdAt" xml:"CreatedAt"`
-	DomainName              string               `json:"domainName" xml:"DomainName"`
-	DomainValidationOptions DomainValidationList `json:"domainValidationOptions" xml:"DomainValidationOptions"`
-	ExtendedKeyUsages       ExtendedKeyUsageList `json:"extendedKeyUsages" xml:"ExtendedKeyUsages"`
-	FailureReason           string               `json:"failureReason" xml:"FailureReason"`
-	ImportedAt              time.Time            `json:"importedAt" xml:"ImportedAt"`
-	InUseBy                 InUseList            `json:"inUseBy" xml:"InUseBy"`
-	IssuedAt                time.Time            `json:"issuedAt" xml:"IssuedAt"`
-	Issuer                  string               `json:"issuer" xml:"Issuer"`
-	KeyAlgorithm            string               `json:"keyAlgorithm" xml:"KeyAlgorithm"`
-	KeyUsages               KeyUsageList         `json:"keyUsages" xml:"KeyUsages"`
-	ManagedBy               string               `json:"managedBy" xml:"ManagedBy"`
-	NotAfter                time.Time            `json:"notAfter" xml:"NotAfter"`
-	NotBefore               time.Time            `json:"notBefore" xml:"NotBefore"`
-	Options                 *CertificateOptions  `json:"options" xml:"Options"`
-	RenewalEligibility      string               `json:"renewalEligibility" xml:"RenewalEligibility"`
-	RenewalSummary          *RenewalSummary      `json:"renewalSummary" xml:"RenewalSummary"`
-	RevocationReason        string               `json:"revocationReason" xml:"RevocationReason"`
-	RevokedAt               time.Time            `json:"revokedAt" xml:"RevokedAt"`
-	Serial                  string               `json:"serial" xml:"Serial"`
-	SignatureAlgorithm      string               `json:"signatureAlgorithm" xml:"SignatureAlgorithm"`
-	Status                  string               `json:"status" xml:"Status"`
-	Subject                 string               `json:"subject" xml:"Subject"`
-	SubjectAlternativeNames DomainList           `json:"subjectAlternativeNames" xml:"SubjectAlternativeNames"`
-	Type                    string               `json:"type" xml:"Type"`
+	AcmeAccountId            string               `json:"acmeAccountId" xml:"AcmeAccountId"`
+	AcmeEndpointArn          string               `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	CertificateArn           string               `json:"certificateArn" xml:"CertificateArn"`
+	CertificateAuthorityArn  string               `json:"certificateAuthorityArn" xml:"CertificateAuthorityArn"`
+	CertificateKeyPairOrigin string               `json:"certificateKeyPairOrigin" xml:"CertificateKeyPairOrigin"`
+	CreatedAt                time.Time            `json:"createdAt" xml:"CreatedAt"`
+	DomainName               string               `json:"domainName" xml:"DomainName"`
+	DomainValidationOptions  DomainValidationList `json:"domainValidationOptions" xml:"DomainValidationOptions"`
+	ExtendedKeyUsages        ExtendedKeyUsageList `json:"extendedKeyUsages" xml:"ExtendedKeyUsages"`
+	FailureReason            string               `json:"failureReason" xml:"FailureReason"`
+	ImportedAt               time.Time            `json:"importedAt" xml:"ImportedAt"`
+	InUseBy                  InUseList            `json:"inUseBy" xml:"InUseBy"`
+	IssuedAt                 time.Time            `json:"issuedAt" xml:"IssuedAt"`
+	Issuer                   string               `json:"issuer" xml:"Issuer"`
+	KeyAlgorithm             string               `json:"keyAlgorithm" xml:"KeyAlgorithm"`
+	KeyUsages                KeyUsageList         `json:"keyUsages" xml:"KeyUsages"`
+	ManagedBy                string               `json:"managedBy" xml:"ManagedBy"`
+	NotAfter                 time.Time            `json:"notAfter" xml:"NotAfter"`
+	NotBefore                time.Time            `json:"notBefore" xml:"NotBefore"`
+	Options                  *CertificateOptions  `json:"options" xml:"Options"`
+	RenewalEligibility       string               `json:"renewalEligibility" xml:"RenewalEligibility"`
+	RenewalSummary           *RenewalSummary      `json:"renewalSummary" xml:"RenewalSummary"`
+	RevocationReason         string               `json:"revocationReason" xml:"RevocationReason"`
+	RevokedAt                time.Time            `json:"revokedAt" xml:"RevokedAt"`
+	Serial                   string               `json:"serial" xml:"Serial"`
+	SignatureAlgorithm       string               `json:"signatureAlgorithm" xml:"SignatureAlgorithm"`
+	Status                   string               `json:"status" xml:"Status"`
+	Subject                  string               `json:"subject" xml:"Subject"`
+	SubjectAlternativeNames  DomainList           `json:"subjectAlternativeNames" xml:"SubjectAlternativeNames"`
+	Type                     string               `json:"type" xml:"Type"`
+	UpdateSummary            *UpdateSummary       `json:"updateSummary" xml:"UpdateSummary"`
 }
 
 type CertificateOptions struct {
 	CertificateTransparencyLoggingPreference string `json:"certificateTransparencyLoggingPreference" xml:"CertificateTransparencyLoggingPreference"`
 	Export                                   string `json:"export" xml:"Export"`
+	ValidationMethod                         string `json:"validationMethod" xml:"ValidationMethod"`
 }
 
 type CertificateSearchResult struct {
@@ -70,6 +168,7 @@ type CertificateSearchResult struct {
 
 type CertificateSummary struct {
 	CertificateArn                       string                `json:"certificateArn" xml:"CertificateArn"`
+	CertificateKeyPairOrigin             string                `json:"certificateKeyPairOrigin" xml:"CertificateKeyPairOrigin"`
 	CreatedAt                            time.Time             `json:"createdAt" xml:"CreatedAt"`
 	DomainName                           string                `json:"domainName" xml:"DomainName"`
 	ExportOption                         string                `json:"exportOption" xml:"ExportOption"`
@@ -96,13 +195,95 @@ type CommonNameFilter struct {
 	Value              string `json:"value" xml:"Value"`
 }
 
+type CreateAcmeDomainValidationRequest struct {
+	AcmeEndpointArn      string      `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	DomainName           string      `json:"domainName" xml:"DomainName"`
+	IdempotencyToken     string      `json:"idempotencyToken" xml:"IdempotencyToken"`
+	PrevalidationOptions interface{} `json:"prevalidationOptions" xml:"PrevalidationOptions"`
+	Tags                 TagList     `json:"tags" xml:"Tags"`
+}
+
+type CreateAcmeDomainValidationResponse struct {
+	AcmeDomainValidationArn string `json:"acmeDomainValidationArn" xml:"AcmeDomainValidationArn"`
+}
+
+type CreateAcmeEndpointRequest struct {
+	AuthorizationBehavior string      `json:"authorizationBehavior" xml:"AuthorizationBehavior"`
+	CertificateAuthority  interface{} `json:"certificateAuthority" xml:"CertificateAuthority"`
+	CertificateTags       TagList     `json:"certificateTags" xml:"CertificateTags"`
+	Contact               string      `json:"contact" xml:"Contact"`
+	IdempotencyToken      string      `json:"idempotencyToken" xml:"IdempotencyToken"`
+	Tags                  TagList     `json:"tags" xml:"Tags"`
+}
+
+type CreateAcmeEndpointResponse struct {
+	AcmeEndpointArn string `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+}
+
+type CreateAcmeExternalAccountBindingRequest struct {
+	AcmeEndpointArn  string      `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	Expiration       *Expiration `json:"expiration" xml:"Expiration"`
+	IdempotencyToken string      `json:"idempotencyToken" xml:"IdempotencyToken"`
+	RoleArn          string      `json:"roleArn" xml:"RoleArn"`
+	Tags             TagList     `json:"tags" xml:"Tags"`
+}
+
+type CreateAcmeExternalAccountBindingResponse struct {
+	ExternalAccountBinding *AcmeExternalAccountBinding `json:"externalAccountBinding" xml:"ExternalAccountBinding"`
+}
+
 type CustomAttribute struct {
 	ObjectIdentifier string `json:"objectIdentifier" xml:"ObjectIdentifier"`
 	Value            string `json:"value" xml:"Value"`
 }
 
+type DeleteAcmeDomainValidationRequest struct {
+	AcmeDomainValidationArn string `json:"acmeDomainValidationArn" xml:"AcmeDomainValidationArn"`
+}
+
+type DeleteAcmeEndpointRequest struct {
+	AcmeEndpointArn string `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+}
+
+type DeleteAcmeExternalAccountBindingRequest struct {
+	AcmeExternalAccountBindingArn string `json:"acmeExternalAccountBindingArn" xml:"AcmeExternalAccountBindingArn"`
+}
+
 type DeleteCertificateRequest struct {
 	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+}
+
+type DescribeAcmeAccountRequest struct {
+	AccountUrl      string `json:"accountUrl" xml:"AccountUrl"`
+	AcmeEndpointArn string `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+}
+
+type DescribeAcmeAccountResponse struct {
+	AcmeAccount *AcmeAccount `json:"acmeAccount" xml:"AcmeAccount"`
+}
+
+type DescribeAcmeDomainValidationRequest struct {
+	AcmeDomainValidationArn string `json:"acmeDomainValidationArn" xml:"AcmeDomainValidationArn"`
+}
+
+type DescribeAcmeDomainValidationResponse struct {
+	AcmeDomainValidation *AcmeDomainValidation `json:"acmeDomainValidation" xml:"AcmeDomainValidation"`
+}
+
+type DescribeAcmeEndpointRequest struct {
+	AcmeEndpointArn string `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+}
+
+type DescribeAcmeEndpointResponse struct {
+	AcmeEndpoint *AcmeEndpoint `json:"acmeEndpoint" xml:"AcmeEndpoint"`
+}
+
+type DescribeAcmeExternalAccountBindingRequest struct {
+	AcmeExternalAccountBindingArn string `json:"acmeExternalAccountBindingArn" xml:"AcmeExternalAccountBindingArn"`
+}
+
+type DescribeAcmeExternalAccountBindingResponse struct {
+	ExternalAccountBinding *AcmeExternalAccountBinding `json:"externalAccountBinding" xml:"ExternalAccountBinding"`
 }
 
 type DescribeCertificateRequest struct {
@@ -137,6 +318,27 @@ type DnsNameFilter struct {
 	Value              string `json:"value" xml:"Value"`
 }
 
+type DnsPrevalidationDetails struct {
+	DomainScope    *DomainScope    `json:"domainScope" xml:"DomainScope"`
+	HostedZoneId   string          `json:"hostedZoneId" xml:"HostedZoneId"`
+	ResourceRecord *ResourceRecord `json:"resourceRecord" xml:"ResourceRecord"`
+}
+
+type DnsPrevalidationOptions struct {
+	DomainScope  *DomainScope `json:"domainScope" xml:"DomainScope"`
+	HostedZoneId string       `json:"hostedZoneId" xml:"HostedZoneId"`
+}
+
+type DnsValidationChallenge struct {
+	ResourceRecord *ResourceRecord `json:"resourceRecord" xml:"ResourceRecord"`
+}
+
+type DomainScope struct {
+	ExactDomain string `json:"exactDomain" xml:"ExactDomain"`
+	Subdomains  string `json:"subdomains" xml:"Subdomains"`
+	Wildcards   string `json:"wildcards" xml:"Wildcards"`
+}
+
 type DomainValidation struct {
 	DomainName       string              `json:"domainName" xml:"DomainName"`
 	HttpRedirect     *HttpRedirect       `json:"httpRedirect" xml:"HttpRedirect"`
@@ -147,9 +349,30 @@ type DomainValidation struct {
 	ValidationStatus string              `json:"validationStatus" xml:"ValidationStatus"`
 }
 
+type DomainValidationMethodUpdateSummary struct {
+	From string `json:"from" xml:"From"`
+	To   string `json:"to" xml:"To"`
+}
+
 type DomainValidationOption struct {
 	DomainName       string `json:"domainName" xml:"DomainName"`
 	ValidationDomain string `json:"validationDomain" xml:"ValidationDomain"`
+}
+
+type DomainValidationSummary struct {
+	ActiveValidationConfiguration    *ValidationConfiguration `json:"activeValidationConfiguration" xml:"ActiveValidationConfiguration"`
+	DomainName                       string                   `json:"domainName" xml:"DomainName"`
+	RequestedValidationConfiguration *ValidationConfiguration `json:"requestedValidationConfiguration" xml:"RequestedValidationConfiguration"`
+}
+
+type EmailValidationChallenge struct {
+	ValidationDomain string              `json:"validationDomain" xml:"ValidationDomain"`
+	ValidationEmails ValidationEmailList `json:"validationEmails" xml:"ValidationEmails"`
+}
+
+type Expiration struct {
+	Type  string `json:"type" xml:"Type"`
+	Value int64  `json:"value" xml:"Value"`
 }
 
 type ExpiryEventsConfiguration struct {
@@ -172,6 +395,11 @@ type ExtendedKeyUsage struct {
 	OID  string `json:"oID" xml:"OID"`
 }
 
+type FailureDetails struct {
+	Message string `json:"message" xml:"Message"`
+	Reason  string `json:"reason" xml:"Reason"`
+}
+
 type Filters struct {
 	ExportOption     string                     `json:"exportOption" xml:"exportOption"`
 	ExtendedKeyUsage ExtendedKeyUsageFilterList `json:"extendedKeyUsage" xml:"extendedKeyUsage"`
@@ -182,6 +410,15 @@ type Filters struct {
 
 type GetAccountConfigurationResponse struct {
 	ExpiryEvents *ExpiryEventsConfiguration `json:"expiryEvents" xml:"ExpiryEvents"`
+}
+
+type GetAcmeExternalAccountBindingCredentialsRequest struct {
+	AcmeExternalAccountBindingArn string `json:"acmeExternalAccountBindingArn" xml:"AcmeExternalAccountBindingArn"`
+}
+
+type GetAcmeExternalAccountBindingCredentialsResponse struct {
+	KeyId  string `json:"keyId" xml:"KeyId"`
+	MacKey string `json:"macKey" xml:"MacKey"`
 }
 
 type GetCertificateRequest struct {
@@ -214,13 +451,68 @@ type KeyUsage struct {
 	Name string `json:"name" xml:"Name"`
 }
 
+type ListAcmeAccountsRequest struct {
+	AcmeEndpointArn string `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	MaxResults      int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken       string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListAcmeAccountsResponse struct {
+	AcmeAccounts AcmeAccountList `json:"acmeAccounts" xml:"AcmeAccounts"`
+	NextToken    string          `json:"nextToken" xml:"NextToken"`
+}
+
+type ListAcmeDomainValidationsRequest struct {
+	AcmeEndpointArn string `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	MaxResults      int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken       string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListAcmeDomainValidationsResponse struct {
+	AcmeDomainValidations AcmeDomainValidationList `json:"acmeDomainValidations" xml:"AcmeDomainValidations"`
+	NextToken             string                   `json:"nextToken" xml:"NextToken"`
+}
+
+type ListAcmeEndpointsRequest struct {
+	MaxResults int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken  string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListAcmeEndpointsResponse struct {
+	AcmeEndpoints AcmeEndpointList `json:"acmeEndpoints" xml:"AcmeEndpoints"`
+	NextToken     string           `json:"nextToken" xml:"NextToken"`
+}
+
+type ListAcmeExternalAccountBindingsRequest struct {
+	AcmeEndpointArn string `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	MaxResults      int32  `json:"maxResults" xml:"MaxResults"`
+	NextToken       string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListAcmeExternalAccountBindingsResponse struct {
+	ExternalAccountBindings AcmeExternalAccountBindingList `json:"externalAccountBindings" xml:"ExternalAccountBindings"`
+	NextToken               string                         `json:"nextToken" xml:"NextToken"`
+}
+
+type ListCertificateDomainValidationsRequest struct {
+	CertificateArn string `json:"certificateArn" xml:"CertificateArn"`
+	MaxItems       int32  `json:"maxItems" xml:"MaxItems"`
+	NextToken      string `json:"nextToken" xml:"NextToken"`
+}
+
+type ListCertificateDomainValidationsResponse struct {
+	DomainValidationSummaryList DomainValidationSummaryList `json:"domainValidationSummaryList" xml:"DomainValidationSummaryList"`
+	NextToken                   string                      `json:"nextToken" xml:"NextToken"`
+}
+
 type ListCertificatesRequest struct {
-	CertificateStatuses CertificateStatuses `json:"certificateStatuses" xml:"CertificateStatuses"`
-	Includes            *Filters            `json:"includes" xml:"Includes"`
-	MaxItems            int32               `json:"maxItems" xml:"MaxItems"`
-	NextToken           string              `json:"nextToken" xml:"NextToken"`
-	SortBy              string              `json:"sortBy" xml:"SortBy"`
-	SortOrder           string              `json:"sortOrder" xml:"SortOrder"`
+	CertificateKeyPairOrigins CertificateKeyPairOrigins `json:"certificateKeyPairOrigins" xml:"CertificateKeyPairOrigins"`
+	CertificateStatuses       CertificateStatuses       `json:"certificateStatuses" xml:"CertificateStatuses"`
+	Includes                  *Filters                  `json:"includes" xml:"Includes"`
+	MaxItems                  int32                     `json:"maxItems" xml:"MaxItems"`
+	NextToken                 string                    `json:"nextToken" xml:"NextToken"`
+	SortBy                    string                    `json:"sortBy" xml:"SortBy"`
+	SortOrder                 string                    `json:"sortOrder" xml:"SortOrder"`
 }
 
 type ListCertificatesResponse struct {
@@ -236,9 +528,21 @@ type ListTagsForCertificateResponse struct {
 	Tags TagList `json:"tags" xml:"Tags"`
 }
 
+type ListTagsForResourceRequest struct {
+	ResourceArn string `json:"resourceArn" xml:"ResourceArn"`
+}
+
+type ListTagsForResourceResponse struct {
+	Tags TagList `json:"tags" xml:"Tags"`
+}
+
 type OtherName struct {
 	ObjectIdentifier string `json:"objectIdentifier" xml:"ObjectIdentifier"`
 	Value            string `json:"value" xml:"Value"`
+}
+
+type PublicCertificateAuthority struct {
+	AllowedKeyAlgorithms PublicKeyAlgorithmList `json:"allowedKeyAlgorithms" xml:"AllowedKeyAlgorithms"`
 }
 
 type PutAccountConfigurationRequest struct {
@@ -291,6 +595,15 @@ type ResourceRecord struct {
 	Value string `json:"value" xml:"Value"`
 }
 
+type RevokeAcmeAccountRequest struct {
+	AccountUrl      string `json:"accountUrl" xml:"AccountUrl"`
+	AcmeEndpointArn string `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+}
+
+type RevokeAcmeExternalAccountBindingRequest struct {
+	AcmeExternalAccountBindingArn string `json:"acmeExternalAccountBindingArn" xml:"AcmeExternalAccountBindingArn"`
+}
+
 type RevokeCertificateRequest struct {
 	CertificateArn   string `json:"certificateArn" xml:"CertificateArn"`
 	RevocationReason string `json:"revocationReason" xml:"RevocationReason"`
@@ -321,6 +634,11 @@ type Tag struct {
 	Value string `json:"value" xml:"Value"`
 }
 
+type TagResourceRequest struct {
+	ResourceArn string  `json:"resourceArn" xml:"ResourceArn"`
+	Tags        TagList `json:"tags" xml:"Tags"`
+}
+
 type ThrottlingReason struct {
 	Reason   string `json:"reason" xml:"reason"`
 	Resource string `json:"resource" xml:"resource"`
@@ -331,9 +649,40 @@ type TimestampRange struct {
 	Start time.Time `json:"start" xml:"Start"`
 }
 
+type UntagResourceRequest struct {
+	ResourceArn string     `json:"resourceArn" xml:"ResourceArn"`
+	TagKeys     TagKeyList `json:"tagKeys" xml:"TagKeys"`
+}
+
+type UpdateAcmeDomainValidationRequest struct {
+	AcmeDomainValidationArn string      `json:"acmeDomainValidationArn" xml:"AcmeDomainValidationArn"`
+	PrevalidationOptions    interface{} `json:"prevalidationOptions" xml:"PrevalidationOptions"`
+}
+
+type UpdateAcmeEndpointRequest struct {
+	AcmeEndpointArn       string      `json:"acmeEndpointArn" xml:"AcmeEndpointArn"`
+	AuthorizationBehavior string      `json:"authorizationBehavior" xml:"AuthorizationBehavior"`
+	CertificateAuthority  interface{} `json:"certificateAuthority" xml:"CertificateAuthority"`
+	Contact               string      `json:"contact" xml:"Contact"`
+}
+
 type UpdateCertificateOptionsRequest struct {
 	CertificateArn string              `json:"certificateArn" xml:"CertificateArn"`
 	Options        *CertificateOptions `json:"options" xml:"Options"`
+}
+
+type UpdateSummary struct {
+	DomainValidationMethodUpdateSummary *DomainValidationMethodUpdateSummary `json:"domainValidationMethodUpdateSummary" xml:"DomainValidationMethodUpdateSummary"`
+	RequestedAt                         time.Time                            `json:"requestedAt" xml:"RequestedAt"`
+	Status                              string                               `json:"status" xml:"Status"`
+	Type                                string                               `json:"type" xml:"Type"`
+	UpdatedAt                           time.Time                            `json:"updatedAt" xml:"UpdatedAt"`
+}
+
+type ValidationConfiguration struct {
+	ValidationChallenge interface{} `json:"validationChallenge" xml:"ValidationChallenge"`
+	ValidationMethod    string      `json:"validationMethod" xml:"ValidationMethod"`
+	ValidationStatus    string      `json:"validationStatus" xml:"ValidationStatus"`
 }
 
 type X509Attributes struct {
@@ -348,13 +697,25 @@ type X509Attributes struct {
 	SubjectAlternativeNames GeneralNameList       `json:"subjectAlternativeNames" xml:"SubjectAlternativeNames"`
 }
 
+type AcmeAccountList []*AcmeAccountSummary
+
+type AcmeDomainValidationList []*AcmeDomainValidationSummary
+
+type AcmeEndpointList []*AcmeEndpointSummary
+
+type AcmeExternalAccountBindingList []*AcmeExternalAccountBindingSummary
+
 type CertificateFilterStatementList []interface{}
+
+type CertificateKeyPairOrigins []string
 
 type CertificateSearchResultList []*CertificateSearchResult
 
 type CertificateStatuses []string
 
 type CertificateSummaryList []*CertificateSummary
+
+type ContactList []string
 
 type CustomAttributeList []*CustomAttribute
 
@@ -365,6 +726,8 @@ type DomainList []string
 type DomainValidationList []*DomainValidation
 
 type DomainValidationOptionList []*DomainValidationOption
+
+type DomainValidationSummaryList []*DomainValidationSummary
 
 type ExtendedKeyUsageFilterList []string
 
@@ -384,6 +747,10 @@ type KeyUsageList []*KeyUsage
 
 type KeyUsageNames []string
 
+type PublicKeyAlgorithmList []string
+
+type TagKeyList []string
+
 type TagList []*Tag
 
 type ThrottlingReasonList []*ThrottlingReason
@@ -391,6 +758,8 @@ type ThrottlingReasonList []*ThrottlingReason
 type ValidationEmailList []string
 
 type AcmCertificateMetadataFilter interface{}
+
+type CertificateAuthority interface{}
 
 type CertificateFilter interface{}
 
@@ -400,8 +769,14 @@ type CertificateMetadata interface{}
 
 type GeneralName interface{}
 
+type PrevalidationDetails interface{}
+
+type PrevalidationOptions interface{}
+
 type SubjectAlternativeNameFilter interface{}
 
 type SubjectFilter interface{}
+
+type ValidationChallenge interface{}
 
 type X509AttributeFilter interface{}

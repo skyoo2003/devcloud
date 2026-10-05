@@ -86,6 +86,7 @@ type CreateConnectorRequest struct {
 	AccessRole         string               `json:"accessRole" xml:"AccessRole"`
 	As2Config          *As2ConnectorConfig  `json:"as2Config" xml:"As2Config"`
 	EgressConfig       interface{}          `json:"egressConfig" xml:"EgressConfig"`
+	IpAddressType      string               `json:"ipAddressType" xml:"IpAddressType"`
 	LoggingRole        string               `json:"loggingRole" xml:"LoggingRole"`
 	SecurityPolicyName string               `json:"securityPolicyName" xml:"SecurityPolicyName"`
 	SftpConfig         *SftpConnectorConfig `json:"sftpConfig" xml:"SftpConfig"`
@@ -165,10 +166,11 @@ type CreateWebAppResponse struct {
 }
 
 type CreateWorkflowRequest struct {
-	Description      string        `json:"description" xml:"Description"`
-	OnExceptionSteps WorkflowSteps `json:"onExceptionSteps" xml:"OnExceptionSteps"`
-	Steps            WorkflowSteps `json:"steps" xml:"Steps"`
-	Tags             Tags          `json:"tags" xml:"Tags"`
+	Description               string                    `json:"description" xml:"Description"`
+	OnExceptionSteps          WorkflowSteps             `json:"onExceptionSteps" xml:"OnExceptionSteps"`
+	Steps                     WorkflowSteps             `json:"steps" xml:"Steps"`
+	StructuredLogDestinations StructuredLogDestinations `json:"structuredLogDestinations" xml:"StructuredLogDestinations"`
+	Tags                      Tags                      `json:"tags" xml:"Tags"`
 }
 
 type CreateWorkflowResponse struct {
@@ -425,6 +427,7 @@ type DescribedConnector struct {
 	EgressConfig                    interface{}                     `json:"egressConfig" xml:"EgressConfig"`
 	EgressType                      string                          `json:"egressType" xml:"EgressType"`
 	ErrorMessage                    string                          `json:"errorMessage" xml:"ErrorMessage"`
+	IpAddressType                   string                          `json:"ipAddressType" xml:"IpAddressType"`
 	LoggingRole                     string                          `json:"loggingRole" xml:"LoggingRole"`
 	SecurityPolicyName              string                          `json:"securityPolicyName" xml:"SecurityPolicyName"`
 	ServiceManagedEgressIpAddresses ServiceManagedEgressIpAddresses `json:"serviceManagedEgressIpAddresses" xml:"ServiceManagedEgressIpAddresses"`
@@ -554,12 +557,13 @@ type DescribedWebAppVpcConfig struct {
 }
 
 type DescribedWorkflow struct {
-	Arn              string        `json:"arn" xml:"Arn"`
-	Description      string        `json:"description" xml:"Description"`
-	OnExceptionSteps WorkflowSteps `json:"onExceptionSteps" xml:"OnExceptionSteps"`
-	Steps            WorkflowSteps `json:"steps" xml:"Steps"`
-	Tags             Tags          `json:"tags" xml:"Tags"`
-	WorkflowId       string        `json:"workflowId" xml:"WorkflowId"`
+	Arn                       string                    `json:"arn" xml:"Arn"`
+	Description               string                    `json:"description" xml:"Description"`
+	OnExceptionSteps          WorkflowSteps             `json:"onExceptionSteps" xml:"OnExceptionSteps"`
+	Steps                     WorkflowSteps             `json:"steps" xml:"Steps"`
+	StructuredLogDestinations StructuredLogDestinations `json:"structuredLogDestinations" xml:"StructuredLogDestinations"`
+	Tags                      Tags                      `json:"tags" xml:"Tags"`
+	WorkflowId                string                    `json:"workflowId" xml:"WorkflowId"`
 }
 
 type EfsFileLocation struct {
@@ -918,8 +922,14 @@ type PosixProfile struct {
 type ProtocolDetails struct {
 	As2Transports            As2Transports `json:"as2Transports" xml:"As2Transports"`
 	PassiveIp                string        `json:"passiveIp" xml:"PassiveIp"`
+	ProxyConfig              *ProxyConfig  `json:"proxyConfig" xml:"ProxyConfig"`
 	SetStatOption            string        `json:"setStatOption" xml:"SetStatOption"`
+	SftpPorts                SftpPorts     `json:"sftpPorts" xml:"SftpPorts"`
 	TlsSessionResumptionMode string        `json:"tlsSessionResumptionMode" xml:"TlsSessionResumptionMode"`
+}
+
+type ProxyConfig struct {
+	SftpMode string `json:"sftpMode" xml:"SftpMode"`
 }
 
 type S3FileLocation struct {
@@ -958,13 +968,19 @@ type ServiceMetadata struct {
 }
 
 type SftpConnectorConfig struct {
-	MaxConcurrentConnections int32                           `json:"maxConcurrentConnections" xml:"MaxConcurrentConnections"`
-	TrustedHostKeys          SftpConnectorTrustedHostKeyList `json:"trustedHostKeys" xml:"TrustedHostKeys"`
-	UserSecretId             string                          `json:"userSecretId" xml:"UserSecretId"`
+	MaxConcurrentConnections       int32                           `json:"maxConcurrentConnections" xml:"MaxConcurrentConnections"`
+	OrderedUserSecretVersionStages SecretVersionStageList          `json:"orderedUserSecretVersionStages" xml:"OrderedUserSecretVersionStages"`
+	TrustedHostKeys                SftpConnectorTrustedHostKeyList `json:"trustedHostKeys" xml:"TrustedHostKeys"`
+	UserSecretId                   string                          `json:"userSecretId" xml:"UserSecretId"`
 }
 
 type SftpConnectorConnectionDetails struct {
 	HostKey string `json:"hostKey" xml:"HostKey"`
+}
+
+type SftpPortWithOptions struct {
+	CommunicationMode string `json:"communicationMode" xml:"CommunicationMode"`
+	SftpPort          int32  `json:"sftpPort" xml:"SftpPort"`
 }
 
 type SmithyUnit struct {
@@ -1125,6 +1141,7 @@ type UpdateConnectorRequest struct {
 	As2Config          *As2ConnectorConfig  `json:"as2Config" xml:"As2Config"`
 	ConnectorId        string               `json:"connectorId" xml:"ConnectorId"`
 	EgressConfig       interface{}          `json:"egressConfig" xml:"EgressConfig"`
+	IpAddressType      string               `json:"ipAddressType" xml:"IpAddressType"`
 	LoggingRole        string               `json:"loggingRole" xml:"LoggingRole"`
 	SecurityPolicyName string               `json:"securityPolicyName" xml:"SecurityPolicyName"`
 	SftpConfig         *SftpConnectorConfig `json:"sftpConfig" xml:"SftpConfig"`
@@ -1228,7 +1245,8 @@ type UpdateWebAppResponse struct {
 }
 
 type UpdateWebAppVpcConfig struct {
-	SubnetIds SubnetIds `json:"subnetIds" xml:"SubnetIds"`
+	IpAddressType string    `json:"ipAddressType" xml:"IpAddressType"`
+	SubnetIds     SubnetIds `json:"subnetIds" xml:"SubnetIds"`
 }
 
 type UserDetails struct {
@@ -1238,6 +1256,7 @@ type UserDetails struct {
 }
 
 type WebAppVpcConfig struct {
+	IpAddressType    string           `json:"ipAddressType" xml:"IpAddressType"`
 	SecurityGroupIds SecurityGroupIds `json:"securityGroupIds" xml:"SecurityGroupIds"`
 	SubnetIds        SubnetIds        `json:"subnetIds" xml:"SubnetIds"`
 	VpcId            string           `json:"vpcId" xml:"VpcId"`
@@ -1314,6 +1333,8 @@ type S3Tags []*S3Tag
 
 type SecondaryGids []int64
 
+type SecretVersionStageList []string
+
 type SecurityGroupIds []string
 
 type SecurityPolicyNames []string
@@ -1325,6 +1346,8 @@ type SecurityPolicyProtocols []string
 type ServiceManagedEgressIpAddresses []string
 
 type SftpConnectorTrustedHostKeyList []string
+
+type SftpPorts []*SftpPortWithOptions
 
 type SshPublicKeys []*SshPublicKey
 

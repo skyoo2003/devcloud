@@ -38,6 +38,23 @@ func (e *ForbiddenException) HTTPStatus() int {
 	return 403
 }
 
+// GatewayTimeoutException is returned with HTTP status 504.
+type GatewayTimeoutException struct {
+	Message string
+}
+
+func (e *GatewayTimeoutException) Error() string {
+	return fmt.Sprintf("GatewayTimeoutException: %s", e.Message)
+}
+
+func (e *GatewayTimeoutException) ErrorCode() string {
+	return "GatewayTimeoutException"
+}
+
+func (e *GatewayTimeoutException) HTTPStatus() int {
+	return 504
+}
+
 // InternalFailureException is returned with HTTP status 500.
 type InternalFailureException struct {
 	Message string

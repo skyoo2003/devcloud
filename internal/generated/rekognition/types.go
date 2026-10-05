@@ -696,6 +696,11 @@ type FaceSearchSettings struct {
 	FaceMatchThreshold float32 `json:"faceMatchThreshold" xml:"FaceMatchThreshold"`
 }
 
+type FeedbackItem struct {
+	Code    string `json:"code" xml:"Code"`
+	Message string `json:"message" xml:"Message"`
+}
+
 type Gender struct {
 	Confidence float32 `json:"confidence" xml:"Confidence"`
 	Value      string  `json:"value" xml:"Value"`
@@ -789,12 +794,14 @@ type GetFaceLivenessSessionResultsRequest struct {
 }
 
 type GetFaceLivenessSessionResultsResponse struct {
-	AuditImages    AuditImages `json:"auditImages" xml:"AuditImages"`
-	Challenge      *Challenge  `json:"challenge" xml:"Challenge"`
-	Confidence     float32     `json:"confidence" xml:"Confidence"`
-	ReferenceImage *AuditImage `json:"referenceImage" xml:"ReferenceImage"`
-	SessionId      string      `json:"sessionId" xml:"SessionId"`
-	Status         string      `json:"status" xml:"Status"`
+	AuditImages    AuditImages      `json:"auditImages" xml:"AuditImages"`
+	Challenge      *Challenge       `json:"challenge" xml:"Challenge"`
+	Confidence     float32          `json:"confidence" xml:"Confidence"`
+	Feedback       FeedbackList     `json:"feedback" xml:"Feedback"`
+	Metadata       *SessionMetadata `json:"metadata" xml:"Metadata"`
+	ReferenceImage *AuditImage      `json:"referenceImage" xml:"ReferenceImage"`
+	SessionId      string           `json:"sessionId" xml:"SessionId"`
+	Status         string           `json:"status" xml:"Status"`
 }
 
 type GetFaceSearchRequest struct {
@@ -1431,6 +1438,10 @@ type SegmentTypeInfo struct {
 	Type         string `json:"type" xml:"Type"`
 }
 
+type SessionMetadata struct {
+	SDKType string `json:"sDKType" xml:"SDKType"`
+}
+
 type ShotSegment struct {
 	Confidence float32 `json:"confidence" xml:"Confidence"`
 	Index      int64   `json:"index" xml:"Index"`
@@ -1862,6 +1873,8 @@ type FaceMatchList []*FaceMatch
 type FaceModelVersionList []string
 
 type FaceRecordList []*FaceRecord
+
+type FeedbackList []*FeedbackItem
 
 type GeneralLabelsFilterList []string
 

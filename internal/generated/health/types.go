@@ -156,6 +156,17 @@ type DescribeHealthServiceStatusForOrganizationResponse struct {
 	HealthServiceAccessStatusForOrganization string `json:"healthServiceAccessStatusForOrganization" xml:"healthServiceAccessStatusForOrganization"`
 }
 
+type DescribeServiceLifecycleRequest struct {
+	Filter     *ServiceLifecycleFilter `json:"filter" xml:"filter"`
+	MaxResults int32                   `json:"maxResults" xml:"maxResults"`
+	NextToken  string                  `json:"nextToken" xml:"nextToken"`
+}
+
+type DescribeServiceLifecycleResponse struct {
+	NextToken         string               `json:"nextToken" xml:"nextToken"`
+	ServiceLifecycles ServiceLifecycleList `json:"serviceLifecycles" xml:"serviceLifecycles"`
+}
+
 type EntityAccountFilter struct {
 	AwsAccountId string               `json:"awsAccountId" xml:"awsAccountId"`
 	EventArn     string               `json:"eventArn" xml:"eventArn"`
@@ -253,6 +264,14 @@ type EventTypeFilter struct {
 	Services            serviceList                `json:"services" xml:"services"`
 }
 
+type LifecycleEvent struct {
+	Date               time.Time      `json:"date" xml:"date"`
+	Description        string         `json:"description" xml:"description"`
+	ImpactRisks        ImpactRiskList `json:"impactRisks" xml:"impactRisks"`
+	LifecycleEventType string         `json:"lifecycleEventType" xml:"lifecycleEventType"`
+	Regions            regionList     `json:"regions" xml:"regions"`
+}
+
 type OrganizationAffectedEntitiesErrorItem struct {
 	AwsAccountId string `json:"awsAccountId" xml:"awsAccountId"`
 	ErrorMessage string `json:"errorMessage" xml:"errorMessage"`
@@ -312,6 +331,18 @@ type OrganizationEventFilter struct {
 	StartTime           *DateTimeRange         `json:"startTime" xml:"startTime"`
 }
 
+type ServiceLifecycle struct {
+	LifecycleEvents    LifecycleEventList `json:"lifecycleEvents" xml:"lifecycleEvents"`
+	RecommendedVersion string             `json:"recommendedVersion" xml:"recommendedVersion"`
+	Service            string             `json:"service" xml:"service"`
+	Title              string             `json:"title" xml:"title"`
+	Version            string             `json:"version" xml:"version"`
+}
+
+type ServiceLifecycleFilter struct {
+	Service string `json:"service" xml:"service"`
+}
+
 type SmithyUnit struct {
 }
 
@@ -351,6 +382,10 @@ type EventTypeList []*EventType
 
 type EventTypePersonaList []string
 
+type ImpactRiskList []string
+
+type LifecycleEventList []*LifecycleEvent
+
 type OrganizationAccountIdsList []string
 
 type OrganizationEntityAccountFiltersList []*EntityAccountFilter
@@ -364,6 +399,8 @@ type OrganizationEventArnsList []string
 type OrganizationEventDetailFiltersList []*EventAccountFilter
 
 type OrganizationEventList []*OrganizationEvent
+
+type ServiceLifecycleList []*ServiceLifecycle
 
 type affectedAccountsList []string
 

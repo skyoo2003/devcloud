@@ -2100,6 +2100,16 @@ type RecommendationDiversityConfig struct {
 	Values  DiversityValuesMap `json:"values" xml:"Values"`
 }
 
+type RecommendationMetadata struct {
+	Columns MetadataColumnsList `json:"columns" xml:"Columns"`
+}
+
+type Recommender struct {
+	Filters            RecommenderFilters            `json:"filters" xml:"Filters"`
+	Name               string                        `json:"name" xml:"Name"`
+	PromotionalFilters RecommenderPromotionalFilters `json:"promotionalFilters" xml:"PromotionalFilters"`
+}
+
 type RecommenderConfig struct {
 	DiversityConfig   *DiversityConfig `json:"diversityConfig" xml:"DiversityConfig"`
 	EventsConfig      *EventsConfig    `json:"eventsConfig" xml:"EventsConfig"`
@@ -2254,6 +2264,23 @@ type SearchProfilesRequest struct {
 type SearchProfilesResponse struct {
 	Items     ProfileList `json:"items" xml:"Items"`
 	NextToken string      `json:"nextToken" xml:"NextToken"`
+}
+
+type SearchRecommendationsRequest struct {
+	CandidateIds       CandidateIdList                `json:"candidateIds" xml:"CandidateIds"`
+	Context            RecommenderContext             `json:"context" xml:"Context"`
+	Diversity          *RecommendationDiversityConfig `json:"diversity" xml:"Diversity"`
+	DomainName         string                         `json:"domainName" xml:"DomainName"`
+	KeyName            string                         `json:"keyName" xml:"KeyName"`
+	KeyValues          KeyValuesList                  `json:"keyValues" xml:"KeyValues"`
+	MaxRecommendations int32                          `json:"maxRecommendations" xml:"MaxRecommendations"`
+	Metadata           *RecommendationMetadata        `json:"metadata" xml:"Metadata"`
+	Recommender        *Recommender                   `json:"recommender" xml:"Recommender"`
+}
+
+type SearchRecommendationsResponse struct {
+	ProfileId       string          `json:"profileId" xml:"ProfileId"`
+	Recommendations Recommendations `json:"recommendations" xml:"Recommendations"`
 }
 
 type SegmentDefinitionItem struct {
@@ -2652,6 +2679,8 @@ type GroupList []*FilterGroup
 type IdentityResolutionJobsList []*IdentityResolutionJob
 
 type IntegrationList []*ListIntegrationItem
+
+type KeyValuesList []string
 
 type LayoutList []*LayoutItem
 

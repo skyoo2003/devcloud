@@ -50,6 +50,7 @@ var OperationRoutes = []OperationRoute{
 	{Method: "POST", Pattern: "/tags/{arn}", Operation: "TagResource"},
 	{Method: "DELETE", Pattern: "/tags/{arn}", Operation: "UntagResource"},
 	{Method: "PUT", Pattern: "/event-rules/{arn}", Operation: "UpdateEventRule"},
+	{Method: "PUT", Pattern: "/channels/update-managed-notification-channel-association", Operation: "UpdateManagedNotificationChannelAssociation"},
 	{Method: "PUT", Pattern: "/notification-configurations/{arn}", Operation: "UpdateNotificationConfiguration"},
 }
 

@@ -86,6 +86,60 @@ type BillingViewListElement struct {
 	SourceAccountId string                   `json:"sourceAccountId" xml:"sourceAccountId"`
 }
 
+type BillingViewSegmentTimeRange struct {
+	BeginDateInclusive time.Time `json:"beginDateInclusive" xml:"beginDateInclusive"`
+	EndDateExclusive   time.Time `json:"endDateExclusive" xml:"endDateExclusive"`
+}
+
+type BillingViewSegmentsListElement struct {
+	BillingGroupPrimaryAccountId string                       `json:"billingGroupPrimaryAccountId" xml:"billingGroupPrimaryAccountId"`
+	BillingTransferAccountId     string                       `json:"billingTransferAccountId" xml:"billingTransferAccountId"`
+	Domain                       string                       `json:"domain" xml:"domain"`
+	ManagementAccountId          string                       `json:"managementAccountId" xml:"managementAccountId"`
+	TimeRange                    *BillingViewSegmentTimeRange `json:"timeRange" xml:"timeRange"`
+}
+
+type BusinessSupportAccountCharge struct {
+	AccountId                     string                          `json:"accountId" xml:"accountId"`
+	SupportDiscount               *BusinessSupportDiscount        `json:"supportDiscount" xml:"supportDiscount"`
+	SupportEligibleSpendByService BusinessSupportServiceSpendList `json:"supportEligibleSpendByService" xml:"supportEligibleSpendByService"`
+	SupportPlanName               string                          `json:"supportPlanName" xml:"supportPlanName"`
+	TierCharges                   BusinessSupportTierChargeList   `json:"tierCharges" xml:"tierCharges"`
+	TotalCharge                   string                          `json:"totalCharge" xml:"totalCharge"`
+	TotalUsageBasis               string                          `json:"totalUsageBasis" xml:"totalUsageBasis"`
+}
+
+type BusinessSupportDiscount struct {
+	DiscountAmount     string `json:"discountAmount" xml:"discountAmount"`
+	DiscountPercentage string `json:"discountPercentage" xml:"discountPercentage"`
+	DiscountSource     string `json:"discountSource" xml:"discountSource"`
+	DiscountType       string `json:"discountType" xml:"discountType"`
+}
+
+type BusinessSupportServiceSpend struct {
+	ChargeAmount        string `json:"chargeAmount" xml:"chargeAmount"`
+	ContributingService string `json:"contributingService" xml:"contributingService"`
+	Currency            string `json:"currency" xml:"currency"`
+	Description         string `json:"description" xml:"description"`
+	ItemType            string `json:"itemType" xml:"itemType"`
+}
+
+type BusinessSupportSubscriptionContract struct {
+	AccountId         string    `json:"accountId" xml:"accountId"`
+	ContractEndDate   time.Time `json:"contractEndDate" xml:"contractEndDate"`
+	ContractStartDate time.Time `json:"contractStartDate" xml:"contractStartDate"`
+	PlanName          string    `json:"planName" xml:"planName"`
+}
+
+type BusinessSupportTierCharge struct {
+	ChargePeriodEndDate   time.Time `json:"chargePeriodEndDate" xml:"chargePeriodEndDate"`
+	ChargePeriodStartDate time.Time `json:"chargePeriodStartDate" xml:"chargePeriodStartDate"`
+	TierCharge            string    `json:"tierCharge" xml:"tierCharge"`
+	TierDescription       string    `json:"tierDescription" xml:"tierDescription"`
+	TierRate              string    `json:"tierRate" xml:"tierRate"`
+	UsageSlice            string    `json:"usageSlice" xml:"usageSlice"`
+}
+
 type ChargeAccount struct {
 	AccountId        string `json:"accountId" xml:"accountId"`
 	ChargePercentage string `json:"chargePercentage" xml:"chargePercentage"`
@@ -295,6 +349,18 @@ type LinkedAccountCharge struct {
 	TotalSupportEligibleSpend                 string                       `json:"totalSupportEligibleSpend" xml:"totalSupportEligibleSpend"`
 }
 
+type ListBillingViewSegmentsRequest struct {
+	Arn        string                       `json:"arn" xml:"arn"`
+	MaxResults int32                        `json:"maxResults" xml:"maxResults"`
+	NextToken  string                       `json:"nextToken" xml:"nextToken"`
+	TimeRange  *BillingViewSegmentTimeRange `json:"timeRange" xml:"timeRange"`
+}
+
+type ListBillingViewSegmentsResponse struct {
+	Items     BillingViewSegmentsList `json:"items" xml:"items"`
+	NextToken string                  `json:"nextToken" xml:"nextToken"`
+}
+
 type ListBillingViewsRequest struct {
 	ActiveTimeRange  *ActiveTimeRange    `json:"activeTimeRange" xml:"activeTimeRange"`
 	Arns             BillingViewArnList  `json:"arns" xml:"arns"`
@@ -309,6 +375,37 @@ type ListBillingViewsRequest struct {
 type ListBillingViewsResponse struct {
 	BillingViews BillingViewList `json:"billingViews" xml:"billingViews"`
 	NextToken    string          `json:"nextToken" xml:"nextToken"`
+}
+
+type ListBusinessSupportAccountChargesRequest struct {
+	AccountId    string `json:"accountId" xml:"accountId"`
+	BillingMonth string `json:"billingMonth" xml:"billingMonth"`
+	MaxResults   int32  `json:"maxResults" xml:"maxResults"`
+	NextToken    string `json:"nextToken" xml:"nextToken"`
+}
+
+type ListBusinessSupportAccountChargesResponse struct {
+	AccountCharges            BusinessSupportAccountChargeList `json:"accountCharges" xml:"accountCharges"`
+	AccountCount              int32                            `json:"accountCount" xml:"accountCount"`
+	BillingMonth              string                           `json:"billingMonth" xml:"billingMonth"`
+	IsEstimated               bool                             `json:"isEstimated" xml:"isEstimated"`
+	NextToken                 string                           `json:"nextToken" xml:"nextToken"`
+	TotalSupportCharge        string                           `json:"totalSupportCharge" xml:"totalSupportCharge"`
+	TotalSupportEligibleSpend string                           `json:"totalSupportEligibleSpend" xml:"totalSupportEligibleSpend"`
+}
+
+type ListBusinessSupportSubscriptionHistoryRequest struct {
+	AccountId    string    `json:"accountId" xml:"accountId"`
+	BillingMonth string    `json:"billingMonth" xml:"billingMonth"`
+	EndDate      time.Time `json:"endDate" xml:"endDate"`
+	MaxResults   int32     `json:"maxResults" xml:"maxResults"`
+	NextToken    string    `json:"nextToken" xml:"nextToken"`
+	StartDate    time.Time `json:"startDate" xml:"startDate"`
+}
+
+type ListBusinessSupportSubscriptionHistoryResponse struct {
+	NextToken             string                                  `json:"nextToken" xml:"nextToken"`
+	SubscriptionContracts BusinessSupportSubscriptionContractList `json:"subscriptionContracts" xml:"subscriptionContracts"`
 }
 
 type ListEnterpriseSupportLinkedAccountChargesRequest struct {
@@ -455,11 +552,21 @@ type BillingViewArnList []string
 
 type BillingViewList []*BillingViewListElement
 
+type BillingViewSegmentsList []*BillingViewSegmentsListElement
+
 type BillingViewSourceViewsList []string
 
 type BillingViewStatusReasons []string
 
 type BillingViewTypeList []string
+
+type BusinessSupportAccountChargeList []*BusinessSupportAccountCharge
+
+type BusinessSupportServiceSpendList []*BusinessSupportServiceSpend
+
+type BusinessSupportSubscriptionContractList []*BusinessSupportSubscriptionContract
+
+type BusinessSupportTierChargeList []*BusinessSupportTierCharge
 
 type ChargeAccountList []*ChargeAccount
 

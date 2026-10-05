@@ -2107,10 +2107,13 @@ type ServerlessFunctionMetadata struct {
 }
 
 type SeverityCounts struct {
-	All      int64 `json:"all" xml:"all"`
-	Critical int64 `json:"critical" xml:"critical"`
-	High     int64 `json:"high" xml:"high"`
-	Medium   int64 `json:"medium" xml:"medium"`
+	All           int64 `json:"all" xml:"all"`
+	Critical      int64 `json:"critical" xml:"critical"`
+	High          int64 `json:"high" xml:"high"`
+	Informational int64 `json:"informational" xml:"informational"`
+	Low           int64 `json:"low" xml:"low"`
+	Medium        int64 `json:"medium" xml:"medium"`
+	Untriaged     int64 `json:"untriaged" xml:"untriaged"`
 }
 
 type SortCriteria struct {
