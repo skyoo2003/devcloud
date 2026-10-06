@@ -1,0 +1,5 @@
+kind: Added
+body: Add native EventBridge lifecycle, SNS batch/mobile/SMS state, and S3 conditional rename, directory sessions and multipart copying backed by local persisted state.
+time: 2026-10-07T07:37:26.918082+09:00
+custom:
+    Issue: "179"
