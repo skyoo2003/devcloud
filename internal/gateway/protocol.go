@@ -23,6 +23,9 @@ import (
 //  2. Content-Type application/x-www-form-urlencoded with Action= body → Query protocol (SQS/IAM/STS)
 //  3. Default → REST-XML / S3
 func DetectProtocol(r *http.Request) (protocol string, serviceID string) {
+	if serviceFromSigV4(r) == "s3express" {
+		return "rest-xml", "s3"
+	}
 	// 1. JSON protocol via X-Amz-Target
 	if target := r.Header.Get("X-Amz-Target"); target != "" {
 		contentType := r.Header.Get("Content-Type")

@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"path/filepath"
+	"sync"
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/storage/sqlite"
@@ -63,6 +64,17 @@ var migrations = []sqlite.Migration{
 			policy    TEXT NOT NULL
 		);
 	`},
+	{Version: 4, SQL: `
+	 CREATE TABLE IF NOT EXISTS sns_platform_applications(arn TEXT NOT NULL PRIMARY KEY, account_id TEXT NOT NULL, name TEXT NOT NULL, platform TEXT NOT NULL, document_json BLOB NOT NULL, UNIQUE(account_id,platform,name));
+	 CREATE TABLE IF NOT EXISTS sns_platform_endpoints(arn TEXT NOT NULL PRIMARY KEY, application_arn TEXT NOT NULL, account_id TEXT NOT NULL, token TEXT NOT NULL, document_json BLOB NOT NULL, UNIQUE(application_arn,token));
+	 CREATE INDEX IF NOT EXISTS sns_endpoints_parent ON sns_platform_endpoints(application_arn);
+	 CREATE TABLE IF NOT EXISTS sns_sms_settings(account_id TEXT NOT NULL PRIMARY KEY, attributes_json BLOB NOT NULL);
+	 CREATE TABLE IF NOT EXISTS sns_sandbox_phones(account_id TEXT NOT NULL, phone_number TEXT NOT NULL, document_json BLOB NOT NULL, PRIMARY KEY(account_id,phone_number));
+	 CREATE TABLE IF NOT EXISTS sns_sms_outbox(id TEXT NOT NULL PRIMARY KEY, account_id TEXT NOT NULL, phone_number TEXT NOT NULL, body_json BLOB NOT NULL, created_at INTEGER NOT NULL);
+	 CREATE TABLE IF NOT EXISTS sns_publish_sequences(topic_arn TEXT NOT NULL PRIMARY KEY, next_sequence INTEGER NOT NULL);
+	 CREATE TABLE IF NOT EXISTS sns_publish_dedup(topic_arn TEXT NOT NULL, scope TEXT NOT NULL, dedup_id TEXT NOT NULL, document_json BLOB NOT NULL, expires_at INTEGER NOT NULL, PRIMARY KEY(topic_arn,scope,dedup_id));
+	 CREATE TABLE IF NOT EXISTS sns_legacy_imports(resource TEXT NOT NULL, resource_id TEXT NOT NULL, document_json BLOB NOT NULL, status TEXT NOT NULL, PRIMARY KEY(resource,resource_id));
+	`},
 }
 
 type Topic struct {
@@ -83,7 +95,8 @@ type Subscription struct {
 }
 
 type SNSStore struct {
-	store *sqlite.Store
+	store   *sqlite.Store
+	stateMu sync.Mutex
 }
 
 func NewSNSStore(dataDir string) (*SNSStore, error) {
@@ -98,30 +111,29 @@ func NewSNSStore(dataDir string) (*SNSStore, error) {
 func (s *SNSStore) Close() error { return s.store.Close() }
 
 func (s *SNSStore) CreateTopic(arn, name, accountID string) (*Topic, error) {
-	now := time.Now().Unix()
-	_, err := s.store.DB().Exec(
-		`INSERT INTO topics (arn, name, account_id, attributes, created_at) VALUES (?, ?, ?, '{}', ?)
-		 ON CONFLICT(arn) DO NOTHING`,
-		arn, name, accountID, now,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return &Topic{ARN: arn, Name: name, AccountID: accountID, Attributes: map[string]string{}, CreatedAt: time.Unix(now, 0)}, nil
+	return s.CreateTopicWithAttributes(arn, name, accountID, nil)
 }
 
 func (s *SNSStore) DeleteTopic(arn string) error {
-	res, err := s.store.DB().Exec(`DELETE FROM topics WHERE arn = ?`, arn)
-	if err != nil {
-		return err
-	}
-	n, _ := res.RowsAffected()
-	if n == 0 {
-		return ErrTopicNotFound
-	}
-	// cascade delete subscriptions
-	_, _ = s.store.DB().Exec(`DELETE FROM subscriptions WHERE topic_arn = ?`, arn)
-	return nil
+	return s.withStateTx(func(tx *sql.Tx) error {
+		res, e := tx.Exec("DELETE FROM topics WHERE arn=?", arn)
+		if e != nil {
+			return e
+		}
+		n, e := res.RowsAffected()
+		if e != nil {
+			return e
+		}
+		if n == 0 {
+			return ErrTopicNotFound
+		}
+		for _, query := range []string{"DELETE FROM subscriptions WHERE topic_arn=?", "DELETE FROM sns_publish_sequences WHERE topic_arn=?", "DELETE FROM sns_publish_dedup WHERE topic_arn=?"} {
+			if _, e = tx.Exec(query, arn); e != nil {
+				return e
+			}
+		}
+		return nil
+	})
 }
 
 func (s *SNSStore) GetTopic(arn string) (*Topic, error) {
@@ -243,25 +255,25 @@ func scanSubscriptions(rows *sql.Rows) ([]Subscription, error) {
 
 // SetTopicAttribute merges a single key/value into the topic's attributes JSON.
 func (s *SNSStore) SetTopicAttribute(arn, key, value string) error {
-	var attrJSON string
-	err := s.store.DB().QueryRow(`SELECT attributes FROM topics WHERE arn = ?`, arn).Scan(&attrJSON)
-	if err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
-			return ErrTopicNotFound
+	return s.withStateTx(func(tx *sql.Tx) error {
+		topic, e := scanTopic(tx.QueryRow("SELECT arn,name,account_id,attributes,created_at FROM topics WHERE arn=?", arn))
+		if e != nil {
+			return e
 		}
-		return err
-	}
-	attrs := map[string]string{}
-	if err := json.Unmarshal([]byte(attrJSON), &attrs); err != nil {
-		attrs = map[string]string{}
-	}
-	attrs[key] = value
-	newJSON, err := json.Marshal(attrs)
-	if err != nil {
-		return err
-	}
-	_, err = s.store.DB().Exec(`UPDATE topics SET attributes = ? WHERE arn = ?`, string(newJSON), arn)
-	return err
+		if key == "FifoTopic" {
+			return invalidSNS("FifoTopic is immutable")
+		}
+		topic.Attributes[key] = value
+		if e = validateTopicFIFO(topic.Name, topic.Attributes); e != nil {
+			return e
+		}
+		raw, e := json.Marshal(topic.Attributes)
+		if e != nil {
+			return e
+		}
+		_, e = tx.Exec("UPDATE topics SET attributes=? WHERE arn=?", string(raw), arn)
+		return e
+	})
 }
 
 // GetSubscriptionAttributes returns all attributes for a subscription.

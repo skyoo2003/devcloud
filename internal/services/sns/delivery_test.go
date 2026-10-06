@@ -97,7 +97,8 @@ func TestSNSFanoutContinuesAfterFailure(t *testing.T) {
 	require.NoError(t, err)
 	_, err = p.store.Subscribe(topic+":b", topic, "sqs", queue, defaultAccountID)
 	require.NoError(t, err)
-	require.Equal(t, 200, handle(t, p, url.Values{"Action": {"Publish"}, "TopicArn": {topic}, "Message": {deliveryMessage}}.Encode()).StatusCode)
+	// Attempt the remaining subscriptions, but surface a failed delivery.
+	require.Equal(t, 500, handle(t, p, url.Values{"Action": {"Publish"}, "TopicArn": {topic}, "Message": {deliveryMessage}}.Encode()).StatusCode)
 	require.Equal(t, []string{deliveryMessage}, receivedBodies(t, svc, queue))
 }
 

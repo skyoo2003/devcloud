@@ -3,16 +3,22 @@ package sns
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/xml"
 	"fmt"
 	"net/http"
 	"net/url"
+	"sort"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
 )
 
-func (p *Provider) fanoutToSQS(ctx context.Context, endpoint, message string) error {
+func (p *Provider) fanoutPublicationToSQS(ctx context.Context, endpoint string, entry PublishEntry, publication Publication) error {
+	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
+	defer cancel()
 	svc, ok := plugin.DefaultRegistry.Get("sqs")
 	if !ok {
 		return fmt.Errorf("SQS provider unavailable")
@@ -21,8 +27,39 @@ func (p *Provider) fanoutToSQS(ctx context.Context, endpoint, message string) er
 	if err != nil {
 		return err
 	}
-	_, err = sqsDeliveryRequest(ctx, svc, url.Values{"Action": {"SendMessage"}, "QueueUrl": {queueURL}, "MessageBody": {message}})
+	body, err := sqsPublishBody(entry)
+	if err != nil {
+		return err
+	}
+	values := url.Values{"Action": {"SendMessage"}, "QueueUrl": {queueURL}, "MessageBody": {body}}
+	if entry.MessageGroupID != "" {
+		values.Set("MessageGroupId", entry.MessageGroupID)
+	}
+	if publication.MessageDeduplicationID != "" {
+		values.Set("MessageDeduplicationId", publication.MessageDeduplicationID)
+	}
+	keys := make([]string, 0, len(entry.Attributes))
+	for k := range entry.Attributes {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for i, k := range keys {
+		a := entry.Attributes[k]
+		prefix := "MessageAttribute." + strconv.Itoa(i+1)
+		values.Set(prefix+".Name", k)
+		values.Set(prefix+".Value.DataType", a.DataType)
+		if strings.SplitN(a.DataType, ".", 2)[0] == "Binary" {
+			values.Set(prefix+".Value.BinaryValue", base64.StdEncoding.EncodeToString(a.BinaryValue))
+		} else {
+			values.Set(prefix+".Value.StringValue", a.StringValue)
+		}
+	}
+	_, err = sqsDeliveryRequest(ctx, svc, values)
 	return err
+}
+
+func (p *Provider) fanoutToSQS(ctx context.Context, endpoint, message string) error {
+	return p.fanoutPublicationToSQS(ctx, endpoint, PublishEntry{Message: message}, Publication{})
 }
 
 func resolveSQSQueueURL(ctx context.Context, svc plugin.ServicePlugin, endpoint string) (string, error) {

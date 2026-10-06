@@ -4,6 +4,7 @@ package sqs
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
@@ -510,6 +511,7 @@ func (p *SQSProvider) receiveMessageJSON(params map[string]any) (*plugin.Respons
 	type msgAttrJSON struct {
 		DataType    string `json:"DataType"`
 		StringValue string `json:"StringValue,omitempty"`
+		BinaryValue []byte `json:"BinaryValue,omitempty"`
 	}
 	type msgJSON struct {
 		MessageId         string                 `json:"MessageId"`
@@ -517,6 +519,7 @@ func (p *SQSProvider) receiveMessageJSON(params map[string]any) (*plugin.Respons
 		Body              string                 `json:"Body"`
 		MD5OfBody         string                 `json:"MD5OfBody"`
 		MessageAttributes map[string]msgAttrJSON `json:"MessageAttributes,omitempty"`
+		Attributes        map[string]string      `json:"Attributes,omitempty"`
 	}
 
 	result := make([]msgJSON, 0, len(msgs))
@@ -527,13 +530,17 @@ func (p *SQSProvider) receiveMessageJSON(params map[string]any) (*plugin.Respons
 			Body:          m.Body,
 			MD5OfBody:     m.MD5OfBody,
 		}
+		if m.MessageGroupID != "" && (params["MessageSystemAttributeNames"] != nil || params["AttributeNames"] != nil) {
+			mj.Attributes = map[string]string{"MessageGroupId": m.MessageGroupID}
+			if m.MessageDeduplicationID != "" {
+				mj.Attributes["MessageDeduplicationId"] = m.MessageDeduplicationID
+				mj.Attributes["SequenceNumber"] = m.SequenceNumber
+			}
+		}
 		if len(m.MessageAttributes) > 0 {
 			mj.MessageAttributes = make(map[string]msgAttrJSON)
 			for k, v := range m.MessageAttributes {
-				mj.MessageAttributes[k] = msgAttrJSON{
-					DataType:    v.DataType,
-					StringValue: v.StringValue,
-				}
+				mj.MessageAttributes[k] = msgAttrJSON(v)
 			}
 		}
 		result = append(result, mj)
@@ -849,7 +856,7 @@ func (p *SQSProvider) sendMessage(req *http.Request) (*plugin.Response, error) {
 	attrs := parseFormMessageAttributes(req)
 
 	name := queueNameFromURL(queueURL)
-	msgID, err := p.store.SendMessageWithAttributes(name, defaultAccountID, body, attrs)
+	msgID, err := p.store.SendMessageFull(name, defaultAccountID, body, attrs, SendMessageFIFOOptions{MessageGroupID: req.FormValue("MessageGroupId"), MessageDeduplicationID: req.FormValue("MessageDeduplicationId")})
 	if err != nil {
 		return sqsError("AWS.SimpleQueueService.NonExistentQueue", "queue not found", http.StatusBadRequest), nil
 	}
@@ -1131,9 +1138,11 @@ func parseFormMessageAttributes(req *http.Request) map[string]MessageAttribute {
 		}
 		dataType := req.FormValue(fmt.Sprintf("MessageAttribute.%d.Value.DataType", i))
 		stringValue := req.FormValue(fmt.Sprintf("MessageAttribute.%d.Value.StringValue", i))
+		binaryValue, _ := base64.StdEncoding.DecodeString(req.FormValue(fmt.Sprintf("MessageAttribute.%d.Value.BinaryValue", i)))
 		attrs[name] = MessageAttribute{
 			DataType:    dataType,
 			StringValue: stringValue,
+			BinaryValue: binaryValue,
 		}
 	}
 	if len(attrs) == 0 {

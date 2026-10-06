@@ -6713,6 +6713,7 @@
   "eventbridge": {
     "protocol": "json-1.1",
     "servedOps": [
+      "ActivateEventSource",
       "CancelReplay",
       "CreateApiDestination",
       "CreateArchive",
@@ -6720,6 +6721,8 @@
       "CreateEndpoint",
       "CreateEventBus",
       "CreatePartnerEventSource",
+      "DeactivateEventSource",
+      "DeauthorizeConnection",
       "DeleteApiDestination",
       "DeleteArchive",
       "DeleteConnection",
@@ -6756,6 +6759,7 @@
       "PutPermission",
       "PutRule",
       "PutTargets",
+      "RemovePermission",
       "RemoveTargets",
       "StartReplay",
       "TagResource",
@@ -14751,10 +14755,12 @@
       "PutObjectRetention",
       "PutObjectTagging",
       "PutPublicAccessBlock",
+      "RenameObject",
       "UpdateBucketMetadataInventoryTableConfiguration",
       "UpdateBucketMetadataJournalTableConfiguration",
       "UpdateObjectEncryption",
-      "UploadPart"
+      "UploadPart",
+      "UploadPartCopy"
     ]
   },
   "s3control": {
@@ -16331,15 +16337,21 @@
       "ListSubscriptionsByTopic",
       "ListTagsForResource",
       "ListTopics",
+      "OptInPhoneNumber",
       "Publish",
+      "PublishBatch",
       "PutDataProtectionPolicy",
       "RemovePermission",
+      "SetEndpointAttributes",
+      "SetPlatformApplicationAttributes",
+      "SetSMSAttributes",
       "SetSubscriptionAttributes",
       "SetTopicAttributes",
       "Subscribe",
       "TagResource",
       "Unsubscribe",
-      "UntagResource"
+      "UntagResource",
+      "VerifySMSSandboxPhoneNumber"
     ]
   },
   "socialmessaging": {

@@ -22,7 +22,7 @@
 
 ## Per-service references
 
-[S3](services/s3.md) · [SQS](services/sqs.md) · [DynamoDB](services/dynamodb.md) · [Lambda](services/lambda.md) · [IAM / STS](services/iam-sts.md)
+[S3](services/s3.md) · [SQS](services/sqs.md) · [SNS](services/sns.md) · [DynamoDB](services/dynamodb.md) · [Lambda](services/lambda.md) · [IAM / STS](services/iam-sts.md) · [EventBridge](services/eventbridge.md)
 
 ## Problem solving
 

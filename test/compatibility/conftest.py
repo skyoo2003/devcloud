@@ -15,6 +15,26 @@ import shlex
 from client_tools import resolve_tools, run_command
 
 
+def _devcloud_data_path(server):
+    if server is None:
+        directory = os.environ.get("DEVCLOUD_DATA_DIR")
+        if not directory:
+            raise RuntimeError(
+                "External SNS outbox verification requires DEVCLOUD_DATA_DIR"
+            )
+        directory = Path(directory)
+    else:
+        directory = server.devcloud_data_dir
+    if not directory.is_dir() or not os.access(directory, os.R_OK | os.X_OK):
+        raise RuntimeError("SNS test data directory must exist and be readable")
+    return directory.resolve()
+
+
+@pytest.fixture(scope="session")
+def devcloud_data_dir(devcloud_server):
+    return _devcloud_data_path(devcloud_server)
+
+
 def _find_free_port():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("localhost", 0))
@@ -113,6 +133,7 @@ def devcloud_server():
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
+    proc.devcloud_data_dir = Path(data_dir)
     try:
         _wait_for_server(DEVCLOUD_URL)
     except RuntimeError:

@@ -45,7 +45,7 @@ var shortOpNamePattern = regexp.MustCompile(`^[A-Z][A-Za-z0-9]{1,2}$`)
 var pathRoutedOps = map[string][]string{
 	"s3": {
 		"AbortMultipartUpload", "CompleteMultipartUpload", "CopyObject", "CreateBucket",
-		"CreateMultipartUpload", "DeleteBucket", "DeleteBucketCors", "DeleteBucketPolicy",
+		"CreateMultipartUpload", "CreateSession", "DeleteBucket", "DeleteBucketCors", "DeleteBucketPolicy",
 		"DeleteBucketTagging", "DeleteObject", "DeleteObjectTagging", "DeleteObjects",
 		"GetBucketAcl", "GetBucketCors", "GetBucketLocation",
 		"GetBucketNotificationConfiguration", "GetBucketPolicy", "GetBucketTagging",
@@ -53,7 +53,7 @@ var pathRoutedOps = map[string][]string{
 		"ListBuckets", "ListMultipartUploads", "ListObjects", "ListObjectsV2", "ListParts",
 		"PutBucketAcl", "PutBucketCors", "PutBucketNotificationConfiguration",
 		"PutBucketPolicy", "PutBucketTagging", "PutBucketVersioning", "PutObject",
-		"PutObjectTagging", "UploadPart",
+		"PutObjectTagging", "RenameObject", "UploadPart", "UploadPartCopy",
 	},
 	"lambda": {
 		"AddPermission", "CreateAlias", "CreateEventSourceMapping", "CreateFunction",

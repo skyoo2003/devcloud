@@ -2,6 +2,20 @@
 
 What DevCloud **v1.0** promises, and what it deliberately does not.
 
+The [EventBridge reference](services/eventbridge.md) defines the local behavior of
+partner sources, connections and bus policies. Existing generic EventBridge data
+is imported once into durable canonical state. OAuth settings and resource
+policies are stored locally; they do not perform external token exchange or IAM
+authorization. Connection descriptions omit credentials and secret parameter
+values.
+
+The [SNS reference](services/sns.md) defines batch/FIFO delivery, mobile and SMS
+state, opt-in and local sandbox OTP verification. Mobile credentials and SMS
+role/report settings are configuration; external push, carrier delivery and
+billing are not executed. OTP verification consumes an actual local outbox code.
+Delivery failures are reported, and sink writes cannot be rolled back after a
+later fanout or database commit failure.
+
 This covers the surfaces you touch as a *user*: the config file, the environment, the CLI, the
 admin API, and the AWS wire protocol. For the in-tree Go contract that service implementations
 are written against, see [plugin-api.md](plugin-api.md#api-stability).

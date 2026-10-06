@@ -8,14 +8,15 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"encoding/xml"
+	"errors"
 	"fmt"
-	"log/slog"
 	"net/http"
 	"path/filepath"
 	"strings"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	"github.com/skyoo2003/devcloud/internal/shared"
+	"github.com/skyoo2003/devcloud/internal/shared/crud"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
@@ -34,9 +35,20 @@ func (p *Provider) Init(cfg plugin.PluginConfig) error {
 	if dataDir == "" {
 		dataDir = "."
 	}
-	var err error
-	p.store, err = NewSNSStore(filepath.Join(dataDir, "sns"))
-	return err
+	store, err := NewSNSStore(filepath.Join(dataDir, "sns"))
+	if err != nil {
+		return err
+	}
+	records, err := crud.Snapshot("sns", []string{"PlatformApplication", "PlatformEndpoint", "PlatformApplicationAttribute", "EndpointAttribute", "EndpointsByPlatformApplication", "SMSAttribute", "SMSSandboxPhoneNumber", "SMSSandboxAccountStatus"})
+	if err == nil {
+		err = store.ImportLegacy(records)
+	}
+	if err != nil {
+		_ = store.Close()
+		return err
+	}
+	p.store = store
+	return nil
 }
 
 func (p *Provider) Shutdown(_ context.Context) error {
@@ -55,6 +67,14 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 		action = req.FormValue("Action")
 	}
 	switch action {
+	case "PublishBatch":
+		return p.publishBatch(req)
+	case "CreateSMSSandboxPhoneNumber", "VerifySMSSandboxPhoneNumber", "ListSMSSandboxPhoneNumbers", "DeleteSMSSandboxPhoneNumber", "GetSMSSandboxAccountStatus":
+		return p.handleSandbox(action, req)
+	case "CreatePlatformApplication", "GetPlatformApplicationAttributes", "ListPlatformApplications", "SetPlatformApplicationAttributes", "DeletePlatformApplication", "CreatePlatformEndpoint", "GetEndpointAttributes", "ListEndpointsByPlatformApplication", "SetEndpointAttributes", "DeleteEndpoint":
+		return p.handleMobile(action, req)
+	case "SetSMSAttributes", "GetSMSAttributes", "OptInPhoneNumber":
+		return p.handleSMSSettings(action, req)
 	case "CreateTopic":
 		return p.createTopic(req)
 	case "DeleteTopic":
@@ -124,9 +144,13 @@ func (p *Provider) createTopic(req *http.Request) (*plugin.Response, error) {
 		return snsError("InvalidParameter", "Name is required", http.StatusBadRequest), nil
 	}
 	arn := fmt.Sprintf("arn:aws:sns:%s:%s:%s", defaultRegion, defaultAccountID, name)
-	t, err := p.store.CreateTopic(arn, name, defaultAccountID)
+	attrs, err := queryStringMap(req.Form, "Attributes")
 	if err != nil {
-		return nil, err
+		return canonicalSNSError(err)
+	}
+	t, err := p.store.CreateTopicWithAttributes(arn, name, defaultAccountID, attrs)
+	if err != nil {
+		return canonicalSNSError(err)
 	}
 	type result struct {
 		TopicArn string `xml:"TopicArn"`
@@ -235,32 +259,24 @@ func (p *Provider) listSubscriptionsByTopic(req *http.Request) (*plugin.Response
 
 func (p *Provider) publish(req *http.Request) (*plugin.Response, error) {
 	topicARN := req.FormValue("TopicArn")
-	message := req.FormValue("Message")
-	if topicARN == "" || message == "" {
-		return snsError("InvalidParameter", "TopicArn and Message are required", http.StatusBadRequest), nil
+	if topicARN == "" {
+		return canonicalSNSError(invalidSNS("TopicArn required"))
 	}
-	// Verify topic exists.
-	if _, err := p.store.GetTopic(topicARN); err != nil {
-		return snsError("NotFound", "topic not found", http.StatusBadRequest), nil
+	entry, e := parsePublishEntry(req.Form)
+	if e != nil {
+		return canonicalSNSError(e)
 	}
-	// SQS fanout: deliver to sqs subscriptions via registry.
-	subs, _ := p.store.ListSubscriptionsByTopic(topicARN)
-	for _, sub := range subs {
-		if sub.Protocol == "sqs" {
-			if err := p.fanoutToSQS(req.Context(), sub.Endpoint, message); err != nil {
-				slog.Warn("SNS SQS delivery failed", "endpoint", sub.Endpoint, "error", err)
-			}
+	if publishPayloadBytes(entry) > 262144 {
+		return canonicalSNSError(invalidSNS("message exceeds 256 KiB"))
+	}
+	v, e := p.publishEntry(req.Context(), topicARN, entry)
+	if e != nil {
+		if errors.Is(e, ErrTopicNotFound) {
+			return snsError("NotFound", "topic not found", 400), nil
 		}
+		return canonicalSNSError(e)
 	}
-	msgID := randomID(16)
-	type result struct {
-		MessageId string `xml:"MessageId"`
-	}
-	type response struct {
-		XMLName xml.Name `xml:"PublishResponse"`
-		Result  result   `xml:"PublishResult"`
-	}
-	return xmlResp(http.StatusOK, response{Result: result{MessageId: msgID}})
+	return snsXML("Publish", publishedMember{MessageID: v.MessageID, SequenceNumber: v.SequenceNumber})
 }
 
 func (p *Provider) getTopicAttributes(req *http.Request) (*plugin.Response, error) {
@@ -331,22 +347,17 @@ func (p *Provider) setSubscriptionAttributes(req *http.Request) (*plugin.Respons
 }
 
 func (p *Provider) setTopicAttributes(req *http.Request) (*plugin.Response, error) {
-	arn := req.FormValue("TopicArn")
-	attrName := req.FormValue("AttributeName")
-	attrValue := req.FormValue("AttributeValue")
-	if arn == "" || attrName == "" {
-		return snsError("InvalidParameter", "TopicArn and AttributeName are required", http.StatusBadRequest), nil
+	arn, key := req.FormValue("TopicArn"), req.FormValue("AttributeName")
+	if arn == "" || key == "" {
+		return canonicalSNSError(invalidSNS("TopicArn and AttributeName required"))
 	}
-	if err := p.store.SetTopicAttribute(arn, attrName, attrValue); err != nil {
-		if err == ErrTopicNotFound {
-			return snsError("NotFound", "topic not found", http.StatusBadRequest), nil
+	if e := p.store.SetTopicAttribute(arn, key, req.FormValue("AttributeValue")); e != nil {
+		if errors.Is(e, ErrTopicNotFound) {
+			return snsError("NotFound", "topic not found", 400), nil
 		}
-		return nil, err
+		return canonicalSNSError(e)
 	}
-	type response struct {
-		XMLName xml.Name `xml:"SetTopicAttributesResponse"`
-	}
-	return xmlResp(http.StatusOK, response{})
+	return snsUnit("SetTopicAttributes")
 }
 
 func (p *Provider) getSubscriptionAttributes(req *http.Request) (*plugin.Response, error) {
@@ -513,26 +524,12 @@ func (p *Provider) listTagsForResource(req *http.Request) (*plugin.Response, err
 	return xmlResp(http.StatusOK, resp)
 }
 
-func (p *Provider) listPhoneNumbersOptedOut(_ *http.Request) (*plugin.Response, error) {
-	type result struct {
-		PhoneNumbers []string `xml:"phoneNumbers>member"`
-	}
-	type response struct {
-		XMLName xml.Name `xml:"ListPhoneNumbersOptedOutResponse"`
-		Result  result   `xml:"ListPhoneNumbersOptedOutResult"`
-	}
-	return xmlResp(http.StatusOK, response{Result: result{PhoneNumbers: []string{}}})
+func (p *Provider) listPhoneNumbersOptedOut(req *http.Request) (*plugin.Response, error) {
+	return p.handleSMSSettings("ListPhoneNumbersOptedOut", req)
 }
 
-func (p *Provider) checkIfPhoneNumberIsOptedOut(_ *http.Request) (*plugin.Response, error) {
-	type result struct {
-		IsOptedOut bool `xml:"isOptedOut"`
-	}
-	type response struct {
-		XMLName xml.Name `xml:"CheckIfPhoneNumberIsOptedOutResponse"`
-		Result  result   `xml:"CheckIfPhoneNumberIsOptedOutResult"`
-	}
-	return xmlResp(http.StatusOK, response{Result: result{IsOptedOut: false}})
+func (p *Provider) checkIfPhoneNumberIsOptedOut(req *http.Request) (*plugin.Response, error) {
+	return p.handleSMSSettings("CheckIfPhoneNumberIsOptedOut", req)
 }
 
 func (p *Provider) putDataProtectionPolicy(req *http.Request) (*plugin.Response, error) {
