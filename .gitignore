@@ -24,7 +24,9 @@ __pycache__/
 
 # Worktrees
 .worktrees/
+.serena/
 
 # Claude Code local workspace
 .claude/
+docs/superpowers/
 test/compatibility/data/
