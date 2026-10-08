@@ -99,6 +99,24 @@ func (p *DynamoDBProvider) HandleRequest(_ context.Context, op string, req *http
 		return p.handleUntagResource(body)
 	case "ListTagsOfResource":
 		return p.handleListTagsOfResource(body)
+	case "ExecuteStatement":
+		return p.handleExecuteStatement(body)
+	case "BatchExecuteStatement":
+		return p.handleBatchExecuteStatement(body)
+	case "ExecuteTransaction":
+		return p.handleExecuteTransaction(body)
+	case "EnableKinesisStreamingDestination":
+		return p.handleEnableKinesisStreamingDestination(body)
+	case "DisableKinesisStreamingDestination":
+		return p.handleDisableKinesisStreamingDestination(body)
+	case "ExportTableToPointInTime":
+		return p.handleExportTableToPointInTime(body)
+	case "ImportTable":
+		return p.handleImportTable(body)
+	case "RestoreTableFromBackup":
+		return p.handleRestoreTableFromBackup(body)
+	case "RestoreTableToPointInTime":
+		return p.handleRestoreTableToPointInTime(body)
 	default:
 		// Fall back to the generic CRUD engine for unimplemented ops.
 		return nil, plugin.ErrUnhandledOp

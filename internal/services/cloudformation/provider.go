@@ -202,6 +202,22 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 		return p.handleRegisterPublisher(form)
 	case "DescribePublisher":
 		return p.handleDescribePublisher(form)
+	case "CancelUpdateStack":
+		return p.handleCancelUpdateStack(form)
+	case "DetectStackSetDrift":
+		return p.handleDetectStackSetDrift(form)
+	case "ExecuteStackRefactor":
+		return p.handleExecuteStackRefactor(form)
+	case "StartResourceScan":
+		return p.handleStartResourceScan(form)
+	case "EstimateTemplateCost":
+		return p.handleEstimateTemplateCost(form)
+	case "RecordHandlerProgress":
+		return p.handleRecordHandlerProgress(form)
+	case "ActivateOrganizationsAccess":
+		return p.handleActivateOrganizationsAccess(form)
+	case "DeactivateOrganizationsAccess":
+		return p.handleDeactivateOrganizationsAccess(form)
 
 	default:
 		// Hand back to the generic CRUD engine rather than inventing a success.

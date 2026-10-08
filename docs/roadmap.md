@@ -43,8 +43,13 @@ and verification with a local outbox OTP. S3 UploadPartCopy now copies actual
 source bytes/ranges with condition checks, error rollback and restart persistence.
 Directory RenameObject now preserves bytes, metadata and tags with conditional checks,
 persistent token replay and scoped CreateSession credentials.
-The original 3,085-operation unimplemented baseline has **3,073 remaining**;
-complete AWS operation support is still in progress. See
+Phase 1A Core Integrations completed native support for all remaining operations
+across S3 (RestoreObject, SelectObjectContent, WriteGetObjectResponse),
+DynamoDB (PartiQL engine, Kinesis destinations, PITR and table restores),
+Lambda (Layer versioning, response streaming, async and durable callbacks), and
+CloudFormation (CancelUpdateStack, drift detection, resource scans and orgs access).
+The original 3,085-operation unimplemented baseline has **3,043 remaining**;
+complete AWS operation support is still in progress across subsequent bundles. See
 [EventBridge](services/eventbridge.md), [SNS](services/sns.md) and [S3](services/s3.md)
 for local limits.
 

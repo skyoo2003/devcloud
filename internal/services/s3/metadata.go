@@ -181,6 +181,17 @@ var metadataMigrations = []sqlite.Migration{
 			PRIMARY KEY(account_id,incarnation,client_token)
 		);`,
 	},
+	{
+		Version: 13,
+		SQL: `CREATE TABLE IF NOT EXISTS object_restores (
+			bucket TEXT NOT NULL,
+			key TEXT NOT NULL,
+			account_id TEXT NOT NULL,
+			restore_status TEXT NOT NULL,
+			expires_at INTEGER NOT NULL,
+			PRIMARY KEY(bucket, key, account_id)
+		);`,
+	},
 }
 
 // MetadataStore is a SQLite-backed store for S3 bucket and object metadata.
@@ -692,4 +703,36 @@ func (s *MetadataStore) GetBucketNotification(bucket, accountID string) (string,
 		return "", ErrObjectNotFound
 	}
 	return configXML, err
+}
+
+// --- Object Restore methods ---
+
+// SetObjectRestore stores or updates the restore status and expiration time for an object.
+func (s *MetadataStore) SetObjectRestore(bucket, key, accountID, status string, expiresAt time.Time) error {
+	_, err := s.store.DB().Exec(
+		`INSERT INTO object_restores (bucket, key, account_id, restore_status, expires_at)
+		VALUES (?, ?, ?, ?, ?)
+		ON CONFLICT(bucket, key, account_id) DO UPDATE SET
+			restore_status = excluded.restore_status,
+			expires_at = excluded.expires_at;`,
+		bucket, key, accountID, status, expiresAt.Unix(),
+	)
+	return err
+}
+
+// GetObjectRestore retrieves the restore status and expiration time for an object.
+func (s *MetadataStore) GetObjectRestore(bucket, key, accountID string) (string, time.Time, error) {
+	var status string
+	var expiresAt int64
+	err := s.store.DB().QueryRow(
+		`SELECT restore_status, expires_at FROM object_restores WHERE bucket = ? AND key = ? AND account_id = ?;`,
+		bucket, key, accountID,
+	).Scan(&status, &expiresAt)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return "", time.Time{}, nil
+		}
+		return "", time.Time{}, err
+	}
+	return status, time.Unix(expiresAt, 0), nil
 }

@@ -126,6 +126,39 @@ var lambdaMigrations = []sqlite.Migration{
 	{Version: 8, SQL: `ALTER TABLE event_source_mappings ADD COLUMN starting_position TEXT NOT NULL DEFAULT 'TRIM_HORIZON';
  CREATE TABLE event_source_checkpoints(mapping_uuid TEXT NOT NULL,shard_id TEXT NOT NULL,generation TEXT NOT NULL,sequence_number TEXT NOT NULL,PRIMARY KEY(mapping_uuid,shard_id));
  UPDATE event_source_mappings SET state=CASE WHEN enabled=1 THEN 'Enabled' ELSE 'Disabled' END;`},
+	{
+		Version: 9,
+		SQL: `CREATE TABLE IF NOT EXISTS layer_versions (
+			layer_name          TEXT NOT NULL,
+			version             INTEGER NOT NULL,
+			description         TEXT NOT NULL DEFAULT '',
+			code_path           TEXT NOT NULL DEFAULT '',
+			code_size           INTEGER NOT NULL DEFAULT 0,
+			license_info        TEXT NOT NULL DEFAULT '',
+			compatible_runtimes TEXT NOT NULL DEFAULT '[]',
+			account_id          TEXT NOT NULL,
+			created_at          DATETIME NOT NULL,
+			PRIMARY KEY (layer_name, version, account_id)
+		);
+		CREATE TABLE IF NOT EXISTS layer_permissions (
+			layer_name      TEXT NOT NULL,
+			version         INTEGER NOT NULL,
+			statement_id    TEXT NOT NULL,
+			action          TEXT NOT NULL,
+			principal       TEXT NOT NULL,
+			organization_id TEXT NOT NULL DEFAULT '',
+			account_id      TEXT NOT NULL,
+			PRIMARY KEY (layer_name, version, statement_id, account_id)
+		);
+		CREATE TABLE IF NOT EXISTS durable_executions (
+			execution_id    TEXT NOT NULL PRIMARY KEY,
+			function_name   TEXT NOT NULL,
+			token           TEXT NOT NULL DEFAULT '',
+			status          TEXT NOT NULL DEFAULT 'RUNNING',
+			checkpoint_data TEXT NOT NULL DEFAULT '{}',
+			updated_at      DATETIME NOT NULL
+		);`,
+	},
 }
 
 // LambdaStore is a SQLite-backed store for Lambda function metadata,
