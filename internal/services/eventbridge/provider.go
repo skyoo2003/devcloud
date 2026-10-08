@@ -18,6 +18,7 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/shared/crud"
 )
 
 const defaultAccountID = plugin.DefaultAccountID
@@ -39,9 +40,20 @@ func (p *Provider) Init(cfg plugin.PluginConfig) error {
 	if port, ok := cfg.Options["server_port"].(int); ok {
 		p.serverPort = port
 	}
-	var err error
-	p.store, err = NewEBStore(filepath.Join(dataDir, "eventbridge"))
-	return err
+	store, err := NewEBStore(filepath.Join(dataDir, "eventbridge"))
+	if err != nil {
+		return err
+	}
+	records, err := crud.Snapshot("eventbridge", []string{"Connection", "PartnerEventSource", "EventSource", "PartnerEventSourceAccount", "Permission"})
+	if err == nil {
+		err = store.ImportLegacy(records)
+	}
+	if err != nil {
+		_ = store.Close()
+		return err
+	}
+	p.store = store
+	return nil
 }
 
 func (p *Provider) Shutdown(_ context.Context) error {
@@ -76,6 +88,14 @@ func (p *Provider) HandleRequest(_ context.Context, op string, req *http.Request
 	}
 
 	switch action {
+	case "PutPermission", "RemovePermission":
+		return p.handlePermissionOperation(action, params)
+	case "CreateConnection", "DescribeConnection", "ListConnections", "UpdateConnection", "DeleteConnection", "DeauthorizeConnection":
+		return p.handleConnectionOperation(action, params)
+	case "ActivateEventSource", "DeactivateEventSource", "CreatePartnerEventSource", "DeletePartnerEventSource", "DescribePartnerEventSource", "ListPartnerEventSources", "ListPartnerEventSourceAccounts", "DescribeEventSource", "ListEventSources":
+		return p.handleSourceOperation(action, params)
+	case "PutPartnerEvents":
+		return p.putPartnerEvents(params)
 	case "CreateEventBus":
 		return p.createEventBus(params)
 	case "DeleteEventBus":
@@ -154,24 +174,33 @@ func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 func (p *Provider) createEventBus(params map[string]any) (*plugin.Response, error) {
 	name, _ := params["Name"].(string)
 	if name == "" {
-		return ebError("InvalidParameterException", "Name is required", http.StatusBadRequest), nil
+		return ebError("InvalidParameterException", "Name is required", 400), nil
 	}
-	if err := p.store.CreateEventBus(name, defaultAccountID); err != nil {
-		return nil, err
+	var err error
+	if source, exists := params["EventSourceName"]; exists {
+		sourceName, valid := source.(string)
+		if !valid || !partnerSourceNamePattern.MatchString(sourceName) || len(sourceName) > 256 {
+			return ebError("InvalidParameterException", "valid EventSourceName is required", 400), nil
+		}
+		err = p.store.CreatePartnerEventBus(name, sourceName, defaultAccountID)
+	} else {
+		err = p.store.CreateEventBus(name, defaultAccountID)
 	}
-	arn := busARN(name, defaultAccountID)
-	return jsonResp(http.StatusOK, map[string]any{"EventBusArn": arn})
+	if err != nil {
+		return canonicalError(err)
+	}
+	return jsonResp(200, map[string]any{"EventBusArn": busARN(name, defaultAccountID)})
 }
 
 func (p *Provider) deleteEventBus(params map[string]any) (*plugin.Response, error) {
 	name, _ := params["Name"].(string)
 	if name == "" {
-		return ebError("InvalidParameterException", "Name is required", http.StatusBadRequest), nil
+		return ebError("InvalidParameterException", "Name is required", 400), nil
 	}
 	if err := p.store.DeleteEventBus(name, defaultAccountID); err != nil {
-		return ebError("ResourceNotFoundException", "event bus not found", http.StatusBadRequest), nil
+		return canonicalError(err)
 	}
-	return jsonResp(http.StatusOK, map[string]any{})
+	return jsonResp(200, map[string]any{})
 }
 
 func (p *Provider) listEventBuses(_ map[string]any) (*plugin.Response, error) {
@@ -346,12 +375,21 @@ func (p *Provider) describeEventBus(params map[string]any) (*plugin.Response, er
 	}
 	bus, err := p.store.GetEventBus(name, defaultAccountID)
 	if err != nil {
-		return ebError("ResourceNotFoundException", "Event bus "+name+" does not exist.", http.StatusBadRequest), nil
+		return canonicalError(err)
 	}
-	return jsonResp(http.StatusOK, map[string]any{
-		"Name": bus.Name,
-		"Arn":  bus.ARN,
-	})
+	policy, err := p.store.GetBusPolicy(name, defaultAccountID)
+	if err != nil {
+		return canonicalError(err)
+	}
+	result := map[string]any{"Name": bus.Name, "Arn": bus.ARN}
+	if policy != nil {
+		encoded, err := json.Marshal(policy)
+		if err != nil {
+			return canonicalError(err)
+		}
+		result["Policy"] = string(encoded)
+	}
+	return jsonResp(200, result)
 }
 
 func (p *Provider) describeRule(params map[string]any) (*plugin.Response, error) {

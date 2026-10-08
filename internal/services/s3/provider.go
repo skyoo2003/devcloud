@@ -33,6 +33,8 @@ const defaultAccountID = plugin.DefaultAccountID
 type S3Provider struct {
 	fileStore          *FileStore
 	metaStore          *MetadataStore
+	objectMu           sync.Mutex
+	multipartMu        sync.Mutex
 	notificationCtx    context.Context
 	notificationCancel context.CancelFunc
 	notificationMu     sync.Mutex
@@ -100,9 +102,44 @@ func (p *S3Provider) Shutdown(_ context.Context) error {
 }
 
 // HandleRequest routes the incoming HTTP request to the appropriate S3 operation.
-func (p *S3Provider) HandleRequest(ctx context.Context, _ string, req *http.Request) (*plugin.Response, error) {
+func (p *S3Provider) HandleRequest(ctx context.Context, op string, req *http.Request) (*plugin.Response, error) {
+	p.objectMu.Lock()
+	defer p.objectMu.Unlock()
+	return p.handleRequestLocked(ctx, op, req)
+}
+
+func (p *S3Provider) handleRequestLocked(ctx context.Context, _ string, req *http.Request) (*plugin.Response, error) {
 	bucket, key := splitBucketKey(req.URL.Path)
 	q := req.URL.Query()
+	if _, rename := q["renameObject"]; rename || q.Get("x-id") == "RenameObject" {
+		if req.Method != http.MethodPut {
+			return xmlError("MethodNotAllowed", "rename requires PUT", 405), nil
+		}
+		return p.renameObject(ctx, bucket, key, req)
+	}
+	if _, session := q["session"]; session || q.Get("x-id") == "CreateSession" {
+		if req.Method != http.MethodGet {
+			return xmlError("MethodNotAllowed", "session requires GET", 405), nil
+		}
+		if bucket == "" || key != "" {
+			return xmlError("InvalidRequest", "session requires bucket path", 400), nil
+		}
+		return p.createDirectorySession(ctx, bucket, req)
+	}
+	if q.Get("x-id") == "UploadPartCopy" && req.Method != http.MethodPut {
+		return xmlError("MethodNotAllowed", "copy part requires PUT", 405), nil
+	}
+	if operation := directoryOperation(bucket, key, req); operation != "" {
+		info, err := p.metaStore.GetDirectoryBucket(bucket, defaultAccountID)
+		if err != nil && !errors.Is(err, ErrBucketNotFound) {
+			return nil, err
+		}
+		if info != nil {
+			if err := p.authorizeDirectoryOperation(info, operation, req, time.Now()); err != nil {
+				return responseForS3Error(err)
+			}
+		}
+	}
 
 	switch req.Method {
 	case http.MethodGet:
@@ -172,6 +209,9 @@ func (p *S3Provider) HandleRequest(ctx context.Context, _ string, req *http.Requ
 		if bucket == "" {
 			return xmlError("InvalidRequest", "bucket name required", http.StatusBadRequest), nil
 		}
+		if q.Get("x-id") == "UploadPartCopy" {
+			return p.uploadPartCopy(ctx, bucket, key, q.Get("uploadId"), q.Get("partNumber"), req)
+		}
 		if key == "" {
 			// Bucket-level subresource checks
 			if _, ok := q["policy"]; ok {
@@ -199,13 +239,19 @@ func (p *S3Provider) HandleRequest(ctx context.Context, _ string, req *http.Requ
 			if _, unhandled := unhandledSubresource(q); unhandled {
 				return nil, plugin.ErrUnhandledOp
 			}
-			return p.createBucket(ctx, bucket)
+			return p.createBucket(ctx, bucket, req)
 		}
 		// Object-level subresource checks
 		if _, ok := q["tagging"]; ok {
 			return p.putObjectTagging(ctx, bucket, key, req)
 		}
-		if partNumberStr := q.Get("partNumber"); partNumberStr != "" {
+		_, hasPart := q["partNumber"]
+		_, hasUpload := q["uploadId"]
+		if _, hasCopy := req.Header[http.CanonicalHeaderKey("X-Amz-Copy-Source")]; q.Get("x-id") == "UploadPartCopy" || hasCopy && (hasPart || hasUpload) {
+			return p.uploadPartCopy(ctx, bucket, key, q.Get("uploadId"), q.Get("partNumber"), req)
+		}
+		if hasPart {
+			partNumberStr := q.Get("partNumber")
 			uploadID := q.Get("uploadId")
 			return p.uploadPart(ctx, bucket, key, uploadID, partNumberStr, req)
 		}
@@ -272,6 +318,8 @@ func (p *S3Provider) HandleRequest(ctx context.Context, _ string, req *http.Requ
 
 // ListResources returns all buckets as plugin resources.
 func (p *S3Provider) ListResources(ctx context.Context) ([]plugin.Resource, error) {
+	p.objectMu.Lock()
+	defer p.objectMu.Unlock()
 	buckets, err := p.metaStore.ListBuckets(defaultAccountID)
 	if err != nil {
 		return nil, err
@@ -545,23 +593,15 @@ func (p *S3Provider) multipartDir(uploadID string) (string, error) {
 	if !shared.ValidateUploadID(uploadID) {
 		return "", fmt.Errorf("invalid upload id")
 	}
-	dir := filepath.Join(p.fileStore.baseDir, "_multipart", uploadID)
-	if !shared.IsWithinDir(dir, p.fileStore.baseDir) {
-		return "", fmt.Errorf("path traversal detected in multipart dir")
-	}
-	return filepath.Clean(dir), nil
+	return p.fileStore.multipartDir(uploadID)
 }
 
 // partPath returns the path to a specific part file.
 func (p *S3Provider) partPath(uploadID string, partNumber int) (string, error) {
-	if partNumber < 1 {
-		return "", fmt.Errorf("invalid part number")
+	if !shared.ValidateUploadID(uploadID) {
+		return "", fmt.Errorf("invalid upload id")
 	}
-	dir, err := p.multipartDir(uploadID)
-	if err != nil {
-		return "", err
-	}
-	return filepath.Join(dir, strconv.Itoa(partNumber)), nil
+	return p.fileStore.partPath(uploadID, partNumber)
 }
 
 // --- S3 operation implementations ---
@@ -581,7 +621,21 @@ func (p *S3Provider) listBuckets(_ context.Context) (*plugin.Response, error) {
 	return xmlResponse(http.StatusOK, result)
 }
 
-func (p *S3Provider) createBucket(_ context.Context, bucket string) (*plugin.Response, error) {
+func (p *S3Provider) createBucket(_ context.Context, bucket string, req *http.Request) (*plugin.Response, error) {
+	config, err := parseDirectoryBucketConfig(bucket, req)
+	if err != nil {
+		return responseForS3Error(err)
+	}
+	info, err := p.metaStore.GetDirectoryBucket(bucket, defaultAccountID)
+	if err != nil && !errors.Is(err, ErrBucketNotFound) {
+		return nil, err
+	}
+	if info != nil || config != nil && err == nil {
+		return xmlError("BucketAlreadyOwnedByYou", "bucket already exists with immutable kind", 409), nil
+	}
+	if config != nil {
+		return p.createDirectoryBucket(bucket, *config)
+	}
 	if err := p.metaStore.CreateBucket(bucket, "us-east-1", defaultAccountID); err != nil {
 		if errors.Is(err, ErrBucketAlreadyExists) {
 			// S3 allows re-creating the same bucket by the same owner — return 200.
@@ -596,6 +650,13 @@ func (p *S3Provider) createBucket(_ context.Context, bucket string) (*plugin.Res
 }
 
 func (p *S3Provider) deleteBucket(_ context.Context, bucket string) (*plugin.Response, error) {
+	info, err := p.metaStore.GetDirectoryBucket(bucket, defaultAccountID)
+	if err != nil {
+		return responseForS3Error(err)
+	}
+	if info != nil {
+		return p.deleteDirectoryBucket(context.Background(), bucket)
+	}
 	if err := p.metaStore.DeleteBucket(bucket, defaultAccountID); err != nil {
 		if errors.Is(err, ErrBucketNotFound) {
 			return xmlError("NoSuchBucket", fmt.Sprintf("bucket %q not found", bucket), http.StatusNotFound), nil
@@ -650,9 +711,6 @@ func (p *S3Provider) copyObject(_ context.Context, destBucket, destKey, copySour
 	}
 
 	// Write destination object
-	if err := p.fileStore.PutObject(defaultAccountID, destBucket, destKey, data); err != nil {
-		return nil, err
-	}
 	now := time.Now()
 	destMeta := ObjectMeta{
 		Bucket:       destBucket,
@@ -663,7 +721,7 @@ func (p *S3Provider) copyObject(_ context.Context, destBucket, destKey, copySour
 		AccountID:    defaultAccountID,
 		LastModified: now,
 	}
-	if err := p.metaStore.PutObjectMeta(destMeta); err != nil {
+	if err := p.storeObjectWithMetadata(destMeta, data); err != nil {
 		return nil, err
 	}
 
@@ -690,10 +748,6 @@ func (p *S3Provider) putObject(_ context.Context, bucket, key string, req *http.
 		contentType = "application/octet-stream"
 	}
 
-	if err := p.fileStore.PutObject(defaultAccountID, bucket, key, data); err != nil {
-		return nil, err
-	}
-
 	meta := ObjectMeta{
 		Bucket:       bucket,
 		Key:          key,
@@ -703,7 +757,7 @@ func (p *S3Provider) putObject(_ context.Context, bucket, key string, req *http.
 		AccountID:    defaultAccountID,
 		LastModified: time.Now(),
 	}
-	if err := p.metaStore.PutObjectMeta(meta); err != nil {
+	if err := p.storeObjectWithMetadata(meta, data); err != nil {
 		return nil, err
 	}
 
@@ -749,7 +803,11 @@ func (p *S3Provider) headObject(_ context.Context, bucket, key string) (*plugin.
 		return nil, err
 	}
 
-	return &plugin.Response{
+	info, err := p.metaStore.GetDirectoryBucket(bucket, defaultAccountID)
+	if err != nil && !errors.Is(err, ErrBucketNotFound) {
+		return nil, err
+	}
+	response := &plugin.Response{
 		StatusCode:  http.StatusOK,
 		ContentType: meta.ContentType,
 		Headers: map[string]string{
@@ -757,7 +815,11 @@ func (p *S3Provider) headObject(_ context.Context, bucket, key string) (*plugin.
 			"Last-Modified":  meta.LastModified.UTC().Format(time.RFC1123),
 			"Content-Length": fmt.Sprintf("%d", meta.Size),
 		},
-	}, nil
+	}
+	if info != nil {
+		response.Headers["x-amz-storage-class"] = "EXPRESS_ONEZONE"
+	}
+	return response, nil
 }
 
 func (p *S3Provider) deleteObject(_ context.Context, bucket, key string) (*plugin.Response, error) {
@@ -948,7 +1010,7 @@ func (p *S3Provider) uploadPart(_ context.Context, bucket, key, uploadID, partNu
 		return xmlError("InvalidArgument", "invalid uploadId", http.StatusBadRequest), nil
 	}
 
-	if _, err := p.metaStore.GetMultipartUpload(uploadID); err != nil {
+	if _, err := p.multipartUploadForRequest(bucket, key, uploadID); err != nil {
 		if errors.Is(err, ErrUploadNotFound) {
 			return xmlError("NoSuchUpload", "upload not found", http.StatusNotFound), nil
 		}
@@ -960,23 +1022,8 @@ func (p *S3Provider) uploadPart(_ context.Context, bucket, key, uploadID, partNu
 		return nil, err
 	}
 
-	sum := md5.Sum(data)
-	etag := fmt.Sprintf("\"%x\"", sum)
-
-	partFile, err := p.partPath(uploadID, partNumber)
+	etag, err := p.storeMultipartPart(uploadID, partNumber, data)
 	if err != nil {
-		return xmlError("InvalidRequest", "invalid multipart request", http.StatusBadRequest), nil
-	}
-	if err := os.WriteFile(partFile, data, 0o644); err != nil {
-		return nil, err
-	}
-
-	if err := p.metaStore.PutUploadPart(UploadPartInfo{
-		UploadID:   uploadID,
-		PartNumber: partNumber,
-		ETag:       etag,
-		Size:       int64(len(data)),
-	}); err != nil {
 		return nil, err
 	}
 
@@ -987,11 +1034,13 @@ func (p *S3Provider) uploadPart(_ context.Context, bucket, key, uploadID, partNu
 }
 
 func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, uploadID string, req *http.Request) (*plugin.Response, error) {
+	p.multipartMu.Lock()
+	defer p.multipartMu.Unlock()
 	if !shared.ValidateUploadID(uploadID) {
 		return xmlError("NoSuchUpload", "upload not found", http.StatusNotFound), nil
 	}
 
-	upload, err := p.metaStore.GetMultipartUpload(uploadID)
+	upload, err := p.multipartUploadForRequest(bucket, key, uploadID)
 	if err != nil {
 		if errors.Is(err, ErrUploadNotFound) {
 			return xmlError("NoSuchUpload", "upload not found", http.StatusNotFound), nil
@@ -1033,10 +1082,6 @@ func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, upl
 	sum := md5.Sum(finalData)
 	etag := fmt.Sprintf("\"%x\"", sum)
 
-	if err := p.fileStore.PutObject(defaultAccountID, bucket, key, finalData); err != nil {
-		return nil, err
-	}
-
 	meta := ObjectMeta{
 		Bucket:       bucket,
 		Key:          key,
@@ -1046,7 +1091,7 @@ func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, upl
 		AccountID:    defaultAccountID,
 		LastModified: time.Now(),
 	}
-	if err := p.metaStore.PutObjectMeta(meta); err != nil {
+	if err := p.storeObjectWithMetadata(meta, finalData); err != nil {
 		return nil, err
 	}
 
@@ -1072,10 +1117,12 @@ func (p *S3Provider) completeMultipartUpload(_ context.Context, bucket, key, upl
 }
 
 func (p *S3Provider) abortMultipartUpload(_ context.Context, bucket, key, uploadID string) (*plugin.Response, error) {
+	p.multipartMu.Lock()
+	defer p.multipartMu.Unlock()
 	if !shared.ValidateUploadID(uploadID) {
 		return xmlError("InvalidRequest", "invalid uploadId", http.StatusBadRequest), nil
 	}
-	upload, err := p.metaStore.GetMultipartUpload(uploadID)
+	upload, err := p.multipartUploadForRequest(bucket, key, uploadID)
 	if err != nil {
 		if errors.Is(err, ErrUploadNotFound) {
 			return xmlError("NoSuchUpload", "upload not found", http.StatusNotFound), nil
@@ -1113,10 +1160,12 @@ func (p *S3Provider) listMultipartUploads(_ context.Context, bucket string) (*pl
 }
 
 func (p *S3Provider) listParts(_ context.Context, bucket, key, uploadID string) (*plugin.Response, error) {
+	p.multipartMu.Lock()
+	defer p.multipartMu.Unlock()
 	if !shared.ValidateUploadID(uploadID) {
 		return xmlError("InvalidArgument", "invalid uploadId", http.StatusBadRequest), nil
 	}
-	if _, err := p.metaStore.GetMultipartUpload(uploadID); err != nil {
+	if _, err := p.multipartUploadForRequest(bucket, key, uploadID); err != nil {
 		if errors.Is(err, ErrUploadNotFound) {
 			return xmlError("NoSuchUpload", "upload not found", http.StatusNotFound), nil
 		}

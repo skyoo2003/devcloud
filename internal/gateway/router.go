@@ -80,7 +80,8 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// A provider that returns ErrUnhandledOp is opting into the generic CRUD
 	// fallback for operations it does not implement. If the engine cannot
 	// classify the operation either, emit the standard "unknown action" error.
-	if errors.Is(err, plugin.ErrUnhandledOp) || isUnimplementedResponse(resp) {
+	terminalS3 := serviceID == "s3" && err == nil && resp != nil && isCanonicalS3DirectoryRequest(r)
+	if errors.Is(err, plugin.ErrUnhandledOp) || isUnimplementedResponse(resp) && !terminalS3 {
 		res, cerr := crud.Handle(crud.Call{
 			Service:  serviceID,
 			Protocol: protocol,
@@ -153,6 +154,23 @@ func isUnimplementedResponse(resp *plugin.Response) bool {
 	return strings.Contains(body, "NotImplemented") ||
 		strings.Contains(body, "UnsupportedOperation") ||
 		strings.Contains(body, "MethodNotAllowed")
+}
+
+// These canonical S3 routes own their errors; generic CRUD cannot substitute
+// a successful session or bucket for a rejected native request.
+func isCanonicalS3DirectoryRequest(req *http.Request) bool {
+	q := req.URL.Query()
+	if _, ok := q["session"]; ok {
+		return true
+	}
+	if _, ok := q["renameObject"]; ok {
+		return true
+	}
+	if q.Get("x-id") == "CreateSession" || q.Get("x-id") == "RenameObject" {
+		return true
+	}
+	path := strings.Trim(req.URL.Path, "/")
+	return req.Method == http.MethodPut && path != "" && !strings.Contains(path, "/") && (len(q) == 0 || len(q) == 1 && q.Get("x-id") == "CreateBucket")
 }
 
 // extractOperationName derives the AWS operation name from the request.

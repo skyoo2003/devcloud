@@ -16,11 +16,11 @@ denominators, because [routing and depth are two targets](#the-target):
 
 | Tier | Serving target | All registered |
 |---|---|---|
-| `hand-verified` | 4,497 | 4,528 |
-| `auto-crud` | 5,910 | 11,588 |
-| `unimplemented` | 2,000 | 3,085 |
+| `hand-verified` | 4,537 | 4,568 |
+| `auto-crud` | 5,882 | 11,560 |
+| `unimplemented` | 1,988 | 3,073 |
 | **total known** | **12,407** | **19,201** |
-| **hand-verified share** | **36.2%** | **23.6%** |
+| **hand-verified share** | **36.6%** | **23.8%** |
 
 The **serving target** column is the depth promise: every registered service
 except the 226 the [demand study](demand.md) found nobody building. The **all

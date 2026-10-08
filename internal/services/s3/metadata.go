@@ -165,6 +165,22 @@ var metadataMigrations = []sqlite.Migration{
 			PRIMARY KEY (bucket, account_id)
 		);`,
 	},
+	{
+		Version: 12,
+		SQL: `CREATE TABLE IF NOT EXISTS directory_buckets (
+			account_id TEXT NOT NULL, bucket TEXT NOT NULL, zone TEXT NOT NULL, incarnation TEXT NOT NULL,
+			PRIMARY KEY(account_id,bucket), UNIQUE(account_id,incarnation)
+		);
+		CREATE TABLE IF NOT EXISTS directory_sessions (
+			access_key_id TEXT PRIMARY KEY, token_digest TEXT NOT NULL, account_id TEXT NOT NULL,
+			bucket TEXT NOT NULL, incarnation TEXT NOT NULL, mode TEXT NOT NULL, expires_at INTEGER NOT NULL
+		);
+		CREATE TABLE IF NOT EXISTS rename_receipts (
+			account_id TEXT NOT NULL, incarnation TEXT NOT NULL, client_token TEXT NOT NULL,
+			canonical_request TEXT NOT NULL, completed_at INTEGER NOT NULL,
+			PRIMARY KEY(account_id,incarnation,client_token)
+		);`,
+	},
 }
 
 // MetadataStore is a SQLite-backed store for S3 bucket and object metadata.

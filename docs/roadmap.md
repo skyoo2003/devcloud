@@ -34,6 +34,20 @@ state, and SNS ARN subscriptions preserve message contents. A required
 delivery; the ordinary suite verifies Docker-free contracts. See
 [Lambda](services/lambda.md) for runtime requirements and local limits.
 
+AWS operation expansion follow-up: EventBridge's ActivateEventSource,
+DeactivateEventSource, DeauthorizeConnection and RemovePermission now share
+durable state with their companion APIs. SDK tests verify source-controlled local
+delivery, connection reuse and bus policy removal. SNS's six missing operations
+now support actual SQS batch/FIFO delivery, mobile/SMS attribute readback, opt-in
+and verification with a local outbox OTP. S3 UploadPartCopy now copies actual
+source bytes/ranges with condition checks, error rollback and restart persistence.
+Directory RenameObject now preserves bytes, metadata and tags with conditional checks,
+persistent token replay and scoped CreateSession credentials.
+The original 3,085-operation unimplemented baseline has **3,073 remaining**;
+complete AWS operation support is still in progress. See
+[EventBridge](services/eventbridge.md), [SNS](services/sns.md) and [S3](services/s3.md)
+for local limits.
+
 ## Phase 2 — Architectural preparation (complete, v1.x)
 
 Refactor internally so adding a CSP does not require forking the project. Each

@@ -286,6 +286,11 @@ func (s *QueueStore) SendMessageFull(queueName, accountID, body string, attrs ma
 			dedupID = sha256Hex(body)
 		}
 		if dedupID != "" {
+			cacheID := dedupID
+			if q.attributes["DeduplicationScope"] == "messageGroup" {
+				encoded, _ := json.Marshal([]string{fifoOpts.MessageGroupID, dedupID})
+				cacheID = string(encoded)
+			}
 			// Clean up expired dedup cache entries (5 min window)
 			now := time.Now()
 			for k, t := range q.dedupCache {
@@ -293,13 +298,13 @@ func (s *QueueStore) SendMessageFull(queueName, accountID, body string, attrs ma
 					delete(q.dedupCache, k)
 				}
 			}
-			if sentAt, found := q.dedupCache[dedupID]; found {
+			if sentAt, found := q.dedupCache[cacheID]; found {
 				if time.Since(sentAt) < 5*time.Minute {
 					// Duplicate: return success without enqueuing
 					return randomID(16), nil
 				}
 			}
-			q.dedupCache[dedupID] = now
+			q.dedupCache[cacheID] = now
 		}
 	}
 

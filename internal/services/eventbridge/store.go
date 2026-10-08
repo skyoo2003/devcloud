@@ -4,12 +4,15 @@
 package eventbridge
 
 import (
+	"context"
 	"crypto/rand"
 	"database/sql"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"path/filepath"
+	"sort"
+	"sync"
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/shared"
@@ -77,6 +80,12 @@ var migrations = []sqlite.Migration{
 			PRIMARY KEY (replay_name, account_id)
 		);
 	`},
+	{Version: 1001, SQL: `
+		CREATE TABLE IF NOT EXISTS partner_sources (name TEXT NOT NULL, account_id TEXT NOT NULL, document_json BLOB NOT NULL, PRIMARY KEY(name, account_id));
+		CREATE TABLE IF NOT EXISTS connections (name TEXT NOT NULL, account_id TEXT NOT NULL, document_json BLOB NOT NULL, PRIMARY KEY(name, account_id));
+		CREATE TABLE IF NOT EXISTS bus_policies (bus_name TEXT NOT NULL, account_id TEXT NOT NULL, policy_json BLOB NOT NULL, PRIMARY KEY(bus_name, account_id));
+		CREATE TABLE IF NOT EXISTS legacy_imports (resource TEXT NOT NULL, resource_id TEXT NOT NULL, document_json BLOB NOT NULL, status TEXT NOT NULL, PRIMARY KEY(resource, resource_id));
+	`},
 }
 
 type EventBus struct {
@@ -104,13 +113,15 @@ type Target struct {
 }
 
 type EBStore struct {
-	store *sqlite.Store
-	tags  *shared.TagStore
+	stateMu sync.Mutex
+	store   *sqlite.Store
+	tags    *shared.TagStore
 }
 
 func NewEBStore(dataDir string) (*EBStore, error) {
 	dbPath := filepath.Join(dataDir, "eventbridge.db")
-	allMigrations := append(migrations, shared.TagMigrations...)
+	allMigrations := append(append([]sqlite.Migration{}, migrations...), shared.TagMigrations...)
+	sort.Slice(allMigrations, func(i, j int) bool { return allMigrations[i].Version < allMigrations[j].Version })
 	s, err := sqlite.Open(dbPath, allMigrations)
 	if err != nil {
 		return nil, err
@@ -122,6 +133,91 @@ func NewEBStore(dataDir string) (*EBStore, error) {
 }
 
 func (s *EBStore) Close() error { return s.store.Close() }
+
+// withStateTx serializes lifecycle mutations, including read/change/write callbacks.
+// Callbacks use this transaction directly rather than nesting store operations.
+func (s *EBStore) withStateTx(change func(*sql.Tx) error) error {
+	s.stateMu.Lock()
+	defer s.stateMu.Unlock()
+	tx, err := s.store.DB().BeginTx(context.Background(), nil)
+	if err != nil {
+		return err
+	}
+	defer func() { _ = tx.Rollback() }()
+	if err := change(tx); err != nil {
+		return err
+	}
+	return tx.Commit()
+}
+
+type stateReader interface {
+	QueryRow(query string, args ...any) *sql.Row
+	Query(query string, args ...any) (*sql.Rows, error)
+}
+
+// table is a package-owned constant, never request input.
+func readDocument[T any](db stateReader, table, name, accountID string, missing error) (*T, error) {
+	var raw []byte
+	err := db.QueryRow("SELECT document_json FROM "+table+" WHERE name=? AND account_id=?", name, accountID).Scan(&raw)
+	if errors.Is(err, sql.ErrNoRows) {
+		return nil, missing
+	}
+	if err != nil {
+		return nil, err
+	}
+	var result T
+	if err := json.Unmarshal(raw, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
+func listDocuments[T any](db stateReader, table, accountID string) ([]T, error) {
+	rows, err := db.Query("SELECT document_json FROM "+table+" WHERE account_id=? ORDER BY name", accountID)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = rows.Close() }()
+	result := []T{}
+	for rows.Next() {
+		var raw []byte
+		if err := rows.Scan(&raw); err != nil {
+			return nil, err
+		}
+		var item T
+		if err := json.Unmarshal(raw, &item); err != nil {
+			return nil, err
+		}
+		result = append(result, item)
+	}
+	return result, rows.Err()
+}
+
+func createDocument(tx *sql.Tx, table, name, accountID string, value any) error {
+	var exists int
+	err := tx.QueryRow("SELECT 1 FROM "+table+" WHERE name=? AND account_id=?", name, accountID).Scan(&exists)
+	if err == nil {
+		return ErrAlreadyExists
+	}
+	if !errors.Is(err, sql.ErrNoRows) {
+		return err
+	}
+	raw, err := json.Marshal(value)
+	if err != nil {
+		return err
+	}
+	_, err = tx.Exec("INSERT INTO "+table+" (name,account_id,document_json) VALUES (?,?,?)", name, accountID, raw)
+	return err
+}
+
+func updateDocument(tx *sql.Tx, table, name, accountID string, value any) error {
+	raw, err := json.Marshal(value)
+	if err != nil {
+		return err
+	}
+	_, err = tx.Exec("UPDATE "+table+" SET document_json=? WHERE name=? AND account_id=?", raw, name, accountID)
+	return err
+}
 
 // busARN and ruleARN are the single source of the ARNs this service hands out.
 // Tags are keyed by ARN, so a delete has to rebuild the same string the create
@@ -151,17 +247,37 @@ func (s *EBStore) CreateEventBus(name, accountID string) error {
 }
 
 func (s *EBStore) DeleteEventBus(name, accountID string) error {
-	res, err := s.store.DB().Exec(`DELETE FROM event_buses WHERE name = ? AND account_id = ?`, name, accountID)
-	if err != nil {
+	return s.withStateTx(func(tx *sql.Tx) error {
+		var arn string
+		err := tx.QueryRow("SELECT arn FROM event_buses WHERE name=? AND account_id=?", name, accountID).Scan(&arn)
+		if errors.Is(err, sql.ErrNoRows) {
+			return ErrBusNotFound
+		}
+		if err != nil {
+			return err
+		}
+		sources, err := listDocuments[PartnerSource](tx, "partner_sources", accountID)
+		if err != nil {
+			return err
+		}
+		for _, source := range sources {
+			if source.BusName != name {
+				continue
+			}
+			source.BusName = ""
+			source.State = "PENDING"
+			if err := updateDocument(tx, "partner_sources", source.Name, accountID, source); err != nil {
+				return err
+			}
+		}
+		for _, query := range []string{"DELETE FROM bus_policies WHERE bus_name=? AND account_id=?", "DELETE FROM event_buses WHERE name=? AND account_id=?"} {
+			if _, err := tx.Exec(query, name, accountID); err != nil {
+				return err
+			}
+		}
+		_, err = tx.Exec("DELETE FROM resource_tags WHERE resource_arn=?", arn)
 		return err
-	}
-	n, _ := res.RowsAffected()
-	if n == 0 {
-		return ErrBusNotFound
-	}
-	// ARNs are derived from the name, so recreating a deleted bus reuses its ARN
-	// and would inherit the old tags.
-	return s.tags.DeleteAllTags(busARN(name, accountID))
+	})
 }
 
 func (s *EBStore) GetEventBus(name, accountID string) (*EventBus, error) {
