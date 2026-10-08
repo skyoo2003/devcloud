@@ -96,6 +96,20 @@ func (p *STSProvider) HandleRequest(ctx context.Context, op string, req *http.Re
 		return p.handleGetSessionToken(ctx, form)
 	case "GetAccessKeyInfo":
 		return p.handleGetAccessKeyInfo(ctx, form)
+	case "AssumeRoleWithWebIdentity":
+		return p.handleAssumeRoleWithWebIdentity(ctx, form)
+	case "AssumeRoleWithSAML":
+		return p.handleAssumeRoleWithSAML(ctx, form)
+	case "AssumeRoot":
+		return p.handleAssumeRoot(ctx, form)
+	case "DecodeAuthorizationMessage":
+		return p.handleDecodeAuthorizationMessage(ctx, form)
+	case "GetDelegatedAccessToken":
+		return p.handleGetDelegatedAccessToken(ctx, form)
+	case "GetFederationToken":
+		return p.handleGetFederationToken(ctx, form)
+	case "GetWebIdentityToken":
+		return p.handleGetWebIdentityToken(ctx, form)
 	default:
 		return stsXMLError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}
