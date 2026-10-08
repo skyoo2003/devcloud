@@ -129,6 +129,12 @@ func (p *S3Provider) handleRequestLocked(ctx context.Context, _ string, req *htt
 	if q.Get("x-id") == "UploadPartCopy" && req.Method != http.MethodPut {
 		return xmlError("MethodNotAllowed", "copy part requires PUT", 405), nil
 	}
+	if req.URL.Path == "/WriteGetObjectResponse" || q.Get("x-id") == "WriteGetObjectResponse" {
+		if req.Method != http.MethodPost {
+			return xmlError("MethodNotAllowed", "WriteGetObjectResponse requires POST", 405), nil
+		}
+		return p.writeGetObjectResponse(ctx, req)
+	}
 	if operation := directoryOperation(bucket, key, req); operation != "" {
 		info, err := p.metaStore.GetDirectoryBucket(bucket, defaultAccountID)
 		if err != nil && !errors.Is(err, ErrBucketNotFound) {
@@ -294,6 +300,12 @@ func (p *S3Provider) handleRequestLocked(ctx context.Context, _ string, req *htt
 
 	case http.MethodPost:
 		if bucket != "" && key != "" {
+			if _, ok := q["restore"]; ok || q.Get("x-id") == "RestoreObject" {
+				return p.restoreObject(ctx, bucket, key, req)
+			}
+			if _, ok := q["select"]; ok || q.Get("x-id") == "SelectObjectContent" {
+				return p.selectObjectContent(ctx, bucket, key, req)
+			}
 			if _, ok := q["uploads"]; ok {
 				return p.createMultipartUpload(ctx, bucket, key)
 			}
@@ -783,14 +795,19 @@ func (p *S3Provider) getObject(_ context.Context, bucket, key string) (*plugin.R
 		return nil, err
 	}
 
+	headers := map[string]string{
+		"ETag":          meta.ETag,
+		"Last-Modified": meta.LastModified.UTC().Format(time.RFC1123),
+	}
+	if status, expiresAt, err := p.metaStore.GetObjectRestore(bucket, key, defaultAccountID); err == nil && status != "" {
+		headers["x-amz-restore"] = fmt.Sprintf(`%s, expiry-date="%s"`, status, expiresAt.UTC().Format(time.RFC1123))
+	}
+
 	return &plugin.Response{
 		StatusCode:  http.StatusOK,
 		ContentType: meta.ContentType,
 		Body:        data,
-		Headers: map[string]string{
-			"ETag":          meta.ETag,
-			"Last-Modified": meta.LastModified.UTC().Format(time.RFC1123),
-		},
+		Headers:     headers,
 	}, nil
 }
 
@@ -815,6 +832,9 @@ func (p *S3Provider) headObject(_ context.Context, bucket, key string) (*plugin.
 			"Last-Modified":  meta.LastModified.UTC().Format(time.RFC1123),
 			"Content-Length": fmt.Sprintf("%d", meta.Size),
 		},
+	}
+	if status, expiresAt, err := p.metaStore.GetObjectRestore(bucket, key, defaultAccountID); err == nil && status != "" {
+		response.Headers["x-amz-restore"] = fmt.Sprintf(`%s, expiry-date="%s"`, status, expiresAt.UTC().Format(time.RFC1123))
 	}
 	if info != nil {
 		response.Headers["x-amz-storage-class"] = "EXPRESS_ONEZONE"

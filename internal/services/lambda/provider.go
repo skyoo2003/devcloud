@@ -156,6 +156,75 @@ func (p *LambdaProvider) HandleRequest(_ context.Context, _ string, req *http.Re
 		}
 	}
 
+	// Route: Layers /2018-10-31/layers/{name}/...
+	if strings.HasPrefix(path, "/2018-10-31/layers/") {
+		rest := strings.TrimPrefix(path, "/2018-10-31/layers/")
+		switch {
+		case req.Method == http.MethodPost && strings.HasSuffix(rest, "/versions"):
+			name := strings.TrimSuffix(rest, "/versions")
+			return p.publishLayerVersion(name, req)
+		case req.Method == http.MethodPost && strings.HasSuffix(rest, "/policy"):
+			trimmed := strings.TrimSuffix(rest, "/policy")
+			parts := strings.Split(trimmed, "/versions/")
+			if len(parts) == 2 {
+				name := parts[0]
+				var ver int
+				_, _ = fmt.Sscanf(parts[1], "%d", &ver)
+				return p.addLayerVersionPermission(name, ver, req)
+			}
+		case req.Method == http.MethodDelete && strings.Contains(rest, "/policy/"):
+			parts := strings.Split(rest, "/versions/")
+			if len(parts) == 2 {
+				name := parts[0]
+				subParts := strings.Split(parts[1], "/policy/")
+				if len(subParts) == 2 {
+					var ver int
+					_, _ = fmt.Sscanf(subParts[0], "%d", &ver)
+					stmtID := subParts[1]
+					return p.removeLayerVersionPermission(name, ver, stmtID)
+				}
+			}
+		}
+	}
+
+	// Route: InvokeAsync /2014-11-13/functions/{name}/invoke-async
+	if strings.HasPrefix(path, "/2014-11-13/functions/") && req.Method == http.MethodPost {
+		rest := strings.TrimPrefix(path, "/2014-11-13/functions/")
+		rest = strings.TrimSuffix(rest, "/")
+		if strings.HasSuffix(rest, "/invoke-async") {
+			name := strings.TrimSuffix(rest, "/invoke-async")
+			return p.invokeAsync(name, req)
+		}
+	}
+
+	// Route: Durable executions
+	if strings.HasPrefix(path, "/2025-12-01/durable-executions/") && req.Method == http.MethodPost {
+		rest := strings.TrimPrefix(path, "/2025-12-01/durable-executions/")
+		if strings.HasSuffix(rest, "/checkpoint") {
+			arn := strings.TrimSuffix(rest, "/checkpoint")
+			return p.checkpointDurableExecution(arn, req)
+		}
+		if strings.HasSuffix(rest, "/stop") {
+			arn := strings.TrimSuffix(rest, "/stop")
+			return p.stopDurableExecution(arn, req)
+		}
+	}
+	if strings.HasPrefix(path, "/2025-12-01/durable-execution-callbacks/") && req.Method == http.MethodPost {
+		rest := strings.TrimPrefix(path, "/2025-12-01/durable-execution-callbacks/")
+		if strings.HasSuffix(rest, "/succeed") {
+			id := strings.TrimSuffix(rest, "/succeed")
+			return p.sendDurableCallbackSuccess(id, req)
+		}
+		if strings.HasSuffix(rest, "/fail") {
+			id := strings.TrimSuffix(rest, "/fail")
+			return p.sendDurableCallbackFailure(id, req)
+		}
+		if strings.HasSuffix(rest, "/heartbeat") {
+			id := strings.TrimSuffix(rest, "/heartbeat")
+			return p.sendDurableCallbackHeartbeat(id, req)
+		}
+	}
+
 	sub := strings.TrimPrefix(path, lambdaAPIPrefix)
 	sub = strings.TrimPrefix(sub, "/")
 
@@ -243,6 +312,11 @@ func (p *LambdaProvider) HandleRequest(_ context.Context, _ string, req *http.Re
 	case req.Method == http.MethodPost && strings.HasSuffix(sub, "/invocations"):
 		name := strings.TrimSuffix(sub, "/invocations")
 		return p.invoke(name, req)
+
+	// POST /2015-03-31/functions/{name}/response-streaming-invocations  →  InvokeWithResponseStream
+	case req.Method == http.MethodPost && strings.HasSuffix(sub, "/response-streaming-invocations"):
+		name := strings.TrimSuffix(sub, "/response-streaming-invocations")
+		return p.invokeWithResponseStream(name, req)
 	}
 
 	return lambdaError("ResourceNotFoundException",

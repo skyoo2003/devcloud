@@ -126,6 +126,37 @@ var migrations = []sqlite.Migration{
 		-- the index order).
 		ALTER TABLE ddb_gsi ADD COLUMN gsi_sk TEXT NOT NULL DEFAULT '';
 	`},
+	{Version: 4, SQL: `
+		CREATE TABLE IF NOT EXISTS ddb_kinesis_destinations (
+			table_name TEXT NOT NULL,
+			stream_arn TEXT NOT NULL,
+			status     TEXT NOT NULL DEFAULT 'ACTIVE',
+			PRIMARY KEY (table_name, stream_arn)
+		);
+		CREATE TABLE IF NOT EXISTS ddb_backups (
+			backup_arn  TEXT NOT NULL PRIMARY KEY,
+			backup_name TEXT NOT NULL,
+			table_name  TEXT NOT NULL,
+			table_info  TEXT NOT NULL,
+			created_at  DATETIME NOT NULL
+		);
+		CREATE TABLE IF NOT EXISTS ddb_exports (
+			export_arn TEXT NOT NULL PRIMARY KEY,
+			table_arn  TEXT NOT NULL,
+			s3_bucket  TEXT NOT NULL,
+			s3_prefix  TEXT NOT NULL DEFAULT '',
+			status     TEXT NOT NULL DEFAULT 'COMPLETED',
+			created_at DATETIME NOT NULL
+		);
+		CREATE TABLE IF NOT EXISTS ddb_imports (
+			import_arn TEXT NOT NULL PRIMARY KEY,
+			table_arn  TEXT NOT NULL,
+			s3_bucket  TEXT NOT NULL,
+			s3_prefix  TEXT NOT NULL DEFAULT '',
+			status     TEXT NOT NULL DEFAULT 'COMPLETED',
+			created_at DATETIME NOT NULL
+		);
+	`},
 }
 
 // DynamoStore is a SQLite-backed store for DynamoDB tables and items. Table
